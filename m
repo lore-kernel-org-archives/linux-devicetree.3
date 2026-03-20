@@ -1,95 +1,93 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAC0E378D63
-	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 23:06:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3884634104E
+	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 23:07:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.49
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774048009; cv=pass; b=eey6FSjU6HYdlPICuIs/oTi7c3DeM/qEuWVYNoOT6GuQt6bRrgKmlJpnqpcZWm8zndRhy96HkWi73or5hKbY6wqbYZO+IbWUdrQPjPcNwipR6iqyIMyDS4NKJSfG/BeZUyslTYkZWNzhDPfywB+laC4Yio70QsIPu0WelG+0An4=
+	t=1774048073; cv=pass; b=r4u5zTEiGYI+/8VsixIphgpdKdn+tZfWD8EKH15RmYHZTtma7+KPAsgzp7Cx1FEVJpKpJgzgV/n9+EhZ1JxR4yGKqIvptM+nXr0TxXFlGJtcqa+31hKKdtSZIyTZNyrkA44EjI8RBk3HhOYtsJqj/F0y59FiW+WOYWB8P2siBxE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774048009; c=relaxed/simple;
-	bh=nmf2U/fq2NkwdoCP+J+jMD++Sh2erXOqhI+iK+kF0zY=;
+	s=arc-20240116; t=1774048073; c=relaxed/simple;
+	bh=6JCzvUReAvmRaGAkyAEznszoR+jf+OXTsBS6N8BL9C0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YOHD6hQvwKAjHCyTvP4GONzX3rPJ5i8RB7CsGGoeVuGmeuHVaQOg9qrIX4j+8fXBDPkh8mFxwjN5WH0pQW6cMdaNj8pzpQS43Sr723gTCMY0xF9LZZ8J8rr62jmGw2Kmfi+Ng6iwtwPkp9ivW9cZdbkueWg774sRYQRFLuA6mqQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=junfN/nA; arc=pass smtp.client-ip=209.85.218.54
+	 To:Cc:Content-Type; b=nhKO+65P4BO5yFGfnjYljbESsMB8UBplpnl9Rwab2CuSSqT4FitkjKmfWu9N86rfMJZYzoTAowa7FY3d0OlYIv2DiqoArw+DiRQA9x7YK9uJlXuDhXGUyETdybHZPC9KZPHjTQJ/msxLKjon85C8LxeQD/sMcg+co2+8mqFc5PE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mfJfXFyq; arc=pass smtp.client-ip=209.85.218.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="junfN/nA"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-b932fe2e1a7so315738166b.1
-        for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 16:06:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774048006; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mfJfXFyq"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-b93698bb57aso491939466b.0
+        for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 16:07:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774048071; cv=none;
         d=google.com; s=arc-20240605;
-        b=hSILpuVS2XzUHpfvjaL9+HAGSHwnYHZ7bTWmr/0rBs1MbZN36OmK6T2NIgnfDLg0Gc
-         YhKEdnG/k1V8uy0JgBoQHZDTt2JkegmY1E8zXNVRRQNRF+xDLuXZ4oDU2Zf4X/NDU50w
-         ru90ay5aRnIVlr5hYP+q4KCSWO80kGB9agNDOFu+b8xtvQj6cEMsuE6hEB3MlzDbAQLm
-         CEamd90G01ipONxgXsFBFPXGZJ10wcsZONTAPV0tW7Vi3dXt63/+uWfkUMRlNL1pPPst
-         KGCBR8lTED/IUX0psk2TKL3ImdyJ5wtIdRjuUSjmsgB40b0EIN0JpwSC2pjRRXI+OshC
-         uUew==
+        b=XFGzd80KJs9cWHao4XXCUg7tDaEJB/kvczoarCXqXaD/v8u48HVEMCQb3o/af1tGKK
+         o5IqQtwCO5eDGgnt6DPvdp/+zkG2sRqaxing3nK8Y30clTJ42tci3hdJUEBWMKsFar30
+         3WwUjvqkl5MP0ST9Tu8IeaH9Qn3fKLtMF7NWOs5aGvb9Vv9lmneHC8mCvtVjfPOuYaXb
+         Mu5FPj/QDcA5J13ThjN74PPqKhzkh9E3dCknmwsnGI0rIimwVTGW2PYCgSP2AJoDBwZl
+         LCPPYpFHezXyb7aSAZ8qdUz6ZHoKtbw0ONo2D/bAlpjcAslw8osHxCl8OFKCc9ipqQbK
+         qd0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=PpEl+bjf7Se4KqKa8OldWT2rsgy4As3qV1p2NkGwJiE=;
+        bh=6JCzvUReAvmRaGAkyAEznszoR+jf+OXTsBS6N8BL9C0=;
         fh=LUDUp6kystYAd6+sGXHHcom8a6eah/CeGcyBUouT6j4=;
-        b=czKl3+nBAcPSxzYaRpoyQ9M2lzTZEzJAkttDmSZwrDNPrTzf+NPM/VX2PV5w9b481f
-         7jCdbRK5/WumGDg6IcYFVVvMgU8VjZy/Ek04crXnlFfnBqlb+pRUpTf3LmAG6REy1KO+
-         PQBq8dI4rpGsWGsYp2L1hNu5iAmfpGUHHkRjg/OL1WEuKHC6cbPmsNXvHX4r0S6PUc2u
-         EAeD5DuR3fzILJUPHtA8m/Ufd0elXOWBO9aMcYy+GZnbeX8DTeG47yzwQ3y1W8JnuNPG
-         qFD0QvKk4BiFDMz9rJs0HmjcMBaJ4hhU+YpfZbq3V+nhEdDMuvKDTxv8ajRCafjhiPCT
-         mvKg==;
+        b=d0vLNYCYmf9DT/8zxIptNp0LCu22Js+aML5JRbiQ302PsYI3xvXUBohygb6uSt2O3z
+         zPDbfHeomOb17KgOmMtDVpYKviVDS+90SEO8C6ms4ld5aDMbEXoIfol0a7jzh3yGzXzk
+         u1kjpakg7RawMeJNTh6/ldW0aQ5FUXrXFxTTzBKKXEXTwL6N9p94DnueMhE/577SSxWm
+         GZxFc/h6SyaJhIBUFwrbKFCfaqgYaQZgt/NlxFNHatZ/ST+aXKr9YE+/FDLxXI3nGoAg
+         f+TqbnIVq7XjxUEx5zJ6uYg1aPnfXxPhO5VYJgYldl8n5beYVu6crza1Cnp/xrE4T/vJ
+         MmAg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1774048006; x=1774652806; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1774048071; x=1774652871; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PpEl+bjf7Se4KqKa8OldWT2rsgy4As3qV1p2NkGwJiE=;
-        b=junfN/nAr4LXNmEcuSXJReohPnIU1t4z5YYB7VNe92zoATU0SKURUCImy15DV/TQj/
-         Ql3itvcZxY8tqy6Qh0kwk5ryd3fGC+b7Go3Y2T10nVhwbUGSJbOZYFRQfqqJfnx0xibx
-         dtwZ8A9fphNfcspVxq21YVTuaAUHkGoQiWnmKW8irQRpX5xLtE97+WcEYCc5E29GvS/h
-         J3hqwwJzkxwTa7hXypKRmQasvrOn86sw4lfeHVhmaHxtbysiTt/nHfG5tsIJfP5mcslu
-         VU26IH8fROcsD/UvlDFb20jRQTvndTAze3UOxNnmfareQIKE3cUmlS3nrR3akWQheifz
-         lgAg==
+        bh=6JCzvUReAvmRaGAkyAEznszoR+jf+OXTsBS6N8BL9C0=;
+        b=mfJfXFyqIN7FvJ26oNwfRGsTsmJFKXooq/FBPjgghVqHohgV+9gDzZYKM1H778LNUb
+         xPDu0buXn5+Wfl4M/kF+DY4QHou+u2vVPdC++QU7XwXssI/EFbnmK3+Oaug2A0BpHKP6
+         byj3XquiSRJHUanID6277cM2gjUbfHbXb/B4E6uJ/w6bsDIvlnAcHz5CZt8LcpvU3tYA
+         JjIJh/WhI60EZRxf/0pQikAeFXrGtikcJalsFjhJKBr8Gj/BuUrOtc10uBJg7XUgP8C4
+         +xFN2M0VLpyKZqT355ENgzz/r7sh9QMymv0bAvYrlsirqC9PCHexANlICk4QapGdT3rV
+         PkcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774048006; x=1774652806;
+        d=1e100.net; s=20251104; t=1774048071; x=1774652871;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=PpEl+bjf7Se4KqKa8OldWT2rsgy4As3qV1p2NkGwJiE=;
-        b=EVL8eFp5R0WIRduxLHLLL8lIV6YhCkqQcybpAu2uPYlonS7/+SvEBtJvriqmcXe+Bp
-         0tRgPtZV/jzeGGhjSgllqmwctArx5/SSNq9kBPHLMtCV+f/aqVGHBMjhBG/c5557q5yh
-         /N3kiBqYKpsNYCWrp4Ifc5IaiMn/lUAn353XBoKsHr5Y9btvOU4LgYrGP7HNq9cXydGC
-         9T0u9I1/0r+VLxFFm/0RmVcrsBWcRju5S1veRKCyh7hvdHA2FDVseSka0L5U/yJtGpoY
-         wQ+uKdPILg76dJRo1CoUjnD9ps74q0OX2ZJWM+xM5eOnDX858GqSgUcIv3VAaxnTAok9
-         xpYg==
-X-Gm-Message-State: AOJu0Ywcc4zMByEmPoeVdYTaW9dcA2KxyMdsqkvQxwTWmsAg7/Lsmdcd
-	ycTBcsmIX7YUtdz9bq8+p8ZViJFsjBw1c2gUhLZhaM1WrXoTY8y3BmgVIV0LiQxb8yB+R0y3KbM
-	SXmQ1oMRXutpOdD60z1qpnsQzdDh4OeLkbTlMuBE=
-X-Gm-Gg: ATEYQzxWYGe6Z8Lp7XiqgGX6oIfji/p4iUzaSEkx8BTDCxeCpwVpdzYXYG/VzqLnDGQ
-	5DjGaiUJqoismMpEcJGnQez9NgXB+rOOOYB1Qkvc+nlmjg2lFgL7zjTmESyStl8OuO4s5/k3qs0
-	6ACElHrc9yegQ/UM6ApiEMwsdv842XZJyjsreSUr9GWdf/T4OCo3PbTfjUdk0il5OgkLwTHpvvt
-	tJseEX6lq8mEeTbA29omVUvAXeor0o+/ytwFwwHo50ISXYFmY5JltXJGARfS5fPLfz35gh0k7zl
-	qYVurXj26QKY5bZPAmIYLsJxHDiHwUfB1/PQ4aygjaEPh0RJaIomGwmrMV4LHp1Bj4LN8Jgmyrd
-	HSA58QA==
-X-Received: by 2002:a17:907:d307:b0:b87:965:9079 with SMTP id
- a640c23a62f3a-b982f1ec9cdmr353416866b.3.1774048005909; Fri, 20 Mar 2026
- 16:06:45 -0700 (PDT)
+        bh=6JCzvUReAvmRaGAkyAEznszoR+jf+OXTsBS6N8BL9C0=;
+        b=FfZyLjYVra+t3ctNWOZTGncO4DttZBcX508grafdSPBTR73KDgfKt1Ipwi1aNI/lbQ
+         vR82QCf5HxsTnIefWhU9kNhoXZWbtM1207x6HGeqlcBtny+LBooaA7UQ+e2Ws6nVG9KI
+         zgsD2yGs99a3RpZ0/adscIPskQJM0tVFDny85EVbcNBVMMti3Y6vuFKL4fWV5oZuuxhV
+         BKLlD49pb3A/A63pNdNXC/QK+4aOUtYnfCEb6ojoKqkvhcha4qoWQ/dv5g9CUESDsjwU
+         U2TgmhU8ubJjJ81WjDoOzWLl1I1FTe5TPYrvRFzpW6afhG94o1H9oe7TXDARIPGR9x5J
+         MaNQ==
+X-Gm-Message-State: AOJu0YyJeMX4ro4tVwKhEUvvatP+eBkYDKKayi8LWRaCiKSt3N5zLRaR
+	H/mF0uQY6z8ZYN/JA2Emm+TNZE+NTyriUMsPs7KYfZf1ZoL9DyNRtQFK00oHzX4LtdQXwX/7U2o
+	yfhThFsltc+uk/lm8BsUUwmIeDzphEuc=
+X-Gm-Gg: ATEYQzxyxPcdZUl4VNgJWRmR4e9PtKrhnGAkQMIXlvD6Yzds6bzTuqujrPeZNFCn+nr
+	51h+4W7fq460EWaTL9Li17lmeP01qmGHVffZKmQJz0pqoBdYhoTeKN403du1jlxmgz27lupKEps
+	AG3rU0iJxuaF9I6dkDIxA32ouCf7be8NKq5tyyfQaxmE56bQ/CRj6aEAtAWQzPFD5LOJ5/g2pj6
+	lGvrIaFL4uBxij/ujjiwzxkmaZm8Lguhpb+V5N88rFWixBK5hxmiWPGqgfM8CyX/Btjn35ru81P
+	naW2VsU1XnlFGdKi+ARtD6ZnoKAMUvi7nRWs3suPfVswbd48oly9w8Os72MHj84rFKpRdyPwluY
+	GNjSw3A==
+X-Received: by 2002:a17:907:7a8b:b0:b84:3fab:4251 with SMTP id
+ a640c23a62f3a-b982f58ee8cmr336055466b.15.1774048070294; Fri, 20 Mar 2026
+ 16:07:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260319035324.269905-1-rosenp@gmail.com> <20260319035324.269905-5-rosenp@gmail.com>
- <CAKxU2N8Vb3D0oEGPzOqvwsXSVLhJtxh=5xrd6qq-Yj2X8Rt5Rw@mail.gmail.com>
- <b3212a44-2783-4c37-95d4-56e0b486c73c@broadcom.com> <fb4c139a-1abb-410c-950d-97b1ed44c9ff@broadcom.com>
-In-Reply-To: <fb4c139a-1abb-410c-950d-97b1ed44c9ff@broadcom.com>
+References: <20260302000736.592422-1-rosenp@gmail.com> <fff10c34-6253-4608-b969-98a7220fc9c9@broadcom.com>
+In-Reply-To: <fff10c34-6253-4608-b969-98a7220fc9c9@broadcom.com>
 From: Rosen Penev <rosenp@gmail.com>
-Date: Fri, 20 Mar 2026 16:06:34 -0700
-X-Gm-Features: AaiRm50XMMvY-ZjWrkWG_HgoJNYtwJ0GkH_RFkCpOeL6_sKDraQYRQHZTp5lDU4
-Message-ID: <CAKxU2N97s7L+Aph62qgtZZQUoVtjydP18ryTh=vSOXFTV3s_6w@mail.gmail.com>
-Subject: Re: [PATCH 4/6] ARM: dts: BCM5301X: EA9200: add wifi definitions
+Date: Fri, 20 Mar 2026 16:07:39 -0700
+X-Gm-Features: AaiRm518z60-KQ1iXqs8-LNx6Z0ndGXEzRtFemv_pentK5ZgaVAgM8oOuBqXssw
+Message-ID: <CAKxU2N9db_RA80ikviMHvY+xgG_myPmU3UTYaoD4uvibBeshEw@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: BCM5301X: add root pcie bridges
 To: Florian Fainelli <florian.fainelli@broadcom.com>
 Cc: devicetree@vger.kernel.org, Hauke Mehrtens <hauke@hauke-m.de>, 
 	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
@@ -100,64 +98,32 @@ Cc: devicetree@vger.kernel.org, Hauke Mehrtens <hauke@hauke-m.de>,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Mar 20, 2026 at 2:34=E2=80=AFPM Florian Fainelli
+On Fri, Mar 20, 2026 at 2:39=E2=80=AFPM Florian Fainelli
 <florian.fainelli@broadcom.com> wrote:
 >
-> On 3/20/26 10:29, Florian Fainelli wrote:
-> > On 3/19/26 17:29, Rosen Penev wrote:
-> >> On Wed, Mar 18, 2026 at 8:53=E2=80=AFPM Rosen Penev <rosenp@gmail.com>=
- wrote:
-> >>>
-> >>> brcm,ccode-map and ieee80211-freq-limit are needed to be specified on
-> >>> some of them for proper operation.
-> >>>
-> >>> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> >>> ---
-> >>>   .../dts/broadcom/bcm4709-linksys-ea9200.dts   | 50 ++++++++++++++++=
-+++
-> >>>   1 file changed, 50 insertions(+)
-> >>>
-> >>> diff --git a/arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts b/
-> >>> arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts
-> >>> index 617fb55bc52f..7b1363aa1144 100644
-> >>> --- a/arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts
-> >>> +++ b/arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts
-> >>> @@ -93,6 +93,56 @@ led-3 {
-> >>>          };
-> >>>   };
-> >>>
-> >>> +&pcie_bridge0 {
-> >>> +       pcie@0,0 {
-> >>> +               device_type =3D "pci';
-> >>> +               reg =3D <0x0000 0 0 0 0>;
-> >>> +               bus-range =3D <0x01 0xff>;
-> >>> +
-> >>> +               #address-cells =3D <3>;
-> >>> +               #size-cells =3D <2>;
-> >>> +               ranges;
-> >>> +
-> >>> +               pcie@1,0 {
-> >>> +                       device_type =3D "pci';
-> >> There are typos here. "pci' vs "pci". Should I resend?
+> On 3/1/26 16:07, Rosen Penev wrote:
+> > They are always required and instead of duplicating a definition in eac=
+h
+> > dts file, place it in dtsi with labels and work based on that.
 > >
-> > Not necessary, fixed it up while applying, thanks!
+> > Also changed each bridge@ to pcie@ to get extra dtc static analysis.
+> >
+> > Fixed bridge numbers as a result.
+> >
+> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
 >
-> Meh, this was not even build tested, even fixing that gives me:
-Was build tested on kernel 6.12: https://github.com/openwrt/openwrt/pull/22=
-223
+> While you are it, can you fix this warning:
 >
->   ARCH=3Darm CROSS_COMPILE=3Darm-linux-gnueabihf- make CHECK_DTBS=3Dy
-> broadcom/bcm4709-linksys-ea9200.dtb
->    DTC [C] arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dtb
-> Lexical error:
-> arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts:107.19-22
-> Unexpected 'pci'
-> Error: arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts:107.19-22
-> syntax error
-> FATAL ERROR: Unable to parse input tree
+> arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts:142.3-27: Warning
+> (pci_device_bus_num):
+> /axi@18000000/pcie@13000/pcie@0/pcie@0,0/pcie@1,0:bus-range: PCI bus
+> number 0 out of range, expected (1 - 255)
+> arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts:142.3-27: Warning
+> (pci_device_bus_num):
+> /axi@18000000/pcie@13000/pcie@0/pcie@0,0/pcie@2,0:bus-range: PCI bus
+> number 0 out of range, expected (1 - 255)
+I'll look into this.
 >
-> Please resubmit patches 4 and 6 since I dropped them as a result.
-There are three "pci' mistakes that are copy/paste in this patch. I'll resu=
-bmit.
+> Thanks!
 > --
 > Florian
