@@ -1,122 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from relay.smtp-ext.broadcom.com (lpdvsmtp09.broadcom.com [192.19.166.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD02361DC3;
-	Fri, 20 Mar 2026 17:14:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99AF28A3F8;
+	Fri, 20 Mar 2026 17:16:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.166.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774026897; cv=none; b=Ov5JmQqu8dsMq2fFbtMNTix4+VoIAXnzF1QsCvsQU4Yyt7q9qJusMlgWY2jjGeDZMYaIuqNfkB4OVGPFGANpfBGy0hfwURnbBIW6zVFAq3Awenp6pyfLrVYwMrRLOe63MIs399T4gKHKmcw0VgnLARqspD9Ftws5GuxxJZSlfk8=
+	t=1774027002; cv=none; b=eAxiuteAcQQ7RnOnPFdh03x1Q2sYQKekidSE9Sh6GYZxDFKHuZg0SoxrzDkWnwu+dyKcdn8Rmb4uF+4aJVH3n6RIe7M3vtOOs+AjEsoClw6ME8ITZVSWX0XI+QB5SgkYc30RyyMsWw5yeftJHyY023UuMyDYqkDntBu58h+tt44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774026897; c=relaxed/simple;
-	bh=MqgKTfip+nRILxJnhrg/eh79SR01kCItoSi2X6WQf54=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mUhiEGCjj4X8+T5UEVMcBQJDlrZugRDCqKsTJruCW0Assdrlx1Gbj+uUJSrKvxST/BaEpQBk8ePFl+DAWwTAIwq8lPj+kAQfvVlBvME/B9E3V0esisK2GwgdrZt8UMC3f8WJrzV4PxX17xXEwUvN9CUD6VT2zBUhY0RC+4iwe2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sKTi1u9N; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774027002; c=relaxed/simple;
+	bh=qiYZdwgOfI3LqCMeKs5cm+biwJ02w2st/zc01l5E1rk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uVIrWxiLck2HSysM4BGV6wyY9lTS/MSaYvnfnNF42ikyJRh+1FL9Gg3lD28KWJf/YGYHdlvIcIjDPIde4UfetIyXfBnFrgK4G+246xPs0a9AgAh8muCpLfp0M//WiY+YRzLlRnul2VaaXXWtGo7Qksn6M06lG315TJoHIcKgjqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=wCNGKBMc; arc=none smtp.client-ip=192.19.166.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sKTi1u9N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 580D7C4CEF7;
-	Fri, 20 Mar 2026 17:14:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774026897;
-	bh=MqgKTfip+nRILxJnhrg/eh79SR01kCItoSi2X6WQf54=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sKTi1u9NyiIkcVR7MNfsEtRE0yMegJBJlNcf9Kc2SP7PgJhFiBgm56FVLhGeHbSVW
-	 lju/VNlPyNv2fRNhWmuBVbneFx0SW3KzDXjKuOqt4yafQRVCpTD4QmAmFcJOpPXSeb
-	 Q+qh8/VKkcp1kafUznTNGCGYz/usJIjMdEqLCJYsNL8yL5BsAiOD0g+7IFaUrPOzmI
-	 jEq3A57SEe4U+apU6tp72iSksL2wKdL2j2hXh0ny0DzRZvl50rlkHJTMoi3i3wjMjM
-	 +UMzABjIpjXTtIaz+UlDVTyKxKQLirR6yTu1IwkMMZ412avp4ndbCgU9PP1j0E6ewL
-	 vv7Qzstdk4MeQ==
-Date: Fri, 20 Mar 2026 17:14:51 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="wCNGKBMc"
+Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
+	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 049A3C0044A8;
+	Fri, 20 Mar 2026 10:16:35 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 049A3C0044A8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
+	s=dkimrelay; t=1774026995;
+	bh=qiYZdwgOfI3LqCMeKs5cm+biwJ02w2st/zc01l5E1rk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=wCNGKBMcyKcZ0Xf0DPK9RyyMgHknZU6c56xoh9Gv55wsp7rFQcoyvlv6HV69/jfjs
+	 929onntp+mrF497GaJK70IcgbPaGVPC7CGE6OGpHKYDRBYRzYFzNozoJslSGdM2UJU
+	 Od+pxkTAExl9xGOOwjs8n7BR2qVfxtC8p91Gzt3c=
+Received: from fainelli-desktop.igp.broadcom.net (fainelli-desktop.dhcp.broadcom.net [10.67.48.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id CA7A9A83;
+	Fri, 20 Mar 2026 10:16:34 -0700 (PDT)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: bcm-kernel-feedback-list@broadcom.com,
+	"Rob Herring (Arm)" <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH RFC v2 1/9] dt-bindings: iio: frequency: add ad9910
-Message-ID: <20260320-utensil-estate-ea3af0d8a623@spud>
-References: <20260318-ad9910-iio-driver-v2-0-e79f93becf11@analog.com>
- <20260318-ad9910-iio-driver-v2-1-e79f93becf11@analog.com>
- <20260319-annex-varying-afbddcb825b7@spud>
- <zi7ifl45h5fu76rlbdubkeq7wa7gtve5wsdruo574gzj5qbfu6@fl6rh3soaj74>
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] ARM: dts: broadcom: bcm2835-rpi: Move non simple-bus nodes to root level
+Date: Fri, 20 Mar 2026 10:16:34 -0700
+Message-ID: <20260320171634.3069852-1-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260320154809.1246064-1-robh@kernel.org>
+References: <20260320154809.1246064-1-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="llXdvqq1rnlyMPfA"
-Content-Disposition: inline
-In-Reply-To: <zi7ifl45h5fu76rlbdubkeq7wa7gtve5wsdruo574gzj5qbfu6@fl6rh3soaj74>
+Content-Transfer-Encoding: 8bit
 
+From: Florian Fainelli <f.fainelli@gmail.com>
 
---llXdvqq1rnlyMPfA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Fri, 20 Mar 2026 10:48:06 -0500, "Rob Herring (Arm)" <robh@kernel.org> wrote:
+> The 'gpu' and 'firmware' nodes are not MMIO devices, so they should not be
+> under a 'simple-bus'. Additionally, the "raspberrypi,bcm2835-power" node
+> is part of the firmware, so move it under the 'rpi-firmware' node.
+> 
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
 
-On Fri, Mar 20, 2026 at 11:21:37AM +0000, Rodrigo Alencar wrote:
-> On 26/03/19 05:25PM, Conor Dooley wrote:
-> > On Wed, Mar 18, 2026 at 05:56:01PM +0000, Rodrigo Alencar via B4 Relay =
-wrote:
-> > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > >=20
-> > > DT-bindings for AD9910, a 1 GSPS DDS with 14-bit DAC. It includes
-> > > configurations for clocks, DAC current, reset and basic GPIO control.
-> > >=20
-> > > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
->=20
-> ...
->=20
-> > > +
-> > > +  clock-names:
-> > > +    oneOf:
-> > > +      - items:
-> > > +          - const: ref_clk
-> >=20
-> > s/_clk//, not like it can be anything else!
-> >=20
-> > > +      - items:
-> > > +          - const: ref_clk
-> > > +          - const: sync_in
-> > > +
-> > > +  '#clock-cells':
-> > > +    const: 1
-> > > +
-> > > +  clock-output-names:
-> > > +    minItems: 1
-> > > +    maxItems: 3
-> > > +    items:
-> > > +      enum: [ sync_clk, pdclk, sync_out ]
-> >=20
-> > I'd say same here, but then you've got some issues with differentiation,
-> > so idk.
->=20
-> so I've got the names as they are referred in the device pins in the data=
-sheet
-
-Coming back to this one, ye I think it just is less confusing to keep
-the _clk ultimately. This looks good then, I think, modulo the RFC-state
-of the series.
-
---llXdvqq1rnlyMPfA
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCab2AiAAKCRB4tDGHoIJi
-0hYsAP9f0vICL+gupvDNZvqA96BX/JRiLZWKrkGxlflMa+834wD+Nk37ojRccRUz
-RyAKw64JtEmI5hcC3LvRUaeUQUd6cwo=
-=7Q/R
------END PGP SIGNATURE-----
-
---llXdvqq1rnlyMPfA--
+Applied to https://github.com/Broadcom/stblinux/commits/devicetree/next, thanks!
+--
+Florian
