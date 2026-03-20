@@ -1,75 +1,64 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C40F31B838;
-	Fri, 20 Mar 2026 19:08:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991E934DB54;
+	Fri, 20 Mar 2026 19:35:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774033730; cv=none; b=naLjJGiaoedP4TPVbb0QYCKr83Z9pPmmmdphl0Pg03YLAn09s/a4WLkXaO9xHxokQ4F3BCeFHEkNZNjM7Q6AgTFj2+ExSv6CkBx5s46AhoQNNGDtMimr777PQpRWDCz04xYC192SqfZ0dYM16fkTjdOrg3ToURXPT58NIPPVQXw=
+	t=1774035309; cv=none; b=YYPp5C4auH2jnOkxcvy6FDdt75ZvQh123p7JD+TdfrUQa8GvHanoj6ItjuP1F7dqRVg+tjqbc+d6VeEh9vsoEd5fo6ML56PJU3PPCE7fFDyFszUMha4ekkhIfNtW9v9UfWSL89KlLz8dWKOnmHcnKOhtLovLByha1Idvn8IxLeg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774033730; c=relaxed/simple;
-	bh=7WNZM6g9R3CLfh6cWhvFwVZyrccgJ4B0ROAyC9BBclU=;
+	s=arc-20240116; t=1774035309; c=relaxed/simple;
+	bh=8YBTIlU5Zz2RAIVhWK5asqXzaMSXnEP+4TOZRUxC4zk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fLhSOgWTfJswcKIgWV8U9RMwAR07ruyW+UwL9CQandMCau3ibFcwi1rsmI79j4BWlMDo6BRsVv/lZc3ACjL2kMirkg865cM1jX8C+bY2mJXnKOUQw4cQc1SLcT3yXGzzAkJ6eKEsziVB0tFEjL4AbkaokAjgQ7/IOE4IOadFtEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hsnPl9Pu; arc=none smtp.client-ip=198.175.65.20
+	 Content-Type:Content-Disposition:In-Reply-To; b=mMh6JnS4IXU4q1noEaN+rp+DlZYU8oeyQDcuP+2gY7y07cr6QjU+f0jJ6bXFhXv6MQoZ+er+rHEVdya5ddHbjTAz5JsQCe2NShaB9dUxFtAJVqglUpHHKGJW7LVNAbmi6huYYsohCFwmcyPhhxGCWwx81nc6cZJmq60HjTvhFn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fZF5O3BL; arc=none smtp.client-ip=198.175.65.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hsnPl9Pu"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fZF5O3BL"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774033729; x=1805569729;
+  t=1774035307; x=1805571307;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=7WNZM6g9R3CLfh6cWhvFwVZyrccgJ4B0ROAyC9BBclU=;
-  b=hsnPl9PuA4ePLELW2nWJeNM/4paj/mzgLVQBsvlULuU/q5oQ3iq4qora
-   PattH3FuLG8s5ez6rPi/oX+vUUKqLhtYXaOTEkvnnqlRfUGYikbfI8bHN
-   9Rgl25CF12t7BkS4+ckqJeiCtsKpvIRECel3Lyh1WLgZ+4BcpghHKbBft
-   IM8GSdFGWIpahpe7b3A3lgqUhOCH7XKJlR6cxDV8WFzhb85wqYN1uYjOc
-   ihv+wUEUXXiL4corzrc7ztB185GfTLe9gwY5G/O5NO8DTpTFWJz+iOfKQ
-   6/Xcp6ioyHpjS6WFjFQBvsgi2yTfGcmilzp/uwB6+nvWZZ838PjLFB7hr
+  bh=8YBTIlU5Zz2RAIVhWK5asqXzaMSXnEP+4TOZRUxC4zk=;
+  b=fZF5O3BLjhWX/DcDT1tVesj/A00FBHsgsu2CLG4G4MWRasqeff+Ux8x/
+   Y2EiMqycOa6/HKnnBYxujpTP2boXbJ3ZpJzjdzUm5O/zRZC20D5VBdw3s
+   OsIpEUAj+vKfZ/CxVcudKEbKUC0PL5vaZc2plBAZ2hYk9xcX+2P8Ni7ky
+   DXfOJgMMYs2osysvogqLZusJRCwqm2iZjN9iC/XEZS7n5neFmMVAfXEsO
+   4Q818YCsAIhyFUGgPo0TbMXJ1HwtIUQ+ZleUwZBSacwR/HBCF8POrWoB+
+   iYFL9i5YvEygEZQ2+Aqycg2ejtyMMco1h0zGXw+GvO8v4yPJk9JSe/FUY
    w==;
-X-CSE-ConnectionGUID: PO9UFf0GTzGSGj6CdwbDnA==
-X-CSE-MsgGUID: svTdwtuEQtePT6opWU+CHQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11735"; a="74829512"
+X-CSE-ConnectionGUID: YTAXr3wPR/yrmAFKFJOMMQ==
+X-CSE-MsgGUID: ZAC2dScFShy7juh/KQwRBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11735"; a="75320759"
 X-IronPort-AV: E=Sophos;i="6.23,130,1770624000"; 
-   d="scan'208";a="74829512"
+   d="scan'208";a="75320759"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Mar 2026 12:08:48 -0700
-X-CSE-ConnectionGUID: rrwaT2HISvqx5APreFqssA==
-X-CSE-MsgGUID: oniAF6+OTwupmekwYzMoCw==
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Mar 2026 12:35:07 -0700
+X-CSE-ConnectionGUID: GW8SQ+YIQLOah75gIq0tEA==
+X-CSE-MsgGUID: TT79nw/oQ3qZY/4NM5azfQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,130,1770624000"; 
-   d="scan'208";a="223404640"
-Received: from lkp-server02.sh.intel.com (HELO ef9b23065726) ([10.239.97.151])
-  by orviesa008.jf.intel.com with ESMTP; 20 Mar 2026 12:08:43 -0700
-Received: from kbuild by ef9b23065726 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1w3fBq-0000000006z-2ufW;
-	Fri, 20 Mar 2026 19:07:47 +0000
-Date: Sat, 21 Mar 2026 03:06:32 +0800
-From: kernel test robot <lkp@intel.com>
-To: Nora Schiffer <nora.schiffer@ew.tq-group.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
-	Tero Kristo <kristo@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	netdev@vger.kernel.org, Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
+   d="scan'208";a="223408773"
+Received: from egrumbac-mobl6.ger.corp.intel.com (HELO localhost) ([10.245.245.40])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Mar 2026 12:35:03 -0700
+Date: Fri, 20 Mar 2026 21:35:01 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Erikas Bitovtas <xerikasxx@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Peter Meerwald <pmeerw@pmeerw.net>, linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
-	linux@ew.tq-group.com,
-	Nora Schiffer <nora.schiffer@ew.tq-group.com>
-Subject: Re: [PATCH 6/7] net: ethernet: ti: am65-cpsw: add support for J722S
- SoC family
-Message-ID: <202603210254.ABl6TQWc-lkp@intel.com>
-References: <4cc3dd9fab460d35215c8f97496b9ae16c5bcb22.1773751309.git.nora.schiffer@ew.tq-group.com>
+	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+	Raymond Hackley <raymondhackley@protonmail.com>
+Subject: Re: [PATCH v6 0/8] iio: light: vcnl4000: add regulator support
+Message-ID: <ab2hZXdinHWNYB9S@ashevche-desk.local>
+References: <20260320-vcnl4000-regulators-v6-0-0d24d20b1a5b@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,55 +67,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <4cc3dd9fab460d35215c8f97496b9ae16c5bcb22.1773751309.git.nora.schiffer@ew.tq-group.com>
+In-Reply-To: <20260320-vcnl4000-regulators-v6-0-0d24d20b1a5b@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Nora,
+On Fri, Mar 20, 2026 at 06:45:35PM +0200, Erikas Bitovtas wrote:
+> This patch series introduces support for voltage supply, I2C and cathode
+> regulators. This fixes an issue where if a regulator is shared between
+> the proximity sensor and some other device, and the other device is
+> powered off, the proximity sensor would be powered off as well.
+> 
+> One of the commits includes a Reported-by: tag without a Closes: tag -
+> the report was done outside in a Matrix channel. A link to access the
+> report requires sign-in, therefore it was left out.
 
-kernel test robot noticed the following build errors:
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-[auto build test ERROR on robh/for-next]
-[also build test ERROR on net-next/main net/main linus/master v7.0-rc4 next-20260319]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Nora-Schiffer/dt-bindings-phy-ti-phy-j721e-wiz-Add-ti-j722s-wiz-10g-compatible/20260320-033344
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git for-next
-patch link:    https://lore.kernel.org/r/4cc3dd9fab460d35215c8f97496b9ae16c5bcb22.1773751309.git.nora.schiffer%40ew.tq-group.com
-patch subject: [PATCH 6/7] net: ethernet: ti: am65-cpsw: add support for J722S SoC family
-config: arm64-allmodconfig (https://download.01.org/0day-ci/archive/20260321/202603210254.ABl6TQWc-lkp@intel.com/config)
-compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260321/202603210254.ABl6TQWc-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603210254.ABl6TQWc-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/net/ethernet/ti/am65-cpsw-nuss.c:762:9: warning: cast to smaller integer type 'enum am65_cpsw_tx_buf_type' from 'void *' [-Wvoid-pointer-to-enum-cast]
-     762 |         return (enum am65_cpsw_tx_buf_type)k3_cppi_desc_pool_desc_info(tx_chn->desc_pool,
-         |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     763 |                                                                        desc_idx);
-         |                                                                        ~~~~~~~~~
->> drivers/net/ethernet/ti/am65-cpsw-nuss.c:3470:47: error: use of undeclared identifier 'AM64_CPSW_QUIRK_CUT_THRU'
-    3470 |         .quirks = AM64_CPSW_QUIRK_DMA_RX_TDOWN_IRQ | AM64_CPSW_QUIRK_CUT_THRU,
-         |                                                      ^
-   1 warning and 1 error generated.
-
-
-vim +/AM64_CPSW_QUIRK_CUT_THRU +3470 drivers/net/ethernet/ti/am65-cpsw-nuss.c
-
-  3468	
-  3469	static const struct am65_cpsw_pdata j722s_cpswxg_pdata = {
-> 3470		.quirks = AM64_CPSW_QUIRK_DMA_RX_TDOWN_IRQ | AM64_CPSW_QUIRK_CUT_THRU,
-  3471		.ale_dev_id = "am64-cpswxg",
-  3472		.fdqring_mode = K3_RINGACC_RING_MODE_RING,
-  3473		.extra_modes = BIT(PHY_INTERFACE_MODE_SGMII),
-  3474	};
-  3475	
+For the series, except the DT binding, I haven't even opened that mail.
+Also you can add Suggested-by to the selected patches.
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+With Best Regards,
+Andy Shevchenko
+
+
