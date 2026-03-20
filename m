@@ -1,94 +1,74 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F45358382;
-	Fri, 20 Mar 2026 22:56:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823F42EC0AE;
+	Fri, 20 Mar 2026 22:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774047373; cv=none; b=k5T51eMyyO7HEYQg21PeooUuED37TpAMhlT8EIio1xaN5suHMd6W0qEm7g9b2QK5RWKv1UJLNTxkWeYuaMAaA6bi38/91X/+huWDcdP3QB7bF63YTkk4YyuzmMVdkpDo7nTQUBDqrevnydDPCc2Eqi5dH6VeGp3xcQ6NGdzLBM8=
+	t=1774047439; cv=none; b=k4ETeaXEBKrWwYSGTq8DQE9f4v9wVOsfOYbg0jYYkrhyalzCGS5aPyYP5UhfaaTkCDP+TIJfd2zPbTXElRPIPagGtweLHsnyoj2XEy2jnOOFU25dWaXhneIw8Fb5YbfYwPSJHFdPa3nYCP5ZfcOPKAxf4epcgnhR/b3pqKoih0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774047373; c=relaxed/simple;
-	bh=0SSVuwpq3GSKbcBxi7YA4+TEwdkv6PE+svVUsxApjpQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IJ97e5RVy4GmzfCn3ysTS8zvXuz+t/WTyDmCKev9TSeQAqn6yRqDDRcmpHT76Itwmyd48vVb3SHKu3TtmPAAuYmK0mHOM/JMUoS7cQnX3ODUpChCpvOWxS1OfgKEMIInd0cQTNqPOZKPXaTVzfQECXQI1JiHFCaua7T6mRjQzi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gf38N31f; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1774047439; c=relaxed/simple;
+	bh=zBrBQe+Y5neYzBLPJtsIXH/pOzUBnoUSrEG82CvNe9s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qyjZMtVRiKIztjsxeEsBaxURWdYHhlOHHucDBTXREN/zEIHCHfjf+F/vRNQhchu0akW0E0QgQ/JuRdY16hed9Xm45eAOMn5XvY2y/Vf6nAPnSuXAqXqI+OnZhMsMKPzXEhcB6WPnMieu9k+YLYR60QMkxbv4znIgSBn7FBRlPXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lZu723R5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gf38N31f"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774047372; x=1805583372;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0SSVuwpq3GSKbcBxi7YA4+TEwdkv6PE+svVUsxApjpQ=;
-  b=gf38N31ftvsyKVoucoIXtO8OK1lM2tl0rrxBt2PzBPrYJQi5tOdUDqCy
-   EaUBddVUYaoOY8p4Cc8U6umEwxYyJqtC8JE1diduo7Iyyo81XKr9MAREB
-   J0bzipFCLpA2RR1AsHnOyGkGkKyKVXgMYJyqxDYoon2cdoZ5wA5UshfAU
-   /je51EE37yfylACAcyDR9QcsEANBFamOF0ghEg81IZG5UbLSE5cOj9wt4
-   1W9HTNln9e9haImmI9s24kD7nbQllU72biQhRZdZMucKB9pecVmU20UaO
-   ROMwdRY+k3WRjbjRB1bcewv4foRk8Xh706czHX5YCbl43Sw6uSF/2ZvsW
-   Q==;
-X-CSE-ConnectionGUID: D3HrGr+LS7+6hYWcxT5SDg==
-X-CSE-MsgGUID: eVEuKT/PQ3OpxkAb1t77jw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11735"; a="75169421"
-X-IronPort-AV: E=Sophos;i="6.23,132,1770624000"; 
-   d="scan'208";a="75169421"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Mar 2026 15:56:11 -0700
-X-CSE-ConnectionGUID: kq9PfVflQsWIohQI8Q0ISw==
-X-CSE-MsgGUID: 8JtmPvhoQe+rUaQHGS2BMw==
-X-ExtLoop1: 1
-Received: from ranerica-svr.sc.intel.com ([172.25.110.23])
-  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Mar 2026 15:56:10 -0700
-Date: Fri, 20 Mar 2026 16:01:47 -0700
-From: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
-To: Wei Liu <wei.liu@kernel.org>
-Cc: x86@kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Saurabh Sengar <ssengar@linux.microsoft.com>,
-	Chris Oo <cho@microsoft.com>, "Kirill A. Shutemov" <kas@kernel.org>,
-	linux-hyperv@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Ricardo Neri <ricardo.neri@intel.com>,
-	Yunhong Jiang <yunhong.jiang@linux.intel.com>
-Subject: Re: [PATCH v8 09/10] x86/hyperv/vtl: Mark the wakeup mailbox page as
- private
-Message-ID: <20260320230147.GA31320@ranerica-svr.sc.intel.com>
-References: <20260107-rneri-wakeup-mailbox-v8-0-2f5b6785f2f5@linux.intel.com>
- <20260107-rneri-wakeup-mailbox-v8-9-2f5b6785f2f5@linux.intel.com>
- <20260309175733.GA3083831@liuwe-devbox-debian-v2.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lZu723R5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A809FC4CEF7;
+	Fri, 20 Mar 2026 22:57:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774047439;
+	bh=zBrBQe+Y5neYzBLPJtsIXH/pOzUBnoUSrEG82CvNe9s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=lZu723R5Y+8AqTXckomwefQe/erpxnz72am56Iu+D3TEy3xXPefV1jOJu401hedc0
+	 AJ+RLXgGkiKBVts7buywAifRSzVw56Sk584c/WkV87Jqkpjb1BpXJVliz9kONKLv0Q
+	 i/2Y0KdvKacyFeZN0hsnH/P/tv6ZdWu/1B5/yLzc/0l+fS+Fs+eTJA/PVE1jfpIuxH
+	 Dp/EaaLTBQ6Z/YcNvAqK7o1EZfggPxCpQlAO863qxyCQuVVQwIKKM7Gh/pv03gajGo
+	 Aq2bc8gsaYuQO14IDH9B5p7KtzOjPl+OUJaKGSFIzb+kYQAanW4lyA3nD4pfKz23m7
+	 I2YS9h/OJ2v/w==
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jon Hunter <jonathanh@nvidia.com>
+Cc: devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: Re: [PATCH] arm64: tegra: Fix RTC aliases
+Date: Fri, 20 Mar 2026 23:57:15 +0100
+Message-ID: <177404742057.2572906.590263252137366204.b4-ty@nvidia.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260305151659.703273-1-jonathanh@nvidia.com>
+References: <20260305151659.703273-1-jonathanh@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260309175733.GA3083831@liuwe-devbox-debian-v2.local>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, Mar 09, 2026 at 05:57:33PM +0000, Wei Liu wrote:
-> Dexuan, are you happy with the patch? You can also delegate to Saurabh
-> if you think it's more appropriate. Thanks!
+From: Thierry Reding <treding@nvidia.com>
 
-Hi Wei,
 
-I just realized you replied to an older version of the patch. Here is the
-most recent version:
+On Thu, 05 Mar 2026 15:16:59 +0000, Jon Hunter wrote:
+> The following warning is observed on the Tegra234 Jetson platforms ...
+> 
+>  rtc-nvidia-vrs10 4-003c: /aliases ID 0 not available
+> 
+> This happens because the 'rtc@c2a0000' device is registered before the
+> vrs10 RTC and so is assigned the 'rtc0' alias. We want the vrs10 RTC to
+> be the default RTC because this RTC maintains time across power cycles.
+> Fix this by adding a 'rtc1' alias for the 'rtc@c2a0000' device.
+> 
+> [...]
 
-https://lore.kernel.org/all/20260304-rneri-wakeup-mailbox-v9-9-a5c6845e6251@linux.intel.com/
+Applied, thanks!
 
-The whole series:
+[1/1] arm64: tegra: Fix RTC aliases
+      commit: 13346b553b49952f0d2b0b5a07f9f1492b811dfa
 
-https://lore.kernel.org/all/20260304-rneri-wakeup-mailbox-v9-0-a5c6845e6251@linux.intel.com/
-
-Thanks and BR,
-Ricardo
-
+Best regards,
+-- 
+Thierry Reding <treding@nvidia.com>
