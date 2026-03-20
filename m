@@ -1,105 +1,105 @@
-Received: from mail-10698.protonmail.ch (mail-10698.protonmail.ch [79.135.106.98])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D27387587;
-	Fri, 20 Mar 2026 22:32:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45738374196;
+	Fri, 20 Mar 2026 22:54:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774045955; cv=none; b=ABvOB93sNPp82EU+VHfx23RuxhxbAI/l+GfW1n3Th9X5D8ko7QDT/lEIbKEjhlemd6BYWrsoKN+zta+uLvMX4FhYdvuIO9twmg1DWeP4o4U8S2e1k5DB0jzxK93+cuRWdqCHbNiIFVPM9KCaaOrPe3PwbOXDLwEHiAXcvAwXEhM=
+	t=1774047286; cv=none; b=ooelPMSdIivi7VFci/Fci+MgETkeybctO1VaP25Dig2/LRZEIOLZACNW2MTYB368EbEGnXL/f4ui5PDv/vLDNdAXrHIIbnoZuKEqN/9hMOUV9+vJfvvrD71aWjt9usVrRvthU7b2GK+n5qSkHJguJBRq3y01kG4deIzk0ovomFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774045955; c=relaxed/simple;
-	bh=AbAJ6kJCpxIex40lxJPqgz8FVRA08Ydz8UH2X5iXfY8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gK+j59R1i2WL5gcl4+hRFkaCELKHoyk/ZAdnoC5XtV97Rpgp657Ao2WdIuMi7BzvmHsrTXeTw+Pf/ITKl0jSAlSc2zTn14ybRUlefiFwdUBLvO/blYxTYnVLlxJIMbADWl0UxhyqYewKvgsIzwGL7YIVjnBfm3+7TzzU5UuQM7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=vFq6emCH; arc=none smtp.client-ip=79.135.106.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1774047286; c=relaxed/simple;
+	bh=QmJaBBqEI/ws3NCw6GsBHeDkkWX91BDQIZPgv6eHKqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GLmmu4A8LyglACL9dHLRbrEsIVv9vBTUvs4JsltsTOcq7bdPmUiyYn3HqCfLv9impnlNbSUepQD1+XgR4TQjj+RJmWpS7x41j5a6Vq9atSjm4xMQf6QxbxjATb042d71syRcB1fTCsenb/UYFyzQxN4r13+5WD0A0yO+teHLxb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A55K8PHH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="vFq6emCH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1774045944; x=1774305144;
-	bh=QyU3KziqZxd9HOhx4Gs65M6cMH9dTEoOjkIOFlgjlAc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=vFq6emCHQOyQdgP2aUob/id6mm+oqQrrLlZ0+Br2YAZCJIfE+0p1PO7CNZqeL+S8O
-	 Ce0CGIzI/T+aWIqq175gvxn67Pf0xf/y4YEm1qunOk8NApn8xoZkrWdlYZ09ZuRr22
-	 AUqFDNDwaJ8aOFkXGRq9XVelRMOBbwl/FEWkWZ3x5V181w54WtNeaoS3plf0VrhrA+
-	 wbHiMiCviLIUboZpHG0lX/KDlaB9e1jriYoIAjgVOmTuxPVvvNDNrKXuxTn7G5gQuB
-	 xgN1Hqo1XNX3uw8q+CqX+d6qHf25GkpYKu5Q5R9TEmN/5Fs6Dn/ZxZ4BuQT/FzyHh7
-	 XDemqkqBxICHQ==
-Date: Fri, 20 Mar 2026 22:32:18 +0000
-To: Krzysztof Kozlowski <krzk@kernel.org>
-From: cristian_ci <cristian_ci@protonmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 1/6] dt-bindings: display: panel: Add Novatek NT35532 LCD DSI
-Message-ID: <oMTrCB7euJojLz1EUHDhHCq071GQWD0g7-sqwahA62CnM-sVw08UCNhKdgHX2NrEN3H8iRhc0suejuq5JZ39UA2nEfKhRq9qwYJWSxCrAtc=@protonmail.com>
-In-Reply-To: <20260319-amorphous-pastoral-turtle-851af9@quoll>
-References: <20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com> <20260318-rimob-new-features-v2-1-c1bf8917449e@protonmail.com> <20260319-amorphous-pastoral-turtle-851af9@quoll>
-Feedback-ID: 27475468:user:proton
-X-Pm-Message-ID: aa5d67d40f9ced9875dfeb1b6597c0c1dad3b0c0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A55K8PHH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CF7DC4CEF7;
+	Fri, 20 Mar 2026 22:54:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774047286;
+	bh=QmJaBBqEI/ws3NCw6GsBHeDkkWX91BDQIZPgv6eHKqM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=A55K8PHHzpPPkvUQpl9BXLTMpAbi+5zXaFlFU9lz4wC1lw3bsVdsYgxKLj2TKRRFC
+	 kW1STELQwxfwlZWDNMuoPjJQKqxinWWTG5k6XZVZ6i9dQlSK8dwInynU1dczdTLG9f
+	 zzrzOQapthdG67jFnt1ricW8ihLm/13aQcaYceiXR00PBTqCN8UAWjPU6uc8d/r+9O
+	 EfEeDlyjuD9Uxnq4RC1Za5nJNeCTiYo365jtnozsBGdJfP1o0zIIfcHKsgg2y7cUFa
+	 wxeShwjlHVJpJjNR0IgHVAIFJ7hZLT6E7KW59INzaW4X9YhpiePvllz3/uawwCeZj9
+	 Zv4Sf9qwx8v7g==
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Jon Hunter <jonathanh@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: [PATCH v2 0/5] PCI: tegra: Add Tegra264 support
+Date: Fri, 20 Mar 2026 23:54:32 +0100
+Message-ID: <20260320225443.2571920-1-thierry.reding@kernel.org>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thursday, March 19th, 2026 at 10:09, Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
+From: Thierry Reding <treding@nvidia.com>
 
-> On Wed, Mar 18, 2026 at 11:28:09PM +0100, Cristian Cozzolino wrote:
-> > +  avdd-supply:
-> > +    description: positive boost supply regulator
-> > +
-> > +  avee-supply:
-> > +    description: negative boost supply regulator
-> > +
-> > +  vci-supply:
-> > +    description: regulator that supplies the analog voltage
-> > +
-> > +  vddam-supply:
-> > +    description: power supply for MIPI interface
-> > +
-> > +  vddi-supply:
-> > +    description: regulator that supplies the I/O voltage
-> > +
-> > +  port: true
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - reset-gpios
-> > +  - avdd-supply
-> > +  - avee-supply
-> > +  - vci-supply
->=20
-> Only VDDI is required according to datasheet (see page 11 and page 16).
+Hi,
 
-Just to be sure, are you mentioning the part saying there are multiple=20
-power modes (2-1PWR, 2-2PWR, 3=C3=A9WR and 4PWR) related to NT35532?=20
+this series adds support for the PCIe controllers found on the Tegra264
+SoC. There are six instances, one of which is for internal purposes only
+and the other five are general purpose.
 
-> Others are needed only in specific configurations, which I would ignore
-> for the simplicity of the binding. Drop these three.
->=20
-> Previous discussion point was about this - write bindings based on
-> datasheet, since it is available.
+The first two patches in the series add the BPMP support needed to power
+up/down the PCI link. Patch 3 contains the device tree bindings for the
+PCIe controller and patch 4 adds the driver. Finally, patch 5 adds DT
+nodes for the controllers found on the Tegra264 SoC.
 
-I've removed avdd, avee and vci supplies from 'required' properties=20
-and I've also tested the new bindings (just for completeness). Now,=20
-I'm going to reintroduce again the issue already raised previously=20
-(for which I received no replies in v1): should I submit a v3=20
-series including my new changes or I've to stick with v2 here, in=20
-order to address review concerns about binding, first?
+Regarding merging these patches, I think ideally I'd pick up the PCI
+driver patch into the Tegra tree because there is a build dependency on
+patches 1 and 2. Furthermore, patch 1 depends on another patch that's
+already in the Tegra tree, and there will be conflicts if it is merged
+in another tree. Alternatively I can provide a stable branch with
+patches 1 and 2 for the PCI maintainers to pull in.
 
-> > +  - vddi-supply
-> > +  - port
-> > +
-> > +additionalProperties: false
->=20
-> Best regards,
-> Krzysztof
->=20
-> 
+Let me know how you'd like to handle this.
+
+Changes in v2:
+- fix an issue with sanity-checking disabled BARs
+- address review comments
+
+Thanks,
+Thierry
+
+
+Thierry Reding (5):
+  soc/tegra: Update BPMP ABI header
+  firmware: tegra: bpmp: Add tegra_bpmp_get_with_id() function
+  dt-bindings: pci: Document the NVIDIA Tegra264 PCIe controller
+  PCI: tegra: Add Tegra264 support
+  arm64: tegra: Add PCI controllers on Tegra264
+
+ .../bindings/pci/nvidia,tegra264-pcie.yaml    |  149 +
+ arch/arm64/boot/dts/nvidia/tegra264.dtsi      |  248 +-
+ drivers/firmware/tegra/bpmp.c                 |   34 +
+ drivers/pci/controller/Kconfig                |   10 +-
+ drivers/pci/controller/Makefile               |    1 +
+ drivers/pci/controller/pcie-tegra264.c        |  527 ++
+ include/soc/tegra/bpmp-abi.h                  | 4565 +++++++++++++----
+ include/soc/tegra/bpmp.h                      |    1 +
+ 8 files changed, 4613 insertions(+), 922 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/pci/nvidia,tegra264-pcie.yaml
+ create mode 100644 drivers/pci/controller/pcie-tegra264.c
+
+-- 
+2.52.0
+
