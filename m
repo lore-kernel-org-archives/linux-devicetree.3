@@ -1,243 +1,261 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968F53CD8A2
-	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 17:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E323D3CEB
+	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 17:32:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774027913; cv=none; b=cRSHUKwIIsA4xViA8WdHk+0fYY0a6Wkrwp+bhcAura1WAp0GNSHaBipxb2hr7fSRs4SKQ499IWVG4cSkPKE4JS3plXWkf1IYUZXjzbXAw1RPw4jpDwLGYMx1AdZQctB0LFJjDDtzQFKr1mNAacpUwP6FPoo+tsiTTkB16uyvZU0=
+	t=1774027954; cv=none; b=N4EkWtu4OxDr3QHUSKb9sDdN0Zd2xGmzf9bseK45CXn+uPUny0b4n2wI61ehMb+Lwz3OdmBi+BrMBI1bQN8K9IhYsfTug7tlVun6rs7vKvUS4WxUU9hJil+JmNuvFhofP+q+I9sIbm46Trz7ll8DeLvkoC0EB+V1+PZOZttsk7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774027913; c=relaxed/simple;
-	bh=Pk6uqov4ttWsArymsYs/+SoJFy0cjkp7Yk0GCMfDwKw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R+a+JV5iZ/pfpnzvqFJoKb5VxfgYAtSuBMvfdLlWS7WFSaTPeux1qQ+8kH484lc55K/1CnyoLr5Z+APnz0BtJ8lHkpUAgs6MGZo6yGW5ffDeBHF0K6rg3hAGACr+xRTuxNEgAbr+Q92B4gQ+Q9cRBv/cecO3owjBKpVO4bcVt7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hJEoHVow; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1774027954; c=relaxed/simple;
+	bh=V9NxvdB+VLdoVy2Yzcyr3TgegtuSzfZzX1thdDemarM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DkHg67fUjJws/O4TJ2LFj+ht8tMbmOaDOd48YxR7HdI3212TrEGn622+lK1LKlWccIBi5dVJpoUiLjFRq16Fr4XI5yH01YbOn+okRKbemEXvLgvRBiobqGrJYR0Q3K4xWbo5Xgn79sdQix7u3dsS09P+v8/y4j5th3m3dLVMpsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20230601.gappssmtp.com header.i=@ndufresne-ca.20230601.gappssmtp.com header.b=ibzEPci8; arc=none smtp.client-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hJEoHVow"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1774027910;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tHS9iTkHOAjp0VrijnaOqXhU9fl7ibsWvQxplTTvVVs=;
-	b=hJEoHVowSqeTnR/vIDFC2y5LtfGcY/+0ZXu36djCwIMkKnhXJbHO9jQwZDh6js5fRWi7Em
-	b/PbBzxryAQe6wd23lz7QmO0PiR5gT1BzsoEdNEsYFD/gBIlvU0LsRfO3vuJAljzN+KaeD
-	tsxzn3YSDi0UxBvD+DwPB7qWnrkdQtA=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-240-EW1hpGCaM_6ULjHL9gp4fw-1; Fri,
- 20 Mar 2026 13:31:47 -0400
-X-MC-Unique: EW1hpGCaM_6ULjHL9gp4fw-1
-X-Mimecast-MFC-AGG-ID: EW1hpGCaM_6ULjHL9gp4fw_1774027902
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 468E419560B4;
-	Fri, 20 Mar 2026 17:31:42 +0000 (UTC)
-Received: from [10.45.226.118] (unknown [10.45.226.118])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 169A71800763;
-	Fri, 20 Mar 2026 17:31:37 +0000 (UTC)
-Message-ID: <ffa7b3a5-a381-435e-b170-24341962b6d1@redhat.com>
-Date: Fri, 20 Mar 2026 18:31:36 +0100
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20230601.gappssmtp.com header.i=@ndufresne-ca.20230601.gappssmtp.com header.b="ibzEPci8"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-8cb3bae8d3eso194362885a.1
+        for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 10:32:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20230601.gappssmtp.com; s=20230601; t=1774027951; x=1774632751; darn=vger.kernel.org;
+        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
+         :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=4mE8NlS736LAnmHsA7HRF+Ujb5voPxn/yIC8kZohqvE=;
+        b=ibzEPci8ZYh0ZahmrIendjXWY1vTtTffghX0BvF5JF7VkQLHGhPVWvabREoxTZrBy/
+         6BE4rI0PH02kZodiz32MH3Nq2DTsl8FlNdZxuDkQrjEZ9nrYlu+GXXl/GeHTNhX8AD+V
+         ClRFe0HKEqNen3bzA8TLmFgkb783TDvDlHj3cDcVoJ6DWN436k9HQWxIxZy+5MwiEjKK
+         BwGEmp8P/2qHDyxAta2nq1V/oMN0geKVGtwYXVvwSH+AsmgnedSMGP/1smNXYf7xknv0
+         GYzr5N7gJVB1shyuw6I8FA1KU4+8iYU3enPnsj9Pqt9mewiPshyEbxQaQIQrpT1ctgVE
+         KFRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774027951; x=1774632751;
+        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
+         :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=4mE8NlS736LAnmHsA7HRF+Ujb5voPxn/yIC8kZohqvE=;
+        b=WxpKUJxUWeO5LJAwCjQTwDBtWX4437SsACjqYFfPbHOtyEf9LvPFNbRuhcattyDwOi
+         hJiJ/Q6x1KSsn6tGaJ6Iz+HZ6ACoesX3m8mg+5wf/iTfRD2dKLTGL/YU8V/R0OGBNj13
+         Hk1tLmUmAn+J4iI7GE1GxMsZu8koH/ZwnWf/RI20whdciH7PP3wGeQTmaHctnFlS0UlR
+         FZ8WFamyGLKDf4D37GJTK6sRLvqWjKCUrrKSrJj3U5FwUHlP+jJskFhbyJ95nvUXCnFB
+         WhTgKlq5sQPInvJqhByo8ameOhwElWiAw+oA9Vy1i//YZLFtzFVoIDDcxl26vvqoQUqo
+         keZQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU9slCh8ZVpKM/pzotaiJIckYMViPsyVP4V1fOCPeGrK0RhGHfru/6fq5jKbTINSj9mypAM5tVu2Tbg@vger.kernel.org
+X-Gm-Message-State: AOJu0YyT7XaTzRt1fhFISbdwZrTs8idZrtL3VcBcc2msyMiuqVY7UE+8
+	0dY20s+JPwKf/VXYLG40i/QAhC200GSJ0ifJobXCOpfkFrFFsSyZrfEgUKTzz2oyyuM=
+X-Gm-Gg: ATEYQzwuz6xUUxM+9d7UBSKeblCC0Tj7nBRNKbaqSun/GmoQswvpNiK7gqDON7OdaLU
+	2zwycejrFJBtiKrsNVGXETil2WNECkbeyohyd2V2iwFrOgXwUeGBpU4nrzmqxAXx5bdBH4Zdaqt
+	EEJpOf9bwWWiy/TnK/SMN0Z1KFF4Ttr9VvqhuDI6flO6Fhb5tenSXhtObj+1T5h9455scKEW52W
+	k4wBcKxqSFT4saLiY1e43WPwJeTrC9bu1akc9PFcl7bMwQ+G8wOUTb/JW7aeMrwoUpiSvmH3mwe
+	gv30drrHIJqIWvfXgQGR7kdj+/s8QmBC903Nu5Xcavo9fAt6j2REqH+wABs+eKCLpi1tJdbCEZ2
+	eOMHFDibRxSD/inctngpC+8pWISXGT6YJuQOoRqT3soJNu8ZcKUPGpWll5pX3HDl725mlCtIWnM
+	dp0YJgLg8ez/DdS4iql/QrTBuhqVB3
+X-Received: by 2002:a05:620a:410c:b0:8cd:b2e9:7f6f with SMTP id af79cd13be357-8cfc7e9ac06mr548041285a.33.1774027951312;
+        Fri, 20 Mar 2026 10:32:31 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:b76d::5ac? ([2606:6d00:11:b76d::5ac])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8cfc90bab92sm197788685a.34.2026.03.20.10.32.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Mar 2026 10:32:30 -0700 (PDT)
+Message-ID: <16c4272b4e98834b849a608b42d97376088b1e38.camel@ndufresne.ca>
+Subject: Re: [PATCH v3 06/27] media: rockchip: rga: use clk_bulk api
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Sven =?ISO-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>, Jacob Chen
+	 <jacob-chen@iotwrt.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Rob Herring
+	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	 <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, kernel@pengutronix.de
+Date: Fri, 20 Mar 2026 13:32:27 -0400
+In-Reply-To: <20260127-spu-rga3-v3-6-77b273067beb@pengutronix.de>
+References: <20260127-spu-rga3-v3-0-77b273067beb@pengutronix.de>
+	 <20260127-spu-rga3-v3-6-77b273067beb@pengutronix.de>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-f4gZIQHtUJQiIuCqlS+k"
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 1/5] dpll: zl3073x: clean up esync get/set and
- use zl3073x_out_is_ndiv()
-To: Simon Horman <horms@kernel.org>
-Cc: devicetree@vger.kernel.org, vadim.fedorenko@linux.dev, jiri@resnulli.us,
- netdev@vger.kernel.org, pvaanane@redhat.com, arkadiusz.kubalewski@intel.com,
- robh@kernel.org, linux-kernel@vger.kernel.org, conor+dt@kernel.org,
- krzk+dt@kernel.org, Prathosh.Satish@microchip.com, mschmidt@redhat.com,
- poros@redhat.com
-References: <20260319174826.7623-2-ivecera@redhat.com>
- <20260320171725.112558-1-horms@kernel.org>
-Content-Language: en-US
-From: Ivan Vecera <ivecera@redhat.com>
-In-Reply-To: <20260320171725.112558-1-horms@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-Hi Simon,
 
-On 3/20/26 6:17 PM, Simon Horman wrote:
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> 
-> For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-local.html
+--=-f4gZIQHtUJQiIuCqlS+k
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le mardi 27 janvier 2026 =C3=A0 15:39 +0100, Sven P=C3=BCschel a =C3=A9crit=
+=C2=A0:
+> Use the clk_bulk API to avoid code duplication for each of the three
+> clocks.
+>=20
+> Signed-off-by: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
+
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+
 > ---
-> dpll: zl3073x: clean up esync get/set and use zl3073x_out_is_ndiv()
-> 
-> Return -EOPNOTSUPP early in esync_get callbacks when esync is not
-> supported instead of conditionally populating the range at the end.
-> This simplifies the control flow by removing the finish label/goto
-> in the output variant and the conditional range assignment in both
-> input and output variants.
-> 
-> Replace open-coded N-div signal format switch statements with
-> zl3073x_out_is_ndiv() helper in esync_get, esync_set and
-> frequency_set callbacks.
-> 
->> diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
->> index a29f606318f6..79ef62d69a32 100644
->> --- a/drivers/dpll/zl3073x/dpll.c
->> +++ b/drivers/dpll/zl3073x/dpll.c
->> @@ -131,6 +131,12 @@ zl3073x_dpll_input_pin_esync_get(const struct dpll_pin *dpll_pin,
->>   	ref_id = zl3073x_input_pin_ref_get(pin->id);
->>   	ref = zl3073x_ref_state_get(zldev, ref_id);
->>
->> +	if (!pin->esync_control || zl3073x_ref_freq_get(ref) == 1)
->> +		return -EOPNOTSUPP;
->> +
->> +	esync->range = esync_freq_ranges;
->> +	esync->range_num = ARRAY_SIZE(esync_freq_ranges);
->> +
->>   	switch (FIELD_GET(ZL_REF_SYNC_CTRL_MODE, ref->sync_ctrl)) {
->>   	case ZL_REF_SYNC_CTRL_MODE_50_50_ESYNC_25_75:
->>   		esync->freq = ref->esync_n_div == ZL_REF_ESYNC_DIV_1HZ ? 1 : 0;
->> @@ -142,17 +148,6 @@ zl3073x_dpll_input_pin_esync_get(const struct dpll_pin *dpll_pin,
->>   		break;
->>   	}
->>
->> -	/* If the pin supports esync control expose its range but only
->> -	 * if the current reference frequency is > 1 Hz.
->> -	 */
->> -	if (pin->esync_control && zl3073x_ref_freq_get(ref) > 1) {
->> -		esync->range = esync_freq_ranges;
->> -		esync->range_num = ARRAY_SIZE(esync_freq_ranges);
->> -	} else {
->> -		esync->range = NULL;
->> -		esync->range_num = 0;
->> -	}
->> -
->>   	return 0;
->>   }
-> 
-> The refactoring changes the behavior when the reference frequency is 0 Hz.
-> 
-> The old code checked 'zl3073x_ref_freq_get(ref) > 1' which excluded both
-> freq==0 and freq==1 from having the esync range exposed. The new code checks
-> 'zl3073x_ref_freq_get(ref) == 1' which only excludes freq==1.
-> 
-> When freq==0 (which can happen when freq_base, freq_mult, or freq_ratio_m
-> is 0), the old code would return 0 with esync->range=NULL and
-> esync->range_num=0, while the new code returns 0 with
-> esync->range=esync_freq_ranges and esync->range_num=1.
-> 
-> The removed comment documented the original intent: "if the current reference
-> frequency is > 1 Hz". Should the new check be 'zl3073x_ref_freq_get(ref) <= 1'
-> to preserve the original behavior for 0 Hz frequencies?
-> 
->>
->> @@ -582,8 +577,8 @@ zl3073x_dpll_output_pin_esync_get(const struct dpll_pin *dpll_pin,
->>   	struct zl3073x_dpll_pin *pin = pin_priv;
->>   	const struct zl3073x_synth *synth;
->>   	const struct zl3073x_out *out;
->> +	u32 synth_freq, out_freq;
->>   	u8 clock_type, out_id;
->> -	u32 synth_freq;
->>
->>   	out_id = zl3073x_output_pin_out_get(pin->id);
->>   	out = zl3073x_out_state_get(zldev, out_id);
->> @@ -592,17 +587,19 @@ zl3073x_dpll_output_pin_esync_get(const struct dpll_pin *dpll_pin,
->>   	 * for N-division is also used for the esync divider so both cannot
->>   	 * be used.
->>   	 */
->> -	switch (zl3073x_out_signal_format_get(out)) {
->> -	case ZL_OUTPUT_MODE_SIGNAL_FORMAT_2_NDIV:
->> -	case ZL_OUTPUT_MODE_SIGNAL_FORMAT_2_NDIV_INV:
->> +	if (zl3073x_out_is_ndiv(out))
->>   		return -EOPNOTSUPP;
->> -	default:
->> -		break;
->> -	}
->>
->>   	/* Get attached synth frequency */
->>   	synth = zl3073x_synth_state_get(zldev, zl3073x_out_synth_get(out));
->>   	synth_freq = zl3073x_synth_freq_get(synth);
->> +	out_freq = synth_freq / out->div;
->> +
->> +	if (!pin->esync_control || out_freq == 1)
->> +		return -EOPNOTSUPP;
->> +
->> +	esync->range = esync_freq_ranges;
->> +	esync->range_num = ARRAY_SIZE(esync_freq_ranges);
->>
->>   	clock_type = FIELD_GET(ZL_OUTPUT_MODE_CLOCK_TYPE, out->mode);
->>   	if (clock_type != ZL_OUTPUT_MODE_CLOCK_TYPE_ESYNC) {
->> @@ -610,11 +607,11 @@ zl3073x_dpll_output_pin_esync_get(const struct dpll_pin *dpll_pin,
->>   		esync->freq = 0;
->>   		esync->pulse = 0;
->>
->> -		goto finish;
->> +		return 0;
->>   	}
->>
->>   	/* Compute esync frequency */
->> -	esync->freq = synth_freq / out->div / out->esync_n_period;
->> +	esync->freq = out_freq / out->esync_n_period;
->>
->>   	/* By comparing the esync_pulse_width to the half of the pulse width
->>   	 * the esync pulse percentage can be determined.
->> @@ -623,18 +620,6 @@ zl3073x_dpll_output_pin_esync_get(const struct dpll_pin *dpll_pin,
->>   	 */
->>   	esync->pulse = (50 * out->esync_n_width) / out->div;
->>
->> -finish:
->> -	/* Set supported esync ranges if the pin supports esync control and
->> -	 * if the output frequency is > 1 Hz.
->> -	 */
->> -	if (pin->esync_control && (synth_freq / out->div) > 1) {
->> -		esync->range = esync_freq_ranges;
->> -		esync->range_num = ARRAY_SIZE(esync_freq_ranges);
->> -	} else {
->> -		esync->range = NULL;
->> -		esync->range_num = 0;
->> -	}
->> -
->>   	return 0;
->>   }
-> 
-> Similar to the input variant, this changes the behavior for 0 Hz output
-> frequencies.
-> 
-> The old code used '(synth_freq / out->div) > 1' to decide whether to expose
-> the esync range, which excluded both out_freq==0 and out_freq==1. The new
-> code uses 'out_freq == 1' for the early -EOPNOTSUPP return, only excluding
-> out_freq==1.
-> 
-> When out_freq==0 (which can happen when synth_freq is 0 or synth_freq <
-> out->div), the old code returned 0 with esync->range=NULL and
-> esync->range_num=0, while the new code returns 0 with
-> esync->range=esync_freq_ranges and esync->range_num=1.
-> 
-> The removed comment documented the intent: "if the output frequency is > 1
-> Hz". Should this also use 'out_freq <= 1' to maintain consistency with the
-> original behavior?
-> 
-> [ ... ]
-> 
+> =C2=A0drivers/media/platform/rockchip/rga/rga.c | 65 ++++----------------=
+-----------
+> =C2=A0drivers/media/platform/rockchip/rga/rga.h |=C2=A0 6 +--
+> =C2=A02 files changed, 11 insertions(+), 60 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
+atform/rockchip/rga/rga.c
+> index 43f6a8d993811..338c7796490bc 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -698,48 +698,10 @@ static const struct video_device rga_videodev =3D {
+> =C2=A0	.device_caps =3D V4L2_CAP_VIDEO_M2M_MPLANE | V4L2_CAP_STREAMING,
+> =C2=A0};
+> =C2=A0
+> -static int rga_enable_clocks(struct rockchip_rga *rga)
+> -{
+> -	int ret;
+> -
+> -	ret =3D clk_prepare_enable(rga->sclk);
+> -	if (ret) {
+> -		dev_err(rga->dev, "Cannot enable rga sclk: %d\n", ret);
+> -		return ret;
+> -	}
+> -
+> -	ret =3D clk_prepare_enable(rga->aclk);
+> -	if (ret) {
+> -		dev_err(rga->dev, "Cannot enable rga aclk: %d\n", ret);
+> -		goto err_disable_sclk;
+> -	}
+> -
+> -	ret =3D clk_prepare_enable(rga->hclk);
+> -	if (ret) {
+> -		dev_err(rga->dev, "Cannot enable rga hclk: %d\n", ret);
+> -		goto err_disable_aclk;
+> -	}
+> -
+> -	return 0;
+> -
+> -err_disable_aclk:
+> -	clk_disable_unprepare(rga->aclk);
+> -err_disable_sclk:
+> -	clk_disable_unprepare(rga->sclk);
+> -
+> -	return ret;
+> -}
+> -
+> -static void rga_disable_clocks(struct rockchip_rga *rga)
+> -{
+> -	clk_disable_unprepare(rga->sclk);
+> -	clk_disable_unprepare(rga->hclk);
+> -	clk_disable_unprepare(rga->aclk);
+> -}
+> -
+> =C2=A0static int rga_parse_dt(struct rockchip_rga *rga)
+> =C2=A0{
+> =C2=A0	struct reset_control *core_rst, *axi_rst, *ahb_rst;
+> +	int ret;
+> =C2=A0
+> =C2=A0	core_rst =3D devm_reset_control_get(rga->dev, "core");
+> =C2=A0	if (IS_ERR(core_rst)) {
+> @@ -771,23 +733,12 @@ static int rga_parse_dt(struct rockchip_rga *rga)
+> =C2=A0	udelay(1);
+> =C2=A0	reset_control_deassert(ahb_rst);
+> =C2=A0
+> -	rga->sclk =3D devm_clk_get(rga->dev, "sclk");
+> -	if (IS_ERR(rga->sclk)) {
+> -		dev_err(rga->dev, "failed to get sclk clock\n");
+> -		return PTR_ERR(rga->sclk);
+> -	}
+> -
+> -	rga->aclk =3D devm_clk_get(rga->dev, "aclk");
+> -	if (IS_ERR(rga->aclk)) {
+> -		dev_err(rga->dev, "failed to get aclk clock\n");
+> -		return PTR_ERR(rga->aclk);
+> -	}
+> -
+> -	rga->hclk =3D devm_clk_get(rga->dev, "hclk");
+> -	if (IS_ERR(rga->hclk)) {
+> -		dev_err(rga->dev, "failed to get hclk clock\n");
+> -		return PTR_ERR(rga->hclk);
+> +	ret =3D devm_clk_bulk_get_all(rga->dev, &rga->clks);
+> +	if (ret < 0) {
+> +		dev_err(rga->dev, "failed to get clocks\n");
+> +		return ret;
+> =C2=A0	}
+> +	rga->num_clks =3D ret;
+> =C2=A0
+> =C2=A0	return 0;
+> =C2=A0}
+> @@ -935,7 +886,7 @@ static int __maybe_unused rga_runtime_suspend(struct =
+device *dev)
+> =C2=A0{
+> =C2=A0	struct rockchip_rga *rga =3D dev_get_drvdata(dev);
+> =C2=A0
+> -	rga_disable_clocks(rga);
+> +	clk_bulk_disable_unprepare(rga->num_clks, rga->clks);
+> =C2=A0
+> =C2=A0	return 0;
+> =C2=A0}
+> @@ -944,7 +895,7 @@ static int __maybe_unused rga_runtime_resume(struct d=
+evice *dev)
+> =C2=A0{
+> =C2=A0	struct rockchip_rga *rga =3D dev_get_drvdata(dev);
+> =C2=A0
+> -	return rga_enable_clocks(rga);
+> +	return clk_bulk_prepare_enable(rga->num_clks, rga->clks);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static const struct dev_pm_ops rga_pm =3D {
+> diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/pl=
+atform/rockchip/rga/rga.h
+> index 72a28b120fabf..2db10acecb405 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.h
+> +++ b/drivers/media/platform/rockchip/rga/rga.h
+> @@ -6,6 +6,7 @@
+> =C2=A0#ifndef __RGA_H__
+> =C2=A0#define __RGA_H__
+> =C2=A0
+> +#include <linux/clk.h>
+> =C2=A0#include <linux/platform_device.h>
+> =C2=A0#include <media/videobuf2-v4l2.h>
+> =C2=A0#include <media/v4l2-ctrls.h>
+> @@ -81,9 +82,8 @@ struct rockchip_rga {
+> =C2=A0	struct device *dev;
+> =C2=A0	struct regmap *grf;
+> =C2=A0	void __iomem *regs;
+> -	struct clk *sclk;
+> -	struct clk *aclk;
+> -	struct clk *hclk;
+> +	struct clk_bulk_data *clks;
+> +	int num_clks;
+> =C2=A0	struct rockchip_rga_version version;
+> =C2=A0
+> =C2=A0	/* vfd lock */
 
-The frequency for both input and output pins cannot be zero... Cannot be
-set to 0 and device never returns configured frequency to be 0.
+--=-f4gZIQHtUJQiIuCqlS+k
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-I can modify the lines to be:
+-----BEGIN PGP SIGNATURE-----
 
-if (!pin->esync_control || out_freq <= 1)
-	return -EOPNOTSUPP;
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCab2ErAAKCRDZQZRRKWBy
+9GE9AQCgBUj875ITC+Fh9R3nimzg6ES5s9aFNWES+vnYmz1/SAEAvf9VeCAR7znW
+NKKwZUUf9wwcdkI2fRNjY/aPz3jvRQA=
+=DP+6
+-----END PGP SIGNATURE-----
 
-but it is needless - but let me know.
-
-Thanks,
-Ivan
-
+--=-f4gZIQHtUJQiIuCqlS+k--
