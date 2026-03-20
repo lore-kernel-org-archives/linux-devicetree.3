@@ -1,173 +1,159 @@
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BAD03E3155
-	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 18:15:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168163E63A2
+	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 18:18:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774030523; cv=none; b=uqpYoyXkNSpk+/K2jLap9NPTL2XhLBpYo3JxY7fs/c0J8Z4RGJ4F2bEgtfp6vbqEDNKyyz/TEjUWPMtTumf2NLVehXpX4L58W4tig6Vsv0H5aV4DbjLW3IJB35V6KD+ud6RIKDaqCJ/0+YVKANlDGdm3JTQYCbISq87crlYbWPY=
+	t=1774030691; cv=none; b=VvYjo/V91mVGDqgTNsU5+t43CNTyTcvT62bgRPvITyZKemo+T3p58mn/l5ZvmuK1KdG3n5eWG9Dor59ho8iE6zdPjqESyeWNLGWhqv2KXostJOT9y4hLStCrIpi2EP60+8i3mL+wNR1nGbHiQrVlY2LxqSJXrgMGktpps1mMuig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774030523; c=relaxed/simple;
-	bh=705491vQG6mAukyM3ZCgh5EYOkpPMr6adr6fn1nkw0o=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=eGqCLw8jG0irSEZiPxC1YgHYi0gCsWRBJgnPFwxYJcwZiUsRI5nyOiOSMTHM8IzGjDghUoa8da/B0kTnIYAU4e2maNLpbjiFlB4eosA0UwdNHH5U8tcVpQj/1hWtDDYJ+VQnbTTtY6Fb6YDWKp5c5EonqLfKlKjRwT4QYsGku60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20230601.gappssmtp.com header.i=@ndufresne-ca.20230601.gappssmtp.com header.b=EmwgaOf7; arc=none smtp.client-ip=209.85.219.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1774030691; c=relaxed/simple;
+	bh=TveWmGtGF+NJQXSywEPJlwFGnrefgR4bV3UdzJamrTs=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=t8162q2XLF2yUuRimjPXQ9fDY4JPraNVASy7l1wsyF4s5up/ofOO6hgD3gr93YGpcwMLbpsJJLEOacGBK0sCL6qtAn1qGZgZl8Kzk5TqKlh9EL9qZZAbIuWlvWLclvibgA88w+EN2w6TcUpvUaJbV/9crFQy7+4XzeVqAeYeGoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cXBmeHio; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20230601.gappssmtp.com header.i=@ndufresne-ca.20230601.gappssmtp.com header.b="EmwgaOf7"
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-89c4feaaeb4so24300226d6.2
-        for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 11:15:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cXBmeHio"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-48538c5956bso20197225e9.0
+        for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 11:18:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20230601.gappssmtp.com; s=20230601; t=1774030521; x=1774635321; darn=vger.kernel.org;
-        h=mime-version:user-agent:references:in-reply-to:date:cc:to:from
-         :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TNtWoywhtCaqax/SX3aYBQWP55sIgtAc6Qsui+MU2Nk=;
-        b=EmwgaOf7omxUupbCWRpz2BEv/69svgJiwLJQfQ3H4RvwXxUZoB0+ui+FL4Y6ee1n2g
-         PyTwsi26p60dXVTOvoC9BDRfUBGY4vHUd9nyfPnlstAkjcokMXULWmuXJYyohr2GjUMf
-         9YISTZZGUUCDbsBUDufUrrcnVXbojO9TKeJU6VBZgpBG1KaTkvIyS9swSkAQz293kKnt
-         q/ctmSKkJxKY3j1gPUhaNgITP0e4/DuADM2Mv5To5FCjQE8pZICkbroxWrZYkp/Mi1Lu
-         R3LRCfAg7C1TURwq9NACr1Nx2LDJscxrFNawWQWz/glmlAxHDOwW9vDU9ukzb524JQRA
-         9HTQ==
+        d=gmail.com; s=20230601; t=1774030688; x=1774635488; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gzgXZ3NiL5XfSi1Gl8c37CbUSVUYSABbSljKRuEeP+I=;
+        b=cXBmeHioXEbh2o1U349rQL9HP8fHUf5F6ct2aryUjcp6BLhjFmXWqCLBzVBW5Wi13K
+         iyEByVAbaHragCM875vXbtWe+wbIEkVy+Dr0GedhQQBFmLG6tHOHFpIdJhNx/YWewQJL
+         kWIQkHfpxloYpwmcUa0VnRAXa4POJbbtNmgl3dKqau52ue/ff17waWkNVMUGZM8yLqVO
+         b08Z08s5E1l3J4cdExrI5r6zh4I0MD80+DgnU3gRwOcpFW+XMWL3A/Oxm8UWhy3YOs11
+         X6B0gr0frgGK2iImaYYTVxeAYy3q8wmoxP5XN8pto8bODYelG+ypInnO8l/TYzYOloVs
+         t+kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774030521; x=1774635321;
-        h=mime-version:user-agent:references:in-reply-to:date:cc:to:from
-         :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=TNtWoywhtCaqax/SX3aYBQWP55sIgtAc6Qsui+MU2Nk=;
-        b=byfzGs51eRxSwrukMjofUtbv+po0HlTkkrYG3fP5V8Xb+hovsH5km6FUpgmv0sKM/W
-         PdOdI+VLvu+QuELFghAxI33a4kUACHBDPv74aeozRC21Z17xL12iS+oi1le0bB9ro1CI
-         rq6FH3kdsH/5WHg4n+FIHdgDVOWvmRdyRWs5Cd+AhCOFj38UUJ3hjDRyU9xf+2ccDaCI
-         5yZpIznL3Q4EI47cmG6JSyMuiljrDEutuBNGQd5AllzY14fLO5y93sWEcjMRT3BwUbrk
-         mowJTRKVzC/hcL4f4qH38VuEU4uDWzL4KqExYRZ6asxZBFS2nZ4Qhy2jzJ1SSECOmsLd
-         00MQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW05Q04h2qVyzDBj7HEwqTtl8trmkeayo+Y7AXzc1JuVUh9fC2eSQjojRz3xkBiNix50jOsY9nbtqJJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzImE8jy4MsmPYf3yovbBUGOMWzbjujiDMqthbtpkmu4xgv+GkA
-	1c1zu0lD1FqLZYpLylKK3abVGxx+lMwlCgx3QO8Au3hq+IhvZjlQ4dWWzQ/28oQQraI=
-X-Gm-Gg: ATEYQzxMYl//x/zMqQqSlhIQNVF22H7DG95X8JuOobQE9DDM/++cfAoW/Az3A8Cl1dT
-	RXufiL0vK02EPSTzXnmPeGC9m154cHaHGPCzJ49fhaMBxeWn4ccXx5rLAyvWCZtUFU38Ahexnhu
-	xgwstpqr/00D/4dhA0rTwQ5XSfQVOQOT0C0snDKTUGKjbpN4BNmPHobUB5dLNGnQnapyke7Yf/x
-	OraQ2yLd6nNbiOi5R/uhHRuQTw2cXw7iDL2kGeWUA6imWUHTZjd8ENShEFmGWksXJqN8ggZHzrq
-	am+DuUlxwaUxLy23JGZCflpd5i4yjI4dhMgy+Um2ScWk7aVFfGbJjeJdjGyxQ+FYV6GBqTbD4pl
-	TWLPj4yipcv/Da6NOel7tz/TNN+TiArBIvuSxSLFWk9IuZ7nY2NeJXIr7mVRHhy20TFzJwec8ov
-	7dyda5/DIkl0hmBqYeew33LYU+AFZa
-X-Received: by 2002:a05:6214:411a:b0:89c:55c1:4234 with SMTP id 6a1803df08f44-89c859cb38dmr62852066d6.2.1774030519860;
-        Fri, 20 Mar 2026 11:15:19 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:11:b76d::5ac? ([2606:6d00:11:b76d::5ac])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-89c85257c9bsm27152706d6.20.2026.03.20.11.15.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Mar 2026 11:15:19 -0700 (PDT)
-Message-ID: <a3f116c4077fb32d7fce757c2013719ed34165b7.camel@ndufresne.ca>
-Subject: Re: [PATCH v3 11/27] media: rockchip: rga: avoid odd frame sizes
- for YUV formats
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Sven =?ISO-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>, Jacob Chen
-	 <jacob-chen@iotwrt.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Rob Herring
-	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	 <conor+dt@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, kernel@pengutronix.de
-Date: Fri, 20 Mar 2026 14:15:16 -0400
-In-Reply-To: <20260127-spu-rga3-v3-11-77b273067beb@pengutronix.de>
-References: <20260127-spu-rga3-v3-0-77b273067beb@pengutronix.de>
-	 <20260127-spu-rga3-v3-11-77b273067beb@pengutronix.de>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-t3BfNkZ1XvbTv4YhgNLe"
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+        d=1e100.net; s=20251104; t=1774030688; x=1774635488;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=gzgXZ3NiL5XfSi1Gl8c37CbUSVUYSABbSljKRuEeP+I=;
+        b=fGoMyqvVaWwVrF/EJk9rUycnNeuGKogkkFztY8d5JUgzmL7g7IJJEms6Q7jxTgLVC9
+         h+VeYEwKaK+RGXKZuFA6tQOXpz2Ejs8RDps0ny9jaAl/gCijpOXQyygIWb8KHYniCqvX
+         +GWzrJ5n9T7urmEP3oEGWTAlfYPIaxy41xaThVKtJ2ko15GagjbLfFqX2+iHX69uzCMY
+         ncVEkS6mk0ckbwS909eId+Jo8z71QI5//mH7sinfPBzRwar9SSGPQPUIq52Frd54kFiQ
+         dd9F218MaG3iNKZGGfVy1wsPinBYqopNJ1O+ZzII5QPSpqdJvYoR4Zw0wYQJML8HWcQT
+         S/9w==
+X-Forwarded-Encrypted: i=1; AJvYcCWh5Rtqg5PidZrcuas80yZXHmzzMQDnBYTzwbinRAjgXAZ+grN3wLhYyy/UYSXXT7Cmq+l2mtRIwCrA@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzl9tQFjU6ncaU57D6Uz7AceW0KjnuzI9t/o55T8Cq0i6XVN4mo
+	O0cbkixobdlhOpZdQjMp4J3TGbuG5dVj43H4+MvkR5MDbjFpnbnSKJN3
+X-Gm-Gg: ATEYQzw4vIoR5yNfR4lH9YOYFXEcvVZdUlY+l0vYojDXHR/XtAq6xlm5vz7p84Sqe4/
+	D/eElAYhglfnfLEGd1n+i9P2QXNwWzJjJC/hQdJL6pDtsFeSEgQfrnnmvikKJHrBoKdkfk1uEsS
+	QpBsHLW2ofLGSblQsr88y3+T+UKxxh58HIsZR2gfgX5wZQa0xKRkvF401wfCiZr8GXcxOPLVJo5
+	v4qCLqZaYX2xZNi59TRVnHirVlBG7ZU5kAyGLDLm/dzKqZTBN1WKtFmZwudmUqNFxcwJ/I61x/d
+	mDH8C2zkwIQdpWYw8r4/yyfWGkObDsYlCIi+gXs1F5sXFT/mCZ4fKgEStbNGXV53RA0wzjF95e5
+	yslwcBdA8yEs5BDQhEl3JFVW2TAC9SGUPo83kt25IDERNkuerwe/QzHP+TwMngmmgppi2uTpbVM
+	qx1h+BClVTJJ6xfc1uMvWnDAm7XI4kLtbPjo0t+IturGG3FxCXWROr6Ck=
+X-Received: by 2002:a05:600d:8449:b0:477:9890:9ab8 with SMTP id 5b1f17b1804b1-486fe8a2bafmr52731085e9.3.1774030688082;
+        Fri, 20 Mar 2026 11:18:08 -0700 (PDT)
+Received: from smtpclient.apple ([2001:912:1ac0:1e00:48e8:da36:b41d:78fa])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-487031790fdsm12424335e9.3.2026.03.20.11.18.07
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 20 Mar 2026 11:18:07 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-
-
---=-t3BfNkZ1XvbTv4YhgNLe
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.400.21\))
+Subject: Re: [PATCH net-next v9 2/4] net: phy: realtek: add RTL8224 pair order
+ support
+From: Damien Dejean <dam.dejean@gmail.com>
+In-Reply-To: <20260320082156.GX1753385@horms.kernel.org>
+Date: Fri, 20 Mar 2026 19:17:56 +0100
+Cc: andrew@lunn.ch,
+ krzk+dt@kernel.org,
+ robh@kernel.org,
+ kuba@kernel.org,
+ maxime.chevallier@bootlin.com,
+ pabeni@redhat.com,
+ netdev@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ edumazet@google.com,
+ davem@davemloft.net,
+ hkallweit1@gmail.com
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <46FAC4A6-9462-45BC-B17C-B7F5F19F0ADB@gmail.com>
+References: <20260318215502.106528-1-dam.dejean@gmail.com>
+ <20260318215502.106528-3-dam.dejean@gmail.com>
+ <20260320082156.GX1753385@horms.kernel.org>
+To: Simon Horman <horms@kernel.org>
+X-Mailer: Apple Mail (2.3864.400.21)
 
-Le mardi 27 janvier 2026 =C3=A0 15:39 +0100, Sven P=C3=BCschel a =C3=A9crit=
-=C2=A0:
-> Avoid odd frame sizes for YUV formats, as they may cause undefined
-> behavior. This is done in preparation for the RGA3, which hangs when the
-> output format is set to 129x129 pixel YUV420 SP (NV12).
+
+> Le 20 mars 2026 =C3=A0 09:21, Simon Horman <horms@kernel.org> a =C3=A9cr=
+it :
 >=20
-> This requirement is documented explicitly for the RGA3 in=C2=A0 section 5=
-.6.3
-> of the RK3588 TRM Part 2. For the RGA2 the RK3588 TRM Part 2
-> (section 6.1.2) and RK3568 TRM Part 2 (section 14.2) only mentions the
-> x/y offsets and stride aligning requirements. But the vendor driver for
-> the RGA2 also contains checks for the width and height to be aligned to
-> 2 bytes.
+> Checkpatch warns that ENOSYS only means 'invalid syscall nr'.
+>=20
+> Looking over the implementation of of_property_read_u32() it seems to =
+me
+> that -EINVAL is sufficient to detect that a property is not present. =
+Which
+> may be appropriate here.
 
-Note that this patch does not apply cleanly anymore on media tree.
+I added the check on -ENOSYS because in v8 Jakub commented [1] on the =
+fact
+that if the kernel is built with CONFIG_OF=3Dn, of_property_read_u32() =
+will
+return ENOSYS. If ENOSYS is not handled there, then the call will return =
+an
+error while it shouldn=E2=80=99t.
 
-Nicolas
+Damien
+
+[1] https://lkml.org/lkml/2026/3/17/2464
 
 >=20
-> Signed-off-by: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
-> ---
-> =C2=A0drivers/media/platform/rockchip/rga/rga.c | 19 ++++++++++++++-----
-> =C2=A01 file changed, 14 insertions(+), 5 deletions(-)
+> Likewise in patch 4/4.
 >=20
-> diff --git a/drivers/media/platform/rockchip/rga/rga.c
-> b/drivers/media/platform/rockchip/rga/rga.c
-> index 21a3c6cd38dbc..4fa6adb10b7ee 100644
-> --- a/drivers/media/platform/rockchip/rga/rga.c
-> +++ b/drivers/media/platform/rockchip/rga/rga.c
-> @@ -337,6 +337,19 @@ static int vidioc_try_fmt(struct file *file, void *p=
-riv,
-> struct v4l2_format *f)
-> =C2=A0	struct rga_ctx *ctx =3D file_to_rga_ctx(file);
-> =C2=A0	const struct rga_hw *hw =3D ctx->rga->hw;
-> =C2=A0	struct rga_fmt *fmt;
-> +	struct v4l2_frmsize_stepwise frmsize =3D {
-> +		.min_width =3D hw->min_width,
-> +		.max_width =3D hw->max_width,
-> +		.min_height =3D hw->min_height,
-> +		.max_height =3D hw->max_height,
-> +		.step_width =3D 1,
-> +		.step_height =3D 1,
-> +	};
-> +
-> +	if (v4l2_is_format_yuv(v4l2_format_info(pix_fmt->pixelformat))) {
-> +		frmsize.step_width =3D 2;
-> +		frmsize.step_height =3D 2;
-> +	}
-> =C2=A0
-> =C2=A0	if (V4L2_TYPE_IS_CAPTURE(f->type)) {
-> =C2=A0		const struct rga_frame *frm;
-> @@ -358,11 +371,7 @@ static int vidioc_try_fmt(struct file *file, void *p=
-riv,
-> struct v4l2_format *f)
-> =C2=A0	if (!fmt)
-> =C2=A0		fmt =3D &hw->formats[0];
-> =C2=A0
-> -	pix_fmt->width =3D clamp(pix_fmt->width,
-> -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hw->min_width, hw->max_width);
-> -	pix_fmt->height =3D clamp(pix_fmt->height,
-> -				hw->min_height, hw->max_height);
-> -
-> +	v4l2_apply_frmsize_constraints(&pix_fmt->width, &pix_fmt->height,
-> &frmsize);
-> =C2=A0	v4l2_fill_pixfmt_mp(pix_fmt, fmt->fourcc, pix_fmt->width, pix_fmt-
-> >height);
-> =C2=A0	pix_fmt->field =3D V4L2_FIELD_NONE;
-> =C2=A0
+> Using a quick grep of the tree, I do notice the same pattern as above =
+is
+> also present (only?) in aquantia_main.c.  So depending on the outcome =
+of this
+> discussion it might be appropriate to update that too.
+>=20
+>> +
+>> + if (ret)
+>> + return ret;
+>> +
+>> + if (order & ~1)
+>> + return -EINVAL;
+>> +
+>> + return rtl8224_package_modify_mmd(phydev, MDIO_MMD_VEND1,
+>> +  RTL8224_VND1_MDI_PAIR_SWAP,
+>> +  BIT(port_offset),
+>> +  order ? BIT(port_offset) : 0);
+>> +}
+>> +
+>> +static int rtl8224_config_init(struct phy_device *phydev)
+>> +{
+>> + return rtl8224_mdi_config_order(phydev);
+>> +}
+>=20
+> ...
+>=20
+>> @@ -2395,6 +2457,8 @@ static struct phy_driver realtek_drvs[] =3D {
+>> PHY_ID_MATCH_EXACT(0x001ccad0),
+>> .name =3D "RTL8224 2.5Gbps PHY",
+>> .flags =3D PHY_POLL_CABLE_TEST,
+>> + .probe =3D rtl8224_probe,
+>> + .config_init =3D rtl8224_config_init,
+>> .get_features =3D rtl822x_c45_get_features,
+>> .config_aneg =3D rtl822x_c45_config_aneg,
+>> .read_status =3D rtl822x_c45_read_status,
+>> --=20
+>> 2.47.3
+>>=20
 
---=-t3BfNkZ1XvbTv4YhgNLe
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCab2OtAAKCRDZQZRRKWBy
-9MmQAQCrq5Bi/y1zl0zHwVIxfCHjsZqGNHwbHIIvV4A/z7/XcAD9G0Q42e3zcsrV
-sPuu16CRCrqR+Iovo2HHd2w2m9G1xQc=
-=mCI6
------END PGP SIGNATURE-----
-
---=-t3BfNkZ1XvbTv4YhgNLe--
