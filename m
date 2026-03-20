@@ -1,97 +1,279 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8492E3D8916;
-	Fri, 20 Mar 2026 17:57:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53DE83DB64E
+	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 17:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774029478; cv=none; b=BbYO3lCbTs1h+FasOyf1KZSpzw5gC5v7x3lKz9vSQ4mz64A5ILCrsdsSCNh7FCPwl5Z10ueuV6Zhatt577wsomVU3Q69dKSz3RxjcGhIYrno5mETO3xjZ2YX4jSuDKXBAP4+7gdP6ePtXq2rhaGf6DEgdL0wi9YAW8yn4KTOr6U=
+	t=1774029547; cv=none; b=ErLQPuE6mgwH1XdkeUw905YnJOKpO38uaAe4qAFSaX+8jx0FmdaCH7EEsOk334U7cGirjaheVr90V+VQkX9LaAJ/NlKHaQv7qPHRX6dJYAAIxTVHPBAq484R6+YXrOIMoc2rQLSpsaXzvQgIaivIDpiYYSDu1ghZYBhIEhr90eU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774029478; c=relaxed/simple;
-	bh=jmlZAFC0O6Wcr4/Nnsc+XHzmSxe0aADhPHpDWXnHAgE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oHEYCaoJrEvMacBGGrdvvmskLkJJ+QxSVPOX/giSlW1PCdOPJ1gKp7k+zSpbJwCbWQxJXd3JgrL9UkAJ0KPBFkRBjWUE6i+7nzLp3GHL+VQp5VQPeILXHnyktqziXdok43xpY0KFPWXMH05BTeEc4Sbk9xxQdouveC11641xPSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=apOam+80; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774029547; c=relaxed/simple;
+	bh=mknhkPtyofLdqd31WD43VR1SdxPjV76bX0yeTgSZ4VE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=N3HPeEIkgXDIUr9/rHuFk1zJ+Or55XLQjIOz6hNJUlWpVojzDnaz75Q1cH+hOQ4CxRggl9xDvCRtv3jMrhTbAzVU/J9ahE/nV/KKkVQk2xDBSfzEPdpVlweTNDzWajaLRWZJxQKGz52mxeCxYyip7vgplg0+FG8Zdmb01/5R1GQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20230601.gappssmtp.com header.i=@ndufresne-ca.20230601.gappssmtp.com header.b=lGuqGKRl; arc=none smtp.client-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="apOam+80"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDB30C4CEF7;
-	Fri, 20 Mar 2026 17:57:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774029478;
-	bh=jmlZAFC0O6Wcr4/Nnsc+XHzmSxe0aADhPHpDWXnHAgE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=apOam+80akB2uqBD3AaaDvLT9EFQT6f96GyTxo0DfHjxiyUel156WDhchmUyjhu/o
-	 k7J+cw/jcOyb5CPHMJrHU6wCa2U3fQ1EmGwM7ucHlJdBV5DLq6RdTUJ6xC3SH6b5EX
-	 SrEyl+JYwJA7girNHXQIyhe+PyFAE50WnMMeUTAo+F/1l8m8hFwlnfVG64k7aEg+77
-	 tbFTZqtq1haLQagloeft1GVPjU1sA9pk4AJFPObAqEenD/5wq0g+1GyB0EIcFBEqOH
-	 9W8qfS2Roa3iChWSflNuKZQwCcuzsGCbJPTZ2G5xtcp1Vv/22pBlEZD8lDC3aCh0XO
-	 aPN84pcnlbKKA==
-Date: Fri, 20 Mar 2026 17:57:53 +0000
-From: Conor Dooley <conor@kernel.org>
-To: =?iso-8859-1?Q?Andr=E9?= Svensson <andre.svensson@axis.com>
-Cc: Support Opensource <support.opensource@diasemi.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Adam Ward <Adam.Ward.opensource@diasemi.com>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	kernel@axis.com, Waqar Hameed <waqar.hameed@axis.com>
-Subject: Re: [PATCH v2 1/2] regulator: dt-bindings: dlg,da9121: Add
- dlg,no-gpio-control
-Message-ID: <20260320-banking-aerobics-7f32ef819d1a@spud>
-References: <20260320-no-gpio-control-v2-0-dbc938e462cb@axis.com>
- <20260320-no-gpio-control-v2-1-dbc938e462cb@axis.com>
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20230601.gappssmtp.com header.i=@ndufresne-ca.20230601.gappssmtp.com header.b="lGuqGKRl"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-8cfc40e4158so190083285a.1
+        for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 10:59:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20230601.gappssmtp.com; s=20230601; t=1774029544; x=1774634344; darn=vger.kernel.org;
+        h=mime-version:user-agent:references:in-reply-to:date:cc:to:from
+         :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=DWkKoVAEpPTbhlQcGao02ZYKop/ZGqIz8O7PUwO5+Xk=;
+        b=lGuqGKRlLtf7kijeXTwsEt2Vf7TyglLo+qlXKOwsvMthyobT/nRDPILwlsCrkkyzSx
+         Ue9qMv9oIR73iCQCTPhDMIPXAc+xN5dPDoYfLwvzrTlai/WiWEFnRZcvVFKbfAXDaGe/
+         c0BHIQj4D/DyzajmbpL8xgYN+PgCDkBKwT1redhukH+rSvbPcbJPHH/XkEE6yLz2LfBU
+         c13+IOM9rWTaKTGxNA5pCB0FAIrkDndRw2w8w+y7HOlYtLSa2eK7bliZPg9OWJAE8U/D
+         LDJ2mImGGGKDnc5TKGCuAebbmIxQSOnw7D6ypOtzXf4dpoQpPkpHQ29GnbVbBFcr+L8J
+         cI4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774029544; x=1774634344;
+        h=mime-version:user-agent:references:in-reply-to:date:cc:to:from
+         :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=DWkKoVAEpPTbhlQcGao02ZYKop/ZGqIz8O7PUwO5+Xk=;
+        b=m2R5JwCvyVkh+BKUAaBO0o0fS8UnWXJ6+NUZy7MLE+LQfBuUJvDdU1mQcRHQpsamSn
+         B1jKiWg0sGXCdNbvyVNmsdLgPyQwGNTMok59UfwcEo/gjA66gL4AoSBfjLnDDu6nEuKg
+         /IfaCKBEscwAXmlI8TtCBxLmQiMeF7EQbI+RbSDRga9b3H7hgQqVM4AtL6XNXgGFy55j
+         cCRIbmcdOx4wvB0iskY2j9gVgzIV74W7bOOiWs2U1zpljRLTUM6J84+uv+Rsob3kX6jT
+         8XpSUNTkt76AsRsxlK1ahH9eDrkgvzIJ5gGCVG7Y7j3+K34mNCbAo5kxVHXlJ0K/4h4F
+         4knw==
+X-Forwarded-Encrypted: i=1; AJvYcCXkow9ts6HgJapIwIopvEnm+pJL/PrMBlr1VTbfNbzzOGt3mcN73/YWTdL2Ume6UrMs4w2OsDtr4kOh@vger.kernel.org
+X-Gm-Message-State: AOJu0YxngnF9SoJilZEej8ToynAC9xQEi0Co0RCL3idQg5iQE4BiUc2m
+	nEB0QHdQQ77gUXxg0O/F1AXNYjqLHavZ7dHT8C3MILmQkuiZzxFb86LePyQJctgvSVI=
+X-Gm-Gg: ATEYQzz4htVVApb3OgZqvhPwVDoCY4R7p3tOdB+CKUc6Mqu71ohO9z6HnEuMIgjcp95
+	473rnlVlBt7AC07I7ndAaE8JSEIpgT+oF4KGVnibj4/SEqO/SlDM8xWNweyNU6zjvMw3bPrPGiX
+	3SBkrraqgcGOYI72nhSIepnQMb758dY4A6SD12y6gATRpqjI+rJ95xdtnR7vscsqrVteXKL9PeG
+	F6IX5jEy+7cMnBUvETrZJvgudgpcbloPH69IY78/ukpCE4eVI5P169dc9jMmSU9ReIvW47MFgX+
+	F1kD+Zxs5r29NdbVJYR/E1F9HCYyeXSrlzYYdJneXIFn9/pgxsT8r41acwyyvzIw5NP4Fme2YLO
+	Cys+JDwOiEuXL3CZvpNlRNEiFmmPa/sHzTMvWjqtZ0zVDZgQlBwwWsrqLr+K0lU/WYtomwCPqDr
+	xNRY38/jRCvu0Ma/cmOSRVm35r9drM
+X-Received: by 2002:a05:620a:4110:b0:8cf:c77f:f4e2 with SMTP id af79cd13be357-8cfc7f86b0cmr579713085a.67.1774029544140;
+        Fri, 20 Mar 2026 10:59:04 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:b76d::5ac? ([2606:6d00:11:b76d::5ac])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8cfc90e2d27sm233119785a.43.2026.03.20.10.59.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Mar 2026 10:59:03 -0700 (PDT)
+Message-ID: <46d7ccd7500771bf66f830040b3e306785866ea8.camel@ndufresne.ca>
+Subject: Re: [PATCH v3 19/27] media: rockchip: rga: support external iommus
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Sven =?ISO-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>, Jacob Chen
+	 <jacob-chen@iotwrt.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Rob Herring
+	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	 <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, kernel@pengutronix.de
+Date: Fri, 20 Mar 2026 13:59:02 -0400
+In-Reply-To: <20260127-spu-rga3-v3-19-77b273067beb@pengutronix.de>
+References: <20260127-spu-rga3-v3-0-77b273067beb@pengutronix.de>
+	 <20260127-spu-rga3-v3-19-77b273067beb@pengutronix.de>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-GSvc32jDQd071V5aC8lf"
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kKFvItNu0VTBCqk4"
-Content-Disposition: inline
-In-Reply-To: <20260320-no-gpio-control-v2-1-dbc938e462cb@axis.com>
 
 
---kKFvItNu0VTBCqk4
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+--=-GSvc32jDQd071V5aC8lf
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Mar 20, 2026 at 08:33:24AM +0100, Andr=E9 Svensson wrote:
-> Add the optional boolean property dlg,no-gpio-control. When present, it
-> indicates that no DA91xx GPIO pins are configured/used with functions
-> RELOAD/DVC/EN, which can affect the output voltage control, regulator
-> mode control and enable signal control.
+Le mardi 27 janvier 2026 =C3=A0 15:39 +0100, Sven P=C3=BCschel a =C3=A9crit=
+=C2=A0:
+> In preparation for the RGA3 add support for external iommus. This is a
+> transition step to just disable the RGA2 specific mmu table setup code.
 >=20
-> The absence of relevant GPIO DT properties does not imply that the
-> RELOAD/DVC/EN GPIO functions are unused. These functions are provided by
-> DA91xx GPIO pins and may be controlled by external hardware without
-> corresponding GPIO DT properties. The dlg,no-gpio-control property
-> explicitly indicates that none of these GPIO functions are used.
+> Currently a simple rga_hw struct field is used to set the internal iommu.
+> But to handle the case of more sophisticated detection mechanisms
+> (e.g. check for an iommu property in the device tree), it is abstracted
+> by an inline function.
 >=20
-> It is mutually exclusive with enable-gpios, regardless of whether the
-> referenced GPIO is connected to a GPIO pin or the IC_EN pin, since
-> enable-gpios allows the regulator to be controlled via an external
-> hardware signal.
->=20
-> Co-developed-by: Waqar Hameed <waqar.hameed@axis.com>
-> Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
-> Signed-off-by: Andr=E9 Svensson <andre.svensson@axis.com>
+> Signed-off-by: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
---kKFvItNu0VTBCqk4
+> ---
+> =C2=A0drivers/media/platform/rockchip/rga/rga-buf.c | 31 ++++++++++++++++=
+++--------
+> -
+> =C2=A0drivers/media/platform/rockchip/rga/rga-hw.c=C2=A0 |=C2=A0 1 +
+> =C2=A0drivers/media/platform/rockchip/rga/rga.c=C2=A0=C2=A0=C2=A0=C2=A0 |=
+ 11 ++++++++--
+> =C2=A0drivers/media/platform/rockchip/rga/rga.h=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 6 ++++++
+> =C2=A04 files changed, 37 insertions(+), 12 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/rockchip/rga/rga-buf.c
+> b/drivers/media/platform/rockchip/rga/rga-buf.c
+> index bc349d0a46365..4e82ca1a5e8d9 100644
+> --- a/drivers/media/platform/rockchip/rga/rga-buf.c
+> +++ b/drivers/media/platform/rockchip/rga/rga-buf.c
+> @@ -12,6 +12,7 @@
+> =C2=A0#include <media/v4l2-ioctl.h>
+> =C2=A0#include <media/v4l2-mem2mem.h>
+> =C2=A0#include <media/videobuf2-dma-sg.h>
+> +#include <media/videobuf2-dma-contig.h>
+> =C2=A0#include <media/videobuf2-v4l2.h>
+> =C2=A0
+> =C2=A0#include "rga.h"
+> @@ -82,6 +83,9 @@ static int rga_buf_init(struct vb2_buffer *vb)
+> =C2=A0	if (IS_ERR(f))
+> =C2=A0		return PTR_ERR(f);
+> =C2=A0
+> +	if (!rga_has_internal_iommu(rga))
+> +		return 0;
+> +
+> =C2=A0	n_desc =3D DIV_ROUND_UP(f->size, PAGE_SIZE);
+> =C2=A0
+> =C2=A0	rbuf->n_desc =3D n_desc;
+> @@ -136,17 +140,21 @@ static int rga_buf_prepare(struct vb2_buffer *vb)
+> =C2=A0	for (i =3D 0; i < vb->num_planes; i++) {
+> =C2=A0		vb2_set_plane_payload(vb, i, f->pix.plane_fmt[i].sizeimage);
+> =C2=A0
+> -		/* Create local MMU table for RGA */
+> -		n_desc =3D fill_descriptors(&rbuf->dma_desc[curr_desc],
+> -					=C2=A0 rbuf->n_desc - curr_desc,
+> -					=C2=A0 vb2_dma_sg_plane_desc(vb, i));
+> -		if (n_desc < 0) {
+> -			v4l2_err(&ctx->rga->v4l2_dev,
+> -				 "Failed to map video buffer to RGA\n");
+> -			return n_desc;
+> +		if (rga_has_internal_iommu(ctx->rga)) {
+> +			/* Create local MMU table for RGA */
+> +			n_desc =3D fill_descriptors(&rbuf->dma_desc[curr_desc],
+> +						=C2=A0 rbuf->n_desc - curr_desc,
+> +						=C2=A0 vb2_dma_sg_plane_desc(vb,
+> i));
+> +			if (n_desc < 0) {
+> +				v4l2_err(&ctx->rga->v4l2_dev,
+> +					 "Failed to map video buffer to
+> RGA\n");
+> +				return n_desc;
+> +			}
+> +			dma_addrs[i] =3D curr_desc << PAGE_SHIFT;
+> +			curr_desc +=3D n_desc;
+> +		} else {
+> +			dma_addrs[i] =3D vb2_dma_contig_plane_dma_addr(vb, i);
+> =C2=A0		}
+> -		dma_addrs[i] =3D curr_desc << PAGE_SHIFT;
+> -		curr_desc +=3D n_desc;
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	/* Fill the remaining planes */
+> @@ -176,6 +184,9 @@ static void rga_buf_cleanup(struct vb2_buffer *vb)
+> =C2=A0	struct rga_ctx *ctx =3D vb2_get_drv_priv(vb->vb2_queue);
+> =C2=A0	struct rockchip_rga *rga =3D ctx->rga;
+> =C2=A0
+> +	if (!rga_has_internal_iommu(rga))
+> +		return;
+> +
+> =C2=A0	dma_free_coherent(rga->dev, rbuf->n_desc * sizeof(*rbuf->dma_desc)=
+,
+> =C2=A0			=C2=A0 rbuf->dma_desc, rbuf->dma_desc_pa);
+> =C2=A0}
+> diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c
+> b/drivers/media/platform/rockchip/rga/rga-hw.c
+> index bf4a86a640ec5..2013b59701d12 100644
+> --- a/drivers/media/platform/rockchip/rga/rga-hw.c
+> +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+> @@ -577,6 +577,7 @@ static struct rga_fmt formats[] =3D {
+> =C2=A0
+> =C2=A0const struct rga_hw rga2_hw =3D {
+> =C2=A0	.card_type =3D "rga2",
+> +	.has_internal_iommu =3D true,
+> =C2=A0	.formats =3D formats,
+> =C2=A0	.num_formats =3D ARRAY_SIZE(formats),
+> =C2=A0	.cmdbuf_size =3D RGA_CMDBUF_SIZE,
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c
+> b/drivers/media/platform/rockchip/rga/rga.c
+> index f33e2288dab6f..b13ff8d7c572c 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -23,6 +23,7 @@
+> =C2=A0#include <media/v4l2-ioctl.h>
+> =C2=A0#include <media/v4l2-mem2mem.h>
+> =C2=A0#include <media/videobuf2-dma-sg.h>
+> +#include <media/videobuf2-dma-contig.h>
+> =C2=A0#include <media/videobuf2-v4l2.h>
+> =C2=A0
+> =C2=A0#include "rga.h"
+> @@ -95,7 +96,10 @@ queue_init(void *priv, struct vb2_queue *src_vq, struc=
+t
+> vb2_queue *dst_vq)
+> =C2=A0	src_vq->io_modes =3D VB2_MMAP | VB2_DMABUF;
+> =C2=A0	src_vq->drv_priv =3D ctx;
+> =C2=A0	src_vq->ops =3D &rga_qops;
+> -	src_vq->mem_ops =3D &vb2_dma_sg_memops;
+> +	if (rga_has_internal_iommu(ctx->rga))
+> +		src_vq->mem_ops =3D &vb2_dma_sg_memops;
+> +	else
+> +		src_vq->mem_ops =3D &vb2_dma_contig_memops;
+> =C2=A0	src_vq->gfp_flags =3D __GFP_DMA32;
+> =C2=A0	src_vq->buf_struct_size =3D sizeof(struct rga_vb_buffer);
+> =C2=A0	src_vq->timestamp_flags =3D V4L2_BUF_FLAG_TIMESTAMP_COPY;
+> @@ -110,7 +114,10 @@ queue_init(void *priv, struct vb2_queue *src_vq, str=
+uct
+> vb2_queue *dst_vq)
+> =C2=A0	dst_vq->io_modes =3D VB2_MMAP | VB2_DMABUF;
+> =C2=A0	dst_vq->drv_priv =3D ctx;
+> =C2=A0	dst_vq->ops =3D &rga_qops;
+> -	dst_vq->mem_ops =3D &vb2_dma_sg_memops;
+> +	if (rga_has_internal_iommu(ctx->rga))
+> +		dst_vq->mem_ops =3D &vb2_dma_sg_memops;
+> +	else
+> +		dst_vq->mem_ops =3D &vb2_dma_contig_memops;
+> =C2=A0	dst_vq->gfp_flags =3D __GFP_DMA32;
+> =C2=A0	dst_vq->buf_struct_size =3D sizeof(struct rga_vb_buffer);
+> =C2=A0	dst_vq->timestamp_flags =3D V4L2_BUF_FLAG_TIMESTAMP_COPY;
+> diff --git a/drivers/media/platform/rockchip/rga/rga.h
+> b/drivers/media/platform/rockchip/rga/rga.h
+> index 025b1df594e9a..95fa7fd1c509a 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.h
+> +++ b/drivers/media/platform/rockchip/rga/rga.h
+> @@ -146,6 +146,7 @@ static inline void rga_mod(struct rockchip_rga *rga, =
+u32
+> reg, u32 val, u32 mask)
+> =C2=A0
+> =C2=A0struct rga_hw {
+> =C2=A0	const char *card_type;
+> +	bool has_internal_iommu;
+> =C2=A0	struct rga_fmt *formats;
+> =C2=A0	u32 num_formats;
+> =C2=A0	size_t cmdbuf_size;
+> @@ -161,6 +162,11 @@ struct rga_hw {
+> =C2=A0	void (*get_version)(struct rockchip_rga *rga);
+> =C2=A0};
+> =C2=A0
+> +static inline bool rga_has_internal_iommu(const struct rockchip_rga *rga=
+)
+> +{
+> +	return rga->hw->has_internal_iommu;
+> +}
+> +
+> =C2=A0extern const struct rga_hw rga2_hw;
+> =C2=A0
+> =C2=A0#endif
+
+--=-GSvc32jDQd071V5aC8lf
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCab2KoQAKCRB4tDGHoIJi
-0oEnAQCaXGxxG+f2BlEeAwMbBn4YDjk2cr87i+YQ7OAEqyfnzgD/VlgrtObRGoS1
-/H5po9pdcL2PLEi6ot1IpsOj8ESQjQE=
-=/TEg
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCab2K5gAKCRDZQZRRKWBy
+9BfxAP9HitbV0tE91+TsUII6EawZfO2n00kNhSwOcuYpTi+2HgD/YMHoY2wU9gZ2
+za+IWdj6j8GuSEbo6yXP/lEI/rjmEgk=
+=xHfo
 -----END PGP SIGNATURE-----
 
---kKFvItNu0VTBCqk4--
+--=-GSvc32jDQd071V5aC8lf--
