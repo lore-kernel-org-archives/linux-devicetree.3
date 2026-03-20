@@ -1,28 +1,28 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11020136.outbound.protection.outlook.com [52.101.84.136])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11021101.outbound.protection.outlook.com [40.107.130.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F213B19DA;
-	Fri, 20 Mar 2026 21:24:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262D037B006;
+	Fri, 20 Mar 2026 21:24:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.101
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774041873; cv=fail; b=TColmMa6nNzFLxEyUr42qtwL1W/BvEy5Z0qaX60egqJXOT9flwWSa6NXRyNS3i6RN7L16ekUvynRsFIPyg6mMPOgL4Q8x6WHHXeXNkSAaAkme6AwauEzw0aQphGiLAVcO/GNTQjTDdMFvyM1wjSSSfYs31Bdn2sPLyfbEP1Il0I=
+	t=1774041876; cv=fail; b=Dlu5L6CjAIcEjgxRGURzoW57sMXP9+jAhKXGJgN3H6c0o//BivaMYpU7MfYy6L7i1yArhdJcJDqI14JREU2B7lAxWSMvfTWQMLkCJ3xqZyueA/Fx1LLvXgsNsEKEkBy+Uau0qB/wsay0n+w7m2v3J6NlbErSk5PEaPKfzQhk6ao=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774041873; c=relaxed/simple;
-	bh=OUV1Kdqb2mKugzxWzkQnxqGW7Ed1T8m8cvIw99PHiWw=;
+	s=arc-20240116; t=1774041876; c=relaxed/simple;
+	bh=ha0JSIfIJuQdfOZZFz4fWpn3+TPHQeMXH1qG1p/1NN4=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nzxN5cmK+2ihYbP5umxh9BghU4tc22CZJzFGj1VAGzsqjc7QCQ4BlD5nqENprQ5h0J8MFLrQhrH8dYvjXmIrAv54Rdr3GOJfHG6gqezl8h/32CEo2vywPo7RQfCOQXlvOZdlJXv/7hcFFZqUr7hMe5InoC31HITfpYtiQ9TcBns=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de; spf=pass smtp.mailfrom=phytec.de; dkim=pass (2048-bit key) header.d=phytec.de header.i=@phytec.de header.b=n6f5DuCd; arc=fail smtp.client-ip=52.101.84.136
+	 MIME-Version:Content-Type; b=DhgFJz473eMJxQGjqjFfpNoNDs+btdH04dXT9NDV2sM1BNPelQR05pVR+Npd6Nkt0ZkflzJOvd27cZIO96HSFRZHTC30CpGMLQV4khNeWBMWIPHlQO2IRLynd0CyDRVXjHYGrcF3aKoNLivKtKKZ2FJKWjLp1USP1MggRmfhOaM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de; spf=pass smtp.mailfrom=phytec.de; dkim=pass (2048-bit key) header.d=phytec.de header.i=@phytec.de header.b=Ac8EPgHQ; arc=fail smtp.client-ip=40.107.130.101
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=phytec.de header.i=@phytec.de header.b="n6f5DuCd"
+	dkim=pass (2048-bit key) header.d=phytec.de header.i=@phytec.de header.b="Ac8EPgHQ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FL3l+cKpGFTuI23CSj3Q71E1F7a1XdD4eOAdcLw3Dytc3Q/D3Dp2l2ORlcDm6kqJsN6Ld+Ck2GBogFPKhoR20ii9BgvcoWexQZRycC46H0Y6i7eHfu5qQrBfLXOlYjkoVRVb+B8zDsicFXTQaXclKnrCnBn6l8nAXZ4wY05MFqgLtxdCooMIFA6pYBQJO4yb+3ookwmKPQNMYgd7XxWG0AzcfLFMbhWI4LejhHyELY9CvlNQKroRIr92rsAqGID1dO9eXrTYqgwth9obemdwczmlJlgGvkRJ9UDhdeBK//l6Roley+q0GoD2qDn2ltp87Gl3GwBnG5jVHe5K4ZANuQ==
+ b=X5HBbvgd8dKKLabRJEvoMdeJptT/PIup1mugiJ7Qoy4D24BlZudufCkpcu/4taAO/YdP7qKplL/qJBvc+rYejtTumdwtbs5wKwAqH4/ej98TIDKPOG0mCbhC6QW1QubsCUiXwt32qbaoeDVEMKOkVUdq5gWcHAVdUEvk+J4GiZNRaSu29mE7dLwKETci9dAmNdHvi0y5ci0IaBJ3o+64WM6N2SbRxeNEm/xD4fljWiEK93Zoi2JelP/5rb+T+L8l+f6e9EzK2k3PiZTF4TyqfTvXuKkrTBipsdiWLBiA+SCCP3fqRo1gRJdHNH7Pe+/7/a9KDLMY+U0gnQXYIgixRA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7RV2HoIl2Dbd56PnXrVWjJjNm+o9XrWmQJLfzQh3mH4=;
- b=K4BDpaRKuekF/Eukl9Nz/u7aG4RfC424eLQT5e2qCRBfHlsi6I5tvWkRpfj5yHCJcDenl0w+bSQioOM7kb90AwAix+cEd1+YZRTpseie8FdBHl8VGOSjA30bFaqGsH/HrjsUA1EFv6Czu4rqvMrKLVovpkGMmukS9gzOPm9IEa96K3sq50wnlWHFAMFlSSHjSS8isOlUhVuVlj/eNOqE0R5eDBhcAX9mD6PuaUIt/bENUvrB/VaaBFi8UEoCJppwxZlEko4wY+roDT28ti4l7EYOunP1rwLMl4sK4XGj5/oP3F+R9mePrvtVtnZmQGQbifi+VpMb4oZJdbXaRoBlxw==
+ bh=Nd0ezTWZbgsJJkOY2aoyS1jTDq4ZlVMpL+sneRi2glU=;
+ b=j/8oliaYKuxBLJA6tBk1kNJCeD8Q6A7tUHVV3D14qd9b5Y0arHfObajfEFFS84y2mgjKGn5IkHEOm5+jsBqptzALKppf9A0YI6tf9qBdjXMreSxYSvJfgKD3Bq+cd7accTny+TdrrgMa977ttKYsJ3e+m+8aSIJhO2HUNSfdLmMRJGgoSD10sLKOfz/9ZhoCfcXAXmxwsO+JaUkuAxI0P9r1p3dxngDwiq+XKpx6TmqtPNiDwRSgFgxaEDShQUN/VacYLTp4fDeMJ/q1RzgnXV0uB1a0eUC4ST5feqs2tG236k7JDkou+5QG3s51GhCfIf4q4derp/YOUs5ri3ZZWQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 91.26.50.189) smtp.rcpttodomain=ti.com smtp.mailfrom=phytec.de; dmarc=fail
  (p=quarantine sp=quarantine pct=100) action=quarantine header.from=phytec.de;
@@ -30,31 +30,31 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7RV2HoIl2Dbd56PnXrVWjJjNm+o9XrWmQJLfzQh3mH4=;
- b=n6f5DuCdtHSjArs+aM5Zs3JvEeul0psB2zhahOl/A6Ps8xLeHam1vcs40EHZDb5+W81+XtQkpLi4VCMm5ripzffN5WP+KqOxbLlTLedEbVPNS9wx+gCgHVnEqtEFBz+GT06rvbgxTw5kt4pClDWjTNge0dC+ZqZn/KYZZBteIam6rd6d8CwsgFtz3Ka4ABiEZsm3tvXkUzgyNoeIKB6lMLvuCZ1o1gSqs8KrtYyqsiv/X9LBpt2+vGq7AJu0ilEc+oOQ6P9TiQM239CoYJrlirELzU0n356MfmO1u0btDX4BdIblKq1hSaQL/L63NAHOQPbdYdF+6Vx8ajO+TOUSkw==
-Received: from AM5PR1001CA0007.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:206:2::20)
- by GV2PPF66DDA38E3.EURP195.PROD.OUTLOOK.COM (2603:10a6:158:401::8d1) with
+ bh=Nd0ezTWZbgsJJkOY2aoyS1jTDq4ZlVMpL+sneRi2glU=;
+ b=Ac8EPgHQKHTIdlUKhHHyJ0UPONcWXxA5OOOH02XFGItDic+pxNbcruqps/VIUVZpePS1ipZVxWnN4l9Gl0NIXDFUCRV5kVCdRvL6/hNuGb6A0xgtqqQaaoyoGGu4UpOGMXwBl5LhHr3YcYbXG89huaLjsCoF2zG2QEeAtYLuqpiHef366oqtG66oK4DJWVT6uayrNRX9V2F146c+92jfJUkaVlxQb2nP24EcWF0gEh7Hx7iLyuPV4NiNRkYVt9orGu+cet+FdWEt/9kgtKTwI6Szi9laHb5R7Baudj2ESNXvhNEdzNqxVaxPa/pEJWgP5R/mlEuiTCnGwqUAZXeJQw==
+Received: from AM0P190CA0004.EURP190.PROD.OUTLOOK.COM (2603:10a6:208:190::14)
+ by BESP195MB2778.EURP195.PROD.OUTLOOK.COM (2603:10a6:b10:ec::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.13; Fri, 20 Mar
- 2026 21:24:18 +0000
-Received: from AMS0EPF00000194.eurprd05.prod.outlook.com
- (2603:10a6:206:2:cafe::7d) by AM5PR1001CA0007.outlook.office365.com
- (2603:10a6:206:2::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.19 via Frontend Transport; Fri,
- 20 Mar 2026 21:24:18 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Fri, 20 Mar
+ 2026 21:24:24 +0000
+Received: from AMS0EPF00000195.eurprd05.prod.outlook.com
+ (2603:10a6:208:190:cafe::4e) by AM0P190CA0004.outlook.office365.com
+ (2603:10a6:208:190::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.23 via Frontend Transport; Fri,
+ 20 Mar 2026 21:24:24 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 91.26.50.189)
  smtp.mailfrom=phytec.de; dkim=none (message not signed)
  header.d=none;dmarc=fail action=quarantine header.from=phytec.de;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  phytec.de discourages use of 91.26.50.189 as permitted sender)
 Received: from Postix.phytec.de (91.26.50.189) by
- AMS0EPF00000194.mail.protection.outlook.com (10.167.16.214) with Microsoft
+ AMS0EPF00000195.mail.protection.outlook.com (10.167.16.215) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19 via Frontend Transport; Fri, 20 Mar 2026 21:24:18 +0000
+ 15.20.9723.19 via Frontend Transport; Fri, 20 Mar 2026 21:24:23 +0000
 Received: from lws-haller-privat.attlocal.net (172.25.39.212) by
  Postix.phytec.de (172.25.0.11) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 20 Mar
- 2026 22:24:14 +0100
+ 2026 22:24:20 +0100
 From: Dominik Haller <d.haller@phytec.de>
 To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, "Tero
  Kristo" <kristo@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
@@ -62,9 +62,9 @@ To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, "Tero
 CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>, <upstream@lists.phytec.de>, "Dominik
  Haller" <d.haller@phytec.de>
-Subject: [PATCH v4 3/5] arm64: dts: ti: k3-am68-phyboard-izar: Add LVDS-Display
-Date: Fri, 20 Mar 2026 14:23:44 -0700
-Message-ID: <20260320212349.420951-4-d.haller@phytec.de>
+Subject: [PATCH v4 5/5] arm64: dts: ti: k3-am68-phyboard-izar: Add PEB-AV-15 overlay
+Date: Fri, 20 Mar 2026 14:23:46 -0700
+Message-ID: <20260320212349.420951-6-d.haller@phytec.de>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260320212349.420951-1-d.haller@phytec.de>
 References: <20260320212349.420951-1-d.haller@phytec.de>
@@ -80,68 +80,69 @@ X-ClientProxiedBy: Postix.phytec.de (172.25.0.11) To Postix.phytec.de
  (172.25.0.11)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF00000194:EE_|GV2PPF66DDA38E3:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f11c19d-a9e2-4a14-a8a1-08de86c70ba5
+X-MS-TrafficTypeDiagnostic: AMS0EPF00000195:EE_|BESP195MB2778:EE_
+X-MS-Office365-Filtering-Correlation-Id: 780e38a4-6247-4382-d917-08de86c70edc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|376014|22082099003|18002099003|56012099003;
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|18002099003|56012099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	my1x4JquHtUOJdbFha4eeOWur5fb+OSzYMMetU0bLOj4S3NEgxTXzxtAmQ0+SErii6AP59ZpwUb06XtxAnJ9B//jkBT6V0SFsH5lVx2ss8y1trYzQqhd1gRBlmVvDae19z1K22gxM8Lo2WPAaaXwi8j+x+GnHr6jMQx1Ozr0KjnLKiiQfS8N5YfE8pzdqRDSyk8FQ99VUrFdkRAtAX6PVGoJIfne2eaZYuKenzHsqDlu1xtekWcfPH8eloEaz15jlClcBOAnignq8BcC4Q0qW0jpQoCQPPXQoJUBgdy8IQWDb+gBN6NvNtmXANO9+3fLMe7ng9871fT9nWkX539c5vGmkwMgqQk7X1SahVcIMOWSk9VrcBRZ3AVmqRSm2Wsw6ylxsvW+Gf2xZaA7NY9dYyhSgSg8LSzglGaFnZTaSz4b0SzVk7u6SxxXBZ+wfneUz+Af/G0cO5lZONCrEIubcy+FOoz3W+UJCouw6MFc/BzBUwHDRzbMxiGk5g9mTKD2eijlLvSZ3h6RgAoh+CWShWOLrqoyjdT1JN2r82JKLtqt+IpZXCUMkCG56d9FTnSXstxBqlROeEbYOl4eogpFZzah3AHlV6tlhhLXk07QBJQm3d0n5z0BJD4fDB360SuyZxkwEt4zjXk3wjRVnqrBELYrO5mLxDVsq8QzCX/HFrr0AEIxwq8bYLUXGEJ3pFYmkJE4xtQDfr3mnwvM1CSTlikqWKecPV0zioogdLz5s5xRmOYvxO1CwCiX1a4htKZWbT5M54Qr21sWiyUbTB1XvQ==
+	4Da4YFoeT5fw0qv7cgQVzrMAFiE3bo+dYLNnuGkSH6DJQYPRVxLku65YHK78H8ciieGW9jv5DGdULd307zakxQiCmWote16PY+i9ZVZ66BLW+vySaWs29qXtOV7y14lggQ+CNQMfQETaxOtAkR6dujb7NyEyqrsXQ6qVIy6mX/Tnq074atmztoskO044GBW/1nvLkisBK1WXPhlUOF5/BedP8e/d0O/q9kVCvheXwc/oyMx2qdL7hefXZlFAdkAqWa/VbqZ+Z9NJaxkbZDJSghVHzewSYgDwH3xLTVvzmYNtFzoO0cBD8bFRN1cIWfAKjX3ajAnLqrZUspIwFpPQldGRXbR88iXBVJxFGrmPDOvvK6XKTjLUtbVqLxiZaS64yYtDoIafpqPn6bZxytfDjtRu00uU71WYblBVuh2Z1u+hjOvfuZf5Tw22x2bkYRUPrMihIEKrpBMs9zcQfO4q76w7WpyYyNoHZxtQe//3WT0TwzFqjrQxSNPkpkA5U5czfOOCABQtQV7Vv9ctvIVYJwIXEvOVUvT790xbMr/ZKuxMks4nS2m3lvFoY2mU8ajNDgY8r//clqT2/dulbgoYm414SAEJn6KDSRtuQHEoXkZCsRz/M4wGGMGhw9c08H0ki72N+f85Z6uWy4IQKOE+slXZo3HYM8NXEHZ7mAUcaqYNQ3O1x3cOdu6SrSlYvEr9G5BF03Zvgjc/jGw0p2r5uhvld5z1d7zlUVM8J7X6BavDi7GgzDa5omMYvny578sMACbcLJegZ37D5LbnhpwXPg==
 X-Forefront-Antispam-Report:
-	CIP:91.26.50.189;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:Postix.phytec.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1102;
+	CIP:91.26.50.189;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:Postix.phytec.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	m6kgt9MARjIVzUVC7wLmN2pJgzTPiN0N8nQIABBegJIFy2O2uLYIfJwNTpkMLxPIgKcDK1H3jhG/qnUZP4vyT4A9pKMIui9/rk6nEOUs9GopW85DLKHvUZcPBGlBRu6YsooFIlvd8xW4EnTThoeToY5auPpEB3TArKLwyM/xVsmXMSXcCgQQSdqDPC+x6JoHwoeJ37RNSpFiAeJ2eRAEkUSH06za80UTBj8xuUF2wGC0KNnGH4CxJrO9675igNZydrR5J24ZOc0Pu6Ax4W6uB3r3FBJbYaGXPB+ZS6XRyeL+cjKj/VyI5+iMNQ2Cy/YSUAnho29YrMJLP5EFxeT9Zx+CfE88nYV/x1JPOhjpSVSvdbL0qVq8dIWRvisPFZC3LUuwtz3YTxb4XVnrlR9VXzr7exDw6o+d5p2y1VrTKNpMBHW1C8H26SzhQe6VV6hf
+	aCcUwW/h5x7CzlhW58ReezrdnlFbcJxxVnuIn7HQ1VeUbFKJKl8ZhQVK5Z+hcKGOTI1nTUwStxS//TbhkPUfrAImrYNB6khhgIfFMUQEb4cXeYiNRmBKqfhimKc7mrqNRnhNdnRQ5bqvSPZMXN4yfhD92op5ylQXA3OT/gsRJbzAws0Tor+DHTU9yhkYOdnJI75nsarZ4DHrg8c5ezoXiNh2k5W7rqssmdT4Wm+WMTjiafI1OAxB+ZOVp7rxf+W6/A6qwZM/J7H631ilDE8v4SOlHTTQj6alnVg4Nk++se0MLOnlduyS2jD4yUAKedUlXMU0dkjK9ADvh9MA7hHJbw/+Jy2mGLp9feHL2/72GN9MGcAqgWq3wvXvqpQk2jJHukOLm+lcRjTW72/PPh/qT1BkDpQ8EjR0EDF00efQTKQ4WsXEIPGNe5uz3rp4tJzh
 X-OriginatorOrg: phytec.de
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 21:24:18.4788
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 21:24:23.8718
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f11c19d-a9e2-4a14-a8a1-08de86c70ba5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 780e38a4-6247-4382-d917-08de86c70edc
 X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e609157c-80e2-446d-9be3-9c99c2399d29;Ip=[91.26.50.189];Helo=[Postix.phytec.de]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF00000194.eurprd05.prod.outlook.com
+	AMS0EPF00000195.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PPF66DDA38E3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BESP195MB2778
 
-Add an overlay to use a powertip,ph128800t006-zhc01 10.1" LVDS display.
+Add an overlay to use the PEB-AV-15 AV-Adapter. It's a small expansion board
+using a Lontium LT8912B DSI->HDMI bridge and a TLV320AIC3007 audio codec.
 
 Signed-off-by: Dominik Haller <d.haller@phytec.de>
 ---
  arch/arm64/boot/dts/ti/Makefile               |   4 +
- ...-am68-phyboard-izar-lvds-ph128800t006.dtso | 125 ++++++++++++++++++
- 2 files changed, 129 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-lvds-ph128800t006.dtso
+ .../ti/k3-am68-phyboard-izar-peb-av-15.dtso   | 191 ++++++++++++++++++
+ 2 files changed, 195 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-peb-av-15.dtso
 
 diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index ba01a929e06f..a188e62e32b4 100644
+index a188e62e32b4..ae5994818ad2 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -132,6 +132,9 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-csi2-dual-imx219.dtbo
- 
- # Boards with J721s2 SoC
- dtb-$(CONFIG_ARCH_K3) += k3-am68-phyboard-izar.dtb
-+dtb-$(CONFIG_ARCH_K3) += k3-am68-phyboard-izar-lvds-ph128800t006.dtb
-+k3-am68-phyboard-izar-lvds-ph128800t006-dtbs := k3-am68-phyboard-izar.dtb \
-+	k3-am68-phyboard-izar-lvds-ph128800t006.dtbo
+@@ -135,6 +135,9 @@ dtb-$(CONFIG_ARCH_K3) += k3-am68-phyboard-izar.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am68-phyboard-izar-lvds-ph128800t006.dtb
+ k3-am68-phyboard-izar-lvds-ph128800t006-dtbs := k3-am68-phyboard-izar.dtb \
+ 	k3-am68-phyboard-izar-lvds-ph128800t006.dtbo
++dtb-$(CONFIG_ARCH_K3) += k3-am68-phyboard-izar-peb-av-15.dtb
++k3-am68-phyboard-izar-peb-av-15-dtbs := k3-am68-phyboard-izar.dtb \
++        k3-am68-phyboard-izar-peb-av-15.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-am68-sk-base-board.dtb
  dtb-$(CONFIG_ARCH_K3) += k3-am68-sk-base-board-pcie1-ep.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j721s2-common-proc-board.dtb
-@@ -319,6 +322,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-am642-tqma64xxl-mbax4xxl-sdcard.dtb \
+@@ -323,6 +326,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
  	k3-am642-tqma64xxl-mbax4xxl-wlan.dtb \
  	k3-am67a-kontron-sa67-base-gpios.dtb \
-+	k3-am68-phyboard-izar-lvds-ph128800t006.dtb \
+ 	k3-am68-phyboard-izar-lvds-ph128800t006.dtb \
++	k3-am68-phyboard-izar-peb-av-15.dtb \
  	k3-am68-sk-base-board-csi2-dual-imx219.dtb \
  	k3-am68-sk-base-board-pcie1-ep.dtb \
  	k3-am69-sk-csi2-dual-imx219.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-lvds-ph128800t006.dtso b/arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-lvds-ph128800t006.dtso
+diff --git a/arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-peb-av-15.dtso b/arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-peb-av-15.dtso
 new file mode 100644
-index 000000000000..9eb28aa9e8ef
+index 000000000000..92007bfd5d53
 --- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-lvds-ph128800t006.dtso
-@@ -0,0 +1,125 @@
++++ b/arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-peb-av-15.dtso
+@@ -0,0 +1,191 @@
 +// SPDX-License-Identifier: GPL-2.0-only OR MIT
 +/*
 + * Copyright (C) 2026 PHYTEC Messtechnik GmbH
@@ -152,53 +153,96 @@ index 000000000000..9eb28aa9e8ef
 +/plugin/;
 +
 +#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/pwm/pwm.h>
 +#include "k3-pinctrl.h"
 +
 +&{/} {
-+	backlight_lvds: backlight {
-+		compatible = "pwm-backlight";
-+		brightness-levels = <0 32 64 96 128 160 192 224 255>;
-+		default-brightness-level = <6>;
-+		enable-gpios = <&exp2 12 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&backlight_pins_default>;
-+		power-supply = <&bl_12v>;
-+		pwms = <&main_ehrpwm0 1 44000 0>;
++	audio_refclk1: audio-clock {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <19200000>;
 +	};
 +
-+	bl_12v: regulator-backlight {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpio = <&exp2 13 GPIO_ACTIVE_HIGH>;
-+		regulator-name = "BL_12V";
-+		regulator-min-microvolt = <12000000>;
-+		regulator-max-microvolt = <12000000>;
-+	};
-+
-+	panel-lvds {
-+		compatible = "powertip,ph128800t006-zhc01";
-+		backlight = <&backlight_lvds>;
-+		power-supply = <&vcc_5v0>;
++	hdmi: hdmi-connector {
++		compatible = "hdmi-connector";
++		label = "hdmi";
++		type = "a";
++		ddc-i2c-bus = <&main_i2c2>;
 +
 +		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&panel_bridge_out>;
++			hdmi_connector_in: endpoint {
++				remote-endpoint = <&lt8912b_out>;
 +			};
 +		};
 +	};
-+};
 +
-+&main_pmx0 {
-+	backlight_pins_default: backlight-default-pins {
-+		pinctrl-single,pins = <
-+			J721S2_IOPAD(0x064, PIN_OUTPUT, 9) /* (W28) MCAN0_TX.EHRPWM0_B */
-+		>;
++	reg_audio_3v3: regulator-audio-3v3 {
++		compatible = "regulator-fixed";
++		regulator-name = "VCC3V3_AUDIO";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		regulator-always-on;
 +	};
++
++	reg_audio_1v8: regulator-audio-1v8 {
++		compatible = "regulator-fixed";
++		regulator-name = "VCC1V8_AUDIO";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		regulator-always-on;
++	};
++
++	sound {
++		compatible = "simple-audio-card";
++		simple-audio-card,name = "PEB-AV-15";
++		simple-audio-card,widgets =
++			"Headphone", "Headphone Jack",
++			"Microphone", "Mic Jack";
++		simple-audio-card,routing =
++			"Headphone Jack", "HPLOUT",
++			"Headphone Jack", "HPROUT",
++			"MIC3R", "Mic Jack",
++			"Mic Jack", "Mic Bias";
++		simple-audio-card,format = "dsp_b";
++		simple-audio-card,bitclock-inversion;
++		simple-audio-card,bitclock-master = <&link0_codec>;
++		simple-audio-card,frame-master = <&link0_codec>;
++
++		link0_cpu: simple-audio-card,cpu {
++			sound-dai = <&mcasp0>;
++		};
++
++		link0_codec: simple-audio-card,codec {
++			sound-dai = <&audio_codec>;
++			clocks = <&audio_refclk1>;
++		};
++	};
++
 +};
 +
-+&dphy_tx0 {
++&dphy_tx1 {
 +	status = "okay";
++};
++
++&dsi1 {
++	status = "okay";
++};
++
++&dsi1_ports {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	port@0 {
++		reg = <0>;
++		dsi1_out: endpoint {
++			remote-endpoint = <&lt8912b_in>;
++		};
++	};
++
++	port@1 {
++		reg = <1>;
++		dsi1_in: endpoint {
++			remote-endpoint = <&dpi3_out>;
++		};
++	};
 +};
 +
 +&dss {
@@ -209,62 +253,85 @@ index 000000000000..9eb28aa9e8ef
 +	#address-cells = <1>;
 +	#size-cells = <0>;
 +
-+	port@2 {
-+		reg = <2>;
-+		dpi2_out: endpoint {
-+			remote-endpoint = <&dsi0_in>;
++	port@3 {
++		reg = <3>;
++		dpi3_out: endpoint {
++			remote-endpoint = <&dsi1_in>;
 +		};
 +	};
 +};
 +
-+&dsi0 {
++&mcasp0 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&mcasp0_pins>;
++
++	#sound-dai-cells = <0>;
++
++	op-mode = <0>;	/* MCASP_IIS_MODE */
++	tdm-slots = <2>;
++
++	/* 4 serializers */
++	serial-dir = <  /* 0: INACTIVE, 1: TX, 2: RX */
++		2 0 0 1
++		0 0 0 0
++		0 0 0 0
++		0 0 0 0
++	>;
++
++	tx-num-evt = <32>;
++	rx-num-evt = <32>;
 +	status = "okay";
 +};
 +
-+&dsi0_ports {
++&main_i2c2 {
 +	#address-cells = <1>;
 +	#size-cells = <0>;
 +
-+	port@0 {
-+		reg = <0>;
-+		dsi0_out: endpoint {
-+			remote-endpoint = <&panel_bridge_in>;
-+		};
++	audio_codec: audio-codec@18 {
++		compatible = "ti,tlv320aic3007";
++		reg = <0x18>;
++		#sound-dai-cells = <0>;
++		ai3x-micbias-vg = <2>;
++		AVDD-supply = <&reg_audio_3v3>;
++		IOVDD-supply = <&reg_audio_3v3>;
++		DRVDD-supply = <&reg_audio_3v3>;
++		DVDD-supply = <&reg_audio_1v8>;
 +	};
 +
-+	port@1 {
-+		reg = <1>;
-+		dsi0_in: endpoint {
-+			remote-endpoint = <&dpi2_out>;
++	bridge@48 {
++		compatible = "lontium,lt8912b";
++		reg = <0x48>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				lt8912b_in: endpoint {
++					data-lanes = <0 1 2 3>;
++					remote-endpoint = <&dsi1_out>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++				lt8912b_out: endpoint {
++					remote-endpoint = <&hdmi_connector_in>;
++				};
++			};
 +		};
 +	};
 +};
 +
-+&main_ehrpwm0 {
-+	status = "okay";
-+};
-+
-+&sn65dsi83 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			panel_bridge_in: endpoint {
-+				remote-endpoint = <&dsi0_out>;
-+				data-lanes = <1 2 3 4>;
-+			};
-+		};
-+
-+		port@2 {
-+			reg = <2>;
-+			panel_bridge_out: endpoint {
-+				remote-endpoint = <&panel_in>;
-+			};
-+		};
++&main_pmx0 {
++	mcasp0_pins: mcasp0-default-pins {
++		pinctrl-single,pins = <
++			J721S2_IOPAD(0x03c, PIN_INPUT, 1) /* (U27) WCLK, MCASP0_AFSX.MCASP0_AFSX */
++			J721S2_IOPAD(0x038, PIN_INPUT, 1) /* (AB28) BCLK, MCASP0_ACLKX.MCASP0_ACLKX */
++			J721S2_IOPAD(0x040, PIN_OUTPUT, 1) /* (AC28) DOUT, MCASP0_AXR0.MCASP0_AXR0 */
++			J721S2_IOPAD(0x07c, PIN_INPUT, 1) /* (T27) DIN, MCASP0_AXR3.MCASP0_AXR3 */
++		>;
 +	};
 +};
 -- 
