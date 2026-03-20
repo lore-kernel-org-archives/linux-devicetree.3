@@ -1,162 +1,105 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from mail-10698.protonmail.ch (mail-10698.protonmail.ch [79.135.106.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9530136829D
-	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 22:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D27387587;
+	Fri, 20 Mar 2026 22:32:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774045602; cv=none; b=KfT2WzYt2TirODcHBCg5PzV2myTIDwE7MCFMSJ9klUHFruTCQvW9LnuLauVMtXhSaqPDEMhBPJYYKEpmIKQZgmr/5Ytmwz6rQG0SOvJlbmqkRg1ymfRu2e4978HKvIn7LzjLVTRFiYiVvWm52BSKl8j707pNpPP7jFqLS/GSp2g=
+	t=1774045955; cv=none; b=ABvOB93sNPp82EU+VHfx23RuxhxbAI/l+GfW1n3Th9X5D8ko7QDT/lEIbKEjhlemd6BYWrsoKN+zta+uLvMX4FhYdvuIO9twmg1DWeP4o4U8S2e1k5DB0jzxK93+cuRWdqCHbNiIFVPM9KCaaOrPe3PwbOXDLwEHiAXcvAwXEhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774045602; c=relaxed/simple;
-	bh=FK1pbSj7tp+6dz4SihDf8FWNcyRCRO/fK7HZr2aR//o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MrCZbsKN2y8ikKQgBz9Ah6lyehUGaA/SMrQ5B2IPN+5lkRKqhHBO7Lkm/uUCWhYAE87Hx/+hQW3KRHX4ofKb3BcpZB2845/nPZC4mQKPvaJ9djWKmZ99kmaotjcbXOI7LdYTMv02D6hYxbo9or47CcpJMNSUCIQn4P0jp2CXCDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <mfe@pengutronix.de>)
-	id 1w3iIV-00081g-SE; Fri, 20 Mar 2026 23:26:27 +0100
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mfe@pengutronix.de>)
-	id 1w3iIV-001JCW-1F;
-	Fri, 20 Mar 2026 23:26:27 +0100
-Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <mfe@pengutronix.de>)
-	id 1w3iIV-0000000Cwq7-18eI;
-	Fri, 20 Mar 2026 23:26:27 +0100
-Date: Fri, 20 Mar 2026 23:26:27 +0100
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Fabio Estevam <festevam@gmail.com>, Matthias Kaehlcke <mka@chromium.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, kernel@pengutronix.de
-Subject: Re: [PATCH v5 2/4] usb: hub: add infrastructure to pass onboard_dev
- port features
-Message-ID: <pvgcyrpwzk5dnfjcozwfwcb2rxqvjrczeyn2y4ukvpsvdrdmz3@fquetrj7unub>
-References: <20260223-v6-16-topic-usb-onboard-dev-v5-0-28d3018a8026@pengutronix.de>
- <20260223-v6-16-topic-usb-onboard-dev-v5-2-28d3018a8026@pengutronix.de>
- <2026031101-rut-storable-7def@gregkh>
+	s=arc-20240116; t=1774045955; c=relaxed/simple;
+	bh=AbAJ6kJCpxIex40lxJPqgz8FVRA08Ydz8UH2X5iXfY8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gK+j59R1i2WL5gcl4+hRFkaCELKHoyk/ZAdnoC5XtV97Rpgp657Ao2WdIuMi7BzvmHsrTXeTw+Pf/ITKl0jSAlSc2zTn14ybRUlefiFwdUBLvO/blYxTYnVLlxJIMbADWl0UxhyqYewKvgsIzwGL7YIVjnBfm3+7TzzU5UuQM7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=vFq6emCH; arc=none smtp.client-ip=79.135.106.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="vFq6emCH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1774045944; x=1774305144;
+	bh=QyU3KziqZxd9HOhx4Gs65M6cMH9dTEoOjkIOFlgjlAc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=vFq6emCHQOyQdgP2aUob/id6mm+oqQrrLlZ0+Br2YAZCJIfE+0p1PO7CNZqeL+S8O
+	 Ce0CGIzI/T+aWIqq175gvxn67Pf0xf/y4YEm1qunOk8NApn8xoZkrWdlYZ09ZuRr22
+	 AUqFDNDwaJ8aOFkXGRq9XVelRMOBbwl/FEWkWZ3x5V181w54WtNeaoS3plf0VrhrA+
+	 wbHiMiCviLIUboZpHG0lX/KDlaB9e1jriYoIAjgVOmTuxPVvvNDNrKXuxTn7G5gQuB
+	 xgN1Hqo1XNX3uw8q+CqX+d6qHf25GkpYKu5Q5R9TEmN/5Fs6Dn/ZxZ4BuQT/FzyHh7
+	 XDemqkqBxICHQ==
+Date: Fri, 20 Mar 2026 22:32:18 +0000
+To: Krzysztof Kozlowski <krzk@kernel.org>
+From: cristian_ci <cristian_ci@protonmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v2 1/6] dt-bindings: display: panel: Add Novatek NT35532 LCD DSI
+Message-ID: <oMTrCB7euJojLz1EUHDhHCq071GQWD0g7-sqwahA62CnM-sVw08UCNhKdgHX2NrEN3H8iRhc0suejuq5JZ39UA2nEfKhRq9qwYJWSxCrAtc=@protonmail.com>
+In-Reply-To: <20260319-amorphous-pastoral-turtle-851af9@quoll>
+References: <20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com> <20260318-rimob-new-features-v2-1-c1bf8917449e@protonmail.com> <20260319-amorphous-pastoral-turtle-851af9@quoll>
+Feedback-ID: 27475468:user:proton
+X-Pm-Message-ID: aa5d67d40f9ced9875dfeb1b6597c0c1dad3b0c0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026031101-rut-storable-7def@gregkh>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mfe@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 26-03-11, Greg Kroah-Hartman wrote:
-> On Mon, Feb 23, 2026 at 12:27:35PM +0100, Marco Felsch wrote:
-> > On board devices may require special handling for en-/disable port
-> > features due to PCB design decisions e.g. enable/disable the VBUS power
-> > on the port via a host controlled regulator or GPIO.
-> > 
-> > This commit adds the necessary infrastructure to prepare the common code
-> > base for such use-cases.
-> > 
-> > Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
-> > ---
-> >  drivers/usb/core/hub.c | 55 ++++++++++++++++++++++++++++++++++++++++++++++++--
-> >  drivers/usb/core/hub.h |  2 ++
-> >  include/linux/usb.h    |  3 +++
-> >  3 files changed, 58 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-> > index 24960ba9caa915f12a4f5582269808fdebd1ee11..9fdfd2f0aacc9b1994cd3761330968e052167c67 100644
-> > --- a/drivers/usb/core/hub.c
-> > +++ b/drivers/usb/core/hub.c
-> > @@ -453,9 +453,19 @@ static int clear_hub_feature(struct usb_device *hdev, int feature)
-> >   */
-> >  int usb_clear_port_feature(struct usb_device *hdev, int port1, int feature)
-> >  {
-> > -	return usb_control_msg(hdev, usb_sndctrlpipe(hdev, 0),
-> > +	struct usb_hub *hub = usb_hub_to_struct_hub(hdev);
-> > +	int ret;
+On Thursday, March 19th, 2026 at 10:09, Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+
+> On Wed, Mar 18, 2026 at 11:28:09PM +0100, Cristian Cozzolino wrote:
+> > +  avdd-supply:
+> > +    description: positive boost supply regulator
 > > +
-> > +	ret = usb_control_msg(hdev, usb_sndctrlpipe(hdev, 0),
-> >  		USB_REQ_CLEAR_FEATURE, USB_RT_PORT, feature, port1,
-> >  		NULL, 0, 1000);
-> > +	if (ret)
-> > +		return ret;
+> > +  avee-supply:
+> > +    description: negative boost supply regulator
 > > +
-> > +	if (hub->onboard_hub_clear_port_feature)
-> > +		ret = hub->onboard_hub_clear_port_feature(hdev, feature, port1);
+> > +  vci-supply:
+> > +    description: regulator that supplies the analog voltage
 > > +
-> > +	return ret;
-> >  }
-> >  
-> >  /*
-> > @@ -463,9 +473,19 @@ int usb_clear_port_feature(struct usb_device *hdev, int port1, int feature)
-> >   */
-> >  static int set_port_feature(struct usb_device *hdev, int port1, int feature)
-> >  {
-> > -	return usb_control_msg(hdev, usb_sndctrlpipe(hdev, 0),
-> > +	struct usb_hub *hub = usb_hub_to_struct_hub(hdev);
-> > +	int ret;
+> > +  vddam-supply:
+> > +    description: power supply for MIPI interface
 > > +
-> > +	ret = usb_control_msg(hdev, usb_sndctrlpipe(hdev, 0),
-> >  		USB_REQ_SET_FEATURE, USB_RT_PORT, feature, port1,
-> >  		NULL, 0, 1000);
-> > +	if (ret)
-> > +		return ret;
+> > +  vddi-supply:
+> > +    description: regulator that supplies the I/O voltage
 > > +
-> > +	if (hub->onboard_hub_set_port_feature)
-> > +		ret = hub->onboard_hub_set_port_feature(hdev, feature, port1);
+> > +  port: true
 > > +
-> > +	return ret;
-> >  }
-> >  
-> >  static char *to_led_name(int selector)
-> > @@ -6545,6 +6565,37 @@ void usb_hub_adjust_deviceremovable(struct usb_device *hdev,
-> >  	}
-> >  }
-> >  
-> > +/**
-> > + * usb_hub_register_port_feature_hooks - Register port set/get feature hooks
-> > + * @hdev: USB device belonging to the usb hub
-> > + * @set_port_feature: set_feature hook which gets called by the hub core
-> > + * @clear_port_feature: clear_feature hook which gets called by the hub core
-> > + *
-> > + * Register set/get_port_feature hooks for a onboard_dev hub.
-> > + */
-> > +void usb_hub_register_port_feature_hooks(struct usb_device *hdev,
-> > +		int (*set_port_feature)(struct usb_device *, int, int),
-> > +		int (*clear_port_feature)(struct usb_device *, int, int))
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - reset-gpios
+> > +  - avdd-supply
+> > +  - avee-supply
+> > +  - vci-supply
+>=20
+> Only VDDI is required according to datasheet (see page 11 and page 16).
+
+Just to be sure, are you mentioning the part saying there are multiple=20
+power modes (2-1PWR, 2-2PWR, 3=C3=A9WR and 4PWR) related to NT35532?=20
+
+> Others are needed only in specific configurations, which I would ignore
+> for the simplicity of the binding. Drop these three.
+>=20
+> Previous discussion point was about this - write bindings based on
+> datasheet, since it is available.
+
+I've removed avdd, avee and vci supplies from 'required' properties=20
+and I've also tested the new bindings (just for completeness). Now,=20
+I'm going to reintroduce again the issue already raised previously=20
+(for which I received no replies in v1): should I submit a v3=20
+series including my new changes or I've to stick with v2 here, in=20
+order to address review concerns about binding, first?
+
+> > +  - vddi-supply
+> > +  - port
+> > +
+> > +additionalProperties: false
+>=20
+> Best regards,
+> Krzysztof
+>=20
 > 
-> This should be a structure, don't force function pointers to be passed
-> in a function, that way lies madness :)
-
-Sure, do you have a proper struct name in mind already? How about:
- - usb_hub_hooks, or
- - usb_onboard_hub_hooks
-
-Regards,
-  Marco
-
-
-> 
-> thanks,
-> 
-> greg k-h
-> 
-
--- 
-#gernperDu 
-#CallMeByMyFirstName
-
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
