@@ -1,78 +1,87 @@
-Received: from mail-pg1-f225.google.com (mail-pg1-f225.google.com [209.85.215.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79319191F91
-	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 17:22:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57B2191F91
+	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 17:23:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774027372; cv=none; b=rWZHlgGdA0Xh+1ilvPRJQ42u/qmCttSViEYiyBEeQgCRmOHwOzRwa9atYbfjLNcaNHCl/o7h2+6Xkms3uFbKapQSUoHQPNfCI8lEpK5v/olkA6bSTbz+fOpzPdXgHzPllmOvX8JxIi266n9HIWEfADoX2acujtwyYX5r1pn9qYI=
+	t=1774027410; cv=none; b=Ic0w7aY1UzQ4Ln8aLWB7IZp542JKSBJWplM6ZeRKylx7wTWvKu1dBTBKyyb1hQlMt5rS80IhqsKF2upAqC/9L1vnqSpReOwOzp6YmFWPN02KHyTsQ+lHyizxm4By6O9lRTMMplcFAbv7lNfHGDgP9qgh6Nvf+tXVc1JtJw8l3+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774027372; c=relaxed/simple;
-	bh=OqjRQoj36ob6DBl7aSajpZlqMBO7G2mLP7Q6kVxI6JQ=;
+	s=arc-20240116; t=1774027410; c=relaxed/simple;
+	bh=OJJyQ7N3WF+j+dEurHCdLzCCk3xicc9di2O5Up0QKJE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IvfGoKUXjrA/tu8M0nBBYP4AcZTFYvnI+5vjy4WukyKtE7BVI//QciNbqXbI8pNESSB31SBOpvO9wFmm8kUPyQTOkY3n9cUuJC+PM7Zu8pAeGGotEvCnKLI93uYnpv4pKc1GxT9C4BoY6ydT9wjav5XcUUBTxYQrb2XNlbSn9z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=R9+T8ymB; arc=none smtp.client-ip=209.85.215.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	 In-Reply-To:Content-Type; b=RZ2SmLJxtcGd1zkgsOo68Usi6xzX1BrH26L8pJ4O4GM4aTYykNFyNXy25JuMvRbujodRFYy4a26sPvTq0Q1r+jQMHLnHaLNJFB50raah8E+YpCawTIhH0x6EYIffcEz0byMXJLI7xw3QWLPSKHrumGjxBB0Rv+h73vjKqP2P4mI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R3ae2ZQa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bYEn653p; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="R9+T8ymB"
-Received: by mail-pg1-f225.google.com with SMTP id 41be03b00d2f7-c73e9e4cdf7so331863a12.2
-        for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 10:22:51 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774027371; x=1774632171;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=oJqGquqzkfxqS4IFo/Hi5ODMiGLpsYRxUO+ZevxPhno=;
-        b=ql7qGdESiXG7g7msUArEKF0VQpu7nSkXvSP6vkPBtlNrxCPq+ry8MvJ5V8Ngqft/Gs
-         9jElsGNIMT8n83eUqyfRMsPsCHP4QFSysG7wmyQg9nhVsiwS1aGCEzP6JSV5fij7wrjr
-         uDpxoPuAEW47G16wjksGdTITC7o31Qf7sYxdwfNZfPfRc5J1GjsuwGwbsz2enjDNkb0E
-         eFvrlNSF9fdjjqn35A4sOkp8y87trk6Q2ELUagk6NS49OlZuF4sRVWWbdil4aJf9ACEi
-         jjFck9LF2XHUkU6wFTGmPJPNuXJ+j+vZ+caa/r6mT+x953Q5nTzmrbwq14usaLP6mVFf
-         /1eQ==
-X-Gm-Message-State: AOJu0YxD+pkKInO+1NDr20E48qNoSciT1WFSboo0SXC/gi6rmD8q6zfU
-	PsH1TDreX8Wuue7Ar+y93PrXmAOKBtmIFLDXhBHQUxnRjE6nYlMbS8fhunWkJGmo8D+0IJGPbr0
-	IKh+IWUKW2tp8bvzsi7bMHsARB8FvOTbKHUAzTMw1ezz87RvgqfPjQc5ZQ9+PWGFrISRkFi4Zkk
-	SbnLADcLpi39EfdAvD30iEKplQ19lKz7xsE76QZ1aIGq905T7AiiyGAdqUIB/HhSdDh8p4Jx8cb
-	gcvwEt5c49bQMMt76HQGw==
-X-Gm-Gg: ATEYQzyfPq9c9eJxwEWtNw7yZcE68/2JHtgHIC/PUGdHaunBrUoLf833MR3CK+0hBtt
-	XkD5WHfWmn+7hKea8B/N8kmCQnFhO5WNEF3FkX5rhqUCc6h+YwxwVEzrHY0x6OqfVI6KnHWJHpB
-	fasrv+8tL2O5rbLn7Y5AQmHqv2SmwpnqsCzcoEz+7oNFnQ4wwEvqlGsx+TiXzzVn67FAiEaRMti
-	bI5mWEPkgeDSf+ufKj6v/A1diYllZsEV6C0oux0aBnK3Zm6mJ3UNxKvlNWDETY/xkhAiPk7CSpW
-	rssC/2aERa78kT6XgvjDKwm8HEm/bQa+wQrnpYKXZbgvjhxK2C+CRujjnZXXkQrHO2EvrcZf4f0
-	t+z5yZKh3hJItWbGiQbCycX2VQrN+mm69UIT1gD6QHDtKG4GXkkxNkf9rxjrYHLzcyI/55IsFji
-	cnibJ0ID6ZNHkxtccCANkbMQBHGp+Z6lKcc7NTOo8dpdfzwyBWWqMYtdsg1sccvg==
-X-Received: by 2002:a05:6a21:3286:b0:398:7973:277e with SMTP id adf61e73a8af0-39bceb46fedmr3366894637.31.1774027370737;
-        Fri, 20 Mar 2026 10:22:50 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-20.dlp.protect.broadcom.com. [144.49.247.20])
-        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-c743a8728e8sm231057a12.2.2026.03.20.10.22.50
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 20 Mar 2026 10:22:50 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5091a96f0bcso29453181cf.1
-        for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 10:22:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R3ae2ZQa";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bYEn653p"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62KEFcaI1525568
+	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 17:23:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	SfbxDY9Im2+BtL9OZSyqlYbFE771o07gzHc0qIeYYj8=; b=R3ae2ZQam077UttZ
+	x0zRwZTNWjAMA8FgstZbdBkdXRWea+TBW5pCL2WGntLuUy16AW+gGbhRR9cxIo/j
+	FsOHoDoumCvoj01uDo5/MCv9rEyoyM+Puf/9wQnFoNGBxt8kB3T69HQh+KuX8UFN
+	1ys0pb+a38go2TnOAgHcZ8XDcuZfDrOcJ2S8lT7Pq6fvcEhpFRIY29kNP+O3b17m
+	gr2CTzfF0yCFcUTVoGl5uWAe/KPoeBgvy9LaZ1pWCbSaos6oG1Oqx/iFkP3Pch38
+	8cycW3/xqGInoL/V9W4bGzMvf3jg5T0IqayrphghBQ39cNtowrCnbrhYl2nqgdUR
+	W7OVig==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d0jt945tw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 17:23:27 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50b2cbe7223so130431911cf.2
+        for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 10:23:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1774027369; x=1774632169; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oJqGquqzkfxqS4IFo/Hi5ODMiGLpsYRxUO+ZevxPhno=;
-        b=R9+T8ymBtj55givUVeMp3BZk0dd4JyopwoMhOM+qAIW5ZDNECWM+l7rSDaa+DJlQRU
-         j3tFpXwvdQHnpmnR5zN6LQxZpKpQeVM/sH81t/+mb2BZqa2J7YE41C7azopy/N2DCnHv
-         nbVx3SAGFydVOHZnMhqNn7AIyXceyzy+5Qllo=
-X-Received: by 2002:a05:622a:1e92:b0:501:4d61:f02b with SMTP id d75a77b69052e-50b3759199cmr59306901cf.59.1774027369106;
-        Fri, 20 Mar 2026 10:22:49 -0700 (PDT)
-X-Received: by 2002:a05:622a:1e92:b0:501:4d61:f02b with SMTP id d75a77b69052e-50b3759199cmr59306491cf.59.1774027368639;
-        Fri, 20 Mar 2026 10:22:48 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-89c8534f9ccsm24884096d6.39.2026.03.20.10.22.47
+        d=oss.qualcomm.com; s=google; t=1774027407; x=1774632207; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=SfbxDY9Im2+BtL9OZSyqlYbFE771o07gzHc0qIeYYj8=;
+        b=bYEn653pghZh5RsoGTyHdW+nluxCMPOQdzY+67+k3OhxNWo/IlzPCPcDMJ+x+gVRWC
+         eDVlIbGJ3Z9JkgsLnKsDt0o+x1gu/JCxuGZLjzSYLH5NZDJLkK+CYyCiDLQxPdmPloXy
+         777gVXOAphFiVGorx4ufXzQ/Uk6D5IXlywbPVlHJaVNVmAqnSnmOq74/Iu6sWJOiFppp
+         jtze6H1otDfJ1xp+6Yyx13sld+/dFBvwYGVf7OZOPaccbyHcZgJX+3fYADtGfEBtZAWp
+         ABTJA2aGwH94HZP7cNS2zLOhZQuiFHEHnHw2KKRL2gkmOPqSrnJ/uFCLLTUu5Bwacay7
+         VUnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774027407; x=1774632207;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SfbxDY9Im2+BtL9OZSyqlYbFE771o07gzHc0qIeYYj8=;
+        b=OkqWExipgTpkY9QlBYIwiNi2wyT4xPtL35WpZoyxD53Do2XcqqmfmdK7/YhVhMuUyS
+         oAK2ppUgNYbMronzCpLxzAQ66ut5ZOAlNQXecyP8VQGk8T+9cbCR0wHoKS7ZTVz2GosY
+         MvGLa2wOYPkwALsWPuHAcJ2XFVQS7KwiCZ2EmJSmkQGE6SfgF6mY8wKGZtknFUt+87yd
+         PkQj3vdc5uujTOuyhTXWByDP7x097fEoLhHYMGnwSBhtr+A0flu80qqEJUMfhn2k2NhV
+         tVZ9jxqeN7C+EkGF8+Qo9Fn/TqUlm63CaB1smHuS2ZXQpZNtvlI3pkm11Mmf1eZO5/V1
+         UY3w==
+X-Forwarded-Encrypted: i=1; AJvYcCUPtP/nYN53OQ7kUsFlniDbFU8eeCK6bEIKvn4+mYQS2waekHV/2oxFOjD5+/De9roqeJSfNpB6cCAh@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz9Piao3NWBoNAARfeYeCruuX5AagsTCKmAq3Mhp8pREFjZwDss
+	eEswxRa3DyURBU3t2wTMGy3GdcwCSCEuG3QoawfEdHKC+iagZAhdhEEXKzh8SQ7oB/67zd/Dtr4
+	h7z7k0nqKiJYwoiaweimFRoLalkGHwirI/E7Jhehf3RJG83Yrl5mGuwri9005sg6U
+X-Gm-Gg: ATEYQzzfb6Ji+6GjTc/x/wY/PCYCEonMSqZE5cVh8z5AC0gh+M80H02G2XTHZCdykHm
+	dOY7vg6Hy96L8pSGXQq7KVBtHgJTeogVoM6SH3q9ZyXCezT0iCE6NaDoExm+lRA3a4YUN6WtjdZ
+	APket2pkssPUCN4W0jSBkTvtZhMPbY2WeDAaCQ1dT2JSwOB9HtQK1YaoDyFWQjOP+tlOXQFd+rn
+	NQ94ANRPp5ig1d0yXRtrkBWlLP794w7OpHib2ot7qiRZzZgJAqWtS1b0fKJc3nczlWL+z/yimIb
+	wx3fkFbkxFfzi9OKpDK32oEOQf3Satg3yug0AJ43mlVcrFrig/PqzroCq7bta54fqrB+1rSlOJu
+	amHA+9N/kPqCrzumSeJdLb2PvPa7a5i1KvDDM7Cg7ZY+Kr8ec1FrON5RldFTsfqsv5+6gnowxYy
+	hW46B/Cr/7
+X-Received: by 2002:a05:622a:7593:b0:50b:1932:c9c with SMTP id d75a77b69052e-50b374b1f0dmr45800131cf.40.1774027406965;
+        Fri, 20 Mar 2026 10:23:26 -0700 (PDT)
+X-Received: by 2002:a05:622a:7593:b0:50b:1932:c9c with SMTP id d75a77b69052e-50b374b1f0dmr45799691cf.40.1774027406461;
+        Fri, 20 Mar 2026 10:23:26 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:ae20:597c:99b8:d161? ([2a05:6e02:1041:c10:ae20:597c:99b8:d161])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-486f8b322d9sm139618585e9.8.2026.03.20.10.23.25
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 20 Mar 2026 10:22:48 -0700 (PDT)
-Message-ID: <68148c62-1cf7-4b65-a3b3-3b2da86a4a3b@broadcom.com>
-Date: Fri, 20 Mar 2026 10:22:46 -0700
+        Fri, 20 Mar 2026 10:23:25 -0700 (PDT)
+Message-ID: <faf511da-722d-4ea7-bf5a-9c7abbdd1379@oss.qualcomm.com>
+Date: Fri, 20 Mar 2026 18:23:24 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -80,73 +89,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] ARM: dts: broadcom: bcm2835-rpi: Move non
- simple-bus nodes to root level
-To: "Rob Herring (Arm)" <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260320154809.1246064-1-robh@kernel.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20260320154809.1246064-1-robh@kernel.org>
+Subject: Re: [PATCH 2/4] hwmon: Add Qualcomm PMIC BCL hardware monitor driver
+To: Guenter Roeck <linux@roeck-us.net>,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, amit.kucheria@oss.qualcomm.com,
+        Daniel Lezcano <daniel.lezcano@linaro.org>,
+        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+        linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260206-qcom-bcl-hwmon-v1-0-7b426f0b77a1@oss.qualcomm.com>
+ <20260206-qcom-bcl-hwmon-v1-2-7b426f0b77a1@oss.qualcomm.com>
+ <ab1fSWx7pqlSANph@mai.linaro.org>
+ <a922cf55-ebe7-4256-b3bb-cc732e45e1ff@roeck-us.net>
+ <6f4b27c5-074e-403a-90b8-fe7ef3a993b5@oss.qualcomm.com>
+ <1db8667b-5546-47bb-8ba5-cdb99fd60848@roeck-us.net>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <1db8667b-5546-47bb-8ba5-cdb99fd60848@roeck-us.net>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: UIBurofLmmjQFyjxI8lkZJqESGih5oAO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIwMDE0MCBTYWx0ZWRfXzZaa+22lWehg
+ 4Wn03qgwkIx3XBTdT28dCqQld5wLE6zJMd/xArVutlqIqnzXKtemoDE29zMYsKD5s+UBdr+skG/
+ blSzthVSYfJiUkKWNXE3oju0GhaEz+d6KUNQL19KXlh83TUrkIYGg4OBvSPlE4/hrEUqdnruOdT
+ VO/NjTJBIaSBxni+BNfAJoaAgkdOR8SM3AgwUsLklrpzIMQRU8VQ5pds7qAQTtn3CUOWWqa2k9g
+ VDXSXVq/bbLco8P9EIJ+oDgrTsfK01dUzSYODx3Mj6XghxTytdCGEXNZ48fmKjjpeRzdRv/T3Xj
+ GeB43uAtMtD2OHT9HLw3Q3UuU/f96PAu2L0Jq99KVlN512A/WEjZPO4Q35Gj59PTPuzPHO5MhFc
+ wQTf5R6j3LDRjVEMR+RUPEI+v363HazGSbgoMKaHw0As97PyeOevhOXYTBO9CJ4QOr0wZ4ow1EJ
+ apN1Eyh/pJfNXr/crow==
+X-Proofpoint-ORIG-GUID: UIBurofLmmjQFyjxI8lkZJqESGih5oAO
+X-Authority-Analysis: v=2.4 cv=FKMWBuos c=1 sm=1 tr=0 ts=69bd828f cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=N4zZDkH6pAkBRpc-Z9EA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-20_03,2026-03-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 bulkscore=0 spamscore=0 malwarescore=0
+ lowpriorityscore=0 clxscore=1015 adultscore=0 priorityscore=1501
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603200140
 
-On 3/20/26 08:48, Rob Herring (Arm) wrote:
-> The 'gpu' and 'firmware' nodes are not MMIO devices, so they should not be
-> under a 'simple-bus'. Additionally, the "raspberrypi,bcm2835-power" node
-> is part of the firmware, so move it under the 'rpi-firmware' node.
+On 3/20/26 17:59, Guenter Roeck wrote:
+> On 3/20/26 09:08, Daniel Lezcano wrote:
+>>
+>> Hi Guenter,
+>>
+>> On 3/20/26 16:22, Guenter Roeck wrote:
+>>> On 3/20/26 07:52, Daniel Lezcano wrote:
+>>
+>> [ ... ]
+>>
+>>>>> +
+>>>>> +ADD_BCL_HWMON_ALARM_MAPS(in, min, lcrit);
+>>>>> +ADD_BCL_HWMON_ALARM_MAPS(curr, max, crit);
+>>>>> +
+>>>>> +/* Interrupt names for each alarm level */
+>>>>> +static const char * const bcl_int_names[ALARM_MAX] = {
+>>>>> +    [LVL0] = "bcl-max-min",
+>>>>> +    [LVL1] = "bcl-critical",
+>>>>> +};
+>>>>
+>>>> IIUC there are three levels of alarms but the hwmon only has max/min
+>>>> and critical. Would it make sense to do adaptative min / max ? So when
+>>>
+>>> hwmon has lcrit, min, max, and crit alarms for all sensor types, plus
+>>> an additional _cap_alarm for power attributes and _emergency_alarm
+>>> for temperature attributes. There is also a generic _alarm attribute
+>>> for each sensor, which is supposed to be used if the specific alarm
+>>> type is not known.
+>>>
+>>> What exactly are the three levels of alarms ?
+>>
+>> Manaf can give more clarifications, but it is like we have yellow, 
+>> orange and red alarms. So there is an additional alarm comparing to 
+>> what is available in hwmon. The proposed driver maps orange and red 
+>> alarms, respectively to bcl-max and bcl-critical.
+>>
+>> I'm just asking if it is important to have this 'yellow' alarm ? And 
+>> as there is a missing alarm to describe it in hwmon, how can we use it ?
+>>
 > 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
-> Florian, you have the fixes for the prior versions in your tree, but not
-> the original commits they say they fix. These apply without the fixes.
+> Is this for high alarms only or also for low alarms ?
 
-If you were referring to these:
+It is high for over current and low for under voltage.
 
-https://lore.kernel.org/r/20260106-dt-dtbs-broadcom-fixes-v1-2-ba45874e4553@kernel.org
-https://lore.kernel.org/all/20260106-dt-dtbs-broadcom-fixes-v1-3-ba45874e4553@kernel.org/
+> I would not mind adding _emergency attributes for non-temperature
+> alarms if needed. We could also add another low alarm if needed,
+> though I don't have a good idea for a good name for that.
 
-I did take them as a prerequisite to apply your patches but a combined 
-set of patches works just as well.
+May be "warning" ?
 
-Thank you!
--- 
-Florian
+Alternatively, could it be interesting to have an alarm with a value 
+passed in the event which represent the value in the unit of the 
+monitored attribute ? So there is no need to add more alarm files
