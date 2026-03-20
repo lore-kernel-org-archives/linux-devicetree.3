@@ -1,97 +1,212 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B60637104E
-	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 21:25:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB46371057;
+	Fri, 20 Mar 2026 21:34:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774041934; cv=none; b=pfwyHHgJXn+cTO7eePPdRvB8Z8FzeY6HAAJ6TnmS5/EYr3Z0J05JfiZMx0NPqMh4Mbpopa2undZwV9938UERoBQCL/AzxAwiUmcESFlEFUva2Fzi9sstpKOSy2NYV6JXSTyiLwSGFIdg3FuV/KbDa4qEviRK64sxHPTjZTPR8yw=
+	t=1774042473; cv=none; b=YNfnfTvf9vh+pY1NJuYn2WU/T6TSFeM64BZQs5UAcG8gg/f7GuAkX4hW89MG6B3vsUs9/XV3gediscFEKqn5QZ+/nVm/+ViavtG3bazfvhU8ej1dyOlJ381LqjZwL5RK+0lT1kr6X00/sGjUXvoQQmF54yXmhfxSoWPowaKuJFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774041934; c=relaxed/simple;
-	bh=sAgiFG031bElYipESixIpj24GpWwr1Ns7a0BOIHYcHQ=;
+	s=arc-20240116; t=1774042473; c=relaxed/simple;
+	bh=mwwRIZbIIjglGv2fkJRIeVm4T2zTWqXi0WAyiRBPWqQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pKH28ZWeRTdghYHH4EKtGEk0XiCFHK/XB7nI0HzATDBgdBraPNe1p9enFS4Nh/ZrbqfIYGtzOnGEjTgVZNouYMYv0z/AKfU5PAma9QXBHSb7GWTn7indSSSYQ7wgslwbgBt20C8fZXhFGBju9Y5W8ElZJnr5MWv8CixYrqusBbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=iuaHDYlz; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ktl2+q5KQrWw7t93MbUO7Z8oYt9FgVhsVhL5qrmkZl/j1xbnHmxm/Aoh57CVGzMF3P4TZRfeY3oXSn6Iisi9rdHnVAmAHNcXbLPEXmTzjmxQmZosmRF1Pn5SzzTaQCCvEmaO4gGSpnoQ4vnIX7o4GraCT9NYFKZvo/1DDdZnDRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aZ6SjA6m; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="iuaHDYlz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=sAgi
-	FG031bElYipESixIpj24GpWwr1Ns7a0BOIHYcHQ=; b=iuaHDYlzT3bP9wjmvTPC
-	VOICncWG1ma1b5dAMT3PBbMOzS5M8xltNPps9kRqYn8ohJe8Sp04xwY0eprxjzhp
-	5X+gHOXwoH0Hq0abox7POGWZxSDpoZyediBTgg9PnIXFILTusBHNNiKNeW692Jdp
-	CygLH/YnA/OxrXcpZkBmCu70rKoiTXBWdASQuLDM2gi9L9lNbqqUIgMGgcPZuDcG
-	7fd67lNVS3fbycj/2E3Uua8ex5m5kjFIk+ve7Wkz2hoMFx7/YuiehqpWUlHCR5w9
-	HpgoQirJ0tQLpwAUCgwSR+V9K+/EGTXI8WKVkJ0DVa/AOm4cGepk8FGwL7uGjsZM
-	vw==
-Received: (qmail 1700833 invoked from network); 20 Mar 2026 22:25:29 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 20 Mar 2026 22:25:29 +0100
-X-UD-Smtp-Session: l3s3148p1@bjwBU3tNBMwujnsL
-Date: Fri, 20 Mar 2026 22:25:29 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju <biju.das.au@gmail.com>
-Cc: Chris Brandt <chris.brandt@renesas.com>,
-	Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aZ6SjA6m"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774042467; x=1805578467;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mwwRIZbIIjglGv2fkJRIeVm4T2zTWqXi0WAyiRBPWqQ=;
+  b=aZ6SjA6mPU1N25s1asBwWmbm4pdTTMFcTVOb2OydcPvlTpZIMC+OCWvI
+   watz1ipTtlGdf7OF5jNuaDemWZmRe2BS0XycP6pXoyOO988Fd45AxlR2s
+   p5Y2NTLtjxTaAmzlZ1TR700WpazKheiOyYeR3zZyvQds1gvkbSWzpjWTN
+   Q31KBabCvsEa76LUb6Pn3OjP4Aks4IjcHuWNu+FPBDbVzjXQGRz1uzwdE
+   vhvbXhH9s7lJJLc1d1tjwnT5EblEVp46YQM1tIns4iezFFSjChbzpYHuG
+   SOA9OV7EDud0NRQJXBT5L4Rqc61gjyjzdNV+9ovrGcQvphpvvFxiXd8yh
+   g==;
+X-CSE-ConnectionGUID: MHFVuep4To2BZ8sy45N32g==
+X-CSE-MsgGUID: FanRIY5yTwyEtkOXGm3J2A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11735"; a="75022962"
+X-IronPort-AV: E=Sophos;i="6.23,132,1770624000"; 
+   d="scan'208";a="75022962"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Mar 2026 14:34:26 -0700
+X-CSE-ConnectionGUID: KILZE8VNSMmX1+4z0CQwpA==
+X-CSE-MsgGUID: 3PY4lNNJRQ2JOHKxFrALqA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,132,1770624000"; 
+   d="scan'208";a="219160127"
+Received: from dhhellew-desk2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.171])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Mar 2026 14:34:23 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id D0C0F12033A;
+	Fri, 20 Mar 2026 23:34:23 +0200 (EET)
+Date: Fri, 20 Mar 2026 23:34:23 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Antoine Bernard <zalnir@proton.me>
+Cc: Arec Kao <arec.kao@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org, linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH] dt-bindings: i2c: renesas,riic: Document the R9A08G046
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"~postmarketos/upstreaming@lists.sr.ht" <~postmarketos/upstreaming@lists.sr.ht>
+Subject: Re: [PATCH 1/3] media: i2c: ov13b10: Add dvdd, dovdd and device tree
  support
-Message-ID: <ab27STFXwgOLr5Xc@shikoro>
-References: <20260304071732.5864-1-biju.das.jz@bp.renesas.com>
+Message-ID: <ab29XzACA3gXE4MI@kekkonen.localdomain>
+References: <WDExF9Cf1ELo55IwClyLBJqXeLe2-Kb2m3QYg7ex6qREa3HBG52CdMovctxuZ7W_ixhvHyjk9L73NDMCJi2ndkuDJcpzHSDs7Z5pEAgET60=@proton.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zVZR+CFJbEFFPASI"
-Content-Disposition: inline
-In-Reply-To: <20260304071732.5864-1-biju.das.jz@bp.renesas.com>
-
-
---zVZR+CFJbEFFPASI
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <WDExF9Cf1ELo55IwClyLBJqXeLe2-Kb2m3QYg7ex6qREa3HBG52CdMovctxuZ7W_ixhvHyjk9L73NDMCJi2ndkuDJcpzHSDs7Z5pEAgET60=@proton.me>
 
-On Wed, Mar 04, 2026 at 07:17:28AM +0000, Biju wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> Document the Renesas RZ/G3L (R9A08G046) RIIC IP. This is compatible with
-> the version available on Renesas RZ/V2H (R9A09G057).
->=20
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+Hi Antoine,
 
-Applied to for-next, thanks!
+Thanks for the patch.
 
+On Fri, Mar 20, 2026 at 09:25:21AM +0000, Antoine Bernard wrote:
+> From: Antoine Bernard <zalnir@proton.me>
+> 
+> The Xiaomi Pad 6 tablet uses the OV13B10 sensor with a device tree
+> match and dvdd/dovdd voltage supply specified.
+> 
+> Add support for optional dvdd and dovdd voltage supply, and add
+> a device tree match so that the rear camera can work on such tablets
+> without an ACPI.
+> 
+> Signed-off-by: Antoine Bernard <zalnir@proton.me>
+> ---
+>  drivers/media/i2c/ov13b10.c | 53 +++++++++++++++++++++++++++++++++++++
+>  1 file changed, 53 insertions(+)
+> 
+> diff --git a/drivers/media/i2c/ov13b10.c b/drivers/media/i2c/ov13b10.c
+> index 5421874732bc..47eced60542c 100644
+> --- a/drivers/media/i2c/ov13b10.c
+> +++ b/drivers/media/i2c/ov13b10.c
+> @@ -708,7 +708,11 @@ struct ov13b10 {
+>  	struct v4l2_ctrl_handler ctrl_handler;
+>  
+>  	struct clk *img_clk;
+> +
+>  	struct regulator *avdd;
+> +	struct regulator *dvdd;
+> +	struct regulator *dovdd;
 
---zVZR+CFJbEFFPASI
-Content-Type: application/pgp-signature; name="signature.asc"
+Could you use the regulator bulk API instead of adding each separately?
 
------BEGIN PGP SIGNATURE-----
+> +
+>  	struct gpio_desc *reset;
+>  
+>  	/* V4L2 Controls */
+> @@ -1197,6 +1201,10 @@ static int ov13b10_power_off(struct device *dev)
+>  
+>  	if (ov13b10->avdd)
+>  		regulator_disable(ov13b10->avdd);
+> +	if (ov13b10->dvdd)
+> +		regulator_disable(ov13b10->dvdd);
+> +	if (ov13b10->dovdd)
+> +		regulator_disable(ov13b10->dovdd);
+>  
+>  	clk_disable_unprepare(ov13b10->img_clk);
+>  
+> @@ -1224,6 +1232,24 @@ static int ov13b10_power_on(struct device *dev)
+>  		}
+>  	}
+>  
+> +	if (ov13b10->dvdd) {
+> +		ret = regulator_enable(ov13b10->dvdd);
+> +		if (ret < 0) {
+> +			dev_err(dev, "failed to enable dvdd: %d", ret);
+> +			clk_disable_unprepare(ov13b10->img_clk);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	if (ov13b10->dovdd) {
+> +		ret = regulator_enable(ov13b10->dovdd);
+> +		if (ret < 0) {
+> +			dev_err(dev, "failed to enable dovdd: %d", ret);
+> +			clk_disable_unprepare(ov13b10->img_clk);
+> +			return ret;
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmm9u0gACgkQFA3kzBSg
-KbZj2Q//ZKGxH2CW4HrGUd+n1EPLjZEBCIaDr5rOE1S9Dbpf/08kB2/5Ppz5AizB
-e9+CngsaVGJKWfv6p4lubRNQbGhwwNyMHWQv+FcPU5X0v6JYjvFkoXUBd8ITMM19
-qNdURDem2YaNGZAKyQLr1bqsLAN6q7hIUA3/yew3df1gr6qxo7v/h+3QjZW+wXdA
-99Ea3y9V34KankNSaCQkYFKGoZN3f3Qc9MY5N4J2fCMXmC9kiJsKOt4DOCQ9583v
-3f4noXNKEJcufm576j1W6JlPo9kEM5lASdWEIYEOjLyFXFRdVWm74LPTIm3qcGu1
-Iv9//M5ZNqvwCcRZg6RE0ZRbBo78O91kyJT3RFUwZ1SjR7U2zOYVbHb+O0PxGgJp
-0kYYSnCgKqQP6Q84hgHxZCD0OOvkcUpxf4Kj198YER6WvEgNMrS58pUCz7AJSUfm
-Z51U3dAKsj2A755f2QM4IQN9H0V19rS9c9pHqfnD9VNoguWERtnWxfFHx4TlCGCg
-F1SH8DFL8BYq3N62vPjwllKzWNeNZT/Dx67x1w80lF/dfvuZeVb3HAq/3Ek3kOuB
-xsYptmwHBUM9CSPrZzXjvdDtbvdmuguqztG8JV/YUvNgcvuCuTzUQO/wuCNeHXXT
-eu0TbIdj9rlM3F584sW5UbqGoQ/CSKhqK7Lwng7AScdAkYgr6vw=
-=yMuc
------END PGP SIGNATURE-----
+Error handling needs some work here.
 
---zVZR+CFJbEFFPASI--
+> +		}
+> +	}
+> +
+>  	gpiod_set_value_cansleep(ov13b10->reset, 0);
+>  	/* 5ms to wait ready after XSHUTDN assert */
+>  	usleep_range(5000, 5500);
+> @@ -1500,6 +1526,24 @@ static int ov13b10_get_pm_resources(struct ov13b10 *ov13b)
+>  					     "failed to get avdd regulator\n");
+>  	}
+>  
+> +	ov13b->dvdd = devm_regulator_get_optional(ov13b->dev, "dvdd");
+> +	if (IS_ERR(ov13b->dvdd)) {
+> +		ret = PTR_ERR(ov13b->dvdd);
+> +		ov13b->dvdd = NULL;
+> +		if (ret != -ENODEV)
+> +			return dev_err_probe(ov13b->dev, ret,
+> +					     "failed to get dvdd regulator\n");
+> +	}
+> +
+> +	ov13b->dovdd = devm_regulator_get_optional(ov13b->dev, "dovdd");
+> +	if (IS_ERR(ov13b->dovdd)) {
+> +		ret = PTR_ERR(ov13b->dovdd);
+> +		ov13b->dovdd = NULL;
+> +		if (ret != -ENODEV)
+> +			return dev_err_probe(ov13b->dev, ret,
+> +					     "failed to get dovdd regulator\n");
+> +	}
+> +
+>  	return 0;
+>  }
+>  
+> @@ -1700,11 +1744,20 @@ static const struct acpi_device_id ov13b10_acpi_ids[] = {
+>  MODULE_DEVICE_TABLE(acpi, ov13b10_acpi_ids);
+>  #endif
+>  
+> +#ifdef CONFIG_OF
+> +static const struct of_device_id ov13b10_of_match[] = {
+> +	{.compatible = "ovti,ov13b10"},
+
+{ Spaces inside braces, please. }
+
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ov13b10_of_match);
+> +#endif
+> +
+>  static struct i2c_driver ov13b10_i2c_driver = {
+>  	.driver = {
+>  		.name = "ov13b10",
+>  		.pm = pm_ptr(&ov13b10_pm_ops),
+>  		.acpi_match_table = ACPI_PTR(ov13b10_acpi_ids),
+> +		.of_match_table = of_match_ptr(ov13b10_of_match),
+
+No need for of_match_ptr() here -- ACPI supports device probing through
+of_match_table, too.
+
+>  	},
+>  	.probe = ov13b10_probe,
+>  	.remove = ov13b10_remove,
+
+-- 
+Regards,
+
+Sakari Ailus
