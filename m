@@ -1,48 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7E73603D1;
-	Fri, 20 Mar 2026 17:30:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7432D0607;
+	Fri, 20 Mar 2026 17:30:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774027808; cv=none; b=mAb+yvslEFSK6wDgZxr4rUPr8xtme7x2FPuTiL37AK1I15yb9lkpxj8UDHOwsXC0Fy6lMgyI8xzVbHS4FHtXYb/+0eZkXjekhDCEnW8dR3Ba1G7OGdfyAIIOdoxqlnr7YdD8GvDi8qjhAX+4PEuLMwk+JaCqG7Y/nx7EGkubYQE=
+	t=1774027843; cv=none; b=SaUVDYv8anJDjN3nIJPQcziMVIr28GnXRcY7ls5DhkXr9m40Kv3nIE/PfccGJ4xGTT/5llyTX5dJHgWrMLlEUfb7osZhhkypFg34FJEo7t9FscNcHL13GXtEI5uxDtZedeX2MemcW4fm/0Ltq+VXCpqGu47lgW3j+EpHgXrpAXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774027808; c=relaxed/simple;
-	bh=2ko2yr8EREI41gY4DKOmiWwlSx8gmD/iM6LkQEBVH6s=;
+	s=arc-20240116; t=1774027843; c=relaxed/simple;
+	bh=W4IB0KIghH5BlR6smfsAiYWJPXaF2WzggB/xByUYJXA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uRhObaILgyEKqy5hRNADLTMGnOBV3fgVfx/01F3x5zU3xZo+SU9hFucq7s8h9dJaAc3YuT7qd2s4fqrD8hdWa0o4C+po4GibxZ+lA3JQP7ajwt8m7mMIfNAybR6XA/JX/jb6vVbEV9yaktA+UMM84XyxoHATBPnHBfhruhElIe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t5Hyus7h; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=FENRQFjZWXOZXucMetjgM1+4VkbrFwK3vm41iTCgydPogITbMgeodY7+D1EeqQiWUcicmzTcBRku/DhBe0wct9etaDpDFWgADn8sItBuVj8tTKjgZLffIjSKezm7mrZu3wrECnPoyK/THDvPH4dC/MGmZvF+09LHCHbbKXWoXrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pLV9ebbE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t5Hyus7h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0EACC4CEF7;
-	Fri, 20 Mar 2026 17:30:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pLV9ebbE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D98F8C4CEF7;
+	Fri, 20 Mar 2026 17:30:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774027808;
-	bh=2ko2yr8EREI41gY4DKOmiWwlSx8gmD/iM6LkQEBVH6s=;
+	s=k20201202; t=1774027843;
+	bh=W4IB0KIghH5BlR6smfsAiYWJPXaF2WzggB/xByUYJXA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=t5Hyus7h1OdUrxx0x+UUtqbrgN8lkDQ8LWN/V+z41wiTXKEsaXd7szrUnj4RYzONF
-	 XxCMegAu/K2xz3l/nMnJybtiTDZ0biEz8APXwMTzCqfrnsOzeehBUHkObXJTBybTUD
-	 dsKA7G9uRscvqvNbT5smjEAGGaClM1ur80JyMLNTsz4GnM8efceBHXuuMHsCKqNKLa
-	 cdc2xdC6fZUoJ99TnwFIzhVvdl2U6BACfVQKJQQBdhQk9BEkJlB55OpmgZmq7AbgMp
-	 KLOpEeTbDgfbrKAuUoGyuW6g6ss7P696/kEpt8kWunU9dUMvrs5n/XYpIyToa5MHzB
-	 OfpikkvrDSZkg==
-Date: Fri, 20 Mar 2026 17:30:03 +0000
+	b=pLV9ebbEeJiBIRsIU6LNMkM0fPKZZgFkx0VF9RBD1vN2HCShG8ZoRTRmha8W9iFwD
+	 NEmCARqbZ7qDuS306SS5i1psrb/8RlYsKUsB24PH9KQNgZ82MT0Gez1//M8B3l53QX
+	 Q5u35gAUQGowt9ZzSy+yY9NOXHW5yXl+RUqzHH+tsBpdfm4DxF4KKYrwXyLGaHxTQR
+	 0Er3a32Kbv7HFD+ZRbvpf222WssTkCTucO+b013KA13Guzp/MuH7iGrjxd7jspXq0t
+	 Zxb3MiBB2YH9Jl5Fz2rpdwxwtJSj6peRyHhJLfVkOtL1pxQq7MYIs+J1RGYl8a/QrE
+	 Zdt4pVQmnM71g==
+Date: Fri, 20 Mar 2026 17:30:38 +0000
 From: Conor Dooley <conor@kernel.org>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-	Benson Leung <bleung@chromium.org>,
-	Guenter Roeck <groeck@chromium.org>, Rob Herring <robh@kernel.org>,
+To: Yixun Lan <dlan@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
-	chrome-platform@lists.linux.dev
-Subject: Re: [PATCH 1/2] regulator: dt-bindings: cros-ec: Add regulator supply
-Message-ID: <20260320-shrubbery-nimbly-17e3bacf4ad6@spud>
-References: <20260320083135.2455444-1-wenst@chromium.org>
- <20260320083135.2455444-2-wenst@chromium.org>
+	Conor Dooley <conor+dt@kernel.org>, Ze Huang <huang.ze@linux.dev>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Junzhong Pan <junzhong.pan@spacemit.com>,
+	Inochi Amaoto <inochiama@gmail.com>, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: usb: dwc3: spacemit: add support for
+ K3 SoC
+Message-ID: <20260320-rival-distill-c9021491769a@spud>
+References: <20260320-02-k3-usb20-support-v2-0-308ea0e44038@kernel.org>
+ <20260320-02-k3-usb20-support-v2-1-308ea0e44038@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,36 +51,39 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nkY5dg21V/AsYkAX"
+	protocol="application/pgp-signature"; boundary="iISLEgBV6Hhio30Z"
 Content-Disposition: inline
-In-Reply-To: <20260320083135.2455444-2-wenst@chromium.org>
+In-Reply-To: <20260320-02-k3-usb20-support-v2-1-308ea0e44038@kernel.org>
 
 
---nkY5dg21V/AsYkAX
+--iISLEgBV6Hhio30Z
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Mar 20, 2026 at 04:31:32PM +0800, Chen-Yu Tsai wrote:
-> Even a regulator remotely controlled by the EC will have a power supply
-> input.
+On Fri, Mar 20, 2026 at 07:15:37AM +0000, Yixun Lan wrote:
+> Add compatible string for DWC3 USB controller found in SpacemiT K3 SoC.
 >=20
-> Add a property to describe the power supply input.
->=20
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> The USB2.0 host controller in K3 SoC actually use DWC3 IP but only support
+> USB2.0 functionality, thus in the hardware layer, it has only one USB2 PH=
+Y.
+> While in K1 SoC, the USB controller has both USB2 and USB3 Combo PHY
+> connected, but able to work in a reduced USB2.0 mode which requres only
+> one USB2 PHY, leaves the USB3 Combo PHY to PCIe controller. So both K1
+> and K3 SoC are able to work in the USB2.0 mode which requires one PHY.
 
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
---nkY5dg21V/AsYkAX
+--iISLEgBV6Hhio30Z
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCab2EGwAKCRB4tDGHoIJi
-0t/+AQCAYxcTf4VwNykpGFfXOFK8EdQ2eUwyX9fEG0agtHSxwQD+MHHOSLzzbZVU
-ea5hroG7LS9S0Zp8Gm8G7Kd95VkBEQE=
-=Y7MT
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCab2EPgAKCRB4tDGHoIJi
+0joxAQC5+AAtgwRmBNAtvgPpwSU6oenwPm4CK2S4y2xpyBIyCwEAlWW9LD7E7Nu0
+eRC9bXUrVLtn+AyWk+Qy/EtcHcqKxQs=
+=Exu8
 -----END PGP SIGNATURE-----
 
---nkY5dg21V/AsYkAX--
+--iISLEgBV6Hhio30Z--
