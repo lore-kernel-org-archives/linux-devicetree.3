@@ -1,97 +1,135 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D291D36896E
-	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 21:14:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550BC2D7DC8
+	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 21:15:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774041301; cv=none; b=sL3j7HF9HzD7lXt8/Vs2GFpx8Fjk1MFsjBFN6SbxVpJomLagZ6HCGfy/zBl4oNnxguJCDB37CUvMtT8UXmsi+zagb5ACF0VLZO1qfjQ85M7Axh0659OhS5TyNzsb+pJjc+gcXizXIMfWtfetQMf6o3x3y+RjLwhzWh0cV8cmcO0=
+	t=1774041319; cv=none; b=jI/UFSMz2/nn8G+Ra4ftc+M85eI5trJ4FZwNQbgXWdEAknaMcmFBJgO4geOXosTyHVSH4G7pSJRMV60ZhOECM17FvfChYtM6qf9UjXDlTKbIfh998OKPnvfYSwC3qCCXc+hg/C6VI6pGa1xuAYSxFu42O+FQdyjURVw49Zmr4Ag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774041301; c=relaxed/simple;
-	bh=gO5UhDNhFn1ojze5ogbDG991DIMWJJB4bmVCCn865V8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V3tjGHyT+jrbSRqZYET+JEnLz1OTnmjkInM/Zg75u4DIZbCN6vsXRxaAFPaj6Qraa8JCfdbvuJ2yF9Ez2lUrWTQYba5crTU/WkqtSqKAebWri/wnX5GC5s1flzbwm+XDEJ3IghyWN76m0WmYIoHaJI0zsF5Grys6w9cPTrpyVSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=Vg8Hpznx; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1774041319; c=relaxed/simple;
+	bh=DmTTdgGsEE6YI+ZniW//7SFL+HqlQKi8Y0UulyibIx8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Hkza6FCh1/D87mmu6orIjTOaTnnHBSpbCSaCp36xGg9Uxe0S2cOfHEZIFwOHp/0QQkmvod6iyDiT9FuEMCw3h5EZYJ9f2p61IRENxdra+BY7WKC/iej6A3RxTWNWwGnYedryL2ISyZLCwUneKiraV6kPchq9Uy6jfvixhYtJq9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lX/T0Hpm; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="Vg8Hpznx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=gO5U
-	hDNhFn1ojze5ogbDG991DIMWJJB4bmVCCn865V8=; b=Vg8HpznxbbPncQ+oD/Gx
-	uTP5MuK2gtU86+BgVaiobyOxL8/V9XpjhGfjc6upZK7XfpS3mK5lmhDdnXjKCTT+
-	sseSWGjuGE6HwOpA0x+zneOFN5n92Un2kDDiSGjYbK0pDxLSolYzwKf4HsGxHTxU
-	FkDsKaN/eXTlf0QJD48IHx9aVapCKYsr5LQS1B1e6JOkyLzaVDo9RcmuMqSik1gt
-	A1PwN4asXfybC3B4CtJ2VWqTQogCu0ui+gXMOe5IZ3Akfs6KxJUuoig1Vh04cLhT
-	nHW1Waaurbcvn0o3hzADqRTAdrsWcTnDE9G/4ysCGodYAdWac+eIvEsAvXJscqHe
-	Eg==
-Received: (qmail 1698466 invoked from network); 20 Mar 2026 22:14:48 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 20 Mar 2026 22:14:48 +0100
-X-UD-Smtp-Session: l3s3148p1@z72LLHtNjoEujnsL
-Date: Fri, 20 Mar 2026 22:14:43 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-	linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 1/3] dt-bindings: i2c: qcom-cci: Document Milos
- compatible
-Message-ID: <ab24w_ESHK46nG8P@shikoro>
-References: <20260320-milos-cci-v2-0-1947fc83f756@fairphone.com>
- <20260320-milos-cci-v2-1-1947fc83f756@fairphone.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lX/T0Hpm"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4852f8ac7e9so23253785e9.1
+        for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 14:15:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1774041317; x=1774646117; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=s1bGv8/uYNdnIMNZ+E0Ir9BQ3Ee2imch1dX4Gmz7nQ4=;
+        b=lX/T0HpmnXP/yaZw2yt5dhJ8kIt+pSO6N2ncNuWpbI+BYiC2wQtB9Rz9KsEvLI0tje
+         5Pswq0onkAFj401+PK9ltnDVtTgVws1ZDrHpT7NyEePnN0NHhcmFOBPm7EcRUPJgknhe
+         /+wuF0TS2fhOSPFlP7g0XTsRQPWT0SD16/bh1bGvix6QDwYnQ2H44afSHZB2VQQs+0Ji
+         jTtsEhfyVle4xbOw8cFaHXZsv0eQ2XGhCxvsdkh11lxAqcrX+ttNaOYJy/OODOepZ6U1
+         +4qcb68lT0fv+Kgn1YjEo9z9v6EiFvx40nbndQY9zthl0S6NjyK9ACdtkqvip3bOr+1c
+         dWBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774041317; x=1774646117;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=s1bGv8/uYNdnIMNZ+E0Ir9BQ3Ee2imch1dX4Gmz7nQ4=;
+        b=I8ZZm6zFZpVAH3f5WQ4QDC/fcznowZ5wzHD+OErzBibx7TgQ4Pn8Mb6686I6eJsOdn
+         yCQPHpT1f2fhwRjL63Dp9WsvPEH4VffyHcVFGZz94fc4zfqr3an2Be5uCnfewu1NAmMP
+         v6Mw02MUyLV4BQgYfqv+/K0eDg8sfGdwskZXZIKjsKUsIkUMiSgdTXPVqrCH5CMG2X+5
+         4FBLmg0NbDVIJcMIO5FotYLk4itFFq1gAUDm3JvZ7SqhgVm+dFqT8Cz9qyLtu1PkcX15
+         HYO23XH/t2itQdvjaWesOROYiLzgPuPmXosh/bgbsTQ740+DE19sJ/BMpvN5oji3OOwW
+         bOcw==
+X-Forwarded-Encrypted: i=1; AJvYcCXQro4C9pxb5VNRVbFYwEcirVC4tXuvz1a0u1sr5VD9WpH4qbpp7wYytYeKQv2atlcxuMVkmi/zT1rp@vger.kernel.org
+X-Gm-Message-State: AOJu0YwrwsZVpxurEFSwp3HXUBF08vPNMmKDDAMRfx8rPFm0G7GNfB06
+	MtJpydNNmBACPvyERKDRgFRRBDPmlTeW8lxMyF3YxeldLwbpe1sCVBYjn/+1R8fvWJQ=
+X-Gm-Gg: ATEYQzx+BL+egAhKYXOw9G+UKi2e0W8wKnzBjV4eLZ/R41GmAb/cU/R1PGiPAicpXXL
+	tI/BA6wCu+ve+AJUxtmW+sZrOAwQwuhkUqkHy6vbyD5GbArZJ2DgA1GlyMmQVDUGysVrxNyBNto
+	uReJoKLK91ILKyfcwv992EpoJ4z3LPh6jOlAVNinmbhm0F3YmW3sgWStMuiRzX7CspOG38hiVwA
+	HWwtPTAMs60NZYmEkpRsV7QfSwIFKjxXcRm8XESaazFPd4SBCI8YhGbT2uRy1IkG+mWynaOua1x
+	1lSy2Uyad0Dv2Rv2Dn4/q/ayEJJmkJLQMg3VO+U1ijJIl6taZzyS9Or2g83AaaAFkNxFbFzid/l
+	/2IXTctHio053k2CdtxPFfX9p4M2mhUTlW7opL7vXcJHHNbXxPu57kNEGrOjhblmoXXLro8G2GZ
+	mtJXvbGHO5puQlDred6TsQEoIMZnasdF8wW9rqjaYv4Xn1+zNDd+jmqmxpDscHKIFSaGAOeX9M4
+	X5GK1JBeN29ZS8=
+X-Received: by 2002:a05:600c:8710:b0:485:35ba:1d81 with SMTP id 5b1f17b1804b1-486fee051camr64543975e9.21.1774041316606;
+        Fri, 20 Mar 2026 14:15:16 -0700 (PDT)
+Received: from [127.0.1.1] ([94.4.193.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b64703c27sm9702401f8f.18.2026.03.20.14.15.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Mar 2026 14:15:15 -0700 (PDT)
+From: Alexey Klimov <alexey.klimov@linaro.org>
+Subject: [PATCH 0/5] Exynos850 APM-to-AP mailbox support
+Date: Fri, 20 Mar 2026 21:15:12 +0000
+Message-Id: <20260320-exynos850-ap2apm-mailbox-v1-0-983eb3f296fc@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pD0ll/xn1Oqxasoq"
-Content-Disposition: inline
-In-Reply-To: <20260320-milos-cci-v2-1-1947fc83f756@fairphone.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOC4vWkC/x3MQQrDIBBA0auEWXdgaoiYXqV0YXVMBhoVhWAJu
+ Xsky7f4/4DKRbjCazig8C5VUux4PgZwq40Lo/huUKQ0jYqQ2z+maiZCm5XNG25Wft/U0IVAzng
+ 9m9lAz3PhIO1evz/neQE0O5mLagAAAA==
+X-Change-ID: 20260320-exynos850-ap2apm-mailbox-cff0c8d69898
+To: Krzysztof Kozlowski <krzk@kernel.org>, 
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+ Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Sam Protsenko <semen.protsenko@linaro.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Jassi Brar <jassisinghbrar@gmail.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, linux-samsung-soc@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Alexey Klimov <alexey.klimov@linaro.org>
+X-Mailer: b4 0.14.3
 
+Hi all,
 
---pD0ll/xn1Oqxasoq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This patch series introduces support for the APM-to-AP mailbox on the 
+Exynos850 SoC. This mailbox is required for communicating with the APM 
+co-processor using ACPM.
 
-On Fri, Mar 20, 2026 at 09:09:49AM +0100, Luca Weiss wrote:
-> Add Milos compatible for the CAMSS CCI interfaces.
->=20
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+The Exynos850 mailbox operates similarly to the existing gs101 
+implementation, but the register offsets and IRQ mask bits differ. 
+This series abstracts these differences into platform-specific data 
+structures matched via the device tree.
 
-Applied to for-next, thanks!
+Also, it requires APM-to-AP mailbox clock in CMU_APM block.
 
+In theory this can be split into two series with correct dependecies:
+device tree node requires clock changes to be merged. The suggestion
+is to let this go through Samsung SoC tree with corresponding acks
+if it is okay.
 
---pD0ll/xn1Oqxasoq
-Content-Type: application/pgp-signature; name="signature.asc"
+Will be great if it can be tested on gs101 to make sure that I didn't
+break anything, I don't have dev gs101 devices.
 
------BEGIN PGP SIGNATURE-----
+Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+---
+Alexey Klimov (5):
+      dt-bindings: clock: exynos850: Add APM_AP MAILBOX clock
+      clk: samsung: exynos850: Add APM-to-AP mailbox clock
+      dt-bindings: mailbox: google,gs101-mbox: Add samsung,exynos850-mbox
+      mailbox: exynos: Add support for Exynos850 mailbox
+      arm64: dts: exynos850: Add ap2apm mailbox
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmm9uMMACgkQFA3kzBSg
-KbZ0tg/+LUI3JxaBw5Qt8zsyDLp5qi5ASZQO/aaaU4PH8JR1EuCcV4lnbEDr9TnH
-85Z88F4dpUstC/vB8OXPpU0pZbOvQiq2NFQihiGA0Lq0oqiylmYDieJxiVZGDjwZ
-U4WpM91KThPy7c9wWFFV24XcPTs5YFKcR7nYi72O+ukGePF+31CrTFRgmbay3C+y
-Fb0lqtY7rKlxvlZP4qhQRNOuhlfwH/mJkpCvI8FzQOe048Zf5hHq0p+Un+Ndap3b
-C98q2HTTu+UOFNVgOqEIatFKBtZY2GhLenXwCmCtuNDJW7XLeUfjCTF8eAnQsK1q
-eG7ZJmzLR5KYI5ly/BlSDefVS9Bd7cfLtNnaGDDhVLB25Vls9uT1F0mAeXDVu+20
-j796W6D94GInA0PFdOHB8Hh7r0GHm/zfABI6yuE+8e1W5oILXyMj92SDup7ktKEL
-WcNRpDivBGof2aYmcHkXF54zGULcctuYNrbNzQHi89+NQd1+u57uLGgBgREMbwK5
-EVTUGmjn7yXNStuWTmHghj/hkNWVcOcGVw57p1zrJiL1MK3Dwiw57FsR2FMhohzp
-cxaJv3Ky5EDsbFh1ON+T59UFXp7Lqr5LC46AMxNJ3Phpi5leXT8iQb+KY3jG/olL
-iIMRTua+RFtyfw4Stur3reyPB60d3lfHkYZu7Q7RybCs99y9ZtE=
-=sp0J
------END PGP SIGNATURE-----
+ .../bindings/mailbox/google,gs101-mbox.yaml        |  4 +-
+ arch/arm64/boot/dts/exynos/exynos850.dtsi          |  9 +++
+ drivers/clk/samsung/clk-exynos850.c                |  7 ++-
+ drivers/mailbox/exynos-mailbox.c                   | 65 +++++++++++++++++++++-
+ include/dt-bindings/clock/exynos850.h              |  1 +
+ 5 files changed, 81 insertions(+), 5 deletions(-)
+---
+base-commit: 785f0eb2f85decbe7c1ef9ae922931f0194ffc2e
+change-id: 20260320-exynos850-ap2apm-mailbox-cff0c8d69898
 
---pD0ll/xn1Oqxasoq--
+Best regards,
+-- 
+Alexey Klimov <alexey.klimov@linaro.org>
+
