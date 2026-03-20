@@ -1,95 +1,274 @@
-Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D016364951
-	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 17:03:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BEE1EB9E1;
+	Fri, 20 Mar 2026 17:07:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774026229; cv=none; b=kTw271qNhI56Tina7rXoJ5i5VYZs0Vd1OQKaNPWmNaQnacG/13cWv+GK0IUH4LpdA6vY6vjh0w9HDKK8wwhdEKIcFSdaT0qOojbLU2t/sOByiN7fKh5+2ikjG3+GDi9XD5yruNj+u0CbbWK1PkBU5iHhkX9Y2yNKgw9KBNsPaRg=
+	t=1774026470; cv=none; b=RVFa6uAdtHD6Jov0wbBEG0Euwkx7ODgmksfD5dc9id71pGc80Ki1N9eiKiF/+c2GIxgNJu7cRF6xvwVP23CcU8791SdIQEgfRzyVv+Ln1ejwG3cPJ70YWWsTjigB+FvhXtQNvOs3nKVIhWhD3gk2tWT7IRg7DPzjb0e2QyyJ3x0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774026229; c=relaxed/simple;
-	bh=Gj1vtuwQXHR8UoUYcOrYnXzY7Cxk5iL7v70NyDYKxaU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bxJfp5wvUMYS44gTpUGe3FRvwawlkYmbFvRmgPlPRk9u1M1usOjehRn4wiuisRGlkuKYhEWq0zRd9xeu3lT2l847v3EssZrpkW9eWFZEotn4fmbpJH5sqIvULigSo5jsRd+gHO4VFehRzVgJ/rwK3uay3EmfZd2rCBCA5PkClLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=rJFQTNjB; arc=none smtp.client-ip=95.215.58.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	s=arc-20240116; t=1774026470; c=relaxed/simple;
+	bh=K0n7PtbZscSYHZTpNewnpXiO3uLV59cevvAXQJ8i2OM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n74aBNj46RnR1BQtro6PiGUS92dufIeY5npDIHlkXtrgLZNxnP4E44FZdzpvcE1pXmO90aR98gx4m6jl84saVOpU2rchClnyTF1EgOImsFe2gpj+I8npuRpwRRRxF+4UOUOUPG+QvQrSijtrB0LeHflM//4/fC7XQO2apre+xN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WQKdlWMW; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="rJFQTNjB"
-Message-ID: <4bbbebef-8a3c-4320-a2d8-f5187db2d850@postmarketos.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
-	s=key1; t=1774026216;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DwecroZVjODs6pTedN26ECdEviq+g/i3AiPwlkMDrIw=;
-	b=rJFQTNjBLoAdYfxmBhtJdesTK73gwyqAgh8WorG1RwYbp4p63tRkPFhaDnsTpQ8Uq/xNXO
-	M9h6HzURzCpuCgfivuf2aIdjMSb8NXbGXc92NhPky5bhnE3MQSsQPxkr94Ki20a5kCFonv
-	AqeRP+TzacYwJoFnqNPKbSYvM0Lf3N0zpUaHarqpmRTa6L1+Fai27FZnbudaxSDXf5DMSa
-	LEhvbaiBDZZko8kHYpkqsTAajB0qpD27SkfpTrTkTPcFcnTz0PXbN9b78M+xIzrhyWbGyZ
-	uVMHRVtLGyHo0OPtcFzn5Ngt+YEd0VIO2TR7DNG98vnlI/KNc6rkle5Nsh4Rew==
-Date: Fri, 20 Mar 2026 18:03:26 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WQKdlWMW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774026468; x=1805562468;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=K0n7PtbZscSYHZTpNewnpXiO3uLV59cevvAXQJ8i2OM=;
+  b=WQKdlWMWSb3nlkrVtDEeQMXeCAgyWjblrCggpWBaiMhSwhNzKtoAAeKG
+   wnP6ubW62nmxoaP/e9jVGRdgIMC5DRgbisuiMmGBA3P8OKzIOqovmdxeH
+   JMaVUb9dfrdxzTzyTDULiXCWSpqh1n7PbsC1oQ6/k2clW1Fn3UUaZvwKV
+   xCqJPGCZ4fK8qaBOvEmWtZ3RzISo/LsYIZY+fCkT64JspToO21B1H1jrq
+   Rmw7skXED0yBvTtR3m9q33ww0Pk0AVcFtNGyyJDEtPmi2PB0zYaBKU7BU
+   SLI600VYfyGg2N2yXBGbDDZXCS0MscG6/nJYGvtxRbFZgb4vGZ3IdBTOr
+   A==;
+X-CSE-ConnectionGUID: hhQSw12nTUC7l+Zb/cVuxw==
+X-CSE-MsgGUID: xHQs4iaDRgSLpFSXX3K3rw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11735"; a="75308976"
+X-IronPort-AV: E=Sophos;i="6.23,130,1770624000"; 
+   d="scan'208";a="75308976"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Mar 2026 10:07:47 -0700
+X-CSE-ConnectionGUID: QfBlZzGeSyC3Ltz6/lwk4Q==
+X-CSE-MsgGUID: WSo707w0QICSzzyU2iq/fg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,130,1770624000"; 
+   d="scan'208";a="228066475"
+Received: from egrumbac-mobl6.ger.corp.intel.com (HELO localhost) ([10.245.245.40])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Mar 2026 10:07:42 -0700
+Date: Fri, 20 Mar 2026 19:07:40 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: radu.sabau@analog.com, Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v4 4/4] iio: adc: ad4691: add SPI offload support
+Message-ID: <ab1-3FLCDbu_iEQt@ashevche-desk.local>
+References: <20260320-ad4692-multichannel-sar-adc-driver-v4-0-052c1050507a@analog.com>
+ <20260320-ad4692-multichannel-sar-adc-driver-v4-4-052c1050507a@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 1/3] arm64: dts: qcom: sdm845-shift-axolotl: Enable sdcard
-Content-Language: en-US
-To: David Heidelberg <david@ixit.cz>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dylan Van Assche <me@dylanvanassche.be>
-Cc: linux-arm-msm@vger.kernel.org, Petr Hodina <phodina@protonmail.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260320-axolotl-misc-p1-v1-0-89c9b5ecb26e@ixit.cz>
- <20260320-axolotl-misc-p1-v1-1-89c9b5ecb26e@ixit.cz>
- <8abf3f78-c994-4d05-81ea-ef54dd380109@postmarketos.org>
- <51f16009-5df8-4c3a-8fb9-28af73b8c04d@ixit.cz>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Casey Connolly <kcxt@postmarketos.org>
-In-Reply-To: <51f16009-5df8-4c3a-8fb9-28af73b8c04d@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260320-ad4692-multichannel-sar-adc-driver-v4-4-052c1050507a@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Fri, Mar 20, 2026 at 01:03:58PM +0200, Radu Sabau via B4 Relay wrote:
+
+> Add SPI offload support to enable DMA-based, CPU-independent data
+> acquisition using the SPI Engine offload framework.
+> 
+> When an SPI offload is available (devm_spi_offload_get() succeeds),
+> the driver registers a DMA engine IIO buffer and uses dedicated buffer
+> setup operations. If no offload is available the existing software
+> triggered buffer path is used unchanged.
+> 
+> Both CNV Burst Mode and Manual Mode support offload, but use different
+> trigger mechanisms:
+> 
+> CNV Burst Mode: the SPI Engine is triggered by the ADC's DATA_READY
+> signal on the GP pin specified by the trigger-source consumer reference
+> in the device tree (one cell = GP pin number 0-3). For this mode the
+> driver acts as both an SPI offload consumer (DMA RX stream, message
+> optimization) and a trigger source provider: it registers the
+> GP/DATA_READY output via devm_spi_offload_trigger_register() so the
+> offload framework can match the '#trigger-source-cells' phandle and
+> automatically fire the SPI Engine DMA transfer at end-of-conversion.
+> 
+> Manual Mode: the SPI Engine is triggered by a periodic trigger at
+> the configured sampling frequency. The pre-built SPI message uses
+> the pipelined CNV-on-CS protocol: N+1 4-byte transfers are issued
+> for N active channels (the first result is discarded as garbage from
+> the pipeline flush) and the remaining N results are captured by DMA.
+> 
+> All offload transfers use 32-bit frames (bits_per_word=32, len=4) for
+> DMA word alignment. This patch promotes the channel scan_type from
+> storagebits=16 (triggered-buffer path) to storagebits=32 to match the
+> DMA word size; the triggered-buffer paths are updated to the same layout
+> for consistency. CNV Burst Mode channel data arrives in the lower 16
+> bits of the 32-bit word (shift=0); Manual Mode data arrives in the upper
+> 16 bits (shift=16), matching the 4-byte SPI transfer layout
+> [data_hi, data_lo, 0, 0]. A separate ad4691_manual_channels[] array
+> encodes the shift=16 scan type for manual mode.
+> 
+> Kconfig gains a dependency on IIO_BUFFER_DMAENGINE.
+
+...
+
+> +	struct spi_offload		*offload;
+> +	/* SPI offload trigger - periodic (MANUAL) or DATA_READY (CNV_BURST) */
+> +	struct spi_offload_trigger	*offload_trigger;
+> +	u64				offload_trigger_hz;
+> +	struct spi_message		offload_msg;
+> +	/* Max 16 channel xfers + 1 state-reset or NOOP */
+> +	struct spi_transfer		offload_xfer[17];
+> +	u32				offload_tx_cmd[17];
+> +	u32				offload_tx_reset;
+
+Ouch! Can you guarantee this kilobytes (isn't it?) of memory will be used in
+majority of the cases? When I got comment on replacing a single u8 by unsigned
+long in one well used data structure in the kernel I was laughing, but this
+single driver may beat the recode of memory waste on the embedded platforms.
+Perhaps having a separate structure and allocate it separately when we sure
+the offload is supported?
+
+Cc'ed to Wolfram.
+
+...
+
+> +	/* Scan buffer: one slot per channel (u32) plus timestamp */
+>  	struct {
+> -		u16 vals[16];
+> +		u32 vals[16];
+>  		s64 ts __aligned(8);
+
+This might break the existing cases or make code ugly and not actually
+compatible with u32 layout.
+
+>  	} scan __aligned(IIO_DMA_MINALIGN);
+
+...
+
+> +static int ad4691_cnv_burst_offload_buffer_postenable(struct iio_dev *indio_dev)
+> +{
+> +	struct ad4691_state *st = iio_priv(indio_dev);
+> +	struct device *dev = regmap_get_device(st->regmap);
+> +	struct spi_device *spi = to_spi_device(dev);
+> +	struct spi_offload_trigger_config config = {
+> +		.type = SPI_OFFLOAD_TRIGGER_DATA_READY,
+> +	};
+
+> +	unsigned int n_active = hweight_long(*indio_dev->active_scan_mask);
+
+Should be bitmap_weight() with properly given amount of bits.
 
 
+> +	unsigned int bit, k;
+> +	int ret;
+> +
+> +	ret = regmap_write(st->regmap, AD4691_ACC_MASK_REG,
+> +			   (u16)~(*indio_dev->active_scan_mask));
 
-On 20/03/2026 18:02, David Heidelberg wrote:
-> On 20/03/2026 17:56, Casey Connolly wrote:
-> 
-> [...]
-> 
->>> +    sdc2_card_det_n: sd-card-det-n-state {
->>> +        pins = "gpio126";
->>> +        function = "gpio";
->>> +        bias-pull-up;
->>
->> This can probably be bias-disable I guess, not that it likely matters in
->> practise.
-> 
-> We could save few uA by just disabling the bias, as the card-det pin is
-> useless anyway? Do I get it right?
+This is not how we work with bitmaps. Use bitmap_read().
 
-Yeah basically
-> 
-> If yes, I'll switch it.
-> 
-> David
-> 
->>
->>> +    };
->>> +
->>>       sde_dsi_active: sde-dsi-active-state {
->>>           pins = "gpio6", "gpio11";
->>>           function = "gpio";
->>>
->>
-> 
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(st->regmap, AD4691_STD_SEQ_CONFIG,
+> +			   *indio_dev->active_scan_mask);
+
+Ditto.
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	iio_for_each_active_channel(indio_dev, bit) {
+> +		ret = regmap_write(st->regmap, AD4691_ACC_COUNT_LIMIT(bit),
+> +				   AD4691_ACC_COUNT_VAL);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	ret = ad4691_enter_conversion_mode(st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	memset(st->offload_xfer, 0, sizeof(st->offload_xfer));
+> +
+> +	/*
+> +	 * N transfers to read N AVG_IN registers plus one state-reset
+> +	 * transfer (no RX) to re-arm DATA_READY.
+> +	 *   TX: [reg_hi | 0x80, reg_lo, 0x00, 0x00]
+> +	 *   RX: [0x00, 0x00, data_hi, data_lo]   (shift=0)
+> +	 */
+> +	k = 0;
+> +	iio_for_each_active_channel(indio_dev, bit) {
+> +		unsigned int reg = AD4691_AVG_IN(bit);
+> +
+> +		st->offload_tx_cmd[k] =
+
+> +			cpu_to_be32(((reg >> 8 | 0x80) << 24) |
+> +				    ((reg & 0xFF) << 16));
+
+Isn't this is just a cpu_to_be16(0x8000 | reg) ?
+
+> +		st->offload_xfer[k].tx_buf = &st->offload_tx_cmd[k];
+> +		st->offload_xfer[k].len = sizeof(u32);
+> +		st->offload_xfer[k].bits_per_word = AD4691_OFFLOAD_BITS_PER_WORD;
+> +		st->offload_xfer[k].offload_flags = SPI_OFFLOAD_XFER_RX_STREAM;
+> +		if (k < n_active - 1)
+> +			st->offload_xfer[k].cs_change = 1;
+> +		k++;
+> +	}
+> +
+> +	/* State reset to re-arm DATA_READY for the next scan. */
+> +	st->offload_tx_reset =
+> +		cpu_to_be32(((AD4691_STATE_RESET_REG >> 8) << 24) |
+> +			    ((AD4691_STATE_RESET_REG & 0xFF) << 16) |
+> +			    (AD4691_STATE_RESET_ALL << 8));
+
+In similar way
+
+		cpu_to_be32((AD4691_STATE_RESET_REG << 16) |
+			    (AD4691_STATE_RESET_ALL << 8));
+
+> +	st->offload_xfer[k].tx_buf = &st->offload_tx_reset;
+> +	st->offload_xfer[k].len = sizeof(u32);
+> +	st->offload_xfer[k].bits_per_word = AD4691_OFFLOAD_BITS_PER_WORD;
+> +	k++;
+> +
+> +	spi_message_init_with_transfers(&st->offload_msg, st->offload_xfer, k);
+> +	st->offload_msg.offload = st->offload;
+> +
+> +	ret = spi_optimize_message(spi, &st->offload_msg);
+> +	if (ret)
+> +		goto err_exit_conversion;
+> +
+> +	ret = ad4691_sampling_enable(st, true);
+> +	if (ret)
+> +		goto err_unoptimize;
+> +
+> +	ret = spi_offload_trigger_enable(st->offload, st->offload_trigger, &config);
+> +	if (ret)
+> +		goto err_sampling_disable;
+> +
+> +	return 0;
+> +
+> +err_sampling_disable:
+> +	ad4691_sampling_enable(st, false);
+> +err_unoptimize:
+> +	spi_unoptimize_message(&st->offload_msg);
+> +err_exit_conversion:
+> +	ad4691_exit_conversion_mode(st);
+> +	return ret;
+> +}
 
 -- 
-// Casey (she/her)
+With Best Regards,
+Andy Shevchenko
+
 
