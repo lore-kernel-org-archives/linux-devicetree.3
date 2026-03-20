@@ -1,157 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F403D32FA2A;
-	Fri, 20 Mar 2026 22:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A06537416A
+	for <devicetree@vger.kernel.org>; Fri, 20 Mar 2026 22:17:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774044648; cv=none; b=LeR4CLItZvUHuNEL1jG7p7GiQRGneywbrNCbUWvf5msngFX0LMPjfTgs0SHqMSi9zE+YRa80/w0gpDmcx/vaH+Uoi6afnp/yjYNMCtyEBkP2lvxXmKvkfS6IHaGPff48jMFWjQRXi/RGpAuJVxAKa0mERWB7j+NqZQWpADueh9U=
+	t=1774045025; cv=none; b=rSq0kp5PnJjwp7YxcAOaPweyeq5uj6Hp2Dv9kimrieHmovcEDDoONaMema3mYs9/zVV1+JMGu47F/2bc3SXXE+RTAWo7NU3LNrQgxH75Uu9Qk5lM8NtXUxhR/4em2jqMiEXK0nrOo9nwMijd1ybVIcE0wUmrAN36irazwoCoJYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774044648; c=relaxed/simple;
-	bh=GZcTYbDOBUJPmx07O1DUAwzW+OByj/dQ7qU6ay1K2fY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=vCUjNWXcx42vs4k1ljBkOk+6kkJ04IinsNHxIxGmffdKhdqtG4FDyCg9B7FUIxlbPaKO6Tvvd265fsa24/5eLfHs3WzQHJVRaUZ8v7HibxdHPQxetKAGLSr6Vbv2M2v24vVJ40fApK1HPTnDLboL9fEo7TzjWp428PKP+qMy9P4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ckm0YqBp; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ckm0YqBp"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 96BE4C2BC9E;
-	Fri, 20 Mar 2026 22:10:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774044647;
-	bh=GZcTYbDOBUJPmx07O1DUAwzW+OByj/dQ7qU6ay1K2fY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ckm0YqBpYed98Kz8Lz2L3KPqU5eJJXoHBByZvmJjWtFw3aApN2xfSnjkT6bZu+6uZ
-	 GrGzyx2CiaW+V8CcgsSpwENDjclqxq4Wjpp/gkfbrOdrCWqkMNWPalCeFiah0wnWd9
-	 Ba+uLZVA4m+zwO+FdI5GGy3L2FcX02ZDYh8olEjm5DvHX7nOcFOCjghAqzORs0JN97
-	 FaFX+m1Nh6YQO5zZIkLDqqyJccSBYK7sWH7b3E1gKepMv8ZgC7ssVA+lCjLGccHfGx
-	 tt/+bklvYDS8cnTi70qX4vJSEAiBB8HaSiPhRoo1mHqcIlBOvhNHVhJU2dwL528V4O
-	 fGtppRmIiaHkg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D5AF1099B41;
-	Fri, 20 Mar 2026 22:10:47 +0000 (UTC)
-From: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>
-Date: Fri, 20 Mar 2026 23:09:53 +0100
-Subject: [PATCH v4 1/2] dt-bindings: embedded-controller: Add
- synology,microp device
+	s=arc-20240116; t=1774045025; c=relaxed/simple;
+	bh=7vYKTDPh26Ky1mHIJT4t3pz0HEnpL7G9Sb0T2N9C0eI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RnN4AnKZ9vEmhSraCzeATFJ35k/e4999JFsvyLyt/tL2/x0Qgzv52X3W4eOIfr0S4+5kDGSEecsi50D3UETrY4CRdJTQbatZV2nI8+3DW+dPAa7dUuvuPgyM/OuyLiIY0nJU6E522DwB9g8XsaZXrE2Iy64iyhiLUR+b/RPy+tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1w3i95-0006ba-Rc; Fri, 20 Mar 2026 23:16:43 +0100
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1w3i95-001JBf-0g;
+	Fri, 20 Mar 2026 23:16:43 +0100
+Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1w3i95-0000000Cwo8-0QsC;
+	Fri, 20 Mar 2026 23:16:43 +0100
+Date: Fri, 20 Mar 2026 23:16:43 +0100
+From: Marco Felsch <m.felsch@pengutronix.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Fabio Estevam <festevam@gmail.com>, Matthias Kaehlcke <mka@chromium.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, kernel@pengutronix.de
+Subject: Re: [PATCH v5 1/4] usb: port: track the disabled state
+Message-ID: <mavc4ului42mdozzfwxd6zfa5b664umlqe5dal2r6knnilbi5a@ubnxauwhnoue>
+References: <20260223-v6-16-topic-usb-onboard-dev-v5-0-28d3018a8026@pengutronix.de>
+ <20260223-v6-16-topic-usb-onboard-dev-v5-1-28d3018a8026@pengutronix.de>
+ <2026031105-uptake-glucose-5b61@gregkh>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260320-synology_microp_initial-v4-1-0423ddb83ca4@posteo.de>
-References: <20260320-synology_microp_initial-v4-0-0423ddb83ca4@posteo.de>
-In-Reply-To: <20260320-synology_microp_initial-v4-0-0423ddb83ca4@posteo.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, Markus Probst <markus.probst@posteo.de>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2203;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=LpsLV+PtJsvp3bFmqlbGf98MY1TUHG8bfm5oAyDigeE=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBpvcXgRgjqTZrKGss4psDMJbSgpmwLljPO/uzRG
- C6pfff9WgGJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCab3F4BsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQNHYf+OetQ9Jsdw//bYfL3OjCaMvyGfdRKr4sRhL4LUG1OVv
- h7pBSmNl0gn67uVM73gK8oKraDlkvUxYmUG+WXB5Rojc25e6bCkRIFpYkSG6FaU292Ta4rYg2gr
- uvRjX7Ro6ry1a84XiOeOz6O2gTlez4d20Jry4qS7eN5GDGwj5BsJkigbxUl06U9OaM80jFXzbaH
- eJ0XDlUkQuVnkTEB4LUnmCrlYLdREqFXnsaKQw2RQP35xbk1yfOy3VqqUhqveyTrzuHT7GVUItH
- iLQCBe+wmm78LUSbwKRXTedJgPM7pSZL5sNuCGUC75OPwVs3RGCar0ZYNke+A5P/lv3muIpsI2Q
- EoZrwLcwnsfAHyiWUfLvb8m9exKGdkihR8Pxjz9k8l2OrrThH2J9TtAKrK0C+v7l21ObOLxRxG1
- TKwRMiXsGXGMUFSpHktuTzg4nbOXJSg9waiFZBC6zJrO705u3EoJh/afSAlTocM1v3dgSaOME14
- gwhprfqDy0GOvrggEN5bYSAU+0zlDLQK0OtrtJXqEK/VMrVbHqq+Iv3qer0O+7ss/BXEyn/EBj/
- MwOOVK0XVRQmGwkjQ2rr+b3k7anUZ/3Y7TbeAhk0gLwgOvnn2CWKbYaV1YYKkl2qtNk2T3c5OkW
- FFftp4xoUKhqejxGiezgKtmjF/1izsPGIkBhB59UQqOlFZX+JUQA=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-X-Endpoint-Received: by B4 Relay for markus.probst@posteo.de/default with
- auth_id=680
-X-Original-From: Markus Probst <markus.probst@posteo.de>
-Reply-To: markus.probst@posteo.de
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026031105-uptake-glucose-5b61@gregkh>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: mfe@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-From: Markus Probst <markus.probst@posteo.de>
+On 26-03-11, Greg Kroah-Hartman wrote:
+> On Mon, Feb 23, 2026 at 12:27:34PM +0100, Marco Felsch wrote:
+> > The disable state isn't tracked at the moment, instead the state is
+> > directly passed to the hub driver. Change this behavior to only trigger
+> > the hub if a state change happened. Exit early in case of no state
+> > changes but don't return an error.
+> > 
+> > Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
 
-Add the Synology Microp devicetree bindings. Those devices are
-microcontrollers found on Synology NAS devices. They are connected to a
-serial port on the host device.
+...
 
-Those devices are used to control certain LEDs, fan speeds, a beeper, to
-handle buttons, fan failures and to properly shutdown and reboot the
-device.
+> >  #define to_usb_port(_dev) \
+> > diff --git a/drivers/usb/core/port.c b/drivers/usb/core/port.c
+> > index 44e38f922bc553adee64b35c536dfd4154a42d8a..86e9d6d0c0f505782569565fde8e4a46b06b8b4d 100644
+> > --- a/drivers/usb/core/port.c
+> > +++ b/drivers/usb/core/port.c
+> > @@ -117,6 +117,10 @@ static ssize_t disable_store(struct device *dev, struct device_attribute *attr,
+> >  	if (rc)
+> >  		return rc;
+> >  
+> > +	/* Early quit if no change was detected */
+> > +	if (port_dev->disabled == disabled)
+> > +		return count;
+> > +
+> 
+> This will change behavior where someone tells the port to be enabled
+> again, when it already is.  Is that ok?
 
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
- .../embedded-controller/synology,microp.yaml       | 52 ++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
+That's the whole purpose of this patch. Can you please elaborate why
+someone wants to enable or disbale a port more than once in a row?
 
-diff --git a/Documentation/devicetree/bindings/embedded-controller/synology,microp.yaml b/Documentation/devicetree/bindings/embedded-controller/synology,microp.yaml
-new file mode 100644
-index 000000000000..3068da6f2a6a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/embedded-controller/synology,microp.yaml
-@@ -0,0 +1,52 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/embedded-controller/synology,microp.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Synology NAS on-board Microcontroller
-+
-+maintainers:
-+  - Markus Probst <markus.probst@posteo.de>
-+
-+description: |
-+  Synology Microp is a microcontroller found in Synology NAS devices.
-+  It is connected to a serial port on the host device.
-+
-+  It is necessary to properly shutdown and reboot the NAS device and
-+  provides additional functionality such as led control, fan speed control,
-+  a beeper and buttons on the NAS device.
-+
-+properties:
-+  compatible:
-+    const: synology,microp
-+
-+patternProperties:
-+  "^(power|status|alert|usb)-led$":
-+    $ref: /schemas/leds/common.yaml
-+    unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - power-led
-+  - status-led
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/leds/common.h>
-+
-+    embedded-controller {
-+      compatible = "synology,microp";
-+
-+      power-led {
-+        color = <LED_COLOR_ID_BLUE>;
-+        function = LED_FUNCTION_POWER;
-+      };
-+
-+      status-led {
-+        color = <LED_COLOR_ID_MULTI>;
-+        function = LED_FUNCTION_STATUS;
-+      };
-+    };
+Regards,
+  Marco
 
 -- 
-2.52.0
+#gernperDu 
+#CallMeByMyFirstName
 
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
