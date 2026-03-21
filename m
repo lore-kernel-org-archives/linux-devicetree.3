@@ -1,48 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B441231836;
-	Sat, 21 Mar 2026 10:46:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47BD527E07E;
+	Sat, 21 Mar 2026 10:48:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774089989; cv=none; b=JeT3CrVkhIDQXUXZ/y0vwMM48AXQsqPvm0UZULLK6l6EyqrvW/hZ2ESOuCQGlgDIPucbYwwuw9smakmpFqt702LygCcDHy1jgbWLXiOgtHklIipVTOwlquqpN9ALvCKIFApJ5sgwH4LPiuGKXBcffoPYSFy3hPpDePyax7UchZk=
+	t=1774090082; cv=none; b=Ga75lm7EFmjAlgw0LZvF1i+qdhtUtFS65EaxvFc1jCrpuMYbf5jrjTEUyfmxYHuSq+4ZklTEC+jgHyoDNCdZAZotatbCWR8UqQ4wjuPlAbwOnF04Ewh6LyluQd4Iap5+tODqkiB16nGH6e0x5frf6lYR3fPQRjkUUSKeU+TUZ6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774089989; c=relaxed/simple;
-	bh=Wykzu+6xT93IcxOk/c/OYiUHQuODHm7jFyIJmovcjM0=;
+	s=arc-20240116; t=1774090082; c=relaxed/simple;
+	bh=qEFy8AnPO5qE2Uzt0vHXYvvn92a3GNoGXX3pnurY4o0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e46Y/G0YdjF90IIpX+eCf/SFIvo3ScHA1aO8FH3k8kQQs3pJH7Wv2WC0vzXFwZQzvqPxHHk++bGVs4G4npC4rWbIHG79liXX24kcpDxcwEZI9SB84PSCF3hBFW0pFcvUGk+tq9iC0nyW7TY0ZAPeTuWSIDQhIx2KtYaSKAlsg7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z3NjxvTu; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=fhC6MKBDZeV7Z+kvB4X61IUTdUqUQ421vVyPWurBuQr4cn0j9Yemuu2e0qvewKHvVWXXrO4xSgA0uAKnbI4vJTBV+pr0vM72UCrMZ8kJf8h3LcSYJ8Dljn4/hfb2SyRHgcnfgr6cupaJIarJFLu5iUS141TnsmjH2dFJQ+06diA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FHXiZCFh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z3NjxvTu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7520CC19421;
-	Sat, 21 Mar 2026 10:46:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FHXiZCFh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 636A3C19421;
+	Sat, 21 Mar 2026 10:48:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774089988;
-	bh=Wykzu+6xT93IcxOk/c/OYiUHQuODHm7jFyIJmovcjM0=;
+	s=k20201202; t=1774090081;
+	bh=qEFy8AnPO5qE2Uzt0vHXYvvn92a3GNoGXX3pnurY4o0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Z3NjxvTueCzmrpQrkmbYHtcpthJO5rlzzz7hFft+4t7szbJFtaO/FNqo3MjelNDuw
-	 aWoqj37nG+5y+2ip5jRLQddvY9PhqeVhGu1Yeb3QbH0dO49uDIYnt4tV9otvDyysHp
-	 m3BHn6kHja+lrTHxQx6KYbYmz8/Od5JLHGApthOLOHoRG9YO45bG2qae6Lpd/ihB89
-	 T+/SCDn3hAhl1O7YgrigF8GdYYNnV9I+mExF3r+RQRx7rwJPZRJ3KXCpwpD3dug3Cv
-	 esouKziMDg38lO4DIK9l+7EWqXG0d/QrdxotbXxZMUERTt2SbSW+4+ud6EVzSqhro9
-	 FGL2f3uDYGdHQ==
-Date: Sat, 21 Mar 2026 11:46:26 +0100
+	b=FHXiZCFhRMVIztnsDfbKbBv5+7V46d3NJKP+wC9tuKJ1YzH1MQgLUWNXfbzCuOZqu
+	 DMND/Jm0Wcz2sXNva3iMu3v5WROYo1kMcfwbhU4CyAclskIQ9vJaHvlWP57c6jxSPV
+	 z3FJF+aVlyiANoIEL0DhoHVDQMAFq//5r4KEHy7fvmzPwW8ula2mJUJW6ofqihYIia
+	 402xDSOxgKeqpi1lTDCFhQiuvdYRFDdgVQzOEdgtgnlJjq3i8tHucZSZCWs9rmQhvH
+	 1RFHMua2MTI7jkPIeyx2ewe0bgpUNt8BpY08i4JCGUcUF25rOVIreD6cacpJ1kRCa1
+	 uWME9sM9OzI6Q==
+Date: Sat, 21 Mar 2026 11:47:59 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Alexey Klimov <alexey.klimov@linaro.org>
-Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>, 
-	Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Sam Protsenko <semen.protsenko@linaro.org>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	Jassi Brar <jassisinghbrar@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Peter Griffin <peter.griffin@linaro.org>, linux-samsung-soc@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] dt-bindings: mailbox: google,gs101-mbox: Add
- samsung,exynos850-mbox
-Message-ID: <20260321-first-exuberant-angelfish-bd9ca8@quoll>
-References: <20260320-exynos850-ap2apm-mailbox-v1-0-983eb3f296fc@linaro.org>
- <20260320-exynos850-ap2apm-mailbox-v1-3-983eb3f296fc@linaro.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jon Hunter <jonathanh@nvidia.com>, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: pwm: Document Tegra194 and Tegra264
+ controllers
+Message-ID: <20260321-witty-fortunate-elephant-ce50fe@quoll>
+References: <20260320234056.2579010-1-thierry.reding@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,17 +44,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260320-exynos850-ap2apm-mailbox-v1-3-983eb3f296fc@linaro.org>
+In-Reply-To: <20260320234056.2579010-1-thierry.reding@kernel.org>
 
-On Fri, Mar 20, 2026 at 09:15:15PM +0000, Alexey Klimov wrote:
-> Document support for a mailbox present on Exynos850-based platforms.
+On Sat, Mar 21, 2026 at 12:40:55AM +0100, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+> 
+> The PWM controller found on Tegra264 is largely compatible with the one
+> on prior generations, but it comes with some extra features, hence a new
+> compatible string is needed.
 
-Here you explain the hardware, e.g. that they are not compatible.
+Extra features means devices are compatible.
 
-> While at this, convert the compatibles selection to enum.
+You also always need a new compatible even without extra features, so
+last part is just confusing. Suggests like you could skip new
+compatible.
 
-This part is redundant and obvious, can you do it without any sort of
-conversion? Not really.
+> 
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> ---
+>  Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml b/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
+> index 41cea4979132..15706d2a808d 100644
+> --- a/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
+> +++ b/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
+> @@ -16,6 +16,8 @@ properties:
+>        - enum:
+>            - nvidia,tegra20-pwm
+>            - nvidia,tegra186-pwm
+> +          - nvidia,tegra194-pwm
+
+Not explained in commit msg and it's a duplicated compatible.
 
 Best regards,
 Krzysztof
