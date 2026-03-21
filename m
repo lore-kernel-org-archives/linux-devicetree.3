@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9556F30C37E;
-	Sat, 21 Mar 2026 19:30:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 139C42D1F44;
+	Sat, 21 Mar 2026 19:30:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774121402; cv=none; b=aY1MvPxLrfl8Q2tHzAw/6r6qnSQStOgNlhh7jX4JEtWrWOiFlthvA+8Vk4yUdLUQWTAqpqwjmpcJFmMWxRCcgbJrtscEJEWZiOg5Uv/CKKCF5Bu2spqiMGRVx3WpAoT4Bn1YDQ5nkd5byHpXvt3BTOQTVPmjZ59dq0AeFf5e+uQ=
+	t=1774121430; cv=none; b=l6qKFfzmbNqNBzm4Nfkf4MQF7CctMgBsBNXy9iScVEYLteV6QDF7M00vgJ/CiRqzVxnEpV1CAmDjlWwEp3XVabp2j7Zb1Fgb1t7JxxfMtGuFt1jbjCxd8B2XiEMAQcx+OkYEcN7esVshPC88lK0mQW0avIst+ZGAD4Ih/HfmS6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774121402; c=relaxed/simple;
-	bh=xuH7OCcz9Jl8Oe5USv0k8uLqdmxF/lMmMSYe76uU0yc=;
+	s=arc-20240116; t=1774121430; c=relaxed/simple;
+	bh=wOI0ZW0uOmgfpOawo7vkUm1g5JJ5ghyDRdnzkSBmRUI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GXj9JN1Fp8QQjKjzmAtqjAON8YIVEzHK2ef+b8j3e387rJ8TF5evT/GvXnxVVP3ZhdPLv8TUU9U8YK70CEVPu5zGtvCSWlmp2a5Kw8kF0P1T2YT/Jf4tly25lsf6MTBQ0BcoL0lRxx78/Z+3rmuSCOVQz053WuL6fUmG40wnETI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZqxSX5TZ; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=tUVOVlSz20Q4wHq/UYqfN7REfSrAH964TSSZEPOnSMplQFliYj8vlqZrgr20OZRvIqQBoSUZwSPHBhlEfs9Gw8IFKiVPP1n/rKHu1ej/m+73N5tnLM0ljwglNYjC0pruklBYU1vbEZ05rQ4/R/aMfaqrz9vwcGL9M40CJfv4H0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vl2u9CSK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZqxSX5TZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A399AC19421;
-	Sat, 21 Mar 2026 19:29:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vl2u9CSK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EA30C19421;
+	Sat, 21 Mar 2026 19:30:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774121402;
-	bh=xuH7OCcz9Jl8Oe5USv0k8uLqdmxF/lMmMSYe76uU0yc=;
+	s=k20201202; t=1774121429;
+	bh=wOI0ZW0uOmgfpOawo7vkUm1g5JJ5ghyDRdnzkSBmRUI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ZqxSX5TZchZlSm96nHe1XOxIfpnopGWilpqnCTEOvfZJ9dHvLwlWJLbuUyu5b7u2w
-	 ngrZF/7pf5BoefnJooiBFD/nI/AqvJqNE5rN5GrFQzEgpBLVTNfw9P6xS9RW/Q54cg
-	 ROQo2C5qFmhfMSg3+VwS9wqjYpEe3eXo/8ljR2zE4lEfrp9FwDPWLAXi0OdxTnqrqT
-	 wZ5l89NWM3rT8Kw/PM8HDQHpjWWU56OdnyvizZIlJvVFnwO9v3TFkEwxURCLEshqrP
-	 pCIGVikixFFa5ZtCa4IiVHAsVo8Mgxc4Vk6+U0vRJ2MYiY/BtoUj2V/fK63m6W+tqs
-	 y1s/ZMnzU/LdQ==
-Message-ID: <a7144f45-cfb6-47ac-8f32-c97a7eef9e97@kernel.org>
-Date: Sat, 21 Mar 2026 20:29:58 +0100
+	b=Vl2u9CSK4OIrPM+MyBHwQXCKjShHyUeVy44hAyiyDe4fYmz+GsBufwyrbPikM9tY4
+	 7kjD5swQ8pz4TA/spzrPDoFKSrX68NOLNeT5HYyJMX39D9lAMv8LtSpjGqXZ3IoYa2
+	 fOayFzhEAO1ncAtFz0E7+H+K35YKDwTEH2YBZ9NU9dJcR6hYgPPuGhkvoEAN4uYYyQ
+	 kM/epaq7WlexVHRRhqnXE49UkI9+AuFkh/T54hS65xrw2ccF+KjsrM6hzwY8mHl234
+	 RaC7NBRfdulyi4nn4KGu+ptNHRR5Tkkg7r/zH1QBrZa0vUKNd1sCLMhf/edkEGGfAq
+	 pZNQRGE8fPQBg==
+Message-ID: <c3763ad2-4e57-46b6-81e1-6963d850e7ed@kernel.org>
+Date: Sat, 21 Mar 2026 20:30:25 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,7 +35,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom,ids: Add SoC ID for SA8650P
+Subject: Re: [PATCH v2 2/2] soc: qcom: socinfo: Add SoC ID for SA8650P
 To: Radu Rendec <rrendec@redhat.com>, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
 Cc: Lei wang <quic_leiwan@quicinc.com>, Bjorn Andersson
@@ -43,7 +43,7 @@ Cc: Lei wang <quic_leiwan@quicinc.com>, Bjorn Andersson
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>
 References: <20260321152307.9131-1-rrendec@redhat.com>
- <20260321152307.9131-2-rrendec@redhat.com>
+ <20260321152307.9131-3-rrendec@redhat.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,21 +89,22 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260321152307.9131-2-rrendec@redhat.com>
+In-Reply-To: <20260321152307.9131-3-rrendec@redhat.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 21/03/2026 16:23, Radu Rendec wrote:
 > From: Lei wang <quic_leiwan@quicinc.com>
 > 
-> Add unique ID for Qualcomm SA8650P SoC.
+> Add SoC ID table entry for Qualcomm SA8650P.
 > 
 > Signed-off-by: Lei wang <quic_leiwan@quicinc.com>
 > Signed-off-by: Radu Rendec <rrendec@redhat.com>
 > ---
 
-
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Here tag is missing as well.
 
 <form letter>
 This is a friendly reminder during the review process.
