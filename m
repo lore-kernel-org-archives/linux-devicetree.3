@@ -1,102 +1,143 @@
-Received: from out-186.mta1.migadu.com (out-186.mta1.migadu.com [95.215.58.186])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023103.outbound.protection.outlook.com [52.101.127.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE6F1A6818
-	for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 07:37:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.186
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774078645; cv=none; b=Yo1x7UeuIOfJZtsmRcjD+ebRH5HMmrcv+xV2wbwv7JVjSRbfgInt1TRXm13BJeYsqzsCxkHUumI7vmOAiiZR6gB/2GhBoXTUtycVxh7XNUceC1thBWwXwU1ZajncqGfN5KeJl2llL7QeqXjDHG1x6cJE73Q4GSF0eD2ROTIgygY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774078645; c=relaxed/simple;
-	bh=QMM3KwrskrVMJ6T7vb3jZ/l2SDa18aenq3clLzmpVa8=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FDAA23ED6A;
+	Sat, 21 Mar 2026 08:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.103
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774081258; cv=fail; b=WGShNbXrHCNzhloi1e1oF/qCyir0ZXvAmqKnzDvlvuIIDLL9Di7JNPTduBon+GgeRrwbXdEWToH3u8MhXEqFjcO1gxBTkAi7moYmUvh4F9x9o5ZylxARO3p/LtjU2NrcR1rNa9tqm7uys+Y4dN2zOTP0MiKi/tep89SxW8I8aSQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774081258; c=relaxed/simple;
+	bh=hSU9FMwbm3Jk4ummWTCwoeehjxdqhqFkwPugdoi1R6M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KKA9XTxyeOZenq7bcWefG3CDU1UZYmdBgu6TycGPB8pPpqvEoyzmAKWUnz1A+9SxKr1QmGMwU6kzuUgMBubhRHR+AaETyKn78CPpnNrRA0LmZuRl3xTnzlijcEz8XEvAn34Bhu9+9FwS/33G7k3r245SwA68bC/OyRLV0S9LTB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=wga5Vray; arc=none smtp.client-ip=95.215.58.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="wga5Vray"
-Message-ID: <9ea41e6c-7643-452e-abf4-f35238807a26@packett.cool>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
-	s=key1; t=1774078632;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CnZTzyArA1UF6o+rOeggLESVVxpBXLlSzECOhpcPCSA=;
-	b=wga5VrayaH9c+LagNeLUpd9ULHLJ0w82Y+lwBxTwUFkLPtRXNOycWTqDNWHDlKgumTX0Lz
-	0i0KZwn7WH+1Jmds70yzBCY8Dvyeia8Hzebt+/FPT+g+IDahlPznvVYCDNpuploLA3erFL
-	b++He7sXHq4++0DoNUlS1oNjFaKwCWj2dyaOBNnRXjOf0B8MsLJMVwa54PRAhBf5YJ9fsC
-	OcwUUNOOw/52HFJizsX3beBNQOjB0GCx7JLpGxvXr86g3DN5aE4FPOqaIAA6HcmzmIDfmm
-	H4SUNC+ZwaQNY2cjD+q7y/CgOMGlPqqtxry15qDX7hrO02CZR0QCr/lSmXVD2w==
-Date: Sat, 21 Mar 2026 04:36:58 -0300
+	 In-Reply-To:Content-Type; b=HpUI3o/JJird+r+Hav/DXJ8l02sVDovWaCWLUuabJSArWMKrUjx9Sh6mQx/B7chJk+sSUp6BCSIkaAJxuyeX4vb1Qf2TmEwA9McX6PKJgegXPXEMs74oFNyzjD6kuhtQRfoBqmDVSlr8hARuMkq+68dgKYdC8Z+/aEnjszAGZ+0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.127.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=o+ME1Li0KoAFTdzDjg9EDhDKRrLNoubh8FBRgL4Rs3X42T/u/xod3nXgYDGpcA+dekWLG66OtkiEXAZShdTtvDg9AxcONBwXtWYYGBqSy13GjmOc5Pui4aFbOzMPFA+ekp8h+qvx2fMYh44AEX8jtQ4429c20qR6dRePs7aHedGygIwxJhqx1Cqj/aqOSWOmmazJ5y/HsDaJvVv8HZoRFzTyXaY9P/QgR/9WlDsIIlYgIkIEDIaqE8nZft8rIQy7DyVqTrhAuGuBGg35mnxddsR+NSCEIZsZiYiW+o8tzxIWCi9/uCbn4ZcYTOsUYa9AEwg3fUlxOxwyy/i8qeprZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wVPHZ0qhk2hvSe4RCcrdoleb98jg/DeDk3TAOOniT7o=;
+ b=BES5qeIvIYe1lnYV4T1Tn/6QHxhIcPDowkkpNxDEZxb5CC/SJNu8rVi8D77xFh3S5EPDe4mMeZGzowvCTrMI3TTCQtxiGRgA97VCJaTDuglPGyQRY+8NimfemrrE/TE7NHEFY3EwV7t3ei5yvpkN8gnJdTm2IeLJUEIzIixAS1DSeZC6QxSSD0FhsKh7Ddnxk8UGsMthrKLUK9sTMh7VMCCJlQNyiCggOyngDfH3Tq2iZVSTQ1m15M+Xk8ok/1jjg/f8pLjNVtTyHoz9MyxgSpdlQU1pt4e/si8s0vdbq+jnN/+3tdnJ77eqnlCYGXp5EuSTCFft6qAl9VBnrwoxTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from PS2PR02CA0079.apcprd02.prod.outlook.com (2603:1096:300:5c::19)
+ by KUYPR06MB8748.apcprd06.prod.outlook.com (2603:1096:d10:91::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.25; Sat, 21 Mar
+ 2026 08:20:52 +0000
+Received: from TY2PEPF0000AB83.apcprd03.prod.outlook.com
+ (2603:1096:300:5c:cafe::e3) by PS2PR02CA0079.outlook.office365.com
+ (2603:1096:300:5c::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.23 via Frontend Transport; Sat,
+ 21 Mar 2026 08:20:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB83.mail.protection.outlook.com (10.167.253.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Sat, 21 Mar 2026 08:20:50 +0000
+Received: from [192.168.129.151] (unknown [192.168.129.151])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 07CFC40A5A01;
+	Sat, 21 Mar 2026 16:20:49 +0800 (CST)
+Message-ID: <1ecfa7f7-63ad-48a7-b033-b51ecee61e0b@cixtech.com>
+Date: Sat, 21 Mar 2026 16:20:49 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v4 2/2] arm64: dts: qcom: Add Xiaomi 12 Lite 5G (taoyao)
- DTS
-To: Stanislav Zaikin <zstaseg@gmail.com>, devicetree@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-kernel@vger.kernel.org
-References: <20260305093941.305122-1-zstaseg@gmail.com>
- <20260305093941.305122-3-zstaseg@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] dt-bindings: dma: arm-dma350: document generic and
+ combined IRQ topologies
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: peter.chen@cixtech.com, fugang.duan@cixtech.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, vkoul@kernel.org,
+ ychuang3@nuvoton.com, schung@nuvoton.com, robin.murphy@arm.com,
+ Frank.Li@kernel.org, dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20260319101723.246539-1-jun.guo@cixtech.com>
+ <20260319101723.246539-2-jun.guo@cixtech.com>
+ <20260320-vengeful-violet-cockle-382580@quoll>
+ <40fc5cb7-a5f2-4b86-8dba-1b39e1ea0da4@cixtech.com>
+ <21ef18ef-a6e8-41a1-8280-73ee058fdc74@kernel.org>
 Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Val Packett <val@packett.cool>
-In-Reply-To: <20260305093941.305122-3-zstaseg@gmail.com>
+From: Jun Guo <jun.guo@cixtech.com>
+In-Reply-To: <21ef18ef-a6e8-41a1-8280-73ee058fdc74@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
-
-Hello again :)
-
-On 3/5/26 6:39 AM, Stanislav Zaikin wrote:
-> Xiaomi 12 Lite 5G is a handset released in 2022
-> […]
-> +	touchscreen@0 {
-> +		compatible = "goodix,gt9916";
-> +		reg = <0>;
-> +
-> +		interrupts-extended = <&tlmm 81 IRQ_TYPE_LEVEL_LOW>;
-> +
-> +		reset-gpios = <&tlmm 105 GPIO_ACTIVE_LOW>;
-> +
-> +		avdd-supply = <&vreg_l7c_3p0>;
-> +		vddio-supply = <&vreg_l2c_1p8>;
-> +
-> +		spi-max-frequency = <5000000>;
-> +
-> +		touchscreen-size-x = <10800>;
-> +		touchscreen-size-y = <24000>;
-> […]
-
-I have noticed this previously and started wondering why the size was 
-10x higher. Now with my own device (motorola-dubai) I actually found out 
-why…
-
-With the actual 1080x2400 size, the mm values reported by libinput are 
-10x higher than what they should be, e.g. touching the bottom right 
-corner with libinput debug-events:
-
-  event3   TOUCH_MOTION              2  +1.493s  0 (0) 98.80/98.75 
-(1067.00/2370.00mm)
-
-(2.4 meter tall phone! :D) which was mooooostly "fine" except Phosh's 
-on-screen keyboard was accidentally detecting super-fast down swipes as 
-I was typing normally, and suddenly closing the keyboard as I was typing.
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB83:EE_|KUYPR06MB8748:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3828906d-c524-47b5-1167-08de8722c373
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|82310400026|36860700016|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	e/l9aLjihfCIqFIoh+chNazOB9bVvwg6fpi8lRLqxKJs6IuPkVDhR5Mi1/oSs8mxYzwl/TFm1D7E4TyoSMhJbHEP8feO/8Fe6W6jwfyT3CrsNQNc6sFrLLK+jqYipNlshx54fA3hC+KCw1kKlaK+G1DV4mk6FnJgDm8EZ9rwMhti4daKaRD1RdAOLn2s2YvIWHEtF2P1QYExdM60HU3LZBuJFNTHYVGY2tJy3vQ3Z/Ql8/a3S3OSWmMOneCapYN3sDqHBaagnrspnB7nW+xyoxl7P+WkAltXkFjLhO3RJPMKQ4WF+rvFX+j80BESBuWLGlcOgsD4AYZpwE4duTN0R0gAci4MK7700sRXrPX2d3K5B3D+HhoyalxgSJejDywDYcaHDMWarA+90SAdwFM6trNd16wv3U1dKKY4cNapnpOc34b6uKWeGDwVq6K9cxBQpeI2I0kpj7ITz6PqNgwmUmRgWYDYkonF8AsmV8JoXpoqJOWvJ8pxJRU9uurevWEfOKIrOb50Q+vrvAd6MOQq5n0MVtGhCjfdvAFyamLsEVq5BUAt2tApIgTRuQ8VIOtX58pDQ6aIMlGMeiyMTNbHczQzcpsbilZDBHW7jhIx8e737TbiWOuv6SV/v2mF0XXi0uT2yFWNhr0QJ/vtQa2wcSvkxXazgJ2uVrTCsrAn+uEd2Ls6XPnwnzHLdW9TMRaCMJ/60dj5o6Kx2/W4l4cHnLvfspW5m2zA/z0yBO6DtDhdYnweNOUQlSettoQkiZ6ytDQvgZbmEKzY4TI72LJNeQ==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(82310400026)(36860700016)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	T04CD9DVNhSBpBPyaO4QliqJWm6oITxL1f5AEuHybqO7o06qlrPnlueZVqmZoALlga28Jh7GTGxBbv0IPi5BgNOwEurQXHrjBcA5HtcyspogeUyistdOsFov0e1rYSvw+OgweNmI6OvnyveagG2ju0iBUKlvIzWmEl95kqhhjSKl8Wf/gsrNUiULHdWdtXOqYQYUE205DHwVVCyyh68wOWfvOox7QTX0oTXdcM5C+OoHLUV/PBuCf+BNDzWDsJqxYtecsfkul1oGHPgSGDfYPXpenTvWtpYRj39vQltycZiFI/cT4SgZxwOUwdGzL+XtEFPH9vwuZXUsPOnlRNtoQvOjB5/LlTEs9PA+kA/vwxUHKYDVX54nvo6M2iJ8BIFoJqX7F0MuFl/DWXFI8wO4WQDMC0bKds5j2Ox9X+OOMAVxrYvgr2P//P7K/jYW7uEv
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2026 08:20:50.8792
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3828906d-c524-47b5-1167-08de8722c373
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	TY2PEPF0000AB83.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUYPR06MB8748
 
 
-Let's do this in a more acceptable way, in the goodix-berlin driver:
 
-https://lore.kernel.org/all/20260321073242.556253-1-val@packett.cool/
+On 3/20/2026 9:12 PM, Krzysztof Kozlowski wrote:
+> EXTERNAL EMAIL
+> 
+> On 20/03/2026 11:28, Jun Guo wrote:
+>>>> +    description: |
+>>>> +      The DMA controller may be configured with separate interrupts for each channel,
+>>>> +      or with a single combined interrupt for all channels, depending on the SoC integration.
+>>>
+>>> And more important - you must review the LLM microslop output before
+>>> posting and adjust it to Linux kernel coding style. Don't send
+>>> unredacted tool output.
+>>>
+>> Actually, this part of the description was not AI-generated. However,
+>> I’d like to confirm the issue you mentioned: are you saying that this
+>> description is written too verbosely?
+>> Then, do you think there are still issues with the revised version?
+>>     interrupts:
+>>       minItems: 1
+>>       maxItems: 8
+>>       description:
+>>         Either one interrupt per channel (8 interrupts), or one
+>>         combined interrupt for all channels.
+> 
+> No, it is not wrapped according to Linux coding style.
+> 
+> Please wrap code according to the preferred limit expressed in Kernel
+> coding style (checkpatch is not a coding style description, but only a
+> tool).  However don't wrap blindly (see Kernel coding style).
+> 
+Thank you for your patience. I have clearly understood your points and 
+will incorporate all of your feedback when revising the V3 version of 
+the patch.
 
-so set the properties to 1080/2400 in v5!
-
-
-Thanks,
-~val
+Best regards,
+Jun
 
