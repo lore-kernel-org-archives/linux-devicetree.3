@@ -1,98 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A293318BA8;
-	Sat, 21 Mar 2026 15:41:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06B319E992;
+	Sat, 21 Mar 2026 16:05:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774107678; cv=none; b=jGe1C0M78rAWhlTHknENaYWGQMcF4sBlV3FDD8qd1IrwIR/3XNxW6NoWVwlofiMN0OAwRv/RPnd3vDqzE6bk7cov6IIbrgAjSe1g6WB2kl1I4ytoUkZAsKHFyGAzI+h8wCsIn0JoMImtn2ieEkMhbP2n5Yxc6L2yIvaN/w/1p7g=
+	t=1774109150; cv=none; b=o6Rgw4M3Tt2KvhSbb1pbljs0AEjO9UgCzNIR7YkDxvC7a6lFtaIwUmvPBlpxv0wvQbBEHhlGcIpdUUsmeYzwH++7y+Xn3yD0ftJnnSCxfG65WJAbjmUCGY53FPpaEdjyxdxA0umCBpin78cfjo8snkMz3J4pB8161cdJMAuOwZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774107678; c=relaxed/simple;
-	bh=ZW7lnFfrC21mPclbeUUTcSK17EwEfNIv6CxVgFstctQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RZ/PFtER/opsv0QsKLYQUL4Zd/p3qAdodIBC/CKqVbmqBEE3xDmpYq9c74sEKWT2iyc0/zOOXH/9vC3QsUYas1RGrDNVumu1FU6y+2stM0SpqU9VVuTBD4UIVpt8IxwT9AosLv/l2b/iNDTVC6lt8AE1BVOWES6cA3eCYejiqk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UOM1+CcS; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774109150; c=relaxed/simple;
+	bh=gyLPzHFjpcZvY5yUbkGLDxlWa/8E3W4swHcKJUzvh/4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mol2nLvleJcK+v5ZaRK90CVCFth+6wcgZemn3Eh+D1HSdUNkqh5EyT6+Y12aVNVoLQyqO6YWnK1qBBynqOe0OL7AkR0O3m00nQ95ClxciUrCvtnNofceClHkYpbduWxlLtjOfgeTJ+40tRi7PiskJxGncit1wE2gFdAaV5h8yMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=BWh1uIUt; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UOM1+CcS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D686C19421;
-	Sat, 21 Mar 2026 15:41:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774107678;
-	bh=ZW7lnFfrC21mPclbeUUTcSK17EwEfNIv6CxVgFstctQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=UOM1+CcS7Nvw/ekzHHhYX5CVpN7ij/r8WAYEC2y+O+9f4ao8GNO43xfZdjwfGWzYM
-	 Ox2321i9SZsG+9/dnDzhOlbMHJ0C2BavlqXiHFS7iFwNGQMx0KhQmPgnSEbU6OFhKP
-	 0thTlWRoIgqZGzIl+ztel2pC/4N46YgbnWy21bLGcMM8qzBcaYDDPAbWuxcnX1Z0PB
-	 mcnDJI2KBH7t+Fo81GAeGdJta7lYIxBgOxToDso0K+ZTbtTNIpoRP5HT50UlrWbsho
-	 JInztTmHWzb07ZfITyAmY1bpfP1JOjedujIr4eG2OR8F3h1+CDsOXB4kWIs2Nkljko
-	 lSuNW8UOGX5sA==
-Date: Sat, 21 Mar 2026 15:41:09 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: David =?UTF-8?B?TWFyaW5vdmnEhw==?= <david.marinovic@pupin.rs>
-Cc: andriy.shevchenko@intel.com, dlechner@baylibre.com, nuno.sa@analog.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- michael.hennerich@analog.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/3] iio: dac: ltc2632: add support for LTC2654 DAC
- family
-Message-ID: <20260321154109.79266899@jic23-huawei>
-In-Reply-To: <20260320150957.105571-1-david.marinovic@pupin.rs>
-References: <20260318135736.91564-1-david.marinovic@pupin.rs>
-	<20260320150957.105571-1-david.marinovic@pupin.rs>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="BWh1uIUt"
+Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net [178.82.120.96])
+	by mail11.truemail.it (Postfix) with ESMTPA id 28CC91F9AE;
+	Sat, 21 Mar 2026 17:05:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1774109139;
+	bh=gyLPzHFjpcZvY5yUbkGLDxlWa/8E3W4swHcKJUzvh/4=; h=From:To:Subject;
+	b=BWh1uIUtTNVHairbLOoWq2TpO/GD603aoSYt0EJD0EEFiM5TkQ5xAMLNNVA0zWnjn
+	 5z3eYZylaqjpKA6kk/zl87ICTt+UJHdVXBF02vm7YE3FNP+EleJC/dQzrryzsxO+Ud
+	 XEI62VQJ67EU6dxy5k94g1kFm/sLT1edfRpXvqG4SJ9MNx/dnTKmHYSR3mbA0O/AUs
+	 hVWNmjvQT+ioEPgx27JBW7tuQvLR9AKh+rbm9xt/C0pUcZSHrZfoGS7pPIXd9/BvU1
+	 qtBnJWPWe2ojsMbzsQ7VSAHxWGKvXZmTPkCqhlwHSesIvaViCqPvq+danB+PM1wRMY
+	 fCxIAeNqj3PqQ==
+Date: Sat, 21 Mar 2026 17:05:34 +0100
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Frank Li <Frank.li@nxp.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	Martin Schmiedel <Martin.Schmiedel@tq-group.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux@ew.tq-group.com
+Subject: Re: [PATCH 2/3] arm64: dts: freescale: add initial device tree for
+ TQMa93xx/MBa93xxLA-MINI
+Message-ID: <20260321160534.GA6345@francesco-nb>
+References: <20260317111704.1075938-1-alexander.stein@ew.tq-group.com>
+ <20260317111704.1075938-3-alexander.stein@ew.tq-group.com>
+ <abwBoB29cns28PWl@lizhi-Precision-Tower-5810>
+ <3410122.44csPzL39Z@steina-w>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3410122.44csPzL39Z@steina-w>
 
-On Fri, 20 Mar 2026 16:09:45 +0100
-David Marinovi=C4=87 <david.marinovic@pupin.rs> wrote:
+On Thu, Mar 19, 2026 at 03:20:30PM +0100, Alexander Stein wrote:
+> Am Donnerstag, 19. März 2026, 15:01:04 CET schrieb Frank Li:
+> > iomux is not necessary at last one.
+> AFAIK iomux being the last node is/was a common pattern for imx based platforms.
 
-> From: David Marinovic <david.marinovic@pupin.rs>
->=20
-> Greetings!
->=20
-> This is v3 of the LTC2654 DAC support patch series.
->=20
-> The LTC2654 is a quad-channel, 16-/12-bit DAC with internal
-> reference voltage and SPI interface, sharing the same 24-bit
-> SPI protocol as the LTC2632/2634/2636 family.
->=20
-> The LTC2654L-16 variant was tested on a Phytec phyCORE-STM32MP1
-> board with the DAC connected via SPI1. The driver probes successfully
-> and all 4 channels are accessible via IIO sysfs.
->=20
-> Changes in v3:
-> - Patch 1 unchanged
-> - DT bindings use fallback compatibles for LTC2654-L12 and
->   LTC2654-H12, which are register-compatible with LTC2634-L12
->   and LTC2634-H12
-> - LTC2654-L16 and LTC2654-H16 keep separate compatible strings
->   as no existing compatible supports 16-bit resolution
-> - 12-bit variants reuse existing LTC2634 chip_info structures,
->   so only two new chip_info structures are added for 16-bit variants
->=20
-Applied to the testing branch of iio.git (which will become togreg once
-the bots let me know if they found any problems).
+Correct, same understanding here.
 
-I made a few minor tweaks as called out in specific patches.
-
-Thanks,
-
-Jonathan
-
->=20
-> David Marinovic (3):
->   iio: dac: ltc2632: drop enum and use individual chip_info objects
->   dt-bindings: iio: dac: ltc2632: add LTC2654 compatible strings
->   iio: dac: ltc2632: add support for LTC2654 DAC family
->=20
->  .../bindings/iio/dac/lltc,ltc2632.yaml        |  12 +-
->  drivers/iio/dac/ltc2632.c                     | 367 +++++++++---------
->  2 files changed, 188 insertions(+), 191 deletions(-)
->=20
+Francesco
 
