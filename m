@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E36E284883;
-	Sat, 21 Mar 2026 10:03:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 149582BDC2C;
+	Sat, 21 Mar 2026 10:05:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774087428; cv=none; b=uHYdS/Zd2vbAT0BdW1HrPzwhY0OUyTCLhiBBAriFI0g+uvbXTMb+f71/OXFGtCefbOpV6XShEUh+teGdgoRoeb7HNSGJiT0D2tdeM8jKDj3kd1cXD9Xr73oNq9FeMHnHfOdiUH5Q773bVv6iYnqEN/asGWlGhCnL+O70obCOTJs=
+	t=1774087559; cv=none; b=C1v6QGJ6IbZNW/VtW9mp5KO4agPATSMp0Y6K9Hy4rOGNYVhZ7BepcLpUrfLTADU+z104+omkF81It041yWx+xxthiC3IOg29hs1hCoGBqt7WLmlHKQTOCEIn+lLjg+WgzCue87vwrMh2HOQv7ERMLTpZ5Ezs0Ey84DkUTC/X9pE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774087428; c=relaxed/simple;
-	bh=zozhIXqLJXsPgjnQoOYafHx/4N069SIYpV9pSCplPoY=;
+	s=arc-20240116; t=1774087559; c=relaxed/simple;
+	bh=YVbOa1et//kxg6sD6c1cEVHkFutOAJ7fD03qPnyBHGU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QA0UwFPdAzvInz8W1HQoqQ96bENr/c+YgnhlwO6ysZ1XIU5CK2uvlZBkUenByuvZNdWVlU3BWqDNKBL9LKwifSuPw2zfDsmrlYgGTgirnW6S6aoXYveVUW3V7AfJfJTzPxjgaPUN1yrU1Kor7NKMnOvooDJpF8EgwK8Zw5LiV/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o4bYhWJO; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=ttCSbRq+IpCCiqvq3eRbHBdmwJf4mBebIIDVaQGB+hXIQlblDqY2mKAdI3Ami/ilJ/VX1Q01009a1TqtkFIS7ICln7o7057URmzoWMALcClYWaOuEYT58k+v/4CTaeAuBMBNVM2M/bePx07bVjBDJrXiz8uuWbPRML/Ur/kLF8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OC58XMi2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o4bYhWJO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AA80C19421;
-	Sat, 21 Mar 2026 10:03:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OC58XMi2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D269C19421;
+	Sat, 21 Mar 2026 10:05:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774087427;
-	bh=zozhIXqLJXsPgjnQoOYafHx/4N069SIYpV9pSCplPoY=;
+	s=k20201202; t=1774087559;
+	bh=YVbOa1et//kxg6sD6c1cEVHkFutOAJ7fD03qPnyBHGU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=o4bYhWJOmAYozOERUgJhEp15l9FEXH1ezstVwmUyjFGV5DAyT7HHlFWqsnq46tmVf
-	 5nViInytbYaSIDhxgQHgRVlGbqG2Iw3yrmlk/TELIfgm5onOT4qtr9lUvFRtfd7lPf
-	 8mm2ymCuDMuOAhJXfPr6U4WdV8VcztTwyPk1NyqddsfW+DEll3o+dxSUog1NdCWx+A
-	 nRCJm0q6/QfBG9s+i2BVQQm9sJ7kO+aW34/8EoeWWQSDMBPREUTcRmtHtJ3N/gT2qc
-	 S/bmq4bTxb35zg7vEjq9vmHvwk8l5AUoWpJCMxNvt0ajAMxXbO7IWqjcm6gXLD7s4v
-	 3XBuDaiOW+AfQ==
-Message-ID: <d6176542-335e-4f35-8ab6-cb4d50546543@kernel.org>
-Date: Sat, 21 Mar 2026 11:03:43 +0100
+	b=OC58XMi2JkU8GKfpLgzwTl1loQcwGihE955dS8PNXAiziYm2uhT+NBRgmj9mBIM5C
+	 aO4pYExW+/CZt443E3gCwamnWICF33UPin8oXDfysOlsZiSxWjhFlFI3Nw98TDcXG4
+	 DtqEpat0SJdHQLPoelCKESXoBB7bvOgJNA4qQUFMTMrGnjlzhkqlGV8UgcAw+3yPMF
+	 zCBPjZmKTY2cJevX25C2x0I2o2qGkvQhXU2LBO/JY2htUm6ec+CfeGoTzYyIXXLFIT
+	 ttDAyTQkx+XEGIOgwi62yLA+qi+Ba1HUP6oHM2OIvQ+KKZpBOYNPwdXF0oqnhH6g5k
+	 pSoCWPpCDXgwg==
+Message-ID: <9b375cb4-7446-40e2-99ce-84ea54e6e8ec@kernel.org>
+Date: Sat, 21 Mar 2026 11:05:52 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,15 +35,20 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom,ids: Add SoC ID for SA8650P
-To: Radu Rendec <rrendec@redhat.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Cc: Lei Wang <quic_leiwan@quicinc.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-References: <20260320205933.992852-1-rrendec@redhat.com>
- <20260320205933.992852-2-rrendec@redhat.com>
+Subject: Re: [PATCH 1/5] dt-bindings: arm,corstone1000: Add
+ "arm,corstone1000-a320-fvp"
+To: "Rob Herring (Arm)" <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
+ Sudeep Holla <sudeep.holla@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Frazer Carsley <frazer.carsley@arm.com>,
+ Hugues Kamba Mpiana <hugues.kambampiana@arm.com>,
+ Abdellatif El Khlifi <abdellatif.elkhlifi@arm.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260320-dt-corstone1000-a320-v1-0-a549dfcfe8da@kernel.org>
+ <20260320-dt-corstone1000-a320-v1-1-a549dfcfe8da@kernel.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,26 +94,21 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260320205933.992852-2-rrendec@redhat.com>
+In-Reply-To: <20260320-dt-corstone1000-a320-v1-1-a549dfcfe8da@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20/03/2026 21:59, Radu Rendec wrote:
-> From: Lei wang <quic_leiwan@quicinc.com>
+On 20/03/2026 17:47, Rob Herring (Arm) wrote:
+> The Arm Corstone1000-A320 is a variation of the Corstone1000 with
+> Cortex-A320 cores and an Ethos-U85 NPU. An FVP for the platform is
+> available here[1].
 > 
-> Add unique ID for Qualcomm SA8650P SoC.
+> [1] https://developer.arm.com/Tools%20and%20Software/Fixed%20Virtual%20Platforms/IoT%20FVPs
 > 
-> Signed-off-by: Lei Wang <quic_leiwan@quicinc.com>
-
-Please keep consistent spelling of identities. Not sure where the
-mistake was done - either by Lei or you added his SoB?
-
-> Signed-off-by: Radu Rendec <rrendec@redhat.com>
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 > ---
->  include/dt-bindings/arm/qcom,ids.h | 1 +
->  1 file changed, 1 insertion(+)
-> 
 
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
