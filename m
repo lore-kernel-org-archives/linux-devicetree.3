@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB6414A60F;
-	Sat, 21 Mar 2026 09:57:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35E514A60F;
+	Sat, 21 Mar 2026 09:58:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774087079; cv=none; b=KK2GDpCfHfryfq5d2zAZU8D7z3rBdUHbdq4DZSJZpo4bIDHF4sRSIpGI+OC4OU2R+fRCP9w5KH8WUmAT1z6Sx0UC5ioP1RrPdBGRFOb058cjRZkyJIM0cYHF/KBjEs1JqokqDcqkxMh3g8QgVdUGVVX4tuETl4LVruPDcfMJVvU=
+	t=1774087083; cv=none; b=Owm55x2onAN4EqWdNZnMY+u7RnJyqGZ5OaQh1wbCUx7Eji7LqOIORyep3v57Hc/Yj7R1Gm8VYikbLeJpcJvwFnl6yQkL89Ar3uM81hDhwsDGEj7lgm3KZbeM2dyiHlnLb6mP+GPQ53i4/SCfJY7LtBkrrVCLVKv9/9xrxavaGc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774087079; c=relaxed/simple;
-	bh=NyVdvbKbLqfoMk3lXvjaFIUZY6esC9sTnRfa+VN2he4=;
+	s=arc-20240116; t=1774087083; c=relaxed/simple;
+	bh=acFSinWfNvSYJp+8GmwPTFh0BrSf11q7DV1RqfnS0U8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B5k0K5k7mlkJJyBG3sPpbJYnmizzGRC7kznnuzdNOYqnQs+6bopeJNThabslA/2lcTFQw/RjXllKouRjJ9XJeCrreDAd8+qu0CdttVwWMh32FxqaVZWhpEL30JEqf/8cGC1zSHTkdEohQXe4bIxzEZ+Sr9KmNaP0NkmxTGTMYp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VVg4/Mhn; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=nG5YsRZmP31rFkVQ5jdim6IEpk4yVrBw3RL14jgA48nHTnfy4rMq5A/chT6hfrX0+Au6iRZ/KmJg1owFSYf2kezjxq2mUyEa9iStAErrzsEGzCW/0aBHbaka9dQyu8rAwE6hu0nP7lmdIRgWTnMKdKHkoPzwNn0zVlwlQGVTsIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qsl7Tg2Z; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VVg4/Mhn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CB8CC19421;
-	Sat, 21 Mar 2026 09:57:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qsl7Tg2Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79E59C2BCB1;
+	Sat, 21 Mar 2026 09:58:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774087078;
-	bh=NyVdvbKbLqfoMk3lXvjaFIUZY6esC9sTnRfa+VN2he4=;
+	s=k20201202; t=1774087083;
+	bh=acFSinWfNvSYJp+8GmwPTFh0BrSf11q7DV1RqfnS0U8=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=VVg4/MhndvAURB85JbUaSr6LPKM8Uz/WdXRR+y9rRNp/VzwRTHCBJ95QisGS2JD97
-	 ntSXNOzbXOGOsKQy7PseSHBeo5jeiPXxjMfTNXbUa42++vJkL0maI8iL1hFEI4FWbc
-	 UNGVM8iP2hWFgQ8lwXp872t6DusAblfUJUMz6vmd702Zx0gFwY1D2ekO9k4EfZMCz3
-	 yx5b0L5S8MzErQteXTP+tRSdE5zQF1HjYzUB4ixPBx0g3qUZ59l41qScERm8v4c4eh
-	 4T6L9RXJJPofD7vkaoFg6QROXWPB7b5yEd0lp3kyyJJG8nBbDa5eZRNveSLCdoQUuu
-	 dgGFCZSR1GkrA==
-Message-ID: <74f53763-d33c-46dd-89fd-7e9aa076156e@kernel.org>
-Date: Sat, 21 Mar 2026 10:57:55 +0100
+	b=qsl7Tg2ZIRNs+marIXZYh84bX4Rcv/ClXciPi4k7H363j12atus/KB+ZvJtZLz8zu
+	 XouT2EhzM0a/mmxEkXuR4dqtbId/Um1L/JJ+CmriR2MDS7LmcJTyMJ1C0fNtkEB5B8
+	 pmuTRbMw2d9O88p+Cdx+5rUaVQEx3w0cEEYxhU9Q+2Radl0EcJzXYANIpdkdpvifDb
+	 rGXRCsVf6lPPnRaHdTZwh92sjj56QM4GFdPEGU3Ks6mznYVJ9pCcNHVRpGWY50bevL
+	 ILO3xdCLMak0tXRXoZ7zS27xbPevNr9Yk9c6bpDgTdrxd0eBQIhH1VInTcQ3Eu16q2
+	 u9w4srANzeMHA==
+Message-ID: <758532a6-990a-43aa-8ffa-ef132641a28c@kernel.org>
+Date: Sat, 21 Mar 2026 10:58:01 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,15 +35,20 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: arm: mediatek: mediatek,g3dsys: Convert to
- DT schema
-To: Uday Kiran <challauday369@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- skhan@linuxfoundation.org
-References: <20260315080302.454233-1-challauday369@gmail.com>
- <5731aafd-8a72-4a81-8a0f-04c1ff5b69f1@kernel.org>
- <CAAj-GB=1+sZcw9jomC9Dsw8ojyKUs2zahpeXt7VXoXE8V4DK1Q@mail.gmail.com>
+Subject: Re: [PATCH v2 7/8] dt-bindings: i2c: realtek,rtl9301-i2c: extend for
+ RTL9607C support
+To: Rustam Adilov <adilov@disroot.org>
+Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260319175753.32338-1-adilov@disroot.org>
+ <20260319175753.32338-8-adilov@disroot.org>
+ <20260320-serious-noisy-ladybug-bad92b@quoll>
+ <c87523f2741687c6037c4b7b54d72dba@disroot.org>
+ <3cfcf811-94f9-4ab4-af5c-d589d696f843@kernel.org>
+ <623240c8b1bf7a9f390c5c0e9de0f8c5@disroot.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,48 +94,30 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <CAAj-GB=1+sZcw9jomC9Dsw8ojyKUs2zahpeXt7VXoXE8V4DK1Q@mail.gmail.com>
+In-Reply-To: <623240c8b1bf7a9f390c5c0e9de0f8c5@disroot.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 20/03/2026 19:00, Uday Kiran wrote:
-> On Sun, Mar 15, 2026 at 7:55 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>> +
->>> +  "#clock-cells":
->>> +    const: 1
->>> +    description: Number of cells in a clock specifier
+On 21/03/2026 07:06, Rustam Adilov wrote:
+>>>
+>>> Would changing the commit message to something similar in vein to [1] be better?
+>>>
+>>> [1] - https://lore.kernel.org/linux-i2c/20250927101931.71575-9-jelonek.jonas@gmail.com/
 >>
->> $ git grep "Number of cells in a clock specifier"
-> 
-> Sorry Krzysztof, I didn't understand what you meant. I've tried executing
-> git grep, but there are no results apart from my commit. But, I've found it
-
-Exactly.
-
-Therefore why would you write a style code which does not exist in the
-kernel? Why doing this completely different than everyone else?
-
-> in clock-binding.txt i.e., in clock.yaml in github. After careful study of
-> guidelines.I've removed the description of provider properties.
-> Please let me know if there is any deviation in my understanding!!
-> 
+>> It does not cover clocks and it does not answer whether devices have it
+>> or not.
 >>
->> Read the guidelines for GSoC contributors I posted on IRC used in GSoC
->> and/or ones I wrote on social.kernel.org.
+>> Decide first whether devices have the clock or not. I asked more than
+>> once last time.
 > 
-> Thank you, I've gone through the guidelines once again and updated the
-> changes.
-> 
->> Your mentors were supposed to be Cc-ed here.
-> 
-> I'm part of the Linux Kernel Spring Unpaid 2026 Mentorship program and
-> I've already Cc-ed Shuah in the mailing list.
+> I took some time to read the available docs like [1], [2] and my educated guess is, there has
+> to be i2c clock/s and it is most likely connected to switch core by lexra bus as the other
+> peripherals in SoC. I am not from Realtek so i don't know accurate that is.
+> The difference with RTL9300/RTL9310 and RTL9607 is just, how SCL clock of the i2c master
+> controller is configurable but that is for driver to deal with.
 
-Does that mean LFX mentorship also has sub-program like GSoC for
-bindings conversion?  Does this program at least incorporated our
-feedback from two years and year ago?
-
-
+Then the clock should not be forbidden for the other variants and just
+explain it in the commit msg.
 
 Best regards,
 Krzysztof
