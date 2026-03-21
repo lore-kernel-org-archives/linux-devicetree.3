@@ -1,277 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92DAC2E5B21;
-	Sat, 21 Mar 2026 18:39:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B63217A2EA;
+	Sat, 21 Mar 2026 18:48:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774118358; cv=none; b=uQTJPUdUqqMNbXu7ZbP3Ao5E2jY63HUB7+/7ypNdctxjlcN7BXmMYSdHoAbR74RlFvHtVFaZaguL3jtpFxz2+Krj6X1dqL6FnU8NWovrbRoLGvTmZvswrMzQjD9WUzBr3wxE+ykFYLeNHBMU/sa+EoefCWee1qhRX3dtOGpCUWI=
+	t=1774118920; cv=none; b=MoeaASL11WVak+pfecu1eayEzcr1U7xdW8tZPTyln51rCobwCl8zMkTGswsAOmMvylsRfL36GU6CcJ3/7tb5Df+zrE8njyzbtaPj4lrTPNuna2tfPQ8933kRcuMkGuVCYe+sInnLY7W7ONZwodREX8EY7I+trxmogck2QsKlBh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774118358; c=relaxed/simple;
-	bh=AKvPHB6/e4oPBMB57bEGs3+OhYV7XS1yw/q0PLUIB3s=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Hx8VUKSEqR0mf7uddqPkkom8zZaBZ6kOzPRGo+/sNAx3omfVoAIiJeIH1X2LKZW3xbzB+keEofIUGPwA3aoBxs4CEtM6jSvkE+AvtsXEeSGCNFnBl3Qi+vMXgFJ/C/cMrneQStNjME91PGYFjgGehOJKMkjsf9xey0dGHjcrYxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BuAtl9o5; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774118920; c=relaxed/simple;
+	bh=BPfM2EEcXdMCBWPXY4opNhCJ7dRFzrmy12TRczvGSqE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gj8DD0fBH7XfR8/EylabjpqSgv+ooQVuRUQeEx5WpThsDC9TInd9YuhQtl8uxK5EAvJYHf+1knLZ7NNvx2JovxrJ0UN7CvLbScd6+5EwQCTFHiCilbMZKcriAUW/dW4llzgjFRPVS49xBWuOatfYie8yniHeVNLFmwOivjXDc7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=G2IwYfno; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=N6BrGO39; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BuAtl9o5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF58FC19421;
-	Sat, 21 Mar 2026 18:39:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774118358;
-	bh=AKvPHB6/e4oPBMB57bEGs3+OhYV7XS1yw/q0PLUIB3s=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=BuAtl9o59uQ2hGX99UH5v2q4hdSNSXCXUeqgMHITzvVQNbfiHq/3HFbcXuf0iNSTw
-	 GCCta+pUbWq9Rde47r3dgpZj9ZWRmqUbDjDo9Q2ufzzIlSyMInrZXPG02837E324eD
-	 hvClY22fAGY5czLqWTsd6x8uuf8Mc9CemE4OhChpuUCIunzqq+TNnxuxpZZOIftMQP
-	 uJ8nMiUMd9ra+lQsJ5LrO7gUMuZkH5hdNmOYuoKHyKud4NCryTARPNhRqHOkp1E+Kx
-	 BqdZYLg5nAx7E6ORYEG05HqZgiF+fGtiEEJP61Vn3Y2k4T63ZYVOnfvZ4zOMcD5h9H
-	 eAb3MXOM/86bw==
-Date: Sat, 21 Mar 2026 18:39:09 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, "David Lechner" <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 2/2] iio: dac: ad5706r: Add support for AD5706R DAC
-Message-ID: <20260321183909.45761710@jic23-huawei>
-In-Reply-To: <20260318-dev_ad5706r-v3-2-5d078f41e988@analog.com>
-References: <20260318-dev_ad5706r-v3-0-5d078f41e988@analog.com>
-	<20260318-dev_ad5706r-v3-2-5d078f41e988@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="G2IwYfno";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="N6BrGO39"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4fdT3K4cTcz9tPF;
+	Sat, 21 Mar 2026 19:48:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1774118909;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VnLXvXQn7ocYCs7HJcjTZhRgKFe+q+NcDGBfanDCb3o=;
+	b=G2IwYfnojJ4+qcu+tubwdzKVyIDPFALSbUFx5iuUhyJFFPLeWpfjs7JwknF5Mur4IT8qsa
+	pLPZDzvwD5wLw2ZqvvhB49dSkuSDGzsw9r5cQN8JFLGoSqsgLsaobYJVnCAJZeKcGDDoFJ
+	pwkkDANPt7o+caAOv11B9kNDUgdjKk/DLcabIvdgXsUHEMnUuqURa/gf7ijwguRI2gAHGo
+	EnCKSyC9xxvRRUW7SNJ3RNW6fYOlgUTWEc27J9eOhqEHR21UL0RskINGEKZG1VzF5eDB92
+	3VVbh7KbIrMmheQaic8pbq+ooVxrRtfraJfiZztzaE5d8YAIBqJbjjIcn8fJmQ==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=N6BrGO39;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=marek.vasut@mailbox.org
+From: Marek Vasut <marek.vasut@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1774118908;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VnLXvXQn7ocYCs7HJcjTZhRgKFe+q+NcDGBfanDCb3o=;
+	b=N6BrGO39TVcVXrVgXYqqhoAFNNgNK8y0s2knyEwofyCkd7HKrxOsjQfTEzqZ9ChMuXgRbq
+	QB1NBoKcNaySpSsBFM13JbBSQkZj9qSB5VaYHb7Eo7VLt/LgVNVIpmW1U/CRI3GX4HPG+X
+	o3sOTSSfrWo4gRzw8C0cxxAAZC3T7s3skwPoyoEydH5KT0WovY+oKXCPnPyQp40UV6q32U
+	BXSlCi0crn+v9VBLoNJGozz5y9hEQjSH+BfVv7YxtBtm2johmTN9bG1wcRGrAMm/YL5QH9
+	wuswFIaRDAlcTSdnpsc9wDt2LRrpzFigPl0b05J+3yT8Mgw0De7mUCWIxu6c9Q==
+To: netdev@vger.kernel.org
+Cc: Marek Vasut <marek.vasut@mailbox.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Aleksander Jan Bajkowski <olek2@wp.pl>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Ivan Galkin <ivan.galkin@axis.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michael Klein <michael@fossekall.de>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	devicetree@vger.kernel.org
+Subject: [net-next,PATCH v4 2/3] dt-bindings: net: realtek,rtl82xx: Document realtek,*-ssc-enable property
+Date: Sat, 21 Mar 2026 19:47:42 +0100
+Message-ID: <20260321184815.148485-2-marek.vasut@mailbox.org>
+In-Reply-To: <20260321184815.148485-1-marek.vasut@mailbox.org>
+References: <20260321184815.148485-1-marek.vasut@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 89bca8b6fd44da4eabc
+X-MBO-RS-META: ysqdocse3to796beecu98564gnjc6qby
+X-Rspamd-Queue-Id: 4fdT3K4cTcz9tPF
 
-On Wed, 18 Mar 2026 13:13:36 +0800
-Alexis Czezar Torreno <alexisczezar.torreno@analog.com> wrote:
+Document support for spread spectrum clocking (SSC) on RTL8211F(D)(I)-CG,
+RTL8211FS(I)(-VS)-CG, RTL8211FG(I)(-VS)-CG PHYs. Introduce DT properties
+'realtek,clkout-ssc-enable', 'realtek,rxc-ssc-enable' and
+'realtek,sysclk-ssc-enable' which control CLKOUT, RXC and SYSCLK
+SSC spread spectrum clocking enablement on these signals. These
+clock are not exposed via the clock API, therefore assigned-clock-sscs
+property does not apply.
 
-> Add support for the Analog Devices AD5706R, a 4-channel 16-bit
-> current output digital-to-analog converter with SPI interface.
-> 
-> Features:
->   - 4 independent DAC channels
->   - Hardware and software LDAC trigger
->   - Configurable output range
->   - PWM-based LDAC control
->   - Dither and toggle modes
->   - Dynamically configurable SPI speed
-> 
-> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-> 
-> ---
-> Changes since v1:
->   - Removed PWM, GPIO, clock generator, debugfs, regmap, IIO_BUFFER
->   - Removed all custom ext_info sysfs attributes
->   - Simplified to basic raw read/write and read-only scale
->   - SPI read/write can handle multibyte registers
-Hi Alexis,
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Marek Vasut <marek.vasut@mailbox.org>
+---
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Aleksander Jan Bajkowski <olek2@wp.pl>
+Cc: Andrew Lunn <andrew@lunn.ch>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>
+Cc: Ivan Galkin <ivan.galkin@axis.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Michael Klein <michael@fossekall.de>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: devicetree@vger.kernel.org
+Cc: netdev@vger.kernel.org
+---
+V2: Split SSC clock control for each CLKOUT, RXC, SYSCLK signal
+V3: - Add RB from krzk
+    - Update commit subject, use realtek,*-ssc-enable to be accurate
+V4: No change
+---
+ .../devicetree/bindings/net/realtek,rtl82xx.yaml  | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-I've tried not to overlap too much with other feedback.
-
-Some comments inline.
-
-Thanks,
-
-Jonathan
-
-> diff --git a/drivers/iio/dac/ad5706r.c b/drivers/iio/dac/ad5706r.c
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..840ee7b6db2e05ea35b27ff776f0c5c8a961d9c1
-> --- /dev/null
-> +++ b/drivers/iio/dac/ad5706r.c
-
-> +
-> +struct ad5706r_state {
-> +	struct spi_device *spi;
-> +	struct mutex lock; /* Protects SPI transfers */
-I assume it actually protects the buffers below. Where possible talk
-about what 'data' is being protected. It's easier to reason about than
-transfers which will be protected anyway by internal bus driver locking.
-
-> +
-> +	u8 tx_buf[4] __aligned(ARCH_DMA_MINALIGN);
-> +	u8 rx_buf[2];
-> +};
-> +
-> +static int ad5706r_reg_len(unsigned int reg)
-> +{
-> +	if (reg >= AD5706R_MULTIBYTE_REG_START && reg <= AD5706R_MULTIBYTE_REG_END)
-> +		return AD5706R_DOUBLE_BYTE_LEN;
-> +
-> +	return AD5706R_SINGLE_BYTE_LEN;
-> +}
-> +
-> +static int ad5706r_spi_write(struct ad5706r_state *st, u16 reg, u16 val)
-> +{
-> +	unsigned int num_bytes = ad5706r_reg_len(reg);
-> +	struct spi_transfer xfer = {
-> +		.tx_buf = st->tx_buf,
-> +		.len = num_bytes + 2,
-> +	};
-> +
-> +	put_unaligned_be16(reg, &st->tx_buf[0]);
-> +
-> +	if (num_bytes == 1)
-> +		st->tx_buf[2] = val;
-> +	else if (num_bytes == 2)
-> +		put_unaligned_be16(val, &st->tx_buf[2]);
-> +	else
-> +		return -EINVAL;
-> +
-> +	return spi_sync_transfer(st->spi, &xfer, 1);
-
-Even though you are writing only, consider using spi_write_then_read() here
-as well. Might end up simpler and it works fine with an rx size of 0 and
-NULL buffer for rx
-
-> +}
-> +
-> +static int ad5706r_spi_read(struct ad5706r_state *st, u16 reg, u16 *val)
-> +{
-> +	unsigned int num_bytes = ad5706r_reg_len(reg);
-> +	u16 cmd;
-> +	int ret;
-> +
-> +	struct spi_transfer xfer[] = {
-> +		{
-> +			.tx_buf = st->tx_buf,
-> +			.len = 2,
-> +		},
-> +		{
-> +			.rx_buf = st->rx_buf,
-> +			.len = num_bytes,
-> +		},
-> +	};
-> +
-> +	cmd = AD5706R_RD_MASK | (reg & AD5706R_ADDR_MASK);
-> +	put_unaligned_be16(cmd, &st->tx_buf[0]);
-> +
-> +	ret = spi_sync_transfer(st->spi, xfer, ARRAY_SIZE(xfer));
-
-Can you use spi_write_the_read()?
-Has the added advantage that it bounces the data so doesn't need DMA safe.
-Can also use more meaningful types like 
-__be16 tx;
-__be16 rx16;
-u8 rx8;
-
-
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (num_bytes == 1)
-> +		*val = st->rx_buf[0];
-> +	else if (num_bytes == 2)
-> +		*val = get_unaligned_be16(st->rx_buf);
-> +	else
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +
-> +static int ad5706r_read_raw(struct iio_dev *indio_dev,
-> +			    struct iio_chan_spec const *chan, int *val,
-> +			    int *val2, long mask)
-> +{
-> +	struct ad5706r_state *st = iio_priv(indio_dev);
-> +	u16 reg_val;
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		scoped_guard(mutex, &st->lock) {
-Why?
-
-	case IIO_CHAN_INFO_RAW: {
-		guard(mutex)(&st->lock);
-
-		ret = ....
-
-		return IIO_VAL_INT;
-	}
-
-is easier to read and reduces the huge indent.
-
-Only use scoped_guard() when you can't do it in a more readable fashion.
-
-> +			ret = ad5706r_spi_read(st, AD5706R_REG_DAC_DATA_READBACK_CH(chan->channel),
-> +					       &reg_val);
-> +
-> +			if (ret)
-> +				return ret;
-> +
-> +			*val = reg_val;
-> +		}
-> +		return IIO_VAL_INT;
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*val = 50;
-> +		*val2 = AD5706R_DAC_RESOLUTION;
-> +		return IIO_VAL_FRACTIONAL_LOG2;
-> +	}
-> +
-I'd prefer an explicit
-	defualt:
-		return -EINVAL;
-	}
-to end the switch statement and make it clear within the switch that all other options
-are errors.
-
-> +	return -EINVAL;
-> +}
-> +
-> +static int ad5706r_write_raw(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan, int val,
-> +			     int val2, long mask)
-> +{
-> +	struct ad5706r_state *st = iio_priv(indio_dev);
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		if (val < 0 || val >= AD5706R_DAC_MAX_CODE)
-> +			return -EINVAL;
-> +
-> +		guard(mutex)(&st->lock);
-
-What's the scope? add {} to the case block to make it clearly defined.
-
-
-> +		return ad5706r_spi_write(st,
-> +					 AD5706R_REG_DAC_INPUT_A_CH(chan->channel),
-> +					 val);
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-> +static const struct of_device_id ad5706r_of_match[] = {
-> +	{ .compatible = "adi,ad5706r" },
-> +	{}
-
-As below.
-
-> +};
-> +MODULE_DEVICE_TABLE(of, ad5706r_of_match);
-> +
-> +static const struct spi_device_id ad5706r_id[] = {
-> +	{ "ad5706r" },
-> +	{}
-
-Trivial style thing, but we've standardized on
-	{ }
-for IIO.  Had to pick one of the two choices and that one looked
-nicer to me ;)
-
-> +};
-> +MODULE_DEVICE_TABLE(spi, ad5706r_id);
-
+diff --git a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+index eafcc2f3e3d66..45033c31a2d51 100644
+--- a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
++++ b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+@@ -50,6 +50,21 @@ properties:
+     description:
+       Disable CLKOUT clock, CLKOUT clock default is enabled after hardware reset.
+ 
++  realtek,clkout-ssc-enable:
++    type: boolean
++    description:
++      Enable CLKOUT SSC mode, CLKOUT SSC mode default is disabled after hardware reset.
++
++  realtek,rxc-ssc-enable:
++    type: boolean
++    description:
++      Enable RXC SSC mode, RXC SSC mode default is disabled after hardware reset.
++
++  realtek,sysclk-ssc-enable:
++    type: boolean
++    description:
++      Enable SYSCLK SSC mode, SYSCLK SSC mode default is disabled after hardware reset.
++
+   wakeup-source:
+     type: boolean
+     description:
+-- 
+2.53.0
 
