@@ -1,15 +1,16 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16ABB372B4A
-	for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 06:52:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4EE36E476
+	for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 06:52:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774075929; cv=none; b=gLrURzcayY1QtxPD+z9UCrtfWNWU0nNO3xizUE2fJ20g88AypaY4QzjiNjz6AVu6Jcf+fYP4VcJu1UpsP5pYVyzRF74omFZT8tk1dNVyyFjDLr8fQsA2GPjFZUJldunSWIcpprEYsXQ9pQx0CNt8sGDO54Bt8UjcWaLJvkXSisE=
+	t=1774075929; cv=none; b=UMIhXZ8CNvBX3nFO8bmYS88DYpTwAciJC8IXE2L7R7knwYJyDDuA3V3m1LDjMNO6VCtnQUHe1iqmsCVBPjMptlRfxq1P1XRNBUHWubp+gdu2U2TLZT8vx1AEGXkrPAH62goqx7N87bUdLgpzazqq/+vf0g/+ZllJP7DoGlb2N3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774075929; c=relaxed/simple;
-	bh=vVLYaDwEjGR/6DYISr0u5Fq7XwOD4RPf8fRpvcW5zag=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XxnBSTwnWZYOZx7jGDpE/5cOoQNSaoRTUES6BSm73jg5eJXadxeXyA1f8PpjO7PwOgWpBiiDrxSXMMRcFbh4XsUSmh0TEMmZ/m8VmOqj9zuxpB26TYbFF13ljbb4tS+6ol/5DPXI8A2CnPo62SyHvZ4jzOBJZaVATX16y2Xq/+g=
+	bh=xGds+6kNFpF57uqDr3pwzOK/6YLaVqnYfsmgWRGkBRY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=q6NLuehs/go05CmuhZaXbpSDCJOryrMALFC28ybNfOvPzs8ZyaZfCcuKIE272W16XeSXocqmhRSQtFX78eCTQo8PwmbE+gIA6C8cXrIHHhixhfIji9ukhAZ3AJgHGPnCjn/YYDG8OBQHPoar4sAF4iywrAdx88wVaB8g2m/tthc=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
@@ -17,16 +18,16 @@ Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
 	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
 	(Exim 4.92)
 	(envelope-from <ore@pengutronix.de>)
-	id 1w3qBY-0002PY-14; Sat, 21 Mar 2026 07:51:48 +0100
+	id 1w3qBZ-0002Po-2y; Sat, 21 Mar 2026 07:51:49 +0100
 Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac] helo=dude04)
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <ore@pengutronix.de>)
-	id 1w3qBX-001MfJ-0y;
+	id 1w3qBX-001MfQ-1S;
 	Sat, 21 Mar 2026 07:51:47 +0100
 Received: from ore by dude04 with local (Exim 4.98.2)
 	(envelope-from <ore@pengutronix.de>)
-	id 1w3qBX-0000000GRVI-0vaV;
+	id 1w3qBX-0000000GRVx-1Xso;
 	Sat, 21 Mar 2026 07:51:47 +0100
 From: Oleksij Rempel <o.rempel@pengutronix.de>
 To: Guenter Roeck <linux@roeck-us.net>,
@@ -37,16 +38,20 @@ To: Guenter Roeck <linux@roeck-us.net>,
 	Peter Rosin <peda@axentia.se>,
 	Linus Walleij <linusw@kernel.org>
 Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
 	kernel@pengutronix.de,
 	linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-hwmon@vger.kernel.org,
 	linux-gpio@vger.kernel.org,
 	David Jander <david@protonic.nl>
-Subject: [PATCH v6 0/7] mfd: Add support for NXP MC33978/MC34978 MSDI
-Date: Sat, 21 Mar 2026 07:51:39 +0100
-Message-ID: <20260321065146.3918882-1-o.rempel@pengutronix.de>
+Subject: [PATCH v6 4/7] gpio: gpiolib: split child IRQ setup in hierarchical alloc
+Date: Sat, 21 Mar 2026 07:51:43 +0100
+Message-ID: <20260321065146.3918882-5-o.rempel@pengutronix.de>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260321065146.3918882-1-o.rempel@pengutronix.de>
+References: <20260321065146.3918882-1-o.rempel@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,61 +64,99 @@ X-SA-Exim-Mail-From: ore@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-This series adds support for the NXP MC33978/MC34978 Multiple Switch Detection
-Interface (MSDI) via the MFD framework.
+Setting full child IRQ info before parent allocation can crash slow-bus
+GPIO IRQ chips that proxy irq callbacks such as .irq_bus_lock to the
+parent IRQ chip. At that point the parent IRQ is not allocated yet, so
+parent->chip is still unset.
 
-Architecture overview:
-* mfd: Core driver handling 2-frame pipelined SPI, regulator sequencing, and
-  linear irq_domain. Harvests status bits from SPI MISO MSB.
-* pinctrl: Exposes 22 physical switch inputs as standard GPIOs. Proxies IRQs to
-  the MFD domain.
-* hwmon: Exposes thermal limits, VBATP/VDDQ voltage boundaries, and dynamic
-  fault alarms.
-* mux: Controls the 24-to-1 AMUX routing analog signals (switch voltages,
-  temperature, VBATP) to an external ADC.
+Moving the entire child descriptor setup after parent allocation avoids
+that NULL dereference, but opens another failure window: if the hardware
+interrupt is already pending, the child descriptor is still using
+handle_bad_irq and the interrupt may storm before the descriptor is
+fully configured.
 
-Initial pinctrl implementation by David Jander, reworked into this MFD
-architecture.
+Fix this by splitting the child IRQ initialization:
+- install the top-level IRQ handler before parent allocation
+- install the child chip and hwirq mapping after parent allocation
+  succeeds
 
-Best regards,
-Oleksij
+In hierarchical IRQ domains, installing the flow handler before the
+child chip is assigned is valid as long as an outer chip is already
+present, which allows pending interrupts to avoid handle_bad_irq during
+allocation.
 
-David Jander (1):
-  pinctrl: add NXP MC33978/MC34978 pinctrl driver
+This avoids the early slow-bus dereference while also preventing pending
+interrupts from hitting handle_bad_irq during allocation.
 
-Oleksij Rempel (6):
-  dt-bindings: pinctrl: add NXP MC33978/MC34978 MSDI
-  mfd: add NXP MC33978/MC34978 core driver
-  pinctrl: core: Make pin group callbacks optional for pin-only drivers
-  gpio: gpiolib: split child IRQ setup in hierarchical alloc
-  hwmon: add NXP MC33978/MC34978 driver
-  mux: add NXP MC33978/MC34978 AMUX driver
+Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Fixes: fdd61a013a24 ("gpio: Add support for hierarchical IRQ domains")
+Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Tested-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Link: https://lore.kernel.org/all/abPqGvy5FqJ0a0ug@tom-desktop
 
- .../bindings/pinctrl/nxp,mc33978.yaml         | 153 +++
- drivers/gpio/gpiolib.c                        |  24 +-
- drivers/hwmon/Kconfig                         |  10 +
- drivers/hwmon/Makefile                        |   1 +
- drivers/hwmon/mc33978-hwmon.c                 | 550 +++++++++++
- drivers/mfd/Kconfig                           |  15 +
- drivers/mfd/Makefile                          |   2 +
- drivers/mfd/mc33978.c                         | 912 ++++++++++++++++++
- drivers/mux/Kconfig                           |  14 +
- drivers/mux/Makefile                          |   2 +
- drivers/mux/mc33978-mux.c                     | 131 +++
- drivers/pinctrl/Kconfig                       |  14 +
- drivers/pinctrl/Makefile                      |   1 +
- drivers/pinctrl/core.c                        |  41 +-
- drivers/pinctrl/pinconf.c                     |   9 +-
- drivers/pinctrl/pinctrl-mc33978.c             | 747 ++++++++++++++
- include/linux/mfd/mc33978.h                   |  92 ++
- 17 files changed, 2699 insertions(+), 19 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/pinctrl/nxp,mc33978.yaml
- create mode 100644 drivers/hwmon/mc33978-hwmon.c
- create mode 100644 drivers/mfd/mc33978.c
- create mode 100644 drivers/mux/mc33978-mux.c
- create mode 100644 drivers/pinctrl/pinctrl-mc33978.c
- create mode 100644 include/linux/mfd/mc33978.h
+---
+changes v6:
+- reword commit message
+- add Tested-by: Tommaso Merciai ...
+- set irq_set_chip_data(irq, gc) instead of irq_set_handler_data(irq, gc)
+changes v5:
+- move this patch back to this series
+- split irq_domain_set_info(). Set the handler and data before parent
+  allocation and set the chip and hardware IRQ info after parent
+  allocation.
+- previous version:
+  https://lore.kernel.org/all/20260309134920.1918294-5-o.rempel@pengutronix.de/
+---
+ drivers/gpio/gpiolib.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
---
+diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+index 9550500e1690..b506a6c945f7 100644
+--- a/drivers/gpio/gpiolib.c
++++ b/drivers/gpio/gpiolib.c
+@@ -1629,17 +1629,12 @@ static int gpiochip_hierarchy_irq_domain_alloc(struct irq_domain *d,
+ 	gpiochip_dbg(gc, "found parent hwirq %u\n", parent_hwirq);
+ 
+ 	/*
+-	 * We set handle_bad_irq because the .set_type() should
+-	 * always be invoked and set the right type of handler.
++	 * Install the top-level flow handler early so a pending interrupt does
++	 * not hit handle_bad_irq while the parent IRQ is being allocated. Defer
++	 * child chip and hwirq assignment until parent allocation has completed.
+ 	 */
+-	irq_domain_set_info(d,
+-			    irq,
+-			    hwirq,
+-			    gc->irq.chip,
+-			    gc,
+-			    girq->handler,
+-			    NULL, NULL);
+-	irq_set_probe(irq);
++	irq_set_chip_data(irq, gc);
++	irq_set_handler(irq, girq->handler);
+ 
+ 	/* This parent only handles asserted level IRQs */
+ 	ret = girq->populate_parent_alloc_arg(gc, &gpio_parent_fwspec,
+@@ -1657,12 +1652,17 @@ static int gpiochip_hierarchy_irq_domain_alloc(struct irq_domain *d,
+ 	 */
+ 	if (irq_domain_is_msi(d->parent) && (ret == -EEXIST))
+ 		ret = 0;
+-	if (ret)
++	if (ret) {
+ 		gpiochip_err(gc,
+ 			     "failed to allocate parent hwirq %d for hwirq %lu\n",
+ 			     parent_hwirq, hwirq);
++		return ret;
++	}
+ 
+-	return ret;
++	irq_domain_set_hwirq_and_chip(d, irq, hwirq, gc->irq.chip, gc);
++	irq_set_probe(irq);
++
++	return 0;
+ }
+ 
+ static unsigned int gpiochip_child_offset_to_irq_noop(struct gpio_chip *gc,
+-- 
 2.47.3
 
