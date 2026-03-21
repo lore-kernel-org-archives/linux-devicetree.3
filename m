@@ -1,92 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72D2317144;
-	Sat, 21 Mar 2026 12:54:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD00E3264D5;
+	Sat, 21 Mar 2026 12:54:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774097668; cv=none; b=VewdWXrF7LmvKHIu9aCS7oswJhH8fJKI8iLcbIFe3cKiofnEP6tbM1VmBqYOpoSqzgo25uSn2S/+BXAtNbtWgva1FpzSSAwEiJM+rdRr4g7O9P57IM+d4K8rCJqV1WbghUF5g1FxHReO8hnoVFUy9mRadB1u5gCn92yqH7qTYbU=
+	t=1774097669; cv=none; b=bo5LJF4O3jAiYDf686zv5OkVJO2BfOIujDh3mjJMwTI6gImEcyxKrPQ53hKxXnkM9Cb93PKCXXp86d65qel/PAjH9fh1zTH+QKEcwMFsb10Wa051qQ2cZ/nJFybxUSiDXsdiDk6UJdKoWFY7NL1mJSqrKd9lVuQErVtlztZ9xWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774097668; c=relaxed/simple;
-	bh=jrLD4Ihw/EhAD6iXD3Cnj5ghSiLBeJJdaG98/dV0WQA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EKCp77kTUQ4PYS4gmgpaqlpIJXHEJrdDHdTa371QcxRRt69mYHjWSdh21avJA0Ohy4TQ+NyZGRdTYfe3brYrpsvlVyEtYr7SS0tXRiN9FBbdlMfUuKY2ot/N1iWg57P9N36xhPmVwEtKIMUyOFDaDzjho7p+6FiPVeuJhk6iIfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pb2/dF86; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774097669; c=relaxed/simple;
+	bh=gmZPU1jxr6plZarSW2dp3XDw8znpz2f4At0ofNX26gM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ow2eeCrb7IOfaQL5PvN6tlXAhZLIbzhTkQeOUJ4Ygey307ZDvlllDnmalCXcaqYHUwcKhfFig0GLMbqgflaKwz1GRZbMWN9cqJKHDZ4ugrddTe4DzqN/et2pu7f8XLKP69kO6zfkRkTrt3bPWbEk8EpNI3GfcgkWNlSzkWLQXlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=om3plJQo; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pb2/dF86"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A879AC19421;
-	Sat, 21 Mar 2026 12:54:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="om3plJQo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58193C2BC9E;
+	Sat, 21 Mar 2026 12:54:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774097668;
-	bh=jrLD4Ihw/EhAD6iXD3Cnj5ghSiLBeJJdaG98/dV0WQA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Pb2/dF86I7w2qAf9MBFxWMl46KvXJx4gTfztsemMbjIo8JTYPe0KXal2nuYmhnhqu
-	 aleXAIMwlsS1MOm7V0Ps7y7Y0XXbHaOwS/A2jFLohegNfqwgivY/XCFxtfrtUVkNgB
-	 Z44vd0MLeAcHvabXBp11/aYR9qgknNhPMIx3ZccexdjsLHbgCUYOEJP2NiTlsW1iBN
-	 DpxTiipxPRWxMcBVlF5BiQsS70hvroUg+zpWRb9HgNDpog7UiH5cOBC2ZvmVgwX0B8
-	 BKxzV8VPc2Ku7N/bkG4urmjXgcTgo8wyw84N3cHb26svcRyaslhKmuybEL/YZID0nE
-	 EC8kotJ5MT3+w==
-Date: Sat, 21 Mar 2026 12:54:17 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Carlos Jones Jr <carlosjr.jones@analog.com>, Lars-Peter Clausen
- <lars@metafoo.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- Liam Beguin <liambeguin@gmail.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Tobias Sperling
- <tobias.sperling@softing.com>, Jorge Marques <jorge.marques@analog.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] iio: adc: ltc2309: add support for LTC2305
-Message-ID: <20260321125417.5ad7622d@jic23-huawei>
-In-Reply-To: <ab1eQ55b_8JiyAGA@ashevche-desk.local>
-References: <20260320140819.191700-1-carlosjr.jones@analog.com>
-	<20260320140819.191700-4-carlosjr.jones@analog.com>
-	<ab1eQ55b_8JiyAGA@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
+	s=k20201202; t=1774097669;
+	bh=gmZPU1jxr6plZarSW2dp3XDw8znpz2f4At0ofNX26gM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=om3plJQoQdkZfMVU1DtgwCvXfLTuUl7tYznX7xp2b9Oy3HHb7LkyrfP5KCvH4EsZQ
+	 2RsNqaBci906sz81x+Ph9BWjji59k5EkoUazZRp4YKDQYy+h+cvFmbs6GJ8SKawlRn
+	 dfKjZBo0ws1znxsODHUoFf6uVkEjGfJvRgRSSOnRx/dREOQh1OHtJBsGDYDpmlrWLN
+	 JIFzT1C0yQJPPd4voHDwosjE7/DZh3OzeVGZ+Ly6aDHi/cG858NJAjd6/crABbqn9b
+	 AhXdIIPTQ53sODVnbVJjbmWus6sdOJZ7ilNeRtDD6utMqcqBa5ZGczCVwVF6ji9kAs
+	 ymqzNMAhp07Kg==
+Message-ID: <0b322851-53b3-4ff9-a632-1975c953f6d9@kernel.org>
+Date: Sat, 21 Mar 2026 13:54:24 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] media: dt-bindings: Add OmniVision OV13B10
+To: Antoine Bernard <zalnir@proton.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Arec Kao
+ <arec.kao@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "~postmarketos/upstreaming@lists.sr.ht"
+ <~postmarketos/upstreaming@lists.sr.ht>
+References: <cTZxBKdzN37cy_eGcCK3hocAgzwzdfBnsqWXpJnNYFZb6Odl4FspR5333ZBJIJG5dRunnVBB3fWiRJL_pq3SmykhDKxaGPRl_T5_BShJIng=@proton.me>
+ <ab2-j6tMKTAlCDcT@kekkonen.localdomain>
+ <8or0YwK4oKEWSf5sBtuu8Xo6CYaQTVSu3BhkNBR_xv6se8zLgy4VVO3Q5gvuNk4UyQs_omqdqaqHhZBfLJuoaibc7A8foK9ISRweQCkInb8=@proton.me>
+ <20260321-screeching-lovely-earwig-c0bd53@quoll>
+ <ySoCU9RG-svsJbEsf812GyWrLdj1qAK-m_UQXD8WVeADOml0c0HrDyg3mMgxY7NVhafoUEFdXlpXZ7eqUXE1LtqUp_FOWHhwJFGPvGidskE=@proton.me>
+ <10d6863d-7c66-47ad-a683-251f2a40af66@kernel.org>
+ <WAB7jp0xjjHctNtq5ASJolUOI6Kg5aMEGSDolwUfAWaAmIima-lr5dCUh-EQPBZvrUFdXMxA8dKfkY-XRkTFYhzCrp5vheC2h15to5ZsBsM=@proton.me>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <WAB7jp0xjjHctNtq5ASJolUOI6Kg5aMEGSDolwUfAWaAmIima-lr5dCUh-EQPBZvrUFdXMxA8dKfkY-XRkTFYhzCrp5vheC2h15to5ZsBsM=@proton.me>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On Fri, 20 Mar 2026 16:48:35 +0200
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+On 21/03/2026 13:02, Antoine Bernard wrote:
+>> Please wrap your emails.
+> 
+> Sorry, I noticed that after sending.
+> 
+>> If the hardware has the same properties
+> 
+> As of my understanding they are different hardware, can I really use
+> the documentation for another hardware?
 
-> On Fri, Mar 20, 2026 at 10:08:19PM +0800, Carlos Jones Jr wrote:
-> > The LTC2305 is a 2-channel, 12-bit, fast ADC with an I2C interface,
-> > compatible with the LTC2309 (which has 8 channels).
-> >=20
-> > This patch adds support for the LTC2305 by using the chip_info
-> > structure to handle the different channel configurations between the
-> > two variants. The LTC2305 exposes 2 single-ended channels and 2
-> > differential combinations.
-> >=20
-> > The LTC2305 requires a 1.6=CE=BCs delay between I2C write and read
-> > operations, which is implemented using chip-specific timing to avoid
-> > affecting existing LTC2309 functionality. =20
->=20
-> ...
->=20
-> >  config LTC2309
-> > -	tristate "Linear Technology LTC2309 ADC driver"
-> > +	tristate "Linear Technology LTC2309 and similar ADC driver"
-> >  	depends on I2C
-> >  	help
-> > -	  Say yes here to build support for Linear Technology LTC2309, a low
-> > -	  noise, low power, 8-channel, 12-bit SAR ADC
-> > +	  Say yes here to build support for Linear Technology LTC2309 and
-> > +	  similar low noise, low power SAR ADCs. =20
->=20
-> No, in Kconfig help text (and possibly title above) we have to be crystal
-> clear for user what IPs (chips, SoCs, et cetera) are being supported by
-> the driver. There is no go for 'and similar'.
+I asked to document it.
 
-One follow up comment is format the resulting description as a list
-as it reduces churn in the long run.  e.g. how AD7173 does it.
-
-
+Best regards,
+Krzysztof
