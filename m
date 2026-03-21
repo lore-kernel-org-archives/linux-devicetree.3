@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D15C14A60F;
-	Sat, 21 Mar 2026 09:56:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB6414A60F;
+	Sat, 21 Mar 2026 09:57:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774087004; cv=none; b=HlnGCgDtMNQlOFwNGWBXp0DCfI+M9IzFRamzWZeuzY4L1x7qExjDb2IVzt6hAXryT8OMlLaW1dBtWH3wZ/f7GykOG3tgG7fsybR/NjiUgiM7fjC1o0EXRHAQr12a40HVX529IMDbVDL9Ioc5CBuYZoEsvg1WDLnjqeBPuN0DHvU=
+	t=1774087079; cv=none; b=KK2GDpCfHfryfq5d2zAZU8D7z3rBdUHbdq4DZSJZpo4bIDHF4sRSIpGI+OC4OU2R+fRCP9w5KH8WUmAT1z6Sx0UC5ioP1RrPdBGRFOb058cjRZkyJIM0cYHF/KBjEs1JqokqDcqkxMh3g8QgVdUGVVX4tuETl4LVruPDcfMJVvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774087004; c=relaxed/simple;
-	bh=+LVNkCkCMdRhAgRtq1Pu/cBRkMFNTx5E4/plQSuuNBs=;
+	s=arc-20240116; t=1774087079; c=relaxed/simple;
+	bh=NyVdvbKbLqfoMk3lXvjaFIUZY6esC9sTnRfa+VN2he4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G0pd8gt+bGrtPYhDHoqBjB5cW90tI9TK7cqWWxI33nVfP2Hlci1Br3l073He3Fh66R3Y6vAq1GyOMSLWfvj9OLckhPDNaCEo/8nB73nl3VM6cxk5qKVHPdhtVHAryF0Z9sF2knD8sJE7H3DR7FTy4OCLJgN6s69F2+TIfQEf7tQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fiij6ej8; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=B5k0K5k7mlkJJyBG3sPpbJYnmizzGRC7kznnuzdNOYqnQs+6bopeJNThabslA/2lcTFQw/RjXllKouRjJ9XJeCrreDAd8+qu0CdttVwWMh32FxqaVZWhpEL30JEqf/8cGC1zSHTkdEohQXe4bIxzEZ+Sr9KmNaP0NkmxTGTMYp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VVg4/Mhn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fiij6ej8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E9F0C19421;
-	Sat, 21 Mar 2026 09:56:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VVg4/Mhn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CB8CC19421;
+	Sat, 21 Mar 2026 09:57:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774087004;
-	bh=+LVNkCkCMdRhAgRtq1Pu/cBRkMFNTx5E4/plQSuuNBs=;
+	s=k20201202; t=1774087078;
+	bh=NyVdvbKbLqfoMk3lXvjaFIUZY6esC9sTnRfa+VN2he4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fiij6ej82yH+M+mEq4Jf73Xe124BHToVVWaE8kFcgvpmd2mtfo/xSgSm0pBe/83SB
-	 EgG6vS9iBCKib2rZr/mN1IIk2HlrcI/nSod1hUsq12PHob0e5XeZzxyL+26mJlcTyv
-	 CA1osB+90HHxRFOoXEVcL1pZ5+4H7vxP2yq9EyAtCZhU4+TAk6QABpAbHV4cLIt3ng
-	 +B12VEtlzrkL8NAnygYUr+3VpVWBMLkewV7TzzYOlBTMJ/VgsKisYKyiWbsKLmpgMS
-	 eggDRPvZVwMJ040cVEflITfqg46fh3Ahgmt+Sur8hsA8h0fb4TB7rCMNreG8sWFzLP
-	 JMO9jDVQYg7fA==
-Message-ID: <9bb6e4ac-c7f2-4f1d-aff0-70eefec810a2@kernel.org>
-Date: Sat, 21 Mar 2026 10:56:38 +0100
+	b=VVg4/MhndvAURB85JbUaSr6LPKM8Uz/WdXRR+y9rRNp/VzwRTHCBJ95QisGS2JD97
+	 ntSXNOzbXOGOsKQy7PseSHBeo5jeiPXxjMfTNXbUa42++vJkL0maI8iL1hFEI4FWbc
+	 UNGVM8iP2hWFgQ8lwXp872t6DusAblfUJUMz6vmd702Zx0gFwY1D2ekO9k4EfZMCz3
+	 yx5b0L5S8MzErQteXTP+tRSdE5zQF1HjYzUB4ixPBx0g3qUZ59l41qScERm8v4c4eh
+	 4T6L9RXJJPofD7vkaoFg6QROXWPB7b5yEd0lp3kyyJJG8nBbDa5eZRNveSLCdoQUuu
+	 dgGFCZSR1GkrA==
+Message-ID: <74f53763-d33c-46dd-89fd-7e9aa076156e@kernel.org>
+Date: Sat, 21 Mar 2026 10:57:55 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,24 +35,15 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] dt-bindings: display: panel: Add Novatek NT35532
- LCD DSI
-To: cristian_ci <cristian_ci@protonmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
+Subject: Re: [PATCH] dt-bindings: arm: mediatek: mediatek,g3dsys: Convert to
+ DT schema
+To: Uday Kiran <challauday369@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-References: <20260318-rimob-new-features-v2-0-c1bf8917449e@protonmail.com>
- <20260318-rimob-new-features-v2-1-c1bf8917449e@protonmail.com>
- <20260319-amorphous-pastoral-turtle-851af9@quoll>
- <oMTrCB7euJojLz1EUHDhHCq071GQWD0g7-sqwahA62CnM-sVw08UCNhKdgHX2NrEN3H8iRhc0suejuq5JZ39UA2nEfKhRq9qwYJWSxCrAtc=@protonmail.com>
+ skhan@linuxfoundation.org
+References: <20260315080302.454233-1-challauday369@gmail.com>
+ <5731aafd-8a72-4a81-8a0f-04c1ff5b69f1@kernel.org>
+ <CAAj-GB=1+sZcw9jomC9Dsw8ojyKUs2zahpeXt7VXoXE8V4DK1Q@mail.gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -98,61 +89,48 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <oMTrCB7euJojLz1EUHDhHCq071GQWD0g7-sqwahA62CnM-sVw08UCNhKdgHX2NrEN3H8iRhc0suejuq5JZ39UA2nEfKhRq9qwYJWSxCrAtc=@protonmail.com>
+In-Reply-To: <CAAj-GB=1+sZcw9jomC9Dsw8ojyKUs2zahpeXt7VXoXE8V4DK1Q@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 20/03/2026 23:32, cristian_ci wrote:
-> On Thursday, March 19th, 2026 at 10:09, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> 
->> On Wed, Mar 18, 2026 at 11:28:09PM +0100, Cristian Cozzolino wrote:
->>> +  avdd-supply:
->>> +    description: positive boost supply regulator
+On 20/03/2026 19:00, Uday Kiran wrote:
+> On Sun, Mar 15, 2026 at 7:55 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
 >>> +
->>> +  avee-supply:
->>> +    description: negative boost supply regulator
->>> +
->>> +  vci-supply:
->>> +    description: regulator that supplies the analog voltage
->>> +
->>> +  vddam-supply:
->>> +    description: power supply for MIPI interface
->>> +
->>> +  vddi-supply:
->>> +    description: regulator that supplies the I/O voltage
->>> +
->>> +  port: true
->>> +
->>> +required:
->>> +  - compatible
->>> +  - reg
->>> +  - reset-gpios
->>> +  - avdd-supply
->>> +  - avee-supply
->>> +  - vci-supply
+>>> +  "#clock-cells":
+>>> +    const: 1
+>>> +    description: Number of cells in a clock specifier
 >>
->> Only VDDI is required according to datasheet (see page 11 and page 16).
+>> $ git grep "Number of cells in a clock specifier"
 > 
-> Just to be sure, are you mentioning the part saying there are multiple 
-> power modes (2-1PWR, 2-2PWR, 3éWR and 4PWR) related to NT35532? 
-> 
->> Others are needed only in specific configurations, which I would ignore
->> for the simplicity of the binding. Drop these three.
->>
->> Previous discussion point was about this - write bindings based on
->> datasheet, since it is available.
-> 
-> I've removed avdd, avee and vci supplies from 'required' properties 
-> and I've also tested the new bindings (just for completeness). Now, 
-> I'm going to reintroduce again the issue already raised previously 
-> (for which I received no replies in v1): should I submit a v3 
-> series including my new changes or I've to stick with v2 here, in 
-> order to address review concerns about binding, first?
-> 
+> Sorry Krzysztof, I didn't understand what you meant. I've tried executing
+> git grep, but there are no results apart from my commit. But, I've found it
 
-I don't understand the question. This is v2, right? So I asked to make
-changes to it, thus you should submit v3 after receiving some more
-review for example.
+Exactly.
+
+Therefore why would you write a style code which does not exist in the
+kernel? Why doing this completely different than everyone else?
+
+> in clock-binding.txt i.e., in clock.yaml in github. After careful study of
+> guidelines.I've removed the description of provider properties.
+> Please let me know if there is any deviation in my understanding!!
+> 
+>>
+>> Read the guidelines for GSoC contributors I posted on IRC used in GSoC
+>> and/or ones I wrote on social.kernel.org.
+> 
+> Thank you, I've gone through the guidelines once again and updated the
+> changes.
+> 
+>> Your mentors were supposed to be Cc-ed here.
+> 
+> I'm part of the Linux Kernel Spring Unpaid 2026 Mentorship program and
+> I've already Cc-ed Shuah in the mailing list.
+
+Does that mean LFX mentorship also has sub-program like GSoC for
+bindings conversion?  Does this program at least incorporated our
+feedback from two years and year ago?
+
+
 
 Best regards,
 Krzysztof
