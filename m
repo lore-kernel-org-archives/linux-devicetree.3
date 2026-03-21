@@ -1,93 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF3D2DCF4C;
-	Sat, 21 Mar 2026 10:10:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF2B3033D6
+	for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 10:13:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774087807; cv=none; b=b+0/WDmwSFD1XKeLpA1rlQdse34Ghk9aoBzu9IXJq5ljEPI8Q7JBrUJ+vVALl9cuQAoLOj020ioukxFoHWbkw2PAri4CmcCLg4FOPw+3fd7dFUUB1yaL01uus4qnB0T4KCMVmpo98iYU1Z/7x04qsyKLWGsCdioqKudHc5vmioc=
+	t=1774088004; cv=none; b=GbJLIb+CPHEnKXZCBHQdhiTx5C3lL+SzlC6jYFbe/Q1LO/M34UeMdz7lW7yg+Mhxbg6fbj8Z/D8g11tChF7xLHo7kMMLZvaBDRAQDLQF8+yA5xXhxpzVj9ZxoOLSUYmRdWPcKmpQ3HzZRx4kV5UXHD0UocytHRnfIPZ4P4Tikr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774087807; c=relaxed/simple;
-	bh=losRJURq/7otlRzH8CacDY3Rw8KV5PdAJ6d9YB1JEmw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mDfbwBP7IScVovNEWmAG6sXFyVzoGKwxikXbMXmK+dN16l0U6fvMg2hO3y0QUQOB7+dikqIbYUn8YOX18N4jXMJX/DKGrOKzwtDFE8h7B4nH7QruUfSCzeonk7BiQgbomB24JijodAjkyVC9LWeDOc9m8bTZ0nQNUFm6EGyiWN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mA6LD5eA; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774088004; c=relaxed/simple;
+	bh=dY1qL4oiruMLLPPOfCTpq/3L4rUbkzScjCoW0ifJR+g=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=RfmE120EVw2g2r0gbDJQsoRb26xwxiMJXlse7jzYLo8jZwjxVHc5egYihTTC6h79e4TpXYtlOH0SRuV2TGyOvLHFKUpNUqoWci17Xw6G4FTYQt5D2cavRpD15JTATjOyH3HYampKJt5eP5upHa5utzFD9xo5XZNp3krCAY45D6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wy8Cjpnl; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mA6LD5eA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6196DC19421;
-	Sat, 21 Mar 2026 10:10:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774087806;
-	bh=losRJURq/7otlRzH8CacDY3Rw8KV5PdAJ6d9YB1JEmw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mA6LD5eAS9S3t8yrPuitlKesfwXIJIOM6EqAXDuJeWzodokTf/CeDnq9rBBouRsEX
-	 ml+T6qTpzM2kICbWoN5iS647DG6LDJu4Jl9aunE3y+PnJ3Xad9+JcN0rVQGq1kvxje
-	 hYNtUCU7F3rACOLj0wvY5rl7PG/wYY3aBdkx6buMoxxyhJTmbDe2tshUWWSahCf4D3
-	 to0lFMr/xryD99m/vmewUCNL6EFtU08SZwXqCwj8pTQ5VufyJfBPKB3nl43SPQbKa2
-	 pZT0VPKKwG8vrBBxbAXcY2+Em4blnx8DRJB5N3LZwdPA4wtgwI2qN8fv4WCWs1SW3u
-	 tC3jsKH2YbLwQ==
-Date: Sat, 21 Mar 2026 11:10:04 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Pet Weng <pet.weng@ite.com.tw>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Hermes Wu <hermes.Wu@ite.com.tw>, Kenneth Hung <kenneth.Hung@ite.com.tw>, 
-	Jau-chih Tseng <jau-chih.tseng@ite.com.tw>, Pin-yen Lin <treapking@google.com>
-Subject: Re: [PATCH v8 1/2] dt-binding: display: Add ITE IT61620 MIPI DSI to
- HDMI bridge
-Message-ID: <20260321-steady-refreshing-chinchilla-f6ed28@quoll>
-References: <20260320-it61620-0714-v8-0-0e70271cf5a9@ite.com.tw>
- <20260320-it61620-0714-v8-1-0e70271cf5a9@ite.com.tw>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wy8Cjpnl"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-48374014a77so25635535e9.3
+        for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 03:13:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1774088000; x=1774692800; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=vxcTJFOmewD2GhiVVB+6YPckSGMQdPbVx332O/W6xHg=;
+        b=wy8Cjpnl2Bfu0PsOn4ROCFPXGahT9sjEL53kkUTwk7m0nWUoTg9kbEipScJTgC7BVw
+         JR+Jo8HDbHmhuS9t9V7UgVFCu6FXUFCkksveZvahIre6RKfsgm5JC1fYUKB4dSot+NGa
+         dtaFbZk1z/o/VI2wua1ssQq+u4xJ9NGg5GU5GTMahrEMKeArdZd0HvRqEI29A+Q6QJQx
+         LR1XlipRcewSMUf1C3DNdJcSNGkTin+gvA2nTO9NHNneO44fmo4abzIbg96RxYQ3G3Xv
+         miaFRtgU1eof/Xeom7cgViK31C8wdAeQq9ZyDCR653oTAvD4IAa76tM97nj7L/Sw1U+9
+         12VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774088000; x=1774692800;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vxcTJFOmewD2GhiVVB+6YPckSGMQdPbVx332O/W6xHg=;
+        b=QvBJLPlppVGioRra1h2n1dYqqb14DuI5iotKLIF/DwIw7fptlWW6ZTPk/wPX8ulW01
+         QK3zbf3zJKoqpEMp7My6XkgOzQQo2DM9M+0WhH4q9R2L7ZJruUDksh7X+U6x15w7a6Xj
+         KNHmatddrrc+4ZkkiUA/RrMreupwkVaiZwA9ZK6d1U+ZNPYOOHvOJeXoazrBfhBa+GcN
+         efizhQFuUizRT/c0Am1ZL0eKyv/tHHLHtLW+ik4c9v8Lse2SA7bup0FWLoObG9mSVbs6
+         XjzwK/MYr7VjecFOr1ECaGWUU32g067OdIIIJB4h7zPfoL8wpkc5nTRk9DKOhrcIhfRM
+         X1cg==
+X-Forwarded-Encrypted: i=1; AJvYcCXdGdjUu13jV9PYp1Q4nLsI6ol24b28PXmBAeoH2/PuTWeDcFEk0d0yKkgSmFsBfT8AXqAXSAfVdHA2@vger.kernel.org
+X-Gm-Message-State: AOJu0YwZCVbEDqhwG/k8uqyHTUtUu4iwv+h5ImhzQ49LyA1MZWbb1pcG
+	Ufpen/xup/1L5Zb1jrqG6UrAMVGgG2FSxg+AFnDm81ODCQrkCL58s4a8V+4mUX17iEs=
+X-Gm-Gg: ATEYQzxqqZmOGdI1xK/yScCRc5fznX4cTfSSJjDZJCvYzaobS2J98oL8reJHhDfMW94
+	tJQNoOS154qId4Ri80NkObiqsxqgm2IzYFP4TYpBLEieCoLOIoANxDX3dEnCGSf96qBsGFLzneS
+	y3IGG4HKTq+4a0OwuZJB0vCrgMOaelJ1J2+05uRkkMZV49y5cDImq97CYZwLnE06pD7bBsJpmRF
+	jzHDjkq8jupCsPIyJUGNz6kWBLOxovMt1IiiiZwlIbOkwuu8Qg9Vv1Bg1VX54K6WHD0WnpLCX82
+	uNuUgCZpdnnbaEpkhRJA0Guz88areip+CTonktZ3MuDdRDJCb1OwhhgcvK2MYoq7eSHWRR7QVP9
+	v8k4TFqRLfKMMjGNG84JmzE4605yes8GshFSI/pILXHiPB8A9bYbl2R6fV5LMTYSE9efNjJT4qu
+	xyQcRhXS/4y1EmxA4ntV8fC/6im1NU
+X-Received: by 2002:a05:600c:3490:b0:487:300:d9ca with SMTP id 5b1f17b1804b1-4870300db54mr39007055e9.31.1774088000252;
+        Sat, 21 Mar 2026 03:13:20 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-487031790fdsm68147015e9.3.2026.03.21.03.13.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Mar 2026 03:13:19 -0700 (PDT)
+Date: Sat, 21 Mar 2026 13:13:16 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Linus Walleij <linusw@kernel.org>,
+	AKASHI Takahiro <akashi.tkhro@gmail.com>
+Cc: arm-scmi@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Dan Carpenter <dan.carpenter@linaro.og>, devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Khaled Ali Ahmed <Khaled.AliAhmed@arm.com>,
+	Michal Simek <michal.simek@amd.com>
+Subject: [PATCH v5 0/7] gpio: introduce a gpio driver for SCMI
+Message-ID: <cover.1774087290.git.dan.carpenter@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260320-it61620-0714-v8-1-0e70271cf5a9@ite.com.tw>
 
-On Fri, Mar 20, 2026 at 03:50:41PM +0800, Pet Weng wrote:
-> This chip receives MIPI DSI input and outputs HDMI, and is commonly
-> connected to SoCs via I2C and DSI.
+This basically abandons my earlier attempts and goes back to Takahiro
+Akashi's driver.  Here is the link to Takahiro's patchset:
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+https://lore.kernel.org/all/20231005025843.508689-1-takahiro.akashi@linaro.org/
 
-Please wrap commit message according to Linux coding style / submission
-process (neither too early nor over the limit):
-https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
+v5: Addresses Andy's cleanups to the driver.
+    Adrresses Krzysztof's comments about the dt spec file.
+    And almost all the subsystem prefixes were wrong.
 
-<form letter>
-This is a friendly reminder during the review process.
+v4: Addressed Andy's comments about kernel-doc
+    Addressed Rob's comments on the spec file
 
-It looks like you received a tag and forgot to add it.
+v3: Forward ported Takahiro's patches and added some fixes ups to make
+    it work on current kernels.
 
-If you do not know the process, here is a short explanation:
-Please add Acked-by/Reviewed-by/Tested-by tags when posting new
-versions of patchset, under or above your Signed-off-by tag, unless
-patch changed significantly (e.g. new properties added to the DT
-bindings). Tag is "received", when provided in a message replied to you
-on the mailing list. Tools like b4 can help here. However, there's no
-need to repost patches *only* to add the tags. The upstream maintainer
-will do that for tags received on the version they apply.
+AKASHI Takahiro (3):
+  pinctrl: introduce pinctrl_gpio_get_config()
+  gpio: dt-bindings: Add bindings for pinctrl based generic gpio driver
+  gpio: gpio-by-pinctrl: add pinctrl based generic GPIO driver
 
-Please read:
-https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
+Dan Carpenter (4):
+  pinctrl: scmi: Add SCMI_PIN_INPUT_VALUE
+  pinctrl: scmi: Delete PIN_CONFIG_OUTPUT_IMPEDANCE_OHMS support
+  pinctrl: scmi: ignore PIN_CONFIG_PERSIST_STATE
+  firmware: arm_scmi: Allow PINCTRL_REQUEST to return EOPNOTSUPP
 
-If a tag was not added on purpose, please state why and what changed.
-</form letter>
+ .../bindings/gpio/pin-control-gpio.yaml       |  59 ++++++++++
+ drivers/firmware/arm_scmi/pinctrl.c           |   2 +
+ drivers/gpio/Kconfig                          |  13 +++
+ drivers/gpio/Makefile                         |   1 +
+ drivers/gpio/gpio-by-pinctrl.c                | 101 ++++++++++++++++++
+ drivers/pinctrl/core.c                        |  31 ++++++
+ drivers/pinctrl/pinctrl-scmi.c                |  46 +++++---
+ include/linux/pinctrl/consumer.h              |   9 ++
+ 8 files changed, 249 insertions(+), 13 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/gpio/pin-control-gpio.yaml
+ create mode 100644 drivers/gpio/gpio-by-pinctrl.c
 
-Best regards,
-Krzysztof
+-- 
+2.51.0
 
