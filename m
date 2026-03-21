@@ -1,68 +1,111 @@
-Received: from mail-24428.protonmail.ch (mail-24428.protonmail.ch [109.224.244.28])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3442733F588
-	for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 04:57:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29237367F26;
+	Sat, 21 Mar 2026 05:57:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774069042; cv=none; b=XDvbcpgNXi2mWOqYSk30k5ngV8n3Z88JjiPauA+ntQg2/xwPiKSQ1T1WOOScz9ldemXV2qv77FP8aR6B7NLd4o45yerqKMgEHvq5Pc0x2iC2RKkLWNFLdbfhA9LSAuQwleUYcOyMm1b+qwdo/W2NmAq3wlO24zsyFGnld+01ce8=
+	t=1774072633; cv=none; b=loYWpRa4z3/DWCSUNRL+JF7G/osqnpPE+JmiwBDPpWFVqCdQnqsRLqLIxYr0XQ6xniEXz9X08ePdofLlzkQF+5Ej3aaOv5zmuq0B01hmIvTW6lb41ea+F/Dz08e5vPNub3MsAuRuLtZhTyoeAVLRxK+i0X6nytk8V6dlVkjRW1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774069042; c=relaxed/simple;
-	bh=WYcM42MJ2XTmtz5HqmYYr7HnUfB6qWv786XxBO8FpAY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jj+I3VfyNl8Wm1+Er8NfEw0FTtW5+zVCi9pcVoe0t3EMc6858CmZ1N4aoESek0RkiJTu3tcV5lVPmJ21snMX6ziD6CVDmHlS9d3qG8eXw2fn727eK/zice1/7y9wdquI6EoDikCJcLo3cv6leRPoJ1RM+kVvrhgMXqu+oVCu2G8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=DNA+Xh3J; arc=none smtp.client-ip=109.224.244.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1774072633; c=relaxed/simple;
+	bh=BBScthakHfwb7QuR1J3Hfw2qvVfNau/W+bfx/Os98AY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qJ0RDw96B10wTMwj4NgFeVHGaGQHDrlO9tIfVugCcxVa0eEhJAbj58LZQkYWGr52THaPu3wSXbI8TVDQ5+HOUI32osN8wImSD37rFPjylXGpOOBGWsJi/0I0Ly3v7i7p0TN6m8P6T9lQAkPPVRoeFSkv2ZqtgP1Ei1LScAMZTuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FS6aNmwK; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="DNA+Xh3J"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1774069034; x=1774328234;
-	bh=WYcM42MJ2XTmtz5HqmYYr7HnUfB6qWv786XxBO8FpAY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=DNA+Xh3Jgr+wz5b0BKsemijam5S4V+r1LZtxlPkqZ13Y5E+6s+1M0YotXlqJyTOSF
-	 Ek22Dl8bEpVjipHLsaMm84TB4qk+YVI4ItO6idHNnxMQ6h9az/0o/9InPx9O4jI7Wg
-	 vsEwdiQjrjNeBpaHWkFCYsxj1JZugJoKfi90jSmtnUOaF9yUnDkRRbFP6CLPXyqFp4
-	 jkN47q33SxiOYVHA+OWUWzupmgOii+qFjynB3eY/wINL2HCVTCJEzGo0rPSUTfhlGJ
-	 oDyYwwxPM2xlhyHWqJvcqj3GE0nGungTkZ6wwJZCx3GfI6jeOd0MrmRBbCG2SQZDCu
-	 0voCDoHwMWREA==
-Date: Sat, 21 Mar 2026 04:57:10 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-From: Antoine Bernard <zalnir@proton.me>
-Cc: Arec Kao <arec.kao@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "~postmarketos/upstreaming@lists.sr.ht" <~postmarketos/upstreaming@lists.sr.ht>
-Subject: Re: [PATCH 1/3] media: i2c: ov13b10: Add dvdd, dovdd and device tree support
-Message-ID: <upbCO5Ov9EM8f4ZCXKxzuKpXo5mOZ3tEI4j0VvTEZ6QQobtULxabIWkHlGTx0-iV9_nxK10rh9zLzccuYMtN0ldUKfwSDWm5I9kflUQ4sg8=@proton.me>
-In-Reply-To: <ab29XzACA3gXE4MI@kekkonen.localdomain>
-References: <WDExF9Cf1ELo55IwClyLBJqXeLe2-Kb2m3QYg7ex6qREa3HBG52CdMovctxuZ7W_ixhvHyjk9L73NDMCJi2ndkuDJcpzHSDs7Z5pEAgET60=@proton.me> <ab29XzACA3gXE4MI@kekkonen.localdomain>
-Feedback-ID: 152853527:user:proton
-X-Pm-Message-ID: d0095ae6b4e3645edb270291724b8e584a79020a
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FS6aNmwK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774072632; x=1805608632;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=BBScthakHfwb7QuR1J3Hfw2qvVfNau/W+bfx/Os98AY=;
+  b=FS6aNmwKNbq9kgBleMQJYcUz+trQAoNcIifHT3H5Q1nXXbACnV9thEZB
+   VVUEkofD4cmNRTPvOBQRY0Gvt4HFpGfnjMPmcRcCBB0K0zqxJ+dPlLE15
+   csU6plamm9QXKP+yWs7WMKOAZCnZ/qFdhSIa4/0yvDms+I62u0x4Wc44b
+   AChi0qXHy/UqawIuoVa4cF2eSSaCCHdq3Bn3zS1jR0euKE61L+orr6CzO
+   p1NFz5e/SHMcBvhWB7OnTLL2jsqHFDhmt/EG9HDBgFtGcKZbBtDAF/oU/
+   l08q3m+53iEldSzZv+64PyMBK/TbmRg3/sGFlDqO99tUEqorf6OSrKBl1
+   g==;
+X-CSE-ConnectionGUID: A44xTN8PRkeiuU0P7wDHAA==
+X-CSE-MsgGUID: p8X7TTsiT3CYcvT/wFLZTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11735"; a="77762194"
+X-IronPort-AV: E=Sophos;i="6.23,132,1770624000"; 
+   d="scan'208";a="77762194"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Mar 2026 22:57:11 -0700
+X-CSE-ConnectionGUID: th6Z3pyCSjSzOqyoY5x2rQ==
+X-CSE-MsgGUID: 89R1Jh0VQqqbAFouduValg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,132,1770624000"; 
+   d="scan'208";a="228221083"
+Received: from igk-lkp-server01.igk.intel.com (HELO 9958d990ccf2) ([10.211.93.152])
+  by fmviesa005.fm.intel.com with ESMTP; 20 Mar 2026 22:57:09 -0700
+Received: from kbuild by 9958d990ccf2 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1w3pKd-000000005gb-0EHz;
+	Sat, 21 Mar 2026 05:57:07 +0000
+Date: Sat, 21 Mar 2026 06:56:52 +0100
+From: kernel test robot <lkp@intel.com>
+To: Yuxi Wang <Yuxi.Wang@monolithicpower.com>, linux@roeck-us.net,
+	corbet@lwn.net, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, wyx137120466@gmail.com,
+	linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/2] hwmon: add mpm369x driver
+Message-ID: <202603210627.wqCkJ5al-lkp@intel.com>
+References: <0111019cffc12220-1800bb62-f2e0-4194-99a3-7d2ba03532c6-000000@us-west-1.amazonses.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0111019cffc12220-1800bb62-f2e0-4194-99a3-7d2ba03532c6-000000@us-west-1.amazonses.com>
 
-Thanks for reviewing the patch.
+Hi Yuxi,
 
-This is my first time sending patches to LKML, so please do
-understand if I make some mistakes.
---
-> Error handling needs some work here.
+kernel test robot noticed the following build warnings:
 
-Could you perhaps tell me in detail? The logic is same as with
-avdd, so I am not quite sure how to refactor these.
+[auto build test WARNING on groeck-staging/hwmon-next]
+[also build test WARNING on robh/for-next next-20260320]
+[cannot apply to linus/master v6.16-rc1]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> ACPI supports device probing through of_match_table, too.
+url:    https://github.com/intel-lab-lkp/linux/commits/Yuxi-Wang/hwmon-add-mpm369x-driver/20260321-082055
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git hwmon-next
+patch link:    https://lore.kernel.org/r/0111019cffc12220-1800bb62-f2e0-4194-99a3-7d2ba03532c6-000000%40us-west-1.amazonses.com
+patch subject: [PATCH 2/2] hwmon: add mpm369x driver
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+docutils: docutils (Docutils 0.21.2, Python 3.13.5, on linux)
+reproduce: (https://download.01.org/0day-ci/archive/20260321/202603210627.wqCkJ5al-lkp@intel.com/reproduce)
 
-I thought this was needed, because embedded devices don't have
-ACPI. Is it possible to not use of_match_ptr() and instead do
-.of_match_table =3D ov13b10_of_match directly?
---
-Best regards,
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603210627.wqCkJ5al-lkp@intel.com/
 
-Antoine
+All warnings (new ones prefixed by >>):
+
+   Runtime Survivability
+   ===================== [docutils]
+>> Documentation/hwmon/mpm369x.rst:4: WARNING: Title underline too short.
+
+
+vim +4 Documentation/hwmon/mpm369x.rst
+
+     2	
+     3	Kernel driver mpm369x
+   > 4	====================
+     5	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
