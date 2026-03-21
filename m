@@ -1,104 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B4F2E093A;
-	Sat, 21 Mar 2026 11:25:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D449D387361;
+	Sat, 21 Mar 2026 11:46:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774092355; cv=none; b=QdSdfLnIefMJSfwhzyCLvbQLwy2iUIfvHNa6TtlTSLnRjgYoSAW5LLTg9qLMLYZtS3ioJMw88lZYInFj56hMmzuG9IZ9wWC9r8D8QHRNG0WA57myyF/2UQYQowYUtESegqfc65bJK8MQC6zkhtnpBl+PFK4WGkI5/R5Hf+Lsjko=
+	t=1774093571; cv=none; b=Pyt9xDSU3ugR0dg8Fpqokl0Okz1/Rgvr04PjU5C6ctgUI/HokV3hWIaGcYJWGHaJ5/N4OsSNW3ddL76Q6ZM5QZlgoyM6pR3CK3tTwLrl+fAR7tzpfhjSRtUsB/QXzr8UM3SK041pjUIGJKg0AF0ZZEAUKbUMbJXqnLQoBliyAMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774092355; c=relaxed/simple;
-	bh=e+XpW8dP/OzHkIaUBSJbITfqdjL2YwKX+19fbhh8Nh8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XV2BhouSlbNuOiagxAIJ7rGHxihOOsdM7lH37PFybixI6cgO4/1Z7sVzZ5fDhPOV63E0iOAFpXvREskpT25X2I6zS8yInvHTS34UIZW8Ix3hc+9oHbkp2c5XuT+wEFAYsvK4SrDq5nYAWADUTvaK0YsEPDv3s8HxCUJEihxcyk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wiaq3Lba; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774093571; c=relaxed/simple;
+	bh=j2X8V42jI3uHij840eVENzhXIp17wQc4eC7ExQiMyIU=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=ahh6TochhA1eo+fS4OgKY75Ltc3TwhCUZRHk0c+x/M1cJMXSxZ0F5bbXBWu3qbvVawbOiJwjKN0LAoexeQmqn3ygHQEArKvofsLFuJ3Bhc92I0MKxAKLoXf4eruOdM+eZjKvn8wN8yDtJMngzt3wQnzMCeWLVRNMsvNspg5udkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=flygoat.com; spf=pass smtp.mailfrom=flygoat.com; dkim=pass (2048-bit key) header.d=flygoat.com header.i=@flygoat.com header.b=K1a515Zh; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OPgaxy6h; arc=none smtp.client-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=flygoat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flygoat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wiaq3Lba"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5BDAC19421;
-	Sat, 21 Mar 2026 11:25:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774092355;
-	bh=e+XpW8dP/OzHkIaUBSJbITfqdjL2YwKX+19fbhh8Nh8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Wiaq3LbavmbvnpPKuURINPDGxT5Fs5bMxryI3f/CL6t3QBBnnPJ2Ahtp4kbHZ/kv7
-	 HWsVqdllyCUmS35KYSserHlQVbgDo6lSS6+CDJyl+HVOebZrjx2BYIWXhcLr9hpnE8
-	 uJGlB0kBgS9FmYGI3A/3Ac/W1ccISleZ3DcMJlSoDSV90tRmiXdFmHXjyCSNHLVuCG
-	 rVNzOXE1KZd0e/bzTojW5JCPCfQ/InWkdeWCFwzn/6LHckLJ6qtfuPRRI43SEWjifB
-	 IGuBaMTO7ujb+SKRev9JFn4FeXsQgIubCddUk71kOFSa6zB8tTT0sDs6i349eN08zD
-	 EkfjxnmPH2meA==
-Date: Sat, 21 Mar 2026 11:25:45 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: Michael Hennerich <michael.hennerich@analog.com>, Marcelo Schmitt
- <marcelo.schmitt@analog.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
- Lars-Peter Clausen <lars@metafoo.de>, David Lechner
- <dlechner@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Petre Rodan
- <petre.rodan@subdimension.ro>, Jorge Marques <jorge.marques@analog.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 0/4] iio: accel: adxl372: add ADXL371 support
-Message-ID: <20260321112545.06498a9b@jic23-huawei>
-In-Reply-To: <20260321100729.2440-1-antoniu.miclaus@analog.com>
-References: <20260321100729.2440-1-antoniu.miclaus@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=flygoat.com header.i=@flygoat.com header.b="K1a515Zh";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OPgaxy6h"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id A047D7A01C1;
+	Sat, 21 Mar 2026 07:46:08 -0400 (EDT)
+Received: from phl-imap-08 ([10.202.2.84])
+  by phl-compute-03.internal (MEProxy); Sat, 21 Mar 2026 07:46:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flygoat.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1774093568;
+	 x=1774179968; bh=3Gyti2s6Snp4vYhyWt75xflsRXpAiah/grbQZ4HvZHk=; b=
+	K1a515ZhUE/H0HBD+V4dAICepoXUkZNBS8OlxVfx1HvcJxS5xbf9y5E6ueDTnsqU
+	ct/PwFhzYLDAsQBnyPySihfErT0WiZCrKzQjwPZ4sBXzreWoHqxcR78rPmu1AKtA
+	VuKEHmEEudDb7taZBIx/1HhCjKQZuufI149/mZ0mjmGMh+gcPaBMZiMdc5AkN+Nv
+	9bya3wBEGXeUD5PMaJObIbHrFpLgBFy0JapOnGu1YymOGTPpXhxLhGdcywPAZFPM
+	/orG4cQJbIyfj2fQ+eF/zAsBUZKfoFbnoIDcgKSQDdxq5h6HbxvjcaZ1G4YzvIex
+	muxBKatxy/uRl6mdUyW9NA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1774093568; x=
+	1774179968; bh=3Gyti2s6Snp4vYhyWt75xflsRXpAiah/grbQZ4HvZHk=; b=O
+	Pgaxy6htIPA33tPfQh/HZch2/1MgeEc7WUuEMecLiJwKxp/FEPrOwIMaBoPxR/s9
+	9peKXgYG1LM7kY6hDne7OuzWm/btiBiuSx/iG6GUjmFKdBLBAge0uU/qzMrK1YYH
+	WAQB218itLpfDtbquETj4u6m9ZAZyl8JSfxmLsTDu7/AdGq2rU/0Y1gxr0PMaWNw
+	PXb32UVDGI2ZE6pHAVxXojPkU39gV6uaL77wBQV23P8vvu7XuV69OcP7Ah4VsmXX
+	SwMNVpfNHvoDVX0pPJWcPtdnkeRaP3cQUwMvfgRo1rDTh7hcZ6PQ4NMjxGTNiLPj
+	dCbY760ngZxpdJ3O5VNNg==
+X-ME-Sender: <xms:_4S-acuvwGAJ1IBARbaFdM-6DuuN5b-iRfGBUAZXuq26kArJ9QRBRQ>
+    <xme:_4S-aUQPrkQgvQgpbJHBhv7nfyc3ULgWvq45jG2B41fGWOu2Kr--otP9SjSBcDM_A
+    70xHLpdouY7UuAg89n76M-jaeVMfFf5PZcysdzyUTrivSatL-JyBfk>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdefuddvjeeiucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhepofggfffhvfevkfgjfhfutgfgsehtjeertdertddtnecuhfhrohhmpedflfhirgig
+    uhhnucgjrghnghdfuceojhhirgiguhhnrdihrghnghesfhhlhihgohgrthdrtghomheqne
+    cuggftrfgrthhtvghrnhepffeljeegffduueekffejhfefgfevieeludfgiefhlefhheel
+    uedvhfefgefgveeinecuffhomhgrihhnpeguvghvihgtvghtrhgvvgdrohhrghenucevlh
+    hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehjihgrgihunhdr
+    higrnhhgsehflhihghhorghtrdgtohhmpdhnsggprhgtphhtthhopedugedpmhhouggvpe
+    hsmhhtphhouhhtpdhrtghpthhtohepthhssghoghgvnhgusegrlhhphhgrrdhfrhgrnhhk
+    vghnrdguvgdprhgtphhtthhopehufihusehitggvnhhofiihrdhmvgdprhgtphhtthhope
+    iihhgvnhhggihinhhguggrsehishgtrghsrdgrtgdrtghnpdhrtghpthhtoheptghhvghn
+    hhhurggtrghisehkvghrnhgvlhdrohhrghdprhgtphhtthhopegtohhnohhrodgutheskh
+    gvrhhnvghlrdhorhhgpdhrtghpthhtohepkhhriihkodgutheskhgvrhhnvghlrdhorhhg
+    pdhrtghpthhtoheprhhosghhsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehtghhlgi
+    eskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhhoohhnghgrrhgthheslhhishhtshdr
+    lhhinhhugidruggvvh
+X-ME-Proxy: <xmx:_4S-aWSPhOepeDRHyFslkNnvvrxUpX0YRhAlX0QkYOIaWuFZm4sfhg>
+    <xmx:_4S-acNYH8jPz2nbp8Xd8SzNphbDbnZK85m-c2FitxyqBMNswHtoPw>
+    <xmx:_4S-aTltv63YecSFIK9ctTwv9FUUioEqPL5IultvUBejmXhZjXFu0Q>
+    <xmx:_4S-aeaGwGvxJJ_9XJ7o7wqmxdu5fz4d0k-vLl75Vnpz4s8OIle-iw>
+    <xmx:AIW-aaVzdJ0JPaEZD25Z7-sNQ1RoeXYSDWvB7qP6THn2I6cXU7oUY2Tf>
+Feedback-ID: ifd894703:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 7C0802CE0072; Sat, 21 Mar 2026 07:46:07 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-ThreadId: A5OMFqkhvUAJ
+Date: Sat, 21 Mar 2026 11:45:47 +0000
+From: "Jiaxun Yang" <jiaxun.yang@flygoat.com>
+To: "Icenowy Zheng" <zhengxingda@iscas.ac.cn>,
+ "Thomas Gleixner" <tglx@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Huacai Chen" <chenhuacai@kernel.org>,
+ "Xuerui Wang" <kernel@xen0n.name>,
+ "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>
+Cc: "Icenowy Zheng" <uwu@icenowy.me>, "Yao Zi" <me@ziyao.cc>,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ loongarch@lists.linux.dev,
+ "linux-mips@vger.kernel.org" <linux-mips@vger.kernel.org>
+Message-Id: <6754565e-df4d-4cb5-ae65-e195f6a78f08@app.fastmail.com>
+In-Reply-To: <20260321092032.3502701-4-zhengxingda@iscas.ac.cn>
+References: <20260321092032.3502701-1-zhengxingda@iscas.ac.cn>
+ <20260321092032.3502701-4-zhengxingda@iscas.ac.cn>
+Subject: Re: [PATCH v4 3/6] dt-bindings: interrupt-controller: add LS7A PCH LPC
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On Sat, 21 Mar 2026 12:04:55 +0200
-Antoniu Miclaus <antoniu.miclaus@analog.com> wrote:
 
-> Add support for the Analog Devices ADXL371 3-axis, +-200g MEMS
-> accelerometer to the existing ADXL372 IIO driver. The ADXL371 shares
-> the same register map as the ADXL372 but differs in ODR/bandwidth
-> values, timer scale factors, and has a known silicon anomaly (er001)
-> that prevents reliable FIFO operation.
 
-Applied with minor line break tweak in patch 3.
-Looks to me like you've addressed Andy's comments and there was nothing
-else outstanding. I'm applying this without waiting to see if Andy
-has any last feedback mostly to make life a bit easier but cutting down
-the number of series in flight!  
+On Sat, 21 Mar 2026, at 9:20 AM, Icenowy Zheng wrote:
+> Loongson 7A series PCH contains an LPC controller with an interrupt
+> controller.
+>
+> Add the device tree binding for the interrupt controller.
+>
+> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 
-For now pushed out as testing, as such (for now) I'm fine tweaking, dropping
-or adding tags if more feedback does come in.
+Reviewed-by: Jiaxun Yang <jiaxun.yang@flygoat.com>
 
-Thanks,
+> ---
+>  .../loongson,pch-lpc.yaml                     | 52 +++++++++++++++++++
+>  1 file changed, 52 insertions(+)
+>  create mode 100644 
+> Documentation/devicetree/bindings/interrupt-controller/loongson,pch-lpc.yaml
+>
+> diff --git 
+> a/Documentation/devicetree/bindings/interrupt-controller/loongson,pch-lpc.yaml 
+> b/Documentation/devicetree/bindings/interrupt-controller/loongson,pch-lpc.yaml
+> new file mode 100644
+> index 0000000000000..ff2a425b6f0b8
+> --- /dev/null
+> +++ 
+> b/Documentation/devicetree/bindings/interrupt-controller/loongson,pch-lpc.yaml
+> @@ -0,0 +1,52 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: 
+> http://devicetree.org/schemas/interrupt-controller/loongson,pch-lpc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Loongson PCH LPC Controller
+> +
+> +maintainers:
+> +  - Jiaxun Yang <jiaxun.yang@flygoat.com>
+> +
+> +description:
+> +  This interrupt controller is found in the Loongson LS7A family of 
+> PCH for
+> +  accepting interrupts sent by LPC-connected peripherals and 
+> signalling PIC
+> +  via a single interrupt line when interrupts are available.
+> +
+> +properties:
+> +  compatible:
+> +    const: loongson,ls7a-lpc
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupt-controller: true
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  '#interrupt-cells':
+> +    const: 2
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupt-controller
+> +  - interrupts
+> +  - '#interrupt-cells'
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    lpc: interrupt-controller@10002000 {
+> +      compatible = "loongson,ls7a-lpc";
+> +      reg = <0x10002000 0x400>;
+> +      interrupt-controller;
+> +      #interrupt-cells = <2>;
+> +      interrupt-parent = <&pic>;
+> +      interrupts = <19 IRQ_TYPE_LEVEL_HIGH>;
+> +    };
+> +...
+> -- 
+> 2.52.0
 
-Jonathan
-> 
-> Changes in v4:
->  - [Patch 1/4] Reformat info_mask_shared_by_type to use consistent
->    multi-line style matching info_mask_shared_by_type_available.
->  - [Patch 1/4] Drop trailing comma from ADXL372_ODR_NUM enum
->    terminator.
->  - [Patch 1/4] Drop redundant NULL checks for chip_info in SPI/I2C
->    probe functions since match data is always provided.
->  - [Patch 3/4] Use 'if (ret)' instead of 'if (ret < 0)' for
->    devm_iio_trigger_register() and devm_iio_triggered_buffer_setup_ext()
->    return checks in adxl372_buffer_setup().
->  - [Patch 4/4] Drop trailing comma from ADXL371_ODR_NUM enum
->    terminator.
-> 
-> Antoniu Miclaus (4):
->   iio: accel: adxl372: introduce chip_info structure
->   dt-bindings: iio: accel: adi,adxl372: add ADXL371 compatible
->   iio: accel: adxl372: factor out buffer and trigger setup
->   iio: accel: adxl372: add support for ADXL371
-> 
->  .../bindings/iio/accel/adi,adxl372.yaml       |   9 +-
->  MAINTAINERS                                   |   5 +-
->  drivers/iio/accel/Kconfig                     |  12 +-
->  drivers/iio/accel/adxl372.c                   | 300 +++++++++++-------
->  drivers/iio/accel/adxl372.h                   |  20 +-
->  drivers/iio/accel/adxl372_i2c.c               |  17 +-
->  drivers/iio/accel/adxl372_spi.c               |  17 +-
->  7 files changed, 244 insertions(+), 136 deletions(-)
-> 
-
+-- 
+- Jiaxun
