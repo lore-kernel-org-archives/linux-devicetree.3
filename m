@@ -1,87 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8561C38756A;
-	Sat, 21 Mar 2026 13:18:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38174248873;
+	Sat, 21 Mar 2026 13:39:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774099083; cv=none; b=qsTTSaA1PJZi9XIv2mRXjqhKh1tmwnWX/0llpJx6lQESv4L9KI0fvQdwTOYFFGQgRQFRIWkeUe5w6JAGhCAg9YyGXRRF3tQ0TJj6kfw2QH6bkKViB0cZtK65D+Mbh9L7h9QvMBziEIpDOwIThT80yg4wWoonJaKUavLUOnULftA=
+	t=1774100352; cv=none; b=HoqAJ8KwqILBuK42s+mFel9+VYJxQG8BoitjZJym6XyX+mzKCneN4DU8zhNcwG3z9jSxBCNTQrTVw8dNQww1a5Jny8X8uS4u1WTnmm7Q2JkLPsEYyECfdQVBDvSyHfxQttG+zUKKZ/lq8iPCG93PB46QMfmi0XjCTaYKHLCC8gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774099083; c=relaxed/simple;
-	bh=M800nNzUvv0zNmdxOy67LWqFXo6bvZJuekBLzvfcWyE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ai8R9Ax4uU/fbHVKTgIqLntet7YA5jnxH05H6nnxCjuQ1BnmCT92WXe0BD55UNQ5I5hyv68LWjXKDn97sz0P92SFL/wJ8mUnAFkDw4eB6rCvseGLj1TvbuxqxAdjz3361wxZU6n2KT4iSCbWnElYCOQ0bvGidn9aOG4Kr9s6t50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EDlwbhDy; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774100352; c=relaxed/simple;
+	bh=xJ2lQrO0ZwDcMWLil9O0PUiVGgTL0OmU3iujFi/H2JY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IiVbTRytR1zo++YM1KBFGXAp+0gAg50+Phlav6EAUu6zcP9ocuHDOr3f9ny0qi2tIkS1BVdteXQvydx+bP1Rzn0F54GJ4K4CbxcgLPFW8sWb/1aJAUUgpBfl9GGSwsSuCM2/R49//Me2Z+xeK0qszWWzJup8VUyhZDTi6/PVaBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CjqRKp4u; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EDlwbhDy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E53BC19421;
-	Sat, 21 Mar 2026 13:17:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CjqRKp4u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D25B3C2BC9E;
+	Sat, 21 Mar 2026 13:39:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774099083;
-	bh=M800nNzUvv0zNmdxOy67LWqFXo6bvZJuekBLzvfcWyE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=EDlwbhDyHF0PzAdik8rVakHd3eUdZ9PyDC8gg3KYnibPnmGvndc0/T/WyHtmaTml5
-	 X3SqDVfGJwBo+Qm5gBDURc1CnoEm5Um87c0huJYm3dN3YZcCcyJ4f9E/OyYZP7fApD
-	 lb0YCk2fHZGsGZ2AJ7Nmn8zluiIQPvb7jWFaKuFZWU2ifsjhMzglWcEZrgzRGzOd1U
-	 4D6Xo0TejsatJ1rDPCPf2GsFXU3roboU1Sa7aPQysyx3pDVjJF1ZrgryvNEi4enLNp
-	 WWpuV2OLOxJfoelZkuhQXouiVtFpLRR6PrD6+hZktEFnIYpbN5QAFpesnIUHRxhnqJ
-	 wTMCiip0SFggA==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Alim Akhtar <alim.akhtar@samsung.com>, Rob Herring <robh@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Ulf Hansson <ulf.hansson@linaro.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Cc: Peter Griffin <peter.griffin@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>, 
- Will McVicker <willmcvicker@google.com>, kernel-team@android.com, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-pm@vger.kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260318-gs101-pd-v8-0-241523460b10@linaro.org>
-References: <20260318-gs101-pd-v8-0-241523460b10@linaro.org>
-Subject: Re: (subset) [PATCH v8 00/10] pmdomain: samsung: add support for
- Google GS101
-Message-Id: <177409907930.268981.5882592990447577348.b4-ty@b4>
-Date: Sat, 21 Mar 2026 14:17:59 +0100
+	s=k20201202; t=1774100351;
+	bh=xJ2lQrO0ZwDcMWLil9O0PUiVGgTL0OmU3iujFi/H2JY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=CjqRKp4uN/O6EvthI+WXozPjjZfqoZq9vwj1axeEVe+oRHgKYZX9ao8JUm1aQSwNs
+	 PqZsDl1hkQV+bp6v8eVuzyYz2YHQKifmMPWJjuTUEUCnd5hGC24a9Jaq6QSG1SOkcV
+	 pQ21reEYRIdMTtNWS+u9qa3JujGBPq2KpIkzf4L1T1GBsRtuPK2dFJfVBlnc+fCunE
+	 pB5lXcd3bJzsx3qEP3382+R8xcE73LkUAeaKTm2ZrsU8mB9TCWMqmheruNHm5oMWCM
+	 R6FHBELzjU6SFHKupLO2KZh/Avv8OB6JxSFbm/lZ2gfkfSElEgMeywsY1zOVzLp8ga
+	 iwjC7cvexZE3Q==
+From: William Breathitt Gray <wbg@kernel.org>
+To: Daniel Lezcano <daniel.lezcano@linaro.org>
+Cc: William Breathitt Gray <wbg@kernel.org>,
+	Frank.li@nxp.com,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	krzk+dt@kernel.org,
+	s32@nxp.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org
+Subject: Re: [PATCH v5 1/3] counters: Reorder the Makefile
+Date: Sat, 21 Mar 2026 22:38:42 +0900
+Message-ID: <20260321133854.146974-1-wbg@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260113165220.1599038-2-daniel.lezcano@linaro.org>
+References: 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1864; i=wbg@kernel.org; h=from:subject; bh=xJ2lQrO0ZwDcMWLil9O0PUiVGgTL0OmU3iujFi/H2JY=; b=owGbwMvMwCW21SPs1D4hZW3G02pJDJn75vsd4ZiYu0DYp/b7zOsHnmYufXWi/D5T0ZfO5Tcnh utM3sJa2VHKwiDGxSArpsjSa3727oNLqho/XszfBjOHlQlkCAMXpwBM5EAww38/QYdqlVlmnev0 Yu3S8j5LTZx/UUS27PTZ291lJ6oLSloZ/gc5cXhM3lz32sOGg19eJ8WL/+GtGVmOrTIr77UG3pA LYgQA
+X-Developer-Key: i=wbg@kernel.org; a=openpgp; fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.15.0
 
-
-On Wed, 18 Mar 2026 15:27:45 +0000, André Draszik wrote:
-> This series adds support for the power domains on Google GS101.
+On Tue, Jan 13, 2026 at 05:52:18PM +0100, Daniel Lezcano wrote:
+> The next changes provide a new driver. For the sake of clarity,
+> reorder the Makefile alphabetically.
 > 
-> There are a few differences compared to SoCs already supported by this
-> driver:
-> * register access does not work via plain ioremap() / readl() /
->   writel().
->   Instead, the regmap created by the PMU driver must be used (which
->   uses Arm SMCC calls under the hood).
-> * DTZPC: a call needs to be made before and after power domain off/on,
->   to inform the EL3 firmware of the request.
-> * power domains can and are fed by a regulator rail and therefore
->   regulator control needed be implemented.
+> No functional changes intended.
 > 
-> [...]
+> Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
+> ---
+>  drivers/counter/Makefile | 20 +++++++++++---------
+>  1 file changed, 11 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/counter/Makefile b/drivers/counter/Makefile
+> index fa3c1d08f706..40e644948e7a 100644
+> --- a/drivers/counter/Makefile
+> +++ b/drivers/counter/Makefile
+> @@ -6,14 +6,16 @@
+>  obj-$(CONFIG_COUNTER) += counter.o
+>  counter-y := counter-core.o counter-sysfs.o counter-chrdev.o
+> 
+> -obj-$(CONFIG_I8254)		+= i8254.o
+> -obj-$(CONFIG_104_QUAD_8)	+= 104-quad-8.o
+> +obj-$(CONFIG_104_QUAD_8)		+= 104-quad-8.o
+> +obj-$(CONFIG_FTM_QUADDEC)		+= ftm-quaddec.o
+> +obj-$(CONFIG_I8254)			+= i8254.o
+> +obj-$(CONFIG_INTEL_QEP)			+= intel-qep.o
+>  obj-$(CONFIG_INTERRUPT_CNT)		+= interrupt-cnt.o
+> -obj-$(CONFIG_RZ_MTU3_CNT)	+= rz-mtu3-cnt.o
+> -obj-$(CONFIG_STM32_TIMER_CNT)	+= stm32-timer-cnt.o
+> -obj-$(CONFIG_STM32_LPTIMER_CNT)	+= stm32-lptimer-cnt.o
+> -obj-$(CONFIG_TI_EQEP)		+= ti-eqep.o
+> -obj-$(CONFIG_FTM_QUADDEC)	+= ftm-quaddec.o
+>  obj-$(CONFIG_MICROCHIP_TCB_CAPTURE)	+= microchip-tcb-capture.o
+> -obj-$(CONFIG_INTEL_QEP)		+= intel-qep.o
+> -obj-$(CONFIG_TI_ECAP_CAPTURE)	+= ti-ecap-capture.o
+> +obj-$(CONFIG_RZ_MTU3_CNT)		+= rz-mtu3-cnt.o
+> +obj-$(CONFIG_STM32_TIMER_CNT)		+= stm32-timer-cnt.o
+> +obj-$(CONFIG_STM32_LPTIMER_CNT)		+= stm32-lptimer-cnt.o
+> +obj-$(CONFIG_TI_ECAP_CAPTURE)		+= ti-ecap-capture.o
+> +obj-$(CONFIG_TI_EQEP)			+= ti-eqep.o
+> +
+> +
 
-Applied, thanks!
+Those two empty lines at the end look superfluous; if you remove them
+and resubmit this patch separately I should be able to pick it up.
 
-[01/10] dt-bindings: soc: google: add google,gs101-dtzpc
-        https://git.kernel.org/krzk/linux/c/10084aeadadfab72648f6ed1cc78f7cd87b861ba
-[03/10] dt-bindings: soc: samsung: exynos-pmu: move gs101-pmu into separate binding
-        https://git.kernel.org/krzk/linux/c/3ec3c42b426fe5e2b48ff19c551dec50bc78788c
-[04/10] dt-bindings: soc: google: gs101-pmu: allow power domains as children
-        https://git.kernel.org/krzk/linux/c/c8229a5160eea145b796f54317d6e659cec9b080
-
-Best regards,
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
-
+William Breathitt Gray
