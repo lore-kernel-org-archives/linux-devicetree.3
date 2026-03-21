@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96BE2F1FEA;
-	Sat, 21 Mar 2026 19:14:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9556F30C37E;
+	Sat, 21 Mar 2026 19:30:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774120482; cv=none; b=MwKP7O521MhKUq5v4VAW9eThueTwQHQB2JoS0O8VARuh5bt4azU8lCr73E/wjW+b0MADnTEB9E5kgAW2tSc/Pv6OGSA7744W8m9AP7eWnlyDN2uaSUKYIqq31Fs0Rw7DhNXhIRXKoh14QZQTojPPovJuQStgu4qsMZlEXuU2dio=
+	t=1774121402; cv=none; b=aY1MvPxLrfl8Q2tHzAw/6r6qnSQStOgNlhh7jX4JEtWrWOiFlthvA+8Vk4yUdLUQWTAqpqwjmpcJFmMWxRCcgbJrtscEJEWZiOg5Uv/CKKCF5Bu2spqiMGRVx3WpAoT4Bn1YDQ5nkd5byHpXvt3BTOQTVPmjZ59dq0AeFf5e+uQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774120482; c=relaxed/simple;
-	bh=OvJDdKNF1JerQZH4dHMIIA81barlvSsrPlVTzp4FDsI=;
+	s=arc-20240116; t=1774121402; c=relaxed/simple;
+	bh=xuH7OCcz9Jl8Oe5USv0k8uLqdmxF/lMmMSYe76uU0yc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M8FUyrZ50kdt+zLemIkMOg+bR2C5A3ROBSjxFiD3nHEmVksYQou+MZrbJJv7t4tRioXCjn5P2pIredlm7wyWewwvjByp9rDowvF6y713cJdmKQBDj3JEzgOkkmZxagyIAZeqtdmpxlECaprZyYJWHF/d0lvkSCBiGtHKtRxwoYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tUba/2n2; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=GXj9JN1Fp8QQjKjzmAtqjAON8YIVEzHK2ef+b8j3e387rJ8TF5evT/GvXnxVVP3ZhdPLv8TUU9U8YK70CEVPu5zGtvCSWlmp2a5Kw8kF0P1T2YT/Jf4tly25lsf6MTBQ0BcoL0lRxx78/Z+3rmuSCOVQz053WuL6fUmG40wnETI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZqxSX5TZ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tUba/2n2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5F9CC19421;
-	Sat, 21 Mar 2026 19:14:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZqxSX5TZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A399AC19421;
+	Sat, 21 Mar 2026 19:29:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774120482;
-	bh=OvJDdKNF1JerQZH4dHMIIA81barlvSsrPlVTzp4FDsI=;
+	s=k20201202; t=1774121402;
+	bh=xuH7OCcz9Jl8Oe5USv0k8uLqdmxF/lMmMSYe76uU0yc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=tUba/2n28OrmiKCB3pcIDLMTDjicUTkVYcEoIETfqqmPDmaridoOyQ9nUWAR44n//
-	 7ckj+aMvnEhxUTDrkAjEqPCQN7MLNvQ2uCvMDQAt7abvHK4cRVWV11e43t70B9bm0P
-	 pX/OG1dN6dN+dn5SLtO4QAVJgPYIP4ZnM30JWPipgAqaFzyoijl2F7jIa3AQM/4w4Z
-	 oJHpkTTX0J+aZUGYnSxaIwBkEWRQHLQowgY/1MKT25Uwu9OGXOQQ8t04WWqR4F+94a
-	 0ciHMeq8QWbPNl57fFAwIm0j07x7qGsRQXtekas5WCVvhNGJOJyNmCurRIKj4NXgNJ
-	 SxjkR2psFTn8Q==
-Message-ID: <355b2f8f-0a3e-4209-8b1e-10600c2b3df9@kernel.org>
-Date: Sat, 21 Mar 2026 20:14:36 +0100
+	b=ZqxSX5TZchZlSm96nHe1XOxIfpnopGWilpqnCTEOvfZJ9dHvLwlWJLbuUyu5b7u2w
+	 ngrZF/7pf5BoefnJooiBFD/nI/AqvJqNE5rN5GrFQzEgpBLVTNfw9P6xS9RW/Q54cg
+	 ROQo2C5qFmhfMSg3+VwS9wqjYpEe3eXo/8ljR2zE4lEfrp9FwDPWLAXi0OdxTnqrqT
+	 wZ5l89NWM3rT8Kw/PM8HDQHpjWWU56OdnyvizZIlJvVFnwO9v3TFkEwxURCLEshqrP
+	 pCIGVikixFFa5ZtCa4IiVHAsVo8Mgxc4Vk6+U0vRJ2MYiY/BtoUj2V/fK63m6W+tqs
+	 y1s/ZMnzU/LdQ==
+Message-ID: <a7144f45-cfb6-47ac-8f32-c97a7eef9e97@kernel.org>
+Date: Sat, 21 Mar 2026 20:29:58 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,21 +35,15 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 04/10] dt-bindings: soc: google: gs101-pmu: allow power
- domains as children
-To: =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Cc: Peter Griffin <peter.griffin@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>,
- Will McVicker <willmcvicker@google.com>, kernel-team@android.com,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org
-References: <20260318-gs101-pd-v8-0-241523460b10@linaro.org>
- <20260318-gs101-pd-v8-4-241523460b10@linaro.org>
+Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom,ids: Add SoC ID for SA8650P
+To: Radu Rendec <rrendec@redhat.com>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Cc: Lei wang <quic_leiwan@quicinc.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+References: <20260321152307.9131-1-rrendec@redhat.com>
+ <20260321152307.9131-2-rrendec@redhat.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -95,85 +89,41 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260318-gs101-pd-v8-4-241523460b10@linaro.org>
+In-Reply-To: <20260321152307.9131-2-rrendec@redhat.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 18/03/2026 16:27, André Draszik wrote:
-> The power domains are a property of / implemented in the PMU. As such,
-> they should be modelled as child nodes of the PMU.
+On 21/03/2026 16:23, Radu Rendec wrote:
+> From: Lei wang <quic_leiwan@quicinc.com>
 > 
-> Note:
-> Because the properties added are 'required', this commit breaks DT
-> validation of the existing DT for Pixel 6, but a) that's simply because
-> the DT is incomplete and b) a DT update will be posted once the binding
-> is accepted.
-> It is not possible to write the binding such that it supports old
-> (incomplete) DTs in addition to the full version, but as per above
-> it's not required to keep supporting old DTs.
+> Add unique ID for Qualcomm SA8650P SoC.
 > 
-> Signed-off-by: André Draszik <andre.draszik@linaro.org>
+> Signed-off-by: Lei wang <quic_leiwan@quicinc.com>
+> Signed-off-by: Radu Rendec <rrendec@redhat.com>
 > ---
-> v8:
-> - move comment from commit message footer into body (Rob)
-> - fix incorrect use of ranges in example (Rob)
-> 
-> v7:
-> - really be consistent with quoting (Krzysztof)
-> - drop invalid tested-by tag (Krzysztof)
-> 
-> v4:
-> - consistent quoting using " (Krzysztof)
-> - add samsung,dtzpc to example
-> ---
->  .../bindings/soc/google/google,gs101-pmu.yaml      | 41 ++++++++++++++++++++++
->  1 file changed, 41 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/soc/google/google,gs101-pmu.yaml b/Documentation/devicetree/bindings/soc/google/google,gs101-pmu.yaml
-> index a06bd8ec3c20..52c47252b801 100644
-> --- a/Documentation/devicetree/bindings/soc/google/google,gs101-pmu.yaml
-> +++ b/Documentation/devicetree/bindings/soc/google/google,gs101-pmu.yaml
-> @@ -16,6 +16,14 @@ properties:
->    reg:
->      maxItems: 1
->  
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 1
-> +
-> +  ranges: true
-> +
->    reboot-mode:
->      $ref: /schemas/power/reset/syscon-reboot-mode.yaml
->      type: object
-> @@ -39,9 +47,23 @@ properties:
->      description:
->        Phandle to PMU interrupt generation interface.
->  
-> +patternProperties:
-> +  "^power-domain@[0-9a-f]+$":
-> +    type: object
-> +    description: Child node describing one power domain within the PMU
-> +
-> +    additionalProperties: true
-> +
-> +    properties:
-> +      compatible:
-> +        const: google,gs101-pd
-> +
->  required:
->    - compatible
->    - reg
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +  - ranges
 
-This causes warnings, so I dropped the patches. I really do not
-understand how this is organized. This is not a dependency for pm
-domains driver but it is included here. It is a soft dependency for DTS,
-but that is nowhere to be found.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+<form letter>
+This is a friendly reminder during the review process.
+
+It looks like you received a tag and forgot to add it.
+
+If you do not know the process, here is a short explanation:
+Please add Acked-by/Reviewed-by/Tested-by tags when posting new versions
+of patchset, under or above your Signed-off-by tag, unless patch changed
+significantly (e.g. new properties added to the DT bindings). Tag is
+"received", when provided in a message replied to you on the mailing
+list. Tools like b4 can help here. However, there's no need to repost
+patches *only* to add the tags. The upstream maintainer will do that for
+tags received on the version they apply.
+
+Please read:
+https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
+
+If a tag was not added on purpose, please state why and what changed.
+</form letter>
 
 Best regards,
 Krzysztof
