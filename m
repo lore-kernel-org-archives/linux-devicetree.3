@@ -1,143 +1,146 @@
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023103.outbound.protection.outlook.com [52.101.127.103])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FDAA23ED6A;
-	Sat, 21 Mar 2026 08:20:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.103
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774081258; cv=fail; b=WGShNbXrHCNzhloi1e1oF/qCyir0ZXvAmqKnzDvlvuIIDLL9Di7JNPTduBon+GgeRrwbXdEWToH3u8MhXEqFjcO1gxBTkAi7moYmUvh4F9x9o5ZylxARO3p/LtjU2NrcR1rNa9tqm7uys+Y4dN2zOTP0MiKi/tep89SxW8I8aSQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774081258; c=relaxed/simple;
-	bh=hSU9FMwbm3Jk4ummWTCwoeehjxdqhqFkwPugdoi1R6M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HpUI3o/JJird+r+Hav/DXJ8l02sVDovWaCWLUuabJSArWMKrUjx9Sh6mQx/B7chJk+sSUp6BCSIkaAJxuyeX4vb1Qf2TmEwA9McX6PKJgegXPXEMs74oFNyzjD6kuhtQRfoBqmDVSlr8hARuMkq+68dgKYdC8Z+/aEnjszAGZ+0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.127.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o+ME1Li0KoAFTdzDjg9EDhDKRrLNoubh8FBRgL4Rs3X42T/u/xod3nXgYDGpcA+dekWLG66OtkiEXAZShdTtvDg9AxcONBwXtWYYGBqSy13GjmOc5Pui4aFbOzMPFA+ekp8h+qvx2fMYh44AEX8jtQ4429c20qR6dRePs7aHedGygIwxJhqx1Cqj/aqOSWOmmazJ5y/HsDaJvVv8HZoRFzTyXaY9P/QgR/9WlDsIIlYgIkIEDIaqE8nZft8rIQy7DyVqTrhAuGuBGg35mnxddsR+NSCEIZsZiYiW+o8tzxIWCi9/uCbn4ZcYTOsUYa9AEwg3fUlxOxwyy/i8qeprZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wVPHZ0qhk2hvSe4RCcrdoleb98jg/DeDk3TAOOniT7o=;
- b=BES5qeIvIYe1lnYV4T1Tn/6QHxhIcPDowkkpNxDEZxb5CC/SJNu8rVi8D77xFh3S5EPDe4mMeZGzowvCTrMI3TTCQtxiGRgA97VCJaTDuglPGyQRY+8NimfemrrE/TE7NHEFY3EwV7t3ei5yvpkN8gnJdTm2IeLJUEIzIixAS1DSeZC6QxSSD0FhsKh7Ddnxk8UGsMthrKLUK9sTMh7VMCCJlQNyiCggOyngDfH3Tq2iZVSTQ1m15M+Xk8ok/1jjg/f8pLjNVtTyHoz9MyxgSpdlQU1pt4e/si8s0vdbq+jnN/+3tdnJ77eqnlCYGXp5EuSTCFft6qAl9VBnrwoxTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from PS2PR02CA0079.apcprd02.prod.outlook.com (2603:1096:300:5c::19)
- by KUYPR06MB8748.apcprd06.prod.outlook.com (2603:1096:d10:91::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.25; Sat, 21 Mar
- 2026 08:20:52 +0000
-Received: from TY2PEPF0000AB83.apcprd03.prod.outlook.com
- (2603:1096:300:5c:cafe::e3) by PS2PR02CA0079.outlook.office365.com
- (2603:1096:300:5c::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.23 via Frontend Transport; Sat,
- 21 Mar 2026 08:20:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB83.mail.protection.outlook.com (10.167.253.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19 via Frontend Transport; Sat, 21 Mar 2026 08:20:50 +0000
-Received: from [192.168.129.151] (unknown [192.168.129.151])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 07CFC40A5A01;
-	Sat, 21 Mar 2026 16:20:49 +0800 (CST)
-Message-ID: <1ecfa7f7-63ad-48a7-b033-b51ecee61e0b@cixtech.com>
-Date: Sat, 21 Mar 2026 16:20:49 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189FF175A64;
+	Sat, 21 Mar 2026 08:30:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774081857; cv=none; b=DLvMfaFVXjG/3Dm2WNLTsY05wcX4WRUEYPv/9LEzszYn9U2C2bt7mVwVrjZyeFPRn0NEmL5iih+gvUyAwVONsiC1rAKmlW9aDv2ILK6kOAM6nfeY1zQr/BO5DKjq2G6omeQDk8ddgI36dixlkG+ulkOgQoTltb828tzjAhhKTI8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774081857; c=relaxed/simple;
+	bh=ESX47VcEhSvMtNbBzdjxGkC/XXaxoEtS+Iky1KFzZig=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=bL7w4WOsMYwBWrzXwHmCdDNJ6TJR2XDnlTMGC97Q76C9aWZ1ilXXqWRv2GPr1pjd3g3v1rNpB4h6mBtSwgdlx3rNXMuws1RJoCHjHe8/sti9WvaY29ftZraYoUXl5f17cLYPbVgFsyd8dbGTMvAvW5mpxI4Q+cDXVYPlHpZCxaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o6D9y3+I; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o6D9y3+I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3DAAC19421;
+	Sat, 21 Mar 2026 08:30:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774081856;
+	bh=ESX47VcEhSvMtNbBzdjxGkC/XXaxoEtS+Iky1KFzZig=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=o6D9y3+IdSVdKdvD01vXn1Ek4LkXiFG93xXd9aocsHltiqiuNySlXfeAUmFSMtI+1
+	 e2BJfGQTSeyfgPqJP8NUWSXhdJzw6SGlCbXuYj6qJcrWWQQ3NTQ6zJticoZFjWRzz7
+	 5H6cjNwPKhzpogiaKD0r1/aeH/9KAVpPtmaXfeMbMzkkeI7abW9BOR/+LBoxHGD2Nt
+	 ql2pvVEjsuz0NL2j968OgYLyHvINDGLXRM82WdaL0GPHjhMlyZG0IIiqVb2+tG8vtV
+	 PDNsv23RCHBMdOpvKKibnJ+MNE/LDUod0t281xA94lnenLpmuaApDTrxGXUdtBk2iY
+	 LGcJAOc2a7GpQ==
+Date: Sat, 21 Mar 2026 03:30:55 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] dt-bindings: dma: arm-dma350: document generic and
- combined IRQ topologies
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: peter.chen@cixtech.com, fugang.duan@cixtech.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, vkoul@kernel.org,
- ychuang3@nuvoton.com, schung@nuvoton.com, robin.murphy@arm.com,
- Frank.Li@kernel.org, dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com,
- linux-arm-kernel@lists.infradead.org
-References: <20260319101723.246539-1-jun.guo@cixtech.com>
- <20260319101723.246539-2-jun.guo@cixtech.com>
- <20260320-vengeful-violet-cockle-382580@quoll>
- <40fc5cb7-a5f2-4b86-8dba-1b39e1ea0da4@cixtech.com>
- <21ef18ef-a6e8-41a1-8280-73ee058fdc74@kernel.org>
-Content-Language: en-US
-From: Jun Guo <jun.guo@cixtech.com>
-In-Reply-To: <21ef18ef-a6e8-41a1-8280-73ee058fdc74@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB83:EE_|KUYPR06MB8748:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3828906d-c524-47b5-1167-08de8722c373
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|82310400026|36860700016|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	e/l9aLjihfCIqFIoh+chNazOB9bVvwg6fpi8lRLqxKJs6IuPkVDhR5Mi1/oSs8mxYzwl/TFm1D7E4TyoSMhJbHEP8feO/8Fe6W6jwfyT3CrsNQNc6sFrLLK+jqYipNlshx54fA3hC+KCw1kKlaK+G1DV4mk6FnJgDm8EZ9rwMhti4daKaRD1RdAOLn2s2YvIWHEtF2P1QYExdM60HU3LZBuJFNTHYVGY2tJy3vQ3Z/Ql8/a3S3OSWmMOneCapYN3sDqHBaagnrspnB7nW+xyoxl7P+WkAltXkFjLhO3RJPMKQ4WF+rvFX+j80BESBuWLGlcOgsD4AYZpwE4duTN0R0gAci4MK7700sRXrPX2d3K5B3D+HhoyalxgSJejDywDYcaHDMWarA+90SAdwFM6trNd16wv3U1dKKY4cNapnpOc34b6uKWeGDwVq6K9cxBQpeI2I0kpj7ITz6PqNgwmUmRgWYDYkonF8AsmV8JoXpoqJOWvJ8pxJRU9uurevWEfOKIrOb50Q+vrvAd6MOQq5n0MVtGhCjfdvAFyamLsEVq5BUAt2tApIgTRuQ8VIOtX58pDQ6aIMlGMeiyMTNbHczQzcpsbilZDBHW7jhIx8e737TbiWOuv6SV/v2mF0XXi0uT2yFWNhr0QJ/vtQa2wcSvkxXazgJ2uVrTCsrAn+uEd2Ls6XPnwnzHLdW9TMRaCMJ/60dj5o6Kx2/W4l4cHnLvfspW5m2zA/z0yBO6DtDhdYnweNOUQlSettoQkiZ6ytDQvgZbmEKzY4TI72LJNeQ==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(82310400026)(36860700016)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	T04CD9DVNhSBpBPyaO4QliqJWm6oITxL1f5AEuHybqO7o06qlrPnlueZVqmZoALlga28Jh7GTGxBbv0IPi5BgNOwEurQXHrjBcA5HtcyspogeUyistdOsFov0e1rYSvw+OgweNmI6OvnyveagG2ju0iBUKlvIzWmEl95kqhhjSKl8Wf/gsrNUiULHdWdtXOqYQYUE205DHwVVCyyh68wOWfvOox7QTX0oTXdcM5C+OoHLUV/PBuCf+BNDzWDsJqxYtecsfkul1oGHPgSGDfYPXpenTvWtpYRj39vQltycZiFI/cT4SgZxwOUwdGzL+XtEFPH9vwuZXUsPOnlRNtoQvOjB5/LlTEs9PA+kA/vwxUHKYDVX54nvo6M2iJ8BIFoJqX7F0MuFl/DWXFI8wO4WQDMC0bKds5j2Ox9X+OOMAVxrYvgr2P//P7K/jYW7uEv
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2026 08:20:50.8792
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3828906d-c524-47b5-1167-08de8722c373
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB83.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUYPR06MB8748
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ David Jander <david@protonic.nl>, Linus Walleij <linusw@kernel.org>, 
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, Lee Jones <lee@kernel.org>, 
+ kernel@pengutronix.de, Guenter Roeck <linux@roeck-us.net>, 
+ linux-hwmon@vger.kernel.org, Peter Rosin <peda@axentia.se>, 
+ Conor Dooley <conor+dt@kernel.org>
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+In-Reply-To: <20260321065146.3918882-2-o.rempel@pengutronix.de>
+References: <20260321065146.3918882-1-o.rempel@pengutronix.de>
+ <20260321065146.3918882-2-o.rempel@pengutronix.de>
+Message-Id: <177408185570.3340992.12755175638326368170.robh@kernel.org>
+Subject: Re: [PATCH v6 1/7] dt-bindings: pinctrl: add NXP MC33978/MC34978
+ MSDI
 
 
+On Sat, 21 Mar 2026 07:51:40 +0100, Oleksij Rempel wrote:
+> Add device tree binding documentation for the NXP MC33978 and MC34978
+> Multiple Switch Detection Interface (MSDI) devices.
+> 
+> The MC33978 and MC34978 differ primarily in their operating temperature
+> ranges. While not software-detectable, providing specific compatible
+> strings allows the hwmon subsystem to correctly interpret thermal
+> thresholds and hardware faults.
+> 
+> These ICs monitor up to 22 mechanical switch contacts in automotive and
+> industrial environments. They provide configurable wetting currents to
+> break through contact oxidation and feature extensive hardware
+> protection against thermal overload and voltage transients (load
+> dumps/brown-outs).
+> 
+> The device interfaces via SPI. While it provides multiple functions, its
+> primary hardware purpose is pin/switch control. To accurately represent
+> the hardware as a single physical integrated circuit without unnecessary
+> DT overhead, all functions are flattened into a single pinctrl node:
+> - pinctrl: Exposing the 22 switch inputs (SG/SP pins) as a GPIO controller
+>   and managing their pin configurations.
+> - hwmon: Exposing critical hardware faults (OT, OV, UV) and static
+>   voltage/temperature thresholds.
+> - mux: Controlling the 24-to-1 analog multiplexer to route pin voltages,
+>   internal temperature, or battery voltage to an external SoC ADC.
+> 
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+> ---
+> changes v6:
+> - add Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> - add Reviewed-by: Linus Walleij <linusw@kernel.org>
+> changes v5:
+> - Commit Message: Added justification for distinct compatible strings
+>   based on temperature ranges.
+> - Restricted pins property to an explicit enum of valid hardware pins
+> changes v4:
+> - Drop the standalone mfd/nxp,mc33978.yaml schema entirely.
+> - Move the unified device binding to bindings/pinctrl/nxp,mc33978.yaml,
+> - Remove the dedicated child node compatible strings (nxp,mc33978-pinctrl).
+> - Flatten the pinctrl/gpio properties directly into the main SPI device
+>   node.
+> changes v3:
+> - Drop regular expression pattern from pinctrl child node and define
+>   it as a standard property
+> - Reorder required properties list in MFD binding
+> - Remove stray blank line from the MFD binding devicetree example
+> - Replace unevaluatedProperties with additionalProperties in the pinctrl
+>   binding
+> changes v2:
+> - Squashed MFD, pinctrl, hwmon, and mux bindings into a single patch
+> - Removed the empty hwmon child node
+> - Folded the mux-controller node into the parent MFD node
+> - Added vbatp-supply and vddq-supply to the required properties block
+> - Changed the example node name from mc33978@0 to gpio@0
+> - Removed unnecessary literal block scalars (|) from descriptions
+> - Documented SG, SP, and SB pin acronyms in the pinctrl description
+> - Added consumer polarity guidance (GPIO_ACTIVE_LOW/HIGH) for SG/SB
+>   inputs, with a note on output circuit dependency
+> - Updated commit message
+> ---
+>  .../bindings/pinctrl/nxp,mc33978.yaml         | 153 ++++++++++++++++++
+>  1 file changed, 153 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/pinctrl/nxp,mc33978.yaml
+> 
 
-On 3/20/2026 9:12 PM, Krzysztof Kozlowski wrote:
-> EXTERNAL EMAIL
-> 
-> On 20/03/2026 11:28, Jun Guo wrote:
->>>> +    description: |
->>>> +      The DMA controller may be configured with separate interrupts for each channel,
->>>> +      or with a single combined interrupt for all channels, depending on the SoC integration.
->>>
->>> And more important - you must review the LLM microslop output before
->>> posting and adjust it to Linux kernel coding style. Don't send
->>> unredacted tool output.
->>>
->> Actually, this part of the description was not AI-generated. However,
->> I’d like to confirm the issue you mentioned: are you saying that this
->> description is written too verbosely?
->> Then, do you think there are still issues with the revised version?
->>     interrupts:
->>       minItems: 1
->>       maxItems: 8
->>       description:
->>         Either one interrupt per channel (8 interrupts), or one
->>         combined interrupt for all channels.
-> 
-> No, it is not wrapped according to Linux coding style.
-> 
-> Please wrap code according to the preferred limit expressed in Kernel
-> coding style (checkpatch is not a coding style description, but only a
-> tool).  However don't wrap blindly (see Kernel coding style).
-> 
-Thank you for your patience. I have clearly understood your points and 
-will incorporate all of your feedback when revising the V3 version of 
-the patch.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Best regards,
-Jun
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pinctrl/nxp,mc33978.example.dtb: gpio@0 (nxp,mc33978): $nodename:0: 'gpio@0' does not match '^mux-controller(@.*|-([0-9]|[1-9][0-9]+))?$'
+	from schema $id: http://devicetree.org/schemas/mux/mux-controller.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260321065146.3918882-2-o.rempel@pengutronix.de
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
