@@ -1,91 +1,78 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F8A1459FA;
-	Sat, 21 Mar 2026 09:15:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774084538; cv=pass; b=bfXJxbL0eSz6m6AfizrhKmyDLcF3tyKuzG0YDR4WO/qusNKxdB985wkP9tUCv3daofgYLnGrX9qIPPVWdkKdy1fjVyZpcBGeRIC1TMwJ2PQarV4BMmXnRdUFIKUXYs52+n8Dci3UEubJIH4QiXMG8owmZjanMRzDv1cLEbk5K+A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774084538; c=relaxed/simple;
-	bh=WmwVbMKfkcbeIrba3xAAx3ApJ4JHyUDZUdKMCLnKEqM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sti/fZGw6vmm3kqAX+BvACoW3vE7ikTgYcUpu2x1bQ28EYjrbzIr4sKq3C8NO+ymKonX4aoVJeZe27LnKy9sPsaQh1JUOBAihTCK2HD2TEENTO0rbNjjEDNc2jpVUHzVY9k6XHJFEfi/d3ZZX2DC0uKxSbqP7kv76kzlhijYOds=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=TXfgG11E; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B4227FB25;
+	Sat, 21 Mar 2026 09:20:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774084819; cv=none; b=sORGB6SvylM0o+Ot3LVRw3/7to0D6C6PdplVYFgkP2p4gCIdpLn5MAG1UAvpzoa53hQE/KxvZqAs/vq7njlBGwzatJ5VqS/2ry/CnDnwWDUiv2mIblZTAryKnb6gAyrX22tg37Lrvnco3QGZ/Yk0cC23vRXc57AUQfnZ5dAJXvM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774084819; c=relaxed/simple;
+	bh=1suF2noxHcqWslPQuTsIbduyMZBlyXksW1NsLnOwWC0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gux4leNy++bBoGUtkEdsze7QTGDKeLKgDusVbyu/Mq2apqXHJO7uuYOf5h6tRQTLYkKzXphb5SfgOZLFkokK3WKl0FClIOctsPHYwaLCr8v3h9xNzIZskqs4PWOc2WHZ+l3PPv9S/ITIqc3ZB84ns0cfFkcdLg31wMFIwWHcpO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nhFhsbxD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="TXfgG11E"
-ARC-Seal: i=1; a=rsa-sha256; t=1774084515; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=XUsmdMmzgegC4CdweLdlh+no3tDu8j9AxD3mKnwO1h42Mjks4o8dRBsXhlelSPmzae3odYu1msLriVweGMudqhHy//9R1LDE/YTaeol5KIPvvvf+72Yejjf3dsR4kCAdEbvykQtFfo0Ofs+BnVRB1NGdqra7DDLGQuhDSji3xGs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1774084515; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=WmwVbMKfkcbeIrba3xAAx3ApJ4JHyUDZUdKMCLnKEqM=; 
-	b=EotlQH4lNcPkyOoQ7oZoVV69NRTEmOV1y3647YQybLtod8u4opxGphEKyFbZ8yOv2HI8LgbnPlF0DVpCWMIA2GQmKrKuqSVagyPA5aqeMXS/GkMlozONyROTqEXOxulEFHc8mdpGzILSdY9jfHdEKbR9P99ebsH1fOq2h7U7uZU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774084515;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=WmwVbMKfkcbeIrba3xAAx3ApJ4JHyUDZUdKMCLnKEqM=;
-	b=TXfgG11ErVzQL70BQlys1uoB4fnUjnClpLw2jLvl7/1mfkQ0SGywSrJ0vnWj5NCP
-	thr4UnvhkGnGX5YTtVLnmfBv1cU0h4eAtmoVwiwYQdjuSPIBxZitAzuHiZ1lg7HLsYg
-	dj7+8FfXRAz6nYAxJdguugWDKhm9dNmwEX/eb8+ZBSN/rvN/8JXBuXNeZaY3cSoLKLh
-	iQqZke6xX8GxA++XPVN7uVv8g5jz2+XLcb5C2ETqVK4xKjhL5UK6SXZ833zf3AObBdj
-	0KznnHvrisk0JKJEJYZu7/qhiMUFOEwRQwGRMTwpMuE7vi/LGKHwL74qE0ZVt30g5cl
-	1fREnPkQ1Q==
-Received: by mx.zohomail.com with SMTPS id 1774084513012509.29549878929595;
-	Sat, 21 Mar 2026 02:15:13 -0700 (PDT)
-Message-ID: <04f8471accc8e2f71969df336a6c2fe40ae1178c.camel@icenowy.me>
-Subject: Re: [PATCH v3 0/8] Add support for LS7A LPC IRQ for MIPS Loongson
- systems
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Thomas Gleixner <tglx@kernel.org>, Huacai Chen <chenhuacai@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
- Thomas Bogendoerfer	 <tsbogend@alpha.franken.de>, Jiaxun Yang
- <jiaxun.yang@flygoat.com>, Yao Zi	 <me@ziyao.cc>,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	loongarch@lists.linux.dev, linux-mips@vger.kernel.org
-Date: Sat, 21 Mar 2026 17:15:03 +0800
-In-Reply-To: <874imalv2h.ffs@tglx>
-References: <20260314162828.1055188-1-zhengxingda@iscas.ac.cn>
-	 <CAAhV-H4OYVB21jH3PSzOi4GPU+t4LY664Yp=CeDhjFRKf9V07Q@mail.gmail.com>
-	 <874imalv2h.ffs@tglx>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nhFhsbxD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 192DFC19421;
+	Sat, 21 Mar 2026 09:20:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774084819;
+	bh=1suF2noxHcqWslPQuTsIbduyMZBlyXksW1NsLnOwWC0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nhFhsbxDuIXfv4D2vr/e56u7tY0TRl5+JGbKbULY7ynKGXDruf1ZyzTT04qsEmpnX
+	 nUK4r+flSwXNn4yoi+DHFugW+ac/A6dyvStfc3Q5sTVAUCmrPb0moquh2TTfBjGuIU
+	 0t9mRVbIauejWw6DZdwkhn/q/yentVmnKYj+qWe1i9OCZ3jEc412fEedEeK7j99oxC
+	 GrY0iL6wiKOicc+Qg3U3eeOitG8aCV/xroOaCOybcmY3Rbe39ZsAkPyFUc71sbez6y
+	 HXigg6X+A4vRf99ScQQV6lPNh+Mim29rZvatctc8qOuT70F009QTRyz1cvdTIbCakt
+	 Cr63Ho7/wFjdw==
+Date: Sat, 21 Mar 2026 09:20:14 +0000
+From: Simon Horman <horms@kernel.org>
+To: Damien Dejean <dam.dejean@gmail.com>
+Cc: andrew@lunn.ch, krzk+dt@kernel.org, robh@kernel.org, kuba@kernel.org,
+	maxime.chevallier@bootlin.com, pabeni@redhat.com,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, edumazet@google.com,
+	davem@davemloft.net, hkallweit1@gmail.com
+Subject: Re: [PATCH net-next v9 2/4] net: phy: realtek: add RTL8224 pair
+ order support
+Message-ID: <20260321092014.GV74886@horms.kernel.org>
+References: <20260318215502.106528-1-dam.dejean@gmail.com>
+ <20260318215502.106528-3-dam.dejean@gmail.com>
+ <20260320082156.GX1753385@horms.kernel.org>
+ <46FAC4A6-9462-45BC-B17C-B7F5F19F0ADB@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <46FAC4A6-9462-45BC-B17C-B7F5F19F0ADB@gmail.com>
 
-=E5=9C=A8 2026-03-20=E4=BA=94=E7=9A=84 10:16 +0100=EF=BC=8CThomas Gleixner=
-=E5=86=99=E9=81=93=EF=BC=9A
-> On Wed, Mar 18 2026 at 21:57, Huacai Chen wrote:
-> > > =C2=A0 MIPS: Loongson64: dts: sort nodes
-> > s/sort/Sort/g
-> >=20
-> > > =C2=A0 MIPS: Loongson64: dts: add node for LS7A PCH LPC
-> > s/add/Add/g
-> >=20
-> > In addition, I think the last two patches should be in another
-> > series
-> > because they won't go to the irqchip tree.
->=20
-> Correct.
+On Fri, Mar 20, 2026 at 07:17:56PM +0100, Damien Dejean wrote:
+> 
+> > Le 20 mars 2026 à 09:21, Simon Horman <horms@kernel.org> a écrit :
+> > 
+> > Checkpatch warns that ENOSYS only means 'invalid syscall nr'.
+> > 
+> > Looking over the implementation of of_property_read_u32() it seems to me
+> > that -EINVAL is sufficient to detect that a property is not present. Which
+> > may be appropriate here.
+> 
+> I added the check on -ENOSYS because in v8 Jakub commented [1] on the fact
+> that if the kernel is built with CONFIG_OF=n, of_property_read_u32() will
+> return ENOSYS. If ENOSYS is not handled there, then the call will return an
+> error while it shouldn’t.
 
-To be honest, I don't know whether the first two patches should go to
-the irqchip tree either; but the irqchip driver refactor depends on
-these two patches.
+Ahh, I see. I missed that in my analysis.
+Sorry about that.
 
-Thanks,
-Icenowy
+> 
+> Damien
+> 
+> [1] https://lkml.org/lkml/2026/3/17/2464
 
+...
