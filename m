@@ -1,118 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944232D73A1;
-	Sat, 21 Mar 2026 19:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15692335BA7
+	for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 19:44:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774121595; cv=none; b=s7e3UDO4jdBMNXg28M8Rzee2Ty9mQbp5On1PMi1+4eEuaLRPM/ZA5PH/E6aV2WTIfpJJJrwjCcQwgwD/qWc/TmL3xatKM2fBkuehQTUp1fANFlUtvy708FACL54mzhhJXuD4/xNdksfgTKYq3kxh5X6W472J0XN/fi3aWWEaUf8=
+	t=1774122265; cv=none; b=a6SJmuqdzLsPJxQ8BJjSFtkWgizp1YGQI/NEETp2G73JM+wOXWtyraOh82yKw2dlV9g3tgb61r7vMum5OilmwxDyvRgNQptm4ZCpA8gIyciGi7dLH4iK+rVYI+py4WcBK1KKTA/5nBIki+6oa5/mo5jhT3iDAznwyfS5GctF6KA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774121595; c=relaxed/simple;
-	bh=1ysuEZ4CN7vYfOB7yKF+v9rLLbfHZpl0aDBRgBkWaBA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=q1GU+JS+jhC6ktcXUwQWy/bvtCP4qHu73eqNFE0/6FQjOGvr8TBNL3nCStch13T1qKJ/jLlhmETrscNEdJhp7zbyZa2pQq0gcmc+TFEMgL+lDC6hrzDY6uMpe6fWrNmedSVMQXw0u2JOkfaV8R2xzkwzcbauHFpPEZiiCt4bhRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oGYZIFN9; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774122265; c=relaxed/simple;
+	bh=RhlUd5nJZtyzPTrb6142vd7/kHj3AnKxbcivtAnbRiU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ORsZx93uKNqTkzc6YJbsdqlaLvnlYySnY59f67zVPeaCO2ibxysNr5Htx4Cu0/cf3Hs4VIOJjtOdfDi8E+uZDGJalCFolDqmqaUWixzLt4OPb/5zkx800lDFZTJY3LxBkjdfRiLqM2XRVcDvIsqTU2qwns6CA/H0HwsHm+KL72M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com; spf=pass smtp.mailfrom=tinyisr.com; dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b=GKUGiyLa; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=WGZXpLYR; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tinyisr.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oGYZIFN9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D185C19421;
-	Sat, 21 Mar 2026 19:33:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774121595;
-	bh=1ysuEZ4CN7vYfOB7yKF+v9rLLbfHZpl0aDBRgBkWaBA=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=oGYZIFN9k4JlZRz9nykRWbrZiCpVvXiXLKcDgwcdONMuTAe8QdB0ACKa/r9+4U6cC
-	 8JsJytW644WOJ9lBCU3PAl4ny9BTdx6AyWjS71aFy4JCFgVAEzgQRc2vTfu5n4IHu/
-	 PQsUDDvYIVihhDNhO2CjglXHZD/NkKXhpIRzLNvzy4+Gq9EiI0ZV+futNf6nXTbIYb
-	 nAgjAv+RPdeHok6fkHQYJ+gMUz3ZFuHFMF+DLbU9D9+xsjk3ByKg+SpA5v7urUQ2ai
-	 N7ITisyruVaDdf7asC2uLY1cCdy+D1iUhtsj2jPoSwNbTPuQmYT7sBbpM6Hz9yzNU+
-	 jS/r0kq7ytwDA==
-Message-ID: <6a1260a8-8988-4839-a7a3-edb9a1bf71fa@kernel.org>
-Date: Sat, 21 Mar 2026 20:33:11 +0100
+	dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b="GKUGiyLa";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="WGZXpLYR"
+Authentication-Results: purelymail.com; auth=pass
+DKIM-Signature: a=rsa-sha256; b=GKUGiyLaA+adTt3TkBqU6pyUp2FYdTmpg88T+qNgrFdyC2R9JhMfyHh4SPC6gH8/qwNfqZpOA04zfSVgPLrgprNpp++LiL6IXe/Nsa6lxI9HrO88TDCBOXwaHwB4HTeJ4ZDdUeDtFXqwr2f74OENHoCnhM4a9AAWennsKU61noV0FutkcCAB2xYDWEBEOmSE/ZupzfgJv2LblcgMviICFd1+l59E9oefQ8ZGHESipdUf1DHItGZBowhRwmwDj53v2UGlfOSGaOViH+73YNaD7X+w4wZlKuZSx6z7gQj3wLhGofAgk0RCOkEPSvkZjL9NBkz7/Y1d0Itv+G9qNBiWfw==; s=purelymail3; d=tinyisr.com; v=1; bh=RhlUd5nJZtyzPTrb6142vd7/kHj3AnKxbcivtAnbRiU=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=WGZXpLYRXdWLBU6iq+/kKo/3qG65qO7DrBgWdpNo9Zos2/V+Oo/uelwi1GKTE9qp+CMSTFkm5j5mDrjmEDrh1/q71nd/7VLi1Kv70/Ycqgqc6JJse/9PXmdte/Nc4RUtknXwaA0FwJX4Kvc/WjWJRlLVFb5YLUZnKHnTzn9O1RvchhD7xVQJz2LMF6QOAStM+NLcSsU5ynkaBKzB3ZV1s6nnWBTJZXuAHbQgPyWgz6Mknlr4gdM7gLH09T/1JVisp2DH0b8RoBuX4beBNyqN/9Lw/aW9lkLgICU2GAMiVunUs//b0sHRpMVubyAiUCBxa7DdpAY1gACzA1Lihy6eUA==; s=purelymail3; d=purelymail.com; v=1; bh=RhlUd5nJZtyzPTrb6142vd7/kHj3AnKxbcivtAnbRiU=; h=Feedback-ID:Received:From:To:Subject:Date;
+Feedback-ID: 99681:12517:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 958892867;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Sat, 21 Mar 2026 19:44:07 +0000 (UTC)
+From: Joris Vaisvila <joey@tinyisr.com>
+To: netdev@vger.kernel.org
+Cc: horms@kernel.org,
+	pabeni@redhat.com,
+	kuba@kernel.org,
+	edumazet@google.com,
+	davem@davemloft.net,
+	olteanv@gmail.com,
+	Andrew Lunn <andrew@lunn.ch>,
+	devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joris Vaisvila <joey@tinyisr.com>
+Subject: [RFC v3 0/4] net: dsa: MT7628 embedded switch initial support
+Date: Sat, 21 Mar 2026 21:43:36 +0200
+Message-ID: <20260321194340.2140783-1-joey@tinyisr.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom,ids: Add SoC ID for SA8650P
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Radu Rendec <rrendec@redhat.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Cc: Lei wang <quic_leiwan@quicinc.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-References: <20260321152307.9131-1-rrendec@redhat.com>
- <20260321152307.9131-2-rrendec@redhat.com>
- <a7144f45-cfb6-47ac-8f32-c97a7eef9e97@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <a7144f45-cfb6-47ac-8f32-c97a7eef9e97@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 21/03/2026 20:29, Krzysztof Kozlowski wrote:
-> On 21/03/2026 16:23, Radu Rendec wrote:
->> From: Lei wang <quic_leiwan@quicinc.com>
->>
->> Add unique ID for Qualcomm SA8650P SoC.
->>
->> Signed-off-by: Lei wang <quic_leiwan@quicinc.com>
->> Signed-off-by: Radu Rendec <rrendec@redhat.com>
->> ---
-> 
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
-> <form letter>
-> This is a friendly reminder during the review process.
-> 
+Hi all,
 
-And I read now answer to v1, so the DCO and patch provenance still needs
-clarifications.
+This RFC series adds initial support for the MT7628 Embedded Switch.
 
-Best regards,
-Krzysztof
+The implementation provides basic functionality required to operate the
+switch using DSA. The hardware exposes 5 internal Fast Ethernet ports
+and a Gigabit port which is internally connected to the CPU MAC.
+
+This version aims to be functionally complete and attempts to address
+all feedback received on the previous versions.=20
+
+Tested on a MT7628NN based board.
+
+RFC:
+
+I would like to transition this series toward a proper PATCH submission
+as it seems that the feedback on the last RFC did not point out major
+issues. As this is my first driver submission, I would greatly appreciate
+any guidance on what should be addressed before it is appropriate to
+send this in as a PATCH.
+
+Thank you for your time and review.
+
+---
+
+v3:
+=09- add DTS bindings for mediatek,mt7628-esw
+=09- update tagging driver to use htons instead of manual byte swapping
+=09- remove port 5 from config as it doesn't exist in the hardware
+=09- fix code formatting
+=09- add helper macros for configuring packed VLAN table registers
+=09- fix mac_capabilities for cpu port, replace supported_interfaces
+=09  with PHY_INTERFACE_INTERNAL to accurately reflect the hardware
+=09- update MEDIATEK_GE_SOC_PHY tristate name, fix sorting
+=09- remove unneeded PHY_PACKAGE from MEDIATEK_FE_SOC_PHY Kconfig
+=09- remove untested features from mtk-fe-soc.c phy driver
+
+v2: https://lore.kernel.org/netdev/20260314150845.653866-1-joey@tinyisr.com
+=09- Update commit messages with more relevant information
+=09- Change all references of "special" tag to "MT7628" tag
+=09- Fix coding style errors
+=09- Use dsa_xmit_port_mask instead of BIT(dp->index)
+=09- Replace phy_read/phy_write with an MDIO bus definition
+=09- Remove PHY init from switch driver
+=09- Fix undocumented writes to SGC2 and FCT0
+=09- Fix missing double-tag enable required for VLAN unaware
+=09  functionality
+=09- Fix VLAN remove logic
+=09- Update VLAN add logic to use the first unused slot
+=09- Add a dedicated phy driver for MT7628 FE PHYs
+
+v1: https://lore.kernel.org/netdev/20260228185242.800836-1-joey@tinyisr.com
+
+Joris Vaisvila (4):
+  dt-bindings: net: dsa: add MT7628 ESW
+  net: phy: mediatek: add phy driver for MT7628 built-in Fast Ethernet
+    PHYs
+  net: dsa: initial MT7628 tagging driver
+  net: dsa: initial support for MT7628 embedded switch
+
+ .../bindings/net/dsa/mediatek,mt7628-esw.yaml | 136 ++++
+ drivers/net/dsa/Kconfig                       |   7 +
+ drivers/net/dsa/Makefile                      |   1 +
+ drivers/net/dsa/mt7628.c                      | 634 ++++++++++++++++++
+ drivers/net/phy/mediatek/Kconfig              |  10 +-
+ drivers/net/phy/mediatek/Makefile             |   1 +
+ drivers/net/phy/mediatek/mtk-fe-soc.c         |  50 ++
+ include/net/dsa.h                             |   2 +
+ net/dsa/Kconfig                               |   6 +
+ net/dsa/Makefile                              |   1 +
+ net/dsa/tag_mt7628.c                          |  92 +++
+ 11 files changed, 939 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/net/dsa/mediatek,mt76=
+28-esw.yaml
+ create mode 100644 drivers/net/dsa/mt7628.c
+ create mode 100644 drivers/net/phy/mediatek/mtk-fe-soc.c
+ create mode 100644 net/dsa/tag_mt7628.c
+
+--=20
+2.53.0
+
