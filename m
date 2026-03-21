@@ -1,186 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422A014AD0D;
-	Sat, 21 Mar 2026 12:08:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0ABD2D321B
+	for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 12:10:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774094892; cv=none; b=uy98I11RF66MaAlWMbf2/AfGVmlVOvAIfFAJS5Kj6lYk9tfyc710EX84RE9jvgBeFrqntA4pGh1wzZ86i19xFG/2Z09SF6tle9nDMBH+ykn+iaZSdiMR+1Dlk/1N0WaAmydNiU3XaD+YkvIjKIxoTzNIHzlxUEx+x9WH7pFgJV0=
+	t=1774095054; cv=none; b=LcNghbChl6cybC7YiZVacWgUg40oV/ASMyAjxhUQleSupcINFFvmk924KE9T9X6QraLQ0889DuBgyvQTr3Put0SQYwU1QGuNA+bIxfv3ZZtTnKzxOr2wkIkhaNHqAxaL9uqczvOCGX9766jyN867yE7vr9YSsFwJ3YjcDqtpSjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774094892; c=relaxed/simple;
-	bh=O62baZvxNhe+sJSdkpCx72Bx7qKxI6OfZmOANLtTUKg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OzaQ0dTLTQI8PFD/oDcPfos308011cxen7SmZsH2S/GvAaLj9SzWTXxNxanNHW3IJ8ThyPSlS6LcduyDB5zjMqJKfggpToOpnMpNZjUFGzl5/QiwXjHFNAXwM7hy2EVe/EMVYB/dLRaMgfZFdQnLGCPGu9mZe8MLwvtQ1rGPmDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NQvusTJN; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774095054; c=relaxed/simple;
+	bh=Me8RHncuorU5Bnt1FGpeDdkHmkRj0Akc3sb0Vai9Ye8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XWB0W5X0ufouhMEVE5b16duxAyLCHAnbRKOPdZayOyYC6T6s7ndwCG9WbZWwL5qHD1fVtXsuvLeakjnxNaOSYa1LNsvRtLMocNdd8UAj9Xpdlf5eqWoaA4w9YpCxjbukDIydbBXZ+FG5pXbpMD5c+kg6D7d0NPtqbUPONp/tN6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YElIJbbT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NQvusTJN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 656E4C19421;
-	Sat, 21 Mar 2026 12:08:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YElIJbbT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8577C4AF0C
+	for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 12:10:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774094891;
-	bh=O62baZvxNhe+sJSdkpCx72Bx7qKxI6OfZmOANLtTUKg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=NQvusTJN/lUNR/JDipbiPGE1vAKJG30Di8OMHy9/pgIGKsevbgt6coMe22e1IrCjB
-	 591oipvMC8rpFKFt/e87a0U/Bbmj1lrwGp20xInI4PjdInPCWEsWGvtrvWnJlF9sxo
-	 tDyhkrHpmmhanwCpHKai+B6WydslIsVNwtVBL4jloqCOzwpYpRt6a6GjBz9OJ9pojI
-	 B6dUo0+9zIVYqRgheqIRepE6K7eD7NNW/bVHz/Iw6K7z9rng+DFaTVQwCWtBBuZBdx
-	 VDcWeova5vdfuHdlzNoWxOtIibSn8K4QCH+iYPev9Xnr3TuE8jNT2bB6sYgiuP796v
-	 8txARIS7/fGlg==
-Date: Sat, 21 Mar 2026 12:08:02 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Olivier Moysan <olivier.moysan@foss.st.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v7 3/4] dt-bindings: iio: adc: ad4080: add AD4880
- support
-Message-ID: <20260321120802.391cafd0@jic23-huawei>
-In-Reply-To: <20260321100154.1258-4-antoniu.miclaus@analog.com>
-References: <20260321100154.1258-1-antoniu.miclaus@analog.com>
-	<20260321100154.1258-4-antoniu.miclaus@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
+	s=k20201202; t=1774095053;
+	bh=Me8RHncuorU5Bnt1FGpeDdkHmkRj0Akc3sb0Vai9Ye8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=YElIJbbTM4SUHYA3k3q3h3OFGJq44TdRrR7BfwD3RsTmbuhE3ljw4Cdcsok/zv1N4
+	 M/+lijNybtEVbPTIwQBqJeZfeJkhJZJAQEKu9Pq7laYy1bKxUXkTmzbOKUb1BdHm9g
+	 vyhoWrJv62U1IZqqH0Row2GFdXVwIB9nGr2zaKqaBPiZtUt+2Ig74F6sTvIzM88OaL
+	 slM8d81Xi9R8zZ/cnUFz0kmi7MoXuIMjmM+EdBMwTgnqj1B9e9q735uqhGqC6UJ1RJ
+	 cCeV740581Gsf2i6897bCl+TWf19IhinkLsjGELaxvEcLj673KgfZj09bJAlIrf2l6
+	 0XD9bAdsfGL7Q==
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-65c4152313fso3974814a12.1
+        for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 05:10:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUW/fIMdvNVAyeerwz0B8VGm2+XrpwZfxOzrL/KrGLFghY4vngRdL9XYi0ock8ALsXeAh2gHS7cWlAf@vger.kernel.org
+X-Gm-Message-State: AOJu0YwsV4dm4b444qglNVAP+hzNHepBSilKfelmCMpZtJY/Hc6x4HGA
+	GNX5Ho1FFz9oDd/jzvgz5k4txgX1hdKcvqkM8jRERQqCGknqVoCCO+fchbnLfs/r+Xf4B+MNWm2
+	W6hCo7+Ob2yvY1w6wNcejt+IqZ6zRKb8=
+X-Received: by 2002:a17:906:13c2:b0:b97:61d7:793f with SMTP id
+ a640c23a62f3a-b982f282a9fmr347730566b.24.1774095052107; Sat, 21 Mar 2026
+ 05:10:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20260321092032.3502701-1-zhengxingda@iscas.ac.cn>
+In-Reply-To: <20260321092032.3502701-1-zhengxingda@iscas.ac.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Sat, 21 Mar 2026 20:10:39 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H6pcwfFPK_FRaXMa-h=aqEmJoLv7wUtG43WrbfHDZGYuw@mail.gmail.com>
+X-Gm-Features: AaiRm508So21GaidqT3MorXZv8b1sxmEw5OwaNquBRDd5F5Ghrpf6T2HDO4BAPo
+Message-ID: <CAAhV-H6pcwfFPK_FRaXMa-h=aqEmJoLv7wUtG43WrbfHDZGYuw@mail.gmail.com>
+Subject: Re: [PATCH v4 0/6] Add support for LS7A LPC IRQ for MIPS Loongson systems
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	WANG Xuerui <kernel@xen0n.name>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	Jiaxun Yang <jiaxun.yang@flygoat.com>, Icenowy Zheng <uwu@icenowy.me>, Yao Zi <me@ziyao.cc>, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	loongarch@lists.linux.dev, linux-mips@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, 21 Mar 2026 12:01:53 +0200
-Antoniu Miclaus <antoniu.miclaus@analog.com> wrote:
+For the whole series:
 
-> Add support for the AD4880, a dual-channel 20-bit 40MSPS SAR ADC
-> with integrated fully differential amplifiers (FDA).
->=20
-> The AD4880 has two independent ADC channels, each with its own SPI
-> configuration interface. This requires:
-> - Two entries in reg property for primary and secondary channel
->   chip selects
-> - Two io-backends entries for the two data channels
-=46rom the v6 discussion.  I'd just like to know a little more on this.
-Are they really separate backends?
-
-Given discussion about interleaved data, I was kind of assuming they
-were different front end interfaces to a single backend IP.
-
-The freedom this binding is giving is for those two backends to be
-completely unrelated. I'm not sure if we want that.
-
-Jonathan
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 
 
->=20
-> Reviewed-by: David Lechner <dlechner@baylibre.com>
-> Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
-> ---
-> Changes in v7:
->   - No changes
->=20
->  .../bindings/iio/adc/adi,ad4080.yaml          | 53 ++++++++++++++++++-
->  1 file changed, 51 insertions(+), 2 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4080.yaml b/=
-Documentation/devicetree/bindings/iio/adc/adi,ad4080.yaml
-> index ccd6a0ac1539..0cf86c6f9925 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4080.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4080.yaml
-> @@ -18,7 +18,11 @@ description: |
->    service a wide variety of precision, wide bandwidth data acquisition
->    applications.
-> =20
-> +  The AD4880 is a dual-channel variant with two independent ADC channels,
-> +  each with its own SPI configuration interface.
-> +
->    https://www.analog.com/media/en/technical-documentation/data-sheets/ad=
-4080.pdf
-> +  https://www.analog.com/media/en/technical-documentation/data-sheets/ad=
-4880.pdf
-> =20
->  $ref: /schemas/spi/spi-peripheral-props.yaml#
-> =20
-> @@ -31,9 +35,15 @@ properties:
->        - adi,ad4084
->        - adi,ad4086
->        - adi,ad4087
-> +      - adi,ad4880
-> =20
->    reg:
-> -    maxItems: 1
-> +    minItems: 1
-> +    maxItems: 2
-> +    description:
-> +      SPI chip select(s). For single-channel devices, one chip select.
-> +      For multi-channel devices like AD4880, two chip selects are requir=
-ed
-> +      as each channel has its own SPI configuration interface.
-> =20
->    spi-max-frequency:
->      description: Configuration of the SPI bus.
-> @@ -57,7 +67,10 @@ properties:
->    vrefin-supply: true
-> =20
->    io-backends:
-> -    maxItems: 1
-> +    minItems: 1
-> +    items:
-> +      - description: Backend for channel A (primary)
-> +      - description: Backend for channel B (secondary)
-> =20
->    adi,lvds-cnv-enable:
->      description: Enable the LVDS signal type on the CNV pin. Default is =
-CMOS.
-> @@ -78,6 +91,25 @@ required:
->    - vdd33-supply
->    - vrefin-supply
-> =20
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: adi,ad4880
-> +    then:
-> +      properties:
-> +        reg:
-> +          minItems: 2
-> +        io-backends:
-> +          minItems: 2
-> +    else:
-> +      properties:
-> +        reg:
-> +          maxItems: 1
-> +        io-backends:
-> +          maxItems: 1
-> +
->  additionalProperties: false
-> =20
->  examples:
-> @@ -98,4 +130,21 @@ examples:
->            io-backends =3D <&iio_backend>;
->          };
->      };
-> +  - |
-> +    spi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        adc@0 {
-> +          compatible =3D "adi,ad4880";
-> +          reg =3D <0>, <1>;
-> +          spi-max-frequency =3D <10000000>;
-> +          vdd33-supply =3D <&vdd33>;
-> +          vddldo-supply =3D <&vddldo>;
-> +          vrefin-supply =3D <&vrefin>;
-> +          clocks =3D <&cnv>;
-> +          clock-names =3D "cnv";
-> +          io-backends =3D <&iio_backend_cha>, <&iio_backend_chb>;
-> +        };
-> +    };
->  ...
-
+On Sat, Mar 21, 2026 at 5:20=E2=80=AFPM Icenowy Zheng <zhengxingda@iscas.ac=
+.cn> wrote:
+>
+> From: Icenowy Zheng <uwu@icenowy.me>
+>
+> This patchset tries to add support for Loongson 7A1000 PCH's LPC
+> interrupt controller to MIPS-based Loongson systems.
+>
+> LPC, from software's perspective of view, is just ISA, so the interrupts
+> should be handled as legacy ones occupying the lowest 0-15 IRQ numbers.
+> Despite the current PCH LPC driver for ACPI-based LoongArch Loongson
+> machines handled it, the setup is fragile and depends on its specific
+> setup sequence (allocating the LPC IRQs first, and then allocate the
+> parent IRQ at PCH PIC). The refactor of extracting parent IRQ allocation
+> breaks this fragile sequence, so the first two commits is created to
+> address this issue (by reserving ISA interrupts from the dynamic
+> allocation space).
+>
+> Then the remaining commits are just adding OF(DT) based initialization
+> of PCH LPC interrupt controller, like what happened on PCH PIC.
+>
+> Tested on a Haier Boyue G51 system with legacy i8042 keyboard/mouse as
+> integrated ones, with some additional patches adding the PCH LPC device
+> node to the ls7a-pch.dtsi file.
+>
+> Changes in v4:
+> - Removed "IRQ" acronym from detailed commit messages (but still kept
+>   in summary phrases for the length constraint).
+> - Re-format some patch to utilize 100 columns instead of 80.
+> - Temporarily removed the DT patches for fitting the whole patchset into
+>   the irqchip tree.
+>
+> Changes in v3:
+> - Override arch_dynirq_lower_bound() in MIPS Loongson64 / LoongArch
+>   instead of modifying the global version of function.
+> - Added Rob's R-b to the binding patch.
+>
+> Changes in v2:
+> - Rebased on top of `irq-drivers-2026-02-09` tag.
+> - Compatible changed to `loongson,ls7a-lpc` .
+> - Merged the patch for conditionally build of ACPI code to the patch
+>   introducing OF code.
+> - Sorted function variable definitions.
+> - Reworded some commit messages as Thomas Glexiner suggests.
+> - Added __init to the LPC irqchip OF initialization code to prevent
+>   section mismatch.
+>
+> Icenowy Zheng (6):
+>   MIPS: loongson64: Override arch_dynirq_lower_bound to reserve LPC IRQs
+>   LoongArch: Override arch_dynirq_lower_bound to reserve LPC IRQs
+>   dt-bindings: interrupt-controller: add LS7A PCH LPC
+>   irqchip/loongson-pch-lpc: Extract non-ACPI-related code from ACPI init
+>   irqchip/loongson-pch-lpc: Add OF init code
+>   irqchip/loongson-pch-lpc: Enable building on MIPS Loongson64
+>
+>  .../loongson,pch-lpc.yaml                     | 52 +++++++++++
+>  arch/loongarch/kernel/irq.c                   |  6 ++
+>  arch/mips/loongson64/init.c                   |  6 ++
+>  drivers/irqchip/Kconfig                       |  1 -
+>  drivers/irqchip/irq-loongson-pch-lpc.c        | 92 +++++++++++++++----
+>  5 files changed, 136 insertions(+), 21 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/interrupt-controlle=
+r/loongson,pch-lpc.yaml
+>
+> --
+> 2.52.0
+>
+>
