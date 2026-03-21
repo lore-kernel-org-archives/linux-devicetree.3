@@ -1,1058 +1,1018 @@
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 027D22BE7DD;
-	Sat, 21 Mar 2026 17:01:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23DB329C78
+	for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 17:09:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774112465; cv=none; b=YHN/9QltcgH+S2ytBhzlDkEKTrjecEhpv9QM2pitmop2ujKPmhL0B1oO3dPDbL3qEDwQ5MUizj11nb0PwkcjiqAzAbldV39r6smXKj1nt/npMnrANwJwjYa4QWc0J7eq1gTqlGPUr1t4iUvPUzoZbTmxL36g/kQwtHNGr6M9Aps=
+	t=1774112985; cv=none; b=E1mBbUXimgYP/txqg8tzEgIimgKg3Swo2YR4u1P9VeBCfoxWY5dY4UKrbI7gJHdCspv7tOcUHUUJqCJKIzKmA7fgX7IdgvmycFc+lCDedwGWJEhtK88uXhM9PVm7xaN7sKP6EZfxX1f/UmPtg5UiNcPZ2pCUobgaByp6uVg+nt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774112465; c=relaxed/simple;
-	bh=ENqqM1Q1go9mTo7eoJdUQli7jgltaQ6H/21fDAMGAYA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gSPvhdnNbMoBLTGQwIlLPYuWwT/Y3Xz2+thhH1CIgZfKgs2K133VTs0eZDsO9qBeXu+l639xv+nx8jMgICYKCDq8vFLlX+jIaXSNgRun1NGsV6YmpUxHiI6d8mESlUlqGscPEmWm8tcstLXSqn02ODF3MbGFM0+lSUTRnsiO2uU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=PF0hEiMc; arc=none smtp.client-ip=109.224.244.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1774112985; c=relaxed/simple;
+	bh=NVdsqCkwCav9hEGMaBLbE6dC1IpAqyy8BVYT9M7RWDE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aGgq5ALecYvNMVMMdguYH/Exs6v9WVKIf6qqmyMZy4USjuU9ccshPRT+PpAWw3ZGAinxqPxb6/4O34ov/oRm3PHZHpFZpTpQiNEQcBoNGDi9FxdM5+PaLwy5KVAKcsCDF7IgvrG+Z+zKQZ6X3fcszXN1frNaO6wKJ1kIOQE1GK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b=YIltcr6M; arc=none smtp.client-ip=209.85.167.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="PF0hEiMc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1774112452; x=1774371652;
-	bh=1OM4rWpkj1T0cXzZpr+z7zesTCcJVC2475fibc3dyfg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=PF0hEiMcbcNWJaWJ/IBCjMb5eImHjsenSbgj/HaCWH3IudT3ZnPS8TKDaQuRZIkym
-	 IA5nHd3QbHyHivLqBSZV1wuPBmgZVp2DKFoebBTB8wbn22MSMNx1jXdWGnjVM97eSY
-	 C0fLN+PZ6yic5mhDiRnDcA02lo2yhWV7gvWfzlIAKSRvaCjhlX+g/oTpgib5STVmNc
-	 seqkIoVGcwSScUZPPzaua0W7BVNXv8/Uzyv9EMXxzQz0qs7yedWsT7icnTvyP5GCFd
-	 i4G1cM4EVcx+yS4v5MPjtDNNrJRNtSZLdnhSJo9N3Nhh8ED0eS24a7laUGdAf6BbcZ
-	 /Wge5qiXPcTew==
-Date: Sat, 21 Mar 2026 17:00:48 +0000
-To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH 3/3] arm64: dts: qcom: Add the Nothing Phone (3a)
-Message-ID: <20260321-asteroids-v1-3-4b902901cb49@pm.me>
-In-Reply-To: <20260321-asteroids-v1-0-4b902901cb49@pm.me>
-References: <20260321-asteroids-v1-0-4b902901cb49@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 05fbe999eac7d6086974c0e5a17f239eebf871e8
+	dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b="YIltcr6M"
+Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-46704177543so1916010b6e.2
+        for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 10:09:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1774112979; x=1774717779; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=7XN5Rxii595i9gsZsp1LPf9t2K+XmY1JrIm2SxNyNuY=;
+        b=YIltcr6M9ZpuddBCRkWJZUzZe1jTgtzBdz74yFgiS61HHjGvTUGQ+bWPd7mHJAtg+Q
+         r0SrVF4mkv52u6La03uKeJr/N+sgTfLKQyGKGNYT6e2QVENtpXV+jaUyJ6yTZvreuwMQ
+         hd4t6Hfpq2VRn4LGoLtv1WJsFVluDXHao4f5ZxnhY4ibrQ7KA2zActUXzJ7olti4gGnT
+         V3vAm1ZtmHmbfvkrh01NJUuZN8GvO4vvNkmwfH4WXXqwRqDFA+Ryfyoy9vzLlxtYz8/C
+         nN1YADMiZvaKhp9wug3CJtiUlD5fljKQgiNYsP9/h2ASFzToeroCle8RQ4zuWTdLy96D
+         4BZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774112979; x=1774717779;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=7XN5Rxii595i9gsZsp1LPf9t2K+XmY1JrIm2SxNyNuY=;
+        b=AX5qOIVGqwrU89m/lPJ77xoNZVVtobe8xP2+mpCNfW4Y9q2kPfGGRrdXRGKsBk/vKF
+         Oc33jPcHFYSZeOT/2SXaOpZ/+1vUY9H1upzMLWu8egBb3YEKkK5ozRWykGfqXhPZqq0z
+         lk9QxHS32DtlVr2ofYE3CvBfK1rJL2VOl75Hb5/p32Rd6jnvW5BJtYDze3rXLH1B+ksr
+         AAftXfTL9g1gsfEbY9vfs+xYx22Am2IaJ3QtulkFbHekROZvEJtI83CskG8sMLu1lGLs
+         a8JZBRGgDIMvkxN0O22SG8rgJYHu3Ydc3GnJ0wwgyHBAtvFV7st5xGUf8AteLlPCC+tX
+         V+Sw==
+X-Forwarded-Encrypted: i=1; AJvYcCUtyOf3fKuyIC2FxHslRCBWw9YRwx2y3bCknvIwk8IXVayd9eGpiS7yIvfkL4xsASW1Dtnoz5TZ3Wpc@vger.kernel.org
+X-Gm-Message-State: AOJu0YzxEJmRkPvzDs9e3MUuEkKWxIIv28V1VZg6bMC+H50gYCNVF1ZP
+	AeDRzfvsuDsRHHiT0WkWNMRt2WSd0sUibN6bqS0ZESauLTwDNdXGy8keaNY2/s4CGgc=
+X-Gm-Gg: ATEYQzwkwk1fPj1AkbO4JkMFBDo9aM+w687pKx5/qJODo8zs5HZ0SvEfXdx6Cc5pnRC
+	Si9+FAxdrBRMqnXAfN3kZhFnG153/iTqN9KvjRkOQvmYfIm9MA4jMvbzjiK9kIPvw64A4gmno5V
+	LH7XWizC5ytuSWVX/Df/05jOCVXbA01pUQNaXIaOGTT9cRy5hTichXCOQuTFyW2BmVf/Xy5O5f1
+	kDIg5bBf49qZaj2hV+z3m4jncAAT7DcqflreB03fBkBXByyYE1IQLj1za23FMVp63Gxx/xZIuW9
+	xASGmfr0STRIWmh304w0Eb+q9G29q/jA+gRcvrr+34H0AF/MQIeI9gpTXsbUzipk65IraBskT4M
+	om8HX/JaRUaH90MGwyHLiXJoSdPUiGUu/PallRGCw/GErSEHSPam9Mb+veOUGq5aUliCoDdTKYn
+	Sfr8e1VLlszow26c/UkO8lXZZ2Zj9+E//b+qN+uhS9Y7kdjo3sRufvFYDD1IYRW7Ega5QAm4Thm
+	g==
+X-Received: by 2002:a05:6808:1a24:b0:463:927c:1e3d with SMTP id 5614622812f47-467e5dc1da1mr3901871b6e.23.1774112979446;
+        Sat, 21 Mar 2026 10:09:39 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:8e89:f58e:e4e6:5567? ([2600:8803:e7e4:500:8e89:f58e:e4e6:5567])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-41c14e409c5sm5451599fac.17.2026.03.21.10.09.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 21 Mar 2026 10:09:37 -0700 (PDT)
+Message-ID: <8502eb51-53c9-4f1b-92d0-21b06fa4802e@baylibre.com>
+Date: Sat, 21 Mar 2026 12:09:35 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/2] iio: proximity: add driver for ST VL53L1X ToF
+ sensor
+To: Siratul Islam <email@sirat.me>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org
+Cc: jic23@kernel.org, nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org
+References: <20260319190738.151614-1-email@sirat.me>
+ <20260319190738.151614-3-email@sirat.me>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260319190738.151614-3-email@sirat.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add a devicetree for the Nothing Phone (3a) smartphone, which is based
-on the Milos/SM7635 SoC.
+On 3/19/26 2:07 PM, Siratul Islam wrote:
+> Add support for the STMicroelectronics VL53L1X Time-of-Flight
+> ranging sensor with I2C interface.
+> 
+> Signed-off-by: Siratul Islam <email@sirat.me>
+> ---
+>  MAINTAINERS                         |   1 +
+>  drivers/iio/proximity/Kconfig       |  15 +
+>  drivers/iio/proximity/Makefile      |   1 +
+>  drivers/iio/proximity/vl53l1x-i2c.c | 820 ++++++++++++++++++++++++++++
+>  4 files changed, 837 insertions(+)
+>  create mode 100644 drivers/iio/proximity/vl53l1x-i2c.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index a142a97be4cb..50531a87bf2e 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -25098,6 +25098,7 @@ M:	Siratul Islam <email@sirat.me>
+>  L:	linux-iio@vger.kernel.org
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml
+> +F:	drivers/iio/proximity/vl53l1x-i2c.c
+>  
+>  STABLE BRANCH
+>  M:	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> diff --git a/drivers/iio/proximity/Kconfig b/drivers/iio/proximity/Kconfig
+> index 6070974c2c85..bb77fad2a1b3 100644
+> --- a/drivers/iio/proximity/Kconfig
+> +++ b/drivers/iio/proximity/Kconfig
+> @@ -244,6 +244,21 @@ config VL53L0X_I2C
+>  	  To compile this driver as a module, choose M here: the
+>  	  module will be called vl53l0x-i2c.
+>  
+> +config VL53L1X_I2C
+> +	tristate "STMicroelectronics VL53L1X ToF ranger sensor (I2C)"
+> +	depends on I2C
+> +	select IIO_BUFFER
+> +	select IIO_TRIGGERED_BUFFER
+> +	select REGMAP_I2C
+> +	select RESET_CONTROLLER
+> +	help
+> +	  Say Y here to build a driver for STMicroelectronics VL53L1X
+> +	  ToF ranger sensors with i2c interface.
+> +	  This driver can be used to measure the distance of objects.
+> +
+> +	  To compile this driver as a module, choose M here: the
+> +	  module will be called vl53l1x-i2c.
+> +
+>  config AW96103
+>  	tristate "AW96103/AW96105 Awinic proximity sensor"
+>  	select REGMAP_I2C
+> diff --git a/drivers/iio/proximity/Makefile b/drivers/iio/proximity/Makefile
+> index 152034d38c49..4352833dd8a4 100644
+> --- a/drivers/iio/proximity/Makefile
+> +++ b/drivers/iio/proximity/Makefile
+> @@ -23,5 +23,6 @@ obj-$(CONFIG_SX_COMMON) 	+= sx_common.o
+>  obj-$(CONFIG_SX9500)		+= sx9500.o
+>  obj-$(CONFIG_VCNL3020)		+= vcnl3020.o
+>  obj-$(CONFIG_VL53L0X_I2C)	+= vl53l0x-i2c.o
+> +obj-$(CONFIG_VL53L1X_I2C)	+= vl53l1x-i2c.o
+>  obj-$(CONFIG_AW96103)		+= aw96103.o
+>  
+> diff --git a/drivers/iio/proximity/vl53l1x-i2c.c b/drivers/iio/proximity/vl53l1x-i2c.c
+> new file mode 100644
+> index 000000000000..771598b92e04
+> --- /dev/null
+> +++ b/drivers/iio/proximity/vl53l1x-i2c.c
+> @@ -0,0 +1,820 @@
+> +// SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
+> +/*
+> + * Support for ST VL53L1X FlightSense ToF Ranging Sensor on a i2c bus.
+> + *
+> + * Copyright (C) 2026 Siratul Islam <email@sirat.me>
+> + *
+> + * Datasheet available at
+> + * <https://www.st.com/resource/en/datasheet/vl53l1x.pdf>
+> + *
+> + * Default 7-bit i2c slave address 0x29.
+> + *
+> + * The VL53L1X requires a firmware configuration blob to be loaded at boot.
+> + * Register values for the default configuration are taken from
+> + * ST's VL53L1X Ultra Lite Driver (STSW-IMG009).
+> + */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/bits.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/completion.h>
+> +#include <linux/delay.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/math.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/reset.h>
+> +#include <linux/time.h>
+> +#include <linux/types.h>
+> +
+> +#include <asm/byteorder.h>
+> +
+> +#include <linux/iio/buffer.h>
+> +#include <linux/iio/iio.h>
+> +#include <linux/iio/trigger.h>
+> +#include <linux/iio/trigger_consumer.h>
+> +#include <linux/iio/triggered_buffer.h>
+> +
+> +#define VL53L1X_SOFT_RESET					0x0000
+> +#define VL53L1X_VHV_CONFIG__TIMEOUT_MACROP_LOOP_BOUND		0x0008
+> +#define VL53L1X_VHV_CONFIG__INIT				0x000B
+> +#define VL53L1X_GPIO_HV_MUX__CTRL				0x0030
+> +#define VL53L1X_GPIO__TIO_HV_STATUS				0x0031
+> +#define VL53L1X_SYSTEM__INTERRUPT_CONFIG_GPIO			0x0046
+> +#define VL53L1X_PHASECAL_CONFIG__TIMEOUT_MACROP			0x004B
+> +#define VL53L1X_RANGE_CONFIG__TIMEOUT_MACROP_A			0x005E
+> +#define VL53L1X_RANGE_CONFIG__VCSEL_PERIOD_A			0x0060
+> +#define VL53L1X_RANGE_CONFIG__TIMEOUT_MACROP_B			0x0061
+> +#define VL53L1X_RANGE_CONFIG__VCSEL_PERIOD_B			0x0063
+> +#define VL53L1X_RANGE_CONFIG__VALID_PHASE_HIGH			0x0069
+> +#define VL53L1X_SYSTEM__INTERMEASUREMENT_PERIOD			0x006C
+> +#define VL53L1X_SD_CONFIG__WOI_SD0				0x0078
+> +#define VL53L1X_SD_CONFIG__WOI_SD1				0x0079
+> +#define VL53L1X_SD_CONFIG__INITIAL_PHASE_SD0			0x007A
+> +#define VL53L1X_SD_CONFIG__INITIAL_PHASE_SD1			0x007B
+> +#define VL53L1X_SYSTEM__INTERRUPT_CLEAR				0x0086
+> +#define VL53L1X_SYSTEM__MODE_START				0x0087
+> +#define VL53L1X_RESULT__RANGE_STATUS				0x0089
+> +#define VL53L1X_RESULT__FINAL_CROSSTALK_CORRECTED_RANGE_MM_SD0	0x0096
+> +#define VL53L1X_RESULT__OSC_CALIBRATE_VAL			0x00DE
+> +#define VL53L1X_FIRMWARE__SYSTEM_STATUS				0x00E5
+> +#define VL53L1X_IDENTIFICATION__MODEL_ID			0x010F
 
-Supported functionality as of this initial submission:
-* Camera flash/torch LED
-* Debug UART
-* Glyph LEDs (AW20036)
-* PMIC-GLINK (Charger, Fuel gauge, USB-C mode switching)
-* Assistant Key, Power Button, Volume Keys
-* Regulators (PM7550, PM8550VS, PMR735B)
-* Remoteprocs (ADSP, CDSP, MPSS, WPSS)
-* USB (USB2 + FSA4480)
+It would be helpful if all of these satarted with VL53L1X_REG_ so that
+we know that they are register addresses.
 
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
----
- arch/arm64/boot/dts/qcom/Makefile                  |   1 +
- .../boot/dts/qcom/milos-nothing-asteroids.dts      | 964 +++++++++++++++++=
-++++
- 2 files changed, 965 insertions(+)
+> +
+> +#define VL53L1X_MODEL_ID_VAL		0xEACC
+> +
+> +#define VL53L1X_DEFAULT_CONFIG_ADDR	0x2D
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/M=
-akefile
-index f80b5d9cf1e8..bb7ac369682c 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -44,6 +44,7 @@ lemans-evk-el2-dtbs :=3D lemans-evk.dtb lemans-el2.dtbo
-=20
- dtb-$(CONFIG_ARCH_QCOM)=09+=3D lemans-evk-el2.dtb
- dtb-$(CONFIG_ARCH_QCOM)=09+=3D milos-fairphone-fp6.dtb
-+dtb-$(CONFIG_ARCH_QCOM)=09+=3D milos-nothing-asteroids.dtb
- dtb-$(CONFIG_ARCH_QCOM)=09+=3D monaco-evk.dtb
- dtb-$(CONFIG_ARCH_QCOM)=09+=3D msm8216-samsung-fortuna3g.dtb
- dtb-$(CONFIG_ARCH_QCOM)=09+=3D msm8916-acer-a1-724.dtb
-diff --git a/arch/arm64/boot/dts/qcom/milos-nothing-asteroids.dts b/arch/ar=
-m64/boot/dts/qcom/milos-nothing-asteroids.dts
-new file mode 100644
-index 000000000000..882e51ddb782
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/milos-nothing-asteroids.dts
-@@ -0,0 +1,964 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+
-+/dts-v1/;
-+
-+#define PMIV0104_SID 7
-+
-+#include <dt-bindings/leds/common.h>
-+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-+#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+
-+#include "milos.dtsi"
-+#include "pm7550.dtsi"
-+#include "pm8550vs.dtsi"
-+#include "pmiv0104.dtsi" /* PMIV0102 */
-+#include "pmk8550.dtsi" /* PMK7635 */
-+#include "pmr735b.dtsi"
-+
-+/ {
-+=09model =3D "Nothing Phone (3a)";
-+=09compatible =3D "nothing,asteroids", "qcom,milos";
-+=09chassis-type =3D "handset";
-+
-+=09aliases {
-+=09=09serial0 =3D &uart5;
-+=09};
-+
-+=09chosen {
-+=09=09#address-cells =3D <2>;
-+=09=09#size-cells =3D <2>;
-+=09=09ranges;
-+
-+=09=09framebuffer0: framebuffer@e3940000 {
-+=09=09=09compatible =3D "simple-framebuffer";
-+=09=09=09reg =3D <0x0 0xe3940000 0x0 (2392 * 1080 * 4)>;
-+=09=09=09width =3D <1080>;
-+=09=09=09height =3D <2392>;
-+=09=09=09stride =3D <(1080 * 4)>;
-+=09=09=09format =3D "a8r8g8b8";
-+=09=09=09panel =3D <&panel>;
-+=09=09=09interconnects =3D <&mmss_noc MASTER_MDP QCOM_ICC_TAG_ALWAYS
-+=09=09=09=09=09 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+=09=09=09clocks =3D <&gcc GCC_DISP_HF_AXI_CLK>;
-+
-+=09=09=09/* Dummy panel for simple-framebuffer dimension info */
-+=09=09=09panel: dummy-panel {
-+=09=09=09=09compatible =3D "boe,bf068mwm-td0";
-+=09=09=09=09height-mm =3D <157>;
-+=09=09=09=09width-mm =3D <71>;
-+=09=09=09};
-+=09=09};
-+=09};
-+
-+=09gpio-keys {
-+=09=09compatible =3D "gpio-keys";
-+
-+=09=09pinctrl-0 =3D <&assist_default>, <&volume_up_default>;
-+=09=09pinctrl-names =3D "default";
-+
-+=09=09key-assist {
-+=09=09=09gpios =3D <&tlmm 71 GPIO_ACTIVE_LOW>;
-+=09=09=09label =3D "Assistant";
-+=09=09=09linux,code =3D <KEY_LEFTMETA>;
-+=09=09};
-+
-+=09=09key-volume-up {
-+=09=09=09gpios =3D <&pm7550_gpios 6 GPIO_ACTIVE_LOW>;
-+=09=09=09label =3D "Volume Up";
-+=09=09=09linux,code =3D <KEY_VOLUMEUP>;
-+=09=09};
-+=09};
-+
-+=09pmic-glink {
-+=09=09compatible =3D "qcom,milos-pmic-glink",
-+=09=09=09     "qcom,sm8550-pmic-glink",
-+=09=09=09     "qcom,pmic-glink";
-+=09=09#address-cells =3D <1>;
-+=09=09#size-cells =3D <0>;
-+=09=09orientation-gpios =3D <&tlmm 131 GPIO_ACTIVE_HIGH>;
-+
-+=09=09connector@0 {
-+=09=09=09compatible =3D "usb-c-connector";
-+=09=09=09reg =3D <0>;
-+
-+=09=09=09data-role =3D "dual";
-+=09=09=09power-role =3D "dual";
-+
-+=09=09=09ports {
-+=09=09=09=09#address-cells =3D <1>;
-+=09=09=09=09#size-cells =3D <0>;
-+
-+=09=09=09=09port@0 {
-+=09=09=09=09=09reg =3D <0>;
-+
-+=09=09=09=09=09pmic_glink_hs_in: endpoint {
-+=09=09=09=09=09=09remote-endpoint =3D <&usb_1_dwc3_hs>;
-+=09=09=09=09=09};
-+=09=09=09=09};
-+
-+=09=09=09=09port@1 {
-+=09=09=09=09=09reg =3D <1>;
-+
-+=09=09=09=09=09pmic_glink_sbu: endpoint {
-+=09=09=09=09=09=09remote-endpoint =3D <&fsa4480_sbu_mux>;
-+=09=09=09=09=09};
-+=09=09=09=09};
-+=09=09=09};
-+=09=09};
-+=09};
-+
-+=09vph_pwr: regulator-vph-pwr {
-+=09=09compatible =3D "regulator-fixed";
-+=09=09regulator-name =3D "vph_pwr";
-+=09=09regulator-min-microvolt =3D <3700000>;
-+=09=09regulator-max-microvolt =3D <3700000>;
-+
-+=09=09regulator-always-on;
-+=09=09regulator-boot-on;
-+=09};
-+
-+=09reserved-memory {
-+=09=09#address-cells =3D <2>;
-+=09=09#size-cells =3D <2>;
-+=09=09ranges;
-+
-+=09=09ramoops@81f20000 {
-+=09=09=09compatible =3D "ramoops";
-+=09=09=09reg =3D <0x0 0x81f20000 0x0 0x400000>;
-+=09=09=09console-size =3D <0x200000>;
-+=09=09=09mem-type =3D <2>;
-+=09=09=09pmsg-size =3D <0x200000>;
-+=09=09};
-+
-+=09=09/*
-+=09=09 * ABL is powering down display and controller if this node is
-+=09=09 * not named exactly "splash_region".
-+=09=09 */
-+=09=09splash_region@e3940000 {
-+=09=09=09reg =3D <0x0 0xe3940000 0x0 0x2b00000>;
-+=09=09=09no-map;
-+=09=09};
-+=09};
-+};
-+
-+&apps_rsc {
-+=09regulators-0 {
-+=09=09compatible =3D "qcom,pm7550-rpmh-regulators";
-+
-+=09=09vdd-l1-supply =3D <&vreg_s1b>;
-+=09=09vdd-l2-l3-supply =3D <&vreg_s3b>;
-+=09=09vdd-l4-l5-supply =3D <&vreg_s2b>;
-+=09=09vdd-l7-supply =3D <&vreg_s1b>;
-+=09=09vdd-l8-supply =3D <&vreg_s1b>;
-+=09=09vdd-l9-l10-supply =3D <&vreg_s1b>;
-+=09=09vdd-l11-supply =3D <&vreg_s1b>;
-+=09=09vdd-l12-l14-supply =3D <&vreg_bob>;
-+=09=09vdd-l13-l16-supply =3D <&vreg_bob>;
-+=09=09vdd-l15-l17-l18-l19-l20-l21-l22-l23-supply =3D <&vreg_bob>;
-+=09=09vdd-s1-supply =3D <&vph_pwr>;
-+=09=09vdd-s2-supply =3D <&vph_pwr>;
-+=09=09vdd-s3-supply =3D <&vph_pwr>;
-+=09=09vdd-s4-supply =3D <&vph_pwr>;
-+=09=09vdd-s5-supply =3D <&vph_pwr>;
-+=09=09vdd-s6-supply =3D <&vph_pwr>;
-+=09=09vdd-bob-supply =3D <&vph_pwr>;
-+
-+=09=09qcom,pmic-id =3D "b";
-+
-+=09=09vreg_s1b: smps1 {
-+=09=09=09regulator-name =3D "vreg_s1b";
-+=09=09=09regulator-min-microvolt =3D <1800000>;
-+=09=09=09regulator-max-microvolt =3D <2080000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_s2b: smps2 {
-+=09=09=09regulator-name =3D "vreg_s2b";
-+=09=09=09regulator-min-microvolt =3D <1256000>;
-+=09=09=09regulator-max-microvolt =3D <1408000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_s3b: smps3 {
-+=09=09=09regulator-name =3D "vreg_s3b";
-+=09=09=09regulator-min-microvolt =3D <880000>;
-+=09=09=09regulator-max-microvolt =3D <1040000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_s4b: smps4 {
-+=09=09=09regulator-name =3D "vreg_s4b";
-+=09=09=09regulator-min-microvolt =3D <300000>;
-+=09=09=09regulator-max-microvolt =3D <1004000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l1b: ldo1 {
-+=09=09=09regulator-name =3D "vreg_l1b";
-+=09=09=09regulator-min-microvolt =3D <1800000>;
-+=09=09=09regulator-max-microvolt =3D <1800000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l2b: ldo2 {
-+=09=09=09regulator-name =3D "vreg_l2b";
-+=09=09=09regulator-min-microvolt =3D <880000>;
-+=09=09=09regulator-max-microvolt =3D <912000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l3b: ldo3 {
-+=09=09=09regulator-name =3D "vreg_l3b";
-+=09=09=09regulator-min-microvolt =3D <880000>;
-+=09=09=09regulator-max-microvolt =3D <912000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l4b: ldo4 {
-+=09=09=09regulator-name =3D "vreg_l4b";
-+=09=09=09regulator-min-microvolt =3D <1200000>;
-+=09=09=09regulator-max-microvolt =3D <1200000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l5b: ldo5 {
-+=09=09=09regulator-name =3D "vreg_l5b";
-+=09=09=09regulator-min-microvolt =3D <1200000>;
-+=09=09=09regulator-max-microvolt =3D <1200000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l7b: ldo7 {
-+=09=09=09regulator-name =3D "vreg_l7b";
-+=09=09=09regulator-min-microvolt =3D <1800000>;
-+=09=09=09regulator-max-microvolt =3D <1800000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l8b: ldo8 {
-+=09=09=09regulator-name =3D "vreg_l8b";
-+=09=09=09regulator-min-microvolt =3D <1800000>;
-+=09=09=09regulator-max-microvolt =3D <1800000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l9b: ldo9 {
-+=09=09=09regulator-name =3D "vreg_l9b";
-+=09=09=09regulator-min-microvolt =3D <1800000>;
-+=09=09=09regulator-max-microvolt =3D <1800000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l10b: ldo10 {
-+=09=09=09regulator-name =3D "vreg_l10b";
-+=09=09=09regulator-min-microvolt =3D <1800000>;
-+=09=09=09regulator-max-microvolt =3D <1800000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l11b: ldo11 {
-+=09=09=09regulator-name =3D "vreg_l11b";
-+=09=09=09regulator-min-microvolt =3D <1800000>;
-+=09=09=09regulator-max-microvolt =3D <1800000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l12b: ldo12 {
-+=09=09=09regulator-name =3D "vreg_l12b";
-+=09=09=09regulator-min-microvolt =3D <2952000>;
-+=09=09=09regulator-max-microvolt =3D <2952000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l13b: ldo13 {
-+=09=09=09regulator-name =3D "vreg_l13b";
-+=09=09=09regulator-min-microvolt =3D <2700000>;
-+=09=09=09regulator-max-microvolt =3D <3300000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l14b: ldo14 {
-+=09=09=09regulator-name =3D "vreg_l14b";
-+=09=09=09regulator-min-microvolt =3D <3300000>;
-+=09=09=09regulator-max-microvolt =3D <3304000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l15b: ldo15 {
-+=09=09=09regulator-name =3D "vreg_l15b";
-+=09=09=09regulator-min-microvolt =3D <3300000>;
-+=09=09=09regulator-max-microvolt =3D <3304000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l16b: ldo16 {
-+=09=09=09regulator-name =3D "vreg_l16b";
-+=09=09=09regulator-min-microvolt =3D <3008000>;
-+=09=09=09regulator-max-microvolt =3D <3008000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l17b: ldo17 {
-+=09=09=09regulator-name =3D "vreg_l17b";
-+=09=09=09regulator-min-microvolt =3D <3104000>;
-+=09=09=09regulator-max-microvolt =3D <3104000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l18b: ldo18 {
-+=09=09=09regulator-name =3D "vreg_l18b";
-+=09=09=09regulator-min-microvolt =3D <2800000>;
-+=09=09=09regulator-max-microvolt =3D <2800000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l19b: ldo19 {
-+=09=09=09regulator-name =3D "vreg_l19b";
-+=09=09=09regulator-min-microvolt =3D <3000000>;
-+=09=09=09regulator-max-microvolt =3D <3000000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l20b: ldo20 {
-+=09=09=09regulator-name =3D "vreg_l20b";
-+=09=09=09regulator-min-microvolt =3D <1620000>;
-+=09=09=09regulator-max-microvolt =3D <3544000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l21b: ldo21 {
-+=09=09=09regulator-name =3D "vreg_l21b";
-+=09=09=09regulator-min-microvolt =3D <1620000>;
-+=09=09=09regulator-max-microvolt =3D <3544000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l22b: ldo22 {
-+=09=09=09regulator-name =3D "vreg_l22b";
-+=09=09=09regulator-min-microvolt =3D <3200000>;
-+=09=09=09regulator-max-microvolt =3D <3200000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l23b: ldo23 {
-+=09=09=09regulator-name =3D "vreg_l23b";
-+=09=09=09regulator-min-microvolt =3D <1650000>;
-+=09=09=09regulator-max-microvolt =3D <3544000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_bob: bob {
-+=09=09=09regulator-name =3D "vreg_bob";
-+=09=09=09regulator-min-microvolt =3D <3008000>;
-+=09=09=09regulator-max-microvolt =3D <3960000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+=09};
-+
-+=09regulators-1 {
-+=09=09compatible =3D "qcom,pm8550vs-rpmh-regulators";
-+
-+=09=09vdd-l1-supply =3D <&vreg_s3b>;
-+=09=09vdd-l2-supply =3D <&vreg_s3b>;
-+=09=09vdd-l3-supply =3D <&vreg_s3b>;
-+=09=09vdd-s3-supply =3D <&vph_pwr>;
-+=09=09vdd-s4-supply =3D <&vph_pwr>;
-+=09=09vdd-s5-supply =3D <&vph_pwr>;
-+=09=09vdd-s6-supply =3D <&vph_pwr>;
-+
-+=09=09qcom,pmic-id =3D "c";
-+
-+=09=09vreg_s3c: smps3 {
-+=09=09=09regulator-name =3D "vreg_s3c";
-+=09=09=09regulator-min-microvolt =3D <1010000>;
-+=09=09=09regulator-max-microvolt =3D <1120000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_s4c: smps4 {
-+=09=09=09regulator-name =3D "vreg_s4c";
-+=09=09=09regulator-min-microvolt =3D <352000>;
-+=09=09=09regulator-max-microvolt =3D <812000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_s5c: smps5 {
-+=09=09=09regulator-name =3D "vreg_s5c";
-+=09=09=09regulator-min-microvolt =3D <540000>;
-+=09=09=09regulator-max-microvolt =3D <884000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_s6c: smps6 {
-+=09=09=09regulator-name =3D "vreg_s6c";
-+=09=09=09regulator-min-microvolt =3D <352000>;
-+=09=09=09regulator-max-microvolt =3D <904000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l1c: ldo1 {
-+=09=09=09regulator-name =3D "vreg_l1c";
-+=09=09=09regulator-min-microvolt =3D <320000>;
-+=09=09=09regulator-max-microvolt =3D <1004000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l2c: ldo2 {
-+=09=09=09regulator-name =3D "vreg_l2c";
-+=09=09=09regulator-min-microvolt =3D <320000>;
-+=09=09=09regulator-max-microvolt =3D <650000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l3c: ldo3 {
-+=09=09=09regulator-name =3D "vreg_l3c";
-+=09=09=09regulator-min-microvolt =3D <320000>;
-+=09=09=09regulator-max-microvolt =3D <912000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+=09};
-+
-+=09regulators-2 {
-+=09=09compatible =3D "qcom,pmr735b-rpmh-regulators";
-+
-+=09=09vdd-l1-l2-supply =3D <&vreg_s3b>;
-+=09=09vdd-l3-supply =3D <&vreg_s3b>;
-+=09=09vdd-l4-supply =3D <&vreg_s1b>;
-+=09=09vdd-l5-supply =3D <&vreg_s2b>;
-+=09=09vdd-l7-l8-supply =3D <&vreg_s2b>;
-+=09=09vdd-l9-supply =3D <&vreg_s3b>;
-+=09=09vdd-l10-supply =3D <&vreg_s1b>;
-+=09=09vdd-l11-supply =3D <&vreg_s3b>;
-+=09=09vdd-l12-supply =3D <&vreg_s3b>;
-+
-+=09=09qcom,pmic-id =3D "f";
-+
-+=09=09vreg_l1f: ldo1 {
-+=09=09=09regulator-name =3D "vreg_l1f";
-+=09=09=09regulator-min-microvolt =3D <852000>;
-+=09=09=09regulator-max-microvolt =3D <950000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l2f: ldo2 {
-+=09=09=09regulator-name =3D "vreg_l2f";
-+=09=09=09regulator-min-microvolt =3D <751000>;
-+=09=09=09regulator-max-microvolt =3D <824000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l3f: ldo3 {
-+=09=09=09regulator-name =3D "vreg_l3f";
-+=09=09=09regulator-min-microvolt =3D <650000>;
-+=09=09=09regulator-max-microvolt =3D <880000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l4f: ldo4 {
-+=09=09=09regulator-name =3D "vreg_l4f";
-+=09=09=09regulator-min-microvolt =3D <1700000>;
-+=09=09=09regulator-max-microvolt =3D <1950000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l5f: ldo5 {
-+=09=09=09regulator-name =3D "vreg_l5f";
-+=09=09=09regulator-min-microvolt =3D <1140000>;
-+=09=09=09regulator-max-microvolt =3D <1260000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l7f: ldo7 {
-+=09=09=09regulator-name =3D "vreg_l7f";
-+=09=09=09regulator-min-microvolt =3D <1080000>;
-+=09=09=09regulator-max-microvolt =3D <1350000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l9f: ldo9 {
-+=09=09=09regulator-name =3D "vreg_l9f";
-+=09=09=09regulator-min-microvolt =3D <870000>;
-+=09=09=09regulator-max-microvolt =3D <970000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l10f: ldo10 {
-+=09=09=09regulator-name =3D "vreg_l10f";
-+=09=09=09regulator-min-microvolt =3D <1500000>;
-+=09=09=09regulator-max-microvolt =3D <1800000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l11f: ldo11 {
-+=09=09=09regulator-name =3D "vreg_l11f";
-+=09=09=09regulator-min-microvolt =3D <320000>;
-+=09=09=09regulator-max-microvolt =3D <864000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l12f: ldo12 {
-+=09=09=09regulator-name =3D "vreg_l12f";
-+=09=09=09regulator-min-microvolt =3D <480000>;
-+=09=09=09regulator-max-microvolt =3D <884000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+=09};
-+};
-+
-+&dispcc {
-+=09/* Disable for now so simple-framebuffer continues working */
-+=09status =3D "disabled";
-+};
-+
-+&gcc {
-+=09protected-clocks =3D <GCC_PCIE_1_AUX_CLK>, <GCC_PCIE_1_AUX_CLK_SRC>,
-+=09=09=09   <GCC_PCIE_1_CFG_AHB_CLK>, <GCC_PCIE_1_MSTR_AXI_CLK>,
-+=09=09=09   <GCC_PCIE_1_PHY_RCHNG_CLK>, <GCC_PCIE_1_PHY_RCHNG_CLK_SRC>,
-+=09=09=09   <GCC_PCIE_1_PIPE_CLK>, <GCC_PCIE_1_PIPE_CLK_SRC>,
-+=09=09=09   <GCC_PCIE_1_PIPE_DIV2_CLK>, <GCC_PCIE_1_PIPE_DIV2_CLK_SRC>,
-+=09=09=09   <GCC_PCIE_1_SLV_AXI_CLK>, <GCC_PCIE_1_SLV_Q2A_AXI_CLK>;
-+};
-+
-+&i2c7 {
-+=09clock-frequency =3D <400000>;
-+
-+=09status =3D "okay";
-+
-+=09led-controller@3a {
-+=09=09compatible =3D "awinic,aw20036";
-+=09=09reg =3D <0x3a>;
-+=09=09#address-cells =3D <1>;
-+=09=09#size-cells =3D <0>;
-+
-+=09=09enable-gpios =3D <&tlmm 54 GPIO_ACTIVE_HIGH>;
-+
-+=09=09led@0 {
-+=09=09=09reg =3D <0x0>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <0>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@1 {
-+=09=09=09reg =3D <0x1>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <1>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@2 {
-+=09=09=09reg =3D <0x2>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <2>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@3 {
-+=09=09=09reg =3D <0x3>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <3>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@4 {
-+=09=09=09reg =3D <0x4>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <4>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@5 {
-+=09=09=09reg =3D <0x5>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <5>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@6 {
-+=09=09=09reg =3D <0x6>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <6>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@7 {
-+=09=09=09reg =3D <0x7>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-2";
-+=09=09=09function-enumerator =3D <0>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@8 {
-+=09=09=09reg =3D <0x8>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <0>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@9 {
-+=09=09=09reg =3D <0x9>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <1>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@a {
-+=09=09=09reg =3D <0xa>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <2>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@b {
-+=09=09=09reg =3D <0xb>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <3>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@c {
-+=09=09=09reg =3D <0xc>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <7>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@d {
-+=09=09=09reg =3D <0xd>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <8>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@e {
-+=09=09=09reg =3D <0xe>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <9>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@f {
-+=09=09=09reg =3D <0xf>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <10>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@10 {
-+=09=09=09reg =3D <0x10>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <11>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@11 {
-+=09=09=09reg =3D <0x11>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <12>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@12 {
-+=09=09=09reg =3D <0x12>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <13>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@13 {
-+=09=09=09reg =3D <0x13>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-2";
-+=09=09=09function-enumerator =3D <1>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@14 {
-+=09=09=09reg =3D <0x14>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-2";
-+=09=09=09function-enumerator =3D <2>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@15 {
-+=09=09=09reg =3D <0x15>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <4>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@16 {
-+=09=09=09reg =3D <0x16>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <5>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@17 {
-+=09=09=09reg =3D <0x17>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <6>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@18 {
-+=09=09=09reg =3D <0x18>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <14>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@19 {
-+=09=09=09reg =3D <0x19>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <15>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@1a {
-+=09=09=09reg =3D <0x1a>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <16>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@1b {
-+=09=09=09reg =3D <0x1b>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <17>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@1c {
-+=09=09=09reg =3D <0x1c>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <18>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@1d {
-+=09=09=09reg =3D <0x1d>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <19>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@1e {
-+=09=09=09reg =3D <0x1e>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-2";
-+=09=09=09function-enumerator =3D <3>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@1f {
-+=09=09=09reg =3D <0x1f>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-2";
-+=09=09=09function-enumerator =3D <4>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@20 {
-+=09=09=09reg =3D <0x20>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <7>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@21 {
-+=09=09=09reg =3D <0x21>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <8>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@22 {
-+=09=09=09reg =3D <0x22>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <9>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@23 {
-+=09=09=09reg =3D <0x23>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <10>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+=09};
-+
-+=09typec-mux@42 {
-+=09=09compatible =3D "fcs,fsa4480";
-+=09=09reg =3D <0x42>;
-+
-+=09=09vcc-supply =3D <&vph_pwr>;
-+
-+=09=09mode-switch;
-+=09=09orientation-switch;
-+
-+=09=09port {
-+=09=09=09fsa4480_sbu_mux: endpoint {
-+=09=09=09=09remote-endpoint =3D <&pmic_glink_sbu>;
-+=09=09=09};
-+=09=09};
-+=09};
-+};
-+
-+&pm7550_flash {
-+=09status =3D "okay";
-+
-+=09led-0 {
-+=09=09function =3D LED_FUNCTION_FLASH;
-+=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09led-sources =3D <1>, <4>;
-+=09=09led-max-microamp =3D <350000>;
-+=09=09flash-max-microamp =3D <1500000>;
-+=09=09flash-max-timeout-us =3D <400000>;
-+=09};
-+};
-+
-+&pm7550_gpios {
-+=09volume_up_default: volume-up-default-state {
-+=09=09pins =3D "gpio6";
-+=09=09function =3D PMIC_GPIO_FUNC_NORMAL;
-+=09=09power-source =3D <1>;
-+=09=09bias-pull-up;
-+=09};
-+};
-+
-+&pm8550vs_c {
-+=09status =3D "okay";
-+};
-+
-+&pmiv0104_eusb2_repeater {
-+=09vdd18-supply =3D <&vreg_l7b>;
-+=09vdd3-supply =3D <&vreg_l17b>;
-+
-+=09qcom,tune-res-fsdif =3D /bits/ 8 <0x5>;
-+=09qcom,tune-usb2-amplitude =3D /bits/ 8 <0x8>;
-+=09qcom,tune-usb2-disc-thres =3D /bits/ 8 <0x7>;
-+=09qcom,tune-usb2-preem =3D /bits/ 8 <0x6>;
-+};
-+
-+&pon_pwrkey {
-+=09status =3D "okay";
-+};
-+
-+&pon_resin {
-+=09linux,code =3D <KEY_VOLUMEDOWN>;
-+
-+=09status =3D "okay";
-+};
-+
-+&qupv3_id_0 {
-+=09status =3D "okay";
-+};
-+
-+&qupv3_id_1 {
-+=09status =3D "okay";
-+};
-+
-+&remoteproc_adsp {
-+=09firmware-name =3D "qcom/milos/nothing/asteroids/adsp.mbn",
-+=09=09=09"qcom/milos/nothing/asteroids/adsp_dtb.mbn";
-+
-+=09status =3D "okay";
-+};
-+
-+&remoteproc_cdsp {
-+=09firmware-name =3D "qcom/milos/nothing/asteroids/cdsp.mbn",
-+=09=09=09"qcom/milos/nothing/asteroids/cdsp_dtb.mbn";
-+
-+=09status =3D "okay";
-+};
-+
-+&remoteproc_mpss {
-+=09firmware-name =3D "qcom/milos/nothing/asteroids/modem.mbn";
-+
-+=09status =3D "okay";
-+};
-+
-+&remoteproc_wpss {
-+=09firmware-name =3D "qcom/milos/nothing/asteroids/wpss.mbn";
-+
-+=09status =3D "okay";
-+};
-+
-+&tlmm {
-+=09gpio-reserved-ranges =3D <13 1>, /* Display */
-+=09=09=09       <63 2>; /* WLAN UART */
-+
-+=09assist_default: assist-default-state {
-+=09=09pins =3D "gpio71";
-+=09=09function =3D "gpio";
-+=09=09bias-pull-up;
-+=09};
-+};
-+
-+&trusted_apps_mem {
-+=09reg =3D <0x0 0xe9500000 0x0 0x5500000>;
-+};
-+
-+/*
-+ * UART_RX and UART_TX are routed to test points on board, not
-+ * available over USB.
-+ */
-+&uart5 {
-+=09status =3D "okay";
-+};
-+
-+&usb_1 {
-+=09dr_mode =3D "otg";
-+
-+=09/* USB 2.0 only, HW does not support USB 3.x */
-+=09qcom,select-utmi-as-pipe-clk;
-+
-+=09status =3D "okay";
-+};
-+
-+&usb_1_dwc3_hs {
-+=09remote-endpoint =3D <&pmic_glink_hs_in>;
-+};
-+
-+&usb_1_hsphy {
-+=09vdd-supply =3D <&vreg_l2b>;
-+=09vdda12-supply =3D <&vreg_l4b>;
-+
-+=09phys =3D <&pmiv0104_eusb2_repeater>;
-+
-+=09status =3D "okay";
-+};
+Why is this one not with the rest of the register addresses?
 
---=20
-2.53.0
+> +
+> +#define VL53L1X_MODE_START_TIMED	0x40
+> +#define VL53L1X_MODE_START_STOP		0x00
+> +
+> +#define VL53L1X_INT_NEW_SAMPLE_READY	0x02
+> +
+> +#define VL53L1X_GPIO_HV_MUX_POLARITY	BIT(4)
+> +
+> +#define VL53L1X_VHV_LOOP_BOUND_TWO	0x09
+> +
+> +#define VL53L1X_RANGE_STATUS_MASK	GENMASK(4, 0)
+> +#define VL53L1X_RANGE_STATUS_VALID	9
+> +
+> +#define VL53L1X_OSC_CALIBRATE_MASK	GENMASK(9, 0)
+> +
+> +/* Inter-measurement period uses PLL divider with 1.075 oscillator correction */
+> +static const struct u32_fract vl53l1x_osc_correction = {
+> +	.numerator = 1075,
+> +	.denominator = 1000,
+> +};
+> +
+> +enum vl53l1x_distance_mode {
+> +	VL53L1X_SHORT,
+> +	VL53L1X_LONG,
+> +};
+> +
+> +struct vl53l1x_data {
+> +	struct regmap *regmap;
+> +	struct completion completion;
+> +	struct regulator *vdd_supply;
+> +	struct reset_control *xshut_reset;
+> +	enum vl53l1x_distance_mode distance_mode;
+> +	u8 gpio_polarity;
+> +	int irq;
+> +};
+> +
+> +static const struct regmap_range vl53l1x_volatile_ranges[] = {
+> +	regmap_reg_range(VL53L1X_GPIO__TIO_HV_STATUS,
+> +			 VL53L1X_GPIO__TIO_HV_STATUS),
+> +	regmap_reg_range(VL53L1X_RESULT__RANGE_STATUS,
+> +			 VL53L1X_RESULT__RANGE_STATUS),
+> +	regmap_reg_range(VL53L1X_RESULT__FINAL_CROSSTALK_CORRECTED_RANGE_MM_SD0,
+> +			 VL53L1X_RESULT__FINAL_CROSSTALK_CORRECTED_RANGE_MM_SD0 + 1),
+> +	regmap_reg_range(VL53L1X_RESULT__OSC_CALIBRATE_VAL,
+> +			 VL53L1X_RESULT__OSC_CALIBRATE_VAL + 1),
+> +	regmap_reg_range(VL53L1X_FIRMWARE__SYSTEM_STATUS,
+> +			 VL53L1X_FIRMWARE__SYSTEM_STATUS),
+> +};
+> +
+> +static const struct regmap_access_table vl53l1x_volatile_table = {
+> +	.yes_ranges = vl53l1x_volatile_ranges,
+> +	.n_yes_ranges = ARRAY_SIZE(vl53l1x_volatile_ranges),
+> +};
+> +
+> +static const struct regmap_range vl53l1x_wr_only_ranges[] = {
+> +	regmap_reg_range(VL53L1X_SOFT_RESET, VL53L1X_SOFT_RESET),
+> +	regmap_reg_range(VL53L1X_SYSTEM__INTERRUPT_CLEAR,
+> +			 VL53L1X_SYSTEM__MODE_START),
+> +};
+> +
+> +static const struct regmap_access_table vl53l1x_readable_table = {
+> +	.no_ranges = vl53l1x_wr_only_ranges,
+> +	.n_no_ranges = ARRAY_SIZE(vl53l1x_wr_only_ranges),
+> +};
+> +
+> +static const struct regmap_config vl53l1x_regmap_config = {
+> +	.reg_bits = 16,
+> +	.val_bits = 8,
+> +	.max_register = VL53L1X_IDENTIFICATION__MODEL_ID + 1,
 
+Why + 1?
+
+> +	.cache_type = REGCACHE_MAPLE,
+> +	.volatile_table = &vl53l1x_volatile_table,
+> +	.rd_table = &vl53l1x_readable_table,
+> +};
+> +
+> +static int vl53l1x_read_u16(struct vl53l1x_data *data, u16 reg, u16 *val)
+> +{
+> +	__be16 buf;
+> +	int ret;
+> +
+> +	ret = regmap_bulk_read(data->regmap, reg, &buf, sizeof(buf));
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val = be16_to_cpu(buf);
+> +	return 0;
+> +}
+> +
+> +static int vl53l1x_write_u16(struct vl53l1x_data *data, u16 reg, u16 val)
+> +{
+> +	__be16 buf = cpu_to_be16(val);
+> +
+> +	return regmap_bulk_write(data->regmap, reg, &buf, sizeof(buf));
+> +}
+> +
+> +static int vl53l1x_write_u32(struct vl53l1x_data *data, u16 reg, u32 val)
+> +{
+> +	__be32 buf = cpu_to_be32(val);
+> +
+> +	return regmap_bulk_write(data->regmap, reg, &buf, sizeof(buf));
+> +}
+> +
+> +static int vl53l1x_clear_irq(struct vl53l1x_data *data)
+> +{
+> +	return regmap_write(data->regmap, VL53L1X_SYSTEM__INTERRUPT_CLEAR, 0x01);
+> +}
+> +
+> +static int vl53l1x_start_ranging(struct vl53l1x_data *data)
+> +{
+> +	int ret;
+> +
+> +	ret = vl53l1x_clear_irq(data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_write(data->regmap, VL53L1X_SYSTEM__MODE_START,
+> +			    VL53L1X_MODE_START_TIMED);
+> +}
+> +
+> +static int vl53l1x_stop_ranging(struct vl53l1x_data *data)
+> +{
+> +	return regmap_write(data->regmap, VL53L1X_SYSTEM__MODE_START,
+> +			    VL53L1X_MODE_START_STOP);
+> +}
+> +
+> +/*
+> + * Default configuration blob from ST's VL53L1X Ultra Lite Driver
+> + * (STSW-IMG009).
+> + */
+> +static const u8 vl53l1x_default_config[] = {
+> +	0x00, 0x00, 0x00, 0x01, 0x02, 0x00, 0x02, 0x08,	/* 0x2d..0x34 */
+> +	0x00, 0x08, 0x10, 0x01, 0x01, 0x00, 0x00, 0x00,	/* 0x35..0x3c */
+> +	0x00, 0xFF, 0x00, 0x0F, 0x00, 0x00, 0x00, 0x00,	/* 0x3d..0x44 */
+> +	0x00, 0x20, 0x0B, 0x00, 0x00, 0x02, 0x0A, 0x21,	/* 0x45..0x4c */
+> +	0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x00, 0xC8,	/* 0x4d..0x54 */
+> +	0x00, 0x00, 0x38, 0xFF, 0x01, 0x00, 0x08, 0x00,	/* 0x55..0x5c */
+> +	0x00, 0x01, 0xCC, 0x0F, 0x01, 0xF1, 0x0D, 0x01,	/* 0x5d..0x64 */
+> +	0x68, 0x00, 0x80, 0x08, 0xB8, 0x00, 0x00, 0x00,	/* 0x65..0x6c */
+> +	0x00, 0x0F, 0x89, 0x00, 0x00, 0x00, 0x00, 0x00,	/* 0x6d..0x74 */
+> +	0x00, 0x00, 0x01, 0x0F, 0x0D, 0x0E, 0x0E, 0x00,	/* 0x75..0x7c */
+> +	0x00, 0x02, 0xC7, 0xFF, 0x9B, 0x00, 0x00, 0x00,	/* 0x7d..0x84 */
+> +	0x01, 0x00, 0x00,				/* 0x85..0x87 */
+> +};
+
+What do the comments mean? register numbers?
+
+> +
+> +static int vl53l1x_chip_init(struct vl53l1x_data *data)
+> +{
+> +	struct device *dev = regmap_get_device(data->regmap);
+> +	unsigned int val;
+> +	u16 model_id;
+> +	int ret;
+> +
+> +	if (!data->xshut_reset) {
+> +		ret = regmap_write(data->regmap, VL53L1X_SOFT_RESET, 0x00);
+> +		if (ret)
+> +			return ret;
+> +		fsleep(100); /* conservative reset pulse, no spec */
+> +
+> +		ret = regmap_write(data->regmap, VL53L1X_SOFT_RESET, 0x01);
+> +		if (ret)
+> +			return ret;
+> +		fsleep(1000); /* conservative boot wait, no spec */
+> +	}
+> +
+> +	ret = regmap_read_poll_timeout(data->regmap,
+> +				       VL53L1X_FIRMWARE__SYSTEM_STATUS, val,
+> +				       val & BIT(0),
+> +				       1 * USEC_PER_MSEC,
+> +				       100 * USEC_PER_MSEC);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "firmware boot timeout\n");
+> +
+> +	ret = vl53l1x_read_u16(data, VL53L1X_IDENTIFICATION__MODEL_ID,
+> +			       &model_id);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (model_id != VL53L1X_MODEL_ID_VAL)
+> +		dev_info(dev, "unknown model id: 0x%04x, continuing\n", model_id);
+> +
+> +	ret = regmap_bulk_write(data->regmap, VL53L1X_DEFAULT_CONFIG_ADDR,
+> +				vl53l1x_default_config,
+> +				sizeof(vl53l1x_default_config));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_read(data->regmap, VL53L1X_GPIO_HV_MUX__CTRL, &val);
+> +	if (ret)
+> +		return ret;
+> +	data->gpio_polarity = !!(val & VL53L1X_GPIO_HV_MUX_POLARITY);
+> +
+> +	/* Initial ranging cycle for VHV calibration */
+> +	ret = vl53l1x_start_ranging(data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* 1ms poll, 1s timeout covers max timing budgets (per ST Ultra Lite Driver) */
+> +	ret = regmap_read_poll_timeout(data->regmap,
+> +				       VL53L1X_GPIO__TIO_HV_STATUS, val,
+> +				       (val & 1) != data->gpio_polarity,
+> +				       1 * USEC_PER_MSEC,
+> +				       1000 * USEC_PER_MSEC);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = vl53l1x_clear_irq(data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = vl53l1x_stop_ranging(data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(data->regmap,
+> +			   VL53L1X_VHV_CONFIG__TIMEOUT_MACROP_LOOP_BOUND,
+> +			   VL53L1X_VHV_LOOP_BOUND_TWO);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_write(data->regmap, VL53L1X_VHV_CONFIG__INIT, 0x00);
+> +}
+> +
+> +static const struct reg_sequence vl53l1x_mode_short[] = {
+> +	{ VL53L1X_PHASECAL_CONFIG__TIMEOUT_MACROP,	0x14 },
+> +	{ VL53L1X_RANGE_CONFIG__VCSEL_PERIOD_A,		0x07 },
+> +	{ VL53L1X_RANGE_CONFIG__VCSEL_PERIOD_B,		0x05 },
+> +	{ VL53L1X_RANGE_CONFIG__VALID_PHASE_HIGH,	0x38 },
+> +	{ VL53L1X_SD_CONFIG__WOI_SD0,			0x07 },
+> +	{ VL53L1X_SD_CONFIG__WOI_SD1,			0x05 },
+> +	{ VL53L1X_SD_CONFIG__INITIAL_PHASE_SD0,		0x06 },
+> +	{ VL53L1X_SD_CONFIG__INITIAL_PHASE_SD1,		0x06 },
+> +};
+> +
+> +static const struct reg_sequence vl53l1x_mode_long[] = {
+> +	{ VL53L1X_PHASECAL_CONFIG__TIMEOUT_MACROP,	0x0A },
+> +	{ VL53L1X_RANGE_CONFIG__VCSEL_PERIOD_A,		0x0F },
+> +	{ VL53L1X_RANGE_CONFIG__VCSEL_PERIOD_B,		0x0D },
+> +	{ VL53L1X_RANGE_CONFIG__VALID_PHASE_HIGH,	0xB8 },
+> +	{ VL53L1X_SD_CONFIG__WOI_SD0,			0x0F },
+> +	{ VL53L1X_SD_CONFIG__WOI_SD1,			0x0D },
+> +	{ VL53L1X_SD_CONFIG__INITIAL_PHASE_SD0,		0x0E },
+> +	{ VL53L1X_SD_CONFIG__INITIAL_PHASE_SD1,		0x0E },
+> +};
+> +
+> +static const struct {
+> +	const struct reg_sequence *regs;
+> +	size_t num_regs;
+> +} vl53l1x_mode_configs[] = {
+> +	[VL53L1X_SHORT] = { vl53l1x_mode_short, ARRAY_SIZE(vl53l1x_mode_short) },
+> +	[VL53L1X_LONG]  = { vl53l1x_mode_long, ARRAY_SIZE(vl53l1x_mode_long) },
+> +};
+> +
+> +static int vl53l1x_set_distance_mode(struct vl53l1x_data *data,
+> +				     enum vl53l1x_distance_mode mode)
+> +{
+> +	int ret;
+> +
+> +	if (mode >= ARRAY_SIZE(vl53l1x_mode_configs))
+> +		return -EINVAL;
+> +
+> +	ret = regmap_multi_reg_write(data->regmap,
+> +				     vl53l1x_mode_configs[mode].regs,
+> +				     vl53l1x_mode_configs[mode].num_regs);
+> +	if (ret)
+> +		return ret;
+> +
+> +	data->distance_mode = mode;
+> +	return 0;
+> +}
+> +
+> +/*
+> + * The timing budget controls how long the sensor spends collecting
+> + * a single range measurement. Pre-computed TIMEOUT_MACROP register
+> + * values from ST's VL53L1X Ultra Lite Driver.
+> + */
+> +static int vl53l1x_set_timing_budget(struct vl53l1x_data *data, u16 budget_ms)
+> +{
+> +	u16 timeout_a, timeout_b;
+> +	int ret;
+> +
+> +	switch (data->distance_mode) {
+> +	case VL53L1X_SHORT:
+> +		switch (budget_ms) {
+> +		case 15:
+> +			timeout_a = 0x001D;
+> +			timeout_b = 0x0027;
+> +			break;
+> +		case 20:
+> +			timeout_a = 0x0051;
+> +			timeout_b = 0x006E;
+> +			break;
+> +		case 33:
+> +			timeout_a = 0x00D6;
+> +			timeout_b = 0x006E;
+> +			break;
+> +		case 50:
+> +			timeout_a = 0x01AE;
+> +			timeout_b = 0x01E8;
+> +			break;
+> +		case 100:
+> +			timeout_a = 0x02E1;
+> +			timeout_b = 0x0388;
+> +			break;
+> +		case 200:
+> +			timeout_a = 0x03E1;
+> +			timeout_b = 0x0496;
+> +			break;
+> +		case 500:
+> +			timeout_a = 0x0591;
+> +			timeout_b = 0x05C1;
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +		break;
+> +	case VL53L1X_LONG:
+> +		switch (budget_ms) {
+> +		case 20:
+> +			timeout_a = 0x001E;
+> +			timeout_b = 0x0022;
+> +			break;
+> +		case 33:
+> +			timeout_a = 0x0060;
+> +			timeout_b = 0x006E;
+> +			break;
+> +		case 50:
+> +			timeout_a = 0x00AD;
+> +			timeout_b = 0x00C6;
+> +			break;
+> +		case 100:
+> +			timeout_a = 0x01CC;
+> +			timeout_b = 0x01EA;
+> +			break;
+> +		case 200:
+> +			timeout_a = 0x02D9;
+> +			timeout_b = 0x02F8;
+> +			break;
+> +		case 500:
+> +			timeout_a = 0x048F;
+> +			timeout_b = 0x04A4;
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	ret = vl53l1x_write_u16(data, VL53L1X_RANGE_CONFIG__TIMEOUT_MACROP_A,
+> +				timeout_a);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return vl53l1x_write_u16(data, VL53L1X_RANGE_CONFIG__TIMEOUT_MACROP_B,
+> +				 timeout_b);
+> +}
+> +
+> +static int vl53l1x_set_inter_measurement_ms(struct vl53l1x_data *data,
+> +					    u16 period_ms)
+> +{
+> +	u16 osc_calibrate_val;
+> +	u16 clock_pll;
+> +	u32 inter_meas;
+> +	int ret;
+> +
+> +	ret = vl53l1x_read_u16(data, VL53L1X_RESULT__OSC_CALIBRATE_VAL,
+> +			       &osc_calibrate_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	clock_pll = osc_calibrate_val & VL53L1X_OSC_CALIBRATE_MASK;
+> +	inter_meas = (clock_pll * period_ms * vl53l1x_osc_correction.numerator) /
+> +		     vl53l1x_osc_correction.denominator;
+> +
+> +	return vl53l1x_write_u32(data,
+> +				 VL53L1X_SYSTEM__INTERMEASUREMENT_PERIOD,
+> +				 inter_meas);
+> +}
+> +
+> +static int vl53l1x_read_proximity(struct vl53l1x_data *data, int *val)
+> +{
+> +	unsigned int range_status;
+> +	u16 distance;
+> +	int ret;
+> +
+> +	if (data->irq) {
+> +		reinit_completion(&data->completion);
+> +
+> +		ret = vl53l1x_clear_irq(data);
+> +		if (ret)
+> +			return ret;
+> +
+> +		if (!wait_for_completion_timeout(&data->completion, HZ))
+> +			return -ETIMEDOUT;
+> +	} else {
+> +		unsigned int rdy;
+> +
+> +		/* 1ms poll, 1s timeout covers max timing budgets (per ST Ultra Lite Driver) */
+> +		ret = regmap_read_poll_timeout(data->regmap,
+> +					       VL53L1X_GPIO__TIO_HV_STATUS, rdy,
+> +					       (rdy & 1) != data->gpio_polarity,
+> +					       1 * USEC_PER_MSEC,
+> +					       1000 * USEC_PER_MSEC);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	ret = regmap_read(data->regmap, VL53L1X_RESULT__RANGE_STATUS,
+> +			  &range_status);
+> +	if (ret)
+> +		goto clear_irq;
+> +
+> +	if (FIELD_GET(VL53L1X_RANGE_STATUS_MASK, range_status) !=
+> +	    VL53L1X_RANGE_STATUS_VALID) {
+> +		ret = -EIO;
+> +		goto clear_irq;
+> +	}
+> +
+> +	ret = vl53l1x_read_u16(data,
+> +			       VL53L1X_RESULT__FINAL_CROSSTALK_CORRECTED_RANGE_MM_SD0,
+> +			       &distance);
+> +	if (ret)
+> +		goto clear_irq;
+> +
+> +	*val = distance;
+> +
+> +clear_irq:
+> +	vl53l1x_clear_irq(data);
+> +	return ret;
+> +}
+> +
+> +static const struct iio_chan_spec vl53l1x_channels[] = {
+> +	{
+> +		.type = IIO_DISTANCE,
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> +				      BIT(IIO_CHAN_INFO_SCALE),
+> +		.scan_index = 0,
+> +		.scan_type = {
+> +			.sign = 'u',
+> +			.realbits = 16,
+> +			.storagebits = 16,
+> +		},
+> +	},
+> +	IIO_CHAN_SOFT_TIMESTAMP(1),
+> +};
+> +
+> +static int vl53l1x_read_raw(struct iio_dev *indio_dev,
+> +			    const struct iio_chan_spec *chan,
+> +			    int *val, int *val2, long mask)
+> +{
+> +	struct vl53l1x_data *data = iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	if (chan->type != IIO_DISTANCE)
+> +		return -EINVAL;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		if (!iio_device_claim_direct(indio_dev))
+> +			return -EBUSY;
+> +		ret = vl53l1x_read_proximity(data, val);
+> +		iio_device_release_direct(indio_dev);
+> +		if (ret)
+> +			return ret;
+> +		return IIO_VAL_INT;
+> +	case IIO_CHAN_INFO_SCALE:
+> +		*val = 0;
+> +		*val2 = 1000;
+> +		return IIO_VAL_INT_PLUS_MICRO;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static const struct iio_info vl53l1x_info = {
+> +	.read_raw = vl53l1x_read_raw,
+> +	.validate_trigger = iio_validate_own_trigger,
+> +};
+> +
+> +static irqreturn_t vl53l1x_trigger_handler(int irq, void *priv)
+> +{
+> +	struct iio_poll_func *pf = priv;
+> +	struct iio_dev *indio_dev = pf->indio_dev;
+> +	struct vl53l1x_data *data = iio_priv(indio_dev);
+> +	struct {
+> +		u16 distance;
+> +		aligned_s64 timestamp;
+> +	} scan = {};
+
+IIO style: { };
+
+> +	unsigned int range_status;
+> +	int ret;
+> +
+> +	ret = regmap_read(data->regmap, VL53L1X_RESULT__RANGE_STATUS,
+> +			  &range_status);
+> +	if (ret)
+> +		goto notify_and_clear_irq;
+> +	if (FIELD_GET(VL53L1X_RANGE_STATUS_MASK, range_status) !=
+> +		      VL53L1X_RANGE_STATUS_VALID)
+> +		goto notify_and_clear_irq;
+> +
+> +	ret = vl53l1x_read_u16(data,
+> +			       VL53L1X_RESULT__FINAL_CROSSTALK_CORRECTED_RANGE_MM_SD0,
+> +			       &scan.distance);
+> +	if (ret)
+> +		goto notify_and_clear_irq;
+> +
+> +	iio_push_to_buffers_with_timestamp(indio_dev, &scan,
+
+Use iio_push_to_buffers_with_ts().
+
+> +					   iio_get_time_ns(indio_dev));
+> +
+> +notify_and_clear_irq:
+> +	iio_trigger_notify_done(indio_dev->trig);
+> +	vl53l1x_clear_irq(data);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static irqreturn_t vl53l1x_irq_handler(int irq, void *priv)
+> +{
+> +	struct iio_dev *indio_dev = priv;
+> +	struct vl53l1x_data *data = iio_priv(indio_dev);
+> +
+> +	if (iio_buffer_enabled(indio_dev))
+> +		iio_trigger_poll(indio_dev->trig);
+> +	else
+> +		complete(&data->completion);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static int vl53l1x_buffer_postenable(struct iio_dev *indio_dev)
+> +{
+> +	struct vl53l1x_data *data = iio_priv(indio_dev);
+> +
+> +	return vl53l1x_start_ranging(data);
+> +}
+> +
+> +static int vl53l1x_buffer_predisable(struct iio_dev *indio_dev)
+> +{
+> +	struct vl53l1x_data *data = iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	ret = vl53l1x_stop_ranging(data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * Best-effort drain. Wait for any in-flight IRQ before clearing.
+> +	 * Ignoring timeout as device is shutting down anyway.
+> +	 */
+> +	reinit_completion(&data->completion);
+> +	wait_for_completion_timeout(&data->completion, HZ / 10);
+> +
+> +	return vl53l1x_clear_irq(data);
+> +}
+> +
+> +static const struct iio_buffer_setup_ops vl53l1x_buffer_setup_ops = {
+> +	.postenable = &vl53l1x_buffer_postenable,
+> +	.predisable = &vl53l1x_buffer_predisable,
+> +};
+> +
+> +static const struct iio_trigger_ops vl53l1x_trigger_ops = {
+> +	.validate_device = iio_trigger_validate_own_device,
+> +};
+> +
+> +static void vl53l1x_stop_ranging_action(void *_data)
+
+Why leading underscrore?
+
+> +{
+> +	vl53l1x_stop_ranging(_data);
+> +}
+> +
+> +static void vl53l1x_power_off(void *_data)
+> +{
+> +	struct vl53l1x_data *data = _data;
+> +
+> +	reset_control_assert(data->xshut_reset);
+> +	regulator_disable(data->vdd_supply);
+> +}
+> +
+> +static int vl53l1x_power_on(struct vl53l1x_data *data)
+> +{
+> +	int ret;
+> +
+> +	ret = regulator_enable(data->vdd_supply);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = reset_control_deassert(data->xshut_reset);
+> +	if (ret) {
+> +		regulator_disable(data->vdd_supply);
+> +		return ret;
+> +	}
+> +	/*
+> +	 * 1.2 ms max boot duration.
+> +	 * Datasheet Section 3.6 "Power up and boot sequence".
+> +	 */
+> +	fsleep(1200);
+> +
+> +	return 0;
+> +}
+> +
+> +static int vl53l1x_configure_irq(struct device *dev, int irq,
+> +				 struct iio_dev *indio_dev)
+> +{
+> +	struct vl53l1x_data *data = iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	ret = devm_request_irq(dev, irq, vl53l1x_irq_handler, IRQF_NO_THREAD,
+> +			       indio_dev->name, indio_dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(data->regmap, VL53L1X_SYSTEM__INTERRUPT_CONFIG_GPIO,
+> +			   VL53L1X_INT_NEW_SAMPLE_READY);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to configure IRQ\n");
+> +
+> +	return 0;
+> +}
+> +
+> +static int vl53l1x_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct vl53l1x_data *data;
+> +	struct iio_dev *indio_dev;
+> +	int ret;
+> +
+> +	if (!i2c_check_functionality(client->adapter,
+> +				     I2C_FUNC_SMBUS_READ_I2C_BLOCK |
+> +				     I2C_FUNC_SMBUS_BYTE_DATA))
+> +		return -EOPNOTSUPP;
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	data = iio_priv(indio_dev);
+> +	data->irq = client->irq;
+> +
+> +	data->regmap = devm_regmap_init_i2c(client, &vl53l1x_regmap_config);
+> +	if (IS_ERR(data->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
+> +				     "regmap initialization failed\n");
+> +
+> +	/*
+> +	 * vdd-supply is required in the DT binding but we
+> +	 * continue if it is missing to support older DTs.
+> +	 */
+> +	data->vdd_supply = devm_regulator_get(dev, "vdd");
+> +	if (IS_ERR(data->vdd_supply))
+> +		return dev_err_probe(dev, PTR_ERR(data->vdd_supply),
+> +				     "Unable to get VDD regulator\n");
+> +
+
+This should have some explanation of why we consider the XSHUT pin as reset
+instead of power management. It looks like we are using it for power management
+anyway, so strange to use reset interface for that.
+
+AFAIKT, XSHUT will put the chip in standby mode rather than reset it. But it isn't
+clear if all registers need to be reporgrammed after coming out of standby. If that
+is the case, then calling it a reset can make sense.
+
+> +	data->xshut_reset = devm_reset_control_get_optional_exclusive(dev, NULL);
+> +	if (IS_ERR(data->xshut_reset))
+> +		return dev_err_probe(dev, PTR_ERR(data->xshut_reset),
+> +				     "Cannot get reset control\n");
+> +
+> +	ret = vl53l1x_power_on(data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to power on the chip\n");
+> +
+> +	ret = devm_add_action_or_reset(dev, vl53l1x_power_off, data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = vl53l1x_chip_init(data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = vl53l1x_set_distance_mode(data, VL53L1X_LONG);
+> +	if (ret)
+> +		return ret;
+> +
+
+Can we get a comment explaining why 50 is chose for default value?
+
+> +	ret = vl53l1x_set_timing_budget(data, 50);
+> +	if (ret)
+> +		return ret;
+> +
+
+And here.
+
+> +	ret = vl53l1x_set_inter_measurement_ms(data, 50);
+> +	if (ret)
+> +		return ret;
+
+Could make sense to move these into vl53l1x_chip_init() so that probe isn't so long.
+
+> +
+> +	ret = vl53l1x_start_ranging(data);
+> +	if (ret)
+> +		return ret;
+
+Why start ranging here? It looks like this is controlled during buffer
+enable/disable.
+
+> +
+> +	ret = devm_add_action_or_reset(dev, vl53l1x_stop_ranging_action, data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	indio_dev->name = "vl53l1x";
+> +	indio_dev->info = &vl53l1x_info;
+> +	indio_dev->channels = vl53l1x_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(vl53l1x_channels);
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +
+> +	if (client->irq) {
+> +		struct iio_trigger *trig;
+> +
+> +		init_completion(&data->completion);
+> +
+> +		trig = devm_iio_trigger_alloc(dev, "%s-dev%d", indio_dev->name,
+> +					      iio_device_id(indio_dev));
+> +		if (!trig)
+> +			return -ENOMEM;
+> +
+> +		trig->ops = &vl53l1x_trigger_ops;
+> +		iio_trigger_set_drvdata(trig, indio_dev);
+> +		ret = devm_iio_trigger_register(dev, trig);
+> +		if (ret)
+> +			return ret;
+> +
+> +		indio_dev->trig = iio_trigger_get(trig);
+> +
+> +		ret = vl53l1x_configure_irq(dev, client->irq, indio_dev);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = devm_iio_triggered_buffer_setup(dev, indio_dev, NULL,
+> +						      &vl53l1x_trigger_handler,
+> +						      &vl53l1x_buffer_setup_ops);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+> +
+> +static const struct i2c_device_id vl53l1x_id[] = {
+> +	{ "vl53l1x" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, vl53l1x_id);
+> +
+> +static const struct of_device_id st_vl53l1x_dt_match[] = {
+> +	{ .compatible = "st,vl53l1x" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, st_vl53l1x_dt_match);
+> +
+> +static struct i2c_driver vl53l1x_driver = {
+> +	.driver = {
+> +		.name = "vl53l1x-i2c",
+> +		.of_match_table = st_vl53l1x_dt_match,
+> +	},
+> +	.probe = vl53l1x_probe,
+> +	.id_table = vl53l1x_id,
+> +};
+> +module_i2c_driver(vl53l1x_driver);
+> +
+> +MODULE_AUTHOR("Siratul Islam <email@sirat.me>");
+> +MODULE_DESCRIPTION("ST VL53L1X ToF ranging sensor driver");
+> +MODULE_LICENSE("Dual BSD/GPL");
 
