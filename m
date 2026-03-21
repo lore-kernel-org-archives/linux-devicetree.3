@@ -1,116 +1,142 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0441B2E63C;
-	Sat, 21 Mar 2026 09:27:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463CD2D73BC
+	for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 09:29:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774085231; cv=none; b=S4l7RpHlFGUwmhkZlwof3iV/AtkoL/fGsF0kkX7+RwC+9W1YKNk4CN2JFyaX4oG0R8n2vXnLRb/s5WHRFhUxLncc4oG6zfe6PTymxQQhSSj0OGJx5aA28CmBK8fIpk324WVyKIDDMd6wVDfxuM8xhA6eMLdJ0F936L43JD6XOPY=
+	t=1774085369; cv=none; b=I8i3AsUAt/mZYqySx68vgckNgLEMaAy1mRKXPdSXA0z/vgba4PXb5MO7Vrjoi3b0gmdVFprWEDrlO9PCTER2cKAxS7THYIBjBXFQPTo/KM83354wKz2ZxJ9Z/D1H/zgvT5n4DJ1fuat/le3losHn9up8/eBQKfbDTZXGaDJMxDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774085231; c=relaxed/simple;
-	bh=qwCIjge7tgqU1rnbCpHv4DaFKFvWe3Z+9plP04qelXI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OgEhHNBVqORGykoWCmk2ktGCHwXSU4DlXYjLutXJ670IkkPDXSBM60QnMDl4e4P71mHGMop3AXTyDuqGjKqECIkRrL6nkycn9e4i1TBUHN4DUOnKa4AMQwlhw1bOfpEd00T5pSr91GRQjVDMJR1sCHwv0Ob7b/zT9s3mQPYM4+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.202])
-	by APP-01 (Coremail) with SMTP id qwCowAA33mnjYr5p3aWyCg--.465S4;
-	Sat, 21 Mar 2026 17:20:39 +0800 (CST)
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>
-Cc: Icenowy Zheng <uwu@icenowy.me>,
-	Yao Zi <me@ziyao.cc>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: [PATCH v4 2/6] LoongArch: Override arch_dynirq_lower_bound to reserve LPC IRQs
-Date: Sat, 21 Mar 2026 17:20:28 +0800
-Message-ID: <20260321092032.3502701-3-zhengxingda@iscas.ac.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260321092032.3502701-1-zhengxingda@iscas.ac.cn>
-References: <20260321092032.3502701-1-zhengxingda@iscas.ac.cn>
+	s=arc-20240116; t=1774085369; c=relaxed/simple;
+	bh=S76NDo7G9Fif+GinmDfkE9jIRA07xbZsaoS12azmLJM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y/G/pZwBKZwNIElMDfuK8vP1qXge6YLx7J/yVvOHaCzLUXLJWyVdXdoM04nM960zYu5/oNdaZMkCYdYkEFhjWPhG8VUvwtImlEOEFzose50gkwDvWMBKItHjL4r8PQYBwB3rbECzNkW1XnOB6uUGazZDhmHVwLCvHNtF+YSeqro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Qa5jZhGo; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Qa5jZhGo"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-486fe655187so18794025e9.2
+        for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 02:29:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1774085366; x=1774690166; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Ae7LdzXoquAOXrOj2DhIoBLAnNhW7bM3mjCSYPOvKpw=;
+        b=Qa5jZhGoBzv8mKNdXKLgDg3ssv8RCgmEqOFvoJwu4y1J8EWO4jP2bjkkhPAEdyH48i
+         19Spxdia9k11zidlGV76vgL9cDIvNKalbI17gc6LjGztefJ9PpSBKA+EOWK/Ms9V5N6D
+         ptGxoIQxuolPCiXKb+zl4Uc+QxDoCGcmKW7KyOy3sIpi1e2eN2yyfWR5uC3Wz+2o41vY
+         65bCiwVjvhqLFK+GvTni/MIaJyd9GN4Ka8ysfIM2doWKGU8okJCK1iTmUSXp3AUFTsEq
+         hYLtKVS0RTj5BoA3UIqydAUlMTpjYcFOnjvJE2E0hQB7SB9WPZ7h1GXB51HAvUca9KkA
+         vMQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774085366; x=1774690166;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Ae7LdzXoquAOXrOj2DhIoBLAnNhW7bM3mjCSYPOvKpw=;
+        b=XtkUOg+aUeG6oDr1GLxeXvD9ek76DWfXmdNaQeqogumqt07zUHnT37Fqje2jJs03oc
+         wSBQWeuCZ4Xik42SKPM0NOIS9sRnJ4fkb27M/mOb9ZbHSkg2MAXyisl36JvVoi9W3I6+
+         rwask6mLsKONQaK7/6kBBpki6aqoobYqHWT3aIktxLuhUuwimQeNPzkvnv3Cb7Ew9+7o
+         oYwKKzPpFFGXYy6NuTh5UciHBAsPppr+M6UOVQcPHKsWH08pD94QfIQFuNQNKuGtKqyv
+         iGuCb0rv2FiMkrIVzb/8e1x2CEn245eQVS4VaORus9SWdW8gWhw/wySpOWnabDDtuIZB
+         rA3Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUXwyFs7Bwn7w391f6gJ0LMmpwJkPVi85RX3aBQ9PMFRaOopeH1zMVo3fHnXvwbdJ+qnE9s4Kv4wu5B@vger.kernel.org
+X-Gm-Message-State: AOJu0Yziri8/GvmSXTn+xbECfB85qqR1E8siEMuNLgG15S3x3Uyl0rf6
+	9Qf5KnTPI8EEjnNN66PFXw3UKxL+jNY6d/mrT7mlW1DMBNY+a2nmzKQvnpKlEo8IZNI=
+X-Gm-Gg: ATEYQzwiyuiFhZAhpMPhn58Pva1knCLOWM39RXdVECuYjLHxDnb+MmTTdJAKZaVphHT
+	BAq7eKsemadF7W9OUGwScgEqJGMLo9f/jyHh/O1NjEog7ev1EW/6ySAsQTn0F90if08dO9RcfHw
+	mjiCPxYWD0IhdSvWf4Trlb9DmKHbzkU0jHr4wZ4/jV/yb2ASKT8aDPaU+/xstQf9Jxk0A/fzQ8d
+	R6LY5+p83MIiGiUpifhUnRldpwrD3wiwr8c2WUNwbCsTD6xMb3pmjCDv/ewlO61ib3L/OGG6HnQ
+	bX+VMdFTZxkSRzpHHf48tixvc7agaOAkyqlTI56gVtfAJdk9kqkaJGuqiYMtqvYgtyugBqx3HVU
+	e2FIJ1+6rmAfNX/Z9OkI6S2gCir+RYn2n3au67d+tEf5kv5FGDCvFlC2OP9eF41SZXfQnXj0Avv
+	Wwq6HHEcu5620EAFbq0X4W6eHlMvBe5ynsyIPjVHH9aJaz5Xh7TpcOAzflcb/r8O2RJuAl5WoFu
+	CqaqeSs4fyDNaix8t13RXIcZkj0mxxpum8z+ZY=
+X-Received: by 2002:a05:600c:3490:b0:487:300:d9ca with SMTP id 5b1f17b1804b1-4870300db54mr37516295e9.31.1774085365366;
+        Sat, 21 Mar 2026 02:29:25 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:81c2:60b3:ff00:9a5e? ([2a01:e0a:106d:1080:81c2:60b3:ff00:9a5e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-486fc61dd4asm160430305e9.14.2026.03.21.02.29.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 21 Mar 2026 02:29:24 -0700 (PDT)
+Message-ID: <c1b4cd6d-2b08-4f0d-9b87-4dd163cad334@linaro.org>
+Date: Sat, 21 Mar 2026 10:29:22 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: usb: document the Renesas
+ UPD720201/UPD720202 USB 3.0 xHCI Host Controller
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260319-topic-sm8650-ayaneo-pocket-s2-upd-bindings-v1-1-84e4ef564022@linaro.org>
+ <20260321070919.1687f991.michal.pecio@gmail.com>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260321070919.1687f991.michal.pecio@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowAA33mnjYr5p3aWyCg--.465S4
-X-Coremail-Antispam: 1UD129KBjvJXoW7WryrCFyfXFW5ZrW5ZF4UXFb_yoW8WFy8pF
-	ZF9F4qqr4rGrWUX3W5Aw1Fvr98Aa4kWw17u3ZFv34xZrnFqr1vgwn5XF93XFy0g39Ygayj
-	9F1fuayYgFWDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUm014x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
-	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM2
-	8EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS
-	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
-	IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
-	Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
-	xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
-	JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
-	kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY
-	6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0x
-	vEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVj
-	vjDU0xZFpf9x0JUQXo7UUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Loongson 7A PCH chips all contain a LPC controller, which is used in
-some devices to connect legacy ISA devices (e.g. 8259 PS/2 controller).
+Le 21/03/2026 à 07:09, Michal Pecio a écrit :
+> On Thu, 19 Mar 2026 09:49:32 +0100, Neil Armstrong wrote:
+>> Document the Renesas UPD720201/UPD720202 USB 3.0 xHCI Host Controller,
+>> which connects over PCIe and requires specific power supplies to
+>> start up.
+>>
+>> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> ---
+>> - [1] https://lore.kernel.org/all/20260220-topic-sm8650-ayaneo-pocket-s2-base-v5-1-1ad79caa1efa@linaro.org/
+>> ---
+>>   .../bindings/usb/renesas,upd720201-pci.yaml        | 61 ++++++++++++++++++++++
+>>   1 file changed, 61 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/usb/renesas,upd720201-pci.yaml b/Documentation/devicetree/bindings/usb/renesas,upd720201-pci.yaml
+>> new file mode 100644
+>> index 000000000000..8b8be572c930
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/usb/renesas,upd720201-pci.yaml
+>> @@ -0,0 +1,61 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/usb/renesas,upd720201-pci.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: UPD720201/UPD720202 USB 3.0 xHCI Host Controller (PCIe)
+>> +
+>> +maintainers:
+>> +  - Neil Armstrong <neil.armstrong@linaro.org>
+>> +
+>> +description:
+>> +  UPD720201 USB 3.0 xHCI Host Controller via PCIe x1 Gen2 interface.
+>> +  The UPD720202 supports up to two downstream ports, while UPD720201
+>> +  supports up to four downstream USB 3.0 rev1.0 ports.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: pci1912,0014
+> 
+> Hi,
+> 
+> AFAIK that's the ID of uPD720201, while uPD720202 is 0015.
+> At least that's the case with mine and what hwdata says.
 
-The LPC irqchip driver will register LPC interrupts at the fixed range
-0~15, and the PCH PIC irqchip driver uses dynamic allocation. However the
-LPC interrupt numbers are currently not exempted from dynamic allocation.
+Thanks for the feedback, I'll add 0015 aswell to cover both.
 
-The currently setup work by accident because the LPC interrupt controller
-is the first consumer of PIC interrupt controller, and the PIC interrupt
-number is allocated after LPC interrupts are registered. Such setup is
-fragile and will stop to work when the LPC irqchip driver is reworked.
+Neil
 
-Override arch_dynirq_lower_bound() to reserve LPC interrupts from dynamic
-allocation, to prevent interrupt number collision and allow rework of the
-LPC irqchip driver.
-
-Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
----
- arch/loongarch/kernel/irq.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/arch/loongarch/kernel/irq.c b/arch/loongarch/kernel/irq.c
-index 80946cafaec1b..7bf68a7a5f4b3 100644
---- a/arch/loongarch/kernel/irq.c
-+++ b/arch/loongarch/kernel/irq.c
-@@ -11,6 +11,7 @@
- #include <linux/irqchip.h>
- #include <linux/kernel_stat.h>
- #include <linux/proc_fs.h>
-+#include <linux/minmax.h>
- #include <linux/mm.h>
- #include <linux/sched.h>
- #include <linux/seq_file.h>
-@@ -99,6 +100,11 @@ int __init arch_probe_nr_irqs(void)
- 	return NR_IRQS_LEGACY;
- }
- 
-+unsigned int arch_dynirq_lower_bound(unsigned int from)
-+{
-+	return MAX(from, NR_IRQS_LEGACY);
-+}
-+
- void __init init_IRQ(void)
- {
- 	int i;
--- 
-2.52.0
+> 
+> Regards,
+> Michal
 
