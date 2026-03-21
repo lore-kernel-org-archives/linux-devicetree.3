@@ -1,96 +1,86 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD73230D0F;
-	Sat, 21 Mar 2026 18:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7502C028F;
+	Sat, 21 Mar 2026 19:08:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774119575; cv=none; b=O8cQTkVfehCmFyWZ3kE7sGQWJnn3pal9VD7MPFYXtclHLvawoEJBjwysumYbb342wkj1eNVygwq6lEw5bv6Pf+J3H4iwRN6T9zPXE+2HH347irh/KYBYa8O9lU17RZjfasLUWgbM7x18cposagKMAa3q9MeBccKs54PW7Jc0hKc=
+	t=1774120111; cv=none; b=d6OMKm2GoOtB+eKDVYVDk7K28fLjMJjxLzNSFFK+KffG8YbOcj87zZlx37/zUN6V2AetmJYugHXsVMobIaNVemtDHc1Ks0E4EVly7NGNHWwOdGm2QaLRHNJKhxgWkbqUB6dfNoMtQO8nDVYDzfNNnjDHTTh2MNDpy8NhA/CyZMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774119575; c=relaxed/simple;
-	bh=EM6B7KnMN6pN6Wls9p1SUSWPPyrTsIdsGAx/ocLn7HQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Jbv/1RJWHEj9k8WqB9+LUZoxALNkqZmBVTGmngjsvc/E1wgfl2FhcT9j3AgxdeUKIohqTFVFcR6IPkIFvEukEh6jh4LvU+9Zl6CIq+YL3kYZT/RowPuA2pn4I48+41LPtWpu3N0TYKWAwzAjPSTmCsIKHnQmVEOLxFcjiDlFbQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=meaJgqlb; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1774120111; c=relaxed/simple;
+	bh=i+n5BYlC998eUMCDEUHIOCONz51rAsy6uCcchchBzqE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=M1bC+eIpae8Yu+oRHIgGS84zyjGk7hq7KykB/mBDbFirirAXj4sUgVpsprAVSeNseiMoMNPfHoEONsVa3egogweiIpvrS/5UmxjaOFTwR/nocydA87eJt7JnIaAw8DPZb8i4auO5ZBiIP9gGWtZQ9/4+rvi1s6+49eH+gKyN8QE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gQNF6eOg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="meaJgqlb"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4fdTJ145HPz9tGC;
-	Sat, 21 Mar 2026 19:59:29 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1774119569;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0xwK9Zdkdfh44gOBfUOaVfMU+aaMqtJrGLBYJa23K74=;
-	b=meaJgqlbolEuvmHGIHra8HUWlrSHpaxTFAEadGnZoxHDBoApLWSanP2pVNXhlqSotsmjL9
-	a3o2Xi/sdGP4ZNIM9NSYYY75NMvAj/uIdbsr3gPWqPvWoqo+ddNz6sP86qR67guQAMo7R6
-	Znk8tEVfyl07N9Fv2YSlwOZwmRlCZySlYNjHLnD91q1bl8T/tktq+xSf0Iz/mIHLadBMNr
-	4OifFDilDDEfzN30Uh1gJmBQsqsbWx7cTZtv5JipXl3P8BH3kvuWWqGn6Vb+9vcNdWy3W9
-	qNd7x+0waoi5vCsukAy668kuG4WxLwBzyH64PCdBZHYj6ZPIbwZVXfAaPHOLng==
-Message-ID: <b47b7fb0-4859-41f7-810d-b9ad59934db2@mailbox.org>
-Date: Sat, 21 Mar 2026 19:59:25 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gQNF6eOg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2235C19421;
+	Sat, 21 Mar 2026 19:08:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774120110;
+	bh=i+n5BYlC998eUMCDEUHIOCONz51rAsy6uCcchchBzqE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=gQNF6eOgfO/HGVHo0juagK/nurElyTfPcckbYXRXurZB7e60dh4hZ0UALB7W7Rni3
+	 9+13U3C348/kWlFQanzYAfyqhH52fgEdOUeIgFrViI8WfLOwOMSkFCGLehMZ/lEheH
+	 AnAnI+3lu5NkdPEGlgLNkvBZ7zQW41EX0ILIr05DX76h092XxZyBOgLeH148e5jblP
+	 HLwnfHMn7SPrA+jJVqwH1CVa0QCNcOBWtjWZLLHMgX77+OQ8y5BZrys14jBO/HNcXt
+	 chyL8wn4+bJVibLNQdjko6r+N/p9jUo1qwUyFxHToY2FZNhLh/uVGIm48p3dO/PtTZ
+	 d/ljUBVXSUwlQ==
+Date: Sat, 21 Mar 2026 19:08:20 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jonathan Santos <Jonathan.Santos@analog.com>
+Cc: <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <lars@metafoo.de>,
+ <Michael.Hennerich@analog.com>, <cosmin.tanislav@analog.com>,
+ <dlechner@baylibre.com>, <nuno.sa@analog.com>, <andy@kernel.org>,
+ <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>
+Subject: Re: [PATCH v2 5/5] iio: adc: ad4130: add new supported parts
+Message-ID: <20260321190820.5c868cc6@jic23-huawei>
+In-Reply-To: <9295ce0b3376481bf8530d1c53bb77a70e8761d1.1773311639.git.Jonathan.Santos@analog.com>
+References: <cover.1773311639.git.Jonathan.Santos@analog.com>
+	<9295ce0b3376481bf8530d1c53bb77a70e8761d1.1773311639.git.Jonathan.Santos@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [net-next,PATCH v3 3/3] net: phy: realtek: Add property to enable
- SSC
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
- Aleksander Jan Bajkowski <olek2@wp.pl>, Andrew Lunn <andrew@lunn.ch>,
- Conor Dooley <conor+dt@kernel.org>, Eric Dumazet <edumazet@google.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Heiner Kallweit <hkallweit1@gmail.com>, Ivan Galkin <ivan.galkin@axis.com>,
- Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Michael Klein <michael@fossekall.de>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Russell King <linux@armlinux.org.uk>,
- devicetree@vger.kernel.org
-References: <20251218173718.12878-1-marek.vasut@mailbox.org>
- <20251218173718.12878-3-marek.vasut@mailbox.org>
- <a37be87a-e1aa-443a-9005-da62e4f51d63@mailbox.org>
- <d6c83860-85ba-4a99-b2ab-486ad040ea55@mailbox.org>
- <20260228110257.bowskqkl3ujv3ri6@skbuf>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20260228110257.bowskqkl3ujv3ri6@skbuf>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: 4474442b20a2512b3a0
-X-MBO-RS-META: hhy8us7hhfn4jt5yn413w67cefm4p7jz
 
-On 2/28/26 12:02 PM, Vladimir Oltean wrote:
-> On Sat, Feb 28, 2026 at 04:57:25AM +0100, Marek Vasut wrote:
->> On 2/4/26 3:25 PM, Marek Vasut wrote:
->>> On 12/18/25 6:36 PM, Marek Vasut wrote:
->>>> Add support for spread spectrum clocking (SSC) on RTL8211F(D)(I)-CG,
->>>> RTL8211FS(I)(-VS)-CG, RTL8211FG(I)(-VS)-CG PHYs. The implementation
->>>> follows EMI improvement application note Rev. 1.2 for these PHYs.
->>>>
->>>> The current implementation enables SSC for both RXC and SYSCLK clock
->>>> signals. Introduce DT properties 'realtek,clkout-ssc-enable',
->>>> 'realtek,rxc-ssc-enable' and 'realtek,sysclk-ssc-enable' which control
->>>> CLKOUT, RXC and SYSCLK SSC spread spectrum clocking enablement on these
->>>> signals.
->>>>
->>>> Signed-off-by: Marek Vasut <marek.vasut@mailbox.org>
->>> Is there anything that should be adjusted in these patches ?
->>
->> How can we proceed here ?
-> 
-> The state in Patchwork is Deferred. You were told that you submitted the
-> series in the merge window.
-> https://patchwork.kernel.org/project/netdevbpf/patch/20251218173718.12878-1-marek.vasut@mailbox.org/
-> 
-> It won't be applied as is (needs to be build-tested again on v7.0-rc...),
-> so please resend.
+On Mon, 16 Mar 2026 08:45:45 -0300
+Jonathan Santos <Jonathan.Santos@analog.com> wrote:
 
-I now sent V4.
+> Add support for AD4129-4/8, AD4130-4, and AD4131-4/8 variants.
+> 
+> The AD4129 series supports the same FIFO interface as the AD4130 but with
+> reduced resolution (16-bit). The AD4131 series lacks FIFO support, so
+> triggered buffer functionality is introduced.
+> 
+> The 4-channel variants feature fewer analog inputs, GPIOs, and sparse pin
+> mappings for VBIAS, analog inputs, and excitation currents. The driver now
+> handles these differences with chip-specific configurations, including pin
+> mappings and GPIO counts.
+> 
+> Signed-off-by: Jonathan Santos <Jonathan.Santos@analog.com>
+Just one additional comment below.  Given it is either fifo or the other
+path can we share physical storage for the two?
+
+>  	 * DMA (thus cache coherency maintenance) requires any transfer
+> @@ -324,6 +395,9 @@ struct ad4130_state {
+>  	u8			fifo_tx_buf[2];
+>  	u8			fifo_rx_buf[AD4130_FIFO_SIZE *
+>  					    AD4130_FIFO_MAX_SAMPLE_SIZE];
+> +
+> +	/* Triggered buffer data with timestamp */
+> +	IIO_DECLARE_DMA_BUFFER_WITH_TS(u32, scan_channels, AD4130_MAX_CHANNELS);
+Could we put this in a union with some of the fifo stuff given it seems
+to always be a case of using one or the other?
+
+We are already in an area that should be safe for dma due to the aligned
+marking some lines up. So to overlap you'd need to use the IIO_DECLARE_BUFFER_WITH_TS()
+macro that doesn't force the alignment.
+
+>  };
+
