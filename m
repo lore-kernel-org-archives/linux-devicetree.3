@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35E514A60F;
-	Sat, 21 Mar 2026 09:58:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE7340DFB0;
+	Sat, 21 Mar 2026 10:00:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774087083; cv=none; b=Owm55x2onAN4EqWdNZnMY+u7RnJyqGZ5OaQh1wbCUx7Eji7LqOIORyep3v57Hc/Yj7R1Gm8VYikbLeJpcJvwFnl6yQkL89Ar3uM81hDhwsDGEj7lgm3KZbeM2dyiHlnLb6mP+GPQ53i4/SCfJY7LtBkrrVCLVKv9/9xrxavaGc0=
+	t=1774087225; cv=none; b=thdG8KffQTnZRJkvkPreMxk5IH7Egqbf3sNVLdS2Ussz33WDuoYDk9YeOwPT4rlDTYgEW6BQLT1AR9lu8JlJOlHqcKHs6SjrgCfizSAUiP8PTYd2P0rIggOC+vH3UDgeZhOchtbebpvJnY+MP0/kvFr21FR4pQYxNhtG6nDmfH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774087083; c=relaxed/simple;
-	bh=acFSinWfNvSYJp+8GmwPTFh0BrSf11q7DV1RqfnS0U8=;
+	s=arc-20240116; t=1774087225; c=relaxed/simple;
+	bh=Kb974ZkNTfjOEet/Vg6UwvvagVCTUeeUHmntE6yBEJE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nG5YsRZmP31rFkVQ5jdim6IEpk4yVrBw3RL14jgA48nHTnfy4rMq5A/chT6hfrX0+Au6iRZ/KmJg1owFSYf2kezjxq2mUyEa9iStAErrzsEGzCW/0aBHbaka9dQyu8rAwE6hu0nP7lmdIRgWTnMKdKHkoPzwNn0zVlwlQGVTsIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qsl7Tg2Z; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=cAusy83iUFDpVm4lPc06EfjINSB69yNER+tFoi8lQVdL1xNHc4fk7xtWMKa1v57KW6OXmNA2nqkx+q3euLJTrAU7CT/ysdIzwAwr81UX5qEwdeLouBKzxVfWWqt/9omzNJidFvXO34uWCRk18Q2MPjYOV0tmhL4G0vSmONjF9Xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f3MFA5LF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qsl7Tg2Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79E59C2BCB1;
-	Sat, 21 Mar 2026 09:58:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f3MFA5LF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1317DC19421;
+	Sat, 21 Mar 2026 10:00:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774087083;
-	bh=acFSinWfNvSYJp+8GmwPTFh0BrSf11q7DV1RqfnS0U8=;
+	s=k20201202; t=1774087224;
+	bh=Kb974ZkNTfjOEet/Vg6UwvvagVCTUeeUHmntE6yBEJE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qsl7Tg2ZIRNs+marIXZYh84bX4Rcv/ClXciPi4k7H363j12atus/KB+ZvJtZLz8zu
-	 XouT2EhzM0a/mmxEkXuR4dqtbId/Um1L/JJ+CmriR2MDS7LmcJTyMJ1C0fNtkEB5B8
-	 pmuTRbMw2d9O88p+Cdx+5rUaVQEx3w0cEEYxhU9Q+2Radl0EcJzXYANIpdkdpvifDb
-	 rGXRCsVf6lPPnRaHdTZwh92sjj56QM4GFdPEGU3Ks6mznYVJ9pCcNHVRpGWY50bevL
-	 ILO3xdCLMak0tXRXoZ7zS27xbPevNr9Yk9c6bpDgTdrxd0eBQIhH1VInTcQ3Eu16q2
-	 u9w4srANzeMHA==
-Message-ID: <758532a6-990a-43aa-8ffa-ef132641a28c@kernel.org>
-Date: Sat, 21 Mar 2026 10:58:01 +0100
+	b=f3MFA5LFmfYk7WVizXC6/6RI4TRVxI9PwKF64/BEm0bqWFwnI4MfpYHwWymzCAn3H
+	 cXCXeebGImPp6U3T1a52risiPVw3iMWAq8PgkjDWMNLRZohnqDAytQwT+rZDUDHNTQ
+	 p07OX7wKi+Fsnm3l5E5MqikNO4FjI0OYktBRuwFftFdrDIN946JMk9NdVohVL6tkCb
+	 1FT8hq/Q4Fyt4hI/mbQyny+cwScD4GNOVMFSb0LP4NbYjOEabZN9RgWrmgVWR5292i
+	 O8zmLsecA+lHa8DPfMptg/OwbNjYbq7qTlm0rRRmesS16+waJuScm20GukF9vvlIk+
+	 jWWc3hzqWdP+A==
+Message-ID: <66396d68-19e4-45eb-9ffa-af1215c8590e@kernel.org>
+Date: Sat, 21 Mar 2026 11:00:20 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,20 +35,16 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/8] dt-bindings: i2c: realtek,rtl9301-i2c: extend for
- RTL9607C support
-To: Rustam Adilov <adilov@disroot.org>
-Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>,
- Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260319175753.32338-1-adilov@disroot.org>
- <20260319175753.32338-8-adilov@disroot.org>
- <20260320-serious-noisy-ladybug-bad92b@quoll>
- <c87523f2741687c6037c4b7b54d72dba@disroot.org>
- <3cfcf811-94f9-4ab4-af5c-d589d696f843@kernel.org>
- <623240c8b1bf7a9f390c5c0e9de0f8c5@disroot.org>
+Subject: Re: [PATCH v6 1/2] dt-bindings: iio: proximity: add ST VL53L1X ToF
+ sensor
+To: Sirat <email@sirat.me>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, jic23@kernel.org,
+ dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org
+References: <20260319190738.151614-1-email@sirat.me>
+ <20260319190738.151614-2-email@sirat.me>
+ <c59cfc77-b49a-48c4-b975-026ccd3be31a@kernel.org>
+ <CANn+LW+zdT-kHN-SyHeogEk9FdsaXYkkobia=Tn9-FQmVv2nOw@mail.gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -94,30 +90,59 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <623240c8b1bf7a9f390c5c0e9de0f8c5@disroot.org>
+In-Reply-To: <CANn+LW+zdT-kHN-SyHeogEk9FdsaXYkkobia=Tn9-FQmVv2nOw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21/03/2026 07:06, Rustam Adilov wrote:
->>>
->>> Would changing the commit message to something similar in vein to [1] be better?
->>>
->>> [1] - https://lore.kernel.org/linux-i2c/20250927101931.71575-9-jelonek.jonas@gmail.com/
+On 20/03/2026 14:28, Sirat wrote:
+> On Fri, Mar 20, 2026 at 6:52 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
 >>
->> It does not cover clocks and it does not answer whether devices have it
->> or not.
+>> On 19/03/2026 20:07, Siratul Islam wrote:
+>>>
+>>>  properties:
+>>>    compatible:
+>>> -    const: st,vl53l0x
+>>> +    enum:
+>>> +      - st,vl53l0x
+>>> +      - st,vl53l1x
+>>>
+>>>    reg:
+>>>      maxItems: 1
+>>> @@ -21,12 +24,17 @@ properties:
+>>>
+>>>    reset-gpios:
+>>>      maxItems: 1
+>>> +    description:
+>>> +      Phandle to the XSHUT GPIO. Used for hardware reset.
+>>>
+>>> -  vdd-supply: true
+>>> +  vdd-supply:
+>>> +    description:
+>>> +      Phandle to the vdd input voltage. This is physically required for operation.
 >>
->> Decide first whether devices have the clock or not. I asked more than
->> once last time.
-> 
-> I took some time to read the available docs like [1], [2] and my educated guess is, there has
-> to be i2c clock/s and it is most likely connected to switch core by lexra bus as the other
-> peripherals in SoC. I am not from Realtek so i don't know accurate that is.
-> The difference with RTL9300/RTL9310 and RTL9607 is just, how SCL clock of the i2c master
-> controller is configurable but that is for driver to deal with.
+>> Drop the description. Schema tells that.
+>>
+>>>
+>>>  required:
+>>>    - compatible
+>>>    - reg
+>>> +  - vdd-supply
+>>
+>> That's an ABI break and nothing in commit msg explains why. You need
+>> rationale for this, but most likely everything was working fine before,
+>> so supply should not be required.
+>>
+> The vdd-supply is practically required by both the drivers depending
+> on this binding,
+> But the original driver author did not specify the requirement on the binding.
+> The driver works with or without the binding (it falls back to a dummy
+> regulator when not specified),
+> but specifying it makes the intent clear.
 
-Then the clock should not be forbidden for the other variants and just
-explain it in the commit msg.
+"That's an ABI break and nothing in commit msg explains why. "
+
+Please don't ask me to quote it third time... See also writing-bindings
+doc. You must provide rationale for ABI changes.
 
 Best regards,
 Krzysztof
