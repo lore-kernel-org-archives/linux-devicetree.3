@@ -1,82 +1,82 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF2B3033D6
-	for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 10:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D9140DFB0
+	for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 10:14:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774088004; cv=none; b=GbJLIb+CPHEnKXZCBHQdhiTx5C3lL+SzlC6jYFbe/Q1LO/M34UeMdz7lW7yg+Mhxbg6fbj8Z/D8g11tChF7xLHo7kMMLZvaBDRAQDLQF8+yA5xXhxpzVj9ZxoOLSUYmRdWPcKmpQ3HzZRx4kV5UXHD0UocytHRnfIPZ4P4Tikr4=
+	t=1774088043; cv=none; b=f+8yu+K+tHlQ0MIPEHOi4gBHjQ8OhYDmb/+wXo+QtveCa84W/qsjH+6h1PoXlou5m8o9J3cVbS/bHKUCek75Y5gmsSdhnOtP7V4RnLEOrjASZ1Rl/8aPy0xs9sN3XerR8Lvfc3OB+EkGk6xLCiJ8NaAnqj4JbuoBHrddQThdUkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774088004; c=relaxed/simple;
-	bh=dY1qL4oiruMLLPPOfCTpq/3L4rUbkzScjCoW0ifJR+g=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=RfmE120EVw2g2r0gbDJQsoRb26xwxiMJXlse7jzYLo8jZwjxVHc5egYihTTC6h79e4TpXYtlOH0SRuV2TGyOvLHFKUpNUqoWci17Xw6G4FTYQt5D2cavRpD15JTATjOyH3HYampKJt5eP5upHa5utzFD9xo5XZNp3krCAY45D6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wy8Cjpnl; arc=none smtp.client-ip=209.85.128.51
+	s=arc-20240116; t=1774088043; c=relaxed/simple;
+	bh=frihfCmQzIanWsGaTNFRfE2QMRNSkUDCsJaH143VVzc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xa8x7gxL2ZdlR5QO4L61mupUCUSHhjpbtAgK9yCMoixusOHcPf5D576WR/uGVi7LJt0Y45nbYPXw2cwdVRKF/RblIzPsBNXW8xj5ysAjYz5ox+6+U61tjSrkJYviNY0e0WpP6dH9IOfgCDB5U62JaP2WtMCLcQ7/s08c25BjNwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=OmTFv8Va; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wy8Cjpnl"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-48374014a77so25635535e9.3
-        for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 03:13:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="OmTFv8Va"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-48541edecf9so27228585e9.1
+        for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 03:14:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774088000; x=1774692800; darn=vger.kernel.org;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=vxcTJFOmewD2GhiVVB+6YPckSGMQdPbVx332O/W6xHg=;
-        b=wy8Cjpnl2Bfu0PsOn4ROCFPXGahT9sjEL53kkUTwk7m0nWUoTg9kbEipScJTgC7BVw
-         JR+Jo8HDbHmhuS9t9V7UgVFCu6FXUFCkksveZvahIre6RKfsgm5JC1fYUKB4dSot+NGa
-         dtaFbZk1z/o/VI2wua1ssQq+u4xJ9NGg5GU5GTMahrEMKeArdZd0HvRqEI29A+Q6QJQx
-         LR1XlipRcewSMUf1C3DNdJcSNGkTin+gvA2nTO9NHNneO44fmo4abzIbg96RxYQ3G3Xv
-         miaFRtgU1eof/Xeom7cgViK31C8wdAeQq9ZyDCR653oTAvD4IAa76tM97nj7L/Sw1U+9
-         12VQ==
+        d=linaro.org; s=google; t=1774088040; x=1774692840; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZyCrfc/ZXBBtX/vytpgp8YE9CQadwN05k6xP+vhF1Ho=;
+        b=OmTFv8Vacd91aiP9aLkE2H7zWi+9qXAYNKaK8G0g/PbPXlsixlITFI5Je3mUMd5MPE
+         Z37qPzByarp5IVh3ZerXA3FY7eIzH8URSKKKJibBNoNk1Bw5kDyeGiwz8xCBE/yVjSEh
+         PNlYFr5iK1vjuIM4KkW6oEQw/IjPZkNG/0Nc+W6/4KhN4Qimb09KQ3s8X9koMyTGUhri
+         GM7xgiQlGuOMf1hoRVXHx1/f7fnp5zmBWwZj3d5fzRbyykW2eSEB1qWR3sGMtmonI0Hf
+         EMSWsvBcro7gblXV0VADq5k0F81/Qhmi6fl6vkTkmW/R22kl5ISS+Q73Fc2KaolHMhXU
+         lH8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774088000; x=1774692800;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=vxcTJFOmewD2GhiVVB+6YPckSGMQdPbVx332O/W6xHg=;
-        b=QvBJLPlppVGioRra1h2n1dYqqb14DuI5iotKLIF/DwIw7fptlWW6ZTPk/wPX8ulW01
-         QK3zbf3zJKoqpEMp7My6XkgOzQQo2DM9M+0WhH4q9R2L7ZJruUDksh7X+U6x15w7a6Xj
-         KNHmatddrrc+4ZkkiUA/RrMreupwkVaiZwA9ZK6d1U+ZNPYOOHvOJeXoazrBfhBa+GcN
-         efizhQFuUizRT/c0Am1ZL0eKyv/tHHLHtLW+ik4c9v8Lse2SA7bup0FWLoObG9mSVbs6
-         XjzwK/MYr7VjecFOr1ECaGWUU32g067OdIIIJB4h7zPfoL8wpkc5nTRk9DKOhrcIhfRM
-         X1cg==
-X-Forwarded-Encrypted: i=1; AJvYcCXdGdjUu13jV9PYp1Q4nLsI6ol24b28PXmBAeoH2/PuTWeDcFEk0d0yKkgSmFsBfT8AXqAXSAfVdHA2@vger.kernel.org
-X-Gm-Message-State: AOJu0YwZCVbEDqhwG/k8uqyHTUtUu4iwv+h5ImhzQ49LyA1MZWbb1pcG
-	Ufpen/xup/1L5Zb1jrqG6UrAMVGgG2FSxg+AFnDm81ODCQrkCL58s4a8V+4mUX17iEs=
-X-Gm-Gg: ATEYQzxqqZmOGdI1xK/yScCRc5fznX4cTfSSJjDZJCvYzaobS2J98oL8reJHhDfMW94
-	tJQNoOS154qId4Ri80NkObiqsxqgm2IzYFP4TYpBLEieCoLOIoANxDX3dEnCGSf96qBsGFLzneS
-	y3IGG4HKTq+4a0OwuZJB0vCrgMOaelJ1J2+05uRkkMZV49y5cDImq97CYZwLnE06pD7bBsJpmRF
-	jzHDjkq8jupCsPIyJUGNz6kWBLOxovMt1IiiiZwlIbOkwuu8Qg9Vv1Bg1VX54K6WHD0WnpLCX82
-	uNuUgCZpdnnbaEpkhRJA0Guz88areip+CTonktZ3MuDdRDJCb1OwhhgcvK2MYoq7eSHWRR7QVP9
-	v8k4TFqRLfKMMjGNG84JmzE4605yes8GshFSI/pILXHiPB8A9bYbl2R6fV5LMTYSE9efNjJT4qu
-	xyQcRhXS/4y1EmxA4ntV8fC/6im1NU
-X-Received: by 2002:a05:600c:3490:b0:487:300:d9ca with SMTP id 5b1f17b1804b1-4870300db54mr39007055e9.31.1774088000252;
-        Sat, 21 Mar 2026 03:13:20 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1774088040; x=1774692840;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ZyCrfc/ZXBBtX/vytpgp8YE9CQadwN05k6xP+vhF1Ho=;
+        b=ej0j4Jmqhd2poypfQu3rp4FnqW5t/WizaQbxnAOhYGvbTCS08O6c0EIzMdocAWXrNL
+         gSxWSBXIp2UbGllS6iDh0assZR4wt6mGwWErWUl61kf3EeMW+EUoxdf5S3+m1p7GJaCv
+         I7fTc8pRf6ifN4pypcwSLc4R3o+VoaRgrYZ/Gjotl58EEioBVBfBqXM7Lg+AvAzo0X6e
+         sHdm+lM9JTuMcCsxmEoUF9iAXlnCvOHKT0h49s27NxVrE+5V0Aj+uHNsj1XCW0PcGxHk
+         zRyz3TAq6Kj/x4cl2c1KOm8aZU/Lo2uNPEQetcavVOi7j6nAJjCRkoe4KBSyo2+gRwIq
+         y73g==
+X-Forwarded-Encrypted: i=1; AJvYcCUu92Dj53LlTOB7zGtUHOOWnULNjkjXyVZjiMZHlg3Ae0G1JIN5ZrIYYg3PkxRMQZx5ICU4u4Bg0yuA@vger.kernel.org
+X-Gm-Message-State: AOJu0YzaYEG2IXZ8LzGoTrJUsLSBVQh7zwRXu7WyCC7th7lhcqAQP2Ex
+	ti6wGglTrK0lNb2f4lG+YAAXIzRpZ7LhDKvpDBdFaDZeo/740FDF9tSs7rMkgNkfec8=
+X-Gm-Gg: ATEYQzz4+9BqBFME5v40G5vaj+qwpAyOnMNwT0JB1cFb1HXoCvN8r+qwfYM7Sq05Ler
+	aT3GIZe6vbFhQHNPDJarmhKDNMPNo52Nt5B2pVvFpM8qHbIOsmqI327OAMjOO+xWx0j/yNmS4S4
+	TtMjombdO707693OrU6W5q+vmDzwbyO7vHD2X77Utepp4sH9zj4SWRo+ZOnsZQpwlRAsYCwQske
+	wtK0ETs71IyyISHpmUp11TyVdmLqH5ZNhu1FqM+VYpnb5t01JD/5J+261hyC4toqHWdnO6GJTc9
+	k9GLjHNus/mhHq1o5kDiFs0HQtGAW9muXsJvXyL2hUdErsmR3yFrePFShlsOSeBco5NA6Pj0KD9
+	xRnd25KNhlEFrYq+f2RqRYTCiwg8fv8OCw2fAz13LIlsQVi28mUqb60hlgQrEi+Jk+HkWlRt/IT
+	0uuwL38FRtGRvspcPvT+xl00dk+SlD
+X-Received: by 2002:a05:600c:1f0e:b0:486:5f71:5829 with SMTP id 5b1f17b1804b1-486fedab740mr84674065e9.5.1774088040301;
+        Sat, 21 Mar 2026 03:14:00 -0700 (PDT)
 Received: from localhost ([196.207.164.177])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-487031790fdsm68147015e9.3.2026.03.21.03.13.19
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b6470393fsm14161545f8f.17.2026.03.21.03.13.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Mar 2026 03:13:19 -0700 (PDT)
-Date: Sat, 21 Mar 2026 13:13:16 +0300
+        Sat, 21 Mar 2026 03:13:59 -0700 (PDT)
+Date: Sat, 21 Mar 2026 13:13:57 +0300
 From: Dan Carpenter <dan.carpenter@linaro.org>
 To: Linus Walleij <linusw@kernel.org>,
 	AKASHI Takahiro <akashi.tkhro@gmail.com>
-Cc: arm-scmi@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Dan Carpenter <dan.carpenter@linaro.og>, devicetree@vger.kernel.org,
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dan Carpenter <dan.carpenter@linaro.og>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Andy Shevchenko <andriy.shevchenko@intel.com>,
 	Linus Walleij <linusw@kernel.org>,
 	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	arm-scmi@vger.kernel.org,
 	Vincent Guittot <vincent.guittot@linaro.org>,
 	Khaled Ali Ahmed <Khaled.AliAhmed@arm.com>,
 	Michal Simek <michal.simek@amd.com>
-Subject: [PATCH v5 0/7] gpio: introduce a gpio driver for SCMI
-Message-ID: <cover.1774087290.git.dan.carpenter@linaro.org>
+Subject: [PATCH v5 6/7] gpio: dt-bindings: Add bindings for pinctrl based
+ generic gpio driver
+Message-ID: <047c75a48d76a0f11f9fcd156ace3b5fdaab10ed.1774087290.git.dan.carpenter@linaro.org>
+References: <cover.1774087290.git.dan.carpenter@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -85,45 +85,103 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <cover.1774087290.git.dan.carpenter@linaro.org>
 
-This basically abandons my earlier attempts and goes back to Takahiro
-Akashi's driver.  Here is the link to Takahiro's patchset:
+From: AKASHI Takahiro <takahiro.akashi@linaro.org>
 
-https://lore.kernel.org/all/20231005025843.508689-1-takahiro.akashi@linaro.org/
+Traditionally, firmware will provide a GPIO interface or a pin control
+interface.  However, the SCMI protocol provides a generic pin control
+interface and the GPIO support is built on top of that using the normal
+pin control interfaces.  Potentially other firmware will adopt a
+similar generic approach in the future.
 
-v5: Addresses Andy's cleanups to the driver.
-    Adrresses Krzysztof's comments about the dt spec file.
-    And almost all the subsystem prefixes were wrong.
+Document how to configure the GPIO device.
 
-v4: Addressed Andy's comments about kernel-doc
-    Addressed Rob's comments on the spec file
+Signed-off-by: AKASHI Takahiro <takahiro.akashi@linaro.org>
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+---
+v5: Fix subsystem prefix
+    Re-word the commit message
+    I removed all references to the driver.  I also removed the
+    reference to pin muxing because that's described in the pin control
+    spec file.
+    Fix 3 vs 4 typo in the example.
+v4: Changed additionalProperties: true to false.
+    Add gpio-line-names.
+    Deleted one example.
+    Add r-b tags
+v3: Forward port and update
 
-v3: Forward ported Takahiro's patches and added some fixes ups to make
-    it work on current kernels.
-
-AKASHI Takahiro (3):
-  pinctrl: introduce pinctrl_gpio_get_config()
-  gpio: dt-bindings: Add bindings for pinctrl based generic gpio driver
-  gpio: gpio-by-pinctrl: add pinctrl based generic GPIO driver
-
-Dan Carpenter (4):
-  pinctrl: scmi: Add SCMI_PIN_INPUT_VALUE
-  pinctrl: scmi: Delete PIN_CONFIG_OUTPUT_IMPEDANCE_OHMS support
-  pinctrl: scmi: ignore PIN_CONFIG_PERSIST_STATE
-  firmware: arm_scmi: Allow PINCTRL_REQUEST to return EOPNOTSUPP
-
- .../bindings/gpio/pin-control-gpio.yaml       |  59 ++++++++++
- drivers/firmware/arm_scmi/pinctrl.c           |   2 +
- drivers/gpio/Kconfig                          |  13 +++
- drivers/gpio/Makefile                         |   1 +
- drivers/gpio/gpio-by-pinctrl.c                | 101 ++++++++++++++++++
- drivers/pinctrl/core.c                        |  31 ++++++
- drivers/pinctrl/pinctrl-scmi.c                |  46 +++++---
- include/linux/pinctrl/consumer.h              |   9 ++
- 8 files changed, 249 insertions(+), 13 deletions(-)
+ .../bindings/gpio/pin-control-gpio.yaml       | 59 +++++++++++++++++++
+ 1 file changed, 59 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/gpio/pin-control-gpio.yaml
- create mode 100644 drivers/gpio/gpio-by-pinctrl.c
 
+diff --git a/Documentation/devicetree/bindings/gpio/pin-control-gpio.yaml b/Documentation/devicetree/bindings/gpio/pin-control-gpio.yaml
+new file mode 100644
+index 000000000000..9d20b5f23cdc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/gpio/pin-control-gpio.yaml
+@@ -0,0 +1,59 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/gpio/pin-control-gpio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Pin control based generic GPIO controller
++
++description:
++  The pin control-based GPIO will facilitate a pin controller's ability
++  to drive electric lines high/low and other generic properties of a
++  pin controller to perform general-purpose one-bit binary I/O.
++
++maintainers:
++  - Dan Carpenter <dan.carpenter@linaro.og>
++
++properties:
++  compatible:
++    const: scmi-pinctrl-gpio
++
++  gpio-controller: true
++
++  "#gpio-cells":
++    const: 2
++
++  gpio-line-names: true
++
++  gpio-ranges: true
++
++  ngpios: true
++
++patternProperties:
++  "^.+-hog(-[0-9]+)?$":
++    type: object
++
++    required:
++      - gpio-hog
++
++required:
++  - compatible
++  - gpio-controller
++  - "#gpio-cells"
++  - gpio-ranges
++  - ngpios
++
++additionalProperties: false
++
++examples:
++  - |
++    gpio {
++        compatible = "scmi-pinctrl-gpio";
++        gpio-controller;
++        #gpio-cells = <2>;
++        ngpios = <4>;
++        gpio-line-names = "gpio_5_17", "gpio_5_20", "gpio_5_22", "gpio_2_1";
++        gpio-ranges = <&scmi_pinctrl 0 30 4>;
++        pinctrl-names = "default";
++        pinctrl-0 = <&keys_pins>;
++    };
 -- 
 2.51.0
 
