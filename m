@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69268284881;
-	Sat, 21 Mar 2026 10:25:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3703F3176E0;
+	Sat, 21 Mar 2026 10:44:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774088708; cv=none; b=Z+Xfa2pfM6APw2hR/o+WDBncn0iuXYOpp/O3/9LlzF8TzuB+md0zANqzEWccCjbQ/VxOXStudhlcO0V6YqjZUHD1tX7hWvCsND5/lEPjQk4xR9ngKuSZ/9KlKDoOogzmwrhNtDAaKcIyCzHBHyCorw3eoPTfJ+Uy8XK5qWg5FIc=
+	t=1774089876; cv=none; b=pTcWo/K8JAVCIMuT2JAMAzkVYWrhPH5VoAjgBYDvfqvj6P9K3vxynj9hTMl2KErQZof2bt2s1o+hK+XwnPmXDv/MuFsiLuj2Etl2S0xoThaUO2zRk2F2/vN57eRE0UpKAumm0daElGnkrQ5pnFSptkkxqtoDkUMFsBflE28RGc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774088708; c=relaxed/simple;
-	bh=4c2UGREoV8Q2qiw2a01/uWpIY9FsYCc+H0oXm1WqdLc=;
+	s=arc-20240116; t=1774089876; c=relaxed/simple;
+	bh=M9as8yUXW+U1s7wVMlwZOyhJYgE1gI5CZxx7KjO7IyU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q1A+oPL0WUpUTqYQDLumnvr3XGa1rLHcyZ+vUsrfam98ZvH1lduTKzBGDny/z6a3SylDRMZgJdZiNVgkY/fmsP/Odo2I3+R3cu23nAqEwvGobIGz+mbzhmVGJ3rfY7K88VW3EuDT9OIiD11isoKbbmRzE7JhzFL1A51WQDkk9/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kXGp0ft0; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=e1pPi8C2HfOdMQozXD4JTFmxZVdphmptWKE8VKhFc6ohCbA6nAmJGVd/+yOK9XHh0Gz9PK1l0IdhSvRynbbF7hg7ecpd8SiCjZaWSWtkccL6gZi+g6zAT5jdKhbS6QVwOHaq1+dLPC8z5V+gtTZC+n4EGl0Tc353WPwZQh5E6iE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VuOGAJB0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kXGp0ft0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F472C19421;
-	Sat, 21 Mar 2026 10:25:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VuOGAJB0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36A95C19421;
+	Sat, 21 Mar 2026 10:44:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774088708;
-	bh=4c2UGREoV8Q2qiw2a01/uWpIY9FsYCc+H0oXm1WqdLc=;
+	s=k20201202; t=1774089875;
+	bh=M9as8yUXW+U1s7wVMlwZOyhJYgE1gI5CZxx7KjO7IyU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kXGp0ft0xG4Tfw7xS3Zlu3s96dUizv8IXf77YcPVrfesRvlfCuOd8cDco1Szhwj7p
-	 a8iitQsTj23puL0cPqDSogB8t5HO57D8E/J3KR+Y7Yc2nwCW23pBzrXkzBP1I/2fIJ
-	 LAY1IqLibnEoFVdJXSwXu5q4gvh2dMrBeosUHkU8RXhYBb5JdQytDOtEJK5DsU/m+H
-	 zkbw7RG1WcPNMrRbmXX3lcQSH2GLoQ6hJRLj9AHQ0fdVYUBKS4rXFSpOCtMo35azN4
-	 XAiwp+FfSJUICCYyukeYHLmhGk5Ue6f1X2toWHkJyHfzOTpQHGPvGEgFErCile8y8j
-	 u1l/K6aPf0vgg==
-Date: Sat, 21 Mar 2026 11:25:05 +0100
+	b=VuOGAJB0xPJFqXaIPyKKG9O/8ynVmBv7ltnq4TzkPKBcI4DLDvwaNuTPol5567gOP
+	 WTdz3/Vzc1fPesS5H4alScfSe5kUO4u6OWdjuU62ojG/zg7Ih66XgflCGmt3WnZA04
+	 GbQMagq/rOuFWW5GIm/+9In6szVSU3uIPBRtojsbFFJ2kHklo3nLsoNQ60kQcsedhs
+	 mUAo1yla7VKCb3zgU6257Nn8EQvtVYeDhqZP9XGjC4seW4OLfrN6LfKftNN/y7du84
+	 HsgEBWlEugI6rxeaZbgw/6lwmBa2Lm/AVTO8lkfPrUNHyEKEwMNxzx5iTXjiccTIn3
+	 apXUp/j8sCqiQ==
+Date: Sat, 21 Mar 2026 11:44:33 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Antoine Bernard <zalnir@proton.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Arec Kao <arec.kao@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"~postmarketos/upstreaming@lists.sr.ht" <~postmarketos/upstreaming@lists.sr.ht>
-Subject: Re: [PATCH v2 2/3] media: dt-bindings: Add OmniVision OV13B10
-Message-ID: <20260321-screeching-lovely-earwig-c0bd53@quoll>
-References: <cTZxBKdzN37cy_eGcCK3hocAgzwzdfBnsqWXpJnNYFZb6Odl4FspR5333ZBJIJG5dRunnVBB3fWiRJL_pq3SmykhDKxaGPRl_T5_BShJIng=@proton.me>
- <ab2-j6tMKTAlCDcT@kekkonen.localdomain>
- <8or0YwK4oKEWSf5sBtuu8Xo6CYaQTVSu3BhkNBR_xv6se8zLgy4VVO3Q5gvuNk4UyQs_omqdqaqHhZBfLJuoaibc7A8foK9ISRweQCkInb8=@proton.me>
+To: Alexey Klimov <alexey.klimov@linaro.org>
+Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+	Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Sam Protsenko <semen.protsenko@linaro.org>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+	Jassi Brar <jassisinghbrar@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, linux-samsung-soc@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/5] Exynos850 APM-to-AP mailbox support
+Message-ID: <20260321-beautiful-garnet-magpie-de4fbd@quoll>
+References: <20260320-exynos850-ap2apm-mailbox-v1-0-983eb3f296fc@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,32 +49,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <8or0YwK4oKEWSf5sBtuu8Xo6CYaQTVSu3BhkNBR_xv6se8zLgy4VVO3Q5gvuNk4UyQs_omqdqaqHhZBfLJuoaibc7A8foK9ISRweQCkInb8=@proton.me>
+In-Reply-To: <20260320-exynos850-ap2apm-mailbox-v1-0-983eb3f296fc@linaro.org>
 
-On Sat, Mar 21, 2026 at 04:36:09AM +0000, Antoine Bernard wrote:
-> Document the device tree bindings for OmniVision OV13B10 image
-> sensor.
+On Fri, Mar 20, 2026 at 09:15:12PM +0000, Alexey Klimov wrote:
+> Hi all,
 > 
-> Signed-off-by: Antoine Bernard <zalnir@proton.me>
+> This patch series introduces support for the APM-to-AP mailbox on the 
+> Exynos850 SoC. This mailbox is required for communicating with the APM 
+> co-processor using ACPM.
 > 
-> ---
+> The Exynos850 mailbox operates similarly to the existing gs101 
+> implementation, but the register offsets and IRQ mask bits differ. 
+> This series abstracts these differences into platform-specific data 
+> structures matched via the device tree.
+> 
+> Also, it requires APM-to-AP mailbox clock in CMU_APM block.
+> 
+> In theory this can be split into two series with correct dependecies:
+> device tree node requires clock changes to be merged. The suggestion
+> is to let this go through Samsung SoC tree with corresponding acks
+> if it is okay.
 
-There is no 1/3 and 3/3 in this posting. There is v1 though...
+I don't understand why this cannot be split into two seris
+*practically*. What is exactly the dependency between mailbox and DTS,
+that it had to be combined here?
 
-Do not attach (thread) your patchsets to some other threads (unrelated
-or older versions). This buries them deep in the mailbox and might
-interfere with applying entire sets. See also:
-https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
-
-
-> v2:
-> - Rename to "external clock".
-> - Drop link-frequencies and remote-endpoint.
-> - Set maintainer as myself.
-> ---
->  .../bindings/media/i2c/ovti,ov13b10.yaml      | 94 +++++++++++++++++++
-
-Looks exactly as ovti,ov08x40, no? Why another file is needed?
 
 Best regards,
 Krzysztof
