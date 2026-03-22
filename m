@@ -1,92 +1,221 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E9432AABA
-	for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 13:15:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF54E32B981
+	for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 13:19:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774185349; cv=none; b=hFjyEWWv3rlp91XaWxzCjIda9FAtQGn7KIBU5ELYR3XbQIVOTlY/SfTmiv7zSC1N+6fmsed2rlFAQ3RUuUjbR6HYWD++eQ3D8FSeehsN0ZbB+8L3Nt4HFCTdTV2F5a/B+0yDfoDo3Hm3nsSgNvo6nj+2FaAZsL8JcwUPDXqz1Y8=
+	t=1774185598; cv=none; b=QwHHEI6s22ISOlC+oN0yuqvW1xvp/5SiX/PVrLBI17H8mb2DTKLQ+Xeus2XRljcbDvET3NpTpp2UmpjklElVap1y2IY0AxfOtRYg0Z0d4tj28PQdqdimARq5X/N4ubkMKVnwKOVci/co5EpqT+xpdIYcdHkYuB6PmuLZj11Bqps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774185349; c=relaxed/simple;
-	bh=XgIurM27+yuPnraUNcace74O0DzcA/FNq83Lf7ACMtQ=;
+	s=arc-20240116; t=1774185598; c=relaxed/simple;
+	bh=bcTUujmXxizlUqd1sM50ZYzCfrRpy1teVAj8QUv5Ak0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=C65enw3WJg5BfmC9RhrcsPBsesdJjYvjbZXk1y/Ys0HR2ss4FS8hhHx1Bq6Np62Y3GgVVKUqgcMm88mq2G1VBJWohml55AWCxH6DeeL0xhkPLVNmKGFcVGnFVvqQ6g7En9NUuyckDfCTV6chFo+Iqr2cTq0Uak+k5qVZkVBP4U4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ABj+hewg; arc=none smtp.client-ip=10.30.226.201
+	 To:Cc:Content-Type; b=QAXbagegp32EgeKVWicSY8DtWcapX6qsez/D7SvRJy8QqIPnkPwA+np46ohWgvU86vBFjznE3kHyE2DY9nks+aQWmNA7GnhYMVlDZA4gRZ5ZpPdhuN0WPnPORq6VwmjrWF9Xd9NjLSmMm836DWaD9Ul75VC9EqDhV2qxVhu63nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=afqOq+J4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ABj+hewg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F27FC2BCB5
-	for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 13:15:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="afqOq+J4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C9EBC2BCB3
+	for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 13:19:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774185349;
-	bh=XgIurM27+yuPnraUNcace74O0DzcA/FNq83Lf7ACMtQ=;
+	s=k20201202; t=1774185598;
+	bh=bcTUujmXxizlUqd1sM50ZYzCfrRpy1teVAj8QUv5Ak0=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=ABj+hewgDocJHq2qPbVtB5Hf0qCPM8h/2O6Fx7HMdCwkKp/kEbM7Mak96E3KxzQfg
-	 sx2lXqdnkWQo0Rpy4SX3PHDkd0Wt4EYXytGHm71xEtlFJ/HPCXUAn4QDOSvFh3pHFt
-	 z0gr/kBsQIpPP8gIK2wdvJxCX0mpmIMgfQT7GM+T0gLt2eVabIEw18iMhQcjwMPsDQ
-	 fb0yLsVNcj64a7cpz7Tl/A6XZ4F49YVzmPYmtlJyizDusNS5/fzliC4M/pf+1j0aHT
-	 Kl4ED8TP5ec+WOsLSk2MOA2z0hUd8TGULmYWF8vCskFUa5kJHF09yxTbgoNlgadSrj
-	 wu4BbfLD/jSmA==
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-668c60b8f45so3978452a12.0
-        for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 06:15:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCVms6QXxMwibbowwpFpeFxatdasLZjzrNRRMHMSD4nW5BhZDgc5NyQcGf/lRIt3CZqQeQAQ6RcMx+R3@vger.kernel.org
-X-Gm-Message-State: AOJu0YyG93hShB0k1oVNV7MfHIJburx1eiAdXVw1ba8cHIxMCgke5WbE
-	5tHpyhrLWqF5499aLuUlskDDArXwzwwROdbdADGM45oHrp39Vy+8kze1e/HOnSOxZxaSd18yrYt
-	J7mffqpH1umjYvzzLMP/0BEa1/jrS9mc=
-X-Received: by 2002:a17:906:eb46:b0:b93:89cd:2bbc with SMTP id
- a640c23a62f3a-b982f50de73mr503440366b.56.1774185347917; Sun, 22 Mar 2026
- 06:15:47 -0700 (PDT)
+	b=afqOq+J4bNtVYGMLZ5UCHcztKaNy5UtEIh62lUMWpb770IdA/OfXE0sYZH48IRBG5
+	 SFqddCI+8gDgkyX1HPUVGSw6dBQZ+ywfmXCHhGnrU8qPD9FsfjDGuCDdVcQYy2uhIl
+	 4riE5Gy/CcVpcf8mUceyYMUK/FRTRhpkYMuNLRyDsWdyfoTSHP6kNKCs3GltC56C5G
+	 4Er4yZd4LXd4kO+k/BdrDGGKBFpUi3gLGCaBUxRT8KqLR7sLEjfDZ/9GfAgADh6fc2
+	 x7mYEeEpExV5osub0tEY9tqLCp+tsQ8g+oKru13sSnx1YW9AMjE1NTQjbC4xMxvksM
+	 uNHjpaGpHDRPQ==
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-128b9b7e3edso4396134c88.0
+        for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 06:19:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCU5k094S4Pd+qiwIiOoQEn+FXnmxWidMTs/a8GXiix9nkEucSvBT11xCb3n2dNuLW8N74/4+iz4ABvt@vger.kernel.org
+X-Gm-Message-State: AOJu0YxRJTSRffoDKHzKk0YTHNkQoDnweQTylK6jwHeA6mbQIgrQWvD7
+	A1p4+p6PA3LpFTeG75rZMalcaVvIpr+iuFLyEI44egsxWjCP04eE8RVRz5bz9cPAO2jWy0IHnMO
+	iR+JkhKSFVB8K6kkEqhfzYTy3RKVndQ==
+X-Received: by 2002:a05:7022:69a5:b0:11e:163:be60 with SMTP id
+ a92af1059eb24-12a726e614fmr4766178c88.31.1774185597620; Sun, 22 Mar 2026
+ 06:19:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <tencent_325FB1D2C600CD55E367332EC453E5A64B09@qq.com> <ab_iF2hjZRfp16HP@pie>
-In-Reply-To: <ab_iF2hjZRfp16HP@pie>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sun, 22 Mar 2026 21:15:36 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H7FZ65D9mHgW8_-_QiZ2Kv2cxVo5P72AJhc3JptviFpNA@mail.gmail.com>
-X-Gm-Features: AaiRm50PppF1EV4HWBhOscL6VJ6mdhxpTPfiBfUVbEHaqZXVEmFXdeP5eO9o5j0
-Message-ID: <CAAhV-H7FZ65D9mHgW8_-_QiZ2Kv2cxVo5P72AJhc3JptviFpNA@mail.gmail.com>
-Subject: Re: [PATCH v5 0/2] Add Loongson-2K0300 processor support
-To: Yao Zi <me@ziyao.cc>
-Cc: wjjsn <wjjsn@qq.com>, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	kernel@xen0n.name, devicetree@vger.kernel.org, loongarch@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, wjjsn <2858482031@qq.com>
+References: <cover.1771863641.git.l.scorcia@gmail.com> <66eafae30f9fe00b469e79d385c1ddd24d209475.1771863641.git.l.scorcia@gmail.com>
+In-Reply-To: <66eafae30f9fe00b469e79d385c1ddd24d209475.1771863641.git.l.scorcia@gmail.com>
+From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Date: Sun, 22 Mar 2026 13:19:45 +0000
+X-Gmail-Original-Message-ID: <CAAOTY_-gy+h904OZ4B0ddECrZ_-TXwhV-oMbnEALzxW9aCvzPg@mail.gmail.com>
+X-Gm-Features: AaiRm52s6_W4s0e8TDIj9mPSVyXvcdr13JQX2HjRrQF8FFkKbDLC-ctIP3P5FJ0
+Message-ID: <CAAOTY_-gy+h904OZ4B0ddECrZ_-TXwhV-oMbnEALzxW9aCvzPg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/6] dt-bindings: display: mediatek: Add compatibles
+ for MediaTek mt8167
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-phy@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Mar 22, 2026 at 8:36=E2=80=AFPM Yao Zi <me@ziyao.cc> wrote:
->
-> On Sun, Mar 22, 2026 at 03:13:14PM +0800, wjjsn wrote:
-> > From: wjjsn <2858482031@qq.com>
-> >
-> > The first patch adds the necessary DT binding documentation,
-> > and the second patch adds the DTS and DTSI files for the SoC
-> > and the board.
->
-> Please note I'm working on basic drivers/devicetree for 2K0300
-> platform[1][2][3], though the series haven't been updated for some
-> time... I've re-written the pinctrl part, and will try to re-spin all of
-> them next weekend.
->
-> Also, previously Huacai expressed preference on delaying devicetree
-> changes until basic drivers are ready[4], so anyway we should probably
-> get driver patches merged first.
-Yes, I confirm that.
+Hi, Luca:
 
-Huacai
+Luca Leonardo Scorcia <l.scorcia@gmail.com> =E6=96=BC 2026=E5=B9=B42=E6=9C=
+=8823=E6=97=A5=E9=80=B1=E4=B8=80 =E4=B8=8B=E5=8D=884:26=E5=AF=AB=E9=81=93=
+=EF=BC=9A
+>
+> Add compatibles for various display-related blocks of MediaTek mt8167.
+
+Applied to mediatek-drm-next [1], thanks.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux.git/=
+log/?h=3Dmediatek-drm-next
+
+Regards,
+Chun-Kuang.
 
 >
-> Regards,
-> Yao Zi
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collab=
+ora.com>
+> ---
+>  .../devicetree/bindings/display/mediatek/mediatek,aal.yaml    | 1 +
+>  .../devicetree/bindings/display/mediatek/mediatek,ccorr.yaml  | 4 +++-
+>  .../devicetree/bindings/display/mediatek/mediatek,dither.yaml | 1 +
+>  .../devicetree/bindings/display/mediatek/mediatek,gamma.yaml  | 1 +
+>  .../devicetree/bindings/display/mediatek/mediatek,ovl.yaml    | 1 +
+>  .../devicetree/bindings/display/mediatek/mediatek,rdma.yaml   | 1 +
+>  .../devicetree/bindings/display/mediatek/mediatek,wdma.yaml   | 4 +++-
+>  7 files changed, 11 insertions(+), 2 deletions(-)
 >
-> [1]: https://lore.kernel.org/all/20250523095408.25919-4-ziyao@disroot.org=
-/
-> [2]: https://lore.kernel.org/all/20250811163749.47028-2-ziyao@disroot.org=
-/
-> [3]: https://lore.kernel.org/all/20250816033327.11359-2-ziyao@disroot.org=
-/
-> [4]: https://lore.kernel.org/all/CAAhV-H6EDEf3U6w5KY3R3HCAdAbqDefqpE3ktCQ=
-eQtFbDK2Ypg@mail.gmail.com/
+> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,=
+aal.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.=
+yaml
+> index daf90ebb39bf..4bbea72b292a 100644
+> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yam=
+l
+> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yam=
+l
+> @@ -33,6 +33,7 @@ properties:
+>            - enum:
+>                - mediatek,mt2712-disp-aal
+>                - mediatek,mt6795-disp-aal
+> +              - mediatek,mt8167-disp-aal
+>            - const: mediatek,mt8173-disp-aal
+>        - items:
+>            - enum:
+> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,=
+ccorr.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,cc=
+orr.yaml
+> index fca8e7bb0cbc..5c5068128d0c 100644
+> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.y=
+aml
+> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.y=
+aml
+> @@ -25,7 +25,9 @@ properties:
+>            - mediatek,mt8183-disp-ccorr
+>            - mediatek,mt8192-disp-ccorr
+>        - items:
+> -          - const: mediatek,mt8365-disp-ccorr
+> +          - enum:
+> +              - mediatek,mt8167-disp-ccorr
+> +              - mediatek,mt8365-disp-ccorr
+>            - const: mediatek,mt8183-disp-ccorr
+>        - items:
+>            - enum:
+> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,=
+dither.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,d=
+ither.yaml
+> index abaf27916d13..891c95be15b9 100644
+> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.=
+yaml
+> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.=
+yaml
+> @@ -26,6 +26,7 @@ properties:
+>            - mediatek,mt8183-disp-dither
+>        - items:
+>            - enum:
+> +              - mediatek,mt8167-disp-dither
+>                - mediatek,mt8186-disp-dither
+>                - mediatek,mt8188-disp-dither
+>                - mediatek,mt8192-disp-dither
+> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,=
+gamma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ga=
+mma.yaml
+> index 48542dc7e784..ec1054bb06d4 100644
+> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.y=
+aml
+> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.y=
+aml
+> @@ -28,6 +28,7 @@ properties:
+>        - items:
+>            - enum:
+>                - mediatek,mt6795-disp-gamma
+> +              - mediatek,mt8167-disp-gamma
+>            - const: mediatek,mt8173-disp-gamma
+>        - items:
+>            - enum:
+> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,=
+ovl.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.=
+yaml
+> index 4f110635afb6..679f731f0f15 100644
+> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yam=
+l
+> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yam=
+l
+> @@ -23,6 +23,7 @@ properties:
+>      oneOf:
+>        - enum:
+>            - mediatek,mt2701-disp-ovl
+> +          - mediatek,mt8167-disp-ovl
+>            - mediatek,mt8173-disp-ovl
+>            - mediatek,mt8183-disp-ovl
+>            - mediatek,mt8192-disp-ovl
+> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,=
+rdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,rdm=
+a.yaml
+> index 878f676b581f..cb187a95c11e 100644
+> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.ya=
+ml
+> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.ya=
+ml
+> @@ -36,6 +36,7 @@ properties:
+>            - enum:
+>                - mediatek,mt7623-disp-rdma
+>                - mediatek,mt2712-disp-rdma
+> +              - mediatek,mt8167-disp-rdma
+>            - const: mediatek,mt2701-disp-rdma
+>        - items:
+>            - enum:
+> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,=
+wdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdm=
+a.yaml
+> index a3a2b71a4523..816841a96133 100644
+> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.ya=
+ml
+> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.ya=
+ml
+> @@ -24,7 +24,9 @@ properties:
+>        - enum:
+>            - mediatek,mt8173-disp-wdma
+>        - items:
+> -          - const: mediatek,mt6795-disp-wdma
+> +          - enum:
+> +              - mediatek,mt6795-disp-wdma
+> +              - mediatek,mt8167-disp-wdma
+>            - const: mediatek,mt8173-disp-wdma
+>
+>    reg:
+> --
+> 2.43.0
 >
