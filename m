@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3AE175809;
-	Sun, 22 Mar 2026 10:01:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E7A70808;
+	Sun, 22 Mar 2026 10:16:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774173674; cv=none; b=P/macuITlWVxgzZyRL4hAq+ssFFyAJdUE3FY9wA/j/n+721fiNBZ0Iz+s6OQa2s3bVwMqRVO7IjCuoP1IFYit9qegh/Pm47a5safdvlmfkBZsa6LTpOP6ZzYh3shfVxvMtlr2GXrklCzFHxrduE6k9T/cTcul6fHEgr5im4kgMk=
+	t=1774174612; cv=none; b=RHllpygClPCP0CCA9hnVojXkdiVkkRIqhSTU4MBSTfbJ8exVrGVuYHuLvZ8xB7xQpS3OIfDRQ2VvuhBEzm0snrzeYPIyJ2SfHBstLPBS/Rw+c8ec0nYP4LMkOfX5LaamADXLAfCLcDUI0OZ3Ht0BRsXK9PfOGNjRm9vWjoHc2oU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774173674; c=relaxed/simple;
-	bh=izHFzYTNZF34lEla+82zrFLjgApuyM2q+I2Q/Xn97EE=;
+	s=arc-20240116; t=1774174612; c=relaxed/simple;
+	bh=po8CNnTkaQpHNLdR0yFceY24ysPtBKZ0S56BW+e5MOw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XLDuwvCPdfvEIMwCyE+kSzgGKmoVLycB89MANblpoWdtuZ4rTBTYbviW+YYb8YGD/tZbOvcLOba+UAVoZKf7ZcZe/QpkqzdFzuFd69hY4BFKQ1VGlZqgRTE+ytvvB7jy6WMmegrMbLv6QDmB5af5gt3pcuRxjPpy63xtAhXlt/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NE4XY1so; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=CMKskzmaR9qSXfPGIwxrrSV/wcfFyrzQQRSdwmwDZQN3kA7I6KqSlVvDmvRE98xACGrf8GNb8YFh4k787EPglShXlAEkp0e4UgE67x99yHbqp99pRbQJD/h6zUB6q7jWY1qhhNieGE+mz+OXQMooZMis3hfPOzG2A/LihGSf4QY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hE1w3KiU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NE4XY1so"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 892ACC19424;
-	Sun, 22 Mar 2026 10:01:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hE1w3KiU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA548C19424;
+	Sun, 22 Mar 2026 10:16:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774173673;
-	bh=izHFzYTNZF34lEla+82zrFLjgApuyM2q+I2Q/Xn97EE=;
+	s=k20201202; t=1774174612;
+	bh=po8CNnTkaQpHNLdR0yFceY24ysPtBKZ0S56BW+e5MOw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=NE4XY1souswN6Vh6RquKpO8B5zhT7O1nYa+mWIZpNXzzpT6PiTF0Qr33BU+JLOl/A
-	 To/J1x7YctGVvVAbyz/+7AB5M4qtpAG7ubwEQRVmq+hnmXGCH7L4z56nApxrgVdHNs
-	 fszQbqe8j+A7uL/5sOiKPnSPDmcZY2n/WWXYYnUeMyfgZVPXxoBhvVyHDyv8cC/jS0
-	 KoWDamXstMz6KXy5U51UYycKQWSSIip+H21l5d9CgKgGIWjMyVs+oQKoR1dtBcnrnP
-	 IqVN/Y/GuItLZ8RA5gwxDvGIkcbRut7lwNtRo4gdQzPXP841ibDO2SRnSo6cn7gkG2
-	 MXedQvMswMhwA==
-Message-ID: <d10e6de6-780e-42b1-9c53-915c73719b53@kernel.org>
-Date: Sun, 22 Mar 2026 11:01:09 +0100
+	b=hE1w3KiUolvaky3I2jyH23SJbxCpZg2xDQkAuvRw236wK/t8yGIvgxVtJ3rhMqnOw
+	 g3N06F++bLXBiAdoBCvT3P9LPeT11C1TXIhO2xeIEVZW8B6ZDpHkUd85wwRu9Itr3w
+	 HlFjzlUEo9nWeyMlIrdzCjqEZEdo1UpyBOTAjqDwk0hwl9m9dz0vd5ZkncvnRmR5Sc
+	 xgDQM4Rya32OYPCBUrsQe+/tJ0VPx9lNS/OJ2HUADij412RdZySs6mUnndpLainOOF
+	 gZ5Np9lolvvg7SHfBWTZaJQCcIVHWSEZfh1Jg5Bt3iv2MkuHLC76GBWTWJCgSP+XE8
+	 A97JWiU8rt+kw==
+Message-ID: <9b1a9660-3672-4165-b5bb-c7807ce885cc@kernel.org>
+Date: Sun, 22 Mar 2026 11:16:46 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,21 +35,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] dt-bindings: trivial-devices: add
- spi-miso-mosi-loopback
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org
-References: <20260316073547.11437-1-francesco@dolcini.it>
- <20260316073547.11437-2-francesco@dolcini.it>
- <bbfa2a62-7113-433b-91ad-0693ed6f8e36@kernel.org>
- <cde8671f-bb38-41d8-b27f-c54aa7242899@kernel.org>
- <20260316085751.GA23443@francesco-nb>
- <a3796f8b-f94c-4d0d-a0b9-b2970e43e28d@kernel.org>
- <abqzVJTb4TNxa8pZ@gaggiata.pivistrello.it>
+Subject: Re: [PATCH 08/10] dt-bindings: input: touchscreen: st,stmfts:
+ Introduce STM FTS5
+To: David Heidelberg <david@ixit.cz>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ phone-devel@vger.kernel.org
+References: <20260301-stmfts5-v1-0-22c458b9ac68@ixit.cz>
+ <20260301-stmfts5-v1-8-22c458b9ac68@ixit.cz>
+ <qibmsgfttxo6kiaqyjljj6otamqp7okfr4abwpmuo7daanl6qu@ka33zvoz7lte>
+ <4b8c8d8c-d2f3-4938-a451-e8e9524d40c3@ixit.cz>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -95,66 +100,39 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <abqzVJTb4TNxa8pZ@gaggiata.pivistrello.it>
+In-Reply-To: <4b8c8d8c-d2f3-4938-a451-e8e9524d40c3@ixit.cz>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18/03/2026 15:14, Francesco Dolcini wrote:
+On 15/03/2026 18:09, David Heidelberg wrote:
+> On 01/03/2026 23:40, Dmitry Baryshkov wrote:
 > 
->>> linux,spi-loopback-test as a compatible.
->>>
->>> On the actual HW I have a pins header and a wire between MISO/MOSI.
+> [...]
+> 
+>>> +    then:
+>>> +      properties:
+>>> +        switch-gpio:
+>>> +          description: Switch between SLPI and AP mode.
 >>
->> pins header, if I understood correctly what you are talking about, is a
->> connector. Connecting there a jumper to short circuit there is out of
->> scope, because it is not part of the board. Thus cannot be send upstream
->> DTS, unless it is really embedded in the design like USB-A dongles which
->> could not be removed by end user.
->>
->> Otherwise you could say that every evalkit board can have such device,
->> because they all have pin headers...
->>
->>>
->>> I am clearly missing something obvious, any advise is appreciated.
->>
->> Describe your hardware... Nothing in this patchset helps in
->> understanding it.
+>> This doesn't sounds like the GPIO on the touchscreen, more like the
+>> external schematic component. If it need sto be turned to one position,
+>> it might be better to use GPIO hog for that.
 > 
-> Let me describe the need first, and after that I'll describe the HW.
+> Right now yes, but the GPIO serves to switching between SLPI and AP mode at 
+> runtime, see [1]
 > 
-> The need we have is to have a way, with Linux mainline kernel, to test the SPI
-> functionality (subsystem, driver and the actual HW). So far this was
-> done using the spidev out-of-tree and with a loopback between the SPI MOSI and
-> MISO signals.
+> The driver lack supports for SLPI, but at moment when SLPI support lands, we 
+> should be able do something like:
 > 
-> We have a variety of HW that have various signals available on some sort of
-> connector or pins headers [1].
+> -> device starts, touchscreen works
+> -> screen goes to sleep, but instead of powering off touchscreen, it switches to 
+> SLPI mode
+> -> user taps at touchscreen, device wakes up
 > 
-> This https://docs.toradex.com/112710-mallow-carrier-board_back.png is just one
-> example, I know you are familiar with this kind of HW, I am writing it here the
-> link just for completness and for everyone else.
+> Thus I think we need to support this GPIO in the driver.
 
-Looks like a specific device (hat), not a jumper connecting two pins on
-the header.
-
-> 
-> So yes, your understanding is correct.
-> 
-> About the HW, we have various test boards, that plugs into this connector(s),
-> as test fixture, and, with traces on the PCB, they do connect together the SPI
-> MISO and MOSI signals.
-> 
-> Here a couple of picture as an example, of the "Aquila Lava HAT",
-> https://gist.github.com/dolcini/33c332f0b2174a9d495baf7c79341abf
-I don't think this is anyhow different than all existing cases of people
-submitting spidev patches.
-
-You can have only two choices:
-1. Connector. You cannot send bindings for spidev or loopback claiming
-it is a connector.
-
-2. Actual device plugged there. You need specific compatible for this
-actual device. The compatible cannot be used for anything else.
+But that's not role of this device. You cannot just hook random GPIOs
+into this device node, just because you want some use-case in the driver.
 
 Best regards,
 Krzysztof
