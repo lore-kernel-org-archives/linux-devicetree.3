@@ -1,115 +1,155 @@
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A57235BDC7
-	for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 13:52:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08891A6827
+	for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 14:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774187565; cv=none; b=A9+oRFCtP/1PJJhZA7JlSQYS4IbJexcELi+CphHEl7qfLfDGkel80i8pN77genSG9swEqKKZwzmyv4uiIws213+IUAgAzDqB4blhwfEICLDVZMbHaiXI/65jCIOUT5aELbJz09gmrXOjAgFOWgZ3GJV8Zxnpj3zZnLS0PGDwOs8=
+	t=1774188605; cv=none; b=V9A50CoXSSPsWoLB6OXRrDwr+qKVx9A852fd1wCdNm9HYN38BhIvJrW3a/4LgJfRsYZd90Hoe1sqRbBKdQZMqaEaugOWlneU6hMvGMfhYbPEyEFbLsJHeFhTNKy0TASwgvK2Ug6gJY+bnoZtjtAt533eddDB3+6QVb3IuKdXFwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774187565; c=relaxed/simple;
-	bh=w+DQX1w7FFlPVsKbazN8qiswzg+87TvbKsY2zMl+ALs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oTvoeBYRubE9ufsBl2ekZL7A6CI52Lw6ZjQ8Og0RknNNHY7JU/0jjtLKa+H+Io2E1vvNvjJp4+8PkqLCvvq66GwAB5xJ/I67QXWMi1/vNI9tNU7PSLA82VbwyuN4HuAKbV74HcYCyExtqXIFId70UBk1ymYly9n2ofyiXISoO9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.224.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me
+	s=arc-20240116; t=1774188605; c=relaxed/simple;
+	bh=wYM7rFD0Aily77SHukDAbLc20kppynNkynaBv6rhwDg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RfR5oK1VAB50Y7zhxxUTFfStzjoLg0U1eUgVrj0K2lkXY4BffvTgdJ5MWvfkwAGluugz/B7rFKcXS17Ty/X2Py25KfhOVPVepXHIfazNWP96DyYPa+u/HjiZdbyqIm5XUg+uAbTGf4ja58djCv5RvkMGS2zoK1d2ky7B5IRingw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=id6n4njQ; arc=none smtp.client-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-64ea73e7b60so2650990d50.3
-        for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 06:52:43 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="id6n4njQ"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-2c0bcd8f194so3900319eec.1
+        for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 07:10:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1774188603; x=1774793403; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=8mdNj/DvPq3mNb+2oWEDziL/aWG+5kHGL1UMe9SoS10=;
+        b=id6n4njQLlp9vG5PgOzfH6PcgoCnkzCG9N34TNxv3I8ZDdyRbeMF3Sp0OcQk8FVswP
+         TFZM/8yRIXm/8Ec1KPlRpD98z4RrllnKDMgRc5zz/V2jUuVscJypSNMjf9vR4HY42xMn
+         XlfNiC52io+oXIPBK8LSBOjEhNfUC/+dI+9L18leGnANookXrvMCcHrh4HMsZiQx12VR
+         BlGydsWBVGECHHcGbb056I/pwMyT1VrwDvfZ4gr23x2LqGg16EN5+CyRk5nssCYcvIrH
+         KqwyW55OmPoZhlHbf1B5iqIibYpYTKR/9C01P753xdRiojzgifFqwcI3Nm+FEL0rs5Oa
+         7dIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774187563; x=1774792363;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=w+DQX1w7FFlPVsKbazN8qiswzg+87TvbKsY2zMl+ALs=;
-        b=jsZzCB4VCFrjSr2NNdvzQzPFJn6r+zxyutRoTAI01ABMFMF9L1awro0FkAAVrJ7Rka
-         E5KOOP0dCN6GUC/4CrmlyhqhWi7mdYgBUN6X5FUAeuBM9r0zT3cBS0vuuks8i1/zSE+g
-         Z46iGqdzH4TaxcT9JHK4kxlvF+p7A3Q/QVixy/g1htA4CL1BYYqJWrhvct+PpSC9WN0c
-         Kz46mkS8hW+8G5wOaQkbWPaelyWu2d71kMqLGJl3FLrG25xIlrFc7IuTOvUQzMcfMt+J
-         UplVyqK9QyzSJ28inejGpsr13p2qZQFQ5YDdzcdnnYY2BQkcFVXHzX3+6dOGm9ONkvHV
-         ueWA==
-X-Forwarded-Encrypted: i=1; AJvYcCUN6x6xM/yIAj1ZXx04yDVg8cJrCmj/NcvT5h0vpJa1wb6jvctvfRHgJ4n9GH7kNmiYtqqbiHTXjsxK@vger.kernel.org
-X-Gm-Message-State: AOJu0YzU3WfXqlh/3bL32BPUXho4+r33c2CxZ5N4Tq8ivu+mErRM4ECd
-	ftV6vAoorazz+gMaIv6jLToH2FOpavsBASGAjT5hRid0+3rJy8Fv5lOC7DO2HgZZhhU=
-X-Gm-Gg: ATEYQzy5UGUoQTFdqEPlaiU2UgIW7wYUbxEzVwVV0NtVM2IsiaEnPxMQVxKR9HvmVfy
-	bNHo+AG+OieIN81ZkqLoS/7V5xSarNfJWQ36/Njp/296ZJ2dVKVQxyhO4k0hDkqKpkHYh+Vs79J
-	PLSRhP6Ssal/sNODfN69MSM3AcQMnaUAQkWS/eU3lEMS8eyTfgoT5X7b7eEI398XATAFJE6t6yX
-	M3ii5E+m8BZ5vE63tS8zdsWRTFvQ2ge4ZiGJzA10juwSaXc9iwOrFMy8doBFM850RLGuYGh4qHB
-	J1zU2QUTKT0LNxs7rdeO1dVZeDIKOK/MEPxwbD9fwUgtKtlLcdePHl2tUyPerfQjFTn0Ti0nL8f
-	DI7FnRFONXOUpf8KqNDIF3OzLvt0N6++SYtTPCyxfGbnHKaS435vfiSchavq9IKyam/W+fgvl6z
-	EA/9cCbShkDDF8hbDp5LuapKHfLq+lHx9GqsXUnN+Z0r+kN+RjNZF6umh9T0wcqOHwKmdmAEfIo
-	w7mS5WfAIG27xBkSVTTgL/EKIGzynTEGcPwrksFpw==
-X-Received: by 2002:a05:690e:16c1:b0:64e:a737:e1a7 with SMTP id 956f58d0204a3-64eaa79721dmr6918443d50.48.1774187562950;
-        Sun, 22 Mar 2026 06:52:42 -0700 (PDT)
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com. [74.125.224.48])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-64eabbf8503sm4817349d50.0.2026.03.22.06.52.41
-        for <devicetree@vger.kernel.org>
+        d=1e100.net; s=20251104; t=1774188603; x=1774793403;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=8mdNj/DvPq3mNb+2oWEDziL/aWG+5kHGL1UMe9SoS10=;
+        b=K04Vcz/H69f4DSTeEeLAbFzZLwr1RPfdnB5MuwJtZZe6O4Lws2WTY9j3P08j0LzQq8
+         hnsG+YtUzsoL9vBIscNpDZc1RFSwzpEfEX7BZvSV0989hzmxEhoNvF11A+UUGfUjvZzh
+         xSMgVnV+y+gSSO6E0nnGEH7jpimHvrXK/Ar2LG8C3DQZamFzTsnlqwXzAmyXqXa0LnGr
+         LT4DcTWPn3zxtFXzI2IBZSjcBu/fL+5iFj+R+ZawvEa/sHK2331mApNvsmRNPS82Zx7o
+         EFDbc5OCvCDs5ctMrEPZLe8uqTeCaFBC5mk212ImeIJPYkV63Meb/Z7SiqlW19Pcsf3d
+         tZ7A==
+X-Forwarded-Encrypted: i=1; AJvYcCWkF6kx+lU7DEkwxS2Yd924vqPwIdCDcUhZ2lngz8FLfH+TL0LpfzXFkcdS8ejlKto6Q3CRxubfI74u@vger.kernel.org
+X-Gm-Message-State: AOJu0YyT2aUNxJWQw2gDGYY5c7zqUTdko0Jiw+OfUvk2wZw8hiJoKKTB
+	HEqIVd+2l4+adJOgGnNqVGy0ALQDQzUIdqHZOnxTD0H6luxezFtxmHZgYeOLAg==
+X-Gm-Gg: ATEYQzy73sskzt2qLWLNt1EjkcX+2nrN98LaiCai7bsrz28Fj85TCl1CG+y3ZssmROU
+	9EnQDPM6Aor+3iaiF0MqWSqCrugu1449EgQA1aphdXaESF6ZRMdIvStGytgzVBWBrDNHEl3djsL
+	+evN5AYrtTNhHU5Q165wxY6qynx6+JulsHZrvOrG37APzpkZrdiKZnmZxXEGllZ+c0UR9Yn3Wdt
+	XhOsu3H1zxxDr6fYB6ATHOHj/Xa6z+lzaAP2sHciej/0Q40KRjGrEvJQHULK/6ti/hJ8s+ugl3C
+	V9fIIJt7noTmEEbMp4c20FSY0HZYVAfWV/EwjPa8W3hq7pxfOUpLsVb6+gHjWJeeupo4tDMU12W
+	MaCuRysagHawVt8n8WguNtscbDN7TQdAFW+2loRo6KWPxUFBl5KpttonMxsCyds9EvOpxXwQD5l
+	iOSbmzifIRNYtiHQZLscQtqBd/lIJEcNwEJsFur5gaZTIkB0FUfsgVvu1B2k8WwT0GmZiu4m5/
+X-Received: by 2002:a05:7301:6704:b0:2be:ca4:e13f with SMTP id 5a478bee46e88-2c10975fa26mr3701226eec.23.1774188603046;
+        Sun, 22 Mar 2026 07:10:03 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c10b14cadbsm12025311eec.3.2026.03.22.07.10.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 22 Mar 2026 06:52:41 -0700 (PDT)
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-64e8c7f5082so2960743d50.0
-        for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 06:52:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCWDtEHWndMwGCGv6H8EbapMNuU5Pj/GfM3mfB6zWn5IVXzkzOeyEuZPopvR30VNmdAZMGV7p0jeuhka@vger.kernel.org
-X-Received: by 2002:a05:690e:2557:b0:648:f57b:d07c with SMTP id
- 956f58d0204a3-64eaa7a3d25mr6790302d50.50.1774187561442; Sun, 22 Mar 2026
- 06:52:41 -0700 (PDT)
+        Sun, 22 Mar 2026 07:10:01 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <67747945-4009-4f56-a931-5057729c199b@roeck-us.net>
+Date: Sun, 22 Mar 2026 07:10:00 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260319190738.151614-1-email@sirat.me> <20260319190738.151614-3-email@sirat.me>
- <8502eb51-53c9-4f1b-92d0-21b06fa4802e@baylibre.com> <CANn+LWJEJJoGQU7p2P2GrOcA_g2x7jEnvjcTJYG1hDRUnRw3UA@mail.gmail.com>
- <b1da32d2-e1f7-4fea-82a7-a40e8073a100@baylibre.com> <20260322110319.7d7558f3@jic23-huawei>
-In-Reply-To: <20260322110319.7d7558f3@jic23-huawei>
-From: Sirat <email@sirat.me>
-Date: Sun, 22 Mar 2026 19:52:30 +0600
-X-Gmail-Original-Message-ID: <CANn+LWJwPUiCkz_godEeBvZnXEXzNmCW_-ou=wHL+kjfn0zF_Q@mail.gmail.com>
-X-Gm-Features: AaiRm52NweY6HyFIQby7OSMCCfV58Jsxo_o9z1JQPpqAQeFp4LsvOu-yTm0_v6Y
-Message-ID: <CANn+LWJwPUiCkz_godEeBvZnXEXzNmCW_-ou=wHL+kjfn0zF_Q@mail.gmail.com>
-Subject: Re: [PATCH v6 2/2] iio: proximity: add driver for ST VL53L1X ToF sensor
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, nuno.sa@analog.com, andy@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/7] mfd: Add support for NXP MC33978/MC34978 MSDI
+To: Oleksij Rempel <o.rempel@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Peter Rosin <peda@axentia.se>, Linus Walleij <linusw@kernel.org>
+Cc: kernel@pengutronix.de, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-gpio@vger.kernel.org, David Jander <david@protonic.nl>
+References: <20260321065146.3918882-1-o.rempel@pengutronix.de>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260321065146.3918882-1-o.rempel@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Mar 22, 2026 at 5:03=E2=80=AFPM Jonathan Cameron <jic23@kernel.org>=
- wrote:
->
-> On Sat, 21 Mar 2026 19:37:58 -0500
-> David Lechner <dlechner@baylibre.com> wrote:
->
-> > On 3/21/26 5:39 PM, Sirat wrote:
-> > > On Sat, Mar 21, 2026 at 11:09=E2=80=AFPM David Lechner <dlechner@bayl=
-ibre.com> wrote:
-> > >>
-> > >> On 3/19/26 2:07 PM, Siratul Islam wrote:
-...
-> >
-> > If you do a buffered read, which stop ranging when it is done,
-> > then how can the direct read work after that?
-> >
-> > Can we just start and stop ranging momentarily for a direct
-> > read?
-> If the latency is high, then worth considering whether autosuspend
-> and runtime pm can help. That way a burst of reads will see low
-> latency after the first one but we won't be wasting power when
-> no one cares.
->
-> J
-> >
-> > Otherwise, is seems like we would want to have ranging always
-> > enabled.
-> >
-Maybe we should go with continuous ranging then since it's the
-vendor-intended behaviour.
-Since there is no hardware single-shot mode, by design, I think the
-driver should just behave
-as the hardware intended.
-> >
->
+Hi,
+
+On 3/20/26 23:51, Oleksij Rempel wrote:
+> This series adds support for the NXP MC33978/MC34978 Multiple Switch Detection
+> Interface (MSDI) via the MFD framework.
+> 
+> Architecture overview:
+> * mfd: Core driver handling 2-frame pipelined SPI, regulator sequencing, and
+>    linear irq_domain. Harvests status bits from SPI MISO MSB.
+> * pinctrl: Exposes 22 physical switch inputs as standard GPIOs. Proxies IRQs to
+>    the MFD domain.
+> * hwmon: Exposes thermal limits, VBATP/VDDQ voltage boundaries, and dynamic
+>    fault alarms.
+> * mux: Controls the 24-to-1 AMUX routing analog signals (switch voltages,
+>    temperature, VBATP) to an external ADC.
+> 
+Sashiko has a number of concerns with this series. See
+
+https://sashiko.dev/#/patchset/20260321065146.3918882-1-o.rempel%40pengutronix.de
+
+for details. I did not check the non-hwmon code, but the concerns raised with
+the hwmon patch seem real. Please address.
+
 Thanks,
-Sirat
+Guenter
+
