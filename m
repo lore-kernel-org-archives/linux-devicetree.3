@@ -1,111 +1,122 @@
-Received: from out203-205-221-155.mail.qq.com (out203-205-221-155.mail.qq.com [203.205.221.155])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9C9D2594BD
-	for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 08:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54CF72E0925;
+	Sun, 22 Mar 2026 08:50:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774167610; cv=none; b=IrNxh0EcKZYRs7Z3m+lYv8y9jY+Ku77yPTX4ZZwsUyrwcijGxXZSvShMpFwG1iTYeUmEYVn/cH2g2EcsopmGLmISnh3QA11TF1E4B8cYOu7PqNp48a89RjOhl2j6wJYlpYufTcWJZBvgk1hYa+aZ2PJ7LGhj4reLrcdXAtPhMZE=
+	t=1774169455; cv=none; b=YTqOHUQgqTf1Mf2SnW5fEVkXzJbpdinmZIESqQIPkIHmWVHJxX5UELnxrGCov+f09SbpajRlyUQ2jTsG3P4TJ5OuZBQEmnZr3arjBcLYrPv3DbxMjtdTjd7o7otam+TiuIglztFctCdO1kbTum2fCINzOf8Hgj8BZ2s/fo0BuLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774167610; c=relaxed/simple;
-	bh=NvjPxYjVAmyqmOBrydDuRJN3AzL2bkMY4CelwxGpbv8=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=rIMo48kpC7zKNCn/4iL3q9ujoD1VEk6F/ExsUBTwTLHE4GA96LABBmTH4DBl72w1HXMaLOunW9kcPQkvkxreruZLJ/F3hmdBe2KG+8YYyjsl3afxyld63wTa6sfkUfM7l+4Qax+Hs+ijMzYNlSNLXFxg4mr55/gVtifH5XgnoJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=y8CUrUtD; arc=none smtp.client-ip=203.205.221.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1774169455; c=relaxed/simple;
+	bh=Tn+oaAJkd+1LfElxz971/rTEapiAlsQZ4IcUOpFg2Pw=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=VGfuVoTm4n+DKkmB7926/TbJlHeNOPJ5YxrQQ4W6c784mprBLG7w3mKVuZWdHpA76Fx6cINSUHzjs5pusnMht+WznEvmQSYjhnTaJQKmEXlqDdrrNl05PzZPMI4hIdqRM/vQFvb6YkW4a1GvH1/dVe2m/Xq0suWPQgt5bn5O6Lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sBWaxjmW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="y8CUrUtD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1774167607; bh=yeAOErC4pynrSC14YRVTCPoiJW6d/W4E1cxjodkxEy4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=y8CUrUtDHMR/78oRhOxXZDEsj5+aK2oaQo4nP5Pz6pM77aBD3Rsi7GYhQvdB4kVWR
-	 brfDrHszm6H/QWuxomNRxeAm2/jtX5DNk5oy3zOhFHzFRVXULB+EFbDXCfa48Ep3DU
-	 9bBvesNGerRg2M9fGF7IdUYF2h3Qfhrgj8RgGj9Y=
-Received: from MYJGMC.tail4697e5.ts.net ([122.195.139.226])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id 500854EA; Sun, 22 Mar 2026 16:20:00 +0800
-X-QQ-mid: xmsmtpt1774167604tg8ao6cr7
-Message-ID: <tencent_0FA97DD3D0AFBC69288051AA7FB32817E308@qq.com>
-X-QQ-XMAILINFO: Nq3b7TYD8/lYswRToQCYQZL3adfzESDtjGd43/4Jd1eU8faT5RHd6BJE0LnoxR
-	 uOPRqDA+fNyzM09ovq121dYchNwcDTGGmw6I2qZHSEqFB1hfwTrrW3uoKrKSxUYwSShqhiiE4nGQ
-	 Ld12Q116YwzJmgybfv5XXlz40ZejJMdWQkyZeN+2pxh5XG1JkPQYZrd4fKi66zwFsGMTo11jH7OX
-	 NfP4v8qKPmVcfyMSmn07uU38CZ2lKiDDxv6uxYTqnVbQwZaOIhMLHoT0+P2l0nf18pPOHEDAYBUt
-	 IF6q1Sey+jFh3IuoDO7GlyfbJrrc0TW/6NHfwsJr+RnbRGyr1IuSpQW+xEUqNf/QZJ40If+/e5EW
-	 4Y4hU5nRxg0wFVMQKV/7wZHOkEQamOfnU//Vfo4ZxpFA5ZCThl0f2pswc2pWa7HlE30ll5dbO/QR
-	 RIZO/jUlDgUmNJ1e3XLZ5/vqbsiGwt9Ukgvqc7zkjxN2YWJ5dGX5ys6iLXSqw57abKNWehIqCn79
-	 ObcuHMNqH6Rhd60hA06YSa+lur4RGY/qCVXjvFLA5DcSB/k2kcWeIT/zWOxWDEP33cInsIwRgGP4
-	 gyC68hIbQtVboSe1BUbawWJ1tsw5MKU3qedq7ycKWd6jiHVG2bbz7w05xNBUz8VFXQSiKqOBPdbO
-	 wIB1/ZWTsz+6w54whn/BTrlAc9z/9k63pep8jkuuYg05ue77U9NsMnOHTEsSJ/u09YTOXoAhdpSo
-	 7UQ7Izt5frPboTgudSGKInuIHx0VPLBBXHiwo4nkOSxw81vGymAD/wRtTkno/8HEe9c62I9hD4O3
-	 vweW8v+NTJWPKU+v65jOWjuyGOlxtAC84ZnXmTvzWjhixwkHYRP1NGXDm3HvoaaUMXQwjAQGdPxq
-	 v/a11uvbbJ/EYyFOGNgEyXaonJ0vOn7Ti78iCyNqNmLAlXYaLputZ8tUM+Bxh5FKUlqJp3worcqd
-	 wq1/npN3VM/n5XhsC2ZyJZPf9BxDROA2EDkQvzPk+FlX0THkGv5pt7lTV+moH3+E/hcJqWSKEY92
-	 cGh3rLEY8SAXnRxzNAo93Ht21Bli3bf5uNUH0NyVQ6WAGRm9ja0lEWjwYnFW42ZFnEtm2IJA==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: wjjsn <wjjsn@qq.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	chenhuacai@kernel.org,
-	zhuyinbo@loongson.cn,
-	mturquette@baylibre.com,
-	sboyd@kernel.org
-Cc: linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	kernel@xen0n.name,
-	devicetree@vger.kernel.org,
-	wjjsn <wjjsn@qq.com>
-Subject: [PATCH v2 2/2] clk: loongson2: add support for ls2k1000 compatible
-Date: Sun, 22 Mar 2026 16:19:15 +0800
-X-OQ-MSGID: <20260322081915.1626723-3-wjjsn@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260322081915.1626723-1-wjjsn@qq.com>
-References: <20260322081915.1626723-1-wjjsn@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sBWaxjmW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C873DC19424;
+	Sun, 22 Mar 2026 08:50:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774169455;
+	bh=Tn+oaAJkd+1LfElxz971/rTEapiAlsQZ4IcUOpFg2Pw=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=sBWaxjmWkin2WwQVvJ1Y+vpe9G3EJQ43cneaudJqI0sAgKKwJ3kwrbtIbs9cUo2Ds
+	 c74a8CPILcf6hzF/+iyaLksOsVTQB+EEBL0nngfrnia/ppTLwHTkQOv7dypmRT7Mh+
+	 +Gxf9BsO11MYeu39MwPv2/aMy6von636h8l3PeG0Y+0UESUnkVpzY3wMb3q3vU8hI7
+	 jEBDoT/7HSj6LuWsxoDWq/m99Z+fgM42M3oujdSaOxmET8J3Z2q1HjummFuzSYyPTm
+	 e81K6c432DlxzL0pAMTtk8llcqDn2+Mlp0Cf/e0Ln7hzV79WRLX2VvkOzRtQrOTsiU
+	 srCnYt/PYc01g==
+Message-ID: <c8ffbdde-a01c-4793-b7ad-c056983b231c@kernel.org>
+Date: Sun, 22 Mar 2026 09:50:50 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom,ids: Add SoC ID for SA8650P
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Radu Rendec <rrendec@redhat.com>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Cc: Lei wang <quic_leiwan@quicinc.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+References: <20260321152307.9131-1-rrendec@redhat.com>
+ <20260321152307.9131-2-rrendec@redhat.com>
+ <a7144f45-cfb6-47ac-8f32-c97a7eef9e97@kernel.org>
+ <6a1260a8-8988-4839-a7a3-edb9a1bf71fa@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <6a1260a8-8988-4839-a7a3-edb9a1bf71fa@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add driver support for the "loongson,ls2k1000-clk" compatible
-and update the Loongson-2K1000 DTS to use it while retaining
-"loongson,ls2k-clk" as a fallback.
+On 21/03/2026 20:33, Krzysztof Kozlowski wrote:
+> On 21/03/2026 20:29, Krzysztof Kozlowski wrote:
+>> On 21/03/2026 16:23, Radu Rendec wrote:
+>>> From: Lei wang <quic_leiwan@quicinc.com>
+>>>
+>>> Add unique ID for Qualcomm SA8650P SoC.
+>>>
+>>> Signed-off-by: Lei wang <quic_leiwan@quicinc.com>
+>>> Signed-off-by: Radu Rendec <rrendec@redhat.com>
+>>> ---
+>>
+>>
+>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>>
+>> <form letter>
+>> This is a friendly reminder during the review process.
+>>
+> 
+> And I read now answer to v1, so the DCO and patch provenance still needs
+> clarifications.
 
-Signed-off-by: wjjsn <wjjsn@qq.com>
----
- arch/loongarch/boot/dts/loongson-2k1000.dtsi | 2 +-
- drivers/clk/clk-loongson2.c                  | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
+It's fine, SoB now matches original patch.
 
-diff --git a/arch/loongarch/boot/dts/loongson-2k1000.dtsi b/arch/loongarch/boot/dts/loongson-2k1000.dtsi
-index ab6a55937e9e..61cdae438cb0 100644
---- a/arch/loongarch/boot/dts/loongson-2k1000.dtsi
-+++ b/arch/loongarch/boot/dts/loongson-2k1000.dtsi
-@@ -156,7 +156,7 @@ pctrl: pinctrl@1fe00420 {
- 		};
- 
- 		clk: clock-controller@1fe00480 {
--			compatible = "loongson,ls2k-clk";
-+			compatible = "loongson,ls2k1000-clk", "loongson,ls2k-clk";
- 			reg = <0x0 0x1fe00480 0x0 0x58>;
- 			#clock-cells = <1>;
- 			clocks = <&ref_100m>;
-diff --git a/drivers/clk/clk-loongson2.c b/drivers/clk/clk-loongson2.c
-index 9c4c6c99db3e..48d00578b26f 100644
---- a/drivers/clk/clk-loongson2.c
-+++ b/drivers/clk/clk-loongson2.c
-@@ -441,6 +441,7 @@ static const struct of_device_id loongson2_clk_match_table[] = {
- 	{ .compatible = "loongson,ls2k0300-clk", .data = &ls2k0300_clks },
- 	{ .compatible = "loongson,ls2k0500-clk", .data = &ls2k0500_clks },
- 	{ .compatible = "loongson,ls2k-clk", .data = &ls2k1000_clks },
-+	{ .compatible = "loongson,ls2k1000-clk", .data = &ls2k1000_clks },
- 	{ .compatible = "loongson,ls2k2000-clk", .data = &ls2k2000_clks },
- 	{ }
- };
--- 
-2.43.0
-
+Best regards,
+Krzysztof
