@@ -1,120 +1,129 @@
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BBEDDC3
-	for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 23:40:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC680364949
+	for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 00:38:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774136415; cv=none; b=Ej8RxgiY5q+yhUkni+WE0xUnrAX9YPQ9qT8sC11pSRDH8zmT1trw7sqKMD7AZLPGOnmi22MBWSwOY6nYOP7PaYGLU8Zd18YFJFzYyTL+9fh6e5Xgan9BDxrhaNxs58+Gg6N/yDnii+ke6gN6cKEHxXttnER6ExvMWB51kLGMTtQ=
+	t=1774139885; cv=none; b=JAfCL8Ipyf54tXuwU+GvThGQHBB9iubVAsuoEh3uYJjMf/g1982ers0us68izM3Ll1EADnDjlOB3sidTTzOWxvenQ9Gx0OUqjm9MnBA7rEateX1rZUsDNz6MXrGvYrz4QmCIwxO5tW9I4LnBgnIZUjJgNRz052a9ZaKMc3JarDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774136415; c=relaxed/simple;
-	bh=03us+33m88mRKaEpcnY7w1F++szT5Qz0wSZ5EgbUMqM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Yw2t/32kzPd/2Tn+7FmwufAyJD4W8rq3hRZhvQhSWQQMiGZSZr9pg/lB2tQVa3hm53Z1Jlu3wkAoOeyyQ4judka1Fo9Zz8C8XN3PBC7WrXdmrzRz+xxBMxY5LBnIMjNB6P73WKCweNBi2ky1x2vsoqv9AYslY9HhmNF6nrA3bNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.224.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-64ad9238d8fso4096167d50.3
-        for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 16:40:13 -0700 (PDT)
+	s=arc-20240116; t=1774139885; c=relaxed/simple;
+	bh=6dLhB2ydoQBAqJPB1raZlJyeJqk0XqP+WELLlaK0rKY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WWa9Ru48M6t3FnIpggBwNxQVmomWLEi46llyKTJWz6vRNJvr4kYF7fob1vSfhMwwmzuP4DvvB7cPdVHuTsiZhNjX1uBT0nMb/MjHmQbBhAnwyhHwhyxKcj77ffB6mGTSPT+YVvuK+PUzLuNSjQ5pzL5q2iBMiCccO1a/DQFzi1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b=m20yiiym; arc=none smtp.client-ip=209.85.167.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b="m20yiiym"
+Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-46704177508so1053473b6e.0
+        for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 17:38:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1774139883; x=1774744683; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=1ZkURIzaUVIDe1R8WHRcSdusVPoS3d/IbkclZRm0aAU=;
+        b=m20yiiymSwTNb5PCtfbOHTPDJwyRUu81ZGCoAiLBlO9tP/GemtwbjWh4LJqIbMd5ps
+         Hdbvf+8lZ79Bz1EC8BgOx1jhgAgyaPhYtUNhV/azDXqr85lbMpIDQPwMyPcHoHI1jrEQ
+         I8gKyKiGeOF8Yr08ik45Vj6Bj2NTBsEHuEZuOVtwsa+/K/CrMiCDiFxaKW/ap0WOPemd
+         2wVBL7gbn/kaHkcy3ETvNdErTI2y9vMsXuDNzegwKepsSBVHFWsoBRLdVl30PmbkFfCT
+         W6NMSDurky8EuPKCjOL8YwVUxrDMJDsz48gawrXQi2djNewXwhi3njA6TxsfnFBNvEnl
+         KZDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774136413; x=1774741213;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=AAamBCEutf15hcPE8pkpuda+NYT3m26yn5a0i27N0ng=;
-        b=ouzo+fvoUXR+AGwmfACskwIQE7l5RpiUXFo4Qu+SV6nj4ET544gQylzd2MA/mjLaOu
-         ENKyIrouhskyvRwUnI2MRlG8LeqgtBjEsPJifP+mWICnze1zp1BxgkTtlNEIHpsvxoda
-         9Df1dDltA3h0/sDqmtPG6weAWn2DOD+/Ycj/XvMmk7GwRWVCr8JRuamZR+NBXrjwSMkA
-         G0WF+0Qbxvsb4shpOaGoK3huVeIL6OPMlBj0CJqh7rTn4WkcARJMSjyNBusO028f4tsK
-         K2tCZ2dhOob2yvtYgqYZUDd14Y87dL1CJafa0RLbgweCpA/w4+4gEbwr8mZKZBTaJCED
-         La2A==
-X-Forwarded-Encrypted: i=1; AJvYcCXJXVI/fykXUQBZOuVpYvQWzz0w3MdJw2iDBS4tfiByD8ko0ljLXQqFFANKCdXd8gZ6gPPpIXUSJgYu@vger.kernel.org
-X-Gm-Message-State: AOJu0YzbfZP23wrh+q7vCyZDnUzsdSEHJYqy+2474TAg3cLwzpUWABEc
-	PR8uiiR7k5/gl9BRKghJV/NjP/uPoWO/B3b02n0xGgQuPvkuvb0glTRtHsxa2pGw1HE=
-X-Gm-Gg: ATEYQzzVnezJ9JrIFHBglUcKEGPbjW/FSq3nJXKYRY4cPTMKZubq8qG3WveDrg1bKPD
-	Z8D3tYU1f2RkJv1oGmba9KPYeXzmrgxduvEjIAQMmHxUfZD5AywVEdguLB1OSNmOfJ7bUYmbCJO
-	wmlW8PfHB94GHCU1EYUj4poazQly7XiV8sjRCgdwzsY45v0WD6T/hYtFYTuoyxAFg2mtWz+HFsN
-	Kg+3686oe/78J7iNhriCm0H8zobqMzdnS3DIdssAcMnXbJKOoj8tQ9KjLYGV962N93WUEGO/WdY
-	0hgKYfr/rrIVTasPek+ZqygIeE13mpuwUQlG8XjGXRzuEBKHERGBwPL7bRdvKkJI9CsZAXu7oiH
-	roubV1Tx9v1/TCkF5WE9sxVwSDw8rJp9i2W+ff3q/r+XEjWFnNUhSNTqwsw+Edr2mA7qxw7n94W
-	79dFQI89apS/CbHjlEj0B19yOJq3ZKs+Ym+P2gOmgnElWwx2F1CbZ2q8f6x8frJ8rxehiS+W8jC
-	IhT9ULDJhdLZ0fq/Wah+0g9of/n2sS1kKX95F2OuA==
-X-Received: by 2002:a53:c04f:0:20b0:64d:664a:3063 with SMTP id 956f58d0204a3-64eaa6e1186mr6355257d50.24.1774136412579;
-        Sat, 21 Mar 2026 16:40:12 -0700 (PDT)
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com. [74.125.224.50])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-64eabd813ecsm3898778d50.7.2026.03.21.16.40.12
-        for <devicetree@vger.kernel.org>
+        d=1e100.net; s=20251104; t=1774139883; x=1774744683;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=1ZkURIzaUVIDe1R8WHRcSdusVPoS3d/IbkclZRm0aAU=;
+        b=ffUK351eq5oSRMUNh47k2YoUUdHkxJdhQehJ/2sGcPR24QNOSjERyv0mxDXyfuh8NA
+         e0zxe++jTzhO6yZaip5SX9hIZXnrD3oAR+EKnru0oR35nGlWfTRF2I2j2/naPQjQ7P88
+         hAm0ZDD1suqszcI9Ecxdf+soSZ+0MKbwXPpvbpEzYe6oxFeexWZqSNlFWzXrFq1jGbst
+         HWgisTJao+LeraGu0lS1ZDadLcSTyOZGE8gY7STPLNCm9igYLPdRfKyTfHMaX63Lap8d
+         /tEXwGfFPpgfRBnD5jHAo93Z9HRhIBxtbQobGEUGi3bL+HlbH66+qZ8YGYoJ4lfrgVua
+         fG7Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXmodAYNGhsxBb2BMOGm/d/X8XH1iZZf7saOO/Z62KT1ydgKrVDvLxWPXA45EN8Jh4i1YBbXszKTCpE@vger.kernel.org
+X-Gm-Message-State: AOJu0YxcPPd6F5cVxe/ug2bcK0NsxoGvjxUUp9TGjVScUeKbdJdWkzL/
+	u1Ve4kVwrqsa6tNi82HCWNIuzQ4XTQCcu143krmvJi5ET5JTqdMEw4uYjN7SdR5y7hg=
+X-Gm-Gg: ATEYQzzQm1rgmRED65rpzcTV/yZ4fD7P+232tfz74RxmexLu+ralGvFcA+WRjE8JL9U
+	5ChPI+jUxUvEU8aVzYyGYq0Y5QHz+Ryn2LQvdOyNICXGlRoJTvmebQyXlyf2xfvVGxf1Asm+lE2
+	TRnzA1Tbn8Fh3h2TuAmlTzUYJcrFBstnUlCdG/aH1k6t9rMB5deDnF8n7/95HnsuscnlYszFIEr
+	G4TIMIYxNoae2UGcTJpSoUvMG5zw/gHZ6i4k1qHr1vZHLE5ONsN1+wjLye/Hb47TII+NnLTD84X
+	wRrC95SMjW7kdBVOLVtqG/3UHNulwS0oXKnIpUOvMYPWax5BHaKOkcXJrpl8t8+pqvTUHQHiNtA
+	wf8VtykZDCEx+FmqG5XxfhcdrOQprRXW5k1P06FEsaOUXnhFjYp89YNxJRLPG4g5eoEVXwtibT/
+	wVo9k8UN997A4aV1rFaK0C0tWwE4POf6dzwvA7G1mUQzzLXsqaCEeDZMBJra4KVOVESnUC70w=
+X-Received: by 2002:a05:6870:45a6:b0:3ec:4f31:42a with SMTP id 586e51a60fabf-41c10eff5ddmr5416367fac.7.1774139882771;
+        Sat, 21 Mar 2026 17:38:02 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:fb84:df2:aafb:553d? ([2600:8803:e7e4:500:fb84:df2:aafb:553d])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-41c14d63aa9sm5915411fac.10.2026.03.21.17.37.59
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 21 Mar 2026 16:40:12 -0700 (PDT)
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-64acd19e1dfso2593260d50.0
-        for <devicetree@vger.kernel.org>; Sat, 21 Mar 2026 16:40:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCUQQShZ+2V+aZyBU2wxUep/sQmmmNYgY588gB6GTXHrITm95y5B2Sw6eyAcfIF1yDu+j+RXlBO3xRzF@vger.kernel.org
-X-Received: by 2002:a53:b466:0:b0:64e:a59f:fca3 with SMTP id
- 956f58d0204a3-64eaa6a36d7mr5414313d50.4.1774136411946; Sat, 21 Mar 2026
- 16:40:11 -0700 (PDT)
+        Sat, 21 Mar 2026 17:38:01 -0700 (PDT)
+Message-ID: <b1da32d2-e1f7-4fea-82a7-a40e8073a100@baylibre.com>
+Date: Sat, 21 Mar 2026 19:37:58 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260319190738.151614-1-email@sirat.me> <20260319190738.151614-3-email@sirat.me>
- <20260321172151.1f434680@jic23-huawei>
-In-Reply-To: <20260321172151.1f434680@jic23-huawei>
-From: Sirat <email@sirat.me>
-Date: Sun, 22 Mar 2026 05:40:00 +0600
-X-Gmail-Original-Message-ID: <CANn+LW+FNy+oCr+XskZoVS=eeCwnYvoKkFyX5fX2fbv8NbALGQ@mail.gmail.com>
-X-Gm-Features: AQROBzAvLoOgRGxh7sqALu5OHkzgOo46gcPVkin7WpjyMuHj1YVI7aaRb077v6I
-Message-ID: <CANn+LW+FNy+oCr+XskZoVS=eeCwnYvoKkFyX5fX2fbv8NbALGQ@mail.gmail.com>
-Subject: Re: [PATCH v6 2/2] iio: proximity: add driver for ST VL53L1X ToF sensor
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/2] iio: proximity: add driver for ST VL53L1X ToF
+ sensor
+To: Sirat <email@sirat.me>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, jic23@kernel.org,
+ nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, linux-kernel@vger.kernel.org
+References: <20260319190738.151614-1-email@sirat.me>
+ <20260319190738.151614-3-email@sirat.me>
+ <8502eb51-53c9-4f1b-92d0-21b06fa4802e@baylibre.com>
+ <CANn+LWJEJJoGQU7p2P2GrOcA_g2x7jEnvjcTJYG1hDRUnRw3UA@mail.gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <CANn+LWJEJJoGQU7p2P2GrOcA_g2x7jEnvjcTJYG1hDRUnRw3UA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Mar 21, 2026 at 11:22=E2=80=AFPM Jonathan Cameron <jic23@kernel.org=
-> wrote:
->
-> On Fri, 20 Mar 2026 01:07:14 +0600
-> Siratul Islam <email@sirat.me> wrote:
->
-> > Add support for the STMicroelectronics VL53L1X Time-of-Flight
-> > ranging sensor with I2C interface.
-> >
-> > Signed-off-by: Siratul Islam <email@sirat.me>
-> Hi Siratul
->
-> Just a few minor things seeing as you are going to v7 anyway.
-> If you weren't I'd have applied some or maybe all of these as tweaks
-> whilst picking the driver up.
->
-No problem at all.
->
-> > diff --git a/drivers/iio/proximity/vl53l1x-i2c.c b/drivers/iio/proximit=
-y/vl53l1x-i2c.c
-> > new file mode 100644
-> > index 000000000000..771598b92e04
-> > --- /dev/null
-> > +++ b/drivers/iio/proximity/vl53l1x-i2c.c
-> > @@ -0,0 +1,820 @@
->
----
-> > +     /*
-> > +      * vdd-supply is required in the DT binding but we
-> > +      * continue if it is missing to support older DTs.
->
-> Given the driver does nothing different for an auto provided fake regulat=
-or
-> and one from DT, I'm not seeing the comment as particularly useful.
->
-> Drop it.
->
-Considering there is zero difference between the fake and real regulators
-in terms of functionality of this driver, should we just drop the hard
-requirement in the binding?
->
+On 3/21/26 5:39 PM, Sirat wrote:
+> On Sat, Mar 21, 2026 at 11:09 PM David Lechner <dlechner@baylibre.com> wrote:
+>>
+>> On 3/19/26 2:07 PM, Siratul Islam wrote:
+>>> Add support for the STMicroelectronics VL53L1X Time-of-Flight
+>>> ranging sensor with I2C interface.
+>>>
+...
 
-Thanks,
-Sirat
+>>> +
+>>> +     ret = vl53l1x_start_ranging(data);
+>>> +     if (ret)
+>>> +             return ret;
+>>
+>> Why start ranging here? It looks like this is controlled during buffer
+>> enable/disable.
+>>
+> The VL53L1X (unlike L0X) does not have a single-shot mode. So every
+> measurement requires the device
+> to be running (Autonomous mode according to the datasheet). Starting
+> ranging once
+> in probe allows the direct read path to work without any additional
+> start/stop logic inside read_raw().
+> This keeps that path simple and low-latency. The buffered/triggered
+> path independently controls
+> ranging via postenable/predisable, so there is no conflict.
+
+If you do a buffered read, which stop ranging when it is done,
+then how can the direct read work after that?
+
+Can we just start and stop ranging momentarily for a direct
+read?
+
+Otherwise, is seems like we would want to have ranging always
+enabled.
+
+>>
+>>
+> I will address the rest of your review in the next version.
+> 
+> Thanks,
+> Sirat
+
