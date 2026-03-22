@@ -1,145 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801011A6815;
-	Sun, 22 Mar 2026 19:48:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B073161A2;
+	Sun, 22 Mar 2026 20:25:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774208905; cv=none; b=Ee+q1JzziceDlP/gpB7e6pJ0fvDfGYuljdv94Fnze4hqSSkzdZrcTKLaVdZpPICEFBAG/e6jY4jYXr2An2YQbf5u7ac32N2tQCSnfUCl9vlhPPrDXlaDlJcTfElBi1m1aK9b2vtp9DBbF9KXdsihpPzT3/tt+ofiOoyLl9MS6So=
+	t=1774211123; cv=none; b=d1BO1sK6W6M6P4IntQb/CclUjGhGmL2swOQCDESnxCsKzzSBxKBs7otwhIC9yThbdriH+ms0RGUupmxlt2h9a13gJQ4gLZpbMqoX0tzdUTd0/1z7SINZWWTSvCLpdsej0KpYv4Wn1j1B2SzUI2eNVLgkqXtU/NLtappqJwrHkkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774208905; c=relaxed/simple;
-	bh=hsLkvAUgRxRQJzXQcQZokLRvOtZGiaYVCTbdJvhfGkM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YLXZHPC/r4ckggNcfL50oLQ+Ea0SiEXbiRWFL8DDhD/7Io3OC3pJ2q2/+Pq5GSoRB6GuL9UHlKx5GzakU0egEGMDhemPFL0ENbE6WHKMpcUNET6U1bK5AmUrkxxL9JpWxRYHHCRPmeoYjU3tXTkxTrw/0/j2uVtUT+ROWCrbCcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IJynRHho; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774211123; c=relaxed/simple;
+	bh=pE0vwXnuP+XgN6SLgExPSVUzCS7wxrj7ZmWthfigl6g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=imGlWBRlH+f0qB2oUf5/LEc0srtlFD/UHrHZK5CEQsnpeJno8+SyD5V4+ToDdYs9QMpjkOy93EjXHATXgiDy8kq0p+eS4WncDuR210PKHFkC8uWCGR1G2tMeRwKMo5GHWMF8zQPbKiySeF33YdUtsK/1fa6gGKHfhibPrfOPfmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=EceHX5FB; arc=none smtp.client-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IJynRHho"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4414DC19424;
-	Sun, 22 Mar 2026 19:48:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774208905;
-	bh=hsLkvAUgRxRQJzXQcQZokLRvOtZGiaYVCTbdJvhfGkM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=IJynRHho/9IV0v/RSzh7fxYdgT/lyOvO3O8QsZQmVmjayvPkC4t+NWUbhTJMHWtVm
-	 IfV613+T/NebAdRZJ09PoBNevgB5muW+4n96gDcNPz9QnFtBJW8i5nGS+bKE6tmGBl
-	 iCBHEdU+88gW5SaIbvekm+ZEASVCxpyJvdr8cyxwbPx2oPmTJgu424vC6vjj/h9hDh
-	 n+su0sSp8AaHG2PU1Jw7kNOACjH8uxm0DVJpoNZG4o6eHL+CFxLoIDIWAdlASD2bMv
-	 XlSsTiPqojypo+A/U+37yGwkDfeY2yuW8pG+5IMLL/p7WLhFAs0UFU/tzig2wFY/XP
-	 U0Kt/yn9WVFFA==
-Message-ID: <eb316800-0be6-4aa7-b9f6-e2b17646d1a0@kernel.org>
-Date: Sun, 22 Mar 2026 20:48:20 +0100
+	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="EceHX5FB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
+	; s=202004.hall; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:
+	Subject:Cc:To:From:Content-Type:From:Reply-To:Subject:Content-ID:
+	Content-Description:In-Reply-To:References:X-Debbugs-Cc;
+	bh=bHa+8TMPMx1ILvk4E2TqNsND9CWODuS5VukkZ3jetbc=; b=EceHX5FBf1yLcFaOvIaQUrj8mf
+	LhUzcvUNoXEQRJYJhMi34WbFglOds//tWPthVD1OVHe7/tc1pXDMAK1GO6BsQ2QQnw3Du67YGKPkf
+	PRbSe2h0GACXQZlS/nvtzx+5pw0RYAfgocxGrKoyMGfL+FcS++J26r6xbUm32txJdJbCNCxEwzPOd
+	Cwx39wOFcxNSHDrqZYy8yEcL2NJ3lMBVdPgFC+H6PyfyKVXOYsVQGpn73rRR+Fjpxwidjba89hS2b
+	xV1VTH1Zk8UgaMlXR7xYuPrAOJp31Oe+0+kfqi+wtlEvFojwZY+O3R0F1U+h6l/BjIuiVoyS9ChiO
+	6cLHqLLQ==;
+Received: from authenticated user
+	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <aurelien@aurel32.net>)
+	id 1w4PMF-0000000AsAG-1Ndu;
+	Sun, 22 Mar 2026 21:25:11 +0100
+From: Aurelien Jarno <aurelien@aurel32.net>
+To: linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>,
+	Alex Elder <elder@riscstar.com>
+Cc: Aurelien Jarno <aurelien@aurel32.net>,
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-riscv@lists.infradead.org (open list:RISC-V ARCHITECTURE),
+	spacemit@lists.linux.dev (open list:RISC-V SPACEMIT SoC Support)
+Subject: [PATCH] riscv: dts: spacemit: drop incorrect pinctrl for combo PHY
+Date: Sun, 22 Mar 2026 21:25:01 +0100
+Message-ID: <20260322202502.2205755-1-aurelien@aurel32.net>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH QUESTION 0/2] NFC support in Linux (and support for
- Qualcomm SDM845 devices)
-To: david@ixit.cz, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Petr Hodina <petr.hodina@protonmail.com>,
- biemster <l.j.beemster@gmail.com>, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, oe-linux-nfc@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260322-oneplus-nfc-v1-0-5f22f544f0e2@ixit.cz>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260322-oneplus-nfc-v1-0-5f22f544f0e2@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22/03/2026 15:24, David Heidelberg via B4 Relay wrote:
-> There isn't upstream driver.
-> 
-> I'm openining this as a starter. We need a NFC drivers I assume. I tried
-> quick check, but both of NFC drivers register
-> 
-> nfc: nfc_init: NFC Core ver 0.1
-> NET: Registered PF_NFC protocol family
-> 
-> but efficiently does nothing. In the See section, there are some ways
-> how to make NFC work, but rely on patched vendor libs, missing updates
-> etc.
-> 
-> 1. What hardware is present on Snapdragon 845, is there some
->    documentation? It seems that both sdm845 devices has almost identical
->    setup, thus it's NFC solution integrated? @Qualcomm
-> 
-> 2. What's the right approach to continue? Should we upstream these
->    definitions and then start developing user-space stack? @netdev (I
->    see orphaned)
+The combo PHY on the Banana Pi F3 is used for the USB 3.0 port. The high
+speed differential lanes are always configured as such, and do not
+require a pinctrl entry.
 
-User space stack is there already.
+The existing pinctrl entry only configures PCIe secondary pins, which
+are unused for USB and instead routed to the MIPI CSI1 connector.
 
-> 
-> Since looking at NFC mailing list (oe-linux-nfc) and seeing it's pretty
-> much dead, would be cool to revive it.
-> 
-> Also there is some effort from Arch people [1], but likely without clean
-> path to mainline.
-> 
-> Can we revieve the NFC effort? I'm offering limited maintanance (in case
-> people would send patches).
-> 
-> See:
->  - https://gitlab.com/sdm845-mainline/linux/-/merge_requests/62
->  - https://github.com/NXPNFCLinux/linux_libnfc-nci/
+Remove this incorrect pinctrl entry.
 
-I don't know which interface libnfc-nci is using. There are multiple NFC
-stack implementations in general, but the one using kernel interface is
-neard.
+Fixes: 0be016a4b5d1b9 ("riscv: dts: spacemit: PCIe and PHY-related updates")
+Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
+---
+ arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts | 2 --
+ 1 file changed, 2 deletions(-)
 
-You will not get another stack, but taking care of Linux nfc and neard
-would be appreciated.
+diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+index 404b69c47b91f..5790d927b93db 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+@@ -81,8 +81,6 @@ usb3_hub_5v: regulator-usb3-hub-5v {
+ };
+ 
+ &combo_phy {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pcie0_3_cfg>;
+ 	status = "okay";
+ };
+ 
+-- 
+2.51.0
 
-Let me release a new version for it.
-
-Best regards,
-Krzysztof
