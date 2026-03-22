@@ -1,76 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 105A436C9D5;
-	Sun, 22 Mar 2026 22:56:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C793164A9;
+	Sun, 22 Mar 2026 23:08:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774220193; cv=none; b=DCFid0RMxLxDf/WN3yr1JjJB3lik+3j8fZ1r3i/Q/SFtSfF4bG07OQwt3iex0vPYoPyHinPPr++HC4CocAzL7/2892VkSkjj1mfBzKBayx62tQQeN4wi+X7Htq65cmhNZQh9s4SEe3AdimV83xZMCAhOSkUM6h7ZPnWpQaQ72t4=
+	t=1774220888; cv=none; b=N2wLNP0HbY79mr2YVnf5yuhO5rm7r2pcKxuPy4KX2mplpa915u+UXRgIqzpSgYyCEAKAjTjCzD5xFaVkgWtzgCVNcXkYzOLMx7/pKPPEo2cLPjCxCyVD8qHHxkr3P24rE+opEr+ENASHTEJPPucVyD0SpIQnaZRhYakuBd5QwqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774220193; c=relaxed/simple;
-	bh=oCbRxSNH1GuDwX+8hbSmIUfP9Ox64Oewx5GCbypmbrE=;
+	s=arc-20240116; t=1774220888; c=relaxed/simple;
+	bh=cS9fnBLUaiAxDgJ4h9rJnb6mgZnkEly0eecDci0Jflo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AuXCKeS8FPHPj83KL4YTuIoxBz/Cflvg3DtBnHO/MFqzEsziH0y39y6tvB3eu5DGqs6Oipjt5s9PK4dc+/RmC1lqzu5beqdRS3FlunKSNDwbJ8Dmae3OTq5puK3ZhcqOqYzfEM5NyYiHaQdiU9wPTWXP58RbgRfwC4yOXUeyGbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sYfyquHH; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=kcRd/cr19jDDMpQ/02sSN5PdnE49daN8Udc88SHgGW7Vj0Wj0Z/1lPUeig7Djwcs0JLwRlRe7HD7uoGf2yajdYzAIAXVLt+RLYTzxzYhpbLr/DEongvdkIAsCObBxkAPhPgrFvxcGX+VYASamAlGUaIM8qkISwSiwgmKsyInomQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s1eZG+m4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sYfyquHH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7458DC19424;
-	Sun, 22 Mar 2026 22:56:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s1eZG+m4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B325C19424;
+	Sun, 22 Mar 2026 23:08:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774220192;
-	bh=oCbRxSNH1GuDwX+8hbSmIUfP9Ox64Oewx5GCbypmbrE=;
+	s=k20201202; t=1774220887;
+	bh=cS9fnBLUaiAxDgJ4h9rJnb6mgZnkEly0eecDci0Jflo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sYfyquHHkQAVCrmwdtiaYpNhgK08pwTkqNMi3BlSAhMeQRwoQ17Kds49Lg/OGqmCL
-	 SWCjyCpgWftnu/AWJvxj/64iOQS+iQz1qj7oSPQSXyYP8N1iRfaPBeKrZykMD8KBZK
-	 mkF7FsdOUiwBjsTf7fWF+ZgCMadBvYaRAvl1ev9b/BYnFRNBNcxfCIr1Rl6/jADjGx
-	 j34+fk2qe+PBJpLOpC6vqhskMkZ0O4ZGlPMBBkNGV3nuAB1A8VXFhUcbvBO/XmYIiD
-	 T2k6JGgykJ98veW45UkW9VvkpLVAcTcn3UDeVqBUaQaaZRXr5CDguRkflSGm/UcPJc
-	 9aEQ8oHR7u8pw==
-Date: Sun, 22 Mar 2026 17:56:31 -0500
+	b=s1eZG+m44A34AAcPnyJ45jYAnlY5Y02ieiSkTpmTSwFgdnMvBM/lUHVsHL35m8+PX
+	 x4OoFyJB26NE2aghErBEbHe1Lj3vIuTl6OqFqkO+7GXEgC6n5QT4xco5B8Vcnk6NmG
+	 2j0RU204vWHN+nexvY0H6qy3U6cQjOk1kqdt9ihLPdD0avNQth2JgM0+Y7vF9DxGo5
+	 B8biCHalnLNM/3wZnqrmwXlSQ+bpzA2iGZnQG2cWUb9KXOwu62AHkwwrhMSKuebV+i
+	 2EnKBT01dsP0aWWJ6ju4oBfqj9Cp6hEsaJ4B/bD0Q9vQTuBU1PV7NCu1WylqdBRsnK
+	 MfXBFXqI3cLPQ==
+Date: Sun, 22 Mar 2026 18:08:06 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Conor Dooley <conor.dooley@microchip.com>,
+To: =?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Palmer Dabbelt <palmer@dabbelt.com>, devicetree@vger.kernel.org,
-	Herve Codina <herve.codina@bootlin.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Daire McNamara <daire.mcnamara@microchip.com>,
-	Paul Walmsley <pjw@kernel.org>, linux-riscv@lists.infradead.org,
-	Albert Ou <aou@eecs.berkeley.edu>, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>
-Subject: Re: [PATCH v13 3/5] dt-bindings: soc: microchip: document PolarFire
- SoC's gpio interrupt mux
-Message-ID: <177422019104.46273.4844839015391961546.robh@kernel.org>
-References: <20260318-gift-nearest-fd3ef3e4819b@spud>
- <20260318-whisking-steadily-91b2497f6fb9@spud>
+	devicetree@vger.kernel.org,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Will McVicker <willmcvicker@google.com>,
+	Mark Brown <broonie@kernel.org>, kernel-team@android.com,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Juan Yescas <jyescas@google.com>
+Subject: Re: [PATCH v8 04/10] dt-bindings: soc: google: gs101-pmu: allow
+ power domains as children
+Message-ID: <177422088580.68999.2696628451454506531.robh@kernel.org>
+References: <20260318-gs101-pd-v8-0-241523460b10@linaro.org>
+ <20260318-gs101-pd-v8-4-241523460b10@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260318-whisking-steadily-91b2497f6fb9@spud>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260318-gs101-pd-v8-4-241523460b10@linaro.org>
 
 
-On Wed, 18 Mar 2026 11:04:34 +0000, Conor Dooley wrote:
-> From: Conor Dooley <conor.dooley@microchip.com>
+On Wed, 18 Mar 2026 15:27:49 +0000, André Draszik wrote:
+> The power domains are a property of / implemented in the PMU. As such,
+> they should be modelled as child nodes of the PMU.
 > 
-> On PolarFire SoC there are more GPIO interrupts than there are interrupt
-> lines available on the PLIC, and a runtime configurable mux is used to
-> decide which interrupts are assigned direct connections to the PLIC &
-> which are relegated to sharing a line.
+> Note:
+> Because the properties added are 'required', this commit breaks DT
+> validation of the existing DT for Pixel 6, but a) that's simply because
+> the DT is incomplete and b) a DT update will be posted once the binding
+> is accepted.
+> It is not possible to write the binding such that it supports old
+> (incomplete) DTs in addition to the full version, but as per above
+> it's not required to keep supporting old DTs.
 > 
-> Reviewed-by: Herve Codina <herve.codina@bootlin.com>
-> Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: André Draszik <andre.draszik@linaro.org>
 > ---
->  .../soc/microchip/microchip,mpfs-irqmux.yaml  | 103 ++++++++++++++++++
->  .../microchip,mpfs-mss-top-sysreg.yaml        |   4 +
->  2 files changed, 107 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/soc/microchip/microchip,mpfs-irqmux.yaml
+> v8:
+> - move comment from commit message footer into body (Rob)
+> - fix incorrect use of ranges in example (Rob)
+> 
+> v7:
+> - really be consistent with quoting (Krzysztof)
+> - drop invalid tested-by tag (Krzysztof)
+> 
+> v4:
+> - consistent quoting using " (Krzysztof)
+> - add samsung,dtzpc to example
+> ---
+>  .../bindings/soc/google/google,gs101-pmu.yaml      | 41 ++++++++++++++++++++++
+>  1 file changed, 41 insertions(+)
 > 
 
 Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
