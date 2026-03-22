@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD6D2594B9;
-	Sun, 22 Mar 2026 09:00:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2803301460;
+	Sun, 22 Mar 2026 09:14:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774170005; cv=none; b=bWUxcUDvlcENZl/ayJQW3tcWX0SjNf8hj+cwS7RV4S3et842w2cXYhOjZDYfDJhQXzTNk0SPEbTAs+e4A+a+PxpTl3UDGNj3PY0KIm2BbtM66W0xEgosaqjQqjZPwu3d1ThbZZarBdaqqPYV3d07hU+of4sPa/X1rmc/jUsQ84g=
+	t=1774170845; cv=none; b=Hj+4Tjm8p2DyNxF9L5YH8BO9XL+MHyjFNIA+ZFwH5Khn7SyQJomEVd7uYgQi9SIhrS/TKov7zDz8H8IMiym2JBnabiwuAKMbLhdd0/xkx50rQB+6kwQ6K7FexIlMOUZKV9lO/NOu82wn2hN7nzzDj7AlAaZ5dfG6tMw7hAVqM/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774170005; c=relaxed/simple;
-	bh=SnmUdKkB2W9Yg7w0rcJUsmUGz6wXGel8HeV1+vdvJI8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iHSv/2VSsp4OJmUy4VWTUfIb/wsBqwtEpJsULCdhsp59dkFc+5i/PiyoyBJ2fURa5u8t96EBejpaPy00K8J9TAZXIfHYVM9IuaBzw6S5F9pKqIX0bOPHErvE24kQW92ucJd7+KqePlFFW/H2Av+LkC4FsgnCDwbdzAp9CEhYyNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mbHZzHVu; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774170845; c=relaxed/simple;
+	bh=aWEfPRkvLFPw4qLTdurn7JRmFEnbMf98t4BmIavLWyQ=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=M12QPQv6tgCmnbmesHGmY8O0wR76fBqvUjdqMh7GYTKiMuiAsiBXF6Swv6WJ4PiKJbJVrnQRXclgNYZSKbeHVWjjzva52viVLb11775tqdBudVJyXZmRALenr/lC3L4vVsLdT9BXrl4jlQoSvwfcYzdbfiKJygpmDcHrU2hnr8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RDF7qKdh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mbHZzHVu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BE27C19424;
-	Sun, 22 Mar 2026 09:00:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RDF7qKdh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DFD2C2BCB1;
+	Sun, 22 Mar 2026 09:14:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774170005;
-	bh=SnmUdKkB2W9Yg7w0rcJUsmUGz6wXGel8HeV1+vdvJI8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=mbHZzHVuw6rEsjNYhArVJ7nZrfSX2boo1iZPSkwM7XIxnRz5GYbCc56zZaxWQEUOs
-	 J3jjV1mXmTk/ktSXTgoK2Rr6XE2fUA3wTUZ3iAdFNhc7kQBWrmc1MOYEPhhVHEn4q4
-	 Uy42Q77rpySMK4Ie2l36tGkai6pJWVUpwyvImPWEL1Q4n6JKib7Q+9pPaLhj28z3BW
-	 wfUygy5l7uKkHUmNNZljmogaHRWxXqkn8pt5qqYNpvyS4Vh1o0LzcB7nGC0EVIrsRG
-	 4Mvokkj7d+2tBVdnv5iO5XccmavhdDIgAejbeC7SHcVmTnpZXsotoYCwS83hS9vnRw
-	 IlUcXifNSKpOQ==
-Message-ID: <dc7a2041-50a4-482e-9930-566bb3fd1e72@kernel.org>
-Date: Sun, 22 Mar 2026 10:00:01 +0100
+	s=k20201202; t=1774170844;
+	bh=aWEfPRkvLFPw4qLTdurn7JRmFEnbMf98t4BmIavLWyQ=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=RDF7qKdhw21C+ccnUHnpoX0J5RDpW1lTPimhRY/xe6sAuCId1SXrvo/hsyHFADTlY
+	 Vqnla68PBvydq1WHtu93pxq2jgnyUY9Xto0UvvYvYLekoNMRPaVWj8L1F532RuM84e
+	 Gtm/qc6LcE9XIIsizJjjMpd39EkEcCabTwOsGVxp/fKIBzwfrWKn5kvgPr90Ch1DTk
+	 lWDjfhQwdLTUB+tDHq/JPWQIkmKbVIumD8XgvSLQwHciGBiGWZCC8yahfkWp/NCBuT
+	 hK+iVBd8sQXfLaZCGWROXM2iNYPHzPFYyGKn03gSQIFY3q/S6mW/Y7S1f/W5MCckP1
+	 tws+HqE7GGSUQ==
+Message-ID: <c18985af-e186-4fc7-97da-247472cbb299@kernel.org>
+Date: Sun, 22 Mar 2026 10:14:00 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,14 +35,15 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mailbox: dt-bindings: mailbox: Convert to DT-SCHEMA
-To: Atharv Dubey <atharvd440@gmail.com>, Jassi Brar
- <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Jassi Brar <jaswinder.singh@linaro.org>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260322-mailbox-v1-1-c6251f18187c@gmail.com>
+Subject: Re: [PATCH v5 2/2] loongarch: boot: dts: Add Loongson-2K0300 support
 From: Krzysztof Kozlowski <krzk@kernel.org>
+To: wjjsn <wjjsn@qq.com>, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, chenhuacai@kernel.org
+Cc: kernel@xen0n.name, devicetree@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-kernel@vger.kernel.org, wjjsn <2858482031@qq.com>
+References: <20260322071316.1537953-1-wjjsn@qq.com>
+ <tencent_6C692FE25219A76D5F73D250006D543B6709@qq.com>
+ <c26f35ce-6d15-4f6d-8ac9-e52a0aa0b44f@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -87,39 +88,27 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260322-mailbox-v1-1-c6251f18187c@gmail.com>
+In-Reply-To: <c26f35ce-6d15-4f6d-8ac9-e52a0aa0b44f@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21/03/2026 22:20, Atharv Dubey wrote:
-> Convert the Generic Mailbox Controller and Client
-> binding from text format to DT schema format.
+On 22/03/2026 09:53, Krzysztof Kozlowski wrote:
+> On 22/03/2026 08:13, wjjsn wrote:
+>> From: wjjsn <2858482031@qq.com>
+>>
+>> Signed-off-by: wjjsn <2858482031@qq.com>
 > 
-> Signed-off-by: Atharv Dubey <atharvd440@gmail.com>
-> ---
->  .../devicetree/bindings/mailbox/mailbox.txt        | 60 -----------------
->  .../devicetree/bindings/mailbox/mailbox.yaml       | 78 ++++++++++++++++++++++
->  2 files changed, 78 insertions(+), 60 deletions(-)
+> I don't understand what is happening here. You sent bunch of unthreaded
+> patches, empty commit msgs, some are being duplicated (seems at least?)...
 
-Isn't the binding in general already converted in dtschema?
+So you sent like 3 versions with similar issues, one after another. No,
+slow down. One version of the same patchset per 24h, so you will
+actually see what you sent.
 
-...
-> +
-> +maintainers:
-> +  - Jassi Brar <jaswinder.singh@linaro.org>
-> +
-> +description:
-> +  Generic binding to provide a way for Mailbox controller drivers to
-> +  assign appropriate mailbox channel to client drivers.
-> +
-> +select: false
+None of the versions you sent are correct, none pass basic tests or
+basic submission style.
 
-What is the point in such case? This patch makes little sense. If there
-is useful text, it should be moved to dtschema. Unless it is already
-there. And only after getting acks for relicensing.
-
-But I cannot find anything useful here, so this file should stay only
-for the purpose of providing context.
+Finally - we do not take anonymous contributions.
 
 Best regards,
 Krzysztof
