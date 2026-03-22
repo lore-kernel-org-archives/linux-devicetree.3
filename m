@@ -1,78 +1,96 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F22136896F;
-	Sun, 22 Mar 2026 17:48:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77DB836AB44
+	for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 17:51:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774201730; cv=none; b=NTk775zjIQgvsOyM9zIA40Z3YlERp7H4L94i9qVOpcNzTtEdfmp7eAxlWMQLIWva0z8JG6uu0t4CQXaDGhcVevP+wGR2wAb7wehEZSDiRIoUJwePK7kkv4aKv2fWegpW7Wlypn4+RtiUESuV2manZhvsycdgmA/ScSVpLmcVQE8=
+	t=1774201893; cv=none; b=q+1gHWIjsIGAhvhT+5LX5QkAPima2bla+vxCMNeYicmXx2YHA5BHBVxPuh2rPS6Ui79Zaq1W5GozpTDAbqADXAC9j3TEMx5/T4H0YTAdftJ636PA3elpcWRIn3nw2k4bs4hNgk6K5veoxb/Ei+JzSd1PwQN1NyMgzlndnmuaT9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774201730; c=relaxed/simple;
-	bh=Q7plJylkoGw36pT5yDx8o4mQbJObfX4MYkkhDBNVVLo=;
+	s=arc-20240116; t=1774201893; c=relaxed/simple;
+	bh=BR6ks9C+tiIaqbWqbymHyezXUzSCeunWrVZAw4lzMaw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WwIM6XQG7bJrZJDQt4AJ8tlVWzCbZEljmBV8s0nqDvR1Ttjg0i01pwVKSgFby6MI0WcBD8x0q69DNSSXNnUQ3EH0QGGVFl3EAWOMctkrhoHHrdXQnfOUoFMiL0jzxXZpRKlPMrlTJLE0+ZBLTUU53WX5hdez3pkM7bsJKGYaNnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SQmqnmzH; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=rxYLeRWr05iqrf3ik/3q/1dLTxqIZU4PbpOwif3r5jwKEwmu4xNbUs7TM1W+6VyR44dFu8+L5VmOnaFjGm/AC8l4bqCD9Cea/yxBSO9swHst0mlhs6Cn9StGVLovXlDBg061iE2U6EIO2wrHCncn83DtWFeGI4N0P+Mp/7Se1P8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hxCshyGI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kTYu8AOZ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SQmqnmzH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774201729; x=1805737729;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Q7plJylkoGw36pT5yDx8o4mQbJObfX4MYkkhDBNVVLo=;
-  b=SQmqnmzHCqPn9TAFHlBwkjxft0rwSkKK2crqG40KOPOalUXrEq+RD9kO
-   46kWuWphH08YANzemVsrHvLETGavR5xaoq7oPg45bL9pYuTZe4K8YLNms
-   EgjkFsKbC3epyztIdviyTT6PBN+Q5chXIhUOdgFe6DsCKuz6o0BItwDCA
-   s+25tlYt6FpJ//LXp72M/gd7eL2YF2bfIE4dDXunx7Pq5SHrdYMjUYJla
-   +l53aFAgdiAeGWeXUXh3SXXhCXlkhyqWdSUVzwrUMPOkWyBtMRE/7ATqD
-   tHclfYYznV9WZl3SMKAVHBWZuMnuGbS2zl3oILUIIdiLRlWD0g32IhzHF
-   g==;
-X-CSE-ConnectionGUID: n9ZYZds6TIux+ReSnkbDaw==
-X-CSE-MsgGUID: fYivz1zJQj2yfM89PlEdjA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11737"; a="100668013"
-X-IronPort-AV: E=Sophos;i="6.23,135,1770624000"; 
-   d="scan'208";a="100668013"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Mar 2026 10:48:48 -0700
-X-CSE-ConnectionGUID: 4NbUKZiMRHS2WCeYLBU5sQ==
-X-CSE-MsgGUID: 2xvUqkYIRpmaRNzOgIoPjQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,135,1770624000"; 
-   d="scan'208";a="261717612"
-Received: from lkp-server02.sh.intel.com (HELO d7fefbca0d04) ([10.239.97.151])
-  by orviesa001.jf.intel.com with ESMTP; 22 Mar 2026 10:48:42 -0700
-Received: from kbuild by d7fefbca0d04 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1w4MuG-000000002Tt-0QjY;
-	Sun, 22 Mar 2026 17:48:17 +0000
-Date: Mon, 23 Mar 2026 01:47:20 +0800
-From: kernel test robot <lkp@intel.com>
-To: Akhil R <akhilrajeev@nvidia.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Robert Moore <robert.moore@intel.com>, Len Brown <lenb@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Fredrik Markstrom <fredrik.markstrom@est.tech>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Suresh Mangipudi <smangipudi@nvidia.com>,
-	linux-tegra@vger.kernel.org, linux-i3c@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
-	linux-hwmon@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Akhil R <akhilrajeev@nvidia.com>
-Subject: Re: [PATCH 04/12] i3c: master: Support ACPI enumeration
-Message-ID: <202603230124.VFt6CPBe-lkp@intel.com>
-References: <20260318172820.13771-5-akhilrajeev@nvidia.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hxCshyGI";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kTYu8AOZ"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62M7DZkb2770715
+	for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 17:51:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Gn3xvwDQZF6Nc0mtO8r4Mvv1
+	J1b5vheHkTGYLDDSFG0=; b=hxCshyGIbFHwQ9WUACajdyhtH8ZOq3xfCoKcXJ70
+	zLUbkfKOr9Gehqu7nq3fTdMsX2oKDWCxzCATCwhaSqao+4WdCqvnS/1gAU4Q1Suh
+	KgYNYo3uUa+hEj60wP4SiuWz9/IVnfeHtgdC37MeC8cDPVhNg1Q3ht7EWIyV/e7T
+	8rjQ52CFEaD1hp9rR08Azyok/S5bvtYyzYmvinOYLtkmH2i460xbXFlhSk66Pxme
+	l7TbTvYp6zNMWZZODsiK59bKAr8h8paLF4vJQLVMUA4nvt9R5+2n0OVvc/oTxs6V
+	Pq7F4tk/m9KGChZ+hF+b5hoRR5ZaiK8YpyxH3f51grGUqQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1kj1jnvr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 17:51:30 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50b469e5543so14149291cf.1
+        for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 10:51:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774201890; x=1774806690; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Gn3xvwDQZF6Nc0mtO8r4Mvv1J1b5vheHkTGYLDDSFG0=;
+        b=kTYu8AOZjCBWqJNtasNqpsgR1YrKaPxl6g99nm7kHuoaGKgG+HTsWrBI4jOEaG+b7W
+         wt8TonR33aX1gsstGSEKev8x9DsjOrGmxtCTY/BG3jF4fPFwzIkr2ZI3jPGgU8d9X6nm
+         KJwOW6RbQsYPoHbPebyOXW/V3m6q1j4Zjln7IpBJ9/BwcVH9SKE9GV5P5A98BLSjQkdY
+         u/aJKlwdEVHCLGDdlrfUJ1hKnvJDHE1HH+eC5OLENabVF3EbLVXQf6Z1EVGLP0G8Vo0r
+         qVcfwRxyoTTGWqFYrN5qT10m835plL+r5QG0V9zOHY9YaWU5Qmsookc0Ygq/lnDjvDJ1
+         Wv6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774201890; x=1774806690;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Gn3xvwDQZF6Nc0mtO8r4Mvv1J1b5vheHkTGYLDDSFG0=;
+        b=jAciwHbVX6hLeRcU4zUCyJesuhLp4btmaWe4NxqGxkcYpOQ5/UDXBVErQH5JngugqZ
+         x27b67wNtUjN4/h5RW/alJHDH4lawK81kDvIVnWrJsbj0BE6LlJrK0TegNb67ixo7dlR
+         DXyDZL3Gj5IRfrVM+0n16o58EsEAv83NAqs9Et4Poa1SQ14eyWie496530+6A4qvok0b
+         Adm15oOfs4jMrNYYqdxPqNFzbs9JJQc9/p4BSBx1DDmDrP90IXfv7prr7irqFcLWK9tc
+         9IzD7XLHNxMyoPbX7Slaiy1UbmEYKJxC5Jpauycz3GGu/K+g6RcVHH7pJfpwXBPwAFMh
+         uOJg==
+X-Forwarded-Encrypted: i=1; AJvYcCUPrKaTs0InBhNeZu+jaqhkMzJMyH5B4B7k8kwG4/v0h5O7WL8zEhOwW4WSina878SiEejq9ywu1FT/@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy2Gnqu34g7GE2AULGwAz6p9Nnhj7mCdYC70tkuWdi0tBdlGYlS
+	OLp5wq8KUIUUW9hzlt0LrkhwMQYg0v76bSpo5armUq8Didqrsz8inuzM7rvWYnBAoZqGvjKmH3T
+	/EWDa/a8hKoxzTc2QnyYBiweJyBDxSOlGtBIEEr1BPDP4z7JRRTAE4aoNjAg2fCvd
+X-Gm-Gg: ATEYQzzWV4DmaSvsIog4Z7W38S08WzwiOfFrxshyTueQW16ubnjqd5xtleSowrvdpCT
+	3WjKeB+7ciWyeb0m1SPZGEl/RSKssw94einooey/xtRyH+y9w3M+WjMSKT7iX98mI1h8+oui5U3
+	FN2/Jarea58O/ZLHsFMd/0+HTkDTQT7e1elkVz5PiJYytsip038sd4mNw22KgTZDCZKZLEUgY7D
+	x+WCzv87pI6ix3iPNb/kuD9UZcuyBg15ztd4ksmV30qxVnCYyfpQmwo4QI1uSz5yoBRdqFomnkG
+	LmTUrGAasIFNXFfZuTbuAkl7uQK513IOdVOJEmWfi/RLJI+Nnmc3b1uxAYdZyKXdl0iWXHSd79s
+	RTQ07UAQxxxo/F21YQwzrlVFY2+5IU1nJV+o4HenDGWMqyUUWT0xwerPRkbPyEdb/FoaTOceHQm
+	1D8YhofuLZV0NdZqb6jjNx2SK1y2ue04M8g1I=
+X-Received: by 2002:a05:622a:4:b0:50b:52ee:62b6 with SMTP id d75a77b69052e-50b52ee68f1mr46214011cf.38.1774201889676;
+        Sun, 22 Mar 2026 10:51:29 -0700 (PDT)
+X-Received: by 2002:a05:622a:4:b0:50b:52ee:62b6 with SMTP id d75a77b69052e-50b52ee68f1mr46213711cf.38.1774201889233;
+        Sun, 22 Mar 2026 10:51:29 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a28530660asm1891911e87.71.2026.03.22.10.51.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Mar 2026 10:51:28 -0700 (PDT)
+Date: Sun, 22 Mar 2026 19:51:26 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: eliza: Add CX power domain to GCC
+Message-ID: <hacarw76ftbkirg2ko4t4idpcyqouekodiqb7o2jf2ciscwfi7@egg33tcpahzp>
+References: <20260322-eliza-base-dt-fixes-v1-0-c633a6064a24@oss.qualcomm.com>
+ <20260322-eliza-base-dt-fixes-v1-2-c633a6064a24@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -81,240 +99,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260318172820.13771-5-akhilrajeev@nvidia.com>
+In-Reply-To: <20260322-eliza-base-dt-fixes-v1-2-c633a6064a24@oss.qualcomm.com>
+X-Proofpoint-GUID: _e9gxF95AyQIkdBNNWPGVk22qoZWpao-
+X-Proofpoint-ORIG-GUID: _e9gxF95AyQIkdBNNWPGVk22qoZWpao-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIyMDE1NiBTYWx0ZWRfX7Gg5LIihkGV6
+ +yM4lyALPC2ONzWBwHz82GdT659o6t1dsM1ZO/7ZX5MIHjNTfIoJmcp8SxsVLP/WBhIFIRzZp8C
+ HSPEdUV7zq9DUjkDvMNfnyFaGYRnLtE6XkQ1Zjsu7d++0Eq6D6CD+bktSpkjZXYte7BugXy+4Bz
+ sMsDQsRiRDn2bmTzu45sxyeNT0NAoKiGfxcZL7QkWiMGHNloSoswSpq/W9HvvaYPpayGIXdiU1J
+ RMWoisVwNnkxAnRXfeEM3UGznE7LFGMkWfjIgLwLQL37iK+RXsmIDq9L0GwJTp35KiSHqgFUfWf
+ 9kE7m3yZDIt1g35GW5KVxF484jHFw07g53j6rLIMwbSX73N8GWnNDHnNN4ON8CTilqGNa7wRqx9
+ LxK6Rgt6s48gMqibgr0v+wEk1tjaiZMrg/BWv7kjub9B/EQF4y5aCqQ2KOxoEezlRoVt+jVuQih
+ Potviu3YKrA8qU+b7sA==
+X-Authority-Analysis: v=2.4 cv=dYiNHHXe c=1 sm=1 tr=0 ts=69c02c22 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=ac7HRrgMY6L2oGsqopwA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-22_05,2026-03-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 phishscore=0 adultscore=0 clxscore=1015 spamscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603220156
 
-Hi Akhil,
+On Sun, Mar 22, 2026 at 06:08:20PM +0200, Abel Vesa wrote:
+> Recent discussions off-list highlighted that the GCC should vote for the
+> RPMh CX power domain on Qualcomm platforms. Without this, RPMh may not
+> aggregate the correct load for the CX rail, potentially leading to voltage
+> drops and system instability.
 
-kernel test robot noticed the following build errors:
+Should we add it on other platforms too?
 
-[auto build test ERROR on next-20260320]
-[also build test ERROR on linus/master v7.0-rc4]
-[cannot apply to i3c/i3c/next rafael-pm/linux-next rafael-pm/bleeding-edge groeck-staging/hwmon-next v7.0-rc4 v7.0-rc3 v7.0-rc2]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Akhil-R/dt-bindings-i3c-Add-mipi-i3c-static-method-to-support-SETAASA/20260322-174037
-base:   next-20260320
-patch link:    https://lore.kernel.org/r/20260318172820.13771-5-akhilrajeev%40nvidia.com
-patch subject: [PATCH 04/12] i3c: master: Support ACPI enumeration
-config: hexagon-randconfig-002-20260322 (https://download.01.org/0day-ci/archive/20260323/202603230124.VFt6CPBe-lkp@intel.com/config)
-compiler: clang version 23.0.0git (https://github.com/llvm/llvm-project 4abb927bacf37f18f6359a41639a6d1b3bffffb5)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260323/202603230124.VFt6CPBe-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603230124.VFt6CPBe-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/i3c/master.c:2449:9: error: call to undeclared function 'acpi_dev_get_resources'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    2449 |                 ret = acpi_dev_get_resources(adev, &resources,
-         |                       ^
-   drivers/i3c/master.c:2449:9: note: did you mean 'acpi_get_event_resources'?
-   include/acpi/acpixf.h:816:9: note: 'acpi_get_event_resources' declared here
-     816 |                              acpi_get_event_resources(acpi_handle device_handle,
-         |                              ^
-   include/acpi/platform/aclinux.h:93:21: note: expanded from macro 'ACPI_EXTERNAL_RETURN_STATUS'
-      93 |         static ACPI_INLINE prototype {return(AE_NOT_CONFIGURED);}
-         |                            ^
->> drivers/i3c/master.c:2455:3: error: call to undeclared function 'acpi_dev_free_resource_list'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    2455 |                 acpi_dev_free_resource_list(&resources);
-         |                 ^
-   drivers/i3c/master.c:2556:2: error: unknown type name 'acpi_bus_address'; did you mean 'acpi_io_address'?
-    2556 |         acpi_bus_address adr;
-         |         ^~~~~~~~~~~~~~~~
-         |         acpi_io_address
-   include/acpi/actypes.h:187:13: note: 'acpi_io_address' declared here
-     187 | typedef u64 acpi_io_address;
-         |             ^
->> drivers/i3c/master.c:2563:7: error: call to undeclared function 'acpi_has_method'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    2563 |         if (!acpi_has_method(adev->handle, "_ADR"))
-         |              ^
-   drivers/i3c/master.c:2563:7: note: did you mean 'acpi_has_watchdog'?
-   include/linux/acpi.h:1504:20: note: 'acpi_has_watchdog' declared here
-    1504 | static inline bool acpi_has_watchdog(void) { return false; }
-         |                    ^
->> drivers/i3c/master.c:2563:27: error: incomplete definition of type 'struct acpi_device'
-    2563 |         if (!acpi_has_method(adev->handle, "_ADR"))
-         |                              ~~~~^
-   include/linux/device/bus.h:224:8: note: forward declaration of 'struct acpi_device'
-     224 | struct acpi_device;
-         |        ^
->> drivers/i3c/master.c:2566:8: error: call to undeclared function 'acpi_device_adr'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    2566 |         adr = acpi_device_adr(adev);
-         |               ^
-   drivers/i3c/master.c:2566:8: note: did you mean 'acpi_device_handle'?
-   include/linux/acpi.h:883:27: note: 'acpi_device_handle' declared here
-     883 | static inline acpi_handle acpi_device_handle(struct acpi_device *adev)
-         |                           ^
-   drivers/i3c/master.c:2674:9: error: call to undeclared function 'acpi_dev_get_resources'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    2674 |                 ret = acpi_dev_get_resources(adev, &resources,
-         |                       ^
-   drivers/i3c/master.c:2683:3: error: call to undeclared function 'acpi_dev_free_resource_list'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    2683 |                 acpi_dev_free_resource_list(&resources);
-         |                 ^
-   8 errors generated.
-
-
-vim +/acpi_dev_get_resources +2449 drivers/i3c/master.c
-
-  2423	
-  2424	static int
-  2425	i3c_master_add_i2c_boardinfo(struct i3c_master_controller *master,
-  2426				     struct fwnode_handle *fwnode, u32 *reg)
-  2427	{
-  2428		struct i2c_dev_boardinfo *boardinfo;
-  2429		struct device *dev = &master->dev;
-  2430		struct acpi_device *adev;
-  2431		LIST_HEAD(resources);
-  2432		int ret;
-  2433	
-  2434		boardinfo = devm_kzalloc(dev, sizeof(*boardinfo), GFP_KERNEL);
-  2435		if (!boardinfo)
-  2436			return -ENOMEM;
-  2437	
-  2438		if (is_of_node(fwnode)) {
-  2439			ret = of_i2c_get_board_info(dev, to_of_node(fwnode), &boardinfo->base);
-  2440			if (ret)
-  2441				return ret;
-  2442	
-  2443			/* LVR is encoded in reg[2] for Device Tree. */
-  2444			boardinfo->lvr = reg[2];
-  2445		} else if (is_acpi_device_node(fwnode)) {
-  2446			adev = to_acpi_device_node(fwnode);
-  2447			boardinfo->base.fwnode = acpi_fwnode_handle(adev);
-  2448	
-> 2449			ret = acpi_dev_get_resources(adev, &resources,
-  2450						     i3c_acpi_get_i2c_resource, boardinfo);
-  2451	
-  2452			if (ret < 0)
-  2453				return ret;
-  2454	
-> 2455			acpi_dev_free_resource_list(&resources);
-  2456	
-  2457			if (!boardinfo->base.addr)
-  2458				return -ENODEV;
-  2459		} else {
-  2460			return -EINVAL;
-  2461		}
-  2462	
-  2463		/*
-  2464		 * The I3C Specification does not clearly say I2C devices with 10-bit
-  2465		 * address are supported. These devices can't be passed properly through
-  2466		 * DEFSLVS command.
-  2467		 */
-  2468		if (boardinfo->base.flags & I2C_CLIENT_TEN) {
-  2469			dev_err(dev, "I2C device with 10 bit address not supported.");
-  2470			return -EOPNOTSUPP;
-  2471		}
-  2472	
-  2473		list_add_tail(&boardinfo->node, &master->boardinfo.i2c);
-  2474		fwnode_handle_get(fwnode);
-  2475	
-  2476		return 0;
-  2477	}
-  2478	
-  2479	static int
-  2480	i3c_master_add_i3c_boardinfo(struct i3c_master_controller *master,
-  2481				     struct fwnode_handle *fwnode, u32 *reg)
-  2482	{
-  2483		struct i3c_dev_boardinfo *boardinfo;
-  2484		struct device *dev = &master->dev;
-  2485		enum i3c_addr_slot_status addrstatus;
-  2486		u32 init_dyn_addr = 0;
-  2487	
-  2488		boardinfo = devm_kzalloc(dev, sizeof(*boardinfo), GFP_KERNEL);
-  2489		if (!boardinfo)
-  2490			return -ENOMEM;
-  2491	
-  2492		if (reg[0]) {
-  2493			if (reg[0] > I3C_MAX_ADDR)
-  2494				return -EINVAL;
-  2495	
-  2496			addrstatus = i3c_bus_get_addr_slot_status(&master->bus,
-  2497								  reg[0]);
-  2498			if (addrstatus != I3C_ADDR_SLOT_FREE)
-  2499				return -EINVAL;
-  2500		}
-  2501	
-  2502		boardinfo->static_addr = reg[0];
-  2503	
-  2504		if (!fwnode_property_read_u32(fwnode, "assigned-address", &init_dyn_addr)) {
-  2505			if (init_dyn_addr > I3C_MAX_ADDR)
-  2506				return -EINVAL;
-  2507	
-  2508			addrstatus = i3c_bus_get_addr_slot_status(&master->bus,
-  2509								  init_dyn_addr);
-  2510			if (addrstatus != I3C_ADDR_SLOT_FREE)
-  2511				return -EINVAL;
-  2512		}
-  2513	
-  2514		boardinfo->pid = ((u64)reg[1] << 32) | reg[2];
-  2515	
-  2516		if ((boardinfo->pid & GENMASK_ULL(63, 48)) ||
-  2517		    I3C_PID_RND_LOWER_32BITS(boardinfo->pid))
-  2518			return -EINVAL;
-  2519	
-  2520		boardinfo->init_dyn_addr = init_dyn_addr;
-  2521		boardinfo->fwnode = fwnode_handle_get(fwnode);
-  2522		list_add_tail(&boardinfo->node, &master->boardinfo.i3c);
-  2523	
-  2524		return 0;
-  2525	}
-  2526	
-  2527	static int i3c_master_add_of_dev(struct i3c_master_controller *master,
-  2528					 struct fwnode_handle *fwnode)
-  2529	{
-  2530		u32 reg[3];
-  2531		int ret;
-  2532	
-  2533		if (!master)
-  2534			return -EINVAL;
-  2535	
-  2536		ret = fwnode_property_read_u32_array(fwnode, "reg", reg, ARRAY_SIZE(reg));
-  2537		if (ret)
-  2538			return ret;
-  2539	
-  2540		/*
-  2541		 * The manufacturer ID can't be 0. If reg[1] == 0 that means we're
-  2542		 * dealing with an I2C device.
-  2543		 */
-  2544		if (!reg[1])
-  2545			ret = i3c_master_add_i2c_boardinfo(master, fwnode, reg);
-  2546		else
-  2547			ret = i3c_master_add_i3c_boardinfo(master, fwnode, reg);
-  2548	
-  2549		return ret;
-  2550	}
-  2551	
-  2552	static int i3c_master_add_acpi_dev(struct i3c_master_controller *master,
-  2553					   struct fwnode_handle *fwnode)
-  2554	{
-  2555		struct acpi_device *adev = to_acpi_device_node(fwnode);
-> 2556		acpi_bus_address adr;
-  2557		u32 reg[3] = { 0 };
-  2558	
-  2559		/*
-  2560		 * If the ACPI table entry does not have _ADR method, it's an I2C device
-  2561		 * If the ACPI table entry has _ADR method, it's an I3C device
-  2562		 */
-> 2563		if (!acpi_has_method(adev->handle, "_ADR"))
-  2564			return i3c_master_add_i2c_boardinfo(master, fwnode, reg);
-  2565	
-> 2566		adr = acpi_device_adr(adev);
-  2567	
-  2568		/* For I3C devices, _ADR will have the 48 bit PID of the device  */
-  2569		reg[1] = upper_32_bits(adr);
-  2570		reg[2] = lower_32_bits(adr);
-  2571	
-  2572		fwnode_property_read_u32(fwnode, "mipi-i3c-static-address", &reg[0]);
-  2573	
-  2574		return i3c_master_add_i3c_boardinfo(master, fwnode, reg);
-  2575	}
-  2576	
+> 
+> Add the missing power-domains property to associate GCC with RPMHPD_CX.
+> 
+> Fixes: db7fe6963466 ("arm64: dts: qcom: Introduce Eliza Soc base dtsi")
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/eliza.dtsi | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+With best wishes
+Dmitry
