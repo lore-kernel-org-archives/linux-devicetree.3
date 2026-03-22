@@ -1,46 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F492C11FD;
-	Sun, 22 Mar 2026 23:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3644136672;
+	Sun, 22 Mar 2026 23:33:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774221005; cv=none; b=LuD85DJWWjPjkkRcleVF+/7HChJu4ZS90HKt20Xe7tuXeC2nxaQTnmpwFbLjpTuLQyTaJXclojRex0M0Hcil/Xau+4kAaPZqGOHUM9497iyq1WuUtCgwku64AukINShqZncSpHr6DjsDK1bILFGQFhGipB/EAVPjkarKMUSnMKM=
+	t=1774222424; cv=none; b=M6TlntEjXdUcHpqUrf2Rayu1lrZ22PhzPbyw0Jcgkuzgw5EwCd39sksJRoi22iqDoGoZ3XwfKaPdPFJ5mBYlze+nrVi8k/UOlodQVNO4v7p/6Gf1fkh4+hEQPcS3SdHchGCuVIa+oNHhBrAl9YiVIOwHY6Ka5kaIxo3S7DSZr9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774221005; c=relaxed/simple;
-	bh=uU/gc7NH6waZjUqKluW+RwGApT2GspyV96WOVgY/dUU=;
+	s=arc-20240116; t=1774222424; c=relaxed/simple;
+	bh=Iyq/kR8m/ROKeqOrN3lBBgrhZ0QikXX9ty57LXSzHu0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g26JLFuwLocvXSNoUlCFA/e/UNkFZwn4tL/4+ynziFfxmuZ52J1B4YghS1CI+KlvMMsgsjzhmiyaTFfZBCILElSx25TIY/HbEUptMNxKCIhejRvuRGfJfMAWhT7hD7SFRuH5NnsTPcaDcwv9GMImZqQfun44uIH2gGEwJUZvMJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YRITkAg4; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=Viy27kS7bz3wjkEDa0ncnGFi8+E0E6S1+2NbOZfD6dphSp/CkPiFhGPgLO7oC/IO5zj8obY0j222R6ezDHqn+WBRgcq6XH7ujBVs4RfRuQZzIGKfs0kCyhoFj2N4NJ47OWSSFvHPq3JKPHVY7qMbrQFxu39vtL+MQBrEc/f0GtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jhvKPZt3; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YRITkAg4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B6E2C19424;
-	Sun, 22 Mar 2026 23:10:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774221004;
-	bh=uU/gc7NH6waZjUqKluW+RwGApT2GspyV96WOVgY/dUU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YRITkAg4e52ie5vkQ91//aE+MGP8xDDqT77uMOuDKDad3W6DVicVxCKPuz5dBiD43
-	 z8LFZdzUNoEU7O5EWCyDBSCmBcEakvs7nz08D0mTb1ohxTR2/qinjmJ9Tn11VzBhtS
-	 jvGGeio0HZmZvuAijXR5hSkTINtY6LlFWRsZrhQT1wUcn/XXpoP50UeDXeF0B6ZdQe
-	 Azl64EnW6zlF5B0C2fkZVBtsvCbSBhdJbBYgfD6YGCybKIyJLZptLrlbmg7BX/qP3m
-	 27u+Uh+6h7HHHYOeZtzALs9tAlnHk+0wUI5EC+gc8iWhF+aYl9P3Z/Ml6ejaUbZ49E
-	 KNxP1rt1QA9Fg==
-Date: Sun, 22 Mar 2026 18:10:03 -0500
-From: Rob Herring <robh@kernel.org>
-To: Richard Zhu <hongxing.zhu@nxp.com>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, bhelgaas@google.com,
-	frank.li@nxp.com, l.stach@pengutronix.de, lpieralisi@kernel.org,
-	kwilczynski@kernel.org, mani@kernel.org, s.hauer@pengutronix.de,
-	kernel@pengutronix.de, festevam@gmail.com,
-	linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jhvKPZt3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774222422; x=1805758422;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Iyq/kR8m/ROKeqOrN3lBBgrhZ0QikXX9ty57LXSzHu0=;
+  b=jhvKPZt3TN5WA4MRJ2XBr/+SErkOiNcnBZS8e/cMUxKjmgGFxzMdk4D1
+   aG2JlIgS/8uxLoCZVzxFZCOifUYLOqIqnTMCElDl7BrE2pWkIy7K3GwqI
+   kYl5aTqqS/1f+rzt1Zp1OeECtZA6w+QXtC48F1sQ1k4x87DVbwxJizinp
+   vbXDE4xkeTwfKuhoyDxryOKHEQ7ZppE08Y9E8NOTG/Pll8zTsR5njXXqi
+   QsfyoKKFPhDRptP3G+n5Z+Jy/OBXQa14gDxe3cUaFKxW1Kc9//p25D8Kg
+   C+QTY9xgn3bB4+Jx/emPj7dLTyg0ULmNFBVfDkQfxuPQWoqDtLuOh7+Pz
+   Q==;
+X-CSE-ConnectionGUID: H+3kxTO9SQy8l9eRMQzoYw==
+X-CSE-MsgGUID: JK/qAADcQHKBo+B5JvmcbQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11737"; a="75343991"
+X-IronPort-AV: E=Sophos;i="6.23,136,1770624000"; 
+   d="scan'208";a="75343991"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Mar 2026 16:33:41 -0700
+X-CSE-ConnectionGUID: L5lU3e1hSneBMqQipXjSAA==
+X-CSE-MsgGUID: LXf5SMqNRLiXfBtk9LP7DQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,136,1770624000"; 
+   d="scan'208";a="261766636"
+Received: from lkp-server02.sh.intel.com (HELO 391eea459618) ([10.239.97.151])
+  by orviesa001.jf.intel.com with ESMTP; 22 Mar 2026 16:32:45 -0700
+Received: from kbuild by 391eea459618 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1w4SHh-0000000007Z-2kCJ;
+	Sun, 22 Mar 2026 23:32:41 +0000
+Date: Mon, 23 Mar 2026 07:31:52 +0800
+From: kernel test robot <lkp@intel.com>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 2/5] dt-bindings: PCI: imx6q-pcie: Add i.MX94 and
- i.MX943 PCIe compatible strings
-Message-ID: <20260322231003.GA69234-robh@kernel.org>
-References: <20260313083443.2391254-1-hongxing.zhu@nxp.com>
- <20260313083443.2391254-3-hongxing.zhu@nxp.com>
+Subject: Re: [PATCH v4 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+Message-ID: <202603230713.5uOUC5EI-lkp@intel.com>
+References: <20260315-x1e-csi2-phy-v4-2-90c09203888d@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,92 +73,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260313083443.2391254-3-hongxing.zhu@nxp.com>
+In-Reply-To: <20260315-x1e-csi2-phy-v4-2-90c09203888d@linaro.org>
 
-On Fri, Mar 13, 2026 at 04:34:40PM +0800, Richard Zhu wrote:
-> Add i.MX94 and i.MX943 PCIe compatible strings and fallback to
-> i.MX95 PCIe compatible string.
-> 
-> Signed-off-by: Richard Zhu <hongxing.zhu@nxp.com>
-> ---
->  .../bindings/pci/fsl,imx6q-pcie-ep.yaml       | 20 +++++++++----
->  .../bindings/pci/fsl,imx6q-pcie.yaml          | 28 ++++++++++++-------
->  2 files changed, 32 insertions(+), 16 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.yaml b/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.yaml
-> index 0b3526de1d62..b3b1ece6681e 100644
-> --- a/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.yaml
-> +++ b/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.yaml
-> @@ -18,12 +18,20 @@ description: |+
->  
->  properties:
->    compatible:
-> -    enum:
-> -      - fsl,imx8mm-pcie-ep
-> -      - fsl,imx8mq-pcie-ep
-> -      - fsl,imx8mp-pcie-ep
-> -      - fsl,imx8q-pcie-ep
-> -      - fsl,imx95-pcie-ep
-> +    oneOf:
-> +      - enum:
-> +          - fsl,imx8mm-pcie-ep
-> +          - fsl,imx8mp-pcie-ep
-> +          - fsl,imx8mq-pcie-ep
-> +          - fsl,imx8q-pcie-ep
+Hi Bryan,
 
-> +          - fsl,imx94-pcie-ep
-> +          - fsl,imx943-pcie-ep
+kernel test robot noticed the following build errors:
 
-These should be dropped if they are compatible with imx95.
+[auto build test ERROR on c824345288d11e269ce41b36c105715bc2286050]
 
-> +          - fsl,imx95-pcie-ep
-> +      - items:
-> +          - enum:
-> +              - fsl,imx94-pcie-ep
-> +              - fsl,imx943-pcie-ep
-> +          - const: fsl,imx95-pcie-ep
->  
->    clocks:
->      minItems: 3
-> diff --git a/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml b/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml
-> index 21dda8066014..fd5f7ff9c4a4 100644
-> --- a/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml
-> +++ b/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml
-> @@ -21,16 +21,24 @@ description: |+
->  
->  properties:
->    compatible:
-> -    enum:
-> -      - fsl,imx6q-pcie
-> -      - fsl,imx6sx-pcie
-> -      - fsl,imx6qp-pcie
-> -      - fsl,imx7d-pcie
-> -      - fsl,imx8mq-pcie
-> -      - fsl,imx8mm-pcie
-> -      - fsl,imx8mp-pcie
-> -      - fsl,imx95-pcie
-> -      - fsl,imx8q-pcie
-> +    oneOf:
-> +      - enum:
-> +          - fsl,imx6q-pcie
-> +          - fsl,imx6sx-pcie
-> +          - fsl,imx6qp-pcie
-> +          - fsl,imx7d-pcie
-> +          - fsl,imx8mm-pcie
-> +          - fsl,imx8mp-pcie
-> +          - fsl,imx8mq-pcie
-> +          - fsl,imx8q-pcie
-> +          - fsl,imx94-pcie
-> +          - fsl,imx943-pcie
-> +          - fsl,imx95-pcie
-> +      - items:
-> +          - enum:
-> +              - fsl,imx94-pcie
-> +              - fsl,imx943-pcie
-> +          - const: fsl,imx95-pcie
->  
->    clocks:
->      minItems: 3
-> -- 
-> 2.37.1
-> 
+url:    https://github.com/intel-lab-lkp/linux/commits/Bryan-O-Donoghue/dt-bindings-phy-qcom-Add-CSI2-C-PHY-DPHY-schema/20260316-081353
+base:   c824345288d11e269ce41b36c105715bc2286050
+patch link:    https://lore.kernel.org/r/20260315-x1e-csi2-phy-v4-2-90c09203888d%40linaro.org
+patch subject: [PATCH v4 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+config: riscv-allyesconfig (https://download.01.org/0day-ci/archive/20260323/202603230713.5uOUC5EI-lkp@intel.com/config)
+compiler: clang version 16.0.6 (https://github.com/llvm/llvm-project 7cbf1a2591520c2491aa35339f227775f4d3adf6)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260323/202603230713.5uOUC5EI-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603230713.5uOUC5EI-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c:360:13: error: initializer element is not a compile-time constant
+           .opp_clk = x1e_clks[2],
+                      ^~~~~~~~~~~
+   1 error generated.
+
+
+vim +360 drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+
+   347	
+   348	const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_4nm_x1e = {
+   349		.ops = &phy_qcom_mipi_csi2_ops_3ph_1_0,
+   350		.reg_info = {
+   351			.init_seq = lane_regs_x1e80100,
+   352			.lane_array_size = ARRAY_SIZE(lane_regs_x1e80100),
+   353			.common_regs_offset = 0x1000,
+   354			.generation = GEN2,
+   355		},
+   356		.supply_names = (const char **)x1e_supplies,
+   357		.num_supplies = ARRAY_SIZE(x1e_supplies),
+   358		.clk_names = (const char **)x1e_clks,
+   359		.num_clk = ARRAY_SIZE(x1e_clks),
+ > 360		.opp_clk = x1e_clks[2],
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
