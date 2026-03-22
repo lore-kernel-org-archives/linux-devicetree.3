@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D032FB969;
-	Sun, 22 Mar 2026 09:51:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C3B2F4A0C;
+	Sun, 22 Mar 2026 09:55:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774173092; cv=none; b=RvqSyWAGCsHO1lAh3Q32gUKiSUQw1vdpW5gP0YG3cZ/9xtpZQQk+0+DK8cyj8mVMintTNGknp4K7CQwc4HRqrgFQc51I5BC1VOHq8wGTWXMKTCbrpExJstPjYMYJXYETESDnBuSlH7qxyp4OlDn/7UgiMcXyTxR3RlskE+/IJnw=
+	t=1774173324; cv=none; b=f08fm9AqXoIaFzL4K3uNtspfwzCpLWGUk+IzMG2HK5kDV1LY6DPrPENNkqK4XroxUx6KZ9JVVYHylT4/s7mFnMQAxZrTJVdH8+giy2g2gynV21wLEaF6pug+2Bhy04ABJVe6nXv7IlWis/wcAw/o2PTfZhm/ECvt6r/1qsuB7AE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774173092; c=relaxed/simple;
-	bh=tMcHLgHTic5Wi3ojuiCV/sa1gfiN5aekqOPJja5Y1b8=;
+	s=arc-20240116; t=1774173324; c=relaxed/simple;
+	bh=wds4pz1vo4hnU97Ycw1V36BOoaG56UpHueqjDmj507M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WsuX0pUMd0Ic5vPzbYL4A7T/lYCPo4R+qveypWyWsfjGIEoB6T65bq0eB178t6lsZYEsoU8CK4mOM2pBOnR0E+I/8tKFmPcKVrzX1zAQpSOWYPCLCRDG1VH7+ET90h1mH3ONRgmv1A9AxZBddy/3hJ5aonL8MWcUq8+YG+ipLIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c1uASeRs; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=M5j4ru58KwjOOkVcKl7vPnfWYiYaUJjknPGu5yil4F1UlZa05vbZz9H5y4BCCP72Ltai4K7mYu5AziZEiHUFiI27FgPvVnLRhnqBuZPUZ5LIwRVxeiuWnFhZ5dLzMBtN+dGec5ce+s07ZcWqub6LcEpvdNViP4SQzDIkvyDw7A8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Glr449GF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c1uASeRs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2221C19424;
-	Sun, 22 Mar 2026 09:51:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Glr449GF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CF91C19424;
+	Sun, 22 Mar 2026 09:55:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774173092;
-	bh=tMcHLgHTic5Wi3ojuiCV/sa1gfiN5aekqOPJja5Y1b8=;
+	s=k20201202; t=1774173323;
+	bh=wds4pz1vo4hnU97Ycw1V36BOoaG56UpHueqjDmj507M=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=c1uASeRsuoihORrgsMjF+2aSMGQAJxGqgyrVRDik6EOzzkk/4IRL4CoZa8J2WyvRF
-	 taSICLBDAWnZicr4CqTNOEv8FqLnj/a9xIk8UqlRNJrEtUak7mYkJjOdfgkPVxCy/0
-	 j6rn7rd35q5xZaks3gbYrrRMxyC8MjijwMG1E4Fvai2QXl+8BiLIU4AK87hrS49oj8
-	 rrSj4PMoeCw9yRu89/slJ2gC+Jyup5arqRUwTBE4MKnARxTfySZ71e+6F09ttheets
-	 yPItxvBy6o8hp9czzjYr9gC/+t/gkYfWj1+FQ6vh8YxHHXzZ3Ngg8KHcqSQDH5Zifa
-	 3NyANxvMo5wXw==
-Message-ID: <5c00033b-28d4-48f6-811d-6e3b54b8fb10@kernel.org>
-Date: Sun, 22 Mar 2026 10:51:27 +0100
+	b=Glr449GFxMkqC3eb7DHpp2nEiEZn4tkpvQhrQkkZk34f2MhfFTdPAlV/3BHWC2Z5J
+	 9dUvwUIHcPg053EXP5b5/Zcl7f5DeI6n1p7xvBhbr6VbqeW0n1rXi1f/AFgjj4QZ4J
+	 LJRtz7J12UVbR8xQlEdtHYh7nH5ykBNtqczuN9svOO3ABY5ONMtC/WDXBJjIhlfxXe
+	 YLK4L+/l4PGnYe61qmxaTtugHMbSctS7BV/Bk0Zcf7N9pXEZ5vOICsJTECSWXQCJk6
+	 iSTPAl1U+ugBbLtOhNbs3Rs8Bn6HjBdZbd9egZovXr6WhNQT4QiBe/q14SKARvJEJR
+	 PWUp+Gj/0/6qQ==
+Message-ID: <2e43f7e5-09b8-4f95-815c-0954c579a623@kernel.org>
+Date: Sun, 22 Mar 2026 10:55:18 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,30 +35,28 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] mmc: dt-bindings: sdhci-of-aspeed: Add AST2700
- fallback compatibles
-To: Ryan Chen <ryan_chen@aspeedtech.com>
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
- Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Ryan Chen <ryanchen.aspeed@gmail.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Andrew Jeffery <andrew@aj.id.au>,
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260317-sdhci-v2-0-39b1f063061b@aspeedtech.com>
- <20260317-sdhci-v2-1-39b1f063061b@aspeedtech.com>
- <20260318-abiding-sloppy-poodle-efd3e5@quoll>
- <TY2PPF5CB9A1BE666DEF10944BBA2A2256BF24EA@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
- <f46bf4fb-b6e5-4238-9c23-c435c4b8e275@kernel.org>
- <TY2PPF5CB9A1BE6E474E78EED4F320F2B30F24EA@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
- <TY2PPF5CB9A1BE63A0E8E056E322866B6F0F24CA@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+Subject: Re: [PATCH 5/5] dt-bindings: iio: adc: xilinx-xadc: convert to YAML
+ format
+To: David Lechner <dlechner@baylibre.com>,
+ Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Nuno Sa <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, saikrishna12468@gmail.com, git@amd.com
+References: <20260220053941.611415-1-sai.krishna.potthuri@amd.com>
+ <20260220053941.611415-6-sai.krishna.potthuri@amd.com>
+ <20260221-dancing-papaya-wolverine-db8afd@quoll>
+ <b89933a3-5f25-466c-a2f5-6e231aa12749@amd.com>
+ <21d425bc-9406-401b-9817-7255ba3d31fc@baylibre.com>
+ <e4c9729f-1785-4d10-a337-37b0d26fe30b@amd.com>
+ <f1706ec0-3995-4fdf-a9fb-8e1e688438a7@baylibre.com>
+ <05bcc5b7-b3e8-40fb-be70-413c74afcfb1@amd.com>
+ <cf749e8c-f141-4367-81ad-827e02273ec5@baylibre.com>
+ <6a4e3d95-875f-4c2b-8443-c2f2b19ff166@amd.com>
+ <12a06779-cbbb-4dc2-b564-7b9cdff6796b@kernel.org>
+ <faa4e46b-1cc6-4bab-b13e-c527a67ec4c4@baylibre.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -104,33 +102,80 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <TY2PPF5CB9A1BE63A0E8E056E322866B6F0F24CA@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+In-Reply-To: <faa4e46b-1cc6-4bab-b13e-c527a67ec4c4@baylibre.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20/03/2026 09:46, Ryan Chen wrote:
-> Hello Krzysztof,
-> I review https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/example-schema.yaml?h=v7.0-rc1
-> I will do following modify
-> -    enum:
-> -      - aspeed,ast2400-sd-controller
-> -      - aspeed,ast2500-sd-controller
-> -      - aspeed,ast2600-sd-controller
-> +    oneOf:
-> +      - items:
+On 19/03/2026 20:07, David Lechner wrote:
+> On 3/19/26 11:49 AM, Krzysztof Kozlowski wrote:
+>> On 19/03/2026 16:49, Sai Krishna Potthuri wrote:
+>>>>>>>>>>
+>>>>>>>>>>> +
+>>>>>>>>>>> +$defs:
+>>>>>>>>>>
+>>>>>>>>>> Why this is a def, not used directly? I see only one usage of this def.
+>>>>>>>>>
+>>>>>>>>> I am getting the below error if i define the patternProperties directly.
+>>>>>>>>> Seems like complex vendor peroperties should be referenced via $ref.
+>>>>>>>>> Please suggest if there is any better way to deal this.
+>>>>>>>>
+>>>>>>>> It is hard to say without seeing the new version of what you wrote.
+>>>>>>>
+>>>>>>> In v1 series, i created $def and referenced this in xlnx,channels to avoid the error that i mentioned.
+>>>>>>
+>>>>>> Is the code below the code that causes the error?
+>>>>>
+>>>>> No, the below code is not creating the error but Krzysztof asked the question on this code,
+>>>>> "Why this is a def, not used directly? I see only one usage of this def."
+>>>>>
+>>>>> I am saying if i don't use the def and use it directly i am seeing the error that i mentioned. So, asking is there any better way to handle this case other than using def.
+>>>>
+>>>> If you could show us the actual code that is causing the error, then
+>>>> we could perhaps spot a mistake or suggest an alternative.
+>>
+>> Thanks David, I am surprised how many emails we need to exchange just to
+>> see the actual code.
+>>
+>>>
+>>> Thanks. Here is the code that is causing the error
+>>> ("properties:xlnx,channels:type: 'boolean' was expected").
+>>>
+>>> xlnx,channels:
+>>
+>> Device nodes do not have any prefixes. Just take a look at any DTS or
+>> any binding.
+>>
+>> Probably that's the reason, because nothing in this code looks
+>> particularly odd. Anyway, please do not come with odd syntax in the code
+>> without any explanation, just to make it passing the tests, so for
+>> example ignoring the checks we have.
+>>
+>>
+>> Best regards,
+>> Krzysztof
+> 
+> Since this is converting existing 12-years-old .txt bindings, I don't
+> think we can "fix" the bindings by dropping the vendor prefix.
 
-Don't add items here. Was it in original code? No.
+Indeed. It is being also in the driver. The prefix must stay and this
+oddity must be explained in the commit msg.
 
+Commit msg must explain all the non-obvious, unusual, unexpected odd
+things the patch is doing.
 
-> +          - enum:
-> +              - aspeed,ast2400-sd-controller
-> +              - aspeed,ast2500-sd-controller
-> +              - aspeed,ast2600-sd-controller
-> +      - items:
-> +          - const: aspeed,ast2700-sd-controller
-> +          - const: aspeed,ast2600-sd-controller
-> +
-> Thanks the review. 
+> 
+> I think in cases like this, Rob will usually fix the tooling to ignore
+> this as a special case. (I had a similar case last year on a conversion
+> I did.)
+> 
+> So I think the right thing to do is to not use $def and explain in the
+> commit message why the error is expected (we can't change existing bindings
+> even though they are "wrong" by current standards).
+> 
+> If this was a new binding, we should be using the common adc.yaml for IIO
+> ADCs which already has patterProperties for channels and a bipolar flag.
+> But we are stuck with this vendor-prefixed one here.
+> 
 
 
 Best regards,
