@@ -1,82 +1,115 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458FC2571C7;
-	Sun, 22 Mar 2026 12:36:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774182983; cv=pass; b=LDJVgjgMtn5ptDwGrA6sWXwxKvI9Bf30qWdVbsyL+sMcSriNu74vQegSJ0O/+qxKR9mhnIGc5mS1BK9aa+MFbyBxstrUJFk4eAn2KVf/ovfCvTepIsnwgbCUhU9Poutv/grOIJoNvUupnNVuvERGBlSmVqtSlS3ujaKuY3MEFSs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774182983; c=relaxed/simple;
-	bh=/G4wv1AYpuDDOThiFlf7yd2BqIrHdxg81+ps1exdPJY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gNp2ll8eZ+d5ehLsV80ytiDx7/+M1DncqgIR7DGcVgS6C/cN++R+ANy8VzdR2uQ8KbEM1RTShz9dGR+VDrHL3o6lHS/DZkm+9rMsR/SiuuGJGUWKvWTfUUvcx+yOLm0PwdCtRijwix9XUDv2gFeV5bC02B/OgfDpWqgsErrD+DE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=RYV0qZt5; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52238224B05;
+	Sun, 22 Mar 2026 12:43:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774183401; cv=none; b=j8BFwIiNsKLHlgNtgdU68f/bj/qyQ/9lKxfvmnbwJoz1D1iToxM0HKmRprfMoJABYF4BKy6g1MBhBF1BYh1/T9QNTs5PexOT6Z9p0Agz2IsA4JKZUgHvZRMeA4dACPq2U9jJTIYyVv9iULeUh6LaDbnzOenoiyFYzDcR/HXaGuo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774183401; c=relaxed/simple;
+	bh=OycCSydrJX0OZ3WxURx9DK2BVZinkQ1O+4eBpgk4d2I=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Ol6sBirAMgEBBo3L5ai2IV3tf5Ak1qLHrJKz4ZRQ3hOoVp7nvJ+HA/MX7kmUVFSPjlX28KEaVcjvNkl4zlpBlZmeawXZ7UyXK3pU6eQILk7bn2RgCoiiqTsNbRwC/cPXMN8xhYLMpzD7M10gWgauAX/xCgnw37o8jjcnhYz/YOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PJk/x3SJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="RYV0qZt5"
-ARC-Seal: i=1; a=rsa-sha256; t=1774182953; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Yv2PS3JweAqdYSO4TICBc119goOC/fCtLF9QKC3iCR+PGPRTBw4nwiCN365ptTrGyebRGt1uJNzQdKPy1Dy86Cw8150+dnNxnpzbaAidZ37JpCmUYI4X2ocBxUUZZK8LZ8PGP3a6RtodsQo9z7VfyVMBKFXQ3Y+FCRSrdBBf3vI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1774182953; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=sCP65OrZkkXH1dJ+E9hSjkpXLr7tFsgk9B2weoSwSqM=; 
-	b=hVGtfrbdcDHnjcembCfhcaKMPt8JEOCeDGgCXXZA1wsqvVTlxbXqy8xVL2ScE9iOLnA302qeIXet5bgZfp58GA3ZJaF49X6eDdtfk+EyRHtKeE0Brk97KxNnKPZOtxXYOEopaB87kL22r14q090c5f0M7Uzg7W6NcWQNwp+e8VU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ziyao.cc;
-	spf=pass  smtp.mailfrom=me@ziyao.cc;
-	dmarc=pass header.from=<me@ziyao.cc>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774182953;
-	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=sCP65OrZkkXH1dJ+E9hSjkpXLr7tFsgk9B2weoSwSqM=;
-	b=RYV0qZt5fR4nz0i6P6OpKLV/zj8owzRSmDxlUcWD1AdDU8Yw2GHi+laeFVYo3gkn
-	BpnFJLXw1gpqA56bZcxINvOte3lEKrb42xgvCZXHZ2H+zcxWXXhs437nG+4ZAhqO55C
-	6CTqlsyw1jJ8d1Q7sUhoygpNSqFZvfv/dTiae2YI=
-Received: by mx.zohomail.com with SMTPS id 1774182950939448.0578904738061;
-	Sun, 22 Mar 2026 05:35:50 -0700 (PDT)
-Date: Sun, 22 Mar 2026 12:35:35 +0000
-From: Yao Zi <me@ziyao.cc>
-To: wjjsn <wjjsn@qq.com>, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, chenhuacai@kernel.org
-Cc: kernel@xen0n.name, devicetree@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-kernel@vger.kernel.org,
-	wjjsn <2858482031@qq.com>
-Subject: Re: [PATCH v5 0/2] Add Loongson-2K0300 processor support
-Message-ID: <ab_iF2hjZRfp16HP@pie>
-References: <tencent_325FB1D2C600CD55E367332EC453E5A64B09@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PJk/x3SJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E20A8C19424;
+	Sun, 22 Mar 2026 12:43:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774183400;
+	bh=OycCSydrJX0OZ3WxURx9DK2BVZinkQ1O+4eBpgk4d2I=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=PJk/x3SJlGSRmqcMJXIRHfmU8ROG7OSL13Ea8LTgu5MRFhErA1UPhnwZb344xdlxB
+	 fpRuI5tnWZ/aumUzwGpOI9NZGrtTu++6vK1a29R4rhBMzUdLm/BDCPJGh3Zcw1DY8M
+	 UFY+VB/Maff4QViLuKzAXgUMW1RsYQaO20E6V93WzGTwCyd2QT9AMDyr3PPrIjMcML
+	 2MTezinnxtFUcjH1ERi2XWWXnjjduVrOFHyfS3Bxixud6/4XDolV6SoIUBBRKc3SU6
+	 PNxqlpF3AEKKhJYuUmADFHgUdrjzD7/IPkyO7OcVQgldyTi+J+FOAFAUHDfbRfqbQ2
+	 Po/KRndxwxu8w==
+Date: Sun, 22 Mar 2026 12:43:10 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>, kernel@pengutronix.de,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, Andy Shevchenko <andy@kernel.org>, David
+ Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, David Jander <david@protonic.nl>
+Subject: Re: [PATCH v6 03/12] iio: dac: ds4424: sort headers alphabetically
+Message-ID: <20260322124310.08e0541e@jic23-huawei>
+In-Reply-To: <20260210135110.2027073-4-o.rempel@pengutronix.de>
+References: <20260210135110.2027073-1-o.rempel@pengutronix.de>
+	<20260210135110.2027073-4-o.rempel@pengutronix.de>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_325FB1D2C600CD55E367332EC453E5A64B09@qq.com>
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Mar 22, 2026 at 03:13:14PM +0800, wjjsn wrote:
-> From: wjjsn <2858482031@qq.com>
+On Tue, 10 Feb 2026 14:51:01 +0100
+Oleksij Rempel <o.rempel@pengutronix.de> wrote:
+
+> Sort the header inclusions alphabetically. This improves readability and
+> simplifies adding new includes in the future.
 > 
-> The first patch adds the necessary DT binding documentation,
-> and the second patch adds the DTS and DTSI files for the SoC
-> and the board.
+> Group subsystem-specific headers (linux/iio/*) separately at the end
+> to clarify subsystem context.
+> 
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Please note I'm working on basic drivers/devicetree for 2K0300
-platform[1][2][3], though the series haven't been updated for some
-time... I've re-written the pinctrl part, and will try to re-spin all of
-them next weekend.
+I applied this one by hand as iio/consumer.h isn't used and another
+series had removed it in the meantime.
 
-Also, previously Huacai expressed preference on delaying devicetree
-changes until basic drivers are ready[4], so anyway we should probably
-get driver patches merged first.
+Thanks,
 
-Regards,
-Yao Zi
+Jonathan
 
-[1]: https://lore.kernel.org/all/20250523095408.25919-4-ziyao@disroot.org/
-[2]: https://lore.kernel.org/all/20250811163749.47028-2-ziyao@disroot.org/
-[3]: https://lore.kernel.org/all/20250816033327.11359-2-ziyao@disroot.org/
-[4]: https://lore.kernel.org/all/CAAhV-H6EDEf3U6w5KY3R3HCAdAbqDefqpE3ktCQeQtFbDK2Ypg@mail.gmail.com/
+> ---
+> changes v6:
+> - no changes
+> changes v5:
+> - no changes
+> changes v4:
+> - no changes
+> changes v3:
+> - Keep linux/iio/* headers in a separate group at the end of the includes.
+> changes v2:
+> - new patch
+> ---
+>  drivers/iio/dac/ds4424.c | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/iio/dac/ds4424.c b/drivers/iio/dac/ds4424.c
+> index 36286e4923af..c03051dc763e 100644
+> --- a/drivers/iio/dac/ds4424.c
+> +++ b/drivers/iio/dac/ds4424.c
+> @@ -6,16 +6,17 @@
+>   */
+>  
+>  #include <linux/bits.h>
+> +#include <linux/delay.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+>  #include <linux/kernel.h>
+>  #include <linux/module.h>
+> -#include <linux/i2c.h>
+>  #include <linux/regulator/consumer.h>
+> -#include <linux/err.h>
+> -#include <linux/delay.h>
+> -#include <linux/iio/iio.h>
+> +
+> +#include <linux/iio/consumer.h>
+>  #include <linux/iio/driver.h>
+> +#include <linux/iio/iio.h>
+>  #include <linux/iio/machine.h>
+> -#include <linux/iio/consumer.h>
+>  
+>  #define DS4422_MAX_DAC_CHANNELS		2
+>  #define DS4424_MAX_DAC_CHANNELS		4
+
