@@ -1,70 +1,44 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3644136672;
-	Sun, 22 Mar 2026 23:33:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190AE2FD1C2;
+	Sun, 22 Mar 2026 23:35:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774222424; cv=none; b=M6TlntEjXdUcHpqUrf2Rayu1lrZ22PhzPbyw0Jcgkuzgw5EwCd39sksJRoi22iqDoGoZ3XwfKaPdPFJ5mBYlze+nrVi8k/UOlodQVNO4v7p/6Gf1fkh4+hEQPcS3SdHchGCuVIa+oNHhBrAl9YiVIOwHY6Ka5kaIxo3S7DSZr9Q=
+	t=1774222513; cv=none; b=Z4DTlXgFJiAwOPjQDtgjTKDsyohw8qy2x2u57H8IXIPT873aviZSI0+z/2qwNYMmZQcIWQ0e4J6yZVcKWLoYwwwWa4Fj3UZwcmQLN3q/YueOCyD5U5eIeZPMVdd45InfTGUv7WbIr13ie2Ck5PTIz/9Wo9iPU7SaBg/zqgss4qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774222424; c=relaxed/simple;
-	bh=Iyq/kR8m/ROKeqOrN3lBBgrhZ0QikXX9ty57LXSzHu0=;
+	s=arc-20240116; t=1774222513; c=relaxed/simple;
+	bh=Ri2XO0FRCm/AQC69Y7/yiRkrFDypS4Sf3lBTGwO2Cj0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Viy27kS7bz3wjkEDa0ncnGFi8+E0E6S1+2NbOZfD6dphSp/CkPiFhGPgLO7oC/IO5zj8obY0j222R6ezDHqn+WBRgcq6XH7ujBVs4RfRuQZzIGKfs0kCyhoFj2N4NJ47OWSSFvHPq3JKPHVY7qMbrQFxu39vtL+MQBrEc/f0GtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jhvKPZt3; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=q+oaxCH8FykQSkL7ka542PU44YvEzJc9LwQ2g9cNSa1cn1Kes/kDIu0IX39MTcqL0dQrSB9J6q6JHSmB79E2O+yBJL4UBD1jP3yM3SM1AtEJQLNuUVuY+YuSHz717v1b5Nd5J8gr0GRhKpH3NDifb3hzJPEdxZAswVuk9/ElvKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AJjTBDiI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jhvKPZt3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774222422; x=1805758422;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Iyq/kR8m/ROKeqOrN3lBBgrhZ0QikXX9ty57LXSzHu0=;
-  b=jhvKPZt3TN5WA4MRJ2XBr/+SErkOiNcnBZS8e/cMUxKjmgGFxzMdk4D1
-   aG2JlIgS/8uxLoCZVzxFZCOifUYLOqIqnTMCElDl7BrE2pWkIy7K3GwqI
-   kYl5aTqqS/1f+rzt1Zp1OeECtZA6w+QXtC48F1sQ1k4x87DVbwxJizinp
-   vbXDE4xkeTwfKuhoyDxryOKHEQ7ZppE08Y9E8NOTG/Pll8zTsR5njXXqi
-   QsfyoKKFPhDRptP3G+n5Z+Jy/OBXQa14gDxe3cUaFKxW1Kc9//p25D8Kg
-   C+QTY9xgn3bB4+Jx/emPj7dLTyg0ULmNFBVfDkQfxuPQWoqDtLuOh7+Pz
-   Q==;
-X-CSE-ConnectionGUID: H+3kxTO9SQy8l9eRMQzoYw==
-X-CSE-MsgGUID: JK/qAADcQHKBo+B5JvmcbQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11737"; a="75343991"
-X-IronPort-AV: E=Sophos;i="6.23,136,1770624000"; 
-   d="scan'208";a="75343991"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Mar 2026 16:33:41 -0700
-X-CSE-ConnectionGUID: L5lU3e1hSneBMqQipXjSAA==
-X-CSE-MsgGUID: LXf5SMqNRLiXfBtk9LP7DQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,136,1770624000"; 
-   d="scan'208";a="261766636"
-Received: from lkp-server02.sh.intel.com (HELO 391eea459618) ([10.239.97.151])
-  by orviesa001.jf.intel.com with ESMTP; 22 Mar 2026 16:32:45 -0700
-Received: from kbuild by 391eea459618 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1w4SHh-0000000007Z-2kCJ;
-	Sun, 22 Mar 2026 23:32:41 +0000
-Date: Mon, 23 Mar 2026 07:31:52 +0800
-From: kernel test robot <lkp@intel.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-Message-ID: <202603230713.5uOUC5EI-lkp@intel.com>
-References: <20260315-x1e-csi2-phy-v4-2-90c09203888d@linaro.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AJjTBDiI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89799C19424;
+	Sun, 22 Mar 2026 23:35:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774222512;
+	bh=Ri2XO0FRCm/AQC69Y7/yiRkrFDypS4Sf3lBTGwO2Cj0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AJjTBDiIGGTwBzFDT8QcTO/uzsuyg57sVwapN1/YeViEMULkUxLrBsq7pLiMNaukZ
+	 VInPeSdsAFQTF02mgA2VnOqFkf6ON6Z9ZV+t9ytZfMTRPvUuS8fIDvzdyuULSKfQKQ
+	 No0nUXY0ECd3hep+YmAllEOrKFrGnNudYFWZHNBre6BbI4SvlIqhwxR5s25vAMC+HC
+	 UIGf/NYPOgDkcSI+W9Xul0eazjllV7WI06pMicNKeNzJM9y2kLuhO25Bf6PbGSFoIQ
+	 Vna2pgjqKoxPZEyrXb9Py6FSbgv8s2yw85qiuGx/JHByxszJ219VifR8VIeKNCsVA/
+	 KqhtR41+0ZJww==
+Date: Sun, 22 Mar 2026 18:35:11 -0500
+From: Rob Herring <robh@kernel.org>
+To: Lakshay Piplani <lakshay.piplani@nxp.com>
+Cc: linux-kernel@vger.kernel.org, linux-i3c@lists.infradead.org,
+	alexandre.belloni@bootlin.com, krzk+dt@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org, broonie@kernel.org,
+	lee@kernel.org, Frank.Li@nxp.com, lgirdwood@gmail.com,
+	vikash.bansal@nxp.com, priyanka.jain@nxp.com,
+	aman.kumarpandey@nxp.com
+Subject: Re: [PATCH v7 3/7] dt-bindings: i3c: Add NXP P3H2x4x i3c-hub support
+Message-ID: <20260322233511.GA72130-robh@kernel.org>
+References: <20260319112441.3888957-1-lakshay.piplani@nxp.com>
+ <20260319112441.3888957-4-lakshay.piplani@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -73,52 +47,240 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260315-x1e-csi2-phy-v4-2-90c09203888d@linaro.org>
+In-Reply-To: <20260319112441.3888957-4-lakshay.piplani@nxp.com>
 
-Hi Bryan,
+On Thu, Mar 19, 2026 at 04:54:37PM +0530, Lakshay Piplani wrote:
+> From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> 
+> Add bindings for the NXP P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841)
+> multiport I3C hub family. These devices connect to a host via
+> I3C/I2C/SMBus and allow communication with multiple downstream
+> peripherals.
+> 
+> Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
+> 
+> ---
+> Changes in v7:
+>  - Fix schema validation issues
+>  - Adjust required properties
+>  - Add I2C example
+> 
+> Changes in v6:
+>  - Use a vendor prefix for the attributes
+> 
+> Changes in v5:
+>  - Removed SW properties: cp0-ldo-microvolt,cp1-ldo-microvolt,
+>    tp0145-ldo-microvolt, tp2367-ldo-microvolt
+>  - Changed supply entries and its descriptions
+> 
+> Changes in v4:
+>  - Fixed DT binding check warning
+>  - Removed SW properties: ibi-enable, local-dev, and always-enable
+> 
+> Changes in v3:
+>  - Added MFD (Multi-Function Device) support for I3C hub and on-die regulator
+>  - Added Regulator supply node
+> 
+> Changes in v2:
+>  - Fixed DT binding check warning
+>  - Revised logic for parsing DTS nodes
+> ---
+> ---
+>  .../devicetree/bindings/i3c/nxp,p3h2840.yaml  | 303 ++++++++++++++++++
+>  MAINTAINERS                                   |   8 +
+>  2 files changed, 311 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml b/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+> new file mode 100644
+> index 000000000000..495e0e4c1ae1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+> @@ -0,0 +1,303 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright 2025 NXP
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/i3c/nxp,p3h2840.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: NXP P3H2X4X I3C HUB
+> +
+> +maintainers:
+> +  - Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> +  - Vikash Bansal <vikash.bansal@nxp.com>
+> +
+> +description: |
+> +  P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841) is a family of multiport I3C
+> +  hub devices that connect to:-
+> +  1. A host CPU via I3C/I2C/SMBus bus on upstream side and connect to multiple
+> +     peripheral devices on the downstream  side.
+> +  2. Have two Controller Ports which can support either
+> +     I2C/SMBus or I3C buses and connect to a CPU, BMC or SOC.
+> +  3. P3H2840/ P3H2841 are 8 port I3C hub with eight I3C/I2C Target Port.
+> +  4. P3H2440/ P3H2441 are 4 port I3C hub with four I3C/I2C Target Port.
+> +     Target ports can be configured as I2C/SMBus, I3C or GPIO and connect to
+> +     peripherals.
+> +
+> +properties:
+> +  compatible:
+> +    const: nxp,p3h2840
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+> +
+> +  assigned-address:
+> +    maximum: 0x7f
+> +
+> +  nxp,tp0145-pullup-ohms:
+> +    description:
+> +      Selects the pull up resistance for target Port 0/1/4/5, in ohms.
+> +    enum: [250, 500, 1000, 2000]
+> +    default: 500
+> +
+> +  nxp,tp2367-pullup-ohms:
+> +    description:
+> +      Selects the pull up resistance for target Port 2/3/6/7, in ohms.
+> +    enum: [250, 500, 1000, 2000]
+> +    default: 500
+> +
+> +  nxp,cp0-io-strength-ohms:
+> +    description:
+> +      Selects the IO drive strength for controller Port 0, in ohms.
+> +    enum: [20, 30, 40, 50]
+> +    default: 20
+> +
+> +  nxp,cp1-io-strength-ohms:
+> +    description:
+> +      Selects the IO drive strength for controller Port 1, in ohms.
+> +    enum: [20, 30, 40, 50]
+> +    default: 20
+> +
+> +  nxp,tp0145-io-strength-ohms:
+> +    description:
+> +      Selects the IO drive strength for target port 0/1/4/5, in ohms.
+> +    enum: [20, 30, 40, 50]
+> +    default: 20
+> +
+> +  nxp,tp2367-io-strength-ohms:
+> +    description:
+> +      Selects the IO drive strength for target port 2/3/6/7, in ohms.
+> +    enum: [20, 30, 40, 50]
+> +    default: 20
+> +
+> +  vcc1-supply:
+> +    description: Controller port 0 power supply.
+> +
+> +  vcc2-supply:
+> +    description: Controller port 1 power supply.
+> +
+> +  vcc3-supply:
+> +    description: Target port 0/1/4/5 power supply.
+> +
+> +  vcc4-supply:
+> +    description: Target port 2/3/6/7 power supply.
+> +
+> +  regulators:
+> +    type: object
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      ldo-cp0:
+> +        type: object
+> +        $ref: /schemas/regulator/regulator.yaml#
+> +        unevaluatedProperties: false
+> +
+> +      ldo-cp1:
+> +        type: object
+> +        $ref: /schemas/regulator/regulator.yaml#
+> +        unevaluatedProperties: false
+> +
+> +      ldo-tpg0:
+> +        type: object
+> +        $ref: /schemas/regulator/regulator.yaml#
+> +        unevaluatedProperties: false
+> +
+> +      ldo-tpg1:
+> +        type: object
+> +        $ref: /schemas/regulator/regulator.yaml#
+> +        unevaluatedProperties: false
+> +
+> +required:
+> +  - reg
+> +
+> +patternProperties:
+> +  "^i3c@[0-7]$":
+> +    type: object
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        description:
+> +          The I3C HUB Target Port number.
+> +        maximum: 7
+> +
+> +      '#address-cells':
+> +        const: 3
+> +
+> +      '#size-cells':
+> +        const: 0
+> +
+> +      nxp,pullup-enable:
+> +        type: boolean
+> +        description:
+> +          Enables the on-die pull-up for Target Port.
+> +
+> +    required:
+> +      - reg
+> +      - "#address-cells"
+> +      - "#size-cells"
+> +
+> +  "^(i2c|smbus)@[0-7]$":
+> +    type: object
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        description:
+> +          The I3C HUB Target Port number.
+> +        maximum: 7
+> +
+> +      '#address-cells':
+> +        const: 1
+> +
+> +      '#size-cells':
+> +        const: 0
+> +
+> +      nxp,pullup-enable:
+> +        type: boolean
+> +        description:
+> +          Enables the on-die pull-up for Target Port.
+> +
+> +    required:
+> +      - reg
+> +      - "#address-cells"
+> +      - "#size-cells"
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    i3c {
+> +        #address-cells = <3>;
+> +        #size-cells = <0>;
+> +
+> +        hub@70,236153000c2 {
+> +            reg = <0x70 0x236 0x3000c2>;
 
-kernel test robot noticed the following build errors:
+Once again, you must have a compatible. "The device is discoverable" is 
+not an argument. If it is discoverable, then don't put the device in DT 
+in the first place.
 
-[auto build test ERROR on c824345288d11e269ce41b36c105715bc2286050]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Bryan-O-Donoghue/dt-bindings-phy-qcom-Add-CSI2-C-PHY-DPHY-schema/20260316-081353
-base:   c824345288d11e269ce41b36c105715bc2286050
-patch link:    https://lore.kernel.org/r/20260315-x1e-csi2-phy-v4-2-90c09203888d%40linaro.org
-patch subject: [PATCH v4 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-config: riscv-allyesconfig (https://download.01.org/0day-ci/archive/20260323/202603230713.5uOUC5EI-lkp@intel.com/config)
-compiler: clang version 16.0.6 (https://github.com/llvm/llvm-project 7cbf1a2591520c2491aa35339f227775f4d3adf6)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260323/202603230713.5uOUC5EI-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603230713.5uOUC5EI-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c:360:13: error: initializer element is not a compile-time constant
-           .opp_clk = x1e_clks[2],
-                      ^~~~~~~~~~~
-   1 error generated.
-
-
-vim +360 drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-
-   347	
-   348	const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_4nm_x1e = {
-   349		.ops = &phy_qcom_mipi_csi2_ops_3ph_1_0,
-   350		.reg_info = {
-   351			.init_seq = lane_regs_x1e80100,
-   352			.lane_array_size = ARRAY_SIZE(lane_regs_x1e80100),
-   353			.common_regs_offset = 0x1000,
-   354			.generation = GEN2,
-   355		},
-   356		.supply_names = (const char **)x1e_supplies,
-   357		.num_supplies = ARRAY_SIZE(x1e_supplies),
-   358		.clk_names = (const char **)x1e_clks,
-   359		.num_clk = ARRAY_SIZE(x1e_clks),
- > 360		.opp_clk = x1e_clks[2],
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Rob
