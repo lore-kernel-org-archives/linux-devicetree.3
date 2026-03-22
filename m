@@ -1,48 +1,47 @@
-Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com [203.205.221.209])
+Received: from out203-205-221-155.mail.qq.com (out203-205-221-155.mail.qq.com [203.205.221.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9456832BF5D
-	for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 08:03:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.209
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9C1238C0A
+	for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 08:20:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774166636; cv=none; b=aB5YnJsd1vU7N4OzHvHN6kxt9QAoajQ/6GZ3sZVf8W6mk5FZ8idVfYjq6sVfyKQyF26plz3gcXPRE3NQiTRqO8//w6toE+NSslmx5VmBSWC1DFpF6CH7Fq3vq5gnY2EoR4+IT4PI0RIV8j50HHsUxhrKxdNuDJfkY4l9Y2s7hzo=
+	t=1774167609; cv=none; b=Zn0BGhn4eGQdnuzFZRBqWlyhPPD5sAC6TGg7m5Dg3BkGCQ9lZLm6YU2yHsdnpKj4SpOgWZtq/l0fExmdnhPdS9Pa/dyLDnbSG+To0ZgJrO1RXvSfxu+eNRHRPzeZlccFGio1dHnoyKXvwLEglkwDNOqXktwf9VZJ9pQx7H6KI24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774166636; c=relaxed/simple;
-	bh=nOwKuHnP5b4pP5nKigCa6Jg66CWkpdBNDAgdUOPLqQA=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=ckWYNyNuipkh8NBfGa4ZQrArnOrtttZUeYSGhWovBV6pZF2S9CNcNOhgKtepGoiAb8IysrDJdk6NUOG39+qDozNTjZTCjPLP4JT2cW0xWIU9wziNdVAh8NqL5a8Oo7YnaUDCXmgXExod5HbBZBuJiJmisK0ibrPAxPDWNMMOmok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=Ybg+lF1L; arc=none smtp.client-ip=203.205.221.209
+	s=arc-20240116; t=1774167609; c=relaxed/simple;
+	bh=DA/JD6zz2kNjdIT4XwCDtcQAuO6OX7Jips84FZy7tLk=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=FLEM8Z6dI90UqqLZRdyaci2fZgzPh5Z0SCHYMXQCHFS2t+e/9Mlwky+aE5lKeodgeFqkcdFBmag2wx+dRtQ9Zodo36qYurKJInHJo/w6rHlLU6rNa5m80k7EiK9yn9+B4YNXntv5LYotIbXvq9zzvJzvkQHcnp55QZR5P5gPRkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=n+YO8Xwa; arc=none smtp.client-ip=203.205.221.155
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="Ybg+lF1L"
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="n+YO8Xwa"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1774166624; bh=r/KYBO4Obj4K4oCVTFttAiIPYsDg4+nomEeK0QfxJNc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ybg+lF1LnFvyfQnXiH9sUcUlxvdMp/kH+CBnuzEepa/y/+Q7rN0gsQTJFGktiA+q1
-	 fwRL0okFHexDFIh/hFICUR+BLhuBI2VzwstZlaeFlYvPuOU1ctuWjj6Z7nNsEf7zKP
-	 vQnaFY1zP2wAN6ep68hp9W+pe1ie8CobDWg++mxg=
+	t=1774167603; bh=n55yWK1Schao3JnG7277KpB/5AihrSuLemaDN1vfRNg=;
+	h=From:To:Cc:Subject:Date;
+	b=n+YO8XwaNF3T6q+DkBilJXpdXTlqosWSBPDKeaGxvRXj89jSjl/U0SsVjWSX9FKfX
+	 OIrjyjYL73AiknQTgbVImizjoFQ1HBqydRN1s4yV7FRgh8n53MeSF1QWb6e4HGlDJm
+	 9uXxpiq98SZJjT9PhabGiv3WV72GPNrVNx526fZM=
 Received: from MYJGMC.tail4697e5.ts.net ([122.195.139.226])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id E78F8E1; Sun, 22 Mar 2026 16:03:39 +0800
-X-QQ-mid: xmsmtpt1774166621ts9jpklb5
-Message-ID: <tencent_09D5E459F58BDE54BD6998D7FC346A403407@qq.com>
-X-QQ-XMAILINFO: MRMtjO3A6C9XDfIWje85BK8Q+de2FpNXINhB69YaDAoZPoI5pMI4cX3eAEkyT3
-	 H9NIKPITVTPNABqNzpI4VeLEWMNwFGkoEsAscyRYOJOMWUIKYo8/UOTVBD37YADa1e8WRbKuefFX
-	 rFJ6o4qE2Yz876isNyMZagtvcG79r7+ib6hqee/kqjgjr9WOEBEGKNGiUzuhTm+Dsnv2r0Nnd3pf
-	 fpsp1bJ/eFfovmlkwcL6w//MryIw5BMJwopI2r/7APfmsOvbAEO9R97TmEf9oB77IKkHoEaauzIx
-	 Aw+rxpjRir0IaiE3acYu5ZSps8GV5rRcsUkbUAFvvKesp13X5sgANoVjE/Vgyy7yja3D6XHM23et
-	 tbNeosGsS9Cu5XMVgTAIloYEL/5Ki/EKXAINJJZFVTk2jeAi7ybcjuzAkxlcSLwdM/IOqAETy8oU
-	 VLPXv4i649j6e/JIgWK8cCAlsrtLta1KPdQlXehE/1oHXDkTqLPjSmmshQC9QlpCsYOK4SQejW9y
-	 6g6YuuSGzuLb+8h0OEOBOk1m+P6fxh8JeF0fj/395bIK7DM44GPQX5laJylV/A+jF8HK/MI4MD1a
-	 9RiOODDhAbDSXJx8PTeSQIaCW7Zn4KWeN7FSuouk8+w46GaGRf98ZmDl9Vd3m8pKvtrpHLgYDfPG
-	 Uzy16hX8wH/GxejsjJjvmnqkdQjXarewMto4qyatdVPoy0jZqmGJkTzaoQ5g45V36BZZNd5xCmd2
-	 vX7RuRT3ks8oRBkfdSwn9hNO9p08KGszgv8JBBEhPFOGxSwQjHuyhhRjQjxrlhDK9O86K3DevD8N
-	 GgdrNDRWrYk5g2yENHmKAScZ3VzLClZ1oZZdCGMI1hjJ2EP0qE2NdjhFS11CXB5PckE9gdDl4/em
-	 36/7GFEvxw+O0mBRbJn22JW7Nt+BWS5LNAaGhxbqjtCYiLisag28m7JGW174Zjep+25HYpmT5yf7
-	 xC0DMqindIG+CR1sXGZ9+67et6AtJ8xhJ90q5Iyar9KykqZ+0lhMqiDjuEprg22mCCZFGLqRao3G
-	 zwLmw/Pj6ZfFbRFL7Ia0FFc6NT4dR89hw3wDSW6nL9eGwM005ivsp2vbMYiBs=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id 500854EA; Sun, 22 Mar 2026 16:20:00 +0800
+X-QQ-mid: xmsmtpt1774167600t0cvhcqrz
+Message-ID: <tencent_58AAF3ACDEC5402AD6B4CBEB501A10609906@qq.com>
+X-QQ-XMAILINFO: MDbayGdXPuoe+YP23izIm8w9gAqPvrjwySsi6Wcp+7EkflnG2j5Q1lA8UvXeuL
+	 j/p3CRrShYaCcyOXZxKPEeLYrbsJPZfnjRxZLQl69r6ZjhlUbrSlmz/zIpyj3h9uxdKceVJ6UUUw
+	 ZrzOfTu7vls3QsVxtI1Z8bBPk+dRWfBXGno91vHYf/F7DpW9uy+GRi63gMQHIObwcedQzbUnN0iR
+	 idgSZE8QgwLJFzlVHV+hZt6+Umc1Y2Llmmd1qoGlxlsmovvH8OR+ciV5L6FHSRoz7VNyDk3JMpLp
+	 v6mR+OxlBqcRR6Fv3sII9e2jPA9T0ETHdWwIwj6kbizEeqmi/sJtaPnQsjCOtAjEPqg8y5oXQ7rq
+	 ZHxAdNcAorlaWRv5sxyoZYH9r8eNZX6BSZUrD22YXxBErW5MgVdNGHmC8HAR2V9INxoHRObhdzj1
+	 yI7sAllX3GnGYSiI0ym0BXwRvq9t+FpHRzSzwAhLmj/LpQSpG6HZrzpZ1Bm7+5gFYg+W28vlmW/F
+	 iR8evfb73MKKZYCn1qIxAlpzqpPC2nZ3dctWSGmQcvB0ucxrg36BvVORwu6H8tAuyoAXJCZ8cv8P
+	 jg+mFv4ZWLGyuTvp7KPtYEb6QYoJKjqgXTLTJtn4waM7uL6xPFfspDyPXt1+keIsHJ/BWsfCX5/3
+	 Yg/o0BSWd6pinfhQwAMCKmArp8PER1rJxyKf4HZLupm04axI8EjUT4cPNUfU5MnFhvGSxn3d9bqs
+	 bSyKWzq33/JBBsDwkE0BAigqv4CJWG3ZZUVYWrT+gOS7rC7Os4U+Ks3Fd/uDqnbrXWSmCfTcsO2U
+	 N6k5CRmGKMylwrz3z/09BZZoq7yy/4c+DEOU4iUPAGMY2bMJ9Z2f1z2QGc9nhut9YCoivGROatvD
+	 gZRL1C+wBNQiNG8ChfRGMtoD0e8OdsX61hPWtbKaJJZkSYg38XkEW70pLy/cwgBxQE9+CEhBchVo
+	 3XfJFD+bjWK0/xHoJk4PXu7/2DmSKDRmddfz3PuAnoIIe/RbaapTLKqamNB5Yo9HXIx3SmSUZ0Rw
+	 FTi8pWEOasct3yjFrl/i4FBKiBLZ3ieItVZnU06k0hWTSDsn1Onoech2A3grereo3pB1iG6w==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
 From: wjjsn <wjjsn@qq.com>
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
@@ -56,14 +55,11 @@ Cc: linux-clk@vger.kernel.org,
 	loongarch@lists.linux.dev,
 	kernel@xen0n.name,
 	devicetree@vger.kernel.org,
-	wjjsn <2858482031@qq.com>,
 	wjjsn <wjjsn@qq.com>
-Subject: [PATCH 1/2] dt-bindings: clock: loongson,ls2k: add ls2k1000 compatible
-Date: Sun, 22 Mar 2026 16:03:26 +0800
-X-OQ-MSGID: <20260322080327.1606799-2-wjjsn@qq.com>
+Subject: [PATCH v2 0/2] loongson2 clk: introduce ls2k1000 specific compatible
+Date: Sun, 22 Mar 2026 16:19:13 +0800
+X-OQ-MSGID: <20260322081915.1626723-1-wjjsn@qq.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260322080327.1606799-1-wjjsn@qq.com>
-References: <20260322080327.1606799-1-wjjsn@qq.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,39 +68,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: wjjsn <2858482031@qq.com>
+Changes in v2:
+- Consistently use wjjsn <wjjsn@qq.com> for both Author and Signed-off-by fields.
 
-Add a SoC-specific "loongson,ls2k1000-clk" compatible.
-Retain the existing "loongson,ls2k-clk" as a deprecated fallback
-for backward compatibility.
+The "loongson,ls2k-clk" compatible is currently used for the
+Loongson-2K1000 clock controller, despite being generic.
 
-Signed-off-by: wjjsn <wjjsn@qq.com>
----
+This series introduces a SoC-specific compatible
+"loongson,ls2k1000-clk" to make the binding more precise and
+consistent with other Loongson-2 variants.
+
+The existing "loongson,ls2k-clk" is retained as a deprecated
+fallback for backward compatibility.
+
+Patch 1 updates the devicetree binding documentation.
+Patch 2 adds driver support and updates the DTS.
+
+wjjsn (2):
+  dt-bindings: clock: loongson,ls2k: add ls2k1000 compatible
+  clk: loongson2: add support for ls2k1000 compatible
+
  .../devicetree/bindings/clock/loongson,ls2k-clk.yaml        | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ arch/loongarch/boot/dts/loongson-2k1000.dtsi                | 2 +-
+ drivers/clk/clk-loongson2.c                                 | 1 +
+ 3 files changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/clock/loongson,ls2k-clk.yaml b/Documentation/devicetree/bindings/clock/loongson,ls2k-clk.yaml
-index c07ad1f85857..4d70bc4e7a13 100644
---- a/Documentation/devicetree/bindings/clock/loongson,ls2k-clk.yaml
-+++ b/Documentation/devicetree/bindings/clock/loongson,ls2k-clk.yaml
-@@ -13,12 +13,16 @@ description: |
-   Loongson-2 SoC clock control module is an integrated clock controller, which
-   generates and supplies to all modules.
- 
-+  The "loongson,ls2k1000-clk" string should be used for Loongson-2K1000.
-+  The "loongson,ls2k-clk" string is kept as a fallback for backward compatibility for Loongson-2K1000.
-+
- properties:
-   compatible:
-     enum:
-       - loongson,ls2k0300-clk
-       - loongson,ls2k0500-clk
--      - loongson,ls2k-clk  # This is for Loongson-2K1000
-+      - loongson,ls2k-clk
-+      - loongson,ls2k1000-clk
-       - loongson,ls2k2000-clk
- 
-   reg:
 -- 
 2.43.0
 
