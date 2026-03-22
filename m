@@ -1,78 +1,78 @@
-Received: from ZRZP278CU001.outbound.protection.outlook.com (mail-switzerlandnorthazon11021075.outbound.protection.outlook.com [40.107.167.75])
+Received: from GVAP278CU002.outbound.protection.outlook.com (mail-switzerlandwestazon11020105.outbound.protection.outlook.com [52.101.188.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030F22874F5;
-	Sun, 22 Mar 2026 16:03:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.167.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C864C364053;
+	Sun, 22 Mar 2026 16:03:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.188.105
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774195415; cv=fail; b=tKzm7SbC76ckSBvKCDExOYrq8YZkYrbpa5gluLiPcFlYf4cAEr/qTosG4t1z4pmglxX9CZgmvrcobUdWvE3btcnqfA54caqeOM1CyfsIE3YbNof8r+gmpYhGF/K5XEFboiV355jhcnOxuPqdhsYlObhzsppIUGwgL5ij4RaDUp8=
+	t=1774195415; cv=fail; b=S4B3eQy6iZtw2syNqYSf7BRkt01X/aYPLVxBfWb2/A9tX/HuSJJBN3w2E+yA+B/58yrsUEaxrsBAM4aKeN+D/CqDUdZzi5oGi0fl4ATWoArpi9izfbGzC8Dm/miZdVVV5SZFI4AHToXi55Visa63AxKpEvyU+5IY37lMOp2pLVE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774195415; c=relaxed/simple;
-	bh=e1cJVs3cOy4V1cuzu2tbo2us/0A2scmhtDUsDNJXLI0=;
+	bh=ubyzG68WfXkehN0/i1fpusfp/UUg+fis22h4Jx14anc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KRb20DC1eylYUs5ovXP3kjZKQTQmvhoy3JxP96URftkUc3WIHzI1tnTXbw4PlDx73bG87hTOFvQ/WIww2GH6IyfKGOz1fgsh4O9XgOY7ig644q78lHNyUVHnUOgdq0wDCQUQ1g/TK2HJ4UlRTxVGzlNrXE4dveU/M76H3ec4hnk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cern.ch; spf=pass smtp.mailfrom=cern.ch; dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b=BMP97via; dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b=BMP97via; arc=fail smtp.client-ip=40.107.167.75
+	 Content-Type:MIME-Version; b=G31sSKNAgDjjtYkvfYBV1yjMr8m1/zZd1CkeLiKyomylSVccRpTXekl5SoFAWTL5GYOlaMBqqMZRLukmz6iMXHkYOq1zXzzwBQy8XWLT6+UJwj/ojrut9osi+oenEbUYETW1ozBgn2eBhRpKgnUUMcVOdpvLOft7DsvuUZMZ5ZE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cern.ch; spf=pass smtp.mailfrom=cern.ch; dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b=IeAJabqA; dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b=IeAJabqA; arc=fail smtp.client-ip=52.101.188.105
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cern.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cern.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b="BMP97via";
-	dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b="BMP97via"
+	dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b="IeAJabqA";
+	dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b="IeAJabqA"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=alwmBwwAI5thbdiAdOk80ZBMUmlnMkw282fY7Aqcqj+Ezw+E+sGPU0A6ui7jYgRKru2rc6Y7dBHxkIQmXmRRstaUUrbF3AJibmgdfsOQexJn4zvV+HWnYb2/9pjxj6gn1R7iSn/RQFEe+Oz8eOkJZrVQ9wC4RMHoWqJXh8jxq56mQS0iZHy4JZLOE67h1bojlIygmFw1PyNODLEr9DAufvIo0TwuhPcrAi+N+dMnOjZJHRypzZcD0AcRG/HHIL8fsRqrniT0wChNCVrKknlYmOIkoYpDst18w9yYdOU8B4/iuc3RPe6CU35LWMleFHkUTMQuEfm1yWNwB43wczaZpQ==
+ b=DpOFkSMyxx0wzouLb3KXcgKPWXNyi5SrDh8hnRoZ3a4Pt1OtVg8oX9fiMVcAL/fc0P7MOP2QAZH+aRtmdjTeqoaTP549g0A2nM6qKL7obBUU2njEfyX3gxgZ750Tnhrb3c58ZTIIt5wCkpDXb4bPWv5vPDPGOpWPwXx27KLd+kC/fGD6k+Ek8U4M2ESmymb1kf9Hyg3LOPu5p9Nosm/e6oBOomQfva14ZsX3dpQmYG+KkJ70bYVt5/8099arjLGMTPNr4CKC00PmUL4FxWyqfqvIvtZdp+awo9xZami7yQU67P8sjSK08QlYTf9lGEEa1p0nz8tDFMFcidDyu2skKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VI8cVPgq6aqp1bDhH+jNuC5r8MvAOaxSu9t4O+EZffg=;
- b=iPQvh7fstb0vpQFDCpCIJdg1Y+G/WewpZcFOZ6Jmmhlx8imQ+tqVD8wmD5ad9Kl97KbDt8xA93qqHXCKrTnVtSNLRoSHNRJP4JahrZ4XXhmU1ZSmlQEiLVSDKVWKbqDRyhtAiaMIj9+8DStnsQa36LIjQSMDxemKcV3Nq8zMO57yoomiNhZxW7nXXde6wZhGQwpdXGr6z8CqCIsuiD6yUpwIBawHgEp1kjw1vrJ8H5OESnkb98FIUelBAEkvsP5bXf2vhjtkBKG+g0RLfRLtK2c4xMs9SbITRWBMzKWsOgsNDyjiM5ABMaR7/Cevm40FF2F0rWlXc/h2Ag+WGBtjjw==
+ bh=QlW5c1dXeJZyIdvi7CiGm9bnlQ3EwBy9kKZ/ivv6gzA=;
+ b=mY1NneVNnCz7A3oWscugEZtQnJ/z/B0TF6YeywG0YJYLLg1uuyshCROiYskt7krmZYesHwWBRpdTPXkY+DDjPAdbR17k83eHkcGrwT/XVEdRT6OT7Rcm0QVF/1ufXAOF67O7mtLNSgzibYhSIee8gv8zrDscMG/mWozUvIGIUXW4EsQforb88BDXfb0Uy/V7djRVwn80QjJcnfzU4QTe1sTnftvS5ZsuvH0cHO5ReGXCE2DehualHuzrfr7HCs1xEhfS0YA0ZHeb0WtGHS0SkiKRWksFBlb2dDalv1tX1/69ddDRDMPiqQ5VIP611M4Gk9Fu+g5bGozalBshlm+qyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 51.103.219.121) smtp.rcpttodomain=kernel.org smtp.mailfrom=cern.ch;
+ 20.208.138.155) smtp.rcpttodomain=kernel.org smtp.mailfrom=cern.ch;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=cern.ch;
  dkim=pass (signature was verified) header.d=cern.ch; arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cern.ch; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VI8cVPgq6aqp1bDhH+jNuC5r8MvAOaxSu9t4O+EZffg=;
- b=BMP97via3ldbdSfaXNJZgOVVPyV1J/IAla77ZIz/kx7vgkavrBnQRW3fjh9CvRjuTQ6LnNyz3GSmW1eIu1QSLVLTrMH2V2h//RD4kWiMoQq2rL1OLYzBwNGEqjtuvcHQvD6IsnWwNbDrfDNlkWtc29/vuUbK2fco0DUvkIijlW0=
-Received: from AM8P251CA0002.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:21b::7)
- by ZR3P278MB1428.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:a0::9) with
+ bh=QlW5c1dXeJZyIdvi7CiGm9bnlQ3EwBy9kKZ/ivv6gzA=;
+ b=IeAJabqAuvONT+FOOjM76MYamXGpF2sAETR9le5uTiVAZNa9ucf8LEAfqwykeOahedKkKhyb+h21kaDi2uhLTPAD36J7yRuEcHlkoNZFxonFM8gUIXTwBMRKJ2pOcN9EdFNyhMVC8wx8P8/T10KpkQPFK1kCusbdN7mC0Z6wH/8=
+Received: from AM0PR10CA0058.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:150::38)
+ by ZR1P278MB1578.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:aa::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.25; Sun, 22 Mar
  2026 16:03:28 +0000
-Received: from AM4PEPF00027A5D.eurprd04.prod.outlook.com
- (2603:10a6:20b:21b:cafe::20) by AM8P251CA0002.outlook.office365.com
- (2603:10a6:20b:21b::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.23 via Frontend Transport; Sun,
+Received: from AM3PEPF00009B9D.eurprd04.prod.outlook.com
+ (2603:10a6:20b:150:cafe::97) by AM0PR10CA0058.outlook.office365.com
+ (2603:10a6:20b:150::38) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.25 via Frontend Transport; Sun,
  22 Mar 2026 16:03:27 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 51.103.219.121)
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 20.208.138.155)
  smtp.mailfrom=cern.ch; dkim=pass (signature was verified)
  header.d=cern.ch;dmarc=pass action=none header.from=cern.ch;
 Received-SPF: Pass (protection.outlook.com: domain of cern.ch designates
- 51.103.219.121 as permitted sender) receiver=protection.outlook.com;
- client-ip=51.103.219.121; helo=mx1.crn.activeguard.cloud; pr=C
-Received: from mx1.crn.activeguard.cloud (51.103.219.121) by
- AM4PEPF00027A5D.mail.protection.outlook.com (10.167.16.69) with Microsoft
+ 20.208.138.155 as permitted sender) receiver=protection.outlook.com;
+ client-ip=20.208.138.155; helo=mx3.crn.activeguard.cloud; pr=C
+Received: from mx3.crn.activeguard.cloud (20.208.138.155) by
+ AM3PEPF00009B9D.mail.protection.outlook.com (10.167.16.22) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.19
  via Frontend Transport; Sun, 22 Mar 2026 16:03:27 +0000
 Authentication-Results-Original: auth.opendkim.xorlab.com;	dkim=pass (1024-bit
  key; unprotected) header.d=cern.ch header.i=@cern.ch header.a=rsa-sha256
- header.s=selector1 header.b=BMP97via
-Received: from GVAP278CU002.outbound.protection.outlook.com (mail-switzerlandwestazlp17010007.outbound.protection.outlook.com [40.93.86.7])
-	by mx1.crn.activeguard.cloud (Postfix) with ESMTPS id D01ED100F3D;
+ header.s=selector1 header.b=IeAJabqA
+Received: from GVAP278CU002.outbound.protection.outlook.com (mail-switzerlandwestazlp17010004.outbound.protection.outlook.com [40.93.86.4])
+	by mx3.crn.activeguard.cloud (Postfix) with ESMTPS id 96FF97E1D6;
 	Sun, 22 Mar 2026 17:03:26 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cern.ch; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VI8cVPgq6aqp1bDhH+jNuC5r8MvAOaxSu9t4O+EZffg=;
- b=BMP97via3ldbdSfaXNJZgOVVPyV1J/IAla77ZIz/kx7vgkavrBnQRW3fjh9CvRjuTQ6LnNyz3GSmW1eIu1QSLVLTrMH2V2h//RD4kWiMoQq2rL1OLYzBwNGEqjtuvcHQvD6IsnWwNbDrfDNlkWtc29/vuUbK2fco0DUvkIijlW0=
+ bh=QlW5c1dXeJZyIdvi7CiGm9bnlQ3EwBy9kKZ/ivv6gzA=;
+ b=IeAJabqAuvONT+FOOjM76MYamXGpF2sAETR9le5uTiVAZNa9ucf8LEAfqwykeOahedKkKhyb+h21kaDi2uhLTPAD36J7yRuEcHlkoNZFxonFM8gUIXTwBMRKJ2pOcN9EdFNyhMVC8wx8P8/T10KpkQPFK1kCusbdN7mC0Z6wH/8=
 Authentication-Results-Original: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=cern.ch;
 Received: from ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:5d::11)
  by ZR1P278MB1326.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:6f::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.25; Sun, 22 Mar
- 2026 16:03:25 +0000
+ 2026 16:03:24 +0000
 Received: from ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM
  ([fe80::79ac:8d79:4b56:709c]) by ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM
  ([fe80::79ac:8d79:4b56:709c%2]) with mapi id 15.20.9723.022; Sun, 22 Mar 2026
- 16:03:25 +0000
+ 16:03:24 +0000
 From: Maxim Storetvedt <mstoretv@cern.ch>
 To: andersson@kernel.org,
 	robh@kernel.org,
@@ -88,13 +88,12 @@ Cc: marcus@nazgul.ch,
 	johan@kernel.org,
 	konradybcio@kernel.org,
 	kirill@korins.ky
-Subject: [PATCH v6 2/3] dt-bindings: arm: Add Samsung Galaxy Book4 Edge
-Date: Sun, 22 Mar 2026 17:03:11 +0100
-Message-ID: <20260322160317.424797-3-mstoretv@cern.ch>
+Subject: [PATCH v6 0/3] Add initial DTS for Samsung Galaxy Book4 Edge
+Date: Sun, 22 Mar 2026 17:03:09 +0100
+Message-ID: <20260322160317.424797-1-mstoretv@cern.ch>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260322160317.424797-1-mstoretv@cern.ch>
+In-Reply-To: <p3mhtj2rp6y2ezuwpd2gu7dwx5cbckfu4s4pazcudi4j2wogtr@4yecb2bkeyms>
 References: <p3mhtj2rp6y2ezuwpd2gu7dwx5cbckfu4s4pazcudi4j2wogtr@4yecb2bkeyms>
- <20260322160317.424797-1-mstoretv@cern.ch>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: GV0P278CA0016.CHEP278.PROD.OUTLOOK.COM
@@ -107,68 +106,116 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-TrafficTypeDiagnostic:
-	ZR2P278MB1053:EE_|ZR1P278MB1326:EE_|AM4PEPF00027A5D:EE_|ZR3P278MB1428:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38928193-73e5-4a95-2c98-08de882c8e32
+	ZR2P278MB1053:EE_|ZR1P278MB1326:EE_|AM3PEPF00009B9D:EE_|ZR1P278MB1578:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5cd0e1b-869b-4d7c-f208-08de882c8e18
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted:
  BCL:0;ARA:13230040|19092799006|366016|10070799003|786006|7416014|376014|1800799024|22082099003|56012099003|18002099003;
 X-Microsoft-Antispam-Message-Info-Original:
- jmb5J63fzI5084ma7fgmxZai1DDS0D6RtmAbc/k3vBmrIYyz0vHBH3JnZh8xj9hbSs+tvumwU2m58ONweJdeBfLfZXANyL0tLR/OWulOv12ERMPnQlsjwsL010oQwUe50k5GY59WBAvxg2x11mGEyiaNGq4B8CbVmzAZm5aC2fcJEG6v77j4cca8ilSu5318pszqVh0O/uSLyCJx25UJiqNN3+1erj3LVm6zHseeKfopAXQ+13o/jDumSatbkkq1+mADplBmuvZ9SZS9f+Swero8aH3e5EdBpoREAPxG9mHN06/MRVoMyJpvj6VFqLnppRmAKu2K72aWvxpFOr0gcplywD8vewIPyTmIHFd3hxXqgBbnRn2MuyDhH38dX19GmMB802zTFlbk74PoksE2MjXnGZQTHIONNx2oQlJGR3xIjoIzBiwkpZKgstHg/0FYTZ286j1dXBC2I05jsCNbqarkDZ/RJwOxyXWTGleOSsGmCRzZZ4fxO1XvJ4QZSVXlurwOHRVqykzn+H2QMGKi+DekgnQZ/mT4CyvlHI+5xsLLBvjh0iHSX13Cvl2BB1i2/NIaE2MpSLuZ87D0kdPVcP8B5bv5hfAkIH1mGtE9rMhhFIRrLR69Ej1s0bHXFEhor0rfKP5N+U7gJrR16C+oLmVYjllfNhubkwPt3ccSex9ULUyOgUheypkkPuXkJbrFvV/C16j2201BhwAsu9b5a/OOctHLtnsk4Gs+bwD60Zk=
+ HnrAUV7tTqHIWghd7bZwuQmkrmDxTVhD5kMXid7cIa/qj9k0Spgz97lGKtVKf1baQQE/a7hPp9B83kFnsnWV17zma5vRp1vrxbrMzbUV7kEdoVeYHURb0o/EZq+OhV7MiaTv0I+PGE+w+fAomoxYp6JNV+tTzs0zJO0lDqE4Sz0NObaCP16wpL2YuYYFXMczn/uPsueGsSiIdMidvP7gIqJ7icnASJTryuIRB0kN663ISRHPWWlzf5qX6+bdinJHEWX7ZvxLogf74JAT1t4Z5lvEYJBXd4Fq7Dan9jvALXtsPmLbdV3BlHAa8MT4cXVi/wOXr8NSeVcdW912TYhE4NOdBhvh6XWLDC5QJEK482czOQcfKqaYiVA2oPTapK9a8TZHfgiO9b74gym+Or2VTxS050ZPjgL1l8rPeXUSQ41xqaMIvERQPg2eqza+xefCL1+TzQ/1PKL8SGI+PjA5fQzekdwzQ6EaRMYHjw7rKaO0qZDrNAa+njMzgSzE260vkQmvK8lLgKtb2sPPu0njdOS0FyNK6X7EFg/7bXpXSpdoz522BIgODa0oGy/YL01LGNmJMdg+HmTM37CDSYvOXJinogJA+zq8imj4VgS5RfqPut0QnRhG855lw8Pxpkp1OW1qXcFt1x3FPrRKxrRhFk5shPewYrfFetb264LTMXf+UrrDWCRatfrxPsErT+Zs
 X-Forefront-Antispam-Report-Untrusted:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(10070799003)(786006)(7416014)(376014)(1800799024)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1102;
 X-Exchange-RoutingPolicyChecked:
- VWdEfqvdMM4S3D/89wJfKhvbJKyIMBmqoLDWLLDr9nVjsPSXDDcciRs+9WroK3RyJqXwrQ7dv3WgZGg7X1SWDYAgj5brl79FTEU7/zVLArH3F004xKNB2Wgjjk9UCR+SW+3bnen9OKN03pVXot4uXmYQhJWIvdnBBH23ys2L0FgQVeiIavw6mU2NySblL07EWshcfZR/v8snhvD0dPQ6HYdB5RFUBxDzUOMchDXQM7quNMhrjGpQla7a+v2nOAk6Xfl036w7FZ7puTcP3DuX2pCZDy2LyE+KcNDd81bLTmKujCxQA9CNFsr2LRW5HfSlBj9jzYj0eTiosqEwb1CUmw==
+ i7GLpRsg+lMdJm6omEA+5ASynnHjw20lRQpA7TG9dUgAPt1jlP1Yqj4iLphKnirCywvLDgAXfA+iBEWZKnFG40y6uFy7ZeQvPrGyCQbYYaLPKp1eo80hLic3N67yOuUBHJo/NkScdIeowZXC80pMHkniKzBcISZYOTB+GWthMVPnXCL5MI05xP8AbIM/3XmKeUcDDwX7GYfRlRnMl9ox8R2ND89Tx3bd/PAZAOOZJ2wy6jhJ5CI+a/HYCRJJWAQjOASA3YluK1/3yLTdI06W+DIsIjf801GArzFKZRFbYZPs4oWQMshO9IhiYCU2NqSm6nCqjulqtulGA4QGRQkAJw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR1P278MB1326
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM4PEPF00027A5D.eurprd04.prod.outlook.com
+ AM3PEPF00009B9D.eurprd04.prod.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	d1884a32-965d-4ba1-2104-08de882c8ce6
+	04716f2b-632e-407c-bb47-08de882c8c1a
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|35042699022|82310400026|14060799003|1800799024|19092799006|786006|36860700016|30052699003|56012099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|7416014|376014|82310400026|35042699022|14060799003|1800799024|19092799006|36860700016|786006|30052699003|13003099007|18002099003|22082099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	3UU8qI5O8AxHEyTLbsePs4i/Jd7QjGScD3Yu8k9x2UMp1iOp57OVFMTTi4zui1G5FUSwu0LwVm/lA5M5Nz/uwPmd449yH1blzfBjQPwRNHLPPK4Y5apS8K0Pty40ioLs3+Vq8TVjAkJM2b+6Ixosdu935Z6MeGTganbi5sCrUlYRcBd2mcd8Weys+mywbxnBMeP+mOqfAcEtpdJsaite+XZG0M4GvYpCBPiWIoXfToe1vd45KZCWgZNFn+nx9Q7WrStnQ0EcxMZAjmWOcIj0dZ0tqHuzHfAiJ1Z99OYDlVwblUxgfLfCFDogz+QK+EbwxpEh8VK8mIg6uIudiAE1+HPDOS1UgtH9LYe0J/t6qdXGzPwfydFAjsjuPgXaCWJVZE6Ys6LgPLQClKu4CsxMgAWmlkEIxitdJ8N6crpA+CdQOPbtw5XUsDm73c2qM4kyBP1PTUlAtKZryt8423C6oCEOQulUEH5acfWe0n0NNnYP7o4Zndc4pkdiXOfjqkXE/LPMqwt2N5g5HffSc+TZhxFFlVgR4KNKXEqipUt7LsjFh4MEIObqpMbcg8vVKFl5ixl4VYJzL2lg4ZGUv49DvneLqmSqDFvuqlkZaMAIBsoEHb6a8CBAKBpoEkWEF7M93BaZeIzDodzs8x0PGjTgC9EwNcXR6j1DpLYRUic0TDCxV+LOy4XpekGdiQJDsh4z7fUwWtNZ6syGi0qCXCenvpR1MIahgFw9/io42eNaOiAFJLxU0iDJ8RynxzUmspeJxd7LLNrrQiwlc1dMRDJNvg==
+	b3jElNNH146BFhR0aqKJoyafZHydUQpMKTzwPhuKkHCLWLvS3SfMp7pnMmg0TmGhGMjla3/WKi2M84vVFjNPVb1YnYCyY5ETHML5tiunbck87yIFd+9uuJy76c/L3D9yD/DLGlLjbGtxqCM+6FR9vwspzcxbnknA+HdFFU1eZUXdyvNXocYsVTO7f4KAUBcgjGXIggETClHvg9Ed+IKQg0bubf8x7ZcVaj5GUrDPHu1bfdmLTGx0PNRbcGY+qnU26KMKigAWY8EjhbErW72hlH0OD90N6OdIWmuYOCKrWFoMWDMYwfZVkFjusnuNWpQR7j4bR1HgzjGXgJNNkl0O2rB6Inl00G8ZNUui912NNCqCh3021NR48lXnDDkNwnLk+IroxgZDi0DzDn04MDVm3AolpvzGBrSre4torHO4lBnC0u8YDm0qntrZUyBXL4GrtQzXseHZnKT4vosHIjavX4QlGtTxXbQacFuSIaA8y1oqFSbxsbVoy3ZQd0p0HQxS6qwBNoTi1R5TrI8LTgPdglFo3sdlQb93pXO9X6cYFabtg0AVgwL0drmhlEJL4uCpstHt9c0f/W6aJrepNC81JYoW0CEjaCfbWWKqXwF0lV/4jCZNVUsi7gjrD35G/hNOcAEnM4ocgFojsrJ5Djolcm8vz4710OUUaI3hgKQhsnRkTLIr8RMQ0A7ZXXXIEjOTXMFG1vBviNd6FHrOEuqhDI+tYq4Hg8rQVF48Ho6Ohyg=
 X-Forefront-Antispam-Report:
-	CIP:51.103.219.121;CTRY:CH;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:mx1.crn.activeguard.cloud;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(35042699022)(82310400026)(14060799003)(1800799024)(19092799006)(786006)(36860700016)(30052699003)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:20.208.138.155;CTRY:CH;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:mx3.crn.activeguard.cloud;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(35042699022)(14060799003)(1800799024)(19092799006)(36860700016)(786006)(30052699003)(13003099007)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	IzUI/rIuYwV4lVAYr1pf16unAaeS77+ecIvs86oqkNL+LGrXca2/dbR501QJ/AM858oUvkWp78ATchrCo/vhM1vEtFN8er89vovSHljTTgN2CTipOZHaE0hphhHHaGZ+VN5vg3PjM3lik1Q2RwauT0dHuDu7TuJY5bsjRdspBiNuFG2Cd+PoEfd3YchQZulD65nv+/+Sx9OCdX+xfX1PdXgRsvEjNaelUwRWOGYzWlaLfBrFSAV3pi+6PKS935aKBGfQDI2BEuVmSzyycmMC7fzZr9OYdh/isu0ezjtuA6RtWWuQX+2IfNb27He0bFVgfXSfKaSVZqjOJI0DXVXAZfBjpZOypTvx/7N0meKo5CNpcnrVnPzAtlzMIlTsvgcZG1636Ab5bwqrV2apeXiFgc0qyVFsDWpyCCeybG9MCjQcv4AA8JbGB4dIKjkb/7jH
+	ZgQfyos7apRSAFIoELsNCNE7P4PCWIbC3PJihgO3auN2KvQUxEKKrEqgzzbAni93VGkPk7Ppi0h/dqmg4h6waF7zDsMbtjxhGHug3hbmshIYxN5gJBwdiJHz8iF5sjC5e32vix9XSPMU8HCFqbDDdCvEzLrk1qHTPfQfsQwDtx9+zyVH1f/Y9JT4ZJSZDjppE3g7oFFF6tQvYvDkRAU6B4tSYTv5wvRn0pgcvgu/bp93qd72QK5/YMzOIifrQoAnDmzlpLO6Sx2AuhSNoUlGJPyH4VqIuOEAk/SlreVLTCG1Af1mvSXMEGLVs/9BTcZMIfvLfULAmcT4HzKAb9TTU8OJ71vpzIKqLGCIFbxTtPT2ONLFFnYSE1NiiXErPI9QlNTsCDif24cH6x/Rf1jEaRcXKK4uf4hikWK1xmrHibX3rFi0n26o9J+xDo/wiSln
 X-OriginatorOrg: cern.ch
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2026 16:03:27.7952
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2026 16:03:27.6287
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38928193-73e5-4a95-2c98-08de882c8e32
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5cd0e1b-869b-4d7c-f208-08de882c8e18
 X-MS-Exchange-CrossTenant-Id: c80d3499-4a40-4a8c-986e-abce017d6b19
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=c80d3499-4a40-4a8c-986e-abce017d6b19;Ip=[51.103.219.121];Helo=[mx1.crn.activeguard.cloud]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=c80d3499-4a40-4a8c-986e-abce017d6b19;Ip=[20.208.138.155];Helo=[mx3.crn.activeguard.cloud]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM4PEPF00027A5D.eurprd04.prod.outlook.com
+	AM3PEPF00009B9D.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR3P278MB1428
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR1P278MB1578
 
-From: Marcus Glocker <marcus@nazgul.ch>
+This patch introduces devicetrees to support the Samsung Galaxy Book4 Edge laptop,
+and includes the X1E80100 14-inch SKU and X1E84100 16-inch SKU.
 
-Add the Samsung Galaxy Book4 Edge compatibility binding.
+It continues the earlier patch series for this device, originally submitted
+by Marcus Glocker (v5):
 
-Signed-off-by: Marcus Glocker <marcus@nazgul.ch>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Link: https://lore.kernel.org/all/p3mhtj2rp6y2ezuwpd2gu7dwx5cbckfu4s4pazcudi4j2wogtr@4yecb2bkeyms
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index d054a8f56..b82ddf167 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -1129,6 +1129,7 @@ properties:
-               - microsoft,romulus15
-               - qcom,x1e80100-crd
-               - qcom,x1e80100-qcp
-+              - samsung,galaxy-book4-edge
-           - const: qcom,x1e80100
- 
-       - items:
+Supported features:
+- Keyboard
+- Touchpad
+- USB type-c
+- Display
+- HDMI
+- WiFi
+- Bluetooth
+- ADSP / CDSP
+- GPU
+- UFS*
+
+UFS requires changes that are now in the process of being upstreamed
+as part of another patch, specifically:
+
+Link: https://lore.kernel.org/all/20260211132926.3716716-1-pradeep.pragallapati@oss.qualcomm.com/
+
+Changed from v5:
+- Reworked DTS/DTSI for both 14- & 16-inch SKUs
+- Added Galaxy Book4 Edge to QSEECOM
+- Removed UFS node from the patch
+
+Changed from v4:
+* Fix previously missed commits:
+- Improved commit messages.
+- Added missing clock line for ufs.
+- Removed invalid microamp lines for ufs.
+
+Changed from v3:
+- Improved commit messages.
+- Added missing clock line for ufs.
+- Removed invalid microamp lines for ufs.
+
+Changed from v2:
+- Squash Makefile patch to new DTS file patch.
+
+Changed from v1:
+- Provide the patch in the expected format.
+- Added missing bindings.
+- Removed sound node.
+- Changed regulator syntax to be consistent.
+- Changed touchscreen node comment, and removed false pin definition.
+- Rename ufshc@ to ufs@.
+
+Marcus Glocker (1):
+  dt-bindings: arm: Add Samsung Galaxy Book4 Edge
+
+Maxim Storetvedt (2):
+  firmware: qcom: scm: Allow QSEECOM on Samsung Galaxy Book4 Edge
+  arm64: dts: qcom: Add Samsung Galaxy Book4 Edge DTS/DTSI
+
+ .../devicetree/bindings/arm/qcom.yaml         |    1 +
+ arch/arm64/boot/dts/qcom/Makefile             |    2 +
+ .../qcom/x1-samsung-galaxy-book4-edge.dtsi    | 1518 +++++++++++++++++
+ .../x1e80100-samsung-galaxy-book4-edge-14.dts |   39 +
+ .../x1e84100-samsung-galaxy-book4-edge-16.dts |   29 +
+ drivers/firmware/qcom/qcom_scm.c              |    1 +
+ 6 files changed, 1590 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/x1-samsung-galaxy-book4-edge.dtsi
+ create mode 100644 arch/arm64/boot/dts/qcom/x1e80100-samsung-galaxy-book4-edge-14.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/x1e84100-samsung-galaxy-book4-edge-16.dts
+
 -- 
 2.43.0
 
