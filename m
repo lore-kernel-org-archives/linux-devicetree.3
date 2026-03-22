@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C3B2F4A0C;
-	Sun, 22 Mar 2026 09:55:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3AE175809;
+	Sun, 22 Mar 2026 10:01:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774173324; cv=none; b=f08fm9AqXoIaFzL4K3uNtspfwzCpLWGUk+IzMG2HK5kDV1LY6DPrPENNkqK4XroxUx6KZ9JVVYHylT4/s7mFnMQAxZrTJVdH8+giy2g2gynV21wLEaF6pug+2Bhy04ABJVe6nXv7IlWis/wcAw/o2PTfZhm/ECvt6r/1qsuB7AE=
+	t=1774173674; cv=none; b=P/macuITlWVxgzZyRL4hAq+ssFFyAJdUE3FY9wA/j/n+721fiNBZ0Iz+s6OQa2s3bVwMqRVO7IjCuoP1IFYit9qegh/Pm47a5safdvlmfkBZsa6LTpOP6ZzYh3shfVxvMtlr2GXrklCzFHxrduE6k9T/cTcul6fHEgr5im4kgMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774173324; c=relaxed/simple;
-	bh=wds4pz1vo4hnU97Ycw1V36BOoaG56UpHueqjDmj507M=;
+	s=arc-20240116; t=1774173674; c=relaxed/simple;
+	bh=izHFzYTNZF34lEla+82zrFLjgApuyM2q+I2Q/Xn97EE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M5j4ru58KwjOOkVcKl7vPnfWYiYaUJjknPGu5yil4F1UlZa05vbZz9H5y4BCCP72Ltai4K7mYu5AziZEiHUFiI27FgPvVnLRhnqBuZPUZ5LIwRVxeiuWnFhZ5dLzMBtN+dGec5ce+s07ZcWqub6LcEpvdNViP4SQzDIkvyDw7A8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Glr449GF; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=XLDuwvCPdfvEIMwCyE+kSzgGKmoVLycB89MANblpoWdtuZ4rTBTYbviW+YYb8YGD/tZbOvcLOba+UAVoZKf7ZcZe/QpkqzdFzuFd69hY4BFKQ1VGlZqgRTE+ytvvB7jy6WMmegrMbLv6QDmB5af5gt3pcuRxjPpy63xtAhXlt/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NE4XY1so; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Glr449GF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CF91C19424;
-	Sun, 22 Mar 2026 09:55:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NE4XY1so"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 892ACC19424;
+	Sun, 22 Mar 2026 10:01:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774173323;
-	bh=wds4pz1vo4hnU97Ycw1V36BOoaG56UpHueqjDmj507M=;
+	s=k20201202; t=1774173673;
+	bh=izHFzYTNZF34lEla+82zrFLjgApuyM2q+I2Q/Xn97EE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Glr449GFxMkqC3eb7DHpp2nEiEZn4tkpvQhrQkkZk34f2MhfFTdPAlV/3BHWC2Z5J
-	 9dUvwUIHcPg053EXP5b5/Zcl7f5DeI6n1p7xvBhbr6VbqeW0n1rXi1f/AFgjj4QZ4J
-	 LJRtz7J12UVbR8xQlEdtHYh7nH5ykBNtqczuN9svOO3ABY5ONMtC/WDXBJjIhlfxXe
-	 YLK4L+/l4PGnYe61qmxaTtugHMbSctS7BV/Bk0Zcf7N9pXEZ5vOICsJTECSWXQCJk6
-	 iSTPAl1U+ugBbLtOhNbs3Rs8Bn6HjBdZbd9egZovXr6WhNQT4QiBe/q14SKARvJEJR
-	 PWUp+Gj/0/6qQ==
-Message-ID: <2e43f7e5-09b8-4f95-815c-0954c579a623@kernel.org>
-Date: Sun, 22 Mar 2026 10:55:18 +0100
+	b=NE4XY1souswN6Vh6RquKpO8B5zhT7O1nYa+mWIZpNXzzpT6PiTF0Qr33BU+JLOl/A
+	 To/J1x7YctGVvVAbyz/+7AB5M4qtpAG7ubwEQRVmq+hnmXGCH7L4z56nApxrgVdHNs
+	 fszQbqe8j+A7uL/5sOiKPnSPDmcZY2n/WWXYYnUeMyfgZVPXxoBhvVyHDyv8cC/jS0
+	 KoWDamXstMz6KXy5U51UYycKQWSSIip+H21l5d9CgKgGIWjMyVs+oQKoR1dtBcnrnP
+	 IqVN/Y/GuItLZ8RA5gwxDvGIkcbRut7lwNtRo4gdQzPXP841ibDO2SRnSo6cn7gkG2
+	 MXedQvMswMhwA==
+Message-ID: <d10e6de6-780e-42b1-9c53-915c73719b53@kernel.org>
+Date: Sun, 22 Mar 2026 11:01:09 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,28 +35,21 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] dt-bindings: iio: adc: xilinx-xadc: convert to YAML
- format
-To: David Lechner <dlechner@baylibre.com>,
- Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Nuno Sa <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Michal Simek <michal.simek@amd.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, saikrishna12468@gmail.com, git@amd.com
-References: <20260220053941.611415-1-sai.krishna.potthuri@amd.com>
- <20260220053941.611415-6-sai.krishna.potthuri@amd.com>
- <20260221-dancing-papaya-wolverine-db8afd@quoll>
- <b89933a3-5f25-466c-a2f5-6e231aa12749@amd.com>
- <21d425bc-9406-401b-9817-7255ba3d31fc@baylibre.com>
- <e4c9729f-1785-4d10-a337-37b0d26fe30b@amd.com>
- <f1706ec0-3995-4fdf-a9fb-8e1e688438a7@baylibre.com>
- <05bcc5b7-b3e8-40fb-be70-413c74afcfb1@amd.com>
- <cf749e8c-f141-4367-81ad-827e02273ec5@baylibre.com>
- <6a4e3d95-875f-4c2b-8443-c2f2b19ff166@amd.com>
- <12a06779-cbbb-4dc2-b564-7b9cdff6796b@kernel.org>
- <faa4e46b-1cc6-4bab-b13e-c527a67ec4c4@baylibre.com>
+Subject: Re: [PATCH v1 1/2] dt-bindings: trivial-devices: add
+ spi-miso-mosi-loopback
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org
+References: <20260316073547.11437-1-francesco@dolcini.it>
+ <20260316073547.11437-2-francesco@dolcini.it>
+ <bbfa2a62-7113-433b-91ad-0693ed6f8e36@kernel.org>
+ <cde8671f-bb38-41d8-b27f-c54aa7242899@kernel.org>
+ <20260316085751.GA23443@francesco-nb>
+ <a3796f8b-f94c-4d0d-a0b9-b2970e43e28d@kernel.org>
+ <abqzVJTb4TNxa8pZ@gaggiata.pivistrello.it>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -102,81 +95,66 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <faa4e46b-1cc6-4bab-b13e-c527a67ec4c4@baylibre.com>
+In-Reply-To: <abqzVJTb4TNxa8pZ@gaggiata.pivistrello.it>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19/03/2026 20:07, David Lechner wrote:
-> On 3/19/26 11:49 AM, Krzysztof Kozlowski wrote:
->> On 19/03/2026 16:49, Sai Krishna Potthuri wrote:
->>>>>>>>>>
->>>>>>>>>>> +
->>>>>>>>>>> +$defs:
->>>>>>>>>>
->>>>>>>>>> Why this is a def, not used directly? I see only one usage of this def.
->>>>>>>>>
->>>>>>>>> I am getting the below error if i define the patternProperties directly.
->>>>>>>>> Seems like complex vendor peroperties should be referenced via $ref.
->>>>>>>>> Please suggest if there is any better way to deal this.
->>>>>>>>
->>>>>>>> It is hard to say without seeing the new version of what you wrote.
->>>>>>>
->>>>>>> In v1 series, i created $def and referenced this in xlnx,channels to avoid the error that i mentioned.
->>>>>>
->>>>>> Is the code below the code that causes the error?
->>>>>
->>>>> No, the below code is not creating the error but Krzysztof asked the question on this code,
->>>>> "Why this is a def, not used directly? I see only one usage of this def."
->>>>>
->>>>> I am saying if i don't use the def and use it directly i am seeing the error that i mentioned. So, asking is there any better way to handle this case other than using def.
->>>>
->>>> If you could show us the actual code that is causing the error, then
->>>> we could perhaps spot a mistake or suggest an alternative.
+On 18/03/2026 15:14, Francesco Dolcini wrote:
+> 
+>>> linux,spi-loopback-test as a compatible.
+>>>
+>>> On the actual HW I have a pins header and a wire between MISO/MOSI.
 >>
->> Thanks David, I am surprised how many emails we need to exchange just to
->> see the actual code.
+>> pins header, if I understood correctly what you are talking about, is a
+>> connector. Connecting there a jumper to short circuit there is out of
+>> scope, because it is not part of the board. Thus cannot be send upstream
+>> DTS, unless it is really embedded in the design like USB-A dongles which
+>> could not be removed by end user.
+>>
+>> Otherwise you could say that every evalkit board can have such device,
+>> because they all have pin headers...
 >>
 >>>
->>> Thanks. Here is the code that is causing the error
->>> ("properties:xlnx,channels:type: 'boolean' was expected").
->>>
->>> xlnx,channels:
+>>> I am clearly missing something obvious, any advise is appreciated.
 >>
->> Device nodes do not have any prefixes. Just take a look at any DTS or
->> any binding.
->>
->> Probably that's the reason, because nothing in this code looks
->> particularly odd. Anyway, please do not come with odd syntax in the code
->> without any explanation, just to make it passing the tests, so for
->> example ignoring the checks we have.
->>
->>
->> Best regards,
->> Krzysztof
+>> Describe your hardware... Nothing in this patchset helps in
+>> understanding it.
 > 
-> Since this is converting existing 12-years-old .txt bindings, I don't
-> think we can "fix" the bindings by dropping the vendor prefix.
+> Let me describe the need first, and after that I'll describe the HW.
+> 
+> The need we have is to have a way, with Linux mainline kernel, to test the SPI
+> functionality (subsystem, driver and the actual HW). So far this was
+> done using the spidev out-of-tree and with a loopback between the SPI MOSI and
+> MISO signals.
+> 
+> We have a variety of HW that have various signals available on some sort of
+> connector or pins headers [1].
+> 
+> This https://docs.toradex.com/112710-mallow-carrier-board_back.png is just one
+> example, I know you are familiar with this kind of HW, I am writing it here the
+> link just for completness and for everyone else.
 
-Indeed. It is being also in the driver. The prefix must stay and this
-oddity must be explained in the commit msg.
-
-Commit msg must explain all the non-obvious, unusual, unexpected odd
-things the patch is doing.
+Looks like a specific device (hat), not a jumper connecting two pins on
+the header.
 
 > 
-> I think in cases like this, Rob will usually fix the tooling to ignore
-> this as a special case. (I had a similar case last year on a conversion
-> I did.)
+> So yes, your understanding is correct.
 > 
-> So I think the right thing to do is to not use $def and explain in the
-> commit message why the error is expected (we can't change existing bindings
-> even though they are "wrong" by current standards).
+> About the HW, we have various test boards, that plugs into this connector(s),
+> as test fixture, and, with traces on the PCB, they do connect together the SPI
+> MISO and MOSI signals.
 > 
-> If this was a new binding, we should be using the common adc.yaml for IIO
-> ADCs which already has patterProperties for channels and a bipolar flag.
-> But we are stuck with this vendor-prefixed one here.
-> 
+> Here a couple of picture as an example, of the "Aquila Lava HAT",
+> https://gist.github.com/dolcini/33c332f0b2174a9d495baf7c79341abf
+I don't think this is anyhow different than all existing cases of people
+submitting spidev patches.
 
+You can have only two choices:
+1. Connector. You cannot send bindings for spidev or loopback claiming
+it is a connector.
+
+2. Actual device plugged there. You need specific compatible for this
+actual device. The compatible cannot be used for anything else.
 
 Best regards,
 Krzysztof
