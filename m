@@ -1,92 +1,228 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FC837F8D8;
-	Sun, 22 Mar 2026 03:44:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD779175A6E;
+	Sun, 22 Mar 2026 04:56:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774151049; cv=none; b=j0wXO2+iiwu+OzNrIVTMbYNW+UzgO/A8+qIbESAhTaHbOJrrpdS0eLtg8uQy6SBOwvvL/qN9JKnvgQKG3VWYAcvdBsOJdVIQ97Qn4w5p9g9G0jq1BFW4MNcAcqApgooMEWv4K2l9dDHubZWu4W5i4hFuVYr8ZGJPRjJp7PrL6MI=
+	t=1774155387; cv=none; b=Tqj+c1fYwyCCrJbHcnIzSVU/rDg5fiingNFySyb44R2uEYHvMs339Ori5G65r8OyMQKhwhhXZ10o9vETAOSC3zKJD0YQmO2GElt69n/scUeMuX/kkuAE79W4mkFpwXOxfw8hsJ5b9lvxHStECNkbemuC4ntbP5H2L09sSlzL43s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774151049; c=relaxed/simple;
-	bh=y5zq2D3lOiI0Qw3PR34/ItRcvLMn+HjX7/inOrvLOHk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TXEvCdq46iENX3GSIlLnECot6Z7jUHnnElmmAEXCZDFHznKyDzJEf1CZ8XlRL8LYN0M9gecqZKRRtUL2boIk2UAhC9tyjVMueWAS/qLj7NNH8ejl4b6LNrEOKjOlXxQHo1KgGvmbaHELrzXP4t6tXQlSesRBl0cVHtu7+68lCX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=RySlusss; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=yhFUUf3K; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1774155387; c=relaxed/simple;
+	bh=zkHXbqjuH7xNDRcO/cDCnZPkcfwtiLZWj/z4NWNS16w=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=LpGLq66wpAch3k8cdwGpxITmicqU1EHYExHYCeQA5NJTvfgG/Biroy7phkrYYns6g0YKKjNP9jRWRVa95tjlVQfLt5+WQIussmsgcvh55xpxx3bgZcF4EQbqBOrLG+LWCEDmJ0Nkna7Vd7u5AuzJK+7saVRNb3gkkGLu85fwKrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=ISjiA/xl; arc=none smtp.client-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="RySlusss";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="yhFUUf3K"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4fdhxD1Cvqz9tn7;
-	Sun, 22 Mar 2026 04:44:00 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1774151040;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7pPmmUr2rdYksgu0/4NHiyOVIMPthGnBqroydjCMUJA=;
-	b=RySlusss3CTCUBE78BS8aXqfbboUE1Z1SicgUIk2VKxEJ2DWD0wwsa6GlRv1KfKJRQMys+
-	8sSYPF4MqxtaZkSvsZOI4lGIpJQRJYVVx6Ntg9HYd9HzHzQ6r4yqi86gO3iKBSxYsUE0WW
-	OU8WawIEdLlA665CNn+OFwmfWRIaAU3UqtvAbP4uyFHZPaz8xPe82zF1/VhPNE9ftsXOS0
-	T0CBDb1LpUxCYM7IX5rmzSd6sIvKUdVx4OiEkMRuLmep+rbSqj9YHJRLOSOo6vBSxk+MAL
-	lWrZC/eyC3lmHhtz5Af1FoBdzR2qZJIFiibopUN68O24t8nPYOk8BKestlk41A==
-Message-ID: <78d477a1-9f02-49e1-802e-4108b63141eb@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1774151038;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7pPmmUr2rdYksgu0/4NHiyOVIMPthGnBqroydjCMUJA=;
-	b=yhFUUf3K1QVHAVbFAXyB66CAuhcs55jnwqqzHajoRG3esaKpWUMboXmW04Ypp3C6fATRot
-	LE+X7Bsd21XRQq6U1Nmx5eETTYi+gt2U836HcZ2AaVesGftQFQA/FjYNLvH151Pb/Qc3X4
-	Yu7pQ2OJiGHNTDrerqWANrCTbVLDGtWFOK86Fv4qpV9C4DsWUCrdtrd5tPd2C1AT6YpJxo
-	4+hW2d9ZB1FZEHQWAhcg+h0OaLlw/F38anRmtKmC0ZX5AD+3anLwdiMUt/TVoBwrEiy/uw
-	D9wWYXDfezVNcEObz2WcQQciVlFEa2v1FNbLvLLBvRmsmS1zTB8279UUSGMj+g==
-Date: Sat, 21 Mar 2026 19:52:57 +0100
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="ISjiA/xl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1774155380; bh=/0ewG1jfRqw2ZDFlfiYehEmV8RlvaqJ8CTQftNgJvdA=;
+	h=From:To:Cc:Subject:Date;
+	b=ISjiA/xlXtvDOchm3GBM1ejzJiW/vKZBG8tQBKmAo4HlwXCpvyMC7CZaN9OJXOGei
+	 pKxaHDKkJJY8MdDNYRCdgVx8Cu8rJB5puNmcDbsuFNE+C52cfzT9f/VKVAnsNDGRn9
+	 ltDTTOT0URIaYJv6FgKuPHQny96B2wZWHgCwXc7w=
+Received: from MYJGMC.tail4697e5.ts.net ([122.195.139.226])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id DC48220F; Sun, 22 Mar 2026 12:55:04 +0800
+X-QQ-mid: xmsmtpt1774155304tsg9q12a4
+Message-ID: <tencent_043BCD1F1043957E96ED022D75601AF05505@qq.com>
+X-QQ-XMAILINFO: OJYupdf7O4Wt0641tOobxNTBtkln+0Eu/XjveXCPwXzVp1wSRhqRdhDie0MBcK
+	 0tmqWCPqiMGx27jp62QZ80nzUo4BS6WMbTq8eWuMPYpHKmwWK9UeQCVBEI5bCYglGuQWLrwVVu8s
+	 gKtFkjHzdzLs7k+P7ideEbAhVhyvfZop3YsbGK0BzOLu5jeA33YwWz+vnlcli72b1MxfoYPJfyU/
+	 dhGCakzPxPUrPK1RfJLXQW2MUE6lcOD9xJDmau+kbgZcYjkQtCRAoojUL7hi8PZ/CUoQAv0SFCIv
+	 dqD2zDCPc8H3l2WDT5C6/NUKCZ7mrtlwFM9Y1mOAkgVFdPSOQxv2EoQVguoZzp1XNfWWFObQPLZw
+	 YBMooyl4tXCGjN2qLipeaKDjeLMoi4Ts6ciwmx22mTCC+4ul1UJ653PKBJKo0XweEfntrZvTt3oT
+	 Bu6ejGKzRE1E9YbBOFlWXTXclWptbyd31TwXK04A24yN4RXhwOfhRW4aw0ZtzFr49LczObHgsTic
+	 IVJkd3XZHcdbmqGypna3a9x+gUBhWhS+EcI28vZO3QGePU8SNg8idhEZrzEjF0zTCtsVTynP8EC+
+	 hMSOl+kpgQ4IOhp4ToK7TWnPUR+Ja5diPMWsswo2MSG61pbzjxSXBC7AkBUdQa00iBKIbr0qPHEx
+	 SDQV9bG4C6SLGSpk3wMv1Skxl6dwk3viTWiNKuIvfCHSKtXAXaeF82Pb5QPO11wCAfKAJ5hOAAW3
+	 bRRawYt+Cgtt+trt851VBXi7SAycyDr1k/XazL9NG9HH2+2nZZis+A0hD6StXV6fGN8bR8mBVrwC
+	 +3XyqsSfG9y5YcRxUbEMNklUENZaknCFoTGquXZMKf/yTqrHho7ZAXk6NmLbzaFc0Yan8HoKk7ns
+	 8AXGVwnzIYdraHelrhEUTJGV91iOeS6C35waLJfFIuRLjcfmyb1NNpByfJdnCAuVvWU62DaPEIGk
+	 AUh01mLntvNUjxa+AewQEFU6IloDwYfqI0LYYDWQTMnZrcX48BioLewn7ajen/jfLOpIMY0pYVLD
+	 bu1MwjO39J3uIqEYz4ZsmLGwy1NLEn6nb6T9VaW0qO9v8Xu7ukGrph+Jp7gK99KbyvBZpbLw==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: wjjsn <wjjsn@qq.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	chenhuacai@kernel.org
+Cc: kernel@xen0n.name,
+	devicetree@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	wjjsn <wjjsn@qq.com>
+Subject: [PATCH] loongarch: boot: dts: Add Loongson-2K0300 support
+Date: Sun, 22 Mar 2026 12:54:32 +0800
+X-OQ-MSGID: <20260322045432.1280912-1-wjjsn@qq.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH] dt-bindings: usb: document the Renesas
- UPD720201/UPD720202 USB 3.0 xHCI Host Controller
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Marek Vasut <marek.vasut+renesas@mailbox.org>
-References: <20260319-topic-sm8650-ayaneo-pocket-s2-upd-bindings-v1-1-84e4ef564022@linaro.org>
- <CAMuHMdUACGC4rdXfvO-N-cgNAEzhczB0VYbMoxZMyazSAp6jWg@mail.gmail.com>
- <c8d878e2-8ce8-4526-9dbc-96e4f42be4cf@mailbox.org>
- <6c3829c4-3e1e-41ee-b969-820948d10611@linaro.org>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <6c3829c4-3e1e-41ee-b969-820948d10611@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 9f572a9e99c9b97cc2c
-X-MBO-RS-META: 9nomey8gwtghgdcywd5hib1z1ngije3q
 
-On 3/21/26 10:26 AM, Neil Armstrong wrote:
-> Le 21/03/2026 à 02:36, Marek Vasut a écrit :
->> On 3/19/26 10:22 AM, Geert Uytterhoeven wrote:
->>> CC Marek (for Sparrow Hawk)
->>
->> The upstream supplies to which the USB controller on SH would attach 
->> are not described in SH DT yet, and they are always on, so I don't 
->> think we need to describe the controller in SH DT yet, do we ?
-> 
-> Indeed, not necessarily, describing it would be required for power 
-> control and eventually to describe usb hubs as subnodes if they also 
-> need reset and power control.
-ACK, thank you for clarifying !
+Signed-off-by: wjjsn <wjjsn@qq.com>
+---
+ arch/loongarch/boot/dts/Makefile              |  2 +-
+ .../boot/dts/loongson-2k0300-ref.dts          | 34 +++++++
+ arch/loongarch/boot/dts/loongson-2k0300.dtsi  | 95 +++++++++++++++++++
+ 3 files changed, 130 insertions(+), 1 deletion(-)
+ create mode 100644 arch/loongarch/boot/dts/loongson-2k0300-ref.dts
+ create mode 100644 arch/loongarch/boot/dts/loongson-2k0300.dtsi
+
+diff --git a/arch/loongarch/boot/dts/Makefile b/arch/loongarch/boot/dts/Makefile
+index 15d5e14fe418..4a096608cfad 100644
+--- a/arch/loongarch/boot/dts/Makefile
++++ b/arch/loongarch/boot/dts/Makefile
+@@ -1,3 +1,3 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ 
+-dtb-y = loongson-2k0500-ref.dtb loongson-2k1000-ref.dtb loongson-2k2000-ref.dtb
++dtb-y = loongson-2k0300-ref.dtb loongson-2k0500-ref.dtb loongson-2k1000-ref.dtb loongson-2k2000-ref.dtb
+diff --git a/arch/loongarch/boot/dts/loongson-2k0300-ref.dts b/arch/loongarch/boot/dts/loongson-2k0300-ref.dts
+new file mode 100644
+index 000000000000..f85d2caa94b0
+--- /dev/null
++++ b/arch/loongarch/boot/dts/loongson-2k0300-ref.dts
+@@ -0,0 +1,34 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2023 Loongson Technology Corporation Limited
++ */
++
++/dts-v1/;
++
++#include "loongson-2k0300.dtsi"
++
++/ {
++	compatible = "loongson,ls2k0300-ref", "loongson,ls2k0300";
++	model = "Loongson-2K0300 Reference Board";
++
++	aliases {
++		serial0 = &uart0;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	memory@200000 {
++		device_type = "memory";
++		reg = <0x0 0x00200000 0x0 0x0ee00000>,
++			  <0x0 0x90000000 0x0 0x10000000>;
++	};
++
++};
++
++
++&uart0 {
++	status = "okay";
++};
++
+diff --git a/arch/loongarch/boot/dts/loongson-2k0300.dtsi b/arch/loongarch/boot/dts/loongson-2k0300.dtsi
+new file mode 100644
+index 000000000000..91062b388e77
+--- /dev/null
++++ b/arch/loongarch/boot/dts/loongson-2k0300.dtsi
+@@ -0,0 +1,95 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2023 Loongson Technology Corporation Limited
++ */
++
++/dts-v1/;
++
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/clock/loongson,ls2k-clk.h>
++
++/ {
++	#address-cells = <2>;
++	#size-cells = <2>;
++
++	interrupt-parent = <&cpuintc>;
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		cpu0: cpu@0 {
++			compatible = "loongson,la264";
++			device_type = "cpu";
++			reg = <0x0>;
++			clocks = <&clk LS2K0300_CLK_NODE_DIV>;
++		};
++	};
++
++	ref_120m: clock-ref-120m {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <120000000>;
++		clock-output-names = "ref_120m";
++	};
++
++	cpuintc: interrupt-controller {
++		compatible = "loongson,cpu-interrupt-controller";
++		#interrupt-cells = <1>;
++		interrupt-controller;
++	};
++
++	liointc0: interrupt-controller@16001400 {
++		compatible = "loongson,liointc-2.0";
++		reg = <0x0 0x16001400 0x0 0x40>,
++				<0x0 0x16001040 0x0 0x8>;
++		reg-names = "main", "isr0";
++
++		interrupt-controller;
++		#address-cells = <0>;
++		#interrupt-cells = <2>;
++		interrupt-parent = <&cpuintc>;
++		interrupts = <2>;
++		interrupt-names = "int0";
++
++		loongson,parent_int_map = <0xffffffff>, /* int0 */
++						<0x00000000>, /* int1 */
++						<0x00000000>, /* int2 */
++						<0x00000000>; /* int3 */
++	};
++	liointc1: interrupt-controller@16001440 {
++		compatible = "loongson,liointc-2.0";
++		reg = <0x0 0x16001440 0x0 0x40>,
++				<0x0 0x16001048 0x0 0x8>;
++		reg-names = "main", "isr0";
++
++		interrupt-controller;
++		#address-cells = <0>;
++		#interrupt-cells = <2>;
++		interrupt-parent = <&cpuintc>;
++		interrupts = <4>;
++		interrupt-names = "int2";
++
++		loongson,parent_int_map = <0x00000000>, /* int0 */
++						<0x00000000>, /* int1 */
++						<0xffffffff>, /* int2 */
++						<0x00000000>; /* int3 */
++	};
++	clk: clock-controller@16000400 {
++		compatible = "loongson,ls2k0300-clk";
++		reg = <0x0 0x16000400 0x0 0x2c>;
++		#clock-cells = <1>;
++		clocks = <&ref_120m>;
++		clock-names = "ref_120m";
++	};
++
++	uart0: serial@16100000 {
++		compatible = "ns16550a";
++		reg = <0x0 0x16100000 0x0 0x10>;
++		clocks = <&clk LS2K0300_CLK_APB_GATE>;
++		interrupt-parent = <&liointc0>;
++		interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
++		no-loopback-test;
++		status = "disabled";
++	};
++};
+-- 
+2.43.0
+
