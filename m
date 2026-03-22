@@ -1,106 +1,137 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 960424207A;
-	Sun, 22 Mar 2026 14:16:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD132DF3FD;
+	Sun, 22 Mar 2026 14:24:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774188968; cv=none; b=afTG3v+rlfarNw1oNa2++CL/JkHUIf7WJO98df0kegwiYDP4/Hj4IePEjIO9sxzwD+eA2JELKGkkHlwdjzPUFlIfnQ5jELm4c55WwhR/B72t25ngFCMASvOUpMCLWv/snsH4o1O5M4+47jM7L9Bnu3IXqJpWPE7dLFIzyIigmwU=
+	t=1774189462; cv=none; b=sXK8hePdwri6tEy3GilagELpqMeZTewBC20vDdW4Dx7dYoA9NDd4PyhmPAFwUDZufY3LZ7B6Z/DGHTEkLejSTspK/DKUgssiVapLDOvDc4BYjjB74Iwm/Hui3xBunxr1GUFlLWAM30ZynU+jbVKGPwHVQKW2jMq6qyCt3+G3d4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774188968; c=relaxed/simple;
-	bh=IigGF6U3blVwl7+mttTv8ABlCNI5lUMx+1rU3nKGGxA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hgC7wXyigLZZjVHnIUNENG3bFtLtshatil0famnLdqjnLqAAh8NE7IiVN1phcx58ki5RQ8sER2caqFprgBETyh+KpLEQLKqPbulk0REiBxHM9Yj1wfnWUSwHnWcEHHXtgG9w8iGubtcAlHVUVzt0wyQty4gexsPEooXYgeBgUKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IMrZqHVJ; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1774189462; c=relaxed/simple;
+	bh=0y+vz9QItdufZS4Gg1aj8uk09vnC7uOD1Z32a7tIeRg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cQoYQ3XvpejmSw75Mirln3s8VIzxCABX19NzeR/1X9bcsvXtzruq1cy5jrdhCRG8Fhv65jA7ZNqtt6EctGldqlKpAMe9FnsmowG44INZiEgHkJmTNmH9lBpnUltQNm2QBzjIE7F2YDGxGYRaC3c4J7YHrhV3PBBA9Oid/DE3fRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ei1+DEwY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IMrZqHVJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774188965; x=1805724965;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=IigGF6U3blVwl7+mttTv8ABlCNI5lUMx+1rU3nKGGxA=;
-  b=IMrZqHVJZjaR/bflI2oII5lxH9nN5Zx5BVl7azFfZo+mqa8zpR77xY2S
-   THH3eFQMiy42y/AIVSpINQI6OoOYjr5h8H7OMSQ+OzbneO0WCmxr4ZhxN
-   +yA16RdMXvcDECc9QnYBiztwHm+guVSiB02d0CRt/uCFJUc5ahk/XC4OY
-   pVLRC4bxX9C3GH5Tu+bQsQNf2SZvGhZL1aB7uGQQsibks5g6BLS5SLE4V
-   3LfLgRqbmLwuSMUrNZWozYW8G955qX35sCp0gS8oRAAtSHMLCiTJ6m9+8
-   gWEICpCPAiC/bQKsfQLu3AiLF3bUKilkz32d6f+anSqikc6NXWvDQJJys
-   w==;
-X-CSE-ConnectionGUID: 9n5tJ6l/RbWI9d5VFq6CeQ==
-X-CSE-MsgGUID: WjXgmqJ9Se6+mv+bNrGQCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11737"; a="62765356"
-X-IronPort-AV: E=Sophos;i="6.23,135,1770624000"; 
-   d="scan'208";a="62765356"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Mar 2026 07:16:05 -0700
-X-CSE-ConnectionGUID: JRLBnVVlSqa6fLyDLAUY4Q==
-X-CSE-MsgGUID: qbzVjqmzRUKzhYMJv9+fAA==
-X-ExtLoop1: 1
-Received: from lkp-server02.sh.intel.com (HELO d7fefbca0d04) ([10.239.97.151])
-  by fmviesa003.fm.intel.com with ESMTP; 22 Mar 2026 07:16:00 -0700
-Received: from kbuild by d7fefbca0d04 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1w4Jav-000000002Dx-1Ld7;
-	Sun, 22 Mar 2026 14:15:57 +0000
-Date: Sun, 22 Mar 2026 22:15:01 +0800
-From: kernel test robot <lkp@intel.com>
-To: Alexey Klimov <alexey.klimov@linaro.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Sam Protsenko <semen.protsenko@linaro.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Jassi Brar <jassisinghbrar@gmail.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Peter Griffin <peter.griffin@linaro.org>,
-	linux-samsung-soc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Alexey Klimov <alexey.klimov@linaro.org>
-Subject: Re: [PATCH 4/5] mailbox: exynos: Add support for Exynos850 mailbox
-Message-ID: <202603222239.JTuBxs7K-lkp@intel.com>
-References: <20260320-exynos850-ap2apm-mailbox-v1-4-983eb3f296fc@linaro.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ei1+DEwY"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A63D7C19424;
+	Sun, 22 Mar 2026 14:24:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774189461;
+	bh=0y+vz9QItdufZS4Gg1aj8uk09vnC7uOD1Z32a7tIeRg=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=Ei1+DEwY7ZM+wqpz2Zgm+3/3DVfJB7cGCQeTzHKzfH/5dEJ6VVfh/rz3dSL/BffuO
+	 fxemgNDV2E6xps7ZAMrOG2f0udBFQ9dRskehTyv5xtlsCfkb/85N1+xE7T1SKjpwl3
+	 78R7OEnisCV16N8e3Gm4cZTBRm/X+BFc5xD3v/E70Of3nhc+ojQViP4SaiTRNr6j/y
+	 ihN52SVHy+awrPcVKweLuaGc7uHoGv6iZM2+bpNuUsIkd5lKVhmlg8i/ae1FB328zz
+	 Ah4ybp5+MhzyWMfIP/5pjJyb5de7/jL1ZPjFA/TnVebx1c70wjbCZ6xh246YJwNXpQ
+	 qs/4ndDr1lrZQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D6CBFC72C6;
+	Sun, 22 Mar 2026 14:24:21 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH QUESTION 0/2] NFC support in Linux (and support for
+ Qualcomm SDM845 devices)
+Date: Sun, 22 Mar 2026 15:24:18 +0100
+Message-Id: <20260322-oneplus-nfc-v1-0-5f22f544f0e2@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260320-exynos850-ap2apm-mailbox-v1-4-983eb3f296fc@linaro.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJL7v2kC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDI1NDQ0ML3fy81IKc0mLdvLRk3WQDg9Q0w+SUtETLJCWgjoKi1LTMCrBp0Uq
+ Boa7BIZ7+fkqxtbUAFlwnv2cAAAA=
+X-Change-ID: 20251118-oneplus-nfc-c00ef1cdfa9b
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Petr Hodina <petr.hodina@protonmail.com>, 
+ biemster <l.j.beemster@gmail.com>, netdev@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, oe-linux-nfc@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1991; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=0y+vz9QItdufZS4Gg1aj8uk09vnC7uOD1Z32a7tIeRg=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBpv/uUtZf7rj034FIS1wsfZrfec7TNLugbDYF7R
+ C+mgBKhrreJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCab/7lAAKCRBgAj/E00kg
+ cuV9EADQlJ4AcLuzCdke6vz8uKtFi3LaQOIqic0KyvwHlDp+iSQqpo+q4muU3H4juTjatvmVK5G
+ XMHc4TL31G5HNqmJhWqmmySxXnHDOiYu5Ql7oJ1WonCv1bmHUaJWMXwIWDxM0cHpPZdx6CvqbWJ
+ aMlqrxyWAHv6L/bFwtzWemA6ksOrWhxf4Ni+kR6PGHlx6VxbeSzK1g2SM5L4S8MrBFFpmcRpwV5
+ TYQobX1Yc4i6i+4R9QBkfQ12stVgfzmDahkAYg+zLOlR1n15tyjiIYqcDrtcVhM00s4i29vlwUT
+ ftQLSQfDTkO79tZxrwEjQEpJSSRfXd2Zm8F/junJvqicQe620B7/kuuC18rRWAMOnkgMfKk/g35
+ HAS9Ix2yNCR33d6LPWnP6/ZUSuoV0FtW9LlynGRngPw6Gj3xg6Jlgew6V+f78niy+ea/V9TOt/Q
+ YFaO3F2u8vliJgkXY2W+xCbC7j58OVHU9v21SN9soCjkVnQrv7QKryuM5Wjmg7mzKwFmKwJ80mK
+ YXD9TA6CGwdYTQgXRqBCdUwTBomwtpEpnj6ytQPxKEviwR/kYO9uk/K8BrUBbXFQQbLqKkd0zK2
+ oFxytPIG7qMZ/Y7WvQYg8CpqQtMlCllYog9Lg9Es7ScX/LRKgoNRQm9EjfppdniQJRlmPUj6QfI
+ aMOYx1GrDk8NzXw==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-Hi Alexey,
+There isn't upstream driver.
 
-kernel test robot noticed the following build warnings:
+I'm openining this as a starter. We need a NFC drivers I assume. I tried
+quick check, but both of NFC drivers register
 
-[auto build test WARNING on 785f0eb2f85decbe7c1ef9ae922931f0194ffc2e]
+nfc: nfc_init: NFC Core ver 0.1
+NET: Registered PF_NFC protocol family
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Alexey-Klimov/dt-bindings-clock-exynos850-Add-APM_AP-MAILBOX-clock/20260322-085441
-base:   785f0eb2f85decbe7c1ef9ae922931f0194ffc2e
-patch link:    https://lore.kernel.org/r/20260320-exynos850-ap2apm-mailbox-v1-4-983eb3f296fc%40linaro.org
-patch subject: [PATCH 4/5] mailbox: exynos: Add support for Exynos850 mailbox
-config: x86_64-buildonly-randconfig-004-20260322 (https://download.01.org/0day-ci/archive/20260322/202603222239.JTuBxs7K-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260322/202603222239.JTuBxs7K-lkp@intel.com/reproduce)
+but efficiently does nothing. In the See section, there are some ways
+how to make NFC work, but rely on patched vendor libs, missing updates
+etc.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603222239.JTuBxs7K-lkp@intel.com/
+1. What hardware is present on Snapdragon 845, is there some
+   documentation? It seems that both sdm845 devices has almost identical
+   setup, thus it's NFC solution integrated? @Qualcomm
 
-All warnings (new ones prefixed by >>):
+2. What's the right approach to continue? Should we upstream these
+   definitions and then start developing user-space stack? @netdev (I
+   see orphaned)
 
->> Warning: drivers/mailbox/exynos-mailbox.c:60 struct member 'irq_mask_value' not described in 'exynos_mbox_driver_data'
->> Warning: drivers/mailbox/exynos-mailbox.c:60 struct member 'irq_mask_value' not described in 'exynos_mbox_driver_data'
+Since looking at NFC mailing list (oe-linux-nfc) and seeing it's pretty
+much dead, would be cool to revive it.
 
+Also there is some effort from Arch people [1], but likely without clean
+path to mainline.
+
+Can we revieve the NFC effort? I'm offering limited maintanance (in case
+people would send patches).
+
+See:
+ - https://gitlab.com/sdm845-mainline/linux/-/merge_requests/62
+ - https://github.com/NXPNFCLinux/linux_libnfc-nci/
+   - https://github.com/biemster/pmos-openbox-conky/blob/main/libnfc-nci.patch
+   - https://github.com/biemster/pmos-openbox-conky/blob/main/nfctest.patch
+   - pull request
+   - full of hacks
+
+ - [1] https://github.com/zmr-233/linux-nxp-nfc-fix
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+David Heidelberg (1):
+      arm64: dts: qcom: sdm845-shift-axolotl: Enable NFC
+
+biemster (1):
+      arm64: dts: qcom: sdm845-oneplus: Enable NFC
+
+ .../arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 32 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts  | 33 ++++++++++++++++++++++
+ 2 files changed, 65 insertions(+)
+---
+base-commit: 785f0eb2f85decbe7c1ef9ae922931f0194ffc2e
+change-id: 20251118-oneplus-nfc-c00ef1cdfa9b
+
+Best regards,
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+David Heidelberg <david@ixit.cz>
+
+
