@@ -1,245 +1,105 @@
-Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 165C13B7A8;
-	Sun, 22 Mar 2026 06:04:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57710317158;
+	Sun, 22 Mar 2026 06:05:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774159460; cv=none; b=GPtZboQ9+4ZN3azflJ238+NV7VaC84mUfI1N31AT9pkejIEx3QhiuQY0IPV/y8BU/dN4Lg/eO4c/mHjODb10xwmFE9Zrw9pi6SaIeDzQmhhwYcQLt4EkDOnAdvx0JMt3OMieouk4gplMyn/iVrG2WHWixRVhD06kBDZ2qzsHWyA=
+	t=1774159549; cv=none; b=qONC8SgKVpTaeYQQh2tKpSn9o6QIOPg2g4AZdW8n7QTVilHZDiYoGibnQ3s4pou2kNsD3Hq/KUWaQa4ZjYucQSGu6GXHzFt9M3P8UQUk3BhwtILGOOPVx8BgFBZSoWl5jtaJNWKjtthOGHkBgYja6+krrB9AlTnAiqoVHFyab3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774159460; c=relaxed/simple;
-	bh=Y16L4YWfMtrtEeDwZHUWJGXpVi/Sysz16cUHYqp+wtE=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=pw/6o/TJ/jemzZvN94tKCoGj2myu8d9iL23CWC76Vd9P4wiFhc8wHuTf7XTB7dGJSbvWvqebRC/SSYu5DTazhWLWvc/JfLoy7gsmLsvWzFXop9tuKVMCp/IWR8n5DsXbNIItkKGJyTDtsqarBvsZ1U5pD0HaA9ksLRex7sojpIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=aepgGgiV; arc=none smtp.client-ip=162.62.58.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1774159549; c=relaxed/simple;
+	bh=NI4MIPODlZOFZpB65iYyyUATtfVUU5Vf3TcblWio5TA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fgb/dpz0dJqHrzoT4VDrpImeCBZ5lEjkhSCp9Isdq5Mri4m1l4GrCy0FYG9b+yBIqPIFmo5r5VjcB/UPQwIhxLgYfLJZLgHyMpFtjdp7+nEobVUavuUnWv/iybyPO2E5AE+boL0nCWSgcjbExVEiDNpI/Rk6X+H7ejNHtssDr9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=la7AfoY8; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="aepgGgiV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1774159454; bh=AFRhODcyolPF+/xi57Usj9+pP7A9X3Ey62Q+xbQxuRo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aepgGgiVaEjCs9gx89ENy45lx1xYnVgh2nk8K3G6+Hj2OVVxT6YiXN44ofvY59R4S
-	 hWx4e+VTFgSgJaYifHfu5SKU4Bf7VuIGoawdiF8WbDmXrrSppk17/WUmgCo1klSUQ6
-	 Zua3sFXR/EvTPQWRrQ71jCwMc/x7jim1PWF7OUfo=
-Received: from MYJGMC.tail4697e5.ts.net ([122.195.139.226])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id B100A4A; Sun, 22 Mar 2026 14:02:49 +0800
-X-QQ-mid: xmsmtpt1774159372tee2dm8ec
-Message-ID: <tencent_6034EC6B5DDA04A0956AEDECE445442AE406@qq.com>
-X-QQ-XMAILINFO: MuMd8wcAiX0qCTYxO+T5kobr0Siz7f5NvRFLqAmK3DJIOnl9i8Yo0W6TOgSmhG
-	 u8aKrbyeHcMuhGIsTF91d/fiYAzJocSUtr84x/n2wPMmKMiS09DpsBqb5iarolXm/PdzDHuXXOOu
-	 V3fYZQAJjgdWVTSX+fVfwGk0JpZpKz14hsJ10IPmZCaluoMoiRyIUeb0vV5HI/DqFVgTJTRP5zFL
-	 u5jtxo7U25hWpLnibUsByGkB8gz2olgUuIMYmrunBCiFabJW0vaVS05SLOXiadHWWAreLS8Va/E9
-	 +ue7OGUvyFRZKa1OSx9uwV5ZnslLuxQrn3UtQ1hnQ0kt5ePuqIAWRO7PZuJYZXAtw7zJT3Dno/lN
-	 RWI37z/Fd28LSTvj/EMK0b+LByrvD8ODdjXU8HFz4zeER0KKhX205GXA7DkaAVKl1oVAo7LXmssG
-	 Ou8b09goBtRzS7Qm56bFcEB3dmg6BXjHt90k9ycD7+QCAVaNJwYPBTPT1b2pX7Y3EaQrT+aqYc8r
-	 /yxrMmuglMuEIR2mOUTbDyrFOrMB4vcDdEwlsZdY95k5iRYqhVh7nsZ1TtkeSZ7cUthJqoe7BqLC
-	 uv24M3Yq0mLIveVtN3RQgwgCg1a5QrPYvsjfYk8eouihuudLLnM3yY+71xT6t7VGb6bfVcMf+ced
-	 IbqzD7KO5c2hixMnM9Cp74JTr2umAIDnwqm/m29ZqxJmvORTfoS5a6zIBABZjf8mdbx9rrhjp8ei
-	 y4jq9VJZ/JIqrZ6/5ptPibgMLfOpiw7N++k5cfMJBj/qn1+r6SxDJU4pXFNj42+G4/XXZUaXd5pQ
-	 Mbm6BsGqj9JU7aqxVxVZgwnFsj4wtCshTpdtz8TtfjksyJqjfmSU17n9uQtVVwe0wLTOfskrAsNE
-	 blH0nlHGtk0CTUSvFR26DSTrlxSrOTtPIBfnR0D4lcEx2LbqTpQ3KE5nwnTXm2sm36gNfZQDEeRy
-	 LIQMMDRf10gvDjOzzIL4b8mRc36rUp3TnGc7iyATrwsQ505Cc7Q4vPg4zUcnmxeN6M4Dg/k7ymN3
-	 G2dpYXeQlEfrzSZg20w34mrOOVF9M=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-From: wjjsn <wjjsn@qq.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	chenhuacai@kernel.org
-Cc: kernel@xen0n.name,
-	devicetree@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	wjjsn <wjjsn@qq.com>
-Subject: [PATCH v3 2/2] loongarch: boot: dts: Add Loongson-2K0300 support
-Date: Sun, 22 Mar 2026 14:02:46 +0800
-X-OQ-MSGID: <20260322060246.1375569-3-wjjsn@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260322060246.1375569-1-wjjsn@qq.com>
-References: <20260322060246.1375569-1-wjjsn@qq.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="la7AfoY8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774159548; x=1805695548;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=NI4MIPODlZOFZpB65iYyyUATtfVUU5Vf3TcblWio5TA=;
+  b=la7AfoY8VRp9a7sBXwFUBrqDBFI2G8LmX/8PSdmjJ2MCaUdMzrePc7s2
+   pgMi6YVHFPy92tDn4gO5pmpTQzCWp0WZNWEPnY6d8gCCH+bQp3XmZMwzC
+   MQ6Wmeczx/U6vZKgButCB3+zsvh7e2KyeNaVYXkXU/pFvB6pqInzRhtc5
+   ZLucUQJ0UKJwJSI44HwxZrMn1wHywRWVYuVOkgm4lVMeUs6lfnhowahzT
+   Sk0azmgE9IfV9/qBEDebOvaANNu7Cmlf78St8QbRh8wdq9yi7fmzQUwo/
+   77Xll5/rUMFWDc9lhnOBlw2IszymqWP4+HOgwzmkvokIPuhHEeO2a0z0l
+   Q==;
+X-CSE-ConnectionGUID: UoplLKYwTZSXo73SpmcFpQ==
+X-CSE-MsgGUID: 3FaZdJp2QRuy6cY+DGVo6w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11736"; a="75163164"
+X-IronPort-AV: E=Sophos;i="6.23,134,1770624000"; 
+   d="scan'208";a="75163164"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Mar 2026 23:05:47 -0700
+X-CSE-ConnectionGUID: gRTOxsecTj289dcYzt8SGQ==
+X-CSE-MsgGUID: 6fDKZ/r2R8qxYruaCQWf5Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,134,1770624000"; 
+   d="scan'208";a="222773709"
+Received: from igk-lkp-server01.igk.intel.com (HELO 9958d990ccf2) ([10.211.93.152])
+  by orviesa006.jf.intel.com with ESMTP; 21 Mar 2026 23:05:44 -0700
+Received: from kbuild by 9958d990ccf2 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1w4BwU-000000006Ij-20Ja;
+	Sun, 22 Mar 2026 06:05:42 +0000
+Date: Sun, 22 Mar 2026 07:05:39 +0100
+From: kernel test robot <lkp@intel.com>
+To: Atharv Dubey <atharvd440@gmail.com>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, Atharv Dubey <atharvd440@gmail.com>
+Subject: Re: [PATCH] mailbox: dt-bindings: mailbox: Convert to DT-SCHEMA
+Message-ID: <202603220726.FnGA4Rwp-lkp@intel.com>
+References: <20260322-mailbox-v1-1-c6251f18187c@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260322-mailbox-v1-1-c6251f18187c@gmail.com>
 
-Signed-off-by: wjjsn <wjjsn@qq.com>
----
- .../bindings/loongarch/loongson.yaml          |  2 +-
- arch/loongarch/boot/dts/Makefile              |  2 +-
- .../boot/dts/loongson-2k0300-ref.dts          | 34 +++++++
- arch/loongarch/boot/dts/loongson-2k0300.dtsi  | 95 +++++++++++++++++++
- 4 files changed, 131 insertions(+), 2 deletions(-)
- create mode 100644 arch/loongarch/boot/dts/loongson-2k0300-ref.dts
- create mode 100644 arch/loongarch/boot/dts/loongson-2k0300.dtsi
+Hi Atharv,
 
-diff --git a/Documentation/devicetree/bindings/loongarch/loongson.yaml b/Documentation/devicetree/bindings/loongarch/loongson.yaml
-index 8bea8b9f75b1..8e0a917ffc01 100644
---- a/Documentation/devicetree/bindings/loongarch/loongson.yaml
-+++ b/Documentation/devicetree/bindings/loongarch/loongson.yaml
-@@ -16,7 +16,7 @@ properties:
-     oneOf:
-       - description: Loongson-2K0300 processor based boards
-         items:
--          - const: loongson,99pi
-+          - const: loongson,ls2k0300-ref
-           - const: loongson,ls2k0300
-       - description: Loongson-2K0500 processor based boards
-         items:
-diff --git a/arch/loongarch/boot/dts/Makefile b/arch/loongarch/boot/dts/Makefile
-index 15d5e14fe418..4a096608cfad 100644
---- a/arch/loongarch/boot/dts/Makefile
-+++ b/arch/loongarch/boot/dts/Makefile
-@@ -1,3 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
--dtb-y = loongson-2k0500-ref.dtb loongson-2k1000-ref.dtb loongson-2k2000-ref.dtb
-+dtb-y = loongson-2k0300-ref.dtb loongson-2k0500-ref.dtb loongson-2k1000-ref.dtb loongson-2k2000-ref.dtb
-diff --git a/arch/loongarch/boot/dts/loongson-2k0300-ref.dts b/arch/loongarch/boot/dts/loongson-2k0300-ref.dts
-new file mode 100644
-index 000000000000..f85d2caa94b0
---- /dev/null
-+++ b/arch/loongarch/boot/dts/loongson-2k0300-ref.dts
-@@ -0,0 +1,34 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2023 Loongson Technology Corporation Limited
-+ */
-+
-+/dts-v1/;
-+
-+#include "loongson-2k0300.dtsi"
-+
-+/ {
-+	compatible = "loongson,ls2k0300-ref", "loongson,ls2k0300";
-+	model = "Loongson-2K0300 Reference Board";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@200000 {
-+		device_type = "memory";
-+		reg = <0x0 0x00200000 0x0 0x0ee00000>,
-+			  <0x0 0x90000000 0x0 0x10000000>;
-+	};
-+
-+};
-+
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-diff --git a/arch/loongarch/boot/dts/loongson-2k0300.dtsi b/arch/loongarch/boot/dts/loongson-2k0300.dtsi
-new file mode 100644
-index 000000000000..91062b388e77
---- /dev/null
-+++ b/arch/loongarch/boot/dts/loongson-2k0300.dtsi
-@@ -0,0 +1,95 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2023 Loongson Technology Corporation Limited
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/clock/loongson,ls2k-clk.h>
-+
-+/ {
-+	#address-cells = <2>;
-+	#size-cells = <2>;
-+
-+	interrupt-parent = <&cpuintc>;
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		cpu0: cpu@0 {
-+			compatible = "loongson,la264";
-+			device_type = "cpu";
-+			reg = <0x0>;
-+			clocks = <&clk LS2K0300_CLK_NODE_DIV>;
-+		};
-+	};
-+
-+	ref_120m: clock-ref-120m {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <120000000>;
-+		clock-output-names = "ref_120m";
-+	};
-+
-+	cpuintc: interrupt-controller {
-+		compatible = "loongson,cpu-interrupt-controller";
-+		#interrupt-cells = <1>;
-+		interrupt-controller;
-+	};
-+
-+	liointc0: interrupt-controller@16001400 {
-+		compatible = "loongson,liointc-2.0";
-+		reg = <0x0 0x16001400 0x0 0x40>,
-+				<0x0 0x16001040 0x0 0x8>;
-+		reg-names = "main", "isr0";
-+
-+		interrupt-controller;
-+		#address-cells = <0>;
-+		#interrupt-cells = <2>;
-+		interrupt-parent = <&cpuintc>;
-+		interrupts = <2>;
-+		interrupt-names = "int0";
-+
-+		loongson,parent_int_map = <0xffffffff>, /* int0 */
-+						<0x00000000>, /* int1 */
-+						<0x00000000>, /* int2 */
-+						<0x00000000>; /* int3 */
-+	};
-+	liointc1: interrupt-controller@16001440 {
-+		compatible = "loongson,liointc-2.0";
-+		reg = <0x0 0x16001440 0x0 0x40>,
-+				<0x0 0x16001048 0x0 0x8>;
-+		reg-names = "main", "isr0";
-+
-+		interrupt-controller;
-+		#address-cells = <0>;
-+		#interrupt-cells = <2>;
-+		interrupt-parent = <&cpuintc>;
-+		interrupts = <4>;
-+		interrupt-names = "int2";
-+
-+		loongson,parent_int_map = <0x00000000>, /* int0 */
-+						<0x00000000>, /* int1 */
-+						<0xffffffff>, /* int2 */
-+						<0x00000000>; /* int3 */
-+	};
-+	clk: clock-controller@16000400 {
-+		compatible = "loongson,ls2k0300-clk";
-+		reg = <0x0 0x16000400 0x0 0x2c>;
-+		#clock-cells = <1>;
-+		clocks = <&ref_120m>;
-+		clock-names = "ref_120m";
-+	};
-+
-+	uart0: serial@16100000 {
-+		compatible = "ns16550a";
-+		reg = <0x0 0x16100000 0x0 0x10>;
-+		clocks = <&clk LS2K0300_CLK_APB_GATE>;
-+		interrupt-parent = <&liointc0>;
-+		interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
-+		no-loopback-test;
-+		status = "disabled";
-+	};
-+};
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on c612261bedd6bbab7109f798715e449c9d20ff2f]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Atharv-Dubey/mailbox-dt-bindings-mailbox-Convert-to-DT-SCHEMA/20260322-075100
+base:   c612261bedd6bbab7109f798715e449c9d20ff2f
+patch link:    https://lore.kernel.org/r/20260322-mailbox-v1-1-c6251f18187c%40gmail.com
+patch subject: [PATCH] mailbox: dt-bindings: mailbox: Convert to DT-SCHEMA
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+docutils: docutils (Docutils 0.21.2, Python 3.13.5, on linux)
+reproduce: (https://download.01.org/0day-ci/archive/20260322/202603220726.FnGA4Rwp-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603220726.FnGA4Rwp-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> Warning: Documentation/devicetree/bindings/mailbox/altera-mailbox.txt references a file that doesn't exist: Documentation/devicetree/bindings/mailbox/mailbox.txt
+>> Warning: Documentation/devicetree/bindings/mailbox/ti,omap-mailbox.yaml references a file that doesn't exist: Documentation/devicetree/bindings/mailbox/mailbox.txt
+   Warning: Documentation/devicetree/bindings/mfd/motorola-cpcap.txt references a file that doesn't exist: Documentation/devicetree/bindings/rtc/cpcap-rtc.txt
+>> Warning: Documentation/devicetree/bindings/power/reset/xlnx,zynqmp-power.yaml references a file that doesn't exist: Documentation/devicetree/bindings/mailbox/mailbox.txt
+   Warning: Documentation/devicetree/bindings/regulator/siliconmitus,sm5703-regulator.yaml references a file that doesn't exist: Documentation/devicetree/bindings/mfd/siliconmitus,sm5703.yaml
+   Warning: Documentation/devicetree/bindings/rtc/motorola,cpcap-rtc.yaml references a file that doesn't exist: Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
+   Warning: Documentation/doc-guide/parse-headers.rst references a file that doesn't exist: Documentation/userspace-api/media/Makefile
+   Warning: Documentation/leds/leds-lp5812.rst references a file that doesn't exist: Documentation/ABI/testing/sysfs-class-led-multicolor.rst
+   Warning: Documentation/translations/it_IT/doc-guide/parse-headers.rst references a file that doesn't exist: Documentation/userspace-api/media/Makefile
+
 -- 
-2.43.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
