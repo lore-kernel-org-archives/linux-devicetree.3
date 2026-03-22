@@ -1,209 +1,82 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B993803F8;
-	Sun, 22 Mar 2026 12:35:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774182954; cv=none; b=JG2i7iiLgkEmTGO3NUnbe1bcu8gRZzCOO0nairHJy7xaEhO4eiSKNaf2topRqKe1QRsUFfXgxc7r6l0bMWBq7OZ+RRIUJteJoGn4H45X8l4iMo21ygz8x8FwbbuDf7IutCaa+lRxE2LrPGPo9owXUmK5XiYXU3smP9vOTvXVfoI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774182954; c=relaxed/simple;
-	bh=oxOd6xrPkNkZz6QA/SUlqhCBJiX5nvMMbOMTlIgZTp8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hlU3yBAOc+BxLFaOPoI08oz1wHc9oFjq7h8QxJ9ul8H34kwfigW1iVLTDI9wy89b/mumEGWDd52+PmWbzSWM6HNahC1kyuLhOQUsBrfwIhbfSXvZQGOlI3tNaFYsFbUB9Nq3co7Kiqngb2bp5/oHNMvcHhh+dzg5DqHDHpyCgCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=AZSsGaIQ; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458FC2571C7;
+	Sun, 22 Mar 2026 12:36:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774182983; cv=pass; b=LDJVgjgMtn5ptDwGrA6sWXwxKvI9Bf30qWdVbsyL+sMcSriNu74vQegSJ0O/+qxKR9mhnIGc5mS1BK9aa+MFbyBxstrUJFk4eAn2KVf/ovfCvTepIsnwgbCUhU9Poutv/grOIJoNvUupnNVuvERGBlSmVqtSlS3ujaKuY3MEFSs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774182983; c=relaxed/simple;
+	bh=/G4wv1AYpuDDOThiFlf7yd2BqIrHdxg81+ps1exdPJY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gNp2ll8eZ+d5ehLsV80ytiDx7/+M1DncqgIR7DGcVgS6C/cN++R+ANy8VzdR2uQ8KbEM1RTShz9dGR+VDrHL3o6lHS/DZkm+9rMsR/SiuuGJGUWKvWTfUUvcx+yOLm0PwdCtRijwix9XUDv2gFeV5bC02B/OgfDpWqgsErrD+DE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=RYV0qZt5; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="AZSsGaIQ"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 0CB9E2709D;
-	Sun, 22 Mar 2026 13:35:51 +0100 (CET)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id PB6_O4kbroL1; Sun, 22 Mar 2026 13:35:50 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1774182950; bh=oxOd6xrPkNkZz6QA/SUlqhCBJiX5nvMMbOMTlIgZTp8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AZSsGaIQqzvCdfJae6RvdXPUv7wvep/l0XxleKKf2/6LmYs6gTQAJs6KB7vYhsCdw
-	 Gd1vFDsZmtvuL7lUUKs5PgQqmSTGbPeTRg4we0uZlGO2om9jdJ4V4Ob91VOagPsBpL
-	 VuF4jY03HudgbHm10T3FwXPFP8G3aw5QqM85wFE3EGeWzqbRibMY0sxm+Lo8vVaEop
-	 xi4XJ1wnGeuRnHGiwxBaQW63H9htY9Si/UhPGQexR6C2is6PoWVyY/zJ5f5qTHd5O7
-	 786tHMoOaKcedUVeK//ix0ooTeYiYEn9x/8wxFS4ScYajKNj228rkkoxZcKZAlO/pI
-	 uZGFJSjEl2PUg==
-From: Rustam Adilov <adilov@disroot.org>
-To: Chris Packham <chris.packham@alliedtelesis.co.nz>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Rustam Adilov <adilov@disroot.org>
-Subject: [PATCH v3 8/8] i2c: rtl9300: add RTL9607C i2c controller support
-Date: Sun, 22 Mar 2026 17:34:11 +0500
-Message-ID: <20260322123411.32102-9-adilov@disroot.org>
-In-Reply-To: <20260322123411.32102-1-adilov@disroot.org>
-References: <20260322123411.32102-1-adilov@disroot.org>
+	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="RYV0qZt5"
+ARC-Seal: i=1; a=rsa-sha256; t=1774182953; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Yv2PS3JweAqdYSO4TICBc119goOC/fCtLF9QKC3iCR+PGPRTBw4nwiCN365ptTrGyebRGt1uJNzQdKPy1Dy86Cw8150+dnNxnpzbaAidZ37JpCmUYI4X2ocBxUUZZK8LZ8PGP3a6RtodsQo9z7VfyVMBKFXQ3Y+FCRSrdBBf3vI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1774182953; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=sCP65OrZkkXH1dJ+E9hSjkpXLr7tFsgk9B2weoSwSqM=; 
+	b=hVGtfrbdcDHnjcembCfhcaKMPt8JEOCeDGgCXXZA1wsqvVTlxbXqy8xVL2ScE9iOLnA302qeIXet5bgZfp58GA3ZJaF49X6eDdtfk+EyRHtKeE0Brk97KxNnKPZOtxXYOEopaB87kL22r14q090c5f0M7Uzg7W6NcWQNwp+e8VU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ziyao.cc;
+	spf=pass  smtp.mailfrom=me@ziyao.cc;
+	dmarc=pass header.from=<me@ziyao.cc>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774182953;
+	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=sCP65OrZkkXH1dJ+E9hSjkpXLr7tFsgk9B2weoSwSqM=;
+	b=RYV0qZt5fR4nz0i6P6OpKLV/zj8owzRSmDxlUcWD1AdDU8Yw2GHi+laeFVYo3gkn
+	BpnFJLXw1gpqA56bZcxINvOte3lEKrb42xgvCZXHZ2H+zcxWXXhs437nG+4ZAhqO55C
+	6CTqlsyw1jJ8d1Q7sUhoygpNSqFZvfv/dTiae2YI=
+Received: by mx.zohomail.com with SMTPS id 1774182950939448.0578904738061;
+	Sun, 22 Mar 2026 05:35:50 -0700 (PDT)
+Date: Sun, 22 Mar 2026 12:35:35 +0000
+From: Yao Zi <me@ziyao.cc>
+To: wjjsn <wjjsn@qq.com>, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, chenhuacai@kernel.org
+Cc: kernel@xen0n.name, devicetree@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-kernel@vger.kernel.org,
+	wjjsn <2858482031@qq.com>
+Subject: Re: [PATCH v5 0/2] Add Loongson-2K0300 processor support
+Message-ID: <ab_iF2hjZRfp16HP@pie>
+References: <tencent_325FB1D2C600CD55E367332EC453E5A64B09@qq.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_325FB1D2C600CD55E367332EC453E5A64B09@qq.com>
+X-ZohoMailClient: External
 
-Add support for the internal I2C controllers of RTL9607C series based
-SoCs. Add register definitions, chip-specific functions and macros too.
+On Sun, Mar 22, 2026 at 03:13:14PM +0800, wjjsn wrote:
+> From: wjjsn <2858482031@qq.com>
+> 
+> The first patch adds the necessary DT binding documentation,
+> and the second patch adds the DTS and DTSI files for the SoC
+> and the board.
 
-Make use of the clk introduced from the previous patch to get the clk_div
-value and use it during the rtl9607c channel configuration.
+Please note I'm working on basic drivers/devicetree for 2K0300
+platform[1][2][3], though the series haven't been updated for some
+time... I've re-written the pinctrl part, and will try to re-spin all of
+them next weekend.
 
-Introduce a new EXT_SCK_5MS field to the reg fields struct which is going
-to be initialized by rtl9607c init function at the end of the probe.
+Also, previously Huacai expressed preference on delaying devicetree
+changes until basic drivers are ready[4], so anyway we should probably
+get driver patches merged first.
 
-This patch depends on all the previous patches in this patch series.
+Regards,
+Yao Zi
 
-Reviewed-by: Chris Packham <chris.packham@alliedtelesis.co.nz>
-Signed-off-by: Rustam Adilov <adilov@disroot.org>
----
- drivers/i2c/busses/i2c-rtl9300.c | 70 ++++++++++++++++++++++++++++++++
- 1 file changed, 70 insertions(+)
-
-diff --git a/drivers/i2c/busses/i2c-rtl9300.c b/drivers/i2c/busses/i2c-rtl9300.c
-index b718b74afe0d..8cedffbb2964 100644
---- a/drivers/i2c/busses/i2c-rtl9300.c
-+++ b/drivers/i2c/busses/i2c-rtl9300.c
-@@ -57,6 +57,7 @@ enum rtl9300_i2c_reg_fields {
- 	F_SDA_SEL,
- 	F_BUSY,
- 	F_CLK_DIV,
-+	F_EXT_SCK_5MS,
- 
- 	/* keep last */
- 	F_NUM_FIELDS
-@@ -77,8 +78,10 @@ struct rtl9300_i2c_drv_data {
- 
- #define RTL9300_I2C_MUX_NCHAN	8
- #define RTL9310_I2C_MUX_NCHAN	12
-+#define RTL9607_I2C_MUX_NCHAN	1
- 
- #define RTL9300_I2C_MAX_DATA_LEN	16
-+#define RTL9607_I2C_MAX_DATA_LEN	4
- 
- struct rtl9300_i2c {
- 	struct regmap *regmap;
-@@ -127,6 +130,14 @@ struct rtl9300_i2c_xfer {
- #define RTL9310_I2C_MST_MEMADDR_CTRL			0x4
- #define RTL9310_I2C_MST_DATA_CTRL			0x8
- 
-+#define RTL9607_I2C_CONFIG				0x22f50
-+#define RTL9607_IO_MODE_EN				0x23014
-+#define RTL9607_I2C_IND_WD				0x0
-+#define RTL9607_I2C_IND_ADR				0x8
-+#define RTL9607_I2C_IND_CMD				0x10
-+#define RTL9607_I2C_IND_RD				0x18
-+#define RTL9607_REG_ADDR_8BIT_LEN			0
-+
- static int rtl9300_i2c_reg_addr_set(struct rtl9300_i2c *i2c, u32 reg, u16 len)
- {
- 	int ret;
-@@ -178,6 +189,27 @@ static int rtl9300_i2c_config_chan(struct rtl9300_i2c *i2c, struct rtl9300_i2c_c
- 	return 0;
- }
- 
-+static int rtl9607_i2c_config_chan(struct rtl9300_i2c *i2c, struct rtl9300_i2c_chan *chan)
-+{
-+	const struct rtl9300_i2c_drv_data *drv_data;
-+	int ret;
-+
-+	if (i2c->sda_num == chan->sda_num)
-+		return 0;
-+
-+	ret = regmap_field_write(i2c->fields[F_CLK_DIV], chan->clk_div);
-+	if (ret)
-+		return ret;
-+
-+	drv_data = device_get_match_data(i2c->dev);
-+	ret = drv_data->select_scl(i2c, i2c->scl_num);
-+	if (ret)
-+		return ret;
-+
-+	i2c->sda_num = chan->sda_num;
-+	return 0;
-+}
-+
- static void rtl9300_i2c_config_clock(u32 clock_freq, struct rtl9300_i2c_chan *chan)
- {
- 	struct rtl9300_i2c *i2c = chan->i2c;
-@@ -202,6 +234,13 @@ static void rtl9300_i2c_config_clock(u32 clock_freq, struct rtl9300_i2c_chan *ch
- 	}
- }
- 
-+static void rtl9607_i2c_config_clock(u32 clock_freq, struct rtl9300_i2c_chan *chan)
-+{
-+	struct rtl9300_i2c *i2c = chan->i2c;
-+
-+	chan->clk_div = clk_get_rate(i2c->clk) / clock_freq - 1;
-+}
-+
- static int rtl9300_i2c_read(struct rtl9300_i2c *i2c, u8 *buf, u8 len)
- {
- 	u32 vals[4] = {};
-@@ -422,6 +461,11 @@ static int rtl9300_i2c_init(struct rtl9300_i2c *i2c)
- 	return regmap_field_write(i2c->fields[F_RD_MODE], 0);
- }
- 
-+static int rtl9607_i2c_init(struct rtl9300_i2c *i2c)
-+{
-+	return regmap_field_write(i2c->fields[F_EXT_SCK_5MS], 1);
-+}
-+
- static int rtl9300_i2c_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -574,6 +618,31 @@ static const struct rtl9300_i2c_drv_data rtl9310_i2c_drv_data = {
- 	.reg_addr_8bit_len = RTL9300_REG_ADDR_8BIT_LEN,
- };
- 
-+static const struct rtl9300_i2c_drv_data rtl9607_i2c_drv_data = {
-+	.field_desc = {
-+		[F_SCL_SEL]		= GLB_REG_FIELD(RTL9607_IO_MODE_EN, 13, 14),
-+		[F_EXT_SCK_5MS]		= MST_REG_FIELD(RTL9607_I2C_CONFIG, 26, 26),
-+		[F_DEV_ADDR]		= MST_REG_FIELD(RTL9607_I2C_CONFIG, 14, 20),
-+		[F_MEM_ADDR_WIDTH]	= MST_REG_FIELD(RTL9607_I2C_CONFIG, 12, 13),
-+		[F_DATA_WIDTH]		= MST_REG_FIELD(RTL9607_I2C_CONFIG, 10, 11),
-+		[F_CLK_DIV]		= MST_REG_FIELD(RTL9607_I2C_CONFIG, 0, 9),
-+		[F_I2C_FAIL]		= MST_REG_FIELD(RTL9607_I2C_IND_CMD, 3, 3),
-+		[F_BUSY]		= MST_REG_FIELD(RTL9607_I2C_IND_CMD, 2, 2),
-+		[F_RWOP]		= MST_REG_FIELD(RTL9607_I2C_IND_CMD, 1, 1),
-+		[F_I2C_TRIG]		= MST_REG_FIELD(RTL9607_I2C_IND_CMD, 0, 0),
-+		[F_MEM_ADDR]		= MST_REG_FIELD(RTL9607_I2C_IND_ADR, 0, 31),
-+	},
-+	.select_scl = rtl9310_i2c_select_scl,
-+	.config_chan = rtl9607_i2c_config_chan,
-+	.config_clock = rtl9607_i2c_config_clock,
-+	.misc_init = rtl9607_i2c_init,
-+	.rd_reg = RTL9607_I2C_IND_RD,
-+	.wd_reg = RTL9607_I2C_IND_WD,
-+	.max_nchan = RTL9607_I2C_MUX_NCHAN,
-+	.max_data_len = RTL9607_I2C_MAX_DATA_LEN,
-+	.reg_addr_8bit_len = RTL9607_REG_ADDR_8BIT_LEN,
-+};
-+
- static const struct of_device_id i2c_rtl9300_dt_ids[] = {
- 	{ .compatible = "realtek,rtl9301-i2c", .data = (void *) &rtl9300_i2c_drv_data },
- 	{ .compatible = "realtek,rtl9302b-i2c", .data = (void *) &rtl9300_i2c_drv_data },
-@@ -583,6 +652,7 @@ static const struct of_device_id i2c_rtl9300_dt_ids[] = {
- 	{ .compatible = "realtek,rtl9311-i2c", .data = (void *) &rtl9310_i2c_drv_data },
- 	{ .compatible = "realtek,rtl9312-i2c", .data = (void *) &rtl9310_i2c_drv_data },
- 	{ .compatible = "realtek,rtl9313-i2c", .data = (void *) &rtl9310_i2c_drv_data },
-+	{ .compatible = "realtek,rtl9607-i2c", .data = (void *) &rtl9607_i2c_drv_data },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, i2c_rtl9300_dt_ids);
--- 
-2.53.0
-
+[1]: https://lore.kernel.org/all/20250523095408.25919-4-ziyao@disroot.org/
+[2]: https://lore.kernel.org/all/20250811163749.47028-2-ziyao@disroot.org/
+[3]: https://lore.kernel.org/all/20250816033327.11359-2-ziyao@disroot.org/
+[4]: https://lore.kernel.org/all/CAAhV-H6EDEf3U6w5KY3R3HCAdAbqDefqpE3ktCQeQtFbDK2Ypg@mail.gmail.com/
