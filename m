@@ -1,62 +1,64 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 515593B2FDF
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 16:23:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 079773AE19E
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 16:23:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774283004; cv=none; b=cWr4EKdO9JGV89llcsqjEe3paeTyEkETf58SjyJAF7ht60C7lwsy8kPhp+F8AUXzV8E5x81DYqMcCkjtjVx1zSzYOLwQF/W9kcAQNZROSpdfvPu2Ex1Km+r64Ouctv0vsd3RGubt1TahLtQgndrfCMfJVTdipk2ij1PVwJFm+70=
+	t=1774283013; cv=none; b=mVI5MlZm90seXAqiHyrzBv5C1JY6H6tnrRrgB0HJ/+qNbTLDZ5XgiHh6DWTIdhggJtgibjSVE1dJGk+wFG538Bghu9ETNhiMGKtQDs59OqGGs2gfKNaA/i2r0zE5O3KA2LaEErf9CGA5GhxqehO/Fn8E/yguTYb3nIvIwHIe620=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774283004; c=relaxed/simple;
-	bh=MU1UHlCT8FzYV5iBozHmfjiLmGEZw1XWty2n8Ga4oV0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TeS4dDxwjdBEY3eyXY/uWgwPMD5hK5tB495UDZre7479LvlS108ej1P0Cm+iLPO7z4XdKPyoaEN/OsqL7nIn9jfKiqZbdE4gC9q8o76BO1CnulNATdD4GIkBhbd5EYdKkp/waPN5hcXoGPrGmOmJUT0pEbFg/XAK83IqdHR7U0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JpC46tZ1; arc=none smtp.client-ip=209.85.214.176
+	s=arc-20240116; t=1774283013; c=relaxed/simple;
+	bh=wlROWR2JvmCSzmq6xZdptsC8bpqUks8BZe2WwV78JhE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JG3NK3k2FzDD5N+Kdoy16iBGhaXt8LIzCVKiO71uTCzdT5zZAJkJwETU7W4lyQqzzry2P92WrUpVDE7zU0BBpF9gkclJ710NyAPJ8TQMjDIMJ1x31lnmZDi9U0ZexPs5yTlK6hd9hm8OpyvhurnijDMJJ52hrCazLTas/8O6U2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l0Arakyf; arc=none smtp.client-ip=209.85.214.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JpC46tZ1"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2b06c43e6a7so15773705ad.2
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 09:23:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l0Arakyf"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2b04e6a989eso2344175ad.3
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 09:23:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1774283003; x=1774887803; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=GMgGJYslsjygUkgl7Hme70FS0OUcIYfWd+dtwioe89s=;
-        b=JpC46tZ1sO3V/E7u+alV/2lzQFnVKps/Wx0H+7OPd5nsYqEKfl4MJnJOAmC3O/BJDE
-         XcR8IJJIvcL9jO7hdUFOM8XwjIKpZNOZpHzJcV0G+JO4RTSNcFaD3DOHrqI4N8Hqbr9q
-         1U6GoJIbMfk5ARmST4oXxEBPQc7neBe9jxgRFt485cN6m7BqqV5c4acyIELND7GfRKCc
-         kPVq9lIJBUJ2ECJYU6ogeVJ4eAzg5CgLcH78fz1W09ZookAWOmo7YMXjsylg1pzvXAcL
-         Yd8UXSLXDFEf5GqcJ0G59N1kDQc+0Hs8EgpRig1oAa7FSphD95lSUJRQSUDuQ/c4Zych
-         AwtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774283003; x=1774887803;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1774283011; x=1774887811; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GMgGJYslsjygUkgl7Hme70FS0OUcIYfWd+dtwioe89s=;
-        b=SudsHHTL4mw13C70ZKdrP64sBXTHw9LCP1Bzlb6y7Wt7IIOf8Px/re6jZ9Zu/b7lJT
-         v5padjSeIJUXTfqkaxaZvJE/XauZA0AK8hy/zq9I8VWpSZUCU/DBUAnLzg0LYu1zYseC
-         UXAJm25Br7rmK8+i5rmHKRLD+BpFwqcTNLFyIvYO3K75byvfgKbJiC4n4WRA9fCsTfhL
-         i6W3hur1uMBmwdwbxB/TS4izjsH+lFuv7FVcb8jyV3UV/5V7GC6lUhH5BArL+QxOhZaj
-         7PYBEShetgzH55TAHnw4HYrr3npIjt2X3qoMFYOZitXLEvTngA5KdpYfoK+/8iJx3ZOS
-         lq6w==
-X-Forwarded-Encrypted: i=1; AJvYcCUa6AkuaK7v4//Wz0PWeTrIVBuW9kSsZleIcbpp0qFnz6EeiQ2HS0yTzCU9phwMQaEdrtjvWO7fwvry@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy2uPtSZBqqgwdAgJabLXAxWMUoOtvvl09PkR9ExZVElaWhGAGF
-	EbdBfsPnkfaBkflcwA+bMWPSMFomV1AgJnz2zH7amr+ixPf4CMeq86BE
-X-Gm-Gg: ATEYQzxtxwQHtVNI2AVdNXtZZ2p+O1zw0xKJTY8XrCtYzXSjJ8MHNnHC9XjIb/T67k0
-	bhmIoWWH4TrtjrRH2yUubFnyOqXwBaY9/F1D3lEOGyZZ+ciW8NzJqXsj0blZ9j/PERcpjAnicAH
-	ZfoPUlryLtN0jUnRtQFM9YbEHyqmsNFi2MO4CL5PRMS0anf/rhtRVzycnCONr5oAYlqoZEsKG5j
-	dNJJUJxWIgzrBnb0r4dRGqzcDsExTqE+cD+yBgj4b+9M4F5UhyXg1ZYKTPnZZ0YibxiA1WC4ITW
-	eXnd8r006Fafag1wmXdnW6hG7jdnn1m5xu8+f6inoPfiZoii8ef6riLdwYuUGTnCovkuNgU0cGL
-	UQgoeX5xgp23pxXMa0ZO8ROodgMrvIywei1jWYctMXcyKs2eeGR8c6CRvwmsU3FHWEJX8zvZxzl
-	YW1yRpGqWwp65ryFE27ibxZUeO1GM37IvGbODHydAp9hr6SwjJUZgdYu/oOropNjXRYwkOl1beD
-	/4wQfQg6bTCJQtE9B4JBgknKeML8a6AeN1liM18tg==
-X-Received: by 2002:a17:903:1d0:b0:2aa:e3c7:6048 with SMTP id d9443c01a7336-2b0827484ebmr126158735ad.23.1774283002534;
-        Mon, 23 Mar 2026 09:23:22 -0700 (PDT)
+        bh=NJ5qrcsx/y7g2uR+DSKlCpc4EBVmOqsFnYDAG9z5aG4=;
+        b=l0ArakyfQvbtl51gfHJoHRj2bCiBn/OEkpU6JEo43VUL2ozlbFyZ6P9gCmJ0suChJ4
+         zjS1hUSYqev6JxF0NA3I03gxp480DkPEo2M1Q01znWJf8OVoQJKJL3fhLWuwfIfSO314
+         YuFWuiMKvaZyNsc+j+YRPRdgARHlB+/tSuXO82CmQ53gcuYz5lD1nbj7JHmXVVRDd8x1
+         n3Oj5IfG4ZJ2IZHl7ctdXqGcAeA6vUXe/FQjc3hIfO2iSJX9i3XDwA+IgFpiQ82Kqruj
+         thJx+ktmKj2AYdwhh6KVLgZven097lMZgAQF92nV8CP70xjCvIcU6eFYf4q4Qf8FeD3t
+         Sh6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774283011; x=1774887811;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=NJ5qrcsx/y7g2uR+DSKlCpc4EBVmOqsFnYDAG9z5aG4=;
+        b=I+1RQtXmHIG87www5xx7SsmUwA4ql4sizrvzV6SiIxGHJfDN9olwKe26Wel/M98Ork
+         1dmetLN0O2K1hzTbAqkJdXVtUrJ+ZbuPcO6zLN2GqoytI4xPRc6Bzllnkou6zy6TB0G3
+         n5R9myCQ/JgSCx+ur9t6IcqXsIxLT5ZcPEf40oghb5qcj3s1OTURWzeiGHxKO8vgtiVV
+         T6qVjkvjsY8HzPF3Kj8DqZcxyXkGS88f7FoHeFD9+tD1FJQlmFO+AD9PfcvhsiiK287v
+         PFJ38p81ekVHEf+ALke5s25WtKzIz8/Y8VZ3yvZ2Z3+jNxGip/zo3u3pmNCJzu5Itgou
+         GtAA==
+X-Forwarded-Encrypted: i=1; AJvYcCUxygJwQCxLxK41KFPdJvQCN1pOm6PnXxP+PnmAX1sKMM8V6yiOkTXZbXL//Ht5s0PDQa9QmDodFkav@vger.kernel.org
+X-Gm-Message-State: AOJu0YystGFYMrvscc9QY2ep/ej6HKnouH8EVdgXo3u5c5+wACPqZZCU
+	1wrUmb7+D/BjfNKyb30p9yprgcVvHRiFBe6mA5QVaQ+ab9YsJPI020q1
+X-Gm-Gg: ATEYQzwEePKAVvUz7ua6IwCY5BBHoYHAjxu390BrIxBQna6Lp5pPx2BysUF0FUcU6da
+	FkgikcaBiIauX0Ej4Kl08TA0KTbi0NYTuU15JFVcLPJ46Ne+BSniWPDOjNPwYgWmAI659jzcD+R
+	r+jRbgQixdlR+8J1QJHezDt+fYKEiW3lf5ghre2/rT5LF82SgGB8fE7Jm65OyA8QMa7NIlV8HAO
+	RWN6ezlO+RlPomXeTlce81oAptl/pFgwGNZpSA7dzwHDOMQ5XIv/BTxXM1MRqK1BaQtr5yciIaS
+	/k9z+3DbXVyQkaWN486QM6mRUH0I8Qmqj8DuxGRRGE5IfrRBllwSpxw2nMMKQwldu3k66m76HjO
+	qMQgaesCb7hwI6J5iuxDBtx4I0yCz9ARoQlKTm4c5wsqI1j0TdlXWM1nhQLYoOC7FU/fXC8u0fO
+	72dGxnoq76mIORDVa85TH/KGpKycz9vndpWJae+OJYfx8IIUPwetVMadoj8MdrlIWBqdoYTvMrA
+	vQtQFVCeuJ1cfJTiJItHJ6k+37aQfX0ER8GLzbFBg==
+X-Received: by 2002:a17:902:e542:b0:2b0:9101:1b83 with SMTP id d9443c01a7336-2b091011f9amr66516145ad.53.1774283011199;
+        Mon, 23 Mar 2026 09:23:31 -0700 (PDT)
 Received: from lakshay-piplani-HP-Pavilion-Laptop-14-dv0xxx.. ([2401:4900:81e1:cdf2:5b00:592f:5488:918f])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b083516cb9sm118477755ad.2.2026.03.23.09.23.17
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b083516cb9sm118477755ad.2.2026.03.23.09.23.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Mar 2026 09:23:22 -0700 (PDT)
+        Mon, 23 Mar 2026 09:23:30 -0700 (PDT)
 From: Anshika Gupta <guptaanshika.ag@gmail.com>
 To: linux@roeck-us.net,
 	corbet@lwn.net,
@@ -70,10 +72,12 @@ To: linux@roeck-us.net,
 	devicetree@vger.kernel.org
 Cc: lakshaypiplani77@gmail.com,
 	Anshika Gupta <guptaanshika.ag@gmail.com>
-Subject: [PATCH 1/3] dt-bindings: hwmon: Add support for NXP P3T1084UK temperature sensor
-Date: Mon, 23 Mar 2026 21:52:50 +0530
-Message-ID: <20260323162252.15508-1-guptaanshika.ag@gmail.com>
+Subject: [PATCH 2/3] docs: hwmon: Update TMP108 documentation for NXP P3T1084UK support
+Date: Mon, 23 Mar 2026 21:52:51 +0530
+Message-ID: <20260323162252.15508-2-guptaanshika.ag@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260323162252.15508-1-guptaanshika.ag@gmail.com>
+References: <20260323162252.15508-1-guptaanshika.ag@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,54 +86,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The P3T1084UK is an NXP digital temperature sensor compatible with the
-Texas Instruments TMP108 register and protocol specification. This patch
-extends the existing DT binding for "ti,tmp108" to document the
-compatible string for P3T1084UK so that the hwmon TMP108 driver can
-bind to this device.
+Add references to the NXP P3T1084UK temperature sensor in the TMP108
+hardware monitoring documentation. The P3T1084UK is compatible with
+the TMP108 register interface and protocol, and the hwmon driver now
+supports it. Update the .rst document accordingly to reflect the new
+compatible device and its expected behavior.
 
 Signed-off-by: Lakshay Piplani <lakshaypiplani77@gmail.com>
 Signed-off-by: Anshika Gupta <guptaanshika.ag@gmail.com>
 ---
- Documentation/devicetree/bindings/hwmon/ti,tmp108.yaml | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ Documentation/hwmon/tmp108.rst | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp108.yaml b/Documentation/devicetree/bindings/hwmon/ti,tmp108.yaml
-index 9f6c9f6fa561..47714df5aaff 100644
---- a/Documentation/devicetree/bindings/hwmon/ti,tmp108.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/ti,tmp108.yaml
-@@ -4,20 +4,21 @@
- $id: http://devicetree.org/schemas/hwmon/ti,tmp108.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/Documentation/hwmon/tmp108.rst b/Documentation/hwmon/tmp108.rst
+index c218ea333dd6..cda280032710 100644
+--- a/Documentation/hwmon/tmp108.rst
++++ b/Documentation/hwmon/tmp108.rst
+@@ -11,6 +11,13 @@ Supported chips:
  
--title: TMP108/P3T1035/P3T1085/P3T2030 temperature sensor
-+title: TMP108/P3T1035/P3T1084/P3T1085/P3T2030 temperature sensor
+     Datasheet: https://www.nxp.com/docs/en/data-sheet/P3T1035XUK_P3T2030XUK.pdf
  
- maintainers:
-   - Krzysztof Kozlowski <krzk@kernel.org>
++ * NXP P3T1084
++
++    Prefix: 'p3t1045'
++
++    Addresses scanned: none
++
++    Datasheet: https://www.nxp.com/docs/en/data-sheet/P3T1084UK.pdf
  
- description: |
--  The TMP108 or NXP P3T Family (P3T1035, P3T1085 and P3T2030) is a digital-
-+  The TMP108 or NXP P3T Family (P3T1035, P3T1084, P3T1085 and P3T2030) is a digital-
-   output temperature sensor with a dynamically-programmable limit window,
-   and under- and over-temperature alert functions.
- 
--  NXP P3T Family (P3T1035, P3T1085 and P3T2030) supports I3C.
-+  NXP P3T Family (P3T1035, P3T1084, P3T1085 and P3T2030) supports I3C.
- 
-   Datasheets:
-     https://www.ti.com/product/TMP108
-+    https://www.nxp.com/docs/en/data-sheet/P3T1084UK.pdf
-     https://www.nxp.com/docs/en/data-sheet/P3T1085UK.pdf
-     https://www.nxp.com/docs/en/data-sheet/P3T1035XUK_P3T2030XUK.pdf
- 
-@@ -28,6 +29,7 @@ properties:
-           - const: nxp,p3t2030
-           - const: nxp,p3t1035
-       - const: nxp,p3t1035
-+      - const: nxp,p3t1084
-       - const: nxp,p3t1085
-       - const: ti,tmp108
+   * NXP P3T1085
  
 -- 
 2.34.1
