@@ -1,67 +1,86 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71614316197
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 06:31:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780A335BDA7
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 06:46:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774247474; cv=none; b=qEfHc76/ecB4fqrxq/rWzC7rJqSRbkXyrmauhOXUc4DFaDqitqeTiWu0ZvuMmCQ6KzryDCDMLg15jCDonP4gIF9Los51f2OUAg3oDZCUplgWxTXkqEihAUmRsasnKqcspfYZHizvwPt0rDRGO9Y8bVnHKOz2mufjftCfxPwO0iU=
+	t=1774248396; cv=none; b=IhKk5Y5vWfZCE3V8z2/Lv6hIbLxQ4rzTq7nEz2BC2XxB73pZ0AQz+o0QNN4az1hdxCuLhdZGjmq2DdHokYWOWAW87bPaJQf7K7aaGCXr4nr/5vH6CxnXDlGk08HFVJkPz6Dl4fjoHQOM7t+Vf6fix7GSA/hzeepf6dde3baCqaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774247474; c=relaxed/simple;
-	bh=dvhEk3O+a2ERwLtOA0cX9p85UC+OOoWreUsEp4G31h4=;
+	s=arc-20240116; t=1774248396; c=relaxed/simple;
+	bh=YaD+CatjIqfxIvSpZJAbYPQwzCHAxtNUw4nAc7oYroc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b0ULM5RHvDuPKe1HCkj7CPeLQrfyhL84ox9xTz2j1oz4KWj0aKV4PNei+teeVZbOc02iDNi7bGHlCkbHq2ikmySKcyfTzBE58M+sqBjvz0ogo+phuDT1ICAsdBKdvqZ13ljgqIC+mv68WKcZiRz6EKr6IIsZhr0qgW9MfHiuQgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U3VU6Z7A; arc=none smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=FUQv0jlEyWy9WORcp95J9U5N7IGFA/s6KWLeMgrnrw6F1VnjBsA36lfQmsejhaD+QtMTj9evzEHI+1X7+3HqEyA9drW61M5pHFAPrY9cMM50gN9HiQNjH1/8r9zXJQXVUxQhhk9LxEE/PBg7TmXEG+pIRIGjzU23htjM2aWQ7Uc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=j8S//1c1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Q5mhrDkZ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U3VU6Z7A"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c742723c863so2299081a12.0
-        for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 23:31:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="j8S//1c1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q5mhrDkZ"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N40x7q1583965
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 06:46:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	JzgrEA8u622UtmJ7BDFdV+2Neo9h7xytlbrUEgoYnlA=; b=j8S//1c1CV4vxAD7
+	1/OS5fuZttK0wmEfc9YsihpbbwJwmx9EeNZYVkXEXRo6VdRcxGr5WOKU70g1QOWl
+	2doE6d45nStmLCMkGkab3BppeBhGnOt239mmwvFhEoKzUQKVSg67Z6XEhXHIZRFb
+	FB2bs2kEF4Ue+40jwbk080kNQRe5P/HfTg+1QSGhHAvdzzMldr7zN9VKA9/wdt3C
+	rr8hKoPUMEh+SORmHs3t1xLiK2k/UZVPX8IQVOt93vLiDv3B0mGFtFLRswTlb1yt
+	yGCpRieCzGe1jylYIYJlFQM74WxKAez8TdT487dHr+kyYnV5eERe1Hxsq9k/AMBq
+	YBOYfg==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1jng43e8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 06:46:33 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-35641c14663so4826807a91.2
+        for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 23:46:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1774247470; x=1774852270; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1774248392; x=1774853192; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=+uJOOsx893BHAo1XKwzCoPb5W2B/EQDBZpSJL6AVlTw=;
-        b=U3VU6Z7AH8eqwIs3UJ9Xyv7pq07tCbNbdiNXaGZAV9u8U3iWGPGAOT5Pn4DcNShVMc
-         TOivh6o9lKZfqOqzMyVickPdAh9uGWWqwgRLI6Mf5K1y8StPp5L5QdeYGDXXIQI3cKf8
-         rFeGngvv4f7uDOAkJfDvPnHZS867bLPi1hezbezUnd+t7D6s3gRDfYBnPAWhCmh59l8U
-         xoIyB67zx+EGXMOvVVzOovwGoZnS3LPEjlyEGoW4qKc0rW4f35vJazOL8zIzRcfVA8WC
-         +zTXJcYrNfNLqQc8Z6/avayID7hSUD5nDmOXjmBZrES3GvEi1RXOw/1lm4r9CZW9eoNI
-         4mPQ==
+        bh=JzgrEA8u622UtmJ7BDFdV+2Neo9h7xytlbrUEgoYnlA=;
+        b=Q5mhrDkZ5lItoKp+E/dAPB/7rMukvIOK/oCF2VwN4QOAMP6eQ1YHPTAQ7vYBQzcN6/
+         N3S3YilK8KgFkb5Rl0RX2EFt4u1PdctkEVCNvHwMGwN7trgyMysQTn2WDCh69Cz6g3kv
+         UowEjbGhCgqcu+F0m3npDxXH7Z8ZYp0apgPHmNgMXyP1LfeUB59dUOaWFB81kTfpQM0i
+         AzUP2EdRc0qJvklisdHBGBIlZorvGoesJu3bDvzZyorg0+gm3K7DhCPlMV3ZmhFEgNIG
+         aCyPRxyp9Yo0T9rcoUJdj3Ck7vDeLD5tfCHWbW04+Z3HuOqhOfsGB9Z2NnKfDg2jPFm4
+         gRzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774247470; x=1774852270;
+        d=1e100.net; s=20251104; t=1774248392; x=1774853192;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=+uJOOsx893BHAo1XKwzCoPb5W2B/EQDBZpSJL6AVlTw=;
-        b=p/uhp60G15o7lQqyfCSaOUdbs9CcWLwYsllN4EUNdQqCrrcq5aotFIl4hq6QpJB8xE
-         h7EbwHYCiIMDVBJyHRcoPEoF7pkIUeK8h/qVwwom/Zxrvogt1b8IMZn+waGfDhMDic1W
-         CtxRPw8CoFSmFX5cjR+5StUYf6NpKbly/rIyibdMSI2YQVDFRlenV34FrniOO0rAsLke
-         QREsHSXnytmMLpq6qJw9EqKHBuSKZVyrBXtG9t9anyMuBgLej/H0nA5m7sAtVcTEfY1a
-         EuUjZCPV61SEjqieMGwaRxw7BTVUzf+Nb/WytZSZ92nSUdeeRQL1XxMrm3+Qheq8clop
-         TS8A==
-X-Forwarded-Encrypted: i=1; AJvYcCUHeRP9FeepVdsdwDnEi5YbiHhYQPBgj7htZfoyZTCrx8QIwQ8cZUSh0ZcmQxkrCSW887IoyJuDu+Oa@vger.kernel.org
-X-Gm-Message-State: AOJu0YyMhaY7M66HuYlnZaQKbRIVlOF2hsrWJJiwyDKkIwUF50Ha++zS
-	jZHJFQVsx1QprpTlk9pA99N0mjcMpgVL39m+W+oSCRVnVMNXQpcvxyVS
-X-Gm-Gg: ATEYQzzq8vZOpDmOfAQk5My0L4T9QLB48qRaHcGJjKiOayuANjT/xMTs9QqeXXorQbr
-	zh9x2+pV1L8an3Wzkn9xtdw+NCUcrQP2xC9ct2TJBTeRNOjgXDCejGus+O8EjljpoyWPL5DsO6f
-	s2V0c6tCmv8m+4k5GW8PFwUAU3tt1yik17e8iJpFe+8jcc4g7qSSORp0TuZMgZRm28B6dos8N63
-	6OLTcoL85SofYDG/UE8ft2/OVxJt83jEB50y+mxKUHmcPFStnPUuRKqXOE1yc7bu4wc5GX91G3a
-	HCS0LsT3qieCoamEUBMoXcsEV4h8o+jQ2jN3etEHgBk2/OG27dsnyfJgUbvv/dxhNqRhUVthFGh
-	WQ+shTw2uUlOYtruAJz6zE58Q1+tFvhtkWZPflYoKJ0dXE5EllqjEy8DqHsjiV84uucfIVXgbEf
-	WkLXEZMJ3WpOJuyVtrz9uUd+Q5+L/5/Tv+oJF9Vs1WdzrTZ3BckoD9cS5sBp3V4FKOu48L8Z7/f
-	tph
-X-Received: by 2002:a05:6a20:7f82:b0:398:919a:ddf5 with SMTP id adf61e73a8af0-39bce9e9efemr10260089637.24.1774247470439;
-        Sun, 22 Mar 2026 23:31:10 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c743a938743sm6476741a12.19.2026.03.22.23.31.06
+        bh=JzgrEA8u622UtmJ7BDFdV+2Neo9h7xytlbrUEgoYnlA=;
+        b=It2P9Ye2BkQdEkglLw2nGx8+/z6YIq43HLRj5AeIlF8JCwDKIlAvAKA8BO2rEHhmGs
+         kpRzNaOSpBqTgbCEGv+jWf2fZ+DSfFw8ea9Kzq765uGHicX8mdtjPq2clUJt6DDi7rWm
+         SXKiK7zuaHSTrI+STEN6//fr7v5An8OnbrRAsSPtseQYi0/sRU7PQAkWesligvczcxTf
+         CKyddqxKEjpYv9O451Pk4BQAr1MQtyzwY7OfNqYestI2AtNzVM+UByo3dnHFMjbS7M8b
+         otG6lL213n1rbsV7ooWxDg+M8axiboEura55fnEYD3iNzZyn+8FA7l90OXlzgWuKYWZj
+         fzZg==
+X-Forwarded-Encrypted: i=1; AJvYcCXjcFZtkB34CxpBX/fNwtPr8MaJtp7JEh5p5bY47w7+FErzIyQv8GGyL7KZQYgJCJLfEAgUs+JwLi6j@vger.kernel.org
+X-Gm-Message-State: AOJu0YyKnASgKfoqDvwbBunc1LI9bpcBCuECFFLGpZqH0JIsjpClROsH
+	9YrDiErPVH4Z4aWZGCR1uzthYD3TZ1JF1X2nAVvSwg4GTNyizTwatjcLaPCJ5VTSnJbhcXVgMR5
+	Z0K/LaIoxz4iAs+WRM/mXMv8PhzerIsIhzPnoKW3AGY9f19T36DsC1yn72eM9N/ePNtHLF3WO
+X-Gm-Gg: ATEYQzzOUX/yCHlDCbJLwn3d1HxXxxfWNI9WbMlzqn0YYwXm3XI9R567HGHH+U0sPsU
+	A5D9Ev+aW/oRpqxp3F+du7ADQ2DszrpmAmtqvovKL29r51WYs6mIyvewRLqgujXx52LgSovGDQA
+	97LrKNEzFMu/kXDIcwI4TQW2guUcveBXKpQ74YHXtWaoIdWo29/IuVJO271JKQmLJIw17yzurWf
+	K+voEBzba0OuBifJI85K6nyPqTfiQ1wlTA7AMbQYc5f87hjFveM8ss2cN+QT3CJ0m48j4RDnIVa
+	qXIWEsGWvelB/CwO95iuzKS398ecC/WMDdfLfZbEaqj1eDGpeWZfQX2scLrJdsGBvqoFLf0IyVc
+	JNf7JCybvL51wBAfTFRswcL/g27Z5u0hylyWlfyuhoYOUyaiEUgj+phm5acdNRm1U2g==
+X-Received: by 2002:a17:90b:4c48:b0:35b:e844:3bd with SMTP id 98e67ed59e1d1-35be8440fadmr3293685a91.31.1774248392312;
+        Sun, 22 Mar 2026 23:46:32 -0700 (PDT)
+X-Received: by 2002:a17:90b:4c48:b0:35b:e844:3bd with SMTP id 98e67ed59e1d1-35be8440fadmr3293667a91.31.1774248391804;
+        Sun, 22 Mar 2026 23:46:31 -0700 (PDT)
+Received: from [10.151.37.217] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35bd33919a0sm4548940a91.2.2026.03.22.23.46.28
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 22 Mar 2026 23:31:09 -0700 (PDT)
-Message-ID: <e381ce59-c13d-4cb4-b0d3-70f15a500999@gmail.com>
-Date: Mon, 23 Mar 2026 14:31:05 +0800
+        Sun, 22 Mar 2026 23:46:31 -0700 (PDT)
+Message-ID: <01bd44db-32b7-4195-ad66-0a608b25dca3@oss.qualcomm.com>
+Date: Mon, 23 Mar 2026 12:16:26 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,109 +88,110 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [net-next,v14,3/3] net: stmmac: dwmac-nuvoton: Add dwmac glue for
- Nuvoton MA35 family
-To: Simon Horman <horms@kernel.org>
-Cc: richardcochran@gmail.com, devicetree@vger.kernel.org,
- edumazet@google.com, linux-stm32@st-md-mailman.stormreply.com,
- joabreu@synopsys.com, linux-kernel@vger.kernel.org, krzk+dt@kernel.org,
- pabeni@redhat.com, kuba@kernel.org, andrew+netdev@lunn.ch,
- netdev@vger.kernel.org, conor+dt@kernel.org, schung@nuvoton.com,
- linux-arm-kernel@lists.infradead.org, davem@davemloft.net, robh@kernel.org,
- yclu4@nuvoton.com, andrew@lunn.ch, mcoquelin.stm32@gmail.com,
- ychuang3@nuvoton.com, openbmc@lists.ozlabs.org, peppe.cavallaro@st.com,
- alexandre.torgue@foss.st.com
-References: <20260316055427.1310569-4-a0987203069@gmail.com>
- <20260318082346.1825390-1-horms@kernel.org>
+Subject: Re: [PATCH v2 2/2] pinctrl: qcom: Introduce IPQ5210 TLMM driver
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260318-ipq5210_tlmm-v2-0-182d47b3d540@oss.qualcomm.com>
+ <20260318-ipq5210_tlmm-v2-2-182d47b3d540@oss.qualcomm.com>
+ <abtbnafiKkswWSy1@baldur>
 Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <20260318082346.1825390-1-horms@kernel.org>
+From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+In-Reply-To: <abtbnafiKkswWSy1@baldur>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: RjPxQaw__BgmP-9FmPy8Xc1qjOsp4Z-E
+X-Authority-Analysis: v=2.4 cv=Q63fIo2a c=1 sm=1 tr=0 ts=69c0e1c9 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=xLcBPJq00M2AN48BsqkA:9 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: RjPxQaw__BgmP-9FmPy8Xc1qjOsp4Z-E
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA1MCBTYWx0ZWRfX9USOfdZoYAAD
+ zY+w/+NmwlRG7c3x6Ng/XbWcPO9Nk3sXSU4ON7o47CPhgCG2oUTDIR2OqzoAzJjmTBHY+MGfXdS
+ whkZKF3kYTrYBVIz3zMHyby5UuSZAtdbXLnqFyi/yJydyDLfZS7305qLz7nyR+kkJT0c+WrYAw6
+ PwhMhJu/PKJIg847BnBUzhjhn6ROOihh5cIohWVQwGigRMFmIc2RBJ95+vkeoksEB2kjbM2QmIU
+ Kh7j0IO781SbCNi/M9XsjcoxP5xKMtq34IDXBFUZp8bhOmHWouub++kKvS63EcmsthvEi+NF71U
+ lmqPVBay2z+FiuvlJ1RZXWxjTYOl8lzQUoi/bv4rfaNSFspdWdvZTcBPUtz821vliil7+fudpf+
+ TkbXmf0/73bwZN/sjtQyfOkvQquQpda5TLQ9772S6UP5dB+lzigcKkbz8G3nFpGmGqUDC771A6F
+ 8Tbu9hDk3ceU3MW3GMg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-23_02,2026-03-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 priorityscore=1501 bulkscore=0 spamscore=0
+ malwarescore=0 adultscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230050
 
 
-On 3/18/2026 4:23 PM, Simon Horman wrote:
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
+On 3/19/2026 7:47 AM, Bjorn Andersson wrote:
+> On Wed, Mar 18, 2026 at 12:44:31PM +0530, Kathiravan Thirumoorthy wrote:
+>> diff --git a/drivers/pinctrl/qcom/pinctrl-ipq5210.c b/drivers/pinctrl/qcom/pinctrl-ipq5210.c
+> [..]
+>> +static const struct pinfunction ipq5210_functions[] = {
+> [..]
+>> +	MSM_PIN_FUNCTION(qup_se5_l01),
+>> +	MSM_PIN_FUNCTION(qup_se5_l10),
+>> +	MSM_PIN_FUNCTION(qup_se5_l11),
+>> +	MSM_PIN_FUNCTION(qup_se5_l2),
+>> +	MSM_PIN_FUNCTION(qup_se5_l3),
+>> +	MSM_PIN_FUNCTION(qup_se5_l4),
+>> +	MSM_PIN_FUNCTION(qup_se5_l5),
+> Listing each pin of each QUP SE as their own function forces the DT
+> author to write one state definition per pin. Group these into their
+> logical functions instead.
 >
-> For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-local.html
-> ---
-> net: stmmac: dwmac-nuvoton: Add dwmac glue for Nuvoton MA35 family
->
-> Add support for Gigabit Ethernet on Nuvoton MA35 series using dwmac
-> driver.
->
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
->> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
->> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> [ ... ]
->
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
->> --- a/drivers/net/ethernet/stmicro/stmmac/Makefile
->> +++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-> [ ... ]
->
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
->> --- /dev/null
->> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
->> @@ -0,0 +1,136 @@
-> [ ... ]
->
->> +static int nvt_gmac_probe(struct platform_device *pdev)
->> +{
->> +	struct plat_stmmacenet_data *plat_dat;
->> +	struct stmmac_resources stmmac_res;
->> +	struct device *dev = &pdev->dev;
->> +	struct nvt_priv_data *priv;
->> +	int ret;
->> +
->> +	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to get platform resources\n");
->> +
->> +	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
->> +	if (IS_ERR(plat_dat))
->> +		return dev_err_probe(dev, PTR_ERR(plat_dat), "Failed to get platform data\n");
->> +
->> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->> +	if (!priv)
->> +		return dev_err_probe(dev, -ENOMEM, "Failed to allocate private data\n");
->> +
->> +	priv->regmap = syscon_regmap_lookup_by_phandle_args(dev->of_node, "nuvoton,sys",
->> +							    1, &priv->macid);
->> +	if (IS_ERR(priv->regmap))
->> +		ret = dev_err_probe(dev, PTR_ERR(priv->regmap), "Failed to get sys register\n");
->> +
->> +	if (priv->macid > 1)
->> +		ret = dev_err_probe(dev, -EINVAL, "Invalid sys arguments\n");
->>                                                                                    ^^^^
-> Does this code return the error on failure? The dev_err_probe() result is
-> assigned to ret but the function continues execution without returning.
->
-> Russell King's v12 review suggested using set_phy_intf_sel callback,
-> which led to significant refactoring in v12. This refactoring appears to
-> have inadvertently broken the error handling here and below.
->
-> The code should be:
-> 	if (IS_ERR(priv->regmap))
-> 		return dev_err_probe(dev, PTR_ERR(priv->regmap), "Failed to get sys register\n");
->
-> 	if (priv->macid > 1)
-> 		return dev_err_probe(dev, -EINVAL, "Invalid sys arguments\n");
->
-> See Russell's v12 review:
-> https://lore.kernel.org/netdev/aYsurPBMnzWDZCco@shell.armlinux.org.uk/
+> Same thing with other logical functions that you have split into
+> multiple separate functions.
 
-Sorry for missing that, I'll fix it so that function properly returns 
-failure.
-
-Joey
+Sure, will take care of this in next spin.
 
 >
+>> +	MSM_PIN_FUNCTION(resout),
+>> +	MSM_PIN_FUNCTION(rx_los00),
+>> +	MSM_PIN_FUNCTION(rx_los01),
+>> +	MSM_PIN_FUNCTION(rx_los10),
+>> +	MSM_PIN_FUNCTION(rx_los11),
+>> +	MSM_PIN_FUNCTION(rx_los20),
+>> +	MSM_PIN_FUNCTION(rx_los21),
+>> +	MSM_PIN_FUNCTION(sdc_clk),
+>> +	MSM_PIN_FUNCTION(sdc_cmd),
+>> +	MSM_PIN_FUNCTION(sdc_data),
+>> +	MSM_PIN_FUNCTION(tsens_max),
+>> +};
 >> +
->> +	plat_dat->bsp_priv = priv;
->> +	plat_dat->set_phy_intf_sel = nvt_set_phy_intf_sel;
->> +
->> +	return stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
->> +}
-> [ ... ]
+>> +static const struct msm_pingroup ipq5210_groups[] = {
+>> +	[0] = PINGROUP(0, sdc_data, qspi_data, pwm, _, _, _, _, _, _),
+>> +	[1] = PINGROUP(1, sdc_data, qspi_data, pwm, _, _, _, _, _, _),
+>> +	[2] = PINGROUP(2, sdc_data, qspi_data, pwm, _, _, _, _, _, _),
+>> +	[3] = PINGROUP(3, sdc_data, qspi_data, pwm, _, _, _, _, _, _),
+>> +	[4] = PINGROUP(4, sdc_cmd, qspi_cs_n, _, _, _, _, _, _, _),
+>> +	[5] = PINGROUP(5, sdc_clk, qspi_clk, _, _, _, _, _, _, _),
+>> +	[6] = PINGROUP(6, qup_se0_l2, led0, pwm, _, cri_trng0, qdss_tracedata_a, _, _, _),
+>> +	[7] = PINGROUP(7, qup_se0_l3, led1, pwm, _, cri_trng1, qdss_tracedata_a, _, _, _),
+>> +	[8] = PINGROUP(8, qup_se0_l0, pwm, audio_pri2, audio_pri2, _, cri_trng2, qdss_tracedata_a, _, _),
+> How can both function 3 and 4 be "audio_pri2", do you expect the system
+> integrator to be able to select function 4?
+
+Function 3 and 4 are audio_pri_mclk_out and audio_pri_mclk_in 
+respectively and either one of them can be selected based on the codec's 
+mclock requirement. Let me expand the full function to avoid these 
+confusion in the next spin.
+
+>
+>> +	[9] = PINGROUP(9, qup_se0_l1, led2, pwm, _, cri_trng3, qdss_tracedata_a, _, _, _),
+>> +	[10] = PINGROUP(10, pon_rx_los, qup_se3_l3, pwm, _, _, qdss_tracedata_a, _, _, _),
+>> +	[11] = PINGROUP(11, pon_active_led, qup_se3_l2, pwm, _, _, qdss_tracedata_a, _, _, _),
+>> +	[12] = PINGROUP(12, pon_tx_dis, qup_se2_l3, pwm, audio_pri0, audio_pri0, _, qrng_rosc0, qdss_tracedata_a, _),
+>> +	[13] = PINGROUP(13, gpn_tx_dis, qup_se2_l2, pwm, audio_pri3, audio_pri3, _, qrng_rosc1, qdss_tracedata_a, _),
+> Same here.
+>
+> Regards,
+> Bjorn
