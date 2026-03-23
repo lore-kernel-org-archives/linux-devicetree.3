@@ -1,149 +1,540 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C04038C2A0
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:27:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38BD35B636
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:30:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774261681; cv=none; b=osWr5VkOGWxRiQN/kdO8eyunSYx4wmvOCGhlwLeJf4BA1NkSiWrRyYJXh8gsBLoOgk/uw3WOuk/EhAfZzneMoM9LZgSqz2NUWOhFGYAE7LM9tSXNgEsXLcm5jIk/9uWh4g/usjofcXmWfQ0poKEzetXOT5Ok5H/6N+55qO++sgA=
+	t=1774261860; cv=none; b=t9LKnLcF/8tLVa2aaifxYwppI5yaGqhMr1L+sUVzhXxww0TZTXV0OXSpDvMcYgBh1f0V6uiCqEK6E+X2p6WUM7/rD/WXpkVNFYd3jOJbgWwY3tqhpETe1Jo7Va03k2wvc7kcd5pH7zmvCKOUpEZPJfkJxbMC2TQV5Fdo6ouqID0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774261681; c=relaxed/simple;
-	bh=GYwYHEIg28nGXMvEwbExNN0xfDb17DvHgTiPgknPFbQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hXiDx7N41UxErw/hp4Ac0hI4pAkmLd2M87hhJ70Y8fw/JUXY80XOTGBIsLeLlZkt6BgwPlz6a+RXkVVv2FN2k64GlNr8PX1dXRY8Lmppke27VDC9xrynKWSzCC1k2Z5SaEJCQ4nX+xdRpRRHyOqtgTXB3zjE86L6AWnAGrEEZDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LWGPI5/a; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Gj8H6hwS; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774261860; c=relaxed/simple;
+	bh=9BTalxwlh1Mh2scj8wMZQq0AwVPesNF38J9Sd1pnlqg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=PE1SbjzqMuyEAYxHzw3tGug7SZq9OoFq6ZG2Hk4Y8bRfYJdcL4eWxMWACyYg7wgn7RTZmh+moraiJbLtzoRbUNecEylfF73hl9yzxMqodn/RqmyHEfJqN2GBETdn/poj2YO18RAOpEe1eZwoiYZNLfYe1fncXGpyluNmW4zmVxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yjj71JNm; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LWGPI5/a";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Gj8H6hwS"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N72iw81203145
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:27:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	v4VZe3+WVFtlZ6iERjGio9Lb5hHJRT9If0sR3pjYd8A=; b=LWGPI5/a0b7aCx6P
-	XWi50VcL3xEioQaz3TKBC4OT3sJVSor//mpZ1psUyILaY+bSFeHLZ8DXVJNJ2qWt
-	dj+AZRbc/2UoIZkxz/U30I2oWGLPShIOYspDSjcCApiAwEtrFh6SfpKfqITm9oAg
-	phPzLtBlqrnefumACjFC+BW96E4A4ecs/3oCsulLuXi0ET42vV+7/024JqCfEuTu
-	2jwF5kLqyLwDkLpAEigxy9oyZiTaipbDKNj8Ff89NJO8D+07afUsdOo1AH6Yw0FD
-	/CEljFoLer2eykh4ZbmmuFITMqRtV4k76aLO1C2nbrLSrmpXd7cwZc2bEpC2ARLM
-	L9kkHA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1kq5vxaw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:27:57 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50b32feb719so26654081cf.2
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 03:27:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yjj71JNm"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-439b7c2788dso1665263f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 03:30:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774261677; x=1774866477; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=v4VZe3+WVFtlZ6iERjGio9Lb5hHJRT9If0sR3pjYd8A=;
-        b=Gj8H6hwSTtavXLt8OpCyDY7XxOxJrAYpQL+yTovfs/K7dgfn4Zl42ajtCpL/3/6VP8
-         bstSAOD0c3yomuYqsZ5R6MxzQ7NWg6l2/wMEB0e2V5PWdhAl6I/iQ81KKVBsuOErSA+M
-         uGaGRQwOP5r3DtuyR4YzJzwTU4XYdCgATyJ4IgHlZsyydNkE9Rfi/icJGk+UQNk/Zp3N
-         mKptp+SMBdYfHxzo2CY3L0HXxgp5LeIQuS5BuIcLjrpHkDkO3ZPoPqVbpDQV6HpW00Cs
-         2rkbI1tOewzV+ewjb5Koevjq8IiW376GbKA10+E0r5olUZ5H5sh7F+FCF8aa4V/stPE4
-         uwxA==
+        d=gmail.com; s=20230601; t=1774261857; x=1774866657; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=FAUC7EMC761kM0AB4QTI5/vhwcsmLlwu3yojYOSJN0E=;
+        b=Yjj71JNmxi4eJ88Tuv2R58gSrZpe8jl4ICrYgz3NAmse+MNKpirWzEgeYabhCpMxpT
+         /qmsk3RZVsyFTdwFRE1QSeG+yIHZHzIIKR1Y7C5f3pvcqecXSBNW6W90e6LE9jHRdc8G
+         nlI0UVc0k7RDcj8nl8LsyBQq89vtYGOxl6HaSM+wGfXp8raYLM/MmjY3hO/iQJr0vi3u
+         Rs7tRcKy9SEnEQG7O//nr51AC5fv0A/mTut0bH003ralcroYJ5s5G7tKVtGM9aGVT0sR
+         E1CswvIbVeuACp0oTVZTApIEiJ7CsDZR4Gmu8NPBAe7T5/uSvJFhGSAyZRwRqWOMUI+T
+         xtpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774261677; x=1774866477;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=v4VZe3+WVFtlZ6iERjGio9Lb5hHJRT9If0sR3pjYd8A=;
-        b=PA8ZFwF6VAER8TQxvI9GhJZLrME70NQncuvRTTRTgaECxB6LWdAowcuFnCcO5yMWdf
-         QruSjESMOAdV21jhMEG3zR3DoFrWl0129RrrepXLYxVI1w+Kb7uCVGMuYu1I97aCEzFa
-         iLEa475veEyg4JnUjaMcarvvjg6VPrEewKuNv2AseH+YnHIDS6zX2eRUvJzOyvNfDDVW
-         21Xe7XZtzmjE7vxcjjVAj1gfzgvdASmdfAt/Lj51tyLfuIR3jxvrXeoa8sEGvSGBu/os
-         wTJahg6acFgsl0l7iR/AIce5Uok/g+PHxdaMpQ/ZPqmdFNvSKRSrLDtrSPKoBtzEOmEj
-         B0Ww==
-X-Forwarded-Encrypted: i=1; AJvYcCXZbnHkHSLaG1zgzTix31lOWpZYyMEii/YIL75xXUJWmTQ+AE5VGH01kMMZT+GnbmiQkh7sOvzaauKq@vger.kernel.org
-X-Gm-Message-State: AOJu0YwBTnx7beXIK59Co79palnqU3zZpFFAFAM1tftwlyEgOWrj8R8d
-	hvx8FE4697bGR0CYb6etdvMwj6KAVYpVNbiD9SeC4nXhwisx4VUKaAW4qWNds4bg9Rgs55AqUxS
-	+Ub7P9zH3G2F7DuFayJoSxtj+9hUulfYQgNkQ02unkE/9ak3nQrGKpA3VntnePTq5
-X-Gm-Gg: ATEYQzxfZvdwEi9vOtZjq59p663e/kFtey4kUhQTqHKfhoRVXYEkSJAjP9bKBaCdT/6
-	FrMeoo/FhZNcAJkJAuAXg/TKxLiKZOFTdYQD5oB5ymLpnWEdb5Hgn4cvN3PVipuOJ3gtqVFT5v0
-	h7L3eHWn3pU/WWvCHO+Vcw4yjShH4lwTN2ttHrqSQ1G4fRqVWEiD2bisKGf5pHyRr0vWso5yzTs
-	gNOniQolWxpsU6JIEWfuNsXZO3ivyfGRCu1bj9VXbF1qDkvze4ohC9ZAwd6AAWn83M2zHZGKfKt
-	QjC0PGyzNdfOcsNEipJyaOLyiobmoMAE/EAZmbdyAZA/uzKIWHTf+X9yT0naUV6NCJnzmbUNwl1
-	rosDjSolalkQkBCUXRfUgv5/6jqIsYG14lsXTKy2x29EcBbuFAvnv1FlbPiQqWT2uqChqpYRJCX
-	2nJcY=
-X-Received: by 2002:a05:622a:148c:b0:50b:2875:5782 with SMTP id d75a77b69052e-50b37503d15mr139845091cf.6.1774261677413;
-        Mon, 23 Mar 2026 03:27:57 -0700 (PDT)
-X-Received: by 2002:a05:622a:148c:b0:50b:2875:5782 with SMTP id d75a77b69052e-50b37503d15mr139844771cf.6.1774261676917;
-        Mon, 23 Mar 2026 03:27:56 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-669cba50ac3sm996835a12.30.2026.03.23.03.27.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Mar 2026 03:27:56 -0700 (PDT)
-Message-ID: <83617d9e-c5c1-4756-afa9-28cf79374c4e@oss.qualcomm.com>
-Date: Mon, 23 Mar 2026 11:27:53 +0100
+        d=1e100.net; s=20251104; t=1774261857; x=1774866657;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=FAUC7EMC761kM0AB4QTI5/vhwcsmLlwu3yojYOSJN0E=;
+        b=AoQtMJS0VeAldN7YU8C+gl3zNEGiG8GCKqKFPVNjmtL0IM046AJsE1Ld7bU3Ki6gHf
+         RQpkfonMRODNPRGcDLAu/P8sKqSh2ooXRCTjxrUSePccXCffItb01Azq+IkfkBCUDIvQ
+         9dol+KRgad3QK+ohpDrKHQNy6e5vr5cIbAIH+dbHbxtwuYwGsBKWx/2eI9vykY20T9il
+         +ryGFKq301l+QVQD7AeVgTJJpO/0rFW12/9ZbEPEC1rWN7ytF8IafRcMmkEklTsS7G09
+         RABYWiGv1RIi7nkNA0EZK8iOCgMGSuDRyQ7I1LSvufG227BsNZdWQuG4wdwb8P4ibtVB
+         xNFg==
+X-Forwarded-Encrypted: i=1; AJvYcCXZOJSROoJCxKBtXICPWBlWmh6UrnJqTvpAv/UbOuitJqM7FTkLq2eyxJ+G94/EfxltVZ/eF+Fny0Vj@vger.kernel.org
+X-Gm-Message-State: AOJu0YwUm4+LgLiXTYbzICny072LnzGpq0fsgRklo19TYMvqmJ2IiUoS
+	7aEcigKDqsFezxcKmv0vaQ6KHbvrkkZWrbZM4klzIVjsPhBU+Pg3KGBB
+X-Gm-Gg: ATEYQzwvJyYt8mApzjAkN/cFYNU4fwWoDSmnArxwAGjNrA+GqICI5/hfAp2+IeSrW7g
+	vt2y9Z+zqz2sFzheAL3HvFqLAU2XKgMmAyvcPzY/2/uvmc/9YNZor+qOBeNXOW5VWhcXbZ+wS/l
+	NJgt/KYIuSCs7IqZdPE2AENn+Frml7t8nq6cNChxc4Atrorf2SiKtuZHbayS3huz9bmYvHN/Ggq
+	U8EIvR40krVdu9ZqMqcCfzRlEY9BjT5A0e5U/rnRdLl2ailUQZI61WtkBG5FysPoNPatydfqYZ7
+	jtOurPrJGYW//PWjPjOERa0McB1p6+uL9IfkNiZEbO9BZb+ea+oyisXIZb0GLfpznzm1fxnPqff
+	DCkKCCSg1UH0Dhhe6K7s1KBufkD6gXX6KMqm/vUlaFOvtVZNoQx1CQQwXZqdd8lSmiYMzdIdJpG
+	C/Oo2AM4zMSZDkUfGW0A1e0Cd+JRGOqNs=
+X-Received: by 2002:a05:6000:2601:b0:43b:4352:1bd9 with SMTP id ffacd0b85a97d-43b64290e38mr17288556f8f.48.1774261856543;
+        Mon, 23 Mar 2026 03:30:56 -0700 (PDT)
+Received: from [192.168.1.187] ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b644bd0dcsm27324936f8f.11.2026.03.23.03.30.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Mar 2026 03:30:56 -0700 (PDT)
+Message-ID: <77cd7e879a10df791d9d5eb1f16f1654e9904199.camel@gmail.com>
+Subject: Re: [PATCH v7 1/3] dt-bindings: hwmon: Document the LTC4283 Swap
+ Controller
+From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>, nuno.sa@analog.com
+Cc: linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, Rob Herring
+	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	 <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+	 <skhan@linuxfoundation.org>, Linus Walleij <linusw@kernel.org>, Bartosz
+ Golaszewski <brgl@kernel.org>
+Date: Mon, 23 Mar 2026 10:31:42 +0000
+In-Reply-To: <c395fad0-ca24-448a-a77f-ddac1cd9f809@roeck-us.net>
+References: <20260314-ltc4283-support-v7-0-1cda48e93802@analog.com>
+	 <20260314-ltc4283-support-v7-1-1cda48e93802@analog.com>
+	 <c395fad0-ca24-448a-a77f-ddac1cd9f809@roeck-us.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/9] interconnect: qcom: define OCMEM bus resource
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Georgi Djakov <djakov@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Luca Weiss
- <luca.weiss@fairphone.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Brian Masney <masneyb@onstation.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260323-msm8974-icc-v1-0-7892b8d5f2ea@oss.qualcomm.com>
- <20260323-msm8974-icc-v1-5-7892b8d5f2ea@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260323-msm8974-icc-v1-5-7892b8d5f2ea@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=GNoF0+NK c=1 sm=1 tr=0 ts=69c115ad cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=g75QHS-HUdHfZH2ajB8A:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA4MSBTYWx0ZWRfXyjUGDoRsPT/0
- d309N/yuP9gn7aXNM6DiD6CPmOSRZPuhhILYCRM0SAX8IHV9FtOzKJWv09PBFb0PttE9V8lSvhg
- RMSB9sn8TWBbCbqLAvCmuAfs/4gdmesn8q+/Dbk/UBEx1uCDjzEhVywMdF49zT7l0+yVtLSD3Jb
- S7Tk66aNPopQCsUb+5sSF8AwGcipVLBaPQMzBqS1Ovqfm3aDULftITJuJCPeNs7y9IMFww9wsVx
- NbMZ5w/3Say5L5zYCClk2kBzoythN/I3tzODV8xGJ8ScDLiIZjaDUTvlXYS71M+5snODLTYoFcS
- H1xZI5fFfb+XMIyX59/rKcRpzPzgpnMkdRGFjU2v+IIe0Hx99gnytufCpjHXIobHz3tNwTenrkN
- zDZ0BnWt0iHWL362koiN4vISXYSQ7xJlCEKu0xUAMVVF/cadeGRqQxRxymh9sUsbxjvVy4FsTdP
- LrGkagQeAk2zE1j9IcQ==
-X-Proofpoint-ORIG-GUID: OB12ITmpqijEQtS8X4K9wHya69SnBF4p
-X-Proofpoint-GUID: OB12ITmpqijEQtS8X4K9wHya69SnBF4p
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-23_03,2026-03-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 clxscore=1015 suspectscore=0
- spamscore=0 adultscore=0 bulkscore=0 phishscore=0 impostorscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603230081
 
-On 3/23/26 2:17 AM, Dmitry Baryshkov wrote:
-> Some of the platforms (MSM8974, MSM8x26) require voting on the OCMEM
-> clock. Add new resource for that clock.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+On Mon, 2026-03-16 at 08:59 -0700, Guenter Roeck wrote:
+> On Sat, Mar 14, 2026 at 10:52:19AM +0000, Nuno S=C3=A1 via B4 Relay wrote=
+:
+> > From: Nuno S=C3=A1 <nuno.sa@analog.com>
+> >=20
+> > The LTC4283 is a negative voltage hot swap controller that drives an
+> > external N-channel MOSFET to allow a board to be safely inserted and
+> > removed from a live backplane.
+> >=20
+> > Special note for the "adi,vpower-drns-enable" property. It allows to ch=
+oose
+> > between the attenuated MOSFET drain voltage or the attenuated input
+> > voltage at the RTNS pin (effectively choosing between input or output
+> > power). This is a system level decision not really intended to change a=
+t
+> > runtime and hence is being added as a Firmware property.
+> >=20
+> > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> > Signed-off-by: Nuno S=C3=A1 <nuno.sa@analog.com>
+>=20
+> Some AI review feedback inline. Feel free to ignore if wrong, but please =
+let me know
+> to help improve it.
+>=20
+> Thanks,
+> Guenter
+>=20
+> > ---
+> > =C2=A0.../devicetree/bindings/hwmon/adi,ltc4283.yaml=C2=A0=C2=A0=C2=A0=
+=C2=A0 | 272 +++++++++++++++++++++
+> > =C2=A0MAINTAINERS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +
+> > =C2=A02 files changed, 278 insertions(+)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
+> > b/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
+> > new file mode 100644
+> > index 0000000000000000000000000000000000000000..f82fff1ec7e4407ed63d00f=
+8b1281db459d7221b
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
+> > @@ -0,0 +1,272 @@
+> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/hwmon/adi,ltc4283.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: LTC4283 Negative Voltage Hot Swap Controller
+> > +
+> > +maintainers:
+> > +=C2=A0 - Nuno S=C3=A1 <nuno.sa@analog.com>
+> > +
+> > +description: |
+> > +=C2=A0 The LTC4283 negative voltage hot swap controller drives an exte=
+rnal N-channel
+> > +=C2=A0 MOSFET to allow a board to be safely inserted and removed from =
+a live
+> > +=C2=A0 backplane.
+> > +
+> > +=C2=A0 https://www.analog.com/media/en/technical-documentation/data-sh=
+eets/ltc4283.pdf
+> > +
+> > +properties:
+> > +=C2=A0 compatible:
+> > +=C2=A0=C2=A0=C2=A0 enum:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - adi,ltc4283
+> > +
+> > +=C2=A0 reg:
+> > +=C2=A0=C2=A0=C2=A0 maxItems: 1
+> > +
+> > +=C2=A0 adi,rsense-nano-ohms:
+> > +=C2=A0=C2=A0=C2=A0 description: Value of the sense resistor.
+> > +
+> > +=C2=A0 adi,current-limit-sense-microvolt:
+> > +=C2=A0=C2=A0=C2=A0 description:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 The current limit sense voltage of the =
+chip is adjustable between
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 15mV and 30mV in 1mV steps. This effect=
+ively limits the current
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 on the load.
+> > +=C2=A0=C2=A0=C2=A0 minimum: 15000
+> > +=C2=A0=C2=A0=C2=A0 maximum: 30000
+> > +=C2=A0=C2=A0=C2=A0 default: 15000
+> > +
+> > +=C2=A0 adi,current-limit-foldback-factor:
+> > +=C2=A0=C2=A0=C2=A0 description:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Specifies the foldback factor for the c=
+urrent limit. The current limit
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 can be reduced (folded back) to one of =
+four preset levels. The value
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 represents the percentage of the curren=
+t limit sense voltage to use
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 during foldback. A value of 100 means n=
+o foldback.
+> > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/uint32
+> > +=C2=A0=C2=A0=C2=A0 enum: [10, 20, 50, 100]
+> > +=C2=A0=C2=A0=C2=A0 default: 100
+> > +
+> > +=C2=A0 adi,cooling-delay-ms:
+> > +=C2=A0=C2=A0=C2=A0 description:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Cooling time to apply after an overcurr=
+ent fault, FET bad or
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 external fault.
+> > +=C2=A0=C2=A0=C2=A0 enum: [512, 1002, 2005, 4100, 8190, 16400, 32800, 6=
+5600]
+> > +=C2=A0=C2=A0=C2=A0 default: 512
+> > +
+> > +=C2=A0 adi,fet-bad-timer-delay-ms:
+> > +=C2=A0=C2=A0=C2=A0 description:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 FET bad timer delay. After a FET bad st=
+atus condition is detected,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 this timer is started. If the condition=
+ persists for the
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 specified time, the FET is turned off a=
+nd a fault is logged.
+> > +=C2=A0=C2=A0=C2=A0 enum: [256, 512, 1002, 2005]
+> > +=C2=A0=C2=A0=C2=A0 default: 256
+> > +
+> > +=C2=A0 adi,power-good-reset-on-fet:
+> > +=C2=A0=C2=A0=C2=A0 description:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 If set, resets the power good status wh=
+en the MOSFET is turned off.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Otherwise, it resets when a low output =
+voltage is detected.
+> > +=C2=A0=C2=A0=C2=A0 type: boolean
+> > +
+> > +=C2=A0 adi,fet-turn-off-disable:
+> > +=C2=A0=C2=A0=C2=A0 description:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 If set, the MOSFET is turned off immedi=
+ately when a FET fault is detected.
+> > +=C2=A0=C2=A0=C2=A0 type: boolean
+>=20
+> Is there a logic inversion between the property name and its description?
+> The property name uses a -disable suffix, but the description says "If se=
+t,
+> the MOSFET is turned off immediately", which sounds like it is enabling t=
+he
+> behavior rather than disabling it.
 
-I don't know about the GPU prefix but okay
+Yes. Misleading description. This has -disable because the default is the -=
+enable case which
+indeed is the case when the FET is turned off. Will update the description =
+so that is not
+confusing.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> > +
+> > +=C2=A0 adi,tmr-pull-down-disable:
+> > +=C2=A0=C2=A0=C2=A0 description: Disables 2uA pull-down current on the =
+TMR pin.
+> > +=C2=A0=C2=A0=C2=A0 type: boolean
+> > +
+> > +=C2=A0 adi,dvdt-inrush-control-disable:
+> > +=C2=A0=C2=A0=C2=A0 description:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Enables dV/dt inrush control during sta=
+rtup. In dV/dt mode, the inrush
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 current is limited by controlling a con=
+stant output voltage ramp rate.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 If not set, the inrush control mechanis=
+m is active current limiting.
+> > +=C2=A0=C2=A0=C2=A0 type: boolean
+>=20
+> Does this description contradict the property name?
+> The -disable suffix implies the property turns off the dV/dt inrush contr=
+ol,
+> but the description states that setting the property enables it.
+>=20
+> [ Non-AI note: It seems to me that the description contradicts itself.=
+=20
+> =C2=A0 It first says "_Enables_ ...", then it says "If _not_ set, the inr=
+ush control
+> =C2=A0 mechanism is active current limiting" ]
 
-Konrad
+Yeah same thing as above. I will update this one just by s/Enables/Disables=
+/
+
+>=20
+> > +
+> > +=C2=A0 adi,fault-log-enable:
+> > +=C2=A0=C2=A0=C2=A0 description:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 If set, enables logging fault registers=
+ and ADC data into EEPROM upon a
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fault.
+> > +=C2=A0=C2=A0=C2=A0 type: boolean
+> > +
+> > +=C2=A0 adi,vpower-drns-enable:
+> > +=C2=A0=C2=A0=C2=A0 description:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 If set, enables the attenuated MOSFET d=
+rain voltage to be monitored. This
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 effectively means that the MOSFET power=
+ is monitored. If not set, the
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 attenuated input voltage (and hence inp=
+ut power) is monitored.
+> > +=C2=A0=C2=A0=C2=A0 type: boolean
+> > +
+> > +=C2=A0 adi,external-fault-fet-off-enable:
+> > +=C2=A0=C2=A0=C2=A0 description: Turns MOSFET off following an external=
+ fault.
+> > +=C2=A0=C2=A0=C2=A0 type: boolean
+> > +
+> > +=C2=A0 adi,undervoltage-retry-disable:
+> > +=C2=A0=C2=A0=C2=A0 description: Do not retry to turn on the MOSFET aft=
+er an undervoltage fault.
+> > +=C2=A0=C2=A0=C2=A0 type: boolean
+> > +
+> > +=C2=A0 adi,overvoltage-retry-disable:
+> > +=C2=A0=C2=A0=C2=A0 description: Do not retry to turn on the MOSFET aft=
+er an overvoltage fault.
+> > +=C2=A0=C2=A0=C2=A0 type: boolean
+> > +
+> > +=C2=A0 adi,external-fault-retry-enable:
+> > +=C2=A0=C2=A0=C2=A0 description: Retry to turn on the MOSFET retry afte=
+r an external fault.
+> > +=C2=A0=C2=A0=C2=A0 type: boolean
+>=20
+> This isn't a bug, but there's a typo in the description where the word
+> "retry" is repeated.
+
+ack.
+
+>=20
+> > +
+> > +=C2=A0 adi,overcurrent-retries:
+> > +=C2=A0=C2=A0=C2=A0 description: Configures auto-retry following an Ove=
+rcurrent fault.
+> > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/string
+> > +=C2=A0=C2=A0=C2=A0 enum: [latch-off, "1", "7", unlimited]
+> > +=C2=A0=C2=A0=C2=A0 default: latch-off
+> > +
+> > +=C2=A0 adi,fet-bad-retries:
+> > +=C2=A0=C2=A0=C2=A0 description:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Configures auto-retry following a FET b=
+ad fault and a consequent MOSFET
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 turn off.
+> > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/string
+> > +=C2=A0=C2=A0=C2=A0 enum: [latch-off, "1", "7", unlimited]
+> > +=C2=A0=C2=A0=C2=A0 default: latch-off
+> > +
+> > +=C2=A0 adi,pgio1-func:
+> > +=C2=A0=C2=A0=C2=A0 description: Configures the function of the PGIO1 p=
+in.
+> > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/string
+> > +=C2=A0=C2=A0=C2=A0 enum: [inverted_power_good, power_good, gpio]
+> > +=C2=A0=C2=A0=C2=A0 default: inverted_power_good
+> > +
+> > +=C2=A0 adi,pgio2-func:
+> > +=C2=A0=C2=A0=C2=A0 description: Configures the function of the PGIO2 p=
+in.
+> > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/string
+> > +=C2=A0=C2=A0=C2=A0 enum: [inverted_power_good, power_good, gpio, activ=
+e_current_limiting]
+> > +=C2=A0=C2=A0=C2=A0 default: inverted_power_good
+> > +
+> > +=C2=A0 adi,pgio3-func:
+> > +=C2=A0=C2=A0=C2=A0 description: Configures the function of the PGIO3 p=
+in.
+> > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/string
+> > +=C2=A0=C2=A0=C2=A0 enum: [inverted_power_good_input, power_good_input,=
+ gpio]
+> > +=C2=A0=C2=A0=C2=A0 default: inverted_power_good_input
+> > +
+> > +=C2=A0 adi,pgio4-func:
+> > +=C2=A0=C2=A0=C2=A0 description: Configures the function of the PGIO4 p=
+in.
+> > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/string
+> > +=C2=A0=C2=A0=C2=A0 enum: [inverted_external_fault, external_fault, gpi=
+o]
+> > +=C2=A0=C2=A0=C2=A0 default: inverted_external_fault
+> > +
+> > +=C2=A0 adi,gpio-on-adio1:
+> > +=C2=A0=C2=A0=C2=A0 description: If set, the ADIO1 pin is used as a GPI=
+O.
+> > +=C2=A0=C2=A0=C2=A0 type: boolean
+> > +
+> > +=C2=A0 adi,gpio-on-adio2:
+> > +=C2=A0=C2=A0=C2=A0 description: If set, the ADIO2 pin is used as a GPI=
+O.
+> > +=C2=A0=C2=A0=C2=A0 type: boolean
+> > +
+> > +=C2=A0 adi,gpio-on-adio3:
+> > +=C2=A0=C2=A0=C2=A0 description: If set, the ADIO3 pin is used as a GPI=
+O.
+> > +=C2=A0=C2=A0=C2=A0 type: boolean
+> > +
+> > +=C2=A0 adi,gpio-on-adio4:
+> > +=C2=A0=C2=A0=C2=A0 description: If set, the ADIO4 pin is used as a GPI=
+O.
+> > +=C2=A0=C2=A0=C2=A0 type: boolean
+>=20
+> Does this dependency block force a redundant specification of adi,pgio4-f=
+unc?
+> The default for adi,pgio4-func is inverted_external_fault, which means th=
+e
+> default hardware state already supports external fault features.
+> If a device tree legitimately omits adi,pgio4-func to rely on that defaul=
+t,
+> will it fail schema validation here since the dependencies keyword strict=
+ly
+> checks for the literal presence of properties without injecting defaults?
+
+Fair point. I guess it will fail but the alternative is to not have any con=
+strain at all so
+maybe worth it to be explicit in here?
+
+- Nuno S=C3=A1
+
+>=20
+> > +
+> > +=C2=A0 gpio-controller: true
+> > +
+> > +=C2=A0 '#gpio-cells':
+> > +=C2=A0=C2=A0=C2=A0 const: 2
+> > +
+> > +dependencies:
+> > +=C2=A0 adi,gpio-on-adio1:
+> > +=C2=A0=C2=A0=C2=A0 - gpio-controller
+> > +=C2=A0=C2=A0=C2=A0 - '#gpio-cells'
+> > +=C2=A0 adi,gpio-on-adio2:
+> > +=C2=A0=C2=A0=C2=A0 - gpio-controller
+> > +=C2=A0=C2=A0=C2=A0 - '#gpio-cells'
+> > +=C2=A0 adi,gpio-on-adio3:
+> > +=C2=A0=C2=A0=C2=A0 - gpio-controller
+> > +=C2=A0=C2=A0=C2=A0 - '#gpio-cells'
+> > +=C2=A0 adi,gpio-on-adio4:
+> > +=C2=A0=C2=A0=C2=A0 - gpio-controller
+> > +=C2=A0=C2=A0=C2=A0 - '#gpio-cells'
+> > +=C2=A0 adi,external-fault-retry-enable:
+> > +=C2=A0=C2=A0=C2=A0 - adi,pgio4-func
+> > +=C2=A0 adi,external-fault-fet-off-enable:
+> > +=C2=A0=C2=A0=C2=A0 - adi,pgio4-func
+> > +
+> > +required:
+> > +=C2=A0 - compatible
+> > +=C2=A0 - reg
+> > +=C2=A0 - adi,rsense-nano-ohms
+> > +
+> > +allOf:
+> > +=C2=A0 - if:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adi,pgio1-func:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const: gpio
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - adi,pgio1-func
+> > +=C2=A0=C2=A0=C2=A0 then:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - gpio-controller
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - '#gpio-cells'
+> > +
+> > +=C2=A0 - if:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adi,pgio2-func:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const: gpio
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - adi,pgio2-func
+> > +=C2=A0=C2=A0=C2=A0 then:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - gpio-controller
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - '#gpio-cells'
+> > +
+> > +=C2=A0 - if:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adi,pgio3-func:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const: gpio
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - adi,pgio3-func
+> > +=C2=A0=C2=A0=C2=A0 then:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - gpio-controller
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - '#gpio-cells'
+> > +
+> > +=C2=A0 - if:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adi,pgio4-func:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const: gpio
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - adi,pgio4-func
+> > +=C2=A0=C2=A0=C2=A0 then:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adi,external-fault-retry-en=
+able: false
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adi,external-fault-fet-off-=
+enable: false
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - gpio-controller
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - '#gpio-cells'
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +=C2=A0 - |
+> > +=C2=A0=C2=A0=C2=A0 i2c {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #address-cells =3D <1>;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #size-cells =3D <0>;
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 swap-controller@15 {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 com=
+patible =3D "adi,ltc4283";
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reg=
+ =3D <0x15>;
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adi=
+,rsense-nano-ohms =3D <500>;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adi=
+,current-limit-sense-microvolt =3D <25000>;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adi=
+,current-limit-foldback-factor =3D <10>;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adi=
+,cooling-delay-ms =3D <8190>;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adi=
+,fet-bad-timer-delay-ms =3D <512>;
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adi=
+,external-fault-fet-off-enable;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adi=
+,pgio4-func =3D "external_fault";
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adi=
+,gpio-on-adio1;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adi=
+,pgio1-func =3D "gpio";
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gpi=
+o-controller;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #gp=
+io-cells =3D <2>;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
+> > +=C2=A0=C2=A0=C2=A0 };
+> > +...
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 830c6f076b0029f0ff1abee148ad0e1905a60e82..13ae2f3db449e5fd3a7d0fb=
+ac92aabdc01734ba9 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -15141,6 +15141,12 @@ F:	Documentation/devicetree/bindings/hwmon/adi=
+,ltc4282.yaml
+> > =C2=A0F:	Documentation/hwmon/ltc4282.rst
+> > =C2=A0F:	drivers/hwmon/ltc4282.c
+> > =C2=A0
+> > +LTC4283 HARDWARE MONITOR AND GPIO DRIVER
+> > +M:	Nuno S=C3=A1 <nuno.sa@analog.com>
+> > +L:	linux-hwmon@vger.kernel.org
+> > +S:	Supported
+> > +F:	Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
+> > +
+> > =C2=A0LTC4286 HARDWARE MONITOR DRIVER
+> > =C2=A0M:	Delphine CC Chiu <Delphine_CC_Chiu@Wiwynn.com>
+> > =C2=A0L:	linux-hwmon@vger.kernel.org
+> >=20
+> > --=20
+> > 2.51.0
+> >=20
+> >=20
+> >=20
