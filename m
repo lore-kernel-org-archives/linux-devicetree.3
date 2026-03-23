@@ -1,33 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B2324BBF4;
-	Mon, 23 Mar 2026 15:04:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5413B27EFF7
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 15:06:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774278247; cv=none; b=V4xPCP0/tBccd3CXtPc23Lv0OO6unK2jAPacJ2h0yQOgw/2YrfdLcVCNob78yGFQe9YJOuwtaZQJBYDQvfdsh3s5bkxzauoY2F0A/Nb+13Ahw5bkG3DdCoP35C/EO5/1m5040QyjoLaaRBNjJO5f5OMpg40b8ZC+rbRvVeMnRlQ=
+	t=1774278420; cv=none; b=sSs1ZqXlemC+alDisuzNKwbIsw78C3rWirKQh12C4DASIpSVGrrGjdFjPFvRXjILtKvhZL/wqQ6GalrlLa3IBiS50GMlSFqCfcMUQDhZZiEA6HCV/QHdb6Y3ZtDpZjDO5mxUN6rbS2ctUat60rq5m7hEccxtZo6LXiGVE5pE3m4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774278247; c=relaxed/simple;
-	bh=j9SphybXpKQs+tI6PSVAGnhieEiNqTo0QXGtRvMwmyM=;
+	s=arc-20240116; t=1774278420; c=relaxed/simple;
+	bh=vWfLZulYF98bbONuCI6H4gbtLYhlwHzI2I0yFc/vPEM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dfaQ416fNwTr7AYjSzOHXZdlQSwnMU8jJx5EC2RcxWrh7cI3u61dLORDyqmtCQ1rH3puqPhoO33LayRMjVQi4wyo+i61FQNDbOsqyHz8RGtonRJcRAJ3pmPU4FyM/Jj5GBkohnmWlRuI9xkk/lndEMKMngSXIx1N/h1+6S51TuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ku4j63ah; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=rOE7YijcympXzHfvcdAPZHZqtpyjYFAi0QBxH1Hv1JAoOblyWsJZVEdqH7EuIGNUREYwJaEcbA9SRevk2U28tk0Wor/lF5q9yzkKWULCOd5aoB517icnhjvgPusfTQX62n0ieJGvnU1xfnbX7C7Li/9sO2ZJV+fNxxJPgv4poa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=C3K7cxPe; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WwEoIQm0; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ku4j63ah"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FCA8C4CEF7;
-	Mon, 23 Mar 2026 15:04:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774278246;
-	bh=j9SphybXpKQs+tI6PSVAGnhieEiNqTo0QXGtRvMwmyM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ku4j63ah1DrGz3m2j8QJjg61/cnjW541UAT1TWbV5/IbTw4l54NZK4IyR6zo1cDw2
-	 WOczNLlfYFW0XPrvToHvinw1dCLywmHS/car6wGIh4YJ2QUCtXezuuWUbvRk+Jhg9m
-	 ne79QgG9564doViJczJ4VRV6KlnC912QFn7uqEfGCS2TRobLEmDr66nOIdnnLmFjzz
-	 OLoaX0waWXlga39Bchlmgg/nsPpVSMkcbpsW4CVO/nQPbP9/2liiCs529yeWs24Pcn
-	 k1CK1g82jIeVaUaGJJqPekZZD6DjqHNEGKtZVHHpxI6KYOP5/75bJsg7ePV7jVPYk9
-	 JOvo6Rx63SwyA==
-Message-ID: <66ff573d-2b93-4e7c-bbb1-3ac0536ccdc5@kernel.org>
-Date: Mon, 23 Mar 2026 16:04:03 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="C3K7cxPe";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WwEoIQm0"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62NDVEll1364051
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 15:06:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	uI6pvx4mLZDASpyKDCFK5aLbfXSRJ4d0KyNwYp6ZJPM=; b=C3K7cxPeJCD3Zrme
+	ae37zx9TXSitQ0nY1zjkU7AMZzkjOp1n3J37UkEIuV053Umq4LmRD+BJr3gr57bz
+	EEjCDdpDEZn62QCufrg6qvHzvTw6Jv7qk2wwW9OWKgE3EoGNmvKOoDSbKSGbhmr0
+	vtkl82qfxb/WVVYlVScpze01konGKliOGIQ0yQ7ZMW9CdKELlKGLwPzrGfiW65Q3
+	4kS+SSmetGGzjls7feMEM6epROvoNRjpV2t/H+xxJx9C57eQ7WdCIOr5uZTEysj7
+	xWhRDn52JX3a3CPSAzMm+6QDlj3J7ddTXzBkZD/9m4dbTtm6LycWz0IV5XNHpM+B
+	G+cLaA==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d31p79gy5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 15:06:58 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-94d7f83198eso483447241.2
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 08:06:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774278417; x=1774883217; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=uI6pvx4mLZDASpyKDCFK5aLbfXSRJ4d0KyNwYp6ZJPM=;
+        b=WwEoIQm0XxMmdCyWaRLIV/xRYoQRpu124u7MSgcoHe5HtwzW8kxJZ/NFpIYXegRgzZ
+         tupCxbgM8Cy0dWJip6oelB9bpuhK5c2Ebr12D4eyJB/N4iOvU59OXvbeIXOlV/pQKgJl
+         Zu7MhHW0YrvQUU/vT5zdzDX4zXV3DSJniPb5HPfEOm2Oh6OzqTLnL4cloxo0r72LH/d3
+         i6k1oOTxgY8Pc0x5iuNeStbrqAHh/dW/GnUlsOBgoWxLzZeWoIs8pJyttOpEQsppozqo
+         p78cDfeYQSIy/+d2n0gFtvkzpLW/U3zoYRtQCE6mQpXHc3YTDeX5ZwvAlrfuUSi230uT
+         7Kag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774278417; x=1774883217;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=uI6pvx4mLZDASpyKDCFK5aLbfXSRJ4d0KyNwYp6ZJPM=;
+        b=UB+g2UYW5LhAcIa9aiptOqyQynr4+ifqYhxGbDnTQVg7AFkqjorSp+2muXMdFGjDcE
+         6tv2bcK+czZZhm0WumgnM3EzOjicS9D203yMazDvqBRbyPKzSJX/jhl0EZB+dtdiANZx
+         TwYRLiZsgUHq0bYsiaBInmKKKVOqR8VJbIXyr537M1jMJiAfJblRigGHWXiQlpmzmfK/
+         ZpkdVAxqTtn3paDwDN12zCioQNx8ksx92qp+nGWNegHzWuwKYZNWDggGKYP6HgLiqZzH
+         i5jPOxENPlro1xK3VQoZ+fJtbbW969VJWR4478h8p4JpmWRe9Za9yuhewLXmWI9ePCAE
+         IlvQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVlRneGk7xe4S3SCEG4/u1b6RZif97T//S+J+nEuICbBV4MEl8z8LliJKTD9W119o69BPD+DQEViBEs@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxx1FDi9xJqqJ12LaDIgghJ2mSFTsVDbVT2QNjoJTzOFMwZ8v1k
+	usyrHj4eGppVqd/zf6Xo+RX1a9Oo3L6iQMKhZ0ZqaId7fKe11R4c6l283F+yHadNcIz2n7OW9+8
+	4KKnUrVxTs6yQGHeRX/NKDRmA7MGYXGPB3WiqnDG99uFB/qVqta7rlqAUwuD1FUyQ
+X-Gm-Gg: ATEYQzweXRvkpytkiBVTh8uIO5O45r74evvNPaTkm7fm2lsrA5KbkjIxPn5DTfB5ORI
+	KCdACJvNpLEnCWq//g6al/x7gXIg7cqXJuKvExVigeJ0NIBmAmJjb49t8a6wZ6thrbNfOe+ookp
+	OEaL3v6uAolIjhIa42hpqy/16DVBMOIqAOuPKbJTSqp9QJDYTIeeuP/FIQ/pqqTtdXCcUTxJz4M
+	PK1uvYFWHxZCGgNLvXKcm2VBsaOuQXMwb/KpqefOPf2kjpg02b8fZVDCi533cil0yhpNIN58Q3c
+	7ZmRIA53qkl73nGbXaxnlYSP0+4REe2TmcJeFw+pMJNuc06AXcQ23pYGO8ieB0r47zGi9pOG9VI
+	9ZcFsu/kPE38LyHfB1uJWpkMFeyU+jHvqwfR95uYCOZzUxSPAK5uqnGtrOGu0HczkMm0qVA4sNv
+	yLBHs=
+X-Received: by 2002:a05:6122:8701:b0:56b:8426:b00f with SMTP id 71dfb90a1353d-56cde31dcb2mr1912405e0c.1.1774278417404;
+        Mon, 23 Mar 2026 08:06:57 -0700 (PDT)
+X-Received: by 2002:a05:6122:8701:b0:56b:8426:b00f with SMTP id 71dfb90a1353d-56cde31dcb2mr1912372e0c.1.1774278416834;
+        Mon, 23 Mar 2026 08:06:56 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9832f43c3bsm502731266b.2.2026.03.23.08.06.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Mar 2026 08:06:55 -0700 (PDT)
+Message-ID: <0ed387b7-c4ed-41e7-bccb-eb1a96064c69@oss.qualcomm.com>
+Date: Mon, 23 Mar 2026 16:06:53 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,110 +89,89 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: pwm: Document Tegra194 and Tegra264
- controllers
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jon Hunter <jonathanh@nvidia.com>,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org
-References: <20260320234056.2579010-1-thierry.reding@kernel.org>
- <20260321-lurking-courageous-centipede-5e82cb@quoll> <acFSL4r47VtoQx61@orome>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH] arm64: dts: qcom: x1e80100-dell-xps13-9345: enable
+ onboard accelerometers
+To: Aleksandrs Vinarskis <alex@vinarskis.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, laurentiu.tudor1@dell.com,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260228-dell-xps-9345-accel-v1-1-daf9e3b3b5ee@vinarskis.com>
+ <630bcc07-5290-4099-bdf3-b7e37105619f@oss.qualcomm.com>
+ <kFzSXZV8ReVKN_rvfVDZw9pOzHeLI1ia9bepKas6qG-7G4WiRKk1RcvEhMnPrKrFDvRzLMUSIZgnDY5oerb7kdSBreCjnxJEdPZG9iyYp9o=@vinarskis.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <acFSL4r47VtoQx61@orome>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <kFzSXZV8ReVKN_rvfVDZw9pOzHeLI1ia9bepKas6qG-7G4WiRKk1RcvEhMnPrKrFDvRzLMUSIZgnDY5oerb7kdSBreCjnxJEdPZG9iyYp9o=@vinarskis.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=RMC+3oi+ c=1 sm=1 tr=0 ts=69c15712 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=vwHDffmn88hdHWJo-3oA:9 a=QEXdDO2ut3YA:10
+ a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-ORIG-GUID: sWNp-9Ej9_4SBDhZloy1r1XBoZ_YvWrh
+X-Proofpoint-GUID: sWNp-9Ej9_4SBDhZloy1r1XBoZ_YvWrh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDExNiBTYWx0ZWRfX70Chr94KiaOM
+ ZloIrFBabLGSoKkflzkwqv7pJDwb92xBL6Im9QlUKSkstxiTN3BQVBWk0oYWEkTlH37h2pHME63
+ E9pEJ+69+cnGUkknil4fMcQ7EUwDpKR/OVZpgHDy14Qj8ItrAUZfxBdypTb0NhRKIE+Sp8OOQMX
+ vEBxsZZKPp+EKxhuqgTG5UwsA1MupqQerY7yHJEt+kqhLjJVYeQDe3LMPGDu20kqWs/3vdUzgFL
+ AFCHoE3uEM+4aYy6yUFbcByDBweavISFF60MXkTmjUNor65HUTlSNPm666ttCuTpdNMu1BM0q1q
+ ov/5LEQXH1Irs3MiDEnFzSmTqQ+x20npfY+17tk8SBZPUdm8iHS8H+L1PATVppGz3tqeNbKakvi
+ NHY5pBLgUcKeya7Etzh0Dul3635NlusQx2bdVl3qmEb0jKxvQcf01Wk8qVrmV3S9To+Eg+YPT9Y
+ Yy9fKmIDaFDYHkjS2wA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-23_04,2026-03-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ priorityscore=1501 bulkscore=0 spamscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230116
 
-On 23/03/2026 15:50, Thierry Reding wrote:
-> On Sat, Mar 21, 2026 at 11:49:08AM +0100, Krzysztof Kozlowski wrote:
->> On Sat, Mar 21, 2026 at 12:40:55AM +0100, Thierry Reding wrote:
->>> From: Thierry Reding <treding@nvidia.com>
+On 3/2/26 2:25 PM, Aleksandrs Vinarskis wrote:
+> 
+> On Monday, March 2nd, 2026 at 13:14, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> wrote:
+> 
+>> On 2/28/26 6:46 PM, Aleksandrs Vinarskis wrote:
+>>> Particular laptop comes with two sets of sensors:
+>>> 1. Motherboard: accelerometer
+>>> 2. Display/Camera module: accelerometer, ambient ligth (and more)
+>>>    sensor
 >>>
->>> The PWM controller found on Tegra264 is largely compatible with the one
->>> on prior generations, but it comes with some extra features, hence a new
->>> compatible string is needed.
->>>
->>> Signed-off-by: Thierry Reding <treding@nvidia.com>
->>> ---
->>>  Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml | 2 ++
->>>  1 file changed, 2 insertions(+)
+>>> Define both i2c busses (bitbanged), sensors and respective rotation
+>>> matrices.
 >>
->> Where is the driver patch? Why this is not being part of driver
->> submission (see also submitting bindings DT in description how patches
->> should be sent)?
+>> These GPIOs correspond to ADSP/SSC-bound QUPs. It may be that you're
+>> poking at the same bus as the DSP is, concurrently.
 > 
-> I don't see anything in the documentation about a requirement for driver
-> patches to be included. It does indicate what the ordering of patches
-> should be if driver code is included, but doesn't specifically say that
-
-It does. Explicitly:
-3) For a series going through multiple trees, the binding patch should
-be kept with the driver using the binding.
-
-
-> driver code must accompany binding updates.
-
-And you have entire cover letter to explain that...
-
+> Indeed, Val already pointed out that there is hexagonrpcd to access
+> sensors behind Sensor Core from DSP. I found corresponding .json sensor
+> files in Windows for all x3 sensors, but could not make it work yet.
 > 
-> Nor do I understand why it should be needed. I do understand why you
+> Without these additional things in userspace it does not cause any
+> conflicts: I've been using this for a week now, no i2c communication
+> issues and device orientation information is present.
+> 
+> The question is then if we want to keep this series which ignores DSP
+> capabilities with the advantage that it will work for everyone with
+> the new kernel vs doing it 'correct' way over DSP which requires
+> additional json (and binary blobs?) and userpsace configuration,
+> meaning that most users will never have these sensors?
 
-It's not needed. It is just odd not to have it here.
+I don't know what's the endgame for sensors. Maybe +Dmitry knows whether
+there's any action on that point.
 
-> would want to have driver code to go along with a completely new binding
-> but in cases like this where we're really only adding a new compatible
-> string to an otherwise unmodified binding, I don't see any advantage in
-> having to put both together.
+Going through the DSP allows you to keep aggregating the data at close
+to no power cost (""low power island""), notably without waking up the
+CPUs if there's no other work. That, plus I'm somewhat skeptical about
+going behind its back, since it may be that a firmware update or some
+other trigger makes it start trying to communicate with them.
 
-And the problem appeared later - the driver was posted separately
-without the binding. That's a no go and really odd process.
+But I'm not 100% against this either
 
-For the other patches you have without drivers, it would be fine. And
-you would not get questions if it was explained.
-
-
-Best regards,
-Krzysztof
+Konrad
