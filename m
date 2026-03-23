@@ -1,174 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E19B3859E1;
-	Mon, 23 Mar 2026 09:04:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94A03859E7
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 09:05:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774256689; cv=none; b=ebEJ3y2bErJn3ywDEjCVm8kBJujHu/U5CVPRe3J/uiPd6dsSHLmhg84x0uND5UPK4M0qVkxSUQA6lew3saGNwnq3jyH5fW7bflBk4eXQ7369ABoaaIAt1OEL8WmynggFsFNWkTZLC3rzdvoJEl7QVwiVtFC3EunJp4V1MYjpOCk=
+	t=1774256724; cv=none; b=jVnrGL8a5XVrIxGCH4ancMVv7pWJewZBws8nnvmJzjGqlqe6CqoImFV1PhL21gM7qOLq53QSw9Qup31HtBntmwvWl6tLf2JQrOqlFydmnb+iIccYmRINxnT0KldMq5AnlvYzvfwXOlGJ7sCwJLG4YYHTnSThgsWaK2CudNQLTx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774256689; c=relaxed/simple;
-	bh=+EOTN4gKVx0yrMRF+kmZU2uFXyQqAXBjqCu4IOn9iHo=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=VXj22GKrC/z45c6cOON/t9RzRnEHMWS/GgHmzAE0p5jw5oxZzq4Go19cgJUPgfuBH82B9GC6tjxjxXVrFlvRGrOJ3Mukh5sJ6JctKql7os/NtDvb5Z+cj7NB+LLPziVQW7Rx+uZ75KlPr0VZcJBJ5ivfeLkOLaGG8Vk/rwOQTN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s8zN5bY3; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774256724; c=relaxed/simple;
+	bh=2T6c3S72ahQY8xybcAngPOvZa9iNFlrMEfZwRXlS7Ys=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FWyOmiaTY8oRpj68XmIpww/TekcDhUrCZhTwmPWoHfl5adje5OYsBh1AD5jc5vgB+snn5ksVMNCwBQjoh51uDFr7F8iOJ7YNk8RPJ5LXdGs7TDSMdrnMBIcZjPy4g+sX1mFBh7xJUtyZu/nWwJJWSl4U8zgiX2NYnc/NqFZeVa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TAWP0Jd5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s8zN5bY3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F0BFC4CEF7;
-	Mon, 23 Mar 2026 09:04:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TAWP0Jd5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58982C2BCB8
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 09:05:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774256688;
-	bh=+EOTN4gKVx0yrMRF+kmZU2uFXyQqAXBjqCu4IOn9iHo=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=s8zN5bY3xOelnmydfZkNyyR9e8mDfPphTG/DkQzllPDukZjlA05FCvh4La7O8GYjT
-	 aO9jawnaE9/bLwXamOLFD/BgxY/TWi/zWEoi9Kpe7JPG2A5xjg9pt0DIUERXy7k4Ky
-	 0ueBKxcWPoLDDRzkC7oTOEB9C/msDOOeSoqdvhyqN9jyDC8hCXa+jtmAyRr9nu6t3c
-	 VAVvQsYLfDYh4D6wv1sv0hsZb+Yso6T3W8h8TtU81AQxHnXzOUy3X6cUfCoZ7rmtJf
-	 ECuNeCYHXrQ8WbUxw+nGE6eQ7+1v4OZsnywVfOKUYqz3Co505mR/A+a3g6yEtkSbt9
-	 /QXv1syd0GL9g==
-Message-ID: <70adc767-cf01-4498-b758-f221f0c81f11@kernel.org>
-Date: Mon, 23 Mar 2026 10:04:44 +0100
+	s=k20201202; t=1774256724;
+	bh=2T6c3S72ahQY8xybcAngPOvZa9iNFlrMEfZwRXlS7Ys=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=TAWP0Jd50+wA4bct6nWl0Eo/e9MYBgqRB/moFc29zFNGTSNiftQQtD+bQgdXDpkQg
+	 Bihy5MvZR4R1pvm3iDZIW7tH7CffFizgyMfTHR2za4yZmw2R2I/hwODK622Sy+t/A4
+	 6hJ0NcGEFgKbDHI8s1xE9ejKvjIZD7meu9BvpQuP49AQZSl9AtBG/b5Rqp2WNfh6N8
+	 W28tB8Hd92jEYsAjTmw38EbXcTzalNcMTm4/uin07leljwQXBZ9JpR/NMuUwRw9Uj2
+	 0uc937HF8DGvWvNdalJhPaGzUn5CvaWLV9lWFlJud4wZ+0z6PD/N1J3BVg73SFA8xY
+	 B+BO4s56wTqEA==
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-79495b1aaa7so31605877b3.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 02:05:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUKpG2G3FJYJfrcE+VBUlThxSXdxCDfTXaXX3Thm/7+hAJx6a18UDERmUo8nYBwMekZMik7mV3bsTqH@vger.kernel.org
+X-Gm-Message-State: AOJu0YyDSKl6Sfsx4rgkYfIhI56mAKpiBUNir7Dy+bgLclvQcNiov+U8
+	Y83TxYmvval8xHJysfLCdNPRnz4gCa7qL77UzUfKkf3el10akjEBzPXPCj1AjMbri+QQaGBsIQU
+	zpNQaZ2n3fh17eADfcusm/cBpkXBTWSw=
+X-Received: by 2002:a05:690c:2612:b0:798:1637:fee0 with SMTP id
+ 00721157ae682-79a90c05e2dmr136862067b3.52.1774256723603; Mon, 23 Mar 2026
+ 02:05:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] dt-bindings: arm: qcom: Add AYN QCS8550 Devices
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Aaron Kling <webgeek1234@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260322-ayn-qcs8550-v3-0-4afa89c20888@gmail.com>
- <20260322-ayn-qcs8550-v3-1-4afa89c20888@gmail.com>
- <20260323-laughing-pumpkin-oarfish-99fafb@quoll>
- <CALHNRZ_2tUuiBBuH-QGi8VQbZSVhQg2KGd-dQVJMq+HKiGwpmg@mail.gmail.com>
- <2228bad7-b356-4274-a7b9-9065c9e35e9d@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <2228bad7-b356-4274-a7b9-9065c9e35e9d@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260316-eyeq6lplus-v4-0-bf44dfc7a261@bootlin.com> <20260316-eyeq6lplus-v4-6-bf44dfc7a261@bootlin.com>
+In-Reply-To: <20260316-eyeq6lplus-v4-6-bf44dfc7a261@bootlin.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 23 Mar 2026 10:05:12 +0100
+X-Gmail-Original-Message-ID: <CAD++jLmT+4xb3sfa3f1z0vD4qikeB+v0kC6yo6=hSU+==fZOkg@mail.gmail.com>
+X-Gm-Features: AQROBzCPE1B6frTZvvI1ONusEll1hYYlE5t57wp0l2RUDUVexg_OieOxm5rH708
+Message-ID: <CAD++jLmT+4xb3sfa3f1z0vD4qikeB+v0kC6yo6=hSU+==fZOkg@mail.gmail.com>
+Subject: Re: [PATCH v4 06/13] pinctrl: eyeq5: Add Mobileye EyeQ6Lplus OLB
+To: =?UTF-8?Q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
+Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+	Gregory CLEMENT <gregory.clement@bootlin.com>, =?UTF-8?B?VGjDqW8gTGVicnVu?= <theo.lebrun@bootlin.com>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	Tawfik Bayouk <tawfik.bayouk@mobileye.com>, linux-mips@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 23/03/2026 10:00, Krzysztof Kozlowski wrote:
-> On 23/03/2026 09:39, Aaron Kling wrote:
->> On Mon, Mar 23, 2026 at 2:51 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>>
->>> On Sun, Mar 22, 2026 at 09:05:18PM -0500, Aaron Kling wrote:
->>>> Namely:
->>>> * Odin 2
->>>> * Odin 2 Mini
->>>> * Odin 2 Portal
->>>> * Thor
->>>>
->>>> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
->>>> ---
->>>>  Documentation/devicetree/bindings/arm/qcom.yaml | 9 +++++++++
->>>>  1 file changed, 9 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
->>>> index d054a8f5632d853509b7cd37f07f02473cf6bf71..ee68963c30eae10fd3b3a5e21bda63ab941893fa 100644
->>>> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
->>>> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
->>>> @@ -1075,6 +1075,15 @@ properties:
->>>>            - const: qcom,qcs8550
->>>>            - const: qcom,sm8550
->>>>
->>>> +      - items:
->>>> +          - enum:
->>>> +              - ayntec,odin2
->>>> +              - ayntec,odin2mini
->>>> +              - ayntec,odin2portal
->>>> +              - ayntec,thor
->>>
->>> I already commented on vendor prefix patch, that you incorrectly moved
->>> it out from this set. This only stalls your patchsets, because none of
->>> the trees will have it thus none will pass any checks.
->>
->> You mean the checks that passed just fine on v2? This is documented in
->> the cover letter, which apparently no one ever reads so I wonder why
->> we even write them; and listed as a dep, which said checks pick up
->> just fine.
-> 
-> Checks will not be fine, imagine this scenario: Bjorn will pick up this
-> patchset and next will have failures, because there is no vendor prefix
-> documented in the next.
+On Mon, Mar 16, 2026 at 4:26=E2=80=AFPM Beno=C3=AEt Monin <benoit.monin@boo=
+tlin.com> wrote:
 
-There are also more subtle problems here.
+> Add the match data for the pinctrl found in the EyeQ6Lplus OLB. The pin
+> control is identical in function to the one present in the EyeQ5 but
+> has a single bank of 32 pins.
+>
+> Signed-off-by: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
 
-Because you included it as b4 deps, multiple maintainers might pull the
-same patchset if they are not careful and do not notice the pull of
-dependency. If that happens, you achieved nothing by decoupling it and
-it is the same as it was included in every patchset.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-I, for example, do not take patches with dependencies, so that would be
-a blocker, so again you achieved nothing. I don't know about Bjorn, though.
+I don't know your merge strategy for this patch series, if you want part
+of it applied to the pinctrl tree then tell me which patches and how.
 
-OTOH, since you have a b4 dep here and bot checks supposedly pass,
-maintainer might just pull this patchset (without dependency in cherry
-pick mode of b4) and not notice the failures.
-
-> 
->>
->> As I have mentioned multiple times, the vendor patch is separate
-> 
-> And as I answered to you already twice...
-> 
->> because I have multiple open series that depend on the vendor and
->> there's no telling which one will be picked up first.
-> 
-> ...no one will pick up vendor prefix thus your goal will not be
-> achieved. Nothing in vendor prefix patch explains how should take it to
-> solve it. People do not take random patches, so if you wanted Rob to
-> take it, you should have been explicit.
-
-
-
-Best regards,
-Krzysztof
+Yours,
+Linus Walleij
