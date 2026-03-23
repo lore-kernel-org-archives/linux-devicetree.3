@@ -1,177 +1,143 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011035.outbound.protection.outlook.com [40.107.130.35])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C949A3CCFD6;
-	Mon, 23 Mar 2026 18:16:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.35
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774289790; cv=fail; b=TZKR6lRyjYrLhNwgO++xjWeUUZbjwU/U6MDEA7qYLHOl9Gkc7nFDUFc1gCauLLS+PtcICGArzxQX9Ki1qopj/c+K+xeRdLZnfuMzGtGVyRZ/yLa31RKdKmTOyaCTtKkXpRfdrdd9xR0UdklzDLaM0mm+pGbsPTQi3ulHNaF9o2M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774289790; c=relaxed/simple;
-	bh=iV9fQF1t4Nb9Dlf0hcOY0Qs3wVavV1rFA4GVujS5cVw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=OfBfufROPaln9htvlMr9CNlBYxCwmqbu93wH+BoNkRQZdxCpsVjEXD6AFrteO+BA2S/MekW/l+8ThlI7jHxpbV9AF4UYrh3d3jeaTbb+JKQZDRTtVf4EWBQ9sgnHyqhMEN7sIXv5DE+oTKbpLsWH9NcXmK+xHL8ajE2TDz6/YKs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=kV1W5syU; arc=fail smtp.client-ip=40.107.130.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 106C53B19AC;
+	Mon, 23 Mar 2026 18:18:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774289902; cv=none; b=KsyAlV18GaEwLP1oRF/r1TVabgnDkTbaJKU6jtjk37vs+78f4EAZcsRRJhv8nAkocXvmwLGO5lRjpBbWIsR4439MAyEyOInCcczck+7oFaSUFvM+1/me07e5pIjNJ20PqYA3zJQug57T9mZDfH1e5kMaJFCS7TD7ekAGYJsFo0U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774289902; c=relaxed/simple;
+	bh=3Ln9TJW6v970TdxyUfCmzNIsZKkFWpIYcxuM81XamYM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UTfNCLZ2siTZM/ntbqegwObgyYe9LadHGJJd71G7wVFPx2tfeX/zRyK3dYEYLZd3Qpt0ZhlhL+X9YVWU+8tOJINespFCLONbEuW0giPEYPkId0Q8kVSk0xNdwuYiuo9qW5eJnCZGUBNE73CVOQ29/JvxT3/PL46JQ1xfSveayy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=laJPMH7j; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="kV1W5syU"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PWxZ1OtvM6TtN02oPpID9Y6qxaEtQWuuYH5uvDx6WJa0vDElzeEkcJF1zOGc6nNtX4dRChvESfB5uZekWb1fokXrTk/lm+MwhU8NzZ0aGM5hUNKRZ2SlBhM+l3HyD1pdJcXwQT3nlxvbEOP7ssZB/JJo1GJbOUjHyziUb/JxOYv9kFeJKYJIMhPCmBUBl4E6lnZfs+KYir34MEl3sf7EppVjObyPfiT87RW7gHJASTQ0a6+nwVY8AeSIjS4sPqd0eBlkFC7Q/MCeNw9bU/2RGE2Tf/mWuhZjxxjTBE4J7ANugf9Z20OqTUpMvMTtrskZsk3AbveAelbo3gnBiKsgZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jjYX465jYn0oNvm2kCJUUxeptr8CFCBNs9ctWKoUCEA=;
- b=oIdXveUZpTqXrNzv6DfJWOXBv4NRLJ0GG/iPiwFbotVRnYzKve4z60eorn35qu56tBKRi4rB0frRCu6pbT3AjfpbAPTO72/KocPg3abFNZH20CSDpsbqdzMzO4mD46yvPvCk113O0bp/iWbzzeAK7Py812qAs756jxKRGUMDUy6iW9IlDWD7RLRiiWclsjOBPnDYT3Lfb/4MA9FDUz+6LaEcO34Z4jrJBJmvUkrUXXXoibnrxc1oTXwwrle+vlfTr6pFJM94mTVUb2nln1TdfN247n5afa1rlsISan0hJYdhUkuDX+54xzx3YYmw6OYtm3Vec8ON67cGqQLGl+t7xA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jjYX465jYn0oNvm2kCJUUxeptr8CFCBNs9ctWKoUCEA=;
- b=kV1W5syUohXLETtSG2nSL9KaxLcXO+uJU9xzcKt9KlA/bQN9uIWw1US40t8JzCdMWKRXVpLjBau/arR3Qwyt4fZDfcOm+yo90ZwDSpmSc89p7ebDq6WwXIqGTM2H57vax63wudhZSzhOgDu5bLp60l5ze5sjYOOc9U8nW/n2e+AYPBNC/s1jtXAkcmfC5fP5n0+asIyiOOXO0IQtBvmh08uafm+TSsUFV7izQeHWnEa1cmuBbFy3amEN7x2+7zA6w609+t5QQAlZQxPapH99SC4oDEq0nh8h3g/Z4dlYOtsK9S9TV5iEHyt/03YZKomBpbQSRKLTMCePUQkfYhXitA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by PA4PR04MB7664.eurprd04.prod.outlook.com (2603:10a6:102:f1::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Mon, 23 Mar
- 2026 18:16:18 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9723.030; Mon, 23 Mar 2026
- 18:16:13 +0000
-Date: Mon, 23 Mar 2026 14:16:12 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Xu Yang <xu.yang_2@nxp.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	jun.li@nxp.com
-Subject: Re: [PATCH 1/2] arm64: dts: imx8qm-mek: switch Type-C connector
- power-role to dual
-Message-ID: <acGDbMKECQ3xPdTA@lizhi-Precision-Tower-5810>
-References: <20260323110923.2567366-1-xu.yang_2@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260323110923.2567366-1-xu.yang_2@nxp.com>
-X-ClientProxiedBy: PH8PR02CA0007.namprd02.prod.outlook.com
- (2603:10b6:510:2d0::18) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="laJPMH7j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BAFCC4CEF7;
+	Mon, 23 Mar 2026 18:18:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774289901;
+	bh=3Ln9TJW6v970TdxyUfCmzNIsZKkFWpIYcxuM81XamYM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=laJPMH7j+hzqYBxUfdtIHfbsfTD1hbQ1VyzSPhxXf2selsi9AXV4PXN/l4g5J239h
+	 iPX6NjS4yNh2oxnKUer7FjZWSGV5VZ02Ma8aID6qrPxn2T44bYzO4nIoRnF4b7aVmN
+	 23YC/w5u7xvbCcFtD0+QSFsbLFnwSOdbrSh9oYfQH2N9AvEblLrio+lA+qd8/NdbwY
+	 KHEJAQbp8Eo1YXDpvBYo653dWoTxDexxSKFsFINweCTWWdCJX8PdCWtV0EDYoQ0Dtb
+	 bly5AufWXT89G685/oICWFyFKnUDSwQAaUvdmQFMqtZtqX9zZNmIxX2l4ZdRZSz7S+
+	 gip0+TfymlULg==
+Date: Mon, 23 Mar 2026 13:18:20 -0500
+From: Rob Herring <robh@kernel.org>
+To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+Cc: Sebastian Reichel <sre@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: power: reset: qcom-pon: Add new
+ compatible PMM8654AU
+Message-ID: <20260323181820.GA888901-robh@kernel.org>
+References: <20260323-b4-add_pwrkey_and_resin-v4-0-abef4e4dcc3d@oss.qualcomm.com>
+ <20260323-b4-add_pwrkey_and_resin-v4-1-abef4e4dcc3d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|PA4PR04MB7664:EE_
-X-MS-Office365-Filtering-Correlation-Id: ae788692-bcc2-472d-d36e-08de89084467
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|52116014|7416014|366016|1800799024|38350700014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	H8vNJ/aKUBRV42bieOdo/MZ0Ht2noWmke6mfYuxo4EKgdU3XwIilHgXKCJY4ZWlutdhlLYx4rry7zEhPsYmx/4eUSdGWtZ5z/ZNZcm5bAmArwjk4TZecd3w1OywbKd/NEqV3kMu41SlaO5Q5hWuxoEQvJEsAW4y8qfMh4JgAqP/ZDimkhdn/Z3cNnYwWKeKr6jMRV/tFFY4FWoJ31QgvubsPYJSL6aVAx0EpelKBzGNKqaGKC53/l25Mk2aZf+dh7rcorGFI3vuexyy8YDNtTInuj5nbuv0eGkINbTbNqYwcrAeo9p7esFWMyQW6QYrXyiXs1kTGovZOSNQ/knhJFgiRcJW/ef0O7DRfXSnPBl331GE6Idsuuu39czszUIWUlQdklOKibvf+mtk5q5dA1w/WG9NT2sS72I0hIrN7FxQMwm0YB0+Z97sTImj890May6fW1ZvyM5UB1dGdmx09PFJKKuLW5deIbaimuHgcjmnhBTrkKp7LNwx/+qSkqzuIm0LkFd3SWJAblngk4gpDPdsRJr2xd+qM6fcHXd5p1a8qallHlZqQjRmz/YxhYBdK8kMEvg87f8PdFb36M87yBOV0ft32uXauCh4MrqMLy7zoFd+XFEqP1zhUSHxsslxKGWm55KOe3hL+gjFpH5/lygWdUwo55UOK7QJxpjFMvQKYkd/BVLUxIUQwX0qbHpfGgU7NgjO9f64oHfERvriP2Y3/4spW40aJzl6W6UCQWd0rG1dfxyD5pfzu5JInDlGyIKgcp9CftpriD5uujdxpKnUadnLp8mwhYPOZLz9nOwA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(52116014)(7416014)(366016)(1800799024)(38350700014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?SyGr9VyAEiCg7jJjTJnA40uVTv5njAW0ji71cRIdKaWClYv0qJGs6tFU6MQ+?=
- =?us-ascii?Q?sB91xmd49Pq6rKHqvQ2E1GdY6HopwY9OcLDgqxt/32kAwwo74iQAzO19HI5P?=
- =?us-ascii?Q?5kD/vLc1qDfHT8CtpZ/ktYJc1Xtcp20y97fNIn44izRu7+YIF5NKmBx3Ss/d?=
- =?us-ascii?Q?ezyMWZWsikI0s9c4UE7wjkKXwyM9KW2xRrsNzU11oVBjf7vId0INBsDxEQWV?=
- =?us-ascii?Q?8IvCEAujUjzHIvXZQGTGQEha0+O0F9vaA/NKuvYxH5aLEFnNQrCNPcp50Hcr?=
- =?us-ascii?Q?o7wF5ktq57AvLX/+FJ+Lot8jQRnRRPkm4spI4VSZpPE2FJ+R1LA+Re7fzbdr?=
- =?us-ascii?Q?CfezsksxD06PaLUwRmAlcIQgQzX1Sr1xXVwHUzEP17ywAbJmlZaphL5BJ9Ah?=
- =?us-ascii?Q?CX4+7TDn1Et8juL1KphqnMN5c79RW7sFygz1VVsBDz0oqzISliIJ5qmDPPFD?=
- =?us-ascii?Q?ih3T8DfVJc9L2AkvC6jK2SQtANf2CTITslqXRx1BD7EPnlTVLzI656rrw+7D?=
- =?us-ascii?Q?8wyez6ZFbAGgwJg1I2+x5TyIIWdh/I3h6LF5huinnDFeRKmVYiC+77I05kay?=
- =?us-ascii?Q?DLI9hJb2ZbOlHrcwRNlMrsQXK9W5q2dEdOi6hPa+/+ufervXmOxuSABwvl8M?=
- =?us-ascii?Q?UzW4/nL2W6NsSFBsPyBP1CzFMznKErmBYwaiUyurigzKvGn93bATgq3yznLz?=
- =?us-ascii?Q?OSPWxEbvDKo8A7Y5hj0JTYR2GpsKrqi+Yl9xSXMtwt8bB7Bp1D215KIJcf/S?=
- =?us-ascii?Q?ke0VwUIvdGTSxL5UF5KE8D16rSODnz2iSAuoI4iOQq9WhcPpRI7URMsvY1rU?=
- =?us-ascii?Q?RWfOMJHSvukK6fuUf3HndIxxXzuZOsOCc8d/Xxo28kExdKHKg+rC6Em7etO+?=
- =?us-ascii?Q?DRUgz6GkUZASWLf2Uh909q6yPdltY7D4xVC5SvwNTQYFHCZzmEqN0TcjAFVM?=
- =?us-ascii?Q?H/wxUo/4wE9CwiSIBOg830IxEdptI+O2MGDfhPX3jW6j92rIa1iZa3CG6meh?=
- =?us-ascii?Q?kmPDoKLc2bxoxLF1ox3KSUvvJAvik5OyD6xT6oosp9jt4TaSAJOWMmtKXmMc?=
- =?us-ascii?Q?iN9A56G43tC5D9ZDwjY1wKbPCrYs/wTaGWLmF8Wdfk/eC9MqM+VD44liRwE7?=
- =?us-ascii?Q?g1sjHtB4GjDH6nGrUkczWpHdKvf3O4ELBt83Ixzo+4WrFC6Pczvme4nsj+Kw?=
- =?us-ascii?Q?qukRwthps7RUZ40G+jCZ4JsvQtqIhtf+OSq+qc/FUJvoGHRmrMpwvg8B2EMj?=
- =?us-ascii?Q?vZg40MHGP9qCGC/7IIMt3Rrg1j3K1MRmRtWUUyRGHb9Yk/U3ujlqexeKxVha?=
- =?us-ascii?Q?iFC+SRv7L6ulvekZgn5GYzyacJmecWI03apqwDi5Tqe0W9ywakG/hIuGkuMd?=
- =?us-ascii?Q?IZeqBelfvqY+y3471c0vB5fXEi+x7U5l1rPSZ548Zb28QQWIexXcMeaCaM9R?=
- =?us-ascii?Q?CINJK/vODV2axL0AkbVaY2glAiw+imYtE//a+tSeOO+8h1c616QKGdAn3lQW?=
- =?us-ascii?Q?7/MFr3bQdr2y+1bbSr1j2vbE84EFu05R7/+/jbA3gSO1T85oefJyEquELFrp?=
- =?us-ascii?Q?nggWwaXB9P5ow8eK/UnbsbUy5qFPuF5RTpeghYS5Q5ESn7VwQk13OA8XQcL1?=
- =?us-ascii?Q?TPVCcMF29pLHCKURwgk1nauOyAfipDzyrK5XemEnQ0zZ4uNsrSInWZ5uhtX4?=
- =?us-ascii?Q?jTfbrxFp47csVnMvudjy7txZ7/qUdeHlEZWKGdZ9QocS2zsL?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae788692-bcc2-472d-d36e-08de89084467
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 18:16:13.5952
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Cu4VsnC8LgBqX46kvYbYZA20yFF1Sc+P2VTu1J/33AMyC8D/Ek/Lr5xKwMuTR8rbAgf2uSGfRF8p5UJdnhRIOA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7664
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260323-b4-add_pwrkey_and_resin-v4-1-abef4e4dcc3d@oss.qualcomm.com>
 
-On Mon, Mar 23, 2026 at 07:09:22PM +0800, Xu Yang wrote:
-> When attach to PC Type-A port, the USB device controller does not function
-> at all. Because it is configured as source-only and a Type-A port doesn't
-> support PD capability, a data role swap is impossible.
->
-> Actually, PTN5110THQ is configured for DFP/Source role only at POR, but
-> after POR it can operate as a DRP. By switching the power-role to dual,
-> the port can operate as a sink and enter device mode when attached to
-> Type-A port.
-
-when first use term DFP/DRP,
-	DFP (Downstream Facing Port)  ...
-
-Except well known term, like POR.
-
->
-> Since the board design uses EN_SRC to control the 5V VBUS path and EN_SNK
-> to control the 12V VBUS output,
-
-I remember a hardware rework to fix this problem.
-
-> to avoid outputting a higher VBUS when in
-> sink role, we set the operation current limit to 0mA so that SW will not
-> control EN_SNK at all.
->
-> Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
+On Mon, Mar 23, 2026 at 04:15:15PM +0530, Rakesh Kota wrote:
+> PMM8654AU is a different PMIC from PMM8650AU, even though both share
+> the same PMIC subtype. Add PON compatible string for PMM8654AU PMIC
+> variant.
+> 
+> The PMM8654AU PON block is compatible with the PMK8350 PON
+> implementation, but PMM8654AU also implements additional PON registers
+> beyond the baseline. Use the PMM8654AU naming to match the compatible
+> string already present in the upstream pinctrl-spmi-gpio driver, keeping
+> device tree and kernel driver naming consistent.
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
 > ---
->  arch/arm64/boot/dts/freescale/imx8qm-mek.dts | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/arm64/boot/dts/freescale/imx8qm-mek.dts b/arch/arm64/boot/dts/freescale/imx8qm-mek.dts
-> index dadc136aec6e..8a832a0e105d 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8qm-mek.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8qm-mek.dts
-> @@ -611,9 +611,13 @@ ptn5110: tcpc@51 {
->  		usb_con1: connector {
->  			compatible = "usb-c-connector";
->  			label = "USB-C";
-> -			power-role = "source";
-> +			power-role = "dual";
->  			data-role = "dual";
-> +			try-power-role = "sink";
->  			source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
-> +			sink-pdos = <PDO_FIXED(5000, 0, PDO_FIXED_USB_COMM)>;
-> +			op-sink-microwatt = <0>;
+> Changes in v4:
+>  - Remove the contain for PMK8350 and new if:then for PMM8654AU as
+>    suggested by Krzysztof Kozlowski
+> 
+> Changes in v3:
+>  - Update the commit message.
+> 
+> Changes in v2:
+>  - Introduces PMM8654AU compatible strings as suggested by Konrad Dybcio.
+> ---
+>  .../devicetree/bindings/power/reset/qcom,pon.yaml  | 32 +++++++++++++++++-----
+>  1 file changed, 25 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml b/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
+> index 979a377cb4ffd577bfa51b9a3cd089acc202de0c..2a5d9182b8d5c1a286716ab175c7bb5e39b334e0 100644
+> --- a/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
+> +++ b/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
+> @@ -17,12 +17,16 @@ description: |
+>  
+>  properties:
+>    compatible:
+> -    enum:
+> -      - qcom,pm8916-pon
+> -      - qcom,pm8941-pon
+> -      - qcom,pms405-pon
+> -      - qcom,pm8998-pon
+> -      - qcom,pmk8350-pon
+> +    oneOf:
+> +      - enum:
+> +          - qcom,pm8916-pon
+> +          - qcom,pm8941-pon
+> +          - qcom,pms405-pon
+> +          - qcom,pm8998-pon
+> +          - qcom,pmk8350-pon
+> +      - items:
+> +          - const: qcom,pmm8654au-pon
+> +          - const: qcom,pmk8350-pon
+>  
+>    reg:
+>      description: |
+> @@ -100,7 +104,6 @@ allOf:
+>    - if:
+>        properties:
+>          compatible:
+> -          contains:
+>              const: qcom,pmk8350-pon
+>      then:
+>        properties:
+> @@ -113,6 +116,21 @@ allOf:
+>              - const: hlos
+>              - const: pbs
+>  
+> +  - if:
+> +      properties:
+> +        compatible:
+> +            const: qcom,pmm8654au-pon
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 1
+> +          maxItems: 2
+> +        reg-names:
+> +          minItems: 1
+> +          items:
+> +            - const: hlos
+> +            - const: pbs
 
-Need comment here.
+I don't understand this. The existing if/then schema did the exact same 
+thing until you removed 'contains'. Now we just have the same schema 
+duplicated.
 
-Frank
-> +			self-powered;
->
->  			ports {
->  				#address-cells = <1>;
-> --
-> 2.34.1
->
+What does need changing now that I've looked at it is dropping 'reg' 
+in this schema as it just repeats what the top-level schema has.
+
+Rob
