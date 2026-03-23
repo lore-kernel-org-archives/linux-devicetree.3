@@ -1,197 +1,166 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBEB13A8752
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 17:12:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB3C37B02A
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 17:18:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774285966; cv=none; b=Zs4T4FTQHHDlfHu3qh8QK+idhYaCwWfUcr3sFFce+wtyrU8Geoz/r4WXGDdhJZorNaiiLlXAdEPssi65W5h4r4q7qIRzvwlPoVa8WhFrSBMnthg1dJbyPe9AuHkhdQYqS6Zrbw+WJdw9Ol6W4qvMcXA3O7ZSn0cEZ8NzaFGafcU=
+	t=1774286300; cv=none; b=VZs2vhL1AFlYgJBdaeS7FGRSK97881c/HzImYmBqgz6VgQ9ohEh3Q+6aS4CJdL4j2RqZz/vVzgcfxeKKWQhwF75c3CZ9rali0Ssrgz0Or/X/iwTnSC8xhvzNoklOIfxHbLYTtLwX47EPWGHBbpTDCwCntjsJqhpHkpDJWkVfu+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774285966; c=relaxed/simple;
-	bh=VIH5oseomoaz2aNTCXssIM5XnulyweBpmgXeIPoAh6U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XFzmPJYFAS/oMeCz9EtyUr76BM84k2FOIP+LBuZxjuYd/uv4b6jCPKRhkwBVHp9WcTC8A60M+JlZDx/A7Uk3QFOhQtgQ/GsBXr1BzMIjWD9gPWWCMkzYaCDGsaC8HdN1rSkesdZN5YlVPuuiCtG3XnrAli7eIypW/J5XqQGyb/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=a/tYsbjr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MKMB4OVS; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774286300; c=relaxed/simple;
+	bh=SwZSBJ5dtFN1L7uizFJq7oOv2U7xSNXH+wFesahHWcM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uskyMmwSR2QRk/rH6V8zfPKE86LB+OT78JAhkrw8MsLsBfvfHDSgN6Q1td8nj6qcST9aCYZp/eo91tgY6WiFVfUSHdixvHwbRp7kUrk60UmpAENnKPOlFaA6Cw4OGttulcq4au2BjFE2S2z+Bqn63nvxfwxQ77tV0ZrqsQiGbZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=H7LtVRLv; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="a/tYsbjr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MKMB4OVS"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62NFGaaK021528
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 17:12:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	D3ROQRlFPBoLrDcR2n19Hmz53ktfTwjjW0C8cQSfgLo=; b=a/tYsbjrm7lFDkNj
-	/fPpmhymZ4JWDkFqdE0Sl47BjKgdYqllgV1l1y0uM7msbJ0SzBhjj0ffeccpf7J0
-	PqjDLAkiLs7jwO0534ZLrWWwuuEthvdhLmu9BsdPuEz9y31OrO3coGaeu+/hqMg+
-	xbCuJTnLG0PBkh/7lPvJ+gh0LnFT2ylS7w5B1RSxI2SUHNNRH8ile402ItcdA/UR
-	QPMKBcA8+ct0ngO3b19DNdfL9MH81Ejv8r87ArGPWD7XDJL+2KNRW9OcVyRAXaQd
-	Bdk4dEzy2GXnvc8dltBZRtPba+Mr9tmyfr7xybZ+Ze3bcL2ZwxP/as5mKnlc8P5S
-	1mhH6Q==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d33k31e7q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 17:12:43 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-35a1e725a8fso21970854a91.3
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:12:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="H7LtVRLv"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-486fda2a389so24792905e9.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:18:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774285963; x=1774890763; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=D3ROQRlFPBoLrDcR2n19Hmz53ktfTwjjW0C8cQSfgLo=;
-        b=MKMB4OVSV+4ZnUR1plNz+r407xIKqGfSvajgmxXncU0iXltzLLGu4Xxgh4BkeT4i85
-         R/TtfD80wQIiClsvGukcOwWXP3g8iteQ9ociGiXVvOtqpXEj2iNg4gYDkfd0Skza8pS7
-         YmtbB6n7Emr8dE3pCWKHFE0vVtWMo0A4m6bK39frqoHcah7UbM8o7VD2dfzBphYuIbQP
-         VB+1Vkt2SAD4skZr+VDmYn4gvk/4KFdG/8dZcIMUPd4MdnVifOCasUCMvQ3YdYSQKShO
-         LSy58Bgho6rcM03fM/rbT6nGwfeuXqRnulcaj4DaIk0HEBMhnl+wtHrN7y5+udh4nocO
-         nYsA==
+        d=linaro.org; s=google; t=1774286296; x=1774891096; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=QEgEB+FhJamQekHHnnzeHBVC3CCx1oLXNDdzh85xf2M=;
+        b=H7LtVRLvEnB8cTx7BQFvJ5hu9u4rx5QsZxDYkmDtjyjJuafEJpVzLCAWAJURU77xBg
+         z+7IKMdc++ikOe8pM6fhMXe+h4jQrqi63lRYfnRYy6ey+ggAa76ieXCz6qP4LZWnDlWP
+         nuNwstvVAyOAnh/gY3dXQmuk/wFsG6A0ri7um0oX647bRHav456rcHtBk3oIiJz9h43W
+         DxwIV2c2+lSlTFuKuQtPDRtW8Iyji+gAvs6ZjUP5MT0oN/Tfs7PpGgeH1pXKx2D36jw3
+         dKW1OMqFO0zByNy5eLIaM05hT/8Ec4kas0wyGTEMrJ32YXgHC8fEY4CdczmrroM8pDD4
+         e0Kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774285963; x=1774890763;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=D3ROQRlFPBoLrDcR2n19Hmz53ktfTwjjW0C8cQSfgLo=;
-        b=MbQGRPwkadTG0M+qUCmLQj6S+xVInMg743zrJTNv/2LmbyaKJN7Pn0JG9CMwyVBEZj
-         lzsKspfMjAbuGwJ6MV1KanX07/lgkwYWaVkpRQLrW5tbPbGc551yAFM3xZueOZSY+oiI
-         14ZYmRc78Qp3KArtpaXdLXUFR5ZdfrdA65c2c/1XFhSX4Y+VF+ZTiX6Cc3AIM0pMQVwA
-         iXCKNUq8BgWlSBjxrLvTfSsziknR5YkZmiDdKm29stdiiNquO9UjdnNx9W/ydUQhHEjV
-         A20ckkgSS1B+93FtBzxvwvYVbki6yLLKhcXpoImO6go1yWET7VR6K6UVFFCIGcTsm+sw
-         o9AA==
-X-Forwarded-Encrypted: i=1; AJvYcCVIinchPrArZ0j069ZniYPMRfDObDF3DdL/tmFwDxKeTMYiXUkr33a+olpOpdh2rZQ2lDWhzAk6gSWa@vger.kernel.org
-X-Gm-Message-State: AOJu0YzZxkuXEC8EerGohdLX7pmHnnWEWCx3/ZILnZtodqQ+D8urH9TO
-	qHrkFMNncwe2Eao+CsKshv/qucjNjz5HP6gV0USZDhSKY0zVFhAV2TTzPlyOpEyn6o4JNXyg5WG
-	+CMEG+ZcGTTSmenVWU+ZjnaOfyXssM/WfG2gHIhHXaLdIRIVGW6Z2D9FjCxR7/RBY
-X-Gm-Gg: ATEYQzxq7s+6mhQMGmfQY4IhHLx3kfp1PNx3KmsBpZKMCahsCGCBURbLfTAXlHR8rN2
-	Y2fKRaklqMu4NJ11bt4XpeLQH4gXb44ZFQH8kbHWv/NyWtJiQm56mofV+K/CdbliVF6+hu1pd37
-	SRx8h4epJHdgWaIcIV7gJQ9aE/3IdO9NloSCKgTPNyCMZupbGQur7dsjcS+ESbVGoAKY2aY6NzY
-	Ygv7ad7DvyHoxb89B757+zshho3HX40cAphgj5u20tclm5EF8rrFj+WEoMvG8NuRVpzXtynVuuT
-	iq83mHvFDQ3dKEnnPRSM9WXvM+LT4Ul1TlmVSHoqz2Ol031oPgha71Vu4BKdSPgjT8mGkbf1L8G
-	tsRrF7rZMw0ot6L1z4AT0GQWly3tUYUvXotEm+c0D8r3/rrYmqUzna1uD5HA=
-X-Received: by 2002:a17:90b:1a91:b0:35b:929f:7e95 with SMTP id 98e67ed59e1d1-35bd2c20675mr10918254a91.4.1774285962681;
-        Mon, 23 Mar 2026 10:12:42 -0700 (PDT)
-X-Received: by 2002:a17:90b:1a91:b0:35b:929f:7e95 with SMTP id 98e67ed59e1d1-35bd2c20675mr10918187a91.4.1774285961848;
-        Mon, 23 Mar 2026 10:12:41 -0700 (PDT)
-Received: from hu-arakshit-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35bd3d8c462sm10077241a91.0.2026.03.23.10.12.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Mar 2026 10:12:41 -0700 (PDT)
-Date: Mon, 23 Mar 2026 22:42:34 +0530
-From: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-        "Martin K. Petersen" <martin.petersen@oracle.com>,
-        Neeraj Soni <neeraj.soni@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-scsi@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v7 3/3] soc: qcom: ice: Set ICE clk to TURBO on probe
-Message-ID: <acF0ggIIJFb7mUUR@hu-arakshit-hyd.qualcomm.com>
-References: <20260302-enable-ufs-ice-clock-scaling-v7-0-669b96ecadd8@oss.qualcomm.com>
- <20260302-enable-ufs-ice-clock-scaling-v7-3-669b96ecadd8@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1774286296; x=1774891096;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=QEgEB+FhJamQekHHnnzeHBVC3CCx1oLXNDdzh85xf2M=;
+        b=cG17bXFbOOPfox1RBRAjnRZl5eZ96ZQAMSvKIPvSC8/PmxFEwxIHjquak4urAVGmI7
+         5F4yBqrsH6a7BiyyNlVIzWzVcKnkteDCCwJY4cupQ1h888RfBiOJRYM2+sBjBxS0vsGp
+         JwVIiXYwHOHQLL23R9ufPnDyTHNW3u89gw3xZiqB/qEnTU4dYUSE9nWEyrhteMpobkAM
+         l5vK4iAdm5qbICm6UMF2w3XfEAgcMDxg+LsRFlQw9wSi0xHq5A8vzkywf01j3PgvIQN7
+         VmeAeNMxEZpV0hmv6AjvVIf/Fq0eNMsXbA50cqCkL0UloUvLhI1ap93MaVWMpCCzpFhZ
+         8S0w==
+X-Forwarded-Encrypted: i=1; AJvYcCVToUgXCSMWfHZNxg8IKBh1CIQ+AKg7OzBh85ZqIlZ8H7AjzCeuXxb+JROd/OC7n+LuHz6ndM7N/9Qt@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBw2yGBctXnoJvT/dhQEq+pgIQA1CJOhHns608fju0aAJAuLVo
+	ujejD5aNmhlAjkMls8Io26UuW+R5vDUNGfG+F/Cxte4TPgwHB/1YVi5pqTKwJ+ThgSE=
+X-Gm-Gg: ATEYQzxmbreeXiawE3YitDYHd2V0hmXq0M+/TY3SjaCz950mu5WKZNjHZScu6Y6lOQL
+	LN3hvow/Fn7HWD3dikBdWhigx6QTv1vY1K31cJC/g/P3B0TgdD4Y0uNwQXgUweEObV07+rkADfm
+	jI7kmnIJv6HaLQe+fNrHyebcGklxat+UJ2p4PjfQkT6WskDPJ47E8VInh/L3Babi8yNbUpbryQl
+	ZERMWsP3yOcQYBnalIPzeO5UwrB8CUti93spGY1JJsU5Rs/asZJM8QIWM7l8s+hIh4uNqRhaQRF
+	wJU676LbEmKY10W/rQX01sTK12pt4PxzAJ+nLZucYQ+AT0qp8cNdq0sh5zekfdO99mMJ9R5oBxR
+	nXkSa8KoMR1s7iDNor3KNkQYuRksY1SJjoFNB94n79cMpUwjRgxv7zNhsYuRj8b9mOxr6lK44yx
+	+waNvOtvImtWvj/VNsEngt42ShXrUJMCI=
+X-Received: by 2002:a05:600c:c083:b0:485:3f72:324d with SMTP id 5b1f17b1804b1-486fee0481amr142927935e9.14.1774286295324;
+        Mon, 23 Mar 2026 10:18:15 -0700 (PDT)
+Received: from [10.11.12.108] ([79.115.63.77])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b644bf1c5sm33929334f8f.14.2026.03.23.10.18.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Mar 2026 10:18:13 -0700 (PDT)
+Message-ID: <67b32e90-1f60-4bf5-b534-b4a901d5a796@linaro.org>
+Date: Mon, 23 Mar 2026 19:18:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260302-enable-ufs-ice-clock-scaling-v7-3-669b96ecadd8@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=CYYFJbrl c=1 sm=1 tr=0 ts=69c1748b cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=i-sMpDq2_rzAXM5hadQA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDEyNyBTYWx0ZWRfX7RpcBW5W6bTO
- /iz8K6wKBMWwkirXWG3qkqbeoersKuMhRNP5JK4eXOVAGK6Ez1TomKCMHQdq980unC6HNmLuDZy
- VfUVGQoCQt0WrXIWODgZdUNs6ViFilD+Se/nnLLy6gfg+i1F2n/Y28RIWEVVx8b3j6VS8AzkZbh
- UdbRykeOWa8Jzm5uM7bwN1u4CIvmjpKZ5gW0Dh7+b7dUoJNCRXSV8BLG095APL+AHi4WOevkjBS
- z6//IOYn+u1KDxrlD3av1nvUZ/SSrwQrVc3whY8TqH+KM735g3PPNpdes91C9lCKEscvpmYOh90
- EDVOc4LQcglFGs4bqRfD53v+SH34hKjGl4UUcZ4o0vG53HjeBCcRl5K1DDuMna/zJXpzmK/LV/j
- 0UMGHttj6FZ5qExoSZ+7aBYM0R9Shhnm0UYv7h9cu6Ebs0/peTiClhI5hv4+03hVk3BwubzMF/Q
- rcs2luwJ+0tnBF8NJNg==
-X-Proofpoint-GUID: s-BjBXoq5FbtsT-89Y0U3sf31ZLY5t5O
-X-Proofpoint-ORIG-GUID: s-BjBXoq5FbtsT-89Y0U3sf31ZLY5t5O
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-23_04,2026-03-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 spamscore=0 phishscore=0 lowpriorityscore=0
- adultscore=0 malwarescore=0 bulkscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230127
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] iommu: Get DT/ACPI parsing into the proper probe
+ path
+To: Robin Murphy <robin.murphy@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo
+ <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@arm.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Danilo Krummrich <dakr@kernel.org>, Stuart Yoder <stuyoder@gmail.com>,
+ Laurentiu Tudor <laurentiu.tudor@nxp.com>, Nipun Gupta
+ <nipun.gupta@amd.com>, Nikhil Agarwal <nikhil.agarwal@amd.com>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
+ Charan Teja Kalla <quic_charante@quicinc.com>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ Juan Yescas <jyescas@google.com>, kernel-team@android.com
+References: <e3b191e6fd6ca9a1e84c5e5e40044faf97abb874.1740753261.git.robin.murphy@arm.com>
+Content-Language: en-US
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <e3b191e6fd6ca9a1e84c5e5e40044faf97abb874.1740753261.git.robin.murphy@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Mar 02, 2026 at 04:19:15PM +0530, Abhinaba Rakshit wrote:
-> MMC controller lacks a clock scaling mechanism, unlike the UFS
-> controller. By default, the MMC controller is set to TURBO mode
-> during probe, but the ICE clock remains at XO frequency,
-> leading to read/write performance degradation on eMMC.
-> 
-> To address this, set the ICE clock to TURBO during probe to
-> align it with the controller clock. This ensures consistent
-> performance and avoids mismatches between the controller
-> and ICE clock frequencies.
-> 
-> For platforms where ICE is represented as a separate device,
-> use the OPP framework to vote for TURBO mode, maintaining
-> proper voltage and power domain constraints.
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
-> ---
->  drivers/soc/qcom/ice.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/soc/qcom/ice.c b/drivers/soc/qcom/ice.c
-> index 7976a18d9a4cda1ad6b62b66ce011e244d0f6856..e8ee02a709574afa4ebb8e4395a8d899bf1d4976 100644
-> --- a/drivers/soc/qcom/ice.c
-> +++ b/drivers/soc/qcom/ice.c
-> @@ -659,6 +659,13 @@ static struct qcom_ice *qcom_ice_create(struct device *dev,
->  			dev_info(dev, "ICE OPP table is not registered, please update your DT\n");
->  	}
->  
-> +	if (engine->has_opp) {
-> +		/* Vote for maximum clock rate for maximum performance */
-> +		err = dev_pm_opp_set_rate(dev, INT_MAX);
-> +		if (err)
-> +			dev_warn(dev, "Failed boosting the ICE clk to TURBO\n");
+Hi, Robin,
+
+On 2/28/25 5:46 PM, Robin Murphy wrote:
+> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+> index a3b45b84f42b..1cec7074367a 100644
+> --- a/drivers/iommu/iommu.c
+> +++ b/drivers/iommu/iommu.c
+> @@ -414,9 +414,21 @@ static int iommu_init_device(struct device *dev)
+>  	if (!dev_iommu_get(dev))
+>  		return -ENOMEM;
+>  	/*
+> -	 * For FDT-based systems and ACPI IORT/VIOT, drivers register IOMMU
+> -	 * instances with non-NULL fwnodes, and client devices should have been
+> -	 * identified with a fwspec by this point. Otherwise, we can currently
+> +	 * For FDT-based systems and ACPI IORT/VIOT, the common firmware parsing
+> +	 * is buried in the bus dma_configure path. Properly unpicking that is
+> +	 * still a big job, so for now just invoke the whole thing. The device
+> +	 * already having a driver bound means dma_configure has already run and
+> +	 * either found no IOMMU to wait for, or we're in its replay call right
+> +	 * now, so either way there's no point calling it again.
+> +	 */
+> +	if (!dev->driver && dev->bus->dma_configure) {
+> +		mutex_unlock(&iommu_probe_device_lock);
+> +		dev->bus->dma_configure(dev);
+> +		mutex_lock(&iommu_probe_device_lock);
 > +	}
-> +
->  	engine->core_clk_freq = clk_get_rate(engine->core_clk);
->  	if (!qcom_ice_check_supported(engine))
->  		return ERR_PTR(-EOPNOTSUPP);
 
-Hi Konrad
+I was chasing the "something fishy" dev_WARN on a 6.19+ downstream
+android kernel and while looking at the IOMMU code I couldn't help
+myself and ask whether we shall prevent concurrent execution of
+dma_configure().
 
-Since you previously reviewed this change, I wanted to share an improved approach
-that I recently realized for handling ICE clock scaling in the MMC use‑case.
+It seems to me that while the IOMMU subsystem is executing
+dma_configure(), the deferred probe workqueue can concurrently pick up
+the same device, enter really_probe(), set dev->driver, and execute
+dma_configure(). Is it worth protecting against this?
 
-So far, we have been voting for the maximum frequency during the ICE device probe
-to align with MMC requirements.
-But because the ICE probe is common across different storage clients, applying
-the MAX vote at probe time may unintentionally impact other storage paths.
+I can try to prove it if needed, using a downstream iommu driver (sigh).
 
-Now that we have a generic scaling API exposed, we can make this logic
-MMC‑specific instead. In particular, within sdhci_msm_ice_init().
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/mmc/host/sdhci-msm.c#n1966,
-we can invoke: qcom_ice_scale_clk(ice, INT_MAX, false);
+Thanks!
+ta
 
-This ensures the MAX clock vote is applied only in the MMC context,
-without altering behavior for other storage clients relying on the ICE driver.
-
-I believe this results in a cleaner and correctly scoped design.
-Let me know your thoughts.
-
-Abhinaba Rakshit
+diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+index e61927b4d41f..5f0c1a8064b5 100644
+--- a/drivers/iommu/iommu.c
++++ b/drivers/iommu/iommu.c
+@@ -461,9 +461,19 @@ static int iommu_init_device(struct device *dev)
+         * already having a driver bound means dma_configure has already run and
+         * found no IOMMU to wait for, so there's no point calling it again.
+         */
+-       if (!dev->iommu->fwspec && !dev->driver && dev->bus->dma_configure) {
++       if (!dev->iommu->fwspec && !READ_ONCE(dev->driver) &&
++           dev->bus->dma_configure) {
+                mutex_unlock(&iommu_probe_device_lock);
+-               dev->bus->dma_configure(dev);
++
++               /*
++                * Serialize with really_probe(). Recheck dev->driver in case a
++                * driver bound while we were waiting for the lock.
++                */
++               device_lock(dev);
++               if (!dev->driver)
++                       dev->bus->dma_configure(dev);
++               device_unlock(dev);
++
+                mutex_lock(&iommu_probe_device_lock);
+                /* If another instance finished the job for us, skip it */
+                if (!dev->iommu || dev->iommu_group)
+(END)
