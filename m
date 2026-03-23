@@ -1,229 +1,199 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D0F3B894D
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 16:03:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44703B9D97
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 16:03:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774281827; cv=pass; b=dcoxkNMFtZN0cLDMxj0Q8yt8MQe0K0X6PPUc2V/Xzc7XSpkaSNIf6kZVx0i+wjTvGvvFGUhByGXvNdwnRmCNXMGeY0U6TNqQzla8FSZnb8hXUpsNxpTrDlmwFOBcR9e9QO/Q8nujsSB3lj4vI0/LEQGFQKE9pazjQcVz1kPNBCo=
+	t=1774281830; cv=pass; b=EAE5kWPW0/8BoRqgyYPkA3sWXfc5F2hG/xs161xAC7JIU++QKYgXQEGZg/T4qR33CPnhFS7h6usflDAAWhF4Z3kiJTliN22cRtznUqS1RS4Ukq8nSnmX5p5hIuwFD3DZGBWvCA1IIwz+X2FLOojrDUrltae9+EnyRrxM3qB1/VU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774281827; c=relaxed/simple;
-	bh=6IeZ8bg0RppZOGpii6z5tIjcxbE9K2oPFgD/N36lrPY=;
+	s=arc-20240116; t=1774281830; c=relaxed/simple;
+	bh=7irbY+9rOd+NW/fVb9Tr8rkZ1zlhu5ctJUZovL+hxRw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cZUvMPJdG+UGDMhdsWJBt4NgRlyUpVt+bYOYhZ5hZFey0dklkX343IMTNHBlG85jjUFOwToi+PDHk3s75o4QlqRfw73c61pEGMIab7GfaCjvAKdvEauZfbbC88z8zVfakjNw2R/yC2KNjyjYiQ9z5JurE4vycxEUHlppJY82s8M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ENPDGsh9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=S5nHpIeu; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 To:Cc:Content-Type; b=sKYg7Tgb3Gh3mskL833szvB2cpkn3mfGIb8H0tW4Ov89xKZ+IAM2jvjZximoX3rjFHl1gTTblO9JhzvnCTJzXDPvAzAjItqujso1bEUEjeCIQ+bw/yMKPU6VpbY9bo1BJX/GnNKGNJWachFQsP42FMb9bma91ex53f3dzE4+rxM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dQ0RPdAc; arc=pass smtp.client-ip=209.85.208.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ENPDGsh9";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="S5nHpIeu"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62NFGdL1600353
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 16:03:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	YUbYj7E6USUjs39a3+mImLkR+XQomQn/mwKeuuq4nEo=; b=ENPDGsh98jYcruUN
-	B9CMsz9yRVTdwS60oVcVmGmU+ZgAS7ZwB3KyRLOIoinaX0DTys31BGD33rcQ/To7
-	Vc2zk6elqkw7IrWW4vw51tgRsbs/YHjbIbl1xvz/LAgGltAZMTEDiPTjVAFKgn1E
-	IGHXL5LJCVPTsztCcYs7lXOzCjzUXrLzW+75QP0JyxW/oOLsIDeDFseQCI7PeEMj
-	ZTGU0qUE9vTWGz0D7Ct5QFlTrsUMdocnotuDYp2M2kTPGwN7ndO2uD/CmGwHvele
-	ED2Qu0EWecgbz/SrzR680MQIEcaTEtha27AsAGZofNiKgjkoXRUvE/kH9oV1Gqg3
-	LTmEOQ==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d34vkrx4g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 16:03:45 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c738bebd53fso14202600a12.3
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 09:03:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774281824; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dQ0RPdAc"
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-38bf47a6f02so2599431fa.3
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 09:03:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774281827; cv=none;
         d=google.com; s=arc-20240605;
-        b=M7hkC+j8VgV987PSj6WnHT0y20PcFn8Vy79iGkcOknyZAXsJ30EvDaNH8LMKOkZurq
-         9wnj+tcTqksV/q1hsaHADW+Z9M2b1G1FhhH5wbj+9WGyMCqLVM842AqgTV3TFDcMh2y0
-         tI/dr1L2oHTayJtHyimE5cu96zHh9C/b9wplijJYMFM0xAUmYDlNgXMYzvLNqPrflKef
-         oJb66Y6wA9pzijAU3Qt0JptfYRetDFC/yF+77QhM1YjbD97FW9GNBMGmZ6EY5MrmQBaB
-         KsWZXTavNZExKdLcoKZkXOPDjdNoi5uWO5McSKSpWGTvv1XLHF9yBh2SBU6p9jStW6/G
-         4ZcQ==
+        b=ZE9OWFzvXOk9pzpVcUigcK1YoyHWmlzC1mur1+sQcWKwsYvAciVLbSzVhHwNlHxZoP
+         1KLYuhcSi+DFT2moax4cvvR7Yi1Tky4sxLY0u2baWRL/vac69IYNkPG0fZCyq8AX0blS
+         BB/fcsBUSiUyuYC79TFsu7AzlNXJWNJ6f/AorHu/w8hr1b5PMeqF48RV7i6IAC/silF3
+         BYCz0j4K5TGG2JG1tL/Qp6YcKhucPyRtHDx46mvzIuiMAHZiX2bnIe+etN2H3ypQ9vyW
+         hgb3t0SKGZP1MbxjWPIt3rkBmDJX7zBHg+01S08VK2sOVxxp+WflB64t3yN1YJecwWlC
+         vqRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=YUbYj7E6USUjs39a3+mImLkR+XQomQn/mwKeuuq4nEo=;
-        fh=OuKtEKAVbSFKtlF5HT0v+nI4sOtzAzZNwAoT6mrRZ3g=;
-        b=cGchxsQdtkq+xgOujVktQeJu9+v9GlVtURKEHTxOyZ7HQdak9VJozueAnd6QdTlE8w
-         c6rcamzPQ13o+Qs61WL0/S7i+ndTma09RS80EXI0A5EcggpsT8F4FsZ7WiqZlFLT7uqE
-         6jQNr5D+STQwNf2rbtN2DKk16Uz7rbv72EMrVe5lLpXlptdZJaBAPcPOEeIej4CD1AWA
-         fy1AaGIXhr6BEXPXxanlmAltsebFWKPbCPlgQcqkTCtiNeu7Rg5gJkP44qGF9GPCPrn8
-         qQ0dYqnp8TUn5cR+mwwLehqzG14cyI4TZXCGF57810LQDD76JofoNWhP+I/xx8FE//RP
-         AJ5Q==;
+        bh=M9trgAufF2igj2vmokDZA9CQWTVpioAWY1V9rx3C8FU=;
+        fh=6ubU7SxfcVkSVpqgIprsglx1kY5TwTRmQNJsdUUQyPY=;
+        b=TvUMWvSAeC0CvOBNYVMa08OnePnhQbDGMqzN5BB9tPCX6Q4PhxVAW/eXL4u1n0O40D
+         C79IxGs+iEckl4EQ5SWYvwqHZHia1oPydLQacENY1DnzHag7t4V9phPS5Rkr+0TLzeVs
+         uczXXTmjLxyPLKOExEQLvuOvAdP381JpgSEYccpp67QGUOv04/0Xn8wLj+wUotIUWbKm
+         FoUfg08bUhmDrygUndPI6PNXm7X6nNbhY6F3reSZiKFuzrO5+pf0Kg1crT3kf64utCLq
+         9Bo/wihK2kaofMLja1gxd3dqxbgtelCRk2N63VuFKoYP6cdkeprTPnd9nb645tkOVKKs
+         DVdQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774281824; x=1774886624; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1774281827; x=1774886627; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YUbYj7E6USUjs39a3+mImLkR+XQomQn/mwKeuuq4nEo=;
-        b=S5nHpIeuKoHqhEfkzN/HHDnMFscZFCMA5BbSbPpAMLNXQAWE9ktlTdytognjLpIGRT
-         9dMdPPVMUF/P5avjEUaB+URjj2KEF6DHzkx5D6WahYi7h+UuYv4cH0R0gdkEr7VHWZnY
-         EOQGtbJgMnT1F+xmDYkzsPPfNs5Bs6wlx3wo9K7Qm6wndylWj0UjtgFcwsMuoVSHd7u3
-         mNo01vB9DWvN2rzL9tdxWz8QqH7NYNIUBZwUfCnQqFYsiknTSqMGyfxKYVqBdhORNVbc
-         g26f48Tl33TF3g3AT8oo/SRnqn2tdnmHqy7LKIh/AmxChTPEGJua3Pw8BeEP06V3fdPK
-         1clA==
+        bh=M9trgAufF2igj2vmokDZA9CQWTVpioAWY1V9rx3C8FU=;
+        b=dQ0RPdAc4HqNpJRB3XynuNYWgoZeu0Ap14wRj5yu4dwVgF7R9aX4ua29+6lkLc8q4N
+         S77vD9WO3qBDEj5xL48frva8HFePhuCPCyLE4DnSMR6WE3X9YIPRxqyQescuCqIl/U4H
+         VmR1m05fYUCdkP9NRvujM4NKQ3gwkNMeJElFrtzkUBTlbXMcwYF4odew5j8E8hdma2WL
+         celEbxT1bvfOboy34GuqwFkNss/LJnYh8i9gNBS3VgNpiMKg/7El8bzDPEnMwJiFEkU4
+         m3rtb+x7reV1GG2d4FJPBbCfO1mzROLQfiS/y9iUSvKQR4ufvreM79JF+Xy4F7XQeyFb
+         USOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774281824; x=1774886624;
+        d=1e100.net; s=20251104; t=1774281827; x=1774886627;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=YUbYj7E6USUjs39a3+mImLkR+XQomQn/mwKeuuq4nEo=;
-        b=KeoWHFVdISyPUIoFvDqnan665iGdci9up2NWfenAbUac0rQyMzQ3iEW2IplaRoVmbI
-         K2tb001QQAoLlxNZajOX9WBPaUGcFe8Oj0qpa6uenGi4nHhU67d5cnsvtNKIaBAxzm8n
-         rO/0UnZLBU1T4SQRt4hACWeayUDmlSa/Knjza0vL+N0C3Eq+K1GzVjs09mv94Pmpkt6m
-         qprzqUoj4JSf3p9tMw11ks3Fm777hnvOfMf3u7Fp15FovKRpPukM8xeZzqnGjW3JMTDk
-         ICyf5flkY7vaBz0bBUPcuQS90EoiF86D/5d5zJGDe5kgt8+qsBN1f3g/eNwWaUxHD7QZ
-         KYQA==
-X-Forwarded-Encrypted: i=1; AJvYcCUM5koWcOGVVkEv+6DS4FLxo+xM13NiyWMwcIdF8jK1F6tQLAau28U2vl/Ik9gl7szBl+zdDGOU7Si8@vger.kernel.org
-X-Gm-Message-State: AOJu0YzNuOMPltqAO4CoEkzO74X3xEANGeLeEzFcAIWN5MW92kFI6T7x
-	YRtZYduVpZZKG2fV4vhPK9IiYfgD8cOGSnz2ELHp6o1U9ZXQRqE6Cw0uprA0G4japzoD15PpcKr
-	WwuSjW+xn34ELfSNgIHTitf81QfJGRwsWsJGNaJZZMrjV4squC0cjCpPSgB4wPmPMPFDZWwmCoK
-	LcOU0ha5lqVhFcF51WhGEgl4cBz5zo/xvNTD9tPLVYSSDWCpQ=
-X-Gm-Gg: ATEYQzz+dB/zfyvVGoyrAuv3RxFmug/w7zWio/YX8sTUHbqFghWVSJ1/4qIDnHr/Sgm
-	Fdy9fCFgD6UdAIBNrj422173uI6fLh2/+grnbe+G7oIBYS123asPSp0OKjCx/iYR0ItvwWTj8H5
-	+NGaSN1M7maBt7riQJ491PCRzXJXRo2+iTs/mYtiCdiaNVDanuC76+2jVh/4Iv0NiL8RQCcx2zc
-	/L2OGfYL8Kt2ABoAJaB9uj1MkJ249ZElvzKo/f8eidY/Lk9M5P2t0TT3OIZI7Lp5D9o
-X-Received: by 2002:a05:6a21:6da6:b0:39b:a48e:6a77 with SMTP id adf61e73a8af0-39bceb68288mr10023605637.37.1774281823531;
-        Mon, 23 Mar 2026 09:03:43 -0700 (PDT)
-X-Received: by 2002:a05:6a21:6da6:b0:39b:a48e:6a77 with SMTP id
- adf61e73a8af0-39bceb68288mr10023550637.37.1774281822778; Mon, 23 Mar 2026
- 09:03:42 -0700 (PDT)
+        bh=M9trgAufF2igj2vmokDZA9CQWTVpioAWY1V9rx3C8FU=;
+        b=rqQFWGMIYWSocS7atxA+MXBnGd46ZURS3KOxgt7SRiQUlOtg9gxEDR7OJdxAUxGG+g
+         z/rns4co/61QrJi+xuLN6Nz1tAAaB6vIsKy7ddBJstZAIFXLnzDcyh6EZuNoMOX1jBNZ
+         pzrQ33nisqaXGIVj6wX+7d8PYDO5wXy2LoVYNjY+m9+VaW7gvnCeN3dL9RkbCniIil6U
+         fKzjxpY8q905zhjNOX6vZ1xoGvUs0GeZQrm3O6NtN26wftf8iGtEFRRei+ja7ZZ9FIQk
+         1HEZQzvOQmCX4M6X+FlL67sqwxbXNGHkCDW7co3lPUjCItUo4K16JZTN79JFqLM+UDwu
+         btPw==
+X-Forwarded-Encrypted: i=1; AJvYcCVO8JExM/LcVimfcsJSWouFk2epB1E1JBLgU6jpYm4sVdbNbXhUuCdU+S+Y1eYMwlNqaeTQFq1R1YJz@vger.kernel.org
+X-Gm-Message-State: AOJu0YzsOai7yWKWiBrOj95E1Xp2wHvmibu1/bwwVGZ/kshj0RtlSZIj
+	f8dYtgz1xG5Gi9/lZmXF+8V8eE/yu0/fv+tZvt6XmbIipSxp4G41GnvuiWF7ifaiJUoWQ0Osig0
+	xJpTFM+ig2JM2xjlgEP7Dov1kn4UERCI=
+X-Gm-Gg: ATEYQzwVRERikQn5EygoNX1Ui7IvuZTtxMLvR4iHlBLikSZ0Sazf2+7srMviMHPBkI8
+	WMfz+Hw8H9JBZo46eJM2cPKXCVRuysTsu49USp1nQao/fnVX1ELEXg/DxMv4NGcrdgMSF6DKJqt
+	ik7479nI7i/wftZBL6v41Y29mBHNyjUrSbnbPeEUNSLUtjXhge3s4Km/jzMlNgpbfbwUj6O1Zpy
+	FtwOrKcR3BV9LPRlTuZkJT6yBEKZKAX1Dn3+At5uAEE3U+GJBpHfElV4HCeILfZvo5I59fpD/mO
+	BYu4dfASoYCcc1G/R8KFbNb8+Ayz/pqSpx0QCI4Z2r2RNiBeM2vpf6kgYg27a6fHLJlT
+X-Received: by 2002:a05:6512:6181:b0:5a2:889e:b20a with SMTP id
+ 2adb3069b0e04-5a2889eb350mr4104674e87.44.1774281826562; Mon, 23 Mar 2026
+ 09:03:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260323125824.211615-1-loic.poulain@oss.qualcomm.com>
- <20260323125824.211615-2-loic.poulain@oss.qualcomm.com> <94b415bf-9a76-4d31-add4-6283e8b43b72@kernel.org>
-In-Reply-To: <94b415bf-9a76-4d31-add4-6283e8b43b72@kernel.org>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Mon, 23 Mar 2026 17:03:30 +0100
-X-Gm-Features: AaiRm50U5VFBZif45c0aETtJ851A03Y61IDlm_uO5C4c7JQdpnRMGomgP7_ijXI
-Message-ID: <CAFEp6-3xmL4q9eSLpUZjdP5z1yCr_AJxSLmzqF70S05DK7Or1Q@mail.gmail.com>
-Subject: Re: [RFC PATCH 1/3] dt-bindings: media: qcom: Add CAMSS Offline
- Processing Engine (OPE)
+References: <20260322-ayn-qcs8550-v3-0-4afa89c20888@gmail.com>
+ <20260322-ayn-qcs8550-v3-1-4afa89c20888@gmail.com> <20260323-laughing-pumpkin-oarfish-99fafb@quoll>
+ <CALHNRZ_2tUuiBBuH-QGi8VQbZSVhQg2KGd-dQVJMq+HKiGwpmg@mail.gmail.com>
+ <2228bad7-b356-4274-a7b9-9065c9e35e9d@kernel.org> <70adc767-cf01-4498-b758-f221f0c81f11@kernel.org>
+In-Reply-To: <70adc767-cf01-4498-b758-f221f0c81f11@kernel.org>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Mon, 23 Mar 2026 11:03:34 -0500
+X-Gm-Features: AaiRm53L5Q4rOWiROqkyJg0La9E6e4uOYoPppMT9VXimIJsFCPa-A-du26CGdOk
+Message-ID: <CALHNRZ8+sRm5VnBOtsOCp1t0Pih_tPYCZB1=wu4qBFSXdtGg1Q@mail.gmail.com>
+Subject: Re: [PATCH v3 1/5] dt-bindings: arm: qcom: Add AYN QCS8550 Devices
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: bod@kernel.org, vladimir.zapolskiy@linaro.org,
-        laurent.pinchart@ideasonboard.com, kieran.bingham@ideasonboard.com,
-        robh@kernel.org, krzk+dt@kernel.org, andersson@kernel.org,
-        konradybcio@kernel.org, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, johannes.goede@oss.qualcomm.com,
-        mchehab@kernel.org
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDEyMiBTYWx0ZWRfX1RxmC98OgA67
- dZ4fi89r8nP02VyaeuWchCLmtKfmP8In6ni7xsvkoMg6i+eJWJc7AhdEakKtgpt1jm7KWzbCNWO
- /JhR9f+aYSP8z2s47zUQ4niwUQOB/EZnIen3HwziyXLnTeuXdfOkoCVzg/CGR+vYAOcHblMeRJN
- lyk9CVLlfZtLi+nkEfhHO2K29ppJzuoHG5rTo3px5NKaZ5kSQXTjhnMfN1Kh2wDf8BA6NW8CHe5
- sR9qTfE+S21gah9Qxaax0OBh50ciYs+2imTTid6cB0tCvlZ137zMvcZZXFZujv8/0u27FfycHmr
- Qg2CVp3kgIyD3UV0CexHBW8VbeHBKo7rdLgqdVBghdvpIutgtDaFS4Gl2LlpPlTA9DMk8lEzAT0
- myu5A1xt76DiEU6Nk9gZn6EwpD53Ftom3uaoY1aoIfdQnVUYGhyMcb2mXejjYbcg9ppn/5TbkyP
- KYoy3OMd8Hac70ZFiwg==
-X-Authority-Analysis: v=2.4 cv=eMoeTXp1 c=1 sm=1 tr=0 ts=69c16461 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=dDmFx4qguRSL7zYZr80A:9 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-GUID: mb3WaJTpISRDK1yZlZ-PlBJ9VE7rXswt
-X-Proofpoint-ORIG-GUID: mb3WaJTpISRDK1yZlZ-PlBJ9VE7rXswt
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-23_04,2026-03-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0
- bulkscore=0 phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230122
 
-Hi Krzysztof,
-
-On Mon, Mar 23, 2026 at 2:04=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
+On Mon, Mar 23, 2026 at 4:04=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
 g> wrote:
 >
-> On 23/03/2026 13:58, Loic Poulain wrote:
-> > Add Devicetree binding documentation for the Qualcomm Camera Subsystem
-> > Offline Processing Engine (OPE) found on platforms such as Agatti.
-> > The OPE is a memory-to-memory image processing block which operates
-> > on frames read from and written back to system memory.
+> On 23/03/2026 10:00, Krzysztof Kozlowski wrote:
+> > On 23/03/2026 09:39, Aaron Kling wrote:
+> >> On Mon, Mar 23, 2026 at 2:51=E2=80=AFAM Krzysztof Kozlowski <krzk@kern=
+el.org> wrote:
+> >>>
+> >>> On Sun, Mar 22, 2026 at 09:05:18PM -0500, Aaron Kling wrote:
+> >>>> Namely:
+> >>>> * Odin 2
+> >>>> * Odin 2 Mini
+> >>>> * Odin 2 Portal
+> >>>> * Thor
+> >>>>
+> >>>> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> >>>> ---
+> >>>>  Documentation/devicetree/bindings/arm/qcom.yaml | 9 +++++++++
+> >>>>  1 file changed, 9 insertions(+)
+> >>>>
+> >>>> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Docum=
+entation/devicetree/bindings/arm/qcom.yaml
+> >>>> index d054a8f5632d853509b7cd37f07f02473cf6bf71..ee68963c30eae10fd3b3=
+a5e21bda63ab941893fa 100644
+> >>>> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> >>>> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> >>>> @@ -1075,6 +1075,15 @@ properties:
+> >>>>            - const: qcom,qcs8550
+> >>>>            - const: qcom,sm8550
+> >>>>
+> >>>> +      - items:
+> >>>> +          - enum:
+> >>>> +              - ayntec,odin2
+> >>>> +              - ayntec,odin2mini
+> >>>> +              - ayntec,odin2portal
+> >>>> +              - ayntec,thor
+> >>>
+> >>> I already commented on vendor prefix patch, that you incorrectly move=
+d
+> >>> it out from this set. This only stalls your patchsets, because none o=
+f
+> >>> the trees will have it thus none will pass any checks.
+> >>
+> >> You mean the checks that passed just fine on v2? This is documented in
+> >> the cover letter, which apparently no one ever reads so I wonder why
+> >> we even write them; and listed as a dep, which said checks pick up
+> >> just fine.
 > >
-> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> > Checks will not be fine, imagine this scenario: Bjorn will pick up this
+> > patchset and next will have failures, because there is no vendor prefix
+> > documented in the next.
 >
-> I don't see explanation in cover letter why this is RFC, so I assume
-> this is not ready, thus not a full review but just few nits to spare you
-> resubmits later when this becomes reviewable.
+> There are also more subtle problems here.
 >
-> > ---
-> >  .../bindings/media/qcom,camss-ope.yaml        | 86 +++++++++++++++++++
-> >  1 file changed, 86 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/media/qcom,camss-=
-ope.yaml
+> Because you included it as b4 deps, multiple maintainers might pull the
+> same patchset if they are not careful and do not notice the pull of
+> dependency. If that happens, you achieved nothing by decoupling it and
+> it is the same as it was included in every patchset.
+>
+> I, for example, do not take patches with dependencies, so that would be
+> a blocker, so again you achieved nothing. I don't know about Bjorn, thoug=
+h.
+>
+> OTOH, since you have a b4 dep here and bot checks supposedly pass,
+> maintainer might just pull this patchset (without dependency in cherry
+> pick mode of b4) and not notice the failures.
+>
 > >
-> > diff --git a/Documentation/devicetree/bindings/media/qcom,camss-ope.yam=
-l b/Documentation/devicetree/bindings/media/qcom,camss-ope.yaml
-> > new file mode 100644
-> > index 000000000000..509b4e89a88a
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/media/qcom,camss-ope.yaml
->
-> Filename must match compatible.
+> >>
+> >> As I have mentioned multiple times, the vendor patch is separate
+> >
+> > And as I answered to you already twice...
+> >
+> >> because I have multiple open series that depend on the vendor and
+> >> there's no telling which one will be picked up first.
+> >
+> > ...no one will pick up vendor prefix thus your goal will not be
+> > achieved. Nothing in vendor prefix patch explains how should take it to
+> > solve it. People do not take random patches, so if you wanted Rob to
+> > take it, you should have been explicit.
 
-Some bindings (for example clock/qcom,mmcc.yaml) do not strictly
-follow this rule and instead use a more generic filename that groups
-multiple device-specific compatibles. I mention this because my
-intention with a generic filename was to allow the binding to cover
-additional compatibles in the future.
+You told me on multiple tegra series to split things and list merge
+dependencies in the cover letter. I have listed in this cover letter
+that the vendor patch must be merged before anything from this series
+is picked up. Why is this any different from what you kept telling me
+before? Whichever binding patch gets cleared for merge first will
+trigger the dependency of merging the vendor patch. And as long as a
+message is generated on that patch that it has been picked up, other
+series with that dependency would not cause a duplicate.
 
-As I understand it, in the current state I should either:
-- rename the file so that it matches the specific compatible, e.g.
-qcom,qcm2290-camss-ope.yaml, or
-- keep the generic filename (qcom,camss-ope.yaml) and add a top-level
-const: qcom,camss-ope compatible to justify the generic naming.
+What would the alternative be? Say the vendor patch gets added to this
+series. Then I would have a driver series that would have to list this
+as a b4 dep for checks to continue to pass. Making a dt series that is
+otherwise unrelated a requirement for that driver to be merged. That
+seems even worse. Or much worse, I would be unable to submit such
+drivers at all until this has been picked up.
 
-Any preferred/valid direction?
-
->
-> > @@ -0,0 +1,86 @@
-> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > +%YAML 1.2
->
-> ...
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - reg-names
-> > +  - clocks
-> > +  - clock-names
-> > +  - interrupts
-> > +  - interconnects
-> > +  - interconnect-names
-> > +  - iommus
-> > +  - power-domains
-> > +  - power-domain-names
-> > +
-> > +additionalProperties: true
->
-> There are no bindings like that. You cannot have here true.
-
-ok.
-
->
-> Also, lack of example is a no-go.
-
-Ouch, yes. Would it make sense to have dt_binding_check catch this
-kind of issue?
-
->
-> BTW, also remember about proper versioning of your patchset. b4 would do
-> that for you, but since you did not use it, you must handle it.
-
-ack.
+Aaron
