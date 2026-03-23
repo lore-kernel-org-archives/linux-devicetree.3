@@ -1,196 +1,134 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3BC132694E
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 18:54:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F61930FF37
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 19:01:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774292067; cv=none; b=TFZxv9lxeKbkHqJoo1tZTOAeZVoir4nKpcBoGMmTuoZ4Zl5n6vO7+ygPU8k9USThPjUn9vdPFrF6mJ3jz7xnPAGhC0OsspEK6pYdoXoMl71HIYHRe624M/JUgadtqsIpvcmesltIBkDhgXFB4dHtaoAHxCqncxIQri7tOKI51io=
+	t=1774292473; cv=none; b=VyXL6LAysWXc8N99snqTF38oKG1lfDuc2uaaN80gSXo6UgChYJ6PhF/c+7nLaJdksqbv9RnG80Ps7U2ep2PgN44I7dgLcPacLKRL9KSlu32UWlOlsDNflI8VbZOvvLBjv1sR75w5hkcLuFA11F90z8RQ3Oul9RKDeEqIB+0bTAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774292067; c=relaxed/simple;
-	bh=xzNhZ3CusPSO1J1Znrn+UVizVz7JUvH/VJLig13VWCA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tPAGXvoF3K0DfF/k0MMdE4YDfb1q9Cp+r1rNui/VmJiZbwMUHYonZnWAIH9TzDAWkddwC/NOrqqbBX+ho8JIacpxoayLIs4VgZUTy1IHVzNEwsT7o0sFjT76+b2zgBvD0LcTUzNtA/5hXZ76u8hsSE65EiQaPHQkR8we7wzvR8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MGkCFsBc; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774292473; c=relaxed/simple;
+	bh=HknQ5tmeJvs4F5JSI87UBv5DHfHkIOf0k7Z/bDgwvjE=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=f5FRupXsI0uQyJsBI5WmeOs7Y/rH7WQNkEF3PcdPfcWFPaKMkU3QddxFGODSD8nKDGxENWqujQraQjamLC2bMMeurPfcXJC3A0IZ3un88aVaxA0hW0BvsK/0+XED0skwJ6BNVtVMrk4iQCR4qhuvKzDlkX/JFji1gjgluWRcSCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lcPsC65g; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MGkCFsBc"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3585ec417f6so2375769a91.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:54:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lcPsC65g"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-486fc4725f0so38470895e9.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 12:01:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774292065; x=1774896865; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=R/LIDRHoOR5nh8Q3fCWPthR73ZHHv9nmxljWeuQGw2A=;
-        b=MGkCFsBcmEji/LTZ2T1WGPEZupfX45nqV087NQiMrtO7e1uHPHGwpmbnXnkrdZwCc7
-         3CxIjVvMLOUm9t9vW4MJeeSux9oSgLC5s3Mp872Ocin57kpbpv/IurYL+DjPIPiK3K83
-         eG97WrfdGuOhCFaqZmMNWjUkFDDKxrt+GVecuLfLZLOrSKRFFuvYF0LjtBix0+src6bK
-         7juw+yltrA3yp5FLXoohGCaAoqZOmQ1LLxyWHgv6/L0VhTdR83xpHp87A5+yYOlxIuY2
-         7CaTsQODIcJHOyQIxR7ETuCIqK1Zw8N6ISx7+ePaoQYVH4GxMU9f88A8+8ekjOYNy/6P
-         tTgw==
+        d=linaro.org; s=google; t=1774292469; x=1774897269; darn=vger.kernel.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=iAQkTnFgl+8yd50clSd1ldbwKw7NVFGAMfnkLJg3I3Y=;
+        b=lcPsC65gr8E4LsGwneE2qGH0tPp6ZD4mt/In70ELRusHQaVHL7KB8rglZx3nmBlsXt
+         yq89yEtkhd6YGtABmtDp6l1bv83DVfJn/FnXRAe4g2vmk5VmUtW9FJNuCbnT1lnjbxQm
+         V7KzxASPGGhTQHEAT4gRZJWq7zLknibDWkQmDKuU1L2eIoXSnbVHN6gXARMzhCgWgZpX
+         rPUHdwsiKC0rlk7PlBmfigtgYrkmpn2YTCpht2D5Ke3GxngU9If+Gg6sS9Emn+B8Mz/j
+         RqYcm9S5jSb8/fWFppRAtKbwJC3oQtarwwQ7aIxuATb9Vjweqwdzwu8dPW5qOix789YK
+         oyeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774292065; x=1774896865;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=R/LIDRHoOR5nh8Q3fCWPthR73ZHHv9nmxljWeuQGw2A=;
-        b=j5CzZz94/ibXUaHuBRtykj+5gpL64fiFjitJ8xCkx/QYrUDG3WY7ptDVc3QtCLJ9a2
-         jBTcl+UDW7FRIzk1KOtSWNleBZqppeF8FcrgvG17wjZNl8MfYDfQOrQrU35cl3w5qcw7
-         1GACxSxSyb5aXCpbsEAuP7Bj60VGC+dBuEb5Ad6ZnZdH72KE5nrKQygyiSo5tZEMR+l4
-         lyRnLAOX8qxiZ7ynUvvyupljl/9gZ/Bc6KuvDQZi2NmEEzBh1sgdudHFR/Etu+dqWPrG
-         jHPpw40YHpAbZNq0l8tPpCW3qYjLl/TXrOp+fvfAD2/QjMSAdhFtHQnGAB5u9n6jfLzC
-         OMcQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVpiDtrmoNGHPA/mOz0VTaTTYObX2MgamgBBh/sGmfeXlKsIrryI8N5ScEs78fc6wHKKVDgtmLqEOJt@vger.kernel.org
-X-Gm-Message-State: AOJu0YyMsNBINCa666lByGrHH/aQ4QKx5wO/RISlhxv1kOGpyX/H+qni
-	fq0THm4mWiDWyL3+Gb/SyzUNdIkoF8T4v40ODyMMQI6lzeRAsBM1zw/G
-X-Gm-Gg: ATEYQzwP1sN3bNTydQ5PuKSEoAJu5a1vUWKXUNvxwWXRFVDc9I8oX+ZhxBHAm9bkbox
-	6A6puS82UYkyz5Em03Igm684bUqMicOf6db2O5CVj12RS/fjuq5NLZAjQvMPJFOZaCW5rcDonuG
-	C6dEXp7J4C+rtCDTbU/R16asLOwOZGro9XkMF+NaqCy0nmJ8ogNxessZFNoVkR5Ymtj1R5vY7dy
-	9asjyCtvrhx/S2k+fpfODr9km3UEHEkJM+8RPYi95j1XlssZPdNJBxF+ueYUOVLNEiniZlnAwJI
-	4yDFPQHSCbBS1x3DoL4yHcwEWDlwIV31j4YPMD0DcIx10ZsuorcVTL+8PmEHZCi1lWlSyXwYWTP
-	q86ZlAUDHNk/xauhScWBOY5QapmXHaG+mfw1xvboKqYpTtRQEwWfKVHO2Gyhy+1tPPYl/69g9jY
-	K8BBXVTp4Ksd+vO9D3JtOWzMAbG86XXmh12Qygtx6axPfuIotAIikHku86Cxw3m3nwaLU+JpS6
-X-Received: by 2002:a17:90b:3dcf:b0:359:8957:7285 with SMTP id 98e67ed59e1d1-35c007be70dmr432915a91.3.1774292065020;
-        Mon, 23 Mar 2026 11:54:25 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35bd3eb46e3sm9800649a91.1.2026.03.23.11.54.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Mar 2026 11:54:24 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <6cef4665-1678-41f4-9199-8e226f26e6b9@roeck-us.net>
-Date: Mon, 23 Mar 2026 11:54:22 -0700
+        d=1e100.net; s=20251104; t=1774292469; x=1774897269;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=iAQkTnFgl+8yd50clSd1ldbwKw7NVFGAMfnkLJg3I3Y=;
+        b=iC7+9ZlImZfCzkjr2JkeuzmoRBzY6YNdXIwcoWdWu08AGAX+1vQy6gafaIjmFJ30gS
+         SgEQVilsLxsYCdp4keJxo1TxJgmkMoBYfi9dxAGtf1ILsdW3De+qKO11g4YVbmkvtdfH
+         87kBvfmyS0Y20O/cQEM51iZEdvElZZuFYKbXO0QIri+e815azbqJ6YxJyW4HRtNiDUG0
+         i0RUorIBRnCHbefXnhqZAL67cAIkVwyqszeEjmHPIT4c3ENKiNzBWz5Wm+AjLO8bEZh+
+         3k8q6S4tTtgF1Hr+CLuomv1Gjxbxkded9xLvrpXezZ9JURHsm7z+nph8qOaxjXkg/3CR
+         cNKQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUk+FUn7v+f9dM2GPC86JGGPPoKoLTin9Q9MEqE9NsNgXYMYMBmp78lKidbsFrWIJlneYJ2a/ZDBf2O@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzgki0xLJVnJLFOzjtrVn6iqNY7s2rV1y+N5KNHJ3CcdB96rLl9
+	EHtWBg4cbVE4qio30Ar8LxvhTRYgzPqz0AnA1nK8mN1qLU1jGxPWQI9g48teDkdjZwc=
+X-Gm-Gg: ATEYQzy2RbhARPLdSqExfB+nl9av9zjERu49wxtKrw7ggRGlc/sS49swtx5CvTkCy+w
+	y7GMnJnrrzsiIm+bIdnBZoJv6bGP3yPEYz32cCmOpaBGJjJbAApqT3eARj74CgSdr7hOiIprM/W
+	YNi0wGMUUbmk0yFWw84on+pMsKdg8D4XMowqGExlrRbvgrYOYteJGuOvY0UvLxTMG+8LX2yg8Ct
+	Bo0T6IP7sIVMJjEkfgdS4xws/DEAnGGy1o8oz5UOJoQH1mRhEIHTfeKrF4bLUAmeeCVgNWLX+1C
+	MG3NxVE9A6mpN6/RE54oEECnl9JA7YyweN4YzXvg0L73Enha8ATENWYd3TFtLAkaD2/t9fVSff2
+	/ypGTC4P0x9S3dXqcOOj0HyT06/yF5cmD2cz09osyCc7qHPdC8kqoq51td7VOaWABXGa/FnNoq/
+	A9SooTllIewwnwA6MHOGTECsaepmaN
+X-Received: by 2002:a05:600c:4349:b0:486:fe83:861c with SMTP id 5b1f17b1804b1-4870f1fc613mr5830435e9.7.1774292468497;
+        Mon, 23 Mar 2026 12:01:08 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4870f822b83sm1713765e9.4.2026.03.23.12.01.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Mar 2026 12:01:08 -0700 (PDT)
+Date: Mon, 23 Mar 2026 22:01:04 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Linus Walleij <linusw@kernel.org>,
+	AKASHI Takahiro <akashi.tkhro@gmail.com>
+Cc: arm-scmi@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Khaled Ali Ahmed <Khaled.AliAhmed@arm.com>,
+	Michal Simek <michal.simek@amd.com>
+Subject: [PATCH v6 0/7] gpio: introduce a GPIO driver for SCMI
+Message-ID: <cover.1774283146.git.dan.carpenter@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/12] i3c: master: Support ACPI enumeration
-To: Akhil R <akhilrajeev@nvidia.com>, lkp@intel.com
-Cc: Frank.Li@nxp.com, acpica-devel@lists.linux.dev,
- alexandre.belloni@bootlin.com, conor+dt@kernel.org,
- devicetree@vger.kernel.org, ebiggers@kernel.org, fredrik.markstrom@est.tech,
- jonathanh@nvidia.com, krzk@kernel.org, lenb@kernel.org,
- linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-tegra@vger.kernel.org, llvm@lists.linux.dev,
- miquel.raynal@bootlin.com, oe-kbuild-all@lists.linux.dev,
- p.zabel@pengutronix.de, rafael@kernel.org, robert.moore@intel.com,
- robh@kernel.org, smangipudi@nvidia.com, thierry.reding@kernel.org
-References: <202603230124.VFt6CPBe-lkp@intel.com>
- <20260323184207.68515-1-akhilrajeev@nvidia.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260323184207.68515-1-akhilrajeev@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 3/23/26 11:42, Akhil R wrote:
-> On Mon, 23 Mar 2026 01:47:20 +0800, kernel test robot wrote:
->> kernel test robot noticed the following build errors:
->>
->> [auto build test ERROR on next-20260320]
->> [also build test ERROR on linus/master v7.0-rc4]
->> [cannot apply to i3c/i3c/next rafael-pm/linux-next rafael-pm/bleeding-edge groeck-staging/hwmon-next v7.0-rc4 v7.0-rc3 v7.0-rc2]
->> [If your patch is applied to the wrong git tree, kindly drop us a note.
->> And when submitting patch, we suggest to use '--base' as documented in
->> https://git-scm.com/docs/git-format-patch#_base_tree_information]
->>
->> url:    https://github.com/intel-lab-lkp/linux/commits/Akhil-R/dt-bindings-i3c-Add-mipi-i3c-static-method-to-support-SETAASA/20260322-174037
->> base:   next-20260320
->> patch link:    https://lore.kernel.org/r/20260318172820.13771-5-akhilrajeev%40nvidia.com
->> patch subject: [PATCH 04/12] i3c: master: Support ACPI enumeration
->> config: sparc-randconfig-002-20260322 (https://download.01.org/0day-ci/archive/20260323/202603230007.WOMwklQ6-lkp@intel.com/config)
->> compiler: sparc-linux-gcc (GCC) 15.2.0
->> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260323/202603230007.WOMwklQ6-lkp@intel.com/reproduce)
->>
->> If you fix the issue in a separate patch/commit (i.e. not just a new version of
->> the same patch/commit), kindly add following tags
->> | Reported-by: kernel test robot <lkp@intel.com>
->> | Closes: https://lore.kernel.org/oe-kbuild-all/202603230007.WOMwklQ6-lkp@intel.com/
->>
->> All errors (new ones prefixed by >>):
->>
->>     drivers/i3c/master.c: In function 'i3c_master_add_i2c_boardinfo':
->>>> drivers/i3c/master.c:2449:23: error: implicit declaration of function 'acpi_dev_get_resources'; did you mean 'acpi_get_event_resources'? [-Wimplicit-function-declaration]
->>      2449 |                 ret = acpi_dev_get_resources(adev, &resources,
->>           |                       ^~~~~~~~~~~~~~~~~~~~~~
->>           |                       acpi_get_event_resources
->>>> drivers/i3c/master.c:2455:17: error: implicit declaration of function 'acpi_dev_free_resource_list' [-Wimplicit-function-declaration]
->>      2455 |                 acpi_dev_free_resource_list(&resources);
->>           |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~
->>     drivers/i3c/master.c: In function 'i3c_master_add_acpi_dev':
->>>> drivers/i3c/master.c:2556:9: error: unknown type name 'acpi_bus_address'; did you mean 'acpi_io_address'?
->>      2556 |         acpi_bus_address adr;
->>           |         ^~~~~~~~~~~~~~~~
->>           |         acpi_io_address
->>>> drivers/i3c/master.c:2563:14: error: implicit declaration of function 'acpi_has_method'; did you mean 'acpi_has_watchdog'? [-Wimplicit-function-declaration]
->>      2563 |         if (!acpi_has_method(adev->handle, "_ADR"))
->>           |              ^~~~~~~~~~~~~~~
->>           |              acpi_has_watchdog
->>>> drivers/i3c/master.c:2563:34: error: invalid use of undefined type 'struct acpi_device'
->>      2563 |         if (!acpi_has_method(adev->handle, "_ADR"))
->>           |                                  ^~
->>>> drivers/i3c/master.c:2566:15: error: implicit declaration of function 'acpi_device_adr'; did you mean 'acpi_device_handle'? [-Wimplicit-function-declaration]
->>      2566 |         adr = acpi_device_adr(adev);
->>           |               ^~~~~~~~~~~~~~~
->>           |               acpi_device_handle
-> 
-> #include <linux/acpi.h> is added in PATCH 03/12. The functions' prototypes
-> are present in acpi.h. I think the bot checked this patch individually,
-> or did I miss something?
-> 
+This basically abandons my earlier attempts and goes back to Takahiro
+Akashi's driver.  Here is the link to Takahiro's patchset:
 
-Did you try to build this code with a sparc cross-compiler ?
-Because, as far as I can see, the functions are not declared or available
-if ACPI is not enabled (or available, as with sparc).
+https://lore.kernel.org/all/20231005025843.508689-1-takahiro.akashi@linaro.org/
 
-Guenter
+v6: Fix a build error when CONFIG_PINCONF is disabled
+    Fix the dt-binding subject and my email address
+    Use pinconf_to_config_packed() instead of PIN_CONF_PACKED()
+
+v5: Addresses Andy's cleanups to the driver.
+    Adrresses Krzysztof's comments about the dt spec file.
+    And almost all the subsystem prefixes were wrong.
+
+v4: Addressed Andy's comments about kernel-doc
+    Addressed Rob's comments on the spec file
+
+v3: Forward ported Takahiro's patches and added some fixes ups to make
+    it work on current kernels.
+
+AKASHI Takahiro (3):
+  pinctrl: introduce pinctrl_gpio_get_config()
+  gpio: dt-bindings: Add GPIO on top of generic pin control
+  gpio: gpio-by-pinctrl: add pinctrl based generic GPIO driver
+
+Dan Carpenter (4):
+  pinctrl: scmi: Add SCMI_PIN_INPUT_VALUE
+  pinctrl: scmi: Delete PIN_CONFIG_OUTPUT_IMPEDANCE_OHMS support
+  pinctrl: scmi: ignore PIN_CONFIG_PERSIST_STATE
+  firmware: arm_scmi: Allow PINCTRL_REQUEST to return EOPNOTSUPP
+
+ .../bindings/gpio/pin-control-gpio.yaml       |  59 ++++++++++
+ drivers/firmware/arm_scmi/pinctrl.c           |   2 +
+ drivers/gpio/Kconfig                          |  13 +++
+ drivers/gpio/Makefile                         |   1 +
+ drivers/gpio/gpio-by-pinctrl.c                | 101 ++++++++++++++++++
+ drivers/pinctrl/core.c                        |  31 ++++++
+ drivers/pinctrl/pinconf.h                     |   6 ++
+ drivers/pinctrl/pinctrl-scmi.c                |  46 +++++---
+ include/linux/pinctrl/consumer.h              |   9 ++
+ 9 files changed, 255 insertions(+), 13 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/gpio/pin-control-gpio.yaml
+ create mode 100644 drivers/gpio/gpio-by-pinctrl.c
+
+-- 
+2.53.0
 
