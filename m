@@ -1,168 +1,240 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35CE395D86
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:35:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8DA9390CA7
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:36:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774265724; cv=none; b=RenC98nlBArD7IleL9qkxMdGZWsukSfgdMVqZqLztxs7JCtsRTjzjztK+NghnN+ctgreKxXN/X3fR5JoBHhcO6FCvDMN6lFVWUmIGQAJc0k7bGCR8nJRJSJEH/5R6o5C1aG3w/9ba561f+KFrLslQsYAheIWo1p3bQVy1dt3P0s=
+	t=1774265778; cv=none; b=leTS8RAWqJ0xKbpC1tRTZoirL1WGw14G9Go59lzkLjzrMZskAxbRuTZlqy3TYbIEwNlFNd0T9xiV9/d1346WqwpaJKB8honFVM7gR3GSQSywsaMvE2UvdOtsyGNlnG6pT/lQVwKSvRTA099q6SNtv2oGFbU18/hb3ReyQiSOMH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774265724; c=relaxed/simple;
-	bh=xDPmlMDXeL3lxfgUwJ6Kd1KI98MjSx2OU5F2knJ/FuE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ua7RVq+EoEUx5mfOOg5ob/tEsHfIvYN+0mnf4FAxCQkYdV8Ta+yR6aAutsPoQpog3PNpmAiLY7j80rqUCxbydbg4zhkB+iMO1yRXyk+RB8+RrDa1TqLTiNXERRWT/hVBuswTddSwP1pjHNCpkqvn/iuffd/gWXm6BWFm6ATSE64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o7f0gmCt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NPg0MblB; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774265778; c=relaxed/simple;
+	bh=H1TCB6pgxK69XHkiDK+lyZ/sLnPn9seuN4WF/0M5FCU=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XMMnnRZGt46HTfPDtAAp539hP2QoZHUwuRQmc4A6SGEGaqriF2wWHpcnTROWG5f4rDTUp+5XgZnhT5cXLNnLPb7nOyjhV82cTZhA4zXhL5gkbGa99jwiimtnbwF9l4S/JHtgA0ta+lmox7UxZPGkomBAv5zehx4y14IiF0vm8TE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P/FAxqrI; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o7f0gmCt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NPg0MblB"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62NBLuTV2758672
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:35:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6wS5LtayeZTbWa+/jowDNFAN2aTZHLtBtVNHTSu7Goc=; b=o7f0gmCtH/CDJQer
-	Uzu1ls1dWrprV1Eu0TfZoj0LGizNlvHpmGL0pRDGcQwqsNyBYPd9xJ89ATQPBBHJ
-	jtu8gKZiU6IPqagOAWGFeoW/wir9KtD4c+pFqm/tm5BRRATdmp/93fkrRo+P96oE
-	CyBAGXQ0hvZvMztGGqvEPyuniL1CEItyEnPQ7mlTddDvlcsM6cA5NxeH4ZfYbrf6
-	NAVIc/ytCcc/ZyXr1p5o9d3RhrGesFi/DOsG8+WYBeqewTRLccaK1WAhjdSRpmkf
-	Oh16AGtTQ1iUI48UuOS0WuUdCseAoYGKcN2pUN4ckpZqmpBSWhf/qzXil/NYdmwn
-	1XlOcg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d34k4g1dd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:35:22 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50b317c4041so27230141cf.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 04:35:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P/FAxqrI"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-486fe2024a9so20001415e9.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 04:36:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774265721; x=1774870521; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=6wS5LtayeZTbWa+/jowDNFAN2aTZHLtBtVNHTSu7Goc=;
-        b=NPg0MblBoXrLKdLf2m6vQYDMJQcwRAWxjrs+uhSY6/AVkmRNd3qFHsxPNXdwaDtqQr
-         4aut/qZN9/UwxMgOFkWgP0LptZFVTMELbXX6OEG87gbM5MQRhdy1ZD7oIk68NkODbZfl
-         ZrtXmzMWqWEb65pZkEdkg6Pq7qs4QPCx0RO49+D1lWkxFRPKklehirHpEt7Ch9am+oHD
-         Iwddy5VJK/c0/+VH0fIuXMUcb6JOFEptGoN9oIsF9CpWEFngDfEAt/NAVrU55MVx18Dl
-         KpeqCv5GNzeh/GiBe7k2zbfTshfgDACpQojR70R9V7KKx9oNsdrepQpFf5zun9h6wCyD
-         IMFA==
+        d=gmail.com; s=20230601; t=1774265775; x=1774870575; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Tf29XD1+StXXEJC3V1UNJd3XstlYoXOmSXkvCeAyZ7k=;
+        b=P/FAxqrIlL/XL7GIx02VFC5yZMrEJUI4bk7oF7+QnDrfmUTHASjNkkUFF56Zpk5l8E
+         LCFQeBZHCT/xD8ox0UGgK+miRayEbbq6EvDpyL5T7CbpZ19H6vO9ejfXOr5lhBZRH32o
+         CmbkG0R+J26x3w6cz1YR7MFDgUxI0L/hmFdFQd6oKjpKjwr9+wvo+AZJlOQHQnjZnrIj
+         paf/2NZs3O/7U1XGYoaD3eYTLSgvX1ZeNcMBfk7K/t/Nt01vo9cDjOj5bHs1u0YQNsTm
+         6BUfEh8L/yUNIekDECce4uUXjAMC14DCgTfMs262fD+Id1hnXSu/cP9GdaEkfIJ7ZK89
+         tvhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774265721; x=1774870521;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=6wS5LtayeZTbWa+/jowDNFAN2aTZHLtBtVNHTSu7Goc=;
-        b=HWgjgVLGwdtbGilKcHrvjDxRvr+TZdUkz9rEp0W4tZ7q88lFJNtOMzqvH8Me9V8ExZ
-         jDeHhFRRqHtuRpwd7tvjH6d/kmnAy9opVgrAvpNmBZRSKa9sFmvb6VR9Agn2tW9ofj6b
-         mtozqA3VkdrydBTDLz5/3YsT9na4G75IrWfAxI9ltrf442Zd4jS9GtZHoBdLyQLBdin+
-         ycXxWKq1Fa0dtRSGRSDxH96xOTI0QLlVjMhXKmidZCOBkIfZipKz1ljsM1H5Y7eYIShO
-         NsDdvk8AZ365EXSH25AW+2AB7xwaVuBUp7JwPsBV4LAPiM7rMiLgwj4YUH1tKnrk/rTL
-         5vFQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXucRTFJ7wjmJDyv4MDPfsHfzp7LxmslfHbwMFydtEtviyAkn56FrnciVXl8czJ8xTUCzbyhrJWiANH@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzu+JvE5dddQHHYhiN2Pi+CGYQy5e5Ztsubv6FkTO0gJI4jE4D3
-	1PIImcaZkW0EHnUEuXFLq7YddzAnNPLynOUayz7rbMeqt3GCdsfjiuOA1LEZvGAJSuUhv07Nrh7
-	Yd2QbkA+wryt6+3qG1mhszTDOkDV5hktNrb/qWx8AVrs/iFENCn/51xwNZs0ec+DT
-X-Gm-Gg: ATEYQzyTyQh9IycftsVWN/HUZiLOsrGjZ7olb9jSkIgx5IoZ5Ed0uBFtxpab7G0f+zQ
-	/HyspJ0YaCW2C3yma/YZvX4SmQk49woOd99QGaH6raf3KaRqrcl1TMbXcttUmemJ8TBZ19h5a76
-	SKVCROMjmosBuHq2WnImQkhiwdC44b+EPQDDj/g2gwZEjw0lQX60tkAnNAyXbkPfGoPhScl+pXD
-	/8eEQtEcUewiTvA+US71eh9ftt3KOOi3Iz9IAkY6ndwyEr2+Z7sgnQUuWcyHpwndGkwfYUAdYfI
-	IONdbRUmUWYW3DIujqjrOMdszIqQyx/FduRQy66UodVzKDA74CCjEgSOGa8+cTVBBqbnM2ukh51
-	67MAC1lnDU8eVQ+28FU+lq2QNqykIkavPFQ2NAQoX3nUnLo2qxiW3pAoh2MgQoO8Zg+6m1sS77e
-	m/ISc=
-X-Received: by 2002:a05:622a:4647:b0:50b:6b21:2a80 with SMTP id d75a77b69052e-50b6b213658mr3775561cf.1.1774265721260;
-        Mon, 23 Mar 2026 04:35:21 -0700 (PDT)
-X-Received: by 2002:a05:622a:4647:b0:50b:6b21:2a80 with SMTP id d75a77b69052e-50b6b213658mr3775111cf.1.1774265720584;
-        Mon, 23 Mar 2026 04:35:20 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6694b45de66sm2208073a12.31.2026.03.23.04.35.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Mar 2026 04:35:18 -0700 (PDT)
-Message-ID: <75c80dae-1ee5-43c3-8d72-bf239fd51fb8@oss.qualcomm.com>
-Date: Mon, 23 Mar 2026 12:35:16 +0100
+        d=1e100.net; s=20251104; t=1774265775; x=1774870575;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Tf29XD1+StXXEJC3V1UNJd3XstlYoXOmSXkvCeAyZ7k=;
+        b=Qxoav5+PC6UNtDpkCzuxiMfh18KWuSJWNJrcvdiUD5o56Jm9lNi3i3StBm69sAchuj
+         ie5mD8a2x+HhXFSMEmLD2PZKs2QzQxvTAl15RAV2XUoObx2bcsJDTsoj4sqKceGO85/x
+         bUGNtWIjgztdGYfN+L8SWYoWkkqbHcTqcgrClinl9gpifK9X+l3OkoIxWxa1RXtm0/bB
+         VYksk7br+oA2cnlU2gQJ9ROW4gkVL0n4tBKygiOU1Uex74J2Wqp6N6kQMTucST1rr/Kf
+         7DsWc3z/vy4bob8bk1u++iLjAFmX0gwIA6ipb0rUnar6RcEMi9q5KWBVEJWYawAmZbHG
+         jvpQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVIkMgRizcO6cwpP6K9UGKc0a07Gp2onsYEvzkKEJeQQgF0h2cz9blCpmzlYgupLNoIdz9aYXFSJxB/@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7PGb9TdCTbpXI65Q+B40PwQa9t7aWbPyK6vXHlUFZtetCvLzT
+	Tsw8KwyV8M7lJMvsyp2MuZAE3xnrON733iIbEB9UqJ8ihDBdsobRcK+H
+X-Gm-Gg: ATEYQzxEx9x/wbVzUsFdLmjOYsusInWv7/KkH78oVP4BINUczkgXt1ka/YM4k28UVne
+	xfhfTJ6UB5WVm6iHdQm8PZFQJhrYyCzx3e40eBokAGz5UEG11xxAaudW4SdU3vGsZ5vWnsRXGWs
+	NXDlzG+jTcuT4SaGFHVJgLF7tbKs5C1TgJ+Ht+CV8wul5NKihyZFhAacWni06q7+/u4zpMn89jQ
+	svxrv60sUaav7zkcS8/beU0/OkE0aKZT43uLwVHXacWI5uMyLZyDsUzduOYJLHYmlXe4+fOcn3h
+	OqBFI7KubRhYPBJ324yV+azygOZvQw7vpC1OB+TUiSTxdOYgpYialAdvmRzef3j2F6TkHG6jxeH
+	LnXg0GH8q/z0rLMnm7SabGnz89rp8ccxcI9r+taQ7wdBxirTXX+oNrzPpTdmHPGCMMVkKgtHUiE
+	wMLDJWgfteSmyTKCWEN5Z9Qh4OMAlvVUZCH8kO1+vXrojVRIl5kXhtWAygfz2tDlQdw2oVsxWz+
+	2JjQ2Mo3dOopWXePsoSkT79G33EL46LTetaH+CGfUs6qFRus6tZBU0shEnnTw==
+X-Received: by 2002:a05:600c:a55:b0:486:fd5c:2b35 with SMTP id 5b1f17b1804b1-486fedbc28cmr171565545e9.13.1774265774669;
+        Mon, 23 Mar 2026 04:36:14 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-486fe897fc2sm81426715e9.11.2026.03.23.04.36.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Mar 2026 04:36:14 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Mon, 23 Mar 2026 11:36:08 +0000
+To: Jonathan Cameron <jic23@kernel.org>, 
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH RFC v2 8/9] Documentation: ABI: testing: add docs for
+ ad9910 sysfs entries
+Message-ID: <mtqjtmsysz6ywvybeut6qzhee2o4qedwgvr5isbn4um7bwhjbe@sg2b7hwlszwd>
+References: <20260318-ad9910-iio-driver-v2-0-e79f93becf11@analog.com>
+ <20260318-ad9910-iio-driver-v2-8-e79f93becf11@analog.com>
+ <20260322172257.1681de69@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH QUESTION 1/2] arm64: dts: qcom: sdm845-oneplus: Enable NFC
-To: david@ixit.cz, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Petr Hodina <petr.hodina@protonmail.com>,
-        biemster <l.j.beemster@gmail.com>, netdev@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, oe-linux-nfc@lists.linux.dev,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        phone-devel@vger.kernel.org
-References: <20260322-oneplus-nfc-v1-0-5f22f544f0e2@ixit.cz>
- <20260322-oneplus-nfc-v1-1-5f22f544f0e2@ixit.cz>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260322-oneplus-nfc-v1-1-5f22f544f0e2@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: l6WcXb3G1wLuznU6zN3gvrj0Z0Pb87Lp
-X-Proofpoint-ORIG-GUID: l6WcXb3G1wLuznU6zN3gvrj0Z0Pb87Lp
-X-Authority-Analysis: v=2.4 cv=c+imgB9l c=1 sm=1 tr=0 ts=69c1257a cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=pGLkceISAAAA:8 a=o4zcOJKZs6uzFkhwQ20A:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA4OSBTYWx0ZWRfX4gOIRg/fTde6
- 9TWZrGB5s6j5giAU4zIz1KGuSbnMfu86E1hn73hP5Jtswr/Flq3KP5PvPx1gT7G65maPBcFfKta
- O+F13dQsFp4+t8UHdV8FEbqT1m31P4mF+fAQFf7cM+F4HpruadyHjpdjO9OeFACqltkL3QFq5x9
- c/87zYB42lxOh/l5vL7LP+j/S03ducQijiXHhVk+oUiW5VH0INHfaq/WHQpnGpDFqrRqqpcQJRa
- +yyZbtaZBmGPEedTn/AY8G1YmYuLextktRBp3EdbBjsrAJFfjaR/h5GHm7kIhKq2XFNMXO3ZSCP
- SdIKQyerhScM7qC0QR+dmSeRK73j/39hVixb3G/iB2VQx2gdnEbaWzotroh6gK2p7DKKZGWRxAH
- EROsTuiqDDRh8L3X7w+5awypEqG3SM13wXhndYLI2TGpwiftv5ChNybeGXMRR6ZZjW/UnUocIfi
- IO9/8Prj2WrpRC+zsnQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-23_03,2026-03-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 phishscore=0 lowpriorityscore=0 spamscore=0
- suspectscore=0 priorityscore=1501 bulkscore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230089
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260322172257.1681de69@jic23-huawei>
 
-On 3/22/26 3:24 PM, David Heidelberg via B4 Relay wrote:
-> From: biemster <l.j.beemster@gmail.com>
+On 26/03/22 05:22PM, Jonathan Cameron wrote:
+> On Wed, 18 Mar 2026 17:56:08 +0000
+> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
 > 
-> Definition of the NFC.
+> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > 
+> > Add ABI documentation file for the DDS AD9910 with sysfs entries to
+> > control Parallel Port, Digital Ramp Generator, RAM and OSK parameters.
+> > 
+> > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > ---
+
+...
+
+> > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_profile
+> > +KernelVersion:
+> > +Contact:	linux-iio@vger.kernel.org
+> > +Description:
+> > +		Read/write the active profile index [0, 7] from/to the physical
+> > +		channel. The AD9910 supports 8 profiles, each storing a complete
+> > +		set of single tone (frequency, phase, amplitude) and RAM playback
+> > +		parameters.
 > 
-> Co-developed-by: David Heidelberg <david@ixit.cz>
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  .../arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 32 ++++++++++++++++++++++
->  1 file changed, 32 insertions(+)
+> This one is interesting.  Can we treat them as symbols that we are picking
+> between?  We have similar DAC ABIs for that already.
+
+The profile concept comes from the datasheet and defines sets of configuration
+for single tone and RAM control mode. I am not sure how we fit this idea into a
+"symbol"
+
+> Is this picking between them for purposes of configuration or setting which one is
+> in being output currently?
+
+Well, this is being used for configuration and activating, then, yes, you can only configure
+an active profile, but I was not seeing that as an issue. I suppose that simplifies the
+ABI a bit.
+
+...
+
+> > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_destination
+> > +KernelVersion:
+> > +Contact:	linux-iio@vger.kernel.org
+> > +Description:
+> > +		Read/write the digital ramp generator (DRG) or the RAM control
+> > +		destination parameter. Determines which DDS core parameter is to
+> > +		be modulated when the child mode channel is enabled.
+> > +
+> > +		Available values can be read from the corresponding
+> > +		out_altvoltageY_destination_available attribute.
+> > +
+> > +		Valid values: "polar" (only for RAM control), "frequency", "phase"
+> > +		and "amplitude"
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-> index 5b121ea5520f5..34f476299b114 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-> @@ -392,6 +392,26 @@ &gpu_zap_shader {
->  	firmware-name = "qcom/sdm845/OnePlus/enchilada/a630_zap.mbn";
->  };
->  
-> +&i2c3 {
-> +	clock-frequency = <400000>;
-> +
-> +	status = "okay";
-> +
-> +	nfc@28 {
-> +		compatible = "nxp,nxp-nci-i2c";
-> +		reg = <0x28>;
-> +
-> +		interrupt-parent = <&tlmm>;
-> +		interrupts = <63 IRQ_TYPE_EDGE_RISING>;
+> This is very device specific. Maybe we are better representing these as separate
+> channels each with their own controls for DRG.  No problem if changing one changes
+> another.
 
-interrupts-extended, please
+You mean removing this generic Y there? Indeed, there are separate configs for each one.
 
-Konrad
+...
 
+> > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_operating_mode
+> > +KernelVersion:
+> > +Contact:	linux-iio@vger.kernel.org
+> > +Description:
+> > +		Read/write the DRG or RAM control operating mode. For the DRG
+> > +		channel it controls the no-dwell behavior of the ramp.
+> > +
+> > +		Available values can be read from the corresponding
+> > +		out_altvoltageY_operating_mode_available attribute.
+> > +
+> > +		Valid values for DRG channel:
+> > +
+> > +		  - "bidirectional": Normal ramp generation (ramp up then
+> > +		    down, dwelling at limits).
+> 
+> Some sort of trapezium wave?  Maybe this and continuous forms are combined
+> and we have a separate dwell time control?
+
+Yes, sort of. Dwell control is made by an external pin (DRCTL), often controlled
+by an FPGA to achieve certain required timings. I can say that software control
+is not really recommended, unless only a one-shot ramp is necessary.
+
+When adding the IIO backend support, extendend attributes will be added to
+support control of dwell times.
+
+> 
+> > +		  - "ramp_down": No-dwell low; the ramp resets to upper
+> > +		    limit upon reaching the lower limit.
+> > +		  - "ramp_up": No-dwell high; the ramp resets to lower
+> > +		    limit upon reaching the upper limit.
+> > +		  - "bidirectional_continuous": Both no-dwell high and low;
+> > +		    the ramp continuously sweeps without dwelling.
+> 
+> Triangle wave?  bidirectional continuous is a rather confusing term so maybe
+> we should rethink this one.
+
+Mostly yes, but not only that. Sawtooth can be achieved as well by changing
+the step sizes, also other weird patterns can be achieved by toggling DRCTL pin.
+This mode is the most useful when one does not have an FPGA and want to save
+resources on controlling the DRCTL pin. That mode name comes from the datasheet,
+so I suppose it was fine.
+
+> > +
+> > +		Valid values for RAM control channel:
+> > +
+> > +		  - "direct_switch": start address defines fixed word to be used
+> > +		    by the selected profile.
+> > +		  - "ramp_up": One-shot ramp up through current profile's address
+> > +		    range.
+> > +		  - "bidirectional": Ramp up then down through PROFILE0 pin.
+> 
+> Avoid specifics like this.  Can we call external control pin or something like that?
+> 
+> > +		  - "bidirectional_continuous": Continuous ramp up/down
+> > +		    through current profile's address range.
+> > +		  - "ramp_up_continuous": Continuous ramp up through
+> > +		    current profile's address range.
+> 
+> I guess this goes back to start on finishing ramping up?
+
+Yes, any dwell time should be considered when loading the "waveform" into the RAM
+
+> 
+> > +		  - "sequenced": Sequenced playback of RAM profiles up to
+> > +		    the active profile. Requires active profile > 0.
+> Is this just running through each profile one after another? (other than profile 0)?
+
+for this, this would be the actions:
+- configure all desired profiles (0 up to X) 
+- Set the operating mode to sequenced (profile X would be active at this point)
+- Enable RAM mode
+
+When RAM mode is enabled, it would trigger the execution of profiles 0 up to X,
+in sequence, according to the configured address range and sample rate for each profile.
+When one profile ends the next starts until profile X finishes.
+
+> > +		  - "sequenced_continuous": Continuous sequenced playback
+> > +		    of RAM profiles up to the active profile. Requires
+> > +		    active profile > 0.
+> Similar to above, maybe separate out dwell time if that's the difference between
+> sequenced and sequenced_continuous.
+
+The difference here is that when Profile X finishes, Profile 0 starts again.
+So the previous one is kind of an one-shot mode of multiple profiles in sequence
+
+...
+
+-- 
+Kind regards,
+
+Rodrigo Alencar
