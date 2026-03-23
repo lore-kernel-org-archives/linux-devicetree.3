@@ -1,95 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B983D6461;
-	Mon, 23 Mar 2026 19:31:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E171A3CCA13;
+	Mon, 23 Mar 2026 19:33:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774294279; cv=none; b=ghZul28a8KrVeE12VGe6E1k/YqMsFgXefM8E9rENhXnpwPN/U7YA/qdii0BL8OOsYpCCYPIX1MPY3VBQFkn2nQa8UdLWUeHfagwJQ4XB/TjO4JIUMqdjOogWSC+d+2URv/Zj4DuD0DNEboiVfBPic7usZdvB3ctGGiPmWYUDCNI=
+	t=1774294423; cv=none; b=Qp7nv7UoDweTpSK+44t5H167FblM2ZMqgsw/Q9kWNfkLXrk96Z9S3tvucltx2RCi0gEkZQu/+KAc0eHyKu9tSVj/GJE4pS3w8JUlNHve0+k/pjS7onXukb1WqKumE9tbE5K3DuIXjWMmUc4rgZ1i7VmA9pxde/AFdCdRf1VBq84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774294279; c=relaxed/simple;
-	bh=G20CxqU1+UGW3jMquGn0Ml5GLP9YQQvV4BfT9lF/heQ=;
+	s=arc-20240116; t=1774294423; c=relaxed/simple;
+	bh=ibmhyDBh7qGc9VbP/g7aL8x8cQeRhvQDZhxo1BaX4DY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jUePBjPfbHnA8iYSuq0pYlzjqnF+81GaryQcWYq1WTxym3Q1AuxUbyc8kEh1HQLJLISmJ0k0R8cYEyt/ZW5GEA1aZ6UR59RaBFM4blRRubxCrWef8JeIUIckOQSgB/CFYBzcuqopIYvkWITfCDLfUKUM/gdvXPZemLcKqJm9JqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oWf6Eotg; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cwb37spvmSG4M+Twi20D3gaxw9lRFVL+U0Mvnfd7JJkejSSpuN+U2ywWcm/43coXcNnGRyW+YRv1bY7YCAf9GxgaB8IznqKl6CUC2WSu0oW99T7RYOTZdCt0MjtSfY8iH7086oel7+G0DS/ZfSxWSkVmywTTHnCTON76BLDuVzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u2+c6sjH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oWf6Eotg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87749C4CEF7;
-	Mon, 23 Mar 2026 19:31:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u2+c6sjH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AD53C4CEF7;
+	Mon, 23 Mar 2026 19:33:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774294278;
-	bh=G20CxqU1+UGW3jMquGn0Ml5GLP9YQQvV4BfT9lF/heQ=;
+	s=k20201202; t=1774294422;
+	bh=ibmhyDBh7qGc9VbP/g7aL8x8cQeRhvQDZhxo1BaX4DY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oWf6EotghHJ94y6XisVtCSIuaWRU8U5SBKQ+Npd/0KQlToN9cqxLPMA0o2DeGQKTx
-	 md9aNoSqff3bF6SGoQTvkKqdc7g7tbzMwH2s4+9fFylyjwURmXWgId5Xeq1DbdNtOE
-	 3MB+rggjxUuKC09Rb52v9AMu8UdxMOBkDSyR4t+myYDxc6jHNMEf1fmQ2R7iCpE4sP
-	 i4RmpOIBogJkmRHW8ekq+HVgCu8nJLghIkSdwLwkgeDM4fGfBde5NEAL/NL3u0Te3o
-	 Wo/chRxpvRHaBOGZ6nWKbrtx92AKHIrdXTJZrSObmnU/TMeRI6v1WiBhp2feePJTBE
-	 Nx81EpcyHdYLA==
-Date: Mon, 23 Mar 2026 14:31:17 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Artur Weber <aweber.kernel@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Simona Vetter <simona@ffwll.ch>,
-	Dzmitry Sankouski <dsankouski@gmail.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Tomi Valkeinen <tomi.valkeinen@ti.com>
-Subject: Re: [PATCH v2] dt-bindings: display: panel: Align style of "true"
- properties
-Message-ID: <177429427708.1201655.1282560740114518028.robh@kernel.org>
-References: <20260313-dt-bindings-display-panel-clean-v2-1-d49615218f92@oss.qualcomm.com>
+	b=u2+c6sjHtyuUHhhaiR/h4mWp4RVwmui4wImkkzINKbbbf9PqunL2bKf5LlQyow6UX
+	 +3/K2+cMjaszwJ/5y00bUKhThiEekoQz3drS9KE/NieufxoauJjeTppK61Q7c2TOmb
+	 6uYkJ0wkunhEOEUmSQGC59LcrEXtX7pDN1UMr+2BePEJc/jkoQpIMq+k0VKDYGTb0y
+	 9H5ruC/qH6M8VJ+yV+SQj31m7K5vq0hydVPf3Chu9xvBuJhCZ+m/iXEexIQThkrMdY
+	 qGyFFfMzqpwdOuR72lXqt2YRuhZqPqVoTvRKI0Otk2ZMP0zi2+7XH2/Ta4OJnZuf3t
+	 m2n+1wCBhtVPw==
+Date: Mon, 23 Mar 2026 19:33:37 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Anshika Gupta <guptaanshika.ag@gmail.com>
+Cc: linux@roeck-us.net, corbet@lwn.net, skhan@linuxfoundation.org,
+	linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org,
+	lakshaypiplani77@gmail.com
+Subject: Re: [PATCH 1/3] dt-bindings: hwmon: Add support for NXP P3T1084UK
+ temperature sensor
+Message-ID: <20260323-guy-chef-4d98fa4f7c1b@spud>
+References: <20260323162252.15508-1-guptaanshika.ag@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="14hJa/gjYwSAe/Y1"
+Content-Disposition: inline
+In-Reply-To: <20260323162252.15508-1-guptaanshika.ag@gmail.com>
+
+
+--14hJa/gjYwSAe/Y1
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260313-dt-bindings-display-panel-clean-v2-1-d49615218f92@oss.qualcomm.com>
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Mar 23, 2026 at 09:52:50PM +0530, Anshika Gupta wrote:
+> The P3T1084UK is an NXP digital temperature sensor compatible with the
+> Texas Instruments TMP108 register and protocol specification. This patch
 
-On Fri, 13 Mar 2026 09:20:54 +0100, Krzysztof Kozlowski wrote:
-> For code readability, several bindings which list allowed properties
-> with ": true" syntax group them in one place, without line breaks
-> between each.  Align a few bindings to match this style.  No functional
-> impact.
-> 
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Then why is tmp108 not used as a fallback compatible? Looks from the
+driver patch like it would be suitable.
+
+> extends the existing DT binding for "ti,tmp108" to document the
+> compatible string for P3T1084UK so that the hwmon TMP108 driver can
+> bind to this device.
+>=20
+> Signed-off-by: Lakshay Piplani <lakshaypiplani77@gmail.com>
+
+What did Lakshay do? You're author and submitter, but their sign-off is
+here. Are you missing a co-developed-by?
+
+> Signed-off-by: Anshika Gupta <guptaanshika.ag@gmail.com>
 > ---
-> Changes in v2:
-> - Drop applied patches 1-4
-> - Rebase (jadard,jd9365da-h3.yaml change is gone)
-> - Link to v1: https://patch.msgid.link/20260306-dt-bindings-display-panel-clean-v1-0-3086eda1efaf@oss.qualcomm.com
-> 
-> BR,
-> Krzysztof
-> ---
->  .../devicetree/bindings/display/panel/feiyang,fy07024di26a30d.yaml | 1 -
->  Documentation/devicetree/bindings/display/panel/himax,hx8394.yaml  | 3 ---
->  .../devicetree/bindings/display/panel/leadtek,ltk050h3146w.yaml    | 1 +
->  .../devicetree/bindings/display/panel/leadtek,ltk500hd1829.yaml    | 1 +
->  .../devicetree/bindings/display/panel/mantix,mlaf057we51-x.yaml    | 5 ++---
->  .../devicetree/bindings/display/panel/novatek,nt35510.yaml         | 3 ++-
->  .../devicetree/bindings/display/panel/renesas,r61307.yaml          | 3 +--
->  .../devicetree/bindings/display/panel/renesas,r69328.yaml          | 1 -
->  .../devicetree/bindings/display/panel/rocktech,jh057n00900.yaml    | 5 ++---
->  .../bindings/display/panel/sony,tulip-truly-nt35521.yaml           | 2 --
->  .../devicetree/bindings/display/panel/startek,kd070fhfid015.yaml   | 7 ++-----
->  11 files changed, 11 insertions(+), 21 deletions(-)
-> 
+>  Documentation/devicetree/bindings/hwmon/ti,tmp108.yaml | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp108.yaml b/Doc=
+umentation/devicetree/bindings/hwmon/ti,tmp108.yaml
+> index 9f6c9f6fa561..47714df5aaff 100644
+> --- a/Documentation/devicetree/bindings/hwmon/ti,tmp108.yaml
+> +++ b/Documentation/devicetree/bindings/hwmon/ti,tmp108.yaml
+> @@ -4,20 +4,21 @@
+>  $id: http://devicetree.org/schemas/hwmon/ti,tmp108.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> =20
+> -title: TMP108/P3T1035/P3T1085/P3T2030 temperature sensor
+> +title: TMP108/P3T1035/P3T1084/P3T1085/P3T2030 temperature sensor
+> =20
+>  maintainers:
+>    - Krzysztof Kozlowski <krzk@kernel.org>
+> =20
+>  description: |
+> -  The TMP108 or NXP P3T Family (P3T1035, P3T1085 and P3T2030) is a digit=
+al-
+> +  The TMP108 or NXP P3T Family (P3T1035, P3T1084, P3T1085 and P3T2030) i=
+s a digital-
+>    output temperature sensor with a dynamically-programmable limit window,
+>    and under- and over-temperature alert functions.
+> =20
+> -  NXP P3T Family (P3T1035, P3T1085 and P3T2030) supports I3C.
+> +  NXP P3T Family (P3T1035, P3T1084, P3T1085 and P3T2030) supports I3C.
+> =20
+>    Datasheets:
+>      https://www.ti.com/product/TMP108
+> +    https://www.nxp.com/docs/en/data-sheet/P3T1084UK.pdf
+>      https://www.nxp.com/docs/en/data-sheet/P3T1085UK.pdf
+>      https://www.nxp.com/docs/en/data-sheet/P3T1035XUK_P3T2030XUK.pdf
+> =20
+> @@ -28,6 +29,7 @@ properties:
+>            - const: nxp,p3t2030
+>            - const: nxp,p3t1035
+>        - const: nxp,p3t1035
+> +      - const: nxp,p3t1084
+>        - const: nxp,p3t1085
+>        - const: ti,tmp108
+> =20
+> --=20
+> 2.34.1
+>=20
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+--14hJa/gjYwSAe/Y1
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacGVkQAKCRB4tDGHoIJi
+0jVJAQCEpZVyW1tO5Iwwpit8j6ZNQ29BxwF/EM3OhTiJFmPkqQD/QgrmLAeYibSl
+NnGv1iv7+sHZ1/uA3g2fwl2qP2ex6gI=
+=8Ump
+-----END PGP SIGNATURE-----
+
+--14hJa/gjYwSAe/Y1--
