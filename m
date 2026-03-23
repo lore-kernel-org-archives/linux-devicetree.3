@@ -1,28 +1,28 @@
 Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D77D2D8DA6;
-	Mon, 23 Mar 2026 06:27:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D5082C3268;
+	Mon, 23 Mar 2026 06:27:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774247281; cv=none; b=KYfyJen8boKG6zsHSmdBdJF6nu0ECfr7vdku4j2Mkm5wFnLwQZfOgWra+QenPHAiYzdKlV93L91aHstlhDh5zMiOBQnFQ/96SD9yYsS08Qyy7pL6dV2e3jV3AWZggotYwssDDn23RH6NeJt1NLp/dnPK5A5tkTzsm/SRTrHZ/iw=
+	t=1774247282; cv=none; b=GqRDdoawpRU5WSnKIqubGjzx2P9vPYWRtiuNFxy7/bVHzU8koXb9fugIbhkxnRPuPncYhZZW38iLt787i16/mAbHGufcTK+pQDfgfRIrBU3eFFGMAbdGo4IVDmTsVXefiAN3r3bd8cXlK7xWgpUNFdM2Ltw8DDZYeZ+sMwfVvyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774247281; c=relaxed/simple;
-	bh=Xa26ZYxb4Gsg0IhGiuU/gR4t9zef9EdcqTVuIo62dEY=;
+	s=arc-20240116; t=1774247282; c=relaxed/simple;
+	bh=Qu6cza/1YNMGFh0ny0OXtNuvRk/quRVIm2YPfxc/cFU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Qo8c2tvIFZgvB0NuxjEdFci6x9QquhsQbXObV3wWwViA7oBkeBgXSClN02mGbU4cLqYN4dCWSMi8k0/v+BC8Q2OId0l61FZeLyqyj2D7atSYhOm6QUq0/tWbHXIjfWNq4LzAh1YEiVfY49hG1TzW1EyPtzb7YTdod5OhjmK2Sz0=
+	 MIME-Version; b=Ng4hYlmArNIky1Ytk7miD0RvG6GVDYn6CSC8MQninLPY3TUx2WuJLjr+E9lfDHEGlvrbR6V06fIYGOzoesr9ZNkHvRxwamxJKbnyIHsZK5y9/DdorpngQNTCBpI549a4wX0g/obH8Lp1ASQUjAJ8otyqzUmE6S6sU0Z2XMVwNEY=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 24B541A09F4;
-	Mon, 23 Mar 2026 07:27:50 +0100 (CET)
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id F2D8E1A09C9;
+	Mon, 23 Mar 2026 07:27:52 +0100 (CET)
 Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id E1FA91A0A04;
-	Mon, 23 Mar 2026 07:27:49 +0100 (CET)
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 92BB61A09F9;
+	Mon, 23 Mar 2026 07:27:52 +0100 (CET)
 Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 952DE180221C;
-	Mon, 23 Mar 2026 14:27:48 +0800 (+08)
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 3D14B18000BD;
+	Mon, 23 Mar 2026 14:27:51 +0800 (+08)
 From: Lakshay Piplani <lakshay.piplani@nxp.com>
 To: linux-kernel@vger.kernel.org,
 	linux-i3c@lists.infradead.org,
@@ -39,9 +39,9 @@ Cc: vikash.bansal@nxp.com,
 	priyanka.jain@nxp.com,
 	aman.kumarpandey@nxp.com,
 	lakshay.piplani@nxp.com
-Subject: [PATCH v8 4/7] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub and on-die regulator
-Date: Mon, 23 Mar 2026 11:57:34 +0530
-Message-Id: <20260323062737.886728-5-lakshay.piplani@nxp.com>
+Subject: [PATCH v8 6/7] i3c: hub: Add support for the I3C interface in the I3C hub
+Date: Mon, 23 Mar 2026 11:57:36 +0530
+Message-Id: <20260323062737.886728-7-lakshay.piplani@nxp.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260323062737.886728-1-lakshay.piplani@nxp.com>
 References: <20260323062737.886728-1-lakshay.piplani@nxp.com>
@@ -54,257 +54,669 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-
-Add core MFD support for the NXP P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841)
-family of multiport I3C hub devices. These devices connect to a host via
-I3C/I2C/SMBus and expose multiple downstream target ports.
+Add virtual I3C bus support for the hub and provide interface to enable
+or disable downstream ports.
 
 Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
+Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
 
 ---
 Changes in v8:
  - No change
 
 Changes in v7:
- - Use new config I3C_OR_I2C
+ - Convert Kconfig option to tristate
+ - Fix signedness issue in return value
+ - Fix kernel-doc warnings
 
 Changes in v6:
- - No change
-
-Changes in v5:
- - Corrected the ordering in the Makefile and Kconfig for MFD_P3H2X4X
- - Updated dev_err_probe() for regmap_init failure.
- - Updated module description
-
-Changes in v4:
- - Split the driver into three separate patches(mfd, regulator and I3C hub)
- - Added support for NXP P3H2x4x MFD functionality
+ - Add support for the generic I3C interface in the I3C Hub
 ---
 ---
- MAINTAINERS                 |   2 +
- drivers/mfd/Kconfig         |  13 ++++
- drivers/mfd/Makefile        |   1 +
- drivers/mfd/p3h2840.c       | 125 ++++++++++++++++++++++++++++++++++++
- include/linux/mfd/p3h2840.h |  27 ++++++++
- 5 files changed, 168 insertions(+)
- create mode 100644 drivers/mfd/p3h2840.c
- create mode 100644 include/linux/mfd/p3h2840.h
+ MAINTAINERS             |   3 +
+ drivers/i3c/Kconfig     |  15 ++
+ drivers/i3c/Makefile    |   1 +
+ drivers/i3c/hub.c       | 460 ++++++++++++++++++++++++++++++++++++++++
+ include/linux/i3c/hub.h | 107 ++++++++++
+ 5 files changed, 586 insertions(+)
+ create mode 100644 drivers/i3c/hub.c
+ create mode 100644 include/linux/i3c/hub.h
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index c72976dbdf31..4f67fe64c833 100644
+index 7d142a1a8fb7..028ffc4494d0 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -19101,6 +19101,8 @@ L:	linux-kernel@vger.kernel.org
+@@ -19097,12 +19097,15 @@ F:	drivers/ptp/ptp_netc.c
+ NXP P3H2X4X I3C-HUB DRIVER
+ M:	Vikash Bansal <vikash.bansal@nxp.com>
+ M:	Aman Kumar Pandey <aman.kumarpandey@nxp.com>
++M:	Lakshay Piplani <lakshay.piplani@nxp.com>
+ L:	linux-kernel@vger.kernel.org
  L:	linux-i3c-owner@lists.infradead.org
  S:	Maintained
  F:	Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
-+F:	drivers/mfd/p3h2840.c
-+F:	include/linux/mfd/p3h2840.h
++F:	drivers/i3c/hub.c
+ F:	drivers/mfd/p3h2840.c
+ F:	drivers/regulator/p3h2840_i3c_hub_regulator.c
++F:	include/linux/i3c/hub.h
+ F:	include/linux/mfd/p3h2840.h
  
  NXP PF5300/PF5301/PF5302 PMIC REGULATOR DEVICE DRIVER
- M:	Woodrow Douglass <wdouglass@carnegierobotics.com>
-diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-index 7192c9d1d268..14f4736683a1 100644
---- a/drivers/mfd/Kconfig
-+++ b/drivers/mfd/Kconfig
-@@ -617,6 +617,19 @@ config MFD_MX25_TSADC
- 	  i.MX25 processors. They consist of a conversion queue for general
- 	  purpose ADC and a queue for Touchscreens.
+diff --git a/drivers/i3c/Kconfig b/drivers/i3c/Kconfig
+index 626c54b386d5..65304b416bb4 100644
+--- a/drivers/i3c/Kconfig
++++ b/drivers/i3c/Kconfig
+@@ -21,6 +21,21 @@ menuconfig I3C
  
-+config MFD_P3H2X4X
-+       tristate "NXP P3H2X4X I3C Hub Device"
-+       depends on I3C_OR_I2C
-+       select MFD_CORE
-+       select REGMAP_I3C
-+       select REGMAP_I2C
-+       help
-+         Enable Support for NXP P3H244x/P3H284x I3C HUB device using I3C/I2C
-+         communication interface.
+ if I3C
+ source "drivers/i3c/master/Kconfig"
 +
-+         This driver provides support for I3C hub and regulator, each subdriver
-+         can be enabled independently depending on the required functionality.
++config I3C_HUB
++	tristate "I3C Hub Support"
++	depends on I3C
++	help
++	  Enable support for the I3C interface in hub devices.
 +
- config MFD_PF1550
- 	tristate "NXP PF1550 PMIC Support"
- 	depends on I2C=y && OF
-diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-index e75e8045c28a..aaadf50fedf4 100644
---- a/drivers/mfd/Makefile
-+++ b/drivers/mfd/Makefile
-@@ -122,6 +122,7 @@ obj-$(CONFIG_MFD_MC13XXX)	+= mc13xxx-core.o
- obj-$(CONFIG_MFD_MC13XXX_SPI)	+= mc13xxx-spi.o
- obj-$(CONFIG_MFD_MC13XXX_I2C)	+= mc13xxx-i2c.o
++	  This option adds virtual I3C bus support for hubs by creating
++	  virtual master controllers for downstream ports and forwarding
++	  bus operations through the hub device. It also provides an
++	  interface used by hub drivers to enable or disable downstream
++	  ports during bus transactions.
++
++	  Say Y here if your platform includes an I3C hub device
++
+ endif # I3C
  
-+obj-$(CONFIG_MFD_P3H2X4X) 	+= p3h2840.o
- obj-$(CONFIG_MFD_PF1550)	+= pf1550.o
- 
- obj-$(CONFIG_MFD_NCT6694)	+= nct6694.o
-diff --git a/drivers/mfd/p3h2840.c b/drivers/mfd/p3h2840.c
+ config I3C_OR_I2C
+diff --git a/drivers/i3c/Makefile b/drivers/i3c/Makefile
+index 11982efbc6d9..9ddee56a6338 100644
+--- a/drivers/i3c/Makefile
++++ b/drivers/i3c/Makefile
+@@ -2,3 +2,4 @@
+ i3c-y				:= device.o master.o
+ obj-$(CONFIG_I3C)		+= i3c.o
+ obj-$(CONFIG_I3C)		+= master/
++obj-$(CONFIG_I3C_HUB)		+= hub.o
+diff --git a/drivers/i3c/hub.c b/drivers/i3c/hub.c
 new file mode 100644
-index 000000000000..65090a09f7c6
+index 000000000000..67c5d2695a61
 --- /dev/null
-+++ b/drivers/mfd/p3h2840.c
-@@ -0,0 +1,125 @@
++++ b/drivers/i3c/hub.c
+@@ -0,0 +1,460 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * Copyright 2025 NXP
-+ * P3H2x4x i3c hub and regulator device.
++ * Copyright 2026 NXP
++ * Generic I3C Hub core implementing virtual controller operations.
 + */
++#include <linux/i3c/device.h>
++#include <linux/i3c/hub.h>
 +
-+#include <linux/i3c/master.h>
-+#include <linux/i2c.h>
-+#include <linux/mfd/core.h>
-+#include <linux/mfd/p3h2840.h>
-+#include <linux/regmap.h>
++#include "internals.h"
 +
-+static const struct mfd_cell p3h2x4x_devs[] = {
-+	{
-+		.name = "p3h2x4x-regulator",
-+	},
-+	{
-+		.name = "p3h2x4x-i3c-hub",
-+	},
-+};
-+
-+static const struct regmap_config p3h2x4x_regmap_config = {
-+	.reg_bits = P3H2x4x_REG_BITS,
-+	.val_bits = P3H2x4x_VAL_BITS,
-+	.max_register = 0xFF,
-+};
-+
-+static int p3h2x4x_device_probe_i3c(struct i3c_device *i3cdev)
++/**
++ * i3c_hub_master_bus_init() - Bind controller to hub device
++ * @controller: Virtual controller for a hub port
++ *
++ * Associates the virtual controller with the hub device descriptor so that
++ * transfers are executed through the hub on the parent bus.
++ */
++static int i3c_hub_master_bus_init(struct i3c_master_controller *controller)
 +{
-+	struct p3h2x4x_dev *p3h2x4x;
-+	int ret;
++	struct i3c_hub_controller *hub_controller;
++	struct i3c_hub *hub;
 +
-+	p3h2x4x = devm_kzalloc(&i3cdev->dev, sizeof(*p3h2x4x), GFP_KERNEL);
-+	if (!p3h2x4x)
-+		return -ENOMEM;
++	hub_controller = dev_get_drvdata(&controller->dev);
++	if (!hub_controller || !hub_controller->hub)
++		return -ENODEV;
 +
-+	i3cdev_set_drvdata(i3cdev, p3h2x4x);
++	hub = hub_controller->hub;
 +
-+	p3h2x4x->regmap = devm_regmap_init_i3c(i3cdev, &p3h2x4x_regmap_config);
-+	if (IS_ERR(p3h2x4x->regmap))
-+		return dev_err_probe(&i3cdev->dev, PTR_ERR(p3h2x4x->regmap),
-+				     "Failed to register I3C HUB regmap\n");
++	if (!hub->hub_dev)
++		return -ENODEV;
 +
-+	p3h2x4x->is_p3h2x4x_in_i3c = true;
-+	p3h2x4x->i3cdev = i3cdev;
-+
-+	ret = devm_mfd_add_devices(&i3cdev->dev, PLATFORM_DEVID_NONE,
-+				   p3h2x4x_devs, ARRAY_SIZE(p3h2x4x_devs),
-+				   NULL, 0, NULL);
-+	if (ret)
-+		return dev_err_probe(&i3cdev->dev, ret, "Failed to add sub devices\n");
-+
++	controller->this = hub->hub_dev->desc;
 +	return 0;
 +}
 +
-+static int p3h2x4x_device_probe_i2c(struct i2c_client *client)
++static void i3c_hub_master_bus_cleanup(struct i3c_master_controller *controller)
 +{
-+	struct p3h2x4x_dev *p3h2x4x;
-+	int ret;
++	controller->this = NULL;
++}
 +
-+	p3h2x4x = devm_kzalloc(&client->dev, sizeof(*p3h2x4x), GFP_KERNEL);
-+	if (!p3h2x4x)
-+		return -ENOMEM;
-+
-+	i2c_set_clientdata(client, p3h2x4x);
-+
-+	p3h2x4x->regmap = devm_regmap_init_i2c(client, &p3h2x4x_regmap_config);
-+	if (IS_ERR(p3h2x4x->regmap))
-+		return dev_err_probe(&client->dev, PTR_ERR(p3h2x4x->regmap),
-+				     "Failed to register I3C HUB regmap\n");
-+
-+	p3h2x4x->is_p3h2x4x_in_i3c = false;
-+
-+	ret = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
-+				   p3h2x4x_devs, ARRAY_SIZE(p3h2x4x_devs),
-+				   NULL, 0, NULL);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret, "Failed to add sub devices\n");
-+
++static int i3c_hub_attach_i3c_dev(struct i3c_dev_desc *dev)
++{
 +	return 0;
 +}
 +
-+/* p3h2x4x ids (i3c) */
-+static const struct i3c_device_id p3h2x4x_i3c_ids[] = {
-+	I3C_CLASS(I3C_DCR_HUB, NULL),
-+	{ /* sentinel */ },
-+};
-+MODULE_DEVICE_TABLE(i3c, p3h2x4x_i3c_ids);
++static int i3c_hub_reattach_i3c_dev(struct i3c_dev_desc *dev, u8 old_dyn_addr)
++{
++	return 0;
++}
 +
-+/* p3h2x4x ids (i2c) */
-+static const struct i2c_device_id p3h2x4x_i2c_id_table[] = {
-+	{ "nxp-i3c-hub" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(i2c, p3h2x4x_i2c_id_table);
++static void i3c_hub_detach_i3c_dev(struct i3c_dev_desc *dev)
++{
++}
 +
-+static const struct of_device_id  p3h2x4x_i2c_of_match[] = {
-+	{ .compatible = "nxp,p3h2840", },
-+	{ /* sentinel */ }
++/**
++ * i3c_hub_do_daa() - Perform DAA via hub port
++ * @hub: Hub instance
++ * @controller: Virtual controller for a hub port
++ *
++ * Enables the port connection, performs DAA on the parent controller,
++ * then disables the connection.
++ */
++static int i3c_hub_do_daa(struct i3c_hub *hub,
++			  struct i3c_master_controller *controller)
++{
++	int ret;
++
++	if (!hub || !hub->parent)
++		return -ENODEV;
++
++	i3c_hub_enable_port(controller);
++	ret = i3c_master_do_daa(hub->parent);
++	i3c_hub_disable_port(controller);
++
++	return ret;
++}
++
++static bool i3c_hub_supports_ccc_cmd(struct i3c_hub *hub,
++				     const struct i3c_ccc_cmd *cmd)
++{
++	return i3c_master_supports_ccc_cmd(hub->parent, cmd);
++}
++
++/**
++ * i3c_hub_send_ccc_cmd() - Send CCC through hub port
++ * @hub: Hub instance
++ * @controller: Virtual controller
++ * @cmd: CCC command
++ *
++ * Enables the port connection while issuing CCC on the parent controller.
++ */
++static int i3c_hub_send_ccc_cmd(struct i3c_hub *hub,
++				struct i3c_master_controller *controller,
++				struct i3c_ccc_cmd *cmd)
++{
++	int ret;
++
++	if (!hub || !hub->parent)
++		return -ENODEV;
++
++	i3c_hub_enable_port(controller);
++	ret = i3c_master_send_ccc_cmd(hub->parent, cmd);
++	i3c_hub_disable_port(controller);
++
++	return ret;
++}
++
++/**
++ * i3c_hub_master_priv_xfers() - Execute private transfers via hub
++ * @dev: Target device descriptor
++ * @xfers: Transfer array
++ * @nxfers: Number of transfers
++ * @mode: transfer mode (SDR, HDR, etc.)
++ *
++ * Handles address adjustment and forwards private transfers through the hub
++ * device.
++ */
++static int i3c_hub_master_priv_xfers(struct i3c_dev_desc *dev,
++				     struct i3c_xfer *xfers,
++				     int nxfers,
++				     enum i3c_xfer_mode mode)
++{
++	struct i3c_master_controller *controller = i3c_dev_get_master(dev);
++	struct i3c_hub_controller *hub_controller;
++	struct i3c_dev_desc *hub_dev;
++	u8 hub_addr, target_addr;
++	struct i3c_hub *hub;
++	int ret;
++
++	hub_controller = dev_get_drvdata(&controller->dev);
++	if (!hub_controller || !hub_controller->hub)
++		return -ENODEV;
++
++	hub = hub_controller->hub;
++
++	if (!hub->hub_dev)
++		return -ENODEV;
++
++	hub_dev = hub->hub_dev->desc;
++
++	i3c_hub_enable_port(controller);
++
++	hub_addr = hub_dev->info.dyn_addr ?
++		   hub_dev->info.dyn_addr : hub_dev->info.static_addr;
++
++	target_addr = dev->info.dyn_addr ?
++		      dev->info.dyn_addr : dev->info.static_addr;
++
++	if (hub_addr != target_addr) {
++		hub_dev->info.dyn_addr = target_addr;
++		ret = i3c_master_reattach_i3c_dev(hub_dev, target_addr);
++		if (ret)
++			goto disable;
++	}
++
++	ret = i3c_device_do_xfers(hub->hub_dev, xfers, nxfers, mode);
++
++	if (hub_addr != target_addr) {
++		hub_dev->info.dyn_addr = hub_addr;
++		ret |= i3c_master_reattach_i3c_dev(hub_dev, hub_addr);
++	}
++
++disable:
++	i3c_hub_disable_port(controller);
++	return ret;
++}
++
++static int i3c_hub_attach_i2c_dev(struct i2c_dev_desc *dev)
++{
++	return 0;
++}
++
++static void i3c_hub_detach_i2c_dev(struct i2c_dev_desc *dev)
++{
++}
++
++static int i3c_hub_i2c_xfers(struct i2c_dev_desc *dev,
++			     struct i2c_msg *xfers, int nxfers)
++{
++	return 0;
++}
++
++static int i3c_hub_master_do_daa(struct i3c_master_controller *controller)
++{
++	struct i3c_hub_controller *hub_controller;
++	struct i3c_hub *hub;
++
++	hub_controller = dev_get_drvdata(&controller->dev);
++	if (!hub_controller || !hub_controller->hub)
++		return -ENODEV;
++
++	hub = hub_controller->hub;
++
++	return i3c_hub_do_daa(hub, controller);
++}
++
++static int i3c_hub_master_send_ccc_cmd(struct i3c_master_controller *controller,
++				       struct i3c_ccc_cmd *cmd)
++{
++	struct i3c_hub_controller *hub_controller;
++	struct i3c_hub *hub;
++
++	hub_controller = dev_get_drvdata(&controller->dev);
++	if (!hub_controller || !hub_controller->hub)
++		return -ENODEV;
++
++	hub = hub_controller->hub;
++
++	if (!hub->parent)
++		return -ENODEV;
++
++	if (cmd->id == I3C_CCC_RSTDAA(true))
++		return 0;
++
++	return i3c_hub_send_ccc_cmd(hub, controller, cmd);
++}
++
++static bool i3c_hub_master_supports_ccc_cmd(struct i3c_master_controller *controller,
++					    const struct i3c_ccc_cmd *cmd)
++{
++	struct i3c_hub_controller *hub_controller;
++	struct i3c_hub *hub;
++
++	hub_controller = dev_get_drvdata(&controller->dev);
++	if (!hub_controller || !hub_controller->hub)
++		return false;
++
++	hub = hub_controller->hub;
++
++	return i3c_hub_supports_ccc_cmd(hub, cmd);
++}
++
++/**
++ * i3c_hub_request_ibi() - Request IBI through parent controller
++ * @desc: Target device descriptor
++ * @req: IBI setup
++ *
++ * Temporarily updates parent controller context to request IBI for a device
++ * connected through the hub.
++ */
++static int i3c_hub_request_ibi(struct i3c_dev_desc *desc,
++			       const struct i3c_ibi_setup *req)
++{
++	struct i3c_master_controller *controller = i3c_dev_get_master(desc);
++	struct i3c_hub_controller *hub_controller;
++	struct i3c_master_controller *orig_parent;
++	struct i3c_master_controller *parent;
++	struct i3c_hub *hub;
++	int ret;
++
++	hub_controller = dev_get_drvdata(&controller->dev);
++	if (!hub_controller || !hub_controller->hub)
++		return -ENODEV;
++
++	hub = hub_controller->hub;
++
++	if (!hub->parent)
++		return -ENODEV;
++
++	parent = hub->parent;
++
++	orig_parent = i3c_hub_update_desc_parent(&desc->common, parent);
++
++	ret = i3c_master_direct_attach_i3c_dev(parent, desc);
++	if (ret) {
++		i3c_hub_restore_desc_parent(&desc->common, orig_parent);
++		return ret;
++	}
++
++	mutex_unlock(&desc->ibi_lock);
++	kfree(desc->ibi);
++	desc->ibi = NULL;
++	ret = i3c_dev_request_ibi_locked(desc, req);
++	mutex_lock(&desc->ibi_lock);
++
++	i3c_hub_restore_desc_parent(&desc->common, orig_parent);
++
++	return ret;
++}
++
++static void i3c_hub_free_ibi(struct i3c_dev_desc *desc)
++{
++	struct i3c_master_controller *controller = i3c_dev_get_master(desc);
++	struct i3c_hub_controller *hub_controller;
++	struct i3c_master_controller *orig_parent;
++	struct i3c_master_controller *parent;
++	struct i3c_hub *hub;
++
++	hub_controller = dev_get_drvdata(&controller->dev);
++	if (!hub_controller || !hub_controller->hub)
++		return;
++
++	hub = hub_controller->hub;
++
++	parent = hub->parent;
++
++	i3c_hub_enable_port(controller);
++
++	orig_parent = i3c_hub_update_desc_parent(&desc->common, parent);
++	i3c_master_direct_detach_i3c_dev(desc);
++	mutex_unlock(&desc->ibi_lock);
++	i3c_dev_free_ibi_locked(desc);
++	mutex_lock(&desc->ibi_lock);
++	i3c_hub_restore_desc_parent(&desc->common, orig_parent);
++
++	i3c_hub_disable_port(controller);
++}
++
++/**
++ * i3c_hub_enable_ibi() - Enable IBI via hub port
++ * @desc: Target device descriptor
++ *
++ * Enables port connection and forwards the IBI enable request to the parent
++ * controller.
++ */
++static int i3c_hub_enable_ibi(struct i3c_dev_desc *desc)
++{
++	struct i3c_master_controller *controller = i3c_dev_get_master(desc);
++	struct i3c_hub_controller *hub_controller;
++	struct i3c_master_controller *orig_parent;
++	struct i3c_master_controller *parent;
++	struct i3c_hub *hub;
++	int ret;
++
++	hub_controller = dev_get_drvdata(&controller->dev);
++	if (!hub_controller || !hub_controller->hub)
++		return -ENODEV;
++
++	hub = hub_controller->hub;
++
++	if (!hub->parent)
++		return -ENODEV;
++
++	parent = hub->parent;
++
++	i3c_hub_enable_port(controller);
++
++	orig_parent = i3c_hub_update_desc_parent(&desc->common, parent);
++
++	down_write(&parent->bus.lock);
++	mutex_unlock(&desc->ibi_lock);
++	ret = i3c_dev_enable_ibi_locked(desc);
++	mutex_lock(&desc->ibi_lock);
++	up_write(&parent->bus.lock);
++
++	i3c_hub_restore_desc_parent(&desc->common, orig_parent);
++
++	i3c_hub_disable_port(controller);
++
++	return ret;
++}
++
++/**
++ * i3c_hub_disable_ibi() - Disable IBI via hub port
++ * @desc: Target device descriptor
++ *
++ * Enables port connection and forwards the IBI disable request to the parent
++ * controller.
++ */
++static int i3c_hub_disable_ibi(struct i3c_dev_desc *desc)
++{
++	struct i3c_master_controller *controller = i3c_dev_get_master(desc);
++	struct i3c_hub_controller *hub_controller;
++	struct i3c_master_controller *orig_parent;
++	struct i3c_master_controller *parent;
++	struct i3c_hub *hub;
++	int ret;
++
++	hub_controller = dev_get_drvdata(&controller->dev);
++	if (!hub_controller || !hub_controller->hub)
++		return -ENODEV;
++
++	hub = hub_controller->hub;
++
++	if (!hub->parent)
++		return -ENODEV;
++
++	parent = hub->parent;
++
++	i3c_hub_enable_port(controller);
++
++	orig_parent = i3c_hub_update_desc_parent(&desc->common, parent);
++
++	down_write(&parent->bus.lock);
++	mutex_unlock(&desc->ibi_lock);
++	ret = i3c_dev_disable_ibi_locked(desc);
++	mutex_lock(&desc->ibi_lock);
++	up_write(&parent->bus.lock);
++
++	i3c_hub_restore_desc_parent(&desc->common, orig_parent);
++
++	i3c_hub_disable_port(controller);
++
++	return ret;
++}
++
++static void i3c_hub_recycle_ibi_slot(struct i3c_dev_desc *desc,
++				     struct i3c_ibi_slot *slot)
++{
++}
++
++static const struct i3c_master_controller_ops i3c_hub_master_ops_data = {
++	.bus_init = i3c_hub_master_bus_init,
++	.bus_cleanup = i3c_hub_master_bus_cleanup,
++	.attach_i3c_dev = i3c_hub_attach_i3c_dev,
++	.reattach_i3c_dev = i3c_hub_reattach_i3c_dev,
++	.detach_i3c_dev = i3c_hub_detach_i3c_dev,
++	.do_daa = i3c_hub_master_do_daa,
++	.supports_ccc_cmd = i3c_hub_master_supports_ccc_cmd,
++	.send_ccc_cmd = i3c_hub_master_send_ccc_cmd,
++	.i3c_xfers = i3c_hub_master_priv_xfers,
++	.attach_i2c_dev = i3c_hub_attach_i2c_dev,
++	.detach_i2c_dev = i3c_hub_detach_i2c_dev,
++	.i2c_xfers = i3c_hub_i2c_xfers,
++	.request_ibi = i3c_hub_request_ibi,
++	.free_ibi = i3c_hub_free_ibi,
++	.enable_ibi = i3c_hub_enable_ibi,
++	.disable_ibi = i3c_hub_disable_ibi,
++	.recycle_ibi_slot = i3c_hub_recycle_ibi_slot,
 +};
 +
-+MODULE_DEVICE_TABLE(of, p3h2x4x_i2c_of_match);
-+static struct i3c_driver p3h2x4x_i3c = {
-+	.driver = {
-+		.name = "p3h2x4x_i3c_drv",
-+	},
-+	.probe = p3h2x4x_device_probe_i3c,
-+	.id_table = p3h2x4x_i3c_ids,
-+};
++/**
++ * i3c_hub_init() - Initialize hub context
++ * @hub: Hub instance
++ * @parent: Parent I3C master controller
++ * @ops: Vendor callbacks
++ * @hub_dev: I3C hub device
++ */
++struct i3c_hub *i3c_hub_init(struct i3c_master_controller *parent,
++			     const struct i3c_hub_ops *ops,
++			     struct i3c_device *hub_dev)
++{
++	struct i3c_hub *hub;
 +
-+static struct i2c_driver p3h2x4x_i2c = {
-+	.driver = {
-+		.name = "p3h2x4x_i2c_drv",
-+		.of_match_table = p3h2x4x_i2c_of_match,
-+	},
-+	.probe =  p3h2x4x_device_probe_i2c,
-+	.id_table = p3h2x4x_i2c_id_table,
-+};
++	hub = devm_kzalloc(&hub_dev->dev,
++			   sizeof(*hub),
++			   GFP_KERNEL);
 +
-+module_i3c_i2c_driver(p3h2x4x_i3c, &p3h2x4x_i2c);
++	if (!hub)
++		return ERR_PTR(-ENOMEM);
++
++	hub->parent = parent;
++	hub->ops = ops;
++	hub->hub_dev = hub_dev;
++
++	return hub;
++}
++EXPORT_SYMBOL_GPL(i3c_hub_init);
++
++const struct i3c_master_controller_ops *i3c_hub_master_ops(void)
++{
++	return &i3c_hub_master_ops_data;
++}
++EXPORT_SYMBOL_GPL(i3c_hub_master_ops);
 +
 +MODULE_AUTHOR("Aman Kumar Pandey <aman.kumarpandey@nxp.com>");
 +MODULE_AUTHOR("Vikash Bansal <vikash.bansal@nxp.com>");
-+MODULE_DESCRIPTION("P3H2x4x I3C HUB multi function driver");
++MODULE_AUTHOR("Lakshay Piplani <lakshay.piplani@nxp.com>");
++MODULE_DESCRIPTION("Generic I3C hub support");
 +MODULE_LICENSE("GPL");
-diff --git a/include/linux/mfd/p3h2840.h b/include/linux/mfd/p3h2840.h
+diff --git a/include/linux/i3c/hub.h b/include/linux/i3c/hub.h
 new file mode 100644
-index 000000000000..cba6fa516d1e
+index 000000000000..b685d4d3cc7e
 --- /dev/null
-+++ b/include/linux/mfd/p3h2840.h
-@@ -0,0 +1,27 @@
++++ b/include/linux/i3c/hub.h
+@@ -0,0 +1,107 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +/*
-+ * Copyright 2025 NXP
-+ * This header file contain private Reg address and its bit mapping etc.
++ * Copyright 2026 NXP
++ * Generic hub definitions and helper interfaces.
 + */
++#ifndef _LINUX_I3C_HUB_H
++#define _LINUX_I3C_HUB_H
 +
-+#ifndef _LINUX_MFD_P3H2840_H
-+#define _LINUX_MFD_P3H2840_H
++#include <linux/i3c/master.h>
 +
-+#include <linux/types.h>
++static inline struct i3c_master_controller *
++i3c_hub_update_desc_parent(struct i3c_i2c_dev_desc *desc,
++			   struct i3c_master_controller *parent)
++{
++	struct i3c_master_controller *orig_parent = desc->master;
 +
-+/* Device Configuration Registers */
-+#define P3H2x4x_DEV_REG_PROTECTION_CODE				0x10
-+#define P3H2x4x_REGISTERS_LOCK_CODE				0x00
-+#define P3H2x4x_REGISTERS_UNLOCK_CODE				0x69
-+#define P3H2x4x_CP1_REGISTERS_UNLOCK_CODE			0x6a
++	desc->master = parent;
++	return orig_parent;
++}
 +
-+/* Reg config for Regmap */
-+#define P3H2x4x_REG_BITS					8
-+#define P3H2x4x_VAL_BITS					8
++static inline void
++i3c_hub_restore_desc_parent(struct i3c_i2c_dev_desc *desc,
++			    struct i3c_master_controller *parent)
++{
++	desc->master = parent;
++}
 +
-+struct p3h2x4x_dev {
-+	struct i3c_device *i3cdev;
-+	struct regmap *regmap;
-+	bool is_p3h2x4x_in_i3c;
++/**
++ * struct i3c_hub - Generic I3C hub context
++ * @parent: Parent I3C master controller
++ * @ops: Vendor callbacks for port connection control
++ * @hub_dev: I3C device representing the hub on the parent bus
++ */
++struct i3c_hub {
++	struct i3c_master_controller *parent;
++	const struct i3c_hub_ops *ops;
++	struct i3c_device *hub_dev;
 +};
-+#endif /* _LINUX_MFD_P3H2840_H */
++
++struct i3c_hub_controller {
++	struct i3c_master_controller *parent;
++	struct i3c_master_controller controller;
++	struct i3c_hub *hub;
++};
++
++struct i3c_hub_ops {
++	void (*enable_port)(struct i3c_master_controller *controller);
++	void (*disable_port)(struct i3c_master_controller *controller);
++};
++
++/**
++ * i3c_hub_enable_port() - Enable hub connection for a controller
++ * @controller: Virtual controller representing a hub port
++ *
++ * Retrieves hub context from controller drvdata and invokes the vendor
++ * callback to enable the associated port connection.
++ */
++static inline void i3c_hub_enable_port(struct i3c_master_controller *controller)
++{
++	struct i3c_hub_controller *hub_controller;
++	struct i3c_hub *hub;
++
++	hub_controller = dev_get_drvdata(&controller->dev);
++	if (!hub_controller || !hub_controller->hub)
++		return;
++
++	hub = hub_controller->hub;
++
++	if (hub && hub->ops && hub->ops->enable_port)
++		hub->ops->enable_port(controller);
++}
++
++/**
++ * i3c_hub_disable_port() - Disable hub connection for a controller
++ * @controller: Virtual controller representing a hub port
++ *
++ * Retrieves hub context from controller drvdata and invokes the vendor
++ * callback to disable the associated port connection.
++ */
++static inline void i3c_hub_disable_port(struct i3c_master_controller *controller)
++{
++	struct i3c_hub_controller *hub_controller;
++	struct i3c_hub *hub;
++
++	hub_controller = dev_get_drvdata(&controller->dev);
++	if (!hub_controller || !hub_controller->hub)
++		return;
++
++	hub = hub_controller->hub;
++
++	if (hub && hub->ops && hub->ops->disable_port)
++		hub->ops->disable_port(controller);
++}
++
++/**
++ * i3c_hub_master_ops() - Return virtual controller ops for hub ports
++ *
++ * Provides i3c_master_controller_ops used by controllers created for hub
++ * ports.
++ */
++const struct i3c_master_controller_ops *i3c_hub_master_ops(void);
++
++struct i3c_hub *i3c_hub_init(struct i3c_master_controller *parent,
++			     const struct i3c_hub_ops *ops,
++			     struct i3c_device *hub_dev);
++
++#endif
 -- 
 2.25.1
 
