@@ -1,85 +1,88 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m16.yeah.net (mail-m16.yeah.net [220.197.32.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43BEF1DE3DB;
-	Mon, 23 Mar 2026 06:21:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE9C175A85;
+	Mon, 23 Mar 2026 06:22:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774246909; cv=none; b=dge0YVLlzVpV9ecPxHuBT1G9OcEDLjU/a2kZmEhONjsWZqBeI1HaNsVpR9cuBHCfqsIzDmyZYU59oCr1E0lWK/bO66/55Zbz6uY/h77hgJKtYtDDUJ/q8INYOIdn/r4PvbxXPHZdd+zdikmE3x2aHtXiFsTLAP+AzM4p4krTC0o=
+	t=1774246948; cv=none; b=gp/Xo9bTsdLFDjrJQ82Af5s4uZ5J32oK4WUphVvqTl4x98pxCaAe3sszIZkoijt17gP3B2Og4OEvZCLJCaH0jtBZQL8LeCJP7NXXFfHkbyezSkNF1esgxBwqKQ8PueL2Itv6ZYxar1mh896d7yfsfCpp54YBBvceXPsnMF/gNLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774246909; c=relaxed/simple;
-	bh=+JTCVX5wyxrbWfmcp+HMnvIrjPYnbpe7tDYmKba/uIk=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=pHQ2cN9upFPWrtx/Butq5MU+HiOjFJ89Uscd+irtwxiF+48SE84xazrrFKEgkxhUHjCm74C40a1aDxlxFBvsoVTHHsI3p3lG7BTFqMD8Jlhzl95lnjjMjpgc9gniaaDaDkaxcYqiEPezJphn6f3AN76t6Qk/MCEH6GSsah191gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=lLJFQ5St; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1774246948; c=relaxed/simple;
+	bh=C3Jk+havheEvSNjBbieXqRyaODbSdgXw2Er3e1mHqN0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=WPU7zmgAL8Fcod+fYcxD5Y/oR8aRA15F6KtUqnwO4Vcw6+GaAkkJ/LLxILh0xIgdeCzhTH6yxKnQpyUSa74tGxrvk6OlTv3k9ksT7fOiP6wo5R6zizmHuTKwprXCgFa29Rr4EzGBarfErQYnvC55TwEQ+LqaWGZ8HFCg2JjiboI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yeah.net; spf=pass smtp.mailfrom=yeah.net; dkim=pass (1024-bit key) header.d=yeah.net header.i=@yeah.net header.b=h/ncXDI/; arc=none smtp.client-ip=220.197.32.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yeah.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yeah.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="lLJFQ5St"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id B4A81264BE;
-	Mon, 23 Mar 2026 07:21:44 +0100 (CET)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id AeWVaGRIl8ZZ; Mon, 23 Mar 2026 07:21:44 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1774246904; bh=+JTCVX5wyxrbWfmcp+HMnvIrjPYnbpe7tDYmKba/uIk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=lLJFQ5StJPVJQXo75XsYG564n5odrwcrdi0f4h2Fs7iXKnq5MxvI546dKZ1SpFiWJ
-	 8ZqlX+ZmZHkJvfqUJaIa1k7d706JheMwTRu7Dg1U5IrZXS9s7P9/AOss2UXxvJKGDd
-	 RTcS5511nyIoaole8iqhl+a0zDJCXyZ8sGUjJfE0peCn2eu/IFMvZXLrLUgo/rFg+F
-	 Et9xIZIURiEgec198FZ05BptcGtg7X8/svWc/YIV/RM6robN7Fcw1jtwHLWX+q2HDa
-	 3fW5b4DiNLU+MGXEV3s3MQOYKwxRPXyHjY07KZSW1sFR88JLXYRU9ygyebD7Ls0O0Y
-	 ag00nnivyRUiA==
+	dkim=pass (1024-bit key) header.d=yeah.net header.i=@yeah.net header.b="h/ncXDI/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yeah.net;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=By
+	Nh+ZVMLlFAwQU1VPxOfH5E1NoPZjDNDG4koGc6CSU=; b=h/ncXDI/OOBQV3QRKF
+	aGMBsDzYbchZcX8a4lopM5WEXJ5xvbOVEacGY3rt61R2/AnU1dHoiB0VsY2cR+Ba
+	lBJVUGBsfy0zOx2C33ka8cFQF47hFN54LkjW03C6OQfY6LsUgND1YISpdkVkP70S
+	pzfPg9Y/fvvixYPXHAKev8cOM=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp1 (Coremail) with UTF8SMTPA id Mc8vCgBH7_jS28Bp40yaAA--.366S2;
+	Mon, 23 Mar 2026 14:21:07 +0800 (CST)
+From: wenswang@yeah.net
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux@roeck-us.net,
+	skhan@linuxfoundation.org
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Wensheng Wang <wenswang@yeah.net>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3 1/2] dt-bindings: hwmon: Add MPS mp2985
+Date: Mon, 23 Mar 2026 14:21:03 +0800
+Message-Id: <20260323062104.827263-1-wenswang@yeah.net>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260323061901.827025-1-wenswang@yeah.net>
+References: <20260323061901.827025-1-wenswang@yeah.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 23 Mar 2026 06:21:39 +0000
-From: Rustam Adilov <adilov@disroot.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>, Andi Shyti
- <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 7/8] dt-bindings: i2c: realtek,rtl9301-i2c: extend for
- RTL9607C support
-In-Reply-To: <76007bf5-26fa-485c-a07c-6c8c3f437cdf@kernel.org>
-References: <20260322123411.32102-1-adilov@disroot.org>
- <20260322123411.32102-8-adilov@disroot.org>
- <76007bf5-26fa-485c-a07c-6c8c3f437cdf@kernel.org>
-Message-ID: <3f5a87c7ed40a57cb40bb71e08e66654@disroot.org>
-X-Sender: adilov@disroot.org
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:Mc8vCgBH7_jS28Bp40yaAA--.366S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7JryrXrWxXr47WFW8WFy3Arb_yoWDurc_Cw
+	4xZ3WDCrWkJFyfKan5AF4kGry5Ww17KrWUCw18t3WkXF9I9rW5CF9aq34YvryxGay7ur15
+	urn2qrZ3XrnxWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRMXo2UUUUUU==
+X-CM-SenderInfo: 5zhq24xdqjq5hhdkh0dhw/1tbiIhS2W2nA29T8cgAA3z
 
-On 2026-03-22 21:02, Krzysztof Kozlowski wrote:
-> On 22/03/2026 13:34, Rustam Adilov wrote:
->> Add the "realtek,rtl9607-i2c" compatible for i2c controller on the
->> RTL9607C SoC series.
->> 
->> Add a clocks property to the properties to describe the i2c reference
->> clock and make it available for all the compatibles. This i2c 
->> reference
->> clock is assumed to be coming from switchcore region via Lexra bus as
->> the other SoC peripherals.
->> 
-> 
-> Why the clock is not required for rtl9607? I did not find explanation 
-> of
-> such change in the changelog/cover letter.
+From: Wensheng Wang <wenswang@yeah.net>
 
-I have apparently forgotten to include it back after moving 
-"realtek,rtl9607-i2c" to another spot.
-Will add it back in v4.
+Add support for MPS mp2985 controller.
 
-> Best regards,
-> Krzysztof
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Wensheng Wang <wenswang@yeah.net>
+---
+v1 -> v2:
+    1. add Krzysztof's Acked-by
 
-Thanks,
-Rustam
+ Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index a482aeadcd44..d61482269352 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -325,6 +325,8 @@ properties:
+           - mps,mp29612
+             # Monolithic Power Systems Inc. multi-phase controller mp29816
+           - mps,mp29816
++            # Monolithic Power Systems Inc. multi-phase controller mp2985
++          - mps,mp2985
+             # Monolithic Power Systems Inc. multi-phase controller mp2993
+           - mps,mp2993
+             # Monolithic Power Systems Inc. hot-swap protection device
+-- 
+2.25.1
+
