@@ -1,195 +1,150 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECEAA390207
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:41:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2BF438CFFA
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:41:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774262476; cv=none; b=JUW6i6WZGK5mmqDxAgREWg0FgqFC/Ax4t79gshhwLh35AbRQlZN+ec1FVnqVC2Qhua83ZkWJemIBEWgnn0TIrhFQpT9nobbUrZp7F+cHOC/N+dKwpm8N4IT2W21RN447I9DlDd69Gg455eng6Gg/0KztNJs+RS75rYxreCIw7eo=
+	t=1774262510; cv=none; b=emJToOzi0AHW0Bq1hMxz/QB4JRaVcqsO6gm8HIyBabtC1RAChp5MNI+fnGNLwkX7ohFt1zrT8FThm0hHUMEM1PZswJ/jZm3bR+AieRYN8lbKPn2385DCM7AVYLKqA5GYU+X0sJoejRdqEVkUdbCiQOYyx+QPLbe0uj2aTLMSOeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774262476; c=relaxed/simple;
-	bh=7oMdsqXRGNvaicdqOHAsaU4zBGqBAOxTdGO3h9kw9xo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u+bNXxCKmQZgYJZtpSeTbLeGhJ79dUWUMt4HYkqWDasXTaZDFcQa7HNSOReTnrolTCLmDCibN68dXtf+i+yMA7nwsPTtr0TtoNlRtdyvaJ725t/0xqnP1ANEm50pM5f1qDc8GMErwPkuWcj3D5VOGDG0D2OScWtWwnodmhsQr0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nOxh1LSJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Jhh5+AXP; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nOxh1LSJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Jhh5+AXP"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N83oHj1364146
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:41:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	q8LBTPEg6h1Y7za/pguHJmr2p6xBplPTOo6n03VNRxw=; b=nOxh1LSJ7nWE1wpR
-	enNoFVHVoobdSDgDMt2Kb+JRKU91/XKmOiq7aqpx4aYklieqZ2InjPy6rPTE7uWE
-	5Rsatz9wmJpjLKY7RuPODp0UO3mgV09Otmo2rpgDpYbbfQ3ql/mjDupjbjrQat6Q
-	yM2FaFGxfBM16BmF8921O/rUAzwlqmLPJyLog0XtsIrDxb21Z9d/aROJEP5jgSFs
-	GDko+xp1LXz4mWNeRuchVY/f9x3goL7NoiNhTGD9bVX2aOkeeginI//5X4kV+VE+
-	gi4W0vyfskPCahoPDIb5wgFxaQQHNsPQdhdYa6wqijC8D+ZeqGKD+kz4KqrSs93n
-	jjLNLA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d31p78kdc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:41:14 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-8cfd003bfe2so191941585a.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 03:41:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774262473; x=1774867273; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=q8LBTPEg6h1Y7za/pguHJmr2p6xBplPTOo6n03VNRxw=;
-        b=Jhh5+AXPKfPcKp/WvVPHeX8FsRt55COVTCagbCAuJxi4+y9udeof6VMpZjQBSHcMTk
-         ZBEJrr8Cl6Y/UFfFm3vWjxd+BzJFGF4mWM2XXAJImcrAnVALy7DKd9cSI7Uzqv9Rc3eV
-         7HqQxtgOSAQAw6TnOQnzfUbdYiqk3YR3COC1QUddCKz3OuP/m9sbzn6EPW8AB96GLajO
-         s7ylnLzu4VsL7SFf0nyinYgMKH3yA876GkTzg7v35DS/9FdLMUvw8x3okc1YCjYj2obQ
-         RHeGgu/CLibmSZv3iz5V7zyEp2oemDlHNg5P//wIB4XbTQea6Lr+PT8uKshGmlgeKFdW
-         1KDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774262473; x=1774867273;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=q8LBTPEg6h1Y7za/pguHJmr2p6xBplPTOo6n03VNRxw=;
-        b=ClpgQddlQKmqXSJbCaCSZ18xJvm4TTxpV2UOHqzQNL2jFWJXhLfSZVxBcP4Rf6pGwu
-         hwK8ZUc/KL0mTJEVvBOjILjxfhqj5HTMP+mCMt7sAmSSWpNGZYaskXUh5itaiai0ka+U
-         2vN2Qoc98ny8+dnYTuqg7uH5ZsS4VgTtwsBYDECIvTjyW8/DrkUQCCvN5q5aL5Mx0oSI
-         ahXFeIRkiC9gmfyZlzR8PIGQQtZgJ77JLIWxjL9o54BOsOt+r6oVYl9r/jHpeUDZXyOV
-         hQTCCiNGABv8PntFpCKc2WsISEZkoeXMCO9OgwWBCVC3YRvJ/vCMre/IAQ8+1tdQ2+AH
-         10TA==
-X-Forwarded-Encrypted: i=1; AJvYcCX85KInhG/fpkUz63ObqLn7QQCz5KC4h3gL7wLEFYCEObNZYI7ZL8AkUWsUIsuypsoJXJe7Bl4eSJyU@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/3to4X8xHUKx3gqtLrjiby4r/ZdvRpCX8AeG4XXpHJpRlTQ7H
-	sAYcGO0xiGqaIYrpyJXzA5FsbZKfH8rJJRhcHDAagnWXU1um8Dx3D/l9gsKz1L0bs8PvFU4NPQo
-	FZCXd/n1mLj2yplOBar+P0vafxC3z/Nlusk9MMGjNbt13azhTknTXDyu4bh8vuPkx
-X-Gm-Gg: ATEYQzwInPe1Se7gF3c58I+SR2fO2KsBXQtSr1lqmq4XOmxf3WBEQ2d6HOLSJnZqVXs
-	3uYW4EsFC4YF2g1s+JhKsTMSLBD1XnxB1TGaxVYUdSIIbdFHNdWX1PTOGY47PDD8uNMRiqdpZsD
-	AqTWiRoUnIHMAEUQlcKwnFEl/oM95EuETbbj/uTYhAvKOQOpzHFAqGqmJtKmajUOwn0GJVGJ4w9
-	pJHLsmGWsfUX0J/U1HqmevIr0kYzE3Nf4/y1K39pKKY2k0yoYNH+x5b12iHt7SFgURCb1UI3O2n
-	rcXyGC0o/EFlowMluGBd925Q+QwCEgneefAoB5ULkQE4xrqQblhcinviToZoGOlParKkawr3jMs
-	7FEYCKyVnnJEjUTE3MIlztDbsN0E7abZo5y8fVRKMyqg6iEpGp7cb8m9xN0pDDYjnAV67cQgYM2
-	YOSWk=
-X-Received: by 2002:a05:622a:4cd:b0:509:47e2:9df3 with SMTP id d75a77b69052e-50b37425671mr126608581cf.1.1774262473381;
-        Mon, 23 Mar 2026 03:41:13 -0700 (PDT)
-X-Received: by 2002:a05:622a:4cd:b0:509:47e2:9df3 with SMTP id d75a77b69052e-50b37425671mr126608331cf.1.1774262472926;
-        Mon, 23 Mar 2026 03:41:12 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-668cf7e30f7sm3571255a12.8.2026.03.23.03.41.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Mar 2026 03:41:11 -0700 (PDT)
-Message-ID: <e01920a9-6e0e-4101-b329-baa706717cc6@oss.qualcomm.com>
-Date: Mon, 23 Mar 2026 11:41:08 +0100
+	s=arc-20240116; t=1774262510; c=relaxed/simple;
+	bh=Z6GcXlGT7FKbncFELrN6EUuqe1RbllaJTGYxbiWsiQA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FEWeJN1LT0CGmO0jES2KLMsuw5xcW9ZLwTJQCkLwSE+NCUDmHXlrtmy1Dqq6F0I2wgfrP4hsUzswLD48f+1WGbaehOEIArthD3bGZ1aoTd0TT5vqFUkyYGtgxOwV5TLyD4KsGZjaMh7yT5i+t1vp8sNWf3clhy78qEtpAD7ZsqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1w4ciw-0001Ls-1M; Mon, 23 Mar 2026 11:41:30 +0100
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1w4civ-001iBA-2O;
+	Mon, 23 Mar 2026 11:41:29 +0100
+Received: from pengutronix.de (p4ffb2dc6.dip0.t-ipconnect.de [79.251.45.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 5965450A81A;
+	Mon, 23 Mar 2026 10:41:29 +0000 (UTC)
+Date: Mon, 23 Mar 2026 11:41:29 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: mani@kernel.org, thomas.kopp@microchip.com, mailhol@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org, 
+	konradybcio@kernel.org, linusw@kernel.org, brgl@kernel.org, linux-can@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, mukesh.savaliya@oss.qualcomm.com, anup.kulkarni@oss.qualcomm.com
+Subject: Re: [PATCH v3 1/2] dt-bindings: can: mcp251xfd: add
+ microchip,xstbyen property
+Message-ID: <20260323-noble-mysterious-hippogriff-340f73-mkl@pengutronix.de>
+X-AI: stop_reason: "refusal"
+References: <20260321135031.3107408-1-viken.dadhaniya@oss.qualcomm.com>
+ <20260321135031.3107408-2-viken.dadhaniya@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 9/9] ARM: dts: qcom: msm8974: Drop RPM bus clocks
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Georgi Djakov <djakov@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Luca Weiss
- <luca.weiss@fairphone.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Brian Masney <masneyb@onstation.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260323-msm8974-icc-v1-0-7892b8d5f2ea@oss.qualcomm.com>
- <20260323-msm8974-icc-v1-9-7892b8d5f2ea@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260323-msm8974-icc-v1-9-7892b8d5f2ea@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=RMC+3oi+ c=1 sm=1 tr=0 ts=69c118ca cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=wPxavPm_kgLNTp2k2vYA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: a1yyc-pRXQQt4LzQ6ZJYSVfeoBnDMmOg
-X-Proofpoint-GUID: a1yyc-pRXQQt4LzQ6ZJYSVfeoBnDMmOg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA4MiBTYWx0ZWRfX4CxDSoDm8jgB
- J6ViA385MexUCi3d71s1NGqzFajlJhqJW2WytXcRd3WdyLqMeNeYBfupQ/j3T6YkFS74OHGtKrh
- r9ZdJA141tYptRQ7Y+J1Lwm2aKM/SqMpJ1ipBuBIgY0augHYyM45+VILDbPcDhW7sjOshI0NMUe
- RrZX1OEmrao0Khw2mXsApraMATBc/FjcDsZliZbhJ33RDUvAR6A9n8/62vH+cZoJoHqFGmqvOW9
- CmgPV4YJhHie5oldXZNHGjzwU9McJzFL49oOlhfRdCyf204JmHfJLDbpwMSPQLLtvIIXif93MaY
- WodaU0Y5HCwEooj2ct28+mqnEweb9NViPM/cvGeFvhUMUAdxq/uBrGvXfb+PJDaF3Y9JbJ+tliR
- MV3+XelIs6X5k3KfDrUOFMc8V1cKaNde2bDFeg7jwMt8I8D3sFS3y2pSIslcEZH44rGeKiOCf4M
- JFnDpPSDeTUx3ELN4UQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-23_03,2026-03-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
- priorityscore=1501 bulkscore=0 spamscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230082
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="acu6kjxbnxtaftpm"
+Content-Disposition: inline
+In-Reply-To: <20260321135031.3107408-2-viken.dadhaniya@oss.qualcomm.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: mkl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-On 3/23/26 2:17 AM, Dmitry Baryshkov wrote:
-> Some nodes are abusingly referencing some of the internal bus clocks,
-> that were recently removed in Linux (because the original implementation
-> did not make much sense), managing them as if they were the only devices
-> on an NoC bus.
-> 
-> These clocks are now handled from within the icc framework and are
-> no longer registered from within the CCF. Remove them.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+--acu6kjxbnxtaftpm
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 1/2] dt-bindings: can: mcp251xfd: add
+ microchip,xstbyen property
+MIME-Version: 1.0
+
+On 21.03.2026 19:20:30, Viken Dadhaniya wrote:
+> Add the boolean property 'microchip,xstbyen' to enable the dedicated
+> transceiver standby control function on the INT0/GPIO0/XSTBY pin of
+> the MCP251xFD family.
+>
+> Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+
+This series looks good to me, I think we need an Acked by the DT people.
+
+regards,
+Marc
+
 > ---
+> v2 -> v3:
+>
+> - No change.
+>
+> v2 Link: https://lore.kernel.org/all/20260316131950.859748-2-viken.dadhan=
+iya@oss.qualcomm.com/
+>
+> v1 -> v2:
+>
+> - Drop the gpio-hog approach as suggested by Dmitry.
+> - Add the microchip,xstbyen property to enable transceiver standby contro=
+l.
+>
+> v1 Link: https://lore.kernel.org/all/20260108125200.2803112-2-viken.dadha=
+niya@oss.qualcomm.com/
+> ---
+>  .../devicetree/bindings/net/can/microchip,mcp251xfd.yaml  | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/net/can/microchip,mcp251xf=
+d.yaml b/Documentation/devicetree/bindings/net/can/microchip,mcp251xfd.yaml
+> index 2d13638ebc6a..28e494262cd9 100644
+> --- a/Documentation/devicetree/bindings/net/can/microchip,mcp251xfd.yaml
+> +++ b/Documentation/devicetree/bindings/net/can/microchip,mcp251xfd.yaml
+> @@ -44,6 +44,14 @@ properties:
+>        signals a pending RX interrupt.
+>      maxItems: 1
+>
+> +  microchip,xstbyen:
+> +    type: boolean
+> +    description:
+> +      If present, configure the INT0/GPIO0/XSTBY pin as transceiver stan=
+dby
+> +      control. The pin is driven low when the controller is active and h=
+igh
+> +      when it enters Sleep mode, allowing automatic standby control of an
+> +      external CAN transceiver connected to this pin.
+> +
+>    spi-max-frequency:
+>      description:
+>        Must be half or less of "clocks" frequency.
+> --
+> 2.34.1
+>
+>
+>
 
-[...]
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
 
->  		mmssnoc: interconnect@fc478000 {
->  			reg = <0xfc478000 0x4000>;
->  			compatible = "qcom,msm8974-mmssnoc";
->  			#interconnect-cells = <1>;
-> -			clock-names = "bus", "bus_a";
-> -			clocks = <&mmcc MMSS_S0_AXI_CLK>,
-> -				 <&mmcc MMSS_S0_AXI_CLK>;
-> +			clock-names = "bus";
-> +			clocks = <&mmcc MMSS_S0_AXI_CLK>;
+--acu6kjxbnxtaftpm
+Content-Type: application/pgp-signature; name="signature.asc"
 
-x
-x-names
+-----BEGIN PGP SIGNATURE-----
 
-please
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCacEY1wAKCRDMOmT6rpmt
+0kmlAQCNELR5JUwWlmN5Z24i7Xj/tpKV+XPWrS9q2fn0iE2hLwEAvx+Q7vop5d52
+z+zV1UqbjBCe5rYx+bqEhZyZ5KAd4wE=
+=SepY
+-----END PGP SIGNATURE-----
 
->  		};
->  
->  		cnoc: interconnect@fc480000 {
->  			reg = <0xfc480000 0x4000>;
->  			compatible = "qcom,msm8974-cnoc";
->  			#interconnect-cells = <1>;
-> -			clock-names = "bus", "bus_a";
-> -			clocks = <&rpmcc RPM_SMD_CNOC_CLK>,
-> -				 <&rpmcc RPM_SMD_CNOC_A_CLK>;
->  		};
->  
->  		tsens: thermal-sensor@fc4a9000 {
-> @@ -2223,6 +2207,7 @@ sram@fdd00000 {
->  			      <0xfec00000 0x180000>;
->  			reg-names = "ctrl", "mem";
->  			ranges = <0 0xfec00000 0x180000>;
-> +			// core clock is unused, kept for ABI compliance
-
-Do we still enforce C-style comments?
-
-Also "unused" is not really right.. After the 'revolution', SMD_RPM_CC
-no longer ""provides"" that clock in reality, since it was never a "clock"
-but rather an interconnect resource
-
-Konrad
-
->  			clocks = <&rpmcc RPM_SMD_OCMEMGX_CLK>,
->  				 <&mmcc OCMEMCX_OCMEMNOC_CLK>;
->  			clock-names = "core", "iface";
-> 
+--acu6kjxbnxtaftpm--
