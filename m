@@ -1,181 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF2635F167;
-	Mon, 23 Mar 2026 08:08:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774253285; cv=none; b=t3stDQaYyfpF8OzxWvjYgF+laZvAlBm1MQEnNJgw+ih6rI5gDtZThj7XCkl3Pfu3W2ZbEkZ7njH3O5uCD14J39iNXttJtFmuDKV1hV+V/G47T4Y6Oe8+agT/p4gVhYMb6lrEHnLRhg+OBmY7BCgsLwpEpFu6C3uK7xuaf4CSWj4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774253285; c=relaxed/simple;
-	bh=hEphEpC79ndJUN7KnbSaTRh3DIHeZPTh+GT9RZ+7GiY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eP3AaURUqEuKE9URoqoBv3T4e3VJtiEZ8Zdgp0FeLnY0X0EJ+Yy7n/IaucvzZwXmgaUm/uu/DKzjwAPGjyp2GixwSc/OmVpFea8WiqTyUkkppAG+twbWsgaXt4KXEj6DtlL0bzEOze6OU+0eA/SD6c0gUstOTB1WXzrkhyWjHmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mwi6aywp; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCA25C613
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 08:26:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774254379; cv=pass; b=ohjj4tZFtYyUTEZWbWGaUFUyznaW+GJGmbboFUZO8GtGn91bx5RZfs9kJdumG8obhqrTkeXnAXl9deLwE1800TrtsjnxSqwNYjzyWTv9JbipB0DUy14bZJ6TNifeZLbUTmcT2xhVa/d+MCqullgFiqQrChMAqlilhyjwPbh/Ht4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774254379; c=relaxed/simple;
+	bh=Ewr7synVuzHzHm/axWuA/egZCARyhrqnQ6eWhyHoFrc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HPsjYuOa7VkXYUrVxKZB0i1PLcZcrto3dsnuWGKuAewydtEarRRvXhOTSH2Uxb7Rmw/Vp25ihTBVx7Sjn26PCfW6JRNUAmLPAEkUjCUd/mgtzAyrTcQ23Iw02hRVRi4ZDrd4w941ySoaBrLHzhUwWirzWUQHv3nwY4CwlIampQA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=JikqKDjH; arc=pass smtp.client-ip=209.85.167.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mwi6aywp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 885BBC4CEF7;
-	Mon, 23 Mar 2026 08:07:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774253285;
-	bh=hEphEpC79ndJUN7KnbSaTRh3DIHeZPTh+GT9RZ+7GiY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=mwi6aywpH240nnTboNmf+q/vOisXvvkBb7SU2xAEUlKLGNo0r+tEhtyeRDmvxKKdU
-	 nJyPovzpp/KN7zDpfPN/wHjPNZamuE0bMBvRJLhbIerD/ks5xd0M8x/usQKyM3opt9
-	 D0SH5zrAHQOlDkjgu3SiyxugyLuPu5K2+OmWtcrXXt2cvyy1j1TWxa0TBXedB70VhW
-	 nI3tHxqllivN0XK70I8IxDDZvbWiy7IUFgrsWeDNEn6PlEbh3JWK46xpoPazqCujUg
-	 jqBrorUBszXuM11LZsCPbsyNMAs+CE7HjIT9GZx9lZfgm1D6yAdMUzLMzpwCjPtArX
-	 vR1jBCIo17xUg==
-Message-ID: <f3ff461b-edd7-423a-ac99-e70145aaaaea@kernel.org>
-Date: Mon, 23 Mar 2026 09:07:54 +0100
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="JikqKDjH"
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5a142464316so4162831e87.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 01:26:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774254377; cv=none;
+        d=google.com; s=arc-20240605;
+        b=DrAfnxRv/inMkFemTf9GC7ss9ZIo2oQIiM+rCNUk9elQFonF40vJdfBpLWVMgEFxfT
+         dWmYPIs6/Lj5bmFZklLvUaTCmiX5pmv/FYtCMZFlYjOdEDbHDHx3C0upv+7f8ypobwTm
+         YDGgETXrxCaCyubuItX/1DO5J3MKfamX2cmHF+jkPHrkvcoEjsk3zTbqRk9tNeLqkl6P
+         hOw5hePfAYYw/qsk/L7FLjR5gWwMg4uXj8visGsXR7ddSBEh9twEOH5akd9vbgijeI8U
+         xU3+9WF30ZzPMAWPynCRFm5J1gT1dbWHUfDkx5vDWdQs2ep2Q6iS9DkMxSo6Glgs2Kuw
+         KZ2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Ewr7synVuzHzHm/axWuA/egZCARyhrqnQ6eWhyHoFrc=;
+        fh=Ba+NMUo68Tm1qXQDN5Uy95cMhyXaF2HJQQ3bk9bkGBg=;
+        b=S8DEL4PhEtvHbCkBG7whxHU7hZcCFDGlPdhvBd8fQpLqWxF1O78AmICsjxybYlV4Zg
+         l1hS63m8eKIasSYHjuVi2TBbaGySZhfBtOwgtE47GeHt11FeVfeM25CZCza7wrcgaErk
+         iw4UhBD8ir7vSmDn8WEzn2/xad5byfzzM+UdC+Odzi2Hu0zMjUF8LLfXA58pBSHtkOgg
+         274RQ73eY5ySncb61CxIAhu3RnEOgsHJ1Lhwel7CtCRgiw+YRn+NUQpO3+VdIfk3n4rJ
+         4SSfjLQW8s2QuPH9EsUzk7sK8exX662cNUgCmdyczGO1CV46evF/1kI+GO8xsnHRVd5a
+         CDaQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1774254377; x=1774859177; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Ewr7synVuzHzHm/axWuA/egZCARyhrqnQ6eWhyHoFrc=;
+        b=JikqKDjH3DpkeYJtvPV8O4+F795sWddFYj2W+wrGTLHhP/jR3DUA01FwtWF8fIlk5L
+         7vDwaq1cHWS61MaDGMn4JtOxO3MyaCRm7yp3eQQi1GFa0XlsYgxHMImdRtvLmUOLUmBl
+         2CuCo3RCAkxUNuJROKSb7NbkQKZvJE1jCtH9k=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774254377; x=1774859177;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Ewr7synVuzHzHm/axWuA/egZCARyhrqnQ6eWhyHoFrc=;
+        b=Ru33EF+y9Q8eesKahM3LE3Gq4av4I1CxHxl1XWvh1nyGw1Cr8Hv9581Ib5lhZKObSc
+         x7uT3qfrnmurREOUBdVRUUb7QZ2OJcK1UX4I/Hjlg9FNd3QddgHFlz6s7eWdKaPzq6Uj
+         YIeHU/dJW2Lsndj4VoED5KYKvKpgQp/k4v1HrE9LmyTtUpk6m1+ceipmyR0Lxmd4PvD/
+         rEmCzGVg+YN9lM98414opmwKcLxo6UnlUplotML5P/n6LGD6s6mpnk6NhP+ZXoNkblC5
+         8iYYkonH7A7wdMtPQ4+pZmJc5POploZZgpPyaRHfm7hQtmRkWaa+RyWQfeEeOqE2zSuX
+         N3xA==
+X-Forwarded-Encrypted: i=1; AJvYcCX5kvcn9XsBTSs778Xkells4kKJ4o0qraLGPTInUtEAAhAlNSVC+VwAIFmXqbmJd/QnpNmR44VtiqA3@vger.kernel.org
+X-Gm-Message-State: AOJu0YzT/ECzuJt/+lPmUgU4wFR6wbL5JXIsx5FByEg13VprgzGzF6wc
+	S7jJRSZO7I9AA4Tgnxl9gJOxge/vU8tbls1fTG+WMQ3r9bYa48zjhnJNajXSog1OWwAXcRaRNfq
+	Dx+Va7drBnTigvL/kNfmg1MhdUadmpT7lC9s7HbAl
+X-Gm-Gg: ATEYQzy0oq/SmEedI/l9I4Jha/SBg2WhVMxWIpK9YeqJ2jB81JpkMCYtNBX7djby5Bf
+	Md7dMALkqVhKwSh5wd/lOSt3dWGYjX0ETfkp57RoOqvi39UfGXfgSfSjjSx6IzKJHllLJBS/CA3
+	lqursw5oSmNoEdySoHQG0+mz1v/4HQJK/qLKMokxYlYr5ewD+F7u2fZQDpNlaK4MXqiC5nYIBva
+	of1eqYiT3XpPcHmUNYRRO4PO2SC+HmBOaNoxlfHEprcJ9WQxhDyIKs1fGoo66EDvJqVwN2jRJEy
+	hHIjaSVN5euMe6cR1oLt6Iu3M2JDJlVFBEGJ7w==
+X-Received: by 2002:a05:6512:2398:b0:5a2:7aeb:e7b3 with SMTP id
+ 2adb3069b0e04-5a285b5a313mr4975966e87.29.1774254376478; Mon, 23 Mar 2026
+ 01:26:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 01/10] dt-bindings: mfd: add support for the NXP SIUL2
- module
-To: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>,
- Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
- Larisa Grigore <larisa.grigore@nxp.com>, Lee Jones <lee@kernel.org>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Aisheng Dong <aisheng.dong@nxp.com>,
- Jacky Bai <ping.bai@nxp.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Alberto Ruiz <aruizrui@redhat.com>, Christophe Lizzi <clizzi@redhat.com>,
- devicetree@vger.kernel.org, Enric Balletbo <eballetb@redhat.com>,
- Eric Chanudet <echanude@redhat.com>, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-kernel@vger.kernel.org, NXP S32 Linux Team <s32@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Vincent Guittot <vincent.guittot@linaro.org>, Rob Herring <robh@kernel.org>
-References: <20260120115923.3463866-1-khristineandreea.barbulescu@oss.nxp.com>
- <20260120115923.3463866-2-khristineandreea.barbulescu@oss.nxp.com>
- <20260121021913.GA1704619-robh@kernel.org>
- <e956750b-0333-4465-b37e-5f460b5e092f@oss.nxp.com>
- <edc3a63a-8117-476f-9582-97ae31fefa96@kernel.org>
- <7d200097-51bc-4404-be8b-f536d0ecfc25@oss.nxp.com>
- <21531cdd-5ab9-493e-a722-61b98117e2c4@kernel.org>
- <22a5a072-847e-4cfd-8abd-e37163f73265@oss.nxp.com>
- <fe755e85-1558-4272-bdd4-af7a2038ab1f@kernel.org>
- <ba6140bf-237e-4099-af0c-ee404c1719cd@oss.nxp.com>
- <c7a59716-3d53-4787-b4ef-9674c2a4a9b5@kernel.org>
- <3c454da1-d949-4258-87ce-8b545000bf01@app.fastmail.com>
- <5f1b651b-1064-4280-a7e0-b7d66c396cde@oss.nxp.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <5f1b651b-1064-4280-a7e0-b7d66c396cde@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260320072440.2403318-1-wenst@chromium.org> <20260320072440.2403318-3-wenst@chromium.org>
+ <20260320-dashing-crocodile-of-emphasis-2cc43d@quoll>
+In-Reply-To: <20260320-dashing-crocodile-of-emphasis-2cc43d@quoll>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Mon, 23 Mar 2026 16:26:04 +0800
+X-Gm-Features: AQROBzDENi91NMB6TuyZQ44MdmtHHQSMpI0v-6B3nRxQpz8HCuyYhfE2FGI06HY
+Message-ID: <CAGXv+5ESnhsVfu5pWf1DEt35+10ZKTgJ5G6DuJC4s6yEpRH_YQ@mail.gmail.com>
+Subject: Re: [PATCH 2/5] regulator: dt-bindings: mt6359: Drop bogus
+ vcn33_[12]_* split regulators
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 23/03/2026 08:57, Khristine Andreea Barbulescu wrote:
-> On 3/14/2026 9:31 AM, Arnd Bergmann wrote:
->> On Fri, Mar 13, 2026, at 18:10, Krzysztof Kozlowski wrote:
->>> On 25/02/2026 10:40, Ghennadi Procopciuc wrote:
->>>> On 2/23/2026 3:14 PM, Krzysztof Kozlowski wrote:
->>>>>> there are no resources allocated specifically for nodes like
->>>>>> "nxp,s32g-siul2-syscfg". Their consumers are the pinctrl/gpio
->>>>>> driver and other drivers that read SoC‑specific information from
->>>>>> those shared registers.
->>>>>>  
->>>>>> My alternative is to keep two separate syscon providers for the
->>>>>
->>>>> You got review already.
->>>>>
->>>> I still believe that nvmem is a suitable and accurate mechanism for
->>>> describing SoC‑specific identification information, as originally
->>>> proposed in [0], assuming the necessary adjustments are made.
->>>>
->>>> More specifically, instead of modeling software-defined cells, the nvmem
->>>> layout would describe the actual hardware registers backing this
->>>> information. One advantage of this approach is that consumer nodes (for
->>>> example PCIe, Ethernet, or other IPs that need SoC identification data)
->>>> can reference these registers using the standard nvmem-cells /
->>>> nvmem-cell-names mechanism, without introducing custom, per-subsystem
->>>> bindings.
->>>
->>> nvmem is applicable only if this is NVMEM. Information about the soc is
->>> not NVMEM, unless this are blow out fuses / efuse. Does not look like,
->>> because SoC information is set probably during design phase, not board
->>> assembly.
->>
->> Agreed, nvmem clearly makes no sense here, the patch description
->> appears to accurately describe the MMIO area as hardware registers
->> with a fixed meaning rather than a convention for how the
->> memory is being used.
->>
->> That said, there is probably room for improvement, since some of
->> the register contents are read-only and could just be accessed
->> by the boot firmware in order to move the information into more
->> regular DT properties instead of defining bindings for drivers
->> to access the information in raw form.
->>
->>     Arnd
-> 
-> Hi Krzysztof & Arnd,
-> 
-> Assuming we drop the syscon approach entirely, for the SerDes
-> presence information we could follow Arnd’s suggestion and have
-> it provided by the boot firmware instead of exposing it through SIUL2.
+On Fri, Mar 20, 2026 at 5:54=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+>
+> On Fri, Mar 20, 2026 at 03:24:35PM +0800, Chen-Yu Tsai wrote:
+> > vcn33_[12]_bt and vcn33_[12]_wifi refer to the same output. There are
+> > two enable bits in the registers so that BT and WiFi drivers can toggle
+> > them separately without any coordination. If either bit is set, then th=
+e
+> > regulator output is enabled.
+> >
+> > Unfortunately some of them are already referenced by in-tree device
+> > trees. To keep backward compatibility with them, keep the vcn33_*_bt
+>
+> So you drop "_wifi" regulators breaking the ABI, no?
 
-I think there is misunderstanding. By dropping syscon nodes, I meant to
-drop the nodes. Remove them. It implies that whatever their contain must
-go somewhere, right? Because your hardware is fixed and you cannot drop
-it from the hardware, right?
+Indeed it is a breakage. I kept the *_bt part to cover all in-tree
+device trees.
 
-So their parent node is the syscon.
+But the representation itself is broken, as explained in the commit
+message.
 
-Best regards,
-Krzysztof
+I leave it to the platform maintainers to decide whether this "breakage"
+to fix the broken representation is acceptable.
+
+Note that there is a similar issue with the *_sshub and non _sshub
+regulators: there is only one actual output for the two. I'm still
+asking the vendor for hardware behavior specifics.
+
+> > regulator. Also combine them for a shorten regular expression pattern.
+>
+> Instead the duplicates should be deprecated and driver should still
+> support the "_wifi" variants.
+
+But it doesn't really work in the driver. You cannot set different
+constraints on the two, especially conflicting constraints, and expect
+them to work. And if you set the voltage on one of them, the other
+will change as well.
+
+If we want the driver to support both with _sane_ behavior, we would
+need to introduce some sort of alias lookup for both reading
+constraints and resolving supplies. The driver registers _just_ one
+regulator, and both DT nodes resolve to it.
+
+
+ChenYu
