@@ -1,292 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6546E3D891D;
-	Mon, 23 Mar 2026 20:26:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDBD836C5BB
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 20:38:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774297613; cv=none; b=fp5/dfCxcAJpsNDOoCqU9qW0X/dx97qBCGb3FIE+6cK6b0WvYobTcQAXFTOq3bjY+vfs422BZhrz9MNEF6PYcESz2sLKk7yb481BNPVDZtb8dKAVE5ufocmanuELk6pc0CQMfzqqikppalOLbAqkpd4ab9G74qqzvJxm/+ji4Mo=
+	t=1774298285; cv=none; b=TfF8qHbjEqcee9O/X6Fs4BERLGMGVP65bPXMuFchzOgXAnpblOTjFZPvN6P029DQ/W5jPuau9H5DsuEkjJFLhAtHa3zuZ2dSD6sHhAfGNZkR53wVkph8QMtno3/2qB43i/b3s/pqvHFywBL23AUKcJqAZm4qhwuRVDN//7g8ir0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774297613; c=relaxed/simple;
-	bh=eJqp0aTOV24YJS1B68dp7Z5kq7N8KFIPaziEH3KjERs=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PynR9rIXtRRWAg4yRMzO1RK0GvyySOLUYt5kqTGVE8xWT/93IZz639LY6JFSkFz68xu+6C5t5MSAv8QWEJmgqIRE2zc8PHk9UjRGn36fSQ61mkGVRimE6cnfhmutW9A/YTjifMCnHVvnCxs9dSsqA1/zsfpiiQghAwxciR9rfys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Si9wOXU5; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Si9wOXU5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B58FC4CEF7;
-	Mon, 23 Mar 2026 20:26:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774297613;
-	bh=eJqp0aTOV24YJS1B68dp7Z5kq7N8KFIPaziEH3KjERs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Si9wOXU5yskTij/CpHNAswrYN7z1hP2kFejALyXxwfk2VLaXHVkRyKuhIJCW6h6Ff
-	 9E4MD7A5iwFX2RF0MVh6ZMxZ7/IN6DAm8qYEjI0k743z2p7Odul2ziNIwtReIseYQY
-	 Gamdc7YmeXsdmvMZr4VkuKb0xdRAtfbknryupxfLKn2F0VXpvnwKZRKi/mle8iKKFF
-	 CuRh69LWwcX7YYv4VWWr3CTPouYuQENkiDmGxNp1UAIIJZr2oVS8lA9nVD4tNT2Wfn
-	 zuvuCJC4xPhC5sZqsFTfq6QTsTodgxTZk+dNVDotX++XIc3ilUc566H5RQKYzfLWbC
-	 yqwePCv3cK8zg==
-Date: Mon, 23 Mar 2026 20:26:42 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Michal Simek <michal.simek@amd.com>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <saikrishna12468@gmail.com>, <git@amd.com>
-Subject: Re: [PATCH v2 3/4] iio: adc: xilinx-xadc: Add I2C interface support
-Message-ID: <20260323202642.0cc73556@jic23-huawei>
-In-Reply-To: <20260323074505.3853353-4-sai.krishna.potthuri@amd.com>
-References: <20260323074505.3853353-1-sai.krishna.potthuri@amd.com>
-	<20260323074505.3853353-4-sai.krishna.potthuri@amd.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1774298285; c=relaxed/simple;
+	bh=Yt7USsk3cuGUzCm1y+OZ6JKq00IJQcMuuHfBv45NCGI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jjodeea5QqstculBlLu+Fk2uQKD30t22ofSGsLuyuKuweMd9Vs5K0Sc/Rf2qb9PrEgO+EgpVu66TaFjcB9yc91ReSWrHGc8IehzkuyRG1Z6d1Ul/P6nwd5CEUtHMUcI8gtn5D5p7OcnZT5tSXbz32b/SU9TR7xbW2y0fEQpuX5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1w4m1e-00032Q-TH; Mon, 23 Mar 2026 21:37:26 +0100
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1w4m1e-001mnM-0D;
+	Mon, 23 Mar 2026 21:37:26 +0100
+Received: from pengutronix.de (p4ffb2dc6.dip0.t-ipconnect.de [79.251.45.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id B4BBC50B02C;
+	Mon, 23 Mar 2026 20:37:25 +0000 (UTC)
+Date: Mon, 23 Mar 2026 21:37:24 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Conor Dooley <conor@kernel.org>
+Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, mani@kernel.org, 
+	thomas.kopp@microchip.com, mailhol@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org, linusw@kernel.org, 
+	brgl@kernel.org, linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	mukesh.savaliya@oss.qualcomm.com, anup.kulkarni@oss.qualcomm.com
+Subject: Re: [PATCH v3 1/2] dt-bindings: can: mcp251xfd: add
+ microchip,xstbyen property
+Message-ID: <20260323-artificial-ecstatic-collie-047169-mkl@pengutronix.de>
+X-AI: stop_reason: "refusal"
+References: <20260321135031.3107408-1-viken.dadhaniya@oss.qualcomm.com>
+ <20260321135031.3107408-2-viken.dadhaniya@oss.qualcomm.com>
+ <20260323-bonded-ranging-c9f9c4d0aacf@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mj7lxv6n5m3i3nve"
+Content-Disposition: inline
+In-Reply-To: <20260323-bonded-ranging-c9f9c4d0aacf@spud>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: mkl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-On Mon, 23 Mar 2026 13:15:04 +0530
-Sai Krishna Potthuri <sai.krishna.potthuri@amd.com> wrote:
 
-> Add I2C interface support for Xilinx System Management Wizard IP along
-> with the existing AXI memory-mapped interface. This support enables
-> monitoring the voltage and temperature on UltraScale+ devices where the
-> System Management Wizard is connected via I2C.
-> 
-> Key changes:
-> - Implement 32-bit DRP(Dynamic Reconfiguration Port) packet format as per
->   Xilinx PG185 specification.
-> - Add separate I2C probe with xadc_i2c_of_match_table to handle same
->   compatible string("xlnx,system-management-wiz-1.3") on I2C bus.
-> - Implement delayed version of hardware initialization for I2C interface
->   to handle the case where System Management Wizard IP is not ready during
->   the I2C probe.
-> - Add NULL checks for get_dclk_rate callback function in sampling rate
->   functions to support interfaces without clock control
-> - Create separate iio_info structure(xadc_i2c_info) without event
->   callbacks for I2C devices
-> - Add xadc_i2c_transaction() function to handle I2C read/write operations
-> - Add XADC_TYPE_US_I2C type to distinguish I2C interface from AXI
-> 
-> Signed-off-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-Hi.
-A few minor things inline.
+--mj7lxv6n5m3i3nve
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 1/2] dt-bindings: can: mcp251xfd: add
+ microchip,xstbyen property
+MIME-Version: 1.0
 
-Thanks,
-
-Jonathan
-
-> ---
->  drivers/iio/adc/Kconfig            |  15 ++
->  drivers/iio/adc/Makefile           |   1 +
->  drivers/iio/adc/xilinx-xadc-core.c |  28 +++-
->  drivers/iio/adc/xilinx-xadc-i2c.c  | 215 +++++++++++++++++++++++++++++
->  drivers/iio/adc/xilinx-xadc.h      |   1 +
->  5 files changed, 256 insertions(+), 4 deletions(-)
->  create mode 100644 drivers/iio/adc/xilinx-xadc-i2c.c
-> 
-> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-> index a4a7556f4016..5a3956a5c086 100644
-> --- a/drivers/iio/adc/Kconfig
-> +++ b/drivers/iio/adc/Kconfig
-> @@ -1767,6 +1767,21 @@ config XILINX_XADC
->  	  The driver can also be build as a module. If so, the module will be called
->  	  xilinx-xadc.
->  
-> +config XILINX_XADC_I2C
-> +	tristate "Xilinx System Management Wizard I2C Interface support"
-> +	depends on I2C
-> +	select XILINX_XADC_CORE
-> +	help
-> +	  Say yes here to allow accessing the System Management
-> +	  Wizard on UltraScale+ devices via I2C.
-> +
-> +	  This provides voltage and temperature monitoring capabilities
-> +	  through the same IIO sysfs interface, but using I2C communication
-> +	  protocol.
-> +
-> +	  The driver can also be build as a module. If so, the module will be called
-
-line is a little too long for Kconfig.
-
-> +	  xilinx-xadc-i2c.
-> +
+On 23.03.2026 19:30:00, Conor Dooley wrote:
+> > diff --git a/Documentation/devicetree/bindings/net/can/microchip,mcp251=
+xfd.yaml b/Documentation/devicetree/bindings/net/can/microchip,mcp251xfd.ya=
+ml
+> > index 2d13638ebc6a..28e494262cd9 100644
+> > --- a/Documentation/devicetree/bindings/net/can/microchip,mcp251xfd.yaml
+> > +++ b/Documentation/devicetree/bindings/net/can/microchip,mcp251xfd.yaml
+> > @@ -44,6 +44,14 @@ properties:
+> >        signals a pending RX interrupt.
+> >      maxItems: 1
+> >
+> > +  microchip,xstbyen:
+> > +    type: boolean
+> > +    description:
+> > +      If present, configure the INT0/GPIO0/XSTBY pin as transceiver st=
+andby
+> > +      control. The pin is driven low when the controller is active and=
+ high
+> > +      when it enters Sleep mode, allowing automatic standby control of=
+ an
+> > +      external CAN transceiver connected to this pin.
 >
-> diff --git a/drivers/iio/adc/xilinx-xadc-i2c.c b/drivers/iio/adc/xilinx-xadc-i2c.c
-> new file mode 100644
-> index 000000000000..3d802b907260
-> --- /dev/null
-> +++ b/drivers/iio/adc/xilinx-xadc-i2c.c
-> @@ -0,0 +1,215 @@
+> What I don't understand from this patch is why a property for this is
+> required.
+> Why can't this mode be implied from the lack of rx-int-gpios or
+> interrupts?
 
-> +static int xadc_i2c_read_transaction(struct xadc *xadc, unsigned int reg, u16 *val)
-> +{
-> +	struct xadc_i2c *xadc_i2c = container_of(xadc, struct xadc_i2c, xadc);
-> +	char write_buffer[XADC_I2C_WRITE_DATA_SIZE] = { 0 };
-> +	struct i2c_client *client = xadc_i2c->client;
-> +	char read_buffer[XADC_I2C_READ_DATA_SIZE];
-> +	int ret;
-> +
-> +	write_buffer[2] = FIELD_GET(XADC_I2C_DRP_ADDR_MASK, reg);
-> +	write_buffer[3] = XADC_I2C_INSTR_READ;
-> +
-> +	ret = i2c_master_send(client, write_buffer, XADC_I2C_WRITE_DATA_SIZE);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = i2c_master_recv(client, read_buffer, XADC_I2C_READ_DATA_SIZE);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	*val = FIELD_PREP(XADC_I2C_DRP_DATA0_MASK, read_buffer[0]) |
-> +	       FIELD_PREP(XADC_I2C_DRP_DATA1_MASK, read_buffer[1]);
-> +
-> +	return 0;
-> +}
-> +
-> +static int xadc_i2c_write_transaction(struct xadc *xadc, unsigned int reg, u16 val)
-> +{
-> +	struct xadc_i2c *xadc_i2c = container_of(xadc, struct xadc_i2c, xadc);
-> +	struct i2c_client *client = xadc_i2c->client;
-> +	char write_buffer[XADC_I2C_WRITE_DATA_SIZE];
-> +	int ret;
-> +
-> +	write_buffer[0] = FIELD_GET(XADC_I2C_DRP_DATA0_MASK, val);
-> +	write_buffer[1] = FIELD_GET(XADC_I2C_DRP_DATA1_MASK, val);
+The mcp251xfd has 2 GPIO pins. "rx-int-gpios" is for the other pin:
+INT1/GPIO1. Also by default I don't want the controller to drive a pin
+in a certain direction.
 
-This is odd enough it might be useful to have some comments.  Why do
-we need to write the value to two places for instance?
+regards,
+Marc
 
-> +	write_buffer[2] = FIELD_GET(XADC_I2C_DRP_ADDR_MASK, reg);
-> +	write_buffer[3] = XADC_I2C_INSTR_WRITE;
-> +
-> +	ret = i2c_master_send(client, write_buffer, XADC_I2C_WRITE_DATA_SIZE);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-> +static int xadc_hardware_init(struct xadc *xadc)
-> +{
-> +	struct xadc_i2c *xadc_i2c = container_of(xadc, struct xadc_i2c, xadc);
-> +	int ret;
-> +	u32 i;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(xadc->threshold); i++) {
-	for (u32 i = 0;
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
 
-Though why a u32?  If size doesn't matter, convention is pretty much always
-use a unsigned int for the iterator.
+--mj7lxv6n5m3i3nve
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> +		ret = xadc_i2c_read_transaction(xadc, XADC_REG_THRESHOLD(i),
-> +						&xadc->threshold[i]);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	ret = xadc_i2c_write_transaction(xadc, XADC_REG_CONF0, xadc_i2c->conf0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = xadc_i2c_write_transaction(xadc, XADC_REG_INPUT_MODE(0),
-> +					 xadc_i2c->bipolar_mask);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = xadc_i2c_write_transaction(xadc, XADC_REG_INPUT_MODE(1),
-> +					 xadc_i2c->bipolar_mask >> XADC_INPUT_MODE_BITS);
-> +	if (ret)
-> +		return ret;
-> +
-> +	xadc_i2c->hw_initialized = true;
-> +
-> +	return 0;
-> +}
-> +
-> +static int xadc_i2c_read_reg(struct xadc *xadc, unsigned int reg, u16 *val)
-> +{
-> +	struct xadc_i2c *xadc_i2c = container_of(xadc, struct xadc_i2c, xadc);
-> +
-> +	if (!xadc_i2c->hw_initialized) {
-> +		int ret;
-> +
-> +		ret = xadc_hardware_init(xadc);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return xadc_i2c_read_transaction(xadc, reg, val);
-> +}
-> +
-> +static int xadc_i2c_write_reg(struct xadc *xadc, unsigned int reg, u16 val)
-> +{
-> +	struct xadc_i2c *xadc_i2c = container_of(xadc, struct xadc_i2c, xadc);
-> +
-> +	if (!xadc_i2c->hw_initialized) {
+-----BEGIN PGP SIGNATURE-----
 
-Seems like this is always called once on first access?
-If so just do it form probe and simplify the read/ write_reg() functions.
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCacGkfQAKCRDMOmT6rpmt
+0lw8AP4hL8Ju237y3P6/SPoa8sYRa5wDdt5saifjrXPVIRURYgD+Nk36Nzd9OCQh
+mZ9s0Zw8dTT8RbvjyTcZSzMvAG3mMQ8=
+=PjbA
+-----END PGP SIGNATURE-----
 
-> +		int ret;
-> +
-> +		ret = xadc_hardware_init(xadc);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return xadc_i2c_write_transaction(xadc, reg, val);
-> +}
-
-> +static int xadc_i2c_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	unsigned int conf0, bipolar_mask;
-> +	const struct xadc_ops *ops;
-> +	struct iio_dev *indio_dev;
-> +	struct xadc_i2c *xadc_i2c;
-> +	struct xadc *xadc;
-> +	int ret;
-> +
-> +	indio_dev = xadc_device_setup(dev, sizeof(*xadc_i2c), &ops);
-> +	if (IS_ERR(indio_dev))
-> +		return PTR_ERR(indio_dev);
-> +
-> +	xadc_i2c = iio_priv(indio_dev);
-> +	xadc_i2c->client = client;
-> +	xadc = &xadc_i2c->xadc;
-> +	xadc->clk = NULL;
-> +	xadc->ops = ops;
-> +	mutex_init(&xadc->mutex);
-For new code (feel free to update the other code in a separate patch).
-	ret = devm_mutex_init(xadc->mutex);
-	if (ret)
-		return ret;
-
-As gives a small amount of lock debugging infrastructure and is now
-cheap to do.  The devm form didn't used to exist.
-
-> +	spin_lock_init(&xadc->lock);
-> +
-> +	ret = xadc_device_configure(dev, indio_dev, 0, &conf0, &bipolar_mask);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to setup the device: %d\n", ret);
-> +		return ret;
-		return dev_err_probe(dev, "Failed to setup the device.\n");
-Which will pretty print the error and hide it if -EPROBEDEFER (because that should
-be silent) or -ENOMEM (because memory allocation errors are very noisy anyway!)
-
-> +	}
-> +
-> +	i2c_set_clientdata(client, indio_dev);
-> +	xadc_i2c->conf0 = conf0;
-> +	xadc_i2c->bipolar_mask = bipolar_mask;
-> +	xadc_i2c->hw_initialized = false;
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
+--mj7lxv6n5m3i3nve--
