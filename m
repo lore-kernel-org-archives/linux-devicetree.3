@@ -1,227 +1,154 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7342362147
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:34:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06EED38B145
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:36:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774262087; cv=none; b=U857aL+2F/EqLlHdDgJRNgxZq9opJFd4FQsGa9Gi9hcKcgSEx8exyfP44uteqqayfK1D1dTUNpE4UBU01Hx0oo5P21jug8PADPipABvPmG4Cz5y/KeZwsaqjpAHsDoKiZoEtF9///3rBNrYqIw6/QR9bUIv83p5mhx2RXiyLXMc=
+	t=1774262175; cv=none; b=lwI6SRJSK+xHtZhmT/spdfWw2LKfuZLmRuSh8R7VQTk2sLMkqhBm1oX/MESHQlW61dcKVAaZfbz7nG+tb6y+2P9ENJS13mnGSi/tbSjyiRdioXaVc0dkmQmUpYjO9a18+rKZDE9jM3wt0obwkL7+HjLyODOSIvpc6gLQPIE0qzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774262087; c=relaxed/simple;
-	bh=mZ0McTWcGztL7qdM6zf7TJThxnCQDdRXIOTXjADCJGs=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iQ20Hs70dcgvv0eQz1Z0ILbKnmOOdAun+IFWZA8wK1IM4FIBbEN+HmSTiLugIgxJiev2j2CAYy+N1HPRf0xAgT8V8zZseDOQgBVVpMADOzhq6H6R1ViFsGCWZc/DsipxL7YtdBpd56aVRT72fechL/bUfUDVHuH/eWk9UWXBR5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fnz63AHs; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774262175; c=relaxed/simple;
+	bh=aPdS/oN5R7bXAi3R7oK9DzbqpnEJEHavy9UFo6/M0Eo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Q82uwHe0eebVvwWASbgrkkKm670LkaVK5F1oqePLfDWULVhi8M7n4Um4Pd6HRQ7kabVaLiw0glRovfsr1R3VCtGAW5OPEOYyaN7ON9QHvEKkairJuwPft8MWhcriKdJZGUb31Jrc/qKShlxmjznVVlI3YXn2VhuvOIe/I6iToZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JOESnbjk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KwT9kiHc; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fnz63AHs"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-439b9b190easo3143225f8f.2
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 03:34:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JOESnbjk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KwT9kiHc"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62NA2BKh1584129
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:36:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6cu5CX5RqM8GBq6AyqwTPyZJr8Rph3R9Mh7YCaq+vOA=; b=JOESnbjk7oJnzSRO
+	8YWHiZxk0JNLlHkgOwWbuo/CiMQD9TAb8pRuwfIFWbZYrDEqUDHTzk4cTxSfz7tD
+	SVqeHCI0hiOihYY7/V4pfl5BhRQKFTi9si0VM5VWXIhlVNnpQiC2LOZfJRfYzzpG
+	k/VRBuYtEkzwKZpV9cdf1LXTkM6b5hdFegOU+vVyrNYKOhwU9+v67/qEADSABFiv
+	RVkqmHRzqG+mGyxOGc/wqn43g72JcFzapj2y8VDwHMhQZRZ+zPQ7B2DVJ76NYIGM
+	1kntJihJu42wFfY4SCtM0Yjrmt3Tlz1hn3NXlr5BEeqxOThIttFdFPlQrMPL0hI5
+	2HALTA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1jng4yuv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:36:12 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50b317c4041so27055821cf.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 03:36:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1774262084; x=1774866884; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=fUqIsDJo6AEfyjgSHUzAgFLd+VFu9ll5ZcHVDadW1X8=;
-        b=fnz63AHsrX9ozrEeV992GJJLxUcx5KIIrsPMTuBEQCACkeMdAK8MX+SBS9unjo4WpT
-         717+ugih3+eR63no1P2b6hesVzzT07XATJnR0rtkK60JkmmxrK1PBTwxRzpcEB6fvNdV
-         4EQCt5k5gTvnL5WfKLejeq6pXpZiesZZ1K9l+F4KcwTxR4vkoWP5XzWvLUphiO2Zf0HU
-         K10uqjgjmcWo8EAwZqxQWUIrTOFXt/0JuyuRoAk7++oE/i0a8kUqCdvhuRea+F8KmE01
-         XCPMyZCw+MbI9rGSqMIqBYfjFrRTIdEp6wyVp4y07VnmJ32gHs++jJHRlqa/ZXy4GSfF
-         4Bxg==
+        d=oss.qualcomm.com; s=google; t=1774262172; x=1774866972; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=6cu5CX5RqM8GBq6AyqwTPyZJr8Rph3R9Mh7YCaq+vOA=;
+        b=KwT9kiHc0hEOY0GQ4Bhe6JSMD7L4pWixv5UYC66BuyemTWXeLX8OLlI1tZ4i7NdOh0
+         YXug9ueFLamC3jqfHuJ43YXQfX8TEyeoevAzpbqWlibXQrNKL1e0cya+HhLUQLNW5ir7
+         DhMCPPNsh3kxaGSt4wOpMScWsqKGDms7BnZCLZbVyft2CvpS653MvllSTCxhGQHwl6kP
+         fGm5rHfZtoI0jbiG1ITW6xA4OsZDMKPl8QY07bKeFSKczFVKG9G8MWyi1ey8myr96iXZ
+         MDkfs1I4gAdS9wNGLU0qq7EQP0gU4pb/lzjii6vLcX4G8wiUzXciIOPocGn+3CUT0rnr
+         ZxFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774262084; x=1774866884;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=fUqIsDJo6AEfyjgSHUzAgFLd+VFu9ll5ZcHVDadW1X8=;
-        b=FYQjdiDF+HKUc214ouSJmOn28H1uuMsGIw0rqQqRbLJ0tvNMu5ZmzQ4G+9FCg/4hfn
-         MtMFyJeVbZrnTDz1vyTu4LQ7IRpIb724yNVD9jebfOTticoEt3i50sgFrIulsJkgie6P
-         Hkq9Iuustn0PC8K2TKAY+CKCGOYWtCMfLPLOsPP9fHyCD0SN+DzHwPAe3F3vuoApvU/p
-         EXOSKVxi468/xHtnepEc3TJ52kInaQkoLsL7BTqgyDeUyi8drPIqG49wkI0UdCDPak1R
-         lSd0fwNdJEgUQuqt/glZNMMcSdfhp2X3lr08F/XP0cpLnvrBrueagi/RENxh1E3dg+U8
-         9bXg==
-X-Forwarded-Encrypted: i=1; AJvYcCUnew3AXZhJ0sU/dxHPcBuZETa53AM6A1NPUJWfS4/IU0T6+aBMAXzRf3KzM1AyfKIPSpzQ6ODE0DIv@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxa4szqlq7X2OyqH8yqRmSwWBweZu3WtbLavtO17ZGEF9fvNyHU
-	Q/8ygWOftQ0/QAk1JWWTQM/Jsy08KQFOmQ5RhPNE5lAlfRCIifVY7iz8
-X-Gm-Gg: ATEYQzxX2VqWQ/WXTYSR9XwJbRJdRBTloPNIeOWlpey318mO60JqAQV+N1QCzlWwe05
-	pMdSsPTZb4HKfrrYN7bWeTr/glKxqJTqAExtC0M6pEbKSk5z2vq4PWNfhdwWh0viF5m0XXagBJm
-	Pn/BK1qi9BGSBKXH7ayyGz6QTmNJQ/aZmDvy7lpFLEbMo3LYr3hBP4Dx/jOX2pgbJ1w/HnL7f8u
-	ZJKbJ1UsCg1hm6kZhbI6RlgePn1cSqq7RSZWdQ1ICLzvU41IDqSCR37uiR93/iMSio2/e6znkwC
-	aZ8k0QG69ie57rKAxv3eV+wYsPFMqU/aLy7VhVulaOjA8ODEob2dK0J213D8foekIWJxNiZQh84
-	umedEl/F4u0EGpVPo9UWOF3lR0m7NyQOY1rA1h0Fzm2Kl9mlvdVYy1lEoc4QLxZYAUgxU6Zv2RD
-	1IBHFT+yCiINaBZzyyT5lrPnduRF+NW4Qg/SXiJEbmIa1vEoP1v4ga9sf/PjGsXqR5QGocY9/2u
-	D+ff5S4TACrcmCaHKy9VzOwxZ2GyGHoj3aAJSsPzmgBKDNEdmU=
-X-Received: by 2002:a05:600c:c8a:b0:485:4453:401d with SMTP id 5b1f17b1804b1-486fede7336mr170383695e9.2.1774262083711;
-        Mon, 23 Mar 2026 03:34:43 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-486ff118bb4sm124482435e9.2.2026.03.23.03.34.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Mar 2026 03:34:42 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Mon, 23 Mar 2026 10:34:37 +0000
-To: Jonathan Cameron <jic23@kernel.org>, 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH RFC v2 2/9] iio: frequency: ad9910: initial driver
- implementation
-Message-ID: <grjlyz76cmjy7t3ytwycaklauipbqcj7adjr2t7k3axwlayowr@4zbuzehcrpvs>
-References: <20260318-ad9910-iio-driver-v2-0-e79f93becf11@analog.com>
- <20260318-ad9910-iio-driver-v2-2-e79f93becf11@analog.com>
- <20260322165058.6c4b193e@jic23-huawei>
+        d=1e100.net; s=20251104; t=1774262172; x=1774866972;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=6cu5CX5RqM8GBq6AyqwTPyZJr8Rph3R9Mh7YCaq+vOA=;
+        b=VVNJsFARqbZY4D/QJE1OjmbG7kw9Pc9h8HmyjH+kTi9aiCmZE202CqFT3uWyj1eXj3
+         yLsCER+N9/rAgzhmglq/l5YPcx10c+IvwtTupADYmIfKzeG2YNdlEwX9phw+SxIuw/tH
+         7mxDxi/npVd4WdPl0YgPOHzP35DTg2TdixneFkYMBTEyKzCHRuuled48hmgxwfnrqd1e
+         sQx7FTJdOPuzo6/cuG8j1l0Bmr0P10YkSLLUwfDvzI4sej7UK/Z2xt9Q7s0E1vAxKe6v
+         iDSLXfbW0SxM5X/0Px742uZBdLuty4/RJnBiTvP1dRn0VJOYj3UiDAwktnqY2f6P+PsN
+         seVw==
+X-Forwarded-Encrypted: i=1; AJvYcCWB7Y0UTxFVGvqvYz56xrla8M3466/CRiPxmYSpXCMRzNx00zfBoMlvoLlQSOXnKfqPn6BEPPqlTVxk@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPfRGjLwhYZLo9DVH+6ZT8fhiglAlFHAfIloZd5XvLYh46SXpa
+	keZtrnyYE9mnQep+drIy1NIF1d3CV12/zmLc+sT4gNSTAQ+rhslbvAbO4PufquP2YyUKWXqnKiW
+	vB++BMKryhIogmDy3z33aYzTsS8oVV7WHu9+TwzZY3u84dCvCfuiRC+lm7HDY9QGv
+X-Gm-Gg: ATEYQzx8VbvIzA92RkaVN6xgM9RIGFl0VhflvmaULFGDjsm1zdom4oTtQJ4HkjoB2B4
+	1zVnkzyASf+QW4iMKDYQzc1KOVpJOEc1OOaNie+r/YoQ/hUhB9pG/qDz5Z7FkR6quCPNIuM+RU5
+	GRX16JOUyyUE5WNvOAbPZcP9EZcmUEOG7Wk9ewugFRKK+YkyCLysGgNgyKE+eL8eBF2gCEZ7hCH
+	eb1/EQ5n5x8K8j6+lOFXPIKFHjL98ViUwxQhjz2Nu/4gox2yqQnDpV8SSis1KSs6X6rYRPp3EiW
+	l0QBI/pbHfCe6Hrjmx1iKQXfcXA3+jkKQPp6zvrgbc0Y9O+sHjJYqgwmORiv4sR+feeyHfY+Eto
+	CvVWC5TMm7EhkiqbjWIg2pwbGuzrBIrqZ5yaTkCPrBKYwFMjBX3rlRu2Z1V3caXMv7JMLkqgUPV
+	C9rTI=
+X-Received: by 2002:a05:622a:1992:b0:509:d76:fe73 with SMTP id d75a77b69052e-50b373d748amr141113371cf.3.1774262172377;
+        Mon, 23 Mar 2026 03:36:12 -0700 (PDT)
+X-Received: by 2002:a05:622a:1992:b0:509:d76:fe73 with SMTP id d75a77b69052e-50b373d748amr141113061cf.3.1774262171972;
+        Mon, 23 Mar 2026 03:36:11 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-668d238c8basm3555652a12.22.2026.03.23.03.36.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Mar 2026 03:36:11 -0700 (PDT)
+Message-ID: <5889e10f-87eb-4943-95ca-d75daa16b3f5@oss.qualcomm.com>
+Date: Mon, 23 Mar 2026 11:36:08 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260322165058.6c4b193e@jic23-huawei>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/9] interconnect: qcom: msm8974: switch to the main
+ icc-rpm driver
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Georgi Djakov <djakov@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Luca Weiss
+ <luca.weiss@fairphone.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Brian Masney <masneyb@onstation.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260323-msm8974-icc-v1-0-7892b8d5f2ea@oss.qualcomm.com>
+ <20260323-msm8974-icc-v1-7-7892b8d5f2ea@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260323-msm8974-icc-v1-7-7892b8d5f2ea@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 7hRTr8olO87p-6yKQg5-IVHNXwAIi55P
+X-Authority-Analysis: v=2.4 cv=Q63fIo2a c=1 sm=1 tr=0 ts=69c1179c cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=vYfEZkc75eIydLf1ogMA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: 7hRTr8olO87p-6yKQg5-IVHNXwAIi55P
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA4MiBTYWx0ZWRfX804tqOlRxcre
+ p3gjkbxmXg3yAXuov0Cxp9KNUbZ22HuWsHTH+wJ0MxJ89ms2VBvp4vd7DFzWcGkEFEansu76EPC
+ fXev0yEg/unLbIyfv0t/E9yTZR7LLkBvchZWGP/simyQdsf0paWao2FM8pkzUKcOQ8cnAJh3d8C
+ I3uN3lrcvxodR/UAi9U3OZMBIyVxm7ZawrUooX259Ztxl4TWY/ElVx9dvCqYsQuXGMxu6yXpJQq
+ bJvbSsPZU6Lo2mpwQp/r8H6jv70gChiBeCK4c2yhzYblfiVmUXQO4ElZwCQYjSRwepsjAlhnBbx
+ NkQEYpGZjyJiuIGJ4+jRAFbIImMORWGj0JrknxRv5GJCLW0hkvjvxvvQcOVG4e/2QP7dcpRg3iA
+ LSr1XqOHvGWbgd7CzvzNOrtFp6R2RCh/NB4ptecTwFxdIF2jH+8JyZeSKXWFUTjt8pwTBQn2rN7
+ EEKIP6gKXuakz0CR2Jw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-23_03,2026-03-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 priorityscore=1501 bulkscore=0 spamscore=0
+ malwarescore=0 adultscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230082
 
-On 26/03/22 04:50PM, Jonathan Cameron wrote:
-> On Wed, 18 Mar 2026 17:56:02 +0000
-> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+On 3/23/26 2:17 AM, Dmitry Baryshkov wrote:
+> In preparation to restoring the ability of MSM8974 driver to work with
+> the modern kernels, switch the driver to the main icc-rpm set of helper
+> code.
 > 
-> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > 
-> > Add the core AD9910 DDS driver infrastructure with single tone mode
-> > support. This includes SPI register access, profile management via GPIO
-> > pins, PLL/DAC configuration from firmware properties, and single tone
-> > frequency/phase/amplitude control through IIO attributes.
-> > 
-> > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-
-...
-
-> > +#include <linux/array_size.h>
-> > +#include <linux/bitfield.h>
-> > +#include <linux/clk.h>
-> > +#include <linux/delay.h>
-> > +#include <linux/device.h>
+> As platform-specific workarounds, set the get_bw callback (returning 0)
+> to prevent initial setup from programming INT_MAX into the RPM (which
+> otherwise might hang the platform) and tell RPM programming code to
+> ignore -ENXIO errors from the firmware (until the QoS programming is
+> sorted out).
 > 
-> Generally can avoid including device.h in favour of more specific
-> headers.  There are a few exceptions where we can't such as actual
-> dereferencing of struct device, but I don't recall seeing a case in here.
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-I understood that the usage of devm_add_action_or_reset() would justify
-the header.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-...
-
-> > +#define AD9910_EXT_INFO(_name, _ident, _shared) { \
-> > +	.name = _name, \
-> > +	.read = ad9910_ext_info_read, \
-> > +	.write = ad9910_ext_info_write, \
-> > +	.private = _ident, \
-> > +	.shared = _shared, \
-> 
-> If there are only a few of these, I'd put it long hand rather than
-> using a macro. Tends to end up easier to read.
-
-Next patches will leverage the macro as more ext_info attrs will be introduced.
-I suppose we can build the foundation for later extension.
- 
-> > +}
-> > +
-> > +static const struct iio_chan_spec_ext_info ad9910_phy_ext_info[] = {
-> > +	AD9910_EXT_INFO("profile", AD9910_PROFILE, IIO_SEPARATE),
-> > +	AD9910_EXT_INFO("powerdown", AD9910_POWERDOWN, IIO_SEPARATE),
-> > +	{ }
-> > +};
-> 
-> > +static int ad9910_read_raw(struct iio_dev *indio_dev,
-> > +			   struct iio_chan_spec const *chan,
-> > +			   int *val, int *val2, long info)
-> > +{
-> > +	struct ad9910_state *st = iio_priv(indio_dev);
-> > +	u64 tmp64;
-> > +	u32 tmp32;
-> > +
-> > +	guard(mutex)(&st->lock);
-> > +
-> > +	switch (info) {
-> > +	case IIO_CHAN_INFO_FREQUENCY:
-> > +		switch (chan->channel) {
-> > +		case AD9910_CHANNEL_SINGLE_TONE:
-> 
-> I haven't read on yet, but if you never have any other cases in here,
-> perhaps us an if() as it will reduce indent of the code that follows.
-
-Similar, other channels will be introduced here so additions are easier
-to review.
-
-> > +			tmp32 = FIELD_GET(AD9910_PROFILE_ST_FTW_MSK,
-> > +					  st->reg[AD9910_REG_PROFILE(st->profile)].val64);
-> > +			break;
-> > +		default:
-> > +			return -EINVAL;
-> > +		}
-> > +		tmp64 = (u64)tmp32 * st->data.sysclk_freq_hz;
-> > +		*val = upper_32_bits(tmp64);
-> > +		*val2 = upper_32_bits((u64)lower_32_bits(tmp64) * MICRO);
-
-...
-
-> > +
-> > +static int ad9910_cfg_sysclk(struct ad9910_state *st, bool update)
-> > +{
-> > +	u32 tmp32, cfr3 = AD9910_CFR3_OPEN_MSK;
-> > +
-> > +	cfr3 |= AD9910_CFR3_VCO_SEL_MSK |
-> > +		FIELD_PREP(AD9910_CFR3_DRV0_MSK, st->data.refclk_out_drv);
-> > +
-> > +	if (st->data.pll_enabled) {
-> > +		tmp32 = st->data.pll_charge_pump_current - AD9910_ICP_MIN_uA;
-> > +		tmp32 = DIV_ROUND_CLOSEST(tmp32, AD9910_ICP_STEP_uA);
-> > +		cfr3 |= FIELD_PREP(AD9910_CFR3_ICP_MSK, tmp32) |
-> > +			AD9910_CFR3_PLL_EN_MSK;
-> > +	} else {
-> > +		cfr3 |= AD9910_CFR3_ICP_MSK |
-> 
-> For this, be explicit what value you are setting, probably be defining a max value
-> that the field can take.  Whilst just setting the mask is the same it doesn't
-> convey the same meaning to someone reading the code.
-
-This is just the default value from the datasheet, ICP should not really matter
-when the PLL is disabled, so removing this should be fine.
-
-> 
-> > +			AD9910_CFR3_REFCLK_DIV_RESETB_MSK |
-> > +			AD9910_CFR3_PFD_RESET_MSK;
-> > +	}
-> > +	st->reg[AD9910_REG_CFR3].val32 = cfr3;
-> > +
-> > +	return ad9910_set_sysclk_freq(st, AD9910_PLL_OUT_MAX_FREQ_HZ, update);
-> > +}
-> > +
-> > +static int ad9910_parse_fw(struct ad9910_state *st)
-> > +{
-> > +	struct device *dev = &st->spi->dev;
-> > +	u32 tmp;
-> > +	int ret;
-> > +
-> > +	st->data.pll_enabled = device_property_read_bool(dev, "adi,pll-enable");
-> > +	if (st->data.pll_enabled) {
-> > +		tmp = AD9910_ICP_MAX_uA;
-> 
-> Defaulting to max current seems unusual.  What's the motivation? Normal instinct is
-> go minimum if no other info.
-
-ICP_MAX_uA leads to 111 in the CFR3_ICP field, which is the default value when the
-device resets or when it powers on. I suppose that if we are not touching that
-property, there would be no reason to change that.
-
-...
-
--- 
-Kind regards,
-
-Rodrigo Alencar
+Konrad
