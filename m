@@ -1,39 +1,43 @@
-Received: from mail-244122.protonmail.ch (mail-244122.protonmail.ch [109.224.244.122])
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DFD63ACA68
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 13:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB6863AD534
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 13:54:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774274088; cv=none; b=bgHVl2QHNyTHYsXbZd9GHliUtLLAD5ViqAl4Uo8aqTJj5/IKZ2cH4zulP24yj4GJhLIswSlIh0rt29FfEdLqn115m67dbtkl58RVNkyWf2KmjMELYDdTo5ILGHwC4V4ulSQvToQNOQhYASQrJKlU9UsPAxKC1ozFyuXnhjd/CR4=
+	t=1774274095; cv=none; b=BoPgW+v00rd2GOsCDbaMDQQ2n1cZKQOpUDV0XA4MMo0W5ATDIDT3AAmbVGRQY6Jtxek3OAglT/MYQOu+hOId6mCbcMcJK1icXii/gGry8Hu+tz49zllZADf8MA+r6lrym+0c40ZFwzYSnIejwYd2Mc0s/+rn8x45bbiRJB2LZ/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774274088; c=relaxed/simple;
-	bh=DGO9SRDcmimknpz/KsZxssMJ2sFtQlt6n2vH6LX9aQ4=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=J7DIdhqt3sTmqd7Y92omo787bvtP+Ax82KAxeRL/KkzVsaaybWxBSi0JxY2OMZJs24D5MzzjoMR5M9gg6RAXOrfiqWwJF0CuLPpEPjgMPlB7r0OV3HfFiuAbblega91V6rI09T77sWkdIW0VfjaqoEgjmpjc8hysXNdAOXNz270=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=BzO0Xt6H; arc=none smtp.client-ip=109.224.244.122
+	s=arc-20240116; t=1774274095; c=relaxed/simple;
+	bh=CJ05O/D3YyINstpoJfjOM1H2gNnTSCwwOkhDciVwz48=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=A8AEhUgspXQaI5saHHzGquO/Rvdf9sbdIuGl5AWKSHn4lqMYlvHUbsGi51B7i8WKocxGBVbC28a1iHXMNPdIXr1wGXUKjgYITYYSUk/AflHyqDC7Zt9Kw3oWyTZD+EmneaPB9LddG9ZOx4KfsPDcwKsiXgMjUh7ZlNm3bLG3ORQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=FkOPBNOH; arc=none smtp.client-ip=109.224.244.121
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="BzO0Xt6H"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="FkOPBNOH"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1774274078; x=1774533278;
-	bh=zzKwQIY6HotTyB0Oh/SBNUFiHj0bRK7c8RYQHyJx9IE=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=BzO0Xt6HMzHlmyn3c8OqX1DP8RmVO3LK9p0bmyj+dg8KLcOmfAuxPBTLf1odEvTAj
-	 VHj331GVr7zZmjWBZTJS00Mo6Pf3h2oHRomDeXe9bG/YK4Sz8MOHmGCcm6kdqrkp41
-	 8pvRrHOLQdhZL8GQw8V81ZmRzebNPMUBNiLRG+hIPagZgcRotoYWlO27n4WuyQAbVS
-	 d/RJsltOFezeflrpnvCzhUoakpdWyrePOMGWwe0OIYVWCGIWc4cApbwCuVK5A6OdIJ
-	 75DXel8KagNyXZR1/vV/jXRIIFGik46A62Ixs4mqomgPsSmuBeCxqQkMi6jWAF5ukw
-	 P0aRisrie2DJQ==
-Date: Mon, 23 Mar 2026 13:54:29 +0000
+	s=protonmail3; t=1774274085; x=1774533285;
+	bh=BDNCp6uII1CrHPsn/n4iEUtlyhyWeKsnKrHaZIh5o/c=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=FkOPBNOH4H8c62h6M+sEw3DpvAzAJ5LV19rhe7xTz59BeMlUXkLA9Fwovkl1RtVVy
+	 WG0vfRtsMeQv54jzGsEcrQehlnNi0DGHon2IxDQt6XH1xTD0ykPlHzfPBhWCsXqifP
+	 t+EazgOmyXHbHfPLpHmHMo84fbbMZbf/tONvUxTH5npKUTjSmcSdkzB4KGaFm64nzK
+	 qG9d3SVBhtH5qWsOSORXusfXQ+Ja1Ck8Sd9AXHNHfT0nHhfNhZSkSKyOcsusRjGL4s
+	 9H8tMFY/rq/PEuY8LiG4mOp/nFBZoj1B42gbWaPmUOAktM0P+tViyXT1DUFX534stY
+	 g4AGX96GccSbg==
+Date: Mon, 23 Mar 2026 13:54:42 +0000
 To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, Luca Weiss <luca.weiss@fairphone.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 From: Alexander Koskovich <akoskovich@pm.me>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Alexander Koskovich <akoskovich@pm.me>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v2 0/3] arm64: dts: qcom: Add support for the Nothing Phone (3a)
-Message-ID: <20260323-asteroids-v2-0-1a35fa9e178a@pm.me>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Alexander Koskovich <akoskovich@pm.me>
+Subject: [PATCH v2 1/3] arm64: dts: qcom: milos: Reduce rmtfs_mem size to 2.5MiB
+Message-ID: <20260323-asteroids-v2-1-1a35fa9e178a@pm.me>
+In-Reply-To: <20260323-asteroids-v2-0-1a35fa9e178a@pm.me>
+References: <20260323-asteroids-v2-0-1a35fa9e178a@pm.me>
 Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: a23e06926091e3324a6bb99957401fc6e5e8f257
+X-Pm-Message-ID: e222cd248fb651b7434a62ed8b527f518beb0b76
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,38 +47,58 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-This series adds initial support for the Nothing Phone (3a) smartphone, whi=
-ch
-is based on the on the Milos/SM7635 SoC.
+The rmtfs_mem region is currently sized at 6MiB but the default for
+milos downstream is 2.5MiB. This causes remoteproc crashes on devices
+that expect the smaller size:
 
+modem_ac.c:281:Access Control Error: Could not protect the region specified=
+:Start:e1f00000 End:e2180000, PID:1
+
+Reduce the default to 2.5MiB to match the QCOM downstream config, and
+override the size for FP6.
+
+Fixes: d9d59d105f98 ("arm64: dts: qcom: Add initial Milos dtsi")
+Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
-Changes in v2:
-- Add comment to rmtfs_mem override in milos-fairphone-fp6
-- Add missing stdout-path for debug UART in &chosen {}
-- Drop dr_mode from usb_1 as it is the default
-- Link to v1: https://lore.kernel.org/r/20260321-asteroids-v1-0-4b902901cb4=
-9@pm.me
+ arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts | 5 +++++
+ arch/arm64/boot/dts/qcom/milos.dtsi              | 2 +-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
----
-Alexander Koskovich (3):
-      arm64: dts: qcom: milos: Reduce rmtfs_mem size to 2.5MiB
-      dt-bindings: arm: qcom: Add the Nothing Phone (3a)
-      arm64: dts: qcom: Add the Nothing Phone (3a)
+diff --git a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts b/arch/arm64/=
+boot/dts/qcom/milos-fairphone-fp6.dts
+index 52895dd9e4fa..5663ab4589f3 100644
+--- a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
++++ b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+@@ -724,6 +724,11 @@ &remoteproc_wpss {
+ =09status =3D "okay";
+ };
+=20
++&rmtfs_mem {
++=09/* Increase the size from 2.5 MiB to 6 MiB */
++=09reg =3D <0x0 0xe1f00000 0x0 0x600000>;
++};
++
+ &sdhc_2 {
+ =09cd-gpios =3D <&tlmm 65 GPIO_ACTIVE_HIGH>;
+=20
+diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom=
+/milos.dtsi
+index e1a51d43943f..915642498516 100644
+--- a/arch/arm64/boot/dts/qcom/milos.dtsi
++++ b/arch/arm64/boot/dts/qcom/milos.dtsi
+@@ -640,7 +640,7 @@ cpusys_vm_mem: cpusys-vm-region@e0600000 {
+=20
+ =09=09rmtfs_mem: rmtfs@e1f00000 {
+ =09=09=09compatible =3D "qcom,rmtfs-mem";
+-=09=09=09reg =3D <0x0 0xe1f00000 0x0 0x600000>;
++=09=09=09reg =3D <0x0 0xe1f00000 0x0 0x280000>;
+ =09=09=09no-map;
+=20
+ =09=09=09qcom,client-id =3D <1>;
 
- Documentation/devicetree/bindings/arm/qcom.yaml    |   1 +
- arch/arm64/boot/dts/qcom/Makefile                  |   1 +
- arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts   |   5 +
- .../boot/dts/qcom/milos-nothing-asteroids.dts      | 964 +++++++++++++++++=
-++++
- arch/arm64/boot/dts/qcom/milos.dtsi                |   2 +-
- 5 files changed, 972 insertions(+), 1 deletion(-)
----
-base-commit: f338e77383789c0cae23ca3d48adcc5e9e137e3c
-change-id: 20260321-asteroids-58f7d0bf56f0
-
-Best regards,
 --=20
-Alexander Koskovich <akoskovich@pm.me>
+2.53.0
 
 
