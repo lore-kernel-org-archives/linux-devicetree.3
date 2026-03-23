@@ -1,237 +1,152 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010038.outbound.protection.outlook.com [40.93.198.38])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D525233FE15;
-	Mon, 23 Mar 2026 11:31:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774265520; cv=fail; b=sz6Q0qnDzbUGIEXcRhzhkqDzXqjPTrZDD6523zbdD/3EESK8bsfFmBo5mfU0Qh8IoJoDFPp8vizOk5AshI6J7GOTKw3RtrrxZzIFhc23T3F9tBFKLfDZrqlp0eDbmMTkZnShVEwUMNO/jMntGYXu1hpdiaQGzPdKPCitObcPZWs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774265520; c=relaxed/simple;
-	bh=3fOg0RS3m6pj0qHTb/YuMCR3PzIQ0hTwCii3l2cpkXo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ZT5DaPHL4yExpglqfrCEEZYFgb1EVyFaoz8fO75C1qxGv41fmR3nbF5rxituJKl01HLH+w9pdzheUhuNfj9doEAl15O8SD5WQMCoj5RYQanmzoZFFfyupRuuS0xArYlEhJ5SO0D1/EOW1CFZJ9YTSjODRs0etvavq/9O3ilysPc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=GjUiAJDS; arc=fail smtp.client-ip=40.93.198.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D40286D5C
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:34:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774265673; cv=none; b=J2i22nyEcQUxqyovSzsqGs7WE/KlCuexVVvtSyy8SmMAj01TXxLAExXkCoGU4p/cx4jw9Oq7rvdKB24zoecZ4+nW4dwetl/n4EamOF6KJ16eemb3MjqQPyx134TLz3Q3uwHBtcYR5tF/eXCzLRtU7rPlMA4b2t0QCDENAycZD9k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774265673; c=relaxed/simple;
+	bh=5y6Bd03R9I+jDsejN2kyRg3MgRmiMG2aUkV/pbS3EVc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KJ0iwm6y7L986ujXfnI276VWnubUYyzWhzGBlYVUNBf0otUNAa3+HGX1n4etFWCHNLXvieeI+KmXWghu4LcHt9Hi/bZqopye9I32F52VJK9lqWd/nZDFZvHzH3azvl2+AtRzUo2BAWjRoGYd6e9GKfhQ+eHstbP6ey/+FYzmmq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kEKOKaLc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iNGPm3Ui; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="GjUiAJDS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MBC7ZKKCI+pZPs6mZVBlWVe+0qLFq1e7ND1ld5CmAYBcIQamr0HXqyC9KCe6iOwgAt81E8st38m8gbxyPBsReUL6iJR5JSU4iXFihBUYKbosvZL0/eSMYloTV2wM1MWpcEdd85fXGT6ql2uvcKSTNTJo7h4yyM93H4fvKbHIJxItWsYQ5GVf+9MOm9RT//lmh0S84ALMSJ4prYzWK5ze/Ec8ZUJWkMrb9qbMBJaNIAqJjJoiFCq9ACpXs6TNdQC0uqRS21ie6+rrmzahL8kqMMqn7ZdhEKDaOJuKFeYeyOXFQaia/HfQJJ+t6sSQZqRy23Uz/srzAkEXOQSSAwmUhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HwQxs4oXmQLhSeViZ8fAdCl+dL3kKoR/zcl6bLSQpPY=;
- b=rs0rbgrmXcqhtZc4FEnSM7mdiKgae8W7tYHEeLDH1pPfck6Mn/Wlko0YWswLmSzur+o6uesHCbZlwn7Bt5BAzpua4lnOPJ17hJtY6RAYOT56loUyZehPBPPH71o9nphHmBHA0ACDw/vP6UaZQO6TQKSe8SUraHHoPYHXW11/OSdTnesCttyUpggW8354uo5/wfP5OUy8pko+n+MIOZsAk/Wu/yCFFsFJTqdtrJLOQ+OtH4C7330YbmpBbaeHrewGi2VorhVSkPtXMTWDWDKu5LvUJeHfNp8+v7flhbtmtXv7AL/Q9O9Cn0oNMlFiTQdSDFwfXUHe3zA6v0iAl+h8zg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HwQxs4oXmQLhSeViZ8fAdCl+dL3kKoR/zcl6bLSQpPY=;
- b=GjUiAJDSDJkzFhoHrqe+/gAlE6rufGnAA5TND3u3U66RBIdxvgaTKtuy0Wbw3eD/hCuwqrjnOlq98fWFuB1mz09WYxn7DJz6QDJeZyyraA5bcJVEIipHMas4niTxcLKIMvJHBtDPpNFtC5evAN7yAmGUM6O8LSZTIUaBcrT9qN0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ2PR12MB8690.namprd12.prod.outlook.com (2603:10b6:a03:540::10)
- by CH3PR12MB9313.namprd12.prod.outlook.com (2603:10b6:610:1ca::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Mon, 23 Mar
- 2026 11:31:53 +0000
-Received: from SJ2PR12MB8690.namprd12.prod.outlook.com
- ([fe80::18c4:be41:febf:7e45]) by SJ2PR12MB8690.namprd12.prod.outlook.com
- ([fe80::18c4:be41:febf:7e45%6]) with mapi id 15.20.9745.012; Mon, 23 Mar 2026
- 11:31:53 +0000
-Message-ID: <8c8fa211-6244-43d3-9350-856301075e2b@amd.com>
-Date: Mon, 23 Mar 2026 17:01:43 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] iio: adc: xilinx-xadc: Add I2C interface support
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, "Simek, Michal" <michal.simek@amd.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "saikrishna12468@gmail.com" <saikrishna12468@gmail.com>,
- "git (AMD-Xilinx)" <git@amd.com>
-References: <20260323074505.3853353-1-sai.krishna.potthuri@amd.com>
- <20260323074505.3853353-4-sai.krishna.potthuri@amd.com>
- <acEbZ0O3HKrGx0u1@ashevche-desk.local>
-Content-Language: en-US
-From: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-In-Reply-To: <acEbZ0O3HKrGx0u1@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0129.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:6::14) To SJ2PR12MB8690.namprd12.prod.outlook.com
- (2603:10b6:a03:540::10)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kEKOKaLc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iNGPm3Ui"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N72lTR3295180
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:34:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	yP7BePyV8V69Gp0dwYW6aB+HYb7u/dPAwd2KQHqi9jo=; b=kEKOKaLc7JHXads1
+	LiyvnEtYHpnm7QbgsRkuvvdn5iKUn31iiuV9BJoaGZr29co3jC6kI6pStMAiBmcR
+	6jgwwFDiUIfP3Xz6UPHNmYvTvu77fvc0/3f2yPaPzuL1lSCpUaV90AououKvT30O
+	G+3/JVwcwdGxb7zOb0GFIYmrQ91hdZ+HEuf27XuNJ31Kv3ueDWu+r1bdnSFlSjFW
+	8WQX0dIhJTah6TVeJXH/KuQByFuvwfFBRwAECylOs36ZaEM3MWnqreVobcxJz6S4
+	PMqMGMbj9ECQGPJ46f0leb96RmQAeSBh5pcCD6wQHyOSf5y4lr7Wt3oc4AH0X/nU
+	BpxW+A==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d2ca8k35t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:34:31 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50b2d5e61f6so26221401cf.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 04:34:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774265670; x=1774870470; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=yP7BePyV8V69Gp0dwYW6aB+HYb7u/dPAwd2KQHqi9jo=;
+        b=iNGPm3Ui3q8cv2c8pN4PsRitCru8ZnUeCmFvn9lGNM30SBVKVuNzX+IllZ7Ugc+tpb
+         Rgjyit9zP6A4Ue+7lwh1MfSUtO9uHOGtCq895bYKsWmbvV6ZU9R+r1UrcC/LYX5/HDiv
+         L7Zh8sqHOVaRI5zcCAyjV6S2Q/AHKAJfJGbutsOBB/KNVlUEFrKpvigNsPP/GdHSSWzg
+         ANlJMGzklO1ghvlZ+dbfo2namAWQjVB18Hi2fjHYcCQVNxVwNO92ET0APE0P8KM0HpDZ
+         K5+WYKpM7KKrbUcsXNhXcWbIadNURBdQYCYQQCqFkUryIDkbgCwTYv2aBZj9SgMpQdHT
+         af9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774265670; x=1774870470;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=yP7BePyV8V69Gp0dwYW6aB+HYb7u/dPAwd2KQHqi9jo=;
+        b=iVP7F1nkZvL/57G8Q+gu0Kxc0EgksUZc3Kz1g4WGT8R3JhhUZEv583JuesTrrl6X3q
+         ElnZeZgh0brzXavtwebsCl84tSRo/iZrX6E75WB47V6mOnUha7MduR1P3uy4ZaGa21W4
+         8NEWEDDOYN3vaZ8HoQ3zwLwGZLk6CAVCFgv2H1jKchOYyZu3Xj5mJpjjJJ74CHE91lc+
+         4BTiJugWf94C+nyo8c17iylsDg8rlyuxIjgNJ/0HDaEuvrhgIgOuJ6Bn8Laf3fHEflpP
+         PRWNsaUiMWlyiZRgwYfbLLzn58PZccVOdBynw9wF52OmGzIZllYVQRkm8ZaU7qae2IPE
+         7jpQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXQJATW09ZSXI4qP0/ATMcEA60QuJSTUC12v1XFDt7S9GHmYcX/LSOUeCoVC39iqCWZPhiy0f6WRll9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy9Qj8pFbe8Md8o29biOSs4jVf8flWE6hgKzfRhZNjYL+iAPlJ5
+	bNHcyI0dxDNOYv9IqV+1QYW85jtRLLQenvPyMPLZ0LN5ONJ/0PZ6G815Mh2WkbXPLWU6hC7IfPF
+	/nmivBWLphgaKtGzHkkh5H09zAOJlPbttLl2kno5sp8T3vI115oe3mjNMd4Le0t4Y
+X-Gm-Gg: ATEYQzygxYCBjMdZMilo32faYRUyPnDGs7PLHsgSEqg7t4mLSUz+2XUMJt49DkUInRu
+	pGKIjGIvE1HHBNJXjr9TmwuQdM3x9V1mPkWVnljRA8gsaQA9uSJ6iKYO3vi/JAeAcoicMo6ojBF
+	qE6i+waiavnogtXIDbVpqeD6PmomAVrhXJQ0sfgPPwarVeO2ggvCouM4nfCDNr23KI+7RiKPX9d
+	fxpdtc19uHqB+CYa6YH9J7cpVJeaSzN8wKt/4OsYv23ngJn+uexCfxm+ba5GWBbQOIVXK46Vi6a
+	LVzb5fYT1wtm2PHFbxH1XIxqsHEinm54WPN7Hb/PyJ6efOiJ63MI6/j7ykHD6vHitPio7KHeGJk
+	JZx+zgME+3jLXEZ0wqPOh3Ypz68ZhWaA1z8Qpkz/WIz7tzjMbvir9JUNYShXKpfQpOUNUlW15wB
+	PJkaU=
+X-Received: by 2002:a05:622a:65c7:b0:50b:51eb:c355 with SMTP id d75a77b69052e-50b51ebc824mr45722051cf.9.1774265665432;
+        Mon, 23 Mar 2026 04:34:25 -0700 (PDT)
+X-Received: by 2002:a05:622a:65c7:b0:50b:51eb:c355 with SMTP id d75a77b69052e-50b51ebc824mr45721831cf.9.1774265665045;
+        Mon, 23 Mar 2026 04:34:25 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b983365a166sm489893366b.42.2026.03.23.04.34.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Mar 2026 04:34:24 -0700 (PDT)
+Message-ID: <b743b408-0b24-4660-9879-3536d8006d7b@oss.qualcomm.com>
+Date: Mon, 23 Mar 2026 12:34:21 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB8690:EE_|CH3PR12MB9313:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7083e4b-18ae-4ef0-38eb-08de88cfc80e
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|7053199007|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	5uOvckwc3y0aPZMM0ZXjoxGPf+3ymiwzZ8df96jvP/eyW5Sq+XFDtjFiiKcFf92lXDhmAciqLS4ubHUHO0K6ZPNkVOPdM1Z1MJdEBUsaW7ORFbyNYUB6JtM6dvutVisYHKK5T/7D2HqEd0aB7+Sb5WNerdxnd6v3/K0ti7voxIt1Dv7l1EaEghWdEyevDp0DgDwBm4u3RKseKQvJyNsyA+Wf9a3BKD1PBcoa+FNfqUgfK33nbRrJ7EcPqaK+DsBqrlfbL8lCXz1LI2sO7h1QQrQ8duC4pTyuB6Zat4NIjPPDuJKXKz1SQNiqwJ0Q5HxFYbd2ZavcM9z8HpTEDaqbAKiV/Mhbz+Zau4UCWsxRU76brIbsguMNjpUY0EBffIzMXVUCq65EBTLKMXzSWtgUtj16ybYeAnDDvtOrLD/gKpSvj6lY7C1GJcLBdJhQSiwZGquX6h0nRqz3oltKcqE+dRNyjhU+x8J2oi63Q+AbytQm8XG14RpqAepwgPFrL5E5gkGy+lm8NkvTfNdA2jFkcmLNchqOwwXcDTEzUVN6X+25JPoivohIagYaK0q49VOK2NlF49EXygSkNsgUjtdBX3KZMCC9nbiLgWSAcsFfvybz8VdL93vnOFEsY4IzaM9Q7/q1iiZRmZllLkvfrowzcq19OOcNCG+Bl6Xt/IsoOEpi2j2D5XgtBLtf4Iodq8ItHfYjHknCVya/gXra/NrfxQZQaqv57F4iIqNxv/vbbe4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8690.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(7053199007)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YTltZmsyK1FhbWRGN2dRczdRTXJFQ2pwNGQ2VzdWZUNFdFM0Qmdtb3ROamhU?=
- =?utf-8?B?Z09HNVc3cTZRbTM2anBhNUdsRHllaks1NHpsS3VHOWhnK3UrYUZ5WWZ0UzBL?=
- =?utf-8?B?UFhsK2djaHpkbE9xWkdSRkpueE1XTlIyTlNFQUQ3K2UxQkZzSm9HbTh4bEpK?=
- =?utf-8?B?c1lzUkFJL01pNUlZZktzMGdMUU5vMHBubHhvekh0ZVN6dWFGS0lwcnpMeTVm?=
- =?utf-8?B?MlpObVdkV0ZVaEpkOGE0Wi91eXZNU1N4YTdxT3p4QzM1ZWlmdzI5RTRxalZN?=
- =?utf-8?B?Z2xJRkFXOTBNekswWnpFazNISmcyajEzNnJScDFTdWRuK3JWT0NmRld1UEdP?=
- =?utf-8?B?R1FqVGMrZlJLOGRwS0NkR3kxbUdqaGpKSzBxaDA5Y0IrdE1XaU02U29wUVp4?=
- =?utf-8?B?N1RLbGc3bXUyVkVsY0c3WTIyWnk1cDdwU0dvb0FpZU5DZ3dpVmZ1WUVVWDJo?=
- =?utf-8?B?WU8rcmxENlJJb1hFWDdrQTFzOEQ0MzNSUTBhUzhIWVZHZC9VQ3NFT2M0Z09J?=
- =?utf-8?B?TjJHTTNscWJBcldxY3Jza1dRc3JaSEUvR2h6T0NOakIzblM2bENzMWVuMUZa?=
- =?utf-8?B?Y0YvN0V5RkwwTjBleTVjamhLVHNHNGYwSXI5bDdBdVdoN3Yvdi9qNjJHTTFQ?=
- =?utf-8?B?SHF0NXBlR3lZODJSbXlaYkFyOFpTcTlnQXBFRVFKR1pPMzduWXpJTGNndmNy?=
- =?utf-8?B?bjZsdEJIVFBvczdST1F0cHViK0toSjF4NjBnK1ZsRkhzSU9kY3FaR2V0Sk9F?=
- =?utf-8?B?bk4vaG94TmdlUENlb1hGVmFnVUVOSDltbS9LcXh0ODF2S2NIYkJoZ2VDd0Er?=
- =?utf-8?B?bHJYTjloYWY1bDFxaEErOVlJQ3k4T3Q5YjNXbkJvb2lRSCtBRzhsb0paQ3Fo?=
- =?utf-8?B?ZHVXVlpoZFovYlI1ODRyZ3ozVFZBWStHWjdzZEFlQjFWRk5XZ0FjSW44dktJ?=
- =?utf-8?B?WHJLZkR5Z01Memg2MHZjdUtHZ1dzU1FKTUNpaTUzb0JkNlBJT2NndVY5WitD?=
- =?utf-8?B?YUtXaTRmRHdxYVZXRmtXT2txUXFMZTJOelZnYTNTdml4NDgzbDBvOTNYdFVo?=
- =?utf-8?B?M3YvZ1d3UlZWbkhvMDBDMUxORExRSmVlNUhyeVZaRWNtZDZManZrWjdYK0J5?=
- =?utf-8?B?Vi9nMzQzYktmaHlHRHFZSURoM0tTQ2l6Ym85V2lxU01na0tKMDJpOVdVbTFJ?=
- =?utf-8?B?Y2pzaXo3Y2hhRElaenNMaHVIdFNKOWFQQXRCTzJhNmlmYWJwU2xPdVVUN012?=
- =?utf-8?B?a1JoSkdycUw0d3Y5ZHdJTEFad0RuUys3MlArMUVLdTUvcnVZT0NYdVI3OGJh?=
- =?utf-8?B?REZiVFdydVJraldIakFNYlE3ODF1QmtzL00ycHArb1VGd3lsY0ZlZDVWa0I4?=
- =?utf-8?B?dFdRNnFpUlplYUZ0Q3dwbHNQbkRhMXo4SlJLN0ViczI1QUVKTjViUDRBQXV6?=
- =?utf-8?B?alpQZFFKd1dqTlpSUXRYOFI4TFhzMloxY2Y3RWNuNXBCaEJwTWFreVp6RTBT?=
- =?utf-8?B?ZnptZW1tNkhrSU80VEEzRkpnck5vRGt6Sk9ZNURTdEtWVFpRZWYvQVhYTEM0?=
- =?utf-8?B?M2lKNjlYb3lCQlY3STdCaGVzTVI0T2JVdzlhYy96ZFBaZDJDWlUzQ2pzSmxt?=
- =?utf-8?B?dmJBV2wyY2VNZTh1bTRoMFpFalFsY3lpQ1VkN1puWGJFSkFQanRocWZNMmsy?=
- =?utf-8?B?ZHUwQzZYY1RnQ1pKOUNzMEZqQTkyd3BqclVKNGQzQmJjejJLVkQ4WGhQLzBQ?=
- =?utf-8?B?eXp1dXRGNUIydFhwQ3ZZMWg2QVRXaDlNZXRaOTduUFhyZkN5dXk0OUN0bVJ4?=
- =?utf-8?B?Y0Z0MjB3OTNWQU56S0NlbVF5TS84aEZIdDN1VzhIZ3F3U2UzR1ptNTA0aEt5?=
- =?utf-8?B?MG9LVVoxZWNoOWlqRHRyaENKaU5TdWQ0eC93cDR1OG9JdWgvUENyWEs1V3hZ?=
- =?utf-8?B?S0NTYnRadE92NFBocWsvVENYT0dQa1kxSDMvTFlXeEROSWhkYTNpVkNNMDUz?=
- =?utf-8?B?Y285c0J0RmpxTldabTFhUGxPdmV0VUJNTnJya2RhQjV5bDV0dDAwbW05QUdm?=
- =?utf-8?B?Rmh5cDBiQ0dlZ2EvRW5lQm1NbHMzQ0xqZnBNbjJPZXBoV1J2aTJibmNtSXV1?=
- =?utf-8?B?MXQzTThHYThxYnl4eXpxVWw2anRHNlN2ZlpTWlJtK0Fmb0JyV3d0OGxhQTNZ?=
- =?utf-8?B?ZE5PQ3dMSlU3djBEYjBsTm5uS01NeS8xbGdySUpPYk0xeDVSeVZwYXNVQmND?=
- =?utf-8?B?RGxqZHdEdnpGeWlxWDEzSDJTbGhoNHVoSFZDVVZDYXF6YWQvOGtpc1AvOEs2?=
- =?utf-8?B?dzgyVWlOb0RTcXJzUzl5cVVXRmRRZndkbjBjZzdZWDRyd1dwektvUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7083e4b-18ae-4ef0-38eb-08de88cfc80e
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8690.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 11:31:53.3814
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wqcX2NqzeiZTQ0+zBcI5SXMh26AxWJfZ2+YCMydltLRGiB/PS70Axf4wT6b28OWip2jnyTFy9WfN4ZKNNH4aIw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9313
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH QUESTION 0/2] NFC support in Linux (and support for
+ Qualcomm SDM845 devices)
+To: david@ixit.cz, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Petr Hodina <petr.hodina@protonmail.com>,
+        biemster <l.j.beemster@gmail.com>, netdev@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, oe-linux-nfc@lists.linux.dev,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        phone-devel@vger.kernel.org
+References: <20260322-oneplus-nfc-v1-0-5f22f544f0e2@ixit.cz>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260322-oneplus-nfc-v1-0-5f22f544f0e2@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA4OSBTYWx0ZWRfX64VcMg2ZelMY
+ 49F7/Xs4RDb0Ul2oBIa1equ4oO8vXhRcHTZMjlwPKoF3TiMmZEtaI2CFxs5QFmByM/EnoljnUL6
+ 9w8pTmSxOO2pvwrU0sM8kOMOIhxgRfgAYlc9WzuFRKNOsnmdLKH66j4mR3+T1K1PGY0Ax4YTwWv
+ 1mRHiynGysRErTvxVFPncqR+1dMuCwiSxHhgryx2RGGmXp/dtP4sq6zjkc55MewJUDblYJWjuPU
+ 07SyvYyf29NVHbWj69XvinYsBgdjlNni53zoFEahdUoR7dTq9361m94pmgFQ5udnfomedWJ7eav
+ l1jzGjpim1C4KhHIo4cSNidtDBHwWPt7Q85i3nn4yvxsOZxEX1vO3KhKD8kti6Kw4G7/G6Gc9Eo
+ WzBDWObbOigLK+zOE2mw/LBxtrcXr5hCqPiNP4JugdHH2BNVshXabVzKkX0ywg/2POB14nVSpwq
+ XxPgSu6awNLPRu1DO+g==
+X-Authority-Analysis: v=2.4 cv=cf3fb3DM c=1 sm=1 tr=0 ts=69c12547 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=XBYjAflyaPWs-M9QSm8A:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: KHtrzsudRQDkcV6HPzSCXweGGUCz4Joc
+X-Proofpoint-GUID: KHtrzsudRQDkcV6HPzSCXweGGUCz4Joc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-23_03,2026-03-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 bulkscore=0 spamscore=0 impostorscore=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230089
 
-Hi Andy Shevchenko,
+On 3/22/26 3:24 PM, David Heidelberg via B4 Relay wrote:
+> There isn't upstream driver.
+> 
+> I'm openining this as a starter. We need a NFC drivers I assume. I tried
+> quick check, but both of NFC drivers register
+> 
+> nfc: nfc_init: NFC Core ver 0.1
+> NET: Registered PF_NFC protocol family
+> 
+> but efficiently does nothing. In the See section, there are some ways
+> how to make NFC work, but rely on patched vendor libs, missing updates
+> etc.
+> 
+> 1. What hardware is present on Snapdragon 845, is there some
+>    documentation? It seems that both sdm845 devices has almost identical
+>    setup, thus it's NFC solution integrated? @Qualcomm
 
-> -----Original Message-----
-> From: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Sent: Monday, March 23, 2026 4:22 PM
-> To: Potthuri, Sai Krishna <sai.krishna.potthuri@amd.com>
-> Cc: Jonathan Cameron <jic23@kernel.org>; David Lechner
-> <dlechner@baylibre.com>; Nuno Sa <nuno.sa@analog.com>; Andy
-> Shevchenko <andy@kernel.org>; Simek, Michal <michal.simek@amd.com>;
-> Rob Herring <robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>;
-> Conor Dooley <conor+dt@kernel.org>; linux-iio@vger.kernel.org;
-> devicetree@vger.kernel.org; linux-arm-kernel@lists.infradead.org; linux-
-> kernel@vger.kernel.org; saikrishna12468@gmail.com; git (AMD-Xilinx)
-> <git@amd.com>
-> Subject: Re: [PATCH v2 3/4] iio: adc: xilinx-xadc: Add I2C interface support
-> 
-> On Mon, Mar 23, 2026 at 01:15:04PM +0530, Sai Krishna Potthuri wrote:
-> > Add I2C interface support for Xilinx System Management Wizard IP along
-> > with the existing AXI memory-mapped interface. This support enables
-> > monitoring the voltage and temperature on UltraScale+ devices where
-> > the System Management Wizard is connected via I2C.
-> >
-> > Key changes:
-> > - Implement 32-bit DRP(Dynamic Reconfiguration Port) packet format as per
-> >   Xilinx PG185 specification.
-> > - Add separate I2C probe with xadc_i2c_of_match_table to handle same
-> >   compatible string("xlnx,system-management-wiz-1.3") on I2C bus.
-> > - Implement delayed version of hardware initialization for I2C interface
-> >   to handle the case where System Management Wizard IP is not ready
-> during
-> >   the I2C probe.
-> > - Add NULL checks for get_dclk_rate callback function in sampling rate
-> >   functions to support interfaces without clock control
-> > - Create separate iio_info structure(xadc_i2c_info) without event
-> >   callbacks for I2C devices
-> > - Add xadc_i2c_transaction() function to handle I2C read/write
-> > operations
-> > - Add XADC_TYPE_US_I2C type to distinguish I2C interface from AXI
-> 
-> ...
-> 
-> > -	if (xadc->ops->type == XADC_TYPE_US)
-> > +	if (xadc->ops->type == XADC_TYPE_US ||
-> > +	    xadc->ops->type == XADC_TYPE_US_I2C)
-> 
-> Can be one line.
-> 
-> >  		return 0;
-> 
-> ...
-> 
-> >  	/* UltraScale has only one ADC and supports only continuous mode
-> */
-> > -	if (xadc->ops->type == XADC_TYPE_US)
-> > +	if (xadc->ops->type == XADC_TYPE_US ||
-> > +	    xadc->ops->type == XADC_TYPE_US_I2C)
-> 
-> 
-> Ditto.
-> 
-> >  		return XADC_CONF1_SEQ_CONTINUOUS;
-> 
-> ...
-> 
-> >  int xadc_write_samplerate(struct xadc *xadc, int val)  {
-> > -	unsigned long clk_rate = xadc_get_dclk_rate(xadc);
-> > +	unsigned long clk_rate;
-> >  	unsigned int div;
-> >
-> > +	if (!xadc->ops->get_dclk_rate)
-> > +		return -EOPNOTSUPP;
-> 
-> > +	clk_rate = xadc_get_dclk_rate(xadc);
-> > +
-> 
-> Unneeded blank line.
-> 
-> Also, don't you asked for options?
-This callback is defined for all other platforms except I2C.
-Currently for I2c interface we are not supporting any configuration, it
-is used only to read the channels.
+As far as I'm able to tell, they're clearly external ICs
 
-> 
-> >  	if (!clk_rate)
-> >  		return -EINVAL;
-> 
-> ...
-> 
-> > +	i2c_set_clientdata(client, indio_dev);
-> 
-> Is it used?
-No, will remove this one.
-
-Regards
-Sai Krishna
+Konrad
