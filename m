@@ -1,85 +1,77 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48DBC3C661C
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 17:19:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 842673C661C;
+	Mon, 23 Mar 2026 17:19:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774286360; cv=none; b=j4L5wDprwWhHujHWinrm7Im6BNe7B0NhU/+L/AeTXKA2SBPhYxVjzJY4rrArsgBLH6HClF0/rBz8w8WUz4XDabhuYTVIOnEZUPl9S03m6Uxx6D0fwrXG6GVjisIHYPnYq9mzah88Fep7H461DHDIVPhRBzgP9na7E9Lzejh4DwY=
+	t=1774286372; cv=none; b=ro4E8c09+8BgiqWs/hMLrPs0FVS3tr1IvZ72jHAEygDqrALFUVRpmK2eFEH9RRmpBRMrHQzBFmmac60wmw/AwQRvtlTIT+K85bL5cjOc4RBzKbm8DXk69OkQ6yWJ5eRk3XLogaVdc278E5i97x74YO7tLcGl16JpI8n9w3HGCrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774286360; c=relaxed/simple;
-	bh=IyPIpKqff0QOAhzUsNMR7ffgpOkH8Ft8DtBqFyPcY60=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=po988RosIyblGYTAETaB7WNa7KC/6zSfSlj7pAggMz0Wyl30sjp9+hIWH7FUhQFRlpulRKahDUW1JKP58j5UAhv9LUXeSnMrXjm8XOz9WX/6n1r3J5OBRW3KZ1UHodWSvkMk4fGRFeppStmUQzt3IgMJFeLNG6JRokjYPqbLUqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com; spf=pass smtp.mailfrom=tinyisr.com; dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b=gvmWHfwU; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=DKR7Z4bz; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tinyisr.com
+	s=arc-20240116; t=1774286372; c=relaxed/simple;
+	bh=/iM84VPZCJwEWriacUA4NUmZx+hreQbQHgkrGVWtHdc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F0u7PuCd9fEpF2lLp0HnD4neJJQobgQD3QlWS19IfGDM6I/yv3ToTfHcVdzXdA5takRbfMwY2wfeqEDORHPLcMROZO97AYmvFqOHowY83cMjNSUa3IPedUaYAqkrPqcbZBBWVAB1c6xwu83IN2TdWisisyeqNAUBiXuBEbC8tw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fhONbQEk; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b="gvmWHfwU";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="DKR7Z4bz"
-DKIM-Signature: a=rsa-sha256; b=gvmWHfwUn+ci+XXztI/loMlrMA9N2AgTEGIEQ6aWUNUaqt6+brBItWjddiRtxTdVrI1fg3cONP7kqFhOe8lfrZIq3MaUE3i1po3Z6EzEMr+XPS1K5yOstuVVwRU2Uu7Fu8VNr4g+4zb4vDC/oz4TsK+3YWnv3kQ/6aWjFGwmVuhcH1Kz+yb+vDwHc3a8LAA4UotjVyhclgvHoAjAYJ7907KJU8z0SmcofxalNNkRSlr2UsUkuJk+Emke7Y8oYDsHE+J1A1YFFLx45598j2sRM6CQBmPoJhku1/9PYL33GKtia40AlsNNNrgCaNGbp0zPlZvds1JwJ2AB8W1JiEb5Cg==; s=purelymail3; d=tinyisr.com; v=1; bh=IyPIpKqff0QOAhzUsNMR7ffgpOkH8Ft8DtBqFyPcY60=; h=Received:Date:From:To:Subject;
-DKIM-Signature: a=rsa-sha256; b=DKR7Z4bzaJAWx+E81UrMH9q1K0S7qRdu5YLCgD2EvPUrU0zmF5ig2z9ufXlyTSCIJjSbnMoQOTAox4PKrqxLcWgvNoQ4MhzC8LlEJxJ7SnvaYMVR9fFjJq2lM95zRfRQSaW7hYYfad2EibfeSag5k6AWLIwQg6xee5aaURqooMamrIGaCUUG12t5Dg4GipmV1BiRWkZ43szi4o+ZBUrgtOoim1PaAH+GJog0u0jjwgo3NCYYyQHAmLhMOQjkXnbEY0eyVHIIew5CsafqmOzVfjC5P6s/41Tc0sVDwZZZYqgHhp0CaeSjGnIYistAFDC8EvHNDhFibfS9w6nn/+XulQ==; s=purelymail3; d=purelymail.com; v=1; bh=IyPIpKqff0QOAhzUsNMR7ffgpOkH8Ft8DtBqFyPcY60=; h=Feedback-ID:Received:Date:From:To:Subject;
-Feedback-ID: 99681:12517:null:purelymail
-X-Pm-Original-To: devicetree@vger.kernel.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1017625389;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Mon, 23 Mar 2026 17:18:40 +0000 (UTC)
-Date: Mon, 23 Mar 2026 19:18:30 +0200
-From: Joris Vaisvila <joey@tinyisr.com>
-To: Daniel Golle <daniel@makrotopia.org>
-Cc: netdev@vger.kernel.org, horms@kernel.org, pabeni@redhat.com, 
-	kuba@kernel.org, edumazet@google.com, davem@davemloft.net, olteanv@gmail.com, 
-	Andrew Lunn <andrew@lunn.ch>, devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [RFC v3 4/4] net: dsa: initial support for MT7628 embedded switch
-Message-ID: <acFwjuPFiO0QFoJ-@archlinux>
-References: <20260321194340.2140783-1-joey@tinyisr.com>
- <20260321194340.2140783-5-joey@tinyisr.com>
- <ab8IHwC4RfHG5wvv@makrotopia.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fhONbQEk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4B95C4CEF7;
+	Mon, 23 Mar 2026 17:19:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774286371;
+	bh=/iM84VPZCJwEWriacUA4NUmZx+hreQbQHgkrGVWtHdc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=fhONbQEkPslS3qtm+EAtHY/CfcG2+pp+oN5Vm2hcMwJKdy6R65wRJpCWLHk94jN8Q
+	 guJUpXg3mn534+8/AbzAKAGBiey3O6z7mBvbroUA22zg/lL/JfTntc/An/ZDboiMeo
+	 HwD3jYT+DAmFqlfmEHLgZD5K/lD2DEAyMhq5KLPgUnslrXpROYsAcdDRkUSScv07ri
+	 zOxNFN0huRjCBSOyxk58d+AptK9sIqM3cw485Qd0+DWmKzLv45RMEc/KRsrC+MNvu7
+	 19em4OyG93NLEklgPn8MoCTlaKRQkvthFps6YfLXZVgZLdDiK8cZe2zE9bNobT1dsi
+	 loxQec1NGKi/A==
+Received: by wens.tw (Postfix, from userid 1000)
+	id 9ED165FBE4; Tue, 24 Mar 2026 01:19:28 +0800 (CST)
+From: Chen-Yu Tsai <wens@kernel.org>
+To: Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej@kernel.org>,
+	Samuel Holland <samuel@sholland.org>
+Cc: linux-sunxi@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: allwinner: sun55i: Fix r-spi DMA
+Date: Tue, 24 Mar 2026 01:19:26 +0800
+Message-ID: <20260323171927.1256507-1-wens@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ab8IHwC4RfHG5wvv@makrotopia.org>
+Content-Transfer-Encoding: 8bit
 
-Hi Daniel, thanks for the feedback and suggestions.
+r-spi has DRQs for both the main and MCU DMA controllers on the A523 SoC
+family, however it seems it that it is mainly routed to the MCU DMA
+controller, with no obvious way to change it.
 
-On Sat, Mar 21, 2026 at 09:05:35PM +0000, Daniel Golle wrote:
-> As mentioned in the binding comment:
-> - The MDIO bus is exclusively used to speak with the built-in PHYs.
-> - The PHY addresses match the port IDs.
-> - Only Clause-22 read/write operations are supported.
-> - There is no way to connect an external PHY (no MII interface
->   exposed on external pins)
-> 
-> Imho it would hence be much easier to just use DSA's simple .phy_read
-> and .phy_write operations instead of registering a bus manually in the
-> driver, and even requiring a description of the MDIO bus in device
-> tree.
-> 
-> If you want to reserve the option of adding PHY-specific DT properties
-> in future (eg. for PHY-controlled LEDs? but afair the LEDs are
-> controlled by the switch itself and SoC-level pinctrl), at least set
-> `ds->user_mii_bus = bus;` to make the device tree description
-> optional. Completely omitting the whole bus definition and changing
-> mt7628_mii_read and mt7628_mii_write to be useful as .phy_read and
-> .phy_write ops in struct dsa_switch is the better option for simple
-> legacy hardware like that imho. See b53 driver, for example.
+Change the DMA channels of r-spi to the MCU so that it works properly.
 
-The LEDs are indeed controlled by the switch, so there doesn't appear to
-be anything to configure now or in the future. Using `ds->user_mii_bus`
-sounds like a reasonable option to simplify configuration and works fine
-on this switch, I was not aware of it earlier. 
+Fixes: 1bec3bd1f839 ("arm64: dts: allwinner: sun55i: Add SPI controllers")
+Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+---
+ arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> @DSA maintainers: correct me if I'm wrong and, for which ever reason,
-> using the .phy_read/.phy_write ops is discouraged in new drivers, even
-> for dead-simple hardware like that one.
+diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+index 56d4e5862ff4..34d7547a6004 100644
+--- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+@@ -1018,7 +1018,7 @@ r_spi0: spi@7092000 {
+ 			interrupts = <GIC_SPI 172 IRQ_TYPE_LEVEL_HIGH>;
+ 			clocks = <&r_ccu CLK_BUS_R_SPI>, <&r_ccu CLK_R_SPI>;
+ 			clock-names = "ahb", "mod";
+-			dmas = <&dma 53>, <&dma 53>;
++			dmas = <&mcu_dma 13>, <&mcu_dma 13>;
+ 			dma-names = "rx", "tx";
+ 			resets = <&r_ccu RST_BUS_R_SPI>;
+ 			status = "disabled";
+-- 
+2.47.3
 
-Regarding .phy_read/.phy_write, I was advised against using them in new
-drivers in v1 of this RFC. I'm happy to rework this, but would
-appreciate clarification from the DSA maintainers on the preferred
-direction for hardware like this.
