@@ -1,142 +1,180 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022120.outbound.protection.outlook.com [40.107.75.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 589EC39A81C
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 336EF392828;
+	Mon, 23 Mar 2026 11:48:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.120
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774266436; cv=pass; b=sLzHhQzoK0QYDu9l14gDmwpHg9nxq9lj2jxXb8w5dymT9jaSV2eLhdv32LaqaEL18fl87hFDL7dVv8y56Gk1koYdquprXR1BPoDduQoh7rJ4EKLgIkQ/oJaYfTvUB7u6D8H1JirJtC6AlrZ344tOpJ6D/v7qbm/POUj4Y2qtCAk=
+	t=1774266512; cv=fail; b=DSf6Id34csZGNm7RcCrVHpyyAbQXg2sFw62n12QqBAKh2dSuOGQ7kQYdaj7i1PiGSlKNeofYiEPZQU7RCVaeln23ZhVKBIVthXK+hmatUEZ8ASW068t4laSUk6IHtjy1n3cdgFviE0ZzZG5wkhszqu8/Y0rCkqEHlz3gsGzjCV8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774266436; c=relaxed/simple;
-	bh=4nry2qzy5pcCzAM5woH+HOmFMTfIBTI3KVX7x2x4kfs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mNQkf/X3xVYmZCukaWew2Eb8YZa1LGZil/iqaNdO40gpIjCiKCIedbMviC8ppn7aZ+iRnOBzY3A+/4fCsN8QnE0ICU/mNnayAz9RG+tJ2TBPjaKqKAwC2mecX9l6k+O2kvS27+7YTpgApJOBuWk4PVRCyG8HdGl//4h4gIp4jN4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bkBD3ak5; arc=pass smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bkBD3ak5"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-b9831ed36d4so392350566b.3
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 04:47:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774266434; cv=none;
-        d=google.com; s=arc-20240605;
-        b=SKt//hLcbmD/s4SpxJFgteb6+1DdamxHZrsDdUt6zUVvcubS0EYM5+d8Y0CTrrp2zf
-         cFaIPxHekQvj9tG6rwcYWck2pOgqzY47AQNcqD/2rKZccQJXpQQp/4Y87BuYnOoEUQZG
-         p9haSJGkjPshmMXl+nDPztyYVTEYRETVj3vLodBn4r1ksc+mE5xkrHkQKodLRV/HhjN8
-         MoFhHgI8M/t48j+QAbwleCP5lBGNffRTfkCuDN0JsbIndKNXmfsZ/anmrEFjTrZmA31/
-         ZZVps8SMzV6V5e2905SUVEsOI1QCRBnWko24mtgtvzEwdI+O0dQ+ySmjwgl5NZ4pTuPz
-         m6bg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QUJUjulURT0vpMbu4RaHS8o5NCexbA+knxvjmiKjiF4=;
-        fh=dUPxNXvw7utnSR9I8Y6Lywnki9XXxfg8JWEaeCh1UBE=;
-        b=CJcb4qen3RtqQ9aqwgceSQ/RrBw7cil28t6Xpu041Mm24HR1xQ/tgvEleOnqNUDQUY
-         72NG2GWnaK1tNdqf6+iCirnH6d3ri28yzr45Ho5aOPSYJOYzqAW0yUva/s1TiyogwrhK
-         vzsE7h+v1fGcelfuM6aXJjIreE7vM1D3z+3Ao6jMZAIjbpPOXGlclUYWKTDbHCuE1G7L
-         Hf/WlCET1kIqVvDPNVVVT/+Y/f9cnEuPdqgfb2I7HMJ89ULXVoynHzu8sHqO1yzkN+ZP
-         C893vULWkx1B2QPrenjZn17sjbibGzkhA5VpZHQK9wgCrF+1YuKkhctJ0HnyaJFkJ3uN
-         ngLQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1774266434; x=1774871234; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QUJUjulURT0vpMbu4RaHS8o5NCexbA+knxvjmiKjiF4=;
-        b=bkBD3ak5oAisJnsH4PpYJ8wjAViMT79GTt+9X8OvP8z+n9lgcVTMqEXpBZr32kxBRw
-         NieMkROZNyZ5yzDIqEnKzVmXXUygFteakZMlsRTePnGnE0jjoHkPt1C2zRXBS9phJAoD
-         B81qFffIggUjXlVPYm7ieba61/MfmV26R+2HxTkOxEMnDA0J+MHg0GoSKpJOKT2vwl16
-         6OPxbpUqRoPE3Fo0kSyuMV+RaXNTVGvUxTbYquX2tEkpF9Q/JEukvMMOyxOBxPIPqyPm
-         7tDzlqCoO1emYyYu5WgLz1SRDxG3j+1EX8txRF+EF3lQBDaKe4mk9yYOB+BIanWwenpm
-         xVWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774266434; x=1774871234;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=QUJUjulURT0vpMbu4RaHS8o5NCexbA+knxvjmiKjiF4=;
-        b=bwOCSTZnALZVDx3q2bNC2zDsQjb3Nc3mLw6WqJ/lOdKPAVCwYNlq7VjYW6RMiMx6mi
-         Vm5Gnlgl/I9ykY0eqawxwSNEgnlfeJzZhtKZT2jONEUEKSd0mj7o4EJ7vY3RnBNAQxDL
-         awZO98wWmmvvjMIAEOH3TkO04DAGZ68PN2GzI4FDRKHIa9U791BxqBCjmUgIMDZxnW7C
-         fXtbCP0Pbum+jQdJilqVrYDvU/IQD2RtFYl99f2/LUfpERmfxW3po7xWkX7BVA9ot5fV
-         rE8Hhkk2+FJgZdnlZHyqo68fJOD/K0l0T4kpsEgfh1AJZgcLsLABG6dliLmRVE/TeSdF
-         8xDQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUcBw9wSM9tjKxmBZlAfquxEh8DeTv0p+oxQDJKKB7nG0GXOlOdTreFmkMK0Rh7/NtMxOPrS/ijcQ9M@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzv55EdeHXeng/abA9Kc4Is4CdjcaaBCzolKyx5w+mn6ublkV1J
-	9VP5Z27070q2GsQyZulMm067mreCiLgEyxzOQzgqL6GmKVGOepupqGl2aWBfoIrzevg0WzR0n9G
-	JaF60dEUfrnqypeuVa7F+DxWBKzcB9UY=
-X-Gm-Gg: ATEYQzwuudU9QKeqxXNiQjE1c+S12y3aYal94egKVhNixjWPyLTS/AkNMC13GqS5JEo
-	/qp/wGY5G6IZo8KEBKLfe7wieGlenlj+Ms0wu8VT9R2Aw5YI7Voc5DCztMg0GZ3R+u+IJIs9hOJ
-	VEMqcQCL5qbRagtRcPiuzwPF1XDstz7Ss0zWnqcMuckEuW1ZwmjwU9L5Qh1NWJ6cnopLCium09O
-	RmbPEdADDG7guddAkBotrS2zgZaGsc5JrWa1PYIhyMotLz9MBruN+g523NZHv9TSsnTPpYO/+S2
-	hafRb+Wi169Z5JPwlKSiD26SYaZ+N6jbJCH0bMRNnkx+iegfMrB2LQJq20RUtaH6Fdo1QcgzlGx
-	rJ6JEN44=
-X-Received: by 2002:a17:907:6b06:b0:b97:f050:d115 with SMTP id
- a640c23a62f3a-b982f0c310amr932278966b.9.1774266433441; Mon, 23 Mar 2026
- 04:47:13 -0700 (PDT)
+	s=arc-20240116; t=1774266512; c=relaxed/simple;
+	bh=7A8MSo10fIttNaVumvCBAaqbEdKBCoWmoPr3+Yhg9K8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GwrhNI3UBptqkREnKt5riafs/+THlr00s9GzdIAZPtDHSc4uidEIpTaZcbKJLXzQaMFXbTdFPuTzy0o/NtUbkAU4kdzLnWkBJKW38ZeRanxx/vGwb5xlQFNZl6UCVBq0GeHxfBaX+k+xNCRztY/8x0icoyyz9ifPM0qdiDyKQrs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.75.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S2B69WFQlf46Mgk+wju5E1kFLBpSaOoZX+WHmO/C6bvinZZ7FAaVlYpjAe/QHAjBFV/V+GR3nY57x1fKDG4bs700GwIxlXx4YzleAWkUpOgpHxOXnIpQwFf03ZeljM7azqGXjTDA3nLh/BqZSTFfThHVoYWwwOz1pDwQG8FGVxqsrLvY2StZrxkLDaq29mtiSJBzC4/3rnn5RNJ6bUpN5/+4f/f7vcEWMELJUOEmiIquM5Bojt+rVuRn4Yf5ruihvdZ5HXFBqB+gaB5AhcvgerDOZvodXKJQSi8EuXAVcHAATCWkj/Tnlv5sp2quE7xxGnzFs73DrXcUkpIsSzUPsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vV532aEbVbKjSBZ8fOcIUS5jUDl3wqrJOvveGpsT9Do=;
+ b=Kn0anWcCxBBPDlr3QrW/vJUd97/wvLx91+czif+3ZIuSzX/ssOsMwk+9SWArP+bWQDNpAK+O61VKQfZi2QGmb/9NA5LX/bWRf4P0ZLshDW1tP9zCXF5ruzJw6Kh2lQyxWkigD+5YjbRjcnV9KuuqAE10QU0PYo1frP8mG2sJ2e/acj/7/BCBiXVy57mw1+yzxao9+a5oyS7PSFXKPCljJZJts2LWDD9FRfTRBmNn39tC80D86/9BqBLA67qAEFDAIw0wBCS594LuzucoVnOly5FP+muB3XwB7eRk4dOKm0kA48EOePtxjPBunsMiviSmEqMmSWOtS11LFtlXGKwOHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from TY4P286CA0134.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:37f::6)
+ by TY2PPF7E205D1F6.apcprd06.prod.outlook.com (2603:1096:408::799) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Mon, 23 Mar
+ 2026 11:48:25 +0000
+Received: from TY2PEPF0000AB87.apcprd03.prod.outlook.com
+ (2603:1096:405:37f:cafe::ab) by TY4P286CA0134.outlook.office365.com
+ (2603:1096:405:37f::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Mon,
+ 23 Mar 2026 11:48:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB87.mail.protection.outlook.com (10.167.253.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Mon, 23 Mar 2026 11:48:25 +0000
+Received: from guoo-System-Product-Name.. (unknown [172.20.64.188])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 397204126F88;
+	Mon, 23 Mar 2026 19:48:23 +0800 (CST)
+From: Jun Guo <jun.guo@cixtech.com>
+To: peter.chen@cixtech.com,
+	fugang.duan@cixtech.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	vkoul@kernel.org,
+	ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	robin.murphy@arm.com,
+	Frank.Li@kernel.org
+Cc: dmaengine@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	linux-arm-kernel@lists.infradead.org,
+	Jun Guo <jun.guo@cixtech.com>
+Subject: [PATCH v4 1/3] dt-bindings: dma: arm-dma350: document generic and combined IRQ topologies
+Date: Mon, 23 Mar 2026 19:48:20 +0800
+Message-Id: <20260323114822.1925869-2-jun.guo@cixtech.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260323114822.1925869-1-jun.guo@cixtech.com>
+References: <20260323114822.1925869-1-jun.guo@cixtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260323074505.3853353-1-sai.krishna.potthuri@amd.com>
- <20260323074505.3853353-4-sai.krishna.potthuri@amd.com> <acEbZ0O3HKrGx0u1@ashevche-desk.local>
- <8c8fa211-6244-43d3-9350-856301075e2b@amd.com>
-In-Reply-To: <8c8fa211-6244-43d3-9350-856301075e2b@amd.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 23 Mar 2026 13:46:37 +0200
-X-Gm-Features: AaiRm51igNpVP2kCtjt-uVTIXp5cT3pPNV4OvOgkKtoQyGTUIfXrJkbDCsd2ufI
-Message-ID: <CAHp75VdcrfJn=VBnjJbA8QQnstaTay+39bumJiLt796fXsKmTA@mail.gmail.com>
-Subject: Re: [PATCH v2 3/4] iio: adc: xilinx-xadc: Add I2C interface support
-To: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, "Simek, Michal" <michal.simek@amd.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"saikrishna12468@gmail.com" <saikrishna12468@gmail.com>, "git (AMD-Xilinx)" <git@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB87:EE_|TY2PPF7E205D1F6:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 158d76f5-c817-4f4d-6a3b-08de88d217ac
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|36860700016|1800799024|82310400026|56012099003|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	+4vQmSNEUsJpwjQkVw/da556zt7xu3bAylvwb9SV4ch34XKXATKkPudvLmJf0agaK+F4YlvIEXdDnBCRTTmBmG28O/gBDAzz4D+MieUNRNdK6OfcFi2m0Zcz3oeQwBp6Q/AbAAMzFCVof06bxjZBVmW8zrThSu6gMT9AN+QOoiwIi+xCxdiQlp8sV+uQrKOmAdUnnqU1EUzRztR5NYemEZGnp2CdrNCHuizEG5H+IAtPs62uUt4OpXfsN1NR4cIjC8C5qKKTbd+LZJ8NPZgpk8W1pYv7jGhu/9Xs8xwjNtyonbgFapqwifyejgqS6tutOg7C7xfFNYUYEee8mhJwBYIT226LuKxjGco7KflDEguw6musNUtOtAQRkLQhbd1gzh4Wdk3hThYlMrwCGFCMBenLVkxNehNiFYCO8y2PTLCCb3WxMSBifYOHKTxV1cNkc0NyJujpPcT/qZmx2t7AOsoEV/xAM31BFhuL8eI5eLM7oy4c/s6ivci/TSGKqmRHBlshqbDG98cORHV27WRYeYYyT73GyvYKMvRn8fg+JRZUnLwHfObEB5M4yQ4FmJ4K8rxtoisti727QrtZFRvZiqVIM5n5/bKRVjpUV27Fdp22eBYBsWMtYM2PV6G/YN5gPx8U9+0F4qUionS56kSSJlQlxlQMXmXvfqA2OVClvhbm6vfEVfPQn4I0ipfyQXqwlKmc0g72jJ3PvrnK13oV5OHr1xMAR7xUr32femJ5y4dT++ZUGBesmsI+8GtdwAFw/PRR2ZBr9s4zt4KHwAfRtUep2/oJ1nVtOQv88WqbSUTcFEdSXnOX1UW9SuYmyFbH
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(1800799024)(82310400026)(56012099003)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	lzsl7ugjDZ293ozU2gm8WHR7aXgNip/RKR47Ep489oFvv6IkiAe6f2+JI1fwJ14bmXqX9qOIA5f6ZeedpJmj/ZGLdINz2ocmvzp0e7NOukjWfzE/pgUoxzNEEf3aFjewsk3Q02GxFag6GsfD2btN1dzde/uWbwPhEpXPGysjUes25aTamIrPP19iE68C1+AqY3lll8jPPmucSDHxrnDpyCqeZomMtNNscjQMuQNUFAsqSAohn5za9KEeEA8lUmj4m7ipwwz/Rq3Nd5sKDmNKhdfD7gJw7bJM0KdPXfyz4bS5f7qen8H2KUOhYupkK89ZdAqaShdfA9E4jeqP/tsUp94bP9BwTwdshcXWgdmyf15Tie0iMj1nmLFInLJcrJ8eH7aFKTGfP0LiJMlSsrjRlcwkmt06d8Gnevho/khSItEOVzUQpPXcxm7CcxgkL6eb
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 11:48:25.2284
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 158d76f5-c817-4f4d-6a3b-08de88d217ac
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	TY2PEPF0000AB87.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY2PPF7E205D1F6
 
-On Mon, Mar 23, 2026 at 1:32=E2=80=AFPM Sai Krishna Potthuri
-<sai.krishna.potthuri@amd.com> wrote:
-> > -----Original Message-----
-> > From: Andy Shevchenko <andriy.shevchenko@intel.com>
-> > Sent: Monday, March 23, 2026 4:22 PM
-> > On Mon, Mar 23, 2026 at 01:15:04PM +0530, Sai Krishna Potthuri wrote:
+Update the DMA-350 DT binding to match the current driver behavior.
 
-...
+Allow both:
+- "arm,dma-350" as the generic compatible, and
+- "cix,sky1-dma-350", "arm,dma-350" for SoC-specific fallback usage.
 
-> > >  int xadc_write_samplerate(struct xadc *xadc, int val)  {
-> > > -   unsigned long clk_rate =3D xadc_get_dclk_rate(xadc);
-> > > +   unsigned long clk_rate;
-> > >     unsigned int div;
-> > >
-> > > +   if (!xadc->ops->get_dclk_rate)
-> > > +           return -EOPNOTSUPP;
-> >
-> > > +   clk_rate =3D xadc_get_dclk_rate(xadc);
-> > > +
-> >
-> > Unneeded blank line.
-> >
-> > Also, don't you asked for options?
-> This callback is defined for all other platforms except I2C.
-> Currently for I2c interface we are not supporting any configuration, it
-> is used only to read the channels.
+Also document interrupt topology variants supported by hardware
+integration:
+- one combined interrupt for all channels, or
+- one interrupt per channel (up to 8 channels).
 
-If the callback defined you should use its value and not hardcoded one, rig=
-ht?
+Assisted-by: Cursor: GPT-5.3-Codex
+Signed-off-by: Jun Guo <jun.guo@cixtech.com>
+---
+ .../devicetree/bindings/dma/arm,dma-350.yaml  | 34 +++++++++++++------
+ 1 file changed, 24 insertions(+), 10 deletions(-)
 
-> > >     if (!clk_rate)
-> > >             return -EINVAL;
+diff --git a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+index 429f682f15d8..47091614d1b4 100644
+--- a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
++++ b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+@@ -14,7 +14,14 @@ allOf:
+ 
+ properties:
+   compatible:
+-    const: arm,dma-350
++    description:
++      Use "arm,dma-350" for generic integration. A SoC-specific
++      compatible may be listed first, followed by "arm,dma-350".
++    oneOf:
++      - const: arm,dma-350
++      - items:
++          - const: cix,sky1-dma-350
++          - const: arm,dma-350
+ 
+   reg:
+     items:
+@@ -22,15 +29,22 @@ properties:
+ 
+   interrupts:
+     minItems: 1
+-    items:
+-      - description: Channel 0 interrupt
+-      - description: Channel 1 interrupt
+-      - description: Channel 2 interrupt
+-      - description: Channel 3 interrupt
+-      - description: Channel 4 interrupt
+-      - description: Channel 5 interrupt
+-      - description: Channel 6 interrupt
+-      - description: Channel 7 interrupt
++    maxItems: 8
++    description:
++      Either one interrupt per channel (8 interrupts), or one
++      combined interrupt for all channels.
++    oneOf:
++      - items:
++          - description: Channel 0 interrupt
++          - description: Channel 1 interrupt
++          - description: Channel 2 interrupt
++          - description: Channel 3 interrupt
++          - description: Channel 4 interrupt
++          - description: Channel 5 interrupt
++          - description: Channel 6 interrupt
++          - description: Channel 7 interrupt
++      - items:
++          - description: Combined interrupt shared by all channels
+ 
+   "#dma-cells":
+     const: 1
+-- 
+2.34.1
 
---=20
-With Best Regards,
-Andy Shevchenko
