@@ -1,126 +1,141 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780A335BDA7
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 06:46:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2DF42BE63F
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 07:09:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774248396; cv=none; b=IhKk5Y5vWfZCE3V8z2/Lv6hIbLxQ4rzTq7nEz2BC2XxB73pZ0AQz+o0QNN4az1hdxCuLhdZGjmq2DdHokYWOWAW87bPaJQf7K7aaGCXr4nr/5vH6CxnXDlGk08HFVJkPz6Dl4fjoHQOM7t+Vf6fix7GSA/hzeepf6dde3baCqaY=
+	t=1774249754; cv=none; b=jcgCa0w+o1BF3KuOjWk79OCasIoyfXG6JxWhosef9IQ3kWEkEDBOzkN+5o4if6FacPxWx3m+Jvng+Z0hMjNSefF9P2066DrBOIq/3kzWsJ9Lk347JyZjzAP4ZPRHSKvnH+imOaS4BdHFetZf9sYrcPd8eyweFrbPLbFloNO3020=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774248396; c=relaxed/simple;
-	bh=YaD+CatjIqfxIvSpZJAbYPQwzCHAxtNUw4nAc7oYroc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FUQv0jlEyWy9WORcp95J9U5N7IGFA/s6KWLeMgrnrw6F1VnjBsA36lfQmsejhaD+QtMTj9evzEHI+1X7+3HqEyA9drW61M5pHFAPrY9cMM50gN9HiQNjH1/8r9zXJQXVUxQhhk9LxEE/PBg7TmXEG+pIRIGjzU23htjM2aWQ7Uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=j8S//1c1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Q5mhrDkZ; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1774249754; c=relaxed/simple;
+	bh=ZixNuX96anr+2evLY02oha9TOOZszn+4rGj7MvKNj3k=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=HqGnGAt/Bx3ofa+JT6VzQ0PnBBfNIZtaAoESIBen815DzRCV326QlRFnZOIFOnd2C4XEx4GS8OZxQHSrCSM4Bhne5Ep75jhZXvHvsO5TNloQ/5YjJ9Dgr9ggLQeWrHyM9LGVo7B1gfFJuUrjDBo1aG4s4Tbvg6V8LphLUofz1E8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=N3YHFNpV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kV9Zzss9; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="j8S//1c1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q5mhrDkZ"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="N3YHFNpV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kV9Zzss9"
 Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N40x7q1583965
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 06:46:33 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N4Zd211772502
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 07:09:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	JzgrEA8u622UtmJ7BDFdV+2Neo9h7xytlbrUEgoYnlA=; b=j8S//1c1CV4vxAD7
-	1/OS5fuZttK0wmEfc9YsihpbbwJwmx9EeNZYVkXEXRo6VdRcxGr5WOKU70g1QOWl
-	2doE6d45nStmLCMkGkab3BppeBhGnOt239mmwvFhEoKzUQKVSg67Z6XEhXHIZRFb
-	FB2bs2kEF4Ue+40jwbk080kNQRe5P/HfTg+1QSGhHAvdzzMldr7zN9VKA9/wdt3C
-	rr8hKoPUMEh+SORmHs3t1xLiK2k/UZVPX8IQVOt93vLiDv3B0mGFtFLRswTlb1yt
-	yGCpRieCzGe1jylYIYJlFQM74WxKAez8TdT487dHr+kyYnV5eERe1Hxsq9k/AMBq
-	YBOYfg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1jng43e8-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=e4Onam2xKEprwtaCsFgnfb
+	MnloVHrOlcZBQtDZvX3b0=; b=N3YHFNpVRaoj1wn1TNnJozWJX0l5n1gm8KKrZw
+	DsN4Y5SYXyFxf1gJUddlPJGflAgjptzgALfOJ9g6+A/uKnq62ItN/21AiE/MqtLk
+	YhVqgK+37B1W7Xt2RNsSxfOC3lz07VSZtyQSoignG1OR1Djuz8eVBIIk2a2EpDGp
+	vzMDvybsogHmCWnAbQSJ2QlMSH8GFsUGPv/EZBHpTFqycMCFlYcZ4wSsBIx2tc0K
+	E8+qHPDj+VJGdwZHldzq+n+6zBJte2MMArmLVXEJNVrsjBVFIn1f1dV0FlqpTutA
+	nLUjxWsQjbcEHPOT8uxzZoJqQea7Lps5Y/oRztN1oEGmgjIA==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1jng480v-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 06:46:33 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-35641c14663so4826807a91.2
-        for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 23:46:33 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 07:09:12 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2b069bfa817so49822205ad.3
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 00:09:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774248392; x=1774853192; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=JzgrEA8u622UtmJ7BDFdV+2Neo9h7xytlbrUEgoYnlA=;
-        b=Q5mhrDkZ5lItoKp+E/dAPB/7rMukvIOK/oCF2VwN4QOAMP6eQ1YHPTAQ7vYBQzcN6/
-         N3S3YilK8KgFkb5Rl0RX2EFt4u1PdctkEVCNvHwMGwN7trgyMysQTn2WDCh69Cz6g3kv
-         UowEjbGhCgqcu+F0m3npDxXH7Z8ZYp0apgPHmNgMXyP1LfeUB59dUOaWFB81kTfpQM0i
-         AzUP2EdRc0qJvklisdHBGBIlZorvGoesJu3bDvzZyorg0+gm3K7DhCPlMV3ZmhFEgNIG
-         aCyPRxyp9Yo0T9rcoUJdj3Ck7vDeLD5tfCHWbW04+Z3HuOqhOfsGB9Z2NnKfDg2jPFm4
-         gRzQ==
+        d=oss.qualcomm.com; s=google; t=1774249751; x=1774854551; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=e4Onam2xKEprwtaCsFgnfbMnloVHrOlcZBQtDZvX3b0=;
+        b=kV9Zzss92EdMIgHftL9JXzKJdFy/9QfB+JGDgay/yLq/8hB6+euywk2cddcETLD6yW
+         oLX/PYmr5l6mN0J0k+iDsFuGQpqp5g1un+u9WY+rmrp0zJH2hs8ryT3BGxZ7Yt9v7KBz
+         /FFDrnnlcFEkBHs3jYpoF/uRhyEANXoAEKVrp8bI/x2ZtCV7IXPMRtkqE0aGggNGDbzk
+         VFJk4oBtPKUJxOJeYuT1wm/rWO1QG7qp6A0NL6n2VJ4J4zijHqZ84VLKO4uMAUmp0aVT
+         H+SDt3h/oTXdVhPhA54W9XQRYqEU1nh+Dgm1ommIWzIZwjw/GBrCJ77ulVkjG7O3HADC
+         aF8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774248392; x=1774853192;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=JzgrEA8u622UtmJ7BDFdV+2Neo9h7xytlbrUEgoYnlA=;
-        b=It2P9Ye2BkQdEkglLw2nGx8+/z6YIq43HLRj5AeIlF8JCwDKIlAvAKA8BO2rEHhmGs
-         kpRzNaOSpBqTgbCEGv+jWf2fZ+DSfFw8ea9Kzq765uGHicX8mdtjPq2clUJt6DDi7rWm
-         SXKiK7zuaHSTrI+STEN6//fr7v5An8OnbrRAsSPtseQYi0/sRU7PQAkWesligvczcxTf
-         CKyddqxKEjpYv9O451Pk4BQAr1MQtyzwY7OfNqYestI2AtNzVM+UByo3dnHFMjbS7M8b
-         otG6lL213n1rbsV7ooWxDg+M8axiboEura55fnEYD3iNzZyn+8FA7l90OXlzgWuKYWZj
-         fzZg==
-X-Forwarded-Encrypted: i=1; AJvYcCXjcFZtkB34CxpBX/fNwtPr8MaJtp7JEh5p5bY47w7+FErzIyQv8GGyL7KZQYgJCJLfEAgUs+JwLi6j@vger.kernel.org
-X-Gm-Message-State: AOJu0YyKnASgKfoqDvwbBunc1LI9bpcBCuECFFLGpZqH0JIsjpClROsH
-	9YrDiErPVH4Z4aWZGCR1uzthYD3TZ1JF1X2nAVvSwg4GTNyizTwatjcLaPCJ5VTSnJbhcXVgMR5
-	Z0K/LaIoxz4iAs+WRM/mXMv8PhzerIsIhzPnoKW3AGY9f19T36DsC1yn72eM9N/ePNtHLF3WO
-X-Gm-Gg: ATEYQzzOUX/yCHlDCbJLwn3d1HxXxxfWNI9WbMlzqn0YYwXm3XI9R567HGHH+U0sPsU
-	A5D9Ev+aW/oRpqxp3F+du7ADQ2DszrpmAmtqvovKL29r51WYs6mIyvewRLqgujXx52LgSovGDQA
-	97LrKNEzFMu/kXDIcwI4TQW2guUcveBXKpQ74YHXtWaoIdWo29/IuVJO271JKQmLJIw17yzurWf
-	K+voEBzba0OuBifJI85K6nyPqTfiQ1wlTA7AMbQYc5f87hjFveM8ss2cN+QT3CJ0m48j4RDnIVa
-	qXIWEsGWvelB/CwO95iuzKS398ecC/WMDdfLfZbEaqj1eDGpeWZfQX2scLrJdsGBvqoFLf0IyVc
-	JNf7JCybvL51wBAfTFRswcL/g27Z5u0hylyWlfyuhoYOUyaiEUgj+phm5acdNRm1U2g==
-X-Received: by 2002:a17:90b:4c48:b0:35b:e844:3bd with SMTP id 98e67ed59e1d1-35be8440fadmr3293685a91.31.1774248392312;
-        Sun, 22 Mar 2026 23:46:32 -0700 (PDT)
-X-Received: by 2002:a17:90b:4c48:b0:35b:e844:3bd with SMTP id 98e67ed59e1d1-35be8440fadmr3293667a91.31.1774248391804;
-        Sun, 22 Mar 2026 23:46:31 -0700 (PDT)
-Received: from [10.151.37.217] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35bd33919a0sm4548940a91.2.2026.03.22.23.46.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 22 Mar 2026 23:46:31 -0700 (PDT)
-Message-ID: <01bd44db-32b7-4195-ad66-0a608b25dca3@oss.qualcomm.com>
-Date: Mon, 23 Mar 2026 12:16:26 +0530
+        d=1e100.net; s=20251104; t=1774249751; x=1774854551;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=e4Onam2xKEprwtaCsFgnfbMnloVHrOlcZBQtDZvX3b0=;
+        b=C/rFbvAhw1GmvfR1bod7VbW/STHPeK8Y208tunfZUGmwhpZg2twzBv7jrXtQhuhKxK
+         phW/KP8OYzCSswioN1QM0Oq5JFdceWO7z0ldVV5bNxDcJ2mzgY+4RfHzicHCBdEBZ6eC
+         X4botOLPvEaOtP5C0sQLOm4+L3028lZCcgy/bbsIxnxaTrvC6YGF0fsH4IAmIC3Mkr9K
+         ZCZUbDRewhF94fmeO5MQzv5CM5aM7joXSI1AdyES7Y5uWdbWX5/d+Y6UG0yl57JrZ1ra
+         PQ9jPKjfU18gTjgQiBm3RZs18BJdSUWSL0i2ie5G6WNEPjhDoQdG481yhV45HvUXrlnT
+         yW5w==
+X-Forwarded-Encrypted: i=1; AJvYcCUGv0EY7gOW9Ld28AX1Mu70gHauVqkEwk7iOvJuU+sHQatwAQ+75B9a9lL6jxcBmEHCCvCz/3xplQ8x@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy9F8xcsLaewJVtaVrQ4U0PovxXn740Oxzm1udpjqEmi/+Zsqix
+	sXH1ccRFTv36S2VFXUhMsQNhfP4ATYl6SkbRrqhfC8IsPAb+GQ2Cgtszl5yIEQTGuMHN6ogjS96
+	Z0aaSG/duHqceXsA9bF/PIxhobIHgomhtIS6UnUfBXMcXpokS36D2v0F4OjFTO0Nj
+X-Gm-Gg: ATEYQzzHqEy1hl2wlN6SL6DGXmwdS0nChhz31g08bCqiKZVT6bcrIernoCakAvkhsdd
+	ShYUJg5RieSpB6QnJMh+LG18QAISH53F9nMX7xm4YWvzdzKMW/ta1J6ZJFnBKI4d7JeXRxgxnou
+	OUQDMZV0Ny3d6IxhoP9G+tzSoF1Lzy80MQWy6dE3BrDXoX2n6F50O/qvNRvMk2rknGIMXIP2tgP
+	BvcChkKPg/ENB0q7/9ZSYVNj+m9lKnIdoN6dKDsayCp15FTS0kOiaMY3Cl0IAIRFwZvWb/8wpb4
+	z9ZdbVlv+Rntnmp5kntTnPxiqjne5mbx+NgtXnlsgUV/MNVLGYdIGDW2Dr/Ys5sKFoCGFQ/UWbH
+	NmTPjyzECgsksmDprc8gtCg0N18TvWjsWIlyx9i7OeOtRby/RVhbsdyDMXsjIOA==
+X-Received: by 2002:a17:902:f709:b0:2b0:71da:4ed7 with SMTP id d9443c01a7336-2b082769f3cmr104170865ad.25.1774249751320;
+        Mon, 23 Mar 2026 00:09:11 -0700 (PDT)
+X-Received: by 2002:a17:902:f709:b0:2b0:71da:4ed7 with SMTP id d9443c01a7336-2b082769f3cmr104170625ad.25.1774249750671;
+        Mon, 23 Mar 2026 00:09:10 -0700 (PDT)
+Received: from hu-botlagun-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b083655b45sm133118795ad.42.2026.03.23.00.09.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Mar 2026 00:09:10 -0700 (PDT)
+From: Venkata Gopi Nagaraju Botlagunta <venkata.botlagunta@oss.qualcomm.com>
+Subject: [PATCH v5 0/2] This series adds LT9211C bridge driver by extending
+ LT9211.
+Date: Mon, 23 Mar 2026 12:38:51 +0530
+Message-Id: <20260323-add-lt9211c-bridge-v5-0-9c63bb035c17@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] pinctrl: qcom: Introduce IPQ5210 TLMM driver
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260318-ipq5210_tlmm-v2-0-182d47b3d540@oss.qualcomm.com>
- <20260318-ipq5210_tlmm-v2-2-182d47b3d540@oss.qualcomm.com>
- <abtbnafiKkswWSy1@baldur>
-Content-Language: en-US
-From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-In-Reply-To: <abtbnafiKkswWSy1@baldur>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: RjPxQaw__BgmP-9FmPy8Xc1qjOsp4Z-E
-X-Authority-Analysis: v=2.4 cv=Q63fIo2a c=1 sm=1 tr=0 ts=69c0e1c9 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+X-B4-Tracking: v=1; b=H4sIAAPnwGkC/33NPQ7CMAwF4KugzKSynfQHJu6BGNLEhUgthQQqE
+ OrdSTsghsJi6VnPn18icvAcxXb1EoEHH31/TiFfr4Q9mfORpXcpCwLKYYMgjXOyvW0I0co6eJc
+ auSFsbI22AiXS4SVw4x8zuj+kfPLx1ofn/GPAafuXG1Ci1A2pUkPDCLjrY8yud9PavuuyNMSkD
+ uojIWG1KCkJEpmhKMGAq+mHpL8k0ouSTpKGgkvFliqbL0jjOL4BExa4cE8BAAA=
+X-Change-ID: 20250910-add-lt9211c-bridge-5a21fcb1c803
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Robert Foss <rfoss@kernel.org>,
+        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+        Jonas Karlman <jonas@kwiboo.se>,
+        Jernej Skrabec <jernej.skrabec@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>,
+        Nilesh Laad <nilesh.laad@oss.qualcomm.com>,
+        venkata.valluru@oss.qualcomm.com, jessica.zhang@oss.qualcomm.com,
+        Yi Zhang <zhanyi@qti.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774249743; l=2066;
+ i=venkata.botlagunta@oss.qualcomm.com; s=20251110; h=from:subject:message-id;
+ bh=ZixNuX96anr+2evLY02oha9TOOZszn+4rGj7MvKNj3k=;
+ b=5ENlYrASWDTxfX0mMXw01Vp/f3S1xHPH80VS2hy75iL3AX3qCUPpW1Dw7U/MyDnyQVVGuZyZZ
+ kWV28K5Ak3RBbkRhIhNpZBGwcwXZRqmJCnfg+wKhPnDgB6c7Clj8eTW
+X-Developer-Key: i=venkata.botlagunta@oss.qualcomm.com; a=ed25519;
+ pk=/SnYBwlkTzDCLnHFgEY0qFwPgKIV+aQWRbc3naiLzrk=
+X-Proofpoint-GUID: EhZ5h2mMOBOrM7u6KjRmUc9VSQe75oSU
+X-Authority-Analysis: v=2.4 cv=Q63fIo2a c=1 sm=1 tr=0 ts=69c0e718 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=xLcBPJq00M2AN48BsqkA:9 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: RjPxQaw__BgmP-9FmPy8Xc1qjOsp4Z-E
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA1MCBTYWx0ZWRfX9USOfdZoYAAD
- zY+w/+NmwlRG7c3x6Ng/XbWcPO9Nk3sXSU4ON7o47CPhgCG2oUTDIR2OqzoAzJjmTBHY+MGfXdS
- whkZKF3kYTrYBVIz3zMHyby5UuSZAtdbXLnqFyi/yJydyDLfZS7305qLz7nyR+kkJT0c+WrYAw6
- PwhMhJu/PKJIg847BnBUzhjhn6ROOihh5cIohWVQwGigRMFmIc2RBJ95+vkeoksEB2kjbM2QmIU
- Kh7j0IO781SbCNi/M9XsjcoxP5xKMtq34IDXBFUZp8bhOmHWouub++kKvS63EcmsthvEi+NF71U
- lmqPVBay2z+FiuvlJ1RZXWxjTYOl8lzQUoi/bv4rfaNSFspdWdvZTcBPUtz821vliil7+fudpf+
- TkbXmf0/73bwZN/sjtQyfOkvQquQpda5TLQ9772S6UP5dB+lzigcKkbz8G3nFpGmGqUDC771A6F
- 8Tbu9hDk3ceU3MW3GMg==
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=lZVLp-onbeaezkPo7RwA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-ORIG-GUID: EhZ5h2mMOBOrM7u6KjRmUc9VSQe75oSU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA1MyBTYWx0ZWRfX191RbGvd49/B
+ 4XmMkzBtoAacMbWbWVLimY+p9TB7a0AiYUw4rQS1Tbs5VDJRVNesYJNYGeEZYEzXL64IWrIXQ/f
+ A/sj6ehEHjNqNNvTmfWFSa4e99xKKkn17acT1wnpEDKkYzx+//4N4sF5nfMyjXa5yGoZ3BayoJK
+ znuXsW6VwF30/L+FrWLopRPQf48ZY+2HKVTNkADTWywGQ9VC8cTalSQJmU0CKi7AWIpy/kj/6aa
+ pKPb5rTOD43zXwhQBXtb3M4A32tgPckNRuHHHyyucRe2bAnbbrlssyVzxpvHTZ32C22B12HgU36
+ 88ZGPUq8R0CrrSzvlg6H3dJSD5OPPebc7fMT254e27N+8LRtSXhTdbb+qKir2YQxcSoR5x3FtTz
+ s4L70naH2Nm4HHdBm8c+aRahpgHNBOdetQPOVH9nxc7Ks7O7nUjG7i7DyYvD+RcFOpifxYzYBU1
+ G2qG1VJTbExY6LCNJOQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-23_02,2026-03-20_02,2025-10-01_01
@@ -128,70 +143,52 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  clxscore=1015 impostorscore=0 priorityscore=1501 bulkscore=0 spamscore=0
  malwarescore=0 adultscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230050
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230053
 
+LT9211c is a Single/Dual-Link DSI/LVDS or Single DPI input to
+Single-link/Dual-Link DSI/LVDS or Single DPI output bridge chip.
+This adds support for DSI to LVDS bridge configuration.By Extending the
+existing lontium-lt9211 driver to support DSI-to-LVDS
+bridge configuration.
 
-On 3/19/2026 7:47 AM, Bjorn Andersson wrote:
-> On Wed, Mar 18, 2026 at 12:44:31PM +0530, Kathiravan Thirumoorthy wrote:
->> diff --git a/drivers/pinctrl/qcom/pinctrl-ipq5210.c b/drivers/pinctrl/qcom/pinctrl-ipq5210.c
-> [..]
->> +static const struct pinfunction ipq5210_functions[] = {
-> [..]
->> +	MSM_PIN_FUNCTION(qup_se5_l01),
->> +	MSM_PIN_FUNCTION(qup_se5_l10),
->> +	MSM_PIN_FUNCTION(qup_se5_l11),
->> +	MSM_PIN_FUNCTION(qup_se5_l2),
->> +	MSM_PIN_FUNCTION(qup_se5_l3),
->> +	MSM_PIN_FUNCTION(qup_se5_l4),
->> +	MSM_PIN_FUNCTION(qup_se5_l5),
-> Listing each pin of each QUP SE as their own function forces the DT
-> author to write one state definition per pin. Group these into their
-> logical functions instead.
->
-> Same thing with other logical functions that you have split into
-> multiple separate functions.
+Signed-off-by: Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>
+Signed-off-by: Nilesh Laad <nilesh.laad@oss.qualcomm.com>
+---
+Changes in v5:
+  - Addressed code formatting in lt9211 driver (no functional or design changes)
+  - Addressed v4 comments on lontium-lt9211.yaml.
+  - Link to v4: https://lore.kernel.org/r/20251224-add-lt9211c-bridge-v4-0-406e73ec28c5@oss.qualcomm.com
 
-Sure, will take care of this in next spin.
+Changes in v4:
+  - Removed lontium-lt9211c.yaml.
+  - Extended lontium-lt9211.yaml to support LT9211C.
+  - Link to v3: https://lore.kernel.org/r/20251218-add-lt9211c-bridge-v3-0-1ee0670a0db2@oss.qualcomm.com
 
->
->> +	MSM_PIN_FUNCTION(resout),
->> +	MSM_PIN_FUNCTION(rx_los00),
->> +	MSM_PIN_FUNCTION(rx_los01),
->> +	MSM_PIN_FUNCTION(rx_los10),
->> +	MSM_PIN_FUNCTION(rx_los11),
->> +	MSM_PIN_FUNCTION(rx_los20),
->> +	MSM_PIN_FUNCTION(rx_los21),
->> +	MSM_PIN_FUNCTION(sdc_clk),
->> +	MSM_PIN_FUNCTION(sdc_cmd),
->> +	MSM_PIN_FUNCTION(sdc_data),
->> +	MSM_PIN_FUNCTION(tsens_max),
->> +};
->> +
->> +static const struct msm_pingroup ipq5210_groups[] = {
->> +	[0] = PINGROUP(0, sdc_data, qspi_data, pwm, _, _, _, _, _, _),
->> +	[1] = PINGROUP(1, sdc_data, qspi_data, pwm, _, _, _, _, _, _),
->> +	[2] = PINGROUP(2, sdc_data, qspi_data, pwm, _, _, _, _, _, _),
->> +	[3] = PINGROUP(3, sdc_data, qspi_data, pwm, _, _, _, _, _, _),
->> +	[4] = PINGROUP(4, sdc_cmd, qspi_cs_n, _, _, _, _, _, _, _),
->> +	[5] = PINGROUP(5, sdc_clk, qspi_clk, _, _, _, _, _, _, _),
->> +	[6] = PINGROUP(6, qup_se0_l2, led0, pwm, _, cri_trng0, qdss_tracedata_a, _, _, _),
->> +	[7] = PINGROUP(7, qup_se0_l3, led1, pwm, _, cri_trng1, qdss_tracedata_a, _, _, _),
->> +	[8] = PINGROUP(8, qup_se0_l0, pwm, audio_pri2, audio_pri2, _, cri_trng2, qdss_tracedata_a, _, _),
-> How can both function 3 and 4 be "audio_pri2", do you expect the system
-> integrator to be able to select function 4?
+Changes in v3:
+  - removed lontium-lt9211c as separate driver
+  - Add support to lontium-lt9211c bridge driver by extending the existing lontium-lt9211.c
+  - fixed kernel test robot reported build errors
+  - Link to v2:https://lore.kernel.org/lkml/20251107-add-lt9211c-bridge-v2-0-b0616e23407c@oss.qualcomm.com/
 
-Function 3 and 4 are audio_pri_mclk_out and audio_pri_mclk_in 
-respectively and either one of them can be selected based on the codec's 
-mclock requirement. Let me expand the full function to avoid these 
-confusion in the next spin.
+Changes in v2:
+  - Combined driver patch from https://lore.kernel.org/lkml/20250911-lt9211c-bridge-support-v1-1-c221202cbcd5@oss.qualcomm.com/ 
+  - Added MODULE_AUTHOR
+  - Uppercase to lowercase for hex values
+  - Link to v1:https://lore.kernel.org/r/20250910-add-lt9211c-bridge-v1-1-4f23740fe101@oss.qualcomm.com
 
->
->> +	[9] = PINGROUP(9, qup_se0_l1, led2, pwm, _, cri_trng3, qdss_tracedata_a, _, _, _),
->> +	[10] = PINGROUP(10, pon_rx_los, qup_se3_l3, pwm, _, _, qdss_tracedata_a, _, _, _),
->> +	[11] = PINGROUP(11, pon_active_led, qup_se3_l2, pwm, _, _, qdss_tracedata_a, _, _, _),
->> +	[12] = PINGROUP(12, pon_tx_dis, qup_se2_l3, pwm, audio_pri0, audio_pri0, _, qrng_rosc0, qdss_tracedata_a, _),
->> +	[13] = PINGROUP(13, gpn_tx_dis, qup_se2_l2, pwm, audio_pri3, audio_pri3, _, qrng_rosc1, qdss_tracedata_a, _),
-> Same here.
->
-> Regards,
-> Bjorn
+---
+Yi Zhang (2):
+      dt-bindings: display: bridge: lontium,lt9211: Add lt9211c support
+      drm/bridge: add support for lontium lt9211c bridge
+
+ .../bindings/display/bridge/lontium,lt9211.yaml    |   5 +-
+ drivers/gpu/drm/bridge/lontium-lt9211.c            | 846 ++++++++++++++++++++-
+ 2 files changed, 808 insertions(+), 43 deletions(-)
+---
+base-commit: f50b969bafafb2810a07f376387350c4c0d72a21
+change-id: 20250910-add-lt9211c-bridge-5a21fcb1c803
+
+Best regards,
+-- 
+Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>
+
