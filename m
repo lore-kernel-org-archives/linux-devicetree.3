@@ -1,120 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615D535959;
-	Mon, 23 Mar 2026 15:00:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA32B25393B;
+	Mon, 23 Mar 2026 15:02:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774278058; cv=none; b=Bj21QZVt8SyFwWI9qpuo3tOLv44CoQH6MDQb6AbIaESHlespSLFwMti9K2/W37EHKEtYK5EogaDNOnBRIjWcERmzUCm4f0kxwlFgYwwrMOPM7uF0274SL/ohsQtC39gWTIvd/TlF2KAsMoBcsVDl84w4FqhNP3/wAEUmiZKcyTo=
+	t=1774278178; cv=none; b=plnbY9EZoSnF6fW02HvsdItqAEx2Tun4WkgPWmzCfkF1mxIL0G36RsUIsICh28izKAdZ91v1bCpoQZDSrZPWuENbJnfS6JOABH04efhZxw9UmZfwsomx41higSoBAggGYURmteG/ES0zA28tSLJ4DJ9T/60bzJNsh/IFyljxN64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774278058; c=relaxed/simple;
-	bh=K5wvmLCfEdIXtq/ZmdPIzqNhB2DOdlF1L+Gwvcu3Gok=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I58qPGRnpsTBAohxJQrct+YRkk3VgtsU1fYhlOItiv45tcp1YJk6p+jug+LVwmVZO6Qk1KnFvc7uAT9Eq0QgbyLelQzFm/1rxxgoTkUHW9ra6QEtXe13QZTJgPvSkZWZmBqgnKLMz9jVWoms0jrHvg3241KGscyqMZxCiLWdfwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e4YKw6FI; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774278178; c=relaxed/simple;
+	bh=SLYqpmDIV+f9bzTuf9T3OkQYZPNxGp6TyMFrpw6oF2Y=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Yh+lAJARCR0NRO8/s6XV9NVu3HYhH5mjAhxGR/5nizCy5jSh/I8tzDOatSmsQMdYBOnLRKdNUC7yg/R0SnAg3AmK8wKpGUWxki/Dp/vc9BT9215Qt9d8qpmnY9inrp4sBlZzkrIronFW/RXV3h7L8zmSc4h3X15cmHnCPXCnf4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Hhv/vIZK; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e4YKw6FI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F1FBC2BCB1;
-	Mon, 23 Mar 2026 15:00:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774278058;
-	bh=K5wvmLCfEdIXtq/ZmdPIzqNhB2DOdlF1L+Gwvcu3Gok=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=e4YKw6FIHxFo1R8kXSI1jIvZZh6pgeKGkrtucW9TzaMK9JTGYs1olR01o+dE64Hv6
-	 LhoBJtehgyEQI9Sd47BF97ctSll6gePY4oyvmwqIAgwDVM/zg2V2D3tV1o4JK++wXq
-	 Y2ibV9po/S3A8REWFBcI2Hx4HVEyPOOPo/tj8zCdCV1HMXj/KCsV/zBM3BOj6tSnLJ
-	 hBpJ+T+NzcHlH3OXcTOlhD0j/4rqMsVdZ9ASH5vACzvHfbC3Va7lOyJEygdjfzGytw
-	 t9ap299hexl76OadJT3lzbFfquh9CYJg9Nq23bOqQa7Csve/s0xc5jWKCW6Ispv+1T
-	 Z1g9cu31MEGbg==
-Message-ID: <aa424f26-1bc8-41d3-b83a-5f1879cd2559@kernel.org>
-Date: Mon, 23 Mar 2026 16:00:54 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Hhv/vIZK"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 17983C58080;
+	Mon, 23 Mar 2026 15:03:21 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 387835FEF6;
+	Mon, 23 Mar 2026 15:02:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1F9E410450FFD;
+	Mon, 23 Mar 2026 16:02:47 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1774278172; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=YwzArtu2KzPlcOy9KTAZG6fMEMJKoN02L1UiMbwFVKY=;
+	b=Hhv/vIZKshZXlrG2Ou9sF19aKIXAO88ELD9yXG4xqDNREpFZGwdcNIr5Va/WtHFtM89Lu4
+	z9IZw5KTrsfthaf5yv9+2uJKNEBSqRj471iTcQPUwBbElsVCtZjx2Pz/ZgXgr+t8FWsE4n
+	LxWpS5E+J+gA7hxn6FM0kfA1AeEaZWa6wld/0xVquEhnB6/gwec944CtYRzSrdQfuYJJXf
+	2oU7eQHrpRFy5WvMzLKokbiyb/mG8LIlwD1b1T8eOdLrh/8DU2+RHxLX4WqqGqv9ivKLbF
+	BUUB6+COmcbaYOjfwRsThJ2RLJO3xdVsy7oCGezn5xpDlerdpqaRGlmwBml6oQ==
+From: Thomas Richard <thomas.richard@bootlin.com>
+Subject: [PATCH 0/8] Add SIM pbias regulator support for USB on OMAP4
+Date: Mon, 23 Mar 2026 16:02:41 +0100
+Message-Id: <20260323-omap4-fix-usb-support-v1-0-b668132124ac@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: pwm: Document Tegra194 and Tegra264
- controllers
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jon Hunter <jonathanh@nvidia.com>,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org
-References: <20260320234056.2579010-1-thierry.reding@kernel.org>
- <20260321-witty-fortunate-elephant-ce50fe@quoll> <acFRczOXps0nRfMl@orome>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <acFRczOXps0nRfMl@orome>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABFWwWkC/x2Myw5AMBAAf0X2bJN6RPEr4lC12ANtuioS8e8ax
+ 0lm5gGhwCTQZw8EuljYHQmKPAO7mWMl5DkxlKpsVFVodLvxNS58Y5QJJXrvwol2Nm1ltdLdpCG
+ 1PlBS/u8wvu8HnZeDxWcAAAA=
+X-Change-ID: 20260317-omap4-fix-usb-support-cda83c7079b7
+To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Thomas Richard <thomas.richard@bootlin.com>
+X-Mailer: b4 0.14.2
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 23/03/2026 15:45, Thierry Reding wrote:
-> On Sat, Mar 21, 2026 at 11:47:59AM +0100, Krzysztof Kozlowski wrote:
->> On Sat, Mar 21, 2026 at 12:40:55AM +0100, Thierry Reding wrote:
->>> From: Thierry Reding <treding@nvidia.com>
->>>
->>> The PWM controller found on Tegra264 is largely compatible with the one
->>> on prior generations, but it comes with some extra features, hence a new
->>> compatible string is needed.
->>
->> Extra features means devices are compatible.
->>
->> You also always need a new compatible even without extra features, so
->> last part is just confusing. Suggests like you could skip new
->> compatible.
-> 
-> Erm... if the hardware was exactly identical, then there'd be no need
-> for a new compatible string. It's certainly good practice to add one
-> anyway, but what's the point in having 10 different compatible strings
-> for exactly the same hardware?
+To get USB working on OMAP4, pbias shall be configured to enable
+SIM_VDDS and unlock I/O cells. Until now this was done by the bootloader.
 
-Because integration is different. Nothing new here, DT maintainers
-request it for years and is since long time documented in writing bindings.
+The goal of this series is to add SIM pbias support to handle this in the
+kernel ensuring correct operation regardless of the bootloader. The
+vsim_pbias regulator (defined in pbias-regulator driver) will be handled by
+the omap-usb-host driver.
 
+Also I took the opportunity to do a bit of cleanup in the omap-usb-host
+driver, and to convert the OMAP HS USB Host binding to DT schema.
+
+This series has been tested on VAR-SOM-OM44.
+
+Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
+---
+Thomas Richard (8):
+      regulator: pbias: Add pbias SIM regulator for OMAP4
+      ARM: dts: ti: omap4: Add pbias SIM regulator
+      mfd: omap-usb-host: Cleanup header includes
+      mfd: omap-usb-host: Sanitize error path in the probe()
+      dt-bindings: mfd: ti,omap-usb-host: Convert to DT schema
+      dt-bindings: mfd: ti,omap-usb-host: Add 'pbias-supply' property
+      mfd: omap-usb-host: Add pbias regulator support
+      ARM: dts: ti: omap4: Add pbias regulator to the HS USB Host
+
+ .../devicetree/bindings/mfd/omap-usb-host.txt      | 103 ----------------
+ .../devicetree/bindings/mfd/ti,omap-usb-host.yaml  | 136 +++++++++++++++++++++
+ MAINTAINERS                                        |   1 +
+ arch/arm/boot/dts/ti/omap/omap4-l4.dtsi            |   7 ++
+ drivers/mfd/omap-usb-host.c                        | 132 +++++++++++---------
+ drivers/regulator/pbias-regulator.c                |  11 ++
+ 6 files changed, 232 insertions(+), 158 deletions(-)
+---
+base-commit: c369299895a591d96745d6492d4888259b004a9e
+change-id: 20260317-omap4-fix-usb-support-cda83c7079b7
 
 Best regards,
-Krzysztof
+-- 
+Thomas Richard <thomas.richard@bootlin.com>
+
