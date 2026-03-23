@@ -1,160 +1,160 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8317250BEC;
-	Mon, 23 Mar 2026 15:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38C9394461
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 15:08:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774278448; cv=none; b=WZbsc3G5ECE7+V0Dgr4kI86bVXlPtHKsxTFDA+uyrKSS3cjLuqpoeAaxHnMqAmla2iuoserdzsaTC3lQLUrVARCSG3M9Tz0HLIbOt5B5QXaJB39fgaWQTlSGlWUbJjkmhuCJ8J0DF3mUyzlxUnezNJV0yZ0TJAAAoQnIzkqT2OU=
+	t=1774278507; cv=none; b=GXTN6CPFeHH03pGyH5+nkNpaj0luEl1pTMkVH/IAKJRZCCBwEo4yeYZ4OEHT3qq6/Xs2YczAnrh8cnt3KH7USYo9oa/awWx02B6mb99sSZK+TxGdrD8nhFH4djNP7l9VePdcgXCycnANlrz4fmxtg+Jhq/uale7J6i6sIzei43I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774278448; c=relaxed/simple;
-	bh=Sn+iziREEqQDWP4l42ZYHE8YzQzkg+xncuXN3me7X5o=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Uye1v+xMKcg6RVSsSFhjrmBHRMLMwMdq11tftNhC/zt6+hvkFXBhAxYRKsXUYLmK+wfs8qhjcKIZyTbIov/kx0WkwgfwjwVEJmWpp5yBQHM1izxg1POTHnGKhlT4d86HPR4SyHR4kYkCoZREhxLk6zrEDna+rYpNVCRK0eUJDKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=pddg8evV; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1774278507; c=relaxed/simple;
+	bh=tQUiKGkowDIu+Tl6dcj/peQHjkWjzNjIUvt5xg5KILQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dVmxMd5aZ6cWJvcztL0inrzrcxgCHK6792QVvczBc0hkXcl6DBSLjmPxuDlo9O7knJuqj6FfzjD7x9kOaGmrvda12DutDRmouFSBMQfkILSZVmz5JVYnT6OBOHODplexvYECo48tsK61b087Qq+i0p5DxFAzsnBKesOrrChnymA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P53A/+4S; arc=none smtp.client-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="pddg8evV"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 0CD90C58081;
-	Mon, 23 Mar 2026 15:07:52 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CAA495FEF6;
-	Mon, 23 Mar 2026 15:07:24 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B553E10450FC6;
-	Mon, 23 Mar 2026 16:07:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1774278444; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=8Gqyh445RFNhCMpOGQ+ZUm8h8QVvK3gHOuBtceouwcw=;
-	b=pddg8evVZ/u+oX5Z3HmeCu6mTDmmsG29OJWSy/T0XDbuYnmjBZLPs9dQoicD8wTQEK41OY
-	jHJW7mYb14w4rBY+u2mBTdAEJjCRj2Fya6QLbH9wxp2MP40VodcnojcQV20wkC3AjC/qDz
-	TX7gt4mc7IWyc7oHN4/qY2OAf35HyqP8St/OCjjJFCyfFTDE+ZIy3GygwNeGiZIJ+fT1fr
-	3UnNKIWiTjO2JjR/VhVc0LZ33mC3tM4cG1CxcvQcAMW3RxDJfgf1pY+ejG2GGC4a3fZGPA
-	OIauvxitAsKvf+KEGtEAG7hNsY/Oa4ksa9VS8dL06jyIhYeBk8uvilHnAeQcLw==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-To: Gabor Juhos <j4g8y7@gmail.com>, Andrew Lunn <andrew@lunn.ch>, Miquel
- Raynal <miquel.raynal@bootlin.com>, Sebastian Hesselbarth
- <sebastian.hesselbarth@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Gabor Juhos <j4g8y7@gmail.com>
-Subject: Re: [PATCH v3] arm64: dts: marvell: armada-37xx: drop
- 'marvell,usb-misc-reg' from USB host nodes
-In-Reply-To: <20260319-armada-37xx-drop-usb-misc-reg-v3-1-8585c8a0a8ba@gmail.com>
-References: <20260319-armada-37xx-drop-usb-misc-reg-v3-1-8585c8a0a8ba@gmail.com>
-Date: Mon, 23 Mar 2026 16:07:19 +0100
-Message-ID: <87tsu64mag.fsf@BLaptop.bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P53A/+4S"
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-128e4d0cc48so3077634c88.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 08:08:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1774278505; x=1774883305; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=kh0mF/JIoDMNORbaWvnSYUV3LP1nFmIWld018Bg3S4o=;
+        b=P53A/+4SFN1OuY/BGEhRzayc8XUqPIC7lvN73f/t0NsXGfEDWTiraUlFkDZX79uwKL
+         dFzD1zlQvlxqIcRTZhhTQ83KFDsGHG9HZA1bKay/z7eE6LmMik1I55usMU1exqKb8DiF
+         L9uKymw4dNv7NELwt5gas9uNILgrLjgXE3JZsC5/0ZBy5ASTbAgQm7d8VBQIhyXbHAKu
+         qj8coqlBNJGpZmPzys8o8iaoEB5DaeSKBE9GN86tl03VbS8wjXBx55Vh/rPPpo5EJz4a
+         XSrU/b0YheMgI4AOGPdwd3X1GjdLBFh8oXhy7BR7DxJAQH6JUsyOp/3jH4Ff1/HIXalW
+         TLWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774278505; x=1774883305;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=kh0mF/JIoDMNORbaWvnSYUV3LP1nFmIWld018Bg3S4o=;
+        b=mqqaZEAS5WTsZcRXteMEad4xc8GOPk4zJ7fwlDzyDADx6VG2HTYWLZXoeYvVKuAdKN
+         wVv2LZLqUg7hun2qEi9UdZF0r2snFPLPz+wlEr/VmBVYyT2wMRNtlc68FflD4v/SrNsh
+         2Zqi4K5MFq4tyMeKNbWgIs50KITa8d6HhXosH4WWqZZsq2aeiUiqrwUlAYSwyleHw1xb
+         +C24VBqLzs2kV1xsOGHNmNmC2IK8itzDebPLAy7RMrtfzLkg/RXnyaMFCHIIqzWQ2EoX
+         YtFFZ2qH0Wkx0gGYd69Jn9x3wOY88Qg295Y0NX80NGK4dWWN0u4C1Axp6fcqSKxPSHCC
+         6cdw==
+X-Gm-Message-State: AOJu0Yy4T9AgPGneDjO2xZQqF8QBhCIpX/zFyMUimAfjq2H27+Ilu9sc
+	JWbf+tduHiUDMa/7oP3j/gVbpfs6I10W5L0mVwYvu+4wWnDOA2YPeY0nysU10g==
+X-Gm-Gg: ATEYQzyUMPzEVJoIE8X+PVNiQkC14aomHlR2XxBBR6V3eCtlMtV9g3I86KxIPLkPr3Z
+	GTSbi5Fq3C4XNEbDAI1EYLmG1lrILc83/jYnX0UPuFlFSTt1TO9zJWGb/LhJcWELZVHAgMj4n6a
+	+K82xqqU89N3jePZRKRnyViRggaCV8nCumqITf/48jqvLqwFnN1LmQ1xP3E7haRfL/n+0ulJJvi
+	3UCKQjKPEIYAXS/2Lw4vJPRpY3A9DFPTGlpBTGBJzhg3yTKmuGzZFyVaihvnzLtYFiEnDzrmI33
+	oOPheztTfdAOZKX/o20qtnL9c28qJWOfyUaD9XB/DHWGEC+9Em9YJMuuPqscKclAzF6yvJpKvWz
+	utZ9IX928C6rAHqz3Uz2QzAxZh/OQk5xE+0FTT3pKVLTtcx/ZmU7OHMrDasskqKOuASD0j25yIJ
+	Tsf/S3+moIuA4ug1l/LFfpvhnVrKay0CGhlCW5RTwbKIRXSFberk+ZXGX/wuNiONKH/CGnlsj3
+X-Received: by 2002:a05:701b:2403:b0:12a:7f25:44f1 with SMTP id a92af1059eb24-12a7f25472emr1605477c88.34.1774278504870;
+        Mon, 23 Mar 2026 08:08:24 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12a733d199asm9063787c88.4.2026.03.23.08.08.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Mar 2026 08:08:24 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <a49a7b9b-e3c3-4307-93d9-c4a7594bd73c@roeck-us.net>
+Date: Mon, 23 Mar 2026 08:08:22 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] hwmon: Add support for MPS mp2985
+To: wenswang@yeah.net, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, skhan@linuxfoundation.org
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20260323061901.827025-1-wenswang@yeah.net>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260323061901.827025-1-wenswang@yeah.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Gabor Juhos <j4g8y7@gmail.com> writes:
+On 3/22/26 23:19, wenswang@yeah.net wrote:
+> From: Wensheng Wang <wenswang@yeah.net>
+> 
+> Add mp2985 driver in hwmon and add dt-bindings for it.
+> 
 
-> The 'marvell,usb-misc-reg' property is present both in the EHCI and
-> in the XHCI USB host device nodes, however it is not documented. Thus
-> 'make dtbs_check' produces warnings like these:
->
->   /arch/arm64/boot/dts/marvell/armada-3720-db.dtb: usb@58000 (marvell,arm=
-ada3700-xhci): Unevaluated properties are not allowed ('marvell,usb-misc-re=
-g' was unexpected)
->           from schema $id: http://devicetree.org/schemas/usb/generic-xhci=
-.yaml
->   /arch/arm64/boot/dts/marvell/armada-3720-db.dtb: usb@5e000 (marvell,arm=
-ada-3700-ehci): Unevaluated properties are not allowed ('marvell,usb-misc-r=
-eg' was unexpected)
->           from schema $id: http://devicetree.org/schemas/usb/generic-ehci=
-.yaml
->
-> Apart from the fact that the properties are not documented, those are
-> not even used by any USB host drivers. Due to this, drop the properties
-> in order to get rid of the warnings.
->
-> Note:
->
-> With the same name, there is a property used for the Armada 3700 USB
-> UTMI PHYs of which dt-bindings documentation has been added in commit
-> e60958699afa ("dt-bindings: phy: mvebu-utmi: add UTMI PHY bindings").
->
-> Additionally, the property is handled by the 'phy-mvebu-a3700-utmi'
-> driver since commit cc8b7a0ae866 ("phy: add A3700 UTMI PHY driver").
->
-> When the nodes of the UTMI PHYs has been added to the SoC dtsi by
-> commit 05d168a56fae ("arm64: dts: marvell: armada-37xx: declare USB2
-> UTMI PHYs"), the properties has been added to the USB host controller
-> nodes also. According to the commit message this was unintentional,
-> however in regard to the USB hosts, neither the respective documentation,
-> nor driver support has been added into the tree since that.
->
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-> Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-> Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+AI feedback is here:
 
+https://sashiko.dev/#/patchset/20260323062104.827263-1-wenswang%40yeah.net
 
-Applied on mvebu/dt64
+Couple of comments:
+
+- If the mantissa overflow can not happen, please add a comment into the code
+   explaining the reason.
+
+- EINVAL returns need to be explained. They should only be used
+   if the chip can not handle reading unsupported registers, and a comment
+   in the code needs to explain that.
+
+- Ignore the concern about the chip being left on page 2 after an error
+   reading MFR_VR_MULTI_CONFIG_R[12] for now. It makes me wonder if
+   pmbus_init_common() should explicitly select page 0 for multi-page
+   chips.
+
+- The alignment of
+
++		ret = i2c_smbus_read_word_data(client, page == 0 ?
++									MFR_VR_MULTI_CONFIG_R1 :
++									MFR_VR_MULTI_CONFIG_R2);
+
+still seems odd. Why the large indentation ?
 
 Thanks,
+Guenter
 
-Gregory
-
-
-> ---
-> Changes in v3:
->   - s/intentional/unintentional/
->   - add Reviewed-by tag from Miquel
->   - Link to v2: https://lore.kernel.org/r/20260317-armada-37xx-drop-usb-m=
-isc-reg-v2-1-ddff72114414@gmail.com
->
-> Changes in v2:
->   - add Reviewed-by tag from Andrew
->   - change subject and reword commit message
->   - Link to v1: https://lore.kernel.org/r/20260304-armada-37xx-drop-usb-m=
-isc-reg-v1-1-800c1b746b7a@gmail.com
-> ---
->  arch/arm64/boot/dts/marvell/armada-37xx.dtsi | 2 --
->  1 file changed, 2 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/marvell/armada-37xx.dtsi b/arch/arm64/bo=
-ot/dts/marvell/armada-37xx.dtsi
-> index ea1824f5321fbb32fc4373c08a0d94bca1dc793b..44c47409f8793ae1266303607=
-812ef481edbfbc5 100644
-> --- a/arch/arm64/boot/dts/marvell/armada-37xx.dtsi
-> +++ b/arch/arm64/boot/dts/marvell/armada-37xx.dtsi
-> @@ -369,7 +369,6 @@ usb3: usb@58000 {
->  				compatible =3D "marvell,armada3700-xhci",
->  				"generic-xhci";
->  				reg =3D <0x58000 0x4000>;
-> -				marvell,usb-misc-reg =3D <&usb32_syscon>;
->  				interrupts =3D <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
->  				clocks =3D <&sb_periph_clk 12>;
->  				phys =3D <&comphy0 0>, <&usb2_utmi_otg_phy>;
-> @@ -393,7 +392,6 @@ usb32_syscon: system-controller@5d800 {
->  			usb2: usb@5e000 {
->  				compatible =3D "marvell,armada-3700-ehci";
->  				reg =3D <0x5e000 0x1000>;
-> -				marvell,usb-misc-reg =3D <&usb2_syscon>;
->  				interrupts =3D <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
->  				phys =3D <&usb2_utmi_host_phy>;
->  				phy-names =3D "usb";
->
-> ---
-> base-commit: 98226a594f313442fcba38cefc1df0b6c1691c7e
-> change-id: 20260304-armada-37xx-drop-usb-misc-reg-e9635498cae6
->
-> Best regards,
-> --=20
-> Gabor Juhos <j4g8y7@gmail.com>
->
-
---=20
-Gr=C3=A9gory CLEMENT, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
