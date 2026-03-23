@@ -1,155 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CF5371873;
-	Mon, 23 Mar 2026 09:00:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493CB38228F
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 09:02:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774256428; cv=none; b=Va7p2BgfdED69Zg90gYDlREum07G+IGYqSXa14VlORRLT/FXdhBBUscy9lIzn7Qe8l+xWWpiPENfXI286r2P3jXCQv9CvhgT6UxduYHR8uY3dx5inh9E+j8XY7bLSmqsKKr6VUQ4HbXMD7MoTgBmR6CKT1CcP/q62MlfqYU1msM=
+	t=1774256528; cv=none; b=GaUxdfKFERR66fFk54nirRYz5v33cxk5U7pKWPiSDRc3avggaseK8l+tMWIt3UqdfrcRbuPKT7vTAiyn4wPGRVbm/zlj9JcfkPpCto1fJZ8vj+SspDcox4PlV6cGezKDeXCkHWObwUj6POcQN05q7puo50fxw8WDcDKM0BSWLlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774256428; c=relaxed/simple;
-	bh=ePawOrk84bc1OXKp793p1+Pi5YV7jMrQU+Newz6JxDg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dKXGDWR3BJuKr2aXIiO7Y9q8uliGODqAkmRPvveKwoW49eTk0EGKyCmek5vmC7fIf0EjWb8K02S9R+aIrsspI/YOqFslJjgMA2amytD7Q2M2aGHCFVoNpO33IHeYB0adoMPWiCnA3xtkuAZrcqd6ak9OBSG26+5nBQDBBpWTwOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=q1Q5drdu; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774256528; c=relaxed/simple;
+	bh=eE5g+1WMrIl/FHufSMBITJlni5GhlGpGfBqj9cDGjlU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YzB8MMKZfCr+EhShqBnDT5Lyw2srCioVOhZdqsZQ3LKCuoaX/acvhL5j46mQ+m0MMqbKIbXbN/SiQWbdMXGig8ULGHI4d89bkQ8GlFqHX+hGuk4N4hzYa+GjyH0FZK9WwtQL8flh/hB2GAQa+gT2FmW/EBs8zEmRzm/JjEF7K6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rrxkAWOi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="q1Q5drdu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 781A5C4CEF7;
-	Mon, 23 Mar 2026 09:00:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rrxkAWOi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00FEC2BCB5
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 09:02:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774256428;
-	bh=ePawOrk84bc1OXKp793p1+Pi5YV7jMrQU+Newz6JxDg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=q1Q5drdu9WvmuBtD9Y3IN7gxTAIRkhTlZGuNA1SGz6UQhQWA/eGj5viLq7QIeM78c
-	 T9bomQJ1iTfxHEKewdTnhFIbsaiK6WwIAir+1om8fWyfl927KmXvndp2+tz9M1tv7T
-	 g0aCG5+AkGLDxEEqpMyOiBA5Y1JFt9odarF8rCdZjBrgm3fsWj8wFi/A6ub0cz7Rdd
-	 s2AkSHO1CBx5HTKOfCnY8OuvokQrSrIsI9kb8ZComazhSahGcZKxfCcDqk6ovEgNk8
-	 S/zJ5+TyDxUSfkV/2EyfBcDHX/E26DLLCqCbh6RCK+yLUELLiVRilYMB+ToMBdG8k9
-	 eMYxi9gyQHBpQ==
-Message-ID: <2228bad7-b356-4274-a7b9-9065c9e35e9d@kernel.org>
-Date: Mon, 23 Mar 2026 10:00:24 +0100
+	s=k20201202; t=1774256527;
+	bh=eE5g+1WMrIl/FHufSMBITJlni5GhlGpGfBqj9cDGjlU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=rrxkAWOiFX6rlPpBcMNRA6Uj/FJt1LZOollBzR8+0huKej3lPXGPgvx05l5zUmVnW
+	 doanNCWV30yFv5N0KQ2FuJ12DSvB3GIezZYhnbEFzCXoxpP6papDjj/TsuPMXgTU3P
+	 hpSuk4fXZw7cPw3lCgQ0VBEfk1Mwhu3TS8OqgLdTIWl2n45lepkGUvQqb4D5HB1KKA
+	 WC1CjYt7UXY3GFGmZRrPUtMIYKQ5ruUNYsJw5nXenz+O0EwCU/ZplD6ytUjjrBTmQ8
+	 TQkuIMT7zjF38kpVDuU59SAG4KfW0aeH9F6vtet5Lkfrx5rUPi5MDaoG28VndT29+w
+	 q4+OD497eq+7A==
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-64e8c7f5082so3456947d50.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 02:02:07 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCVFSNIhWsINPve51hF3beFIEs3/Dcj6CUCD14WyHlww9zwG6r0v6W4PX4Z3ZeHN4sLkajC4v/dtRY0c@vger.kernel.org
+X-Gm-Message-State: AOJu0YzcSJQY50dX5bhI/Z+DyRUIPl3Xj5CrKKwZnGheEE9ssqnzgk86
+	xOJk8/GMkvwuDk1XdRXNLmSpF4RFCvKWeWkfk95DUjIT48ddIC5VuljHOCcdCiXpxTMTzYck2OM
+	64DECnD9xbeb+9iv0ZQo5dFKZRHbhWU4=
+X-Received: by 2002:a53:b605:0:b0:64e:9e77:f950 with SMTP id
+ 956f58d0204a3-64eaa6df84fmr9321180d50.29.1774256527153; Mon, 23 Mar 2026
+ 02:02:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] dt-bindings: arm: qcom: Add AYN QCS8550 Devices
-To: Aaron Kling <webgeek1234@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260322-ayn-qcs8550-v3-0-4afa89c20888@gmail.com>
- <20260322-ayn-qcs8550-v3-1-4afa89c20888@gmail.com>
- <20260323-laughing-pumpkin-oarfish-99fafb@quoll>
- <CALHNRZ_2tUuiBBuH-QGi8VQbZSVhQg2KGd-dQVJMq+HKiGwpmg@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <CALHNRZ_2tUuiBBuH-QGi8VQbZSVhQg2KGd-dQVJMq+HKiGwpmg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260317115411.2154365-1-eleanor.lin@realtek.com>
+In-Reply-To: <20260317115411.2154365-1-eleanor.lin@realtek.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 23 Mar 2026 10:01:56 +0100
+X-Gmail-Original-Message-ID: <CAD++jLnRDsDaO4vrySO9dRrspDrGiKUZkT8uU9J7mev6XHcu-g@mail.gmail.com>
+X-Gm-Features: AQROBzCzwKV1FvnXp_2c75F-p7Yqf5gvJiSeAyIUKrt-md2cTLWACh1gS9JGfIQ
+Message-ID: <CAD++jLnRDsDaO4vrySO9dRrspDrGiKUZkT8uU9J7mev6XHcu-g@mail.gmail.com>
+Subject: Re: [PATCH v4 0/8] pinctrl: realtek: Core improvements and RTD1625 support
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	afaerber@suse.com, bartosz.golaszewski@oss.qualcomm.com, 
+	james.tai@realtek.com, cy.huang@realtek.com, stanley_chang@realtek.com, 
+	tychang@realtek.com, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-realtek-soc@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 23/03/2026 09:39, Aaron Kling wrote:
-> On Mon, Mar 23, 2026 at 2:51 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On Sun, Mar 22, 2026 at 09:05:18PM -0500, Aaron Kling wrote:
->>> Namely:
->>> * Odin 2
->>> * Odin 2 Mini
->>> * Odin 2 Portal
->>> * Thor
->>>
->>> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
->>> ---
->>>  Documentation/devicetree/bindings/arm/qcom.yaml | 9 +++++++++
->>>  1 file changed, 9 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
->>> index d054a8f5632d853509b7cd37f07f02473cf6bf71..ee68963c30eae10fd3b3a5e21bda63ab941893fa 100644
->>> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
->>> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
->>> @@ -1075,6 +1075,15 @@ properties:
->>>            - const: qcom,qcs8550
->>>            - const: qcom,sm8550
->>>
->>> +      - items:
->>> +          - enum:
->>> +              - ayntec,odin2
->>> +              - ayntec,odin2mini
->>> +              - ayntec,odin2portal
->>> +              - ayntec,thor
->>
->> I already commented on vendor prefix patch, that you incorrectly moved
->> it out from this set. This only stalls your patchsets, because none of
->> the trees will have it thus none will pass any checks.
-> 
-> You mean the checks that passed just fine on v2? This is documented in
-> the cover letter, which apparently no one ever reads so I wonder why
-> we even write them; and listed as a dep, which said checks pick up
-> just fine.
+Hi Yu-Chun,
 
-Checks will not be fine, imagine this scenario: Bjorn will pick up this
-patchset and next will have failures, because there is no vendor prefix
-documented in the next.
+On Tue, Mar 17, 2026 at 12:54=E2=80=AFPM Yu-Chun Lin <eleanor.lin@realtek.c=
+om> wrote:
 
-> 
-> As I have mentioned multiple times, the vendor patch is separate
 
-And as I answered to you already twice...
+> Tzuyi Chang (5):
+>   dt-bindings: pincfg-node: Add input-threshold-voltage-microvolt
+>     property
+>   pinctrl: pinconf-generic: Add properties
+>     'input-threshold-voltage-microvolt'
+>   dt-bindings: pinctrl: realtek: Add RTD1625 pinctrl binding
+>   pinctrl: realtek: add support for slew rate, input voltage and high
+>     VIL
+>   pinctrl: realtek: add rtd1625 pinctrl driver
+>
+> Yu-Chun Lin (3):
+>   pinctrl: realtek: Fix function signature for config argument
+>   dt-bindings: pinctrl: realtek: Improve 'realtek,duty-cycle'
+>     description
 
-> because I have multiple open series that depend on the vendor and
-> there's no telling which one will be picked up first.
+Patches 1 thru 7 applied to the pinctrl tree!
 
-...no one will pick up vendor prefix thus your goal will not be
-achieved. Nothing in vendor prefix patch explains how should take it to
-solve it. People do not take random patches, so if you wanted Rob to
-take it, you should have been explicit.
+>   arm64: dts: realtek: Add pinctrl support for RTD1625
 
-Best regards,
-Krzysztof
+Please funnel this DTS patch through the ARM SoC tree!
+
+Yours,
+Linus Walleij
