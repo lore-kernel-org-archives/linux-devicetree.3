@@ -1,159 +1,138 @@
-Received: from mxout70.expurgate.net (mxout70.expurgate.net [194.37.255.70])
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022096.outbound.protection.outlook.com [40.107.75.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0392639A079;
-	Mon, 23 Mar 2026 12:14:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.37.255.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774268099; cv=none; b=cARhQCfcBEvbDRDdRIArcqPuKeL/QolUTO8oxy4fCAHczPI5Y9gPaM+9VzKirNkXRY6kOyZhC/tNcRprlKeuz1AYeApDJ1RVInfLjSl/Q/JQD9joMQi1/pzxURKOi49M158VjGqf7mA+bPWLzK+p/45FFxTqZrYiULAqZ93GLqQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774268099; c=relaxed/simple;
-	bh=tCMVzHjBQ3Ad0Da/qPpglq3ZQQzha3DEVdZwI80uroM=;
-	h=MIME-Version:Content-Type:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID; b=Kqc0N4izn06hN464xofGj89oeM1x8T/V+mD01HgPlkCaUi3Sv7ypPh6UyZddwPlgEdtStifsoNbVI/r8P5jqQzt1Ej8C/nj0P0umIxYGbKp1F+v0D5RwXvG+tWGgLuFLYWGNh6C4kgPqjWgxH+yoaRMa1ZZifwbK3ejDQj37iE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dev.tdt.de; spf=pass smtp.mailfrom=dev.tdt.de; dkim=temperror (0-bit key) header.d=dev.tdt.de header.i=@dev.tdt.de header.b=FPmPMjx9; arc=none smtp.client-ip=194.37.255.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dev.tdt.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dev.tdt.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=dev.tdt.de header.i=@dev.tdt.de header.b="FPmPMjx9"
-Received: from [194.37.255.9] (helo=mxout.expurgate.net)
-	by relay.expurgate.net with smtp (Exim 4.92)
-	(envelope-from <prvs=65562eabd4=fe@dev.tdt.de>)
-	id 1w4eB9-00Bfla-IT; Mon, 23 Mar 2026 13:14:43 +0100
-Received: from [195.243.126.94] (helo=securemail.tdt.de)
-	by relay.expurgate.net with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <fe@dev.tdt.de>)
-	id 1w4eB8-0051jN-CG; Mon, 23 Mar 2026 13:14:42 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dev.tdt.de;
-	s=z1-selector1; t=1774268081;
-	bh=VKDmsUAkSZI72746rUwuZ3ojotQOL7/KJYjbQxL3osE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=FPmPMjx990tGLp4DDmimGJY2MiCbqGpTYU8F6DAoBnOLKaWDBF5dkROv4NUeMxav5
-	 8zEUzfrW/knARqKJp9HnYYSgm4B1o9eJZjswETIzr3JC/P/MZFkLMRQQmTPft3Vwux
-	 He3uLMfiuWEf7JnNhedMpc5ut4ENURmA3mRH4HYXhEW6o8t+BF187Mrjj1o4hoC0Ou
-	 qqEGCQzgGmwCWGddHwHi147NjDF7K+eOzq2fZCfUM4UnT7NYXzK+9z0uw/GYDEnGmQ
-	 R13EebsJk5xgYOfoTMOYeIb3SJFXVT/UDZTFG2/t4NBThKeRmrsaU9ljUcw9hnP98N
-	 G7hQjhiy/4A7A==
-Received: from securemail.tdt.de (localhost [127.0.0.1])
-	by securemail.tdt.de (Postfix) with ESMTP id CDC5D240040;
-	Mon, 23 Mar 2026 13:14:41 +0100 (CET)
-Received: from mail.dev.tdt.de (unknown [10.2.4.42])
-	by securemail.tdt.de (Postfix) with ESMTP id BCDBA240036;
-	Mon, 23 Mar 2026 13:14:41 +0100 (CET)
-Received: from mail.dev.tdt.de (localhost [IPv6:::1])
-	by mail.dev.tdt.de (Postfix) with ESMTP id 78F5323789;
-	Mon, 23 Mar 2026 13:14:41 +0100 (CET)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D3332E3360;
+	Mon, 23 Mar 2026 12:15:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.96
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774268159; cv=fail; b=UUGuhunpvMz4SsDscaSQnMDZP4tVXMUnAK++R6+cEDarZJVMLxWNW0+ZPHrOoCrxZKFxtHpTVWG0m4pYwxVrQh+Cr8prAoLz/00pTR5Dpg3ade+xUBZfZPWfkwSw4SxW6M+Xq5G4K6joDodvp3BwZa0yuarsSYI6yIW8xkqmAR0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774268159; c=relaxed/simple;
+	bh=4o5a8pjrKx/zjuVXZjDle5txoUy+hSdKwNSxKMzNaHA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=n/h9AVeWQ4+b7QD74i771hvfHx7pI7r05P77RvFXV1I/TXegID7cr81Wj9LIrUssP68x/tinSji3noLYsGMwd3n2MXMLiPv0hkGWaJEmWB7Bwya7uJp0LYqis9QA7t4WcQTxH0I/tOl3TPo+w7WJgll/azlGSuhn5b0AotdBOCs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.75.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mSDFqFQ3ssVZMIagmzBLTgHuln/c7FQhGYgSB431wB3VfI4UOIxkLUHML/Xds7ipZksbezdRK9VGsH5ArcSAZ153Xsh2AEA0fQwjQYvox/gqz4XyWgeqjEpyQxkBcWeBZfXxf5AhbCvMXlEV6eQIYr+M7ZzjJxGTWrZHVOEsBBnbDfNJ1bzZ+YOPtyRMzloLiZcwzDG/7kOW94+Pxflgax1o7jGTKXnN0Dqz8rv4fqn3PxK5ukc7Zu3BFmf9R0+4trhtXE1DWdQqK5MSoZ58ERDwa7HXnCD7J54IMzmZa/sRHlTLvlre1qripAgvuS1L8HvULHjhSxNImqSKoDLMBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dZ6j76QCH6X1KJug2i3dvqPUQd02xOfY83LD5JBYN40=;
+ b=zB4gadV5+qtSR9Pc698dB5kepSH8hMNFTTUumPsv55Igup1vX+3LYjfbmB2Kk52Wpum60nuDMM3WF8BT+U4pT8XLf998q0PXGMr2DtPsXNqa80wyIpy2W/1d5h6uqrCPYvkr5sNQIuwPX052Z4mmlKA0q1a3bUe5ZYMYMGxdd7B/7uJwRxKdriR6UkvVBMl1ycbQDBzrw8RwaMDWX/FT6fiEJ7YQrXpI/tfxWlecularun6Jbpz5Oq8hzWOwQyUCFuQISZLBNg3oj5Ogv945qRsU2RtOMulmKLlF6Z5prTHyA8+0mvtzx/qiUKe9t+al844cBpcF/AVki/HKHmlQVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from PS2PR01CA0033.apcprd01.prod.exchangelabs.com
+ (2603:1096:300:58::21) by TYSPR06MB6441.apcprd06.prod.outlook.com
+ (2603:1096:400:482::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Mon, 23 Mar
+ 2026 12:15:54 +0000
+Received: from OSA0EPF000000CD.apcprd02.prod.outlook.com
+ (2603:1096:300:58:cafe::fd) by PS2PR01CA0033.outlook.office365.com
+ (2603:1096:300:58::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Mon,
+ 23 Mar 2026 12:15:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000CD.mail.protection.outlook.com (10.167.240.59) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Mon, 23 Mar 2026 12:15:53 +0000
+Received: from [172.20.96.43] (unknown [172.20.96.43])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 4AD764126F83;
+	Mon, 23 Mar 2026 20:15:52 +0800 (CST)
+Message-ID: <732ae85a-a473-41da-af1a-9ff125df172e@cixtech.com>
+Date: Mon, 23 Mar 2026 20:15:51 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Date: Mon, 23 Mar 2026 13:14:41 +0100
-From: Florian Eckert <fe@dev.tdt.de>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, Eckert.Florian@googlemail.com,
-	ms@dev.tdt.de, Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
-Subject: Re: [PATCH 2/2] irqchip: Add Lightning Mountain irqchip support
-In-Reply-To: <87v7eqk8pv.ffs@tglx>
-References: <20260318-irq-intel-soc-msi-v1-0-0e8cdf844fa8@dev.tdt.de>
- <20260318-irq-intel-soc-msi-v1-2-0e8cdf844fa8@dev.tdt.de>
- <87v7eqk8pv.ffs@tglx>
-Message-ID: <6b059429a3db61dffd53a280dc2d6278@dev.tdt.de>
-X-Sender: fe@dev.tdt.de
-User-Agent: Roundcube Webmail/1.3.17
-Content-Transfer-Encoding: quoted-printable
-X-purgate: clean
-X-purgate-ID: 151534::1774268083-D5E525F5-83EE0CF3/0/0
-X-purgate-type: clean
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] dt-bindings: dma: arm-dma350: document generic and
+ combined IRQ topologies
+To: Krzysztof Kozlowski <krzk@kernel.org>, peter.chen@cixtech.com,
+ fugang.duan@cixtech.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, vkoul@kernel.org, ychuang3@nuvoton.com,
+ schung@nuvoton.com, robin.murphy@arm.com, Frank.Li@kernel.org
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20260323114822.1925869-1-jun.guo@cixtech.com>
+ <20260323114822.1925869-2-jun.guo@cixtech.com>
+ <64836645-7c54-44bd-a21f-b02e684d3863@kernel.org>
+ <88472f82-6171-4eaa-9a3b-59372c11a9f3@kernel.org>
+Content-Language: en-US
+From: Jun Guo <jun.guo@cixtech.com>
+In-Reply-To: <88472f82-6171-4eaa-9a3b-59372c11a9f3@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000CD:EE_|TYSPR06MB6441:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4893fbe-49fb-4add-b904-08de88d5ee3c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|7416014|376014|36860700016|921020|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	8n96zLchw8ihko+/8iANV+I10GlXJfLFNojA2m8KH7267M8HS3ucCzrDN7H1EE8l/BFIC0MGuU8OlUmu7zStYgULPKbkxlD8neP4p+NJ+lp5Sz60c10JJD/UZDuF2TG09g5c64KOVggBNgFglRNovSnKm06hUpILHGtxBOulDOv40fyxIre6wYqV1WyhQKyd2pMb+2Ns4peFEzh6WhPpkHzQCRy6w1V9VqbFiLMUE99SnSZIT+DrsrOfeEf7C+NX2M+JnfWZHBGoZdep4hYdosi0ZsN3VMJlLs04UQzY2mgfFwrvzhEBqeB23JlgbRekNWEN4e1m8A5Q4xf0YXGmPoSNdF1TB/ERRZ514o5ptjjV8Tth0t/3bhBa1sHWCm0f3xdoTNa/tbOTY2L6wodsF0m4tDio0FkfzCTwqDgG4Xxk/vyI2uOeYtCkEfOiiB2Jx7XkOIlwwPGzk0lq7U2RAr5N2AuZxfxXtdbqdUp2HHZV4ALR+3YNU7w2kHYMu1wZ1Dfug4Hi+xzTJvhAY16nBgaEbxORZ3XSjiavOX9AZQ4lbXLqJOglBn8P4CeIh3iqAx2bw4WRKKPRuHw/DGEwV662FUbPNxmP65CPn7Zy72ASvUd2ghO4JuC9T6Dg3YIHFCiuNmwJ9Cd68iSP5GK++VkO8cjDpAOH3GRmWSqSx61YM8S2Zvq3n33LkEVgVlS+K29XU4+MY1/8Z5bXY9mLTHBj1G85SrNuwOsZlGiE9ZTtkrvrgY0UItXueFAf+Cj9RYjMDb0A4Y2xXQiGW8iVH/zjauKgNi61K5DifI6TYw0efZ2mZWwe776SwvS8OtBt
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(7416014)(376014)(36860700016)(921020)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	8qyEAB5kcfODbiw2Y+BZ6CiASgkcpdEsLb2EJRoOcMfVXCqF80xufQAls6ebPKVTaevzPcVrAKmmEQZZw08Kqkq2bgMzrrwxvYDRHJYe/hT/iBLwQ1/L+uuv7WaootjbnQlueMLHnSRAnVWJDC5uYPZXrFAAugRYDWMV2F7VBNRBal6MFWaUZq1S6TjBRvHyZ2KMFAkqeEutcua9qwW1qI9vIDN33Xm7686B7VDtXKI35Gl4/zrhYOozJgOHOiIHQJXJ9g8m3AwrTmyioEa+aGS3WR3WTj8yGJ8gM9jTGlWuqm3x83LIkCoXKBq7I2OVdt1Yp+hINWkHjJdpA27H89Dm50MKeYon/bzwyBxv1bs2YuK/jUd8dmWmzQUcj85B6DAQfW7NOl4lfrJFuYXNIr/3FMAXRnEBMKB1bwX5DiKkFYq0jS8PXNpNkYY362Pa
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 12:15:53.7430
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4893fbe-49fb-4add-b904-08de88d5ee3c
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000CD.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR06MB6441
 
-Hello Thomas,
 
->> +
->> +	res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
->> +	if (!res)
->> +		return -EINVAL;
->> +
->> +	mdev->base =3D devm_ioremap_resource(&pdev->dev, res);
->> +	if (IS_ERR(mdev->base)) {
->> +		dev_err(&pdev->dev, "failed to ioremap %pR\n", res);
->> +		return PTR_ERR(mdev->base);
->> +	}
->> +
->> +	domain =3D irq_domain_create_hierarchy(x86_vector_domain, 0,
->=20
-> So this is hardwired to the vector domain and does not allow the
-> interrupts to be remapped? Those SoCs have VT-x which implies interrupt
-> remapping support. But what do I know about the infinite wisdom of
-> hardware designers.
->=20
-> TBH, if they decided to hardwire it to the vector domain, then they are
-> begging for a cluebat treatment.
 
-Unfortunately, I don=E2=80=99t have a detailed hardware description for t=
-his
-IP block. All I have from the Maxlinear is this driver [1] from
-their SDK.
+On 3/23/2026 8:02 PM, Krzysztof Kozlowski wrote:
+> EXTERNAL EMAIL
+> 
+> On 23/03/2026 13:00, Krzysztof Kozlowski wrote:
+>> On 23/03/2026 12:48, Jun Guo wrote:
+>>> Update the DMA-350 DT binding to match the current driver behavior.
+>>>
+>>> Allow both:
+>>> - "arm,dma-350" as the generic compatible, and
+>>> - "cix,sky1-dma-350", "arm,dma-350" for SoC-specific fallback usage.
+>>>
+>>> Also document interrupt topology variants supported by hardware
+>>> integration:
+>>> - one combined interrupt for all channels, or
+>>> - one interrupt per channel (up to 8 channels).
+>>>
+>>> Assisted-by: Cursor: GPT-5.3-Codex
+>>
+>> There is no space here. Read the docs, I quite insisted on this last
+>> time. If you make mistakes in this, I doubt you read the docs thus I
+>> doubt you followed the requirements - have actual rights to send it for
+>> example.
+> 
+> And you already received that comment:
+> 
+> "Wrong tag, please read carefully the guideline before using LLM tools."
+I did receive that feedback, and I will learn from this experience to 
+submit more reliable patches in the future.
 
-> Let me summarize what I can crystal-ball out of your comprehensive
-> change log and the insane amount of comments in the code:
->=20
->     1) The IP block converts 'wired' interrupts to MSI messages
->=20
->     2) It needs to route four interrupts as NMI
->=20
-> Right?
+Best regards,
+Jun
 
-It has a total of 64 IRQs. Four of these are connected to the
-individual CPU cores as NMIs.
-
-> #1 The implementation gets the MSI interrupt domain concept completely
->    wrong
->=20
->    X86 uses the MSI parent domain concept.
->=20
->    [vector domain] -- [remap domain] -- [ device domain]
->=20
->    The remap domain is optional, but both the vector domain and the
->    remap domain act as MSI parent domains.
->=20
->    So what you want to create for that chip is a MSI device domain and
->    that domain needs to set the bus token to DOMAIN_BUS_WIRED_TO_MSI.
->=20
->    See drivers/irqchip/irq-mbigen.c mbigen_create_device_domain() and
->    related code as an example for a proper wired to MSI implementation.
-
-Thanks for pointing that out. I=E2=80=99ll take a closer look at it this.
-
-> #2 NMI routing
->=20
->    There has been attempts to implement that before in a clean way. The
->    patch set dried out, but the underlying changes for NMI support are
->    still valid and Ricardo (CC'ed) is working on them again, IIRC. See:
->=20
->=20
-> https://lore.kernel.org/lkml/20230301234753.28582-1-ricardo.neri-calder=
-on@linux.intel.com/
-
-The v7 is already about two years old =E2=80=93 let=E2=80=99s see if ther=
-e=E2=80=99s anything
-else coming.
-
-All in all, thank you for taking the time to look at this. I=E2=80=99ll g=
-o back
-to the drawing board and have another closer look at it.
-
-Thanks *all* for your feedback.
-
-Best regards
-
-Florian
-
-[1]=20
-https://github.com/maxlinear/linux/blob/updk_9.1.90/drivers/irqchip/irq-i=
-ntel-soc-msi.c
