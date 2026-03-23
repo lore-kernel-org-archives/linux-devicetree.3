@@ -1,291 +1,210 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CBE38B7DA
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:18:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A81738AC9F
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:19:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774261098; cv=none; b=EMQv+ecP9ddaktDhmIkW2iPqGzz34c1ZbotBlkL8y/NcUWJhObTthd84BhsZdnSQkVRqnSKFJhO1WR4Bqzfh9VNDagTsUKOk+1hCqaAlJU7B7O5CplHumFWGYLpDPFlBvEYde4W6RA9z35JvrQgsuLgXLCGIJdQxTJR+kdcakKY=
+	t=1774261172; cv=none; b=GF697/td3L0aSF8riDacWZ8PT1aT2dePlRTsN+gw3Nvmkbn8DnaXkAfTVQBHBUUM9Cq05Qls8MvDm2PpKX6NH3nUphCtmegBnlLNhkc3pTYiuwZoX+kxtuyWeQ5LjwwsMu0JXf5lX9tY7a+++NEq8l57iQ9+EpUyPepYcFUBpzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774261098; c=relaxed/simple;
-	bh=qZcnNJnjeWofkzv2Oyg4DP08CAegl5yI3o2c9CpJVWE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D4uKuU0U486oXi+0CFuZ/0UG6d4iEKDIbpLDkSoMZJewnYuCrzPju0fD+GBjt1gTCn7QXwtYn4iZW0791XV+rR1h3yrP3RSUdgvewlgdHk6oRCSRXA7oM/T1ANRpRil7yFxlCMnrGJWIOQ8uVLBmL0wol5mNGaiJlrdbYTL0wqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AQDte4Zd; arc=none smtp.client-ip=209.85.210.178
+	s=arc-20240116; t=1774261172; c=relaxed/simple;
+	bh=BuXvsxX/mG7GgOqIVeReDJa3sf2TjR2wx24X7e5Ghzk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=PqcohY784Yx4FBU0wV4B6y/CYIczDRHVgxX14G0RwwWGVkWylBUMTrAdw8ND7zbKa46Z0p66eoFz1nXb77XlVK3Et9IHARmLJDTt56QVEo0PYtwgi/fp+OJxKT7iYKrBEMjQDnlJUh8xTgLyowV+RreUVjjNhy7vSzDN2Y6DARg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bHRPxHmi; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AQDte4Zd"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-829afe24fb5so2007588b3a.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 03:18:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bHRPxHmi"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-486fe2024a9so19249985e9.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 03:19:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1774261096; x=1774865896; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EPbwlhrnVmSnNsmoWdfq7/dDDDS8CnPiI8sSHsNGG9s=;
-        b=AQDte4ZdZ/cSMRKQgPLwIFs84Y6mvWsci/X8TpaQgCa2B58o4Dv/puRR3HhMhrr4DN
-         sza3WfupmXsBNYhj42ItMNtEq+FYhl7AfQrHZiITPakDq97rbhlNPXiQaGBh4GcO4t6B
-         dAKuE04Nx5eQE6l17IESu6I3A7o7pYWS9aBnCFq+n6nykqYBqHS9d+KpEIzWsaec8d63
-         r9zv8UL2SFQ3GUPH2Ngvl3EgV4qvLvizpqw6RE5y/u5txSIDdnqDqj/bXq458937Zeba
-         uPqPdHO/zDk57otsRyM3yrlk0kAKmu7K5fY1sRArbQoA1sPlyQC1yKeOVMpi1KgGjgtu
-         6+yQ==
+        d=gmail.com; s=20230601; t=1774261169; x=1774865969; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=W4ERGMp8NacLG5ZvKAIiOC6A4GgV4+Yn8pLmhG8k+VE=;
+        b=bHRPxHmiQS2WVDJZVn3KtaqpiePdYgnMog/UM8yzshQeR4ujS1kHo67lsY0XsFhLS9
+         7ylvrlUR8gOeC80umvSz7EJIDcHHF7Ndb/T/3wJ7/VFbG6K5xmt5hkOZWHJk1qpjPQQq
+         Jc8uqMasMKolBSWb+i6+NSrUkV3JCPMhgFreRscicY7Zfln88XV/PZZESkoM9DMmddBI
+         66Hk9+oTDCU1zZ2gbnM4xj22A2AoP8HB+jJ4BycGQ6QVR6NqTUT6Gj+quR+RRMPAVUio
+         ZI4/7VVHK+RR0e0ZEp5GfVmbmXxdggQaFPvtYy6aEVeYj8fvM5ubndiqnVLONt6uVPlM
+         +o1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774261096; x=1774865896;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=EPbwlhrnVmSnNsmoWdfq7/dDDDS8CnPiI8sSHsNGG9s=;
-        b=Kf9fRa3dYo+SnqrK+F23LoCme8F2MgiN0j6vVJpKEKLhEkljlBdWfpnoO+eGDyd9um
-         YktDH9lugFcsnESx/DPu1bLqly2dfD2bm1dRCwtiJ6j1JWU/OeyVWvZJLlZ2jqR/OapS
-         BjoyvHCyWBVjMoJ6QMi3ua3VgRkKWKeOXCJSYWEZGJ7cjGp2HRyCM6nHhhhpSnOAYg55
-         tIElMARczBuTC5nmpPvbvxxwQ+LILHTXf3vmi4Ilwpa/cW24gwWDSqCNL/IFPZDdGGo8
-         6tlIqgIga3h/aQROL4BHa+EZq96C6oYLq2dA0WbExeQQloS4r6jDdNeHIDTCEJZ7fgAk
-         GjDw==
-X-Forwarded-Encrypted: i=1; AJvYcCUzLZyArunZztdza1yrmXqeVqEjTwpUSCQPBn0F3Zr6SLl1L8RAG6kqhk8JZ/na1io1qniLPc2W8mfa@vger.kernel.org
-X-Gm-Message-State: AOJu0YwcRKQoXKpqHj6/tLigLcEZ58W0NY1+ypjc9mVpNb+EjbB6GOC0
-	JGUAoo1jVmELOkMhCHfgl10dPfxDa2J1egWsfHhBhIL2PVyDXP1I1/j7
-X-Gm-Gg: ATEYQzwPVCYRrygsrikIPZue6TUAKhl5IMPadrwUog20m+NAZ7Zpq5xRzCL3n5j0w8+
-	EDE6bX+HbE0hHjWE6rCP2NtLVrd7fVfDsk/4nWXkcZ/vrLGxqJUuKIrbcsmtNMAKpw/s/U0htFf
-	wgV4WNm/rw8p20/uQ0a/hSFN3+ARlOA3vRANgUA+GTKG/NaRZUE3x5NuN4irq0mK8J+DKCN5vj6
-	9Vts+49Odq3h8ao5uPqCc/KTIvxdwXboWrpN1NBeL9bzM88NnuibZHPRx6BKzq11UN4aVRYlmbS
-	AzfONROutsIf++iQk+VKEfVTM0RvjcG8+5M3RGblGbXrFFugsqkAIDonVdX+6dXCF6Zju4c1HR6
-	Frejq65FsMymxeeTMCZ1ENtcrn/w6Gh8CHUuO6TfH/ARyvmjg/kU41mjidlyPS62tv6VVf+55WH
-	109bJt/t4D57JmjUkXCkjQZseLyGkpOttkguhgjenne44RWH7Xqq0c0ECeZ+Y/B/HEvD0dXryl5
-	tceR0VKTM7S
-X-Received: by 2002:a05:6a00:21d3:b0:81a:857b:f944 with SMTP id d2e1a72fcca58-82a8c2a0946mr9629170b3a.26.1774261096384;
-        Mon, 23 Mar 2026 03:18:16 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82b04220d9asm8630779b3a.60.2026.03.23.03.18.12
+        d=1e100.net; s=20251104; t=1774261169; x=1774865969;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=W4ERGMp8NacLG5ZvKAIiOC6A4GgV4+Yn8pLmhG8k+VE=;
+        b=qWuHPhu1ZjCbli1Pi/QdwTV61VXZoJ0qZAdcIXMsQQDUhXX/gAMJLc0/3jcX5To0H5
+         pNHE+b45MooxCcE/0YD50xC5O/Gh+U5euMP9DGwAtA7j0vh71c01yumqPtl9ougI3fAJ
+         OX2/6hSjJgpbd0DSNS4Wc2vH7RwuA/md8SqgdOkD5nq4jhB3sF1bnnhvSbGJ6BF5O+88
+         vBJVN8OHvpIoVDgYurQ4NydLLb0/zJuHX5btbo6R+/5yv7ZUTda7iJ0HSmgZA+O28WwO
+         9KL3J+zCgXwUpEeDPM3m6iWzOdYOh3Z3z7jnNmczVTsFhk+DAtMGTE4dBitpKCdJKBH2
+         1cUw==
+X-Forwarded-Encrypted: i=1; AJvYcCVb1uRCotKp3PEHfHxWw87Mi2XYOIWQ9UgypdEcP8mfemBKjB/a7S6+fUnBF6eHf2LOiZTA6JLDbq6M@vger.kernel.org
+X-Gm-Message-State: AOJu0YynNAMVF58mL3pyJOBGyXkKaCwdrJ4CPHdceOjfKNctHUXcTUvc
+	/eMgc5E/qovy2kFGqbh54qL5dqGMtU/1aGPba18PRCa56w2+2F2kpMbkN9sSYw==
+X-Gm-Gg: ATEYQzxyEuA3ZT26Znfxa3xOW2Uf4NSBmHyJVASCUhfktuUg1fDO/k04nN2Shgb5JN6
+	G+gwEdijXvj+yItDj6a6b8cZqjBhfyDECzHa50jbDHJrS7otKLFArCoR1FzmNgoLmL/Geu3l8Pm
+	h5o210gJbzY5QuEDKBuif8eTZdejIqtqCsXOXMabHfGd2B8On0vcIRwQqhmTGlBUrucYAGdEPPe
+	IEAZ8BuL/mzzTfXwW9LDfOsXjtM7rmXrJwqz/Y2Cm+5GMfjqvTkTGkW/mtHoHSWqj6WiKkNNS7q
+	nJWfFGg69VPPBEUfoSdIR0eV7/aBvMK0R+YfP705XoLApyOFcmWssejTa3qXcE0F6F3ke+1Qlzo
+	0C/QiUWi82gIrEAcxVqLBofo3T4YTi/2naUaWWnDLlyyt+AQ7H2mBLCkZUALlEaL5mqi+GT/Tj7
+	BgYqzhJHMBR0NcMK4Yt2mUFGK0x0U7w0ML24wjSmC7R8CmIruOAjbJJys/pCRq4PJ8
+X-Received: by 2002:a05:600c:1d15:b0:485:2ce2:4c75 with SMTP id 5b1f17b1804b1-486febbc648mr160002825e9.1.1774261168302;
+        Mon, 23 Mar 2026 03:19:28 -0700 (PDT)
+Received: from ipedrosa-thinkpadx1carbongen12.rmtes.csb ([67.218.232.54])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-486fe86acb0sm78755445e9.6.2026.03.23.03.19.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Mar 2026 03:18:16 -0700 (PDT)
-From: Joey Lu <a0987203069@gmail.com>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	mcoquelin.stm32@gmail.com,
-	richardcochran@gmail.com
-Cc: alexandre.torgue@foss.st.com,
-	joabreu@synopsys.com,
-	ychuang3@nuvoton.com,
-	schung@nuvoton.com,
-	yclu4@nuvoton.com,
-	peppe.cavallaro@st.com,
-	linux-arm-kernel@lists.infradead.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Joey Lu <a0987203069@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>
-Subject: [PATCH net-next v15 3/3] net: stmmac: dwmac-nuvoton: Add dwmac glue for Nuvoton MA35 family
-Date: Mon, 23 Mar 2026 18:17:56 +0800
-Message-ID: <20260323101756.81849-4-a0987203069@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260323101756.81849-1-a0987203069@gmail.com>
-References: <20260323101756.81849-1-a0987203069@gmail.com>
+        Mon, 23 Mar 2026 03:19:27 -0700 (PDT)
+From: Iker Pedrosa <ikerpedrosam@gmail.com>
+Subject: [PATCH v4 0/8] riscv: spacemit: enable SD card support with UHS
+ modes for OrangePi RV2
+Date: Mon, 23 Mar 2026 11:19:03 +0100
+Message-Id: <20260323-orangepi-sd-card-uhs-v4-0-567c9775fd0e@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XPTQ6CMBAF4KuYrq1ppxSoK+9hXPQPaCKUtNpoC
+ He34IYYWb6XzPcyE4o2OBvR+TChYJOLzg85FMcD0p0cWoudyRkBgZIAlNiHpR0djgZrGQx+dhE
+ TqxXhNROKaJRPx2Ab91rZ6y3nzsWHD+91JdGl/YKMwH8wUUxwLTRQISqmib60vXT3k/Y9WsAEW
+ 0TsIJARrhQoXhWm4eYXYRuE7ryWWEakbQxTVc3ANFtknucPUgTqIUIBAAA=
+X-Change-ID: 20260226-orangepi-sd-card-uhs-0ecb05839b0c
+To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Yixun Lan <dlan@kernel.org>, Yixun Lan <dlan@kernel.org>
+Cc: Michael Opdenacker <michael.opdenacker@rootcommit.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>, linux-mmc@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Iker Pedrosa <ikerpedrosam@gmail.com>, Anand Moon <linux.amoon@gmail.com>, 
+ Trevor Gamblin <tgamblin@baylibre.com>
+X-Mailer: b4 0.14.2
 
-Add support for Gigabit Ethernet on Nuvoton MA35 series using dwmac driver.
+This series enables complete SD card support for the Spacemit K1-based
+OrangePi RV2 board, including UHS (Ultra High Speed) modes for
+high-performance SD card operation.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Signed-off-by: Joey Lu <a0987203069@gmail.com>
+Background
+
+The Spacemit K1 SoC includes an SDHCI controller capable of supporting
+SD cards up to UHS-I speeds (SDR104 at 208MHz). However, mainline
+currently lacks basic SD controller configuration, SDHCI driver
+enhancements for voltage switching and tuning, and power management
+infrastructure.
+
+Implementation
+
+The series enables SD card support through coordinated layers:
+
+- Hardware infrastructure (patches 1-2): Device tree bindings for voltage
+switching hardware and essential clock infrastructure.
+- SDHCI driver enhancements (patches 3-7): Regulator framework
+integration, pinctrl state switching for voltage domains, AIB register
+programming, and comprehensive SDR tuning support for reliable UHS
+operation.
+- SoC and board integration (patches 8-10): Complete K1 SoC controller
+definitions, PMIC power infrastructure, and OrangePi RV2 board enablement
+with full UHS support.
+
+This transforms the OrangePi RV2 from having no SD card support to full
+UHS-I capability, enabling high-performance storage up to 208MHz.
+
+Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/Kconfig   |  12 ++
- drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
- .../ethernet/stmicro/stmmac/dwmac-nuvoton.c   | 136 ++++++++++++++++++
- 3 files changed, 149 insertions(+)
- create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
+Changes in v4:
+- Revert to start_signal_voltage_switch() approach for bidirectional
+  voltage switching: replace voltage_switch() callback with 
+  start_signal_voltage_switch() to properly handle both 3.3V and 1.8V
+  signal voltage directions.   
+- Fix DC input voltage specification: corrected the main power supply
+  from 12V to 5V to match the OrangePi RV2 board specifications. The
+  board uses a 5V USB-C input connector, not a 12V rail as previously
+  specified in the device tree.
+- k1-bananapi-f3.dts: add `broken-cd` property to work around card
+  detection. Using `broken-cd` disables hotplug detection but keeps SD
+  card functionality working without additional dependencies.
+- Add SD card support for Muse Pi Pro board (contributed by Trevor
+  Gamblin): enable SD card support with UHS-I capabilities following the
+  same pattern as OrangePi RV2, including dual pinctrl states, PMIC
+  power supplies, and card detection.
+- Link to v3: https://lore.kernel.org/r/20260316-orangepi-sd-card-uhs-v3-0-aefd3b7832df@gmail.com
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index d3a6ab7383fc..c2cb530fd0a2 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -132,6 +132,18 @@ config DWMAC_MESON
- 	  the stmmac device driver. This driver is used for Meson6,
- 	  Meson8, Meson8b and GXBB SoCs.
- 
-+config DWMAC_NUVOTON
-+	tristate "Nuvoton MA35 dwmac support"
-+	default ARCH_MA35
-+	depends on OF && (ARCH_MA35 || COMPILE_TEST)
-+	select MFD_SYSCON
-+	help
-+	  Support for Ethernet controller on Nuvoton MA35 series SoC.
-+
-+	  This selects the Nuvoton MA35 series SoC glue layer support
-+	  for the stmmac device driver. The nuvoton-dwmac driver is
-+	  used for MA35 series SoCs.
-+
- config DWMAC_QCOM_ETHQOS
- 	tristate "Qualcomm ETHQOS support"
- 	default ARCH_QCOM
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
-index 945c5354eced..a1cea2f57252 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-+++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-@@ -20,6 +20,7 @@ obj-$(CONFIG_DWMAC_IPQ806X)	+= dwmac-ipq806x.o
- obj-$(CONFIG_DWMAC_LPC18XX)	+= dwmac-lpc18xx.o
- obj-$(CONFIG_DWMAC_MEDIATEK)	+= dwmac-mediatek.o
- obj-$(CONFIG_DWMAC_MESON)	+= dwmac-meson.o dwmac-meson8b.o
-+obj-$(CONFIG_DWMAC_NUVOTON)	+= dwmac-nuvoton.o
- obj-$(CONFIG_DWMAC_QCOM_ETHQOS)	+= dwmac-qcom-ethqos.o
- obj-$(CONFIG_DWMAC_RENESAS_GBETH) += dwmac-renesas-gbeth.o
- obj-$(CONFIG_DWMAC_ROCKCHIP)	+= dwmac-rk.o
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
-new file mode 100644
-index 000000000000..e2240b68ad98
---- /dev/null
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
-@@ -0,0 +1,136 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Nuvoton DWMAC specific glue layer
-+ *
-+ * Copyright (C) 2025 Nuvoton Technology Corp.
-+ *
-+ * Author: Joey Lu <a0987203069@gmail.com>
-+ */
-+
-+#include <linux/mfd/syscon.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/of.h>
-+#include <linux/of_net.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/stmmac.h>
-+
-+#include "stmmac_platform.h"
-+
-+#define NVT_REG_SYS_GMAC0MISCR  0x108
-+#define NVT_REG_SYS_GMAC1MISCR  0x10C
-+
-+#define NVT_MISCR_RMII          BIT(0)
-+
-+/* Two thousand picoseconds are evenly mapped to a 4-bit field,
-+ * resulting in each step being 2000/15 picoseconds.
-+ */
-+#define NVT_PATH_DELAY_STEP     134
-+#define NVT_TX_DELAY_MASK       GENMASK(19, 16)
-+#define NVT_RX_DELAY_MASK       GENMASK(23, 20)
-+
-+struct nvt_priv_data {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	u32 macid;
-+};
-+
-+static int nvt_gmac_get_delay(struct device *dev, const char *property)
-+{
-+	u32 arg;
-+
-+	if (of_property_read_u32(dev->of_node, property, &arg))
-+		return 0;
-+
-+	if (arg > 2000)
-+		return -EINVAL;
-+
-+	if (arg == 2000)
-+		return 15;
-+
-+	return arg / NVT_PATH_DELAY_STEP;
-+}
-+
-+static int nvt_set_phy_intf_sel(void *bsp_priv, u8 phy_intf_sel)
-+{
-+	struct nvt_priv_data *priv = bsp_priv;
-+	u32 reg, val;
-+	int ret;
-+
-+	if (phy_intf_sel == PHY_INTF_SEL_RGMII) {
-+		ret = nvt_gmac_get_delay(priv->dev, "rx-internal-delay-ps");
-+		if (ret < 0)
-+			return ret;
-+		val = FIELD_PREP(NVT_RX_DELAY_MASK, ret);
-+
-+		ret = nvt_gmac_get_delay(priv->dev, "tx-internal-delay-ps");
-+		if (ret < 0)
-+			return ret;
-+		val |= FIELD_PREP(NVT_TX_DELAY_MASK, ret);
-+	} else if (phy_intf_sel == PHY_INTF_SEL_RMII) {
-+		val = NVT_MISCR_RMII;
-+	} else {
-+		return -EINVAL;
-+	}
-+
-+	reg = (priv->macid == 0) ? NVT_REG_SYS_GMAC0MISCR : NVT_REG_SYS_GMAC1MISCR;
-+	regmap_update_bits(priv->regmap, reg,
-+			   NVT_RX_DELAY_MASK | NVT_TX_DELAY_MASK | NVT_MISCR_RMII, val);
-+
-+	return 0;
-+}
-+
-+static int nvt_gmac_probe(struct platform_device *pdev)
-+{
-+	struct plat_stmmacenet_data *plat_dat;
-+	struct stmmac_resources stmmac_res;
-+	struct device *dev = &pdev->dev;
-+	struct nvt_priv_data *priv;
-+	int ret;
-+
-+	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get platform resources\n");
-+
-+	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
-+	if (IS_ERR(plat_dat))
-+		return dev_err_probe(dev, PTR_ERR(plat_dat), "Failed to get platform data\n");
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return dev_err_probe(dev, -ENOMEM, "Failed to allocate private data\n");
-+
-+	priv->regmap = syscon_regmap_lookup_by_phandle_args(dev->of_node, "nuvoton,sys",
-+							    1, &priv->macid);
-+	if (IS_ERR(priv->regmap))
-+		return dev_err_probe(dev, PTR_ERR(priv->regmap), "Failed to get sys register\n");
-+
-+	if (priv->macid > 1)
-+		return dev_err_probe(dev, -EINVAL, "Invalid sys arguments\n");
-+
-+	plat_dat->bsp_priv = priv;
-+	plat_dat->set_phy_intf_sel = nvt_set_phy_intf_sel;
-+
-+	return stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
-+}
-+
-+static const struct of_device_id nvt_dwmac_match[] = {
-+	{ .compatible = "nuvoton,ma35d1-dwmac"},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, nvt_dwmac_match);
-+
-+static struct platform_driver nvt_dwmac_driver = {
-+	.probe  = nvt_gmac_probe,
-+	.remove = stmmac_pltfr_remove,
-+	.driver = {
-+		.name           = "nuvoton-dwmac",
-+		.pm		= &stmmac_pltfr_pm_ops,
-+		.of_match_table = nvt_dwmac_match,
-+	},
-+};
-+module_platform_driver(nvt_dwmac_driver);
-+
-+MODULE_AUTHOR("Joey Lu <a0987203069@gmail.com>");
-+MODULE_DESCRIPTION("Nuvoton DWMAC specific glue layer");
-+MODULE_LICENSE("GPL");
+Changes in v3:
+- Rebase on mmc.git/next to resolve conflicts with "mmc: sdhci-of-k1:
+  add reset support" patch.
+- Squash tuning infrastructure and implementation patches (3 and 4)      
+  together to form complete functionality and avoid unused function      
+  warnings.
+- Reduce code nesting: implemented an early return sanity check in
+  spacemit_sdhci_voltage_switch() to reduce indentation and improve
+  logic flow.
+- Refactor pinctrl initialization: moved pinctrl resource acquisition    
+  and state lookup into a dedicated helper function,                     
+  spacemit_sdhci_get_pins().
+- Use generic regulator node names (buck4, aldo1) instead of             
+  device-specific aliases (sd_vmmc, sd_vqmmc) to better reflect that     
+  these PMIC outputs serve multiple devices.
+- Remove dead code handling 3.3V voltage switching from
+  spacemit_sdhci_voltage_switch().
+- Optimize tuning algorithm to use single-pass window detection instead
+  of storing results in array, reducing memory usage and complexity.
+- Remove unnecessary card detect check in execute_tuning() - rely on MMC
+  core.
+- Clarify commit message to mention both SD (UHS-I) and eMMC (HS200)
+  tuning support.
+- Add SD card support for Banana Pi BPI-F3 board with UHS-I capabilities
+  following the same pattern as OrangePi RV2.
+- Link to v2: https://lore.kernel.org/r/20260309-orangepi-sd-card-uhs-v2-0-5bb2b574df5d@gmail.com
+
+Changes in v2:
+- Removed custom AIB voltage switching code per maintainer feedback. The
+  existing pinctrl driver already handles AIB voltage switching
+  automatically via power-source property changes during UHS mode
+  transitions. This eliminates code duplication.
+- Squashed regulator and pinctrl commits into single voltage switching
+  implementation.
+- Moved voltage switching callback from dynamic probe assignment to
+  static sdhci_ops declaration. Removed redundant SDHCI core call since
+  the framework handles standard voltage switching automatically.
+- Made clock override (SDHC_OVRRD_CLK_OEN | SDHC_FORCE_CLK_ON)
+  conditional for SD/SDIO cards only. This follows vendor driver pattern
+  of differentiating SD and eMMC card handling.
+- Include no-mmc property for SD card.
+- Link to v1: https://lore.kernel.org/r/20260302-orangepi-sd-card-uhs-v1-0-89c219973c0c@gmail.com
+
+---
+Iker Pedrosa (7):
+      mmc: sdhci-of-k1: enable essential clock infrastructure for SD operation
+      mmc: sdhci-of-k1: add regulator and pinctrl voltage switching support
+      mmc: sdhci-of-k1: add comprehensive SDR tuning support
+      riscv: dts: spacemit: k1: add SD card controller and pinctrl support
+      riscv: dts: spacemit: k1-orangepi-rv2: add PMIC and power infrastructure
+      riscv: dts: spacemit: k1-orangepi-rv2: add SD card support with UHS modes
+      riscv: dts: spacemit: k1-bananapi-f3: add SD card support with UHS modes
+
+Trevor Gamblin (1):
+      riscv: dts: spacemit: k1-musepi-pro: add SD card support with UHS modes
+
+ arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts  |  24 ++-
+ arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts   |  66 ++++++
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts |  67 ++++++
+ arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi     |  40 ++++
+ arch/riscv/boot/dts/spacemit/k1.dtsi             |  13 ++
+ drivers/mmc/host/sdhci-of-k1.c                   | 257 +++++++++++++++++++++++
+ 6 files changed, 465 insertions(+), 2 deletions(-)
+---
+base-commit: ba0e286c944dea871f617bef1d733307b202de25
+change-id: 20260226-orangepi-sd-card-uhs-0ecb05839b0c
+
+Best regards,
 -- 
-2.43.0
+Iker Pedrosa <ikerpedrosam@gmail.com>
 
