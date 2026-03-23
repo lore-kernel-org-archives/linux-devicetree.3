@@ -1,198 +1,132 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E88F3CB2C7
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 18:06:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32B683B9DB7;
+	Mon, 23 Mar 2026 18:10:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774289200; cv=none; b=GhZ+iX+JQTMxbSw+ps3cxGQkKJR7OCVYQUevsbxKdbO4JZjJ3qSLIQyM+r/qeViLmgVWLcUItQFxrblcQZwQftz1I+bUbRXOdv/AwB9IOmVnaYJINnP0MJMwke73V8u7fu8fsljF9eyr5klCWqjg3YhKxx4utYvuIW0Db0EBgFs=
+	t=1774289410; cv=none; b=Yf4O4WHDQv/WWaNXCBfMupA49A54jawCDAyigRsgxPHErgGQ7fzTjQpnVf4ISkP8Ftm3FHqcI0t/BmhDzhBxMepgZJGTPP2XOsEe2PhcPeYFTY0dFK1YqLtjtyvniVusJGVw4dbgwyn17l5cF3fxCwZMVHIHmL+dhiGjPK+1nDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774289200; c=relaxed/simple;
-	bh=oYVb6IB8vuK7oooMBnIMMAeKhMm0YnJCXhRyyefWgPI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WvuMQNh6hNuj9J/9K8CSLbvRaL/LtO64B6RNxhbRVdHFvqeaJTTF3extIwSW+/giIKJwOJIRndK59ouBkOl2nw3F4DZvJQ+QB6Mpg5JTbCJhfFjniGf9VhNWFc88lQ5c9iFtBzvooPo/xFozpv0pqqhqGLFdSzdD156PIICe/Lc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CdMjEM6E; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774289410; c=relaxed/simple;
+	bh=uklW9RFr6BYjn6wm/JQpUmhU5aMurNfLbOV16eYldHA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tXpE9/Mq2tvt2Gn5PJh4T4/dw9f+CbzjycCTUeWB4hxA4lRDgLc+yMzUhMqJWd2/05b9fmWPmCMSL7/UdR8354fLFLHMY+1pNTWVlu4FMMtrAH3qH4zGQs7V87Fjdeu/Noo0IyFo3q9h3Rh894zIwVFSxyg5YIx4+AF19ErHxqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m2e8B3c5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CdMjEM6E"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2a8fba3f769so20726695ad.2
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:06:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1774289198; x=1774893998; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=8HqRm0EdCu6tW3UpEhK+1msajrct2ot7sic3FIGjze8=;
-        b=CdMjEM6Evpa0XPLqWlxnDbRVuWgZf9EUSQhpQc90tBhdAtuMd1m3J+/Eu3sl9oxEYG
-         ofeJheKJ8KjAK0w7fxp+iutdIH13j/k5N9iU9xF9SJlnGtnc6UTrOcmXuS5k2l9hjyGR
-         ZHuRK/lZ9YB5oMpw4s0HhKN1m8+oafwTy3elC0W4bhLf0PCpmG6Wk3WkcOTOgImwoLDq
-         PcfWaJCFWXulStYGE/JY+5D76m/sbF0gmNNZaq35m4YRDdo3DmmFq5kBHCsJ+NS+17Lx
-         JfwWqiNCKtJkF6lTXh35ihbsNRQU286YrEdD8A9kxQEfLsIyL8370HTkQQyYmfg8cN7a
-         5nPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774289198; x=1774893998;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8HqRm0EdCu6tW3UpEhK+1msajrct2ot7sic3FIGjze8=;
-        b=hAmlSXo+/zcQ2MF6LfKQQ7CncMpN7+UgISg9QpnzGHsaAcqMc+zmUNxURd59oog87x
-         vll7bTKeP3AhoLT6x9IJRf5RHSLtx4zH5pUQL9HzeCmlzaPWE4iTwT6pqAyjyNLgvu14
-         42U4J0yvvIyv5nkjOag5k2SBSp4U/UhOq0RVh1h18PB/PJfVsMYvdUETwQmBRIiXLWZj
-         /P2CV8jylkDfI5DumNP9XUhZjBThYWKJQJR/j83XzGxMTOa01vft4mStcLaJfHcsIJP8
-         Lo+LGM6CWI2FWq3jJk4PLwEcGk1ipO94T5k/55cv/nVBEMKTkgCejREO1CPB4ovBPNXf
-         ePwA==
-X-Gm-Message-State: AOJu0Yz2AqFoWHn9EijRA7W9O813FSr0GxaNdj6dcwJ/zz1EJGbCenvU
-	o7yMaR2BObm6shFWV2qnxZakccLABuiQ/q3YF9uaaXnNPkFMUc8dnw5Y
-X-Gm-Gg: ATEYQzwPJDFVlFVWV5jkZYJKQjAC1CemdkTEgJ7aWU1Bwn2OKUzxK6oZLiMV7PxKTLk
-	Pj7h09vxyOrBZt8idDnyEn7opvCUX49v9vwibcZTD28CMwdEgrMW8++PycWhkSOIr7+ZTeiJh3s
-	is+BmK/5cpmZBNaQxFmh+ITDL5tix1NIIKEWsf1CNDdbK8NLcxnZlbShtjgVVPjiSAJoxad5IjP
-	A5CcTIeregyn/mYEZgtM7Ho/S6IkuD6HCMclpHL5zHC98TlJofvTUADeYvbWuZco/Vpfnc3Pb+k
-	sn8CzZe5N51Fq5md0WfmCRw+FPsxkytJ3Do9itBYkL+hGAHg73s9gbnQJdTUG0kx9Azl6JyUps4
-	Izc3KC9EjvUvs1E0msa3fcdgsCMrrr7SDLNdesMUcP3H/VmRbtbDdnyUeA/0FB/tjT69PXmnuy4
-	8PCM18YN9mRZwMsCZ6hdu9JSBDSnbG
-X-Received: by 2002:a17:902:f70e:b0:2ae:478f:2ec with SMTP id d9443c01a7336-2b08277b109mr115939885ad.29.1774289198421;
-        Mon, 23 Mar 2026 11:06:38 -0700 (PDT)
-Received: from Ultimate.. ([2402:e280:3e2c:6f1:a6d6:efd3:68fb:e380])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0835161a0sm139824155ad.10.2026.03.23.11.06.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Mar 2026 11:06:38 -0700 (PDT)
-From: Udaya Kiran Challa <challauday369@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	skhan@linuxfoundation.org,
-	Udaya Kiran Challa <challauday369@gmail.com>
-Subject: [PATCH v2] dt-bindings: arm: mediatek: mediatek,g3dsys: Convert to DT schema
-Date: Mon, 23 Mar 2026 23:36:16 +0530
-Message-Id: <20260323180616.23333-1-challauday369@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m2e8B3c5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B84BC4CEF7;
+	Mon, 23 Mar 2026 18:10:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774289409;
+	bh=uklW9RFr6BYjn6wm/JQpUmhU5aMurNfLbOV16eYldHA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=m2e8B3c5Aznp84RxbaTuWUcfASpJ7HuYQYEFpVz6zqnkEzkmS+nRH0bUf3G2IdoxA
+	 QK96J8OM0RHAGM7XCO/06Z+JQ7astlcSz6iwDPMw26jA5dulMDml1bmqr0ib9cW4ic
+	 b78xq3yyBbqpuOyVzWz2HI8RkVvJgnm4E0qbhb7FKfujOeaDtdge9GMP0gopdy4WUc
+	 +QXFaIW79WZvFoKtetnEYU8FMD+yS4tKRLhnMzvS7b2zFVOyvIVw4dyjSSCwQFINWT
+	 L/ojs9wgmTq/tMLFA42i3mgS94wuMPmDeqXulT0+ulJZgPz3aVel9cNQozDIXvfzZY
+	 f9St0ZvuVp9zg==
+Date: Mon, 23 Mar 2026 13:10:08 -0500
+From: Rob Herring <robh@kernel.org>
+To: Frank Li <Frank.li@nxp.com>
+Cc: Eduard Bostina <egbostina@gmail.com>, daniel.baluta@nxp.com,
+	simona.toaca@nxp.com, d-gole@ti.com, m-chawdhry@ti.com,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Mark Brown <broonie@kernel.org>,
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 1/2] dt-bindings: watchdog: Convert TS-4800 to DT schema
+Message-ID: <20260323181008.GA864363-robh@kernel.org>
+References: <20260323084616.10469-1-egbostina@gmail.com>
+ <20260323084616.10469-2-egbostina@gmail.com>
+ <acFxdiHYjlSOESf_@lizhi-Precision-Tower-5810>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <acFxdiHYjlSOESf_@lizhi-Precision-Tower-5810>
 
-Convert the MediaTek G3D system controller devicetree binding
-from the legacy text format to DT schema.
+On Mon, Mar 23, 2026 at 12:59:34PM -0400, Frank Li wrote:
+> On Mon, Mar 23, 2026 at 10:46:12AM +0200, Eduard Bostina wrote:
+> > Convert the Technologic Systems TS-4800 watchdog timer bindings
+> > to DT schema.
+> >
+> > Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+> > ---
+> > Note:
+> > * This patch is part of the GSoC2026 application process for device tree bindings conversions
+> > * https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
+> >
+> >  .../watchdog/technologic,ts4800-wdt.yaml      | 46 +++++++++++++++++++
+> >  .../bindings/watchdog/ts4800-wdt.txt          | 25 ----------
+> >  2 files changed, 46 insertions(+), 25 deletions(-)
+> >  create mode 100644 Documentation/devicetree/bindings/watchdog/technologic,ts4800-wdt.yaml
+> >  delete mode 100644 Documentation/devicetree/bindings/watchdog/ts4800-wdt.txt
+> >
+> > diff --git a/Documentation/devicetree/bindings/watchdog/technologic,ts4800-wdt.yaml b/Documentation/devicetree/bindings/watchdog/technologic,ts4800-wdt.yaml
+> > new file mode 100644
+> > index 000000000..cb2066b4b
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/watchdog/technologic,ts4800-wdt.yaml
+> > @@ -0,0 +1,46 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/watchdog/technologic,ts4800-wdt.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Technologic Systems TS-4800 Watchdog
+> > +
+> > +maintainers:
+> > +  - Eduard Bostina <egbostina@gmail.com>
+> > +
+> > +allOf:
+> > +  - $ref: watchdog.yaml#
+> 
+> Move allOf after required incase add if-else branch later.
+> 
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: technologic,ts4800-wdt
+> > +
+> > +  syscon:
+> > +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> > +    items:
+> > +      - items:
+> > +          - description: Phandle to the FPGA's syscon
+> > +          - description: Offset to the watchdog register
+> > +    description: Phandle / integers array that points to the syscon node which
+> > +      describes the FPGA's syscon registers.
+> > +
+> > +required:
+> > +  - compatible
+> > +  - syscon
+> > +
+> > +unevaluatedProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    syscon: syscon@b0010000 {
+> > +      compatible = "syscon", "simple-mfd";
+> > +      reg = <0xb0010000 0x3d>;
+> > +      reg-io-width = <2>;
+> > +
+> 
+> Needn't this part. just keep below watchdog node should be enough.
 
-Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
----
-Changelog:
-Changes since v1:
-- Drop redundant description for reg
-- Drop redundant description for provider properties
+Well, the next thing to fix is going to be that this node needs a 
+specific compatible. It doesn't look like there's any other child nodes, 
+so probably want just one schema that defines both nodes.
 
-Link to v1:https://lore.kernel.org/all/20260315080302.454233-1-challauday369@gmail.com/
----
- .../bindings/arm/mediatek/mediatek,g3dsys.txt | 30 ----------
- .../arm/mediatek/mediatek,g3dsys.yaml         | 58 +++++++++++++++++++
- 2 files changed, 58 insertions(+), 30 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.txt
- create mode 100644 Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.yaml
-
-diff --git a/Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.txt b/Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.txt
-deleted file mode 100644
-index 7de43bf41fdc..000000000000
---- a/Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.txt
-+++ /dev/null
-@@ -1,30 +0,0 @@
--MediaTek g3dsys controller
--============================
--
--The MediaTek g3dsys controller provides various clocks and reset controller to
--the GPU.
--
--Required Properties:
--
--- compatible: Should be:
--	- "mediatek,mt2701-g3dsys", "syscon":
--		for MT2701 SoC
--	- "mediatek,mt7623-g3dsys", "mediatek,mt2701-g3dsys", "syscon":
--		for MT7623 SoC
--- #clock-cells: Must be 1
--- #reset-cells: Must be 1
--
--The g3dsys controller uses the common clk binding from
--Documentation/devicetree/bindings/clock/clock-bindings.txt
--The available clocks are defined in dt-bindings/clock/mt*-clk.h.
--
--Example:
--
--g3dsys: clock-controller@13000000 {
--	compatible = "mediatek,mt7623-g3dsys",
--		     "mediatek,mt2701-g3dsys",
--		     "syscon";
--	reg = <0 0x13000000 0 0x200>;
--	#clock-cells = <1>;
--	#reset-cells = <1>;
--};
-diff --git a/Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.yaml b/Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.yaml
-new file mode 100644
-index 000000000000..4eea36632e63
---- /dev/null
-+++ b/Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.yaml
-@@ -0,0 +1,58 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/arm/mediatek/mediatek,g3dsys.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: MediaTek G3D System Controller
-+
-+maintainers:
-+  - Sean Wang <sean.wang@mediatek.com>
-+  - Ryder Lee <ryder.lee@mediatek.com>
-+
-+description: |
-+  The MediaTek G3D system controller provides clocks and reset control
-+  for the GPU subsystem on MediaTek SoCs.
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - const: mediatek,mt2701-g3dsys
-+          - const: syscon
-+      - items:
-+          - const: mediatek,mt7623-g3dsys
-+          - const: mediatek,mt2701-g3dsys
-+          - const: syscon
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#clock-cells":
-+    const: 1
-+
-+  "#reset-cells":
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#clock-cells"
-+  - "#reset-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+     soc {
-+       #address-cells = <2>;
-+       #size-cells = <2>;
-+       g3dsys: syscon@13000000 {
-+         compatible = "mediatek,mt7623-g3dsys",
-+                      "mediatek,mt2701-g3dsys",
-+                      "syscon";
-+         reg = <0 0x13000000 0 0x200>;
-+         #clock-cells = <1>;
-+         #reset-cells = <1>;
-+       };
-+     };
--- 
-2.34.1
-
+Rob
