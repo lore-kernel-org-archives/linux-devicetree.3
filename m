@@ -1,341 +1,176 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011002.outbound.protection.outlook.com [52.101.125.2])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CEC78F2E;
-	Mon, 23 Mar 2026 01:08:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774228092; cv=fail; b=g3ShJyGuFgjEAhUPLpzMq3OHotHIAr17Nzl4XxQ9v+Sosmpk2XV6zpA3A/tZDb9pkSdzxNxGpi1fu8BQU0Fws/5PPjpkQDFrkHgdjey9vJ+ocMZV55QLvRkU4cMDzBHtjLD8TGhc1BTGKZKOBjNviHzgExaQh076DISIszn3IAU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774228092; c=relaxed/simple;
-	bh=iopLQj1t3fWemVZjOeflhHO0x5jqMgDjFlQ+4zC4S8g=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=vEs1w/ksZfBihLDnGrLpVQK+okcmP6H6pTvqhRFD5R9HZN2S6Bif8qVMSi0o7/gTcqEYRck5lIlnqjVvWhDN+m8RdfZ7Wr0dRe8HdR7A895pseIXsThgdjE0vE1G5TbMHj0hwCqXsvFOBxPN23rwZb251l7gZtMmMBpvd3dqpAY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=mca4tHc8; arc=fail smtp.client-ip=52.101.125.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44A412B143
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 01:17:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774228647; cv=none; b=OvzjsoknDREqI/Fvd51NHA0AeA7EvK25KQQHPeBjMW/iIA8soMGB6gmysdLykIq/0fPklcD3MH7salNFxZb5F3HbR80Goc52fa4oH9qYLfyYoQwsMW9s+kxn1siLzCv03NqUWUsPfzjEjD5oMvb8bSUdyUMdH7KdpaI43ZRuu1Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774228647; c=relaxed/simple;
+	bh=nooIqcP1KZppGTp7stNNhr5DaRnd3a7QK5NHg3OEPJo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WOfGf40XnWcN3wa77Xcnr2OXK8wmOWm1IUj4LV3A29yttBQOAWclROPwYVb2XhfN42dSfjmHaexbx4KkwZjTkAZKfVi0W3aR2zCdUZobYWpMPbmpY8fgK1V4A+Zfq0v4taaX3u7mdSx1nKknxmpMFgfDA0kmeniFkAL6KEbVUBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Np0JdmM5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EvxfoJwU; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="mca4tHc8"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VnxKN7/LquLLiPH9uG3I6F0Pxoj2ejfxR/+cl8OL3lx1HScgd1LZ3Lil3DViK4bhDZSqGCFFQJV6wvgMZKlrEjIz+yoTyHFsoGxX4bFxj3IRbrKEcwUXTaBDxCfdAiwvhz0XvHN7aW9WvSebs/C6D+5F9GIsxarpGLLOaHAd5V2hJZ6RnEhKkvyTofE0h3k9dUVyd9jN04nZ4byVDGdQJtcjaERNWm4yE8+JfX0Xm8zKWlfipwHA85FsdzmayfYWg+wPuM+9ZaU/KxUaqlW/hqx3gB6KGDESRtYVDG/zNO45vNlh2TZ2jE6fTbY1dDIQ3ndkzxEboiDQcvrfRP3dlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EnKIYOJqtQ7ZEXtQ2L3aGiLuF5Rqpmn2nTdP5nRVe/g=;
- b=N9EDKHqDkGrCFxAWCwoS81GXv2uqfxx9V0oh7dTuM32WgDiDo/UBdGmn6gc7oBBzwz9NzroMY+ueu5TbnRGw9AhSEXIdARLA0UM7meehrKKgn3CkeGwWywPC7t8Jg5PFOujvI8hBhaE6juBKBu2YAsRfCmTZPCySoDV2zwLA+sGC0WkxHiHjt+hlyyzLM63jCV9vyZU7L3YDz2xVsfBAo+o2O3eUpjLubdstEYYjqKjYiw9crMpL9yBFuL9S2DKoDK6iDUNQ6Ic5LNcXAwg8V2yYoHPbjqQE8LvbktNZ7Sd6KC7yan2cycmt1gyPC6n0Wq6vMT8gAuFmgK7fULdaSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EnKIYOJqtQ7ZEXtQ2L3aGiLuF5Rqpmn2nTdP5nRVe/g=;
- b=mca4tHc8cKk+VVX2agQY5fxZWH3JKqF+OcHKkEAoX7MHaZ9zMjw8iU89UqJtVrfydfqD8IlHNmj1zGMFsjaZzy3Vn6nksxh5a4CoqL7RWt+egwzKRCEeUbWrgy5+4puXf0umamm7gQwNugD0H8rauLp/E4LYI44IsCxsQmkc070=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com (2603:1096:400:373::8)
- by OSCPR01MB15450.jpnprd01.prod.outlook.com (2603:1096:604:3b4::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Mon, 23 Mar
- 2026 01:08:07 +0000
-Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com
- ([fe80::1868:c915:c230:a383]) by TY3PR01MB11797.jpnprd01.prod.outlook.com
- ([fe80::1868:c915:c230:a383%5]) with mapi id 15.20.9723.030; Mon, 23 Mar 2026
- 01:07:58 +0000
-Message-ID: <87jyv39wuj.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: John Madieu <john.madieu.xa@bp.renesas.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Vinod Koul <vkoul@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	John Madieu <john.madieu@gmail.com>,
-	linux-renesas-soc@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dmaengine@vger.kernel.org,
-	linux-sound@vger.kernel.org
-Subject: Re: [PATCH 10/22] ASoC: rsnd: Add DMA support infrastructure for RZ/G3E
-In-Reply-To: <20260319155334.51278-11-john.madieu.xa@bp.renesas.com>
-References: <20260319155334.51278-1-john.madieu.xa@bp.renesas.com>
-	<20260319155334.51278-11-john.madieu.xa@bp.renesas.com>
-User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Mon, 23 Mar 2026 01:07:56 +0000
-X-ClientProxiedBy: OS7P286CA0021.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:26d::17) To TY3PR01MB11797.jpnprd01.prod.outlook.com
- (2603:1096:400:373::8)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Np0JdmM5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EvxfoJwU"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62MGTRg4353326
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 01:17:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=FbXvEP3nYVrkLWj+0fdWcG
+	adpdPA4IA0DWc0/CaJGxE=; b=Np0JdmM5gxcAwhi964SCGyuoFNLYbQ8uiU3JDL
+	Ep++3ZL9RRfVzJZz/tCAwr0jkrWcYpTupp+RCCp7kRbkASV7psWtsFA35Lp9QoyY
+	HQ+VCDG2wK/bjwCCeHXLa0kZtQJrEzlKvvFmxtXHb1y5eGRSYaRRlnPoZqVCQQZz
+	9R2b/AoUX7uxNg5hdDG/7NhcY+zhjvIVH4kLswp5jipO6FVteKzug2wWfRdWTqGM
+	Khu/uX+Ly0d1DbholO23sEmFJRl/o3jY9Yxv51eTpv8Du5wEnB+a2qT00vb07Shz
+	XcCfnWTrp5MCeTbaWS1KHAEAjXBLaz09qSQednA+Ep1vOk4Q==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1j9rb9ts-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 01:17:24 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50b3544bc7bso33028471cf.2
+        for <devicetree@vger.kernel.org>; Sun, 22 Mar 2026 18:17:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774228643; x=1774833443; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=FbXvEP3nYVrkLWj+0fdWcGadpdPA4IA0DWc0/CaJGxE=;
+        b=EvxfoJwULJSO0tfN3u2KPb/TiRSne9DbN0RyIBv/CsAAPCxAvv3T15XeyDQrX9AsWW
+         18umbSkgW2Dybccn70L2F5e/OZkMjRoULXkbiX4CEQYyQBr5MW7mWIbwdQizQ0LS/E6r
+         UU0kZhI2sdc6szolV6Qb2psnnnMq9VJe1ucbp+2U/kW6zlJBEC1R/+CQ2J59oGZe2Er0
+         vcmhYDnuzweiizjbDM9/FwSMvjZP/54bfeDEJL54ulX1k3PAvPD3vkCC4ABbbuC8bEYP
+         lCoAunnEBC1fGwPvSqCcowWfMAmrJz9duGYnBQz6AiDo1gT7P09SCyJquXpupMFOReXP
+         k/kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774228643; x=1774833443;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FbXvEP3nYVrkLWj+0fdWcGadpdPA4IA0DWc0/CaJGxE=;
+        b=WIL8K5lbE858lVJ59BcrBMc0YjSKsRTDlXCzSiVV0DPuE11eK9pkcCqLt//d5HM1jz
+         Q9ILAl0jQXzmgGH3hHgA1B5rqttbEJYJE9vlmkFGmS2HyAs/7eol0wJc2FRgPP8HlPNw
+         1ql58p80te44sMG2YIe7raKIdr2wNg5nLZDRl/+59HnKcJqmOy+ehKsyfJrQ+xoNxPdg
+         T/DHQlINhhksF5eIY/fUi/wTPP4CDtOORX8tMbjVXzpMg+VXt0LjxS2WqRxMYvPm0Rb4
+         w6egJkosUWKGZGE/si5OjUdCzGQ3zruTsIa7gOxlnvTvHJB1EAaAVkkG8viNGG7gI0lQ
+         Ok0Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWuol5CsMsX4lGmZWLq8tAEHDwzRYHzD8BkJa3RzlMFl8SGlYeQYcQpHkwwwIu+DtBZB+xOCV0f1Y2v@vger.kernel.org
+X-Gm-Message-State: AOJu0YzT4VN+f7b+E12SexxLDq1Tz9YjyiaeKBto7JfJDh9f+DuI6IAM
+	gnd6BevmJI2VWBjKJkkACJgAF/mh6EGxguu42o+EytIl0U9mRY9bddl4Z0PBGEHewy2rXKz5mKR
+	KEzF3bkDF/i2U8SCfqtMqw4T84UeYi9OaBnH8HcQpL96ay9FWmh7PNyXHJ5GaYDrs
+X-Gm-Gg: ATEYQzxPvtuWEev0v97caZSnLwn7gBbyweqY77jelHVgi6Z2kgzBkpqOReGJacLjyu6
+	eOlzh1S847l+P7A625/NGavsPaojFDOzI22JYhBZ9bA6nG7ty6ttq001MaY7QNr7RSEMhPejOBk
+	6t5phjoE7+fsiFSi6QsXL2f9gQKAb6fS+FKH8o98UWkWUoGXzkoGiTLiHO3GikLxtrvtvMp0Vad
+	5952XfpHuWf+dRg/7VC9a/R+jTYvR46m78r1IGZ9wSFds5axx90WRbGGyoAf/8pgkgkzHZfh0Fx
+	gfBDieITYL2ZbtxcKWQLJMw7ke6V0r8tRi0o3UDEOaH67486yNk1xy2o7cTuJ/R+g+x715ovOu2
+	SqEAVNw9CGkM4kVFzSQ56drOxHmirdkWw1GHjVwz8UdE3QdVp6QLPRy/G4kGFi7RmL4BhYTlyYr
+	sW5SuySr+L4rIO1SyOaIq0X3RdwbA22SVaDyQ=
+X-Received: by 2002:ac8:5745:0:b0:50b:40a6:29b5 with SMTP id d75a77b69052e-50b40a62ae6mr149085521cf.42.1774228643085;
+        Sun, 22 Mar 2026 18:17:23 -0700 (PDT)
+X-Received: by 2002:ac8:5745:0:b0:50b:40a6:29b5 with SMTP id d75a77b69052e-50b40a62ae6mr149085101cf.42.1774228642472;
+        Sun, 22 Mar 2026 18:17:22 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2853050e7sm2216150e87.61.2026.03.22.18.17.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Mar 2026 18:17:21 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH 0/9] interconnect: qcom: let MSM8974 interconnect work
+ again
+Date: Mon, 23 Mar 2026 03:17:16 +0200
+Message-Id: <20260323-msm8974-icc-v1-0-7892b8d5f2ea@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY3PR01MB11797:EE_|OSCPR01MB15450:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9b3c30f3-62ad-4a58-c007-08de88789ee1
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|52116014|7416014|1800799024|56012099003|22082099003|18002099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	yV0g4nSmlFX2qxF/onmtlNvL/g0uX8R4Ud21y/AcR98F+fplj6Ni2socqlcBV4lvHPJcyxVXv3b+Pw6WV1YAl6LCgSuq/5/PXkRmIu4sRxsYpK4REJ0zHhdeVaGiwmMXgK6HaB/SqeQSjw7u4I29qy3xdzEK77SBnWpNy04z44SGzx/8eRZRF1MYP/BCJkrYOSRt+A3h/9JZWhB87GYTmxuykZPb2SDi70K+7kZ82rk/LJNAAD87K3mVSjWNLyB9t4S27y8AblP+fAU0JSohBNZv5PJ2+1odMqpJDbN3MTz1icLyXorK8UuQHsMNOnkQRghJ1sFbIP0zYa4C22nzEnSy8bCH50YuAwrcEA9g91UtcsF0erzMo7fJ0lhyS/hDYve6cKztvpjsIDE2H/JjUhvuviWWNKxFe8JnPQWS/BR5xSQhsWICtH/fmmgKm3iD+IesI3VObCAv17ZWn5+QkI44AVtFPi49w0Nv9A/XYxiJsda8h3rYyd1mx/7jmDIkma0rK5yK7p9x95Mgzd/RMtGUJyNSUESNVfF865zPIHHOx3FlCTTCVN9FO1qqHL1vaTqDWazNVxyM0MRrloyiAAGBzVZPcy+64abaNovUz3LxgmbX8hBkJDtDjITlKMJp651YFcOkYxerhH2UgMmfDTHq2OWr9CVolj8d/ZEI0TH0IZcv8Wkte89bbXkbNdFvaiXKjU1IWsYUApkl9GcR7x5B2uYRMAKJRKHrV7yxrQYPgxQziJUZRR+T1Mjwefg3m3a4dPx3NxgE+iR3osfVO0GcMr91afkT7Q7lJsMwe5s=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11797.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(52116014)(7416014)(1800799024)(56012099003)(22082099003)(18002099003)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?JmqAoAo7PWlyJRQ25iGuO4yjrccASxElLBpWHJZIvXjW1LRFvJZJVs+bCrJS?=
- =?us-ascii?Q?E1QEI4ZQBc/IozsnOsBvUiY5HbLglB+4lsB2KfRMYeeIDsY0ENF6TeHU19xo?=
- =?us-ascii?Q?KYjMBmcs6MlyjTyDYNYUvqZThtEYqQ/q2+uWSbbjE/zS85QA58R7zXenSwZx?=
- =?us-ascii?Q?TYI1mupCE0zN6WKMTKeIxauoA58HjLgFKuKKr7gf3iMK96wgzW9VM6e1za34?=
- =?us-ascii?Q?6LO6z/KRY73ba/M/mKTOJz5sTXrCgHcb+IO9xdVX7G2UZfLWpeK9e7RiBzwB?=
- =?us-ascii?Q?zsvUq37S4Ym8kX2RFHwMH4QcYgg2tet/v06RbK7BiwEJY8ommPX3i6S9F47a?=
- =?us-ascii?Q?QiTc7tuV7PzQ3uy+87wHV7S9uOXsFTtWMRp6J19EQmCl2VfUtg9VX3UU1ztC?=
- =?us-ascii?Q?9jBMn8pt41i+N0sexrR8EYqChSkGMayBIQKGzVwH6YWmI8A8gQuQPipJ/IPK?=
- =?us-ascii?Q?b6Xj1p4av8fp1m1yHS/5jdwH5wvyySD8Wap20tN1mTnI04DQ6GsDABDCE8q+?=
- =?us-ascii?Q?2dsXlRP45ZPc+4zSxaWVnplwYYRuk7pDU7fwU3Z+Gypuxv5uElytw4FAOD/c?=
- =?us-ascii?Q?vuV8TbUpFnYOBV4WwRNfj68S2b7cEL1ubF1EyYd5ZgPPFxS5gPd4DuESWKAm?=
- =?us-ascii?Q?7ohVemhfRVj5uLXvJG6KDHnlzmOdUj4ZtwFP9ItDdH5QRs8LqCN+Kdex+aar?=
- =?us-ascii?Q?OD449UGMK/7BKkXK0OL5Unfne9Qc2/4qrstHy9TbAVwkihsBVp7JFD6uh0oE?=
- =?us-ascii?Q?zY2ZtUW/zz4HPrW4C0Hgi4UnKuawPetE/boQu6RChjbyyH3rXC1hy4OEiEhF?=
- =?us-ascii?Q?XgxQWkDafngYKPhuuKAy96xJRrHwHGx3p9hkFNiCDufAbGv3nY+J9ZXUz2VU?=
- =?us-ascii?Q?oiRA3zZNvh7OyYBTQtwSKBtXqucanQ0hYsxuv03WHFbT/Tmim63f4BIRAxQr?=
- =?us-ascii?Q?Y9xzNKMq+68M6977QeCubdY5Y6HpWxO4We5WRu2vJKXHuo3AJcJ0WUgElp+v?=
- =?us-ascii?Q?blYSahj6QdvSprVupUmgFrqB8l0Iygu9zcEyq8iMIr021Fxp/LOu73WOa4XQ?=
- =?us-ascii?Q?PREQYIr6ra1KM8wh77YLg2q8hYOQHLAsyxDSX1cOtxV0IZBRwZHaVD2aFw7a?=
- =?us-ascii?Q?Sg3Q/m+XxzraHeKCuUUTUTXphad/3Y0DVGQ6ojvHt0hd2agyasjxQ5KcVs9V?=
- =?us-ascii?Q?usJlrvrtCqbAFhgEoAXWwTdzzrYR/xfb+EBbkDGnHWeiSXyd8gq2k93MAXq6?=
- =?us-ascii?Q?0h5ro5KIPc13nz/Sl593vrhP7BQAdQxY6C9mGMh5Cll9WQIbWlfhw2AEiGlH?=
- =?us-ascii?Q?/N42MrcpzmxzO4knAaXShu3ws+1qVZE28EmSPPUUy/omUo4AFslI53GvPsth?=
- =?us-ascii?Q?5MQso+xoECozccDstv/qOI699nPxdXNrQY8TJgekX+0hz/6DNF/V5Z2M9uVd?=
- =?us-ascii?Q?/nydk2Cyp6AeEnmjOafoUAQb7+9XZVhZTXsAMI0P7pE2ga2071MRkSzJybYW?=
- =?us-ascii?Q?ElDLKqVVgEBcsHmsEEsZMNZIXyaVnNnK9Cu0bq2Aa1g7V3pucivwIqst7vgu?=
- =?us-ascii?Q?jYaV7eaT5VqMlPJ6VyWqVME+iF8hny2OL3Ml8s1N4kVB87PbsGr6YS2rK+DW?=
- =?us-ascii?Q?b7zk3DobFwk3llbQmGlDFN7RFg2BcWb/1liG/H4fA+Gk35tXxDahQ4nFsUJ6?=
- =?us-ascii?Q?rN6FrYf0sWkfo89lfxq7gL65FV/LvbyXFq9GXBNXvCrRk/cpXs6D7Xhl3LQO?=
- =?us-ascii?Q?yQAp273bmpGAcruPR0NHlNg3Rky0ilTQNdKCSIuJsAqoqw84AxCg?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b3c30f3-62ad-4a58-c007-08de88789ee1
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11797.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 01:07:57.9084
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Chc8S7SlkIGRs4X/CNWgrbyIpUBYC1WAdi+Xdkb/+tOb3zQ7q5xuvkpSve8qdZer9KHmJxN2bo0eCLTnWGVxnAN7SU6caqqLFgdNULmLXbF+jxXe89GtUJMeiIGjg7WU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB15450
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJyUwGkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDYyMj3dziXAtLcxPdzORkXYPEZJNkI4tUQ2PLRCWgjoKi1LTMCrBp0bG
+ 1tQDt+yopXQAAAA==
+X-Change-ID: 20260322-msm8974-icc-0ac4c28e139a
+To: Georgi Djakov <djakov@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Luca Weiss <luca.weiss@fairphone.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Brian Masney <masneyb@onstation.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1654;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=nooIqcP1KZppGTp7stNNhr5DaRnd3a7QK5NHg3OEPJo=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpwJSePZCmbogNPffCLDsq42MUZ00v/ISv+zfOH
+ m4Mx4wGGmiJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCacCUngAKCRCLPIo+Aiko
+ 1UPUB/0Rq2hu5cvPMVq3jkrjU86m10XlmEzDN7e90QlTBgpcXed+w70eEa2m6L1k9v0kQldVo3I
+ k1RX9RweiRbaYG/nGetblxpKOWSD8QK/7J4Sww6D2EUozmkycmfgzYYhxAMfXMZ3NwcCkIwuMbV
+ VpT2s2ROhgAP4b5RiEKfjaHWMCFyAWF2VB0Jmjq5VLAlP8IR72XwI1UF16MoG6NNNpeWSMJ/hjG
+ 2f45eibc+pY5pethZ13wpGQ+3zIvOuWr/UI+zM+nnbnRfX0vlX3mg/nLelq0NwKBbFWpIvo25nZ
+ USxsLuIQjXj2yM/d219ZpQvu6VGWJn3oUqzQB7I0IhHCFzOh
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-ORIG-GUID: TQlge8JEiFj5cHqxN-MwcT1XH6JkYa8Y
+X-Authority-Analysis: v=2.4 cv=ZPDaWH7b c=1 sm=1 tr=0 ts=69c094a4 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=UYl0gxALbNRs-l06lEwA:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDAwOCBTYWx0ZWRfX5uTKSbSOsq1A
+ GrpWIcOvFdduOSTScEDhtmupJvVmmnPfOjTo6vA540OnDD5gLyZ8gQTYTGQOJCpwvzU3PVQsCIl
+ 95bWL8P5tCTMX7oPvhTcmhbP9I8xv+6nNHmrTpL9VIgSi8C7fe4UD0lGbGiV3eNn1a6CBKoAMEI
+ 8eqLrkrj9bbMJWtfB396uqc2CyulAX/QN0IMfQeaPjvkJBQBpxmFTFWJxRbRV+K/DnP1O6mtNZf
+ HudoX28fQT5Ye1PVJAi8TA/W373J5/ZJ5+4EoZHEdECdKahKyjywjFVkk/MyYFudmjlqJymXnLX
+ 8ir9XT61mDahfA+X0IbgQYd4LDu+9pwEs4FP4xC3liDYl3ivarNWIjK72v+JFDsA5DTG6E9hqPi
+ i9lkWtqxh+r/EDI8b9mlJGxEAxD+FeQoKRIGpsW5ue9ypC7pVdDGa7hLy3S5qG0iqeFUtPGVk05
+ VkDknWeU20jePez4YtQ==
+X-Proofpoint-GUID: TQlge8JEiFj5cHqxN-MwcT1XH6JkYa8Y
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-22_07,2026-03-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 impostorscore=0
+ adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230008
 
+Commit d6edc31f3a68 ("clk: qcom: smd-rpm: Separate out interconnect bus
+clocks") moved control over several RPM resources from the clk-smd-rpm
+driver to the icc-rpm.c interconnect helpers. Most of the platforms were
+fixed before that commit or shortly after. However the MSM8974 was left
+as a foster child in broken state. Fix the loose ends and reenable
+interconnects on that platform.
 
-Hi John
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Dmitry Baryshkov (9):
+      dt-bindings: interconnect: qcom,msm8974: drop bus clocks
+      dt-bindings: interconnect: qcom,msm8974: use qcom,rpm-common
+      interconnect: qcom: drop unused is_on flag
+      interconnect: qcom: icc-rpm: allow overwriting get_bw callback
+      interconnect: qcom: define OCMEM bus resource
+      interconnect: qcom: let platforms declare their bugginess
+      interconnect: qcom: msm8974: switch to the main icc-rpm driver
+      interconnect: qcom: msm8974: expand DEFINE_QNODE macros
+      ARM: dts: qcom: msm8974: Drop RPM bus clocks
 
-Thank you for your patch
+ .../bindings/interconnect/qcom,msm8974.yaml        |   28 +-
+ arch/arm/boot/dts/qcom/qcom-msm8974.dtsi           |   21 +-
+ drivers/interconnect/qcom/icc-rpm-clocks.c         |    6 +
+ drivers/interconnect/qcom/icc-rpm.c                |   18 +-
+ drivers/interconnect/qcom/icc-rpm.h                |    7 +-
+ drivers/interconnect/qcom/msm8974.c                | 1637 +++++++++++++++-----
+ 6 files changed, 1274 insertions(+), 443 deletions(-)
+---
+base-commit: 8e5a478b6d6a5bb0a3d52147862b15e4d826af19
+change-id: 20260322-msm8974-icc-0ac4c28e139a
 
-> RZ/G3E has different DMA register base addresses and offset calculations
-> compared to R-Car platforms, and requires additional audmac-pp clock and
-> reset lines for Audio DMAC operation.
-> 
-> Add RZ/G3E-specific DMA address macros and audmac-pp clock/reset support
-> using optional APIs to remain transparent to other platforms.
-> 
-> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
-> ---
+Best regards,
+-- 
+With best wishes
+Dmitry
 
-I think it include many features in 1 patch.
-You should separate it into each features.
-
-> diff --git a/sound/soc/renesas/rcar/dma.c b/sound/soc/renesas/rcar/dma.c
-> index 68c859897e68..d3123ae3b402 100644
-> --- a/sound/soc/renesas/rcar/dma.c
-> +++ b/sound/soc/renesas/rcar/dma.c
-> @@ -496,24 +496,71 @@ static struct rsnd_mod_ops rsnd_dmapp_ops = {
->   *	SSIU: 0xec541000 / 0xec100000 / 0xec100000 / 0xec400000 / 0xec400000
->   *	SCU : 0xec500000 / 0xec000000 / 0xec004000 / 0xec300000 / 0xec304000
->   *	CMD : 0xec500000 /            / 0xec008000                0xec308000
-> + *
-> + * 	ex) G3E case
-> + *	      mod        / DMAC in    / DMAC out   / DMAC PP in / DMAC pp out
-> + *	SSI : 0x13C31000 / 0x13C40000 / 0x13C40000
-> + *	SSIU: 0x13C31000 / 0x13C40000 / 0x13C40000 / 0xEC400000 / 0xEC400000
-> + *	SCU : 0x13C00000 / 0x13C10000 / 0x13C14000 / 0xEC300000 / 0xEC304000
-> + *	CMD : 0x13C00000 /            / 0x13C18000                0xEC308000
->   */
-> -#define RDMA_SSI_I_N(addr, i)	(addr ##_reg - 0x00300000 + (0x40 * i) + 0x8)
-> -#define RDMA_SSI_O_N(addr, i)	(addr ##_reg - 0x00300000 + (0x40 * i) + 0xc)
->  
-> -#define RDMA_SSIU_I_N(addr, i, j) (addr ##_reg - 0x00441000 + (0x1000 * (i)) + (((j) / 4) * 0xA000) + (((j) % 4) * 0x400) - (0x4000 * ((i) / 9) * ((j) / 4)))
-> -#define RDMA_SSIU_O_N(addr, i, j) RDMA_SSIU_I_N(addr, i, j)
-> +/* RZ/G3E DMA address macros */
-> +#define RDMA_SSI_I_N_G3E(addr, i)	(addr ##_reg + 0x0000F000 + (0x1000 * i))
-> +#define RDMA_SSI_O_N_G3E(addr, i)	(addr ##_reg + 0x0000F000 + (0x1000 * i))
-> +
-> +#define RDMA_SSIU_I_N_G3E(addr, i, j) (addr ##_reg + 0x0000F000 + (0x1000 * (i)) + (((j) / 4) * 0xA000) + (((j) % 4) * 0x400) - (0x4000 * ((i) / 9) * ((j) / 4)))
-> +#define RDMA_SSIU_O_N_G3E(addr, i, j) RDMA_SSIU_I_N_G3E(addr, i, j)
-> +
-> +#define RDMA_SSIU_I_P_G3E(addr, i, j) (addr ##_reg + 0xD87CF000 + (0x1000 * (i)) + (((j) / 4) * 0xA000) + (((j) % 4) * 0x400) - (0x4000 * ((i) / 9) * ((j) / 4)))
-> +#define RDMA_SSIU_O_P_G3E(addr, i, j) RDMA_SSIU_I_P_G3E(addr, i, j)
-> +
-> +#define RDMA_SRC_I_N_G3E(addr, i)	(addr ##_reg + 0x00010000 + (0x400 * i))
-> +#define RDMA_SRC_O_N_G3E(addr, i)	(addr ##_reg + 0x00014000 + (0x400 * i))
-> +
-> +#define RDMA_SRC_I_P_G3E(addr, i)	(addr ##_reg + 0xD8700000 + (0x400 * i))
-> +#define RDMA_SRC_O_P_G3E(addr, i)	(addr ##_reg + 0xD8704000 + (0x400 * i))
-> +
-> +#define RDMA_CMD_O_N_G3E(addr, i)	(addr ##_reg + 0x00018000 + (0x400 * i))
-> +#define RDMA_CMD_O_P_G3E(addr, i)	(addr ##_reg + 0xD8708000 + (0x400 * i))
-> +
-> +/* R-Car DMA address macros */
-> +#define RDMA_SSI_I_N_RCAR(addr, i)	(addr ##_reg - 0x00300000 + (0x40 * i) + 0x8)
-> +#define RDMA_SSI_O_N_RCAR(addr, i)	(addr ##_reg - 0x00300000 + (0x40 * i) + 0xc)
->  
-> -#define RDMA_SSIU_I_P(addr, i, j) (addr ##_reg - 0x00141000 + (0x1000 * (i)) + (((j) / 4) * 0xA000) + (((j) % 4) * 0x400) - (0x4000 * ((i) / 9) * ((j) / 4)))
-> -#define RDMA_SSIU_O_P(addr, i, j) RDMA_SSIU_I_P(addr, i, j)
-> +#define RDMA_SSIU_I_N_RCAR(addr, i, j) (addr ##_reg - 0x00441000 + (0x1000 * (i)) + (((j) / 4) * 0xA000) + (((j) % 4) * 0x400) - (0x4000 * ((i) / 9) * ((j) / 4)))
-> +#define RDMA_SSIU_O_N_RCAR(addr, i, j) RDMA_SSIU_I_N_RCAR(addr, i, j)
->  
-> -#define RDMA_SRC_I_N(addr, i)	(addr ##_reg - 0x00500000 + (0x400 * i))
-> -#define RDMA_SRC_O_N(addr, i)	(addr ##_reg - 0x004fc000 + (0x400 * i))
-> +#define RDMA_SSIU_I_P_RCAR(addr, i, j) (addr ##_reg - 0x00141000 + (0x1000 * (i)) + (((j) / 4) * 0xA000) + (((j) % 4) * 0x400) - (0x4000 * ((i) / 9) * ((j) / 4)))
-> +#define RDMA_SSIU_O_P_RCAR(addr, i, j) RDMA_SSIU_I_N_RCAR(addr, i, j)
->  
-> -#define RDMA_SRC_I_P(addr, i)	(addr ##_reg - 0x00200000 + (0x400 * i))
-> -#define RDMA_SRC_O_P(addr, i)	(addr ##_reg - 0x001fc000 + (0x400 * i))
-> +#define RDMA_SRC_I_N_RCAR(addr, i)	(addr ##_reg - 0x00500000 + (0x400 * i))
-> +#define RDMA_SRC_O_N_RCAR(addr, i)	(addr ##_reg - 0x004fc000 + (0x400 * i))
->  
-> -#define RDMA_CMD_O_N(addr, i)	(addr ##_reg - 0x004f8000 + (0x400 * i))
-> -#define RDMA_CMD_O_P(addr, i)	(addr ##_reg - 0x001f8000 + (0x400 * i))
-> +#define RDMA_SRC_I_P_RCAR(addr, i)	(addr ##_reg - 0x00200000 + (0x400 * i))
-> +#define RDMA_SRC_O_P_RCAR(addr, i)	(addr ##_reg - 0x001fc000 + (0x400 * i))
-> +
-> +#define RDMA_CMD_O_N_RCAR(addr, i)	(addr ##_reg - 0x004f8000 + (0x400 * i))
-> +#define RDMA_CMD_O_P_RCAR(addr, i)	(addr ##_reg - 0x001f8000 + (0x400 * i))
-> +
-> +/* Platform-agnostic address macros */
-> +#define RDMA_SSI_I_N(p, addr, i)	rsnd_is_rzg3e(p) ? RDMA_SSI_I_N_G3E(addr, i) : RDMA_SSI_I_N_RCAR(addr, i)
-> +#define RDMA_SSI_O_N(p, addr, i)	rsnd_is_rzg3e(p) ? RDMA_SSI_O_N_G3E(addr, i) : RDMA_SSI_O_N_RCAR(addr, i)
-> +
-> +#define RDMA_SSIU_I_N(p, addr, i, j) rsnd_is_rzg3e(p) ? RDMA_SSIU_I_N_G3E(addr, i, j) : RDMA_SSIU_I_N_RCAR(addr, i, j)
-> +#define RDMA_SSIU_O_N(p, addr, i, j) rsnd_is_rzg3e(p) ? RDMA_SSIU_O_N_G3E(addr, i, j) : RDMA_SSIU_O_N_RCAR(addr, i, j)
-> +
-> +#define RDMA_SSIU_I_P(p, addr, i, j) rsnd_is_rzg3e(p) ? RDMA_SSIU_I_P_G3E(addr, i, j) : RDMA_SSIU_I_P_RCAR(addr, i, j)
-> +#define RDMA_SSIU_O_P(p, addr, i, j) rsnd_is_rzg3e(p) ? RDMA_SSIU_O_P_G3E(addr, i, j) : RDMA_SSIU_O_P_RCAR(addr, i, j)
-> +
-> +#define RDMA_SRC_I_N(p, addr, i)	rsnd_is_rzg3e(p) ? RDMA_SRC_I_N_G3E(addr, i) : RDMA_SRC_I_N_RCAR(addr, i)
-> +#define RDMA_SRC_O_N(p, addr, i)	rsnd_is_rzg3e(p) ? RDMA_SRC_O_N_G3E(addr, i) : RDMA_SRC_O_N_RCAR(addr, i)
-> +
-> +#define RDMA_SRC_I_P(p, addr, i)	rsnd_is_rzg3e(p) ? RDMA_SRC_I_P_G3E(addr, i) : RDMA_SRC_I_P_RCAR(addr, i)
-> +#define RDMA_SRC_O_P(p, addr, i)	rsnd_is_rzg3e(p) ? RDMA_SRC_O_P_G3E(addr, i) : RDMA_SRC_O_P_RCAR(addr, i)
-> +
-> +#define RDMA_CMD_O_N(p, addr, i)	rsnd_is_rzg3e(p) ? RDMA_CMD_O_N_G3E(addr, i) : RDMA_CMD_O_N_RCAR(addr, i)
-> +#define RDMA_CMD_O_P(p, addr, i)	rsnd_is_rzg3e(p) ? RDMA_CMD_O_P_G3E(addr, i) : RDMA_CMD_O_P_RCAR(addr, i)
-
-I think you want to create new rsnd_rzg3e_dma_addr() and call it,
-instead of makes existing code complex.
-
-+ static dma_addr_t rsnd_rzg3e_dma_addr(...)
-+ {
-+	...
-+ }
-...
-  static dma_addr_t rsnd_dma_addr(...)
-  {
-	...
-	else if (rsnd_is_gen4(priv))
-		return rsnd_gen4_dma_addr(...);
-+	else if (rsnd_is_rzg3e(priv))
-+		return rsnd_rzg3e_dma_addr(...)
-	else
-		return rsnd_gen2_dma_addr(...);
-}
-
-> @@ -860,6 +917,56 @@ int rsnd_dma_probe(struct rsnd_priv *priv)
->  		return 0; /* it will be PIO mode */
->  	}
->  
-> +	/*
-> +	 * audmac_pp clock/reset management strategy:
-> +	 *
-> +	 * Unlike other modules (SSI, SRC, etc.) which have their own dedicated
-> +	 * clocks, all DMA modules share the single audmac_pp clock/reset.
-> +	 * Managing it per-stream or per-DMA-module causes
-> +	 * reference count imbalances:
-> +	 *
-> +	 *   - rsnd_mod_init() does clk_prepare_enable() then clk_disable(),
-> +	 *     leaving prepare_count=1 per module
-> +	 *   - With N DMA modules sharing the same clock handle, prepare_count=N
-> +	 *   - suspend does single clk_disable_unprepare() (-1)
-> +	 *   - resume does single clk_prepare_enable() (+1)
-> +	 *   - Result: prepare_count leaks on each suspend/resume cycle
-> +	 *
-> +	 * Per-stream management (iterating DMA modules in suspend/resume) is
-> +	 * not worth the complexity:
-> +	 *
-> +	 *   - No power benefit: audmac_pp is needed whenever ANY stream is
-> +	 *     active, and every stream uses DMA, so it's essentially always on
-> +	 *   - Architecture mismatch: DMA modules live in io->dma, not in a
-> +	 *     priv array -- no clean way to iterate like SSI/SRC/DVC
-> +	 *   - Shared handle problem: all DMA modules point to the same clock,
-> +	 *     so iterating would call clk_unprepare() N times on one clock
-> +	 *   - Would require manual refcounting ("enable on first stream,
-> +	 *     disable on last") -- reimplementing what clk framework does
-> +	 *
-> +	 * The correct approach is to treat audmac_pp as always-on infrastructure
-> +	 * (same pattern as clk_adg), managed globally:
-> +	 *   - Probe: acquire + enable (via devm_clk_get_optional_enabled)
-> +	 *   - Suspend/Resume: toggle in core.c rsnd_suspend/rsnd_resume
-> +	 *   - Remove: devm cleanup
-> +	 *   - DMA modules: pass NULL clock/reset to rsnd_mod_init()
-> +	 *
-> +	 * Use devm variants that handle deassert/enable automatically.
-> +	 * Order: reset deasserted first, then clock enabled.
-> +	 */
-> +	priv->rstc_audmac_pp =
-> +		devm_reset_control_get_optional_exclusive_deasserted(dev, "audmac_pp");
-> +	if (IS_ERR(priv->rstc_audmac_pp)) {
-> +		return dev_err_probe(dev, PTR_ERR(priv->rstc_audmac_pp),
-> +				     "failed to get audmac_pp reset\n");
-> +	}
-> +
-> +	priv->clk_audmac_pp = devm_clk_get_optional_enabled(dev, "audmac_pp");
-> +	if (IS_ERR(priv->clk_audmac_pp)) {
-> +		return dev_err_probe(dev, PTR_ERR(priv->clk_audmac_pp),
-> +				     "failed to get audmac_pp clock\n");
-> +	}
-
-rsnd_dma_probe() is common fucntion.
-Is above possible to keep compatible with other SoCs ?
-
-And, we are already using "audmacpp".
-I think it time to update rsnd_dma_probe() like below ?
-
-	int rsnd_dma_probe(...)
-	{
-		if (rsnd_is_gen1(..))
-			return ...
-		else if (rsnd_is_gen2(...) ||
-			 rsnd_is_gen3(...))
-			return ...
-		else if (rsnd_is_gen4(...))
-			return ...
-		else if (rsnd_is_rzg3e(...))
-			return ...
-		...
-	}
