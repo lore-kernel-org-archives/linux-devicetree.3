@@ -1,696 +1,172 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011044.outbound.protection.outlook.com [52.101.70.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D02E3845CF
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 22:39:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774305562; cv=none; b=HlgJ87/AYgMxrYwXLoI/504N2iCHd4bNHrSX3MWlzYcxTz9dzFpfAKKu3aVnmUg1KZAcNrg/rJI0HLBXNwijaR8YgVDBgyr5qu75hbkwpgaYeM+jaZTUXkiLNP8P2gNvKPjWWF5sRr8jKx/welBIoTnvo5vJZT8KnSf0NhRLbU4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774305562; c=relaxed/simple;
-	bh=i7xC8QwgKa/e7Tbxlrmvz+rJTCfxQ9AsYbFRZN9K44c=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2CD382F22;
+	Mon, 23 Mar 2026 22:47:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774306030; cv=fail; b=VqYvpCl1rH6xry5/5nKlFCrUgz08jPfTH98bKKXBWhnTyluDdzlY8DupulSCpz0YO3RZMApgwo3p0ONN0+qk1lPkn+O6tykz2qJHQp1rHZhPodwmgM8lC3xjG8SioIlnQOWt6RDW9whpzX9DN81+KcG5pbpqGT7CfCycD53F9sc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774306030; c=relaxed/simple;
+	bh=d0klPy+EG0hWuwcd9csu1ewyF+4Y61sSt3WhYj1XV6w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VUJsGsemfNhPnYWKmEUkgTu4kJ0TXHVFZ0FuNIoG8X5kgR41uqJsXwKIZDug1UXT5HWn1sniRmiK1pQCpp2qegk2elzMoqI4wU2P3668qq5+tiG4PnemO+9yreVy04qt4DOk9J5e4FIbDk8ljGfUZzbCgLiPOKFCEChJfKyEy3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GZ8uCA0O; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZnFhIvQD; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:MIME-Version; b=NHcDXRTZe9YIrkYZNUQvv91X8hsPy2q4joTFh6gbE1pdYfb4OqMX6BF4yS1kPLNbW6WPQakv2/3R3LrrSjjixPrRKjPyCe4b47nuhneCZ21lfsH1BtHUZ2d0QP3DZhV9kOBkReLaAyVr4HO7VfzT2NZksa5QBeJRP3jQ+hWCSvc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=HRMyXin1; arc=fail smtp.client-ip=52.101.70.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GZ8uCA0O";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZnFhIvQD"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62NIYlrb1908895
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 22:39:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=b4BDjNCVk8p
-	9irzHcBYf7+HuKzr5jBjQdwW7M52p7pY=; b=GZ8uCA0OxmSR3rFjyNRcXd6MXnl
-	UaQJ+EFw16CVC0raVsnVoE+Ag+K4DZQConhYvqKbuAj4f1p3BS3Fsuner9my23/p
-	uDEBxY4x9aNZAt9v+xySuwqKStoVzkpD3s+LVyjhf9C04EHDtnGk8KubQacApkoX
-	Sb9p5x/oJC0SzYbPJpwDIDr4YMttZNFp90kInWZe1nVdqfRTbfzosl9h9AKbkKN6
-	T5k60A24omcZqUX7Cfjg8RQno0PP0TkhFSlI0WLn3W+WSue5WauHi376O4FG7sU9
-	jdswmxbvxYhbtkldabysDzqK5uxZyvfSBgJ2kTKSqQ8ozn6UmBPzAY0bJ3w==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d3awyrnth-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 22:39:19 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50b4661881eso9662331cf.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 15:39:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774305559; x=1774910359; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=b4BDjNCVk8p9irzHcBYf7+HuKzr5jBjQdwW7M52p7pY=;
-        b=ZnFhIvQD/p24UOghlcTI+ihl9p3y2sHeidW+M/mDa21eHtQYodk3dkqPr3O9Dcyr+v
-         8XUKbeMEWDQsno9RqtZV3ZHi2EGdHFClVT3ZmKtYeKqza0pjPWiH6KxqrDsbrVrmC+oE
-         HBzUeD5sjiFRkhCm0OYlltrDjt5G+Ner6JNMmYaqnEuEuJFM9sGzELZwcssLOwzkoyvr
-         AGBE7J1SDJuYKVZEUixyUCx6x4waOORp8SkQEjnWTHEBZC1chcCqgfLENBwg9Te9lTVG
-         waBkWFqcEKLt19RFmvG9LxEPJAw1RFs2ilma+45mdtooc2g3QoEDpl4r9HX5CsVWKXGT
-         ckgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774305559; x=1774910359;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=b4BDjNCVk8p9irzHcBYf7+HuKzr5jBjQdwW7M52p7pY=;
-        b=fpkUkb1y+oC75MaTDgmz8NEk3hce87fu6ThxxAmAz+6roRCToketrbtWmf/DrUo3in
-         debXAmIP4xe4dCDMyTkOmocWDppvnDc3y6dBYSSXzlQ7w/L6Y2s5H9dg37fLW/dUmO+p
-         ydLIsEU32QBGyvFw9vBDvrVdL5RJdQsB9K9GwE3WaKliyMzmKv4NNdK4sG5TQPjtemAK
-         qDfCey67xutSVN2lNXClYN9ySMImOoR59Sbu0S3Ut689yJ6ZjAvX3rQfZgoZLuWJzp/k
-         CrnIochc2xhKXf1/HR1HizHQPHSh+nkIv5vVwqMEXpol6nEcg43+8oAY5X/j/c6NCjd5
-         eGZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXTmqJ1dhUA/wRAXPQbGOkHr2dyY5OHBsz/cx8dHnW6jweE7TgHcLED7sHcCj89jG43oMud2BDBOu51@vger.kernel.org
-X-Gm-Message-State: AOJu0YwpXt3OIkiEeQRvxefAh3n7nPRD6YRcdczRdqSTrIWJZ84tCDC1
-	w31aD/JvxNqP7mDFaIRJYf60sswwf5HT0tyNpUxqbLEciITiafpeGZGmsk3uc0ommEfk8zeQ8ua
-	Oc5lcdXgYrtGiek36b1Ilg6GdR0/Zp+S53gSZ0v9vTQzRCLdFgzFdumozC1MBtg6V
-X-Gm-Gg: ATEYQzxACV7HgYFdOY4KpSXHDCvMpWn+IyDJrcM0J4GBFmccsxryLzhTYM534OY25kI
-	J57s24QKTcBeqDVpTrUm3XDWIDq06W0opcpc/mpg8F9QbNSi28nRoy4sknyquQI/gjQeL9tQ7uR
-	Esdc8/1XlU6jUJelGERfUvAWyWYjyPRPLx+LosiNbIm2xmyUO/pl7hokCQEoe6P26hFvJ9pBHpw
-	0+JTFno3wZqbP6QSsWtAuwLKBta6OBClBuNrBbcLORTQxplZpRodIfwcm7vyW88fcHWtV/deS4a
-	EfNJw6v2agp3wU8tfMbxsv2HgKTRjJS9fVhETNQMx/VgNjbkI98fJpmxI7BN9mtOQ5p4Frxa6OZ
-	gNpLUQuwuT7WsV7V/PlYqgmeRJqlCIpx2mOkblnKOjcE44hyrljoxJsQ=
-X-Received: by 2002:a05:622a:14ca:b0:509:320:2de6 with SMTP id d75a77b69052e-50b374414c9mr208120431cf.25.1774305558797;
-        Mon, 23 Mar 2026 15:39:18 -0700 (PDT)
-X-Received: by 2002:a05:622a:14ca:b0:509:320:2de6 with SMTP id d75a77b69052e-50b374414c9mr208120171cf.25.1774305558253;
-        Mon, 23 Mar 2026 15:39:18 -0700 (PDT)
-Received: from localhost.localdomain ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b64715539sm33320351f8f.33.2026.03.23.15.39.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Mar 2026 15:39:17 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-To: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org
-Cc: mohammad.rafi.shaik@oss.qualcomm.com, linux-sound@vger.kernel.org,
-        lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, johan@kernel.org,
-        dmitry.baryshkov@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, srini@kernel.org, val@packett.cool,
-        mailingradian@gmail.com,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Subject: [PATCH v7 13/13] ASoC: qcom: q6apm: Add support for early buffer mapping on DSP
-Date: Mon, 23 Mar 2026 22:38:45 +0000
-Message-ID: <20260323223845.2126142-14-srinivas.kandagatla@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260323223845.2126142-1-srinivas.kandagatla@oss.qualcomm.com>
-References: <20260323223845.2126142-1-srinivas.kandagatla@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="HRMyXin1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OA+VUJjvJdeyJiCeRpoBOm0n6XAoqe1E467bAi/UYoNVKyy8h9X22H5aWx/2VJIah/kjS3egCfQB4hlgAZHMyzHqimDIg0twm0GylhV4SEOxg85USaqffmzvgdf5ba+E046lRT7tjglhcVaXpbSv1v51BgkQtKBs/mYmtLJgxCruyERc38/+TPfAoOFWsrw73joNfriXam/a/TZ3KniOC0uXpuNNPA/FCSa72lFvXUY2D8U8490niRfLCz7NhMDJPsr79iIGz46DRTcsukujveUa1OJDfrbFYXexZNUloZQsFD5apJUAZyVYBwjWtvl/5f/UEsaLMK/vVyd88YvVdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XnBS5d8Af0kdj4K6dk1dnRPW2O5zdnxrbpuFLKgUYMA=;
+ b=Iv9x+qCLJTz6FTn5l37NbYeZ2lPYzBh+I0z38V5CZEzZvqaI8bCTKxlXoqGWJyhpCo92DYQy3iEyj/M9fOb+khoNNJN9AuwPKSiwLWfidZnUTsrAtLt0BsrHebMJSkUVN2ap06oZODx4l6voFjR+vopI+67Aug9mNTC0vXaTejtkapw4Z9lrSO7Ygc0LnOE8i5vOSlDm1th0wAlhzsF72xQ9XOgeVbMCPOK/BXlEDRGHJjywiUHE6BCnazCkDrX7r8SKISf7g1fRepE+hSxb/hfqYWG3kYnZOH5NE4JnKqnoUFA7wvVlpPVJJoeZVDf27prP0zB84AaivnfDCiSvfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XnBS5d8Af0kdj4K6dk1dnRPW2O5zdnxrbpuFLKgUYMA=;
+ b=HRMyXin16YFN/IRof3gfUlm5iQOcEcp2T20fTtblnOsQRIUTnXUrh3CuBu/r76g6ec9/Q+G0N/eEeF0NgzwntMJlEa4Z2WDPt3A9SapCFu1tLYcdDHVLzO6KzS4D6wKAZY1qwvBosG1YgOphjwpBBRUB96ucFOvG+F1Q7Y+Z9ES/9sfh/lpU2U+cZnyOxKXIaiNkVu1pVchRwXNf2dWoz8UM9miPuQr3qX/8ietc8NHg2pXE6LUCbxG2hjaf+rwvf5Oha2nzg4UCAYweUZMnwkDFMsfCuWmAJNwKuCv1oZLTzfIu3Yt+FsSwKU9k3o6lRIYs6XRGWwYQp5pDhDMX1A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by PA4PR04MB9392.eurprd04.prod.outlook.com (2603:10a6:102:2ab::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Mon, 23 Mar
+ 2026 22:47:06 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9723.030; Mon, 23 Mar 2026
+ 22:46:57 +0000
+From: Frank Li <Frank.Li@nxp.com>
+To: Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Peng Fan <peng.fan@nxp.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux@ew.tq-group.com,
+	linux-clk@vger.kernel.org
+Subject: Re: (subset) [PATCH v2 0/6] TQMa91/TQMa93: display support on MBa91xxCA
+Date: Mon, 23 Mar 2026 18:46:42 -0400
+Message-ID: <177430593061.1453080.768758627598818290.b4-ty@nxp.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260313070740.585043-1-alexander.stein@ew.tq-group.com>
+References: <20260313070740.585043-1-alexander.stein@ew.tq-group.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BYAPR21CA0026.namprd21.prod.outlook.com
+ (2603:10b6:a03:114::36) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDE2NyBTYWx0ZWRfXyrp6r8qItexQ
- PQKrzIj5XFCywtzeznzLammfgm8KvHK/HcKigzaUUibkXLcexVPPG+aIZfABMufE/w/oEhlljqK
- p8x2eP7c65mev8hauNSGfGx9La7AukJgmm11bm2oSF5KSictmbLQhBFKjDCPktb3htZpTo7Qs+b
- r8FXA2gLHX3erYJjreBvD4wRo3gS76XF37yVl9o1iljiLyL0Z/BSBKUwOuHCWitLN4wILFUm/xf
- d80Ix1FXeGWZ4kkGN0HVcZHF3XBgtTq2K5GvpvsuND+vFGDT15bt8xyW4Sbrcy7tPHHr8E/vmuz
- 8/q0+ybSNn+IHIDOgjkyXkkVVi6VQfu3w9ltWSEf0swEXW3yKBR9djqS2a+z/2LlwCiS5vIE+5M
- szde7HKVWAGmsjkdTXIaNV4FgF/5kL3Ot/8uisQzr/CnhyKFr+berRgJI4SNx6akjUeeG+uVtLm
- ovrEjMzBkBqSRtSXuqg==
-X-Proofpoint-ORIG-GUID: i_4m732RWs0Y2qfgSBiu4b9fQsWh4iMn
-X-Authority-Analysis: v=2.4 cv=KuhAGGWN c=1 sm=1 tr=0 ts=69c1c118 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=KqBSpy-4UWhbKApt0wUA:9 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: i_4m732RWs0Y2qfgSBiu4b9fQsWh4iMn
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-23_06,2026-03-23_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 phishscore=0 priorityscore=1501 impostorscore=0
- spamscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230167
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|PA4PR04MB9392:EE_
+X-MS-Office365-Filtering-Correlation-Id: deb7ab1b-9f2d-4cc4-92d4-08de892e1663
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|52116014|7416014|376014|1800799024|38350700014|921020|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	2yLYKFW0J3GP7uWZaz12dBvBVfA1bkhK0He6syutoIStrPy5Fp+SlcEs0APA7zFE+ccjRxwvcdP8GdmAEGVYbFOBsHRC1pVDcXcu12CpTLy4SDFQ7NQyL9JfWBiyDV5hsqGIkblLkyzNx+7BNlq5+P1NE1W/b5k67st7IFtNWZZfI1+D+9XP3Du3i9PYPAkN0P2ma0g6or0zrfBjaY+B+MAfHP8j//XAKn7ssUxKXW+8LEEmPpGSqA00CeIRVQX3E8QMCPATy2SJKgFlcFlbYINIFCSSGKejtOPQhXnIqEHb15AFK/eq7XuvGH1uwLo+zfcimMfel8awMib8qqk+w5sNepYPbNEUVilU6Leoh+VNzn6z0Z9LRxspiJPYtHUYskrIFvGAtpbV4/CmHmA5QbHv1KVkcUmx8nlQqmUpY8cqkjvbvAwsviTel4k9pMkdlprYam4kZ3yoGfi9mKMcjjuRePsdvJZiTKCZCwhxfzKQ2zG8R8prlF+jfoP/uzklaJCK+FO9J+kcul72DdRk3xk+mTeozDu1JmRiTcVpLdGMTaOUVqZF8E/jcidRvJAfiuTuDFHkSbMs2libzdogVpZphK09haAYOcsQPjdU22QK0rl23Hre0rC0LQTrcVNJVXcBvrq9ySjB41F63qIYwGtXhtPLqbBqTKdPRTFs5vvJZEriB9jXEiNHweyQVFFHdHR3Jrv41xQa1GcE98WxWsdJQjDTr0Ev1z07NsSw/iFCRUJA0UM07PXJsrcvhFcL+6SiQnQgI+QEW3w4EY7kqc1FDZxQ26APnH7IIJlg4z4DnBACNljILAHfjxzpfRot
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(52116014)(7416014)(376014)(1800799024)(38350700014)(921020)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NDhncmt5WWFta1hpQkdtaTdwZ0dhRFY0WXVNdEhhYi8vU041dVpOQWx0R2lS?=
+ =?utf-8?B?STh5bURsZHloaEVGUnFOd1ZhVHhyWGp2K0E4NlQ1MldMU3lCNGpCcytoRmsy?=
+ =?utf-8?B?d0wvd1lmY3kvd1pIVWpWRlZvZzAvOExKRjB4ME9ZUFU4Y2pnMWF6THNwcm1h?=
+ =?utf-8?B?Z3h4K3piQy9vNTNDM0RmNFI5eXR5TG9FbVp6bFpMY3I4SjhmWVk1MnY3Mm1a?=
+ =?utf-8?B?L0FKY1B1YmllZHN2ME1Oa0ltN0w1UnJZZGFvQkpkcmFOZ1RHTTN2ZS9BajFh?=
+ =?utf-8?B?MW4yT3pDYnNNdGVzcWF2R3JlVElwM25UWmo2NnVmZ0F2S01BbDEwYUVqWVkz?=
+ =?utf-8?B?a241RHJFUENOYW44cU1OY2ZNdFlvU2R1Q0tzelFHNzJiVXJ0ZitiZWFKQ2dG?=
+ =?utf-8?B?a25PeUkxRitlSlVTYnEvb1BZK0lvWTRIeXpZTE5vY3NVeFNKQzBabGlJRitu?=
+ =?utf-8?B?VFRqZm15ejJackMyd2RaMUR0UzZ5VTNUQzAzeDdqOFVtL1lhY3BMdmdEN3Fk?=
+ =?utf-8?B?aEFkbDE1Mys0aEFWZCsrazhURnNXcGFDc3h4Y3MwSytRY2N6UFgzVFpoOHBu?=
+ =?utf-8?B?Q3U4aHBMNXQ4M2N1Y1NrdkMxamxPVkV5cENYbzNNZTNDeVJ2YnVPNVJwanVX?=
+ =?utf-8?B?cE1qbUY2WUpFUTNodjFjYk0zYm1GdFR3czVxUlRJVURONmRpMU5qUXpUQWJO?=
+ =?utf-8?B?NWdQcEoxRmZRT2d1ZjM3S0owN09seGt0Qmw1dyttdXBVM2ZGMjVNeDhKUHFZ?=
+ =?utf-8?B?N21pb1gxcXBGczBJK0FTd2hLZlpNdVFmb053dzF1MENzcDRJWmMzMCtLUmxs?=
+ =?utf-8?B?UUhGOCt5RXhMNmtUMTFIYldnemUvNVdLbHVBRmJRMlhZaVJKc3gwWmh4M0JU?=
+ =?utf-8?B?REIrakNta0xwRUZneTJWVGYyblB2SVBmL0tuQ3p6azBOWE1JK0R4M0NqQUVP?=
+ =?utf-8?B?ZGhwaUhab1dPNjdKTlpBSjR4VkpXZjQ2ODExYjZvU3lucEs3a2RMSzNxUWJV?=
+ =?utf-8?B?TDNYRzMwZklSWlprc0RlblF4UkNISTh4UXhhb0xwWE0yZGtSNnY2Nm1MSWxP?=
+ =?utf-8?B?dGZyNTRZL0NlOEtBSDcrclpzYWpUUkJ0R3YyMGZnS2hqRHV3c2grdGZhK0hS?=
+ =?utf-8?B?czlDamZkSUVDMnZQc1ZrekljWnVJckNSL3E4WitIdUs1NFZlWGlsNkgxaE83?=
+ =?utf-8?B?RFFLZDZ2M2FXeU11aUVzOGlLZFdoVk9COENqczFWUUhBN0VrbTJYQXMrclc5?=
+ =?utf-8?B?eUhpMEFXL3RCVlVtaFlnRkQ5bk9BUzMwK3J5SlQyNGNqTmtCMy9LbUI4c1J6?=
+ =?utf-8?B?UHZCOXE0UVY5OTF4SXV4ZFE0ZXJzalhtTmc4NXpOR2hvdHlQVzF3WFZqMUQv?=
+ =?utf-8?B?UmpyWVBVWkdzL0ZMVER3bHRoUnRSSjI3K2h5bHA3MFdoMTN6L1hqaG9PdkdE?=
+ =?utf-8?B?cEtpS3M3a3lFNnljQnBBUktrY016VFdhT3pvUmpURXpSOHgzeU4zR3A5NmY2?=
+ =?utf-8?B?U3QxeUw0WlNhTXg4N3QxcmlXN2ExbzlVZVdZU3VXVzdLUk1SY1dhdUcwMXda?=
+ =?utf-8?B?c3ZKMEVNeUJwNjBqVGxsbWN4bjlmdTRDT1kwWldnNHJEK05MRHZnMU9jZGFE?=
+ =?utf-8?B?YnhHUC85OXo2YkpSOS9JaU0wUXp3MUtlWFliNnRlTFNraXlUVDBUTjVkUytl?=
+ =?utf-8?B?cTZ4Wll3cy9TQXZJZVg2a2VHcmNTbXdHK0V4dlcrejZ3dXhBQUx5VU9qSlBk?=
+ =?utf-8?B?MC9wM0t0S25KMVBVN1d1QmVJY0cxRWNHL29HUHF3bDVUZWs5NGhJQVp2OCtO?=
+ =?utf-8?B?SU9MODU0ZERBb3EzaDZ1cDJEZUloTkMyZ2t6TmdFWmJIZmJyUGh3VHRjQ1dG?=
+ =?utf-8?B?QTYrajB3WTM3WkpUWW5vV0VxNnR2QjBXeVpJQXkydmtRdldNZ0szUmZMMFA5?=
+ =?utf-8?B?MHo0Mkpxc0ZUSVdVczVRR2kzN05DeldJWk9xQk4vTmdNd3ByMEdHTTVqNnhM?=
+ =?utf-8?B?Q1FHQjFTTHc4RE9lL0FwVWhIdi95ZC9ycjBqeVp6QitkR0pjNmJwNFhKbExZ?=
+ =?utf-8?B?ZHdHRnZNd0xJZkgrQ3BGUzJaeXJ4RnVqWlAzcENoY0tmbXZyR1NvRWF5VlJm?=
+ =?utf-8?B?Nnhac3FLSjlnUk1YTVZyWHdBbXlSaW04dksrSVByaEwxdDlrVWVtbHdZM2th?=
+ =?utf-8?B?YnFqWUttRFFLNjBXczc2SzZQbzZ1OXBvdTUzaHo1QWdRTUt1YjdSSTZSa1or?=
+ =?utf-8?B?b2VZS3lzVjZqYXBaK296Nk9wMkFHYWhsZEZqYURTQ1hadHVoZlBZQUZ0eEVX?=
+ =?utf-8?Q?JB6Z9LR122Zn/sKGVg?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: deb7ab1b-9f2d-4cc4-92d4-08de892e1663
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 22:46:57.4263
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1L+30n0fuDlOtj70/tGKjoKDjUTv+/ldkzSblCpWO5o7TaJBseTl8mQAFOeUZdvUf+70TDF3ay17heGMmxQkiw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9392
 
-Buffers are allocated on pcm_new and mapped in the dsp on every
-prepare call, which is inefficient and unnecessary.
 
-Add new functions q6apm_[un]map_memory_fixed_region to map it on
-to dsp only once after allocation.
+On Fri, 13 Mar 2026 08:07:30 +0100, Alexander Stein wrote:
+> this series adds support for parallel and LVDS displays on MBa91xxCA, both for
+> TQMa91 and TQMa93. The parallel display is attached directly, while the LVDS
+> uses an LVDS-Encoder. To actually work it needs the pdfc driver from [1].
+>
+> The first two patches add required (Video) PLL configurations to achieve the
+> necessary pixel clocks for both displays.
+> The last 4 patches add the overlays for TQMa91 and TQMa93, although the
+> overlays for TQMa91 use the same overlay for TQMa93.
+>
+> [...]
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
----
- sound/soc/qcom/qdsp6/audioreach.c |  60 ------------
- sound/soc/qcom/qdsp6/audioreach.h |   5 +-
- sound/soc/qcom/qdsp6/q6apm-dai.c  | 110 ++++++++++++++++++---
- sound/soc/qcom/qdsp6/q6apm.c      | 158 ++++++++++++++++++++----------
- sound/soc/qcom/qdsp6/q6apm.h      |  14 +--
- 5 files changed, 212 insertions(+), 135 deletions(-)
+Applied, thanks!
 
-diff --git a/sound/soc/qcom/qdsp6/audioreach.c b/sound/soc/qcom/qdsp6/audioreach.c
-index 241c3b4479c6..b2975eebab71 100644
---- a/sound/soc/qcom/qdsp6/audioreach.c
-+++ b/sound/soc/qcom/qdsp6/audioreach.c
-@@ -1396,66 +1396,6 @@ void audioreach_graph_free_buf(struct q6apm_graph *graph)
- }
- EXPORT_SYMBOL_GPL(audioreach_graph_free_buf);
- 
--int audioreach_map_memory_regions(struct q6apm_graph *graph, unsigned int dir, size_t period_sz,
--				  unsigned int periods, bool is_contiguous)
--{
--	struct apm_shared_map_region_payload *mregions;
--	struct apm_cmd_shared_mem_map_regions *cmd;
--	uint32_t num_regions, buf_sz, payload_size;
--	struct audioreach_graph_data *data;
--	struct gpr_pkt *pkt __free(kfree) = NULL;
--	void *p;
--	int i;
--
--	if (dir == SNDRV_PCM_STREAM_PLAYBACK)
--		data = &graph->rx_data;
--	else
--		data = &graph->tx_data;
--
--	if (is_contiguous) {
--		num_regions = 1;
--		buf_sz = period_sz * periods;
--	} else {
--		buf_sz = period_sz;
--		num_regions = periods;
--	}
--
--	/* DSP expects size should be aligned to 4K */
--	buf_sz = ALIGN(buf_sz, 4096);
--
--	payload_size = sizeof(*cmd) + (sizeof(*mregions) * num_regions);
--
--	pkt = audioreach_alloc_apm_pkt(payload_size, APM_CMD_SHARED_MEM_MAP_REGIONS, dir,
--				     graph->port->id);
--	if (IS_ERR(pkt))
--		return PTR_ERR(pkt);
--
--	p = (void *)pkt + GPR_HDR_SIZE;
--	cmd = p;
--	cmd->mem_pool_id = APM_MEMORY_MAP_SHMEM8_4K_POOL;
--	cmd->num_regions = num_regions;
--
--	cmd->property_flag = 0x0;
--
--	mregions = p + sizeof(*cmd);
--
--	mutex_lock(&graph->lock);
--
--	for (i = 0; i < num_regions; i++) {
--		struct audio_buffer *ab;
--
--		ab = &data->buf[i];
--		mregions->shm_addr_lsw = lower_32_bits(ab->phys);
--		mregions->shm_addr_msw = upper_32_bits(ab->phys);
--		mregions->mem_size_bytes = buf_sz;
--		++mregions;
--	}
--	mutex_unlock(&graph->lock);
--
--	return audioreach_graph_send_cmd_sync(graph, pkt, APM_CMD_RSP_SHARED_MEM_MAP_REGIONS);
--}
--EXPORT_SYMBOL_GPL(audioreach_map_memory_regions);
--
- int audioreach_shared_memory_send_eos(struct q6apm_graph *graph)
- {
- 	struct data_cmd_wr_sh_mem_ep_eos *eos;
-diff --git a/sound/soc/qcom/qdsp6/audioreach.h b/sound/soc/qcom/qdsp6/audioreach.h
-index 89f172aab8c0..6ddc287f0fb4 100644
---- a/sound/soc/qcom/qdsp6/audioreach.h
-+++ b/sound/soc/qcom/qdsp6/audioreach.h
-@@ -722,6 +722,7 @@ struct audioreach_connection {
- 
- struct audioreach_graph_info {
- 	int id;
-+	uint32_t mem_map_handle;
- 	uint32_t num_sub_graphs;
- 	struct list_head sg_list;
- 	/* DPCM connection from FE Graph to BE graph */
-@@ -838,10 +839,6 @@ int audioreach_tplg_init(struct snd_soc_component *component);
- 
- /* Module specific */
- void audioreach_graph_free_buf(struct q6apm_graph *graph);
--int audioreach_map_memory_regions(struct q6apm_graph *graph,
--				  unsigned int dir, size_t period_sz,
--				  unsigned int periods,
--				  bool is_contiguous);
- int audioreach_send_cmd_sync(struct device *dev, gpr_device_t *gdev, struct gpr_ibasic_rsp_result_t *result,
- 			     struct mutex *cmd_lock, gpr_port_t *port, wait_queue_head_t *cmd_wait,
- 			     struct gpr_pkt *pkt, uint32_t rsp_opcode);
-diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
-index 86d6438bd9fd..ae5318e0aa3b 100644
---- a/sound/soc/qcom/qdsp6/q6apm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
-@@ -228,11 +228,10 @@ static int q6apm_dai_prepare(struct snd_soc_component *component,
- 	cfg.bit_width = prtd->bits_per_sample;
- 	cfg.fmt = SND_AUDIOCODEC_PCM;
- 	audioreach_set_default_channel_mapping(cfg.channel_map, runtime->channels);
--
- 	if (prtd->state) {
- 		/* clear the previous setup if any  */
- 		q6apm_graph_stop(prtd->graph);
--		q6apm_unmap_memory_regions(prtd->graph, substream->stream);
-+		q6apm_free_fragments(prtd->graph, substream->stream);
- 	}
- 
- 	prtd->pcm_count = snd_pcm_lib_period_bytes(substream);
-@@ -247,8 +246,8 @@ static int q6apm_dai_prepare(struct snd_soc_component *component,
- 	if (ret < 0)
- 		dev_err(dev, "%s: CMD Format block failed\n", __func__);
- 
--	ret = q6apm_map_memory_regions(prtd->graph, substream->stream, prtd->phys,
--				       (prtd->pcm_size / prtd->periods), prtd->periods);
-+	ret = q6apm_alloc_fragments(prtd->graph, substream->stream, prtd->phys,
-+				(prtd->pcm_size / prtd->periods), prtd->periods);
- 
- 	if (ret < 0) {
- 		dev_err(dev, "Audio Start: Buffer Allocation failed rc = %d\n",	ret);
-@@ -416,9 +415,10 @@ static int q6apm_dai_close(struct snd_soc_component *component,
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct q6apm_dai_rtd *prtd = runtime->private_data;
- 
--	if (prtd->state) { /* only stop graph that is started */
-+	if (prtd->state) {
-+		/* only stop graph that is started */
- 		q6apm_graph_stop(prtd->graph);
--		q6apm_unmap_memory_regions(prtd->graph, substream->stream);
-+		q6apm_free_fragments(prtd->graph, substream->stream);
- 	}
- 
- 	q6apm_graph_close(prtd->graph);
-@@ -467,11 +467,97 @@ static int q6apm_dai_hw_params(struct snd_soc_component *component,
- 	return 0;
- }
- 
-+static int q6apm_dai_memory_map(struct snd_soc_component *component,
-+				struct snd_pcm_substream *substream, int graph_id)
-+{
-+	struct q6apm_dai_data *pdata;
-+	struct device *dev = component->dev;
-+	phys_addr_t phys;
-+	int ret;
-+
-+	pdata = snd_soc_component_get_drvdata(component);
-+	if (!pdata) {
-+		dev_err(component->dev, "Drv data not found ..\n");
-+		return -EINVAL;
-+	}
-+
-+	if (pdata->sid < 0)
-+		phys = substream->dma_buffer.addr;
-+	else
-+		phys = substream->dma_buffer.addr | (pdata->sid << 32);
-+
-+	ret = q6apm_map_memory_fixed_region(dev, graph_id, phys, BUFFER_BYTES_MAX);
-+	if (ret < 0)
-+		dev_err(dev, "Audio Start: Buffer Allocation failed rc = %d\n",	ret);
-+
-+	return ret;
-+}
-+
- static int q6apm_dai_pcm_new(struct snd_soc_component *component, struct snd_soc_pcm_runtime *rtd)
- {
-+	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-+	struct snd_pcm *pcm = rtd->pcm;
- 	int size = BUFFER_BYTES_MAX;
-+	int graph_id, ret;
-+	struct snd_pcm_substream *substream;
-+
-+	graph_id = cpu_dai->driver->id;
-+
-+	ret = snd_pcm_set_fixed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV, component->dev, size);
-+	if (ret)
-+		return ret;
-+
-+	if (pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream) {
-+		substream = pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
-+		ret = q6apm_dai_memory_map(component, substream, graph_id);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream) {
-+		substream = pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream;
-+		ret = q6apm_dai_memory_map(component, substream, graph_id);
-+		if (ret) {
-+			if (pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream)
-+				q6apm_unmap_memory_fixed_region(component->dev, graph_id);
-+
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static void q6apm_dai_memory_unmap(struct snd_soc_component *component,
-+				   struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *soc_prtd;
-+	struct snd_soc_dai *cpu_dai;
-+	int graph_id;
-+
-+	soc_prtd = snd_soc_substream_to_rtd(substream);
-+	if (!soc_prtd)
-+		return;
-+
-+	cpu_dai = snd_soc_rtd_to_cpu(soc_prtd, 0);
-+	if (!cpu_dai)
-+		return;
-+
-+	graph_id = cpu_dai->driver->id;
-+	q6apm_unmap_memory_fixed_region(component->dev, graph_id);
-+}
-+
-+static void q6apm_dai_pcm_free(struct snd_soc_component *component, struct snd_pcm *pcm)
-+{
-+	struct snd_pcm_substream *substream;
-+
-+	substream = pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream;
-+	if (substream)
-+		q6apm_dai_memory_unmap(component, substream);
- 
--	return snd_pcm_set_fixed_buffer_all(rtd->pcm, SNDRV_DMA_TYPE_DEV, component->dev, size);
-+	substream = pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
-+	if (substream)
-+		q6apm_dai_memory_unmap(component, substream);
- }
- 
- static int q6apm_dai_compr_open(struct snd_soc_component *component,
-@@ -530,7 +616,8 @@ static int q6apm_dai_compr_free(struct snd_soc_component *component,
- 	struct q6apm_dai_rtd *prtd = runtime->private_data;
- 
- 	q6apm_graph_stop(prtd->graph);
--	q6apm_unmap_memory_regions(prtd->graph, SNDRV_PCM_STREAM_PLAYBACK);
-+	q6apm_free_fragments(prtd->graph, SNDRV_PCM_STREAM_PLAYBACK);
-+	q6apm_unmap_memory_fixed_region(component->dev, prtd->graph->id);
- 	q6apm_graph_close(prtd->graph);
- 	snd_dma_free_pages(&prtd->dma_buffer);
- 	prtd->graph = NULL;
-@@ -679,9 +766,9 @@ static int q6apm_dai_compr_set_params(struct snd_soc_component *component,
- 		if (ret)
- 			return ret;
- 
--		ret = q6apm_map_memory_regions(prtd->graph, SNDRV_PCM_STREAM_PLAYBACK,
--					       prtd->phys, (prtd->pcm_size / prtd->periods),
--					       prtd->periods);
-+		ret = q6apm_alloc_fragments(prtd->graph, SNDRV_PCM_STREAM_PLAYBACK,
-+					prtd->phys, (prtd->pcm_size / prtd->periods),
-+					prtd->periods);
- 		if (ret < 0)
- 			return -ENOMEM;
- 
-@@ -834,6 +921,7 @@ static const struct snd_soc_component_driver q6apm_fe_dai_component = {
- 	.close		= q6apm_dai_close,
- 	.prepare	= q6apm_dai_prepare,
- 	.pcm_new	= q6apm_dai_pcm_new,
-+	.pcm_free	= q6apm_dai_pcm_free,
- 	.hw_params	= q6apm_dai_hw_params,
- 	.pointer	= q6apm_dai_pointer,
- 	.trigger	= q6apm_dai_trigger,
-diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
-index c874dae53163..1889d50df862 100644
---- a/sound/soc/qcom/qdsp6/q6apm.c
-+++ b/sound/soc/qcom/qdsp6/q6apm.c
-@@ -200,13 +200,53 @@ int q6apm_graph_media_format_shmem(struct q6apm_graph *graph,
- }
- EXPORT_SYMBOL_GPL(q6apm_graph_media_format_shmem);
- 
--int q6apm_map_memory_regions(struct q6apm_graph *graph, unsigned int dir, phys_addr_t phys,
--			     size_t period_sz, unsigned int periods)
-+int q6apm_map_memory_fixed_region(struct device *dev, unsigned int graph_id, phys_addr_t phys,
-+				  size_t sz)
-+{
-+	struct audioreach_graph_info *info;
-+	struct q6apm *apm = dev_get_drvdata(dev->parent);
-+	struct apm_shared_map_region_payload *mregions;
-+	struct apm_cmd_shared_mem_map_regions *cmd;
-+	int payload_size = sizeof(*cmd) + (sizeof(*mregions));
-+	uint32_t buf_sz;
-+	void *p;
-+	struct gpr_pkt *pkt __free(kfree) = audioreach_alloc_apm_cmd_pkt(payload_size,
-+						APM_CMD_SHARED_MEM_MAP_REGIONS, graph_id);
-+	if (IS_ERR(pkt))
-+		return PTR_ERR(pkt);
-+
-+	info = idr_find(&apm->graph_info_idr, graph_id);
-+	if (!info)
-+		return -ENODEV;
-+
-+	if (info->mem_map_handle)
-+		return 0;
-+
-+	/* DSP expects size should be aligned to 4K */
-+	buf_sz = ALIGN(sz, 4096);
-+
-+	p = (void *)pkt + GPR_HDR_SIZE;
-+	cmd = p;
-+	cmd->mem_pool_id = APM_MEMORY_MAP_SHMEM8_4K_POOL;
-+	cmd->num_regions = 1;
-+	cmd->property_flag = 0x0;
-+
-+	mregions = p + sizeof(*cmd);
-+
-+	mregions->shm_addr_lsw = lower_32_bits(phys);
-+	mregions->shm_addr_msw = upper_32_bits(phys);
-+	mregions->mem_size_bytes = buf_sz;
-+
-+	return q6apm_send_cmd_sync(apm, pkt, APM_CMD_RSP_SHARED_MEM_MAP_REGIONS);
-+}
-+EXPORT_SYMBOL_GPL(q6apm_map_memory_fixed_region);
-+
-+int q6apm_alloc_fragments(struct q6apm_graph *graph, unsigned int dir, phys_addr_t phys,
-+				size_t period_sz, unsigned int periods)
- {
- 	struct audioreach_graph_data *data;
- 	struct audio_buffer *buf;
- 	int cnt;
--	int rc;
- 
- 	if (dir == SNDRV_PCM_STREAM_PLAYBACK)
- 		data = &graph->rx_data;
-@@ -248,46 +288,48 @@ int q6apm_map_memory_regions(struct q6apm_graph *graph, unsigned int dir, phys_a
- 
- 	mutex_unlock(&graph->lock);
- 
--	rc = audioreach_map_memory_regions(graph, dir, period_sz, periods, 1);
--	if (rc < 0) {
--		dev_err(graph->dev, "Memory_map_regions failed\n");
--		audioreach_graph_free_buf(graph);
--	}
--
--	return rc;
-+	return 0;
- }
--EXPORT_SYMBOL_GPL(q6apm_map_memory_regions);
-+EXPORT_SYMBOL_GPL(q6apm_alloc_fragments);
- 
--int q6apm_unmap_memory_regions(struct q6apm_graph *graph, unsigned int dir)
-+int q6apm_unmap_memory_fixed_region(struct device *dev, unsigned int graph_id)
- {
- 	struct apm_cmd_shared_mem_unmap_regions *cmd;
--	struct audioreach_graph_data *data;
--	int rc;
-+	struct q6apm *apm = dev_get_drvdata(dev->parent);
-+	struct audioreach_graph_info *info;
-+	struct gpr_pkt *pkt __free(kfree) = audioreach_alloc_apm_cmd_pkt(sizeof(*cmd),
-+						APM_CMD_SHARED_MEM_UNMAP_REGIONS, graph_id);
-+	if (IS_ERR(pkt))
-+		return PTR_ERR(pkt);
- 
--	if (dir == SNDRV_PCM_STREAM_PLAYBACK)
--		data = &graph->rx_data;
--	else
--		data = &graph->tx_data;
-+	info = idr_find(&apm->graph_info_idr, graph_id);
-+	if (!info)
-+		return -ENODEV;
- 
--	if (!data->mem_map_handle)
-+	if (!info->mem_map_handle)
- 		return 0;
- 
--	struct gpr_pkt *pkt __free(kfree) =
--		audioreach_alloc_apm_pkt(sizeof(*cmd), APM_CMD_SHARED_MEM_UNMAP_REGIONS,
--					 dir, graph->port->id);
--	if (IS_ERR(pkt))
--		return PTR_ERR(pkt);
--
- 	cmd = (void *)pkt + GPR_HDR_SIZE;
--	cmd->mem_map_handle = data->mem_map_handle;
-+	cmd->mem_map_handle = info->mem_map_handle;
-+
-+	return q6apm_send_cmd_sync(apm, pkt, APM_CMD_SHARED_MEM_UNMAP_REGIONS);
-+}
-+EXPORT_SYMBOL_GPL(q6apm_unmap_memory_fixed_region);
- 
--	rc = audioreach_graph_send_cmd_sync(graph, pkt, APM_CMD_SHARED_MEM_UNMAP_REGIONS);
-+int q6apm_free_fragments(struct q6apm_graph *graph, unsigned int dir)
-+{
-+	struct audioreach_graph_data *data;
-+
-+	if (dir == SNDRV_PCM_STREAM_PLAYBACK)
-+		data = &graph->rx_data;
-+	else
-+		data = &graph->tx_data;
- 
- 	audioreach_graph_free_buf(graph);
- 
--	return rc;
-+	return 0;
- }
--EXPORT_SYMBOL_GPL(q6apm_unmap_memory_regions);
-+EXPORT_SYMBOL_GPL(q6apm_free_fragments);
- 
- int q6apm_remove_initial_silence(struct device *dev, struct q6apm_graph *graph, uint32_t samples)
- {
-@@ -429,7 +471,7 @@ int q6apm_write_async(struct q6apm_graph *graph, uint32_t len, uint32_t msw_ts,
- 	write_buffer->buf_size = len;
- 	write_buffer->timestamp_lsw = lsw_ts;
- 	write_buffer->timestamp_msw = msw_ts;
--	write_buffer->mem_map_handle = graph->rx_data.mem_map_handle;
-+	write_buffer->mem_map_handle = graph->info->mem_map_handle;
- 	write_buffer->flags = wflags;
- 
- 	graph->rx_data.dsp_buf++;
-@@ -463,7 +505,7 @@ int q6apm_read(struct q6apm_graph *graph)
- 
- 	read_buffer->buf_addr_lsw = lower_32_bits(ab->phys);
- 	read_buffer->buf_addr_msw = upper_32_bits(ab->phys);
--	read_buffer->mem_map_handle = port->mem_map_handle;
-+	read_buffer->mem_map_handle = graph->info->mem_map_handle;
- 	read_buffer->buf_size = ab->size;
- 
- 	port->dsp_buf++;
-@@ -494,7 +536,6 @@ static int graph_callback(const struct gpr_resp_pkt *data, void *priv, int op)
- {
- 	struct data_cmd_rsp_rd_sh_mem_ep_data_buffer_done_v2 *rd_done;
- 	struct data_cmd_rsp_wr_sh_mem_ep_data_buffer_done_v2 *done;
--	struct apm_cmd_rsp_shared_mem_map_regions *rsp;
- 	const struct gpr_ibasic_rsp_result_t *result;
- 	struct q6apm_graph *graph = priv;
- 	const struct gpr_hdr *hdr = &data->hdr;
-@@ -529,18 +570,6 @@ static int graph_callback(const struct gpr_resp_pkt *data, void *priv, int op)
- 				done->buf_addr_msw);
- 		}
- 
--		break;
--	case APM_CMD_RSP_SHARED_MEM_MAP_REGIONS:
--		graph->result.opcode = hdr->opcode;
--		graph->result.status = 0;
--		rsp = data->payload;
--
--		if (hdr->token == SNDRV_PCM_STREAM_PLAYBACK)
--			graph->rx_data.mem_map_handle = rsp->mem_map_handle;
--		else
--			graph->tx_data.mem_map_handle = rsp->mem_map_handle;
--
--		wake_up(&graph->cmd_wait);
- 		break;
- 	case DATA_CMD_RSP_RD_SH_MEM_EP_DATA_BUFFER_V2:
- 		if (!graph->ar_graph)
-@@ -571,16 +600,6 @@ static int graph_callback(const struct gpr_resp_pkt *data, void *priv, int op)
- 		break;
- 	case GPR_BASIC_RSP_RESULT:
- 		switch (result->opcode) {
--		case APM_CMD_SHARED_MEM_UNMAP_REGIONS:
--			graph->result.opcode = result->opcode;
--			graph->result.status = 0;
--			if (hdr->token == SNDRV_PCM_STREAM_PLAYBACK)
--				graph->rx_data.mem_map_handle = 0;
--			else
--				graph->tx_data.mem_map_handle = 0;
--
--			wake_up(&graph->cmd_wait);
--			break;
- 		case APM_CMD_SHARED_MEM_MAP_REGIONS:
- 		case DATA_CMD_WR_SH_MEM_EP_MEDIA_FORMAT:
- 		case APM_CMD_SET_CFG:
-@@ -779,7 +798,9 @@ struct audioreach_module *q6apm_find_module_by_mid(struct q6apm_graph *graph, ui
- static int apm_callback(const struct gpr_resp_pkt *data, void *priv, int op)
- {
- 	gpr_device_t *gdev = priv;
-+	struct audioreach_graph_info *info;
- 	struct q6apm *apm = dev_get_drvdata(&gdev->dev);
-+	struct apm_cmd_rsp_shared_mem_map_regions *rsp;
- 	struct device *dev = &gdev->dev;
- 	struct gpr_ibasic_rsp_result_t *result;
- 	const struct gpr_hdr *hdr = &data->hdr;
-@@ -796,6 +817,7 @@ static int apm_callback(const struct gpr_resp_pkt *data, void *priv, int op)
- 		break;
- 	case GPR_BASIC_RSP_RESULT:
- 		switch (result->opcode) {
-+		case APM_CMD_SHARED_MEM_MAP_REGIONS:
- 		case APM_CMD_GRAPH_START:
- 		case APM_CMD_GRAPH_OPEN:
- 		case APM_CMD_GRAPH_PREPARE:
-@@ -810,10 +832,38 @@ static int apm_callback(const struct gpr_resp_pkt *data, void *priv, int op)
- 					result->opcode);
- 			wake_up(&apm->wait);
- 			break;
-+		case APM_CMD_SHARED_MEM_UNMAP_REGIONS:
-+			apm->result.opcode = hdr->opcode;
-+			apm->result.status = 0;
-+			rsp = data->payload;
-+
-+			info = idr_find(&apm->graph_info_idr, hdr->token);
-+			if (info)
-+				info->mem_map_handle = 0;
-+			else
-+				dev_err(dev, "Error (%d) Processing 0x%08x cmd\n", result->status,
-+					result->opcode);
-+
-+			wake_up(&apm->wait);
-+			break;
- 		default:
- 			break;
- 		}
- 		break;
-+	case APM_CMD_RSP_SHARED_MEM_MAP_REGIONS:
-+		apm->result.opcode = hdr->opcode;
-+		apm->result.status = 0;
-+		rsp = data->payload;
-+
-+		info = idr_find(&apm->graph_info_idr, hdr->token);
-+		if (info)
-+			info->mem_map_handle = rsp->mem_map_handle;
-+		else
-+			dev_err(dev, "Error (%d) Processing 0x%08x cmd\n", result->status,
-+				result->opcode);
-+
-+		wake_up(&apm->wait);
-+		break;
- 	default:
- 		break;
- 	}
-diff --git a/sound/soc/qcom/qdsp6/q6apm.h b/sound/soc/qcom/qdsp6/q6apm.h
-index 7c646ffcf956..909fc337fd28 100644
---- a/sound/soc/qcom/qdsp6/q6apm.h
-+++ b/sound/soc/qcom/qdsp6/q6apm.h
-@@ -78,7 +78,6 @@ struct audioreach_graph_data {
- 	struct audio_buffer *buf;
- 	uint32_t num_periods;
- 	uint32_t dsp_buf;
--	uint32_t mem_map_handle;
- 	atomic_t hw_ptr;
- };
- 
-@@ -134,11 +133,14 @@ int q6apm_write_async(struct q6apm_graph *graph, uint32_t len, uint32_t msw_ts,
- 		      uint32_t lsw_ts, uint32_t wflags);
- 
- /* Memory Map related */
--int q6apm_map_memory_regions(struct q6apm_graph *graph,
--			     unsigned int dir, phys_addr_t phys,
--			     size_t period_sz, unsigned int periods);
--int q6apm_unmap_memory_regions(struct q6apm_graph *graph,
--			       unsigned int dir);
-+int q6apm_map_memory_fixed_region(struct device *dev,
-+			     unsigned int graph_id, phys_addr_t phys,
-+			     size_t sz);
-+int q6apm_alloc_fragments(struct q6apm_graph *graph,
-+			unsigned int dir, phys_addr_t phys,
-+			size_t period_sz, unsigned int periods);
-+int q6apm_free_fragments(struct q6apm_graph *graph, unsigned int dir);
-+int q6apm_unmap_memory_fixed_region(struct device *dev, unsigned int graph_id);
- /* Helpers */
- int q6apm_send_cmd_sync(struct q6apm *apm, struct gpr_pkt *pkt,
- 			uint32_t rsp_opcode);
--- 
-2.47.3
+[3/6] arm64: dts: imx93-tqma9352-mba91xxca: Add parallel display overlay
+      commit: 57e546efd0948d9b580cb7b8824ea62b16af4cb7
+[4/6] arm64: dts: imx93-tqma9352-mba91xxca: Add LVDS display overlay
+      commit: d6b12b4c49a11baed9b4de98f333f731aab6bf9d
+[5/6] arm64: dts: imx91-tqma9131-mba91xxca: Add parallel display overlay
+      commit: d99156ff8bcb5607c7688dde5a55315ea818b150
+[6/6] arm64: dts: imx91-tqma9131-mba91xxca: Add LVDS display overlay
+      commit: 10d12c22336cc7477142fddbe0b17111797fc68c
 
+Update commit message by change "This adds" => Add ...
+
+Best regards,
+--
+Frank Li <Frank.Li@nxp.com>
