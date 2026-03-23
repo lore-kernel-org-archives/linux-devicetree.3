@@ -1,145 +1,119 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F61391E4A
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:57:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4602A391510;
+	Mon, 23 Mar 2026 10:58:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774263475; cv=none; b=Q5kBTBPW9kUosIKZX1q5GXQmTmFFEN0/sjlTXikzFXd61l68sD/yQnfmG9D8fC5/d/VczvB7hwPFFARY9VjuJBi9Ah+AJxZttn0YeTyXtjqX0+AFZqJNQxoNLpkGx050/98cwOw73G3wTR9+rafOta61dtcFjFD0F2ZjxvqP378=
+	t=1774263511; cv=none; b=GIMCZurAOBd8DVydVKT3a9CvmDMKLszceRIFtuo3okkii/kYaoAkXu14NTTsiLr9icgmPxtwHLUUW4eOhu3k5+5/018Nn5Bhdlu0d0aYyqjV+IqdYPhrSzKFgMJiJApHwk6eGE6U6w0sOU0n8HJ9iH8T8NGDBUb14F2BrSq3tbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774263475; c=relaxed/simple;
-	bh=/mZGsh1xkiPR3p8xvGVSUGgB/QMPQ1B8WN0TVuTZnRM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k6AZHTlV4RuhivSTOKBOjhHU+0VsD2+75WP6xaLWSKybMwrQetKoKymxrJMj5JO7MKianX76eta5fDiBV3A5yYf6oPPhrNCcA6Qs24DHfgIoThNRVicoRNZmIDel7NY8xNItJRDR8dRSrctR3ibvhd6YrnczdbekI4h1gDbLFJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jrwhkHJT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LuxQV7FC; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jrwhkHJT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LuxQV7FC"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N7tMRW2291969
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:57:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	lMUrSOVeDAhPlf3XvTZybFu18sRSydomNUdVxKEA3CY=; b=jrwhkHJTcSOoCWC/
-	v1WHDI50yFx6fUpR1R8ARd5bXDUlOI6w8CCpXxTfn8UOmZR4oD4QY0FaWSOfR+6O
-	lEzofxDJYuE4QqbXOiufolOUhx76Ri6zqDYvwVVEn3Ht1apjzj2xeNazKERUcqRg
-	5wtUirZsTA80ydu6dtHuK2ygekUv6FIbm84+L1M7UWpYgyfHWSug9l2RPF80sgV1
-	0dJC6mxbbAb32zuTVneyJOeMJMCVvWAbGkUr9Yua/FUo4L383VBZ1PJgv7cfx3ux
-	zpS8SOaPwj7qWGl/SoIyTpenvZMyCqMNC6C5VqeNIDrc8/+G15eewCsNIFT35ItP
-	sCy9tQ==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d31j70mu2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:57:51 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-89a5b38affdso32715846d6.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 03:57:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774263471; x=1774868271; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lMUrSOVeDAhPlf3XvTZybFu18sRSydomNUdVxKEA3CY=;
-        b=LuxQV7FC0+Wlx3nHrKIG74VwkXemqGfgEOau9SQLJGrdCBO4KJQC4RbMpsdu4e5s3M
-         bNBOjoBPfvGdhajy1W+/r5VF1d4ueG0PMTdvaNLiTR7ccAx+WqDTnfl9KV3JrjPLBmzi
-         eJG2Qg3XhG2FUA7Y3D/9RcPvbrvvjSwsvuXG2xUTPYUuLdmkteAOr4gVfayQrA9n7GdU
-         Oyg4cLBuNTkgMFW7g3X7Zg18eX/SwgUUGhM2ItodJRisvXRQXy3lYOgM6L6vLf1K9Vmg
-         W/yOxVDCv3cBsIZ/9Xw5HOGmend/wFHywmD5Tc3/eqiHqOXP2nQJoj5RilEQuJVO8xP6
-         z4tQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774263471; x=1774868271;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=lMUrSOVeDAhPlf3XvTZybFu18sRSydomNUdVxKEA3CY=;
-        b=CWCrbWEOTYLuMyLqJz4OGUsj9P8Brt//egdir7oC/InSolYcRxI5NzyxhxDHuipB5g
-         bpm3hdaCbQC2AjAc5bB2qcZgUXem2EUGCZvsHaG/NIOoPK4eFM5bV97GDH9THfQCGzGI
-         0OrQac2kWIqlLMsTRVoDJfd/fHcpUEP72uFq7+UTZtu8GsV3/wW2613MNxcx0JiSbeLO
-         WrCgQGNPAiOs8VmNseRwOiVlmKESqubdK+GR+XXJFdMdNJMJ/YdlXh2p26CjfUBK7fNT
-         5Yo+iHnkCDKx304F+fUjiLzOLFpkcUrNZbOl55GqHDK7HueLZbmGUGrhU+ssEQwzgyEz
-         Dfgg==
-X-Forwarded-Encrypted: i=1; AJvYcCWvWmvpljS0pRHY9T3Z9NSGFd0p9hYzW/S8+R8VqUk0jAjM0cTo1PYNJ4bRfp51yonVDOAyxI3xZ2E2@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkOI+sXkMH4GWyADsqwDPDEeIwyA+/tQGpHM7ZRsCAfhFpm2ED
-	n9+x4/givwFbfmXu19peXGADMQNemzjdEaBndLPnL+oSzt5NAe9W988S8syq8fa3H9BCDPXevto
-	SWEEcgEisBSB3mLBSLSBARuRLei/ZIYycaM7D+YHUod3RtveOIR2TNKjw9EXavAQ9
-X-Gm-Gg: ATEYQzwm8PdfHHreHkRCbAKCPF+bvJtSWzJn9/x4Piyz8/9U1ybPlzHvS8FA6GxMxTp
-	0zxQbhsO/DHLkIy8PWbYzfKi9DwqXrsXq5Xi2KPuBXZm2R/HDJaHoCOw3bjljbfYa+s+PE8L0VY
-	vf3pdmJGtRUEfHTAiZ9Jsqeu5DyPeOu+3mQpcWYVTZk73BAQpVXpiZ36L2BSg4R/2iJZuRBoTZr
-	0/A15BvR8+n2MBNGfQbJZ8iqlAUzG5Xurr86WMkg872hDScsARh1o0J0BWR/VZlr+RKcwLV9uqi
-	M/a6eJA6dGx9xfUYgS+rDRTJlAeA6DezC0qFD7mD+fsDC2iYNVBMfULwpOOhDHE4KSkLX0xMZli
-	/6b3qBoaTBio+Wc6CoWENc/Rfbtp4ugc8QiSjnDRvRkIHsXfRKARxPkCuf306rVHJiJmFRVttpR
-	Goyi0=
-X-Received: by 2002:a05:6214:2b0a:b0:89a:564f:bbab with SMTP id 6a1803df08f44-89c85a44319mr154147256d6.3.1774263470815;
-        Mon, 23 Mar 2026 03:57:50 -0700 (PDT)
-X-Received: by 2002:a05:6214:2b0a:b0:89a:564f:bbab with SMTP id 6a1803df08f44-89c85a44319mr154146986d6.3.1774263470416;
-        Mon, 23 Mar 2026 03:57:50 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b983365a14csm466546566b.43.2026.03.23.03.57.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Mar 2026 03:57:49 -0700 (PDT)
-Message-ID: <e0235341-8a81-44c2-b3ac-d9417c2f5705@oss.qualcomm.com>
-Date: Mon, 23 Mar 2026 11:57:47 +0100
+	s=arc-20240116; t=1774263511; c=relaxed/simple;
+	bh=9KbO74I12O/7ACgir1GdiXPjp0B8qZTU7hfI8FXQDls=;
+	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QqDZKvJnB123iaztlf7oiBUTBFT4a3fOMFpmpnGYS1n83SWUxvLKT1yAMj+AERKP0E6rPveYcoYiLY5T57VgvmuHMa4gr7+6seRsYm9I9RiC3rEiOTsLZVJRUPik1VTEZVtG6utUYI/AELoZ7D4IZcJ94hUlWbOp21YJhBQt4vI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; arc=none smtp.client-ip=185.176.79.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Received: from mail.maildlp.com (unknown [172.18.224.107])
+	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4ffVWQ2JrdzHnH96;
+	Mon, 23 Mar 2026 18:57:54 +0800 (CST)
+Received: from dubpeml500005.china.huawei.com (unknown [7.214.145.207])
+	by mail.maildlp.com (Postfix) with ESMTPS id 8DC0240587;
+	Mon, 23 Mar 2026 18:58:25 +0800 (CST)
+Received: from localhost (10.203.177.15) by dubpeml500005.china.huawei.com
+ (7.214.145.207) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Mon, 23 Mar
+ 2026 10:58:24 +0000
+Date: Mon, 23 Mar 2026 10:58:23 +0000
+From: Jonathan Cameron <jonathan.cameron@huawei.com>
+To: Antoniu Miclaus <antoniu.miclaus@analog.com>
+CC: Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich
+	<Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, "David
+ Lechner" <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
+	<nuno.sa@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Olivier Moysan
+	<olivier.moysan@foss.st.com>, <linux-iio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v7 0/4] iio: adc: ad4080: add support for AD4880
+ dual-channel ADC
+Message-ID: <20260323105823.00003183@huawei.com>
+In-Reply-To: <20260321100154.1258-1-antoniu.miclaus@analog.com>
+References: <20260321100154.1258-1-antoniu.miclaus@analog.com>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] dt-bindings: usb: qcom,snps-dwc3: Add constraints
- for SM6375
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260323-dt-bindings-snps-qcom-dwc3-cleanup-v2-0-3bcd37c0a5b5@oss.qualcomm.com>
- <20260323-dt-bindings-snps-qcom-dwc3-cleanup-v2-3-3bcd37c0a5b5@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260323-dt-bindings-snps-qcom-dwc3-cleanup-v2-3-3bcd37c0a5b5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="US-ASCII"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=ArXjHe9P c=1 sm=1 tr=0 ts=69c11caf cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=eptGKOKebL7jaDLwLzIA:9 a=QEXdDO2ut3YA:10
- a=1HOtulTD9v-eNWfpl4qZ:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-ORIG-GUID: gijqS4pVMBgNduy8sdyVewDZI58w6TE2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA4NSBTYWx0ZWRfX2C9ZOUwxaFvY
- kq4QmUZ6q7sUye/ASDWNPQSbrl4qa8Q5YAA8IipOa4YVyH5W3kpyQ64TDA893Wn2hxnwKu2f4Gn
- HAat9HoizDdZVVZ6uAVuXa34GSolGmlWbKTgsJPDepR67JUqb7OtI1EMDzoXSSESvpGRmQqjv9Q
- 1B7O4MfjF9T7fdZ/rV16OLh99qFrh0uprrZUVVVB/yl+cNDHkdeAhgyjzHQGiwwHG1d7jo0a3mq
- RF7UKxawj0yYrxdEgZmj1un7MwBPhnsaCSRydtLexwA0ZFhNH5wtDqOl626erURV3PEb1hlF0jL
- i3a3frTQD3ydq2uS+XjpCDYCQWrjY5mCo79x//YdefCjsDbpACn7DhIiID9Opx/8RXiw4kRUOcl
- mrt2tXsx9N2DfXdf56Za7eTvEqH6Is27EsEstdLS4H4YNYdgltTA8dIA/H8/YuBdg69fnBb8DnF
- Ugf3JkM3sUklqF8aLkA==
-X-Proofpoint-GUID: gijqS4pVMBgNduy8sdyVewDZI58w6TE2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-23_03,2026-03-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- spamscore=0 impostorscore=0 suspectscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230085
+X-ClientProxiedBy: lhrpeml500009.china.huawei.com (7.191.174.84) To
+ dubpeml500005.china.huawei.com (7.214.145.207)
 
-On 3/23/26 9:54 AM, Krzysztof Kozlowski wrote:
-> The qcom,sm6375-dwc3 is already documented in top level part, but it
-> misses specific constraints for clocks and interrupts.
+On Sat, 21 Mar 2026 12:01:50 +0200
+Antoniu Miclaus <antoniu.miclaus@analog.com> wrote:
+
+> Add support for the AD4880, a dual-channel 20-bit 40MSPS SAR ADC with
+> integrated fully differential amplifiers (FDA).
+
+Given the lkml cc this got picked up by sashiko:
+https://sashiko.dev/#/patchset/20260321100154.1258-1-antoniu.miclaus%40analog.com
+
+Mixed bag on correct and (I think) incorrect stuff but take a look and fix
+up anything you agree with for v8.
+
+Thanks,
+
+Jonathan
+
 > 
-> Closes: https://sashiko.dev/#/patchset/20260319092348.35237-2-krzysztof.kozlowski%40oss.qualcomm.com
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Architecture notes:
 > 
-> ---
+> The AD4880 is modeled as a single IIO device rather than two independent
+> devices because the channels share power supplies, a voltage reference,
+> the CNV conversion clock, and a single interleaved data output stream.
+> Splitting them into separate IIO devices would make synchronized
+> dual-channel capture impossible from userspace.
+> 
+> An MFD approach does not apply here either - the channels are not
+> functionally distinct sub-devices but identical ADC paths sharing a
+> common data interface.
+> 
+> Each channel has fully independent configuration registers accessible
+> through separate SPI chip selects, so per-channel regmaps are used with
+> no locking between them. The data path has no software involvement at
+> runtime: the CNV clock triggers simultaneous conversions and the device
+> outputs an interleaved bitstream captured directly by the IIO backend
+> (FPGA). spi_new_ancillary_device() handles the configuration path;
+> the IIO backend handles the data path.
+> 
+> The debugfs_reg_access callback is not exposed for the dual-channel
+> variant since the IIO framework provides a single (reg, val) interface
+> with no channel parameter, and exposing only one channel would be
+> misleading.
+> 
+> The AD4880 is a fairly unique part - having separate SPI config
+> interfaces per channel with a shared interleaved data output is not
+> a common pattern.
+> 
+> Changes in v7:
+>   - Drop debugfs_reg_access for dual-channel AD4880 variant
+>   - Pass struct device * to ad4080_properties_parse() instead of
+>     using regmap_get_device(st->regmap[0])
+>   - Use 100-column limit consistently for function signatures
+>   - Add architecture summary to cover letter (per Andy's request)
+> 
+> Antoniu Miclaus (4):
+>   iio: backend: use __free(fwnode_handle) for automatic cleanup
+>   iio: backend: add devm_iio_backend_get_by_index()
+>   dt-bindings: iio: adc: ad4080: add AD4880 support
+>   iio: adc: ad4080: add support for AD4880 dual-channel ADC
+> 
+>  .../bindings/iio/adc/adi,ad4080.yaml          |  53 +++-
+>  drivers/iio/adc/ad4080.c                      | 231 ++++++++++++++----
+>  drivers/iio/industrialio-backend.c            |  59 +++--
+>  include/linux/iio/backend.h                   |   1 +
+>  4 files changed, 273 insertions(+), 71 deletions(-)
+> 
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
