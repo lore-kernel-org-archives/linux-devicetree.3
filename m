@@ -1,113 +1,173 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239353ACA4C;
-	Mon, 23 Mar 2026 13:38:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE973AC0DB
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 13:38:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774273115; cv=none; b=Hh1G1NHbXhS6z3UWoIwlR2oQ8mO5/zEoaD92ivQtdz37VbEXvFAaeoLN7foG7ssYpZw0NnUcfeLthnctLdGHfCOUm2OPrJZHPTJTY9PQxHBfXBYDXPR7lQPE56HS9RSrS8T1NajCQD0PPVyZLDmwQ8y2Aev/DneQMA6t/ft/P40=
+	t=1774273120; cv=none; b=iL6OwyH5/B/wWMNnyiGA8U0YQj+T5po0pgSDFMf3BJBptoE10D452yvpVSL+qRaUKdEs6keV5d92hGnvgjPg+Wfy7zViztn2fMpMkhpWWvMWrKgODj2g1nRwL+Oacfsi5FrwrYmoF+jcnM6BCLFOX7p8WkbkA9Z/qezCYjiKgmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774273115; c=relaxed/simple;
-	bh=EE1BARFzWjcO6wyIQt06l7M7MH4JAkFjS4YaQxNjKZI=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HFrgxUHmjKlaALWwdBXTCVXMfOu+dY3loS8mXtfTnbwf5iuZfQJzF9Ygh9Ug5RWZa0gHlx0ckmu227Rp186rI8XJfXkVsutReIxgkD75pFLaA+HSysetI9H1QGNuia22MOgImyu2/Ox4YalKfibLQ1RdfCWy8ghyuqY/rfDTdJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=EKnTD5XC; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1774273120; c=relaxed/simple;
+	bh=twEAMEZQuHixVTy0TIBpDgrHMP/lw6YTgCVvQ+QbrXs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aYL60YyVDS8nNHT9yNZ+yWl6BTg5ca2/C5J3IsNIj+SzqFcfqt5FZd2U9CRzSi/9cKtmEElP3xnyRDmvIfnpum7c2+QdM6IGSnhbilKxwvOuHibNZ6D36MLxxGu2WUevOUkkvvXUQCJNF+Zin1KpkjnbhCiVarS+a9spxiB+6Go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FGjr4zeK; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="EKnTD5XC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1774273114; x=1805809114;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=EE1BARFzWjcO6wyIQt06l7M7MH4JAkFjS4YaQxNjKZI=;
-  b=EKnTD5XCZqgI4L7mTmwfO2NqYE5ZCaKG9e5FJQFUd0/f0xHNqRAbuMnX
-   +VV8j8oHjZDIozbG479BExZXOwPgdN4bpkbU+zJpkOBR8y35Lxup+7C8T
-   Io6MhjGvUbo87SSlz3IcdUfovP7BQp7vVN6wrzaTjfuHf3gowbEJ8geqI
-   CiRxTvxb5+oor/f6x+V8eCHOk1apnTfaKg5WuxKjIusLqSCJ6e8xaoK8/
-   Z5IV2rcSkn1MUREG33T18jLDNlivcSFjTt8tpKkwg6soYXo4GuGdDMuKN
-   yTllux6e/2IFeYwuAOCczqk9lSmElEPQW9rO+NeBjfbqOcQOQDEtofkvO
-   Q==;
-X-CSE-ConnectionGUID: NU3MCjPHTT6Ew3YQEdpaLQ==
-X-CSE-MsgGUID: fLRfFT78RGuXM6z3aYurDg==
-X-IronPort-AV: E=Sophos;i="6.23,137,1770620400"; 
-   d="scan'208";a="55474404"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 23 Mar 2026 06:38:33 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Mon, 23 Mar 2026 06:38:08 -0700
-Received: from bby-cbu-swbuild03.eng.microchip.com (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58 via Frontend Transport; Mon, 23 Mar 2026 06:38:08 -0700
-Date: Mon, 23 Mar 2026 06:38:06 -0700
-From: Charles Perry <charles.perry@microchip.com>
-To: Conor Dooley <conor@kernel.org>
-CC: Charles Perry <charles.perry@microchip.com>, <netdev@vger.kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, "Paolo
- Abeni" <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiner
- Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: document Microchip
- PIC64-HPSC/HX MDIO controller
-Message-ID: <acFCPnia+riDwvJJ@bby-cbu-swbuild03.eng.microchip.com>
-References: <20260317184610.315852-1-charles.perry@microchip.com>
- <20260317184610.315852-2-charles.perry@microchip.com>
- <20260318-suspense-arming-fe118c3f15c6@spud>
- <absXy5Qmd/iHWofD@bby-cbu-swbuild03.eng.microchip.com>
- <20260319-spearfish-styling-9918d2d2e537@spud>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FGjr4zeK"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-829ac4670c4so3184614b3a.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 06:38:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1774273119; x=1774877919; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GCVrVoKT9G2CjfYu/PBNCmXq2eaEsPu9cALs8eUDlig=;
+        b=FGjr4zeK7BNjMDd5ZFqt71eDMbzzpClQez1pipLEroPt4dobGp4cYsrrtQrE/hz6kz
+         79edx6eWGOLqer63D670wxpXmUuvGikZ7RsAywa1qWawgKqJ5EiTEIAZpN1KogO9Sb8y
+         VH6VNLotAlIqP20hj4gBXxdejnnVEthMa9Pj2rGejD4ghf8DTr6qAq6FpjUHDrdOIqGM
+         NcUo+igufjIXd3KBzWPCo77cNpBPnRQa1fHc6CI0T95zOdg9FQaKcd6c3jTK7RHJD3l2
+         yXrXrxv5FQrI04HhRa6P4/zb3rLvItUHXVH5H6wR6zVhFePCrUrnI1CF59mhhVVFAOCi
+         wSVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774273119; x=1774877919;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=GCVrVoKT9G2CjfYu/PBNCmXq2eaEsPu9cALs8eUDlig=;
+        b=mAOViE9F4dlRk6gAZdiW39Apxex+j6v95RdltjpYRueZh+YRchZOQtTx6kfHbEBSXW
+         dmG4B/VJ3LPpo7QqoU7ZzlWbxECBsKxbZMrOL+MWJo9bGcF+t5Qfp2ISri24vRYJz+0S
+         aDGe6JXT0hKySyVu0wSe0JO429qNc5j0LKFQrauSTM+xD1Wx1UND1SJ03u/zAR3Nzsr4
+         0lNQJBWmdRQw3F8G66QZX7kDZ+yMlOzRwemyPjfAc+dklFWdDp4GWx7ifLaUfXmkKGWc
+         Y7hi2YrD6ttrus6Symi04iLmnMEx1WHswgfdvkRBjlu1AOKUk9r+49f6xr8VihiufCwT
+         23Ow==
+X-Forwarded-Encrypted: i=1; AJvYcCVu0P5bJSfrok5G8cS0e953GdM2FBjowbHvGMy6P+B6rDFmTqyiaBW9tlhfynz446CGFwQUr8aaDJCB@vger.kernel.org
+X-Gm-Message-State: AOJu0YyUlbllT/Evb5XSvsiIXx3H+VZ3Uiu6oZfeQp/5mVbJ4Syy87OS
+	TB9OBKpldAZI1F+By07KTra17iODDkw6+NKo5TVa8lwwcC1iE+IXK/0U
+X-Gm-Gg: ATEYQzxlSx90ybSVe+425FrRHAdRwfotFZZ8z+Ii4bblJQsSyflNdm2iL/yJzc3mskv
+	i0DfZsQ6dOO81egKCeQp7pbz3/gEedQA+3aZp8zGKABQkIHS2zLtY5jLa1ERU7LNOBxT9C/nnp7
+	BsZsbgLUJorZsgAcZzPLHn+bzdBtMpT/IM0gxSpyIqMTv09zezYLZVGPNfilMP6QD6yA7crUjE/
+	nEe6/XS3TWSLADORteHUESC39y0tNKChKM9s9pmZ2+fFbvGo4hyiocEik0ndB6ZC6J3qzUvo5E8
+	ZWIHRfiZvldoPvD5Fgb63BAgcfHmXfAYbQ1vmyA7q43B9eD4M8/PBqTzqLHuTPTsD4RCOklYLqO
+	FhTauawgBk+YhMrRfuf2+8p5lVMs9g/X9a5trd8K4WK6J1lZrVtwrwfMoMhiwFhOoNLKuxacxPm
+	QEglbLRwlG8jPEpkRis/GzktxhxLZnuSvOKTyKimQ16T3AcQ1kdlUXqUWeryXvSLCBBw/BnZzIp
+	go=
+X-Received: by 2002:a05:6a00:13a6:b0:827:3b1b:43e8 with SMTP id d2e1a72fcca58-82a8c22d99bmr11433015b3a.15.1774273118883;
+        Mon, 23 Mar 2026 06:38:38 -0700 (PDT)
+Received: from toolbx.gk.pfsense.com ([103.70.166.143])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82b0410b1bdsm12069224b3a.57.2026.03.23.06.38.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Mar 2026 06:38:38 -0700 (PDT)
+From: Gopi Krishna Menon <krishnagopi487@gmail.com>
+To: rafael@kernel.org,
+	daniel.lezcano@kernel.org,
+	rui.zhang@intel.com,
+	lukasz.luba@arm.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	vireshk@kernel.org,
+	conor+dt@kernel.org
+Cc: Gopi Krishna Menon <krishnagopi487@gmail.com>,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	soc@lists.linux.dev,
+	daniel.baluta@nxp.com,
+	simona.toaca@nxp.com,
+	d-gole@ti.com,
+	m-chawdhry@ti.com
+Subject: [PATCH 1/2] dt-bindings: thermal: st,thermal-spear1340: convert to dtschema
+Date: Mon, 23 Mar 2026 19:08:08 +0530
+Message-ID: <20260323133814.14152-2-krishnagopi487@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260323133814.14152-1-krishnagopi487@gmail.com>
+References: <20260323133814.14152-1-krishnagopi487@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260319-spearfish-styling-9918d2d2e537@spud>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Mar 19, 2026 at 01:35:52AM +0000, Conor Dooley wrote:
-> On Wed, Mar 18, 2026 at 02:23:23PM -0700, Charles Perry wrote:
-> > > > +
-> > > > +  clock-frequency: true
-> > > 
-> > > Does this genuinely have no constraints?
-> > 
-> > It's going to divide the input frequency by 2 to 512 (the prescaler is 8
-> > bit long), so assuming an input clock of 156.25 MHz, the bounds are 305KHz
-> > to 78MHz. The standard is 2.5MHz.
-> > 
-> > I can add a maximum and minimum here since I do have some validation on
-> > this in the driver which will bail out if this is out of bound.
+Convert the SPEAr Thermal Sensor bindings to DT schema.
 
-Hello Conor,
+Signed-off-by: Gopi Krishna Menon <krishnagopi487@gmail.com>
+---
+Note:
+* This patch is part of the GSoC2026 application process for device tree bindings conversions
+* https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
 
-I have second doubt about this. The minimum and maximum depend on the input
-clock frequency which might change if someone uses a different crystal or
-clock config. So for that reason, I thinks it's better to not specify the
-bounds, because there's no way to know for sure what they when building the
-device tree.
+ .../bindings/thermal/spear-thermal.txt        | 14 --------
+ .../thermal/st,thermal-spear1340.yaml         | 36 +++++++++++++++++++
+ 2 files changed, 36 insertions(+), 14 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/thermal/spear-thermal.txt
+ create mode 100644 Documentation/devicetree/bindings/thermal/st,thermal-spear1340.yaml
 
-I will however add a "default: 2500000" following some discussions with
-Andrew Lunn.
-
-
-Thanks,
-Charles
-
-> 
-> 
-> That sounds like a good idea, thanks.
-> 
-> pw-bot: changes-requested
-> 
-> Cheers,
-> Conor.
-
+diff --git a/Documentation/devicetree/bindings/thermal/spear-thermal.txt b/Documentation/devicetree/bindings/thermal/spear-thermal.txt
+deleted file mode 100644
+index 93e3b67c102d..000000000000
+--- a/Documentation/devicetree/bindings/thermal/spear-thermal.txt
++++ /dev/null
+@@ -1,14 +0,0 @@
+-* SPEAr Thermal
+-
+-Required properties:
+-- compatible : "st,thermal-spear1340"
+-- reg : Address range of the thermal registers
+-- st,thermal-flags: flags used to enable thermal sensor
+-
+-Example:
+-
+-	thermal@fc000000 {
+-		compatible = "st,thermal-spear1340";
+-		reg = <0xfc000000 0x1000>;
+-		st,thermal-flags = <0x7000>;
+-	};
+diff --git a/Documentation/devicetree/bindings/thermal/st,thermal-spear1340.yaml b/Documentation/devicetree/bindings/thermal/st,thermal-spear1340.yaml
+new file mode 100644
+index 000000000000..125632163911
+--- /dev/null
++++ b/Documentation/devicetree/bindings/thermal/st,thermal-spear1340.yaml
+@@ -0,0 +1,36 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/thermal/st,thermal-spear1340.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: SPEAr Thermal Sensor
++
++maintainers:
++  - Viresh Kumar <vireshk@kernel.org>
++
++properties:
++  compatible:
++    const: st,thermal-spear1340
++
++  reg:
++    maxItems: 1
++
++  st,thermal-flags:
++    description: flags used to enable thermal sensor
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++required:
++  - compatible
++  - reg
++  - st,thermal-flags
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    thermal@fc000000 {
++      compatible = "st,thermal-spear1340";
++      reg = <0xfc000000 0x1000>;
++      st,thermal-flags = <0x7000>;
++    };
+-- 
+2.52.0
 
