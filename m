@@ -1,165 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2698E3AA182;
-	Mon, 23 Mar 2026 12:35:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74CEF3A6B88
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 12:36:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774269329; cv=none; b=KPYrOOH+mtHRrcvBif28lYBPz/mXc7tNfK7/sQOiBLYZC3F2VQCoBg9+DP8TixQ8x5UsYfuuV53FxPJfEYMvbmU2wFsiLvSXO91Zx8+1ohpOBOA8zYb9KAMKvK158Ac5Rn0zCKIUz7r8OY0wQcOZZjOdiCFeh77mjnfh9nvG2sE=
+	t=1774269372; cv=none; b=Sa4gwKR1hlvCXGNm/sVhJAgQjT3zCvW+feWcy158Bfv8nrrHDf0erSJlwLb8iNiGPEba8Z4FzEwPFY2TO0FUEeOFxcAQAf54TV7i2j3WElngua6rnOdvXqstzlMORQH2d9my2Eo4ddS5LoAmujwA0n5oi1zHYNz2Zylb4ggzqaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774269329; c=relaxed/simple;
-	bh=XApBBnOOJ5elwtHWxmuUDE0TpYF+/pV3i4s0gOrBn4Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R/dIvQQdqm28YGsQBYjDDMNBYD0R9vNObdKmp/cdG46UmHljJd48ppsWdepW5KF3ljc+vziuqSyy+8nixVxp3U5wStE16DvrwDYzjsPukB7RaOYaFcQCIbEONJP8WK40UwLiDVkUneyoHuc6llKzUspEy8GBi57TRuQi0acl4Dk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QlhB9nVZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774269372; c=relaxed/simple;
+	bh=qR9lNg1sQ3u9U/A+p2688KwxIm0+L9Mw2pdv5sD+0Zc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u2I1kMairinGfGVRl7Y7VkEoDZw5kCEKjypsTRD9oBzoyhvxCWsqKukIWVtsnxRsQceBfuttLm+yH7SyB7t/Rc/0qG4evLjGGkeiCsByP4ZVmfTJA/tX8lFAfJekhkIhJ0TInknF6JPq4/xFwDd8ULpnZOaNgq6jZ26IPrNW1YE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ar8ZQO0W; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V6lF8Fib; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QlhB9nVZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B68E5C4CEF7;
-	Mon, 23 Mar 2026 12:35:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774269328;
-	bh=XApBBnOOJ5elwtHWxmuUDE0TpYF+/pV3i4s0gOrBn4Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QlhB9nVZJCPUurPUHX3n53uyZPTjebWMYxKOBXWmj7h7mKdR6Hw3Ja1TuoOUfAaAV
-	 bdk9LheDCb+crooqJkKtSN1jcx5vyS1YmgbIu80kJKujowxa0JPBEirKu7b+Ij8aoP
-	 UVPtnxT3E/isDy9NhWSnC8zaHLitzT7eKlMPhm6oTl94aqJWVsITJpHJUV3G+SL3DU
-	 b+DY5ous6EJdv7oCGf38atKvYfY8Xfk1UDkxfHLFY+IqlT4gKFgEnyhPXZ2YiQ7o04
-	 jD0Hy9szb3QpCy/nXiWhVc2r1n2GsUt2PIas9ZhDRGVUZn9isX6v1SvxUiH9O5lIo5
-	 85o6XacVa8pUg==
-Date: Mon, 23 Mar 2026 18:05:09 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-	linux-media@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-	linux-remoteproc@vger.kernel.org, andersson@kernel.org,
-	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
-	akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
-	jesszhan0024@gmail.com, marijn.suijten@somainline.org,
-	airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
-	dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
-	mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
-	trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
-	jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
-	vignesh.viswanathan@oss.qualcomm.com,
-	srinivas.kandagatla@oss.qualcomm.com,
-	amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
-	op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
-	skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
-	Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v2 01/15] arm64: dts: qcom: kodiak: Add EL2 overlay
-Message-ID: <acEzfd8I9UjByadc@sumit-xelite>
-References: <20260312062756.694390-1-sumit.garg@kernel.org>
- <20260312062756.694390-2-sumit.garg@kernel.org>
- <20260313060451.hswg6snnnexchmzs@hu-mojha-hyd.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ar8ZQO0W";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V6lF8Fib"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62NCV2Du3393276
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 12:36:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	GC9YdM4uh/4MoCpxFmDOmembd35n6ZrxZHRpR43uLsM=; b=Ar8ZQO0Wl7BlsjXo
+	JNRgvzIGh74vir78+MgVvj7XYyV4+NsxRdUhZ6Gou1Xq3uIfYb1eK8O7w9j3Liaz
+	OJu9COFfxJ1Y5z8p6MXQAxXELhCCyEYhlAk3LYKzKLpR69cq47LEG7UQaYEyQndr
+	WRjZqIpemyFbfJ3WI0KvDEl/Ni5rtlr6zKkQrAzUlm+7g07I2m9R17qn6TJqw/V8
+	fZGwDrGblv0fyZHw79qCqQPSpnJP6+alIy5UP4C7r2MNjf9fxKulREp/qxFvFu1q
+	A/tNluD+l5PiHpxw4c9TEqD1tfXUh0JigJK8T0Rb+6YjacWI6ETznlzQaNEWFp87
+	sA5Iwg==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d2ca8k90b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 12:36:09 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-358df8fbd1cso149185a91.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 05:36:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774269368; x=1774874168; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=GC9YdM4uh/4MoCpxFmDOmembd35n6ZrxZHRpR43uLsM=;
+        b=V6lF8Fiba8W957w1RcpB6g8/+C3qMMTLF64RjmmuJcbkBdV0VSvfXeZx7cMoqATWin
+         FWSoA9Ole2fQAPcYgCO9K6ag17Kivq26Mz3Q/WSdPe9nZljqRb4fuEaALlAz0yz/8vdm
+         VJf1HgpekMWFkO/Reh6ZE8StnFFrUPz2h77gFlZNaaOoIDTxP4w9RxZRtudpLaZacAjA
+         77B/0lp7Dv91G9YCLmcxyq+YVxiPEgTqzzfX2o2EPiolgUVqrt6P2H21ymXfRkPd+gHU
+         eG5XJBUcoqfnoltLGUQctU8UIlSGV0CZrYCCUdHYSwm0CtXmCnK66hM+2YWoo9gH7pMQ
+         CRVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774269368; x=1774874168;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=GC9YdM4uh/4MoCpxFmDOmembd35n6ZrxZHRpR43uLsM=;
+        b=KQhlRqEbihdnd8sOA+2ikyx+65R6b5XyjodMUiltAJSVtQUsQtVy01yT+/eW6dHnCG
+         s92J/VJCbApRwYIK3EJ1ay9qLzQSJsKj5k02Q8xH+/xUisEfgUJmcPwWnnnCpVu7teX0
+         4HwbGQnnusQImFY+L99/4fPgfBPtgVwUH4Tfk9uLosTOOPMUHjYXlrc7gYvaiNMo+fEy
+         5jVWbpox2TuO3EDoQXFRqNN35AS6cC405u8bLc8w3kiWW66dOGSLrghWVFutHbCwnwNG
+         KuhRytfiaaqtnEGNfNIBuw4iNYa9L4vPSE+54zi4811pgBuFYcqlmN/BWAwNd5OewyD1
+         44yA==
+X-Forwarded-Encrypted: i=1; AJvYcCWkeyL17htozxBcEsK6rED+Q2sVv+TAtelPn1CNxPXevNdrbQRMAq2cU8ZyEeciD0UMjB121DdLGkWO@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxcd6JPZsg7M7gJBmH+aOYZClMDsAp18PuTTdWeGgorEguKMgga
+	tJBpv7+6XJ3o9XlZZ5CwSHCjxWJPXQyuJE2IpIwaYB9MpfjwEIR7vHpcU78X01DF6isWhP42/K9
+	GI/N0ubXdmW4mAsAy5+7YHmiud2TprlDbho15kqfEAVwifYhbWFbnnD9dIqR1BKiXSIqr0Vp+
+X-Gm-Gg: ATEYQzxEkGaovaM9Iy4M7q1ezb/mJVo844XG5gGgeghm8jw9hGdCQEhigR9mCw79MCe
+	HybVuGvOMsvb9Q7bEJkA7jWgWSTuxqfuWczwE2bMUycn0UoK5EIY1ybH5uuEtYHzSEGi8EH6L1Y
+	H81CxaA96tG9MfIICeAMaqHqih9DmLrJ1Ca0mcwWLYslC4uunBloUuAfmxw70E8/Me2gGsM0a6B
+	Vrvv7dlrcNIEiypio7ApOJ6IFHkKrFS8oj9D6qFl5m2DvcpCLXbfUDlbj5tdWRQZbJ8JYT6Pn3x
+	SQZz6w2v4UaiQaC1FJXmIAivTw/Fb5QH8OAMxkKNKGu2gmVn4nrFr5YBAZmjb1z7lGsq/LAqgC4
+	r3sYzj/TZsdepEIAji08ANokyFBJgAZPteVYar+d6DEOnOWUFgDjGWLSlRiKxiXA=
+X-Received: by 2002:a17:90b:3d02:b0:359:d54:846f with SMTP id 98e67ed59e1d1-35bd2bbe310mr9718520a91.7.1774269367678;
+        Mon, 23 Mar 2026 05:36:07 -0700 (PDT)
+X-Received: by 2002:a17:90b:3d02:b0:359:d54:846f with SMTP id 98e67ed59e1d1-35bd2bbe310mr9718497a91.7.1774269367020;
+        Mon, 23 Mar 2026 05:36:07 -0700 (PDT)
+Received: from [10.217.216.105] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c743a801b79sm7520948a12.3.2026.03.23.05.36.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Mar 2026 05:36:06 -0700 (PDT)
+Message-ID: <42b80288-5a3d-454a-bc1b-c80bebe2dd03@oss.qualcomm.com>
+Date: Mon, 23 Mar 2026 18:06:02 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260313060451.hswg6snnnexchmzs@hu-mojha-hyd.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/1] Enable UFS for purwa-iot-evk
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, mani@kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, nitin.rawat@oss.qualcomm.com
+References: <20260317071311.1696361-1-pradeep.pragallapati@oss.qualcomm.com>
+ <lmmlmpu7h6rm5ddi6aaspayhaibeyr274xjqqquaxtrovusnps@5p22xw3vcbnk>
+Content-Language: en-US
+From: Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>
+In-Reply-To: <lmmlmpu7h6rm5ddi6aaspayhaibeyr274xjqqquaxtrovusnps@5p22xw3vcbnk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA5OCBTYWx0ZWRfXxNx9D1CHvubQ
+ oG9k/+OFpCihKqbBjG8sOfuyu1n0QuPYfrUgD/cORgXmIrLbdqCDFEMbmpDnL86glLADnFbsIf/
+ 9pXHjK0tnMt2ipwN8QfOkQVY0eNDZiBddoWAQ+e9cgfhNdaZeSD2DoJGqnIQda1almhWqn2xjhx
+ DPOfi7MqMxL6iz04JH2OBB9ZDVgVoroL0Vt99zDCMCZCpgQEw9MljZJMqXGZRsuH178J4JJE0T6
+ E5z7RaB6pwG9EAzgeol9fq3AR8iLvcOeOJnV8SZQFnyoLJ4rw3T2ar5d4infQuM6ZW9wGADxIK2
+ YZIUt/fxLrOQDKKN+rT1YGVZhiHmbirPFZUSD+kFGN1sEmoMqWQqgBhCVcAGAy7qnkhwCGWFlhI
+ 5TAZ4LTydu63FS1+ykXGfWojhJBth+tgZqURAU+WI/tg0fzmKMh0WqJHccaBu3qCBi7rtsIUjnt
+ W46crBoJchhFafM+IuA==
+X-Authority-Analysis: v=2.4 cv=cf3fb3DM c=1 sm=1 tr=0 ts=69c133b9 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=X3-CQwcXODtUerY8amkA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: E-deZRPvj3CYdLxRu9Phq7P0f0TetaFo
+X-Proofpoint-GUID: E-deZRPvj3CYdLxRu9Phq7P0f0TetaFo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-23_03,2026-03-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 bulkscore=0 spamscore=0 impostorscore=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230098
 
-On Fri, Mar 13, 2026 at 11:34:51AM +0530, Mukesh Ojha wrote:
-> On Thu, Mar 12, 2026 at 11:57:42AM +0530, Sumit Garg wrote:
-> > From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> > 
-> > All the existing variants Kodiak boards are using Gunyah hypervisor
-> > which means that, so far, Linux-based OS could only boot in EL1 on those
-> > devices.  However, it is possible for us to boot Linux at EL2 on these
-> > devices [1].
-> > 
-> > When running under Gunyah, the remote processor firmware IOMMU
-> > streams are controlled by Gunyah. However, without Gunyah, the IOMMU is
-> > managed by the consumer of this DeviceTree. Therefore, describe the
-> > firmware streams for each remote processor.
-> > 
-> > Add a EL2-specific DT overlay and apply it to Kodiak IOT variant
-> > devices to create -el2.dtb for each of them alongside "normal" dtb.
-> > 
-> > [1]
-> > https://docs.qualcomm.com/bundle/publicresource/topics/80-70020-4/boot-developer-touchpoints.html#uefi
-> > 
-> > Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> > [SG: watchdog fixup]
-> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > ---
-> >  arch/arm64/boot/dts/qcom/Makefile        |  2 ++
-> >  arch/arm64/boot/dts/qcom/kodiak-el2.dtso | 35 ++++++++++++++++++++++++
-> >  2 files changed, 37 insertions(+)
-> >  create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
-> > 
-> > diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> > index f80b5d9cf1e8..09a7f943190e 100644
-> > --- a/arch/arm64/boot/dts/qcom/Makefile
-> > +++ b/arch/arm64/boot/dts/qcom/Makefile
-> > @@ -139,6 +139,8 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qcs404-evb-4000.dtb
-> >  dtb-$(CONFIG_ARCH_QCOM)	+= qcs615-ride.dtb
-> >  dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-radxa-dragon-q6a.dtb
-> >  dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2.dtb
-> > +qcs6490-rb3gen2-el2-dtbs := qcs6490-rb3gen2.dtb kodiak-el2.dtbo
-> > +dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-el2.dtb
+
+
+On 3/17/2026 8:17 PM, Dmitry Baryshkov wrote:
+> On Tue, Mar 17, 2026 at 12:43:10PM +0530, Pradeep P V K wrote:
+>> Enable UFS for PURWA-IOT-EVK board.
+>>
+>> This patch depends on [PATCH V5 2/3] arm64: dts: qcom: hamoa: Add UFS
+>> nodes for x1e80100 SoC
+>> https://lore.kernel.org/all/20260211132926.3716716-3-pradeep.pragallapati@oss.qualcomm.com/
 > 
-> We may need to add for couple of more variants..
-
-Sure, those can be follow up patches if Bjorn is happy to pick this one
-independently.
-
+> No need for the cover letter for 1-patch series. Please switch to the b4
+> tool.
 > 
-> >  
-> >  qcs6490-rb3gen2-vision-mezzanine-dtbs := qcs6490-rb3gen2.dtb qcs6490-rb3gen2-vision-mezzanine.dtbo
-> >  qcs6490-rb3gen2-industrial-mezzanine-dtbs := qcs6490-rb3gen2.dtb qcs6490-rb3gen2-industrial-mezzanine.dtbo
-> > diff --git a/arch/arm64/boot/dts/qcom/kodiak-el2.dtso b/arch/arm64/boot/dts/qcom/kodiak-el2.dtso
-> > new file mode 100644
-> > index 000000000000..0b3a69a0d765
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/qcom/kodiak-el2.dtso
-> > @@ -0,0 +1,35 @@
-> > +// SPDX-License-Identifier: BSD-3-Clause
-> > +/*
-> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> > + *
-> > + * Kodiak specific modifications required to boot in EL2.
-> > + */
-> > +
-> > +
-> > +/dts-v1/;
-> > +/plugin/;
-> > +
-> > +&gpu_zap_shader {
-> > +	status = "disabled";
-> > +};
-> > +
-> > +&remoteproc_adsp {
-> > +	iommus = <&apps_smmu 0x1800 0x0>;
-> > +};
-> > +
-> > +&remoteproc_cdsp {
-> > +	iommus = <&apps_smmu 0x11a0 0x0400>;
-> > +};
-> > +
-> > +&remoteproc_wpss {
-> > +	iommus = <&apps_smmu 0x1c03 0x1>,
-> > +		 <&apps_smmu 0x1c83 0x1>;
-> > +};
-> > +
-> > +&venus {
-> > +	status = "disabled";
-> > +};
-> > +
-> > +&watchdog {
-> > +	status = "okay";
-> > +};
-> 
-> 
-> rb3gen2 has modem as well, did we test that as well ?
+Noted. Sure will use b4 going forward.
 
-OP-TEE don't have access to modem, it's locked down in XBL-SEC.
+>>
+>> Pradeep P V K (1):
+>>    arm64: dts: qcom: purwa-iot-evk: Enable UFS
+>>
+>>   arch/arm64/boot/dts/qcom/purwa-iot-evk.dts | 18 ++++++++++++++++++
+>>   1 file changed, 18 insertions(+)
+>>
+>> -- 
+>> 2.34.1
+>>
+> 
 
--Sumit
