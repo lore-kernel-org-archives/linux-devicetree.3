@@ -1,188 +1,170 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010057.outbound.protection.outlook.com [52.101.193.57])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 363681A6807;
-	Mon, 23 Mar 2026 16:35:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774283744; cv=fail; b=f201/lzBw79N9D0iOl9dsV0KvJ2AIWhJxHmSAfbTyBGn0mnJwBNk4EzOIdV2gw0SnfV2rxp753CB9dkvlQnMT3xi64zpRSmSsAUFpMwssp6jf/G+ZMIFmBs7SvSMGfG129onqpL0eUkPGwyXFL+YkwzLgnY+hO6hZ1U1B55+vis=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774283744; c=relaxed/simple;
-	bh=ZaB2o7AlMYMgUUXhM8pGo7abby9ygoF/qLkx194uYUU=;
-	h=MIME-Version:Content-Type:Subject:From:To:CC:In-Reply-To:
-	 References:Date:Message-ID; b=YN2vCYu8AKRqB9vAx43CdDHmQZ6nI9CqqBSB744eG+vOq+AyG4T2i2Kn/zb1N1tF/HIqxPRvCLzKnNMVxlj7IXkvXh8xne4uGrUbOzUb5EOTMTdORtFuRXQCDwgs32kvljniKj7IC+ZRT0xhczlMJbeteKIaoInu0oKhQsQrw80=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=YVU/h0iq; arc=fail smtp.client-ip=52.101.193.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98513C198A;
+	Mon, 23 Mar 2026 16:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774284276; cv=none; b=XmOS0eUCy55CmzflKpUAqJ1U+tJBExYabonf/KZfZc9oiDs97TqrHluK0OWBPCmuxiRflCTuG8d05mzIgqY07/01qakNbVJRqBQbrS/uODKDwgIu46F6tYwHIkWyX1RcQQek6rcu3ligQetYwf5RIGB8VFeGLyIHt2SWTyeRZEA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774284276; c=relaxed/simple;
+	bh=rDr6NT1Sv35coLIThTn5ymCPYQNnEGzN4OhDYsaf3R8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iC9zjGIcV/38d8pbvFTogYGedhIb8St5QE+6wev6kqyh9Kr1/bQP8QDSJZLUrpcIQPBaJXO45uZN46WSkxUE5BKll9gsAbq526rpz/6b833moRcuCZl3+MtiyRZus55ozv6AqEN5Vd29RKGXXs/irS3Mjsr1lTYB0jmq7Wwit9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org; spf=none smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=dlZIzt5Y; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="YVU/h0iq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xhj6PIf9XijcW+hreufTL3qcBNTAu392E1O1MhOz8PGUhLkcj4vzGAizZJy8RpqEeQ9ELXDhVzD4A2ixnULmwqXNnnCxdNmYVD2zgdHn20U2lDZBYujuNKkVyvPrRDaV+VCHiEt4j8zGrK2R1fyotwxitFJ+kbOHTJQDabNYbfXVgYxw0uewNLGjy//Gsuod7RzQGBUEwhOUEZx9+IcSnOHnxiORZ2ERRVXLGXSLU8T+xl+3IUAAdflvH14r5JitGrASOhhRg6b43WBIG3NAst6xSg9Tmqh0XSjR0G5hW8Ovh2dyUbYMbK2IrbDrIh2UwInc1m1EdM7R+clRgL663A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wvMxHqPhU5RSFsDfndGe/zlDizAu4+AyuXm80cceX0U=;
- b=WXcPIr0FGG2Sf0Oe+Di++MjSfdVVYQJOxkO6NyCLye2C3IkZ8F3VuSkPGk7dj/VT5HV5v9NXNt179JC7r510Nroovh7HeilW67qF2lR33efgHvmpDGlUAts2jK98AtWal6Rv8z2+3NVSstb4DNchYcNujnI2IAiIkBoOJGLVdw8MejxlP4f1r6pYnH7BlEHFLcDc8raqtl+9Fduny9zJ2/UjGkQLaxBYBCypcs7HyUJGVPIf9ndEvjR0sBHkmCQjIuKmXX7O9KJLayuCrFCZPaRI7eADQjQ+VxFGkbFL36erf+shQQdUS4lmR8arCH26pHodIBGqv4ekagEu9KZ7YA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=kernel.org smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wvMxHqPhU5RSFsDfndGe/zlDizAu4+AyuXm80cceX0U=;
- b=YVU/h0iqgcif+pNUHvkNsJjEtE8pdTfhTdf8n4oioILsOYGeDWsTtLhl6H91l4hUbayL/M4WA7v6GElfncZDlqaiD/BX28TSCybR72CPhRDtNGAntwVra969vHrzLGo+0H49/LQQjr3EkXKff7Q+sA/qu9evs7F8lRz4Rv97Ui8=
-Received: from BL1PR13CA0411.namprd13.prod.outlook.com (2603:10b6:208:2c2::26)
- by IA1PR10MB6806.namprd10.prod.outlook.com (2603:10b6:208:42a::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Mon, 23 Mar
- 2026 16:35:36 +0000
-Received: from BL02EPF0002992C.namprd02.prod.outlook.com
- (2603:10b6:208:2c2:cafe::30) by BL1PR13CA0411.outlook.office365.com
- (2603:10b6:208:2c2::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Mon,
- 23 Mar 2026 16:35:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- BL02EPF0002992C.mail.protection.outlook.com (10.167.249.57) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19 via Frontend Transport; Mon, 23 Mar 2026 16:35:36 +0000
-Received: from DLEE202.ent.ti.com (157.170.170.77) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 23 Mar
- 2026 11:35:34 -0500
-Received: from DLEE202.ent.ti.com (157.170.170.77) by DLEE202.ent.ti.com
- (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 23 Mar
- 2026 11:35:34 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE202.ent.ti.com
- (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Mon, 23 Mar 2026 11:35:34 -0500
-Received: from [127.0.1.1] (uda0132425.dhcp.ti.com [172.24.233.103])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 62NGZPvp1091537;
-	Mon, 23 Mar 2026 11:35:31 -0500
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="dlZIzt5Y"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Reply-To:Content-ID:Content-Description;
+	bh=u646cOHMJ/zTHL9+VZ4W7Ux0q5cDJeWhhX/W1yOam3I=; b=dlZIzt5YzevTl4QnSJxxDuhppU
+	q2WiFtssembwHpot97e7p66yyqpF3dN8xA6eo3mU9Y5cs77fG/ib/E0pmR2yPSYUbOk1yB04ldCYA
+	8ZSzKzhPXOJ2uxLAeNtLzVEnC72HyX/Da0COA18pwxZ18OR3/xTPzoczvd+eOfdbXU+oe4D6zXNln
+	RL3AID6EDlGZkPD4dqQGcVL8hyyuo84fScfgh1+HpHr0th+N7IyqowEsgziGLLV0rZFhpAPGgdSUN
+	uSgV3My9CRMDXuTe1oUCC4dNUN3U7nThOJTD+Dmv8QRP2jO2Jg1/VT/h7vj784PI985iF8yh77g2G
+	eh4Qqoxg==;
+Received: from authenticated user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.94.2)
+	(envelope-from <leitao@debian.org>)
+	id 1w4iMe-007fRI-16; Mon, 23 Mar 2026 16:42:50 +0000
+Date: Mon, 23 Mar 2026 09:42:38 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, catalin.marinas@arm.com, 
+	will@kernel.org, chenhuacai@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com, 
+	mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org, pjw@kernel.org, 
+	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org, 
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
+	robh@kernel.org, saravanak@kernel.org, akpm@linux-foundation.org, bhe@redhat.com, 
+	vgoyal@redhat.com, dyoung@redhat.com, rdunlap@infradead.org, peterz@infradead.org, 
+	feng.tang@linux.alibaba.com, pawan.kumar.gupta@linux.intel.com, dapeng1.mi@linux.intel.com, 
+	kees@kernel.org, elver@google.com, paulmck@kernel.org, lirongqing@baidu.com, 
+	safinaskar@gmail.com, rppt@kernel.org, ardb@kernel.org, jbohac@suse.cz, 
+	cfsworks@gmail.com, osandov@fb.com, tangyouling@kylinos.cn, 
+	sourabhjain@linux.ibm.com, ritesh.list@gmail.com, eajames@linux.ibm.com, 
+	songshuaishuai@tinylab.org, kevin.brodsky@arm.com, samuel.holland@sifive.com, 
+	vishal.moola@gmail.com, junhui.liu@pigmoral.tech, coxu@redhat.com, liaoyuanhong@vivo.com, 
+	fuqiang.wang@easystack.cn, x86@kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev, 
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
+	kexec@lists.infradead.org
+Subject: Re: [PATCH v9 4/5] arm64: kexec: Add support for crashkernel CMA
+ reservation
+Message-ID: <acFtMLyCWbYOyFZT@gmail.com>
+References: <20260323072745.2481719-1-ruanjinjie@huawei.com>
+ <20260323072745.2481719-5-ruanjinjie@huawei.com>
+ <acETyW3FYaWCShUc@gmail.com>
+ <a5694ee0-7a95-4c15-6775-990d70c8d77b@huawei.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 2/2] arm64: dts: ti: Add audio overlay for
- k3-j721s2-evm
-From: Vignesh Raghavendra <vigneshr@ti.com>
-To: Moteen Shah <m-shah@ti.com>
-CC: <krzk+dt@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
-	<nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <u-kumar1@ti.com>, <gehariprasath@ti.com>,
-	<y-abhilashchandra@ti.com>
-In-Reply-To: <20260205130707.2033197-2-m-shah@ti.com>
-References: <20260205130707.2033197-1-m-shah@ti.com>
- <20260205130707.2033197-2-m-shah@ti.com>
-Date: Mon, 23 Mar 2026 22:05:23 +0530
-Message-ID: <177428372304.4040484.14705758506177355468.b4-review@b4>
-X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2008; i=vigneshr@ti.com;
- h=from:subject:message-id; bh=ZaB2o7AlMYMgUUXhM8pGo7abby9ygoF/qLkx194uYUU=;
- b=owGbwMvMwCHG7GTPG/5e9jrjabUkhsyD2WcFbt/8MfusX035d9UUtonqBqxH7nsxtTD2+Dv+L
- rzJJFvVUcrCIMbBICumyBLAtmuWVYrF44iKxK0wc1iZQIYwcHEKwETWPGJkuBYUaVI5w8zjylpx
- 9/NrDd7cXrC53+Bb7/OUA+edd24+lMnwv3KzwLaorKRvaYv58za/PWYQdaDQc9lZVeVZFaLn+jY
- eZgAA
-X-Developer-Key: i=vigneshr@ti.com; a=openpgp;
- fpr=4A5A711E8E7E44F9F12F2CFAF903332F551A78E9
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0002992C:EE_|IA1PR10MB6806:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6e2d4ce4-8eae-447a-67bb-08de88fa35f5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	RsvGzwTwVLWexjiH75lgAtt/KLzvjKW0pIIXSmEw930EIs5GRKaRUMWaH6kXH0wyXW7t6dohKu5+gP5ZwN65q6FoG5mnkv5+o1NAb0J2a+dAXX4ikTSrWzdK+F9/ktJGXTGp06vy277k4ybnPTfpAVR6eKYrI1xOartqLUj/ox2we+tQjAZa3gfNAueJl7lN/FiN+50zm2XjlAmyrBDDbeooopfXYOuwjECIskdq6sfMhPKgARKYVA4LywGIZspEdC9+hpW+NJpCBqb9GQt28rIk85m/Ds+oVif1+A2Q+l2xuf335ZGfqLwzx/r50Z/45DAOgVIvJ6GG0MFj6miwSTZ0HAtwzbObo1h7fBDmea2bY54mTDtrF1EZ3I3DebdNz0d/H5RNfov6T/LwsnftOgGeVTs1H2prUtGWA4KgcW+cWHBE9NZiiaNI/t4xggH7DJgND0P7pyO2uCU/sgqFndfT5sRYcZ0pJS0JoODkozOeMTPXPI0IPH2zT5HBVScI7XpPFm5P9Bq6AqM5NLiyveC0R/9n7D0CE/A0uR3PwpZue8HqILhxnFfffHHwCdRtoZ1QAaiuuVXuzcYkVWKPAj5q/lcBuPpCXvaocgWUekl3ITd03inARhjgmDt4qjRYXJIf5yz2zJOAeMQ4QuC6EeG2b3PXkcyliWtrhRLSnQpaHqCdQ1RORCh4AhC18wxFCkm+uJH8ecnWnT/u0JCI/YpavKkcz45HD8HOmrEtZMeXOWyHxopMQL4W1Dg/GJ5t9bO3McP9ruyD2GgTDDpbdg==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	IaSeA/laiEFuwDIBIaq+PL9rElywN31EVV2RbHIdviYCKvf7U3FkfLWpf+CJuINQlm6i+4NAfZzhhocdjU3+cOr7KXt48T2JkqyuIDkJ6o3WJB9x5y0FjHJHOqTB+1380C1dYYhCWdtvsZXajJfsz8ey19E9FrHt9UDTYxKG4lK38x3oeGdUhCFZMY9FQJGjNuwzvSjPxS7hvUw2iS3ikbD+s5dJ4TtXjpp1myVyE50u6n7DGiRvG5pT5aee3ZhYBT8fZNAZ6JuhLRuNsfX/G+srVUqw1YzXP6LwKS3Ev+7spf6IbFdsPdgDbP0YxPig4wdUlptL+/SmR3BLzw76P+vmYyKGDsWCh30XXd3PR8bqjvCagj/+m3KUpdFGl51y4WeNjY1HlQ4hmP5yFMByt7CXFvA1J6zI46eqgncPrZRVKTMWpqiIhRbVjCLzjxjy
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 16:35:36.0974
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e2d4ce4-8eae-447a-67bb-08de88fa35f5
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0002992C.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR10MB6806
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a5694ee0-7a95-4c15-6775-990d70c8d77b@huawei.com>
+X-Debian-User: leitao
 
-On Thu, 05 Feb 2026 18:37:07 +0530, Moteen Shah <m-shah@ti.com> wrote:
-> diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-> index ba01a929e06f..aadf783fe252 100644
-> --- a/arch/arm64/boot/dts/ti/Makefile
-> +++ b/arch/arm64/boot/dts/ti/Makefile
-> @@ -140,6 +140,7 @@ k3-j721s2-evm-dtbs := k3-j721s2-common-proc-board.dtb k3-j721s2-evm-gesi-exp-boa
->  dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm.dtb
->  dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-pcie1-ep.dtbo
->  dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-usb0-type-a.dtbo
-> +dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-audio.dtbo
->  
+On Mon, Mar 23, 2026 at 07:17:21PM +0800, Jinjie Ruan wrote:
+> 
+> 
+> On 2026/3/23 18:20, Breno Leitao wrote:
+> > On Mon, Mar 23, 2026 at 03:27:44PM +0800, Jinjie Ruan wrote:
+> >> Commit 35c18f2933c5 ("Add a new optional ",cma" suffix to the
+> >> crashkernel= command line option") and commit ab475510e042 ("kdump:
+> >> implement reserve_crashkernel_cma") added CMA support for kdump
+> >> crashkernel reservation.
+> >>
+> >> Crash kernel memory reservation wastes production resources if too
+> >> large, risks kdump failure if too small, and faces allocation difficulties
+> >> on fragmented systems due to contiguous block constraints. The new
+> >> CMA-based crashkernel reservation scheme splits the "large fixed
+> >> reservation" into a "small fixed region + large CMA dynamic region": the
+> >> CMA memory is available to userspace during normal operation to avoid
+> >> waste, and is reclaimed for kdump upon crash—saving memory while
+> >> improving reliability.
+> >>
+> >> So extend crashkernel CMA reservation support to arm64. The following
+> >> changes are made to enable CMA reservation:
+> >>
+> >> - Parse and obtain the CMA reservation size along with other crashkernel
+> >>   parameters.
+> >> - Call reserve_crashkernel_cma() to allocate the CMA region for kdump.
+> >> - Include the CMA-reserved ranges for kdump kernel to use.
+> >> - Exclude the CMA-reserved ranges from the crash kernel memory to
+> >>   prevent them from being exported through /proc/vmcore, which is already
+> >>   done in the crash core.
+> >>
+> >> Update kernel-parameters.txt to document CMA support for crashkernel on
+> >> arm64 architecture.
+> >>
+> >> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> >> Acked-by: Baoquan He <bhe@redhat.com>
+> >> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> >> Acked-by: Ard Biesheuvel <ardb@kernel.org>
+> >> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> >> ---
+> >> v7:
+> >> - Correct the inclusion of CMA-reserved ranges for kdump
+> >>   kernel in of/kexec.
+> >> v3:
+> >> - Add Acked-by.
+> >> v2:
+> >> - Free cmem in prepare_elf_headers()
+> >> - Add the mtivation.
+> >> ---
+> >>  Documentation/admin-guide/kernel-parameters.txt | 2 +-
+> >>  arch/arm64/kernel/machine_kexec_file.c          | 2 +-
+> >>  arch/arm64/mm/init.c                            | 5 +++--
+> >>  drivers/of/fdt.c                                | 9 +++++----
+> >>  drivers/of/kexec.c                              | 9 +++++++++
+> >>  5 files changed, 19 insertions(+), 8 deletions(-)
+> >>
+> >> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> >> index cb850e5290c2..afb3112510f7 100644
+> >> --- a/Documentation/admin-guide/kernel-parameters.txt
+> >> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> >> @@ -1121,7 +1121,7 @@ Kernel parameters
+> >>  			It will be ignored when crashkernel=X,high is not used
+> >>  			or memory reserved is below 4G.
+> >>  	crashkernel=size[KMG],cma
+> >> -			[KNL, X86, ppc] Reserve additional crash kernel memory from
+> >> +			[KNL, X86, ARM64, PPC] Reserve additional crash kernel memory from
+> >>  			CMA. This reservation is usable by the first system's
+> >>  			userspace memory and kernel movable allocations (memory
+> >>  			balloon, zswap). Pages allocated from this memory range
+> >> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
+> >> index c338506a580b..cc577d77df00 100644
+> >> --- a/arch/arm64/kernel/machine_kexec_file.c
+> >> +++ b/arch/arm64/kernel/machine_kexec_file.c
+> >> @@ -42,7 +42,7 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
+> >>  #ifdef CONFIG_CRASH_DUMP
+> >>  unsigned int arch_get_system_nr_ranges(void)
+> >>  {
+> >> -	unsigned int nr_ranges = 2; /* for exclusion of crashkernel region */
+> >> +	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* for exclusion of crashkernel region */
+> > 
+> > You update arch_get_system_nr_ranges() to account for CMA ranges, but
+> > prepare_elf_headers() in the same file (line 51) still has the
+> > hardcoded:
+> > 
+> >         nr_ranges = 2; /* for exclusion of crashkernel region */
+> 
+> I don't see any logic related to prepare_elf_headers() or hardcoded
+> nr_ranges = 2 in the arm64 implementation.
 
-New entries should follow alphabetical ordering
+Just ignore me here, I've mis applied the patch, and then I got
+arch_get_system_nr_ranges() and prepare_elf_headers(), but, they are the
+same thing at in here.
 
-> @@ -268,6 +269,8 @@ k3-j721s2-evm-pcie1-ep-dtbs := k3-j721s2-common-proc-board.dtb \
->  	k3-j721s2-evm-pcie1-ep.dtbo
->  k3-j721s2-evm-usb0-type-a-dtbs := k3-j721s2-common-proc-board.dtb \
->  	k3-j721s2-evm-usb0-type-a.dtbo
-> +k3-j721s2-evm-audio-dtbs := k3-j721s2-common-proc-board.dtb \
-> +	k3-j721s2-evm-audio.dtbo
-
-Same as above
-
-> @@ -330,6 +333,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
->  	k3-j721e-sk-csi2-dual-imx219.dtb \
->  	k3-j721s2-evm-pcie1-ep.dtb \
->  	k3-j721s2-evm-usb0-type-a.dtb \
-> +	k3-j721s2-evm-audio.dtb \
-
-Same here
-
->
-> diff --git a/arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso b/arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso
-> new file mode 100644
-> index 000000000000..e00d9b6cef5b
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso
-> @@ -0,0 +1,161 @@
-> [ ... skip 12 lines ... ]
-> +#include "k3-pinctrl.h"
-> +
-> +&{/} {
-> +	codec_audio: sound {
-> +		compatible = "ti,j7200-cpb-audio";
-> +		model = "j721e-cpb";
-
-Model needs to be updated to j721s2 like done for j784s4?
-
-> [ ... skip 103 lines ... ]
-> +		reg = <0x20>;
-> +		gpio-controller;
-> +		#gpio-cells = <2>;
-> +		gpio-line-names = "CODEC_RSTZ", "CODEC_SPARE1",
-> +				  "UB926_RESETN", "UB926_LOCK",
-> +				  "UBS926_PWR_SW_CNTRL", "UB926_TUNER_RESET",
-
-^^^ UB926 ?
-
--- 
-Vignesh
-
+> > 
+> > and does not exclude CMA ranges from cmem. If the generic crash core
+> > handles CMA exclusion from vmcore, then shouldn't
+> > arch_get_system_nr_ranges() also not need this change?
+> > 
