@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A21763BF662;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648A83BA238;
 	Mon, 23 Mar 2026 16:27:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774283268; cv=none; b=I1/eGLVHqEZWoycjo/PO6gl5CNjmb4oQwyoNddCRP4ttkkSIf9StLxWcISOwD8y5aFH1+CPaI2y1QQArFL08s1C4Fk+JlHH8H9X5HcnJRPmSDEcVxQz0IJszY2o3OT2pKIEZ9xe2od5T/uS/UbuhbWk0qP1CEPhXBPlOD+ILYNI=
+	t=1774283268; cv=none; b=PeYReC2Gexo0mFdtK3k6mAKcaITpadYGPYImVXVoqzIry6Y91ckQuZW6E/69qk97DdtJEdc2/wdaKUlDqYw4Ip8AXFiw/DcPzQ1137HJHo0lOS0nBEF1R5lazclWlsfOSqhmyXcY2nKcVlVBnTw3h81/wHi2FUzRTdwvXSb0GdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774283268; c=relaxed/simple;
-	bh=q7i3GI3KVj7zUmUcqSgWeQz+kU9PI/xAiXg7REx9iSc=;
+	bh=Dn1UOeS8yesIqzacSRvq4Vx823CrDCSnC9s3p8Ujb0w=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lOt6tBHyD9Oo4qxOzj7Skg3O0tUQB030wmGblD6SatsLUrkD+hq8UxzGRbfa+H0pquKGPbID/NBqdiYq9cOBkbs1v3y168ibPeAI9OMvmhms/+b/tMbqkEvVLIBCEok0nuGTrdU6iT+48EgTbbvrEZTqZbMy76QUaonA+x4O8uE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MsDRyRHM; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=NJ2Ce7CrgysyP/szMFUE0a7+Pr5SKGunVOqmb2CUYPy+PEVEv0rc4mValnB1EJOSwPcZlwMAb5bP6y90sqHPphH67iKURQJP9K96LWpEItvXO2bVqL1Rsgx2Q7l5brOTiAYq2d02KBM8EiWH6w+d+qUKh/sc2ZM79noJ2nE9zDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BYYVevE5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MsDRyRHM"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3A087C2BCC7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BYYVevE5"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 09018C2BCB7;
 	Mon, 23 Mar 2026 16:27:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1774283268;
-	bh=q7i3GI3KVj7zUmUcqSgWeQz+kU9PI/xAiXg7REx9iSc=;
+	bh=Dn1UOeS8yesIqzacSRvq4Vx823CrDCSnC9s3p8Ujb0w=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=MsDRyRHM0ZT6sOaWnF5XqIlCurkW9DIekaB+30Lg1hzXsQ8eTz4Upz8sBZOuVUbVn
-	 bU3AVjwwVZtqtIFq+iHLRgidQC8e/e4HyQT9OAuzKPebX6fdZ+utnkniVu1J1qLyUn
-	 4KAKPtZ/y8Sc5P54hc/Cz0PYL+6Z+RFh6hstOyVrTehvR0sOO/yTrnJCvj6JKtT9KJ
-	 qjLWNm1g+y8Y8i5f63iSegNEoDzCYg7BAimAe7VdiLW9MGODW4en6/FmPXhpJrrEPr
-	 Ucx354kq9YdkpkqphWjvg6iB7aerKF/nopZVtcYL5waU/6IqPkUHYIG2i31Wa7s/eA
-	 14hapsqcCYvpQ==
+	b=BYYVevE5C90M/BjbATQxo7m9qf5KcP5IS+ipVLbEqRjVAJcwwTugQXfP7QD4+V8zM
+	 wIsOompJHgtiWuyZuPUMWbyELrChSNZEnnkvKh9RwZIucgrOLsGns6Pe/yCgZTPJ5h
+	 KWM06ZYntOgQeB3q1FSJ+fcYecQ5ic92SUGdzX2JCuf1Jis4zoyPYHeyquQJXD3zJM
+	 euv1jJUHpnzxlqA7K7Dv2H7UlCbzBdm7WQ9TR8m92+7MJcRMPB4B382SCfXL6TBMJ9
+	 dIcLaaQt5go0DVcezcUafM/3Jx/HEAwt0B7qV1bDnWwjkSWZQCgVLhL+05ruzurZID
+	 FD1IukiwzWY/w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3140AF483D2;
-	Mon, 23 Mar 2026 16:27:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2C8AF483D0;
+	Mon, 23 Mar 2026 16:27:47 +0000 (UTC)
 From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Mon, 23 Mar 2026 11:27:46 -0500
-Subject: [PATCH v4 4/6] arm64: dts: qcom: Add AYN Odin 2 Mini
+Date: Mon, 23 Mar 2026 11:27:44 -0500
+Subject: [PATCH v4 2/6] dt-bindings: arm: qcom: Add AYN QCS8550 Devices
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260323-ayn-qcs8550-v4-4-33a8ac3d53fa@gmail.com>
+Message-Id: <20260323-ayn-qcs8550-v4-2-33a8ac3d53fa@gmail.com>
 References: <20260323-ayn-qcs8550-v4-0-33a8ac3d53fa@gmail.com>
 In-Reply-To: <20260323-ayn-qcs8550-v4-0-33a8ac3d53fa@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -48,14 +48,13 @@ To: Bjorn Andersson <andersson@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>, 
- Teguh Sobirin <teguh@sobir.in>
+ linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774283267; l=4407;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774283267; l=969;
  i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=XsC5Q+8R9eEopRPQ2Kq+lZQ5XLef+PCaKxUhJNrsdSs=;
- b=MbpLHH/1fpjCjPRG3vDsAE3nF9wevwpf7MxtYcKyGjCQUcb7dJredGAP8Zvyjt13RggGVzA0F
- zPQApDjaFBBB/qlivXYrK9CCeR6Ft7//Rlx25r4xm0QPE7xyhy8vnxs
+ bh=ucre7b8YPLKnADDPwPA5ChGeyo0QfbGTENGUYfTNUj0=;
+ b=i0xAfbVQu4xwVmOpdCTbqx12YAcG4ELGwuD04I+clxksLnkIh5ISQwS1+eeAkRUPAK/mWGcn9
+ 4RZQanEEe2QCMk6gN5AS8OO4kjh01/FKt3ltSLsdUfQzziFILEc0twm
 X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
  pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
 X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
@@ -63,178 +62,39 @@ X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
 X-Original-From: Aaron Kling <webgeek1234@gmail.com>
 Reply-To: webgeek1234@gmail.com
 
-From: Teguh Sobirin <teguh@sobir.in>
+From: Aaron Kling <webgeek1234@gmail.com>
 
-The AYN Odin 2 Mini is a high-performance Android-based handheld gaming
-console powered by the Qualcomm Snapdragon 8 Gen 2 processor featuring a
-5-inch mini-led touchscreen.
+Namely:
+* Odin 2
+* Odin 2 Mini
+* Odin 2 Portal
+* Thor
 
-Signed-off-by: Teguh Sobirin <teguh@sobir.in>
-Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
 Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/Makefile                  |   1 +
- .../boot/dts/qcom/qcs8550-ayntec-odin2mini.dts     | 140 +++++++++++++++++++++
- 2 files changed, 141 insertions(+)
+ Documentation/devicetree/bindings/arm/qcom.yaml | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 2349cd200a61cebee9e8739422a226cd75ded3be..da534d839084ba60bc794b8f420baf06bcbfc6d8 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -171,6 +171,7 @@ qcs8300-ride-el2-dtbs := qcs8300-ride.dtb monaco-el2.dtbo
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index b4c79f89b285491adcbae83017e08a5cd11da77d..179b850bdcb6715c4ffcdc6f88771c520670e8b9 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1090,6 +1090,15 @@ properties:
+           - const: qcom,qcs8550
+           - const: qcom,sm8550
  
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8300-ride-el2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-aim300-aiot.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayntec-odin2mini.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride-r3.dtb
- 
-diff --git a/arch/arm64/boot/dts/qcom/qcs8550-ayntec-odin2mini.dts b/arch/arm64/boot/dts/qcom/qcs8550-ayntec-odin2mini.dts
-new file mode 100644
-index 0000000000000000000000000000000000000000..c2a1b85b66e314e277181f0036a0988060368243
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/qcs8550-ayntec-odin2mini.dts
-@@ -0,0 +1,140 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2025, Teguh Sobirin.
-+ */
++      - items:
++          - enum:
++              - ayntec,odin2
++              - ayntec,odin2mini
++              - ayntec,odin2portal
++              - ayntec,thor
++          - const: qcom,qcs8550
++          - const: qcom,sm8550
 +
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include "qcs8550-ayntec-common.dtsi"
-+
-+&{/} {
-+	model = "AYN Odin 2 Mini";
-+	compatible = "ayntec,odin2mini", "qcom,qcs8550", "qcom,sm8550";
-+
-+	hdmi-out {
-+		compatible = "hdmi-connector";
-+		type = "d";
-+		hpd-gpios = <&tlmm 9 GPIO_ACTIVE_HIGH>;
-+		hdmi-pwr-supply = <&vdd_hdmi_1v8>;
-+
-+		port {
-+			hdmi_con: endpoint {
-+				remote-endpoint = <&lt8912_out>;
-+			};
-+		};
-+	};
-+
-+	vcc_hdmi_1v8: vcc-hdmi-1v8-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_hdmi_1v8";
-+
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		gpio = <&tlmm 10 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	vdd_disp_2v8: vdd-disp-2v8-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_disp_2v8";
-+
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+
-+		gpio = <&tlmm 142 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	vdd_hdmi_1v8: vdd-hdmi-1v8-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_hdmi_1v8";
-+
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		gpio = <&tlmm 6 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
-+&i2c_hub_0 {
-+	clock-frequency = <100000>;
-+
-+	status = "okay";
-+
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	lt8912_codec: hdmi-bridge@48 {
-+		compatible = "lontium,lt8912b";
-+		reg = <0x48> ;
-+
-+		reset-gpios = <&tlmm 7 GPIO_ACTIVE_LOW>;
-+
-+		vdd-supply = <&vdd_hdmi_1v8>;
-+		vccmipirx-supply = <&vcc_hdmi_1v8>;
-+		vccsysclk-supply = <&vcc_hdmi_1v8>;
-+		vcclvdstx-supply = <&vcc_hdmi_1v8>;
-+		vcchdmitx-supply = <&vcc_hdmi_1v8>;
-+		vcclvdspll-supply = <&vcc_hdmi_1v8>;
-+		vcchdmipll-supply = <&vcc_hdmi_1v8>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				hdmi_out_in: endpoint {
-+					data-lanes = <1 2 3 4>;
-+					remote-endpoint = <&mdss_dsi0_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				lt8912_out: endpoint {
-+					remote-endpoint = <&hdmi_con>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&mdss_dsi0 {
-+	vdda-supply = <&vreg_l3e_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&mdss_dsi0_out {
-+	remote-endpoint = <&hdmi_out_in>;
-+	data-lanes = <0 1 2 3>;
-+};
-+
-+&mdss_dsi0_phy {
-+	vdds-supply = <&vreg_l1e_0p88>;
-+
-+	status = "okay";
-+};
-+
-+&remoteproc_adsp {
-+	firmware-name = "qcom/sm8550/ayntec/odin2mini/adsp.mbn",
-+			"qcom/sm8550/ayntec/odin2mini/adsp_dtb.mbn";
-+
-+	status = "okay";
-+};
-+
-+&spk_amp_l {
-+	firmware-name = "qcom/sm8550/ayntec/odin2mini/aw883xx_acf.bin";
-+};
-+
-+&spk_amp_r {
-+	firmware-name = "qcom/sm8550/ayntec/odin2mini/aw883xx_acf.bin";
-+};
-+
+       - items:
+           - enum:
+               - qcom,sm8650-hdk
 
 -- 
 2.53.0
