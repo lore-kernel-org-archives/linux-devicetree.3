@@ -1,373 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A333DFC75;
-	Mon, 23 Mar 2026 19:55:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE2A3E022B
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 19:58:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774295729; cv=none; b=kQiT0R2NwCBTK54FM43bUD/4qSFjtdSB/kQ3M6cIzpRYbm48rA36PwhCTDTs3tS/Or2+D0LiDhKh3yawTK+dXoiRN6A/UdP5QcDVeGVSBVi5zod3HT//lG5t3y6MupPmoSJRbGdW0z1QsdrGwRebMD43VZXHnBn3//Alzd/qbuQ=
+	t=1774295892; cv=none; b=WtISC+lx/UffAssI8nl+PK20DQrZ/8OTL8chzGri2NKD48F+ohR09tIHGFWziyg0sKae6Cdzxb3jXoj53LLz23iazEzcpimWeDHmE1o5+IusMfArs2lS+1AG81JV94FCw2BLvvdYWdbJpIBeLC3yEkWXMqVj8Hi4R7aFvfdsPKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774295729; c=relaxed/simple;
-	bh=2wLd3RWmA5D7Po5IWAIh0ELHZkbCcEMTNXXyE0PIUsQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cbeLOxa6c8PckIj78FoE1Bi0cQv4JQqpCtBH8PT7N3DATItGPyFv4NrRXsODzGl6JXl7yDky8kwBn0rnNM3X6NwzVrYxYnVVheCZbXAGsr1dXaQMf9d/94Fy83fCo+cRXVTeIn0zckaQzQHQhBBkacnLXQw4meb9TIANFP0y8b0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NfzhTWzu; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774295892; c=relaxed/simple;
+	bh=1WuhV/zGG8Mj+XqPD5jDsD1mKnzd5UrbX2zgBBrEQvc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EAUcd37yVpzk/MmqaQIZpOM8pjdIjcK+DVw6JckeI/649ft046xS4iQyrC0z2wMOcfRtSDuHCGyXNEqn36Yw/h8G5kQisqe4PkoBbJ4u9AM6g3ZpWaBMh3emqFe7v4pH5enBZZSuJ5BDykPVJcke896QfIPDDIJm46aJNzB63tU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QfVe6v9Z; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NfzhTWzu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3774C4CEF7;
-	Mon, 23 Mar 2026 19:55:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QfVe6v9Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90096C2BCB7
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 19:58:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774295728;
-	bh=2wLd3RWmA5D7Po5IWAIh0ELHZkbCcEMTNXXyE0PIUsQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NfzhTWzuzozJ9Ev9Q/q6Ik/1IsJ46sPjdPts/JMi/bRgqJ1RlAxkDQ8stBvY+KuPr
-	 3r8lENe0SPSckEZQYrZq3O9OT4IAGyLmbHWZldwIMC6MLmDtBc0ITXeib7om/O1wTN
-	 teX3QLPg4pQrrSuLwbych281qe/dpaSWJhipzSe55t27PjYDHE7AAfWdpXs218kGnW
-	 mCMIXLWmdkTySEUNo50eRIzVSJx1dwsjkO0kcbe8UgI8FjjZ9Lm8jwcfackCjqlV32
-	 sjMhCmzDMWvl+2i/uyek8Y/ImDfW6jvZVrLUShHs0jBdStjP/2VIj9lTsiJpZZ7kUI
-	 yhW3NHMCNYqcQ==
-Date: Mon, 23 Mar 2026 19:55:23 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Thomas Richard <thomas.richard@bootlin.com>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 5/8] dt-bindings: mfd: ti,omap-usb-host: Convert to DT
- schema
-Message-ID: <20260323-cloak-expectant-7432b0fdd663@spud>
-References: <20260323-omap4-fix-usb-support-v1-0-b668132124ac@bootlin.com>
- <20260323-omap4-fix-usb-support-v1-5-b668132124ac@bootlin.com>
+	s=k20201202; t=1774295892;
+	bh=1WuhV/zGG8Mj+XqPD5jDsD1mKnzd5UrbX2zgBBrEQvc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=QfVe6v9ZW5EgH/2RuG4ZeptJY7YZc/0vN40GkNAV5VqN6d/HU4FTbxuypV10DmlFi
+	 TKeTNd7OBYxwvpCJLzejjeoojv6igh4n/Kjgaals31IFVNxLIz7JlVr4Zu+p3aQZBH
+	 x3UXDtzMeQs85CZ3/v7Va0PFSFYHVNFfZP/Ss3Wg9YAIeVMYSj5B5eDpf/U/nGvxMb
+	 6mWEMiOpLpqlAqcIFsQDsqLxTAoFUF1wC61qs6IqpeCzBubM+CuOZEuAldOeUCcV9C
+	 TXFirs0abfteKF5/y9JRbs1IyQKd9d6MpG+vkQTFZP6Fl7bBK0dyjf8Oj292JbmTYF
+	 KPE25m03GnSqg==
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-40f0e14b9f9so376039fac.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 12:58:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCV2tSQkC5eUyluCouAQCZi3PdfLmWHU+E4CIM6w3un684hkXdYJNIXLAPCzgGCEKc9v9gBEvELfOY2z@vger.kernel.org
+X-Gm-Message-State: AOJu0YwDdZ6J2hhtkvan5r9a9neUkRNwZCf3wLQ3RwulTrc5reMTs0aV
+	yneAXXr1qeWGOy31vmbBWB2+no4jt/vOpOJd4AtLaiMhCIhTwotl6qPa6BSPZsVffhgqNzvOmY1
+	gNhpaeLkBP/XJQyTF6/c2dM4FxCZXXo0=
+X-Received: by 2002:a05:6870:b020:b0:417:49da:7ff8 with SMTP id
+ 586e51a60fabf-41c111dfd24mr8482761fac.34.1774295891119; Mon, 23 Mar 2026
+ 12:58:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XHqtLWMzRQ/Bsq9m"
-Content-Disposition: inline
-In-Reply-To: <20260323-omap4-fix-usb-support-v1-5-b668132124ac@bootlin.com>
-
-
---XHqtLWMzRQ/Bsq9m
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260313-synology_microp_initial-v3-0-ad6ac463a201@posteo.de> <20260313-synology_microp_initial-v3-3-ad6ac463a201@posteo.de>
+In-Reply-To: <20260313-synology_microp_initial-v3-3-ad6ac463a201@posteo.de>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Mon, 23 Mar 2026 20:57:59 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0jxHO2EH5NeEsMkxGz5xqVL00tO-W1JpaVd=GhwgQ3T=A@mail.gmail.com>
+X-Gm-Features: AaiRm50DmGsYCjXug2Jt79bfM7j5ojMYqMa_-0d7Zxr4c3dbQEoSRohbKGvtDu8
+Message-ID: <CAJZ5v0jxHO2EH5NeEsMkxGz5xqVL00tO-W1JpaVd=GhwgQ3T=A@mail.gmail.com>
+Subject: Re: [PATCH v3 3/7] acpi: add acpi_of_match_device_ids
+To: markus.probst@posteo.de
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Igor Korotin <igor.korotin.linux@gmail.com>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Bjorn Helgaas <bhelgaas@google.com>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Robert Moore <robert.moore@intel.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-pci@vger.kernel.org, 
+	linux-leds@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	acpica-devel@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Mar 23, 2026 at 04:02:46PM +0100, Thomas Richard wrote:
-> Convert OMAP HS USB Host binding to DT schema. The 'ti,hwmods' property is
-> not mandatory anymore as it is no longer required when the omap-usb-host
-> node is a child of a new interconnect target (ti,sysc).
->=20
-> Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
+On Fri, Mar 13, 2026 at 8:03=E2=80=AFPM Markus Probst via B4 Relay
+<devnull+markus.probst.posteo.de@kernel.org> wrote:
+>
+> From: Markus Probst <markus.probst@posteo.de>
+>
+> Add a function to match acpi devices against of_device_ids. This will be
+> used in the following commit ("mfd: match acpi devices against PRP0001")
+> to match mfd sub-devices against a of compatible string.
+
+Please always spell ACPI in capitals in patch subjects, comments,
+changelogs, etc.  It is not a regular word.
+
+> Signed-off-by: Markus Probst <markus.probst@posteo.de>
 > ---
->  .../devicetree/bindings/mfd/omap-usb-host.txt      | 103 ----------------
->  .../devicetree/bindings/mfd/ti,omap-usb-host.yaml  | 131 +++++++++++++++=
-++++++
->  MAINTAINERS                                        |   1 +
->  3 files changed, 132 insertions(+), 103 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/mfd/omap-usb-host.txt b/Do=
-cumentation/devicetree/bindings/mfd/omap-usb-host.txt
-> deleted file mode 100644
-> index a0d8c30c2631e534cae50dfc7183cd04e744f31f..0000000000000000000000000=
-000000000000000
-> --- a/Documentation/devicetree/bindings/mfd/omap-usb-host.txt
-> +++ /dev/null
-> @@ -1,103 +0,0 @@
-> -OMAP HS USB Host
-> -
-> -Required properties:
-> -
-> -- compatible: should be "ti,usbhs-host"
-> -- reg: should contain one register range i.e. start and length
-> -- ti,hwmods: must contain "usb_host_hs"
-> -
-> -Optional properties:
-> -
-> -- num-ports: number of USB ports. Usually this is automatically detected
-> -  from the IP's revision register but can be overridden by specifying
-> -  this property. A maximum of 3 ports are supported at the moment.
-> -
-> -- portN-mode: String specifying the port mode for port N, where N can be
-> -  from 1 to 3. If the port mode is not specified, that port is treated
-> -  as unused. When specified, it must be one of the following.
-> -	"ehci-phy",
-> -        "ehci-tll",
-> -        "ehci-hsic",
-> -        "ohci-phy-6pin-datse0",
-> -        "ohci-phy-6pin-dpdm",
-> -        "ohci-phy-3pin-datse0",
-> -        "ohci-phy-4pin-dpdm",
-> -        "ohci-tll-6pin-datse0",
-> -        "ohci-tll-6pin-dpdm",
-> -        "ohci-tll-3pin-datse0",
-> -        "ohci-tll-4pin-dpdm",
-> -        "ohci-tll-2pin-datse0",
-> -        "ohci-tll-2pin-dpdm",
-> -
-> -- single-ulpi-bypass: Must be present if the controller contains a single
-> -  ULPI bypass control bit. e.g. OMAP3 silicon <=3D ES2.1
-> -
-> -- clocks: a list of phandles and clock-specifier pairs, one for each ent=
-ry in
-> -  clock-names.
-> -
-> -- clock-names: should include:
-> -  For OMAP3
-> -  * "usbhost_120m_fck" - 120MHz Functional clock.
-> -
-> -  For OMAP4+
-> -  * "refclk_60m_int" - 60MHz internal reference clock for UTMI clock mux
-> -  * "refclk_60m_ext_p1" - 60MHz external ref. clock for Port 1's UTMI cl=
-ock mux.
-> -  * "refclk_60m_ext_p2" - 60MHz external ref. clock for Port 2's UTMI cl=
-ock mux
-> -  * "utmi_p1_gfclk" - Port 1 UTMI clock mux.
-> -  * "utmi_p2_gfclk" - Port 2 UTMI clock mux.
-> -  * "usb_host_hs_utmi_p1_clk" - Port 1 UTMI clock gate.
-> -  * "usb_host_hs_utmi_p2_clk" - Port 2 UTMI clock gate.
-> -  * "usb_host_hs_utmi_p3_clk" - Port 3 UTMI clock gate.
-> -  * "usb_host_hs_hsic480m_p1_clk" - Port 1 480MHz HSIC clock gate.
-> -  * "usb_host_hs_hsic480m_p2_clk" - Port 2 480MHz HSIC clock gate.
-> -  * "usb_host_hs_hsic480m_p3_clk" - Port 3 480MHz HSIC clock gate.
-> -  * "usb_host_hs_hsic60m_p1_clk" - Port 1 60MHz HSIC clock gate.
-> -  * "usb_host_hs_hsic60m_p2_clk" - Port 2 60MHz HSIC clock gate.
-> -  * "usb_host_hs_hsic60m_p3_clk" - Port 3 60MHz HSIC clock gate.
-> -
-> -Required properties if child node exists:
-> -
-> -- #address-cells: Must be 1
-> -- #size-cells: Must be 1
-> -- ranges: must be present
-> -
-> -Properties for children:
-> -
-> -The OMAP HS USB Host subsystem contains EHCI and OHCI controllers.
-> -See Documentation/devicetree/bindings/usb/generic-ehci.yaml and
-> -Documentation/devicetree/bindings/usb/generic-ohci.yaml.
-> -
-> -Example for OMAP4:
-> -
-> -usbhshost: usbhshost@4a064000 {
-> -	compatible =3D "ti,usbhs-host";
-> -	reg =3D <0x4a064000 0x800>;
-> -	ti,hwmods =3D "usb_host_hs";
-> -	#address-cells =3D <1>;
-> -	#size-cells =3D <1>;
-> -	ranges;
-> -
-> -	usbhsohci: ohci@4a064800 {
-> -		compatible =3D "ti,ohci-omap3";
-> -		reg =3D <0x4a064800 0x400>;
-> -		interrupt-parent =3D <&gic>;
-> -		interrupts =3D <0 76 0x4>;
-> -	};
-> -
-> -	usbhsehci: ehci@4a064c00 {
-> -		compatible =3D "ti,ehci-omap";
-> -		reg =3D <0x4a064c00 0x400>;
-> -		interrupt-parent =3D <&gic>;
-> -		interrupts =3D <0 77 0x4>;
-> -	};
-> -};
-> -
-> -&usbhshost {
-> -	port1-mode =3D "ehci-phy";
-> -	port2-mode =3D "ehci-tll";
-> -	port3-mode =3D "ehci-phy";
-> -};
-> -
-> -&usbhsehci {
-> -	phys =3D <&hsusb1_phy 0 &hsusb3_phy>;
-> -};
-> diff --git a/Documentation/devicetree/bindings/mfd/ti,omap-usb-host.yaml =
-b/Documentation/devicetree/bindings/mfd/ti,omap-usb-host.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..7831ad891229aee650d83adcd=
-82405c9dde472a8
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/ti,omap-usb-host.yaml
-> @@ -0,0 +1,131 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/mfd/ti,omap-usb-host.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: OMAP HS USB Host
-> +
-> +maintainers:
-> +  - Thomas Richard <thomas.richard@bootlin.com>
-> +
-> +description: |
-> +  description
-> +
-> +properties:
-> +  compatible:
-> +    const: ti,usbhs-host
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  ti,hwmods:
-> +    const: usb_host_hs
-> +
-> +  num-ports:
-> +    description:
-> +      number of USB ports. Usually this is automatically detected from t=
-he IP's
-> +      revision register but can be overridden by specifying this propert=
-y. A
-> +      maximum of 3 ports are supported at the moment.
-> +    maximum: 3
-> +
-> +  single-ulpi-bypass:
-> +    $ref: /schemas/types.yaml#/definitions/flag
-> +    description:
-> +      Must be present if the controller contains a single ULPI bypass co=
-ntrol
-> +      bit. e.g. OMAP3 silicon <=3D ES2.1ULPI bypass control bit.
-> +      e.g. OMAP3 silicon <=3D ES2.1.
-> +
-> +  clocks:
-> +    description: clock-specifier
-> +
-> +  clock-names:
-> +    oneOf:
-> +      - items:
-> +          - const: usbhost_120m_fck
-> +      - items:
-> +          - const: refclk_60m_int
-> +          - const: refclk_60m_ext_p1
-> +          - const: refclk_60m_ext_p2
+>  drivers/acpi/bus.c      | 7 +++++++
+>  include/acpi/acpi_bus.h | 2 ++
+>  2 files changed, 9 insertions(+)
+>
+> diff --git a/drivers/acpi/bus.c b/drivers/acpi/bus.c
+> index f6707325f582..5ddcc56edc87 100644
+> --- a/drivers/acpi/bus.c
+> +++ b/drivers/acpi/bus.c
+> @@ -1044,6 +1044,13 @@ int acpi_match_device_ids(struct acpi_device *devi=
+ce,
+>  }
+>  EXPORT_SYMBOL(acpi_match_device_ids);
+>
 
-Looks like half the clocks are missing?
+Missing kerneldoc.
+
+> +int acpi_of_match_device_ids(struct acpi_device *device,
+> +                         const struct of_device_id *ids)
+> +{
+> +       return __acpi_match_device(device, NULL, ids, NULL, NULL) ? 0 : -=
+ENOENT;
+> +}
+> +EXPORT_SYMBOL(acpi_of_match_device_ids);
+
+Are you aware of the consensus that using PRP0001 in production
+platform firmware will be regarded as invalid?
+
+Because of that, it is not an option for a driver to avoid providing
+ACPI match data on a platform that uses ACPI.
 
 > +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 1
-> +
-> +  ranges: true
-> +
-> +patternProperties:
-> +  "^port[0-3]-mode$":
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description:
-> +      String specifying the port mode for port N, where N can be from 1 =
-to 3.
-> +      the port mode is not specified, that port is treated as unused. Wh=
-en
-> +      specified, it must be one of the following.
-> +    enum:
-> +      - ehci-phy
-> +      - ehci-tll
-> +      - ehci-hsic
-> +      - ohci-phy-6pin-datse0
-> +      - ohci-phy-6pin-dpdm
-> +      - ohci-phy-3pin-datse0
-> +      - ohci-phy-4pin-dpdm
-> +      - ohci-tll-6pin-datse0
-> +      - ohci-tll-6pin-dpdm
-> +      - ohci-tll-3pin-datse0
-> +      - ohci-tll-4pin-dpdm
-> +      - ohci-tll-2pin-datse0
-> +      - ohci-tll-2pin-dpdm
-> +
-> +  "^usb@":
-> +    type: object
-
-Can this include a ref to whatever binding describes these devices?
-Looks like there's two, one for ochi and echi, at 400 and 800?
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +allOf:
-> +  - if:
-> +      patternProperties:
-> +        "^usb@": true
-> +    then:
-> +      required:
-> +        - ranges
-> +        - "#address-cells"
-> +        - "#size-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    bus {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <1>;
-> +
-> +        usbhshost: usbhshost@4a064000 {
-> +            compatible =3D "ti,usbhs-host";
-> +            reg =3D <0x4a064000 0x800>;
-> +            ti,hwmods =3D "usb_host_hs";
-> +            port1-mode =3D "ehci-phy";
-> +            port2-mode =3D "ehci-tll";
-> +            port3-mode =3D "ehci-phy";
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <1>;
-> +            ranges;
-> +
-> +            usbhsohci: usb@4a064800 {
-> +                compatible =3D "ti,ohci-omap3";
-> +                reg =3D <0x4a064800 0x400>;
-> +                interrupt-parent =3D <&gic>;
-> +                interrupts =3D <0 76 0x4>;
-> +            };
-> +
-> +            usbhsehci: usb@4a064c00 {
-> +                compatible =3D "ti,ehci-omap";
-> +                reg =3D <0x4a064c00 0x400>;
-> +                interrupt-parent =3D <&gic>;
-> +                interrupts =3D <0 77 0x4>;
-> +            };
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 7d10988cbc62b77515aa1a1fee1c7d3e594869fa..28da3ac5896681bcdab29c23c=
-98eff3612dc181d 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -19397,6 +19397,7 @@ W:	http://linux.omap.com/
->  Q:	http://patchwork.kernel.org/project/linux-omap/list/
->  T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tmlind/linux-omap.g=
-it
->  F:	Documentation/devicetree/bindings/arm/ti/omap.yaml
-> +F:	Documentation/devicetree/bindings/mfd/ti,omap-usb-host.yaml
->  F:	arch/arm/configs/omap2plus_defconfig
->  F:	arch/arm/mach-omap2/
->  F:	drivers/bus/omap*.[ch]
->=20
-> --=20
-> 2.53.0
->=20
-
---XHqtLWMzRQ/Bsq9m
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacGaqwAKCRB4tDGHoIJi
-0lIEAP9ggNQEiJtrVYcCFqYYkBh0OJM6/782qbrK3h4yg7GwgwD/ai8rNOha+0Ab
-9d/xxzfw3TFljisT1MWSCnTS3TNu4Ao=
-=tdLG
------END PGP SIGNATURE-----
-
---XHqtLWMzRQ/Bsq9m--
+>  bool acpi_driver_match_device(struct device *dev,
+>                               const struct device_driver *drv)
+>  {
+> diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
+> index aad1a95e6863..0081b9e4aaee 100644
+> --- a/include/acpi/acpi_bus.h
+> +++ b/include/acpi/acpi_bus.h
+> @@ -677,6 +677,8 @@ void acpi_bus_trim(struct acpi_device *start);
+>  acpi_status acpi_bus_get_ejd(acpi_handle handle, acpi_handle * ejd);
+>  int acpi_match_device_ids(struct acpi_device *device,
+>                           const struct acpi_device_id *ids);
+> +int acpi_of_match_device_ids(struct acpi_device *device,
+> +                         const struct of_device_id *ids);
+>  void acpi_set_modalias(struct acpi_device *adev, const char *default_id,
+>                        char *modalias, size_t len);
+>
+>
+> --
+> 2.52.0
+>
+>
