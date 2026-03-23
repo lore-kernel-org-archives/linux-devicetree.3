@@ -1,66 +1,33 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DA8735E95C
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 08:04:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF2635F167;
+	Mon, 23 Mar 2026 08:08:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774253087; cv=none; b=VOT4j55Gzvx64VrdOqRH/LBO9vN8JsW6AaeDSGV9BxdTdOIZr9Iu38Sqt3pOTd4cSdcSSrED6uiK6UsTN341WPJ0emyQdf/1O5bR3ubJUzKMiqG8hqA4/LBUtatO8TwT5yzKWzrkVt5Jj1EHhQS2c6G84LNhT3KbsePzwaIs8ic=
+	t=1774253285; cv=none; b=t3stDQaYyfpF8OzxWvjYgF+laZvAlBm1MQEnNJgw+ih6rI5gDtZThj7XCkl3Pfu3W2ZbEkZ7njH3O5uCD14J39iNXttJtFmuDKV1hV+V/G47T4Y6Oe8+agT/p4gVhYMb6lrEHnLRhg+OBmY7BCgsLwpEpFu6C3uK7xuaf4CSWj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774253087; c=relaxed/simple;
-	bh=FyDVmny1lKyWZt2C7R4yP3VBgsWQOTJUxnxweCTKAwo=;
+	s=arc-20240116; t=1774253285; c=relaxed/simple;
+	bh=hEphEpC79ndJUN7KnbSaTRh3DIHeZPTh+GT9RZ+7GiY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Lvuu8c1AbvST/bSGHZQcvr3tkwMZx8O//JDRR7qfolaBZM2gbl/wTGnapB4lFURwr5YzYGDx/UgDRI9Tbr45kwBoR5z0RhSqI+TdEXs1DZHm9mZxAPEP1w4o83leIPme3no+611cLps1dDcWOzkaIyZl1c8SgrLUoCW6s1QHLro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BX5xhkIf; arc=none smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=eP3AaURUqEuKE9URoqoBv3T4e3VJtiEZ8Zdgp0FeLnY0X0EJ+Yy7n/IaucvzZwXmgaUm/uu/DKzjwAPGjyp2GixwSc/OmVpFea8WiqTyUkkppAG+twbWsgaXt4KXEj6DtlL0bzEOze6OU+0eA/SD6c0gUstOTB1WXzrkhyWjHmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mwi6aywp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BX5xhkIf"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-b98133bdc4bso453703566b.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 01:04:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1774253083; x=1774857883; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=PnblP8CQvZiJ+kABfLMIcb8M41A+7UuV9nDV/q05Lhs=;
-        b=BX5xhkIfvOtqQ+sjrT+1bj5fWaMel8xH5mIAqCWowwymiggcRsJCAdObEaM/ARuC8e
-         ho6/k2dBk+OFzuL1SKBOB+i1X/lheByloZsQ59Dnf8L0XXM0SGlw/KaYIbJ+QGc4Tzos
-         qnFmU3PeLJMOlci0HfHcUdQua4gK4ag1NAhWgRb9SHsxvT0DGSzt4c0CU8Cf4xllQZTo
-         HjiCD4Bw5hRrVGetx/obZznK/jK7goDMXP0amnWcUHyN5mr+XkhdNAoO8kVl5R4pvzKg
-         8p4xdM76chodZnbkIbl6rXQ0Rwe7Ju5vJmIJoSmkh1pxiMygW7xboN+chUvVIydL2Lzm
-         gw7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774253083; x=1774857883;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PnblP8CQvZiJ+kABfLMIcb8M41A+7UuV9nDV/q05Lhs=;
-        b=R8J6cFu+f7Xt5s4eBJzkdM7BIfdGHZVQTEUeAvIWJsYrutysgHwr0ljgvaWh852eAE
-         u9wTdCYu3/gobS3DAM83Sgo2bz86AwhMnMrdaOlvFVSg3dU/Zli3cEcZPtLEANl12Nmc
-         wzLrwLowJmj4LkhPC5oDNHtgB2roaAqrSMscGYd5Wmpad5SMpNkijuGyVikv2zx+39sq
-         Xk3JBMXtFYj4uTT36BltbHoHAJ/y7Hwp4wlZFYimg22kkF9pAH6YizK2wHCzJ/NyH+AN
-         kTbWQ7NEgSNdncOtOxufy2Ch6sgyBrysvQ1VP34Fwen4KL963yGBP33VNwyA8E1U9Ubv
-         aiiw==
-X-Forwarded-Encrypted: i=1; AJvYcCUNRR7ZcxE0NxH5Oq2d7J9FXMVsATf67ZucX/PLQ7MbigiLVDV1B0ssJxrJJU0BKfNCMschfGlIGfXk@vger.kernel.org
-X-Gm-Message-State: AOJu0YwmKTbiaSOcxJ00iL9BqVLuauoLX422At1SX6kR1xnKwIen8JIY
-	8G6KVte9jdc9AEn29KmumqFU7grHhPxm/R7smX2XeA3ZMiIv1lVcCgzw
-X-Gm-Gg: ATEYQzzbaHmgQepdIwmyapMRo+0/nJr7DaiNH7jjiqv9dBeCh5ujmIT8wvXxrCNeYkt
-	GSlkAn0bRaTcb3QVk7fsoF7ceOTinkhtgn6aYVIJZ+9Of6HY6u63S38cvVzguUq+2fXxdBkmhph
-	ma+bl6G90kJvtjL87HPSSO4xrkQeeiP3QdsJcp/euNeF/AeS7UrNVv5p7usJ+TCq6dOZUIfYH3D
-	wM7M1CLcSy86RpA4SdppxrBZeVkLAdEeNnCtTHZwMbzdJhAFsMIRTfdaoZxlXSMTLMl/FvDQ2c3
-	4uYzqY0Re7JkxTkfJhj5jrKXyXJfLuNH12nY5GhA2S5mrO2htqfVl2xCjlxp9eDsIemWT0M8AOo
-	Kk2umxq6dKsHxMXQLrb02Eo/IW5cQz4afpIPq4ZmWon0lfL9RJql3130WkvIDZLLHjJVMnH+wWx
-	CtGCg7TsrCxCsQadmPilwcEfFX
-X-Received: by 2002:a17:907:1604:b0:b96:ecc3:781b with SMTP id a640c23a62f3a-b982f0a9521mr828589066b.1.1774253083079;
-        Mon, 23 Mar 2026 01:04:43 -0700 (PDT)
-Received: from [192.168.1.31] ([178.231.179.99])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9832f8dc51sm458431466b.22.2026.03.23.01.04.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Mar 2026 01:04:42 -0700 (PDT)
-Message-ID: <3bb1da4f-f2dc-421d-95f1-5bba9e3e1aec@gmail.com>
-Date: Mon, 23 Mar 2026 09:04:41 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mwi6aywp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 885BBC4CEF7;
+	Mon, 23 Mar 2026 08:07:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774253285;
+	bh=hEphEpC79ndJUN7KnbSaTRh3DIHeZPTh+GT9RZ+7GiY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=mwi6aywpH240nnTboNmf+q/vOisXvvkBb7SU2xAEUlKLGNo0r+tEhtyeRDmvxKKdU
+	 nJyPovzpp/KN7zDpfPN/wHjPNZamuE0bMBvRJLhbIerD/ks5xd0M8x/usQKyM3opt9
+	 D0SH5zrAHQOlDkjgu3SiyxugyLuPu5K2+OmWtcrXXt2cvyy1j1TWxa0TBXedB70VhW
+	 nI3tHxqllivN0XK70I8IxDDZvbWiy7IUFgrsWeDNEn6PlEbh3JWK46xpoPazqCujUg
+	 jqBrorUBszXuM11LZsCPbsyNMAs+CE7HjIT9GZx9lZfgm1D6yAdMUzLMzpwCjPtArX
+	 vR1jBCIo17xUg==
+Message-ID: <f3ff461b-edd7-423a-ac99-e70145aaaaea@kernel.org>
+Date: Mon, 23 Mar 2026 09:07:54 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,63 +35,147 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] arm64: dts: qcom: Add Xiaomi 12 Lite 5G (taoyao)
- DTS
-To: Val Packett <val@packett.cool>, devicetree@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-kernel@vger.kernel.org
-References: <20260305093941.305122-1-zstaseg@gmail.com>
- <20260305093941.305122-3-zstaseg@gmail.com>
- <9ea41e6c-7643-452e-abf4-f35238807a26@packett.cool>
+Subject: Re: [PATCH v8 01/10] dt-bindings: mfd: add support for the NXP SIUL2
+ module
+To: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
+Cc: Linus Walleij <linus.walleij@linaro.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>,
+ Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
+ Larisa Grigore <larisa.grigore@nxp.com>, Lee Jones <lee@kernel.org>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Aisheng Dong <aisheng.dong@nxp.com>,
+ Jacky Bai <ping.bai@nxp.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Alberto Ruiz <aruizrui@redhat.com>, Christophe Lizzi <clizzi@redhat.com>,
+ devicetree@vger.kernel.org, Enric Balletbo <eballetb@redhat.com>,
+ Eric Chanudet <echanude@redhat.com>, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ linux-kernel@vger.kernel.org, NXP S32 Linux Team <s32@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Vincent Guittot <vincent.guittot@linaro.org>, Rob Herring <robh@kernel.org>
+References: <20260120115923.3463866-1-khristineandreea.barbulescu@oss.nxp.com>
+ <20260120115923.3463866-2-khristineandreea.barbulescu@oss.nxp.com>
+ <20260121021913.GA1704619-robh@kernel.org>
+ <e956750b-0333-4465-b37e-5f460b5e092f@oss.nxp.com>
+ <edc3a63a-8117-476f-9582-97ae31fefa96@kernel.org>
+ <7d200097-51bc-4404-be8b-f536d0ecfc25@oss.nxp.com>
+ <21531cdd-5ab9-493e-a722-61b98117e2c4@kernel.org>
+ <22a5a072-847e-4cfd-8abd-e37163f73265@oss.nxp.com>
+ <fe755e85-1558-4272-bdd4-af7a2038ab1f@kernel.org>
+ <ba6140bf-237e-4099-af0c-ee404c1719cd@oss.nxp.com>
+ <c7a59716-3d53-4787-b4ef-9674c2a4a9b5@kernel.org>
+ <3c454da1-d949-4258-87ce-8b545000bf01@app.fastmail.com>
+ <5f1b651b-1064-4280-a7e0-b7d66c396cde@oss.nxp.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Stanislav Zaikin <zstaseg@gmail.com>
-In-Reply-To: <9ea41e6c-7643-452e-abf4-f35238807a26@packett.cool>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <5f1b651b-1064-4280-a7e0-b7d66c396cde@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 3/21/26 8:36 AM, Val Packett wrote:
-> Hello again :)
->
-> On 3/5/26 6:39 AM, Stanislav Zaikin wrote:
->> Xiaomi 12 Lite 5G is a handset released in 2022
->> […]
->> +    touchscreen@0 {
->> +        compatible = "goodix,gt9916";
->> +        reg = <0>;
->> +
->> +        interrupts-extended = <&tlmm 81 IRQ_TYPE_LEVEL_LOW>;
->> +
->> +        reset-gpios = <&tlmm 105 GPIO_ACTIVE_LOW>;
->> +
->> +        avdd-supply = <&vreg_l7c_3p0>;
->> +        vddio-supply = <&vreg_l2c_1p8>;
->> +
->> +        spi-max-frequency = <5000000>;
->> +
->> +        touchscreen-size-x = <10800>;
->> +        touchscreen-size-y = <24000>;
->> […]
->
-> I have noticed this previously and started wondering why the size was 
-> 10x higher. Now with my own device (motorola-dubai) I actually found 
-> out why…
->
-> With the actual 1080x2400 size, the mm values reported by libinput are 
-> 10x higher than what they should be, e.g. touching the bottom right 
-> corner with libinput debug-events:
->
->  event3   TOUCH_MOTION              2  +1.493s  0 (0) 98.80/98.75 
-> (1067.00/2370.00mm)
->
-> (2.4 meter tall phone! :D) which was mooooostly "fine" except Phosh's 
-> on-screen keyboard was accidentally detecting super-fast down swipes 
-> as I was typing normally, and suddenly closing the keyboard as I was 
-> typing.
->
-I wonder why some other devices with gt9916 (there are a couple in 
-mainline) that specifies 1080x2400. I don't think we can make this 
-assumption unless there was a mistake already in those mainline dts.
+On 23/03/2026 08:57, Khristine Andreea Barbulescu wrote:
+> On 3/14/2026 9:31 AM, Arnd Bergmann wrote:
+>> On Fri, Mar 13, 2026, at 18:10, Krzysztof Kozlowski wrote:
+>>> On 25/02/2026 10:40, Ghennadi Procopciuc wrote:
+>>>> On 2/23/2026 3:14 PM, Krzysztof Kozlowski wrote:
+>>>>>> there are no resources allocated specifically for nodes like
+>>>>>> "nxp,s32g-siul2-syscfg". Their consumers are the pinctrl/gpio
+>>>>>> driver and other drivers that read SoC‑specific information from
+>>>>>> those shared registers.
+>>>>>>  
+>>>>>> My alternative is to keep two separate syscon providers for the
+>>>>>
+>>>>> You got review already.
+>>>>>
+>>>> I still believe that nvmem is a suitable and accurate mechanism for
+>>>> describing SoC‑specific identification information, as originally
+>>>> proposed in [0], assuming the necessary adjustments are made.
+>>>>
+>>>> More specifically, instead of modeling software-defined cells, the nvmem
+>>>> layout would describe the actual hardware registers backing this
+>>>> information. One advantage of this approach is that consumer nodes (for
+>>>> example PCIe, Ethernet, or other IPs that need SoC identification data)
+>>>> can reference these registers using the standard nvmem-cells /
+>>>> nvmem-cell-names mechanism, without introducing custom, per-subsystem
+>>>> bindings.
+>>>
+>>> nvmem is applicable only if this is NVMEM. Information about the soc is
+>>> not NVMEM, unless this are blow out fuses / efuse. Does not look like,
+>>> because SoC information is set probably during design phase, not board
+>>> assembly.
+>>
+>> Agreed, nvmem clearly makes no sense here, the patch description
+>> appears to accurately describe the MMIO area as hardware registers
+>> with a fixed meaning rather than a convention for how the
+>> memory is being used.
+>>
+>> That said, there is probably room for improvement, since some of
+>> the register contents are read-only and could just be accessed
+>> by the boot firmware in order to move the information into more
+>> regular DT properties instead of defining bindings for drivers
+>> to access the information in raw form.
+>>
+>>     Arnd
+> 
+> Hi Krzysztof & Arnd,
+> 
+> Assuming we drop the syscon approach entirely, for the SerDes
+> presence information we could follow Arnd’s suggestion and have
+> it provided by the boot firmware instead of exposing it through SIUL2.
+
+I think there is misunderstanding. By dropping syscon nodes, I meant to
+drop the nodes. Remove them. It implies that whatever their contain must
+go somewhere, right? Because your hardware is fixed and you cannot drop
+it from the hardware, right?
+
+So their parent node is the syscon.
 
 Best regards,
-Stanislav
+Krzysztof
