@@ -1,166 +1,85 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB3C37B02A
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 17:18:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48DBC3C661C
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 17:19:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774286300; cv=none; b=VZs2vhL1AFlYgJBdaeS7FGRSK97881c/HzImYmBqgz6VgQ9ohEh3Q+6aS4CJdL4j2RqZz/vVzgcfxeKKWQhwF75c3CZ9rali0Ssrgz0Or/X/iwTnSC8xhvzNoklOIfxHbLYTtLwX47EPWGHBbpTDCwCntjsJqhpHkpDJWkVfu+Y=
+	t=1774286360; cv=none; b=j4L5wDprwWhHujHWinrm7Im6BNe7B0NhU/+L/AeTXKA2SBPhYxVjzJY4rrArsgBLH6HClF0/rBz8w8WUz4XDabhuYTVIOnEZUPl9S03m6Uxx6D0fwrXG6GVjisIHYPnYq9mzah88Fep7H461DHDIVPhRBzgP9na7E9Lzejh4DwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774286300; c=relaxed/simple;
-	bh=SwZSBJ5dtFN1L7uizFJq7oOv2U7xSNXH+wFesahHWcM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uskyMmwSR2QRk/rH6V8zfPKE86LB+OT78JAhkrw8MsLsBfvfHDSgN6Q1td8nj6qcST9aCYZp/eo91tgY6WiFVfUSHdixvHwbRp7kUrk60UmpAENnKPOlFaA6Cw4OGttulcq4au2BjFE2S2z+Bqn63nvxfwxQ77tV0ZrqsQiGbZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=H7LtVRLv; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1774286360; c=relaxed/simple;
+	bh=IyPIpKqff0QOAhzUsNMR7ffgpOkH8Ft8DtBqFyPcY60=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=po988RosIyblGYTAETaB7WNa7KC/6zSfSlj7pAggMz0Wyl30sjp9+hIWH7FUhQFRlpulRKahDUW1JKP58j5UAhv9LUXeSnMrXjm8XOz9WX/6n1r3J5OBRW3KZ1UHodWSvkMk4fGRFeppStmUQzt3IgMJFeLNG6JRokjYPqbLUqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com; spf=pass smtp.mailfrom=tinyisr.com; dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b=gvmWHfwU; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=DKR7Z4bz; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tinyisr.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="H7LtVRLv"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-486fda2a389so24792905e9.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:18:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774286296; x=1774891096; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=QEgEB+FhJamQekHHnnzeHBVC3CCx1oLXNDdzh85xf2M=;
-        b=H7LtVRLvEnB8cTx7BQFvJ5hu9u4rx5QsZxDYkmDtjyjJuafEJpVzLCAWAJURU77xBg
-         z+7IKMdc++ikOe8pM6fhMXe+h4jQrqi63lRYfnRYy6ey+ggAa76ieXCz6qP4LZWnDlWP
-         nuNwstvVAyOAnh/gY3dXQmuk/wFsG6A0ri7um0oX647bRHav456rcHtBk3oIiJz9h43W
-         DxwIV2c2+lSlTFuKuQtPDRtW8Iyji+gAvs6ZjUP5MT0oN/Tfs7PpGgeH1pXKx2D36jw3
-         dKW1OMqFO0zByNy5eLIaM05hT/8Ec4kas0wyGTEMrJ32YXgHC8fEY4CdczmrroM8pDD4
-         e0Kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774286296; x=1774891096;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QEgEB+FhJamQekHHnnzeHBVC3CCx1oLXNDdzh85xf2M=;
-        b=cG17bXFbOOPfox1RBRAjnRZl5eZ96ZQAMSvKIPvSC8/PmxFEwxIHjquak4urAVGmI7
-         5F4yBqrsH6a7BiyyNlVIzWzVcKnkteDCCwJY4cupQ1h888RfBiOJRYM2+sBjBxS0vsGp
-         JwVIiXYwHOHQLL23R9ufPnDyTHNW3u89gw3xZiqB/qEnTU4dYUSE9nWEyrhteMpobkAM
-         l5vK4iAdm5qbICm6UMF2w3XfEAgcMDxg+LsRFlQw9wSi0xHq5A8vzkywf01j3PgvIQN7
-         VmeAeNMxEZpV0hmv6AjvVIf/Fq0eNMsXbA50cqCkL0UloUvLhI1ap93MaVWMpCCzpFhZ
-         8S0w==
-X-Forwarded-Encrypted: i=1; AJvYcCVToUgXCSMWfHZNxg8IKBh1CIQ+AKg7OzBh85ZqIlZ8H7AjzCeuXxb+JROd/OC7n+LuHz6ndM7N/9Qt@vger.kernel.org
-X-Gm-Message-State: AOJu0YyBw2yGBctXnoJvT/dhQEq+pgIQA1CJOhHns608fju0aAJAuLVo
-	ujejD5aNmhlAjkMls8Io26UuW+R5vDUNGfG+F/Cxte4TPgwHB/1YVi5pqTKwJ+ThgSE=
-X-Gm-Gg: ATEYQzxmbreeXiawE3YitDYHd2V0hmXq0M+/TY3SjaCz950mu5WKZNjHZScu6Y6lOQL
-	LN3hvow/Fn7HWD3dikBdWhigx6QTv1vY1K31cJC/g/P3B0TgdD4Y0uNwQXgUweEObV07+rkADfm
-	jI7kmnIJv6HaLQe+fNrHyebcGklxat+UJ2p4PjfQkT6WskDPJ47E8VInh/L3Babi8yNbUpbryQl
-	ZERMWsP3yOcQYBnalIPzeO5UwrB8CUti93spGY1JJsU5Rs/asZJM8QIWM7l8s+hIh4uNqRhaQRF
-	wJU676LbEmKY10W/rQX01sTK12pt4PxzAJ+nLZucYQ+AT0qp8cNdq0sh5zekfdO99mMJ9R5oBxR
-	nXkSa8KoMR1s7iDNor3KNkQYuRksY1SJjoFNB94n79cMpUwjRgxv7zNhsYuRj8b9mOxr6lK44yx
-	+waNvOtvImtWvj/VNsEngt42ShXrUJMCI=
-X-Received: by 2002:a05:600c:c083:b0:485:3f72:324d with SMTP id 5b1f17b1804b1-486fee0481amr142927935e9.14.1774286295324;
-        Mon, 23 Mar 2026 10:18:15 -0700 (PDT)
-Received: from [10.11.12.108] ([79.115.63.77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b644bf1c5sm33929334f8f.14.2026.03.23.10.18.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Mar 2026 10:18:13 -0700 (PDT)
-Message-ID: <67b32e90-1f60-4bf5-b534-b4a901d5a796@linaro.org>
-Date: Mon, 23 Mar 2026 19:18:08 +0200
+	dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b="gvmWHfwU";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="DKR7Z4bz"
+DKIM-Signature: a=rsa-sha256; b=gvmWHfwUn+ci+XXztI/loMlrMA9N2AgTEGIEQ6aWUNUaqt6+brBItWjddiRtxTdVrI1fg3cONP7kqFhOe8lfrZIq3MaUE3i1po3Z6EzEMr+XPS1K5yOstuVVwRU2Uu7Fu8VNr4g+4zb4vDC/oz4TsK+3YWnv3kQ/6aWjFGwmVuhcH1Kz+yb+vDwHc3a8LAA4UotjVyhclgvHoAjAYJ7907KJU8z0SmcofxalNNkRSlr2UsUkuJk+Emke7Y8oYDsHE+J1A1YFFLx45598j2sRM6CQBmPoJhku1/9PYL33GKtia40AlsNNNrgCaNGbp0zPlZvds1JwJ2AB8W1JiEb5Cg==; s=purelymail3; d=tinyisr.com; v=1; bh=IyPIpKqff0QOAhzUsNMR7ffgpOkH8Ft8DtBqFyPcY60=; h=Received:Date:From:To:Subject;
+DKIM-Signature: a=rsa-sha256; b=DKR7Z4bzaJAWx+E81UrMH9q1K0S7qRdu5YLCgD2EvPUrU0zmF5ig2z9ufXlyTSCIJjSbnMoQOTAox4PKrqxLcWgvNoQ4MhzC8LlEJxJ7SnvaYMVR9fFjJq2lM95zRfRQSaW7hYYfad2EibfeSag5k6AWLIwQg6xee5aaURqooMamrIGaCUUG12t5Dg4GipmV1BiRWkZ43szi4o+ZBUrgtOoim1PaAH+GJog0u0jjwgo3NCYYyQHAmLhMOQjkXnbEY0eyVHIIew5CsafqmOzVfjC5P6s/41Tc0sVDwZZZYqgHhp0CaeSjGnIYistAFDC8EvHNDhFibfS9w6nn/+XulQ==; s=purelymail3; d=purelymail.com; v=1; bh=IyPIpKqff0QOAhzUsNMR7ffgpOkH8Ft8DtBqFyPcY60=; h=Feedback-ID:Received:Date:From:To:Subject;
+Feedback-ID: 99681:12517:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1017625389;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Mon, 23 Mar 2026 17:18:40 +0000 (UTC)
+Date: Mon, 23 Mar 2026 19:18:30 +0200
+From: Joris Vaisvila <joey@tinyisr.com>
+To: Daniel Golle <daniel@makrotopia.org>
+Cc: netdev@vger.kernel.org, horms@kernel.org, pabeni@redhat.com, 
+	kuba@kernel.org, edumazet@google.com, davem@davemloft.net, olteanv@gmail.com, 
+	Andrew Lunn <andrew@lunn.ch>, devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [RFC v3 4/4] net: dsa: initial support for MT7628 embedded switch
+Message-ID: <acFwjuPFiO0QFoJ-@archlinux>
+References: <20260321194340.2140783-1-joey@tinyisr.com>
+ <20260321194340.2140783-5-joey@tinyisr.com>
+ <ab8IHwC4RfHG5wvv@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] iommu: Get DT/ACPI parsing into the proper probe
- path
-To: Robin Murphy <robin.murphy@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo
- <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@arm.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Danilo Krummrich <dakr@kernel.org>, Stuart Yoder <stuyoder@gmail.com>,
- Laurentiu Tudor <laurentiu.tudor@nxp.com>, Nipun Gupta
- <nipun.gupta@amd.com>, Nikhil Agarwal <nikhil.agarwal@amd.com>,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
- devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
- Charan Teja Kalla <quic_charante@quicinc.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Juan Yescas <jyescas@google.com>, kernel-team@android.com
-References: <e3b191e6fd6ca9a1e84c5e5e40044faf97abb874.1740753261.git.robin.murphy@arm.com>
-Content-Language: en-US
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-In-Reply-To: <e3b191e6fd6ca9a1e84c5e5e40044faf97abb874.1740753261.git.robin.murphy@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ab8IHwC4RfHG5wvv@makrotopia.org>
 
-Hi, Robin,
+Hi Daniel, thanks for the feedback and suggestions.
 
-On 2/28/25 5:46 PM, Robin Murphy wrote:
-> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-> index a3b45b84f42b..1cec7074367a 100644
-> --- a/drivers/iommu/iommu.c
-> +++ b/drivers/iommu/iommu.c
-> @@ -414,9 +414,21 @@ static int iommu_init_device(struct device *dev)
->  	if (!dev_iommu_get(dev))
->  		return -ENOMEM;
->  	/*
-> -	 * For FDT-based systems and ACPI IORT/VIOT, drivers register IOMMU
-> -	 * instances with non-NULL fwnodes, and client devices should have been
-> -	 * identified with a fwspec by this point. Otherwise, we can currently
-> +	 * For FDT-based systems and ACPI IORT/VIOT, the common firmware parsing
-> +	 * is buried in the bus dma_configure path. Properly unpicking that is
-> +	 * still a big job, so for now just invoke the whole thing. The device
-> +	 * already having a driver bound means dma_configure has already run and
-> +	 * either found no IOMMU to wait for, or we're in its replay call right
-> +	 * now, so either way there's no point calling it again.
-> +	 */
-> +	if (!dev->driver && dev->bus->dma_configure) {
-> +		mutex_unlock(&iommu_probe_device_lock);
-> +		dev->bus->dma_configure(dev);
-> +		mutex_lock(&iommu_probe_device_lock);
-> +	}
+On Sat, Mar 21, 2026 at 09:05:35PM +0000, Daniel Golle wrote:
+> As mentioned in the binding comment:
+> - The MDIO bus is exclusively used to speak with the built-in PHYs.
+> - The PHY addresses match the port IDs.
+> - Only Clause-22 read/write operations are supported.
+> - There is no way to connect an external PHY (no MII interface
+>   exposed on external pins)
+> 
+> Imho it would hence be much easier to just use DSA's simple .phy_read
+> and .phy_write operations instead of registering a bus manually in the
+> driver, and even requiring a description of the MDIO bus in device
+> tree.
+> 
+> If you want to reserve the option of adding PHY-specific DT properties
+> in future (eg. for PHY-controlled LEDs? but afair the LEDs are
+> controlled by the switch itself and SoC-level pinctrl), at least set
+> `ds->user_mii_bus = bus;` to make the device tree description
+> optional. Completely omitting the whole bus definition and changing
+> mt7628_mii_read and mt7628_mii_write to be useful as .phy_read and
+> .phy_write ops in struct dsa_switch is the better option for simple
+> legacy hardware like that imho. See b53 driver, for example.
 
-I was chasing the "something fishy" dev_WARN on a 6.19+ downstream
-android kernel and while looking at the IOMMU code I couldn't help
-myself and ask whether we shall prevent concurrent execution of
-dma_configure().
+The LEDs are indeed controlled by the switch, so there doesn't appear to
+be anything to configure now or in the future. Using `ds->user_mii_bus`
+sounds like a reasonable option to simplify configuration and works fine
+on this switch, I was not aware of it earlier. 
 
-It seems to me that while the IOMMU subsystem is executing
-dma_configure(), the deferred probe workqueue can concurrently pick up
-the same device, enter really_probe(), set dev->driver, and execute
-dma_configure(). Is it worth protecting against this?
+> @DSA maintainers: correct me if I'm wrong and, for which ever reason,
+> using the .phy_read/.phy_write ops is discouraged in new drivers, even
+> for dead-simple hardware like that one.
 
-I can try to prove it if needed, using a downstream iommu driver (sigh).
-
-Thanks!
-ta
-
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index e61927b4d41f..5f0c1a8064b5 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -461,9 +461,19 @@ static int iommu_init_device(struct device *dev)
-         * already having a driver bound means dma_configure has already run and
-         * found no IOMMU to wait for, so there's no point calling it again.
-         */
--       if (!dev->iommu->fwspec && !dev->driver && dev->bus->dma_configure) {
-+       if (!dev->iommu->fwspec && !READ_ONCE(dev->driver) &&
-+           dev->bus->dma_configure) {
-                mutex_unlock(&iommu_probe_device_lock);
--               dev->bus->dma_configure(dev);
-+
-+               /*
-+                * Serialize with really_probe(). Recheck dev->driver in case a
-+                * driver bound while we were waiting for the lock.
-+                */
-+               device_lock(dev);
-+               if (!dev->driver)
-+                       dev->bus->dma_configure(dev);
-+               device_unlock(dev);
-+
-                mutex_lock(&iommu_probe_device_lock);
-                /* If another instance finished the job for us, skip it */
-                if (!dev->iommu || dev->iommu_group)
-(END)
+Regarding .phy_read/.phy_write, I was advised against using them in new
+drivers in v1 of this RFC. I'm happy to rework this, but would
+appreciate clarification from the DSA maintainers on the preferred
+direction for hardware like this.
