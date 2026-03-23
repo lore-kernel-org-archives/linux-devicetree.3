@@ -1,197 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A1D1F3B8A;
-	Mon, 23 Mar 2026 12:56:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF971F3B8A
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 12:57:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774270572; cv=none; b=R9PgymxOdc13zBNGksU7AX7BOVCVBmVWMX8PsT4D9gCF8q8tiDIWZPosPbtBQQc2W3MjtF2y63kS7MRxZ43/IrRkdwLHn1P9aII1WxAkVm8K/5vd6Ki3AITgnt8zqVdPbkecRovEhWIyrj9l0ziYWuaSFI+5vF/QKgE9OXKLsfo=
+	t=1774270654; cv=none; b=Ulei2K0oMRSswQQO0sP0RZLIKQTE7U05RSgXe6FfCpfDY+fRsskkNUy0eB6R6xBIZOdb1uD9+HF39DFv4xTk92WTfJ3zInvrOlg/yK72u5Ofab+1Fi1laJ4bcpobOGrdswQyGS2I27FhGPe0q6v/jxM/ZXS0b9cO/nc1Yf/ZPSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774270572; c=relaxed/simple;
-	bh=PcarGU8E9MYAzSiGlIlaN0J/d/2KgvnXGF646Sss/6o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TfE0dgbXevY+/Rv7X5va19F5AAkTKn1a2MfVLr3+2jGHhgEqeemuaBs2vt5ElpocvzvWrFVFdWNJiSW1oWhBFXM7Y2d+z70ThJZzyQgFk1Gv4WRIn7xCemuRPRKVT0TflosIwLPh7JQx9Vr8kppKt3u98wDxLJesW8X6gWH57v0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NoUvT0Ua; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774270654; c=relaxed/simple;
+	bh=0AOqE2EFjrAdGDKniFr//4Yf8j2JPet2JLUV7rVXlc8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LKexrr/aafDZA1yuDRNNnVtYpq9Ffhe+wgnEa46FUZ8X/6v6BmjYEeYZ4zt0APNfR+n9yocK/EXvDu1c4OCglSJvOW4y0JgyI2ehKvGx9NR9+8Q4j9LwYsUfx+bPf5t50XSt9NxPevMcaFcvCgczIFGyYJbLYpgQJyAfNgQsTkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XPxXMT92; arc=none smtp.client-ip=209.85.221.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NoUvT0Ua"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F94AC4CEF7;
-	Mon, 23 Mar 2026 12:55:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774270571;
-	bh=PcarGU8E9MYAzSiGlIlaN0J/d/2KgvnXGF646Sss/6o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NoUvT0Ua7vExYFgPZA0igjTdgV0kBq94+evWjMhFBjOIZRv4xfdNUbiaxRXEfZMq6
-	 91VS32MQ+DNV8yrBKUUuWfsUhYYbBdqA2iOX/1ZwqUfR3o4KK55KUT2sg/AomDWEVJ
-	 cML8StUwS91VgBAOaGqn9DzrXrCZkJgJmXnHsIyEns5DJl0GkuS5xEozjfMwyEYLMI
-	 tUjxXbsQKfDvWtljLmC/dhr0bPEzLs3j+Dt/v6AOidSmPjND8gkQSoG0ROJevzjOye
-	 BsJCTGQ6iR64jHHIJ0sY3Z/7theuY1nSZ3Mlnh6tPIwZ/YiVv44DygZqJ1F8pvKq7T
-	 hl+W33yrZuphA==
-Date: Mon, 23 Mar 2026 18:25:53 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-	linux-media@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-	linux-remoteproc@vger.kernel.org, andersson@kernel.org,
-	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
-	akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
-	jesszhan0024@gmail.com, marijn.suijten@somainline.org,
-	airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
-	dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
-	mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
-	trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
-	jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
-	vignesh.viswanathan@oss.qualcomm.com,
-	srinivas.kandagatla@oss.qualcomm.com,
-	amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
-	op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
-	skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
-	Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v2 02/15] firmware: qcom: Add a generic PAS service
-Message-ID: <acE4WXdiuTd1tjAp@sumit-xelite>
-References: <20260312062756.694390-1-sumit.garg@kernel.org>
- <20260312062756.694390-3-sumit.garg@kernel.org>
- <20260313072450.sx7vqtvh62nflhff@hu-mojha-hyd.qualcomm.com>
- <20260313073121.qb7yq7tcga3sshcr@hu-mojha-hyd.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XPxXMT92"
+Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-56b890d1687so67633e0c.3
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 05:57:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1774270652; x=1774875452; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Gt82d3IVq1vxclytaQLxZv+KSDc3G6ILVdEZ2/6IgDU=;
+        b=XPxXMT92CtGhDEgecp3pjtXOm9q9Jf4tdSePOMFL1onR1L2ycGHVhToGlmuwVmmcwe
+         xZ5eEwlUdqqQD/Znc9j1sB8R35oP0yP3Wrp8ySXWYeor6kQOUWbfhDD57XMh4PENPSf8
+         m9vkl5lSIfNMw29KTkRXEPj8zwwqkNVm/Y2Kg/ksDEYC6b85OpCmT1/hKpAFRYHmASbF
+         PfkpVp4nLaXsMGdtIakpQwU9v+3JHwUgmuZH3Ww2/QQ7OefGfBPf2BtZyAi6ilircwII
+         DDmDmsvxk+cY0wl/sfExasCNLjDHk3SJOKzXv+WRMTTA0LBLY1Ggi5qm2JtHXgPebrHu
+         geQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774270652; x=1774875452;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Gt82d3IVq1vxclytaQLxZv+KSDc3G6ILVdEZ2/6IgDU=;
+        b=njI/rFI1EXL7okSdStFQrGoEK5Gzc+0yLF56WF6BPEShfycm9FpNxzQsLMthu/jr6N
+         mzwEQ68NNJ3/9Q+IqvBhWvDa/P8iA60ZavWPmo/7K41Md1Lwp0RfzEOi6/Nd0N65BQeU
+         Y7FyCxGjP4HOErqw8olF+0YCtlF/wJ0h3B1YQ+GXT7PdXeUP4NrDHdG6MmHbhkrVzhUG
+         Z1DN9r//GCTBbxJJlq7yAy5TbnX6bXo3Iajkam/ksSw9AmDgYF2FwxPDTU9kQT6HdKy2
+         JnpjDT3HlH3dKODYI5VaTiz5GGqFuOtRiKmCYRGwtWndxlLj1hND1Mj6LhAj/sO5T5+C
+         DLQA==
+X-Forwarded-Encrypted: i=1; AJvYcCW8YYUjj7RRl+WeGPax/baYy6flYkioSbShQ670Azqif99wxe0xC6gQhhEDft6E7ITDZgEEzIiVZ2Fv@vger.kernel.org
+X-Gm-Message-State: AOJu0YyTqlAn/jXyTqM6Ew2+lS9q4x7q904gKvuzBz32xYJAPyWXQNQe
+	PzTOir5bPadzz34HTSGa/JyDplY/RkI1STkvB1YjIOiPRDRcOZtFIa5i
+X-Gm-Gg: ATEYQzyyVO15FZOccPGXhKfDn5qJgHK8FYeAoec/ocZsKVB5L1gKbu5lqAe3bE67kxX
+	F5tpi69t9Q/DQCuzgIKehj7MnzOQ2YwlLkPb3T1PBEmEz1vyGd8nqQdTshbn3T0t2c9/CkMw2qe
+	isoV+TdIrqhDYACQkW/ASGiVvh0kdi8KyrqNZssqbADv5zaFGJdvJCPe8b1kRDinnpm5cDx5FqH
+	tbemOX/F2UO6aO3MYBuuUNTVEZ1v2WH22t3kAvoJnExHmiSzSZc/iAjvcaS+f131sNUS0v7UAJE
+	KOw526pXBS+GiwSgUEoFPk/jk7DqkeqMnLqvzwKmcTLuJX2wAehqhkYOjhk0BdkZH8PAtVYEIgq
+	kkt5w7qY/X0Sn164RD4cR2fZe0SaE9YqxkghZytNfDbAVa9GEtg4yhO01vYYEm1El+x4g76vVl3
+	11TUxHYo7Al+FBjeS6SMF8EGmPbk9FLS9PY+/6Zrzy/Obu/BjTaNAJ+5jOWhN9CcadOsXVIw==
+X-Received: by 2002:a05:6102:4a86:b0:5ef:ac78:3c77 with SMTP id ada2fe7eead31-602aecd2a05mr5411035137.18.1774270651739;
+        Mon, 23 Mar 2026 05:57:31 -0700 (PDT)
+Received: from fabio-Precision-3551.. ([2804:1b3:a803:91c4:d341:319d:24e6:7622])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-602af8539b1sm7498325137.1.2026.03.23.05.57.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Mar 2026 05:57:31 -0700 (PDT)
+From: Fabio Estevam <festevam@gmail.com>
+To: heiko@sntech.de
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Fabio Estevam <festevam@gmail.com>
+Subject: [PATCH] ARM: dts: rockchip: Pass linux,code to the power key on rk3288-veyron-pinky
+Date: Mon, 23 Mar 2026 09:57:21 -0300
+Message-ID: <20260323125721.692139-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260313073121.qb7yq7tcga3sshcr@hu-mojha-hyd.qualcomm.com>
 
-On Fri, Mar 13, 2026 at 01:01:21PM +0530, Mukesh Ojha wrote:
-> On Fri, Mar 13, 2026 at 12:54:50PM +0530, Mukesh Ojha wrote:
-> > On Thu, Mar 12, 2026 at 11:57:43AM +0530, Sumit Garg wrote:
-> > > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > > 
-> > > Qcom platforms has the legacy of using non-standard SCM calls
-> > > splintered over the various kernel drivers. These SCM calls aren't
-> > > compliant with the standard SMC calling conventions which is a
-> > > prerequisite to enable migration to the FF-A specifications from Arm.
-> > > 
-> > > OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
-> > > support these non-standard SCM calls. And even for newer architectures
-> > > with S-EL2 and Hafnium support, QTEE won't be able to support SCM
-> > 
-> >  using S‑EL2 with Hafnium
-> > 
-> > > calls either with FF-A requirements coming in. And with both OP-TEE
-> > > and QTEE drivers well integrated in the TEE subsystem, it makes further
-> > > sense to reuse the TEE bus client drivers infrastructure.
-> > > 
-> > > The added benefit of TEE bus infrastructure is that there is support
-> > > for discoverable/enumerable services. With that client drivers don't
-> > > have to manually invoke a special SCM call to know the service status.
-> > > 
-> > > So enable the generic Peripheral Authentication Service (PAS) provided
-> > > by the firmware. It acts as the common layer with different TZ
-> > > backends plugged in whether it's an SCM implementation or a proper
-> > > TEE bus based PAS service implementation.
-> > > 
-> > > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > > ---
-> > >  drivers/firmware/qcom/Kconfig          |   8 +
-> > >  drivers/firmware/qcom/Makefile         |   1 +
-> > >  drivers/firmware/qcom/qcom_pas.c       | 298 +++++++++++++++++++++++++
-> > >  drivers/firmware/qcom/qcom_pas.h       |  53 +++++
-> > >  include/linux/firmware/qcom/qcom_pas.h |  41 ++++
-> > >  5 files changed, 401 insertions(+)
-> > >  create mode 100644 drivers/firmware/qcom/qcom_pas.c
-> > >  create mode 100644 drivers/firmware/qcom/qcom_pas.h
-> > >  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
-> > > 
+According to gpio-keys.yaml, linux,code is a required property.
 
-<snip>
+Pass it to fix the following dt-schema warning:
 
-> > > diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qcom_pas.c
-> > > new file mode 100644
-> > > index 000000000000..beb1bae55546
-> > > --- /dev/null
-> > > +++ b/drivers/firmware/qcom/qcom_pas.c
-> > > @@ -0,0 +1,298 @@
-> > > +// SPDX-License-Identifier: GPL-2.0
-> > > +/*
-> > > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> > > + */
-> > > +
-> > > +#include <linux/device/devres.h>
-> > > +#include <linux/firmware/qcom/qcom_pas.h>
-> > > +#include <linux/kernel.h>
-> > > +#include <linux/module.h>
-> > > +
-> > > +#include "qcom_pas.h"
-> > > +
-> > > +struct qcom_pas_ops *ops_ptr;
-> > 
-> > Should this be static ?
-> > 
-> > > +
-> > > +/**
-> > > + * devm_qcom_pas_context_alloc() - Allocate peripheral authentication service
-> > > + *				   context for a given peripheral
-> > > + *
-> > > + * PAS context is device-resource managed, so the caller does not need
-> > > + * to worry about freeing the context memory.
-> > > + *
-> > > + * @dev:	  PAS firmware device
-> > > + * @pas_id:	  peripheral authentication service id
-> > > + * @mem_phys:	  Subsystem reserve memory start address
-> > > + * @mem_size:	  Subsystem reserve memory size
-> > > + *
-> > > + * Return: The new PAS context, or ERR_PTR() on failure.
-> > > + */
-> > > +struct qcom_pas_context *devm_qcom_pas_context_alloc(struct device *dev,
-> > > +						     u32 pas_id,
-> > > +						     phys_addr_t mem_phys,
-> > > +						     size_t mem_size)
-> > > +{
-> > > +	struct qcom_pas_context *ctx;
-> > > +
-> > > +	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
-> > > +	if (!ctx)
-> > > +		return ERR_PTR(-ENOMEM);
-> > > +
-> > > +	ctx->dev = dev;
-> > > +	ctx->pas_id = pas_id;
-> > > +	ctx->mem_phys = mem_phys;
-> > > +	ctx->mem_size = mem_size;
-> > > +
-> > > +	return ctx;
-> > > +}
-> > > +EXPORT_SYMBOL_GPL(devm_qcom_pas_context_alloc);
-> > > +
-> > > +/**
-> > > + * qcom_pas_init_image() - Initialize peripheral authentication service state
-> > > + *			   machine for a given peripheral, using the metadata
-> > > + * @pas_id:	peripheral authentication service id
-> > > + * @metadata:	pointer to memory containing ELF header, program header table
-> > > + *		and optional blob of data used for authenticating the metadata
-> > > + *		and the rest of the firmware
-> > > + * @size:	size of the metadata
-> > > + * @ctx:	optional pas context
-> > > + *
-> > > + * Return: 0 on success.
-> > > + *
-> > > + * Upon successful return, the PAS metadata context (@ctx) will be used to
-> > > + * track the metadata allocation, this needs to be released by invoking
-> > > + * qcom_pas_metadata_release() by the caller.
-> > > + */
-> > > +int qcom_pas_init_image(u32 pas_id, const void *metadata, size_t size,
-> > > +			struct qcom_pas_context *ctx)
-> 
-> please, align this with previous line '(' for all the functions.
-> 
+lid-switch (gpio-keys): key-power: 'linux,code' is a required property
 
-The alignment is fine here, not sure why the plain text replies show
-them as not aligned.
+Signed-off-by: Fabio Estevam <festevam@gmail.com>
+---
+ arch/arm/boot/dts/rockchip/rk3288-veyron-pinky.dts | 1 +
+ 1 file changed, 1 insertion(+)
 
--Sumit
+diff --git a/arch/arm/boot/dts/rockchip/rk3288-veyron-pinky.dts b/arch/arm/boot/dts/rockchip/rk3288-veyron-pinky.dts
+index cc27d116d025..e241f93b2310 100644
+--- a/arch/arm/boot/dts/rockchip/rk3288-veyron-pinky.dts
++++ b/arch/arm/boot/dts/rockchip/rk3288-veyron-pinky.dts
+@@ -47,6 +47,7 @@ &lid_switch {
+ 
+ 	key-power {
+ 		gpios = <&gpio0 RK_PA5 GPIO_ACTIVE_HIGH>;
++		linux,code = <KEY_POWER>;
+ 	};
+ };
+ 
+-- 
+2.43.0
+
