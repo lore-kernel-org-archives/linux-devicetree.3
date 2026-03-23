@@ -1,145 +1,174 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013023.outbound.protection.outlook.com [40.93.201.23])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3478F386575;
-	Mon, 23 Mar 2026 09:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.23
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774256667; cv=fail; b=CW4OR5CWkVUJnxEA7ohA/rBqYQl5dZMi4dEpQoFKY+a/g0RHkPHsGaOZkJ0U6JgrmF5P84ZNk0OUXcd9u8hpDo5lxzYtJVPibzt4blkwuBECDF1ztQ9+b1nJwj/tnIT7tgRcpBQzR3Ag2MQCRcfuH0l5oUUbGIxv5DsMmyvuvYc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774256667; c=relaxed/simple;
-	bh=Zd2uYa7Zq0viPxyrIqa25xV+nz+tl+wW3Dm2JcV3J9w=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MC2obVkzsdfTosRiDzDxyzDYg7HGp+c7XUMoEgSdOQs/u289eepWgVG5Tw6JwLFr3TOIz8i8bGGsIE2lZnjk0+z4XWvu0f6t4cwbQ1VfJZN1wNg7EgLEZLQLkK71lAXk2RheTRlhflvE8PhEZHLs3BX9kcTdfCbkyKjk/LSi3hc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=Sm3myPgG; arc=fail smtp.client-ip=40.93.201.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E19B3859E1;
+	Mon, 23 Mar 2026 09:04:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774256689; cv=none; b=ebEJ3y2bErJn3ywDEjCVm8kBJujHu/U5CVPRe3J/uiPd6dsSHLmhg84x0uND5UPK4M0qVkxSUQA6lew3saGNwnq3jyH5fW7bflBk4eXQ7369ABoaaIAt1OEL8WmynggFsFNWkTZLC3rzdvoJEl7QVwiVtFC3EunJp4V1MYjpOCk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774256689; c=relaxed/simple;
+	bh=+EOTN4gKVx0yrMRF+kmZU2uFXyQqAXBjqCu4IOn9iHo=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=VXj22GKrC/z45c6cOON/t9RzRnEHMWS/GgHmzAE0p5jw5oxZzq4Go19cgJUPgfuBH82B9GC6tjxjxXVrFlvRGrOJ3Mukh5sJ6JctKql7os/NtDvb5Z+cj7NB+LLPziVQW7Rx+uZ75KlPr0VZcJBJ5ivfeLkOLaGG8Vk/rwOQTN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s8zN5bY3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Sm3myPgG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q8o6or44bmo9PugY8D01IEhwpwAiXSmj7m8M/8yxU+37/2+Yw5jZ4T33PPqXfukL4N+79JnjdtBc7/f7CoxEVlatQUco1Xol0nNC/gE0v5MsfyKJ2bgbx1GifdvhGoCIXipo+faPqlCFqHvr88ZmtMIVQD+Ti7ao93zGD6iBlXrKBFVawngRjLGZH3oFACMB6RLbDTpLXDjLfR8N7s5DsuBspWOXX+4dJ4IYQ1gA/OvgxhA8fOO+E+MnDO+dCWcYC7o9jOyuEhh8xvsWyMKHYVh4HMT/FJBIVXbj5yxSZaCUmZjNY3eSTBH0wYZZvFB7YOyZzYEhc3gd8Rh9CKIRMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3iof9wozdCNF9iBqOefC+tDROYRV+4AnTEkj1JUAX+M=;
- b=oahMorzfbEQtmxABQRopOFXRlt1dtptc5ZKC48mNE7W+TKy//e/IMUHucJLC3f7++ajmIyRKcz89WUPhPW0ei1tpcZCJVjmzFkq0tzEbIXZTRP0HeGqti45O5fgMPQx4UDrXTStQ0pEyFbCfmpxdaNj/Wf3+K8BG9VqAJzUiQsMSYAD0wnLeVmGT6ZlNXj1Txx84Xgbays7eXryFETpTlILAk9iQWmegvLkqqCwAOPegH1bB3sO68SYGqaZqb8BqP3/dyrH4jlB7vnjSkWaqegoJUCphbtXQIz+NbgihfpE8MaynPtnTMMx4RRN0RYP8wBQ5+aOcI9LaNQyt2e4wtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=kernel.org smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3iof9wozdCNF9iBqOefC+tDROYRV+4AnTEkj1JUAX+M=;
- b=Sm3myPgGZN1IH8ME0qUl4B8MdIjl1jJaWPhYr6u+cvj5soKb/54d9sPkQNS3lsHn5XfxsRjh1xVBcONr1QjhfU1BaDc8FAyo17N4veDxXzGQsKh6ZQoj8tZ/aXKH/1WhQHhHX9Bhfnx2rWLM02qyh2KKMjlQqFHnnRaBmY1enos=
-Received: from CH2PR04CA0026.namprd04.prod.outlook.com (2603:10b6:610:52::36)
- by LV8PR10MB7846.namprd10.prod.outlook.com (2603:10b6:408:1f7::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.25; Mon, 23 Mar
- 2026 09:04:23 +0000
-Received: from CH3PEPF00000018.namprd21.prod.outlook.com
- (2603:10b6:610:52:cafe::2f) by CH2PR04CA0026.outlook.office365.com
- (2603:10b6:610:52::36) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Mon,
- 23 Mar 2026 09:04:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- CH3PEPF00000018.mail.protection.outlook.com (10.167.244.123) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.0 via Frontend Transport; Mon, 23 Mar 2026 09:04:22 +0000
-Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 23 Mar
- 2026 04:04:08 -0500
-Received: from DFLE202.ent.ti.com (10.64.6.60) by DFLE204.ent.ti.com
- (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 23 Mar
- 2026 04:04:07 -0500
-Received: from fllvem-mr08.itg.ti.com (10.64.41.88) by DFLE202.ent.ti.com
- (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Mon, 23 Mar 2026 04:04:07 -0500
-Received: from fllv0122.itg.ti.com (fllv0122.itg.ti.com [10.247.120.72])
-	by fllvem-mr08.itg.ti.com (8.18.1/8.18.1) with ESMTP id 62N947Ma334975;
-	Mon, 23 Mar 2026 04:04:07 -0500
-Received: from localhost (meghana-pc.dhcp.ti.com [10.24.69.13] (may be forged))
-	by fllv0122.itg.ti.com (8.14.7/8.14.7) with ESMTP id 62N946sA003527;
-	Mon, 23 Mar 2026 04:04:07 -0500
-From: Meghana Malladi <m-malladi@ti.com>
-To: Vignesh Raghavendra <vigneshr@ti.com>, Nishanth Menon <nm@ti.com>
-CC: Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>, <srk@ti.com>,
-	<danishanwar@ti.com>, <m-malladi@ti.com>
-Subject: [PATCH net-next v4 2/2] arm64: defconfig: Enable DP83TG720 PHY driver
-Date: Mon, 23 Mar 2026 14:33:58 +0530
-Message-ID: <20260323090358.632329-3-m-malladi@ti.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260323090358.632329-1-m-malladi@ti.com>
-References: <20260323090358.632329-1-m-malladi@ti.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s8zN5bY3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F0BFC4CEF7;
+	Mon, 23 Mar 2026 09:04:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774256688;
+	bh=+EOTN4gKVx0yrMRF+kmZU2uFXyQqAXBjqCu4IOn9iHo=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=s8zN5bY3xOelnmydfZkNyyR9e8mDfPphTG/DkQzllPDukZjlA05FCvh4La7O8GYjT
+	 aO9jawnaE9/bLwXamOLFD/BgxY/TWi/zWEoi9Kpe7JPG2A5xjg9pt0DIUERXy7k4Ky
+	 0ueBKxcWPoLDDRzkC7oTOEB9C/msDOOeSoqdvhyqN9jyDC8hCXa+jtmAyRr9nu6t3c
+	 VAVvQsYLfDYh4D6wv1sv0hsZb+Yso6T3W8h8TtU81AQxHnXzOUy3X6cUfCoZ7rmtJf
+	 ECuNeCYHXrQ8WbUxw+nGE6eQ7+1v4OZsnywVfOKUYqz3Co505mR/A+a3g6yEtkSbt9
+	 /QXv1syd0GL9g==
+Message-ID: <70adc767-cf01-4498-b758-f221f0c81f11@kernel.org>
+Date: Mon, 23 Mar 2026 10:04:44 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/5] dt-bindings: arm: qcom: Add AYN QCS8550 Devices
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Aaron Kling <webgeek1234@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260322-ayn-qcs8550-v3-0-4afa89c20888@gmail.com>
+ <20260322-ayn-qcs8550-v3-1-4afa89c20888@gmail.com>
+ <20260323-laughing-pumpkin-oarfish-99fafb@quoll>
+ <CALHNRZ_2tUuiBBuH-QGi8VQbZSVhQg2KGd-dQVJMq+HKiGwpmg@mail.gmail.com>
+ <2228bad7-b356-4274-a7b9-9065c9e35e9d@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <2228bad7-b356-4274-a7b9-9065c9e35e9d@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000018:EE_|LV8PR10MB7846:EE_
-X-MS-Office365-Filtering-Correlation-Id: ad378663-5d37-4546-2fdb-08de88bb2ca2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|82310400026|1800799024|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	UevXR2MvgcYnuKl6Q/VRnaGeflb9CGUw+9NnLYTmp9cDU92KoDhdVh1NwDh/u9czXv095r6B9b8788gXK8LqL3AHzxMMeAzqPvvOjkRb7ng7WjL04glNiPeKO0WC5Q/jZ7GWzpFh0fj8e3meoGQ7BP4ZIfwt2Jrk17fAyMpYKzDqsKXIziFT5mpLeuMElUJPl8JtCk9abd1ZwvGqs19W4nWNcJBrGwBhd8QjO7Zz0gsd9E5QGar9p2RJnc54GT8EpgJCX6KLgEOSZZZTn9NiRTHCHIq8nysoAUt6aEXfyUdtTMoOXlMVOJy3XFEe1tguuJ6EvObYJAlJf06u+y7UrP+APX4pPQDLQzX1ARBsYNeNmPFLgRomXmRNmmgUIQfgUbbETaUiZWVAEtrh0rS7zfQebY4BccqwF9rYJdudMYq7zQKipVN6sOpTdDgiY49HSDPR1H1OpOXZPKaxP8NlDQsNYr7zV1cDX9a+9Cgr/6M3WrfvxiAYqHJZ29QerMQ93EUmP38XK3nRXbh9gKjAnSaYo+vfnZs0wPmJ6yvuKSgPiUpDJh4r+oOn8yqdvqfr4Thk0IrQU2ziS9NK5irU6EQZ22FL8LiVo5iORVMyVOW75SBAoLpU47wVeD+1qmGIHAfWfs69o7/Up5QzQ2b3jnFaGMjDbXSRhwDyGEOYN7T7JgI32C1LU8fwriReciYfRHQywP86LhDQnfbwO39fvaM/SXwjLwGq8GHd5ADuNPg9MNz3pNfDMd9/PStrml7Kv65YSdNfNsWCkt1iQkrFXA==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	m4oHhCVPDvEs0bT1ZPwjNhuB0OvOSjVilauJQ7aoQjNUBNB+BYJKP4tTjVihSU78Mt/ZsFI5RpEglNl2Vh0/Sa3Oi+R8gP5Uyq+uB4naHDf7ouHXmLpzTRpqluiHaGama78B7R8iuBKOP/F9l2rPhNT5m8EHM2aLRmA+2l90JmxXU1dFX4tRANMs5JSc0/ppPxWjvJrPIkD/UyVvpqBG1vWYvFwVzaLldAeZPYL1Oni1Y2VrTAZwkj4BfiM9C8kPmoHeLZ7u4MwnNuRS+7OtKVq/+SJNOzMDN4WcxLdhsuCFJvEftxfSSyQfchxoAxCrlwZ4bGAM1sBU/LGave3rlU7tR9yqUG8zKoREmJjF7iaMsB02I3kAWsq53i7F/rjtTrYyrZgiQBXz0hfS0f3vHxwfaMcTdKbMkbHinQ3jma5RWyH9nLLFhDqRGWqU8+g+
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 09:04:22.1340
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad378663-5d37-4546-2fdb-08de88bb2ca2
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF00000018.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR10MB7846
 
-Enable DP83TG720 PHY driver as a module to support TI's DP83TG720
-1000BASE-T1 Automotive Ethernet PHY. This is required for the
-DP83TG720-IND-SPE-EVM daughter card used with AM642 EVM ICSSG0
-interface.
+On 23/03/2026 10:00, Krzysztof Kozlowski wrote:
+> On 23/03/2026 09:39, Aaron Kling wrote:
+>> On Mon, Mar 23, 2026 at 2:51 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>>
+>>> On Sun, Mar 22, 2026 at 09:05:18PM -0500, Aaron Kling wrote:
+>>>> Namely:
+>>>> * Odin 2
+>>>> * Odin 2 Mini
+>>>> * Odin 2 Portal
+>>>> * Thor
+>>>>
+>>>> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+>>>> ---
+>>>>  Documentation/devicetree/bindings/arm/qcom.yaml | 9 +++++++++
+>>>>  1 file changed, 9 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+>>>> index d054a8f5632d853509b7cd37f07f02473cf6bf71..ee68963c30eae10fd3b3a5e21bda63ab941893fa 100644
+>>>> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+>>>> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+>>>> @@ -1075,6 +1075,15 @@ properties:
+>>>>            - const: qcom,qcs8550
+>>>>            - const: qcom,sm8550
+>>>>
+>>>> +      - items:
+>>>> +          - enum:
+>>>> +              - ayntec,odin2
+>>>> +              - ayntec,odin2mini
+>>>> +              - ayntec,odin2portal
+>>>> +              - ayntec,thor
+>>>
+>>> I already commented on vendor prefix patch, that you incorrectly moved
+>>> it out from this set. This only stalls your patchsets, because none of
+>>> the trees will have it thus none will pass any checks.
+>>
+>> You mean the checks that passed just fine on v2? This is documented in
+>> the cover letter, which apparently no one ever reads so I wonder why
+>> we even write them; and listed as a dep, which said checks pick up
+>> just fine.
+> 
+> Checks will not be fine, imagine this scenario: Bjorn will pick up this
+> patchset and next will have failures, because there is no vendor prefix
+> documented in the next.
 
-Signed-off-by: Meghana Malladi <m-malladi@ti.com>
----
- arch/arm64/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
+There are also more subtle problems here.
 
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index b67d5b1fc45b..3b88df2ca5e1 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -420,6 +420,7 @@ CONFIG_REALTEK_PHY=y
- CONFIG_ROCKCHIP_PHY=y
- CONFIG_DP83867_PHY=y
- CONFIG_DP83869_PHY=m
-+CONFIG_DP83TG720_PHY=m
- CONFIG_DP83TD510_PHY=y
- CONFIG_VITESSE_PHY=y
- CONFIG_XILINX_GMII2RGMII=m
--- 
-2.43.0
+Because you included it as b4 deps, multiple maintainers might pull the
+same patchset if they are not careful and do not notice the pull of
+dependency. If that happens, you achieved nothing by decoupling it and
+it is the same as it was included in every patchset.
 
+I, for example, do not take patches with dependencies, so that would be
+a blocker, so again you achieved nothing. I don't know about Bjorn, though.
+
+OTOH, since you have a b4 dep here and bot checks supposedly pass,
+maintainer might just pull this patchset (without dependency in cherry
+pick mode of b4) and not notice the failures.
+
+> 
+>>
+>> As I have mentioned multiple times, the vendor patch is separate
+> 
+> And as I answered to you already twice...
+> 
+>> because I have multiple open series that depend on the vendor and
+>> there's no telling which one will be picked up first.
+> 
+> ...no one will pick up vendor prefix thus your goal will not be
+> achieved. Nothing in vendor prefix patch explains how should take it to
+> solve it. People do not take random patches, so if you wanted Rob to
+> take it, you should have been explicit.
+
+
+
+Best regards,
+Krzysztof
