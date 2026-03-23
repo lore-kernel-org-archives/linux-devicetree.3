@@ -1,1059 +1,204 @@
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010064.outbound.protection.outlook.com [52.101.84.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8593B3AE1B8
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 13:55:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.101
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774274115; cv=none; b=MR8vz4n7OZ6F0F/+clZeThsLwfNlO/ByttC7e7l45maAQecHkHSISv+U0wZRsvztN8vcE3tviJbiDPFy0sy5FeZ8+Y1FHOKzjk+UaRWBo7kzsCs4C5e6KwmEYIWH6NUOUEMfzr22nSLTN9wf0bLqYo76EVfuhJ6DT+55Zzwwo8U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774274115; c=relaxed/simple;
-	bh=JPKqyaITQ5uHiCHRYwA4d7w8vTHrooLIjg63PQUoXrc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jQ3gxDB3HEoBnLuxXZd3fKNxu+vNgJoT8QQlJonuRCmeZSRjP2w2o3bCE0t0JKfosVHHXhpEl7suBerSx4QZa5Pn8cwrswxW7rbfy+VgXFRdYeC7rrcDdEKuFo+ZFNKqINWOFfALCHhKA1gWAlW2kFD/8NWRYaH4tfY5Jdhjj/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=jLGAffn/; arc=none smtp.client-ip=185.70.43.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 154A93AEF24;
+	Mon, 23 Mar 2026 13:58:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.64
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774274315; cv=fail; b=Kot2CMsY/1u8+MtDQZmIaTPnXt+dCiAQwFFX9B1Bi8OW7xe/teNc/KdLGt8zGOBFqPCV3S2d9zKky0hgIlV04c23xnYxKC6TxauZtW1OW3jrY94Fe35NTulkS5wQj6vYXuO/S1JRosXnMhyy1BXBN9x04CER+ywAyP56oMpyy7c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774274315; c=relaxed/simple;
+	bh=XYaPuZHKxlf2fOPuwmxC6+4Pp+O9f6USSAuCHKPSr78=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=PqzMRIDgNOKYJVkE+dNXp6ZfIotPyXPpxkaNOs0oekjZPunIuEzqclXkPj9oSvo9J6szoWackMNDeVedHIdPEQENLm7+0FWNdET6XTcwHtGuzyATucwm5U7NIXaiZVuOXY9MuyZoUZYoyFPBWewyS8fR4rmJr6LnTwzU2JuGftw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=hR6ph/fR; arc=fail smtp.client-ip=52.101.84.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="jLGAffn/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1774274110; x=1774533310;
-	bh=feWEHvnJhw0p+uvNK12oWJsw4XdghZSjVbsCcwS4RZw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=jLGAffn/wxhsR1RI67WTTsj/60KWMy1Sdn+hVx6pf+cjBgJWLBgRROhpx5ILUPv+A
-	 h+iWFtkBZQu4D2iI9Dqbn2v8LdGgSfpniBdT1HXjUZwUqWTUjIdDfYYi1qfB8xczxJ
-	 dGCGp0GtHTe+lqOC0haWPXZ2/TKG8ImmfKwjIHJl1kPfxZTnL9wpA602z0c/ZNp+UI
-	 7MPbeiBIa8Nt587zOIOGu3epwDe/Dc4d29+RzTu1tVwMFfdq4lcBkFg6eF/nJrW9lQ
-	 sP8A2YEq2TzTap15ADNVFMhgxOH9yLGHpddmHuuehJZXwe02ruST5s7Z48uH9LELs0
-	 hGueXQTFVLXOQ==
-Date: Mon, 23 Mar 2026 13:55:05 +0000
-To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, Luca Weiss <luca.weiss@fairphone.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH v2 3/3] arm64: dts: qcom: Add the Nothing Phone (3a)
-Message-ID: <20260323-asteroids-v2-3-1a35fa9e178a@pm.me>
-In-Reply-To: <20260323-asteroids-v2-0-1a35fa9e178a@pm.me>
-References: <20260323-asteroids-v2-0-1a35fa9e178a@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 420df30b2f17ef1864a90e4114c89e7ef8592eb7
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="hR6ph/fR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZHotidL5sVdfcv/bv+DBuLBEvoYmPXZOnscpTBFaBPebPS+woOPh3UxaUOvU59wKFoVk2I2lClejVYc9Ke+xUVMtqVKYxfiRz7JxtyVW6NESc0uU40De3SO2oD4yL4Gq53fx6ahRmssKUU3QAFst+oMksGo3FgE+zIDSCRKLnhUtGhZQJnGY/mnFEtGdz/ui30StJxvnV2JOxKebKPdEytycPkMTvtwVLh1cHVudrFDg4hfiFqdQsZQsKoGmZgCprbatzTQ0K8jDKrNCtOHuiW/fypQZgMTA+NzBrtPm1dv3ErGcmPcXI75XMSgXDcX7hzuE5yRkYD6siCKQI5aCaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=acIHdoTAlVhpksOruUBX4RDNVPGqn3uemg+LsN7+6y4=;
+ b=lM+bHB85booWhLaKBdtlZhsF4YTWdrtrPV6BBoW4dW5f5rJDJvThqZjVUfkMLwrlxMiXJjim6iQCaL1Xn62oChQfwmh0MKBpF2ZM6Wu00kI+YJvsBReytjwKv+bzYZoglJ7JZXnwpi+Hhx5l1zuFUm8DwgbPTUzL5kVD0ubMbVByoc6WrfUMF3iJKKA7B41bFTR0u67ydt4ZeV3AWKOqEvo7oh8R3KA0tkNx3J8HKjhkw3m6/S1YB19iHnbQyOW2t6AaL1xFfsScTpiGNb85hIblTDdhFYNt7g7WAvS2cGo0MbwkWAqMLO6oZHcXeOCPRFsE3ZK8FwScZaf5OTg8HA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=acIHdoTAlVhpksOruUBX4RDNVPGqn3uemg+LsN7+6y4=;
+ b=hR6ph/fRrxwb3VQhPsoVjXa6AJ8SYkRSbMuiLF7ZH9MspcXrk12u6Gnv3dUk10ucdvqDYPQfIXsd9OQsAguD6kD8SAS1DGNk59WK4ysm7d/vSvYIrCxPaFBXol5ccJzrkAELVezY6SV9aL++uwMSnVavIe3G0IWsedg7M3xSUj9+JRhM88vRbmKVn3VVh6waf//y1iax5xKI+4NR4hmtSt06p1QIE+sPYpn+2FVJpDZoZWxfTKjNzzKg1nTO0BoRvScMjm1+6QnqAO4o9UcHvPYske2r/XZHM3QzVYIEXMWbYSOlsQ58Sua9xjRgMG8YONNLEwfGzZMvHO7LPNjkDw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DU0PR04MB9251.eurprd04.prod.outlook.com (2603:10a6:10:352::15)
+ by AM9PR04MB8354.eurprd04.prod.outlook.com (2603:10a6:20b:3b6::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Mon, 23 Mar
+ 2026 13:58:21 +0000
+Received: from DU0PR04MB9251.eurprd04.prod.outlook.com
+ ([fe80::5c3a:1a67:2e02:20d0]) by DU0PR04MB9251.eurprd04.prod.outlook.com
+ ([fe80::5c3a:1a67:2e02:20d0%5]) with mapi id 15.20.9723.030; Mon, 23 Mar 2026
+ 13:58:21 +0000
+From: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	linux-can@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	NXP S32 Linux Team <s32@nxp.com>,
+	Christophe Lizzi <clizzi@redhat.com>,
+	Alberto Ruiz <aruizrui@redhat.com>,
+	Enric Balletbo <eballetb@redhat.com>,
+	Eric Chanudet <echanude@redhat.com>,
+	Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+Subject: [PATCH v3 0/6] can: flexcan: Add NXP S32N79 SoC support
+Date: Mon, 23 Mar 2026 14:58:21 +0100
+Message-ID: <20260323135827.2129371-1-ciprianmarian.costea@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS4P190CA0064.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:656::16) To DU0PR04MB9251.eurprd04.prod.outlook.com
+ (2603:10a6:10:352::15)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU0PR04MB9251:EE_|AM9PR04MB8354:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7af57169-7c72-4b74-d97a-08de88e43e0d
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|19092799006|7416014|376014|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	xXS8bbhXB07M4JOYF+zMaD5uk1n7M8TX310LVUMvuHcHocLS4uWffb5R5nQ6TMgXERiJ24EFKi2tbOBjAc9Cxn62PurXXWQozvEecS4Af25DnXJhn64HGmPUrrlPHlAcB5xbB7TbrEvzsiJkvGkxjMYOOXadbYjwIjKDadHDyIld6CUaFKJWxZDzbHCmmbNrj36xEVnux/QY5WRvuFhosJvcHdiIz4Vu/JHX78xq2yntldP7ciTgiY3yLAGFW1rXUyIcevFrIWPgKM8FW+kIpCKKb8iG8v7gXmKXerwjWyvOGMx3by7PJ60RGH2iMlPvj2P8LgPEw5dL+P9kpbLStE2FjRpSYWu1+bSGeUXk31EHbyAHAVBYfWswLw8Xzxcslrf3rwh+ukZlE5G3AZI7hrAMZYGArTMlvmhEKrKWslK1I75V8mR+Ce8xwWFrfR09z5bhuXbzgtfBe8+7CM9nqK+rbEXNbhzPVuxpTAG+F7Vr6k2dhYG54fJ0NyH5TYJVX4/0oxVYavC6QrDaIbbdOT47Vu16nmrhsxm7MLVZWCwR0P2BKolYM6aqnQkvexsCNazadAQNmEtj+9szwFf7Svnw2UAUhpbhsIy7lY0kgVIK4tTJXXRJl+JeOSGOaDwRKhJVxMsZBnFFm8/3Psy/cagiQf36ExMS+ypbV5NJv5tdAolLbM3OQdespD/OFFM049b1RG9/LwK3e9W2EZadrMzQLGN9NYKUIdhs+FFQLLM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR04MB9251.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(7416014)(376014)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SHF4RDZ0RW83d1JVUEcralhLMjlnVXlnRHNnUUhON0FQTTVnUC9YdDJNVk5B?=
+ =?utf-8?B?dnNGcU5EbDZWT2lTVGVac0J1aXlTR1ZscFAvVGRSNCtNMWVPSlM4L0VUem1r?=
+ =?utf-8?B?bUpmVGdLcnZ5djMybWtkajdEYWo4c2QrS0NxVUEzVGUvcWFObUcvZzFRS2Vp?=
+ =?utf-8?B?d3p1WHM5ZWVQdEJTNnlHeFVLcFhzZjBRUE5CMHhXVXR6bXlZTnRlbDl6Szdq?=
+ =?utf-8?B?VE92eWlINjZ1d1A0RkZ2ZWNPYUZ4ellyaEM2S09wTzF2NWZTYTB2MHNuN2g2?=
+ =?utf-8?B?WmJSOTJJelNNSWMweEFtUHQxYXZTTUVPeWNWVlBFN0hZV2todWdMQklEY1R0?=
+ =?utf-8?B?YmlCb0YvRHhhayt2RXlERTVsVTl5azUyaGJyNGlFWHQvRFoyM1lNamJJN1Ja?=
+ =?utf-8?B?dDFHY3FOYTlCVVBVVXYxYktlS2JBNjF3dnpYMTA2N1hldllrcUg0bWJaSGVX?=
+ =?utf-8?B?Mms0bkdvcXY5VkVDRjdDbmRGYjV4cWdVWDhQOVdNK3E1YmpCcEVjd1dIVURG?=
+ =?utf-8?B?am1uVjVlV3NXVEdRdkFyRkZUTThVSGU3aklIS3oranZMblVOMWNRZHZoMTBy?=
+ =?utf-8?B?Z3poM2NEVXowZDZscGIxWStZL2xSazZtRCt1ZWREcmgvWHhraDBSOTd0SUZl?=
+ =?utf-8?B?UHhIUE01K1A1SDQ1djE1MmVQWVVxeXIzbGs0LzZOT0M1TnZ3NHJDY3RaTTRx?=
+ =?utf-8?B?K09yN3B4TXIwT0tNYXFaajhpa3NSTk5KRzlRNFAzRUN0TnZYeitCcCtPRm9a?=
+ =?utf-8?B?R21CNHVwem9zTWhFSTJMUE0yakUzcHBYK2dQM1ZkalZjL2VLV0k0bEVWUjVa?=
+ =?utf-8?B?ck83QjBXT3VVOUV2bXlsTld0Yy9aai9nL2VveEZCY1ZHNU9QcVBQWm5MUG1l?=
+ =?utf-8?B?R0p6WWZ1WitqNFlvWmV2TXAzcUZpUWYxOExWMGwvanFWLzRYaU9ydHB0dmpp?=
+ =?utf-8?B?OW1NQUFQTUNsTXVkTmYrQ3Q5N1AzWVVPMWVnSlptcGtNR2ttMTdwaG9vTkFP?=
+ =?utf-8?B?eWZxWUhacVZ0Qm9MRFZJSmVzR1ZnYSsvRkczUEZSZWd3UktzeW1Eck9TZlNx?=
+ =?utf-8?B?ZG5FRy8xSnplTVQyUjFNQ2NNK0dLaUJ2ZVF1TjRIMStULzZ1UG1yM3B4SGJi?=
+ =?utf-8?B?TzNZdUNYTTg5MVpBeHRxYzAvVThzTHNqY3kzZjZjL0IzWVF1MWt4Wm1hT203?=
+ =?utf-8?B?aTQ2ZEptTUI5WVF6N1RBS0UxSXRldFJtRm9WVlJMUW80NVgyUHN1L1hTSmVZ?=
+ =?utf-8?B?TzREWDNyMkgra2pLWXN2eCtNTFdEcXdMSnRJVzlyVXZQSG5YMU9VejhTNUZv?=
+ =?utf-8?B?a1JneHRrTXpGU1RQY3BmKy8rMnpPYkhueGY2Mm1XVXBVWHlKcERUdE9OcXZJ?=
+ =?utf-8?B?VmJORnBlWElJTmU5VmdQb1I5OHd0WmxDZTZId0M5dndEejBQZ0J5YmJzZmxD?=
+ =?utf-8?B?YW5HWWpjN3FlTEFZS1NwdTBpVVV1UnAra2QyK3drWjhobnZxcWkyNVlUL2Ra?=
+ =?utf-8?B?eVN2aWsrVW9ZYjNwZ29JTENoWmZLZ1NKcVhzQ1lJbUp5RWJoRFJOcDV2Z2hJ?=
+ =?utf-8?B?WXpwRmNwaUhMQitSYzJveU1xKytBTm9JbUxJRklsdXlyRU8wdUJTczM3Zzl0?=
+ =?utf-8?B?SVhxR05YQTYzdWpCem81RDNya0ZrejR5UmNNZ3BuYjNYdUJvNGxLaVhiTk5P?=
+ =?utf-8?B?bmlINUtKcE54dDA1WE1nNTJ3S2xJeFpMU1liNVRwWW1XU2QzUHkwYTNJcmdX?=
+ =?utf-8?B?OE5CZ3V1cUpYUnd2bjBMc2dnclkwV3hwRWZ3cHZnQzhvUG4zc0pLbER5S0Nv?=
+ =?utf-8?B?amx6MUp2V1BUeHBiK3Ivbkd3dmZQZVhnbVhQYkdvaW5BM3VTbVVSTXVtQ3c1?=
+ =?utf-8?B?TWtPUVV4Qkt2RzRPcm1HbHo2ZzZiZWMzNi9OOWpqbnk2ZTdlOW50V0E5MHBP?=
+ =?utf-8?B?bjlOY1MyWVh2VFIxUTFJT2g2Qlo2ZWg4V3pQeTZ4WmFPbTVscmtwcnVXMENt?=
+ =?utf-8?B?eGNVVUUrR2RYN3dZNHJGZEZuOFd6VnZrR1BtTzkvZytLcDFvaFFEMkpGNGRy?=
+ =?utf-8?B?S0VpVzcwUTAzWXdXSlBCSGNOMSt4YlY2Q1pVWUk1T2t4cjlkVnNVa0hpaDly?=
+ =?utf-8?B?RzZwQXFrbjhjZnJVbjZoWjhaSmczK0x2Qmt2TElPNFRqWXRUVGVxejNrWXQ0?=
+ =?utf-8?B?TENMV3JNRHdSSGJZVFdyRG1OS2JtUG0yV0lUSzN2NDNJSytaaithYVNFd1Ev?=
+ =?utf-8?B?aVpwM1p2ejY5OHkwbUpzMjhsTlJKUlBzZGVPTFBDbDNFOCtNYzNxS1ZQVHl5?=
+ =?utf-8?B?WWVwR1RwZm9pcUVyZFVxd3M3ejNUNzhhVWVkU2czUXRQOXJmaCsvdHkwVXJW?=
+ =?utf-8?Q?MSVJv5GboiO/LWp0=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7af57169-7c72-4b74-d97a-08de88e43e0d
+X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9251.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 13:58:21.1117
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7lIy0BSRpGbB8Y7uTQMBQTlvhPR94Eh7aQfyMAFoqUOpCfybRALqush0qwa8kWDmlFzxe/npdZy98aTuqi84Nx+lBSW6Nt/w9W7IucuTcyI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8354
 
-Add a devicetree for the Nothing Phone (3a) smartphone, which is based
-on the Milos/SM7635 SoC.
+From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
 
-Supported functionality as of this initial submission:
-* Camera flash/torch LED
-* Debug UART
-* Glyph LEDs (AW20036)
-* PMIC-GLINK (Charger, Fuel gauge, USB-C mode switching)
-* Assistant Key, Power Button, Volume Keys
-* Regulators (PM7550, PM8550VS, PMR735B)
-* Remoteprocs (ADSP, CDSP, MPSS, WPSS)
-* USB (USB2 + FSA4480)
+This patch series adds FlexCAN support for the NXP S32N79 SoC.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
----
- arch/arm64/boot/dts/qcom/Makefile                  |   1 +
- .../boot/dts/qcom/milos-nothing-asteroids.dts      | 964 +++++++++++++++++=
-++++
- 2 files changed, 965 insertions(+)
+The S32N79 is an automotive-grade processor from NXP with multiple
+FlexCAN instances. The FlexCAN IP integration on S32N79 differs from
+other SoCs in the interrupt routing - it uses two separate interrupt
+lines:
+  - one interrupt for mailboxes 0-127
+  - one interrupt for bus error detection and device state changes
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/M=
-akefile
-index f80b5d9cf1e8..bb7ac369682c 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -44,6 +44,7 @@ lemans-evk-el2-dtbs :=3D lemans-evk.dtb lemans-el2.dtbo
-=20
- dtb-$(CONFIG_ARCH_QCOM)=09+=3D lemans-evk-el2.dtb
- dtb-$(CONFIG_ARCH_QCOM)=09+=3D milos-fairphone-fp6.dtb
-+dtb-$(CONFIG_ARCH_QCOM)=09+=3D milos-nothing-asteroids.dtb
- dtb-$(CONFIG_ARCH_QCOM)=09+=3D monaco-evk.dtb
- dtb-$(CONFIG_ARCH_QCOM)=09+=3D msm8216-samsung-fortuna3g.dtb
- dtb-$(CONFIG_ARCH_QCOM)=09+=3D msm8916-acer-a1-724.dtb
-diff --git a/arch/arm64/boot/dts/qcom/milos-nothing-asteroids.dts b/arch/ar=
-m64/boot/dts/qcom/milos-nothing-asteroids.dts
-new file mode 100644
-index 000000000000..7393978926e4
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/milos-nothing-asteroids.dts
-@@ -0,0 +1,964 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+
-+/dts-v1/;
-+
-+#define PMIV0104_SID 7
-+
-+#include <dt-bindings/leds/common.h>
-+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-+#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+
-+#include "milos.dtsi"
-+#include "pm7550.dtsi"
-+#include "pm8550vs.dtsi"
-+#include "pmiv0104.dtsi" /* PMIV0102 */
-+#include "pmk8550.dtsi" /* PMK7635 */
-+#include "pmr735b.dtsi"
-+
-+/ {
-+=09model =3D "Nothing Phone (3a)";
-+=09compatible =3D "nothing,asteroids", "qcom,milos";
-+=09chassis-type =3D "handset";
-+
-+=09aliases {
-+=09=09serial0 =3D &uart5;
-+=09};
-+
-+=09chosen {
-+=09=09#address-cells =3D <2>;
-+=09=09#size-cells =3D <2>;
-+=09=09ranges;
-+
-+=09=09stdout-path =3D "serial0:115200n8";
-+
-+=09=09framebuffer0: framebuffer@e3940000 {
-+=09=09=09compatible =3D "simple-framebuffer";
-+=09=09=09reg =3D <0x0 0xe3940000 0x0 (2392 * 1080 * 4)>;
-+=09=09=09width =3D <1080>;
-+=09=09=09height =3D <2392>;
-+=09=09=09stride =3D <(1080 * 4)>;
-+=09=09=09format =3D "a8r8g8b8";
-+=09=09=09panel =3D <&panel>;
-+=09=09=09interconnects =3D <&mmss_noc MASTER_MDP QCOM_ICC_TAG_ALWAYS
-+=09=09=09=09=09 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+=09=09=09clocks =3D <&gcc GCC_DISP_HF_AXI_CLK>;
-+
-+=09=09=09/* Dummy panel for simple-framebuffer dimension info */
-+=09=09=09panel: dummy-panel {
-+=09=09=09=09compatible =3D "boe,bf068mwm-td0";
-+=09=09=09=09height-mm =3D <157>;
-+=09=09=09=09width-mm =3D <71>;
-+=09=09=09};
-+=09=09};
-+=09};
-+
-+=09gpio-keys {
-+=09=09compatible =3D "gpio-keys";
-+
-+=09=09pinctrl-0 =3D <&assist_default>, <&volume_up_default>;
-+=09=09pinctrl-names =3D "default";
-+
-+=09=09key-assist {
-+=09=09=09gpios =3D <&tlmm 71 GPIO_ACTIVE_LOW>;
-+=09=09=09label =3D "Assistant";
-+=09=09=09linux,code =3D <KEY_LEFTMETA>;
-+=09=09};
-+
-+=09=09key-volume-up {
-+=09=09=09gpios =3D <&pm7550_gpios 6 GPIO_ACTIVE_LOW>;
-+=09=09=09label =3D "Volume Up";
-+=09=09=09linux,code =3D <KEY_VOLUMEUP>;
-+=09=09};
-+=09};
-+
-+=09pmic-glink {
-+=09=09compatible =3D "qcom,milos-pmic-glink",
-+=09=09=09     "qcom,sm8550-pmic-glink",
-+=09=09=09     "qcom,pmic-glink";
-+=09=09#address-cells =3D <1>;
-+=09=09#size-cells =3D <0>;
-+=09=09orientation-gpios =3D <&tlmm 131 GPIO_ACTIVE_HIGH>;
-+
-+=09=09connector@0 {
-+=09=09=09compatible =3D "usb-c-connector";
-+=09=09=09reg =3D <0>;
-+
-+=09=09=09data-role =3D "dual";
-+=09=09=09power-role =3D "dual";
-+
-+=09=09=09ports {
-+=09=09=09=09#address-cells =3D <1>;
-+=09=09=09=09#size-cells =3D <0>;
-+
-+=09=09=09=09port@0 {
-+=09=09=09=09=09reg =3D <0>;
-+
-+=09=09=09=09=09pmic_glink_hs_in: endpoint {
-+=09=09=09=09=09=09remote-endpoint =3D <&usb_1_dwc3_hs>;
-+=09=09=09=09=09};
-+=09=09=09=09};
-+
-+=09=09=09=09port@1 {
-+=09=09=09=09=09reg =3D <1>;
-+
-+=09=09=09=09=09pmic_glink_sbu: endpoint {
-+=09=09=09=09=09=09remote-endpoint =3D <&fsa4480_sbu_mux>;
-+=09=09=09=09=09};
-+=09=09=09=09};
-+=09=09=09};
-+=09=09};
-+=09};
-+
-+=09vph_pwr: regulator-vph-pwr {
-+=09=09compatible =3D "regulator-fixed";
-+=09=09regulator-name =3D "vph_pwr";
-+=09=09regulator-min-microvolt =3D <3700000>;
-+=09=09regulator-max-microvolt =3D <3700000>;
-+
-+=09=09regulator-always-on;
-+=09=09regulator-boot-on;
-+=09};
-+
-+=09reserved-memory {
-+=09=09#address-cells =3D <2>;
-+=09=09#size-cells =3D <2>;
-+=09=09ranges;
-+
-+=09=09ramoops@81f20000 {
-+=09=09=09compatible =3D "ramoops";
-+=09=09=09reg =3D <0x0 0x81f20000 0x0 0x400000>;
-+=09=09=09console-size =3D <0x200000>;
-+=09=09=09mem-type =3D <2>;
-+=09=09=09pmsg-size =3D <0x200000>;
-+=09=09};
-+
-+=09=09/*
-+=09=09 * ABL is powering down display and controller if this node is
-+=09=09 * not named exactly "splash_region".
-+=09=09 */
-+=09=09splash_region@e3940000 {
-+=09=09=09reg =3D <0x0 0xe3940000 0x0 0x2b00000>;
-+=09=09=09no-map;
-+=09=09};
-+=09};
-+};
-+
-+&apps_rsc {
-+=09regulators-0 {
-+=09=09compatible =3D "qcom,pm7550-rpmh-regulators";
-+
-+=09=09vdd-l1-supply =3D <&vreg_s1b>;
-+=09=09vdd-l2-l3-supply =3D <&vreg_s3b>;
-+=09=09vdd-l4-l5-supply =3D <&vreg_s2b>;
-+=09=09vdd-l7-supply =3D <&vreg_s1b>;
-+=09=09vdd-l8-supply =3D <&vreg_s1b>;
-+=09=09vdd-l9-l10-supply =3D <&vreg_s1b>;
-+=09=09vdd-l11-supply =3D <&vreg_s1b>;
-+=09=09vdd-l12-l14-supply =3D <&vreg_bob>;
-+=09=09vdd-l13-l16-supply =3D <&vreg_bob>;
-+=09=09vdd-l15-l17-l18-l19-l20-l21-l22-l23-supply =3D <&vreg_bob>;
-+=09=09vdd-s1-supply =3D <&vph_pwr>;
-+=09=09vdd-s2-supply =3D <&vph_pwr>;
-+=09=09vdd-s3-supply =3D <&vph_pwr>;
-+=09=09vdd-s4-supply =3D <&vph_pwr>;
-+=09=09vdd-s5-supply =3D <&vph_pwr>;
-+=09=09vdd-s6-supply =3D <&vph_pwr>;
-+=09=09vdd-bob-supply =3D <&vph_pwr>;
-+
-+=09=09qcom,pmic-id =3D "b";
-+
-+=09=09vreg_s1b: smps1 {
-+=09=09=09regulator-name =3D "vreg_s1b";
-+=09=09=09regulator-min-microvolt =3D <1800000>;
-+=09=09=09regulator-max-microvolt =3D <2080000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_s2b: smps2 {
-+=09=09=09regulator-name =3D "vreg_s2b";
-+=09=09=09regulator-min-microvolt =3D <1256000>;
-+=09=09=09regulator-max-microvolt =3D <1408000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_s3b: smps3 {
-+=09=09=09regulator-name =3D "vreg_s3b";
-+=09=09=09regulator-min-microvolt =3D <880000>;
-+=09=09=09regulator-max-microvolt =3D <1040000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_s4b: smps4 {
-+=09=09=09regulator-name =3D "vreg_s4b";
-+=09=09=09regulator-min-microvolt =3D <300000>;
-+=09=09=09regulator-max-microvolt =3D <1004000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l1b: ldo1 {
-+=09=09=09regulator-name =3D "vreg_l1b";
-+=09=09=09regulator-min-microvolt =3D <1800000>;
-+=09=09=09regulator-max-microvolt =3D <1800000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l2b: ldo2 {
-+=09=09=09regulator-name =3D "vreg_l2b";
-+=09=09=09regulator-min-microvolt =3D <880000>;
-+=09=09=09regulator-max-microvolt =3D <912000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l3b: ldo3 {
-+=09=09=09regulator-name =3D "vreg_l3b";
-+=09=09=09regulator-min-microvolt =3D <880000>;
-+=09=09=09regulator-max-microvolt =3D <912000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l4b: ldo4 {
-+=09=09=09regulator-name =3D "vreg_l4b";
-+=09=09=09regulator-min-microvolt =3D <1200000>;
-+=09=09=09regulator-max-microvolt =3D <1200000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l5b: ldo5 {
-+=09=09=09regulator-name =3D "vreg_l5b";
-+=09=09=09regulator-min-microvolt =3D <1200000>;
-+=09=09=09regulator-max-microvolt =3D <1200000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l7b: ldo7 {
-+=09=09=09regulator-name =3D "vreg_l7b";
-+=09=09=09regulator-min-microvolt =3D <1800000>;
-+=09=09=09regulator-max-microvolt =3D <1800000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l8b: ldo8 {
-+=09=09=09regulator-name =3D "vreg_l8b";
-+=09=09=09regulator-min-microvolt =3D <1800000>;
-+=09=09=09regulator-max-microvolt =3D <1800000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l9b: ldo9 {
-+=09=09=09regulator-name =3D "vreg_l9b";
-+=09=09=09regulator-min-microvolt =3D <1800000>;
-+=09=09=09regulator-max-microvolt =3D <1800000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l10b: ldo10 {
-+=09=09=09regulator-name =3D "vreg_l10b";
-+=09=09=09regulator-min-microvolt =3D <1800000>;
-+=09=09=09regulator-max-microvolt =3D <1800000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l11b: ldo11 {
-+=09=09=09regulator-name =3D "vreg_l11b";
-+=09=09=09regulator-min-microvolt =3D <1800000>;
-+=09=09=09regulator-max-microvolt =3D <1800000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l12b: ldo12 {
-+=09=09=09regulator-name =3D "vreg_l12b";
-+=09=09=09regulator-min-microvolt =3D <2952000>;
-+=09=09=09regulator-max-microvolt =3D <2952000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l13b: ldo13 {
-+=09=09=09regulator-name =3D "vreg_l13b";
-+=09=09=09regulator-min-microvolt =3D <2700000>;
-+=09=09=09regulator-max-microvolt =3D <3300000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l14b: ldo14 {
-+=09=09=09regulator-name =3D "vreg_l14b";
-+=09=09=09regulator-min-microvolt =3D <3300000>;
-+=09=09=09regulator-max-microvolt =3D <3304000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l15b: ldo15 {
-+=09=09=09regulator-name =3D "vreg_l15b";
-+=09=09=09regulator-min-microvolt =3D <3300000>;
-+=09=09=09regulator-max-microvolt =3D <3304000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l16b: ldo16 {
-+=09=09=09regulator-name =3D "vreg_l16b";
-+=09=09=09regulator-min-microvolt =3D <3008000>;
-+=09=09=09regulator-max-microvolt =3D <3008000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l17b: ldo17 {
-+=09=09=09regulator-name =3D "vreg_l17b";
-+=09=09=09regulator-min-microvolt =3D <3104000>;
-+=09=09=09regulator-max-microvolt =3D <3104000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l18b: ldo18 {
-+=09=09=09regulator-name =3D "vreg_l18b";
-+=09=09=09regulator-min-microvolt =3D <2800000>;
-+=09=09=09regulator-max-microvolt =3D <2800000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l19b: ldo19 {
-+=09=09=09regulator-name =3D "vreg_l19b";
-+=09=09=09regulator-min-microvolt =3D <3000000>;
-+=09=09=09regulator-max-microvolt =3D <3000000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l20b: ldo20 {
-+=09=09=09regulator-name =3D "vreg_l20b";
-+=09=09=09regulator-min-microvolt =3D <1620000>;
-+=09=09=09regulator-max-microvolt =3D <3544000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l21b: ldo21 {
-+=09=09=09regulator-name =3D "vreg_l21b";
-+=09=09=09regulator-min-microvolt =3D <1620000>;
-+=09=09=09regulator-max-microvolt =3D <3544000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l22b: ldo22 {
-+=09=09=09regulator-name =3D "vreg_l22b";
-+=09=09=09regulator-min-microvolt =3D <3200000>;
-+=09=09=09regulator-max-microvolt =3D <3200000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l23b: ldo23 {
-+=09=09=09regulator-name =3D "vreg_l23b";
-+=09=09=09regulator-min-microvolt =3D <1650000>;
-+=09=09=09regulator-max-microvolt =3D <3544000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_bob: bob {
-+=09=09=09regulator-name =3D "vreg_bob";
-+=09=09=09regulator-min-microvolt =3D <3008000>;
-+=09=09=09regulator-max-microvolt =3D <3960000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+=09};
-+
-+=09regulators-1 {
-+=09=09compatible =3D "qcom,pm8550vs-rpmh-regulators";
-+
-+=09=09vdd-l1-supply =3D <&vreg_s3b>;
-+=09=09vdd-l2-supply =3D <&vreg_s3b>;
-+=09=09vdd-l3-supply =3D <&vreg_s3b>;
-+=09=09vdd-s3-supply =3D <&vph_pwr>;
-+=09=09vdd-s4-supply =3D <&vph_pwr>;
-+=09=09vdd-s5-supply =3D <&vph_pwr>;
-+=09=09vdd-s6-supply =3D <&vph_pwr>;
-+
-+=09=09qcom,pmic-id =3D "c";
-+
-+=09=09vreg_s3c: smps3 {
-+=09=09=09regulator-name =3D "vreg_s3c";
-+=09=09=09regulator-min-microvolt =3D <1010000>;
-+=09=09=09regulator-max-microvolt =3D <1120000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_s4c: smps4 {
-+=09=09=09regulator-name =3D "vreg_s4c";
-+=09=09=09regulator-min-microvolt =3D <352000>;
-+=09=09=09regulator-max-microvolt =3D <812000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_s5c: smps5 {
-+=09=09=09regulator-name =3D "vreg_s5c";
-+=09=09=09regulator-min-microvolt =3D <540000>;
-+=09=09=09regulator-max-microvolt =3D <884000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_s6c: smps6 {
-+=09=09=09regulator-name =3D "vreg_s6c";
-+=09=09=09regulator-min-microvolt =3D <352000>;
-+=09=09=09regulator-max-microvolt =3D <904000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l1c: ldo1 {
-+=09=09=09regulator-name =3D "vreg_l1c";
-+=09=09=09regulator-min-microvolt =3D <320000>;
-+=09=09=09regulator-max-microvolt =3D <1004000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l2c: ldo2 {
-+=09=09=09regulator-name =3D "vreg_l2c";
-+=09=09=09regulator-min-microvolt =3D <320000>;
-+=09=09=09regulator-max-microvolt =3D <650000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l3c: ldo3 {
-+=09=09=09regulator-name =3D "vreg_l3c";
-+=09=09=09regulator-min-microvolt =3D <320000>;
-+=09=09=09regulator-max-microvolt =3D <912000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+=09};
-+
-+=09regulators-2 {
-+=09=09compatible =3D "qcom,pmr735b-rpmh-regulators";
-+
-+=09=09vdd-l1-l2-supply =3D <&vreg_s3b>;
-+=09=09vdd-l3-supply =3D <&vreg_s3b>;
-+=09=09vdd-l4-supply =3D <&vreg_s1b>;
-+=09=09vdd-l5-supply =3D <&vreg_s2b>;
-+=09=09vdd-l7-l8-supply =3D <&vreg_s2b>;
-+=09=09vdd-l9-supply =3D <&vreg_s3b>;
-+=09=09vdd-l10-supply =3D <&vreg_s1b>;
-+=09=09vdd-l11-supply =3D <&vreg_s3b>;
-+=09=09vdd-l12-supply =3D <&vreg_s3b>;
-+
-+=09=09qcom,pmic-id =3D "f";
-+
-+=09=09vreg_l1f: ldo1 {
-+=09=09=09regulator-name =3D "vreg_l1f";
-+=09=09=09regulator-min-microvolt =3D <852000>;
-+=09=09=09regulator-max-microvolt =3D <950000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l2f: ldo2 {
-+=09=09=09regulator-name =3D "vreg_l2f";
-+=09=09=09regulator-min-microvolt =3D <751000>;
-+=09=09=09regulator-max-microvolt =3D <824000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l3f: ldo3 {
-+=09=09=09regulator-name =3D "vreg_l3f";
-+=09=09=09regulator-min-microvolt =3D <650000>;
-+=09=09=09regulator-max-microvolt =3D <880000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l4f: ldo4 {
-+=09=09=09regulator-name =3D "vreg_l4f";
-+=09=09=09regulator-min-microvolt =3D <1700000>;
-+=09=09=09regulator-max-microvolt =3D <1950000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l5f: ldo5 {
-+=09=09=09regulator-name =3D "vreg_l5f";
-+=09=09=09regulator-min-microvolt =3D <1140000>;
-+=09=09=09regulator-max-microvolt =3D <1260000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l7f: ldo7 {
-+=09=09=09regulator-name =3D "vreg_l7f";
-+=09=09=09regulator-min-microvolt =3D <1080000>;
-+=09=09=09regulator-max-microvolt =3D <1350000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l9f: ldo9 {
-+=09=09=09regulator-name =3D "vreg_l9f";
-+=09=09=09regulator-min-microvolt =3D <870000>;
-+=09=09=09regulator-max-microvolt =3D <970000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l10f: ldo10 {
-+=09=09=09regulator-name =3D "vreg_l10f";
-+=09=09=09regulator-min-microvolt =3D <1500000>;
-+=09=09=09regulator-max-microvolt =3D <1800000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l11f: ldo11 {
-+=09=09=09regulator-name =3D "vreg_l11f";
-+=09=09=09regulator-min-microvolt =3D <320000>;
-+=09=09=09regulator-max-microvolt =3D <864000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+
-+=09=09vreg_l12f: ldo12 {
-+=09=09=09regulator-name =3D "vreg_l12f";
-+=09=09=09regulator-min-microvolt =3D <480000>;
-+=09=09=09regulator-max-microvolt =3D <884000>;
-+=09=09=09regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-+=09=09};
-+=09};
-+};
-+
-+&dispcc {
-+=09/* Disable for now so simple-framebuffer continues working */
-+=09status =3D "disabled";
-+};
-+
-+&gcc {
-+=09protected-clocks =3D <GCC_PCIE_1_AUX_CLK>, <GCC_PCIE_1_AUX_CLK_SRC>,
-+=09=09=09   <GCC_PCIE_1_CFG_AHB_CLK>, <GCC_PCIE_1_MSTR_AXI_CLK>,
-+=09=09=09   <GCC_PCIE_1_PHY_RCHNG_CLK>, <GCC_PCIE_1_PHY_RCHNG_CLK_SRC>,
-+=09=09=09   <GCC_PCIE_1_PIPE_CLK>, <GCC_PCIE_1_PIPE_CLK_SRC>,
-+=09=09=09   <GCC_PCIE_1_PIPE_DIV2_CLK>, <GCC_PCIE_1_PIPE_DIV2_CLK_SRC>,
-+=09=09=09   <GCC_PCIE_1_SLV_AXI_CLK>, <GCC_PCIE_1_SLV_Q2A_AXI_CLK>;
-+};
-+
-+&i2c7 {
-+=09clock-frequency =3D <400000>;
-+
-+=09status =3D "okay";
-+
-+=09led-controller@3a {
-+=09=09compatible =3D "awinic,aw20036";
-+=09=09reg =3D <0x3a>;
-+=09=09#address-cells =3D <1>;
-+=09=09#size-cells =3D <0>;
-+
-+=09=09enable-gpios =3D <&tlmm 54 GPIO_ACTIVE_HIGH>;
-+
-+=09=09led@0 {
-+=09=09=09reg =3D <0x0>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <0>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@1 {
-+=09=09=09reg =3D <0x1>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <1>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@2 {
-+=09=09=09reg =3D <0x2>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <2>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@3 {
-+=09=09=09reg =3D <0x3>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <3>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@4 {
-+=09=09=09reg =3D <0x4>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <4>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@5 {
-+=09=09=09reg =3D <0x5>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <5>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@6 {
-+=09=09=09reg =3D <0x6>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <6>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@7 {
-+=09=09=09reg =3D <0x7>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-2";
-+=09=09=09function-enumerator =3D <0>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@8 {
-+=09=09=09reg =3D <0x8>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <0>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@9 {
-+=09=09=09reg =3D <0x9>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <1>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@a {
-+=09=09=09reg =3D <0xa>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <2>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@b {
-+=09=09=09reg =3D <0xb>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <3>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@c {
-+=09=09=09reg =3D <0xc>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <7>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@d {
-+=09=09=09reg =3D <0xd>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <8>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@e {
-+=09=09=09reg =3D <0xe>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <9>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@f {
-+=09=09=09reg =3D <0xf>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <10>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@10 {
-+=09=09=09reg =3D <0x10>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <11>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@11 {
-+=09=09=09reg =3D <0x11>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <12>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@12 {
-+=09=09=09reg =3D <0x12>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <13>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@13 {
-+=09=09=09reg =3D <0x13>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-2";
-+=09=09=09function-enumerator =3D <1>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@14 {
-+=09=09=09reg =3D <0x14>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-2";
-+=09=09=09function-enumerator =3D <2>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@15 {
-+=09=09=09reg =3D <0x15>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <4>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@16 {
-+=09=09=09reg =3D <0x16>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <5>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@17 {
-+=09=09=09reg =3D <0x17>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <6>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@18 {
-+=09=09=09reg =3D <0x18>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <14>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@19 {
-+=09=09=09reg =3D <0x19>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <15>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@1a {
-+=09=09=09reg =3D <0x1a>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <16>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@1b {
-+=09=09=09reg =3D <0x1b>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <17>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@1c {
-+=09=09=09reg =3D <0x1c>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <18>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@1d {
-+=09=09=09reg =3D <0x1d>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-1";
-+=09=09=09function-enumerator =3D <19>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@1e {
-+=09=09=09reg =3D <0x1e>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-2";
-+=09=09=09function-enumerator =3D <3>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@1f {
-+=09=09=09reg =3D <0x1f>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-2";
-+=09=09=09function-enumerator =3D <4>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@20 {
-+=09=09=09reg =3D <0x20>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <7>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@21 {
-+=09=09=09reg =3D <0x21>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <8>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@22 {
-+=09=09=09reg =3D <0x22>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <9>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+
-+=09=09led@23 {
-+=09=09=09reg =3D <0x23>;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09=09function =3D "glyph-3";
-+=09=09=09function-enumerator =3D <10>;
-+=09=09=09led-max-microamp =3D <6560>;
-+=09=09};
-+=09};
-+
-+=09typec-mux@42 {
-+=09=09compatible =3D "fcs,fsa4480";
-+=09=09reg =3D <0x42>;
-+
-+=09=09vcc-supply =3D <&vph_pwr>;
-+
-+=09=09mode-switch;
-+=09=09orientation-switch;
-+
-+=09=09port {
-+=09=09=09fsa4480_sbu_mux: endpoint {
-+=09=09=09=09remote-endpoint =3D <&pmic_glink_sbu>;
-+=09=09=09};
-+=09=09};
-+=09};
-+};
-+
-+&pm7550_flash {
-+=09status =3D "okay";
-+
-+=09led-0 {
-+=09=09function =3D LED_FUNCTION_FLASH;
-+=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09led-sources =3D <1>, <4>;
-+=09=09led-max-microamp =3D <350000>;
-+=09=09flash-max-microamp =3D <1500000>;
-+=09=09flash-max-timeout-us =3D <400000>;
-+=09};
-+};
-+
-+&pm7550_gpios {
-+=09volume_up_default: volume-up-default-state {
-+=09=09pins =3D "gpio6";
-+=09=09function =3D PMIC_GPIO_FUNC_NORMAL;
-+=09=09power-source =3D <1>;
-+=09=09bias-pull-up;
-+=09};
-+};
-+
-+&pm8550vs_c {
-+=09status =3D "okay";
-+};
-+
-+&pmiv0104_eusb2_repeater {
-+=09vdd18-supply =3D <&vreg_l7b>;
-+=09vdd3-supply =3D <&vreg_l17b>;
-+
-+=09qcom,tune-res-fsdif =3D /bits/ 8 <0x5>;
-+=09qcom,tune-usb2-amplitude =3D /bits/ 8 <0x8>;
-+=09qcom,tune-usb2-disc-thres =3D /bits/ 8 <0x7>;
-+=09qcom,tune-usb2-preem =3D /bits/ 8 <0x6>;
-+};
-+
-+&pon_pwrkey {
-+=09status =3D "okay";
-+};
-+
-+&pon_resin {
-+=09linux,code =3D <KEY_VOLUMEDOWN>;
-+
-+=09status =3D "okay";
-+};
-+
-+&qupv3_id_0 {
-+=09status =3D "okay";
-+};
-+
-+&qupv3_id_1 {
-+=09status =3D "okay";
-+};
-+
-+&remoteproc_adsp {
-+=09firmware-name =3D "qcom/milos/nothing/asteroids/adsp.mbn",
-+=09=09=09"qcom/milos/nothing/asteroids/adsp_dtb.mbn";
-+
-+=09status =3D "okay";
-+};
-+
-+&remoteproc_cdsp {
-+=09firmware-name =3D "qcom/milos/nothing/asteroids/cdsp.mbn",
-+=09=09=09"qcom/milos/nothing/asteroids/cdsp_dtb.mbn";
-+
-+=09status =3D "okay";
-+};
-+
-+&remoteproc_mpss {
-+=09firmware-name =3D "qcom/milos/nothing/asteroids/modem.mbn";
-+
-+=09status =3D "okay";
-+};
-+
-+&remoteproc_wpss {
-+=09firmware-name =3D "qcom/milos/nothing/asteroids/wpss.mbn";
-+
-+=09status =3D "okay";
-+};
-+
-+&tlmm {
-+=09gpio-reserved-ranges =3D <13 1>, /* Display */
-+=09=09=09       <63 2>; /* WLAN UART */
-+
-+=09assist_default: assist-default-state {
-+=09=09pins =3D "gpio71";
-+=09=09function =3D "gpio";
-+=09=09bias-pull-up;
-+=09};
-+};
-+
-+&trusted_apps_mem {
-+=09reg =3D <0x0 0xe9500000 0x0 0x5500000>;
-+};
-+
-+/*
-+ * UART_RX and UART_TX are routed to test points on board, not
-+ * available over USB.
-+ */
-+&uart5 {
-+=09status =3D "okay";
-+};
-+
-+&usb_1 {
-+=09/* USB 2.0 only, HW does not support USB 3.x */
-+=09qcom,select-utmi-as-pipe-clk;
-+
-+=09status =3D "okay";
-+};
-+
-+&usb_1_dwc3_hs {
-+=09remote-endpoint =3D <&pmic_glink_hs_in>;
-+};
-+
-+&usb_1_hsphy {
-+=09vdd-supply =3D <&vreg_l2b>;
-+=09vdda12-supply =3D <&vreg_l4b>;
-+
-+=09phys =3D <&pmiv0104_eusb2_repeater>;
-+
-+=09status =3D "okay";
-+};
+The CAN controllers are connected through an irqsteer interrupt
+controller in the RCU (Resource Control Unit) domain.
 
---=20
-2.53.0
+This series:
+  1. Splits flexcan_irq() into dedicated handlers for multi-IRQ platforms
+  2. Adds dt-bindings documentation for S32N79 FlexCAN
+  3. Introduces FLEXCAN_QUIRK_IRQ_BERR to handle the two-interrupt
+     configuration
+  4. Adds S32N79 device data and compatible string to the driver
+  5. Adds FlexCAN device tree nodes for S32N79 SoC
+  6. Enables FlexCAN devices on the S32N79-RDB board
 
+Tested on S32N79-RDB board with CAN and CAN FD communication.
+
+v3 -> v2
+- Split flexcan_irq() into dedicated handlers (flexcan_irq_mb,
+  flexcan_irq_boff, flexcan_irq_berr) to fix duplicate event
+  processing when multiple IRQ lines run concurrently (new patch).
+- Added flexcan_irq_esr() handler composing state + berr for S32N79
+- Ordered quirks used by s32n devtype data by value.
+
+v2 -> v1
+- Renamed FLEXCAN_QUIRK_NR_IRQ_2 to FLEXCAN_QUIRK_IRQ_BERR to better
+describe the actual hardware feature
+- Appended new quirk at the end
+- Switched from platform_get_irq to platform_get_irq_byname usage
+- Updated interrupt description in dt-bindings
+
+
+Ciprian Marian Costea (6):
+  can: flexcan: use dedicated IRQ handlers for multi-IRQ platforms
+  dt-bindings: can: fsl,flexcan: add NXP S32N79 SoC support
+  can: flexcan: add FLEXCAN_QUIRK_IRQ_BERR quirk
+  can: flexcan: add NXP S32N79 SoC support
+  arm64: dts: s32n79: add FlexCAN nodes
+  arm64: dts: s32n79: enable FlexCAN devices
+
+ .../bindings/net/can/fsl,flexcan.yaml         |  30 ++-
+ arch/arm64/boot/dts/freescale/s32n79-rdb.dts  |  12 ++
+ arch/arm64/boot/dts/freescale/s32n79.dtsi     |  50 +++++
+ drivers/net/can/flexcan/flexcan-core.c        | 180 ++++++++++++++++--
+ drivers/net/can/flexcan/flexcan.h             |   2 +
+ 5 files changed, 253 insertions(+), 21 deletions(-)
+
+-- 
+2.43.0
 
