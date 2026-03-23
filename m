@@ -1,145 +1,145 @@
-Received: from abi149ajj126.mrs1.oracleemaildelivery.com (abi149ajj126.mrs1.oracleemaildelivery.com [129.149.100.126])
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D162D29BD82
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 09:25:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=129.149.100.126
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096451FE44A;
+	Mon, 23 Mar 2026 09:30:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.32.30.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774257938; cv=none; b=oQ+czlSTR1WNewEb//aOSQrK4mBCegGSYdygz8enGDRGvYDNUvYcbGvtWTZ6JFwMHmEByiXJRYkDCrl624XGqkC9XHaUUi78KJUiJjzQSxEeL2YlKV9CRr528A3og0ne0vxrp5208W1MIl33kWJvwDKaeNzorwvizHVzdbpDSdk=
+	t=1774258258; cv=none; b=SywneGzCxJMMqvncLzjULehF842RIfyQd/rd+y+fWLBnWVID+4GX4qaGSdfHbjii2gmfKqelNBDhJQVLda6FVvbrL1vxLUdFFcaqgeua77cd29hVEdrjMP0N723iRvH+TgEv/9M0IKH1G7Td1lthhXn7WgNrw5JlIn2EqFEi7lY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774257938; c=relaxed/simple;
-	bh=jtuJ3sDSTRydL4QDqtLQQf/RxGRON6GfNn+9/Wpf6pU=;
-	h=From:Date:Subject:MIME-version:Content-type:Message-id:To:Cc; b=Z5YQDB0VI6JYLaiE/hI8DvV5cr2m6anZ2w6S5DDiQxkI9o6FS+SJHfnC5hMqleWHA1l2BOflI9KFBPPcNBUEfGZnE434YjD0oTKQLGRmC7soqFR0rYyGkvDldgsKslHOq79qAyi7KM7aNQFzKhlfDrM7BZxDl8Gqvm58t3xQKNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pta2002.com; spf=pass smtp.mailfrom=mrs1.rp.oracleemaildelivery.com; dkim=pass (2048-bit key) header.d=pta2002.com header.i=@pta2002.com header.b=SGykjm1H; dkim=pass (2048-bit key) header.d=mrs1.rp.oracleemaildelivery.com header.i=@mrs1.rp.oracleemaildelivery.com header.b=dTjfB1IB; arc=none smtp.client-ip=129.149.100.126
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pta2002.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mrs1.rp.oracleemaildelivery.com
+	s=arc-20240116; t=1774258258; c=relaxed/simple;
+	bh=+sB9HwYJtDPm2Yh5tyrCOddW8M/7xA3pzUn3aUos3JE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZDGDe2YMBQFA4Md/1UeT1Gg1m4HDl8SE7rI2anFYWO77liysRdu4Em+SQ4ywVJtD/zSyq/EUaihQhpAg3x1yYsr/U00v3PxPEkjO8JjY2joYjpuJm3bpFcb2FENUWz46hoRUTcS5RHFr/lLWrwRCEKuMPDlIpUfWAXKH+EOh5nU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk; spf=none smtp.mailfrom=armlinux.org.uk; dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b=etqlIQfJ; arc=none smtp.client-ip=78.32.30.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=armlinux.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pta2002.com header.i=@pta2002.com header.b="SGykjm1H";
-	dkim=pass (2048-bit key) header.d=mrs1.rp.oracleemaildelivery.com header.i=@mrs1.rp.oracleemaildelivery.com header.b="dTjfB1IB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=pta2002-202603;
- d=pta2002.com;
- h=Date:To:From:Subject:Message-Id:MIME-Version:Sender:List-Unsubscribe:List-Unsubscribe-Post;
- bh=QqcNY84HU56C92q/VUNsNqUbrdG+Xf4zqhVnZIVoFdA=;
- b=SGykjm1HaHEpc6bT9Jssyqt9AwB5ELid06ZDnh0n5u9iNONzf7Q+Yq/hyp+MpQYIUABQpx7c2FLM
-   hZ71V2eGNnP6SQmD+vkCOdWkEs0CeI8PANSz9HCqLn7HMlfVvRkbGiDXEW3VoImpSsqEIN95gFBG
-   n5BmQ+5MweKTSQWJ6t+YGHkitAn855pCTXJ1q699ewzIlX6gsIY4uEwzsH66hkPFBzYjTfvsUN00
-   ty7duN7YRDYhz6pDnZ5Vr1zMNDxPdg8GZ3q2R/yIAd9JyJGoRCbCnFmH8VekVcVbInZb7nLL6Na2
-   wNhBqCDC9TfFOZxo0Sa9XbOGujTP9XQiFkwmew==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=prod-mrs-20211019;
- d=mrs1.rp.oracleemaildelivery.com;
- h=Date:To:From:Subject:Message-Id:MIME-Version:Sender:List-Unsubscribe:List-Unsubscribe-Post;
- bh=QqcNY84HU56C92q/VUNsNqUbrdG+Xf4zqhVnZIVoFdA=;
- b=dTjfB1IBix5pQoQ9OHqiSthvY182XwUZcdhSN55pqKjIoaXMfWqj1yjszEQHEhSUAUg5E23zc+A7
-   saEA/t7Hgj1467E1jlaoehv4pvobH+FW7tc1gRizMO4Ho5MRKVhm1CulW/SZfAExei95FMrj6yFO
-   Mdi9+rAphlv/QioTeStD2Z50CxWsZv39ZN7tRpmSJ5NVBO5FkCAwLly/Obgt795wcKTYMyLbgjjd
-   mvSHmGrksfEuqhRQHFdDqMg1HSwiXEQgVI6/H2ddrepH2SROu3N6XO2UA2an/DFXay5l85ThK5vr
-   k5+OlcNWYSQUp5dxyFhRYy3usrH+5eUXBr7nEw==
-Received: by omta-ad1-fd2-401-eu-marseille-1.omtaad1.vcndpmrs.oraclevcn.com
- (Oracle Communications Messaging Server 8.1.0.1.20260212 64bit (built Feb 12
- 2026))
- with ESMTPS id <0TCC00F3NI6NB3B0@omta-ad1-fd2-401-eu-marseille-1.omtaad1.vcndpmrs.oraclevcn.com>
- for devicetree@vger.kernel.org; Mon, 23 Mar 2026 09:25:35 +0000 (GMT)
-List-Unsubscribe-Post: List-Unsubscribe=One-Click
-From: Pedro Alves <pta2002@pta2002.com>
-Date: Mon, 23 Mar 2026 09:25:33 +0000
-Subject: [PATCH RESEND v2] arm64: dts: rockchip: configure hdmirx in Rock 5 ITX
+	dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b="etqlIQfJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=F3rUhqBT1KeCDZlm1nLAVKvFKDzC8SHFz9yiyugPwjo=; b=etqlIQfJSSDSaWC3g3CkplcGX+
+	Az+ECRx6Cd67IDOLKoApAzDji/xzE74lFrsxHONaOYr/6D8zl1uKVNXf+EdkRlQYLvjekUSCPPgJl
+	B6elVyuHZdADUUDQxvi7dFUr7eCVzXxl8y2zVjFz6YGCEZb/UGk5ApAGJIymWdcY2ByE5R4P2SXkH
+	Ay/gkmTp1OTxO+62vbYDEZ5Od3e1c1wGDJ+xblhu518mcW5l5nCzOv6lbc8gCjnEYU8H1l13kthWV
+	ugySbdVObDVq418ku/v3FG963j2qdsGQbxQthOMQsnw+tUTC+AWi/TwUKK55j1kpSSqv+mCKZgNAf
+	EpjKTHNA==;
+Received: from shell.armlinux.org.uk ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:58958)
+	by pandora.armlinux.org.uk with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <linux@armlinux.org.uk>)
+	id 1w4bcS-000000000Cw-41vC;
+	Mon, 23 Mar 2026 09:30:45 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+	(envelope-from <linux@shell.armlinux.org.uk>)
+	id 1w4bcQ-000000003up-3Y8E;
+	Mon, 23 Mar 2026 09:30:42 +0000
+Date: Mon, 23 Mar 2026 09:30:42 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Wei Fang <wei.fang@nxp.com>
+Cc: claudiu.manoil@nxp.com, vladimir.oltean@nxp.com, xiaoning.wang@nxp.com,
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, f.fainelli@gmail.com,
+	frank.li@nxp.com, chleroy@kernel.org, horms@kernel.org,
+	andrew@lunn.ch, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev
+Subject: Re: [PATCH v2 net-next 11/14] net: dsa: netc: add phylink MAC
+ operations
+Message-ID: <acEIQqI-_oyCym8O@shell.armlinux.org.uk>
+References: <20260323060752.1157031-1-wei.fang@nxp.com>
+ <20260323060752.1157031-12-wei.fang@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-version: 1.0
-Content-type: text/plain; charset="utf-8"
-Content-transfer-encoding: 7bit
-Message-id: <20260323-radxa-r5-itx-hdmirx-v2-1-c52501909577@pta2002.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Pedro Alves <pta2002@pta2002.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774257934; l=2272;
- i=pta2002@pta2002.com; s=20260304; h=from:subject:message-id;
- bh=jtuJ3sDSTRydL4QDqtLQQf/RxGRON6GfNn+9/Wpf6pU=;
- b=u+oT4e3lQ1Mx0jJN9zwHOslJ4vLhPOFi3qoN3g3AHn7FFUgVyrilOyNoIzDraMN5SqUeNOFF4
- /KLBNb9KgoACNjDJsmTE0GdWftgOVYCBf2Mmox0xIMzxmltyicTF/Fg
-X-Developer-Key: i=pta2002@pta2002.com; a=ed25519;
- pk=leagPTMCtYIB9nQJfoZ5+TYiuZUercAQHfGnFVTTaiQ=
-Reporting-Meta:
- AAEZj3e2HI7KDnQhf5vUwFKE8bI//bFf2o2wX3x9dOI4xOQ0+M5dRFepE216EC/6
- CouR05T8cWH7WqfaWBvp+NownUX/HGcqxfVVhJFGOXmsRfhWHBEWuTS5V7OBFA/Y
- qaH2Vyvajfp3iJFG3BUzbQ2J/nn3oyVxLhoUQ8v0a8PvPZeXFjc7fK2DpjOOZXX8
- 728UDfTSy9mjrMwgcjjz2QOase/QK55NObqjmW89g1PaC2JygIJac5/NKfqL6QA8
- zy/U1+2RTIESbOMX2vnhLqQzbXXxDesSjZCA9wfhkH4nD1asLkyeVs+k/fUTqchQ
- SihECZP6+A4Tc7x84FQo0VPWobxGxXSf9jLRO6RN6rJ57voN0pr2FjOgsdsw/Wp2
- SkMpj0EFuyh5dEzk36M+L6TAJXu4kuZWE9i/H2UQOraWGq+MqAvKN/DGuXgLIegm
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260323060752.1157031-12-wei.fang@nxp.com>
+Sender: Russell King (Oracle) <linux@armlinux.org.uk>
 
-The Radxa Rock 5 ITX board exposes an HDMI input exactly the same way as
-the Rock 5B, but this was not reflected in its DTS.
+On Mon, Mar 23, 2026 at 02:07:49PM +0800, Wei Fang wrote:
+> +static void netc_port_set_mac_mode(struct netc_port *np,
+> +				   unsigned int mode,
+> +				   phy_interface_t phy_mode)
+> +{
+> +	u32 mask = PM_IF_MODE_IFMODE | PM_IF_MODE_REVMII | PM_IF_MODE_ENA;
+> +	u32 val = 0;
+> +
+> +	switch (phy_mode) {
+> +	case PHY_INTERFACE_MODE_RGMII:
+> +	case PHY_INTERFACE_MODE_RGMII_ID:
+> +	case PHY_INTERFACE_MODE_RGMII_RXID:
+> +	case PHY_INTERFACE_MODE_RGMII_TXID:
+> +		val |= IFMODE_RGMII;
+> +		/* Enable auto-negotiation for the MAC if its
+> +		 * RGMII interface supports In-Band status.
+> +		 */
+> +		if (phylink_autoneg_inband(mode))
+> +			val |= PM_IF_MODE_ENA;
 
-Change the rk3588-rock-5-itx to configure and enable the hdmi_receiver
-and hdmi_receiver_cma nodes.
+I would prefer newer drivers not to use phylink_autoneg_inband()
+anymore. Note that there is no need to support RGMII inband in the
+kernel (nor is there any proper support without a "phylink_pcs"
+being present to provide the inband status.)
 
-The hot-plug detection (HPD) pin keeps the hdmirx_det name rather than
-the hdmirx_hpd name used in other boards since that is what matches the
-official schematics (HDMIIRX_DET_L).
+> +static void netc_port_set_hd_flow_control(struct netc_port *np, bool en)
+> +{
+> +	if (!np->caps.half_duplex)
+> +		return;
+> +
+> +	/* The HD_FCEN is used in conjunction with the PM_HD_FLOW_CTRL
+> +	 * register, which has a default value, so currently we do not
+> +	 * set it in the driver. The half duplex flow control works by
+> +	 * the backpressure, and the backpressure is essentially just
+> +	 * a long preamble transmitted on the link intended to create
+> +	 * a collision and get the half duplex link partner to defer.
+> +	 */
+> +	netc_mac_port_rmw(np, NETC_PM_CMD_CFG(0), PM_CMD_CFG_HD_FCEN,
+> +			  en ? PM_CMD_CFG_HD_FCEN : 0);
 
-The configurations were confirmed to be identical on the downstream
-Radxa kernel, and this has been tested to work on a Rock 5 ITX board
-running kernel 6.19.3.
+We don't support half duplex backpressure in the kernel. I notice
+you always enable this whenever HD mode is negotiated, which means
+there's no way for the user to disable it. Flow control can cause
+problems. Ethernet relies on packet dropping for congestion
+management.
 
-Signed-off-by: Pedro Alves <pta2002@pta2002.com>
----
-Tested with the following commands:
+> +static void imx94_switch_phylink_get_caps(int port,
+> +					  struct phylink_config *config)
+> +{
+> +	config->mac_capabilities = MAC_ASYM_PAUSE | MAC_SYM_PAUSE |
+> +				   MAC_1000FD;
+> +
+> +	switch (port) {
+> +	case 0 ... 1:
+> +		__set_bit(PHY_INTERFACE_MODE_SGMII,
+> +			  config->supported_interfaces);
+> +		__set_bit(PHY_INTERFACE_MODE_1000BASEX,
+> +			  config->supported_interfaces);
+> +		__set_bit(PHY_INTERFACE_MODE_2500BASEX,
+> +			  config->supported_interfaces);
+> +		config->mac_capabilities |= MAC_2500FD;
+> +		fallthrough;
+> +	case 2:
+> +		config->mac_capabilities |= MAC_10 | MAC_100;
+> +		__set_bit(PHY_INTERFACE_MODE_MII,
+> +			  config->supported_interfaces);
+> +		__set_bit(PHY_INTERFACE_MODE_RMII,
+> +			  config->supported_interfaces);
+> +		if (port == 2)
+> +			__set_bit(PHY_INTERFACE_MODE_REVMII,
+> +				  config->supported_interfaces);
 
-v4l2-ctl --verbose -d /dev/video4 \
-  --set-fmt-video=width=3840,height=2160,pixelformat='BGR3' \
-  --stream-mmap=4 --stream-skip=3 --stream-count=20 \
-  --stream-to=hdmiin.raw --stream-poll
+The "case 2" above already ensures that port is 2 here.
 
-ffmpeg -f rawvideo -vcodec rawvideo -s 3840x2160 -r 30 -pix_fmt bgr24 \
-  -i hdmiin.raw output.mp4
----
-Changes in v2:
-- Updated dts spacing to match coding style
-- Reverted pin naming to hdmirx_det to match schematics
-  - Didn't end up changing other boards to match. There are quite a few
-    others, so I'll probably send a separate patch for that.
-
-- Link to v1: https://lore.kernel.org/r/20260304-radxa-r5-itx-hdmirx-v1-1-f77bf1f7ce03@pta2002.com
----
- arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts
-index 172aeabba72a..8e0eead7d223 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts
-@@ -349,6 +349,18 @@ &hdmi1_sound {
- 	status = "okay";
- };
- 
-+&hdmi_receiver_cma {
-+	status = "okay";
-+};
-+
-+&hdmi_receiver {
-+	pinctrl-0 = <&hdmim1_rx_cec &hdmim1_rx_hpdin &hdmim1_rx_scl &hdmim1_rx_sda &hdmirx_det>;
-+	pinctrl-names = "default";
-+	hpd-gpios = <&gpio1 RK_PC6 GPIO_ACTIVE_LOW>;
-+
-+	status = "okay";
-+};
-+
- &hdptxphy1 {
- 	status = "okay";
- };
-
----
-base-commit: 05f7e89ab9731565d8a62e3b5d1ec206485eeb0b
-change-id: 20260303-radxa-r5-itx-hdmirx-f4645e64f8c3
-
-Best regards,
 -- 
-Pedro Alves <pta2002@pta2002.com>
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
