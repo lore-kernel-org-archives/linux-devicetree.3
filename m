@@ -1,64 +1,121 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98513C198A;
-	Mon, 23 Mar 2026 16:44:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0C93C276B
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 16:45:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774284276; cv=none; b=XmOS0eUCy55CmzflKpUAqJ1U+tJBExYabonf/KZfZc9oiDs97TqrHluK0OWBPCmuxiRflCTuG8d05mzIgqY07/01qakNbVJRqBQbrS/uODKDwgIu46F6tYwHIkWyX1RcQQek6rcu3ligQetYwf5RIGB8VFeGLyIHt2SWTyeRZEA=
+	t=1774284323; cv=none; b=Y9ihTqSfAmRbRVMn9IikGonw39kmc0Ovqltaqbok8bbFtoVhuVY3PAChjipVLpeWXGlO4IbNa2ILZo8ykVNZYwJ4otZA0nIQ/JdMHknfv7bcQu5B9U45iEKcQShaEQlCrAl69HkLDvx6m6P2pjhk/Dw8jM0Y9MZSraKdygJqsVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774284276; c=relaxed/simple;
-	bh=rDr6NT1Sv35coLIThTn5ymCPYQNnEGzN4OhDYsaf3R8=;
+	s=arc-20240116; t=1774284323; c=relaxed/simple;
+	bh=0AXgh7r8UHMnA9Zqa/LXkVlVLU4WWT6w2XAUUJqorWk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iC9zjGIcV/38d8pbvFTogYGedhIb8St5QE+6wev6kqyh9Kr1/bQP8QDSJZLUrpcIQPBaJXO45uZN46WSkxUE5BKll9gsAbq526rpz/6b833moRcuCZl3+MtiyRZus55ozv6AqEN5Vd29RKGXXs/irS3Mjsr1lTYB0jmq7Wwit9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org; spf=none smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=dlZIzt5Y; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=debian.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=MSegrFJH1YBSnhRy+VN25lDhwKmubqI01Pq0V9ZFtlOtQgA5C1E3Ds0DPxsNtV0miYLuovqGp5gcPGS1vzMFqkv1lgJhDcMOGVb8CfaF4Tp7+iPGBFXKTwe2yoe5lYhNVzIp7wiKd6qGuulw6ABGZWB8uewvpGA2OITbfc7rYS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kXANH8GV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HSqn8Z2B; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="dlZIzt5Y"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Reply-To:Content-ID:Content-Description;
-	bh=u646cOHMJ/zTHL9+VZ4W7Ux0q5cDJeWhhX/W1yOam3I=; b=dlZIzt5YzevTl4QnSJxxDuhppU
-	q2WiFtssembwHpot97e7p66yyqpF3dN8xA6eo3mU9Y5cs77fG/ib/E0pmR2yPSYUbOk1yB04ldCYA
-	8ZSzKzhPXOJ2uxLAeNtLzVEnC72HyX/Da0COA18pwxZ18OR3/xTPzoczvd+eOfdbXU+oe4D6zXNln
-	RL3AID6EDlGZkPD4dqQGcVL8hyyuo84fScfgh1+HpHr0th+N7IyqowEsgziGLLV0rZFhpAPGgdSUN
-	uSgV3My9CRMDXuTe1oUCC4dNUN3U7nThOJTD+Dmv8QRP2jO2Jg1/VT/h7vj784PI985iF8yh77g2G
-	eh4Qqoxg==;
-Received: from authenticated user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.94.2)
-	(envelope-from <leitao@debian.org>)
-	id 1w4iMe-007fRI-16; Mon, 23 Mar 2026 16:42:50 +0000
-Date: Mon, 23 Mar 2026 09:42:38 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, catalin.marinas@arm.com, 
-	will@kernel.org, chenhuacai@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com, 
-	mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org, pjw@kernel.org, 
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org, 
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
-	robh@kernel.org, saravanak@kernel.org, akpm@linux-foundation.org, bhe@redhat.com, 
-	vgoyal@redhat.com, dyoung@redhat.com, rdunlap@infradead.org, peterz@infradead.org, 
-	feng.tang@linux.alibaba.com, pawan.kumar.gupta@linux.intel.com, dapeng1.mi@linux.intel.com, 
-	kees@kernel.org, elver@google.com, paulmck@kernel.org, lirongqing@baidu.com, 
-	safinaskar@gmail.com, rppt@kernel.org, ardb@kernel.org, jbohac@suse.cz, 
-	cfsworks@gmail.com, osandov@fb.com, tangyouling@kylinos.cn, 
-	sourabhjain@linux.ibm.com, ritesh.list@gmail.com, eajames@linux.ibm.com, 
-	songshuaishuai@tinylab.org, kevin.brodsky@arm.com, samuel.holland@sifive.com, 
-	vishal.moola@gmail.com, junhui.liu@pigmoral.tech, coxu@redhat.com, liaoyuanhong@vivo.com, 
-	fuqiang.wang@easystack.cn, x86@kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev, 
-	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
-	kexec@lists.infradead.org
-Subject: Re: [PATCH v9 4/5] arm64: kexec: Add support for crashkernel CMA
- reservation
-Message-ID: <acFtMLyCWbYOyFZT@gmail.com>
-References: <20260323072745.2481719-1-ruanjinjie@huawei.com>
- <20260323072745.2481719-5-ruanjinjie@huawei.com>
- <acETyW3FYaWCShUc@gmail.com>
- <a5694ee0-7a95-4c15-6775-990d70c8d77b@huawei.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kXANH8GV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HSqn8Z2B"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62NFHkZd1422603
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 16:45:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Kj+XAZN1TFt3Nwfgt300eR0N4IQOJ3Hc9ynUXTnwTp0=; b=kXANH8GVsr8XcV38
+	dzEshEDfmAP+C2peT7j1blXg1V7Oao0GFS6owsA1AyuZs/SjUOiO19Y/tPnMwww7
+	6l7g8LhdE2p2qfNtKyJyKPx4G2XwgwI2tuGL0kwi0vDvl0hTwzcSJgH9WwaeNRiB
+	41jb3Xit3KmDv01llheLFRbNNzwtieZGlSsCqaOKhbEyw81L2qTwBh3KwIuM9t8F
+	MyzdLmeE2pIJ8jIyq6QLMt2Vb7OtgazJG0kCKSVLpCstvJZ2e8a2FWjaehBVwIFx
+	Fqsk/NKMd5J53d8nHXySy7yPNGBbleuex4CUfdKlp8X69aFdpupVV2iQd2VbaHzi
+	RGwBBg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d36f08q3y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 16:45:20 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50911c94db1so16548661cf.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 09:45:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774284320; x=1774889120; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Kj+XAZN1TFt3Nwfgt300eR0N4IQOJ3Hc9ynUXTnwTp0=;
+        b=HSqn8Z2BAg/zQRJ6O0AYQV20QJFZjpEAUw8dEU1x668N2oMY5WWfFDqRZ1ZMtdY5Pg
+         vGf9/AdkrGa3uT20/0vWIua4WoVGq5kvYC2KjXeXr3n5Eu4BfBYHg3vcQoGJ8XvF9dl3
+         JOrwqLyyx4be1VLNA9+zzKRZzbu1WRkP3iwYQ1ukWQSU191rgzGT/HJt5jwY4YBZqfkF
+         JAZgB7g3hEvs8KX/p/JudafHC5uo0FF/Pi5nrpiRUV73g62Q8jddpgxIwk2faxNH55eF
+         +aKMWkOp1pQ0GvUd4ExXWU3WEJs2sZDGVZLnHv7eGyZAlbQI1l+rBXrm+CLHZ/dzCr2p
+         XilA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774284320; x=1774889120;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Kj+XAZN1TFt3Nwfgt300eR0N4IQOJ3Hc9ynUXTnwTp0=;
+        b=SkdCMspuZ8MXYDsPoksGTLfEVX6wBnuz5in7S5M8xIicpIshTipD5R/AOtY5aV06DC
+         3DmzV+1mAKO0bzS4bF7G4sCegzHYQUFfzAsL+Pu5AP6TGNdu8SjUPAY5QYOYen8dN2oh
+         bFL5SRgJgU7yxBh6qmyJUIR9ngmqAgjYRrqB6q9t3BzyK9TJ2gsN+RdCxcGPk34uP9HO
+         QZRDtr9PQHLX8iR+EomIxzPFsYR6UT1XrgE1vti8Te+s+txJdr84JLuBVo/gTtHiBNmJ
+         GmHx4oHqGi2eQtLmRfrkNGTQ4rUNGkhsfqGHxaQcuHyqNW8Gbf46JUetLvCgYzWYyzyz
+         OcKw==
+X-Forwarded-Encrypted: i=1; AJvYcCVbWroFwHKs0ps/ZXAMuNwImWhYQHTbJXmWnrzu9XT+GvU/chjpdPQ7rGe21dBpFvtCTQwFeRovpiyq@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw5Cr7+noDPHjSMjddu0FTguD6q4orzg44SJdt1xk8D9eUPHaFM
+	+31hiSWN/T8Tp8zRFSwl1SU8H88iW+ckA0FI/iFuEHTYOhAYapULqwZqUHOQJfpC8t3vGEJE8+3
+	RJzhK6th6dIcOxtTZdgZD7fgACDsg9PAiGCSpwgkG5VBR545MFr+Mixc10ppC0B5+
+X-Gm-Gg: ATEYQzy82txc6J1JUcp2Nz0Sy6WkQz/mSb+ArqWIFa29VBOndz/T4No3q6PASXaE7yV
+	zXzILuiK3+Pgh50TaGPwbg9R3oN6b3wei5Vyyp2IiOHD8bw+GrCNa1RLQAv3iSpZ+hOpU7cHL4a
+	b3R1Lh2lhEKq088VvDzge3ZoamdYVrTsKbVq3GBbI0cJLlO3T+cvcW6/oKtCR0vMro1JT1bee+9
+	v/tfCf2xyMtiPS96I2mT72QfRmv8+oTvh5Iioocy4KE+z9lna/XHrFq5Lf4rAeG9yzq4ofFW7gT
+	/qKgdBbX2V1Y7nudm8LT9AYSrwEhHOOvtpGWidBC2zLD2WfQKDv9bgtrCd6Tzoj+pfCgHkttouK
+	sDjnfHUAw3MxsJYL0vqgtRZYKz6lbC02o7iMNpf8kLzmsvd1wu/wpKlOGD74ism+dhoCOqRY8HU
+	xNQAv1TG/xy1Sf5leFaA+Ot9ZgwwdKF5XP4qU=
+X-Received: by 2002:a05:622a:4e93:b0:509:2822:670d with SMTP id d75a77b69052e-50b373eaec2mr187522131cf.27.1774284320075;
+        Mon, 23 Mar 2026 09:45:20 -0700 (PDT)
+X-Received: by 2002:a05:622a:4e93:b0:509:2822:670d with SMTP id d75a77b69052e-50b373eaec2mr187520941cf.27.1774284319458;
+        Mon, 23 Mar 2026 09:45:19 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a285207500sm2667386e87.41.2026.03.23.09.45.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Mar 2026 09:45:17 -0700 (PDT)
+Date: Mon, 23 Mar 2026 18:45:15 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jiri Slaby <jirislaby@kernel.org>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nicolas Schier <nicolas.schier@linux.dev>,
+        Hans de Goede <hansg@kernel.org>,
+        Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+        Mark Pearson <mpearson-lenovo@squebb.ca>,
+        "Derek J. Clark" <derekjohn.clark@gmail.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Bartosz Golaszewski <brgl@bgdev.pl>,
+        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+        Bartosz Golaszewski <brgl@kernel.org>, linux-serial@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+        platform-driver-x86@vger.kernel.org, linux-pci@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-bluetooth@vger.kernel.org, linux-pm@vger.kernel.org,
+        Stephan Gerhold <stephan.gerhold@linaro.org>,
+        linux-acpi@vger.kernel.org
+Subject: Re: [PATCH v6 6/9] dt-bindings: connector: m2: Add M.2 1620 LGA
+ soldered down connector
+Message-ID: <blhm4csjyw6r667cleljgzd6rpwagttjo5rau7wjrlnjakq2qm@ekyhc4jvwmwf>
+References: <20260317-pci-m2-e-v6-0-9c898f108d3d@oss.qualcomm.com>
+ <20260317-pci-m2-e-v6-6-9c898f108d3d@oss.qualcomm.com>
+ <20260322233713.GA98177-robh@kernel.org>
+ <to2mrizprc3hjufqbiplpqyek7f4uutqtn4hx4gkmdgv2rykbc@ybwwjhdec4nm>
+ <CAL_JsqJXrHCJt770bJkMmAUhirSF3kHjYwSzkG7cXp7-eys8Rg@mail.gmail.com>
+ <6aef3xxjjd4nbgrfx6jc6jt6rpqmttoui6hil5zqgdpas2j6gj@ie6j72orenou>
+ <fsvmmgoe5wslmxebhrrwmdg2ldcmhzvj53gjkdfnfg2m2rz2lw@dcfboaakz7ae>
+ <bguhzabwryayyqkv4ilzwr3ixwv6bzxncblo3ircz2wm3fs52k@66zvcrfcb4oe>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,103 +125,90 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <a5694ee0-7a95-4c15-6775-990d70c8d77b@huawei.com>
-X-Debian-User: leitao
+In-Reply-To: <bguhzabwryayyqkv4ilzwr3ixwv6bzxncblo3ircz2wm3fs52k@66zvcrfcb4oe>
+X-Authority-Analysis: v=2.4 cv=b+q/I9Gx c=1 sm=1 tr=0 ts=69c16e20 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
+ a=dFseMu0FTdCp80lU-T0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-ORIG-GUID: TYdXewT_5KYmeE4iCKVMQwkI9afNJOfJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDEyNCBTYWx0ZWRfX8Mg+MFB4DWBB
+ +uudjnQxAGBtnUy3NJV/7yWOasEk3qWf+e5Mc3V/aFpRLMJMNLq39DwQjKBS0hz0Mpme2mOirdm
+ j5grdWQlCOReNOtmzDcrmqOzcWR0rIF/oJolK3SCjLiy3sNwudYwg/4SOk71EUh4XcKe/6d01ww
+ BNDEhLkG+CXsSYFAZEDLrg2+4eh2wggveQzQabLRr1gH+qf/1uTMaibGGNGS8l0bfZQHiiDRY4b
+ 5vG+MGQY/cEh/MUpS01h3NzVU/C1qNoLLBQl27UjGRT91Ox5ua9tsYa6J90OvvGc010fSIoqEmt
+ dYF/hoFKvS6Y6KSzel+A1AaHy9XAHyz5lpukiq1zIZ4sTAmSaEn3s5FE37m7XFXhPNa8fn4B/dR
+ C/z42UmoHBp//WHWGyXGFH/1dK98cQzjts88H1CBqzmEW4JEQvS+R4zQbmF7tarsEPdeHSNxEHw
+ 1Nekht7yrUkv3Zodppg==
+X-Proofpoint-GUID: TYdXewT_5KYmeE4iCKVMQwkI9afNJOfJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-23_04,2026-03-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 impostorscore=0 adultscore=0
+ malwarescore=0 bulkscore=0 suspectscore=0 phishscore=0 clxscore=1015
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603230124
 
-On Mon, Mar 23, 2026 at 07:17:21PM +0800, Jinjie Ruan wrote:
-> 
-> 
-> On 2026/3/23 18:20, Breno Leitao wrote:
-> > On Mon, Mar 23, 2026 at 03:27:44PM +0800, Jinjie Ruan wrote:
-> >> Commit 35c18f2933c5 ("Add a new optional ",cma" suffix to the
-> >> crashkernel= command line option") and commit ab475510e042 ("kdump:
-> >> implement reserve_crashkernel_cma") added CMA support for kdump
-> >> crashkernel reservation.
-> >>
-> >> Crash kernel memory reservation wastes production resources if too
-> >> large, risks kdump failure if too small, and faces allocation difficulties
-> >> on fragmented systems due to contiguous block constraints. The new
-> >> CMA-based crashkernel reservation scheme splits the "large fixed
-> >> reservation" into a "small fixed region + large CMA dynamic region": the
-> >> CMA memory is available to userspace during normal operation to avoid
-> >> waste, and is reclaimed for kdump upon crash—saving memory while
-> >> improving reliability.
-> >>
-> >> So extend crashkernel CMA reservation support to arm64. The following
-> >> changes are made to enable CMA reservation:
-> >>
-> >> - Parse and obtain the CMA reservation size along with other crashkernel
-> >>   parameters.
-> >> - Call reserve_crashkernel_cma() to allocate the CMA region for kdump.
-> >> - Include the CMA-reserved ranges for kdump kernel to use.
-> >> - Exclude the CMA-reserved ranges from the crash kernel memory to
-> >>   prevent them from being exported through /proc/vmcore, which is already
-> >>   done in the crash core.
-> >>
-> >> Update kernel-parameters.txt to document CMA support for crashkernel on
-> >> arm64 architecture.
-> >>
-> >> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> >> Acked-by: Baoquan He <bhe@redhat.com>
-> >> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> >> Acked-by: Ard Biesheuvel <ardb@kernel.org>
-> >> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> >> ---
-> >> v7:
-> >> - Correct the inclusion of CMA-reserved ranges for kdump
-> >>   kernel in of/kexec.
-> >> v3:
-> >> - Add Acked-by.
-> >> v2:
-> >> - Free cmem in prepare_elf_headers()
-> >> - Add the mtivation.
-> >> ---
-> >>  Documentation/admin-guide/kernel-parameters.txt | 2 +-
-> >>  arch/arm64/kernel/machine_kexec_file.c          | 2 +-
-> >>  arch/arm64/mm/init.c                            | 5 +++--
-> >>  drivers/of/fdt.c                                | 9 +++++----
-> >>  drivers/of/kexec.c                              | 9 +++++++++
-> >>  5 files changed, 19 insertions(+), 8 deletions(-)
-> >>
-> >> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> >> index cb850e5290c2..afb3112510f7 100644
-> >> --- a/Documentation/admin-guide/kernel-parameters.txt
-> >> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> >> @@ -1121,7 +1121,7 @@ Kernel parameters
-> >>  			It will be ignored when crashkernel=X,high is not used
-> >>  			or memory reserved is below 4G.
-> >>  	crashkernel=size[KMG],cma
-> >> -			[KNL, X86, ppc] Reserve additional crash kernel memory from
-> >> +			[KNL, X86, ARM64, PPC] Reserve additional crash kernel memory from
-> >>  			CMA. This reservation is usable by the first system's
-> >>  			userspace memory and kernel movable allocations (memory
-> >>  			balloon, zswap). Pages allocated from this memory range
-> >> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
-> >> index c338506a580b..cc577d77df00 100644
-> >> --- a/arch/arm64/kernel/machine_kexec_file.c
-> >> +++ b/arch/arm64/kernel/machine_kexec_file.c
-> >> @@ -42,7 +42,7 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
-> >>  #ifdef CONFIG_CRASH_DUMP
-> >>  unsigned int arch_get_system_nr_ranges(void)
-> >>  {
-> >> -	unsigned int nr_ranges = 2; /* for exclusion of crashkernel region */
-> >> +	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* for exclusion of crashkernel region */
+On Mon, Mar 23, 2026 at 09:26:04PM +0530, Manivannan Sadhasivam wrote:
+> On Mon, Mar 23, 2026 at 05:14:30PM +0200, Dmitry Baryshkov wrote:
+> > On Mon, Mar 23, 2026 at 07:14:25PM +0530, Manivannan Sadhasivam wrote:
+> > > On Mon, Mar 23, 2026 at 08:39:55AM -0500, Rob Herring wrote:
+> > > > On Mon, Mar 23, 2026 at 7:16 AM Manivannan Sadhasivam <mani@kernel.org> wrote:
+> > > > >
+> > > > > On Sun, Mar 22, 2026 at 06:37:13PM -0500, Rob Herring wrote:
+> > > > > > On Tue, Mar 17, 2026 at 09:59:56AM +0530, Manivannan Sadhasivam wrote:
+> > > > > > > Lenovo Thinkpad T14s is found to have a soldered down version of M.2 1620
+> > > > > > > LGA connector. Though, there is no 1620 LGA form factor defined in the M.2
+> > > > > > > spec, it looks very similar to the M.2 Key E connector. So add the
+> > > > > > > "pcie-m2-1620-lga-connector" compatible with "pcie-m2-e-connector" fallback
+> > > > > > > to reuse the Key E binding.
+> > > > > >
+> > > > > > What is LGA?
+> > > > > >
+> > > > >
+> > > > > Land Grid Array
+> > > > >
+> > > > > > If not in the spec, is it really something generic?
+> > > > > >
+> > > > >
+> > > > > Good question. Yes and No! LGA is not something that Lenovo only uses. Other
+> > > > > vendors may also use this form factor. PCIe connectors are full of innovation as
+> > > > > the spec gives room for hardware designers to be as innovative as possible to
+> > > > > save the BOM cost.
+> > > > 
+> > > > innovation == incompatible changes
+> > > > 
+> > > 
+> > > Yes, I was trying to sound nice :)
+> > > 
+> > > > > This is why I do not want to make it Lenovo specific. But if you prefer that, I
+> > > > > can name it as "lenovo,pcie-m2-1620-lga-connector".
+> > > > 
+> > > > Depends if you think that s/w needs to know the differences. Hard to
+> > > > say with a sample size of 1.
+> > > > 
+> > > 
+> > > Sure. Will add the 'lenovo' prefix then.
 > > 
-> > You update arch_get_system_nr_ranges() to account for CMA ranges, but
-> > prepare_elf_headers() in the same file (line 51) still has the
-> > hardcoded:
+> > Is it really Lenovo? Or is it some other module vendor, whose LGAs are
+> > being used by Lenovo?
 > > 
-> >         nr_ranges = 2; /* for exclusion of crashkernel region */
+> > I remember that DB820c also used some kind of a module for the WiFi card
+> > (which might be M.2 compatible or might not, I can't find exact docs at
+> > this point).
+> > 
 > 
-> I don't see any logic related to prepare_elf_headers() or hardcoded
-> nr_ranges = 2 in the arm64 implementation.
+> I don't know. These kind of designs might be reused by several vendors. But
+> considering that we should not make it generic, I'd go with Lenovo as that's
+> the only vendor we know as of now.
 
-Just ignore me here, I've mis applied the patch, and then I got
-arch_get_system_nr_ranges() and prepare_elf_headers(), but, they are the
-same thing at in here.
+... and later we learn that other vendors use the same idea /pinout,
+then nothing stops us from still telling that it's a
+"lenovo,pcie-m2-something-lga". 
 
-> > 
-> > and does not exclude CMA ranges from cmem. If the generic crash core
-> > handles CMA exclusion from vmcore, then shouldn't
-> > arch_get_system_nr_ranges() also not need this change?
-> > 
+-- 
+With best wishes
+Dmitry
