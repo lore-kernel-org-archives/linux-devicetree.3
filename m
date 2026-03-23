@@ -1,175 +1,142 @@
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6736390CBD;
-	Mon, 23 Mar 2026 11:17:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23CBA2D23B9
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:20:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774264653; cv=none; b=ii+m0OAp2uYtUi4LxfKbzCDHhlYWqjUQchSJLiptGnfhEAVnjRfC48UA+GvvwJ9hzcWgSpeXeDN5bunFdwQIi9skW7L2YdvPk73aHi0DCj8fgoBqclHUzKTQod8ccOoxEC84Ri1B25+CmetLWV2uwgYaua6bweQblsTjMwyp13A=
+	t=1774264856; cv=none; b=XuZ8TA/tuvrfjo4T8pPIVDNt6jGLM+qOMaNX1OJPydhHr9bWnBJQNeYJspJnUlQOTpecuYclC214kbOjQjzh0K5JThUDOtY0oOyUQrFbPU3GDaj3Vh/odsprvLV2zjEsIgIeRODFiUA8otsG7xlcMHwtNEHzY2kxOvf8zh+lppE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774264653; c=relaxed/simple;
-	bh=a+K21ycFsZx1aa5rX89PVqaXxVaYlFmDKUz60VkOv2k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=VMXOClO+91Yv5K1PsJROy2S+RL184Cge7SnlsyRykFWtYDHDBLduATsUkBYPgdohXH5+OMkA7wrzg7GqDzyqnslCD5MRZtn/SbSsuHpzdWnlAfQA1veHLzT4OHwslCaqDX+zSHdt9oeZJPlDSpG3h7KxlC/bu9dsVewCwIJRDj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=WI3G5XBS; arc=none smtp.client-ip=113.46.200.224
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1774264856; c=relaxed/simple;
+	bh=0UmgcQOBDkYfiHuK4wqGI3J4ga9mXxdIzGHPC2oGJqU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZxHOL4sN2PLwEQnyqF3ecmouCFQKLCEXlxWNJjpA2xburqZshZAxIHrtsP52CHOLkFNyBL43DVTcPb/3TOEfD5RkuYIsLzw2FWQawwFP3x7BljafFSi+DxjZ5lZ/hN/JEa01ESbtJY3ClXGCs3l0YRKoyx2Ob8eNkmst6vbVn4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jnJwlENf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F6HzPIPP; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="WI3G5XBS"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=wSdOmMtQJa4WowpqlfcOJcehmFcXYtTS05KoePMKPVU=;
-	b=WI3G5XBSvLw1Ei2KOl8bWUoPjcsVkaCWFhuxcWJmThK8RYco8rIJbvc4XJRxcYjdR3c6oop/z
-	t3cQyEFjF4AU7xxJmO+zxXY1B8actvrXqxeVN6l+7rl7qve6RGVo3HX9lQ7j7A2FMHl37WUY9XJ
-	2Tv/+h0JBqqA0gRXAB3ife0=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4ffVpy6zGtz1cyP0;
-	Mon, 23 Mar 2026 19:11:22 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id 8A58F4056C;
-	Mon, 23 Mar 2026 19:17:26 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Mon, 23 Mar 2026 19:17:23 +0800
-Message-ID: <a5694ee0-7a95-4c15-6775-990d70c8d77b@huawei.com>
-Date: Mon, 23 Mar 2026 19:17:21 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jnJwlENf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F6HzPIPP"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N7tUZE1627059
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:20:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=i5tjGQ5WsisvqjUSW7WzmXu0
+	LITnZly6yrYhXPmtf1U=; b=jnJwlENf2eB2GnlfDHWCertNfcYzZCZsafD/cpIp
+	frEA9zk6AgH2Sr8JKoSfqF2EYCgIr0YPYqJrNTIMbZZDONe4+a8QAS+a1DDJKw84
+	6dtKYAjtE+fTF3TFpcS8OI0wsPwxd/i9RvBksAe82/gkUMwfYDb2CWYRSsBV4XKk
+	XMbSi6+MSsv+IyTC6mrFB8nDECamhoT5cP9sDzvnkvyTIv3H8xe+z0aAEQYI+pmJ
+	xiw4ehSU6ZFiE8GGFBwL2zV3P5dBEBcir5ouqvtlvAZbd0V3ntOdYSAFwyfn5eUp
+	JfQBAXdeKLyl+YwD0k6/kBuPVzfyRb7ZyaIRgq4dnu+B7A==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d31jc0qm8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:20:54 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5093787e2fdso82810771cf.2
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 04:20:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774264853; x=1774869653; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=i5tjGQ5WsisvqjUSW7WzmXu0LITnZly6yrYhXPmtf1U=;
+        b=F6HzPIPPKzvsD0GSZemEmpJmXfgpb+IjAi6VGBBCTxG1MYBkYYLT+SxnKvsUN1xR5S
+         ml/t8736QwCV37m/Pk/0wCFjMbwGLMGhGe0AaROhtBo+aMzf4gspxzUnlYoMZer4GeEA
+         tk8iid+P/dK35BSCV8gg9KYRvNrrdDhu7r2Qskas5quAITmHqhVOB9HLJr+s6u+KuIyR
+         Ci2V7vo1KEdhE/oBb7ggK6LeFLy5huKUyaa+vI83p0qiGf0MvmYg8OgEY7Q36zI0pewV
+         Rtgl+oGNpa18bShzEe6J+xwMv47J6EEkapi/aiREKEnZ2bWH7XxnHObnfFElr/ZBOL9d
+         rrwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774264853; x=1774869653;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=i5tjGQ5WsisvqjUSW7WzmXu0LITnZly6yrYhXPmtf1U=;
+        b=h/F75VSVoiE4D/k670YApobwVL5TA13HnUMspP0sBK/yQM5ytArRk4VWDEshEBH68N
+         a0usyx+8eT/4fBFAduDyhTmualaGm7CybLkOYA4PfI4dBEVxK82T2YnNm7O13SCO2VKo
+         n8x4xSIoc7wmXUYMa2vEEmhrk95FOYtNyOSKyVuvUQfpI3i1KdHyk//EwFO7JQg1w0YO
+         jBw2lZkZ+beKUBo7uovF/iO22qj6hEe6shuG8wXY3naJOqjAK72EUbbQOONTKGO3KDzi
+         QYM/pWD4eUcwwq4gS1ITxa0SfZbaGh80Kh4YYMBLp3V6uw5SfCsL8GIgLnSiMMAM/Iz3
+         aa1w==
+X-Forwarded-Encrypted: i=1; AJvYcCWMzLUJKmUYMoUb158oi+zr8ECV0MJOy7pBEANWJsGTSsouhEaKohsjvhJ1sJfqy+2QkNzrrSCp6NCD@vger.kernel.org
+X-Gm-Message-State: AOJu0YznIJZFpUDn6ghtIbqJEn97A3n9bgmFwF6pJh/BVa5O9/PthysK
+	19B8SoZUzgvHdgp6zluSDN3W4/Gy6PMf2+RiUWRaBWKl93ebr1Nmu422RmQ3MMmHwo7VT3HkWzw
+	LFrSCYOSIjDdst2rQkMJ56KgfiJByIL8x1ZSf2dMuHAqI4nue4wSHNESMz6N6//1A
+X-Gm-Gg: ATEYQzzddtkmoh6MdkgFxljMFUXwhVfE5wCqV52WmeFX+p4rBM1tSqFzRMIh3/XLDbG
+	R/hO4024pDFEE6sPeHEonH2xMp/C2OGFHkgQtajRNef7Ctv+gmdq7TZeWmEx3jU3xol0dIbxsoU
+	ZVhSiID3qaKE8XFGFlWai0XTQzeN1U79SVwDgjg9ixvbGEeAOkKhJLuA5qIFm7PTK/oYgSFVzsm
+	oCwWROxOhN0M9eDcf2jLo9jgm4ot7HlyeswWGBwoIyNPCZk/uwJT8xq+a3+aGWSEmWH0soCw0Th
+	W44w6+xai/86thVk47CsTnk45IUqCkxbDkEQpFZFOAmFtXtWV7++pZz4Fgd4FaCPVUURRwSYHnt
+	tTJiB9qCvDVT0gmIqCXsef3fJC+aIsK/neg==
+X-Received: by 2002:a05:622a:580f:b0:50b:3c78:ddef with SMTP id d75a77b69052e-50b3c78e117mr162741081cf.41.1774264853236;
+        Mon, 23 Mar 2026 04:20:53 -0700 (PDT)
+X-Received: by 2002:a05:622a:580f:b0:50b:3c78:ddef with SMTP id d75a77b69052e-50b3c78e117mr162740661cf.41.1774264852738;
+        Mon, 23 Mar 2026 04:20:52 -0700 (PDT)
+Received: from oss.qualcomm.com ([82.79.95.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-486fe68ec05sm405653965e9.0.2026.03.23.04.20.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Mar 2026 04:20:51 -0700 (PDT)
+Date: Mon, 23 Mar 2026 13:20:50 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: eliza: Add CX power domain to GCC
+Message-ID: <hecpwfi445hkc24mcj4hd7om4ztpeutqn6lmljqcku2nwwchpl@jrvwkdhv4lth>
+References: <20260322-eliza-base-dt-fixes-v1-0-c633a6064a24@oss.qualcomm.com>
+ <20260322-eliza-base-dt-fixes-v1-2-c633a6064a24@oss.qualcomm.com>
+ <hacarw76ftbkirg2ko4t4idpcyqouekodiqb7o2jf2ciscwfi7@egg33tcpahzp>
+ <79ae9efc-7f99-4916-996f-52ff5061261b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.0
-Subject: Re: [PATCH v9 4/5] arm64: kexec: Add support for crashkernel CMA
- reservation
-Content-Language: en-US
-To: Breno Leitao <leitao@debian.org>
-CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
-	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
-	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
-	<akpm@linux-foundation.org>, <bhe@redhat.com>, <vgoyal@redhat.com>,
-	<dyoung@redhat.com>, <rdunlap@infradead.org>, <peterz@infradead.org>,
-	<feng.tang@linux.alibaba.com>, <pawan.kumar.gupta@linux.intel.com>,
-	<dapeng1.mi@linux.intel.com>, <kees@kernel.org>, <elver@google.com>,
-	<paulmck@kernel.org>, <lirongqing@baidu.com>, <safinaskar@gmail.com>,
-	<rppt@kernel.org>, <ardb@kernel.org>, <jbohac@suse.cz>, <cfsworks@gmail.com>,
-	<osandov@fb.com>, <tangyouling@kylinos.cn>, <sourabhjain@linux.ibm.com>,
-	<ritesh.list@gmail.com>, <eajames@linux.ibm.com>,
-	<songshuaishuai@tinylab.org>, <kevin.brodsky@arm.com>,
-	<samuel.holland@sifive.com>, <vishal.moola@gmail.com>,
-	<junhui.liu@pigmoral.tech>, <coxu@redhat.com>, <liaoyuanhong@vivo.com>,
-	<fuqiang.wang@easystack.cn>, <x86@kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
-	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<kexec@lists.infradead.org>
-References: <20260323072745.2481719-1-ruanjinjie@huawei.com>
- <20260323072745.2481719-5-ruanjinjie@huawei.com> <acETyW3FYaWCShUc@gmail.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <acETyW3FYaWCShUc@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- dggpemf500011.china.huawei.com (7.185.36.131)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <79ae9efc-7f99-4916-996f-52ff5061261b@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=fKc0HJae c=1 sm=1 tr=0 ts=69c12216 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=iKs3dpp2RB4k51ZqCjcyjQ==:17
+ a=kj9zAlcOel0A:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=DDrYQGrwWQwa2y7XVrkA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: aPCLceRVVcCWHuuVxJG2OQcyocyPJcGH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA4OCBTYWx0ZWRfX0in6KrszLdgQ
+ iSj9qJ1b1qgC8LBWb4QpnqlcFzotAyiZtfIhGufj+X2+n3tUE4xoacaqHV8u2TK0BXAy+yMf8+X
+ 5+s1MHnMb5g4mZK73S4dFBTMVRP2eMjf/VSkG2V4hriLpJWeXie8n+/4abz7sri2/r7J25D/Rzx
+ lDJPlPoQ9xfWbqfC0nEL8sErY+3bnukwCJRoqPLI7NZ8nYLUcuRj5/H2oTEKMiRKmscpnKIOdwR
+ ZDCbCz9b+Jt8tznnMSDzaBQ++/JJJoRat/eZc81EcFYBrpvM+StaYW2eHM0RsFXYL1yqGeRuaDG
+ wtwjP0RBjlPFaaOH7yDjXIPbIjHBF/zoodNgMihgZAY2sEEAgdTTu0gymDT3tlRxO8WeoQSS6I0
+ CFHp4IcjOozmXz9I/LKct63/TlcThM3Gf9pThaTGFGbS8ompRqrWLX8p17jdx4qSlnqF7d8tEdt
+ u8HLGsRYA7e5l2692SA==
+X-Proofpoint-ORIG-GUID: aPCLceRVVcCWHuuVxJG2OQcyocyPJcGH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-23_03,2026-03-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
+ adultscore=0 bulkscore=0 spamscore=0 suspectscore=0 malwarescore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603230088
 
-
-
-On 2026/3/23 18:20, Breno Leitao wrote:
-> On Mon, Mar 23, 2026 at 03:27:44PM +0800, Jinjie Ruan wrote:
->> Commit 35c18f2933c5 ("Add a new optional ",cma" suffix to the
->> crashkernel= command line option") and commit ab475510e042 ("kdump:
->> implement reserve_crashkernel_cma") added CMA support for kdump
->> crashkernel reservation.
->>
->> Crash kernel memory reservation wastes production resources if too
->> large, risks kdump failure if too small, and faces allocation difficulties
->> on fragmented systems due to contiguous block constraints. The new
->> CMA-based crashkernel reservation scheme splits the "large fixed
->> reservation" into a "small fixed region + large CMA dynamic region": the
->> CMA memory is available to userspace during normal operation to avoid
->> waste, and is reclaimed for kdump upon crash—saving memory while
->> improving reliability.
->>
->> So extend crashkernel CMA reservation support to arm64. The following
->> changes are made to enable CMA reservation:
->>
->> - Parse and obtain the CMA reservation size along with other crashkernel
->>   parameters.
->> - Call reserve_crashkernel_cma() to allocate the CMA region for kdump.
->> - Include the CMA-reserved ranges for kdump kernel to use.
->> - Exclude the CMA-reserved ranges from the crash kernel memory to
->>   prevent them from being exported through /proc/vmcore, which is already
->>   done in the crash core.
->>
->> Update kernel-parameters.txt to document CMA support for crashkernel on
->> arm64 architecture.
->>
->> Acked-by: Rob Herring (Arm) <robh@kernel.org>
->> Acked-by: Baoquan He <bhe@redhat.com>
->> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
->> Acked-by: Ard Biesheuvel <ardb@kernel.org>
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> ---
->> v7:
->> - Correct the inclusion of CMA-reserved ranges for kdump
->>   kernel in of/kexec.
->> v3:
->> - Add Acked-by.
->> v2:
->> - Free cmem in prepare_elf_headers()
->> - Add the mtivation.
->> ---
->>  Documentation/admin-guide/kernel-parameters.txt | 2 +-
->>  arch/arm64/kernel/machine_kexec_file.c          | 2 +-
->>  arch/arm64/mm/init.c                            | 5 +++--
->>  drivers/of/fdt.c                                | 9 +++++----
->>  drivers/of/kexec.c                              | 9 +++++++++
->>  5 files changed, 19 insertions(+), 8 deletions(-)
->>
->> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
->> index cb850e5290c2..afb3112510f7 100644
->> --- a/Documentation/admin-guide/kernel-parameters.txt
->> +++ b/Documentation/admin-guide/kernel-parameters.txt
->> @@ -1121,7 +1121,7 @@ Kernel parameters
->>  			It will be ignored when crashkernel=X,high is not used
->>  			or memory reserved is below 4G.
->>  	crashkernel=size[KMG],cma
->> -			[KNL, X86, ppc] Reserve additional crash kernel memory from
->> +			[KNL, X86, ARM64, PPC] Reserve additional crash kernel memory from
->>  			CMA. This reservation is usable by the first system's
->>  			userspace memory and kernel movable allocations (memory
->>  			balloon, zswap). Pages allocated from this memory range
->> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
->> index c338506a580b..cc577d77df00 100644
->> --- a/arch/arm64/kernel/machine_kexec_file.c
->> +++ b/arch/arm64/kernel/machine_kexec_file.c
->> @@ -42,7 +42,7 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
->>  #ifdef CONFIG_CRASH_DUMP
->>  unsigned int arch_get_system_nr_ranges(void)
->>  {
->> -	unsigned int nr_ranges = 2; /* for exclusion of crashkernel region */
->> +	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* for exclusion of crashkernel region */
+On 26-03-23 11:50:37, Konrad Dybcio wrote:
+> On 3/22/26 6:51 PM, Dmitry Baryshkov wrote:
+> > On Sun, Mar 22, 2026 at 06:08:20PM +0200, Abel Vesa wrote:
+> >> Recent discussions off-list highlighted that the GCC should vote for the
+> >> RPMh CX power domain on Qualcomm platforms. Without this, RPMh may not
+> >> aggregate the correct load for the CX rail, potentially leading to voltage
+> >> drops and system instability.
+> > 
+> > Should we add it on other platforms too?
 > 
-> You update arch_get_system_nr_ranges() to account for CMA ranges, but
-> prepare_elf_headers() in the same file (line 51) still has the
-> hardcoded:
-> 
->         nr_ranges = 2; /* for exclusion of crashkernel region */
+> Things generally work better when powered on
 
-I don't see any logic related to prepare_elf_headers() or hardcoded
-nr_ranges = 2 in the arm64 implementation.
-
-Did I miss something here?
-
-> 
-> and does not exclude CMA ranges from cmem. If the generic crash core
-> handles CMA exclusion from vmcore, then shouldn't
-> arch_get_system_nr_ranges() also not need this change?
-> 
+Yep, definitely.
