@@ -1,77 +1,85 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39393CCFB4
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 17:42:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A29953C3BFA
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 18:00:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774287774; cv=none; b=YLcb8EDaBM53TaUySCNySyfmmHa3WlZsnVdvYR18DjRgpH7Hb27wxfmpsYVC2d1XI4waaMbiJxqlZefgJR3DXl1I5sPZYMSWXiI7qRWVnqsINudXptmgx5Hdb3zHNhe5GU0NdJd9J1yo2turgZcdDJgXQNyoZPCdK5FrXOO3FJE=
+	t=1774288834; cv=none; b=qKBR+rWfreuEIsjvhoEJw9Ok0b82E1gKbPzheKcwuZPT16LLXtzpa73B4UvKVgjzDCk/X2vvoIY84Q0d7fVm8QrldsapEiFn9hZQ179PvPB1lgXqWRo2zJOU5i5AtrgUWCJ2UKOzGd82nyDI0JtKs0nnITwhY8zTl41eLawK40Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774287774; c=relaxed/simple;
-	bh=Zia7/De1q5TthWSYEWLCdCXljCxkVAiumOWzbpU94iI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DlMnhizbKq4j5U2JgdOqSH/Cp3gyf2a8DEF/JVrUJSojk4/h6/5P0js2aboWgNExNfAvbjs6mefXWpboM6sK3xg8cfyvySpqgbbHt0V9cNJXxmZsodtZrwhRmIE3Sa9WhhooflDUL78wNlDuCDQ0aFqRcHQfPddAJlpao/KhXAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bR+UAaw9; arc=none smtp.client-ip=209.85.210.179
+	s=arc-20240116; t=1774288834; c=relaxed/simple;
+	bh=E/nHdjHS1PPiOI/cZ5nnAbtoJk9ukFKughnCfizAjOE=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=lsCOmu7iuEvV5HcZYQlzeAbzDZtjMlvfrtk/tTTbIJqVIdokRvcNQhDNyK5b2Gc6fJbI+xy7C+8zla7LNeyR7rn0diO5zmIv4BoXJFEIuN5Lzg1tN7tO8ilrlr3Yzi6oLfV70G/4IwCfe3CeV3h0aD044GcNkJFaT3w7Bq7t4n0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rhnte2YB; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bR+UAaw9"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-82c4b5dfe6cso564377b3a.2
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:42:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rhnte2YB"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-486fda2a389so25100565e9.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:00:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1774287772; x=1774892572; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=F9rgDJBvOjQHeJIHea/WkUik8ezrEjHRne7jLDTut+8=;
-        b=bR+UAaw9REN0zR8aBZkLuWfFnqxvlW/mi3su9CB0Icbog0ZE3y0kJFmuLct2VUF72f
-         BhKbefa1PkLOzbujhHVokeSeT7ZddWen4D57ml7zgKNLJ5/PNizKIxBe3WP/RwMeyn4w
-         cWGecSEh0Ygx+msHst+pofificU5vtfa2a9weiB71yaoziZ8hd48KgGZhXAuSFMT9aDV
-         aYhN9T20GC7IsyLjYJNNBq7KCxvzSRfBKcNShCExdX/JVBSgYM1es9GkiZ9OtN7m/hhE
-         3QI202z/Rh/xnCBWGBF5LbKqNb/byXJcRdMaoGp6H++bLZNEUljeasl8C0c6cw5vC43q
-         0WJg==
+        d=gmail.com; s=20251104; t=1774288831; x=1774893631; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=vrYgx725Haq61UFRJXQREBllY8BXNI16WOSLFDeY60o=;
+        b=rhnte2YB8mOr4Qz3ufHmKlTqt0uWYk3Ux474yNvcIP/Ii1ujSHY6vZfQ+6hA/nXlh1
+         1GEK4KbgVepMWAMXKnMQO4zlpGXsrzK2YaRw8c9CY6iVxRtklA01R6HBqTTU/41utLB0
+         IgqsV82JessluQax/ukFqM5DmRGqOXwRGvkViEIzQfwVRyPjtiJ87ym0chDWC7dRjmvK
+         fAVPa61OESLl4SkL0Xp5Lin+3qg2KripFNbpENUkceyMnU6HDpTDgsSgF8Uxb3ntPoCG
+         WYTBxzqKj7i9WlFe5Z08d9ldeKM19EH7Nrvlu1lBbnUaS2+arZFVhiae97H9ipK+1kcH
+         +QBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774287772; x=1774892572;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=F9rgDJBvOjQHeJIHea/WkUik8ezrEjHRne7jLDTut+8=;
-        b=OcQ/3iTnO/YPTuvcAd/2aFLExmFRDT2W0PiqCmfDCSf1KdOgLPhDZxXKH69MPMyJNd
-         q3l8pmL/sXPzPRkNn/xN/CdkOEOtxVJBapkAZgFmi0eNFCb7SNo4oHO1Pw9I8rQx2u5+
-         T9JAgomDl/kPdABTcJ51WDwa3zQozZrrjqZOVaDjcWbM8ax2PP2XUaduSdhV4VjFsfhW
-         N4fvTgPIS2xgZ8mfqEZc8FxXXAJE8zdvXeUQUI2nhSjh2YWlK1UMb0hborxy/yi62n2p
-         Jz1rLzsOKfulnzQQifK9Iy0zOnZzmvy9AxHQS0QxXyV+0xnmr/fXIbSjabNpm8GB7hox
-         7WaA==
-X-Forwarded-Encrypted: i=1; AJvYcCV8XHaJtdqa+pYS2v+fHLxB8qJMFo04uciQzXeFlgC+37RqpWzcXgFPLPLlgKK1DL43dkLtXJ4zJ5nD@vger.kernel.org
-X-Gm-Message-State: AOJu0YyMcL/SQhJvHytPb/JaA6PP6OGHsVeabbU5Ppm2Zl09zaEfWcBd
-	Lo4v6PXA+wWNxaQeqZkFj0qVcfS1D8G3Oh3w0/flLCYYtYoRvA1c80mn
-X-Gm-Gg: ATEYQzxMcL1UGvWXtYGbgUX0LLhCVgG39iYY7ncUZ3rY/ikaWm3Kes8PsVyBcqfYkxz
-	K1klf+HfhKyIOLIs6kY9U+wOdHBDGW/vOJ1mbD/tSNyiAxwAVlYznzIWbAhBfCJ612dBJeO0mt4
-	7VOGlpURoiNu/JmCdQzxbGievlztRUHm9IpDGsO5muwfKiZXxgjT9JZxF2xtfiF5Teo5MNskJXk
-	TA51FTPtzM9ASA4ZNdINF7u2n44XN6lRMehWEgbp/YkexmoqA2RStKUA6p8jYcf7GN1lcXwiNMG
-	wbfjHiO0dqHuK5UMClpMbD7LDrqhqnRUi7JlKTyaJ6bhxeNlnT3nfY+HifflCl1HfMG92pxl+DH
-	otqTUZ759xzD2ZRHRmul3934MIih7fW3zd0EBG4guHXeRe/gmqiUx2tSpBm2sVIX8b15I2+pSLj
-	qAP3D0+hma6tWFJn0jUUt870P9C/zM+oX5Ag==
-X-Received: by 2002:a05:6a00:b4e:b0:829:8942:2ca4 with SMTP id d2e1a72fcca58-82a8c241249mr11327052b3a.19.1774287772189;
-        Mon, 23 Mar 2026 10:42:52 -0700 (PDT)
-Received: from fedora ([2401:4900:1f32:22d3:4161:93a:b87c:36eb])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82b040da3dfsm9847123b3a.45.2026.03.23.10.42.46
+        d=1e100.net; s=20251104; t=1774288831; x=1774893631;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vrYgx725Haq61UFRJXQREBllY8BXNI16WOSLFDeY60o=;
+        b=dsjScjttokkE5kWese/Nuydgyq7Q/CWPib2JZEV+CfAFBwBc8NVlDYVyZJLErRhTjH
+         Vs4+nT936pZ2wnBG5zuMn0bZOYc5mHQj5pe8ySUmX7q4wIayUu5X/6x8u6n/r1yjprTr
+         vh+Qaze2FAK0EETOQCnZ+vQT3FKcVTBrEcMIjpu91m9yQTej6FYq3uFv8YNSjcWvtAoo
+         OuMj+Mcg0mWtBIyJs/DAI+mL/kZgDWvXIni+UcXrzhFmeoVI6KUV1DMuE+Q++xcRvoDL
+         ovzR4Wzhy3g5ERFz8ZWdQu03E1AVSq9DRxnHrAWY4Lp3rkRRHEmII0QSN91JWjZcZloa
+         IlDw==
+X-Forwarded-Encrypted: i=1; AJvYcCUExaGh6J2Ay0I1QRwdgY0YXEnbnt8KK4kJvfFaANSiI0k/Q3aH+ZVpbpXn8baHqWAcgxiSGTZ54rTO@vger.kernel.org
+X-Gm-Message-State: AOJu0YwN0ERPN/EaMLbDC6HQzpJNsvlZ7ZXqs9RKBOCXsGdy+2LrgDJK
+	9KXVDswE9p46hCow4jmc3Z0DKol/k44bFvCTXjNZkg8Osm22LWo+Nmdh
+X-Gm-Gg: ATEYQzxOQZlblcKcPOaazv0BYpRoA+CiA+MnkeEcIXFce9LAjPZeiKiTq+nyh8ag6Wv
+	s2fyAaJUTIWR0WLzrD0zFANyfZCxbgtikwhCzpehcWV4XJS9c76uTs6seXCP12PFg2gsFIT6nxF
+	+lCm2Fc7dSCVFWzjGMi2VJwLMzthNzRb0JJ4aDG+8dWSX2TM7R9vsK5GGz3YXpDsV+eAFIcwx5b
+	l0Fwme3s1um5ifG8EhfNt7K+FODO2x0D/b1NIjplmxdbzgBBbFb9yHQrjlxnbaKOS1IMfkRKmGS
+	nxv9LUD4OA2tfZlRzAVSkuLrOnFQHE+eam5cQ6uSgDIuad6+ZjTFNz8MGpQXo98z7qD9m/QhTkq
+	E4pfEKltjtsbzEktGE5dk/HuPoVkMc0+U+IqvVtRH9VTSjp5J54lzPGtmyEYwsjkWRXR/dT4g/9
+	tGfq9uVQpEpRC8+oZbFD/mJrY=
+X-Received: by 2002:a05:600c:45c7:b0:485:3fd1:9936 with SMTP id 5b1f17b1804b1-486fede721amr169762575e9.5.1774288830519;
+        Mon, 23 Mar 2026 11:00:30 -0700 (PDT)
+Received: from fedora ([82.77.79.23])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-486ff1d3befsm84419925e9.32.2026.03.23.11.00.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Mar 2026 10:42:51 -0700 (PDT)
-From: Shi Hao <i.shihao.999@gmail.com>
-To: krzk+dt@kernel.org
-Cc: robh@kernel.org,
-	andi.shyti@kernel.org,
-	conor+dt@kernel.org,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	daniel.baluta@nxp.com,
+        Mon, 23 Mar 2026 11:00:29 -0700 (PDT)
+From: Eduard Bostina <egbostina@gmail.com>
+To: daniel.baluta@nxp.com,
 	simona.toaca@nxp.com,
+	egbostina@gmail.com,
 	d-gole@ti.com,
 	m-chawdhry@ti.com,
-	i.shihao.999@gmail.com
-Subject: [PATCH] dt-bindings: i2c: cnxt,cx92755-i2c: Convert to DT schema
-Date: Mon, 23 Mar 2026 23:12:36 +0530
-Message-ID: <20260323174236.147507-1-i.shihao.999@gmail.com>
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v2 0/2] dt-bindings: watchdog: Convert TS-4800 to DT schema
+Date: Mon, 23 Mar 2026 19:59:43 +0200
+Message-ID: <20260323175948.302441-1-egbostina@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -81,109 +89,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert the Conexant Digicolor I2C bindings to DT schema.
+This patch series converts the Technologic Systems TS-4800 Watchdog timer
+bindings to DT schema and fixes the active hardware node in the iMX51
+device tree.
 
-Signed-off-by: Shi Hao <i.shihao.999@gmail.com>
 ---
+Changes in v2:
+- dt-bindings: watchdog: Moved 'allOf' block below 'required'.
+- dt-bindings: watchdog: Removed the 'syscon' node from the example.
 
-Note:
-This patch is part of the GSoC2026 application process for device tree
-bindings conversions https://github.com/LinuxFoundationGSoC/ProjectIde
-as/wiki/GSoC-2026-Device-Tree-Bindings
----
- .../bindings/i2c/cnxt,cx92755-i2c.yaml        | 51 +++++++++++++++++++
- .../devicetree/bindings/i2c/i2c-digicolor.txt | 25 ---------
- 2 files changed, 51 insertions(+), 25 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/i2c/cnxt,cx92755-i2c.yaml
- delete mode 100644 Documentation/devicetree/bindings/i2c/i2c-digicolor.txt
+Eduard Bostina (2):
+  dt-bindings: watchdog: Convert TS-4800 to DT schema
+  ARM: dts: nxp: imx51-ts4800: Rename wdt node to watchdog
 
-diff --git a/Documentation/devicetree/bindings/i2c/cnxt,cx92755-i2c.yaml b/Documentation/devicetree/bindings/i2c/cnxt,cx92755-i2c.yaml
-new file mode 100644
-index 000000000000..669397bbc571
---- /dev/null
-+++ b/Documentation/devicetree/bindings/i2c/cnxt,cx92755-i2c.yaml
-@@ -0,0 +1,51 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/i2c/cnxt,cx92755-i2c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Conexant Digicolor I2C controller
-+
-+allOf:
-+  - $ref: /schemas/i2c/i2c-controller.yaml#
-+
-+maintainers:
-+  - Baruch Siach <baruch@tkos.co.il>
-+
-+properties:
-+  compatible:
-+    const: cnxt,cx92755-i2c
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-frequency:
-+    default: 100000
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - '#address-cells'
-+  - '#size-cells'
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c@f0000120 {
-+      compatible = "cnxt,cx92755-i2c";
-+      reg = <0xf0000120 0x10>;
-+      interrupts = <28>;
-+      clocks = <&main_clk>;
-+      clock-frequency = <100000>;
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+    };
-diff --git a/Documentation/devicetree/bindings/i2c/i2c-digicolor.txt b/Documentation/devicetree/bindings/i2c/i2c-digicolor.txt
-deleted file mode 100644
-index 457a098d4f7e..000000000000
---- a/Documentation/devicetree/bindings/i2c/i2c-digicolor.txt
-+++ /dev/null
-@@ -1,25 +0,0 @@
--Conexant Digicolor I2C controller
--
--Required properties:
-- - compatible: must be "cnxt,cx92755-i2c"
-- - reg: physical address and length of the device registers
-- - interrupts: a single interrupt specifier
-- - clocks: clock for the device
-- - #address-cells: should be <1>
-- - #size-cells: should be <0>
--
--Optional properties:
--- clock-frequency: the desired I2C bus clock frequency in Hz; in
--  absence of this property the default value is used (100 kHz).
--
--Example:
--
--	i2c: i2c@f0000120 {
--		compatible = "cnxt,cx92755-i2c";
--		reg = <0xf0000120 0x10>;
--		interrupts = <28>;
--		clocks = <&main_clk>;
--		clock-frequency = <100000>;
--		#address-cells = <1>;
--		#size-cells = <0>;
--	};
---
+ .../watchdog/technologic,ts4800-wdt.yaml      | 40 +++++++++++++++++++
+ .../bindings/watchdog/ts4800-wdt.txt          | 25 ------------
+ arch/arm/boot/dts/nxp/imx/imx51-ts4800.dts    |  2 +-
+ 3 files changed, 41 insertions(+), 26 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/watchdog/technologic,ts4800-wdt.yaml
+ delete mode 100644 Documentation/devicetree/bindings/watchdog/ts4800-wdt.txt
+
+-- 
 2.53.0
+
