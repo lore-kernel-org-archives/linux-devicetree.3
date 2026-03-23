@@ -1,84 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012039.outbound.protection.outlook.com [40.107.200.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BDB3859DA
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 09:03:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774256635; cv=none; b=angHMUb8S0ZDwMn7vc1sHQ/hXBIOY3Ue0Kk8TvDASKdgS9OB89i8CiYEFA+QkwRLnCw6dDSZlDamNTwyfD5/7RVVzfAqVhQwqd76atHgeRYahA+FqAkGbv/8LSWU3b/67Jt7iCoQWAfzEgzyeZO8nnDNtsSxQB+yjnjKYzjkwgg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774256635; c=relaxed/simple;
-	bh=Y6Ln7apokh/wc0AOi/toxBUgq+c7baqtMbdqFe1JR+s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VQ+8XwV9C72IsfK/GjC1DEyxuPrnGVZNeHHsEqEVMPxSteiXYPprMM2HoO22hnvwVbFDCfRaYM4q4QEu7yl+WDJ7tM8wioYO2V5TSWnVN7fl7jAjYTHmicOceWJsb4PU5tcLN4WyxSU1Yt/lIKdW9ncT1BZyXgeP9jKHjuty6iM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V8z6WKCi; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1074D3859E4;
+	Mon, 23 Mar 2026 09:04:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.39
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774256654; cv=fail; b=uDtgFLL6NerqJvEqP7V/IuTlZQljfwL929ij3fAbGSFhLEJhdeeGiPW12n/lGx4IL6HCuy6/jebr9vkyXIO7SLZb8BnxaAbbvg6TY98546QAoU8FX6GFxAKYPMs4mLmRCLlzAd0BWxvxXd5guvr3nJwreA2jhl6ZeNfXA1q1AM8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774256654; c=relaxed/simple;
+	bh=Q1haGWN0IZM7S1rs0oPgtOx0svfYhzC6pZ9oEHhvK0Y=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Iat31jvm1F1GYtTZ1Etc+P5BZOE50mf66iMqwDTT68Q6UbVE0lP1pNMkFZ6rog1lcfjgtNZ388IAEDtukJTOiYqvQ2rHKjmBM2Xl1I2hWB86sdUQSqimMAnFomhnF3F0UfRSTvB91dlZKfu2AbDG3UYjtDzCNMhUdqsPo3Qbdak=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=Tgup8+rv; arc=fail smtp.client-ip=40.107.200.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V8z6WKCi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9E14C4AF0E
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 09:03:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774256634;
-	bh=Y6Ln7apokh/wc0AOi/toxBUgq+c7baqtMbdqFe1JR+s=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=V8z6WKCi5Zsoe+uxCF5locHBMfndoMqJUIb3dbz8gIFPVW0vzOoTHca+9gaYnHiQQ
-	 hrRXi/zQwDPRMkSc5/sSxhCktqWAiUpuM9GC9WC3870hjvxhKVV+C2AOQVxTl8h3Gz
-	 VM5AZvnrQ/j5baJa2Xcgi/n5bbyvai8OKkDwKd2RPtfyV2bHzTs+7xP3G7sC2kvRua
-	 pzXTiQsuj9qx8E5+dKS33jZczro/rs4AqaT0nzMjnLlbhHSSUoqq2pL3AcCCg8fQIl
-	 d4T58fNpVcEr9WJJh1fVY70yaIRYgShJ15l/92CG/+ggpJPhAlGDW5N8v8NbtcTu2v
-	 BWPfF+5+Mhprw==
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-79853c0f5b9so19884627b3.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 02:03:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCWV20p+UW2FiS7Ljh2BFT6pQM6ifKkJcStU6r96vafku4bG/ika/LgJMPgJyMtaSAVjq4CaORnDNxLK@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw2sVn1CCx54ryQu7iuggC35Wcw2+pQVEl3jLSjugk68j8m/Lf5
-	6RRROZagBq2lgPzfK4rZWSnCLiANaqoykoB8RhR3A416RIQIIYVZ9Xb2zN00YcPmGtVWZGIcewB
-	ohwk3eGRk147lVzyAiTyT9IkiBO5n5pE=
-X-Received: by 2002:a05:690c:c513:b0:79a:b77f:3fe0 with SMTP id
- 00721157ae682-79ab77f4a4emr19423007b3.5.1774256634011; Mon, 23 Mar 2026
- 02:03:54 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Tgup8+rv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oUCo1V06jceKfdG5/gGIIIS5ZivrTQBwPSE/tnCJP6taqqNzqKQyurUzbE/XZNrP+CRro3DWfxij8F53HhRZQE1J1ZNoBEqR9GMD2gYDkc44BkhKGaMShErHL+A5vN01Orl1B6QFDx9UR6Pt08tfkiuFQ+pTLoexFHllhvROApnTZwfiTAnMF7VIYUwzR2vzhP5eVeWqnMr4jM8U/hZQfAwuDRZpASBXlah01J7a9C3M/5NAPf0DvZmbFj8WtsxmY4vpsHxkM3tysb5tjMkbfMeZm2Q5Heh86172sKV4ozhXPi6Zf+MFLm+ACiEGnrazcrADskw9vh4HqNlYBNiaxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MmtHwpR9AEi48iWagFsCL9406xMrTncayuX9ueU8GT0=;
+ b=LZPf9EXKZdHxOZtg/az8ZHCpf04Fw8EiFprDsx1G9PG/48y00ZP66uR8rbtjGlYV2lMt04CTc0opYsNwHG1J4klKbT3u6AsGXJCHWA8qXeN0p5+0LoH8SYdKOY0C1xEU+CyunZTR2qlwfHRcOIppprdgPxPJrTdwIZIVjqOF8qhG2uC2l/Y5LIb8L8TyeGZlbDZcqzNEQrPXhaWQudiqJpSfpOzJ8VFDpVjpP18eUraSjXUxfUmqohQTAtTJgLuqf1cHX/3mpZc+4YZ4WJqnaqkXrljyaqva/UNtdJskzHYSp1kb2SmIMmfXYBgW1gq61Z2AGLV2bJzof/+5WqdSRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=kernel.org smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MmtHwpR9AEi48iWagFsCL9406xMrTncayuX9ueU8GT0=;
+ b=Tgup8+rvdcckSMy5QDiNBl7ftjwllNQIo9e8Ncakn1uA1Se/9C1s2kvj9RareBs/rL35rR9VQNbt6DfJXsAr5a2YdF8W7k9u1pDTK7cNylIe0r+Zw+Jr7Y5xWKGUXBqf73qXiQ2EZUKgzckjMBtzbHv8dtu/V7/qS2sdZzt4/zA=
+Received: from PH7PR13CA0001.namprd13.prod.outlook.com (2603:10b6:510:174::7)
+ by SN7PR10MB6978.namprd10.prod.outlook.com (2603:10b6:806:34d::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Mon, 23 Mar
+ 2026 09:04:09 +0000
+Received: from SN1PEPF00036F3E.namprd05.prod.outlook.com
+ (2603:10b6:510:174:cafe::f5) by PH7PR13CA0001.outlook.office365.com
+ (2603:10b6:510:174::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Mon,
+ 23 Mar 2026 09:04:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ SN1PEPF00036F3E.mail.protection.outlook.com (10.167.248.22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Mon, 23 Mar 2026 09:04:08 +0000
+Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 23 Mar
+ 2026 04:04:02 -0500
+Received: from DFLE208.ent.ti.com (10.64.6.66) by DFLE204.ent.ti.com
+ (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 23 Mar
+ 2026 04:04:01 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE208.ent.ti.com
+ (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Mon, 23 Mar 2026 04:04:01 -0500
+Received: from fllv0122.itg.ti.com (fllv0122.itg.ti.com [10.247.120.72])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 62N941ni455890;
+	Mon, 23 Mar 2026 04:04:01 -0500
+Received: from localhost (meghana-pc.dhcp.ti.com [10.24.69.13] (may be forged))
+	by fllv0122.itg.ti.com (8.14.7/8.14.7) with ESMTP id 62N940PU003500;
+	Mon, 23 Mar 2026 04:04:01 -0500
+From: Meghana Malladi <m-malladi@ti.com>
+To: Vignesh Raghavendra <vigneshr@ti.com>, Nishanth Menon <nm@ti.com>
+CC: Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>, <srk@ti.com>,
+	<danishanwar@ti.com>, <m-malladi@ti.com>
+Subject: [PATCH net-next v4 0/2] Add ICSSG0 dual EMAC support for AM642 EVM
+Date: Mon, 23 Mar 2026 14:33:56 +0530
+Message-ID: <20260323090358.632329-1-m-malladi@ti.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260316-eyeq6lplus-v4-0-bf44dfc7a261@bootlin.com> <20260316-eyeq6lplus-v4-2-bf44dfc7a261@bootlin.com>
-In-Reply-To: <20260316-eyeq6lplus-v4-2-bf44dfc7a261@bootlin.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 23 Mar 2026 10:03:43 +0100
-X-Gmail-Original-Message-ID: <CAD++jLn+z13_oZO0XLm9Q_sqwDq09-qYKN5PQiZCOZ96+9LkHw@mail.gmail.com>
-X-Gm-Features: AQROBzAs6grpZb_qsDNBkL3kogXuOOZDTkjOH99AKL5DVmwWAn4NYFh7gNmvQi4
-Message-ID: <CAD++jLn+z13_oZO0XLm9Q_sqwDq09-qYKN5PQiZCOZ96+9LkHw@mail.gmail.com>
-Subject: Re: [PATCH v4 02/13] dt-bindings: soc: mobileye: Add EyeQ6Lplus OLB
-To: =?UTF-8?Q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
-Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
-	Gregory CLEMENT <gregory.clement@bootlin.com>, =?UTF-8?B?VGjDqW8gTGVicnVu?= <theo.lebrun@bootlin.com>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	Tawfik Bayouk <tawfik.bayouk@mobileye.com>, linux-mips@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F3E:EE_|SN7PR10MB6978:EE_
+X-MS-Office365-Filtering-Correlation-Id: c34d7b78-a35c-4233-9639-08de88bb2453
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	xYgviStVfWnrgBefkGpk96Cu7F50dD5VWw3rvOQNVCoBNS7zf2AmGI0oujjldRawhwGqIHP89CaB+Js7Yc4Dgp0l/54NC7wxE8AxYGAkJd9Qs740sEGwKyX9jOVSmhRLg89VcjE7TcwGzwtX9D4BahG91EyG+0k8Lkr1ufZaG7gBBh0VDx0lT44kNy6iq0I/WfI0f/JH3QfABEDXeBaqgWnzol1HvZP+FAb5OwJx2mwT0p7I+1UmaEVzkoJmAA9hz4N68lLusr1MsBkoFjJicDbmRF9c5sRfO4L5+TfECiBUqMbgS4zjkxWn2yJkA2WsJrRvOOACu7kG6/oa8DgslQ12BAeVsVIBCO0XUem8nlbHwJ1KnDgDakLtpcrSv8odSi/v6ciXLTcZpB/pHf+xNdgE2vHVtM4VwhPP3jG3A0qCKvBMZT3cD3ma8XbUXeAM+HV8n1vsi1exnk0qdf4GUb8PqpZEzyhjFFd1UrGMpV3leqGwxgfIB7B3976mk7uudWUtHxHajp/EIJVn642N5ZLkOKDWH8XX7r4KIpEf66CwadMxYdOXMDEjbjw0biIpEePCfC1yPdCxb/lpu7xt2qTpl2z2HXCfsYRwSs2H2XWIsgxcXIbFFtrv7cwblkFySuv8C1v4aDtqOrIFFL2IN378GzkZhpR5J2MsHJ7R/zk4UgPZFgnzxhtFI8JcNegjYVflZBSP81usa7stOa9AIKyQ3y/jZ15Hqn2pSAwFVSca+xjb77uf39CZe+9kOtwpZOh1GqNtTXd6xEhlXpHFSg==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	akl+1le57DOn+IulNIVdoTfGYpR46VyNA9FssajtkvCYth+40Hg1wb3ZPYzppvAn+9gme5nhjK2zKm5/H8/+xuBumnj6JgKZNRNNF93yJwCyuktNmWJrNSuh5QF5/NmDf4/RJwE/CwrqDdZID4GXbl9nhBcExmjJ/9wk7K9+maFQDiYZMO/bsBNiYn3X8oU6FeZ7RYK+9HyVBa6OcLySQo9nneqjAd19wMEdLwXS3+oZCyma7beHUu4Ot7zd8ZAL35dGPh/qZZmI1q91qATQ0LFitBdy2jqwaT1HjLM1QD3pajBPIjkkltbSfjEI3WszqC5zr6uLakkpOBRXq8h7ms0DKbudy21ebx1KN2WRV4dGeBEqvkd1msN1rD4pdp5kaKo5CGMp+mJ89E9n8S8iZhfUto5XqgyE/3tZVp9dFiHag/tCbr2hHh/zUdgCQlML
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 09:04:08.2621
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c34d7b78-a35c-4233-9639-08de88bb2453
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF00036F3E.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR10MB6978
 
-On Mon, Mar 16, 2026 at 4:25=E2=80=AFPM Beno=C3=AEt Monin <benoit.monin@boo=
-tlin.com> wrote:
+This series adds device tree overlay support for enabling ICSSG0 dual EMAC
+on the AM642 EVM, along with the necessary PHY driver configuration.
 
-> The "Other Logic Block" found in the EyeQ6Lplus from Mobileye provides
-> various functions for the controllers present in the SoC.
->
-> The OLB produces 22 clocks derived from its input, which is connected
-> to the main oscillator of the SoC.
->
-> It provides reset signals via two reset domains.
->
-> It also controls 32 pins to be either a GPIO or an alternate function.
->
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
+The overlay enables both ICSSG0 Ethernet interfaces (port0 and port1) in
+dual EMAC mode and can be combined with the existing ICSSG1 overlay to
+enable all four ICSSG interfaces if needed.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+The series also enables the DP83TG720 PHY driver required for the
+DP83TG720-IND-SPE-EVM daughter card used with the ICSSG0 interface.
 
-Yours,
-Linus Walleij
+v3: https://lore.kernel.org/all/20260311053852.1034244-1-m-malladi@ti.com/
+logs: https://gist.github.com/MeghanaMalladiTI/20e9e661c3e1075694097bc02f5a3916
+
+Meghana Malladi (2):
+  arm64: dts: ti: k3-am642-evm: Add ICSSG0 overlay for dual EMAC support
+  arm64: defconfig: Enable DP83TG720 PHY driver
+
+ arch/arm64/boot/dts/ti/Makefile               |   4 +
+ .../boot/dts/ti/k3-am642-evm-icssg0.dtso      | 168 ++++++++++++++++++
+ arch/arm64/configs/defconfig                  |   1 +
+ 3 files changed, 173 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am642-evm-icssg0.dtso
+
+
+base-commit: 9ac76f3d0bb2940db3a9684d596b9c8f301ef315
+-- 
+2.43.0
+
