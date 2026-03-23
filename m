@@ -1,105 +1,219 @@
-Received: from mail-m1973192.qiye.163.com (mail-m1973192.qiye.163.com [220.197.31.92])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F3438552C;
-	Mon, 23 Mar 2026 10:11:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B890F386C31;
+	Mon, 23 Mar 2026 10:11:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774260674; cv=none; b=XTqZzj2tOsf3RPuLhHqkAVacK7YM3duFEVYh/MAi6CiIQJdxR9T4y/ZCWMJxfXij5ZA7VMjtZIKrmH1E0kQeoloYhjQRr0YBDH8JPeXMlGYHdTTAfqkjDwP+uDItoLiiifmIe4I0O+d76C0vPwoIMoppoWDct6jild12/hTP+kE=
+	t=1774260717; cv=none; b=om+aFB0SBv/J1EpKBlDSiPfofaPdjhPE8aNk9/9DVpOARadWoCu6P4YtdQW4YnKOCDD63G0yLMQv2ZKLjGbMu3txMZ8jQAZxSMXsTW/BSWe1W0R4+AjmsidIbTXSxo5pmFs8OL9sNRIVmKKMXcHEtLjxy/R38AZDLn1IuNWjpd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774260674; c=relaxed/simple;
-	bh=yKG8ZW2zGLq6YF4S9Hev2SNAZWQM9/EOqnbhR6kvr90=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JcNk9LxuabNDKJU8PXvxUHWvBgtt3eaEFif+oMgMGhPXDElrTa5LeXC/UdEu9jEbNI2W3fcWUfgziJCKbfohWA+hD7oPlyylpW63Fyt+XMlSP2NndVUGpG+iKiuaELkq0OTIIUMl8jm5yHdiSZSNrEXSzC+GH3nf7aCY15FLeLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=Fko7vEm8; arc=none smtp.client-ip=220.197.31.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1774260717; c=relaxed/simple;
+	bh=Ug5VHRdcq3NS/itD3XFI2srxI8A5Wt5+5mM2wgat0Cw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Ozk+NIO6AlfgEhIEDYzkdwWYxzm20wif4RAo8OYePesMKiLoZGpt7zRgMJbjZOKdt9jOOckRw1hZNgMttyI4gMWtnojb3UJ7qJAeLeJZ77k2z1fJPCNxZxKhPEwjAkXOY9KjP/CURX7lDH6ND6j2+gbJoyuIcXdDTg0m5sTFtyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=Qf5aIl4G; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="Fko7vEm8"
-Received: from [172.16.12.43] (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 37f14d637;
-	Mon, 23 Mar 2026 18:05:53 +0800 (GMT+08:00)
-Message-ID: <170a22d3-f1d6-4f71-97ca-db3edf689d93@rock-chips.com>
-Date: Mon, 23 Mar 2026 18:05:53 +0800
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="Qf5aIl4G"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=W6keZ0J8bp8XaUyK9YS2ONZrB864NUMZU0QHXs1cWj4=; b=Qf5aIl4GVdq+PVzn9w/hvh7DOX
+	FCCUAW7ftXAsDzHJNPTVjt7mwFKnUwy03aE9Xs7W/wrZ1IZ36xE2uXOt+E/SU8cGgCzyZq3ezpmn1
+	99UmOCXZ0oTFgxS/00h14C2XCgPvHsTEwAypDJy6TRq30NfdCPXSfeh66zklbOg0ehoOExCyJffSF
+	kb/bp9qhyQ8oVg1MxcQnCrDW1VI4Frxa4NcgDzKb7Nqy5zbETXlZfsdzxokLbdjblfxSdFZzUhTTc
+	ct4yKgRDo/i5WvBZUWM6SRR4gzIo5X/ZFUuB1Mt7A6nwO2kS5r52kTaxvUNF35OCuRejf3EsIoigK
+	2qoF9H4Q==;
+Received: from sslproxy08.your-server.de ([78.47.166.52])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <nora.schiffer@ew.tq-group.com>)
+	id 1w4cGF-000MKb-02;
+	Mon, 23 Mar 2026 11:11:51 +0100
+Received: from localhost ([127.0.0.1])
+	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <nora.schiffer@ew.tq-group.com>)
+	id 1w4cGD-0009hO-2R;
+	Mon, 23 Mar 2026 11:11:50 +0100
+Message-ID: <9e5367c6dfba0708578cda69fc48531b3749b5e8.camel@ew.tq-group.com>
+Subject: Re: [PATCH] arm64: dts: ti: k3-j722s: Add main_i2c4 device node
+From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+To: Aniket Limaye <a-limaye@ti.com>, Nishanth Menon <nm@ti.com>, Vignesh
+ Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, u-kumar1@ti.com, Jared McArthur
+ <j-mcarthur@ti.com>
+Date: Mon, 23 Mar 2026 11:11:49 +0100
+In-Reply-To: <20260304-j722s-main-i2c4-dt-v1-1-03f79f0cdf97@ti.com>
+References: <20260304-j722s-main-i2c4-dt-v1-1-03f79f0cdf97@ti.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/9] dt-bindings: display: rockchip: analogix-dp:
- Expand clock-names "hclk" for the third clock
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- alchark@gmail.com, cristian.ciocaltea@collabora.com,
- sebastian.reichel@collabora.com, kever.yang@rock-chips.com,
- heiko.stuebner@cherry.de, tomeu@tomeuvizoso.net, amadeus@jmu.edu.cn,
- michael.riesch@collabora.com, didi.debian@cknow.org,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260319104031.1986946-1-damon.ding@rock-chips.com>
- <20260319104031.1986946-2-damon.ding@rock-chips.com>
- <20260320-amusing-magnetic-harrier-20cc40@quoll>
- <311d143b-cc78-465e-9be2-0a9a0a33ea0b@kernel.org>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <311d143b-cc78-465e-9be2-0a9a0a33ea0b@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9d1a28788303a3kunmafb06323593c9f
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZGh5CSVZIHU0ZQxpKH0wdSkhWFRQJFh
-	oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpKQk
-	1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=Fko7vEm8qr/yM2Scx5aIktLIO/rsbKX9HQLG3hxzupnw8xra/FYMjlKPI2owJHEspyFJD+ms/U9DaO5WfmxhCm2w1GQVeKDGIM+SQNwMZMvzBNT1QbEO9S3xjsmMIMpH/LWoSgi9tGb7pVcciBKkTO5ljMPe4juXCYwDkDNEcL8=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=qCbZ2f0Kcl+hC4CPhtXEDMfwP+rqGeU660PawdGL7lw=;
-	h=date:mime-version:subject:message-id:from;
+X-Virus-Scanned: Clear (ClamAV 1.4.3/27949/Mon Mar 23 07:24:47 2026)
 
-Hi Krzysztof,
+On Wed, 2026-03-04 at 14:41 +0530, Aniket Limaye wrote:
+> Add missing device tree node for main_i2c4, and the corresponding ranges
+> in cbass_main. Interrupt for this i2c controller is routed through the
+> Main GPIOMUX Router.
+> Base address, Interrupt IDs are taken from J722S TRM [0].
+> Device, Clock IDs are taken from TISCI docs [1].
+>=20
+> Additionally, the I2C4 is the only interrupt source to the GPIOMUX INTR
+> router that generates level interrupts, while all other sources generate
+> edge interrupts. Due to this, the router needs to handle interrupt-type
+> on a per-line basis. Modify the router node and its consumers to
+> specify the interrupt type corresponding to each interrupt line.
+>=20
+> [0]: https://www.ti.com/lit/zip/sprujb3
+> [1]:
+> https://software-dl.ti.com/tisci/esd/latest/5_soc_doc/index.html#j722s
+>=20
+> Signed-off-by: Jared McArthur <j-mcarthur@ti.com>
+> Signed-off-by: Aniket Limaye <a-limaye@ti.com>
+> ---
+> Note:
+> Support for per-line interrupt-types was added through a recent series
+> [2], which was already merged in.
+>=20
+> Testing:
+> - Enable I2C4 (additional DT patch) on j722s-evm and run i2cdetect [3].
+> - Add testcode to ignore the NACK interrupt, which results in an irq
+>   storm -> showing that GIC is actually receiving level interrupt from
+>   the INTR [4].
 
-On 3/20/2026 5:41 PM, Krzysztof Kozlowski wrote:
-> On 20/03/2026 10:19, Krzysztof Kozlowski wrote:
->> On Thu, Mar 19, 2026 at 06:40:23PM +0800, Damon Ding wrote:
->>> The RK3588 eDP controller needs the video datapath clock "hclk" to work
->>> well. Previously, it works without explicitly adding this clock because
->>> the 'rockchip,vo-grf = <&vo1_grf>' property implicitly enables HCLK_VO1.
->>>
->>> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
->>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
->>> ---
-> 
-> BTW, all your patches (this and previous set... actually, everything you
-> ever sent IIRC) end up marked as spam. I don't see anything in the
-> headers pointing to the issue. There is no score assigned and
-> DMARC+SPF+DKIM pass.
-> 
-> However it seems you are using @rock-chips.com and SMTP server 163.com,
-> so maybe that difference. Or maybe it is rock-chips lack of DMARC policy
-> (p=none dis=none)?
-> 
-> Regardless of the reason, if you do not ever receive answers from
-> people, it is likely that is the reason.
-> 
-> 
+I ran a basic test on our MBa67xx board based on current linux-next with th=
+is
+patch applied. Probe and configuration of a RPi DSI camera module (IMX219)
+connected to I2C4 is working as expected.
 
-Thank you for the kind heads-up! And I’m sorry for the extra work you 
-have to go through checking the spam folder.
+Tested-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
 
-It looks like I really need to have a good talk with our IT team about this.
 
-Thanks again for letting me know — much appreciated!
 
-Best regards,
-Damon
+>=20
+> [2]: https://lore.kernel.org/all/20260123-ul-driver-i2c-j722s-v4-0-b08625=
+c487d5@ti.com/
+> [3]: https://gist.github.com/aniket-l/844925345316adf9f65f04c8cdedd62d#fi=
+le-j722s-evm-main-i2c4-working-logs-txt
+> [4]: https://gist.github.com/aniket-l/844925345316adf9f65f04c8cdedd62d#fi=
+le-j722s-evm-main-i2c4-irqstorm-logs-txt
+> ---
+>  arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi | 13 +++++++-----=
+-
+>  arch/arm64/boot/dts/ti/k3-j722s-main.dtsi              | 13 ++++++++++++=
++
+>  arch/arm64/boot/dts/ti/k3-j722s.dtsi                   |  3 ++-
+>  3 files changed, 22 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi b/arc=
+h/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
+> index 0e1af2a69ca2..f130c7cb998d 100644
+> --- a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
+> +++ b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
+> @@ -543,10 +543,9 @@ main_spi2: spi@20120000 {
+>  	main_gpio_intr: interrupt-controller@a00000 {
+>  		compatible =3D "ti,sci-intr";
+>  		reg =3D <0x00 0x00a00000 0x00 0x800>;
+> -		ti,intr-trigger-type =3D <1>;
+>  		interrupt-controller;
+>  		interrupt-parent =3D <&gic500>;
+> -		#interrupt-cells =3D <1>;
+> +		#interrupt-cells =3D <2>;
+>  		ti,sci =3D <&dmsc>;
+>  		ti,sci-dev-id =3D <3>;
+>  		ti,interrupt-ranges =3D <0 32 16>;
+> @@ -558,8 +557,9 @@ main_gpio0: gpio@600000 {
+>  		gpio-controller;
+>  		#gpio-cells =3D <2>;
+>  		interrupt-parent =3D <&main_gpio_intr>;
+> -		interrupts =3D <190>, <191>, <192>,
+> -			     <193>, <194>, <195>;
+> +		interrupts =3D <190 IRQ_TYPE_EDGE_RISING>, <191 IRQ_TYPE_EDGE_RISING>,
+> +			     <192 IRQ_TYPE_EDGE_RISING>, <193 IRQ_TYPE_EDGE_RISING>,
+> +			     <194 IRQ_TYPE_EDGE_RISING>, <195 IRQ_TYPE_EDGE_RISING>;
+>  		interrupt-controller;
+>  		#interrupt-cells =3D <2>;
+>  		ti,davinci-gpio-unbanked =3D <0>;
+> @@ -574,8 +574,9 @@ main_gpio1: gpio@601000 {
+>  		gpio-controller;
+>  		#gpio-cells =3D <2>;
+>  		interrupt-parent =3D <&main_gpio_intr>;
+> -		interrupts =3D <180>, <181>, <182>,
+> -			     <183>, <184>, <185>;
+> +		interrupts =3D <180 IRQ_TYPE_EDGE_RISING>, <181 IRQ_TYPE_EDGE_RISING>,
+> +			     <182 IRQ_TYPE_EDGE_RISING>, <183 IRQ_TYPE_EDGE_RISING>,
+> +			     <184 IRQ_TYPE_EDGE_RISING>, <185 IRQ_TYPE_EDGE_RISING>;
+>  		interrupt-controller;
+>  		#interrupt-cells =3D <2>;
+>  		ti,davinci-gpio-unbanked =3D <0>;
+> diff --git a/arch/arm64/boot/dts/ti/k3-j722s-main.dtsi b/arch/arm64/boot/=
+dts/ti/k3-j722s-main.dtsi
+> index 9ee5d0c8ffd1..ddf20e44f0ea 100644
+> --- a/arch/arm64/boot/dts/ti/k3-j722s-main.dtsi
+> +++ b/arch/arm64/boot/dts/ti/k3-j722s-main.dtsi
+> @@ -154,6 +154,19 @@ usb1: usb@31200000 {
+>  		};
+>  	};
+> =20
+> +	main_i2c4: i2c@fe80000 {
+> +		compatible =3D "ti,am64-i2c", "ti,omap4-i2c";
+> +		reg =3D <0x00 0x0fe80000 0x00 0x100>;
+> +		interrupt-parent =3D <&main_gpio_intr>;
+> +		interrupts =3D <178 IRQ_TYPE_LEVEL_HIGH>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +		power-domains =3D <&k3_pds 257 TI_SCI_PD_EXCLUSIVE>;
+> +		clocks =3D <&k3_clks 257 2>;
+> +		clock-names =3D "fck";
+> +		status =3D "disabled";
+> +	};
+> +
+>  	ti_csi2rx1: ticsi2rx@30122000 {
+>  		compatible =3D "ti,j721e-csi2rx-shim";
+>  		reg =3D <0x00 0x30122000 0x00 0x1000>;
+> diff --git a/arch/arm64/boot/dts/ti/k3-j722s.dtsi b/arch/arm64/boot/dts/t=
+i/k3-j722s.dtsi
+> index 059c65ece183..1b36dcf37925 100644
+> --- a/arch/arm64/boot/dts/ti/k3-j722s.dtsi
+> +++ b/arch/arm64/boot/dts/ti/k3-j722s.dtsi
+> @@ -160,7 +160,8 @@ cbass_main: bus@f0000 {
+>  			 <0x00 0x0fd80000 0x00 0x0fd80000 0x00 0x00080000>, /* GPU */
+>  			 <0x00 0x0fd20000 0x00 0x0fd20000 0x00 0x00000100>, /* JPEGENC0_CORE =
+*/
+>  			 <0x00 0x0fd20200 0x00 0x0fd20200 0x00 0x00000200>, /* JPEGENC0_CORE_=
+MMU */
+> -			 <0x00 0x20000000 0x00 0x20000000 0x00 0x0a008000>, /* Third peripher=
+al window */
+> +			 <0x00 0x0fe00000 0x00 0x0fe00000 0x00 0x000f0400>, /* Third peripher=
+al window */
+> +			 <0x00 0x20000000 0x00 0x20000000 0x00 0x0a008000>, /* Fourth periphe=
+ral window */
+>  			 <0x00 0x30040000 0x00 0x30040000 0x00 0x00080000>, /* PRUSS-M */
+>  			 <0x00 0x301c0000 0x00 0x301c0000 0x00 0x00001000>, /* DPHY-TX */
+>  			 <0x00 0x30101000 0x00 0x30101000 0x00 0x00080100>, /* CSI window */
+>=20
+> ---
+> base-commit: d517cb8cea012f43b069617fc8179b45404f8018
+> change-id: 20260303-j722s-main-i2c4-dt-8a1344d04ffe
+>=20
+> Best regards,
 
+--=20
+TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
+any
+Amtsgericht M=C3=BCnchen, HRB 105018
+Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
+neider
+https://www.tq-group.com/
