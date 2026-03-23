@@ -1,106 +1,155 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A323C1402
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 17:07:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DCC83BD22C;
+	Mon, 23 Mar 2026 17:08:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774285670; cv=none; b=QOLrkub+PiZ82g0OsxD2Z3st1tG26D5eY45ltyMXUPWpRTvJe6wOtLHF30tFktb7M+kzqA5ZTmjKT08azcpivkaundJftMWwcfhR8Pp+rBRQK+dEDoVB+6MlmlbUP5MViOL+fdm9LYcliYMSwDTtIlL9gDC3D+59CxZTlcslMDQ=
+	t=1774285719; cv=none; b=Iypn794SvMG7ZgXog4EE54vj7g9u0c2wgnrCjp36sIahJj4NEUadH5+5Y3nb2ic7wJYPgf2KDGQ64cX4euKhp3dkqMYl7IUQRT0jqR4PQADFbwFoA09JgZ+cR+6Dl6P3b1vFz7HT2gigibjG4iTZ8wTE1pZp2DNsC4KJ9EsiYs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774285670; c=relaxed/simple;
-	bh=9w/05BIl6C5UPAlKrmDSRzbmSzN+L5hTClA52vqlcgI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dC9jiU1R0RENwKgJPd2EDCja8NZJrsHINjIdqhDExfkSppawZd12qyu5rayixnw1uv+wIjlT+BpuDe4w5uBP7o4K46XMbuhq8JscDHA5WUh7nS6aRunzCrei2ao0uyQWi7gcfhIdjUSFK/FMx/KMZEm93BWtdKtWUU9U7Y2YEoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=csie.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=csie.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5a27c021b58so398984e87.2
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:07:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774285664; x=1774890464;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9w/05BIl6C5UPAlKrmDSRzbmSzN+L5hTClA52vqlcgI=;
-        b=mZthpQOPnXXwFoJB08lZpQZpJNhaM9zJeShHdDXARh7riA54ourCvVleD0bGDBPphd
-         2mXKkPOWu3AwwxZkBIAYeA3B9aL1iJ2D9maxZBI4jrcVmTrkravX5FDUPoQ/dqsh/SLT
-         No61Y0OWL38TLjmnviiHTKeJ6BitTImJyehUAAzPc/Dk72rdQTZtwCqljgSNKMdda031
-         5rD8sgkfOidkGgD33kgKK4nNTxr/nUUsJGtt/8Mk3nLr3NBOUIabwPk6smUB3ZmkGhb8
-         hJR1p5Aj/h8ioHIZ8vYtk6ZfFAUwlYAnBF/GU/+9S73w/87xOiPMOwtl9BFoD/d1feM9
-         8/hQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXpC9gnBzkMrP0opbeoyonpIYF+qSCl48Wgq9vB4ndyfzTUrt5uMXqbz2PQ5oApSFs+gFZqR260Ii32@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy9Q6xNs+01rep3gGyQ6eCu+1U7cJT9ym7Kr0X+GiW6IwL1MP/G
-	UMpuBz9uz+ZxUA46w7pqjbeNFW3Cs3sO+nJ0nXlIc8FUtTl1QUvbxb4dmhObJBft
-X-Gm-Gg: ATEYQzzdJc7Nz7685m4+9eDpaO/hfUgjtOe2fPi/Owy2US/42+fD6gDdO5dzP5o2bDa
-	UKkfNY4E9Bxwzegc7hcIQ3j9f8w80Ph5O2M6DjBRAP2ERcv5ZE3hgEOX/YcDQ6dqHmXzTOHgckK
-	Gnp8eozeXtH5q1Jx1uXNGs4wM+7ljRLZ+QRkGLboYil462dnvYrr62HdyP0BzGCbdrpv5gYrM86
-	dMWd+243ctawWMjM7a8vuY53GRXWpPAemBS5E4wmzh8IqmOFjWziPC7lXV6lG4htnHJbywDuDGj
-	38ClPkHMgUio2TFHSawRmL3r7EWb/JTNHt58MH4+nUy7BDeXs5LWS48/v6PzolFQiuGVD3Q6QmG
-	SuFZFRxusjcd3masMsogEwSgL8Q2iyVDlEk021OYJYPnRXP9q8HnHz7tLuGmF2xA6HUak2A4qCm
-	LLNOK76J2N2MOnNhME4cBCmLUqqqO5iukIVwsFGbIFI2AdrR6HxTsH0wa/F+eXAI+JrQ==
-X-Received: by 2002:a05:6512:31d5:b0:5a1:5762:4cfa with SMTP id 2adb3069b0e04-5a285b3fd17mr4383637e87.21.1774285663993;
-        Mon, 23 Mar 2026 10:07:43 -0700 (PDT)
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com. [209.85.208.179])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a28519f958sm2593394e87.19.2026.03.23.10.07.42
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Mar 2026 10:07:43 -0700 (PDT)
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-38a723b2b29so2905211fa.2
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:07:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCV4dvERE805sveWvRgW1fJUflXpvUYlDKpppHzh5+n3pHHYInExNz0z2MsfCouHp7otyd+1zD5TmPQW@vger.kernel.org
-X-Received: by 2002:a2e:9bd2:0:b0:38b:f0f0:e3c0 with SMTP id
- 38308e7fff4ca-38bf963ddd7mr33026081fa.9.1774285662722; Mon, 23 Mar 2026
- 10:07:42 -0700 (PDT)
+	s=arc-20240116; t=1774285719; c=relaxed/simple;
+	bh=9qexIOS+2Jxul6keX+xp+B+ZkzLLQx9RxmYp/GWG4tI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=THbUN59C78fyjSNsqyqAAdTu15NqzXd3+m31Hw2HWU6hjk7JD6fkMgaIl5n2F96rpA/BGxUMyxfhkXiVStb5yuojPaepVUICRNlHnYwYtLis4UexFZ+o+QR0okZtIzSL9osPW89OxShnZ8CR+nm/w8XG8GpVRYvFpJWr2/Ey6Xw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mC6Yq1N5; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mC6Yq1N5"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EA4D1C2BC9E;
+	Mon, 23 Mar 2026 17:08:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774285719;
+	bh=9qexIOS+2Jxul6keX+xp+B+ZkzLLQx9RxmYp/GWG4tI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=mC6Yq1N5NjZUEf0l5IMsBmYgiWv5uFMgmrucjQKOAPvR8mexSr18eH3LI1AOZWSdJ
+	 XB8++uqFKs8TTkzcOIhT0S7mbx1LjKqk4HeIH+hpBZgLQCfZe4A6Lmu2L4OfYtvoZA
+	 719NIPH/5DE1BBtZZGcam+WHENt9ZOoU4HpWZaT5US+JE9+5v/BUwsv/vA00EA1MFQ
+	 N0j9QHWZWGPXrLALZALP2i9dIYylYWeUfae8tJiQCPkGDiVB9urdDBns1nTQTSlGuc
+	 +hhwdzCgBgDtdEPWpoAx1SNKXF7Hv/gzXs4C9e83o+nPHcnUdj3zE2OI7TOh1tXVJK
+	 wT6luvKaVbMuA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D95DEF483D7;
+	Mon, 23 Mar 2026 17:08:38 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Mon, 23 Mar 2026 12:08:32 -0500
+Subject: [PATCH v3 1/2] dt-bindings: display: panel: Add ChipWealth
+ CH13726A AMOLED driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260323110151.2352832-1-andre.przywara@arm.com> <20260323110151.2352832-3-andre.przywara@arm.com>
-In-Reply-To: <20260323110151.2352832-3-andre.przywara@arm.com>
-Reply-To: wens@csie.org
-From: Chen-Yu Tsai <wens@csie.org>
-Date: Tue, 24 Mar 2026 01:07:30 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65RBGK4Tb0=2D=8_37AQDt2GL_kEwd1OjqQ6ziRWqy4tQ@mail.gmail.com>
-X-Gm-Features: AQROBzA5T8F1z2ogDDbAkrNKbAgfLdiandHWSkKdFT2S7GO1Ch51csLHtutzo-M
-Message-ID: <CAGb2v65RBGK4Tb0=2D=8_37AQDt2GL_kEwd1OjqQ6ziRWqy4tQ@mail.gmail.com>
-Subject: Re: [PATCH 2/5] pinctrl: sunxi: Remove unneeded IRQ remuxing for some SoCs
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Michal Piekos <michal.piekos@mmpsystems.pl>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260323-ch13726a-v3-1-e28b6f97fe80@gmail.com>
+References: <20260323-ch13726a-v3-0-e28b6f97fe80@gmail.com>
+In-Reply-To: <20260323-ch13726a-v3-0-e28b6f97fe80@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>, 
+ Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774285718; l=2207;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=m1gbP9xlX+JfXna4d2g22onWt9FebTUXJRHPr06dAlg=;
+ b=sdhUJhJWlSEI9XGJDcNBWzx1JjIDC9xcG8mbZBjG7AF2ed9UZL6GJ/K+VCHYU2lY0RXU623uC
+ w7QKXDdGKmSDSUhEwJ1DfHXFFJuhSuCqIAroKxEaPPOchw1Qx7V4YIC
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Reply-To: webgeek1234@gmail.com
 
-On Mon, Mar 23, 2026 at 7:02=E2=80=AFPM Andre Przywara <andre.przywara@arm.=
-com> wrote:
->
-> The Allwinner A10 and H3 SoCs cannot read the state of a GPIO line when
-> that line is muxed for IRQ triggering (muxval 6), but only if it's
-> explicitly muxed for GPIO input (muxval 0). Other SoCs do not show this
-> behaviour, so we added a optional workaround, triggered by a quirk bit,
-> which triggers remuxing the pin when it's configured for IRQ, while we
-> need to read its value.
->
-> For some reasons this quirk flag was copied over to newer SoCs, even
-> though they don't show this behaviour, and the GPIO data register
-> reflects the true GPIO state even with a pin configured to muxval 6
-> (IRQ). The workaround is just more costly, but doesn't break otherwise,
-> so this was probably never noticed by anyone.
-> Experiments confirm that the H5, H6, H616 and A523 do not need this
-> workaround, they show the GPIO line value with both muxval 0 and 6.
->
-> Remove the unneeded quirk from those SoC's pinctrl driver description.
-> This should have no obvious effect on the H5, H6, H616 (other than
-> being more efficient), but the workaround is broken for the A523, so
-> it fixes (one part of the) interrupt operation there.
->
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> Fixes: b8a51e95b376 ("pinctrl: sunxi: Add support for the secondary A523 =
-GPIO ports")
+From: Aaron Kling <webgeek1234@gmail.com>
 
-Acked-by: Chen-Yu Tsai <wens@kernel.org>
+The Chip Wealth Technology CH13726A AMOLED driver is a single chip
+solution for MIPI-DSI. This is used for the AYN Thor bottom panel.
+
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+ .../display/panel/chipwealth,ch13726a.yaml         | 65 ++++++++++++++++++++++
+ 1 file changed, 65 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml b/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..5d964900795653401a871994bcf6403cdeaad64f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml
+@@ -0,0 +1,65 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/chipwealth,ch13726a.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Chip Wealth Technology CH13726A AMOLED driver
++
++maintainers:
++  - Neil Armstrong <neil.armstrong@linaro.org>
++
++description:
++  Chip Wealth Technology CH13726A is a single-chip solution
++  for AMOLED connected using a MIPI-DSI video interface.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    const: ayntec,thor-panel-bottom
++
++  reg:
++    maxItems: 1
++    description: DSI virtual channel
++
++  vdd-supply: true
++  vddio-supply: true
++  vdd1v2-supply: true
++  avdd-supply: true
++
++  port: true
++  reset-gpios: true
++  rotation: true
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++  - vddio-supply
++  - vdd1v2-supply
++  - avdd-supply
++  - reset-gpios
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        panel@0 {
++            compatible = "ayntec,thor-panel-bottom";
++            reg = <0>;
++            vdd1v2-supply = <&vreg_l11b_1p2>;
++            vddio-supply = <&vdd_disp_1v8>;
++            vdd-supply = <&vreg_l13b_3p0>;
++            avdd-supply = <&vdd_disp2_2v8>;
++            reset-gpios = <&tlmm 133 GPIO_ACTIVE_HIGH>;
++        };
++    };
++
++...
+
+-- 
+2.53.0
+
+
