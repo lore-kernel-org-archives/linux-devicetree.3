@@ -1,130 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D50D3D5656;
-	Mon, 23 Mar 2026 19:30:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B983D6461;
+	Mon, 23 Mar 2026 19:31:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774294207; cv=none; b=C5BPPU086RNqQ22FX04r8aAJsuwS1ws9zdsx21E7YtK6/INgHJ3/5lx+JIta2pWx+1VULPd5DlLn4k++GWvNQb7Y3M8jrd5goMS50vQ2AfwsIDiTkv6d3KnHeXgFhSHZ05vCIVVO3uOwbGVLQN0d1GvQxVjg2BJRpKYmN2VO8/A=
+	t=1774294279; cv=none; b=ghZul28a8KrVeE12VGe6E1k/YqMsFgXefM8E9rENhXnpwPN/U7YA/qdii0BL8OOsYpCCYPIX1MPY3VBQFkn2nQa8UdLWUeHfagwJQ4XB/TjO4JIUMqdjOogWSC+d+2URv/Zj4DuD0DNEboiVfBPic7usZdvB3ctGGiPmWYUDCNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774294207; c=relaxed/simple;
-	bh=WkOB5F/+CkWWcUQBu5DPKJSH1aWAKy81sJ22hQhZ6Cc=;
+	s=arc-20240116; t=1774294279; c=relaxed/simple;
+	bh=G20CxqU1+UGW3jMquGn0Ml5GLP9YQQvV4BfT9lF/heQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eZtMIDloCyA7CnbMYBxZCrNM89kV5XicRS3mCwIgJnRzrDoErK60ku2CUVQ+c16bwpkvUTxzAk3J2tyxoYFlv425hn8U9AJAMzmlno+YylQxVUtfoib+QO28SzaqbQM0q3YPBgqXRjXFnf9nzgb2/GnOnAi89JhPmfbhLqC6/Uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bBGAnOSl; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=jUePBjPfbHnA8iYSuq0pYlzjqnF+81GaryQcWYq1WTxym3Q1AuxUbyc8kEh1HQLJLISmJ0k0R8cYEyt/ZW5GEA1aZ6UR59RaBFM4blRRubxCrWef8JeIUIckOQSgB/CFYBzcuqopIYvkWITfCDLfUKUM/gdvXPZemLcKqJm9JqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oWf6Eotg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bBGAnOSl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11159C4CEF7;
-	Mon, 23 Mar 2026 19:30:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oWf6Eotg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87749C4CEF7;
+	Mon, 23 Mar 2026 19:31:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774294206;
-	bh=WkOB5F/+CkWWcUQBu5DPKJSH1aWAKy81sJ22hQhZ6Cc=;
+	s=k20201202; t=1774294278;
+	bh=G20CxqU1+UGW3jMquGn0Ml5GLP9YQQvV4BfT9lF/heQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bBGAnOSl6eKvcS87RfI2bTJq8NJeM9aAimOV8ZjrPMMphdFSi+Kb58HZJXV9Qct1N
-	 E5qzibHIQw9q+eRNaQeBUehZDfk1ypEZgRKTbFbhA2fcwH5oa334sClwEW1MdTSBdz
-	 y+lHm+mzKSxVxnELlZQYlo8Kd/t3KqZPFm2iqUe86M9zHYNzWBJgc8Z18OexAKNyg0
-	 Ux8WIetSIkRZduIui1WlrIM1wtA5jN8IVaVetC6czUvYWiPmW31IbFFXzcj0fcohiQ
-	 RrKuYGsbffZPiqxYxMuhruwZn1LvV+p6O8niEqSuuaw0iPptP+JIqLux7bPhFs3Pcg
-	 mfbT4s+QGnsfQ==
-Date: Mon, 23 Mar 2026 19:30:00 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Cc: mkl@pengutronix.de, mani@kernel.org, thomas.kopp@microchip.com,
-	mailhol@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
-	linusw@kernel.org, brgl@kernel.org, linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-	mukesh.savaliya@oss.qualcomm.com, anup.kulkarni@oss.qualcomm.com
-Subject: Re: [PATCH v3 1/2] dt-bindings: can: mcp251xfd: add
- microchip,xstbyen property
-Message-ID: <20260323-bonded-ranging-c9f9c4d0aacf@spud>
-References: <20260321135031.3107408-1-viken.dadhaniya@oss.qualcomm.com>
- <20260321135031.3107408-2-viken.dadhaniya@oss.qualcomm.com>
+	b=oWf6EotghHJ94y6XisVtCSIuaWRU8U5SBKQ+Npd/0KQlToN9cqxLPMA0o2DeGQKTx
+	 md9aNoSqff3bF6SGoQTvkKqdc7g7tbzMwH2s4+9fFylyjwURmXWgId5Xeq1DbdNtOE
+	 3MB+rggjxUuKC09Rb52v9AMu8UdxMOBkDSyR4t+myYDxc6jHNMEf1fmQ2R7iCpE4sP
+	 i4RmpOIBogJkmRHW8ekq+HVgCu8nJLghIkSdwLwkgeDM4fGfBde5NEAL/NL3u0Te3o
+	 Wo/chRxpvRHaBOGZ6nWKbrtx92AKHIrdXTJZrSObmnU/TMeRI6v1WiBhp2feePJTBE
+	 Nx81EpcyHdYLA==
+Date: Mon, 23 Mar 2026 14:31:17 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Artur Weber <aweber.kernel@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Simona Vetter <simona@ffwll.ch>,
+	Dzmitry Sankouski <dsankouski@gmail.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Tomi Valkeinen <tomi.valkeinen@ti.com>
+Subject: Re: [PATCH v2] dt-bindings: display: panel: Align style of "true"
+ properties
+Message-ID: <177429427708.1201655.1282560740114518028.robh@kernel.org>
+References: <20260313-dt-bindings-display-panel-clean-v2-1-d49615218f92@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/4zXNmXsOz71EUWe"
-Content-Disposition: inline
-In-Reply-To: <20260321135031.3107408-2-viken.dadhaniya@oss.qualcomm.com>
-
-
---/4zXNmXsOz71EUWe
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260313-dt-bindings-display-panel-clean-v2-1-d49615218f92@oss.qualcomm.com>
 
-On Sat, Mar 21, 2026 at 07:20:30PM +0530, Viken Dadhaniya wrote:
-> Add the boolean property 'microchip,xstbyen' to enable the dedicated
-> transceiver standby control function on the INT0/GPIO0/XSTBY pin of
-> the MCP251xFD family.
->=20
-> Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+
+On Fri, 13 Mar 2026 09:20:54 +0100, Krzysztof Kozlowski wrote:
+> For code readability, several bindings which list allowed properties
+> with ": true" syntax group them in one place, without line breaks
+> between each.  Align a few bindings to match this style.  No functional
+> impact.
+> 
+> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > ---
-> v2 -> v3:
->=20
-> - No change.
->=20
-> v2 Link: https://lore.kernel.org/all/20260316131950.859748-2-viken.dadhan=
-iya@oss.qualcomm.com/
->=20
-> v1 -> v2:
->=20
-> - Drop the gpio-hog approach as suggested by Dmitry.
-> - Add the microchip,xstbyen property to enable transceiver standby contro=
-l.
->=20
-> v1 Link: https://lore.kernel.org/all/20260108125200.2803112-2-viken.dadha=
-niya@oss.qualcomm.com/
+> Changes in v2:
+> - Drop applied patches 1-4
+> - Rebase (jadard,jd9365da-h3.yaml change is gone)
+> - Link to v1: https://patch.msgid.link/20260306-dt-bindings-display-panel-clean-v1-0-3086eda1efaf@oss.qualcomm.com
+> 
+> BR,
+> Krzysztof
 > ---
->  .../devicetree/bindings/net/can/microchip,mcp251xfd.yaml  | 8 ++++++++
->  1 file changed, 8 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/net/can/microchip,mcp251xf=
-d.yaml b/Documentation/devicetree/bindings/net/can/microchip,mcp251xfd.yaml
-> index 2d13638ebc6a..28e494262cd9 100644
-> --- a/Documentation/devicetree/bindings/net/can/microchip,mcp251xfd.yaml
-> +++ b/Documentation/devicetree/bindings/net/can/microchip,mcp251xfd.yaml
-> @@ -44,6 +44,14 @@ properties:
->        signals a pending RX interrupt.
->      maxItems: 1
-> =20
-> +  microchip,xstbyen:
-> +    type: boolean
-> +    description:
-> +      If present, configure the INT0/GPIO0/XSTBY pin as transceiver stan=
-dby
-> +      control. The pin is driven low when the controller is active and h=
-igh
-> +      when it enters Sleep mode, allowing automatic standby control of an
-> +      external CAN transceiver connected to this pin.
+>  .../devicetree/bindings/display/panel/feiyang,fy07024di26a30d.yaml | 1 -
+>  Documentation/devicetree/bindings/display/panel/himax,hx8394.yaml  | 3 ---
+>  .../devicetree/bindings/display/panel/leadtek,ltk050h3146w.yaml    | 1 +
+>  .../devicetree/bindings/display/panel/leadtek,ltk500hd1829.yaml    | 1 +
+>  .../devicetree/bindings/display/panel/mantix,mlaf057we51-x.yaml    | 5 ++---
+>  .../devicetree/bindings/display/panel/novatek,nt35510.yaml         | 3 ++-
+>  .../devicetree/bindings/display/panel/renesas,r61307.yaml          | 3 +--
+>  .../devicetree/bindings/display/panel/renesas,r69328.yaml          | 1 -
+>  .../devicetree/bindings/display/panel/rocktech,jh057n00900.yaml    | 5 ++---
+>  .../bindings/display/panel/sony,tulip-truly-nt35521.yaml           | 2 --
+>  .../devicetree/bindings/display/panel/startek,kd070fhfid015.yaml   | 7 ++-----
+>  11 files changed, 11 insertions(+), 21 deletions(-)
+> 
 
-What I don't understand from this patch is why a property for this is
-required.
-Why can't this mode be implied from the lack of rx-int-gpios or
-interrupts?
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-> +
->    spi-max-frequency:
->      description:
->        Must be half or less of "clocks" frequency.
-> --=20
-> 2.34.1
->=20
-
---/4zXNmXsOz71EUWe
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacGUswAKCRB4tDGHoIJi
-0p+fAP9UIJ8Rhvd3J1atVa+xAvAQ31INds935ubHT1GwXQAiIwEAtqd3oDP7yasK
-KvlOPEj9iAqeOfDPw/YmoAPHHyMllQI=
-=s/By
------END PGP SIGNATURE-----
-
---/4zXNmXsOz71EUWe--
