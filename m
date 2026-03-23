@@ -1,236 +1,160 @@
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD33F35E957;
-	Mon, 23 Mar 2026 07:26:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B481735F5EF;
+	Mon, 23 Mar 2026 07:27:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774250804; cv=none; b=E3mynKAdlegQj2q6Or46tKKn/dlRkXlmsdFJQ75FtN45DxN6gYGFjJz516riPH/kMOE0Guu/uZaDjKXcd6nojhwFFqZLnCPRlZLRARnUp/OaUGnZoSTaZR6TXzIk+aVFjF2R2WLtdvpc8vuNYq6JU6fjbmNG0B330CbJ+29isCA=
+	t=1774250825; cv=none; b=rXbPc67VVSvVrJC0AKwuRh7rgoC1NYd4O4bU1KScEFXGryc4kS7kMrFP6Bj5t9KSTBbsd56u7LQIN4VtlTmabdEAYqimL8CFpua/vOjmnHP3kgjfg5uF05xrRIh93XDlhxhRFRU0znvh35YJLriHtPSHfIByzjWn6u6oi5GshvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774250804; c=relaxed/simple;
-	bh=2jE3oCh9qtPf3BgiQ9ixvEIW6xvizOoFqIIFxKn4qqY=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dsoxgBC61OCSxC+xIM3OZnfVu7dNML1xoE/C7Y0yNgYttauhO84GNeBUFL52jLMUpuavwo3ock186BC0wP+A0QxXXVQLo8dJ0r9oKW4mMTWgx1gPvhU/qule4/rfUdRcyWbr+vEpRal9TyNXdAn0/dxvv64g0FHI2zP/ljXJAK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ZsVUaj5M; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ZsVUaj5M; arc=none smtp.client-ip=45.249.212.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1774250825; c=relaxed/simple;
+	bh=4mvaC2L/czadecXkPXHTgYIe/GrhSr50cNbfUGrNwdk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HNHrrxIGwEaoh6FjzD5HbP2SUdTVDhyRrBpkJly3wcT6BUrk6qIvj/gyp9cJHCJK4ZE5LImCbVtpbx1c+aG1L03ntvDuygjEIkWdkLjHgfzvyVLnxS+XB2l2vJOqNV0kAtA86wQ5HauzGsTSgh0x23bIDIoE8uCF4XhiYovMxMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tv4lUu4U; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ZsVUaj5M";
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ZsVUaj5M"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=q26crh1bRAQSwEBH+O8wN3grLapTaD7O8Bt4sMFkk/0=;
-	b=ZsVUaj5Mifw+opMXK0aA44WFftzh+E/uVNOs8Z+OcHWhOQDPFuUKJm4ooX7ibK1s6mbzRanhy
-	0wUF1p50Tj1EvW/fbP2koNdLk9pPInUJNgWTT/in3ux4wLLZoPKn/2AiDsN4jPKkJjys9yUwWZB
-	xJuc5vvWrZ5pBLMM4uz6zRY=
-Received: from canpmsgout08.his.huawei.com (unknown [172.19.92.156])
-	by szxga01-in.huawei.com (SkyGuard) with ESMTPS id 4ffPqg49Qbz1BG63;
-	Mon, 23 Mar 2026 15:26:39 +0800 (CST)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=q26crh1bRAQSwEBH+O8wN3grLapTaD7O8Bt4sMFkk/0=;
-	b=ZsVUaj5Mifw+opMXK0aA44WFftzh+E/uVNOs8Z+OcHWhOQDPFuUKJm4ooX7ibK1s6mbzRanhy
-	0wUF1p50Tj1EvW/fbP2koNdLk9pPInUJNgWTT/in3ux4wLLZoPKn/2AiDsN4jPKkJjys9yUwWZB
-	xJuc5vvWrZ5pBLMM4uz6zRY=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4ffPhP2f0mzmV73;
-	Mon, 23 Mar 2026 15:20:21 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id 1666C4056C;
-	Mon, 23 Mar 2026 15:26:27 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
- (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Mon, 23 Mar
- 2026 15:26:24 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
-	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
-	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
-	<akpm@linux-foundation.org>, <bhe@redhat.com>, <vgoyal@redhat.com>,
-	<dyoung@redhat.com>, <rdunlap@infradead.org>, <peterz@infradead.org>,
-	<feng.tang@linux.alibaba.com>, <pawan.kumar.gupta@linux.intel.com>,
-	<dapeng1.mi@linux.intel.com>, <kees@kernel.org>, <elver@google.com>,
-	<paulmck@kernel.org>, <lirongqing@baidu.com>, <ruanjinjie@huawei.com>,
-	<safinaskar@gmail.com>, <rppt@kernel.org>, <ardb@kernel.org>,
-	<leitao@debian.org>, <jbohac@suse.cz>, <cfsworks@gmail.com>,
-	<osandov@fb.com>, <tangyouling@kylinos.cn>, <sourabhjain@linux.ibm.com>,
-	<ritesh.list@gmail.com>, <eajames@linux.ibm.com>,
-	<songshuaishuai@tinylab.org>, <kevin.brodsky@arm.com>,
-	<samuel.holland@sifive.com>, <vishal.moola@gmail.com>,
-	<junhui.liu@pigmoral.tech>, <coxu@redhat.com>, <liaoyuanhong@vivo.com>,
-	<fuqiang.wang@easystack.cn>, <x86@kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
-	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<kexec@lists.infradead.org>
-Subject: [PATCH v9 4/5] arm64: kexec: Add support for crashkernel CMA reservation
-Date: Mon, 23 Mar 2026 15:27:44 +0800
-Message-ID: <20260323072745.2481719-5-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260323072745.2481719-1-ruanjinjie@huawei.com>
-References: <20260323072745.2481719-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tv4lUu4U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08364C2BCB0;
+	Mon, 23 Mar 2026 07:27:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774250825;
+	bh=4mvaC2L/czadecXkPXHTgYIe/GrhSr50cNbfUGrNwdk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Tv4lUu4U9WYwUQur7DH/tDx+7A7KXe23f4O4Y2Lo+BNMV7JDeX5lSybiNGKe+4+FT
+	 Xo7yNr28uJ6oIreAhok8CtZz6NIc+5ssy63ZKycvThFGtmLVp9nBjubVJufgq6En7N
+	 oA+t8+23BZIYH8QoiS0UgHNcAb24JljaGPJkEQK4N6/Zi6D3oLSaOf83+V2cYVvjP+
+	 uO1u0b6P91Pjrifjds03fi9AIYkbAvIIK6OoLi0FL+uxsmYT+/Vo8uPqYFMs0ywWiq
+	 IR3SJa6MmbzbT4IxyjdXkzogDQX0tCTg0nGCGLAZuIgnUa/33nov/vlLjwgOmNOUWu
+	 qzLLNuI4dawBg==
+Message-ID: <7967caff-101a-461a-bc61-aeb8fc8f04b1@kernel.org>
+Date: Mon, 23 Mar 2026 08:27:00 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- dggpemf500011.china.huawei.com (7.185.36.131)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] dt-bindings: dma: arm-dma350: document generic and
+ combined IRQ topologies
+To: Jun Guo <jun.guo@cixtech.com>, Peter Chen <peter.chen@cixtech.com>
+Cc: fugang.duan@cixtech.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, vkoul@kernel.org, ychuang3@nuvoton.com,
+ schung@nuvoton.com, robin.murphy@arm.com, Frank.Li@kernel.org,
+ dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20260319101723.246539-1-jun.guo@cixtech.com>
+ <20260319101723.246539-2-jun.guo@cixtech.com>
+ <20260320-vengeful-violet-cockle-382580@quoll>
+ <ab0VoTut0u4f7EVr@nchen-desktop>
+ <41254f6c-3ce3-4566-acf4-f0bf764565f3@kernel.org>
+ <ab0aYUK1NlUV3riG@nchen-desktop>
+ <45bb547e-8a9a-41ef-a5d3-417dc4f35746@kernel.org>
+ <dd6ee455-7bba-4734-be84-a7db097754c6@cixtech.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <dd6ee455-7bba-4734-be84-a7db097754c6@cixtech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Commit 35c18f2933c5 ("Add a new optional ",cma" suffix to the
-crashkernel= command line option") and commit ab475510e042 ("kdump:
-implement reserve_crashkernel_cma") added CMA support for kdump
-crashkernel reservation.
+On 23/03/2026 03:09, Jun Guo wrote:
+> Hi Krzysztof,
+> 
+> On 3/20/2026 6:04 PM, Krzysztof Kozlowski wrote:
+>> EXTERNAL EMAIL
+>>
+>> On 20/03/2026 10:58, Peter Chen wrote:
+>>> On 26-03-20 10:43:10, Krzysztof Kozlowski wrote:
+>>>> EXTERNAL EMAIL
+>>>>
+>>>> On 20/03/2026 10:38, Peter Chen wrote:
+>>>>> On 26-03-20 10:12:53, Krzysztof Kozlowski wrote:
+>>>>>> EXTERNAL EMAIL
+>>>>>>
+>>>>>> On Thu, Mar 19, 2026 at 06:17:21PM +0800, Jun Guo wrote:
+>>>>>>> Update the DMA-350 DT binding to match the current driver behavior.
+>>>>>>>
+>>>>>>> Allow both:
+>>>>>>> - "arm,dma-350" as the generic compatible, and
+>>>>>>> - "cix,sky1-dma-350", "arm,dma-350" for SoC-specific fallback usage.
+>>>>>>>
+>>>>>>> Also document interrupt topology variants supported by hardware
+>>>>>>> integration:
+>>>>>>> - one combined interrupt for all channels, or
+>>>>>>> - one interrupt per channel (up to 8 channels).
+>>>>>>>
+>>>>>>> This patch is Assisted-by: Cursor: GPT-5.3 Codex.
+>>>>>>
+>>>>>> Wrong tag, please read carefully the guideline before using LLM tools.
+>>>>>>
+>>>>>
+>>>>> Hi Krzysztof,
+>>>>>
+>>>>> It is the trade off for coding-assistants.rst suggestion and
+>>>>> passing checkpatch.pl. Currently, checkpatch.pl reports the
+>>>>> error for tag without email address. So we choose to add tag
+>>>>> description at patch context.
+>>>>
+>>>> You still have to use correct tag.
+>>>
+>>> You mean even checkpatch.pl reports below error, we still add it
+>>> "Assisted-by: Cursor: GPT-5.3 Codex" as tag?
+>>
+>> Yes, after fixing the contents (that's not entirely correct format I
+>> think). Hopefully someone will fix checkpatch one day...
+> I cannot find any commit records referencing AI via "Co-developed-by" in 
+> the latest kernel GitHub repository, and I also cannot locate any text 
+> describing the correct way to cite AI in the submitting-patches.rst 
+> file. In this case, how can I confirm the current correct format?
 
-Crash kernel memory reservation wastes production resources if too
-large, risks kdump failure if too small, and faces allocation difficulties
-on fragmented systems due to contiguous block constraints. The new
-CMA-based crashkernel reservation scheme splits the "large fixed
-reservation" into a "small fixed region + large CMA dynamic region": the
-CMA memory is available to userspace during normal operation to avoid
-waste, and is reclaimed for kdump upon crash—saving memory while
-improving reliability.
+If you do not want to read coding with assistant guideline and follow
+its words, then please don't send code created with such tools. Do you
+even have full copyrights to send it here? What license was used by the
+tool to generate you this code?
 
-So extend crashkernel CMA reservation support to arm64. The following
-changes are made to enable CMA reservation:
-
-- Parse and obtain the CMA reservation size along with other crashkernel
-  parameters.
-- Call reserve_crashkernel_cma() to allocate the CMA region for kdump.
-- Include the CMA-reserved ranges for kdump kernel to use.
-- Exclude the CMA-reserved ranges from the crash kernel memory to
-  prevent them from being exported through /proc/vmcore, which is already
-  done in the crash core.
-
-Update kernel-parameters.txt to document CMA support for crashkernel on
-arm64 architecture.
-
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Acked-by: Baoquan He <bhe@redhat.com>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: Ard Biesheuvel <ardb@kernel.org>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
-v7:
-- Correct the inclusion of CMA-reserved ranges for kdump
-  kernel in of/kexec.
-v3:
-- Add Acked-by.
-v2:
-- Free cmem in prepare_elf_headers()
-- Add the mtivation.
----
- Documentation/admin-guide/kernel-parameters.txt | 2 +-
- arch/arm64/kernel/machine_kexec_file.c          | 2 +-
- arch/arm64/mm/init.c                            | 5 +++--
- drivers/of/fdt.c                                | 9 +++++----
- drivers/of/kexec.c                              | 9 +++++++++
- 5 files changed, 19 insertions(+), 8 deletions(-)
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index cb850e5290c2..afb3112510f7 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -1121,7 +1121,7 @@ Kernel parameters
- 			It will be ignored when crashkernel=X,high is not used
- 			or memory reserved is below 4G.
- 	crashkernel=size[KMG],cma
--			[KNL, X86, ppc] Reserve additional crash kernel memory from
-+			[KNL, X86, ARM64, PPC] Reserve additional crash kernel memory from
- 			CMA. This reservation is usable by the first system's
- 			userspace memory and kernel movable allocations (memory
- 			balloon, zswap). Pages allocated from this memory range
-diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
-index c338506a580b..cc577d77df00 100644
---- a/arch/arm64/kernel/machine_kexec_file.c
-+++ b/arch/arm64/kernel/machine_kexec_file.c
-@@ -42,7 +42,7 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
- #ifdef CONFIG_CRASH_DUMP
- unsigned int arch_get_system_nr_ranges(void)
- {
--	unsigned int nr_ranges = 2; /* for exclusion of crashkernel region */
-+	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* for exclusion of crashkernel region */
- 	phys_addr_t start, end;
- 	u64 i;
- 
-diff --git a/arch/arm64/mm/init.c b/arch/arm64/mm/init.c
-index 96711b8578fd..144e30fe9a75 100644
---- a/arch/arm64/mm/init.c
-+++ b/arch/arm64/mm/init.c
-@@ -96,8 +96,8 @@ phys_addr_t __ro_after_init arm64_dma_phys_limit;
- 
- static void __init arch_reserve_crashkernel(void)
- {
-+	unsigned long long crash_base, crash_size, cma_size = 0;
- 	unsigned long long low_size = 0;
--	unsigned long long crash_base, crash_size;
- 	bool high = false;
- 	int ret;
- 
-@@ -106,11 +106,12 @@ static void __init arch_reserve_crashkernel(void)
- 
- 	ret = parse_crashkernel(boot_command_line, memblock_phys_mem_size(),
- 				&crash_size, &crash_base,
--				&low_size, NULL, &high);
-+				&low_size, &cma_size, &high);
- 	if (ret)
- 		return;
- 
- 	reserve_crashkernel_generic(crash_size, crash_base, low_size, high);
-+	reserve_crashkernel_cma(cma_size);
- }
- 
- static phys_addr_t __init max_zone_phys(phys_addr_t zone_limit)
-diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-index 331646d667b9..531be5fcdeb6 100644
---- a/drivers/of/fdt.c
-+++ b/drivers/of/fdt.c
-@@ -871,11 +871,12 @@ static unsigned long chosen_node_offset = -FDT_ERR_NOTFOUND;
- /*
-  * The main usage of linux,usable-memory-range is for crash dump kernel.
-  * Originally, the number of usable-memory regions is one. Now there may
-- * be two regions, low region and high region.
-- * To make compatibility with existing user-space and older kdump, the low
-- * region is always the last range of linux,usable-memory-range if exist.
-+ * be 2 + CRASHKERNEL_CMA_RANGES_MAX regions, low region, high region and
-+ * cma regions. To make compatibility with existing user-space and older
-+ * kdump, the low region is always the last range of linux,usable-memory-range
-+ * if exist.
-  */
--#define MAX_USABLE_RANGES		2
-+#define MAX_USABLE_RANGES		(2 + CRASHKERNEL_CMA_RANGES_MAX)
- 
- /**
-  * early_init_dt_check_for_usable_mem_range - Decode usable memory range
-diff --git a/drivers/of/kexec.c b/drivers/of/kexec.c
-index c4cf3552c018..c8521d99552f 100644
---- a/drivers/of/kexec.c
-+++ b/drivers/of/kexec.c
-@@ -431,6 +431,15 @@ void *of_kexec_alloc_and_setup_fdt(const struct kimage *image,
- 		if (ret)
- 			goto out;
- 
-+		for (int i = 0; i < crashk_cma_cnt; i++) {
-+			ret = fdt_appendprop_addrrange(fdt, 0, chosen_node,
-+					"linux,usable-memory-range",
-+					crashk_cma_ranges[i].start,
-+					crashk_cma_ranges[i].end - crashk_cma_ranges[i].start + 1);
-+			if (ret)
-+				goto out;
-+		}
-+
- 		if (crashk_low_res.end) {
- 			ret = fdt_appendprop_addrrange(fdt, 0, chosen_node,
- 					"linux,usable-memory-range",
--- 
-2.34.1
-
+Best regards,
+Krzysztof
