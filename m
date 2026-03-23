@@ -1,87 +1,88 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FFC135DA59
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 07:15:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6521A35F185
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 07:15:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774250141; cv=none; b=kzWVeLiPbNs3KrkXBaTHfUG2+a0QxE2FTbYCVt/8NMH6oGclZ/PijSY9wmX5PBpzq+8QNaUBtsNzM65NSEB0+rNwyq+wGKL7GENd86Cs2bfeGde/40VdyLMGH/KTQDbRQtJyjzcYvoqMjOfHJFJgOmyitunYdl3wx/eeRQ0f4v0=
+	t=1774250142; cv=none; b=MnScYGxb8jOhsGz6LZwLLf+fp8GUuwJndzd4DQBIkzU01W0j1e1LF5yzv0uNq09oH2+Abg+T3qftgHM9G3lfGnET3dnjBOiSARr6wr+c1nCdVBWfF6Y9/jX8Sbw6CHwal+hG6LIOZVNTJ/MCEQURkJoWhvDSa6NubVELJN/Prmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774250141; c=relaxed/simple;
-	bh=DxC/gzVZbMcfvTcP9R5APmqYjCaKSVBVLpWXzTTw9Eo=;
+	s=arc-20240116; t=1774250142; c=relaxed/simple;
+	bh=ZiGLm9+oSWgzXrpOJ1svwFM4yASEfqBDxFjXKTyaJxM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pTS+qpDqs5/Yt+dOTvugYYzFvX3gx+7CEcn4LSI6DidKUBFoklLzHqVgEQ4sMIVt66yOdnVhviCZ7J0/DFyDiRcsEAvDLAgLDdC8FyakA/B0N3jCKEeSy/PCjl9frZRUtCdObJGV3x13HC7HAyukuKWdTvxzOX7BQVG9P4vdh8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EGaBtv4h; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fvc3Vlc+; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=NSBCjicY3QTdImIze5raVa5qJg3d6r0UV9V/Bv0P+sUtfdrewfrUTCCuWa3EvUcKHnignVNT9aPdkocK5JERSiXuQIri6XKoM7PAlz5VQoM2apdZpdSBAWgq8VPqrGe2ExAyiCISyiztpYSHDWBHzvxQXWqf+5BRcRF5pqyuz1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Vq/EmhE2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EvDxF7wP; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EGaBtv4h";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fvc3Vlc+"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N72ASI2508391
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 07:15:38 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Vq/EmhE2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EvDxF7wP"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N4kP863090776
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 07:15:39 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hAjmJXPhlt6Zci48E3mL+6SgK0euCberT+LTCSR0TNw=; b=EGaBtv4hEl6T7Vc/
-	VtjH+KlUlyzOdk/5F9XPZgnQL+rt8WKC3t9CV3sD+zeDDPLfDlyBI4ZUWdubHo1c
-	/CAiDNLIySAxb7LjkyXfZv+2niNQEejvzNjovH4xf3PajwFDrRkvTv/zOm1i30wZ
-	SGpeL1W7lamjFOL7o85FMEID/Sqqn405bsdvAHHAmkR9jbUqPJG/V/pRcLUVQVnB
-	kYVDBNsLeFRTfDYQT/GhPKJqO+tPeymf9BIYn4bUxluNiOlW4AL3STUmLJplHl6F
-	vBoBq7xvuwJKs2c2Lt0rEZUfe1ZUrkmcoLyso62AtPg9SDpsLwx9+Ys2PZKPc6Gf
-	JtRGug==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1jb5mb2a-1
+	DyA2/GBUswWyqK7lPIZi5AAheFIz9RV+IBewUuyeNsw=; b=Vq/EmhE2LRIB61V2
+	F5AXE/rSeLSImj0Ig6gi+rjKWyS5wp6RWsi824KFlUoD6wj9jMd8LlFjNU13OnPA
+	qcrJytO4lzhEGuWDv/VEzWsYrlEOtZzea0vQWQqnTTkoFIpFDOuysvmZ9G9yPZao
+	i0ZhQKT16sin3GX51GQM+EzitEcbp0nAS3cxOEwRrQyH4xjO+Wz8QzP35MZUz9Sl
+	2oNdaKU58OgkIbAcTNSitxK793jIxIR287FqFNWmhdMa9eis+lfvOiTW94WOansG
+	46cS1boyd2FlMODwh8eg+LYVmDp/iwAch95RXdP7o3HLUd+hflHu/gO/PG/PRAkr
+	IBw/vw==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1jwvm8gt-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 07:15:38 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-2c0ba59a830so2923426eec.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 00:15:38 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 07:15:39 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-2c0e264d802so8185113eec.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 00:15:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774250137; x=1774854937; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1774250138; x=1774854938; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=hAjmJXPhlt6Zci48E3mL+6SgK0euCberT+LTCSR0TNw=;
-        b=fvc3Vlc+o7APdcEtW8YmI7tS/VZEDTieGiyP8mK2Otd1TG6tBYJR/ieK7rG3SagM4B
-         TXO0xNXI1wcLVxpgFp4fIWJnkbsDe1mNArt1NJesODNXAC4YL2Ntj+uU/zAoBNNDdlje
-         51iSsByqNQmOoYBmOECReZjiQFkZK9Al7mSakw0GjLcbpvIncz1MTZckc+fMJ5Xvi7t6
-         yzttWZVebHxK0ELRrCDSHpPR4pEVzWqq+WjasAp5FRxF0HMBO8x3w3wsLUzKXHk4U98Z
-         fMhLI6otiJH4peStbAHOcJfuqB/mQf2sifHXJ1qlR7nDA5CDKhFd/n/NaE7vrVaL0wB2
-         5EuQ==
+        bh=DyA2/GBUswWyqK7lPIZi5AAheFIz9RV+IBewUuyeNsw=;
+        b=EvDxF7wP5uy423aHRbqXsuNUB9SGcSV6Buf5xlWhHAgnzvIzKxtQJ1yp6Ep4qOUk/E
+         vn+evJaSUg0O9zn0HsoK5P2lKWVFql4QvabsFwCXFh7vpKLBrFwfPHMWybDuk2wBbJjK
+         e1Nyys5kwUT54xl7umpMLKCFFQutTzU7TR/WOZi8C+cHV3zdWpX8wGKxSOAGQh239r8e
+         NET6hWdoroG/0PQrH0KDR7NBOMeWZwdmVltSh72M0XAqCG6m0b4Dhftjl14fqglKOUDI
+         eCWHy+7CBTkT3lEEEt9d23Y8G222vGieF9JC+fPYYpxzn5FalPGAKyHGx0UEnL5tx8i0
+         Ej+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774250137; x=1774854937;
+        d=1e100.net; s=20251104; t=1774250138; x=1774854938;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=hAjmJXPhlt6Zci48E3mL+6SgK0euCberT+LTCSR0TNw=;
-        b=RmCYrq7qpbjEDOG1cO0ckLV/R67LNLokTjaNzWtTbE1O5lhTtpNwEX1zILII/kP5if
-         YTsAAYyvJRYiONJJq1R0dylB7TebbR/mAvyVj15mmNCcYsJJ88HJ7V/0pQps2brq9wiu
-         m/HCbMEjvUqHSRvOHsjLlZyujD5tuxkRBoIF5qTr3PnIuJ+QcgWPgBBlSo5rh0aNsDRx
-         7aHreZvXeGLTPrx6/Y45uygqW2ZZyhGqKZ0ARPmZbhp74ImoEPYvciINy8+NLlmWO1af
-         M91ioCSWEixcn4eyf+QoLDnAcqgbTXNvEG+VpN+n8Z1C5QbjtwcRTig9Q1RroWRdmOh0
-         JDtg==
-X-Forwarded-Encrypted: i=1; AJvYcCXJmdDsv2l4DPnJJyFR3KVmg8ccUaJyk8Jqa/6J8umQG4c5S40CstvBayyPCtWX2bgZvyMT3rE6yZQL@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPoUG5WtuyQsqPxWW7j2YYJdFtK3uCGHQujX2NEsD49aiWHcX8
-	yqRIXmU7VeOeb4u3md8wgFBE938Xz9oM1dxsgj2aLjLoBs/KPRf0lRX2d4q36cfF42tw6+Ia/M7
-	MOftPvb56p3YQbBnHW4Gfup0IQ9QscNTWNDdQAK3QJq1Ws/MJp6wQJfOvdVz0+pI9FicHveC/l4
-	U=
-X-Gm-Gg: ATEYQzzA7nr6CH0eXfBrzb3DqnDjthYAHik0kAUvFoHAhYCvRAnoUcSObxVQRorhKfL
-	4E+y8BdoPcleT9fAxRtciI0DEfJXtToBBQAUKfyoYNiIoQjAYl990M5+ftRZPuDraEuM7yRUv2g
-	EG1aFA3soEcgq9mdV3SAWoYLBsD3ey1p2Gv6G0FG5momVUS9HQSl9kp/7fSrgZ+stE7fc4VmGBd
-	YLrzP2jXfcINUG/zlx/i3bCs/Icvy3s/CyH00P4LZh2pzvcmWceQFgviNi8puOhW/jl+j60IvJj
-	/t8SytJl8sFO9waFhKzJaLwX76ZNId2BJJk+3RDmzxwsK/K3GTCUP9bP8vGZ18akNxFPmu0lkT5
-	9Y44RmQKd29uSxZM3WFep//lK98TJeiGWdH3gjhrpswJ5n5AWESNtUwUng8Ko77MPOxk9
-X-Received: by 2002:a05:7022:160b:b0:119:e56b:91ec with SMTP id a92af1059eb24-12a726f5b6fmr4673515c88.29.1774250136986;
-        Mon, 23 Mar 2026 00:15:36 -0700 (PDT)
-X-Received: by 2002:a05:7022:160b:b0:119:e56b:91ec with SMTP id a92af1059eb24-12a726f5b6fmr4673492c88.29.1774250136236;
-        Mon, 23 Mar 2026 00:15:36 -0700 (PDT)
+        bh=DyA2/GBUswWyqK7lPIZi5AAheFIz9RV+IBewUuyeNsw=;
+        b=c+8mXCrg+8AxKBSMjxUaUV/vh878D2lMtqGi/0M0FQa0Gj9Rtzw/odxTlrj4bJe0dY
+         ijxSRoh6A4XGkNoPs0uV7AsMKyXPTRsffDHl0t7XXykZEn40hKWqq6yLZSVWp1RT4PGp
+         4Gcfsb3TIUTimXRcRxveLZzdN1g4FcIrJocuTCGaRKX+Gr0jASxCJIjmBonxyWkvBiqE
+         Sj13LeNmffNBC9f7UWsrEfc2g6t02NiDXddBWnLB21rHFrEI7Ke797u6+H88E4YhlIpG
+         FZeTej3M3ia3tD2253lMHM3HYEVfOz5MNiPWKpIUrREloObztGeLfF/Q8qp8rCqNKCA9
+         jDIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXCfDq9N+p2t6jkwdhBm5kgwkeeyIBJcTJFC2b3J/5g7HYFSkwU1y7cFdsWXakEtOEzAZ0wEixGshRW@vger.kernel.org
+X-Gm-Message-State: AOJu0YwB66GFhXRiqX4QomRYKSmFM4za86Au/7zqPRO3Mu6sFfWpoOcf
+	cmrmfIUC+YpHayTz1X94dfh8NDPozQV2DI+WelX5suyS8Je9qIkCwY1LeNRxPvBa9A5ViwwjKfi
+	C9sDHjpTcjMe0WmGVoKy053KcV0ayVnThl9oL7oSK8H6ZL/kLAxfTHSwAFrDd2QlVkLhDmH+dyT
+	w=
+X-Gm-Gg: ATEYQzwmhuhWLkeNqn/JoxcQzdg8jLfBeJXndcqZVP5MHyiPeXCMGGDPsMf8zhOsLGh
+	2f7Ck6MXSJubvQd5htpAd3C0vJqaf3i8ALaLocZ9LCReCpeKFshKjIUmV8yx2Jaja6Wt7IUq2sc
+	Vq8Xrfy94KB8mueuLeAQ/yL8dF1nBYBeLX0j4piQKu5yWi1VBC8XkPiPqBuzerN572Rpa5thdVa
+	mHEA6p2fomj58Q/kfVp8v1v6mESzjg/dBvZ9SNHY8Jk1JeN4G1dPQ7d879jdMRBqGu3kz+gkYHM
+	v0U+UfYlReWT+OpY5DwDLALryN6JA5BQsk7gQpy/3ZS/qntObAcEmQTzW3uw42s3e97sgrV0y8N
+	LTOAmNYPwhAOl2Ts+jV4VlSzBZ8beueSU8tIfMLKuAWFQpSxaZHawNbwpIB5/cWZCeDW+
+X-Received: by 2002:a05:7300:d50f:b0:2c1:23d:c73b with SMTP id 5a478bee46e88-2c1097c1a67mr5306458eec.34.1774250138276;
+        Mon, 23 Mar 2026 00:15:38 -0700 (PDT)
+X-Received: by 2002:a05:7300:d50f:b0:2c1:23d:c73b with SMTP id 5a478bee46e88-2c1097c1a67mr5306444eec.34.1774250137709;
+        Mon, 23 Mar 2026 00:15:37 -0700 (PDT)
 Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c10b14cadbsm13997886eec.3.2026.03.23.00.15.35
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c10b14cadbsm13997886eec.3.2026.03.23.00.15.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Mar 2026 00:15:35 -0700 (PDT)
+        Mon, 23 Mar 2026 00:15:37 -0700 (PDT)
 From: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Date: Mon, 23 Mar 2026 00:15:30 -0700
-Subject: [PATCH v2 3/5] phy: qcom: qmp-pcie: Support multiple nocsr resets
+Date: Mon, 23 Mar 2026 00:15:31 -0700
+Subject: [PATCH v2 4/5] phy: qcom: qmp-pcie: Add Gen5 8-lanes mode for
+ Glymur
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260323-glymur_gen5x8_phy_0323-v2-3-ce0fc07f0e52@oss.qualcomm.com>
+Message-Id: <20260323-glymur_gen5x8_phy_0323-v2-4-ce0fc07f0e52@oss.qualcomm.com>
 References: <20260323-glymur_gen5x8_phy_0323-v2-0-ce0fc07f0e52@oss.qualcomm.com>
 In-Reply-To: <20260323-glymur_gen5x8_phy_0323-v2-0-ce0fc07f0e52@oss.qualcomm.com>
 To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -104,285 +105,113 @@ Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Qiang Yu <qiang.yu@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774250130; l=10138;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774250130; l=2780;
  i=qiang.yu@oss.qualcomm.com; s=20250513; h=from:subject:message-id;
- bh=DxC/gzVZbMcfvTcP9R5APmqYjCaKSVBVLpWXzTTw9Eo=;
- b=hQ0y5v1WwDFOAQr/O8x+Dz+1lSYukKZ5z8dc9CwzbaREjpcD6ua+3b8IT6L34UXwpKX17gbNM
- rKVMqYsLNtRC5B4Uy5XkDV3idQtD2aJK6tWS8FP0elDb/XJNqm5+RfZ
+ bh=ZiGLm9+oSWgzXrpOJ1svwFM4yASEfqBDxFjXKTyaJxM=;
+ b=PcRacB6pSJVxw7Koy22WvzFFIvGHWro7XrJ2AhxlvVYDiL1LNVZe0Fb0bYO2I6mXQ8K2jMqXy
+ vshQ/rNhhaEDJQn0pLSr6qO9UJeUM2FjYeKORjWxlxiDmaA3U/f29UR
 X-Developer-Key: i=qiang.yu@oss.qualcomm.com; a=ed25519;
  pk=Rr94t+fykoieF1ngg/bXxEfr5KoQxeXPtYxM8fBQTAI=
-X-Authority-Analysis: v=2.4 cv=aJv9aL9m c=1 sm=1 tr=0 ts=69c0e89a cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA1MyBTYWx0ZWRfX3g325JRqo5WK
+ SYV5wd+ndMz9VbhIxudiZX/ogR0li/Am8Ak1yQFE034WyarPlbAlh+PrZb2y8kWgO8DVPv/sBny
+ 6CXjD/vIV09eiF24o3lBRhX+CuJHjde67BSVDr1uP6hcM62HZD2pL5U5QvgQ6XNZGtuu3FN+ggU
+ NthG499i2uKRoafsy8JjECsIlzHbZcRHtNr474Bj0HgStmn6+PL2yyGWWFfafC/AFHUQFQB8uNA
+ 6BegS7oYxj3cDOEsOrUDol2a3jiYeaasoX13BPiS9mXzjEtxvVW+973Y/B506qIjyiCYT4XJjOQ
+ og7352QRR57KV6xLJROTll4BqEB/B6CdPhA3F6ien4/P3uXjMGwFLToaX8WeAfymOOfPrbFTdrW
+ WkBpi6fiQbDOMOCJka3svaKO5EEZUeUbry9VaegcKdATQIjKmaRhNungExJTgqMn6GahK/ySeit
+ rrGbY1MobpCFqdLQnyg==
+X-Authority-Analysis: v=2.4 cv=bcdmkePB c=1 sm=1 tr=0 ts=69c0e89b cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=wBkCwaD4edhj46uzH8YA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-GUID: ioh03UDFXp7cDO3Sjo2bcO6iyU5zIyVy
-X-Proofpoint-ORIG-GUID: ioh03UDFXp7cDO3Sjo2bcO6iyU5zIyVy
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA1NCBTYWx0ZWRfX+3iI3rCh2MRU
- JPOoubE7WoUi8DraGbTP69isYo7Bog36ZTz2ObOZf/VhOTkYd4rSRUyWh7AM20l2VnVhrrIAKe5
- iLfQU3CxpAJ9b0tVjAS+eN6jWMoIhqy4bnk29okZ24khnR9hcyb+ttKYz/iN+pUj/4sOWTkEIgs
- M5ybqaCp/DNT2S+lbM0vt3yfZPbQsuApDC8n7KW5/Qu94ofwDXC9EfzY5EBR0XqlNenPjSHiRe4
- WHkM/YJer3oEiq5g8BfPUbRh2h71FTG5RuIqer+DeKw7RiARcHQyOmwWzfJve6/lVXjFkVzO50P
- hyBK7kxMIazUF0HwruIiD1f45HJD7XfFVXbOtotOIMb9urmMxQ3HDHGM5PYoKG6jKnv4wCbIP2c
- UMhbAmLWZFZ1cu5OZeZfeWPI5lPSBWdPurIjDCDD+lEI2bscFNJ3yyUCULMx5fwzxpAJ70xDJBb
- UE1qCzJfbjeItk73/Mw==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=OKc3O2-h_waFBcwqEmQA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-ORIG-GUID: A82vNlPPHPuYtMEFjFxdwyThhs14moqX
+X-Proofpoint-GUID: A82vNlPPHPuYtMEFjFxdwyThhs14moqX
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-23_02,2026-03-20_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 adultscore=0 priorityscore=1501 spamscore=0
- impostorscore=0 clxscore=1015 bulkscore=0 phishscore=0 suspectscore=0
+ suspectscore=0 impostorscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 phishscore=0 adultscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230054
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230053
 
-Refactor nocsr reset handling to support multiple nocsr resets required
-for PHY configurations with bifurcated operation modes.
+The third PCIe controller on Glymur SoC supports 8-lane operation via
+bifurcation of two PHYs (each requires separate power domian, resets and
+aux clk).
 
-The Glymur SoC's 3rd PCIe instance supports 8-lane mode using two PHYs
-in bifurcation, where each PHY requires its own nocsr reset to be
-controlled simultaneously. The current implementation only supports a
-single nocsr reset per PHY configuration.
-
-Add num_nocsr and nocsr_list fields to struct qmp_phy_cfg to represent the
-number and names of a group of nocsr reset names. Initialize these fields
-for all PHYs that have nocsr resets, allowing the driver to correctly
-acquire multiple nocsr resets during probe and control them as an array
-by using reset_control_bulk APIs.
-
-The refactoring maintains backward compatibility for existing single
-nocsr reset configurations while enabling support for multi-PHY
-scenarios like Glymur's 8-lane bifurcation mode.
-
-Additionally, introduces x1e80100_qmp_gen3x2_pciephy_cfg as a separate
-configuration from sm8550_qmp_gen3x2_pciephy_cfg since the x1e80100 Gen3x2
-PHY requires nocsr reset support while the sm8550 Gen3x2 PHY does not.
+Add dedicated reset/no_csr reset list ("phy_b", "phy_b_nocsr") and
+clock ("phy_b_aux") required for 8-lane operation. Introduce new
+glymur_qmp_gen5x8_pciephy_cfg configuration to enable PCIe Gen5 x8 mode.
 
 Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
 ---
- drivers/phy/qualcomm/phy-qcom-qmp-pcie.c | 87 ++++++++++++++++++++++++++++----
- 1 file changed, 77 insertions(+), 10 deletions(-)
+ drivers/phy/qualcomm/phy-qcom-qmp-pcie.c | 30 +++++++++++++++++++++++++++++-
+ 1 file changed, 29 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-index 424c935e27a8766e1e26762bd3d7df527c1520e3..51db9eea41255bad0034bbcfbfdc36894c2bc95f 100644
+index 51db9eea41255bad0034bbcfbfdc36894c2bc95f..e872b50b11da50e6317ce7e1acf6385925f92cdb 100644
 --- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
 +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-@@ -3281,6 +3281,11 @@ struct qmp_phy_cfg {
- 	/* resets to be requested */
- 	const char * const *reset_list;
- 	int num_resets;
-+
-+	/* nocsr resets to be requested */
-+	const char * const *nocsr_reset_list;
-+	int num_nocsr_resets;
-+
- 	/* regulators to be requested */
- 	const char * const *vreg_list;
- 	int num_vregs;
-@@ -3327,7 +3332,7 @@ struct qmp_pcie {
- 	int num_pipe_clks;
+@@ -3376,7 +3376,7 @@ static inline void qphy_clrbits(void __iomem *base, u32 offset, u32 val)
  
- 	struct reset_control_bulk_data *resets;
--	struct reset_control *nocsr_reset;
-+	struct reset_control_bulk_data *nocsr_reset;
- 	struct regulator_bulk_data *vregs;
- 
- 	struct phy *phy;
-@@ -3392,6 +3397,10 @@ static const char * const sdm845_pciephy_reset_l[] = {
- 	"phy",
+ /* list of clocks required by phy */
+ static const char * const qmp_pciephy_clk_l[] = {
+-	"aux", "cfg_ahb", "ref", "refgen", "rchng", "phy_aux",
++	"aux", "cfg_ahb", "ref", "refgen", "rchng", "phy_aux", "phy_b_aux",
  };
  
-+static const char * const sm8550_pciephy_nocsr_reset_l[] = {
-+	"phy_nocsr",
+ /* list of regulators */
+@@ -3401,6 +3401,14 @@ static const char * const sm8550_pciephy_nocsr_reset_l[] = {
+ 	"phy_nocsr",
+ };
+ 
++static const char * const glymur_pciephy_reset_l[] = {
++	"phy", "phy_b"
++};
++
++static const char * const glymur_pciephy_nocsr_reset_l[] = {
++	"phy_nocsr", "phy_b_nocsr",
 +};
 +
  static const struct qmp_pcie_offsets qmp_pcie_offsets_qhp = {
  	.serdes		= 0,
  	.pcs		= 0x1800,
-@@ -4348,6 +4357,8 @@ static const struct qmp_phy_cfg sm8550_qmp_gen4x2_pciephy_cfg = {
- 	},
- 	.reset_list		= sdm845_pciephy_reset_l,
- 	.num_resets		= ARRAY_SIZE(sdm845_pciephy_reset_l),
-+	.nocsr_reset_list	= sm8550_pciephy_nocsr_reset_l,
-+	.num_nocsr_resets	= ARRAY_SIZE(sm8550_pciephy_nocsr_reset_l),
- 	.vreg_list		= sm8550_qmp_phy_vreg_l,
- 	.num_vregs		= ARRAY_SIZE(sm8550_qmp_phy_vreg_l),
- 	.regs			= pciephy_v6_regs_layout,
-@@ -4380,6 +4391,8 @@ static const struct qmp_phy_cfg sm8650_qmp_gen4x2_pciephy_cfg = {
- 	},
- 	.reset_list		= sdm845_pciephy_reset_l,
- 	.num_resets		= ARRAY_SIZE(sdm845_pciephy_reset_l),
-+	.nocsr_reset_list	= sm8550_pciephy_nocsr_reset_l,
-+	.num_nocsr_resets	= ARRAY_SIZE(sm8550_pciephy_nocsr_reset_l),
- 	.vreg_list		= sm8550_qmp_phy_vreg_l,
- 	.num_vregs		= ARRAY_SIZE(sm8550_qmp_phy_vreg_l),
- 	.regs			= pciephy_v6_regs_layout,
-@@ -4480,6 +4493,35 @@ static const struct qmp_phy_cfg sa8775p_qmp_gen4x4_pciephy_cfg = {
+@@ -4705,6 +4713,23 @@ static const struct qmp_phy_cfg glymur_qmp_gen4x2_pciephy_cfg = {
  	.phy_status		= PHYSTATUS_4_20,
  };
  
-+static const struct qmp_phy_cfg x1e80100_qmp_gen3x2_pciephy_cfg = {
-+	.lanes = 2,
++static const struct qmp_phy_cfg glymur_qmp_gen5x8_pciephy_cfg = {
++	.lanes = 8,
 +
-+	.offsets		= &qmp_pcie_offsets_v5,
++	.offsets		= &qmp_pcie_offsets_v8_50,
 +
-+	.tbls = {
-+		.serdes		= sm8550_qmp_gen3x2_pcie_serdes_tbl,
-+		.serdes_num	= ARRAY_SIZE(sm8550_qmp_gen3x2_pcie_serdes_tbl),
-+		.tx		= sm8550_qmp_gen3x2_pcie_tx_tbl,
-+		.tx_num		= ARRAY_SIZE(sm8550_qmp_gen3x2_pcie_tx_tbl),
-+		.rx		= sm8550_qmp_gen3x2_pcie_rx_tbl,
-+		.rx_num		= ARRAY_SIZE(sm8550_qmp_gen3x2_pcie_rx_tbl),
-+		.pcs		= sm8550_qmp_gen3x2_pcie_pcs_tbl,
-+		.pcs_num	= ARRAY_SIZE(sm8550_qmp_gen3x2_pcie_pcs_tbl),
-+		.pcs_misc	= sm8550_qmp_gen3x2_pcie_pcs_misc_tbl,
-+		.pcs_misc_num	= ARRAY_SIZE(sm8550_qmp_gen3x2_pcie_pcs_misc_tbl),
-+	},
-+	.reset_list		= sdm845_pciephy_reset_l,
-+	.num_resets		= ARRAY_SIZE(sdm845_pciephy_reset_l),
-+	.nocsr_reset_list	= sm8550_pciephy_nocsr_reset_l,
-+	.num_nocsr_resets	= ARRAY_SIZE(sm8550_pciephy_nocsr_reset_l),
++	.reset_list		= glymur_pciephy_reset_l,
++	.num_resets		= ARRAY_SIZE(glymur_pciephy_reset_l),
++	.nocsr_reset_list	= glymur_pciephy_nocsr_reset_l,
++	.num_nocsr_resets	= ARRAY_SIZE(glymur_pciephy_nocsr_reset_l),
 +	.vreg_list		= qmp_phy_vreg_l,
 +	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
-+	.regs			= pciephy_v5_regs_layout,
 +
-+	.pwrdn_ctrl		= SW_PWRDN | REFCLK_DRV_DSBL,
-+	.phy_status		= PHYSTATUS,
++	.regs			= pciephy_v8_50_regs_layout,
++
++	.phy_status		= PHYSTATUS_4_20,
 +};
 +
- static const struct qmp_phy_cfg x1e80100_qmp_gen4x2_pciephy_cfg = {
- 	.lanes = 2,
- 
-@@ -4502,6 +4544,8 @@ static const struct qmp_phy_cfg x1e80100_qmp_gen4x2_pciephy_cfg = {
- 
- 	.reset_list		= sdm845_pciephy_reset_l,
- 	.num_resets		= ARRAY_SIZE(sdm845_pciephy_reset_l),
-+	.nocsr_reset_list	= sm8550_pciephy_nocsr_reset_l,
-+	.num_nocsr_resets	= ARRAY_SIZE(sm8550_pciephy_nocsr_reset_l),
- 	.vreg_list		= qmp_phy_vreg_l,
- 	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
- 	.regs			= pciephy_v6_regs_layout,
-@@ -4535,6 +4579,8 @@ static const struct qmp_phy_cfg x1e80100_qmp_gen4x4_pciephy_cfg = {
- 
- 	.reset_list		= sdm845_pciephy_reset_l,
- 	.num_resets		= ARRAY_SIZE(sdm845_pciephy_reset_l),
-+	.nocsr_reset_list	= sm8550_pciephy_nocsr_reset_l,
-+	.num_nocsr_resets	= ARRAY_SIZE(sm8550_pciephy_nocsr_reset_l),
- 	.vreg_list		= qmp_phy_vreg_l,
- 	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
- 	.regs			= pciephy_v6_regs_layout,
-@@ -4566,6 +4612,8 @@ static const struct qmp_phy_cfg x1e80100_qmp_gen4x8_pciephy_cfg = {
- 
- 	.reset_list		= sdm845_pciephy_reset_l,
- 	.num_resets		= ARRAY_SIZE(sdm845_pciephy_reset_l),
-+	.nocsr_reset_list	= sm8550_pciephy_nocsr_reset_l,
-+	.num_nocsr_resets	= ARRAY_SIZE(sm8550_pciephy_nocsr_reset_l),
- 	.vreg_list		= qmp_phy_vreg_l,
- 	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
- 	.regs			= pciephy_v6_regs_layout,
-@@ -4581,6 +4629,8 @@ static const struct qmp_phy_cfg qmp_v6_gen4x4_pciephy_cfg = {
- 
- 	.reset_list             = sdm845_pciephy_reset_l,
- 	.num_resets             = ARRAY_SIZE(sdm845_pciephy_reset_l),
-+	.nocsr_reset_list	= sm8550_pciephy_nocsr_reset_l,
-+	.num_nocsr_resets	= ARRAY_SIZE(sm8550_pciephy_nocsr_reset_l),
- 	.vreg_list              = qmp_phy_vreg_l,
- 	.num_vregs              = ARRAY_SIZE(qmp_phy_vreg_l),
- 	.regs                   = pciephy_v6_regs_layout,
-@@ -4609,6 +4659,8 @@ static const struct qmp_phy_cfg qmp_v8_gen3x2_pciephy_cfg = {
- 
- 	.reset_list		= sdm845_pciephy_reset_l,
- 	.num_resets		= ARRAY_SIZE(sdm845_pciephy_reset_l),
-+	.nocsr_reset_list	= sm8550_pciephy_nocsr_reset_l,
-+	.num_nocsr_resets	= ARRAY_SIZE(sm8550_pciephy_nocsr_reset_l),
- 	.vreg_list		= qmp_phy_vreg_l,
- 	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
- 	.regs			= pciephy_v8_regs_layout,
-@@ -4624,6 +4676,8 @@ static const struct qmp_phy_cfg glymur_qmp_gen5x4_pciephy_cfg = {
- 
- 	.reset_list		= sdm845_pciephy_reset_l,
- 	.num_resets		= ARRAY_SIZE(sdm845_pciephy_reset_l),
-+	.nocsr_reset_list	= sm8550_pciephy_nocsr_reset_l,
-+	.num_nocsr_resets	= ARRAY_SIZE(sm8550_pciephy_nocsr_reset_l),
- 	.vreg_list		= qmp_phy_vreg_l,
- 	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
- 
-@@ -4640,6 +4694,8 @@ static const struct qmp_phy_cfg glymur_qmp_gen4x2_pciephy_cfg = {
- 
- 	.reset_list		= sdm845_pciephy_reset_l,
- 	.num_resets		= ARRAY_SIZE(sdm845_pciephy_reset_l),
-+	.nocsr_reset_list	= sm8550_pciephy_nocsr_reset_l,
-+	.num_nocsr_resets	= ARRAY_SIZE(sm8550_pciephy_nocsr_reset_l),
- 	.vreg_list		= qmp_phy_vreg_l,
- 	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
- 
-@@ -4768,7 +4824,7 @@ static int qmp_pcie_init(struct phy *phy)
- 		}
- 	}
- 
--	ret = reset_control_assert(qmp->nocsr_reset);
-+	ret = reset_control_bulk_assert(cfg->num_nocsr_resets, qmp->nocsr_reset);
- 	if (ret) {
- 		dev_err(qmp->dev, "no-csr reset assert failed\n");
- 		goto err_assert_reset;
-@@ -4805,7 +4861,7 @@ static int qmp_pcie_exit(struct phy *phy)
+ static void qmp_pcie_init_port_b(struct qmp_pcie *qmp, const struct qmp_phy_cfg_tbls *tbls)
+ {
  	const struct qmp_phy_cfg *cfg = qmp->cfg;
- 
- 	if (qmp->nocsr_reset)
--		reset_control_assert(qmp->nocsr_reset);
-+		reset_control_bulk_assert(cfg->num_nocsr_resets, qmp->nocsr_reset);
- 	else
- 		reset_control_bulk_assert(cfg->num_resets, qmp->resets);
- 
-@@ -4849,7 +4905,7 @@ static int qmp_pcie_power_on(struct phy *phy)
- 	if (ret)
- 		return ret;
- 
--	ret = reset_control_deassert(qmp->nocsr_reset);
-+	ret = reset_control_bulk_deassert(cfg->num_nocsr_resets, qmp->nocsr_reset);
- 	if (ret) {
- 		dev_err(qmp->dev, "no-csr reset deassert failed\n");
- 		goto err_disable_pipe_clk;
-@@ -4998,14 +5054,25 @@ static int qmp_pcie_reset_init(struct qmp_pcie *qmp)
- 	for (i = 0; i < cfg->num_resets; i++)
- 		qmp->resets[i].id = cfg->reset_list[i];
- 
--	ret = devm_reset_control_bulk_get_exclusive(dev, cfg->num_resets, qmp->resets);
-+	ret = devm_reset_control_bulk_get_exclusive(dev, cfg->num_resets,
-+						    qmp->resets);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to get resets\n");
- 
--	qmp->nocsr_reset = devm_reset_control_get_optional_exclusive(dev, "phy_nocsr");
--	if (IS_ERR(qmp->nocsr_reset))
--		return dev_err_probe(dev, PTR_ERR(qmp->nocsr_reset),
--							"failed to get no-csr reset\n");
-+	if (!cfg->num_nocsr_resets)
-+		return 0;
-+	qmp->nocsr_reset = devm_kcalloc(dev, cfg->num_nocsr_resets,
-+				   sizeof(*qmp->nocsr_reset), GFP_KERNEL);
-+	if (!qmp->nocsr_reset)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < cfg->num_nocsr_resets; i++)
-+		qmp->nocsr_reset[i].id = cfg->nocsr_reset_list[i];
-+
-+	ret = devm_reset_control_bulk_get_exclusive(dev, cfg->num_nocsr_resets,
-+						    qmp->nocsr_reset);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get no-csr reset\n");
- 
- 	return 0;
- }
-@@ -5520,7 +5587,7 @@ static const struct of_device_id qmp_pcie_of_match_table[] = {
- 		.data = &sm8750_qmp_gen3x2_pciephy_cfg,
+@@ -5483,6 +5508,9 @@ static const struct of_device_id qmp_pcie_of_match_table[] = {
  	}, {
- 		.compatible = "qcom,x1e80100-qmp-gen3x2-pcie-phy",
--		.data = &sm8550_qmp_gen3x2_pciephy_cfg,
-+		.data = &x1e80100_qmp_gen3x2_pciephy_cfg,
+ 		.compatible = "qcom,glymur-qmp-gen5x4-pcie-phy",
+ 		.data = &glymur_qmp_gen5x4_pciephy_cfg,
++	}, {
++		.compatible = "qcom,glymur-qmp-gen5x8-pcie-phy",
++		.data = &glymur_qmp_gen5x8_pciephy_cfg,
  	}, {
- 		.compatible = "qcom,x1e80100-qmp-gen4x2-pcie-phy",
- 		.data = &x1e80100_qmp_gen4x2_pciephy_cfg,
+ 		.compatible = "qcom,ipq6018-qmp-pcie-phy",
+ 		.data = &ipq6018_pciephy_cfg,
 
 -- 
 2.34.1
