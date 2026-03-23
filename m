@@ -1,461 +1,161 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5415B391821;
-	Mon, 23 Mar 2026 10:47:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6113909BD
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:49:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774262857; cv=none; b=KKoSEdpKaVsFPUkZShCgNPNU6BqCxCdUwOoLDYocmHrVVlBorOy0LKnr3FmbYFvEMoDN1QAmW5Q2DXDD95knnYld4rgVrjqY7Xy1vJD2oKeQyxGUzekF5MYAhIB/Ick3fuyPAlowWnwhtOEpc7LxQcVuDcikh9/qA7aZpRdU37Y=
+	t=1774262999; cv=none; b=lWX2rFTuuXd3CT1uvrBmKbd2Qtz86ix3GBZd13d/X4M79/ZviQXJNOAgzrDN0U/UQ1QwyRyNkppgXBVeGMWZxjXg1qVHCbaqSrFCjNe4rKJFkl8Jd2sYcKVBxZ9pv3Acgdl5KdOMeY0V7WKcbWCEpecJsWIgHX39H4za6lwHagU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774262857; c=relaxed/simple;
-	bh=FCKrt2gqpw9wh1RlH7VtYPIeF+zWONfzPOyem6I4+LE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d1vgXOtz8hk8uacK/GufM9RgTROfZNrk7rI5NoTZlzITfx9R7T3Sk3hgtzOOMdP8t+liXUeAGXo4WG0DEfFaNxDaJjGyLiJhEGjxqxhFSA4wFJhoHLKWmcecy7xqEzZmjcoqDlRYYRBusqioVjRKteedH9AVOvjVMus8yeEWYhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=T/zGzGdm; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1774262999; c=relaxed/simple;
+	bh=wGjj7ERA7nr4OJjrkafjcBLtU5QBzNDp/qECl2A3LRU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PbGTEyBhw3b3br7ysynydiBUeoarHR80STw78XKvgD7hiYnzXWiVloACXn8oUhex2dCV0V2Ep8uSx74tVjHLUqOSKVURrXkM1zjyIfFpuZ/X7VMVWRH2gUTYvhlJ5sfkRuzMJT+HarvNkp9DpaDTUC7GdDU0519Xp8Cd/dYfVX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=l3Qpslx4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=T+YlCKWA; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="T/zGzGdm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774262855; x=1805798855;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=FCKrt2gqpw9wh1RlH7VtYPIeF+zWONfzPOyem6I4+LE=;
-  b=T/zGzGdmP6PKygTbbpur6MtYV7qogqYqvQiG8Iwq8YYjo9sR6UGI85tl
-   LFsBcaZkgwIteUwUgIKXopNraAmtPXaohq3H6UN84kcMGf2HqnTRQzUC5
-   bpRrRufM/SF7RZBB9s25F8t7FGOA6rmwi67otar8IOG6aOHlddmT5PLcH
-   d0TkFnUhaXTkmv+qMpzif1+wcGg739zFGWbjmdzsgh9lFZqkSa1VPnymn
-   1gWn3ikunSFDafXUVkDVkg6YERpkq3D+hrPcczWXt/gs604vEPrHWj4kI
-   HSMuaLS4tuG1uiblHT7LDWuTR5muQIbpn7bmuT23E4baUpuiKzROv3EDb
-   w==;
-X-CSE-ConnectionGUID: EiuWewCBSoOUSSDa3ZHIzQ==
-X-CSE-MsgGUID: 5RgM0IFFREq54DeB24FYLA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11737"; a="74435227"
-X-IronPort-AV: E=Sophos;i="6.23,137,1770624000"; 
-   d="scan'208";a="74435227"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Mar 2026 03:47:34 -0700
-X-CSE-ConnectionGUID: zmwPpgwsS2uL96bNKL++XA==
-X-CSE-MsgGUID: 6lGLvtiITI+5jDMaksciLg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,137,1770624000"; 
-   d="scan'208";a="223946511"
-Received: from vpanait-mobl.ger.corp.intel.com (HELO localhost) ([10.245.244.22])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Mar 2026 03:47:31 -0700
-Date: Mon, 23 Mar 2026 12:47:28 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, saikrishna12468@gmail.com,
-	git@amd.com
-Subject: Re: [PATCH v2 1/4] iio: adc: xilinx-xadc: Split driver into core and
- platform files
-Message-ID: <acEaQLGOcI5mshsC@ashevche-desk.local>
-References: <20260323074505.3853353-1-sai.krishna.potthuri@amd.com>
- <20260323074505.3853353-2-sai.krishna.potthuri@amd.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="l3Qpslx4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T+YlCKWA"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N7tBYW2291169
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:49:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	9r2B2oJ4EfStDBIw7yrgfft96NvA4Nk3SOTixfnh3ZA=; b=l3Qpslx48taa11ql
+	EKmeq50oHYVGGGtT7AEJjfZ+d8Xy9fk57yOm1EsBjmkzCS2MiEyh+TbsehH01hg8
+	Ncguif2pDnOdeyllqM1Z5h2t4fFXWTFml0XznnjvsacNgMgBaDEOYxV3k5BAc1ov
+	8Voa4FBcabEOB3G9+xRnlE6NVBkb7THrYJ25qGxya98DakCZrN31ZZLoF7psKZWM
+	+W43UZt+lMaR4nJQQ1j/SBX2GyGvT+zHEJ+KxTeV5kNacL5brJx1nSaQMsLObCrR
+	b/34SUT89ikWw7ZOVIndrQd4lcRP+I4S1Dw14OnRx9Pf3jBcN/jL9stDT8MrNPZE
+	Fzi+lA==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d31j70kwg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:49:56 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-89a04e9d4faso33366716d6.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 03:49:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774262995; x=1774867795; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=9r2B2oJ4EfStDBIw7yrgfft96NvA4Nk3SOTixfnh3ZA=;
+        b=T+YlCKWAs4XwtO5QgmG3HHxOJpuHXFt9GrMtYpswMcWoZ7rskTsEdu/52qR6YUZ4PW
+         LA6iOxpRAfe/mtfQcdlm9J/6myLF1cAO7tItSGuZQj0pa7WEOAUDlCFX0jIc70JAtW3X
+         QtVND3rQjUEa7LXgMhH6GTt2a732eRhvhs/OKdCzRshFhRTYId7lIXjfL/I2NNeVGlP7
+         tM3vr2A/+wswy1cSsNPZ4mpC+FN79G7jjA+PhTFsHQa+2k5fniJJtwN15bUQh8gTFDfv
+         oUukTl05LFTCBqyWb0x3JuOmWkGKIGRxX3w3W6NkHyBZOldmfr8FeQJYSdsFGhCMzfdl
+         rXkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774262995; x=1774867795;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9r2B2oJ4EfStDBIw7yrgfft96NvA4Nk3SOTixfnh3ZA=;
+        b=McRl2V7mwqUWuj9918EahRhUaaY0TVyMoqgQb4ap8zVUqEJ6mZ41tnLBtGqebbLcru
+         jjm1K3eoU9bToIY8TPH7WdwrXRxqO6E5vtrCUAt0yTB8I55LLmdDKsq0eVMAFSN2DeG6
+         cvCTxdklIOWEcJ1vpppxk1nelseRp+XGXLH8P0jRx4ZVjBBFQpaJxlgGy/Ro1yCqLIDk
+         dEBgklf+CQWpsELCZ6ZgZCCNhF2HIQm+NFwaxx6pbBJmxknyBstT4tAt5YIZY59ssOkk
+         gvac8BrIg+5whzQK2cou2OYD1/kJQhUcUPnO5nKMfDcE/DXKIQ7pS1+2CD0bkqHNVoko
+         eKGw==
+X-Forwarded-Encrypted: i=1; AJvYcCUWRhg+igP54FYNZuCwZAAS/JEXxifCbGeSHQGmkVg4Bfj4SYXAkkMsEGNuMVOIOX3PxND7+7iFwEaz@vger.kernel.org
+X-Gm-Message-State: AOJu0YzpmUA/dPpxRl0ZXnY0qNP6I5wmvBNcwC53ZEeJFVu63sd1/Lpx
+	zUghy3NVLdyyw6KCXA2ZdHy+gVEKT7mTX2zFowY1512NsHpN0jnKGm2H4Hvw1Uk78gmzObClUoO
+	9pWJikvYekFYNIJrrO+4dUp4iess/0SvMTTPvtZI6giUf1ByjOQT07BLblbZckDsK
+X-Gm-Gg: ATEYQzyHmGfsO8mXqhWG6chf6RlB48WNKhE3c/927EDiiQ6qyrxBgwe5t9tvRB8VijU
+	NwNsbhTCGL8MRt0RpjllY4HSkHDWL5TA44w0feD7nCPQwrXhOb7djTV5s20Pf0oK23m6g9UvgQc
+	sMOjg4MyboLBlqRJlIU60tIhKtG7pvRVmSw3U+2EC5ZQckgHNPLnsFoVniN2yNtn+8/tPez69hW
+	EivTu7OfPP4tYCx1iGanq8idgZ8p6JSyKvA6tEqfH9L7qBYI8B+7JNFsSmfbnMK4O3AOHlWjLt1
+	gO3th7xRyE6nSF4rIyoRqNpoXcakkoo0P0bxZ5wvTjhoypsEZjSNtWUpvjkmYfsaQUDttGPXD0U
+	ascLXZv0yoejnPQJViH3mpxcgv4wtEoSNpH4ttT/+Hr0CN5QoWpLGRGjpCNiAnyf9T69qCgVR7j
+	F55qs=
+X-Received: by 2002:a05:6214:27c9:b0:89a:4449:ac0f with SMTP id 6a1803df08f44-89c85a4d900mr144852216d6.4.1774262995470;
+        Mon, 23 Mar 2026 03:49:55 -0700 (PDT)
+X-Received: by 2002:a05:6214:27c9:b0:89a:4449:ac0f with SMTP id 6a1803df08f44-89c85a4d900mr144851996d6.4.1774262995099;
+        Mon, 23 Mar 2026 03:49:55 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b98335de0b2sm479337766b.34.2026.03.23.03.49.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Mar 2026 03:49:54 -0700 (PDT)
+Message-ID: <925fc96f-5e33-4ac7-9595-277a6ce3fff9@oss.qualcomm.com>
+Date: Mon, 23 Mar 2026 11:49:52 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260323074505.3853353-2-sai.krishna.potthuri@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: Add the Nothing Phone (3a)
+To: Alexander Koskovich <akoskovich@pm.me>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+        Tony Luck <tony.luck@intel.com>,
+        "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260321-asteroids-v1-0-4b902901cb49@pm.me>
+ <20260321-asteroids-v1-3-4b902901cb49@pm.me>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260321-asteroids-v1-3-4b902901cb49@pm.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=ArXjHe9P c=1 sm=1 tr=0 ts=69c11ad4 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=sYhY2sMgwC2GqzHfdbUA:9 a=QEXdDO2ut3YA:10
+ a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-ORIG-GUID: 0qIZo5v9OtvhrnKchr2Gg-3VWfMVpLU2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA4MyBTYWx0ZWRfX00w7Frcsbufl
+ nN/FzSvpHFc8HYc3ASYXy7fAxVOrQd5PF47JBOL2NopWCXRs+w4DmXghyd+6VdteH86a/Mg25Pm
+ LGj7ptYvHxG9eaEKsFJoyWwwza1wKgNCOow4xNQo9JibxTN72bcuGaJFFIkgGdq6mJC0u/Lyc47
+ q6RQFyS8FYmfTWYljCSL96ZLJ6xREt2U3LWkPw06EmviLGt35aw+QPLshKTdcvUmXM6aLavkEaS
+ pNQlSkmn+mVYGT4WcJ6KYhZq7ZkYsJwB9LJwfN8zbBzIeejxIMiLtyst1o87z/SkNsubSM6Gv8X
+ COs2o9fQDR8bIHwayaLmA3SoqYlS5IfSBl8b7UMgj1urcTMAlLBboWJcRGhzILKSMSh3g63C6FW
+ 1pLbJsZKuTyECHZchemmnKyzD0+/zjBIrQ7DorM1DYNteQvIUQ/bdgjP37q4P3I0a/tlF3DGNHE
+ y3JVIdItjrfD0TeN3GA==
+X-Proofpoint-GUID: 0qIZo5v9OtvhrnKchr2Gg-3VWfMVpLU2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-23_03,2026-03-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ spamscore=0 impostorscore=0 suspectscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230083
 
-On Mon, Mar 23, 2026 at 01:15:02PM +0530, Sai Krishna Potthuri wrote:
-> Split the xilinx-xadc-core.c into separate core and platform specific
-> files to prepare for I2C interface support.
+On 3/21/26 6:00 PM, Alexander Koskovich wrote:
+> Add a devicetree for the Nothing Phone (3a) smartphone, which is based
+> on the Milos/SM7635 SoC.
 > 
-> xilinx-xadc-core.c is reorganized as follows:
-> xilinx-xadc-core.c:
->   - Platform-independent IIO/ADC operations
->   - Channel definitions and management
->   - Buffer and trigger management
->   - Device tree parsing
+> Supported functionality as of this initial submission:
+> * Camera flash/torch LED
+> * Debug UART
+> * Glyph LEDs (AW20036)
+> * PMIC-GLINK (Charger, Fuel gauge, USB-C mode switching)
+> * Assistant Key, Power Button, Volume Keys
+> * Regulators (PM7550, PM8550VS, PMR735B)
+> * Remoteprocs (ADSP, CDSP, MPSS, WPSS)
+> * USB (USB2 + FSA4480)
 > 
-> xilinx-xadc-platform.c:
->   - ZYNQ platform (FIFO-based) register access and interrupt handling
->   - AXI platform (memory-mapped) register access and interrupt handling
->   - Platform-specific setup and configuration
->   - Platform device probe function
-> 
-> Update Kconfig to introduce XILINX_XADC_CORE as a helper module selected
-> by XILINX_XADC and update Makefile to build the split modules:
->   - xilinx-xadc-common.o (core + events)
->   - xilinx-xadc-platform.o (platform-specific)
-> 
-> Reorganized the code and No behavioral changes.
+> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> ---
 
-...
+[...]
 
-> +void xadc_write_reg(struct xadc *xadc, unsigned int reg, uint32_t val)
->  {
->  	writel(val, xadc->base + reg);
->  }
-> +EXPORT_SYMBOL_GPL(xadc_write_reg);
->  
-> -static void xadc_read_reg(struct xadc *xadc, unsigned int reg,
-> -	uint32_t *val)
-> +void xadc_read_reg(struct xadc *xadc, unsigned int reg, uint32_t *val)
->  {
->  	*val = readl(xadc->base + reg);
->  }
-> +EXPORT_SYMBOL_GPL(xadc_read_reg);
+> +&usb_1 {
+> +	dr_mode = "otg";
 
-Use namespace.
+This is already the default (if unspecified)
 
-...
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> -static int _xadc_update_adc_reg(struct xadc *xadc, unsigned int reg,
-> -	uint16_t mask, uint16_t val)
-> +static int _xadc_update_adc_reg(struct xadc *xadc, unsigned int reg, u16 mask, u16 val)
-
-This is unrelated. Make it a separate change "Switch to use kernel types"
-or alike.
-
-...
-
-> -static int xadc_update_scan_mode(struct iio_dev *indio_dev,
-> -	const unsigned long *mask)
-> +static int xadc_update_scan_mode(struct iio_dev *indio_dev, const unsigned long *mask)
-
-This is unrelated indentation change. Either drop or move to a separate patch.
-
-...
-
->  	struct xadc *xadc = iio_priv(indio_dev);
-> -	size_t n;
->  	void *data;
-> +	size_t n;
-
-Ditto.
-
-...
-
->  static int xadc_trigger_set_state(struct iio_trigger *trigger, bool state)
->  {
->  	struct xadc *xadc = iio_trigger_get_drvdata(trigger);
-> +	unsigned int convst, val;
->  	unsigned long flags;
-> -	unsigned int convst;
-> -	unsigned int val;
->  	int ret = 0;
-
-This shouldn't be done at all, one variable per line is fine and readable.
-
-...
-
->  		ret = _xadc_update_adc_reg(xadc, XADC_REG_CONF1, XADC_CONF0_EC,
-> -					convst);
-> +					   convst);
-
-Separate patch for indentation.
-
-...
-
-> -static struct iio_trigger *xadc_alloc_trigger(struct iio_dev *indio_dev,
-> -	const char *name)
-> +static struct iio_trigger *xadc_alloc_trigger(struct iio_dev *indio_dev, const char *name)
-
-Ditto and anything similar should go to a separate patch.
-
-...
-
-
-> -static int xadc_postdisable(struct iio_dev *indio_dev)
-> +int xadc_postdisable(struct iio_dev *indio_dev)
->  {
->  	struct xadc *xadc = iio_priv(indio_dev);
->  	unsigned long scan_mask;
->  	int ret;
-
-> -	int i;
-> +	u32 i;
-
-Why?
-
->  
->  	scan_mask = 1; /* Run calibration as part of the sequence */
->  	for (i = 0; i < indio_dev->num_channels; i++)
-
-...
-
-> +EXPORT_SYMBOL_GPL(xadc_postdisable);
-
-Add namespace.
-
-...
-
-> +EXPORT_SYMBOL_GPL(xadc_read_samplerate);
-
-Ditto and so on...
-
-...
-
-> -static int xadc_write_samplerate(struct xadc *xadc, int val)
-> +int xadc_setup_buffer_and_triggers(struct device *dev, struct iio_dev *indio_dev,
-> +				   struct xadc *xadc, int irq)
-
-At this time do you need all three first parameters? I think it may be two or
-even one.
-
-> +{
-> +	int ret;
-> +
-> +	if (!(xadc->ops->flags & XADC_FLAGS_BUFFERED))
-> +		return 0;
-> +
-> +	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
-> +					      &iio_pollfunc_store_time,
-> +					      &xadc_trigger_handler,
-> +					      &xadc_buffer_ops);
-> +	if (ret)
-> +		return ret;
-
-> +	if (irq > 0) {
-
-	/* The feature is optional */
-	if (irq < 0)
-		return 0;
-
-> +		xadc->convst_trigger = xadc_alloc_trigger(indio_dev, "convst");
-> +		if (IS_ERR(xadc->convst_trigger))
-> +			return PTR_ERR(xadc->convst_trigger);
-> +
-> +		xadc->samplerate_trigger = xadc_alloc_trigger(indio_dev,
-> +							      "samplerate");
-> +		if (IS_ERR(xadc->samplerate_trigger))
-> +			return PTR_ERR(xadc->samplerate_trigger);
-> +	}
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(xadc_setup_buffer_and_triggers);
-
-Namespace.
-
-...
-
-> -static const char * const xadc_type_names[] = {
-> +const char * const xadc_type_names[] = {
->  	[XADC_TYPE_S7] = "xadc",
->  	[XADC_TYPE_US] = "xilinx-system-monitor",
->  };
-
-Why this change without export? Is it fine?
-
-...
-
-> +	*ops = device_get_match_data(dev);
-
-> +	if (!*ops)
-> +		return ERR_PTR(-ENODEV);
-
-Just drop it. we expect driver to have it.
-
-...
-
-> +#include <linux/clk.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-
-> +#include <linux/kernel.h>
-
-No driver should use this header (there might be rare exceptions, but not
-here).
-
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-
-...
-
-> +static const unsigned int XADC_ZYNQ_UNMASK_TIMEOUT = 500;
-
-Unit suffix?
-
-...
-
-> +#define XADC_ZYNQ_CFG_CFIFOTH_MASK	(0xf << 20)
-
-> +#define XADC_ZYNQ_CFG_DFIFOTH_MASK	(0xf << 16)
-
-Yeah, these all _MASK (here and elsewhere) should use GENMASK().
-
-...
-
-> +static void xadc_zynq_write_fifo(struct xadc *xadc, uint32_t *cmd, unsigned int n)
-
-Why not u32?
-
-> +{
-> +	unsigned int i;
-> +
-> +	for (i = 0; i < n; i++)
-
-Can be
-
-	for (unsigned int i = 0; i < n; i++)
-
-> +		xadc_write_reg(xadc, XADC_ZYNQ_REG_CFIFO, cmd[i]);
-> +}
-
-...
-
-> +static void xadc_zynq_drain_fifo(struct xadc *xadc)
-> +{
-> +	u32 status, tmp;
-> +
-> +	xadc_read_reg(xadc, XADC_ZYNQ_REG_STATUS, &status);
-
-	/* Needs a comment explaining why there will be no infinite loop */
-
-> +	while (!(status & XADC_ZYNQ_STATUS_DFIFOE)) {
-> +		xadc_read_reg(xadc, XADC_ZYNQ_REG_DFIFO, &tmp);
-> +		xadc_read_reg(xadc, XADC_ZYNQ_REG_STATUS, &status);
-> +	}
-> +}
-
-...
-
-> +static void xadc_zynq_update_intmsk(struct xadc *xadc, unsigned int mask, unsigned int val)
-> +{
-> +	xadc->zynq_intmask &= ~mask;
-> +	xadc->zynq_intmask |= val;
-
-Standard pattern is to have it on a single line
-
-	xadc->zynq_intmask = (xadc->zynq_intmask & ~mask) | (val & mask);
-
-> +	xadc_write_reg(xadc, XADC_ZYNQ_REG_INTMSK, xadc->zynq_intmask | xadc->zynq_masked_alarm);
-> +}
-
-...
-
-> +static int xadc_zynq_write_adc_reg(struct xadc *xadc, unsigned int reg, uint16_t val)
-> +{
-> +	u32 cmd[1], tmp;
-> +	int ret;
-> +
-> +	spin_lock_irq(&xadc->lock);
-
-Are you going to use cleanup.h?
-
-> +	xadc_zynq_update_intmsk(xadc, XADC_ZYNQ_INT_DFIFO_GTH, XADC_ZYNQ_INT_DFIFO_GTH);
-> +
-> +	reinit_completion(&xadc->completion);
-> +
-> +	cmd[0] = XADC_ZYNQ_CMD(XADC_ZYNQ_CMD_WRITE, reg, val);
-> +	xadc_zynq_write_fifo(xadc, cmd, ARRAY_SIZE(cmd));
-> +	xadc_read_reg(xadc, XADC_ZYNQ_REG_CFG, &tmp);
-> +	tmp &= ~XADC_ZYNQ_CFG_DFIFOTH_MASK;
-> +	tmp |= 0 << XADC_ZYNQ_CFG_DFIFOTH_OFFSET;
-> +	xadc_write_reg(xadc, XADC_ZYNQ_REG_CFG, tmp);
-> +
-> +	xadc_zynq_update_intmsk(xadc, XADC_ZYNQ_INT_DFIFO_GTH, 0);
-> +	spin_unlock_irq(&xadc->lock);
-> +
-> +	ret = wait_for_completion_interruptible_timeout(&xadc->completion, HZ);
-> +	if (ret == 0)
-> +		ret = -EIO;
-> +	else
-
-> +		ret = 0;
-
-This seems quite wrong. If you use interruptible version, why ignoring the
-error codes?
-
-> +	xadc_read_reg(xadc, XADC_ZYNQ_REG_DFIFO, &tmp);
-> +
-> +	return ret;
-> +}
-> +
-> +static int xadc_zynq_read_adc_reg(struct xadc *xadc, unsigned int reg, uint16_t *val)
-
-u16
-
-> +{
-> +	u32 cmd[2], resp, tmp;
-> +	int ret;
-> +
-> +	cmd[0] = XADC_ZYNQ_CMD(XADC_ZYNQ_CMD_READ, reg, 0);
-> +	cmd[1] = XADC_ZYNQ_CMD(XADC_ZYNQ_CMD_NOP, 0, 0);
-> +
-> +	spin_lock_irq(&xadc->lock);
-> +	xadc_zynq_update_intmsk(xadc, XADC_ZYNQ_INT_DFIFO_GTH, XADC_ZYNQ_INT_DFIFO_GTH);
-> +	xadc_zynq_drain_fifo(xadc);
-> +	reinit_completion(&xadc->completion);
-> +
-> +	xadc_zynq_write_fifo(xadc, cmd, ARRAY_SIZE(cmd));
-> +	xadc_read_reg(xadc, XADC_ZYNQ_REG_CFG, &tmp);
-
-> +	tmp &= ~XADC_ZYNQ_CFG_DFIFOTH_MASK;
-> +	tmp |= 1 << XADC_ZYNQ_CFG_DFIFOTH_OFFSET;
-
-Are you going to use bitfield.h?
-
-> +	xadc_write_reg(xadc, XADC_ZYNQ_REG_CFG, tmp);
-> +
-> +	xadc_zynq_update_intmsk(xadc, XADC_ZYNQ_INT_DFIFO_GTH, 0);
-> +	spin_unlock_irq(&xadc->lock);
-> +	ret = wait_for_completion_interruptible_timeout(&xadc->completion, HZ);
-> +	if (ret == 0)
-> +		ret = -EIO;
-> +	if (ret < 0)
-> +		return ret;
-
-As per above.
-
-> +	xadc_read_reg(xadc, XADC_ZYNQ_REG_DFIFO, &resp);
-> +	xadc_read_reg(xadc, XADC_ZYNQ_REG_DFIFO, &resp);
-> +
-> +	*val = resp & 0xffff;
-
-Unneeded mask.
-
-> +	return 0;
-> +}
-
-> +static unsigned int xadc_zynq_transform_alarm(unsigned int alarm)
-> +{
-> +	return ((alarm & 0x80) >> 4) |
-> +		((alarm & 0x78) << 1) |
-> +		(alarm & 0x07);
-
-One line. Also add a comment explaining this (perhaps with a reference to
-datasheet).
-
-> +}
-
-...
-
-> +#define XADC_ZYNQ_TCK_RATE_MAX 50000000
-> +#define XADC_ZYNQ_IGAP_DEFAULT 20
-> +#define XADC_ZYNQ_PCAP_RATE_MAX 200000000
-
-Unit suffixes?
-
-...
-
-I stopped here. I think what you need is to clean up and modernize the driver
-first (see my comments above) and only when it's ready, start splitting it.
-The split itself can also be done in a few steps (you can try to prepare
-patches with `... -M -C --histogram ...` to see when it will look better).
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Konrad
