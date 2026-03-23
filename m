@@ -1,88 +1,127 @@
-Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4831A6815;
-	Mon, 23 Mar 2026 14:00:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A3D03B8933;
+	Mon, 23 Mar 2026 14:03:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774274436; cv=none; b=kvkoiYRU0cH9rnv+RX6u3JsbUqdB+UvyV0AORj5mEIwtJG0YcZRQZhCgflJKVKzMFNCYtBtZ6IGByzQKyMYqn4VT3tFLgyLANJEWZu6YHFdTG+CGzOWhcYNpVnza8OBHLFUwQhfKE+rZdAEtu7vAWWzMXyksrLhEZaACdogVyyU=
+	t=1774274596; cv=none; b=rUCIAFVUNAQsXWyIutnAGYr86ZhqAfhMNy/LBf8TN+eHNSy60A2QC8upfEuGLI5X3jPFlWBXg9k0IBDQzNthYcQgX5x4FxmMs+VWywLLPPe0tjYdKzafm/+KyY4gseuRBBYWWy53+nvPgk0yhc9ygN3Zzl5C6JXthE5blhqqE0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774274436; c=relaxed/simple;
-	bh=lmdhqIzPyxkLSNbG2elNPk6ySF3ItrITYENUA7kqbBM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FN7fhkT03ssRaR6FeL0KDunlRw799bvS1qpMXh+6PRzCELCGV6RATikBbPkFS7G1GBYd9mk9mZLSSyrbnyEZN3Pym3QKxcNK807rCOBrtm+igkomiIOIAjD+P6shy6X1br7x8S+4lkxI8JZ3HvZKoLdhYjFvtSGSGeFPOR7Ko9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=VoS7vqBL; arc=none smtp.client-ip=162.243.120.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
+	s=arc-20240116; t=1774274596; c=relaxed/simple;
+	bh=qA/7Af9OLrXRXQW3iLR7Qv2MAkirMfzLk2jcaukagF8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ekcN8Y53K9JsTPSqSjGqiOLxGolgEj12kfDo6CNOMd4pnr0fpCchh+w2VcWAzGwB2x+qbncCacbyR4R1HbFKAmWj6n+2Ke0Ady3J3VQTfliWFIN0uWI2MqrgV1tvlaDd+DsUxHhMeFXjTmN/0GtkYXnWgbTqdw2iHG+ZvAE9rM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aXyzB8hB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="VoS7vqBL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
-	; s=default; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject
-	:Cc:To:From:subject:date:message-id:reply-to;
-	bh=C7J8fgLWBAj7/wGmEJ5zpUPN5BtLb1ls5YQ6XDZJxUg=; b=VoS7vqBLBPnPGZPPCg6qgb0lyA
-	oFnEa6N+qHrIK7H+vC08oJPGaPCPgi0gYBc/5WURiUSYXIHiAkRdoWgRp75PaZE6L7pN9PhNLGPlo
-	44+v3womXUubjIZv50O10lXzA9ChZCwUm7D7gdtwzfaSk1tXapAwk+N68PZW0PLSnYTU=;
-Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
-	by mail.hugovil.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <hugo@hugovil.com>)
-	id 1w4fpT-000000006GY-1D3U;
-	Mon, 23 Mar 2026 10:00:27 -0400
-From: Hugo Villeneuve <hugo@hugovil.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Olof Johansson <olof@lixom.net>
-Cc: hugo@hugovil.com,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aXyzB8hB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E759AC4AF09;
+	Mon, 23 Mar 2026 14:03:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774274595;
+	bh=qA/7Af9OLrXRXQW3iLR7Qv2MAkirMfzLk2jcaukagF8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aXyzB8hBxufwqY7Ww1VMtnsojIih23nqrCAO1R5Ro1DhWc49UMTv1or0KaDy5qakh
+	 iqb1erAgY1FD+AhcrURjYREbBCsqmHe/PsJR/e+S7gc2QXkdKO0v+PAZoKcXPL9K8s
+	 ZauZAQeB0e4BtE9mNZF3o6R6qeQJKtG8QtTQP71+g/8NNSdBEtbkxoDIj9cSUq4zLm
+	 JIHe0w5C8FxZ2c8Jz1+rFnXxVWERsXs389sYM6An5SFBbjA2Zkt5LTgmNe+zNoknyK
+	 YxPKKcWmnQdWyKOR8pfPDgbK010cLiz4KE2GZrkGeDsjQT6i1AxOi6xnT5ZKDeMpp/
+	 NJdUmBROGXN1A==
+Date: Mon, 23 Mar 2026 09:03:11 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Jie Gan <jie.gan@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: input: matrix-keymap: fix key board wording
-Date: Mon, 23 Mar 2026 10:00:21 -0400
-Message-ID: <20260323140024.104475-1-hugo@hugovil.com>
-X-Mailer: git-send-email 2.47.3
+Subject: Re: [PATCH v2] arm64: dts: qcom: glymur: add coresight nodes
+Message-ID: <acFGhpVWaHZtiyTq@baldur>
+References: <20260318-add-coresight-dt-nodes-for-glymur-v2-1-d76e08f21fa5@oss.qualcomm.com>
+ <ef89e328-fda6-43f4-b40c-8834d16e2cfd@oss.qualcomm.com>
+ <7972211e-d735-4401-ada9-b83c7b96b612@oss.qualcomm.com>
+ <a73af369-b122-43d2-b28f-e97ab33352c9@oss.qualcomm.com>
+ <f28fe058-d1b7-4d4f-8751-54117aba95f8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Spam_score: -1.0
-X-Spam_bar: -
+In-Reply-To: <f28fe058-d1b7-4d4f-8751-54117aba95f8@oss.qualcomm.com>
 
-From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+On Mon, Mar 23, 2026 at 09:27:41PM +0800, Jie Gan wrote:
+> 
+> 
+> On 3/23/2026 9:02 PM, Konrad Dybcio wrote:
+> > On 3/23/26 1:30 PM, Jie Gan wrote:
+> > > 
+> > > 
+> > > On 3/23/2026 7:05 PM, Konrad Dybcio wrote:
+> > > > On 3/18/26 12:42 PM, Jie Gan wrote:
+> > > > > Add CoreSight nodes to enable trace paths like TPDM->ETF/STM->ETF.
+> > > > > These devices are part of the AOSS, CDSP, QDSS, PCIe5, TraceNoc and
+> > > > > some small subsystems, such as GCC, IPCC, PMU and so on.
+> > > > > 
+> > > > > Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+> > > > > ---
+> > > > > Changes in V2:
+> > > > > 1. removed two cti devices due to GFX block is down
+> > > > 
+> > > > i.e. "because GPU is not yet enabled"?
+> > > 
+> > > Yeah, these CTI devices have clock issue for enabling due to the GPU block is not yet enabled.
+> > 
+> > Do they need the GPU to be online, or a clock from GPU_CC, or
+> > maybe something else?
+> 
+> We need a specific debug clock inside the GPU block. The debug clock only
+> can be enabled while GPU is online.
 
-The correct wording is keyboard, without a space.
+What happens once GPU has been delivered, but for some reason is
+inactive and we try to use this CTI device?
 
-Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
----
- Documentation/devicetree/bindings/input/matrix-keymap.yaml | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> Also needs AOP to support enable/disable
+> the debug clock.
+> 
 
-diff --git a/Documentation/devicetree/bindings/input/matrix-keymap.yaml b/Documentation/devicetree/bindings/input/matrix-keymap.yaml
-index a715c2a773fe..ce910e4ac823 100644
---- a/Documentation/devicetree/bindings/input/matrix-keymap.yaml
-+++ b/Documentation/devicetree/bindings/input/matrix-keymap.yaml
-@@ -4,13 +4,13 @@
- $id: http://devicetree.org/schemas/input/matrix-keymap.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: Common Key Matrices on Matrix-connected Key Boards
-+title: Common Key Matrices on Matrix-connected Keyboards
- 
- maintainers:
-   - Olof Johansson <olof@lixom.net>
- 
- description: |
--  A simple common binding for matrix-connected key boards. Currently targeted at
-+  A simple common binding for matrix-connected keyboards. Currently targeted at
-   defining the keys in the scope of linux key codes since that is a stable and
-   standardized interface at this time.
- 
+When you hit such dependencies, please write and contribute the patch
+(in this case, you can do it in a separate patch/series).
 
-base-commit: c369299895a591d96745d6492d4888259b004a9e
--- 
-2.47.3
+Regards,
+Bjorn
 
+> > 
+> > > > >      - cti@11c42000
+> > > > >      - cti@11c4b000
+> > > > > 2. changes two TPDM devices to static:
+> > > > >      - tpdm-cdsp-cmsr
+> > > > >      - tpdm-cdsp-cmsr2
+> > > > 
+> > > > They were TPDM instances in v1. What's the reason for the change?
+> > > 
+> > > These TPDMs havent clock source for accessing registers. We only need enable its ports to output trace data. So I have changed them to static-TPDM compatible.
+> > 
+> > The registers are clearly physically there. Are you saying that we
+> > (currently?) can't enable the clock required to access them? Or is
+> > there a design defect that's preventing us from doing so?
+> 
+> It's about hardware design. Some of the TPDM devices are designed as static,
+> means we dont need access the register of the device for configuring. The
+> trace data of the static TPDM is enabled by default, we only need enable the
+> port of the connected TPDA device for receiving the data.
+> 
+> I have tested these devices with Jtag attached, so I didnt observe issue
+> about these new devices in the CDSP block. (Jtag will provide debug
+> capability for all debug devices) Also cross-checked with hardware team for
+> confirming these devices are working as static.
+> 
+> Thanks,
+> Jie
+> 
+> > 
+> > Konrad
+> > 
+> 
