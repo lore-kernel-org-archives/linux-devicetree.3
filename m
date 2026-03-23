@@ -1,226 +1,227 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010040.outbound.protection.outlook.com [52.101.69.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D66F3890F8;
-	Mon, 23 Mar 2026 10:33:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.40
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774261990; cv=fail; b=EonF5+kd/EhGQx0O8xECpQ6eD//0IehhUeRnjnYJmT+yMu4E1lQR31lw1tA+N5pTSO8gZsrkhzzIM/VFuMefjd/g8YUvlGdKpCixYT1suFvDln0ZbgBzDQHmcA7/nWmkxr50oSaOsVEyAPOoOCnB45jFqOliTIFlUUhJrftqkok=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774261990; c=relaxed/simple;
-	bh=zZo7CgwfoY21MDlZvcus2LvaEYcdqFk9yeYODX2fTIc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ghcAJxA2F/TTV9w4VB3d2GxsoI3FzGlIVEVS6oSGyAChyget3Js0HZQXbZd4a66Hi6A9ybfm+JYfxzNrbps+IJUA/pIVx8JqNGXq2cO2S2bDq612N0IAt6mAV4kWPjuQNgrasVfFpym3fmj/0l5ENhNRPyri+Q8f1qrG8H8yZ0g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=iGpXA1VK; arc=fail smtp.client-ip=52.101.69.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7342362147
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:34:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774262087; cv=none; b=U857aL+2F/EqLlHdDgJRNgxZq9opJFd4FQsGa9Gi9hcKcgSEx8exyfP44uteqqayfK1D1dTUNpE4UBU01Hx0oo5P21jug8PADPipABvPmG4Cz5y/KeZwsaqjpAHsDoKiZoEtF9///3rBNrYqIw6/QR9bUIv83p5mhx2RXiyLXMc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774262087; c=relaxed/simple;
+	bh=mZ0McTWcGztL7qdM6zf7TJThxnCQDdRXIOTXjADCJGs=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iQ20Hs70dcgvv0eQz1Z0ILbKnmOOdAun+IFWZA8wK1IM4FIBbEN+HmSTiLugIgxJiev2j2CAYy+N1HPRf0xAgT8V8zZseDOQgBVVpMADOzhq6H6R1ViFsGCWZc/DsipxL7YtdBpd56aVRT72fechL/bUfUDVHuH/eWk9UWXBR5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fnz63AHs; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="iGpXA1VK"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XE6YSdwQqKdt6tR9bEHkuozf4nRAi02TjUyUxnSB+90MaCMKwPX1gX16rs5APvC0gwfmjNtu6Dt3dHeCJF3cbFfRH30E5A4NlF16luOtAozAl8Sylb3DVuOj+pOMEewr9ID42T5QbWGV4dWhlr19F0tmVKa2yFvdzRQyvo4I3xYzhVtIl+POAqPXbNrvb80huVXnnroI19s3xtoeKvqGgGrtdfxzoMozUSVTRF44ESRsOLh9BNlVv4yfmelVvtMBGF6IU2ycOmv0hpFqxNnjLAFKizUvI3vwwPoExsPKN0V1jFckcGMw/ZC7fWtRjOuWDhtPWAey4HEM9HwzS0ncsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l9qEg0HWniI5H2X6ihd2hYL4/0dN0x/02N2i1UwHvfg=;
- b=ZRnYx/0ltWZaTITGklCzRT6+Psu1sRdwGWfdG6llf+vmhjF1ef/0T8oTx9kvH/k85ct4NcIkGxStpMHxdsx+SlBSX7Jrx5XrLw0IrAyyY32Pzntr4qsJkwSR42bYswGNx2lKMBBiVHFqDsz9n1AjYx4OJEHElH745nQhnhsQX3ZkgtFcy1i7Kqr26K/QTcQsNz9IkVGWfrKCErqxyEpZbnMEjyyeddN9ZbpmZrQWPORWDOae8GAIC8NRRqyn6y/VYZKplRtBdRfULGDM6nuA5Vdfzh6878402ElL5EQ8Lw/cA7xdjq3/qIMc1mylXk/P+LcX5S8bvEn4T5I/1Ao/Xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l9qEg0HWniI5H2X6ihd2hYL4/0dN0x/02N2i1UwHvfg=;
- b=iGpXA1VKaZ5q6Jg6LREQtLYlpKQg8JCo/I4Shf3u4S177EzIc5VZrHfF9Z8Nfd3kRQ7QTIy6zmFTtOAjw2IsUqnlczunMf77m0bI9QbYnDLvrMk21/2gOkWXV8smUu3Sp909LHzvYZdRCiIQknvKcw+MQZmxwqREOuHXDWJE7Fyt2QeOYosrhzI7sEeU6s4kPrrhz8i155vPpxyDV/8xg8/jZgYVXRAwtnh2tp4gH+XKuTCkUlK/ypYEyMw4J5GTes6V9L+L2L0dmA5hQ1FyCdFGUOCyfrgLcoiRk6kzamrwU+x2fT1ENcuX3g15dgtzQZXGMXF692vg7f31NF3sYw==
-Received: from PAXPR04MB8510.eurprd04.prod.outlook.com (2603:10a6:102:211::7)
- by GV2PR04MB12320.eurprd04.prod.outlook.com (2603:10a6:150:30a::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.25; Mon, 23 Mar
- 2026 10:33:05 +0000
-Received: from PAXPR04MB8510.eurprd04.prod.outlook.com
- ([fe80::b476:c19a:24cd:3694]) by PAXPR04MB8510.eurprd04.prod.outlook.com
- ([fe80::b476:c19a:24cd:3694%3]) with mapi id 15.20.9723.030; Mon, 23 Mar 2026
- 10:32:36 +0000
-From: Wei Fang <wei.fang@nxp.com>
-To: Russell King <linux@armlinux.org.uk>
-CC: Claudiu Manoil <claudiu.manoil@nxp.com>, Vladimir Oltean
-	<vladimir.oltean@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
-	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
-	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"f.fainelli@gmail.com" <f.fainelli@gmail.com>, Frank Li <frank.li@nxp.com>,
-	"chleroy@kernel.org" <chleroy@kernel.org>, "horms@kernel.org"
-	<horms@kernel.org>, "andrew@lunn.ch" <andrew@lunn.ch>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>
-Subject: RE: [PATCH v2 net-next 11/14] net: dsa: netc: add phylink MAC
- operations
-Thread-Topic: [PATCH v2 net-next 11/14] net: dsa: netc: add phylink MAC
- operations
-Thread-Index: AQHcuotUXzXWZtrvPkOHkUVrkHLQObW72lgAgAAO9+A=
-Date: Mon, 23 Mar 2026 10:32:36 +0000
-Message-ID:
- <PAXPR04MB8510A24C5ECFBEEDA27892E5884BA@PAXPR04MB8510.eurprd04.prod.outlook.com>
-References: <20260323060752.1157031-1-wei.fang@nxp.com>
- <20260323060752.1157031-12-wei.fang@nxp.com>
- <acEIQqI-_oyCym8O@shell.armlinux.org.uk>
-In-Reply-To: <acEIQqI-_oyCym8O@shell.armlinux.org.uk>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAXPR04MB8510:EE_|GV2PR04MB12320:EE_
-x-ms-office365-filtering-correlation-id: ee039572-0fce-4cf2-2b96-08de88c78072
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|376014|7416014|19092799006|56012099003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info:
- eeBUSGUJuC85qnIILEtggGEVpZWWPCDqUrAMuu8lOa7vmQUtw1oJkUQ937iDna1iAWln13EFHDi5CLVtV4HJMrYRHdg4nHPktffDbl7u8dyI8uyA+fyh95CqCDAMmfiARNqMbKG+GCMAgdA6FuhxIGYc4tYXgL+QHwMmO+mVpeN1AOObr3EsJMTzlUkEtsaltLDB0Hn7V6R3mypSHQxqlBsFsiEiyFaMCgjAM/aSLQDziUjEe0Uws1kmc+iP5YsoCBQviNNQQjt0nTRIalZ947yfK1u8M7nRysYD2ludC/dFVwoLO4HGm/wH62a82RDYAD86fxZROT61bgo6Lk6Ad46yqriWsndsf/uo0GlL6WO9Khry1zPTl1qT1mCd4qV5hmcAxUgQIBFzIVBe+LEPR9RhMP/sgRdv6YMtx16jeCpnhcLf2KT6O7T+hRlWcnidQUBiUIasnUs9nLYt6Gu8M5+zQDMsfdBNRw6r64+ctFd+pb7h3oxRQ0XQ9AVh4PsQLGK4pKezE+RPJhG23+58urq1lDX4L2oXFB8+00eFIjAy2E1PyGNRVIA4Mff+3aMgJPbCbOSPj61JQG4XYPX8zt8GrUY1iuziSH/83U2799+be1MPuU89GBD6Os2f2gVFWHNMaUvxHq9CDDuKiIykS6+xKcezFlmI8+u/jwu14TcaXPDrm18EffStuFrOfaV+/WBnSx9GzqMvDdJfsEHLfOgjq3AeFIlImibsDCemROQQsHExzScHTHWXQOc+aP/wvPD5akaVWciVNT2sn73xrtd8Ob29B2PTSqed3cA693E=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB8510.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(19092799006)(56012099003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?sZYWdCD8s9+mxTbzUnQGEm5b/Jgk7Lr9sVkAx8DXBBngQcQ7oPvhglNQMwHT?=
- =?us-ascii?Q?mQRGZ7AVobAVq31inG65uBR9cPMsT08N08qCWqqFxOUjCnREoaptkG3KVzp8?=
- =?us-ascii?Q?slUx6vIBpY1FVHR74RhGnJDFoS0C1WU5J5OoeAmFCLdY9QE6hAaCjp7eIYff?=
- =?us-ascii?Q?vpckxfB2KxnUZ3+I8vPg/64fFzxuCw2PO5u9uFP0uwPDK2uxmN8XrbTvSc8G?=
- =?us-ascii?Q?lO9zorzWYrJHULDermK6CwgPQ5+dzwkj8hFEopuoFPSqGERH0KnIbqG9rFtB?=
- =?us-ascii?Q?u5QpGmUaRlnaMvJR5iCreMToWY5tvxG72GG4wV0KxgjYDJSjVN08ZFY1+wcz?=
- =?us-ascii?Q?lCt9potm1F0rwsBxtfeFE/WrEbP/zHGbn3+xeN1uGTd7mMSChVKutHRlGbdo?=
- =?us-ascii?Q?8EQu1J0FJqE5sHlp/4tVR80VPAVWEpfuxohAaBTHmg69bx3yUZRHUKByc6Pr?=
- =?us-ascii?Q?BKVTmTiR90RmZEDUxyykTKVjS26UBg4cY8jPCXodvArYXLAgslBg7n77YXFe?=
- =?us-ascii?Q?oA7RYbmYhKvcDK5c3j+2F70ukcROc3JPbNozwjKjtFTBX6AdJFpyR3pRlEje?=
- =?us-ascii?Q?l6jacvVAk17lf8anqPVnS7LlsfIfmGhqJXsLERr5ohPtbLvR2fB21bZ3ICod?=
- =?us-ascii?Q?Aa55JQ86mLPDlIv+ev31seNlvhPYRjhLcgnVc9n+gIWx2l6cncCfvU06uXhT?=
- =?us-ascii?Q?wXSd67a//yAvHI4YFHrUyqfzF6SCbzAO2x3wHd6ZKfdU9dvWXQ/l2MTVHr+A?=
- =?us-ascii?Q?LXLJ31khjcsZByZWXhKL5Asy45vILmjYCPTT80cC1pLXZFqaQf4ET7c3QCZP?=
- =?us-ascii?Q?S3dSWn4T8jzM21C6AlBCASFEmsfw7ztJg7kBeQcY3qbyOYKqACA3uAgm1Y7i?=
- =?us-ascii?Q?Sgmh1IsOsHxPPFYBjxZ9Y3IFgK0hh4gzDfOnQLzEFlMaRHFZkw4cAM36ja7J?=
- =?us-ascii?Q?sT3BHGGqqs1729RWq4FLVjgFB2nSrASsjCdX/ThPeP0C2HIN1xZ/V2rbcNwv?=
- =?us-ascii?Q?hex6V4hrMs2oBv26CEsHtZySxwLKQLggCNNN8XzOVmFVxsodlEySxuKirA+S?=
- =?us-ascii?Q?hi4W6Pfr8Ux8FGeGFR2NClf7O0o1aPW1Z7ra6xoy3ny443IVtOw3FMqbYjMO?=
- =?us-ascii?Q?WB/2w1I0PvLZUigrwGezW+sQ0BWyoE6L52RsqgtGCV0Ygn8jtOtOio96H3lM?=
- =?us-ascii?Q?paOpEDL/99QZ0cih39vWwwgGA4VkX5DhybOlUrNRXA7NuUPQ+P+tQM6LYQru?=
- =?us-ascii?Q?7R8LIDKMKIAHk51BFT9xK3XcyiG0LuTesdNpdv+PCUSOJAT+oRocIO1VlWga?=
- =?us-ascii?Q?UbPWdmXOa++eD6qo32LI+j4wfyfwsCSX59ldI10vPgG+Jbk1m15Hi7hFmD88?=
- =?us-ascii?Q?JmxDCrK7mVmsYdQjvI8GaPHhID7O5/RtouqOeKpDO+FwT35w6aZClR1PQ1EC?=
- =?us-ascii?Q?B5cFNRR5Jc/aqD3qNuNS/OohpcQrimJgBm9MQEqTrmB+Np514RxyjJkOTW9O?=
- =?us-ascii?Q?Z8AYQXgjzHKUBqF53jMF0euq1hG8VZMIFb9bwSjEAuAmw/4Q00q/QFaCA7Rm?=
- =?us-ascii?Q?2REfODuQ1UzBGq4QHXS2VrfjVZfpwP0iRqgNEWA1JhEFZEWSeJ9GUu5PRieK?=
- =?us-ascii?Q?wh4OUhrUI6rndoV+xtFF+82yfTRu4Jk3wgf3xXSPn42q7IBqtscCJA7m04Vw?=
- =?us-ascii?Q?K+ysHmvI9TSzTEzzDizY/3nod9qjme6akI3PpKw7NV37nE0T?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fnz63AHs"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-439b9b190easo3143225f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 03:34:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1774262084; x=1774866884; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=fUqIsDJo6AEfyjgSHUzAgFLd+VFu9ll5ZcHVDadW1X8=;
+        b=fnz63AHsrX9ozrEeV992GJJLxUcx5KIIrsPMTuBEQCACkeMdAK8MX+SBS9unjo4WpT
+         717+ugih3+eR63no1P2b6hesVzzT07XATJnR0rtkK60JkmmxrK1PBTwxRzpcEB6fvNdV
+         4EQCt5k5gTvnL5WfKLejeq6pXpZiesZZ1K9l+F4KcwTxR4vkoWP5XzWvLUphiO2Zf0HU
+         K10uqjgjmcWo8EAwZqxQWUIrTOFXt/0JuyuRoAk7++oE/i0a8kUqCdvhuRea+F8KmE01
+         XCPMyZCw+MbI9rGSqMIqBYfjFrRTIdEp6wyVp4y07VnmJ32gHs++jJHRlqa/ZXy4GSfF
+         4Bxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774262084; x=1774866884;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=fUqIsDJo6AEfyjgSHUzAgFLd+VFu9ll5ZcHVDadW1X8=;
+        b=FYQjdiDF+HKUc214ouSJmOn28H1uuMsGIw0rqQqRbLJ0tvNMu5ZmzQ4G+9FCg/4hfn
+         MtMFyJeVbZrnTDz1vyTu4LQ7IRpIb724yNVD9jebfOTticoEt3i50sgFrIulsJkgie6P
+         Hkq9Iuustn0PC8K2TKAY+CKCGOYWtCMfLPLOsPP9fHyCD0SN+DzHwPAe3F3vuoApvU/p
+         EXOSKVxi468/xHtnepEc3TJ52kInaQkoLsL7BTqgyDeUyi8drPIqG49wkI0UdCDPak1R
+         lSd0fwNdJEgUQuqt/glZNMMcSdfhp2X3lr08F/XP0cpLnvrBrueagi/RENxh1E3dg+U8
+         9bXg==
+X-Forwarded-Encrypted: i=1; AJvYcCUnew3AXZhJ0sU/dxHPcBuZETa53AM6A1NPUJWfS4/IU0T6+aBMAXzRf3KzM1AyfKIPSpzQ6ODE0DIv@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxa4szqlq7X2OyqH8yqRmSwWBweZu3WtbLavtO17ZGEF9fvNyHU
+	Q/8ygWOftQ0/QAk1JWWTQM/Jsy08KQFOmQ5RhPNE5lAlfRCIifVY7iz8
+X-Gm-Gg: ATEYQzxX2VqWQ/WXTYSR9XwJbRJdRBTloPNIeOWlpey318mO60JqAQV+N1QCzlWwe05
+	pMdSsPTZb4HKfrrYN7bWeTr/glKxqJTqAExtC0M6pEbKSk5z2vq4PWNfhdwWh0viF5m0XXagBJm
+	Pn/BK1qi9BGSBKXH7ayyGz6QTmNJQ/aZmDvy7lpFLEbMo3LYr3hBP4Dx/jOX2pgbJ1w/HnL7f8u
+	ZJKbJ1UsCg1hm6kZhbI6RlgePn1cSqq7RSZWdQ1ICLzvU41IDqSCR37uiR93/iMSio2/e6znkwC
+	aZ8k0QG69ie57rKAxv3eV+wYsPFMqU/aLy7VhVulaOjA8ODEob2dK0J213D8foekIWJxNiZQh84
+	umedEl/F4u0EGpVPo9UWOF3lR0m7NyQOY1rA1h0Fzm2Kl9mlvdVYy1lEoc4QLxZYAUgxU6Zv2RD
+	1IBHFT+yCiINaBZzyyT5lrPnduRF+NW4Qg/SXiJEbmIa1vEoP1v4ga9sf/PjGsXqR5QGocY9/2u
+	D+ff5S4TACrcmCaHKy9VzOwxZ2GyGHoj3aAJSsPzmgBKDNEdmU=
+X-Received: by 2002:a05:600c:c8a:b0:485:4453:401d with SMTP id 5b1f17b1804b1-486fede7336mr170383695e9.2.1774262083711;
+        Mon, 23 Mar 2026 03:34:43 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-486ff118bb4sm124482435e9.2.2026.03.23.03.34.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Mar 2026 03:34:42 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Mon, 23 Mar 2026 10:34:37 +0000
+To: Jonathan Cameron <jic23@kernel.org>, 
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH RFC v2 2/9] iio: frequency: ad9910: initial driver
+ implementation
+Message-ID: <grjlyz76cmjy7t3ytwycaklauipbqcj7adjr2t7k3axwlayowr@4zbuzehcrpvs>
+References: <20260318-ad9910-iio-driver-v2-0-e79f93becf11@analog.com>
+ <20260318-ad9910-iio-driver-v2-2-e79f93becf11@analog.com>
+ <20260322165058.6c4b193e@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8510.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee039572-0fce-4cf2-2b96-08de88c78072
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2026 10:32:36.7528
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: d2nz3dWqBGohCPB3405cis7twHLeN90V4u0dZ8QbrKmDLUHVUeqAWfAo1v0vFg8TiSGuvi8KEUKVDUHmlTGldg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB12320
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260322165058.6c4b193e@jic23-huawei>
 
-> On Mon, Mar 23, 2026 at 02:07:49PM +0800, Wei Fang wrote:
-> > +static void netc_port_set_mac_mode(struct netc_port *np,
-> > +				   unsigned int mode,
-> > +				   phy_interface_t phy_mode)
-> > +{
-> > +	u32 mask =3D PM_IF_MODE_IFMODE | PM_IF_MODE_REVMII |
-> PM_IF_MODE_ENA;
-> > +	u32 val =3D 0;
+On 26/03/22 04:50PM, Jonathan Cameron wrote:
+> On Wed, 18 Mar 2026 17:56:02 +0000
+> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> 
+> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > 
+> > Add the core AD9910 DDS driver infrastructure with single tone mode
+> > support. This includes SPI register access, profile management via GPIO
+> > pins, PLL/DAC configuration from firmware properties, and single tone
+> > frequency/phase/amplitude control through IIO attributes.
+> > 
+> > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+
+...
+
+> > +#include <linux/array_size.h>
+> > +#include <linux/bitfield.h>
+> > +#include <linux/clk.h>
+> > +#include <linux/delay.h>
+> > +#include <linux/device.h>
+> 
+> Generally can avoid including device.h in favour of more specific
+> headers.  There are a few exceptions where we can't such as actual
+> dereferencing of struct device, but I don't recall seeing a case in here.
+
+I understood that the usage of devm_add_action_or_reset() would justify
+the header.
+
+...
+
+> > +#define AD9910_EXT_INFO(_name, _ident, _shared) { \
+> > +	.name = _name, \
+> > +	.read = ad9910_ext_info_read, \
+> > +	.write = ad9910_ext_info_write, \
+> > +	.private = _ident, \
+> > +	.shared = _shared, \
+> 
+> If there are only a few of these, I'd put it long hand rather than
+> using a macro. Tends to end up easier to read.
+
+Next patches will leverage the macro as more ext_info attrs will be introduced.
+I suppose we can build the foundation for later extension.
+ 
+> > +}
 > > +
-> > +	switch (phy_mode) {
-> > +	case PHY_INTERFACE_MODE_RGMII:
-> > +	case PHY_INTERFACE_MODE_RGMII_ID:
-> > +	case PHY_INTERFACE_MODE_RGMII_RXID:
-> > +	case PHY_INTERFACE_MODE_RGMII_TXID:
-> > +		val |=3D IFMODE_RGMII;
-> > +		/* Enable auto-negotiation for the MAC if its
-> > +		 * RGMII interface supports In-Band status.
-> > +		 */
-> > +		if (phylink_autoneg_inband(mode))
-> > +			val |=3D PM_IF_MODE_ENA;
->=20
-> I would prefer newer drivers not to use phylink_autoneg_inband()
-> anymore. Note that there is no need to support RGMII inband in the
-> kernel (nor is there any proper support without a "phylink_pcs"
-> being present to provide the inband status.)
-
-Thanks for the info, I will remove it.
-
->=20
-> > +static void netc_port_set_hd_flow_control(struct netc_port *np, bool e=
-n)
+> > +static const struct iio_chan_spec_ext_info ad9910_phy_ext_info[] = {
+> > +	AD9910_EXT_INFO("profile", AD9910_PROFILE, IIO_SEPARATE),
+> > +	AD9910_EXT_INFO("powerdown", AD9910_POWERDOWN, IIO_SEPARATE),
+> > +	{ }
+> > +};
+> 
+> > +static int ad9910_read_raw(struct iio_dev *indio_dev,
+> > +			   struct iio_chan_spec const *chan,
+> > +			   int *val, int *val2, long info)
 > > +{
-> > +	if (!np->caps.half_duplex)
-> > +		return;
+> > +	struct ad9910_state *st = iio_priv(indio_dev);
+> > +	u64 tmp64;
+> > +	u32 tmp32;
 > > +
-> > +	/* The HD_FCEN is used in conjunction with the PM_HD_FLOW_CTRL
-> > +	 * register, which has a default value, so currently we do not
-> > +	 * set it in the driver. The half duplex flow control works by
-> > +	 * the backpressure, and the backpressure is essentially just
-> > +	 * a long preamble transmitted on the link intended to create
-> > +	 * a collision and get the half duplex link partner to defer.
-> > +	 */
-> > +	netc_mac_port_rmw(np, NETC_PM_CMD_CFG(0),
-> PM_CMD_CFG_HD_FCEN,
-> > +			  en ? PM_CMD_CFG_HD_FCEN : 0);
->=20
-> We don't support half duplex backpressure in the kernel. I notice
-> you always enable this whenever HD mode is negotiated, which means
-> there's no way for the user to disable it. Flow control can cause
-> problems. Ethernet relies on packet dropping for congestion
-> management.
+> > +	guard(mutex)(&st->lock);
+> > +
+> > +	switch (info) {
+> > +	case IIO_CHAN_INFO_FREQUENCY:
+> > +		switch (chan->channel) {
+> > +		case AD9910_CHANNEL_SINGLE_TONE:
+> 
+> I haven't read on yet, but if you never have any other cases in here,
+> perhaps us an if() as it will reduce indent of the code that follows.
 
-Okay, make sense, I will remove it.
+Similar, other channels will be introduced here so additions are easier
+to review.
 
->=20
-> > +static void imx94_switch_phylink_get_caps(int port,
-> > +					  struct phylink_config *config)
+> > +			tmp32 = FIELD_GET(AD9910_PROFILE_ST_FTW_MSK,
+> > +					  st->reg[AD9910_REG_PROFILE(st->profile)].val64);
+> > +			break;
+> > +		default:
+> > +			return -EINVAL;
+> > +		}
+> > +		tmp64 = (u64)tmp32 * st->data.sysclk_freq_hz;
+> > +		*val = upper_32_bits(tmp64);
+> > +		*val2 = upper_32_bits((u64)lower_32_bits(tmp64) * MICRO);
+
+...
+
+> > +
+> > +static int ad9910_cfg_sysclk(struct ad9910_state *st, bool update)
 > > +{
-> > +	config->mac_capabilities =3D MAC_ASYM_PAUSE | MAC_SYM_PAUSE |
-> > +				   MAC_1000FD;
+> > +	u32 tmp32, cfr3 = AD9910_CFR3_OPEN_MSK;
 > > +
-> > +	switch (port) {
-> > +	case 0 ... 1:
-> > +		__set_bit(PHY_INTERFACE_MODE_SGMII,
-> > +			  config->supported_interfaces);
-> > +		__set_bit(PHY_INTERFACE_MODE_1000BASEX,
-> > +			  config->supported_interfaces);
-> > +		__set_bit(PHY_INTERFACE_MODE_2500BASEX,
-> > +			  config->supported_interfaces);
-> > +		config->mac_capabilities |=3D MAC_2500FD;
-> > +		fallthrough;
-> > +	case 2:
-> > +		config->mac_capabilities |=3D MAC_10 | MAC_100;
-> > +		__set_bit(PHY_INTERFACE_MODE_MII,
-> > +			  config->supported_interfaces);
-> > +		__set_bit(PHY_INTERFACE_MODE_RMII,
-> > +			  config->supported_interfaces);
-> > +		if (port =3D=3D 2)
-> > +			__set_bit(PHY_INTERFACE_MODE_REVMII,
-> > +				  config->supported_interfaces);
->=20
-> The "case 2" above already ensures that port is 2 here.
+> > +	cfr3 |= AD9910_CFR3_VCO_SEL_MSK |
+> > +		FIELD_PREP(AD9910_CFR3_DRV0_MSK, st->data.refclk_out_drv);
+> > +
+> > +	if (st->data.pll_enabled) {
+> > +		tmp32 = st->data.pll_charge_pump_current - AD9910_ICP_MIN_uA;
+> > +		tmp32 = DIV_ROUND_CLOSEST(tmp32, AD9910_ICP_STEP_uA);
+> > +		cfr3 |= FIELD_PREP(AD9910_CFR3_ICP_MSK, tmp32) |
+> > +			AD9910_CFR3_PLL_EN_MSK;
+> > +	} else {
+> > +		cfr3 |= AD9910_CFR3_ICP_MSK |
+> 
+> For this, be explicit what value you are setting, probably be defining a max value
+> that the field can take.  Whilst just setting the mask is the same it doesn't
+> convey the same meaning to someone reading the code.
 
-"case 0...1" uses "fallthrough" instead of "break", and port 0 and 1 do not
-support REVMII. So the check is needed.
+This is just the default value from the datasheet, ICP should not really matter
+when the PLL is disabled, so removing this should be fine.
 
+> 
+> > +			AD9910_CFR3_REFCLK_DIV_RESETB_MSK |
+> > +			AD9910_CFR3_PFD_RESET_MSK;
+> > +	}
+> > +	st->reg[AD9910_REG_CFR3].val32 = cfr3;
+> > +
+> > +	return ad9910_set_sysclk_freq(st, AD9910_PLL_OUT_MAX_FREQ_HZ, update);
+> > +}
+> > +
+> > +static int ad9910_parse_fw(struct ad9910_state *st)
+> > +{
+> > +	struct device *dev = &st->spi->dev;
+> > +	u32 tmp;
+> > +	int ret;
+> > +
+> > +	st->data.pll_enabled = device_property_read_bool(dev, "adi,pll-enable");
+> > +	if (st->data.pll_enabled) {
+> > +		tmp = AD9910_ICP_MAX_uA;
+> 
+> Defaulting to max current seems unusual.  What's the motivation? Normal instinct is
+> go minimum if no other info.
+
+ICP_MAX_uA leads to 111 in the CFR3_ICP field, which is the default value when the
+device resets or when it powers on. I suppose that if we are not touching that
+property, there would be no reason to change that.
+
+...
+
+-- 
+Kind regards,
+
+Rodrigo Alencar
