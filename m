@@ -1,190 +1,175 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E49638B149
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:14:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6736390CBD;
+	Mon, 23 Mar 2026 11:17:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774264494; cv=none; b=VqVYrGtKXeDg9oG1pxUlG+ZxjczAtjZtBwbEYxuUv1BXtSb8mnJnDfXMEO+fCRpxXeLKG+KsJrIHO8ErlAnS8H5A5RrxinvN4abP0EgKXJy3mvN4CRh5V0lYmosTJlZCnlkhN07l30SG6jN9YZqPjj/GwQflZxLbZlUvovUcpTs=
+	t=1774264653; cv=none; b=ii+m0OAp2uYtUi4LxfKbzCDHhlYWqjUQchSJLiptGnfhEAVnjRfC48UA+GvvwJ9hzcWgSpeXeDN5bunFdwQIi9skW7L2YdvPk73aHi0DCj8fgoBqclHUzKTQod8ccOoxEC84Ri1B25+CmetLWV2uwgYaua6bweQblsTjMwyp13A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774264494; c=relaxed/simple;
-	bh=cLFCtM3vNo1q1OQN7GQ9cfbUHDA7Kfmuiw5ZyragmcA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IsAhR5lyNd82HeB/nu+O4J8yzVW+Si8ufDFhw1MQxyoVKq9UpFGSvylcct/dlV+YHHvzZ/SJNlnaYkkem3q5qkbmF6Fonu9Xfhefr4y/tU2+qf/69h3y8pM3lo+x1TdeYTIdmR8QdvQ/kRqBFd8/2QTww/tiE3gEX5f3W1yiAVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ye+BBE4k; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gCQaEkEY; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774264653; c=relaxed/simple;
+	bh=a+K21ycFsZx1aa5rX89PVqaXxVaYlFmDKUz60VkOv2k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=VMXOClO+91Yv5K1PsJROy2S+RL184Cge7SnlsyRykFWtYDHDBLduATsUkBYPgdohXH5+OMkA7wrzg7GqDzyqnslCD5MRZtn/SbSsuHpzdWnlAfQA1veHLzT4OHwslCaqDX+zSHdt9oeZJPlDSpG3h7KxlC/bu9dsVewCwIJRDj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=WI3G5XBS; arc=none smtp.client-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ye+BBE4k";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gCQaEkEY"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N7tAim2291136
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:14:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	YY3Tc5YnXTi4hNRW8PsT1kXgcBbe6sHvsCQISPk98w0=; b=Ye+BBE4k5fqx+cLi
-	B1mowjqEmSo9un0Y2/x95HjC3PA2fy3ZuOgwi4bVO+S3tVtGpektRXRNokIv0Vpk
-	MT9cZW7LrnqK+XwHMSv+gmrjT5klZVREGioqmiSRyXP26jpO7eZjhDkJ57b/LB/O
-	mwkfpfSzNtW4qdIfhnwqXZhxETlmPU1OQDIfWR+PKkQ6hwCQY1ql1tLl7VDYXHG7
-	+OGVyDpaHxa0l4FRacyzEorRTzj22T2KXWTKiTSNopMY51JYj60Qfm1BTqyX2r9a
-	3HDGwKOJc78Hcs43B92395JSQaE9TFARR7as7q4P1zRTpq6fpMLrGWIT0Q3cMI1N
-	iQe8Kg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d31j70pjp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:14:52 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50b317c40acso9142121cf.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 04:14:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774264491; x=1774869291; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YY3Tc5YnXTi4hNRW8PsT1kXgcBbe6sHvsCQISPk98w0=;
-        b=gCQaEkEYjaBL8269+NpoYH1KlvwNq86/zIAliko2bIgQttzxa3ors5H74MbKqrzn3E
-         1JbtPTCcS3RUU1m4GgRP+FGNwS0lJQ/Xt6mRwuyXDJa0y0E+y9WuDazquRaQ5+IbzWrF
-         ZjfYfmKeCDo7NkzvBT4hj0YMJmsL4PlrLQZHK0FmIG3Vr+eSvhJ6M1Yd2XBi6p1EEZsx
-         S/O5OuBXCy8iHqQxObc+EnPYsVllSHXKiUCsTTcFTHEVJg3m0gesUpacmRDIdICcGJkC
-         7QPUk4Be0DzBTDSI9BcaKZwUu0kvUcGYjVW106YDnhMJOq/Kc0uAU1Qxhi0rpaDuCxel
-         pC/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774264491; x=1774869291;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YY3Tc5YnXTi4hNRW8PsT1kXgcBbe6sHvsCQISPk98w0=;
-        b=XxuuhoQhCqEkTXhUWTK//hPj6UPjdr3QhY/rYuoNPVDv0qk5ARYk3fC6OJ9Q0EUkZe
-         zz1IyY8sS2orQE7UEv9zgHQhoAvlgQeRdjUyrCkG4YBctgpUeQdvJv3NOuX35y2fk0QY
-         AwV78zaF60RMJojuIJzLvkxG9JQxrbTG2PEk22d9lZQbC9qtYrVOvtYTLWmXdTEGNrLg
-         qOcNI2v64ui81TzN2azR1Z83GXyJ50RxKS6fWhy2cOdVffC8MJhTFYuKPqK9wuY61qsL
-         qqaSaNP5stPgyvVELNREQhxXDGwVywIcQocnPRs1RNAqP2bFKKBxci5c3NddkbsVjXYT
-         M46g==
-X-Forwarded-Encrypted: i=1; AJvYcCXWsxzO7GgsA8QJbYLhOGeFaZMCCW1oKSDKx1iYnNrlew8kmQWOAMV34gcEq4qBBPg6IAbQ8Nuf5eiD@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0HInR/XoWCu2Kig8IjgG1O43TL6TUcZWzXyfO5oD7wh/0/NlF
-	f5nM54gwuU/Hx3klFGlHgs348JgYOGVtjRSycEb51sHzHYGeah1I5afVYcF+i31tIkKIXjqfn0A
-	drCm/4UwIhKwtZvRrVt5hxJk0FSbvqI0DS84fSGy37lOmhGKGp/ruHUCl/tMzPKWC
-X-Gm-Gg: ATEYQzylmZMpghN8L8UWbqF3/T/3sl0ULtliF0OINAqkWeMcov8iWJO/8uExMtKu6uY
-	0RI1UXLOqNfV2gBWw6es2fDGHVtVlcFLx3JWA85dKXgTOfgWhyAFFf96uTmsoztatLBvID5dPcn
-	YgwrDUoJsQPqdWhJVUeaAsIqCt9gEzko3tImjoTBbdVZPRQ3HE/A0s9MHjYBWB9JYwcgwVKennn
-	n6eMoRhOOzi51kypENh6GKwK12bygCIx8KOBwYLCT6fU1Nwdn7OKO1iS9FbNE0sJLUAGmBW8aRR
-	ZRmjRA9LcOdNML7YIGMRGNabvhIvvAeX3jGtmUglwHqfRtXfDhUtj7oUV4WELF4rnW+CSL5ycor
-	0AwP3NeCXKzxFv9ycYRstFrXEWxIGCw687nlU5wgCGtydLfjP
-X-Received: by 2002:a05:622a:17c3:b0:50b:4c63:cd25 with SMTP id d75a77b69052e-50b4c63ce77mr100299971cf.65.1774264491338;
-        Mon, 23 Mar 2026 04:14:51 -0700 (PDT)
-X-Received: by 2002:a05:622a:17c3:b0:50b:4c63:cd25 with SMTP id d75a77b69052e-50b4c63ce77mr100299661cf.65.1774264490886;
-        Mon, 23 Mar 2026 04:14:50 -0700 (PDT)
-Received: from [192.168.1.29] ([178.197.219.94])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-486fe68ec05sm405202115e9.0.2026.03.23.04.14.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Mar 2026 04:14:50 -0700 (PDT)
-Message-ID: <e36e0b01-2572-49c9-b8ea-8f4796c3ba92@oss.qualcomm.com>
-Date: Mon, 23 Mar 2026 12:14:48 +0100
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="WI3G5XBS"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=wSdOmMtQJa4WowpqlfcOJcehmFcXYtTS05KoePMKPVU=;
+	b=WI3G5XBSvLw1Ei2KOl8bWUoPjcsVkaCWFhuxcWJmThK8RYco8rIJbvc4XJRxcYjdR3c6oop/z
+	t3cQyEFjF4AU7xxJmO+zxXY1B8actvrXqxeVN6l+7rl7qve6RGVo3HX9lQ7j7A2FMHl37WUY9XJ
+	2Tv/+h0JBqqA0gRXAB3ife0=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4ffVpy6zGtz1cyP0;
+	Mon, 23 Mar 2026 19:11:22 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id 8A58F4056C;
+	Mon, 23 Mar 2026 19:17:26 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Mon, 23 Mar 2026 19:17:23 +0800
+Message-ID: <a5694ee0-7a95-4c15-6775-990d70c8d77b@huawei.com>
+Date: Mon, 23 Mar 2026 19:17:21 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] dt-bindings: usb: qcom,snps-dwc3: Add constraints
- for SM4250
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260323-dt-bindings-snps-qcom-dwc3-cleanup-v2-0-3bcd37c0a5b5@oss.qualcomm.com>
- <20260323-dt-bindings-snps-qcom-dwc3-cleanup-v2-4-3bcd37c0a5b5@oss.qualcomm.com>
- <e5a8c3d0-7f7f-420f-a5fa-cb177d321112@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.0
+Subject: Re: [PATCH v9 4/5] arm64: kexec: Add support for crashkernel CMA
+ reservation
 Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@oss.qualcomm.com; keydata=
- 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
- cwzYbmi/Et7T2+47PN9NZAOyb771QoVr8A==
-In-Reply-To: <e5a8c3d0-7f7f-420f-a5fa-cb177d321112@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=ArXjHe9P c=1 sm=1 tr=0 ts=69c120ac cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=dI1csYQj4UmQvqOn9H4A:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: NaYM3ft6cfwXKji1qv0X1cKv1ZEINWD7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA4NyBTYWx0ZWRfX4bYkRTntIgbK
- l0OyUZvz3H+F6iV961ciddz3W6sWDKHUF+eojaeL8jpSXUo/NWKwajMzm0bWtVlzyvcFsQAUwFK
- 7/42AZLZx7g5YGI5ydtoRplrC8h2JfRBCth25GrerLvmB6sIxK4Dp/xbVj+M8FccusasiWneugd
- OnRJspJZtzc/RCmuBOEA9lpkhb8KmDd3qDUJL0Mxjv3Dh/LqwZkJHz0qY5DGVQBZKvCh7kOueAK
- C5embeFCyU417L1UDkNAEVIOAkQB+Nu8OayPjSCmNIJJ79fOUw7v4ejZIP7DxIzI8ICx3hAI6dn
- RomURLDNsMW01bB+F5Qbp+XkmqDNjtbscG3P6AFjT2j++In5HjSpn0I9E8f/llK4WozAuWmLaqL
- nhS7C+azLA7Od8d5bQKGWMkXQ+DHM4sy+EO0UimvHS7EqeiB2IuEKioaUCD36oYk0dYkvMT92DS
- FHDOqL33BLRNNbMF3Cg==
-X-Proofpoint-GUID: NaYM3ft6cfwXKji1qv0X1cKv1ZEINWD7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-23_03,2026-03-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- spamscore=0 impostorscore=0 suspectscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230087
+To: Breno Leitao <leitao@debian.org>
+CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
+	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
+	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
+	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
+	<akpm@linux-foundation.org>, <bhe@redhat.com>, <vgoyal@redhat.com>,
+	<dyoung@redhat.com>, <rdunlap@infradead.org>, <peterz@infradead.org>,
+	<feng.tang@linux.alibaba.com>, <pawan.kumar.gupta@linux.intel.com>,
+	<dapeng1.mi@linux.intel.com>, <kees@kernel.org>, <elver@google.com>,
+	<paulmck@kernel.org>, <lirongqing@baidu.com>, <safinaskar@gmail.com>,
+	<rppt@kernel.org>, <ardb@kernel.org>, <jbohac@suse.cz>, <cfsworks@gmail.com>,
+	<osandov@fb.com>, <tangyouling@kylinos.cn>, <sourabhjain@linux.ibm.com>,
+	<ritesh.list@gmail.com>, <eajames@linux.ibm.com>,
+	<songshuaishuai@tinylab.org>, <kevin.brodsky@arm.com>,
+	<samuel.holland@sifive.com>, <vishal.moola@gmail.com>,
+	<junhui.liu@pigmoral.tech>, <coxu@redhat.com>, <liaoyuanhong@vivo.com>,
+	<fuqiang.wang@easystack.cn>, <x86@kernel.org>, <linux-doc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<kexec@lists.infradead.org>
+References: <20260323072745.2481719-1-ruanjinjie@huawei.com>
+ <20260323072745.2481719-5-ruanjinjie@huawei.com> <acETyW3FYaWCShUc@gmail.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <acETyW3FYaWCShUc@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-On 23/03/2026 12:01, Konrad Dybcio wrote:
-> On 3/23/26 9:54 AM, Krzysztof Kozlowski wrote:
->> The qcom,sm4250-dwc3 is already documented in top level part, but it
->> misses specific constraints for clocks.  The SoC is derivative of SM6115
->> (or vice versa), so the interrupts part is incorrectly placed and should
->> be same as for SM6115.
+
+
+On 2026/3/23 18:20, Breno Leitao wrote:
+> On Mon, Mar 23, 2026 at 03:27:44PM +0800, Jinjie Ruan wrote:
+>> Commit 35c18f2933c5 ("Add a new optional ",cma" suffix to the
+>> crashkernel= command line option") and commit ab475510e042 ("kdump:
+>> implement reserve_crashkernel_cma") added CMA support for kdump
+>> crashkernel reservation.
+>>
+>> Crash kernel memory reservation wastes production resources if too
+>> large, risks kdump failure if too small, and faces allocation difficulties
+>> on fragmented systems due to contiguous block constraints. The new
+>> CMA-based crashkernel reservation scheme splits the "large fixed
+>> reservation" into a "small fixed region + large CMA dynamic region": the
+>> CMA memory is available to userspace during normal operation to avoid
+>> waste, and is reclaimed for kdump upon crash—saving memory while
+>> improving reliability.
+>>
+>> So extend crashkernel CMA reservation support to arm64. The following
+>> changes are made to enable CMA reservation:
+>>
+>> - Parse and obtain the CMA reservation size along with other crashkernel
+>>   parameters.
+>> - Call reserve_crashkernel_cma() to allocate the CMA region for kdump.
+>> - Include the CMA-reserved ranges for kdump kernel to use.
+>> - Exclude the CMA-reserved ranges from the crash kernel memory to
+>>   prevent them from being exported through /proc/vmcore, which is already
+>>   done in the crash core.
+>>
+>> Update kernel-parameters.txt to document CMA support for crashkernel on
+>> arm64 architecture.
+>>
+>> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+>> Acked-by: Baoquan He <bhe@redhat.com>
+>> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+>> Acked-by: Ard Biesheuvel <ardb@kernel.org>
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> ---
+>> v7:
+>> - Correct the inclusion of CMA-reserved ranges for kdump
+>>   kernel in of/kexec.
+>> v3:
+>> - Add Acked-by.
+>> v2:
+>> - Free cmem in prepare_elf_headers()
+>> - Add the mtivation.
+>> ---
+>>  Documentation/admin-guide/kernel-parameters.txt | 2 +-
+>>  arch/arm64/kernel/machine_kexec_file.c          | 2 +-
+>>  arch/arm64/mm/init.c                            | 5 +++--
+>>  drivers/of/fdt.c                                | 9 +++++----
+>>  drivers/of/kexec.c                              | 9 +++++++++
+>>  5 files changed, 19 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+>> index cb850e5290c2..afb3112510f7 100644
+>> --- a/Documentation/admin-guide/kernel-parameters.txt
+>> +++ b/Documentation/admin-guide/kernel-parameters.txt
+>> @@ -1121,7 +1121,7 @@ Kernel parameters
+>>  			It will be ignored when crashkernel=X,high is not used
+>>  			or memory reserved is below 4G.
+>>  	crashkernel=size[KMG],cma
+>> -			[KNL, X86, ppc] Reserve additional crash kernel memory from
+>> +			[KNL, X86, ARM64, PPC] Reserve additional crash kernel memory from
+>>  			CMA. This reservation is usable by the first system's
+>>  			userspace memory and kernel movable allocations (memory
+>>  			balloon, zswap). Pages allocated from this memory range
+>> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
+>> index c338506a580b..cc577d77df00 100644
+>> --- a/arch/arm64/kernel/machine_kexec_file.c
+>> +++ b/arch/arm64/kernel/machine_kexec_file.c
+>> @@ -42,7 +42,7 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
+>>  #ifdef CONFIG_CRASH_DUMP
+>>  unsigned int arch_get_system_nr_ranges(void)
+>>  {
+>> -	unsigned int nr_ranges = 2; /* for exclusion of crashkernel region */
+>> +	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* for exclusion of crashkernel region */
 > 
-> They're the same SoC with a different speedbin fuse value for the CPU/GPU,
-> I'd say drop this binding altogether
+> You update arch_get_system_nr_ranges() to account for CMA ranges, but
+> prepare_elf_headers() in the same file (line 51) still has the
+> hardcoded:
+> 
+>         nr_ranges = 2; /* for exclusion of crashkernel region */
 
-Sure, I also thought about it.
+I don't see any logic related to prepare_elf_headers() or hardcoded
+nr_ranges = 2 in the arm64 implementation.
 
-Best regards,
-Krzysztof
+Did I miss something here?
+
+> 
+> and does not exclude CMA ranges from cmem. If the generic crash core
+> handles CMA exclusion from vmcore, then shouldn't
+> arch_get_system_nr_ranges() also not need this change?
+> 
