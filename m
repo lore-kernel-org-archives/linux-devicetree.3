@@ -1,143 +1,593 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE37390CA7
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB56B39890E
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:43:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774265972; cv=none; b=VbBQCIpujMvwOQ3HSIrfjaK8q78e8C/cjZCoT+WPJKSe6rRfV2E0rDOCQkxxTLn7y5eMpxSVMj8F1GL5cDkkQQb+cVZbyfXrutRI5QoUlzz5OeIkbqxnmo8iAb+yDQfw0hM+7CzJbeXGwEcgJ+ALnPTWK6X39ORr3hkmnMbXkBU=
+	t=1774266213; cv=none; b=tQi1nwXKh99gEQWHWp8vFfogGhutJpOe8hlkXybB+ySzfE4LJCeZIgVbUM1ogH0767jdEcbRLXAyZAOqNhq52Y3B70JKbhMaki3CyF8atJ8XdKCyZfuXprSRKu280ecwXkfLAebCEmrahkhQJ0v/SaSzrwHIEQ7AWQT39UsaD/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774265972; c=relaxed/simple;
-	bh=zTdPu2zbrYY4TzKzy//TjpnkLLgvFQbWvcqEQ9p5eLs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Yfc3TqZ762tLTG/Q8np8jWiJYovd8tWZ6yy25BVQ/oCOWDA+oahYZjph63BMe2+TbkXu4aleuL2aAbgWcTSA0FVbpzYYqobNgKhJsbiilNJTOG9pDRgrVibAnnbmqukD5hASP4zYzEAZvt/CGaF7yJi34rp2eAANdD7jJo5rFTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f2aE8r1N; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MzDgilRU; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774266213; c=relaxed/simple;
+	bh=cMPLX0fh67+Fa6CiVDnaBcJ/BJUyqCW1+bQ8uj1pZbc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Lgdx3tLJVhlSml5XGWvW9n4lgUKcu+3vaychVfC17o5Ucg5qs3TcJhfIMV1CqW1De3xBbGz0PH9f6N45Qur6x7PPHGiJCoAfEOeYJeFwSFz7cB5juS4sPKDE0KscO1mar2ub2FitG51fEes4Ma7s+0grKCbWY8gMMH7J/ilwphc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D4wpyGYQ; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f2aE8r1N";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MzDgilRU"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N7689o1497563
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:39:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HQEOeFVr6mH2EsbiLPybn41eb/chStHBnXQxwYjTbeg=; b=f2aE8r1NiIajUtES
-	pxVI5e9uzqCgexXsUlQmCKxdL/XpDKWZosmWlqVtrqJ12/bi0DAaTdDUhvyyRTgT
-	QRMTIQs+rAaTqxxwq/cNDZ3AezDzu/W+19+xIs2TxtTWodYFc9DXBT5EHVfW+cBf
-	hpI2LRfiEbnTrMf7QeOZiBnZzsRdF9gMY5Ye4VV/UGqg1Jv6G0InMQX1/4KXn6F5
-	5XeFP2vobAsmGN2eKfFpYLMgsfIyNNUV9ysU/Ylz0uMQ01VqW5af2OLiAhnnnJiR
-	Mxc+brchse9bICuSt6dskjZoZiTWZQcuV8mPEJ9BoYV1tVzCTmCzwRaX3v/jonou
-	ILOgmw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1mghd1y2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 11:39:31 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-8cb485c686cso360450285a.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 04:39:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D4wpyGYQ"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4852c9b4158so30837445e9.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 04:43:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774265970; x=1774870770; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=HQEOeFVr6mH2EsbiLPybn41eb/chStHBnXQxwYjTbeg=;
-        b=MzDgilRUsCFf0myNUAXYoa8AnS72DbEOW+tYSUqkUmqWkhH4uQieny2xgTfobx7HTK
-         JklJkwInd+320+5BTcUftE0v+SeYNI9Z6vvGEJ2ZInrU1fC5DUAn2DTINXTG/t3uCDQJ
-         mnCAb7FVM97Uo7YMbG+i1NNYWF/rq3wE9NR8G3sIu0vD+xqUg8s/kbLcltDn5VPaCd4v
-         QK1LmjykwO+25cACqfDvGWzlZunv617Z9gzCyAAz3SVPS0EeQBkR0k73ixB0v+5oSj/2
-         AsDWD1wNLuRbwosYZejBLxjcF7mV+wTsIQ8bHRCO68kqSbuKJ/kBzx3kf6xmNxIILccS
-         v/Cg==
+        d=gmail.com; s=20230601; t=1774266204; x=1774871004; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=bB+rKxPD1Kqj43Q7nwMeIeg+ZZIoPhDlV542kn9u7xk=;
+        b=D4wpyGYQL/D6Q79pAabH0Yyxx4zEcvTyX1nK3hibixWPmrkHeJ/8KfCDPTWRKqwsQH
+         d7QdZdXuwUlE2LTE4yPYp6Eeqz1aw6zew4/DlgqbAMPszmlb1eF1x0txaqXiyRKLntDW
+         8sauWkBbL3LzVdCzuny/2F8gsYZdIuUTQ1hdNjEmDFAfg38Tde78GrdGiPfBnk6B1SHI
+         ZEsIK617rrFGAzQeUNXPYEXOKXRrTWYnbCWJosnKMQ9Op+MqDxCvw9k0OoUlJ64ksWAM
+         07EihrmnltI4UaRBHNiqHXtfFb6ZWaF28duKxG1pihxRFonDRzkF/7SYqR8mr5v52BA1
+         IpkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774265970; x=1774870770;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=HQEOeFVr6mH2EsbiLPybn41eb/chStHBnXQxwYjTbeg=;
-        b=O3Nfxm4+aRMQQBeRQE20uWfe0jjimIsPcQoV9wjtMJgrYr5kZJ7ln2PYRpdaCE7krl
-         FPbTyhE1lB1+Lp30iKIWGP9C/BPW016OakCEl5iLaFRb/Yf4w3Txw3K179A4TAFgfo4h
-         7RIp0dZLdiCCQ+qKL6Y5+/+a4+tgeKtCTaXr/Kdj8cGTBsJ/xmOmqisBbfbrGvKf0wgO
-         L2nG5vPsb0b8a8FpdwokK1YYZvk7PGLDdFcvQxCGNnzVfDwMOrj8VRgmZI962+IzDblY
-         jCHEj/O+iLSP8PNRArrFUQYvmIF0QEfzXEAauOAMCbN0udIGAYZyM5Ee2kYSHwfSupXs
-         u8/w==
-X-Forwarded-Encrypted: i=1; AJvYcCVlG4CDtdRiavWiOg00WXPNoHbxcMM3WsvXnTutVdSpL+xXIrFZ4V3Yp1ExArQJejmzfeVklbE5y6b6@vger.kernel.org
-X-Gm-Message-State: AOJu0YwsY/XvTsxysXATlCXCRhGahFfVhvyjpUR4JNKNZLpHfDvlstRT
-	pN1zshKcMFT87l2VefHKYZnz9PcOVC3XwOqO3s9f38pInSHL2ukZSUEGzGA1m6n/H/MZlfPz1VY
-	TJN1c6rB/p8ASLUUCwg9e6/HxZFOh40RMpkkK+HBDCTd8YxV2rfaAnjqjeFJ7+DP7
-X-Gm-Gg: ATEYQzzdhOkWHFkGCAVFkurzeUH4YKAMKh5lZEQi32zYsOSNpgACxf4R5oudbuuqhMH
-	zxJbSYkYPledpKP0C+Nv2U8g5NzrmAhf4ijF4wSiP5F7BOpMdEAKvTq9BbVfJ2u3ZjJwcu6hFLX
-	gqdz0ZWFgVMfkeGhNMbMH3TNfT4Wiz02dtLk4/TEFwvpxS4SuHEl2guW6908EU7UN4RH6X3GZ9n
-	cCjX+EdjnTyesHO4ohPBgl7+WdH8Ql80bZULlykAHgoEtcKIX7Sjl56RdzP96eUlPp8STV0GpXM
-	xUCKsQt9KUvJtBcLa669hN605DNAItTAF6zFA22cCsRvG8tQBhllBfl3Op9ELcgnmybhEgOdsCX
-	4wYXmHrppz/d5SuRw61F87W9o2eHRKfCb8a2s1W5T6/LwADtW1SHhB9do104TZksUCRyrDzbEOK
-	scxbE=
-X-Received: by 2002:a05:622a:5c8d:b0:509:e68:22cb with SMTP id d75a77b69052e-50b374b1751mr138865881cf.5.1774265970280;
-        Mon, 23 Mar 2026 04:39:30 -0700 (PDT)
-X-Received: by 2002:a05:622a:5c8d:b0:509:e68:22cb with SMTP id d75a77b69052e-50b374b1751mr138865581cf.5.1774265969893;
-        Mon, 23 Mar 2026 04:39:29 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-668d2390ec8sm3631663a12.25.2026.03.23.04.39.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Mar 2026 04:39:29 -0700 (PDT)
-Message-ID: <bf383595-0452-4f11-935d-f92f2971670b@oss.qualcomm.com>
-Date: Mon, 23 Mar 2026 12:39:26 +0100
+        d=1e100.net; s=20251104; t=1774266204; x=1774871004;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=bB+rKxPD1Kqj43Q7nwMeIeg+ZZIoPhDlV542kn9u7xk=;
+        b=AGVjBZw9pxbL4ounn3vbMmpT6pwO5Kz7/NRsUOsLURdILjS6gDsLIrjI1QUvmmjpKp
+         CSmxIxJhOFv7LzanwgjYvfGqGRZ65eFfU4uNljL8V8Il2RKlH90dZxaRZXSX+11jOimj
+         4tfNa+E/f31aFV1E5nnSKhwUx1K/VcXX/iwhHjt4fZK5wp1leg5MX6aysPsGzHQTVU+i
+         Xu0ZbER3FWfz4OIH92YhM05kUjIxYq2Sl2nQnVHgNe4m/zGlTnsGbU3aI+Fk2i5za6xs
+         MlzEY0MxcVEMC6q/GekffIM2rErYThDj1/pt5F64ONnuTAEogyxMCMBlsl4XBKuLPgY4
+         agiQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXil6sDo1gC5COebrIBy3TNC50gB6q4ViOFyyd/7IECvi7L7CvnaVMcnd8V6/TdvjibdjieQPYXSqdE@vger.kernel.org
+X-Gm-Message-State: AOJu0YycMJ7wmjW05pC21dnbDXFQykuLvhJAw3flS+lQucN7ItlRR9MB
+	klrkt5Pg0wzmClMAU3SAiXS7h08V49GtkUCnjuo+mFy3URNAXgZrfIES
+X-Gm-Gg: ATEYQzzVPd09r/0AxVVso60qCiP50cEK2FIlGS2aEuLe65Wbed15k2KxRw0t7MwHYT/
+	yysv9Myp9yndT7qTu3/qg9BPzLXObOe+Kmg1K8PjWwIiHz16AYcpEmvvCABd+33gZ+N4RFWdb2W
+	BzEhb9rK+Eday6T0ARPRInvYSDdX3z2YKeBcLP+XaRsOaZXXAWcgxGH6MA45vQv6WwLYaiZ+ETe
+	2JpsrKWrzrPrVu3yaRDtxD//0mWnFhhTjsGWTkCxUvII0uCHKB1SNX8B+6X452mbFUgODERBB6i
+	TKGMPDaSL4oFqUe24fmzzqCw6fVgVicAOmhIRxzpxboha/I5nBC4gBcLIlds2US3b5+1RE+nXrZ
+	la91R9WTMZBNNGsHWk1Bqs5gzuDKcAldrICua6ULsU9nPRQo31PIa1U0HTiwNmZcND42+wn/Cte
+	rRwmnShQic5QZPro7L+N7aTAY788otCeE=
+X-Received: by 2002:a05:600c:a402:b0:485:303b:c50a with SMTP id 5b1f17b1804b1-486fedb546amr127530805e9.13.1774266204084;
+        Mon, 23 Mar 2026 04:43:24 -0700 (PDT)
+Received: from [192.168.1.187] ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48700658441sm371204295e9.4.2026.03.23.04.43.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Mar 2026 04:43:23 -0700 (PDT)
+Message-ID: <3f7cfb4baf2b92cf13b2d7f97f0e77027f4b917a.camel@gmail.com>
+Subject: Re: [PATCH v4 2/4] iio: adc: ad4691: add initial driver for AD4691
+ family
+From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
+To: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron
+ <jic23@kernel.org>, David Lechner	 <dlechner@baylibre.com>, Nuno
+ =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,  Andy Shevchenko	
+ <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Uwe
+ =?ISO-8859-1?Q?Kleine-K=F6nig?=	 <ukleinek@kernel.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown	 <broonie@kernel.org>, Linus Walleij
+ <linusw@kernel.org>, Bartosz Golaszewski	 <brgl@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Date: Mon, 23 Mar 2026 11:44:09 +0000
+In-Reply-To: <20260320-ad4692-multichannel-sar-adc-driver-v4-2-052c1050507a@analog.com>
+References: 
+	<20260320-ad4692-multichannel-sar-adc-driver-v4-0-052c1050507a@analog.com>
+	 <20260320-ad4692-multichannel-sar-adc-driver-v4-2-052c1050507a@analog.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: purwa-iot-evk: Add SDC2 node for purwa
- iot evk board
-To: Sarthak Garg <sarthak.garg@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, quic_nguyenb@quicinc.com,
-        quic_rampraka@quicinc.com, quic_pragalla@quicinc.com,
-        quic_sayalil@quicinc.com, quic_nitirawa@quicinc.com,
-        quic_bhaskarv@quicinc.com, kernel@oss.qualcomm.com
-References: <20260323110017.2527956-1-sarthak.garg@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260323110017.2527956-1-sarthak.garg@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=HI7O14tv c=1 sm=1 tr=0 ts=69c12673 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=AmaZaSnaQ4QkEvLBHnQA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: pS14LoA4FvnKjql4xi9Atyl_iqUDi0yg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA5MCBTYWx0ZWRfX8Tucf+VY8QJI
- qy8JDLOV3dB3N6c9+qtOyRl5YN0wsRksCKsFGI9ayiTtHxXDsegwZSJUhOJwmFMxizw1GY8L5Kr
- t5inksTUw8ZJdynfnnGTIR5XTM59J5mPHR/ZyJU10JJ30L3I++tCYto4PdtgGzzm3pKvrWhXc4C
- O9iadPP0lnWKSFWV1ulyWDM4FXzXVnGCuODSoO4xGUQm0sWFPGVRV1pXrmz0LCPVWhkwrVIlata
- ld6r3iKKuzBXr99S1OoPiYohM8x0wT6ZdUhbiV57eLpUxLfByQn7TWC8IDoUrhgJqPpcoPMMfnq
- Ymw+0LT2l6/qCdnzhBLIA6RLj4IfPyBc+Eg97V+F2mDzrX7h4MlCtUU/2VtQuwBqepTYI0CRyQp
- lFL87LGofGhnTtENOWbYwS4CSkfNpj0bzeKUnB8Sb3CWVDmRvQ5m7wKszB3hrVLDrdV/1458LMo
- WIXTkrgYTN0qbZiwjYQ==
-X-Proofpoint-GUID: pS14LoA4FvnKjql4xi9Atyl_iqUDi0yg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-23_03,2026-03-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 phishscore=0 malwarescore=0 bulkscore=0
- impostorscore=0 suspectscore=0 spamscore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230090
 
-On 3/23/26 12:00 PM, Sarthak Garg wrote:
-> Enable SD Card host controller for purwa iot evk board.
-> 
-> Signed-off-by: Sarthak Garg <sarthak.garg@oss.qualcomm.com>
+Hi Radu,
+
+minor comments on top of what was said already,
+
+On Fri, 2026-03-20 at 13:03 +0200, Radu Sabau via B4 Relay wrote:
+> From: Radu Sabau <radu.sabau@analog.com>
+>=20
+> Add support for the Analog Devices AD4691 family of high-speed,
+> low-power multichannel SAR ADCs: AD4691 (16-ch, 500 kSPS),
+> AD4692 (16-ch, 1 MSPS), AD4693 (8-ch, 500 kSPS) and
+> AD4694 (8-ch, 1 MSPS).
+>=20
+> The driver implements a custom regmap layer over raw SPI to handle the
+> device's mixed 1/2/3/4-byte register widths and uses the standard IIO
+> read_raw/write_raw interface for single-channel reads.
+>=20
+> The chip idles in Autonomous Mode so that single-shot read_raw can use
+> the internal oscillator without disturbing the hardware configuration.
+>=20
+> Three voltage supply domains are managed: avdd (required), vio, and a
+> reference supply on either the REF pin (ref-supply, external buffer)
+> or the REFIN pin (refin-supply, uses the on-chip reference buffer;
+> REFBUF_EN is set accordingly). Hardware reset is performed via
+> the reset controller framework; a software reset through SPI_CONFIG_A
+> is used as fallback when no hardware reset is available.
+>=20
+> Accumulator channel masking for single-shot reads uses ACC_MASK_REG via
+> an ADDR_DESCENDING SPI write, which covers both mask bytes in a single
+> 16-bit transfer.
+>=20
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
 > ---
+> =C2=A0MAINTAINERS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/iio/adc/Kconfig=C2=A0 |=C2=A0 11 +
+> =C2=A0drivers/iio/adc/Makefile |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/iio/adc/ad4691.c | 686 ++++++++++++++++++++++++++++++++++++=
++++++++++++
+> =C2=A04 files changed, 699 insertions(+)
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 438ca850fa1c..24e4502b8292 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -1490,6 +1490,7 @@ L:	linux-iio@vger.kernel.org
+> =C2=A0S:	Supported
+> =C2=A0W:	https://ez.analog.com/linux-software-drivers
+> =C2=A0F:	Documentation/devicetree/bindings/iio/adc/adi,ad4691.yaml
+> +F:	drivers/iio/adc/ad4691.c
+> =C2=A0
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+...
 
-Konrad
+>=20
+> +
+> +struct ad4691_state {
+> +	const struct ad4691_chip_info	*info;
+> +	struct regmap			*regmap;
+> +	int				vref_uV;
+> +	bool				refbuf_en;
+> +	bool				ldo_en;
+> +	/*
+> +	 * Synchronize access to members of the driver state, and ensure
+> +	 * atomicity of consecutive SPI operations.
+> +	 */
+> +	struct mutex			lock;
+> +};
+
+I would not use tabs and align all the members. Makes thinks harder in the =
+future if
+an update is needed. I would just use a simple space.
+
+> +
+> +static int ad4691_reg_read(void *context, unsigned int reg, unsigned int=
+ *val)
+> +{
+> +	struct spi_device *spi =3D context;
+> +	u8 tx[2], rx[4];
+> +	int ret;
+> +
+> +	put_unaligned_be16(0x8000 | reg, tx);
+> +
+> +	switch (reg) {
+> +	case 0 ... AD4691_OSC_FREQ_REG:
+> +	case AD4691_SPARE_CONTROL ... AD4691_ACC_SAT_OVR_REG(15):
+> +		ret =3D spi_write_then_read(spi, tx, 2, rx, 1);
+> +		if (ret)
+> +			return ret;
+> +		*val =3D rx[0];
+> +		return 0;
+> +	case AD4691_STD_SEQ_CONFIG:
+> +	case AD4691_AVG_IN(0) ... AD4691_AVG_IN(15):
+> +		ret =3D spi_write_then_read(spi, tx, 2, rx, 2);
+> +		if (ret)
+> +			return ret;
+> +		*val =3D get_unaligned_be16(rx);
+> +		return 0;
+> +	case AD4691_AVG_STS_IN(0) ... AD4691_AVG_STS_IN(15):
+> +	case AD4691_ACC_IN(0) ... AD4691_ACC_IN(15):
+> +		ret =3D spi_write_then_read(spi, tx, 2, rx, 3);
+> +		if (ret)
+> +			return ret;
+> +		*val =3D get_unaligned_be24(rx);
+> +		return 0;
+> +	case AD4691_ACC_STS_DATA(0) ... AD4691_ACC_STS_DATA(15):
+> +		ret =3D spi_write_then_read(spi, tx, 2, rx, 4);
+> +		if (ret)
+> +			return ret;
+> +		*val =3D get_unaligned_be32(rx);
+> +		return 0;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int ad4691_reg_write(void *context, unsigned int reg, unsigned in=
+t val)
+> +{
+> +	struct spi_device *spi =3D context;
+> +	u8 tx[4];
+> +
+> +	put_unaligned_be16(reg, tx);
+> +
+> +	switch (reg) {
+> +	case 0 ... AD4691_OSC_FREQ_REG:
+> +	case AD4691_SPARE_CONTROL ... AD4691_ACC_MASK_REG - 1:
+> +	case AD4691_ACC_MASK_REG + 1 ... AD4691_GPIO_MODE2_REG:
+> +		if (val > 0xFF)
+> +			return -EINVAL;
+> +		tx[2] =3D val;
+> +		return spi_write_then_read(spi, tx, 3, NULL, 0);
+> +	case AD4691_ACC_MASK_REG:
+> +	case AD4691_STD_SEQ_CONFIG:
+> +		if (val > 0xFFFF)
+> +			return -EINVAL;
+> +		put_unaligned_be16(val, &tx[2]);
+> +		return spi_write_then_read(spi, tx, 4, NULL, 0);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static bool ad4691_volatile_reg(struct device *dev, unsigned int reg)
+> +{
+> +	switch (reg) {
+> +	case AD4691_STATUS_REG:
+> +	case AD4691_CLAMP_STATUS1_REG:
+> +	case AD4691_CLAMP_STATUS2_REG:
+> +	case AD4691_GPIO_READ:
+> +	case AD4691_ACC_STATUS_FULL1_REG ... AD4691_ACC_STATUS_SAT2_REG:
+> +	case AD4691_ACC_SAT_OVR_REG(0) ... AD4691_ACC_SAT_OVR_REG(15):
+> +	case AD4691_AVG_IN(0) ... AD4691_AVG_IN(15):
+> +	case AD4691_AVG_STS_IN(0) ... AD4691_AVG_STS_IN(15):
+> +	case AD4691_ACC_IN(0) ... AD4691_ACC_IN(15):
+> +	case AD4691_ACC_STS_DATA(0) ... AD4691_ACC_STS_DATA(15):
+> +		return true;
+> +	default:
+> +		return false;
+> +	}
+> +}
+> +
+> +static bool ad4691_readable_reg(struct device *dev, unsigned int reg)
+> +{
+> +	switch (reg) {
+> +	case 0 ... AD4691_OSC_FREQ_REG:
+> +	case AD4691_SPARE_CONTROL ... AD4691_ACC_SAT_OVR_REG(15):
+> +	case AD4691_STD_SEQ_CONFIG:
+> +	case AD4691_AVG_IN(0) ... AD4691_AVG_IN(15):
+> +	case AD4691_AVG_STS_IN(0) ... AD4691_AVG_STS_IN(15):
+> +	case AD4691_ACC_IN(0) ... AD4691_ACC_IN(15):
+> +	case AD4691_ACC_STS_DATA(0) ... AD4691_ACC_STS_DATA(15):
+> +		return true;
+> +	default:
+> +		return false;
+> +	}
+> +}
+> +
+> +static bool ad4691_writeable_reg(struct device *dev, unsigned int reg)
+> +{
+> +	switch (reg) {
+> +	case 0 ... AD4691_OSC_FREQ_REG:
+> +	case AD4691_STD_SEQ_CONFIG:
+> +	case AD4691_SPARE_CONTROL ... AD4691_GPIO_MODE2_REG:
+> +		return true;
+> +	default:
+> +		return false;
+> +	}
+> +}
+> +
+> +static const struct regmap_config ad4691_regmap_config =3D {
+> +	.reg_bits =3D 16,
+> +	.val_bits =3D 32,
+> +	.reg_read =3D ad4691_reg_read,
+> +	.reg_write =3D ad4691_reg_write,
+> +	.volatile_reg =3D ad4691_volatile_reg,
+> +	.readable_reg =3D ad4691_readable_reg,
+> +	.writeable_reg =3D ad4691_writeable_reg,
+> +	.max_register =3D AD4691_ACC_STS_DATA(15),
+> +	.cache_type =3D REGCACHE_MAPLE,
+> +};
+> +
+> +static int ad4691_get_sampling_freq(struct ad4691_state *st, int *val)
+> +{
+> +	unsigned int reg_val;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(st->regmap, AD4691_OSC_FREQ_REG, &reg_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val =3D ad4691_osc_freqs[FIELD_GET(AD4691_OSC_FREQ_MASK, reg_val)];
+> +	return IIO_VAL_INT;
+> +}
+> +
+> +static int ad4691_set_sampling_freq(struct iio_dev *indio_dev, int freq)
+> +{
+> +	struct ad4691_state *st =3D iio_priv(indio_dev);
+> +	unsigned int start =3D (st->info->max_rate =3D=3D HZ_PER_MHZ) ? 0 : 1;
+> +	unsigned int i;
+> +
+> +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +		return -EBUSY;
+> +
+> +	for (i =3D start; i < ARRAY_SIZE(ad4691_osc_freqs); i++) {
+> +		if ((int)ad4691_osc_freqs[i] =3D=3D freq)
+
+maybe just make the array signed.
+
+> +			return regmap_update_bits(st->regmap, AD4691_OSC_FREQ_REG,
+> +						=C2=A0 AD4691_OSC_FREQ_MASK, i);
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+> +
+> +static int ad4691_read_avail(struct iio_dev *indio_dev,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0 struct iio_chan_spec const *chan,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0 const int **vals, int *type,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0 int *length, long mask)
+> +{
+> +	struct ad4691_state *st =3D iio_priv(indio_dev);
+> +	unsigned int start =3D (st->info->max_rate =3D=3D HZ_PER_MHZ) ? 0 : 1;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		*vals =3D (const int *)&ad4691_osc_freqs[start];
+> +		*type =3D IIO_VAL_INT;
+> +		*length =3D ARRAY_SIZE(ad4691_osc_freqs) - start;
+> +		return IIO_AVAIL_LIST;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int ad4691_single_shot_read(struct iio_dev *indio_dev,
+> +				=C2=A0=C2=A0 struct iio_chan_spec const *chan, int *val)
+> +{
+> +	struct ad4691_state *st =3D iio_priv(indio_dev);
+> +	unsigned int reg_val;
+> +	int ret;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	/*
+> +	 * Use AUTONOMOUS mode for single-shot reads. The chip always
+> +	 * operates in AUTONOMOUS mode in this driver revision.
+> +	 */
+> +	ret =3D regmap_write(st->regmap, AD4691_STATE_RESET_REG,
+> +			=C2=A0=C2=A0 AD4691_STATE_RESET_ALL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_write(st->regmap, AD4691_STD_SEQ_CONFIG,
+> +			=C2=A0=C2=A0 BIT(chan->channel));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_write(st->regmap, AD4691_ACC_MASK_REG,
+> +			=C2=A0=C2=A0 (u16)~BIT(chan->channel));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_read(st->regmap, AD4691_OSC_FREQ_REG, &reg_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_write(st->regmap, AD4691_OSC_EN_REG, 1);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * Wait for at least 2 internal oscillator periods for the
+> +	 * conversion to complete.
+> +	 */
+> +	fsleep(DIV_ROUND_UP(2 * USEC_PER_SEC,
+> +			=C2=A0=C2=A0=C2=A0 ad4691_osc_freqs[FIELD_GET(AD4691_OSC_FREQ_MASK,
+> +						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reg_val)]));
+> +
+> +	ret =3D regmap_write(st->regmap, AD4691_OSC_EN_REG, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_read(st->regmap, AD4691_AVG_IN(chan->channel), &reg_val)=
+;
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val =3D reg_val;
+> +
+> +	ret =3D regmap_write(st->regmap, AD4691_STATE_RESET_REG, AD4691_STATE_R=
+ESET_ALL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return IIO_VAL_INT;
+> +}
+> +
+> +static int ad4691_read_raw(struct iio_dev *indio_dev,
+> +			=C2=A0=C2=A0 struct iio_chan_spec const *chan, int *val,
+> +			=C2=A0=C2=A0 int *val2, long info)
+> +{
+> +	struct ad4691_state *st =3D iio_priv(indio_dev);
+> +
+> +	switch (info) {
+> +	case IIO_CHAN_INFO_RAW: {
+> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +
+nit: I would drop the extra new line. The check below is related to the
+above.
+
+> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +			return -EBUSY;
+> +
+> +		return ad4691_single_shot_read(indio_dev, chan, val);
+> +	}
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		return ad4691_get_sampling_freq(st, val);
+> +	case IIO_CHAN_INFO_SCALE:
+> +		*val =3D st->vref_uV / (MICRO / MILLI);
+> +		*val2 =3D chan->scan_type.realbits;
+> +		return IIO_VAL_FRACTIONAL_LOG2;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int ad4691_write_raw(struct iio_dev *indio_dev,
+> +			=C2=A0=C2=A0=C2=A0 struct iio_chan_spec const *chan,
+> +			=C2=A0=C2=A0=C2=A0 int val, int val2, long mask)
+> +{
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		return ad4691_set_sampling_freq(indio_dev, val);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int ad4691_reg_access(struct iio_dev *indio_dev, unsigned int reg=
+,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int writeval, unsigned int *readval=
+)
+> +{
+> +	struct ad4691_state *st =3D iio_priv(indio_dev);
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	if (readval)
+> +		return regmap_read(st->regmap, reg, readval);
+> +
+> +	return regmap_write(st->regmap, reg, writeval);
+> +}
+> +
+> +static const struct iio_info ad4691_info =3D {
+> +	.read_raw =3D &ad4691_read_raw,
+> +	.write_raw =3D &ad4691_write_raw,
+> +	.read_avail =3D &ad4691_read_avail,
+> +	.debugfs_reg_access =3D &ad4691_reg_access,
+> +};
+> +
+> +static int ad4691_regulator_setup(struct ad4691_state *st)
+> +{
+> +	struct device *dev =3D regmap_get_device(st->regmap);
+> +	int ret;
+> +
+> +	ret =3D devm_regulator_get_enable(dev, "avdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get and enable AVDD\n");
+> +
+> +	ret =3D devm_regulator_get_enable(dev, "ldo-in");
+> +	if (ret && ret !=3D -ENODEV)
+> +		return dev_err_probe(dev, ret, "Failed to get and enable LDO-IN\n");
+> +	st->ldo_en =3D (ret =3D=3D -ENODEV);
+> +
+> +	ret =3D devm_regulator_get_enable(dev, "vio");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get and enable VIO\n");
+> +
+> +	st->vref_uV =3D devm_regulator_get_enable_read_voltage(dev, "ref");
+> +	if (st->vref_uV >=3D 0) {
+> +		st->refbuf_en =3D false;
+> +	} else if (st->vref_uV =3D=3D -ENODEV) {
+> +		st->vref_uV =3D devm_regulator_get_enable_read_voltage(dev, "refin");
+> +		st->refbuf_en =3D true;
+> +	}
+> +	if (st->vref_uV < 0)
+> +		return dev_err_probe(dev, st->vref_uV,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0 "Failed to get reference supply\n");
+> +
+> +	if (st->vref_uV < AD4691_VREF_uV_MIN || st->vref_uV > AD4691_VREF_uV_MA=
+X)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0 "vref(%d) must be in the range [%u...%u]\n"=
+,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0 st->vref_uV, AD4691_VREF_uV_MIN,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0 AD4691_VREF_uV_MAX);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ad4691_reset(struct ad4691_state *st)
+> +{
+> +	struct device *dev =3D regmap_get_device(st->regmap);
+> +	struct reset_control *rst;
+> +
+> +	rst =3D devm_reset_control_get_optional_exclusive(dev, NULL);
+> +	if (IS_ERR(rst))
+> +		return dev_err_probe(dev, PTR_ERR(rst), "Failed to get reset\n");
+> +
+> +	if (!rst)
+> +		/* No hardware reset available, fall back to software reset. */
+> +		return regmap_write(st->regmap, AD4691_SPI_CONFIG_A_REG,
+> +				=C2=A0=C2=A0=C2=A0 AD4691_SW_RESET);
+> +
+> +	reset_control_assert(rst);
+
+Can't we ask for the reset in the asserted state already?
+
+> +	/* Reset delay required. See datasheet Table 5. */
+> +	fsleep(300);
+> +	reset_control_deassert(rst);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ad4691_config(struct ad4691_state *st)
+> +{
+> +	struct device *dev =3D regmap_get_device(st->regmap);
+> +	enum ad4691_ref_ctrl ref_val;
+> +	int ret;
+> +
+> +	switch (st->vref_uV) {
+> +	case AD4691_VREF_uV_MIN ... AD4691_VREF_2P5_uV_MAX:
+> +		ref_val =3D AD4691_VREF_2P5;
+> +		break;
+> +	case AD4691_VREF_2P5_uV_MAX + 1 ... AD4691_VREF_3P0_uV_MAX:
+> +		ref_val =3D AD4691_VREF_3P0;
+> +		break;
+> +	case AD4691_VREF_3P0_uV_MAX + 1 ... AD4691_VREF_3P3_uV_MAX:
+> +		ref_val =3D AD4691_VREF_3P3;
+> +		break;
+> +	case AD4691_VREF_3P3_uV_MAX + 1 ... AD4691_VREF_4P096_uV_MAX:
+> +		ref_val =3D AD4691_VREF_4P096;
+> +		break;
+> +	case AD4691_VREF_4P096_uV_MAX + 1 ... AD4691_VREF_uV_MAX:
+> +		ref_val =3D AD4691_VREF_5P0;
+> +		break;
+> +	default:
+> +		return dev_err_probe(dev, -EINVAL,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0 "Unsupported vref voltage: %d uV\n",
+> +				=C2=A0=C2=A0=C2=A0=C2=A0 st->vref_uV);
+> +	}
+> +
+> +	ret =3D regmap_write(st->regmap, AD4691_REF_CTRL,
+> +			=C2=A0=C2=A0 FIELD_PREP(AD4691_REF_CTRL_MASK, ref_val) |
+> +			=C2=A0=C2=A0 (st->refbuf_en ? AD4691_REFBUF_EN : 0));
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to write REF_CTRL\n");
+> +
+> +	ret =3D regmap_write(st->regmap, AD4691_DEVICE_SETUP,
+> +			=C2=A0=C2=A0 st->ldo_en ? AD4691_LDO_EN : 0);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to write DEVICE_SETUP\n");
+> +
+> +	/*
+> +	 * Set the internal oscillator to the highest valid rate for this chip.
+> +	 * Index 0 (1 MHz) is valid only for AD4692/AD4694; AD4691/AD4693 start
+> +	 * at index 1 (500 kHz).
+> +	 */
+> +	ret =3D regmap_write(st->regmap, AD4691_OSC_FREQ_REG,
+> +			=C2=A0=C2=A0 (st->info->max_rate =3D=3D HZ_PER_MHZ) ? 0 : 1);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to write OSC_FREQ\n");
+> +
+> +	/* Device always operates in AUTONOMOUS mode. */
+
+Kind of obvious from the code. Drop the comment please.
+
+
+- Nuno S=C3=A1
