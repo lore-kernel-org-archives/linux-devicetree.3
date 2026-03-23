@@ -1,213 +1,194 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C403B27E0
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 16:06:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC543B19AF;
+	Mon, 23 Mar 2026 16:10:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774281990; cv=none; b=nSi/SNzHlijHla6V35MVJw+Ro3hIOGA+dOkqvLyZQVbpwOQ6au+L3KhZ28OpVWUxkDhNlD/A2+cDyo4IAsHla/GWdV02NFrlhOqaIPb9qF2wfZtDERfxpj/Gg8VvwI3+s86xFleDhjn6WO6uCyGg0EzLBT59ROS+NPzK1IADCX8=
+	t=1774282221; cv=none; b=JegIF1Sa6BAtn/f5dzo6uZ+zTusSDS4thT2ynhxWdAv0r1t90RAfZ2RoMgEkYb0V3SHcxWbE41C4ZohoHUMvKig8rLGVWa4m6gTJqDZeed8KuokdGrBaysR4M8529FNgeNOy8+FeKRWCjFym0F8y1sfxPSDjmPn+4HKwGlAdskc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774281990; c=relaxed/simple;
-	bh=Z/LmWnslyMEA8KuS1V4Xy1sI8gOsop003nSeTpsLEAs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VW90ObsGTzZGlhSKyrgNVAQselUi88BlCj3ofEV+Ctmpr2/KUeJXC0cfEJGl1Hh57QAfQS2OjzbQAD3KYexnsmYVd0ZpyMp3AjFhOsN/4VUJpBhQTPYU/xQQty9HSAa6PdjyIJXQmq/6C/5jfWGryTTiR0EZqJjGbgf57Nlf1iU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UkHyyJVk; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774282221; c=relaxed/simple;
+	bh=VsUdHqlhlUvKyc0L42d22zQZPq5fA8QvNwLkufbeD1c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=P/2nj8wAiZWI6m9RPjdgR81HP27zaFjTwdNrdMm+KxbX4pRg2HfdAg1sZ3saaKmcZ6hDcHBsMtshEKnVlZ1bNC8+JKKlZ+irxntmr/ajDudcAwa4IuRA7Om/PdEzah1ohdv2Mr86if4uR62VXV2ZfMw0F304c59oHjWg3YkDvXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NvwXyc4S; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UkHyyJVk"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-486fc4725f0so36956035e9.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 09:06:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1774281985; x=1774886785; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=iZ+8+0X30kHk32CK+85EMrU3OFRM220+pzBDKFOaV7I=;
-        b=UkHyyJVkpURCccfu4FgMmG+38Vo9SZf7KCxtdSbAfvboG4SzQAkCPb9dr3PrYINV1o
-         zFH256SA8yYsZ6lD+Pq/nOCsvETvekJq3/WonN68fHaQYjomZ931ZwibpWlh4kPMy0uZ
-         WTPVULbC2/mX8IsumKPD90dQchmq+LIWFnX7W4y30/HHKwKLsKUJcIDqX8BiCDilhbWA
-         k7Tmtp22BeQ1CI05HR8D3sG/4VDQKAcVo+BpgLKDunJSn5cjAicCnBItOQOJPxzfPJHS
-         c7Rrk761SDhBKouRNpRHWoWIjhuSZ/nm28Cq/Hel5RvsY57oy1lvRgq0C72drLLAuDD0
-         seow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774281985; x=1774886785;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=iZ+8+0X30kHk32CK+85EMrU3OFRM220+pzBDKFOaV7I=;
-        b=bok9f9nCgzAcE1FVd1wGejfM4kSSazPQevydXn/Ordn5L1dn0tkGHNWnQhB20WxDeC
-         XNDA3In38WP0gZ3ORoBkEy/1xseZX/zcP582fGCMI9fAJ6eVl2Kw9lOfVD+LmeCXnH+t
-         4gqSvmbC9inX0JOcoU8YvS5IsH9dg10ZftvPDh8v95H1/30334I9AIoYPbt4Unr4Mrfv
-         QdLwgV3KEmTrXe9wo6XMzmUuyapDJy7ntsjki4l3DwieZ40BqRemuL6MezEjIswO2wrp
-         iIeuNf0JAMu9XUIlbCjKkuiWbp4tN/y/VUGff35OLfjKQT6i8ZuFDXM+JR0u0pCn65FG
-         vv8Q==
-X-Forwarded-Encrypted: i=1; AJvYcCV5fCgbhcP3I8DptjlzuuyYXlq2K/V6A/Od2fgeVPfXTbAsz3xEK0/aa68JiNmxytU9WNHjJKxsFJ0S@vger.kernel.org
-X-Gm-Message-State: AOJu0YxqJkEWd69H0yel5KgajUEr2RfUV0mVkRy1mVfQziv/hEkyRNJl
-	xquVW3TYod+USNuv4jMg5CS0gZJKsAK/I33TJnaPGYJVZ/TJp1wVSTbX
-X-Gm-Gg: ATEYQzw+lMh8JhBuKGfzY1hdUDoRcrPzp173aC0pJW5DFPh7xxHJ4WlDo0jh2+hLnpM
-	M3ygQjbMKtmB6+MN6+5wk0DKWT48EF8pgF9p/Ez0yleK9qBHo7gHZU8+kUXNFo1/HJiC1EfV69N
-	gFD/DRzcrsE9bE18b3M+IMB2wu9QqPQziZB0XOdl75MPA3XMAH+jR1AQKTc13aDaUCBWTGQIZ+I
-	Yo24Hmusr5PY/Odaep+Z5vQvWLXUI6jBEusdP6lLgPY/MTsTlugQI7i87TivubH1Sa0DuGIGegS
-	TIaGBPCUu399z7tFiN9ZR3hK+5pL+4ZitG447UC0EZ9Xvq5cAdTWi6RrqNHggrdwRPmsyKEJnka
-	tQAJd6OC4A9qy072alqb9JcNfFRm4+pOrskStSfqntjCnhVWHbEZGzypByfX9cJzZk/C5qZutDl
-	nYHDhuar+RzE7kD2OWzLiTslHC9xlvQJuyfEP7sM0NoQ==
-X-Received: by 2002:a05:600c:6096:b0:47e:e59c:67c5 with SMTP id 5b1f17b1804b1-4870f1fc5e2mr1845745e9.8.1774281985360;
-        Mon, 23 Mar 2026 09:06:25 -0700 (PDT)
-Received: from [192.168.1.187] ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-486fe6d923fsm469841175e9.1.2026.03.23.09.06.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Mar 2026 09:06:25 -0700 (PDT)
-Message-ID: <ff6a81b9fdefa6b6156f1af39943312d6a445145.camel@gmail.com>
-Subject: Re: [PATCH v7 1/3] dt-bindings: hwmon: Document the LTC4283 Swap
- Controller
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>, nuno.sa@analog.com
-Cc: linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, Rob Herring
-	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	 <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
-	 <skhan@linuxfoundation.org>, Linus Walleij <linusw@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>
-Date: Mon, 23 Mar 2026 16:07:11 +0000
-In-Reply-To: <821aafb4-d1a8-4611-addc-5bff4f1e187e@roeck-us.net>
-References: <20260314-ltc4283-support-v7-0-1cda48e93802@analog.com>
-	 <20260314-ltc4283-support-v7-1-1cda48e93802@analog.com>
-	 <c395fad0-ca24-448a-a77f-ddac1cd9f809@roeck-us.net>
-	 <77cd7e879a10df791d9d5eb1f16f1654e9904199.camel@gmail.com>
-	 <453dbd6c-c68d-4977-8418-a898008b0fe7@roeck-us.net>
-	 <63baaa6ea6ce7a8534046fea3d9f14fdb26f87a3.camel@gmail.com>
-	 <821aafb4-d1a8-4611-addc-5bff4f1e187e@roeck-us.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NvwXyc4S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7B58C4CEF7;
+	Mon, 23 Mar 2026 16:10:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774282220;
+	bh=VsUdHqlhlUvKyc0L42d22zQZPq5fA8QvNwLkufbeD1c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=NvwXyc4SAjEhAiKz0fyLNIoXMjAq9f8xSn9n6quSTymEUZHI/zNPV4zBufs6qus4b
+	 INXCXaqdZF4gVbyFy353rpJRYyU4ssJEz/YuWpnQQhBCyxttjo+17dRCcOsQH1Iv3s
+	 z5p/NbDUdWkdI2hNI4WjXAV7DsiKGLjwW76xXo/D9FafW2AZa+qeR4Jak37GPR2+ue
+	 GHY9izFAlZkqdoDeTxjVJ26xKhrtUbL67JX6TmE6p0nemDW3f2FWy4ayn7GrNh6T0e
+	 yMnBFLRgNSDFNfKRNEWWxGo/4vdmO56gELXngeZEJiFpyzbyRpXMLOnPk/XHi1iZRq
+	 Y99CjmVdq9Wng==
+Message-ID: <478a3bbf-ea44-4bc4-a841-f7f0eba1d963@kernel.org>
+Date: Mon, 23 Mar 2026 17:10:13 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/3] dt-bindings: media: qcom: Add CAMSS Offline
+ Processing Engine (OPE)
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: bod@kernel.org, vladimir.zapolskiy@linaro.org,
+ laurent.pinchart@ideasonboard.com, kieran.bingham@ideasonboard.com,
+ robh@kernel.org, krzk+dt@kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, johannes.goede@oss.qualcomm.com,
+ mchehab@kernel.org
+References: <20260323125824.211615-1-loic.poulain@oss.qualcomm.com>
+ <20260323125824.211615-2-loic.poulain@oss.qualcomm.com>
+ <94b415bf-9a76-4d31-add4-6283e8b43b72@kernel.org>
+ <CAFEp6-3xmL4q9eSLpUZjdP5z1yCr_AJxSLmzqF70S05DK7Or1Q@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <CAFEp6-3xmL4q9eSLpUZjdP5z1yCr_AJxSLmzqF70S05DK7Or1Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2026-03-23 at 08:27 -0700, Guenter Roeck wrote:
-> On 3/23/26 08:17, Nuno S=C3=A1 wrote:
-> > On Mon, 2026-03-23 at 07:33 -0700, Guenter Roeck wrote:
-> > > [ ...]
-> > > > > > +=C2=A0 adi,pgio1-func:
-> > > > > > +=C2=A0=C2=A0=C2=A0 description: Configures the function of the=
- PGIO1 pin.
-> > > > > > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/stri=
-ng
-> > > > > > +=C2=A0=C2=A0=C2=A0 enum: [inverted_power_good, power_good, gpi=
-o]
-> > > > > > +=C2=A0=C2=A0=C2=A0 default: inverted_power_good
-> > > > > > +
-> > > > > > +=C2=A0 adi,pgio2-func:
-> > > > > > +=C2=A0=C2=A0=C2=A0 description: Configures the function of the=
- PGIO2 pin.
-> > > > > > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/stri=
-ng
-> > > > > > +=C2=A0=C2=A0=C2=A0 enum: [inverted_power_good, power_good, gpi=
-o, active_current_limiting]
-> > > > > > +=C2=A0=C2=A0=C2=A0 default: inverted_power_good
-> > > > > > +
-> > > > > > +=C2=A0 adi,pgio3-func:
-> > > > > > +=C2=A0=C2=A0=C2=A0 description: Configures the function of the=
- PGIO3 pin.
-> > > > > > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/stri=
-ng
-> > > > > > +=C2=A0=C2=A0=C2=A0 enum: [inverted_power_good_input, power_goo=
-d_input, gpio]
-> > > > > > +=C2=A0=C2=A0=C2=A0 default: inverted_power_good_input
-> > > > > > +
-> > > > > > +=C2=A0 adi,pgio4-func:
-> > > > > > +=C2=A0=C2=A0=C2=A0 description: Configures the function of the=
- PGIO4 pin.
-> > > > > > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/stri=
-ng
-> > > > > > +=C2=A0=C2=A0=C2=A0 enum: [inverted_external_fault, external_fa=
-ult, gpio]
-> > > > > > +=C2=A0=C2=A0=C2=A0 default: inverted_external_fault
-> > > > > > +
-> > > > > > +=C2=A0 adi,gpio-on-adio1:
-> > > > > > +=C2=A0=C2=A0=C2=A0 description: If set, the ADIO1 pin is used =
-as a GPIO.
-> > > > > > +=C2=A0=C2=A0=C2=A0 type: boolean
-> > > > > > +
-> > > > > > +=C2=A0 adi,gpio-on-adio2:
-> > > > > > +=C2=A0=C2=A0=C2=A0 description: If set, the ADIO2 pin is used =
-as a GPIO.
-> > > > > > +=C2=A0=C2=A0=C2=A0 type: boolean
-> > > > > > +
-> > > > > > +=C2=A0 adi,gpio-on-adio3:
-> > > > > > +=C2=A0=C2=A0=C2=A0 description: If set, the ADIO3 pin is used =
-as a GPIO.
-> > > > > > +=C2=A0=C2=A0=C2=A0 type: boolean
-> > > > > > +
-> > > > > > +=C2=A0 adi,gpio-on-adio4:
-> > > > > > +=C2=A0=C2=A0=C2=A0 description: If set, the ADIO4 pin is used =
-as a GPIO.
-> > > > > > +=C2=A0=C2=A0=C2=A0 type: boolean
-> > > > >=20
-> > > > > Does this dependency block force a redundant specification of adi=
-,pgio4-func?
-> > > > > The default for adi,pgio4-func is inverted_external_fault, which =
-means the
-> > > > > default hardware state already supports external fault features.
-> > > > > If a device tree legitimately omits adi,pgio4-func to rely on tha=
-t default,
-> > > > > will it fail schema validation here since the dependencies keywor=
-d strictly
-> > > > > checks for the literal presence of properties without injecting d=
-efaults?
-> > > >=20
-> > > > Fair point. I guess it will fail but the alternative is to not have=
- any constrain at all so
-> > > > maybe worth it to be explicit in here?
-> > > >=20
-> > >=20
-> > > I don't claim to understand how to define devicetree properties, but
-> > >=20
-> > > adi,pgio4-func =3D <"gpio">
-> > >=20
-> > > and
-> > >=20
-> > > adi,gpio-on-adio4;
-> > >=20
-> > > seem to be equivalent to me, and omitting the first property (because
-> >=20
-> > Not exactly. ADIO4 and PGIO4 are different pins and can be both configu=
-red
-> > as GPIOs. ADIO is a boolean because they are either monitored by the AD=
-C (default)
-> > or configured as GPIOs. PGIOs can have additional configurations and he=
-nce the
-> > enum.
-> >=20
->=20
-> Ah, I didn't realize the small "A" vs. "G" difference (and apparently
-> I don't understand what the AI is complaining about ;-). Sorry for the no=
-ise.
->=20
+On 23/03/2026 17:03, Loic Poulain wrote:
+> Hi Krzysztof,
+> 
+> On Mon, Mar 23, 2026 at 2:04 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>
+>> On 23/03/2026 13:58, Loic Poulain wrote:
+>>> Add Devicetree binding documentation for the Qualcomm Camera Subsystem
+>>> Offline Processing Engine (OPE) found on platforms such as Agatti.
+>>> The OPE is a memory-to-memory image processing block which operates
+>>> on frames read from and written back to system memory.
+>>>
+>>> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+>>
+>> I don't see explanation in cover letter why this is RFC, so I assume
+>> this is not ready, thus not a full review but just few nits to spare you
+>> resubmits later when this becomes reviewable.
+>>
+>>> ---
+>>>  .../bindings/media/qcom,camss-ope.yaml        | 86 +++++++++++++++++++
+>>>  1 file changed, 86 insertions(+)
+>>>  create mode 100644 Documentation/devicetree/bindings/media/qcom,camss-ope.yaml
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/media/qcom,camss-ope.yaml b/Documentation/devicetree/bindings/media/qcom,camss-ope.yaml
+>>> new file mode 100644
+>>> index 000000000000..509b4e89a88a
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/media/qcom,camss-ope.yaml
+>>
+>> Filename must match compatible.
+> 
+> Some bindings (for example clock/qcom,mmcc.yaml) do not strictly
+> follow this rule and instead use a more generic filename that groups
+> multiple device-specific compatibles. I mention this because my
+> intention with a generic filename was to allow the binding to cover
+> additional compatibles in the future.
+> 
+> As I understand it, in the current state I should either:
+> - rename the file so that it matches the specific compatible, e.g.
+> qcom,qcm2290-camss-ope.yaml, or
 
-My understanding about the AI complain is the below dependencies:
+This one.
 
-+  adi,external-fault-retry-enable:
-+    - adi,pgio4-func
-+  adi,external-fault-fet-off-enable:
-+    - adi,pgio4-func
+> - keep the generic filename (qcom,camss-ope.yaml) and add a top-level
+> const: qcom,camss-ope compatible to justify the generic naming.
 
-The default value (omitting the property) is a valid case to use any of the=
- above two
-flags but with the above, omitting the property and adding the flag should =
-result in
-an error when validating the binding (because of the dependency). That is w=
-hy I replied
-with
-
-"Fair point. I guess it will fail but the alternative is to not have any co=
-nstrain at all so
-maybe worth it to be explicit in here?"
+Because this would be a reverse logic... Name of file is never an
+argument/reason to add a compatible.
 
 
-- Nuno S=C3=A1
+> 
+> Any preferred/valid direction?
+> 
+>>
+>>> @@ -0,0 +1,86 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>
+>> ...
+>>> +
+>>> +required:
+>>> +  - compatible
+>>> +  - reg
+>>> +  - reg-names
+>>> +  - clocks
+>>> +  - clock-names
+>>> +  - interrupts
+>>> +  - interconnects
+>>> +  - interconnect-names
+>>> +  - iommus
+>>> +  - power-domains
+>>> +  - power-domain-names
+>>> +
+>>> +additionalProperties: true
+>>
+>> There are no bindings like that. You cannot have here true.
+> 
+> ok.
+> 
+>>
+>> Also, lack of example is a no-go.
+> 
+> Ouch, yes. Would it make sense to have dt_binding_check catch this
+> kind of issue?
 
+Not sure if worth implementing. Every new binding is a copy of existing
+one and 99% of them have examples, so how new binding could be created
+without one? This is highly unlikely and most likely there are other
+issues as well, because process is broken, so dtschema won't help.
+
+And with LLM you can write whatever will pass dtschema but still make
+not sense.
+
+Best regards,
+Krzysztof
