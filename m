@@ -1,168 +1,270 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazolkn19012063.outbound.protection.outlook.com [52.103.43.63])
+Received: from eu-smtp-delivery-101.mimecast.com (eu-smtp-delivery-101.mimecast.com [185.58.85.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998B2387355;
-	Mon, 23 Mar 2026 10:00:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.43.63
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774260011; cv=fail; b=XGfcicx78HwtFMzUPJZXcKtwrsCC6gny2hnVe36CZ0IsQouQpdwc5xfU/bXdtCU3Hazssg9fQtmqbukZRd4BOQEnXJXHwsr5V3dhsH0YOWlQCyLjLVtsCQGIR9zeYaXmEjlYptRPfuztkDakj4zebdzqmUPs96AwxJGWerGHLIM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774260011; c=relaxed/simple;
-	bh=uG6Ceyz91CZqPrPqfJNbjPfqBI9lBE9duwNO4Kphdtw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=PLD9tUMhzmZj1SwL5qJKkbBwZDmWEbvzRy642K7hKxN9E7+m676zmg5B8ztryKnV096cyq3cukZcuoC+gluPHRNqsFwf3ui2ch0MsuY/4/ekEG9cqr3C+Btxh7hoGmVDshU3fZfxvcLZ3fWUnAk4NLZzZ4MiOKNMkReQWiZs0pk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sobir.in; spf=pass smtp.mailfrom=sobir.in; arc=fail smtp.client-ip=52.103.43.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sobir.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sobir.in
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M6efmVj0SA3GxkREAPJhBlb1U605hsnEQYX/Jg+p4EMl8TZRIi794Ho86g1mTQpf6Y/xsCqP+vJjMbj4BV6gA5cQX9x/Bf1AVosXP83+AtcMBBMn0sKxVY/PwCoiJ3/X9ZUwpa27E+rCRQBoZH0teJsMpHBIr1Zw7lh5f8er6KgFQiELVh3IBDnadRAj2/JQyoR3sWbag40GAhmdAYZGbeK/XruPw2M2yL1Djfa5Hugh1EZhvdCgKmKjEbXyZlQHCvp5UXtZvSF6p/aZ+zY2J/RD0wdcssN0rvNG3UhFcr5UVo86ZOtx1VihXPPxoaTB10HB38kjpVqQf5VA6XkQAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uG6Ceyz91CZqPrPqfJNbjPfqBI9lBE9duwNO4Kphdtw=;
- b=RpXlpVPqZ8J9MGGb4tHBMNvlaX/le1Vnmstba21Cn0b3Sq8PZDzzuQMPsUUOxeN/TFxkNxvVQOPLKxJtMU69cykLYKKnijSB2B1kTbVj0gsIwWx7ohUI+3vyvPP1hpx6DZbekUqeYLQ9gGOn34S7kgKU3wOCwWLj61pa2yrdOp/tYoPc2+aCamG90uZtox9Hpl0e2xnK8NhFk+XcB3xCWYMEqYLk2H3gFdenJP5+6LFMgCfPa79//ouVULrHk4Jilq2zkvOG8q4foH8jeNLB+vVKA4tf4DwXalC80HVfVAZ+HOlDwVu7wwENkmvdhY5I3rMyb3fcpfILC95pabkkEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-Received: from TYUPR06MB6099.apcprd06.prod.outlook.com (2603:1096:400:356::8)
- by TYZPR06MB5736.apcprd06.prod.outlook.com (2603:1096:400:26b::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.25; Mon, 23 Mar
- 2026 10:00:04 +0000
-Received: from TYUPR06MB6099.apcprd06.prod.outlook.com
- ([fe80::14ee:b44a:e644:ca6f]) by TYUPR06MB6099.apcprd06.prod.outlook.com
- ([fe80::14ee:b44a:e644:ca6f%5]) with mapi id 15.20.9723.022; Mon, 23 Mar 2026
- 10:00:04 +0000
-From: Teguh Sobirin <teguh@sobir.in>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-CC: Aaron Kling <webgeek1234@gmail.com>, Bjorn Andersson
-	<andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, "linux-arm-msm@vger.kernel.org"
-	<linux-arm-msm@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 5/5] arm64: dts: qcom: Add AYN Thor
-Thread-Topic: [PATCH v2 5/5] arm64: dts: qcom: Add AYN Thor
-Thread-Index: AQHcsX7EH7g00VtKoUOEw2KbKQhWOLW1xSEAgABpAgCABcBxAIAABhFK
-Date: Mon, 23 Mar 2026 10:00:03 +0000
-Message-ID:
- <TYUPR06MB6099C25223E694C49DBAB334DD4BA@TYUPR06MB6099.apcprd06.prod.outlook.com>
-References: <20260311-ayn-qcs8550-v2-0-e66986e0f0cb@gmail.com>
- <20260311-ayn-qcs8550-v2-5-e66986e0f0cb@gmail.com>
- <16211bef-2360-4bbd-bd2f-72c1d6993a1b@oss.qualcomm.com>
- <CALHNRZ_5_2zypBAeZT=YM6ZUq=wv-8GO+DEJTOgtJ_8nrB2REw@mail.gmail.com>
- <2f801f66-68b4-4515-adaa-092782082162@oss.qualcomm.com>
-In-Reply-To: <2f801f66-68b4-4515-adaa-092782082162@oss.qualcomm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYUPR06MB6099:EE_|TYZPR06MB5736:EE_
-x-ms-office365-filtering-correlation-id: 4a897766-227f-4af0-3aab-08de88c2f479
-x-microsoft-antispam:
- BCL:0;ARA:14566002|8062599012|19110799012|39105399006|8060799015|14091999006|15080799012|461199028|31061999003|6072599003|40105399003|3412199025|440099028|102099032;
-x-microsoft-antispam-message-info:
-	=?utf-8?B?SFVib2psVFEwTk5VcTNmQ1VsM1lodUV2SkxDSjgxZ1JXMHZjemRxQnVYQXA4?=
- =?utf-8?B?M0Fqem5uQjRuL0d1Ni9EakIvSnhmTjUxSUdjdHc4RDcreUhaQU5ITGZFVXZG?=
- =?utf-8?B?MUtqUTZDQVpZUENFWkt1RVhkZmsxK1FpclVEQlhJUGkzVml5aGptTXhYWHlP?=
- =?utf-8?B?dEtaY3pPMldBdTUrVmhOUUhZS2k5NHFldjhpYmo2MVFiVXNMSXZaZHlkLzdw?=
- =?utf-8?B?WElTZ2FNTU9PNVg5Z2IzTFVUY2Zld0Q3aWcxNVpEWDVON2t5UFA1dUFWTFht?=
- =?utf-8?B?djk0WVk5VHI3aFR4Z0FzM3RJcktUZ3pybWVSR1gwS01wMFNSTVVOa04xRUM0?=
- =?utf-8?B?eTlXZE5XL0pFNjFuYVNlSWE3VVI4aDdzeFNRTGxlNlZwOHlxUTVuUXBoY1Uy?=
- =?utf-8?B?L2dyUUhzYXpTVHVoRG4rRi93MGJlWlZaVDZXTmZ4Sjg1aFVlcGJacTJPMkN4?=
- =?utf-8?B?NnZUY01oc1lFbVZMQTlkMmhMSU5ORHVWeFNyNFF5aXhvTHdPVS9xNDVVN2pq?=
- =?utf-8?B?M0JicmVjVnZrNzRGa3FuZitpQUNUTXhPYjVLY2JtbEZpQWo5TDlxWkREYldl?=
- =?utf-8?B?Sm0rZlNPNktpOXRDb09CZ1FMbGk0bEUyU21VTUEzRDM5bkg3THMzUzZidFVH?=
- =?utf-8?B?YnJMZXZ0b1BoQ3UySVVsZ1Q5allMbitLc3g1bW81a29VaE1WR0Jla2UvQkNC?=
- =?utf-8?B?NGpXTC9lRFJVQkM2K09pYk9aOE0yN2czVmRKMXRZQkFIK2NuVFJBNG95dUdS?=
- =?utf-8?B?cFV4QmZuSktoZzJISTVaOWR6TndXMEZFZlkwZlJnNFJBOS94eHJSaEVmVlBD?=
- =?utf-8?B?RThXeHZQYzNtYmVhZkJ3a3lMdVMvQnRRdWRTaHdKSGJFYTZub3BPTEVjcitJ?=
- =?utf-8?B?OHZoZ2tDS1lUYkNBTHlkUGlQZWthdkpacnFwSENYbGJuOEl1UmdwenlpUjNI?=
- =?utf-8?B?MFdmZlU4dHJCWVlLMTU2VHc3OXIrZzNUcWRFNG1QYXVGRE96NzZsdE9UTDlX?=
- =?utf-8?B?emRyZ1dacU85citZY2NnMFh5NUhuTlZBWm04TXVWUk0zanM2YXJ4VFVsczFp?=
- =?utf-8?B?S0ZSZUxRdTkycWxiVFQ5WGZWVDVvbjZOOWFjb1Y4ejlYdmFjNEI1dFFMMDFQ?=
- =?utf-8?B?ZnJ1QU9BL29hbVdaTVhteklnb04vWDRNdncvd2JvT3B3RUUxUmsxa1B2aU1l?=
- =?utf-8?B?Q2tSNGk4NnJjSVVtRkEzN05Ydkw0Qis5STZvMlhhZ05LcEJCOURJTmZBTExk?=
- =?utf-8?B?RmNkUUJuVGgybU5VYTIwUlE2WVRZZjdoNExKQ2ordkRHcmJQUT09?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?bWdLZ3IwbTVZRVhqVFdzaEhiZkFiaFowbVVIQVR2ZmRwU3NyNjUzWUFnNDNF?=
- =?utf-8?B?SnFCblYyNWg1NWRGR2lMeWUweEx6MmRlVE84WnV6a0RQd2FycWtMV2JrbHVI?=
- =?utf-8?B?SGtscXpGWjFhZ25IRS9EU1EycU8zVlRRNHBoYVFkZjdNamtEbjBNQjVDa0o3?=
- =?utf-8?B?d3JvZTczbVhBK1I1UUIvS1d1L2s5bENtaEFscXNjUWV3aURHV0h3ZzNuWjd0?=
- =?utf-8?B?QmNzT2h1dFlvczVQWW1USUZ6alpxc0g3U3B2eHFuMEc0bWtFUkdEcTMwRWZo?=
- =?utf-8?B?T1hJdXRLMkRCeEpPVWViMEtMSVo5TU1TZHAzWkh5Q1Fmc3JtUWg3VWkvdnc4?=
- =?utf-8?B?OThiR0s2OGMwR1FYRHJERENMdDB4TDFOL1g5a3dPbjVhd0hkM0RlL09KSk5n?=
- =?utf-8?B?bHFZUUtrYTZIN25qalFyV01rWWhIbVRPZVh4VmZhd1lhTElUcmZxUEp5RnBK?=
- =?utf-8?B?dURWQk81SFFESkw4U2R6RlFBbjc5T3VDVFMvVUMzQVhaUmFEMndZMkhhckdo?=
- =?utf-8?B?MkRyWks2Vk9OWWh6cEtDcXBtc2toUHlzUklybGJXU2RVUEFhSlNidUdlYjlp?=
- =?utf-8?B?cXRyTi9RZXVObGQybk1KWFVnTVN3VDlSVi91MUVtbHdlQ2xRM3VJUzU2ZU9B?=
- =?utf-8?B?MlVIQzJuMFRmSFQzOFhMWkV1Z2I4N0dzVVMxUE5MUWdaUkdtVzl1a3ExZHdY?=
- =?utf-8?B?aktIcGJVVHROYWNGTVdBemIzVDV6NDZ4eEU3ZG9rM3NCbVhDYVhLc2lJWVVK?=
- =?utf-8?B?R3VBNko5c1o1UXpDY0I2MkxVNk9SQlJwQjAvNHB4RmVSWUQ5eHR6NHpzcHg5?=
- =?utf-8?B?bm5YTUM1NU52ekYwM3NyT3pDVWppMWpKNFhXdXNrRmtvekZLSmhIQk05OGZa?=
- =?utf-8?B?NVJxK3o1L2JFSUpCWnMvaHNRdFgwZjJ1M2R0Umk1NlZ1T2JmUWJwUUJ2TTJj?=
- =?utf-8?B?YllWYzd6UFN6N2RsTkYvZlhmR3BXcERKOUkwK3FaZzVTVDY2NEc3WXNxVmtV?=
- =?utf-8?B?ODJhZFh2SGlKOC9zcnlydjJCMGdXeHNpaGFSSGNtTFZBL1NwRFZHZ1NSTG50?=
- =?utf-8?B?UlI1eFAwRHVSbmN6Z0o0bDV3cVp4clpMUnBIWmJ0OGpCM0QvMVkzaSt0aks5?=
- =?utf-8?B?c1RBNnNOUkRDbEdxdXp6V3dlQ2Y1SmI3dlhEZ1dxaGQwVW90aDJHSkNBeGtm?=
- =?utf-8?B?a0NJNHNEN3lodEFVbGRIODA2TU0xdmpDcGZlS3FQRmUrOWRqY1lzVnBEK0ZL?=
- =?utf-8?B?cGlrT0NLNHdsdUY5a1dKd1hOMmkwbTFEZ3JMeTBqMWw3dHBnOGErNUs4YWJm?=
- =?utf-8?B?U0tXRkpCalFVdEh6VUVqemxlbkRjU2VqK29HcTlsT3c3NE51eDhDQTMzdVdH?=
- =?utf-8?B?bFRSS1ZXQ2lQTDRlRm15TVhWQWtQSjdONEg2TVR3MHVnb2RTMHRtSUFGOWNJ?=
- =?utf-8?B?Y01tS0J6QnRTd2l0STAyeE13c0xKZ21xb3R2bHFWNElDK0gzd0p1eFhsRlZU?=
- =?utf-8?B?OEVua1h1a3FZTUs1Q3VvekpXanRUdmVIaVBjdUFWVU5JcEQvNVZnNUo3cjNK?=
- =?utf-8?B?cHZSVUZsVllkK3RtWjV5d2pHYjJuT0VQOWpQNUNpQ2hDbXNHWllTcm1LMTBQ?=
- =?utf-8?B?SDFrMUo3T2plcWhNKzJsa0UxUGhzN2p1RE01VmpGVHBLY2JjZngzbzM1ampF?=
- =?utf-8?B?RE9ZTWFLNXIvcmgwUHVoZDFRNDlYNWhISWNsaWwwSjlVSnBodTNnMEdFa28v?=
- =?utf-8?B?TXVUT1VnaXh4MnptWnhyNmpnd3pJNm8wQ2x3TzdVMlU5UEJqYlVyYnExME8r?=
- =?utf-8?Q?7BObxH6ew8Ao3iBlQAf7Bo8u2gccaGyyt08+w=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03FCF386553
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:01:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.58.85.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774260076; cv=none; b=YBorrJ9RRgP0REIq5+cvZbianW4IPSvUoMnUubrT6zHIN1pO+twzKgUHQPYs5NrkVKgXkpODp2HrMHISId6BdcQUM8Jg0b8tuDDOYgExXfbt7pF2cWKozwYdNMKmnMMR4kA1udh0ErXvTmzwePccW4tmLkl2f01BrxvgLcUC65Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774260076; c=relaxed/simple;
+	bh=fblUXtGyjojUlB8YF5BX6/FMzzxplNqHYwA4cyo9zvE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:In-Reply-To:
+	 MIME-Version:Content-Type:Content-Disposition; b=Si5Qb885WF1xQeMmXUs/OCSJkDdIYYRCiuNzd8zR31PEQpgczBPHcFdnRiBWKJ3LDd4YBznqO/j3QChG3PQT29I8Vb0W7jKCYnqixvDGh+/uJynooLQJiNKclXXAps6HMWotZeRcW8EylyoDxqFhKGOF/DGEbGLApk0PojhJRys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=touchnetix.com; spf=pass smtp.mailfrom=touchnetix.com; arc=none smtp.client-ip=185.58.85.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=touchnetix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=touchnetix.com
+Received: from LO0P265CU003.outbound.protection.outlook.com
+ (mail-uksouthazon11022092.outbound.protection.outlook.com [52.101.96.92])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id uk-mta-284-1KMkuASuNHSCHy5-_9abLQ-1; Mon,
+ 23 Mar 2026 10:00:00 +0000
+X-MC-Unique: 1KMkuASuNHSCHy5-_9abLQ-1
+X-Mimecast-MFC-AGG-ID: 1KMkuASuNHSCHy5-_9abLQ_1774260000
+Received: from LOYP123MB2701.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:e9::9) by
+ LOYP123MB3247.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:e7::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.31; Mon, 23 Mar 2026 09:59:31 +0000
+Received: from LOYP123MB2701.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::72a0:d7fe:5595:514b]) by LOYP123MB2701.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::72a0:d7fe:5595:514b%2]) with mapi id 15.20.9723.030; Mon, 23 Mar 2026
+ 09:59:35 +0000
+Date: Mon, 23 Mar 2026 09:59:48 +0000
+From: Andrew Thomas <andrew.thomas@touchnetix.com>
+To: Marco Felsch <m.felsch@pengutronix.de>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, 
+	Russ Weight <russ.weight@linux.dev>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Kamel Bouhara <kamel.bouhara@bootlin.com>, Marco Felsch <kernel@pengutronix.de>, 
+	Henrik Rydberg <rydberg@bitmath.org>, Danilo Krummrich <dakr@kernel.org>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-input@vger.kernel.org
+Subject: Re: [PATCH v6 4/4] Input: Add TouchNetix aXiom I2C Touchscreen
+ support
+Message-ID: <hxa6vfro5jirigd4jqm37wqlyslphy4yqctbbaeraz4sfcx366@qklnqawxb4t6>
+References: <20260303-v6-10-topic-touchscreen-axiom-v6-4-8ac755add12b@pengutronix.de>
+ <rnbwxsdiwjojk7354c6k4us6xxl3qpbyt2lrbhgqz77avrdwga@tqb6voucuysi>
+ <enyz3io3i7mzoaquexpkbsjtxmcuib7lxj334ii2yqvdgpvajb@aspqccwo7vnf>
+In-Reply-To: <enyz3io3i7mzoaquexpkbsjtxmcuib7lxj334ii2yqvdgpvajb@aspqccwo7vnf>
+X-ClientProxiedBy: FR2P281CA0173.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9f::8) To LOYP123MB2701.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:e9::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-25b72.templateTenant
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOYP123MB2701:EE_|LOYP123MB3247:EE_
+X-MS-Office365-Filtering-Correlation-Id: 245341b3-af5c-44a0-fc72-08de88c2e2ec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|7416014|376014|366016|7053199007|56012099003|18002099003|22082099003
+X-Microsoft-Antispam-Message-Info: lq2E1RzSNQXunLAjjsQtHdEK4aFWJKG71qnZa/pxE4lRZbzT80bdWtSkkVJo9PRyVvyKDDU51rPEJzSPKfpVUAPKTNnow+mJ4qzf/1yivqAFGy4QoVZMgt1rPaeKQeVAl5K3OtqWpwUlel4DatLmlw/Nqgsge9qfBvO9o7UnPS6ov1xzVe0p4i4fSxfy+VOzETGSz/cvYLudkzGh/r5wSnGVbcHWIfLcksHL+ZpzXhni6I7eI4EJtMA3zZ7TBAXdcfO8rjxCihyPue1DhTfvBrKrT8gT7tK98FZ/sZsxEutGoRmKC4D3RTeqCJHcC0kvX7diUewoxxeB4b+ioJYcdX5DtOTJ163nC+B/k5eNIv1vAVlXo08nv7o5QX2jyq0ERBOxbc6vuf6AmGHTgrw9A2yAYtex+Ldbg38fcRe7O4d0t7XoiJZWM7719ozAL5pSVK+5/WmP9LAAaVc9mEO9akIterf5bI5wMA/OKF4iIDss4zOY4uXdprgrVmoK1ZSHBv1BkD2Mr52EjOLcfGgPfXidbmi64vxX81A4UbA7n0CtWYKvreHiZOuym/ymGVxxyFlc67Uv5HUivtQBL50sj3n4p2vGSwwlqZqiRz5++jvWUACUsNpdjz4iJ4pZwzqWcaH1e4AAnl9860+Xbx3L5xzLPxm+zsNUHYyDrruW6pbypFkgsTKgALeXh3wvAlOguiVWA4cNvaRLzk7hGi1jSJQkrzIAMxmaRhvHyqVHt+w=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOYP123MB2701.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(7053199007)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1102
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QU4vTG8rZDJmbXZsUUNEcHVtT1hOOFI2bUxRWk9aWDJWZlhNMmRUUGREd2RO?=
+ =?utf-8?B?Y2U4d1FzWWs1cmpvVTlrcTkzSTdZY1c2ajdydUJFMEVmTjVhMjQvUmtjcWpy?=
+ =?utf-8?B?S3QzVlcrOEhLb1loOGlZRTlqNzR5Ly9uKzRHOVk5K21IQnFWWjBZZXVocWZS?=
+ =?utf-8?B?TW5qZCtNOVJaMnp2ZWZzUVI3K3UyS0hQWGpXTDJSWDdsU3dRZzh0ejkzWlQv?=
+ =?utf-8?B?d2Q2SWtsZ1ZWZEprZjBOL092aktDMTM3WFJ4cXovSnBLUjdDcFdycTdTZm5C?=
+ =?utf-8?B?SnZYZ2lUalRxaXBkcHo1Q3JVRUxGT0ZVR0hjSzBMMnlBQk1DcXdmZ2JRS3du?=
+ =?utf-8?B?OFJpVG8vcFozaGRtTmkxMkVSck5WeGdoaXlObzJ5MVBJb1ZrenQ4M2dvT1ds?=
+ =?utf-8?B?cGZ3cThHNjl6SG4rT2NGMENtUUQ1Q0UxOWszZThzQ2pYdFgxajFyQTdUQTB3?=
+ =?utf-8?B?MnRLZ2ttNmFrcDF4LzhId05seS9wbE11U0liMkMxdWlnaXE3SGNjLytrbmFU?=
+ =?utf-8?B?OVU1YmxOWiszZHpTdDRIeDdUV1VqT2NtVTJ6YTl0bVowRGNrZ3oycWlSbzVS?=
+ =?utf-8?B?bFhwU05KREJhdDBhcEdyS1orWHF4VjB5R0c3NHE0THQ1YmNzMDhxUlNONmZM?=
+ =?utf-8?B?U0YvVnQwNnRoejdWZ0Zua3dxYXBKVjJPM2E2VVc1TTNGS21DcXBBRlk2MVhZ?=
+ =?utf-8?B?YzBBaDhMcUlINWY0dVlqcDh5WDlzQnV5NkFHY1hucVFXYzhsV01jNnhuQ294?=
+ =?utf-8?B?R1hvN3dPNzEzem9LQWdkbkpjMEIvelM4cy96RW1xTGtFUzhqVkZHRDFkaDlZ?=
+ =?utf-8?B?c05LVmVESkV0UUEwMi9xK3J4SjUzSGdocTUyUEdwQUl5c0VvZ2tUVFptT25W?=
+ =?utf-8?B?SW5mQnJTTEViNVBUdkpRODVZclFqRWhqRnl4dWhBNnJEbkxOTHoyaThZeXBJ?=
+ =?utf-8?B?dW4raTZwekhWajFQRkhySXFzZ3ZEV1BINU1jWWpoZEhzWDBSTWRsZDY2KzFm?=
+ =?utf-8?B?QitGcEZKRHZnb2ZKNXFhM1FxVFJsd3dNMGJwdi8yTWk5VUhxS0FDbkZzbEox?=
+ =?utf-8?B?NTl1dzYwN1FzNjFMUGdSa1BmR2FCUlp6cllQdHF0K3g5WUNsRmxmZjdtdERu?=
+ =?utf-8?B?SXBLeTVFcXU5YWVHWVppV2tyUUZMSXc4RTFRdmo3SkhEWGNpMVczRjdENjhv?=
+ =?utf-8?B?YWdaOTZUcElINDZtMDJjaUhkUnhlSVlKa1B3MThtMklXQXVKdkJRdTZOajIz?=
+ =?utf-8?B?c2JCblArd0tyQVRzeENBUy9JLzF1T1NMQU1mZ2RETWd2dndNM3d4MXl2MUp2?=
+ =?utf-8?B?OFZaQlVtdE9aQzk0RFlpYTZJam1UZXdqeWJ6d2ZPdHV4L0tTNzc1TjRjZFdu?=
+ =?utf-8?B?MDdndnl6ako4a3kvRjJ5NFJRR05MNWJVbUhuKzNNL1NVU2p1MU5wdm1oKzF2?=
+ =?utf-8?B?dEhScXVTL09KNFBLcjRDUlB6QkxkeVNINHU1VW5tak9GempUY3VvMW5iUGpB?=
+ =?utf-8?B?TzlPZUJPZDJ3eG45UWhsTUU1cmFxMTNGVHd2K1NQWW00MzR5V0d0bC9VWWR3?=
+ =?utf-8?B?aWR6Qjg1elA4cVljeVlFS3Z4L1oxdm1oMVYreFpvN0VJTFY5Zk01YVZnaFR2?=
+ =?utf-8?B?ODJEUEJQSisvaEQ1MG0xMzhwSGpzRUlFeTY4U2h5N0NHRlBnL0hPR3MvSjdq?=
+ =?utf-8?B?UE5Rd1YwVVpYak9RL1BQbnlTWHJpcStPSTNxUUhZN3ZLait1cHN5VFlpcS9m?=
+ =?utf-8?B?RkYzOE01dk8zdTNDUWRUN0RpR3FjWGNUOGVPcStUbXRscU0rc3RIbmZBSzRX?=
+ =?utf-8?B?L0VXN1BDdzFuQU9TbVRNNytiSDdGVGJlc1hOcGdrbVF3dlhMczlXTkQzZTlu?=
+ =?utf-8?B?TXpLVG1HQkVaQUJFcmFyaHVLZTBMcnE5SEQ2Mk04Q3VPVWhBOHlYTG9rV2ZL?=
+ =?utf-8?B?azhCbWgrMllnUDR3UkRSWGJady9XRlBlTWhmMnBobjVXdzdqUThsMXF5L2Q4?=
+ =?utf-8?B?N2s1enI1VUd4QUZ0Q2VYakhwdTgwSHQ1L0pMNFhrZk9RL2NkSEhxWUNDYW91?=
+ =?utf-8?B?ekloQUc1L3N1QzMydlVWcUNHaFZCZmRjZE5Zb1UwZ3Rqc0c2NnF1b1I5djJQ?=
+ =?utf-8?B?WENoaURxVFFZME85bzQ4TDZ3OXZMTGdSUkw2d2ZDS0hMYjgwKytLZTBDZnQ5?=
+ =?utf-8?B?RHRKRGJKMWwzb2VqODBrZjNoMGlsbzIwL2tFQkJJM1NWN0FlNllTY2dzQmJx?=
+ =?utf-8?B?WnZPZ05iSDFESVpsSEMrL3ZHN0VURS9aZlpzY1RHYWh6K1o1Z044TDl2ajdP?=
+ =?utf-8?B?VVFLQmpiaW42ZEtTc0FNaGNvVWJTcU4reE9OSTZZU3c2YktldW0yTmQvSEJ6?=
+ =?utf-8?Q?g9JgTSqBLfT98ZLI=3D?=
+X-Exchange-RoutingPolicyChecked: ZPLRj345MFJblBvRpuE7e3jizdOgqCmC48zUqgUBI5S1GeEg56w/txuhNXCfZvRPAWc0kY9HnvV7X78q5I/+8Rh71nu4inEvR5RAWQpxsL6Sb2+py3glWcWa9CMpqtS2GTzf4EI11H/pDacP1mJ5Sahn2n/HfoCBmdzu1+aRT5/O88DO1EC/1PhnHLH62hx6WN/Tgvo82yHpLHG+T/fLFoITYWNW2dGvk7evoCHacJMqEjOY+qbDAqkC006kzRFXOrBXZVelZ/mprchZgFHuQQdrTwgpidBK1VyXZvJ5GD1ckNxmjBdMKT/TyM038weZUJbredaSEoMOi3pGHe2x8g==
+X-OriginatorOrg: touchnetix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 245341b3-af5c-44a0-fc72-08de88c2e2ec
+X-MS-Exchange-CrossTenant-AuthSource: LOYP123MB2701.GBRP123.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYUPR06MB6099.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a897766-227f-4af0-3aab-08de88c2f479
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2026 10:00:03.9494
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 09:59:34.9700
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB5736
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 120474da-7cc3-44b9-aff9-438a33341070
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ReHscVVVB1D6zQ4L060Yen6Yi6KES8wMtMt86EGVhNxwFWRg//GZW/iEiXSoapzBLEmL5N7Ojfk6nwPKJUBztLoYL/xbdRy/59bxnCInTQ0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP123MB3247
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: -G_2ogdeT2RApvxqFXG999W-VMsCLCSx5de-yplByuo_1774260000
+X-Mimecast-Originator: touchnetix.com
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-WWVzIHRoZSBmaXJtd2FyZSBjb250YWluIERTUCBjYWxpYnJhdGlvbiBmb3IgZnJlcXVlbmN5IHJl
-c3BvbnNlIGJhc2VkIG9uIHNwZWFrZXIgdHlwZSwgZGltZW5zaW9uIGFuZCBzaXplIHVzZWQgaW4g
-dGhlIGRldmljZS4NCg0KUmVnYXJkcywNClRlZ3VoLg0KDQo+IE9uIDIzIE1hciAyMDI2LCBhdCAx
-Ni4zOCwgS29ucmFkIER5YmNpbyA8a29ucmFkLmR5YmNpb0Bvc3MucXVhbGNvbW0uY29tPiB3cm90
-ZToNCj4gDQo+IO+7v09uIDMvMTkvMjYgNjo0OCBQTSwgQWFyb24gS2xpbmcgd3JvdGU6DQo+Pj4g
-T24gVGh1LCBNYXIgMTksIDIwMjYgYXQgNjozMuKAr0FNIEtvbnJhZCBEeWJjaW8NCj4+PiA8a29u
-cmFkLmR5YmNpb0Bvc3MucXVhbGNvbW0uY29tPiB3cm90ZToNCj4+PiANCj4+PiBPbiAzLzExLzI2
-IDY6NDQgUE0sIEFhcm9uIEtsaW5nIHZpYSBCNCBSZWxheSB3cm90ZToNCj4+Pj4gRnJvbTogVGVn
-dWggU29iaXJpbiA8dGVndWhAc29iaXIuaW4+DQo+Pj4+IA0KPj4+PiBUaGUgQVlOIFRob3IgaXMg
-YSBoaWdoLXBlcmZvcm1hbmNlIEFuZHJvaWQtYmFzZWQgaGFuZGhlbGQgZ2FtaW5nIGNvbnNvbGUN
-Cj4+Pj4gcG93ZXJlZCBieSB0aGUgUXVhbGNvbW0gU25hcGRyYWdvbiA4IEdlbiAyIHByb2Nlc3Nv
-ciBmZWF0dXJpbmcgZHVhbA0KPj4+PiBBTU9MRUQgdG91Y2hzY3JlZW5zLg0KPj4+PiANCj4+Pj4g
-U2lnbmVkLW9mZi1ieTogVGVndWggU29iaXJpbiA8dGVndWhAc29iaXIuaW4+DQo+Pj4+IENvLWRl
-dmVsb3BlZC1ieTogQWFyb24gS2xpbmcgPHdlYmdlZWsxMjM0QGdtYWlsLmNvbT4NCj4+Pj4gU2ln
-bmVkLW9mZi1ieTogQWFyb24gS2xpbmcgPHdlYmdlZWsxMjM0QGdtYWlsLmNvbT4NCj4+Pj4gLS0t
-DQo+Pj4gDQo+Pj4gWy4uLl0NCj4+PiANCj4+Pj4gKyZzcGtfYW1wX3Igew0KPj4+PiArICAgICBm
-aXJtd2FyZS1uYW1lID0gInFjb20vc204NTUwL2F5bnRlYy90aG9yL2F3ODgzeHhfYWNmLmJpbiI7
-DQo+Pj4gDQo+Pj4gVGhhdCdzIHBlcmhhcHMgYSBkdW1iIHF1ZXN0aW9uLCBidXQgYXJlIHRoZXkg
-YWN0dWFsbHkgZGlmZmVyZW50IGJldHdlZW4NCj4+PiB0aGUgZGV2aWNlcz8NCj4+IA0KPj4gVG8g
-bXkgY29uc3Rlcm5hdGlvbiwgeWVzIHRoZXkgYXJlIGFsbCBkaWZmZXJlbnQuIE1vc3Qgb2YgdGhl
-bSBhcmUgZXZlbg0KPj4gZGlmZmVyZW50IGZpbGUgc2l6ZXMsIGl0J3Mgbm90IGp1c3QgaGVhZGVy
-IG9yIHNpZ25hdHVyZSBkaWZmZXJlbmNlcy4gSQ0KPj4gYW0gYXNzdW1pbmcgdGhleSBjb250YWlu
-IHR1bmluZyBkaWZmZXJlbmNlcyBwZXIgZGV2aWNlLCBidXQgSSByZWFsbHkNCj4+IGRvbid0IGtu
-b3cgbXVjaCBhYm91dCB3aGF0IHRoZXkncmUgZG9pbmcuDQo+IA0KPiBZZWFoIEkgd291bGQgYXNz
-dW1lIHRoZXkgY29udGFpbiBkZXZpY2Utc3BlY2lmaWMgdHVuaW5nIG9yIHdoYXRub3QsIGJ1dA0K
-PiBJIHdhcyBjdXJpb3VzIHdoZXRoZXIgdGhlIHZlbmRvciBhY3R1YWxseSBkaWQgdGhhdA0KPiAN
-Cj4gS29ucmFkDQo=
+On Fri, Mar 13, 2026 at 08:50:05PM +0100, Marco Felsch wrote:
+>Hi Andrew,
+>
+>thanks for your feedback! Please see below.
+>
+>On 26-03-13, Andrew Thomas wrote:
+>> On Tue, Mar 03, 2026 at 11:41:22PM +0100, Marco Felsch wrote:
+>> >This adds the initial support for the TouchNetix AX54A touchcontroller
+>> >which is part of TouchNetix's aXiom touchscreen controller family.
+>> >
+>> >The TouchNetix aXiom family provides two physical interfaces: SPI and
+>> >I2C. This patch covers only the I2C interface.
+>> >
+>> >Apart the input event handling the driver supports firmware updates too=
+.
+>> >One firmware interface handles the touchcontroller firmware (AXFW)
+>> >update the other handles the touchcontroller configuration (TH2CFGBIN)
+>> >update.
+>> >
+>> >Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
+>> >---
+>
+>...
+>
+>> >+static int axiom_u02_enter_bootloader(struct axiom_data *ts)
+>> >+{
+>> >+=09struct axiom_u02_rev1_system_manager_msg msg =3D { };
+>> >+=09struct device *dev =3D ts->dev;
+>> >+=09unsigned int val;
+>> >+=09int error;
+>> >+
+>> >+=09if (!axiom_driver_supports_usage(ts, AXIOM_U02))
+>> >+=09=09return -EINVAL;
+>> >+
+>> >+=09/*
+>> >+=09 * Enter the bootloader mode requires 3 consecutive messages so we =
+can't
+>> >+=09 * check for the response.
+>> >+=09 * TODO: Check if it's required to add a delay between the consecut=
+ive
+>> >+=09 * CMD_ENTERBOOTLOADER cmds.
+>> >+=09 */
+>> >+=09msg.command =3D cpu_to_le16(AXIOM_U02_REV1_CMD_ENTERBOOTLOADER);
+>> >+=09msg.parameters[0] =3D cpu_to_le16(AXIOM_U02_REV1_PARAM0_ENTERBOOLOA=
+DER_KEY1);
+>> >+=09error =3D axiom_u02_send_msg(ts, &msg, false);
+>>
+>> As mentioned before the delay between commands is too short and the
+>> next command is sent before u02 is ready, which means the driver fails
+>> to put axiom into the bootloader.
+>
+>Please see my comment [1].
+>
+>> Have you tested with an i2c speed of 400KHz?
+>
+>Yes, my target platform is based on a i.MX8MP.
+>
+>> All you need is to put true in above to wait for the bootloader command.
+>> error =3D axiom_u02_send_msg(ts, &msg, true);
+>
+>Please see my comment [1].
+>
+>> Just dont do it for the last command.
+>
+>Please see my comment [1].
+>
+>> I am not too sure why you are having issues with this, this is how we
+>> do it for all our devices.
+>
+>Please see my comment [1].
+>
+>On what platform do you perform the tests?
+>
+>> >+=09if (error) {
+>> >+=09=09dev_err(dev, "Failed to send bootloader-key1: %d\n", error);
+>> >+=09=09return error;
+>> >+=09}
+>> >+
+>> >+=09msg.parameters[0] =3D cpu_to_le16(AXIOM_U02_REV1_PARAM0_ENTERBOOLOA=
+DER_KEY2);
+>> >+=09error =3D axiom_u02_send_msg(ts, &msg, false);
+>>
+>> Here also.
+>
+>Please see my comment [1].
+>
+>> >+=09if (error) {
+>> >+=09=09dev_err(dev, "Failed to send bootloader-key2: %d\n", error);
+>> >+=09=09return error;
+>> >+=09}
+>> >+
+>> >+=09msg.parameters[0] =3D cpu_to_le16(AXIOM_U02_REV1_PARAM0_ENTERBOOLOA=
+DER_KEY3);
+>> >+=09error =3D axiom_u02_send_msg(ts, &msg, false);
+>> >+=09if (error) {
+>> >+=09=09dev_err(dev, "Failed to send bootloader-key3: %d\n", error);
+>> >+=09=09return error;
+>> >+=09}
+>> >+
+>> >+=09/* Sleep before the first read to give the device time */
+>> >+=09fsleep(250 * USEC_PER_MSEC);
+>> >+
+>> >+=09/* Wait till the device reports it is in bootloader mode */
+>> >+=09error =3D regmap_read_poll_timeout(ts->regmap,
+>> >+=09=09=09=09=09 AXIOM_U31_REV1_DEVICE_ID_HIGH_REG, val,
+>> >+=09=09=09=09=09 FIELD_GET(AXIOM_U31_REV1_MODE_MASK, val) =3D=3D
+>> >+=09=09=09=09=09=09AXIOM_U31_REV1_MODE_BLP,
+>> >+=09=09=09=09=09 250 * USEC_PER_MSEC, USEC_PER_SEC);
+>> >+=09if (error)
+>> >+=09=09return error;
+>> >+
+>> >+=09return 0;
+>> >+}
+>> >+
+>>
+>> ...
+>>
+>>
+>> Other than the above comments I have no issues with the driver.
+>
+>If you're fine with the patch you could add your acked-by [2] :)
+>
+>> We can support more usages in a later patch.
+>
+>Sure :)
+>
+>[1] https://lore.kernel.org/all/4x3dnedfzf3rqzsy3wjdoj6yaxmy6kop37xhxeao4v=
+jer7ifdi@35ux42ztq3eb
+>[2] https://docs.kernel.org/process/submitting-patches.html#when-to-use-ac=
+ked-by-cc-and-co-developed-by
+>
+>Regards,
+>  Marco
+>--=20
+>#gernperDu
+>#CallMeByMyFirstName
+>
+>Pengutronix e.K.                           |                             |
+>Steuerwalder Str. 21                       | https://www.pengutronix.de |
+>31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+>Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
+
+Acked-by: Andrew Thomas <andrew.thomas@touchnetix.com>
+
