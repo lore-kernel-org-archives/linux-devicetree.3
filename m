@@ -1,90 +1,130 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A4C39DBF6;
-	Mon, 23 Mar 2026 13:00:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500D41946BC;
+	Mon, 23 Mar 2026 13:01:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774270810; cv=none; b=AfjbASRGf4/RxYXpUn1bhhjokABMWH5hkVMyKP0kcQTc7lAYdQicZ6T5S+Dyf0sQT8BDGTa7hsT6Z9z8QnX/rk60nIgb/2tqnTrLCvDrG0wptSWDPvoZltnxtG5eiQPcJYow1NWve3yjUJLaa2hsoL+qVqrl1Ov0LwByNNbq6u4=
+	t=1774270878; cv=none; b=fZmI8apuaekm4NvM/8I2eNvnFKTpxuz8GaJWufaMjGQBLx1cj/qgURfmA9L2CBq8uUetgbhHOg58itUtB0H3FhRwHZNNq1jg1j+P7K7OPBFbHJXCq19fXlLhK7j/WGlEfVzz/d6DbxjwGQwO5g0QDrYuLcl2txGdbwx5MB7HVoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774270810; c=relaxed/simple;
-	bh=zxkYEzBprAQ7CX9LLq1GnZjcF8fxCtk/0O0tSxN12bI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SedWw1kHRVXCoDcSwLpUYZww8TVA2oRwQ6PECmUUSYB6bqXVmzqUnVlRT7FBD6TPobQkuAluMuNO69PV28Fx0pPCf40VeYEn81wyC4GnyW2BGU0QibWSRz/D2Puix12dbLmYM7Z8zDCsOrgtR9gUFgld0vy1i2BOGjL5LJQzDIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=QX7VVrBY; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1774270878; c=relaxed/simple;
+	bh=VHSP/3HxZRiZrR1EBuPV5EE+ZKFRtnX/Jig0jtt+O30=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KKGy2ofA/giqmG0F9nf+phxe4fyLTm2pJgiCbt7ZGmKV0gHL6tvcSZHE6eMNEofVvM5QHX8eORfg4JQpX7pbq4bX3Bk6wpYyPQbb7ElCz6+8Q9HgtXHW2QG7hpbBq288wX5L4pMM+BYuGuUIyBhjFVxyMPtZMXEWv7cjzCxQM0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VsIz4BKK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="QX7VVrBY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=E+lQ3UMGEmSVPIolXgNgOu9XRCtVf1fK9RjoJaMgZkY=; b=QX7VVrBYq2qK6WXc7sUB/4ygB/
-	AlQ6sc9ElDGRL0KnG3q8A41jH/skcTi1rgKlttf0Ji9nlSsKd5dCzkhtrVmGhPew+wRd/5F9DR6aF
-	g1j9lMEVGqCGrAi/VTNYF8pN9UYVlYEK9sUQE2/NR4g5kc0xJmOQjctQYQ2bJ+5135CC23rC0dbPc
-	F4ZSIdERPsLlkDClYgRDMi4Q21RSEl2x08TZHApUhJ9G6KK/2lEGingYro/X9ZqRaFHXhiJytofXf
-	EBPELlwSxSCAoPytD0teQJ2DCizDVJRoI6dYpz0wHeZxWZIBWrxjeoKbHiRqoBJMy6y2cg8uORDUz
-	rYNPrV3Q==;
-Received: from sslproxy02.your-server.de ([78.47.166.47])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1w4et4-000Jj9-2e;
-	Mon, 23 Mar 2026 14:00:06 +0100
-Received: from localhost ([127.0.0.1])
-	by sslproxy02.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1w4et4-000KoI-0F;
-	Mon, 23 Mar 2026 14:00:06 +0100
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
-	linux@ew.tq-group.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/1] arm64: dts: imx8mp-tqma8mpql-mba8mp-ras314: add vcc supply for BT device
-Date: Mon, 23 Mar 2026 13:59:50 +0100
-Message-ID: <20260323125951.611042-1-alexander.stein@ew.tq-group.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VsIz4BKK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36476C4CEF7;
+	Mon, 23 Mar 2026 13:01:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774270877;
+	bh=VHSP/3HxZRiZrR1EBuPV5EE+ZKFRtnX/Jig0jtt+O30=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VsIz4BKKNr5zD6NxUiPN+ZyH2K7G6mW06vF88wJIeWeZg6vCyCns3s8BAQFVWYqAJ
+	 soWLj3bmIApwDsJGR4ez1uVODIqanQMZeuMSUqjOUfD7f9j5xXecbzxbqTYmk2EOas
+	 EH2+F/zb0wr9/8c9phiA5W2OOTw9pMvq/balc+x21AT2qwzhY5BJSG7N3qYN20Dd0l
+	 bVtRwTNEZv4jSbkskiPYkh1K7RaF8uNWQivU/IcouchUPENHfc5Dl7N1pC0gGuqAQr
+	 rEDwGhp8z+WAV0WJNN/rekPkrfZtmTK31Cq4Q1iL2gNfpE6QQC+wlQ+aG264dk3oLH
+	 ly3vuSHiEqdEA==
+Date: Mon, 23 Mar 2026 18:31:00 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+	linux-media@vger.kernel.org, netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+	linux-remoteproc@vger.kernel.org, andersson@kernel.org,
+	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+	akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+	jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+	airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+	dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
+	mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
+	trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+	jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+	vignesh.viswanathan@oss.qualcomm.com,
+	srinivas.kandagatla@oss.qualcomm.com,
+	amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+	op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+	skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v2 02/15] firmware: qcom: Add a generic PAS service
+Message-ID: <acE5jPxBJxOr3N5l@sumit-xelite>
+References: <20260312062756.694390-1-sumit.garg@kernel.org>
+ <20260312062756.694390-3-sumit.garg@kernel.org>
+ <20260313075948.nbopdkctdcvzlj3f@hu-mojha-hyd.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/27949/Mon Mar 23 07:24:47 2026)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260313075948.nbopdkctdcvzlj3f@hu-mojha-hyd.qualcomm.com>
 
-Add the vcc power supply for the BT device. Fixes the warning:
-btnxpuart serial0-0: supply vcc not found, using dummy regulator
+On Fri, Mar 13, 2026 at 01:29:48PM +0530, Mukesh Ojha wrote:
+> On Thu, Mar 12, 2026 at 11:57:43AM +0530, Sumit Garg wrote:
+> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > 
+> > Qcom platforms has the legacy of using non-standard SCM calls
+> > splintered over the various kernel drivers. These SCM calls aren't
+> > compliant with the standard SMC calling conventions which is a
+> > prerequisite to enable migration to the FF-A specifications from Arm.
+> > 
+> > OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+> > support these non-standard SCM calls. And even for newer architectures
+> > with S-EL2 and Hafnium support, QTEE won't be able to support SCM
+> > calls either with FF-A requirements coming in. And with both OP-TEE
+> > and QTEE drivers well integrated in the TEE subsystem, it makes further
+> > sense to reuse the TEE bus client drivers infrastructure.
+> > 
+> > The added benefit of TEE bus infrastructure is that there is support
+> > for discoverable/enumerable services. With that client drivers don't
+> > have to manually invoke a special SCM call to know the service status.
+> > 
+> > So enable the generic Peripheral Authentication Service (PAS) provided
+> > by the firmware. It acts as the common layer with different TZ
+> > backends plugged in whether it's an SCM implementation or a proper
+> > TEE bus based PAS service implementation.
+> > 
+> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > ---
+> >  drivers/firmware/qcom/Kconfig          |   8 +
+> >  drivers/firmware/qcom/Makefile         |   1 +
+> >  drivers/firmware/qcom/qcom_pas.c       | 298 +++++++++++++++++++++++++
+> >  drivers/firmware/qcom/qcom_pas.h       |  53 +++++
+> >  include/linux/firmware/qcom/qcom_pas.h |  41 ++++
+> >  5 files changed, 401 insertions(+)
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas.c
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas.h
+> >  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
+> > 
 
-Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
----
- arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mp-ras314.dts | 1 +
- 1 file changed, 1 insertion(+)
+<snip>
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mp-ras314.dts b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mp-ras314.dts
-index 94e2a7df35560..90d6b5ae215fc 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mp-ras314.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mp-ras314.dts
-@@ -587,6 +587,7 @@ &uart2 {
- 
- 	bluetooth {
- 		compatible = "nxp,88w8987-bt";
-+		vcc-supply = <&reg_vcc_3v3>;
- 	};
- };
- 
--- 
-2.43.0
+> > diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qcom_pas.c
+> > new file mode 100644
+> > index 000000000000..beb1bae55546
+> > --- /dev/null
+> > +++ b/drivers/firmware/qcom/qcom_pas.c
+> > @@ -0,0 +1,298 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> > + */
+> 
+> I know, this is new file but most of the documentation and some of the
+> function are rename to reflect pas service.
+> 
+> Should this carry original file copyright ? Not sure..
+>
 
+This file only contains the wrapper generic PAS APIs which aren't
+re-used from any other file. Carrying copyrights solely based on moving
+API documentation in not very clear to me. Any other thoughts?
+
+-Sumit
