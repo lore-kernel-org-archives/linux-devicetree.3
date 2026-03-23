@@ -1,89 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 509FF3AEF28
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 14:34:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082B4396D3D;
+	Mon, 23 Mar 2026 14:38:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774276481; cv=none; b=c2yGbxu8z7mWylDmxYkhT56ErBVZzoLgcvHRfFFl7vQWchHuUBxa6yoI8/8k62vcO46m0/N7P+ULRbBSgjl+dJ0VIdh3bnyW0+vR2jreoTHkCnA8Akf7o1wWn5mjZ1+G//gOcPwnbTpR7huHAXZroAadqc4LIiu0sNMyPAsXSEQ=
+	t=1774276714; cv=none; b=W5Ke6711CcA7PZhB2x5QeaUSEHZwnHxGmZbpXGExFxrFOfFp2VtjVdOpZlp9Mp5VkCU68txWcmxDVgwfjTav22CWzciaYKlJp8g95XvkIUbiZFMlwUgaIyt/crdQ/uLVhuGKlP+7ornHrT/RN5mRr45Gvwbm6RTKpj7UmwrIPg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774276481; c=relaxed/simple;
-	bh=Z/d4F88j7gfoM75/lEyThhSgu7EHMMvyXydA3C/Hggg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NDPvvTgnbt32z6lpCd7XFn7QyUsW2wGsT22K7+3Ff2rX5hCqs0KPtX+dSUpUSmpPaD7oRvhQJec1h5SiyhINNxHErj+s8Tqp3tOrzOspw3BXaXhWaL84RK46UtSKSrg491/xlDfofxC0SJupVoKkYgBYGU37rbpDq7a1GzPyy3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qyDCXwRT; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774276714; c=relaxed/simple;
+	bh=yWX5bTJX8oHqeWSL1JHymF7DCuKBLNVrExmoMM3jTIA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oAVbk0QWszWOFU0V6X7FRvhyQKr6Rn3zXocje/4HnfbI2/OxVMsNAO4hU71RAbZ1UcSVkAbx0y/rYiLLZVScfcV7aTp7H5i6hM9Wbuu9XM51XAvdn624DGfMmdlwC9L3nVQu/x6GzqimWKLj+HE+bJ+umqD2zwaz7lxhhXQLrDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nwod0C/7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qyDCXwRT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2900EC2BCB1
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 14:34:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nwod0C/7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A145C4CEF7;
+	Mon, 23 Mar 2026 14:38:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774276481;
-	bh=Z/d4F88j7gfoM75/lEyThhSgu7EHMMvyXydA3C/Hggg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=qyDCXwRT7mA/Twab1Jb9j39e29U4q6Q5hcc0hKOpa6PqHAxL1OcGwfaDlojQ6B+hf
-	 7wygA6kX/iqAZSwJ7kJMnGmoBwHfJ9vGaPanU9hG+fPNcPsw+QMk2NKNKTEWufNcuH
-	 rDhWw0LWfwy/xoGnd32DQKT+0ajsmXB9DM7PWboB/ir9FtHerSR8wuY2ekJi8zfpXB
-	 tZEiFnevDx6DIUSn9Q1g9Wc4jwckxXBrEz4EzZUpBxxjCLrNqMdb3zWTLcJhAjP0VH
-	 S0oonq0Tc6rRccuvttDsdDUDyCdOpKnlmkm+VO89mQRpyjkQGHiHr+PzmXGygLCrdz
-	 FfkJPLzZYPSkA==
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-64ad019bbd4so3103275d50.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 07:34:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCVyb1fP166frVGiOEAABJ24GlN7ymGDfPhiduDy1dYcDflNSCrELt4dj7C5o3X5Uy6WYd5sKCCFDzu0@vger.kernel.org
-X-Gm-Message-State: AOJu0YzxrTdFqqGGgPMyqE09DV3rqdorHLnXIDDCKkgjmR9JYD0wQqKn
-	IajUNGArEAPy0g8fUZCY5anpfBiYf6E5UQcqq1O0sqL/bBpOWMU6vZhhAHhgTV1I62Z+u11b92M
-	Zguh24RXq4pnXD1s85NYBQSE2uqq9uxM=
-X-Received: by 2002:a53:ee63:0:b0:64c:a2a4:476a with SMTP id
- 956f58d0204a3-64eaa6de7fbmr9512265d50.32.1774276480515; Mon, 23 Mar 2026
- 07:34:40 -0700 (PDT)
+	s=k20201202; t=1774276713;
+	bh=yWX5bTJX8oHqeWSL1JHymF7DCuKBLNVrExmoMM3jTIA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=nwod0C/7aEYDf9LOdOjtA8fM8HmK5/3pphfPLcJe+ohSNNq1cAXk0rHH1BHc+n+33
+	 MTGLDlI89drIUrF9JZri7KRa8JurUez1ZWWU6ABJkkotul677tjALY0TG7kfZ3qiCv
+	 zCBR3Hudsre4vIi0wXzlqr0kAOXz24cxSTQ7AcSnXhrWkyCEz13zOTarxhyxTJT3lN
+	 xnoVdxifhoKV9O8wW4SsamFwWxklvTNk7gWFa02AwZae7seqj86wk/r/UTqismuzR3
+	 TcdrpXmCwiSWVLOqJSYUXXJpzNnabgHzZMAszCkAsZEgzlnL+aVLJ5z4izVeqkgUkO
+	 HX0xGyfmLvE3Q==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Abel Vesa <abelvesa@kernel.org>
+Subject: Re: [PATCH RFT v3 0/2] arm64: dts: qcom: glymur: Enable SoC-wise display and eDP panel on CRD
+Date: Mon, 23 Mar 2026 09:38:18 -0500
+Message-ID: <177427670515.11515.4466568687936210895.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260303-dts-qcom-glymur-crd-add-edp-v3-0-4d1ffcb1d9f6@oss.qualcomm.com>
+References: <20260303-dts-qcom-glymur-crd-add-edp-v3-0-4d1ffcb1d9f6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260302095147.2483-1-1536943441@qq.com> <tencent_C88C86C89249067BA4D394FC9CCC1AB62406@qq.com>
-In-Reply-To: <tencent_C88C86C89249067BA4D394FC9CCC1AB62406@qq.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 23 Mar 2026 15:34:29 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=-bkhLrdrp_FX0H23k_QLBHOoXzD7ynd0rvX8rMsVvFA@mail.gmail.com>
-X-Gm-Features: AQROBzAgY_e0T4O0xJvsu3WMl-pbEvBLFRvFDDYl2QIe3CeTWeJ2TQFmaCWJhrA
-Message-ID: <CAD++jL=-bkhLrdrp_FX0H23k_QLBHOoXzD7ynd0rvX8rMsVvFA@mail.gmail.com>
-Subject: Re: [PATCH v1 2/3] gpio: add support for Phytium platform GPIO controller
-To: Zhu Ling <1536943441@qq.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linus.walleij@linaro.org, brgl@bgdev.pl, 
-	andy@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, 
-	conor+dt@kernel.org, chenbaozi@phytium.com.cn
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Zhu,
 
-thanks for your patch!
+On Tue, 03 Mar 2026 12:44:07 +0200, Abel Vesa wrote:
+> Start by describing the MDSS (Mobile Display SubSystem), the MDP
+> (Mobile Display Processor) and the 4 DisplayPort controllers it brings,
+> then describe the PHY used for eDP and tie up the PHY provided clocks
+> to the Display clock controller.
+> 
+> Do all this in order to enable the eDP panel the CRD comes with.
+> 
+> [...]
 
-some quick remarks below:
+Applied, thanks!
 
-On Mon, Mar 2, 2026 at 10:52=E2=80=AFAM Zhu Ling <1536943441@qq.com> wrote:
+[1/2] arm64: dts: qcom: glymur: Describe display related nodes
+      (no commit info)
+[2/2] arm64: dts: qcom: glymur-crd: Enable eDP display support
+      commit: ec3cf3801e1376d4b4f9ebf93ac39d294d53ec7a
 
-> Add support for the Phytium platform GPIO controller with:
-> - shared core helpers and irqchip implementation
-> - platform probe path for OF/ACPI
-> - Kconfig/Makefile integration
->
-> The driver supports GPIO direction and value configuration, plus
-> interrupt delivery for platform devices.
->
-> Signed-off-by: Zhu Ling <1536943441@qq.com>
-
->  drivers/gpio/gpio-phytium-core.c     | 444 +++++++++++++++++++++++++++
->  drivers/gpio/gpio-phytium-core.h     |  90 ++++++
->  drivers/gpio/gpio-phytium-platform.c | 226 ++++++++++++++
-
-Why this split? Put it all into one file.
-
-Rewrite the driver to use the GPIO_GENERIC (MMIO) library,
-select GPIO_GENERIC, look at other generic MMIO drivers
-such as gpio-ftgpio010.c for inspiration.
-
-Yours,
-Linus Walleij
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
