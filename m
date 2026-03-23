@@ -1,237 +1,158 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010017.outbound.protection.outlook.com [52.101.84.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A21C3BE65F;
-	Mon, 23 Mar 2026 16:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B0139A04D
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 17:01:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.181
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774285193; cv=fail; b=OarJg3eGA/q08A0mXidoda94sgvFfWbOZmpI7yrVfKUXpQQeWUcXbgs+hTrZj47UQyLY0c9wsjAP4mQ3bmrIuY1ipKFmEO7vUFRdYtI8deEMp2s9sEsG+IKeNOKhME7Hbe/uOMk2ory1/b3JcCJD4mpAQuRb+U8pPcj6GP/objI=
+	t=1774285294; cv=pass; b=RkEDop9qhGm/n8AYEoRUKfBZyCMzH4K0HUYX1+ARPeSTj2y3Xnctuv9DVRYNQxpWfb0nKyofP4xOEC+ArUKoaDQrDGm6xBPpgo5m0wMAgdiR7ihwTKBQItmM+O/pP8lVMRvA9jc80hs3Z6Y1U1e/29EtjV8fuMe474YMFCFwrCE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774285193; c=relaxed/simple;
-	bh=ghWoTCmNQAX2JcDVdLAOTGXl+Ja/H31zVUexIktglwM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=fNQsr1N0anTYmoRTsSskcXlzzo0llXwW1zTJFXxnydK4rKVri/tUWLXPqboUOn2G853+CScnyxA1U4dvmvqgd4zZJFMTr+mLvctsl7G3Uvk3FX/ZQ6RXVhKV+0TS6jDkJovbuz3rYv7QzlDvTmfJYlhqpvcjsIUzfr9S8pg9ZWo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=B8HImz1d; arc=fail smtp.client-ip=52.101.84.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	s=arc-20240116; t=1774285294; c=relaxed/simple;
+	bh=lNyVK/k1mar/iYVkspzTfesxQNPzJWx/H9gGft796ik=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=s1VZGlkc7IeHoEijctIKIVXS0kb9gk2ns7sVDdh9XG4NHhYL/3zqnfDCC6DMlZsiVovB1hJMLn90Ei91GONgiRCfslnKRUrFtYnUGkBEdp2Hepz65jppxvoW3P/M6a6IS6CtNKgGga1/G2lig1FuG1H7bqEm/LxixRar9f8z414=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i1Z5jt0q; arc=pass smtp.client-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="B8HImz1d"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lWBpXYNhuyc/7SxNKaazsGH2XhqwWQzatvS00V8WUErT3i2zfM1lnVEiBD5nWCXUv80IadHQBLKF+qBrJ0mY+cmJDXC8EWfcu870bZmqtPkmdInW4PqYUInN7WFEQnanMInjPLkM1M0W7FJX3iFbPDFkqBs1D/umwvxPZolzXoCjGPnAJoHy2XQFMhgsFTr7n6ri63c0fFZIBIe3tx6iTznOQp8hIQMe/MH2iu7Wl2LXmiNDZ1JNlZFLoUjso3y9AAS4Qbv5yUL7jbRUhWI7Z1+HnJp4QGT1e/5fGSbzKvrWOadCuNj3TWEL1raP5LEOS2ovx8qSiPhRqHaxE4q6Ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=03hqnEAuspYj1fFMdrpO6ZDQqLsJ5+bFq/qY2mRtgQM=;
- b=N2s6F0+iDmQZABwswWvcf/7SADsfWVT7cinABKmkXi2sVmXiJF7behbCJKF6nEUwM6SJ3oiSw0u/c3VvXI8I91PrH5N+FW4zfAhLldLrq0NgFytdQeD1enlxl0yH7wSCxIpZ7gbfTFkaHr6IG4hESBGfnsyoaWMKkgpeA1FJ7f7HCQ+qVf9T2Ecls31D4qDcBdZZCc7yAnFLjar7HskiLm1DH4UNC8P0wU1S5dGU3TR4TW8/CyiLF0Q/Pv8ujAXSdYWDI30nPqBTWurvxgvJqm5zKpr0GEg1R9b1jxZVK2vyLYpGGv2p+pmrpogeH9gyJf9xcNmr1r8YpuQpucVCnw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=03hqnEAuspYj1fFMdrpO6ZDQqLsJ5+bFq/qY2mRtgQM=;
- b=B8HImz1dEx1oBVYB1Se2O0dUY93qbXeeMr1p4LSO0RyzEBnPDBOY+fUPR6yAFj+ypveJ4XPh0OZsOtDp60uUbntseIxCXO9QAkZ0M/AtounuZZircxcaMba0k1No+LbGXAOU0m+zHk907UVYvU+uURfLJ04QILjLxztxx+sgLE6xf/Hr5SB5c01NibGCJ6PU7PmYSZErbzHvz5KdX2vxl9zc3pQqSDXyzB6/Vt6xPSr5kmvFT0Nxjsld+bTAFB3EDCzTKWnUxx/SqMdLq6GEag5lHLwlI21oLnInnz/b7szJwCQ7XdJN0RKKou8yizY5ep4Avo65ooqsLmNiz+vMBA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by DU4PR04MB10401.eurprd04.prod.outlook.com (2603:10a6:10:55e::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.25; Mon, 23 Mar
- 2026 16:59:21 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9723.030; Mon, 23 Mar 2026
- 16:59:39 +0000
-Date: Mon, 23 Mar 2026 12:59:34 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Eduard Bostina <egbostina@gmail.com>
-Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, d-gole@ti.com,
-	m-chawdhry@ti.com, Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Mark Brown <broonie@kernel.org>,
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 1/2] dt-bindings: watchdog: Convert TS-4800 to DT schema
-Message-ID: <acFxdiHYjlSOESf_@lizhi-Precision-Tower-5810>
-References: <20260323084616.10469-1-egbostina@gmail.com>
- <20260323084616.10469-2-egbostina@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260323084616.10469-2-egbostina@gmail.com>
-X-ClientProxiedBy: SJ0PR03CA0153.namprd03.prod.outlook.com
- (2603:10b6:a03:338::8) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i1Z5jt0q"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-38bd3bc3061so3570551fa.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:01:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774285291; cv=none;
+        d=google.com; s=arc-20240605;
+        b=LVn9MF/BlKuTkzFQDstmngzB5tJQ3sFkMsuykUaRjEYcBM3TxUak5TutwYg2PBglHL
+         /Tzv/NgvFJ+Lrd31/1jJ2IX2jY+gBACbN23fSQxK9LX7vP/T/ojagAJW3/BTKpCQ2el8
+         0fbOXX1OBUpEE5gEOn+erDfWo6uDcOs8lrXndeALM8Z2JXJa+BygqVhoUhI7l5GMjO9f
+         Ug7ZfEMDp5NTYD45zFoGW/pwwssNSZxPMigPuciGLDUtwEer5rFckKvJ0SwdETwiHB9+
+         lZvAKavaLygIrVUykNeNF1wSVM6MXWXmIebQRZym+L55KYlEG+jAcqLdxTNBW5svz8xD
+         zBJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lNyVK/k1mar/iYVkspzTfesxQNPzJWx/H9gGft796ik=;
+        fh=hKjQtHoFhOTxPey2UtzlwOjja0NIwmTqv4nmrvoql2M=;
+        b=Y1Q+qybcMqjrbtF1BlPv7FVyS31nKQ4IWcvOdHet+Yb/4wecgqcJzd0iXWUgPafMkL
+         FdEbdwXZ50e7I0EYRKZivTFdB+8cTGF6o4NdMM6Gw4p+4hevXeO5ZEuE0po8xAxG1s/8
+         wmlBCuHsfV2oz2BKNVSDlNZT+JB83jdhFyAvTIFFsBh39F5iJendk+/oK/9ivRIYhjkl
+         hkGJgN7a/wRGzqvBdF/DBcYQ/lBehAIyhQMxYn+L6pHC5G9WlOkKBkhLWsDPBRFofnnX
+         SkLcOCVehhTl5MWIJ+fTw3DpF66viRss0c3cP1f2AsrMy9kvG8IZ3lmhkD9O2uoo2RBE
+         yM4A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1774285291; x=1774890091; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lNyVK/k1mar/iYVkspzTfesxQNPzJWx/H9gGft796ik=;
+        b=i1Z5jt0qyz2jPmWELXCMC3ilN7ESdW3XObP2mpBzb5AUBsCW7T3ZO7MBSGtuHkOWZF
+         VjY41sEpNB94sQtKs3sq3JGotLNncBLFFnmGutjA/9ZbiVStmpPmgDaGVSCLlEvtwgvV
+         LdI5wZ4RPu1YlMyj1Q5AJzklrfBqxK1u16nRmUIOGCoV0wYlSYiIpxodswKEnIleLRJZ
+         rgsknIoORR1gJ6NvshdtUWW2xpnv4l4cQmW8Oo1clUuZzSE26bVUCi5J889l8fMfEzmC
+         wfj+EIVUsCeSVMXJZmaPCQGFqz4h7nJA8pRmE/EkHtmkICvsVmCc0ZvAHO27aZyLKYLN
+         J2Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774285291; x=1774890091;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=lNyVK/k1mar/iYVkspzTfesxQNPzJWx/H9gGft796ik=;
+        b=EZ9YKO7yPJNS0ZCwd+MMa6M6lNojRQ9oZBZRTijprS1HsY4eR/bCTJYs8q4jqFTT0G
+         qCXl+ovNB1EeSsBWQ9EYSUeH42V4Eo/c0rI9HmRZ5ZXZbCawKDkNkQWgNN/Nt1lXv2Qc
+         cQ0LMAkd8F1fsvLcnoFottO9nCVGoaQ3VybciDu/g5cpdCQ24GgI7otJPXZim1AtQ+vr
+         32f47QKVr+M5J+vyE2FYEoFSRMMvaQkne/2lQDIzH1lhyQWSi0k+xlJYlBhBiaN+pV9Q
+         dRinZ1YiJmnfghE+l1iRo/C45uUou+798uzvR2AJpSNwqcoVTOnAgp5Da45R+r8tYFn+
+         VrrQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXO5U+5RuIF9nDzfTKG+8Vdc/q4UVkI7efbkNvP06KoG64dnvnBQPQDXhQAG1J6he5GcukRM656n6/p@vger.kernel.org
+X-Gm-Message-State: AOJu0YzGhPdKDdBsKKwEzHwE0/7uR176hTRhfDHzZLrZQcl97kx0IPpp
+	mwzk/bupq9Ryyhb17knsdhfmzDaNr+53uJ+r5rVhMdqzPeaR1vmpRH8ThwWNUF/bjotXv1zUDpu
+	++cMIaMSMeJdx9LRiRmBN8HLHisD/UgA=
+X-Gm-Gg: ATEYQzxTAwDtAglJuqY9Lyd5Lb/h4xuCaUcaH7H06/sKU/kc0v4xIzqvXr9wTZF4TSJ
+	PoiXa8uXqhTVuIDn4mqutC2Tp9ht+/oW7PXwtNagoM/XGQ8TQuST7u7FbwYOZ22cZbBPy8LYsOW
+	3+EUrdVuBg4xvLsM5mHByXTsoO5CsH0ubvE2B1StslqzPFk6lT8EGRyXfOtHeGmqu85EtkxI2Rs
+	IckgGDPMrG6O3M9bvAk0nwwVMwF/+2WBhRt9PgBSGV5+3y3sWWIVxwJy1SrcnIloAAaBBFNsQNs
+	iFFLt3zuT2+xizPwBDXBzKqqHDOtOp6Q3reMOudr5nlQKeywtjIEP9ILefYY+GDBLy9xsgsIGkT
+	1YgsZTvUzzWdNrfmZ95Oth1kyWA==
+X-Received: by 2002:a2e:8a87:0:b0:387:799:17f8 with SMTP id
+ 38308e7fff4ca-38bf96682b9mr44321801fa.16.1774285290946; Mon, 23 Mar 2026
+ 10:01:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|DU4PR04MB10401:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1016c7f9-8879-4345-c0ac-08de88fd9210
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|366016|376014|7416014|52116014|38350700014|7053199007|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	GoejmQNfqswBXI/vbkBdmQSQmvoixD+J72nm1sn9fWELhH6n1BniTdqJ9Zk3xp2ElkfpGhLkAfY9eia5u0zy0obRF1y/b76QCqRN9iL95kDM69q49Qz7O3q9D4XMZvPDkAvkGqLfkQ2p+lyy3wLAdm/vkDQeoubH9ZQCdPUNxY0A/PK90CTWUq1f23HTjhaotJ+CLlX+/RzI8t4VNjO3vbaKOvuRPgumA3bpynDYtsQmB08VCqcmQ08aRzq5+Y+Ul9N6o6Z2gbXV7SpTcPmmvwAQqbmZSkOjnMD+TGI0TA64ijVv8shYy3JBzZgSW5KOs3qh+wrLRBeGk8CCAaNr2KF3AITmjZsNblFwPlSDdtC9AHQnMjGlU1Gw7YBvyN6eL0JGYK6CwICGOJyBHn7MExrwtFpHbzqtWLuxzz5raCZ+LPmB0weYejSNKeh8n6Mrt/RO5M07Tbmdxcs0256vybhB6dkO7tp5ZLKSA6OT9olBRcluFpBOxj6cLMINlwonzcwRwb46i54AA0927XPO+BnAZrbXAeL5zb3j1JwqVID9QJU1Y/dblkjexTdLYkG4wXKFokPolLw5xmngSpqQFjVa0Vikd+2xhlgNoA3Ldnzw+1ixzPLeIcElKZGGw2m9DHnaAA+lnWjHMofo11JvJ1OUj3ZPZFR+W1xqqVxErsGaygr5rfZWXb4XWCgf6ESbbxRFXJ3idT4Ozyp1haLZtuv38mFvlizhSifmFUMWcJeuMGzX+oDktOS6BTjyMoGE
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(376014)(7416014)(52116014)(38350700014)(7053199007)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?r64wDRKdeMvYLJ2e+W/4FbB6Q9E6G0dLKi/ImozpnAXsTljfMQ+Gyp14JZpV?=
- =?us-ascii?Q?sTBYCMa/xX76A718lq7rU7dMB2NfDutYviQ6EIrHXq3OoJVV/AVe5Ev0Ywxm?=
- =?us-ascii?Q?4/cJmvXoLWQym/XjqRRql84tMSecgJzCG6aOIHl7zbHC26lU926VREVfFiyv?=
- =?us-ascii?Q?dLCDWYYuambciFvpYA1sdJkVO3FG9G0RxGkxVkY+P55DGGuJroxlqrjbNKsE?=
- =?us-ascii?Q?ODcQJnVqfa414yDAyGLvevodhJmNbu8a31Y42MtT7IMrj1jXdfr3msb4a3yy?=
- =?us-ascii?Q?fQBJOWcuQdrBQSwT3QQzLigZ+HCt008c/qvagsG1itQElYjSO4xiwu9UvNAo?=
- =?us-ascii?Q?Vz4CvKwMEByy35FfKcFvmDuet3R/ekFA+ZsFXuFtw/EDw77kmdzCH+qLXd0n?=
- =?us-ascii?Q?IYwSp2nmC8wsJj1y3gBvpCAXXrxE7jFaKtKdP/SQ7bo0/Gcb81nu88zcaQwr?=
- =?us-ascii?Q?qtpa0NmATyJ/7ps7HhtgelK02n2RffY+lK9tuBc4NFtsMrrObcTJP1TKOrAH?=
- =?us-ascii?Q?P+2CqxL0dWoL6BFNJEs4eDTs2F4BC/gDWfenBaQm18kEuzZVgOS5O0R/rpkx?=
- =?us-ascii?Q?FP+egoTQCtVHeHNhn4SciLtnAdFSEr+FJM+1hZO6bt4UfOSZ0Qm7QGfSuded?=
- =?us-ascii?Q?qhVEkzKXkQH4pm80oninSl2+e3to3EVbs/WwuiYfSxeKsSyt+aD3COWI+CPC?=
- =?us-ascii?Q?gY5+wmQU/xrVRDTyw2BVyKIzi7TD5s7PvydT1O4wHAH4EmpD6GDsCfYy5x6d?=
- =?us-ascii?Q?t1zlId8V0yzxvzHVa+PEA+DNkCxJSIKUbDGcKLYYfwNRNWEtDdqH8n2TAtFw?=
- =?us-ascii?Q?VxN56kgc88QNx4ZM0/U5iH/4l61U5HY3pLt3PKudMsNuMHUdkmrWyGV93ZXB?=
- =?us-ascii?Q?VVSDieZlD/hxkatRcE70W3sSJZNMp0/dP/Pm8utiU8BIHER290eIddqPRX0i?=
- =?us-ascii?Q?96tYRYqYn6JffhGetnhaj3C/UPcv8oANNgZGinl0ThUBflL1tbOBtLXHexCE?=
- =?us-ascii?Q?npR/jpBZCQLZfVvXHbPMO6oHTCAC32+bdS2zFZG11vcMgoGJdzyFmItdKsR0?=
- =?us-ascii?Q?X6jy+Q7RUyPR3WtH5tsZBISE0//+tXh1lHdiGs0D4aI1YVehKjSMrOXJU7E0?=
- =?us-ascii?Q?yAbey91r5Idqzr7AwwJ0rfdD1RYBozUutDkcY5QUZG1MJEWdgsryUkvc3nzB?=
- =?us-ascii?Q?VkJa7FosC4JTgyetXOi8qcL5RF4wgrE9WYME/YAXgFy+UU7A5WvMBC8++Dxl?=
- =?us-ascii?Q?2Vq6ozBQqaFET1+Cd/Ly40jySWHozc/YrsRLsmBozFQ/ADBcymibcGCUgNt1?=
- =?us-ascii?Q?fBg1T/NlAqiDJg0rd1lAE+77UsCq9KlznKHo3wILvBSrMLbrv/CmxR8NFBJa?=
- =?us-ascii?Q?ncQBD2Jna7AgWUaX3HQ44JVtx9ECdJUTOBEl86BVI2JEYKVn8D4Pf2/8PNqf?=
- =?us-ascii?Q?Id5r0Qiyyq6nkwAdZLrK3jKQdj4+hp6moGR04tzqe9rUe0EErp1bIdE8Gi6A?=
- =?us-ascii?Q?6pLC8Pc8p3cQYAbb7m7Ayy/v4e6GHUNP2vqFTxXN+OL0Y7yvBP/HYTbIwDwI?=
- =?us-ascii?Q?7sa3j8z00c4kOYXcnGFKKhILOBmwpc7pGCNhPob3GLE28lQeNZGk9J3Pa026?=
- =?us-ascii?Q?G2I7VuKNFr5fZTtfd4WsE5eetd/1Caz5ekOAg+tocfuU940sQByT7MX/ygzd?=
- =?us-ascii?Q?sPp4InfmjR664jbflqLvDcmN+0bVHdwjVctMTpkMaouiOtND?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1016c7f9-8879-4345-c0ac-08de88fd9210
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 16:59:39.3672
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z+9//NeFhNkRzxO1d3GOGawSAwlR4zN9y8po/VYqYP0jw7Yg1GhKNZbuucRHFkEjxKtYc+6mXHTwCGjOEU+BRA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10401
+References: <20260220-ayn-vendor-v1-1-292cbbb682b3@gmail.com>
+ <20260221-proficient-eggplant-salmon-5544cd@quoll> <CALHNRZ8JT34J024TvG77LW2vN03q9te+xXmR0e7DMOz3GqouEQ@mail.gmail.com>
+ <7a96a82a-f856-4bee-b4d5-2d1e71b92f23@kernel.org> <CALHNRZ9zzY=KW-XGqvGy1znF5tx0vQRLafXjc=+8RjS90GCQ2g@mail.gmail.com>
+In-Reply-To: <CALHNRZ9zzY=KW-XGqvGy1znF5tx0vQRLafXjc=+8RjS90GCQ2g@mail.gmail.com>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Mon, 23 Mar 2026 12:01:18 -0500
+X-Gm-Features: AaiRm508j6GGTKEytP7WBsEhf-pMmAORn4CFJM4tt_FfMwLz4RlImemxzW9t26U
+Message-ID: <CALHNRZ8GWUE6j-Dv8R=ENe=Vrz7Ya==mvXREp2dXKKQHrxGw2g@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: vendor-prefixes: Add AYN Technologies
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Xilin Wu <wuxilin123@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Mar 23, 2026 at 10:46:12AM +0200, Eduard Bostina wrote:
-> Convert the Technologic Systems TS-4800 watchdog timer bindings
-> to DT schema.
+On Sat, Feb 21, 2026 at 11:22=E2=80=AFAM Aaron Kling <webgeek1234@gmail.com=
+> wrote:
 >
-> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
-> ---
-> Note:
-> * This patch is part of the GSoC2026 application process for device tree bindings conversions
-> * https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
+> On Sat, Feb 21, 2026 at 10:56=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel=
+.org> wrote:
+> >
+> > On 21/02/2026 17:31, Aaron Kling wrote:
+> > > On Sat, Feb 21, 2026 at 4:55=E2=80=AFAM Krzysztof Kozlowski <krzk@ker=
+nel.org> wrote:
+> > >>
+> > >> On Fri, Feb 20, 2026 at 04:11:11PM -0600, Aaron Kling wrote:
+> > >>> From: Xilin Wu <wuxilin123@gmail.com>
+> > >>>
+> > >>> Add an entry for AYN Technologies (https://www.ayntec.com/)
+> > >>>
+> > >>> Signed-off-by: Xilin Wu <wuxilin123@gmail.com>
+> > >>> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > >>> ---
+> > >>> This was originally submitted as part of the original Odin 2 submis=
+sion
+> > >>> [0], but that series stalled, so submitting this separately. The pr=
+efix
+> > >>> was renamed to ayntec as per the review comment on that patch.
+> > >>
+> > >> And why do we want it without the rest? Answering: we don't want unu=
+sed
+> > >> binding and nothing in the commit msg explains other options.
+> > >
+> > > You have told me repeatedly to not do monolithic series that cross
+> > > subsystems. So I am working through support for the AYN qcs8550
+> >
+> > So why is this patch not with the rest for the same subsystem?
+> >
+> > > devices and splitting that into a bunch of different series. Several
+> > > of those independently reference this vendor prefix and may progress
+> >
+> > Which one? I see only one in the patchset pointed by [0]. I really do
+> > not understand why you are doing it completely different than every
+> > other upstreaming which you can find on lore.
 >
->  .../watchdog/technologic,ts4800-wdt.yaml      | 46 +++++++++++++++++++
->  .../bindings/watchdog/ts4800-wdt.txt          | 25 ----------
->  2 files changed, 46 insertions(+), 25 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/watchdog/technologic,ts4800-wdt.yaml
->  delete mode 100644 Documentation/devicetree/bindings/watchdog/ts4800-wdt.txt
+> I literally just said they're not ready yet and that I was trying to
+> get ahead of them with this. There's almost a dozen new drivers,
+> several using this prefix, that have to be submitted before the device
+> trees can be submitted. But fine. I'll just pre-req this to whichever
+> sets of drivers I get ready to submit first.
 >
-> diff --git a/Documentation/devicetree/bindings/watchdog/technologic,ts4800-wdt.yaml b/Documentation/devicetree/bindings/watchdog/technologic,ts4800-wdt.yaml
-> new file mode 100644
-> index 000000000..cb2066b4b
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/watchdog/technologic,ts4800-wdt.yaml
-> @@ -0,0 +1,46 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/watchdog/technologic,ts4800-wdt.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Technologic Systems TS-4800 Watchdog
-> +
-> +maintainers:
-> +  - Eduard Bostina <egbostina@gmail.com>
-> +
-> +allOf:
-> +  - $ref: watchdog.yaml#
+> > > in any order, so this needs submitted separately. I am submitting it
+> > > early to try to get it in before the rest are ready, so I don't have
+> > > to list this as a dependency to all of them.
 
-Move allOf after required incase add if-else branch later.
+This patch has been superseded by [0], as required by [1].
 
-> +
-> +properties:
-> +  compatible:
-> +    const: technologic,ts4800-wdt
-> +
-> +  syscon:
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    items:
-> +      - items:
-> +          - description: Phandle to the FPGA's syscon
-> +          - description: Offset to the watchdog register
-> +    description: Phandle / integers array that points to the syscon node which
-> +      describes the FPGA's syscon registers.
-> +
-> +required:
-> +  - compatible
-> +  - syscon
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    syscon: syscon@b0010000 {
-> +      compatible = "syscon", "simple-mfd";
-> +      reg = <0xb0010000 0x3d>;
-> +      reg-io-width = <2>;
-> +
+Aaron
 
-Needn't this part. just keep below watchdog node should be enough.
-
-Frank
-
-> +      watchdog {
-> +        compatible = "technologic,ts4800-wdt";
-> +        syscon = <&syscon 0xe>;
-> +        timeout-sec = <10>;
-> +      };
-> +    };
-> diff --git a/Documentation/devicetree/bindings/watchdog/ts4800-wdt.txt b/Documentation/devicetree/bindings/watchdog/ts4800-wdt.txt
-> deleted file mode 100644
-> index 8f6caad42..000000000
-> --- a/Documentation/devicetree/bindings/watchdog/ts4800-wdt.txt
-> +++ /dev/null
-> @@ -1,25 +0,0 @@
-> -Technologic Systems Watchdog
-> -
-> -Required properties:
-> -- compatible: must be "technologic,ts4800-wdt"
-> -- syscon: phandle / integer array that points to the syscon node which
-> -          describes the FPGA's syscon registers.
-> -          - phandle to FPGA's syscon
-> -          - offset to the watchdog register
-> -
-> -Optional property:
-> -- timeout-sec: contains the watchdog timeout in seconds.
-> -
-> -Example:
-> -
-> -syscon: syscon@b0010000 {
-> -	compatible = "syscon", "simple-mfd";
-> -	reg = <0xb0010000 0x3d>;
-> -	reg-io-width = <2>;
-> -
-> -	wdt@e {
-> -		compatible = "technologic,ts4800-wdt";
-> -		syscon = <&syscon 0xe>;
-> -		timeout-sec = <10>;
-> -	};
-> -}
-> --
-> 2.53.0
->
+[0] https://lore.kernel.org/linux-arm-msm/20260323-ayn-qcs8550-v4-0-33a8ac3=
+d53fa@gmail.com/
+[1] https://lore.kernel.org/linux-arm-msm/c7fb3f89-6574-4761-9ef2-2fdf6d480=
+1b5@kernel.org
