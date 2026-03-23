@@ -1,212 +1,213 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33FA3BE62A;
-	Mon, 23 Mar 2026 16:04:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C403B27E0
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 16:06:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774281857; cv=none; b=kmyJCSQn6hQKp2bku5lAjAofF8QK9roygFVjGE1NbI3Com1II5ZO0hF3kZ9k2uGjUs8atYhhwRCkkYDMpMzr6wu8CYcIKAG/YYSvA02ppiwhhLfSt9Ch2g/7JZeg0yMAP66N+ytBf6+ZVkJySqw9Inm0KThgJTlALwB8xNOq5xU=
+	t=1774281990; cv=none; b=nSi/SNzHlijHla6V35MVJw+Ro3hIOGA+dOkqvLyZQVbpwOQ6au+L3KhZ28OpVWUxkDhNlD/A2+cDyo4IAsHla/GWdV02NFrlhOqaIPb9qF2wfZtDERfxpj/Gg8VvwI3+s86xFleDhjn6WO6uCyGg0EzLBT59ROS+NPzK1IADCX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774281857; c=relaxed/simple;
-	bh=DXyUYdfAms0oBEZCl+nVQo4RMJB3PO2qlaqMDTHS4w0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WH8x9FoHGwi13eao6Lvp2ETlQcgYG4+R8Ks+uCShDAtlhtxv8YUvZmk0Z0JW+4YI916jACYZMLUKyXpE2hUUpeB35dfHLAYhyv0rSMdiN+STnyQhGKgtG5E6kYHlLefy9kFTGMXaro1GKt5C/YikErl/dPvCrcG0buA0aZvwbxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cet5woGL; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774281990; c=relaxed/simple;
+	bh=Z/LmWnslyMEA8KuS1V4Xy1sI8gOsop003nSeTpsLEAs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VW90ObsGTzZGlhSKyrgNVAQselUi88BlCj3ofEV+Ctmpr2/KUeJXC0cfEJGl1Hh57QAfQS2OjzbQAD3KYexnsmYVd0ZpyMp3AjFhOsN/4VUJpBhQTPYU/xQQty9HSAa6PdjyIJXQmq/6C/5jfWGryTTiR0EZqJjGbgf57Nlf1iU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UkHyyJVk; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cet5woGL"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 915D3C2BCB5;
-	Mon, 23 Mar 2026 16:04:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774281856;
-	bh=DXyUYdfAms0oBEZCl+nVQo4RMJB3PO2qlaqMDTHS4w0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Cet5woGL+COUNIrZkIAzOuyR9nVEGlgBvsbHnJTR0KZWYjQVR4co6p54o/j8gaLln
-	 lWl3RFnQUWyM3YnrkypPoYSArfwJJffsoZgYWmWBT4MbnJ5LYszJz1m8QZw+hhVMju
-	 DyZw50OCXSwAClbhecRaFX/sQs3Edlk2BWHMbXV1iGyNC+ps7HIuJtdSeTDyM6wd4c
-	 r1Whd4H2Dy8tnoPUQkc5zUlOv8fcEmfwa4fyB2iFFq1SMXjkIf7iwNpnRNUDtwoGiq
-	 PbssJ/InzVnG6bqKJEY5MYP5Hge9FL/44uKtfY4t4jpxa37/3J5jgh4j4YqCsTcRM5
-	 +OekkgWN7tw0w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 83E21F483C3;
-	Mon, 23 Mar 2026 16:04:16 +0000 (UTC)
-From: Dimitri Fedrau via B4 Relay <devnull+dimitri.fedrau.liebherr.com@kernel.org>
-Date: Mon, 23 Mar 2026 17:04:07 +0100
-Subject: [PATCH v3 2/2] power: supply: gpio-charger: add support for
- fast-charge timer
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UkHyyJVk"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-486fc4725f0so36956035e9.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 09:06:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1774281985; x=1774886785; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=iZ+8+0X30kHk32CK+85EMrU3OFRM220+pzBDKFOaV7I=;
+        b=UkHyyJVkpURCccfu4FgMmG+38Vo9SZf7KCxtdSbAfvboG4SzQAkCPb9dr3PrYINV1o
+         zFH256SA8yYsZ6lD+Pq/nOCsvETvekJq3/WonN68fHaQYjomZ931ZwibpWlh4kPMy0uZ
+         WTPVULbC2/mX8IsumKPD90dQchmq+LIWFnX7W4y30/HHKwKLsKUJcIDqX8BiCDilhbWA
+         k7Tmtp22BeQ1CI05HR8D3sG/4VDQKAcVo+BpgLKDunJSn5cjAicCnBItOQOJPxzfPJHS
+         c7Rrk761SDhBKouRNpRHWoWIjhuSZ/nm28Cq/Hel5RvsY57oy1lvRgq0C72drLLAuDD0
+         seow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774281985; x=1774886785;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=iZ+8+0X30kHk32CK+85EMrU3OFRM220+pzBDKFOaV7I=;
+        b=bok9f9nCgzAcE1FVd1wGejfM4kSSazPQevydXn/Ordn5L1dn0tkGHNWnQhB20WxDeC
+         XNDA3In38WP0gZ3ORoBkEy/1xseZX/zcP582fGCMI9fAJ6eVl2Kw9lOfVD+LmeCXnH+t
+         4gqSvmbC9inX0JOcoU8YvS5IsH9dg10ZftvPDh8v95H1/30334I9AIoYPbt4Unr4Mrfv
+         QdLwgV3KEmTrXe9wo6XMzmUuyapDJy7ntsjki4l3DwieZ40BqRemuL6MezEjIswO2wrp
+         iIeuNf0JAMu9XUIlbCjKkuiWbp4tN/y/VUGff35OLfjKQT6i8ZuFDXM+JR0u0pCn65FG
+         vv8Q==
+X-Forwarded-Encrypted: i=1; AJvYcCV5fCgbhcP3I8DptjlzuuyYXlq2K/V6A/Od2fgeVPfXTbAsz3xEK0/aa68JiNmxytU9WNHjJKxsFJ0S@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqJkEWd69H0yel5KgajUEr2RfUV0mVkRy1mVfQziv/hEkyRNJl
+	xquVW3TYod+USNuv4jMg5CS0gZJKsAK/I33TJnaPGYJVZ/TJp1wVSTbX
+X-Gm-Gg: ATEYQzw+lMh8JhBuKGfzY1hdUDoRcrPzp173aC0pJW5DFPh7xxHJ4WlDo0jh2+hLnpM
+	M3ygQjbMKtmB6+MN6+5wk0DKWT48EF8pgF9p/Ez0yleK9qBHo7gHZU8+kUXNFo1/HJiC1EfV69N
+	gFD/DRzcrsE9bE18b3M+IMB2wu9QqPQziZB0XOdl75MPA3XMAH+jR1AQKTc13aDaUCBWTGQIZ+I
+	Yo24Hmusr5PY/Odaep+Z5vQvWLXUI6jBEusdP6lLgPY/MTsTlugQI7i87TivubH1Sa0DuGIGegS
+	TIaGBPCUu399z7tFiN9ZR3hK+5pL+4ZitG447UC0EZ9Xvq5cAdTWi6RrqNHggrdwRPmsyKEJnka
+	tQAJd6OC4A9qy072alqb9JcNfFRm4+pOrskStSfqntjCnhVWHbEZGzypByfX9cJzZk/C5qZutDl
+	nYHDhuar+RzE7kD2OWzLiTslHC9xlvQJuyfEP7sM0NoQ==
+X-Received: by 2002:a05:600c:6096:b0:47e:e59c:67c5 with SMTP id 5b1f17b1804b1-4870f1fc5e2mr1845745e9.8.1774281985360;
+        Mon, 23 Mar 2026 09:06:25 -0700 (PDT)
+Received: from [192.168.1.187] ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-486fe6d923fsm469841175e9.1.2026.03.23.09.06.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Mar 2026 09:06:25 -0700 (PDT)
+Message-ID: <ff6a81b9fdefa6b6156f1af39943312d6a445145.camel@gmail.com>
+Subject: Re: [PATCH v7 1/3] dt-bindings: hwmon: Document the LTC4283 Swap
+ Controller
+From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>, nuno.sa@analog.com
+Cc: linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, Rob Herring
+	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	 <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+	 <skhan@linuxfoundation.org>, Linus Walleij <linusw@kernel.org>, Bartosz
+ Golaszewski <brgl@kernel.org>
+Date: Mon, 23 Mar 2026 16:07:11 +0000
+In-Reply-To: <821aafb4-d1a8-4611-addc-5bff4f1e187e@roeck-us.net>
+References: <20260314-ltc4283-support-v7-0-1cda48e93802@analog.com>
+	 <20260314-ltc4283-support-v7-1-1cda48e93802@analog.com>
+	 <c395fad0-ca24-448a-a77f-ddac1cd9f809@roeck-us.net>
+	 <77cd7e879a10df791d9d5eb1f16f1654e9904199.camel@gmail.com>
+	 <453dbd6c-c68d-4977-8418-a898008b0fe7@roeck-us.net>
+	 <63baaa6ea6ce7a8534046fea3d9f14fdb26f87a3.camel@gmail.com>
+	 <821aafb4-d1a8-4611-addc-5bff4f1e187e@roeck-us.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260323-gpio-charger-timer-v3-2-885796d681a5@liebherr.com>
-References: <20260323-gpio-charger-timer-v3-0-885796d681a5@liebherr.com>
-In-Reply-To: <20260323-gpio-charger-timer-v3-0-885796d681a5@liebherr.com>
-To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Dimitri Fedrau <dimitri.fedrau@liebherr.com>, 
- Dimitri Fedrau <dima.fedrau@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774281855; l=5009;
- i=dimitri.fedrau@liebherr.com; s=20241202; h=from:subject:message-id;
- bh=sgtWDyyuZOzl/ITkNr7NiW/b4yVbW9a70XFWcPAqKSc=;
- b=khD+6O5ZJXoDwSEK8kj9wRmS78UwMjnhg11By7S+c8YAjiZAWVzqQXBFviSKR3N9XtCjAsfXk
- Wz3DIG5x82+BP0chcR1TF47YU3QgPrVanpCXqGpgg3lYJ8kjWsVMJlY
-X-Developer-Key: i=dimitri.fedrau@liebherr.com; a=ed25519;
- pk=rT653x09JSQvotxIqQl4/XiI4AOiBZrdOGvxDUbb5m8=
-X-Endpoint-Received: by B4 Relay for dimitri.fedrau@liebherr.com/20241202
- with auth_id=290
-X-Original-From: Dimitri Fedrau <dimitri.fedrau@liebherr.com>
-Reply-To: dimitri.fedrau@liebherr.com
 
-From: Dimitri Fedrau <dimitri.fedrau@liebherr.com>
+On Mon, 2026-03-23 at 08:27 -0700, Guenter Roeck wrote:
+> On 3/23/26 08:17, Nuno S=C3=A1 wrote:
+> > On Mon, 2026-03-23 at 07:33 -0700, Guenter Roeck wrote:
+> > > [ ...]
+> > > > > > +=C2=A0 adi,pgio1-func:
+> > > > > > +=C2=A0=C2=A0=C2=A0 description: Configures the function of the=
+ PGIO1 pin.
+> > > > > > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/stri=
+ng
+> > > > > > +=C2=A0=C2=A0=C2=A0 enum: [inverted_power_good, power_good, gpi=
+o]
+> > > > > > +=C2=A0=C2=A0=C2=A0 default: inverted_power_good
+> > > > > > +
+> > > > > > +=C2=A0 adi,pgio2-func:
+> > > > > > +=C2=A0=C2=A0=C2=A0 description: Configures the function of the=
+ PGIO2 pin.
+> > > > > > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/stri=
+ng
+> > > > > > +=C2=A0=C2=A0=C2=A0 enum: [inverted_power_good, power_good, gpi=
+o, active_current_limiting]
+> > > > > > +=C2=A0=C2=A0=C2=A0 default: inverted_power_good
+> > > > > > +
+> > > > > > +=C2=A0 adi,pgio3-func:
+> > > > > > +=C2=A0=C2=A0=C2=A0 description: Configures the function of the=
+ PGIO3 pin.
+> > > > > > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/stri=
+ng
+> > > > > > +=C2=A0=C2=A0=C2=A0 enum: [inverted_power_good_input, power_goo=
+d_input, gpio]
+> > > > > > +=C2=A0=C2=A0=C2=A0 default: inverted_power_good_input
+> > > > > > +
+> > > > > > +=C2=A0 adi,pgio4-func:
+> > > > > > +=C2=A0=C2=A0=C2=A0 description: Configures the function of the=
+ PGIO4 pin.
+> > > > > > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/stri=
+ng
+> > > > > > +=C2=A0=C2=A0=C2=A0 enum: [inverted_external_fault, external_fa=
+ult, gpio]
+> > > > > > +=C2=A0=C2=A0=C2=A0 default: inverted_external_fault
+> > > > > > +
+> > > > > > +=C2=A0 adi,gpio-on-adio1:
+> > > > > > +=C2=A0=C2=A0=C2=A0 description: If set, the ADIO1 pin is used =
+as a GPIO.
+> > > > > > +=C2=A0=C2=A0=C2=A0 type: boolean
+> > > > > > +
+> > > > > > +=C2=A0 adi,gpio-on-adio2:
+> > > > > > +=C2=A0=C2=A0=C2=A0 description: If set, the ADIO2 pin is used =
+as a GPIO.
+> > > > > > +=C2=A0=C2=A0=C2=A0 type: boolean
+> > > > > > +
+> > > > > > +=C2=A0 adi,gpio-on-adio3:
+> > > > > > +=C2=A0=C2=A0=C2=A0 description: If set, the ADIO3 pin is used =
+as a GPIO.
+> > > > > > +=C2=A0=C2=A0=C2=A0 type: boolean
+> > > > > > +
+> > > > > > +=C2=A0 adi,gpio-on-adio4:
+> > > > > > +=C2=A0=C2=A0=C2=A0 description: If set, the ADIO4 pin is used =
+as a GPIO.
+> > > > > > +=C2=A0=C2=A0=C2=A0 type: boolean
+> > > > >=20
+> > > > > Does this dependency block force a redundant specification of adi=
+,pgio4-func?
+> > > > > The default for adi,pgio4-func is inverted_external_fault, which =
+means the
+> > > > > default hardware state already supports external fault features.
+> > > > > If a device tree legitimately omits adi,pgio4-func to rely on tha=
+t default,
+> > > > > will it fail schema validation here since the dependencies keywor=
+d strictly
+> > > > > checks for the literal presence of properties without injecting d=
+efaults?
+> > > >=20
+> > > > Fair point. I guess it will fail but the alternative is to not have=
+ any constrain at all so
+> > > > maybe worth it to be explicit in here?
+> > > >=20
+> > >=20
+> > > I don't claim to understand how to define devicetree properties, but
+> > >=20
+> > > adi,pgio4-func =3D <"gpio">
+> > >=20
+> > > and
+> > >=20
+> > > adi,gpio-on-adio4;
+> > >=20
+> > > seem to be equivalent to me, and omitting the first property (because
+> >=20
+> > Not exactly. ADIO4 and PGIO4 are different pins and can be both configu=
+red
+> > as GPIOs. ADIO is a boolean because they are either monitored by the AD=
+C (default)
+> > or configured as GPIOs. PGIOs can have additional configurations and he=
+nce the
+> > enum.
+> >=20
+>=20
+> Ah, I didn't realize the small "A" vs. "G" difference (and apparently
+> I don't understand what the AI is complaining about ;-). Sorry for the no=
+ise.
+>=20
 
-On some devices like TIs BQ24081 battery charger it is possible to activate
-or deactivate a fast-charge timer that provides a backup safety for charge
-termination. In case of the BQ24081 it is a fixed 7-hour timer. Add support
-for enabling/disabling the fast-charge timer via GPIO.
+My understanding about the AI complain is the below dependencies:
 
-Signed-off-by: Dimitri Fedrau <dimitri.fedrau@liebherr.com>
----
- .../ABI/testing/sysfs-class-power-gpio-charger     | 14 ++++++
- drivers/power/supply/gpio-charger.c                | 56 +++++++++++++++++++++-
- 2 files changed, 69 insertions(+), 1 deletion(-)
++  adi,external-fault-retry-enable:
++    - adi,pgio4-func
++  adi,external-fault-fet-off-enable:
++    - adi,pgio4-func
 
-diff --git a/Documentation/ABI/testing/sysfs-class-power-gpio-charger b/Documentation/ABI/testing/sysfs-class-power-gpio-charger
-new file mode 100644
-index 0000000000000000000000000000000000000000..4a14d1d1bee3b96b6c77865e693c892d9bc3e5d6
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-class-power-gpio-charger
-@@ -0,0 +1,14 @@
-+What:		/sys/class/power_supply/<supply_name>/fast_charge_timer
-+Date:		March 2026
-+KernelVersion:	7.1.0
-+Contact:	Dimitri Fedrau <dimitri.fedrau@liebherr.com>
-+Description:
-+		This entry enables or disables the timer in fast-charge mode.
-+		When enabled the timer is started with a fixed timeout. After
-+		timing out, charging is disabled. This provides a backup safety
-+		for charge termination. Disabling the timer doesn't have any
-+		impact on charge termination.
-+
-+		Access: Write
-+
-+		Valid values: 0 (disabled) or 1 (enabled)
-diff --git a/drivers/power/supply/gpio-charger.c b/drivers/power/supply/gpio-charger.c
-index 2504190eba82e69b79382320e67de6b8f3dedc77..8b67118be38ffd974a67f8bee3b47973903196c5 100644
---- a/drivers/power/supply/gpio-charger.c
-+++ b/drivers/power/supply/gpio-charger.c
-@@ -32,6 +32,7 @@ struct gpio_charger {
- 	struct power_supply_desc charger_desc;
- 	struct gpio_desc *gpiod;
- 	struct gpio_desc *charge_status;
-+	struct gpio_desc *timer;
- 
- 	struct gpio_descs *current_limit_gpios;
- 	struct gpio_mapping *current_limit_map;
-@@ -39,6 +40,18 @@ struct gpio_charger {
- 	u32 charge_current_limit;
- };
- 
-+struct gpio_charger_data {
-+	bool has_fast_charge_timer;
-+};
-+
-+static const struct gpio_charger_data gpio_charger_data = {
-+	.has_fast_charge_timer = false,
-+};
-+
-+static const struct gpio_charger_data bq24081_data = {
-+	.has_fast_charge_timer = true,
-+};
-+
- static irqreturn_t gpio_charger_irq(int irq, void *devid)
- {
- 	struct power_supply *charger = devid;
-@@ -259,6 +272,36 @@ static int init_charge_current_limit(struct device *dev,
- 	return 0;
- }
- 
-+static ssize_t fast_charge_timer_store(struct device *dev,
-+				       struct device_attribute *attr,
-+				       const char *buf, size_t count)
-+{
-+	struct power_supply *psy = dev_get_drvdata(dev);
-+	struct gpio_charger *gpio_charger = power_supply_get_drvdata(psy);
-+	int ret;
-+	bool en;
-+
-+	if (kstrtobool(buf, &en))
-+		return -EINVAL;
-+
-+	if (!gpio_charger->timer)
-+		return -ENODEV;
-+
-+	ret = gpiod_set_value_cansleep(gpio_charger->timer, en);
-+	if (ret)
-+		return ret;
-+
-+	return count;
-+}
-+
-+static DEVICE_ATTR_WO(fast_charge_timer);
-+
-+static struct attribute *gpio_charger_attrs[] = {
-+	&dev_attr_fast_charge_timer.attr,
-+	NULL
-+};
-+ATTRIBUTE_GROUPS(gpio_charger);
-+
- /*
-  * The entries will be overwritten by driver's probe routine depending
-  * on the available features. This list ensures, that the array is big
-@@ -274,6 +317,7 @@ static int gpio_charger_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	const struct gpio_charger_platform_data *pdata = dev->platform_data;
-+	const struct gpio_charger_data *data = device_get_match_data(dev);
- 	struct power_supply_config psy_cfg = {};
- 	struct gpio_charger *gpio_charger;
- 	struct power_supply_desc *charger_desc;
-@@ -308,6 +352,13 @@ static int gpio_charger_probe(struct platform_device *pdev)
- 		num_props++;
- 	}
- 
-+	gpio_charger->timer = devm_gpiod_get_optional(dev, "fast-charge-timer",
-+						      GPIOD_OUT_HIGH);
-+	if (IS_ERR(gpio_charger->timer)) {
-+		return dev_err_probe(dev, PTR_ERR(gpio_charger->timer),
-+				     "error getting fast-charge timer GPIO descriptor\n");
-+	}
-+
- 	charge_status = devm_gpiod_get_optional(dev, "charge-status", GPIOD_IN);
- 	if (IS_ERR(charge_status))
- 		return PTR_ERR(charge_status);
-@@ -336,6 +387,8 @@ static int gpio_charger_probe(struct platform_device *pdev)
- 
- 	psy_cfg.fwnode = dev_fwnode(dev);
- 	psy_cfg.drv_data = gpio_charger;
-+	if (data->has_fast_charge_timer)
-+		psy_cfg.attr_grp = gpio_charger_groups;
- 
- 	if (pdata) {
- 		charger_desc->name = pdata->name;
-@@ -402,7 +455,8 @@ static SIMPLE_DEV_PM_OPS(gpio_charger_pm_ops,
- 		gpio_charger_suspend, gpio_charger_resume);
- 
- static const struct of_device_id gpio_charger_match[] = {
--	{ .compatible = "gpio-charger" },
-+	{ .compatible = "gpio-charger", .data = &gpio_charger_data, },
-+	{ .compatible = "ti,bq24081", .data = &bq24081_data, },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, gpio_charger_match);
+The default value (omitting the property) is a valid case to use any of the=
+ above two
+flags but with the above, omitting the property and adding the flag should =
+result in
+an error when validating the binding (because of the dependency). That is w=
+hy I replied
+with
 
--- 
-2.39.5
+"Fair point. I guess it will fail but the alternative is to not have any co=
+nstrain at all so
+maybe worth it to be explicit in here?"
 
+
+- Nuno S=C3=A1
 
