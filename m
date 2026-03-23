@@ -1,66 +1,87 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A69E38F65F
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:41:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECEAA390207
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:41:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774262467; cv=none; b=hRVJMhwdmrBTZIJk3Fbo+pi0rhDtI+peelhXGsOnd/vUQMYtKj6uPOujYOxlpR+Ls33SoXQeEz1eyI3iEKQyceP0xp0euA7evy8dBJoptL+dsO35NDS5piIM3dBSiBOu9Hl6fgiqT/pVFuVXh9hlVTYlOq283pPsJEZmbXzyDi8=
+	t=1774262476; cv=none; b=JUW6i6WZGK5mmqDxAgREWg0FgqFC/Ax4t79gshhwLh35AbRQlZN+ec1FVnqVC2Qhua83ZkWJemIBEWgnn0TIrhFQpT9nobbUrZp7F+cHOC/N+dKwpm8N4IT2W21RN447I9DlDd69Gg455eng6Gg/0KztNJs+RS75rYxreCIw7eo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774262467; c=relaxed/simple;
-	bh=PDMsEi6zYxrhKfGSBv+ElUdaA5Bg8Cf2Ujaxsk1ppW0=;
+	s=arc-20240116; t=1774262476; c=relaxed/simple;
+	bh=7oMdsqXRGNvaicdqOHAsaU4zBGqBAOxTdGO3h9kw9xo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fQeuw1uZQcEi4Fl5+yHmStJcusDeIbD0dD+oRDGSnYVSStFc2xRPUjmhrJ0rSRlAJp75/K/mVIh25jbgHPmz/QCh9DajYPS36RWfdZ2gph/vhMJ1Bdezojv1yp40KwLkGuifiRhnYLlM1aoUxZXF9irZs+aJiOsuM4WzmKpLpbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=j2MOUC4d; arc=none smtp.client-ip=209.85.218.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
+	 In-Reply-To:Content-Type; b=u+bNXxCKmQZgYJZtpSeTbLeGhJ79dUWUMt4HYkqWDasXTaZDFcQa7HNSOReTnrolTCLmDCibN68dXtf+i+yMA7nwsPTtr0TtoNlRtdyvaJ725t/0xqnP1ANEm50pM5f1qDc8GMErwPkuWcj3D5VOGDG0D2OScWtWwnodmhsQr0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nOxh1LSJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Jhh5+AXP; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="j2MOUC4d"
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-b8f9568e074so21684666b.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 03:41:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nOxh1LSJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Jhh5+AXP"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N83oHj1364146
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:41:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	q8LBTPEg6h1Y7za/pguHJmr2p6xBplPTOo6n03VNRxw=; b=nOxh1LSJ7nWE1wpR
+	enNoFVHVoobdSDgDMt2Kb+JRKU91/XKmOiq7aqpx4aYklieqZ2InjPy6rPTE7uWE
+	5Rsatz9wmJpjLKY7RuPODp0UO3mgV09Otmo2rpgDpYbbfQ3ql/mjDupjbjrQat6Q
+	yM2FaFGxfBM16BmF8921O/rUAzwlqmLPJyLog0XtsIrDxb21Z9d/aROJEP5jgSFs
+	GDko+xp1LXz4mWNeRuchVY/f9x3goL7NoiNhTGD9bVX2aOkeeginI//5X4kV+VE+
+	gi4W0vyfskPCahoPDIb5wgFxaQQHNsPQdhdYa6wqijC8D+ZeqGKD+kz4KqrSs93n
+	jjLNLA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d31p78kdc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:41:14 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-8cfd003bfe2so191941585a.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 03:41:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1774262463; x=1774867263; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1774262473; x=1774867273; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ab56nxYJ6oFO4EIr5BBI/ZlXkH/IEQRPiOy/1Ule1ME=;
-        b=j2MOUC4dch7nL8i6ddNaFSwPMknW2eOr891/KuzTrEzyOCDwj/HDy4L6aia1n8Bk5H
-         IkjZLHGIIoofCn+I+INXba4JhAAPPFw/w4BZktAi1EJnY2b2/CW2o2OzFHJddonZpvvk
-         tabWci9t48eLyWc5e3Hzwpdye3OIlGROptDtL09ZhT54OHQj2QnMfOzDIi0vGPPXsA6b
-         HTSmGFBsPlxkZeisBBfJ+y/s70/7Tb9h8EqTqPBfK3T98uB+BYeX1nsLhkm+FKCHiobL
-         00WMdgCgMjHi0fa0mj+14M+9YP/gae9igq9XBr9/abOffblv9oiRfq12KBRJWHe/Ku38
-         8Kqw==
+        bh=q8LBTPEg6h1Y7za/pguHJmr2p6xBplPTOo6n03VNRxw=;
+        b=Jhh5+AXPKfPcKp/WvVPHeX8FsRt55COVTCagbCAuJxi4+y9udeof6VMpZjQBSHcMTk
+         ZBEJrr8Cl6Y/UFfFm3vWjxd+BzJFGF4mWM2XXAJImcrAnVALy7DKd9cSI7Uzqv9Rc3eV
+         7HqQxtgOSAQAw6TnOQnzfUbdYiqk3YR3COC1QUddCKz3OuP/m9sbzn6EPW8AB96GLajO
+         s7ylnLzu4VsL7SFf0nyinYgMKH3yA876GkTzg7v35DS/9FdLMUvw8x3okc1YCjYj2obQ
+         RHeGgu/CLibmSZv3iz5V7zyEp2oemDlHNg5P//wIB4XbTQea6Lr+PT8uKshGmlgeKFdW
+         1KDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774262463; x=1774867263;
+        d=1e100.net; s=20251104; t=1774262473; x=1774867273;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ab56nxYJ6oFO4EIr5BBI/ZlXkH/IEQRPiOy/1Ule1ME=;
-        b=aNVv7XuWfWV9bwBSiMBBjNsXatMC/peFyApby0u0pqd0RycXKvVFaqZtIbXNxXqpyq
-         CTHugPtEbFikP1xVMMFkvIIcUxQ3f/NqVy5enGMgCe8iB9sUZa+hOHXYq1beAy1mFd3V
-         eWJKOV1JgmOzR55S8ZnoxXhXjW4H4tvQsCBVBwlFCms0HHMkwZ8Tdsn5Va5OXgzlNko5
-         TmLTw1zytLFXpKRIHDpWUou7KU1pgzyrqoeX6xycrZjFXyP0AvU7JD7nZk3c8vkBGbcK
-         Ez8VEgAR25kqZp+EX/wwcg2ixAWqM91pXOCFKmbnxpwIXDKOfUi2io3433fAvGBOT3FJ
-         0NXg==
-X-Forwarded-Encrypted: i=1; AJvYcCU0s4AlZfQgw/ilMTJqkBFEtYC4JKiBICY8f+VtkKtSH+CL4lI44ka4cKwrVaYfEEOcIwOn7RoeOofd@vger.kernel.org
-X-Gm-Message-State: AOJu0YyTadkX3MTq0sKdYOdlUP3q3q2GHQ1sfMN4C6vDbkdid8f6AEI6
-	0YWHXgeetAM3zfopQgEaIo4VL3A4Mk605BMaKFzshxNDJHrmjsqtVUNbantcpwViV0w=
-X-Gm-Gg: ATEYQzx1dxsKlxy6/xvHt6KAgoIHfcXDWTBTyFTXRoushiv4Xw9VbVt7cRFbMeQlBv/
-	Auisc4OTE5cYAS+5F4nta2Y1naFWEnY4jVivrFGNyZ38GoLqSD6zY6oRXvoE7lPyNnXyN7QtW68
-	QjixdqJNWkT1wvad/FtWMpQL6LefkAnM7mLQGIVdeKycQnc+FQaj67/r+q94kixaH2cj/hm1el8
-	cijq48UY8WmLhAk8NRJZ+KLyrV+FPTVrMD5eTxvgp3CD1/eMG1mHMoIYIgyMQiQ1XP2uSZotBtL
-	BaXsmqZFrlUwncJ1qHHN6WUyNzJuuaEURVwe3aqmpO7dKEZDzQOP52IU+RkHW02P54Zbvo2BPcT
-	SSoxkqyeoMNvQO0HoaZefdpJSaW0GuQdhfv1VSy5WssHC2zlR0g0Ov9c5ezNyOHqAgD+b/Kyf+N
-	0jbXVP9nxDQ+DC/AYbMxP4WFwB4qYY4wI=
-X-Received: by 2002:a17:907:7fa3:b0:b98:4799:e6de with SMTP id a640c23a62f3a-b984799e8afmr633936266b.48.1774262462984;
-        Mon, 23 Mar 2026 03:41:02 -0700 (PDT)
-Received: from [192.168.50.4] ([82.78.167.216])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9832f440f2sm473267466b.5.2026.03.23.03.41.01
+        bh=q8LBTPEg6h1Y7za/pguHJmr2p6xBplPTOo6n03VNRxw=;
+        b=ClpgQddlQKmqXSJbCaCSZ18xJvm4TTxpV2UOHqzQNL2jFWJXhLfSZVxBcP4Rf6pGwu
+         hwK8ZUc/KL0mTJEVvBOjILjxfhqj5HTMP+mCMt7sAmSSWpNGZYaskXUh5itaiai0ka+U
+         2vN2Qoc98ny8+dnYTuqg7uH5ZsS4VgTtwsBYDECIvTjyW8/DrkUQCCvN5q5aL5Mx0oSI
+         ahXFeIRkiC9gmfyZlzR8PIGQQtZgJ77JLIWxjL9o54BOsOt+r6oVYl9r/jHpeUDZXyOV
+         hQTCCiNGABv8PntFpCKc2WsISEZkoeXMCO9OgwWBCVC3YRvJ/vCMre/IAQ8+1tdQ2+AH
+         10TA==
+X-Forwarded-Encrypted: i=1; AJvYcCX85KInhG/fpkUz63ObqLn7QQCz5KC4h3gL7wLEFYCEObNZYI7ZL8AkUWsUIsuypsoJXJe7Bl4eSJyU@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy/3to4X8xHUKx3gqtLrjiby4r/ZdvRpCX8AeG4XXpHJpRlTQ7H
+	sAYcGO0xiGqaIYrpyJXzA5FsbZKfH8rJJRhcHDAagnWXU1um8Dx3D/l9gsKz1L0bs8PvFU4NPQo
+	FZCXd/n1mLj2yplOBar+P0vafxC3z/Nlusk9MMGjNbt13azhTknTXDyu4bh8vuPkx
+X-Gm-Gg: ATEYQzwInPe1Se7gF3c58I+SR2fO2KsBXQtSr1lqmq4XOmxf3WBEQ2d6HOLSJnZqVXs
+	3uYW4EsFC4YF2g1s+JhKsTMSLBD1XnxB1TGaxVYUdSIIbdFHNdWX1PTOGY47PDD8uNMRiqdpZsD
+	AqTWiRoUnIHMAEUQlcKwnFEl/oM95EuETbbj/uTYhAvKOQOpzHFAqGqmJtKmajUOwn0GJVGJ4w9
+	pJHLsmGWsfUX0J/U1HqmevIr0kYzE3Nf4/y1K39pKKY2k0yoYNH+x5b12iHt7SFgURCb1UI3O2n
+	rcXyGC0o/EFlowMluGBd925Q+QwCEgneefAoB5ULkQE4xrqQblhcinviToZoGOlParKkawr3jMs
+	7FEYCKyVnnJEjUTE3MIlztDbsN0E7abZo5y8fVRKMyqg6iEpGp7cb8m9xN0pDDYjnAV67cQgYM2
+	YOSWk=
+X-Received: by 2002:a05:622a:4cd:b0:509:47e2:9df3 with SMTP id d75a77b69052e-50b37425671mr126608581cf.1.1774262473381;
+        Mon, 23 Mar 2026 03:41:13 -0700 (PDT)
+X-Received: by 2002:a05:622a:4cd:b0:509:47e2:9df3 with SMTP id d75a77b69052e-50b37425671mr126608331cf.1.1774262472926;
+        Mon, 23 Mar 2026 03:41:12 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-668cf7e30f7sm3571255a12.8.2026.03.23.03.41.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Mar 2026 03:41:02 -0700 (PDT)
-Message-ID: <962e1094-49f7-4696-91f8-2dadb8686bd4@tuxon.dev>
-Date: Mon, 23 Mar 2026 12:41:01 +0200
+        Mon, 23 Mar 2026 03:41:11 -0700 (PDT)
+Message-ID: <e01920a9-6e0e-4101-b329-baa706717cc6@oss.qualcomm.com>
+Date: Mon, 23 Mar 2026 11:41:08 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,63 +89,107 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ARM: dts: microchip: sama7d65: add Cortex-A7 PMU node
-To: Mihai Sain <mihai.sain@microchip.com>, nicolas.ferre@microchip.com,
- alexandre.belloni@bootlin.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260126131035.6964-2-mihai.sain@microchip.com>
+Subject: Re: [PATCH 9/9] ARM: dts: qcom: msm8974: Drop RPM bus clocks
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Georgi Djakov <djakov@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Luca Weiss
+ <luca.weiss@fairphone.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Brian Masney <masneyb@onstation.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260323-msm8974-icc-v1-0-7892b8d5f2ea@oss.qualcomm.com>
+ <20260323-msm8974-icc-v1-9-7892b8d5f2ea@oss.qualcomm.com>
 Content-Language: en-US
-From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <20260126131035.6964-2-mihai.sain@microchip.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260323-msm8974-icc-v1-9-7892b8d5f2ea@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=RMC+3oi+ c=1 sm=1 tr=0 ts=69c118ca cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=wPxavPm_kgLNTp2k2vYA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: a1yyc-pRXQQt4LzQ6ZJYSVfeoBnDMmOg
+X-Proofpoint-GUID: a1yyc-pRXQQt4LzQ6ZJYSVfeoBnDMmOg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA4MiBTYWx0ZWRfX4CxDSoDm8jgB
+ J6ViA385MexUCi3d71s1NGqzFajlJhqJW2WytXcRd3WdyLqMeNeYBfupQ/j3T6YkFS74OHGtKrh
+ r9ZdJA141tYptRQ7Y+J1Lwm2aKM/SqMpJ1ipBuBIgY0augHYyM45+VILDbPcDhW7sjOshI0NMUe
+ RrZX1OEmrao0Khw2mXsApraMATBc/FjcDsZliZbhJ33RDUvAR6A9n8/62vH+cZoJoHqFGmqvOW9
+ CmgPV4YJhHie5oldXZNHGjzwU9McJzFL49oOlhfRdCyf204JmHfJLDbpwMSPQLLtvIIXif93MaY
+ WodaU0Y5HCwEooj2ct28+mqnEweb9NViPM/cvGeFvhUMUAdxq/uBrGvXfb+PJDaF3Y9JbJ+tliR
+ MV3+XelIs6X5k3KfDrUOFMc8V1cKaNde2bDFeg7jwMt8I8D3sFS3y2pSIslcEZH44rGeKiOCf4M
+ JFnDpPSDeTUx3ELN4UQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-23_03,2026-03-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ priorityscore=1501 bulkscore=0 spamscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230082
 
-Hi, Mihai,
-
-On 1/26/26 15:10, Mihai Sain wrote:
-> Add the Performance Monitoring Unit (PMU) node with the appropriate
-> compatible string, interrupt line, and affinity so that perf and other
-> PMU‑based tooling can function correctly on this SoC.
+On 3/23/26 2:17 AM, Dmitry Baryshkov wrote:
+> Some nodes are abusingly referencing some of the internal bus clocks,
+> that were recently removed in Linux (because the original implementation
+> did not make much sense), managing them as if they were the only devices
+> on an NoC bus.
 > 
-> [root@SAMA7D65 ~]$ dmesg | grep -i pmu
-> [    1.487869] hw-perfevents: enabled with armv7_cortex_a7 PMU driver, 5 (8000000f) counters available
+> These clocks are now handled from within the icc framework and are
+> no longer registered from within the CCF. Remove them.
 > 
-> [root@SAMA7D65 ~]$ perf list hw
-> List of pre-defined events (to be used in -e or -M):
-> 
-> branch-instructions OR branches                    [Hardware event]
-> branch-misses                                      [Hardware event]
-> bus-cycles                                         [Hardware event]
-> cache-misses                                       [Hardware event]
-> cache-references                                   [Hardware event]
-> cpu-cycles OR cycles                               [Hardware event]
-> instructions                                       [Hardware event]
-> 
-> Signed-off-by: Mihai Sain <mihai.sain@microchip.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->   arch/arm/boot/dts/microchip/sama7d65.dtsi | 6 ++++++
->   1 file changed, 6 insertions(+)
+
+[...]
+
+>  		mmssnoc: interconnect@fc478000 {
+>  			reg = <0xfc478000 0x4000>;
+>  			compatible = "qcom,msm8974-mmssnoc";
+>  			#interconnect-cells = <1>;
+> -			clock-names = "bus", "bus_a";
+> -			clocks = <&mmcc MMSS_S0_AXI_CLK>,
+> -				 <&mmcc MMSS_S0_AXI_CLK>;
+> +			clock-names = "bus";
+> +			clocks = <&mmcc MMSS_S0_AXI_CLK>;
+
+x
+x-names
+
+please
+
+>  		};
+>  
+>  		cnoc: interconnect@fc480000 {
+>  			reg = <0xfc480000 0x4000>;
+>  			compatible = "qcom,msm8974-cnoc";
+>  			#interconnect-cells = <1>;
+> -			clock-names = "bus", "bus_a";
+> -			clocks = <&rpmcc RPM_SMD_CNOC_CLK>,
+> -				 <&rpmcc RPM_SMD_CNOC_A_CLK>;
+>  		};
+>  
+>  		tsens: thermal-sensor@fc4a9000 {
+> @@ -2223,6 +2207,7 @@ sram@fdd00000 {
+>  			      <0xfec00000 0x180000>;
+>  			reg-names = "ctrl", "mem";
+>  			ranges = <0 0xfec00000 0x180000>;
+> +			// core clock is unused, kept for ABI compliance
+
+Do we still enforce C-style comments?
+
+Also "unused" is not really right.. After the 'revolution', SMD_RPM_CC
+no longer ""provides"" that clock in reality, since it was never a "clock"
+but rather an interconnect resource
+
+Konrad
+
+>  			clocks = <&rpmcc RPM_SMD_OCMEMGX_CLK>,
+>  				 <&mmcc OCMEMCX_OCMEMNOC_CLK>;
+>  			clock-names = "core", "iface";
 > 
-> diff --git a/arch/arm/boot/dts/microchip/sama7d65.dtsi b/arch/arm/boot/dts/microchip/sama7d65.dtsi
-> index 868045c650a7..1e1ca4f93969 100644
-> --- a/arch/arm/boot/dts/microchip/sama7d65.dtsi
-> +++ b/arch/arm/boot/dts/microchip/sama7d65.dtsi
-> @@ -45,6 +45,12 @@ L2: l2-cache {
->   		};
->   	};
->   
-> +	pmu {
-> +		compatible = "arm,cortex-a7-pmu";
-> +		interrupts = <GIC_SPI 107 IRQ_TYPE_LEVEL_HIGH>;
-> +		interrupt-affinity = <&cpu0>;
-
-According to the documentation [1] interrupt-affinity is not needed here. Could 
-you please check?
-
-[1] 
-https://elixir.bootlin.com/linux/v7.0-rc4/source/Documentation/devicetree/bindings/arm/pmu.yaml#L107
-
-Thank you,
-Claudiu
