@@ -1,138 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE2A3E022B
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 19:58:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EEB636680F;
+	Mon, 23 Mar 2026 20:00:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774295892; cv=none; b=WtISC+lx/UffAssI8nl+PK20DQrZ/8OTL8chzGri2NKD48F+ohR09tIHGFWziyg0sKae6Cdzxb3jXoj53LLz23iazEzcpimWeDHmE1o5+IusMfArs2lS+1AG81JV94FCw2BLvvdYWdbJpIBeLC3yEkWXMqVj8Hi4R7aFvfdsPKk=
+	t=1774296038; cv=none; b=D6fp0siQB1r/RS+rRni3iE8gI6jmNvKF+MNtEtFZ2KJCNJq4PRP0qtBEHbbBJKlZBYoHSkV6D+uQd1DmpRRIn0aeMBVNUxBTt9+e1Jkw4UfXXF6TeriqmDUlQcBpTCoR5r4W18q0BQoei0UefS73YZDNXfUjvxYCpUbOj54PA0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774295892; c=relaxed/simple;
-	bh=1WuhV/zGG8Mj+XqPD5jDsD1mKnzd5UrbX2zgBBrEQvc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EAUcd37yVpzk/MmqaQIZpOM8pjdIjcK+DVw6JckeI/649ft046xS4iQyrC0z2wMOcfRtSDuHCGyXNEqn36Yw/h8G5kQisqe4PkoBbJ4u9AM6g3ZpWaBMh3emqFe7v4pH5enBZZSuJ5BDykPVJcke896QfIPDDIJm46aJNzB63tU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QfVe6v9Z; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774296038; c=relaxed/simple;
+	bh=+x9AG17Hp/EBhtYzQohBkV903DY2Vh6iSe2BBxsw5YM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nX142YxlCNcvUUeJyesZ5b6mhLZS7/WZg7xZpHl18RsIi29+BASJIv1kZEWRpA4pJCF+QkstxbiXIdXWkwR9rAgdOEDXo+qVgV5HO8xFbyPwoFSRVw7psDhhROvUPsbQG8BwXNiI3QfGTM8HTfZJpx4lMJh+u5tpWvERnqiPIh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k5GWk/YU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QfVe6v9Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90096C2BCB7
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 19:58:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k5GWk/YU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 475C0C4CEF7;
+	Mon, 23 Mar 2026 20:00:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774295892;
-	bh=1WuhV/zGG8Mj+XqPD5jDsD1mKnzd5UrbX2zgBBrEQvc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=QfVe6v9ZW5EgH/2RuG4ZeptJY7YZc/0vN40GkNAV5VqN6d/HU4FTbxuypV10DmlFi
-	 TKeTNd7OBYxwvpCJLzejjeoojv6igh4n/Kjgaals31IFVNxLIz7JlVr4Zu+p3aQZBH
-	 x3UXDtzMeQs85CZ3/v7Va0PFSFYHVNFfZP/Ss3Wg9YAIeVMYSj5B5eDpf/U/nGvxMb
-	 6mWEMiOpLpqlAqcIFsQDsqLxTAoFUF1wC61qs6IqpeCzBubM+CuOZEuAldOeUCcV9C
-	 TXFirs0abfteKF5/y9JRbs1IyQKd9d6MpG+vkQTFZP6Fl7bBK0dyjf8Oj292JbmTYF
-	 KPE25m03GnSqg==
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-40f0e14b9f9so376039fac.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 12:58:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCV2tSQkC5eUyluCouAQCZi3PdfLmWHU+E4CIM6w3un684hkXdYJNIXLAPCzgGCEKc9v9gBEvELfOY2z@vger.kernel.org
-X-Gm-Message-State: AOJu0YwDdZ6J2hhtkvan5r9a9neUkRNwZCf3wLQ3RwulTrc5reMTs0aV
-	yneAXXr1qeWGOy31vmbBWB2+no4jt/vOpOJd4AtLaiMhCIhTwotl6qPa6BSPZsVffhgqNzvOmY1
-	gNhpaeLkBP/XJQyTF6/c2dM4FxCZXXo0=
-X-Received: by 2002:a05:6870:b020:b0:417:49da:7ff8 with SMTP id
- 586e51a60fabf-41c111dfd24mr8482761fac.34.1774295891119; Mon, 23 Mar 2026
- 12:58:11 -0700 (PDT)
+	s=k20201202; t=1774296038;
+	bh=+x9AG17Hp/EBhtYzQohBkV903DY2Vh6iSe2BBxsw5YM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=k5GWk/YUuKdPBeWP84YtTOoDx7rfII8l4iT1yBV9NgYZP2jInEiNUsNQH+ZIy+TLl
+	 8PBfxs681Ew0ZlxDOfoxW1DhbnRm6LEvn7KTAF/ZBaTM+0SUsrC8fWv7LDPV1AK+yz
+	 UXvCmwWOQGyTxzzDW/O96L/vHXzHVoW/M7plyQwV2aLeLfpIUm/VuiZ4XpmHYZr0a5
+	 QJTua9wgXm1AMxQoQHK0DVqvR8syf19HA+LqXHBtHOF0+XxHMBWELgXIwkvM+Hs3LZ
+	 g4qBWXPLGpBKp8CRJ4R3EXR2uD0vKsxUcz/I9T+LDQZTq32N/uGlteB39Otu/cebCU
+	 D5Alz3WNmVYcA==
+Date: Mon, 23 Mar 2026 15:00:37 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Yubing Zhang <yubing.zhang@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	linux-arm-kernel@lists.infradead.org,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Alexey Charkov <alchark@gmail.com>, linux-phy@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Andy Yan <andy.yan@rock-chips.com>, kernel@collabora.com,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	devicetree@vger.kernel.org, Frank Wang <frank.wang@rock-chips.com>,
+	Dmitry Baryshkov <lumag@kernel.org>, Vinod Koul <vkoul@kernel.org>
+Subject: Re: [PATCH v3 01/12] dt-bindings: phy: rockchip-usbdp: add improved
+ ports scheme
+Message-ID: <177429603690.1305360.6710008166136949728.robh@kernel.org>
+References: <20260313-rockchip-usbdp-cleanup-v3-0-3e8fe89a35b5@collabora.com>
+ <20260313-rockchip-usbdp-cleanup-v3-1-3e8fe89a35b5@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260313-synology_microp_initial-v3-0-ad6ac463a201@posteo.de> <20260313-synology_microp_initial-v3-3-ad6ac463a201@posteo.de>
-In-Reply-To: <20260313-synology_microp_initial-v3-3-ad6ac463a201@posteo.de>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Mon, 23 Mar 2026 20:57:59 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jxHO2EH5NeEsMkxGz5xqVL00tO-W1JpaVd=GhwgQ3T=A@mail.gmail.com>
-X-Gm-Features: AaiRm50DmGsYCjXug2Jt79bfM7j5ojMYqMa_-0d7Zxr4c3dbQEoSRohbKGvtDu8
-Message-ID: <CAJZ5v0jxHO2EH5NeEsMkxGz5xqVL00tO-W1JpaVd=GhwgQ3T=A@mail.gmail.com>
-Subject: Re: [PATCH v3 3/7] acpi: add acpi_of_match_device_ids
-To: markus.probst@posteo.de
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Igor Korotin <igor.korotin.linux@gmail.com>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Bjorn Helgaas <bhelgaas@google.com>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Robert Moore <robert.moore@intel.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-pci@vger.kernel.org, 
-	linux-leds@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	acpica-devel@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260313-rockchip-usbdp-cleanup-v3-1-3e8fe89a35b5@collabora.com>
 
-On Fri, Mar 13, 2026 at 8:03=E2=80=AFPM Markus Probst via B4 Relay
-<devnull+markus.probst.posteo.de@kernel.org> wrote:
->
-> From: Markus Probst <markus.probst@posteo.de>
->
-> Add a function to match acpi devices against of_device_ids. This will be
-> used in the following commit ("mfd: match acpi devices against PRP0001")
-> to match mfd sub-devices against a of compatible string.
 
-Please always spell ACPI in capitals in patch subjects, comments,
-changelogs, etc.  It is not a regular word.
-
-> Signed-off-by: Markus Probst <markus.probst@posteo.de>
+On Fri, 13 Mar 2026 18:57:10 +0100, Sebastian Reichel wrote:
+> Currently the Rockchip USBDP PHY is missing a documented port scheme.
+> Meanwhile upstream RK3588 DTS files are a bit messy and use different
+> port schemes. The upstream USBDP PHY Linux kernel driver does not yet
+> parse the ports at all and thus does not create any implicit ABI either.
+> 
+> But with the current mess it is not possible to properly support USB-C
+> DP AltMode. Thus this introduces a proper port scheme following roughly
+> the ports design of the Qualcomm QMP USB4-USB3-DP PHY controller binding
+> with a slight difference that there is an additional port for the
+> USB-C SBU port as the Rockchip USB-DP PHY also contains the SBU mux.
+> 
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 > ---
->  drivers/acpi/bus.c      | 7 +++++++
->  include/acpi/acpi_bus.h | 2 ++
->  2 files changed, 9 insertions(+)
->
-> diff --git a/drivers/acpi/bus.c b/drivers/acpi/bus.c
-> index f6707325f582..5ddcc56edc87 100644
-> --- a/drivers/acpi/bus.c
-> +++ b/drivers/acpi/bus.c
-> @@ -1044,6 +1044,13 @@ int acpi_match_device_ids(struct acpi_device *devi=
-ce,
->  }
->  EXPORT_SYMBOL(acpi_match_device_ids);
->
+>  .../bindings/phy/phy-rockchip-usbdp.yaml           | 23 ++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+> 
 
-Missing kerneldoc.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-> +int acpi_of_match_device_ids(struct acpi_device *device,
-> +                         const struct of_device_id *ids)
-> +{
-> +       return __acpi_match_device(device, NULL, ids, NULL, NULL) ? 0 : -=
-ENOENT;
-> +}
-> +EXPORT_SYMBOL(acpi_of_match_device_ids);
-
-Are you aware of the consensus that using PRP0001 in production
-platform firmware will be regarded as invalid?
-
-Because of that, it is not an option for a driver to avoid providing
-ACPI match data on a platform that uses ACPI.
-
-> +
->  bool acpi_driver_match_device(struct device *dev,
->                               const struct device_driver *drv)
->  {
-> diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
-> index aad1a95e6863..0081b9e4aaee 100644
-> --- a/include/acpi/acpi_bus.h
-> +++ b/include/acpi/acpi_bus.h
-> @@ -677,6 +677,8 @@ void acpi_bus_trim(struct acpi_device *start);
->  acpi_status acpi_bus_get_ejd(acpi_handle handle, acpi_handle * ejd);
->  int acpi_match_device_ids(struct acpi_device *device,
->                           const struct acpi_device_id *ids);
-> +int acpi_of_match_device_ids(struct acpi_device *device,
-> +                         const struct of_device_id *ids);
->  void acpi_set_modalias(struct acpi_device *adev, const char *default_id,
->                        char *modalias, size_t len);
->
->
-> --
-> 2.52.0
->
->
