@@ -1,126 +1,111 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDBD836C5BB
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 20:38:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C8A3E4C6A;
+	Mon, 23 Mar 2026 20:49:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774298285; cv=none; b=TfF8qHbjEqcee9O/X6Fs4BERLGMGVP65bPXMuFchzOgXAnpblOTjFZPvN6P029DQ/W5jPuau9H5DsuEkjJFLhAtHa3zuZ2dSD6sHhAfGNZkR53wVkph8QMtno3/2qB43i/b3s/pqvHFywBL23AUKcJqAZm4qhwuRVDN//7g8ir0=
+	t=1774298979; cv=none; b=hW10+nfWrjUEwWdmjJdfr+GQx9Aatf0NTZbIaerwCtZcVD7iYY3lh9xRXfiyOaNqv4VBaSdRWWJt1nxBXhq21rMRaMaNmeRo8zzog+wcst6V/P3BYtNGpRXyinkdn7JRhX2Z2i4tSHalHXQn3/8Y+ycILFcb0f6/ppP6gY/Ih94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774298285; c=relaxed/simple;
-	bh=Yt7USsk3cuGUzCm1y+OZ6JKq00IJQcMuuHfBv45NCGI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jjodeea5QqstculBlLu+Fk2uQKD30t22ofSGsLuyuKuweMd9Vs5K0Sc/Rf2qb9PrEgO+EgpVu66TaFjcB9yc91ReSWrHGc8IehzkuyRG1Z6d1Ul/P6nwd5CEUtHMUcI8gtn5D5p7OcnZT5tSXbz32b/SU9TR7xbW2y0fEQpuX5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1w4m1e-00032Q-TH; Mon, 23 Mar 2026 21:37:26 +0100
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1w4m1e-001mnM-0D;
-	Mon, 23 Mar 2026 21:37:26 +0100
-Received: from pengutronix.de (p4ffb2dc6.dip0.t-ipconnect.de [79.251.45.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id B4BBC50B02C;
-	Mon, 23 Mar 2026 20:37:25 +0000 (UTC)
-Date: Mon, 23 Mar 2026 21:37:24 +0100
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Conor Dooley <conor@kernel.org>
-Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, mani@kernel.org, 
-	thomas.kopp@microchip.com, mailhol@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org, linusw@kernel.org, 
-	brgl@kernel.org, linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	mukesh.savaliya@oss.qualcomm.com, anup.kulkarni@oss.qualcomm.com
-Subject: Re: [PATCH v3 1/2] dt-bindings: can: mcp251xfd: add
- microchip,xstbyen property
-Message-ID: <20260323-artificial-ecstatic-collie-047169-mkl@pengutronix.de>
-X-AI: stop_reason: "refusal"
-References: <20260321135031.3107408-1-viken.dadhaniya@oss.qualcomm.com>
- <20260321135031.3107408-2-viken.dadhaniya@oss.qualcomm.com>
- <20260323-bonded-ranging-c9f9c4d0aacf@spud>
+	s=arc-20240116; t=1774298979; c=relaxed/simple;
+	bh=0pmS5hAUDlu3zrsSMoZh4tzsSSQ0hXIW0rgxBdqIMms=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fStAStE9aAjKsJySKF3VR4I1MF8ghUyDKDVhwZ/g/CYriNxtK8MNOZ14Q2klPNlFgy0P2UFhDfeCCucizxm+DC+WQ76Bor4OISedGRAOP5piybS6yN1uAEZ11pgNvwjf+gcoQmgtgieeUgv+pH+DlCUhJVkFXExP0VJBSAEMO1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=hx6nvCth; arc=none smtp.client-ip=95.215.58.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="hx6nvCth"
+Message-ID: <02913b5c-ce09-4fb7-a3dd-71bf7330439d@packett.cool>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
+	s=key1; t=1774298974;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nPxjR0A9YEFfzmWROX/GNepxauCty+GI2uhi8VJRg5k=;
+	b=hx6nvCth27I+eo36ypG0ha7DLF1IlDWY/FuhM0ZMkBUCGlOqNGJpw/bJBrmvgUgruQuVTr
+	s+ofqWbnZ0k4jxBDFUiV6+qBh92ut3XBbdOq0eH3K89K8LI+hVjTkz3nBbKqutYWOs1O2V
+	ECttbmczMMDBCSWkkEEh8KmnU2W97vNxwsWpqavso9EjDV0Iv7xk9s7hec+7LBFEt4Fiou
+	GMvyYcXs7G9/4I5ouW/5ts/2Br4vpqpVt9w1TRPhNspIguNJQ297FNvE00j5nZEeaQc5dz
+	w3z0ogD8it0H3TeVyDL6cXBi48Wd0Horoyj3yRnphtzs1OY2Bix6BQocAXDltQ==
+Date: Mon, 23 Mar 2026 17:49:14 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mj7lxv6n5m3i3nve"
-Content-Disposition: inline
-In-Reply-To: <20260323-bonded-ranging-c9f9c4d0aacf@spud>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mkl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] arm64: dts: qcom: Add Xiaomi 12 Lite 5G (taoyao)
+ DTS
+To: Stanislav Zaikin <zstaseg@gmail.com>, devicetree@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, linux-kernel@vger.kernel.org
+References: <20260305093941.305122-1-zstaseg@gmail.com>
+ <20260305093941.305122-3-zstaseg@gmail.com>
+ <9ea41e6c-7643-452e-abf4-f35238807a26@packett.cool>
+ <3bb1da4f-f2dc-421d-95f1-5bba9e3e1aec@gmail.com>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Val Packett <val@packett.cool>
+In-Reply-To: <3bb1da4f-f2dc-421d-95f1-5bba9e3e1aec@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
 
---mj7lxv6n5m3i3nve
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 1/2] dt-bindings: can: mcp251xfd: add
- microchip,xstbyen property
-MIME-Version: 1.0
-
-On 23.03.2026 19:30:00, Conor Dooley wrote:
-> > diff --git a/Documentation/devicetree/bindings/net/can/microchip,mcp251=
-xfd.yaml b/Documentation/devicetree/bindings/net/can/microchip,mcp251xfd.ya=
-ml
-> > index 2d13638ebc6a..28e494262cd9 100644
-> > --- a/Documentation/devicetree/bindings/net/can/microchip,mcp251xfd.yaml
-> > +++ b/Documentation/devicetree/bindings/net/can/microchip,mcp251xfd.yaml
-> > @@ -44,6 +44,14 @@ properties:
-> >        signals a pending RX interrupt.
-> >      maxItems: 1
-> >
-> > +  microchip,xstbyen:
-> > +    type: boolean
-> > +    description:
-> > +      If present, configure the INT0/GPIO0/XSTBY pin as transceiver st=
-andby
-> > +      control. The pin is driven low when the controller is active and=
- high
-> > +      when it enters Sleep mode, allowing automatic standby control of=
- an
-> > +      external CAN transceiver connected to this pin.
+On 3/23/26 05:04, Stanislav Zaikin wrote:
+> On 3/21/26 8:36 AM, Val Packett wrote:
+>> Hello again :)
+>>
+>> On 3/5/26 6:39 AM, Stanislav Zaikin wrote:
+>>> Xiaomi 12 Lite 5G is a handset released in 2022
+>>> […]
+>>> +    touchscreen@0 {
+>>> +        compatible = "goodix,gt9916";
+>>> +        reg = <0>;
+>>> +
+>>> +        interrupts-extended = <&tlmm 81 IRQ_TYPE_LEVEL_LOW>;
+>>> +
+>>> +        reset-gpios = <&tlmm 105 GPIO_ACTIVE_LOW>;
+>>> +
+>>> +        avdd-supply = <&vreg_l7c_3p0>;
+>>> +        vddio-supply = <&vreg_l2c_1p8>;
+>>> +
+>>> +        spi-max-frequency = <5000000>;
+>>> +
+>>> +        touchscreen-size-x = <10800>;
+>>> +        touchscreen-size-y = <24000>;
+>>> […]
+>>
+>> I have noticed this previously and started wondering why the size was 
+>> 10x higher. Now with my own device (motorola-dubai) I actually found 
+>> out why…
+>>
+>> With the actual 1080x2400 size, the mm values reported by libinput 
+>> are 10x higher than what they should be, e.g. touching the bottom 
+>> right corner with libinput debug-events:
+>>
+>>  event3   TOUCH_MOTION              2  +1.493s  0 (0) 98.80/98.75 
+>> (1067.00/2370.00mm)
+>>
+>> (2.4 meter tall phone! :D) which was mooooostly "fine" except Phosh's 
+>> on-screen keyboard was accidentally detecting super-fast down swipes 
+>> as I was typing normally, and suddenly closing the keyboard as I was 
+>> typing.
+>>
+> I wonder why some other devices with gt9916 (there are a couple in 
+> mainline) that specifies 1080x2400. I don't think we can make this 
+> assumption unless there was a mistake already in those mainline dts.
 >
-> What I don't understand from this patch is why a property for this is
-> required.
-> Why can't this mode be implied from the lack of rx-int-gpios or
-> interrupts?
+> Best regards,
+> Stanislav
 
-The mcp251xfd has 2 GPIO pins. "rx-int-gpios" is for the other pin:
-INT1/GPIO1. Also by default I don't want the controller to drive a pin
-in a certain direction.
+Not sure what you meant there..
 
-regards,
-Marc
+I have not seen other devices do the 10800/24000 thing. Please set 
+1080/2400 (actual size not 10x larger).
 
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+~val
 
---mj7lxv6n5m3i3nve
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCacGkfQAKCRDMOmT6rpmt
-0lw8AP4hL8Ju237y3P6/SPoa8sYRa5wDdt5saifjrXPVIRURYgD+Nk36Nzd9OCQh
-mZ9s0Zw8dTT8RbvjyTcZSzMvAG3mMQ8=
-=PjbA
------END PGP SIGNATURE-----
-
---mj7lxv6n5m3i3nve--
