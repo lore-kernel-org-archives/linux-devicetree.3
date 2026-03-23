@@ -1,89 +1,111 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2BE3AF662
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 16:15:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1345E19D07A;
+	Mon, 23 Mar 2026 16:16:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774282515; cv=none; b=iS2ZixcS82co4AfB44PgW9M9dx8jYdJhxQ1UhoD8HVthWgMCXgIi14sf9VQo3rWqjTdrP9pKtUQD6qTRuROMfsjqp1jbxXLwUEJJp+7EkonkLSw2lg79u5inj5C/Cq+Dd0prwyVrC2vYigGRAo1JjHcc7WXUZonG6bHeuWXphtI=
+	t=1774282571; cv=none; b=GA5JhsGSSuXfwZbVUNIRuL1QlLaeRe6curwuGMJygS5PuUR0QMN2UxnX26y69YXAkZ3k/l8wk18EHTvt/ZkamqzmBUHbPSod9CziervjpfPhkKQ4Tg6QYArjWDVYl+3FdlL4Vdz04PbrdoOTDt6Zun0Pax+9qrK62QcTGidVsUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774282515; c=relaxed/simple;
-	bh=wz/qy3mOqhyoOYrk4BYNUG4XnoW1wVBR5GPWBTYta+k=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=Q/DnlTtLBLc05USdMhgWYl0Bfn06Zr/SRm5Gr0W6OvFPMYH3xcFgnWhK2Gua4MooXx+0zQoGxaj0OL6CbPjz5AefyMmeXx77EowDKlMywoElS2JnpLCF0X8bwSrDKG25DuzrkVwT9F+AHTZdBMZdika2G/eQWRKw/xBdsH2YI/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=X8I0za+0; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1774282571; c=relaxed/simple;
+	bh=T6///R2MKk3F2/5R/br+dubV4LuJO9QHNc8x/aG0U0I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g0yfmm/xbe/TcGQkxvBNixOl7AqFDj5q2X5GlAjYyD1EZK+0Iv93FmI6sn/CCUFyB0vkdNSHeHcbYIa+vtX2R6pkfZoxwKLl9iYKVzABzxDZGkM/EoF3fsQEHmF+b+37Vre8a5B7QInNzXGe97BgBy6TvPhkVRGv262UVsLr4FI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HgAyQ3DQ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="X8I0za+0"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 53191C58082;
-	Mon, 23 Mar 2026 16:15:37 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6D9685FEF6;
-	Mon, 23 Mar 2026 16:15:10 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8EEEA10450FE0;
-	Mon, 23 Mar 2026 17:14:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1774282506; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=wz/qy3mOqhyoOYrk4BYNUG4XnoW1wVBR5GPWBTYta+k=;
-	b=X8I0za+0DuH7Uricdi22M/uTCib/0T6dlZjRnidNjg5yq5jTJSBptkLD5BFMEGHu1c1Urv
-	P/GlNk2/IOpNJyvIR6JFZdujnZRu/xEZn0nCpRkF313SELDqqdkb5FCR3SVckFMYEY90M9
-	18vd1rwE2UFRQ3oazskYokOSUhwBLGeV0mwfPDVnZ72AuXrT6Z658yNUKugz058xy3LsuP
-	ea5Ak61T2Qprayj5sy69Bh9wCks/IfLxiWrh1wKR4kT4++lr6BqaeOG7H5EFZVVsLCdGEP
-	UY1R8QPgy+z09dqXUxNhPNfwhGA/TNJ7W8AAQmmc/tUg5TwCV91sJYyb5djeiQ==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HgAyQ3DQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD289C4CEF7;
+	Mon, 23 Mar 2026 16:15:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774282570;
+	bh=T6///R2MKk3F2/5R/br+dubV4LuJO9QHNc8x/aG0U0I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=HgAyQ3DQYqLTsJuZs1jYzKhigzqM+OFscYk1QVT104/m62iaLo/LX5p4/Q69qwQBz
+	 i1g3JVnOVMwx0YKEGRlciB7e4Fn88byOyCOZ2M+dUQLQcX6YmNGpIHrQOBMX7OW2kI
+	 +2fJmqqykvE6PRfEbEkw34cBOHPj73DV0Y1U3dsf/St8u7YFxrBs2fPZ6ekR0PJJUC
+	 mVLNeqeZz3PeYO7LFykhgaFtdpFQC6+AVDQvsIDUuB1yCW/LqYJc2am7hHwLLt9UKP
+	 ALShsxxQzk5msDrHyMhhl8+zXe/+hnqgcPaZZLoPw8yBf92pNC0FDMJxvGDDwPNOeL
+	 x1pCD0xE/s0Dg==
+Message-ID: <9648c51d-983d-4841-a3ba-bf6246a87817@kernel.org>
+Date: Mon, 23 Mar 2026 17:15:51 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 3/3] arm64: dts: qcom: qcm2290: Add CAMSS OPE node
+To: Bryan O'Donoghue <bod@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, vladimir.zapolskiy@linaro.org,
+ laurent.pinchart@ideasonboard.com, kieran.bingham@ideasonboard.com,
+ robh@kernel.org, krzk+dt@kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ johannes.goede@oss.qualcomm.com, mchehab@kernel.org
+References: <20260323125824.211615-1-loic.poulain@oss.qualcomm.com>
+ <20260323125824.211615-4-loic.poulain@oss.qualcomm.com>
+ <TePvvgDVDb_k2QvKDX81eBWL8NGBfBgyF-Io4NhyhIFdXZPUV2lnWOs2t2DlDb_3bOLmk-QnfJsRA-dG6Ey0cg==@protonmail.internalid>
+ <76edd04d-7bd1-4b42-bea1-79f4b149c0bb@oss.qualcomm.com>
+ <34038c03-5416-487c-9b61-f37494247ea0@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <34038c03-5416-487c-9b61-f37494247ea0@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 23 Mar 2026 17:14:56 +0100
-Message-Id: <DHAANIKVU6BV.20W1GS0MWT55E@bootlin.com>
-Subject: Re: [PATCH v2 9/9] drm/rockchip: analogix_dp: Add support for
- RK3576
-Cc: <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <nicolas.frattaroli@collabora.com>,
- <alchark@gmail.com>, <cristian.ciocaltea@collabora.com>,
- <sebastian.reichel@collabora.com>, <kever.yang@rock-chips.com>,
- <heiko.stuebner@cherry.de>, <tomeu@tomeuvizoso.net>, <amadeus@jmu.edu.cn>,
- <michael.riesch@collabora.com>, <didi.debian@cknow.org>,
- <dmitry.baryshkov@oss.qualcomm.com>, <dianders@chromium.org>,
- <m.szyprowski@samsung.com>, <dri-devel@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-To: "Damon Ding" <damon.ding@rock-chips.com>, <hjc@rock-chips.com>,
- <heiko@sntech.de>, <andy.yan@rock-chips.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>, <rfoss@kernel.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.20.1
-References: <20260319104031.1986946-1-damon.ding@rock-chips.com>
- <20260320004554.2006299-1-damon.ding@rock-chips.com>
-In-Reply-To: <20260320004554.2006299-1-damon.ding@rock-chips.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
 
-On Fri Mar 20, 2026 at 1:45 AM CET, Damon Ding wrote:
-> RK3576 integrates the Analogix eDP 1.3 TX controller IP and the HDMI/eDP
-> TX Combo PHY based on a Samsung IP block - both of which are the same as
-> those on RK3588.
->
-> The patch currently adds only the basic support, specifically RGB output
-> up to 4K@60Hz, without the tests for audio, PSR and other eDP 1.3 specifi=
-c
-> features.
->
-> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-> Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+On 23/03/2026 14:33, Bryan O'Donoghue wrote:
+> On 23/03/2026 13:24, Konrad Dybcio wrote:
+>> +		isp_ope: isp@5c42400 {
+> 
+> ope@5c42400 isp@ is already used.
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Where? dtc would warn you on that.
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Best regards,
+Krzysztof
