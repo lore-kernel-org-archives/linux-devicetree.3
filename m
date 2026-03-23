@@ -1,219 +1,228 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B890F386C31;
-	Mon, 23 Mar 2026 10:11:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E771138B12C
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:18:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774260717; cv=none; b=om+aFB0SBv/J1EpKBlDSiPfofaPdjhPE8aNk9/9DVpOARadWoCu6P4YtdQW4YnKOCDD63G0yLMQv2ZKLjGbMu3txMZ8jQAZxSMXsTW/BSWe1W0R4+AjmsidIbTXSxo5pmFs8OL9sNRIVmKKMXcHEtLjxy/R38AZDLn1IuNWjpd8=
+	t=1774261086; cv=none; b=bPgUcliaXaueDP8nTotbDGQdDZniAyMCkUbqur3Htcs3LbJpHgLkztvty5rTf+HHW5wbUx219bbxArLQmyyswXT14qCEjVLxFLJwpE4/B+tlnlQPvqx0Xref1bmv/ru3D/OWays88LeDZDbYzHcYgstqr7vp3KDOla1LTFtYIj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774260717; c=relaxed/simple;
-	bh=Ug5VHRdcq3NS/itD3XFI2srxI8A5Wt5+5mM2wgat0Cw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Ozk+NIO6AlfgEhIEDYzkdwWYxzm20wif4RAo8OYePesMKiLoZGpt7zRgMJbjZOKdt9jOOckRw1hZNgMttyI4gMWtnojb3UJ7qJAeLeJZ77k2z1fJPCNxZxKhPEwjAkXOY9KjP/CURX7lDH6ND6j2+gbJoyuIcXdDTg0m5sTFtyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=Qf5aIl4G; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1774261086; c=relaxed/simple;
+	bh=3kzYLFxHha33KjHomXc1YKd7gi/lFY4K2UDQVfrSaFc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LmJF0ETBEQNYTmYanPJHN62qD+Cxi/oWwO//d7ig9RFxd1KTNZ3Lmmh//Z3+CM4u2Uqhx+D4uVydFsT7O50oxJ5e2G4Qjym+W9+Sc9Oot6b2bbesXtA654YLPNtQf/TF5gk2/arAHdGF8yA5KNdybqOP4Weq02cwL+8GYrS2/bE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iRoK6Drb; arc=none smtp.client-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="Qf5aIl4G"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=W6keZ0J8bp8XaUyK9YS2ONZrB864NUMZU0QHXs1cWj4=; b=Qf5aIl4GVdq+PVzn9w/hvh7DOX
-	FCCUAW7ftXAsDzHJNPTVjt7mwFKnUwy03aE9Xs7W/wrZ1IZ36xE2uXOt+E/SU8cGgCzyZq3ezpmn1
-	99UmOCXZ0oTFgxS/00h14C2XCgPvHsTEwAypDJy6TRq30NfdCPXSfeh66zklbOg0ehoOExCyJffSF
-	kb/bp9qhyQ8oVg1MxcQnCrDW1VI4Frxa4NcgDzKb7Nqy5zbETXlZfsdzxokLbdjblfxSdFZzUhTTc
-	ct4yKgRDo/i5WvBZUWM6SRR4gzIo5X/ZFUuB1Mt7A6nwO2kS5r52kTaxvUNF35OCuRejf3EsIoigK
-	2qoF9H4Q==;
-Received: from sslproxy08.your-server.de ([78.47.166.52])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1w4cGF-000MKb-02;
-	Mon, 23 Mar 2026 11:11:51 +0100
-Received: from localhost ([127.0.0.1])
-	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1w4cGD-0009hO-2R;
-	Mon, 23 Mar 2026 11:11:50 +0100
-Message-ID: <9e5367c6dfba0708578cda69fc48531b3749b5e8.camel@ew.tq-group.com>
-Subject: Re: [PATCH] arm64: dts: ti: k3-j722s: Add main_i2c4 device node
-From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-To: Aniket Limaye <a-limaye@ti.com>, Nishanth Menon <nm@ti.com>, Vignesh
- Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, u-kumar1@ti.com, Jared McArthur
- <j-mcarthur@ti.com>
-Date: Mon, 23 Mar 2026 11:11:49 +0100
-In-Reply-To: <20260304-j722s-main-i2c4-dt-v1-1-03f79f0cdf97@ti.com>
-References: <20260304-j722s-main-i2c4-dt-v1-1-03f79f0cdf97@ti.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iRoK6Drb"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-823c56765fdso5477b3a.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 03:18:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1774261084; x=1774865884; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kHtEe1e7RiyfO6lLZp+boVdOJK0KK9ZEoEY9OocgKBc=;
+        b=iRoK6Drb/5V+c5/6TL7H00fUlsgI9PiLijuxI6dzDH8RW6tF0zCQewKaDYhE4RRWKS
+         LpVH1TDM3XPtbQaVJjxDIKE2lGgUWN1qwPIrtXfyVrnyUucXAJbuxzw/MbKlv+pbKkrI
+         zZ0WFAGP89LkqCJD0phbYkvsWE40sshfL5HTTl+HWb15vw0vo9cmy2itK59lYGTc68EU
+         eBzihAb4Fhl8J2bLd/tvmydbTF+dvqgAw78gedece9p2ShtXYqugGJcOAdisn1yLjWnX
+         pS/RFCiUIp3Tk46M0yYROnseqpgPduDzgRWPoBZbOGJ4E5WSHbghOsjx6DrJJ05+k+C0
+         ukTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774261084; x=1774865884;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kHtEe1e7RiyfO6lLZp+boVdOJK0KK9ZEoEY9OocgKBc=;
+        b=EBKydriwe0ob7vJTsRSeteSM+CVOaMW9YslIQK+ELpCSIlDvvvn7A6AENwZ6lhmjW/
+         Dc/n0KJ54ldp1gaVgu8xA29uBOeeT5lCOoD1aXszXrjONPfyAf7Leq2nZAfQbN/NSt0E
+         MoPSOlK8XSTgWxMrRZbH+2QGuIWDv2tWlfWkPtjCKHvz4CWqAqicgQB2BJlc/Kym74ck
+         zjhHP36zfMrpWjk1OiQSTItP+5aWnBMX+onTX8rWeISxZi54larKG7imMQoInuX5KEx+
+         HAsQKB/s6sc/RihidFu0jgVAXEUyAd9xUPazrYc4W2/IOnDHnCDOTn8XWQDaDby3x8O0
+         HeNQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX6e3jYY8KAp9cQ3jGsoF1ZqsccVfMO9OEdyP+CwP36Cuqgand9RFkMxOqmhTKa/mKEUu9r+hN/HMvr@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0fvHaCicto4+TCpQB4pVC1m8nSrxqawynFuDXt1A22GJyzr4c
+	Q1cQmd99HIMDXaUVjH4mrQu25MvRIS6c5FCo6NVV03bI2fysoXCVKDbK
+X-Gm-Gg: ATEYQzz1iLux0xzpcgVaVIbwL/A2Rrc8IuzMa5FdkZG7X7EQmiERrAgnE6sZ1WBcZc4
+	ofsiQBI2hP9Xj8nPkDV1QEDSxZThqXTdPdrZSlJ//C8ftHSohDE9nmJ60nbCyVR3Hy4c3kJk4z+
+	ClDYUX+hVqufGLTMmCV35J1VZEpsR3eFW5405hHdDnG0Ql3RBZ4weGyduhXI9j/oTsB31D6jPSJ
+	TX2BdQrxve8BNzUefEeYke+HavdUCeT0XMUb3/3BC6bHEqnrWKsMjt6fIgJRO9l4Hu9nUrY08DV
+	ZD6D48YUi+p4kL0Kg9BHBUEApap5gV6b8X/jmH9HQp39qixl8AgUMEtiUuIpyh+GnZdy1JLjviZ
+	W1wuXIMlwjcwG/I01EDLiQMhrs1LHfiR8AbxL65rVizbpIqtflqGD/sLkUT6A9Wf1sHQh6ekX5G
+	BeHzPfO3LGvh4GXMkJ1um++kLCOktu9WauAnLFqi6KabYTfmCimq3hbr13W/I6DWd0YiX4MugcZ
+	SbNzYqi6Nfu
+X-Received: by 2002:a05:6a00:2195:b0:823:3078:f684 with SMTP id d2e1a72fcca58-82a8c35d2bfmr9312586b3a.32.1774261084178;
+        Mon, 23 Mar 2026 03:18:04 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82b04220d9asm8630779b3a.60.2026.03.23.03.18.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Mar 2026 03:18:03 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	mcoquelin.stm32@gmail.com,
+	richardcochran@gmail.com
+Cc: alexandre.torgue@foss.st.com,
+	joabreu@synopsys.com,
+	ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	yclu4@nuvoton.com,
+	peppe.cavallaro@st.com,
+	linux-arm-kernel@lists.infradead.org,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH net-next v15 0/3] Add support for Nuvoton MA35D1 GMAC
+Date: Mon, 23 Mar 2026 18:17:53 +0800
+Message-ID: <20260323101756.81849-1-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Virus-Scanned: Clear (ClamAV 1.4.3/27949/Mon Mar 23 07:24:47 2026)
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2026-03-04 at 14:41 +0530, Aniket Limaye wrote:
-> Add missing device tree node for main_i2c4, and the corresponding ranges
-> in cbass_main. Interrupt for this i2c controller is routed through the
-> Main GPIOMUX Router.
-> Base address, Interrupt IDs are taken from J722S TRM [0].
-> Device, Clock IDs are taken from TISCI docs [1].
->=20
-> Additionally, the I2C4 is the only interrupt source to the GPIOMUX INTR
-> router that generates level interrupts, while all other sources generate
-> edge interrupts. Due to this, the router needs to handle interrupt-type
-> on a per-line basis. Modify the router node and its consumers to
-> specify the interrupt type corresponding to each interrupt line.
->=20
-> [0]: https://www.ti.com/lit/zip/sprujb3
-> [1]:
-> https://software-dl.ti.com/tisci/esd/latest/5_soc_doc/index.html#j722s
->=20
-> Signed-off-by: Jared McArthur <j-mcarthur@ti.com>
-> Signed-off-by: Aniket Limaye <a-limaye@ti.com>
-> ---
-> Note:
-> Support for per-line interrupt-types was added through a recent series
-> [2], which was already merged in.
->=20
-> Testing:
-> - Enable I2C4 (additional DT patch) on j722s-evm and run i2cdetect [3].
-> - Add testcode to ignore the NACK interrupt, which results in an irq
->   storm -> showing that GIC is actually receiving level interrupt from
->   the INTR [4].
+This patch series is submitted to add GMAC support for Nuvoton MA35D1
+SoC platform. This work involves implementing a GMAC driver glue layer
+based on Synopsys DWMAC driver framework to leverage MA35D1's dual GMAC
+interface capabilities.
 
-I ran a basic test on our MBa67xx board based on current linux-next with th=
-is
-patch applied. Probe and configuration of a RPi DSI camera module (IMX219)
-connected to I2C4 is working as expected.
+Overview:
+  1. Added a GMAC driver glue layer for MA35D1 SoC, providing support for
+  the platform's two GMAC interfaces.
+  2. Added device tree settings, with specific configurations for our
+  development boards:
+    a. SOM board: Configured for two RGMII interfaces.
+    b. IoT board: Configured with one RGMII and one RMII interface.
+  3. Added dt-bindings for the GMAC interfaces.
 
-Tested-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+v15:
+  - Return error correctly in probe function.
 
+v14:
+  - Fixed dt_binding_check compilation errors in the YAML file.
 
+v13:
+  - Fixed YAML with dt_binding_check
+  - Added callback for plat_dat->phy_interface
+  - Updated PHY-related setting helper function
+  - Renamed registers and values to avoid misleading names
 
->=20
-> [2]: https://lore.kernel.org/all/20260123-ul-driver-i2c-j722s-v4-0-b08625=
-c487d5@ti.com/
-> [3]: https://gist.github.com/aniket-l/844925345316adf9f65f04c8cdedd62d#fi=
-le-j722s-evm-main-i2c4-working-logs-txt
-> [4]: https://gist.github.com/aniket-l/844925345316adf9f65f04c8cdedd62d#fi=
-le-j722s-evm-main-i2c4-irqstorm-logs-txt
-> ---
->  arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi | 13 +++++++-----=
--
->  arch/arm64/boot/dts/ti/k3-j722s-main.dtsi              | 13 ++++++++++++=
-+
->  arch/arm64/boot/dts/ti/k3-j722s.dtsi                   |  3 ++-
->  3 files changed, 22 insertions(+), 7 deletions(-)
->=20
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi b/arc=
-h/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
-> index 0e1af2a69ca2..f130c7cb998d 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
-> @@ -543,10 +543,9 @@ main_spi2: spi@20120000 {
->  	main_gpio_intr: interrupt-controller@a00000 {
->  		compatible =3D "ti,sci-intr";
->  		reg =3D <0x00 0x00a00000 0x00 0x800>;
-> -		ti,intr-trigger-type =3D <1>;
->  		interrupt-controller;
->  		interrupt-parent =3D <&gic500>;
-> -		#interrupt-cells =3D <1>;
-> +		#interrupt-cells =3D <2>;
->  		ti,sci =3D <&dmsc>;
->  		ti,sci-dev-id =3D <3>;
->  		ti,interrupt-ranges =3D <0 32 16>;
-> @@ -558,8 +557,9 @@ main_gpio0: gpio@600000 {
->  		gpio-controller;
->  		#gpio-cells =3D <2>;
->  		interrupt-parent =3D <&main_gpio_intr>;
-> -		interrupts =3D <190>, <191>, <192>,
-> -			     <193>, <194>, <195>;
-> +		interrupts =3D <190 IRQ_TYPE_EDGE_RISING>, <191 IRQ_TYPE_EDGE_RISING>,
-> +			     <192 IRQ_TYPE_EDGE_RISING>, <193 IRQ_TYPE_EDGE_RISING>,
-> +			     <194 IRQ_TYPE_EDGE_RISING>, <195 IRQ_TYPE_EDGE_RISING>;
->  		interrupt-controller;
->  		#interrupt-cells =3D <2>;
->  		ti,davinci-gpio-unbanked =3D <0>;
-> @@ -574,8 +574,9 @@ main_gpio1: gpio@601000 {
->  		gpio-controller;
->  		#gpio-cells =3D <2>;
->  		interrupt-parent =3D <&main_gpio_intr>;
-> -		interrupts =3D <180>, <181>, <182>,
-> -			     <183>, <184>, <185>;
-> +		interrupts =3D <180 IRQ_TYPE_EDGE_RISING>, <181 IRQ_TYPE_EDGE_RISING>,
-> +			     <182 IRQ_TYPE_EDGE_RISING>, <183 IRQ_TYPE_EDGE_RISING>,
-> +			     <184 IRQ_TYPE_EDGE_RISING>, <185 IRQ_TYPE_EDGE_RISING>;
->  		interrupt-controller;
->  		#interrupt-cells =3D <2>;
->  		ti,davinci-gpio-unbanked =3D <0>;
-> diff --git a/arch/arm64/boot/dts/ti/k3-j722s-main.dtsi b/arch/arm64/boot/=
-dts/ti/k3-j722s-main.dtsi
-> index 9ee5d0c8ffd1..ddf20e44f0ea 100644
-> --- a/arch/arm64/boot/dts/ti/k3-j722s-main.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-j722s-main.dtsi
-> @@ -154,6 +154,19 @@ usb1: usb@31200000 {
->  		};
->  	};
-> =20
-> +	main_i2c4: i2c@fe80000 {
-> +		compatible =3D "ti,am64-i2c", "ti,omap4-i2c";
-> +		reg =3D <0x00 0x0fe80000 0x00 0x100>;
-> +		interrupt-parent =3D <&main_gpio_intr>;
-> +		interrupts =3D <178 IRQ_TYPE_LEVEL_HIGH>;
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +		power-domains =3D <&k3_pds 257 TI_SCI_PD_EXCLUSIVE>;
-> +		clocks =3D <&k3_clks 257 2>;
-> +		clock-names =3D "fck";
-> +		status =3D "disabled";
-> +	};
-> +
->  	ti_csi2rx1: ticsi2rx@30122000 {
->  		compatible =3D "ti,j721e-csi2rx-shim";
->  		reg =3D <0x00 0x30122000 0x00 0x1000>;
-> diff --git a/arch/arm64/boot/dts/ti/k3-j722s.dtsi b/arch/arm64/boot/dts/t=
-i/k3-j722s.dtsi
-> index 059c65ece183..1b36dcf37925 100644
-> --- a/arch/arm64/boot/dts/ti/k3-j722s.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-j722s.dtsi
-> @@ -160,7 +160,8 @@ cbass_main: bus@f0000 {
->  			 <0x00 0x0fd80000 0x00 0x0fd80000 0x00 0x00080000>, /* GPU */
->  			 <0x00 0x0fd20000 0x00 0x0fd20000 0x00 0x00000100>, /* JPEGENC0_CORE =
-*/
->  			 <0x00 0x0fd20200 0x00 0x0fd20200 0x00 0x00000200>, /* JPEGENC0_CORE_=
-MMU */
-> -			 <0x00 0x20000000 0x00 0x20000000 0x00 0x0a008000>, /* Third peripher=
-al window */
-> +			 <0x00 0x0fe00000 0x00 0x0fe00000 0x00 0x000f0400>, /* Third peripher=
-al window */
-> +			 <0x00 0x20000000 0x00 0x20000000 0x00 0x0a008000>, /* Fourth periphe=
-ral window */
->  			 <0x00 0x30040000 0x00 0x30040000 0x00 0x00080000>, /* PRUSS-M */
->  			 <0x00 0x301c0000 0x00 0x301c0000 0x00 0x00001000>, /* DPHY-TX */
->  			 <0x00 0x30101000 0x00 0x30101000 0x00 0x00080100>, /* CSI window */
->=20
-> ---
-> base-commit: d517cb8cea012f43b069617fc8179b45404f8018
-> change-id: 20260303-j722s-main-i2c4-dt-8a1344d04ffe
->=20
-> Best regards,
+v12:
+  - Drop private structure nvt_priv_data
+  - Fix error propagation to preserve probe deferral
+  - Refactor internal delay handling into a dedicated helper
+  - Move FIFO and filter configuration from driver to Device Tree
+  - Update DT binding to include "snps,dwmac-3.70a" compatible
 
---=20
-TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
-any
-Amtsgericht M=C3=BCnchen, HRB 105018
-Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
-neider
-https://www.tq-group.com/
+v11:
+  - Propagate syscon lookup errors to allow proper probe deferral.
+
+v10:
+  - Update DTS/DTSI files to follow proper hierarchy and port modeling
+
+v9:
+  - Fixed file permissions. (YAML, driver, DTS)
+  - Moved phy-handle and PHY-related properties from SoC dtsi to board dts.
+
+v8:
+  Changes since v7:
+  - Rebased onto the latest net-next.
+  - Removed unused symbol.
+  - stmmac parent driver now reads hardware features directly to support
+    Wake-on-LAN via magic packet, so PMT-related overrides in this driver
+    have been removed.
+  - Update dwmac-nuvoton driver:
+      - Update the license to GPL.
+      - Improve the description in Kconfig.
+
+v7:
+  - Update dwmac-nuvoton driver
+    - Update probe function to use stmmac_pltfr_probe instead.
+
+v6:
+  - Update dwmac-nuvoton driver
+    - Use NVT as the previx for all functions, structs, and defines.
+    - Remove unnecessary comments.
+
+v5:
+  - Update yaml
+    - Remove the properties already defined in snps dwmac.
+  - Update dwmac-nuvoton driver
+    - Add a comment to explain the override of PMT flag.
+
+v4:
+  - Update yaml
+    - Remove unnecessary property 'select'.
+    - Remove unnecessary compatible entries and fix items.
+    - Specify number of entries for 'reg'.
+    - Remove already defined property 'phy-handle'.
+    - Update example.
+    - Modify the property internal path delay to match the driver.
+  - Update dtsi
+    - Move 'status' to be the last property.
+  - Update dwmac-nuvoton driver
+    - Use remove instead of remove_new.
+    - Use dev_err_probe instead.
+
+v3:
+  - Update yaml
+    - Fix for dt_binding_check warnings & errors.
+    - Add compatible in snps dwmac.
+  - Update dtsi
+    - Update dtsi to follow examples in yaml.
+  - Update dwmac-nuvoton driver
+    - Fix for auto build test warnings.
+    - Invalid path delay arguments will be returned.
+
+v2:
+  - Update yaml
+    - Rename file to align with the compatible property.
+    - Add an argument to syscon to replace mac-id,
+      with corresponding descriptions.
+    - Use tx-internal-delay-ps and rx-internal-delay-ps properties for
+      configurable path delay with corresponding descriptions,
+      allowing selection between GMAC internal and PHY.
+    - Add all supported phy-mode options.
+    - Remove unused properties.
+  - Update dtsi
+    - Modify syscon configuration to include an argument for
+      GMAC interface selection.
+  - Update dwmac-nuvoton driver
+    - Remove redundant device information print statements.
+    - Remove non-global parameters.
+    - Retrieve GMAC interface selection from the syscon argument.
+    - Parse Tx and Rx path delays by correct properties.
+    - Update configurations to support Wake-on-LAN.
+
+Joey Lu (3):
+  dt-bindings: net: nuvoton: Add schema for Nuvoton MA35 family GMAC
+  arm64: dts: nuvoton: Add Ethernet nodes
+  net: stmmac: dwmac-nuvoton: Add dwmac glue for Nuvoton MA35 family
+
+ .../bindings/net/nuvoton,ma35d1-dwmac.yaml    | 140 ++++++++++++++++++
+ .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
+ .../boot/dts/nuvoton/ma35d1-iot-512m.dts      |  25 ++++
+ .../boot/dts/nuvoton/ma35d1-som-256m.dts      |  24 +++
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       |  52 +++++++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  12 ++
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ .../ethernet/stmicro/stmmac/dwmac-nuvoton.c   | 136 +++++++++++++++++
+ 8 files changed, 391 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
+
+-- 
+2.43.0
+
