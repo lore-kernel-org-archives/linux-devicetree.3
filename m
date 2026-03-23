@@ -1,205 +1,242 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E2B3B95F8;
-	Mon, 23 Mar 2026 16:27:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A21763BF662;
+	Mon, 23 Mar 2026 16:27:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774283237; cv=none; b=q7eK95o2P8yKkuQ3iRV47qJXUDW6fTNjelhgoX9NLg05gwIlTOuc7pEZTwE+ZrzwaUZW4Q1x7K3K4jcrY+FITo0hPpvKrcQogPZyBhvZ5HHC5Ri+c5gzAZ/4RAyzuZ1I1mbjjD2hvJKdTyjvQwt15fB7dFdVjCeluVfTYq7vdec=
+	t=1774283268; cv=none; b=I1/eGLVHqEZWoycjo/PO6gl5CNjmb4oQwyoNddCRP4ttkkSIf9StLxWcISOwD8y5aFH1+CPaI2y1QQArFL08s1C4Fk+JlHH8H9X5HcnJRPmSDEcVxQz0IJszY2o3OT2pKIEZ9xe2od5T/uS/UbuhbWk0qP1CEPhXBPlOD+ILYNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774283237; c=relaxed/simple;
-	bh=negpr9ymqdcFH8ARZ0fVPTcU/bLZrgK4U2z5BTwZzQI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u76wcyKxlEUJxL9XQY76BAWcdbUjzQh61fk1bnlmae73ctGLpV740B28jTYqJyLtnAc9B40mqgdfW7PIpSptTpd+jXcll5y/bNIjpTTWaKV+n3zFqSXpU9NFyFKSgbFl2dFM9ErwsevEfseCUgF1SD86hcfSe7ll08SYzSWAhW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TXowK2Ek; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1774283268; c=relaxed/simple;
+	bh=q7i3GI3KVj7zUmUcqSgWeQz+kU9PI/xAiXg7REx9iSc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=lOt6tBHyD9Oo4qxOzj7Skg3O0tUQB030wmGblD6SatsLUrkD+hq8UxzGRbfa+H0pquKGPbID/NBqdiYq9cOBkbs1v3y168ibPeAI9OMvmhms/+b/tMbqkEvVLIBCEok0nuGTrdU6iT+48EgTbbvrEZTqZbMy76QUaonA+x4O8uE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MsDRyRHM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TXowK2Ek"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id E1E994E42392;
-	Mon, 23 Mar 2026 16:27:13 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B55FA5FEF6;
-	Mon, 23 Mar 2026 16:27:13 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9E6CE10450D30;
-	Mon, 23 Mar 2026 17:27:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1774283232; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=rNB46l86KhEE2SPNXttKfCE0ClL7ezUhxWzUZSM4r9U=;
-	b=TXowK2EkL0zs85jOe3inW1IcVG7tXjhR3+1Xx8pd1rwRB0Pvka2AW6OGjwybZLXNw4YxLr
-	2kfDMnsPnl06UmYne/mLGaxTNDdIo/D/QxDsDMuR3mrBm9vhAF3nNIS3dlOjN34a4wLFg5
-	QItJ4JvuZ7k2USxBHlnPEV9Ac8+BTYAsVaAqHEJOQ0zeErFQF3+Rk+CWBZYbzZ2Ucaypyi
-	d0vlXkSTYbmlPaGd0Qe8GsyRsjuluHjsvLlnJoOaFXHCsPjHv1340FR9Nv8zp1s1mTDE1f
-	zc7wxTzTjYtHknt4bpQ2BbllBHvwnE2iti57YAJeXR+zOknZaFI1eR4JsiFjtg==
-Message-ID: <b47801f9-3828-4c68-992c-e85373576f3d@bootlin.com>
-Date: Mon, 23 Mar 2026 17:27:07 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MsDRyRHM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3A087C2BCC7;
+	Mon, 23 Mar 2026 16:27:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774283268;
+	bh=q7i3GI3KVj7zUmUcqSgWeQz+kU9PI/xAiXg7REx9iSc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=MsDRyRHM0ZT6sOaWnF5XqIlCurkW9DIekaB+30Lg1hzXsQ8eTz4Upz8sBZOuVUbVn
+	 bU3AVjwwVZtqtIFq+iHLRgidQC8e/e4HyQT9OAuzKPebX6fdZ+utnkniVu1J1qLyUn
+	 4KAKPtZ/y8Sc5P54hc/Cz0PYL+6Z+RFh6hstOyVrTehvR0sOO/yTrnJCvj6JKtT9KJ
+	 qjLWNm1g+y8Y8i5f63iSegNEoDzCYg7BAimAe7VdiLW9MGODW4en6/FmPXhpJrrEPr
+	 Ucx354kq9YdkpkqphWjvg6iB7aerKF/nopZVtcYL5waU/6IqPkUHYIG2i31Wa7s/eA
+	 14hapsqcCYvpQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3140AF483D2;
+	Mon, 23 Mar 2026 16:27:48 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Mon, 23 Mar 2026 11:27:46 -0500
+Subject: [PATCH v4 4/6] arm64: dts: qcom: Add AYN Odin 2 Mini
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/4] Introduce Allwinner H616 PWM controller
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Paul Kocialkowski <paulk@sys-base.io>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- John Stultz <jstultz@google.com>, Joao Schim <joao@schimsalabim.eu>,
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260305091959.2530374-1-richard.genoud@bootlin.com>
-From: Richard GENOUD <richard.genoud@bootlin.com>
-Content-Language: en-US, fr
-Organization: Bootlin
-In-Reply-To: <20260305091959.2530374-1-richard.genoud@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260323-ayn-qcs8550-v4-4-33a8ac3d53fa@gmail.com>
+References: <20260323-ayn-qcs8550-v4-0-33a8ac3d53fa@gmail.com>
+In-Reply-To: <20260323-ayn-qcs8550-v4-0-33a8ac3d53fa@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>, 
+ Teguh Sobirin <teguh@sobir.in>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774283267; l=4407;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=XsC5Q+8R9eEopRPQ2Kq+lZQ5XLef+PCaKxUhJNrsdSs=;
+ b=MbpLHH/1fpjCjPRG3vDsAE3nF9wevwpf7MxtYcKyGjCQUcb7dJredGAP8Zvyjt13RggGVzA0F
+ zPQApDjaFBBB/qlivXYrK9CCeR6Ft7//Rlx25r4xm0QPE7xyhy8vnxs
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Reply-To: webgeek1234@gmail.com
 
-Le 05/03/2026 à 10:19, Richard Genoud a écrit :
-> Allwinner H616 PWM controller is quite different from the A10 one.
-> 
-> It can drive 6 PWM channels, and like for the A10, each channel has a
-> bypass that permits to output a clock, bypassing the PWM logic, when
-> enabled.
-> 
-> But, the channels are paired 2 by 2, sharing a first set of
-> MUX/prescaler/gate.
-> Then, for each channel, there's another prescaler (that will be bypassed
-> if the bypass is enabled for this channel).
-> 
-> It looks like that:
->              _____      ______      ________
-> OSC24M --->|     |    |      |    |        |
-> APB1 ----->| Mux |--->| Gate |--->| /div_m |-----> PWM_clock_src_xy
->             |_____|    |______|    |________|
->                            ________
->                           |        |
->                        +->| /div_k |---> PWM_clock_x
->                        |  |________|
->                        |    ______
->                        |   |      |
->                        +-->| Gate |----> PWM_bypass_clock_x
->                        |   |______|
-> PWM_clock_src_xy -----+   ________
->                        |  |        |
->                        +->| /div_k |---> PWM_clock_y
->                        |  |________|
->                        |    ______
->                        |   |      |
->                        +-->| Gate |----> PWM_bypass_clock_y
->                            |______|
-> 
-> Where xy can be 0/1, 2/3, 4/5
-> 
-> PWM_clock_x/y serve for the PWM purpose.
-> PWM_bypass_clock_x/y serve for the clock-provider purpose.
-> The common clock framework has been used to manage those clocks.
-> 
-> This PWM driver serves as a clock-provider for PWM_bypass_clocks.
-> This is needed for example by the embedded AC300 PHY which clock comes
-> from PMW5 pin (PB12).
-> 
-> Usually, to get a clock from a PWM driver, we use the pwm-clock driver
-> so that the PWM driver doesn't need to be a clk-provider itself.
-> While this works in most cases, here it just doesn't.
-> That's because the pwm-clock request a period from the PWM driver,
-> without any clue that it actually wants a clock at a specific frequency,
-> and not a PWM signal with duty cycle capability.
-> So, the PWM driver doesn't know if it can use the bypass or not, it
-> doesn't even have the real accurate frequency information (23809524 Hz
-> instead of 24MHz) because PWM drivers only deal with periods.
-> 
-> With pwm-clock, we loose a precious information along the way (that we
-> actually want a clock and not a PWM signal).
-> That's ok with simple PWM drivers that don't have multiple input clocks,
-> but in this case, without this information, we can't know for sure which
-> clock to use.
-> And here, for instance, if we ask for a 24MHz clock, pwm-clock will
-> requests 42ns (assigned-clocks doesn't help for that matter). The logic
-> is to select the highest clock (100MHz) with no prescaler and a duty
-> cycle value of 2/4 => we have 25MHz instead of 24MHz.
-> And that's a perfectly fine choice for a PMW, because we still can
-> change the duty cycle in the range [0-4]/4.
-> But obviously for a clock, we don't care about the duty cycle, but more
-> about the clock accuracy.
-> 
-> And actually, this PWM is really a PWM AND a real clock when the bypass
-> is set.
-> 
-> This series is based onto v6.19-rc4
-> 
-> NB: checkpatch is not happy with patch 2, but it's a false positive.
-> It doesn't detect that PWM_XY_SRC_MUX/GATE/DIV are structures, but as
-> it's more readable like that, I prefer keeping it that way.
-> 
-> NB2: for geopolitical reasons, I didn't re-use the old series that Paul
-> was referring to.
-> 
+From: Teguh Sobirin <teguh@sobir.in>
 
-Hi Uwe, do you plan to grab this series or does it needs some further 
-reviews?
+The AYN Odin 2 Mini is a high-performance Android-based handheld gaming
+console powered by the Qualcomm Snapdragon 8 Gen 2 processor featuring a
+5-inch mini-led touchscreen.
 
-Regards,
-Richard
+Signed-off-by: Teguh Sobirin <teguh@sobir.in>
+Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+ .../boot/dts/qcom/qcs8550-ayntec-odin2mini.dts     | 140 +++++++++++++++++++++
+ 2 files changed, 141 insertions(+)
 
-> Changes since v3:
-> - gather Acked-by/Tested-by
-> - fix cast from pointer to integer of different size (kernel test robot
->    with arc platform)
-> - add devm_action for clk_hw_unregister_composite as suggested by Philipp
-> - remove now unused pwm_remove as suggested by Philipp
-> 
-> Changes since v2:
-> - use U32_MAX instead of defining UINT32_MAX
-> - add a comment on U32_MAX usage in clk_round_rate()
-> - change clk_table_div_m (use macros)
-> - fix formatting (double space, superfluous comma, extra line feed)
-> - fix the parent clock order
-> - simplify code by using scoped_guard()
-> - add missing const in to_h616_pwm_chip() and rename to
-> h616_pwm_from_chip()
-> - add/remove missing/superflous error messages
-> - rename cnt->period_ticks, duty_cnt->duty_ticks
-> - fix PWM_PERIOD_MAX
-> - add .remove() callback
-> - fix DIV_ROUND_CLOSEST_ULL->DIV_ROUND_UP_ULL
-> - add H616_ prefix
-> - protect _reg in macros
-> - switch to waveforms instead of apply/get_state
-> - shrink struct h616_pwm_channel
-> - rebase on v6.19-rc4
-> 
-> Changes since v1:
-> - rebase onto v6.19-rc1
-> - add missing headers
-> - remove MODULE_ALIAS (suggested by Krzysztof)
-> - use sun4i-pwm binding instead of creating a new one (suggested by Krzysztof)
-> - retrieve the parent clocks from the devicetree
-> - switch num_parents to unsigned int
-> 
-> Richard Genoud (4):
->    dt-bindings: pwm: allwinner: add h616 pwm compatible
->    pwm: sun50i: Add H616 PWM support
->    arm64: dts: allwinner: h616: add PWM controller
->    MAINTAINERS: Add entry on Allwinner H616 PWM driver
-> 
->   .../bindings/pwm/allwinner,sun4i-a10-pwm.yaml |  19 +-
->   MAINTAINERS                                   |   5 +
->   .../arm64/boot/dts/allwinner/sun50i-h616.dtsi |  47 +
->   drivers/pwm/Kconfig                           |  12 +
->   drivers/pwm/Makefile                          |   1 +
->   drivers/pwm/pwm-sun50i-h616.c                 | 936 ++++++++++++++++++
->   6 files changed, 1019 insertions(+), 1 deletion(-)
->   create mode 100644 drivers/pwm/pwm-sun50i-h616.c
-> 
-> 
-> base-commit: 11439c4635edd669ae435eec308f4ab8a0804808
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 2349cd200a61cebee9e8739422a226cd75ded3be..da534d839084ba60bc794b8f420baf06bcbfc6d8 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -171,6 +171,7 @@ qcs8300-ride-el2-dtbs := qcs8300-ride.dtb monaco-el2.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs8300-ride-el2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-aim300-aiot.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayntec-odin2mini.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride-r3.dtb
+ 
+diff --git a/arch/arm64/boot/dts/qcom/qcs8550-ayntec-odin2mini.dts b/arch/arm64/boot/dts/qcom/qcs8550-ayntec-odin2mini.dts
+new file mode 100644
+index 0000000000000000000000000000000000000000..c2a1b85b66e314e277181f0036a0988060368243
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/qcs8550-ayntec-odin2mini.dts
+@@ -0,0 +1,140 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2025, Teguh Sobirin.
++ */
++
++/dts-v1/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++#include "qcs8550-ayntec-common.dtsi"
++
++&{/} {
++	model = "AYN Odin 2 Mini";
++	compatible = "ayntec,odin2mini", "qcom,qcs8550", "qcom,sm8550";
++
++	hdmi-out {
++		compatible = "hdmi-connector";
++		type = "d";
++		hpd-gpios = <&tlmm 9 GPIO_ACTIVE_HIGH>;
++		hdmi-pwr-supply = <&vdd_hdmi_1v8>;
++
++		port {
++			hdmi_con: endpoint {
++				remote-endpoint = <&lt8912_out>;
++			};
++		};
++	};
++
++	vcc_hdmi_1v8: vcc-hdmi-1v8-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc_hdmi_1v8";
++
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++
++		gpio = <&tlmm 10 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++
++	vdd_disp_2v8: vdd-disp-2v8-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vdd_disp_2v8";
++
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++
++		gpio = <&tlmm 142 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++
++	vdd_hdmi_1v8: vdd-hdmi-1v8-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vdd_hdmi_1v8";
++
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++
++		gpio = <&tlmm 6 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++};
++
++&i2c_hub_0 {
++	clock-frequency = <100000>;
++
++	status = "okay";
++
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	lt8912_codec: hdmi-bridge@48 {
++		compatible = "lontium,lt8912b";
++		reg = <0x48> ;
++
++		reset-gpios = <&tlmm 7 GPIO_ACTIVE_LOW>;
++
++		vdd-supply = <&vdd_hdmi_1v8>;
++		vccmipirx-supply = <&vcc_hdmi_1v8>;
++		vccsysclk-supply = <&vcc_hdmi_1v8>;
++		vcclvdstx-supply = <&vcc_hdmi_1v8>;
++		vcchdmitx-supply = <&vcc_hdmi_1v8>;
++		vcclvdspll-supply = <&vcc_hdmi_1v8>;
++		vcchdmipll-supply = <&vcc_hdmi_1v8>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++
++				hdmi_out_in: endpoint {
++					data-lanes = <1 2 3 4>;
++					remote-endpoint = <&mdss_dsi0_out>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++
++				lt8912_out: endpoint {
++					remote-endpoint = <&hdmi_con>;
++				};
++			};
++		};
++	};
++};
++
++&mdss_dsi0 {
++	vdda-supply = <&vreg_l3e_1p2>;
++
++	status = "okay";
++};
++
++&mdss_dsi0_out {
++	remote-endpoint = <&hdmi_out_in>;
++	data-lanes = <0 1 2 3>;
++};
++
++&mdss_dsi0_phy {
++	vdds-supply = <&vreg_l1e_0p88>;
++
++	status = "okay";
++};
++
++&remoteproc_adsp {
++	firmware-name = "qcom/sm8550/ayntec/odin2mini/adsp.mbn",
++			"qcom/sm8550/ayntec/odin2mini/adsp_dtb.mbn";
++
++	status = "okay";
++};
++
++&spk_amp_l {
++	firmware-name = "qcom/sm8550/ayntec/odin2mini/aw883xx_acf.bin";
++};
++
++&spk_amp_r {
++	firmware-name = "qcom/sm8550/ayntec/odin2mini/aw883xx_acf.bin";
++};
++
+
+-- 
+2.53.0
+
 
