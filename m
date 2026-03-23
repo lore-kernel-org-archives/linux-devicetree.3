@@ -1,105 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F77F1459FA;
-	Mon, 23 Mar 2026 14:45:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F14D1239099
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 14:45:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774277103; cv=none; b=VozmsCU007nwCS+v1GHYTaEG/jqDXuK+iY8TBdVUoMJpeIZYNLZBxQNrjKnUxB33lMD1oKSGghVxB0CC4e+BxmIdywbX6LFuWr8YmxWISXb8g4OC2Jwd1gtxo9FmDU3yJQaJkQW4FqtKvXJ9dY3PJt2yG3vHn8GDXSY3jCmutrs=
+	t=1774277142; cv=none; b=EVu6B0KfPxycGNiVxM5RMTd/s6XJ3PRYnr3Q61T4uwdIybbNTZ5Fzc+6Rr0iq95jQa3Q2uwTWsXQgVdplvz/yPOJg2GnUMIM33hb/hMeAF7lgMxmX1rDnJbaj+i6SmLV+ORJFGXE5XMMSIutzeLIrq/cLHG2R7RqcDmCtvmJ7As=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774277103; c=relaxed/simple;
-	bh=AMsHMdA+1ENOpjDo1x/BafeNv4x5LgPVJV/XXUHUyC0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uL5B0n1PwotxcqUnLEifvBMCZN07hMieMp1Qh7VnmrmqGTvc5apFG0i1bEYn0ksM6jtuAoZdytyYsbf3K73uFpnmAQMKBhQMSEPSYH+G+MBnnOQ2Em0PVmo3090fCcf7+5GEiVapNjK8NV3yZA7POtbCpq70TB5FjIcxtmbq6a8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gS+9M2ub; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774277142; c=relaxed/simple;
+	bh=Btw1c2HBNOjynBg9HMKRXHEjIeWm2xGVPfJB65Us2d8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qmUnVdqk0w5TArHHind1z+AfM1fFjAnLBHt6hN2orHjQ9f4Ys+6m6lENo0c6YSk2SwA84Fc3N1XFrbuyAbiaao5aw0QGDEgtQeioypOuAwJ+8oHwYxMnOC4MVih7PvDbZFqDDVM0UdI4JrxR1/UtdhcOUX8eMQuZgby9oEyyR8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fqfN0Rh7; arc=none smtp.client-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gS+9M2ub"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2777C4CEF7;
-	Mon, 23 Mar 2026 14:45:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774277103;
-	bh=AMsHMdA+1ENOpjDo1x/BafeNv4x5LgPVJV/XXUHUyC0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gS+9M2ubAQMlNkOsYlqf66ywjcBYELCZYK7whLIyeN2QGJqhC9gWNKpznKMvup/27
-	 XtvFey5bCv/cDxRLWfAAUj/ObwtzAMuWLg3oYgS5dhtPdtOeYCi7JqMkvrqRieKH4r
-	 /oP3a+EMKKqBQcbNkddiX8T500vJER4uW+WHzpYpn++/L/fMA6y0VO9n1jv5+3V8Z6
-	 aNXr/DPXcc9mU9ykrOP2u0QbXeQe14wrKKeexD6IBS2D4rSULDt8/Y1n0mm8K+/3vM
-	 9bJN360CR3GRVhHfeysHviD2IyGWkTLMGYQoJqU4g41pfsagmMNosy+WoHPPKlIiH1
-	 Q+2XpMBEXkRZw==
-Date: Mon, 23 Mar 2026 15:45:00 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jon Hunter <jonathanh@nvidia.com>, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: pwm: Document Tegra194 and Tegra264
- controllers
-Message-ID: <acFRczOXps0nRfMl@orome>
-References: <20260320234056.2579010-1-thierry.reding@kernel.org>
- <20260321-witty-fortunate-elephant-ce50fe@quoll>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fqfN0Rh7"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-2c0c955a481so3007639eec.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 07:45:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1774277140; x=1774881940; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=I+oWMSCKxMSzMwfiT72a6Og/7ntIqLA0/09brtyvtUs=;
+        b=fqfN0Rh7Tb/VxDt08+L2oHEOl/thL5w89e5GssIa/BvSQEZFSWTeXng/1MZUy4pkBi
+         G5RlLDQRSX0OUzfuM8KvBgnFsQB80I6O6F6LS1ppIDkngvsF1UiKZYmpT3SmeXHnBNCm
+         PEPiNKj08J9PTEFlMIx4MiUtO93Ct+QyRmiaTWrxhKglxiH7TS01M+b64nzY2M6LW7CX
+         pQ9Hhq4kMyrv0F/tSVCzYZ8voA0Cgp1KybD1nXgz55FNCwLDDJ6a/6Y7JMqvpsBrnkfS
+         /LBHQrbUOWJozrHUQo1VMIFurfzKGEwvIbfDeO9ywedwhkDDRs0O6/Fou7GsJfmGPZu1
+         fY2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774277140; x=1774881940;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=I+oWMSCKxMSzMwfiT72a6Og/7ntIqLA0/09brtyvtUs=;
+        b=bZWs5P/0hgm5JY0QSsVhM3/1AFjxwx7DH0YMauOwnUlxN3I9MDGqaACs0N0MEnnRpm
+         NhAZUzlOK0s5V2XWrO8arMSuxWASude0pU0G3wAYiH/xruiTZXtkqLfA4cHlcwK9A2ra
+         7s0C/b6edwsCs6uaAiTX9b165BpiqBNH0na+cB9wqqk/uHTA5ejAJIB43koftx8Ipz1t
+         gAsAwK+CBhWcGE23DoxWXgsSeXSJQallBbgwlbePVSs9Sw0FtPb+sURWFZYtDabP036x
+         DhH/tRxhTqrnctO8mnqnYo4GyTLvdLUoX9Ujo/mqEQjGjeaZ0IjW/KIOIKlA+xPS0xOP
+         GuIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUKETi3olSbFCntajGYIP002b20nXZ5x2GEzajAAtg+/U0fr2IrSJKLTOfBsG96HxYKmopjX1nQHBXc@vger.kernel.org
+X-Gm-Message-State: AOJu0YwhEWQxDCLidnCh8ibA7Bchs/CZZAeCcIIE3Fp6esPbqBUfo7fM
+	g0kjanh0dSTFKCL4UgX8y4MIrrHkMl9jEkfCz5Ez/0jIIivgnZZDJiEn
+X-Gm-Gg: ATEYQzzA2juc0+EokuBDuHt8SZxBIh2hMMafefq9Z3m1AHll2Aa/rDT2RE7hAPVEokh
+	lSMEBSSZzDROxu9lpxhTxFC0vQMwdOyXpmCVz2gCHim7k9GQ75iovIiTkpkdd6KvMh8+6f8GPOv
+	9D7kMbg7slVW3vI8DnLfzLLTsdfzKpswS5TLDf28EMYY/lwjl6fFWsC1AO4eL30c+TPtQAXyOXl
+	YJrZ6ThD6+VePbp1i3ScWlLylu64jc1dAhKk0d345X+Wsy1kIpOM2bPONCTUalRV12NrrGa/tni
+	OUq5EKqsMVNuZ7m2vGoaFaDQLDpRbXK5QMZRpQgj4qBe/uCYB0DvVnMqORjVDbT3YKUyW6YbDML
+	AqqjNXKxixbUa2Fdkx8helxOVDw3A4RZygEdSGrntU6RJoJgV4f+UwtLIzL4Sx4/TKVH3TVPw0k
+	JKZhDrSRirw0SMbFfoFG3LSxDMqdCtjcRHI677YVw4cU05A/hMu6vhFy7pEHhVjzH4Tk808X4n
+X-Received: by 2002:a05:7300:a883:b0:2c0:fec3:fcff with SMTP id 5a478bee46e88-2c109712ae0mr5271934eec.17.1774277140029;
+        Mon, 23 Mar 2026 07:45:40 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c10b29d28csm15457195eec.19.2026.03.23.07.45.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Mar 2026 07:45:39 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <696f0e32-5deb-401c-9b98-830c6bfdeca6@roeck-us.net>
+Date: Mon, 23 Mar 2026 07:45:38 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bj2jq6boulfkimbn"
-Content-Disposition: inline
-In-Reply-To: <20260321-witty-fortunate-elephant-ce50fe@quoll>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/7] dt-bindings: watchdog: Drop SMARC-sAM67 support
+To: Michael Walle <mwalle@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, linux-doc@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>
+References: <20260302122540.1377444-1-mwalle@kernel.org>
+ <20260302122540.1377444-7-mwalle@kernel.org>
+ <f124b200-09e3-4e73-a100-f47007732e8f@roeck-us.net>
+ <DHA13HM1GIJW.1E7XCMY349JX7@kernel.org>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <DHA13HM1GIJW.1E7XCMY349JX7@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 3/23/26 01:45, Michael Walle wrote:
+> Hi,
+> 
+> On Mon Mar 2, 2026 at 4:01 PM CET, Guenter Roeck wrote:
+>> On 3/2/26 04:24, Michael Walle wrote:
+>>> I was just informed that this product is discontinued (without being
+>>> ever released to the market). Pull the plug and let's not waste any more
+>>> maintainers time and revert commit 354f31e9d2a3 ("dt-bindings: watchdog:
+>>> Add SMARC-sAM67 support").
+>>>
+>>> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+>>> Signed-off-by: Michael Walle <mwalle@kernel.org>
+>>
+>> Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+> 
+> Everything expect this patch was picked up. Guenter, do you want to
+> take it, or should it go through the TI SoC queue?
+> 
+> Thanks,
+> -michael
 
---bj2jq6boulfkimbn
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/2] dt-bindings: pwm: Document Tegra194 and Tegra264
- controllers
-MIME-Version: 1.0
+I am fine with either approach. Wim handles all watchdog subsystem pull requests,
+so we'll need his feedback.
 
-On Sat, Mar 21, 2026 at 11:47:59AM +0100, Krzysztof Kozlowski wrote:
-> On Sat, Mar 21, 2026 at 12:40:55AM +0100, Thierry Reding wrote:
-> > From: Thierry Reding <treding@nvidia.com>
-> >=20
-> > The PWM controller found on Tegra264 is largely compatible with the one
-> > on prior generations, but it comes with some extra features, hence a new
-> > compatible string is needed.
->=20
-> Extra features means devices are compatible.
->=20
-> You also always need a new compatible even without extra features, so
-> last part is just confusing. Suggests like you could skip new
-> compatible.
+Thanks,
+Guenter
 
-Erm... if the hardware was exactly identical, then there'd be no need
-for a new compatible string. It's certainly good practice to add one
-anyway, but what's the point in having 10 different compatible strings
-for exactly the same hardware?
-
-In this case the new compatible string is necessary so that we can take
-advantage of the new features that are not covered yet by an existing
-binding.
-
-Thierry
-
---bj2jq6boulfkimbn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnBUewACgkQ3SOs138+
-s6ECiw/+M6SuqkgESmCh2Zs0fMLDwRsRTMjDVRXlSkyhH6o8BpoobXFljQTNpKxB
-PehFRrEJqSEpDentORQ1jg+NZckLEC1f1hHpQYbrfppGdgH91B8+RGXvRNipgh9E
-vQ02PsesWITjQ+cXB9/IeS2+klwBXscpr+TlQqg6rwOkccO/DNWRXGNc+majkS5f
-aoS9Obo8Ys7bZEoSwqao38JyTy3ZgW7PZjiRfd2NCPbt+Pu8cVjsNPN4n4pbhT+g
-srsqOt4s3+DKjtsI906Q594tfaAuttNNWBdY9SkBlvT4k5nEg5Qge9hpECih8MTe
-q6OUagin62wliKs8LNG8maSsPp71ZShoo9TRjLMn0bJKiBnDYx6r6kkWPh+fizX5
-VXZ0rjzAjBedmI4YPbatWYBcu6FiPNRCXU5lL7p+MHq64gsOAj0e3OQ7lkN1PsOm
-KTQQJhgE4UEgdz3YZi5zAr3uii8cuKq6vatYIX7pGXlFNsQg5w2K+BRRysADZLwy
-AhWVWEV60TRbNK4hBW1s1k1ItzZM0nkR6IOmRIctqa4dli7baRlXc2oNOqxL64hX
-dPO8nKoxQvxnXMoKJPCELdkl2RB0wGwDH2fmLVmwn2rcFFk46m2jXTrSCWQSesxJ
-lBXzuY2LkCaazy/LW6UVAedlAUpmJNEDHWukx2pZMTjiXD/eXr8=
-=6w6X
------END PGP SIGNATURE-----
-
---bj2jq6boulfkimbn--
