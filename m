@@ -1,166 +1,149 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011001.outbound.protection.outlook.com [52.101.70.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3C32D5950;
-	Mon, 23 Mar 2026 23:19:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.1
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774307956; cv=fail; b=HMv/UWSGr1qgVvZBsMPmAOZz4iaCRjadDASrTy+JEICde2ekKBqzTk5X7v4D9tDD0zKB5/0nSdIE90iBJbtYBf3VafcWtWbhZSRFPdiGtZ5NbXaF/9dzfU+gBSLhJp/33ddwoA/aC/+7GV+8U/YTd+dzr2bGCgcdhLpoZSmT/30=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774307956; c=relaxed/simple;
-	bh=Av4SoizyArC6/snQebbuc3SPi/2mF7rxKdurRf8aU/c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=e9URPARbNJ/EmjEqddmJwjfh3Vl0Ort1Mnp5ouhJQNqhFY7ww12lJSUYt3r8K2TJBzBFlStDFMQYWeNGDsXplMRp6aWbWi+IyGmkgkKyChScRqS5hjT1vDZE7GEQ9KSl775OTtD5UqIvZ7OQVl8ounsQP2z0w2pdStqYbb7eizo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=YRidMjfV; arc=fail smtp.client-ip=52.101.70.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594DC381AE2;
+	Mon, 23 Mar 2026 23:20:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774308044; cv=none; b=eyBN2OtlhNfhLYgVrwQfzWaEdpWGVQVN4f97lO0W3Fn6Yu5Qj/96aoknYqTXiId85vcoNVSVhZin0/p/OC3QtBc5z3xijhUT9/rkavHRR3ko+/15M+PYZirDEIJDT1W5wLYl/AYhV6vv5OpdvsSp1BiluJWlWbF+EaXcF2iIxMU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774308044; c=relaxed/simple;
+	bh=bxP1A6IybLUW2ZFmHnbweKo79KZkq8k1hEfaTmqbHXc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=rT9Ku+Z9VO9EtlKUuNWm7RV3Qmjtxz0nmxY4zHln0G7UJmPe6P9T/4Kg5+tqof11VJo3tQMrMgKqxpRGSQ7XpzF/PnTL3qMtyRCB74m05+91jUkDJ2eMJkDMnfzfisINxFT7PEp3SUlTYvXm2J4BG0s1gajHja8p/fAsqvEWT6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aOTA1YA0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="YRidMjfV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dV1x08ejoQRWxhqZImJ19PquuvPF+wwVrjSDCAv1nAifqh5saxGdNMKVjaRwUIjaoA3F239E7tlCi0LCzhxVFt4Buc02nYyDveWjowERBnkGBJPLa2Ecq29zAEjP7GL/JB9MTV1osAGGt5vG3VoUpjm2D+nTZkZYqam47bCT5cwA1/2GpAWeBY4ezt+JUnSKzbQSR8NqActxyyFkA4UcAZrxLJX9jdelcuNnKApvj7IY1vNE0Lv/EBv/SHGp+GdO2JNNlQkIYYop2E5L+L4GMK+nNOOOPlGVzLpUvWmY2DahyU5+V3IYC6qeBE8pccOTAYliJ8qXT2MtZU9xi96Q3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WJlw6WcZoUZlPjAImVRLUqdMWnLBGiWYvvfJDFvlxw8=;
- b=GA+NxJ+edrTUDw+0Sj7Gg+pIj9XrRv15yU0AUudhXhSYxcuXSePY4yIjTHP9w1qWL7fwmqvEOm6RVr+6cigLZplHNZnvVPV0LToCCTlZcTQMW8h5WgFywH9QmuUkwt3zfv7nPGu/Yja3tk2PA5K2WHMUYYwiXM7jn94hcG9UGj84/t8nOISIQrH3pFPzHcjiJ3DpVjxP9fD7DaTP2CiVdtXBcB3E+lRFEpNmfuUCjUC2qjskAbEX4lZc6sXU2bgf/FYa9I2dCKLfvAcR9D7ppE++0N9IsQyrSE8d1ro/9clPkuj3V4nETO9EXeJg8EVxLsGH6iPmgxbfDNHg/nnm5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WJlw6WcZoUZlPjAImVRLUqdMWnLBGiWYvvfJDFvlxw8=;
- b=YRidMjfVm8WWVXgPNLR/9yIjRVi32IySNlnu24CEs0Cb4sMDeJKhRcv/RVEvLLbI4674yav+uTh0zGLGvWuF8bH4JaW0VlWg7cjh+yYtqHaIRiTQsfDQTORU+oCgyF7aLOyxsyjHhXYpMwIUmkgYYKlVUvnk+DSR1nzInWg7wsl8D4zGT8SWkymOZ2NebFQDyQxuRcxCLI+KC0hLmJ9ENnmq5sOECenzYmuy5REf74lqmRzxdhwLDrIfXptYFBRuPx+qHY8rvT+IFcpHpzMXkXwoFBBxLrRXf6KZV8jJxufCqceK2pPG3x+j3J84o8HeJrW/7xN9JPCmPakHOnXekA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by GVXPR04MB10683.eurprd04.prod.outlook.com (2603:10a6:150:21f::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Mon, 23 Mar
- 2026 23:18:57 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9723.030; Mon, 23 Mar 2026
- 23:19:03 +0000
-From: Frank Li <Frank.Li@nxp.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Frieder Schrempf <frieder.schrempf@kontron.de>,
-	imx@lists.linux.dev,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-rtc@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Frieder Schrempf <frieder@fris.de>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Annette Kobou <annette.kobou@kontron.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>
-Subject: Re: (subset) [PATCH v3 0/2] Kontron i.MX8MP OSM Devicetree Fixups
-Date: Mon, 23 Mar 2026 19:18:51 -0400
-Message-ID: <177430776065.1474337.5215108916844700211.b4-ty@nxp.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260309085749.25747-1-frieder@fris.de>
-References: <20260309085749.25747-1-frieder@fris.de>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA1P222CA0095.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:35e::26) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aOTA1YA0"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0944DC2BCB0;
+	Mon, 23 Mar 2026 23:20:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774308044;
+	bh=bxP1A6IybLUW2ZFmHnbweKo79KZkq8k1hEfaTmqbHXc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=aOTA1YA0VasBnYqLJtwZL8dggl1bQMM4F7ZjiJptbmWZPg4jP9tpBhEJ0JEX53Vhm
+	 S4hfelq3Y6i3t/UTEOhANTD14q0ME056Sl3zgCZv3+iQvsuHJzGHv4LI1ocIyiyY6V
+	 /4CzqYz+oSp0tSzQSC0EDLGS+lzXdjya+PDFm2CdwU3vIBDMBMOZT1YyuQXemYp3FR
+	 dphKVB+lH4ny1ODBk12dsHaSLoRDCqNjbBDHlK/tNmr5rhmyh1lPj35yUnyRUAJAQY
+	 XoUk0jkxI6lqvsZDDIY+OexfhSWJEOm90AJVD8sOFf/+lm9RnA3Remi0zKesRiEYWx
+	 Pc5RlsLzKTjTA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EB1AEF4613F;
+	Mon, 23 Mar 2026 23:20:43 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Tue, 24 Mar 2026 00:20:39 +0100
+Subject: [PATCH v2 1/2] arm64: dts: qcom: sdm845-oneplus: Enable NFC
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|GVXPR04MB10683:EE_
-X-MS-Office365-Filtering-Correlation-Id: d2079aa7-7a0c-4538-8d3a-08de89329234
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|19092799006|376014|52116014|7416014|38350700014|921020|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	zCkMC1sGYmAqZu7pzO6InihLFaONfbRMXso8nf29qwCQfxypXmUDi2I0npqkDjvSfCcMqQ3CuNRKnfQ4UuFV0Vc1F8IAD2+uJWHPCuvv8fDqH8rkWU21G2TVMVNoj38GEsg7iz5SNJnT3WmQ2zuQnFoZzmRo2Rn9SPv7AfM9Z5l/D+manuBjUB8Ffp2llkrfQ0KL0AC3OCqhNMzatwIy81npKqhInWVLHE4BRMhaA+KeIMBQDMQaBY9AstU+duELqPIl5bE9P3pgGuHIpXDHL93r31REVErKJArdbI+q3Bd9Vn0Wxvg6NdaVMQ5uLCazVymXuVprVnDJf+GfyM2tGDtB9WKFbYFpyc4OW5x0Bh4x/5oDPNHKq6k7h2tnrcavRBiCW4CLvxL0AxIgvT4vsfI5LptBeQoEfmQj8tTDa4G2PmRQBVzdfTTtJYu0pbfaZPGi35vXiYpM3kFUQVLM39Sd3pHds/D6f5n636LWJVDim/s5FHh3MbicEcTR0FsCvJfP6URvihtavHGqTNiXaeSKtYSKmj2WR4gA/qHb0JnxDqkByQuO1hcU0wErDg1nRwzl+hS3dOvXrbMl0rn+5hOz6AQ+r7xDwSFEX5R9MU02puefqDMveMETebDczrKYvtBdoVZh+CDPfeJ+SW5LRQI8CbiZOF8Tspbk6QYRMNGEkNbgxqQdUVzVJ/eYvmxWtPAp2tC5rgY0o+aDkHCUI/VOUAPuciYZ83jX16V8VbjdnxJ61FKQjgYjyfhF7aJDCr7p5cIU0hOQ8LK3mqO/lfd2TpOT2sN0LQ7zWEhW/+/nPsMSwwKSV62C4fY2NcqM
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(376014)(52116014)(7416014)(38350700014)(921020)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MzFZTnRIbUQ5VFY1Q0dRRkRCcUdVeWRzeUtBcC9haTg2QUEwMWs4eDl6WTNK?=
- =?utf-8?B?S2tHS1NITC8wZXdCSkFrbHFRM1k4aGNCSitxdkRGNzdCU1o2cjgrTU5Yck0w?=
- =?utf-8?B?WW1ubkVrdVBvWU5LQWc3dFhIdnVadzBZejhnbXhFbE5sUlY3eXV2Q2daWWNX?=
- =?utf-8?B?aWVNQng2QTBMVkpoZGZwYitjZ3lNd0N6bnRGaXlVTi8ybmVaS3V0Znp4ZEFJ?=
- =?utf-8?B?bXBSUVNKNnlDR3htaTRudTgvcVhma3VuMW1vamR4WXVYTHVSR1YvOWlvMGVV?=
- =?utf-8?B?SUtuUFB2a2c5aXRQNjViTEY3T2RlZ2pRN25RUjZ2Rkh4cHlydFNsSHhKeFBZ?=
- =?utf-8?B?MUJjU1BqK2RBV3M5UUtCdHZzUDhmZDdDRWVwcmorcUt2bXlqQTZkVE91a1N5?=
- =?utf-8?B?M0FNZ01NRUU4ZWdHOENjcjRtU0pTWkRuTXAwKy9PbzF5enVvUklSeDJkZ2hF?=
- =?utf-8?B?L1pCVFZIdWMwc0htNVh2NTNsKzZRU1B2cjg2ZGJYUTM0WWl5YUN2OTh3M1BB?=
- =?utf-8?B?TmYwWjJjU2gvT2F4QnZSTUdVUm5zYkJCdFd1MDZER2tDNVFEYk1mY2ZVc1VY?=
- =?utf-8?B?NWJQZ0hxaWlxMXlIUGtteVB5OHdWN1FYdzVPU2l3NklNY0xkYnNTblZRcEdX?=
- =?utf-8?B?VW82NENteHlSVVNQTitaWEsrY0ZWM3FHYXpnTUV5dVZlTGg3MXY3ZkRFTytu?=
- =?utf-8?B?OHozQXpteDFZYlcwdzNVRUFQN005bWNJYVJzd3h3dUdxWkEyeFVYcHRxZ3JD?=
- =?utf-8?B?NWZBbUY0Q1JRVUtkcHZGL0VtR2VSQU4xcjhTMktQcG9ndy9GZlpKbThQTzRk?=
- =?utf-8?B?QWhGQjM2MDRlOEYvS0UyNVdSVVhIZmhmdGJXclZPQ0VWbVZuM1NxM3J2YkpK?=
- =?utf-8?B?YWoxanFWZlh6OFBtd2ZPbldZVWJ4V2JFMThQVCt3SklXUTlIREJMUm93MnN1?=
- =?utf-8?B?V3QrQTNNWnNDM1NzZDU2RmQ1S2d5RHVjK0RVUkVWemZrQlVFUUxkM0l2bTQ4?=
- =?utf-8?B?QkJjQkpqZHVqR3NpZHl1NEpXT2dnVlBXMCs3TEp2MUo3dnROdzhKOTUrOTVk?=
- =?utf-8?B?QVNBdkQrb2hGNkdNK2pzWTE2VmxGcnhuYXJvdk5PT0E5cVJWam8vUGQvQmtX?=
- =?utf-8?B?TkxSQWsyQk1nVTgvOXQyT3hRUjhuRjhvcURpcVREWnJjdThhdUVPeUJ6enMy?=
- =?utf-8?B?MW9helJPNW40NnVSUGE1U3ViMU52MXNDdjN0MVYzQ2FwTEpUbWJ2WEFmQ0w1?=
- =?utf-8?B?ZXhQbkpLV3JYWlFneDFGNTZqZjhkWGlKbUZJTGhKbUdUY2NlckVJQnZ2Mk5K?=
- =?utf-8?B?bTdyTFNPSmkrbVEzNDNHZVNlMzlJSHNNMElCOHVxaFVRYWhab050aUtyOE5t?=
- =?utf-8?B?TjU3aU1HaDFSQWxORThoemM1NklPdFZIRlpGTE9kWkc2eXhZeGtwWU9Ua1Jh?=
- =?utf-8?B?V2JPRS92L0RMaXRQUTJpUU1vZTJBZEk2RVFmUHJMV1BNUE1iZUplVmtqcC83?=
- =?utf-8?B?ZVZCSUhzTEpHWk5taUdEMFN2TXdSN0wyZDdnQ2RxZUVSM0pjbU9qbU1vZUpB?=
- =?utf-8?B?MVYxY3FoOUZ4RmZERUE2emdpVW9IWXF2SVd1b2dSUWNVYVd4SFN5NXdERXcy?=
- =?utf-8?B?bTBycy9PVDhtaUJDWEM2MWJBOU9KRkRpeGVGNDVxazBtVUdqcXBtRnY0czJV?=
- =?utf-8?B?ZzJhNE9Hcng3b1UwMW15ZVZQdlMrNlpjNXNLVnBHT29NVE5IUkRvVW4yMytq?=
- =?utf-8?B?U3hVV0x0TldMMWdZQ1NxRVhuMXg1d2VSWC9vTytLVzlaUGVqVFB5bk9hcTU2?=
- =?utf-8?B?RVJjNWlKNGJONUpIQ01ROS83eG1PRE9YeGw2cFlNRXJERFJ1b1FvZlZjZ1RW?=
- =?utf-8?B?QWx1MDdyMXM2MlFON1ZlTS9iNkxhd0FIeUFHdWU2cUZXSUNPL0p0UW85S1Y3?=
- =?utf-8?B?MUV6WldSMDAweWxoZzhucVZUUXd5VmtyejR4N1FOakJON1RLaUJKUTBKQVFU?=
- =?utf-8?B?UjRjT0Zsak5Nd1NJcGVld0tYbVB0OWt4elQ3Vmk2NmhtSUtDc3RhVFlTUFhs?=
- =?utf-8?B?ODgzOUZ4T1IrQmxiYWh6U1hCT3hBYU5qTVpLbzEzZ3hMU1ZDcm1DVWFQZloy?=
- =?utf-8?B?aGtzTkFBdGJyWER4cml0ejZOZ1VtWmpFZlF5UDJJakFFMURQN2NEREZGSGNP?=
- =?utf-8?B?L2RZalVNOWJtUUNOUWRsTUlreFhSWS8vYThIZytEZ1ZxNHpVNTQxWExyU29D?=
- =?utf-8?B?Vjc1L0thejE4ZFpHVzR3RVFyUU9VbUZScUFweFNibXlybW1TV1g0VXpseVNP?=
- =?utf-8?B?K1Ixd1RWQklSemNJUHBkZndlK0xjM2ZXZlgrZG0wdys2aUJ3cUpIQT09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2079aa7-7a0c-4538-8d3a-08de89329234
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 23:19:03.0795
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d22wnvQtFr6DxgV3J4VcqeCDzHGqerT1qP3xQIHT8xNLgt6Fhq8CXeYa+U5jOx5Hg8xpmoCDkFBW1DV6kLOJCQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10683
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260324-oneplus-nfc-v2-1-3eef052c9bc6@ixit.cz>
+References: <20260324-oneplus-nfc-v2-0-3eef052c9bc6@ixit.cz>
+In-Reply-To: <20260324-oneplus-nfc-v2-0-3eef052c9bc6@ixit.cz>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alexander Martinz <amartinz@shift.eco>
+Cc: Petr Hodina <petr.hodina@protonmail.com>, 
+ biemster <l.j.beemster@gmail.com>, netdev@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, oe-linux-nfc@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1699; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=mZudGkYZcNaSxQ/CeRT/N/ZTIKwpfDRvjxNRkrrFQYc=;
+ b=kA0DAAgBYAI/xNNJIHIByyZiAGnBysqjzT3RZ4hWQlBtNfrWQuJv4l7WBFalj4taBGlUe1iVb
+ YkCMwQAAQgAHRYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJpwcrKAAoJEGACP8TTSSByqFAP/jvb
+ Yb8rdRg+E54QdbNUHrZwwcXYfToCR6H0dAblSOa9Fx+wutG+wpP0tSEGNviuh9IbEafhF444Kh+
+ Ul7SlfaC3lPkZCeyvyUK/0UxqNZRQtoTWdOlKbKy8U/r6HbhRe1IL4X67n9JcH1he2j1P6z4kda
+ RlsVVH4ZD4qKnGf8cuxqxBZ4vDSUgLQ3Wk2f0cx/FeGS4Hs39/7HDToPYd2TTbV98+7LvqwjFlh
+ /JTAG+EF+Jmvqd9aP6pvOPb+gnW4DCciFSgmQWdcehqxapuE8NDDUq7VAua4Wu6fyT3IbneImTm
+ 6Z7UXjgWfS/GiS+W5fh0e/04jW4v7pdJL7XkVdfZ7gCBixssu6DnvORo+RlCnHyY7EqNxVl9b68
+ rIrKJ9W0zFHZi50JcQabD51QB8WMbPzJH0eamdFyDyktUffTDdlgg1zNMwo7ZtTIsonuerJDjHW
+ UoXxkRcaYOCQiM9ssziqN7EiGJnm3BBjw8/WUBpgc1oRvkG+95pDwVkduN6SOnfC5VEDvvCubsg
+ gjqCikdk595D5aJ6BlIA1+B1brxwNbF151BNWlJDJY5AJsiaC/AA5JfF1ZlIql4ygLz7oYdQBfg
+ vYACWWZlBfGP19niXbT1SObsC5j61GB1ZC9xIM8fteqyZqp7wAwh41yYCTTy7QkD0JzwyNUahFB
+ YUiN4
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+
+From: biemster <l.j.beemster@gmail.com>
+
+Enable NFC controller NXP PN553, which is part of the package NXP NQ330
+(NFC + eSE).
+
+Signed-off-by: biemster <l.j.beemster@gmail.com>
+Co-developed-by: David Heidelberg <david@ixit.cz>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 31 ++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 5b121ea5520f5..4fbce4233a773 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -392,6 +392,25 @@ &gpu_zap_shader {
+ 	firmware-name = "qcom/sdm845/OnePlus/enchilada/a630_zap.mbn";
+ };
+ 
++&i2c3 {
++	clock-frequency = <400000>;
++
++	status = "okay";
++
++	nfc@28 {
++		compatible = "nxp,pn553", "nxp,nxp-nci-i2c";
++		reg = <0x28>;
++
++		interrupts-extended = <&tlmm 63 IRQ_TYPE_EDGE_RISING>;
++
++		enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
++		firmware-gpios = <&tlmm 62 GPIO_ACTIVE_HIGH>;
++
++		pinctrl-0 = <&nfc_default>;
++		pinctrl-names = "default";
++	};
++};
++
+ &i2c10 {
+ 	status = "okay";
+ 	clock-frequency = <100000>;
+@@ -594,6 +613,11 @@ &qupv3_id_0 {
+ 	status = "okay";
+ };
+ 
++&qup_i2c3_default {
++	drive-strength = <2>;
++	bias-disable;
++};
++
+ &qup_i2c10_default {
+ 	drive-strength = <2>;
+ 	bias-disable;
+@@ -926,6 +950,13 @@ speaker_default: speaker-default-state {
+ 		bias-pull-up;
+ 		output-high;
+ 	};
++
++	nfc_default: nfc-default-state {
++		pins = "gpio12", "gpio62", "gpio63";
++		function = "gpio";
++		drive-strength = <6>;
++		bias-pull-up;
++	};
+ };
+ 
+ &venus {
+
+-- 
+2.53.0
 
 
-On Mon, 09 Mar 2026 09:57:41 +0100, Frieder Schrempf wrote:
-> From: Frieder Schrempf <frieder.schrempf@kontron.de>
->
-> This contains three fixes and one cosmetic change for
-> the Kontron i.MX8MP OSM devices.
->
-> Changes for v3:
-> * Drop applied patches
-> * Add missing bindings patch for RV3028 RTC
->
-> [...]
-
-Applied, thanks!
-
-[2/2] arm64: dts: imx8mp-kontron: Fix boot order for PMIC and RTC
-      commit: 0f02852af55591d6a8609347890cc348f86fdac9
-
-Update commit messsage, adjust wrap at 75 char. Change "this fixes" to
-avoid.  Remove "We can ..."
-
-Best regards,
---
-Frank Li <Frank.Li@nxp.com>
