@@ -1,209 +1,201 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E6236074D;
-	Mon, 23 Mar 2026 07:14:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A48A2494F0
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 07:15:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774250068; cv=none; b=M4lpjTDWIjWGJ+bgqiiJi7lVFBHmkVNfkbIYmyg3POQ5QHV4dJYdBVQfJ4s5iSJrVp9eWyBPbGp8FNKrGcoJXioB6nL+wvhyNvY9cFejqGfX5zz6YH1WGh0UbtnQ2dbqo3NLfwF0KdzPIq5h5Wb+y1E9QJKOkyhg0TpHgrKC6GQ=
+	t=1774250135; cv=none; b=UsEnlum+f16QgMPmeHZIkiu2V7fKWX1DU70J3i0wRiwWchkVmJW+DFbc2mylyILlvYl9UwZstn8+MXeVxSnGxE92dt+77BS5AMCYEU/KW1rPcseKOdvleCgEsQBBSwORHhB0KGdvW3GBHuT+NnK0T+aPO2SdtGKRWMuRj4L6pFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774250068; c=relaxed/simple;
-	bh=oxOd6xrPkNkZz6QA/SUlqhCBJiX5nvMMbOMTlIgZTp8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rVNJEtb5puR0i/KkziIOOT/TaU3KGZwVtwDfvmYnZaAupYtg9CjEvXNTRLWyStiY+u4ult4YmTU+Ju9isKE/7W4MPM5jjUuyDlKnQojAda21a7T+o2bJ18ig9MKmS1BqbFXplUJtAADVK4Hr96ehePqBpVdc9FZ3J5sxBpN1B/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=HAM10rI0; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1774250135; c=relaxed/simple;
+	bh=61ZFZYnPKPd8FLwR4ye7hovbdEpgjUJh1k35p+MDMkU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Hpvd1IA/h0cHRzNADhniRElm2sfkYBr9CPSQJ5gRar7Fj4EIlRxVZkPc2EuBvdwsST2Qlozt5XJYTJMqyZthtj8v5edJwiC5ed1CslDUyMjuyUa4gCPXDFhSY6gFDPnya/BTBLfPrVriUYi1MORvXQrIkpsLpPESMPhBAd/dRXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iGAXKBz/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Sm5YXenb; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="HAM10rI0"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 2B976261C4;
-	Mon, 23 Mar 2026 08:14:25 +0100 (CET)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id POKP_fx2Ba68; Mon, 23 Mar 2026 08:14:24 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1774250064; bh=oxOd6xrPkNkZz6QA/SUlqhCBJiX5nvMMbOMTlIgZTp8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HAM10rI0Oq9NmTG+n60W6oE6lkujvMJBHaxbuaeAnaLIk5CpT4PMceWD1ifVig52s
-	 7XyNxFvH0Lm7KUH20piZdMcysI8+u94OX/Fxme38NqpgrdVMEJUy7vTCUmzjgcHcN/
-	 vpQENNS4Z2kCg15OND+tdIl9G43oYBfFlL9uEhWc4bkH0AN7CfuYMfV+G8+bwYRHNi
-	 KUPk6BObEubKYzcE0atXLO6kQnGPgo7uuaMPdz+0A+pukiOxU2tJWd4WABUpb2FzSO
-	 TOAy+1qOi/6z8DdtDYCppGuhgl+wW9YmjoCd2xeU8bYHZpRy+MDwBFmYTryAHYPwhZ
-	 Bt9AJagSiQO2w==
-From: Rustam Adilov <adilov@disroot.org>
-To: Chris Packham <chris.packham@alliedtelesis.co.nz>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Rustam Adilov <adilov@disroot.org>
-Subject: [PATCH v4 8/8] i2c: rtl9300: add RTL9607C i2c controller support
-Date: Mon, 23 Mar 2026 12:13:37 +0500
-Message-ID: <20260323071337.15410-9-adilov@disroot.org>
-In-Reply-To: <20260323071337.15410-1-adilov@disroot.org>
-References: <20260323071337.15410-1-adilov@disroot.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iGAXKBz/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Sm5YXenb"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N7AgV82181635
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 07:15:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=C0E4FZGh3Z/6gO71aQ5vJ0
+	JrLCz1wkkdI/+bpz/bMEI=; b=iGAXKBz/bvz5KM2WOF0dMTBvkUNlIMyQzWzliA
+	wWHZFbNdsBKOirGa+sPjvXtss75CcSKyoQn6IqCRM6NR9dhzRpwiGkEoc590E/bZ
+	pepvEvmlmTDjU7sfEXeCeCAK2Br9vM+s9low6su2XCpJbnn7vfZoQJmoerrzER5f
+	0hqcaD05nCLL7E8Injo2pKR2YpreTy0GUAiNQ86faWNE0nPZM3YUKRGpBx+nT41R
+	IlvKK4XaduTnq2YtlaunzOsN6C78qbi+Qo+Cwrks4CIT0nwQdM8+THOieA+8qzOC
+	u0fEZUpB6PW01JjseS0eciVGzH6/T6O+kFsl5Lj28MeFqTTw==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1m3cv400-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 07:15:33 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-126e8ee6227so2182118c88.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 00:15:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774250133; x=1774854933; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=C0E4FZGh3Z/6gO71aQ5vJ0JrLCz1wkkdI/+bpz/bMEI=;
+        b=Sm5YXenb3uwQTOgI28D257XvtNq9+kMi4nv/qgcpRm6IbaiYbsIu6/v4XgRqkwB7Kn
+         sYqW91LozdtotVRh01hr1K+ZLoAPPEKzLiO/mcG2fy3li+ZD+NM7q0rRSrn0GGinl/f3
+         wvtvqt5OVhjNMFd+8ADPqkoXgoGL6x+s/CEZlGnTCDew32gvonHA2EKOC8G/3eG3iIcv
+         MEKt2ayKplCNhgt51VBfmKtO4mmHuVfQOlW/zMdi4QDycJbT+9it9Io2PHDA9LOvJJPY
+         R5VNt7a6pWGAXtbWlnpwpo2bk4Qr97Oj6L8s18rTiWeJNigsLD7Izrj8F+uk0ZAOXat1
+         bd0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774250133; x=1774854933;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=C0E4FZGh3Z/6gO71aQ5vJ0JrLCz1wkkdI/+bpz/bMEI=;
+        b=OfdTRmak8mQfh2bZEPmyR+U4MKfio+fmcXmWjZSj5ZfFqFMAxaXkZJtV+JzkN8AI9P
+         gxoXIUpFoUnDrwNyT+Fuffunn+XEs2DtVegFXky4th9P58f26lkubkhpCpRDNrL1soDf
+         Hc6UWv/ObztKGDS+Cw7km8e4OeQ0PZJAhQdJYWwVyCYLKGthkE4XXjxAP/tj88tPhTbO
+         rQyjKMdGLRHEH3JnvPvm3CIBbaVKh2opaQqq1w9DOcpbAcsVyDcmBNDox1mfbaYkCwBp
+         5r+Dw/7jxC2vF2YeV5JFQOC/zPo/c86kxV6bESrl7kfplLMMMVkpzBNXdL4nq1IYTIhH
+         2g8Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWQPCzZtMym0JQBvCx7F6RsryxGQKI/9Lw/oXQ3YMWewPh6H6SpFLfINvpoTWqycyAE/7f2Yad51+o0@vger.kernel.org
+X-Gm-Message-State: AOJu0YztabZgSNyYwwFlTwl7MktOSOHTCxYxfiSRZdbjtv/2Hr77WIof
+	LmDeRL8GK3gdYkXYOM9qg2PmUhWp7qmYEByq45MYyZ/y9A1idRHAMf+zkfSYQzgYZCKf43IY50c
+	H9auFEXyjsXZyyBfCSWNWbWJx9wdF/13XAIM06RCFOi6eJ4qbx5YwKdVH9OzotvuHpu4yFGZ9
+X-Gm-Gg: ATEYQzwhlJJ4dJNRzWvkTJ4WxqVikg8Tmnt4d+IFjcqjTEsBcyIsvyA9E6hgVZeAVfs
+	eVIluF+ndkAmMQzcHWgU7Nm3gPN3HzYnXcDc/EhCJXKpmtnRMjY0P4FkgWFmOZj30NcSxTcqeyL
+	ElMllmQKtlIoQeIYkjLsd7D/caz/UxT+7rDXFAqr4KFb0xXfoivQaEwIzq7Gmb7OQ9hp9LKuJUN
+	ExE3vg87Fw1N16asKYHUW/WQAFi7MXMguKWkIvW7CZkFDIvYe5zOSdb5666JJ9uSwGDvLSgcLw8
+	YgkjeVnun1LN5AoZp65lhBpaQKuUy9jUmTAAnKkC6f38Y3FvdyCwRFgYgfNj+m25Fs9EOkAsyYg
+	MMou4Vl1rQKJTFDhcoVyDnMZBgymeUUD5qEaTd4Mr8NyRK0cfZfMmBvNspv7x/S0CPGAd
+X-Received: by 2002:a05:701b:2503:b0:12a:7f25:44fd with SMTP id a92af1059eb24-12a7f254723mr1222956c88.41.1774250132612;
+        Mon, 23 Mar 2026 00:15:32 -0700 (PDT)
+X-Received: by 2002:a05:701b:2503:b0:12a:7f25:44fd with SMTP id a92af1059eb24-12a7f254723mr1222948c88.41.1774250132003;
+        Mon, 23 Mar 2026 00:15:32 -0700 (PDT)
+Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c10b14cadbsm13997886eec.3.2026.03.23.00.15.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Mar 2026 00:15:31 -0700 (PDT)
+From: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Subject: [PATCH v2 0/5] phy: qcom: qmp-pcie: Add PCIe Gen5 8-lane
+ bifurcation support for Glymur
+Date: Mon, 23 Mar 2026 00:15:27 -0700
+Message-Id: <20260323-glymur_gen5x8_phy_0323-v2-0-ce0fc07f0e52@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJDowGkC/x2MWwqAIBAArxL7nVBrL7pKhFRutlAWSmFEd0/6n
+ IGZBzw5Jg9t8oCjiz3vNgKmCUzLYA0J1pEBM6wyiSjMem+nU4ZsGRp1LLeKWgqpy7EoUFZ5rSH
+ Gh6OZwz/u+vf9AGpE931oAAAA
+X-Change-ID: 20260322-glymur_gen5x8_phy_0323-3d5b4423617d
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Qiang Yu <qiang.yu@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774250130; l=2842;
+ i=qiang.yu@oss.qualcomm.com; s=20250513; h=from:subject:message-id;
+ bh=61ZFZYnPKPd8FLwR4ye7hovbdEpgjUJh1k35p+MDMkU=;
+ b=KkZ7rLhZr79BzD4FxmnR/UMUXo1EuSRdH5F3WzfxpQBXVfKd9V6gb/4cq7V64bXkY0jpkLRkX
+ XnM4aKoeuFZDdSTIRouyHc9pR+L1A2WIoFPdmEkAHDMCFHqA5/AtHJt
+X-Developer-Key: i=qiang.yu@oss.qualcomm.com; a=ed25519;
+ pk=Rr94t+fykoieF1ngg/bXxEfr5KoQxeXPtYxM8fBQTAI=
+X-Proofpoint-GUID: Jt1wn_JMISljc3yohzCiji1Raf8wDpCI
+X-Authority-Analysis: v=2.4 cv=Z5rh3XRA c=1 sm=1 tr=0 ts=69c0e895 cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pO9I23orwyiV47DujX0A:9 a=QEXdDO2ut3YA:10
+ a=Fk4IpSoW4aLDllm1B1p-:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA1NCBTYWx0ZWRfX7NnBHPJaKewk
+ 0YLCArvHfulbRRg4z+t9AGtBtoti0urrt/B8WiVWC3mRcE4nFR1LA3eGSTCwQE4UJGD0KPsJ5Ed
+ AskD8q7rxRx/VzaQW4rkkwHxHhVOi2mRLcE+gAaz2SYqIA15lWK71EzElwnR53v4T95nTkam56q
+ kA37Vz9thMC98go6R/MIalVIuwr5LvjrdSvNkUzSkfgy7vLFFZ3tTsbG5HIKcpBs9Rotiqsrh1l
+ xY9AyFZ4PN8ateBRzbXFuYT3Byte3ZEMWvoeV8iRZlJBBR6GMNqSZkLUVr4I6QTXAtKOJSCOme9
+ vBNQ7UNVvlwEspaOFga/nxiKMlGSH9opvMfuojrcSFwJW9wdvW+vmiXem66uKd/QvIO+48P+mV9
+ 0weLOOALQvMgqHYxSAnuQ7wmMafsNVjjYcZPyzmE8NITdq17rJmyk6Seew6Ctdx28Xp4Eih64Re
+ h0hpPBaEWHaLfB/os0w==
+X-Proofpoint-ORIG-GUID: Jt1wn_JMISljc3yohzCiji1Raf8wDpCI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-23_02,2026-03-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 suspectscore=0 clxscore=1015
+ spamscore=0 impostorscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230054
 
-Add support for the internal I2C controllers of RTL9607C series based
-SoCs. Add register definitions, chip-specific functions and macros too.
+This patch series adds support for PCIe Gen5 8-lane bifurcation mode on
+the Glymur SoC's third PCIe controller. In this configuration, pcie3a PHY
+acts as leader and pcie3b PHY as follower to form a single 8-lane PCIe
+Gen5 interface.
 
-Make use of the clk introduced from the previous patch to get the clk_div
-value and use it during the rtl9607c channel configuration.
+To support 8-lanes mode, this patch series add multiple power domain and
+multi nocsr reset infrastructure as the hardware programming guide
+specifies a strict initialization sequence for bifurcation mode that
+requires coordinated multi-PHY resource management:
 
-Introduce a new EXT_SCK_5MS field to the reg fields struct which is going
-to be initialized by rtl9607c init function at the end of the probe.
+1. Turn on both pcie3a_phy_gdsc and pcie3b_phy_gdsc power domains
+2. Assert both pcie3a and pcie3b nocsr resets, then deassert them together
+3. Enable all pcie3a PHY clocks and pcie3b PHY aux clock (phy_b_aux)
+4. Poll for PHY ready status
 
-This patch depends on all the previous patches in this patch series.
+Changes Overview:
 
-Reviewed-by: Chris Packham <chris.packham@alliedtelesis.co.nz>
-Signed-off-by: Rustam Adilov <adilov@disroot.org>
+Patch 1: Updates dt-bindings to add qcom,glymur-qmp-gen5x8-pcie-phy
+compatible string with proper validation rules for the unique clock
+sequence and multiple power domains/resets required for bifurcation mode.
+
+Patch 2: Extends the QMP PCIe driver to support multiple power domains
+using devm_pm_domain_attach_list() and enables runtime PM for proper power
+domain control during phy_power_on/phy_power_off operations.
+
+Patch 3: Adds infrastructure for handling multiple nocsr resets by
+introducing num_nocsr_resets and nocsr_reset_list fields to qmp_phy_cfg,
+allowing the driver to manage arrays of nocsr resets using
+reset_control_bulk APIs.
+
+Patch 4: Implements the complete Gen5 8-lane configuration for Glymur by
+adding the glymur_qmp_gen5x8_pciephy_cfg with proper reset lists, clock
+configuration.
+
+Patch 5: Add PCIe3a device tree node and required system resources in
+glymur.dtsi. PCIe3a slot is not present on Glymur CRD, so there is no
+changes to glymur-crd.dts.
+
+Changes in v2:
+- Remove pd_list from qmp_pcie struct as it is not used in phy driver.
+- align clk-names on "
+- Link to v1: https://lore.kernel.org/all/20260304-glymur_gen5x8_phy-v1-0-849e9a72e125@oss.qualcomm.com/
+
+Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
 ---
- drivers/i2c/busses/i2c-rtl9300.c | 70 ++++++++++++++++++++++++++++++++
- 1 file changed, 70 insertions(+)
+Qiang Yu (5):
+      dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add support for glymur Gen5 x8 bifurcation mode
+      phy: qcom: qmp-pcie: Add multiple power-domains support
+      phy: qcom: qmp-pcie: Support multiple nocsr resets
+      phy: qcom: qmp-pcie: Add Gen5 8-lanes mode for Glymur
+      arch: arm64: dts: qcom: Add support for PCIe3a
 
-diff --git a/drivers/i2c/busses/i2c-rtl9300.c b/drivers/i2c/busses/i2c-rtl9300.c
-index b718b74afe0d..8cedffbb2964 100644
---- a/drivers/i2c/busses/i2c-rtl9300.c
-+++ b/drivers/i2c/busses/i2c-rtl9300.c
-@@ -57,6 +57,7 @@ enum rtl9300_i2c_reg_fields {
- 	F_SDA_SEL,
- 	F_BUSY,
- 	F_CLK_DIV,
-+	F_EXT_SCK_5MS,
- 
- 	/* keep last */
- 	F_NUM_FIELDS
-@@ -77,8 +78,10 @@ struct rtl9300_i2c_drv_data {
- 
- #define RTL9300_I2C_MUX_NCHAN	8
- #define RTL9310_I2C_MUX_NCHAN	12
-+#define RTL9607_I2C_MUX_NCHAN	1
- 
- #define RTL9300_I2C_MAX_DATA_LEN	16
-+#define RTL9607_I2C_MAX_DATA_LEN	4
- 
- struct rtl9300_i2c {
- 	struct regmap *regmap;
-@@ -127,6 +130,14 @@ struct rtl9300_i2c_xfer {
- #define RTL9310_I2C_MST_MEMADDR_CTRL			0x4
- #define RTL9310_I2C_MST_DATA_CTRL			0x8
- 
-+#define RTL9607_I2C_CONFIG				0x22f50
-+#define RTL9607_IO_MODE_EN				0x23014
-+#define RTL9607_I2C_IND_WD				0x0
-+#define RTL9607_I2C_IND_ADR				0x8
-+#define RTL9607_I2C_IND_CMD				0x10
-+#define RTL9607_I2C_IND_RD				0x18
-+#define RTL9607_REG_ADDR_8BIT_LEN			0
-+
- static int rtl9300_i2c_reg_addr_set(struct rtl9300_i2c *i2c, u32 reg, u16 len)
- {
- 	int ret;
-@@ -178,6 +189,27 @@ static int rtl9300_i2c_config_chan(struct rtl9300_i2c *i2c, struct rtl9300_i2c_c
- 	return 0;
- }
- 
-+static int rtl9607_i2c_config_chan(struct rtl9300_i2c *i2c, struct rtl9300_i2c_chan *chan)
-+{
-+	const struct rtl9300_i2c_drv_data *drv_data;
-+	int ret;
-+
-+	if (i2c->sda_num == chan->sda_num)
-+		return 0;
-+
-+	ret = regmap_field_write(i2c->fields[F_CLK_DIV], chan->clk_div);
-+	if (ret)
-+		return ret;
-+
-+	drv_data = device_get_match_data(i2c->dev);
-+	ret = drv_data->select_scl(i2c, i2c->scl_num);
-+	if (ret)
-+		return ret;
-+
-+	i2c->sda_num = chan->sda_num;
-+	return 0;
-+}
-+
- static void rtl9300_i2c_config_clock(u32 clock_freq, struct rtl9300_i2c_chan *chan)
- {
- 	struct rtl9300_i2c *i2c = chan->i2c;
-@@ -202,6 +234,13 @@ static void rtl9300_i2c_config_clock(u32 clock_freq, struct rtl9300_i2c_chan *ch
- 	}
- }
- 
-+static void rtl9607_i2c_config_clock(u32 clock_freq, struct rtl9300_i2c_chan *chan)
-+{
-+	struct rtl9300_i2c *i2c = chan->i2c;
-+
-+	chan->clk_div = clk_get_rate(i2c->clk) / clock_freq - 1;
-+}
-+
- static int rtl9300_i2c_read(struct rtl9300_i2c *i2c, u8 *buf, u8 len)
- {
- 	u32 vals[4] = {};
-@@ -422,6 +461,11 @@ static int rtl9300_i2c_init(struct rtl9300_i2c *i2c)
- 	return regmap_field_write(i2c->fields[F_RD_MODE], 0);
- }
- 
-+static int rtl9607_i2c_init(struct rtl9300_i2c *i2c)
-+{
-+	return regmap_field_write(i2c->fields[F_EXT_SCK_5MS], 1);
-+}
-+
- static int rtl9300_i2c_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -574,6 +618,31 @@ static const struct rtl9300_i2c_drv_data rtl9310_i2c_drv_data = {
- 	.reg_addr_8bit_len = RTL9300_REG_ADDR_8BIT_LEN,
- };
- 
-+static const struct rtl9300_i2c_drv_data rtl9607_i2c_drv_data = {
-+	.field_desc = {
-+		[F_SCL_SEL]		= GLB_REG_FIELD(RTL9607_IO_MODE_EN, 13, 14),
-+		[F_EXT_SCK_5MS]		= MST_REG_FIELD(RTL9607_I2C_CONFIG, 26, 26),
-+		[F_DEV_ADDR]		= MST_REG_FIELD(RTL9607_I2C_CONFIG, 14, 20),
-+		[F_MEM_ADDR_WIDTH]	= MST_REG_FIELD(RTL9607_I2C_CONFIG, 12, 13),
-+		[F_DATA_WIDTH]		= MST_REG_FIELD(RTL9607_I2C_CONFIG, 10, 11),
-+		[F_CLK_DIV]		= MST_REG_FIELD(RTL9607_I2C_CONFIG, 0, 9),
-+		[F_I2C_FAIL]		= MST_REG_FIELD(RTL9607_I2C_IND_CMD, 3, 3),
-+		[F_BUSY]		= MST_REG_FIELD(RTL9607_I2C_IND_CMD, 2, 2),
-+		[F_RWOP]		= MST_REG_FIELD(RTL9607_I2C_IND_CMD, 1, 1),
-+		[F_I2C_TRIG]		= MST_REG_FIELD(RTL9607_I2C_IND_CMD, 0, 0),
-+		[F_MEM_ADDR]		= MST_REG_FIELD(RTL9607_I2C_IND_ADR, 0, 31),
-+	},
-+	.select_scl = rtl9310_i2c_select_scl,
-+	.config_chan = rtl9607_i2c_config_chan,
-+	.config_clock = rtl9607_i2c_config_clock,
-+	.misc_init = rtl9607_i2c_init,
-+	.rd_reg = RTL9607_I2C_IND_RD,
-+	.wd_reg = RTL9607_I2C_IND_WD,
-+	.max_nchan = RTL9607_I2C_MUX_NCHAN,
-+	.max_data_len = RTL9607_I2C_MAX_DATA_LEN,
-+	.reg_addr_8bit_len = RTL9607_REG_ADDR_8BIT_LEN,
-+};
-+
- static const struct of_device_id i2c_rtl9300_dt_ids[] = {
- 	{ .compatible = "realtek,rtl9301-i2c", .data = (void *) &rtl9300_i2c_drv_data },
- 	{ .compatible = "realtek,rtl9302b-i2c", .data = (void *) &rtl9300_i2c_drv_data },
-@@ -583,6 +652,7 @@ static const struct of_device_id i2c_rtl9300_dt_ids[] = {
- 	{ .compatible = "realtek,rtl9311-i2c", .data = (void *) &rtl9310_i2c_drv_data },
- 	{ .compatible = "realtek,rtl9312-i2c", .data = (void *) &rtl9310_i2c_drv_data },
- 	{ .compatible = "realtek,rtl9313-i2c", .data = (void *) &rtl9310_i2c_drv_data },
-+	{ .compatible = "realtek,rtl9607-i2c", .data = (void *) &rtl9607_i2c_drv_data },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, i2c_rtl9300_dt_ids);
+ .../bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml   |  45 ++-
+ arch/arm64/boot/dts/qcom/glymur.dtsi               | 314 ++++++++++++++++++++-
+ drivers/phy/qualcomm/phy-qcom-qmp-pcie.c           | 129 ++++++++-
+ 3 files changed, 468 insertions(+), 20 deletions(-)
+---
+base-commit: 785f0eb2f85decbe7c1ef9ae922931f0194ffc2e
+change-id: 20260322-glymur_gen5x8_phy_0323-3d5b4423617d
+
+Best regards,
 -- 
-2.53.0
+Qiang Yu <qiang.yu@oss.qualcomm.com>
 
