@@ -1,287 +1,145 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C6D13914E0
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:57:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F61391E4A
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:57:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774263423; cv=none; b=keTkOlPW9oJugwe2vHbm54BIXxA91992m98LGhUged3yuqJ0kCdprEkZDXJ0kY5ZYtCjp7Wx5Yx2pjYjQRhgo2c8kMdwBZ9xSrJf10ElVweGUnXJeDLOZISp0WH39rznci0ZigkGe8wIu65qo7OLadHtCneLEqSLKwOGckiFqnQ=
+	t=1774263475; cv=none; b=Q5kBTBPW9kUosIKZX1q5GXQmTmFFEN0/sjlTXikzFXd61l68sD/yQnfmG9D8fC5/d/VczvB7hwPFFARY9VjuJBi9Ah+AJxZttn0YeTyXtjqX0+AFZqJNQxoNLpkGx050/98cwOw73G3wTR9+rafOta61dtcFjFD0F2ZjxvqP378=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774263423; c=relaxed/simple;
-	bh=3TzyiOjha5tC3GN0UvqQO4/AeK8iVyDqcMRIA9aojGw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Xt7p8PsEWy/GThbp6udmP9otos6tlcdh1fiZIMqTmtrPuGxm6OaVj7lQZ8zqEOAGbaFbtihWg2LCBQlArCPLEjRPz6x0qyPofIVcUyt3Fg9cTYiBZZQytqrE8wjJz1QpCbhn0I3n3KsWFyTmzmAQVJSjZ8bdWwzWR0DZw9DwicA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nTyIjSMi; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774263475; c=relaxed/simple;
+	bh=/mZGsh1xkiPR3p8xvGVSUGgB/QMPQ1B8WN0TVuTZnRM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k6AZHTlV4RuhivSTOKBOjhHU+0VsD2+75WP6xaLWSKybMwrQetKoKymxrJMj5JO7MKianX76eta5fDiBV3A5yYf6oPPhrNCcA6Qs24DHfgIoThNRVicoRNZmIDel7NY8xNItJRDR8dRSrctR3ibvhd6YrnczdbekI4h1gDbLFJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jrwhkHJT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LuxQV7FC; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nTyIjSMi"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-486fb439299so31881975e9.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 03:57:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jrwhkHJT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LuxQV7FC"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N7tMRW2291969
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:57:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	lMUrSOVeDAhPlf3XvTZybFu18sRSydomNUdVxKEA3CY=; b=jrwhkHJTcSOoCWC/
+	v1WHDI50yFx6fUpR1R8ARd5bXDUlOI6w8CCpXxTfn8UOmZR4oD4QY0FaWSOfR+6O
+	lEzofxDJYuE4QqbXOiufolOUhx76Ri6zqDYvwVVEn3Ht1apjzj2xeNazKERUcqRg
+	5wtUirZsTA80ydu6dtHuK2ygekUv6FIbm84+L1M7UWpYgyfHWSug9l2RPF80sgV1
+	0dJC6mxbbAb32zuTVneyJOeMJMCVvWAbGkUr9Yua/FUo4L383VBZ1PJgv7cfx3ux
+	zpS8SOaPwj7qWGl/SoIyTpenvZMyCqMNC6C5VqeNIDrc8/+G15eewCsNIFT35ItP
+	sCy9tQ==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d31j70mu2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:57:51 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-89a5b38affdso32715846d6.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 03:57:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1774263420; x=1774868220; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=3TzyiOjha5tC3GN0UvqQO4/AeK8iVyDqcMRIA9aojGw=;
-        b=nTyIjSMi5M5jQmT6b0HpXubFVsoloJkKzHO2/xEWQSr6hXutCntRR4I/CHUGAfmuX7
-         gswFj9Smnhfgr+lU1FZEZRPKz8HtoqX0JgCJS3hSMj/f5dUo2hV0tIVmss/6B2ylg2O7
-         de3SnsVpMLxM2/wqHWW3daSf6hVemmit5IjGi6Z2Jip7z1kM8l9IQdyq0TTzJNBZ22lF
-         Yz7MzK63VL9sMBQ1t1lmNrciL8IqY8huY526ULQXb4nCAjc4/f4b188pMP0rZ/M/aao5
-         4Ba8Mr3pX/vNaYmW7H6arANfxYDWjzA7DmLK6ro8tzn/UIuaYnrA2ewizgwrU/aNNJVB
-         oeaA==
+        d=oss.qualcomm.com; s=google; t=1774263471; x=1774868271; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=lMUrSOVeDAhPlf3XvTZybFu18sRSydomNUdVxKEA3CY=;
+        b=LuxQV7FC0+Wlx3nHrKIG74VwkXemqGfgEOau9SQLJGrdCBO4KJQC4RbMpsdu4e5s3M
+         bNBOjoBPfvGdhajy1W+/r5VF1d4ueG0PMTdvaNLiTR7ccAx+WqDTnfl9KV3JrjPLBmzi
+         eJG2Qg3XhG2FUA7Y3D/9RcPvbrvvjSwsvuXG2xUTPYUuLdmkteAOr4gVfayQrA9n7GdU
+         Oyg4cLBuNTkgMFW7g3X7Zg18eX/SwgUUGhM2ItodJRisvXRQXy3lYOgM6L6vLf1K9Vmg
+         W/yOxVDCv3cBsIZ/9Xw5HOGmend/wFHywmD5Tc3/eqiHqOXP2nQJoj5RilEQuJVO8xP6
+         z4tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774263420; x=1774868220;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3TzyiOjha5tC3GN0UvqQO4/AeK8iVyDqcMRIA9aojGw=;
-        b=Uy45j2xefsUYcXQnx93Li9qY7h0o00LF/QJ2e/FdCjeqlcIVj1nAwndi8LQ6ZaCFu8
-         zzFn49PvD97eeFFFuBvze13hT6y6hbl0AhSC3K5W1mPdhkCT3Qdu3cIl0HYblD3spiaO
-         xVv5FOC7qD1veoJngh3p8zo+nEvgCWGC2G4fSPvuVq5Q8Rg6fPcxibv7BmbHcc3FKtWx
-         YaMyH4/NAC5vkwuPW5YwCf9w/lCahcpmyr4LZunLQ1HXShkYUqkRn4UCsRGzcY3wfsj3
-         GuShBYIUQdyG9gfOqaq+UdHYcZH05LFcI4/ewylune8cjD6TkHaoV3Ddk+SRbaogtcRL
-         3DFg==
-X-Forwarded-Encrypted: i=1; AJvYcCXwGynqcUCRj39CuUy4asdB93bO7+8qkmttMGbI1yQeWkAulxa7bwkAZJwEEgHqEHdEurX8Pq/q7L8C@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywq7KDYIe6ioUcTLgAtBqBs7wsvVw6/IdbcSSY3yHlH70b2CQet
-	OEJTRYyP/aWEMFjVMWezXt7kaYSGEvQhqTxg4ou3MP3oia9BgJO5Qm/2
-X-Gm-Gg: ATEYQzz+ZdvWWhtm6kkJoI9cMch1mpm1lTV3vqyl+XcF36WyPdtss8twzf8Xpmo1aKN
-	4O4xnm52TO4YnFXrnMEsP/ZIGviBJE+QPzojebpzFBBOe1yz8/y/23lT2mUJHS4qGxqlRJLPuUt
-	MuIDPUPtWpv8oTTMf7tKTyPJ1nO7LbfTq/lz20Surd/SAb4XLVG9iUc0/QQoFr2er0yTjWOYMg5
-	pvxRutRI0Wy2wBI2/8P17EJBDh6sLG+J97a4XteD/SbaeY2PuunZ58W6170YgJorB6KNtkOKnCp
-	IL27QgUnUKVyY4GIk2BNpRWxJ8e5mx0V22f28xGCmx0DoknCBpF8zRaZ3LwvnKww/PWVD8Zked1
-	hfdwGz+YYrGsBwMeEV5pqIGme7Ue5/Ub/BpqRat4wuC7g6BaMNadwq0ifmbKqDAmI4TXm3vVqlM
-	jDzd5MFjlc6zlEG9dwLdAiSK5h0v4ba3U=
-X-Received: by 2002:a05:600c:8b45:b0:486:fbe1:2499 with SMTP id 5b1f17b1804b1-486fee0d6ebmr155577755e9.22.1774263419604;
-        Mon, 23 Mar 2026 03:56:59 -0700 (PDT)
-Received: from [192.168.1.187] ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b647120a1sm29601557f8f.30.2026.03.23.03.56.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Mar 2026 03:56:59 -0700 (PDT)
-Message-ID: <cd0372969345e306a839b689f55f10bdab15069f.camel@gmail.com>
-Subject: Re: [PATCH v7 3/4] dt-bindings: iio: adc: ad4080: add AD4880 support
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: "Miclaus, Antoniu" <Antoniu.Miclaus@analog.com>, Jonathan Cameron
-	 <jic23@kernel.org>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"	
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, "Sa,
- Nuno" <Nuno.Sa@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Olivier Moysan	 <olivier.moysan@foss.st.com>, "linux-iio@vger.kernel.org"	
- <linux-iio@vger.kernel.org>, "devicetree@vger.kernel.org"	
- <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"	
- <linux-kernel@vger.kernel.org>
-Date: Mon, 23 Mar 2026 10:57:45 +0000
-In-Reply-To: <CY4PR03MB339944E105FADF6717B5088B9B4AA@CY4PR03MB3399.namprd03.prod.outlook.com>
-References: <20260321100154.1258-1-antoniu.miclaus@analog.com>
-		<20260321100154.1258-4-antoniu.miclaus@analog.com>
-	 <20260321120802.391cafd0@jic23-huawei>
-	 <CY4PR03MB339944E105FADF6717B5088B9B4AA@CY4PR03MB3399.namprd03.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+        d=1e100.net; s=20251104; t=1774263471; x=1774868271;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=lMUrSOVeDAhPlf3XvTZybFu18sRSydomNUdVxKEA3CY=;
+        b=CWCrbWEOTYLuMyLqJz4OGUsj9P8Brt//egdir7oC/InSolYcRxI5NzyxhxDHuipB5g
+         bpm3hdaCbQC2AjAc5bB2qcZgUXem2EUGCZvsHaG/NIOoPK4eFM5bV97GDH9THfQCGzGI
+         0OrQac2kWIqlLMsTRVoDJfd/fHcpUEP72uFq7+UTZtu8GsV3/wW2613MNxcx0JiSbeLO
+         WrCgQGNPAiOs8VmNseRwOiVlmKESqubdK+GR+XXJFdMdNJMJ/YdlXh2p26CjfUBK7fNT
+         5Yo+iHnkCDKx304F+fUjiLzOLFpkcUrNZbOl55GqHDK7HueLZbmGUGrhU+ssEQwzgyEz
+         Dfgg==
+X-Forwarded-Encrypted: i=1; AJvYcCWvWmvpljS0pRHY9T3Z9NSGFd0p9hYzW/S8+R8VqUk0jAjM0cTo1PYNJ4bRfp51yonVDOAyxI3xZ2E2@vger.kernel.org
+X-Gm-Message-State: AOJu0YzkOI+sXkMH4GWyADsqwDPDEeIwyA+/tQGpHM7ZRsCAfhFpm2ED
+	n9+x4/givwFbfmXu19peXGADMQNemzjdEaBndLPnL+oSzt5NAe9W988S8syq8fa3H9BCDPXevto
+	SWEEcgEisBSB3mLBSLSBARuRLei/ZIYycaM7D+YHUod3RtveOIR2TNKjw9EXavAQ9
+X-Gm-Gg: ATEYQzwm8PdfHHreHkRCbAKCPF+bvJtSWzJn9/x4Piyz8/9U1ybPlzHvS8FA6GxMxTp
+	0zxQbhsO/DHLkIy8PWbYzfKi9DwqXrsXq5Xi2KPuBXZm2R/HDJaHoCOw3bjljbfYa+s+PE8L0VY
+	vf3pdmJGtRUEfHTAiZ9Jsqeu5DyPeOu+3mQpcWYVTZk73BAQpVXpiZ36L2BSg4R/2iJZuRBoTZr
+	0/A15BvR8+n2MBNGfQbJZ8iqlAUzG5Xurr86WMkg872hDScsARh1o0J0BWR/VZlr+RKcwLV9uqi
+	M/a6eJA6dGx9xfUYgS+rDRTJlAeA6DezC0qFD7mD+fsDC2iYNVBMfULwpOOhDHE4KSkLX0xMZli
+	/6b3qBoaTBio+Wc6CoWENc/Rfbtp4ugc8QiSjnDRvRkIHsXfRKARxPkCuf306rVHJiJmFRVttpR
+	Goyi0=
+X-Received: by 2002:a05:6214:2b0a:b0:89a:564f:bbab with SMTP id 6a1803df08f44-89c85a44319mr154147256d6.3.1774263470815;
+        Mon, 23 Mar 2026 03:57:50 -0700 (PDT)
+X-Received: by 2002:a05:6214:2b0a:b0:89a:564f:bbab with SMTP id 6a1803df08f44-89c85a44319mr154146986d6.3.1774263470416;
+        Mon, 23 Mar 2026 03:57:50 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b983365a14csm466546566b.43.2026.03.23.03.57.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Mar 2026 03:57:49 -0700 (PDT)
+Message-ID: <e0235341-8a81-44c2-b3ac-d9417c2f5705@oss.qualcomm.com>
+Date: Mon, 23 Mar 2026 11:57:47 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] dt-bindings: usb: qcom,snps-dwc3: Add constraints
+ for SM6375
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260323-dt-bindings-snps-qcom-dwc3-cleanup-v2-0-3bcd37c0a5b5@oss.qualcomm.com>
+ <20260323-dt-bindings-snps-qcom-dwc3-cleanup-v2-3-3bcd37c0a5b5@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260323-dt-bindings-snps-qcom-dwc3-cleanup-v2-3-3bcd37c0a5b5@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=ArXjHe9P c=1 sm=1 tr=0 ts=69c11caf cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=eptGKOKebL7jaDLwLzIA:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-ORIG-GUID: gijqS4pVMBgNduy8sdyVewDZI58w6TE2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA4NSBTYWx0ZWRfX2C9ZOUwxaFvY
+ kq4QmUZ6q7sUye/ASDWNPQSbrl4qa8Q5YAA8IipOa4YVyH5W3kpyQ64TDA893Wn2hxnwKu2f4Gn
+ HAat9HoizDdZVVZ6uAVuXa34GSolGmlWbKTgsJPDepR67JUqb7OtI1EMDzoXSSESvpGRmQqjv9Q
+ 1B7O4MfjF9T7fdZ/rV16OLh99qFrh0uprrZUVVVB/yl+cNDHkdeAhgyjzHQGiwwHG1d7jo0a3mq
+ RF7UKxawj0yYrxdEgZmj1un7MwBPhnsaCSRydtLexwA0ZFhNH5wtDqOl626erURV3PEb1hlF0jL
+ i3a3frTQD3ydq2uS+XjpCDYCQWrjY5mCo79x//YdefCjsDbpACn7DhIiID9Opx/8RXiw4kRUOcl
+ mrt2tXsx9N2DfXdf56Za7eTvEqH6Is27EsEstdLS4H4YNYdgltTA8dIA/H8/YuBdg69fnBb8DnF
+ Ugf3JkM3sUklqF8aLkA==
+X-Proofpoint-GUID: gijqS4pVMBgNduy8sdyVewDZI58w6TE2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-23_03,2026-03-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ spamscore=0 impostorscore=0 suspectscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230085
 
-On Sun, 2026-03-22 at 15:33 +0000, Miclaus, Antoniu wrote:
-> > -----Original Message-----
-> > From: Jonathan Cameron <jic23@kernel.org>
-> > Sent: Saturday, March 21, 2026 2:08 PM
-> > To: Miclaus, Antoniu <Antoniu.Miclaus@analog.com>
-> > Cc: Lars-Peter Clausen <lars@metafoo.de>; Hennerich, Michael
-> > <Michael.Hennerich@analog.com>; David Lechner <dlechner@baylibre.com>;
-> > Sa, Nuno <Nuno.Sa@analog.com>; Rob Herring <robh@kernel.org>; Krzysztof
-> > Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>;
-> > Olivier Moysan <olivier.moysan@foss.st.com>; linux-iio@vger.kernel.org;
-> > devicetree@vger.kernel.org; linux-kernel@vger.kernel.org
-> > Subject: Re: [PATCH v7 3/4] dt-bindings: iio: adc: ad4080: add AD4880
-> > support
-> >=20
-> > [External]
-> >=20
-> > On Sat, 21 Mar 2026 12:01:53 +0200
-> > Antoniu Miclaus <antoniu.miclaus@analog.com> wrote:
-> >=20
-> > > Add support for the AD4880, a dual-channel 20-bit 40MSPS SAR ADC
-> > > with integrated fully differential amplifiers (FDA).
-> > >=20
-> > > The AD4880 has two independent ADC channels, each with its own SPI
-> > > configuration interface. This requires:
-> > > - Two entries in reg property for primary and secondary channel
-> > > =C2=A0 chip selects
-> > > - Two io-backends entries for the two data channels
-> > From the v6 discussion.=C2=A0 I'd just like to know a little more on th=
-is.
-> > Are they really separate backends?
-> >=20
-> Yes, they are separate backends. The FPGA reference design
-> instantiates two independent axi_ad408x IP cores
-> The AD4880 is essentially two AD4080 dies in one package.
->=20
-> The two data streams are merged by a util_cpack2 channel
-> packer before reaching a single DMA:
->=20
-> =C2=A0=C2=A0=C2=A0 axi_ad408x (ch A) --
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 --=
-> util_cpack2 --> single DMA
-> =C2=A0=C2=A0=C2=A0 axi_ad408x (ch B) --/
->=20
-> Each backend needs independent LVDS alignment and lane
-> configuration, so a single-backend-with-channel-parameter
-> model wouldn't fit here.
->=20
-> https://github.com/analogdevicesinc/hdl/blob/main/projects/ad4880_fmc_evb=
-/common/ad4880_fmc_evb_bd.tcl
+On 3/23/26 9:54 AM, Krzysztof Kozlowski wrote:
+> The qcom,sm6375-dwc3 is already documented in top level part, but it
+> misses specific constraints for clocks and interrupts.
+> 
+> Closes: https://sashiko.dev/#/patchset/20260319092348.35237-2-krzysztof.kozlowski%40oss.qualcomm.com
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> ---
 
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-I was not really involved in this part but this whole discussion got me cur=
-ious about why are
-we going with the interleaved approach? Typically when each path has it's o=
-wn serial interface, we
-also have a separate DMA channel.
-
-- Nuno S=C3=A1
-
->=20
-> > Given discussion about interleaved data, I was kind of assuming they
-> > were different front end interfaces to a single backend IP.
-> >=20
-> > The freedom this binding is giving is for those two backends to be
-> > completely unrelated. I'm not sure if we want that.
-> >=20
-> > Jonathan
-> >=20
-> >=20
-> > >=20
-> > > Reviewed-by: David Lechner <dlechner@baylibre.com>
-> > > Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
-> > > ---
-> > > Changes in v7:
-> > > =C2=A0 - No changes
-> > >=20
-> > > =C2=A0.../bindings/iio/adc/adi,ad4080.yaml=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 53 ++++++++++++++++++-
-> > > =C2=A01 file changed, 51 insertions(+), 2 deletions(-)
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4080.yam=
-l
-> > b/Documentation/devicetree/bindings/iio/adc/adi,ad4080.yaml
-> > > index ccd6a0ac1539..0cf86c6f9925 100644
-> > > --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4080.yaml
-> > > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4080.yaml
-> > > @@ -18,7 +18,11 @@ description: |
-> > > =C2=A0=C2=A0 service a wide variety of precision, wide bandwidth data=
- acquisition
-> > > =C2=A0=C2=A0 applications.
-> > >=20
-> > > +=C2=A0 The AD4880 is a dual-channel variant with two independent ADC
-> > channels,
-> > > +=C2=A0 each with its own SPI configuration interface.
-> > > +
-> > > =C2=A0=C2=A0 https://www.analog.com/media/en/technical-documentation/=
-data-
-> > sheets/ad4080.pdf
-> > > +=C2=A0 https://www.analog.com/media/en/technical-documentation/data-
-> > sheets/ad4880.pdf
-> > >=20
-> > > =C2=A0$ref: /schemas/spi/spi-peripheral-props.yaml#
-> > >=20
-> > > @@ -31,9 +35,15 @@ properties:
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - adi,ad4084
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - adi,ad4086
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - adi,ad4087
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - adi,ad4880
-> > >=20
-> > > =C2=A0=C2=A0 reg:
-> > > -=C2=A0=C2=A0=C2=A0 maxItems: 1
-> > > +=C2=A0=C2=A0=C2=A0 minItems: 1
-> > > +=C2=A0=C2=A0=C2=A0 maxItems: 2
-> > > +=C2=A0=C2=A0=C2=A0 description:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 SPI chip select(s). For single-channe=
-l devices, one chip select.
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 For multi-channel devices like AD4880=
-, two chip selects are required
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 as each channel has its own SPI confi=
-guration interface.
-> > >=20
-> > > =C2=A0=C2=A0 spi-max-frequency:
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 description: Configuration of the SPI bus.
-> > > @@ -57,7 +67,10 @@ properties:
-> > > =C2=A0=C2=A0 vrefin-supply: true
-> > >=20
-> > > =C2=A0=C2=A0 io-backends:
-> > > -=C2=A0=C2=A0=C2=A0 maxItems: 1
-> > > +=C2=A0=C2=A0=C2=A0 minItems: 1
-> > > +=C2=A0=C2=A0=C2=A0 items:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Backend for channel A =
-(primary)
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Backend for channel B =
-(secondary)
-> > >=20
-> > > =C2=A0=C2=A0 adi,lvds-cnv-enable:
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 description: Enable the LVDS signal type on =
-the CNV pin. Default is CMOS.
-> > > @@ -78,6 +91,25 @@ required:
-> > > =C2=A0=C2=A0 - vdd33-supply
-> > > =C2=A0=C2=A0 - vrefin-supply
-> > >=20
-> > > +allOf:
-> > > +=C2=A0 - if:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 c=
-onst: adi,ad4880
-> > > +=C2=A0=C2=A0=C2=A0 then:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reg:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 minItems: 2
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 io-backends:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 minItems: 2
-> > > +=C2=A0=C2=A0=C2=A0 else:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reg:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 io-backends:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
-> > > +
-> > > =C2=A0additionalProperties: false
-> > >=20
-> > > =C2=A0examples:
-> > > @@ -98,4 +130,21 @@ examples:
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 io-backe=
-nds =3D <&iio_backend>;
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 };
-> > > +=C2=A0 - |
-> > > +=C2=A0=C2=A0=C2=A0 spi {
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #address-cells =3D <1>;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #size-cells =3D <0>;
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adc@0 {
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible =
-=3D "adi,ad4880";
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reg =3D <0>, =
-<1>;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spi-max-frequ=
-ency =3D <10000000>;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vdd33-supply =
-=3D <&vdd33>;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vddldo-supply=
- =3D <&vddldo>;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vrefin-supply=
- =3D <&vrefin>;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks =3D <&=
-cnv>;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names =
-=3D "cnv";
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 io-backends =
-=3D <&iio_backend_cha>, <&iio_backend_chb>;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> > > +=C2=A0=C2=A0=C2=A0 };
-> > > =C2=A0...
+Konrad
