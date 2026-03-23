@@ -1,60 +1,72 @@
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096451FE44A;
-	Mon, 23 Mar 2026 09:30:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.32.30.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CEF1FE44A;
+	Mon, 23 Mar 2026 09:34:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774258258; cv=none; b=SywneGzCxJMMqvncLzjULehF842RIfyQd/rd+y+fWLBnWVID+4GX4qaGSdfHbjii2gmfKqelNBDhJQVLda6FVvbrL1vxLUdFFcaqgeua77cd29hVEdrjMP0N723iRvH+TgEv/9M0IKH1G7Td1lthhXn7WgNrw5JlIn2EqFEi7lY=
+	t=1774258466; cv=none; b=mMO5wFLGN8fDXlxVEzgP15839nT7jaghIsMDAEEl0g1Lez8sQLJozil4qAq1RIWDmGMi5RifHY+WGbazYmo+xwqHXg4oyiloj2PmJPoocUK0jGwPDzjJsZmFMmcJ3JtoBHnuftC6irOwyZuWohTArFW19RJmcLkQKzR9lZdqcLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774258258; c=relaxed/simple;
-	bh=+sB9HwYJtDPm2Yh5tyrCOddW8M/7xA3pzUn3aUos3JE=;
+	s=arc-20240116; t=1774258466; c=relaxed/simple;
+	bh=a8iVCF8H5fPzfHcKan+KqiP1Vrf6mCXQ0LkwJlmuTto=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZDGDe2YMBQFA4Md/1UeT1Gg1m4HDl8SE7rI2anFYWO77liysRdu4Em+SQ4ywVJtD/zSyq/EUaihQhpAg3x1yYsr/U00v3PxPEkjO8JjY2joYjpuJm3bpFcb2FENUWz46hoRUTcS5RHFr/lLWrwRCEKuMPDlIpUfWAXKH+EOh5nU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk; spf=none smtp.mailfrom=armlinux.org.uk; dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b=etqlIQfJ; arc=none smtp.client-ip=78.32.30.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=armlinux.org.uk
+	 Content-Type:Content-Disposition:In-Reply-To; b=CdNPHmRmtXMqddXxXqSQzX8Ck7TgSorzQmPWpn0UfxIwY9JhzDk7rkHxsXN7Y6Th3cV0KzLxarugxVW1W1K0JDsnb0qxtT4K3CSzWqghYOqAQXYKj4P2QZO52bBDTqNBokkrKYYn76to5z4zwbQPfoylt7fwvNzZ8q5xduCCwzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mn3zeE19; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b="etqlIQfJ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
-	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=F3rUhqBT1KeCDZlm1nLAVKvFKDzC8SHFz9yiyugPwjo=; b=etqlIQfJSSDSaWC3g3CkplcGX+
-	Az+ECRx6Cd67IDOLKoApAzDji/xzE74lFrsxHONaOYr/6D8zl1uKVNXf+EdkRlQYLvjekUSCPPgJl
-	B6elVyuHZdADUUDQxvi7dFUr7eCVzXxl8y2zVjFz6YGCEZb/UGk5ApAGJIymWdcY2ByE5R4P2SXkH
-	Ay/gkmTp1OTxO+62vbYDEZ5Od3e1c1wGDJ+xblhu518mcW5l5nCzOv6lbc8gCjnEYU8H1l13kthWV
-	ugySbdVObDVq418ku/v3FG963j2qdsGQbxQthOMQsnw+tUTC+AWi/TwUKK55j1kpSSqv+mCKZgNAf
-	EpjKTHNA==;
-Received: from shell.armlinux.org.uk ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:58958)
-	by pandora.armlinux.org.uk with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <linux@armlinux.org.uk>)
-	id 1w4bcS-000000000Cw-41vC;
-	Mon, 23 Mar 2026 09:30:45 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
-	(envelope-from <linux@shell.armlinux.org.uk>)
-	id 1w4bcQ-000000003up-3Y8E;
-	Mon, 23 Mar 2026 09:30:42 +0000
-Date: Mon, 23 Mar 2026 09:30:42 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Wei Fang <wei.fang@nxp.com>
-Cc: claudiu.manoil@nxp.com, vladimir.oltean@nxp.com, xiaoning.wang@nxp.com,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, f.fainelli@gmail.com,
-	frank.li@nxp.com, chleroy@kernel.org, horms@kernel.org,
-	andrew@lunn.ch, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev
-Subject: Re: [PATCH v2 net-next 11/14] net: dsa: netc: add phylink MAC
- operations
-Message-ID: <acEIQqI-_oyCym8O@shell.armlinux.org.uk>
-References: <20260323060752.1157031-1-wei.fang@nxp.com>
- <20260323060752.1157031-12-wei.fang@nxp.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mn3zeE19"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774258465; x=1805794465;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=a8iVCF8H5fPzfHcKan+KqiP1Vrf6mCXQ0LkwJlmuTto=;
+  b=mn3zeE19ki5+DRyC9f26dTEwKc75JykuiTOkQelvbaU8/u/NqzMfCoEG
+   nxBbY2aqDXGokoc0AFCW/ai4w+8aDVafaIQRCUWEyWtoY1Pwz9TatLH4f
+   ehR9dRggil5qob8BDIyY/fnTCQLUrdjQdqsxjAHL0qXqBr6yi++NSywoN
+   Kp4a/cyHlds7G6XpONkQnvPx1Vre5jMi0xOp8hEp2fghED94KkNjkGXvA
+   4aWLwmTvy5FWdtXvDb5NdcDn+o8W4YVngqHYVTw7HU+n5pHOfHxQbIMSS
+   G1x/ulmeg9FnuQADXuhJPGL0UD9IpZ8QXc8ulO3Xzjxvr6e5gukIHNm3Y
+   A==;
+X-CSE-ConnectionGUID: xrurAFdSS/2UagUViH0Elg==
+X-CSE-MsgGUID: 7sgDFVuyQS+neQR3OKlbAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11737"; a="97871871"
+X-IronPort-AV: E=Sophos;i="6.23,137,1770624000"; 
+   d="scan'208";a="97871871"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Mar 2026 02:34:24 -0700
+X-CSE-ConnectionGUID: 2yHYcI5DRgGkTO5qtfrbjA==
+X-CSE-MsgGUID: 4AYFJyUYQ3WDzM1pX9pbRA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,137,1770624000"; 
+   d="scan'208";a="223994868"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.18])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Mar 2026 02:34:21 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id C13B711F94F;
+	Mon, 23 Mar 2026 11:34:23 +0200 (EET)
+Date: Mon, 23 Mar 2026 11:34:23 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Antoine Bernard <zalnir@proton.me>
+Cc: Arec Kao <arec.kao@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"~postmarketos/upstreaming@lists.sr.ht" <~postmarketos/upstreaming@lists.sr.ht>
+Subject: Re: [PATCH 1/3] media: i2c: ov13b10: Add dvdd, dovdd and device tree
+ support
+Message-ID: <acEJHxCEjsIvCK3P@kekkonen.localdomain>
+References: <WDExF9Cf1ELo55IwClyLBJqXeLe2-Kb2m3QYg7ex6qREa3HBG52CdMovctxuZ7W_ixhvHyjk9L73NDMCJi2ndkuDJcpzHSDs7Z5pEAgET60=@proton.me>
+ <ab29XzACA3gXE4MI@kekkonen.localdomain>
+ <upbCO5Ov9EM8f4ZCXKxzuKpXo5mOZ3tEI4j0VvTEZ6QQobtULxabIWkHlGTx0-iV9_nxK10rh9zLzccuYMtN0ldUKfwSDWm5I9kflUQ4sg8=@proton.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -63,83 +75,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260323060752.1157031-12-wei.fang@nxp.com>
-Sender: Russell King (Oracle) <linux@armlinux.org.uk>
+In-Reply-To: <upbCO5Ov9EM8f4ZCXKxzuKpXo5mOZ3tEI4j0VvTEZ6QQobtULxabIWkHlGTx0-iV9_nxK10rh9zLzccuYMtN0ldUKfwSDWm5I9kflUQ4sg8=@proton.me>
 
-On Mon, Mar 23, 2026 at 02:07:49PM +0800, Wei Fang wrote:
-> +static void netc_port_set_mac_mode(struct netc_port *np,
-> +				   unsigned int mode,
-> +				   phy_interface_t phy_mode)
-> +{
-> +	u32 mask = PM_IF_MODE_IFMODE | PM_IF_MODE_REVMII | PM_IF_MODE_ENA;
-> +	u32 val = 0;
-> +
-> +	switch (phy_mode) {
-> +	case PHY_INTERFACE_MODE_RGMII:
-> +	case PHY_INTERFACE_MODE_RGMII_ID:
-> +	case PHY_INTERFACE_MODE_RGMII_RXID:
-> +	case PHY_INTERFACE_MODE_RGMII_TXID:
-> +		val |= IFMODE_RGMII;
-> +		/* Enable auto-negotiation for the MAC if its
-> +		 * RGMII interface supports In-Band status.
-> +		 */
-> +		if (phylink_autoneg_inband(mode))
-> +			val |= PM_IF_MODE_ENA;
+Hi Antoine,
 
-I would prefer newer drivers not to use phylink_autoneg_inband()
-anymore. Note that there is no need to support RGMII inband in the
-kernel (nor is there any proper support without a "phylink_pcs"
-being present to provide the inband status.)
+On Sat, Mar 21, 2026 at 04:57:10AM +0000, Antoine Bernard wrote:
+> Thanks for reviewing the patch.
+> 
+> This is my first time sending patches to LKML, so please do
+> understand if I make some mistakes.
+> --
+> > Error handling needs some work here.
+> 
+> Could you perhaps tell me in detail? The logic is same as with
+> avdd, so I am not quite sure how to refactor these.
 
-> +static void netc_port_set_hd_flow_control(struct netc_port *np, bool en)
-> +{
-> +	if (!np->caps.half_duplex)
-> +		return;
-> +
-> +	/* The HD_FCEN is used in conjunction with the PM_HD_FLOW_CTRL
-> +	 * register, which has a default value, so currently we do not
-> +	 * set it in the driver. The half duplex flow control works by
-> +	 * the backpressure, and the backpressure is essentially just
-> +	 * a long preamble transmitted on the link intended to create
-> +	 * a collision and get the half duplex link partner to defer.
-> +	 */
-> +	netc_mac_port_rmw(np, NETC_PM_CMD_CFG(0), PM_CMD_CFG_HD_FCEN,
-> +			  en ? PM_CMD_CFG_HD_FCEN : 0);
+What happens if enabling the last regulator fails?
 
-We don't support half duplex backpressure in the kernel. I notice
-you always enable this whenever HD mode is negotiated, which means
-there's no way for the user to disable it. Flow control can cause
-problems. Ethernet relies on packet dropping for congestion
-management.
+> 
+> > ACPI supports device probing through of_match_table, too.
+> 
+> I thought this was needed, because embedded devices don't have
+> ACPI. Is it possible to not use of_match_ptr() and instead do
+> .of_match_table = ov13b10_of_match directly?
 
-> +static void imx94_switch_phylink_get_caps(int port,
-> +					  struct phylink_config *config)
-> +{
-> +	config->mac_capabilities = MAC_ASYM_PAUSE | MAC_SYM_PAUSE |
-> +				   MAC_1000FD;
-> +
-> +	switch (port) {
-> +	case 0 ... 1:
-> +		__set_bit(PHY_INTERFACE_MODE_SGMII,
-> +			  config->supported_interfaces);
-> +		__set_bit(PHY_INTERFACE_MODE_1000BASEX,
-> +			  config->supported_interfaces);
-> +		__set_bit(PHY_INTERFACE_MODE_2500BASEX,
-> +			  config->supported_interfaces);
-> +		config->mac_capabilities |= MAC_2500FD;
-> +		fallthrough;
-> +	case 2:
-> +		config->mac_capabilities |= MAC_10 | MAC_100;
-> +		__set_bit(PHY_INTERFACE_MODE_MII,
-> +			  config->supported_interfaces);
-> +		__set_bit(PHY_INTERFACE_MODE_RMII,
-> +			  config->supported_interfaces);
-> +		if (port == 2)
-> +			__set_bit(PHY_INTERFACE_MODE_REVMII,
-> +				  config->supported_interfaces);
-
-The "case 2" above already ensures that port is 2 here.
+Yes, please.
 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Regards,
+
+Sakari Ailus
