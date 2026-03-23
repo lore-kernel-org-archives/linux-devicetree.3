@@ -1,40 +1,40 @@
 Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A9F38645A
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:09:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0EE38AC94
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:09:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774260554; cv=none; b=Yi8Znt06IM8LFkGlX1jK6w1IJjElo77JHvIdmrp3bXpqjuUmyfBbeb8ltE7RoQEY7mDDeWw7rWTAHPdLvyB/z5ua5gWtJGDKn49f8PX0EiDgVpQhOK95evK9pfpDQnrI4EtzUwRkto2Bz5/X2u3lnY1OGs3y8juNs6XI7dMi1jA=
+	t=1774260557; cv=none; b=RIsScmy6VVhoJx8FWg1E98lfW8Y7qqSsISIdeNiZssMeUaUILGcIRFOzkfCmCXZ39n/BvK53AdPfw+IEOROH4ZKFKuVe7a2sFgL1S0ISe+K7BSqrd7qW0oNL/spiT+9ZyeBw/PC3JitqNuGnfmWdgsBNCky6/PfxsbFiFRy7Hyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774260554; c=relaxed/simple;
-	bh=kjWSOU5uvl5Oo9bVZ1CjKZvhEeWS2XHHpc42+L9hpms=;
+	s=arc-20240116; t=1774260557; c=relaxed/simple;
+	bh=lIpGm9w9sQdb12Ur9F4Sb3EiTSGgkied7VvY4NFy6No=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:MIME-Version:
-	 Content-Type:References; b=s0ssK5xBpxg1xCUltH3RlTCK0qHhMQxhNShNv3bwwguv3wrnJ1zYmTTVu6zmlAQB8PsM9aklPBeIa/qtLPonvjqG8H4CChWl8U8baNWEwztMcoxISGFDrAD1GGcj22lmTHa14HJLwx24uTrVHxQTRJQhcoy54ENW6ogvLSysYfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=I4/DFDhI; arc=none smtp.client-ip=210.118.77.12
+	 Content-Type:References; b=aEDpK2ewAuzGnSYfhNrg/rrOizyXePFKEL3EF6Y5KasSyVCLCyFSdAEKxLtpLnoVJtY+MhRffzScNh38cfkDYs3Pv6LNPjobsW12zfz5NOAjJspxjmKG1KoRjBrs4H6sICAAOqVcfkXk2wilX/lMsVzqbywLVqv93cIZcTjAPtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=FUCRWglD; arc=none smtp.client-ip=210.118.77.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="I4/DFDhI"
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="FUCRWglD"
 Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260323100911euoutp025b580d5f2d42aac1e09eb55c74265563~fcJIkR6S62543725437euoutp02o
-	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:09:11 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260323100911euoutp025b580d5f2d42aac1e09eb55c74265563~fcJIkR6S62543725437euoutp02o
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260323100913euoutp0204b531cdb0acc4f5138289bbc999d112~fcJLLkR_P2543425434euoutp02z
+	for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 10:09:13 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260323100913euoutp0204b531cdb0acc4f5138289bbc999d112~fcJLLkR_P2543425434euoutp02z
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1774260551;
-	bh=oOH6y278hBlhXpW5TgFEFamleQgzNhyjv0GT6zDAD3M=;
+	s=mail20170921; t=1774260554;
+	bh=XnpG/ghmAqbS6QKwZNF5IxO0PeBEQO07aIL3Tp2D5sY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=I4/DFDhIKlsKuldMs5IIuMJfXiA+dzSWZHnVm9QQ1pQeCxxV1w8hy+YkQ0TQW3KqM
-	 P97vtNzCAiYHEdsV4yq8LOBd1JbdZHsoJNogvTM910KocUv9glQtRKGYv1XcvElfNn
-	 XHtThNKdsFjHxQ6ZP6COdpRzDqiIGUHlxS/SFjeY=
+	b=FUCRWglDvcz6v+kCemIlvGSD7pNISs5yAxcT2r7ya/G7VI7UyRLCBkT9zC3UULCMV
+	 Eem7IL2mnlBxEZ1z7lF7vcs2tzmJS2nw5Xp9z3VjP2Dd6YVmFtQFTPo0NBiSqS5TpR
+	 zQbp6vhU7+W0tyRiJ6+JtoAl7UXpqOmsXNsxauzc=
 Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
 	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260323100910eucas1p1efe6ee90c38f4261f6eae2a81a25717a~fcJIN3oVG0576205762eucas1p1I;
-	Mon, 23 Mar 2026 10:09:10 +0000 (GMT)
+	20260323100912eucas1p1f13cc5bfc49a119c7f1e0d6bd754d42c~fcJJeUWMb0541705417eucas1p1O;
+	Mon, 23 Mar 2026 10:09:12 +0000 (GMT)
 Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
 	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260323100910eusmtip2e62a495bc8823ea856879b6e0bc097aa~fcJHqGIed0975509755eusmtip2m;
-	Mon, 23 Mar 2026 10:09:10 +0000 (GMT)
+	20260323100911eusmtip2884e9a5ebc23eed9d8cea4e2a5e97500~fcJI7eMUO0421504215eusmtip2T;
+	Mon, 23 Mar 2026 10:09:11 +0000 (GMT)
 From: Marek Szyprowski <m.szyprowski@samsung.com>
 To: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-mm@kvack.org, iommu@lists.linux.dev
@@ -43,10 +43,10 @@ Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring
 	<oreoluwa.babatunde@oss.qualcomm.com>, Saravana Kannan
 	<saravanak@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Robin
 	Murphy <robin.murphy@arm.com>
-Subject: [PATCH v2 4/7] of: reserved_mem: replace CMA quirks by generic
- methods
-Date: Mon, 23 Mar 2026 11:08:58 +0100
-Message-Id: <20260323100901.4079171-5-m.szyprowski@samsung.com>
+Subject: [PATCH v2 6/7] of: reserved_mem: clarify fdt_scan_reserved_mem*()
+ functions
+Date: Mon, 23 Mar 2026 11:09:00 +0100
+Message-Id: <20260323100901.4079171-7-m.szyprowski@samsung.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260323100901.4079171-1-m.szyprowski@samsung.com>
 Precedence: bulk
@@ -56,404 +56,96 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260323100910eucas1p1efe6ee90c38f4261f6eae2a81a25717a
+X-CMS-MailID: 20260323100912eucas1p1f13cc5bfc49a119c7f1e0d6bd754d42c
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260323100910eucas1p1efe6ee90c38f4261f6eae2a81a25717a
+X-RootMTR: 20260323100912eucas1p1f13cc5bfc49a119c7f1e0d6bd754d42c
 X-EPHeader: CA
-X-CMS-RootMailID: 20260323100910eucas1p1efe6ee90c38f4261f6eae2a81a25717a
+X-CMS-RootMailID: 20260323100912eucas1p1f13cc5bfc49a119c7f1e0d6bd754d42c
 References: <20260323100901.4079171-1-m.szyprowski@samsung.com>
-	<CGME20260323100910eucas1p1efe6ee90c38f4261f6eae2a81a25717a@eucas1p1.samsung.com>
+	<CGME20260323100912eucas1p1f13cc5bfc49a119c7f1e0d6bd754d42c@eucas1p1.samsung.com>
 
-Add optional reserved memory callbacks to perform region verification and
-early fixup, then move all CMA related code in of_reserved_mem.c to them.
+Rename fdt_scan_reserved_mem_reg_nodes() to fdt_scan_reserved_mem_late()
+to clearly show how it differs from fdt_scan_reserved_mem() and update
+description of both functions.
 
 Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
 ---
- drivers/of/of_reserved_mem.c    | 118 ++++++++++++++++++++++----------
- include/linux/cma.h             |  10 ---
- include/linux/dma-map-ops.h     |   3 -
- include/linux/of_reserved_mem.h |   3 +
- kernel/dma/contiguous.c         |  70 ++++++++++++++-----
- 5 files changed, 137 insertions(+), 67 deletions(-)
+ drivers/of/fdt.c             |  2 +-
+ drivers/of/of_private.h      |  2 +-
+ drivers/of/of_reserved_mem.c | 24 +++++++++++++++---------
+ 3 files changed, 17 insertions(+), 11 deletions(-)
 
+diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
+index 331646d667b9..43a0944ca462 100644
+--- a/drivers/of/fdt.c
++++ b/drivers/of/fdt.c
+@@ -1274,7 +1274,7 @@ void __init unflatten_device_tree(void)
+ 	void *fdt = initial_boot_params;
+ 
+ 	/* Save the statically-placed regions in the reserved_mem array */
+-	fdt_scan_reserved_mem_reg_nodes();
++	fdt_scan_reserved_mem_late();
+ 
+ 	/* Populate an empty root node when bootloader doesn't provide one */
+ 	if (!fdt) {
+diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
+index df0bb00349e0..0ae16da066e2 100644
+--- a/drivers/of/of_private.h
++++ b/drivers/of/of_private.h
+@@ -186,7 +186,7 @@ static inline struct device_node *__of_get_dma_parent(const struct device_node *
+ #endif
+ 
+ int fdt_scan_reserved_mem(void);
+-void __init fdt_scan_reserved_mem_reg_nodes(void);
++void __init fdt_scan_reserved_mem_late(void);
+ 
+ bool of_fdt_device_is_available(const void *blob, unsigned long node);
+ 
 diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-index d67864db3019..61ef148add68 100644
+index dceaf19f31fb..801451d034fa 100644
 --- a/drivers/of/of_reserved_mem.c
 +++ b/drivers/of/of_reserved_mem.c
-@@ -24,8 +24,6 @@
- #include <linux/slab.h>
- #include <linux/memblock.h>
- #include <linux/kmemleak.h>
--#include <linux/cma.h>
--#include <linux/dma-map-ops.h>
- 
- #include "of_private.h"
- 
-@@ -106,6 +104,11 @@ static void __init alloc_reserved_mem_array(void)
- 
- static void __init fdt_init_reserved_mem_node(struct reserved_mem *rmem,
- 					      unsigned long node);
-+static int fdt_validate_reserved_mem_node(unsigned long node,
-+					  phys_addr_t *align);
-+static int fdt_fixup_reserved_mem_node(unsigned long node,
-+				       phys_addr_t base, phys_addr_t size);
-+
- /*
-  * fdt_reserved_mem_save_node() - save fdt node for second pass initialization
-  */
-@@ -154,21 +157,19 @@ static int __init __reserved_mem_reserve_reg(unsigned long node,
- 					     const char *uname)
- {
- 	phys_addr_t base, size;
--	int i, len;
-+	int i, len, err;
- 	const __be32 *prop;
--	bool nomap, default_cma;
-+	bool nomap;
- 
- 	prop = of_flat_dt_get_addr_size_prop(node, "reg", &len);
- 	if (!prop)
- 		return -ENOENT;
- 
- 	nomap = of_get_flat_dt_prop(node, "no-map", NULL) != NULL;
--	default_cma = of_get_flat_dt_prop(node, "linux,cma-default", NULL);
- 
--	if (default_cma && cma_skip_dt_default_reserved_mem()) {
--		pr_err("Skipping dt linux,cma-default for \"cma=\" kernel param.\n");
--		return -EINVAL;
--	}
-+	err = fdt_validate_reserved_mem_node(node, NULL);
-+	if (err && err != -ENODEV)
-+		return err;
- 
- 	for (i = 0; i < len; i++) {
- 		u64 b, s;
-@@ -179,10 +180,7 @@ static int __init __reserved_mem_reserve_reg(unsigned long node,
- 		size = s;
- 
- 		if (size && early_init_dt_reserve_memory(base, size, nomap) == 0) {
--			/* Architecture specific contiguous memory fixup. */
--			if (of_flat_dt_is_compatible(node, "shared-dma-pool") &&
--			    of_get_flat_dt_prop(node, "reusable", NULL))
--				dma_contiguous_early_fixup(base, size);
-+			fdt_fixup_reserved_mem_node(node, base, size);
- 			pr_debug("Reserved memory: reserved region for node '%s': base %pa, size %lu MiB\n",
- 				uname, &base, (unsigned long)(size / SZ_1M));
- 		} else {
-@@ -253,17 +251,19 @@ void __init fdt_scan_reserved_mem_reg_nodes(void)
- 
- 	fdt_for_each_subnode(child, fdt, node) {
- 		const char *uname;
--		bool default_cma = of_get_flat_dt_prop(child, "linux,cma-default", NULL);
- 		u64 b, s;
-+		int ret;
- 
- 		if (!of_fdt_device_is_available(fdt, child))
- 			continue;
--		if (default_cma && cma_skip_dt_default_reserved_mem())
--			continue;
- 
- 		if (!of_flat_dt_get_addr_size(child, "reg", &b, &s))
- 			continue;
- 
-+		ret = fdt_validate_reserved_mem_node(child, NULL);
-+		if (ret && ret != -ENODEV)
-+			continue;
-+
- 		base = b;
- 		size = s;
- 
-@@ -397,7 +397,7 @@ static int __init __reserved_mem_alloc_size(unsigned long node, const char *unam
- 	phys_addr_t base = 0, align = 0, size;
- 	int i, len;
- 	const __be32 *prop;
--	bool nomap, default_cma;
-+	bool nomap;
- 	int ret;
- 
- 	prop = of_get_flat_dt_prop(node, "size", &len);
-@@ -421,19 +421,10 @@ static int __init __reserved_mem_alloc_size(unsigned long node, const char *unam
- 	}
- 
- 	nomap = of_get_flat_dt_prop(node, "no-map", NULL) != NULL;
--	default_cma = of_get_flat_dt_prop(node, "linux,cma-default", NULL);
- 
--	if (default_cma && cma_skip_dt_default_reserved_mem()) {
--		pr_err("Skipping dt linux,cma-default for \"cma=\" kernel param.\n");
--		return -EINVAL;
--	}
--
--	/* Need adjust the alignment to satisfy the CMA requirement */
--	if (IS_ENABLED(CONFIG_CMA)
--	    && of_flat_dt_is_compatible(node, "shared-dma-pool")
--	    && of_get_flat_dt_prop(node, "reusable", NULL)
--	    && !nomap)
--		align = max_t(phys_addr_t, align, CMA_MIN_ALIGNMENT_BYTES);
-+	ret = fdt_validate_reserved_mem_node(node, &align);
-+	if (ret && ret != -ENODEV)
-+		return ret;
- 
- 	prop = of_flat_dt_get_addr_size_prop(node, "alloc-ranges", &len);
- 	if (prop) {
-@@ -468,18 +459,76 @@ static int __init __reserved_mem_alloc_size(unsigned long node, const char *unam
- 		       uname, (unsigned long)(size / SZ_1M));
- 		return -ENOMEM;
- 	}
--	/* Architecture specific contiguous memory fixup. */
--	if (of_flat_dt_is_compatible(node, "shared-dma-pool") &&
--	    of_get_flat_dt_prop(node, "reusable", NULL))
--		dma_contiguous_early_fixup(base, size);
-+
-+	fdt_fixup_reserved_mem_node(node, base, size);
-+
- 	/* Save region in the reserved_mem array */
- 	fdt_reserved_mem_save_node(node, uname, base, size);
- 	return 0;
+@@ -265,16 +265,15 @@ static void __init __rmem_check_for_overlap(void)
  }
  
-+extern const struct of_device_id __reservedmem_of_table[];
- static const struct of_device_id __rmem_of_table_sentinel
- 	__used __section("__reservedmem_of_table_end");
- 
-+/**
-+ * fdt_fixup_reserved_mem_node() - call fixup function for a reserved memory node
-+ * @node: FDT node to fixup
-+ * @base: base address of the reserved memory region
-+ * @size: size of the reserved memory region
-+ *
-+ * This function iterates through the reserved memory drivers and calls
-+ * the node_fixup callback for the compatible entry matching the node.
-+ *
-+ * Return: 0 on success, -ENODEV if no compatible match found
-+ */
-+static int __init fdt_fixup_reserved_mem_node(unsigned long node,
-+					phys_addr_t base, phys_addr_t size)
-+{
-+	const struct of_device_id *i;
-+	int ret = -ENODEV;
-+
-+	for (i = __reservedmem_of_table; ret == -ENODEV &&
-+	     i < &__rmem_of_table_sentinel; i++) {
-+		const struct reserved_mem_ops *ops = i->data;
-+
-+		if (!of_flat_dt_is_compatible(node, i->compatible))
-+			continue;
-+
-+		if (ops->node_fixup)
-+			ret = ops->node_fixup(node, base, size);
-+	}
-+	return ret;
-+}
-+
-+/**
-+ * fdt_validate_reserved_mem_node() - validate a reserved memory node
-+ * @node: FDT node to validate
-+ * @align: pointer to store the validated alignment (may be modified by callback)
-+ *
-+ * This function iterates through the reserved memory drivers and calls
-+ * the node_validate callback for the compatible entry matching the node.
-+ *
-+ * Return: 0 on success, -ENODEV if no compatible match found
-+ */
-+static int __init fdt_validate_reserved_mem_node(unsigned long node, phys_addr_t *align)
-+{
-+	const struct of_device_id *i;
-+	int ret = -ENODEV;
-+
-+	for (i = __reservedmem_of_table; ret == -ENODEV &&
-+	     i < &__rmem_of_table_sentinel; i++) {
-+		const struct reserved_mem_ops *ops = i->data;
-+
-+		if (!of_flat_dt_is_compatible(node, i->compatible))
-+			continue;
-+
-+		if (ops->node_validate)
-+			ret = ops->node_validate(node, align);
-+	}
-+	return ret;
-+}
-+
  /**
-  * __reserved_mem_init_node() - initialize a reserved memory region
-  * @rmem: reserved_mem structure to initialize
-@@ -494,7 +543,6 @@ static const struct of_device_id __rmem_of_table_sentinel
- static int __init __reserved_mem_init_node(struct reserved_mem *rmem,
- 					   unsigned long node)
+- * fdt_scan_reserved_mem_reg_nodes() - Store info for the "reg" defined
+- * reserved memory regions.
++ * fdt_scan_reserved_mem_late() - Scan FDT and initialize remaining reserved
++ * memory regions.
+  *
+- * This function is used to scan through the DT and store the
+- * information for the reserved memory regions that are defined using
+- * the "reg" property. The region node number, name, base address, and
+- * size are all stored in the reserved_mem array by calling the
+- * fdt_reserved_mem_save_node() function.
++ * This function is used to scan again through the DT and initialize the
++ * "static" reserved memory regions, that are defined using the "reg"
++ * property. Each such region is then initialized with its specific init
++ * function and stored in the global reserved_mem array.
+  */
+-void __init fdt_scan_reserved_mem_reg_nodes(void)
++void __init fdt_scan_reserved_mem_late(void)
  {
--	extern const struct of_device_id __reservedmem_of_table[];
- 	const struct of_device_id *i;
- 	int ret = -ENODEV;
+ 	const void *fdt = initial_boot_params;
+ 	phys_addr_t base, size;
+@@ -328,7 +327,14 @@ void __init fdt_scan_reserved_mem_reg_nodes(void)
+ static int __init __reserved_mem_alloc_size(unsigned long node, const char *uname);
  
-@@ -511,7 +559,7 @@ static int __init __reserved_mem_init_node(struct reserved_mem *rmem,
- 			rmem->ops = ops;
- 			pr_info("initialized node %s, compatible id %s\n",
- 				rmem->name, compat);
--			break;
-+			return ret;
- 		}
- 	}
- 	return ret;
-diff --git a/include/linux/cma.h b/include/linux/cma.h
-index d0793eaaadaa..8555d38a97b1 100644
---- a/include/linux/cma.h
-+++ b/include/linux/cma.h
-@@ -61,14 +61,4 @@ extern int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data)
- extern bool cma_intersects(struct cma *cma, unsigned long start, unsigned long end);
- 
- extern void cma_reserve_pages_on_error(struct cma *cma);
--
--#ifdef CONFIG_DMA_CMA
--extern bool cma_skip_dt_default_reserved_mem(void);
--#else
--static inline bool cma_skip_dt_default_reserved_mem(void)
--{
--	return false;
--}
--#endif
--
- #endif
-diff --git a/include/linux/dma-map-ops.h b/include/linux/dma-map-ops.h
-index 60b63756df82..55ecd2934225 100644
---- a/include/linux/dma-map-ops.h
-+++ b/include/linux/dma-map-ops.h
-@@ -147,9 +147,6 @@ static inline void dma_free_contiguous(struct device *dev, struct page *page,
+ /*
+- * fdt_scan_reserved_mem() - scan a single FDT node for reserved memory
++ * fdt_scan_reserved_mem() - reserve and allocate memory occupied by
++ * reserved memory regions.
++ *
++ * This function is used to scan through the FDT and mark memory occupied
++ * by all static (defined by the "reg" property) reserved memory regions.
++ * Then memory for all dynamic regions (defined by size & alignment) is
++ * allocated, a region specific init function is called and region information
++ * is stored in the reserved_mem array.
+  */
+ int __init fdt_scan_reserved_mem(void)
  {
- 	__free_pages(page, get_order(size));
- }
--static inline void dma_contiguous_early_fixup(phys_addr_t base, unsigned long size)
--{
--}
- #endif /* CONFIG_DMA_CMA*/
- 
- #ifdef CONFIG_DMA_DECLARE_COHERENT
-diff --git a/include/linux/of_reserved_mem.h b/include/linux/of_reserved_mem.h
-index 320ac8929a28..ecca1eaac4ec 100644
---- a/include/linux/of_reserved_mem.h
-+++ b/include/linux/of_reserved_mem.h
-@@ -18,6 +18,9 @@ struct reserved_mem {
- };
- 
- struct reserved_mem_ops {
-+	int	(*node_validate)(unsigned long fdt_node, phys_addr_t *align);
-+	int	(*node_fixup)(unsigned long fdt_node, phys_addr_t base,
-+			      phys_addr_t size);
- 	int	(*node_init)(unsigned long fdt_node, struct reserved_mem *rmem);
- 	int	(*device_init)(struct reserved_mem *rmem,
- 			       struct device *dev);
-diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-index efeebda92537..65d216663e81 100644
---- a/kernel/dma/contiguous.c
-+++ b/kernel/dma/contiguous.c
-@@ -91,16 +91,6 @@ static int __init early_cma(char *p)
- }
- early_param("cma", early_cma);
- 
--/*
-- * cma_skip_dt_default_reserved_mem - This is called from the
-- * reserved_mem framework to detect if the default cma region is being
-- * set by the "cma=" kernel parameter.
-- */
--bool __init cma_skip_dt_default_reserved_mem(void)
--{
--	return size_cmdline != -1;
--}
--
- #ifdef CONFIG_DMA_NUMA_CMA
- 
- static struct cma *dma_contiguous_numa_area[MAX_NUMNODES];
-@@ -470,25 +460,65 @@ static void rmem_cma_device_release(struct reserved_mem *rmem,
- 	dev->cma_area = NULL;
- }
- 
-+static int __init __rmem_cma_verify_node(unsigned long node)
-+{
-+	if (!of_get_flat_dt_prop(node, "reusable", NULL) ||
-+	    of_get_flat_dt_prop(node, "no-map", NULL))
-+		return -ENODEV;
-+
-+	if (size_cmdline != -1 &&
-+	    of_get_flat_dt_prop(node, "linux,cma-default", NULL)) {
-+		pr_err("Skipping dt linux,cma-default node in favor for \"cma=\" kernel param.\n");
-+		return -EBUSY;
-+	}
-+	return 0;
-+}
-+
-+static int __init rmem_cma_validate(unsigned long node, phys_addr_t *align)
-+{
-+	int ret = __rmem_cma_verify_node(node);
-+
-+	if (ret)
-+		return ret;
-+
-+	if (align)
-+		*align = max_t(phys_addr_t, *align, CMA_MIN_ALIGNMENT_BYTES);
-+
-+	return 0;
-+}
-+
-+static int __init rmem_cma_fixup(unsigned long node, phys_addr_t base,
-+				    phys_addr_t size)
-+{
-+	int ret = __rmem_cma_verify_node(node);
-+
-+	if (ret)
-+		return ret;
-+
-+	/* Architecture specific contiguous memory fixup. */
-+	dma_contiguous_early_fixup(base, size);
-+	return 0;
-+}
-+
- static int __init rmem_cma_setup(unsigned long node, struct reserved_mem *rmem)
- {
- 	bool default_cma = of_get_flat_dt_prop(node, "linux,cma-default", NULL);
- 	struct cma *cma;
--	int err;
-+	int ret;
- 
--	if (!of_get_flat_dt_prop(node, "reusable", NULL) ||
--	    of_get_flat_dt_prop(node, "no-map", NULL))
--		return -ENODEV;
-+	ret = __rmem_cma_verify_node(node);
-+	if (ret)
-+		return ret;
- 
- 	if (!IS_ALIGNED(rmem->base | rmem->size, CMA_MIN_ALIGNMENT_BYTES)) {
- 		pr_err("Reserved memory: incorrect alignment of CMA region\n");
- 		return -EINVAL;
- 	}
- 
--	err = cma_init_reserved_mem(rmem->base, rmem->size, 0, rmem->name, &cma);
--	if (err) {
-+	ret = cma_init_reserved_mem(rmem->base, rmem->size, 0, rmem->name, &cma);
-+	if (ret) {
- 		pr_err("Reserved memory: unable to setup CMA region\n");
--		return err;
-+		return ret;
- 	}
- 
- 	if (default_cma)
-@@ -499,14 +529,16 @@ static int __init rmem_cma_setup(unsigned long node, struct reserved_mem *rmem)
- 	pr_info("Reserved memory: created CMA memory pool at %pa, size %ld MiB\n",
- 		&rmem->base, (unsigned long)rmem->size / SZ_1M);
- 
--	err = dma_heap_cma_register_heap(cma);
--	if (err)
-+	ret = dma_heap_cma_register_heap(cma);
-+	if (ret)
- 		pr_warn("Couldn't register CMA heap.");
- 
- 	return 0;
- }
- 
- static const struct reserved_mem_ops rmem_cma_ops = {
-+	.node_validate  = rmem_cma_validate,
-+	.node_fixup	= rmem_cma_fixup,
- 	.node_init	= rmem_cma_setup,
- 	.device_init	= rmem_cma_device_init,
- 	.device_release = rmem_cma_device_release,
 -- 
 2.34.1
 
