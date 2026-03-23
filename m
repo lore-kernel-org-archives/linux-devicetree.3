@@ -1,53 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633B43CCFB4;
-	Mon, 23 Mar 2026 19:35:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649053DBD59;
+	Mon, 23 Mar 2026 19:37:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774294547; cv=none; b=Y1LhG4+uIdEqKlChJy0g1Eg5ZbhH54whZtGOL2z+YaTYctuxNxgacQeDvQOKkRiqQFRZzWGcFLZ5+RBuqHMUhTfoBGfUjXtjS15fjx692zVPiu6kvERuFuN2Qtzk+otx/ah8caPdRjjrjCPcBv7R3VkSLysmYyuo4e1LwVJPhR8=
+	t=1774294651; cv=none; b=RblQWd9zpUzAhWzs4THcLZKm1TjTSB5GuBAJcmSGPhciLht3LWQiypzIe0SjmfZBugBLcKSQwrzSu6nsVWp3f3p+bZEdGypk1d8y04Z83w07eB2sQa94+aDz4oi1YnayFAypo+gabGruq01/VwO9PS+ZqhnaBY/dqh/OcHLiyJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774294547; c=relaxed/simple;
-	bh=bOvcY+CJn/YkEPr120Z/mLaUY5shLsNKNM8vnqAvUIQ=;
+	s=arc-20240116; t=1774294651; c=relaxed/simple;
+	bh=YNOY/10bL1EV7q2Imm4uWe0CYApalti2dt5cIVqYu88=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IhtluI/uzXUaWN9izd85nLR+ES0WzfSKbeT+ydJp6TKwBLIXmY4X7aTa1m6zEm/dIyZY6xWNA3NiWgIqaBrNhMdtJ5VoJ/JJJDG6ylLP44S+bCdZ9BDlbYcN4ouID1i0dmUHkvrAJ/YVRgKrgWlkOe1dJe5k6F/tI+q5b327eEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FBvW+vHn; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=RJNdNussuP8b1duWatQtLvC0mtBHfg1nkT9uTv22gHk1h9q++AQI/FzV+Pse7IGAZfv5Av1Pfa0ISIX1tqrNvnQS/Z+nyt2MqgMvHWiMhR92jTgGnFlFnVEYPEZ1jXwhyYE9ksdFpUqEJJNzW2nVaOXvdkhgHdW/W6EoNTRYlmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wf3lvA+G; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FBvW+vHn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB101C4CEF7;
-	Mon, 23 Mar 2026 19:35:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wf3lvA+G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6F8C4CEF7;
+	Mon, 23 Mar 2026 19:37:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774294546;
-	bh=bOvcY+CJn/YkEPr120Z/mLaUY5shLsNKNM8vnqAvUIQ=;
+	s=k20201202; t=1774294651;
+	bh=YNOY/10bL1EV7q2Imm4uWe0CYApalti2dt5cIVqYu88=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FBvW+vHn2nfbL7wFiljbPTgIvioJVTlNnjxQGvxQ6iZCsyLCX/E+4Rz+MXH1iRRvt
-	 4nwHdyqbPNsf/lTVQ+XZpUnqju9dvDCLtFPFMTrQzd0OcHO8CFgGZd7J4hTbyIenyo
-	 D0mr0J7uv66LxroNb9NDBBjIZVk3rdzOdxYCSUuWTwlwTYWBeqTw9OlcjOUVN/hWw0
-	 DrlefhNSltKwwwrZ/cjCyAJEsde+hkwZUKCLsYVp0ZFYlFozNy9Nluy5P0CwK1Ib5I
-	 aauAKupycE8N0H5jqEeE4ayeZd5vqvsD3CFyiiJIE6/9GXgVTbzm/kPHbzt2DYI+gq
-	 DrpgZtsdgEC0g==
-Date: Mon, 23 Mar 2026 19:35:41 +0000
+	b=Wf3lvA+GH/GQJEW785Yo559nDoXleT8uPH40hxJfta5Zz2n/wmJIYAPsSBHWs/par
+	 SNch8HOXTjI3xocXCxzZSyg4lUavveInbw5bpnX89woONwx5Jnf5SnjCkKb8EIVxTC
+	 /IYKO2SYn11ENt2U4n7aSemuvRok2VgCekr2hMFYb0k2z35fOtrp96Q/ziP+wS23k+
+	 U79sYg+3OTnESUCQ95yTcLRiKERECazxOoZqXJCbelhVBDq4DnthtOy28EP8omsGLc
+	 rcwzYGmbU6GqaNp3xmuCIKDuxl+38SyZ/Vkl6dumETkOzvyKagwtqH8ZBYLOAG+vdb
+	 v03QCoJU3zQcQ==
+Date: Mon, 23 Mar 2026 19:37:25 +0000
 From: Conor Dooley <conor@kernel.org>
-To: Charles Perry <charles.perry@microchip.com>
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+To: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: document Microchip
- PIC64-HPSC/HX MDIO controller
-Message-ID: <20260323-numbness-murky-6ad25f9ac5d7@spud>
-References: <20260317184610.315852-1-charles.perry@microchip.com>
- <20260317184610.315852-2-charles.perry@microchip.com>
- <20260318-suspense-arming-fe118c3f15c6@spud>
- <absXy5Qmd/iHWofD@bby-cbu-swbuild03.eng.microchip.com>
- <20260319-spearfish-styling-9918d2d2e537@spud>
- <acFCPnia+riDwvJJ@bby-cbu-swbuild03.eng.microchip.com>
+	Ulf Hansson <ulf.hansson@linaro.org>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	van Spriel <arend@broadcom.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
+	linux-wireless@vger.kernel.org
+Subject: Re: [PATCH v3 8/9] dt-bindings: net: wireless: brcm: Add compatible
+ for bcm43752
+Message-ID: <20260323-hardhat-bladder-0c83339de3bd@spud>
+References: <20260323-add-emmc-t7-vim4-v3-0-5159d90a984c@aliel.fr>
+ <20260323-add-emmc-t7-vim4-v3-8-5159d90a984c@aliel.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,55 +55,32 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jpKQuGiqgczD1gfA"
+	protocol="application/pgp-signature"; boundary="8LJrZXED2O+23fWg"
 Content-Disposition: inline
-In-Reply-To: <acFCPnia+riDwvJJ@bby-cbu-swbuild03.eng.microchip.com>
+In-Reply-To: <20260323-add-emmc-t7-vim4-v3-8-5159d90a984c@aliel.fr>
 
 
---jpKQuGiqgczD1gfA
+--8LJrZXED2O+23fWg
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Mar 23, 2026 at 06:38:06AM -0700, Charles Perry wrote:
-> On Thu, Mar 19, 2026 at 01:35:52AM +0000, Conor Dooley wrote:
-> > On Wed, Mar 18, 2026 at 02:23:23PM -0700, Charles Perry wrote:
-> > > > > +
-> > > > > +  clock-frequency: true
-> > > >=20
-> > > > Does this genuinely have no constraints?
-> > >=20
-> > > It's going to divide the input frequency by 2 to 512 (the prescaler i=
-s 8
-> > > bit long), so assuming an input clock of 156.25 MHz, the bounds are 3=
-05KHz
-> > > to 78MHz. The standard is 2.5MHz.
-> > >=20
-> > > I can add a maximum and minimum here since I do have some validation =
-on
-> > > this in the driver which will bail out if this is out of bound.
+On Mon, Mar 23, 2026 at 10:55:33AM +0100, Ronald Claveau wrote:
+> Add bcm43752 compatible with its bcm4329 compatible fallback.
 >=20
-> Hello Conor,
->=20
-> I have second doubt about this. The minimum and maximum depend on the inp=
-ut
-> clock frequency which might change if someone uses a different crystal or
-> clock config. So for that reason, I thinks it's better to not specify the
-> bounds, because there's no way to know for sure what they when building t=
-he
-> device tree.
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-Okay, sure.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
---jpKQuGiqgczD1gfA
+--8LJrZXED2O+23fWg
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacGWDQAKCRB4tDGHoIJi
-0jrtAQCZMRvPThiu1SYnhUZTAjlqGS0mO0P0RjJuBQQThO+nqgD/XanqfuNWh/lj
-EKy/WvnuNeJHY8g0dFjHZ7qOpIg6Dg8=
-=ljJk
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacGWdQAKCRB4tDGHoIJi
+0mLYAQDKVk2X94u3DdOJf1xVZS1DjAAOaqRhxQmCavFb8iljzgD/a7q4+h0ExxYk
+1S35bjSvl2V4D0hADEYDx1qRaOas3QQ=
+=yoc+
 -----END PGP SIGNATURE-----
 
---jpKQuGiqgczD1gfA--
+--8LJrZXED2O+23fWg--
