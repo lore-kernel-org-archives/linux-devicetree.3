@@ -1,155 +1,121 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3C42BEC3F;
-	Mon, 23 Mar 2026 10:22:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C8E2BEC3F;
+	Mon, 23 Mar 2026 10:22:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774261365; cv=none; b=b/eis2JZMvc2K09Gz/JySRLhjsdkLnnj/hi+C9onpsz8SiKq9RCTRa6B1gHANvmh34UmBEcgSTzpNpFdtLIuZxiFWwvgRekM+acj/DqXJeVJKE49C5Qc9/0AIjWWukhtQknBz0ILCYCA8XKUQjVN3cQ+OCquEPfYm9LbXzxn2OM=
+	t=1774261372; cv=none; b=iwvj5D7sNv2eHrUqsyBaFoNDHHLr5peCrhuJ72zOVzprbe1YrL/UKjBfhzLSwAfHzJTAJVNKz6duhEnSthLqd29ivQhfijyGvNhykb/XYEfaVPoA1b+2y2JWCoQq9desqYNiMiyHvcJFpL17PcKBNkIjaa0i4w3t2RjdO2QNI/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774261365; c=relaxed/simple;
-	bh=F0Nb0sJhJbVn6r2FesonC+O/5NMRBAs5RhQ19B0t10k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KSoie2G1gfBfddyASFNclRNxKnYeyneXl1w0aUlqUJWITQwmvvnC09ZgdJzs9R9c2le0DODjq/W/1JQF8VG7Xi24cbrw99nXBEOgyH1lz655c1MlBqf067OFnNThVzj8EBha1gkK60ejZ2lJKK6y46ChhgBzzNrA9/TkDsiJYGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org; spf=none smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=cOELZ+Gz; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=debian.org
+	s=arc-20240116; t=1774261372; c=relaxed/simple;
+	bh=4AdY9mXEYKV7JvwfUdqLlPz2v9cWHTJ1UjTizN8ERac=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aJHoU2O8HEweQFVfTnNeXl6C62cJde/PatUU+kDt9lhEc1HVy7B/e9vfd4Ei/GDqI7xKNJZqjI/b2dXXDgelZNmcebZFSNz8DoTxqdilqpp2UiBsXNx9vBJXMewwtRoI9gxIXN5IA75Yk5JQoSVq4bKyX4HAnSCi1g8mVSTrIMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b=LKoctHhn; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="cOELZ+Gz"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Reply-To:Content-ID:Content-Description;
-	bh=DH+iNz08X6EuAL3xC9z+JByLMXFyPiPYDRa6C8Lo498=; b=cOELZ+GzPUk5kjUi33kxf6Lu7p
-	GY3nwOVi920GJ9UbvJXatjMBuQEPT0FOX4okImlD8Vj3T4hBJwuD4uVDmjAO+AoxU+1owP1yMDUJv
-	6jIqukt9sJv843ocVhBm8CQf/EgCYlBeY70qonTJ07RkEANn/O90EI9F2qKxX/Ruiw+ig35xTfySr
-	TCQUi13ye1jWvFFXVEayi3gPh6rq4OrCVTXd3UdB4U39KNNRni9xgjm24sZzkklawm4ICVKu9C6Bt
-	6iaiADnz4fz5s6LsXVZRgEIBNtVWG99q9re5mqluxiVD7HtUILcAbo0RaYSXFH39nUpc6WAzPyJnG
-	O3Zbf8gA==;
-Received: from authenticated user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.94.2)
-	(envelope-from <leitao@debian.org>)
-	id 1w4cP7-007SfO-16; Mon, 23 Mar 2026 10:20:59 +0000
-Date: Mon, 23 Mar 2026 03:20:48 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, catalin.marinas@arm.com, 
-	will@kernel.org, chenhuacai@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com, 
-	mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org, pjw@kernel.org, 
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org, 
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
-	robh@kernel.org, saravanak@kernel.org, akpm@linux-foundation.org, bhe@redhat.com, 
-	vgoyal@redhat.com, dyoung@redhat.com, rdunlap@infradead.org, peterz@infradead.org, 
-	feng.tang@linux.alibaba.com, pawan.kumar.gupta@linux.intel.com, dapeng1.mi@linux.intel.com, 
-	kees@kernel.org, elver@google.com, paulmck@kernel.org, lirongqing@baidu.com, 
-	safinaskar@gmail.com, rppt@kernel.org, ardb@kernel.org, jbohac@suse.cz, 
-	cfsworks@gmail.com, osandov@fb.com, tangyouling@kylinos.cn, 
-	sourabhjain@linux.ibm.com, ritesh.list@gmail.com, eajames@linux.ibm.com, 
-	songshuaishuai@tinylab.org, kevin.brodsky@arm.com, samuel.holland@sifive.com, 
-	vishal.moola@gmail.com, junhui.liu@pigmoral.tech, coxu@redhat.com, liaoyuanhong@vivo.com, 
-	fuqiang.wang@easystack.cn, x86@kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev, 
-	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
-	kexec@lists.infradead.org
-Subject: Re: [PATCH v9 4/5] arm64: kexec: Add support for crashkernel CMA
- reservation
-Message-ID: <acETyW3FYaWCShUc@gmail.com>
-References: <20260323072745.2481719-1-ruanjinjie@huawei.com>
- <20260323072745.2481719-5-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b="LKoctHhn"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62N7tkO21627278;
+	Mon, 23 Mar 2026 10:22:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=M9SUr+nS+ufjroTrcpJBAW+s0gpj5VOlKY9
+	X2rkPiv0=; b=LKoctHhnYyLKuibCM/YGGkKKduQLUKKer8ww5XNt3hSRBD1k2KL
+	VJZvBlBWrrabEvitoxNBbtO6ACGE9OZ/Rh/5J2+VKnBYCT2W5xd+pvFBkR0THMGM
+	jjzxqz+ENtMOxKYls76mFNN5Tznbi+Y77pPv4XMtN+828yr0gWvaoSW4uwStC/51
+	vKF1h+HzTbOfr4QzCjh2NDGN8VZOVOLaMYQl6dpEcw5VnrZnnHIUlEdEnXcUNzH9
+	abDR/AQja0ZKllch0SMUKZJ/LaTMhWa8VnxYDtvNnPcPLFPzcvmmBbW9QkLKqqfZ
+	HFA21PyMDd9ckPDYB6GWKt2r1Se9Vyoc8ig==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d31jc0h6q-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 23 Mar 2026 10:22:37 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTP id 62NAMXhG018902;
+	Mon, 23 Mar 2026 10:22:33 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4d1mdm6dn7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 23 Mar 2026 10:22:33 +0000
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 62NAMXKj018895;
+	Mon, 23 Mar 2026 10:22:33 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-amakhija-hyd.qualcomm.com [10.213.99.91])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 62NAMXcS018873
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 23 Mar 2026 10:22:33 +0000
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4090850)
+	id 4F6585A1; Mon, 23 Mar 2026 15:52:32 +0530 (+0530)
+From: Ayushi Makhija <quic_amakhija@quicinc.com>
+To: andersson@kernel.org, konrad.dybcio@linaro.org, robh+dt@kernel.org,
+        krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+        dmitry.baryshkov@linaro.org
+Cc: Ayushi Makhija <quic_amakhija@quicinc.com>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, quic_rajeevny@quicinc.com,
+        quic_vproddut@quicinc.com
+Subject: [PATCH] arm64: dts: qcom: sm8750-mtp: Set sufficient voltage for panel nt37801
+Date: Mon, 23 Mar 2026 15:52:29 +0530
+Message-Id: <20260323102229.1546504-1-quic_amakhija@quicinc.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260323072745.2481719-5-ruanjinjie@huawei.com>
-X-Debian-User: leitao
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Authority-Analysis: v=2.4 cv=fKc0HJae c=1 sm=1 tr=0 ts=69c1146d cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yOCtJkima9RkubShWh1s:22 a=COk6AnOGAAAA:8 a=Msm59h0HKFRdTJYaiMcA:9
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: joJKW53E4eLwPmDvhvV0V_3oyEQOjswd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDA4MCBTYWx0ZWRfX4GGElf7bpJR/
+ mqJ/6HTWZs2Xr5aY/qeWq5Uv57vx87sOTCuykddgBb72bjnuBaRYx5NC2qkNz3+2D8WNdimqsfn
+ NkIhub+d0S6pcfjyWz7zCQXLL0QyeGP3l8l6PhFclAdeAIDePIvb4FcaaIOjRwPr6RXjKYhIW6N
+ 2GAyBxesPQzi4D2ng/Z4Q+6ouua2dodOMJNFBT3BOAh5mk14tUfRYgdgNVool/+gXLQYoAgZpbG
+ QseVtvFuiseNluevq5LXsJ7XCdZuUy/6YmhgNkkRPcTo4yg/JzGaYwScwVsMaHbyGmhiDw85xQV
+ uvsyKcyjPkbpICNwkIKkQB5IuvnfXG6Wi3Plq/WBdHU47bPV5vCnokV5R6xzL2Ioe/BzOKIqf/z
+ eWWxV08uqjD4HRiAVJGJJbvIE+GjhYwdwuIw5a3yq2vjyDcxxxcykc3a7nD6xNxr2vjZr7V3z0m
+ H2gJqn8EExKuPipHCow==
+X-Proofpoint-ORIG-GUID: joJKW53E4eLwPmDvhvV0V_3oyEQOjswd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-23_03,2026-03-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
+ adultscore=0 bulkscore=0 spamscore=0 suspectscore=0 malwarescore=0
+ clxscore=1011 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603230080
 
-On Mon, Mar 23, 2026 at 03:27:44PM +0800, Jinjie Ruan wrote:
-> Commit 35c18f2933c5 ("Add a new optional ",cma" suffix to the
-> crashkernel= command line option") and commit ab475510e042 ("kdump:
-> implement reserve_crashkernel_cma") added CMA support for kdump
-> crashkernel reservation.
-> 
-> Crash kernel memory reservation wastes production resources if too
-> large, risks kdump failure if too small, and faces allocation difficulties
-> on fragmented systems due to contiguous block constraints. The new
-> CMA-based crashkernel reservation scheme splits the "large fixed
-> reservation" into a "small fixed region + large CMA dynamic region": the
-> CMA memory is available to userspace during normal operation to avoid
-> waste, and is reclaimed for kdump upon crash—saving memory while
-> improving reliability.
-> 
-> So extend crashkernel CMA reservation support to arm64. The following
-> changes are made to enable CMA reservation:
-> 
-> - Parse and obtain the CMA reservation size along with other crashkernel
->   parameters.
-> - Call reserve_crashkernel_cma() to allocate the CMA region for kdump.
-> - Include the CMA-reserved ranges for kdump kernel to use.
-> - Exclude the CMA-reserved ranges from the crash kernel memory to
->   prevent them from being exported through /proc/vmcore, which is already
->   done in the crash core.
-> 
-> Update kernel-parameters.txt to document CMA support for crashkernel on
-> arm64 architecture.
-> 
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> Acked-by: Baoquan He <bhe@redhat.com>
-> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> Acked-by: Ard Biesheuvel <ardb@kernel.org>
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> ---
-> v7:
-> - Correct the inclusion of CMA-reserved ranges for kdump
->   kernel in of/kexec.
-> v3:
-> - Add Acked-by.
-> v2:
-> - Free cmem in prepare_elf_headers()
-> - Add the mtivation.
-> ---
->  Documentation/admin-guide/kernel-parameters.txt | 2 +-
->  arch/arm64/kernel/machine_kexec_file.c          | 2 +-
->  arch/arm64/mm/init.c                            | 5 +++--
->  drivers/of/fdt.c                                | 9 +++++----
->  drivers/of/kexec.c                              | 9 +++++++++
->  5 files changed, 19 insertions(+), 8 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index cb850e5290c2..afb3112510f7 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -1121,7 +1121,7 @@ Kernel parameters
->  			It will be ignored when crashkernel=X,high is not used
->  			or memory reserved is below 4G.
->  	crashkernel=size[KMG],cma
-> -			[KNL, X86, ppc] Reserve additional crash kernel memory from
-> +			[KNL, X86, ARM64, PPC] Reserve additional crash kernel memory from
->  			CMA. This reservation is usable by the first system's
->  			userspace memory and kernel movable allocations (memory
->  			balloon, zswap). Pages allocated from this memory range
-> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
-> index c338506a580b..cc577d77df00 100644
-> --- a/arch/arm64/kernel/machine_kexec_file.c
-> +++ b/arch/arm64/kernel/machine_kexec_file.c
-> @@ -42,7 +42,7 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
->  #ifdef CONFIG_CRASH_DUMP
->  unsigned int arch_get_system_nr_ranges(void)
->  {
-> -	unsigned int nr_ranges = 2; /* for exclusion of crashkernel region */
-> +	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* for exclusion of crashkernel region */
+The NT37801 Sepc V1.0 chapter "5.7.1 Power On Sequence" states
+VDDI=1.65V~1.95V, so set sufficient voltage for panel nt37801.
 
-You update arch_get_system_nr_ranges() to account for CMA ranges, but
-prepare_elf_headers() in the same file (line 51) still has the
-hardcoded:
+Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
+---
+ arch/arm64/boot/dts/qcom/sm8750-mtp.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-        nr_ranges = 2; /* for exclusion of crashkernel region */
+diff --git a/arch/arm64/boot/dts/qcom/sm8750-mtp.dts b/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
+index 3837f6785320..6ba4e69bf377 100644
+--- a/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
++++ b/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
+@@ -462,7 +462,7 @@ vreg_l11b_1p0: ldo11 {
+ 
+ 		vreg_l12b_1p8: ldo12 {
+ 			regulator-name = "vreg_l12b_1p8";
+-			regulator-min-microvolt = <1200000>;
++			regulator-min-microvolt = <1650000>;
+ 			regulator-max-microvolt = <1800000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 			regulator-allow-set-load;
+-- 
+2.34.1
 
-and does not exclude CMA ranges from cmem. If the generic crash core
-handles CMA exclusion from vmcore, then shouldn't
-arch_get_system_nr_ranges() also not need this change?
