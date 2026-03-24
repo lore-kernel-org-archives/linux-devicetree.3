@@ -1,637 +1,355 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E4B3EAC95;
-	Tue, 24 Mar 2026 11:41:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B343EFD31
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 11:43:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774352497; cv=none; b=t5fExjnLvnmcxrriev/ieKWaZHttwT3ZulCF6zbCPiUYXcpxrW5JLPj3+3/GifSIDAxfz08rz/GYYsCDnBTcgb8LAhnm0ZIMHMsGSfeM7vdg+P/Rlo7ir6ZdmJQUd0nVW+2/h2hgPH8pdVS44mNrDIyLdGwnf82i/In6zsFC4Zo=
+	t=1774352619; cv=none; b=ZpSWfp2TSM+9CapR9lmK65yD1nm9KApLq9yWdBSb6TgpJiP83frrsdMVlCPSRC8P6/kJ4buHoXYeaSHSNmHxwCKfgHqYAi7d1q4u91J77wbSUsoLq5YPEIKHWwJC4Gz+tZA0qB6gw4Wz8TO7xsumXkirFwP70MGrTJZxyLENvCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774352497; c=relaxed/simple;
-	bh=C9pJSdYfBjG2i8Nonr90Oku+b0JYFIGaZOjsIzp6v9U=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=H8uX5yFo/0cNHoMlnGKyPXl6OfZVPlpYyDM+Irjqjw6QdbrvAl9avhxPc5kx1B6rZkh/kkCIRjrKFXI3IOw3VbKXtNAHETzYoHN+8BrjTYXRPLo9nfMEyuNjkAMqlkd+e4FIo7Vkc6bAmEBkUtcmMl1v4uKswRv9QJ8EJyo7z/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DS5QdAIA; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1774352619; c=relaxed/simple;
+	bh=TwlhH48H41f6nkLwYVdb7F65uIhaLQQ0ylzP7pSxsqc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fas2m3UtFc2f43+s8NpS5LH8BkhR/Qc8+r74EecepSqf1xU9v0qQjiAkltqkwlfxOKgwvHfHeD2c3vZUdCMYtaMaNQQQUkZIXjf0iHtBwRjQhj2Net3XPvxA36fihQcQbhNco5djjLXMMghPF1qxmfj+WEgmVA423il67rmU/Xc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E6hCPe+g; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DS5QdAIA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774352495; x=1805888495;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=C9pJSdYfBjG2i8Nonr90Oku+b0JYFIGaZOjsIzp6v9U=;
-  b=DS5QdAIAha9jItC1mTteN82h/paxWmhmh5chZg+cF1GpD9kiioUPB27j
-   bDadVY+ng/TvAnFMq7MRMPNbMgOpe+RQLRkjgCCDyQJp+zZEesQltQnIV
-   QuhmQHiDlukpcNRPM4VuBK1ScbiRhGrIC2GjLeZ5OXZnoo99fqF9tbULS
-   TzDg3pwvuViJO5VMe3XVHxc8JtUpzndbIMyMAbtK5QKHsh4zkkP14taI0
-   VN5unFsZljakKzSkUsfDfaPWIcDgwLyFPXyxrG0OJMSKd1Uhluu5S2op/
-   TtiOQkcPNoo7XTzE2hEK/Lhal9GV/GpBYg/J1FvaRe/4NcO1WGzksn3F8
-   Q==;
-X-CSE-ConnectionGUID: EdEGi3ZJR/G5OijRNg5mfg==
-X-CSE-MsgGUID: ZBRW5U1XRkC0o/4ZWObcrg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11738"; a="75481592"
-X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; 
-   d="scan'208";a="75481592"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Mar 2026 04:41:34 -0700
-X-CSE-ConnectionGUID: +it5T/DcT9OmuCHAJp0l0w==
-X-CSE-MsgGUID: 7WU8b5pbRZasdmE9gB35yw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; 
-   d="scan'208";a="217754131"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.217])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Mar 2026 04:41:28 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 24 Mar 2026 13:41:25 +0200 (EET)
-To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-    Bjorn Andersson <andersson@kernel.org>, 
-    Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, 
-    devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    platform-driver-x86@vger.kernel.org, 
-    Maya Matuszczyk <maccraft123mc@gmail.com>, 
-    Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v5 2/5] platform: arm64: Add driver for EC found on
- Qualcomm reference devices
-In-Reply-To: <20260317-add-driver-for-ec-v5-2-38d11f524856@oss.qualcomm.com>
-Message-ID: <b944c9f0-39ac-02f9-02ae-9e441c0b2cc5@linux.intel.com>
-References: <20260317-add-driver-for-ec-v5-0-38d11f524856@oss.qualcomm.com> <20260317-add-driver-for-ec-v5-2-38d11f524856@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E6hCPe+g"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4853c1ca73aso11123185e9.2
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 04:43:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774352613; x=1774957413; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=lBXjCkVQF23TpxKQAgzN2hDo50cJIARW68eQv7UBDm8=;
+        b=E6hCPe+gbwOpu5gTsV4mwVR4LSVJ4deumLmm3wjB/Kay+zgp0nCXaltHqFycA6Z/1c
+         OPU6npuMsrIEiYAMBT/8PFVEr64jOwGM+xveZ/brzXQhVsNMbDuwIN8iRiXFQkbIa00l
+         fzXLj/ROzzuZfVkj8Z7k0X8dKXvfG/u1OHyD4X/5RGNiCtZrdLWWBPFFpRY7C3wp95Ym
+         6UHXKWw6r+MmXrd6mTmFytB1B1ml7oDmg+HKpaxP88tmvT4emqBIfCkEb3AfQFAmR+31
+         8GeQv90d9VpmJdZUHbA5auvyox3ncBXbiCjNUEafpfBmR0vjObLF1jfRCupV4t+c7cOL
+         JKPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774352613; x=1774957413;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lBXjCkVQF23TpxKQAgzN2hDo50cJIARW68eQv7UBDm8=;
+        b=SRRUTjZoBz+MAyI6IP7JXkMgBNIpX37tAs+ovnnH4Bc2yEe/+y1oM9dTGbHc5GnaSk
+         RdKAQ93RoFcAHs70cmfMDd5WTMil9Bh8UiMxKB1HNRQMsT7j2uXN8fkC57i6LVuuZn6s
+         Mae35uGAWSPAOe3X4mSOHTXcNJANCgxs2awOeDQXFYaidZsqdtrjpp78pEjz4yRnwuGF
+         +wlGmuE0mpDhARUQ1Qy2YeFc6ixEsXCSIBwEuDirzQz8cUEbQxuhKTWp5Vn6hn2ItNGG
+         /DHwM3mxwtkAyg6XMRqJ3EjSITESAZiwvdMEYjS9uhsAOsGoU/xikdAGHz5XERbNKizy
+         vX3A==
+X-Forwarded-Encrypted: i=1; AJvYcCXz5PVlvQQK+BAFNq4dI5bRv0I0UJ2+JEfyXmaSoHwnECmDpCqsCVtsFLBkqwB19bLkT+xOiy3Gk9FR@vger.kernel.org
+X-Gm-Message-State: AOJu0YwLdbWfsYD08rfWJdb1ytOJ28iyII+K6JsDWU2H4i1KboxBSlKX
+	/gCmPi0mRghHtslO8HEhADBREFLQM1aZgysAduZZRluUyGdN6u/EjVFE
+X-Gm-Gg: ATEYQzzrBROApcOVdPv2hhUXBx9R+GU2QatZxQJssigRF1i9QuOjs0FtPreblTPJggL
+	M0xNOW5206oTtSbpRjO/zsPDbp3y0XGWWUZFTTA/uDPGLYPM5Mt+sKuDfOnktBBC+YiJBK0HtVa
+	OT7I0Oza55OhT0KTJ1CYKfzRXjkmXoykMjfQr1DK7JyAh3pJZS0VdQQxH9Q95SAcmkEhTuRf374
+	tGXj9bDauQU7h7el9OjxLYPuMfJvKnoyGa7vOELxIGLdjF8X/+IYxydg/NEls9Q9FHT0fywQC1W
+	FrsCVFf5Alr3+bASAUUAWUGXnMIloXATJdB8nBydpq32oLDuane3Xc3+1v9KI5hdqoThvJf/QTK
+	zk/ntcXjcxu/kKXSJlFMC4sRbDI5akhPDBiX1E6EXZEbbK9Ak4Ajb3xo0HNjlpljnVx8+qtv6V7
+	XSTT3M4RE4us9iwD06+GNKp9lFZZDrGjKGHQpFrUUsiMo8cZA6
+X-Received: by 2002:a05:600c:4e02:b0:486:de04:5906 with SMTP id 5b1f17b1804b1-486ff0271a7mr210878545e9.19.1774352612304;
+        Tue, 24 Mar 2026 04:43:32 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a758:8a01:a4a6:e61e:cd81:c756])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4870f7f5682sm25416465e9.3.2026.03.24.04.43.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Mar 2026 04:43:31 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v8 00/11] Add support for Renesas RZ/G3L SoC and SMARC-EVK platform
+Date: Tue, 24 Mar 2026 11:43:05 +0000
+Message-ID: <20260324114329.268249-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Tue, 17 Mar 2026, Anvesh Jain P wrote:
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-> From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-> 
-> Add Embedded controller driver support for Hamoa/Purwa/Glymur qualcomm
-> reference boards. It handles fan control, temperature sensors, access
-> to EC state changes and supports reporting suspend entry/exit to the
-> EC.
-> 
-> Co-developed-by: Maya Matuszczyk <maccraft123mc@gmail.com>
-> Signed-off-by: Maya Matuszczyk <maccraft123mc@gmail.com>
-> Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Co-developed-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-> ---
->  MAINTAINERS                            |   8 +
->  drivers/platform/arm64/Kconfig         |  12 +
->  drivers/platform/arm64/Makefile        |   1 +
->  drivers/platform/arm64/qcom-hamoa-ec.c | 449 +++++++++++++++++++++++++++++++++
->  4 files changed, 470 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 2882a67bdf6d..9657c384be44 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -21932,6 +21932,14 @@ S:	Supported
->  W:	https://wireless.wiki.kernel.org/en/users/Drivers/wcn36xx
->  F:	drivers/net/wireless/ath/wcn36xx/
->  
-> +QUALCOMM HAMOA EMBEDDED CONTROLLER DRIVER
-> +M:	Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-> +M:	Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-> +L:	linux-arm-msm@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-ec.yaml
-> +F:	drivers/platform/arm64/qcom-hamoa-ec.c
-> +
->  QUANTENNA QTNFMAC WIRELESS DRIVER
->  M:	Igor Mitsyanko <imitsyanko@quantenna.com>
->  R:	Sergey Matyukevich <geomatsi@gmail.com>
-> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
-> index 10f905d7d6bf..025cdf091f9e 100644
-> --- a/drivers/platform/arm64/Kconfig
-> +++ b/drivers/platform/arm64/Kconfig
-> @@ -90,4 +90,16 @@ config EC_LENOVO_THINKPAD_T14S
->  
->  	  Say M or Y here to include this support.
->  
-> +config EC_QCOM_HAMOA
-> +	tristate "Embedded Controller driver for Qualcomm Hamoa/Glymur reference devices"
-> +	depends on ARCH_QCOM || COMPILE_TEST
-> +	depends on I2C
-> +	help
-> +	  Say M or Y here to enable the Embedded Controller driver for Qualcomm
-> +	  Snapdragon-based Hamoa/Glymur reference devices. The driver handles fan
-> +	  control, temperature sensors, access to EC state changes and supports
-> +	  reporting suspend entry/exit to the EC.
-> +
-> +	  This driver currently supports Hamoa/Purwa/Glymur reference devices.
-> +
->  endif # ARM64_PLATFORM_DEVICES
-> diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
-> index 60c131cff6a1..7681be4a46e9 100644
-> --- a/drivers/platform/arm64/Makefile
-> +++ b/drivers/platform/arm64/Makefile
-> @@ -9,3 +9,4 @@ obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
->  obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
->  obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
->  obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
-> +obj-$(CONFIG_EC_QCOM_HAMOA) += qcom-hamoa-ec.o
-> diff --git a/drivers/platform/arm64/qcom-hamoa-ec.c b/drivers/platform/arm64/qcom-hamoa-ec.c
-> new file mode 100644
-> index 000000000000..0b0c1df19695
-> --- /dev/null
-> +++ b/drivers/platform/arm64/qcom-hamoa-ec.c
-> @@ -0,0 +1,449 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) 2024 Maya Matuszczyk <maccraft123mc@gmail.com>
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/i2c.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/pm.h>
-> +#include <linux/slab.h>
-> +#include <linux/thermal.h>
-> +
-> +#define EC_SCI_EVT_READ_CMD	0x05
-> +#define EC_FW_VERSION_CMD	0x0e
-> +#define EC_MODERN_STANDBY_CMD	0x23
-> +#define EC_FAN_DBG_CONTROL_CMD	0x30
-> +#define EC_SCI_EVT_CONTROL_CMD	0x35
-> +#define EC_THERMAL_CAP_CMD	0x42
-> +
-> +#define EC_FW_VERSION_RESP_LEN	4
-> +#define EC_THERMAL_CAP_RESP_LEN	3
-> +#define EC_FAN_DEBUG_CMD_LEN	6
-> +#define EC_FAN_SPEED_DATA_SIZE	4
-> +
-> +#define EC_MODERN_STANDBY_ENTER	0x01
-> +#define EC_MODERN_STANDBY_EXIT	0x00
-> +
-> +#define EC_FAN_DEBUG_MODE_OFF   0
-> +#define EC_FAN_DEBUG_MODE_ON    BIT(0)
+Hi all,
 
-Please add linux/bits.h to includes for this.
+This patch series adds initial support for the Renesas RZ/G3L SoC and
+RZ/G3L SMARC EVK platform. The RZ/G3L device is a general-purpose
+microprocessor with a quad-core CA-55, single core CM-33, Mali-G31
+3-D Graphics and other peripherals.
 
-> +#define EC_FAN_ON               BIT(1)
-> +#define EC_FAN_DEBUG_TYPE_PWM   BIT(2)
-> +#define EC_MAX_FAN_CNT		2
-> +#define EC_FAN_NAME_SIZE	20
-> +#define EC_FAN_MAX_PWM		255
-> +
-> +enum qcom_ec_sci_events {
-> +	EC_FAN1_STATUS_CHANGE_EVT = 0x30,
-> +	EC_FAN2_STATUS_CHANGE_EVT,
-> +	EC_FAN1_SPEED_CHANGE_EVT,
-> +	EC_FAN2_SPEED_CHANGE_EVT,
-> +	EC_NEW_LUT_SET_EVT,
-> +	EC_FAN_PROFILE_SWITCH_EVT,
-> +	EC_THERMISTOR_1_THRESHOLD_CROSS_EVT,
-> +	EC_THERMISTOR_2_THRESHOLD_CROSS_EVT,
-> +	EC_THERMISTOR_3_THRESHOLD_CROSS_EVT,
-> +	/* Reserved: 0x39 - 0x3c/0x3f */
-> +	EC_RECOVERED_FROM_RESET_EVT = 0x3d,
-> +};
-> +
-> +struct qcom_ec_version {
-> +	u8 main_version;
-> +	u8 sub_version;
-> +	u8 test_version;
-> +};
-> +
-> +struct qcom_ec_thermal_cap {
-> +#define EC_THERMAL_FAN_CNT(x)		(FIELD_GET(GENMASK(1, 0), (x)))
-> +#define EC_THERMAL_FAN_TYPE(x)		(FIELD_GET(GENMASK(4, 2), (x)))
-> +#define EC_THERMAL_THERMISTOR_MASK(x)	(FIELD_GET(GENMASK(7, 0), (x)))
-> +	u8 fan_cnt;
-> +	u8 fan_type;
-> +	u8 thermistor_mask;
-> +};
-> +
-> +struct qcom_ec_cooling_dev {
-> +	struct thermal_cooling_device *cdev;
-> +	struct device *parent_dev;
-> +	u8 fan_id;
-> +	u8 state;
-> +};
-> +
-> +struct qcom_ec {
-> +	struct qcom_ec_cooling_dev *ec_cdev;
-> +	struct qcom_ec_thermal_cap thermal_cap;
-> +	struct qcom_ec_version version;
-> +	struct i2c_client *client;
-> +};
-> +
-> +static int qcom_ec_read(struct qcom_ec *ec, u8 cmd, u8 resp_len, u8 *resp)
-> +{
-> +	int ret;
-> +
-> +	ret = i2c_smbus_read_i2c_block_data(ec->client, cmd, resp_len, resp);
-> +
-> +	if (ret < 0)
-> +		return ret;
-> +	else if (ret == 0 || ret == 0xff)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (resp[0] >= resp_len)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * EC Device Firmware Version:
-> + *
-> + * Read Response:
-> + * ----------------------------------------------------------------------
-> + * | Offset	| Name		| Description				|
-> + * ----------------------------------------------------------------------
-> + * | 0x00	| Byte count	| Number of bytes in response		|
-> + * |		|		| (excluding byte count)		|
-> + * ----------------------------------------------------------------------
-> + * | 0x01	| Test-version	| Test-version of EC firmware		|
-> + * ----------------------------------------------------------------------
-> + * | 0x02	| Sub-version	| Sub-version of EC firmware		|
-> + * ----------------------------------------------------------------------
-> + * | 0x03	| Main-version	| Main-version of EC firmware		|
-> + * ----------------------------------------------------------------------
-> + *
-> + */
-> +static int qcom_ec_read_fw_version(struct device *dev)
-> +{
-> +	struct i2c_client *client = to_i2c_client(dev);
-> +	struct qcom_ec *ec = i2c_get_clientdata(client);
-> +	struct qcom_ec_version *version = &ec->version;
-> +	u8 resp[EC_FW_VERSION_RESP_LEN];
-> +	int ret;
-> +
-> +	ret = qcom_ec_read(ec, EC_FW_VERSION_CMD, EC_FW_VERSION_RESP_LEN, resp);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	version->main_version = resp[3];
-> +	version->sub_version = resp[2];
-> +	version->test_version = resp[1];
-> +
-> +	dev_dbg(dev, "EC Version %d.%d.%d\n",
+Support for the below list of blocks is added in the SoC DTSI (r9a08g046.dtsi):
 
-Add include.
+ - EXT CLK
+ - 4X CA55
+ - SCIF
+ - CPG
+ - GIC
+ - ARMv8 Timer
 
-> +		version->main_version, version->sub_version, version->test_version);
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * EC Device Thermal Capabilities:
-> + *
-> + * Read Response:
-> + * ------------------------------------------------------------------------------
-> + * | Offset		| Name		| Description				|
-> + * ------------------------------------------------------------------------------
-> + * | 0x00		| Byte count	| Number of bytes in response		|
-> + * |			|		| (excluding byte count)		|
-> + * ------------------------------------------------------------------------------
-> + * | 0x02 (LSB)	| EC Thermal	| Bit 0-1: Number of fans		|
-> + * | 0x3		| Capabilities	| Bit 2-4: Type of fan			|
-> + * |			|		| Bit 5-6: Reserved			|
-> + * |			|		| Bit 7: Data Valid/Invalid		|
-> + * |			|		|	 (Valid - 1, Invalid - 0)	|
-> + * |			|		| Bit 8-15: Thermistor 0 - 7 presence	|
-> + * |			|		|	    (1 present, 0 absent)	|
-> + * ------------------------------------------------------------------------------
-> + *
-> + */
-> +static int qcom_ec_thermal_capabilities(struct device *dev)
-> +{
-> +	struct i2c_client *client = to_i2c_client(dev);
-> +	struct qcom_ec *ec = i2c_get_clientdata(client);
-> +	struct qcom_ec_thermal_cap *cap = &ec->thermal_cap;
-> +	u8 resp[EC_THERMAL_CAP_RESP_LEN];
-> +	int ret;
-> +
-> +	ret = qcom_ec_read(ec, EC_THERMAL_CAP_CMD, EC_THERMAL_CAP_RESP_LEN, resp);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	cap->fan_cnt = min(EC_MAX_FAN_CNT, EC_THERMAL_FAN_CNT(resp[1]));
-> +	cap->fan_type = EC_THERMAL_FAN_TYPE(resp[1]);
-> +	cap->thermistor_mask = EC_THERMAL_THERMISTOR_MASK(resp[2]);
-> +
-> +	dev_dbg(dev, "Fan count: %d Fan Type: %d Thermistor Mask: %d\n",
-> +		cap->fan_cnt, cap->fan_type, cap->thermistor_mask);
+This series also adds SCIF support for the RZ/G3L SMARC EVK board (r9a08g046l48-smarc.dts).
 
-Consider if it's desirable to print a mask using %d (vs %x).
+v7->v8:
+ * Added logs for MSTOP state during suspend/resume cycle of s2idle.
+ * Fixed the R9A08G046_ADC1_ADCLK macro value 138->139.
+ * Added helper for mod clock enable/disable to allow callers to control
+   whether the module stop state is updated alongside the clock
+   enable/disable operation.
+ * Fit the comments in rzg2l_mod_clock_init_mstop_helper() to 80 character
+   space.
+ * Updated comment in rzg2l_mod_clock_init_mstop_helper() as resume()
+   calls this function.
+ * To avoid setting module state twice and also not to update the initial
+   mstop state for the critical clocks state during probe, replaced
+   rzg2l_mod_clock_endisable()->rzg2l_mod_clock_endisable_helper().
+ * Fixed the typo RZ/G3E->RZ/G3L in r9a08g046l48.dtsi
+v6->v7:
+ * Collected tag
+ * Updated r9a07g043_cpg_info by inserting a blank line before
+  .has_clk_mon_regs
+ * Replaced r9a07g044_critical_resets->r9a07g044_crit_resets,
+   r9a08g045_critical_resets->r9a08g045_crit_resets and
+   r9a08g046_critical_resets->r9a08g046_crit_resets for consistency
+ * RZ/V2M has critical clocks but no mstop, so move the mstop check after
+   enabling critical clocks. After this, we need to restore only mstop for
+   module clocks, so remove the inverted logic and continue statement and
+   directly call rzg2l_mod_clock_init_mstop_helper() if the clock has
+   mstop.
+v5->v6:
+ * Collected tags
+ * Moved loop variable declaration inside for loops in
+   __rzg2l_cpg_assert() and rzg2l_cpg_deassert_crit_resets()
+ * Replaced r9a07g043_critical_resets[] -> r9a07g043_crit_resets[] for
+   consistency
+ * Introduced rzg2l_mod_clock_init_mstop_helper() for code reuse
+   in probe() and resume().
+ * Dropped the list implementation.
+ * Replaced  rzg2l_mod_clock_init_mstop->rzg2l_mod_enable_crit_clock_init_mstop()
+   for enabling critical clks and restoring mstop state during resume.
+ * Dropped dma-ranges, bus-range and comment from the pcie device node
+v4->v5:
+ * Rebased to next-20260317.
+v3->v4:
+ * Dropped SoC identification patches as it is accepted for renesas-devel.
+ * Updated commit description related to core clocks section in the
+    hardware manual
+ * Dropped CLK_P4_DIV2 from core clocks
+ * Added MIPI_DSI_PLLCLK and USB_SCLK to core clocks
+ * Dropped LVDS_PCLK  module clock
+ * Added BSC_X_PRESET_BSC reset
+ * Moved the patch series from [1] to here as it is boot-dependent.
+ * Updated commit description
+ * Updated LAST_DT_CORE_CLK with R9A08G046_USB_SCLK
+ * Fixed typo 2->8 in dtable_4_128[].
+ * Added critical reset table r9a08g046_critical_resets[]
+ * Updated num_resets
+ * Added crit_resets and num_crit_resets to r9a08g046_cpg_info.
+ * Fixed typo R0A08G046L->R9A08G046L in commit description
+ * Dropped R9A08G046L46 from commit description
+ * Dropped unused audio_clk{1,2} andcan_clk device nodes
+ * Reordered i2c device node and updated reg entries by using lower-case
+   hexadecimal number
+ * Added placeholder in pinctrl node
+ * Dropped unused DMAC device node
+ * Added pcie node with placeholder
+ * Collected the tags.
+ * Updated commit description for patch#8
 
-> +
-> +	return 0;
-> +}
-> +
-> +static irqreturn_t qcom_ec_irq(int irq, void *data)
-> +{
-> +	struct qcom_ec *ec = data;
-> +	struct device *dev = &ec->client->dev;
-> +	int val;
-> +
-> +	val = i2c_smbus_read_byte_data(ec->client, EC_SCI_EVT_READ_CMD);
-> +	if (val < 0) {
-> +		dev_err_ratelimited(dev, "Failed to read EC SCI Event: %d\n", val);
-> +		return IRQ_HANDLED;
-> +	}
-> +
-> +	switch (val) {
-> +	case EC_FAN1_STATUS_CHANGE_EVT:
-> +		dev_dbg_ratelimited(dev, "Fan1 status changed\n");
-> +		break;
-> +	case EC_FAN2_STATUS_CHANGE_EVT:
-> +		dev_dbg_ratelimited(dev, "Fan2 status changed\n");
-> +		break;
-> +	case EC_FAN1_SPEED_CHANGE_EVT:
-> +		dev_dbg_ratelimited(dev, "Fan1 speed crossed low/high trip point\n");
-> +		break;
-> +	case EC_FAN2_SPEED_CHANGE_EVT:
-> +		dev_dbg_ratelimited(dev, "Fan2 speed crossed low/high trip point\n");
-> +		break;
-> +	case EC_NEW_LUT_SET_EVT:
-> +		dev_dbg_ratelimited(dev, "New LUT set\n");
-> +		break;
-> +	case EC_FAN_PROFILE_SWITCH_EVT:
-> +		dev_dbg_ratelimited(dev, "FAN Profile switched\n");
-> +		break;
-> +	case EC_THERMISTOR_1_THRESHOLD_CROSS_EVT:
-> +		dev_dbg_ratelimited(dev, "Thermistor 1 threshold crossed\n");
-> +		break;
-> +	case EC_THERMISTOR_2_THRESHOLD_CROSS_EVT:
-> +		dev_dbg_ratelimited(dev, "Thermistor 2 threshold crossed\n");
-> +		break;
-> +	case EC_THERMISTOR_3_THRESHOLD_CROSS_EVT:
-> +		dev_dbg_ratelimited(dev, "Thermistor 3 threshold crossed\n");
-> +		break;
-> +	case EC_RECOVERED_FROM_RESET_EVT:
-> +		dev_dbg_ratelimited(dev, "EC recovered from reset\n");
-> +		break;
-> +	default:
-> +		dev_notice_ratelimited(dev, "Unknown EC event: %d\n", val);
-> +		break;
-> +	}
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static int qcom_ec_sci_evt_control(struct device *dev, bool enable)
-> +{
-> +	struct i2c_client *client = to_i2c_client(dev);
-> +
-> +	return i2c_smbus_write_byte_data(client, EC_SCI_EVT_CONTROL_CMD, !!enable);
-> +}
-> +
-> +static int qcom_ec_fan_get_max_state(struct thermal_cooling_device *cdev, unsigned long *state)
-> +{
-> +	*state = EC_FAN_MAX_PWM;
-> +
-> +	return 0;
-> +}
-> +
-> +static int qcom_ec_fan_get_cur_state(struct thermal_cooling_device *cdev, unsigned long *state)
-> +{
-> +	struct qcom_ec_cooling_dev *ec_cdev = cdev->devdata;
-> +
-> +	*state = ec_cdev->state;
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Fan Debug control command:
-> + *
-> + * Command Payload:
-> + * --------------------------------------------------------------------------------------
-> + * | Offset		| Name		| Description					|
-> + * --------------------------------------------------------------------------------------
-> + * | 0x00		| Command	| Fan control command				|
-> + * --------------------------------------------------------------------------------------
-> + * | 0x01		| Fan ID	| 0x1 : Fan 1					|
-> + * |			|		| 0x2 : Fan 2					|
-> + * --------------------------------------------------------------------------------------
-> + * | 0x02		| Byte count = 4| Size of data to set fan speed			|
-> + * --------------------------------------------------------------------------------------
-> + * | 0x03		| Mode		| Bit 0: Debug Mode On/Off (0 - OFF, 1 - ON )	|
-> + * |			|		| Bit 1: Fan On/Off (0 - Off, 1 - ON)		|
-> + * |			|		| Bit 2: Debug Type (0 - RPM, 1 - PWM)		|
-> + * --------------------------------------------------------------------------------------
-> + * | 0x04 (LSB)	| Speed in RPM	| RPM value, if mode selected is RPM		|
-> + * | 0x05		|		|						|
-> + * --------------------------------------------------------------------------------------
-> + * | 0x06		| Speed in PWM	| PWM value, if mode selected is PWM (0 - 255)	|
-> + * ______________________________________________________________________________________
-> + *
-> + */
-> +static int qcom_ec_fan_debug_mode_off(struct qcom_ec_cooling_dev *ec_cdev)
-> +{
-> +	struct device *dev = ec_cdev->parent_dev;
-> +	struct i2c_client *client = to_i2c_client(dev);
-> +	u8 request[6] = { ec_cdev->fan_id, EC_FAN_SPEED_DATA_SIZE,
-> +			  EC_FAN_DEBUG_MODE_OFF, 0, 0, 0 };
-> +	int ret;
-> +
-> +	ret = i2c_smbus_write_i2c_block_data(client, EC_FAN_DBG_CONTROL_CMD,
-> +					     sizeof(request), request);
-> +	if (ret)
-> +		dev_err(dev, "Failed to turn off fan%d debug mode: %d\n",
-> +			ec_cdev->fan_id, ret);
+[1] https://lore.kernel.org/all/20260306134228.871815-1-biju.das.jz@bp.renesas.com/
+v2->v3:
+ * Added macros R9A08G046_ETH{0,1}_CLK_{TX,RX}_I_RMII in r9a08g046-cpg.h.
+ * Keep the tag from Conor as it is trivial change for just adding macros.
+v1->v2:
+ * Dropped scif bindings patch as it is accepted.
+ * Collected tags.
+ * Squashed the patch#3 and #4
+ * Documented GE3D/VCP for all SoC variants
+ * Documented external ethernet clocks as it is a clock source for MUX
+   inside CPG
+ * Updated commit description for bindings.
+ * Keep the tag from Conor as it is trivial change for adding more
+   clks.
+ * Added CLK_ETH{0,1}_TXC_TX_CLK_IN and CLK_ETH{0,1}_RXC_RX_CLK_IN clocks
+   in clk table.
+ * Dropped R9A08G046_IA55_PCLK from critical clock list.
+ * Added external clocks eth{0,1}_txc_tx_clk and eth{0,1}_rxc_rx_clk
+   in soc dtsi as it needed for cpg as it is a clock source for mux.
+ * Updated cpg node.
+ * Dropped gpio.h header from SoM dtsi.
+ * Dropped scif node as it is already included in common platform
+   file.
 
-Add braces.
+Test logs:
+/ #  uname -r
+7.0.0-rc5-next-20260323-g862cf6e2b2bf
+/ # cat /sys/kernel/debug/mstop
+                           MSTOP
+                     clk   -------------------------
+clk_name             cnt   cnt   off   val    shared
+--------             ----- ----- ----- ------ ------
+gic_gicclk           1     1     0xb6c 0x0
+ia55_clk             1     1     0xb70 0x0    ia55_pclk ia55_clk
+ia55_pclk            0     1     0xb70 0x0    ia55_pclk ia55_clk
+dmac_aclk            1     1     0xb80 0x0
+dmac_pclk            0     0     0xb80 0x8
+scif0_clk_pck        2     1     0xb68 0x0
+/ # echo enabled > /sys/class/tty/ttySC3/power/wakeup
+/ # echo N > /sys/module/printk/parameters/console_suspend
+/ # echo 7 > /proc/sys/kernel/printk
+/ # echo freeze > /sys/power/state
+[   66.381552] PM: suspend entry (s2idle)
+[   66.385460] Filesystems sync: 0.000 seconds
+[   66.390461] Freezing user space processes
+[   66.394563] Freezing user space processes completed (elapsed 0.000 seconds)
+[   66.401515] OOM killer disabled.
+[   66.404731] Freezing remaining freezable tasks
+[   66.410340] Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
+[   72.270183] OOM killer enabled.
+[   72.273365] Restarting tasks: Starting
+[   72.277266] Restarting tasks: Done
+[   72.280780] PM: suspend exit
+ jfdngdf/ #
+/ # cat /sys/kernel/debug/mstop
+                           MSTOP
+                     clk   -------------------------
+clk_name             cnt   cnt   off   val    shared
+--------             ----- ----- ----- ------ ------
+gic_gicclk           1     1     0xb6c 0x0
+ia55_clk             1     1     0xb70 0x0    ia55_pclk ia55_clk
+ia55_pclk            0     1     0xb70 0x0    ia55_pclk ia55_clk
+dmac_aclk            1     1     0xb80 0x0
+dmac_pclk            0     0     0xb80 0x8
+scif0_clk_pck        2     1     0xb68 0x0
+/ #
 
-> +
-> +	return ret;
-> +}
-> +
-> +static int qcom_ec_fan_set_cur_state(struct thermal_cooling_device *cdev, unsigned long state)
-> +{
-> +	struct qcom_ec_cooling_dev *ec_cdev = cdev->devdata;
-> +	struct device *dev = ec_cdev->parent_dev;
-> +	struct i2c_client *client = to_i2c_client(dev);
-> +
-> +	u8 request[6] = { ec_cdev->fan_id, EC_FAN_SPEED_DATA_SIZE,
+/ # cat /proc/cpuinfo
+processor       : 0
+BogoMIPS        : 48.00
+Features        : fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm lrcpc dcpop asimddp
+CPU implementer : 0x41
+CPU architecture: 8
+CPU variant     : 0x2
+CPU part        : 0xd05
+CPU revision    : 0
 
-Don't leave empty lines within variable declarations.
+processor       : 1
+BogoMIPS        : 48.00
+Features        : fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm lrcpc dcpop asimddp
+CPU implementer : 0x41
+CPU architecture: 8
+CPU variant     : 0x2
+CPU part        : 0xd05
+CPU revision    : 0
 
-> +			  EC_FAN_DEBUG_MODE_ON | EC_FAN_ON | EC_FAN_DEBUG_TYPE_PWM,
-> +			  0, 0, state };
-> +	int ret;
-> +
-> +	ret = i2c_smbus_write_i2c_block_data(client, EC_FAN_DBG_CONTROL_CMD,
-> +					     sizeof(request), request);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to set fan pwm: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ec_cdev->state = state;
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct thermal_cooling_device_ops qcom_ec_thermal_ops = {
-> +	.get_max_state = qcom_ec_fan_get_max_state,
-> +	.get_cur_state = qcom_ec_fan_get_cur_state,
-> +	.set_cur_state = qcom_ec_fan_set_cur_state,
-> +};
-> +
-> +static int qcom_ec_resume(struct device *dev)
-> +{
-> +	struct i2c_client *client = to_i2c_client(dev);
-> +
-> +	return i2c_smbus_write_byte_data(client, EC_MODERN_STANDBY_CMD,
-> +					 EC_MODERN_STANDBY_ENTER);
-> +}
-> +
-> +static int qcom_ec_suspend(struct device *dev)
-> +{
-> +	struct i2c_client *client = to_i2c_client(dev);
-> +
-> +	return i2c_smbus_write_byte_data(client, EC_MODERN_STANDBY_CMD,
-> +					 EC_MODERN_STANDBY_EXIT);
-> +}
-> +
-> +static int qcom_ec_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct qcom_ec *ec;
-> +	int ret, i;
-> +
-> +	ec = devm_kzalloc(dev, sizeof(*ec), GFP_KERNEL);
-> +	if (!ec)
-> +		return -ENOMEM;
-> +
-> +	ec->client = client;
-> +
-> +	ret = devm_request_threaded_irq(dev, client->irq, NULL, qcom_ec_irq,
-> +					IRQF_ONESHOT, "qcom_ec", ec);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	i2c_set_clientdata(client, ec);
-> +
-> +	ret = qcom_ec_read_fw_version(dev);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "Failed to read EC firmware version\n");
-> +
-> +	ret = qcom_ec_sci_evt_control(dev, true);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "Failed to enable SCI events\n");
-> +
-> +	ret = qcom_ec_thermal_capabilities(dev);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "Failed to read thermal capabilities\n");
-> +
-> +	if (ec->thermal_cap.fan_cnt == 0) {
-> +		dev_warn(dev, FW_BUG "Failed to get fan count, firmware update required\n");
-> +		return 0;
-> +	}
-> +
-> +	ec->ec_cdev = devm_kcalloc(dev, ec->thermal_cap.fan_cnt, sizeof(*ec->ec_cdev), GFP_KERNEL);
-> +	if (!ec->ec_cdev)
-> +		return -ENOMEM;
-> +
-> +	for (i = 0; i < ec->thermal_cap.fan_cnt; i++) {
-> +		struct qcom_ec_cooling_dev *ec_cdev = &ec->ec_cdev[i];
-> +		char name[EC_FAN_NAME_SIZE];
-> +
-> +		snprintf(name, EC_FAN_NAME_SIZE, "qcom_ec_fan_%u", (unsigned int)i);
+processor       : 2
+BogoMIPS        : 48.00
+Features        : fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm lrcpc dcpop asimddp
+CPU implementer : 0x41
+CPU architecture: 8
+CPU variant     : 0x2
+CPU part        : 0xd05
+CPU revision    : 0
 
-Please make i unsigned int instead, it only counts from 0 up.
+processor       : 3
+BogoMIPS        : 48.00
+Features        : fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm lrcpc dcpop asimddp
+CPU implementer : 0x41
+CPU architecture: 8
+CPU variant     : 0x2
+CPU part        : 0xd05
+CPU revision    : 0
 
-sizeof(name)
+/ # cat /proc/interrupts
+           CPU0       CPU1       CPU2       CPU3
+ 11:        104        191        429         62    GICv3  27 Level     arch_timer
+ 14:          0          0          0          0    GICv3 418 Level     100ac000.serial:rx err
+ 15:          4          0          0          0    GICv3 420 Level     100ac000.serial:rx full
+ 16:        229          0          0          0    GICv3 421 Level     100ac000.serial:tx empty
+ 17:          0          0          0          0    GICv3 419 Level     100ac000.serial:break
+ 18:         17          0          0          0    GICv3 422 Level     100ac000.serial:rx ready
+IPI0:         3         16         13         21       Rescheduling interrupts
+IPI1:       315        240        180        217       Function call interrupts
+IPI2:         0          0          0          0       CPU stop interrupts
+IPI3:         0          0          0          0       CPU stop NMIs
+IPI4:         0          0          0          0       Timer broadcast interrupts
+IPI5:         0          0          0          0       IRQ work interrupts
+IPI6:         0          0          0          0       CPU backtrace interrupts
+IPI7:         0          0          0          0       KGDB roundup interrupts
+Err:          0
+/ # cat /proc/meminfo
+MemTotal:        1887304 kB
+MemFree:         1852164 kB
+MemAvailable:    1819524 kB
+/ # cat /sys/devices/soc0/family
+RZ/G3L
+/ # cat /sys/devices/soc0/machine
+Renesas SMARC EVK version 2 based on r9a08g046l48
+/ # cat /sys/devices/soc0/soc_id
+r9a08g046
+/ # cat /sys/devices/soc0/revision
+0
+dmesg | grep r9a
+[    0.000000] Machine model: Renesas SMARC EVK version 2 based on r9a08g046l48
+[    0.066480] renesas-rz-sysc 11020000.system-controller: Detected Renesas RZ/G3L r9a08g046 Rev 0
 
-scnprintf() is preferrable over snprintf() even if you don't use the 
-return value so we could eventually have only one function for it.
+Biju Das (11):
+  dt-bindings: clock: Document RZ/G3L SoC
+  clk: renesas: rzg2l-cpg: Add support for critical resets
+  clk: renesas: r9a07g04{3,4}/r9a08g045-cpg: Add critical reset entries
+  clk: renesas: rzg2l-cpg: Add helper for mod clock enable/disable
+  clk: renesas: rzg2l-cpg: Add rzg2l_mod_clock_init_mstop_helper()
+  clk: renesas: rzg2l-cpg: Re-enable critical module clocks during
+    resume
+  clk: renesas: Add support for RZ/G3L SoC
+  arm64: dts: renesas: Add initial DTSI for RZ/G3L SoC
+  arm64: dts: renesas: Add initial support for RZ/G3L SMARC SoM
+  arm64: dts: renesas: renesas-smarc2: Move usb3 nodes to board DTS
+  arm64: dts: renesas: Add initial device tree for RZ/G3L SMARC EVK
+    board
 
-> +		ec_cdev->fan_id = i + 1;
-> +		ec_cdev->parent_dev = dev;
-> +
-> +		ec_cdev->cdev = devm_thermal_of_cooling_device_register(dev,
-> +									NULL,
-> +									name,
-> +									ec_cdev,
-> +									&qcom_ec_thermal_ops);
-
-I suggest you combine a few parameters so it takes only 3 lines, you've 
-pretty long lines in this function anyway and there's nothing fancy in 
-those parameters.
-
-> +		if (IS_ERR(ec_cdev->cdev))
-
-Please add include.
-
-> +			return dev_err_probe(dev, PTR_ERR(ec_cdev->cdev),
-> +					     "Failed to register fan%d cooling device\n", i);
-
-Add braces.
-
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void qcom_ec_remove(struct i2c_client *client)
-> +{
-> +	struct qcom_ec *ec = i2c_get_clientdata(client);
-> +	struct device *dev = &client->dev;
-> +	int ret;
-> +
-> +	ret = qcom_ec_sci_evt_control(dev, false);
-> +	if (ret < 0)
-> +		dev_err(dev, "Failed to disable SCI events: %d\n", ret);
-> +
-> +	for (int i = 0; i < ec->thermal_cap.fan_cnt; i++) {
-> +		struct qcom_ec_cooling_dev *ec_cdev = &ec->ec_cdev[i];
-> +
-> +		qcom_ec_fan_debug_mode_off(ec_cdev);
-> +	}
-> +}
-> +
-> +static const struct of_device_id qcom_ec_of_match[] = {
-> +	{ .compatible = "qcom,hamoa-crd-ec" },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, qcom_ec_of_match);
-> +
-> +static const struct i2c_device_id qcom_ec_i2c_id_table[] = {
-> +	{ "qcom-hamoa-ec", },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(i2c, qcom_ec_i2c_id_table);
-> +
-> +static DEFINE_SIMPLE_DEV_PM_OPS(qcom_ec_pm_ops,
-> +		qcom_ec_suspend,
-> +		qcom_ec_resume);
-> +
-> +static struct i2c_driver qcom_ec_i2c_driver = {
-> +	.driver = {
-> +		.name = "qcom-hamoa-ec",
-> +		.of_match_table = qcom_ec_of_match,
-> +		.pm = &qcom_ec_pm_ops
-> +	},
-> +	.probe = qcom_ec_probe,
-> +	.remove = qcom_ec_remove,
-> +	.id_table = qcom_ec_i2c_id_table,
-> +};
-> +module_i2c_driver(qcom_ec_i2c_driver);
-> +
-> +MODULE_DESCRIPTION("QCOM Hamoa Embedded Controller");
-> +MODULE_LICENSE("GPL");
-> 
-> 
+ .../bindings/clock/renesas,rzg2l-cpg.yaml     |  40 +-
+ arch/arm64/boot/dts/renesas/Makefile          |   2 +
+ arch/arm64/boot/dts/renesas/r9a08g046.dtsi    | 212 +++++++++++
+ .../boot/dts/renesas/r9a08g046l48-smarc.dts   |  37 ++
+ arch/arm64/boot/dts/renesas/r9a08g046l48.dtsi |  13 +
+ .../boot/dts/renesas/r9a09g047e57-smarc.dts   |   6 +
+ .../boot/dts/renesas/renesas-smarc2.dtsi      |   8 -
+ .../boot/dts/renesas/rzg3l-smarc-som.dtsi     |  20 +
+ drivers/clk/renesas/Kconfig                   |   7 +-
+ drivers/clk/renesas/Makefile                  |   1 +
+ drivers/clk/renesas/r9a07g043-cpg.c           |   9 +
+ drivers/clk/renesas/r9a07g044-cpg.c           |  13 +
+ drivers/clk/renesas/r9a08g045-cpg.c           |   9 +
+ drivers/clk/renesas/r9a08g046-cpg.c           | 153 ++++++++
+ drivers/clk/renesas/rzg2l-cpg.c               |  91 ++++-
+ drivers/clk/renesas/rzg2l-cpg.h               |   8 +
+ include/dt-bindings/clock/r9a08g046-cpg.h     | 342 ++++++++++++++++++
+ 17 files changed, 944 insertions(+), 27 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+ create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+ create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48.dtsi
+ create mode 100644 arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
+ create mode 100644 drivers/clk/renesas/r9a08g046-cpg.c
+ create mode 100644 include/dt-bindings/clock/r9a08g046-cpg.h
 
 -- 
- i.
+2.43.0
 
