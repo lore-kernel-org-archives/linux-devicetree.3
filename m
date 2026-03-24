@@ -1,112 +1,112 @@
-Received: from mail.mleia.com (mleia.com [178.79.152.223])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B54386C2B;
-	Tue, 24 Mar 2026 21:44:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.79.152.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274903537F0;
+	Tue, 24 Mar 2026 21:59:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774388677; cv=none; b=pu6NzWf33VQIyqCUEGKQLwtTksUGYaYIU0299n2ZA6b2UzUcIMwJp5mt+vBAMigVNP2nMJp6D4VgEirkXv+BAP+Uf+GgN/7YuuS9YslllpJY5tJlmEGv4BkBL6oyzG1qKqq5JptcLK7s4EABC1ySc5UW68xkLCPujZz7FMXFVo8=
+	t=1774389580; cv=none; b=rSB0hFkEXXrdRiq07e5xAaIMJgPm1g3FUOxXqbAQY05vAAxQm/Ho5cv/a3x5LlquKZOa8Mm3dEzPfFybOxVO5BvAiARqd29iFXKqV6vEDg0xLMP1Q+lgtG1r4W6cjfEwLc3SzX4p/EzQNgYNdkYCxWeU4R9A8Cka0BHobP15FGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774388677; c=relaxed/simple;
-	bh=xQK3fo/yQKWbJQvqeTbsTQNfeWyoFFV9L/347KfXKqk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qJ7fOZuwAujjuGnsSooCUT0+AoBmSJ5/F3K7hgZMPqKgmRQ7PAfErwYcwO9fpFWk3K3Q7Q27e/qsqVCkVYhgRLvcnc5U6S+A1SpwQepb1eCnzvBRE4xbbbd3YSZM21oop/+Rr+6PbTOcU6pixcwP5OCIACRIShiOZP50TKgdJig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mleia.com; spf=none smtp.mailfrom=mleia.com; dkim=pass (2048-bit key) header.d=mleia.com header.i=@mleia.com header.b=KpSz7mVb; dkim=pass (2048-bit key) header.d=mleia.com header.i=@mleia.com header.b=KpSz7mVb; arc=none smtp.client-ip=178.79.152.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mleia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mleia.com
+	s=arc-20240116; t=1774389580; c=relaxed/simple;
+	bh=3W9SbqXhQUaQ5JV8iher4Sg8sLttLuS/+h+tUjNkdqQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n745uycDukFefg4Ew3rs1uU2XJL6VnaClVTXlXeV7eSCfPrQNSqC84Yr9dj9hxmWyZ5BvUuKU0nQitGrnjTNH05vIlcz3qeZjBztpdvVcaSxJYtVihqBa7cB/NqtJ35pZgUI7rlkECXlY51ORWj4Loc45AjhRzDXbZLDnrrQVCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KNf7aGe2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mleia.com header.i=@mleia.com header.b="KpSz7mVb";
-	dkim=pass (2048-bit key) header.d=mleia.com header.i=@mleia.com header.b="KpSz7mVb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mleia.com; s=mail;
-	t=1774388668; bh=xQK3fo/yQKWbJQvqeTbsTQNfeWyoFFV9L/347KfXKqk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=KpSz7mVbJk01AbKR6ohkXCBFFHzF+7l7H7QD+p7s7iEVzr8UWaj/etWBag4+3d01i
-	 /SXlugtuAjUTsDMpkxiK2os5/jBCPrZNjBIVBlQmQn3AoJPJwxG5txq/KtnUfQldBv
-	 I/W5rQboHXqQZ2WJ4g9Qob6YLZ5asvHJdlhUgxs0UhjnZwNP6TghcK/JklJc4oj81e
-	 bH8WLFWdbz/rSnVp13zUXtIP2gDz9ezhTsM5jjulJGxEtXBPi+sv4+A4xcPXA9y4DC
-	 1coYTGRlAIQO44VUhmzypDysYehPXl5mbG3mJmCO/BeiC0zmMc1jQNIKwYa/C5kTwM
-	 45IDug++zXg6A==
-Received: from mail.mleia.com (localhost [127.0.0.1])
-	by mail.mleia.com (Postfix) with ESMTP id 7B0A24476;
-	Tue, 24 Mar 2026 21:44:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mleia.com; s=mail;
-	t=1774388668; bh=xQK3fo/yQKWbJQvqeTbsTQNfeWyoFFV9L/347KfXKqk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=KpSz7mVbJk01AbKR6ohkXCBFFHzF+7l7H7QD+p7s7iEVzr8UWaj/etWBag4+3d01i
-	 /SXlugtuAjUTsDMpkxiK2os5/jBCPrZNjBIVBlQmQn3AoJPJwxG5txq/KtnUfQldBv
-	 I/W5rQboHXqQZ2WJ4g9Qob6YLZ5asvHJdlhUgxs0UhjnZwNP6TghcK/JklJc4oj81e
-	 bH8WLFWdbz/rSnVp13zUXtIP2gDz9ezhTsM5jjulJGxEtXBPi+sv4+A4xcPXA9y4DC
-	 1coYTGRlAIQO44VUhmzypDysYehPXl5mbG3mJmCO/BeiC0zmMc1jQNIKwYa/C5kTwM
-	 45IDug++zXg6A==
-Message-ID: <706e2b88-f200-4c12-96f9-5634f80547f3@mleia.com>
-Date: Tue, 24 Mar 2026 23:44:27 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KNf7aGe2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 394AAC19424;
+	Tue, 24 Mar 2026 21:59:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774389579;
+	bh=3W9SbqXhQUaQ5JV8iher4Sg8sLttLuS/+h+tUjNkdqQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KNf7aGe2D7Mr7xsWaDsatMseJJ+U+s2m0Kt3vNiYSrRqcRc65Vc5lx4nJ8J3D/Ebo
+	 94dUggiHvTj4XsGkZionAE8lQUFLo0+5BCtlhB/JWHAsBbYQN2GTk71yuAP5H1/0hm
+	 SZD2PrdmC3qlYnCDjahmsk5NAKvYCQcqF2A81ft5xjxHuqpZxz/mFBptcHUkD9kgrl
+	 MCxk3rfD3hr3nzAybhnSUQUb/Z8E3tKdD17FHhN8PKmjBfjlBnzTC9tKoNgasSeNJ8
+	 OWmV5kfec0UlVicoxPMVh0Udi/g9eqy7akhJFS+2gDp+hQJNDGo9gI6JdpBlUCMPvt
+	 PTAG/AOOqMKPA==
+Date: Wed, 25 Mar 2026 05:59:37 +0800
+From: Yixun Lan <dlan@kernel.org>
+To: Yao Zi <me@ziyao.cc>
+Cc: Aurelien Jarno <aurelien@aurel32.net>, linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	"open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
+Subject: Re: [PATCH 4/6] riscv: dts: spacemit: enable QSPI and add SPI NOR on
+ Milk-V Jupiter
+Message-ID: <20260324215937-GKA767626@kernel.org>
+References: <20260322203356.2206927-1-aurelien@aurel32.net>
+ <20260322203356.2206927-5-aurelien@aurel32.net>
+ <20260324090220-GKA739629@kernel.org>
+ <acLE5xnEBoCtW4Vw@pie>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND v2 1/1] dt-bindings: arm: lpc: add missed lpc43xx board
-To: Frank Li <Frank.li@nxp.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- "moderated list:ARM/LPC32XX SOC SUPPORT"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev
-References: <20251015184846.2509016-1-Frank.Li@nxp.com>
- <b75b30d4-e33e-4620-bc37-56b36612364c@mleia.com>
- <aXppf+3Nm7zsYaWE@lizhi-Precision-Tower-5810>
- <f213bdb9-7104-495f-97fe-8190af3ec577@mleia.com>
- <acL_cAQ99B2VliJU@lizhi-Precision-Tower-5810>
-From: Vladimir Zapolskiy <vz@mleia.com>
-In-Reply-To: <acL_cAQ99B2VliJU@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-49551924 
-X-CRM114-CacheID: sfid-20260324_214428_520238_3CE45E9D 
-X-CRM114-Status: GOOD (  12.28  )
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <acLE5xnEBoCtW4Vw@pie>
 
-Hi Frank,
+Hi Yao,
 
-On 3/24/26 23:17, Frank Li wrote:
-> On Wed, Jan 28, 2026 at 10:24:50PM +0200, Vladimir Zapolskiy wrote:
->> Hi Frank,
->>
->> On 1/28/26 21:54, Frank Li wrote:
->>> On Wed, Oct 15, 2025 at 10:48:47PM +0300, Vladimir Zapolskiy wrote:
->>>> Hi Frank,
->>>>
->>>> On 10/15/25 21:48, Frank Li wrote:
->>>>> Add missed legancy lpc43xx board compatible string to fix below CHECK_DTB
->>>>> warnings:
->>>>> arch/arm/boot/dts/nxp/lpc/lpc4337-ciaa.dtb: /: failed to match any schema with compatible: ['ciaa,lpc4337', 'nxp,lpc4337', 'nxp,lpc4350']
->>>>>
->>>>> Reviewed-by: Vladimir Zapolskiy <vz@mleia.com>
->>>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
->>>>> Signed-off-by: Frank Li <Frank.Li@nxp.com>
->>>>
->>>> I'll take it for v6.19, thank you.
->>>>
->>>> If you have any other changes in the queue, please feel free to send them also.
->>>
->>> Vladimir Zapolskiy:
->>>
->>> 	look like you missed this patch.
->>>
->>
->> You are right about it. I consider it's pretty late to send another PR
->> including this change, and thus it will be postponed, I'm sorry for it.
+On 17:07 Tue 24 Mar     , Yao Zi wrote:
+> On Tue, Mar 24, 2026 at 05:02:20PM +0800, Yixun Lan wrote:
+> > Hi Aurelien,
+> > 
+> > On 21:28 Sun 22 Mar     , Aurelien Jarno wrote:
+> > > Add the QSPI controller node for the Milk-V Jupiter board and describe
+> > > the attached SPI NOR flash (GD25Q64E).
+> > > 
+> > > The flash supports a frequency up to 133MHz (80 MHz for reads), and the
+> > > SoC supports a frequency up to 104 MHz. However tests have shown that
+> > > the flash is not reliably detected above 26.5 MHz, consistent with
+> > > frequency used in the vendor kernel. Therefore, use this frequency.
+> > > 
+> > ..
+> > > The m25p,fast-read properties is taken from the vendor kernel.
+> > > 
+> > So long as this is verified and works fine on board?
+> > 
+> > > Add a corresponding flash partition layout, matching the layout and the
+> > > names used in the vendor U-Boot.
+> > > 
+> > ..
+> > > Also add the bootph-pre-ram property to make the device tree usable by
+> > > early firmware/bootloaders without modification, as U-Boot is stored on
+> > > this NOR flash.
+> > Is the dtb file actually used by U-Boot? I'd highly doubt about this,
+> > if not the case or has not been tested, I'd suggest then not to add
+> > this property..
 > 
-> Can I include this patch my imx's PR?
+> Currently no, but it would be a bogus if we could do it at introduction
+> of the device, if it's really necessary in pre-DRAM stages of
+> bootloaders, e.g. U-Boot SPL. This would reduce the duplicated work of
+> downstream projects if they decide to switch to Linux upstream
+> devicetree.
 > 
+All above arguments are based on assumption, I object to add things randomly
+without real test proved.
 
-you've already got my RB, and there is no objections from my side, if
-the change goes through imx dt PR, otherwise I have to postpone pushing
-it upwards, there is no plan to send an ARM LPCxxxx dt PR for v7.1.
+Let's wait once U-Boot actually switch to use upstream devicetree.
+
+> As SpacemiT K1 supports booting from flash, the description of flash
+> nodes are likely useful for pre-DRAM bootloaders.
+> 
+This is still a 'likely' ..
+
+> > > 
+> > > Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
+> 
+> Best regards,
+> Yao Zi
 
 -- 
-Best wishes,
-Vladimir
+Yixun Lan (dlan)
