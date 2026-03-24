@@ -1,33 +1,86 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 78B303EF673;
-	Tue, 24 Mar 2026 12:04:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC86E3F54D8
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 12:04:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774353895; cv=none; b=DlLiYQe+CxMFulH7yuxquPh7BNnSJRpZFvmg19JvADo87D02t+oq1Zc5JrDPnB0YTr/o0wdq/7yy6fuIpeyZndxMVVKGP7SirFSwkcMW9HCh1F8hC7+MAPrOPc4HuKVtDZGFo4saRvmH23bVFpTuUYJoYNO1kadzFDP7syJR7uM=
+	t=1774353901; cv=none; b=lDTsUog1InKOKUGf1kmTHwd8Yr6KyhAWAF9LQQFW3MUEV0Z2xTgZ/P8qPp+0QxY2ktvXGp1eXrUqlewFvnRZwXpQNDwuxziES/757BUnzphVv1jEl+vDQh0sKeeNqau68PpPDj52xuwwqZJoX8hjU7bDmirL4T2tbwtJigm6q60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774353895; c=relaxed/simple;
-	bh=NaxP08zN77vip4UHQcZc9oRFoOqkd9B8OMX9MCY9/aA=;
+	s=arc-20240116; t=1774353901; c=relaxed/simple;
+	bh=INmeiGJKMXk+0PJEej2mrgVEmYRHxRGrlBMc5p0a5aY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RVBhaqNezjoE84kgqtigD6ozse3sM3vr8RnwChmfiy/cdT80m9X/mAcoZ7Gk9RTmVRSC0/IgYbGMOO+OURxmraHZpoyrz2TBZtMkD9qkbAq9kNuoKPSrSwM4cL/KyDHiH/G2aBmMSVpJVTRI71QjBnQSPPc5aGaWwMHq1L3beqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Xvs+ehkT; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=lfOyTPIcglmmj9SvDrJ/TgZ5CcWJWpFmDiG8pWfzI42YDgV/73o5WRSdzWnPombH+/Qruuoyod2RZ2eevbb5eM19k1oEc+vXnTkkXwX53qO5VTyEI2URhYgPnC8e4NiKDB+o/tpHB4HukPmjxTNF7YJMBhZh089rFU8rB7KYPMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eiiwG5ed; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ByGO/wZh; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Xvs+ehkT"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 905761476;
-	Tue, 24 Mar 2026 05:04:45 -0700 (PDT)
-Received: from [10.57.76.67] (unknown [10.57.76.67])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D39A43FAF5;
-	Tue, 24 Mar 2026 05:04:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1774353891; bh=NaxP08zN77vip4UHQcZc9oRFoOqkd9B8OMX9MCY9/aA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Xvs+ehkTEbm++1ybxYpV14cv2yuqzKIiK0wyP5KiiCdFXoq7zayhc+Vzlhnj9zGg4
-	 hejDcnIrWIJywFqKikarNMB0nNMfiF8fC4OtqxShqaYEv/kqYE0jTpH+Dv0evtFAFT
-	 xLZOjTgQZQyNw1UxK6L93VdLCJyoCpx+nDRGlzT4=
-Message-ID: <c91176d1-851a-4cf5-b7dc-cde431a8326e@arm.com>
-Date: Tue, 24 Mar 2026 12:04:44 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eiiwG5ed";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ByGO/wZh"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62OBaoj81291168
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 12:04:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	E5IUEO5PyBIerJfWjfzoqFirzXsSOD9hNzXQV1mXr0E=; b=eiiwG5edacFrpRTZ
+	EtFrpYBAz2dzEh8QgxuzMve34/TbRlhIqFNx0EIQC9p4hZ2Sc1R0WIg2sTP6BzrM
+	ZMpxlfMwVzsguvbqR5NsG0MiTxuaUDz7gQK9z/PxTLu1TEuNtp0aZM+jWN5B0FTG
+	cAEb6aMA1eo/Z0VWzsnyIojgSv0Q7zlmm7vQ+g3Jors7pW4zXq4WIA+Gen1trqxO
+	8FKevj/nVzz62rhyId8j2AORT2bDOzfq1W9g4Gu+AsQMotjMluRzjhztxSKw7emf
+	qjozK5HoD7x8HTa7uMYLbYLYuYjcsGG4hg2oWm9+adG+aTQzddUtS3YHqtw1B3gb
+	YkEiWw==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d3sw40439-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 12:04:54 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2aed1beaa73so69743805ad.2
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 05:04:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774353831; x=1774958631; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=E5IUEO5PyBIerJfWjfzoqFirzXsSOD9hNzXQV1mXr0E=;
+        b=ByGO/wZhHkNCfRtNzd1cWKYIk+yqjgVvcHWz1qtlz0D2awkgtOI7dNlRXDmrU0Ag/Y
+         BpqSzHy+W85eb/bADDL83GXly35Bem0OlZARvt5kCtW7uVV7AHlwySJ49Klk1wMsou71
+         pJvHr5+zv+BPeoWe6Fhdz3mt2jSP2Dq3go/N2gwnTMpMqYQXxye/4/VjtZtqnQNqPsvH
+         aB7J/7Kfwpz79/HsOhoChNdIIMrDmJS8mE/scs6eVX/qJl4hfaZTWNrNbS5VVXQGC6Uq
+         tgMjbZC/Mw9k6/LKuIgI6kkJlJaKhPZsehOBjSgNRfJTe2aZR8wQ266lw3dsRtHAEWNt
+         /X2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774353831; x=1774958631;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=E5IUEO5PyBIerJfWjfzoqFirzXsSOD9hNzXQV1mXr0E=;
+        b=Ng5VUqUX4K+wEgZWM3yC/c4k9tpX50aJ8elZtKxaWKgl1/pdYjv8yCO4lEWeH6HhRe
+         KzFm4umuRrupgtAm1dSdEWB8qSjcjobVSZgZt5P7178sVGMHNCWNmLwL6hAQ7Vp6cdK0
+         QnPoLNmiGxXNfXSohe9d6V50SEep83QB9KCdnZONB3HDqm/Aq387C1z80J5HDlZMW+kE
+         ZeQzNDF6QCiiYSns3nC6xg1XZfWH4nX/rpuRW3X3iN3ZCzZqBfnPLD1yoet7+x22H7nW
+         W1N1nqqFbgBn4lkBRPuVmrgQ8JHra9fFCYhJZitFo0GorYROSRpvO/KdjSoGRZRBFnr7
+         6EyQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWq5aew6K7yEaZA5kIl23ff1thmrpFDaHODf/6KFfAzoX8pc84yXccQHyfSGh+dCiKA8ulmvITHO4AP@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBE68zJCzccYko1Q802fNS5iqNKL0V0u+xHuWFByJS29IN0ES/
+	uirdNceUnKz5WGNEJv/oGhDC2nKEfaPrnYoPGAzTr8V1BvsrFnPhFpC84dN68QdDDI5TP7PrwfU
+	cOxa4Z5ZE5bAtn3j1OxkEnR8FzPX/hw1i+lDWf3/WgNCaQA03xW6SVyRB+aWMUyNY
+X-Gm-Gg: ATEYQzynI7/mP3NdzxtYUuuACK8ZYB4wLhC9rAOL34uy2emy9xkJlrFmYBRpVWNMwft
+	+XErGxpVT95rLyIJ3K2tLQA4ie7i5MZP7zBuTFdEpRPw/rdeZqu+C6loYXtzvKk1FlBmaY6oUkY
+	LRRllq1UCsSAM3aa3wUKcBXP8X26MA1tzIz9ZRLzw5ypec8VKnD+MGJaHOiA5OjNxwNVt5i4wGN
+	MOxiuA5tuEiPnhTji3DU5LPraa1Ri2Dk+T+f8nArOn8tcWvz9h+U1fZEqtU2JGnEy3iSiNi6DD4
+	sg8TujA08I6zBn6S/bs93yr/R9FnsUwteNFICWGMK/a9DF8dNDVwF70IdB5C26i4cHkQxddyeH6
+	lIBhDtYwq37a/4ER+EASUZyr0YnMZM4RmdPP+L3yGcXFfnoExOHq31w==
+X-Received: by 2002:a17:903:3ba5:b0:2b0:5aab:c40a with SMTP id d9443c01a7336-2b08277aecamr143662645ad.31.1774353831151;
+        Tue, 24 Mar 2026 05:03:51 -0700 (PDT)
+X-Received: by 2002:a17:903:3ba5:b0:2b0:5aab:c40a with SMTP id d9443c01a7336-2b08277aecamr143662045ad.31.1774353830506;
+        Tue, 24 Mar 2026 05:03:50 -0700 (PDT)
+Received: from [10.218.35.45] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b083656f65sm208995095ad.45.2026.03.24.05.03.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Mar 2026 05:03:50 -0700 (PDT)
+Message-ID: <f97c6dfa-55dc-4792-95d6-4aa1bce3694d@oss.qualcomm.com>
+Date: Tue, 24 Mar 2026 17:33:42 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,121 +88,171 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] dt-bindings: dma: arm-dma350: document generic and
- combined IRQ topologies
-To: Jun Guo <jun.guo@cixtech.com>, peter.chen@cixtech.com,
- fugang.duan@cixtech.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, vkoul@kernel.org, ychuang3@nuvoton.com,
- schung@nuvoton.com, Frank.Li@kernel.org
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com,
- linux-arm-kernel@lists.infradead.org
-References: <20260323114822.1925869-1-jun.guo@cixtech.com>
- <20260323114822.1925869-2-jun.guo@cixtech.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260323114822.1925869-2-jun.guo@cixtech.com>
+Subject: Re: [PATCH v8 3/3] PCI: Add support for PCIe WAKE# interrupt
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+        Pavel Machek <pavel@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Bartosz Golaszewski <brgl@bgdev.pl>, Linus Walleij <linusw@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+        linux-gpio@vger.kernel.org, quic_vbadigan@quicinc.com,
+        sherry.sun@nxp.com, driver-core@lists.linux.dev,
+        devicetree@vger.kernel.org
+References: <20260313-wakeirq_support-v8-0-48a0a702518a@oss.qualcomm.com>
+ <20260313-wakeirq_support-v8-3-48a0a702518a@oss.qualcomm.com>
+ <4n5heks4oymfz75wiajyc5zuzzulmwyfj2couudbi7gi67h2rk@smpnmyhdjkns>
+Content-Language: en-US
+From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+In-Reply-To: <4n5heks4oymfz75wiajyc5zuzzulmwyfj2couudbi7gi67h2rk@smpnmyhdjkns>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDA5NiBTYWx0ZWRfXwJTsG886KXcl
+ +E9d8oyheryZqn3YQeQKVOve4lkZsVuB61x0TCgcf3yb1dDsd8gl5rLama8R8RfWBCqR1iDbFaT
+ whl4zdcXoFIX87t1V6BSzuNDZOJKvH/2PzGv1YfW6K/LAMTX9gTXTsQGHO3cOSh1g9CBc4nFwvW
+ EaFoBHfGv6QpDqopLFvlReGP9v52FGbRlarpIxm9AtUrhdEX4tXoTeAH5gsoJgCN2B1OFyKi239
+ 7puq7R4iKs/+7Gt5sfnxc4pDn9WLFGDq8+HFxJuvuENpSlwdTUieciZzioiPBKFLeevOspeYr4T
+ 6HBld+04OqgCx+ZuTW1PXA+i9ZSSzVz7CmNN1MVcZi/tWHsRChA6USulxjsBUFBrQVxfk7eyZl6
+ OjI8Hj04f7bNd3Rg3ZZ43T81SANvTuJoW7yAVxh78UAoxKsKXaqcVwx3eyAq9GgVkwFrYjTNAY0
+ e9JMn+xlFbvba1HE75w==
+X-Proofpoint-GUID: uETA7HRt5liRwBqlCDPWPQYVXcEmMmqI
+X-Authority-Analysis: v=2.4 cv=bpVBxUai c=1 sm=1 tr=0 ts=69c27de7 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=NEAV23lmAAAA:8 a=KKAkSRfTAAAA:8
+ a=rFA5VEQNUbPbIC_WhckA:9 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: uETA7HRt5liRwBqlCDPWPQYVXcEmMmqI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-24_02,2026-03-23_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 adultscore=0
+ bulkscore=0 spamscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240096
 
-On 2026-03-23 11:48 am, Jun Guo wrote:
-> Update the DMA-350 DT binding to match the current driver behavior.
-> 
-> Allow both:
-> - "arm,dma-350" as the generic compatible, and
-> - "cix,sky1-dma-350", "arm,dma-350" for SoC-specific fallback usage.
-> 
-> Also document interrupt topology variants supported by hardware
-> integration:
-> - one combined interrupt for all channels, or
-> - one interrupt per channel (up to 8 channels).
 
-To repeat myself for the 3rd time, this is at best unnecessary, and at 
-worst arguably wrong. Here's an example of a system which happens to use 
-the combined interrupt from another IP block which also offers both options:
 
-https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/boot/dts/freescale/imx8qm.dtsi#n279
+On 3/17/2026 12:56 PM, Manivannan Sadhasivam wrote:
+> On Fri, Mar 13, 2026 at 12:38:42PM +0530, Krishna Chaitanya Chundru wrote:
+>> According to the PCI Express specification (PCIe r7.0, Section 5.3.3.2),
+>> two link wakeup mechanisms are defined: Beacon and WAKE#. Beacon is a
+>> hardware-only mechanism and is invisible to software (PCIe r7.0,
+>> Section 4.2.7.8.1). This change adds support for the WAKE# mechanism in
+>> the PCI core.
+>>
+>> According to the PCIe specification, multiple WAKE# signals can exist in
+>> a system or each component in the hierarchy could share a single WAKE#
+>> signal. In configurations involving a PCIe switch, each downstream port
+>> (DSP) of the switch may be connected to a separate WAKE# line, allowing
+>> each endpoint to signal WAKE# independently. From figure 5.4 in sec
+>> 5.3.3.2, WAKE# can also be terminated at the switch itself. To support
+>> this, the WAKE# should be described in the device tree node of the
+>> endpoint/bridge. If all endpoints share a single WAKE# line, then each
+>> endpoint node should describe the same WAKE# signal or a single WAKE# in
+>> the Root Port node.
+>>
+>> In pci_device_add(), PCI framework will search for the WAKE# in device
+>> node, If not found, it searches in its upstream port only if upstream port
+>> is Root Port. Once found, register for the wake IRQ in shared mode, as the
+>> WAKE# may be shared among multiple endpoints.
+>>
+>> dev_pm_set_dedicated_shared_wake_irq() associates a wakeup IRQ with a
+>> device and requests it, but the PM core keeps the IRQ disabled by default.
+>> The IRQ is enabled only when the device is permitted to wake the system,
+>> i.e. during system suspend and after runtime suspend, and only when device
+>> wakeup is enabled.
+>>
+>> When the wake IRQ fires, the wakeirq handler invokes pm_runtime_resume() to
+>> bring the device back to an active power state, such as transitioning from
+>> D3cold to D0. Once the device is active and the link is usable, the
+>> endpoint may generate a PME, which is then handled by the PCI core through
+>> PME polling or the PCIe PME service driver to complete the wakeup of the
+>> endpoint.
+>>
+>> WAKE# is added in dts schema and merged based on below links.
+>>
+>> Link: https://lore.kernel.org/all/20250515090517.3506772-1-krishna.chundru@oss.qualcomm.com/
+>> Link: https://github.com/devicetree-org/dt-schema/pull/170
+>> Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+>> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+>> ---
+>>   drivers/pci/of.c       | 74 ++++++++++++++++++++++++++++++++++++++++++++++++++
+>>   drivers/pci/pci.c      | 10 +++++++
+>>   drivers/pci/pci.h      |  2 ++
+>>   drivers/pci/probe.c    |  2 ++
+>>   drivers/pci/remove.c   |  1 +
+>>   include/linux/of_pci.h |  4 +++
+>>   include/linux/pci.h    |  2 ++
+>>   7 files changed, 95 insertions(+)
+>>
+>> diff --git a/drivers/pci/of.c b/drivers/pci/of.c
+>> index 9f8eb5df279ed28db7a3b2fd29c65da9975c2efa..b7199d3598b31b62245716c178a5a73565efc89e 100644
+>> --- a/drivers/pci/of.c
+>> +++ b/drivers/pci/of.c
+>> @@ -7,6 +7,7 @@
+>>   #define pr_fmt(fmt)	"PCI: OF: " fmt
+>>   
+>>   #include <linux/cleanup.h>
+>> +#include <linux/gpio/consumer.h>
+>>   #include <linux/irqdomain.h>
+>>   #include <linux/kernel.h>
+>>   #include <linux/pci.h>
+>> @@ -15,6 +16,7 @@
+>>   #include <linux/of_address.h>
+>>   #include <linux/of_pci.h>
+>>   #include <linux/platform_device.h>
+>> +#include <linux/pm_wakeirq.h>
+>>   #include "pci.h"
+>>   
+>>   #ifdef CONFIG_PCI
+>> @@ -586,6 +588,78 @@ int of_irq_parse_and_map_pci(const struct pci_dev *dev, u8 slot, u8 pin)
+>>   	return irq_create_of_mapping(&oirq);
+>>   }
+>>   EXPORT_SYMBOL_GPL(of_irq_parse_and_map_pci);
+>> +
+>> +static void pci_configure_wake_irq(struct pci_dev *pdev, struct gpio_desc *wake)
+>> +{
+>> +	int ret, wake_irq;
+>> +
+>> +	wake_irq = gpiod_to_irq(wake);
+>> +	if (wake_irq < 0) {
+>> +		pci_err(pdev, "Failed to get wake irq: %d\n", wake_irq);
+>> +		return;
+>> +	}
+>> +
+>> +	device_init_wakeup(&pdev->dev, true);
+> Just set wakeup only if dev_pm_set_dedicated_shared_wake_irq() succeeds.
+ack.
+>> +
+>> +	/*
+>> +	 * dev_pm_set_dedicated_shared_wake_irq() associates a wakeup IRQ with the
+>> +	 * device and requests it, but the PM core keeps it disabled by default.
+>> +	 * The IRQ is enabled only when the device is allowed to wake the system
+>> +	 * (during system suspend and after runtime suspend), and only if device
+>> +	 * wakeup is enabled.
+>> +	 *
+>> +	 * When the wake IRQ fires, the wakeirq handler invokes pm_runtime_resume()
+>> +	 * to bring the device back to an active power state (e.g. from D3cold to D0).
+>> +	 * Once the device is active and the link is usable, the endpoint may signal
+>> +	 * a PME, which is then handled by the PCI core (either via PME polling or the
+>> +	 * PCIe PME service driver) to wakeup particular endpoint.
+>> +	 */
+>> +	ret = dev_pm_set_dedicated_shared_wake_irq(&pdev->dev, wake_irq,
+>> +						   IRQ_TYPE_EDGE_FALLING);
+> Isn't WAKE# a level triggered signal?
+Ack. I will change IRQ_TYPE_EDGE_FALLING to IRQ_TYPE_LEVEL_LOW.
+>> +	if (ret < 0) {
+>> +		pci_err(pdev, "Failed to set wake IRQ: %d\n", ret);
+> s/wake/WAKE#
+ack.
 
-Same thing here; each channel is a distinct interrupt source, so it is 
-perfectly honest to describe that consistently in DT, regardless of 
-whether or not the interrupt signals are still distinct by the time they 
-reach the interrupt controller.
-
-Furthermore, in this case the IRQ_COMB_NONSEC interrupt actually has 
-additional functionality beyond just being a mux of the individual 
-IRQ_CHANNEL interrupts. So although Linux probably won't ever care, if 
-it's going to be in the DT binding then it should really be distinct 
-from the channel interrupts anyway, since systems could well wire them 
-*all* up, and an OS could choose to use the IRQ_CHANNEL outputs directly 
-for individual channel completion/error status, while also using the 
-IRQ_COMB_NONSEC just for its overall INTR_ALLCH{STOPPED,PAUSED,IDLE} status.
-
-If you only want to make your thing work in Linux, all that is needed is 
-a 1-line change in the driver to enable the INTR_ANYCHINTR bit (which as 
-I've also said before, we can do unconditionally because we're *not* 
-using the other INTR_ALLCH stuff), and to write your DT using the 
-existing binding. "One interrupt per channel" already carries no 
-expectation that they all have to be *different* interrupts.
-
-Thanks,
-Robin.
-
-> Assisted-by: Cursor: GPT-5.3-Codex
-> Signed-off-by: Jun Guo <jun.guo@cixtech.com>
-> ---
->   .../devicetree/bindings/dma/arm,dma-350.yaml  | 34 +++++++++++++------
->   1 file changed, 24 insertions(+), 10 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
-> index 429f682f15d8..47091614d1b4 100644
-> --- a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
-> +++ b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
-> @@ -14,7 +14,14 @@ allOf:
->   
->   properties:
->     compatible:
-> -    const: arm,dma-350
-> +    description:
-> +      Use "arm,dma-350" for generic integration. A SoC-specific
-> +      compatible may be listed first, followed by "arm,dma-350".
-> +    oneOf:
-> +      - const: arm,dma-350
-> +      - items:
-> +          - const: cix,sky1-dma-350
-> +          - const: arm,dma-350
->   
->     reg:
->       items:
-> @@ -22,15 +29,22 @@ properties:
->   
->     interrupts:
->       minItems: 1
-> -    items:
-> -      - description: Channel 0 interrupt
-> -      - description: Channel 1 interrupt
-> -      - description: Channel 2 interrupt
-> -      - description: Channel 3 interrupt
-> -      - description: Channel 4 interrupt
-> -      - description: Channel 5 interrupt
-> -      - description: Channel 6 interrupt
-> -      - description: Channel 7 interrupt
-> +    maxItems: 8
-> +    description:
-> +      Either one interrupt per channel (8 interrupts), or one
-> +      combined interrupt for all channels.
-> +    oneOf:
-> +      - items:
-> +          - description: Channel 0 interrupt
-> +          - description: Channel 1 interrupt
-> +          - description: Channel 2 interrupt
-> +          - description: Channel 3 interrupt
-> +          - description: Channel 4 interrupt
-> +          - description: Channel 5 interrupt
-> +          - description: Channel 6 interrupt
-> +          - description: Channel 7 interrupt
-> +      - items:
-> +          - description: Combined interrupt shared by all channels
->   
->     "#dma-cells":
->       const: 1
+- Krishna Chaitanya.
+> - Mani
+>
 
