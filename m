@@ -1,241 +1,215 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010043.outbound.protection.outlook.com [52.101.228.43])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010029.outbound.protection.outlook.com [52.101.69.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29E637A48B;
-	Tue, 24 Mar 2026 18:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736BB38553B;
+	Tue, 24 Mar 2026 18:31:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.29
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774376889; cv=fail; b=qivWMWGF1po1ZEHWabCVc2xI1GMzr5K1NiF8XVXJlIPkBCtG3IBZAwOeb/QqPWacXO+KyPkYZZGmSvRleDx8FQZGVpMHpmDkObS9dcw1ENYuPFB3uRYlrsznd7u2oEWk7BHxLkxRmN9cdlsPP69Lsebhc+QKHpatbYr4QPSFPv8=
+	t=1774377106; cv=fail; b=f8h8gpZtoSjuBaShEP9ftMuBgW0sTSk5rbl2sElNmKKuhtPnmnmYetryOyMPkcxmGsSk4MrZ4DqNFTH+RXoEGaPwvL34HLkmWIaGkW061whQPccpTAgdmxnQJr5c9r/2dSK9BjpxaoHZHKZDmzqyWQan6FDEjIsXWnkpB5PrFng=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774376889; c=relaxed/simple;
-	bh=sKFAevYfPUBpysvIQKcIGnqa0wHAcn2GUZI0p1Vg8cM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=LrDNxSpybObR27jECPYZYFhpjl1OdeWpobeuO+0SuegPEX/M94X7L4XveB/e3SCxnFzDN2bzEC26QXjANYvkLBowey7/SCO8+L8qroit6/MfXnDnLWyVJ1ZEHgR60Zn0/ilf0v7bMT5ltVOzzfmPMsRkNFKIhVeBkP3qt3v5PRg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=EgZ5r8CR; arc=fail smtp.client-ip=52.101.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	s=arc-20240116; t=1774377106; c=relaxed/simple;
+	bh=R2Hti/LfLMqqEkpE9CjpWqK9/76tiLV/IGuPHXsd8DU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=gV5hksJZvexXzRuNs77gRNW1nq++KvzEO92mxTNm17NPDf8NXHC6NieQoMSBdH4H7iSjTl7oQaygaBFmx8rcJk67JkMIKd7fYyGBJ7xhoYNd67bV2bXNkEANw3kmzbZQKkuWm29dzxRBieVjI5CgSZhce7BVtRrQmhmdjFzomiQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Q0tLMkgq; arc=fail smtp.client-ip=52.101.69.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="EgZ5r8CR"
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Q0tLMkgq"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hS9WBYpI1/H3W0Dk/jQ69jQR+xh/tA5rwBxV0uqDafCerHEkcnqcQ8U3zIn5fMaxNNoTHHlwfdrOLNovP1Sw1gUIPefjmM/P90hp7uwn3Bdn7jthclYo094czwzi2jDZuCjXNzg0aXHJIGS3oO5NAHXC5GdjmqcSs+GP7gtIhu123yhtecxL4o4TjqiMaGccid1ar1bnspBWVf2MQjYHFHeD7jBclUoSmj+bL5kHA9Eq/+Y7DrXmqUcEeXLOfdP/GJhyeTWqzk5nOvuI0HNaDNpq8gtig/OqDl9znYSRvDzOltYuIeEYO+Ifmb2jSupmDa3r3YLLXCl0R2Fejs3IbQ==
+ b=r2a30f7cxVAWrLB9phgOk1nXGYLuZAVsfy9qJ3qe4is2k9ecjHSMQu5ONoH4PuZ72kzi5HJfiMbXkWb3SGN0eEm3fNJ/vVbNFnB7e1PPyicaEvbEybcY4Fo/9EoXe5E7kWUL1x25wiSZ7x5SKOTUCe4vj8L8pBmO+v3CVDQyXaC1IaM5/m7TDGbuV1/vGrxyikw66Fw34UDii7uzQ2t5dmg67Hll7r7k3jnQQl78/j6PMp575KK9Kmecp/huEvLPgKBUPxsx/zwJJLOg4AgRQ6Q+xOSEP+u5y3UnSFHDSvRdUmMvrsnQPNt1ZahybctNIUsUsTZfD4SKk6qEDKf1wg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VWU0vm3y4Ag6SIIFJCZh/w1wFO3ciylAYRDROWgXktI=;
- b=h21Kmi4kFwSC8p2mhlqdbrOt3tLXmkKjyHA/oyVLb1ymBEn2yiUax1r2InQ5yQQ58gX30vRZsrl76J8Y+qLPQW4rmudKqXq+hGYSWLvcG2Vv0BLv9uomMojMaVVL7Fh7ZtmzNM+XNOivvXM356gkKj7dbf6AZwGcmHCsnQpraoJcjkqpMNqaJYsmeyO7AKY0vLviNfVlWzujUfxQCa0DBEC4V7TycRtsA5Fo4KLDXSB9Vfz/j9+7QuGZvoYJvox93w3wpYgP/b48K1dyqoE0FPhlWGfoXv+iCoPwkqhyqHZmMzXJ5k8bG91vs4gPK/civSRfpzaGUOEabCReQP4/yw==
+ bh=kgzx6Eu2z+R9RZQC/y//tQPvl90YZuL3CIhp1dAjSpA=;
+ b=tcv8U/8krYRLEfITYHLPhtZnl34ncqljGB2lseZe60m9uyxzUArPIq+yxhguPJ2Ly40S89Xpy5FynGH5WMoZrn9B4wBNDxyhzqyOuEgMR2p11X5iBynkzuoeSjmVXlZJUTn3w6lO9yI0CiSD2k+yaJ5ncsfaqtDv7zqmodVmtwLJMpE2QKP1feK7ObPJjFcFNK+RNA4smS3XwadSPb+mA/QdWluEg+00MIWNxJMmiFTmK/AWDJ2uq48MzDXIJRNqroy9hIwqvT6B8fknOwy6ZhSaiurPyZQLNO440fN5aoqlI9ho+LaWmeJS57LeLnyIHMChrN9EgKa1+0WaonP/XQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VWU0vm3y4Ag6SIIFJCZh/w1wFO3ciylAYRDROWgXktI=;
- b=EgZ5r8CRDB02zZWtQ9l2zEcdUdBGTqO7PJWhiS+aNxAncNCqKuNzQwztIEKwxyNlpW+b0Iw2aZ9QWgD5+dMvmYwfjM4KEkPZgbStagTiPsmlmBGVGv6kCjcMbvgjpUwQBirxl9SAmQTlDJc3B7kCn4lsa8PGNvphSmQeTtAq62Y=
-Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com (2603:1096:405:35b::6)
- by OSZPR01MB9280.jpnprd01.prod.outlook.com (2603:1096:604:1d0::11) with
+ bh=kgzx6Eu2z+R9RZQC/y//tQPvl90YZuL3CIhp1dAjSpA=;
+ b=Q0tLMkgqS7UJ13JHGhgfNp+BL8Dv4moTvwzyGFQcjW4CbTeu/yGtjbz6JYDW8KEPA4cd+aLOpRV9SyNajBnLrflyPFmqCt8opQOYqJNKviXdyD3yxu2BiLv8UUNk2th0JnoRsjmWke4iA33ly1QYJHw7oNrr1rBU17ylrYLmw72tTWRynLJuPibo+gFLRvRqV866ETmxrly4he8rK80m+lg6/aiGrnfJtJxU+LnLSHNI1Y+TWM7H0G3VYPuwYFEJO9F6EO4TOBmuaLudfzPJKhLr+Z+NKmjreWIYnE/UYfygStPUxp0khSSbqK63Vv88sELlSKLmtBbq8UF7IaH0WQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by AS8PR04MB8312.eurprd04.prod.outlook.com (2603:10a6:20b:3f1::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Tue, 24 Mar
- 2026 18:28:04 +0000
-Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com
- ([fe80::f373:26d6:86c4:6aa3]) by TY6PR01MB17377.jpnprd01.prod.outlook.com
- ([fe80::f373:26d6:86c4:6aa3%4]) with mapi id 15.20.9723.030; Tue, 24 Mar 2026
- 18:28:03 +0000
-From: John Madieu <john.madieu.xa@bp.renesas.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-CC: Geert Uytterhoeven <geert+renesas@glider.be>, Vinod Koul
-	<vkoul@kernel.org>, Mark Brown <broonie@kernel.org>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Michael
- Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@kernel.org>, Liam Girdwood
-	<lgirdwood@gmail.com>, magnus.damm <magnus.damm@gmail.com>, Thomas Gleixner
-	<tglx@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
-	<tiwai@suse.com>, Philipp Zabel <p.zabel@pengutronix.de>, Claudiu.Beznea
-	<claudiu.beznea@tuxon.dev>, Biju Das <biju.das.jz@bp.renesas.com>, Fabrizio
- Castro <fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>, John Madieu
-	<john.madieu@gmail.com>, "linux-renesas-soc@vger.kernel.org"
-	<linux-renesas-soc@vger.kernel.org>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "dmaengine@vger.kernel.org"
-	<dmaengine@vger.kernel.org>, "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>
-Subject: RE: [PATCH 16/22] ASoC: rsnd: Export module getters for PM support
-Thread-Topic: [PATCH 16/22] ASoC: rsnd: Export module getters for PM support
-Thread-Index: AQHct7kKd3cY0XMcB0GuCOPoCUsMEbW7Xe2AgAKqHxA=
-Date: Tue, 24 Mar 2026 18:28:03 +0000
-Message-ID:
- <TY6PR01MB17377D272D1658B6010DFA518FF48A@TY6PR01MB17377.jpnprd01.prod.outlook.com>
-References: <20260319155334.51278-1-john.madieu.xa@bp.renesas.com>
-	<20260319155334.51278-17-john.madieu.xa@bp.renesas.com>
- <87a4vz9v4g.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87a4vz9v4g.wl-kuninori.morimoto.gx@renesas.com>
-Accept-Language: en-US, en-GB
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY6PR01MB17377:EE_|OSZPR01MB9280:EE_
-x-ms-office365-filtering-correlation-id: 6aa1988a-31c0-4620-37c3-08de89d31648
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|7416014|376014|1800799024|38070700021|18002099003|22082099003|56012099003;
-x-microsoft-antispam-message-info:
- OuKbf3wd0JdEK+fJS3QPXHyUVwNE+PomW0nOvqGAqxM/HK9OKx0Nm4hGEvaou2Q4yg7AAwfYwDNKq90VjCXd7qYYBaxfIugkoKkznAffGumFbLMES5J33Y4TzrjzA2/wRe0PP9fgBu3bI5tWCEy/JQUF/hEdheg01Mm/Or2O8LwobReZFO9Hn2cOO28kA/gHEAicWlAjciGANfNEdLifD5udoVEwsoCTCEgGv2TRtALUQwtRIlWgWCemB8Z7ZPdI7nBqaoKLq4GSY7wlQgfd2xMyS9rK8SC9d7Cq44GosupylB1V1yQs4iW/USvQE/BZgEt+EH1DEuEXouM1LZ3WK1pdXP7GKAtOVZcz0kJlNFAh/GNoVDIZ1yF/npFnhm1yBGFWegHfarsbgYWJjvVeLfbNfwtbtSY800Q50PqifFcIBe2ALvivXBsLjSUo12FzA1D4ZaGCoRSFYlxtY+8HemrJGF2bafXCyevozfppk3WnBpHvc0gqjsCfywHKXf/Bct7E2agoTbXTS7ZXZ87Gb3XpUuCwksSMTopIqGAbQY2cj+jrjofMeFZCcEnQ+KdLc1CVCO8CP7W+TFGgewTiqat1LgQ74405pDS/xjrMbNb8fk9LPjOGW424MpXXEgwDbf/jX927g33HDxdwgCOENZwSVWyUsSw8i90CvhulvLorjpIZS4TcRIqmnmH4K+7PocBXU3Gn3Y4bceJsSL6B2BgNgNNWTvOZThvCRizqf5XhpHsAa30IKeIzO8Z3tueOuiZXwkpvX1vW5XhGyH2tBwOpdEESAwL/J0UUdAA4ZkY=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY6PR01MB17377.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(38070700021)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?g7zE3Nkz+85GH159xU0XzPcl7MDo2Y9ris3F4YqlUw3ZW0IJbEfYpENBBcnW?=
- =?us-ascii?Q?GjvqHXvEiMlf9JIWMilubaZ9EpUAp8Fx5u1vaFJowP5LWHvXZzT6uF0YnYNu?=
- =?us-ascii?Q?sVpW5StFjtMKPCshuoE4RS1PUlcFirg9d6sD30l1UNqNdbTxcyOvvbGeihcd?=
- =?us-ascii?Q?yUgM19Tb9z8kQFumQ8bIqpzTVlD4ch0CGRm/8nTr6zD9sxVI20AdY4APDooI?=
- =?us-ascii?Q?J9hAVr6YG/w9m7TckdBrgBbKhGiNyQZMqePUQ4BB+AInkQG0DNA3G/iGqR2B?=
- =?us-ascii?Q?uBYsmvVSZrGDOl9wNMe/f0m3Wjouj7a+MmX6krJHgAypVbuM3NG7J3v3jOV1?=
- =?us-ascii?Q?VCVgFjFUO/LBicIfkb2k61EEcaMAItqVK76h4ix3pwvD8qRKY+vS/qG38ToP?=
- =?us-ascii?Q?q435cJ4++goUyh/Sgnb30/S/U7jU8gbTUT11CCWtwYfIoJ/9cso684nDGX0Q?=
- =?us-ascii?Q?E4i1wpIR7/By2HABC8td1dqpg+i0wRehhU6nFFyBot5TaOVpp5CIjJIcZ2oU?=
- =?us-ascii?Q?Dnp6xbkATH5BRjK5IHQbAW4gL+1OlmF2jIrFyfEuEZedSni1EU2w4M2IKada?=
- =?us-ascii?Q?TDw1VFvTohnA1qAPN/bsQKPsl7P9k7ZMmBsVHICZ9EUH2m/4NidcTKrYj3sY?=
- =?us-ascii?Q?3QkGQ1hdiJuARNYLPEm2QggpwHMR9hNU8zv8lM5dy7rZOQQ3f2yA0NaHTRHw?=
- =?us-ascii?Q?3ZiSDM+UOwzx6wcWg1ZVDn0+tahb4+h8fftsLfvJCDRE00u7VF5lOqUEsQMC?=
- =?us-ascii?Q?sKgz5qnke+45WJlrlz3XEJh9yeuTO83Ytws8Z48VvicnD+3wUjWXvTvo+Efn?=
- =?us-ascii?Q?m3B4p+vKXlE0F8wv+RSLow954BZmZOrOjaUh2FRlxinIyBPy/NtwP4kSddjQ?=
- =?us-ascii?Q?souL7AivOk4I2DpoEPeD1zSPCi+4qeC23Dto8wGvCC9Mumx1MuAtuWo/aLsk?=
- =?us-ascii?Q?kpdqIlOL3rqEvDZfEkb2LTnybG2L0IxMnoeG+zmGr34dyD8A2Jk7krtk/C45?=
- =?us-ascii?Q?STb6SENvtgkGBfzxPn7Hj+vzcTdBIsQIiNxrZiLu8aq7r7MiFMqbWShhvofZ?=
- =?us-ascii?Q?3jUqCkqFrb3xlLJ7n+IhhgaxEVENGzeNO18l0smXS++E2Sbc3gFTjlTu+NfP?=
- =?us-ascii?Q?jQlTSN8VqlZRrB0amOqtJ7XbNfi49Sey6SNyUlHTMtAe1IJQOBdbPewZbnOz?=
- =?us-ascii?Q?4P6rUZjNqEn0z5sfEP+t6f/f/MpGL/0+DCxV/WquvmtJAvCOiSbL4QVniS/U?=
- =?us-ascii?Q?Dp1UibXxtSBki8qiR4ef/dXQDQPYQW1YWllO89tFB36KYG1OrRCl0mojCRRP?=
- =?us-ascii?Q?Pp/04z0MR/TRkBB8i7LMTmf35Qb3urYQUyUZf6aAo01xbUIgKd3hoLuUU4GQ?=
- =?us-ascii?Q?rUHIe9ER8Y/04lra3Ttpk9ua+5kiZNZYdPhA3N3dCxza1l3HP+JNeZbAAYc+?=
- =?us-ascii?Q?HfqEo1KgTewbl4saAFx/cNcBGKcttWrEusEbsS9APO6nX2O4CAq2nU8DRDqH?=
- =?us-ascii?Q?Kfa7fEQSVRiO/DXLJJAY4s3CYzi9jEn0NLT8lsYFv48JfBBnsmRSlO/mS5yy?=
- =?us-ascii?Q?R/O4XUfxtZg1nAzy7nZ6NMkta/obXexxGMeO8t5UYb05E6aacokyb1JLr93J?=
- =?us-ascii?Q?mBGe/9XQJHXc2SI/3uz3u+nbDGv3+V1RTNZFB9bE8imNg30OcgVJzAk0ydS+?=
- =?us-ascii?Q?1ZrifHTwWTiZGanG3ECDzuE/6ZUqWqq9Hdr4VgshRmezYydH2us5TYt+RFXk?=
- =?us-ascii?Q?iKDg60/j9lTZ1qkWldyzTIlIHb4akIk=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Tue, 24 Mar
+ 2026 18:31:41 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9723.030; Tue, 24 Mar 2026
+ 18:31:33 +0000
+Date: Tue, 24 Mar 2026 14:31:33 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, kernel@dh-electronics.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ARM: dts: imx: Add DT overlays for DH i.MX6 DHCOM SoM
+ and boards
+Message-ID: <acLYhQDb9kYjwFj3@lizhi-Precision-Tower-5810>
+References: <20260312233526.200157-1-marex@nabladev.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260312233526.200157-1-marex@nabladev.com>
+X-ClientProxiedBy: PH7PR13CA0019.namprd13.prod.outlook.com
+ (2603:10b6:510:174::16) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AS8PR04MB8312:EE_
+X-MS-Office365-Filtering-Correlation-Id: e263797b-492f-4e69-2024-08de89d39356
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|52116014|19092799006|1800799024|7053199007|18002099003|56012099003|22082099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	KoTJueQnPyT/vsMrPQq80wRt7gMHimST72xfV1YfO1NtV5XXm3YDZXEiqVejQZ9w0Ih9zN46ep+bOIcW7GRhZLiVtIZfMOgjOiWHvrj2cXcfLazP/NzOCBwHlOqrgxUl7ElsGfakYv1Ahu/az6RizrRGsO4z9fcERjoX1Lagla6wo8/c5416gSAKD+xvETmZYjNUgltP8vNcAHni2miJXUQT3JT99x5i7G/bfTS3MSOWipcqwHGqgWa4f0afHHln9rAqiCF0jKiQ6liWuzRuDWXERitMuVXrCuYi/CgH+CHMZvpLUzPHgxOm/TPKA+haqbN4Mh4sFsm6gNXqIpcp6hhlLmw6xIFnyqeuEqP+r9tL5k+mzT8yvPeePrN5zYoyde+lBvE869Hf5rUuhjqwCKrjY6/hXs+fGPaXRYhWNbqFZ+KxcqCTbEefbYsz8RUkN9Yu5UQS7/cldZzSi1YuXVw90KLJq23wbkQjkFcyoAI7BqXjTaDXE4ti1pxrGJQG09SqsRmTehHmWPeWl9wwvgohfjTVPsor+oT6y/aI1LrW0llxYYB4WqnV/emUqpxmTRvH43EFyaiJrHd/lFtAcQ/RuaEiSC64uLX9I99jWqbNjf329xDhkAjKNhljvEJwsFR4eenDAMetnvJTqBTaZ/hpZQjybo5e7J3bF5vsYQOACmjX+Z8FR5hQDmVwstCAilInYXrEGmrsqk0eIKhXFyhBAuxPUjSbqVjD/eEcQ16y2bOzWceb1fTA3Pkd1kkYies5UeGXaUuLR1kUumU8fJ0Zn0ENoucwkegwrbPJ2Mk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(52116014)(19092799006)(1800799024)(7053199007)(18002099003)(56012099003)(22082099003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?NZRrcJdL1IGP43F5n1AOIT62R1/6rInQupKwFowAzD+V/odC82wLY8Wr7Bpn?=
+ =?us-ascii?Q?w25RSTfgTykCL3Pr2HxmW9teC8A/JFSa//XTRYUcPaEnCR7NeZfvirY7GL6o?=
+ =?us-ascii?Q?QlNzesyRPG8eRW8IKyYs+kfl5wcrGvU37cdSbHH6VVKbdnUpIA8pA6UGp0fX?=
+ =?us-ascii?Q?HXD5dg7LiatmKaznrhjGIDQgSZAlDEYkFWmDUfrwLAutYl6Z89ZWF2ca9L91?=
+ =?us-ascii?Q?H9pVE7shbHCVrksNs5JHoBTl8SAby199Tu5sOwQlOahlLQxwrw3Llu/dJF1b?=
+ =?us-ascii?Q?5dU/6gOlP/JMpeUbmprkG3/65pdtT5d3oDHW2Z+UT/VdFNUC/utrNxbJPRwS?=
+ =?us-ascii?Q?Y+JFs4XOY3vZ5hmR51YpiXusRtgOus5y9zxO0HTpc88x6pOraOG1mqfQ9iUy?=
+ =?us-ascii?Q?EBCnGT22v5//eq9dF1bRcLZoKLTa35uk89a9d4w/kqJYEJ1OOnfYFoMnomai?=
+ =?us-ascii?Q?ZrKfq6FxPLfFKRpReMKzpr8l84l5daPpEV4Ntp4A4rrN+z/+fZefM67V7EVI?=
+ =?us-ascii?Q?H8dmR15CheW+3jn9+C0vcilDw5HJvLcWZV2wxafvaqH3ATuPwisSeMmTtFsS?=
+ =?us-ascii?Q?tBu2WVLKkdlGTTpr8Ai66F4BMlMrfg+/KsMgZRYGpEnWUei1CgqGZR78qSmS?=
+ =?us-ascii?Q?q2N6IKX51BB53YOgq3YjLJSqdJYFsN5/GJHJTos3vm69KbEENa6PMEg1AVCb?=
+ =?us-ascii?Q?UrgyIlnUPScGfYoDkDdGldUdXtCleOFcG8nEZCYTVBWPwguW96BT8Ggc1o2x?=
+ =?us-ascii?Q?S8v2Q9SUlWT8+bR6C4KlvVk8twglntYeGa3GF340OLxll1i6vGCtzwzfevMA?=
+ =?us-ascii?Q?3y1t7IajyXz8H9KzFkgwwHb/ttYa1wE6iDIvzizq9VIJHCRNuf2pAYguL9y+?=
+ =?us-ascii?Q?jDbCadE95WMXr1ZMZ6mIhpOUCcTdp+CF8VXDh8CB3lGn853uVPD7cQ0FPK2X?=
+ =?us-ascii?Q?XRmgB3n9kkq+nRA8dTbTiTqKTXOzFUvby9Ge5uxZGgBZxMg5EHpsbmFvXnOj?=
+ =?us-ascii?Q?oQz+/9e11QAM2yTB/osK3Yf44EX+pEGywVAOvDk5Gq2QBXHwmcZpUKUGMDcj?=
+ =?us-ascii?Q?3gJToMmTbs1MOxOGlV8xUc1COnzHaGj6Pa9qa+Q5H72b+TM2NEaXrFpwlgh6?=
+ =?us-ascii?Q?fqISln/RhLFQA+J+tpn+8ir0rT/0wcnoVnw6kCYrnl+NlmOgQ1xznk9vfLwC?=
+ =?us-ascii?Q?eLbmtr1JsS2lOGiDqc39C590fGGw8fRyt0Hp8/hg8y9V75iHxHGg2Rx0GpWe?=
+ =?us-ascii?Q?pLbMQ0UxUhmVpNGuFHIl9VK0vB+iPtwhHHnLOtLJUWSaey6ShuAPgCzeEnLo?=
+ =?us-ascii?Q?4TlEpEF4XEbV5x7aSMHO9aANFTKefec2S9bNsa/nVc8IzOXtI5uzekN8AXHL?=
+ =?us-ascii?Q?/WXiT3dRSJjT6XGoVwakkLPhK5X4dd/XCchQloI0OwCWNU7kc3ROgO54qfze?=
+ =?us-ascii?Q?wyQ6uzmuSb+KQRojPWN4JTTEP/nEZjCJiv5ne3Q47Dk2wvtnziqsujuzGCA1?=
+ =?us-ascii?Q?kWV6xgFW0abm3fgKjqxRYnojXzb8QeeqKKCA55slBMKIjAjuFNJP0m5/Lz7c?=
+ =?us-ascii?Q?6Ml3+i40m30n+3J1kJQZWRi25qWAdxUyX+FYl9sGxvo1zdRfD/GHyevh1SC8?=
+ =?us-ascii?Q?6dPhA/p1MtliGK86Jm2/TV4cpKcH58oYHPE4W1/HtUUaV9mXV9nSRBfND3+q?=
+ =?us-ascii?Q?AiW4kHgIT3uApquf4W/rA0Wsymq9UEBBqbFXT+H/VqYEoANsldA14SQsGwPW?=
+ =?us-ascii?Q?nk03WPJU4g=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e263797b-492f-4e69-2024-08de89d39356
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17377.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6aa1988a-31c0-4620-37c3-08de89d31648
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2026 18:28:03.7555
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 18:31:33.7692
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: RbTlhIkSVOTxwlafbZVNcKdXei1wezB2+Wtd5MPjYsdkMThJb48SE4qX7X4086dFxgNu66vaXv6O7vs8sHERwHMrtnSpRxM4OvNvPKBjibQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB9280
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nqrY11n51nYEexJ0USUwn8Xa2nS+IrUcp5H8ZQSzBiSG6vTtmL7kNJh89wmwEwiIDdZNXdMrf/VHhB1MhhLXnA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8312
 
-Hi Kuninori,
+On Fri, Mar 13, 2026 at 12:34:05AM +0100, Marek Vasut wrote:
+> Add DT overlays to support DH i.MX6 DHCOM SoM carrier board expansion
+> modules. The following DT overlays are implemented:
+> - PDK2:
+>   - DH 497-200 Display board in edge connector X12
+>   - DH 505-200 Display board in edge connector X12
+>   - DH 531-100 SPI/I2C board in header X21
+>   - DH 531-200 SPI/I2C board in header X22
+>   - DH 560-200 Display board in edge connector X12
+> - PicoITX:
+>   - DH 626-100 Display board in edge connector X2
+>
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+> Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Fabio Estevam <festevam@gmail.com>
+> Cc: Frank Li <Frank.Li@nxp.com>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Sascha Hauer <s.hauer@pengutronix.de>
+> Cc: devicetree@vger.kernel.org
+> Cc: imx@lists.linux.dev
+> Cc: kernel@dh-electronics.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+>  arch/arm/boot/dts/nxp/imx/Makefile            | 37 +++++++++
+>  ...l-dhcom-overlay-panel-dpi-ch101olhlwh.dtsi | 75 +++++++++++++++++++
+>  .../imx/imx6qdl-dhcom-overlay-panel-dpi.dtsi  | 61 +++++++++++++++
+>  ...mx6qdl-dhcom-pdk2-overlay-497-200-x12.dtso | 28 +++++++
+>  ...-pdk2-overlay-505-200-x12-ch101olhlwh.dtso | 26 +++++++
+>  ...mx6qdl-dhcom-pdk2-overlay-531-100-x21.dtso | 32 ++++++++
+>  ...mx6qdl-dhcom-pdk2-overlay-531-100-x22.dtso | 32 ++++++++
+>  ...mx6qdl-dhcom-pdk2-overlay-560-200-x12.dtso | 39 ++++++++++
+>  ...icoitx-overlay-626-100-x2-ch101olhlwh.dtso |  8 ++
+>  .../boot/dts/nxp/imx/imx6qdl-dhcom-som.dtsi   |  2 +-
+>  10 files changed, 339 insertions(+), 1 deletion(-)
+>  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-dhcom-overlay-panel-dpi-ch101olhlwh.dtsi
+>  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-dhcom-overlay-panel-dpi.dtsi
+>  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-dhcom-pdk2-overlay-497-200-x12.dtso
+>  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-dhcom-pdk2-overlay-505-200-x12-ch101olhlwh.dtso
+>  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-dhcom-pdk2-overlay-531-100-x21.dtso
+>  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-dhcom-pdk2-overlay-531-100-x22.dtso
+>  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-dhcom-pdk2-overlay-560-200-x12.dtso
+>  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-dhcom-picoitx-overlay-626-100-x2-ch101olhlwh.dtso
+>
+...
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-dhcom-overlay-panel-dpi-ch101olhlwh.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-dhcom-overlay-panel-dpi-ch101olhlwh.dtsi
+> new file mode 100644
+> index 0000000000000..afdb936f1d4e3
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-dhcom-overlay-panel-dpi-ch101olhlwh.dtsi
+> @@ -0,0 +1,75 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+> +/*
+> + * Copyright (C) 2021 Marek Vasut
 
-Thank you for the review.
+2026
 
-> -----Original Message-----
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> Sent: Monday, March 23, 2026 2:45 AM
-> To: John Madieu <john.madieu.xa@bp.renesas.com>
-> Subject: Re: [PATCH 16/22] ASoC: rsnd: Export module getters for PM
-> support
->=20
->=20
-> Hi John
->=20
-> > Export rsnd_adg_mod_get() and rsnd_ssiu_mod_get() to make them
-> > accessible from core.c.
->=20
-> It is *adding* new rsnd_ssiu_mod_get(),
-> and exporting rsnd_ssiu_mod_get() different type of features
->=20
+> + */
+...
+> +
+> +&panel {
+> +	compatible = "edt,etm0700g0edh6";
+> +};
+> +
+> +&panel_in {
+> +	remote-endpoint = <&ipu1_dpi0_out>;
+> +};
+> +
+> +&i2c2 {
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +
+> +	touchscreen@38 {
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&pinctrl_dhcom_e>;
+> +		compatible = "edt,edt-ft5406";
 
-You are right. I'll update the commit message accordingly,
-or would prefer it to be split in different patches ?
+compatible should first property
 
-Regards,
-John=20
+> +		reg = <0x38>;
 
-> >
-> > This is preparation for system suspend/resume support, where the PM
-> > callbacks need to iterate over all modules to save and restore their
-> > clock and reset state. Other modules (SSI, SRC, CTU, MIX, DVC) already
-> > have their getters exported.
-> >
-> > Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
-> > ---
-> >  sound/soc/renesas/rcar/adg.c  | 10 ++++++++++
-> > sound/soc/renesas/rcar/rsnd.h |  2 ++  sound/soc/renesas/rcar/ssiu.c |
-> > 2 +-
-> >  3 files changed, 13 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/sound/soc/renesas/rcar/adg.c
-> > b/sound/soc/renesas/rcar/adg.c index 131a60689f6d..d73f29bc9de7 100644
-> > --- a/sound/soc/renesas/rcar/adg.c
-> > +++ b/sound/soc/renesas/rcar/adg.c
-> > @@ -906,6 +906,16 @@ int rsnd_adg_probe(struct rsnd_priv *priv)
-> >  	return 0;
-> >  }
-> >
-> > +struct rsnd_mod *rsnd_adg_mod_get(struct rsnd_priv *priv) {
-> > +	struct rsnd_adg *adg =3D rsnd_priv_to_adg(priv);
-> > +
-> > +	if (!adg)
-> > +		return NULL;
-> > +
-> > +	return rsnd_mod_get(adg);
-> > +}
-> > +
-> >  void rsnd_adg_remove(struct rsnd_priv *priv)  {
-> >  	struct device *dev =3D rsnd_priv_to_dev(priv); diff --git
-> > a/sound/soc/renesas/rcar/rsnd.h b/sound/soc/renesas/rcar/rsnd.h index
-> > a803c0f03665..2cee5c2aa7d7 100644
-> > --- a/sound/soc/renesas/rcar/rsnd.h
-> > +++ b/sound/soc/renesas/rcar/rsnd.h
-> > @@ -628,6 +628,7 @@ int rsnd_adg_set_cmd_timsel_gen2(struct rsnd_mod
-> *cmd_mod,
-> >  #define rsnd_adg_clk_disable(priv)	rsnd_adg_clk_control(priv, 0)
-> >  int rsnd_adg_clk_control(struct rsnd_priv *priv, int enable);  void
-> > rsnd_adg_clk_dbg_info(struct rsnd_priv *priv, struct seq_file *m);
-> > +struct rsnd_mod *rsnd_adg_mod_get(struct rsnd_priv *priv);
-> >
-> >  /*
-> >   *	R-Car sound priv
-> > @@ -824,6 +825,7 @@ int rsnd_ssi_is_dma_mode(struct rsnd_mod *mod);
-> > int __rsnd_ssi_is_pin_sharing(struct rsnd_mod *mod);
-> >
-> >  #define rsnd_ssi_of_node(priv) rsnd_parse_of_node(priv,
-> > RSND_NODE_SSI)
-> > +struct rsnd_mod *rsnd_ssiu_mod_get(struct rsnd_priv *priv, int id);
-> >  void rsnd_parse_connect_ssi(struct rsnd_dai *rdai,
-> >  			    struct device_node *playback,
-> >  			    struct device_node *capture);
-> > diff --git a/sound/soc/renesas/rcar/ssiu.c
-> > b/sound/soc/renesas/rcar/ssiu.c index f377d9414633..1462f02c2a7f
-> > 100644
-> > --- a/sound/soc/renesas/rcar/ssiu.c
-> > +++ b/sound/soc/renesas/rcar/ssiu.c
-> > @@ -434,7 +434,7 @@ static struct rsnd_mod_ops rsnd_ssiu_ops_gen2 =3D {
-> >  	DEBUG_INFO
-> >  };
-> >
-> > -static struct rsnd_mod *rsnd_ssiu_mod_get(struct rsnd_priv *priv, int
-> > id)
-> > +struct rsnd_mod *rsnd_ssiu_mod_get(struct rsnd_priv *priv, int id)
-> >  {
-> >  	if (WARN_ON(id < 0 || id >=3D rsnd_ssiu_nr(priv)))
-> >  		id =3D 0;
-> > --
-> > 2.25.1
-> >
+reg is the second one.
+
+Frank
