@@ -1,50 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B85C3A169F;
-	Tue, 24 Mar 2026 03:42:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86BFF3A3808;
+	Tue, 24 Mar 2026 03:42:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774323743; cv=none; b=FUfcA/EZvdUT2FnoRy2b80+Ev/KTnUM8LULhpavJikzxgl51wsWi4GwpPNkVEru/JFMy1Z6g5M0rPIUtKABiJRClWa2YjZeeMgF+dkF6VK7sJXSDJyD3jWxgEGvGWoYVc481xRmSgLUSk185ppXJY0yHRGlL6sZNeE30QNTLXBI=
+	t=1774323744; cv=none; b=DPkQNhQDzodNSX47xqkWODiP2KMbGHjS1mccFhNpa2s9mmBx0zK7GFRoj6Dr8AcoNkrdXScc8+QkmPUwHqhinVA+h3xh2ztSylVp1/BvDg5z78NiWk+/beOmg0nJm/WAOHK/D3lm4vZDe8uTlUWogsIhOXuiMDl/K+bZQzTOEGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774323743; c=relaxed/simple;
-	bh=10TlgMSe/q2uzmOIAr2NJuiOT/Ea2pw8WEGad038rjA=;
+	s=arc-20240116; t=1774323744; c=relaxed/simple;
+	bh=DwlMuUldPnUoE1+doEHJYG9HavjeB/IryHDgqrJnCMw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CswoelZN1yMp214DQgXLG+zcl0kgKL5x9bmMtAMoiFIFuKBucRMmzsIyVwTd7yqRnzopiIV9OH9I/5GutvjhNfZ0I1xsQ6rf0tQFYygDeacfKu5cUxt2bM587zqouj9TCk+uoRsc875HN0iBia4x7LJl7yGM5lBdjVht9YVGOTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MNWQRy0C; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=GcALTxsZxyPf+BkuI2+rqfWNONFICKe0piQH7NQAEgByYxINwwykv78JNXjKpZovzMrQUKaBacc4tyIeATnTefUDtnHlaSd1kY16c7Tau+4PhRClqO5t2aOhhz6/2z7GD00eszceVKlMFSJAe4rc5nMYRUe870hngKOAsKSNZ/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oypLsDXL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MNWQRy0C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CCA1C2BCB4;
-	Tue, 24 Mar 2026 03:42:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oypLsDXL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BC62C19424;
+	Tue, 24 Mar 2026 03:42:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774323743;
-	bh=10TlgMSe/q2uzmOIAr2NJuiOT/Ea2pw8WEGad038rjA=;
+	s=k20201202; t=1774323742;
+	bh=DwlMuUldPnUoE1+doEHJYG9HavjeB/IryHDgqrJnCMw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=MNWQRy0CeOEomSjRkP1NFw5rRp+i5ObbWx3AV3LrZtyG+vCgNvj+rViNAO+JM7nwU
-	 ZNSnQ8cGTOPK7dMnhYFP/2ixaTYCV7UVYVB3YtPPeivgEiiiqa2ANgul6UjepVLRV6
-	 JtGTQpGkK8ehN3E1/xuHfNJ+vDym0AXhFcFDZ8+Ju6q9eFWtWRD7IrU6k63YEH3OCt
-	 rAiFQQTSAUR5Y+d5MC4aeaW9Y2AsfiwO2CNCHnzQCbe8IQsqb6o3341QCbMOijwcYu
-	 XJ0Phjol5wDfi8GhIsDZznVrHyzi4WpYNA63NoaxEEJl+ThsPJJ5rJO5ToFVA+403F
-	 BuNQiqCquwXqQ==
+	b=oypLsDXL0cpWnk+99nTP7hTlJvJFDHs5//ngE8oO9SHFhOKDlghpM+o2iDK7Dn15p
+	 mqGPT8YtYZFJURn6uiXmRU87rI601lSAAUl6CUbrGHIQJCN8EPFi3T3E8yTd8fCmW+
+	 rNeZcLhzxivN6hvZt21WBDSogtYAba9KEy3OLK62nPqdVNGXIZ04yK2WkDm7rRRQfN
+	 idCMzEa5N3hE8eZOTGIAARyBwnBSFynyJMI66zP5BWP7pt+w4q8iZ00FZprs/qD06g
+	 7umBl0O2TbUBF8uJGUM2TF+7wPzPeRy2EwlzAO8/G10t9QGZpx0aLNobEsG0CCtLYz
+	 GpVTc61RS5ung==
 From: Bjorn Andersson <andersson@kernel.org>
-To: konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	richardcochran@gmail.com,
-	Umang Chheda <umang.chheda@oss.qualcomm.com>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Swati Agarwal <swati.agarwal@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mohd.anwar@oss.qualcomm.com,
-	krishna.chundru@oss.qualcomm.com,
-	monish.chunara@oss.qualcomm.com
-Subject: Re: (subset) [PATCH v3 0/1] Introduce Monaco EVK Interface Plus Mezzanine
-Date: Mon, 23 Mar 2026 22:42:08 -0500
-Message-ID: <177432372688.35532.2521561502034738726.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 0/4] Enable tertiary USB controller in OTG mode
+Date: Mon, 23 Mar 2026 22:42:07 -0500
+Message-ID: <177432372694.35532.9315075607383431142.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260303164314.886733-1-umang.chheda@oss.qualcomm.com>
-References: <20260303164314.886733-1-umang.chheda@oss.qualcomm.com>
+In-Reply-To: <20260306091355.1178333-1-swati.agarwal@oss.qualcomm.com>
+References: <20260306091355.1178333-1-swati.agarwal@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,20 +51,29 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 03 Mar 2026 22:13:13 +0530, Umang Chheda wrote:
-> Introduce device tree support for the Interface Plus [IFP] Mezzanine
-> expansion card used with the Qualcomm Monaco Evaluation Kit (EVK).
+On Fri, 06 Mar 2026 14:43:51 +0530, Swati Agarwal wrote:
+> Enable tertiary USB controller in OTG mode on lemans EVK platform.
 > 
-> The Monaco IFP Mezzanine is an additional add-on card which can be
-> stacked on top of monaco-evk board to extend peripheral capabilities of
-> monaco-evk used for industrial applications.
+> Changes in v6:
+> Moved Rename vbus regulator for USB primary controller patch before adding
+> USB2 VBUS.
+> 
+> Changes in v5:
+> Renaming of vbus regulator for USB primary controller as per schematics and
+> in sync with tertiary USB controller.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: monaco-evk: Add IFP Mezzanine
-      commit: 1ef1cbb7239d9dad754b7b048618e2a2f48d07f3
+[1/4] arm64: dts: qcom: lemans-evk: Enable GPIO expander interrupt for Lemans EVK
+      commit: 8fa0facd43544a3be8fb82cfe8259d0d658b2b06
+[2/4] arm64: dts: qcom: lemans-evk: Rename vbus regulator for Primary USB controller
+      commit: 595fc1cf192a2a2359c80bc3e2e0cdb3033e100c
+[3/4] arm64: dts: qcom: lemans: Add role-switch support and HS endpoint for tertiary USB controller
+      commit: 41792df8a0c727fef9a72be7350b4b16030d0743
+[4/4] arm64: dts: qcom: lemans-evk: Enable the tertiary USB controller
+      commit: bfd9e48da5c277c411d639add6c0bcabfdd73fa6
 
 Best regards,
 -- 
