@@ -1,218 +1,62 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D1092BE7B6;
-	Tue, 24 Mar 2026 14:22:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1FD2175D53;
+	Tue, 24 Mar 2026 14:26:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774362170; cv=none; b=qz5wNDdf0HBIESTHM/IBLZpdgpVk9kF44fBW1m15JB7/bg4Kyvx4Sejp7CLWJedtQmbj0SKftdiGEq5LYIsHo89Rqrxmk8LS+umiUtniatdFhovKMRFZ4NjcPODfX7/q8btH0rv30N/zh/K0/WkGS3E/MukULHBjGY8Q3qwyZ40=
+	t=1774362383; cv=none; b=BWl8C50VWpuKrZ/TlNm8xWPaUsaCpz07xLgpTrqs9x05DuLanPp0AkCQIb5BX6gAuXCdH8M8oP6ZpTQ+VTN/fnMWxgQ6DCf2zQOLUGKzfZBe8omU8uy1yL9NsmhZegCargxR2BM6Coc/NOAIi8Zm2b3r8/VAk/1Ua/LghsPPURU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774362170; c=relaxed/simple;
-	bh=BRixHAQA2z9Hj9TZCLXffWZs4Yn9gMucoyh7Xwxggps=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cbAN16ZyeHibiLRX+bigI1qmYjDOR2BjthP/fjEiayJRhpUZVWN0o9wQV3xxRZLLdp6aHvibSnn6kdBdhb15uXQDFPIs0muXMHkRfG5pXg6FJPvhKJtoTGlBlcfxyQTo+gPIJoV6HUtKO/CI0nR9aRh5EZVx/77Qt6elPu8en0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=HsoDCgbG; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1774362383; c=relaxed/simple;
+	bh=52atFKA062AVZeWqC1bg0nJSW4KY4y2rV64ZMQODBRc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PR9tbP3dQEwP60ZInh+2qhaDeo/ViPr6R1aAca1AC25B4bPnvG3GVWTo//oDoVC9nIci+if7RdcTxU5cqIXj6KHvpEaxb/9s+ARAJtN+a6exfaKZGZwvK3FQBl2/4QJT+zN6BVZ56ZSrXwzaojSX7q51Kew39ezMG4ICMyrb880=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZdaPCe/4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="HsoDCgbG"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9713E1476;
-	Tue, 24 Mar 2026 07:22:42 -0700 (PDT)
-Received: from [10.1.39.145] (e142021.arm.com [10.1.39.145])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EAA9E3F915;
-	Tue, 24 Mar 2026 07:22:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1774362168; bh=BRixHAQA2z9Hj9TZCLXffWZs4Yn9gMucoyh7Xwxggps=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=HsoDCgbG9zB/ghH2tlXyXDN06ILn05wImehmd9AjdFed04GolZiQso8LbleM54Svg
-	 HkL2jQE9Qs899fjFiF0e2Fw8s/9ffOWSsaXf7E5meEhDw7uY+GtTkDsgZoBw5Rt1lb
-	 iCwtI+z1wumxYBndEENICdwRcA27ceLzc+2oJXIc=
-Message-ID: <6ae6d412-84c0-402b-bb25-bad98e97969f@arm.com>
-Date: Tue, 24 Mar 2026 14:22:43 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZdaPCe/4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AEBCC19424;
+	Tue, 24 Mar 2026 14:26:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774362383;
+	bh=52atFKA062AVZeWqC1bg0nJSW4KY4y2rV64ZMQODBRc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZdaPCe/4rvBaPJba4ud6veZ4JJAIen6MZf+hugOLkxJ4c+ZG8ntu1FYR6c/JaXCCt
+	 p17zQeL8Q3xF/FXb6LkdmQnY8Rhxz5WuatIgweqFEaAoW9q8z6pOZFK2WtIqmj3I/y
+	 xZ6IYBN4HL5BRbVWBREcfo8/eURMHPeYwSkL87cnm+OVDb9p1tvNEN9UJC4OZOMnle
+	 HcuUC/IJqERJOscN01rIa+GTlEpbWnI6U6VemSYirZFaGKRWzG9xX1qS8+k9z0Ytc6
+	 iHeuWhYyCP0S530P5C6M0WCqUMP5iftJXSFLCsiqaaj6S1QDHwGO0RO+3MzKNqPJ7u
+	 G1GMy36M+/X+w==
+Date: Tue, 24 Mar 2026 10:26:18 -0400
+From: Konstantin Ryabitsev <mricon@kernel.org>
+To: Paul Sajna <sajattack@postmarketos.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	David Heidelberg <david@ixit.cz>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+	~postmarketos/upstreaming@lists.sr.ht, Amir Dahan <system64fumo@tuta.io>, 
+	Christopher Brown <crispybrown@gmail.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Amir Dahan <system64fumo@protonmail.com>, 
+	Pavel Machek <pavel@ucw.cz>
+Subject: Re: [PATCH v6 00/15] arm64: dts: qcom: sdm845-lg-{common, judyln}:
+ Improve HW support in dts
+Message-ID: <20260324-amiable-practical-camel-cc9e32@lemur>
+References: <20260323-judyln-dts-v6-0-29d70ca1651c@postmarketos.org>
+ <8d0c3d305197730a53ec9ca95b28f8df95c777a3@postmarketos.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] pinctrl: sunxi: a523: add missing IRQ bank (plus old
- DT workaround)
-To: wens@kernel.org
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Michal Piekos <michal.piekos@mmpsystems.pl>, linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260323110151.2352832-1-andre.przywara@arm.com>
- <20260323110151.2352832-6-andre.przywara@arm.com>
- <CAGb2v648WLXK9KjXcCRKy_mQGMkn8mhxKHSukh-WC4i=sXZGbg@mail.gmail.com>
-Content-Language: en-US
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <CAGb2v648WLXK9KjXcCRKy_mQGMkn8mhxKHSukh-WC4i=sXZGbg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <8d0c3d305197730a53ec9ca95b28f8df95c777a3@postmarketos.org>
 
-Hi Chen-Yu,
+On Tue, Mar 24, 2026 at 02:13:43AM +0000, Paul Sajna wrote:
+> b4 got rate-limited by my email provider for the last 3 patches, I'm not sure what the best way to send just those is now :/
 
-many thanks for having a look!
+You can use the web submission endpoint.
+https://b4.docs.kernel.org/en/latest/contributor/send.html
 
-On 3/23/26 18:41, Chen-Yu Tsai wrote:
-> On Mon, Mar 23, 2026 at 7:02 PM Andre Przywara <andre.przywara@arm.com> wrote:
->>
->> The Allwinner A532 SoC implements 10 GPIO banks, each of which is
->> interrupt capable. However the first bank (PortA) is skipped, so the
->> indicies of those banks range from 1 to 10, not 0 to 9.
->> We described the skipped bank correctly, but missed that for the IRQ
->> banks, where we rely on the IRQ bank index to be aligned with the MMIO
->> register offset, starting at 0x200.
->>
->> Correct that by increasing the number of IRQ banks to 11, to cover both
->> the first skipped one, but also the last one (PortK). This fixes a bug
->> where the interrupt numbers would be off-by-one, due to that
->> mis-enumeration.
->> The big caveat is that now old DTs break the kernel, since they only
->> provide 10 interrupts, and the driver bails out entirely due to the last
->> missing one. So add a workaround for this particular case, where we
->> detect the requirement for 11 banks, but only 10 interrupts provided,
->> and continue with 10 IRQs, albeit emitting a warning about a DT update.
->> This would still be broken in terms of interrupt assignment, but it was
->> broken the whole time before, so it's not a regression.
->>
->> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
->> ---
->>   drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c |  2 +-
->>   drivers/pinctrl/sunxi/pinctrl-sunxi.c       | 22 +++++++++++++--------
->>   2 files changed, 15 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c b/drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c
->> index b6f78f1f30ac..a1d157de53d2 100644
->> --- a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c
->> +++ b/drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c
->> @@ -17,7 +17,7 @@ static const u8 a523_nr_bank_pins[SUNXI_PINCTRL_MAX_BANKS] =
->>   /*       PA  PB  PC  PD  PE  PF  PG  PH  PI  PJ  PK */
->>          {  0, 15, 17, 24, 16,  7, 15, 20, 17, 28, 24 };
->>
->> -static const unsigned int a523_irq_bank_map[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
->> +static const unsigned int a523_irq_bank_map[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-> 
-> Actually you don't even need this, since this is a linear mapping.
-> 
->  From sunxi_irq_hw_bank_num():
-> 
->      if (!desc->irq_bank_map)
->              return bank;
->      else
->              return desc->irq_bank_map[bank];
-
-Yeah, I was wondering about that as well, and there are other cases were 
-we wouldn't need the map, espeically in the PRMC pinctrl instances. I 
-might add a separate patch for that.
-
->>   static const u8 a523_irq_bank_muxes[SUNXI_PINCTRL_MAX_BANKS] =
->>   /*       PA  PB  PC  PD  PE  PF  PG  PH  PI  PJ  PK */
->> diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.c b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
->> index 6a86b7989b25..ffee79397590 100644
->> --- a/drivers/pinctrl/sunxi/pinctrl-sunxi.c
->> +++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
->> @@ -19,6 +19,7 @@
->>   #include <linux/irqdomain.h>
->>   #include <linux/of.h>
->>   #include <linux/of_clk.h>
->> +#include <linux/of_irq.h>
->>   #include <linux/platform_device.h>
->>   #include <linux/regulator/consumer.h>
->>   #include <linux/slab.h>
->> @@ -1582,6 +1583,7 @@ int sunxi_pinctrl_init_with_flags(struct platform_device *pdev,
->>          struct sunxi_pinctrl *pctl;
->>          struct pinmux_ops *pmxops;
->>          int i, ret, last_pin, pin_idx;
->> +       int num_irq_banks;
->>          struct clk *clk;
->>
->>          pctl = devm_kzalloc(&pdev->dev, sizeof(*pctl), GFP_KERNEL);
->> @@ -1715,16 +1717,20 @@ int sunxi_pinctrl_init_with_flags(struct platform_device *pdev,
->>                  goto gpiochip_error;
->>          }
->>
->> -       pctl->irq = devm_kcalloc(&pdev->dev,
->> -                                pctl->desc->irq_banks,
->> -                                sizeof(*pctl->irq),
->> -                                GFP_KERNEL);
->> +       num_irq_banks = pctl->desc->irq_banks;
->> +       /* Workaround for old A523 DT, exposing one less interrupt. */
->> +       if (num_irq_banks == 11 && of_irq_count(node) < 11) {
->> +               num_irq_banks = 10;
->> +               pr_warn("Not enough PIO interrupts, please update your DT!\n");
->> +       }
-> 
-> I would probably make the check universal, and also use dev_warn().
-> 
->      num_irq_banks = of_irq_count(node);
->      if (num_irq_banks != pctrl->desc->irq_banks) {
->          dev_warn(&pdev->dev, "Incorrect number of PIO interrupts,
-> please update your DT!\n");
->          num_irq_banks = min(num_irq_banks, pctrl->desc->irq_banks);
->      }
-
-Ah, nice one, that's of course much better. But I see that there is 
-other code using desc->irq_banks, and if the array allocation is 
-different, that will not end well. I will check how we can use 
-num_irq_banks there as well.
-
-Thanks!
-Andre
-
-
-
-> 
-> Otherwise,
-> 
-> Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
-> 
-> 
->> +       pctl->irq = devm_kcalloc(&pdev->dev, num_irq_banks,
->> +                                sizeof(*pctl->irq), GFP_KERNEL);
->>          if (!pctl->irq) {
->>                  ret = -ENOMEM;
->>                  goto gpiochip_error;
->>          }
->>
->> -       for (i = 0; i < pctl->desc->irq_banks; i++) {
->> +       for (i = 0; i < num_irq_banks; i++) {
->>                  pctl->irq[i] = platform_get_irq(pdev, i);
->>                  if (pctl->irq[i] < 0) {
->>                          ret = pctl->irq[i];
->> @@ -1733,7 +1739,7 @@ int sunxi_pinctrl_init_with_flags(struct platform_device *pdev,
->>          }
->>
->>          pctl->domain = irq_domain_create_linear(dev_fwnode(&pdev->dev),
->> -                                               pctl->desc->irq_banks * IRQ_PER_BANK,
->> +                                               num_irq_banks * IRQ_PER_BANK,
->>                                                  &sunxi_pinctrl_irq_domain_ops, pctl);
->>          if (!pctl->domain) {
->>                  dev_err(&pdev->dev, "Couldn't register IRQ domain\n");
->> @@ -1741,7 +1747,7 @@ int sunxi_pinctrl_init_with_flags(struct platform_device *pdev,
->>                  goto gpiochip_error;
->>          }
->>
->> -       for (i = 0; i < (pctl->desc->irq_banks * IRQ_PER_BANK); i++) {
->> +       for (i = 0; i < (num_irq_banks * IRQ_PER_BANK); i++) {
->>                  int irqno = irq_create_mapping(pctl->domain, i);
->>
->>                  irq_set_lockdep_class(irqno, &sunxi_pinctrl_irq_lock_class,
->> @@ -1751,7 +1757,7 @@ int sunxi_pinctrl_init_with_flags(struct platform_device *pdev,
->>                  irq_set_chip_data(irqno, pctl);
->>          }
->>
->> -       for (i = 0; i < pctl->desc->irq_banks; i++) {
->> +       for (i = 0; i < num_irq_banks; i++) {
->>                  /* Mask and clear all IRQs before registering a handler */
->>                  writel(0, pctl->membase +
->>                            sunxi_irq_ctrl_reg_from_bank(pctl->desc, i));
->> --
->> 2.43.0
->>
->>
-
+-K
