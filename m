@@ -1,167 +1,168 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010067.outbound.protection.outlook.com [52.101.69.67])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550E03A63E1;
-	Tue, 24 Mar 2026 05:51:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774331467; cv=fail; b=g8COyKSCN59Y5SiVEaf9VYnfBEzuOFMtaUiqOnYGHC+nmxbQkqI4EALNszG+piQ4YmRoJwvYcd5tmkmc/QYWlJ9V27thzdjlA60vw+zZrVvSND+ydPur9QSfTR+PFLNSPYPKIfz8+nVR197EDqTxqBeTKW1vlPHgEXmp679Z1Bo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774331467; c=relaxed/simple;
-	bh=Jl4sRE7jtSaQNNAPp6/S9XEbS1zJeExg5uV3UIvcxqI=;
-	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=IY2EX8whRj82EWTw0f3En+h0m70DLTmTiwr776bC6rbGE0reAvtxEsg+uqv2ywqP1qwA7jGqlwpm915Ja/AmHV4b98TJ0eLYLEV+zMbhZQ4BI7jAgUQoPbbFB6HbzOACAVZm04gtSOxBFuM/0HsTbIhnQOQ7NdpvIE741CZxM2k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=AikttDqf; arc=fail smtp.client-ip=52.101.69.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6F31A6819;
+	Tue, 24 Mar 2026 05:59:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774331983; cv=none; b=fHpUyFoSPXjvn9FTCwDmEdHfLzaTSO1A05f+oosCNR33yDaCc51abJGF4g0kFQiJBm/f4I7bVVwgwae0Ha0w5gLicO6aneoj+BD0zR4TW61i3caek+gZVsyenLNz2hajFSnS5oYeAsp2q3khnNvjZOTT5hzy/htfl4jvSlZts2Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774331983; c=relaxed/simple;
+	bh=ofK4Z+3ftFUTvJJazDhIQZbIdvWUtQmmTWYDW3/HgXI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UJt8IOnn0fJN7YyAZQZqCqsiAY1FU1bBA2WxccQLt7YDIi+j61wfJyWMa+433WLF1+enkX0nmxH0niCOYEQkSY90sNtyNDfBkVU23d6M0XWNTkXAW7PRaPjrYgQB5I2XXVEaOmRhY1WnJ68FGsP3bsu3rkTlosmvBEG10TmByEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zt4VSAuv; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="AikttDqf"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xvRG120whzCrSjXYhzI5ZEhqhVzs9wHjcbBGONHd7s5ZqgG1xk/4XMoqpm6Ot6J0QkqldGIYP9DmSrBPB+7CB+A6/luHv4F5fq/V7Mj9WtNSwyC4T/CwJeNjSNR0JAeu3OmhcaZyTmiY8f4BTWcwBurn3BMgFWPdHAzHUIbFDwZ1zjL+ztpRHG0n0+RHDWpg82P/gyklcDoHXSCaehuo+2GMQm0uja0zJuL0FHotFNlLzG+HqyAyEbUie2Sfp1nlaAEkOTn/AY7KY2IGvhC06wCRUuX8YW3g+g5LQXE7b/mtbWfhZrxDpqhQwNuYk+vECiC9Mmj9Ts5jxD9h7QGmGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=whBiCDU1vA5z1V1AF0riHFy54l/3BbRqAIL0aUCkj6g=;
- b=GKFxSzKW5+RSdkqZgDz/MwpNvGkAn79d9v5/O9JM12rINbyZHwy5bTjtIKCwwfRoWHqrTsx7NL7c3yeexIEAGQJIlWxSHFTNh3w2zyIhQY/FhvmV+HxXj6Sbr9qiCmuFeeHeNIQHFYPXpJWZyyn/zKt6UyTcQHTI1MBrFuXOC6W3W3XGReCQ6EvL8/5H+BguoNV6YLlAVAxf/rhRqI5czPH8e9ge9TR95Ykutgz14uDJ9yPcCLSaWBjwENgPbnEk8dmQiduTfW0Rm+mQ1S02VhuLqMiXMcDfFD2JXmERDudTTto5Mghl7rVoRfNTYPsA2APl3qE3hO+gJ+MqSaaYPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=whBiCDU1vA5z1V1AF0riHFy54l/3BbRqAIL0aUCkj6g=;
- b=AikttDqfzlZ+HEvEH4MDm3lYzhEPoBDVCoHht9r1AO2Wx5OgomS7K3jzIIeeD+6He7GpWp6Ud4tvOCTSaJ4inNu4xbrPdsvbNl0N9tfQL3fFJhcG1Ylgib74Ma3UsqDq8JKzD73yNtEKoLHr1kck6apqvB40sW0u9Q4iEU2kkS+ThPNhgvVdII2haEbMXf0Derh8R1hgHouDE8XuGocAjOIJdAXD61HCUH7wb+zqJodkrD46vNmHw4vO/i2TguvuOtP/O8R6ZK9Nay+qCvLhDy5g5F8gXFr9mkxuv0Ja/r7KwTKhfEoxcQhPTj1jKlqNuZ+/A7fK7AKwHDQGWlKG6g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
- by AS5PR04MB9827.eurprd04.prod.outlook.com (2603:10a6:20b:652::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Tue, 24 Mar
- 2026 05:50:54 +0000
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9723.030; Tue, 24 Mar 2026
- 05:50:37 +0000
-From: Liu Ying <victor.liu@nxp.com>
-Date: Tue, 24 Mar 2026 13:52:03 +0800
-Subject: [PATCH] arm64: dts: imx8mp-evk: Specify ADV7535 register addresses
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260324-imx8mp-evk-adv7535-cec-reg-addr-v1-1-52dbdd63d5a4@nxp.com>
-X-B4-Tracking: v=1; b=H4sIAIImwmkC/x3NywqDMBBG4VeRWXcgJjURX6V0EZK/dhAvTCAI4
- rs3dPltzrmoQAWFpu4iRZUi+9bQPzpK37jNYMnNZI31xtkny3qO68GoC8dcw+AGTkismJuzss3
- wIXjTOxepVQ7FR87/4fW+7x+MuP6ScQAAAA==
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Liu Ying <victor.liu@nxp.com>
-X-Mailer: b4 0.13.0
-X-ClientProxiedBy: SI2PR02CA0024.apcprd02.prod.outlook.com
- (2603:1096:4:195::18) To AM7PR04MB7046.eurprd04.prod.outlook.com
- (2603:10a6:20b:113::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zt4VSAuv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 879F9C19424;
+	Tue, 24 Mar 2026 05:59:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774331982;
+	bh=ofK4Z+3ftFUTvJJazDhIQZbIdvWUtQmmTWYDW3/HgXI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Zt4VSAuv4R6aJoIxAxIvCtxhChwkaT961lGZmXOa71KTTqqyOidMrbYpgF6WO/y2d
+	 xu+y4Sl41M+91xBgARpl0hF+3/iji+tatt9/B+CsfzTXUHjPc4UjBAxxUXP1QNIDG2
+	 n3RfKttHFQYC/9AbKal1d7QKnKq56xLsNEaL1ylwg30KIJrHlh0IDGu5uES1MVYUUP
+	 /vmuoFyFkIbfzT3Nub91bZt0QPAVtQN+wnac50nojh/D+7XmZ12fpl3qZcLjgsrJYd
+	 aChzlJ1XtGYl8INKNtOTGHrOaJ9wux8MIhW30ElkdAc4qpf1zcV/YTuOn6ZFZ5JDtC
+	 yzWLP0uK4l+DA==
+Date: Tue, 24 Mar 2026 11:29:26 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>, andersson@kernel.org, 
+	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	jingoohan1@gmail.com, lpieralisi@kernel.org, kwilczynski@kernel.org, 
+	bhelgaas@google.com, johan+linaro@kernel.org, vkoul@kernel.org, kishon@kernel.org, 
+	neil.armstrong@linaro.org, abel.vesa@linaro.org, kw@linux.com, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pci@vger.kernel.org, linux-phy@lists.infradead.org, qiang.yu@oss.qualcomm.com, 
+	quic_krichai@quicinc.com, quic_vbadigan@quicinc.com
+Subject: Re: [PATCH v1 1/1] arm64: dts: qcom: hamoa: Move PCIe PERST and Wake
+ GPIOs to port nodes
+Message-ID: <lct4q52piv64zudohkrfetm3q7x27ey5j7efjfdjmsxw45pvxd@vlxvsromas3u>
+References: <f5vqy4tfhfxeu4li33qffjzrlgqgbflidds35qdni3trdoues2@kvuzjxenrdff>
+ <20260319171728.GA505341@bhelgaas>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|AS5PR04MB9827:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a2f0609-9c4b-448d-3305-08de896945ed
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|19092799006|1800799024|52116014|376014|366016|18002099003|56012099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	e0PSi8tc68Ah1OOMaAcDsFYK9mj2/KJbqqLPpp52Z095yN0LH+NwydUniRsqCP4Lual+z5Dz4jOdWDphseaCTXNnk47WGWxecN4lYPQgyoHockkRQUzSXCCk8xCXNYrtAG6DdhhKpy/0GwzCg8mLB2v8Qoc4GnhgssOBoJYKNaHKz30T94XJ+WiBAVUTe3iIW9JLfm7fyFW/W2nyajb9HcTBofSgqsCq0OMkEH+EliUcRX8dmfHc16UcTZ3WRzZ4HKkE2aoGlByDKbitgmUZovBMBTHa3mqoeLQnww7Bx06crqQTnOlOhOaUj52UGzLznFURhXgNQF5+vYQBNo/tq/RqbLqng501X5qcTLLIuNHc2vdVGhVy4KduNq0s+3vrOhKD5mu4t/uOYKYvzq7UKY47lZVa71wons5sOs88uhpSF58RjT7uU2Jl1wyvPLideOwKaU1mGEdRqeSgm7uE08YzXPnC9cz3AoCs7XJ/S4FFHeWsMG8UjR3kmWECZ6HAstEic3R+6qU4Qxy9Vld0N0/W82DZY99v9djd3bxbCcDvjHC+kdwfxxKRedCsAXeb28HsUyEc1OIJwn6Dl2aH3kz8J3fosmUw1nA19iY3BeV2bh5/6ObWpd7pKU04XYaFwbmqfMzqCiKw2OTfiQ/B4dwgA3BnPkb8CpXqiaEdjGHctqbLNpdm0cU8ru6WLcJ+LTOzfXPP3PEtGVua4rJ1TXxrixAEVNSBfFLM64uzlEOwlFWfBWNRWx+/xHgXwxTxrlIVUoBP7z0VPwxX8zIQIHjjtLEBxlNGAdZm9gs/Hqs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7PR04MB7046.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(19092799006)(1800799024)(52116014)(376014)(366016)(18002099003)(56012099003)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q0p0dWdJNVBGalVibTBlZU5xMENjNEp3K1pmeEJIS3hVUkdUbnY5b0x4azJy?=
- =?utf-8?B?Vy9oT2J4UnVtTjNobjR4NXhpUk9vWXdtVHB4L3Q1UENZQ1l4eXI0VGRVd3hY?=
- =?utf-8?B?L1lTekNlbkVUZVZpT25QbW9peElTam5HYlY4R3JOczFnblQrbVdMSXhnait1?=
- =?utf-8?B?VFJtU05aL1I2VXA5M05wS0g2RlY5d0krZXhLRFE5cEpia2lEOE9VbHJEMUk4?=
- =?utf-8?B?SkIveXd2aHpoMlZUN3IydzI3QXlFazh6TEF4dFVUaE9BZlo1UWJMVWxiMjE5?=
- =?utf-8?B?MmUybytpT3Z4aUlaNlFhR3BkVHd0Z1FJS00rbmJlR2xpT0wvakU4bU5uN2lN?=
- =?utf-8?B?WHI1K3NJRUNVbnZMMDI1bWd4ZTRPWUhSSm1DMWMvdi9WQkZqUTQyY1RlOG9L?=
- =?utf-8?B?NUVJUEZUVFFMZ0QvaU1QWmE0d2Z4TElDb3g0YVFCdE9MRnpFSjVsQ0k5RUhR?=
- =?utf-8?B?L21tQU9TZnJ3VjRSVjlFSFd1QWh4cHp2RkZ1SENqOHlXaVkyOU16RE9xZU05?=
- =?utf-8?B?akxnY3RFdS9jOWhCbkNaU0J0MGZ3c1YremdkaXJWdHF2N0tLbk5Rayt3a20x?=
- =?utf-8?B?RXBqSVVEZ3VSSVEzcTdZVFVJYmFkTDIySWRWbnZTKzh2QTVFK2JxNTZYNXZZ?=
- =?utf-8?B?K2tKS0RJR0MrWEg3NkMxbVdmN1NoT1pvb0JadmFWaWFmcU9IMUtXSngwMExh?=
- =?utf-8?B?eDhadTlBc1JzZ0svV1hpVmVtSDZxWVJCZGlxTnZQalFmS0tuZmtRM2ZSUjJU?=
- =?utf-8?B?WjVHZHdpblZiNmttL1lTNjhRN0lnbytoamVyYTNPV0ZaSHNPTHVPK0RHRmlU?=
- =?utf-8?B?Q0hFaUNRakpRTkEzblVmK1dJdGo2Z1lEZmF2YUdBTm5iRW1CZ3p1TUdwc1Mv?=
- =?utf-8?B?WG03YmI3YlVlcFFkMHJ4cktPMG1tSjY2NkVtb3ZFNEhlUHBudWxWbXFOUTJl?=
- =?utf-8?B?R3ZWbWpXUUQxNy9pWWVrQ2g1aU05bHNaZlU1dVdkRk11bnl5Ni9UWUhiL05M?=
- =?utf-8?B?SnZFVjZONFV4dHZTUDVNRmFNNW1ud3N3eitvM0grVTkrV0hPRXVPOGlkWnY4?=
- =?utf-8?B?anViUEF0S1JlRnpoSVdPZDl5VlIvOVVHQytITytOK0VQcUNtS0pGZW52UnN3?=
- =?utf-8?B?OEh5T1phVHY2TkcyelFBcEhPWG1wdmJ5WjhQam85TDBURjMzNzhuL1JueTBS?=
- =?utf-8?B?eGFNTG5tb1VXSlJzVU9uNGM2K05FcklYUDhsYXJManIrbCtLZDUxNVVNOGFC?=
- =?utf-8?B?ajJ5ZGYyYnI2RmJQcGZaTUxhT20vVUNKb1VHU3BBOE9kUEVPOE5xcDhWOGln?=
- =?utf-8?B?VUZ0bE0rVWhpOE44bnVWWHFFTnpUMlkyelgrbm84ZmRQd21CaC9SVDR0Q1Rt?=
- =?utf-8?B?Y0pQZzd4amFBS3drZ0I3YjdtMHVQZjhMY253V0JLRTZDYzRmd1RtM0VNazdD?=
- =?utf-8?B?TWlld2orT2hxS2hWL3NoNmFvQ3RwZVFRRjNCZWZXaTM3Z1RTc2U4NGludnF5?=
- =?utf-8?B?cUYvMUxaWG1UZzhkbWN2amhRbzF6eWowUnhlTE1RUnNXZDFZdk52N01qT0cy?=
- =?utf-8?B?eUZEbm9qUHgxeUduekt1bkJiTDBxWWs3blBvWmEzcnlLeXNMTnI4amV2M1NH?=
- =?utf-8?B?amYyQXlXNUlMS09sT1dJSmFzbE9USkVxQVBrSkR1d1pJRUlpMW9lYnVad1pn?=
- =?utf-8?B?THd3UThhQTMwenBPbVE2SzEvMEVkREdCZlVzS0cwTjdKd2Ivak52T2pybW5N?=
- =?utf-8?B?SitQNW5jeDFnYmsyUjByQWc5UHBHS1RKR3BDbUVlWkFqUDZlR0xSVVRZWW5x?=
- =?utf-8?B?ekNKQ1kyQU91NDVXMmhob0pzYk03T1RPYXhWVGMvenFXMzJzWndsRHNNV2Jn?=
- =?utf-8?B?UzRyeDNJYVgvaGVSYzFMS25uNldNczEwRGRFbFpTSE1PaTVoQXYvY0dUVllw?=
- =?utf-8?B?a0ZMNXZVV3lRVHk2NSt2ZnpUMXVpS1N4K0J4Q1BZZkRXVEZzNTEyQXFCMUlE?=
- =?utf-8?B?MktXbDJTbnNjdUdEM2xQVGNYc2R2U1lLU0NiZHZTZU5WUTQvSll4MDZ3Wnds?=
- =?utf-8?B?VFIxUjgxcHNGL3IyUkNiS0I0b253eVVtaEFvUDNzVmJxRE1lbGphU0lVd1J5?=
- =?utf-8?B?NDZHSWNWMkVzZlJXNEFUM3V6UXBMQWcxN2wwdVJ3RWlERGJwdjIvcnVUSXhv?=
- =?utf-8?B?YnE4ZFFSa1Z0MFNkNVUxYjVpK1p1a1VSODl4RzdMb3VNZXAzdE1jTXk1ZUV0?=
- =?utf-8?B?MmVqU3hxQk9mUnNZRDFsSDRwdjhyUkozYVBpSjRHRW9ha0lzTjU2Y0hiQ2xT?=
- =?utf-8?B?VFpIYVY4aldSbHA4dGpvdE8wd1ZvcjQrKyt4eVQxa2t4S3h5OUF0Zz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a2f0609-9c4b-448d-3305-08de896945ed
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 05:50:37.2207
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qOakHAYAd8BBdemDzilbDCS2p5PFykXnj7OAXZLcQL93O5v5qaycZBbq6PTFTLVclrP1x1QUr+6HsbqXyY4mKQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB9827
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260319171728.GA505341@bhelgaas>
 
-MIPI DSI to HDMI bridge ADV7535 CEC default register address is 0x3c
-on an I2C bus.  And, OV5640 camera uses the same address on the same
-I2C bus.  To resolve this conflict, use 0x3b as ADV7535 CEC register
-address by specifying all ADV7535 register addresses.
+On Thu, Mar 19, 2026 at 12:17:28PM -0500, Bjorn Helgaas wrote:
+> On Thu, Mar 19, 2026 at 10:58:36AM +0530, Manivannan Sadhasivam wrote:
+> > On Tue, Mar 17, 2026 at 12:13:19PM -0500, Bjorn Helgaas wrote:
+> > > On Sat, Mar 14, 2026 at 07:50:50PM +0530, Manivannan Sadhasivam wrote:
+> > > > On Fri, Mar 13, 2026 at 11:45:42AM -0500, Bjorn Helgaas wrote:
+> > > > > On Fri, Mar 13, 2026 at 05:46:18PM +0800, Ziyue Zhang wrote:
+> > > > > > Commit 960609b22be5 ("arm64: dts: qcom: hamoa: Move PHY, PERST, and Wake
+> > > > > > GPIOs to PCIe port nodes and add port Nodes for all PCIe ports") did not
+> > > > > > convert all Hamoa‑based platforms to the new method of defining PERST and
+> > > > > > Wake GPIOs in the PCIe root port nodes.
+> > > > > > 
+> > > > > > Without the change PCIe probe will fail. The probe failure happens because
+> > > > > > the PHY stays in the controller node while the PERST/Wake GPIOs were moved
+> > > > > > to the port nodes.
+> > > > > > 
+> > > > > > This fixes probe failures seen on the following platforms:
+> > > > > >  - x1-hp-omnibook-x14
+> > > > > >  - x1-microsoft-denali
+> > > > > >  - x1e80100-lenovo-yoga-slim7x
+> > > > > >  - x1e80100-medion-sprchrgd-14-s1
+> > > > > >  - x1p42100-lenovo-thinkbook-16
+> > > > > >  - x1-asus-zenbook-a14
+> > > > > >  - x1-crd
+> > > > > >  - x1-dell-thena
+> > > > > > 
+> > > > > > Fixes: 960609b22be5 ("arm64: dts: qcom: hamoa: Move PHY, PERST, and Wake GPIOs to PCIe port nodes and add port Nodes for all PCIe ports")
+> > > > > 
+> > > > > Are you saying that DTs in the field broke because of some kernel
+> > > > > change?  That's not supposed to happen.  Even though PHY, PERST, and
+> > > > > Wake GPIOs should be described in Root Port nodes instead of the Root
+> > > > > Complex node in *future* DTs, the kernel is still supposed to accept
+> > > > > the old style with them described in the Root Complex node.
+> > > > 
+> > > > This is not related to the driver change. The driver correctly
+> > > > parses all Root Port properties either in the Root Complex node (old
+> > > > binding) or Root Port node (new binding). But commit 960609b22be5,
+> > > > left converting mentioned board DTS to the new binding, leaving
+> > > > those affected platforms in a half baked state i.e., some properties
+> > > > in RC node and some in Root Port node. Driver cannot parse such
+> > > > combinations, so it fails correctly so.
+> > > 
+> > > The commit log mentions probe failures on some machines.  I'd like it
+> > > to be more clear about who is affected and what they need to do to fix
+> > > their machines.
+> > 
+> > There is already a list of affected machines mentioned in the commit
+> > message.
+> >
+> > And for fix, they just need to apply this patch. Or once this patch
+> > gets merged into v7.0-rcS, v7.0 will have no issue.
+> >
+> > >  If it only affects developers who generated DTs based on
+> > >  960609b22be5 for internal testing, we should say that so it's
+> > >  clear that no end users will see any regressions or boot
+> > >  failures.
+> > 
+> > Whoever have included commit 960609b22be5 in their kernel and using
+> > the above mentioned machines will see the failure. But looks like no
+> > one really tested v7.0-rcS on these machines as we haven't gotten
+> > any reports so far.
+> 
+> Two points:
+> 
+>   - a2fbecdbbb9d ("PCI: qcom: Add support for parsing the new Root
+>     Port binding") is intended for hardware with multiple Root Ports
+>     with independent PHY/reset controls.
+> 
 
-Fixes: 6f6c18cba16f ("arm64: dts: imx8mp-evk: add camera ov5640 and related nodes")
-Signed-off-by: Liu Ying <victor.liu@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Not really. The commit was a prerequisite for adding multi-Root Port
+controllers, but the intention is also to move the Root Port resources to Root
+Port node and not stuff everything in the Host Bridge node.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
-index aedc09937716..d0a2bd975a18 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
-@@ -602,7 +602,8 @@ ov5640_mipi_0_ep: endpoint {
- 
- 	hdmi@3d {
- 		compatible = "adi,adv7535";
--		reg = <0x3d>;
-+		reg = <0x3d>, <0x3f>, <0x3b>, <0x38>;
-+		reg-names = "main", "edid", "cec", "packet";
- 		interrupt-parent = <&gpio1>;
- 		interrupts = <9 IRQ_TYPE_EDGE_FALLING>;
- 		adi,dsi-lanes = <4>;
+>     The driver will always fall back to PHY/reset info in the host
+>     bridge, so I think the only reason to do 960609b22be5 and this fix
+>     is if hamoa.dtsi will also be used for hardware with multiple Root
+>     Ports.  If there's no plan for multiple RPs with hamoa.dtsi,
+>     reverting 960609b22be5 is another, less risky, option.
+> 
 
----
-base-commit: 09c0f7f1bcdbc3c37a5a760cbec76bf18f278406
-change-id: 20260324-imx8mp-evk-adv7535-cec-reg-addr-2de67760133a
+That will leave things in a messy state. Our intention is to move Root Port
+resources to Root Port nodes for all SoCs irrespective of whether they support
+multi-RPs or not.
 
-Best regards,
+>   - 960609b22be5 only touches .dtsi and .dts files; it doesn't change
+>     the kernel itself.
+> 
+>     So I assume this issue only affects somebody who used v7.0-rc1 to
+>     rebuild the DTB for one of those machines and then installed that
+>     new DTB on their system.  That sounds like developers to me, not
+>     end users.
+> 
+
+Unfortunately, DTB is still not treated as a firmware like ACPI. And the fact
+that we build the DTBs with the kernel, causes the DTBs to be updated whenever
+an end user or a developer builds the kernel .deb package using 'make deb-pkg'
+and installs then package using 'dpkg -i'.
+
+And most of the users of these affected machines are pretty much both end users
+and developers who know how to build the kernel themselves, so they won't be
+updating the kernel through their distro update.
+
+>     The commit log already mentions the affected machines.  I'm
+>     suggesting that it should also say something about the fact that
+>     only DTBs built with 960609b22be5 are affected, i.e., DTBs built
+>     with 960609b22be5 but without this fix are incompatible with the
+>     kernel driver.
+
+Sure.
+
+- Mani
+
 -- 
-Liu Ying <victor.liu@nxp.com>
-
+மணிவண்ணன் சதாசிவம்
