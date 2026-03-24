@@ -1,220 +1,148 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8595226ED4F;
-	Tue, 24 Mar 2026 07:14:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C573CBE95
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 07:17:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774336498; cv=none; b=KSTegHy7Rdjc5FaiBw8Yq+FAgh/r2MDMQPb5ucb9kgJ7dP/04uxrfOiaOMCPDITr38UHHiwfXoL3UOmix7ei61t76plV0y5JXZGTpNrPmYzufc+8BgndR6yUAlCNkKIsghVnu3p7zXaVtUD/KZxmorML/a5+OxFuVZ1d3J+KLjU=
+	t=1774336673; cv=none; b=oPxMVbDr92+owbu3vqyO06DvN27k77lacBWRYVGa1f+6P/hfrKoG4ASYjpam2LI5TUQ45ZqU1S58VipZQUPJP0I4Me9nLLDqFM3QvRoFvjZDRw3X7Qd7rNRkZJ0uHyVMMOzCX4sh0ByYmIQxBJzfqlk3XksmEukEJVZ15lSwWqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774336498; c=relaxed/simple;
-	bh=QI+7OwK/6gfmL5qJ6Q/FweMXtMqrsPBgbjixqh0ZHqw=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SR8CwZkMt//rrnngFFaZklDLIkr0GhhOagckEmaXMNasgUor7d5RKJUtBygMOB3umnS5cd4jD0V320J9AP7czjZKarXlHD42zMu0CRI26NOtnNzRJg/i5xLmJgq92cwBQFLTb42ssbcBPpDcjjd0w2Kdsd2o6Jpj2E73ShirtAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=J2u6tgQZ; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1774336673; c=relaxed/simple;
+	bh=dHiZweBuHkG8DSuP+oN/yzXOsLU1bE9ooY5ugDluJpk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=gSBsNes+/QzQIBi2jSR2iBT4GXb8TFNVWscCohrBMu0ux8uwxh1kXnBkmjOfi+nYyBHubjU/C9ayuvJbhBzNt10WVo4RLXs0M5/aebakqtUoXvnvFd0pLhK0dOey/MPGXX0RlN4eei1ygmIr8THuoPouN5jXZnNWj02Q38v6azI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=k/TLGKZa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C3w/S2Ur; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="J2u6tgQZ"
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62O6JcN7662684;
-	Tue, 24 Mar 2026 03:14:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=9SMk4
-	v6lawPJ8GlytxKAe+R6/fXHgfP0fQYq4r9ro00=; b=J2u6tgQZ0dW3z1ZzJGm12
-	FZurbPP0aHUR/wFFiT+Q9fnFkWSZ16GSVNDmEnvEcdpfEYAQtl3+zdaSCrUsNs0/
-	yG/HDqIG3RCWzSgj9gOBLh0Q1M4laDyQwikGJWIP65Rf5/mQiDIKR90c/8FrAkkp
-	3JgCh20oLA9B7urpfaSsPC9U/CkS2XcdCUVuhfLSVvyiOuWd1dF1+/aHC0EUfuVx
-	hSpRyaIC8tlpoXGVIrNyEh65mvVtJgW5zDW9eKPU/hq1WHgQWGx0BtQJDHa/d+Fz
-	UByV8jUtSedYvcmZrpa42rNpSK44zMDI39pf69mXHC2uGGhGYkZG4l8nY3kVx321
-	g==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4d1n6239af-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 24 Mar 2026 03:14:24 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 62O7EN5u020263
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 24 Mar 2026 03:14:23 -0400
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Tue, 24 Mar 2026 03:14:23 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Tue, 24 Mar 2026 03:14:23 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Tue, 24 Mar 2026 03:14:23 -0400
-Received: from CJONES7-T01.ad.analog.com (HYB-jCCu8MOWEgi.ad.analog.com [10.116.223.230] (may be forged))
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 62O7Dg0f003654;
-	Tue, 24 Mar 2026 03:14:13 -0400
-From: Carlos Jones Jr <carlosjr.jones@analog.com>
-To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        David Lechner <dlechner@baylibre.com>,
-        Michael Hennerich <Michael.Hennerich@analog.com>,
-        Liam Beguin
-	<liambeguin@gmail.com>,
-        =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-        "Andy Shevchenko" <andy@kernel.org>,
-        Tobias Sperling
-	<tobias.sperling@softing.com>,
-        Jorge Marques <jorge.marques@analog.com>
-CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 4/4] iio: adc: ltc2309: Add LTC2305 support
-Date: Tue, 24 Mar 2026 15:13:31 +0800
-Message-ID: <20260324071331.842-5-carlosjr.jones@analog.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260324071331.842-1-carlosjr.jones@analog.com>
-References: <20260324071331.842-1-carlosjr.jones@analog.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="k/TLGKZa";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C3w/S2Ur"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62O3WM1Z3903752
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 07:17:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	HQM7eHnVoeAhrAn7FxIm1PZgvchjSYSQc/shb75BI+E=; b=k/TLGKZa2XF0AXaU
+	NXP2vVc6qfoyi+dwPVjMyYhtVH4X4uX8L2v7EW79vb8PBZE/QN+VQJGjwTIY5Qsp
+	V8LoPPvnQEoSa33Z/5PJdYCeKBWlwg/wwc9t9myLn+EUElvd8O0/KWjydVzvvApO
+	sNCPP0KW7nnmsMpOamTdJQMHCTx01dUlbwe4Q2HFRvT/uPSNciQ49GSX+1Sqgd7A
+	+qR7yZOj6CpgCQ4P1ryXP+gxEm1R07BRbDFOVoTs3WZFs+h0bKaA6BlsBpXY/XD3
+	BVgwPJZ9TdRE/GIxSUB0qWF8VBXkWSsQHkRUD4pMYDF8OJWMVMA3YwE10Yr+k8tT
+	OSMJeA==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d3jt0gr43-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 07:17:45 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2b0601ff3d9so18755875ad.2
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 00:17:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774336664; x=1774941464; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:date:message-id:subject
+         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HQM7eHnVoeAhrAn7FxIm1PZgvchjSYSQc/shb75BI+E=;
+        b=C3w/S2UrjujXE28pj02L7+IOuLbnLlin7QpXcMZqhgeZVyGsd/lEw+5Qcu7XV9+RAp
+         kQRVC5wSEvJtuVSzONePUQ796SvzLDVJZnvWfGlREyPKGJZ5e0XmwUxeUmg/jTSobyoH
+         Rp5dcmiUjAciyJuwM6NJQvC/PBo8WISKKADeLvOG/LWgCEntq72/hHT8mAAsNxBvboXl
+         KLa0MjBxcRKscEPzqEPCQL6EJaJwZn6Kl2mZnM81dUUBp7LdxP8s1T4jOnb4+exi1+TH
+         4fVkWM9/7OXrEotPCAkUo6pRdWe/9+jNsAve2EAS/PcZQ1GjOgkRSY2zfFX3QIJh9JGP
+         xi3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774336664; x=1774941464;
+        h=content-transfer-encoding:mime-version:date:message-id:subject
+         :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=HQM7eHnVoeAhrAn7FxIm1PZgvchjSYSQc/shb75BI+E=;
+        b=np6bfGTMPMNySzcvr/0D++aIgA7B0TEod31SiSEznxdEpK007z1RXQrm6FqFl4BX9o
+         0FMdLlPk22v02oXjQAOaMiMf1Ic6OjtgQtYmz9ufvu/rL6eV1RlNy3W++rNy9QR//EUE
+         ZALB6uxsrWLHx1JdQ/ZdxmNM4IKMle78vn3rMPk04JDcwjASBMuhh3Kejwz7tk4Qbiud
+         95idrC6NCH6SE5sw1+spzbOfR2DA/IFJfOqgj6a+JyhMTqpMdYvEuZ4GlDC6fKKlUesf
+         zhG87nVV+WiH4GBxNChPPHpFUuuKB5k6IazI+bxx4jpHqPa8/0gDSs9329cNAcWgCodB
+         wrZw==
+X-Forwarded-Encrypted: i=1; AJvYcCUsmrUcWZF+lKAbgbnqCJJ+3y4PfGDeYxQ0VxdpFCjqKYxvSJp9CyVV92DXlXeOm4FmYIaARBF64zHI@vger.kernel.org
+X-Gm-Message-State: AOJu0YxlN+L126bo+t7MogLs384Rb5rJ0nQnmRAUfMZ+nink3SEMmnNP
+	dCMPWOFXaGWtrKaAb+pyVo+Z0Q6lVeNPC8DKZFzy+YW5LjBIDlkZ5biS9Ltxa19aEr+8xb4P9Sg
+	5KIcVQ52ZHyB40ScMIFql2bxb91lTx1RV5Z7mvW/r82HGw/E9eA9i9Ngwd8Vw3g7Q
+X-Gm-Gg: ATEYQzxrfhhRauvualXSInpcnGJPEWcoFrYngMiiAWLrlZ+YBG81n9ooWzp3vc7RLbN
+	qn/jqi3Fnc3UYR1SZ8cY4GXZyryAD8VfVGo4Q4ZPN4x9+Q9+t80xXXT2zjl1/rbjSwg1C1LZXjL
+	a3n+5xNSkFgaIpDCzNRg2uUrc4pg1WxTTGWtcG/tzeuVvRsC1DoJyxt+FTU6hlr9KIlISvVb8yO
+	A44hEuDTpL1JeecIrNhejWVJF0RsnLE4dCq+08PnOjaTx44/gbTpx5eiOP0cuqB1RGQ8gTZ6tjS
+	Nl4LHF3ujCDge9FRkGSRr8k6O9f+3WRKjk0MlDbnYzeDIJglDi7E4x5Ua2cla6U7oJmy0fV+DmE
+	1yAxOcVVvDP01HCEE/atY/ew=
+X-Received: by 2002:a17:903:946:b0:2b0:531b:b3e6 with SMTP id d9443c01a7336-2b0826c382bmr151661905ad.10.1774336663914;
+        Tue, 24 Mar 2026 00:17:43 -0700 (PDT)
+X-Received: by 2002:a17:903:946:b0:2b0:531b:b3e6 with SMTP id d9443c01a7336-2b0826c382bmr151661745ad.10.1774336663426;
+        Tue, 24 Mar 2026 00:17:43 -0700 (PDT)
+Received: from [192.168.1.102] ([117.193.214.249])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0aa622677sm6868975ad.74.2026.03.24.00.17.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Mar 2026 00:17:43 -0700 (PDT)
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+X-Google-Original-From: Manivannan Sadhasivam <mani@kernel.org>
+To: lpieralisi@kernel.org, kwilczynski@kernel.org, robh@kernel.org,
+        bhelgaas@google.com, krzk+dt@kernel.org, conor+dt@kernel.org,
+        peter.chen@cixtech.com, Gary Yang <gary.yang@cixtech.com>
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        cix-kernel-upstream@cixtech.com
+In-Reply-To: <20260313114914.1564115-1-gary.yang@cixtech.com>
+References: <20260313114914.1564115-1-gary.yang@cixtech.com>
+Subject: Re: (subset) [PATCH v4 0/2] Add scmi powerdomain for sky1
+Message-Id: <177433665904.17735.11886295556987492843.b4-ty@b4>
+Date: Tue, 24 Mar 2026 12:47:39 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDA1NyBTYWx0ZWRfX1mTazD52ASzV
- E1Wr6vjj8W/70PJiMWDcf4hMTE+ONYBLyweam4GQSwu2neVSMkYIgGweLHGzdOMf+jOMJm2oUv2
- JAa/nh86hO9LD8iDIMD/xvFKcb3GfWpCtDwBhJSt+JfyBcXyC9oTXS+QGOpdbLcg3LKJaObDzSS
- yBdUVc8dOalmFTQDmeDc1Y8UvR+pe8nOL794HI3/WmmpRhsuH4UUpbdc/TR6QI0MA/icxixbxah
- vgesJZB33cwWebGOV92Alb3kcTsfmsJUYLh06tazrMChCBkr21gTRGwBjnJgG/mobyWUr8f7XQc
- ha8b0cDuasUxzWbXMBMf3I/DQoHLEMUr9CoR6xGcJ+5SgtoqroZPqiCVOT89Rru/L/4yQfNS97z
- cJ0k9HpzqQpD3m0+DLiPZe1gUG74nPrOjzu7L8OFfEc7OQts3y5nkGfVmNwiv6AaHl6meY+XD1e
- GsdAbs6HBBNPQIdKKKw==
-X-Proofpoint-ORIG-GUID: t90mSKuwfX-O7O07uQDE82CnPk5mihv9
-X-Proofpoint-GUID: t90mSKuwfX-O7O07uQDE82CnPk5mihv9
-X-Authority-Analysis: v=2.4 cv=D59K6/Rj c=1 sm=1 tr=0 ts=69c239d0 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8
- a=pGLkceISAAAA:8 a=6VD43Srf4_-BMiEuy00A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.0
+X-Proofpoint-ORIG-GUID: VQT7mrFsVXvl_32NgQT4GiBgVPOibMcx
+X-Authority-Analysis: v=2.4 cv=Nc3rFmD4 c=1 sm=1 tr=0 ts=69c23a99 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=13ILl30Z8QjaXWZz8Pan+w==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=jNwzyYJvxPVIlz3NwY0A:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: VQT7mrFsVXvl_32NgQT4GiBgVPOibMcx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDA1OCBTYWx0ZWRfXzbEnkzD8HQWN
+ 6MiKvGluO+gbjXHHfSDWTIT7nc5Iflw4MqvzaLfa+KGZcQPJvIZc7nfyuRsg2V0R//k4JsaM/6P
+ pOAXZYP40gzpkWrg6fmyHLhR1j6NFa23KXBEGkfpjLafPnDgI4xFTB3VgftaI83Kk5kIdjH84Lf
+ OZ2mOrpXLpw3nVrxxYn7/NbksgpAOdG8jM4YmmSAxuTvS7ybRhELrN5iLhJZ73z9QmZEvpxh0EZ
+ u/DB6SZtgfin0SdqePSjQmpRLOB8q0GNAKC7l8yLwnCUJoySMZViZMPXL7lV6eQzmj7rY6jJo92
+ u7OxZJ/yhFaUzNwLjY7EzkWQxHykKboQyjwP5xI7Q4pndqqy/dV43C3F/0fWfhyuj8kKRZgCttu
+ +RtCdiekDsv780A3xP+9B+944dg5krWzLNPwjEKgEXnbMAliq6r+DbcSUpMvO9402c9IaN64CXf
+ rCt85HbtHsnFs1t7pug==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-24_02,2026-03-23_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0
- adultscore=0 impostorscore=0 clxscore=1015 spamscore=0 phishscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603240057
+ adultscore=0 impostorscore=0 spamscore=0 clxscore=1015 priorityscore=1501
+ bulkscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240058
 
-Add support for the LTC2305, a 2-channel, 12-bit SAR ADC that shares
-the same I2C interface as the LTC2309.
 
-The LTC2305 differs from the LTC2309 in:
-- Channel configuration: 2 single-ended + 2 differential vs 8
-  single-ended + 8 differential
-- Read timing: Requires 2μs delay (1.6μs rounded up)
-  between I2C write and read operations
+On Fri, 13 Mar 2026 19:49:12 +0800, Gary Yang wrote:
+> v4 changes:
+> - Pass dts build check with below commands:
+> make O=$OUTKNL dt_binding_check
+> make O=$OUTKNL dt_binding_check DT_SCHEMA_FILES=cix,sky1-pcie-host.yaml
+> make O=$OUTKNL CHECK_DTBS=y W=1 cix/sky1-orion-o6.dtb
+> scripts/checkpatch.pl 000*.patch
+> - delete power-domain-names property
+> 
+> [...]
 
-Device tree binding added in previous commit.
+Applied, thanks!
 
-Signed-off-by: Carlos Jones Jr <carlosjr.jones@analog.com>
----
- drivers/iio/adc/Kconfig   |  8 +++++---
- drivers/iio/adc/ltc2309.c | 25 +++++++++++++++++++++++--
- 2 files changed, 28 insertions(+), 5 deletions(-)
+[1/2] dt-bindings: PCI: cix,sky1-pcie-host: Add power-domains
+      commit: 94c62cf0698c0edbf1f118dd80ea19d0ff5d834e
 
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index a9dedbb8eb46..860c0909dbbb 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -915,11 +915,13 @@ config LPC32XX_ADC
- 	  via sysfs.
- 
- config LTC2309
--	tristate "Linear Technology LTC2309 ADC driver"
-+	tristate "Linear Technology LTC2309 and similar ADC driver"
- 	depends on I2C
- 	help
--	  Say yes here to build support for Linear Technology LTC2309, a low
--	  noise, low power, 8-channel, 12-bit SAR ADC
-+	  Say yes here to build support for Linear Technology low noise,
-+	  low power 12-bit SAR ADCs:
-+	  - LTC2305 - 2-channel
-+	  - LTC2309 - 8-channel
- 
- 	  This driver can also be built as a module. If so, the module will
- 	  be called ltc2309.
-diff --git a/drivers/iio/adc/ltc2309.c b/drivers/iio/adc/ltc2309.c
-index 475ecc21ebe9..d7ec4d92a96c 100644
---- a/drivers/iio/adc/ltc2309.c
-+++ b/drivers/iio/adc/ltc2309.c
-@@ -1,9 +1,14 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * The LTC2309 is an 8-Channel, 12-Bit SAR ADC with an I2C Interface.
-+ * Low noise, low power 12-Bit SAR ADC with an I2C Interface.
-+ *
-+ * Supported devices:
-+ * LTC2305 - 2-channel
-+ * LTC2309 - 8-channel
-  *
-  * Datasheet:
-  * https://www.analog.com/media/en/technical-documentation/data-sheets/2309fd.pdf
-+ * https://www.analog.com/media/en/technical-documentation/data-sheets/23015fb.pdf
-  *
-  * Copyright (c) 2023, Liam Beguin <liambeguin@gmail.com>
-  */
-@@ -110,6 +115,13 @@ static const struct iio_chan_spec ltc2309_channels[] = {
- 	LTC2309_DIFF_CHAN(7, 6, LTC2309_CH7_CH6),
- };
- 
-+static const struct iio_chan_spec ltc2305_channels[] = {
-+	LTC2309_CHAN(0, LTC2309_CH0),
-+	LTC2309_CHAN(1, LTC2309_CH1),
-+	LTC2309_DIFF_CHAN(0, 1, LTC2309_CH0_CH1),
-+	LTC2309_DIFF_CHAN(1, 0, LTC2309_CH1_CH0),
-+};
-+
- static int ltc2309_read_raw_channel(struct ltc2309 *ltc2309,
- 				    unsigned long address, int *val)
- {
-@@ -170,6 +182,13 @@ static const struct iio_info ltc2309_info = {
- 	.read_raw = ltc2309_read_raw,
- };
- 
-+static const struct ltc2309_chip_info ltc2305_chip_info = {
-+	.name = "ltc2305",
-+	.num_channels = ARRAY_SIZE(ltc2305_channels),
-+	.channels = ltc2305_channels,
-+	.read_delay_us = 2,
-+};
-+
- static const struct ltc2309_chip_info ltc2309_chip_info = {
- 	.name = "ltc2309",
- 	.num_channels = ARRAY_SIZE(ltc2309_channels),
-@@ -213,12 +232,14 @@ static int ltc2309_probe(struct i2c_client *client)
- }
- 
- static const struct of_device_id ltc2309_of_match[] = {
-+	{ .compatible = "lltc,ltc2305", .data = &ltc2305_chip_info },
- 	{ .compatible = "lltc,ltc2309", .data = &ltc2309_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, ltc2309_of_match);
- 
- static const struct i2c_device_id ltc2309_id[] = {
-+	{ "ltc2305", (kernel_ulong_t)&ltc2305_chip_info },
- 	{ "ltc2309", (kernel_ulong_t)&ltc2309_chip_info },
- 	{ }
- };
-@@ -235,5 +256,5 @@ static struct i2c_driver ltc2309_driver = {
- module_i2c_driver(ltc2309_driver);
- 
- MODULE_AUTHOR("Liam Beguin <liambeguin@gmail.com>");
--MODULE_DESCRIPTION("Linear Technology LTC2309 ADC");
-+MODULE_DESCRIPTION("Linear Technology LTC2305/LTC2309 ADC driver");
- MODULE_LICENSE("GPL v2");
+Best regards,
 -- 
-2.43.0
+Manivannan Sadhasivam <mani@kernel.org>
 
