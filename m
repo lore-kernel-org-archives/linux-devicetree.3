@@ -1,60 +1,86 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758E51A6832;
-	Tue, 24 Mar 2026 04:36:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A49AC241690
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 04:48:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774327010; cv=none; b=Npg0NSBCeoAtlRjSUv828LiN5XGafOzRAxFcPcYIXBxl08lRqoIsq8THbavIO2tcY4wZvuo7sUE+r7I8OVPH1mbn0f/F0i9YxTYwRygRVfhOscyX1kc4vSLEzflNl9pG7lZIQkl9RBcjadiI28+WanmzRapp70y+vvHHda/LxOU=
+	t=1774327712; cv=none; b=apSBGxTapZlT82oI+eMuxLQgjLbM4f+FXO43dM0GHKQPQJrWNd9Rb7ZS9zTui0s9uMyIZ4T1rrHchroXbIQRw5w39UCHDW2HhKMFgIm8LcexzkkzWf54K44d4cnzGs7E+ea/wGweXpBKy4rO5zhRU1lBwxpZ3JhDoKgqRmjpbx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774327010; c=relaxed/simple;
-	bh=YKdITOvvQhJNHMtPOgodoOd4kkVDiVEFKSvcRCNlwUE=;
+	s=arc-20240116; t=1774327712; c=relaxed/simple;
+	bh=MqY0rvVxZ8EWepxH1jMTKMbCOC3ejPwoTXI2X/mtWe0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mxvvS91720JgaJJZ0rFVFexBsCjfscyMggsMHFQrHobH6Img4Dz5rfxyDgOiYYCqID923pVm2psD3oyr37i9y9z6Muh/aAp5AAks56VxbzkdmivHSmZpa03ClpbUvZwhrFSyOxL091WsWSHoan3Kut8uQ2rqbaYfjxwT73M8Y3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=mB9Wv5H1; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 In-Reply-To:Content-Type; b=EWchz18/hb9LsOqH+vabT+mkO0SptrY8I8tuSeblhKMcTP+rDat8bnyvoKlV8NxgyI5xAPlTrfzpDsksNaEekMM/Oj+JWTGNdhibXE4rhdwVmeIvw+6MBy9SiRrclpQcA/BeoOpM8W00Eq33SElnVL/iOXRMR1zMZDMmt51gU70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DfwQtmA2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JqO4ukrt; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="mB9Wv5H1"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62NNiqj13599991;
-	Tue, 24 Mar 2026 04:30:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=UwLBZY
-	0xAh69HUU4FoGM+gFkY3rpuiGhmJBMb77IXic=; b=mB9Wv5H1BQQFmjl5i+JJgj
-	qn9zW0bW8lQhQu6a9d1rAws2VXcIiQIiTOQ6AbmLb/203lRQvPD4WFheBYcSd+Q4
-	k2h/DDlmVJyT9YXLFPfYCF4S1MXTaNoiu1/ZL6QXOqVHf634k5gCN0/b1SQMymjJ
-	i3By4hwkn+DB7dhSE4kc1N2nh1lYsNfnu9CB/PIOZOyQxQ97tO4/QTxSSxCAkz9N
-	J9SwlOeMwg56JvPu6egjodai8zMXTWZTvoI79/agfx+TOQWbvls2aXuExJkZwdwr
-	pHNnfrJ2DEvn0+RIt1yIBqE6TBfZkG3LtmpV2O88ojpBe1d9LnNjDOozNnw7Dcgw
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4d1ktusa71-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 24 Mar 2026 04:30:05 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 62O3hwNd008745;
-	Tue, 24 Mar 2026 04:30:05 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4d26nng532-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 24 Mar 2026 04:30:05 +0000
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 62O4U0nh29819348
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 24 Mar 2026 04:30:00 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6B60F2004E;
-	Tue, 24 Mar 2026 04:30:00 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DC9F32004F;
-	Tue, 24 Mar 2026 04:29:47 +0000 (GMT)
-Received: from [9.123.14.142] (unknown [9.123.14.142])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 24 Mar 2026 04:29:47 +0000 (GMT)
-Message-ID: <595e793d-adc3-4acb-af18-f0a3cf2d5e73@linux.ibm.com>
-Date: Tue, 24 Mar 2026 09:59:46 +0530
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DfwQtmA2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JqO4ukrt"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62O3eqO2943589
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 04:48:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zeigFvaue2fOm1v1THIQ2tyCHptET7HZIXbAdvlVh1g=; b=DfwQtmA2Tol8kT0p
+	AyfPrBdbO7Pg7VbmAULGksQZ6QurwM65gWFE7oNJkgDyzwKoiVeXJLGLiNMwYDw7
+	P+eI/Aqs3BZsdC5v97cUxj0NqiYgBqoERnwM4UpjDhd36IIpBD6BAQwO1OLCq3DH
+	NoHgCh2U125+kq8tAXfcqg9F7YZe4/j5TGinmJ2UwkcLCD+T/7qLd7PRlgEx0bLq
+	wxQ1C0I25n2+pZSHBg80E34lf0IE+gDgHsQ+8YgC306yGx/3rsqRVP6Twt2cR8oJ
+	ETh71+liKIfWTefm08atbUCwZZbb+bKwPe0lxI/zFjCGsd9xTxTdPKZEJbDrpD03
+	6BAcQA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d34vku79g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 04:48:30 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-35ba4bf54beso4463239a91.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 21:48:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774327709; x=1774932509; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=zeigFvaue2fOm1v1THIQ2tyCHptET7HZIXbAdvlVh1g=;
+        b=JqO4ukrtShsLrUtUAa0RKlwIXTo+wmaNt6wi+/OC6TUOZWHM6uXh6f51fjUWv9Y/nv
+         O/mKVclMwIJJErLx7fuoDgznPj9/h2kKvmJzp0hsk/FxjIkIbXIhvtXr2H2kDq+mjx27
+         Wh808su2t9gjAcARo6OjIPG4wV8aVmdDWtubMdVgD45B78Cv3C7DFYjNbDTD7c1jc4r+
+         T47qrYmULFMxHdsfBzdMWKfc9X/EAk6k8fLlEGUvX69qv6pSviFx8PWkxaxgvUk5SQZn
+         d4/WxWEIvawNLEVoO/25NW4DOLbkd03wPGZi6dYLFe/gBuE9fkdln04nZnMiMGEmVYsC
+         25HA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774327709; x=1774932509;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=zeigFvaue2fOm1v1THIQ2tyCHptET7HZIXbAdvlVh1g=;
+        b=iHprEpRqU4dv8IxpJRL680j/mvyK3QPZdTYNlp86Yrt+Rkms7QzEOK4L0wyuk5p9Rs
+         EVCEhsDqCRlu2QwE+3DPvK2qTH9A78SFiQeHzxkMaFBAEDrp28ofYu/Y/rozrvshaI4i
+         Fksz2OCNN64cuor27aVOtaho9826zdw+/xNdWuh8D/uX2QOgPTEHVYevJuGjTaCzg7wM
+         AGnW35qFJmp28fk3MDFq4dBDYQNY7POFlKyR4Xu3+5dyHgexHdnvpyOdGzSzjs3yIFdi
+         sDjn/iUgWR6IyatHk5rkVexEhvhBvTIKSBoXp7oJea4LP8w2qup2GoO+YCDZB2vEcw6T
+         gCTA==
+X-Forwarded-Encrypted: i=1; AJvYcCWerHPso8ZhStdJNFYn5gYPHLHth6ldA0MDFH19/L2wBSzZ4Xn5SV9zBfhTFFHkodOBu4HF3tB237Dp@vger.kernel.org
+X-Gm-Message-State: AOJu0YwR9c//9PUY3Qa8ihg/FSD3ozZ0CAvCO/9up8QSvIe8Lr0NFuoF
+	fyUqlmPmM6RDz/on47bhlH78GW/26Hhrev8hI/Ud6vXt/yoeDXCQBulhCkHb12VVmTXhVJGODCl
+	Wfr9nkt9FOPQhlnYRY9aIZxw43SU5rGe+2IOitoxQ/JfXEeRcjWQ2N38GI7dG0CMT
+X-Gm-Gg: ATEYQzzqJ6BM1ut0l76yCSFDu4Uv8e+t7xJs5HFGTms6lacgYweinOK7FnZXNtPaw1G
+	OiOYOvvh6XaeaME1DIbKaU1IGKSIF/CRK4Kkbs05jG1wHYHdmLuIA7zYXLOIH34SeQyZDji2w/F
+	BjTUa8w2uUr3pcq4KVRw5rIP0dhcPG/IHJemnk2xdV9bcuwKeN2v6j4Rk3Y1Ebyd9mdjcwkZuyk
+	BPsps43ZAD2h7c/Z7CBMbCBOxfYVHtUOvKqPguzvSzHws1oD8XA7zZOVPZeIsm497DXs9cfIiN0
+	qMdhtsj/rkZw67mWY6bTM1ifl3MNYBW4YTkLrR0FwHmTzqvGAx7xoEfezryDp1R1smkyX4QhwOh
+	f97Dlbsq+NJdOdt7lutwyWStq1Wk6t1mwnxzqEXhTq54lQNdKEa8G
+X-Received: by 2002:a17:90b:5108:b0:35b:9cd5:232e with SMTP id 98e67ed59e1d1-35bd2ce4493mr13430856a91.29.1774327709467;
+        Mon, 23 Mar 2026 21:48:29 -0700 (PDT)
+X-Received: by 2002:a17:90b:5108:b0:35b:9cd5:232e with SMTP id 98e67ed59e1d1-35bd2ce4493mr13430834a91.29.1774327708987;
+        Mon, 23 Mar 2026 21:48:28 -0700 (PDT)
+Received: from [10.217.223.92] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35c017477eesm386657a91.1.2026.03.23.21.48.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Mar 2026 21:48:28 -0700 (PDT)
+Message-ID: <7d797c67-25b6-48c9-b98a-4545de86e45b@oss.qualcomm.com>
+Date: Tue, 24 Mar 2026 10:18:18 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -62,168 +88,87 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 0/5] arm64/riscv: Add support for crashkernel CMA
- reservation
-To: Jinjie Ruan <ruanjinjie@huawei.com>,
-        Andrew Morton <akpm@linux-foundation.org>
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, catalin.marinas@arm.com,
-        will@kernel.org, chenhuacai@kernel.org, kernel@xen0n.name,
-        maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-        chleroy@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
-        aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org,
-        mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-        hpa@zytor.com, robh@kernel.org, saravanak@kernel.org, bhe@redhat.com,
-        vgoyal@redhat.com, dyoung@redhat.com, rdunlap@infradead.org,
-        peterz@infradead.org, feng.tang@linux.alibaba.com,
-        pawan.kumar.gupta@linux.intel.com, dapeng1.mi@linux.intel.com,
-        kees@kernel.org, elver@google.com, paulmck@kernel.org,
-        lirongqing@baidu.com, safinaskar@gmail.com, rppt@kernel.org,
-        ardb@kernel.org, leitao@debian.org, jbohac@suse.cz, cfsworks@gmail.com,
-        osandov@fb.com, tangyouling@kylinos.cn, ritesh.list@gmail.com,
-        eajames@linux.ibm.com, songshuaishuai@tinylab.org,
-        kevin.brodsky@arm.com, samuel.holland@sifive.com,
-        vishal.moola@gmail.com, junhui.liu@pigmoral.tech, coxu@redhat.com,
-        liaoyuanhong@vivo.com, fuqiang.wang@easystack.cn, x86@kernel.org,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-        linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-        devicetree@vger.kernel.org, kexec@lists.infradead.org
-References: <20260323072745.2481719-1-ruanjinjie@huawei.com>
- <20260323095548.fa4e13d6e8ae5005ae585e13@linux-foundation.org>
- <4cfde40c-673a-12b0-dfc5-703d582d6ea9@huawei.com>
+Subject: Re: [PATCH v4 02/11] soc: qcom: ice: Allow explicit votes on 'iface'
+ clock for ICE
+To: Harshal Dev <harshal.dev@oss.qualcomm.com>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        cros-qcom-dts-watchers@chromium.org,
+        Eric Biggers <ebiggers@google.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Tengfei Fan <tengfei.fan@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        David Wronek <davidwronek@gmail.com>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Melody Olvera <quic_molvera@quicinc.com>,
+        Alexander Koskovich <akoskovich@pm.me>
+Cc: Brian Masney <bmasney@redhat.com>,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+        Gaurav Kashyap <gaurav.kashyap@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260323-qcom_ice_power_and_clk_vote-v4-0-e36044bbdfe9@oss.qualcomm.com>
+ <20260323-qcom_ice_power_and_clk_vote-v4-2-e36044bbdfe9@oss.qualcomm.com>
 Content-Language: en-US
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
-In-Reply-To: <4cfde40c-673a-12b0-dfc5-703d582d6ea9@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: yqbo1T1ZaS3NpXm72fU-pbHKExRLmg3o
-X-Authority-Analysis: v=2.4 cv=aMr9aL9m c=1 sm=1 tr=0 ts=69c2134e cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=c92rfblmAAAA:8
- a=i0EeH86SAAAA:8 a=m-v9b-Je9hLO35U8NS8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDAzMyBTYWx0ZWRfXzR3+xHlpbmBf
- h/N+fBRudva2vYWP6OptwoTRwOQzk1I8/3wQnvPa8Rt/ZrqSgHhrsvrawZDmpMS0QwmYF43FDLf
- HlCcmZsZgGC9X4WGG+3JZZK+v1BoEcZgoSmWPT7YCzbgc19cK+AUrfnZA/DUdwa/YT8kQD4rVlJ
- +AYgnBwkbmjz7qrae9ZCL552mIuzQ18wgAemKsIkFWdhOLIL4ViVPczjF8UwQTYlK4/5RG8BQ8Q
- tl3FOXuw+eX+JAqN+wSMhGu6UgmoqO7EbJb8S22yBrkRpJwFgdl/rtl8Q0hKyH19wnnthRldQqI
- X/qDqLZ7EhN0SsJ3JFGZ1b1s+r8tmBO0tZUjYSrg9H8a4ceYd1A47+bG1j2tcY2xqcNcb3ffolE
- iJSsS9+xp+U8AIJYdBrf1z4HTVo/7/BmQXix362mLRgyxssrXQT2AO9/MLJgcELw2l/0CYMNHHh
- HrbQML69S4TZV0GnIYA==
-X-Proofpoint-GUID: fSy1nmOMAAI_wqT62ef4G42SLgos6nvO
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+In-Reply-To: <20260323-qcom_ice_power_and_clk_vote-v4-2-e36044bbdfe9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDAzNyBTYWx0ZWRfX2Pk9dMtI9h3G
+ 2NyClqrjp7mCrqD2kwO1y/arxeueHsQ96DF/LpWsnMPc/YLWwJjLPRyWzEw6dLGKwXX5/rfsLdR
+ w0yYW7d6slJ3Eb1jSX3fOjWgXfHylz0ZQJV+hrNbj71HOaJgpXnVH6pltTxWLtqBTaKDz1QSxrX
+ pzetahI+PA5v83bY/biAf4xIr7CyeO8wgrfXuMJlkSC86buJzSE/ti7cnDSO4z0VPnTXt9gkpzk
+ n3UOpiUAarjtNIFet7vEgEyCwcxJp2ay/oKPulAYdZylsBtEU3OUYi2FIOB7PnXG+f3N6126v8w
+ Sq1oK7EXByrRh0ga0pe1Rq6ZoO1pjPd+wfYv5b4uCWpxe2RzAs7A5r/lLBBOuUQHrP4bBotthlR
+ kI3z94pnNEMaRKre8kOlhVKHo9c1HbdWjnEUKB/Fydpiav1LtiEtRTkfBKicUaPvt3Dol19EZ8d
+ 24g0wMmSo61TaaQH2Vg==
+X-Authority-Analysis: v=2.4 cv=eMoeTXp1 c=1 sm=1 tr=0 ts=69c2179e cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=SBCaeXWvHhY2KLIX7PwA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-GUID: wH-nugtzb7oz2fxwhVm7LiW4DorWytiJ
+X-Proofpoint-ORIG-GUID: wH-nugtzb7oz2fxwhVm7LiW4DorWytiJ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-24_01,2026-03-23_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0 malwarescore=0
- suspectscore=0 phishscore=0 priorityscore=1501 bulkscore=0 clxscore=1015
+ malwarescore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0
+ bulkscore=0 phishscore=0 spamscore=0 clxscore=1011 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240033
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240037
 
 
 
-On 24/03/26 09:32, Jinjie Ruan wrote:
->
-> On 2026/3/24 0:55, Andrew Morton wrote:
->> On Mon, 23 Mar 2026 15:27:40 +0800 Jinjie Ruan <ruanjinjie@huawei.com> wrote:
->>
->>> The crash memory allocation, and the exclude of crashk_res, crashk_low_res
->>> and crashk_cma memory are almost identical across different architectures,
->>> This patch set handle them in crash core in a general way, which eliminate
->>> a lot of duplication code.
->>>
->>> And add support for crashkernel CMA reservation for arm64 and riscv.
->> Thanks.  AI review has completed and it asks questions:
->> 	https://sashiko.dev/#/patchset/20260323072745.2481719-1-ruanjinjie@huawei.com
-> I believe it identified 4 valid issues:
->
-> - The already discovered crashk_low_res not excluded bug in the existing
-> RISC-V code.
->
-> - An existing memory leak issue in the existing PowerPC code.
+On 3/23/2026 2:47 PM, Harshal Dev wrote:
+> Since Qualcomm inline-crypto engine (ICE) is now a dedicated driver
+> de-coupled from the QCOM UFS driver, it explicitly votes for its required
+> clocks during probe. For scenarios where the 'clk_ignore_unused' flag is
+> not passed on the kernel command line, to avoid potential unclocked ICE
+> hardware register access during probe the ICE driver should additionally
+> vote on the 'iface' clock.
+> Also update the suspend and resume callbacks to handle un-voting and voting
+> on the 'iface' clock.
+> 
+> Fixes: 2afbf43a4aec6 ("soc: qcom: Make the Qualcomm UFS/SDCC ICE a dedicated driver")
+> Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
 
-Yes and suggested approach to fix the issue looks good.
-Which is basically replace return with goto out.
+Reviewed-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
 
-diff --git a/arch/powerpc/kexec/crash.c b/arch/powerpc/kexec/crash.c
-index 898742a5205c..1426d2099bad 100644
---- a/arch/powerpc/kexec/crash.c
-+++ b/arch/powerpc/kexec/crash.c
-@@ -440,7 +440,7 @@ static void update_crash_elfcorehdr(struct kimage 
-*image, struct memory_notify *
-         ret = get_crash_memory_ranges(&cmem);
-         if (ret) {
-                 pr_err("Failed to get crash mem range\n");
--               return;
-+               goto out;
-         }
-
-         /*
-
-Are you planning to handle this in this patch series? Or do you want me 
-to send a separate fix patch?
-
-
->
-> - The ordering issue of adding CMA ranges to "linux,usable-memory-range".
->
-> - An existing concurrency issue. A Concurrent memory hotplug may occur
-> between reading memblock and attempting to fill cmem during kexec_load()
-> for almost all existing architectures，I'm not sure if this is a
-> practical issue in reality..
->
->   Race Condition Scenario
->
->    Timeline:
->    ---------------------------------------------------------------------
->    T1: kexec_load() syscall starts
->    T2: kexec_trylock() acquires kexec_lock
->    T3: crash_prepare_headers() is called
->    T4: arch_get_system_nr_ranges() queries memblock → finds 100 memory ranges
->    T5: cmem = alloc_cmem(100) allocates buffer for 100 ranges
->    T6: [RACE WINDOW] Another process triggers memory hotplug
->    T7: add_memory() → lock_device_hotplug() → memblock_add_node()
->    T8: New memory region added to memblock
->    T9: arch_crash_populate_cmem() iterates: now finds 102 ranges
->    T10: cmem->ranges[100] → OUT OF BOUNDS WRITE!
->    T11: cmem->ranges[101] → OUT OF BOUNDS WRITE!
->    T12: Kernel crash or memory corruption
->
->    Why This Happens
->
->    1. Different locks used:
->      - kexec_load() uses kexec_trylock (atomic_t)
->      - Memory hotplug uses device_hotplug_lock (mutex)
->    2. No synchronization between these two operations
->    3. Time-of-check to time-of-use (TOCTOU) issue:
->      - Step T4-T5: We query the number of ranges and allocate buffer
->      - Step T6-T9: Memory hotplug adds new ranges between query and
-> population
->
->
->
-> Any comments or suggestions on the following approach?
->
->
-> int crash_prepare_headers(...)
->    {
->        unsigned int max_nr_ranges;
->        struct crash_mem *cmem;
->        int ret;
->
->        lock_device_hotplug();
->
->        max_nr_ranges = arch_get_system_nr_ranges();
->        // ...
->        ret = arch_crash_populate_cmem(cmem);
->        // ...
->
->        unlock_device_hotplug();
->        return ret;
->    }
->
->
+-- 
+Regards
+Kuldeep
 
