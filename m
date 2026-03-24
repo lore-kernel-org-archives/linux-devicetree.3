@@ -1,111 +1,195 @@
-Received: from TWMBX01.aspeed.com (mail.aspeedtech.com [211.20.114.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB833859F9;
-	Tue, 24 Mar 2026 01:58:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB781FC0FC
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 02:01:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774317538; cv=none; b=Y6/cbdR4EGbYSzyHTP306Yr1schQVqdK7BYtK6vnKEUaLJ4ebwvJ9LsXutXqyJgXW/vl1LuGh0f2FBYJCB/CV2VNqPz4/97OdHaUh98Rhvu7isInKEJ4pQmHjkmIVwd+Rpc/+HCi6LDAD3BxJQDiJItmpT9pLl0ujCIYEJN3rMI=
+	t=1774317662; cv=none; b=mcpSD5h9wLT30gTy64iWIHz6L3Yx3wgk0edD+fB9rP31oOdYq6QxeQLwXWTeg/WP/IZKGwlfCkhBuzeJLViyKMU0RjaJ2HItZv6QWvIOfwW2fMkwcqnhdB+Dp41N4sZA5W32ozgKGtbD/ASnypng1a1cSuuhkOUa/7WO0yClAqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774317538; c=relaxed/simple;
-	bh=yTcAx3NAX05a2PPdk/ad8cZuE2IR4g+b9LdPiaLiA/A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=pndXk4DWB11Ipfosj45caRw06u5Y0gR7itv0ntqEKsDMYoMZmg/ews4zvNzWxYIUmYb9qnhsExinUXRDZ6pfvmLXwxsQlzwI6Mpr5qB2Kli1Zqkite2pry5Lut6aVYPo++h/d8dsTPIfh/OPIxW9g9E8bIE98KwwkkbIKLY9i+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 24 Mar
- 2026 09:58:50 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Tue, 24 Mar 2026 09:58:50 +0800
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-Date: Tue, 24 Mar 2026 09:58:50 +0800
-Subject: [PATCH v4 2/2] mmc: sdhci-of-aspeed: Handle optional controller
- reset
+	s=arc-20240116; t=1774317662; c=relaxed/simple;
+	bh=LWCSFF3ibJpKbfEkVWiUPdlPbxt19zLp4I8sL+m5VJU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ws93dqmjZUycQ+jBhR+mxcuEfsj9bwHy2g0z8SlXcQorYmg97oQQivA5y/k5XOfEgEkKK+Yh+MQsAtzhhWIaMNSdyVnh7McWxYpw+Fu7cC/eiEDfQTMnJmxEJ/v2nLpzqxmmyN0yyO24zRO/ZzFbPe9SY8M+3rH5t7OFEOhzIGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s3+OhMXP; arc=none smtp.client-ip=209.85.219.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s3+OhMXP"
+Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-899eabc5292so48120916d6.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 19:01:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774317660; x=1774922460; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=HLlKM68MyIfZMCivznDvoOYbnC+rCJINrjgA82vfkM4=;
+        b=s3+OhMXPNSq9XNGEz6bzz83RPf1sckbRO4JF16osupMTqX/4aVyBEJfHT+mRDhRXNb
+         Wkix2b/jvs79nMT7nYjmONmLdTwJtgak4TuQLVGEYHcTV+rRbrP8NWNae4cSb+7voCde
+         zFDm9JpKjUmzyB/ApH/qX27xAN6MRl9hGjolcotstJEhsU/7HlcMz6Ek8lLV29s8r+Xv
+         xvg5/Jv6IrQw4rNXNsQUark2BktUE4WgcZwT4QpvLnH/AFUqn+23Ecs6pRoH1XT1A1n5
+         zpUl8yVyJkylBr+9BilloEoSteKvXCdozzq/NprRPSyUNKzvDsc64tQQvHOSRgnsUkjj
+         98jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774317660; x=1774922460;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HLlKM68MyIfZMCivznDvoOYbnC+rCJINrjgA82vfkM4=;
+        b=WOqK0WWMsEDfZx4MA2cTJrPpbxP09rhQWHkA3nsNso9Ma551Kd0kn3eJf9P9RN8jvk
+         bfeJLXh5PaM7JD6mcEV6Md1+Y5XHFv3s8ObCsVmE10XWj8ZDQaeuFJyzKRBR5ewlb3av
+         8zTT5CQVU/h2LOvclmyHYmxQUHthEhCoMvyIDGp6p9z5ek1V112FSdzpcrizryno4BZF
+         RfIKWzdmlkO9FFQdiCRXk1knWdXtSMWRrpUD6hV+4XCQjYAGkMCSf6ynTLv4p9jSTbCb
+         wt8IClf1ToNND84bLutGboG0/kJx+mGJTRViJCGbs+p0KmpRnzF90snwGofV0G0yAreR
+         b4EQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUV7IkTEpKKbJfRU22T+vMFce01zYp5nCwG45jk/XkdDuH6XQ8cwKhhTlNAfHWv0ULmGRquT2xpY2Fy@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz0wcvJdNZloYNA+RHNejUcMLfnwd0VJFqsoTIgCspiLxy6F9P1
+	jVmpB7CHGdTJiHfx9iS8f+aGw77elLVBRJPArMKp1zVHCyL7jIuRpVkc
+X-Gm-Gg: ATEYQzyvXd7SbRodqEZLPJZ0uFSB6LbdZgL2ki8lJ9FAs10Oh3bK3ZGMj9VjHrylL/p
+	Xhwxga9ePzQa9bg8eBYTt+Cs1s3HkcfaZxipW+9nTBwgWrLYcNEnwJNEvDIT/BuSHqX5gNAJ9qf
+	e321nD3vxR6rR36iRJ3Whimkx4dz83/9VAJiwPxTkstTr69jeXml93M+KXqacsnvvpKKG9/znxL
+	lhciVm+Mm75pwT414wTwdw+/DJuyixX8RVxQqcqpI+niQO08hAMv+bJKAuvWtgt10cEVzzXhUB7
+	1EjvxEcOha8qcHds+aFEM7Xn+Xo381b8V40YLgQ1T/hI+ihRoH4Su0qGM1dRSmQzEYmG+oHTiXV
+	GpSCGD6G03yjOJjm7G/obu4RkAzx6jH8/C5GzIk3EJbZoZ83tWptFUGxG+205vPsULyNZxy1ISR
+	NiAbaATtXgf4yuLL0l388au63IHg==
+X-Received: by 2002:a05:6214:5712:b0:89c:610f:fba1 with SMTP id 6a1803df08f44-89c85a7e223mr241573006d6.46.1774317659652;
+        Mon, 23 Mar 2026 19:00:59 -0700 (PDT)
+Received: from localhost ([184.144.58.243])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-89c85215210sm103060326d6.2.2026.03.23.19.00.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Mar 2026 19:00:59 -0700 (PDT)
+From: Richard Acayan <mailingradian@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Bryan O'Donoghue" <bod@kernel.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Todor Tomov <todor.too@gmail.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Tianshu Qiu <tian.shu.qiu@intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Cc: Robert Mader <robert.mader@collabora.com>,
+	David Heidelberg <david@ixit.cz>,
+	phone-devel@vger.kernel.org,
+	Richard Acayan <mailingradian@gmail.com>
+Subject: [PATCH v11 0/7] media: i2c: IMX355 for the Pixel 3a
+Date: Mon, 23 Mar 2026 22:01:25 -0400
+Message-ID: <20260324020132.8683-1-mailingradian@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260324-sdhci-v4-2-c8c2060ccb5c@aspeedtech.com>
-References: <20260324-sdhci-v4-0-c8c2060ccb5c@aspeedtech.com>
-In-Reply-To: <20260324-sdhci-v4-0-c8c2060ccb5c@aspeedtech.com>
-To: Andrew Jeffery <andrew@codeconstruct.com.au>, Ulf Hansson
-	<ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
-	<joel@jms.id.au>, Ryan Chen <ryanchen.aspeed@gmail.com>, Adrian Hunter
-	<adrian.hunter@intel.com>, Philipp Zabel <p.zabel@pengutronix.de>
-CC: Andrew Jeffery <andrew@aj.id.au>, <linux-aspeed@lists.ozlabs.org>,
-	<openbmc@lists.ozlabs.org>, <linux-mmc@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774317530; l=1827;
- i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=yTcAx3NAX05a2PPdk/ad8cZuE2IR4g+b9LdPiaLiA/A=;
- b=MrgtEjbFQCFNWXmMIdrLZxoiBifWfguS1h4SY1cutKwXP3miq5WzhUXtZrjM6Bmi03aNYkmWg
- Av7r8hBQHHkChhAr4t/wfNJvImB/FeLmU2szrgd/v+1n0jxaabx+eTE
-X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
- pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
+Content-Transfer-Encoding: 8bit
 
-Get the optional reset line for the ASPEED SD controller during probe by
-using devm_reset_control_get_optional_exclusive_deasserted().
+This adds support for the IMX355 in devicetree and adds support for the
+Pixel 3a front camera.
 
-This allows platforms such as AST2700, which require the SD controller
-to be taken out of reset before use, to work with the existing driver.
+Changes since v10, 4/7 (https://lore.kernel.org/r/20260311020328.57976-1-mailingradian@gmail.com):
+- add data-lanes to dts (everyone's review retained) (7/7)
 
-Acked-by: Adrian Hunter <adrian.hunter@intel.com>
-Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
----
-Changes in v4:
-- rebase git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/mmc.git
-  next branch fix the conflit.
-Changes in v2:
-- use devm_reset_control_get_optional_exclusive_deasserted replace
-  reset_control_get_optional_exclusive.
-- add include reset.h
----
- drivers/mmc/host/sdhci-of-aspeed.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Changes since v9 (https://lore.kernel.org/r/20260217002738.133534-1-mailingradian@gmail.com):
+- reject zero data-lanes (4/7)
 
-diff --git a/drivers/mmc/host/sdhci-of-aspeed.c b/drivers/mmc/host/sdhci-of-aspeed.c
-index 4296def69436..f5d973783cbe 100644
---- a/drivers/mmc/host/sdhci-of-aspeed.c
-+++ b/drivers/mmc/host/sdhci-of-aspeed.c
-@@ -13,6 +13,7 @@
- #include <linux/of.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
-+#include <linux/reset.h>
- #include <linux/spinlock.h>
- 
- #include "sdhci-pltfm.h"
-@@ -519,6 +520,7 @@ static struct platform_driver aspeed_sdhci_driver = {
- static int aspeed_sdc_probe(struct platform_device *pdev)
- 
- {
-+	struct reset_control *reset;
- 	struct device_node *parent;
- 	struct aspeed_sdc *sdc;
- 	int ret;
-@@ -529,6 +531,10 @@ static int aspeed_sdc_probe(struct platform_device *pdev)
- 
- 	spin_lock_init(&sdc->lock);
- 
-+	reset = devm_reset_control_get_optional_exclusive_deasserted(&pdev->dev, NULL);
-+	if (IS_ERR(reset))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(reset), "unable to acquire reset\n");
-+
- 	sdc->clk = devm_clk_get(&pdev->dev, NULL);
- 	if (IS_ERR(sdc->clk))
- 		return PTR_ERR(sdc->clk);
+Changes since v8 (https://lore.kernel.org/r/20260210020207.10246-1-mailingradian@gmail.com):
+- allow clock-lanes, but make it optional (1/7)
+
+Changes since v7 (https://lore.kernel.org/r/20260117040657.27043-1-mailingradian@gmail.com):
+- restrict data-lanes to 4 (4/7)
+- include first patch (1/7)
+- add back optional data-lanes in bindings (2/7)
+- remove assert low on power on again (Bryan's review retained) (3/7)
+- use dev_err_probe in power on (3/7)
+- remove second error on probe power on (3/7)
+- add review tags (2/7, 3/7, 7/7)
+
+Changes since v6 (https://lore.kernel.org/r/20260107043044.92485-1-mailingradian@gmail.com):
+- remove NAK from Krzysztof (3/6)
+- assert reset GPIO on probe (3/6)
+- change delays in reset sequence (3/6)
+- remove __maybe_unused from OF match table (3/6)
+- fix alignment for arguments to devm_regulator_bulk_get_const (3/6)
+- remove front camera pin configuration (6/6)
+- remove clock-lanes from camss endpoint (1/6, 6/6)
+- remove data-lanes from camera sensor endpoint (2/6, 6/6)
+- remove blank line at top of binding (2/6)
+- add review tags (2/6, 3/6, 5/6, 6/6)
+
+Changes since v5 (https://lore.kernel.org/r/20260107042451.92048-1-mailingradian@gmail.com):
+- add Bryan to CC who added a Reviewed-by
+
+Changes since v4 (https://lore.kernel.org/r/20251211014846.16602-1-mailingradian@gmail.com):
+- add NAK from Krzysztof (2/5)
+- label the camss ports (3/5, 5/5)
+- define endpoint properties correctly (1/5)
+- use devm_regulator_bulk_get_const (2/5)
+- remove clock-names (1/5, 5/5)
+- set reset GPIO as active low (1/5, 2/5, 5/5)
+- explicitly drive reset low at start of sequence (2/5)
+- make data-lanes in endpoint optional and start at 1 (1/5, 5/5)
+- add mclk3 pin (4/5)
+- add Reviewed-by's (4/5)
+
+Changes since v3 (https://lore.kernel.org/r/20250905215516.289998-6-mailingradian@gmail.com):
+- separate camera mclk pins and move to different patch (4/5, 5/5)
+- remove polarity from rear camera pin (5/5)
+- remove output-low from front camera pins (5/5)
+- mention effects of dcf6fb89e6f7 ("media: qcom: camss: remove a check for unavailable CAMSS endpoint") (3/5)
+- specify single clock-name without items nesting (1/5)
+- rebase on 49c6ac166cf7 ("media: i2c: imx355: Replace client->dev
+  usage") and eaa7d46d9654 ("media: i2c: imx335: Use V4L2 sensor clock
+  helper") (2/5)
+- do not use of_match_ptr for OF match table (2/5)
+- remove redundant GPIO validity checks (2/5)
+- describe endpoint data-lanes (1/5)
+
+Changes since v2 (https://lore.kernel.org/r/20250714210227.714841-6-mailingradian@gmail.com):
+- use devm_v4l2_sensor_clk_get (2/4)
+- require supplies and clock-names (1/4)
+- move unevaluatedProperties down (1/4)
+- disable clocks as last power-off action (2/4)
+- use 0 in gpio pin power-supply (4/4)
+
+Changes since v1 (https://lore.kernel.org/r/20250630225944.320755-7-mailingradian@gmail.com):
+- too much to have a complete list (1-4/4)
+- squash camera orientation patch (4/4, previously 5/5)
+- squash driver changes (2/4, previously 3/5)
+- remove labelled endpoint node in sdm670.dtsi (3/4, 4/4)
+- change init sequence to match other similar drivers (2/4)
+- retrieve clock frequency from devicetree-defined clock (4/4)
+- remove clock-frequency from dt-bindings (1/4)
+- remove redundant descriptions of child nodes (1/4)
+- switch initial drive of the reset GPIO to low (2/4)
+- set mclk frequency to 19.2 MHz (4/4)
+- add vdda-pll supply for camss (4/4)
+- use common power on and off functions (2/4)
+- use devm_clk_get_optional (2/4)
+- remove extra layer when describing mclk pin (4/4)
+- rename regulators (1/4, 2/4, 4/4)
+
+Richard Acayan (7):
+  dt-bindings: media: qcom,sdm670-camss: Remove clock-lanes requirement
+  dt-bindings: media: i2c: Add Sony IMX355
+  media: i2c: imx355: Support devicetree and power management
+  media: i2c: imx355: Restrict data lanes to 4
+  arm64: dts: qcom: sdm670: label the camss ports instead of endpoints
+  arm64: dts: qcom: sdm670: add camera mclk pins
+  arm64: dts: qcom: sdm670-google-sargo: add imx355 front camera
+
+ .../bindings/media/i2c/sony,imx355.yaml       | 111 +++++++++++++++++
+ .../bindings/media/qcom,sdm670-camss.yaml     |   3 -
+ .../boot/dts/qcom/sdm670-google-sargo.dts     |  97 +++++++++++++++
+ arch/arm64/boot/dts/qcom/sdm670.dtsi          |  46 ++++---
+ drivers/media/i2c/imx355.c                    | 117 ++++++++++++++++--
+ 5 files changed, 348 insertions(+), 26 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
 
 -- 
-2.34.1
+2.53.0
 
