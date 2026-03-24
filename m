@@ -1,342 +1,73 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8AB3BFE34
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 06:37:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E948C396D28;
+	Tue, 24 Mar 2026 06:39:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774334259; cv=none; b=Eg1x76/aApZFS+TXJ3pl4vWBSgQkPFfpjZv3j9WPO/v33kRl+99rusoNAAnSiCOfoOlvmevdpHWDetw3sCMlGSvuZ7prIa4d2Cfw3REEWhk/3xlfDtEFskET93WIHYZn7CJPah5c6zNFYDNj+Y8nFmhWM2NdEbpvfqfLZifJV4w=
+	t=1774334353; cv=none; b=A4rIfHaYhDM7W4nopZSdIVV6MYVwzVhsOOjwR1sYozi1C7dFc2+0xYjN1AHJ3SjUSIWOadfb+B4O1PBzVD3MkEZstJhm2k545KzuzBTtYP7oDxUwU1XkLuMtDVF/BmP6+s7PjsivD0bckP8sMHl3kMmfs64vFGSvhbjoCj0C/qY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774334259; c=relaxed/simple;
-	bh=2//TVEeeUTwEq7Yo31zk3cbWZGu+MReMcp0m9YcILM4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l84tg9nteN0/+kgVjrxOh1MwIh5hYsDOICxcSKqsDXamRnF9w2hA6PU+U5nHmtXggmEokMcStuHf6VF724HVGvzvxQumZytX/UIa58/Be9fs770Wd88CSsRW1wdMaSkRvAvPjh4zFAgp2BxxiO00Ry/1wmeHyg5vCZTOtJJ3A5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PNNqOY3y; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774334353; c=relaxed/simple;
+	bh=iGOx98UP1vpKG7YZd8YE9BQwS0A7jTMzxUvXgeGAHSI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=YBd4Zm76tYbUEqsgaWDeXlKRpDBCuhEs51Jhp43vjj7yOaGhbmtwqAFIziTEmADcJuyjGueelZabMPT244X3T0Hb6Iwdf4DrH+mzF5zyNu+zZk3yIXUtqJ44I9tLsc2HwFPBgCQRw39w8AVVLtXtfslZMcgXXiLFU9VoIzbp3dI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MIYAFh2g; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PNNqOY3y"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-358d80f60ccso478833a91.3
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 23:37:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774334255; x=1774939055; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=xr2Xvg/OPWBnkqCroXt5ZloR5SRa9i++m1RbwL+Orr8=;
-        b=PNNqOY3y2p0M5hOczVJC5uHJPwBQKeF21yg2CDciQjbwh5iMGgol4ZZGA8GC36QYmw
-         jawiEY2SqsHxTRliSBgtuszKwEBL0keaAZ7XKyBKG6vpah17NHkeJ71wUH+xYSNfHdrR
-         YGOA8axEw+2pKtn5HRj7Z8aLnFlvE0UKde6Aep5XHbbAG+YURFf98Bpr+wsqOWaj8H/V
-         zAwul1kXvZ3Ope0mI/Fk56Kl9jXaaLSadQEy22Q9xaYzm61UPL8BZGo4umUagFdMy4ae
-         xeh2FnBYe+6GXWzAgcOXFkv7sEJERM5OMcAHublnooXaLxZMNCtJuhyvAjM75e5qmatV
-         gF7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774334255; x=1774939055;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xr2Xvg/OPWBnkqCroXt5ZloR5SRa9i++m1RbwL+Orr8=;
-        b=ZemkiYaBxl5x9TMrbHpDjTljjlFuAFYqlTSWFQYTsAyzw6h+rp+2mfjPFM4A2S/zOq
-         5A35Zb9BY9qhOQS+ai6jiPgUn7VmI8KXlSajuC+tGmTRKH9MmrAg8crEd93m334iQNst
-         rWMpvFSuVNiB5I14ULQewGgk1EkQS7pJWA0zsmd4K9Q/MZeUuPmQMqlr801rLpeQ0iWn
-         gYMMsOpAcoXg1ax8HF8WYh7I1UDZ8PH2UErXoCKQMldPFxM72HETEwMYRRPaFVDPUWMC
-         +pHM1e947p0ym0Ty5ihN4y/ACRzAxTFlpayYX24OF09F+6VM/hxEq0P7F41654fAHlOi
-         NVcQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXTqSYIDLvQNSAcOz5mqJoN7pz5XCKjn6j8CE0XqDewJ/YI0k4WPRplHq0yBtYrnmYWnK0KcbMqB8Xx@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyqs37Wx6nDWOOq74DaGvMvDFWi4XZu9V8YxCSx30RSWHWEUQX/
-	phhJ2iTe5MNq/8MlCzv58HomF8caNpaseFreKJ2CIgGlyzsRY3kI7OOE
-X-Gm-Gg: ATEYQzwCG/djOl/CVfQb6bMbCWvbZeXm3kOG95xWroikAH5lVCg7raYgVu1+Lxxe3qe
-	M5BYG5JbqM5+HfANMnIsN/qlEM3lYcvj7ErZ0tWwOeCCyG36t1ryfOG71A0z2f700P5YEeB9NnU
-	5gzqHp4lirBk8wHp8aksnuF9UHjBTolayWtFRy74vVwI1pGIz/gCt/L4Xf0U1WG28E35vdhnkxA
-	3RtW442+J6oi52JL2Akqe0g9iznLOe6t/oAbDsMaINWxe0vOTt6nDi25AbUNz4YQYLtmoHScNb4
-	3FsMx7i0WYmDlfO1iHIMeF0lEItlvsyZDG6aHAWOEORN1N+7X9LfFsdpTcriTehZfC3aBw5wXcu
-	3UpGnniOShr5Ie16aP+lOlOQMYSFXIGcWjfcvcLWUTv2TuwDUCAZcRJF68FqrEH3/mDkOLTNfR3
-	QTvwtLX6Zb/QJoW//LoD+av4s=
-X-Received: by 2002:a17:90b:35d0:b0:34c:fe7e:84fe with SMTP id 98e67ed59e1d1-35bd2d0dabcmr14417874a91.28.1774334254580;
-        Mon, 23 Mar 2026 23:37:34 -0700 (PDT)
-Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35c03125347sm1166133a91.4.2026.03.23.23.37.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Mar 2026 23:37:34 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Yixun Lan <dlan@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MIYAFh2g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE645C19424;
+	Tue, 24 Mar 2026 06:39:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774334352;
+	bh=iGOx98UP1vpKG7YZd8YE9BQwS0A7jTMzxUvXgeGAHSI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=MIYAFh2g2nIzaNuvfWL9VyTrtDpxmGBSHkZhSvtgc+x75Fglabmstk1493Y4Z663v
+	 LQtXlwI4E7l98/786lVYUJJzg7G5dO0Zq2oFBEVBTfQ9JNM83h0gWzw1JRbXp3ML6V
+	 iazVL0QdPBYBlwL2M9Hr4VwFpnyZvJvb7hMN38yDruQvIK63NuTSwUIpj+v8owHEtk
+	 Lb22TfPqBTuAm0NfBgP6xARy/CUduJRtlJm94WbwUXw6P31GKjuGU6Vib+vY5OdGjQ
+	 oluiuJOpxlgcitfDyO1rjuzS8lIrO3xKC4FzMIMvj6W4fM57Sgs4Hz6ENFRxnkof3n
+	 YDu7B7fqbcsBg==
+From: Yixun Lan <dlan@kernel.org>
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: Yixun Lan <dlan@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
 	Alexandre Ghiti <alex@ghiti.fr>,
-	Richard Cochran <richardcochran@gmail.com>
-Cc: Inochi Amaoto <inochiama@gmail.com>,
-	devicetree@vger.kernel.org,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH v5] riscv: dts: spacemit: Add ethernet device for K3
-Date: Tue, 24 Mar 2026 14:37:13 +0800
-Message-ID: <20260324063714.750428-1-inochiama@gmail.com>
+	devicetree@vger.kernel.org,
+	spacemit@lists.linux.dev
+Subject: Re: [PATCH 1/1] riscv: dts: spacemit: reorder phy nodes for K1
+Date: Tue, 24 Mar 2026 06:39:02 +0000
+Message-ID: <177433411962.241042.5017156711988723087.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260318100000.3934516-1-amadeus@jmu.edu.cn>
+References: <20260318100000.3934516-1-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-Add all ethernet device nodes for K3 SoC.
 
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
----
-Require the following patch series:
-1. Basic DT device patch
-https://lore.kernel.org/spacemit/20260304-01-dts-uart-full-v1-0-50a0aa53a245@kernel.org
-2. Ethernet driver patch
-https://lore.kernel.org/spacemit/20260316010041.164360-1-inochiama@gmail.com
+On Wed, 18 Mar 2026 18:00:00 +0800, Chukun Pan wrote:
+> Reorder the PHY nodes of USB and PCIe to the correct positions based on
+> the register address. This improves the readability and maintainability
+> of the DT. No functional change is introduced by this reordering.
+> 
+> 
 
-Changed from v4:
-1. Fix pinctrl pin name
-2. Remove alias for disabled node
+Applied, thanks!
 
-Changed from v3:
-1. Separate the pin as RGMII pin and INT pin.
-2. Add comment for pin usage.
-3. Rename the ethernet pinctrl node to address it is RGMII node.
+[1/1] riscv: dts: spacemit: reorder phy nodes for K1
+      https://github.com/spacemit-com/linux/commit/eac600d5cc42b04e799fb65169b8f4060773381b
 
-Changed from v2:
-1. keep aliases in alphabetical order.
-
-Changed from v1:
-1. remove interrupt-parents property
-2. add aliases for ethernet node
----
- arch/riscv/boot/dts/spacemit/k3-pico-itx.dts |  22 ++++
- arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi |  44 ++++++++
- arch/riscv/boot/dts/spacemit/k3.dtsi         | 104 +++++++++++++++++++
- 3 files changed, 170 insertions(+)
- create mode 100644 arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-index b691304d4b74..025ebbd2f91e 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-@@ -4,13 +4,17 @@
-  * Copyright (c) 2026 Guodong Xu <guodong@riscstar.com>
-  */
-
-+#include <dt-bindings/gpio/gpio.h>
-+
- #include "k3.dtsi"
-+#include "k3-pinctrl.dtsi"
-
- / {
- 	model = "SpacemiT K3 Pico-ITX";
- 	compatible = "spacemit,k3-pico-itx", "spacemit,k3";
-
- 	aliases {
-+		ethernet0 = &eth0;
- 		serial0 = &uart0;
- 	};
-
-@@ -24,6 +28,24 @@ memory@100000000 {
- 	};
- };
-
-+&eth0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gmac0_rgmii_0_cfg>, <&gmac0_phy_0_cfg>;
-+	phy-mode = "rgmii-id";
-+	phy-handle = <&phy0>;
-+	status = "okay";
-+
-+	mdio {
-+		phy0: phy@1 {
-+			compatible = "ethernet-phy-ieee802.3-c22";
-+			reg = <1>;
-+			reset-gpios = <&gpio 0 15 GPIO_ACTIVE_LOW>;
-+			reset-assert-us = <10000>;
-+			reset-deassert-us = <10000>;
-+		};
-+	};
-+};
-+
- &uart0 {
- 	status = "okay";
- };
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-new file mode 100644
-index 000000000000..13731f384bde
---- /dev/null
-+++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-@@ -0,0 +1,44 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
-+ */
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+#define K3_PADCONF(pin, func) (((pin) << 16) | (func))
-+
-+&pinctrl {
-+	gmac0_rgmii_0_cfg: gmac0-rgmii-0-cfg {
-+		gmac0-rgmii-0-pins {
-+			pinmux = <K3_PADCONF(0, 1)>,	/* gmac0_rxdv */
-+				 <K3_PADCONF(1, 1)>,	/* gmac0_rx_d0 */
-+				 <K3_PADCONF(2, 1)>,	/* gmac0_rx_d1 */
-+				 <K3_PADCONF(3, 1)>,	/* gmac0_rx_clk */
-+				 <K3_PADCONF(4, 1)>,	/* gmac0_rx_d2 */
-+				 <K3_PADCONF(5, 1)>,	/* gmac0_rx_d3 */
-+				 <K3_PADCONF(6, 1)>,	/* gmac0_tx_d0 */
-+				 <K3_PADCONF(7, 1)>,	/* gmac0_tx_d1 */
-+				 <K3_PADCONF(8, 1)>,	/* gmac0_tx_clk */
-+				 <K3_PADCONF(9, 1)>,	/* gmac0_tx_d2 */
-+				 <K3_PADCONF(10, 1)>,	/* gmac0_tx_d3 */
-+				 <K3_PADCONF(11, 1)>,	/* gmac0_tx_en */
-+				 <K3_PADCONF(12, 1)>,	/* gmac0_mdc */
-+				 <K3_PADCONF(13, 1)>;	/* gmac0_mdio */
-+
-+			bias-disable;
-+			drive-strength = <25>;
-+			power-source = <1800>;
-+		};
-+
-+	};
-+
-+	gmac0_phy_0_cfg: gmac0-phy-0-cfg {
-+		gmac0-phy-0-pins {
-+			pinmux = <K3_PADCONF(14, 1)>;   /* gmac0_int */
-+
-+			bias-disable;
-+			drive-strength = <25>;
-+			power-source = <1800>;
-+		};
-+	};
-+};
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index 6cc31e94c13a..4c0cc135dc09 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -5,6 +5,7 @@
-  */
-
- #include <dt-bindings/clock/spacemit,k3-clocks.h>
-+#include <dt-bindings/reset/spacemit,k3-resets.h>
- #include <dt-bindings/interrupt-controller/irq.h>
-
- /dts-v1/;
-@@ -437,6 +438,109 @@ soc: soc {
- 		dma-noncoherent;
- 		ranges;
-
-+		gmac_axi_setup: stmmac-axi-config {
-+			snps,wr_osr_lmt = <0xf>;
-+			snps,rd_osr_lmt = <0xf>;
-+			/* max axi burst len is 256 */
-+			snps,blen = <256 128 64 32 16 0 0>;
-+		};
-+
-+		eth0: ethernet@cac80000 {
-+			compatible = "spacemit,k3-dwmac", "snps,dwmac-5.40a";
-+			reg = <0x0 0xcac80000 0x0 0x2000>;
-+			clocks = <&syscon_apmu CLK_APMU_EMAC0_BUS>,
-+				 <&syscon_apmu CLK_APMU_EMAC0_1588>,
-+				 <&syscon_apmu CLK_APMU_EMAC0_RGMII_TX>;
-+			clock-names = "stmmaceth", "ptp_ref", "tx";
-+			interrupts = <131 IRQ_TYPE_LEVEL_HIGH>,
-+				     <276 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "macirq", "eth_wake_irq";
-+			resets = <&syscon_apmu RESET_APMU_EMAC0>;
-+			reset-names = "stmmaceth";
-+			rx-fifo-depth = <8192>;
-+			tx-fifo-depth = <8192>;
-+			snps,multicast-filter-bins = <64>;
-+			snps,perfect-filter-entries = <32>;
-+			snps,aal;
-+			snps,tso;
-+			snps,txpbl = <8>;
-+			snps,rxpbl = <8>;
-+			snps,force_sf_dma_mode;
-+			snps,axi-config = <&gmac_axi_setup>;
-+			spacemit,apmu = <&syscon_apmu 0x3e4 0x3e8>;
-+			status = "disabled";
-+
-+			mdio {
-+				compatible = "snps,dwmac-mdio";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+		};
-+
-+		eth1: ethernet@cac82000 {
-+			compatible = "spacemit,k3-dwmac", "snps,dwmac-5.40a";
-+			reg = <0x0 0xcac82000 0x0 0x2000>;
-+			clocks = <&syscon_apmu CLK_APMU_EMAC1_BUS>,
-+				 <&syscon_apmu CLK_APMU_EMAC1_1588>,
-+				 <&syscon_apmu CLK_APMU_EMAC1_RGMII_TX>;
-+			clock-names = "stmmaceth", "ptp_ref", "tx";
-+			interrupts = <133 IRQ_TYPE_LEVEL_HIGH>,
-+				     <277 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "macirq", "eth_wake_irq";
-+			resets = <&syscon_apmu RESET_APMU_EMAC1>;
-+			reset-names = "stmmaceth";
-+			rx-fifo-depth = <8192>;
-+			tx-fifo-depth = <8192>;
-+			snps,multicast-filter-bins = <64>;
-+			snps,perfect-filter-entries = <32>;
-+			snps,aal;
-+			snps,tso;
-+			snps,txpbl = <8>;
-+			snps,rxpbl = <8>;
-+			snps,force_sf_dma_mode;
-+			snps,axi-config = <&gmac_axi_setup>;
-+			spacemit,apmu = <&syscon_apmu 0x3ec 0x3f0>;
-+			status = "disabled";
-+
-+			mdio {
-+				compatible = "snps,dwmac-mdio";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+		};
-+
-+		eth2: ethernet@cac8e000 {
-+			compatible = "spacemit,k3-dwmac", "snps,dwmac-5.40a";
-+			reg = <0x0 0xcac8e000 0x0 0x2000>;
-+			clocks = <&syscon_apmu CLK_APMU_EMAC2_BUS>,
-+				 <&syscon_apmu CLK_APMU_EMAC2_1588>,
-+				 <&syscon_apmu CLK_APMU_EMAC2_RGMII_TX>;
-+			clock-names = "stmmaceth", "ptp_ref", "tx";
-+			interrupts = <130 IRQ_TYPE_LEVEL_HIGH>,
-+				     <278 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "macirq", "eth_wake_irq";
-+			resets = <&syscon_apmu RESET_APMU_EMAC2>;
-+			reset-names = "stmmaceth";
-+			rx-fifo-depth = <4096>;
-+			tx-fifo-depth = <4096>;
-+			snps,multicast-filter-bins = <64>;
-+			snps,perfect-filter-entries = <32>;
-+			snps,aal;
-+			snps,tso;
-+			snps,txpbl = <8>;
-+			snps,rxpbl = <8>;
-+			snps,force_sf_dma_mode;
-+			snps,axi-config = <&gmac_axi_setup>;
-+			spacemit,apmu = <&syscon_apmu 0x248 0x24c>;
-+			status = "disabled";
-+
-+			mdio {
-+				compatible = "snps,dwmac-mdio";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+		};
-+
- 		syscon_apbc: system-controller@d4015000 {
- 			compatible = "spacemit,k3-syscon-apbc";
- 			reg = <0x0 0xd4015000 0x0 0x1000>;
---
-2.53.0
-
+Best regards,
+-- 
+Yixun Lan <dlan@kernel.org>
