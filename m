@@ -1,97 +1,174 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CBAD25F984;
-	Tue, 24 Mar 2026 06:05:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA763B8D5C;
+	Tue, 24 Mar 2026 06:07:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774332327; cv=none; b=OeQ5l0C+RMKv9QTyWxoQocQYc7xog9LXHiDk9KG5Xmd0MnOelthOXV+iyCGGn9CovQ7fOePu5WkYBOidCTzrfkSBmQOd5M8aqudGSR/puQ+jVsa1PuGMa0vVtU+z3cluxHveAqrFV9cdWYKgDmyy03GAfmZlA0k10EF0ySbbuTE=
+	t=1774332472; cv=none; b=rfASdkaG4OOJ7SDtFTJUnyAf1ZWSuQ+Qd/zK05pEaumuINVDU8ABcFcUCFPox+XZ80Pw1k+GXDV3T+JPbHmhQHyV0edi/8KjN3APWovkb7Solbc9GZFMilOER0RMVFEanms4la9FucbXMIrOrAcBmV5EiXT3FmXBPci0FJRbFD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774332327; c=relaxed/simple;
-	bh=GHYCd8DhKH7FMGi+EYhx3JiIcXCyUlisc6Q9Y86WCgM=;
+	s=arc-20240116; t=1774332472; c=relaxed/simple;
+	bh=CbrBDMvrxeaN6eqoq4nlJm50oGW9GYqdyJhdu9KIQjc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PTEr/Qfir4QPRGVV1hdgwA9XO0fP+Rsq5/rfUfOMeKb21rfwXFzC+2u9Hy9vThU/U+ozP0zrJWq0sse0zS11FL2JApS4RtfQxTniq2qCR7iOq9DvYO1G7F04nB0BtnsJSN6FtKbjI86kmdaRUlRveIEYvPmq0KeYNaXotLQAS+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sBw2sgMV; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=XKMJ90yy3FYJFdG6hee7S3G/UkJlPQl1Talvn9HgbS82qIRZUB9+oQiBXEvniFh3lfqtasb0ruM9OHTR5G+18oJAdeb4XbSRizmWLG9b7UbwNoC2trXCsEOGqj4mygZ83xu4O3BONzAeYGvUrKB3hXrbGscVjx8bicmeeclc/O8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J8FFdrjp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sBw2sgMV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01700C19424;
-	Tue, 24 Mar 2026 06:05:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J8FFdrjp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66789C2BCB6;
+	Tue, 24 Mar 2026 06:07:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774332326;
-	bh=GHYCd8DhKH7FMGi+EYhx3JiIcXCyUlisc6Q9Y86WCgM=;
+	s=k20201202; t=1774332472;
+	bh=CbrBDMvrxeaN6eqoq4nlJm50oGW9GYqdyJhdu9KIQjc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sBw2sgMVR/zTQXLmw8RXpRwD3hZ4sZkbB96sxnm/HdZ90prALXYyih5rs7DyMTKUF
-	 hbIUfMQhWp5u728xz98K9Z1PkSEAme4OlrstzTfzpimtjXfebO59Znt3WAcfRTz3YU
-	 Q+cTL4XWCQx+ATM5Os7TU97uLORQ/PMjITxv+8oYxm4U5QiV4cYsyiC+Lm/ZqU2dDl
-	 /TLyhkE/ivmR5DpltBnTZy6EjxAjUVMtuaAfAr773sqeo/9IILSoE35FOKATX+I4YA
-	 GPi+eZlbzYSEubo5guEZRjkBlAozyPBrMNeovq2crIjV+9yc/xPWAJEShoOpvo8tfP
-	 HsXMUXpDnriuQ==
-Date: Tue, 24 Mar 2026 14:05:24 +0800
-From: Yixun Lan <dlan@kernel.org>
-To: Aurelien Jarno <aurelien@aurel32.net>
-Cc: Chukun Pan <amadeus@jmu.edu.cn>, linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Alex Elder <elder@riscstar.com>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	"open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
-Subject: Re: [PATCH] riscv: dts: spacemit: drop incorrect pinctrl for combo
- PHY
-Message-ID: <20260324060524-GKA533070@kernel.org>
-References: <20260322202502.2205755-1-aurelien@aurel32.net>
+	b=J8FFdrjpIm66Ud6FZQmqgFoLE3tQOuVgS10sKNaKTr0Oi+Zg8yPtGHldalvpKl1aR
+	 5ork1c0yk7RzktocuBMmHVdiPxTvRSOMHDnSVUD8q+CiRdeYAE7E+LHWWxtgItjr6r
+	 qLaT84wB7VJ8mLRYoFLy8oxLfwaTOXsyupgexMedPclhYyLFV/zXtPzzNrmYpssapW
+	 E+CUcUBlxBxFBD5llM++URWYBUwjMCVhTEU+JIm5telWaOtHQrMxX6y9nRi5n/+g4p
+	 mL+FUC8m6F8gYC1i8NL3j9x3qEJVtm/iPgD1FbmZwkkbmFiNLu4e+aSnxQgOx6alvM
+	 8do02E7SokWxg==
+Date: Tue, 24 Mar 2026 11:37:35 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Tobias Heider <tobias.heider@canonical.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Bjorn Helgaas <helgaas@kernel.org>, Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>, 
+	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	jingoohan1@gmail.com, lpieralisi@kernel.org, kwilczynski@kernel.org, 
+	bhelgaas@google.com, johan+linaro@kernel.org, vkoul@kernel.org, kishon@kernel.org, 
+	neil.armstrong@linaro.org, abel.vesa@linaro.org, kw@linux.com, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pci@vger.kernel.org, linux-phy@lists.infradead.org, qiang.yu@oss.qualcomm.com, 
+	quic_krichai@quicinc.com, quic_vbadigan@quicinc.com
+Subject: Re: [PATCH v1 1/1] arm64: dts: qcom: hamoa: Move PCIe PERST and Wake
+ GPIOs to port nodes
+Message-ID: <dnx4ge2e2zy2unw5jtmmhktyzlnmmhrogb5skskxewi6y7ekau@vpfdphzay7td>
+References: <20260313094618.1361418-1-ziyue.zhang@oss.qualcomm.com>
+ <20260313164542.GA1405513@bhelgaas>
+ <en5a7jrgpbn4bsmw5qwprugb2qmjkqw2x5eey6jxxu63634duz@b43rhcsqkj3o>
+ <abdviJbrluDn2Vrx@baldur>
+ <kqpgjzcxnazjohiop27exget6qrv37wn3csmixt5nmc6d5dkbg@n7qjo6flaabn>
+ <abtgaXSv-zRysJqO@baldur>
+ <4byysnjodmlphwcevw5gb2asxbwwwlf526mtpwpkfi6crjxoqb@vyuktezfu2wu>
+ <CAARv3RSag8n0=ut9KGm0yALRPVTiyQ+bBBbT+3Vf1sNOCBLbGA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260322202502.2205755-1-aurelien@aurel32.net>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAARv3RSag8n0=ut9KGm0yALRPVTiyQ+bBBbT+3Vf1sNOCBLbGA@mail.gmail.com>
 
-Hi Aurelien, 
+On Thu, Mar 19, 2026 at 02:50:37PM +0100, Tobias Heider wrote:
+> Resending because the previous mail ended up being HTML (sorry)
+> 
+> On Thu, Mar 19, 2026 at 6:39 AM Manivannan Sadhasivam <mani@kernel.org> wrote:
+> >
+> > On Wed, Mar 18, 2026 at 09:42:56PM -0500, Bjorn Andersson wrote:
+> > > On Mon, Mar 16, 2026 at 08:50:12AM +0530, Manivannan Sadhasivam wrote:
+> > > > On Sun, Mar 15, 2026 at 09:53:33PM -0500, Bjorn Andersson wrote:
+> > > > > On Sat, Mar 14, 2026 at 07:50:50PM +0530, Manivannan Sadhasivam wrote:
+> > > > > > On Fri, Mar 13, 2026 at 11:45:42AM -0500, Bjorn Helgaas wrote:
+> > > > > > > On Fri, Mar 13, 2026 at 05:46:18PM +0800, Ziyue Zhang wrote:
+> > > > > > > > Commit 960609b22be5 ("arm64: dts: qcom: hamoa: Move PHY, PERST, and Wake
+> > > > > > > > GPIOs to PCIe port nodes and add port Nodes for all PCIe ports") did not
+> > > > > > > > convert all Hamoa‑based platforms to the new method of defining PERST and
+> > > > > > > > Wake GPIOs in the PCIe root port nodes.
+> > > > > > > >
+> > > > > > > > Without the change PCIe probe will fail. The probe failure happens because
+> > > > > > > > the PHY stays in the controller node while the PERST/Wake GPIOs were moved
+> > > > > > > > to the port nodes.
+> > > > > > > >
+> > > > > > > > This fixes probe failures seen on the following platforms:
+> > > > > > > >  - x1-hp-omnibook-x14
+> > > > > > > >  - x1-microsoft-denali
+> > > > > > > >  - x1e80100-lenovo-yoga-slim7x
+> > > > > > > >  - x1e80100-medion-sprchrgd-14-s1
+> > > > > > > >  - x1p42100-lenovo-thinkbook-16
+> > > > > > > >  - x1-asus-zenbook-a14
+> > > > > > > >  - x1-crd
+> > > > > > > >  - x1-dell-thena
+> > > > > > > >
+> > > > > > > > Fixes: 960609b22be5 ("arm64: dts: qcom: hamoa: Move PHY, PERST, and Wake GPIOs to PCIe port nodes and add port Nodes for all PCIe ports")
+> > > > > > >
+> > > > > > > Are you saying that DTs in the field broke because of some kernel
+> > > > > > > change?  That's not supposed to happen.  Even though PHY, PERST, and
+> > > > > > > Wake GPIOs should be described in Root Port nodes instead of the Root
+> > > > > > > Complex node in *future* DTs, the kernel is still supposed to accept
+> > > > > > > the old style with them described in the Root Complex node.
+> > > > > > >
+> > > > > >
+> > > > > > This is not related to the driver change. The driver correctly parses all Root
+> > > > > > Port properties either in the Root Complex node (old binding) or Root Port node
+> > > > > > (new binding). But commit 960609b22be5, left converting mentioned board DTS to
+> > > > > > the new binding, leaving those affected platforms in a half baked state i.e.,
+> > > > > > some properties in RC node and some in Root Port node. Driver cannot parse such
+> > > > > > combinations, so it fails correctly so.
+> > > > > >
+> > > > >
+> > > > > Are you saying that above listed machines has broken PCIe support in
+> > > > > v7.0-rc?
+> > > > >
+> > > >
+> > > > I haven't verified it, but I'm pretty sure PCIe is broken on these platforms.
+> > > >
+> > >
+> > > In line with Bjorn's request, we shouldn't have to guess.
+> > >
+> > > > > It seems this is a (partial) revert of 960609b22be5, is this actually
+> > > > > fixing that change, or is it only applicable once some other changes are
+> > > > > applied?
+> > > > >
+> > > >
+> > > > This change is fixing the issue in the respective board DTS and is a standalone
+> > > > fix on top of v7.0-rc1.
+> > > >
+> > >
+> > > So 960609b22be5 was broken when I merged it?
+> > >
+> >
+> > Broken on the machines mentioned in the commit message, not for all Hamoa
+> > platforms.
+> >
+> > > The commit message says that the commit was incomplete, in that it
+> > > didn't fully convert from the old to the new style, so it sounds like
+> > > the offending commit was incomplete - but I believe the offending commit
+> > > was a workaround for the new solution not being in place and this commit
+> > > mostly reverts the changes in the offending commit.
+> > >
+> >
+> > So 960609b22be5 was supposed to move all the platforms from old PCIe binding to
+> > new for greater good, but it apparently decided to do so only for a subset of
+> > the platforms for some reason which  don't know. But the problem arises due to
+> > 960609b22be5 changing the hamoa.dtsi to the new binding which also warrants the
+> > platform DTS to also be changed to the new binding. If we only have either dtsi
+> > or dts converted and not both to the new binding, the driver will get confused
+> > and fail. And this is what exactly happended for below machines:
+> >
+> >  - x1-hp-omnibook-x14
+> >  - x1-microsoft-denali
+> >  - x1e80100-lenovo-yoga-slim7x
+> >  - x1e80100-medion-sprchrgd-14-s1
+> >  - x1p42100-lenovo-thinkbook-16
+> >  - x1-asus-zenbook-a14
+> >  - x1-crd
+> >  - x1-dell-thena
+> 
+> I can confirm the breakage for (some of) the listed devices on Ubuntu.
+> We are experimenting with 7.0-rcs ahead of our 26.04 release.
+> 
+> I'll try to collect some test feedback for the fix.
+> I'd certainly appreciate this being included as an rc fix since
+> currently half of
+> the x1 laptop devices are broken.
+> 
 
-On 21:25 Sun 22 Mar     , Aurelien Jarno wrote:
-> The combo PHY on the Banana Pi F3 is used for the USB 3.0 port. The high
-> speed differential lanes are always configured as such, and do not
-> require a pinctrl entry.
-> 
-> The existing pinctrl entry only configures PCIe secondary pins, which
-> are unused for USB and instead routed to the MIPI CSI1 connector.
-> 
-> Remove this incorrect pinctrl entry.
-> 
-> Fixes: 0be016a4b5d1b9 ("riscv: dts: spacemit: PCIe and PHY-related updates")
-> Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
+Thanks for the report. We will try to get this patch into v7.0-rcS.
 
-Thanks for doing this, I thought Chukun was planing to submit a fix, CC him
+It'd be appreciated if you can test this patch and give your tested-by tag.
 
-Reviewed-by: Yixun Lan <dlan@kernel.org>
-
-> ---
->  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts | 2 --
->  1 file changed, 2 deletions(-)
-> 
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> index 404b69c47b91f..5790d927b93db 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> @@ -81,8 +81,6 @@ usb3_hub_5v: regulator-usb3-hub-5v {
->  };
->  
->  &combo_phy {
-> -	pinctrl-names = "default";
-> -	pinctrl-0 = <&pcie0_3_cfg>;
->  	status = "okay";
->  };
->  
-> -- 
-> 2.51.0
-> 
+- Mani
 
 -- 
-Yixun Lan (dlan)
+மணிவண்ணன் சதாசிவம்
