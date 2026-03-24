@@ -1,160 +1,156 @@
-Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BFFF397683;
-	Tue, 24 Mar 2026 08:02:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774339371; cv=pass; b=Ojey/R27MMjP67wJTeJ+2HAU9Ji3MCNDxGdY0fS06c0v3LHeezEKEnnlHtDvdeTZ8pgEBkoOY7IkDsDXNJ5E4NBBE0+3XYElCelu9MaPl6JRkU5WDDRwyIe8zmM834CpN7Z7VhPdGlu897fnIorN/v7F9G9TIrOZxf6jh2pdOP4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774339371; c=relaxed/simple;
-	bh=Vj3tXuYnJ1Dut3E9ewdloemxBluTlViycN8iH1EaOB4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ANeCkAVyf381o9KIcOdsDU0/UwNZFpjAkJrRJbU097qkYauolOY6GXCqILy/4LE5osV7UFde+9IKNv70J1BcquunvCzRU85inRasYr2p+9glNsrxyAHZ82B3EZHl9vwF5OgowrskWISEcUdL4Q9SqncUNVeJMNz14qKzfPn0Fyo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=MWSifNUl; arc=pass smtp.client-ip=195.140.195.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0863C5DC5
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 08:07:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774339677; cv=none; b=RttdOnGCm1VnMg58S1w2ze2UzdS+AAYsnCoHvUaDh9qRyJR33QSIxsTj1n97gW6esQOMuUkq6qsU5X4f5TeccwLWd7u+8IMiGRWmWT5Sj8rgG6bAOjmZzRR619G7BRzczX8xtW442Idg4j25FxknsKGZ8XiOxhISenqxMtDPmis=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774339677; c=relaxed/simple;
+	bh=IceAUN0OJIIAbe19yvKfIpOhT3L2MW8JFDntDXdVY0g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HBPxz30FLANRnQVnjiKjCbykeqPn+vLMnoW0UyG2irNcd5B0SQEzQHLNkn2/wWv5+/MUIODi0pX3vA3Rc91N/zby1yqc+rm9/r2Y1iy6zFqxR+MqizpSbDZvl3+NSnxzSz2U18GVk2g7Ua1XtVH+flSXatq514xA1GrAtZJUjQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nooFF0DD; arc=none smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="MWSifNUl"
-Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sailus)
-	by meesny.iki.fi (Postfix) with ESMTPSA id 4fg2ZW0pv3zyVM;
-	Tue, 24 Mar 2026 10:02:27 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
-	t=1774339349;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bsHWbw7oyNKZz8F9g3T7f5cxwL5OoWi6tUY7Ok/t8ws=;
-	b=MWSifNUlPaaqMOq4PuTJ5MqOaeiGZA+wlBmVOvAJuXT0uqK2iwK3AbdKBBSJPebPQH+cAk
-	srwWvrkyOCT47rCmaM/OLZu4Z4ASaTJXpYzo2RbSeToioBL0ksxV3ttibDMOzYKFeZ+Kk0
-	HzJzr9W4BsiqIjBTXktK9FmO8I4AgN8=
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1774339349;
-	b=oW98lXMVIazFB6zLz7XJvsrrlvRFfsVvpjFymnNTO4uPy8Uf9aRTc6KWWcDlXv9ZwDVdlu
-	/bHalqM1L7lIl5piDLmK5SejL1ejle5bRnDYT0E1V87XmErzP1K6MlfBHRAzT2hODljSil
-	0QL6dzTpfEJdUN0lwlMu7GzasW5KLos=
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=meesny; t=1774339349;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bsHWbw7oyNKZz8F9g3T7f5cxwL5OoWi6tUY7Ok/t8ws=;
-	b=t//NLF34xv9Yrs/la/jT9186cicr6b4RNHPTFTBSwkXWdccrS/E+nVb8ChfqqjVaRhmIJN
-	+n3YGX26QzP484y1XJzmwwzmbNCpOQKYmIDpmHq5WdepT4jrCn6gViv+ib9YhBlpwxm1VR
-	bSac0l4xpMN9aXcoKfSab23Nms/7Ffo=
-Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id 1160B634C4E;
-	Tue, 24 Mar 2026 10:02:26 +0200 (EET)
-Date: Tue, 24 Mar 2026 10:02:25 +0200
-From: Sakari Ailus <sakari.ailus@iki.fi>
-To: Frank Li <Frank.Li@nxp.com>
-Cc: Michael Riesch <michael.riesch@collabora.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	Guoniu Zhou <guoniu.zhou@oss.nxp.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	imx@lists.linux.dev
-Subject: Re: [PATCH 3/6] media: synopsys: implement .get_frame_desc() callback
-Message-ID: <acJFEcGm0Sgw5nyW@valkosipuli.retiisi.eu>
-References: <20260210-imx93-dw-csi2-v1-0-69667bb86bfa@nxp.com>
- <20260210-imx93-dw-csi2-v1-3-69667bb86bfa@nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nooFF0DD"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-66971ccfcabso1548436a12.3
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 01:07:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774339667; x=1774944467; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=hU4A868t/KxQ8kSoseiIZSNGuwyJwQACouL71HeRn80=;
+        b=nooFF0DDlWn3Xwd8OeeEkkhVBO18PJvGJFaweNxgRiO2KJbPXWL7L3SXtnPnoJkEFj
+         0KXQyGk6VSxP8Domp+J2O83zhz1NEnInV+3hr/qdCsaeVgRy8LmyDY4upSYdZxhpLoVx
+         pICFCvdP4a9lyJIWd0cnJS2n2zVCLdPsV1wWy8FlsDRkcGoSix4Co75yxNgm2Ry2yu3I
+         USs20T7rG5A35iXfNIBhwBEWbqKUfC8dOMZaAPSafiC9ef5CLO/9byt/Pbeoc/cKuxW6
+         L4CDagq89oyvmU+lmu63q4NGKnt1/oglSvCqnYRJ2BmLFNIrmAI+CqxT3mpNIT/sdbuz
+         qYKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774339667; x=1774944467;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=hU4A868t/KxQ8kSoseiIZSNGuwyJwQACouL71HeRn80=;
+        b=Jm/mAIV54R2FhyTOyTtFiY+C/WXNxy/6GJ20fEez0FqXRWDeztReXS3VfvFVmVgc93
+         g1vTU59d2lA7QZsRyipOoqxbNesjFL8wydzS5vYa86hfLsbD1/gl8GMaFVw7E9QKa6bv
+         5g4he5T+nCZlJ9A5CegzsM7IlYD53B2nhkYknVJI18JaJxpy3GzQxFPpwu9xcLofTT8H
+         fG03YHUyVHmu1hkzgv0j5Dw9P7fquFBq4o3yKFMRMxgHs5BrqJUvE9QWzMgQeh50inzU
+         t0o2dUqJXLmOIbXRhViR/iIxPkgPhhI7YRBSEw4U37dcwhqpckkhjycYFjknd4YZf5uP
+         hCTg==
+X-Forwarded-Encrypted: i=1; AJvYcCWIz9A+plm1AfLLeQRRD4BWhofDPrEiHqCvgN9ZUxITCOcCa8CgSlx8bc2f5Mo5qmk3+ZeILssEtCoq@vger.kernel.org
+X-Gm-Message-State: AOJu0YzKkjh9eivJx5PaanABeELTxuDwyTxORLm6ijqSYabhzIjmsy64
+	qYewxPemjkX5puXy2BO3hSbF7ndXQBGKR5fsm/6SaVSbxTayfo588Mw4
+X-Gm-Gg: ATEYQzyIbxKaY5TRtboKOOWkO4vbPp8CLC8higcr5ZdwP783rLF1OJJGUNQUrlDnuIk
+	IKCHmJrFuQTlzjgqY0i8E24N+B27SmnvHyd76Q/UciKOk7KHW4yONb9B3QJMYxFAllDnd0+7VAh
+	kL2omdjseATeCo4QhSfLUqaQp5REuX+GSScgf/+9M5xa39sfyMuHlcarvIX14tpZ4QUykV2cnyU
+	xHFMa2mEDjQ9ZjTqyMLAcsxCeYOvBq5Boak3ItCtogHt93jJ1KHdJveJq5G7epQNYXJfKThzf6i
+	VO8p5Voq4ROezdLKLxAEnZ9LyRl1sIVDJqjPsv86+ksIcuDG8aFq409zYnaF4uEF1sLFBdUBqJo
+	nz4rOHuZoWYYR6/dUcCVa52Gkm5uu/so5p+X79uODdWCq5LgOQlALA5UzmqbcZrCgU1kkURVOoj
+	3wn41U1fjYgfPnYSiFkDWMrXUsTw==
+X-Received: by 2002:a05:6402:2342:b0:667:2fd:4ead with SMTP id 4fb4d7f45d1cf-668c9b206ffmr10183916a12.27.1774339666291;
+        Tue, 24 Mar 2026 01:07:46 -0700 (PDT)
+Received: from [192.168.1.31] ([178.230.175.206])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-668d219abf6sm4487923a12.20.2026.03.24.01.07.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Mar 2026 01:07:45 -0700 (PDT)
+Message-ID: <2fd29380-468a-4f09-853a-f63c67a3a3aa@gmail.com>
+Date: Tue, 24 Mar 2026 09:07:43 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260210-imx93-dw-csi2-v1-3-69667bb86bfa@nxp.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] arm64: dts: qcom: Add Xiaomi 12 Lite 5G (taoyao)
+ DTS
+To: Val Packett <val@packett.cool>, devicetree@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, linux-kernel@vger.kernel.org
+References: <20260305093941.305122-1-zstaseg@gmail.com>
+ <20260305093941.305122-3-zstaseg@gmail.com>
+ <9ea41e6c-7643-452e-abf4-f35238807a26@packett.cool>
+ <3bb1da4f-f2dc-421d-95f1-5bba9e3e1aec@gmail.com>
+ <02913b5c-ce09-4fb7-a3dd-71bf7330439d@packett.cool>
+Content-Language: en-US
+From: Stanislav Zaikin <zstaseg@gmail.com>
+In-Reply-To: <02913b5c-ce09-4fb7-a3dd-71bf7330439d@packett.cool>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Frank,
+On 3/23/26 9:49 PM, Val Packett wrote:
+>
+> On 3/23/26 05:04, Stanislav Zaikin wrote:
+>> On 3/21/26 8:36 AM, Val Packett wrote:
+>>> Hello again :)
+>>>
+>>> On 3/5/26 6:39 AM, Stanislav Zaikin wrote:
+>>>> Xiaomi 12 Lite 5G is a handset released in 2022
+>>>> […]
+>>>> +    touchscreen@0 {
+>>>> +        compatible = "goodix,gt9916";
+>>>> +        reg = <0>;
+>>>> +
+>>>> +        interrupts-extended = <&tlmm 81 IRQ_TYPE_LEVEL_LOW>;
+>>>> +
+>>>> +        reset-gpios = <&tlmm 105 GPIO_ACTIVE_LOW>;
+>>>> +
+>>>> +        avdd-supply = <&vreg_l7c_3p0>;
+>>>> +        vddio-supply = <&vreg_l2c_1p8>;
+>>>> +
+>>>> +        spi-max-frequency = <5000000>;
+>>>> +
+>>>> +        touchscreen-size-x = <10800>;
+>>>> +        touchscreen-size-y = <24000>;
+>>>> […]
+>>>
+>>> I have noticed this previously and started wondering why the size 
+>>> was 10x higher. Now with my own device (motorola-dubai) I actually 
+>>> found out why…
+>>>
+>>> With the actual 1080x2400 size, the mm values reported by libinput 
+>>> are 10x higher than what they should be, e.g. touching the bottom 
+>>> right corner with libinput debug-events:
+>>>
+>>>  event3   TOUCH_MOTION              2  +1.493s  0 (0) 98.80/98.75 
+>>> (1067.00/2370.00mm)
+>>>
+>>> (2.4 meter tall phone! :D) which was mooooostly "fine" except 
+>>> Phosh's on-screen keyboard was accidentally detecting super-fast 
+>>> down swipes as I was typing normally, and suddenly closing the 
+>>> keyboard as I was typing.
+>>>
+>> I wonder why some other devices with gt9916 (there are a couple in 
+>> mainline) that specifies 1080x2400. I don't think we can make this 
+>> assumption unless there was a mistake already in those mainline dts.
+>>
+>> Best regards,
+>> Stanislav
+>
+> Not sure what you meant there..
 
-On Tue, Feb 10, 2026 at 12:11:10PM -0500, Frank Li wrote:
-> Implement the .get_frame_desc() callback to fetch information from the
-> remote endpoint.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
->  drivers/media/platform/synopsys/dw-mipi-csi2rx.c | 25 ++++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
-> 
-> diff --git a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
-> index 61cd7f491b3d5b8a37707b23ca03ce709b40a79f..4ad4e3b23448affeeaa932a706653818ba4019ba 100644
-> --- a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
-> +++ b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
-> @@ -70,6 +70,8 @@ struct dw_mipi_csi2rx_device {
->  	struct v4l2_async_notifier notifier;
->  	struct v4l2_subdev sd;
->  
-> +	struct v4l2_subdev *remote_source;
-> +
->  	enum v4l2_mbus_type bus_type;
->  	u32 lanes_num;
->  };
-> @@ -431,10 +433,31 @@ static int dw_mipi_csi2rx_disable_streams(struct v4l2_subdev *sd,
->  	return ret;
->  }
->  
-> +static int
-> +dw_mipi_csi2rx_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
-> +			      struct v4l2_mbus_frame_desc *fd)
-> +{
-> +	struct dw_mipi_csi2rx_device *csi2 = to_csi2(sd);
-> +	struct media_pad *remote_pad;
-> +
-> +	if (!csi2->remote_source)
-> +		return -ENODEV;
-> +
-> +	remote_pad = media_pad_remote_pad_unique(&csi2->pads[DW_MIPI_CSI2RX_PAD_SINK]);
-> +	if (IS_ERR(remote_pad)) {
-> +		dev_err(csi2->dev, "can't get source pad of %s (%pe)\n",
-> +			csi2->remote_source->name, remote_pad);
-> +		return PTR_ERR(remote_pad);
-> +	}
-> +	return v4l2_subdev_call(csi2->remote_source, pad, get_frame_desc,
-> +				remote_pad->index, fd);
-> +}
+I meant the existing dts files that use gt9916:
 
-Can you use v4l2_subdev_get_frame_desc_passthrough()?
+sm8550-qrd.dts
 
-> +
->  static const struct v4l2_subdev_pad_ops dw_mipi_csi2rx_pad_ops = {
->  	.enum_mbus_code = dw_mipi_csi2rx_enum_mbus_code,
->  	.get_fmt = v4l2_subdev_get_fmt,
->  	.set_fmt = dw_mipi_csi2rx_set_fmt,
-> +	.get_frame_desc = dw_mipi_csi2rx_get_frame_desc,
->  	.set_routing = dw_mipi_csi2rx_set_routing,
->  	.enable_streams = dw_mipi_csi2rx_enable_streams,
->  	.disable_streams = dw_mipi_csi2rx_disable_streams,
-> @@ -487,6 +510,8 @@ static int dw_mipi_csi2rx_notifier_bound(struct v4l2_async_notifier *notifier,
->  		return ret;
->  	}
->  
-> +	csi2->remote_source = sd;
-> +
->  	return 0;
->  }
->  
-> 
+sm8650-qrd.dts
 
--- 
-Regards,
+sm8650-hdk-display-card.dtso
 
-Sakari Ailus
+All of those specify 1080x2400. That means either those boards weren't 
+tested (by physically tapping the touchscreen at least) or that there's 
+something else.
+
+> I have not seen other devices do the 10800/24000 thing. Please set 
+> 1080/2400 (actual size not 10x larger).
+That part I get and I will.
+
+Best regards,
+Stanislav
