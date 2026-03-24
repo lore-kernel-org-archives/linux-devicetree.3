@@ -1,46 +1,54 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7653F074F;
-	Tue, 24 Mar 2026 11:48:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE942853EE
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 11:57:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774352910; cv=none; b=hyICMqJgOxXZWwlS4Z76HkqIvUu+magptFgse/xOQyYBzCVqwjhbDTJpFbhs+vZOTTFfxYYpyc0JX1IJdCFXhzghzRFpq2B39bELpIWEAPmKHvW6Z6rHlKFzhALVw5b4haUvCYxkafkP5r1aMDVkQLHCCYES3dFXrRGo/Scq+IE=
+	t=1774353433; cv=none; b=NQqZdw74KyeoQKzkGCcvUh70BV3QMNZP0w2XmOfPj0u04gtMP7r/JpHJMcBqscK2xlaZQY9T3lGXCaBQBx1m7NgJXmw8ucLGq9cdTYK3CZg1efzskP3MCfncal829PcwEt0PCmzvY3EOmCEcWrAH1kwoYxZ9o55UZVTfKYpCq0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774352910; c=relaxed/simple;
-	bh=6CXTjNHX0J4uF5Ojb5ZTtc7BYWwcUfE/5znpHFlnD7w=;
+	s=arc-20240116; t=1774353433; c=relaxed/simple;
+	bh=nKslBCdry+C9RXG6D44L7TO3CQCPQ3Nbw4p6y0QEsQk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EuPO0n+uXap7t0y3LUTLoMbKUtPv48rQ7BcHm7IUDnthPlPvpKumPREWxm28VbyEELgV9IFZW3F9Mq5I9KX8cM+vVIr8Kg3E1EadWrw93b0mUcf1PIExjjtcd2BrAg7HaKPZiAs7DVrbhvy7Y37BdVrn8T4SVmiKOnMDehqj3lM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gsaRuY6e; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gsaRuY6e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8EBFC19424;
-	Tue, 24 Mar 2026 11:48:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774352910;
-	bh=6CXTjNHX0J4uF5Ojb5ZTtc7BYWwcUfE/5znpHFlnD7w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gsaRuY6eViu8X3g7+P8vdzfxU4G+qz03aiKEZuxnGTNsLVxiKXMSAswe4uAP4Voff
-	 9Ya58a36gSb4qTTV2ALgFbdUiig5NcEiPClqZfMMpWh47cbVgEFlfyQE7SR/lhNk4d
-	 jXzk2INfqyjbAPNNKbbjeeKw144hv7CcDnL7MbSF2wt5ImoiprqnaXr+p9eEJhMVbi
-	 a1Fznmx7J3yfrSTOVsNjX+TwRExiB67lrRqxzPeABK3epFD8N4N4dMLlH/kC2Xc0hC
-	 zWfjNxa/AqFXRF0eCkSus1j1bgH5+Aq6qAHRrRo1IliJcDMUYbKBG5kgQ3HLQn4g0s
-	 f7Wv2zWveKrWw==
-Date: Tue, 24 Mar 2026 12:48:27 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
-Cc: Mathias Nyman <mathias.nyman@intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Thierry Reding <thierry.reding@gmail.com>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, JC Kuo <jckuo@nvidia.com>, Vinod Koul <vkoul@kernel.org>, 
-	Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, linux-usb@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] usb: xhci: tegra: Remove redundant mutex when
- setting phy mode
-Message-ID: <acJ50sQraVmy4zXs@orome>
-References: <20260127-diogo-tegra_phy-v2-0-787b9eed3ed5@tecnico.ulisboa.pt>
- <20260127-diogo-tegra_phy-v2-2-787b9eed3ed5@tecnico.ulisboa.pt>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jq3YOotzBzTzC5xpEXixoWsdddXrqwGGlWODOJajpSNy8lLmuKffF0dd6iA2z3WkbT4r6MT1vqAXKITC9GtVhpJZ12JI3p4EpjfCygc3QSdkZ7m4j2V/oNVcH5Pcud3srN9enV7+1K7tqFXlQRuySci4SHdyjkVxDOisRLSrHDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1w50NN-00018O-7O; Tue, 24 Mar 2026 12:56:49 +0100
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1w50NM-001tEm-2a;
+	Tue, 24 Mar 2026 12:56:48 +0100
+Received: from pengutronix.de (p4ffb2dc6.dip0.t-ipconnect.de [79.251.45.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 6A39850B991;
+	Tue, 24 Mar 2026 11:56:48 +0000 (UTC)
+Date: Tue, 24 Mar 2026 12:56:48 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>
+Cc: Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	NXP S32 Linux Team <s32@nxp.com>, Christophe Lizzi <clizzi@redhat.com>, 
+	Alberto Ruiz <aruizrui@redhat.com>, Enric Balletbo <eballetb@redhat.com>, 
+	Eric Chanudet <echanude@redhat.com>
+Subject: Re: [PATCH v3 1/6] can: flexcan: use dedicated IRQ handlers for
+ multi-IRQ platforms
+Message-ID: <20260324-psychedelic-idealistic-dormouse-95b03c-mkl@pengutronix.de>
+X-AI: stop_reason: "refusal"
+References: <20260323135827.2129371-1-ciprianmarian.costea@oss.nxp.com>
+ <20260323135827.2129371-2-ciprianmarian.costea@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,75 +56,83 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="geubzoieqitgmbmw"
+	protocol="application/pgp-signature"; boundary="ck7uopz7x4wte3gm"
 Content-Disposition: inline
-In-Reply-To: <20260127-diogo-tegra_phy-v2-2-787b9eed3ed5@tecnico.ulisboa.pt>
+In-Reply-To: <20260323135827.2129371-2-ciprianmarian.costea@oss.nxp.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: mkl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
 
---geubzoieqitgmbmw
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--ck7uopz7x4wte3gm
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 2/6] usb: xhci: tegra: Remove redundant mutex when
- setting phy mode
+Subject: Re: [PATCH v3 1/6] can: flexcan: use dedicated IRQ handlers for
+ multi-IRQ platforms
 MIME-Version: 1.0
 
-On Tue, Jan 27, 2026 at 03:11:48PM +0000, Diogo Ivo wrote:
-> As the PHY subsystem already synchronizes concurrent accesses to a PHY
-> instance with a core-internal mutex remove the driver specific mutex
-> synchronization.
->=20
-> Signed-off-by: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
-> ---
-> v1->v2:
-> - New patch
-> ---
->  drivers/usb/host/xhci-tegra.c | 4 ----
->  1 file changed, 4 deletions(-)
->=20
-> diff --git a/drivers/usb/host/xhci-tegra.c b/drivers/usb/host/xhci-tegra.c
-> index 8b492871d21d..927861ca14f2 100644
-> --- a/drivers/usb/host/xhci-tegra.c
-> +++ b/drivers/usb/host/xhci-tegra.c
-> @@ -1357,15 +1357,11 @@ static void tegra_xhci_id_work(struct work_struct=
- *work)
-> =20
->  	dev_dbg(tegra->dev, "host mode %s\n", str_on_off(tegra->host_mode));
-> =20
-> -	mutex_lock(&tegra->lock);
-> -
->  	if (tegra->host_mode)
->  		phy_set_mode_ext(phy, PHY_MODE_USB_OTG, USB_ROLE_HOST);
->  	else
->  		phy_set_mode_ext(phy, PHY_MODE_USB_OTG, USB_ROLE_NONE);
-> =20
-> -	mutex_unlock(&tegra->lock);
-> -
+On 23.03.2026 14:58:22, Ciprian Costea wrote:
+> From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+>
+> On platforms with multiple IRQ lines (S32G2, MCF5441X), all lines are
+> registered to the same flexcan_irq() handler. Since these are distinct IRQ
+> numbers, they can be dispatched concurrently on different CPUs. Both
+> instances then read the same iflag and ESR registers unconditionally,
+> leading to duplicate frame processing.
+>
+> Fix this by splitting the monolithic handler into focused parts:
+> - flexcan_do_mb(): processes mailbox events
+> - flexcan_do_state(): processes device state change events
+> - flexcan_do_berr(): processes bus error events
+>
+> Introduce dedicated IRQ handlers for multi-IRQ platforms:
+> - flexcan_irq_mb(): mailbox-only, used for mb-0, mb-1 IRQ lines
+> - flexcan_irq_boff(): state-change-only, used for boff/state IRQ line
+> - flexcan_irq_berr(): bus-error-only, used for berr IRQ line
+>
+> The combined flexcan_irq() handler is preserved for single-IRQ
+> platforms with no functional change.
 
-It looks to me like the mutex here is trying to protect against
-tegra->host_mode changing while we're setting a different mode. That
-doesn't seem to be taken care of by the PHY internal mutex.
+Thanks for implementing this.
 
-Thierry
+Can you take care of the S32G2 which has 2 mailbox IRQs, too? Please in
+a separate patch.
 
---geubzoieqitgmbmw
+My idea was to take the "irq" argument of the IRQ handler and the quirks
+and figure out if you are the first or second mailbox IRQ handler.
+
+Convert these
+
+| struct flexcan_priv {
+| [...]
+| 	u64 rx_mask;
+| 	u64 tx_mask;
+| [...]
+| }
+
+into a struct and put an array of 2 of these structs into "struct
+flexcan_priv". Use correct mask array depending on IRQ handler.
+
+regards,
+Marc
+
+--
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--ck7uopz7x4wte3gm
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnCegsACgkQ3SOs138+
-s6ESAQ/9EMcAUytgVdqWsJtOBxpPlq0tVZ2c5MSbDjInQhkZMWHEEqh4CS0S7gwO
-524kejcplYr2DTbmr/wI0zjfWP7Aomr7HGRWiUUCVCYru/V9YLwXak5A0+OtKusq
-i4aCxyzdzUcXYdXCxglPOBPW0nr3v/NGkG/fqvBEKAMiSfgWhXL3Y7BPsPw/g0o5
-ro+f10rx1QlLR9V+2Zkie2CufCkpqChsutAgGM0o0b6FpT1H3ICTBFW0AJ6a8sv7
-fMB4cba7XWBLC38BEfjKsRum62s5ImJklbTYahVZbkLp0cFIBaMQPZhAbkH937i4
-ouJXF/2oew+Z9d3aN4eLhOMvoml0a9Ttthhx8S1QgJ+tF4uII9wrSlVnNsOU3wRc
-ft3RaKEffEJJ8/796FF0x+kLPeqeIhE0GC8/O2LavsZLQJo6T55g1sG1hytkixM1
-DsEaCG1qqe4yAthaW1Gge28uq5yd6k36cxOORwIhrP9usHKV1X6Z5IPbkziJ8XeJ
-a+tSM/AD6m1oKMxPRJke7PkM04oc+cZzSPcmZ2abBocV2t/CLmd5TCgGPZ+er8aT
-wOW0l0ERdomQMAGhMo8rJHN225YRE7fG3Hy5lhTux1mcAQsb4Y61QW8qxA1nCIqJ
-d0tqu1GKLIwTGZEGG+fydMq7BAy+F3+duGopgY5IJ4bU1YGjsaU=
-=eWzY
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCacJ7/QAKCRDMOmT6rpmt
+0nmVAQCsuvizei2v5oCSYMhMLFUmUMY9PygO2GRf3HYs+O3V+gD/XJxknnXu0vah
+fU+OKdP8dNkviTfrgYBDkoox8uXOmAs=
+=ZrJk
 -----END PGP SIGNATURE-----
 
---geubzoieqitgmbmw--
+--ck7uopz7x4wte3gm--
