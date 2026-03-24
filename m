@@ -1,197 +1,155 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEC5C3DC4CB
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 09:23:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A823DCD81
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 09:25:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774344238; cv=none; b=SV+3JjIZmnWT/ww03v6bXFbVP5rrDKbI2a+B2yy5MgaFH2bBQhKmT4IiSmlB/Cwm7QKuBPxZTtFAzXztJeW3ydb6wWs6DQyl6TaL5OBsyEGXitAOFIQ5K21oZfpD0Byf2BSA41MJep69ticJ75T2QqXg/CrmQs/jXLqkuRbiyR8=
+	t=1774344345; cv=none; b=RpjGTiPBVIluCr2VoB28xouEYtpQxJljoLi3JohhpA5kDAlET4qz2S+ACLAycFMxCuRmaEaninKBvu0rhJuqHeh+OxJH9jOq3you8hIeX58M/zY59naipsY7/rrQL8fqASRb9mB3cLH4yx52KJqAAsf7/w6NxyvWrlcSAbuy5nk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774344238; c=relaxed/simple;
-	bh=eORHv6uMOxEZQvZKT0NGFZMJsp3s4BCbYLo0O/D16Zw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=l0p8+xtzHHhvEJ3fiYnm1rBtEain7aybV2Qpfax3O+8uH8t0Q4mnco3exycpye6zn21z0vxqqBHWQ13GZDVdhuk0R8KNeDsBboEQEhCXFQumo6TvfQHEVFAlgqxFDwmk1lx3aT0Laawxr3N/Fq5XzxRgQE9lJloGIg/9sLRw7yE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=TTlaY5lB; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1774344345; c=relaxed/simple;
+	bh=izJj1l/o063vlBI+JI2AFwCtCQWHbI7j2rXuDXQoTCQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GcHzb9/2wVkAowCA2DpIcIefjm1YeFJMO2EDuuEi/7SpNOtGLmrGGYGL6ZdlYAhm9/0WN6lRarH0jtQOLN9l8waaY4/9s1oMAKi0u9HNTNXSdD+g+2aArKzJAJKKR3ziHXNSm2Je5b4i8vUbVJWlxLG4XMbb0IC1DnVX9+7w2H0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PqbevtOt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KF0ocvtm; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="TTlaY5lB"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-48558d6ef83so35437735e9.3
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 02:23:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PqbevtOt";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KF0ocvtm"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62O4k66H1910825
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 09:25:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	evOdHivffAtn9SWqkwOMnHChQNd/edxUNcG3hAURPt4=; b=PqbevtOtnvdxSY6m
+	Ej3SMVubIRras7FnhjnaMvzPPHMBld0+t2tjSt+keT8E+nX3pcsOjZ0VF1OOOUvq
+	aXjMHzn+GH5NivhK9jx3zcc94MSFeTP92nvHgs00qsw0Va5GjFU31vMe8gTyCpFg
+	W0ndGX2I5AQGS8rH+uHIiXldq/lTd60Ctwys4enp/jx6oiTCCY8fPufnOT+5s02x
+	Vy0f7dgtJG0+8Gd7D0S14BtdZ8sK+Tg1DcHkQxueDdlbRGdU5Zv6kd6Ph77NdfZ/
+	HMnUyVstgA0uAo0GaqZL7ndnDqHTFLnaHMzXj4E3hs6UDZHGtwvlPb3YXlmi1K7L
+	y9sEiQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d3awytqrt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 09:25:36 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-89c68ac09f5so44123166d6.3
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 02:25:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774344226; x=1774949026; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=G5BTS4Xu7BcfhUbuvKmb6N+eqgb+/BungbccHaCogJs=;
-        b=TTlaY5lBI780CEmaF4G6s2ABEbZEWSzZ1EONPBx3jInjBgAa4HB+O5DJRlJ5WTAv3g
-         Qbewwz2/QM8/eLhZJMCr74z5dvRLdP/VBFKby9XZr1X2UsBOG+hkLeVvxjqAZ4wLLoC5
-         gPhHmj6MQdNo2IEUabVpFaqKum3i+bPb+/KXRq+xikZAmO7MWXExUU/PkDnJZdwNc23h
-         b/1f4a2QhDt27syw9Wc5FdCL2/gKPbPgaJWgoIgD8YvNqPIE0f1/lkgSt1XOA3TPEQ8Q
-         K4YVcZQelrVd9Zrzg/7yyICI4YjzFW8aXg98pKmlGX0X2TXcQw+L5les5r7NZk1EIccm
-         t/gg==
+        d=oss.qualcomm.com; s=google; t=1774344335; x=1774949135; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=evOdHivffAtn9SWqkwOMnHChQNd/edxUNcG3hAURPt4=;
+        b=KF0ocvtmwT3ZVKLk00MpKrsxFuXjOKKA3g4/sCHQbvH3KLAYffRaRcztIUjtwBA+Zx
+         pqPzQIr2NAvS6xOJZkz6yHLY1cIR3QGYuNQ3O2UBZrnofoCTdbvUtFwz1w14j0Ycdgk2
+         qvjYsKUn338fTJT+q94wX+JcSX3QTZ0QtdD+bCoqnzxigMqz3toEOsAqhXW+nhBEhd+O
+         a4bwIy0rqdkx59HmAFdywTYKvvhvSgoQSaBfvzupTjV6iqndEzk5yMDDwLwN1gfyiEHI
+         vim4F/nKXhWNpfVnKGLQhoT5Sss1QnHupPrkJaqa/H1lBXArlEyvUN9fOL1HXQscOVF4
+         Y2Pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774344226; x=1774949026;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=G5BTS4Xu7BcfhUbuvKmb6N+eqgb+/BungbccHaCogJs=;
-        b=NeVlk1RSAvy+T9yleccuaQpL0QFULxyDocBKDtdclx5A7fvggUm4S0LmS7tbh83/Ts
-         YlnhMtn1xobUWy/d2UBvFFRkMUX4Lgbp0j4DWA+xzwd+BIBsDS3NV6MISkYycSGVxg1W
-         iWjZy/IkP7G4EO+yy41HkK+OfayN5WzK2pNEUq9KBEvE3hzgdxOjf0LGKKAsUh6xl1/7
-         IcWLsvRI1jZucniOxfXPBzsxhsyb3X2rA6UK+qZS7F7We10d/mVqmwjXTqy6C+1EiVa0
-         qrBSc8bm12KlELX47ZtBx9Lmk2KxBn995ZdrxfJ+DU1+3L+VJIx4d/1eI0M8ygHIm/6A
-         F5xw==
-X-Forwarded-Encrypted: i=1; AJvYcCVKy4FLr5SCQwBgvsuzRMlVrq3DOuDCBKT/AOua+J0RhBmi3qGDjdLRJa9sGK1agoZBUauXZ4V/UqRJ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2/lct5vuiM9BDWgCpf5RmUP5WsC2UtE84mO78ZiMbVWCbItRn
-	09y5mf6N6LUOLFl0w1ivlW19/NxdLhToolC48w4bcnNgCpqIgybjEKtGBEbc3X/+ILM=
-X-Gm-Gg: ATEYQzxMlkIAjukT+PUJ/Ympxo+OXKZ+S1eyK3y+brfbUv/okCigzPtwznMa8csK0TY
-	dB/Axlm0eXnka8iYwYBQ2eLlMrio4nC6GTrFfjZ/NzGqDbYNrzo6h5PtEiw0v5Xb/VH06yrnY46
-	2s0/Eik5yxBmKOIbsxsyRwQWScf/gWyNbLJxQAkbwJjTRmUG/gTDfO2qQlVuZOenhP3vgLxOXih
-	SUkf9b1UM+5yQF+n8yY0yPY6gJ8hB6dgibx/TiihcK94w+YCZu0HUFwh/PeRSBjg1c2c+8tlN33
-	jgtniN2YARftcrTuX9y1aQjWF/nTPKk42fw1Y6fInfPFEFl2dF4YieVmryvZCP65WNF6cf1hS1s
-	7iwWuLM7q46QIqI4MfBYpZhwD/9xBaXihUQ4Z7eSghtQ5Iixrqj/TDTpfeSAuMgGJfJEbJ+EgJ3
-	qHSRXxiDVlsdJ4bdOXk1bqI3AIkhAJK3kfCQ82+w9y8lsT
-X-Received: by 2002:a05:600c:a596:b0:486:ffa3:594 with SMTP id 5b1f17b1804b1-486ffa30b0amr132702615e9.23.1774344225686;
-        Tue, 24 Mar 2026 02:23:45 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-487116c44bfsm41808585e9.9.2026.03.24.02.23.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Mar 2026 02:23:38 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Tue, 24 Mar 2026 10:23:22 +0100
-Subject: [PATCH v2] dt-bindings: usb: document the Renesas
- UPD720201/UPD720202 USB 3.0 xHCI Host Controller
+        d=1e100.net; s=20251104; t=1774344335; x=1774949135;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=evOdHivffAtn9SWqkwOMnHChQNd/edxUNcG3hAURPt4=;
+        b=qSG1oZ3bFi+MeNjLjTIObqvbmxz/4Z8AIaeUhjcovrck53u1QcTktnenbLzLrtgDSS
+         1LcR8BnejVfvsaS7jkvJtyxFCYVCj5b4bPgg047/5tuH9EejeCKniEaj2xBzK018InQm
+         2wCTWhcGT8/snebcd71eqQ0cTtwZ1APj5ABXHPA4S0tgvL0QEbgcoN0bXcfIxV+CbEqg
+         Nyo9KKeA/Avroomr7CQMQ0S19CvrVrqS2y1/MeWq3frpOuCE+0u9I4lUb2Mtd71jarbl
+         UHjwAQDPZ1pSzKRVj+VAWnS6yS5EUiHvRUUizRM5JJnOex9i2L9kuspMUlM8BFw8L16f
+         yUug==
+X-Forwarded-Encrypted: i=1; AJvYcCUy6nA92YY/5PhwDGyL5NfVHYUNZoVyjro83bWSxDhcwfMab2tr3w035s/ud2VvnJSSnqv4eJSUrV+U@vger.kernel.org
+X-Gm-Message-State: AOJu0YzX+DI1LcirsRxF5GSnXzEIYfAJ86UHLol8kQ7pkSCFqAy3Q2Ef
+	OFJGetxpQchEHik23/DdVtJT33IkCCfg91y2SIvCyPpw/2PSchJCJZAAx+1jUFTzRXvgUnZsk8m
+	wbFH9EN73g3C0zCsBcoLQeAp8JDZMX6pdDCFp65PZc0GIcWDz7NTDWvDeRUGFBJYR
+X-Gm-Gg: ATEYQzwmWCvqTNuHjt/nWM0Qaf1YxBnbkxN59riuKNVDt4LlaNNloNYAtr3iStxLvYZ
+	8sbUKT8z2Mz7tkq3ScZCQ3NYlkezgqZTqEBtoc8cW4aBkihdjqz0B/Zu7gz4rC3D62wT+iD2u+j
+	gSDDo3BJGMDyl3P8d0ZzXbR075A10vG+vD8kbKyheOwYXLN2vC2GRGRZ5kmIJpHruXgNcL7zzOk
+	lB5lnrXOLTCYeNncvsRtzGfntxNiCw3H7kjJNF5zlUvvSrhWlIDN0l8ZI6ZZRq4eCXABQqLsJWT
+	sEr5TF90Q9Di1/1Cc48apliTZwhvL8IJcbKdkihq6QaiGmPA4+FOUXFARHtTjxnaDcvgPqKbZN8
+	rlvDhz3CYoSeqUaTjrPGXTKNX/aUW+B2i5/Z9f1UUijqML3cqmE7nOO0Z1wB9a4x5hw1982skuu
+	qsUtQ=
+X-Received: by 2002:a05:6214:e46:b0:89a:4b00:bf42 with SMTP id 6a1803df08f44-89c85a591ebmr170600926d6.4.1774344335141;
+        Tue, 24 Mar 2026 02:25:35 -0700 (PDT)
+X-Received: by 2002:a05:6214:e46:b0:89a:4b00:bf42 with SMTP id 6a1803df08f44-89c85a591ebmr170600666d6.4.1774344334662;
+        Tue, 24 Mar 2026 02:25:34 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9832f88d02sm612495366b.14.2026.03.24.02.25.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Mar 2026 02:25:32 -0700 (PDT)
+Message-ID: <7d13d449-17e5-4838-b4bf-f9ce14e1142e@oss.qualcomm.com>
+Date: Tue, 24 Mar 2026 10:25:30 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: purwa: deduplicate thermal sensors with
+ Hamoa
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260320-purwa-drop-thermals-v1-1-2c9fe046cd02@oss.qualcomm.com>
+ <f25eb68c-3877-4ce7-b3cd-0910a00be30a@oss.qualcomm.com>
+ <xy2jzlamtkpqfpcpegoysyh6u2cnfubkz5233yvuuzfutzpxkf@w3inytibm3sq>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <xy2jzlamtkpqfpcpegoysyh6u2cnfubkz5233yvuuzfutzpxkf@w3inytibm3sq>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260324-topic-sm8650-ayaneo-pocket-s2-upd-bindings-v2-1-b86a1543b76b@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAAlYwmkC/53NQQ6DIBCF4asY1p0GEIntqvdoXKAMOmkLBKypM
- d691CN0+b/F+zaWMRFmdq02lnChTMGXkKeKDZPxIwLZ0kxyqXktLjCHSAPkV6sbDmY1HgPEMDx
- whizhHS305C35MUNdi15qq1zvNCuHMaGjz4Hdu9IT5Tmk9bAX8Vv/YhYBAlqFCl2jFZfy9iRvU
- jiHNLJu3/cvQADm8uUAAAA=
-X-Change-ID: 20260319-topic-sm8650-ayaneo-pocket-s2-upd-bindings-331b26d4fbf6
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- Michal Pecio <michal.pecio@gmail.com>, linux-arm-msm@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2777;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=eORHv6uMOxEZQvZKT0NGFZMJsp3s4BCbYLo0O/D16Zw=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBpwlgUNXlsxFgShF54TYDVG1RvCpnFEmpxXa5+pnAN
- EhfuNCOJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCacJYFAAKCRB33NvayMhJ0ZAYEA
- CTtXaX+QkB8DgDMLvFTrRnE7nh8tqLti7a4LyO4nYHeud+aKpAFrzh09iL9TsRro7mPdHVa20bNJ9u
- 3Sq+qZQd3ThEBEDzeO3oXDrTE0oTpH2HshAymgxaMQpG1MfnZdFHYFMpnU27xKmo/7OYVNf4DNoM1A
- zCoDM6YBHKNuxjO01QkwtivZgSaj8MGqxDAHF6juKnTscUri0qJpo8gESOppMHz+3CThUSeUphkY0K
- XiAEEe6tGlW5nqkQljBJyUQLvKpViMFEp+rcQPc/BCMYx7+rPE+XeNBqak7xO4G+dz1HlIQlaPp9Vz
- heEswCfTFi+shHXTfxwfXfge85LQwwS3G7fsJ0CCTeLjuJ1T73JH0422eshrdxwj3Qk7FTw7kr+xFR
- 6OXhznoZxjDIvo9EwOPZKPJt7XWtdBvJeq/9YCWyg0DuR/9veDp1zBiw1AG9VsJfnZzvjD5rLu1vIH
- EV2o0UhJghb9n9EixQakI2MFilElfB6AAeNzRW6rJo354neqKYueFNtxNdbMkle/TTFze12RolMKJS
- nHRBaY8DsbBqbpa0JFEW+u+i0FP42fTqv6IfGyDWFZYIMr3kJCERDevPoX1Nxe+K/h31ykJnhuzaHC
- DylioeoldQHPsoyKVyXEoepO/MvydYe0eaxUkuFgEgmtV8UYiyV0+JB5QwBQ==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDA3NSBTYWx0ZWRfX1vb8KrtrUTpM
+ do/CpdyBFjEQrntd5LYuPKraCWGbRW3BXpMjN2u9YL9OXQMkmXz21vmgUgWedReD+yiEuoxy1M9
+ nS042lCf6oQ11E/4yl+UHFNAxsN8Vmf1Ey94M95waHUzspHx82g6vXIA9nAXVyVf4vc8zE0asBj
+ NIiBRKbffgQNFebrk9OVw/Ta4qxCxyRx0C5Fst51THBnwbtUTCW8bqDpQ8RHeSM3pAYKWD7/K5+
+ IPuTjS9rAicCtIu+lhqOUEIWBStzufjcOJLEkV7c1DzD65Ihi7QD8H4BaCFXSvxEeY5oliFXRgX
+ s5BQksTbFTPz08DrZgleamSlyJghpHnXa9E9x8YryaQXHq/Y1gUJ9uaOblyzSCFu55O35k1bU7P
+ 4P6k5tG30rMCbOxKf718gU9sDGn/NgUzDuhNAFuaBFGPJ7YFoVo6YLoSyaFtwJClttmefDNj40p
+ i7tTWdKTk/fBATBJFGw==
+X-Proofpoint-ORIG-GUID: coTlBuI8S1CssRNOArgpCxJr2pWJGb6G
+X-Authority-Analysis: v=2.4 cv=KuhAGGWN c=1 sm=1 tr=0 ts=69c25890 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=oq399LLL9rgHG-W9LOwA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-GUID: coTlBuI8S1CssRNOArgpCxJr2pWJGb6G
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-24_02,2026-03-23_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 phishscore=0 priorityscore=1501 impostorscore=0
+ spamscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240075
 
-Document the Renesas UPD720201/UPD720202 USB 3.0 xHCI Host Controller,
-which connects over PCIe and requires specific power supplies to
-start up.
+On 3/23/26 5:49 PM, Dmitry Baryshkov wrote:
+> On Mon, Mar 23, 2026 at 04:21:00PM +0100, Konrad Dybcio wrote:
+>> On 3/20/26 3:33 AM, Dmitry Baryshkov wrote:
+>>> Hamoa and Purwa have pretty close thermal zones definitions. The major
+>>> difference is that several zones are absent (because of the lack of the
+>>> CPU cluster) and several zones use tsens2 instead of tsens3.
+>>>
+>>> Instead of completely duplicating thermal zones for Purwa, reuse themal
+>>> zones from Hamoa, patching them where required.
+>>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>> ---
+>>
+>> Slightly reluctantly:
+> 
+> Why? I'd really interested here.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
-- [1] https://lore.kernel.org/all/20260220-topic-sm8650-ayaneo-pocket-s2-base-v5-1-1ad79caa1efa@linaro.org/
----
-Changes in v2:
-- Added the PCI ID for uPD720202, thanks to Michal Pecio
-- Link to v1: https://patch.msgid.link/20260319-topic-sm8650-ayaneo-pocket-s2-upd-bindings-v1-1-84e4ef564022@linaro.org
----
- .../bindings/usb/renesas,upd720201-pci.yaml        | 63 ++++++++++++++++++++++
- 1 file changed, 63 insertions(+)
+I suppose my reluctance comes from the decreased readability, but then
+I suppose the silicon is not going to change if we get it right once, so
+it's not a real concern..
 
-diff --git a/Documentation/devicetree/bindings/usb/renesas,upd720201-pci.yaml b/Documentation/devicetree/bindings/usb/renesas,upd720201-pci.yaml
-new file mode 100644
-index 000000000000..4e890d0d2070
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/renesas,upd720201-pci.yaml
-@@ -0,0 +1,63 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/renesas,upd720201-pci.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: UPD720201/UPD720202 USB 3.0 xHCI Host Controller (PCIe)
-+
-+maintainers:
-+  - Neil Armstrong <neil.armstrong@linaro.org>
-+
-+description:
-+  UPD720201 USB 3.0 xHCI Host Controller via PCIe x1 Gen2 interface.
-+  The UPD720202 supports up to two downstream ports, while UPD720201
-+  supports up to four downstream USB 3.0 rev1.0 ports.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - pci1912,0014 # UPD720201
-+      - pci1912,0015 # UPD720202
-+
-+  reg:
-+    maxItems: 1
-+
-+  avdd33-supply:
-+    description: +3.3 V power supply for analog circuit
-+
-+  vdd10-supply:
-+    description: +1.05 V power supply
-+
-+  vdd33-supply:
-+    description: +3.3 V power supply
-+
-+required:
-+  - compatible
-+  - reg
-+  - avdd33-supply
-+  - vdd10-supply
-+  - vdd33-supply
-+
-+allOf:
-+  - $ref: usb-xhci.yaml
-+
-+additionalProperties: true
-+
-+examples:
-+  - |
-+    pcie@0 {
-+        reg = <0x0 0x1000>;
-+        ranges = <0x02000000 0x0 0x100000 0x10000000 0x0 0x0>;
-+        #address-cells = <3>;
-+        #size-cells = <2>;
-+        device_type = "pci";
-+
-+        usb-controller@0 {
-+            compatible = "pci1912,0014";
-+            reg = <0x0 0x0 0x0 0x0 0x0>;
-+            avdd33-supply = <&avdd33_reg>;
-+            vdd10-supply = <&vdd10_reg>;
-+            vdd33-supply = <&vdd33_reg>;
-+        };
-+    };
-
----
-base-commit: 8e42d2514a7e8eb8d740d0ba82339dd6c0b6463f
-change-id: 20260319-topic-sm8650-ayaneo-pocket-s2-upd-bindings-331b26d4fbf6
-
-Best regards,
--- 
-Neil Armstrong <neil.armstrong@linaro.org>
-
+Konrad
