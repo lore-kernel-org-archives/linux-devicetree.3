@@ -1,139 +1,95 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED33B38B154;
-	Tue, 24 Mar 2026 09:35:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F79F38BF91;
+	Tue, 24 Mar 2026 09:37:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774344938; cv=none; b=ODj+bvz//yF3wvbhAki9hsWs/C1r3szFi/bHqp/OsB5wFjMvJtLUROK30N3vLum3FHTLpLDjTplJ+m7WNyPj8iY8aYeIy8AaQm46Tg42PUXnF2w6edEwdWDheQZ6Hf2Y+YOTLYmbHw+ZCzHTOcfh0J6Boa8ZKVx5rvcB96QiG2U=
+	t=1774345033; cv=none; b=CLOiiHjipynFWzwZB48ZvhZ11nBARTtrTCCVRNGuVESio+fsF9MlIrwSoAGO7TEV9QAwMN0wRp0QKfMdQJsLjk0RULypGqz8OFudCDXX86yaXB/9/oDyN23Wr6UdB5X0dZScUeaACEQ5GexRnwMqD2nddyM8mJU+bingqyHOQfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774344938; c=relaxed/simple;
-	bh=sdip9YhglYApFxt9LeVDTcMk3MdftzEFUGVf4QW3jcs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j3//XN0du/gaP0ntpjZbAcGFW47CO/ug7rwsx9Wmya2yG9H4p8iGiPDHTeDy004/36SZmo7wGwNXddOqrNsZXf9yWlsARsgWPtN0Bfh3wmhWH9AiqCfAXjkJovANKGT0iG5CdLClwz/ksUJsWEmZ4qBnT6azrk2wa7q3rw34ldg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=A0Vq+uh/; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1774345033; c=relaxed/simple;
+	bh=qhfdqUpvvf+xnZF8LVueACe+0I6G/3V3OA2TDquY6/c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rhw9hJ3GWAX0hUqUhTLeCFqJqd5QlQbwzQIYVSYcxIWMaAvsmE4H7KLm6ZD1keoOIOn5yBUvaI4Do4eJgzfebVIjiPnxez6arlqbo5UZDMWj4K8ggdfVjXjb+4M6UnIRFzpd5EgaotwJjQEAOIIwtO9s15O2x4bm4LdM3YikAsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=EWrRR1rQ; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="A0Vq+uh/"
-Received: from [192.168.229.16] (194-212-249-86.customers.tmcz.cz [194.212.249.86])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 4119A5340DD2;
-	Tue, 24 Mar 2026 10:35:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1774344933;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=2Xaf3bDCB9Er/hcvWLTt/daLKxvWcynfvfi0OLpJ+xU=;
-	b=A0Vq+uh/VfblPvLLv9/wLoUS4dV/xGyPHf/qzxx1WQMQDh66m5sFQVjQwrnto0vQut+Ray
-	i5tjsUIXGYW6X0ZObpouzkQNoQ5J3KDx0qycmJgRlYIRbq3RW1iTy+qlPc++uSFTpAmL2l
-	X3ZBLuMYIFLMQP6MMHzG7BBwRf4P22s=
-Message-ID: <42352c0c-7464-4e78-8f89-20bdf7abd988@ixit.cz>
-Date: Tue, 24 Mar 2026 10:35:32 +0100
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="EWrRR1rQ"
+Received: from francesco-nb.corp.toradex.com (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
+	by mail11.truemail.it (Postfix) with ESMTPA id ECE28275B2;
+	Tue, 24 Mar 2026 10:37:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1774345030;
+	bh=DvJK1euQ58BmCjF2JtjA/A0aPnvcmwVI/8gbFy25IXc=; h=From:To:Subject;
+	b=EWrRR1rQ64mXdW9b1OLWzxTwYbwEDo23+osRAkztOXHmPZUHTgL5qM4y6Q89JJib9
+	 Ka1SGHHM1Ct09ehJ/0dIrs6ADh7ZhSdi1Iak5JuB57Jn+TxsogbbFApQ2z/RA6ERCm
+	 4cT9u4kY6YiIkjraHtnx4mWMelNG7JvHOsVR8rSnEZ0zUD1saI4bY99sltVuIORkon
+	 FZtf9io1D+ILqS3fKXMxKRbChm1px7xOBYOhNBeMKrKKhm97D2FVEuFiZRO7FCgr8C
+	 rkFBv0HZG1JwIhgWf36zF5Qr/advNWbGThOd+3aF8W/SUcrspQnp/5U2koOX5I8c0K
+	 z5sXvlOwdANxg==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/7] arm64: dts: ti: verdin-am62[p]: Add Zinnia
+Date: Tue, 24 Mar 2026 10:36:55 +0100
+Message-ID: <20260324093705.26730-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: sdm845-oneplus: Enable NFC
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Alexander Martinz <amartinz@shift.eco>
-Cc: Petr Hodina <petr.hodina@protonmail.com>,
- biemster <l.j.beemster@gmail.com>, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, oe-linux-nfc@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260324-oneplus-nfc-v2-0-3eef052c9bc6@ixit.cz>
- <20260324-oneplus-nfc-v2-1-3eef052c9bc6@ixit.cz>
- <93505653-ab2c-4cff-905e-bd5379550019@kernel.org>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <93505653-ab2c-4cff-905e-bd5379550019@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24/03/2026 08:03, Krzysztof Kozlowski wrote:
-> On 24/03/2026 00:20, David Heidelberg via B4 Relay wrote:
->> From: biemster <l.j.beemster@gmail.com>
->>
->> Enable NFC controller NXP PN553, which is part of the package NXP NQ330
->> (NFC + eSE).
->>
->> Signed-off-by: biemster <l.j.beemster@gmail.com>
-> 
-> Same comment as last time. We do not take anonymous contributions.
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
- > then you just add a line saying:
- >
- > Signed-off-by: Random J Developer <random@developer.example.org>
- >
- > using a known identity (sorry, no anonymous contributions.)
+Add Zinnia Carrier Board mated with Verdin AM62 and Verdin AM62P.
 
-Quoting the kernel documentation, biemster is known contributor to us (hanging 
-in sdm845-next chat room, I'm personally aware of his presence for more than ~ 2 
-years).
+It features 1 x RS232, 1 x RS485, 1 x CAN, 3 x isolated digital I/O,
+2 x 1GBit/s Ethernet, a mini PCIe slot with USB / SIM card connector
+for a modem, USB and SD card interfaces.
 
-I could switch Author / Co-developed-by with me in this case, but since biemster 
-did the initial work, it feels right to keep the credit.
+Some small fixes and cleanup are done on the SOM dtsi file, in preparation
+for the Zinnia addition.
 
-David
+Link: https://www.toradex.com/products/carrier-board/zinnia-carrier-board
 
-> 
-> Best regards,
-> Krzysztof
+Francesco Dolcini (7):
+  dt-bindings: arm: ti: Add verdin am62/am62p zinnia board
+  arm64: dts: ti: k3-am62-verdin: Fix SPI_1 GPIO CS pinctrl label
+  arm64: dts: ti: k3-am62-verdin: Split UART_2 pinctrl group
+  arm64: dts: ti: k3-am62-verdin: Add Zinnia
+  arm64: dts: ti: k3-am62p-verdin: Split UART_2 pinctrl group
+  arm64: dts: ti: k3-am62p-verdin: Add SPI_1_CS as GPIO
+  arm64: dts: ti: k3-am62p-verdin: Add Zinnia
+
+ .../devicetree/bindings/arm/ti/k3.yaml        |   4 +
+ arch/arm64/boot/dts/ti/Makefile               |   2 +
+ .../boot/dts/ti/k3-am62-verdin-zinnia.dtsi    | 493 ++++++++++++++++++
+ arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi    |  22 +-
+ .../dts/ti/k3-am625-verdin-nonwifi-zinnia.dts |  22 +
+ .../dts/ti/k3-am625-verdin-wifi-zinnia.dts    |  22 +
+ .../boot/dts/ti/k3-am62p-verdin-zinnia.dtsi   | 469 +++++++++++++++++
+ arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi   |  29 +-
+ .../ti/k3-am62p5-verdin-nonwifi-zinnia.dts    |  22 +
+ .../dts/ti/k3-am62p5-verdin-wifi-zinnia.dts   |  22 +
+ 10 files changed, 1098 insertions(+), 9 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am62-verdin-zinnia.dtsi
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-nonwifi-zinnia.dts
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-wifi-zinnia.dts
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am62p-verdin-zinnia.dtsi
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am62p5-verdin-nonwifi-zinnia.dts
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am62p5-verdin-wifi-zinnia.dts
 
 -- 
-David Heidelberg
+2.47.3
 
