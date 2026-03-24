@@ -1,33 +1,33 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7EF3FA5E2;
-	Tue, 24 Mar 2026 12:54:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FDD03F165F;
+	Tue, 24 Mar 2026 12:59:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774356853; cv=none; b=tSyFy8alLSoHcDrA+5Aa8mZ5Hh6ihRRMQMUk9+lLkiooinQNRXxDvl70lS15fWVmlHf6C5QyGVDdNTF9gATjmWwO7mVgHW1rH4qZXV5yOQSA6M8bUF57uJJF+L6HwQxC4p92UKlYdGYWmdo7spxR2/PSdzACSWZ073Ibv/EDz9Y=
+	t=1774357173; cv=none; b=m7K4+AenUUkahbuh2RKmkMTA9bQ8jnQgcmjpKsgzyPWhVY3YOk15qAxZiMu+bq6eJLXDu6/Ygs4uZK0IbuXvzAQC3+75B4OQ3Ip4Uoh0pSpvdbHRtgofZ8SH6Usbp0KTUMVgAeaNlek8s9l8af92WPMH89qYWSujHJa8JOWmO+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774356853; c=relaxed/simple;
-	bh=X056UQ+E8ZZsLbM4gsXZpqj2276GOk+0DrTcty1UD14=;
+	s=arc-20240116; t=1774357173; c=relaxed/simple;
+	bh=mc1JYt6Q34dTbHsOfipO1diSgxMhivHZV5XxnYNM60Y=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bGG0ojipPNdodaSDOvQ7uwQITPbK64w8SxhXL4MXOeYmGlegJN26G++G3D5FOjN79OoskPWO7Y/LgB+SrN2whS5ZeCSdtM2A3k2zrwqaPEeYlad0Ne8czmiqTx/30edeg2iCPS2sUgayYTFvhRtvME5zxhfy4sYiPV1ZKjvjTo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mV/4d8fS; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=OQwbsbtFsrItShlOXS0CrAtfRSm3g2tJae/7wCQsy1Wn7Ai3AW+gIsZzzY/ybmgsw4A6W3WNHZoI5igTRSz8cxKKJoHN/v8YxWvPSGW3/BO1to/T/UqMLDBGVIzy30Z9VWIBbL5oKsnhYlymHOAR7gi96bsOzwRKiAfFAokSPX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jfMPjaLl; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mV/4d8fS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4EF6C19424;
-	Tue, 24 Mar 2026 12:54:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774356853;
-	bh=X056UQ+E8ZZsLbM4gsXZpqj2276GOk+0DrTcty1UD14=;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jfMPjaLl"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3BCA31476;
+	Tue, 24 Mar 2026 05:59:25 -0700 (PDT)
+Received: from [10.57.76.67] (unknown [10.57.76.67])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0CD403FAF5;
+	Tue, 24 Mar 2026 05:59:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1774357171; bh=mc1JYt6Q34dTbHsOfipO1diSgxMhivHZV5XxnYNM60Y=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=mV/4d8fSYxWZlacVCKui2jT4IWSbZ0wkmj1Gdjanmz1rq8qI9nnnG6p5rzgdmVz8j
-	 hB1+BnNtTvQrsmC80g3ypsPBiimtxXnj2mC61+DvlP6aBAVD/sAKB6zof9HRD32odj
-	 UC+IibluOupx7w685nD6lBeAkHICRjHpwfgaf0PpchK1pi2Rn2e3uPfCFsqrkQt2g+
-	 jqovuJ5FEh7tFLVlYmkRhcFwKT+mxx1p5G0tH6xjgSKRKR+qaumN85LX9ibR7E3V0W
-	 fbWy7lkmozPbE7rfcckoEEZaDfOOFyH/x6wZYAwF4pczJV4mzhGivCBcUxy04DanFZ
-	 wNSvigWbLZ7yQ==
-Message-ID: <055a7281-3e41-4e26-a8c8-5e28d69c0685@kernel.org>
-Date: Tue, 24 Mar 2026 12:54:08 +0000
+	b=jfMPjaLl1fE6h48beZGNvPXZF3kJ/7ptotcBlXqjXO30EO0GFf1bapbHtMffGtuOo
+	 K9EeDGNVk37mQAV/xY2fg6uCV2ggUTD94ttQFBH7OgfBFzrKMwjlxBiW1wOhNHA95K
+	 CDSZY1ehKQj026uy1zd68JW3G6jTTUHanNuYQeH0=
+Message-ID: <b92fa8c5-6330-4093-9066-20eacf2c8974@arm.com>
+Date: Tue, 24 Mar 2026 12:59:27 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,43 +35,374 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/3] media: qcom: camss: CAMSS Offline Processing
- Engine support
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- vladimir.zapolskiy@linaro.org, laurent.pinchart@ideasonboard.com,
- kieran.bingham@ideasonboard.com, robh@kernel.org, krzk+dt@kernel.org,
- andersson@kernel.org, konradybcio@kernel.org
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- johannes.goede@oss.qualcomm.com, mchehab@kernel.org
-References: <xy6TKmdveRx4cMshSHEUGZ7s3lbsurWcsc2vq05A7_N4bCialR7EelZitouugtZDkpFCAghjqY4NDdSQEIPprw==@protonmail.internalid>
- <20260323125824.211615-1-loic.poulain@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260323125824.211615-1-loic.poulain@oss.qualcomm.com>
+Subject: Re: [PATCH v4 2/3] dma: arm-dma350: support combined IRQ mode with
+ runtime IRQ topology detection
+To: Jun Guo <jun.guo@cixtech.com>, peter.chen@cixtech.com,
+ fugang.duan@cixtech.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, vkoul@kernel.org, ychuang3@nuvoton.com,
+ schung@nuvoton.com, Frank.Li@kernel.org
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20260323114822.1925869-1-jun.guo@cixtech.com>
+ <20260323114822.1925869-3-jun.guo@cixtech.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260323114822.1925869-3-jun.guo@cixtech.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 23/03/2026 12:58, Loic Poulain wrote:
-> This first version is intentionally minimalistic. It provides a working
-> configuration using a fixed set of static processing parameters, mainly
-> to achieve correct and good-quality debayering.
+On 2026-03-23 11:48 am, Jun Guo wrote:
+> DMA-350 can be integrated with either per-channel IRQ lines or a single
+> combined IRQ line. Add support for both layouts in a unified way.
+> 
+> Detect IRQ topology at probe time via platform_irq_count(), then:
+> - request one global IRQ and enable DMANSECCTRL.INTREN_ANYCHINTR for
+>    combined mode, or
+> - request per-channel IRQs for channel mode.
+> 
+> Refactor IRQ completion/error handling into a shared channel handler
+> used by both global and per-channel IRQ paths, and guard against IRQs
+> arriving without an active descriptor.
+> 
+> Assisted-by: Cursor: GPT-5.3-Codex
+> Signed-off-by: Jun Guo <jun.guo@cixtech.com>
+> ---
+>   drivers/dma/arm-dma350.c | 165 +++++++++++++++++++++++++++++++++------
+>   1 file changed, 139 insertions(+), 26 deletions(-)
+> 
+> diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
+> index 84220fa83029..2cf6f783b44f 100644
+> --- a/drivers/dma/arm-dma350.c
+> +++ b/drivers/dma/arm-dma350.c
+> @@ -14,6 +14,7 @@
+>   #include "virt-dma.h"
+>   
+>   #define DMAINFO			0x0f00
+> +#define DRIVER_NAME		"arm-dma350"
 
-You need the other 50% of the kernel side - the generation of bayer 
-statistics in the IFE, as well as generation of parameters to feed back 
-into the OPE - which requires a user-space implementation too, so a lot 
-of work there too.
+Why is this here in the middle of register definitions? But frankly why 
+is it being added at all?
 
-I'd also say when we have an ICP we should be using it via the HFI 
-protocol, thus burying all of the IPE/OPE BPS and CDM complexity in the 
-firmware.
+>   #define DMA_BUILDCFG0		0xb0
+>   #define DMA_CFG_DATA_WIDTH	GENMASK(18, 16)
+> @@ -142,6 +143,9 @@
+>   #define LINK_LINKADDR		BIT(30)
+>   #define LINK_LINKADDRHI		BIT(31)
+>   
+> +/* DMA NONSECURE CONTROL REGISTER */
+> +#define DMANSECCTRL		0x20c
 
-Understood Agatti has no ICP so you're limited to direct OPE/IFE 
-register access here. For HFI capable platforms - the majority - HFI is 
-the way to go.
+Please follow the existing code rather than making a confusing ugly 
+mess. DMANSECCTRL is a register frame at offset 0x0200; it contains 
+(among others) a register named NSEC_CTRL at offset 0x0c.
 
-I'll publish an RFC for Hamoa for that soonish so we can make sure both 
-coexist.
+> +#define INTREN_ANYCHINTR_EN	BIT(0)
+>   
+>   enum ch_ctrl_donetype {
+>   	CH_CTRL_DONETYPE_NONE = 0,
+> @@ -192,6 +196,7 @@ struct d350_chan {
+>   
+>   struct d350 {
+>   	struct dma_device dma;
+> +	void __iomem *base;
 
----
-bod
+Why?
+
+>   	int nchan;
+>   	int nreq;
+>   	struct d350_chan channels[] __counted_by(nchan);
+> @@ -461,18 +466,40 @@ static void d350_issue_pending(struct dma_chan *chan)
+>   	spin_unlock_irqrestore(&dch->vc.lock, flags);
+>   }
+>   
+> -static irqreturn_t d350_irq(int irq, void *data)
+> +static void d350_handle_chan_irq(struct d350_chan *dch, struct device *dev,
+> +				 int chan_id, u32 ch_status)
+>   {
+> -	struct d350_chan *dch = data;
+> -	struct device *dev = dch->vc.chan.device->dev;
+> -	struct virt_dma_desc *vd = &dch->desc->vd;
+> -	u32 ch_status;
+> +	struct virt_dma_desc *vd;
+> +	bool intr_done = ch_status & CH_STAT_INTR_DONE;
+> +	bool intr_err = ch_status & CH_STAT_INTR_ERR;
+>   
+> -	ch_status = readl(dch->base + CH_STATUS);
+> -	if (!ch_status)
+> -		return IRQ_NONE;
+> +	if (!intr_done && !intr_err) {
+
+Why is the logic being changed here?
+
+> +		if (chan_id >= 0)
+> +			dev_warn(dev, "Channel %d unexpected IRQ: 0x%08x\n",
+> +				 chan_id, ch_status);
+
+Why? I see no reason why "dev" shouldn't still be the channel device.
+
+> +		else
+> +			dev_warn(dev, "Unexpected IRQ source? 0x%08x\n", ch_status);
+> +		writel_relaxed(ch_status, dch->base + CH_STATUS);
+> +		return;
+> +	}
+> +
+> +	writel_relaxed(ch_status, dch->base + CH_STATUS);
+> +
+> +	spin_lock(&dch->vc.lock);
+> +	if (!dch->desc) {
+> +		if (chan_id >= 0)
+> +			dev_warn(dev,
+> +				 "Channel %d IRQ without active descriptor: 0x%08x\n",
+> +				 chan_id, ch_status);
+> +		else
+> +			dev_warn(dev, "IRQ without active descriptor: 0x%08x\n",
+> +				 ch_status);
+> +		spin_unlock(&dch->vc.lock);
+> +		return;
+> +	}
+
+This seems entirely new and nothing to do with refactoring. Why do you 
+think it's necessary?
+
+> -	if (ch_status & CH_STAT_INTR_ERR) {
+> +	vd = &dch->desc->vd;
+> +	if (intr_err) {
+>   		u32 errinfo = readl_relaxed(dch->base + CH_ERRINFO);
+>   
+>   		if (errinfo & (CH_ERRINFO_AXIRDPOISERR | CH_ERRINFO_AXIRDRESPERR))
+> @@ -483,14 +510,10 @@ static irqreturn_t d350_irq(int irq, void *data)
+>   			vd->tx_result.result = DMA_TRANS_ABORTED;
+>   
+>   		vd->tx_result.residue = d350_get_residue(dch);
+> -	} else if (!(ch_status & CH_STAT_INTR_DONE)) {
+> -		dev_warn(dev, "Unexpected IRQ source? 0x%08x\n", ch_status);
+>   	}
+> -	writel_relaxed(ch_status, dch->base + CH_STATUS);
+>   
+> -	spin_lock(&dch->vc.lock);
+
+I can't recall the details off-hand right now, but I have a strong 
+feeling the order of operations here was reasonably significant - what's 
+the justifcation for changing it?
+
+>   	vchan_cookie_complete(vd);
+> -	if (ch_status & CH_STAT_INTR_DONE) {
+> +	if (intr_done) {
+>   		dch->status = DMA_COMPLETE;
+>   		dch->residue = 0;
+>   		d350_start_next(dch);
+> @@ -499,6 +522,44 @@ static irqreturn_t d350_irq(int irq, void *data)
+>   		dch->residue = vd->tx_result.residue;
+>   	}
+>   	spin_unlock(&dch->vc.lock);
+> +}
+> +
+> +static irqreturn_t d350_global_irq(int irq, void *data)
+> +{
+> +	struct d350 *dmac = (struct d350 *)data;
+
+This isn't C++
+
+> +	irqreturn_t ret = IRQ_NONE;
+> +	int i;
+> +
+> +	(void)irq;
+
+Why?
+
+> +	for (i = 0; i < dmac->nchan; i++) {
+> +		struct d350_chan *dch = &dmac->channels[i];
+> +		u32 ch_status;
+> +
+> +		ch_status = readl(dch->base + CH_STATUS);
+> +		if (!ch_status)
+
+Why is this factored out, only to be duplicated in both callers?
+
+> +			continue;
+> +
+> +		ret = IRQ_HANDLED;
+> +		d350_handle_chan_irq(dch, dmac->dma.dev, i, ch_status);
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static irqreturn_t d350_channel_irq(int irq, void *data)
+> +{
+> +	struct d350_chan *dch = data;
+> +	struct device *dev = dch->vc.chan.device->dev;
+> +	u32 ch_status;
+> +
+> +	(void)irq;
+> +
+> +	ch_status = readl(dch->base + CH_STATUS);
+> +	if (!ch_status)
+> +		return IRQ_NONE;
+> +
+> +	d350_handle_chan_irq(dch, dev, -1, ch_status);
+>   
+>   	return IRQ_HANDLED;
+>   }
+> @@ -506,10 +567,18 @@ static irqreturn_t d350_irq(int irq, void *data)
+>   static int d350_alloc_chan_resources(struct dma_chan *chan)
+>   {
+>   	struct d350_chan *dch = to_d350_chan(chan);
+> -	int ret = request_irq(dch->irq, d350_irq, IRQF_SHARED,
+> -			      dev_name(&dch->vc.chan.dev->device), dch);
+> -	if (!ret)
+> -		writel_relaxed(CH_INTREN_DONE | CH_INTREN_ERR, dch->base + CH_INTREN);
+> +	int ret = 0;
+> +
+> +	if (dch->irq >= 0) {
+> +		ret = request_irq(dch->irq, d350_channel_irq, IRQF_SHARED,
+> +				  dev_name(&dch->vc.chan.dev->device), dch);
+> +		if (ret) {
+> +			dev_err(chan->device->dev, "Failed to request IRQ %d\n", dch->irq);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	writel_relaxed(CH_INTREN_DONE | CH_INTREN_ERR, dch->base + CH_INTREN);
+>   
+>   	return ret;
+>   }
+> @@ -519,18 +588,21 @@ static void d350_free_chan_resources(struct dma_chan *chan)
+>   	struct d350_chan *dch = to_d350_chan(chan);
+>   
+>   	writel_relaxed(0, dch->base + CH_INTREN);
+> -	free_irq(dch->irq, dch);
+> +	if (dch->irq >= 0) {
+> +		free_irq(dch->irq, dch);
+> +		dch->irq = -EINVAL;
+> +	}
+>   	vchan_free_chan_resources(&dch->vc);
+>   }
+>   
+>   static int d350_probe(struct platform_device *pdev)
+>   {
+>   	struct device *dev = &pdev->dev;
+> -	struct d350 *dmac;
+> +	struct d350 *dmac = NULL;
+
+Why?
+
+>   	void __iomem *base;
+>   	u32 reg;
+> -	int ret, nchan, dw, aw, r, p;
+> -	bool coherent, memset;
+> +	int ret, nchan, dw, aw, r, p, irq_count;
+> +	bool coherent, memset, combined_irq;
+>   
+>   	base = devm_platform_ioremap_resource(pdev, 0);
+>   	if (IS_ERR(base))
+> @@ -556,6 +628,7 @@ static int d350_probe(struct platform_device *pdev)
+>   		return -ENOMEM;
+>   
+>   	dmac->nchan = nchan;
+> +	dmac->base = base;
+>   
+>   	reg = readl_relaxed(base + DMAINFO + DMA_BUILDCFG1);
+>   	dmac->nreq = FIELD_GET(DMA_CFG_NUM_TRIGGER_IN, reg);
+> @@ -582,12 +655,46 @@ static int d350_probe(struct platform_device *pdev)
+>   	dmac->dma.device_issue_pending = d350_issue_pending;
+>   	INIT_LIST_HEAD(&dmac->dma.channels);
+>   
+> +	irq_count = platform_irq_count(pdev);
+> +	if (irq_count < 0)
+> +		return dev_err_probe(dev, irq_count,
+> +				     "Failed to count interrupts\n");
+> +
+> +	if (irq_count == 1) {
+> +		combined_irq = true;
+
+What if there's only 1 channel and it is actually using its dedicated IRQ?
+
+> +	} else if (irq_count >= nchan) {
+> +		combined_irq = false;
+> +	} else {
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "Invalid IRQ count %d for %d channels\n",
+> +				     irq_count, nchan);
+
+Thsi is a change in behaviour, since we wouldm't currently consider it 
+an error if the last 1 or more channels don't have an interrupt, but 
+aren't accessible anyway - if a system *always* reserved the last couple 
+of channels for the Secure world, arguably there would be no real 
+requiremnt to describe them in the Non-Secure DT at all.
+
+> +	}
+> +
+> +	if (combined_irq) {
+> +		int host_irq = platform_get_irq(pdev, 0);
+> +
+> +		if (host_irq < 0)
+> +			return dev_err_probe(dev, host_irq,
+> +					     "Failed to get IRQ\n");
+> +
+> +		ret = devm_request_irq(&pdev->dev, host_irq, d350_global_irq,
+> +				       IRQF_SHARED, DRIVER_NAME, dmac);
+> +		if (ret)
+> +			return dev_err_probe(
+> +				dev, ret,
+> +				"Failed to request the combined IRQ %d\n",
+> +				host_irq);
+> +		/* Combined Non-Secure Channel Interrupt Enable */
+> +		writel_relaxed(INTREN_ANYCHINTR_EN, dmac->base + DMANSECCTRL);
+> +	}
+> +
+>   	/* Would be nice to have per-channel caps for this... */
+>   	memset = true;
+>   	for (int i = 0; i < nchan; i++) {
+>   		struct d350_chan *dch = &dmac->channels[i];
+>   
+>   		dch->base = base + DMACH(i);
+> +		dch->irq = -EINVAL;
+>   		writel_relaxed(CH_CMD_CLEAR, dch->base + CH_CMD);
+>   
+>   		reg = readl_relaxed(dch->base + CH_BUILDCFG1);
+> @@ -595,10 +702,15 @@ static int d350_probe(struct platform_device *pdev)
+>   			dev_warn(dev, "No command link support on channel %d\n", i);
+>   			continue;
+>   		}
+> -		dch->irq = platform_get_irq(pdev, i);
+> -		if (dch->irq < 0)
+> -			return dev_err_probe(dev, dch->irq,
+> -					     "Failed to get IRQ for channel %d\n", i);
+> +
+> +		if (!combined_irq) {
+> +			dch->irq = platform_get_irq(pdev, i);
+
+But here's the thing - even if we *were* to do something special in the 
+DT binding, why not simply have:
+
+	if (combined_irq)
+		dch->irq = combined_irq_num;
+	else
+		dch->irq = platform_get_irq(pdev, i);
+
+at this point, and then let everything else keep working the way it 
+already does?
+
+Thanks,
+Robin.
+
+> +			if (dch->irq < 0)
+> +				return dev_err_probe(
+> +					dev, dch->irq,
+> +					"Failed to get IRQ for channel %d\n",
+> +					i);
+> +		}
+>   
+>   		dch->has_wrap = FIELD_GET(CH_CFG_HAS_WRAP, reg);
+>   		dch->has_trig = FIELD_GET(CH_CFG_HAS_TRIGIN, reg) &
+> @@ -640,6 +752,7 @@ static void d350_remove(struct platform_device *pdev)
+>   }
+>   
+>   static const struct of_device_id d350_of_match[] __maybe_unused = {
+> +	{ .compatible = "cix,sky1-dma-350" },
+>   	{ .compatible = "arm,dma-350" },
+>   	{}
+>   };
+
