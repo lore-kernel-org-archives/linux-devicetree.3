@@ -1,120 +1,235 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DAE3F8E0E;
-	Tue, 24 Mar 2026 15:30:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35BB440627C
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 15:30:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774366248; cv=none; b=mo504Eviv29PcgnEuT4N7bveEPM/NbAcN3KO9klIgM5csTWTbE+7lO56R2vMHoReo7MLHIs0k3aoIbH1tdgttbnRIJGh/9cP5boJgOOCA5Vp/+57vzF8A0M4w4xz56EYGWTFrRkID5iePShB/RxbiftuL0zRTK1IUciJlG9KrKA=
+	t=1774366250; cv=none; b=Rj/08PiK+6GSmWpYfuJbG/gb5XIQE2SyVjZ+oozYhaM+hIHE1MtMz0V7QFiVgXuZzwhsgyrdxuFibGdNg3B3g6+2NuYZ33LfCIQbIBGiGkVt221AKrYZMp77AIXK1TEjhUTVD20kSQGAgZZARazeTQg6acmRtDk+w13exGsHg48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774366248; c=relaxed/simple;
-	bh=c5qZrqum6694nrzOJ/PimVl9LdaNvtxdc/OgwxKyDJ0=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=qdWrsIDmFNAMlsgCe8rBIZFGxTM+5UQxHSU5DcIImowWNkcth99+Lug8IJ0cVt+6WwtBvOX6KhjhzRSp7KHseoLg6fKOmI6D8GEYHp4W4L20FJ52qJX8O+N8zP4+Xd44gvRKLxyM4G8TNIWP3Zkf1NFxeI/IMY3ij5nj3fNv0mQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=OQ8GoRe4; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1774366250; c=relaxed/simple;
+	bh=AFkZQoQFstyy/dwGWmvovM3jX8wDVNpwJfI/V0n4b9I=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=p72zOSi8FtnpxkMcVn5ZdiVThBzQb+PpBHRuOk0YMJl8Vy8rGObtOpiGa2lMzMz4zpCAsYc5AFxca0m8hcC+OwuFXHIsPHqcibEKm5quYDCRhwEyKzNuEbumjg8H77bKPsXDihpTRy0AytDrYMzxXEh6HmYJGsEo2p4FdFCyMCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=IfTOBrAt; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="OQ8GoRe4"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id D6E9527225;
-	Tue, 24 Mar 2026 16:30:36 +0100 (CET)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id eiBq1DAL3Mhh; Tue, 24 Mar 2026 16:30:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1774366236; bh=c5qZrqum6694nrzOJ/PimVl9LdaNvtxdc/OgwxKyDJ0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=OQ8GoRe4YdT9bwF9x2lscG5GlDfw9yO/I8fIUUUjeqSYMad3iWvw/zgu2ehP1KmiM
-	 C7WuTWS4cjHMCAp7R6G4q3hGdpfFvds7lrRtQTWMSVlqqxbGSPRLiWJ3aEzNtMZr4v
-	 NzOt6B5ko3NT0axEY3vOdz2uL4wHiYvr41ikPXRUAqouuz32MfIDctVW43hprlnrXV
-	 ijiHIV4eA2eiVK0/G2y6j/Dg84S9hJE3zv1k0KRiWpGcNQcuAOf62xhRFiqxv7hw8Z
-	 PZowYIv0xNZPl22hcr/kq4Dpbgli5bBpDo6TgpVHU7FrU67hmoh6kPs6DHCg6IeK4g
-	 Op8FeeDSEHW6Q==
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="IfTOBrAt"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id E97F9240104
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 16:30:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
+	t=1774366239; bh=TdylBglHESQc63FZeWoNveBg2huikViD/E4pJuXNAd4=;
+	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+	 MIME-Version:OpenPGP:From;
+	b=IfTOBrAt3kGebgNLg5nsaPxDLtxTb/TruxnBHbdWwUyHyiycnU1gbkUDg61dJYAPr
+	 +HS1ztRAZpOk+B0/yV/UjjGgqF76Iu0R3KcbCIA2rmvFG5xKsASSdULW+k4CeZ9Jhs
+	 poce9Kv1xbkN5R+MkVFfRMmsD6StS2VNNhgLSwzWH+79F7dev6hOPN03g4QGm1iuIE
+	 5PJFov5sjnWHaIkvqhgZexYqME0Is+PQUKrI7NbOEMGgcdCGS/zzkabcAV1mmN1Ej4
+	 U9fcL0vH7l4Ym5HgsOqUC/4q3Ytda8sW//enQQJMU771dWPhRQ6B0wBWpKhInZzzmm
+	 pHJtDBrURNcUw==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4fgDWb08gfz6tsf;
+	Tue, 24 Mar 2026 16:30:34 +0100 (CET)
+Message-ID: <e8ffc9902c0af24ce6fde2d8712ea588b36e9194.camel@posteo.de>
+Subject: Re: [PATCH v3 3/7] acpi: add acpi_of_match_device_ids
+From: Markus Probst <markus.probst@posteo.de>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Greg
+ Kroah-Hartman	 <gregkh@linuxfoundation.org>, Miguel Ojeda
+ <ojeda@kernel.org>, Boqun Feng	 <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Igor
+ Korotin	 <igor.korotin.linux@gmail.com>, Daniel Almeida
+ <daniel.almeida@collabora.com>,  Bjorn Helgaas <bhelgaas@google.com>,
+ Krzysztof =?UTF-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Pavel
+ Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, Robert Moore
+ <robert.moore@intel.com>, 	devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	rust-for-linux@vger.kernel.org,
+ driver-core@lists.linux.dev, 	linux-pci@vger.kernel.org,
+ linux-leds@vger.kernel.org, 	linux-acpi@vger.kernel.org,
+ acpica-devel@lists.linux.dev
+Date: Tue, 24 Mar 2026 15:30:38 +0000
+In-Reply-To: <CAJZ5v0jxHO2EH5NeEsMkxGz5xqVL00tO-W1JpaVd=GhwgQ3T=A@mail.gmail.com>
+References: <20260313-synology_microp_initial-v3-0-ad6ac463a201@posteo.de>
+	 <20260313-synology_microp_initial-v3-3-ad6ac463a201@posteo.de>
+	 <CAJZ5v0jxHO2EH5NeEsMkxGz5xqVL00tO-W1JpaVd=GhwgQ3T=A@mail.gmail.com>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-eySGLK0BCKOzVjRv4LWn"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 24 Mar 2026 15:30:34 +0000
-From: Rustam Adilov <adilov@disroot.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>, Andi Shyti
- <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 5/8] dt-bindings: i2c: realtek,rtl9301-i2c: extend for
- clocks and RTL9607C support
-In-Reply-To: <20260323-stash-contend-ea5974195eac@spud>
-References: <20260323071337.15410-1-adilov@disroot.org>
- <20260323071337.15410-6-adilov@disroot.org>
- <20260323-stash-contend-ea5974195eac@spud>
-Message-ID: <be24b1e5651ba3a059cefdbbee361ed7@disroot.org>
-X-Sender: adilov@disroot.org
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-Hello,
-On 2026-03-23 19:41, Conor Dooley wrote:
-> On Mon, Mar 23, 2026 at 12:13:34PM +0500, Rustam Adilov wrote:
->> Add the "realtek,rtl9607-i2c" compatible for i2c controller on the
->> RTL9607C SoC series.
->> 
->> Add a clocks property to the properties to describe the i2c reference
->> clock and make it available for all the compatibles. This i2c reference
-> 
-> Why? I can see that you're doing that, and it's good to know that that
-> is intentional, but why is it being done? Need to explain that all of
-> these devices actually do have this clock etc.
 
-As far as available information goes, there are some datasheets that note
-the existence of these clocks. For example, RTL9310 Developer Guide 1.0 in [1]
-mentions "I2C master support 12 peripherals with 2 clocks" at page 19.
+--=-eySGLK0BCKOzVjRv4LWn
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-And RTL9607 calculates the clk_div with this equation found in Realtek SDK code
+On Mon, 2026-03-23 at 20:57 +0100, Rafael J. Wysocki wrote:
+> On Fri, Mar 13, 2026 at 8:03=E2=80=AFPM Markus Probst via B4 Relay
+> <devnull+markus.probst.posteo.de@kernel.org> wrote:
+> >=20
+> > From: Markus Probst <markus.probst@posteo.de>
+> >=20
+> > Add a function to match acpi devices against of_device_ids. This will b=
+e
+> > used in the following commit ("mfd: match acpi devices against PRP0001"=
+)
+> > to match mfd sub-devices against a of compatible string.
+>=20
+> Please always spell ACPI in capitals in patch subjects, comments,
+> changelogs, etc.  It is not a regular word.
+Ok.
+>=20
+> > Signed-off-by: Markus Probst <markus.probst@posteo.de>
+> > ---
+> >  drivers/acpi/bus.c      | 7 +++++++
+> >  include/acpi/acpi_bus.h | 2 ++
+> >  2 files changed, 9 insertions(+)
+> >=20
+> > diff --git a/drivers/acpi/bus.c b/drivers/acpi/bus.c
+> > index f6707325f582..5ddcc56edc87 100644
+> > --- a/drivers/acpi/bus.c
+> > +++ b/drivers/acpi/bus.c
+> > @@ -1044,6 +1044,13 @@ int acpi_match_device_ids(struct acpi_device *de=
+vice,
+> >  }
+> >  EXPORT_SYMBOL(acpi_match_device_ids);
+> >=20
+>=20
+> Missing kerneldoc.
+The same amount of kerneldoc as `acpi_match_device_ids`, if I am not
+mistaken.
+>=20
+> > +int acpi_of_match_device_ids(struct acpi_device *device,
+> > +                         const struct of_device_id *ids)
+> > +{
+> > +       return __acpi_match_device(device, NULL, ids, NULL, NULL) ? 0 :=
+ -ENOENT;
+> > +}
+> > +EXPORT_SYMBOL(acpi_of_match_device_ids);
+>=20
+> Are you aware of the consensus that using PRP0001 in production
+> platform firmware will be regarded as invalid?
+>=20
+> Because of that, it is not an option for a driver to avoid providing
+> ACPI match data on a platform that uses ACPI.
+First of all, the driver that would have made use of it has been
+restructed to not use mfd subdevices. It would not be affected anymore
+through this patch set. Not sure if I should still send it as its own
+patch series though.
 
-data = (62500 / clock) - 1;
+The device of the driver has no ACPI ID allocated by the manufacturer,
+as it is only used on a proprietary Linux OS (with their own modified
+kernel).
 
-where clock is clock frequency in kHz and so the 62500 must be the clock frequency
-of the i2c master controller clock in kHz. And since there are 2 i2c controllers,
-there are 2 clocks.
+The driver would have only been useful via device tree or an ACPI
+Overlay. Obviously, I don't have a PNP or ACPI Vendor ID, so I can't
+assign one. The parent/main driver does only have a of compatible id.
+As it needs to use PRP0001 anyway on ACPI, I thought it makes more
+sense to also use PRP0001 there instead of matching it with a _ADR
+which is "a grey area in the ACPI specification".
 
-That is also the reason why it the rtl9607 is the only one to require the clocks to
-be specified and also why the clocks property was added at all.
+Thanks
+- Markus Probst
 
-That's how the rtl9607 i2c controller would look like
+>=20
+> > +
+> >  bool acpi_driver_match_device(struct device *dev,
+> >                               const struct device_driver *drv)
+> >  {
+> > diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
+> > index aad1a95e6863..0081b9e4aaee 100644
+> > --- a/include/acpi/acpi_bus.h
+> > +++ b/include/acpi/acpi_bus.h
+> > @@ -677,6 +677,8 @@ void acpi_bus_trim(struct acpi_device *start);
+> >  acpi_status acpi_bus_get_ejd(acpi_handle handle, acpi_handle * ejd);
+> >  int acpi_match_device_ids(struct acpi_device *device,
+> >                           const struct acpi_device_id *ids);
+> > +int acpi_of_match_device_ids(struct acpi_device *device,
+> > +                         const struct of_device_id *ids);
+> >  void acpi_set_modalias(struct acpi_device *adev, const char *default_i=
+d,
+> >                        char *modalias, size_t len);
+> >=20
+> >=20
+> > --
+> > 2.52.0
+> >=20
+> >=20
 
-i2cclock: i2cclock {
-	#clock-cells = <0>;
-	compatible = "fixed-clock";
+--=-eySGLK0BCKOzVjRv4LWn
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-	/* 62.5 MHz */
-	clock-frequency = <62500000>;
-};
+-----BEGIN PGP SIGNATURE-----
 
-i2c@b4 {
-	compatible = "realtek,rtl9607-i2c";
-	reg = <0xb4 0x4>;
-	#address-cells = <1>;
-	#size-cells = <0>;
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmnCrg8bFIAAAAAABAAO
+bWFudTIsMi41KzEuMTEsMiwyAAoJEDR2H/jnrUPSyJcQAIdNJxt+dh0p+HWg0EJ9
+4dysXiahWSceToUh6b1YoYF6bXQgR3mj5iMzdOsPoz4uBiqdFPMSHUPFKAzEVdSS
+7Zi58NGMSHCugtmIHre8yar2oTK9/e7OnDZTxCq9OjbaTJ+jfQvLQGRdavTYWcDe
+6rARxxz/boxlb0Un9L0WGpzw8D7qiwRBRuTgxmZkSREQ8mXFw6cVzp62CaGcjV9Q
+qIgCPBzIZqH/wWzEoFHnzeHSkGqJa02ymTWfJuP2VIsUiCrcvJG0v1pYsyjXAFKB
+UsxAclnJAwJDFQWQT/F/g76qOmmbpqFTr3AqMgTvD2HVk1FF5N0jQJOXsHYsNdYL
+JAcXa3NDsNoi/Or50Sth0fYQ73204cR9uP6guEQ2UWkOh5AIvSy1ksGwqjPngCcA
+f2iQPeabC4is4rxtmbWFubNBk+16qxSWOG36T4pHvQhmlafsHE823RyFQdGerUNd
+D2dKR1Q1u/9+OHGcFs/ryDxNHuNue/3gGnhhcnumXZH7sIljW/RnEd/7eIyH+owa
+2u0w+hCm9l9jqTxheBBVxVSsoi4KBkTcPXiFa+BMjdrBi5lKu3DeEFb+WLEed+dj
+OmAovcBDv7hgCb3K59nJqhAUScLbILd0+vuqSwZJdZcJDO85ab/gyjPbOxsdWeci
+3gGSzxYlCbtFh+SyAe9dnCel
+=H6Zp
+-----END PGP SIGNATURE-----
 
-	clocks = <&i2cclock>;
-	realtek,scl = <0>;
-
-	i2c@0 {
-		reg = <0>;
-		#address-cells = <1>;
-		#size-cells = <0>;
-	};
-};
-
-I hope this explains the whole intention behind it. And if there is better way to explain
-this in the commit message, let me know.
-
-[1] - https://github.com/plappermaul/realtek-doc/tree/main/datasheets
-
-Best,
-Rustam
+--=-eySGLK0BCKOzVjRv4LWn--
