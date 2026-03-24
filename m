@@ -1,156 +1,104 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0863C5DC5
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 08:07:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5649B35A3B2
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 08:09:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774339677; cv=none; b=RttdOnGCm1VnMg58S1w2ze2UzdS+AAYsnCoHvUaDh9qRyJR33QSIxsTj1n97gW6esQOMuUkq6qsU5X4f5TeccwLWd7u+8IMiGRWmWT5Sj8rgG6bAOjmZzRR619G7BRzczX8xtW442Idg4j25FxknsKGZ8XiOxhISenqxMtDPmis=
+	t=1774339754; cv=none; b=UcxTA6C565IJxKbHL0+BJX6sEIOqmziH+rLGi7u6/HxzV9FQnFQEZx73obngXmBK6JU6/w6Y5SlaO0pps+SAhtUJ8HxojGgx3C+2/S2WwtW7zHtyRe4dl6joszpDnxVymGndzCrSuYRjNalzB3pIk2e3NF46cITzlGSn9JIbPPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774339677; c=relaxed/simple;
-	bh=IceAUN0OJIIAbe19yvKfIpOhT3L2MW8JFDntDXdVY0g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HBPxz30FLANRnQVnjiKjCbykeqPn+vLMnoW0UyG2irNcd5B0SQEzQHLNkn2/wWv5+/MUIODi0pX3vA3Rc91N/zby1yqc+rm9/r2Y1iy6zFqxR+MqizpSbDZvl3+NSnxzSz2U18GVk2g7Ua1XtVH+flSXatq514xA1GrAtZJUjQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nooFF0DD; arc=none smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774339754; c=relaxed/simple;
+	bh=vd9uo414jAEIgy4ZN2umRK7n3iiTZe25EdUOrW2buJ4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=N8LXvdpvj7tI3GI6wv4OSec2biYe3J6upmc19Mo6vjJaBKba4KJu4VacGg6mpAU5xBf2iDLCqUltnuq10soOIBmCkHE55Zco3ui96GsYSbHLtoYWcqzRB1zSv59LjmhjrYDyYA/dIozYVrRNfQpwkrFSokl7dg/zMrBltVB5v34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=YdSetXMr; arc=none smtp.client-ip=209.85.217.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nooFF0DD"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-66971ccfcabso1548436a12.3
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 01:07:48 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="YdSetXMr"
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-5ffdd9a6155so4964528137.1
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 01:09:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774339667; x=1774944467; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=hU4A868t/KxQ8kSoseiIZSNGuwyJwQACouL71HeRn80=;
-        b=nooFF0DDlWn3Xwd8OeeEkkhVBO18PJvGJFaweNxgRiO2KJbPXWL7L3SXtnPnoJkEFj
-         0KXQyGk6VSxP8Domp+J2O83zhz1NEnInV+3hr/qdCsaeVgRy8LmyDY4upSYdZxhpLoVx
-         pICFCvdP4a9lyJIWd0cnJS2n2zVCLdPsV1wWy8FlsDRkcGoSix4Co75yxNgm2Ry2yu3I
-         USs20T7rG5A35iXfNIBhwBEWbqKUfC8dOMZaAPSafiC9ef5CLO/9byt/Pbeoc/cKuxW6
-         L4CDagq89oyvmU+lmu63q4NGKnt1/oglSvCqnYRJ2BmLFNIrmAI+CqxT3mpNIT/sdbuz
-         qYKA==
+        d=chromium.org; s=google; t=1774339746; x=1774944546; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XgTjr1ySaQqwvk8pm1AFU5JmGfYl/gMQzs5mt80viYk=;
+        b=YdSetXMrMN/QmYoa/+5u2czURYWDISCqKpvTxv/YgNHTMaJFYmzY+M2SiFkTIpf7nL
+         Rhx2ThNUcabiep7KOuHS1ZJ3ZAnPsy+BJMJVzAP4sj87oTiNHjeI26JzadFPh1uLoItP
+         MEgwbXd2vW656roWTMtOGc3175uTBqedc0inI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774339667; x=1774944467;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=hU4A868t/KxQ8kSoseiIZSNGuwyJwQACouL71HeRn80=;
-        b=Jm/mAIV54R2FhyTOyTtFiY+C/WXNxy/6GJ20fEez0FqXRWDeztReXS3VfvFVmVgc93
-         g1vTU59d2lA7QZsRyipOoqxbNesjFL8wydzS5vYa86hfLsbD1/gl8GMaFVw7E9QKa6bv
-         5g4he5T+nCZlJ9A5CegzsM7IlYD53B2nhkYknVJI18JaJxpy3GzQxFPpwu9xcLofTT8H
-         fG03YHUyVHmu1hkzgv0j5Dw9P7fquFBq4o3yKFMRMxgHs5BrqJUvE9QWzMgQeh50inzU
-         t0o2dUqJXLmOIbXRhViR/iIxPkgPhhI7YRBSEw4U37dcwhqpckkhjycYFjknd4YZf5uP
-         hCTg==
-X-Forwarded-Encrypted: i=1; AJvYcCWIz9A+plm1AfLLeQRRD4BWhofDPrEiHqCvgN9ZUxITCOcCa8CgSlx8bc2f5Mo5qmk3+ZeILssEtCoq@vger.kernel.org
-X-Gm-Message-State: AOJu0YzKkjh9eivJx5PaanABeELTxuDwyTxORLm6ijqSYabhzIjmsy64
-	qYewxPemjkX5puXy2BO3hSbF7ndXQBGKR5fsm/6SaVSbxTayfo588Mw4
-X-Gm-Gg: ATEYQzyIbxKaY5TRtboKOOWkO4vbPp8CLC8higcr5ZdwP783rLF1OJJGUNQUrlDnuIk
-	IKCHmJrFuQTlzjgqY0i8E24N+B27SmnvHyd76Q/UciKOk7KHW4yONb9B3QJMYxFAllDnd0+7VAh
-	kL2omdjseATeCo4QhSfLUqaQp5REuX+GSScgf/+9M5xa39sfyMuHlcarvIX14tpZ4QUykV2cnyU
-	xHFMa2mEDjQ9ZjTqyMLAcsxCeYOvBq5Boak3ItCtogHt93jJ1KHdJveJq5G7epQNYXJfKThzf6i
-	VO8p5Voq4ROezdLKLxAEnZ9LyRl1sIVDJqjPsv86+ksIcuDG8aFq409zYnaF4uEF1sLFBdUBqJo
-	nz4rOHuZoWYYR6/dUcCVa52Gkm5uu/so5p+X79uODdWCq5LgOQlALA5UzmqbcZrCgU1kkURVOoj
-	3wn41U1fjYgfPnYSiFkDWMrXUsTw==
-X-Received: by 2002:a05:6402:2342:b0:667:2fd:4ead with SMTP id 4fb4d7f45d1cf-668c9b206ffmr10183916a12.27.1774339666291;
-        Tue, 24 Mar 2026 01:07:46 -0700 (PDT)
-Received: from [192.168.1.31] ([178.230.175.206])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-668d219abf6sm4487923a12.20.2026.03.24.01.07.44
+        d=1e100.net; s=20251104; t=1774339746; x=1774944546;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=XgTjr1ySaQqwvk8pm1AFU5JmGfYl/gMQzs5mt80viYk=;
+        b=OTUSBDQYn+Ya7dl3IxImsiaw9Q/852y65iaakKzcM/o7GUxbY3cE9+s5jB4VdVnV2E
+         h7s1wpa3OkOnFWpwQNnDZMyrCW1XLtzPq0f3Rd86bVEmsAtyx0hO9ELydGjMS5lypDsR
+         +45O/zrBYtA2uxNYE38vj64W4EeMgIWrtWFo/0P9bnUvblnhXtc/AuHl/05laTfGC2jT
+         FmUbhQCVT1p55aYhmQN4ODgaTSHynvE0WNxcehfld9DbTH1DcdDeWJUDAkiYbE5diTPp
+         VhboVIJQKPUFGJrults86N2/ZXXofredbOXJB9owuQs7LMhl2lIOiaSX3k+bTjVAAnQh
+         TTMA==
+X-Forwarded-Encrypted: i=1; AJvYcCV5cMER6dMrkQbyQd4Iv+xRQ1wGUJ2xd/h+Dkz38aReD5Ircn3rvikwFFtJRbTVRMIy3pSm/qzwaYwX@vger.kernel.org
+X-Gm-Message-State: AOJu0YxA6nf+L9PDh1vUZWCUa4pWuwEnqoY4wGzoJ887Dycos9wwvc4M
+	oDUQxpvfYmJD7wgVD26Pcr/88D2H6118hREpg5atSrqwozMF9Iepu1/LM2tF27lpzGuWd0OV3W+
+	ItLc=
+X-Gm-Gg: ATEYQzwU8w2Wgep0mhqSiJEG9FFS2oYYrUiUPC+FdwPWtKoJJ8ErfRIDfYXLb7QuIha
+	NKQEq4raPWdAQXpAiMhMYlbTbks/BCkl2zIstOfPIOAUjf8dy1QCmjkCqc9Hnk86hZPPWm9Qpgo
+	+iujTuW/WbYvlRH6uHI0zqocaUucQWp1Tz/aJHvuw/w2ymSHS6gJRpv3Mr/MU/08j2sSKeH5EUE
+	pe3b+uXeia8XCfJeKHWcpqXMgbObSsRpc6aZxq8czVZdSQXdhTIpVW7EzSJydli3Bbd0C2I1sqe
+	o3LusoJ0amCR2r66rjA0Sly1+DqrB1KXbnaVQrOLvzl4H0+mxJniPR9umgY/83k0lDkOWET6j75
+	gBWRZT0vlP2bZfzDc+B3qRncF5NOs7CgVkwrZwTeTxE785GiPmkjXTLX/Xo68arvm6fY0nVdppr
+	a55+lZeUh5Chk89v+OsQl93CXol5qebD78aPq77iYYy6saoWcsQdI6UeBp0g==
+X-Received: by 2002:a05:6102:4b82:b0:5fd:eacf:27df with SMTP id ada2fe7eead31-603160a2310mr1358753137.10.1774339746218;
+        Tue, 24 Mar 2026 01:09:06 -0700 (PDT)
+Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com. [209.85.222.41])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-602afb4ed6esm9832289137.10.2026.03.24.01.09.05
+        for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Mar 2026 01:07:45 -0700 (PDT)
-Message-ID: <2fd29380-468a-4f09-853a-f63c67a3a3aa@gmail.com>
-Date: Tue, 24 Mar 2026 09:07:43 +0100
+        Tue, 24 Mar 2026 01:09:05 -0700 (PDT)
+Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-94ddffda372so3828854241.1
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 01:09:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXa4JVYZOxeurLUvFPxsJxVmy0AN88Kp9bJfA8e7mqiOftpnWuA8mCUNpsy/ELYzKnoo+YwXbcw1LcQ@vger.kernel.org
+X-Received: by 2002:a05:6102:2b8b:b0:602:91be:3506 with SMTP id
+ ada2fe7eead31-603160acc76mr1148240137.11.1774339744256; Tue, 24 Mar 2026
+ 01:09:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] arm64: dts: qcom: Add Xiaomi 12 Lite 5G (taoyao)
- DTS
-To: Val Packett <val@packett.cool>, devicetree@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-kernel@vger.kernel.org
-References: <20260305093941.305122-1-zstaseg@gmail.com>
- <20260305093941.305122-3-zstaseg@gmail.com>
- <9ea41e6c-7643-452e-abf4-f35238807a26@packett.cool>
- <3bb1da4f-f2dc-421d-95f1-5bba9e3e1aec@gmail.com>
- <02913b5c-ce09-4fb7-a3dd-71bf7330439d@packett.cool>
-Content-Language: en-US
-From: Stanislav Zaikin <zstaseg@gmail.com>
-In-Reply-To: <02913b5c-ce09-4fb7-a3dd-71bf7330439d@packett.cool>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260320084351.2461060-1-wenst@chromium.org> <20260320084351.2461060-13-wenst@chromium.org>
+In-Reply-To: <20260320084351.2461060-13-wenst@chromium.org>
+From: Fei Shao <fshao@chromium.org>
+Date: Tue, 24 Mar 2026 16:08:27 +0800
+X-Gmail-Original-Message-ID: <CAC=S1nicdkyeArSxDrnDubdBk1QECfRRsp8Mv0CNGfxs8kDQyw@mail.gmail.com>
+X-Gm-Features: AQROBzBA4rP2zsCeaLi30ZrkxDrzS3ElI-DHHIjgmcs2EqAF9GjEhjgWRZZrfYI
+Message-ID: <CAC=S1nicdkyeArSxDrnDubdBk1QECfRRsp8Mv0CNGfxs8kDQyw@mail.gmail.com>
+Subject: Re: [PATCH 12/13] arm64: dts: mediatek: mt8188-geralt: Add MT6359
+ PMIC supplies
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 3/23/26 9:49 PM, Val Packett wrote:
+On Fri, Mar 20, 2026 at 4:44=E2=80=AFPM Chen-Yu Tsai <wenst@chromium.org> w=
+rote:
 >
-> On 3/23/26 05:04, Stanislav Zaikin wrote:
->> On 3/21/26 8:36 AM, Val Packett wrote:
->>> Hello again :)
->>>
->>> On 3/5/26 6:39 AM, Stanislav Zaikin wrote:
->>>> Xiaomi 12 Lite 5G is a handset released in 2022
->>>> […]
->>>> +    touchscreen@0 {
->>>> +        compatible = "goodix,gt9916";
->>>> +        reg = <0>;
->>>> +
->>>> +        interrupts-extended = <&tlmm 81 IRQ_TYPE_LEVEL_LOW>;
->>>> +
->>>> +        reset-gpios = <&tlmm 105 GPIO_ACTIVE_LOW>;
->>>> +
->>>> +        avdd-supply = <&vreg_l7c_3p0>;
->>>> +        vddio-supply = <&vreg_l2c_1p8>;
->>>> +
->>>> +        spi-max-frequency = <5000000>;
->>>> +
->>>> +        touchscreen-size-x = <10800>;
->>>> +        touchscreen-size-y = <24000>;
->>>> […]
->>>
->>> I have noticed this previously and started wondering why the size 
->>> was 10x higher. Now with my own device (motorola-dubai) I actually 
->>> found out why…
->>>
->>> With the actual 1080x2400 size, the mm values reported by libinput 
->>> are 10x higher than what they should be, e.g. touching the bottom 
->>> right corner with libinput debug-events:
->>>
->>>  event3   TOUCH_MOTION              2  +1.493s  0 (0) 98.80/98.75 
->>> (1067.00/2370.00mm)
->>>
->>> (2.4 meter tall phone! :D) which was mooooostly "fine" except 
->>> Phosh's on-screen keyboard was accidentally detecting super-fast 
->>> down swipes as I was typing normally, and suddenly closing the 
->>> keyboard as I was typing.
->>>
->> I wonder why some other devices with gt9916 (there are a couple in 
->> mainline) that specifies 1080x2400. I don't think we can make this 
->> assumption unless there was a mistake already in those mainline dts.
->>
->> Best regards,
->> Stanislav
+> The MT6359 PMIC has a number of power inputs for its various buck and
+> LDO regulators. The binding recently gained property definitions for
+> them.
 >
-> Not sure what you meant there..
+> Add the supplies for the PMIC regulators to the common design dtsi file.
+>
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> ---
+>  .../boot/dts/mediatek/mt8188-geralt.dtsi      | 21 +++++++++++++++++++
+>  1 file changed, 21 insertions(+)
+>
 
-I meant the existing dts files that use gt9916:
-
-sm8550-qrd.dts
-
-sm8650-qrd.dts
-
-sm8650-hdk-display-card.dtso
-
-All of those specify 1080x2400. That means either those boards weren't 
-tested (by physically tapping the touchscreen at least) or that there's 
-something else.
-
-> I have not seen other devices do the 10800/24000 thing. Please set 
-> 1080/2400 (actual size not 10x larger).
-That part I get and I will.
-
-Best regards,
-Stanislav
+Reviewed-by: Fei Shao <fshao@chromium.org>
