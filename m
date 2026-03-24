@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D20D78F26;
-	Tue, 24 Mar 2026 00:18:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4572419CD1B;
+	Tue, 24 Mar 2026 00:26:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774311486; cv=none; b=cOC5Is5dZfQMlzMTxrf/ygdzKm9aMLu1ZxtzgG+/wfJXu4aaoEaQm5+d+IEUqh8BiOVoSFGqXMj0/PdBiNbOQWKVj7Qa3tRZNgb4dl34YaR55pJ1GWEfAVMjYIrLymqrr8MFivCleKU9aU+2AIpFmX+EAFOxxrVzoEJtcRCCmJM=
+	t=1774311971; cv=none; b=pEEj6N4uR7G7xf50lRADSOpxVtUe3FqBkS5ySuRHVTU4Y5lT0KSJEvOIg71IskmrvTiRgRjaMUBw7v+moZnEiZjcUTkwVG1p2C2iHqUAJlr3AkQjY5qmO/g43NrEW6nqfokoMIwJeRFa2Lgv/OEqB0F9/YaIR9LYn0y24N5bjRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774311486; c=relaxed/simple;
-	bh=mBitpoQXvogW9UOH5+8mD5clOqD//aOwti5hId6Y2No=;
+	s=arc-20240116; t=1774311971; c=relaxed/simple;
+	bh=HWeN9l25DXERMH+81DhTP9QxAZ48R9hKphOM2+ALNuI=;
 	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=tHqQGjZOkwz26X3iz4vkkDddXTxMvzheiYYa+z3sVGvnzYqeQGMMx5hkb7EXBKt1m6kaKdkk9owGuQYHToniWStzzJCOSEU7x/buZrogOd72dxw2hBxTIEeiaWmutwIGDhC1KZqdWSaptsmvVrwO6Ej/sI8VEOOzc2p48S0DMtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qkt45Pdy; arc=none smtp.client-ip=10.30.226.201
+	 To:Date:Message-ID; b=Zp7mreMnJAzMINgA+UhEmqMlTlwGqwE9drehpAACFP5Lo0wKjnJYE6UDL43l2cCyjR+3w+yC7f5TxWbN+CRi9ECTapz5bUYm5j/QtCdr94L3ViJBLAPAfI74Z0LTGg9HXJNfC8ewkKG6UcN6tY16jl6sgFru03VF/20JiTPwfrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GaDUWqD1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qkt45Pdy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E44D0C4CEF7;
-	Tue, 24 Mar 2026 00:18:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GaDUWqD1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4F56C4CEF7;
+	Tue, 24 Mar 2026 00:26:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774311486;
-	bh=mBitpoQXvogW9UOH5+8mD5clOqD//aOwti5hId6Y2No=;
+	s=k20201202; t=1774311970;
+	bh=HWeN9l25DXERMH+81DhTP9QxAZ48R9hKphOM2+ALNuI=;
 	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=qkt45Pdy1OfDzs88N1FqRGBmJDh4R/jkPlEO4A2Jz1h3Z3uFvlDmRLbCPL2cmCGJ7
-	 g1Q3RWM533SkSfddCicFK8rkKS7LqXeSRrlxv+4GlU7mVKJaANUp9Nqwv9cJmlH2xE
-	 B7X6TUFcQhIVA9T913DBq/AtGo18HdYmvfTJjViuh0gIU2VyI0FYxD5sVOEE4mZmjy
-	 BwpL4FxooZvvuiPKcJgVKKVFF4tHmF1N5au/E9qHk4zucdn/zTpcqG8/UlbTzjDe3w
-	 tBfwRlrvH18alNPakK46dsg7LXiFpn5n2JJiB04KwGJX0GYQD56C7oU1wfDpSIt+So
-	 qnsmfR4w/bpQg==
+	b=GaDUWqD1WdILB1XD7YEZmPMeNwPu3iix2CHQFreGtGYU6o28LV52B8YOwRvjpgVXl
+	 YvGmz+2IW/250Y94EOZ8ToI+nAwT7X9Y51YSaM2qlNM5sFqPKkl0AHBzYiAYQi/YZi
+	 1Y2V8BvwhNImx9JrYSB/jP4D65ioeRLzNIkh+mkm4rfKkI+ofh1H0nlkBb1Qviaf7k
+	 X4XYBcuW2JXQ+vy297LwCAJ09nwLWc+hhEGWgqEs7iuO8XvByeKYrc0psTbBtRTwP8
+	 asNUC2ADNv43n1q3n+XMjdoVTWdtInN/6xz1g3Uu0tfFUyM/rUFifTAv3T8HdzAkmg
+	 y936vZKsNUVxQ==
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -34,25 +34,24 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260224111821.3491352-1-andriy.shevchenko@linux.intel.com>
-References: <20260224111821.3491352-1-andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v4 1/1] clk: baikal-t1: Remove not-going-to-be-supported code for Baikal SoC
+In-Reply-To: <20260226-eyeq6lplus-v3-9-9cbeb59268b0@bootlin.com>
+References: <20260226-eyeq6lplus-v3-0-9cbeb59268b0@bootlin.com> <20260226-eyeq6lplus-v3-9-9cbeb59268b0@bootlin.com>
+Subject: Re: [PATCH v3 09/13] clk: eyeq: Add Mobileye EyeQ6Lplus OLB
 From: Stephen Boyd <sboyd@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, Randy Dunlap <rdunlap@infradead.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Brian Masney <bmasney@redhat.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Date: Mon, 23 Mar 2026 17:18:03 -0700
-Message-ID: <177431148399.5403.17869158368644573054@lazor>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Tawfik Bayouk <tawfik.bayouk@mobileye.com>, linux-mips@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, =?utf-8?q?Beno=C3=AEt?= Monin <benoit.monin@bootlin.com>
+To: =?utf-8?q?Beno=C3=AEt?= Monin <benoit.monin@bootlin.com>, Conor Dooley <conor+dt@kernel.org>, Gregory CLEMENT <gregory.clement@bootlin.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, Michael Turquette <mturquette@baylibre.com>, Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, =?utf-8?q?Th=C3=A9o?= Lebrun <theo.lebrun@bootlin.com>, Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Date: Mon, 23 Mar 2026 17:26:08 -0700
+Message-ID: <177431196878.5403.1939223268519339474@lazor>
 User-Agent: alot/0.12
 
-Quoting Andy Shevchenko (2026-02-24 03:17:18)
-> As noticed in the discussion [1] the Baikal SoC and platforms
-> are not going to be finalized, hence remove stale code.
+Quoting Beno=C3=AEt Monin (2026-02-26 05:33:53)
+> Declare the PLLs and fixed factors found in the EyeQ6Lplus OLB as part
+> of the match data for the "mobileye,eyeq6lplus-olb" compatible.
 >=20
-> Reviewed-by: Brian Masney <bmasney@redhat.com>
-> Link: https://lore.kernel.org/lkml/22b92ddf-6321-41b5-8073-f9c7064d3432@i=
-nfradead.org/ [1]
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> The PLL and fixed factor of the CPU are registered in early init as they
+> are required during the boot by the GIC timer.
+>=20
+> Signed-off-by: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
 > ---
 
-Applied to clk-next
+Acked-by: Stephen Boyd <sboyd@kernel.org>
