@@ -1,119 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E805B3FB7D8;
-	Tue, 24 Mar 2026 12:36:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABED314B9A;
+	Tue, 24 Mar 2026 12:38:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774355790; cv=none; b=qnoczD8AWKg8NKpySjONSd3yIfl/eqHwYyiNNCgKr/NU324+pdbNOqP3EQFu/aqWKLiNEJheGl7kRYCoi7UvreZSrDvrAMVQmF2AaCzgyfLmptfF6V779VH9vvrw/i9KHjHWOR2n/J06px/GaiRb9yAhnKg32rRWT6UhjamjvN4=
+	t=1774355937; cv=none; b=LcNlORh1BSxRs9AYs3WjDxDxCkY0pf3pbDY5Jwt1rPFxYLW8sycfnDpICQ1q0Xdie1+FJxgkxiHtwSuWxbbCBIfoj7K0VRD6e+e2xR7u0lkrxXkMAhH3KHgne5oK1ND9pXqLUd/CwQeyD2Pad4z7jNaLk1DVJbg++KcWDOFSuF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774355790; c=relaxed/simple;
-	bh=DnbYrHpWse+4fcimDxm42ikoAG2FrGDeZI3psIHHAag=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=faEHJwnDKY/ZXjAa3nsoakKuycN0tM6xZJ0bvQ48lgZzFHXEhKPo4chSlpFGrFxtn0JsgW3n1tQijSZMrYsfLGInSxKaIjiaWXfA2J6iGWX8/bkSpceQZhjl4gUpT7k2rPjxlQ61z2YFX8602WFOzCRwKLGnnRKq2f4rolVkoC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DSoBRS6g; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774355937; c=relaxed/simple;
+	bh=n0h1AinUMAzmZCaro/6NFeRSXzDQyEyEdmYM2DZbM7U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zns6BizFEunjr9tvOwga50N12+IJk2KHqXUPM3GNtB4FbrKGtWcJ6ruXt/pIwL1Abb4kF+8pldLC2C+Xm1VBPW7BI+VKzQORRyIKaqYQ3XbQ+UG23dr9gnaprhASV1+ntxt3tFXViEOEF6UVkDczxjgxjxpt9DjRYsgGzkh1aMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=0vQskzlO; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DSoBRS6g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61B0CC2BCB2;
-	Tue, 24 Mar 2026 12:36:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774355789;
-	bh=DnbYrHpWse+4fcimDxm42ikoAG2FrGDeZI3psIHHAag=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=DSoBRS6gfQE08V3kjhoDTvIhhIgZbRRXgTQZkPbpswWTsXcfoKIP1exWScwgV2s3K
-	 xkGJFrdftzwNIEfqobScAvMWboVT0wUofnbOU2+zVzx/UzAfulvjjCOeDgtxEiJdbZ
-	 9TV8N+w3TpyR08DDCj6aAXAl1FADBVYeIsVKSgzybOGcvERMn6TTnMMBGncsfvLbC0
-	 RWI2I1MEoX2DFZk9254pBtgKAWl7D+TPSzRTL2l2K30WDhMb82cuiNIh3RYcH/j5mO
-	 ngiSVJPlvQnnbltY2bS3XWn5D7LgQWAxiZlA8KwbQHsRUmnU/7cONUXQxrnn2P31i7
-	 MTcoZWNM58vRQ==
-Message-ID: <b1248637-0867-441b-883e-d2a2b1c2d768@kernel.org>
-Date: Tue, 24 Mar 2026 13:36:24 +0100
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="0vQskzlO"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=CIe/1Rs/fwVWVoErQ7DrPISOxhRMH4MZG/IidA4tHfs=; b=0vQskzlO/DTD0Wx4J/r0CToJDm
+	vIGPrTTuufQIxhO3xeYfWRSWHWfEdLDCL4ZNVw7m8VU1Pb/2rw8HnBiiiRwBfWVvD0jkFOW0I5A0K
+	VKWty3NmPxu62SFRnhBkgXxrYZO2By/U6VQ4wZaOeD/XScVisgug0vodM6fiNCfbptUo=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1w511q-00D654-ES; Tue, 24 Mar 2026 13:38:38 +0100
+Date: Tue, 24 Mar 2026 13:38:38 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Parvathi Pudi <parvathi@couthit.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Kevin Hilman <khilman@baylibre.com>, nm <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>, afd <afd@ti.com>,
+	rogerq <rogerq@kernel.org>, tony <tony@atomide.com>,
+	robh <robh@kernel.org>, krzk+dt <krzk+dt@kernel.org>,
+	conor+dt <conor+dt@kernel.org>,
+	richardcochran <richardcochran@gmail.com>,
+	aaro koskinen <aaro.koskinen@iki.fi>,
+	andreas <andreas@kemnade.info>,
+	linux-omap <linux-omap@vger.kernel.org>,
+	devicetree <devicetree@vger.kernel.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	netdev <netdev@vger.kernel.org>, danishanwar <danishanwar@ti.com>,
+	pratheesh <pratheesh@ti.com>, j-rameshbabu <j-rameshbabu@ti.com>,
+	praneeth <praneeth@ti.com>, srk <srk@ti.com>,
+	rogerq <rogerq@ti.com>, m-malladi <m-malladi@ti.com>,
+	krishna <krishna@couthit.com>, mohan <mohan@couthit.com>,
+	pmohan <pmohan@couthit.com>, basharath <basharath@couthit.com>,
+	Murali Karicheri <m-karicheri2@ti.com>
+Subject: Re: [PATCH v5 3/3] arm: dts: ti: Add device tree support for
+ PRU-ICSS on AM335x
+Message-ID: <6c523569-928b-4df5-89f3-9a460d5f6020@lunn.ch>
+References: <20260307122641.738450-1-parvathi@couthit.com>
+ <20260307122641.738450-4-parvathi@couthit.com>
+ <7ho6ks1r4s.fsf@baylibre.com>
+ <91797572.667989.1773662409130.JavaMail.zimbra@couthit.local>
+ <ee2ec279-ee5d-4d6d-b6ff-35187e3f03e6@kernel.org>
+ <1868242922.724201.1774332140293.JavaMail.zimbra@couthit.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] dt-bindings: iio: adc: ltc2497: Add LTC2305
- compatible
-To: Carlos Jones Jr <carlosjr.jones@analog.com>,
- Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Liam Beguin <liambeguin@gmail.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Tobias Sperling <tobias.sperling@softing.com>,
- Jorge Marques <jorge.marques@analog.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260324071331.842-1-carlosjr.jones@analog.com>
- <20260324071331.842-4-carlosjr.jones@analog.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260324071331.842-4-carlosjr.jones@analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1868242922.724201.1774332140293.JavaMail.zimbra@couthit.local>
 
-On 24/03/2026 08:13, Carlos Jones Jr wrote:
-> Add device tree binding for the LTC2305, a 2-channel, 12-bit SAR ADC
-> from Linear Technology (now part of Analog Devices).
-> 
-> The LTC2305 uses the same I2C register interface as the LTC2309 but
-> differs in:
-> - Channel count: 2 channels vs 8 channels (LTC2309)
-> - Conversion timing: Requires 1.6μs settling time vs negligible for
->   LTC2309
-> 
-> Signed-off-by: Carlos Jones Jr <carlosjr.jones@analog.com>
-> ---
+> We have verified that dtbs_check does report this issue, and we will update
+> our test setup to retain full dtbs_check output to avoid missing such warnings
+> in the future.
 
+I would expect the exit value is set to something other than 0 when it
+finds an error. Why not just fail the test based on that?
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
+      Andrew
