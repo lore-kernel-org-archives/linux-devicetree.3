@@ -1,340 +1,200 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011020.outbound.protection.outlook.com [52.101.70.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46783FBEAA;
-	Tue, 24 Mar 2026 13:36:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774359414; cv=fail; b=AgjzndP5nBVA4iLbI1HCoIjq0y0mMukrwWak15ozWpGEF+rPz+DPObmDiWzXVxizTfAvvHKrJcBd4IIV6Qz+9fioVPWxIVSOR4IRXOzpOLYR+E6mTnfm24DM20rkdl1uWtq1K1a2qFdxVPhlEKa9kgHXz6v0psUhyR1KqeH9kmg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774359414; c=relaxed/simple;
-	bh=+bcZnczxA88LOOv0yZj6f47eON3IurvbQhoEq5yolIE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=CxzSa5CyeidvsNMiuoLvXczAahuSHcPOMY4jeLzFz+19RUmRQVxlhV0ctt9enH//mOkVneGtAywpPRGffzZUDz5VnaBklZd5lgfWSsVsKOUu0W8W05CTluZe5AIH2c3ThsIf9kK87tBt2sISgL/vzNKCGBMHLCW3lwvzIez5OI0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=kUW/fOxg; arc=fail smtp.client-ip=52.101.70.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="kUW/fOxg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UI/hCC1thlhlS8PVm2BSryfE76o6HTPphKa/HDSHVWSWf9VM+QmHYkO/E1Pm3GFAzGnYXiihcmNPCQ/KHdATZCvhpX0hrMor8xNt+O/Mo6cxboe8elH6WLvII6gN85azcghosmd5rf586DSsQRnNryRhAK/p0AGdwoPHNANilqU7MM3sboLnsCtHVffxwFu+L9WTQ5ZWpajVPRFEdKbOA9+W45WAj3aZeIXNg/+4NM5u8YZRdrXyYKnNpJCwROY871PmYRDtFdVraX4yPiLjhRWcnNbpOF+i/ze6qU5JYJmN3MBUpNzt2LHheV/bRh+96+ZtiI1wnM7X80N1iIkP1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xhIQ1SBclHKw+Q8c8AXe0Esq5oz+eGAWfktGJnFBl0Y=;
- b=fplOjtIyrfVmV7pLsX7stBu1moG/B6MQ7+wVbfocuCAzlFRuBxvh9p0Q4P1kESV6jALUAJ0Y3HH8SD/1Q2vMRbaK28zs+UTZEOC7i/KrXoBZ7/RyrJ7yJPMavI27EDH5imeuma/MJt8RhwDlre4Dy3v9oTfvbuW+ziDmU03liixYB7E0R1da2VloPeAYJzSCJg4Q1wTIPP+vUYuaq3RKqldqU/plXvWFZk7fEk++nTRxKKrQGfpfblClLGsVgZlOdHxKCm7BGP3UpVBoUw0+VuwVzF8awgv2FGMlAbDc+BBNhAx+iEGbO1NSxOfqBhYMyzs54Q902yPbd9eVV7kM5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xhIQ1SBclHKw+Q8c8AXe0Esq5oz+eGAWfktGJnFBl0Y=;
- b=kUW/fOxg/RaxOU9OcpHHwtA0AaecN5hBtrHo5Ddqm6SXm1JFBzJIGtmlYLPsmiGxsRG1nXtjPfK4P+FcyDrRJJBpplO/V6/3tYmZwo1sNRmgBGqOeVAXaR9eyugjvlkuAa6YYDeqasBFY5GQK1qyUAqYuhpInV99zqp3VCYfxWoQ0t2wmyW2Y7G+nTicpsJUwWm3wQVExhVBRpfzPHCMG37mHbmzTGcQvFPilJcaIUkOJTA5FLWpMQzWnLfT3bNtAPTYFvkJZOEl8oh9oxJEvYpwAk6OpN+GzGPIDoxT03DMIiEhIi717sWFQl+D3kbQqHUgVAHdllhlFEGDx6PZUg==
-Received: from PAXPR04MB9424.eurprd04.prod.outlook.com (2603:10a6:102:2b2::13)
- by PAWPR04MB9765.eurprd04.prod.outlook.com (2603:10a6:102:389::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Tue, 24 Mar
- 2026 13:36:43 +0000
-Received: from PAXPR04MB9424.eurprd04.prod.outlook.com
- ([fe80::671d:216f:d493:44ce]) by PAXPR04MB9424.eurprd04.prod.outlook.com
- ([fe80::671d:216f:d493:44ce%4]) with mapi id 15.20.9723.022; Tue, 24 Mar 2026
- 13:36:37 +0000
-From: Ioana Ciocoi Radulescu <ruxandra.radulescu@nxp.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sumit Semwal
-	<sumit.semwal@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Shawn Guo
-	<shawnguo@kernel.org>, Frank Li <frank.li@nxp.com>,
-	=?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "linaro-mm-sig@lists.linaro.org"
-	<linaro-mm-sig@lists.linaro.org>, Jiwei Fu <jiwei.fu@nxp.com>, Forrest Shi
-	<xuelin.shi@nxp.com>, Alexandru Iulian Taran <alexandru.taran@nxp.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>
-Subject: RE: [PATCH v2 4/9] accel/neutron: Add driver for NXP Neutron NPU
-Thread-Topic: [PATCH v2 4/9] accel/neutron: Add driver for NXP Neutron NPU
-Thread-Index: AQHcrW0UFol7c/rrhUWH45PRn/N4EbWhjjwAgBw7vqA=
-Date: Tue, 24 Mar 2026 13:36:37 +0000
-Message-ID:
- <PAXPR04MB9424461788159F730884F9F39448A@PAXPR04MB9424.eurprd04.prod.outlook.com>
-References: <20260306-neutron-v2-0-3019bd8c91ef@nxp.com>
- <20260306-neutron-v2-4-3019bd8c91ef@nxp.com>
- <110dace9-3ff9-4750-813f-93c6827b105c@kernel.org>
-In-Reply-To: <110dace9-3ff9-4750-813f-93c6827b105c@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAXPR04MB9424:EE_|PAWPR04MB9765:EE_
-x-ms-office365-filtering-correlation-id: e597c0ac-3b0e-4f5d-6340-08de89aa5fcf
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|7416014|1800799024|366016|19092799006|38070700021|921020|18002099003|22082099003|56012099003;
-x-microsoft-antispam-message-info:
- 4/KnLqZUXvPYBH4vN/okmUyXk4OPiEdhPT/NsEzNNnUeEtRCSe7kMYhFz19l8kfw3QYL9oMz7QfCuqnrAZZlyLBa02bwjhG+6w64gSemxrDa11d4r7pElS1UWSWcJqPx+7fVLQggY44IA1P27EvGJfMpeOOcniDlyXo4uhpSjndjhzOQOgWfpo41NScUKVBlk1wr9V/nipRnSon9j9VxoVZlfXdvt5HnhOjzQl96ThzXFw9Mor/I2t9Fkt+mtK2jMG1QiKC4a2z/iKwbSu8QfgPz5d67Jm1QSnbVvxeAGlFZR9d2D8BtGkv5nAB3o7o6qIlw7lLCz3VQpoEP3wqmCvIaX8IfWtxaZNZMyyqIry9E3UQfQOnwabeX+fj8QH0F9ep0ZaNkyfEi9CGdYqA7tzrDUkYKNXsxY0TkPsY/j9AvLK+445ua0C6Yx8KaLrM4vzzpGnj52f3dq7efWksEo1kCIU9j8Bx4wUgriMagt3kfqwrnFbHhVagIoj2EvDbmK3bIrujK0cH+zs0RAAk1LQP+ZTkGi2e+6SKxL4tDtoAeT9vL3pDGdb6Z40LFQj0XqZ13b23NWebU7bC3Lik+l3939vBbz9FOhbUzfcwfohgPufptsJ68yfM2HBlCz2P3lnFBD/3MonSUhLf3JxmNxnDerNSyjAVGNrYT9oRmvXV7v71OHDF7BjZlwNo1dErOgejocN8aClhinbW2Odv5nOqwih3NI4LJ2irUFXdL+hIm+BKVVlmePzwbYvusFqhXtOnhLDOL5gD18gPClGq3Dg==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9424.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(19092799006)(38070700021)(921020)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?lwyAYR148TNzzl1QT8LGoqpuh5R1Y8Fnxf/cisCflxIqrC+9wPCdAjDqBP?=
- =?iso-8859-1?Q?nVV7ib5QnC/0fMCbsR60iZykLkqDj6f8XHYszh9e3i8fU7LD1vYj9KN+ES?=
- =?iso-8859-1?Q?lB7ONsv8KlhtWWiDiNMFCUX1glbpiCvqpvaSlCZ3t+8zdEtrwWxsiYE4e4?=
- =?iso-8859-1?Q?DKtILmqtKI4FnptguDETTbNorBFU/YXCC5PmWF0iN8cQSEwJx3hGeylERa?=
- =?iso-8859-1?Q?JjEQuZYQ/7WOKXXRe8oucPL/Y/DNK6BnFwssCNk3mcTjYzDF2RNzIczvli?=
- =?iso-8859-1?Q?QTnqdjaQTTyYC+UBxZwf7eYYYymC0gRdBMDGMDtfd/hqBQMSBk2jo58Py2?=
- =?iso-8859-1?Q?Ru03UmJjE8b4pin0Ej6ogTQSiRmDy9dHh2nSpyzO6Eg8HyM2U/E7MUsq/X?=
- =?iso-8859-1?Q?NQ/tAg+MugpfcSABb2fnPC0mmJ/d8SXbhAnddpcSmCODlQm3F5YJ29ZIzG?=
- =?iso-8859-1?Q?uIIDIk2QVol3q1LtJkYhhcVtPILsp4d1PemkjisXd+xeC90HdnH4rrfJC5?=
- =?iso-8859-1?Q?OcBc2paa78f8+BrrhtxbSK3RmeC5ul7FzEiEwnsF1obBLqOqIesfVRmiX+?=
- =?iso-8859-1?Q?nwVxYlbmYcOAMDfa5s5SpLHEoButKb3a+SUfSnRwMKijbyrck5oJkBou4h?=
- =?iso-8859-1?Q?Zb6qAsVF+TbmP4w+9rMiltKtEVvhDnoXV0d70J7RYLKJPOllclQ7hCVAIO?=
- =?iso-8859-1?Q?5pmR6vXw3oDBBnafxGYqWolqX3t+lm33SUPG8hprNXxF/xNFvy5jp5vUtB?=
- =?iso-8859-1?Q?W/u3qHuGx7pBO9RGCUVHMIlVW0qyzlDhPDhUbaJM5Gn501J/iYhKiuOKnH?=
- =?iso-8859-1?Q?Djttynq5+jtbpy+NCNUJjzHIC3/d+X/RKzXur6bCdMfG2dL7hF2dF9zDBK?=
- =?iso-8859-1?Q?Z6d7VjFl22BeETPhAaKqXe7lXA06/b7fhf82rhCVG/QJwhj4W9himfbg84?=
- =?iso-8859-1?Q?lVcZ8fX8ksrYy4OYx6P97ExLILtAuKx2QIhwKyJVvplPNPsD6V/mqeq+kT?=
- =?iso-8859-1?Q?Uh8c+3ra/PUFDp4dMKsBFMiy1LTO09vo6tcW0jDqUUI2SJyIGw65AwTRTO?=
- =?iso-8859-1?Q?Wya2PXcUATbQ1vorTuJM/zwy67AVgGqQIzNYaze4kmPsPtZhs9nimwPnBf?=
- =?iso-8859-1?Q?PJ0MjPWELC3GWJUFdYjjnNHdMqH4ZLcKU486qtLVilXdbUcUXzGeUYNhI6?=
- =?iso-8859-1?Q?KRoUsqN/bvIaSNEIySQoh46xrtgsW9j2g3V9sI9MApbDWANB0AOVwaAtUQ?=
- =?iso-8859-1?Q?z+gdKsOrlIlaPMZQsV8DZ6eQLuX55E2/Pu0AnJRsVBZITkglZ08sY/jnIL?=
- =?iso-8859-1?Q?p9NrapBuXLL2sPlKRALyfTH5CUwp8h2zEYRlRP20zwGcukvHlpbIWRS5Mt?=
- =?iso-8859-1?Q?6RgsTNCip6j4k9/D+Jin/aAERJDt26hWwWgPs0BBqizz1T4qt+uarHPMn6?=
- =?iso-8859-1?Q?AFMSHRZf3fIkBO658ZGvPEGWiF60gYkE9zgQxfatoPrI4Div5/lGhautJx?=
- =?iso-8859-1?Q?ejGZSPtT46Spz8flhf6Zm6ki6KSIZGZzBOssK0Ek35CbVqbYcuTHyc6cPl?=
- =?iso-8859-1?Q?6Bmj76szsDwNG6exCBOPruJ7lUYYdUo7Z7JgOFntcWafCeBrOS7YDlwylW?=
- =?iso-8859-1?Q?uSEcq/shYNeDoHiMmTWffCcF6YSvVvlqpCYBRu6V8GwRjjQKUNT2nQDbOf?=
- =?iso-8859-1?Q?IOocz4u8lIxMPpO80kH1D48xRsVrq3yEKtVvZlBMutI2OZeGFbYsvjMKGT?=
- =?iso-8859-1?Q?zEbYY19h3naUQqm/PquLhw5rWU0dFRDdIW4Ux6umX31GBaHAeS3Z1muVHd?=
- =?iso-8859-1?Q?H6H2Gosh0A=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B731E3FCB38
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 13:37:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774359461; cv=none; b=c9uxzk10ypzkI0JA94dqXr0o5lEyb2CtIFoQmSm4IITASkQXcnMwaei8Id4bkVHtyL1v/MrgLTY+GqNwSqOnUWr01mWVV1dUi2NL1HYxUP/vPkWRFJyFLbg/HGoeSZ1T2vdHuLG1tArM52en9P+6S0J6fXanadnxnsLxpvHiR7I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774359461; c=relaxed/simple;
+	bh=jxD2923ET52CY8fhMQtErtaWu+053QLtVBSwzxbDk0o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fiPWW25t26vdRUFryKHkXHcxU5PVOLYThv05F2usEKGu6fTb3e4iaEWmaTjHY5rHVxujeVHmtus8k44bhzxyucYISaNNvvbtm18t1JwbxA6ndeYWc0NSEjLF4Ym7tsT+vTJMeBA64N43UFcaj6yVtuFWWEXBtXaFyYOOLB2CeHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-602a0648aa3so816846137.2
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 06:37:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774359457; x=1774964257;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=UFHE6SbqkfrINgqOev1LeMJP9y3Lb6YlEweE9fpbW9I=;
+        b=JkDmi2L8LftUrRnPsaeV0S3Y1pL1J6MtuNnXC6+0Ld05gVGtNvo7cAxVGcN4z8eV7r
+         8IA64NDahvsdKzI4c7Ym4ctQC8PeqHrlcWVUQglPIhP00kAtUrsVaWlYPwJla0Vh+gEZ
+         1rgGdyJYtj1PrJzNpPBANX8WcFDgDsq8Swl63A8gOTnIgNDq4lLRRFdhApQZke1eGDtw
+         ssWT0C2Dy2AWZD5x3gQN3Qe7h5hnYOKg3zFrytI7g5HUL2KLJAggwO7YAEZGwl3y52dk
+         /lFBKMuHIIsv9N+kDdJxLuV8IANMJooF097b06GXXQs145yUNd3bJDBvmbbePMtqL8BA
+         e1kA==
+X-Forwarded-Encrypted: i=1; AJvYcCUPdRe7Y8lxy4Kn+10/B+q8AopzwdhVTuwBs6zqEbKI5JFtCrZt1u595/OXH5NscHbdAL5M62QFLjsJ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyw9wNzrNpKFueZ/QPq4AtL9g61yQdJ81VqwTd+JyEKKCEsqTXj
+	UXZxKpTnjWMc90lfO00aTt6yaIK4CZZLB2I2sjL8IYTI/CSCZIhqZvw5o8QV4pntQYo=
+X-Gm-Gg: ATEYQzzslRGK+AO5pwqYRTdMeeBHggQBCTkJggsVEOoXGV97yTSxZgHU88yOY2J6JKR
+	537z6y6NyfVnz3gfPajge/jyDzEo37Nm1MfSS6ism7TROn/NQ21+j4MzdXJUmgsvOpp2PrXw86X
+	j0gBI5/7vFjaOXqdK3a3wbkb0LQ0RL3wcsAC9GEIxHHySBaprEpEvJo9J0kX3N7wPTTngcKy99H
+	UL/FxTnmIGwzKDlk5FNulcPYlBMzPaIi5J9uM4YXDRrf5S1FJRKN/c9RuFVrhOW8BwlSc9mq3Su
+	s4nqXxKdLYBQtxdwdp921qKthBbJ9DTM/TV1NtLLLfQ5rrOhxoN7uVRsWjw120kiNiw6TXL4/xl
+	plYfMUKzR/Xv39NZ8xMjWSW2QGOdxhlpSNtGswefyDFEVBLThVLFW68yiXm2tTauyMhtO7x2kpL
+	ohom6B89ednaR4vhgKFrfk3D1EntbvtTUEf6qtRy50BRR0D7GlS6tofwRgIRtt6Q+x
+X-Received: by 2002:a05:6102:c0c:b0:5f7:307e:80d9 with SMTP id ada2fe7eead31-602aed2cf6cmr7952075137.28.1774359457228;
+        Tue, 24 Mar 2026 06:37:37 -0700 (PDT)
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com. [209.85.221.172])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-95136c4e2a3sm12354493241.7.2026.03.24.06.37.35
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Mar 2026 06:37:36 -0700 (PDT)
+Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-56cd842b60bso831786e0c.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 06:37:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCU9lR8ofAV4rfX1pxgbroigVZxjZmhI0XD0IgUbvymuUY8roxZMorGJnjrzWJlseZNhYUCGEuYqBRMu@vger.kernel.org
+X-Received: by 2002:a05:6122:7d2:b0:56b:5893:d042 with SMTP id
+ 71dfb90a1353d-56cde498b94mr8236000e0c.12.1774359455206; Tue, 24 Mar 2026
+ 06:37:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9424.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e597c0ac-3b0e-4f5d-6340-08de89aa5fcf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2026 13:36:37.7720
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: A8Z2QEOs0bVPHY8QhX5+CeUgbdunAuougPCvGIpozEE2Xrd/fbRE6H4LmnFl9I6nXfMd8UDzkLxvJ0DwL9RC6vtiFR4QpdP825u6KnJLAK8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB9765
+References: <20260319155334.51278-1-john.madieu.xa@bp.renesas.com> <20260319155334.51278-13-john.madieu.xa@bp.renesas.com>
+In-Reply-To: <20260319155334.51278-13-john.madieu.xa@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 24 Mar 2026 14:37:23 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdW9uvkcU789W+K38qxVTVQbFHGOaBgqNkj7SbTR8WShoA@mail.gmail.com>
+X-Gm-Features: AQROBzBcCn1BnwXSbjTDtD6HtzQVV_AICC4S_yzN7SsVw9iP4uwy2_3tUoSu3Ao
+Message-ID: <CAMuHMdW9uvkcU789W+K38qxVTVQbFHGOaBgqNkj7SbTR8WShoA@mail.gmail.com>
+Subject: Re: [PATCH 12/22] ASoC: rsnd: Update SSI for RZ/G3E support
+To: John Madieu <john.madieu.xa@bp.renesas.com>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Vinod Koul <vkoul@kernel.org>, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Magnus Damm <magnus.damm@gmail.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	John Madieu <john.madieu@gmail.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, 
+	linux-sound@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Friday, March 6, 2026 at 4:22 PM, Krzysztof Kozlowski wrote:
-> On 06/03/2026 14:27, Ioana Ciocoi-Radulescu wrote:
-> >
-> > diff --git a/MAINTAINERS b/MAINTAINERS index
-> > 8a5b27b061da..f7a687eb6b54 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -19191,6 +19191,16 @@ S:	Orphan
-> >  F:	Documentation/devicetree/bindings/net/nfc/nxp,nci.yaml
-> >  F:	drivers/nfc/nxp-nci
-> >
-> > +NXP Neutron NPU DRIVER
->=20
-> s/Neutron/NEUTRON/ as everything here is in uppercase
+Hi John,
 
-Ok.
+On Thu, 19 Mar 2026 at 16:56, John Madieu <john.madieu.xa@bp.renesas.com> wrote:
+> Add SSI support for the Renesas RZ/G3E SoC, which differs from earlier
+> generations in several ways:
+>
+>  - The SSI block always operates in BUSIF mode; RZ/G3E does not implement
+>    the SSITDR/SSIRDR registers used by R-Car Gen2/Gen3/Gen4 for direct SSI
+>    DMA.
+>    Consequently, all audio data must pass through BUSIF.
+>  - Each SSI instance has its own reset line, exposed using per-SSI names
+>    such as "ssi0", "ssi1", etc., rather than a single shared reset.
+>
+> To support these differences, update rsnd_ssi_use_busif() to always
+> return 1 on RZ/G3E, ensuring that the driver consistently selects the
+> BUSIF DMA path. Also update the reset acquisition logic to request the
+> appropriate per-SSI reset controller based on the SSI instance name.
+>
+> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
 
->=20
-> > +M:	Ioana Ciocoi Radulescu <ruxandra.radulescu@nxp.com>
-> > +M:	Jiwei Fu <jiwei.fu@nxp.com>
-> > +L:	dri-devel@lists.freedesktop.org
-> > +S:	Maintained
-> > +T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> > +F:	Documentation/accel/neutron/
-> > +F:	drivers/accel/neutron/
-> > +F:	include/uapi/drm/neutron_accel.h
->=20
->=20
-> >
-> > diff --git a/drivers/accel/Makefile b/drivers/accel/Makefile index
-> > 1d3a7251b950..698136e12cce 100644
-> > --- a/drivers/accel/Makefile
-> > +++ b/drivers/accel/Makefile
-> > @@ -4,5 +4,6 @@ obj-$(CONFIG_DRM_ACCEL_AMDXDNA)		+=3D
-> amdxdna/
-> >  obj-$(CONFIG_DRM_ACCEL_ARM_ETHOSU)	+=3D ethosu/
-> >  obj-$(CONFIG_DRM_ACCEL_HABANALABS)	+=3D habanalabs/
-> >  obj-$(CONFIG_DRM_ACCEL_IVPU)		+=3D ivpu/
-> > +obj-$(CONFIG_DRM_ACCEL_NXP_NEUTRON)	+=3D neutron/
-> >  obj-$(CONFIG_DRM_ACCEL_QAIC)		+=3D qaic/
-> > -obj-$(CONFIG_DRM_ACCEL_ROCKET)		+=3D rocket/
-> > \ No newline at end of file
->=20
-> You still have patch warnings.
+Thanks for your patch!
 
-Yeah, so the last line of this Makefile lacked the line ending and vim
-fixed that on its own when I edited the file. I can add the neutron line
-and leave the rest untouched, just making sure this is what you're
-requesting?
+> --- a/sound/soc/renesas/rcar/ssi.c
+> +++ b/sound/soc/renesas/rcar/ssi.c
+> @@ -123,8 +123,15 @@ int rsnd_ssi_use_busif(struct rsnd_dai_stream *io)
+>  {
+>         struct rsnd_mod *mod = rsnd_io_to_mod_ssi(io);
+>         struct rsnd_ssi *ssi = rsnd_mod_to_ssi(mod);
+> +       struct rsnd_priv *priv = rsnd_mod_to_priv(mod);
+>         int use_busif = 0;
+>
+> +       /*
+> +        * RZ/G3E does not support PIO mode. Always use BUSIF.
+> +        */
+> +       if (rsnd_flags_has(priv, RSND_SSI_ALWAYS_BUSIF))
+> +               return 1;
+> +
+>         if (!rsnd_ssi_is_dma_mode(mod))
+>                 return 0;
+>
+> @@ -865,6 +872,8 @@ static int rsnd_ssi_common_remove(struct rsnd_mod *mod,
+>                 rsnd_flags_del(ssi, RSND_SSI_PROBED);
+>         }
+>
+> +       rsnd_dma_detach(io, mod, &io->dma);
 
->=20
-> > +obj-$(CONFIG_DRM_ACCEL_ROCKET)		+=3D rocket/
-> > diff --git a/drivers/accel/neutron/Kconfig
-> > b/drivers/accel/neutron/Kconfig new file mode 100644 index
-> > 000000000000..37b8ecb49804
-> > --- /dev/null
-> > +++ b/drivers/accel/neutron/Kconfig
-> > @@ -0,0 +1,16 @@
-> > +# SPDX-License-Identifier: GPL-2.0+
-> > +
-> > +config DRM_ACCEL_NXP_NEUTRON
-> > +	tristate "NXP Neutron NPU"
-> > +	depends on HAS_IOMEM
-> > +	depends on DRM_ACCEL
-> > +	depends on ARCH_MXC
->=20
-> Missing compile test
+This goes BOOM on R-Car Gen3 and Gen4:
 
-Will add.
+    Unable to handle kernel NULL pointer dereference at virtual
+address 0000000000000004
+    Mem abort info:
+      ESR = 0x0000000096000004
+      EC = 0x25: DABT (current EL), IL = 32 bits
+      SET = 0, FnV = 0
+      EA = 0, S1PTW = 0
+      FSC = 0x04: level 0 translation fault
+    Data abort info:
+      ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
+      CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+      GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
+    [0000000000000004] user address but active_mm is swapper
+    Internal error: Oops: 0000000096000004 [#1]  SMP
+    CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Not tainted
+7.0.0-rc5-arm64-renesas-07233-g377893124b8a #3530 PREEMPT
+    Hardware name: Renesas Gray Hawk Single board based on r8a779h0 (DT)
+    pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+    pc : rsnd_dma_detach+0x10/0x20
+    lr : rsnd_ssi_common_remove+0x48/0x74
+    sp : ffff8000818ebac0
+    x29: ffff8000818ebac0 x28: ffff000441c02938 x27: ffff0004408a8410
+    x26: 000000000000000d x25: 0000000000000000 x24: ffff8000817b9970
+    x23: 0000000000000000 x22: 000000000000000c x21: 00000000fffffdfb
+    x20: ffff000441c02938 x19: ffff0004402bc080 x18: 00000000ffffffff
+    x17: ffff000440ba6600 x16: ffff000440ba6a00 x15: ffff8000818eb700
+    x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000030
+    x11: 0101010101010101 x10: ffff800080fa7670 x9 : 1fffe00088052d21
+    x8 : 0101010101010101 x7 : 7f7f7f7f7f7f7f7f x6 : feff636d746e722d
+    x5 : 000000000000003c x4 : ffff800080a9dcc4 x3 : ffff0004402be800
+    x2 : ffff000441c029b8 x1 : ffff000441c02938 x0 : 0000000000000000
+    Call trace:
+     rsnd_dma_detach+0x10/0x20 (P)
+     rsnd_ssi_common_remove+0x48/0x74
+     rsnd_probe+0x2d0/0x448
+     platform_probe+0x58/0x90
+     really_probe+0xb8/0x294
+     __driver_probe_device+0x74/0x124
+     driver_probe_device+0x3c/0x158
+     __driver_attach+0xe0/0x1b4
+     bus_for_each_dev+0x78/0xd4
+     driver_attach+0x20/0x28
+     bus_add_driver+0xe0/0x1e0
+     driver_register+0x58/0x114
+     __platform_driver_register+0x20/0x28
+     rsnd_driver_init+0x18/0x20
+     do_one_initcall+0x7c/0x184
+     kernel_init_freeable+0x200/0x2e0
+     kernel_init+0x20/0x1cc
+     ret_from_fork+0x10/0x20
+    Code: a9bf7bfd aa0003e1 910003fd f9400040 (b9400402)
+    ---[ end trace 0000000000000000 ]---
 
->=20
-> > +	select DRM_GEM_DMA_HELPER
-> > +	select DRM_SCHED
-> > +	help
-> > +	  Enables driver for NXP Neutron NPU.
-> > +
-> > +	  Select this if you have an NXP SoC with Neutron, like i.MX95,
-> > +	  and want to run machine learning applications.
-> > +
-> > +	  If built as module, the module is named neutron.
->=20
-> ...
->=20
-> > +
-> > +	ret =3D devm_request_threaded_irq(dev, ndev->irq, NULL,
-> > +					neutron_irq_handler_thread,
-> > +					IRQF_ONESHOT, KBUILD_MODNAME,
-> ndev);
-> > +	if (ret) {
-> > +		dev_err(dev, "Failed to request irq %d\n", ndev->irq);
->=20
-> Drop, not needed.
+> +
+>         return 0;
+>  }
+>
 
-Ok
+Gr{oetje,eeting}s,
 
->=20
-> > +		return ret;
-> > +	}
-> > +
-> > +	ret =3D of_reserved_mem_device_init(&pdev->dev);
-> > +	if (ret) {
-> > +		dev_err(dev, "Failed to initialize reserved memory\n");
-> > +		return ret;
-> > +	}
-> > +
-> > +	ret =3D devm_pm_runtime_enable(dev);
-> > +	if (ret)
-> > +		goto free_reserved;
-> > +
-> > +	pm_runtime_set_autosuspend_delay(dev,
-> NEUTRON_SUSPEND_DELAY_MS);
-> > +	pm_runtime_use_autosuspend(dev);
-> > +
-> > +	ret =3D drm_dev_register(&ndev->base, 0);
-> > +	if (ret)
-> > +		goto free_reserved;
-> > +
-> > +	return 0;
-> > +
-> > +free_reserved:
-> > +	of_reserved_mem_device_release(&pdev->dev);
-> > +
-> > +	return ret;
-> > +}
-> > +
-> > +static void neutron_remove(struct platform_device *pdev) {
-> > +	struct neutron_device *ndev =3D platform_get_drvdata(pdev);
-> > +
-> > +	drm_dev_unregister(&ndev->base);
-> > +	of_reserved_mem_device_release(&pdev->dev);
-> > +}
-> > +
-> > +static int neutron_runtime_suspend(struct device *dev) {
-> > +	struct neutron_device *ndev =3D dev_get_drvdata(dev);
-> > +
-> > +	neutron_disable_irq(ndev);
-> > +	neutron_shutdown(ndev);
-> > +
-> > +	clk_bulk_disable_unprepare(ndev->num_clks, ndev->clks);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int neutron_runtime_resume(struct device *dev) {
-> > +	struct neutron_device *ndev =3D dev_get_drvdata(dev);
-> > +	int ret;
-> > +
-> > +	ret =3D clk_bulk_prepare_enable(ndev->num_clks, ndev->clks);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret =3D neutron_boot(ndev);
-> > +	if (ret) {
-> > +		clk_bulk_disable_unprepare(ndev->num_clks, ndev->clks);
-> > +		return ret;
-> > +	}
-> > +
-> > +	neutron_enable_irq(ndev);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static const struct dev_pm_ops neutron_pm_ops =3D {
-> > +	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-> pm_runtime_force_resume)
-> > +	RUNTIME_PM_OPS(neutron_runtime_suspend,
-> neutron_runtime_resume,
-> > +NULL) };
-> > +
-> > +static const struct of_device_id neutron_match_table[] =3D {
-> > +	{ .compatible =3D "nxp,imx95-neutron" },
-> > +	{}
-> > +};
-> > +
-> > +MODULE_DEVICE_TABLE(of, neutron_match_table);
-> > +
-> > +static struct platform_driver neutron_driver =3D {
-> > +	.probe	=3D &neutron_probe,
-> > +	.remove	=3D &neutron_remove,
-> > +	.driver	=3D {
-> > +		.name		=3D "neutron",
-> > +		.of_match_table	=3D
-> of_match_ptr(neutron_match_table),
->=20
-> Drop of_match_ptr. You will have (or you have already same as v1) here
-> warning.
+                        Geert
 
-Will fix. But how do I get to see the warning here? Tried building with
-W=3D1 and OF support disabled but it didn't complain.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Thanks!
-Ioana
-
->=20
-> > +		.pm		=3D pm_ptr(&neutron_pm_ops),
-> > +	},
-> > +};
-> Best regards,
-> Krzysztof
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
