@@ -1,147 +1,200 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54552571D7
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 02:09:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322FC383C91
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 02:14:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774318192; cv=none; b=SUA2HBbCvviWnhlJaLxD5+n2mN7JOqi4N5fiidNiznF+CUXswjUyQxUh1a1wD+bfVnm9Hvpu16KHCnqZpVTcrR0DGn+SOifi1pGJjIwV/xf5ca3V9ePMuUV8ghqUCN6yWOXu9XDLX/Twx0PyF/pbxrYp/ZmbtLrbMajNnVzc+Ic=
+	t=1774318446; cv=none; b=c6gKnjL3lUa4pO4KUE6JEBaA5oxqD2/tnW5Ph9ghk00jyzWAWSn+icIr2n0pFJBCn9hgsahnhyYUw37UKxYM8n8O7m84LEV1NCiad6DmQjqTPX8E7/nTiAGXga9mS5hU1Z8UvDhIuakEduUj0SS+kyWFYl0S38lSJwGBRK9+jj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774318192; c=relaxed/simple;
-	bh=37vPBBAzTZ3/lo9gvOGeuopFoiWJS0MKCuHWiza282c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l8BU5irZ3dRgTEW8KI23o56o41m5xawRDe6jQBrRclu9wnbssNJFlGgzgwCaOECTuCvDs3luYrQ8lBPELi5fUR4DIkU++mIiMmhLMsfVBPuU3d/VfR1LiWz2PqWq3llYFPqAPfYfl2FVU810gOeZHAOLM4Ga4lv3y5sjoyRJzds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=me.ssier.org; spf=pass smtp.mailfrom=me.ssier.org; dkim=pass (2048-bit key) header.d=me-ssier-org.20230601.gappssmtp.com header.i=@me-ssier-org.20230601.gappssmtp.com header.b=MHkybLtX; arc=none smtp.client-ip=209.85.222.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=me.ssier.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=me.ssier.org
+	s=arc-20240116; t=1774318446; c=relaxed/simple;
+	bh=xeQxLlrBXpuxbToMd3AOVtEVo6G2CAr8TarzqnIQPAY=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=Gcu6qKyim0plTOPSL1JdKr+5bfO7SjdjoVk6pZ4mD6UlzJ1tEOS2ftYFouBJ+HL6gHfLOWbwMo7aR4f/M0beTRI4KOgsVP+kgUNG4U1Ex/3th0LCwTVGT+MHtNkYRnGPVSCP09GOfdksJPLZgiT/gINTwAmAftTh2VYckGEhWsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=GM8RWgcu; arc=none smtp.client-ip=91.218.175.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=me-ssier-org.20230601.gappssmtp.com header.i=@me-ssier-org.20230601.gappssmtp.com header.b="MHkybLtX"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-8cd8a189f44so484317485a.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 19:09:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=me-ssier-org.20230601.gappssmtp.com; s=20230601; t=1774318189; x=1774922989; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=C5ZJoTMOV2ASUMfnuWTwy6IQmOeUZviHlyu/QYJ4be0=;
-        b=MHkybLtXVRRLGzpOSeBqelcAdO3Pzem+zCiOVSWVeqcSeubTOBGeFw2uuV88w4FB0U
-         0kr0AV6D8OMLFejDNwtbT0mH6MYBgBvw3GShgagKRcf+SI30sXIkQzGNAi55yo9fms8Z
-         RU459C6RzoZ4Rw/ZCv1YerYd1chNjYI1Bnr5fW1WNSo8Gxqrox1p15Gk5sxyS3G9LYbk
-         7qlXf1cwpgPuKQ6ldF1CzidtzAdrBqNQAmrZmC/rSUg3oFQJDMGgq0+x7sHsC4TrmNUi
-         ByOYlT/yZSk/w/DZ0clpknczd5ZcdqJyfAiqnoYD8B3ah+kVtFfPZtfQFL7yCIur+0y+
-         rR9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774318189; x=1774922989;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=C5ZJoTMOV2ASUMfnuWTwy6IQmOeUZviHlyu/QYJ4be0=;
-        b=rvUuajkiRYqF2qjcElYpdDsxW1pLml0P3isXUb3EswDz5neTkxsTSHHG+nktVVQaIE
-         n6EYydfhTfMTxdzsZntVMFjFPkFuzgYRrxAK1wsTAwENyuMmLM3OmPbNSvHAsoTyFfwN
-         Cr+7SMpxQ+cj5pjaPE9uvo7MwQ1nYMEOGBqy7mv0fFMfzAnnqXuWRlJuAwQ7KYoORVie
-         k83QLgN4rtZF/14Xeb8VtjloZqhUEyjd3mqaBNPPz32DLN2h8GruQvGdoau1Ok8LsLEL
-         hyglTvmleXDWwDn5rGrE+I0VA5cvwWICGcbXo9KGVSQgZ++ozKYsTfZub6WCQp83dQHQ
-         3kVg==
-X-Forwarded-Encrypted: i=1; AJvYcCWMFs6+/HCZc6yMQxUESoAOkArFy4SWX+N+Pp3ZG+K1qvDovYn9yOaP46qLqcuXx/0TXpQ5TvLGzH/F@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2LqWiirB3vZZG+hA7VvghRx/viBQaVkR2e0KJ9T/zpV5ZYRLS
-	+HNiTXvos6zqPXbX8QfQXaMUWGSO3orRB7DZMeyIqe/izegqMOpCSrgZQu0aWBGIGxM=
-X-Gm-Gg: ATEYQzyt0/6gszJkLqQILneX1tv2w1znWA1AHHaIK+5YfindW7VA27tCt0wRz8DZfAJ
-	TnsWbLoOBKI6QrsOmPUaptq0GAhc3e8kpH6TqmBirclrjB3DWfYwDHq7c1+dsX22p3PxAYrQQmN
-	wFFg8TZvIfPP/sB2uvrKsIAVusNMCWVQU9xVCli0pXnwoBOT8m+ooQVF39GVYYQuTE1PjBeAKFa
-	7zGp37Jagvnf+EX+msWOmGooK+N81KkXzH+j+s8+wi2Xh4XmfwjruLW4Nf028xH//14g9MQauyR
-	ekcLDgPpERVJav+SKwasvqUfzB68TjmWhEH7PsPfLxf8w6Ip5scoBOrSG+5M4XOfLZ8+exyCNgO
-	WhGeebg3QXtMRpBs1X9yqeL/cykjMmaxUtMgJZTmDHCx8XCAYbKqEbPGppKMnBuElxGqOSD3YBu
-	dL6tts4fRm+if54OG5LQoy4JRaQ4rOg4I=
-X-Received: by 2002:a05:620a:1987:b0:8cf:bd15:b537 with SMTP id af79cd13be357-8cfc80bbb08mr2160211785a.60.1774318188297;
-        Mon, 23 Mar 2026 19:09:48 -0700 (PDT)
-Received: from [192.168.2.8] ([74.14.125.72])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8cfc8f5f979sm895014685a.6.2026.03.23.19.09.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Mar 2026 19:09:47 -0700 (PDT)
-Message-ID: <b09a51bf-26b8-4c88-ab23-c92ddc1fb801@me.ssier.org>
-Date: Mon, 23 Mar 2026 22:09:35 -0400
+	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="GM8RWgcu"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/9] interconnect: qcom: let MSM8974 interconnect work
- again
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Georgi Djakov <djakov@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, Luca Weiss
- <luca.weiss@fairphone.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Brian Masney <masneyb@onstation.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Brian Masney <bmasney@redhat.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260324-msm8974-icc-v2-0-527280043ad8@oss.qualcomm.com>
-Content-Language: en-US
-From: Alexandre Messier <alex@me.ssier.org>
-In-Reply-To: <20260324-msm8974-icc-v2-0-527280043ad8@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
+	s=key1; t=1774318432;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zLVA97sb+DMvRH2mZiChOooR2AWGttzoMijQPaiwaBA=;
+	b=GM8RWgcuC3MPcmWfLWGK6RKBCHmR09kzxmQG7K4CEBk+VDjqVSi/wO0r2kgZ0I1U+rbh+g
+	8gIVJ8ejl+PDtwuKawEMVXskocD3BtGCux5Pu6PG94dqcT1XQiY5XMBUMsZ9Wxcs5nmAMX
+	o8f8Lz/regxBb7zWaGNxKcrfsAI//6/lUV530vEVSNU1/kZMZko+ALegOREnZaeKWf5ZPX
+	a+zO+0avQbu6gyNICG9LYB51Km0C2gU+S1DFB3ldG2TXCt9eBU+QPrErz6hbyIj1N3Ez0G
+	mVUB32mCGBR3rGwqVs0nkTpI6ZbytLVqfRkGMr7be4sLUhUMi2DDFc3nIWhBvw==
+Date: Tue, 24 Mar 2026 02:13:43 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Paul Sajna" <sajattack@postmarketos.org>
+Message-ID: <8d0c3d305197730a53ec9ca95b28f8df95c777a3@postmarketos.org>
+TLS-Required: No
+Subject: Re: [PATCH v6 00/15] arm64: dts: qcom: sdm845-lg-{common, judyln}:
+ Improve HW support in dts
+To: "Bjorn Andersson" <andersson@kernel.org>, "Konrad Dybcio"
+ <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "David Heidelberg" <david@ixit.cz>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht, "Amir Dahan"
+ <system64fumo@tuta.io>, "Christopher Brown" <crispybrown@gmail.com>,
+ "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>, "Amir Dahan"
+ <system64fumo@protonmail.com>, "Pavel Machek" <pavel@ucw.cz>
+In-Reply-To: <20260323-judyln-dts-v6-0-29d70ca1651c@postmarketos.org>
+References: <20260323-judyln-dts-v6-0-29d70ca1651c@postmarketos.org>
+X-Migadu-Flow: FLOW_OUT
 
-On 2026-03-23 20:10, Dmitry Baryshkov wrote:
-> Commit d6edc31f3a68 ("clk: qcom: smd-rpm: Separate out interconnect bus
-> clocks") moved control over several RPM resources from the clk-smd-rpm
-> driver to the icc-rpm.c interconnect helpers. Most of the platforms were
-> fixed before that commit or shortly after. However the MSM8974 was left
-> as a foster child in broken state. Fix the loose ends and reenable
-> interconnects on that platform.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+b4 got rate-limited by my email provider for the last 3 patches, I'm not =
+sure what the best way to send just those is now :/
+
+March 24, 2026 at 2:06 AM, "Paul Sajna" <sajattack@postmarketos.org mailt=
+o:sajattack@postmarketos.org?to=3D%22Paul%20Sajna%22%20%3Csajattack%40pos=
+tmarketos.org%3E > wrote:
+
+
+>=20
+>=20Rollup of improved hardware support via devicetree for LG G7 ThinQ
+> (judyln) from sdm845-mainline kernel fork
+>=20
+>=20Notably, this patch-series enables full DRM acceleration and wifi,
+> among other small improvements in individual commits
+>=20
+>=20after this patch-series the main things that remain to be worked
+> on include touchscreen, audio, and modem.
+>=20
+>=20Depends upon panel driver patch-series https://lore.kernel.org/all/20=
+250910-judyln-panel-v1-1-825c74403bbb@postmarketos.org/T/#r9a976ca01e309b=
+6c03100e984a26a0ffc2fe2002
+>=20
+>=20Co-developed-by: Amir Dahan <system64fumo@tuta.io>
+> Co-developed-by: Christopher Brown <crispybrown@gmail.com>
+> Signed-off-by: Amir Dahan <system64fumo@tuta.io>
+> Signed-off-by: Christopher Brown <crispybrown@gmail.com>
+> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 > ---
-> Changes in v2:
-> - Swapped order of clocks and clock-names properties (Konrad)
-> - Corrected the ocmem comment regarding core clock (Konrad)
-> - Link to v1: https://lore.kernel.org/r/20260323-msm8974-icc-v1-0-7892b8d5f2ea@oss.qualcomm.com
-> 
+> Changes in v6:
+> - Mistakes were made with b4 and branch was rebuilt, hopefully correctl=
+y
+> - Split more things that got mixed into the sort commit (qups and venus=
+)
+> - Added more backlight properties from downstream
+> - Framebuffer added back in
+> - Update compatible for panel
+> - Add qcom,te-source
+> - Reference memory region in framebuffer instead of reg
+> - Correction to rmtfs_mem
+> - Set lab/ibb to 5.5V
+> - Fixed flashlight/torch
+> - Update commit message for gsi-loader=3Dself
+> - Update LG to capitalized in firmware paths
+> - Remove qcom,snoc-host-cap-skip-quirk dependency (break wifi)
+> - Enable dma controllers
+> - Link to v5: https://lore.kernel.org/r/20251203-judyln-dts-v5-0-80c1ff=
+ca8487@postmarketos.org
+>=20
+>=20Changes in v5:
+> - update system64's email
+> - reduce lab/ibb voltage range
+> - status should go last
+> - remove rebase leftovers
+> - fix flashlight
+> - Link to v4: https://lore.kernel.org/r/20251125-judyln-dts-v4-0-a5a605=
+00b267@postmarketos.org
+>=20
+>=20Changes in v4:
+> - add panel identifier in addition to ddic
+> - make sde_te pull-down
+> - fixup flash current
+> - remove framebuffer reserved-mem
+> - remove manual lower guard
+> - depend upon https://lore.kernel.org/all/20251110-skip-host-cam-qmi-re=
+q-v2-0-0daf485a987a@ixit.cz/T
+> - reword commits
+> - Link to v3: https://lore.kernel.org/r/20250928-judyln-dts-v3-0-b14cf9=
+e9a928@postmarketos.org
+>=20
+>=20Changes in v3:
+> - change firmware paths to lowercase 'lg' (matching dt-bindings)
+> - fix signoffs
+> - add wifi dmesg to commit message
+> - remove regulator-always-on from ibb
+> - remove framebuffer
+> - remove msm ids
+> - don't continue commit subject into commit messages
+> - split bluetooth node
+> - add sbu uart details to commit message
+> - change ipa gsi-loader to self
+> - Link to v2: https://lore.kernel.org/r/20250916-judyln-dts-v2-0-5e16e6=
+0263af@postmarketos.org
+>=20
+>=20Changes in v2:
+> - sort at the start
+> - drop unnecessary labels
+> - drop unnecessary gmu
+> - multi-led
+> - split fb-panel changes
+> - expand upon firmware commit message
+> - use qcom,calibration-variant instead of
+>  qcom,ath10k-calibration-variant
+> - change firmware paths to include "LG"
+> - remove framebuffer reservation
+> - add lab/ibb
+>=20
+>=20- Link to v1: https://lore.kernel.org/r/20250913-judyln-dts-v1-0-23b4=
+b7790dce@postmarketos.org
+>=20
+>=20---
+> Amir Dahan (1):
+>  arm64: dts: qcom: sdm845-lg-common: Add LEDs
+>=20
+>=20Christopher Brown (1):
+>  arm64: dts: qcom: sdm845-lg-judyln: Add battery and charger
+>=20
+>=20Paul Sajna (13):
+>  arm64: dts: qcom: sdm845-lg-common: Sort nodes and properties
+>  arm64: dts: qcom: sdm845-lg-common: Enable venus
+>  arm64: dts: qcom: sdm845-lg-common: Enable qups
+>  arm64: dts: qcom: sdm845-lg-common: Add uarts and Bluetooth
+>  arm64: dts: qcom: sdm845-lg-judyln: Add lab/ibb
+>  arm64: dts: qcom: sdm845-lg-judyln: Add display panel
+>  arm64: dts: qcom: sdm845-lg-judyln: Add firmware nodes, change path
+>  arm64: dts: qcom: sdm845-lg-{common, judyln}: Add wifi node
+>  arm64: dts: qcom: sdm845-lg-common: Add chassis-type
+>  arm64: dts: qcom: sdm845-lg-common: Add camera flash
+>  arm64: dts: qcom: sdm845-lg-common: Change ipa gsi-loader to 'self'
+>  arm64: dts: qcom: sdm845-lg-{judyln, judyp}: reference memory region i=
+n fb
+>  arm64: dts: qcom: sdm845-lg-commmon: enable dma controllers
+>=20
+>=20 arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 228 +++++++++++++++=
+++++------
+>  arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts | 129 +++++++++++++-
+>  arch/arm64/boot/dts/qcom/sdm845-lg-judyp.dts | 2 +-
+>  3 files changed, 295 insertions(+), 64 deletions(-)
 > ---
-> Dmitry Baryshkov (9):
->       dt-bindings: interconnect: qcom,msm8974: drop bus clocks
->       dt-bindings: interconnect: qcom,msm8974: use qcom,rpm-common
->       interconnect: qcom: drop unused is_on flag
->       interconnect: qcom: icc-rpm: allow overwriting get_bw callback
->       interconnect: qcom: define OCMEM bus resource
->       interconnect: qcom: let platforms declare their bugginess
->       interconnect: qcom: msm8974: switch to the main icc-rpm driver
->       interconnect: qcom: msm8974: expand DEFINE_QNODE macros
->       ARM: dts: qcom: msm8974: Drop RPM bus clocks
-> 
->  .../bindings/interconnect/qcom,msm8974.yaml        |   28 +-
->  arch/arm/boot/dts/qcom/qcom-msm8974.dtsi           |   21 +-
->  drivers/interconnect/qcom/icc-rpm-clocks.c         |    6 +
->  drivers/interconnect/qcom/icc-rpm.c                |   18 +-
->  drivers/interconnect/qcom/icc-rpm.h                |    7 +-
->  drivers/interconnect/qcom/msm8974.c                | 1637 +++++++++++++++-----
->  6 files changed, 1274 insertions(+), 443 deletions(-)
-> ---
-> base-commit: 8e5a478b6d6a5bb0a3d52147862b15e4d826af19
-> change-id: 20260322-msm8974-icc-0ac4c28e139a
-> 
-> Best regards,
-> --  
-> With best wishes
-> Dmitry
-> 
-> 
-
-Tried this patch series on top of 7.0-rc5, using "htc,m8", and can confirm the device boots properly now!
-
-I do see these messages in the kernel log now:
-
-[    0.692540] ocmem fdd00000.sram: error -ENOENT: Unable to get core clock
-[    0.692582] ocmem fdd00000.sram: probe with driver ocmem failed with error -2
-[   24.173125] mmcc-msm8974 fd8c0000.clock-controller: sync_state() pending due to fdd00000.sram
-
-I do not know if that error was expected or not.
-
-In any case:
-
-Tested-by: Alexandre Messier <alex@me.ssier.org>
+> base-commit: 674feabdc26e80c4dbc884d7b6e2d2a4b93919e6
+> change-id: 20250911-judyln-dts-17c41e59dc0f
+> prerequisite-message-id: <20250910-judyln-panel-v1-1-825c74403bbb@postm=
+arketos.org>
+> prerequisite-patch-id: e51151ea7f8fdad6ad7d90713febc5c6b6fc4f9c
+> prerequisite-patch-id: b3dd44250da9cd12bc5b2d0d7e865dbe19ceed92
+> prerequisite-patch-id: fd6c8077806cb03fcf37d0e0d730314c2760e334
+>=20
+>=20Best regards,
+> --=20
+>=20Paul Sajna <sajattack@postmarketos.org>
+>
