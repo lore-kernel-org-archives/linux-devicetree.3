@@ -1,50 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA54E389470;
-	Tue, 24 Mar 2026 03:06:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE243876C0;
+	Tue, 24 Mar 2026 03:06:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774321566; cv=none; b=ukqlDY+u2yOfLWdHrt141mEpIz6+um03mpVUXwj4pmRd9y0TOMYz/ztwyTvWAuwncVge6Z36va6VUlRgj99Vf436PiETcfmVEeFAWk6R650f6BtcxLpld3mi1V/nRdSQgZwo2dSwbNCQ8k+4NnURgnw2Go//cElJwjNGzB9iWMM=
+	t=1774321569; cv=none; b=N0OaMvgg4AzF+JJ6zpiAnyLyJuj/f7Cl4h47QZG9OH4MHtJtBuGLuFFxlnj9mZ1/RdNLs5CdWHBdnSK2uFNnt5smR5XiR5wOr49FdjjF5JlXhRM8wlRjbIqbyvbOEentdEq/Ue1y21NbKmLa6tOmHCj4+WnqVJik53nGRu5T5s8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774321566; c=relaxed/simple;
-	bh=kDjTBwLh7iKxxXgqzNaOLi8nACa0drh31Nm+ci76kAs=;
+	s=arc-20240116; t=1774321569; c=relaxed/simple;
+	bh=FTnmITopi0boG/8P8a4HNwrki9+LAZV3FYoD3p9hLtQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=H7NFgm4SPsMvY83FwXU3U8lrY/p/ePkNIMlQ00Ayidi6MdXsbLwIsyz1GLkOmtQ/Odnf3Ij19pLuRYYa2/tF9XeuOSPJPbNEn9037xpZBIfZ+bQltTD35O5o+aYT4IkGU81obiYKkgBmZxvIZpTF8vCv5cnG6MOA+S9JB3Dj3+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WJ6otrrQ; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=Y44jsrSw4grKy8UEzbt4PdQ9ofy9bkVn1dhmWZWy44qKz5A1sKC6jgg+Rzy9PVYlhAVSchgSm+vWS1TV+isDiDR4zLmZmm8OXd2yMYYQG+8zM44wdTYqlPRZ2hqQI5+yK/9Ohp62qiHyfJO4PnT2+ud/NlaBvdwrVtAk/3dc2AA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ly7JD6/A; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WJ6otrrQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36BC4C2BCB1;
-	Tue, 24 Mar 2026 03:06:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ly7JD6/A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13A0CC2BCB0;
+	Tue, 24 Mar 2026 03:06:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774321565;
-	bh=kDjTBwLh7iKxxXgqzNaOLi8nACa0drh31Nm+ci76kAs=;
+	s=k20201202; t=1774321568;
+	bh=FTnmITopi0boG/8P8a4HNwrki9+LAZV3FYoD3p9hLtQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=WJ6otrrQeQ18r421OzZBkt9+h1sCbzfj0ue67592JcM1k3DS5T3cGUQkcIklpI746
-	 SDrzV4pbmJYd5O1BMNEN4bBGogBR1TXXNOLAAIneZU2H5exMo/5yseHHrmE6XOOth5
-	 SUaQVwqjlumAQrYkHtsqYMb4mPl8LxqenIhudwwUy8LFQuEK3h8nSPfmmlmAjptVpx
-	 kSkT9SwMUGZEVNhK7DXlpcIPIrm5DvHbNSYfheITQ7IqadjdCMOIFbRpD0m9rxBY81
-	 fyaEYZaWFoTwlb6RYh37p5uB1CjO4d3fgSc9ApvLtf7CtufS6HEGhOnnKlWVm4IU5o
-	 tUL30gKnVd8Yg==
+	b=Ly7JD6/AjSfZGDRNmdO4npO7MAFixS9M1EczfDW36Qa/b6EqXhb/3d6rHfoDBeMvA
+	 fGf9YUSG0mYlFuLTrgXI36/1c8z+BCHzJblCs0zzwnaBX/QXjpOHfT+qxk8NfIlyOP
+	 UEQ3YC/rvTvkePgNaGMi0Z2GvNXn93Qa9bvbtw1PZVeh9WK72ZuRjkzcJ1Da4vNM6D
+	 VaKzmWVfYVmcjdqrWto4JnVi7JOMcSLWVWUveDow5qfgMmVKzWIDcTkFEtTuL6O7T9
+	 EIuvE2bU4CVUVX6NGmKs0EdTxG35OO7RCnOXwhcKxF1kuVaEr4nAiGVrriC5AdqzM+
+	 +0KCBH8da6Kaw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Amit Pundir <amit.pundir@linaro.org>,
-	Joel Selvaraj <foss@joelselvaraj.com>,
-	David Heidelberg <david@ixit.cz>
-Cc: Konrad Dybcio <konradybcio@gmail.com>,
-	linux-arm-msm@vger.kernel.org,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Robert Marko <robimarko@gmail.com>,
+	Guru Das Srinagesh <linux@gurudas.dev>,
+	Linus Walleij <linusw@kernel.org>,
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: dts: qcom: sdm845-xiaomi-beryllium: Mark l1a regulator as powered during boot
-Date: Mon, 23 Mar 2026 22:05:50 -0500
-Message-ID: <177432155632.28714.1991404860482205009.b4-ty@kernel.org>
+	linux-gpio@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v2 0/6] Add minimal boot support for Qualcomm IPQ5210
+Date: Mon, 23 Mar 2026 22:05:52 -0500
+Message-ID: <177432155640.28714.11710526578504129088.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260320-beryllium-booton-v2-1-931d1be21eae@ixit.cz>
-References: <20260320-beryllium-booton-v2-1-931d1be21eae@ixit.cz>
+In-Reply-To: <20260318-ipq5210_boot_to_shell-v2-0-a87e27c37070@oss.qualcomm.com>
+References: <20260318-ipq5210_boot_to_shell-v2-0-a87e27c37070@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,16 +60,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 20 Mar 2026 18:33:11 +0100, David Heidelberg wrote:
-> The regulator must be on, since it provides the display subsystem and
-> therefore the bootloader had turned it on before Linux booted.
+On Wed, 18 Mar 2026 14:09:42 +0530, Kathiravan Thirumoorthy wrote:
+> The IPQ5210 is Qualcomm's SoC for Routers, Gateways and Access Points. This
+> series adds minimal board boot support for ipq5210-rdp504 board.
 > 
+> SoCs based on IPQ5210 is shipped under 2 different marketing names such as
+> Qualcomm Dragonwing F8 and Qualcomm Dragonwing N8. The difference being is
+> F8 parts has the Passive Optical Network(PON) interface which acts as the
+> backhaul where as in N8 parts it is ethernet backhaul.
 > 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sdm845-xiaomi-beryllium: Mark l1a regulator as powered during boot
-      commit: dff3c181e4115815e138282f04dde0a5d0be1cbd
+[6/6] arm64: defconfig: enable IPQ5210 RDP504 base configs
+      commit: 2db93889e17e70ab516f13dbd33e1111b85a032a
 
 Best regards,
 -- 
