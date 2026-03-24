@@ -1,50 +1,38 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from lx20.hoststar.hosting (lx20.hoststar.hosting [168.119.41.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D2131F9AF;
-	Tue, 24 Mar 2026 07:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618EA33065D;
+	Tue, 24 Mar 2026 07:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.41.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774337509; cv=none; b=I96lY3hik9/uTGO/b9fkcM+qMmU7pEW1iBj8uDBK+feeZuU2t1qvWPqw1qi5v4xdlZXxKH8VMz6K7MqDfgYgkLs4KUmVxuc2MWJ++3p8FtNlRTq4SiHsNFg2TU4YlXBZ0pSHQ2kMHJzvXViPNnEs+5vJ3Qi9sa3TQ3F3l2yblKM=
+	t=1774337548; cv=none; b=p4vG5n9u/iIzHPEhwG0DuBdySHnhX9C3grOKtRbxnMnrkEPUTqETCMlPUxc0LFxUQ1ptRN4fm0Jagpv09Qt1T4szEQukJKw0tVpfP1NB9/IFITqZ1RP6LTDgZ1kf7CojtoXrKXsGLjv/bz4VZQem9iZ8Xqv8iXfxx6W+HoulHC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774337509; c=relaxed/simple;
-	bh=78iPV2L5TMsaJOeMoG4OcYMZODPjNSNMXHg4QJLAJcs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Fm7bZS5+oUyNgOak+tifoXxaQM3TyxnBUF0muQOtH9aFN8o3RHwtDxoYi98eaoYa0aREA/YphFHQ/8dtWZZnUpq69xiSkbox7sKcp+TD3QFL9OFtuVaKGW3wpnVnXOA/SGTcsjsB7wXyazjKBE1/raemqjEDNCDsP5iVUsFLo0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dzo4pChV; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774337548; c=relaxed/simple;
+	bh=DoySZJb+/dX4tX+SckY2cfiJpr62a6BkVboaZ+y3eVU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YN0IUT6FHTIa8D1vrhQrxSi+GVa88b+Byac4viJhzm+gYSORQYZJIOt6RHeU8KDMtKVoOsXfp0nhya+sQmfOuH3yUWlOv+fBvLqr62dmydrgFBTpatKggelPPuYDfXsqd2El0f4lN9vo3fHqF5vbxhoWPTQDIGeBidOQgiYfXjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at; spf=pass smtp.mailfrom=emfend.at; dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b=aMHgH1lo; arc=none smtp.client-ip=168.119.41.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=emfend.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dzo4pChV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28D7FC19424;
-	Tue, 24 Mar 2026 07:31:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774337508;
-	bh=78iPV2L5TMsaJOeMoG4OcYMZODPjNSNMXHg4QJLAJcs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=dzo4pChVpkYklj4HxjUfE8vj1s1WObxUbHDX3p3jnYRosOdQb5JIf9PQY0VA4JkEQ
-	 38Di7xSsE+Hdj9HjumIyXaQ8UE8Xnh44K4w4ZZA9hq3TSUruJ9OrI80APISNbBywDH
-	 8FhFh6mhkC+N7kVnTH4ww9jR5f0iH2/Mz+tzSGllNUJN9QqKhYZ3HVFvUt4TiGFO2i
-	 veH7jhzIf0M/YRq8KXEZ4Rh0UYUGYUeLo6q55SvO6LiOTIdRDPVu2NWeDp2gzjTz9o
-	 kz3ErjmWjb0tWkaTJie8K0ojs2IaLZaBXQRq5gEx2I6V+FNERd34TUR0kIthOIIZx9
-	 8BMLkA46v0wXQ==
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	"Rob Herring (Arm)" <robh@kernel.org>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
-	Frazer Carsley <frazer.carsley@arm.com>,
-	Hugues Kamba Mpiana <hugues.kambampiana@arm.com>,
-	Abdellatif El Khlifi <abdellatif.elkhlifi@arm.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/5] arm64: dts: Add Corstone1000-A320 platform
-Date: Tue, 24 Mar 2026 07:31:41 +0000
-Message-ID: <177433744044.1351878.7906196605172930598.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260320-dt-corstone1000-a320-v1-0-a549dfcfe8da@kernel.org>
-References: <20260320-dt-corstone1000-a320-v1-0-a549dfcfe8da@kernel.org>
+	dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b="aMHgH1lo"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=emfend.at;
+	 s=mail; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:Content-Description
+	:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=KS6J46kYK+sVTlFskCuxSfFQijC3eqAgPVExn/P68gI=; b=aMHgH1locKZJ7MEsKcLzpSNyRr
+	utWm2qH8ZZDRLXPCY3lFQSAomDAKdhhiDdUgjf6rH4AUR8CU/N8e0zlASKii6LXm4Qs0MgxRladQZ
+	icDW7twLiONsVl1Y8qgb2G9EzhIQPabmPAgfPdpO4OgLHS8o/9opAZ3xbZBOduMho/Ng=;
+Received: from 194-208-208-245.tele.net ([194.208.208.245]:62112 helo=[127.0.1.1])
+	by lx20.hoststar.hosting with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <matthias.fend@emfend.at>)
+	id 1w4vvO-009jM8-AH; Tue, 24 Mar 2026 08:11:41 +0100
+From: Matthias Fend <matthias.fend@emfend.at>
+Date: Tue, 24 Mar 2026 08:11:25 +0100
+Subject: [PATCH RESEND v2] media: i2c: imx283: add support for
+ non-continuous MIPI clock mode
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,27 +40,98 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260324-imx283-ext-v2-1-4931dbd46c95@emfend.at>
+To: Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Umang Jain <uajain@igalia.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Matthias Fend <matthias.fend@emfend.at>
+X-Mailer: b4 0.14.2
+X-Spam-Score: 
+X-Spam-Bar: 
+X-Spam-Report: 
 
-On Fri, 20 Mar 2026 11:47:13 -0500, Rob Herring (Arm) wrote:
-> The Corstone1000-A320 is a new Corstone1000 variation with Cortex-A320
-> cores and an Ethos-U85 NPU. This series adds the new compatible strings,
-> restructures the .dtsi files to handle the common parts, and then adds
-> the new Corstone1000-A320 FVP platform.
+Add support for selecting between continuous and non-continuous MIPI clock
+mode.
 
-Applied to sudeep.holla/linux (for-next/juno/updates), thanks!
+Previously, the CSI-2 non-continuous clock endpoint flag was ignored and
+the sensor was always configured for non-continuous clock mode. For
+existing device tree nodes that do not have this property enabled, this
+update will therefore change the actual clock mode.
 
-[1/5] dt-bindings: arm,corstone1000: Add "arm,corstone1000-a320-fvp"
-      https://git.kernel.org/sudeep.holla/c/f9d162866f2f
-[2/5] dt-bindings: npu: arm,ethos: Add "arm,corstone1000-ethos-u85"
-      https://git.kernel.org/sudeep.holla/c/55de145c8ec2
-[3/5] arm64: dts: arm/corstone1000: Move cpu nodes
-      https://git.kernel.org/sudeep.holla/c/903528ac234a
-[4/5] arm64: dts: arm/corstone1000: Move FVP peripherals to separate .dtsi
-      https://git.kernel.org/sudeep.holla/c/9c3904f94fdb
-[5/5] arm64: dts: arm/corstone1000: Add corstone-1000-a320
-      https://git.kernel.org/sudeep.holla/c/87599f1843d3
---
-Regards,
-Sudeep
+Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Signed-off-by: Matthias Fend <matthias.fend@emfend.at>
+---
+Add support for selecting the MIPI clock mode (continuous, non-continuous).
+---
+Changes in v2:
+- Drop '[PATCH 1/3] media: dt-bindings: imx283: add clock-noncontinuous' (Krzysztof)
+- Drop '[PATCH 3/3] media: i2c: imx283: implement {g,s}_register' (Dave)
+- Link to v1: https://lore.kernel.org/r/20251217-imx283-ext-v1-0-906a762f592d@emfend.at
+---
+ drivers/media/i2c/imx283.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/media/i2c/imx283.c b/drivers/media/i2c/imx283.c
+index 8ab63ad8f385f6e2a2d7432feff0af09a5356dc4..7a6ab2941ea985401b21d60163b58e980cf31ddc 100644
+--- a/drivers/media/i2c/imx283.c
++++ b/drivers/media/i2c/imx283.c
+@@ -149,6 +149,9 @@
+ #define IMX283_REG_PLSTMG02		CCI_REG8(0x36aa)
+ #define   IMX283_PLSTMG02_VAL		0x00
+ 
++#define IMX283_REG_MIPI_CLK		CCI_REG8(0x3a43)
++#define   IMX283_MIPI_CLK_NONCONTINUOUS	BIT(0)
++
+ #define IMX283_REG_EBD_X_OUT_SIZE	CCI_REG16_LE(0x3a54)
+ 
+ /* Test pattern generator */
+@@ -565,6 +568,7 @@ struct imx283 {
+ 	struct v4l2_ctrl *hblank;
+ 	struct v4l2_ctrl *vflip;
+ 
++	bool mipi_clk_noncontinuous;
+ 	unsigned long link_freq_bitmap;
+ 
+ 	u16 hmax;
+@@ -988,6 +992,7 @@ static int imx283_set_pad_format(struct v4l2_subdev *sd,
+ static int imx283_standby_cancel(struct imx283 *imx283)
+ {
+ 	unsigned int link_freq_idx;
++	u8 mipi_clk;
+ 	int ret = 0;
+ 
+ 	cci_write(imx283->cci, IMX283_REG_STANDBY,
+@@ -1007,6 +1012,10 @@ static int imx283_standby_cancel(struct imx283 *imx283)
+ 	/* Enable PLL */
+ 	cci_write(imx283->cci, IMX283_REG_STBPL, IMX283_STBPL_NORMAL, &ret);
+ 
++	/* Configure MIPI clock mode */
++	mipi_clk = imx283->mipi_clk_noncontinuous ? IMX283_MIPI_CLK_NONCONTINUOUS : 0;
++	cci_write(imx283->cci, IMX283_REG_MIPI_CLK, mipi_clk, &ret);
++
+ 	/* Configure the MIPI link speed */
+ 	link_freq_idx = __ffs(imx283->link_freq_bitmap);
+ 	cci_multi_reg_write(imx283->cci, link_freq_reglist[link_freq_idx].regs,
+@@ -1426,6 +1435,9 @@ static int imx283_parse_endpoint(struct imx283 *imx283)
+ 		goto done_endpoint_free;
+ 	}
+ 
++	imx283->mipi_clk_noncontinuous =
++		bus_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK;
++
+ 	ret = v4l2_link_freq_to_bitmap(imx283->dev, bus_cfg.link_frequencies,
+ 				       bus_cfg.nr_of_link_frequencies,
+ 				       link_frequencies, ARRAY_SIZE(link_frequencies),
+
+---
+base-commit: 3aa9296a23ec41a8424e9a2346eea59fb6cb7d8c
+change-id: 20251216-imx283-ext-5968a658dbe6
+
+Best regards,
+-- 
+Matthias Fend <matthias.fend@emfend.at>
 
