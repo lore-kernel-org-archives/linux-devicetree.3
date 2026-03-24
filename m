@@ -1,164 +1,121 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1E83537E0;
-	Tue, 24 Mar 2026 23:07:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC51E3CA488;
+	Tue, 24 Mar 2026 23:11:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774393652; cv=none; b=aEJ/zaJU3OK0oHGmz7kBWQUPQ6CaHnkB1CKvfEZG5pV3QYntd4e83ga/4GZgzTsVnERiYS9bh7N0a94d+8YwOr8zIt5TOXQDjfKvOlTUCxNrug0BqawvsTyh6U9A0r5ecJcvUWm+ZThn/79zHTzuEgBQxU9k84WQnlAYXvRjlPs=
+	t=1774393918; cv=none; b=P82giTETKCELrq/9EtMNfgNXCtywdage/QD1K8hKSvouODNHcAMmKghDIOEVV8la1wr2ARirQiT01RjM/U5SKLnPmm8Vo7Nv8s+noGtLYA/BESJxqgOECm7B8qF01BO4JAWS/n4hHNBYIJlDJW9G7H9AsM2kuQ/pDxXps3LJ69Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774393652; c=relaxed/simple;
-	bh=Fk4wnbWrvlRCpYY7EBpy23iVhDEFFSBBmhNUHDrnqG4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ed5j6OkGRw8KHNHJ8uSC6RxP5dGum19ypDJPEX2KC4yABHAcGtb7BAAXonQT2pCTxOu8rXo0cpg56oJ850cquyGpQIC8Tmqm+ETAXM4x/tlTThUwsaR7p2M/0qpVKCwgaSyst2CIgdhoZZSTC3qI8BmIZqPUuCC5t52WmimDDTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aDSKXnum; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1774393918; c=relaxed/simple;
+	bh=UsdJ+Q4kBS1MbW0xQpYTJ+JAo9wLCnAzmaVXx1tB79Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qfumymafXwozDFGzHoCD3y2518kuy+sEzhA29olNDzBTXFvre8FOBLrUKt0issL9ARsERsP+WBl5kEoLbghHZQkYRluD43oVmLHTO141ZUvWK1O+oAVLUZT29Okgl88EXb1vFtpBbBN5r/r+Zg0Tmq7fLmVfAZ/kJeOM41+woQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=dMPkaKvp; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aDSKXnum"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774393651; x=1805929651;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Fk4wnbWrvlRCpYY7EBpy23iVhDEFFSBBmhNUHDrnqG4=;
-  b=aDSKXnumR8zhloF71Id+ISuPShHU6Dz1GIfvMd7DGvb+nnPSxTZjzchu
-   pYQvTt7VZFZnm3UJMpJTua5JBEc8alMW040s6PCzXEm4isgV2rpk//lfZ
-   ZFn94XPWhagmoJ8DDJH7IqsIkm4JOPz2maPxK9gn0fOg6nXUWf8B0gE9Z
-   jDjoVGmye5TqY/4b9B/4P4GyeI+KIGIgSEVh0y7EP7uuDH7sWRqsRvkjC
-   Jc7Zq9eVhueDhbb4N5ESaTHpHHnd7iIAc6xnteLj5Vbs4hCDd8K8O93Pm
-   EbISxbukq5vLX3wcAOmdP/a/9hSfPoKzrFdKfFddwNKMvFmuulMJj+xjN
-   w==;
-X-CSE-ConnectionGUID: +Eikmg69SaOmS+4uStbeXA==
-X-CSE-MsgGUID: yd1refesTlaNnzCsyOJLyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="75618051"
-X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; 
-   d="scan'208";a="75618051"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Mar 2026 16:07:31 -0700
-X-CSE-ConnectionGUID: SrpYwx6GQpubSXWUutx8/A==
-X-CSE-MsgGUID: wFIBomXZTwmmjw22K+0L0A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; 
-   d="scan'208";a="224511070"
-Received: from lkp-server01.sh.intel.com (HELO 3905d212be1b) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 24 Mar 2026 16:07:26 -0700
-Received: from kbuild by 3905d212be1b with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1w5AqJ-000000005YH-1gIj;
-	Tue, 24 Mar 2026 23:07:23 +0000
-Date: Wed, 25 Mar 2026 07:06:56 +0800
-From: kernel test robot <lkp@intel.com>
-To: Yu-Chun Lin <eleanor.lin@realtek.com>, mturquette@baylibre.com,
-	sboyd@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, p.zabel@pengutronix.de, cylee12@realtek.com,
-	afaerber@suse.com, jyanchou@realtek.com
-Cc: oe-kbuild-all@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com,
-	cy.huang@realtek.com, stanley_chang@realtek.com,
-	eleanor.lin@realtek.com
-Subject: Re: [PATCH v5 09/10] clk: realtek: Add RTD1625-CRT clock controller
- driver
-Message-ID: <202603250636.b3J5aCGL-lkp@intel.com>
-References: <20260324025332.3416977-10-eleanor.lin@realtek.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="dMPkaKvp"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 15605112263;
+	Wed, 25 Mar 2026 00:11:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1774393908;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=6hkqmn5/Lm/RJ1zH+MMrxFpBSNBqxslxfAIu548ZS6o=;
+	b=dMPkaKvpgdhIyAKyu5nYxwRdnlq3N08T9loLdL6JOo/n7tqhieKPGvR74HmmvbEvTH1Px3
+	UrO2Xca6vycanpXrFwcbi1VDsFi1IOxCDf/BljTZHNJCUuk6uw73z0ttCZiALwznufbr/5
+	U4VIaOt5Yu9v6o5XI9Eh4ZWdyrPFD/gTQMxxa8vgvRRgmy407PInjQ7GEEQ33x5BnQIVl4
+	6IuDYHrF+gKQ761WAFV0CnyGbuL72ws6xInX/fo/y6BKEQI7KAuA0U8fOFDqELKJEhpezz
+	vjhsYM1ldlLjk0p9PThqSCfkFZDSExQVAefZDiWfJTKyPV5a95ydouYXUeKQww==
+Message-ID: <e580bc1d-96ce-43c5-880f-bb8ee31fda28@nabladev.com>
+Date: Tue, 24 Mar 2026 22:43:25 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260324025332.3416977-10-eleanor.lin@realtek.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: imx8mp: Add DT overlays for DH i.MX8M Plus
+ DHCOM SoM and boards
+To: Frank Li <Frank.li@nxp.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+ Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+ Conor Dooley <conor+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Rob Herring <robh@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ devicetree@vger.kernel.org, imx@lists.linux.dev, kernel@dh-electronics.com,
+ linux-kernel@vger.kernel.org
+References: <20260312232500.197096-1-marex@nabladev.com>
+ <acK1YU6M5FGK3qM2@lizhi-Precision-Tower-5810>
+ <e5d7ca6a-fdd3-4aca-aa1f-1d35bc9c0119@nabladev.com>
+ <acLtV4Vwpbj9vpE3@lizhi-Precision-Tower-5810>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <acLtV4Vwpbj9vpE3@lizhi-Precision-Tower-5810>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Yu-Chun,
+On 3/24/26 9:00 PM, Frank Li wrote:
+> On Tue, Mar 24, 2026 at 06:39:10PM +0100, Marek Vasut wrote:
+>> On 3/24/26 5:01 PM, Frank Li wrote:
+>>> On Fri, Mar 13, 2026 at 12:24:04AM +0100, Marek Vasut wrote:
+>>> ...
+>>>
+>>>> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi
+>>>> new file mode 100644
+>>>> index 0000000000000..534737363c9f0
+>>>> --- /dev/null
+>>>> +++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi
+>>>> @@ -0,0 +1,42 @@
+>>>> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+>>>> +/*
+>>>> + * Copyright (C) 2022 Marek Vasut
+>>>
+>>> 2026?
+>>
+>> That was the original copyright year when this was implemented, but I can
+>> update it to 2022-2026 ?
+> 
+> Okay, you upstream this year.
 
-kernel test robot noticed the following build errors:
+Right, V2 does extend the copyrights until this year.
 
-[auto build test ERROR on clk/clk-next]
-[also build test ERROR on robh/for-next linus/master v7.0-rc5 next-20260324]
-[cannot apply to pza/reset/next pza/imx-drm/next]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Yu-Chun-Lin/dt-bindings-clock-Add-Realtek-RTD1625-Clock-Reset-Controller/20260324-171912
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/clk/linux.git clk-next
-patch link:    https://lore.kernel.org/r/20260324025332.3416977-10-eleanor.lin%40realtek.com
-patch subject: [PATCH v5 09/10] clk: realtek: Add RTD1625-CRT clock controller driver
-config: nios2-randconfig-001-20260325 (https://download.01.org/0day-ci/archive/20260325/202603250636.b3J5aCGL-lkp@intel.com/config)
-compiler: nios2-linux-gcc (GCC) 8.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260325/202603250636.b3J5aCGL-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603250636.b3J5aCGL-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   nios2-linux-ld: drivers/clk/realtek/common.o: in function `rtk_clk_probe':
->> drivers/clk/realtek/common.c:54: undefined reference to `rtk_reset_controller_add'
->> drivers/clk/realtek/common.c:54:(.text+0x134): relocation truncated to fit: R_NIOS2_CALL26 against `rtk_reset_controller_add'
-
-Kconfig warnings: (for reference only)
-   WARNING: unmet direct dependencies detected for RTK_CLK_COMMON
-   Depends on [n]: COMMON_CLK [=y] && COMMON_CLK_REALTEK [=y] && RESET_CONTROLLER [=n]
-   Selected by [y]:
-   - COMMON_CLK_RTD1625 [=y] && COMMON_CLK [=y] && COMMON_CLK_REALTEK [=y]
-
-
-vim +54 drivers/clk/realtek/common.c
-
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  12  
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  13  int rtk_clk_probe(struct platform_device *pdev, const struct rtk_clk_desc *desc)
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  14  {
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  15  	int i, ret;
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  16  	struct regmap *regmap;
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  17  	struct device *dev = &pdev->dev;
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  18  	struct rtk_reset_initdata reset_initdata = {0};
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  19  
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  20  	regmap = device_node_to_regmap(pdev->dev.of_node);
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  21  	if (IS_ERR(regmap))
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  22  		return dev_err_probe(dev, PTR_ERR(regmap), "failed to get regmap\n");
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  23  
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  24  	for (i = 0; i < desc->num_clks; i++)
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  25  		desc->clks[i]->regmap = regmap;
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  26  
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  27  	for (i = 0; i < desc->clk_data->num; i++) {
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  28  		struct clk_hw *hw = desc->clk_data->hws[i];
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  29  
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  30  		if (!hw)
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  31  			continue;
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  32  
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  33  		ret = devm_clk_hw_register(dev, hw);
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  34  
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  35  		if (ret) {
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  36  			dev_warn(dev, "failed to register hw of clk%d: %d\n", i,
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  37  				 ret);
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  38  			desc->clk_data->hws[i] = NULL;
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  39  		}
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  40  	}
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  41  
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  42  	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get,
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  43  					  desc->clk_data);
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  44  	if (ret)
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  45  		return dev_err_probe(dev, ret, "failed to add clock provider\n");
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  46  
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  47  	if (!desc->num_reset_descs)
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  48  		return 0;
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  49  
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  50  	reset_initdata.regmap = regmap;
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  51  	reset_initdata.num_descs = desc->num_reset_descs;
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  52  	reset_initdata.descs = desc->reset_descs;
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  53  
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24 @54  	return rtk_reset_controller_add(dev, &reset_initdata);
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  55  }
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  56  EXPORT_SYMBOL_GPL(rtk_clk_probe);
-105a817ead5cd3 Cheng-Yu Lee 2026-03-24  57  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+>>>> + */
+>>>> +
+>>>> +&display_bl {
+>>>> +	pwms = <&pwm1 0 5000000 0>;
+>>>> +};
+>>>> +
+>>>> +&DH_OVERLAY_PANEL_I2C_BUS {
+>>>
+>>> why upcase for label, generally it should be lower case
+>>
+>> Because this label is really a macro , please read on.
+>>
+>>>> +	#address-cells = <1>;
+>>>> +	#size-cells = <0>;
+>>>> +
+>>>> +	touchscreen@41 {
+>>>> +		compatible = "ilitek,ili251x";
+>>>> +		pinctrl-0 = <DH_OVERLAY_PANEL_I2C_TOUCHSCREEN_PINCTRL>;
+>>>> +		pinctrl-names = "default";
+>>>> +		reg = <0x41>;
+>>>
+>>> reg should second property,  please dt-format for new dts files.
+>>> check others
+>> What is "dt-format" ? Linux kernel source tree, even current next, does not
+>> mention such a tool . I did run schema check and checkpatch on these
+>> patches. obv.
+> 
+> I send out at many place, https://github.com/lznuaa/dt-format
+> I write small tools to detect and fix node and property order problem,
+> it may be buggy.
+> 
+> These node order problem is easy to detected and fix by tools to save
+> review cycle and focus on the important stuff.
+Maybe "make dtbs_check" target could include this tool , to make people 
+aware of it ?
