@@ -1,137 +1,163 @@
-Received: from smtp1.tecnico.ulisboa.pt (smtp1.tecnico.ulisboa.pt [193.136.128.21])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010028.outbound.protection.outlook.com [52.101.69.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746C23FD121;
-	Tue, 24 Mar 2026 14:36:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.136.128.21
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774363019; cv=none; b=UliiiskPms3EYtA7sYOYiqioLQTLvWD1Bjh60/VWRDLvScEF076IU9IsuCBF7/En0PkpcDL+76RlqfvzeQ8mpYnTMkUyCqLZ36TXyaXAcBhj5ssWKOYx8bsEzIww4OwKcmzJVK199zzG68Dal+TZ+zBfYtE7GRChMn4NtXzj0Yg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774363019; c=relaxed/simple;
-	bh=oJP7qI2REKO4LiflVR31WZ7BIRLbL4ifu7guzzThvyo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o1Phn2mbwyWtfkbcCGGSEPCH+J2Ai74oLaUoWC+V290++GMqTKXhja9BunUIvZJ9whoq3ZIvWcNtHaRZJfLyWA6Oq82nEwuB4muS4vnReCXVl1+KzoZAgnIKfXw5xdtJQ0cmOAcs0rQr9MQNRC+ekvaMfCR2zzuJcIPCyF/XY6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tecnico.ulisboa.pt; spf=pass smtp.mailfrom=tecnico.ulisboa.pt; dkim=pass (2048-bit key) header.d=tecnico.ulisboa.pt header.i=@tecnico.ulisboa.pt header.b=Fpx0AwDk; arc=none smtp.client-ip=193.136.128.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tecnico.ulisboa.pt
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tecnico.ulisboa.pt
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60AF28A1E6;
+	Tue, 24 Mar 2026 14:43:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774363388; cv=fail; b=bleyo/K12Q9D4r/5lvUZmk5SLPC/KnmGhRkcfvlVgebyvrZOmorIzY2FAZGk8svDkPhtNdr74yN7pRpRDzLuT5xrO+mkYnnpGXC+sBYLHQ25E7LVpD60HMbfaIhTsvH/wRfVm9+l1N/tnYLtojcnvwG/NmPqTCfWNfFeaikhLnw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774363388; c=relaxed/simple;
+	bh=6Jc2IblPuIeFFS5t6KoDzG2jltElQQ69Pxez1oI22zA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=o+HPeN8ddnloa3ZYjHVAiY4FAMmBAH19Fud+sxhi8126v26usV7gnNpFMMiR3yA9NnKF9Kk6LNyOrlvrG9SAJzaIta81vm1xfBwKZ1g3N8J9sSUXGIPq2ZYqkncLDZZdGABKsekE1jwiIWQ5Ynl7zXaT2NGFCcPoJqofHOWq2vI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=GkSoX6Oe; arc=fail smtp.client-ip=52.101.69.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tecnico.ulisboa.pt header.i=@tecnico.ulisboa.pt header.b="Fpx0AwDk"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by smtp1.tecnico.ulisboa.pt (Postfix) with ESMTP id 3BCAE600230C;
-	Tue, 24 Mar 2026 14:36:52 +0000 (WET)
-X-Virus-Scanned: by amavis-2.13.0 (20230106) (Debian) at tecnico.ulisboa.pt
-Received: from smtp1.tecnico.ulisboa.pt ([127.0.0.1])
- by localhost (smtp1.tecnico.ulisboa.pt [127.0.0.1]) (amavis, port 10025)
- with LMTP id ZFZeKCH7NTFC; Tue, 24 Mar 2026 14:36:49 +0000 (WET)
-Received: from mail1.tecnico.ulisboa.pt (mail1.ist.utl.pt [IPv6:2001:690:2100:1::b3dd:b9ac])
-	by smtp1.tecnico.ulisboa.pt (Postfix) with ESMTPS id 8F9D960022FE;
-	Tue, 24 Mar 2026 14:36:49 +0000 (WET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tecnico.ulisboa.pt;
-	s=mail2; t=1774363009;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2zWSTkt+TZRxqfL4or/GcsQYMaV+0vZsmOBl4HXog6Y=;
-	b=Fpx0AwDkYLWE5tsos9uLbjPzDgbdmM4oPrNAjmV5hWv/npcEazDQyw7pdrNmDrzsFrWZ3u
-	sAJx58RBRUDAebkdnpaRxj2DRU4fchddeTeY2JWgqfy+nNSFtNdLpL2xL4V8zDW8sxOusL
-	SivlaHAF+/O7PZtvMVEOUrYwDqykgw0FaxDHX/aIG+0p2LH/pmQUOxSkHko8LDJPrd+Pfe
-	hHEbGYCJ8QrFyG1GOLQ6TGt/wJxi/TDEHt/9NNzoCyv9mR4w2dTgLyVueqdUlGGBjRogDr
-	bPZAkwUJ3Jtw07pcg14V8QLrMz0ZNPqAnln6Be3qad7beJgjr8HQfYggksykRA==
-Received: from [192.168.2.116] (unknown [148.63.39.39])
-	(Authenticated sender: ist187313)
-	by mail1.tecnico.ulisboa.pt (Postfix) with ESMTPSA id 44B1D360194;
-	Tue, 24 Mar 2026 14:36:48 +0000 (WET)
-Message-ID: <2c7fa782-f7f1-43c6-bda4-296fa7ab88c2@tecnico.ulisboa.pt>
-Date: Tue, 24 Mar 2026 14:36:46 +0000
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="GkSoX6Oe"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yestOT4lFuePFoor0My9vFUcXUGUEQxVcabnzM9WzM72seYFgo2p48deGPoCx15iBZvPUMQuSQLVTupHIDiSb5PlWIv35B5ZCx+8dfYGBjZdbAiDHiMQW4sskVBep2PeDYOOpzxrGaMnq5ZgodRudU94I2JzCI1xWpV+uEa5Q6puwISa4pk/IDjOK9fSQRASeqbcvlpIZ7f8PKmBKto511FBbiKtGsfyFNetAH9R4Di21IzOqQcIhOT9iL/u1OASsLZUretKcmLdmsrZ5yXLismAUnOt8SSKfxIFAWDuxliwvfed3qaRjIwGxoJszOWOJM4cpe1KzN2NHqDqgm9CWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EUOFvlX7qSSEHr6HIxHusGpTzeCrBJveFBNkC1fNdus=;
+ b=aM5hGdzZT+Qq3IAVtnZmWVUlt975AzonGB3HjAPvIvN6MExZ531QxSjcCCISgxOrLgk6/TEN1hPhye3O2+GsKxDTcHJJrHlswTdD2SQpYECJqwbK2oa98NA7t7pfxMnP96SEQEGGcalU3mTxuRPBknOw4+q2Pfsp2t7RSmt7Pzn4HhwM1on2ZbXPjpvGKofkk8mVYo9r9AWND850IQWYroS/ESMqwOeqlRqmUd1wj7WHIZfJaF4/sLX7B7S4zxb4ktik1Qeszjakv1OMF9vIETv2elq2XCP6rGnDiXaZdTAcpCRNg0uXaBpoqKTZv3qtIi13JONlRtFukGI8NhenqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EUOFvlX7qSSEHr6HIxHusGpTzeCrBJveFBNkC1fNdus=;
+ b=GkSoX6OeAtXiPfwee395oGuMAUrt0OBwHNS7UeIBDtTMy3z87ag3noNRWHtyqrjPQ3hiZSOJ3RCKf1vEN4sBzJH8fQFV2SqJ8geWd6kJVMrqc2Z9pDnc9QNayxRMa9v6N8Blumk/ijUg443hilXpOffpfaMiG5yfk/v8NnbAQBspHLRwOmgHmSWmkRLST/h41C4LED7lcKtH8crRwEXi+nFeWFEs3t/CxyYDZJYDFaG8w3KCLv4cYs5h6liv8cm4cb2CerlYOkbqkYx08lfJS6+6iMQMBCV4feBhrFpwz5iQSOzvTOe0lfTXwC9AO9bbQ2e+cPIabbpu/B16+usT/w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by AM0PR04MB12144.eurprd04.prod.outlook.com (2603:10a6:20b:744::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Tue, 24 Mar
+ 2026 14:42:59 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9723.030; Tue, 24 Mar 2026
+ 14:42:57 +0000
+Date: Tue, 24 Mar 2026 10:42:59 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Liu Ying <victor.liu@nxp.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: imx8mp-evk: Specify ADV7535 register
+ addresses
+Message-ID: <acKi8-prXpnl1Js9@lizhi-Precision-Tower-5810>
+References: <20260324-imx8mp-evk-adv7535-cec-reg-addr-v1-1-52dbdd63d5a4@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260324-imx8mp-evk-adv7535-cec-reg-addr-v1-1-52dbdd63d5a4@nxp.com>
+X-ClientProxiedBy: SA0PR11CA0111.namprd11.prod.outlook.com
+ (2603:10b6:806:d1::26) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/6] phy: tegra: xusb: Move T186 .set_mode() to common
- implementation
-To: Jon Hunter <jonathanh@nvidia.com>, Mathias Nyman
- <mathias.nyman@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Thierry Reding <thierry.reding@gmail.com>, JC Kuo <jckuo@nvidia.com>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-usb@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org
-References: <20260127-diogo-tegra_phy-v2-0-787b9eed3ed5@tecnico.ulisboa.pt>
- <20260127-diogo-tegra_phy-v2-6-787b9eed3ed5@tecnico.ulisboa.pt>
- <af04fc85-1ed4-4046-86ee-1ffcec8c44cd@nvidia.com>
- <5a5397c8-cc32-4d6b-86a4-76f924ae6d75@tecnico.ulisboa.pt>
- <7a6f8967-c635-4d84-bbab-9e019ff79134@nvidia.com>
-Content-Language: en-US
-From: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
-In-Reply-To: <7a6f8967-c635-4d84-bbab-9e019ff79134@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AM0PR04MB12144:EE_
+X-MS-Office365-Filtering-Correlation-Id: cbe90190-2ae2-4eb1-a60d-08de89b3a3b9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|376014|52116014|7416014|1800799024|366016|38350700014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	KgVCEt24HKzOqnRIq2yxtLM74dCyu5vBHnh+gk0nmxTEFa0AVrAmxFNa669lBihsvPysYLB3vr3WhFSwrKRdPGKk+5RbWikI9ntyE1EToAgoTaL7+JrG1XUs3J4kyUAdTNcDoJ/xPdcYzc/BkZeOeEW//8K8g9Y2QKUdV+R5ShUvM38SJDFxk9evq/44n3JMdXhbMLQ1cJBqwXDlfLKbWtY5yncKO3XiU7gdz7Czz6jBydk1zVAsCjKRBsjpqCkh4iheMpO0aC/KxzEoKfK56EkXB+AaW1siIRQenh1ZHWHk57Az6VrT/uw/PBRqlAfKd1RjcN7BPZRI8UsCKdwRU0ZG04omBHszgjLBrVFxvY/MYJSU5DLNvQhrPQNDMYd7yBk66cOIn+8LdrNGEUngKgMbaw+KRnZ+F3e6GAODBFJo9o09MUUtsVaa5MdjklcCh0WF9+AU8BOmXUvk4vnubRI5Ec3AM38SMuS5/TujRr3NF144X4zXJ/b7AiIJWQwfVicyLjk3a/+GkbMURPxEi2RkDqe4sozY3hcjJtzh28SFZS5osw3KRpehps2yEwjFL4++7DslWNLSn2IZDqqqn1E6X+3ZbGyaqfllHXJiv8zPKFqyosymMxp96Z8u4mAPF2trkOsDkxgj23puGRf5EPj6FnEX/t2c1XOEFQ7gc3ocmaE06G3NUc4kRLxt12g9U/7FnQ6MEuOV7PJw4/6iLxqNe9Cy+PVCaePhJvO0kTKD87vgf9eCoq4ukiZfmQ+5tYqeSTzP1vqBZ5zvSGtwzHDq8nZxSkIrM6p2sNA3Zog=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(52116014)(7416014)(1800799024)(366016)(38350700014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?XkuedmZ0ifDhJ26FM/k+DXEE8Q5RyVgtbMasnFQog+ZXp0xQLJJRM4vxTTxq?=
+ =?us-ascii?Q?PuXbgYIqGsQw2V7V/jhvKe4iG6uo7P/lEbTDqrX22UDYKbrcHcUrHkVr6I75?=
+ =?us-ascii?Q?YB16KLMuaX0PfZnw223kLnQm6/3Z9g2GCdAY1wogW/XHnQ/dTGoIys33snpS?=
+ =?us-ascii?Q?wDlkdnY8BQIRXGBPqaf1ncA/0BxOravrAIJvS7a4CkUTiEFNFsQqS+vcGHD7?=
+ =?us-ascii?Q?bS1ssMxcTMYiXHmeLMjdRPWtSOrcmZbj19qYV84/ae2YnpPJC4DojxXaRpyO?=
+ =?us-ascii?Q?6Y7jG2ph16qyTuagZ/xpshVItyKwk28pdwXDehDCzj0FQw4bEcgimTBx7qof?=
+ =?us-ascii?Q?K2fkQDWk2leoAHCrGZsHhQ2C3WPQ2OlgcBJce4nWduUtX9NX+066Cj8ns/Qi?=
+ =?us-ascii?Q?9g9SUZZb2VXmHXEkMivFMlGp4pje5powkdiCGlct6E6XffYwArtRdK4cgdyQ?=
+ =?us-ascii?Q?60UHsQMGUbC8y2RQ3SDxM59GgkFZRrW8Fkc27/sni5hGqaVfEjN5dMIYOWbJ?=
+ =?us-ascii?Q?f1rM1BiG+nBfAzYZlpzuSrfQGX7g6xbwhRgWYP/BjA0+1Las4WVhcjr7MtHC?=
+ =?us-ascii?Q?1O4aQc4pywxO+jv3/S1ehZJQXfb3ckSoBu9JaQhjdLLgAeW/QJXFPSQDSI8o?=
+ =?us-ascii?Q?XoRvNBUv7qCpK0KpRJsZ3d08DR0mER8hDvpmXPHend3ApYjBZt7oyootPkLV?=
+ =?us-ascii?Q?NNA5Z1Zr+yykN5cqgYwNuOSCNAVvvCH7D33QGnO2ER70CmpcxrkN4p4ZBNGJ?=
+ =?us-ascii?Q?C7u57kgp2rfGhAMiWHrrUTTT/fDRdXjMV5b670YLETTh2EqB3Nj6ttvaEinm?=
+ =?us-ascii?Q?lMIvuHFlATjgSn4yMUDDj1HEOzs7a2IEvkj56JiK8R0bJRAJlMveWsIVJocp?=
+ =?us-ascii?Q?/Ysx3tXFS7HkONIXIgoy54/hNYmHTEydy7YZWfdPUlbvj5xenuYqHh+aWMnd?=
+ =?us-ascii?Q?Jl77VPjJ18EHWJSMsKlAp2aneMzNJ4IZKKE8AqnvSxdGdExsD/Vm1w+uPSlh?=
+ =?us-ascii?Q?iaYqYZxVcGezkVAQFCmW1r0X9ktmTT+61AmtwB+IEjqTOmQgLNpu5ZtfPw6G?=
+ =?us-ascii?Q?rHvr1P6FXqxJud71Yl1Cm/orF8XGx6RkA9X7RrnIgTWOhMPrlNfZQLXjcMfH?=
+ =?us-ascii?Q?FPC3U+as2T0i0AyUOsgQKsOfoVko/IN0mgsOoLVTenOMZeh8eBsNcEcuZjW7?=
+ =?us-ascii?Q?rfQkko7Wcznwnf84k1z5p6i7he94C0n3nOgzgySvf60gzRkshPuentAsc7XN?=
+ =?us-ascii?Q?onSPJC+F7G1ayRPO8iblU61knqgWkqO5R0NqC2RidsrZXtuWuevoeyoJW4Ht?=
+ =?us-ascii?Q?UvW/wJFlJ6xzhGsFqLwbzW9cvm2sl3gtCIujbXUaJHJk4Pn1pft8JtmThe1d?=
+ =?us-ascii?Q?3uVRCOMQOn/NdhkSZDdQ553k6y/CiHUuyHaqSTrKiaNzL7nXfm0DxY75MbCs?=
+ =?us-ascii?Q?LvdTm15F+W18zkn/3HMWzCyISjN/KCupky0qQfBPLwPt9wq6I2lCWyRp52yP?=
+ =?us-ascii?Q?2r5ZOnLXyp9syoBXb5EspBZ4snO5OyTCu4Q7UC6T1Zcxw0TGzO1YeMNpyvaS?=
+ =?us-ascii?Q?b2l5DTj7rllBbtk1GSGmtE3pRfbtIx0Ev/PJOhfEc6SSHL7a2wskdmrB5ECS?=
+ =?us-ascii?Q?4ewS2k+yj3R/ewc+GeLGi2P9raLmCYKXi97Gzrj+qq+uSaM0A80ErOgd4Lvp?=
+ =?us-ascii?Q?bVb0K+rZWapLVXkGQIVT6zUQ7WnoW+f2h05pqhANskL0Ax56?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbe90190-2ae2-4eb1-a60d-08de89b3a3b9
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 14:42:57.3738
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Gb4RsK2mb0fgmtwvVd7ZyPW0H4UXH1eiCWxwqLPRHpPKugjrsJ/fVS+sTUCZmPM1oscTS5sBZkpby9ivLEUHCQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB12144
 
+On Tue, Mar 24, 2026 at 01:52:03PM +0800, Liu Ying wrote:
+> MIPI DSI to HDMI bridge ADV7535 CEC default register address is 0x3c
+> on an I2C bus.  And, OV5640 camera uses the same address on the same
+> I2C bus.  To resolve this conflict, use 0x3b as ADV7535 CEC register
+> address by specifying all ADV7535 register addresses.
 
+Does cec start address programmable?  generally i2c address is fixed or
+controller by some gpio.
 
-On 3/24/26 13:33, Jon Hunter wrote:
-> 
-> 
-> On 24/03/2026 11:31, Diogo Ivo wrote:
->>
->>
->> On 3/24/26 10:16, Jon Hunter wrote:
->>>
->>> On 27/01/2026 15:11, Diogo Ivo wrote:
->>>> Move the Tegra186 PHY .set_mode() callback to a common implementation.
->>>> In order to do this first revert cefc1caee9dd.
->>>
->>> This commit message does not seem complete.
->>
->> How so? It is succint but it states exactly what the commit does. It
->> reverts cefc1caee9dd and changes T186 to the common implementation
->> prepared in the previous patch.
-> 
-> It does not read clearly to me. The 2nd sentence sounds like that's all 
-> this is doing but we are not, we are reverting and doing the move.
->>> Furthermore, I am not sure why we want to revert cefc1caee9dd. We 
->>> purposely moved the regulator_enable/disable into 
->>> tegra186_xusb_padctl_id_override() because it is tied to setting the 
->>> USB2_VBUS_ID. So I would prefer to keep it this way and move the 
->>> Tegra210 implementation in the same direction (if possible).
->>
->> I don't agree that this is the best solution.
->>
->> We really benefit from a common implementation for the two platforms, not
->> only because of duplicate code but more importantly because without it
->> whenever a bug is found and fixed on either platform it most likely will
->> not be fixed on the other one. Case in point, cefc1caee9dd fixed a bug
->> on T186 but not the same bug on T210 (which then led to this series) 
->> since
->> the implementation was not shared among them. Were it the case that they
->> shared the implementation the fix would have come "free" for T210.
->>
->> This will keep happening for as long as we have duplicate 
->> implementations,
->> which becomes more relevant since there is a severe lack of testing in
->> older Tegra platforms. I also thought about making the id_override()
->> implementation shared between T186 and T210 but that would be take more
->> changes since register definitions would need to be moved somewhere
->> else too.
-> 
-> I am all for a common implementation. I believe that in the 
-> tegra186_xusb_padctl_id_override() function the only thing that is 
-> different is the offset for the USB2_VBUS_ID register, which should be 
-> easy to handle.
-
-Ok, I can make it common there as well. However I still feel like
-reverting cefc1caee9dd leads to cleaner code since vbus_override() and
-id_override() will look similar and only do exactly what they state in
-their names and the overall logic looks cleaner.
-
-Diogo
-
-> Jon
-> 
+Frank
+>
+> Fixes: 6f6c18cba16f ("arm64: dts: imx8mp-evk: add camera ov5640 and related nodes")
+> Signed-off-by: Liu Ying <victor.liu@nxp.com>
+> ---
+>  arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+> index aedc09937716..d0a2bd975a18 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+> @@ -602,7 +602,8 @@ ov5640_mipi_0_ep: endpoint {
+>
+>  	hdmi@3d {
+>  		compatible = "adi,adv7535";
+> -		reg = <0x3d>;
+> +		reg = <0x3d>, <0x3f>, <0x3b>, <0x38>;
+> +		reg-names = "main", "edid", "cec", "packet";
+>  		interrupt-parent = <&gpio1>;
+>  		interrupts = <9 IRQ_TYPE_EDGE_FALLING>;
+>  		adi,dsi-lanes = <4>;
+>
+> ---
+> base-commit: 09c0f7f1bcdbc3c37a5a760cbec76bf18f278406
+> change-id: 20260324-imx8mp-evk-adv7535-cec-reg-addr-2de67760133a
+>
+> Best regards,
+> --
+> Liu Ying <victor.liu@nxp.com>
+>
