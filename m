@@ -1,289 +1,162 @@
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFAE537A48B
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 19:15:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.125.188.123
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774379704; cv=pass; b=AFH2yCEqmhGDwRdlihaxt09kR4ugPVmDB5kw6bCAU1sWB0HiKebqf/XY813xBTwVpsy7mqGyASHheeD+cmP8DxQEbk5yE9NPza6IWvp84FHV1CmTO98YajgBY9cQw7SS5w5EgP7xkO2ejuv3HGQFMXkk/dCX2Ev+/rZ8pZiBpIE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774379704; c=relaxed/simple;
-	bh=mXQH2e7ey4FhEPRcJoszhO0ePG1FdnyzQZjdgRZXj+A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gaIeh1JuDGQvy6FQL/poGIUnn+e5u92MmALAfYMTqFogfZWu1DTLXdLE3S48oNSo+rVWwilzeHbuHFR/oa6kBZ02vk1ZrHDyrDlPDkMwatIxyH6NnM70mhlf5eO6UkXaEgu2BKImYDNVdjqSn46VF/mkbct1HDFSQcPIVrenAYo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=lRGmo3NE; arc=pass smtp.client-ip=185.125.188.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2589C2E03E4;
+	Tue, 24 Mar 2026 19:24:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774380290; cv=none; b=MVMTAn+fuiWHc/DivZvsQPeu+35IPV5rE/elsxIlEXA0X0visLIFPThE3WnAO5e/19G4i65mxyu13ciI63ZWTAmGsUmQI7wOPmXR274srHhPMJFlEN8lj8zQxajEW5Iqoz+Uwhnv8ZINJJ0tkIc3ZC/jKWkO0/NwMaj1Hc6isS4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774380290; c=relaxed/simple;
+	bh=2VCYMI2PHE4zLToU2mchgb7NRWmDqF/2sfPT06wNeL4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VNL/A7sZy5u75jZ9Q+SYdycd8MF+3XCsu3KRG8VQ8qk8nxKXwP4HB7Lo8JnxdoYUaLwrfQm1xbavufnIRHOMIqBBv4qjbbOEq5tSYhNPbUwetv0S4tu02kA38iiyBu4K7ORGUE81PJGx4xQWzNOAX3IuXgiwMKE4PhyCzXNkd3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=iXy0A9LG; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="lRGmo3NE"
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id D21573F61E
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 19:14:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1774379692;
-	bh=ngqb+DmGtwEG3FK8sIpZyt2ZJ6Tw4EzBiHu4t/MVsn4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type;
-	b=lRGmo3NENOanaizI5i0CxuJcJ2E31k1e7sB4scygqi5w085Ync+2hOaajcrdnQU88
-	 4NcbiTuCxJ9fd59kT5R3K75i9TDezETUeu7vxL0nCOwiC3PgNzn2IeoxIr+5Yimj6f
-	 +QuLClm4Iq8VphFXjgFSHk8B5qPiiMv7acTzhFWZdqcj7+haRgyAn1PaTzQGhkKDDE
-	 36yd31HTp0Qq7un2CKXwwHhkU1CSrwviHzkA+E7dP4Hz9+k8DWv80KZF3RpxKZQIN1
-	 spj1pbc5aPXuZhsKwkuC0jZZyR15F1X0FjG//4rdVicPTIKSzMJr7SHRus2cQP35Uv
-	 y04E/ydMWLqPM7y43+PgefVCmjiIeHvyWUGxw+Txpu5MPAbZCgRoZoiPPeCAeUq1Z6
-	 0X91StoXC9FHFDjtMZWe8p3QVmJcOcOl7fybueD56lFNe5XIvUIh1bhP4T2r02ZvdI
-	 2FFxklQe3uPHmNtnOsRPfCEZMHHvES+eED4jeyp7bH0MGMiFROOh9bqwsi9NsPCaIn
-	 yjhNvvmf++jRaN9dzBnPY/Upom4vHOl2w28WjqzU8CgkZUx9o6iRDwYK2e8t9BVWmN
-	 eAvnzC6fN+tqSbRrmuvsxNYAa7oYGSvFjyrFqJ73XRjjm0O0Vpyi1NIl0dZGhCkh6P
-	 p3aQmdFrSiCiel76MYX5gfjA=
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-b97d66528c9so25080466b.1
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 12:14:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774379692; cv=none;
-        d=google.com; s=arc-20240605;
-        b=dloLjzqnDUwvpzzZfTjv4tAHR1ae/rCRv3f+2iO1j7o7YxOxwnvPrNMC0dDyEBZyGU
-         OiYVeMTMgnHqKzohDYNIH4nP2Ec5xcYiBj7ClIiwOP49qdlO4gbhWpQkgPpZCHA0My2v
-         66/eGB56fJWkCQ2ngVls5iHP7T4+tt5KrlvhHdTYsw+q3nmQVROKRCgynk5tZMBFPlcB
-         DUaXZppTG81EFKLWhhd0fdDeeaTxTdw97pdJi8CbuQpyH9C6Jgx/NdgHk1xUTEuDR8V4
-         EQUMw7j41bZVQldOlA0Vol/3HzsxlODBxeNIfpQ84UFadZ8OzYbwfMQHVsoVlj4aT6Qp
-         roUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version;
-        bh=ngqb+DmGtwEG3FK8sIpZyt2ZJ6Tw4EzBiHu4t/MVsn4=;
-        fh=NOMoEo1+dvyC+bxM9wJSyMH7GZXCNuqj/fAffn8B6oE=;
-        b=DsVg8RH4bJ8Rf4OLYuTDVkGyCs5lbaRjOFIEIyCovi9rjPKVnNa8YY8Oo0JF04QqyY
-         FkOdglVzu8hcLbbH+XNjD2PaKU5OCVnB0gGgG3FECHnIeBYapTTBtMgVwfjS0EWsnAlc
-         eRisUitJKYP0AZZXHZH57LXgujMIMzP1QBxfXRXz7faQ74upNZjoQ4groxv4RreqIC2l
-         yXV3Or+ayVqoZ62K0XxpGwcXbNHEEu7E20f6GNBHf0kvqAbq65O7iaiRGgLrfDLz3QLU
-         RpGZcftV0yu8HW/whHjAk6+34b9lqSLWoQCZugsrZPUoOQS/EY/mHUFPSytaTtn6NSrv
-         sy8g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774379692; x=1774984492;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=ngqb+DmGtwEG3FK8sIpZyt2ZJ6Tw4EzBiHu4t/MVsn4=;
-        b=mMB5p54NuI6H3mTjoQQk7rvcrTwk9+Oa3wtwp2HGiM0tBWKLzAYTZeD55217QvkLNF
-         HztwrEfDiLEplFOItpgzrod/zn7LcZStNFEDo0xFX7zGkidihwVcwvduccJf+rbjLlts
-         9ibaNg7hLbPIPhURSwhwvhlrXT0bD7CYDAfKlTao6rurUjqpd9EIodPTSH584Czhg9D0
-         G1L6+j417yIauIIZLVHcSMolpprLMASC828AOa4sskwIHw8Q2OeA1N8mHg57SIClBGyM
-         a4BzDv/p2bOpWVWrgBSWgsS+b63Bk7va8TvVeyBMD73v+0b/O6bKDKAU49vqv4CvYgLg
-         TIUA==
-X-Forwarded-Encrypted: i=1; AJvYcCV+82nozRR6cbxrsjUhiSp5kXX4ChiYB4CYrt0XP33guOAo8LnY+81gCtejhbJkfvh/GC31rE1mIW5P@vger.kernel.org
-X-Gm-Message-State: AOJu0YxGU4wSk4VrtPiq6B5MG5TDeCesxvMtDuMaDThyBCX0ttA0Ow6E
-	Hhn36r9sQ5fz7bZyS6A510If83keNCm5tVi89K/QVLCMXW+L7lcysgdLR72UQU4EE24RZAqAO19
-	GjOaiTMAEaF2z5U7//pegwsp/apIS2dWek+QFEUoxlPB1OnFDRnHUNJaSJLblAPDiqXAsc8VM1D
-	b4GzlGg3QwLF3G/0lwMmu9yz9OwYkz8vEwsEVnn/WAVmtdQNdHrfaH+w==
-X-Gm-Gg: ATEYQzxBDQcYvXswn4waq2O8MqYX5j8qMUrYFDBxJYps33LF0zRQfDOrZLrA8Rv4QMr
-	UroU4kG8fxxqMfYoh9WDSO5/lfq0Do6vCs1zrt4yL65a8NvDHV6E+SssRU5gIUjEMTMEbf2IJz9
-	nRz7uH+GNwHBDuefxI92E6Qox3sjfSAxakI/zqzM2qqeR1R3xn2lgNt667g3l0kKk2mNHyfL1Wb
-	djj+sETmmWG/PPw+3An2i/hSUGXllgT2h6/3o4=
-X-Received: by 2002:a17:907:7fac:b0:b8f:d2a0:c283 with SMTP id a640c23a62f3a-b99ae1f7d0cmr36034366b.1.1774379692057;
-        Tue, 24 Mar 2026 12:14:52 -0700 (PDT)
-X-Received: by 2002:a17:907:7fac:b0:b8f:d2a0:c283 with SMTP id
- a640c23a62f3a-b99ae1f7d0cmr36028866b.1.1774379691469; Tue, 24 Mar 2026
- 12:14:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="iXy0A9LG"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id B26DE1A2FCF;
+	Tue, 24 Mar 2026 19:24:46 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 77E85601A0;
+	Tue, 24 Mar 2026 19:24:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E9A4B1045081D;
+	Tue, 24 Mar 2026 20:24:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1774380285; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=gfEUwg5jTNsfejQ492YbCXPwCaOXKFYcNuGiUftCfZQ=;
+	b=iXy0A9LGLz5xvwYoPPdbB0AKGn2j8e2cRCHOidsZHWLo7uubeHbKQhhr6zkQ/YVb3xSeql
+	NoF1CxBAaMeCghlOP2/C5ayTOk6qAC+7FDlBRzvdAeoVfeQTfbLJ117hzgtuCH3LJAr5DN
+	oNgzUgwEcVJxhTt9TpkPJ+nTt00Xt8tq1Rlbu07y3jN+K9IepMYhzIAdTgNqonwE7RwMOP
+	o60y7rcC7+UiQHK0b5rSF+LQpp9Ht0B47JbgUTtnkensCO0tOt4sQXfAF0/7SFmtVJaEd+
+	OBh5GD2irzKO/Hd/sGIspIYmC0YM7o3wYNcpehJCN1XfwMqfno2PM1nVlgzu5A==
+From: "Thomas Perrot (Schneider Electric)" <thomas.perrot@bootlin.com>
+Subject: [PATCH v4 0/5] Add support for AAEON SRG-IMX8P MCU
+Date: Tue, 24 Mar 2026 20:24:26 +0100
+Message-Id: <20260324-dev-b4-aaeon-mcu-driver-v4-0-afb011df4794@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260313094618.1361418-1-ziyue.zhang@oss.qualcomm.com>
- <20260313164542.GA1405513@bhelgaas> <en5a7jrgpbn4bsmw5qwprugb2qmjkqw2x5eey6jxxu63634duz@b43rhcsqkj3o>
- <abdviJbrluDn2Vrx@baldur> <kqpgjzcxnazjohiop27exget6qrv37wn3csmixt5nmc6d5dkbg@n7qjo6flaabn>
- <abtgaXSv-zRysJqO@baldur> <4byysnjodmlphwcevw5gb2asxbwwwlf526mtpwpkfi6crjxoqb@vyuktezfu2wu>
- <CAARv3RSag8n0=ut9KGm0yALRPVTiyQ+bBBbT+3Vf1sNOCBLbGA@mail.gmail.com> <dnx4ge2e2zy2unw5jtmmhktyzlnmmhrogb5skskxewi6y7ekau@vpfdphzay7td>
-In-Reply-To: <dnx4ge2e2zy2unw5jtmmhktyzlnmmhrogb5skskxewi6y7ekau@vpfdphzay7td>
-From: Tobias Heider <tobias.heider@canonical.com>
-Date: Tue, 24 Mar 2026 20:14:39 +0100
-X-Gm-Features: AaiRm50Xa8MYmaP0uH8BT8rSPTXsqKVKZcUFfeHqOG5ZpI8OP5QNHanLv-y60Mk
-Message-ID: <CAARv3RRqXxNePX=4RqnLu7OnfjQmStynsL9RCNY19EKQOTcnLQ@mail.gmail.com>
-Subject: Re: [PATCH v1 1/1] arm64: dts: qcom: hamoa: Move PCIe PERST and Wake
- GPIOs to port nodes
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Bjorn Helgaas <helgaas@kernel.org>, 
-	Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>, konradybcio@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, jingoohan1@gmail.com, 
-	lpieralisi@kernel.org, kwilczynski@kernel.org, bhelgaas@google.com, 
-	johan+linaro@kernel.org, vkoul@kernel.org, kishon@kernel.org, 
-	neil.armstrong@linaro.org, abel.vesa@linaro.org, kw@linux.com, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-phy@lists.infradead.org, qiang.yu@oss.qualcomm.com, 
-	quic_krichai@quicinc.com, quic_vbadigan@quicinc.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XO0U7DMAwF0F+Z8oyR7aRl5Yn/mHiIU4dFYg1KR
+ zQ09d9JJxCaEOPxWvK592xmLUln87g5m6I1zSlPLbi7jQl7P70opLFlw8gdMRGMWkEceK95gkN
+ 4h7GkqgUUdTuoROejmPb9VjSm00XePbe8T/Mxl49LUaX1+r9ZCRC6QaIn8cFG+yQ5H1/TdB/yY
+ S35Evi20MvYdxK2GomvhHVX5e8tPRLbvyVu0hBdQJQoXZDfkv2RGG9ItknoaXCW8aH34VpaluU
+ TZwk5MJYBAAA=
+X-Change-ID: 20251211-dev-b4-aaeon-mcu-driver-e0e89ebf4afb
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ =?utf-8?q?J=C3=A9r=C3=A9mie_Dautheribes?= <jeremie.dautheribes@bootlin.com>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Lee Jones <lee@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ "Thomas Perrot (Schneider Electric)" <thomas.perrot@bootlin.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3683;
+ i=thomas.perrot@bootlin.com; h=from:subject:message-id;
+ bh=2VCYMI2PHE4zLToU2mchgb7NRWmDqF/2sfPT06wNeL4=;
+ b=owEB7QES/pANAwAKAZ/ACwVx/grtAcsmYgBpwuT2VeFL8YG55yMXDAMVyI86ap8Mh8+7vuRIf
+ EGa+mlK8s6JAbMEAAEKAB0WIQSHQHfGpqMKIwOoEiGfwAsFcf4K7QUCacLk9gAKCRCfwAsFcf4K
+ 7fAeDACeAUdO4HdQaqlnv7sKMnjnltBHrv/8P1HOJzhWfjkeaYZUhI0CPaBfQ1TpV3lTeUzGk20
+ 9WLFDz0fbq+J1lBYU20YBbZvrXgAobIpBPgqb0FA8KNre6GVIJ4Gm3f972S8XW1n6idM86UlNiz
+ Tq1i0aIG8JXopIcn6Kmdqzh4DxnPLu2Lpuimvm6QtXKZ+GRw+Ua57h3LTyUSkSwUx7p3YF49pxh
+ gratYEYKINDvWh5zBYuTwuGk2ke5OAbkVdLpT7fHrX1r8GbnPMSoPoAyvxZ5JI9Xz4LgUSOlflL
+ ByzGtx7MNxCriQ4uoLgbAPubjqTlbcJTBlaEQRn7Uv7PYMe6gy/vEKtLac4j6diRO8MbKN5Kf65
+ AQ2qKzYdvS3ks7JvI6nDmha5UT1R9uWAd/dZLn9WKje0zXJTQrQ4cTrJm6faU4OTfKmn/4++Dwj
+ aQk0QPImIexKuOkkECf0jgo3k34VglwMdz4ogOAjXNClj1dtZanHD6AcD5VsiK9h5qr6c=
+X-Developer-Key: i=thomas.perrot@bootlin.com; a=openpgp;
+ fpr=874077C6A6A30A2303A812219FC00B0571FE0AED
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Mar 24, 2026 at 7:07=E2=80=AFAM Manivannan Sadhasivam <mani@kernel.=
-org> wrote:
->
-> On Thu, Mar 19, 2026 at 02:50:37PM +0100, Tobias Heider wrote:
-> > Resending because the previous mail ended up being HTML (sorry)
-> >
-> > On Thu, Mar 19, 2026 at 6:39=E2=80=AFAM Manivannan Sadhasivam <mani@ker=
-nel.org> wrote:
-> > >
-> > > On Wed, Mar 18, 2026 at 09:42:56PM -0500, Bjorn Andersson wrote:
-> > > > On Mon, Mar 16, 2026 at 08:50:12AM +0530, Manivannan Sadhasivam wro=
-te:
-> > > > > On Sun, Mar 15, 2026 at 09:53:33PM -0500, Bjorn Andersson wrote:
-> > > > > > On Sat, Mar 14, 2026 at 07:50:50PM +0530, Manivannan Sadhasivam=
- wrote:
-> > > > > > > On Fri, Mar 13, 2026 at 11:45:42AM -0500, Bjorn Helgaas wrote=
-:
-> > > > > > > > On Fri, Mar 13, 2026 at 05:46:18PM +0800, Ziyue Zhang wrote=
-:
-> > > > > > > > > Commit 960609b22be5 ("arm64: dts: qcom: hamoa: Move PHY, =
-PERST, and Wake
-> > > > > > > > > GPIOs to PCIe port nodes and add port Nodes for all PCIe =
-ports") did not
-> > > > > > > > > convert all Hamoa=E2=80=91based platforms to the new meth=
-od of defining PERST and
-> > > > > > > > > Wake GPIOs in the PCIe root port nodes.
-> > > > > > > > >
-> > > > > > > > > Without the change PCIe probe will fail. The probe failur=
-e happens because
-> > > > > > > > > the PHY stays in the controller node while the PERST/Wake=
- GPIOs were moved
-> > > > > > > > > to the port nodes.
-> > > > > > > > >
-> > > > > > > > > This fixes probe failures seen on the following platforms=
-:
-> > > > > > > > >  - x1-hp-omnibook-x14
-> > > > > > > > >  - x1-microsoft-denali
-> > > > > > > > >  - x1e80100-lenovo-yoga-slim7x
-> > > > > > > > >  - x1e80100-medion-sprchrgd-14-s1
-> > > > > > > > >  - x1p42100-lenovo-thinkbook-16
-> > > > > > > > >  - x1-asus-zenbook-a14
-> > > > > > > > >  - x1-crd
-> > > > > > > > >  - x1-dell-thena
-> > > > > > > > >
-> > > > > > > > > Fixes: 960609b22be5 ("arm64: dts: qcom: hamoa: Move PHY, =
-PERST, and Wake GPIOs to PCIe port nodes and add port Nodes for all PCIe po=
-rts")
-> > > > > > > >
-> > > > > > > > Are you saying that DTs in the field broke because of some =
-kernel
-> > > > > > > > change?  That's not supposed to happen.  Even though PHY, P=
-ERST, and
-> > > > > > > > Wake GPIOs should be described in Root Port nodes instead o=
-f the Root
-> > > > > > > > Complex node in *future* DTs, the kernel is still supposed =
-to accept
-> > > > > > > > the old style with them described in the Root Complex node.
-> > > > > > > >
-> > > > > > >
-> > > > > > > This is not related to the driver change. The driver correctl=
-y parses all Root
-> > > > > > > Port properties either in the Root Complex node (old binding)=
- or Root Port node
-> > > > > > > (new binding). But commit 960609b22be5, left converting menti=
-oned board DTS to
-> > > > > > > the new binding, leaving those affected platforms in a half b=
-aked state i.e.,
-> > > > > > > some properties in RC node and some in Root Port node. Driver=
- cannot parse such
-> > > > > > > combinations, so it fails correctly so.
-> > > > > > >
-> > > > > >
-> > > > > > Are you saying that above listed machines has broken PCIe suppo=
-rt in
-> > > > > > v7.0-rc?
-> > > > > >
-> > > > >
-> > > > > I haven't verified it, but I'm pretty sure PCIe is broken on thes=
-e platforms.
-> > > > >
-> > > >
-> > > > In line with Bjorn's request, we shouldn't have to guess.
-> > > >
-> > > > > > It seems this is a (partial) revert of 960609b22be5, is this ac=
-tually
-> > > > > > fixing that change, or is it only applicable once some other ch=
-anges are
-> > > > > > applied?
-> > > > > >
-> > > > >
-> > > > > This change is fixing the issue in the respective board DTS and i=
-s a standalone
-> > > > > fix on top of v7.0-rc1.
-> > > > >
-> > > >
-> > > > So 960609b22be5 was broken when I merged it?
-> > > >
-> > >
-> > > Broken on the machines mentioned in the commit message, not for all H=
-amoa
-> > > platforms.
-> > >
-> > > > The commit message says that the commit was incomplete, in that it
-> > > > didn't fully convert from the old to the new style, so it sounds li=
-ke
-> > > > the offending commit was incomplete - but I believe the offending c=
-ommit
-> > > > was a workaround for the new solution not being in place and this c=
-ommit
-> > > > mostly reverts the changes in the offending commit.
-> > > >
-> > >
-> > > So 960609b22be5 was supposed to move all the platforms from old PCIe =
-binding to
-> > > new for greater good, but it apparently decided to do so only for a s=
-ubset of
-> > > the platforms for some reason which  don't know. But the problem aris=
-es due to
-> > > 960609b22be5 changing the hamoa.dtsi to the new binding which also wa=
-rrants the
-> > > platform DTS to also be changed to the new binding. If we only have e=
-ither dtsi
-> > > or dts converted and not both to the new binding, the driver will get=
- confused
-> > > and fail. And this is what exactly happended for below machines:
-> > >
-> > >  - x1-hp-omnibook-x14
-> > >  - x1-microsoft-denali
-> > >  - x1e80100-lenovo-yoga-slim7x
-> > >  - x1e80100-medion-sprchrgd-14-s1
-> > >  - x1p42100-lenovo-thinkbook-16
-> > >  - x1-asus-zenbook-a14
-> > >  - x1-crd
-> > >  - x1-dell-thena
-> >
-> > I can confirm the breakage for (some of) the listed devices on Ubuntu.
-> > We are experimenting with 7.0-rcs ahead of our 26.04 release.
-> >
-> > I'll try to collect some test feedback for the fix.
-> > I'd certainly appreciate this being included as an rc fix since
-> > currently half of
-> > the x1 laptop devices are broken.
-> >
->
-> Thanks for the report. We will try to get this patch into v7.0-rcS.
->
-> It'd be appreciated if you can test this patch and give your tested-by ta=
-g.
->
-> - Mani
+This patch series introduces support for the AAEON SRG-IMX8P embedded
+controller (MCU). The MCU is connected via I2C and provides GPIO and
+watchdog functionality for the SRG-IMX8P board.
 
-Thank you!
+The series includes:
+- Device tree binding for the MFD driver
+- MFD driver that serves as the core driver for the MCU
+- GPIO driver implementing the GPIO functionality
+- Watchdog driver for system monitoring
+- MAINTAINERS entry for the new drivers
 
-Tested it myself and I have rolled this out to my ubuntu-concept testing re=
-po.
-I have tested the CRD and got user feedback that it works on at least an
-Omnibook (where we first saw the regression without the patch) and Lenovo Y=
-oga.
-Potentially more but not everyone provides feedback when things don't break=
-.
+The drivers follow the standard Linux kernel subsystem patterns, with
+the MFD driver registering the sub-devices (GPIO and watchdog) which
+are then handled by their respective subsystem drivers.
 
-Tested-by: Tobias Heider <tobias.heider@canonical.com>
+Signed-off-by: Thomas Perrot (Schneider Electric) <thomas.perrot@bootlin.com>
+---
+Changes in v4:
+- mfd: switch to a custom regmap bus; remove aaeon_mcu_i2c_xfer() and the aaeon_mcu_dev struct
+- mfd: locking delegated to regmap's built-in mutex; drop explicit mutex
+- mfd: remove firmware version reading at probe time
+- gpio, watchdog: use regmap_read()/regmap_write() via dev_get_regmap()
+- include: replace aaeon_mcu_i2c_xfer() declaration with AAEON_MCU_REG() macro
+- dt-bindings: remove unused label from example node
+- Link to v3: https://lore.kernel.org/r/20260203-dev-b4-aaeon-mcu-driver-v3-0-0a19432076ac@bootlin.com
 
->
-> --
-> =E0=AE=AE=E0=AE=A3=E0=AE=BF=E0=AE=B5=E0=AE=A3=E0=AF=8D=E0=AE=A3=E0=AE=A9=
-=E0=AF=8D =E0=AE=9A=E0=AE=A4=E0=AE=BE=E0=AE=9A=E0=AE=BF=E0=AE=B5=E0=AE=AE=
-=E0=AF=8D
+Changes in v3:
+- Renamed SRG-IMX8PL to SRG-IMX8P
+- dt-bindings: add gpio-controller properties as required
+- mfd: move struct aaeon_mcu_dev from header to .c file (private)
+- mfd: use guard(mutex) and devm_mutex_init() for cleanup
+- mfd: firmware version log changed to dev_dbg()
+- mfd: add select MFD_CORE to Kconfig
+- Kconfig: add || COMPILE_TEST to all three drivers
+- watchdog: add comments explaining hardware timeout and WDOG_HW_RUNNING
+- watchdog: remove unused platform_set_drvdata()
+- watchdog: add a function to query the status
+- Link to v2: https://lore.kernel.org/r/20260123-dev-b4-aaeon-mcu-driver-v2-0-9f4c00bfb5cb@bootlin.com
+
+Changes in v2:
+- Fold GPIO and watchdog bindings into MFD binding
+- Drop OF_GPIO dependency in GPIO Kconfig
+- Use __set_bit/__clear_bit/__assign_bit instead of atomic variants
+- Various driver cleanups and improvements
+- Link to v1: https://lore.kernel.org/r/20251212-dev-b4-aaeon-mcu-driver-v1-0-6bd65bc8ef12@bootlin.com
+
+---
+Thomas Perrot (Schneider Electric) (5):
+      dt-bindings: vendor-prefixes: Add AAEON vendor prefix
+      dt-bindings: mfd: Add AAEON embedded controller
+      mfd: aaeon: Add SRG-IMX8P MCU driver
+      gpio: aaeon: Add GPIO driver for SRG-IMX8P MCU
+      watchdog: aaeon: Add watchdog driver for SRG-IMX8P MCU
+
+ .../bindings/mfd/aaeon,srg-imx8p-mcu.yaml          |  67 +++++++
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ MAINTAINERS                                        |  10 +
+ drivers/gpio/Kconfig                               |  10 +
+ drivers/gpio/Makefile                              |   1 +
+ drivers/gpio/gpio-aaeon-mcu.c                      | 221 +++++++++++++++++++++
+ drivers/mfd/Kconfig                                |  10 +
+ drivers/mfd/Makefile                               |   1 +
+ drivers/mfd/aaeon-mcu.c                            | 155 +++++++++++++++
+ drivers/watchdog/Kconfig                           |  10 +
+ drivers/watchdog/Makefile                          |   1 +
+ drivers/watchdog/aaeon_mcu_wdt.c                   | 134 +++++++++++++
+ include/linux/mfd/aaeon-mcu.h                      |  20 ++
+ 13 files changed, 642 insertions(+)
+---
+base-commit: d358e5254674b70f34c847715ca509e46eb81e6f
+change-id: 20251211-dev-b4-aaeon-mcu-driver-e0e89ebf4afb
+
+Best regards,
+-- 
+Thomas Perrot (Schneider Electric) <thomas.perrot@bootlin.com>
+
