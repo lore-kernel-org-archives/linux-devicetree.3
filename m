@@ -1,262 +1,101 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777CF3E2775;
-	Tue, 24 Mar 2026 10:32:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B1835A939;
+	Tue, 24 Mar 2026 10:32:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774348347; cv=none; b=gStQhRdfoKkH0OndmvgFPQ/F0Z5aitiDJ7ni68JEe++wOsZzDQEXIhNKlJ/NA/95uCmhm/3p/gT6LQpdCN+XoUZqIs6MIRelVbS1SAna1brVBL4Bh3tIsEU8qibpXK2RoDBbdR8u/qpucFdIU3rTYMQBqoL7QpKrE5H/U8Td4jA=
+	t=1774348348; cv=none; b=Fh/+/LRRZyY0uyjZMRsd7hPqb8/xiHAgcFNcU3fkaMQjP8fQtH1a3NwF3nh5LDUPSfvd4EDBp2Ho1r0FCF3Kn1J72IZQ4irgf+eTIi5vdOWgqbALlGbh/DzqI719HgNvdoo/RTVC7Ic7cmf6r9K3uzSDgEdyzKvVJkTqaTdiZIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774348347; c=relaxed/simple;
-	bh=CQHCAdf8uGas0cg4BwmpR1JPY+A4fttrJqzJLDbVt2Q=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QjOTekV7GuI8HCI2+witYKcEw1Qn712yCSGV26NuymcagyU9nQo5xHS6q4wwETJLdPUIvScyClKmppDb+hkBhOfWdXteNDEueRR15PxtDg2tU9C0VepvzCuwlPkWm1J0lPOF9bvx6p59NQr7lNIPtGRfU2WUyQNlaor8LVRebXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=BB0UKNIZ; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1774348348; c=relaxed/simple;
+	bh=cBMy2jntN4+WFTlsXOtKbCH9nTqkJNcSbULyZ4d4mgs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rA9O4Xaw3i/mE+DA6NXBqG5c/AhIqilUL+hF6GvC5zxJR0K6S9O++dcNy2YAmkWr+qbtXPgKoyEX6hmP1CFK04jA4DhnYR9+rc0gsC5REhQ3jTDqTM6ExEdcgZ7Kh8XtB9RKNVM+rMO4jMAob098B7ng1zezuujGC6/pTUpGXbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kVSYXlCp; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="BB0UKNIZ"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kVSYXlCp"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1774348344; x=1805884344;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=CQHCAdf8uGas0cg4BwmpR1JPY+A4fttrJqzJLDbVt2Q=;
-  b=BB0UKNIZtHA1XS+xxNDJJhAuMCl4BwYoEi5J9OMSkYz7ioi0HwpO6mYB
-   MWADRB6hd/0B6MOUbqOGTXkTmbEY43vFjO+ZJ3cMb066D+XQAsIhgtgLG
-   cu1ttU0ec4pBPVCbjFCnh+tN924x7scgv27soXQisUcsgYRr1mnruBLKX
-   C3F6+KQ4kcLGfBWGNhSnVqa7bQmzxBGIeZtc/gAbMsnYFFA/8o/xWhukO
-   5YnxeEeGC/RIdqh9hn2uma5gdGrpoqOd++czRdxcvz0g1TzBW8zilDi2u
-   ts/ettvvSKgnrDvjgFqI0nAgRkyjq3e5juVRMBKpNRYdd92OcX6F9OQ1+
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774348347; x=1805884347;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=cBMy2jntN4+WFTlsXOtKbCH9nTqkJNcSbULyZ4d4mgs=;
+  b=kVSYXlCpD45P7O/wYGKLhzWEc/AvoYPvP7ITZKVE1N7BreuBX+H9AnEd
+   l9Qddg3Y0/8emYN/H+ZsdTz+LOF3TyLrNu9jhFTLfh+fA7D8agFxBKaIF
+   fKRL8LjFoPqGezbIHD23rZcv3qDldeE5uAk6wQ1H59aeycJ+/nGG8AYyZ
+   afHHmD8NW9hf7U4X2320myjO5kJBenIKwa3cYo0zVC+IcV3M4tpVsUleS
+   7ZShmTJ6zMHJZhO7pHv0P1gb7aLreXUbrVsKu63FMryPs/C+Tm2Skl/vF
+   QgwtKzPpHM2Xz6dB6Xma26GRfTXAylZV9vHQzG6BhMl54Yao/dr7mt/Lt
    g==;
-X-CSE-ConnectionGUID: YrPlzgaYSq6M6LEpxvgZJQ==
-X-CSE-MsgGUID: d4z2A1QwQwqOtTFvX9alyQ==
-X-IronPort-AV: E=Sophos;i="6.23,138,1770620400"; 
-   d="scan'208";a="62812046"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 24 Mar 2026 03:32:23 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 24 Mar 2026 03:31:51 -0700
-Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 24 Mar 2026 03:31:48 -0700
-Message-ID: <a0947e239b006cf7c2a3e64057bd2fcd6edb836e.camel@microchip.com>
-Subject: Re: [PATCH net-next 2/8] dt-bindings: net: lan9645x: add LAN9645X
- switch bindings
-From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-To: Christian Marangi <ansuelsmth@gmail.com>, Conor Dooley <conor@kernel.org>
-CC: Andrew Lunn <andrew@lunn.ch>, <UNGLinuxDriver@microchip.com>, "Vladimir
- Oltean" <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, "Paolo
- Abeni" <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Woojung Huh <woojung.huh@microchip.com>, "Russell
- King" <linux@armlinux.org.uk>, Steen Hegelund <Steen.Hegelund@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>, <linux-kernel@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>
-Date: Tue, 24 Mar 2026 11:31:47 +0100
-In-Reply-To: <69bae055.050a0220.3719be.bf31@mx.google.com>
-References: <20260303-dsa_lan9645x_switch_driver_base-v1-2-bff8ca1396f5@microchip.com>
-	 <4088b0ff-b718-4137-8518-4c9b9764d56d@lunn.ch>
-	 <20260303-mosaic-debate-90cf8c8bbb33@spud>
-	 <1db45715a3a12b76b838d20c0e5904c3222053e7.camel@microchip.com>
-	 <20260305-reliant-parchment-0ff685a9c78e@spud>
-	 <7b62ace495084794336b19a9685d6b14ea3981a0.camel@microchip.com>
-	 <20260306-pointless-purr-210540d4dc64@spud>
-	 <207c7a47e0802dd4c34ba90f2532dc2e0c3f7f05.camel@microchip.com>
-	 <20260318-visiting-tanning-7d1d6acff081@spud>
-	 <20260318-placidly-domain-3ea82d265517@spud>
-	 <69bae055.050a0220.3719be.bf31@mx.google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+X-CSE-ConnectionGUID: FZgeTqWPR3yXOK9fd/PxfA==
+X-CSE-MsgGUID: VFBlS4RVTlm+qRSaLbCwnw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11738"; a="86830646"
+X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; 
+   d="scan'208";a="86830646"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Mar 2026 03:32:27 -0700
+X-CSE-ConnectionGUID: wbtuKc/pT+u0cSdcRKdB4Q==
+X-CSE-MsgGUID: fbeBybCbSlS0NfgvltduVA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; 
+   d="scan'208";a="228373965"
+Received: from egrumbac-mobl6.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.180])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Mar 2026 03:32:24 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id C410F121CFF;
+	Tue, 24 Mar 2026 12:32:25 +0200 (EET)
+Date: Tue, 24 Mar 2026 12:32:25 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Matthias Fend <matthias.fend@emfend.at>
+Cc: Jimmy Su <jimmy.su@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	bsp-development.geo@leica-geosystems.com
+Subject: Re: [PATCH v2 8/9] media: i2c: ov08d10: add support for reset and
+ power management
+Message-ID: <acJoOZjTCQMQTbv7@kekkonen.localdomain>
+References: <20260309-ov08d10-v2-0-81f8b5d99984@emfend.at>
+ <20260309-ov08d10-v2-8-81f8b5d99984@emfend.at>
+ <abkUy5U-cwK-6_kz@kekkonen.localdomain>
+ <47cee08f-4500-48ee-aea6-afba5a611211@emfend.at>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <47cee08f-4500-48ee-aea6-afba5a611211@emfend.at>
 
-On Wed, 2026-03-18 at 18:26 +0100, Christian Marangi wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
-e content is safe
->=20
-> On Wed, Mar 18, 2026 at 05:20:03PM +0000, Conor Dooley wrote:
-> > On Wed, Mar 18, 2026 at 05:18:42PM +0000, Conor Dooley wrote:
-> > > Christian,
-> > >=20
-> > > On Wed, Mar 18, 2026 at 03:19:20PM +0100, Jens Emil Schulz Ostergaard=
- wrote:
-> > > > Hi Conor,
-> > > >=20
-> > > > On Fri, 2026-03-06 at 15:20 +0000, Conor Dooley wrote:
-> > > > > On Fri, Mar 06, 2026 at 04:08:01PM +0100, Jens Emil Schulz Osterg=
-aard wrote:
-> > > > > > On Thu, 2026-03-05 at 18:31 +0000, Conor Dooley wrote:
-> > > > > > > On Thu, Mar 05, 2026 at 01:57:37PM +0100, Jens Emil Schulz Os=
-tergaard wrote:
-> > > > > > > > On Tue, 2026-03-03 at 19:04 +0000, Conor Dooley wrote:
-> > > > > > > > > On Tue, Mar 03, 2026 at 03:18:45PM +0100, Andrew Lunn wro=
-te:
-> > > > > > > > > > > +        properties:
-> > > > > > > > > > > +          microchip,led-drive-mode:
-> > > > > > > > > > > +            $ref: /schemas/types.yaml#/definitions/u=
-int32
-> > > > > > > > > > > +            description: |
-> > > > > > > > > > > +              Set the LED drive mode for the copper =
-PHY associated with
-> > > > > > > > > > > +              this port.
-> > > > > > > > > > > +
-> > > > > > > > > > > +                0 - LED1 and LED2 in open-drain mode
-> > > > > > > > > > > +                1 - LED1 in active drive mode (can b=
-e used for single-LED
-> > > > > > > > > > > +                    configurations requiring active =
-drive)
-> > > > > > > > > > > +                2 - Reserved
-> > > > > > > > > > > +                3 - LED1 and LED2 in active drive mo=
-de
-> > > > > > > > > > > +            minimum: 0
-> > > > > > > > > > > +            maximum: 3
-> > > > > > > > > >=20
-> > > > > > > > > > I doubt the DT Maintainers will accept that. This looks=
- a lot like a
-> > > > > > > > > > value you write into a register. How are active drive a=
-nd open-drain
-> > > > > > > > > > described in other DT bindings? Is there something you =
-can reuse?
-> > > > > > > > >=20
-> > > > > > > > > I had a quick look and I didn't see anything really that =
-stood out to me
-> > > > > > > > > that would be a drop-in replacement.
-> > > > > > > > > I also tried looking in the datasheet for more informatio=
-n on these
-> > > > > > > > > modes, but I couldn't see anything obvious. For example, =
-there were zero
-> > > > > > > > > hits for "drain" in either LAN9645xS or LAN9645xF datashe=
-ets.
-> > > > > > > > >=20
-> > > > > > > > > That said, yea you're right about DT maintainer feelings =
-about it.
-> > > > > > > > > There's a couple things I could suggest, but I'd like to =
-know about what
-> > > > > > > > > mode 1 means for LED2 first. If there's actually nothing =
-similar, what
-> > > > > > > > > about representing each led with a child node and having =
-open-drain be
-> > > > > > > > > the default with a property in the child for active-drive=
-?
-> > > > > > > > >=20
-> > > > > > > > > >=20
-> > > > > > > > > > For 1, what happens to LED2? Not used at all?
-> > > > > > > >=20
-> > > > > > > > In mode 1 LED2 will be open-drain. This mode only makes sen=
-se if you have
-> > > > > > > > just 1 LED. With two LEDs mode 0 or mode 3 should be used.
-> > > > > > >=20
-> > > > > > > Could we then have child nodes for each led, and have a prope=
-rty in each
-> > > > > > > that sets the mode to either open-drain or active-drive? Or a=
-m I just
-> > > > > > > inserting complexity by asking for that?
-> > > > > >=20
-> > > > > > I think it sounds sensible, I will add this.
-> > > > >=20
-> > > > >=20
-> > > > > You don't need a property for each, just make one mode the defaul=
-t (prob
-> > > > > open-drain given it's the 0 setting, but whatever is default out =
-of
-> > > > > reset for the part) and have the property for the other mode. Jus=
-t
-> > > > > some bool property like "microchip,active-drive" or whatever.
-> > > >=20
-> > > >=20
-> > > > Based on your feedback I went with this under port properties:
-> > > >=20
-> > > >           leds:
-> > > >             patternProperties:
-> > > >               '^led@[a-f0-9]+$':
-> > > >                 $ref: /schemas/leds/common.yaml#
-> > > >=20
-> > > >                 properties:
-> > > >                   reg:
-> > > >                     maxItems: 1
-> > > >=20
-> > > >                   microchip,active-drive:
-> > > >                     type: boolean
-> > > >                     description:
-> > > >                       Set the LED output to active drive mode. The =
-default
-> > > >                       is open-drain.
-> > > >=20
-> > > >                 required:
-> > > >                   - reg
-> > > >=20
-> > > >                 unevaluatedProperties: false
-> > > >=20
-> > > > and then the example has
-> > > >=20
-> > > >           port@1 {
-> > > >             reg =3D <1>;
-> > > >             phy-mode =3D "gmii";
-> > > >             phy-handle =3D <&cuphy1>;
-> > > >=20
-> > > >             leds {
-> > > >               #address-cells =3D <1>;
-> > > >               #size-cells =3D <0>;
-> > > >=20
-> > > >               led@0 {
-> > > >                 reg =3D <0>;
-> > > >                 microchip,active-drive;
-> > > >               };
-> > > >=20
-> > > >               led@1 {
-> > > >                 reg =3D <1>;
-> > > >                 microchip,active-drive;
-> > > >               };
-> > > >             };
-> > > >           }
-> > > >=20
-> > > > However, this does not pass dt_binding_check because we pull in $re=
-f: dsa-port.yaml,
-> > > > which pulls in ethernet-controller.yaml.
-> > > >=20
-> > > > I believe the 'unevaluatedProperties: false' on LED nodes in ethern=
-et-controller.yaml
-> > > > prevents downstream bindings from adding vendor-specific LED proper=
-ties.
-> > > >=20
-> > > > Is the right move removing unevaluatedProperties: false from the LE=
-D node in
-> > > > ethernet-controller.yaml, or is there a preferred way to extend per=
--port LEDs?
-> > >=20
-> > > The addition looks recent enough, should probably ask Christian why i=
-t
-> > > was done this way and if removing it makes sense. Christian?
-> > >=20
-> >=20
-> > Ah shit, I autopiloted into sending. Actually +CC Christian this time.
->=20
-> Hi, give me some time to experiment... AFAIK with my limited info on DT,
->=20
-> unevaluatedProperties permits to add vendor property as long as they are
-> well defined. If the dt_binding_check is failing, then it's probably
-> because unevaluatedProperties is finding that in the expected LED node
-> there is extra stuff in the SCHEMA example.
->=20
-> But give me some time to experiment with some other SCHEMA.
->=20
-> --
->         Ansuel
+Hi Mathias,
 
+On Tue, Mar 24, 2026 at 09:12:40AM +0100, Matthias Fend wrote:
+> > > @@ -1403,12 +1467,32 @@ static int ov08d10_probe(struct i2c_client *client)
+> > >   		return ret;
+> > >   	}
+> > > +	ov08d10->reset = devm_reset_control_get_optional_exclusive(ov08d10->dev, NULL);
+> > > +	if (IS_ERR(ov08d10->reset))
+> > > +		return dev_err_probe(ov08d10->dev, PTR_ERR(ov08d10->reset),
+> > > +				     "failed to get reset\n");
+> > > +	reset_control_assert(ov08d10->reset);
+> > > +
+> > > +	for (i = 0; i < ARRAY_SIZE(ov08d10_supply_names); i++)
+> > 
+> > You can declare i here.
+> 
+> Right. But since the variable will also be needed in other places in the
+> next commit, it would have to be moved again. Therefore, in the end, might
+> it be simpler to leave it where it is?
 
-Hi, I will just remove the LED handling from this series, and handle it in =
-a
-different series, once this is settled.
+Ack, sounds good.
 
-Thanks,
-Emil
+-- 
+Sakari Ailus
