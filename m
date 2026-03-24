@@ -1,140 +1,227 @@
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A0E39E198
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 17:29:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C224D256C70
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 17:29:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774373361; cv=none; b=E3bwSh4KESKuBPT2qRBxp/lU5HaDePpJWq1KVVci5xVkUp2WOAHH5eOUNS6hqoAkfcU7o0F7nETy1VQPh80UBiHR8Tw7VahZxrZzbel0QA9lXwZ+5wIe6VAKEUMJ0X4zeMc/1OYtz0Muk4AZz5gYeoKnaL4RJVh8oozn4Sja/lY=
+	t=1774373362; cv=none; b=Y1QS96Y+oXohMhcABIqsZVDM/M159TgNLbCvhSfdABNKxaQo427Co3ci3EbQNlEVsKrLahvRbDlHREnHAnQzZ08rnE8If3ZDHVtoVeSedSHskTq1dmtvdhejK8dLlKxtFqTrgg9ofzo4B1LxO0FIr1N9jeuxyXGVBsLyC/tUdmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774373361; c=relaxed/simple;
-	bh=+ZEbCLyLoc1U+1Me6J7mvrYpkghwfgGTcKlIxBiMGjA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d4efbUh6xyAyndu9TuoZ0mmOAXvWv4yZnAfykJjzmaDtGLftjHH/LyQGdLNsAuFNhxSjwhH9X5VVXftrDU0fSnZLAcA0g29S2xTCpjMJeeeUAwHjl/7s74xIZ6MBrYn75X3+hIHLVDc7SgFhb22XowGYuikk0MBl+FOFwebBaAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b=gig/XURb; arc=none smtp.client-ip=209.85.210.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1774373362; c=relaxed/simple;
+	bh=33pziwi4jiwyo2aD6r+dgYzSAgPzR2G6201qgIaiz9U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=cANbxY8pSngd+22vUewmwoQKFA872nZf7O4ZPRnsaOB4usgG3h60dbcDFxsTVZugCdPsqn+Nitx9paD9N+FnAURpBWVB+QSVHOJTDVUaK1nHDSq36+bg26s2gnSfuOZX2FAquFSzy8FBzj4g2sVV43+fGlMTr8zBvLnpwx05bpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Hj+G82HV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BaTYAQr8; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b="gig/XURb"
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7d91f82d819so1301238a34.1
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Hj+G82HV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BaTYAQr8"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62OGArvQ3904165
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 17:29:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=jxeKi/NMp18lwJKsUPomUd
+	R+qJSGzqgYHm99XeU31Xk=; b=Hj+G82HV/yit5B3AMThvRsqR7dJdefT3g26vnB
+	GsfKuCPmZKQ3vJe1ZAR7gA114WvOZ+Ntr9yt/TRchLUdmQUUufw/hXaLPl0x5M1G
+	a7/YJoNDJv/rMfmDx551DmPn13UYCe+TdakwspOJzx+9neIxlRxFALjMuArxOFZs
+	gKZSiPqRA+aFWPikU80/Udk6yFzjbqwoaD1AGHZK2BAElhQ8xS8HNTQBZVkIe9DA
+	UcVaCr/r4efYzrFoCEX1E93GADAWBYMhiQPL8iDXO3BYzitwhi3big6lCRrAmmUA
+	cn2VrJyMASgCsyAKrgJijys1XTshaJPofRASVbeE6+0+b05Q==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d3jt0k40p-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 17:29:19 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-2c0f6593ef5so4006883eec.1
         for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 10:29:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1774373359; x=1774978159; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=zhy7rQIQOTUlhyX3h0JAVHxGs6BVrDyegAUb4sJpE/k=;
-        b=gig/XURbyRAsg/bb8Zyf7Wtsozf4/11Hsf/+ggaOK+YgLbT67Cgf0Db1awJU/+Nosa
-         NFnyeuDEzCyqBlTO9kq/2Zm0h/XIAzB3jmS7VmtmE9iYRYTBA1B2aCSJ8YBxW60FTHUk
-         YvpRfuoRQ4pWbOrOIl26SNA+BjfJXqTbcVSPoyU+CgbCPo9w7VTGlz1BMsYjek0wQebr
-         GYt5OO8fjV+1aUksClRqTPZ11kqtuBlFkjQVtsjLVoDZw2hNI0TTqyGBwn/HuI0mqZbs
-         LjnoL7LyXLJGuJT9IWUvd0PWDLSmaDrhQPmSt7boBFzZb3XFrnmvehylwKOeV9r1axAP
-         pWBQ==
+        d=oss.qualcomm.com; s=google; t=1774373359; x=1774978159; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=jxeKi/NMp18lwJKsUPomUdR+qJSGzqgYHm99XeU31Xk=;
+        b=BaTYAQr83MOxuIkpXqo4VRKLupWe2nXg1+FCh3cXJhvYHD/u1d66lSYHsSw1+zmKUl
+         Fyz0BuHRN/hSWt/iwVaWWgQRInONM/1meABL9DdmaU3xKeOy1REBloTaCOPpe5SHqbjo
+         0lFyGdeTuEV42sLDHgX7jUbtjKDfHbH9ME+UqwCehdNR88XZ9AQRS95OX0hYOgZWCsHo
+         YuadxfZ+h6XWg+jk0UkPyayvpqcoEO7gzOfOHj7+525zrCTmS68bTFornmqPHnQNUj/Z
+         HogcYefUC+wwNyogllqxyNuI0bLd+6T1BxN03btA8FBigEPE7A3SHCPyLTXWGkp4cD8y
+         qJTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1774373359; x=1774978159;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=zhy7rQIQOTUlhyX3h0JAVHxGs6BVrDyegAUb4sJpE/k=;
-        b=q/bBuuoTnP2rclEDUe6YAoK+vhRfVAvpjeK61kY4gMjFvRkQAVR2XP+UP1fPzvnOFS
-         aKpAUtoS4cQ7qv0qvgB6ioPg1ierbHaU0s8EtcnnBdz4a+anvUEJUjfiAuFdht/DrOLE
-         s6ZqwnrmBIk8V5KJItC9IBiH50gflrjhl9/MAnq0383LElqmZ3ekApRpnhznIauV8bq/
-         xFPrsUQWRkcw5IMqYIaa/88sfUoy8itka97UHWe+Lg6BsbxGLb1NZYrcJX0Ov9e++DEw
-         Z//pn3O+op3luMDL7GaC49d/qRIflKPdUHErcYxpfG50BnQneITqOjNp5fVViEJ6EKOa
-         tdVA==
-X-Forwarded-Encrypted: i=1; AJvYcCW+9fSXeLvDv4sX202Ybol2fu+1o1dxjCtvMR8y5bDAZpOeD0OEnO5ALZwVG4eMVFE0tUY0Oosjxjg5@vger.kernel.org
-X-Gm-Message-State: AOJu0YzJif5q8SJY2+WBDQh5+/YbtUMmH4QvVDwZ3qgXuEtfjXnBBkS3
-	sbZnIGu3xzA4WEkHnpOLLVEqW8wu8+vuuwN33m81KyvgSPh7kQgpN8flwwLxLUtgnfk=
-X-Gm-Gg: ATEYQzydmOgxXbtcO6fmLTKTuBBQgOes8ng6Cs+8t+tcJOKvfEyQrfAtRa61gDpUnoD
-	QP3ussTJa+rfDiTUeXU0IEKkq30RT/OnsHGr+AOEq6IVAFS5btzm3FVT2YfluO9h1iEdpi6WNB3
-	zDXOz07g6XUHw2mNciFut6tLGNpoXZmDucQr9r6C+QFxhMnv3X8vWQi3IjBtPaVndFn4aypQ2Ne
-	lzojveVhno5cnKTbFRaIO7apJv3X35HQ4oQOyGZJ3VqfHcnZocCF/r/dph1u9ZW2p17uiDFI0k6
-	bAZXZx00+g8iEK6p9zIn/8LXwTmgbwJR9lSk5MoacNeOrJz1NbWA3ohhBwlluwmF8aBKLrIHALf
-	aEU3IvSc7kE6ZPVWb/fBR7/lhVzqkKOj7SNyhQolCZrWpiXhFvdkDnZEWvsIbIVx1oKHfYbaL+o
-	uUjJJ1HZcab8RTHORofLn66fSu+HZg6hhcfCHN1wpHCkZRv+LEhbziHW7RYUSQkad3pE6emp4=
-X-Received: by 2002:a05:6820:985:b0:67b:bc25:2670 with SMTP id 006d021491bc7-67dff42078dmr407150eaf.26.1774373358893;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jxeKi/NMp18lwJKsUPomUdR+qJSGzqgYHm99XeU31Xk=;
+        b=eJ+QUOFrhq5ETjANbn/jJW6YfJNoI4ktUg8YJB1fVOaHRkGt3R3ECr+TXjONprVgDN
+         EzHDTrVq8vd8/gd8g61aPBAbl3zjAnEEE4sTmNW35YLeZzVVKQ+6ZLv16BhbmQMokNE+
+         aNROGAAeLLDXzoHbQ/zo7wG9gAnv0Lw7+uMTnHl2hPDz7FL/ot4Xeg28w6masUSdhIgo
+         9+tGsJcJSnvosQXGqXV4fij8Lbw72Rv36G8q+7vaJGBopFafMOMOAqhJr6eluaIJgc0M
+         TMJd+XHxmpKbGnCjlVYydiSAOKIeVhF0RA4le1FrmGVYdxwJe2p1CY6zDa+h72h90W74
+         ckMw==
+X-Gm-Message-State: AOJu0YzDm3GCD+0zkbQpesciX2Eq8ID/+fuEZOvqmS6wtoRcD39nur6f
+	QYrgFm6YGBN0Rj4JxHoNnMV5bSU/0idgOvSXULvI23MS0akoa2tifAN91tBqVH0wVQf4n40cMs2
+	p71a61XjBtEfaiSKkrFk/KCBa0li0kwwQjc4ChDwEKVpmShDyKBRASJLtSVxwXL9P
+X-Gm-Gg: ATEYQzzraFBHW66VcFw76WJd+LbLk3nEpn4izYweLVm2PWyIGFzWXrIOVTxjdIcNoZ2
+	7rPWjz91Hhf5KcnEXWOFY/U17c2VVL0EV0f8ldIyns7En3WPhsujvpqd0fSEends+VRxv+gYfqY
+	ub02+Np3PMdy0RNjloaZNhS+R6CTQkJ8USpWFTvfg+hHa9Epsilh8HodfLBaQ19TBuRKPrJmi3J
+	k8hw/Bok47yjxiW0fafMJwcJ6BfOXFPghv2Nlydd8xZKPslTcBY3ZfQnOOSNDXzHo0BlKbuOAw1
+	IpWUpYofQ8nvy6psynjKpATWnMmm0P/1iUY+be4RjhopnlZE+i8BIyVOzXu4UXTOy/2Gl4nrhXy
+	xyGFW/JJNO89TX/dhaSHj9IMgE8mhWuyFqB2vu499+pq1/505w+mdggofB7xuaVdf7i5oY4KVL0
+	8=
+X-Received: by 2002:a05:7301:1e8f:b0:2b7:24ad:5c54 with SMTP id 5a478bee46e88-2c15d27fd6emr115319eec.9.1774373358507;
         Tue, 24 Mar 2026 10:29:18 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:8a85:a776:3f75:a1d? ([2600:8803:e7e4:500:8a85:a776:3f75:a1d])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-41c148a5f99sm14342917fac.2.2026.03.24.10.29.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Mar 2026 10:29:18 -0700 (PDT)
-Message-ID: <c1d99a64-ea4e-4cd5-9b1e-0972a5e0d61c@baylibre.com>
-Date: Tue, 24 Mar 2026 12:29:17 -0500
+X-Received: by 2002:a05:7301:1e8f:b0:2b7:24ad:5c54 with SMTP id 5a478bee46e88-2c15d27fd6emr115300eec.9.1774373357969;
+        Tue, 24 Mar 2026 10:29:17 -0700 (PDT)
+Received: from hu-eserrao-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c10b14caf3sm21275664eec.5.2026.03.24.10.29.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Mar 2026 10:29:17 -0700 (PDT)
+From: Elson Serrao <elson.serrao@oss.qualcomm.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/1] dt-bindings: connector: Add role‑switch provider phandle
+Date: Tue, 24 Mar 2026 10:29:15 -0700
+Message-Id: <20260324172916.804229-1-elson.serrao@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/2] iio: proximity: add driver for ST VL53L1X ToF
- sensor
-To: Sirat <email@sirat.me>, Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-kernel@vger.kernel.org
-References: <20260319190738.151614-1-email@sirat.me>
- <20260319190738.151614-3-email@sirat.me>
- <8502eb51-53c9-4f1b-92d0-21b06fa4802e@baylibre.com>
- <CANn+LWJEJJoGQU7p2P2GrOcA_g2x7jEnvjcTJYG1hDRUnRw3UA@mail.gmail.com>
- <b1da32d2-e1f7-4fea-82a7-a40e8073a100@baylibre.com>
- <20260322110319.7d7558f3@jic23-huawei>
- <CANn+LWJwPUiCkz_godEeBvZnXEXzNmCW_-ou=wHL+kjfn0zF_Q@mail.gmail.com>
- <CANn+LW+OPP2riP1d=zZKz8MnTk2yo2CL3qn17_LYD=1SmCAQgw@mail.gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <CANn+LW+OPP2riP1d=zZKz8MnTk2yo2CL3qn17_LYD=1SmCAQgw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: wlx9oXqerPIIUa7yBFEVBBNNwFc-9fDr
+X-Authority-Analysis: v=2.4 cv=Nc3rFmD4 c=1 sm=1 tr=0 ts=69c2c9ef cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=suRUVlQjLIQ7l_8mqXEA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-GUID: wlx9oXqerPIIUa7yBFEVBBNNwFc-9fDr
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDEzNSBTYWx0ZWRfXyV0MTIUhlZOf
+ Quc22KK3lBOJViYYkSEke07f3Os+f2INeBzBuZh6cOTBDll8TVh6cFhVlybN3Bs58bRVxSintIz
+ cmAaL+MSgee9Jf+QXzLA3RftLzyqpZVDgpWAJ0F9K+zurE5pDjtLN/rDIMHQ94IMbJrPQi/7qLj
+ SEQKzcL+eMlhuW99cQLZyYSZdbpypzHDU3EVbrR8eboqqiZKMRtsdTZ87WEGsF7N3e+tHHOM4/1
+ +6VzXZ48c0ITCc2QB/glLQ/zDes27Ydtz72y8jm/0mAD29cJXqzE/zlexei1ZRLIL8DT1PKzAlj
+ C4zaUSUPxYlw5ObLQkeX74I8OIuNlQkyJTVEl83wH+qdbMLoP+jF1nwWPnGzZ3yVrsnWYOFqI/S
+ eBBsXksCJrjxDSVyC1SbAEQIPneaWJeNbQ39lL0CbZF3WMmRvBEHtao85ZXRQEHkjSeACaVtl70
+ ARwj86PiHU52CkMOz1g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-24_03,2026-03-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 spamscore=0 clxscore=1015 priorityscore=1501
+ bulkscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240135
 
-On 3/24/26 10:17 AM, Sirat wrote:
-> On Sun, Mar 22, 2026 at 7:52 PM Sirat <email@sirat.me> wrote:
->>
->> On Sun, Mar 22, 2026 at 5:03 PM Jonathan Cameron <jic23@kernel.org> wrote:
->>>
->>> On Sat, 21 Mar 2026 19:37:58 -0500
->>> David Lechner <dlechner@baylibre.com> wrote:
->>>
->>>> On 3/21/26 5:39 PM, Sirat wrote:
->>>>> On Sat, Mar 21, 2026 at 11:09 PM David Lechner <dlechner@baylibre.com> wrote:
->>>>>>
->>>>>> On 3/19/26 2:07 PM, Siratul Islam wrote:
->> ...
->>>>
->>>> If you do a buffered read, which stop ranging when it is done,
->>>> then how can the direct read work after that?
->>>>
->>>> Can we just start and stop ranging momentarily for a direct
->>>> read?
->>> If the latency is high, then worth considering whether autosuspend
->>> and runtime pm can help. That way a burst of reads will see low
->>> latency after the first one but we won't be wasting power when
->>> no one cares.
->>>
->>> J
->>>>
->>>> Otherwise, is seems like we would want to have ranging always
->>>> enabled.
->>>>
->> Maybe we should go with continuous ranging then since it's the
->> vendor-intended behaviour.
->> Since there is no hardware single-shot mode, by design, I think the
->> driver should just behave
->> as the hardware intended.
->>>>
->>>
-> Just for the record, I'm dropping postenable, and keeping predisable
-> for only the cleanup.
-> 
-> Thanks,
-> Sirat
+Hi all,
 
-predisable must clean up anything done in postenable. So it doesn't
-make sense to have predisable without a postenable.
+This patch proposes a generic Devicetree mechanism for a USB connector to
+reference the USB role‑switch provider when there is an intermediate,
+block between the connector and the controller in the OF graph.
 
-If there is something unusual going on here, it will need comments
-with a clear explanation of why it still works when it is breaking
-the convention.
+Problem
+=======
+OF‑graph links are strictly point‑to‑point via remote-endpoint, so a
+consumer can only discover its immediate neighbor in the graph. When an
+intermediate node sits between the USB connector and the controller, the
+connector cannot identify the controller (the role‑switch provider) from
+the graph alone.
 
+Example (illustrative only)
+===========================
+On some Qualcomm SoCs, an Embedded USB Debug (EUD) block sits
+electrically between USB‑C connectors and DWC3 controllers. EUD models
+HS wiring only .
+
+Below is a simplified diagram of the hardware paths:
+
+
+				EUD Block
+			   +------------------------------+  
+			   |                              |
+[Conn-0]-->[USB2PHY-0]---->|-------- Path 0 --------------|-->[USBCtrl-0]
+			   |                              |  
+[Conn-1]-->[USB2PHY-1]---->|-------- Path 1 --------------|-->[USBCtrl-1]
+			   |                              |
+			   |      +------------------+    |
+			   |      |  EUD Debug Hub   |    |
+			   |      +------------------+    |
+			   +------------------------------+
+
+And the corresponding OF‑graph mapping
+
+# Node: EUD (intermediate; graph-only for HS) (extending [1] to dual port)
+EUD (eud@...)
+└── ports
+    ├─ port@0 (reg = <0>)
+    │   └─ endpoint  ── remote-endpoint ──>  USBCtrl-0
+    │
+    ├─ port@1 (reg = <1>)
+    │   └─ endpoint  ── remote-endpoint ──>  Conn-0
+    │
+    ├─ port@2 (reg = <2>)
+    │   └─ endpoint  ── remote-endpoint ──>  USBCtrl-1
+    │
+    └─ port@3 (reg = <3>)
+        └─ endpoint  ── remote-endpoint ──>  Conn-1
+
+
+# Node: Connector 0
+Conn-0: usb-connector
+└── port
+    └─ port@0: endpoint  --> remote-endpoint -->  EUD:port@1
+
+# Node: USB Controller 0
+USBCtrl-0: usb@...  (e.g., DWC3-0)
+└── port
+    └─ port@0: endpoint  --> remote-endpoint -->  EUD:port@0
+
+# Node: Connector 1
+Conn-1: usb-connector
+└── port
+    └─ port@0: endpoint  --> remote-endpoint -->  EUD:port@3
+
+# Node: USB Controller 1
+USBCtrl-1: usb@...  (e.g., DWC3)
+└── port
+    └─ port@0: endpoint  --> remote-endpoint -->  EUD:port@2
+
+
+From the OF‑graph structure alone, Conn‑0 cannot determine that
+USBCtrl‑0 (and not USBCtrl‑1) is the correct role‑switch provider.
+
+Proposal
+========
+Add an optional consumer→provider phandle on the connector:
+
+    usb-role-switch = <&controller>;
+
+The provider remains the controller node, which already declares the
+boolean 'usb-role-switch;' and registers the role‑switch device.
+
+Thanks,
+Elson Serrao
+
+---
+Changes in v2:
+ - Removed RFC tag following discussion and feedback.
+ - Link to v1: https://lore.kernel.org/all/20260223191042.825136-1-elson.serrao@oss.qualcomm.com/
+---
+
+Elson Serrao (1):
+  dt-bindings: connector: Add role‑switch provider phandle
+
+ .../devicetree/bindings/connector/usb-connector.yaml      | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+-- 
+2.34.1
 
