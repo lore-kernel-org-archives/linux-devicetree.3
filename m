@@ -1,101 +1,237 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-24424.protonmail.ch (mail-24424.protonmail.ch [109.224.244.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331B536AB4A;
-	Tue, 24 Mar 2026 13:03:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCA23DFC93;
+	Tue, 24 Mar 2026 13:10:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774357428; cv=none; b=kZnHe46gyav2ilm8q9WxQMEByT363adSXdZjV3CkshdF3H3BZTuJtvhp1efpCbsj0KYnKXHnLYQwy/NLjC5vA+L4Ew1t9LmzP9MXuCgTKIA7vfym+dPClb2111d/bn5RVROdAps2QwpxLDnadXNqi0PsEGDdzRY1TEj+bRPm3D8=
+	t=1774357830; cv=none; b=a/gDVtZViVBBPlAAk48XbUDtq47UMPTxffRf5tKtu6rBLgntQtdxvG7WxIkL0jPe3LnpTT12AFPniBBHSnv811fJ8ij0JaKMDjXmoVN5UAPzLHtoN7S9nJOkt6ptC+7Sb23F8p7/97d44V2WfuvxyYYVq4dov522LiO7w73/PPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774357428; c=relaxed/simple;
-	bh=du9vskdXaKFjVAh+IYrZzbmiXm89JlWnMz70pInmYO8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gUqEqg1W2Qa8klrquXVZUfsLYLZLNx+oYeuky3Tda2Np/K6VJT/Iy36t3PiNGdpRDjY1mH5MIdfPvrreRdu5DmSkC1zmFbrIUOD9GACqYQ8PLRbDu0BKrkE93GPmj/aBMt00Zp/v2NBjc37b0NDIaniPSfaVQOuf+E0D78uFBgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=isrc.iscas.ac.cn; spf=pass smtp.mailfrom=isrc.iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=isrc.iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isrc.iscas.ac.cn
-Received: from duge-virtual-machine (unknown [183.192.222.244])
-	by APP-03 (Coremail) with SMTP id rQCowAAnSeCTi8JpkXyqCw--.7469S2;
-	Tue, 24 Mar 2026 21:03:16 +0800 (CST)
-Date: Tue, 24 Mar 2026 21:03:15 +0800
-From: Jiayu Du <jiayu.riscv@isrc.iscas.ac.cn>
-To: robh@kernel.org
-Cc: neil.armstrong@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	alex@ghiti.fr, linux-phy@lists.infradead.org,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/4] dt-bindings: usb: dwc2: Add support for Canaan
- K230 SoC
-Message-ID: <acKLk3fbIj7hdsWr@duge-virtual-machine>
-References: <20260121145526.14672-1-jiayu.riscv@isrc.iscas.ac.cn>
- <20260121145526.14672-3-jiayu.riscv@isrc.iscas.ac.cn>
+	s=arc-20240116; t=1774357830; c=relaxed/simple;
+	bh=0pnB0U7InhkGL9lTdgeWgS0PDvdGdURPxYWKmTb9BiU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fqolWaW2Add/CvrNxui+PNlVkuoUtKBVPie2sZEfXGcO4lkJn66ow7ae9gCuwSVAzVK5/X3QKh0EPz2Dqy+J06fI08JH0mSrHIOkyO4J01jS1I9gnsCEBec1J/gqfm/n3sDi/EIM5yJPBtJoJo6nv22B1XFLxsd0RLbGLDyVTxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=FK2nnl1U; arc=none smtp.client-ip=109.224.244.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="FK2nnl1U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1774357819; x=1774617019;
+	bh=d8w5CZ1DioJDLSSnZn0lUgk1zgmXdXiL/spUhVixnL4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=FK2nnl1U1iJW2JFd3eYi+a/efk4dTWRpwXM3P/p7hU2is3URddT8zC4MxpNA0GBil
+	 JRaU88xJgM0zqXDmzB5xduxQ82vuGkkD/BnuJ4G8WJOvpvjKI6bk/7obXbO4fjU9rc
+	 AdtwnYHWSst5aiEXHqmBnGPy7LaTrHX6qjQxhMmt9uwOh4tJEZrjY7F5wd9g0MHjeH
+	 7/yhVTRsx+fZjtdRCo6R5BKnf0S+pL3r7q+HVN+WLTg3Bf/pAQfNC/Hyot9OlGfy1o
+	 nAVmdb9K0hjZBwpg2SWNOm8cwKoabMcY8fqjgo7htiOXLTZCfEz7LiY967QTcHdHCY
+	 VDqJxuTpNUfzw==
+Date: Tue, 24 Mar 2026 13:10:13 +0000
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+From: cristian_ci <cristian_ci@protonmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v3 1/6] dt-bindings: display: panel: Add Novatek NT35532 LCD DSI
+Message-ID: <GF8zsK-szOM98Ck2jznCOZ4xjuJTl9g1b0uPc1N79Dzf7PNzOiVgewdqPFGjqF3YD7tOUa2tzdc7rG_e7iNH8yjHOJ9DobsihTxRLUk8EL4=@protonmail.com>
+In-Reply-To: <sdcfwycey5ykhn2fghun7imx3tjtnwat3ny3mut5dwstl7wvw6@maqrzlycwdn5>
+References: <20260321-rimob-new-features-v3-0-d4b8ee867de7@protonmail.com> <20260321-rimob-new-features-v3-1-d4b8ee867de7@protonmail.com> <sdcfwycey5ykhn2fghun7imx3tjtnwat3ny3mut5dwstl7wvw6@maqrzlycwdn5>
+Feedback-ID: 27475468:user:proton
+X-Pm-Message-ID: 70202603ff894e828bf88287248da08abdde0c30
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260121145526.14672-3-jiayu.riscv@isrc.iscas.ac.cn>
-X-CM-TRANSID:rQCowAAnSeCTi8JpkXyqCw--.7469S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Jw1Dur1DtF1DGF47Xr18Zrb_yoWkCwc_Z3
-	ZrCw4rCa9xJF9Yqw4qyFs2yw1Yyw42gas7uF1qqFn8Gw40krs8Wayktw1ayry5CF4Uurn3
-	WFn3Xrn2gFsFgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbsxYjsxI4VWkKwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
-	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
-	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0
-	cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z2
-	80aVCY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
-	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
-	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
-	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
-	ZFpf9x07betCcUUUUU=
-X-CM-SenderInfo: 5mld534oul2uny6l223fol2u1dvotugofq/
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jan 21, 2026 at 10:55:23PM +0800, Jiayu Du wrote:
-> Add 'canaan,k230-usb' compatible string with 'snps,dwc2' as fallback
-> for the DWC2 IP which is used by Canaan K230.
+On Saturday, March 21st, 2026 at 17:46, Dmitry Baryshkov <dmitry.baryshkov@=
+oss.qualcomm.com> wrote:
+
+> On Sat, Mar 21, 2026 at 05:23:20PM +0100, Cristian Cozzolino via B4 Relay=
+ wrote:
+> > From: Cristian Cozzolino <cristian_ci@protonmail.com>
+> >
+> > Document Novatek NT35532-based DSI display panel.
+> >
+> > Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
+> > ---
+> >  .../bindings/display/panel/novatek,nt35532.yaml    | 77 ++++++++++++++=
+++++++++
+> >  MAINTAINERS                                        |  5 ++
+> >  2 files changed, 82 insertions(+)
+>=20
+> > +allOf:
+> > +  - $ref: panel-common.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: novatek,nt35532
+>=20
+> This is not enough to identify the panel. This name identifies the
+> controller inside the panel, however the exact settings (and the
+> behaviour) would depend on the exact TFT "glass" used with this
+> controller. Downstream usually doesn't care that much and frequently
+> just uses the controller name or the the controller with some kind of
+> "description" like ("wqhd-dsc-cmd").
+
+Ok but I just don't understand the following: I'd like to know (also=20
+considering that I find it difficult to find someone, outside of this=20
+ML, available to discuss this stuff, specifically) exactly why the=20
+current bindings are not enough.
+I mean: looking at schematics and datasheets of other similar devices=20
+and based on observations about my device, I believe the generic bindings=
+=20
+approach for nt35532 works quite well for panels.
+Novatek made the IC first and then whoever buys it can be a display=20
+vendor. If we talk about downstream, differences between panels are describ=
+ed=20
+there (i.e. my panel makes use of four supplies, while other ones could use=
+=20
+a different configuration).
+
+> What does it mean for the upstream:
+> - Try identifying the actual panel used for the phones. Sometimes
+>   googling for spare or replacement parts would reveal such a name.
+>   Sometimes it can be seen as a marking on the cable or on the backside
+>   of the panel (again, googling).
+
+It seems that 'google' approach fails, in my case :( (I only know that=20
+the vendor assigned Smartron the work to design the HW - but SW too -=20
+of the device. Nevertheless, Smartron is neither OEM nor ODM, so the=20
+company was relying, at the time, on a series of chinese manufacturers to p=
+rovide=20
+parts required for this device, including panel suppliers: in general,=20
+the list of panel suppliers for Smartron includes BOE, Tianma and other kno=
+wn=20
+companies. So, this panel may be any of those, paired with NT35532, and wor=
+k=20
+anyway). Unfortunately, even if marking on the cable is known, that doesn't=
+=20
+identify the panel but the cable itself (which is available on the market,=
+=20
+though), instead, in this case.
+
+> - If not found, come up with some artificial identifier that would
+>   identify the controller+glass combo (e.g. "tianma,fhd-video" or
+>   "lenovo,j606f-boe-nt36523w" (where lenovo,j6006f is a device name and
+>   boe is a "supplier").
+
+Assuming that resources available which I've as source of information=20
+for this panel are limited (the ones also described in v1's review thread),=
+=20
+my vendor devicetree describes the panel in  'qcom,mdss_dsi_nt35532_1080p_c=
+s_video'=20
+node and makes use of:
+
+qcom,mdss-dsi-panel-name =3D "nt35532 1080p cs video mode dsi panel";
+
+property. Until now, close-to-mainline devicetree I was using the following=
+=20
+compatible for the panel:
+
+compatible =3D "flipkart,rimob-nt35532-cs";
+
+and I'm not sure about the exact meaning of 'cs' suffix. I cannot state 'CS=
+'=20
+as panel supplier and use that upstream without proof/evidence. What do=20
+you suggest, in this regard?
+
+
+Cristian
+=20
+> - Either use both strings for compat property:
+>   compatible =3D "tianma,fhd-video", "novatek,nt36672a"
+>   or just the first one.
+>=20
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  backlight: true
+> > +  reset-gpios: true
+> > +
+> > +  avdd-supply:
+> > +    description: positive boost supply regulator
+> > +
+> > +  avee-supply:
+> > +    description: negative boost supply regulator
+> > +
+> > +  vci-supply:
+> > +    description: regulator that supplies the analog voltage
+> > +
+> > +  vddam-supply:
+> > +    description: power supply for MIPI interface
+> > +
+> > +  vddi-supply:
+> > +    description: regulator that supplies the I/O voltage
+> > +
+> > +  port: true
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - reset-gpios
+> > +  - vddi-supply
+> > +  - port
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/gpio/gpio.h>
+> > +
+> > +    dsi {
+> > +        #address-cells =3D <1>;
+> > +        #size-cells =3D <0>;
+> > +
+> > +        panel@0 {
+> > +            compatible =3D "novatek,nt35532";
+> > +            reg =3D <0>;
+> > +
+> > +            backlight =3D <&pmi8950_wled>;
+> > +            reset-gpios =3D <&tlmm 61 GPIO_ACTIVE_LOW>;
+> > +            avdd-supply =3D <&lab>;
+> > +            avee-supply =3D <&ibb>;
+> > +            vci-supply =3D <&pm8953_l17>;
+> > +            vddi-supply =3D <&pm8953_l6>;
+> > +
+> > +            port {
+> > +                panel_in: endpoint {
+> > +                    remote-endpoint =3D <&dsi0_out>;
+> > +                };
+> > +            };
+> > +        };
+> > +    };
+> > +...
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index a626dee5c106..8ed2866bbd6e 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -8171,6 +8171,11 @@ T:=09git https://gitlab.freedesktop.org/drm/misc=
+/kernel.git
+> >  F:=09Documentation/devicetree/bindings/display/panel/novatek,nt35510.y=
+aml
+> >  F:=09drivers/gpu/drm/panel/panel-novatek-nt35510.c
+> >
+> > +DRM DRIVER FOR NOVATEK NT35532 PANELS
+> > +M:=09Cristian Cozzolino <cristian_ci@protonmail.com>
+> > +S:=09Maintained
+> > +F:=09Documentation/devicetree/bindings/display/panel/novatek,nt35532.y=
+aml
+> > +
+> >  DRM DRIVER FOR NOVATEK NT35560 PANELS
+> >  M:=09Linus Walleij <linusw@kernel.org>
+> >  S:=09Maintained
+> >
+> > --
+> > 2.53.0
+> >
+> >
+>=20
+> --
+> With best wishes
+> Dmitry
 > 
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Jiayu Du <jiayu.riscv@isrc.iscas.ac.cn>
-
-Hi Rob,
-
-Will this patch2 be applied for next?
-
-Best regards,
-Jiayu Du
-
-> ---
->  Documentation/devicetree/bindings/usb/dwc2.yaml | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/usb/dwc2.yaml b/Documentation/devicetree/bindings/usb/dwc2.yaml
-> index 6c3a10991b8b..352487c6392a 100644
-> --- a/Documentation/devicetree/bindings/usb/dwc2.yaml
-> +++ b/Documentation/devicetree/bindings/usb/dwc2.yaml
-> @@ -17,6 +17,9 @@ properties:
->    compatible:
->      oneOf:
->        - const: brcm,bcm2835-usb
-> +      - items:
-> +          - const: canaan,k230-usb
-> +          - const: snps,dwc2
->        - const: hisilicon,hi6220-usb
->        - const: ingenic,jz4775-otg
->        - const: ingenic,jz4780-otg
-> -- 
-> 2.52.0
-> 
-> 
-> -- 
-> linux-phy mailing list
-> linux-phy@lists.infradead.org
-> https://lists.infradead.org/mailman/listinfo/linux-phy
-
