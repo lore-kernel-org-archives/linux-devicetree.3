@@ -1,564 +1,162 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3253EFD0D
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 12:22:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31CB3F7881;
+	Tue, 24 Mar 2026 12:24:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774354928; cv=none; b=lrhaG0ojUYBwj/nTPei/+5cpxloubUb6uvjva2T4zWIEHMhde8jIEoiGNtqA7kXTFviIlF9BOLlxvvdw3nbsdPkAPWoMYrVbw/1rLTAZyMb0v2CUKHvIBnFeuWdOlR5GJ5PE0AvKv/DV9LRponsHOq8fRbMdNduFRzT5ZltIiGA=
+	t=1774355086; cv=none; b=FG/P3cgKpzec0aW3KLXFLsdQoGxTS9WbjECfTK2UZ5cxKWBObnVkkqp42qaYUox5tIkcaoiMVJCs0nZ05VqeZCZaOIgLX+vGKwgy8fZHsMB3ZU2lK1pH+j39EH05Pv352t34KE8DaXenCpyFRMlduHgveay/niJ+EnTd2Eupw/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774354928; c=relaxed/simple;
-	bh=r1GJsCW8OLWD6HbAwhJRnQ4Q6N5LSNo7LvQtNAUbDmw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=TaPHEU+3MiqYoPiwAN+C2yCh/mnJSX3qC6mdZrWkGtfxkBU+9OC0Fh3LB+Of2p2io5JGnfQblnyUFoEq7sGPyKQfRaZHb9oKpLZ7jzpW6hcsnnlRcZuh9cY3jpX6r7mQbIGhLHXThTH6grVeGyK290t6CxjnX3W4mYT7LeG9Jbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hu+iy2MX; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774355086; c=relaxed/simple;
+	bh=tibauC6EDHsVnUyYQmTYB95m6uuZD7Ols7sPBiWQEOo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Vvrs8i4TCjlyEAQ/t1g5U4k0JBao3UXifwL0PttJTesQpyUOEa+38jBQnvq/OogqzYN4FbQNrZtjy8iLrdidDTJDYxxHqBvQThApPHfT50hw9l+bJKhda0mfQXcg1Ypq9NKZ0REN31hL9cd2MhHh1BomecNl4O3rZqHJjRNGz78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YM5G3pP4; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hu+iy2MX"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-439b97a8a8cso4136669f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 05:22:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774354925; x=1774959725; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=q5dvk7Zm80VcMEttb3GAfdno1MkIso7lnn9GAMceQ6w=;
-        b=hu+iy2MXoQ27dPUT/Emhf66o/sCS7kRpgWAzzUgtKuBuaa2xT/LofKdvNvRjNzI/n5
-         lAAj2lzgI/q/3QLLohY17ZHgjGSOZehWnuDmIlEww0S1OpeYx0WzzDTw21i2z7Cx44A6
-         1C/KWGI26/d9ZwTtHldBoCOVuRr4KvrhGtspgqUQ8yn0GQTq5lsHUh32KKBLIewGqc1r
-         /Rw4lr4uMn3zJkF9rTX7YEyjKSAcKdKHEkKfTe7hVa6k1Y0aczqmvwzRdRoimhfrq4d7
-         VoJRvIdsvn5WHVOHLtCutxOZTdd2U25LI4kEx8QWjKT/2UIUvy/c1tuw817DVVvaJgrr
-         rwKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774354925; x=1774959725;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=q5dvk7Zm80VcMEttb3GAfdno1MkIso7lnn9GAMceQ6w=;
-        b=ET37lNgZgh1o1k81FvhKz9B3ddUuRPmTEjNSzyFOjDNSqibqTYyu3Aco8qWHOfiMdp
-         MyzdnWwoKFMB07sQoEM45jMCGrtllOK8wce/PMz/7qjUxXvzzXuAxexx0YN0R34uBWOK
-         0ejawxoic3Rn54t2sOPQKWsovgR33CDsg71cqg1OWc0ZJPEfwM0MusCA85YfrQLCTzXq
-         wxiI7abHG83IzhxMDgMIU3xJsoSCNqh2VPRukoxmC9Hd6xCnsZ1vygjRhLpikPNVtqUp
-         QBMf/QaAqIjwoeZvrD9DwUCrVqVE+tm/wRCzeH1mZyGidBbj/g2m1YxB3gErnw2iiFP3
-         S9XQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUtOUGLt1A2w7/dBWvcBTVonN0mpUQAb+20I1c5g+Q0m35foN54CWwA/BD2bEAGe0qkXOmIN4O1AEpg@vger.kernel.org
-X-Gm-Message-State: AOJu0YwuVj/BCiW3xd0qxTRJ4gkegsIzMIYLRyY7XvsrMePSg8uTFi8S
-	DeyLFVYnRHekx3Bm05iSQ9ddVNNt1N2tqkd856Dvbn5kHN92Z0S0K6Q7
-X-Gm-Gg: ATEYQzxGvQYtFR7SB5ukZ1+PHdWXQcS3vGIWr5nRtEoXrDs/L9WYyiujB4jINJ0h6Ck
-	mLW9GjG8B6+quBSmeoW7ap0YaNpjJXA1XLrntOvx3oTSvgVoB0cE/ZxGJJmzXEUyEqpJ3ngH9HD
-	4doiYRV91boK/BDluLj/Kss1wshEWRjuY1GPj3vzma1yEMRy8LmlKu4eW2QoKCSuJP6EjOd6wFZ
-	BYG4yp25CGWQeI+YP/cD7iSfCUAN2BwbYwkFEHJ42Ur4kL8RpdVuScF1x3mxnhYH8Quze23OwYb
-	QxUDsIzTVzHPJYZSDqVlDHCJ5rQmdQIS2Z/pA/lXmj9JnSM62KaTyn7wubSqC6X5Dxs6XnpaQy4
-	+7PjZqqzD+nc4iueABUPfhzwog09HXbxCKJs9HXigd9OuI79p3hNDE9jDqXes2SNV+1PnUEi8cC
-	pzZHZcY9XnLQCAM1Qf9ok/8nDUWHootOqFRAySNkSrQA==
-X-Received: by 2002:a05:6000:2010:b0:43b:4ec7:f924 with SMTP id ffacd0b85a97d-43b64264073mr24532596f8f.34.1774354924370;
-        Tue, 24 Mar 2026 05:22:04 -0700 (PDT)
-Received: from [192.168.1.187] ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b6470c239sm37754549f8f.27.2026.03.24.05.22.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Mar 2026 05:22:03 -0700 (PDT)
-Message-ID: <83d87ff35002e5c7b9448a5ee7f2791a63c38c38.camel@gmail.com>
-Subject: Re: [PATCH v4 3/4] iio: adc: ad4691: add triggered buffer support
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron
- <jic23@kernel.org>, David Lechner	 <dlechner@baylibre.com>, Nuno
- =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,  Andy Shevchenko	
- <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Uwe
- =?ISO-8859-1?Q?Kleine-K=F6nig?=	 <ukleinek@kernel.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown	 <broonie@kernel.org>, Linus Walleij
- <linusw@kernel.org>, Bartosz Golaszewski	 <brgl@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Date: Tue, 24 Mar 2026 12:22:50 +0000
-In-Reply-To: <20260320-ad4692-multichannel-sar-adc-driver-v4-3-052c1050507a@analog.com>
-References: 
-	<20260320-ad4692-multichannel-sar-adc-driver-v4-0-052c1050507a@analog.com>
-	 <20260320-ad4692-multichannel-sar-adc-driver-v4-3-052c1050507a@analog.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YM5G3pP4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774355085; x=1805891085;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=tibauC6EDHsVnUyYQmTYB95m6uuZD7Ols7sPBiWQEOo=;
+  b=YM5G3pP4drx8G43FVkEr2hwilapc5gdEZr43KliODMtx0+MpHBty8OaL
+   +iIVP2sgk2EydPXtKid0QFTaR2VADzeC6ERb33lUa/R4v5qJlB53In/Ws
+   l0oIzvEFXU25NHhqk0198jHBU6thwHwSUsxZ4S3JtQuWAojbcKqP9Sruv
+   looXJWQmhU+h2et0Bpcex7gWaM/5Sxa9OikDtOEXILw/3+Fzhnj6OfEMn
+   gwD5aJhSdMPBLoZwBjUNofdObCKVOutNucx7hRSD6ofRTV8UtPnvZ1Uu1
+   /NylHjx4M1iQjv5f98vo+vrZoQUpordxY7VnjSUUP6+OccHgjKtKsnX4Q
+   A==;
+X-CSE-ConnectionGUID: RpDbyIN4Qs2DoBv9p1IwYQ==
+X-CSE-MsgGUID: p7j4K0HmRBSqNbv3FBiE1Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11738"; a="75390655"
+X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; 
+   d="scan'208";a="75390655"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Mar 2026 05:24:45 -0700
+X-CSE-ConnectionGUID: CF0QT4HISXmympux3Upkag==
+X-CSE-MsgGUID: /EWX0NH5SL2Xlnmm26MGKQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; 
+   d="scan'208";a="228394355"
+Received: from abityuts-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.214])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Mar 2026 05:24:41 -0700
+Date: Tue, 24 Mar 2026 14:24:38 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Carlos Jones Jr <carlosjr.jones@analog.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Liam Beguin <liambeguin@gmail.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Tobias Sperling <tobias.sperling@softing.com>,
+	Jorge Marques <jorge.marques@analog.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] iio: adc: ltc2309: Introduce chip_info structure
+Message-ID: <acKChrd_0cRXu7-k@ashevche-desk.local>
+References: <20260324071331.842-1-carlosjr.jones@analog.com>
+ <20260324071331.842-2-carlosjr.jones@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260324071331.842-2-carlosjr.jones@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Radu,
-
-Some comments from me.
-
-On Fri, 2026-03-20 at 13:03 +0200, Radu Sabau via B4 Relay wrote:
-> From: Radu Sabau <radu.sabau@analog.com>
->=20
-> Add buffered capture support using the IIO triggered buffer framework.
->=20
-> CNV Burst Mode: the GP pin identified by interrupt-names in the device
-> tree is configured as DATA_READY output. The IRQ handler stops
-> conversions and fires the IIO trigger; the trigger handler executes a
-> pre-built SPI message that reads all active channels from the AVG_IN
-> accumulator registers and then resets accumulator state and restarts
-> conversions for the next cycle.
->=20
-> Manual Mode: CNV is tied to SPI CS so each transfer simultaneously
-> reads the previous result and starts the next conversion (pipelined
-> N+1 scheme). At preenable time a pre-built, optimised SPI message of
-> N+1 transfers is constructed (N channel reads plus one NOOP to drain
-> the pipeline). The trigger handler executes the message in a single
-> spi_sync() call and collects the results. An external trigger (e.g.
-> iio-trig-hrtimer) is required to drive the trigger at the desired
-> sample rate.
->=20
-> Both modes share the same trigger handler and push a complete scan =E2=80=
-=94
-> one u16 slot per channel at its scan_index position, followed by a
-> timestamp =E2=80=94 to the IIO buffer via iio_push_to_buffers_with_ts().
->=20
-> The CNV Burst Mode sampling frequency (PWM period) is exposed as a
-> buffer-level attribute via IIO_DEVICE_ATTR.
->=20
-> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
-> ---
-> =C2=A0drivers/iio/adc/Kconfig=C2=A0 |=C2=A0=C2=A0 2 +
-> =C2=A0drivers/iio/adc/ad4691.c | 584 ++++++++++++++++++++++++++++++++++++=
-+++++++++--
-> =C2=A02 files changed, 571 insertions(+), 15 deletions(-)
->=20
-> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-> index 3685a03aa8dc..d498f16c0816 100644
-> --- a/drivers/iio/adc/Kconfig
-> +++ b/drivers/iio/adc/Kconfig
-> @@ -142,6 +142,8 @@ config AD4170_4
-> =C2=A0config AD4691
-> =C2=A0	tristate "Analog Devices AD4691 Family ADC Driver"
-> =C2=A0	depends on SPI
-> +	select IIO_BUFFER
-> +	select IIO_TRIGGERED_BUFFER
-> =C2=A0	select REGMAP
-> =C2=A0	help
-> =C2=A0	=C2=A0 Say yes here to build support for Analog Devices AD4691 Fam=
-ily MuxSAR
-> diff --git a/drivers/iio/adc/ad4691.c b/drivers/iio/adc/ad4691.c
-> index 5e02eb44ca44..db776de32846 100644
-> --- a/drivers/iio/adc/ad4691.c
-> +++ b/drivers/iio/adc/ad4691.c
-> @@ -9,9 +9,12 @@
-> =C2=A0#include <linux/delay.h>
-> =C2=A0#include <linux/device.h>
-> =C2=A0#include <linux/err.h>
-> +#include <linux/interrupt.h>
-> =C2=A0#include <linux/math.h>
-> =C2=A0#include <linux/module.h>
-> =C2=A0#include <linux/mod_devicetable.h>
-> +#include <linux/property.h>
-> +#include <linux/pwm.h>
-> =C2=A0#include <linux/regmap.h>
-> =C2=A0#include <linux/regulator/consumer.h>
-> =C2=A0#include <linux/reset.h>
-> @@ -19,7 +22,12 @@
-> =C2=A0#include <linux/units.h>
-> =C2=A0#include <linux/unaligned.h>
-> =C2=A0
-> +#include <linux/iio/buffer.h>
-> =C2=A0#include <linux/iio/iio.h>
-> +#include <linux/iio/sysfs.h>
-> +#include <linux/iio/trigger.h>
-> +#include <linux/iio/triggered_buffer.h>
-> +#include <linux/iio/trigger_consumer.h>
-> =C2=A0
-> =C2=A0#define AD4691_VREF_uV_MIN			2400000
-> =C2=A0#define AD4691_VREF_uV_MAX			5250000
-> @@ -28,6 +36,8 @@
-> =C2=A0#define AD4691_VREF_3P3_uV_MAX			3750000
-> =C2=A0#define AD4691_VREF_4P096_uV_MAX		4500000
-> =C2=A0
-> +#define AD4691_CNV_DUTY_CYCLE_NS		380
-> +
-> =C2=A0#define AD4691_SPI_CONFIG_A_REG			0x000
-> =C2=A0#define AD4691_SW_RESET				(BIT(7) | BIT(0))
-> =C2=A0
+On Tue, Mar 24, 2026 at 03:13:28PM +0800, Carlos Jones Jr wrote:
+> Introduce a chip_info structure to facilitate adding support for
+> chip variants with different channel configurations and timing
+> requirements.
+> 
+> The chip_info structure contains:
+> - Device name for proper sysfs identification
+> - Channel specifications and count
+> - Read delay timing for variants requiring settling time
+> 
+> The ltc2309 struct is modified to store only the read_delay_us value
+> rather than a pointer to the full chip_info, as this is the only
+> runtime-accessed field after probe.
+> 
+> This preparatory refactoring does not modify existing LTC2309
+> functionality.
 
 ...
 
->=20
-> +static int ad4691_cnv_burst_buffer_preenable(struct iio_dev *indio_dev)
-> +{
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +	struct device *dev =3D regmap_get_device(st->regmap);
-> +	struct spi_device *spi =3D to_spi_device(dev);
-> +	unsigned int n_active =3D hweight_long(*indio_dev->active_scan_mask);
-> +	unsigned int bit, k, i;
-> +	int ret;
-> +
-> +	st->scan_devm_group =3D devres_open_group(dev, NULL, GFP_KERNEL);
-> +	if (!st->scan_devm_group)
-> +		return -ENOMEM;
+>  #include <linux/bitfield.h>
+> +#include <linux/delay.h>
+>  #include <linux/i2c.h>
+>  #include <linux/iio/iio.h>
+>  #include <linux/kernel.h>
+>  #include <linux/module.h>
+>  #include <linux/mutex.h>
+>  #include <linux/regulator/consumer.h>
 
-Agree with Jonathan. Not seeing a valid reason for the above.
+> +#include <linux/array_size.h>
 
-> +
-> +	st->scan_xfers =3D devm_kcalloc(dev, 2 * n_active, sizeof(*st->scan_xfe=
-rs),
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 GFP_KERNEL);
-> +	st->scan_tx =3D devm_kcalloc(dev, n_active, sizeof(*st->scan_tx),
-> +				=C2=A0=C2=A0 GFP_KERNEL);
-> +	st->scan_rx =3D devm_kcalloc(dev, n_active, sizeof(*st->scan_rx),
-> +				=C2=A0=C2=A0 GFP_KERNEL);
-> +	if (!st->scan_xfers || !st->scan_tx || !st->scan_rx) {
-> +		devres_release_group(dev, st->scan_devm_group);
-> +		return -ENOMEM;
-> +	}
-> +
-> +	spi_message_init(&st->scan_msg);
-> +
-> +	/*
-> +	 * Each AVG_IN read needs two transfers: a 2-byte address write phase
-> +	 * followed by a 2-byte data read phase. CS toggles between channels
-> +	 * (cs_change=3D1 on the read phase of all but the last channel).
-> +	 */
-> +	k =3D 0;
-> +	iio_for_each_active_channel(indio_dev, i) {
-> +		st->scan_tx[k] =3D cpu_to_be16(0x8000 | AD4691_AVG_IN(i));
-> +		st->scan_xfers[2 * k].tx_buf =3D &st->scan_tx[k];
-> +		st->scan_xfers[2 * k].len =3D sizeof(__be16);
-> +		spi_message_add_tail(&st->scan_xfers[2 * k], &st->scan_msg);
-> +		st->scan_xfers[2 * k + 1].rx_buf =3D &st->scan_rx[k];
-> +		st->scan_xfers[2 * k + 1].len =3D sizeof(__be16);
-> +		if (k < n_active - 1)
-> +			st->scan_xfers[2 * k + 1].cs_change =3D 1;
-> +		spi_message_add_tail(&st->scan_xfers[2 * k + 1], &st->scan_msg);
-> +		k++;
-> +	}
-> +
-> +	devres_close_group(dev, st->scan_devm_group);
-> +
-> +	st->scan_msg.spi =3D spi;
-> +
-> +	ret =3D spi_optimize_message(spi, &st->scan_msg);
-> +	if (ret) {
-> +		devres_release_group(dev, st->scan_devm_group);
-> +		return ret;
-> +	}
-> +
-> +	ret =3D regmap_write(st->regmap, AD4691_ACC_MASK_REG,
-> +			=C2=A0=C2=A0 (u16)~(*indio_dev->active_scan_mask));
-> +	if (ret)
-> +		goto err;
-> +
-> +	ret =3D regmap_write(st->regmap, AD4691_STD_SEQ_CONFIG,
-> +			=C2=A0=C2=A0 *indio_dev->active_scan_mask);
-> +	if (ret)
-> +		goto err;
-> +
-> +	iio_for_each_active_channel(indio_dev, bit) {
-> +		ret =3D regmap_write(st->regmap, AD4691_ACC_COUNT_LIMIT(bit),
-> +				=C2=A0=C2=A0 AD4691_ACC_COUNT_VAL);
-> +		if (ret)
-> +			goto err;
-> +	}
-> +
-> +	ret =3D ad4691_enter_conversion_mode(st);
-> +	if (ret)
-> +		goto err;
-> +
-> +	ret =3D ad4691_sampling_enable(st, true);
-> +	if (ret)
-> +		goto err;
-> +
-> +	enable_irq(st->irq);
-> +	return 0;
-> +err:
-> +	spi_unoptimize_message(&st->scan_msg);
-> +	devres_release_group(dev, st->scan_devm_group);
-> +	return ret;
-> +}
-> +
-> +static int ad4691_cnv_burst_buffer_postdisable(struct iio_dev *indio_dev=
-)
-> +{
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +	struct device *dev =3D regmap_get_device(st->regmap);
-> +	int ret;
-> +
-> +	disable_irq(st->irq);
+It starts with 'a'...
 
-Should we use disable_irq_sync()?
-> +
-> +	ret =3D ad4691_sampling_enable(st, false);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D regmap_write(st->regmap, AD4691_STD_SEQ_CONFIG,
-> +			=C2=A0=C2=A0 AD4691_SEQ_ALL_CHANNELS_OFF);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D ad4691_exit_conversion_mode(st);
-> +	spi_unoptimize_message(&st->scan_msg);
-> +	devres_release_group(dev, st->scan_devm_group);
-> +	return ret;
-> +}
-> +
-> +static const struct iio_buffer_setup_ops ad4691_cnv_burst_buffer_setup_o=
-ps =3D {
-> +	.preenable =3D &ad4691_cnv_burst_buffer_preenable,
-> +	.postdisable =3D &ad4691_cnv_burst_buffer_postdisable,
+...
+
+> +struct ltc2309_chip_info {
+> +	const char *name;
+> +	unsigned int num_channels;
+> +	const struct iio_chan_spec *channels __counted_by_ptr(num_channels);
+> +	unsigned int read_delay_us;
+
+Now on some architectures this might have gaps. Have you run `pahole`?
+Even if it's fine, I would rather see
+
+	const char *name;
+	const struct iio_chan_spec *channels __counted_by_ptr(num_channels);
+	unsigned int num_channels;
+	unsigned int read_delay_us;
+
+OR (if there are limitations of __counted_by_ptr() attribute)
+
+	const char *name;
+	unsigned int read_delay_us;
+	unsigned int num_channels;
+	const struct iio_chan_spec *channels __counted_by_ptr(num_channels);
+
+> +};
+
+...
+
+> +static const struct ltc2309_chip_info ltc2309_chip_info = {
+> +	.name = "ltc2309",
+> +	.num_channels = ARRAY_SIZE(ltc2309_channels),
+> +	.channels = ltc2309_channels,
 > +};
 > +
-> +static ssize_t sampling_frequency_show(struct device *dev,
-> +					struct device_attribute *attr,
-> +					char *buf)
-> +{
-> +	struct iio_dev *indio_dev =3D dev_to_iio_dev(dev);
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +
-> +	if (st->manual_mode)
-> +		return -ENODEV;
-
-Can the above happen at all? I think you're making sure (at probe) this int=
-erface
-never get's exposed in manual mode.
-
-> +
-> +	return sysfs_emit(buf, "%u\n", (u32)(NSEC_PER_SEC / st->cnv_period_ns))=
-;
-> +}
-> +
-> +static ssize_t sampling_frequency_store(struct device *dev,
-> +					 struct device_attribute *attr,
-> +					 const char *buf, size_t len)
-> +{
-> +	struct iio_dev *indio_dev =3D dev_to_iio_dev(dev);
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +	int freq, ret;
-> +
-> +	if (st->manual_mode)
-> +		return -ENODEV;
-> +
-> +	ret =3D kstrtoint(buf, 10, &freq);
-> +	if (ret)
-> +		return ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	ret =3D ad4691_set_pwm_freq(st, freq);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return len;
-> +}
-> +
-> +static IIO_DEVICE_ATTR(sampling_frequency, 0644,
-> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sampling_frequency_show,
-> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sampling_frequency_store, 0);
-> +
-> +static const struct iio_dev_attr *ad4691_buffer_attrs[] =3D {
-> +	&iio_dev_attr_sampling_frequency,
-> +	NULL,
-> +};
-> +
-> +static irqreturn_t ad4691_irq(int irq, void *private)
-> +{
-> +	struct iio_dev *indio_dev =3D private;
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +
-> +	/*
-> +	 * GPx has asserted: stop conversions before reading so the
-> +	 * accumulator does not continue sampling while the trigger handler
-> +	 * processes the data. Then fire the IIO trigger to push the sample
-> +	 * to the buffer.
-> +	 */
-> +	ad4691_sampling_enable(st, false);
-> +	iio_trigger_poll(st->trig);
-
-Not sure you need to save trig in your struct. We already have it in indio_=
-dev->trig. Sure,
-it is a private member but still fairly common to see (this patch included)=
-:
-
-indio_dev->trig =3D iio_trigger_get(trig);
-
-So I would say we either assume it's public or start to not allow the above
-pattern.
-
-Alternatively, I don't think you're using indio_dev driverdata right? Could=
- save it
-in there.
-
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static const struct iio_trigger_ops ad4691_trigger_ops =3D {
-> +	.validate_device =3D iio_trigger_validate_own_device,
-> +};
-> +
-> +static irqreturn_t ad4691_trigger_handler(int irq, void *p)
-> +{
-> +	struct iio_poll_func *pf =3D p;
-> +	struct iio_dev *indio_dev =3D pf->indio_dev;
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +	unsigned int i, k =3D 0;
-> +	int ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	ret =3D spi_sync(st->scan_msg.spi, &st->scan_msg);
-> +	if (ret)
-> +		goto done;
-> +
-> +	if (st->manual_mode) {
-> +		iio_for_each_active_channel(indio_dev, i) {
-> +			st->scan.vals[i] =3D be16_to_cpu(st->scan_rx[k + 1]);
-> +			k++;
-> +		}
-> +	} else {
-> +		iio_for_each_active_channel(indio_dev, i) {
-> +			st->scan.vals[i] =3D be16_to_cpu(st->scan_rx[k]);
-> +			k++;
-> +		}
-> +
-> +		ret =3D regmap_write(st->regmap, AD4691_STATE_RESET_REG,
-> +				=C2=A0=C2=A0 AD4691_STATE_RESET_ALL);
-> +		if (ret)
-> +			goto done;
-> +
-> +		ret =3D ad4691_sampling_enable(st, true);
-> +		if (ret)
-> +			goto done;
-> +	}
-> +
-> +	iio_push_to_buffers_with_ts(indio_dev, &st->scan, sizeof(st->scan),
-> +				=C2=A0=C2=A0=C2=A0 pf->timestamp);
-> +
-> +done:
-> +	iio_trigger_notify_done(indio_dev->trig);
-> +	return IRQ_HANDLED;
-> +}
-> +
-> =C2=A0static const struct iio_info ad4691_info =3D {
-> =C2=A0	.read_raw =3D &ad4691_read_raw,
-> =C2=A0	.write_raw =3D &ad4691_write_raw,
-> @@ -495,6 +934,25 @@ static const struct iio_info ad4691_info =3D {
-> =C2=A0	.debugfs_reg_access =3D &ad4691_reg_access,
-> =C2=A0};
-> =C2=A0
-> +static int ad4691_pwm_setup(struct ad4691_state *st)
-> +{
-> +	struct device *dev =3D regmap_get_device(st->regmap);
-> +	int ret;
-> +
-> +	st->conv_trigger =3D devm_pwm_get(dev, "cnv");
-> +	if (IS_ERR(st->conv_trigger))
-> +		return dev_err_probe(dev, PTR_ERR(st->conv_trigger),
-> +				=C2=A0=C2=A0=C2=A0=C2=A0 "Failed to get cnv pwm\n");
-> +
-> +	ret =3D devm_add_action_or_reset(dev, ad4691_disable_pwm,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 st->conv_trigger);
-
-This is a suspicious pattern. But I do see it's used like this in more plac=
-es and it's a no-op
-if PWM is already disabled. Still, not sure if agree with this kind "unbala=
-nced" handling.
-
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0 "Failed to register PWM disable action\n");
-> +
-> +	return ad4691_set_pwm_freq(st, st->info->max_rate);
-> +}
-> +
-> =C2=A0static int ad4691_regulator_setup(struct ad4691_state *st)
-> =C2=A0{
-> =C2=A0	struct device *dev =3D regmap_get_device(st->regmap);
-> @@ -555,12 +1013,30 @@ static int ad4691_reset(struct ad4691_state *st)
-> =C2=A0	return 0;
-> =C2=A0}
-> =C2=A0
-> -static int ad4691_config(struct ad4691_state *st)
-> +static int ad4691_config(struct ad4691_state *st, u32 max_speed_hz)
-
-My eyes might be failing me but where is 'max_speed_hz' used?
-
-
-> =C2=A0{
-> =C2=A0	struct device *dev =3D regmap_get_device(st->regmap);
-> =C2=A0	enum ad4691_ref_ctrl ref_val;
-> +	const char *irq_name;
-> +	unsigned int gp_num;
-> =C2=A0	int ret;
-> =C2=A0
-> +	/*
-> +	 * Determine buffer conversion mode from DT: if a PWM is provided it
-> +	 * drives the CNV pin (CNV_BURST_MODE); otherwise CNV is tied to CS
-> +	 * and each SPI transfer triggers a conversion (MANUAL_MODE).
-> +	 * Both modes idle in AUTONOMOUS mode so that read_raw can use the
-> +	 * internal oscillator without disturbing the hardware configuration.
-> +	 */
-> +	if (device_property_present(dev, "pwms")) {
-> +		st->manual_mode =3D false;
-> +		ret =3D ad4691_pwm_setup(st);
-> +		if (ret)
-> +			return ret;
-> +	} else {
-> +		st->manual_mode =3D true;
-> +	}
-> +
-> =C2=A0	switch (st->vref_uV) {
-> =C2=A0	case AD4691_VREF_uV_MIN ... AD4691_VREF_2P5_uV_MAX:
-> =C2=A0		ref_val =3D AD4691_VREF_2P5;
-> @@ -595,17 +1071,91 @@ static int ad4691_config(struct ad4691_state *st)
-> =C2=A0		return dev_err_probe(dev, ret, "Failed to write DEVICE_SETUP\n");
-> =C2=A0
-> =C2=A0	/*
-> -	 * Set the internal oscillator to the highest valid rate for this chip.
-> -	 * Index 0 (1 MHz) is valid only for AD4692/AD4694; AD4691/AD4693 start
-> -	 * at index 1 (500 kHz).
-> +	 * Set the internal oscillator to the highest rate this chip supports.
-> +	 * Index 0 (1 MHz) exceeds the 500 kHz max of AD4691/AD4693, so those
-> +	 * chips start at index 1 (500 kHz).
-> =C2=A0	 */
-> =C2=A0	ret =3D regmap_write(st->regmap, AD4691_OSC_FREQ_REG,
-> -			=C2=A0=C2=A0 (st->info->max_rate =3D=3D HZ_PER_MHZ) ? 0 : 1);
-> +			=C2=A0=C2=A0 (ad4691_osc_freqs[0] > st->info->max_rate) ? 1 : 0);
-
-Does this belong to this commit?
-
-> =C2=A0	if (ret)
-> =C2=A0		return dev_err_probe(dev, ret, "Failed to write OSC_FREQ\n");
-> =C2=A0
-> =C2=A0	/* Device always operates in AUTONOMOUS mode. */
-> -	return regmap_write(st->regmap, AD4691_ADC_SETUP, AD4691_AUTONOMOUS_MOD=
-E_VAL);
-> +	ret =3D regmap_write(st->regmap, AD4691_ADC_SETUP, AD4691_AUTONOMOUS_MO=
-DE);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to write ADC_SETUp\n");
-> +
-> +	if (st->manual_mode)
-> +		return 0;
-> +
-> +	ret =3D device_property_read_string_array(dev, "interrupt-names",
-> +						&irq_name, 1);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0 "Failed to read interrupt-names\n");
-> +
-> +	if (strncmp(irq_name, "gp", 2) !=3D 0 ||
-> +	=C2=A0=C2=A0=C2=A0 kstrtouint(irq_name + 2, 10, &gp_num) || gp_num > 3)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0 "Invalid interrupt name '%s'\n", irq_name);
 > +
 
-I would likely prefer something like [1] rather than the string parsing.
+One blank line too many.
 
-[1]: https://elixir.bootlin.com/linux/v7.0-rc5/source/drivers/iio/imu/adis1=
-6480.c#L1582
+...
 
-- Nuno S=C3=A1
+>  static int ltc2309_probe(struct i2c_client *client)
+>  {
+>  	struct iio_dev *indio_dev;
+>  	struct ltc2309 *ltc2309;
+> +	const struct ltc2309_chip_info *chip_info;
+
+Try to preserve reversed xmas tree order.
+
+>  	int ret;
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
