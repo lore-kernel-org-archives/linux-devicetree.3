@@ -1,32 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26AC43D47CD;
-	Tue, 24 Mar 2026 16:44:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0353FE644;
+	Tue, 24 Mar 2026 16:44:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774370643; cv=none; b=iu3b76PLVrsUXbVmKeTVzMxMXaTgUagiRrTl9laULo74BPlakq6FreiQK9cAK9J94ftHXxN3dwnVjop8+2OitQ2puRVxc/vw8BREHR4obl7erRx6FwYkBoz0JsCPuReaL+qv1SRyERmLwupp+cc12J2ghEpg/+LlF9JRWwn/ueM=
+	t=1774370643; cv=none; b=tZmINWm0/ZBndNMjLtv4YxodcCBFiMCOguAc82ur/uCyUrzq8sEVKMqlea0Tr+9paapanP2GrFt6hVNNkRxCuaMSV1rUpPJMbM7bxKBIH0KgNvewt0+Hy8Bo4/Zeyf51r0ucUr0f7TEy+K0i5zmVbpR0qp5Y16bZ+Y9SQB3fnBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774370643; c=relaxed/simple;
-	bh=I7i185xsG5HSY32fnLRfMXM0qgCfYCSPudPDeTb/fKA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e+EKmvGnDaQ3Mz5NfKFTFkHmb1JHLIviK3oct48yVIn0H02pfbdbrA2skLT7uEEqhS2mWUwBMNmSHWHCALEnLFOJL0HauCqsofQPB1kDs9c9zKhHdgNVPDvT+10ygk/jG1EnbV+qDhVe3xupXxOaoeLb7MEgEnua+GpOcfb3L7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dYta2nfm; arc=none smtp.client-ip=10.30.226.201
+	bh=uNk+5l4j5lYbYuM0VQJOR8shYhm489bqZiHsaW/YJrg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SaW2XBGp/7vQSWWQ4yl/wJIFrQ67Suddo5JYK6JFcz5DeJu/0qLccsXP1GxQkiCj7JTwx/hSI2Nxtn1TObj5d2QbCiLZX4g0u4EB2+5PFUmmLgCR8uamx8HKk5imYyfZce493zCt06CDpQRJv/PAmB+yGJUYIj60Wd6GxYpEIEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gnmMkuLI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dYta2nfm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0A73C2BC9E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gnmMkuLI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC357C2BCC7;
 	Tue, 24 Mar 2026 16:44:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774370642;
-	bh=I7i185xsG5HSY32fnLRfMXM0qgCfYCSPudPDeTb/fKA=;
-	h=From:To:Cc:Subject:Date:From;
-	b=dYta2nfmcNfL9xIoExJWOoUJuhCVz0l/xL1Wo/WM7Bh8ZCUs3f0srhFnQu13ruA5B
-	 vopDRh/9tPHNbZ4DlF6tjRo+t1hH2ADyI2AxzB1AabAFTrmFRmvHllppvHlvG929wK
-	 /2OZKFPDaM30R8FFw7LbZVydU4yXiutytlg8k4yJVTcjx3217KWA9wYbshsYjXFVAM
-	 lKMxL0Lmn3KcM3uMZIGcS0fLH+tL4NSY3pJhlj0Nkkq1ORXpvY1hrX8t45xdub5Th+
-	 eM2yta2pDJzmNSZVpv39/19DcSqaZbiShxzVbb7OzFNpUMqyrMcT7njPc03GpwQ8yj
-	 Loi9CUaCJr5fg==
+	s=k20201202; t=1774370643;
+	bh=uNk+5l4j5lYbYuM0VQJOR8shYhm489bqZiHsaW/YJrg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=gnmMkuLIPy/3dOerLZTV5S9nifmLUuXUBt129KvZCUgiuvT5AR7PRnkgLwOzsl9YE
+	 vNFMk3Xuhhv+zaJz2gK15DayDFcFTwNg/O/s6Ubtd6fgBxW8u5I5JmSqp5w2zGnEEE
+	 AyfdhQgdTQbymfSYQk8ZXYx/IowOksUxdzuXhqo7C9265L3pI/GRQ9hiNk7P8AGPce
+	 2o9b6JPJ0ljamfWCpMCrq5/s8qiDZugyhabkOuKahenbdVMgG1wPOdzVluAkib0Oqc
+	 lwwM78NZ1IQVf9Bc3oUJOmig9LtB1US3PxTIKN63JgV0LD3n9gpC4WFLkxGnp2YMs4
+	 OH0BAewXE9rVw==
 Received: by wens.tw (Postfix, from userid 1000)
-	id 98AAA5FDD9; Wed, 25 Mar 2026 00:44:00 +0800 (CST)
+	id C06785FEC0; Wed, 25 Mar 2026 00:44:00 +0800 (CST)
 From: Chen-Yu Tsai <wens@kernel.org>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -38,10 +39,12 @@ Cc: devicetree@vger.kernel.org,
 	linux-sunxi@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/7] soc: sunxi: sram: Add H616 SRAM support
-Date: Wed, 25 Mar 2026 00:43:48 +0800
-Message-ID: <20260324164357.1607247-1-wens@kernel.org>
+Subject: [PATCH 4/7] soc: sunxi: sram: Allow SRAM to be claimed multiple times
+Date: Wed, 25 Mar 2026 00:43:52 +0800
+Message-ID: <20260324164357.1607247-5-wens@kernel.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260324164357.1607247-1-wens@kernel.org>
+References: <20260324164357.1607247-1-wens@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,82 +53,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+On the H616, the SRAM C region is an alias mapping to part of the VE
+SRAM (accessible in whole at a different address) and part of the DE
+SRAM (otherwise unaccessible). As such both the VE and DE need to claim
+this SRAM region to prevent access from the CPU.
 
-The Allwinner H616 has two switchable peripheral SRAM regions:
+The SRAM claim API is designed so that a "claim" routes the SRAM to the
+peripheral device, disabling access from the CPU. So long as the written
+register value is the same for all the claimants involved, allowing
+multiple or repeated claims is trivial. This is indeed the case for all
+supported SRAM regions. The only known SRAM region to have multiple
+different settings is the SRAM C2 region; this can be claimed by the AE,
+CE, or ACE (assumed to be AE + CE). This region is not supported, and
+likely will never be needed nor supported, as there is no documentation
+for the peripherals involved.
 
-- The VE SRAM is a 2 MB dedicated SRAM for the Video Engine. CPU access
-  to this region is enabled by default. CPU access can be disabled,
-  after which reads will show the same stale value for all addresses,
-  while writes are ignored.
+Change the SRAM region "claimed" field from a boolean to a reference
+count. A claim will increment the count, while a release decreases it.
+The first claim will trigger the register value write. The driver
+otherwise behaves as before.
 
-  The mux value for this region is different from previous generations.
+Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+---
+ drivers/soc/sunxi/sunxi_sram.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-- The SRAM C region is an alias of the first 128 KB of VE SRAM, plus 64
-  KB of DE SRAM. The latter is otherwise unaccessible from the CPU. When
-  CPU access is disabled, the whole region reads as zero, while writes
-  are ignored.
-
-  The mux value for this region is the same as on the A64 and H6.
-
-The driver needs to allow both the Video Engine and Display Engine to
-claim the SRAM C region at the same time.
-
-At the same time, since the Video Engine needs to claim both SRAM
-regions, the Allwinner SRAM consumer interface needs to support claiming
-multiple regions for one consumer.
-
-
-Patch 1 adds a compatible for the new H616 VE SRAM to the common SRAM
-binding.
-
-Patch 2 adds a compatible for the new H616 VE SRAM to the Allwinner SRAM
-binding.
-
-Patch 3 is a minor cleanup that const-ifies the SRAM related hardware
-description data in the driver.
-
-Patch 4 implements support for multiple hardware block drivers to claim
-the same SRAM region.
-
-Patch 5 implements support for one consumer to claim multiple SRAM
-regions.
-
-Patch 6 adds support for the H616 VE SRAM region to the SRAM driver.
-
-Patch 7 adds the SRAM regions to the H616 dtsi file. This was picked
-from Jernej's tree and split into one patch for SRAM and one patch for
-the video engine.
-
-
-I think all the changes can go through the sunxi tree, unless the device
-tree maintainers want to take the first patch separately?
-
-The new users of this, support for the H616 video engine, will be sent
-separately.
-
-
-Thanks
-ChenYu
-
-
-Chen-Yu Tsai (6):
-  dt-bindings: sram: Document Allwinner H616 VE SRAM
-  dt-bindings: sram: sunxi-sram: Add H616 SRAM regions
-  soc: sunxi: sram: Const-ify sunxi_sram_func data and references
-  soc: sunxi: sram: Allow SRAM to be claimed multiple times
-  soc: sunxi: sram: Support claiming multiple regions per device
-  soc: sunxi: sram: Add H616 SRAM regions
-
-Jernej Skrabec (1):
-  arm64: dts: allwinner: sun50i-h616: Add SRAM nodes
-
- .../allwinner,sun4i-a10-system-control.yaml   |   5 +-
- .../devicetree/bindings/sram/sram.yaml        |   1 +
- .../arm64/boot/dts/allwinner/sun50i-h616.dtsi |  28 ++-
- drivers/soc/sunxi/sunxi_sram.c                | 196 +++++++++++-------
- 4 files changed, 151 insertions(+), 79 deletions(-)
-
+diff --git a/drivers/soc/sunxi/sunxi_sram.c b/drivers/soc/sunxi/sunxi_sram.c
+index 5e8c80ae3509..aba155379ccc 100644
+--- a/drivers/soc/sunxi/sunxi_sram.c
++++ b/drivers/soc/sunxi/sunxi_sram.c
+@@ -12,6 +12,7 @@
+ 
+ #include <linux/debugfs.h>
+ #include <linux/io.h>
++#include <linux/limits.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+@@ -38,7 +39,7 @@ struct sunxi_sram_data {
+ 
+ struct sunxi_sram_desc {
+ 	struct sunxi_sram_data	data;
+-	bool			claimed;
++	u8			claim_cnt;
+ };
+ 
+ #define SUNXI_SRAM_MAP(_reg_val, _val, _func)			\
+@@ -244,9 +245,11 @@ int sunxi_sram_claim(struct device *dev)
+ 
+ 	spin_lock(&sram_lock);
+ 
+-	if (sram_desc->claimed) {
++	if (sram_desc->claim_cnt) {
++		if (!WARN_ON(sram_desc->claim_cnt == U8_MAX))
++			sram_desc->claim_cnt++;
+ 		spin_unlock(&sram_lock);
+-		return -EBUSY;
++		return 0;
+ 	}
+ 
+ 	mask = GENMASK(sram_data->offset + sram_data->width - 1,
+@@ -256,7 +259,7 @@ int sunxi_sram_claim(struct device *dev)
+ 	writel(val | ((device << sram_data->offset) & mask),
+ 	       base + sram_data->reg);
+ 
+-	sram_desc->claimed = true;
++	sram_desc->claim_cnt++;
+ 	spin_unlock(&sram_lock);
+ 
+ 	return 0;
+@@ -278,7 +281,8 @@ void sunxi_sram_release(struct device *dev)
+ 	sram_desc = to_sram_desc(sram_data);
+ 
+ 	spin_lock(&sram_lock);
+-	sram_desc->claimed = false;
++	if (!WARN_ON(sram_desc->claim_cnt == 0))
++		sram_desc->claim_cnt--;
+ 	spin_unlock(&sram_lock);
+ }
+ EXPORT_SYMBOL(sunxi_sram_release);
 -- 
 2.47.3
 
