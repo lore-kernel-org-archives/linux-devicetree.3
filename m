@@ -1,106 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE8C1E515;
-	Tue, 24 Mar 2026 00:12:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26721D555
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 00:14:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774311122; cv=none; b=Ncrb7A7zk3r9cnBKwbN01muhVMQQlia/b9aP4bIboMwrK7lVmIb7z4v6jRdryYn9a5dTURyOpUiFG5Hxuy3nxlMNx1X1uHb4grOOsONOZa0Xyu6msJiUkkWLjzbceV6wPO5e84vz/MRv1wwF5gX1HN9cZXlZTX6dwuj+dNzGBM4=
+	t=1774311295; cv=none; b=JHayLiOiF9fw88X86adus0Ffwfhi0blOI65nZdcqmEsYh+DuXQ0iN/oga7UG8MoRoaK4J/ViZDenRx7f11/0zlw4jsMDZocSXSbgFRh/NSZwr1qb9qxC1Vk11D53v/B7htfwCjdmhQvxZNa7xHgtzCywUHNKWiB8vMdXW2nhvNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774311122; c=relaxed/simple;
-	bh=BZbJm13p6v7uFdlnM0kKtK0kw8yT1avRjwVB64Na/7o=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=dKnxRb8fLj8mRfOSoHc007YTUCyF9PrI3hY5ww/LrnjcWdpeLk6E4G1KAlH4t7kur5gWVqGKRggpul9Zzw23Xmm+ZSgBXh49P6RtPAo7ajI1WThgJm4l+lJRm4hmEEPTV9YCUYH6TXHJktRI3vmRRcmVmuERSUsR1+0PHN6Tnww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5jrM1g2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774311295; c=relaxed/simple;
+	bh=9j09q0k3NPk/W0D1Mv7Z4HyOO1Fb7jqm4O93lRXLmOM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FXzaHCPMaCEpeMb/Q9vhVnDOZUOv+eaHcyEtrRoE8aINRncutTnZfuxa5RHw0Oy1KcjYkrK/uBBUXi1gpattWirIN6uMSqYjh1qHYl1UdXNoxSXSwkp98V0S+J36IuMOiNy3BmfcQoqsY5d2Y13mUrB2BmWDrYF6qONCeh4ncEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Cko+SQ19; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Pmq9nEBT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5jrM1g2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F343C4CEF7;
-	Tue, 24 Mar 2026 00:11:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774311121;
-	bh=BZbJm13p6v7uFdlnM0kKtK0kw8yT1avRjwVB64Na/7o=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=K5jrM1g2tyqh02781ZCofBxdfOJa5AeuqQBRehpGadrtFJkHXqdcRGeht8LNeB8BZ
-	 wnlNZwrVhyrC/r2TLmI8LlwiO6e0sYpNbwVaLAK9WMg6TCUIVtlwIHp06aCXyVYq4w
-	 Gc2rlipBVnNSjWlhvUY+v6OnmjekBcEA9X+uUcMdDNCKsxudLZUiRRzuDrIAM52srd
-	 lsBYYTs0MXVixREYqFhtCQBIrFs3/YdCaT1n9zw6FHBXTvNpm/xEu0qmejb3DN2b3M
-	 riBxd2/y+jPldyolcFW4HpkUCsadZYycV7tAy2B0c8xFStC8JdkVjtThnv3MhDdYOE
-	 KcVPFoU266lzg==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Benson Leung <bleung@chromium.org>, 
- Guenter Roeck <groeck@chromium.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Chen-Yu Tsai <wenst@chromium.org>
-Cc: linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- chrome-platform@lists.linux.dev
-In-Reply-To: <20260320083135.2455444-1-wenst@chromium.org>
-References: <20260320083135.2455444-1-wenst@chromium.org>
-Subject: Re: [PATCH 0/2] regulator: cros-ec: cleanup and add supplies
-Message-Id: <177430554501.811880.4959580213615516944.b4-ty@b4>
-Date: Mon, 23 Mar 2026 22:39:05 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Cko+SQ19";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Pmq9nEBT"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62NHqZ7w943558
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 00:14:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=J3sy8D6eHBM8dtQyfghIUFTJ
+	5QTZQVrPaBV+09pQxmY=; b=Cko+SQ19I5/wdL89clpobSqb2dQW6xAwzc4RuNCp
+	Sd2/vDqK9nVwOvxTeUeE4zxT/yHWYk5c0CpPh4WtwWda2QsY200/u6tR5uDjF8pk
+	4hTeuR1qnwC/A4FTT9da03HsoNRe5daokCn9CzEShUPYnWSGmSfVjKJH8jE5t5JO
+	7YIXWypJr35ZsBE7L7/qEAMPDC0mdlmsUmtZp8x/NM+voIl+b6mMW0UmeT/2CNaZ
+	2ESeYdx4K/FupUO1FLhMNAr1jZhqJM+loyQAO5npILweTh+iKl7T+NhUCNHLZksd
+	vXsJgtTKHEDHrcq1W/pHcWMjQ3oj7fXwS5EacLs3oisOPA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d34vktcch-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 00:14:53 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50917996cfaso60519231cf.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 17:14:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774311293; x=1774916093; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=J3sy8D6eHBM8dtQyfghIUFTJ5QTZQVrPaBV+09pQxmY=;
+        b=Pmq9nEBTU4L/NMuo/uWeRPRNMx/14YBJvi32JhbyTwea0k9DhoiKgIbEelepyXvlkl
+         +fdcrZ9nm4JvkPd4KoBDaz4uRglQSH2/vUnbSr5RBS73eM0Oz/LQv/oYjkyGEqN4Q2DO
+         gu2TVM1+A9wwolr/F991KLpVEpIgiggDgX1vCDcRuwWC7mD0HledjV7FK0q3LHlavTd9
+         AV2Bc/sAvsx7vJdausFIohowFvVBzyI4iJhdK2HykJZ/LH78a2bPyy6tEFsDgIF5xdFF
+         Y702u8eBy493yVivaiPGCixS6cWO/fc3IsKEXTz44H7tCX94ZVRLg7yJ71u98NXYCUwK
+         0z9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774311293; x=1774916093;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=J3sy8D6eHBM8dtQyfghIUFTJ5QTZQVrPaBV+09pQxmY=;
+        b=sY9NBHPDQ3I8DEgvqNBUaX30yPidsy3RQF2B8GjS1Rzz/e6C6zBmzzCNFTDgo6qTg6
+         l8d7bvMKOd+pUfIy4tL1q+x13H5eEbfl86OAErIip9e39TfoRQ34N17tPhxCdYzJ8SX1
+         RXBjHOsnnVlb8A+AJhgtHA1kk06/2QSngQ/Iacg7tMwS1FwccMjSwBISiT8mBSk/Qqqq
+         0J4DX21v0XYAvnUIjUDSQErJyul4We/VDVXtnPJiXLuPtIaNi8osADrJaBJUcFa1FCtD
+         SItIi5a7QDtx3HsnSlexbxZzmFPoPDkKDWU2GdZIaPuRWpWKz4nHYVMpFVMBhMwiG51c
+         YRFg==
+X-Forwarded-Encrypted: i=1; AJvYcCWhcY8zTaoVj9taO9A9auv7clDIIw66+Jf4nQ+VDUXRgzbSkhY1YhIr5mKhsIazt7A4Nw85R8hdHSe0@vger.kernel.org
+X-Gm-Message-State: AOJu0YwA4s/vuMLH600jA0vPf1zckJHMHmNSa1w0h5PDyMyeHZc1ynEB
+	kuoZbuxuWbfsGGAUhxBneub/xEhyt8gz0y/BSW2zoq+XuTARcESXu7SptG8gDlQa4gFsrOFAbAg
+	PElCZSBF0RTJFBeg9BVO+gyKbpHIHHbsTBSo1qeXzxBSpJvGg/RZHUxP2Eghgqm7y
+X-Gm-Gg: ATEYQzwB+wO5LEPBG/RrZCszF5BJoU0cOjQURqvbWmbu+mbapfDWbAIB7HuNaIik3ov
+	6Z1iflLeC//VWK9CPljGq1gDjGx5UeVsHxumT+PBdoAvl11TlZ1Ne2UIOmcX0KwnQDbwXj1/u+d
+	VjfQd+qJ+93musZSnekK5Ja4SZAfB8jd5EvR7r+46KNI6cJYufDzUS+V9z7OS2PGhCxKTGa40yd
+	hF3AJ0VhQqaRnI9YmmGQeer6trb1Tlg53flr35Zq3pDeTXN8l1x1pIGvLYzmAgTTaKOe+CzmMIo
+	8KlT4c4ZLzW4a8DvejB3g1J+ia2XW5Z2Wj2MrapKzGHhSPlFMpfmhBJ2gmbJKthspJ5RZ2d0WIW
+	GYs7SgINKJMS9DHgS96K0snUqkRfEGvywXZBtCXwIf4RwV6d0Az7Jvkq3vDhZZ7F9IrnU0axLkz
+	sPQT7HUEQw9YsePKP1cTmU26lIHbms4oyJ440=
+X-Received: by 2002:ac8:5f54:0:b0:50b:3f50:16c with SMTP id d75a77b69052e-50b3f501f48mr198988141cf.15.1774311293086;
+        Mon, 23 Mar 2026 17:14:53 -0700 (PDT)
+X-Received: by 2002:ac8:5f54:0:b0:50b:3f50:16c with SMTP id d75a77b69052e-50b3f501f48mr198987811cf.15.1774311292577;
+        Mon, 23 Mar 2026 17:14:52 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38bf9aac6f5sm28265831fa.33.2026.03.23.17.14.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Mar 2026 17:14:49 -0700 (PDT)
+Date: Tue, 24 Mar 2026 02:14:46 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Val Packett <val@packett.cool>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: kodiak: Add LPASS I2S2 pinctrl
+ definitions
+Message-ID: <xxh5wwzte4ccqc3tcsokx2oaj5vv4jz2mvvop77w56olae455y@cq6ddiifnk3k>
+References: <20260323095247.92890-1-val@packett.cool>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev-17187
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1447; i=broonie@kernel.org;
- h=from:subject:message-id; bh=BZbJm13p6v7uFdlnM0kKtK0kw8yT1avRjwVB64Na/7o=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBpwdbOXyzix15AngIKGeCoU5IoLfda9/2BUmLmw
- ParSdlB6laJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCacHWzgAKCRAk1otyXVSH
- 0HbzB/9xIU3u7Z+zr1GTIUwKmtVL/HaOR+tHv7Dd1zvMFDjYaud3AO+A7Ou0rtX9wVSlclihAa0
- qzz09CEtPbgiH0gIJ+QJ29LdkY0HZo90sOFp0pAnnPZjAlCNV7piky8z32ib4/4afkquTY0RDh1
- 11FaOv8v2Phr6Ry4R1JzGFzJGn5Dy96V4xKfqpcKQXlpstbsY78YNaP9m7IkNRkuD2MKbRVp0dl
- AS0XhuxxBp8nE/p5nA5njK6KcccA2blVW/0iw7gv7Ashx1uNrd/oxAZVLl4bPMyIW1YEUAxuWXd
- KQ+yKgkhBCJRrhUpuS7BfJ76IXB9M7SnKdPfWnHLpuajuUyK
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260323095247.92890-1-val@packett.cool>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDAwMCBTYWx0ZWRfX2wLbergo1BtM
+ +l2ARwhGX1l4ZXkZcHVaJukKIa3uMblW6+Cc8ASs2tr+ES0/tvDl1wCbSMr5BCnQJCY32eaSLgc
+ NYyCfpyGNIy1OXrMbLjDdd8RUougeo+APviv8RttBRjsiEDh6PJ/ctrtt5yhopusKKbTbQoew5g
+ CnnC+zOn8uOF/W6sQQyGNQduFNIGW++BDBoORFT9RIr1MfIV/L4byPZR2awIbDRhJNyvZaS3J2q
+ uJOQ13WU4yi5jexzbL53WTvu4AM8ismrMxD8bXwZ0awSq0jZGN/wxfY3VzF3YpY9YxzAic5dyHD
+ eeWhgygbl+aL/mHpnI5MVW9s4FKslWiJAoC20pU/i/YTxOx/mEyIBil4+EoOTYU6ra9JqtenrBt
+ kt38nDxovJrqgYWddEQgyHP0q97qGXHqykRtxibTfnrjUYNW+AMU6w0tTgm1E2jNZqv/2KEZE07
+ AdKGidSs0zLB911Dskg==
+X-Authority-Analysis: v=2.4 cv=eMoeTXp1 c=1 sm=1 tr=0 ts=69c1d77d cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=Z3ui5y-J4bSPkrMtwxMA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: qOb2iI7bQlb0siPxS9JCNbAB_iJS9TQr
+X-Proofpoint-ORIG-GUID: qOb2iI7bQlb0siPxS9JCNbAB_iJS9TQr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-23_07,2026-03-23_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0
+ bulkscore=0 phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240000
 
-On Fri, 20 Mar 2026 16:31:31 +0800, Chen-Yu Tsai wrote:
-> regulator: cros-ec: cleanup and add supplies
+On Mon, Mar 23, 2026 at 06:40:47AM -0300, Val Packett wrote:
+> Add the pinctrl definitions to configure gpio10-gpio13 of the lpass_tlmm
+> for I2S output.
 > 
-> Hi,
+> Signed-off-by: Val Packett <val@packett.cool>
+> ---
+> Similar to ff9c117c32bc6ace7 which just landed, this is for the other MI2S
+> interface on there. It is the Senary MI2S, so actually using it requires
+> the series from [1] and then more changes on top, but I have sound working
+> on my device with it, so let's get this DT chunk in first / at the same time
+> as the other prereqs land as well.
 > 
-> This series is part of a broader collection of regulator related
-> cleanups for MediaTek Chromebooks. This one covers the regulators
-> exposed by the ChromeOS Embedded Controller.
+> [1]: https://lore.kernel.org/all/20260320144918.1685838-1-srinivas.kandagatla@oss.qualcomm.com/
 > 
-> [...]
+> Thanks,
+> ~val
+> ---
+>  arch/arm64/boot/dts/qcom/kodiak.dtsi | 52 ++++++++++++++++++++++++++++
+>  1 file changed, 52 insertions(+)
+> 
 
-Applied to
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.1
 
-Thanks!
-
-[1/2] regulator: dt-bindings: cros-ec: Add regulator supply
-      https://git.kernel.org/broonie/regulator/c/56b7c08a8b4b
-[2/2] regulator: cros-ec: Add regulator supply
-      https://git.kernel.org/broonie/regulator/c/411eb30f1382
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+-- 
+With best wishes
+Dmitry
