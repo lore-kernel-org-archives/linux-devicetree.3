@@ -1,84 +1,55 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from out-170.mta0.migadu.com (out-170.mta0.migadu.com [91.218.175.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F322340DB0
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 02:32:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9061386C35
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 02:42:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774319565; cv=none; b=TvErud9lTQNHpLGuTlTMJ53Siu6DugDK2uX4g+/EArkrkV/qiO+TM6nk1n/0Dg64mnN36SrXBrwKxFUjZbkMSO7Rj2GKGqGsa0U/DILK5JaUaWNgejaTd+seYCJL3jVaQR44FjCG6aWGJ9YCTLEKSgJneOatQGkwr2+A10kyurk=
+	t=1774320127; cv=none; b=K7shXIUfJVX+xCa/DoRog/L7uhLG3pNS4wrmRG1ODHyvS/f38enNwPDKPrgowy9Zzht6Tq5vjyESI7B95U1Mqui89A7ZlCb2RXh1caR6fFZOneiejv5P4byxL0KBPAGCW1l+Pi1okcIlOEtnTko4OpBLj6DvLYp9/Z2d/7PX4us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774319565; c=relaxed/simple;
-	bh=sUpzVtSWzHXG2xISKE4+8vGpJMrW6ceWMusJ5Fw+jXQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FLb+GypOPB3PogREpIhmGwtTQXxNaJGYa3eLv+qc7ACOfu3fzbqWnPijQXRj2QgscLFA9s9QPPOtrNFAgwR0C9dm5CwCY4zqXstrxcjzsyYK1NKaFRCtAda8s1ZEO8YkGRA5a7DLVYhheWVjpD7QCtMlovdIrYyGkHkwLY7kT3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Grk049RB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ID7Rz4d0; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774320127; c=relaxed/simple;
+	bh=QxTmlqmkQcMN2KoUvbVTTUThuVygMwHL+TjqdYXzuzA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Pp19xGj3Ylg4QWPLxjjoUGkCe7f5n1FvwLjvxi7qFl2kIMCXtPMvZot7vbx1HJmUUBbutU3NMlW3tRbYrCdirnUSLkUw+CTVHU1O0c2IkmB6i3M0HogUPBrsnyLZm28t/XF+r0Uu9I8qn9JezbtQCA2+YZSVKb0I6toZmQ0gVaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=dnGiVklI; arc=none smtp.client-ip=91.218.175.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Grk049RB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ID7Rz4d0"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62NIZNvN1910072
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 02:32:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=aMZ7qUnKi6Br7IYZAcw8Vp
-	4jm2qzhzXUo8k75ozmPus=; b=Grk049RBTL6elga+TWbn+m3Nmq2HNXdIEEaOQo
-	JixKKKZcRLZBO//sB7r6O7T/exSNojri+3ISLdkLg5Ic/5oAYq9O62UKZmJ3FyNK
-	C9D6c/1hNauJunfxxYIrr2c8mv05yuSwSSEPt7MI050Mw/PTNdLxpuus5CNU5FV0
-	RiL5TbepkODh93JeRY12iWlFPFgAQe1NKHeWZFtDOLVIKjO4DGKo/KJJFkFy7LJX
-	uoRZDPhSEze6g5+gQuaxXwHeDjZWuQFoZqCtdFq839fHIKFD7ROQh+XOmAuhlPgK
-	l5rHo/OfBonZz7kJPy9vJgxpPbAdmU7j9vo2qguqx4mVWadw==
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d3awysb8h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 02:32:43 +0000 (GMT)
-Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-67df9928ec2so1090456eaf.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 19:32:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774319562; x=1774924362; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=aMZ7qUnKi6Br7IYZAcw8Vp4jm2qzhzXUo8k75ozmPus=;
-        b=ID7Rz4d0n/tSMTKo6lgOrJSkv4Jug9U+Kvh2DP9ywHsRfAOxaYZ5QcL03Dcv41wCAk
-         eAKlZKtQGdpeU6giHuJCs+reMjirfPFMJ8bKRs+holEAYLKth9+Z1c/4lNBNGwUED3is
-         X1VeYf7hVynp8PHhqLwHOtbSgJ6fhR/bN3nr2UM1rKapK6A1prHnXV/OI3NR52mUHYV3
-         cAnNkKkaNXMWHzGoKiuw+E4dAiTelZmLaW2bv63EvKtS+9e5BpRzGaLsyh/1fHXFl95y
-         4Qs6N2eYE2gmq3u31Z37Ci7fqAFj7s2lOcFZO6K4kHQYz6+hVoBGG+HRlntKc3br+9h4
-         vyRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774319562; x=1774924362;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=aMZ7qUnKi6Br7IYZAcw8Vp4jm2qzhzXUo8k75ozmPus=;
-        b=U96oyebG6Oe5/0WMRN9m0DxN2zeHLZ+TNhnOqP4l77P3O9sH5E1oepx2moKpf/xJVx
-         4zY6tyKBCMKnWCjqNYS5ozOlFcMp90FlsTEym6PGwaAsnI20Du3bcwY2ufh8ZgCZr2yn
-         aDj/de7hBJZqXoX+18W7OGITyjbGCJltZiEvSzyx4xk5G8LKNpD2a2Irhdo1/zi1fv/L
-         GSuVmrvicxqNUvy/EhZAGZvRMLYMEsxbIpssErjoNvndyjA+ndJ0TuagYOxSgxjbIDGr
-         saoGODpR5YKz8dXXnMK7147GScrA19HWC76D1oCAlFxEHYBwpVZH0ToAsHQE5hztPIIK
-         WRQA==
-X-Forwarded-Encrypted: i=1; AJvYcCUTWPlmKdlNcOqS6QFBChoJZM9RUptOnR1aP/AvSX3uXWIia1Gy0gVdkTuL1tMNM43STXgsRDTN7zLo@vger.kernel.org
-X-Gm-Message-State: AOJu0YwaRi/Sjw2NRqZsCAAKO90KbJY6rJu5O4ePzxywDQh2+U1PPGp7
-	K+hEh9wPikLWq0NpLy8bVK1ckosK3ju4/amui9M6krNufqlqnRp6fp6prjLuGmn1BXhKKTTp/fl
-	Gn5+lty48xUWnO85eiaoqTFq8MmbyGaGkrvShK6c7WBXY0coDeQBi/VTUR8gmQMDJ
-X-Gm-Gg: ATEYQzwZqW/8Od4ATtolwdk9A6SgzFNINyfj8vS4kOxk2s3eBBIoDjo/+g5RSLAga4A
-	WT+iPoZD0uP1EYmQOS3IYusS5YtgdtTaW1qOTUi1AjYg6OFW2UgxCOTqd5JfEUBoMdM0ZvOSENB
-	2TalbJ+kyL6n6AXGB6HT+d0Vy3bEQ0wnmVjgoUvL77ipxYiPApaKYh9Wvy+Pa5DrqHLOghfYkuI
-	g+XAiFvzSlAI7+36CEtCM+pTanDvfTqFVWUgE412mCgtaJ6o3t+4D3jwSPHsayPOo/z/KFHvlUm
-	aKFoVhBtyaqTjh9HxmyeSKo/8fvVdDAz6dLBqQhWOjOjp4T26Ks2gSdRJEYo7LKSps/Iz566EYI
-	UZ2UHIKDE242Ou0I3sFnfgZ0eE+zL21AOU5rsA37i3oM=
-X-Received: by 2002:a05:6820:6ae7:b0:67d:e8c1:35ad with SMTP id 006d021491bc7-67de8c137e4mr4540125eaf.14.1774319562315;
-        Mon, 23 Mar 2026 19:32:42 -0700 (PDT)
-X-Received: by 2002:a05:6820:6ae7:b0:67d:e8c1:35ad with SMTP id 006d021491bc7-67de8c137e4mr4540107eaf.14.1774319561840;
-        Mon, 23 Mar 2026 19:32:41 -0700 (PDT)
-Received: from [192.168.86.59] ([104.57.184.186])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-67c252ac65fsm7247725eaf.2.2026.03.23.19.32.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Mar 2026 19:32:41 -0700 (PDT)
-From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Date: Mon, 23 Mar 2026 21:32:39 -0500
-Subject: [PATCH v2] arm64: dts: qcom: qcs6490-rb3gen2: Enable uPD720201 and
- GL3590
+	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="dnGiVklI"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
+	s=key1; t=1774320121;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oF49/BYOoWixay/qx7Eoo62r6lKrl/hK0NZyxoCVnpU=;
+	b=dnGiVklIYkplql9fr2YmMvX1/li8SS9L0Zcz8aSkYyexnXi8R2gq96rY3eh82ZvWkiLL6b
+	HZAmRKorZxIdE0I3dz4sDHxcj977Fx4Gn07XPbLcx3th9mz4U27Hb9/iSZ83yhRCeWIZTw
+	sLYbasMO7Hs8NJilels8iBuVJ83IkNq8A88ES3I2iEIahgI2V2x0xO9JHaIxPEgM++f15Q
+	xMnoTb0axDpPIZsdQLPVmWXugfdUP/mopPjCIyQuip1r0yxye3ijiCR5MQgvu2mGVYAxrw
+	xLar27ZKQhI6JfdpZJIirGd4tuB2wRnkq558TXy+HRyeMe9yVwv6FMVXEQqmjA==
+From: Paul Sajna <sajattack@postmarketos.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Heidelberg <david@ixit.cz>
+Cc: Paul Sajna <sajattack@postmarketos.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	phone-devel@vger.kernel.org,
+	~postmarketos/upstreaming@lists.sr.ht,
+	Amir Dahan <system64fumo@tuta.io>,
+	Christopher Brown <crispybrown@gmail.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [PATCH v6 13/15] arm64: dts: qcom: sdm845-lg-common: Change ipa gsi-loader to 'self'
+Date: Mon, 23 Mar 2026 19:41:41 -0700
+Message-ID: <20260323-judyln-dts-v6-13-d89f07897283@postmarketos.org>
+In-Reply-To: <20260323-judyln-dts-v6-0-d89f07897283@postmarketos.org>
+References: <20260323-judyln-dts-v6-0-d89f07897283@postmarketos.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -86,244 +57,40 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774320090; l=1010; i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id; bh=QxTmlqmkQcMN2KoUvbVTTUThuVygMwHL+TjqdYXzuzA=; b=RYlzolRd+8Y/2hJuzQannijz01efdQlxBCzd8ElmSF8Ah3xD2cEsdrA5AZWzChFKhTKiXCEEN 1LaMzS/GMZyChyipRVDvwq/s3CScEz+xMwqmTdNFiHkUg5EgzsXDu3L
+X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519; pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260323-rb3gen2-upd-gl3590-v2-1-073514bf9ed5@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAMf3wWkC/32NXQrDIBCErxL2uQZd+5un3qPkIcaNERJNtZGW4
- N1rc4AyMPANzMwGkYKlCE21QaBko/WuAB4q6MfOGWJWFwbkeOYokAUlDTlk66KZmeTpxpkWgmt
- 9QSShoBSXQIN976OPtvBo48uHz/6RxC/9O5cEK7oOih+Vkqj43cdYP9du6v0818WgzTl/AQFZu
- Di7AAAA
-X-Change-ID: 20260212-rb3gen2-upd-gl3590-d110dd722e1b
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5119;
- i=bjorn.andersson@oss.qualcomm.com; h=from:subject:message-id;
- bh=sUpzVtSWzHXG2xISKE4+8vGpJMrW6ceWMusJ5Fw+jXQ=;
- b=owEBgwJ8/ZANAwAKAQsfOT8Nma3FAcsmYgBpwffIyub47/pv3B7dzIyeTC/CtpiEoHpaVOFiJ
- iBSHo7Li4OJAkkEAAEKADMWIQQF3gPMXzXqTwlm1SULHzk/DZmtxQUCacH3yBUcYW5kZXJzc29u
- QGtlcm5lbC5vcmcACgkQCx85Pw2ZrcULNg//ZnBJ0neNxqX9IMUo6bAgMiEvsTFpkAmC0zd5uKk
- bIZEc/g0x5fYEn+OWjQq/+CEGv7TFc9Ltr9HjPLAvehv6RLuOb/imORGP/Ok4y5xgUxX3wm3Cis
- I+hdX/iCLlvNPbxENnIK38ghd+XJ4btuQhFNk9tlynMzES58LwpOS/qn/FBMurQLg6ryprPVbvP
- udOfrtE7Y6D2tdUEE6GpDSFhck9NpyMfYL+SgG++VkC4cEzO/yjB+arNtf8I3QmH/845PQKJzE8
- hIW0KWNHH6Hs4SfH48YYtplVzYg/uRaRBZeGeu6oydoD/GPM23wLPQ+K6DmNxpzfFAO8r+Wy6Qn
- r+IzTOJ86cNc9YAK5pa2BGSWDgXmw6L4rwMa3wSihIXydMYZOgfSPRwg57zlv5QkVNdDl3Bt5hS
- gQbtzBovj2y2N+NbXvit31lV0L2ma4rTuQ2LOs5moJLqtYu7cZUwTz6APV6KsQx3stcVpuWTU1o
- 0/X09Ns6s2LywwYYERpJKfOan+sHWwcyQ6ToJN1uSUlVLPqrN1p5HqFD+f98xiWvA3y+BmxH1RC
- +96mVRX6J03Jiyuq2UQG0FXw3lqlJspHG/fge1uW+BaU8Ek6Ery0PeAPD7HI71Noe8GverRP7ZI
- 8EZHVrg4EjsCg+yd/8I70cGX2r9VxkfZEOSXUxD5Sx8U=
-X-Developer-Key: i=bjorn.andersson@oss.qualcomm.com; a=openpgp;
- fpr=05DE03CC5F35EA4F0966D5250B1F393F0D99ADC5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDAxOSBTYWx0ZWRfX0ojdFUz9wSRd
- xbUo2/+Rk4cz/YvpX/uyUE8y3B7fGBCC83SEzKe64dUjfEvL7pPtOXpmJ+IUAp9ZNUp5n44ncST
- 2joilgvXbYNP6wAll3ykXuoe9nUqZPGKHx1pWq0DhJXaBYdZIP8kpP0UW2UKd8Mrf/VE2E1ROH+
- CHvYEBb0l5hCMM1yeqRP+rmIYCwe7mk4n4DPgUJaB0DD15vKRlrAwVDTUfiFu2wa6/5N+1Wx6Pb
- 8KHf3yHxGt9SjPPF8edGQbjYxEkPJltwqxGswbZvawk2uWAnC87CCBJw0wGRNSHmDVe/h5HDtN7
- fqIxnol4Ru/0wu+rtxNbA7G22Lbgj3IE9tN9QImMxhWWwnQPiwn/7dBkBRRvVlr1XCv8n2cmFgk
- kMg6hX/4qW+hquGs+rWOT/Nd/oPhRr0aaiVy+EDGh5+ZyInC7B+Ef45xhzdFzHGja/6brzYeyRn
- qT5jhotcbxVeWqnMI7Q==
-X-Proofpoint-ORIG-GUID: nXXVKyOFOkFBwLyplfP5iJFXZUapodMj
-X-Authority-Analysis: v=2.4 cv=KuhAGGWN c=1 sm=1 tr=0 ts=69c1f7cb cx=c_pps
- a=lVi5GcDxkcJcfCmEjVJoaw==:117 a=DaeiM5VmU20ml6RIjrOvYw==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=hJVUIvWn-uBL610IeTYA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=rBiNkAWo9uy_4UTK5NWh:22
-X-Proofpoint-GUID: nXXVKyOFOkFBwLyplfP5iJFXZUapodMj
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-23_07,2026-03-23_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 phishscore=0 priorityscore=1501 impostorscore=0
- spamscore=0 adultscore=0 lowpriorityscore=0 clxscore=1011 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240019
+X-Migadu-Flow: FLOW_OUT
 
-The QCS6490 Rb3Gen2 has a Renesas μPD720201 XHCI controller hanging off
-the TC9563 PCIe switch, on this a Genesys Logic GL3590 USB hub provides
-two USB Type-A ports and an ASIX AX88179 USB 3.0 Gigabit Ethernet
-interface.
+The modem firmware for this device doesn't preload the IPA firmware
+and requires the OS handles that instead. Set qcom,gsi-loader = "self"
+to reflect that.
 
-The Renesas chip is powered by two regulators controlled through PM7250B
-GPIOs 1 and 4, and the power/reset pin is pulled down by PM8350C GPIO 4.
-The Genesys chip power is always-on, but the reset pin is controlled
-through TLMM GPIO 162.
+ipa 1e40000.ipa: channel 4 limited to 256 TREs
+ipa 1e40000.ipa: IPA driver initialized
+ipa 1e40000.ipa: received modem starting event
+ipa 1e40000.ipa: received modem running event
 
-Describe the Renesas chip on the PCIe bus, with supplies and reset, to
-allow it to be brought out of reset and discovered. Then describe the
-two peers of the USB hub, with its reset GPIO, to allow this to be
-brought out of reset.
-
-The USB Type-A connectors are not described, as they are in no regard
-controlled by the operating system.
-
-Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 ---
-Dependencies has now landed, so this provides USB Type-A and Ethernet
-support (when renesas_usb_fw.mem) is present.
+ arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Missing from the RFC/v1 description was the mentioning that unless I
-pass "pcie_aspm=off" to the kernel, the Renesas controller fails with:
-
-  xhci-pci-renesas 0001:04:00.0: Abort failed to stop command ring: -110
----
-Changes in v2:
-- Waited for dependencies to land.
-- Dropped "RFC".
-- Link to v1: https://lore.kernel.org/r/20260212-rb3gen2-upd-gl3590-v1-1-18fb04bb32b0@oss.qualcomm.com
----
- arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 93 ++++++++++++++++++++++++++++
- 1 file changed, 93 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-index cd54525e45e0f58c7c4d21b010422b55e5fbbb77..e393ccf1884afde7816739053d41ca789acfca91 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-@@ -262,6 +262,28 @@ active-config0 {
- 		};
- 	};
- 
-+	vreg_pcie0_1p05: regulator-pcie0-1p05v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "PCIE0_1.05V";
-+		gpio = <&pm7250b_gpios 4 GPIO_ACTIVE_HIGH>;
-+		regulator-min-microvolt = <1050000>;
-+		regulator-max-microvolt = <1050000>;
-+		enable-active-high;
-+		pinctrl-0 = <&upd_pwr_en2_state>;
-+		pinctrl-names = "default";
-+	};
-+
-+	vreg_pcie0_3p3: regulator-pcie0-3p3v-dual {
-+		compatible = "regulator-fixed";
-+		regulator-name = "PCIE0_3.3V_Dual";
-+		gpio = <&pm7250b_gpios 1 GPIO_ACTIVE_HIGH>;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		enable-active-high;
-+		pinctrl-0 = <&upd_pwr_en1_state>;
-+		pinctrl-names = "default";
-+	};
-+
- 	vdd_ntn_0p9: regulator-vdd-ntn-0p9 {
- 		compatible = "regulator-fixed";
- 		regulator-name = "VDD_NTN_0P9";
-@@ -870,6 +892,41 @@ pcie@2,0 {
- 			device_type = "pci";
- 			ranges;
- 			bus-range = <0x4 0xff>;
-+
-+			/* Renesas μPD720201 PCIe USB3.0 Host Controller */
-+			usb-controller@0,0 {
-+				compatible = "pci1912,0014";
-+				reg = <0x40000 0x0 0x0 0x0 0x0>;
-+
-+				avdd33-supply = <&vreg_pcie0_3p3>;
-+				vdd10-supply = <&vreg_pcie0_1p05>;
-+				vdd33-supply = <&vreg_pcie0_3p3>;
-+
-+				pinctrl-0 = <&upd_hub_rst_state>;
-+				pinctrl-names = "default";
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				/* Genesys Logic GL3590 USB Hub Controller */
-+				gl3590_2_0: hub@1 {
-+					compatible = "usb5e3,610";
-+					reg = <1>;
-+					reset-gpios = <&tlmm 162 GPIO_ACTIVE_HIGH>;
-+
-+					pinctrl-0 = <&usb_hub_reset_state>;
-+					pinctrl-names = "default";
-+
-+					peer-hub = <&gl3590_3_0>;
-+				};
-+
-+				gl3590_3_0: hub@2 {
-+					compatible = "usb5e3,625";
-+					reg = <2>;
-+
-+					peer-hub = <&gl3590_2_0>;
-+				};
-+			};
- 		};
- 
- 		pcie@3,0 {
-@@ -1198,6 +1255,17 @@ ntn_1p8_en: ntn-1p8-en-state {
- 		power-source = <0>;
- 	};
- 
-+	upd_hub_rst_state: upd-hub-rst-state {
-+		pins = "gpio4";
-+		function = "normal";
-+
-+		bias-disable;
-+		input-disable;
-+		output-enable;
-+		output-high;
-+		power-source = <0>;
-+	};
-+
- 	tc9563_resx_n: tc9563-resx-state {
- 		pins = "gpio1";
- 		function = "normal";
-@@ -1378,6 +1446,15 @@ &edp_hot_plug_det {
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+index 7e803886ca8f..51fc1735ff49 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+@@ -465,7 +465,7 @@ &gpu {
  };
  
- &pm7250b_gpios {
-+	upd_pwr_en1_state: upd-pwr-en1-state {
-+		pins = "gpio1";
-+		function = "normal";
-+
-+		output-enable;
-+		input-disable;
-+		power-source = <0>;
-+	};
-+
- 	lt9611_rst_pin: lt9611-rst-state {
- 		pins = "gpio2";
- 		function = "normal";
-@@ -1386,6 +1463,15 @@ lt9611_rst_pin: lt9611-rst-state {
- 		input-disable;
- 		power-source = <0>;
- 	};
-+
-+	upd_pwr_en2_state: upd-pwr-en2-state {
-+		pins = "gpio4";
-+		function = "normal";
-+
-+		output-enable;
-+		input-disable;
-+		power-source = <0>;
-+	};
- };
+ &ipa {
+-	qcom,gsi-loader = "modem";
++	qcom,gsi-loader = "self";
+ 	memory-region = <&ipa_fw_mem>;
  
- &sdc2_clk {
-@@ -1431,6 +1517,13 @@ sd_cd: sd-cd-state {
- 		function = "gpio";
- 		bias-pull-up;
- 	};
-+
-+	usb_hub_reset_state: usb-hub-reset-state {
-+		pins = "gpio162";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
- };
- 
- &lpass_audiocc {
+ 	status = "okay";
 
----
-base-commit: 09c0f7f1bcdbc3c37a5a760cbec76bf18f278406
-change-id: 20260212-rb3gen2-upd-gl3590-d110dd722e1b
-
-Best regards,
 -- 
-Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+2.53.0
 
