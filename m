@@ -1,120 +1,135 @@
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out203-205-221-173.mail.qq.com (out203-205-221-173.mail.qq.com [203.205.221.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4668B4035B3
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 15:04:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774364674; cv=pass; b=Wmk4fj/GBtk9c8TJLNRHbou/D9Av3wrT3+mqVjU2R0My1hjRLiIaRZqsQupm14iy2VlOCelvuZRPuc8FcbdJ1j8Ud5kTJsSGED0JsotNIxDT++1Sln3S3EBSaI6TNUZIAxdFBw+r7KBRskWEokq0YSpWLCUv6onW2eWTzP2e5uM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774364674; c=relaxed/simple;
-	bh=bcWhaCXDqT3/4plABAPIObuBjV7tjtyRKuCbcY4Z0B0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qsCcQhKohXlhQzuT2r+F/IpVIwRzHx1aqBqs+o7Xa+cCJmFamk0/doV3Y47BQFZimODHL9cGt6lH/YF7tq8zSR+fYV55ctlNzc84pJr1gFtgz+hcW+ruIzel9xBeP+ODzPZpxgvtvjOwHz9ACtX5Zn2y5JSFTND4tHopkKIUwVA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=s8dkKayL; arc=pass smtp.client-ip=209.85.167.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB94C1DFF7;
+	Tue, 24 Mar 2026 15:09:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774364970; cv=none; b=gXV1/ABrRIh4eZapkhcepehSiBTZldGMVynMRfd+0fEFM8nF9e82G0yYmurdwYF73O24NRz7CzaoiqhWJhdmGtQz5VyTOtTC9SEaE+uiiCvqskFtdDHMRCOb/3pFyf8QLKLHne6XtXn/+i/CbHotwsLnOsi9rBB8Pvpu6W0DaSs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774364970; c=relaxed/simple;
+	bh=PthYN7ZDHdFN5gfjhbdxfUe6mL8LcV94U3JEbrUoojA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RD6HSGnRdymPLaH2HEM4XvOiTvCx8B8cZwfnr8J5MndQykh2gllmpTfVv9tDFjOLe2lx10x5TmdeoZUEn1elJ1LDwqow2fZBqeLMLdUl+aDWxjKVBe3FlVXpjGUvXehO9Kmwko4Lni8z58RgKTLJp15Qsj+9qPsvu59s3iMXo74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=EkUEwjFR; arc=none smtp.client-ip=203.205.221.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="s8dkKayL"
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5a2967e5de4so1010655e87.3
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 08:04:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774364670; cv=none;
-        d=google.com; s=arc-20240605;
-        b=kwSs1jbUxgXgllot3FhoYX74RXDyq6lqUp2CReU76G+uwoolpicL80d1HTvhODstFr
-         eqSMW3Uf/esSXsAoGHoPHzsQCHzPsr7kait48X5M5vAR9ERBkDSQq9Nm6o15fYLWFdpB
-         kHJIqDAf3Gk/0HShD3YeA0xUNwE8a9Bi19tBzmFinPaF4UBBIWzvQlTffm0FxoSp2Qs3
-         X7wYzZcURndnjIYNRY2FFPssbVTQZvjIsycfMeNHkmZP79OMJ2Fo/gYti6CPymDx2HCb
-         fbQwZk6WN0ePCGxLAurPzaQ0uZlMi2ng3lvWxrY+35KEbnJBSL9J3ztRgSXOCkAGsd1j
-         pPkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=EF8mh8aKz3LIz19P1c3H9JBQd1g9ZFsPluy4phQ6zIg=;
-        fh=7jfOS5kySPkrk7zJugd6g/woZEymbqi32lFbBZYVUEo=;
-        b=kh3qg2wFts9oV6JHEkTnmHv/7r0cBKsLFlHoHFZFY4Cv5QTrJnUU2GQazqaRpm6svD
-         h/tU5bASVrdytxvew6GXlg2anV7xydyMlc/v6Qvdg0IKqmB2a9L5/eXRcHo+P/dIUeFB
-         jK8rO/46YBrU2OuRL2zwzfU3Rg429Aomypn2vPOnZLU5SspyhZhHdXtXlluMNhV4Oobx
-         b3ph+PjciXzasPCj3MsN274wPLSE6xVHnp5sYk5TtUwiANUDyzCiXAWfiC77+q8x4n1i
-         GpiencBgdU/AauQqumJeyoibC8OzZUaPN4xN+RA8QW0tZ/RxHavZAExVJ3iwF0SiEZGf
-         JKWQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774364670; x=1774969470; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=EF8mh8aKz3LIz19P1c3H9JBQd1g9ZFsPluy4phQ6zIg=;
-        b=s8dkKayLdhMXbT6NgL7fC1fyEqSkeMRs7b4B6BMGO6a2tnTF272oSnt+ZsTVvPk36p
-         hLlQQzzu2nRUHFjFD0GDPSuxSE/czW0sk98NXcnZGcB9e9VRjv0Rd3Y4/KiDsmWwGYn3
-         np+oJxx3VUKxZ72IaBT0b4WKQfZA4ci0yWeXNSeVPSxmWeNgIYHrzsA9CyC3gI8lL9t3
-         KyRnrwoJoS5sWvY/m1L6oUFFlImZnzvjFgEs5GtRfbXqyETRDiCQ3JBgrwN31PgnMQwT
-         ztmteYq2UnJtIF9exOTC5LfNK93T4U+k+ssyAodqUe462Vr+Z1axlOTHKHZefOqCrdPs
-         EzLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774364670; x=1774969470;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EF8mh8aKz3LIz19P1c3H9JBQd1g9ZFsPluy4phQ6zIg=;
-        b=FR8uRiRuEslNoVDQQtL9Bal3Nna16g+GPzVKg6kKZV6BgWb1EmMOb82jiRZ2MQ55FU
-         c0+F9tekn0aBOubZjtSN+gdwSv/r5hVkW4HGoZ19OiSox5SmG4sudpHoUWR8BHxn0iaZ
-         5Hy0YaNLEDqKvgvP+vgw59q6wYDGiScRGVc+AqhKc86P/WfL/8aKxDaSJoTu2E8qAZH7
-         0/ylxNbwECmsQlbeOCPCakUwAw/wFvgSWzPMJmX9uQXMlsGHbA4GpKYfRNjEgzEFTxL4
-         m5AU/uQMKEV8cDNgH7QkqV/8bSP0qRlNm4Z27njHIgxCSZc6NkNA0KnzA8OD5BacUYzA
-         mHtQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUuAZfW0ieFfWexJsHHxr3T1wWPT3EzzhDAhPf4KEaS32519PG70kIYkeQPeNY4fNOp5Jwp+Dv4gklO@vger.kernel.org
-X-Gm-Message-State: AOJu0YzxyMOxKC2B5KO4qhjeOOqNkT/WvBOmFJS1a7H07htPI1VOMv4c
-	C8l42kiGLThjKS43JyVqePgU6V31tNHpKf6Jvo7ALtW7MkQy4vX5GUz2pahGFnj+s/vV4/6p9dG
-	DhhcFud7uX9Eqq8OmSTGmTROC4uKq0RXJNWEL6Z9pAQ==
-X-Gm-Gg: ATEYQzyYBY1ubfzEz4M4T/fwVHrqg8Ep/6aWH8fHNfagSjVbL6v+LFGy+1Lv+yndnPx
-	ZM1O/zj4Jbtq4LL/gJmTTI/pvs/TNEOpQ15YNPTOG//Rmry2ZjIREYkGksOCVp9A9ZqwdP9axZy
-	sQj7s51COaERCms5tAEjNv+I5FALfF098ng61zMhvfaorGAiqo0Xr7oE+I/uxHT2yII8BP1JM2z
-	yYaFYqxcXdbAKCyCci9HlhFKzdC0i3i7WNNomepBoPhR3OWyelX2RO4zy95IMwdjvU7dntHRl2k
-	KpE9oESW
-X-Received: by 2002:a05:6512:15a9:b0:5a2:7d84:6a44 with SMTP id
- 2adb3069b0e04-5a285ae4b8dmr5600779e87.6.1774364670294; Tue, 24 Mar 2026
- 08:04:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="EkUEwjFR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1774364959; bh=e9xnOTqNCRvXtxsnWHt12COZRGCZXi00fDF44qtgmso=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EkUEwjFRMpEBF2UfsWT8Q5JazP6WRKz9L5ul+ei5mPZNBAK4XHOlycJ+2YNrrhUup
+	 i3deVLnjw96OnD96EXJNnsTxIQqF3yb4A8Xi0mYbCWlt2vK+eP5wCK4xReGyKr/F9Q
+	 mWKj1X6+vHe3CY0ll2zvpZ+6fk6qkthYfsoNQoh8=
+Received: from [198.18.0.1] ([122.195.139.226])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id 2508FC67; Tue, 24 Mar 2026 23:09:16 +0800
+X-QQ-mid: xmsmtpt1774364956tdve4h219
+Message-ID: <tencent_414FBFBEE2A4510232AB52CE665C04A6C20A@qq.com>
+X-QQ-XMAILINFO: N/WmRbclY25GeQclGkH9eitL8lbyOBv7J4IRM8kAAGVi5JQRFwlvdUtT1qFu8E
+	 bTAxcj9h0QEMyUT0l6OYmqZJrRpV7QjwPNqTWORIu/+QRCwS4iJhil0i9qPoPP0nBNzZjercPHJ9
+	 f6CV/HAyQ0cDxnyqFHheZuc4YUmzrxXC7hTR68FPmm8eVqiZ+sY3CzuT1qm0vsKMsZTdD/RAM7JT
+	 +94/PsFodquVzFqEz6USf+Q14jVxoGLlw7cYsPv/uBSbpGv8834wAehKR+xMks6owF8A9kWtE+Ng
+	 afL/fSKU+QYRcm5LbVOGT/yUO92KKC8h0msqTEMuo7EXXtRU3Hf2sB+lt0ZlQlNswk4P/EbJz8xc
+	 vUlOV70Vecv56f5QSxiEqtQCN6WMt8nJEVkVcgqWK7a4QeruVLTnp0PZtuQcQ08aLRP0KKahuBNR
+	 n5XfgjL1+t34RIYndU7WwgreX76+PSEofJbVoi9DlC+ml6lhyScLdgIrtDN+pAcaAByUG00WmqEc
+	 qqtTmcYcqxSYEbgkKfXB71IJ32LfuTsCQ9ji6wR2R6kX2LL0j1alEYG2zuD84DB3JNGq6RVC2+JA
+	 cgdQab6uNDb3g1WKCj7EQzzmF4QEsQAG9j054uNlrRQ7d5OOAsU23HQiVKPPLDjryW5Gv48cNp3/
+	 q/UUvoiq4z5hZ9Gdzqk00FKon+GY/iivqvowW0SFiYPKyJ5KtD5RwFjsnowZjOCurDk5NCWhn/+b
+	 2900LErc380U9ih9A0/SUyxiSDbwXu1CXRCfSW9YzjFwKm/rq3f/dUUbrfO5KQnOJv+C2rwFB5ZJ
+	 KmOGYlTq76QvTxhea8H9bm5OT1JgZiHzDw+H/r1XhM5a/Z5jQp7jDT2fbplHucBOCVrlZCyCKW4T
+	 aQyew0h4Sx/47j4fePcAinXHTBXIuavR6OxqwH7rYMHXgc7ibmMEVqjNbOiqsxjcMzoNtt67m8IY
+	 CDjxutMfRKbHiQK60uwF4vPpQR7ylFqut5YTaDmOgB5JxfnOt4j2hvxRaNVEb1RjHIPpJUzcfkcG
+	 dfbBqhTGmDxhqoZ+vNkwH+AU4ND8ctgm2oUPMG4gtGiEB35o3cygO9j2v43ng=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-OQ-MSGID: <c3f679a3-8916-4fee-9042-3ef0c5ae0590@qq.com>
+Date: Tue, 24 Mar 2026 23:09:16 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260324-sdhci-v4-0-c8c2060ccb5c@aspeedtech.com>
-In-Reply-To: <20260324-sdhci-v4-0-c8c2060ccb5c@aspeedtech.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Tue, 24 Mar 2026 16:03:54 +0100
-X-Gm-Features: AQROBzDGb2O61nTd0QV3ZdTm6lrh7bdMvQHr7qGN2e1GOEsGjRP5W0BZL_IWEd0
-Message-ID: <CAPDyKFqwCahQCw7kB495Ym1JmSkn0PAkXVn==oV9_pKcb9zj9w@mail.gmail.com>
-Subject: Re: [PATCH v4 0/2] Add AST2700 support for aspeed sdhci
-To: Ryan Chen <ryan_chen@aspeedtech.com>
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
-	Ryan Chen <ryanchen.aspeed@gmail.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Andrew Jeffery <andrew@aj.id.au>, linux-aspeed@lists.ozlabs.org, 
-	openbmc@lists.ozlabs.org, linux-mmc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/2] Add Loongson-2K0300 processor support
+To: Yao Zi <me@ziyao.cc>, Huacai Chen <chenhuacai@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ kernel@xen0n.name, devicetree@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-kernel@vger.kernel.org, wjjsn <2858482031@qq.com>
+References: <tencent_325FB1D2C600CD55E367332EC453E5A64B09@qq.com>
+ <ab_iF2hjZRfp16HP@pie>
+ <CAAhV-H7FZ65D9mHgW8_-_QiZ2Kv2cxVo5P72AJhc3JptviFpNA@mail.gmail.com>
+ <tencent_CA7176E8823B957F1AEB15254D17904D5505@qq.com> <acCoo_ZrTmZGZH5d@pie>
+Content-Language: en-US
+From: wjjsn <wjjsn@qq.com>
+In-Reply-To: <acCoo_ZrTmZGZH5d@pie>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 24 Mar 2026 at 02:58, Ryan Chen <ryan_chen@aspeedtech.com> wrote:
+On 3/23/26 10:42, Yao Zi wrote:
+> On Mon, Mar 23, 2026 at 12:33:31AM +0800, wjjsn wrote:
+>> On 3/22/26 21:15, Huacai Chen wrote:
+>> 1. The current clock driver in mainline has some problems.
+>>    The pll_ddr is lower than the user_manual,
+> 
+> I'm not sure what do you mean. Do you observe lower clock frequency of
+> pll_ddr than the frequency specified in TRM (1GHz)? And if so, how?
+> 
+> clk-loongson2 doesn't have the ability to reclock hardware, but only
+> read out the frequency. PLL frequencies are all up to the bootloader.
+> So as long as you could confirm the values returned by recalc_rate()
+> match the register settings, there's nothing wrong in the clock driver.
+> 
+> Reclocking functionality could be introduced later. But even with
+> reclocking code, I doubt whether the DDR clock could be reclocked
+> at runtime since it supplies the memory controller.
+
+I observed that 'clk_ddr_div' operates at 800MHz instead of the 1GHz 
+specified in the manual, and 'clk_dev_div' operates at 100MHz instead of 
+the 200MHz specified in the manual. However, you mentioned that these 
+settings are determined by the bootloader, so everything now makes sense
+
+>>    the clk_apb_gate will
+>>    turn off by kernel while booting,though 16100000.serial is using
+> 
+> This is unlikely an issue in the clock driver, but rather the consumer
+> is doing something wrong, though I haven't seen similar issues when
+> working on the clock driver.
+> 
+> Please try booting the kernel with clk_ignore_unused, and check
+> /sys/kernel/debug/clk/clk_summary to see whether the serial correctly
+> acquires the apb gate clock. If not, one (and the most possible) reason
+> is both clock-frequency and clocks properties are specified in its
+> devicetree node, where 8250 driver would ignore the latter.
 >
-> This series add aspeed sdhci support for AST2700. The AST2700 sdhci
-> requires an reset. This series updates the binding and driver to
-> support reset requirements.
->
-> Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
-> ---
-> Changes in v4:
-> - 2/2 rebase git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/mmc.git
->   next branch fix the conflit.
-> - Link to v3: https://lore.kernel.org/r/20260323-sdhci-v3-0-93555b8f6411@aspeedtech.com
->
 
-The series applied for next, thanks!
+  When I use 'clocks = <&clk LS2K0300_CLK_DEV_DIV>;', the system log 
+gets stuck at the message about closing unused clocks, and there are no 
+further logs. It seems like the clock for the serial port is being 
+closed. However, if I set the parameter to not close unused clocks as a 
+startup parameter, the serial port can continue to be used. If I use 
+'clocks = <&clk LS2K0300_CLK_APB_GATE>;', then the clock for the serial 
+port is not closed and can start normally. I have not specified the 
+clock frequency in the device tree
 
-[...]
+>> 2. eiointc support for 2k0300 is missing.
+> 
+> This is expected. IOCSRs found on 2K0300 have a quite different layout
+> than previous generations of Loongson SoCs, and EIOINTC is in fact a
+> device located in IOCSR addressing space. We need to come up with a
+> better way to model the IOCSRs in devicetree, and it hasn't been done
+> yet.
+> 
+>> Is there any WIP (Work In Progress) tree I can follow?
+>> I'm happy to help with the development or testing.
+> 
+> Sorry there isn't one for now. I'm currently out of my lab, and could
+> only get things updated this weekend. Sorry for the inconvenience.
 
-Kind regards
-Uffe
+Okay, if you have a public repository, please let me know. If I have 
+time, I would be happy to help with testing
+
+Regards,
+wjjsn
+
