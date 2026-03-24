@@ -1,172 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D51738F92A
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 16:01:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774368093; cv=none; b=FQgZOFaVDlV+Zy5HsG9FojAd5EQAvbdwH4Z8DTUpGbbqeniKKV4Ze9RK8Bdghc0BLFCtw2HtZMtdwhHm5xEcGCw1CrtXyaN3et7pPigAoh3RvYWpTLJUt9VNEILV5sOENrlMT/QByDJyyP1zKW9iVmJY6rzUDgWpSDoAVLmN7dI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774368093; c=relaxed/simple;
-	bh=MOGi0JV4ZNfOjsgGZ/ADIOJMY48no6lV8jCg7ewXSzw=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226461F4615
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 16:01:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774368109; cv=pass; b=JqATywWLUECqIv7YTs2DzkkpGl/S5Uc5AzkodWPrQAIu2laHu/oB/FgHHf7kdWQ8qHvB42f8eL76A6m+oTjNMZVt+o2lde9eCavPCbcwWx0DBHWpqALRfMUSlhaWTZs3lXhoiDu0eXggG29HCDDwzqK9nLcy1ffUoWSP9RmUNbY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774368109; c=relaxed/simple;
+	bh=M8kHuhguJ74cPrOZqvGCYt76N+vsROMV095NTcs2gj4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gacMICg3evgOGGhlSXjKrlSQvsIcfKdJcozeOCw+NSc9ZJHSe+7M5KWmpPLYh3azNcqy1fA2zpx4U+Zbf8STCiZeqAI2VIQ7vl91hKv3kc3q9dISonLnPHlyRGdqoxDv/DBMhYJGjMiN1MzWZ/YsAMXWcsloxFyTT56jc0HbEKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WVB21Fo+; arc=none smtp.client-ip=10.30.226.201
+	 To:Cc:Content-Type; b=q6AzOfCokNufOX6eLhoLWsbBj+d9OFBQE97cSA/d/AtynWjnuEPap1Hv8rcu3KNdjt8hbyxopQdIKDYQ/iQ1yX1wSxMkLLpGI7FgOqyt+LY+qoo+B/neqlAj8U3qHw/iilNg1OFb7LBqvLzMU/RKxAeBta3G2gZtDIdRF73NHXk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LIzX+fYV; arc=pass smtp.client-ip=209.85.208.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WVB21Fo+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D584AC4AF0B
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 16:01:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774368092;
-	bh=MOGi0JV4ZNfOjsgGZ/ADIOJMY48no6lV8jCg7ewXSzw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=WVB21Fo+O7Zs4Oyj5si2An9Ps3ebguksgeeeAwqr5CdHTpYmG5KtIl0L1kUJHClLe
-	 A1Jg/FHuxnUb61zK7vHr8QFMmvLHdz8DzSAxDTPu8UnQj0lydb86oEfUlxY0vw6vB6
-	 XlsE/twIe/x3aABUmcoiSjeFY9Wqq0fIySzwiDF1UBtyj40VZljwFVkGrEJa39xk4C
-	 Ic3BcECZC0rbSZtKBilR1TX6m8RFstHQhT9usYUKDIAxnRSAxLE7SVnCK310fbch14
-	 xbQSV8BVCugqunqe9XCJvojwkCSe0w2NPzP3g8UJzqYcVQyMY7P0o2CO/jhNUpCR0Q
-	 YU080OQi7cxkg==
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-40efc77933fso2297822fac.3
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 09:01:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCUCjreJpQ0OoK5Yv9lLDzUg4FkoQWKjXxWe5Bls1ASDO1FmWRdXtzuP9UYerG2vYVW3BLE3JKGJEtTK@vger.kernel.org
-X-Gm-Message-State: AOJu0YwUk3qk7LCfp2QRFgnnCYDbSKOUvsNyx3EKPee019bYuhCwGfSP
-	0PxxA2OdGzIJdBct557OUxoLRt6a9V+/CHGTZeF1bCOP5K1GYQ4gxsUozZ1u6yX8Ld0La0TQsid
-	y3IMok87XKpmiWtu6eeAEWiQgBLUlu+4=
-X-Received: by 2002:a05:6870:40ca:b0:41c:5ea1:b4e with SMTP id
- 586e51a60fabf-41ca6bd33camr136194fac.0.1774368091372; Tue, 24 Mar 2026
- 09:01:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LIzX+fYV"
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-38bd15d82bdso30601601fa.2
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 09:01:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774368106; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Uj4WWtCLJRbDN3u3Zz1iwrSCxu5McNFRByIqKI2KWYePcYOr25wnJ2ppsxHC2q+M5R
+         nFDIcRsnLK0ZUYYwDp8Fuqz0/mwfU+ifydXDiRFvITtbEL16fvrwIZTs0NGah79a5OPo
+         MBESXjMSCTC9siuz9QFyjGjjPOV22siGVIHQ8Cp2Zvaw6KyWnh33KWyhyRx5zGaf3twc
+         Ea58NcM1rE24EfTUIsRKH8+OkPIWamaWhemY2imBivcSpddCgJls/JgZt1yjVpVFPFuY
+         qGnzCGxnT3dGoKUWo2ULuOP/PAzGpjU2qp7xUyJzLtDK3HC0CUXeWg6e2SWrjL2EjzRU
+         PZAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nrJzMvzeHZjGfPnSDRk69y0I21STEYkJGWfpIwAOFso=;
+        fh=yUFgz82cidRlvxFy+VuoAxyZ6lQZ6z8h3w10ReCTv9Y=;
+        b=DNqT5vu/8v4qrFGdIAcagtVGWRjMfa8YMf6ivRXxjD5rfk+2Si+85KKoeodEtxD64C
+         ODVnVYZ17xcpvWAm6rlu7+UL5/cw+mLwc0ndLG5QlHhopv+L+Ufw9kNZvoHrjYeuL/uU
+         pagEGHYUg0jrSJSe+1eLOMVBQe4AvjBnrcBKP0kG9166IMSPhvvB3Ui8zQ7k7QaebWbf
+         nk1DVX9n8sTygq6Wx/Yw09ZxuHT75PXTNPUvsK3vDbKEs7Wbk2S/WiqX+sLBCU9GkfDx
+         YiCDVVqqqEtU9WhT27buMmVhNZ9jitFVTcO7eph+Lgzf0nneiME9SYmG96AYntLyMsIV
+         1NUA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774368106; x=1774972906; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nrJzMvzeHZjGfPnSDRk69y0I21STEYkJGWfpIwAOFso=;
+        b=LIzX+fYVF4mX/ctf3vj0ZNFFnGNUR6TlcCwWJ+sBIzcrbJt6O8pLzC1gx66chFLIBS
+         myVxuv8gEox44VewvKq4TqVYWNrUom8KBPu8/hnHFYXqMLVilaegYUfLtHtA9klPdp7u
+         SKILO48DVn4/sy2BIUuAF+QUBCB4epB3g9rtDblDwbA6/Kaa/n+IzClkxkcDATPTKshW
+         43LvjU6yzR8kVf4bKzvsPvE/KI1IV8F4sEQu6rszWFCF6tU/2fdcMUBkPwMgbPfImpwY
+         lT+qCMdbC3RUE7Iu5hVZ8nLbQyf4h2ks4Li31bD9RWXpCwqv8V2Ava2Xa5KmRYMCQNZ+
+         VGbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774368106; x=1774972906;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=nrJzMvzeHZjGfPnSDRk69y0I21STEYkJGWfpIwAOFso=;
+        b=c+NTzZmoNjO70yuD6s8HRIWQk0LSqigz1OXQS68uFz6SdR0UlrL36DIMPsrYyeJNQF
+         kWcfQgjBGPqpaeLrtlmaf5rUK3ewp2/hue7CL0PfMoNbKMM2Soa1lZtzKiqbb/ti6xsk
+         Ja7vLHR5PlFrld/XF/lQ84m022uZDt5h2c8mfgAzYgzoYCehSG4mOljJiDoHpPYhUMPz
+         u+dxIedq32bdjIVjACJVKWII2lUfVqbIgFcMgz8/tf0I77s/sLYQox7sCl2eDcfzIPPk
+         bxMI/j+sJ4YmPCpHX/O8QKLGWELu4BhywNWAN/QTijTPtCjfCPK375mMkJ4Ds1xVv9NH
+         HKUg==
+X-Forwarded-Encrypted: i=1; AJvYcCVZGN7f9IogulrLD/SBKachLInKewtY8rI3d7h6RF9sv6fudKz4xMXywpKM6dnuUpaGs+IEH/6AoXYB@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFmZtNZE+CZtWRoVIfzbNDMXRJcqoAy/RsDXpOkvAIh9Zx22gc
+	tpoJ3ogmrdHCYb30XvgquOrfTzFibDvSAvZiUDKyP/eTXh95RO96my4SXbQELR6nABtmibti+2h
+	ybvvhp5skoZQVInTKaZBHMplX8iGLJsXO9lYj5hQ=
+X-Gm-Gg: ATEYQzzGU3h+892Tz99GYNgVtpT0TfHtOMtAu/NaMpgW+yFmJEFqYgrxMsBOdIdjRAa
+	HUCRQ1ubLwL7eO4Sox1PoRy886H78pGIKOCprOF5xYAmciC2MewpVpFtObVQm50er+1cv8PCTMc
+	3jr5tF4TNxZ0wvDILLL7IQ5C7mU2Wxnv08PP3IDhXaIIkZVY0j1BhzeluxnCB3m/UicfCMbSEHF
+	plyenAl8GZYkwvhTx/Fxr05MoZ16apnA6AQgRNd9gpnJmnpNn5aLdLruxZ0JRQRxu6GvoLNiepq
+	akChpQxIFi1mTCLwPrCYtVs0qOhWwLR13BzKmbo9DExt0w0u/EzUhjq2RuRxYpu7G0knm7i3PV2
+	sJi8=
+X-Received: by 2002:a05:6512:39c4:b0:5a2:95c8:ca5e with SMTP id
+ 2adb3069b0e04-5a29b9a16cemr10428e87.31.1774368105945; Tue, 24 Mar 2026
+ 09:01:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260313-synology_microp_initial-v3-0-ad6ac463a201@posteo.de>
- <20260313-synology_microp_initial-v3-3-ad6ac463a201@posteo.de>
- <CAJZ5v0jxHO2EH5NeEsMkxGz5xqVL00tO-W1JpaVd=GhwgQ3T=A@mail.gmail.com> <e8ffc9902c0af24ce6fde2d8712ea588b36e9194.camel@posteo.de>
-In-Reply-To: <e8ffc9902c0af24ce6fde2d8712ea588b36e9194.camel@posteo.de>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Tue, 24 Mar 2026 17:01:18 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jHQ7sHJ8SV25p2gQugC-a8f9oVFarS17NXwPzGOJUD0Q@mail.gmail.com>
-X-Gm-Features: AQROBzDv-gLIyLVlaLI4MGuXPvB1psB6PmnWZDRsERdSTCHkDpp6XRnBMFQQ9_4
-Message-ID: <CAJZ5v0jHQ7sHJ8SV25p2gQugC-a8f9oVFarS17NXwPzGOJUD0Q@mail.gmail.com>
-Subject: Re: [PATCH v3 3/7] acpi: add acpi_of_match_device_ids
-To: Markus Probst <markus.probst@posteo.de>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Igor Korotin <igor.korotin.linux@gmail.com>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Bjorn Helgaas <bhelgaas@google.com>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Robert Moore <robert.moore@intel.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-pci@vger.kernel.org, 
-	linux-leds@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	acpica-devel@lists.linux.dev
+References: <20260323-ch13726a-v3-0-e28b6f97fe80@gmail.com>
+ <20260323-ch13726a-v3-1-e28b6f97fe80@gmail.com> <20260324-dexterous-snake-of-progress-ea8783@quoll>
+In-Reply-To: <20260324-dexterous-snake-of-progress-ea8783@quoll>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Tue, 24 Mar 2026 11:01:33 -0500
+X-Gm-Features: AaiRm52QlZgq-pYKdDII5R-UZpE70r1UAWoE9tJ0Dx3Ru2XFLdzKXalMbWfEOAs
+Message-ID: <CALHNRZ-TAQmcwYr9iW+j+S5Egh11C0LpPeY1SO=hgDdvG8otqQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: display: panel: Add ChipWealth
+ CH13726A AMOLED driver
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Mar 24, 2026 at 4:30=E2=80=AFPM Markus Probst <markus.probst@posteo=
-.de> wrote:
+On Tue, Mar 24, 2026 at 4:08=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
 >
-> On Mon, 2026-03-23 at 20:57 +0100, Rafael J. Wysocki wrote:
-> > On Fri, Mar 13, 2026 at 8:03=E2=80=AFPM Markus Probst via B4 Relay
-> > <devnull+markus.probst.posteo.de@kernel.org> wrote:
-> > >
-> > > From: Markus Probst <markus.probst@posteo.de>
-> > >
-> > > Add a function to match acpi devices against of_device_ids. This will=
- be
-> > > used in the following commit ("mfd: match acpi devices against PRP000=
-1")
-> > > to match mfd sub-devices against a of compatible string.
+> On Mon, Mar 23, 2026 at 12:08:32PM -0500, Aaron Kling wrote:
+> > The Chip Wealth Technology CH13726A AMOLED driver is a single chip
+> > solution for MIPI-DSI. This is used for the AYN Thor bottom panel.
 > >
-> > Please always spell ACPI in capitals in patch subjects, comments,
-> > changelogs, etc.  It is not a regular word.
-> Ok.
+> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > ---
+> >  .../display/panel/chipwealth,ch13726a.yaml         | 65 ++++++++++++++=
+++++++++
+> >  1 file changed, 65 insertions(+)
 > >
-> > > Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> > > ---
-> > >  drivers/acpi/bus.c      | 7 +++++++
-> > >  include/acpi/acpi_bus.h | 2 ++
-> > >  2 files changed, 9 insertions(+)
-> > >
-> > > diff --git a/drivers/acpi/bus.c b/drivers/acpi/bus.c
-> > > index f6707325f582..5ddcc56edc87 100644
-> > > --- a/drivers/acpi/bus.c
-> > > +++ b/drivers/acpi/bus.c
-> > > @@ -1044,6 +1044,13 @@ int acpi_match_device_ids(struct acpi_device *=
-device,
-> > >  }
-> > >  EXPORT_SYMBOL(acpi_match_device_ids);
-> > >
-> >
-> > Missing kerneldoc.
-> The same amount of kerneldoc as `acpi_match_device_ids`, if I am not
-> mistaken.
-> >
-> > > +int acpi_of_match_device_ids(struct acpi_device *device,
-> > > +                         const struct of_device_id *ids)
-> > > +{
-> > > +       return __acpi_match_device(device, NULL, ids, NULL, NULL) ? 0=
- : -ENOENT;
-> > > +}
-> > > +EXPORT_SYMBOL(acpi_of_match_device_ids);
-> >
-> > Are you aware of the consensus that using PRP0001 in production
-> > platform firmware will be regarded as invalid?
-> >
-> > Because of that, it is not an option for a driver to avoid providing
-> > ACPI match data on a platform that uses ACPI.
-> First of all, the driver that would have made use of it has been
-> restructed to not use mfd subdevices. It would not be affected anymore
-> through this patch set.
-
-So what exactly would be affected by it?
-
-> Not sure if I should still send it as its own patch series though.
+> > diff --git a/Documentation/devicetree/bindings/display/panel/chipwealth=
+,ch13726a.yaml b/Documentation/devicetree/bindings/display/panel/chipwealth=
+,ch13726a.yaml
+> > new file mode 100644
+> > index 0000000000000000000000000000000000000000..5d964900795653401a87199=
+4bcf6403cdeaad64f
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/display/panel/chipwealth,ch1372=
+6a.yaml
+> > @@ -0,0 +1,65 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/display/panel/chipwealth,ch13726a.y=
+aml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Chip Wealth Technology CH13726A AMOLED driver
+> > +
+> > +maintainers:
+> > +  - Neil Armstrong <neil.armstrong@linaro.org>
+> > +
+> > +description:
+> > +  Chip Wealth Technology CH13726A is a single-chip solution
+> > +  for AMOLED connected using a MIPI-DSI video interface.
 >
-> The device of the driver has no ACPI ID allocated by the manufacturer,
-> as it is only used on a proprietary Linux OS (with their own modified
-> kernel).
+> Here you describe the hardware, including what I asked last time -
+> explain why this is ayntec thor panel, but not chipwealth,ch13726a.
+>
+> Then also name the file as the compatible. If you do not know the part
+> (model?) number, then why do you think filename should be called
+> ch13726a?
 
-Do I understand correctly that there is an ACPI platform firmware on
-the board, but it doesn't enumerate the given device properly (that
-is, as an ACPI device object with a specific device ID)?
+The vendor source release for the AYN Thor calls the 'panel' ch13726a,
+but per the data sheet for said part, it's a chip used in various
+panels, not a panel itself. The handling for various panels using this
+chip will share a lot of similarities since the chip is what the
+kernel driver will talk to. The alternative would be having separate
+drivers and bindings for every panel that will be mostly duplicated.
+This is the case for multiple things supported in the kernel already,
+such as the vtdr6130 which is currently described as a unique panel
+but is in fact the part number for a ddic. And I will need to refactor
+that for another device I have in the pipeline. In fact, all the
+device panels I need to submit in this context reference ddic's and
+not unique panel models. I'm waiting to see what gets approved for
+this series before sending the rest of those in.
 
-In which case there probably is a driver that can find that device
-somehow (it has hardcoded resources or similar).
+If I add something to the description like 'This chip is not a panel
+itself, but is used to control various panels', would that be
+sufficient? Or does the kernel need a new way to describe ddic's
+separately from panels, since this seems to be common now?
 
-> The driver would have only been useful via device tree or an ACPI
-> Overlay.
-
-Do you mean a custom SSDT loaded via configfs or something else?
-
-> Obviously, I don't have a PNP or ACPI Vendor ID, so I can't
-> assign one. The parent/main driver does only have a of compatible id.
-> As it needs to use PRP0001 anyway on ACPI, I thought it makes more
-> sense to also use PRP0001 there instead of matching it with a _ADR
-> which is "a grey area in the ACPI specification".
-
-You can't match a device with _ADR.  By itself, _ADR doesn't provide
-you with any information on the device in question, it only helps to
-connect it to some information that can be collected by other means.
-The role of it, at least in principle, is to allow some device objects
-in the ACPI hierarchy to be associated with devices enumerated by
-other means (like on a PCI bus).
-
-The enumeration with the help of PRP0001 only works if there is a
-device object in the ACPI hierarchy and its _HID is PRP0001 or its
-_CID list contains PRP0001, there is a _DSD under it and a
-"compatible" property is returned by that _DSD.  Who's going to
-provide all of that for the given device?
-
-Moreover, if the device has some resources that the kernel needs to
-know about, there should be a _CRS under the device object in question
-and the resources should be listed there.  Or how are the resources
-going to be found otherwise?
+Aaron
