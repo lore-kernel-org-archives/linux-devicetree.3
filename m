@@ -1,196 +1,78 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 59B3531A7EA;
-	Tue, 24 Mar 2026 07:31:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D2131F9AF;
+	Tue, 24 Mar 2026 07:31:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774337474; cv=none; b=QflIj2tjjYUpkxPQMz+WyimaZvMU1Ej8wlQFZSvF9aNIDDoNZsN22gdzaK/OZrStk2Oxy+oTNdCgidlj3hY96ouJCQQS9rKKoVcE5mcJ9Z+0HzRJOpyi1dKupqcbM6s+ntiNI6oX4aZDCfwUK0t0dFVWA524MKDorAc6Slo+ikc=
+	t=1774337509; cv=none; b=I96lY3hik9/uTGO/b9fkcM+qMmU7pEW1iBj8uDBK+feeZuU2t1qvWPqw1qi5v4xdlZXxKH8VMz6K7MqDfgYgkLs4KUmVxuc2MWJ++3p8FtNlRTq4SiHsNFg2TU4YlXBZ0pSHQ2kMHJzvXViPNnEs+5vJ3Qi9sa3TQ3F3l2yblKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774337474; c=relaxed/simple;
-	bh=ES4PY6sz1/3k8wpx0U92eY0angzcEObdhNR+lUrbOYc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rBOKlDrqSWkC7ecidxcXc75mCeD0i2ilBe+ZwjdN42322ugkywensMBGr4Y1Y3BQSVqhgY5/xEptmy6SCv5b4IEdIr2QhnbIYa9x/hRcrfa/muJBp2mvOrF+KFn6URIbrTTXk5U1DfMtrlJviuB4tqHIOBMQQ+A4bIqtgpvGHDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
-	by app2 (Coremail) with SMTP id TQJkCgBHXqGRPcJpsDYLAA--.53447S2;
-	Tue, 24 Mar 2026 15:30:28 +0800 (CST)
-From: lizhi2@eswincomputing.com
-To: devicetree@vger.kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	rmk+kernel@armlinux.org.uk,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	linux-riscv@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
+	s=arc-20240116; t=1774337509; c=relaxed/simple;
+	bh=78iPV2L5TMsaJOeMoG4OcYMZODPjNSNMXHg4QJLAJcs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Fm7bZS5+oUyNgOak+tifoXxaQM3TyxnBUF0muQOtH9aFN8o3RHwtDxoYi98eaoYa0aREA/YphFHQ/8dtWZZnUpq69xiSkbox7sKcp+TD3QFL9OFtuVaKGW3wpnVnXOA/SGTcsjsB7wXyazjKBE1/raemqjEDNCDsP5iVUsFLo0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dzo4pChV; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dzo4pChV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28D7FC19424;
+	Tue, 24 Mar 2026 07:31:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774337508;
+	bh=78iPV2L5TMsaJOeMoG4OcYMZODPjNSNMXHg4QJLAJcs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=dzo4pChVpkYklj4HxjUfE8vj1s1WObxUbHDX3p3jnYRosOdQb5JIf9PQY0VA4JkEQ
+	 38Di7xSsE+Hdj9HjumIyXaQ8UE8Xnh44K4w4ZZA9hq3TSUruJ9OrI80APISNbBywDH
+	 8FhFh6mhkC+N7kVnTH4ww9jR5f0iH2/Mz+tzSGllNUJN9QqKhYZ3HVFvUt4TiGFO2i
+	 veH7jhzIf0M/YRq8KXEZ4Rh0UYUGYUeLo6q55SvO6LiOTIdRDPVu2NWeDp2gzjTz9o
+	 kz3ErjmWjb0tWkaTJie8K0ojs2IaLZaBXQRq5gEx2I6V+FNERd34TUR0kIthOIIZx9
+	 8BMLkA46v0wXQ==
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	"Rob Herring (Arm)" <robh@kernel.org>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+	Frazer Carsley <frazer.carsley@arm.com>,
+	Hugues Kamba Mpiana <hugues.kambampiana@arm.com>,
+	Abdellatif El Khlifi <abdellatif.elkhlifi@arm.com>,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	maxime.chevallier@bootlin.com
-Cc: ningyu@eswincomputing.com,
-	linmin@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com,
-	pritesh.patel@einfochips.com,
-	weishangjuan@eswincomputing.com,
-	horms@kernel.org,
-	Zhi Li <lizhi2@eswincomputing.com>
-Subject: [PATCH net-next v5 0/3] net: stmmac: eic7700: fix EIC7700 eth1 RX sampling timing
-Date: Tue, 24 Mar 2026 15:30:17 +0800
-Message-ID: <20260324073017.376-1-lizhi2@eswincomputing.com>
-X-Mailer: git-send-email 2.52.0.windows.1
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 0/5] arm64: dts: Add Corstone1000-A320 platform
+Date: Tue, 24 Mar 2026 07:31:41 +0000
+Message-ID: <177433744044.1351878.7906196605172930598.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260320-dt-corstone1000-a320-v1-0-a549dfcfe8da@kernel.org>
+References: <20260320-dt-corstone1000-a320-v1-0-a549dfcfe8da@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TQJkCgBHXqGRPcJpsDYLAA--.53447S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAF1xCFWDAw4UZFykAw4ruFg_yoWrKw1rpa
-	1UWr15GF4DtryxJwsrtF109a4Fqan3G3W29r18JwnrJws0kF1qqr4IkF15ZFyDCrZ7ur1U
-	AF15Ka1UCa4j9rJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9E14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI4
-	8JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
-	wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjx
-	v20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20E
-	Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267
-	AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sRifHU3UUUUU==
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
 
-From: Zhi Li <lizhi2@eswincomputing.com>
+On Fri, 20 Mar 2026 11:47:13 -0500, Rob Herring (Arm) wrote:
+> The Corstone1000-A320 is a new Corstone1000 variation with Cortex-A320
+> cores and an Ethos-U85 NPU. This series adds the new compatible strings,
+> restructures the .dtsi files to handle the common parts, and then adds
+> the new Corstone1000-A320 FVP platform.
 
-v4 -> v5:
-  - eswin,eic7700-eth.yaml:
-    - Add Acked-by from Conor Dooley
-    - No functional changes
+Applied to sudeep.holla/linux (for-next/juno/updates), thanks!
 
-  - Update dwmac-eic7700.c:
-    - Disable clocks on the error path to fix a clock leak in
-      eic7700_dwmac_init() when regmap_set_bits() fails
-      (reported by Simon Horman <horms@kernel.org>)
-
-  - Link to v4:
-    https://lore.kernel.org/lkml/20260313075234.1567-1-lizhi2@eswincomputing.com/
-
-v3 -> v4:
-  - Update eswin,eic7700-eth.yaml:
-    - Improve commit message in dt-bindings patch to clarify the
-      hardware difference of the eth1 MAC and why a new compatible
-      string is required.
-    - Move the newly added eswin,hsp-sp-csr item to the end of the list
-      to avoid inserting entries in the middle of the binding schema.
-    - Simplify the compatible schema by replacing the previous oneOf
-      construct with an enum.
-
-  - Update dwmac-eic7700.c:
-    - Fix build issues.
-    - Adjust code to match the updated binding definition.
-
-  - Update DTS/DTSI descriptions:
-    - Move SoC-level descriptions to the .dtsi file.
-    - Keep board-specific configuration in the .dts file.
-
-  - Link to v3:
-    https://lore.kernel.org/lkml/20260303061525.846-1-lizhi2@eswincomputing.com/
-
-v2 -> v3:
-  - Update eswin,eic7700-eth.yaml:
-    - Extend rx-internal-delay-ps and tx-internal-delay-ps range
-      from 0-2400 to 0-2540 to match the full 7-bit hardware delay
-      field (127 * 20 ps).
-    - Add "multipleOf: 20" constraint to reflect the 20 ps hardware
-      step size.
-    - Make rx-internal-delay-ps and tx-internal-delay-ps optional.
-      A well-designed board should not require internal delay tuning.
-    - Remove rx-internal-delay-ps and tx-internal-delay-ps from the
-      example to avoid encouraging blind copy into board DTs.
-
-  - Update dwmac-eic7700.c:
-    - Treat rx-internal-delay-ps and tx-internal-delay-ps as optional
-      DT properties.
-    - Apply delay configuration only when properties are present.
-    - Keep TX/RX delay registers cleared by default to ensure a
-      deterministic state when no delay is specified.
-
-  - Describe Ethernet configuration for the HiFive Premier P550 board:
-    - Add GMAC controller nodes for the HiFive Premier P550 board
-      to describe the on-board Ethernet configuration.
-
-      The Ethernet controller depends on clock, reset, pinctrl
-      and HSP subsystem providers which are currently under
-      upstream review. These dependent nodes will be submitted
-      separately once the corresponding drivers are merged.
-
-      Due to these missing dependencies, dt-binding-check may
-      report warnings or failures for this series.
-
-  - No functional changes to RX clock inversion logic.
-
-  - Link to v2:
-    https://lore.kernel.org/lkml/20260209094628.886-1-lizhi2@eswincomputing.com/
-
-  - This series is based on the EIC7700 clock support series:
-    https://lore.kernel.org/all/20260210095008.726-1-dongxuyang@eswincomputing.com/
-    The clock series is currently under review.
-
-v1 -> v2:
-  - Update eswin,eic7700-eth.yaml:
-    - Drop the vendor-specific properties eswin,rx-clk-invert and
-      eswin,tx-clk-invert.
-    - Introduce a distinct compatible string
-      "eswin,eic7700-qos-eth-clk-inversion" to describe MAC instances that
-      require internal RGMII clock inversion.
-      This models the SoC-specific hardware difference directly via the
-      compatible string and avoids per-board configuration properties.
-    - Change rx-internal-delay-ps and tx-internal-delay-ps from enum to
-      minimum/maximum to reflect the actual delay range (0-2400 ps)
-    - Add reference to High-Speed Subsystem documentation in eswin,hsp-sp-csr
-      description. The HSP CSR block is described in Chapter 10
-      ("High-Speed Interface") of the EIC7700X SoC Technical Reference Manual,
-      Part 4 (EIC7700X_SoC_Technical_Reference_Manual_Part4.pdf):
-      https://github.com/eswincomputing/EIC7700X-SoC-Technical-Reference-Manual/releases
-
-  - Update dwmac-eic7700.c:
-    - Remove handling of eswin,rx-clk-invert and eswin,tx-clk-invert
-      properties.
-    - Select RX clock inversion based on the new
-      "eswin,eic7700-qos-eth-clk-inversion" compatible string, using
-      match data to apply the required configuration for affected MAC
-      instances (eth1).
-
-  - Link to v1:
-    https://lore.kernel.org/lkml/20260109080601.1262-1-lizhi2@eswincomputing.com/
-
-Zhi Li (3):
-  dt-bindings: ethernet: eswin: add clock sampling control
-  net: stmmac: eic7700: enable clocks before syscon access and correct
-    RX sampling timing
-  riscv: dts: eswin: eic7700-hifive-premier-p550: enable Ethernet
-    controller
-
- .../bindings/net/eswin,eic7700-eth.yaml       |  69 +++++--
- .../dts/eswin/eic7700-hifive-premier-p550.dts |  42 ++++
- arch/riscv/boot/dts/eswin/eic7700.dtsi        |  66 +++++++
- .../ethernet/stmicro/stmmac/dwmac-eic7700.c   | 183 ++++++++++++++----
- 4 files changed, 303 insertions(+), 57 deletions(-)
-
--- 
-2.25.1
+[1/5] dt-bindings: arm,corstone1000: Add "arm,corstone1000-a320-fvp"
+      https://git.kernel.org/sudeep.holla/c/f9d162866f2f
+[2/5] dt-bindings: npu: arm,ethos: Add "arm,corstone1000-ethos-u85"
+      https://git.kernel.org/sudeep.holla/c/55de145c8ec2
+[3/5] arm64: dts: arm/corstone1000: Move cpu nodes
+      https://git.kernel.org/sudeep.holla/c/903528ac234a
+[4/5] arm64: dts: arm/corstone1000: Move FVP peripherals to separate .dtsi
+      https://git.kernel.org/sudeep.holla/c/9c3904f94fdb
+[5/5] arm64: dts: arm/corstone1000: Add corstone-1000-a320
+      https://git.kernel.org/sudeep.holla/c/87599f1843d3
+--
+Regards,
+Sudeep
 
