@@ -1,260 +1,219 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011005.outbound.protection.outlook.com [52.101.65.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951F338759C;
-	Tue, 24 Mar 2026 19:54:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774382074; cv=none; b=Jw3I7GY3rbYF61WChz/OE5R0LHFc6VIalahM50OJSiunT54k0OjxmYeTtEHdE0tvNf0bTxN+oXGozEEtve+J3yI3YPt5VPpNoWRc526nno+czjqPBhylSqHmbdacHEdT99VbLRK15u5SWb3fPDn1GCy65PshoudMNQpl3vv99zM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774382074; c=relaxed/simple;
-	bh=ApIuGxUsBH0FGWE/JOEVFx31vfBoX/FOKHBKCdS3TH8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eVb5TAR4jKMI3nchQ6Ircd/sfkLWzIgonTJBZEKK2Fx/tmu1hbh87xrP32r+fztylBahlWw6xsmJy0MNos0aA5Z6wRLPbpG8MAazsnM15JG4WuQhqNFFI5KpvxM0HMQlyLw9a34qgIlusM8ulE+F+CKfWjirZCl7pVqczftLp3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=kfBdJtAy; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C516D2BD5B4;
+	Tue, 24 Mar 2026 20:00:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.5
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774382436; cv=fail; b=AcJUkgPUPhS1qMS2ctR9b4z7MZox0l7dRe4Od5nx9KMhTv9iKVBnYQDlUAYOth8C3odyrU4U3IkiRTKaOQEFWEl9iL2wV6TQ+siZLpNvCabjsu+t7PJdp1hkOgU2HJUlrgyM4o/P9/xfA8LnKWlU9/f+efLumG0Io/zNpg4JVPw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774382436; c=relaxed/simple;
+	bh=7Sd+pJYi2YJ/KdkoL7GHue4k6ilx7lS4JI8VTGLDWkA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=K6dYcpAIe5mF4wU65Hd6PBlx4lRejWB8y80TGw0wUoAsQm/T2fyLtCtRt6m5zbzeqNLZhL3Mo7t8sPMF78CSM1lx54o8sdS6ZvJ3JqZK5+H8PIMtTTlK3bGZSGmlAZ/QQqq/Be5sEVPXA6dWalvI3U0ToadV3Uzi/cVkuUVLp3Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=TE8uFEmK; arc=fail smtp.client-ip=52.101.65.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="kfBdJtAy"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B40973AA8E6;
-	Tue, 24 Mar 2026 20:54:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1774382069; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=4iWKEbRSat36IV94lLy0So9Efd8lQ9YMr7+bYVKEn3s=;
-	b=kfBdJtAyZlEcBfjeYglEZSwbElrc+UyvohpZ6uFd5LanoHHK3huog9XW3nd40ux2SAc2Qi
-	/LxqbkLe0q74+0Rtg6UzmTBOlPHA75pfvWpUgxLomOV07eI+p4eF/0KYovc6G14ZhozK1w
-	B/cF/waaVbM6x52hkwVTnE5P+s1oiIjnEkJBw1z6+UAcmzSwprj204OsEbOQIg45R6NLI+
-	7VVlUNOk62tz+UWOU53VW7r0W90981hEyTMBtz2d5dWuLEBzsiDOoHQMZ25w3RUlAw/ybF
-	0lnc6FGCtDcbbuqdndmVNpuV/PrxUBN7oJSgl44cehMSsjumEv+AWlnuBzcP5A==
-Message-ID: <291d896e-838a-437e-8525-5896f3c957b6@cjdns.fr>
-Date: Tue, 24 Mar 2026 20:54:24 +0100
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="TE8uFEmK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UfzkF42CDkfBuh9GLfA2jPk19Bekrx8T/caj7W6hXX1J6osuVLZexB1vkuwrKVUl6s5v/VP41INBJB6TruE/Rp3RN5dT4OldOjVSk2SfCrTXurHf4DrBMHbEZn8O3HaM06joaEDJJfDa/LT7R0EmIO9d31zWhsFSLxF7f1uPFSUzcjQGPEU3RBgn2oG9t1coVCVedrl0gGdIaH9BoTJlnfqZeeCAnJ6xonmI5T1xqbrSlaO+qjZBoTvSEEPdc8eqnye0nI0wUmnrxoK0/okSbcr+3rEHzeoNBSFVniiA7liyeO4k7Cbd7/pM7c30Ah76x8w5DzxGOOckbH45cZSh6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qfDQjmTmbeTWTJ7Rz7Tm7w1HHFVE1VS+siOoGzPNxHY=;
+ b=ZyzOUpNxGywpKvkcrYHP+mZJv3SQehKfRpM226iN+nXtRzduARUsRESz1F+Lmj3lP9znFKgDDt0hiGTJjo9LjZg4q34z7mN9VSEK9FwHbs2qea9RktclrOFDsABtTbPTnp9i2HsfNlNC3nA0zNU1oP/drHxPUTc5sAsgb2M+aX9aH4VD/dyta2QjXjkCVJojwIBxoXNqrJz1QU/whyvIgmkasA+t2NuxlfzZqkuJeJDuC/ustSmLqhExedIp2Muoo4mcycd6mHM0DK03qwPxZEh+BVb1zCy8cI34fHiBsNik3z9bsSPtnnDpfc6lhh7q9vJt98JljDHygsumeP69fg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qfDQjmTmbeTWTJ7Rz7Tm7w1HHFVE1VS+siOoGzPNxHY=;
+ b=TE8uFEmK9fUII+RyH4kiT1F9ag6ox/R/EeXz9NbCgEsDd+5knBUZzBZMBgzshCJZecmB7PyLujJschEoMCfUmX37cXoMUNKqM4hNlFpXqX7L/hpaCwrGecZG3VvNzsVrR7kVsELPE22d+12CdyakZ1JEyx5zJOPwKowyy97EtcmShBozp0975j12okKgfasF2fynxWZVSlCWdEHQP9n1yFodVVrWIE/RA/IDnnI7GzuD5xqcD0U57dtdkXDYru18c1/q2iNrL+kLDO9LwxA9poewlNI7O93W0eAc6RvVYq0XH70gGWiL4NbHY7CSn3kxp9qXBeKDs39aIg4ONkfTTg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by VI2PR04MB10859.eurprd04.prod.outlook.com (2603:10a6:800:278::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Tue, 24 Mar
+ 2026 20:00:29 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9723.030; Tue, 24 Mar 2026
+ 20:00:21 +0000
+Date: Tue, 24 Mar 2026 16:00:23 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, kernel@dh-electronics.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: imx8mp: Add DT overlays for DH i.MX8M Plus
+ DHCOM SoM and boards
+Message-ID: <acLtV4Vwpbj9vpE3@lizhi-Precision-Tower-5810>
+References: <20260312232500.197096-1-marex@nabladev.com>
+ <acK1YU6M5FGK3qM2@lizhi-Precision-Tower-5810>
+ <e5d7ca6a-fdd3-4aca-aa1f-1d35bc9c0119@nabladev.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e5d7ca6a-fdd3-4aca-aa1f-1d35bc9c0119@nabladev.com>
+X-ClientProxiedBy: SN7PR18CA0019.namprd18.prod.outlook.com
+ (2603:10b6:806:f3::30) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v3 2/2] PCI: mediatek: Add support for EcoNet EN7528 SoC
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-mips@vger.kernel.org,
- naseefkm@gmail.com, ryder.lee@mediatek.com, bhelgaas@google.com,
- lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- ansuelsmth@gmail.com, linux-mediatek@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260323213621.GA1080209@bhelgaas>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <20260323213621.GA1080209@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|VI2PR04MB10859:EE_
+X-MS-Office365-Filtering-Correlation-Id: 13a1216c-9541-4b94-2bc1-08de89dffad6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|52116014|1800799024|19092799006|38350700014|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	W83oXQIqVwWbM/bcsExvY2yCgiFpG/qkVPNwr4q442CLdwvjvE8TrKRKnMiUgT5gZOX60/Y+xvRyRvP2OpwlhyG8RMefshkPb3LYoZ5U5eeF2NdBNNCNq4CGjy3EUbdZs7ABImmGHcjOBKKklwVsnzVpjsebKoxUTmBhcAeB1TGvrucm0iWNAI/iZdhNlq9BB5o91TGuPBNEGTmwfLYTYvdFnHnXZsfKgP+AqB6ZaIH9e9+b3pgh3gSzxgSMXyUxSgKizpysUbePakGrR2zGTBUrldxscRQed3pxbjVH7oROKpU2GrWi37zMVddA8JODTrg0Bg44V+ponp5uhn9SeEODeYffNJfUTHUCbunZMUIaNLge7MucgDU60hPBOsWJcc0/42mDHyPdiSGQKHJIkyKLme1WZRNdtxtM5uMVD62DSWw4M2cM0gC0XE+OjP4xWM+QX7nylzTw/xSpyWGun8jGJynteUTySqkVMT1WuD0eJdBJ1NgLNns3Tgfqz+ok8PH+QYmogzuo0mcWf65Zf4iut21LaG5kzL2qdpvRG7bUC7c58d03o1tsi7c668uiaLuYkA7qnS2fv6sqZ/U1lMEUWYhKy/B7TUf2Br/yj4xsihar5oB2cfsBeoqaSpZGrVf36RYG11FICato0zHhpOloMNJUXAipkpOQr6I/XTxkNoxgl2o5Ty43dnOHD0XahoOl01pYBzKK4pQzwr74MNgMIIj1Fv/h0C1HOwe3xCygW6jOMEzOmgB6qjGhdeamoPsmZAUzZa/1ackmploxDd7VPuuccFT/L3FPr5r3WPA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(52116014)(1800799024)(19092799006)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?v6eiNxh/CUYCdlXWvBH/4GaJzaAtvSqX/CXaytbhEz30Ng/idZrYNsLnu1Jh?=
+ =?us-ascii?Q?+L+cjlsZQJcCj2ewb8l/eMdxCzhQmgi62eoYUSE5MKV/hERT4dchEyPinzFX?=
+ =?us-ascii?Q?ko+g6W30vT8t6FRKWiQ5bUZEkTOUWcxD+aGKuwmDxc/kTnwnkWEPk3VPKt00?=
+ =?us-ascii?Q?DLsK0AhU2u4/+St+mXJPGPZ1H4Y+ohM+WWX+I2h8rmszSgT7fTBvMKKO12/D?=
+ =?us-ascii?Q?2K21TCn7zGMskNmWpBuf/gT314ty+vElMrSU6MBEgU6cSuPFjmfjUhncyyUT?=
+ =?us-ascii?Q?HfV45Yu7od+eDpkSENOFpEy7ozqt7LXRnegscqTLX/Xsv70BlP692AoBcdFV?=
+ =?us-ascii?Q?hWcqPzHHAp7h6xZMmiUjx3Xd0b/6n3su08fdWAbxNb7t5ARirKSNjONyN0WZ?=
+ =?us-ascii?Q?lSui8Gd0de4DyyQ2/AmoDPAum1q0eaIWr/NF3r1/sDd+bsk5/uhIzsw2PTRJ?=
+ =?us-ascii?Q?ZxZOGUhfXYM+hZX1G8o05ZtqObRr+KtVu7btJx8l0e1mLcZKuPrND2KOK55r?=
+ =?us-ascii?Q?RVWKvpLdQmROAoYehe2JqtLESoTlwT46wQJZgVxxnW+Bnh9Cr2UHJl1Ju7IF?=
+ =?us-ascii?Q?k0wacyRHnu7vJt72ErVP1sSLZy9xEI0nLTW4C28gPde5xNt0Z59T+Ty5tvCr?=
+ =?us-ascii?Q?U24nHXe3MqXNZ6AG9PI28SmVm72z7Gv5YzJBX63UYBji5s1D5V/kSHMv7zzm?=
+ =?us-ascii?Q?bTyaxM4DyFb40VR7cZ5GZGsqRGibd/pey8gHHKzllvZubTUrx+5H+dpqmIkX?=
+ =?us-ascii?Q?TgIFmSt4zN1NYTm9m3YPY4lJ0xIcDZr4d61v6FKCbLAR4U31L+VJKKstNejo?=
+ =?us-ascii?Q?R/xnDpr95fFtU0HJg+m3ymxkLfGo7DGjOIScMd6+3UAcC2ckLkgKH0QFsyxZ?=
+ =?us-ascii?Q?QYFWaC/TQB7/+glGTo9RopoLCJ/ABczaSpKcVztoWmFP7BzzgaBdJCePxEMi?=
+ =?us-ascii?Q?2BnIqW4p9YREups7pZqtdZU9AklmUxUxnW3k9lnl35Ds3YYP0eNaaOahVrbC?=
+ =?us-ascii?Q?W5EzaGFuTr3HC6xZumI0eXUn8AIcJsrzy5o7UxCYMDSYkI274GhQ+Z+XWc9a?=
+ =?us-ascii?Q?f1vEvyyuE4+Fn4yRNNe4f6/4RAgVSEMvONkTvJV2oC48nfa7XTeyio2zZJ//?=
+ =?us-ascii?Q?V2zjQUQ1vLr+WQSWco4Fe0+un+BFIQfJDy3z5ikcIieffkWQxGINQo0pOtIC?=
+ =?us-ascii?Q?DdOgL8lKzyY8/DzvL/QTC0jC+t+r+Ok8TenyxzZrnDCollggo8mp/jpZTKzb?=
+ =?us-ascii?Q?HYwYbF28GebtME5klgPx64otPPKNEfrzL4t3cEyFZtl6yE3zzalh/iOwc1ee?=
+ =?us-ascii?Q?Vq4i304XKaAF4O3xLGFXkmDCFQaUs3/aHshq3vVqRqsFvBEiSSuuIBxBfKD5?=
+ =?us-ascii?Q?EVh85NYOjpEmHJb+Mw21mvgWuxDAnA7HwWP369OraK++DbFIyUA0v64C1T11?=
+ =?us-ascii?Q?35cYqwcO5cBtN5EF6tH5k6XFYI9V+VQiEfVVxIP6bO37a4LoHbxmkySdzTX4?=
+ =?us-ascii?Q?VQ/OaM9Yg595vt49posOkCZbl6ly0c7jyuOu0NWBSxjQs1mmwpLvqpQFC4iw?=
+ =?us-ascii?Q?z0/70ZAe6lLD8mqN2jf/rYdRUii9xEfKES3AmQWcvA9qyJU0Dmp9A0vwwZnI?=
+ =?us-ascii?Q?oPJNJ04JfI009bIvjG9ad5InfFsybQWYV+rku1+STmbIqDZ80LvMtDrRXjN8?=
+ =?us-ascii?Q?ZB58M1tfAbSE3+zmr9yZFaBdFvVNub3Ic5yHaUNzHXUZuCpl?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13a1216c-9541-4b94-2bc1-08de89dffad6
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 20:00:21.3981
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aQ1ml6ePd6jy6sajeQrZaH6dKvlVUVWA3YjrHAEulecLth39Bh1BMWD9c82GRlXPa8BVDB94khScUFvLDaCTqw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10859
 
-
-On 23/03/2026 22:36, Bjorn Helgaas wrote:
-> On Fri, Mar 20, 2026 at 09:42:12AM +0000, Caleb James DeLisle wrote:
->> Add support for the PCIe present on the EcoNet EN7528 (and EN751221) SoCs.
->>
->> These SoCs have a mix of Gen1 and Gen2 capable ports, but the Gen2 ports
->> require re-training after startup.
->> ...
->> +static int mtk_pcie_startup_port_en7528(struct mtk_pcie_port *port)
->> +{
->> +	struct mtk_pcie *pcie = port->pcie;
->> +	struct pci_host_bridge *host = pci_host_bridge_from_priv(pcie);
->> +	struct resource *mem = NULL;
->> +	struct resource_entry *entry;
->> +	u32 val, link_mask;
->> +	int err;
->> +
->> +	entry = resource_list_first_type(&host->windows, IORESOURCE_MEM);
->> +	if (entry)
->> +		mem = entry->res;
->> +	if (!mem)
->> +		return -EINVAL;
->> +
->> +	if (!pcie->cfg) {
->> +		dev_err(pcie->dev, "EN7528: pciecfg syscon not available\n");
->> +		return -EINVAL;
->> +	}
->> +
->> +	/* Assert all reset signals */
->> +	writel(0, port->base + PCIE_RST_CTRL);
->> +
->> +	/*
->> +	 * Enable PCIe link down reset, if link status changed from link up to
->> +	 * link down, this will reset MAC control registers and configuration
->> +	 * space.
->> +	 */
->> +	writel(PCIE_LINKDOWN_RST_EN, port->base + PCIE_RST_CTRL);
->> +
->> +	/*
->> +	 * Described in PCIe CEM specification sections 2.2 (PERST# Signal) and
->> +	 * 2.2.1 (Initial Power-Up (G3 to S0)). The deassertion of PERST#
-> Include spec rev; the section numbers are typically specific to a spec
-> revision.  E.g., CEM r1.0, sec 2.2, 2.2.1.
+On Tue, Mar 24, 2026 at 06:39:10PM +0100, Marek Vasut wrote:
+> On 3/24/26 5:01 PM, Frank Li wrote:
+> > On Fri, Mar 13, 2026 at 12:24:04AM +0100, Marek Vasut wrote:
+> > ...
+> >
+> > > diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi
+> > > new file mode 100644
+> > > index 0000000000000..534737363c9f0
+> > > --- /dev/null
+> > > +++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi
+> > > @@ -0,0 +1,42 @@
+> > > +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> > > +/*
+> > > + * Copyright (C) 2022 Marek Vasut
+> >
+> > 2026?
 >
->> +	 * should be delayed 100ms (TPVPERL) for the power and clock to become
->> +	 * stable.
->> +	 */
->> +	msleep(100);
-> Isn't there a #define for this in drivers/pci/pci.h?
+> That was the original copyright year when this was implemented, but I can
+> update it to 2022-2026 ?
 
-Indeed, and it has the proper reference to the spec revision. This hard 
-coded 100 and the spec comment trickled down from vendor code. Will 
-replace with the symbol.
-
->> +	/* De-assert PHY, PE, PIPE, MAC and configuration reset */
->> +	val = readl(port->base + PCIE_RST_CTRL);
->> +	val |= PCIE_PHY_RSTB | PCIE_PERSTB | PCIE_PIPE_SRSTB |
->> +	       PCIE_MAC_SRSTB | PCIE_CRSTB;
->> +	writel(val, port->base + PCIE_RST_CTRL);
->> +
->> +	writel(PCIE_CLASS_CODE | PCIE_REVISION_ID,
->> +	       port->base + PCIE_CONF_REV_CLASS);
->> +	writel(EN7528_HOST_MODE, port->base);
->> +
->> +	link_mask = (port->slot == 0) ? EN7528_RC0_LINKUP : EN7528_RC1_LINKUP;
->> +
->> +	/* 100ms timeout value should be enough for Gen1/2 training */
->> +	err = regmap_read_poll_timeout(pcie->cfg, EN7528_LINKUP_REG, val,
->> +				       !!(val & link_mask), 20,
->> +				       100 * USEC_PER_MSEC);
-> Ditto.  Also take a look and see if this is relevant:
-> https://lore.kernel.org/all/20260320224821.2571373-1-thierry.reding@kernel.org
-Okay, the hardcoded 100ms follows what is done in pcie-mediatek.c but 
-from pcie-mediatek-gen3.c it appears the appropriate symbol is 
-PCI_PM_D3COLD_WAIT so I'll substitute this.
->
->> +	if (err) {
->> +		dev_err(pcie->dev, "EN7528: port%d link timeout\n", port->slot);
->> +		return -ETIMEDOUT;
->> +	}
->> +
->> +	/* Set INTx mask */
-> Looks like this *clears* an INTx mask.  But the comment is probably
-> superfluous anyway.
-Indeed. "clear" -> "unmask" -> "activate" -> "set", I'll use the word 
-"activate" since that's what we're doing.
->> +	val = readl(port->base + PCIE_INT_MASK);
->> +	val &= ~INTX_MASK;
->> +	writel(val, port->base + PCIE_INT_MASK);
->> +
->> +	if (IS_ENABLED(CONFIG_PCI_MSI))
->> +		mtk_pcie_enable_msi(port);
->> +
->> +	/* Set AHB to PCIe translation windows */
->> +	val = lower_32_bits(mem->start) |
->> +	      AHB2PCIE_SIZE(fls(resource_size(mem)));
->> +	writel(val, port->base + PCIE_AHB_TRANS_BASE0_L);
->> +
->> +	val = upper_32_bits(mem->start);
->> +	writel(val, port->base + PCIE_AHB_TRANS_BASE0_H);
->> +
->> +	writel(WIN_ENABLE, port->base + PCIE_AXI_WINDOW0);
->> +
->> +	return 0;
->> +}
->> +
->>   static void __iomem *mtk_pcie_map_bus(struct pci_bus *bus,
->>   				      unsigned int devfn, int where)
->>   {
->> @@ -1149,6 +1236,30 @@ static int mtk_pcie_probe(struct platform_device *pdev)
->>   	if (err)
->>   		goto put_resources;
->>   
->> +	/* Retrain Gen1 links to reach Gen2 where supported */
->> +	if (pcie->soc->startup == mtk_pcie_startup_port_en7528) {
-> This looks like an ugly hack when placed here in mtk_pcie_probe(),
-> especially since it's after pci_host_probe() has already enumerated
-> the hierarchy.  Why can't this be inside
-> mtk_pcie_startup_port_en7528() itself?
-
-This is indeed frustrating. This little ritual has trickled down through 
-2 or 3 generations of rewritten vendor code. What we know is that the 
-Gen2 links come up as Gen1 on startup, but if you retrain them they 
-upgrade to Gen2. Technically this could be done in 
-mtk_pcie_startup_port_en7528(), but it won't be using 
-pcie_retrain_link() because we don't yet have the pci_dev struct. Doing 
-it manually is kind of ugly because we have to get the config offset of 
-the bridge device which we're retraining - vendor code for this is a bit 
-of a mess.
-
-I think probably the least bad solution here is to stick with this, 
-perhaps with a more descriptive / apologetic comment. WDYT?
-
->> +		struct pci_bus *bus = host->bus;
->> +		struct pci_dev *rc = NULL;
->> +
->> +		while ((rc = pci_get_class(PCI_CLASS_BRIDGE_PCI << 8, rc))) {
->> +			int ret = -EOPNOTSUPP;
-> I don't get this.  pci_get_class() looks through the entire hierarchy,
-> but this driver should only care about the links directly attached to
-> Root Ports.
-Good point, I'll switch this out for something more specific.
->> +			if (rc->bus != bus)
->> +				continue;
->> +
->> +			#if IS_BUILTIN(CONFIG_PCIE_MEDIATEK)
->> +			ret = pcie_retrain_link(rc, true);
->> +			#endif
-> Why is this specific to being builtin?  No other PCI controller
-> drivers do this.  Needs a comment about why this is special.
-> Typically such an #ifdef would be at the left margin.
-
-Okay yes, good point. The reason for this is because pcie_retrain_link() 
-is not exported and trying to re-implement the logic is the mess I 
-alluded to earlier. Since this driver supports multiple devices and 
-allows being compiled as a module, I opted to soft-fail in this case and 
-it will log that it didn't retrain with reason -EOPNOTSUPP. In that case 
-it would continue to run as a Gen1, and since this is an embedded 
-application, I think we can rely on the integrator to make it a builtin 
-if they're targeting the EN7528. But I can re-send with nicer 
-documentation around this.
+Okay, you upstream this year.
 
 >
->> +			if (!ret)
-> Prefer the positive test ("if (ret)").
+> > > + */
+> > > +
+> > > +&display_bl {
+> > > +	pwms = <&pwm1 0 5000000 0>;
+> > > +};
+> > > +
+> > > +&DH_OVERLAY_PANEL_I2C_BUS {
+> >
+> > why upcase for label, generally it should be lower case
+>
+> Because this label is really a macro , please read on.
+>
+> > > +	#address-cells = <1>;
+> > > +	#size-cells = <0>;
+> > > +
+> > > +	touchscreen@41 {
+> > > +		compatible = "ilitek,ili251x";
+> > > +		pinctrl-0 = <DH_OVERLAY_PANEL_I2C_TOUCHSCREEN_PINCTRL>;
+> > > +		pinctrl-names = "default";
+> > > +		reg = <0x41>;
+> >
+> > reg should second property,  please dt-format for new dts files.
+> > check others
+> What is "dt-format" ? Linux kernel source tree, even current next, does not
+> mention such a tool . I did run schema check and checkpatch on these
+> patches. obv.
 
-Okay.
+I send out at many place, https://github.com/lznuaa/dt-format
+I write small tools to detect and fix node and property order problem,
+it may be buggy.
 
+These node order problem is easy to detected and fix by tools to save
+review cycle and focus on the important stuff.
 
-Thank you very much for the review.
-
-Caleb
-
+Frank
 
 >
->> +				dev_info(dev, "port%d link retrained\n",
->> +					 PCI_SLOT(rc->devfn));
->> +			else
->> +				dev_info(dev, "port%d failed to retrain %pe\n",
->> +					 PCI_SLOT(rc->devfn), ERR_PTR(ret));
->> +		}
->> +	}
->> +
->>   	return 0;
->>   
->>   put_resources:
->> @@ -1264,8 +1375,15 @@ static const struct mtk_pcie_soc mtk_pcie_soc_mt7629 = {
->>   	.quirks = MTK_PCIE_FIX_CLASS_ID | MTK_PCIE_FIX_DEVICE_ID,
->>   };
->>   
->> +static const struct mtk_pcie_soc mtk_pcie_soc_en7528 = {
->> +	.ops = &mtk_pcie_ops_v2,
->> +	.startup = mtk_pcie_startup_port_en7528,
->> +	.setup_irq = mtk_pcie_setup_irq,
->> +};
->> +
->>   static const struct of_device_id mtk_pcie_ids[] = {
->>   	{ .compatible = "airoha,an7583-pcie", .data = &mtk_pcie_soc_an7583 },
->> +	{ .compatible = "econet,en7528-pcie", .data = &mtk_pcie_soc_en7528 },
->>   	{ .compatible = "mediatek,mt2701-pcie", .data = &mtk_pcie_soc_v1 },
->>   	{ .compatible = "mediatek,mt7623-pcie", .data = &mtk_pcie_soc_v1 },
->>   	{ .compatible = "mediatek,mt2712-pcie", .data = &mtk_pcie_soc_mt2712 },
->> -- 
->> 2.39.5
->>
+> > > +		interrupt-parent = <&DH_OVERLAY_PANEL_I2C_TOUCHSCREEN_IRQ_PARENT>;
+> > ...
+> > > +
+> > > +	ports {
+> > > +		#address-cells = <1>;
+> > > +		#size-cells = <0>;
+> > > +
+> > > +		port@1 {
+> > > +			reg = <1>;
+> >
+> > need empty line between child node and property.
+>
+> Fixed in V2
+>
+> > > +	#size-cells = <0>;
+> > > +
+> > > +	eeprom@56 {
+> > > +		compatible = "atmel,24c04";
+> > > +		reg = <0x56>;
+> > > +		pagesize = <16>;
+> > > +	};
+> > > +};
+> > > +
+> > > +&ecspi2 {
+> > > +	status = "okay";
+> >
+> > status should be last property. I stop here because these
+> > should be identify by tools/script
+> Neither checkpatch nor schema validation complained about these.
+>
+> I moved the status=okay to the end. Anything else I should update ?
