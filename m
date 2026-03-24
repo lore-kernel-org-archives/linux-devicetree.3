@@ -1,141 +1,278 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5178D390CAF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8BE33F54D3
 	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 16:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774369585; cv=none; b=h9eivRaVnxCQEnBwEst0KQL28Ff1tQJsmd1VpLKNBZ82CSluSjFNQRB0VWHqfGsXlco3M5oWT/+zwuPxxfArDMLc+uhp+uWSymTjBHnH0eP0Sf25nod9yKy/8C7arGR8x91mqXmuHf3M8x7HBfEQp90K3+/u9eTgjbpn2y8N654=
+	t=1774369587; cv=none; b=XgNf6dGw+3YHyB45hCSjMrFbWNlAh5kBYYVvFhzl6avy9imqO/tq/c3S47X6ZcOGK8IVsy6rJI0WC6UcVSGfckcN2j5th/NjYs/j1VNekpbu1/z850T0ZQXC/UmFsIYFMBwkuHOkQTdiXYVkoau7mHvQH4zuhVU/7i+NGHXK/iU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774369585; c=relaxed/simple;
-	bh=6VWhj5fP/Vln8s/FmQfbs+SkMo/on860/XGuUju5JZ0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pJltY+OhpVeIYXIEy+L+1yzCcv/OYId+7wNWwF/vJrR/cXzsa686iKRD3a6GJxMEe1Pv9T1vTEJRD6fRqiyUIaM53QTrjQHOAeb1tpwLntDTx9rUj7IYJdHz8QqgqI9IS8rNxIloW2OsPIsxky5QIk9epZB/okfpIwHhMkDvtq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SpROFtP2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gKsz1BPk; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774369587; c=relaxed/simple;
+	bh=pVUTaBu37BYx90oCxlbexCq4J36a+37O4snWHTnZVAo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=aKWYaLmJnefXn8oSGuTNaHty1jryB3ktd6rxp4gTBpOcnSkwAoCsbXZLkmTgMUURKZsauvA00UaaKthfUgmHtNqg/SOeNXfwjNVwoge5vO5FSKbhK/d8m1fHl3CaB7jkHcJ6EAcRalpX/bdglo9S0LzxNpco52cazr1ybcxf5nI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=lGrH3waM; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SpROFtP2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gKsz1BPk"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62OEbkUR2488337
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 16:26:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=qYMcGVL12sVLD6LswJRJjS62
-	cG5yQyLOgBfgiqP9H9Y=; b=SpROFtP2onSZ6qFBxGVgW5Oh+EIZMBwNpmix5jLk
-	eI767TcZ4HluH3fV1aXKidI3oG7+0q2M1PS9wztxaWRgHd4ZwHVcgQmvxW/rMm6E
-	xrBF8V0qXMo7Ges7VlQ+eVF+0FhQxwvNzlCpgUIjDoX3L+EXp10d1IXecvKSAD+N
-	BzEALPn2CqFZJdBs9zrYRKocUwgh/tU1vaZWAOOJ4leudpGV01kdw3q/LRbg4+rs
-	YprmX4jaIkQfv/crcevpka6ukyADPBpgkqpeg3qR9N+/OwKIm9WZT6TS+7PaQzEt
-	Wh+FnXEY5XRp2fPHyPpqC/2rpD8R6b6gJ4UUBPIyaIW06Q==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d3vhvrfdp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 16:26:23 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5094ba09affso92572881cf.2
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 09:26:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774369583; x=1774974383; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=qYMcGVL12sVLD6LswJRJjS62cG5yQyLOgBfgiqP9H9Y=;
-        b=gKsz1BPkWpZg0ecPOXbtASFG9cT/hNS3M9GdyhVGPgvmwFSvBU786bpfZ1JgaN5my0
-         EbmRYuGlRbLTZ+BK3Sc8Vno29SJbrMD4D//88RN0Sl2wmSqzNst1sKnCmkqH1RCC7jaK
-         Wa/+wMPQOoAner0Td+4LlY9/cFfxAnXVdXI21LgT+9Jzuy0gbGKiVNlNSjoORyWSZCUa
-         aS+EhuBY3jKZB97PvAfckJMzTnJLXfYalstwe1QbNSp1o87vIgtMC9W+8vQwHX2M2YmH
-         fUfHkFMDIVhcMle+Qjo4+7+Ds5eAlVG9XJe0tnhoMaiaoRYf/IwNNLYy6DMG2lgcshA9
-         /xnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774369583; x=1774974383;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=qYMcGVL12sVLD6LswJRJjS62cG5yQyLOgBfgiqP9H9Y=;
-        b=l2ZpWLs76ougxbU3WmlVuUSDQUrEMzmP6FhDYmwll3jpwuGkI1UMPlzlR44HkaMQR1
-         9D/TIiZCf9GFuXMpvh6WPC/t+i8H+FM0FI6mdkRyK8SMYJLLhw6QbuEA7QSZgqn8VQmT
-         HdpOb0dFzbTlxngx9kuFltA/kX1GTi8Ml5a4SN+yBC/HVsJjVxANyRLi2QdnzSc8TuSw
-         V+PQ/c+c28iAPelgGzb1bYOVgZUBli2XGL2HDhtXtUjrCqgxV9sx+SfAgWrYVDP/mbxO
-         92WBhpfQosB2ZtKJdvjNytKEHQNGX37+REZ3r01diNhvr0XUAF4jApMZ02WP5beNiGpB
-         i9pw==
-X-Forwarded-Encrypted: i=1; AJvYcCXoA9okFu9he/zgi8WjD9hK8bjGSd+1MwgAE3a0tuU/j6AtYcs+I+zQHdtpKp9ZDErXxcRIUTUDOqoE@vger.kernel.org
-X-Gm-Message-State: AOJu0YynF1Sf+DMXlMzPSStLyqKlrbO6ve7WNJlnxLgiCTgthYkIPp9/
-	FaWGb/RSQqETpV1wwnACwFxa4bTlxiXH79lqYAs1CfCp6uW+qGSUvsCLUH06xIZ3O+HCrtIFF4e
-	OG/MYCCUeT+93xmcs7B0KaSiklJC2MB5glK4lJOSSHzO4OPP6N9fgbCgKK76BhXH+
-X-Gm-Gg: ATEYQzzEP/YyVy0YMrD/dNg6s/SEamdso0xVT1AtwB3Buo+07YepSzvjJWqx6AAriSQ
-	O4b6Dol8aZvKmzbuD4R2Ubas0gPrLyp61MAiDYjgDHipHFzm6bYUlmzSq2Aid2Ha88H5/6jiY9H
-	Ymv8jB33a+lSCZBJE/ANWjPDUa/xkr9V8Z3+ecKW0g20ALbiCKDSIjbGP1yf950H7sDslFW35J9
-	Kuy85owBPcsksmxpk6BKd8XvpaJkwWr8v5MFcq/3xE+cu3cdPJox08P4joDxDG8IdUZpnHK4kRR
-	EkcGhpALKrE8BcqXZ7H62hkc5SgN5AE459woDFdHQmB2bhDf7ri5Ioiaxrona+SuQ9drgs9PhHi
-	zBG2BXtXejdxeAMN1OUvoaenpZJ1M3Go/cg==
-X-Received: by 2002:a05:622a:2285:b0:509:3141:312c with SMTP id d75a77b69052e-50b81b0f234mr18061cf.40.1774369582476;
-        Tue, 24 Mar 2026 09:26:22 -0700 (PDT)
-X-Received: by 2002:a05:622a:2285:b0:509:3141:312c with SMTP id d75a77b69052e-50b81b0f234mr17591cf.40.1774369581870;
-        Tue, 24 Mar 2026 09:26:21 -0700 (PDT)
-Received: from oss.qualcomm.com ([82.79.95.133])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b644bdaf8sm44763958f8f.13.2026.03.24.09.26.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Mar 2026 09:26:20 -0700 (PDT)
-Date: Tue, 24 Mar 2026 18:26:17 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] phy: qcom: qmp-pcie: Add Gen5 8-lanes mode for
- Glymur
-Message-ID: <rtlki432tho35wzq6t252na52eaz4tqtembz7goqhble73aogt@wusxa6s3xjh3>
-References: <20260323-glymur_gen5x8_phy_0323-v2-0-ce0fc07f0e52@oss.qualcomm.com>
- <20260323-glymur_gen5x8_phy_0323-v2-4-ce0fc07f0e52@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="lGrH3waM"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 15C2E240105
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 17:26:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
+	t=1774369583; bh=wqgxFZDx8NKk35yL7sq848BORVfYKSYBLLwEcNFnzGs=;
+	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+	 MIME-Version:OpenPGP:From;
+	b=lGrH3waMH+eiUtfIrYZcEvOJtdAo7MF30he7DyEUToTxUjBeQUOpdXK1x6tmGige7
+	 DzWMBVFMTv31fXmJZ1Ea6mukG9WHR1icnSBrApue/NwAhSntxps60vbkugHHw/rQlb
+	 ZV50VJgSl1fKjtIOWvWDnhtXJF/fXgFxGVcP4d1PzHFlb8IzZMzWNc/995wAkcfuC4
+	 YwyIp92Ytau1qFSJamnuXK5utNOuMmWMniR4sUFak3TiVCTrUifabkDgEno3MepS0W
+	 9fT9SCoT3yTUrJgwEHp5unJQJ/lXVzzP4DzEzteh9zUk2IuUc96egCT9gNmuSO4dyp
+	 4aLQRnci/cjDg==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4fgFlt56SSz6tws;
+	Tue, 24 Mar 2026 17:26:18 +0100 (CET)
+Message-ID: <f32aba79b98b357487c44e1952e536051fcd7a51.camel@posteo.de>
+Subject: Re: [PATCH v3 3/7] acpi: add acpi_of_match_device_ids
+From: Markus Probst <markus.probst@posteo.de>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Greg
+ Kroah-Hartman	 <gregkh@linuxfoundation.org>, Miguel Ojeda
+ <ojeda@kernel.org>, Boqun Feng	 <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Igor
+ Korotin	 <igor.korotin.linux@gmail.com>, Daniel Almeida
+ <daniel.almeida@collabora.com>,  Bjorn Helgaas <bhelgaas@google.com>,
+ Krzysztof =?UTF-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Pavel
+ Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, Robert Moore
+ <robert.moore@intel.com>, 	devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	rust-for-linux@vger.kernel.org,
+ driver-core@lists.linux.dev, 	linux-pci@vger.kernel.org,
+ linux-leds@vger.kernel.org, 	linux-acpi@vger.kernel.org,
+ acpica-devel@lists.linux.dev
+Date: Tue, 24 Mar 2026 16:26:22 +0000
+In-Reply-To: <CAJZ5v0jHQ7sHJ8SV25p2gQugC-a8f9oVFarS17NXwPzGOJUD0Q@mail.gmail.com>
+References: <20260313-synology_microp_initial-v3-0-ad6ac463a201@posteo.de>
+	 <20260313-synology_microp_initial-v3-3-ad6ac463a201@posteo.de>
+	 <CAJZ5v0jxHO2EH5NeEsMkxGz5xqVL00tO-W1JpaVd=GhwgQ3T=A@mail.gmail.com>
+	 <e8ffc9902c0af24ce6fde2d8712ea588b36e9194.camel@posteo.de>
+	 <CAJZ5v0jHQ7sHJ8SV25p2gQugC-a8f9oVFarS17NXwPzGOJUD0Q@mail.gmail.com>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-4WIOjhy6PzINbUusth1I"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260323-glymur_gen5x8_phy_0323-v2-4-ce0fc07f0e52@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDEyOCBTYWx0ZWRfX0oy98uo9M4Bb
- d6P3rw2zRStaTs1NC5PT+rXIyvIO09rhgK584+yxJ7fiwkZ5RfbyxZ7W/J6mRXuoj0meVA8Xu/8
- xhxCogO1WihYYwa9bTUdfKob3g/m7t5GFQ2OIOxMgB9VwUtjvm1233xF+GnxyR57AEb1TjZRpJe
- /IlpjOBKjsmBw/1NCRsrxfELzWVkO/ddS4DVgfyid7vzihMI2d98PHG3b0/azSi7wtlckWZ0ZWZ
- 3zLT9SOkqHp85bB34rxElTo/5vCBo8yOitLK7UF6U9gqfRu0/0EAXFi8b5LaGje5/XL9tt5gQ+v
- gV83TmKsVvhCeIaJ9NnxQ9TKglD0A+SBdUql8cFnDFmx5+1MuottYd2MjrMcjb3teBvSOq/926T
- KXZWLKGPqkgB3ixbQTAghvt1sGzstGZk5sxs14VRkbX2snM30NGUqbpMHTjxOq1BdzoNKZFQIV4
- 1AauwZmrhTte3P6q6aA==
-X-Authority-Analysis: v=2.4 cv=P5M3RyAu c=1 sm=1 tr=0 ts=69c2bb2f cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=iKs3dpp2RB4k51ZqCjcyjQ==:17
- a=kj9zAlcOel0A:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=TM4ErUj_GH9VF2dpSNYA:9 a=CjuIK1q_8ugA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: DzDdeo3tYrTRpeTGqCFYPKuxspjdYW_L
-X-Proofpoint-GUID: DzDdeo3tYrTRpeTGqCFYPKuxspjdYW_L
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-24_03,2026-03-23_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- priorityscore=1501 spamscore=0 bulkscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240128
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-On 26-03-23 00:15:31, Qiang Yu wrote:
-> The third PCIe controller on Glymur SoC supports 8-lane operation via
-> bifurcation of two PHYs (each requires separate power domian, resets and
-> aux clk).
-> 
-> Add dedicated reset/no_csr reset list ("phy_b", "phy_b_nocsr") and
-> clock ("phy_b_aux") required for 8-lane operation. Introduce new
-> glymur_qmp_gen5x8_pciephy_cfg configuration to enable PCIe Gen5 x8 mode.
-> 
-> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+--=-4WIOjhy6PzINbUusth1I
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, 2026-03-24 at 17:01 +0100, Rafael J. Wysocki wrote:
+> On Tue, Mar 24, 2026 at 4:30=E2=80=AFPM Markus Probst <markus.probst@post=
+eo.de> wrote:
+> >=20
+> > On Mon, 2026-03-23 at 20:57 +0100, Rafael J. Wysocki wrote:
+> > > On Fri, Mar 13, 2026 at 8:03=E2=80=AFPM Markus Probst via B4 Relay
+> > > <devnull+markus.probst.posteo.de@kernel.org> wrote:
+> > > >=20
+> > > > From: Markus Probst <markus.probst@posteo.de>
+> > > >=20
+> > > > Add a function to match acpi devices against of_device_ids. This wi=
+ll be
+> > > > used in the following commit ("mfd: match acpi devices against PRP0=
+001")
+> > > > to match mfd sub-devices against a of compatible string.
+> > >=20
+> > > Please always spell ACPI in capitals in patch subjects, comments,
+> > > changelogs, etc.  It is not a regular word.
+> > Ok.
+> > >=20
+> > > > Signed-off-by: Markus Probst <markus.probst@posteo.de>
+> > > > ---
+> > > >  drivers/acpi/bus.c      | 7 +++++++
+> > > >  include/acpi/acpi_bus.h | 2 ++
+> > > >  2 files changed, 9 insertions(+)
+> > > >=20
+> > > > diff --git a/drivers/acpi/bus.c b/drivers/acpi/bus.c
+> > > > index f6707325f582..5ddcc56edc87 100644
+> > > > --- a/drivers/acpi/bus.c
+> > > > +++ b/drivers/acpi/bus.c
+> > > > @@ -1044,6 +1044,13 @@ int acpi_match_device_ids(struct acpi_device=
+ *device,
+> > > >  }
+> > > >  EXPORT_SYMBOL(acpi_match_device_ids);
+> > > >=20
+> > >=20
+> > > Missing kerneldoc.
+> > The same amount of kerneldoc as `acpi_match_device_ids`, if I am not
+> > mistaken.
+> > >=20
+> > > > +int acpi_of_match_device_ids(struct acpi_device *device,
+> > > > +                         const struct of_device_id *ids)
+> > > > +{
+> > > > +       return __acpi_match_device(device, NULL, ids, NULL, NULL) ?=
+ 0 : -ENOENT;
+> > > > +}
+> > > > +EXPORT_SYMBOL(acpi_of_match_device_ids);
+> > >=20
+> > > Are you aware of the consensus that using PRP0001 in production
+> > > platform firmware will be regarded as invalid?
+> > >=20
+> > > Because of that, it is not an option for a driver to avoid providing
+> > > ACPI match data on a platform that uses ACPI.
+> > First of all, the driver that would have made use of it has been
+> > restructed to not use mfd subdevices. It would not be affected anymore
+> > through this patch set.
+>=20
+> So what exactly would be affected by it?
+I won't have a use for myself anymore, but I still think the patch is
+useful. Anyway,
+
+MFD Devices without an assigned ACPI ID, if they are present on devices
+with ACPI platform firmware.
+
+>=20
+> > Not sure if I should still send it as its own patch series though.
+That is why I asked this question (see 1. sentence in the paragraph
+above).
+
+> >=20
+> > The device of the driver has no ACPI ID allocated by the manufacturer,
+> > as it is only used on a proprietary Linux OS (with their own modified
+> > kernel).
+>=20
+> Do I understand correctly that there is an ACPI platform firmware on
+> the board, but it doesn't enumerate the given device properly (that
+> is, as an ACPI device object with a specific device ID)?
+There is only a serial device in the ACPI platform firmware.
+The device connected to the bus isn't specified.
+>=20
+> In which case there probably is a driver that can find that device
+> somehow (it has hardcoded resources or similar).
+Yes, that driver has `filp_open("/dev/ttyS1")` hardcoded.
+>=20
+> > The driver would have only been useful via device tree or an ACPI
+> > Overlay.
+>=20
+> Do you mean a custom SSDT loaded via configfs or something else?
+Yes, in my case via initrd.
+
+>=20
+> > Obviously, I don't have a PNP or ACPI Vendor ID, so I can't
+> > assign one. The parent/main driver does only have a of compatible id.
+> > As it needs to use PRP0001 anyway on ACPI, I thought it makes more
+> > sense to also use PRP0001 there instead of matching it with a _ADR
+> > which is "a grey area in the ACPI specification".
+>=20
+> You can't match a device with _ADR.  By itself, _ADR doesn't provide
+> you with any information on the device in question, it only helps to
+> connect it to some information that can be collected by other means.
+> The role of it, at least in principle, is to allow some device objects
+> in the ACPI hierarchy to be associated with devices enumerated by
+> other means (like on a PCI bus).
+This patch affects mfd devices. A bus device can via mfd register child
+devices and those child devices will be matched to a fwnode if
+available.
+
+According to commit 98a3be44ffa67b812de7aa7aed9f2331edcfb1a5, there is
+a board on the market with a sub-device that will be matched using _ADR
+[1].
+
+[1]
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
+id=3D98a3be44ffa67b812de7aa7aed9f2331edcfb1a5
+
+>=20
+> The enumeration with the help of PRP0001 only works if there is a
+> device object in the ACPI hierarchy and its _HID is PRP0001 or its
+> _CID list contains PRP0001, there is a _DSD under it and a
+> "compatible" property is returned by that _DSD.  Who's going to
+> provide all of that for the given device?
+A ACPI Overlay would do that.
+
+>=20
+> Moreover, if the device has some resources that the kernel needs to
+> know about, there should be a _CRS under the device object in question
+> and the resources should be listed there.  Or how are the resources
+> going to be found otherwise?
+Resources in mfd are usually handled by the parent device, not the mfd
+child device. But yes, it would be using _CRS if any.
+
+Thanks
+- Markus Probst
+
+--=-4WIOjhy6PzINbUusth1I
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmnCuygbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTEsMiwyAAoJEDR2H/jnrUPSFtwP/1LgDwm20IUO598xZFkV
+t4Mp7zD16XTW4IGjuI5P9vUJCsMy/HFAVv6lW8b0bOalqzmzYjG9Ygxs5SBt4FAT
+mu89voTYbjRdncUvN35nDbe/L0g7PTu3wMUd4rvOrbtFuNjhh9nX3C/DVfpEnBaH
+wqLkHQ9apa7hu7F8cb9RetQp/5MTFBOjAxFsY+wUhnnjtdVF+ZWaQ2wNHV++7YLE
+vSYzAa9GatYERBvUBmex1dssbl1rzzSojatgmbOXSL3+d7hBYfu1Flw9pdz7Fi1s
+jQmiR1QP3ogEhj12IDtv3kYbNgtaHLCLFyHu2N7HCw/raOj8NSrtwH3wxkJL55vg
+5dNY66UEYGtSh4g/5XY8fXY32AWfLzFn7OxqsGhp0fw7tMrz40orIWcN428tLp9N
+PMfmofgv/6DIPBEITMUq1NmW0olkTRtRgg1H3AcYHd+YUfSA9uiC6nfrnZ2cb+E0
+to803zAsfF7zXH51zNKrjB8zHP1F7WH7zwQk+4bNztZvpeze+QTxblEkl2s8I05k
+6mI5GPEAWOQJ3BUGplQF4H3FA01SA/vomcNCJdQxhEQ31K8dsUyLNIymncSKvNZn
+yTVwnEAGTohJ9Ln0EMf0N/7d3LwOGATawIqjjosQgEZuDaS3kiLrmRtmspT8qgLw
+lYR2j/I03tOeDL0m0AMnCYqa
+=0hMF
+-----END PGP SIGNATURE-----
+
+--=-4WIOjhy6PzINbUusth1I--
