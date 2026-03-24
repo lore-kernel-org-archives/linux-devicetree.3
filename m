@@ -1,120 +1,136 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023098.outbound.protection.outlook.com [52.101.127.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F04B342CB6
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 11:59:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774353546; cv=none; b=c8cHlmMYA8TSpXvosdEWlVxOvSseHcdy9OepNEG0Nu1Dp1SgWPzDoiO0n6F8sESf5QZ9/s0h5Nhvhhdjh0LMkPXts7tWpT3zj6RmQQqRUhOlIW+whYv1BLyclpEwd62i8Kzqjn2riCg0qUYyY+aEYmZNnz7KNWXqZVZY0snzfI0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774353546; c=relaxed/simple;
-	bh=6iJFs3RZnTCV/tXPGCIur2RdIrxooChTxh15/IRur+E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tNolTmJkqoNyBJTnWLqmUxM7iM6b5J9ACnXfof18uL0bUMrRuRu540uxh5RzbXFMxx6wdbhQ0GAopYxUx5sq9iPo5UItoHJslxXKknt69blX6x1eBf42jRSoZ99h7whsyXkjLsN9r7YzS7K85lhInWH8wR0AGlpqThnY08BfFNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1w50PI-0001NH-4S; Tue, 24 Mar 2026 12:58:48 +0100
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1w50PH-001tEx-2Q;
-	Tue, 24 Mar 2026 12:58:47 +0100
-Received: from pengutronix.de (p4ffb2dc6.dip0.t-ipconnect.de [79.251.45.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 66B6250B994;
-	Tue, 24 Mar 2026 11:58:47 +0000 (UTC)
-Date: Tue, 24 Mar 2026 12:58:47 +0100
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>
-Cc: Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	NXP S32 Linux Team <s32@nxp.com>, Christophe Lizzi <clizzi@redhat.com>, 
-	Alberto Ruiz <aruizrui@redhat.com>, Enric Balletbo <eballetb@redhat.com>, 
-	Eric Chanudet <echanude@redhat.com>
-Subject: Re: [PATCH v3 0/6] can: flexcan: Add NXP S32N79 SoC support
-Message-ID: <20260324-nice-boa-of-elegance-10c519-mkl@pengutronix.de>
-X-AI: stop_reason: "refusal"
-References: <20260323135827.2129371-1-ciprianmarian.costea@oss.nxp.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B0E33EE1C8;
+	Tue, 24 Mar 2026 12:01:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.98
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774353684; cv=fail; b=Bo9mHcn4Ti4cG/SiJqj7NsqEJ2Jz5QPcEtzLnwsmke7nWp/kOq5OuzFiuZGFPlRsvW2OVsfhhwoHRkV9vPR8lKtpN2nhjXnLfygjfQ/CLNE+PTQkUaNB38oaTrEH1rqCtAhgB5K+ML1+cQbPe79Crrx/9IizdTDBNzhmE3wrA94=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774353684; c=relaxed/simple;
+	bh=dYIZHQann72PEHWA7xBFzSc5W+gp6LiDsiFDG9OXrHI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Y5pzQB1SefuO8Yr1TnV9hbrD9H9jLrGxLOPzU2NbrwASGlWyrlemUAAPsVB19COCJJpOwTVKJCDL3Sf2hxVRDY4T4A+s3a6XXlpgvvisaAJN9hqrn8PQ5PCR7DOtxlx0a9WGsa6I/KugN0gvHObZT+wTKCxbGMsonz21I4YrAgk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.127.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oWMn6h0jVYZYg7psgTl5Lr7N1TgrzV/lq32lObUJhwN/Q02U2WS4EPgOborsA5VQCm+6K/gGSNvASFMhZw7Z3AguK5UpaOY6l1dl6/drMrJ7gcKfhgGWHSHTTKtbSGGZHfzzfonhU+WWfM6kCwRM1GYJEsl52TIonsGJvU7s94yVjaPQBvbGym1icWkPbqjycwkUCJBDxkr5o7FglkcwGc6UNeAAp41v3C0VHYXFyXbjIIN02l+oHYp7sJolrLPyF5hTD5/ZFAhWM5gRcSI6WMF+/IY9VMBdYyZzkBofcNeQxMBeREDxx6/HddK5jXTw007R3L+FVS1tiVaDcM0piQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LWWYCFNj3Zlidx+/Ni8noLymGVAiUD1w5Es+iD96Ye4=;
+ b=E2O5trhsriFdLCky1QoYF6KCPtz+1vyPqaOZRgJimnq6UKewDEKPx3ha9Lfa7TkuUkw8Z0WIwkmpJ607tLZc+k9UDbt/wfYRpDS2DyVuwGR/SIkvvy7+dLEWbcvPgsLe9STx4eU5R11esDSD+04yT/DKeJ28R46nE8BhK37tW1KdonjpY6hkMbHVUHglvgseQykW9xS4d41zCASRqhM7v+0FOBtSrN4Agnn8hwFCtDEdzdfY4HQd3xhLMeeRSfbGLANBLTJJ9+LWTeQsvyjGlQrz9cMGIZltKlvMB2+Ww4CfjQD6Ri+rRGU2dmGDl3S+8QKIeMk22WXu9Cl5H7ep/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from PS2PR02CA0089.apcprd02.prod.outlook.com (2603:1096:300:5c::29)
+ by JH0PR06MB6918.apcprd06.prod.outlook.com (2603:1096:990:65::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Tue, 24 Mar
+ 2026 12:01:16 +0000
+Received: from TY2PEPF0000AB86.apcprd03.prod.outlook.com
+ (2603:1096:300:5c:cafe::f) by PS2PR02CA0089.outlook.office365.com
+ (2603:1096:300:5c::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Tue,
+ 24 Mar 2026 12:01:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB86.mail.protection.outlook.com (10.167.253.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Tue, 24 Mar 2026 12:01:16 +0000
+Received: from guoo-System-Product-Name.. (unknown [172.20.64.188])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id E92234126F9C;
+	Tue, 24 Mar 2026 20:01:14 +0800 (CST)
+From: Jun Guo <jun.guo@cixtech.com>
+To: peter.chen@cixtech.com,
+	fugang.duan@cixtech.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	vkoul@kernel.org,
+	ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	robin.murphy@arm.com,
+	Frank.Li@kernel.org
+Cc: dmaengine@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	linux-arm-kernel@lists.infradead.org,
+	Jun Guo <jun.guo@cixtech.com>
+Subject: [PATCH v5 3/3] arm64: dts: cix: add DT nodes for DMA
+Date: Tue, 24 Mar 2026 20:01:13 +0800
+Message-Id: <20260324120113.3681830-4-jun.guo@cixtech.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260324120113.3681830-1-jun.guo@cixtech.com>
+References: <20260324120113.3681830-1-jun.guo@cixtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mb6au225qig5m3u5"
-Content-Disposition: inline
-In-Reply-To: <20260323135827.2129371-1-ciprianmarian.costea@oss.nxp.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mkl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB86:EE_|JH0PR06MB6918:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 38f0ea97-5934-4217-2dd9-08de899d0d88
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|376014|7416014|921020|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	K42PWuQuvq6bXJE/20NtZAs7Jsesy81jHv89v0t/2/Qtj2BzCvfT7GMm7s5Y10bi/nXPC4dWACrkxNNujXb4AR4iCB1xx5XwY2ik2kv+D21W+JGSKGG0IyXaKnef1LTnuuBjsEngHx+iYdxZX6+cBE5Nsp7/D/uS1igGSBoiglJLntTDJdFjijrVZ3Ie5AKEJvyO8NKvDVc1B1Fp7iTyzdGIVtBYLoDaU7AQussxGZ8qfCUnYJlRPgMDKOmbEXq4c1s+0pcuQh+KOL7oj+xRhmE7T9ypmMy7Ygy4F4y5lHajDRjiyYS26W0187pMuaErTNO364aBkrLU719GR6tdgLp+LoNq4r5h5jrl665qAma634/7RsUi5z5L4VP5dfzU1AAV8W0W32K7hMXW8KNGSITq1TyGJoa3UJLK4NYKCbQXPgCPM2SQap2YSCVHK3bfN+aSS2xilTm5+dxV1LbRFvMSU2gRtkO+6Eu/o0w3Exj/gdHvUdNV/bVVRi6qC/QZ7HQQXBJf0PdI+9G2yCr1eQ6bqbt/G4KqogJ/gq8rD5tAxYvkpBoxH5J2sld7FeNeV3/8bjUwbDmVDaD45tzXgOeHNXjS/jNGH6v/MJ4b0bZzXbklyhSEtBlhdtf9u4tq3B/HKN0wXRfxINtbrLsCfQ0bMp1tdWRESrdymE+f+TxHGcKmEy3aylwz3fl0Ps5FixMGSH9wdziV+8Sz7PlETewhqRutD1wiJQ8LEoLPgHSrC6KshjiqqOZKTojtqc0wYetUD74GjZcbcGTyz1ptJtBh7nctmV95WHC5hENHY2Gn6vyUZqml3bfuf4sGFbA2
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(7416014)(921020)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	bQIc2DcuCBQw74f3bB5epBywbsq1IPKZWPUVfSD2kyLXP0sIbWzDkEiT0gBPmlgvneVGRE4wnQ20ybhwPEfBIH8/duPCzvigwuBQ2cmOlgSWXjicUfqwHjsed7lkQQ9i55upy7aDXbqSX6kPggHR3xhmK9FK0j0dj+iACpHlS+U38BwF+Qfo/DY3GjPvFHjJu+rKOBzmUIz+Q3lvTtQnFmxt06lDHOa6tuDtPVhN3fCJ9WhHfpd1yJGNXIRMGv5DmRfq8xjqsmTGJvKiNSeQFIJnHCF76Z68X6yBxMDpSH3uXj7or04Ilre0tz7mTs0byVeZYiV0pJU+RdY2DBscShzBqV2/MKIr4J7jYW19g3i5XVGi/Y3HcbiEx0LUFt+gbL87qRoeV/EdSuJGBhUDcz0RDrNU/HSKdjqCjYD5fABntZcI371Rv7nS14A/aqqF
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 12:01:16.0988
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38f0ea97-5934-4217-2dd9-08de899d0d88
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	TY2PEPF0000AB86.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6918
 
+Add the device tree node for the dma controller of the CIX SKY1 SoC.
 
---mb6au225qig5m3u5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 0/6] can: flexcan: Add NXP S32N79 SoC support
-MIME-Version: 1.0
+Signed-off-by: Jun Guo <jun.guo@cixtech.com>
+---
+ arch/arm64/boot/dts/cix/sky1.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-On 23.03.2026 14:58:21, Ciprian Costea wrote:
-> From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
->
-> This patch series adds FlexCAN support for the NXP S32N79 SoC.
->
-> The S32N79 is an automotive-grade processor from NXP with multiple
-> FlexCAN instances. The FlexCAN IP integration on S32N79 differs from
-> other SoCs in the interrupt routing - it uses two separate interrupt
-> lines:
->   - one interrupt for mailboxes 0-127
->   - one interrupt for bus error detection and device state changes
->
-> The CAN controllers are connected through an irqsteer interrupt
-> controller in the RCU (Resource Control Unit) domain.
->
-> This series:
->   1. Splits flexcan_irq() into dedicated handlers for multi-IRQ platforms
->   2. Adds dt-bindings documentation for S32N79 FlexCAN
->   3. Introduces FLEXCAN_QUIRK_IRQ_BERR to handle the two-interrupt
->      configuration
->   4. Adds S32N79 device data and compatible string to the driver
->   5. Adds FlexCAN device tree nodes for S32N79 SoC
->   6. Enables FlexCAN devices on the S32N79-RDB board
+diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
+index 210739beac6d..124a29147c6c 100644
+--- a/arch/arm64/boot/dts/cix/sky1.dtsi
++++ b/arch/arm64/boot/dts/cix/sky1.dtsi
+@@ -480,6 +480,13 @@ iomuxc: pinctrl@4170000 {
+ 			reg = <0x0 0x04170000 0x0 0x1000>;
+ 		};
+ 
++		fch_dmac: dma-controller@4190000 {
++			compatible = "arm,dma-350";
++			reg = <0x0 0x4190000 0x0 0x10000>;
++			interrupts = <GIC_SPI 303 IRQ_TYPE_LEVEL_HIGH 0>;
++			#dma-cells = <1>;
++		};
++
+ 		mbox_ap2se: mailbox@5060000 {
+ 			compatible = "cix,sky1-mbox";
+ 			reg = <0x0 0x05060000 0x0 0x10000>;
+-- 
+2.34.1
 
-Can you please add support for multiple IRQs to
-flexcan_chip_interrupts_enable().
-
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---mb6au225qig5m3u5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCacJ8dAAKCRDMOmT6rpmt
-0sqAAP4ty+lyM0j3TDBPhpl0Re+rYZxgcgbR0YBNywA8wS4RdQD+IDsVXj8+pT87
-FCOI+GZbJDr7Xfy4kHaruRgUxZzUCQw=
-=WxrY
------END PGP SIGNATURE-----
-
---mb6au225qig5m3u5--
