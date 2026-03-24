@@ -1,288 +1,346 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011019.outbound.protection.outlook.com [40.107.74.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2408F312819;
-	Tue, 24 Mar 2026 19:24:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774380301; cv=none; b=Eqms9czEKEqRDsm7UJhtayAw4n1mRLvr5bR0CuM/1mgeJa2fMBR5t5HXYneqsGjuWTF/CPEX6aCPkJxltquaYeNqsNOIV/cgJ9r21Bdi/J4E/cMpsU0W4U6ubD7nLisBD1Uc5bJug2psPVTvx+lSaaxZAa+gXMAKEfoZgItWaUs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774380301; c=relaxed/simple;
-	bh=wPhgCjwQeSn+BRAqoO5C5GaoqnCQLTgwDb2zWF3xTM4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nXIEcSEf6EVEhtKbG5hlbgK9kdlEqfihgLjORRfJC52pg3EDrdaajVlCEw2HbU1I8ANAtW9nDUWSFEixLBqD3o9zuA3RtqCEBJBdZu8z0UmIVSuILtKiYg5mrTy0kZI14WtsWNEW/PT7SxrhMfqLSz8D9m0uEFHxFcVrO/y7Jms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=P9lL39LB; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DBA923EAB4;
+	Tue, 24 Mar 2026 19:29:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774380559; cv=fail; b=YEwgpDuakUh01DYYNVfd5pj4wQGLwPeOSzgEuwmr0XkdUetWxmZcl3ujcCXiZetVqvp/1fs2N9ZfSo460+IIqon+g8pkYsgLsHjZl3jlBoIaEs6ahLC5YtHc9RBCVSV2nPJkwRqLN0zaPtBT0RkdGw+CXRIf/IMs9Fr4mTUdyNY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774380559; c=relaxed/simple;
+	bh=cD4f53Bwu6y8umvmjixjMxkc0mTDD83sd9qApXYPu6U=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=m1sOH2OgXYKjxnVM4+/b+/sczzcP8GT47lKOWFuSZmHFXm+3usG44KJI+79j9iX7tdnFDq8vSkVhduqGm/FOAgRiGgxPdqS5kdBn0NrT/FYZ8vaWbQLR5E6P5a7n0/Jx08fkr7gGKldn52aC7tCMOd00bl7Av+BSOVaBUHuX8uI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=MVXVmAra; arc=fail smtp.client-ip=40.107.74.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="P9lL39LB"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 12D39C5809E;
-	Tue, 24 Mar 2026 19:25:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A5362601A0;
-	Tue, 24 Mar 2026 19:24:58 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 965F410451131;
-	Tue, 24 Mar 2026 20:24:55 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1774380297; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=1q0RfS1aGG0lt8SxBmxfpAMO/VATuKtCz+N6YMM1DZo=;
-	b=P9lL39LBq8Hpic2d2kTOq1A50ORaO2tfnv4QJtnyolkztW8KFPRi6TAB7le3ipL7mzoYtR
-	05MzCY9tvSoH6XuteTaMIaWBOh+htIYzUoYR12OKpvrGoOTGH1ssxVRL6i8Bp9KLj95crJ
-	x/JvXtdU1/89Ls5oQ75ldw+YVmXmwKUKN9iZw85XgTa/6n5mk9Zu8hZYarYPmafvoQW7cc
-	IK/B3T5JPu3yTLE/qOX2gwxYpn3svLJr5jWBbcY1OMqts5vnHo973XCY3v+xHti0R3H6hl
-	tuqJxrLuQAagaXIUg4JGEBD7wgS6pLx6SjFs05HbwG/x/Yx+YUjK8YYw0UAsYA==
-From: "Thomas Perrot (Schneider Electric)" <thomas.perrot@bootlin.com>
-Date: Tue, 24 Mar 2026 20:24:31 +0100
-Subject: [PATCH v4 5/5] watchdog: aaeon: Add watchdog driver for SRG-IMX8P
- MCU
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="MVXVmAra"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MYYdLPlFQtZcQRqC6sdwKY+jjdYV3FaYFHbkV79zU3cvszHLI+ilaq56o7VEauZPkBB8/A5Ub/ptOA2JurINFZVmrDFSy9YEPPSQqHKc06S1I191693q0+/L+wPtpdHy/+1VMyi92H3O0F+8CW8ZJmiZgkw5mspAL5xN2p2igF8M44QKk1KoU6GDDSDzsf0OH38UKENrXnLyN1elFJeNtiWfaMeM2wwpo7oxvX5WyRr0o7GET6pljqCgMFiFTRJiWbrmrjLERU+EAkpxQwpuyF+mDPuP7lYTcKGuorYa597yYttWfqjU1VtV0l+iND7pWqBErFtMnxATRtCagonrBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uqIpjfHDoyxS+uBcfyfvbSK97C7mcQkisv5l0VD/UbQ=;
+ b=OSFzjbd01+M2AaO+U8UnQAFaIRprEGcNy2CWCjmPnnr8cNIqBMHp4UtV/VudsddsW4x7cUK919LmqfYAMB7sr6hWRNpjX+NIAntgbsSZKczWwZ+3UB8tSFubBzBvyWzTGJt17zxP+arBOKlAcVjBWbEA/uLyLq+u105UgqksjBanRUhal7/M6oiH2pY/uBYgOg/CzhzgpD3Q+qSqRVa/hxXiXXuYGV+XMfFkZhAvV0uYKflQqL+Wna1fSDLG06+BoQlUQKdGay//SwaXuSEsqm9YJdTl6g0oGBcLAmniUNMNZP5DBka9b2fHkFzIN4ud1kyjfRIfTzdrCQuwqO1gPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uqIpjfHDoyxS+uBcfyfvbSK97C7mcQkisv5l0VD/UbQ=;
+ b=MVXVmAradFVo9g0s/qA4Eib5Qn4xbNX6JLFNQUeoGfNxWqTcC02wg7ojzNlWBEU4BFWnyu7Xb3W+yaAxmJwafSVyz6gTkUmzNOr0nERhFR+H62M3dYZt07NSl4HfOD0Dbkvb65G0sTdJooMFHayyZy6t2oPXq9zGG0uPPatIxRQ=
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com (2603:1096:405:35b::6)
+ by TYWPR01MB9904.jpnprd01.prod.outlook.com (2603:1096:400:231::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Tue, 24 Mar
+ 2026 19:29:12 +0000
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3]) by TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3%4]) with mapi id 15.20.9723.030; Tue, 24 Mar 2026
+ 19:29:12 +0000
+From: John Madieu <john.madieu.xa@bp.renesas.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+CC: Geert Uytterhoeven <geert+renesas@glider.be>, Vinod Koul
+	<vkoul@kernel.org>, Mark Brown <broonie@kernel.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Michael
+ Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@kernel.org>, Liam Girdwood
+	<lgirdwood@gmail.com>, magnus.damm <magnus.damm@gmail.com>, Thomas Gleixner
+	<tglx@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+	<tiwai@suse.com>, Philipp Zabel <p.zabel@pengutronix.de>, Claudiu.Beznea
+	<claudiu.beznea@tuxon.dev>, Biju Das <biju.das.jz@bp.renesas.com>, Fabrizio
+ Castro <fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
+	<prabhakar.mahadev-lad.rj@bp.renesas.com>, John Madieu
+	<john.madieu@gmail.com>, "linux-renesas-soc@vger.kernel.org"
+	<linux-renesas-soc@vger.kernel.org>, "linux-clk@vger.kernel.org"
+	<linux-clk@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "dmaengine@vger.kernel.org"
+	<dmaengine@vger.kernel.org>, "linux-sound@vger.kernel.org"
+	<linux-sound@vger.kernel.org>
+Subject: RE: [PATCH 17/22] ASoC: rsnd: Add system suspend/resume support
+Thread-Topic: [PATCH 17/22] ASoC: rsnd: Add system suspend/resume support
+Thread-Index: AQHct7kQYSFMtxPUkEOF6ijzqVYsOLW7YVIAgAKz2tA=
+Date: Tue, 24 Mar 2026 19:29:12 +0000
+Message-ID:
+ <TY6PR01MB17377203552FF28EB7DCDA071FF48A@TY6PR01MB17377.jpnprd01.prod.outlook.com>
+References: <20260319155334.51278-1-john.madieu.xa@bp.renesas.com>
+	<20260319155334.51278-18-john.madieu.xa@bp.renesas.com>
+ <878qbj9uk7.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <878qbj9uk7.wl-kuninori.morimoto.gx@renesas.com>
+Accept-Language: en-US, en-GB
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY6PR01MB17377:EE_|TYWPR01MB9904:EE_
+x-ms-office365-filtering-correlation-id: a76c547a-135f-4211-4962-08de89dba11f
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|1800799024|366016|38070700021|56012099003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ 2krBIg8o3Sp/5PsLzT+eudgxjZAt/IW6foGB+AaI+UlQ7oABOqcIoOiCat+xTlUNeyjYEy3AfYAQlvkYQJYwVdwLB8reHq24XoF8vIPNjBiQtVtCX/NDU86NBwcciszpuAryyNzSMIwG29SVi4Ci2xQCeKu4l1Dnh/+9GEXVIvztFknGGB4O1LoVEczT1rYyZ9ewNAGJhHZR5422GEigYzkG+8r6DV7FQAOXDSPBG1XIZLm7qoW0AtbLbYBkUa92euhLI6Chvv0Nkf8u4YK3syw0ZNk3skz0BIkHizqFQL67mBmgmQzxYnS7vG/v4qqotLUziICGedaLreqXgsJfPhkNmLyiuq9p1ORwhNnCpU81xFbZuZzUy7ldBH6miGd94ZVIwHdbbiN4t5MpLc3rfknhtnMAbiZlu10MJ01Zs1N3TkrkWXPywb1HzTk0F/w9H7BekI0SDymmN2zf/Rx94KLS8x2DKAngZ8VHXl50zHyrudXUvldOIpxu+Hb5DlNfrJ+k7ZrQlF6RYNQmyGQFJwkqRzLdPi4vTDRsyRI42bsKR0tMw4wA/W3syb8o4sTLfIqeZYEYHu8PboZ95c3GKzbxigRF/Ron0Watz5vPRENra6ZKI22vO+45I7R/TiVpzcbLqY35vfYT/LBR+lDeFh35/HeBH9tT3HXHuKS1UOFNdDdyEIPLmKhCklgN0/AP5zKRS9yhVox8B4SQHyUNri+lI62hjIXk1anhfOOIe+mFjkVuJwSBX5zaue3pTT7/P5pDxRQt82aG7zR3xXpv1nzukqyEL+E2jOulA/Kh6bI=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY6PR01MB17377.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(38070700021)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Q4xAw15g9UeciSOPoGozN9zVeP3WIChAgVMrY3LVo3Mzw68ie9vp2RCI1oDN?=
+ =?us-ascii?Q?oNlwsJcSGIuQq1QZiE86Uy5alaCs/7L3dS64bI78B/2MiDs3iqNGgUfmHYl2?=
+ =?us-ascii?Q?nYF5REcrlaxzFdGvsW+3KHu+Ow6C7tvBG7vNe8Do45e95ZIAGJHfDLQjQKix?=
+ =?us-ascii?Q?H0nrj6m8apKy1qDovYXqEW+eohnTy8ybh7kQ8T0jPcSiv0DSvPFRvtUxZz5Z?=
+ =?us-ascii?Q?KXquSgGTcXKixRenw+JpL0mFZz1a8z0ooJpNTizZf+2/imPt3Wk4Xt7Lsqfl?=
+ =?us-ascii?Q?30/OYWSXKDFq4Pj0tQWxEl2uj8I+hvWO13xJewTz/7JYeTwiv2Mtzofi1Kqm?=
+ =?us-ascii?Q?iDlDy88rJ33UsZdPm/hHakktquQXIErh77oRMgVj3Ii8BRRyIlHrqUjw+2+n?=
+ =?us-ascii?Q?uJ5DsyNKBidw3ufB7FCDYYHEJfj3hx2vprjMw/RNv9jOcmGZKoq6b7dcRSMa?=
+ =?us-ascii?Q?7hvB8RkcVNyNXnZcwIXWX2O9MYCynUoM50u7l05I8d3kSBc5GflNTCC024+S?=
+ =?us-ascii?Q?nF5Qdu0/Jkv6+O1NbRwhbz7L1RDvwo/YzeY9dG8x4GPwY+xJN/OS+YOVPrVh?=
+ =?us-ascii?Q?ihYCNBHlmY1d4EQJeo0UHvw2bDVLXwnr+vmWg0oRADwht1ykWCT4sd9JPeix?=
+ =?us-ascii?Q?0ODz8in9uQEarElWE6Bi46a2wPYhXdf6Q1BZx9cqhj7PKjiV0XC9w3PV/R24?=
+ =?us-ascii?Q?UumtAoegavZeo6Ex/nuRbfQ1V+SRux8UcGGNFEjU39u1f1mf7F6tVHezf7R5?=
+ =?us-ascii?Q?B/C69byM6diKY6ibEJbSmJB4ejvK/HQ3M8sI93XOs/y7ATz9V6nvlWdyrZwb?=
+ =?us-ascii?Q?Q7Bnaq//UU9WKwW81M7FNwwBtLsGJP72Wh43pXpUZieF5RJtHieVAzEWBOeo?=
+ =?us-ascii?Q?DeqTve6kNxnluv+olezpPTFeGgrhlQeb5ybufI1f9AlMSfNvyQejCrlVupqn?=
+ =?us-ascii?Q?k7f5OS7q7YlAoVnsgAUaXVoDME58yZMaXTju0NfGXqQM6S8Uot1WWEOVE9f1?=
+ =?us-ascii?Q?Ne/Hb0q8KeYqzoRBYpmjcuwV6qA0GsQeFK7wF3uVpHuW99igAQ4kwJHW1yIW?=
+ =?us-ascii?Q?27/IK04CMX6ajAf8sSWboitpwZK/V0ZwfxwMgd3zrAInhjCqhjRrIhRFpNss?=
+ =?us-ascii?Q?+BbDAqxA8Q0Am9ASFep+hUGhxWvAWct/OwIHtyaZbY7ElC61ft2gkV/lGIw5?=
+ =?us-ascii?Q?s6fMOiIQ6qoJ1HOfZFlTcplcL8fUBmEt6keLbkQjVESf7RJVJ7tGZVdfOWX3?=
+ =?us-ascii?Q?qqM6Laj6V9ZzrMZrSGn5W0IaMmuH4wlTir06vCxv1wqywcBa/Be9waawMjKl?=
+ =?us-ascii?Q?HgPPYzFqlh96HgtD+dTuAIfbk/QG+lQOcQ+GzKkhHVWv+dhi/He4mn0cPGDg?=
+ =?us-ascii?Q?G6hLQEmCkrr678AGzGjetqAVWXKrBD+9Zg2cSm3PKrAffhqbPgC/56ikgMMg?=
+ =?us-ascii?Q?3w0pOtNQcCFEityCi3h1U7gr1mqF+csIV1fM7iHCQDFUbyp1vWtnuL2G/XEU?=
+ =?us-ascii?Q?1Y3+eXtNORn5r4Y0pBnRE8OotzJaJHWHrz4huVcnmexZWecjTe3DPmAfOpTc?=
+ =?us-ascii?Q?dr/TZ/jiT52IJjb4er+peqzJ1T8x1T1W+vT879Cr9aK0IzjYTaT54Ah5c6oi?=
+ =?us-ascii?Q?2Uxf5Rovjip5spTp4ZkJtgQe0etOoVq2u4Uowm6l6WhezKUdBibB7PNiD7hN?=
+ =?us-ascii?Q?vPMWnChITaVGBHlW5iRLHd3koQsBT2sCTX2lQVtQGoW0H9q8BSB1Hmh1ps3Z?=
+ =?us-ascii?Q?Ij9cpTY+saDvxYbXVyrQXgm0Fuxzq2o=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260324-dev-b4-aaeon-mcu-driver-v4-5-afb011df4794@bootlin.com>
-References: <20260324-dev-b4-aaeon-mcu-driver-v4-0-afb011df4794@bootlin.com>
-In-Reply-To: <20260324-dev-b4-aaeon-mcu-driver-v4-0-afb011df4794@bootlin.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- =?utf-8?q?J=C3=A9r=C3=A9mie_Dautheribes?= <jeremie.dautheribes@bootlin.com>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, Lee Jones <lee@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- "Thomas Perrot (Schneider Electric)" <thomas.perrot@bootlin.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6725;
- i=thomas.perrot@bootlin.com; h=from:subject:message-id;
- bh=wPhgCjwQeSn+BRAqoO5C5GaoqnCQLTgwDb2zWF3xTM4=;
- b=owEB7QES/pANAwAKAZ/ACwVx/grtAcsmYgBpwuT27JsW8/YHaUMPDqgCojJdgL89bJwEQd9x4
- cly+1EmiH+JAbMEAAEKAB0WIQSHQHfGpqMKIwOoEiGfwAsFcf4K7QUCacLk9gAKCRCfwAsFcf4K
- 7UhvC/0UM418wlXqO3GCW341kENa5EIpae1YpssVqwzEhaf+0gDrlvNyNW5D4GWWsnK51zJlnzM
- 08fPq7tmk7sp9/Pf4DdFHoaAWPJ4imB8JPbXO5FlMomguIVdmSp35VCvbBkGr1Bai16ZEl7KdrT
- 9xBOfeb8PJDsFlrLoT2dJ91bQS7ZdiAp12NjZ6xO/8UhfdoAPzOVu5BUEQfXa4O64SQLD72P6mJ
- fTQJwjVmsPMGLg4giGEhDZkLhcZ+p0MKkcqNqHBN1L4ELUvMT+L5Ox8XRcberjiEOM8FIG2nMK4
- lchewQwOIFJF6mj7WQlMtszE53Eci1gsnaKx7V91djJkpI8lGqq/aCagdjP1RrLW2e7K69zAE+w
- LocOuwnEDaRN5t+KJMpIP/nvLmd7vDRb+nMdWIecysAybdracX/J8pn7gdGIXJRGuX3wNYFFunP
- w16aBXCnUhtQOeTmj293cxeOXjChM41pUMZO7VMhctcoMoInbC8S2Xw8PivPI+ktiCcKc=
-X-Developer-Key: i=thomas.perrot@bootlin.com; a=openpgp;
- fpr=874077C6A6A30A2303A812219FC00B0571FE0AED
-X-Last-TLS-Session-Version: TLSv1.3
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17377.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a76c547a-135f-4211-4962-08de89dba11f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2026 19:29:12.6641
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: GHHtn2wlYkabFM6ipngJBx4eD6ICAa2RlYbsZlMyIaBwRWvciqrt7ioNftN/zb9ACgUaw3NUrmQB/+Pw3yJlQYVfbeeOT3IaHh0tX+LUb7Y=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB9904
 
-Add watchdog driver for the Aaeon SRG-IMX8P embedded controller.
-This driver provides system monitoring and recovery capabilities
-through the MCU's watchdog timer.
+Hi Kuninori,
 
-The watchdog supports start, stop, and ping operations with a maximum
-hardware heartbeat of 25 seconds and a default timeout of 240 seconds.
+Thanks for the review.
 
-Co-developed-by: Jérémie Dautheribes (Schneider Electric) <jeremie.dautheribes@bootlin.com>
-Signed-off-by: Jérémie Dautheribes (Schneider Electric) <jeremie.dautheribes@bootlin.com>
-Signed-off-by: Thomas Perrot (Schneider Electric) <thomas.perrot@bootlin.com>
----
- MAINTAINERS                      |   1 +
- drivers/watchdog/Kconfig         |  10 +++
- drivers/watchdog/Makefile        |   1 +
- drivers/watchdog/aaeon_mcu_wdt.c | 134 +++++++++++++++++++++++++++++++++++++++
- 4 files changed, 146 insertions(+)
+> -----Original Message-----
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> Sent: Monday, March 23, 2026 2:57 AM
+> To: John Madieu <john.madieu.xa@bp.renesas.com>
+> Subject: Re: [PATCH 17/22] ASoC: rsnd: Add system suspend/resume support
+>=20
+>=20
+> Hi John
+>=20
+> > On RZ/G3E and similar SoCs, the audio subsystem loses its state during
+> > deep sleep, due to lacking of proper clock and reset management in the
+> > PM path.
+> >
+> > Implement suspend/resume callbacks that save and restore the hardware
+> > state by managing clocks and reset controls in the correct order:
+> > - Suspend follows reverse probe order
+> > - Resume follows probe order
+> >
+> > Note that module clocks (mod->clk) are left in "prepared but disabled"
+> > state after rsnd_mod_init(), so suspend only needs to unprepare them
+> > and resume only needs to prepare them.
+> >
+> > Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> > ---
+>=20
+> If my memory was correct, besically, all mods (SSI, SCU, etc) will be
+> called with SNDRV_PCM_TRIGGER_SUSPEND/RESUME when suspend/resume.
+> So they are basically automatically stopped when suspend, and
+> automatically started when resume. see rsnd_soc_dai_trigger()
+>=20
+> We need to care about ADG when suspend/resume because it is always ON
+> device. At least on R-Car.
+> If you need special handling for RZ, you need to care whether it is R-Car
+> or RZ, etc.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2538f8c4bc1482b139e18243a68f0a21b9be3704..7b92af42c9fdc17a69a4e7a2fe50f9e199c8b144 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -193,6 +193,7 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/mfd/aaeon,srg-imx8p-mcu.yaml
- F:	drivers/gpio/gpio-aaeon-mcu.c
- F:	drivers/mfd/aaeon-mcu.c
-+F:	drivers/watchdog/aaeon_mcu_wdt.c
- F:	include/linux/mfd/aaeon-mcu.h
- 
- AAEON UPBOARD FPGA MFD DRIVER
-diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-index d3b9df7d466b0b7215ee87b3040811d44ee53d2a..da54e6a641d7af343e4f0ae84f96f150979f8348 100644
---- a/drivers/watchdog/Kconfig
-+++ b/drivers/watchdog/Kconfig
-@@ -168,6 +168,16 @@ config SOFT_WATCHDOG_PRETIMEOUT
- 	  watchdog. Be aware that governors might affect the watchdog because it
- 	  is purely software, e.g. the panic governor will stall it!
- 
-+config AAEON_MCU_WATCHDOG
-+	tristate "Aaeon MCU Watchdog"
-+	depends on MFD_AAEON_MCU
-+	select WATCHDOG_CORE
-+	help
-+	  Select this option to enable watchdog timer support for the Aaeon
-+	  SRG-IMX8P onboard microcontroller (MCU). This driver provides
-+	  watchdog functionality through the MCU, allowing system monitoring
-+	  and automatic recovery from system hangs.
-+
- config BD957XMUF_WATCHDOG
- 	tristate "ROHM BD9576MUF and BD9573MUF PMIC Watchdog"
- 	depends on MFD_ROHM_BD957XMUF
-diff --git a/drivers/watchdog/Makefile b/drivers/watchdog/Makefile
-index ba52099b125398a32f80dad23317e223cc4af028..2deec425d3eafb6b208e061fda9f216f4baa8ecc 100644
---- a/drivers/watchdog/Makefile
-+++ b/drivers/watchdog/Makefile
-@@ -37,6 +37,7 @@ obj-$(CONFIG_USBPCWATCHDOG) += pcwd_usb.o
- # ALPHA Architecture
- 
- # ARM Architecture
-+obj-$(CONFIG_AAEON_MCU_WATCHDOG) += aaeon_mcu_wdt.o
- obj-$(CONFIG_ARM_SP805_WATCHDOG) += sp805_wdt.o
- obj-$(CONFIG_ARM_SBSA_WATCHDOG) += sbsa_gwdt.o
- obj-$(CONFIG_ARMADA_37XX_WATCHDOG) += armada_37xx_wdt.o
-diff --git a/drivers/watchdog/aaeon_mcu_wdt.c b/drivers/watchdog/aaeon_mcu_wdt.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..f01571cf0036d252f9bebd3a9d6a1c2e7a83e42c
---- /dev/null
-+++ b/drivers/watchdog/aaeon_mcu_wdt.c
-@@ -0,0 +1,134 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Aaeon MCU Watchdog driver
-+ *
-+ * Copyright (C) 2025 Bootlin
-+ * Author: Jérémie Dautheribes <jeremie.dautheribes@bootlin.com>
-+ * Author: Thomas Perrot <thomas.perrot@bootlin.com>
-+ */
-+
-+#include <linux/mfd/aaeon-mcu.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/watchdog.h>
-+
-+#define AAEON_MCU_CONTROL_WDT	0x63
-+#define AAEON_MCU_PING_WDT	0x73
-+
-+#define AAEON_MCU_WDT_TIMEOUT         240
-+#define AAEON_MCU_WDT_HEARTBEAT_MS    25000
-+
-+struct aaeon_mcu_wdt {
-+	struct watchdog_device wdt;
-+	struct regmap *regmap;
-+};
-+
-+static int aaeon_mcu_wdt_cmd(struct aaeon_mcu_wdt *data, u8 opcode, u8 arg)
-+{
-+	/* The MCU always sends a response byte after each command; discard it. */
-+	return regmap_write(data->regmap, AAEON_MCU_REG(opcode, arg), 0);
-+}
-+
-+static int aaeon_mcu_wdt_start(struct watchdog_device *wdt)
-+{
-+	struct aaeon_mcu_wdt *data = watchdog_get_drvdata(wdt);
-+
-+	return aaeon_mcu_wdt_cmd(data, AAEON_MCU_CONTROL_WDT, 0x01);
-+}
-+
-+static int aaeon_mcu_wdt_status(struct watchdog_device *wdt, bool *enabled)
-+{
-+	struct aaeon_mcu_wdt *data = watchdog_get_drvdata(wdt);
-+	unsigned int rsp;
-+	int ret;
-+
-+	ret = regmap_read(data->regmap,
-+			  AAEON_MCU_REG(AAEON_MCU_CONTROL_WDT, 0x02),
-+			  &rsp);
-+	if (ret)
-+		return ret;
-+
-+	*enabled = rsp == 0x01;
-+	return 0;
-+}
-+
-+static int aaeon_mcu_wdt_stop(struct watchdog_device *wdt)
-+{
-+	struct aaeon_mcu_wdt *data = watchdog_get_drvdata(wdt);
-+
-+	return aaeon_mcu_wdt_cmd(data, AAEON_MCU_CONTROL_WDT, 0x00);
-+}
-+
-+static int aaeon_mcu_wdt_ping(struct watchdog_device *wdt)
-+{
-+	struct aaeon_mcu_wdt *data = watchdog_get_drvdata(wdt);
-+
-+	return aaeon_mcu_wdt_cmd(data, AAEON_MCU_PING_WDT, 0x00);
-+}
-+
-+static const struct watchdog_info aaeon_mcu_wdt_info = {
-+	.identity	= "Aaeon MCU Watchdog",
-+	.options	= WDIOF_KEEPALIVEPING
-+};
-+
-+static const struct watchdog_ops aaeon_mcu_wdt_ops = {
-+	.owner		= THIS_MODULE,
-+	.start		= aaeon_mcu_wdt_start,
-+	.stop		= aaeon_mcu_wdt_stop,
-+	.ping		= aaeon_mcu_wdt_ping,
-+};
-+
-+static int aaeon_mcu_wdt_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct watchdog_device *wdt;
-+	struct aaeon_mcu_wdt *data;
-+	bool enabled;
-+	int ret;
-+
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->regmap = dev_get_regmap(dev->parent, NULL);
-+	if (!data->regmap)
-+		return -ENODEV;
-+
-+	wdt = &data->wdt;
-+	wdt->parent = dev;
-+	wdt->info = &aaeon_mcu_wdt_info;
-+	wdt->ops = &aaeon_mcu_wdt_ops;
-+	/*
-+	 * The MCU firmware has a fixed hardware timeout of 25 seconds that
-+	 * cannot be changed. The watchdog core will handle automatic pinging
-+	 * to support longer timeouts. The software timeout of 240 seconds is
-+	 * chosen arbitrarily as a reasonable value and is not user-configurable.
-+	 */
-+	wdt->timeout = AAEON_MCU_WDT_TIMEOUT;
-+	wdt->max_hw_heartbeat_ms = AAEON_MCU_WDT_HEARTBEAT_MS;
-+
-+	watchdog_set_drvdata(wdt, data);
-+
-+	ret = aaeon_mcu_wdt_status(wdt, &enabled);
-+	if (ret)
-+		return ret;
-+
-+	if (enabled)
-+		set_bit(WDOG_HW_RUNNING, &wdt->status);
-+
-+	return devm_watchdog_register_device(dev, wdt);
-+}
-+
-+static struct platform_driver aaeon_mcu_wdt_driver = {
-+	.driver		= {
-+		.name	= "aaeon-mcu-wdt",
-+	},
-+	.probe		= aaeon_mcu_wdt_probe,
-+};
-+
-+module_platform_driver(aaeon_mcu_wdt_driver);
-+
-+MODULE_DESCRIPTION("Aaeon MCU Watchdog Driver");
-+MODULE_AUTHOR("Jérémie Dautheribes <jeremie.dautheribes@bootlin.com>");
-+MODULE_LICENSE("GPL");
+You're right. The ALSA framework already handles per-module stop/start
+through SNDRV_PCM_TRIGGER_SUSPEND/RESUME, which calls each module's
+.quit/.init (and thus rsnd_mod_power_off/rsnd_mod_power_on).
 
--- 
-2.53.0
+So the per-module clk_prepare/clk_unprepare cycle in rsnd_suspend_mod/
+rsnd_resume_mod is unnecessary.
 
+What RZ/G3E actually needs beyond the existing ADG handling is:
+
+1- Reset handling for modules that have reset control
+2- audmac-pp clock/reset toggle (infrastructure, like ADG)
+
+However, there is no need to make these changes conditionally
+based on SoC family as the optional clock/reset APIs are used.
+Do you find any issues with my approach ?
+
+Regards,
+John
+
+>=20
+> >  sound/soc/renesas/rcar/core.c | 108
+> > +++++++++++++++++++++++++++++++++-
+> >  1 file changed, 106 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/sound/soc/renesas/rcar/core.c
+> > b/sound/soc/renesas/rcar/core.c index 6a25580b9c6a..eb504551e410
+> > 100644
+> > --- a/sound/soc/renesas/rcar/core.c
+> > +++ b/sound/soc/renesas/rcar/core.c
+> > @@ -962,7 +962,8 @@ static int rsnd_soc_hw_rule_channels(struct
+> > snd_pcm_hw_params *params,  static const struct snd_pcm_hardware
+> rsnd_pcm_hardware =3D {
+> >  	.info =3D		SNDRV_PCM_INFO_INTERLEAVED	|
+> >  			SNDRV_PCM_INFO_MMAP		|
+> > -			SNDRV_PCM_INFO_MMAP_VALID,
+> > +			SNDRV_PCM_INFO_MMAP_VALID	|
+> > +			SNDRV_PCM_INFO_RESUME,
+> >  	.buffer_bytes_max	=3D 64 * 1024,
+> >  	.period_bytes_min	=3D 32,
+> >  	.period_bytes_max	=3D 8192,
+> > @@ -2059,11 +2060,70 @@ static void rsnd_remove(struct platform_device
+> *pdev)
+> >  		remove_func[i](priv);
+> >  }
+> >
+> > +static void rsnd_suspend_mod(struct rsnd_mod *mod) {
+> > +	if (!mod)
+> > +		return;
+> > +
+> > +	clk_unprepare(mod->clk);
+> > +	reset_control_assert(mod->rstc);
+> > +}
+> > +
+> > +static void rsnd_resume_mod(struct rsnd_mod *mod) {
+> > +	if (!mod)
+> > +		return;
+> > +
+> > +	reset_control_deassert(mod->rstc);
+> > +	clk_prepare(mod->clk);
+> > +}
+> > +
+> >  static int rsnd_suspend(struct device *dev)  {
+> >  	struct rsnd_priv *priv =3D dev_get_drvdata(dev);
+> > +	int i;
+> > +
+> > +	/*
+> > +	 * Reverse order of probe:
+> > +	 * ADG -> DVC -> MIX -> CTU -> SRC -> SSIU -> SSI -> DMA
+> > +	 */
+> >
+> > +	/* ADG */
+> > +	/* ADG clock disabled via rsnd_adg_clk_disable() -> adg->adg */
+> >  	rsnd_adg_clk_disable(priv);
+> > +	rsnd_suspend_mod(rsnd_adg_mod_get(priv));
+> > +
+> > +	/* DVC */
+> > +	for (i =3D priv->dvc_nr - 1; i >=3D 0; i--)
+> > +		rsnd_suspend_mod(rsnd_dvc_mod_get(priv, i));
+> > +
+> > +	/* MIX */
+> > +	for (i =3D priv->mix_nr - 1; i >=3D 0; i--)
+> > +		rsnd_suspend_mod(rsnd_mix_mod_get(priv, i));
+> > +
+> > +	/* CTU */
+> > +	for (i =3D priv->ctu_nr - 1; i >=3D 0; i--)
+> > +		rsnd_suspend_mod(rsnd_ctu_mod_get(priv, i));
+> > +
+> > +	/* SRC */
+> > +	for (i =3D priv->src_nr - 1; i >=3D 0; i--)
+> > +		rsnd_suspend_mod(rsnd_src_mod_get(priv, i));
+> > +
+> > +	clk_disable_unprepare(priv->clk_scu_x2);
+> > +	clk_disable_unprepare(priv->clk_scu);
+> > +
+> > +	/* SSIU */
+> > +	for (i =3D priv->ssiu_nr - 1; i >=3D 0; i--)
+> > +		rsnd_suspend_mod(rsnd_ssiu_mod_get(priv, i));
+> > +
+> > +	/* SSI */
+> > +	for (i =3D priv->ssi_nr - 1; i >=3D 0; i--)
+> > +		rsnd_suspend_mod(rsnd_ssi_mod_get(priv, i));
+> > +
+> > +	/* DMA */
+> > +	clk_disable_unprepare(priv->clk_audmac_pp);
+> > +	if (priv->rstc_audmac_pp)
+> > +		reset_control_assert(priv->rstc_audmac_pp);
+> >
+> >  	return 0;
+> >  }
+> > @@ -2071,8 +2131,52 @@ static int rsnd_suspend(struct device *dev)
+> > static int rsnd_resume(struct device *dev)  {
+> >  	struct rsnd_priv *priv =3D dev_get_drvdata(dev);
+> > +	int i;
+> > +
+> > +	/*
+> > +	 * Same order as probe:
+> > +	 * DMA -> SSI -> SSIU -> SRC -> CTU -> MIX -> DVC -> ADG
+> > +	 */
+> > +
+> > +	/* DMA */
+> > +	if (priv->rstc_audmac_pp)
+> > +		reset_control_deassert(priv->rstc_audmac_pp);
+> >
+> > -	return rsnd_adg_clk_enable(priv);
+> > +	clk_prepare_enable(priv->clk_audmac_pp);
+> > +
+> > +	/* SSI */
+> > +	for (i =3D 0; i < priv->ssi_nr; i++)
+> > +		rsnd_resume_mod(rsnd_ssi_mod_get(priv, i));
+> > +
+> > +	/* SSIU */
+> > +	for (i =3D 0; i < priv->ssiu_nr; i++)
+> > +		rsnd_resume_mod(rsnd_ssiu_mod_get(priv, i));
+> > +
+> > +	/* SRC */
+> > +	clk_prepare_enable(priv->clk_scu);
+> > +	clk_prepare_enable(priv->clk_scu_x2);
+> > +
+> > +	for (i =3D 0; i < priv->src_nr; i++)
+> > +		rsnd_resume_mod(rsnd_src_mod_get(priv, i));
+> > +
+> > +	/* CTU */
+> > +	for (i =3D 0; i < priv->ctu_nr; i++)
+> > +		rsnd_resume_mod(rsnd_ctu_mod_get(priv, i));
+> > +
+> > +	/* MIX */
+> > +	for (i =3D 0; i < priv->mix_nr; i++)
+> > +		rsnd_resume_mod(rsnd_mix_mod_get(priv, i));
+> > +
+> > +	/* DVC */
+> > +	for (i =3D 0; i < priv->dvc_nr; i++)
+> > +		rsnd_resume_mod(rsnd_dvc_mod_get(priv, i));
+> > +
+> > +	/* ADG */
+> > +	rsnd_resume_mod(rsnd_adg_mod_get(priv));
+> > +	/* ADG clock enabled via rsnd_adg_clk_enable() -> adg->adg */
+> > +	rsnd_adg_clk_enable(priv);
+> > +
+> > +	return 0;
+> >  }
+> >
+> >  static const struct dev_pm_ops rsnd_pm_ops =3D {
+> > --
+> > 2.25.1
+> >
