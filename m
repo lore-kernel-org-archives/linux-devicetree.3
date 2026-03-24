@@ -1,63 +1,63 @@
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5DF28726D
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 02:01:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B88A33DED5
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 02:01:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774317686; cv=none; b=PXXfPLMT9Ji6nbxsBg/8K+KqV3irAqCklj9Tn0rTuVUGnZfKkv7vrgBiv+Puc/DSwCIZugJaHmIe4841gQt7YIufUKHtrwvTTovZL04axPyqlnX95Hztr1v1kMdqnrfk3lplh3lGLGLTIYghTzGSUK9pOjHuJ36QUeeI9A1Xg/E=
+	t=1774317698; cv=none; b=UwTtOl5XrPPWo88fuuRVS6QAb0t5+QbL+Ukly9C2tXmMOZhs5RzNTi+tGxZF0CBitbhdjY9uPiAOvf3g3AJFHHUGzypZxGK/D2EDeJmj4+Wibhq8ahf1JcjQ6320RMZ72+Bx9EkIjtsC6GBwUSIp6fwFrKCYLdRCJP/ai60RBEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774317686; c=relaxed/simple;
-	bh=6mwOA0dPC+Xr0uI2n1ZFZV+bR933rcuFFj/RWST+Emg=;
+	s=arc-20240116; t=1774317698; c=relaxed/simple;
+	bh=pVDlvVS5Bi6Vg+pGcrdIxRvJe/OF7V/L/8y6hmVgEX4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h9hxYmWXCUn/FpCRVqbUKfzj2M/uHFpRF0pqLmu7YtOHZ/w/wId+ZPT6szPDToNqQeq+ktpy9XvgWAfcsTGdxYLjhcKCDWBlZKukQjcYW/EZyeu2v3/xCXg+GQgVhYn8EeJMQoaPbIIZ72w1e/y6Hgcx8JaEtvgcuFmTY6+iQHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B2Tyq0Mj; arc=none smtp.client-ip=209.85.219.50
+	 MIME-Version; b=IWR2nMUWUwWDmAyymRAUsW+xCrzpx5Gbd7KxLVFt5ebVtncMD/uV6kCbwucM2mfWg8ysV6YrZaeaUFnUN2+/lzKC7tWhtBVJP/F7daCMeBVuRyHWXZGDCHtjRRZDKgdEug8b0MjNRYgAXY5YB8wv0A2HEJdDPB3bKyqi14qa9OM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pHK5sy5n; arc=none smtp.client-ip=209.85.160.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B2Tyq0Mj"
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-89c40b33bddso52304236d6.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 19:01:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pHK5sy5n"
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-509061dab77so6815681cf.2
+        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 19:01:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774317684; x=1774922484; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1774317696; x=1774922496; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5iup6qDNhA3Ov81Mqulz5I0c3UbxOYNMRh+dC/qq+Kk=;
-        b=B2Tyq0Mjo5qwE4xNJakvafiBzSzQ4My+KzzLos+M7vQwptg2VEREFlN8ENbDU0pyLh
-         aKEKm5iIP0EbgBqTMSfbflB4rq8TdiAxfCQ7LGpFkoC1lVC7beDMxyBc0iJ43rQracSh
-         uz0sp8ezn4RxqpjVv1ho0eFrRe13dxHRNn7lT+HWAf8wCkzekADH9ivvoe+p2u0f+KDq
-         Db6Q6rB+bhTEwdwUgrsLpfmvf4EV/WNVv4QVeaFnEbexaPqQfPNognJjC2yT5m64aX2M
-         UPCMP9wbpRPsRuVyq+p3GIXYV5P570OffDEVLWJp2te8laX6CJI81erCxeaOQsnCoQj9
-         DlGg==
+        bh=Lbk1GUedD4ye8Cnd2HrixlkkqkX5OW0vDgVQlNzH9xs=;
+        b=pHK5sy5njb8IbGq034HGIXFHdOMTVpt+Lx0W+spIpxa/uAdy6zOBYavlcDGVsmgz/9
+         8C6Pzr0wpAkLnYoTUNhgR8s2FzsI7BbkcDgr/T+UT1JnAYpRVQPBhZydRQVv+h6+NBMP
+         +7d15mDdWKWABg1q2Sew2o9n+GeBa1VeSOB+sp/XUUtBSXqYa5C63HWxEnaF9lGojhig
+         mUwQo4XSXX4rMGZyOFA7V8jjpI+F5IE6oXnUlycMdwm1vdfgzZTkGdSjVCXIIV9DqlvC
+         luaxmbcz5yd+fV8/i9T7rggoTjlpMb18I+wOk7ytzMTooK0gPvgL43FKarDyMI7DgO2P
+         eOog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774317684; x=1774922484;
+        d=1e100.net; s=20251104; t=1774317696; x=1774922496;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=5iup6qDNhA3Ov81Mqulz5I0c3UbxOYNMRh+dC/qq+Kk=;
-        b=P7QW8fZBy8hHRxAUg3klYwsmCKiaiV81SwXTRGVgsWpBqPvFTZe+DUu5YlDwRGLSG9
-         WuS00rv9txotSAYyF3BOYw8L5WpYHNe18PvnHU88RDlpLxVftK8QZdB3torTH79b0L5q
-         iz/qPMXxSpFY/Yd50f9iZnxOhsvo+NHR8ckRVa6pAay15RHt/Mz1V95m02Cntb2rXRJj
-         u7npPO+MBcR1L9A+8uOwARKsEQzomrtJnWbFAfuWpvlk9GOJAqUH83xvcvFweP8vfh2q
-         9yDIwIhdyb4sl/xXYMPDkinKvWyPbfheewPP4ceBIDrAnDbstGhQ6SP5zyP51ujW2c/N
-         jllQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUgoH1X6Bqko1IKWHQTkTFO549rHsNRCRklPRrXpPxaxte8HoOlXxbBHjNrtkDUnprTHHUAC6sOTz6g@vger.kernel.org
-X-Gm-Message-State: AOJu0YwJAaC+a0Ezf7j8D204Il1rUgeO1hJ6osA8sQT36X0YcOZiTFvF
-	b5eJShuKnoU3tvgzgQOX2AVvOfQ6Te/f9VUKxFuc3aYOAZhJAW9b4p01
-X-Gm-Gg: ATEYQzwZhwbNGMs92Fg2tada5e2/RRqT6owtZevvm9/ZXDeEc2IJgfAHs13BB6ZyAfx
-	NB+LuMo1v/stw/ZPSlOD/4NWHDoXL55+gslFcBVjLdhm1rkKRYCsVfv8i26RCBBnT2xccO2JvMA
-	coU064ZPtcDI8sNkc6BLoThNcvh6A4bRMR9CieerjXXu0vixECzwKl8UzXHhj3guAjCmXXogDB9
-	edzh+xF5zx8FKv/nCVOAI17JIKEr4M9wXjokou+NabXX6kDneHLnUSzSzB1luu3WwGYOuTx+Fx+
-	yfmSLLsFrjCxJ/IWst8XUdRVJfWmQhNJ8fZZ4ONCp1T0zdJ2y//jtRq+OKliU9h7hcUm1uMbTa4
-	f1b7HgNXEf2ammghi2nP7f6isJ+cY6arqzv4aca/XaSOoBEubGSb9rm5u4HBtpUDqPKAC8W3qXx
-	vu23/M17Z5ULrhGM81mugDYbXP2w==
-X-Received: by 2002:a05:6214:f0c:b0:89c:869e:4972 with SMTP id 6a1803df08f44-89cb4e2f12bmr26185946d6.10.1774317684343;
-        Mon, 23 Mar 2026 19:01:24 -0700 (PDT)
+        bh=Lbk1GUedD4ye8Cnd2HrixlkkqkX5OW0vDgVQlNzH9xs=;
+        b=eTMJejIow8j6cBqhmhs2uZ/sLNHJGTJzZuo2eyx4IGtxBdtLgSHTnOqcNgT2FmMKDR
+         O5sdjT53An6Y7fQa6XBXHWX63iujNRv9PzhXbgsH3QI+ZCYZVj5NLZtQDzX0cYA7tWeL
+         tM0c/OzAmVWoz4JzidykpOHksxPe6i+4YiEAmYeEmAlwX1s1gTcy8VMoVJSd0jYrSFCK
+         bNPHmBdpojPRNeCokT957KSz32JAD+TfboCME2uZbZk+3KWJoWvGI55iIxpl7D+5CpT7
+         EU/JnGNkv1algbMyxWvgovkXpURbh7Xrsaxpedzqa9NHmEvzqOI7A67tWGG++23hUMRX
+         7/nw==
+X-Forwarded-Encrypted: i=1; AJvYcCVVW6Wo6r/AKNUGpDjXfu5uKGQy4dmvA8eswLTDVdWGPj7O3J/66fDhkeKpno1OxnV8UHL/knFlq96G@vger.kernel.org
+X-Gm-Message-State: AOJu0YztZmt40A4boVLpt4y9vtaQvMMDvz8kksRJxiaaJWImzRqpjpLM
+	Q7IWcPtW/cbqZvaYzL1PPl9SPXivlMYvmI2qMRQKl15NhSp2KzSl+ujf
+X-Gm-Gg: ATEYQzy2N7mX1PPzz4ENVFewVJy6dZlDfQ1iYgbIXJXS8mDRPmkbUnyNcxjoC1Tg8tt
+	zmD7aJuL6BpfgCagwrzkiBoIEyhUOywqIkQdUXFfjg/HfDeyuxATGmf/bdgP6NO/AglN6CLqnm9
+	V3sYHfJjIKRIO5tkSnxu16wfRj5AOi2IyB7y2jz0UL5TB9JAlkHAWzB4KvuJLweDdvdwcMaCVd9
+	3YBM+kCki0nYwEzjxZVb7qKUMqCDm8nWxOuPeFHd/wYXEKb3/tvXS6ZdNEfiUzIUba4GLV4WPJQ
+	aiqCTNLAxQQfvQ86p4i64uAC/PAKFMfzLUSE4b1AiOkYe5/qGz4D6bKBls68FG+mf7eYWVhKHZJ
+	nsBnAJ2dez672wMzRLxj0WswhL0OIG+xIrWHQ2au+s1p5mRKEQA1rtGN/kzKQmTWE8IznIb/1qR
+	6YYyJt6xiOQ58Hhw+vfB6wtR/mBQ==
+X-Received: by 2002:a05:622a:5c9:b0:509:2455:2b53 with SMTP id d75a77b69052e-50b37545ee8mr230744501cf.49.1774317696032;
+        Mon, 23 Mar 2026 19:01:36 -0700 (PDT)
 Received: from localhost ([184.144.58.243])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-89c85334b61sm103267146d6.26.2026.03.23.19.01.23
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-50b36d0671csm99718411cf.10.2026.03.23.19.01.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Mar 2026 19:01:23 -0700 (PDT)
+        Mon, 23 Mar 2026 19:01:35 -0700 (PDT)
 From: Richard Acayan <mailingradian@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -78,9 +78,9 @@ Cc: Robert Mader <robert.mader@collabora.com>,
 	David Heidelberg <david@ixit.cz>,
 	phone-devel@vger.kernel.org,
 	Richard Acayan <mailingradian@gmail.com>
-Subject: [PATCH v11 2/7] dt-bindings: media: i2c: Add Sony IMX355
-Date: Mon, 23 Mar 2026 22:01:27 -0400
-Message-ID: <20260324020132.8683-3-mailingradian@gmail.com>
+Subject: [PATCH v11 3/7] media: i2c: imx355: Support devicetree and power management
+Date: Mon, 23 Mar 2026 22:01:28 -0400
+Message-ID: <20260324020132.8683-4-mailingradian@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260324020132.8683-1-mailingradian@gmail.com>
 References: <20260324020132.8683-1-mailingradian@gmail.com>
@@ -92,136 +92,207 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The IMX355 camera sensor is a camera sensor that can be found as the
-front camera in some smartphones, such as the Pixel 3, Pixel 3 XL, Pixel
-3a, and Pixel 3a XL. It already has a driver, but needs support for
-device tree. Document the IMX355 to support defining it in device tree.
+A device tree compatible makes it possible for this driver to be used on
+Open Firmware devices. Initialization of power-managed resources such as
+the reset GPIO and voltage regulators can be specified in the device
+tree and handled by the driver. Add support for this so the Pixel 3a can
+use the driver.
 
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 ---
- .../bindings/media/i2c/sony,imx355.yaml       | 111 ++++++++++++++++++
- 1 file changed, 111 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
+ drivers/media/i2c/imx355.c | 111 ++++++++++++++++++++++++++++++++++---
+ 1 file changed, 103 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
-new file mode 100644
-index 000000000000..6050d7e7dcfe
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
-@@ -0,0 +1,111 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/sony,imx355.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+index 776107efe386..9ca87488c933 100644
+--- a/drivers/media/i2c/imx355.c
++++ b/drivers/media/i2c/imx355.c
+@@ -3,9 +3,13 @@
+ 
+ #include <linux/acpi.h>
+ #include <linux/clk.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
++#include <linux/of.h>
+ #include <linux/pm_runtime.h>
++#include <linux/regulator/consumer.h>
+ #include <linux/unaligned.h>
+ 
+ #include <media/v4l2-ctrls.h>
+@@ -125,6 +129,15 @@ struct imx355 {
+ 	 * Protect access to sensor v4l2 controls.
+ 	 */
+ 	struct mutex mutex;
 +
-+title: Sony IMX355 Sensor
++	struct gpio_desc *reset_gpio;
++	struct regulator_bulk_data *supplies;
++};
 +
-+maintainers:
-+  - Richard Acayan <mailingradian@gmail.com>
++static const struct regulator_bulk_data imx355_supplies[] = {
++	{ .supply = "avdd" },
++	{ .supply = "dvdd" },
++	{ .supply = "dovdd" },
+ };
+ 
+ static const struct imx355_reg imx355_global_regs[] = {
+@@ -1515,6 +1528,52 @@ static const struct v4l2_subdev_internal_ops imx355_internal_ops = {
+ 	.open = imx355_open,
+ };
+ 
++static int imx355_power_off(struct device *dev)
++{
++	struct i2c_client *client = container_of(dev, struct i2c_client, dev);
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct imx355 *imx355 = to_imx355(sd);
 +
-+description:
-+  The IMX355 sensor is a 3280x2464 image sensor, commonly found as the front
-+  camera in smartphones.
++	gpiod_set_value_cansleep(imx355->reset_gpio, 1);
 +
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
++	regulator_bulk_disable(ARRAY_SIZE(imx355_supplies), imx355->supplies);
++	clk_disable_unprepare(imx355->clk);
 +
-+properties:
-+  compatible:
-+    const: sony,imx355
++	return 0;
++}
 +
-+  reg:
-+    maxItems: 1
++static int imx355_power_on(struct device *dev)
++{
++	struct i2c_client *client = container_of(dev, struct i2c_client, dev);
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct imx355 *imx355 = to_imx355(sd);
++	int ret;
 +
-+  clocks:
-+    maxItems: 1
++	ret = clk_prepare_enable(imx355->clk);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to enable clocks");
 +
-+  avdd-supply:
-+    description: Analog power supply.
++	ret = regulator_bulk_enable(ARRAY_SIZE(imx355_supplies),
++				    imx355->supplies);
++	if (ret) {
++		dev_err_probe(dev, ret, "failed to enable regulators");
++		goto error_disable_clocks;
++	}
 +
-+  dvdd-supply:
-+    description: Digital power supply.
++	usleep_range(1000, 2000);
++	gpiod_set_value_cansleep(imx355->reset_gpio, 0);
++	usleep_range(10000, 11000);
 +
-+  dovdd-supply:
-+    description: Interface power supply.
++	return 0;
 +
-+  reset-gpios:
-+    description: Reset GPIO (active low).
-+    maxItems: 1
++error_disable_clocks:
++	clk_disable_unprepare(imx355->clk);
++	return ret;
++}
 +
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    additionalProperties: false
++static DEFINE_RUNTIME_DEV_PM_OPS(imx355_pm_ops, imx355_power_off,
++				 imx355_power_on, NULL);
 +
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml
-+        unevaluatedProperties: false
+ /* Initialize control handlers */
+ static int imx355_init_controls(struct imx355 *imx355)
+ {
+@@ -1689,16 +1748,26 @@ static int imx355_probe(struct i2c_client *client)
+ 				     "external clock %lu is not supported\n",
+ 				     freq);
+ 
+-	/* Initialize subdev */
+-	v4l2_i2c_subdev_init(&imx355->sd, client, &imx355_subdev_ops);
+-
+-	/* Check module identity */
+-	ret = imx355_identify_module(imx355);
++	ret = devm_regulator_bulk_get_const(imx355->dev,
++					    ARRAY_SIZE(imx355_supplies),
++					    imx355_supplies,
++					    &imx355->supplies);
+ 	if (ret) {
+-		dev_err(imx355->dev, "failed to find sensor: %d", ret);
++		dev_err_probe(imx355->dev, ret, "could not get regulators");
+ 		goto error_probe;
+ 	}
+ 
++	imx355->reset_gpio = devm_gpiod_get_optional(imx355->dev, "reset",
++						     GPIOD_OUT_HIGH);
++	if (IS_ERR(imx355->reset_gpio)) {
++		ret = dev_err_probe(imx355->dev, PTR_ERR(imx355->reset_gpio),
++				    "failed to get gpios");
++		goto error_probe;
++	}
 +
-+        properties:
-+          data-lanes:
-+            minItems: 4
-+            maxItems: 4
++	/* Initialize subdev */
++	v4l2_i2c_subdev_init(&imx355->sd, client, &imx355_subdev_ops);
 +
-+        required:
-+          - link-frequencies
+ 	imx355->hwcfg = imx355_get_hwcfg(imx355->dev);
+ 	if (!imx355->hwcfg) {
+ 		dev_err(imx355->dev, "failed to get hwcfg");
+@@ -1706,13 +1775,24 @@ static int imx355_probe(struct i2c_client *client)
+ 		goto error_probe;
+ 	}
+ 
++	ret = imx355_power_on(imx355->dev);
++	if (ret)
++		goto error_probe;
 +
-+    required:
-+      - endpoint
++	/* Check module identity */
++	ret = imx355_identify_module(imx355);
++	if (ret) {
++		dev_err(imx355->dev, "failed to find sensor: %d", ret);
++		goto error_power_off;
++	}
 +
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - avdd-supply
-+  - dvdd-supply
-+  - dovdd-supply
-+  - port
+ 	/* Set default mode to max resolution */
+ 	imx355->cur_mode = &supported_modes[0];
+ 
+ 	ret = imx355_init_controls(imx355);
+ 	if (ret) {
+ 		dev_err(imx355->dev, "failed to init controls: %d", ret);
+-		goto error_probe;
++		goto error_power_off;
+ 	}
+ 
+ 	/* Initialize subdev */
+@@ -1752,6 +1832,9 @@ static int imx355_probe(struct i2c_client *client)
+ error_handler_free:
+ 	v4l2_ctrl_handler_free(imx355->sd.ctrl_handler);
+ 
++error_power_off:
++	imx355_power_off(imx355->dev);
 +
-+unevaluatedProperties: false
+ error_probe:
+ 	mutex_destroy(&imx355->mutex);
+ 
+@@ -1768,7 +1851,11 @@ static void imx355_remove(struct i2c_client *client)
+ 	v4l2_ctrl_handler_free(sd->ctrl_handler);
+ 
+ 	pm_runtime_disable(imx355->dev);
+-	pm_runtime_set_suspended(imx355->dev);
 +
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,camcc-sdm845.h>
-+    #include <dt-bindings/gpio/gpio.h>
++	if (!pm_runtime_status_suspended(imx355->dev)) {
++		imx355_power_off(imx355->dev);
++		pm_runtime_set_suspended(imx355->dev);
++	}
+ 
+ 	mutex_destroy(&imx355->mutex);
+ }
+@@ -1779,10 +1866,18 @@ static const struct acpi_device_id imx355_acpi_ids[] __maybe_unused = {
+ };
+ MODULE_DEVICE_TABLE(acpi, imx355_acpi_ids);
+ 
++static const struct of_device_id imx355_match_table[] = {
++	{ .compatible = "sony,imx355", },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, imx355_match_table);
 +
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        camera@1a {
-+            compatible = "sony,imx355";
-+            reg = <0x1a>;
-+
-+            clocks = <&camcc CAM_CC_MCLK2_CLK>;
-+
-+            assigned-clocks = <&camcc CAM_CC_MCLK2_CLK>;
-+            assigned-clock-rates = <24000000>;
-+
-+            reset-gpios = <&tlmm 9 GPIO_ACTIVE_LOW>;
-+
-+            avdd-supply = <&cam_front_ldo>;
-+            dvdd-supply = <&cam_front_ldo>;
-+            dovdd-supply = <&cam_vio_ldo>;
-+
-+            pinctrl-names = "default";
-+            pinctrl-0 = <&cam_front_default>;
-+
-+            rotation = <270>;
-+            orientation = <0>;
-+
-+            port {
-+                cam_front_endpoint: endpoint {
-+                    data-lanes = <1 2 3 4>;
-+                    link-frequencies = /bits/ 64 <360000000>;
-+                    remote-endpoint = <&camss_endpoint1>;
-+                };
-+            };
-+        };
-+    };
+ static struct i2c_driver imx355_i2c_driver = {
+ 	.driver = {
+ 		.name = "imx355",
+ 		.acpi_match_table = ACPI_PTR(imx355_acpi_ids),
++		.of_match_table = imx355_match_table,
++		.pm = &imx355_pm_ops,
+ 	},
+ 	.probe = imx355_probe,
+ 	.remove = imx355_remove,
 -- 
 2.53.0
 
