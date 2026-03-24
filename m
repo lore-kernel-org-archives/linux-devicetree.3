@@ -1,194 +1,74 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013054.outbound.protection.outlook.com [52.101.72.54])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E81317170;
-	Tue, 24 Mar 2026 19:48:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774381723; cv=fail; b=aDqSxN9KF/x1KHMae2BBA9xbYsZlu9AgKD0WVs+wC0stlVLbGGUIR4zQzXYJ0V0x8a635CSLlmelisPuoKEqo6oLHU656Er0TFeZkpYJP21ZS0cjgZ/lnmXIIBfGtX9DoBl9rNpYBgdPHdV5eiurMTrXewBURj6xBWEHf9ETp/0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774381723; c=relaxed/simple;
-	bh=OFMv7TEeVLetub5kcLK2fSqKPYseDISUWH/nK0fKhgE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Po4X2LoiCkqbYfwR1H+n2Mfd3FZQefu/pvdYokyUSmEKU7TwwSS8QjmwoYn5WqTvfLTH2L1LtxONSFO/CxdoXJ6+xqNw2XqZ60ok49jw+3pqMb615jdPZ2FkKb1+mZBr/IfdN1o/mZLJOHswgmt0ZKqbq8UsDmhgu5VAGc5uD4w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Mt4rL7xv; arc=fail smtp.client-ip=52.101.72.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA3C30AAA9;
+	Tue, 24 Mar 2026 19:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774382047; cv=none; b=U5nM50oi5Zq+qHpygwHaxzMJTtISwhWC+3Jqmr49A/5wk4YLNf6g3RJqRMpXuDEeSXGL3+wERmCE2YQLpkljeGWGK35qtqOv9rbAoCDyMC+epDwfUvzjbHy9/lWI97pKxD1IRFqh+F5pAuZvfY10FdkRlAkr+MCm7+XuVpMEZ9E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774382047; c=relaxed/simple;
+	bh=u4eEkSQGgtjz0aZZqXJ4ubhMTfGnaDdFxFFCMbDWd0c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KMstaTQT5hBH2Tbz5k2XNZ/2zqd0IA4xj5qEP5u5xzTGkw+Zbc+/L9GR5+vF6aDJ5vz9uEB4jBQ5Ssg/HrKIzoyknhSsgHKqL8qdBOPV3SILANEd6vRavjVs/HhQgQof7zgozGOcEyhZ8gy6gzRethfVYLWPgZxZlaZfg38ebec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=FmdE7+7Z; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Mt4rL7xv"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xCVHlpq6ymFsE0gFsehXkKnnbyM0kiWhMCG7k7jOJOqIl5CwzuqtDDSPoIjpLsTFdX9T/l7UikMQPevIzubDYY+25cJQRAYme9z6nmlAiDapro6m56Pjbmr8LHkhGf37jpnlrdfADAVGwSJ52ehG1oOJa5ChVcm5QOWOYQfXzqIkF7lBLja6tB8SOZkhTWFsbbzOUS5+6VhvPVXXLtRUrs/PSIWAixp0+mJXvF8J5QTDzpI3bR1LpzLli6xn5loPKJuaHZZ5hCf3Qp077DCtZFbItvo7HIaSV8JqyFKL5I38Rou1LMpWe6Uqu9iGnG1iV5RgNxqTTjsmlcHg9fgf8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4Clh6eWNUZXN9C5PW6eYqSxfprgiBL92NdEwI7gy9Oo=;
- b=l+5p7ZiiwRfcdV38yDHlQUNqZ+iEJ4dxzVh2Kj0XveziMlMPbA6/cIwkq+D3NfDcrBKnsl8MQi4u0eeu1YADej5rrDYJdDiGe6YnzdvIUc5M29my2LlkllbtlQjbOnbem70jT5muLYxQUhL1hjr0lgWEpXLft9D/FeXJo4X+hzzL2C6cW7AvvuBqytOkpP8e8YUoyfgomWeSwsXatZ92rdvBKIOiSIebeQNfUKZTdR0ncpOXsqul4MP8uh3Xtn8vnqpALPNydVs4KNFwQLAPesPoRi0x9+j0EteGMHsGJRS/6rWHF8BUMUwHoyU1PqFKCQQkndGZfd1OdpYZcb+92A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4Clh6eWNUZXN9C5PW6eYqSxfprgiBL92NdEwI7gy9Oo=;
- b=Mt4rL7xvAAyQvZMB3t8CI42bGxQBCSv8fVKL/DarVSqsn4OnI/2byNDQ3Fa7hH5Vp5lhkdosiFNBtDAEnxOhqfipEIqU8W0dKp+WjKsOBj6w52vE2uAXQJSLqE+wKCgJK89IUGFgQawG+uUhzq6THY3UI/awsAUvi18jdmp7gUKlFMVUYkPfH6P7JTQpqi6SjKOwzGDjOuwK4/wXaNNMEPbJNjSspZ/r9ULWKOrTd/v1mTrx1ey0/X6g8dLoa1KkXJ7Seep4nXIgmW7NRoxPf1c/rHoWTtviGONwYxy28iilBbwfKP5bWofdz2d+57uC+2BusP7DOQGAz6Tn4hu3mQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by DBBPR04MB7801.eurprd04.prod.outlook.com (2603:10a6:10:1eb::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Tue, 24 Mar
- 2026 19:48:19 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9723.030; Tue, 24 Mar 2026
- 19:48:29 +0000
-Date: Tue, 24 Mar 2026 15:48:29 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Stefano Radaelli <stefano.radaelli21@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="FmdE7+7Z"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=BmyvvqpA+3a7QNkSRtg2hYz7ys9jbAoSkQkaOVx2QHM=; b=FmdE7+7ZFuqHGQ1eoEPmRfwWHc
+	gDSuY7MlFYtFqYrLvbQAxRsTpBRF2kOqvvzn1etrChow06IyZ9VYIkSvw8wNjqHpNn/P5PIYv2Ttv
+	CUKejrMgFjCTbUYk51KfetfnCmrCzOEMZjXU8hMVIK9RY7s/Yt1ZvBMx5SKEk6GXTtD7iV6zdJwfm
+	4DBB71jvEuDF0Rj6jNmeV72HVnujsV5+LnvDuz5hhAkmyQiY9AhDelYi9VMNcjiWlEc7SF4RHsg1+
+	KB4KbBvmaef+QShBwAbrMtcxPkjMQTwLq9gSi2zaTAgqYvnAMdRTcpwXryCKa7owqRVrGPE/DmitM
+	JDDZGqlQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v7 0/2] Add support for Variscite DART-MX95 and Sonata
- board
-Message-ID: <acLqjeqmR4eVDoKw@lizhi-Precision-Tower-5810>
-References: <20260313174707.26902-1-stefano.r@variscite.com>
- <abRdwy_AS046QVRI@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <abRdwy_AS046QVRI@lizhi-Precision-Tower-5810>
-X-ClientProxiedBy: PH7PR17CA0023.namprd17.prod.outlook.com
- (2603:10b6:510:324::24) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	Conor Dooley <conor+dt@kernel.org>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	kernel@collabora.com
+Subject: Re: [PATCH] arm64: dts: rockchip: add SD/eMMC aliases for ArmSom Sige5
+Date: Tue, 24 Mar 2026 20:53:56 +0100
+Message-ID: <177438200681.818857.12277446311254915277.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260317-sige5-mmc-aliases-v1-1-ee93a1571802@collabora.com>
+References: <20260317-sige5-mmc-aliases-v1-1-ee93a1571802@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|DBBPR04MB7801:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0ca5207b-29d3-4fd7-97ce-08de89de5254
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|19092799006|52116014|376014|7416014|1800799024|366016|38350700014|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
- skUq+4qvvSEr5HdE5QN/TuHYxb2aTEpHfa7XSguwAxZdkwgSifeIqkSbZHjhUXOJAuH+MSyBLLDU/9Yw0Mq1KmBaUjvzIGJYtDGUheKiO+Rji/Wv+IuP0ORipPFHVPrjgFSqED82uMZao7qFvB5pEdWgUk8skI0LxcMNHIPfjSx6QH2UN7nOk1SeNnRbouHlpFoZhkThWsk5MTp+Tnx/Tx/uGDtcNb8n5ma4uPDWkMDMcwEfSwtfTIAeTAbqPC6CzOJgFCd88LfldK22uEzr/Myz0NcxZwaZ747PUq/pS9/GOghmKUqfCr884Qcp9VUj8m5+ms6sUO6k1/IVjTJIMahHss1qZ0mxcfvN8/Hdjho8x9sRSP6kUDtub++q7E1iBxFCpmXbwKZ7npW3e1BwdlyWHpdZ1nG/9wX5lspPHJK43+YAcPujKxNii0PlTvbOPzfnMvl7M6U6Ye+C3YksvqJ5mBR77R8Rku0z7sGOC4Sz6B6xXZHs7qjOeB6worrH+dtmc0aUfHMkJ57H9dr04/GUAgBUtrKu/rGTV1sRtZ+UN93p2qVtJalpV1paFmOKPsztwSK1t2L94w4PsMgqp5iyfyBZaWT7KHVeq3Z7U6Pn2ESqGME1J2+uqWJel5VWPlp9ofAQc//wdl059lgOZWeVdH8UagU0q1aLlMMXn61saS76O53LgdOk/DGcSSQrtxQM5ulLw1U76jJTR48oIbJKgvoEPRFiyrOp51O9phRGCBJS1aAdGa7DTumg+T0aa+PKS7kOc1nQwWH2JNBC5TwiYTOPOtNwaDdLJ3QW3Cw=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(52116014)(376014)(7416014)(1800799024)(366016)(38350700014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?Fljq5masTWIEfDPv++s79F0LD2s6GnbI9O3Hf2g/dpL+KfqWF7Bh5pQssBNC?=
- =?us-ascii?Q?OYCNGKx8GYTzmaKvRQ6qzxxfMp/crHTTSeeyonGg8Q2Tns5EIF/N48w21o4o?=
- =?us-ascii?Q?x1pYO/YoRDbqsOtq6zrINUWP+hZpaA7NPEA3WkFXPcmSUwqB6Bd8nQyFTKDT?=
- =?us-ascii?Q?3pqENSdWxucVrzqrWEXHNxELNrbbqKlcN5Y4QXdZ3CObS4EtPsk7Y8m4Smcf?=
- =?us-ascii?Q?4F/v4G7acs8KtcERMA8LxPePQhTnvjMsRIf5gt13Pp7NLvz+xELhut24owxs?=
- =?us-ascii?Q?lbqZLui4SZwrBNvG97laYaf6HeVNqsKm29ZTvwaC4L8aQcLvTSzChQ3c+Lh6?=
- =?us-ascii?Q?03l6ZXsrEZvISTbg1kp1ROV5ugrZo/0q+rAvcCtDLRw1IveWjmE2p1F0cU1G?=
- =?us-ascii?Q?svQ8yjQ+6+KWAPJQ27WWKQam66K9cBNvguzPvJwc7iKpH4+Zqn1FIH8FcutN?=
- =?us-ascii?Q?0lBJuIPai6w8DwG570idbYBUA+Auf1Q4u7lIS/mwczm2N802nDl7zJwF3vpV?=
- =?us-ascii?Q?WxLhgfESXI+Xr4ClVlvlA/6shgVdZSB7dgvf3MFzk0Hc+Yxm97MDJF1gAf1/?=
- =?us-ascii?Q?04VbGEHKwxPqBVgM++mCgPOT5R1Lvg8GqjDEHMJ7DK5hcQhtOo5dDCMvmh36?=
- =?us-ascii?Q?j/D132tTotoVbBlewMXSFAwmFMT3kE47kTTsQ7C5vWrIgyZQx9hCCuGB/56E?=
- =?us-ascii?Q?G0CFu0Fj2a3hnNRNHjvN+AKQxwQZo4qf2Uiz35UGyZP2q79ZyH/ZQRTYKlzG?=
- =?us-ascii?Q?mdSgNv9rM2/kaY1kZq0ve2ZObMBN6dH1dZpbNTssajiUVe8XvCNSeO6hO/oo?=
- =?us-ascii?Q?C+AYJGtB5x6hlNq2DDy62LeaaDYokbM7+HdqBxeKMFH//w8VvFJQ3vpWCG8B?=
- =?us-ascii?Q?XVyc4Ow+RpzpAfBKoG1jjaCTowXTHI43/8mi0wcy+grpPn7LFa/ASMiP52Tt?=
- =?us-ascii?Q?LNjA4lTsO//iVjiEhF2oFJ0be9ENMAdxVjukktSp5vmBLuDTRTwXXl1nHtQf?=
- =?us-ascii?Q?vnP+H0lU36EzW6h08XGs7cyEXOf98TcH75COxUBkVukFiXjof7+g9FPqgYO8?=
- =?us-ascii?Q?fvr4DgPbyBYSU+x4LJ1rfi5cKB7kLbsEj58SdmYaHg/upfD4p1brTrasb0rQ?=
- =?us-ascii?Q?5Q90NDjqkz4VDVG/NDEbH9Daw3oJ+bezFF7Y7vUejDFOVAARzFeUf3D/N4O0?=
- =?us-ascii?Q?l3DP/JvWfrYiMjK8Pn2FDU75KPxFeRwrBU18c0TFHxMWrA5qbmvguwCvhfDz?=
- =?us-ascii?Q?vsInfvKg8WH2qPHtB//xrTKUCBtJI0FPel/ji1ZmAuD3XuKGc0YjyBxdI1lZ?=
- =?us-ascii?Q?LK0JNoBlGWOPcEG1gb+zZZeuuhvcKDMesIpYAcuxSp9GIzIfXEAdWdMvlLse?=
- =?us-ascii?Q?ot9NlC5QajES8O6Wjzvoc74653YdKgRCAnMzuQx7nXFCpkiE579cmx6pq6ha?=
- =?us-ascii?Q?ALrFDZijdm+nzK3jrrLeXsf1lG6foKsu3UakIcGzGp4eedZBMf9Oi/YCnCED?=
- =?us-ascii?Q?MIt7Jc1Ee4eTnMX2/oqA83lhlXmWPUeYMc2bhUzjZwtevyxOFvk3/eN+CN6B?=
- =?us-ascii?Q?791FEdlIg8lyocpqPy9YuLc+PWhiM0pmXT+OhraUmjCqFLFg662rXxW/tte3?=
- =?us-ascii?Q?LbwJS5Yw8KJ1FJo7iG1EHIR4wnqXnn/6Z8oibkRMdXwtMrNNAebN8R2M6OKa?=
- =?us-ascii?Q?nd0fMSj+nAp1PKrV+WU5EUN31IXOyPwF1JMUarTJkwaOf8Z0?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ca5207b-29d3-4fd7-97ce-08de89de5254
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 19:48:29.2298
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MnuCY/NhzrL0Y3SrPcXlLMBOIn6Y6jyDG0YZdyrAz582/p2gr7y0iH3cPv8ECWK+Y+jsbrUylcHal3QQW3cwTw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7801
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, Mar 13, 2026 at 02:56:03PM -0400, Frank Li wrote:
-> On Fri, Mar 13, 2026 at 06:47:01PM +0100, Stefano Radaelli wrote:
-> > This patch series adds support for the Variscite DART-MX95 system on
-> > module and the Sonata carrier board.
-> >
-> > The series includes:
-> > - Device tree bindings documentation for both SOM and carrier board
-> > - SOM device tree with on-module peripherals
-> > - Sonata carrier board device tree with board-specific features
-> >
-> > The implementation follows the standard SOM + carrier board pattern
-> > where the SOM dtsi contains only peripherals mounted on the module,
-> > while carrier-specific interfaces are enabled in the board dts.
-> >
-> > v7:
-> > - Order nodes in symphony dts
->
-> Can you run https://github.com/lznuaa/dt-format for new file to easy
-> track and check by script later.
 
-I applied with below change
-- update copywrite to 2026
-- move reg after compatible at ethernet phy node
-- order button-n,
+On Tue, 17 Mar 2026 15:39:30 +0100, Sebastian Reichel wrote:
+> Provide aliases for the SD and eMMC interfaces, so that the operating
+> system can assign stable interface names.
+> 
+> On Linux this is only relevant when booting without partition UUID
+> based root device identification, e.g. when booting without an
+> initramfs. In that case booting with e.g. root=/dev/mmcblk0p2 is
+> unreliable without this patch as the device numbers changed based
+> on device probe order.
+> 
+> [...]
 
-Next time,  run dt-format,  keep node orders, just adjust some property.
-I will enhance script check graduatelly.
+Applied, thanks!
 
-Frank
+[1/1] arm64: dts: rockchip: add SD/eMMC aliases for ArmSom Sige5
+      commit: 6f7f44169bdef6e10b8d174079a155d02b87d2dc
 
->
-> Frank
->
-> > v6:
-> > - Order by node name instead of by label
-> > v5:
-> > - Fix newlines and nodes order
-> > v4:
-> > - Fix typo in spacing
-> > - Remove vpu and cm7 reserved memory
-> > - Add GPIO_OPEN_DRAIN to i2c gpios
-> > - Move pinmux to eof
-> > v3:
-> > - Fix specific node names with generic ones
-> > - Remove fixed-link property for SFP
-> > - Audio regulator cleanup
-> > v2:
-> > - Add SFP cage node for enetc_port2 following sff,sfp.yaml binding
-> >
-> > Stefano Radaelli (2):
-> >   arm64: dts: freescale: Add support for Variscite DART-MX95
-> >   arm64: dts: imx95-var-dart: Add support for Variscite Sonata board
-> >
-> >  arch/arm64/boot/dts/freescale/Makefile        |   1 +
-> >  .../dts/freescale/imx95-var-dart-sonata.dts   | 591 ++++++++++++++++++
-> >  .../boot/dts/freescale/imx95-var-dart.dtsi    | 425 +++++++++++++
-> >  3 files changed, 1017 insertions(+)
-> >  create mode 100644 arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
-> >  create mode 100644 arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi
-> >
-> >
-> > base-commit: 40fbbd64bba6c6e7a72885d2f59b6a3be9991eeb
-> > prerequisite-patch-id: 7ed0e453f554c70d0fafd5147d4d9b62cac6c10f
-> > --
-> > 2.47.3
-> >
+Best regards,
+-- 
+Heiko Stuebner <heiko@sntech.de>
