@@ -1,278 +1,131 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8BE33F54D3
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 16:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E79338BF7D
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 16:29:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774369587; cv=none; b=XgNf6dGw+3YHyB45hCSjMrFbWNlAh5kBYYVvFhzl6avy9imqO/tq/c3S47X6ZcOGK8IVsy6rJI0WC6UcVSGfckcN2j5th/NjYs/j1VNekpbu1/z850T0ZQXC/UmFsIYFMBwkuHOkQTdiXYVkoau7mHvQH4zuhVU/7i+NGHXK/iU=
+	t=1774369743; cv=none; b=UJen46FJ0f304t2yluXaN15KZ0jlCGjcU2kXd8Fbbf18vDs7eTK3ZE+KFAwwZHdVLZG8Qxvh60U5yPUA84KKKEIcwZykafUXGP1yd42m7bzNoxkdkwhWZPrYyN156/RL1cocS9luTA9TF6sRUf0nOxl8CwV8ARqPCQYRbG9qrJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774369587; c=relaxed/simple;
-	bh=pVUTaBu37BYx90oCxlbexCq4J36a+37O4snWHTnZVAo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=aKWYaLmJnefXn8oSGuTNaHty1jryB3ktd6rxp4gTBpOcnSkwAoCsbXZLkmTgMUURKZsauvA00UaaKthfUgmHtNqg/SOeNXfwjNVwoge5vO5FSKbhK/d8m1fHl3CaB7jkHcJ6EAcRalpX/bdglo9S0LzxNpco52cazr1ybcxf5nI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=lGrH3waM; arc=none smtp.client-ip=185.67.36.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	s=arc-20240116; t=1774369743; c=relaxed/simple;
+	bh=+PdYSZs4cfDhvr60AqhtuiYKz9hydT0q3cc55xpfa+o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EiBC6YZ6LJw+4Qm6ZFvAZfgT5WWmU3r9NMdqt0BygPTzRckzWRLYEZTUg4h0Yy23E5G2dSuaAq9JMZAmzCCheANmJjDrUYaH+CH4GWgvCPUur/ba0ypFIv8tBCelMvL6H2lEpvcGKtyZDY4rDG4ZqZZf6cXPPzkPZ5qtnbtVRUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R53GXR+Y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=E3lkMvjf; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="lGrH3waM"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 15C2E240105
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 17:26:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
-	t=1774369583; bh=wqgxFZDx8NKk35yL7sq848BORVfYKSYBLLwEcNFnzGs=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=lGrH3waMH+eiUtfIrYZcEvOJtdAo7MF30he7DyEUToTxUjBeQUOpdXK1x6tmGige7
-	 DzWMBVFMTv31fXmJZ1Ea6mukG9WHR1icnSBrApue/NwAhSntxps60vbkugHHw/rQlb
-	 ZV50VJgSl1fKjtIOWvWDnhtXJF/fXgFxGVcP4d1PzHFlb8IzZMzWNc/995wAkcfuC4
-	 YwyIp92Ytau1qFSJamnuXK5utNOuMmWMniR4sUFak3TiVCTrUifabkDgEno3MepS0W
-	 9fT9SCoT3yTUrJgwEHp5unJQJ/lXVzzP4DzEzteh9zUk2IuUc96egCT9gNmuSO4dyp
-	 4aLQRnci/cjDg==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4fgFlt56SSz6tws;
-	Tue, 24 Mar 2026 17:26:18 +0100 (CET)
-Message-ID: <f32aba79b98b357487c44e1952e536051fcd7a51.camel@posteo.de>
-Subject: Re: [PATCH v3 3/7] acpi: add acpi_of_match_device_ids
-From: Markus Probst <markus.probst@posteo.de>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Greg
- Kroah-Hartman	 <gregkh@linuxfoundation.org>, Miguel Ojeda
- <ojeda@kernel.org>, Boqun Feng	 <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Igor
- Korotin	 <igor.korotin.linux@gmail.com>, Daniel Almeida
- <daniel.almeida@collabora.com>,  Bjorn Helgaas <bhelgaas@google.com>,
- Krzysztof =?UTF-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Pavel
- Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, Robert Moore
- <robert.moore@intel.com>, 	devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	rust-for-linux@vger.kernel.org,
- driver-core@lists.linux.dev, 	linux-pci@vger.kernel.org,
- linux-leds@vger.kernel.org, 	linux-acpi@vger.kernel.org,
- acpica-devel@lists.linux.dev
-Date: Tue, 24 Mar 2026 16:26:22 +0000
-In-Reply-To: <CAJZ5v0jHQ7sHJ8SV25p2gQugC-a8f9oVFarS17NXwPzGOJUD0Q@mail.gmail.com>
-References: <20260313-synology_microp_initial-v3-0-ad6ac463a201@posteo.de>
-	 <20260313-synology_microp_initial-v3-3-ad6ac463a201@posteo.de>
-	 <CAJZ5v0jxHO2EH5NeEsMkxGz5xqVL00tO-W1JpaVd=GhwgQ3T=A@mail.gmail.com>
-	 <e8ffc9902c0af24ce6fde2d8712ea588b36e9194.camel@posteo.de>
-	 <CAJZ5v0jHQ7sHJ8SV25p2gQugC-a8f9oVFarS17NXwPzGOJUD0Q@mail.gmail.com>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=mQINBGiDvXgBEADAXUceKafpl46S35UmDh2wRvvx+UfZbcTjeQOlSwKP7YVJ4JOZrVs93
- qReNLkOWguIqPBxR9blQ4nyYrqSCV+MMw/3ifyXIm6Pw2YRUDg+WTEOjTixRCoWDgUj1nOsvJ9tVA
- m76Ww+/pAnepVRafMID0rqEfD9oGv1YrfpeFJhyE2zUw3SyyNLIKWD6QeLRhKQRbSnsXhGLFBXCqt
- 9k5JARhgQof9zvztcCVlT5KVvuyfC4H+HzeGmu9201BVyihJwKdcKPq+n/aY5FUVxNTgtI9f8wIbm
- fAjaoT1pjXSp+dszakA98fhONM98pOq723o/1ZGMZukyXFfsDGtA3BB79HoopHKujLGWAGskzClwT
- jRQxBqxh/U/lL1pc+0xPWikTNCmtziCOvv0KA0arDOMQlyFvImzX6oGVgE4ksKQYbMZ3Ikw6L1Rv1
- J+FvN0aNwOKgL2ztBRYscUGcQvA0Zo1fGCAn/BLEJvQYShWKeKqjyncVGoXFsz2AcuFKe1pwETSsN
- 6OZncjy32e4ktgs07cWBfx0v62b8md36jau+B6RVnnodaA8++oXl3FRwiEW8XfXWIjy4umIv93tb8
- 8ekYsfOfWkTSewZYXGoqe4RtK80ulMHb/dh2FZQIFyRdN4HOmB4FYO5sEYFr9YjHLmDkrUgNodJCX
- CeMe4BO4iaxUQARAQABtCdNYXJrdXMgUHJvYnN0IDxtYXJrdXMucHJvYnN0QHBvc3Rlby5kZT6JAl
- QEEwEIAD4CGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQSCdBjE9KxY53IwxHM0dh/4561
- D0gUCaIZ9HQIZAQAKCRA0dh/4561D0pKmD/92zsCfbD+SrvBpNWtbit7J9wFBNr9qSFFm2n/65qen
- NNWKDrCzDsjRbALMHSO8nigMWzjofbVjj8Nf7SDcdapRjrMCnidS0DuW3pZBo6W0sZqV/fLx+AzgQ
- 7PAr6jtBbUoKW/GCGHLLtb6Hv+zjL17KGVO0DdQeoHEXMa48mJh8rS7VlUzVtpbxsWbb1wRZJTD88
- ALDOLTWGqMbCTFDKFfGcqBLdUT13vx706Q29wrDiogmQhLGYKc6fQzpHhCLNhHTl8ZVLuKVY3wTT+
- f9TzW1BDzFTAe3ZXsKhrzF+ud7vr6ff9p1Zl+Nujz94EDYHi/5Yrtp//+N/ZjDGDmqZOEA86/Gybu
- 6XE/v4S85ls0cAe37WTqsMCJjVRMP52r7Y1AuOONJDe3sIsDge++XFhwfGPbZwBnwd4gEVcdrKhnO
- ntuP9TvBMFWeTvtLqlWJUt7n8f/ELCcGoO5acai1iZ59GC81GLl2izObOLNjyv3G6hia/w50Mw9MU
- dAdZQ2MxM6k+x4L5XeysdcR/2AydVLtu2LGFOrKyEe0M9XmlE6OvziWXvVVwomvTN3LaNUmaINhr7
- pHTFwDiZCSWKnwnvD2+jA1trKq1xKUQY1uGW9XgSj98pKyixHWoeEpydr+alSTB43c3m0351/9rYT
- TTi4KSk73wtapPKtaoIR3rOFHLQXbWFya3VzLnByb2JzdEBwb3N0ZW8uZGWJAlEEEwEIADsWIQSCd
- BjE9KxY53IwxHM0dh/4561D0gUCaIO9eAIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCR
- A0dh/4561D0oHZEACEmk5Ng9+OXoVxJJ+c9slBI2lYxyBO84qkWjoJ/0GpwoHk1IpyL+i+kF1Bb7y
- Hx9Tiz8ENYX7xIPTZzS8hXs1ksuo76FQUyD6onA/69xZIrYZ0NSA5HUo62qzzMSZL7od5e12R6OPR
- lR0PIuc4ecOGCEq3BLRPfZSYrL54tiase8HubXsvb6EBQ8jPI8ZUlr96ZqFEwrQZF/3ihyV6LILLk
- geExgwlTzo5Wv3piOXPTITBuzuFhBJqEnT25q2j8OumGQ+ri8oVeAzx24g1kc11pwpR0sowfa5MvZ
- WrrBcaIL7uJfR/ig7FyGnTQ1nS3btf3p0v8A3fc4eUu/K2No3l2huJp3+LHhCmpmeykOhSB63Mj3s
- 3Q87LD0HE0HBkTEMwp+sD97ZRpO67H5shzJRanUaDTb/mREfzpJmRT1uuec0X2zItL7a6itgMJvYI
- KG29aJLX3fTzzVzFGPgzVZYEdhu4y53p0qEGrrC1JtKR6DRPE1hb/OdWOkjmJ75+PPLD9U5IuRd6y
- sHJWsEBR1F0wkMPkEofWsvMYJzWXx/rvTWO8N4D6HigTgBXAXNgbc3IHpHlkvKoBJptv6DRVRtIrz
- 0G0cfBY0Sm7he4N2IYDWWdGnPBZ3rlLSdj5EiBU2YWgIgtLrb8ZNJ3ZlhYluGnBJDGRqy2jC9s1jY
- 66sLA9rQZMHhJTzMyIDwweGlvMzJAcG9zdGVvLmV1PokCbQQTAQgAVxYhBIJ0GMT0rFjncjDEczR2
- H/jnrUPSBQJpa71VGxSAAAAAAAQADm1hbnUyLDIuNSsxLjExLDIsMgIbAwULCQgHAgIiAgYVCgkIC
- wIEFgIDAQIeBwIXgAAKCRA0dh/4561D0gKJD/9uOQKYlsDoQX65Gd0LiMT0C+5vXgr3VI0PHDOwcv
- 51fJ3A1vNyPZRFPGrz8+mDEXUQOF/INfnz5Tu1QHwf+iYcWcTGAN/FHgVR6ET6VBNU2hJaKhu+Ggo
- kjYyJTOvyX+3yNRUfSny0GjTjIPuPTErjqmHF+BtjXslpgwqnNMznf3lRIuUjRORupos6p3k1DndE
- 5vzUTmXSvMyXyOD2KhBl/kL76k0bHYyAQytZPag12pltrtFbA/r2phDGN2si8PooDT99bSTJjaM45
- MTAAHbHKJfvgfK41bNFD5mMtpWpL195XRtS0Nrxdg3PaYBxN5gtTG0RyZfpYRlkdEhm+jj/8RxuSG
- i/qdhRdbiI7K2IELWeQVHSNDi9JabR/UzlR4NSnhfAjRIVlRM+eFbUl8XwxwVrAkojF5IraH2qRvg
- VCmuFsHUW07FUlrDrzpjXsD73cKppoFGDCdDR0BHJepXbFLS9+AqkT+guRJlnCTg2p+TQtnbwPgKp
- Vj98JixovCl99zRYTsL2bRNU5+q8iET65VMJ1ydyNanvLd5vI/NqDkXhlXLsGmdaDTtu4R21PkToX
- dQNGrZ91M9nlIBKw8Y7c7xZ4098qX2b8JX/CxD+gC1r4C8vuA3GkhFLx+KlkON7LyiJPkrePp6Qky
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-4WIOjhy6PzINbUusth1I"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R53GXR+Y";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="E3lkMvjf"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62OBaobG1291144
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 16:29:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=GKjf4cMxLUU8QBL3mtbVgd+l
+	CX2aI/lvG6AlKaKpvPs=; b=R53GXR+YV3VEMi9a8cGlC9i6QEaJ7N8a9SNunDzc
+	2CO1EWETMsKiXFaVG0FX/7KPcHpOnVVxkC6MSeqRxE0r7EymyzYc87Aw+OD24hpM
+	dhf1Y4lyrbhnUxXocfULyI0s2pMzjtxYkiXlCB0jJq97bz6XqC4nsAhYa9mDWHLb
+	9jZ5ZaowfTiH41jkUjK6wZFMEqHFznsVUnplDocAovmTCulEo9T2zS7SWoJjXA59
+	gRAGv1SICQ3hLj/32leZqvdsFSmUDtC2+G+8AHZv0VBTsrpCT5kv7acGo95FN4Td
+	fel0RUvzMIepCeY+9mJ7RCi2/1uERHg5V2WhUGCx0CeuRg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d3sw417qq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 16:29:00 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50925fed647so98059141cf.3
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 09:29:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774369740; x=1774974540; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=GKjf4cMxLUU8QBL3mtbVgd+lCX2aI/lvG6AlKaKpvPs=;
+        b=E3lkMvjf/FaQSXoMK5V3hNEyCCUVE9sPa/6t7H6W3bcrYPPZTtUpqsoNmmJ2XJIVDw
+         5wU8xHNU7dHhrrL4wS3UeOVAE08FdcDclx/V4aWTgQVHIcOufsxfhNinm4TBuOlw9hrY
+         5q8vFC1RCTlOOjSuDGspmzLLTp32KQ1V4Tob5dYZy6fN9uvIdF8cjrlPjpOcE91pk5Cf
+         HLehZv/LN/0LISxyhI/wvi7pLW7FN395Mojt9r7Karf6RJdUCMj92Bv+xpqpFuKmk0x3
+         2PutPC6IhIDCym7BeuHRyITXqA4GsY5HJ3hPAgesS6iWc5I6xuEMgCXKwihVVDxfhnVz
+         bD/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774369740; x=1774974540;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=GKjf4cMxLUU8QBL3mtbVgd+lCX2aI/lvG6AlKaKpvPs=;
+        b=bwFj2ZE5uNZYlQmLCSIfj0DFTkrFEfJGmQlH8iAmA71tu/Hi6gfUWlFzKg73JxUPqP
+         CW0+GJxA63nFSfSbOwUdFw42KqxSyD7U3Q2M+Zz9O/gmU6boMRTczLZhOJCD521yJpXi
+         LoOkQ7t5Xx041qsLm5bbacrj6Egodk1OCbDUaCW5VE3nCzAaZGXrzhc8ejBU3hq4uFyP
+         +4H5K5k5dgUPy6XZ3gneNn07tPf0nJCO35S5vVJVSIWuZ8F4UbijV4nQDWL4+vcP6BbK
+         JGAiRQLWkL6OkXXX3BbyXaGhkuEikFy6hOBMmQ/wRXrSf6mgsbgMA1CdigrpPP4GmUwU
+         tB6g==
+X-Forwarded-Encrypted: i=1; AJvYcCVRu33uP1qe/d++jmOqm0/NS8ol+83+xHmhBSWQO/2ZQ/trDYY7U/3Ig7pmeMUwOxDpIDhONXHwSlqA@vger.kernel.org
+X-Gm-Message-State: AOJu0YxmPA7L6957JULhslTOIirZ+uJp35XdA1zx2Gj3z1JlzZWaGFzS
+	BC22F65pF9GZHxKaDllKHYTAVwm86Qt7UIqEPDWE6tUeQuGvD6pXKvLj7Sk1YOlHg5ZfB2VaO1L
+	XEJkOtBjIxv86d1CziEg/T7LZSa0m81ilC3utuUJk7DfCIZnKFvRWj+bR1xSEKPNy
+X-Gm-Gg: ATEYQzwAt8pJk/NgPd8xBS2yc+tuVH1tjOGKs38W4jn09zcwhXuXD4m1+p5F/b0Ed8A
+	VkOpjNsNrQPtbM+KH4PV3OTgWtFavA7PU6gByEXVJ1YxMcjtXBPq0AlDszqQo2tDEtzalcmhpn4
+	u6Y/QbJPnmd4AO2Nsh3PtBCpWIJwy9JcyFXQ3kE19aRp8CGHCLjK7x+jUuZS4Uw816OKUXX1Qqa
+	hVIAibiRdPbw44FYGsfHwBD5aOTBnTrZSEcc1i41j0O4UasxCsspgmijMoVIYVhNA0qoJBPptXH
+	fLJ2M0UHZDlTu9G+1yAbHdeRQcCvb5AWULM3rK1Ul3tsEnXuTutvKmVvPqGtkMqPx/NtqzE5Upy
+	m/q2ybsDxFOpvuByuszigUHBDPKtZq7SbNw==
+X-Received: by 2002:a05:622a:343:b0:50b:4755:949f with SMTP id d75a77b69052e-50b80e333b8mr3887181cf.43.1774369740182;
+        Tue, 24 Mar 2026 09:29:00 -0700 (PDT)
+X-Received: by 2002:a05:622a:343:b0:50b:4755:949f with SMTP id d75a77b69052e-50b80e333b8mr3886671cf.43.1774369739624;
+        Tue, 24 Mar 2026 09:28:59 -0700 (PDT)
+Received: from oss.qualcomm.com ([82.79.95.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48711702191sm58206105e9.5.2026.03.24.09.28.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Mar 2026 09:28:57 -0700 (PDT)
+Date: Tue, 24 Mar 2026 18:28:55 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: patch mahua thermal zones by label
+Message-ID: <nr2mw32rfqczv3wtfyqokqxtrahvbypxtf4jrvznucvp6ifjo2@jyt3fod3cvlm>
+References: <20260320-mahua-fix-thermals-v1-1-8957bf976c90@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260320-mahua-fix-thermals-v1-1-8957bf976c90@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDEyOCBTYWx0ZWRfXxfN4wbZFJ28C
+ SAmPF7LJhsQPfXv3EBO6UTxe8jN/akzFuQO+1ZDPAq9TnNeBeRIIjDBxg5PJeoNtW8tK0vAZbXl
+ AZa2gVbVNPYQi2Cz9WLJsaJ6/vSkBx1ra/zMWA9uFSSMydckU0Xh/z4Dy1/2yzfKgStsNvMrsHY
+ dor/0qbS+SNDZX/6OcNcNSIl4W/Yd7dg6g2z+baNL5hzOtSF3xM5tFUftWVnJX71k5bsPccmn8U
+ AnlOjSJe3UOGlN5zZe5QzE+ScYrTbnf67KPyH1XUbl6x5OSg4h4ctwZBGs9uu89zV7RcNTXx85c
+ 6bMWECPywue1ycjr9Pu896KSWjmS1fPHa0vo/n/pEuNSp0NivzUNU4DwBh+lAFtQ3/IuBrvLbON
+ 2dvrVxJ7SQHSv9gsUMzFTIyZ0iIgv168lsCp48+uEY4H4PjESu5Vg8umZrDonMyB0kiPV6TKiwJ
+ E1WE1R7kG2CqDsDfhMQ==
+X-Proofpoint-GUID: z7ZuhoBlhPJ09mBgSE0hljvjqDwJRc0I
+X-Authority-Analysis: v=2.4 cv=bpVBxUai c=1 sm=1 tr=0 ts=69c2bbcc cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=iKs3dpp2RB4k51ZqCjcyjQ==:17
+ a=kj9zAlcOel0A:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=HjB67RblY9aCQUFlO1MA:9 a=CjuIK1q_8ugA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: z7ZuhoBlhPJ09mBgSE0hljvjqDwJRc0I
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-24_03,2026-03-23_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 adultscore=0
+ bulkscore=0 spamscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240128
 
+On 26-03-20 04:51:00, Dmitry Baryshkov wrote:
+> Updating DT nodes by the full path is fragile and frowned upon, it's
+> easy to miss the rename of the node in the main tree. Add necessary
+> labels and patch thermal zones for Mahua using those labels.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
---=-4WIOjhy6PzINbUusth1I
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, 2026-03-24 at 17:01 +0100, Rafael J. Wysocki wrote:
-> On Tue, Mar 24, 2026 at 4:30=E2=80=AFPM Markus Probst <markus.probst@post=
-eo.de> wrote:
-> >=20
-> > On Mon, 2026-03-23 at 20:57 +0100, Rafael J. Wysocki wrote:
-> > > On Fri, Mar 13, 2026 at 8:03=E2=80=AFPM Markus Probst via B4 Relay
-> > > <devnull+markus.probst.posteo.de@kernel.org> wrote:
-> > > >=20
-> > > > From: Markus Probst <markus.probst@posteo.de>
-> > > >=20
-> > > > Add a function to match acpi devices against of_device_ids. This wi=
-ll be
-> > > > used in the following commit ("mfd: match acpi devices against PRP0=
-001")
-> > > > to match mfd sub-devices against a of compatible string.
-> > >=20
-> > > Please always spell ACPI in capitals in patch subjects, comments,
-> > > changelogs, etc.  It is not a regular word.
-> > Ok.
-> > >=20
-> > > > Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> > > > ---
-> > > >  drivers/acpi/bus.c      | 7 +++++++
-> > > >  include/acpi/acpi_bus.h | 2 ++
-> > > >  2 files changed, 9 insertions(+)
-> > > >=20
-> > > > diff --git a/drivers/acpi/bus.c b/drivers/acpi/bus.c
-> > > > index f6707325f582..5ddcc56edc87 100644
-> > > > --- a/drivers/acpi/bus.c
-> > > > +++ b/drivers/acpi/bus.c
-> > > > @@ -1044,6 +1044,13 @@ int acpi_match_device_ids(struct acpi_device=
- *device,
-> > > >  }
-> > > >  EXPORT_SYMBOL(acpi_match_device_ids);
-> > > >=20
-> > >=20
-> > > Missing kerneldoc.
-> > The same amount of kerneldoc as `acpi_match_device_ids`, if I am not
-> > mistaken.
-> > >=20
-> > > > +int acpi_of_match_device_ids(struct acpi_device *device,
-> > > > +                         const struct of_device_id *ids)
-> > > > +{
-> > > > +       return __acpi_match_device(device, NULL, ids, NULL, NULL) ?=
- 0 : -ENOENT;
-> > > > +}
-> > > > +EXPORT_SYMBOL(acpi_of_match_device_ids);
-> > >=20
-> > > Are you aware of the consensus that using PRP0001 in production
-> > > platform firmware will be regarded as invalid?
-> > >=20
-> > > Because of that, it is not an option for a driver to avoid providing
-> > > ACPI match data on a platform that uses ACPI.
-> > First of all, the driver that would have made use of it has been
-> > restructed to not use mfd subdevices. It would not be affected anymore
-> > through this patch set.
->=20
-> So what exactly would be affected by it?
-I won't have a use for myself anymore, but I still think the patch is
-useful. Anyway,
-
-MFD Devices without an assigned ACPI ID, if they are present on devices
-with ACPI platform firmware.
-
->=20
-> > Not sure if I should still send it as its own patch series though.
-That is why I asked this question (see 1. sentence in the paragraph
-above).
-
-> >=20
-> > The device of the driver has no ACPI ID allocated by the manufacturer,
-> > as it is only used on a proprietary Linux OS (with their own modified
-> > kernel).
->=20
-> Do I understand correctly that there is an ACPI platform firmware on
-> the board, but it doesn't enumerate the given device properly (that
-> is, as an ACPI device object with a specific device ID)?
-There is only a serial device in the ACPI platform firmware.
-The device connected to the bus isn't specified.
->=20
-> In which case there probably is a driver that can find that device
-> somehow (it has hardcoded resources or similar).
-Yes, that driver has `filp_open("/dev/ttyS1")` hardcoded.
->=20
-> > The driver would have only been useful via device tree or an ACPI
-> > Overlay.
->=20
-> Do you mean a custom SSDT loaded via configfs or something else?
-Yes, in my case via initrd.
-
->=20
-> > Obviously, I don't have a PNP or ACPI Vendor ID, so I can't
-> > assign one. The parent/main driver does only have a of compatible id.
-> > As it needs to use PRP0001 anyway on ACPI, I thought it makes more
-> > sense to also use PRP0001 there instead of matching it with a _ADR
-> > which is "a grey area in the ACPI specification".
->=20
-> You can't match a device with _ADR.  By itself, _ADR doesn't provide
-> you with any information on the device in question, it only helps to
-> connect it to some information that can be collected by other means.
-> The role of it, at least in principle, is to allow some device objects
-> in the ACPI hierarchy to be associated with devices enumerated by
-> other means (like on a PCI bus).
-This patch affects mfd devices. A bus device can via mfd register child
-devices and those child devices will be matched to a fwnode if
-available.
-
-According to commit 98a3be44ffa67b812de7aa7aed9f2331edcfb1a5, there is
-a board on the market with a sub-device that will be matched using _ADR
-[1].
-
-[1]
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
-id=3D98a3be44ffa67b812de7aa7aed9f2331edcfb1a5
-
->=20
-> The enumeration with the help of PRP0001 only works if there is a
-> device object in the ACPI hierarchy and its _HID is PRP0001 or its
-> _CID list contains PRP0001, there is a _DSD under it and a
-> "compatible" property is returned by that _DSD.  Who's going to
-> provide all of that for the given device?
-A ACPI Overlay would do that.
-
->=20
-> Moreover, if the device has some resources that the kernel needs to
-> know about, there should be a _CRS under the device object in question
-> and the resources should be listed there.  Or how are the resources
-> going to be found otherwise?
-Resources in mfd are usually handled by the parent device, not the mfd
-child device. But yes, it would be using _CRS if any.
-
-Thanks
-- Markus Probst
-
---=-4WIOjhy6PzINbUusth1I
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmnCuygbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTEsMiwyAAoJEDR2H/jnrUPSFtwP/1LgDwm20IUO598xZFkV
-t4Mp7zD16XTW4IGjuI5P9vUJCsMy/HFAVv6lW8b0bOalqzmzYjG9Ygxs5SBt4FAT
-mu89voTYbjRdncUvN35nDbe/L0g7PTu3wMUd4rvOrbtFuNjhh9nX3C/DVfpEnBaH
-wqLkHQ9apa7hu7F8cb9RetQp/5MTFBOjAxFsY+wUhnnjtdVF+ZWaQ2wNHV++7YLE
-vSYzAa9GatYERBvUBmex1dssbl1rzzSojatgmbOXSL3+d7hBYfu1Flw9pdz7Fi1s
-jQmiR1QP3ogEhj12IDtv3kYbNgtaHLCLFyHu2N7HCw/raOj8NSrtwH3wxkJL55vg
-5dNY66UEYGtSh4g/5XY8fXY32AWfLzFn7OxqsGhp0fw7tMrz40orIWcN428tLp9N
-PMfmofgv/6DIPBEITMUq1NmW0olkTRtRgg1H3AcYHd+YUfSA9uiC6nfrnZ2cb+E0
-to803zAsfF7zXH51zNKrjB8zHP1F7WH7zwQk+4bNztZvpeze+QTxblEkl2s8I05k
-6mI5GPEAWOQJ3BUGplQF4H3FA01SA/vomcNCJdQxhEQ31K8dsUyLNIymncSKvNZn
-yTVwnEAGTohJ9Ln0EMf0N/7d3LwOGATawIqjjosQgEZuDaS3kiLrmRtmspT8qgLw
-lYR2j/I03tOeDL0m0AMnCYqa
-=0hMF
------END PGP SIGNATURE-----
-
---=-4WIOjhy6PzINbUusth1I--
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
