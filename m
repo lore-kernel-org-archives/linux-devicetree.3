@@ -1,148 +1,137 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from smtp1.tecnico.ulisboa.pt (smtp1.tecnico.ulisboa.pt [193.136.128.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BA0370D71;
-	Tue, 24 Mar 2026 14:33:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746C23FD121;
+	Tue, 24 Mar 2026 14:36:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.136.128.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774362840; cv=none; b=hOo+RSMJ/cSnUhnkuv0W3tjiBA4hL1ggVp5jRiJyDvnmMN24MOa02WFITTL7ZAjoev20V4Eu2aTD9jFdg4wdnfE14CEnW2N5puYZXANo1LOj1ocBq2ucaJwym8QYEOZJpe2HkLYCWZWwUlZxo5r30I+BfFFZs4gdSNiwXayMVSs=
+	t=1774363019; cv=none; b=UliiiskPms3EYtA7sYOYiqioLQTLvWD1Bjh60/VWRDLvScEF076IU9IsuCBF7/En0PkpcDL+76RlqfvzeQ8mpYnTMkUyCqLZ36TXyaXAcBhj5ssWKOYx8bsEzIww4OwKcmzJVK199zzG68Dal+TZ+zBfYtE7GRChMn4NtXzj0Yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774362840; c=relaxed/simple;
-	bh=Sfm03RBcqzghHfJuiqYjZmL9+CWFB0+6xctSSsfbLWk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PxsEsarnWPFFnx5mNk51KoZS6LYtziEK59JbDF7MWCXG8F925d3fZ7WJ2xFl2PUZEX97YJXM4bjTAXd/ItXcW2cJNg+SllaJBu1CNaYd6nk6jFLp3ZjAhvLQKY2/TW6NBuXw2Z724fgJ+iboUb5jnhjqhwg9zlqkxKOmNgI0xr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=mbecJxAu; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=owug9S5k; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1774363019; c=relaxed/simple;
+	bh=oJP7qI2REKO4LiflVR31WZ7BIRLbL4ifu7guzzThvyo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=o1Phn2mbwyWtfkbcCGGSEPCH+J2Ai74oLaUoWC+V290++GMqTKXhja9BunUIvZJ9whoq3ZIvWcNtHaRZJfLyWA6Oq82nEwuB4muS4vnReCXVl1+KzoZAgnIKfXw5xdtJQ0cmOAcs0rQr9MQNRC+ekvaMfCR2zzuJcIPCyF/XY6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tecnico.ulisboa.pt; spf=pass smtp.mailfrom=tecnico.ulisboa.pt; dkim=pass (2048-bit key) header.d=tecnico.ulisboa.pt header.i=@tecnico.ulisboa.pt header.b=Fpx0AwDk; arc=none smtp.client-ip=193.136.128.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tecnico.ulisboa.pt
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tecnico.ulisboa.pt
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="mbecJxAu";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="owug9S5k"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4fgCGC2h1Sz9vHX;
-	Tue, 24 Mar 2026 15:33:55 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1774362835;
+	dkim=pass (2048-bit key) header.d=tecnico.ulisboa.pt header.i=@tecnico.ulisboa.pt header.b="Fpx0AwDk"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp1.tecnico.ulisboa.pt (Postfix) with ESMTP id 3BCAE600230C;
+	Tue, 24 Mar 2026 14:36:52 +0000 (WET)
+X-Virus-Scanned: by amavis-2.13.0 (20230106) (Debian) at tecnico.ulisboa.pt
+Received: from smtp1.tecnico.ulisboa.pt ([127.0.0.1])
+ by localhost (smtp1.tecnico.ulisboa.pt [127.0.0.1]) (amavis, port 10025)
+ with LMTP id ZFZeKCH7NTFC; Tue, 24 Mar 2026 14:36:49 +0000 (WET)
+Received: from mail1.tecnico.ulisboa.pt (mail1.ist.utl.pt [IPv6:2001:690:2100:1::b3dd:b9ac])
+	by smtp1.tecnico.ulisboa.pt (Postfix) with ESMTPS id 8F9D960022FE;
+	Tue, 24 Mar 2026 14:36:49 +0000 (WET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tecnico.ulisboa.pt;
+	s=mail2; t=1774363009;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Mqk3zd0vAxbDi/5mlXVc3BFXCT+o69PX3fU4fgQH7Sw=;
-	b=mbecJxAuIMIH3Ch9AtQeri0jWVvMkP8I8dllYEyBXUhy0Mv8eARsRLOMPudWNPBoXr6IsS
-	Zpsvm8e9+oWUvWFcGsGnVwyecOZVfqPuR0zjB3Z3Fw8HeUf66kUcykwp3LBVmnm8+vYs8Q
-	qV3McdI7wGKb/ira5JZoF2K9AXSxg0JCpR9YqeId+9JIxxR8cHiadeUfGfKN8mcAUxjnL2
-	5ZiOdeH4NTiZyvTHkB6zTg52AV61PpAiiQs8g6Nug7ojg1EP8YDtoVHJOGXorrNQ6uQjbF
-	nRfbel4nvYYH0GatdWuFxpeuIo/Q/xHLdxtDWrEivgoB2q+n5cYANOVnCc9WhA==
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1774362833;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Mqk3zd0vAxbDi/5mlXVc3BFXCT+o69PX3fU4fgQH7Sw=;
-	b=owug9S5k4ghRHnxaYSYBgR7qRRdEqLHEse0Ha6chP+8nf37arN4MSAxcEDF+UOiL+FxYy8
-	DUpS/FlIFPCsUVyZpe3VTNlY8fLX/b1lTDfJawa6gI/GykOyh0LglxGUYCHxxVdY9rrB4c
-	dEmIeNOXyc0QSaXn9HHAnuoN5S2LfHSgtcBpnP3GWxY6PpSEkfnFKLChfqom1UTyHn5jPF
-	9COwCjWo9piE30x2tk1AowM0NYjSxSdHlciibwOqvuPw6od0ATm/cYaA5DZdrGP12hSFOw
-	f326nTKaXTv9MYsRR6Luh73gtLqifQb++S15t3vj5+WH3gORulwYPEhpM6dCPA==
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	stable@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH] arm64: dts: renesas: sparrow-hawk: Reserve first 128 MiB of DRAM
-Date: Tue, 24 Mar 2026 15:33:28 +0100
-Message-ID: <20260324143342.17872-1-marek.vasut+renesas@mailbox.org>
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2zWSTkt+TZRxqfL4or/GcsQYMaV+0vZsmOBl4HXog6Y=;
+	b=Fpx0AwDkYLWE5tsos9uLbjPzDgbdmM4oPrNAjmV5hWv/npcEazDQyw7pdrNmDrzsFrWZ3u
+	sAJx58RBRUDAebkdnpaRxj2DRU4fchddeTeY2JWgqfy+nNSFtNdLpL2xL4V8zDW8sxOusL
+	SivlaHAF+/O7PZtvMVEOUrYwDqykgw0FaxDHX/aIG+0p2LH/pmQUOxSkHko8LDJPrd+Pfe
+	hHEbGYCJ8QrFyG1GOLQ6TGt/wJxi/TDEHt/9NNzoCyv9mR4w2dTgLyVueqdUlGGBjRogDr
+	bPZAkwUJ3Jtw07pcg14V8QLrMz0ZNPqAnln6Be3qad7beJgjr8HQfYggksykRA==
+Received: from [192.168.2.116] (unknown [148.63.39.39])
+	(Authenticated sender: ist187313)
+	by mail1.tecnico.ulisboa.pt (Postfix) with ESMTPSA id 44B1D360194;
+	Tue, 24 Mar 2026 14:36:48 +0000 (WET)
+Message-ID: <2c7fa782-f7f1-43c6-bda4-296fa7ab88c2@tecnico.ulisboa.pt>
+Date: Tue, 24 Mar 2026 14:36:46 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: ff339114a086be2d558
-X-MBO-RS-META: bdah8foftyj3w1iz9kz7webosjn7f446
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/6] phy: tegra: xusb: Move T186 .set_mode() to common
+ implementation
+To: Jon Hunter <jonathanh@nvidia.com>, Mathias Nyman
+ <mathias.nyman@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thierry Reding <thierry.reding@gmail.com>, JC Kuo <jckuo@nvidia.com>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-usb@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org
+References: <20260127-diogo-tegra_phy-v2-0-787b9eed3ed5@tecnico.ulisboa.pt>
+ <20260127-diogo-tegra_phy-v2-6-787b9eed3ed5@tecnico.ulisboa.pt>
+ <af04fc85-1ed4-4046-86ee-1ffcec8c44cd@nvidia.com>
+ <5a5397c8-cc32-4d6b-86a4-76f924ae6d75@tecnico.ulisboa.pt>
+ <7a6f8967-c635-4d84-bbab-9e019ff79134@nvidia.com>
+Content-Language: en-US
+From: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
+In-Reply-To: <7a6f8967-c635-4d84-bbab-9e019ff79134@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Mark the first 128 MiB of DRAM as reserved. The first 128 MiB of DRAM
-may optionally be used by TFA and other firmware for its own purposes,
-and in such case, Linux must not use this memory.
 
-On this platform, U-Boot runs in EL3 and starts TFA BL31 and Linux from
-a single combined fitImage. U-Boot has full access to all memory in the
-0x40000000..0xbfffffff range, as well memory in the memory banks in the
-64-bit address ranges, and therefore U-Boot patches this full complete
-view of platform memory layout into the DT that is passed to the next
-stage.
 
-The next stage is TFA BL31 and then the Linux kernel. The TFA BL31 does
-not modify the DT passed from U-Boot to TFA BL31 and then to Linux with
-any new reserved-memory {} node to reserve memory areas used by the TFA
-BL31 to prevent the next stage from using those areas, which lets Linux
-to use all of the available DRAM as described in the DT that was passed
-in by U-Boot, including the areas that are newly utilized by TFA BL31.
+On 3/24/26 13:33, Jon Hunter wrote:
+> 
+> 
+> On 24/03/2026 11:31, Diogo Ivo wrote:
+>>
+>>
+>> On 3/24/26 10:16, Jon Hunter wrote:
+>>>
+>>> On 27/01/2026 15:11, Diogo Ivo wrote:
+>>>> Move the Tegra186 PHY .set_mode() callback to a common implementation.
+>>>> In order to do this first revert cefc1caee9dd.
+>>>
+>>> This commit message does not seem complete.
+>>
+>> How so? It is succint but it states exactly what the commit does. It
+>> reverts cefc1caee9dd and changes T186 to the common implementation
+>> prepared in the previous patch.
+> 
+> It does not read clearly to me. The 2nd sentence sounds like that's all 
+> this is doing but we are not, we are reverting and doing the move.
+>>> Furthermore, I am not sure why we want to revert cefc1caee9dd. We 
+>>> purposely moved the regulator_enable/disable into 
+>>> tegra186_xusb_padctl_id_override() because it is tied to setting the 
+>>> USB2_VBUS_ID. So I would prefer to keep it this way and move the 
+>>> Tegra210 implementation in the same direction (if possible).
+>>
+>> I don't agree that this is the best solution.
+>>
+>> We really benefit from a common implementation for the two platforms, not
+>> only because of duplicate code but more importantly because without it
+>> whenever a bug is found and fixed on either platform it most likely will
+>> not be fixed on the other one. Case in point, cefc1caee9dd fixed a bug
+>> on T186 but not the same bug on T210 (which then led to this series) 
+>> since
+>> the implementation was not shared among them. Were it the case that they
+>> shared the implementation the fix would have come "free" for T210.
+>>
+>> This will keep happening for as long as we have duplicate 
+>> implementations,
+>> which becomes more relevant since there is a severe lack of testing in
+>> older Tegra platforms. I also thought about making the id_override()
+>> implementation shared between T186 and T210 but that would be take more
+>> changes since register definitions would need to be moved somewhere
+>> else too.
+> 
+> I am all for a common implementation. I believe that in the 
+> tegra186_xusb_padctl_id_override() function the only thing that is 
+> different is the offset for the USB2_VBUS_ID register, which should be 
+> easy to handle.
 
-In case of high DRAM utilization, for example in case of four instances
-of "memtester 3900M" running in parallel, unless the memory used by TFA
-BL31 is properly reserved, Linux may use and corrupt the memory used by
-TFA BL31, which would often lead to system becoming unresponsive.
+Ok, I can make it common there as well. However I still feel like
+reverting cefc1caee9dd leads to cleaner code since vbus_override() and
+id_override() will look similar and only do exactly what they state in
+their names and the overall logic looks cleaner.
 
-Until TFA BL31 can properly fill its own reserved-memory node into the
-DT, and to assure older versions of TFA BL31 do not cause problems, add
-explicitly reserved-memory {} node which prevents Linux from using the
-first 128 MiB of DRAM.
+Diogo
 
-Note that TFA BL31 can be adjusted to use different memory areas, this
-newly added reserved-memory {} node follows longer-term practice on the
-R-Car SoCs where the first 128 MiB of DRAM is reserved for firmware use.
-In case user does modify TFA BL31 to use different memory ranges, they
-must either use a future version of TFA BL31 which properly patches a
-reserved-memory {} node into the DT, or they must adjust the address
-ranges of this reserved-memory {} node accordingly.
-
-Fixes: a719915e76f2 ("arm64: dts: renesas: r8a779g3: Add Retronix R-Car V4H Sparrow Hawk board support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
----
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Magnus Damm <magnus.damm@gmail.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
----
- arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts
-index bcf8270a3ed9a..714fcaf8a846e 100644
---- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts
-+++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts
-@@ -118,6 +118,17 @@ memory@600000000 {
- 		reg = <0x6 0x00000000 0x1 0x00000000>;
- 	};
- 
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		tfa@40000000 {
-+			reg = <0x0 0x40000000 0x0 0x8000000>;
-+			no-map;
-+		};
-+	};
-+
- 	/* Page 27 / DSI to Display */
- 	dp-con {
- 		compatible = "dp-connector";
--- 
-2.53.0
-
+> Jon
+> 
