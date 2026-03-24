@@ -1,112 +1,108 @@
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F453D667D
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 17:05:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7B039EF28;
+	Tue, 24 Mar 2026 17:08:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774371945; cv=pass; b=bvTsQ6O5v42JvsHlJyJtZ0DJdjFVo2v/wGoH6E+55W6XCJuyWeq6be7lvs6ZvNQzrAKhDsJIGilX2Q1SdUmYi+izIbxUl0+bzRALNvRHzltNLdkb2LriXIGEKpeXxEE7Q1VCWw8LkTuB2xRT7etW5c86lEFl/x6cZne/4aFBUSA=
+	t=1774372112; cv=pass; b=DZ22cq86nzjGae12pLegzd5BSbP6V4OT7EcAM/19cT/Y5TB4p4X4n9tWPGlwEXdr+ocxDUM+q0DhBut+yEXY/l7GRJJ9Njr5mEq0aQY0mYJH07fFdOpWl5Ngho59vslye7Dx6bHRKkjwJIPE+PYvXC/oVzkG8yn2784eawe+xhk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774371945; c=relaxed/simple;
-	bh=7U+uS9u3k8MKiXu31MQXeVeNe3hExuIgcOumm3duMAE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Vi8Jv6la9lUdET60ZiUKwPi4JY9g/qwV9Y5aQjvRS5KEZ9/RmLA6XY24nJcHPIyhXAMUkPf+dySa1Z1ypXXIIUTVv2EvE63Cy6VRfjMg78RXVWNjjraSy5P6YU+vHx5ZKzjdOX8WGCS0SexJB2Yf1BOV58ha0ihaf0DigfdD/1k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FzopNHcq; arc=pass smtp.client-ip=209.85.167.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774372112; c=relaxed/simple;
+	bh=oez9X9T7SSS1IgzkoqM6yD7VrW8TgS7l91smZUvHSC4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XrHJpsZ61vNfgth9VA3qdbqqCjhdra4kIi07p+W9UBWUOsT/8VPXu/+1O2le/URVaExe0tnlOZK5s0iSfiiih9dyZ6iVTnasXUDi8VdpwrNyWIrPTbxqr/IhhnyBcNof1ZsQoIpaXe1BeRn5gMDICHTA2rRTA61CtDhpoPpfhFo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=iDX/j8WO; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FzopNHcq"
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5a12c19affeso158579e87.1
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 10:05:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774371942; cv=none;
-        d=google.com; s=arc-20240605;
-        b=CrFf/FeF+yTnCtVLzkF/VfUTzXLh0XTVq4jxzMy9myWmImwQqyeYfDrN/XQ7QwaGZA
-         MpqYM1BVdwJqheGmKGnOQhTGX7Pu8gfy2FivimoOVJYQogCSt9JmrVk1rnNExoNWMvXo
-         ky3RB6/qLBwXpJeFKL8oKepCBSQDsKvSdpszxxXZyK88SiRi3WaW5fTzUw3QB3QybdEd
-         y2x1Jp5kk4yVe1BoqSRmK8y2S+PgyYip/AzOme3lejj0Pp9+gY7iLJq6Z/rd0aGixrOf
-         T/c/bmR1x3BOiP5Jhw6YSXwBk92vUOe/gnfXb2aGC/UjNun/Q6QcqQyX0woj59qMnrkM
-         /eiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7U+uS9u3k8MKiXu31MQXeVeNe3hExuIgcOumm3duMAE=;
-        fh=+P/mExnOT6YHnO4DHXKd6K9A60/5PJQOAakP0FvZg7s=;
-        b=GBavAqgv/1QYZ8/uIwvA/8zk/q2KHgrgUxXvvxhrJvrIKiOgJ75ui4Npta6jOyxRjk
-         AxIdXVDo6YIGYNfmVz9mR2LVmv1dOoYfC7vanzzEui3U86jfKvl27Jgn8waKQO1e5NYc
-         t5pHJQtNUXoQIU/J996ggBK0IelcgQbPVzYbW47Qqub1b8aisP+QvIbkWpaak7mZTWgp
-         uDbSc0maFf9IhAyey6YuediB+jhX3IjYWn8TuEjNct5IprDlzUdVrmCDpn9Bpx1i8wbA
-         jqz4apVJZ6qyivpPp2WnZmXqWW34hrE/b9ZglWBDvasj6ztKI40kXGabxYec2v3hCBX9
-         o32g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774371942; x=1774976742; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7U+uS9u3k8MKiXu31MQXeVeNe3hExuIgcOumm3duMAE=;
-        b=FzopNHcqiTJOhkLSJd1WnE/fGB/6O0plB5hJgbZAMRnZfyX6FVeVd2o+LpsdbAsr+8
-         teTQoZc7KV+S1uz90jg4WIq24przdQya3UN8iT8+IO8ivs9e3onNi/OXKb/H/iEouTs5
-         29gJfs7R1LkUmkTrzb2B87TRTylcojjYUzMlme/CiWdQPdUBCa3DQ0M5jE/8qyzOxCpb
-         agXQdiW5DWTRpj2Joc4AqHLp9nFhDuuD+/vPwdSQ6Vpr6tBUNuesjCGFhnKAiDGK8fki
-         vsq4AEzixDC4c2q8llF4qg0GsuZMK0VmUyIVn+AyCk9Fu8u5Y9EjQYh5102/8htXHYAv
-         FFEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774371942; x=1774976742;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=7U+uS9u3k8MKiXu31MQXeVeNe3hExuIgcOumm3duMAE=;
-        b=XQwZb/LvSFRmUOt/nQie9fcAZLXeZh8hVtMSnFmd30GO3e78I1wwce7j0gfCjvttpl
-         Qp4CzNlP9njoR2WS99quvZQctwsBwh+Mx8XsdkMuyHOBDcOButuyxXvxf4/dmk24f9Iv
-         DrjPBlPCjz0cPIVsmzH/al7fh26uuiwYWtZ22Rl0l19YGle07/56EuUMtlDFGJlhg/Nl
-         L8mGO+gFn8Y6FmwO+61wDg/yq8y9tKFoBlJTwgSeJ7xnU2qHz+YjYwQXnirEAmklU/5p
-         XygyoMwiY+CCEMfQBkmQ5anO2EXq1bh1kTxu/iTmkaI7U5xKnSPObAK9EuwxZv71wn50
-         wVJA==
-X-Forwarded-Encrypted: i=1; AJvYcCXZzqOv9FUDsrMHmuX4fTr9qZJgLn0AaGslmud2E/9agEPJRSEx8+ukA0u750wIRNB66MeqrB7es7ZS@vger.kernel.org
-X-Gm-Message-State: AOJu0YwLHmsYJiWlJ6eto2QS1NnM+zbxALUzsJyfzoRBWLp68YsUdc1i
-	toiSOKilBB/8DezcropXefbM1TnRNJaLMoOawTKfBeLX++9gEQRZbiH9z8MQ1yldcwmGQIguiOq
-	Mz0sLVuW9vS61oE2Or+hxeOm7bdGEofc=
-X-Gm-Gg: ATEYQzxBZAcr8Q0MaX1ALZ/wzkUWpfwWIedqKmcTbUi2Ns8S9krkGWDGbI6AXQO4xz6
-	YEa1SSh2MuYX85884LGr5o2wvKRFcpu8Vjq79USrhWEqEhQpQiqiAjEvCaM6BEH2IL5UFvIwSqD
-	4p16ff1HFqqzAdD0yL5RCefbyfm3Ph1iYy3FIf1ElUgWiTvZrPOvFnxv756WbdpEyn9LR/3ALFE
-	/WBqMp6ijFoMxFxVtH7ZC+YIEk/TTDH1209Dcy9Gpx5Aq0G9oWNXcCpDf/T+3+Bnp8qOH0sTeQb
-	uEvsE6/RFq9hW18wgu3RDAPMxaGzU2HbAfh/RDcdkkWFtBVO3U+PUU+X+hgXppmHXIpH4sry
-X-Received: by 2002:a05:6512:a85:b0:5a1:357d:8d5c with SMTP id
- 2adb3069b0e04-5a296217bdcmr1702664e87.16.1774371941838; Tue, 24 Mar 2026
- 10:05:41 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="iDX/j8WO"
+ARC-Seal: i=1; a=rsa-sha256; t=1774372085; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=MYHkYxhl1kzsmMPu+YSWcmmrZLgIFDepwqCYYTJVmnWBBiOSPXoeNy7/5b6gDQStizKS9VNvUz0zjveuguJXJy48VYplJsPVWgklwVT/ZTpA7Xgj25ODq6uSVtM48MaZPDcGlI8RdTVY/+QFb4VMHF70YGAHtj0MY8bpOPx1zBM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1774372085; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=yis1W3CG/QCQD456WDjoHGPyDG1Mp4/onsEgXHy2b14=; 
+	b=T5telFO8kWN0M5y2Oyx5U4Te9xi+q909DUtU0a0LNq9Jo5NvPuhd+Whw4dmsIv6ifHjE2ljzkysofhhV/fumQjCJeMFo/9UgZPlkCkty3OXEiNo+/3NRF5Mq40ONsdLlD33U+d2ckXkefX5tGrRseF/TxjjK+mcoDEoi7hJQ0lQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ziyao.cc;
+	spf=pass  smtp.mailfrom=me@ziyao.cc;
+	dmarc=pass header.from=<me@ziyao.cc>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774372085;
+	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=yis1W3CG/QCQD456WDjoHGPyDG1Mp4/onsEgXHy2b14=;
+	b=iDX/j8WOlY/iWQX7G/cLaG8bbz1UIdDs5XuFY4SgibTZIcUKEEuV2I2ZwrebApkN
+	HoT00F82R+5XhE8SrHQp+xK0kIyp2RpaGW8cHuycHMacYW5H65pxZUolcj8VYEwT4UC
+	kT62Rtc39TNjWUTBsLoSunrHGoVql1JyUy1aw0j8=
+Received: by mx.zohomail.com with SMTPS id 1774372083024696.6013806809772;
+	Tue, 24 Mar 2026 10:08:03 -0700 (PDT)
+Date: Tue, 24 Mar 2026 17:07:51 +0000
+From: Yao Zi <me@ziyao.cc>
+To: Yixun Lan <dlan@kernel.org>, Aurelien Jarno <aurelien@aurel32.net>
+Cc: linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	"open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
+Subject: Re: [PATCH 4/6] riscv: dts: spacemit: enable QSPI and add SPI NOR on
+ Milk-V Jupiter
+Message-ID: <acLE5xnEBoCtW4Vw@pie>
+References: <20260322203356.2206927-1-aurelien@aurel32.net>
+ <20260322203356.2206927-5-aurelien@aurel32.net>
+ <20260324090220-GKA739629@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260313131058.708361-1-festevam@gmail.com> <177437057319.780275.6126712599317976655.b4-ty@sntech.de>
-In-Reply-To: <177437057319.780275.6126712599317976655.b4-ty@sntech.de>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Tue, 24 Mar 2026 14:05:30 -0300
-X-Gm-Features: AaiRm52B2IjL4-VNNNNf6qbXItPEmRzE8Gd8zkY8yJVdgm6pvTVEQP-i1uoWhTg
-Message-ID: <CAOMZO5DnC9ZB1w51iHQUmmhhAs4RSy=B__Es4=zgtfSvbCWEhA@mail.gmail.com>
-Subject: Re: [PATCH v7 1/4] dt-bindings: soc: rockchip: grf: Add RV1103B compatibles
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	shawn.lin@rock-chips.com, Fabio Estevam <festevam@nabladev.com>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260324090220-GKA739629@kernel.org>
+X-ZohoMailClient: External
 
-Hi Heiko,
+On Tue, Mar 24, 2026 at 05:02:20PM +0800, Yixun Lan wrote:
+> Hi Aurelien,
+> 
+> On 21:28 Sun 22 Mar     , Aurelien Jarno wrote:
+> > Add the QSPI controller node for the Milk-V Jupiter board and describe
+> > the attached SPI NOR flash (GD25Q64E).
+> > 
+> > The flash supports a frequency up to 133MHz (80 MHz for reads), and the
+> > SoC supports a frequency up to 104 MHz. However tests have shown that
+> > the flash is not reliably detected above 26.5 MHz, consistent with
+> > frequency used in the vendor kernel. Therefore, use this frequency.
+> > 
+> ..
+> > The m25p,fast-read properties is taken from the vendor kernel.
+> > 
+> So long as this is verified and works fine on board?
+> 
+> > Add a corresponding flash partition layout, matching the layout and the
+> > names used in the vendor U-Boot.
+> > 
+> ..
+> > Also add the bootph-pre-ram property to make the device tree usable by
+> > early firmware/bootloaders without modification, as U-Boot is stored on
+> > this NOR flash.
+> Is the dtb file actually used by U-Boot? I'd highly doubt about this,
+> if not the case or has not been tested, I'd suggest then not to add
+> this property..
 
-On Tue, Mar 24, 2026 at 1:45=E2=80=AFPM Heiko Stuebner <heiko@sntech.de> wr=
-ote:
+Currently no, but it would be a bogus if we could do it at introduction
+of the device, if it's really necessary in pre-DRAM stages of
+bootloaders, e.g. U-Boot SPL. This would reduce the duplicated work of
+downstream projects if they decide to switch to Linux upstream
+devicetree.
 
-> And dropped the watchdog node for now.
->
-> Please resubmit that one, once the watchdog compatible went
-> into the watchdog tree (and drop the status=3Ddisabled from
-> the wdt node, as the watchdog is not dependent on supplies
-> from the board dts)
+As SpacemiT K1 supports booting from flash, the description of flash
+nodes are likely useful for pre-DRAM bootloaders.
 
-I'll do it as suggested, thanks!
+> > 
+> > Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
+
+Best regards,
+Yao Zi
