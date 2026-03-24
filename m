@@ -1,220 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4793F3FBEA6;
-	Tue, 24 Mar 2026 16:43:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C9B3FBEB9;
+	Tue, 24 Mar 2026 16:44:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774370590; cv=none; b=UaUzVjcYdXMEPmrgwjJ2VKYlcLxInmnKwN4Xxh01WK9I1O6DumneYcFQoUviQjmSHRrdtcbSsEBb4V/T9NYWBD57wPXHF+UUfDtUZVwnGcqwbMr0svaqMGKWMQpK+sJXcbIC2JLSWEXQqpApyMdfdX4n5dgs5ORLzpzNL7T2tzI=
+	t=1774370643; cv=none; b=oB4YOOJusOT4xCR+axkQ1xqsiGwsyWMYoRufKu3/pK1MfBHZM16o3R87SI2Ph+dK4LAUFjRefbUvcdwD0Fz5FsMOYIKdWxgGTr4p22IaXAx/1oaoWX4UTscmLex3q6jjaUnwGRMUoivmIlUBHx4w8t4kOXXHxE1XrKdLwMxalac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774370590; c=relaxed/simple;
-	bh=rPwXPqpxqGjwXWV5oKmXOPdHJyLJEDqfkcEG9hr97Pw=;
+	s=arc-20240116; t=1774370643; c=relaxed/simple;
+	bh=iRKS7gv8fCvjYKMqPMFIbD72v7V5hcNF6WcvPrFlSRo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cHNzJJBRdHG7kGXseMCH1S41TFGbQhGtCdLm5rfD9Gc9N14Q1MeqzvC8XEbYO7n05cYYk0EIJ4jH8Woe/Nxkm9EePsmqg6MSE9OuYdG15R/v1aRvxM1oY6PKG/LWagLxUQ6T0v44Z6mqmmO7dUiZIZjqaV0wVtIg2lRMeYe68qA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dWKloWIu; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version; b=FtgkWeLgPLd+FujuttYDNbtBLJ6D9qFdlEPUFGLIYvab3FoQzj9jtCJcJfTg80tgF55Cbnj/pNJvqKV30ogMAQGiAxyDoeXTwqiSQKc4H0WeQr+iFJL3FfPwhFua2IH092dLVELqA2pNNjSL+Vboon44efrsRqk+zpMSlBRArlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aZC1wnIq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dWKloWIu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58D95C19424;
-	Tue, 24 Mar 2026 16:43:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aZC1wnIq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C16FFC2BC87;
+	Tue, 24 Mar 2026 16:44:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774370589;
-	bh=rPwXPqpxqGjwXWV5oKmXOPdHJyLJEDqfkcEG9hr97Pw=;
+	s=k20201202; t=1774370642;
+	bh=iRKS7gv8fCvjYKMqPMFIbD72v7V5hcNF6WcvPrFlSRo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=dWKloWIuyD2kQEflYjJHa+EVqWpu+DbR2qbrsnsRPeEsjLjwZ/dNK1v6Ct0YZ85z8
-	 gXJiBzemJGHs4JP3u1R6Dn4JC6IisnUDUZmy1Tv8uqCT+ETnUkGza1ePayOi+P2mVr
-	 zHbLHeVd/7LOpalcqEQt6jts/9elteBCEXCzvCehGbeR2ZNub4i9LEeClfygW/udeO
-	 OuN/YmbWObxyv8jHvvGxoBQuThG4tpiZ+EdIlA6MAJ49ToCp/yQJeZgP1ICWQABKRB
-	 ep0Rw/qBYFptH6rM1fUBTmOX8XS6oVLff4ICSg0LRO7+r/L24GO8J/SBWS3+YXDde/
-	 ysOFzBMR2mllg==
-From: Simon Horman <horms@kernel.org>
-To: wei.fang@nxp.com
-Cc: Simon Horman <horms@kernel.org>,
-	xiaoning.wang@nxp.com,
-	netdev@vger.kernel.org,
-	linux@armlinux.org.uk,
-	krzk+dt@kernel.org,
-	kuba@kernel.org,
-	andrew+netdev@lunn.ch,
-	chleroy@kernel.org,
-	andrew@lunn.ch,
-	conor+dt@kernel.org,
-	edumazet@google.com,
+	b=aZC1wnIqpt390sXCOeAD1YZhNVDEobbPtbLhavgjyVncHx+fw4LAXMLVlYf05pdE/
+	 0HS/vMx1srrnsL4/fR4Br3IwKK4lSgo5hvP+w0H8kzeK715ScmVQNw7QjKoIG1YhUV
+	 OvV8L8bakZ60LWvzbeauvAPsxlGCAcgg5uvWivDLoRystMAGmoXuCaYhBgyk2F7c6V
+	 VTAopkjvzFp9IlonJhWVa6JnyWfYtleA89/YBO9bLoyUJ/qcDcr3Q3pCTUctD/3Zir
+	 pQARZnGCx4oA/wuw5hljpxC2TbYDPMyZG+nRfR89Pt4YRwn6sqPk5oWLe1YeDJ8jEE
+	 00MFpRc1uQq2Q==
+Received: by wens.tw (Postfix, from userid 1000)
+	id A81265FEB2; Wed, 25 Mar 2026 00:44:00 +0800 (CST)
+From: Chen-Yu Tsai <wens@kernel.org>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej@kernel.org>,
+	Samuel Holland <samuel@sholland.org>
+Cc: devicetree@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
-	frank.li@nxp.com,
-	robh@kernel.org,
-	devicetree@vger.kernel.org,
-	claudiu.manoil@nxp.com,
-	f.fainelli@gmail.com,
-	vladimir.oltean@nxp.com,
-	linuxppc-dev@lists.ozlabs.org,
-	pabeni@redhat.com,
-	davem@davemloft.net,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev
-Subject: Re: [PATCH v2 net-next 13/14] net: dsa: netc: initialize buffer bool table and implement flow-control
-Date: Tue, 24 Mar 2026 16:42:30 +0000
-Message-ID: <20260324164234.238201-1-horms@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260323060752.1157031-14-wei.fang@nxp.com>
-References: <20260323060752.1157031-14-wei.fang@nxp.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/7] dt-bindings: sram: sunxi-sram: Add H616 SRAM regions
+Date: Wed, 25 Mar 2026 00:43:50 +0800
+Message-ID: <20260324164357.1607247-3-wens@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260324164357.1607247-1-wens@kernel.org>
+References: <20260324164357.1607247-1-wens@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
+The Allwinner H616 has two switchable peripheral SRAM regions:
 
-For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-local.html
+- The VE SRAM is a 2 MB dedicated SRAM for the Video Engine. CPU access
+  to this region is enabled by default. CPU access can be disabled,
+  after which reads will show the same stale value for all addresses,
+  while writes are ignored.
+
+  The mux value for this region is different from previous generations.
+
+- The SRAM C region is an alias of the first 128 KB of VE SRAM, plus 64
+  KB of DE SRAM. The latter is otherwise unaccessible from the CPU. When
+  CPU access is disabled, the whole region reads as zero, while writes
+  are ignored.
+
+  The mux value for this region is the same as on the A64 and H6.
+
+Add compatible strings for both of them.
+
+Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
 ---
-net: dsa: netc: initialize buffer bool table and implement flow-control
+ .../bindings/sram/allwinner,sun4i-a10-system-control.yaml    | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-The buffer pool is a quantity of memory available for buffering a group
-of flows (e.g. frames having the same priority, frames received from the
-same port), while waiting to be transmitted on a port. The buffer pool
-tracks internal memory consumption with upper bound limits and optionally
-a non-shared portion when associated with a shared buffer pool. Currently
-the shared buffer pool is not supported, it will be added in the future.
+diff --git a/Documentation/devicetree/bindings/sram/allwinner,sun4i-a10-system-control.yaml b/Documentation/devicetree/bindings/sram/allwinner,sun4i-a10-system-control.yaml
+index e7f7cf72719e..6e6ab2168a2a 100644
+--- a/Documentation/devicetree/bindings/sram/allwinner,sun4i-a10-system-control.yaml
++++ b/Documentation/devicetree/bindings/sram/allwinner,sun4i-a10-system-control.yaml
+@@ -80,6 +80,7 @@ patternProperties:
+               - const: allwinner,sun4i-a10-sram-c1
+               - const: allwinner,sun4i-a10-sram-d
+               - const: allwinner,sun50i-a64-sram-c
++              - const: allwinner,sun50i-h616-ve-sram
+               - items:
+                   - enum:
+                       - allwinner,sun5i-a13-sram-a3-a4
+@@ -103,7 +104,9 @@ patternProperties:
+                       - allwinner,sun7i-a20-sram-d
+                   - const: allwinner,sun4i-a10-sram-d
+               - items:
+-                  - const: allwinner,sun50i-h6-sram-c
++                  - enum:
++                      - allwinner,sun50i-h6-sram-c
++                      - allwinner,sun50i-h616-sram-c
+                   - const: allwinner,sun50i-a64-sram-c
+ 
+ required:
+-- 
+2.47.3
 
-For i.MX94, the switch has 4 ports and 8 buffer pools, so each port is
-allocated two buffer pools. For frames with priorities of 0 to 3, they
-will be mapped to the first buffer pool; For frames with priorities of
-4 to 7, they will be mapped to the second buffer pool. Each buffer pool
-has a flow control on threshold and a flow control off threshold. By
-setting these threshold, add the flow control support to each port.
-
-> diff --git a/drivers/net/dsa/netc/netc_main.c b/drivers/net/dsa/netc/netc_main.c
-> index 4b331971dd8c..2a7ad39f8bed 100644
-> --- a/drivers/net/dsa/netc/netc_main.c
-> +++ b/drivers/net/dsa/netc/netc_main.c
-
-[ ... ]
-
-> @@ -617,6 +628,80 @@ static int netc_add_standalone_fdb_bcast_entry(struct netc_switch *priv)
->  				       bcast, NETC_STANDALONE_PVID);
->  }
->
-> +static u32 netc_get_buffer_pool_num(struct netc_switch *priv)
-> +{
-> +	return netc_base_rd(&priv->regs, NETC_BPCAPR) & BPCAPR_NUM_BP;
-> +}
-> +
-> +static void netc_port_set_pbpmcr(struct netc_port *np, u64 mapping)
-> +{
-> +	u32 pbpmcr0 = lower_32_bits(mapping);
-> +	u32 pbpmcr1 = upper_32_bits(mapping);
-> +
-> +	netc_port_wr(np, NETC_PBPMCR0, pbpmcr0);
-> +	netc_port_wr(np, NETC_PBPMCR1, pbpmcr1);
-> +}
-> +
-> +static void netc_ipv_to_buffer_pool_mapping(struct netc_switch *priv)
-> +{
-> +	int num_port_bp = priv->num_bp / priv->info->num_ports;
-> +	int q = NETC_IPV_NUM / num_port_bp;
->                ^^^^
-
-Can this cause a division by zero?  If netc_get_buffer_pool_num() reads
-the hardware register NETC_BPCAPR and returns 0, then num_port_bp would be
-0 and this division would crash the kernel.
-
-The call chain is:
-
-netc_setup()
-  netc_switch_bpt_default_config()
-    priv->num_bp = netc_get_buffer_pool_num()
-    netc_ipv_to_buffer_pool_mapping()
-      num_port_bp = priv->num_bp / priv->info->num_ports;
-      q = NETC_IPV_NUM / num_port_bp;  <- division by zero
-
-Should netc_switch_bpt_default_config() validate that priv->num_bp is
-non-zero before proceeding?
-
-> +	int r = NETC_IPV_NUM % num_port_bp;
-> +	int num = q + r;
-> +
-> +	/* IPV-to–buffer-pool mapping per port:
-
-[ ... ]
-
-> +static int netc_switch_bpt_default_config(struct netc_switch *priv)
-> +{
-> +	priv->num_bp = netc_get_buffer_pool_num(priv);
-> +	priv->bpt_list = devm_kcalloc(priv->dev, priv->num_bp,
-> +				      sizeof(struct bpt_cfge_data),
-> +				      GFP_KERNEL);
-> +	if (!priv->bpt_list)
-> +		return -ENOMEM;
-> +
-> +	/* Initialize the maximum threshold of each buffer pool entry */
-> +	for (int i = 0; i < priv->num_bp; i++) {
-> +		struct bpt_cfge_data *cfge = &priv->bpt_list[i];
-> +		int err;
-> +
-> +		cfge->max_thresh = cpu_to_le16(NETC_BP_THRESH);
-> +		err = ntmp_bpt_update_entry(&priv->ntmp, i, cfge);
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	netc_ipv_to_buffer_pool_mapping(priv);
-> +
-> +	return 0;
-> +}
-> +
-
-[ ... ]
-
-> @@ -1224,6 +1313,40 @@ static void netc_port_set_hd_flow_control(struct netc_port *np, bool en)
->  			  en ? PM_CMD_CFG_HD_FCEN : 0);
->  }
->
-> +static void netc_port_set_tx_pause(struct netc_port *np, bool tx_pause)
-> +{
-> +	struct netc_switch *priv = np->switch_priv;
-> +	int port = np->dp->index;
-> +	int i, j, num_bp;
-> +
-> +	num_bp = priv->num_bp / priv->info->num_ports;
-> +	for (i = 0, j = port * num_bp; i < num_bp; i++, j++) {
-> +		struct bpt_cfge_data *cfge;
-> +
-> +		cfge = &priv->bpt_list[j];
-> +		if (tx_pause) {
-> +			cfge->fc_on_thresh = cpu_to_le16(NETC_FC_THRESH_ON);
-> +			cfge->fc_off_thresh = cpu_to_le16(NETC_FC_THRESH_OFF);
-> +			cfge->fccfg_sbpen = FIELD_PREP(BPT_FC_CFG,
-> +						       BPT_FC_CFG_EN_BPFC);
-> +			cfge->fc_ports = cpu_to_le32(BIT(port));
-> +		} else {
-> +			cfge->fc_on_thresh = cpu_to_le16(0);
-> +			cfge->fc_off_thresh = cpu_to_le16(0);
-> +			cfge->fccfg_sbpen = 0;
-> +			cfge->fc_ports = cpu_to_le32(0);
-> +		}
-> +
-> +		ntmp_bpt_update_entry(&priv->ntmp, j, cfge);
->                 ^^^^
-
-Should the return value of ntmp_bpt_update_entry() be checked here?
-
-Simon Horman noted in v1 review that other NTMP table operations in the
-driver propagate errors from the update functions. While this was fixed
-in netc_switch_bpt_default_config() in v2, the same issue remains here.
-
-If the hardware update fails (for example, DMA allocation failure or
-hardware timeout), the driver's bpt_list will have flow control values that
-do not match the actual hardware state, potentially causing incorrect flow
-control behavior.
-
-https://lore.kernel.org/netdev/20260318145452.1898637-2-horms@kernel.org/
-
-> +	}
-> +}
-> +
-
-[ ... ]
