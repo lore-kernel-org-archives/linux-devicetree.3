@@ -1,184 +1,142 @@
-Received: from server.couthit.com (server.couthit.com [162.240.164.96])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07E7473463;
-	Tue, 24 Mar 2026 06:02:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.240.164.96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BDF13A3803;
+	Tue, 24 Mar 2026 06:04:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774332154; cv=none; b=V6BDUKo/oaLlucNB2mT0tPoY3APDsqCxLZ5swlirn9AX3kKclxxXPLOzSg4wJxwimfjSpqqUn3l367BGfAHEBRCi4OjfboxGYzgG3xC9zR5/HuqY9E2KgUxINmiFep+AYA4fOgmr0nYKCSLUxsuNlIj4MQHA2eVr5qmEJAIhJ3E=
+	t=1774332267; cv=none; b=hNEZSKVb0nwZsg9IbUl7386MEaXbTcoJ9uvyRquKsMwvC0S2oq6yBYpToivXVAgLgUUhh83JwURHxu8KlVEBUelMvGLW2/AhuhZ1Om2YUFB6KdSS9KOP+VbNzMUNpOe8oWRwxugZT36VeZsuGBHj1vUCtgCvQEvFtqJFNziWgag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774332154; c=relaxed/simple;
-	bh=MtAiD6nGtZdCXNIhEYglkVSg0RT41DaluimaqjEk3EQ=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=qnic6AmRoQjmQ+aTr8/NlOIwpl5iXDtqeHdhqPPBflNKNia/+DK6/ejbSTNlf2qIqx1KOGGk4uM12JZbIgOICKytHtPAsBZWxPzgQ0Ohb0Bybq1xkBamqoIU14Yf8NDpzCOvch+3k3vuu6TLPLNa8rgbDQfcrh2msxwX90s3hIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=couthit.com; spf=pass smtp.mailfrom=couthit.com; dkim=pass (2048-bit key) header.d=couthit.com header.i=@couthit.com header.b=tzcFWWFd; arc=none smtp.client-ip=162.240.164.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=couthit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=couthit.com
+	s=arc-20240116; t=1774332267; c=relaxed/simple;
+	bh=d0yDgu1+lig7XVxiXnmWS3onIXGYgL+z5ygDA07EXjU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uQzJp71vga9L7fJMlOZMWpzzBCc/zcBscP/ArQMFSj4YIMDf2xmyr/QoWEuYGv7AFoBdtNE3/c9Zddw7DZrl0SNVRux4KY3pPa/2nE8429WWOOcFgZytM6OIJPeSOoOe1oiY6rhFyNi57moFUMOE1TjP/JA0XxirTo3dd465Ibo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=O44+cwX6; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=couthit.com header.i=@couthit.com header.b="tzcFWWFd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=couthit.com
-	; s=default; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:
-	References:In-Reply-To:Message-ID:Cc:To:From:Date:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=MojtjraalBHTyEvjeOihKABOGQ7O7vZI1JuIZljaMpg=; b=tzcFWWFdiQTe8BYOt9nt6/1kX0
-	C4ZLUAcI/cwc0pTZFXR6osQ66bE1xCIeq1xvQflmInLpdgEUJl4hnyvKwTSv2zhONoNRlxqqm3efE
-	rWx8d2oN4An3IYCNCzprzdQODm9gR/abFX+CbyxKcZE5FFRnG+bHfmp9DdysCs3O4E02Ze1YJ1Ty/
-	hQ7tcZK7YouVQQ0yG0hdhs/cIIrw9roo8gz9WzQz84lpUOZ+yOFniMbCsZMSTaazWk2eTwt2INjOr
-	xE6HdkP5Pt4kvdX2fZFttLNx6GQIFWoTqnNWiM2id4iL8LBjklLaOI7Fg47UKMd+JC+SF4GZ4ls4i
-	A0qeUXDg==;
-Received: from [115.246.246.98] (port=45793 helo=zimbra.couthit.local)
-	by server.couthit.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.98.1)
-	(envelope-from <parvathi@couthit.com>)
-	id 1w4uqS-0000000Gv6E-0lP3;
-	Tue, 24 Mar 2026 02:02:28 -0400
-Received: from localhost (localhost [127.0.0.1])
-	by zimbra.couthit.local (Postfix) with ESMTP id 7C4051B809BF;
-	Tue, 24 Mar 2026 11:32:21 +0530 (IST)
-Received: from zimbra.couthit.local ([127.0.0.1])
- by localhost (zimbra.couthit.local [127.0.0.1]) (amavis, port 10032)
- with ESMTP id YR6KDvbvQtwz; Tue, 24 Mar 2026 11:32:20 +0530 (IST)
-Received: from localhost (localhost [127.0.0.1])
-	by zimbra.couthit.local (Postfix) with ESMTP id 7A65F1B81A5B;
-	Tue, 24 Mar 2026 11:32:20 +0530 (IST)
-X-Virus-Scanned: amavis at couthit.local
-Received: from zimbra.couthit.local ([127.0.0.1])
- by localhost (zimbra.couthit.local [127.0.0.1]) (amavis, port 10026)
- with ESMTP id rNZj4jPXbe6t; Tue, 24 Mar 2026 11:32:20 +0530 (IST)
-Received: from zimbra.couthit.local (zimbra.couthit.local [10.10.10.103])
-	by zimbra.couthit.local (Postfix) with ESMTP id 4DFD41B81AB3;
-	Tue, 24 Mar 2026 11:32:20 +0530 (IST)
-Date: Tue, 24 Mar 2026 11:32:20 +0530 (IST)
-From: Parvathi Pudi <parvathi@couthit.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Parvathi Pudi <parvathi@couthit.com>, Kevin Hilman <khilman@baylibre.com>, 
-	nm <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
-	afd <afd@ti.com>, rogerq <rogerq@kernel.org>, 
-	tony <tony@atomide.com>, robh <robh@kernel.org>, 
-	krzk+dt <krzk+dt@kernel.org>, conor+dt <conor+dt@kernel.org>, 
-	richardcochran <richardcochran@gmail.com>, 
-	aaro koskinen <aaro.koskinen@iki.fi>, andreas <andreas@kemnade.info>, 
-	Andrew Lunn <andrew@lunn.ch>, 
-	linux-omap <linux-omap@vger.kernel.org>, 
-	devicetree <devicetree@vger.kernel.org>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, 
-	netdev <netdev@vger.kernel.org>, danishanwar <danishanwar@ti.com>, 
-	pratheesh <pratheesh@ti.com>, j-rameshbabu <j-rameshbabu@ti.com>, 
-	praneeth <praneeth@ti.com>, srk <srk@ti.com>, rogerq <rogerq@ti.com>, 
-	m-malladi <m-malladi@ti.com>, krishna <krishna@couthit.com>, 
-	mohan <mohan@couthit.com>, pmohan <pmohan@couthit.com>, 
-	basharath <basharath@couthit.com>, 
-	Murali Karicheri <m-karicheri2@ti.com>
-Message-ID: <1868242922.724201.1774332140293.JavaMail.zimbra@couthit.local>
-In-Reply-To: <ee2ec279-ee5d-4d6d-b6ff-35187e3f03e6@kernel.org>
-References: <20260307122641.738450-1-parvathi@couthit.com> <20260307122641.738450-4-parvathi@couthit.com> <7ho6ks1r4s.fsf@baylibre.com> <91797572.667989.1773662409130.JavaMail.zimbra@couthit.local> <ee2ec279-ee5d-4d6d-b6ff-35187e3f03e6@kernel.org>
-Subject: Re: [PATCH v5 3/3] arm: dts: ti: Add device tree support for
- PRU-ICSS on AM335x
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="O44+cwX6"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62O3dZYc943795;
+	Tue, 24 Mar 2026 06:04:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=b1WSm70XL2CajFEAi3cs0GvfKXx43UeKKIJ
+	G0RZzgJw=; b=O44+cwX6y/Sttz1A9XRzP69rPGQKrXF+XnUdaWejzjM+xC3XVNo
+	6CVhX7yd+0aQSYGv+szOshPOR81/6BIO6Kx9zyl3rtiBiX/nXOsMVMbvjNjYET53
+	41bbKQ91xTjne9uCfQIpM+UBPNEGywa7i8Bx0vKxDbf9aK2QKaaWzApdhWYWBiDu
+	1pmMFz7BkDgaLTbk5wQd2sC3uiCjd5Zth+4tp76YlVBWBTP4mjOkl93AdWTFIK80
+	Pvy4bBNApmtPTMl/wIL+wzGog4VgE4g6Gni9/okbYMuCCEABVlhM2bz9Ek98CuQ4
+	fXYD+XAHWpik4U/JQGUSCbb8LnZCgSxSY2A==
+Received: from aptaippmta02.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d34vkuf71-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 24 Mar 2026 06:04:20 +0000 (GMT)
+Received: from pps.filterd (APTAIPPMTA02.qualcomm.com [127.0.0.1])
+	by APTAIPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTP id 62O64HbM006060;
+	Tue, 24 Mar 2026 06:04:17 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APTAIPPMTA02.qualcomm.com (PPS) with ESMTPS id 4d1mdmavxk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 24 Mar 2026 06:04:17 +0000
+Received: from APTAIPPMTA02.qualcomm.com (APTAIPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 62O64HfS006055;
+	Tue, 24 Mar 2026 06:04:17 GMT
+Received: from cse-cd01-lnx.ap.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
+	by APTAIPPMTA02.qualcomm.com (PPS) with ESMTPS id 62O64Gu8006051
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 24 Mar 2026 06:04:17 +0000
+Received: by cse-cd01-lnx.ap.qualcomm.com (Postfix, from userid 4531182)
+	id 73CAB22C28; Tue, 24 Mar 2026 14:04:14 +0800 (CST)
+From: Le Qi <le.qi@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kernel@oss.qualcomm.com,
+        Le Qi <le.qi@oss.qualcomm.com>
+Subject: [PATCH v4 0/2] arm64: dts: qcom: QCS615 Talos EVK audio support
+Date: Tue, 24 Mar 2026 14:04:03 +0800
+Message-Id: <20260324060405.3098891-1-le.qi@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: Zimbra 9.0.0_ZEXTRAS_20240927 (ZimbraWebClient - GC138 (Linux)/9.0.0_ZEXTRAS_20240927)
-Thread-Topic: Add device tree support for PRU-ICSS on AM335x
-Thread-Index: 44ydR5tKwQuKDZuPcpLEgXMqUS7xiQ==
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - server.couthit.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - couthit.com
-X-Get-Message-Sender-Via: server.couthit.com: authenticated_id: smtp@couthit.com
-X-Authenticated-Sender: server.couthit.com: smtp@couthit.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDA0NyBTYWx0ZWRfX/HB/cws+Aldl
+ 5VNcuHp50NhynR4aKIkbQaxcoO3F0A2clylgKrHmVfG4LQE5p7DDJEF87AD3NeN1fjAUpd659ba
+ X3T+1YHJuCFyD9yfQkE5L83aQt+wAkikxdLzcPRy4wnIorCL9TT3LuSvHQ7X5fjb8gZN5H1qOyV
+ myTuzqSraeEfOit4uvfWDX6rwU5PqAyHmj7TN3YY8UGsjnTBlixB+VWjmlgGzGE7PLznAk5LAI8
+ 2/xSCKT043vVyQBZ5ehtvmfG8F2foGkFrjw61P6griP9cA1lV23H1BA/nJbVSJ06ocIEkxCCm10
+ hL+c9AQaNWPSHpL7Bth4WRgS9+N4DYfSeF3D4WbG4Mh/Rph5BKDPXe+WQh46xyyTS5rgFb0im62
+ F+rA/xFr6FYNR4pLGUMzZLqaDp23oqSGF0neQmsLiAaHcS3n5JoZA5OgL2x0hZCB3dzf95EeUHO
+ PkaLomHrnomAK4X9Cyg==
+X-Authority-Analysis: v=2.4 cv=eMoeTXp1 c=1 sm=1 tr=0 ts=69c22964 cx=c_pps
+ a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=iGxVMBivTTxaZTGGaQcA:9
+X-Proofpoint-GUID: cEEtx_-p2jrQE_SKYwfgq1avpakrWF9H
+X-Proofpoint-ORIG-GUID: cEEtx_-p2jrQE_SKYwfgq1avpakrWF9H
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-24_01,2026-03-23_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0
+ bulkscore=0 phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240047
 
-Hi,
+This series adds initial audio support for the QCS615-based Talos EVK
+platform. It introduces the GPR (Generic Pack Router) node in the SoC
+device tree and enables a sound card node with the DA7212 codec on the
+Talos EVK board.
 
-> On 16/03/2026 13:00, Parvathi Pudi wrote:
->> Hi,
->> 
->>> Parvathi Pudi <parvathi@couthit.com> writes:
->>>
->>>> From: Roger Quadros <rogerq@ti.com>
->>>>
->>>> The TI Sitara AM335x ICE-V2 consists of single PRU-ICSS instance,
->>>> This patch adds the new device tree overlay file in-order to enable
->>>> PRU-ICSS instance, along with makefile changes.
->>>>
->>>> PRU-ICSS instance consists of two PRU cores along with various
->>>> peripherals such as the Interrupt Controller (PRU_INTC), the Industrial
->>>> Ethernet Peripheral(IEP), the Real Time Media Independent Interface
->>>> controller (MII_RT), and the Enhanced Capture (eCAP) event module.
->>>>
->>>> am33xx-l4.dtsi - Adds IEP and eCAP peripheral as child nodes
->>>> of the PRUSS subsystem node.
->>>>
->>>> am335x-icev2-prueth.dtso - Adds PRU-ICSS instance node along with PRU
->>>> eth port information and corresponding port configuration. It includes
->>>> interrupt mapping for packet reception, HW timestamp collection, and PRU
->>>> Ethernet ports in MII mode,
->>>>
->>>> GPIO configuration, boot strapping along with delay configuration for
->>>> individual PRU Ethernet port and other required nodes.
->>>>
->>>> Signed-off-by: Roger Quadros <rogerq@ti.com>
->>>> Signed-off-by: Andrew F. Davis <afd@ti.com>
->>>> Signed-off-by: Murali Karicheri <m-karicheri2@ti.com>
->>>> Signed-off-by: Basharath Hussain Khaja <basharath@couthit.com>
->>>> Signed-off-by: Parvathi Pudi <parvathi@couthit.com>
->>>
->>> [...]
->>>
->>>> +/*
->>>> + * Disable CPSW switch node and
->>>> + * MDIO configuration to prevent
->>>> + * conflict with PRU-ICSS
->>>> + */
->>>> +&mac_sw {
->>>> +        status = "disable";
->>>> +};
->>>> +
->>>> +&davinci_mdio_sw {
->>>> +        status = "disable";
->>>> +};
->>>
->>> I think you need s/disable/disabled/?  (note the trailing 'd').  Without
->>> that, I don't think you're disabling these nodes, so I'm curious how it
->>> is not conflicting with the PRU-ICSS.
->>>
->>> Kevin
->> 
->> Thank you for pointing out this typo.
->> 
->> We checked the kernel code as to why this did not create any issue in our
->> testing.  We found that the device availability check goes through
->> of_device_is_available(), which only treats "ok" or "okay" as enabled.
->> Anything else is effectively treated as not enabled.
->> 
->> So even though "disable" isn't the usual DT value, it still prevents the
->> node from being probed since it doesn't match "ok"/"okay".
-> 
-> 
-> The question is whether you build tested your code (so dtbs_check). And
-> if not, why?
-> 
+With these changes, playback through headphones and capture from the
+headset microphone have been tested and verified to work.
 
-We did run dtbs_check as part of our internal testing workflow. However, it
-is executed within a test framework that runs multiple checks together and is
-currently trimming part of the dtbs_check output. Because of this, the schema
-validation warning for "disable" was not visible in the logs we reviewed
-and we missed catching this error. 
+---
+Changelog:
 
-We have verified that dtbs_check does report this issue, and we will update
-our test setup to retain full dtbs_check output to avoid missing such warnings
-in the future.
+v4:
+  - Added mclk support for recording to fix clipping issue.
+  - v3-link: https://lore.kernel.org/all/20251125033311.254869-1-le.qi@oss.qualcomm.com/
 
-Thanks and Regards,
-Parvathi.
+v3:
+  - Updated sound card model name to "TALOS-EVK".
+  - v2-link: https://lore.kernel.org/all/20251125033311.254869-1-le.qi@oss.qualcomm.com/
+
+v2:
+  - Address Konrad's comment to modify the commit message and
+    group GPIO pins together into a single entry, moved to the
+    SoC-level DTSI for reuse.
+  - v1-link: https://lore.kernel.org/all/20251024023720.3928547-1-le.qi@oss.qualcomm.com/
+
+Le Qi (2):
+  arm64: dts: qcom: talos: Add GPR node, audio services, and MI2S1 TLMM
+    pins
+  arm64: dts: qcom: talos-evk: Add sound card support with DA7212 codec
+
+ arch/arm64/boot/dts/qcom/talos-evk.dts | 65 ++++++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/talos.dtsi    | 54 +++++++++++++++++++++
+ 2 files changed, 119 insertions(+)
+
+
+base-commit: 343f51842f4ed7143872f3aa116a214a5619a4b9
+prerequisite-patch-id: 065fda916d7faca61113e1230fcc0ce3916442fe
+prerequisite-patch-id: c009966e432e7f11bbb895167e32e517b6ff76e3
+prerequisite-patch-id: a44d58bc0cfaab99dff8c4e12ecd0312447766be
+prerequisite-patch-id: 90d34838fae36448c984708ec458d87fa742f917
+prerequisite-patch-id: 2f1bd3efac328030dd8efe28fb95f84603868043
+prerequisite-patch-id: 8ad66615b5ca826310e24e8e787030fba9a0d3a0
+prerequisite-patch-id: 25900036091fd7fe44b1528affc2c033ee844124
+-- 
+2.34.1
 
