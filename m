@@ -1,100 +1,91 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4571635C1A1;
-	Tue, 24 Mar 2026 09:17:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5949363C49;
+	Tue, 24 Mar 2026 09:18:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774343842; cv=none; b=LLVf7HJ5c7LXO/M9yvkf5D/gQL2wLxffNrUGQ5A1xi73g2WuL7E1Fhaqv+73E0P8svHWJowPJta99R9tWBcUObc0Er1xYls2pX0b/U5bUurQIwL7xqlwMnUE0rDMbvZzySZx7lcpPr4eA9melwGJhpkNQuTf3uhFEBm3agD9lj4=
+	t=1774343923; cv=none; b=dAbTXZr0P9ZTcowOjDH3k72UWtV33oemQ5jTE6Uya0Mb1OISw0AFNwO9tZNzafAK0M1rbTKqB0YHXaVCw7vcqRL22EqjrdO0gH8cZAWPs3Nn294olIUZK6WCPdRwfQ0QVDAUkZ3pqUnsZl745NpyXdvsKSr972tvRONuJdXVWyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774343842; c=relaxed/simple;
-	bh=cV7PXfmrxmLcVjKof3XYRFXjW8AtEWzy6Da9eHYlAaw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hn7TnaKfE1BLN6cPH2UAeZQqgCXLDFhoQr2jBuzKGtWx89URetXXVKmXIEQJ24Wa43RlBcRkFT2Fh6GfZkRAcJL7f6OfhPqcldi5R+tkssTMaZHxJVv9F3Gu4VRwz26Ao/bAAkz/8UbX+Ebn5MmCfhSSoHFU6gpwCqEjSiBuIS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=DpaZp5q0; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1774343923; c=relaxed/simple;
+	bh=fTToTCeqKsTMNulzFcYvH6PKgjLpHenJDrE6QA1hWQU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bMQc4sVa5F/Pt930ekpO8fpbLN+FuuoNE8ElNyJ58nlZ9AdjBI434cAVqtAXBUkVYf0HvMCf4wpjNQe3g+2ypoI4LydgnH00tYoHmGukLbYWM1bMQQS0beQlwB8gjRtzHYLdL4hEizLgvzUDbmwAcBm5jGvipWZcEJL7ueJKX/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aIZLB5RD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="DpaZp5q0"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 08F4A1A2FBD;
-	Tue, 24 Mar 2026 09:17:13 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CEC076011D;
-	Tue, 24 Mar 2026 09:17:12 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DD50910451116;
-	Tue, 24 Mar 2026 10:17:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1774343832; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=BHr9PdVOTllydeZaE1ifeiHaaJ9aVptu2pB5+NjGvtI=;
-	b=DpaZp5q02KyO9ERHly+i7WQ/zatgPecrFTcY4+CDACZgRlEsPCgy2FR4oRdUg2rnqDGi7E
-	4WTni88R8PcYKSGgqR1sg3l3q7SvMA0GmWt2OXrhrHLwLdigxjrtAlnBjyHsZtL4pOdzvc
-	GfbFIeADpRMCrUliPbnbBZd25fFN+llKcVfigpR54M0xIpNyepyPcLBIMfXbgV+NkjAylJ
-	82AIFDGQKDtlA6IkRmacJ6qcGgRzcJVv/fbGcHRpnC0eFAWGkVrJAtn7YdKYR54IA6YC6f
-	A08NeQNGO8csqcdFpz223aawrkHDiNve4Nk/PuzvFykr+yR0GjtGS3Pzi6WmVA==
-Date: Tue, 24 Mar 2026 10:17:07 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm
- <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Pascal Eberhard <pascal.eberhard@se.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH] ARM: dts: r9a06g032: Add #address-cells in the GIC node
-Message-ID: <20260324101707.7d1011cf@bootlin.com>
-In-Reply-To: <abEotS0ZbGwqEmO5@ninjato>
-References: <20260303102029.147359-1-herve.codina@bootlin.com>
-	<abEotS0ZbGwqEmO5@ninjato>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aIZLB5RD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8945C19424;
+	Tue, 24 Mar 2026 09:18:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774343922;
+	bh=fTToTCeqKsTMNulzFcYvH6PKgjLpHenJDrE6QA1hWQU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aIZLB5RD1I4Qk4hu2XjXbcURmOnU3oCku+n5RK3oL7lYxipe8yDa8E1ijlm4oobNM
+	 snnfFJO7TOTEKuqMMcJ8MBjQLjaklfhWSNN8RrGcHo9S7bwHodCI7DxQIODvY2YzTd
+	 mL1MM8Zyunkp5+ijM0Moy9M59hq1Z22nb5h0FUC7WsC+Ext/NhFh3A2lSGlpoFuXQd
+	 L+BKCsrnoJP43Sue6txCkucm/IhOXlf5CNSGmkebXF5MO2yL+iRxPpblG1n9340JqQ
+	 UcDqC5WzlkJ1OVHbIKV0zXigNydsO4Wi2TwT37sB21ePdY6KEiPtZOrZPAKybncVA4
+	 F+Cl1Tyr5uKZQ==
+Date: Tue, 24 Mar 2026 10:18:40 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: nick.hawkins@hpe.com
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jean-Marie Verdun <verdun@hpe.com>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] arm64: Kconfig: Add ARCH_HPE_GSC platform
+Message-ID: <20260324-bright-tuna-from-uranus-ce0dd5@quoll>
+References: <20260323194223.683487-1-nick.hawkins@hpe.com>
+ <20260323194223.683487-3-nick.hawkins@hpe.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260323194223.683487-3-nick.hawkins@hpe.com>
 
-Hi Wolfram,
-
-On Wed, 11 Mar 2026 09:32:53 +0100
-Wolfram Sang <wsa+renesas@sang-engineering.com> wrote:
-
-> On Tue, Mar 03, 2026 at 11:20:29AM +0100, Herve Codina (Schneider Electric) wrote:
-> > When checking dts involving the r9a06g032.dtsi file, the following kind
-> > of warnings are reported:
-> >    Missing property '#address-cells' in node xxx, using 0 as fallback
-> > 
-> > Indeed, #address-cells is not present in the GIC interrupt controller
-> > node.
-> > 
-> > Fix it adding the missing property.
-> > 
-> > No functional change.
-> > 
-> > Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>  
+On Mon, Mar 23, 2026 at 02:42:22PM -0500, nick.hawkins@hpe.com wrote:
+> From: Nick Hawkins <nick.hawkins@hpe.com>
 > 
-> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> Add the ARCH_HPE menuconfig group and ARCH_HPE_GSC config for the
+> HPE GSC ARM64 BMC SoC.
 > 
-> I like Krzysztof's explanation "Value '0' is correct because GIC
-> interrupt controller does not have children." Maybe it can be added to
-> the commit message?
+> Signed-off-by: Nick Hawkins <nick.hawkins@hpe.com>
+> ---
+>  arch/arm64/Kconfig.platforms | 23 +++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
 > 
+> diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
+> index 54eb1d7fd419..4bbc27bb9b7b 100644
+> --- a/arch/arm64/Kconfig.platforms
+> +++ b/arch/arm64/Kconfig.platforms
+> @@ -168,6 +168,29 @@ config ARCH_HISI
+>  	help
+>  	  This enables support for Hisilicon ARMv8 SoC family
+>  
+> +
 
-I will update the commit log on the v2 iteration.
+No need for multiple blank lines.
 
-Should I keep your reviewed-by tag for this v2. Indeed, you don't have seen
-yet the new commit log :)
+> +menuconfig ARCH_HPE
+> +	bool "HPE SoC Support"
+> +	help
+> +	  This enables support for HPE ARM-based SoC chips used
+> +	  on HPE servers.  HPE SoCs serve as the Baseboard
+> +	  Management Controller (BMC) providing out-of-band server
+> +	  management.
+> +
+> +if ARCH_HPE
+> +
+> +config ARCH_HPE_GSC
+
+Sorry, you don't get multiple ARCHs per vendor. Look at this file at
+other entries to see how it should be created.
 
 Best regards,
-Hervé
+Krzysztof
 
--- 
-Hervé Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
