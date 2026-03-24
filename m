@@ -1,316 +1,291 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E581B4224;
-	Tue, 24 Mar 2026 02:52:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6ECE1FE44A;
+	Tue, 24 Mar 2026 02:56:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774320775; cv=none; b=afuSXNbz3YxrKjKfdbowcOotoliDXgzM346S0lZ1fywnCF2kz3gUYhuKd7htWMNP0v6YRWj/gKrGmZLkF9UcPW3ET1V0J2GLEfMdCJSRa8QeeglNN/VTVo4qhxe8K3UoSN6Y2oOx7qHsgqVY2LOL0g5iU2L5DFzDalGWZwvu++c=
+	t=1774321013; cv=none; b=tP7Mu9dO6jLKzwJAkew64liFJhKcJHRJZahoZajiRyLeFbxC6eETrm96lsOeGIiP+T89mUJtI/79RCKzBHyBRoycmBMoq+dHCVLp+otvuI3Ig/PV4QksVIo3iZp1OYqRkEBLQ8Oa4TzHA2btiJ5RhZyJVc2/DnVrL+4zPTRPAo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774320775; c=relaxed/simple;
-	bh=Q5GvIR/kAznO3HpTjHMJuWcsgcsox18R1lHxF8wXwBQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A4zuB6wlXtgqxhoAW6AhGjR/gZJnU0GrefZpAXthL+dx+lEu2vlRqv6ZHzH3OIS/g2m5PO0xXw7xKM/RagZIOUjXVI3zyvcdTNfWqWc1gepPIVSG/5hAJV1ZUrPGrVzWiUbhAnpSXI5L2DesWlK+lSRrhXvMaIQT6d2HE/mwQS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qcQlAJN9; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774321013; c=relaxed/simple;
+	bh=0kah365DbiYZI6c8KWPo7LoB4sSgMEbOVLMpUjxf4wY=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=m7PPnrv29W2EQSm/NOWVbfinmfzp4gjWp86kP8xV216XwzRcx+lCgf2XV3sjwy94m7jrmbzmQJD+8vHHecdAT4ulfnZFpG+buzjDEoSrteXUgDt9v7PkFf+w8KARocUJmnjKlj72siKsEyE9FJMREg2mjSH9cw40u5upYowxX5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=sv4YYUe7; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qcQlAJN9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A70FC2BCB0;
-	Tue, 24 Mar 2026 02:52:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774320775;
-	bh=Q5GvIR/kAznO3HpTjHMJuWcsgcsox18R1lHxF8wXwBQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qcQlAJN9jrtxWiWf2KZXlKFk2RYVmjozS+/2o3hTjTPN1ucmK+KbHx82UrV1gkLKH
-	 xp5BhXFKDaoLGP2JDKZEu1Zk1p5DAQqF9wjwDwtwrishXVMAnbEnZpiY2fO8wtVdNc
-	 lGt77JmaY5D4hQG1+NQ69bGn5TZ0roFQqPpSFUUtoyW6UhO3gx/ByBdEU4sIJ/73NW
-	 jhBJDrtgKtdmbBJOmEAvIsvRcTJtsTmvwlyliGZ/B2E4OU45HvYpTH5OGzqJs3AfIc
-	 nCQ0i2V1DY+TIqh5WR/UxVUcrR5AIV+aQAC5PtK+ppvDtGGnvXKlNeqkJw06alJ0e5
-	 x/7FRv4lMdoFg==
-Date: Mon, 23 Mar 2026 21:52:51 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Maulik Shah <maulik.shah@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Linus Walleij <linusw@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-Subject: Re: [PATCH 3/5] irqchip/qcom-pdc: Configure PDC to pass through mode
-Message-ID: <acH7AJq6tcmemvU5@baldur>
-References: <20260312-hamoa_pdc-v1-0-760c8593ce50@oss.qualcomm.com>
- <20260312-hamoa_pdc-v1-3-760c8593ce50@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="sv4YYUe7"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 62O2rXwK5278459, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1774320813; bh=s+NBfkBtjjtc9IaZWRse743V27ZK/I4WahuYAx4/Jpk=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	b=sv4YYUe7+BT66W+9PYYIXBHmQ+e2QwqO4p6nmyx3BylD0ZvvHqliSrEKaFlzfdTwl
+	 BhezTfePqON7ZICio2vLWKpbAZZQ2zPknePRqI86ChPXyJQdaLuFpPxfWrkeW4NVoT
+	 b2uDvmNj2XVp+9CD4BRUP5rZAl4A9394VAref3/aq7+rXpnyFu/1bxfSQgGGfqBfDH
+	 Mfod9xKQnMnMk8X8cGN+DX+Z5hw2Y85RcTqR6lvCxVV2ci2Aw743++qSsOJP++h3at
+	 hFLy8zAhuHAJL+gF6jRUR8+UtiRAWbFzg3NTVA/nez9bA+UaAqG6QdYNXZZ/6ClYnu
+	 Q+g1q9d3anh6w==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.21/5.94) with ESMTPS id 62O2rXwK5278459
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 24 Mar 2026 10:53:33 +0800
+Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.10; Tue, 24 Mar 2026 10:53:34 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Tue, 24 Mar 2026 10:53:33 +0800
+Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS06.realtek.com.tw
+ (10.21.1.56) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Tue, 24 Mar 2026 10:53:33 +0800
+From: Yu-Chun Lin <eleanor.lin@realtek.com>
+To: <mturquette@baylibre.com>, <sboyd@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <p.zabel@pengutronix.de>,
+        <cylee12@realtek.com>, <afaerber@suse.com>, <jyanchou@realtek.com>
+CC: <devicetree@vger.kernel.org>, <linux-clk@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+        <linux-realtek-soc@lists.infradead.org>, <james.tai@realtek.com>,
+        <cy.huang@realtek.com>, <stanley_chang@realtek.com>,
+        <eleanor.lin@realtek.com>
+Subject: [PATCH v5 04/10] clk: realtek: Introduce a common probe()
+Date: Tue, 24 Mar 2026 10:53:25 +0800
+Message-ID: <20260324025332.3416977-5-eleanor.lin@realtek.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260324025332.3416977-1-eleanor.lin@realtek.com>
+References: <20260324025332.3416977-1-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260312-hamoa_pdc-v1-3-760c8593ce50@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Thu, Mar 12, 2026 at 09:26:37PM +0530, Maulik Shah wrote:
-> There are two modes PDC irqchip supports pass through mode and secondary
-> controller mode.
-> 
-> All PDC irqchip supports pass through mode in which both Direct SPIs and
-> GPIO IRQs (as SPIs) are sent to GIC without latching at PDC.
-> 
-> Newer PDCs (v3.0 onwards) also support additional secondary controller mode
-> where PDC latches GPIO IRQs and sends to GIC as level type IRQ. Direct SPIs
-> still works same as pass through mode without latching at PDC even in
-> secondary controller mode.
-> 
-> All the SoCs so far default uses pass through mode with the exception of
-> x1e. x1e PDC may be set to secondary controller mode for builds on CRD
-> boards whereas it may be set to pass through mode for IoT-EVK.
-> 
-> There is no way to read which current mode it is set to and make PDC work
-> in respective mode as the read access is not opened up for non secure
-> world. There is though write access opened up via SCM write API to set the
-> mode.
-> 
-> Configure PDC mode to pass through mode for all x1e based boards via SCM
-> write.
-> 
+From: Cheng-Yu Lee <cylee12@realtek.com>
 
-You're failing to mention that the SCM interface was not present in
-initially shipping Windows firmware, which would result in you breaking
-those devices.
+Add rtk_clk_probe() to set up the shared regmap, register clock hardware,
+add the clock provider, and optionally register a reset controller when
+reset bank data is provided.
 
-If you're certain that this change is available to all users, you can
-argue that this is acceptable - but omitting this from the commit
-message isn't.
+Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+---
+Changes in v5:
+- Synchronized with reset controller changes.
+---
+ MAINTAINERS                  |  1 +
+ drivers/clk/Kconfig          |  1 +
+ drivers/clk/Makefile         |  1 +
+ drivers/clk/realtek/Kconfig  | 28 +++++++++++++++++
+ drivers/clk/realtek/Makefile |  4 +++
+ drivers/clk/realtek/common.c | 59 ++++++++++++++++++++++++++++++++++++
+ drivers/clk/realtek/common.h | 43 ++++++++++++++++++++++++++
+ 7 files changed, 137 insertions(+)
+ create mode 100644 drivers/clk/realtek/Kconfig
+ create mode 100644 drivers/clk/realtek/Makefile
+ create mode 100644 drivers/clk/realtek/common.c
+ create mode 100644 drivers/clk/realtek/common.h
 
-Regards,
-Bjorn
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 9419b0497e0b..31f4a5a66394 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22229,6 +22229,7 @@ L:	devicetree@vger.kernel.org
+ L:	linux-clk@vger.kernel.org
+ S:	Supported
+ F:	Documentation/devicetree/bindings/clock/realtek*
++F:      drivers/clk/realtek/*
+ F:	drivers/reset/realtek/*
+ F:	include/dt-bindings/clock/realtek*
+ 
+diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
+index 3d803b4cf5c1..d60f6415b0a3 100644
+--- a/drivers/clk/Kconfig
++++ b/drivers/clk/Kconfig
+@@ -519,6 +519,7 @@ source "drivers/clk/nuvoton/Kconfig"
+ source "drivers/clk/pistachio/Kconfig"
+ source "drivers/clk/qcom/Kconfig"
+ source "drivers/clk/ralink/Kconfig"
++source "drivers/clk/realtek/Kconfig"
+ source "drivers/clk/renesas/Kconfig"
+ source "drivers/clk/rockchip/Kconfig"
+ source "drivers/clk/samsung/Kconfig"
+diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
+index f7bce3951a30..69b84d1e7bcc 100644
+--- a/drivers/clk/Makefile
++++ b/drivers/clk/Makefile
+@@ -140,6 +140,7 @@ obj-$(CONFIG_COMMON_CLK_PISTACHIO)	+= pistachio/
+ obj-$(CONFIG_COMMON_CLK_PXA)		+= pxa/
+ obj-$(CONFIG_COMMON_CLK_QCOM)		+= qcom/
+ obj-y					+= ralink/
++obj-$(CONFIG_COMMON_CLK_REALTEK)	+= realtek/
+ obj-y					+= renesas/
+ obj-$(CONFIG_ARCH_ROCKCHIP)		+= rockchip/
+ obj-$(CONFIG_COMMON_CLK_SAMSUNG)	+= samsung/
+diff --git a/drivers/clk/realtek/Kconfig b/drivers/clk/realtek/Kconfig
+new file mode 100644
+index 000000000000..63eb3fb3e79a
+--- /dev/null
++++ b/drivers/clk/realtek/Kconfig
+@@ -0,0 +1,28 @@
++# SPDX-License-Identifier: GPL-2.0-only
++config COMMON_CLK_REALTEK
++	bool "Clock driver for Realtek SoCs"
++	depends on ARCH_REALTEK || COMPILE_TEST
++	default y
++	help
++	  Enable the common clock framework infrastructure for Realtek
++	  system-on-chip platforms.
++
++	  This provides the base support required by individual Realtek
++	  clock controller drivers to expose clocks to peripheral devices.
++
++	  If you have a Realtek-based platform, say Y.
++
++if COMMON_CLK_REALTEK
++
++config RTK_CLK_COMMON
++	tristate "Realtek Clock Common"
++	depends on RESET_CONTROLLER
++	select RESET_RTK_COMMON
++	help
++	  Common helper code shared by Realtek clock controller drivers.
++
++	  This provides utility functions and data structures used by
++	  multiple Realtek clock implementations, and include integration
++	  with reset controllers where required.
++
++endif
+diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
+new file mode 100644
+index 000000000000..377ec776ee47
+--- /dev/null
++++ b/drivers/clk/realtek/Makefile
+@@ -0,0 +1,4 @@
++# SPDX-License-Identifier: GPL-2.0-only
++obj-$(CONFIG_RTK_CLK_COMMON) += clk-rtk.o
++
++clk-rtk-y += common.o
+diff --git a/drivers/clk/realtek/common.c b/drivers/clk/realtek/common.c
+new file mode 100644
+index 000000000000..18a0d82ded0c
+--- /dev/null
++++ b/drivers/clk/realtek/common.c
+@@ -0,0 +1,59 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2019 Realtek Semiconductor Corporation
++ * Author: Cheng-Yu Lee <cylee12@realtek.com>
++ */
++
++#include <linux/device.h>
++#include <linux/module.h>
++#include <linux/mfd/syscon.h>
++#include <linux/platform_device.h>
++#include "common.h"
++
++int rtk_clk_probe(struct platform_device *pdev, const struct rtk_clk_desc *desc)
++{
++	int i, ret;
++	struct regmap *regmap;
++	struct device *dev = &pdev->dev;
++	struct rtk_reset_initdata reset_initdata = {0};
++
++	regmap = device_node_to_regmap(pdev->dev.of_node);
++	if (IS_ERR(regmap))
++		return dev_err_probe(dev, PTR_ERR(regmap), "failed to get regmap\n");
++
++	for (i = 0; i < desc->num_clks; i++)
++		desc->clks[i]->regmap = regmap;
++
++	for (i = 0; i < desc->clk_data->num; i++) {
++		struct clk_hw *hw = desc->clk_data->hws[i];
++
++		if (!hw)
++			continue;
++
++		ret = devm_clk_hw_register(dev, hw);
++
++		if (ret) {
++			dev_warn(dev, "failed to register hw of clk%d: %d\n", i,
++				 ret);
++			desc->clk_data->hws[i] = NULL;
++		}
++	}
++
++	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get,
++					  desc->clk_data);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to add clock provider\n");
++
++	if (!desc->num_reset_descs)
++		return 0;
++
++	reset_initdata.regmap = regmap;
++	reset_initdata.num_descs = desc->num_reset_descs;
++	reset_initdata.descs = desc->reset_descs;
++
++	return rtk_reset_controller_add(dev, &reset_initdata);
++}
++EXPORT_SYMBOL_GPL(rtk_clk_probe);
++
++MODULE_DESCRIPTION("Realtek clock infrastructure");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/clk/realtek/common.h b/drivers/clk/realtek/common.h
+new file mode 100644
+index 000000000000..9cf013f9ba2b
+--- /dev/null
++++ b/drivers/clk/realtek/common.h
+@@ -0,0 +1,43 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (C) 2016-2019 Realtek Semiconductor Corporation
++ * Author: Cheng-Yu Lee <cylee12@realtek.com>
++ */
++
++#ifndef __CLK_REALTEK_COMMON_H
++#define __CLK_REALTEK_COMMON_H
++
++#include <linux/clk-provider.h>
++#include <linux/device.h>
++#include <linux/io.h>
++#include <linux/of.h>
++#include <linux/regmap.h>
++#include <linux/reset/realtek.h>
++
++#define __clk_regmap_hw(_p) ((_p)->hw)
++
++struct device;
++struct platform_device;
++
++struct clk_regmap {
++	struct clk_hw hw;
++	struct regmap *regmap;
++};
++
++struct rtk_clk_desc {
++	struct clk_hw_onecell_data *clk_data;
++	struct clk_regmap **clks;
++	size_t num_clks;
++	struct rtk_reset_desc *reset_descs;
++	size_t num_reset_descs;
++};
++
++static inline struct clk_regmap *to_clk_regmap(struct clk_hw *hw)
++{
++	return container_of(hw, struct clk_regmap, hw);
++}
++
++int rtk_clk_probe(struct platform_device *pdev,
++		  const struct rtk_clk_desc *desc);
++
++#endif /* __CLK_REALTEK_COMMON_H */
+-- 
+2.34.1
 
-> Co-developed-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-> Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
-> ---
->  drivers/irqchip/Kconfig    |   1 +
->  drivers/irqchip/qcom-pdc.c | 119 +++++++++++++++++++++++++++++++++++++++++----
->  2 files changed, 111 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-> index 83d333f8bf63d78827800e0de724f81e6aa2f1df..89caddf6e5c569a0e867cda1838c870b967fb13d 100644
-> --- a/drivers/irqchip/Kconfig
-> +++ b/drivers/irqchip/Kconfig
-> @@ -505,6 +505,7 @@ config GOLDFISH_PIC
->  config QCOM_PDC
->  	tristate "QCOM PDC"
->  	depends on ARCH_QCOM
-> +	depends on QCOM_AOSS_QMP
->  	select IRQ_DOMAIN_HIERARCHY
->  	help
->  	  Power Domain Controller driver to manage and configure wakeup
-> diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
-> index 32b77fa93f730416edf120710bcdcdce33fa39a7..051700d672471c092e8cda4d7f5aa6d2032157f7 100644
-> --- a/drivers/irqchip/qcom-pdc.c
-> +++ b/drivers/irqchip/qcom-pdc.c
-> @@ -19,6 +19,8 @@
->  #include <linux/spinlock.h>
->  #include <linux/slab.h>
->  #include <linux/types.h>
-> +#include <linux/firmware/qcom/qcom_scm.h>
-> +#include <linux/soc/qcom/qcom_aoss.h>
->  
->  #define PDC_MAX_GPIO_IRQS	256
->  #define PDC_DRV_OFFSET		0x10000
-> @@ -26,9 +28,11 @@
->  /* Valid only on HW version < 3.2 */
->  #define IRQ_ENABLE_BANK		0x10
->  #define IRQ_ENABLE_BANK_MAX	(IRQ_ENABLE_BANK + BITS_TO_BYTES(PDC_MAX_GPIO_IRQS))
-> +#define IRQ_i_CFG_IRQ_MASK_3_0	3
->  #define IRQ_i_CFG		0x110
->  
->  /* Valid only on HW version >= 3.2 */
-> +#define IRQ_i_CFG_IRQ_MASK_3_2	4
->  #define IRQ_i_CFG_IRQ_ENABLE	3
->  
->  #define IRQ_i_CFG_TYPE_MASK	GENMASK(2, 0)
-> @@ -36,8 +40,11 @@
->  #define PDC_VERSION_REG		0x1000
->  
->  /* Notable PDC versions */
-> +#define PDC_VERSION_3_0		0x30000
->  #define PDC_VERSION_3_2		0x30200
->  
-> +#define PDC_PASS_THROUGH_MODE	0
-> +
->  struct pdc_pin_region {
->  	u32 pin_base;
->  	u32 parent_base;
-> @@ -97,6 +104,33 @@ static void pdc_x1e_irq_enable_write(u32 bank, u32 enable)
->  	pdc_base_reg_write(base, IRQ_ENABLE_BANK, bank, enable);
->  }
->  
-> +/*
-> + * The new mask bit controls whether the interrupt is to be forwarded to the
-> + * parent GIC in secondary controller mode. Writing the mask is do not care
-> + * when the PDC is set to pass through mode.
-> + *
-> + * As linux only makes so far make use of pass through mode set all IRQs
-> + * masked during probe.
-> + */
-> +static void __pdc_mask_intr(int pin_out, bool mask)
-> +{
-> +	unsigned long irq_cfg;
-> +	int mask_bit;
-> +
-> +	/* Mask bit available from v3.0 */
-> +	if (pdc_version < PDC_VERSION_3_0)
-> +		return;
-> +
-> +	if (pdc_version < PDC_VERSION_3_2)
-> +		mask_bit = IRQ_i_CFG_IRQ_MASK_3_0;
-> +	else
-> +		mask_bit = IRQ_i_CFG_IRQ_MASK_3_2;
-> +
-> +	irq_cfg = pdc_reg_read(IRQ_i_CFG, pin_out);
-> +	__assign_bit(mask_bit, &irq_cfg, mask);
-> +	pdc_reg_write(IRQ_i_CFG, pin_out, irq_cfg);
-> +}
-> +
->  static void __pdc_enable_intr(int pin_out, bool on)
->  {
->  	unsigned long enable;
-> @@ -312,7 +346,6 @@ static const struct irq_domain_ops qcom_pdc_ops = {
->  static int pdc_setup_pin_mapping(struct device_node *np)
->  {
->  	int ret, n, i;
-> -
->  	n = of_property_count_elems_of_size(np, "qcom,pdc-ranges", sizeof(u32));
->  	if (n <= 0 || n % 3)
->  		return -EINVAL;
-> @@ -341,8 +374,10 @@ static int pdc_setup_pin_mapping(struct device_node *np)
->  		if (ret)
->  			return ret;
->  
-> -		for (i = 0; i < pdc_region[n].cnt; i++)
-> +		for (i = 0; i < pdc_region[n].cnt; i++) {
->  			__pdc_enable_intr(i + pdc_region[n].pin_base, 0);
-> +			__pdc_mask_intr(i + pdc_region[n].pin_base, true);
-> +		}
->  	}
->  
->  	return 0;
-> @@ -352,10 +387,13 @@ static int pdc_setup_pin_mapping(struct device_node *np)
->  
->  static int qcom_pdc_probe(struct platform_device *pdev, struct device_node *parent)
->  {
-> +	static const char buf[64] = "{class: cx_mol, res: cx, val: mol}";
-> +	unsigned int domain_flag = IRQ_DOMAIN_FLAG_QCOM_PDC_WAKEUP;
->  	struct irq_domain *parent_domain, *pdc_domain;
->  	struct device_node *node = pdev->dev.of_node;
->  	resource_size_t res_size;
->  	struct resource res;
-> +	struct qmp *pdc_qmp;
->  	int ret;
->  
->  	/* compat with old sm8150 DT which had very small region for PDC */
-> @@ -366,6 +404,13 @@ static int qcom_pdc_probe(struct platform_device *pdev, struct device_node *pare
->  	if (res_size > resource_size(&res))
->  		pr_warn("%pOF: invalid reg size, please fix DT\n", node);
->  
-> +	pdc_base = ioremap(res.start, res_size);
-> +	if (!pdc_base) {
-> +		pr_err("%pOF: unable to map PDC registers\n", node);
-> +		ret = -ENXIO;
-> +		goto fail;
-> +	}
-> +
->  	/*
->  	 * PDC has multiple DRV regions, each one provides the same set of
->  	 * registers for a particular client in the system. Due to a hardware
-> @@ -382,15 +427,71 @@ static int qcom_pdc_probe(struct platform_device *pdev, struct device_node *pare
->  		}
->  
->  		pdc_x1e_quirk = true;
-> -	}
->  
-> -	pdc_base = ioremap(res.start, res_size);
-> -	if (!pdc_base) {
-> -		pr_err("%pOF: unable to map PDC registers\n", node);
-> -		ret = -ENXIO;
-> -		goto fail;
-> +		/*
-> +		 * There are two modes PDC irqchip can work in
-> +		 *	- pass through mode
-> +		 *	- secondary controller mode
-> +		 *
-> +		 * All PDC irqchip supports pass through mode in which both
-> +		 * Direct SPIs and GPIO IRQs (as SPIs) are sent to GIC
-> +		 * without latching at PDC.
-> +		 *
-> +		 * Newer PDCs (v3.0 onwards) also support additional
-> +		 * secondary controller mode where PDC latches GPIO IRQs
-> +		 * and sends to GIC as level type IRQ. Direct SPIs still
-> +		 * works same as pass through mode without latching at PDC
-> +		 * even in secondary controller mode.
-> +		 *
-> +		 * All the SoCs so far default uses pass through mode with
-> +		 * the exception of x1e.
-> +		 *
-> +		 * x1e modes:
-> +		 *
-> +		 * x1e PDC may be set to secondary controller mode for
-> +		 * builds on CRD boards whereas it may be set to pass
-> +		 * through mode for IoT-EVK boards.
-> +		 *
-> +		 * There is no way to read which current mode it is set to
-> +		 * and make PDC work in respective mode as the read access
-> +		 * is not opened up for non secure world. There is though
-> +		 * write access opened up via SCM write API to set the mode.
-> +		 *
-> +		 * Configure PDC mode to pass through mode for all x1e based
-> +		 * boards.
-> +		 *
-> +		 * For successful write:
-> +		 *	- Nothing more to be done
-> +		 *
-> +		 * For unsuccessful write:
-> +		 *	- Inform TLMM to monitor GPIO IRQs (same as MPM)
-> +		 *	- Prevent SoC low power mode (CxPC) as PDC is not
-> +		 *	  monitoring GPIO IRQs which may be needed to wake
-> +		 *	  the SoC from low power mode.
-> +		 */
-> +		ret = of_address_to_resource(node, 2, &res);
-> +		if (ret) {
-> +			domain_flag = IRQ_DOMAIN_FLAG_QCOM_MPM_WAKEUP;
-> +			goto skip_scm_write;
-> +		}
-> +
-> +		ret = qcom_scm_io_writel(res.start, PDC_PASS_THROUGH_MODE);
-> +		if (ret) {
-> +			pdc_qmp = qmp_get(&pdev->dev);
-> +			if (IS_ERR(pdc_qmp)) {
-> +				ret = PTR_ERR(pdc_qmp);
-> +				goto fail;
-> +			} else {
-> +				ret = qmp_send(pdc_qmp, buf, sizeof(buf));
-> +				qmp_put(pdc_qmp);
-> +				if (ret)
-> +					goto fail;
-> +			}
-> +			domain_flag = IRQ_DOMAIN_FLAG_QCOM_MPM_WAKEUP;
-> +		}
->  	}
->  
-> +skip_scm_write:
->  	pdc_version = pdc_reg_read(PDC_VERSION_REG, 0);
->  
->  	parent_domain = irq_find_host(parent);
-> @@ -407,7 +508,7 @@ static int qcom_pdc_probe(struct platform_device *pdev, struct device_node *pare
->  	}
->  
->  	pdc_domain = irq_domain_create_hierarchy(parent_domain,
-> -					IRQ_DOMAIN_FLAG_QCOM_PDC_WAKEUP,
-> +					domain_flag,
->  					PDC_MAX_GPIO_IRQS,
->  					of_fwnode_handle(node),
->  					&qcom_pdc_ops, NULL);
-> 
-> -- 
-> 2.34.1
-> 
