@@ -1,250 +1,175 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010025.outbound.protection.outlook.com [52.101.84.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 589F33E928D
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 11:00:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774350027; cv=none; b=cCDJcSVMIhEzgMePY3C+joo1opt7v6q/2ylvxN84FBUczYpbks/mo/aERMTBeKo5n90mnr9Ls3lc3TIdUn3a5siWpgfrQbOwAIGUDeFFcDFp46MpvZnSMeazkQwe0NLB/Zk3m2a26MHWTFdcHNQItGlli8WDATRUzOhNIGUalio=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774350027; c=relaxed/simple;
-	bh=cIzV8A6gjnfBxi7M/jkO/ioGwvuFgJlAElj7dwnbGAo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oxJaDxOZXNvZRRe8mhkniolH12F+J4k/9fkSL7MZUw5yHfCF9uXwQR9Bs71xai+9rPjWQtIuNgag/Y3Esk/hwMsmSYNyPgKhQONQ6QDfp95JSqCv9AQOXAPSgvV/rkM4P1UBpgpYVCGo6riek8y+R6TG0hiC0K07BnQMkzKqpzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=evfMiBj6; arc=none smtp.client-ip=209.85.210.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0C83E5560;
+	Tue, 24 Mar 2026 11:02:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774350181; cv=fail; b=Y+8Ih+s6DEDSU0Hqsfzw5eeiYoVm7LeaY84wPWARpOjOgO7LyVu8SB681JYx8lyzpPChxZX8zeTJhQFRQ9zpJXCAy1tLaw443DTm1x1XMxtUNRqSxi1JnyP6onU615gLR2dJWOms52z4AYeO1gVf7CVYgZLwdRCm/O8u0I18HZM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774350181; c=relaxed/simple;
+	bh=8txW/sDPO/hqdth3UpSpN/Er2A85IHO5Ure8/Eo8E6g=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=d/D5g0J1f1TPtdOeoMoZU+y91dmFSJWKvB0amFfB65x52EvKE6w/HQcega2lMakaq0qC/JoTRysl812XtanSY6YvNpaXuB3rtYGziAGoQuqHYurxQHAOa/TW6H7OBpGJ9sjqyHsq1y4rMjn7fucqc23kM3bxXsi97pvb+eu9kF4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=MpH7JMPD; arc=fail smtp.client-ip=52.101.84.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="evfMiBj6"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-829a27414a3so2334480b3a.3
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 04:00:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774350026; x=1774954826; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Vg+tszAFkDYIKeCq8j/spGiQp8FN+9eBFj0O9Fz1BUg=;
-        b=evfMiBj66QGvoFL1YW/+gtZecFQCjFVXPLpxT9vzWoAKcwXKmiIbAjiK49Xnaa3yrt
-         3XFGn3UShpRqMtYw2QEbhvbNfgWMyWXv6chz152DnMmVmcgXV9v+ch12guRiUb0rcDVb
-         gCX7vfOSegCuquPxF4PAYB8u9hjZOHHsMm3AALAXklmMS4dZs0NTXbKiqkiSio5Lyxng
-         wMY3HE3pTNs+mFtPYF+HW+2qlXmlNWkxRFKsT+CgyXmM/pwnNv4RL+i7ev1H8BhVq6wM
-         LjlcxSQnhNfXGWfkr+EzpyCS9rG2QNR2dtH1Zv8BT9XLk/9xQM2WGS6GgZIn85gXjX2K
-         B3PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774350026; x=1774954826;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Vg+tszAFkDYIKeCq8j/spGiQp8FN+9eBFj0O9Fz1BUg=;
-        b=OE1xf/g7aw7lSfskRIT/pLEhRMVzuQjHs5CDEM3/wKAjFq5m/fLeJfNIk1eiwC1IyB
-         MCinCm96Ay6Jh8+vo/66dMBnWziq6OusV3QDfwhH99aHgYqRKmGb+hOgKCt2td2pHcJ/
-         R0tEm6WWmMsco380J/DW2IbwiYlZabauSg67ScCS/kVuiVu2AXAkP7bJtPHl/vmksVG0
-         HslKT2bbdBcxkjr15Fuv7e/q6CPYtsv6TmcSxlVbS00NpyDFP+ziaaF1n1AEIF/S9mZr
-         NAV/6hGENB9R7cR6/GHh+8yqYN+Vpgxj9L8GFIdg19VL6XLpVrU6Q6QuqM/bSt9+Okzo
-         sbnQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXYib5dRVCqaco2SIpIhNIdaQPUGxKGnJCIxkWlA7Zr7Cx+KAgAk9174uTpiZBlz00lavU4/QB8bacE@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1KT8q4WlTvMwj8EpHURAOXhOyj4G7zyxm5qd0sGqF40E/SAD4
-	MPWh3e2TeZecCf+YgC5L6znQIh4qH62yBEQVD6Yv/n06sfGBofJ+RrV8
-X-Gm-Gg: ATEYQzzW9Lq5uRkuk5X2Ka6jU7LRgvHJEOZ9W4+yF2Ba14+zmgK9pqe2VNwowXxvGcm
-	vatpmF6++U3SfLVFg+7OA0PZYVEI5c5bDD8qoUKxzYXrE3WFPJYYY8Ho4qkFbMzBMvKspFOR67H
-	M+f2ENS9vdMAzCQ6eFdwTd6W4SdHDsGH5/F6jlEXH3BV+hmgivcMKBQ9fHeGOI//pqIuYIIZQqz
-	YVCD0hLTpjft1D/dPPh7+9dtOLapttK/IFHZoT6zlhnZI6+MhZjHiJWwVIMkooMDQqWHsNBJ2pK
-	CM8QG68EDmcwaZ2n6wN/u5yYa8wfu9dahUvoS77pAPqKCHeM76wmKzuU1b+Rex7J0OVJXzLXCQ2
-	eR4gbmdsJlnIzUMoVuF4Z+WHd+/P2aW1Xy2QZUPcJEovBqsyMRV+zrT4HZHytKH0JvK57K4LDCI
-	hIDv0XpAxOAe6AKJtkFXaHlsx21y6fdRlffamu03gNzmBk44c=
-X-Received: by 2002:a05:6a00:1a89:b0:81f:b97:14a with SMTP id d2e1a72fcca58-82a8c3b8f88mr13871688b3a.61.1774350025354;
-        Tue, 24 Mar 2026 04:00:25 -0700 (PDT)
-Received: from [172.16.20.13] ([136.226.252.245])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82b03bc1e59sm12800759b3a.13.2026.03.24.04.00.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Mar 2026 04:00:24 -0700 (PDT)
-Message-ID: <1ecbcd57-83d9-410c-8e1a-d6a171321ccd@gmail.com>
-Date: Tue, 24 Mar 2026 16:30:43 +0530
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="MpH7JMPD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S9hP7zq1tYp0eFNV4ielqxpz0WpFD0XYfdUZjwBUSIb5uadshyT0JQhmCU/qgSN3vk2aRin12tIO23wFs6NWnM8nRnw5HpcgETMS9kDSrtwB5JL9kVDnnShQ3I16r0noZE8vAymJblLacf+tdcO+cZdcjAEXybJD5BbRtheeIAONr7UDo0hI39YCYmKPu8f2t7BVw7aR94r4uqIPM9ID3HBBSDbSzJyEQbjvUD7g5FCLqnfmcJAue06gS0/GujloqZaBMt7gnASKuyR0TZPoWx5v9vTnUqGJnmjuzh0XOZrk5trapWVxwKm2EzgJHksrf4Cuik9kVDeVxrJqrrcpkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PN7DUqrRxtBjIo5THdCZsmygbBhBI+CVwIVyKNrI++s=;
+ b=EyObR28KIQ0UlvPwdR535YjOehDu0yPJnsxqUz2irO11xNt5WD19tsxkeJHHMGtXgLW28onie1GqFnXaQOwCr5YVwNM/ekOcLdeiexZKjuxKouKx7O3IbgkOxuM9L5nrVqPOL8dMR+Al1Zz8hZ7GKmlFeZ4bIMHvdZzosu1BJBfX0HTGZyzfmR7NzURkC7xRunwiocBzR/zzav0r7qw/mGW2w5OgqRiA+Vp81Saq2CQ8jvhLF+rnozppP3m5GmrRn3xDggGijYsKnmFolTM88CuCXvlHUfg0kUucL8f3FqzeCEQPr40ztg0EMoedNkQ32g9Ju9txae0RqvxjrMxL6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PN7DUqrRxtBjIo5THdCZsmygbBhBI+CVwIVyKNrI++s=;
+ b=MpH7JMPDVn0N7WFxN3o9lxGOMizdEIFuf12caxyDqmdrA83z/hkQqHx84ImaxZeCkUPCHftVG5WKZRh6r738D2LCoAmZRe3XKXVjMlZd9IEE3L4cz4N8Y3k9C/cqTtjDh44AkEB3l6vW4OgyRsLj/PQAg09b/xF+dT/YySmY3oR8mVVkZcnc8hA31ndRUWFzkMAE8/kRvOZwBWyuyd5cqt0Qj/L5VA7gRRkPt7taxJ2vKzzW0nbP6ml95YZn6k5MZfp3Ote+CPK86YWEAw/qQ5d8IY93VId5QUM6F143exX0EByyVXaRsnfcsGxUrp2WBplONUV0HBFG7GZ4cL/N9A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from DU2PR04MB8822.eurprd04.prod.outlook.com (2603:10a6:10:2e1::11)
+ by AS1PR04MB9504.eurprd04.prod.outlook.com (2603:10a6:20b:4c6::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Tue, 24 Mar
+ 2026 11:02:44 +0000
+Received: from DU2PR04MB8822.eurprd04.prod.outlook.com
+ ([fe80::c67b:71cd:6338:9dce]) by DU2PR04MB8822.eurprd04.prod.outlook.com
+ ([fe80::c67b:71cd:6338:9dce%5]) with mapi id 15.20.9723.030; Tue, 24 Mar 2026
+ 11:02:50 +0000
+From: Xu Yang <xu.yang_2@nxp.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com
+Cc: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	jun.li@nxp.com
+Subject: [PATCH v2 1/2] arm64: dts: imx8qm-mek: switch Type-C connector power-role to dual
+Date: Tue, 24 Mar 2026 19:04:58 +0800
+Message-Id: <20260324110459.2838767-1-xu.yang_2@nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR02CA0029.apcprd02.prod.outlook.com
+ (2603:1096:4:195::6) To DU2PR04MB8822.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::11)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] drm: bridge: ti-sn65dsi83: Improve dual-link LVDS
- support
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Marek Vasut <marex@nabladev.com>, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- valentin@compulab.co.il, philippe.schenker@toradex.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260312043743.261475-1-tessolveupstream@gmail.com>
- <9f694b2d-44bc-46ad-8aa3-b464c2f0da13@nabladev.com>
- <176ed865-11a6-42de-89e0-06951b59a430@gmail.com>
- <DH0X7QW3AH3C.PRNRA8CRSSKA@bootlin.com>
- <49b79a0d-844b-4fee-bccb-706187ed76d1@gmail.com>
- <DH5S3DYT0PJQ.11ABZFGEU6ZPC@bootlin.com>
- <a937f714-d013-4ac2-a52b-2893fc16f225@gmail.com>
- <DH6T0NTZHP93.2DWN4BWDPP331@bootlin.com>
-Content-Language: en-US
-From: tessolveupstream@gmail.com
-In-Reply-To: <DH6T0NTZHP93.2DWN4BWDPP331@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8822:EE_|AS1PR04MB9504:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0ac85cc3-36f1-4394-748b-08de8994e379
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|376014|52116014|7416014|1800799024|38350700014|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	1llaWU6aI0UubuMgCthphpL1nrgL/xfY0P/AXt2/28Bsvma5E+ZQcqpqbRXSy1g7ZqAJK2VVy7CqDCiz7+C0qfMYIVqC9XpPKQuPbYJORcuovmuEwZ9kYN35P+fccK+KWcw+lxKt4KAFCC2j3FdJRzesNqA6aYgnZtGSvIwg4HlIQtWoH55VxL6kv4fvI067TfZOYM9Q1RfJQqZ9P/kcSrmIvxs8L51pydgByNRtmiYKMZt901U+etQjhFQ7F5+mYhWPzG8gO4K/o8jCvOjC+uejad4YCUNO+gePLOCI/vmMfWgEV0KWNjKVlgaMhj0lQXJSZnUfXvbL72MqB0vfrWKQHCC/4tQHXxwgS1luM4dd9Ko0+fXp9N7JYqOyugC0RZpKkvsh+FC+kYRbvpO68U4GW2jgcNl4zqdWOPhk5i+Z30fkPNvJPdD8GdcjUeeviuMuiIJ3z/Q1xeKRfwFsmyFo3FlwbH/A9kVKDyH9yv16iYwc9pcBPAWlQyeaoz5M4mM8/n7h/r0AXyYd+qjCBvDS6nvHBTZjFW2x6tIGEfe4whTqb5PI8J6MxU+igqQbIH3oAwOtjOXrZmuDD9Kj2FFsV++59/if1CYDWKlrDTs47AVudOOnxYm2P593bbYVoNaSxev8Y3MOYBZnRBH20/flrfifIuLvqJvZ7IvQYiyXSP3tqHX3IHE/mybE2gPKz+tNkBeDSYhWSUqmxIlqj8s/BHiizLUuXQaqV04LZv5MyZ4wW/JPdiAwLixIFzYqEW5yUWjYHk/KmDvNgZQMW0lY+mbgMf5L7OsFjTbksns=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8822.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(52116014)(7416014)(1800799024)(38350700014)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?OuOZIx3YKtSSOxF5dnosjHrpLgq6g6GbeybdF3ik4J7hb98IugfGBgvK5NnK?=
+ =?us-ascii?Q?k4CtaeReccM1NVPZjQWTOvs7ONJcs25EGNjhyVa+FtjPxJPQgy9wVaLb2Z8+?=
+ =?us-ascii?Q?9Th4d/HwB72iyi+rGr1nEksq3rU8ii3cqKE5qeD3KqLDSxxyFkXg8n0yOOfA?=
+ =?us-ascii?Q?NlnLOh2k+DOOBp+MMHN861bgL+UWHEUkzopMwLnVcy2cJgBUccod6vjYkZtu?=
+ =?us-ascii?Q?BTouoc1U7HLHeTJw3e6ed3EmGYc27CUSIfH1roAVzqklFzhH5FLZg6uGFuWv?=
+ =?us-ascii?Q?pYTSUuJM8JB3/pfqwvsjWtQhqUszquMQKyyJ0EvFJ/TKbAumjMy5j8r73oKo?=
+ =?us-ascii?Q?2Anz4hcwUFFBcZ3I8qfKN8ImteVumk9VXJAe5R8xrvjzpFNaUSFPSKXKZzjf?=
+ =?us-ascii?Q?a8kYw17bOV4BPSm5qkwj0fryO0W00OWdleOoahYtj5irZxZB5mUt0oWLXA00?=
+ =?us-ascii?Q?qEmLMHhF2fbs9j5VnUfRocYpfljj3d/3g8bDH6Ks7Dlhrmfh7GKVChDacccj?=
+ =?us-ascii?Q?a40ROVkARj6YVq/XTMk1nnpdu9I6/LRU/j4jEoo0oO5GglOj4hLlvwcJgu1c?=
+ =?us-ascii?Q?b/CFrfifzsut50HUn8bKIZchdLbD20oHEh1/AisXEzl1sy/PXXuilJU+NReY?=
+ =?us-ascii?Q?VLMtFP0CLLVNIc1NF5B+PiIDZ4mRfKzaXqwtv1P8rROGVy1gXsBoEis5047m?=
+ =?us-ascii?Q?DUhLFVS+ww33GEzy9JqdWoy2NwNpkTK9s82tOoUr/fVOT7dazTesy8i+A7vV?=
+ =?us-ascii?Q?rmgIcEVm9aypcMswxDW+J87zKBOFkf1nMauZVF99ZcP6cFT1KddNeF2J3Kv4?=
+ =?us-ascii?Q?UJ5y+uCCJ6GdR2D29grU7gLQrOKl/kkKFioeauRyEoeS5CmKmr0GHkyvooeW?=
+ =?us-ascii?Q?nCSmM1Ytoik+sQ1GOrgr2YQ70ESngtEuzYRpPIbFjDtTwPQZzqu0cnS1idOA?=
+ =?us-ascii?Q?/qmIR3zDdov9qtdtooR7yhpfj7xLDPkEs8AS9b0q0kddXcvT/VTkYpHg+Vcp?=
+ =?us-ascii?Q?5W/BzG7r1f8V/tE2MrFd6Nxt5ZzV89Fsqpv2XGordAbWbt93HPFgpZIsDPo1?=
+ =?us-ascii?Q?9mvuaMVMJeyZfUgnfObEwoKLub50Fleg0R5W5g24YeY2cgMTSMnOFJRHr2HX?=
+ =?us-ascii?Q?cvCdajPJnh0WRVxrlYzKwlwaseCNeAh2gzR67pNGVNlaYDN+TtTt1O6Ygqdt?=
+ =?us-ascii?Q?vv2PYH8UfN/fiB2h1U1AbVH+lc9IjFuwDeRbfV8JCE/JZIzbZm3iXzMgSDBc?=
+ =?us-ascii?Q?HP42EoI0+YH2S22X07pCxjeJvOSSnZlAusiKF/8EEW8BEJay1lWoeExUoYVw?=
+ =?us-ascii?Q?1YT6FnGLYxvW+Q0RrHlW3ht7/sletOT9y/0eMmOtzS3OU+uh1iLWNAXyzOVU?=
+ =?us-ascii?Q?5ljj8QNj8rrp2plc1qVYpbeydWdL5elvuc/LzlrHcbbCSWB2pE6oKwi00N9E?=
+ =?us-ascii?Q?GWavvdoVWlRDZWa5OtNcAz7XwSkGeY1JlFall/wxqE2l7pR+dxopmfq1/dHS?=
+ =?us-ascii?Q?aHoitWW0uNTw98e6A2TMYnu7IqCh85al18mmoyamAywIit1CnkGIQDt5EMrb?=
+ =?us-ascii?Q?8Oldu4dOPkpdIYQ0CQCjywhMU/DiaI9dmE4N7McujFOaWe4mcaYksbmbz3Q2?=
+ =?us-ascii?Q?nTyPHmOG9aVPYf3h5cWKvAcRnJqnPlNmjJmvJE2vr03RqUEIgmFB0qvw/ydT?=
+ =?us-ascii?Q?2Oj5bOst9pYr/Jzwu80UiLs/Rl19GCNiMLHSCU73lVh+ihNu2zqfwE8+sQuA?=
+ =?us-ascii?Q?nrAATZV+Ow=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ac85cc3-36f1-4394-748b-08de8994e379
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8822.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 11:02:50.1431
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OiUTyzZDv/YC/Qn2KAlDuG3xh/PUXystI3AYfljjWJqU7Q4lnaHbq3+D4utoWYnrY2r1LJNbuQBZ/8+iLkTp8Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9504
 
+When attach to PC Type-A port, the USB device controller does not function
+at all. Because it is configured as source-only and a Type-A port doesn't
+support PD capability, a data role swap is impossible.
 
+Actually, PTN5110THQ is configured for Source role only at POR, but after
+POR it can operate as a DRP (Dual-Role Power). By switching the power-role
+to dual, the port can operate as a sink and enter device mode when attach
+to Type-A port.
 
-On 19-03-2026 19:17, Luca Ceresoli wrote:
-> On Thu Mar 19, 2026 at 10:55 AM CET, tessolveupstream wrote:
->>
->>
->> On 18-03-2026 14:21, Luca Ceresoli wrote:
->>> Hello Sudarshan,
->>>
->>> On Wed Mar 18, 2026 at 6:45 AM CET, tessolveupstream wrote:
->>>>>>> You might want to look at recently posted:
->>>>>>>
->>>>>>> [PATCH 2/3] drm/bridge: ti-sn65dsi83: halve horizontal syncs for dual LVDS output
->>>>>>
->>>>>> Thanks for pointing this out.
->>>>>> I tried applying the patch “[PATCH 2/3] drm/bridge: ti-sn65dsi83: halve horizontal syncs for dual LVDS output” on top of the current tree and
->>>>>> removed the changes that I had previously added in the driver.
->>>>>> However, with this patch applied, I am currently seeing only the backlight turning on and no image on the LVDS panel.
->>>>>> For reference, the LVDS panel used on our platform is G133HAN01.1 and the
->>>>>> DSI-to-dual-link LVDS bridge is SN65DSI84ZXHR.
->>>>>
->>>>> Thanks for having tried.
->>>>>
->>>>> Can you please test with both the fixes in the series applied + the test
->>>>> pattern feature and report the results you get with and without test
->>>>> pattern enabled?
->>>>>
->>>>> The patches to apply are:
->>>>>
->>>>>  - https://lore.kernel.org/all/20260226-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v1-1-2e15f5a9a6a0@bootlin.com/
->>>>>  - https://lore.kernel.org/all/20260226-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v1-2-2e15f5a9a6a0@bootlin.com/
->>>>>  - https://lore.kernel.org/lkml/20260309-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v2-1-e6aaa7e1d181@bootlin.com/
->>>>>
->>>>
->>>> Thanks for the suggestions.
->>>>
->>>> I tested the three patches together as mentioned, but the LVDS panel
->>>> still only shows the backlight and no image. I also tried removing the
->>>> test-pattern patch and retesting with only the remaining two fixes, but
->>>> the result remained the same — only the backlight turns on and no image
->>>> is displayed.
->>>
->>> Sure, the test pattern patch does not change anything, unless you enable
->>> the test pattern.
->>>
->>>>> The first thing I suggest doing on your side is testing with the 3 patches
->>>>> mentioned above.
->>>>>
->>>>> If you display works, good! Let us know (you can also add your Tested-by /
->>>>> Reviewed-by tags to the test_pattern patch too if applicable).
->>>>>
->>>>> If it doesn't work, compare the individual register values to find the
->>>>> differences, try to figure out why the working setting works and how to
->>>>> apply that change to the driver in away that keeps other boards
->>>>> working. You're welcome to come back here to discuss it in case you can't
->>>>> find out on your own.
->>>>>
->>>>
->>>> I tested the three patches as suggested, but the panel still shows only the
->>>> backlight with no visible image. I’m unsure how to translate the working
->>>> register values into a generic fix based on display timings. Any guidance
->>>> on the right direction would be helpful.
->>>
->>> What you should do is:
->>>
->>>  1. with your patches, and while the display is enabled (and working) do
->>>
->>>      cat /sys/kernel/debug/regmap/4-002c/registers >regs.working
->>>
->>>  2. remove your patches, add the 3 I mentioned, and while the display is
->>>     enabled (but only backlight is working) do
->>>
->>>      cat /sys/kernel/debug/regmap/4-002c/registers >regs.broken
->>>
->>> Then compare regs.working and regs.broken. Which registers differ? Can you
->>> give a reason for the differences?
->>>
->>> You can come back with these values here so we may discuss them.
->>>
->>
->> I followed your suggestion and captured the register dumps in both cases.
-> 
-> Thanks for getting the values.
-> 
->> In the working case, several of the timing registers remain at 0,
->> while in the broken case they are programmed with non-zero values.
-> 
-> Yes, but read the documentation carefully and you will discover this is
-> OK. Also you shuld analyze all the differences, some are very interesting.
-> 
-> The differences are:
-> 
->   reg working broken  what changes
->   12:   53      55    CHA_DSI_CLK_RANGE
->   18:   6f      0f    HS_NEG_POLARITY, VS_NEG_POLARITY
->   19:   00      05    CHB_LVDS_VOD_SWING, CHA_LVDS_VOD_SWING
->   24:   00      38    CHA_VERTICAL_DISPLAY_SIZE_LOW (*)
->   25:   00      04    CHA_VERTICAL_DISPLAY_SIZE_HIGH (*)
->   2c:   10      15    CHA_HSYNC_PULSE_WIDTH_LOW
->   34:   28      2c    CHA_HORIZONTAL_BACK_PORCH
->   36:   00      0e    CHA_VERTICAL_BACK_PORCH (*)
->   38:   00      1d    CHA_HORIZONTAL_FRONT_PORCH (*)
->   3a:   00      08    CHA_VERTICAL_FRONT_PORCH (*)
-> 
-> Values with (*) are those you mentioned above (zero in the working case,
-> nonzero in the "broken" case). The docs for these registers says: "TEST
-> PATTERN GENERATION PURPOSE ONLY". Those values are irrelevant when not
-> using the test pattern.
-> 
-> Your timings are all different. That means probably you have them
-> incorrectly described in device tree or the panel driver, so the
-> ti-sn65dsi83 driver computes them using a correct formula but based on
-> incorrect inputs, thus producing incorrect output values into the
-> registers. What are the timings in your dts or the panel drivers? If you
-> don't understand the question: what is your panel description in device
-> tree?
->
+Since the board design uses EN_SRC to control the 5V VBUS path and EN_SNK
+to control the 12V VBUS output, to avoid outputting a higher VBUS when in
+sink role, we set the operation current limit to 0mA so that SW will not
+control EN_SNK at all.
 
-Thanks for the detailed explanation.
-Regarding the panel timings, they are not explicitly defined in the DTS. 
-The panel is currently using the timings provided by the panel driver 
-(panel-simple.c), specifically:
+Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
 
-static const struct display_timing auo_g133han01_timings = {
-        .pixelclock = { 134000000, 141200000, 149000000 },
-        .hactive = { 1920, 1920, 1920 },
-        .hfront_porch = { 39, 58, 77 },
-        .hback_porch = { 59, 88, 117 },
-        .hsync_len = { 28, 42, 56 },
-        .vactive = { 1080, 1080, 1080 },
-        .vfront_porch = { 3, 8, 11 },
-        .vback_porch = { 5, 14, 19 },
-        .vsync_len = { 4, 14, 19 },
-};
+---
+Changes in v2:
+- improve commit message
+- add comments for 0mA operational current
+---
+ arch/arm64/boot/dts/freescale/imx8qm-mek.dts | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-The panel I am using is based on AUO G133HAN01, and the datasheet can 
-be found here:
-https://datasheet4u.com/pdf/1257948/G133HAN01.0.pdf > About CHA_DSI_CLK_RANGE: what is your DSI clock?
-> 
-
-In the current working configuration, the measured clock frequencies 
-are:
-DSI_CLK: ~422MHz
-LVDS_CLK(both A & B Channels): ~70MHz
-> Finally I don't think the swing values are problematic, so I'd leave them
-> as the last thing to check.
-> 
-> Luca
-> 
-> --
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
+diff --git a/arch/arm64/boot/dts/freescale/imx8qm-mek.dts b/arch/arm64/boot/dts/freescale/imx8qm-mek.dts
+index dadc136aec6e..011a89d85961 100644
+--- a/arch/arm64/boot/dts/freescale/imx8qm-mek.dts
++++ b/arch/arm64/boot/dts/freescale/imx8qm-mek.dts
+@@ -611,9 +611,17 @@ ptn5110: tcpc@51 {
+ 		usb_con1: connector {
+ 			compatible = "usb-c-connector";
+ 			label = "USB-C";
+-			power-role = "source";
++			power-role = "dual";
+ 			data-role = "dual";
++			try-power-role = "sink";
+ 			source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
++			/*
++			 * Set operational current to 0mA as we don't want EN_SNK
++			 * enable 12V VBUS switch when it work as a sink.
++			 */
++			sink-pdos = <PDO_FIXED(5000, 0, PDO_FIXED_USB_COMM)>;
++			op-sink-microwatt = <0>;
++			self-powered;
+ 
+ 			ports {
+ 				#address-cells = <1>;
+-- 
+2.34.1
 
