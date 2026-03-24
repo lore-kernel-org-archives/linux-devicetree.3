@@ -1,119 +1,249 @@
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-183.mta1.migadu.com (out-183.mta1.migadu.com [95.215.58.183])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D4738424C
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 02:05:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D6BB37D110
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 02:07:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774317912; cv=none; b=uyuUDmYQ6EmiJ5o1UDbCbJFPuyWkU8t5tD4IOL4KmV5a9J+QplmKp+qX/fgHyIxRD2KIh8WEFG3sepRNhSBuA+ne3cVN9eUut/75JxNA6o35SwxuCzWmQm5dMfwEW5u57BOSyj5l/VZ2N4o3qY7U3zQARgPyJ9cSHUxxmxvCECA=
+	t=1774318068; cv=none; b=XgE8ztJ/15XzUV+ge1b6ZPAQf+7K++TIPFrmX2cwqNwtU1TAugMy4K1ok29Gt/82BdTfH7jcLykFZNhWol6Cqeor9QbVJEfRZKgE2Rk6tnpXodn992urqHUJ3mMR4rfUDRLjt2EDNY8ttujSEfQbnOItFZQOP9lBPkeOz0G/hZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774317912; c=relaxed/simple;
-	bh=+ehVjjn+FFP1aRjNxMvD8VGxFjrfQtZn+7RGgcX7Sic=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jBx+owDZTyfNEiCNHcw+1qIWfN5AzmDXnX4IcrgdeVvTbddlXD+7qciEZ2YY7bXqBkm1eMNVAVeXWqxB7wpCoiebf5Yf3kmzKp9xo9OCAeq2CHj1wliYepjOhSyGdqrcxD2WrRY9G2+QHnfTD5V4UZusNlhIvzNHHTIL9osQLtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nzYjxuNV; arc=none smtp.client-ip=209.85.222.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774318068; c=relaxed/simple;
+	bh=sfr5sGWKLV+7cUgvRiDdpIW68jelrwa3IWn9b6yAFYg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=DoM2LcWzFafCxA+dXkT01xGtWCOmBEs0L8+lEW8BnNPiyWBEg0Y45NG4w/r/CLJRKGy7t4iS5jCv6Qw55x49xpkVi0lh5O6o67VSmYqSBqwz9iM1D5S450N+NRe9knerWtznM9RACDwA6DbeGHiggOyCci5RC2sIYttZe0eYO/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=A6uNfX1U; arc=none smtp.client-ip=95.215.58.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nzYjxuNV"
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-8cfbbf35354so464976685a.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 19:05:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774317908; x=1774922708; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=WhBxiKr+CpFwBrUC+deA+ndmr0D+vf1b3ZxKGdD13Q8=;
-        b=nzYjxuNVWsy2FAJrdUup/mIJSbRkLFV8btqoBVKVP6d3j7kaRWMaVCI1a9kj5foQ6S
-         dNkE2Ur1Mcd6lE2LZ5+/gkgtKM0ls0uYRXYuAvYgnJwg+bmjKkVlRZlObOn3qVfzTN8R
-         HH4viLyYStE366bC3xc700XYNzdbUVq2FgELOFvyEMqN2gmUOAt3r4ZiWNVE20yvNN8s
-         BZDDAHTmYUNlIhCFRyC4WVuL2lmUGpr5WNwEPmhwmvgqkyhcoeiw3yGJ/gahQExhMZ+x
-         +q2lDIpIk6GrGVGXcvcrj1qxwqJSTezPv4CIOUaxx7371PuaZH8t9xo+WPcqSHRODHgI
-         XPGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774317908; x=1774922708;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=WhBxiKr+CpFwBrUC+deA+ndmr0D+vf1b3ZxKGdD13Q8=;
-        b=tAQjnUMqwvK1A+We4L8yBe8o8TWhGoJbe2vwZpeM1J4Aio4rx4TnLRklZsjH38rlBv
-         tCkxuMJ05bGBFwMI9f7rDygGasfe4IbOx1KgWYt3SpCfVRQYzqXACyZ6aJgnlH2KnEza
-         kW4bZDJ0deOQgex8wka+hBpL3GsvcXGRoRyaYPzUwt/9xV4GrrOgdOZW/HVxyEjxHMI4
-         ZObieMljFRUc8Phbcl3pM38lOScm+v/YDE9RPbvdrib0IhoJtz07TCETKL8muzPPplyY
-         f7EslSm0sS37IDZ6uZKUAK6H6MSSPnd1c3MnQfqntGXi/DOWm1ZAaABZPfRx5GMTuZiO
-         K7uw==
-X-Forwarded-Encrypted: i=1; AJvYcCUTZT/Yaco1T+P3RqbprFvFo+BEzm4JixNp1P6UXp9TRXQw0t2Pr6QapTtzXZLpkigX0RDn7GTwHwT8@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw/4zX+jrtQhlPL7+kU3n0yyRnYSxHMWurCm7qSufyAEU9Q2HgU
-	bGVLqYgmelTnOqB5wWjZC8CKBIMWK1X6y+tae29ATIXeD8Zpa5xgKoVW
-X-Gm-Gg: ATEYQzyk5FjDM1hHBuZq+dd+/kdxP6IUcIiiODL6pp6NmFevqwVl73HmQB8L0s9Jfi5
-	6haxlHrKpnKn+CVCDmUEHbaRCezSX5XmBSPwyeyjSNfP3elvyRDFnz9osSBUVo7t/OFnub/1Xiy
-	KIJYAXbOE16L23NSMlvIJzHmhBwZfnX/xNr2HIAXqdCg8cC/9H2fQwejpaiRW8LwyDnjc4unMBZ
-	7f05RoU58kojoFyvGm2vMWYUOJIsAk/G4QDorvGj64oC8TlamTy9xWs/P94y2YdDr/RIAsq1e9a
-	uc8m3h9JQDda5Z0vUHBq5nahgA/xyRFsb7xaH59S71KHjfDdvn6lwDa99n5YUD131vsdbBGwFYm
-	RJVT1l6kNAPBBtN8woDVAM3j6pHh+6+6HxuvPCcWUEkQbhFKulcqVU0pCfG3B9Y5sijmWDuJs3W
-	IFaTBXhHipbHPMkf+b6M5MmEkNKWGFcaUxB8IFtS8qX6Pd7Z38dIE9fqjVAs8OAcHxn25eyznJO
-	wHW5xYa9jGAVhI=
-X-Received: by 2002:a05:620a:4543:b0:8cd:bfd9:e2a2 with SMTP id af79cd13be357-8cfc7f33feemr2140906985a.43.1774317908192;
-        Mon, 23 Mar 2026 19:05:08 -0700 (PDT)
-Received: from localhost (bras-base-toroon21-grc-75-184-144-58-243.dsl.bell.ca. [184.144.58.243])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8cff5d486basm50081285a.45.2026.03.23.19.05.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Mar 2026 19:05:07 -0700 (PDT)
-Date: Mon, 23 Mar 2026 22:05:52 -0400
-From: Richard Acayan <mailingradian@gmail.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-	Todor Tomov <todor.too@gmail.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Tianshu Qiu <tian.shu.qiu@intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Robert Mader <robert.mader@collabora.com>,
-	phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v9 7/7] arm64: dts: qcom: sdm670-google-sargo: add imx355
- front camera
-Message-ID: <acHxgIsyPiQTeqCB@rdacayan>
-References: <20260217002738.133534-1-mailingradian@gmail.com>
- <20260217002738.133534-8-mailingradian@gmail.com>
- <1349f725-a20f-4935-a829-208c8e583ad9@ixit.cz>
+	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="A6uNfX1U"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
+	s=key1; t=1774318064;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vS032EvzVpRtfXSTOpPqWmTUv6U6bvbz7aB2vYumwkc=;
+	b=A6uNfX1U3/1jrvYJwyBASFT2hA1efAyaE4nVwnNsb+/Okq3qUId0sbqN10RBqdZK3rNgj0
+	CgC/viVJdyZRosoYIvplqpOF3bBaka3Q8RBqDBSAh6WHOVkebUXHV4IMpixWKwd+y/4Qqm
+	2NRYPcKWWrhwTV0BAs7EuJpRHTUvIRd5iy/sf5DpTjTeHvRUPAcTBCxDu+YIyNhlJGk2fk
+	ldBqp3xzQ1+i/jHDWmx1gUbeQ2RKoHtrGsyyx4bsE2PUMuRzG8Jjuhu5Jt2sTWrC0MGlDO
+	qi/8+5/AwgLY3Yp1kHsURze9/cg9A6h335zueUE4xdgmCH9loGDb8Y73J/WEoA==
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Mon, 23 Mar 2026 19:06:31 -0700
+Subject: [PATCH v6 01/15] arm64: dts: qcom: sdm845-lg-common: Sort nodes
+ and properties
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1349f725-a20f-4935-a829-208c8e583ad9@ixit.cz>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260323-judyln-dts-v6-1-29d70ca1651c@postmarketos.org>
+References: <20260323-judyln-dts-v6-0-29d70ca1651c@postmarketos.org>
+In-Reply-To: <20260323-judyln-dts-v6-0-29d70ca1651c@postmarketos.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Heidelberg <david@ixit.cz>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, Amir Dahan <system64fumo@tuta.io>, 
+ Christopher Brown <crispybrown@gmail.com>, 
+ Paul Sajna <sajattack@postmarketos.org>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774318055; l=4272;
+ i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
+ bh=sfr5sGWKLV+7cUgvRiDdpIW68jelrwa3IWn9b6yAFYg=;
+ b=UoeIu8yw/SMkdDxi8a4nUuV6CQ3dm/GHbTPaAPxgTz2Shjtm6vQfDYVw9I+p4zQLGY1344QeU
+ i2wl9EDpK66BQ/p1HLlVxVpAXOiwhaZSsYrzxXVe7AGioLPp6+bldDH
+X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
+ pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
+X-Migadu-Flow: FLOW_OUT
 
-On Fri, Mar 13, 2026 at 07:26:47PM +0100, David Heidelberg wrote:
-> On 17/02/2026 01:27, Richard Acayan wrote:
-> [...]
-> 
-> > +&cci_i2c1 {
-> > +	camera@1a {
-> > +		compatible = "sony,imx355";
-> > +		reg = <0x1a>;
-> > +
-> > +		clocks = <&camcc CAM_CC_MCLK2_CLK>;
-> > +
-> > +		assigned-clocks = <&camcc CAM_CC_MCLK2_CLK>;
-> > +		assigned-clock-rates = <19200000>;
-> 
-> Extract from #sdm670-mainline:erebion.eu discussion:
-> The imx355 can operate on 24 MHz (on both Pixel 3 and 3a), but Linux kernel
-> driver can operate only with 19.2 MHz.
-> 
-> I assume it would be worth it mention at least by comment here.
+Improve adherance to style guidelines below:
+https://docs.kernel.org/devicetree/bindings/dts-coding-style.html
 
-This might set the series back because the devicetree isn't meant to be
-written for specific software, but it's included in v11 because you
-already asked twice.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+---
+ arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 124 ++++++++++++-------------
+ 1 file changed, 62 insertions(+), 62 deletions(-)
 
-The frequency could also be stated as having "better software support"
-in general without mentioning Linux as the reason.
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+index 0ee2f4b99fbd..93ed8f240461 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+@@ -38,11 +38,6 @@ reserved-memory {
+ 		#size-cells = <2>;
+ 		ranges;
+ 
+-		qseecom_mem: memory@b2000000 {
+-			reg = <0 0xb2000000 0 0x1800000>;
+-			no-map;
+-		};
+-
+ 		gpu_mem: memory@8c415000 {
+ 			reg = <0 0x8c415000 0 0x2000>;
+ 			no-map;
+@@ -99,6 +94,11 @@ memory@9d400000 {
+ 			no-map;
+ 		};
+ 
++		qseecom_mem: memory@b2000000 {
++			reg = <0 0xb2000000 0 0x1800000>;
++			no-map;
++		};
++
+ 		rmtfs_mem: rmtfs-region@f0800000 {
+ 			compatible = "qcom,rmtfs-mem";
+ 			reg = <0 0xf0800000 0 0x202000>;
+@@ -467,14 +467,22 @@ &mss_pil {
+ 	status = "okay";
+ };
+ 
++&pm8998_gpios {
++	vol_up_pin_a: vol-up-active-state {
++		pins = "gpio6";
++		function = "normal";
++		input-enable;
++		bias-pull-up;
++		qcom,drive-strength = <PMIC_GPIO_STRENGTH_NO>;
++	};
++};
++
+ &pm8998_resin {
+ 	linux,code = <KEY_VOLUMEDOWN>;
+ 	status = "okay";
+ };
+ 
+ &sdhc_2 {
+-	status = "okay";
+-
+ 	cd-gpios = <&tlmm 126 GPIO_ACTIVE_LOW>;
+ 
+ 	pinctrl-names = "default";
+@@ -482,55 +490,8 @@ &sdhc_2 {
+ 
+ 	vmmc-supply = <&vreg_l21a_2p95>;
+ 	vqmmc-supply = <&vddpx_2>;
+-};
+-
+-/*
+- * UFS works partially and only with clk_ignore_unused.
+- * Sometimes it crashes with I/O errors.
+- */
+-&ufs_mem_hc {
+-	status = "okay";
+-
+-	reset-gpios = <&tlmm 150 GPIO_ACTIVE_LOW>;
+-
+-	vcc-supply = <&vreg_l20a_2p95>;
+-	vcc-max-microamp = <600000>;
+-};
+-
+-&ufs_mem_phy {
+-	status = "okay";
+-
+-	vdda-phy-supply = <&vdda_ufs1_core>;
+-	vdda-pll-supply = <&vdda_ufs1_1p2>;
+-};
+-
+-&usb_1 {
+-	status = "okay";
+-};
+-
+-&usb_1_dwc3 {
+-	/* TODO: these devices have usb id pin */
+-	dr_mode = "peripheral";
+-};
+-
+-&usb_1_hsphy {
+-	status = "okay";
+-
+-	vdd-supply = <&vdda_usb1_ss_core>;
+-	vdda-pll-supply = <&vdda_qusb_hs0_1p8>;
+-	vdda-phy-dpdm-supply = <&vdda_qusb_hs0_3p1>;
+-
+-	qcom,imp-res-offset-value = <8>;
+-	qcom,hstx-trim-value = <QUSB2_V2_HSTX_TRIM_21_6_MA>;
+-	qcom,preemphasis-level = <QUSB2_V2_PREEMPHASIS_5_PERCENT>;
+-	qcom,preemphasis-width = <QUSB2_V2_PREEMPHASIS_WIDTH_HALF_BIT>;
+-};
+ 
+-&usb_1_qmpphy {
+ 	status = "okay";
+-
+-	vdda-phy-supply = <&vdda_usb1_ss_1p2>;
+-	vdda-pll-supply = <&vdda_usb1_ss_core>;
+ };
+ 
+ /* PINCTRL - additions to nodes defined in sdm845.dtsi */
+@@ -571,12 +532,51 @@ sd_card_det_n: sd-card-det-n-state {
+ 	};
+ };
+ 
+-&pm8998_gpios {
+-	vol_up_pin_a: vol-up-active-state {
+-		pins = "gpio6";
+-		function = "normal";
+-		input-enable;
+-		bias-pull-up;
+-		qcom,drive-strength = <PMIC_GPIO_STRENGTH_NO>;
+-	};
++/*
++ * UFS works partially and only with clk_ignore_unused.
++ * Sometimes it crashes with I/O errors.
++ */
++&ufs_mem_hc {
++	reset-gpios = <&tlmm 150 GPIO_ACTIVE_LOW>;
++
++	vcc-supply = <&vreg_l20a_2p95>;
++	vcc-max-microamp = <600000>;
++
++	status = "okay";
++};
++
++&ufs_mem_phy {
++	vdda-phy-supply = <&vdda_ufs1_core>;
++	vdda-pll-supply = <&vdda_ufs1_1p2>;
++
++	status = "okay";
++};
++
++&usb_1 {
++	status = "okay";
++};
++
++&usb_1_dwc3 {
++	/* TODO: these devices have usb id pin */
++	dr_mode = "peripheral";
++};
++
++&usb_1_hsphy {
++	vdd-supply = <&vdda_usb1_ss_core>;
++	vdda-pll-supply = <&vdda_qusb_hs0_1p8>;
++	vdda-phy-dpdm-supply = <&vdda_qusb_hs0_3p1>;
++
++	qcom,imp-res-offset-value = <8>;
++	qcom,hstx-trim-value = <QUSB2_V2_HSTX_TRIM_21_6_MA>;
++	qcom,preemphasis-level = <QUSB2_V2_PREEMPHASIS_5_PERCENT>;
++	qcom,preemphasis-width = <QUSB2_V2_PREEMPHASIS_WIDTH_HALF_BIT>;
++
++	status = "okay";
++};
++
++&usb_1_qmpphy {
++	vdda-phy-supply = <&vdda_usb1_ss_1p2>;
++	vdda-pll-supply = <&vdda_usb1_ss_core>;
++
++	status = "okay";
+ };
+
+-- 
+2.53.0
+
