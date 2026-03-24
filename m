@@ -1,108 +1,168 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013034.outbound.protection.outlook.com [52.101.72.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7B039EF28;
-	Tue, 24 Mar 2026 17:08:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E1F038AC9F;
+	Tue, 24 Mar 2026 17:09:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.34
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774372112; cv=pass; b=DZ22cq86nzjGae12pLegzd5BSbP6V4OT7EcAM/19cT/Y5TB4p4X4n9tWPGlwEXdr+ocxDUM+q0DhBut+yEXY/l7GRJJ9Njr5mEq0aQY0mYJH07fFdOpWl5Ngho59vslye7Dx6bHRKkjwJIPE+PYvXC/oVzkG8yn2784eawe+xhk=
+	t=1774372198; cv=fail; b=h2+qcsqAS8W33sOEq7QBosmBkLC8sTsacz02rqVHm7yFC5cB5ONKTVZCF4e+94Nfaxr3r4getu2Kf8cCak5Lqz7j1XvGxbi5BlHscLeOc62nJakqpbJJwvBoSi4z5GpSqsEmR5gID5+3DPCx3/fv8wAyOoQT3RXeoe0usiGwjiU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774372112; c=relaxed/simple;
-	bh=oez9X9T7SSS1IgzkoqM6yD7VrW8TgS7l91smZUvHSC4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XrHJpsZ61vNfgth9VA3qdbqqCjhdra4kIi07p+W9UBWUOsT/8VPXu/+1O2le/URVaExe0tnlOZK5s0iSfiiih9dyZ6iVTnasXUDi8VdpwrNyWIrPTbxqr/IhhnyBcNof1ZsQoIpaXe1BeRn5gMDICHTA2rRTA61CtDhpoPpfhFo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=iDX/j8WO; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
+	s=arc-20240116; t=1774372198; c=relaxed/simple;
+	bh=UCigIOlDPwOrO7IFVPypY75ugqft/5DzFfD3lYjnv1s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GesFL9P6FRRuZtXev+1nai48+wXFyRZH0PlP+9FywzeojuuGQlh2XNTMuld5ZmCeNe2ecQip84IhjvW8ULpUZo8IL1DqC3Adl2y76+9S5K///mqSDsuZSEB1smSZ13iJfWZChvgceUI5YEh0kKC2HiMz/paNYpxO0j88MlAUdOE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=JJezbaCx; arc=fail smtp.client-ip=52.101.72.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="iDX/j8WO"
-ARC-Seal: i=1; a=rsa-sha256; t=1774372085; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=MYHkYxhl1kzsmMPu+YSWcmmrZLgIFDepwqCYYTJVmnWBBiOSPXoeNy7/5b6gDQStizKS9VNvUz0zjveuguJXJy48VYplJsPVWgklwVT/ZTpA7Xgj25ODq6uSVtM48MaZPDcGlI8RdTVY/+QFb4VMHF70YGAHtj0MY8bpOPx1zBM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1774372085; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=yis1W3CG/QCQD456WDjoHGPyDG1Mp4/onsEgXHy2b14=; 
-	b=T5telFO8kWN0M5y2Oyx5U4Te9xi+q909DUtU0a0LNq9Jo5NvPuhd+Whw4dmsIv6ifHjE2ljzkysofhhV/fumQjCJeMFo/9UgZPlkCkty3OXEiNo+/3NRF5Mq40ONsdLlD33U+d2ckXkefX5tGrRseF/TxjjK+mcoDEoi7hJQ0lQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ziyao.cc;
-	spf=pass  smtp.mailfrom=me@ziyao.cc;
-	dmarc=pass header.from=<me@ziyao.cc>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774372085;
-	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=yis1W3CG/QCQD456WDjoHGPyDG1Mp4/onsEgXHy2b14=;
-	b=iDX/j8WOlY/iWQX7G/cLaG8bbz1UIdDs5XuFY4SgibTZIcUKEEuV2I2ZwrebApkN
-	HoT00F82R+5XhE8SrHQp+xK0kIyp2RpaGW8cHuycHMacYW5H65pxZUolcj8VYEwT4UC
-	kT62Rtc39TNjWUTBsLoSunrHGoVql1JyUy1aw0j8=
-Received: by mx.zohomail.com with SMTPS id 1774372083024696.6013806809772;
-	Tue, 24 Mar 2026 10:08:03 -0700 (PDT)
-Date: Tue, 24 Mar 2026 17:07:51 +0000
-From: Yao Zi <me@ziyao.cc>
-To: Yixun Lan <dlan@kernel.org>, Aurelien Jarno <aurelien@aurel32.net>
-Cc: linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="JJezbaCx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dNNJX2jhOvK/p4L8ZbN1Z1fnD+y+Xw7whRKdJqqZllJuFYrLA8dFVPRZOPkjCAYosoo3IAsDhArC1WEhYmiVTjTixh97cWFM6m0xe1PgyUpZqbeGkplQvPFI7i5scjYvP7YBXS46HRKODrxZGpmiNIzyKpQmxvobJHMC6g9FefZh7XFlFFroUPBxhAWR4othhhVJw2BTBjTxhd8Px5sg11DsvwQkddD5cg1pcOmTPjYf0jHP4JrdCaSTlaQXV0gNTg8mRkYXSuLCwE8tXX+NoiYkaGfzkYtgZL9roAOlUHZHH3qXNdpMaxrof4nXFcMSGoMSkQOyLgsAL6sBssv0ig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1Dr0GpnUNITyZBOBHu86Bnwll7iUD4gxejYlRP6vt8U=;
+ b=jp929suzQhT3eDE67FkxA6ObY74goiQITILa1BSisQwyqqgRp7GDwihEy5FzgRHeE8jQG3ZcxoPwgR3pQyPeZyqQ6Az/LkCCrNJANqAJPBFnw4nYQRXsSd2Qvxos6jomw2M7yTRSX82O2G2N86NM/3nSMSIyYosatzj+GsF0qL+YiAUH7eqKChDw2bO7v43PIFX9IAYSdCSV1WZzhRBfQ+SNcKr62/+e9b5w6p2g95SCTZmFw64djvIT4yyWoQXRD58LHjAhQwYfBFql2Da1Yt+gUcoAumoswQDy9o01xVJm3fAZy2+Imgy3JJqFctsmRPwDt27QMwb2VcXHaoTGzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1Dr0GpnUNITyZBOBHu86Bnwll7iUD4gxejYlRP6vt8U=;
+ b=JJezbaCxj4KfprI1qeeWqwrjCRCN3ldi6BD4JjcHgaT4zqEMRi3Y8FLlOwQIJ76pfxY6QwBwcjynSJLg+mMtRThxlUqIAEmOIFjzceQCz3vfuowuI3c7jSCIwxOHzANjFCb4gRrGuodCTE0ssT1xzfeYTmyt83/fYa9+H9WaqFz0NGnCrCxOgeFYZaxo2HmFd1kHymfp/Jtb5mbwQaxXRAN9H3eputKy1e4/Yoymwq2CsPzMPKcgnz0JPY8w0fnhVFbw6EuFdZLeXnE/PHO8C7LjxkGF8pQD/RqV9CUFfKRvJF6SR0+XR1Y7VGfx/d9rrAaEmFTJ/6mNKTkpwBRjjg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by AM9PR04MB8681.eurprd04.prod.outlook.com (2603:10a6:20b:43c::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Tue, 24 Mar
+ 2026 17:09:54 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9723.030; Tue, 24 Mar 2026
+ 17:09:46 +0000
+From: Frank Li <Frank.Li@nxp.com>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	"open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
-Subject: Re: [PATCH 4/6] riscv: dts: spacemit: enable QSPI and add SPI NOR on
- Milk-V Jupiter
-Message-ID: <acLE5xnEBoCtW4Vw@pie>
-References: <20260322203356.2206927-1-aurelien@aurel32.net>
- <20260322203356.2206927-5-aurelien@aurel32.net>
- <20260324090220-GKA739629@kernel.org>
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	linux@ew.tq-group.com,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] arm64: dts: imx8mm: Explicitly set DSI_PHY_REF clock as a child of CLK_24M
+Date: Tue, 24 Mar 2026 13:09:35 -0400
+Message-ID: <177437208819.2180776.16989434703618891645.b4-ty@nxp.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260313071027.587992-1-alexander.stein@ew.tq-group.com>
+References: <20260313071027.587992-1-alexander.stein@ew.tq-group.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SA9P223CA0022.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:806:26::27) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260324090220-GKA739629@kernel.org>
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AM9PR04MB8681:EE_
+X-MS-Office365-Filtering-Correlation-Id: d216e127-41c9-47ae-1e64-08de89c82653
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|52116014|19092799006|7416014|38350700014|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	hnxG5+nY9T3ZqJvvSlnkS6Ne4zgfIqpqhi7uHlXU+JJuOM0GC+gCiQmBG0wFf5GOnAwhbVwYbWln0GbvUyTafgeUViJuoYTagnOBbxUEZDqemjaBKShU6Yuye0rfw6iwIvylYFhXBpkSvBJ8elqdH+yymb5FeYYpGXJQZL610tR5nzf6u8lWerDpTI8ewEmWQ4Mm0XFJ8dVUrJ5F7rfB9q3m6pryCA78eFh0LCHpOUf9lkhU2WD3z7ljU1XZ/F8EciZJXitVV3SyYMPu0xx5klW59aspC+SBewtgrZriERjODXTrYGgybIgCyqsmjzrW7eO+xV0OZyYLDf2LEQ5nn+zJ13uSuIQO/goq8nZrstPkXWL5KG7AXlHAZebAX57ke0B3fO871ELXdfcj+LSBuD79Fh9GpToGqIElYI0neCeo2HNp8+00OMO8dsPw2dYu2CPLXxEQHSl+8dfwpTdnzpxTLf3snwMM00U/RZ3IqqJRq97uELuQ99iEXdalfalYVAbAvMxoxOPU2mA+MhX7/A1FAePaJZJ1REzZRXmowlf5TbvnFf93NANOLo7RHbL8PWMSX+P/1x9aIteOR1siN9Rp1lC/dBdBMFdzlRYvpNZZmUBUiv4FXvp2MiJR/V64YOfuFwmLVKiQPaU9Srid4fk0A3IKrfnztz1fJq0BthF7pVyHoK/o5SNH+9HhPSKpN9DhCCw6iF617k9r18hKtCFlMZTtelI3T3Pnp865BToWamJbtsINVkiEk9fRljBnhO5IZXTDsN10auWU2ZP+i/QHsxsC1+lA9G3w8FX234k=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(52116014)(19092799006)(7416014)(38350700014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?d01VaEtoeUREOEhpaGdhaDhMdC9lZWhBVXVCOGNnR1BTOUtpQVdxODBieDJH?=
+ =?utf-8?B?Z1dKWFVGd0ZrMDhtQ1R3MHljczVaUkloZ1pMbkYybXB0dGJCVmptWklNS1FG?=
+ =?utf-8?B?Nk9wVS9BVWtsQ0h1dENJUkFPR2pSVXlkU2loeWlLSnhGcm9EemJ1OHpOSjJ0?=
+ =?utf-8?B?Ni9QUWxSK28yNFZtMlVNMXAwR01rUmxoK2w1bmJhMVE5ckp5MEQ2RjJXRnpm?=
+ =?utf-8?B?NGthUUMyU1hSVjdnVEpYNW44TE40QVdWMHVrT1c3T3dwTWZYZEI5MW5tLzNo?=
+ =?utf-8?B?bWNBNFBFeWVTcFgxQXBaUjdYb0FqeVV3eDdKdDVkUDFFZmYrU3RxbzZndFEr?=
+ =?utf-8?B?ZnNYcmlHUUtINEt6c090eWxZTzNQSk15Z1RtZWZhbHVEV2syMzZEVFBsZ2w1?=
+ =?utf-8?B?b2FOU2FPOXFoZFRJOEJjQy8yd2IwQ3Nwa2NDVWRMMXNRTFZoVytORWI0WUpO?=
+ =?utf-8?B?bjUvN2xsQ3BzWVZRUk5oSEtVT0RnVlBJMWZjU2pGSmFrK1NVQUs2ZndUVjNa?=
+ =?utf-8?B?VXIrL2QyOVZqQVdwOE0zS1pCYWt6cHlNbmRsVDNsZEhCc0kzN3I1ZzBPbmFD?=
+ =?utf-8?B?eXMzWjg0Ykw5eDBYVzM5MWJLL3JNcGRHMktXTnBrKy9zNFRwemxQUHVmdlpG?=
+ =?utf-8?B?RzdVSCs1emFDSk5BZHhkbHVkamJjbXJITGg2QlJpbE9QbllpVERiUGlGZWZT?=
+ =?utf-8?B?bDFmWll0bWlpSjQxYWtNTjdRbzlma2gwRWIvYUNJanEzN3E0Ti96cHpHdlJS?=
+ =?utf-8?B?R0pLODNwWkRvZ3dIY3FkSGlkdG82bmRwS3FHUXZWK3VTUjI3WWYyOS9SVGp6?=
+ =?utf-8?B?Q0wvMmErMFVsYzIxVjIxRkRvTWJXQlJCTlZuRFJGUVpEeVZmWEJ4aWdkV1NX?=
+ =?utf-8?B?M3ZYMHViQmtFMlNvWldZZkhBdFZqdUp5VmNxb1ZrdVVMZk9pVURDVmN1dEEz?=
+ =?utf-8?B?N2YxQVk0ZHlvOVA3aGlvMTJaZmNtWU1EUTdvL3cvSW4wdjQwV2tXWlRTTnNS?=
+ =?utf-8?B?TjVlVlozQXJjanloeGRqUjlxV2F5UHh6UnRFdE9tOXJsQWx4ZFZyaVM0Nk9P?=
+ =?utf-8?B?RWpOSmxoaitLRlpzNUpMVFZOcURvMHlXcVM5QmhyZHNXaWU1cm9LaEQ3U3Fj?=
+ =?utf-8?B?K3d0dURjTFVLejNzbHV6VHV5cmE1aWhHRWJKVWVVN3Fjckh4RGU0QWxZampP?=
+ =?utf-8?B?T2VyelRPQXRpUERvV0RvK3FqWDExSzNYRkUramhWbWtHQXpkMStucXhEK3F6?=
+ =?utf-8?B?dkRGL2xnRWRGdm1WcmdqOVBXMGJGNW1EUXkxakpzNXd1VnZETWxqcUxSU0sy?=
+ =?utf-8?B?ZENuTWZleTBSREU5eExhaFpNSG9MTTlNMmRaN2lLWTdMQ0N3L1hwVFNaK0p1?=
+ =?utf-8?B?OWhwbmQ2K09BMTJlWTNoWnY5Tm1oU0daYVhhRkdpVy96bE43QllnWmFCLys3?=
+ =?utf-8?B?UXc2VTJMRjBCUEoybWZnZ3RmTmNScWFKeStobndFOHFTN3lQanR5MTcrN1ZZ?=
+ =?utf-8?B?OTNIQmphSHlUbnMvZENZRkxoUVFJQ1Z2QnBJRWZ4RjEvWGtTdW9ib2F0bFdD?=
+ =?utf-8?B?dENZci9rS21qUTIyS2FLNXY2VytYeGF5eUxnbFNaTkt5MDh1STFjNlJsVnZq?=
+ =?utf-8?B?cDhKTmhZcDE4MndFY2xnN2VmZ2d2M3pNTVpjSXhpWHNNOUxZYjl0MU52blU4?=
+ =?utf-8?B?NCszZGhEaGZIcktGVGtwVy9wdjdXUTZrcXZNdCtubEFwNTM1dzlrYnJnUWhn?=
+ =?utf-8?B?SWRjUzEzWGc0WGhQNFJWU1VvU0JybUluV3hhc1hsT1dzdWlGK0xUWDZEQURy?=
+ =?utf-8?B?MVA0MEhZYXhEQTBsN01OZE1wTEE1VW1kU2xGTHhHVnBlSEpIQUMwbWVuVTZR?=
+ =?utf-8?B?dHhCSjRzay9hRWI1OWlQWlVMNmFRR3g4ZVk4enREMEdVeWdDYjliZ3Q2RW9o?=
+ =?utf-8?B?VGJkSmpzTm1GUjU5V0grK2RaUGFGVm1Hanl2YnlsTFBxOGxUZGFZdi9JdW1W?=
+ =?utf-8?B?eWFubXVycC9vMWZ6QjdCb1YxVTFwZUFielBTeU1JRTNpUklFTTFnUEZ3aVc5?=
+ =?utf-8?B?dW9GQVdlREFyWUJVc3EwUER3M20ya1FHMEdKSUlPTmZLZXptU0d2Z1h3M2Q1?=
+ =?utf-8?B?UnorVUJqRDRtVlBNV1NzSndORlJQZTFNWWhKZkhRTTg5akZyRGdWUTVpYnEv?=
+ =?utf-8?B?YkNqa0VsZlZqT0dBU2VtQk9VQVpvWUtlUUp3d2pFSm5HaDJsSHhmbWd2ZElX?=
+ =?utf-8?B?WnA4eWw1UXJuekgyS1ZpcnJ3OFB5alUxeSsvaHZWK0tLK1pHYUJObTB3Nis1?=
+ =?utf-8?B?MEdUWk5ReE5sU21PTTVsbDA2TVJBRUZsaU81d2VHWllhYUtDQXZkZz09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d216e127-41c9-47ae-1e64-08de89c82653
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 17:09:46.5504
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: avLxX+4flzWAiHIo9LjNUx5AlCKa+1gr90yf8jeJgHCJAnSYZwjKOse142hA2G7Qv1pdyyfx3Opr3OLUV/6prg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8681
 
-On Tue, Mar 24, 2026 at 05:02:20PM +0800, Yixun Lan wrote:
-> Hi Aurelien,
-> 
-> On 21:28 Sun 22 Mar     , Aurelien Jarno wrote:
-> > Add the QSPI controller node for the Milk-V Jupiter board and describe
-> > the attached SPI NOR flash (GD25Q64E).
-> > 
-> > The flash supports a frequency up to 133MHz (80 MHz for reads), and the
-> > SoC supports a frequency up to 104 MHz. However tests have shown that
-> > the flash is not reliably detected above 26.5 MHz, consistent with
-> > frequency used in the vendor kernel. Therefore, use this frequency.
-> > 
-> ..
-> > The m25p,fast-read properties is taken from the vendor kernel.
-> > 
-> So long as this is verified and works fine on board?
-> 
-> > Add a corresponding flash partition layout, matching the layout and the
-> > names used in the vendor U-Boot.
-> > 
-> ..
-> > Also add the bootph-pre-ram property to make the device tree usable by
-> > early firmware/bootloaders without modification, as U-Boot is stored on
-> > this NOR flash.
-> Is the dtb file actually used by U-Boot? I'd highly doubt about this,
-> if not the case or has not been tested, I'd suggest then not to add
-> this property..
 
-Currently no, but it would be a bogus if we could do it at introduction
-of the device, if it's really necessary in pre-DRAM stages of
-bootloaders, e.g. U-Boot SPL. This would reduce the duplicated work of
-downstream projects if they decide to switch to Linux upstream
-devicetree.
+On Fri, 13 Mar 2026 08:10:23 +0100, Alexander Stein wrote:
+> Since commits a0deedcc0cf0 ("arm64: dts: imx8mm: Slow default video_pll1
+> clock rate") and 5fe6ec93f10b0 ("clk: imx8mm: Let IMX8MM_CLK_LCDIF_PIXEL
+> set parent rate") VIDEO_PLL1 is dynamically programmed by CLK_LCDIF_PIXEL.
+> On imx8mm-tqma8mqml-mba8mx-lvds-tm070jvhg33.dtso this results in a
+> VIDEO_PLL1 frequency of 68.2 MHz and DSI_PHY_REF of 17.05MHz (1/4).
+> Instead use the 24 MHz clock as parent for DSI PHY reference clock.
+>
+> [...]
 
-As SpacemiT K1 supports booting from flash, the description of flash
-nodes are likely useful for pre-DRAM bootloaders.
+Applied, thanks!
 
-> > 
-> > Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
+[1/3] arm64: dts: imx8mm: Explicitly set DSI_PHY_REF clock as a child of CLK_24M
+      commit: 5cb939a70e052948ffb05f1c02e7c83dea5b2426
+
+Fix checkpatch error. since commits ... -> since commit ...
+
+[2/3] arm64: dts: imx8mm-tqma8mqml-mba8mx: LVDS overlay: Reduce DSI burst clock to 600Mhz
+      commit: 3a96ba67dfd4d88a342c61b229e139598a20734a
+[3/3] arm64: dts: imx8mn-tqma8mqnl-mba8mx: LVDS overlay: LVDS overlay: Reduce DSI burst clock to 600Mhz
+      (no commit info)
+
+Remove duplicate "LVDS overlay",
+
+Add empty line between paragraph
 
 Best regards,
-Yao Zi
+--
+Frank Li <Frank.Li@nxp.com>
