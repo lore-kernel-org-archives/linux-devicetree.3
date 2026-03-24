@@ -1,78 +1,67 @@
-Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 745B238838E;
-	Tue, 24 Mar 2026 03:07:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422361684BE;
+	Tue, 24 Mar 2026 03:08:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774321666; cv=none; b=Q06N6HFPoMw7IlMyTDLXCrzL3x42IIx+Z9aJ4R9I7YJPj+schJOD2WDx6Xmpm7lhEIep+SmNnlaOoD2NkFLP6FLCNq3Fpd9ZcXxypxZHn8G5MSAWbwyOFYseyerzi74GtZakDIFVNgeoP3PbAuS+ZMgsj+nCd1cLV5we4oYaGKI=
+	t=1774321725; cv=none; b=Us/xy5DvjXru3925s2yC+sEsG9r4/mpcn7F9wye8t41ScpMxbFbutQj/iXvzK9uBQtMOqVuJu0AKR8ixk5kd+0vv9anVYZwvZGF9kkc6ghzBffjjotL7UtHW2A4mzAfYMVlvC0PjZwYVyWgR6GiLWsIVdL9IQH91e34O4LQrLHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774321666; c=relaxed/simple;
-	bh=2B6st1g3WZ0PQOAUsZSJPA3CSrZ82gOB6l8xjOM5kps=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=He8ktv0t5esPKB8KhTgPP1WJq+bA/zodEPXR2tfdHJa9RyGbpLYoGygiT7YsGjJXPGidl5/c2fSn2CJ/x3hgW1iYeCn3P0YoRAW06pguJikFJMXUVEaZUpf03XkZ+cs9/BJxQytBsLZdoEGEyOcCwfksV6SsQtHG8x3renr+LLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=iTLUsJrK; arc=none smtp.client-ip=91.218.175.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	s=arc-20240116; t=1774321725; c=relaxed/simple;
+	bh=L6bdm1UAcNyRmk3Mc5xmi0ANiavnrf9n3FslWt3Q2V0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=hTemAnGJg2ZA+XTbtCcnTSrP1lU4SaEwhHCr1czKTKz6uPMXeod55YARi1e+J9Lc+akAeDBNWbsudywniMt+YnfFCAS5R+mV6J+qKvSWNCrpbQ+7WCfX9W9xwSorpxyHvGWKm80ECVoVU8lK/Q4nHmeENelJe6jB95fZNLBYbAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LHF3aDiV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="iTLUsJrK"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LHF3aDiV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83954C4CEF7;
+	Tue, 24 Mar 2026 03:08:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774321724;
+	bh=L6bdm1UAcNyRmk3Mc5xmi0ANiavnrf9n3FslWt3Q2V0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=LHF3aDiVHXC9i/nGJ35BLo1UOhtq97jikR0glYnrWss/+pr2g40JoNyZuFhWYQt3R
+	 7SKZJY6TQxfnqoXDWCygTMJtcaKbbt+h4y6OnNdUFmK1ewGTf9/QEBX0QfCXzYJDdY
+	 VOlw/rYSRUgVuA4sV6kDoqxIF4szGJE2h9dwGMunbX44cvG0XMME8VsH+bzTwEB4Yx
+	 aTtYoBOnKL2+dznMugbQE07SPUgoPaPcwSClyl99RuelalvVBcmmG08iroRDz69xZ5
+	 HMF75t+N1OQDgHWDZe8CluOzczvZuedXdIb0wE5rt4bcT7pEHbzSGH1TBFXYhnUORw
+	 +c9oedL99psnQ==
+From: Chen-Yu Tsai <wens@kernel.org>
+To: Jernej Skrabec <jernej@kernel.org>, 
+ Samuel Holland <samuel@sholland.org>, Chen-Yu Tsai <wens@kernel.org>
+Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260323171927.1256507-1-wens@kernel.org>
+References: <20260323171927.1256507-1-wens@kernel.org>
+Subject: Re: [PATCH] arm64: dts: allwinner: sun55i: Fix r-spi DMA
+Message-Id: <177432172322.21043.12372539373263161573.b4-ty@kernel.org>
+Date: Tue, 24 Mar 2026 11:08:43 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
-	s=key1; t=1774321652;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Qo2sYl7b6ofxlHD2SMhXRvhSH0pp3d3VlXFV9BnwRBg=;
-	b=iTLUsJrKU+sUBKgtOp7A1Lk6o5sA/Yywrxa0QP8ELlXujMWEzBRETcuxN27zvlUrBU9iPL
-	ZDOg18FoyqOj/PMS01Iv6EmYI3vVYlMvV1H+6sBC3lHfiaQSKBEEr09aqG/GgaW2XpVg8r
-	Upb7HQRwNsSjyTbbjZzIC7lVIvxqT/o7wFzrb9ea3xTeqwDATFCxOuzVu54pL5SnKnTg2g
-	SxFn8nX3BqQxIU9J0ec/gtEjkOISV9Pfl4mx1m4TLRBayKe3RhVoCjaYzLSFEx6wFkEzxy
-	NMZGCC76cSrR3LcK8XBfjRRcUd7yCAQUxIM/0uWhWy5WN198BIoKqQ2D4176RQ==
-Date: Tue, 24 Mar 2026 03:07:27 +0000
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: "Paul Sajna" <sajattack@postmarketos.org>
-Message-ID: <895a96b28d1a228557832ed2eb696d6781b4ec36@postmarketos.org>
-TLS-Required: No
-Subject: Re: [PATCH v5 07/12] arm64: dts: qcom: sdm845-lg-{common, judyln}:
- Add wifi node
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: "Bjorn Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "David Heidelberg" <david@ixit.cz>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, "Amir
- Dahan" <system64fumo@tuta.io>, "Christopher Brown"
- <crispybrown@gmail.com>, "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <bynxwz5venb6jkybamylu5dl5pmjavknoa56dkzyhgrskpgcxl@oyxqp3telscp>
-References: <20251203-judyln-dts-v5-0-80c1ffca8487@postmarketos.org>
- <20251203-judyln-dts-v5-7-80c1ffca8487@postmarketos.org>
- <bynxwz5venb6jkybamylu5dl5pmjavknoa56dkzyhgrskpgcxl@oyxqp3telscp>
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.2
 
-> Please submit the bdf file to ath10k: https://wireless.docs.kernel.org/=
-en/latest/en/users/drivers/ath10k/boardfiles.html
->=20
->=20Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->=20
->=20>=20
->=20> +};
-> >=20=20
->=20>  --=20
->=20>  2.52.0
-> >=20
->=20--=20
->=20With best wishes
-> Dmitry
->
+On Tue, 24 Mar 2026 01:19:26 +0800, Chen-Yu Tsai wrote:
+> r-spi has DRQs for both the main and MCU DMA controllers on the A523 SoC
+> family, however it seems it that it is mainly routed to the MCU DMA
+> controller, with no obvious way to change it.
+> 
+> Change the DMA channels of r-spi to the MCU so that it works properly.
+> 
+> 
+> [...]
 
-Sent (a while ago) https://lore.kernel.org/ath10k/c4ae548c-468d-4451-87dd=
--460b4e72945d@postmarketos.org/
+Applied to sunxi/fixes-for-7.0 in local tree, thanks!
+
+[1/1] arm64: dts: allwinner: sun55i: Fix r-spi DMA
+      commit: 6896ca5a9d05275fbeb38640c9bbdb95698de188
+
+Best regards,
+-- 
+Chen-Yu Tsai <wens@kernel.org>
+
