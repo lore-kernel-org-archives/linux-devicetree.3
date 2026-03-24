@@ -1,51 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E19838B128;
-	Tue, 24 Mar 2026 03:06:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921F838AC8D;
+	Tue, 24 Mar 2026 03:06:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774321573; cv=none; b=EWR5mGkiRsPCnjFuc4fzSNQ2mTUyXYoASbuSEVTjaK199hG1yQx9g8By+ydCg932/LTJOsW2eWM0zHUF5jwciePDG+aDzCjaWPYoU0acDYZrNDTqThFuDX3GqkFEEZyzFIXwiwXe/GOZMm5HF3RJv3xZIuTeTjzErCCeT5/EkaA=
+	t=1774321576; cv=none; b=A6R12Hm6hNiYu5vw6xj1qQ3jj/KVjOLsjFNltZWpWKfthy5H+NbFQTWe7+qb6wTqubUNAcWBnqYbWWw6I+0aRREsJ7x7Pc35JPJ5dsfCPTZLDoopkmDKUH6zSCF92LxOEs4xZ1NtmXy+wYW5LbaB77PymXwJm7MnLf9igYsZ4es=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774321573; c=relaxed/simple;
-	bh=NGnTzMjN/dqkSDLJgCByshs6Dx+jkVyhRZMYumkhleQ=;
+	s=arc-20240116; t=1774321576; c=relaxed/simple;
+	bh=fJksfMG3GI9YwwYtPBCDyaorDMq3olF43HqOpnW0wb8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MdbVxbKa2y1keWEqENZEqj8stKg+u2i0q1QL1JNyAn8TF5oYO/F0g4HKvONDhE85F8xBI05oS+mNvB/k77lF+y8DXK4X5eL010Hq9H1gJg6KseiaB31xysER7OZSpWYqNk9RROj3vyCayb0VA5+OelUOjBVwS3Ngrhu/OtSygac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cm7FQslR; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=PFQSan0ivz9TkPclGER4EUdArZnSgAiDE6gxxdlq1/3RhPw34cmTScfUnP1JBU4q+B3nrZbRJhcUjxkTkTbfB3/+pBxmy/Wsi1seuhHeVVEY//gBbKvokyHqRhleLO6hvycYOMc+U2xOPaTje/+TCNG7FoEAjmTH6r27z5RqfBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fpjcsc0k; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cm7FQslR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74A85C2BCB3;
-	Tue, 24 Mar 2026 03:06:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fpjcsc0k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26245C2BCB4;
+	Tue, 24 Mar 2026 03:06:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774321572;
-	bh=NGnTzMjN/dqkSDLJgCByshs6Dx+jkVyhRZMYumkhleQ=;
+	s=k20201202; t=1774321576;
+	bh=fJksfMG3GI9YwwYtPBCDyaorDMq3olF43HqOpnW0wb8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Cm7FQslRHj+v2PwL8kl1Ky3oRFEvF2AgC0xNmQ2hUPneVFtjs+YRjipiBhWAdJCC+
-	 s2fVmRsBYwEmxGHQ/whe9+YEbBvCjvxZPpQNV6LkrQKyhJA/LUyQ3D37zSffJEyirH
-	 wcqoFbk0BGCQKqnzLUQSa6xNG4m5lAO6R1E8Xs2eD/5XFdVy1Yt+cuiaQrQh8QiQaE
-	 kuzTpGqn1PrAWFRtQrIGaygCMaJSmdMx4SitRrky8jfMUDSKCSr4HLsW7Ib50S5ru7
-	 vxP0TCQHDv2oZACLvLyf2SzIs34fuwLWZ3ZukJpO6R19bzXSqUPOL5ASgJaWTwNODJ
-	 JBAPV0VA1NCAA==
+	b=fpjcsc0kyGEJjbcjL+eSVcCWhm/9pRrBG0u/DD2SsTOG97/ydhjUgQCkfKhiTCOTS
+	 5l73Ls496utFKuLkBKH3seXCDKqOMs/LFLvFzwdVr3NPRBnyAOGZU4s8v+YHYVQdib
+	 5XvMBxmjp/pVeQEkoXGiu45kA0wmq3wPcKIFzh5OWJPBXKVQRlDEXjLhl3noLPa1kP
+	 2VzPHy8rZuZhlu9rPV2dAlhrlly7HMA12HAxLj+CAFqeiehlRpPTkFWuuYhDNaseyJ
+	 lfpF/0L29ywhLLqOJC8CPhSkZXjOYiI15Z+HCTOd2CSb12AajLzyGaU47BEKlwlUtI
+	 pE/SA3hJXdsGQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>
-Cc: ~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-usb@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
 	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
 	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v3 0/2] Enable UFS support on Milos
-Date: Mon, 23 Mar 2026 22:05:55 -0500
-Message-ID: <177432155637.28714.2511351512032518031.b4-ty@kernel.org>
+	KancyJoe <kancy2333@outlook.com>
+Subject: Re: (subset) [PATCH v6 0/5] arm64: dts: qcom: Add support for the Ayaneo Pocket S2
+Date: Mon, 23 Mar 2026 22:05:57 -0500
+Message-ID: <177432155636.28714.2401575051515656183.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260319-milos-ufs-v3-0-b7c60bdd0d48@fairphone.com>
-References: <20260319-milos-ufs-v3-0-b7c60bdd0d48@fairphone.com>
+In-Reply-To: <20260319-topic-sm8650-ayaneo-pocket-s2-base-v6-0-797bf96df771@linaro.org>
+References: <20260319-topic-sm8650-ayaneo-pocket-s2-base-v6-0-797bf96df771@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,18 +67,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 19 Mar 2026 09:23:17 +0100, Luca Weiss wrote:
-> Add inline-crypto-engine and UFS bindings & driver parts, then add them
-> to milos dtsi and enable the UFS storage on Fairphone (Gen. 6).
+On Thu, 19 Mar 2026 09:55:06 +0100, Neil Armstrong wrote:
+> The Ayaneo Pocket S2 is a gaming console based on the Qualcomm
+> Snapdragon 8 Gen 3. It has an internal UFS storage, WiFi,
+> Bluetooth, gaming buttons, SDCard, 2K display and USB-C
+> connector.
 > 
+> Product Page [1].
 > 
+> [...]
 
 Applied, thanks!
 
-[1/2] arm64: dts: qcom: milos: Add UFS nodes
-      commit: 0b0d0b56308e51c6edc515bb39b383c769dacc04
-[2/2] arm64: dts: qcom: milos-fairphone-fp6: Enable UFS
-      commit: 93bb565b58bf4ef094eebf64cfdd240d4bad3bd1
+[1/5] arm64: defconfig: enable pci-pwrctrl-generic as module
+      commit: fdeb077b8ae53a6ef772c5b3c4d1f3a408dac2a0
 
 Best regards,
 -- 
