@@ -1,169 +1,192 @@
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013013.outbound.protection.outlook.com [40.107.159.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226461F4615
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 16:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF31B26A08F;
+	Tue, 24 Mar 2026 16:01:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774368109; cv=pass; b=JqATywWLUECqIv7YTs2DzkkpGl/S5Uc5AzkodWPrQAIu2laHu/oB/FgHHf7kdWQ8qHvB42f8eL76A6m+oTjNMZVt+o2lde9eCavPCbcwWx0DBHWpqALRfMUSlhaWTZs3lXhoiDu0eXggG29HCDDwzqK9nLcy1ffUoWSP9RmUNbY=
+	t=1774368112; cv=fail; b=hZr9ZZ3NJcZDJJsWUgMzm6NiHsErK82j4WbzV9qWQiZQB6ovq870HVqFF1e7/2/60GXpHiCyy1SeFOQb7kQJ1eDTMTYt62BtCp+PwcnBLMObQCSZ7ChKJOtciDF7JRky9DV+TWa1QT2ISFyuzkoCwkFbftdA0PlJG0LnciRJTZY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774368109; c=relaxed/simple;
-	bh=M8kHuhguJ74cPrOZqvGCYt76N+vsROMV095NTcs2gj4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q6AzOfCokNufOX6eLhoLWsbBj+d9OFBQE97cSA/d/AtynWjnuEPap1Hv8rcu3KNdjt8hbyxopQdIKDYQ/iQ1yX1wSxMkLLpGI7FgOqyt+LY+qoo+B/neqlAj8U3qHw/iilNg1OFb7LBqvLzMU/RKxAeBta3G2gZtDIdRF73NHXk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LIzX+fYV; arc=pass smtp.client-ip=209.85.208.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774368112; c=relaxed/simple;
+	bh=RjM32UpYS+VyhAzHHzd45HCOlgxgq6Q8hNZ+tVuoB/w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ZYeXg8iGRQSlj2cs5vYA482oBO5cMrmh8QocnJ5ItxGNsT1Vug2VBPI3yIhd4Hd4JAYiYuSin6F763w2p1v9Hg0yCMIQw4xvaeqajB5yz+X1HyTsB9lEJCMSt+vwCOypLgQ3HWixzp+3VfJRBPGy19lbulF5+kkpQFaUSp7W208=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=DcL1U4lp; arc=fail smtp.client-ip=40.107.159.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LIzX+fYV"
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-38bd15d82bdso30601601fa.2
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 09:01:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774368106; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Uj4WWtCLJRbDN3u3Zz1iwrSCxu5McNFRByIqKI2KWYePcYOr25wnJ2ppsxHC2q+M5R
-         nFDIcRsnLK0ZUYYwDp8Fuqz0/mwfU+ifydXDiRFvITtbEL16fvrwIZTs0NGah79a5OPo
-         MBESXjMSCTC9siuz9QFyjGjjPOV22siGVIHQ8Cp2Zvaw6KyWnh33KWyhyRx5zGaf3twc
-         Ea58NcM1rE24EfTUIsRKH8+OkPIWamaWhemY2imBivcSpddCgJls/JgZt1yjVpVFPFuY
-         qGnzCGxnT3dGoKUWo2ULuOP/PAzGpjU2qp7xUyJzLtDK3HC0CUXeWg6e2SWrjL2EjzRU
-         PZAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nrJzMvzeHZjGfPnSDRk69y0I21STEYkJGWfpIwAOFso=;
-        fh=yUFgz82cidRlvxFy+VuoAxyZ6lQZ6z8h3w10ReCTv9Y=;
-        b=DNqT5vu/8v4qrFGdIAcagtVGWRjMfa8YMf6ivRXxjD5rfk+2Si+85KKoeodEtxD64C
-         ODVnVYZ17xcpvWAm6rlu7+UL5/cw+mLwc0ndLG5QlHhopv+L+Ufw9kNZvoHrjYeuL/uU
-         pagEGHYUg0jrSJSe+1eLOMVBQe4AvjBnrcBKP0kG9166IMSPhvvB3Ui8zQ7k7QaebWbf
-         nk1DVX9n8sTygq6Wx/Yw09ZxuHT75PXTNPUvsK3vDbKEs7Wbk2S/WiqX+sLBCU9GkfDx
-         YiCDVVqqqEtU9WhT27buMmVhNZ9jitFVTcO7eph+Lgzf0nneiME9SYmG96AYntLyMsIV
-         1NUA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774368106; x=1774972906; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nrJzMvzeHZjGfPnSDRk69y0I21STEYkJGWfpIwAOFso=;
-        b=LIzX+fYVF4mX/ctf3vj0ZNFFnGNUR6TlcCwWJ+sBIzcrbJt6O8pLzC1gx66chFLIBS
-         myVxuv8gEox44VewvKq4TqVYWNrUom8KBPu8/hnHFYXqMLVilaegYUfLtHtA9klPdp7u
-         SKILO48DVn4/sy2BIUuAF+QUBCB4epB3g9rtDblDwbA6/Kaa/n+IzClkxkcDATPTKshW
-         43LvjU6yzR8kVf4bKzvsPvE/KI1IV8F4sEQu6rszWFCF6tU/2fdcMUBkPwMgbPfImpwY
-         lT+qCMdbC3RUE7Iu5hVZ8nLbQyf4h2ks4Li31bD9RWXpCwqv8V2Ava2Xa5KmRYMCQNZ+
-         VGbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774368106; x=1774972906;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=nrJzMvzeHZjGfPnSDRk69y0I21STEYkJGWfpIwAOFso=;
-        b=c+NTzZmoNjO70yuD6s8HRIWQk0LSqigz1OXQS68uFz6SdR0UlrL36DIMPsrYyeJNQF
-         kWcfQgjBGPqpaeLrtlmaf5rUK3ewp2/hue7CL0PfMoNbKMM2Soa1lZtzKiqbb/ti6xsk
-         Ja7vLHR5PlFrld/XF/lQ84m022uZDt5h2c8mfgAzYgzoYCehSG4mOljJiDoHpPYhUMPz
-         u+dxIedq32bdjIVjACJVKWII2lUfVqbIgFcMgz8/tf0I77s/sLYQox7sCl2eDcfzIPPk
-         bxMI/j+sJ4YmPCpHX/O8QKLGWELu4BhywNWAN/QTijTPtCjfCPK375mMkJ4Ds1xVv9NH
-         HKUg==
-X-Forwarded-Encrypted: i=1; AJvYcCVZGN7f9IogulrLD/SBKachLInKewtY8rI3d7h6RF9sv6fudKz4xMXywpKM6dnuUpaGs+IEH/6AoXYB@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFmZtNZE+CZtWRoVIfzbNDMXRJcqoAy/RsDXpOkvAIh9Zx22gc
-	tpoJ3ogmrdHCYb30XvgquOrfTzFibDvSAvZiUDKyP/eTXh95RO96my4SXbQELR6nABtmibti+2h
-	ybvvhp5skoZQVInTKaZBHMplX8iGLJsXO9lYj5hQ=
-X-Gm-Gg: ATEYQzzGU3h+892Tz99GYNgVtpT0TfHtOMtAu/NaMpgW+yFmJEFqYgrxMsBOdIdjRAa
-	HUCRQ1ubLwL7eO4Sox1PoRy886H78pGIKOCprOF5xYAmciC2MewpVpFtObVQm50er+1cv8PCTMc
-	3jr5tF4TNxZ0wvDILLL7IQ5C7mU2Wxnv08PP3IDhXaIIkZVY0j1BhzeluxnCB3m/UicfCMbSEHF
-	plyenAl8GZYkwvhTx/Fxr05MoZ16apnA6AQgRNd9gpnJmnpNn5aLdLruxZ0JRQRxu6GvoLNiepq
-	akChpQxIFi1mTCLwPrCYtVs0qOhWwLR13BzKmbo9DExt0w0u/EzUhjq2RuRxYpu7G0knm7i3PV2
-	sJi8=
-X-Received: by 2002:a05:6512:39c4:b0:5a2:95c8:ca5e with SMTP id
- 2adb3069b0e04-5a29b9a16cemr10428e87.31.1774368105945; Tue, 24 Mar 2026
- 09:01:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="DcL1U4lp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gd9WYnkmRZ/N5AP4RGdd+8n9TB+1lHzNFwoKA6ecOqQoWotctuV29/tL6L73rEMyutKKlNVsxmpF8dNKzn2058va0xUvpEYR7YMO7xRLSMaJ9oWyWd/baEd/ajITII2z5PS1hdsdht/tvQAiExRdY3IzPs+z0JIcWR6bNW62Rawl+8syMEMUljKb8syCHDvrwxe4Qz4+VF/tAX8kvIeVDFmFZiGZreOELeQX0RDhatyEp4fp5PxkI2H2nqptPVgX+fi6NWyzO0rrzAM4iI/Ck6Quvzd+4iUKvN+C5rLDp/LdZsVFdvQ0iBktqD/WXPDoFnNUtaGCWSdsmfH9eHHQaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PH+QdQ5X/s1HvH64Wge9K0LYCBIGz2gLfp7KL/4tttQ=;
+ b=AwNAitA/LrnqCn8nBN8CeSk3l7c+F1SyqG/DRh6nojnSqbX0AG96RFJPNMnN+3I4bTGw0bc0NBt5Y7T3mfX1Hha5xTEty78R91sI0K/Nrv11kKtO+iSB1jUcbqnCKYBhX02njnubk4fk67t30JJ5b6KM28G+/W13lr7E8AB4Kq+jkudI/n0NmeQEsY9uJ4pUdE1jLCJZiM3eF+rotDUMvSLmBna6wLTV9fbjKWSHbFPkX36DP8Iw8v+gm6UdZKzuve787oLMTRtyYu5N26PHhjRa0SWNeZLzgLhgQFngFGI7T8I8lhIuqh3qOWFW63DvrvQBPj87/5mnXO0U8a+nkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PH+QdQ5X/s1HvH64Wge9K0LYCBIGz2gLfp7KL/4tttQ=;
+ b=DcL1U4lpRnYHZT3gSHCxNa2sM8BJnvGKVmPnhi14YmSiGEKnzUpvydEz73x5+mZZ9aPJ2qwE+9RLV/FwxPKzeDmnFWi+KFquQqhT6YnEeM4319LZxpWBSiFH+ZY3uEvMxcEWrkz3/Kjoy8fV60IUgX5LKV4foyZ/H0UMYz6xmJoCqusC+7l6jNt4prlcRAU4BCu6cUfZdsRP6RR+Ok/SbWImZnCtUoET9VuH0hXD/wDR0Pp/svdFtif5G/Xo2lsLhKr7EegeMf1S1fCuzKC0/1YyhzmUSuEJThixypoFUzAS+H6nF1sTnUtJ/L5Qk+4GI1ZangxIollXKpuXo8aM7A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by GV2PR04MB11561.eurprd04.prod.outlook.com (2603:10a6:150:2cb::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Tue, 24 Mar
+ 2026 16:01:16 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9723.030; Tue, 24 Mar 2026
+ 16:01:37 +0000
+Date: Tue, 24 Mar 2026 12:01:37 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, kernel@dh-electronics.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: imx8mp: Add DT overlays for DH i.MX8M Plus
+ DHCOM SoM and boards
+Message-ID: <acK1YU6M5FGK3qM2@lizhi-Precision-Tower-5810>
+References: <20260312232500.197096-1-marex@nabladev.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260312232500.197096-1-marex@nabladev.com>
+X-ClientProxiedBy: SJ0PR03CA0077.namprd03.prod.outlook.com
+ (2603:10b6:a03:331::22) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260323-ch13726a-v3-0-e28b6f97fe80@gmail.com>
- <20260323-ch13726a-v3-1-e28b6f97fe80@gmail.com> <20260324-dexterous-snake-of-progress-ea8783@quoll>
-In-Reply-To: <20260324-dexterous-snake-of-progress-ea8783@quoll>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Tue, 24 Mar 2026 11:01:33 -0500
-X-Gm-Features: AaiRm52QlZgq-pYKdDII5R-UZpE70r1UAWoE9tJ0Dx3Ru2XFLdzKXalMbWfEOAs
-Message-ID: <CALHNRZ-TAQmcwYr9iW+j+S5Egh11C0LpPeY1SO=hgDdvG8otqQ@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: display: panel: Add ChipWealth
- CH13726A AMOLED driver
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|GV2PR04MB11561:EE_
+X-MS-Office365-Filtering-Correlation-Id: b290f036-745f-4b4e-2482-08de89bea12b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|1800799024|376014|52116014|7416014|366016|38350700014|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	ITRS42qgbgw4/jSbqJDjjoocgMFbFKy2RgGVLwsCXNBHIBfTMnbQwRdmBQGKYPlsIXXyEALMysEehY/fG9pUBNmVCNoCU+I5u0WqGDmzWvsQr2yDKFS1QrvTmxGVWvHdJofXLk0IsgucwidI79nwk84sGVB/AlpBwh9+voTsdaqxOX7UCkCUout2AmcdgHlJwOWKLN/WCxCo6jdF6N+Mq2lM5J/WLw/Bl7YQjErMhpd+YbAkirj5tkhkdel8+SIrJqJYjVOyA7Z/1zs8VylcZNd+17jqABrpWmK5CTFpjanPSInw3Fccu4a0Cqya7n/c81esdSL000cvDwparycOxxsjm9Yyrf9B8UFqwtz5SUFR3loNpHKXfG0ZPYilWYOnp8s6NPrhN/dEbXKOiVyJq5sKpl+ooPOVMDU/MH2fk+3objL7VqdTOB5yeImkYewRRT2CpnELoT+V94AjXOAogvrnQ92C/kVfKJYNEBdhIul6lqI8hwSH5xWcr61fjHgzDhmuL+ZDsWkPmuiYL7EHRVDYtnBF0yM7Om1NUxzc29TuGabdLVlftZmKRQ729ku7hfhJ4cMXOAURSgBmm1b36vO8xzib5jS7bfz6l7Y/6Rtfc1UqSH2seufyBVXlMlCvK/GJHqiOFAsjvMM4wOsvJ6CUENZyG0l+bVVm+7FNr2Lngz+P2RN05HshfWBNkbJVBHnrNX1XRSYLYzqyYDuB+50XAnGqFdeeZOWRn5RNydxQgjglKP9a+JvwMaSatOFTJxW5OXk9d2/5Xc+1eLm7lsMDcLS/RuZ351iIPup0uq4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(376014)(52116014)(7416014)(366016)(38350700014)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?7Cp92PZa9rrE70/JUk8elyjtuM9V1ok3YOav9Y0jCmG1h5iiVKULl+iT8/53?=
+ =?us-ascii?Q?snWDMh9n7YE5+Z9ad8LorjYRXGqiR19O5KZBXyEjTlnTgrTXHWV56ilAQuRu?=
+ =?us-ascii?Q?jZy+0xh6ie28W1VTykyI3E1eVXYPRLCXZfmI43SQNITZfBUYjthzi4+X2CCq?=
+ =?us-ascii?Q?QEskEUdcEH/bC9HLed4kkP3OT3/kmVvxYPFL+7z2HpMw+PXRE9taE4hHsq2v?=
+ =?us-ascii?Q?a51goSBWpteYJIvUul4INpv3FyyoKJZvcGlrUEYJlEXDIWH/0kcKhDfwTPl9?=
+ =?us-ascii?Q?QJIaCKmWsYr5NoIwDTsSuJFCkD4ZcM2yG2UPzYxEnXbdwCBpfB7QQf2G1wKu?=
+ =?us-ascii?Q?08BHXhOVaOxt8cAUca+SCBAI0Rh6QYFv5+feWYLHxtD8Vna6EsoNVq+UuJmd?=
+ =?us-ascii?Q?GYq3KdavShBsjpocg29UIRhvezDjFPFs7U/rTh9beZyd1F1IbzX/IaIriJjR?=
+ =?us-ascii?Q?7slB9Wh9mLfQG8f5eUVVbUQONDubEJJDx5x5rS6zgjJTsAAUeIPhQM+46BHN?=
+ =?us-ascii?Q?mE6d1UQdLH78UYQEhlBNsIjxxS2HYarepS8jQbEthPZXZMTm8bRPKTVjVHhF?=
+ =?us-ascii?Q?CijpFVoYNX9VS2eZgfFhvnX5/E2Sv5+bean1SvRHdt8wJQNoq7GreApFkRdh?=
+ =?us-ascii?Q?xE8Z1oB12JC1wrIyjFC/0vfUXe/ZZzIcnOeYHYS7XxpPm+tJnf40OZfMF0Q9?=
+ =?us-ascii?Q?1uXt5qF4fpUzirsAYWK5hJ1XLQEXTxP+HMvdq1mqUy8ZZcN15185lyneOsHt?=
+ =?us-ascii?Q?SOXrpPKMNPv7NI/tA02Z1uIdOZHTrfGpyXnKZTye3qWmg4V1Ih7NSIff7wt1?=
+ =?us-ascii?Q?bDSXOaeLdt7TykEyZjTCy85Pp7JhsyQtvkNxi0TuIemPpMvPsAxphCHgKg/j?=
+ =?us-ascii?Q?DT3eqcsVaixBx89D/wkqbRW6fuIyQu+8CC9afKm1DyPJz/TQlXjCpQ9OtwcN?=
+ =?us-ascii?Q?5Srg9sStMO8/K2vuAMJM3SzxPP5eAROcxICCQDnY7Pth53/cR48LRUsaG+7P?=
+ =?us-ascii?Q?x2kBY0O9HxpuRDGIa2E+zzOvZ1ZBN951Nf5MxQWmfI4wYw8XFXXSflOxt5Sn?=
+ =?us-ascii?Q?WBfdSWR9e9mqfOjtf7eY9na4dvfv6kA9DoqJt0XeLcObI4nqAtb/12gU/CJ8?=
+ =?us-ascii?Q?7ZDN8MYjpPuurJehidYrvp00H8L4c6ecKzas5W7saXelz2InU/ynX90MVarw?=
+ =?us-ascii?Q?psS4KOvYNrb/Gx7KqTaxMlPknUlsarctvVhht/in40Kh0b7QPjubJtCsXax3?=
+ =?us-ascii?Q?zuoxvn2qYhzRov57mNuyh0Dwuvgbz1AlKtzfceC4Z3qcwTkt2C6tjQE/dUkd?=
+ =?us-ascii?Q?m7vQ4HOhqBCwv5zjXT70N9O+ZxhTK+LBnfCRnftcp2ldLnRyFdRluLOPpNRH?=
+ =?us-ascii?Q?xMgapvlQV+sJNXbZEfPOSlQHdV01NiHnrWXCVBgUNtwsT37bI7YmVqrsYyLl?=
+ =?us-ascii?Q?slTbYdaYos0STMeyKuVgLN61oXiPUxMroljSiLJdiY+ud5oSstenzrRrpzuc?=
+ =?us-ascii?Q?p+8sdrYRsYNf+fE2Pp5C6RAazsoZ9HBZGjIy9LBVroGFKbXAMD0N4xxFUn22?=
+ =?us-ascii?Q?XjcdJ63E08q1RPP/Nt6C0a7Wa0qyLx2ee/sflTMpeTvOhayI0SOb3G+zDnIO?=
+ =?us-ascii?Q?Tdqnqbhqnl6hDNjn7iAwpTpQsHJvGghv11agvNdwYSpcOV1P/sX/cIpvGQkj?=
+ =?us-ascii?Q?yueXFqEgJ+5gPTFhIsNT/ilCEBFL58JPkE42DzsdaXOJ1Ina?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b290f036-745f-4b4e-2482-08de89bea12b
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 16:01:37.7068
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: T/a0MUmspiiQEkfXctctfDNhgQEt1J30WJ5hFjuPktsxW/CIA9Y4oiG97EPfk+V05HfxQrHjncLePCHVhJFWbw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11561
 
-On Tue, Mar 24, 2026 at 4:08=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On Mon, Mar 23, 2026 at 12:08:32PM -0500, Aaron Kling wrote:
-> > The Chip Wealth Technology CH13726A AMOLED driver is a single chip
-> > solution for MIPI-DSI. This is used for the AYN Thor bottom panel.
-> >
-> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> > ---
-> >  .../display/panel/chipwealth,ch13726a.yaml         | 65 ++++++++++++++=
-++++++++
-> >  1 file changed, 65 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/display/panel/chipwealth=
-,ch13726a.yaml b/Documentation/devicetree/bindings/display/panel/chipwealth=
-,ch13726a.yaml
-> > new file mode 100644
-> > index 0000000000000000000000000000000000000000..5d964900795653401a87199=
-4bcf6403cdeaad64f
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/display/panel/chipwealth,ch1372=
-6a.yaml
-> > @@ -0,0 +1,65 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/display/panel/chipwealth,ch13726a.y=
-aml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Chip Wealth Technology CH13726A AMOLED driver
-> > +
-> > +maintainers:
-> > +  - Neil Armstrong <neil.armstrong@linaro.org>
-> > +
-> > +description:
-> > +  Chip Wealth Technology CH13726A is a single-chip solution
-> > +  for AMOLED connected using a MIPI-DSI video interface.
->
-> Here you describe the hardware, including what I asked last time -
-> explain why this is ayntec thor panel, but not chipwealth,ch13726a.
->
-> Then also name the file as the compatible. If you do not know the part
-> (model?) number, then why do you think filename should be called
-> ch13726a?
+On Fri, Mar 13, 2026 at 12:24:04AM +0100, Marek Vasut wrote:
+...
 
-The vendor source release for the AYN Thor calls the 'panel' ch13726a,
-but per the data sheet for said part, it's a chip used in various
-panels, not a panel itself. The handling for various panels using this
-chip will share a lot of similarities since the chip is what the
-kernel driver will talk to. The alternative would be having separate
-drivers and bindings for every panel that will be mostly duplicated.
-This is the case for multiple things supported in the kernel already,
-such as the vtdr6130 which is currently described as a unique panel
-but is in fact the part number for a ddic. And I will need to refactor
-that for another device I have in the pipeline. In fact, all the
-device panels I need to submit in this context reference ddic's and
-not unique panel models. I'm waiting to see what gets approved for
-this series before sending the rest of those in.
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi
+> new file mode 100644
+> index 0000000000000..534737363c9f0
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi
+> @@ -0,0 +1,42 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright (C) 2022 Marek Vasut
 
-If I add something to the description like 'This chip is not a panel
-itself, but is used to control various panels', would that be
-sufficient? Or does the kernel need a new way to describe ddic's
-separately from panels, since this seems to be common now?
+2026?
 
-Aaron
+> + */
+> +
+> +&display_bl {
+> +	pwms = <&pwm1 0 5000000 0>;
+> +};
+> +
+> +&DH_OVERLAY_PANEL_I2C_BUS {
+
+why upcase for label, generally it should be lower case
+
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +
+> +	touchscreen@41 {
+> +		compatible = "ilitek,ili251x";
+> +		pinctrl-0 = <DH_OVERLAY_PANEL_I2C_TOUCHSCREEN_PINCTRL>;
+> +		pinctrl-names = "default";
+> +		reg = <0x41>;
+
+reg should second property,  please dt-format for new dts files.
+check others
+
+> +		interrupt-parent = <&DH_OVERLAY_PANEL_I2C_TOUCHSCREEN_IRQ_PARENT>;
+...
+> +
+> +	ports {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		port@1 {
+> +			reg = <1>;
+
+need empty line between child node and property.
+
+> +	#size-cells = <0>;
+> +
+> +	eeprom@56 {
+> +		compatible = "atmel,24c04";
+> +		reg = <0x56>;
+> +		pagesize = <16>;
+> +	};
+> +};
+> +
+> +&ecspi2 {
+> +	status = "okay";
+
+status should be last property. I stop here because these
+should be identify by tools/script
+
+Frank
+
