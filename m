@@ -1,148 +1,196 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C573CBE95
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 07:17:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 59B3531A7EA;
+	Tue, 24 Mar 2026 07:31:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774336673; cv=none; b=oPxMVbDr92+owbu3vqyO06DvN27k77lacBWRYVGa1f+6P/hfrKoG4ASYjpam2LI5TUQ45ZqU1S58VipZQUPJP0I4Me9nLLDqFM3QvRoFvjZDRw3X7Qd7rNRkZJ0uHyVMMOzCX4sh0ByYmIQxBJzfqlk3XksmEukEJVZ15lSwWqs=
+	t=1774337474; cv=none; b=QflIj2tjjYUpkxPQMz+WyimaZvMU1Ej8wlQFZSvF9aNIDDoNZsN22gdzaK/OZrStk2Oxy+oTNdCgidlj3hY96ouJCQQS9rKKoVcE5mcJ9Z+0HzRJOpyi1dKupqcbM6s+ntiNI6oX4aZDCfwUK0t0dFVWA524MKDorAc6Slo+ikc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774336673; c=relaxed/simple;
-	bh=dHiZweBuHkG8DSuP+oN/yzXOsLU1bE9ooY5ugDluJpk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=gSBsNes+/QzQIBi2jSR2iBT4GXb8TFNVWscCohrBMu0ux8uwxh1kXnBkmjOfi+nYyBHubjU/C9ayuvJbhBzNt10WVo4RLXs0M5/aebakqtUoXvnvFd0pLhK0dOey/MPGXX0RlN4eei1ygmIr8THuoPouN5jXZnNWj02Q38v6azI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=k/TLGKZa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C3w/S2Ur; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="k/TLGKZa";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C3w/S2Ur"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62O3WM1Z3903752
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 07:17:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HQM7eHnVoeAhrAn7FxIm1PZgvchjSYSQc/shb75BI+E=; b=k/TLGKZa2XF0AXaU
-	NXP2vVc6qfoyi+dwPVjMyYhtVH4X4uX8L2v7EW79vb8PBZE/QN+VQJGjwTIY5Qsp
-	V8LoPPvnQEoSa33Z/5PJdYCeKBWlwg/wwc9t9myLn+EUElvd8O0/KWjydVzvvApO
-	sNCPP0KW7nnmsMpOamTdJQMHCTx01dUlbwe4Q2HFRvT/uPSNciQ49GSX+1Sqgd7A
-	+qR7yZOj6CpgCQ4P1ryXP+gxEm1R07BRbDFOVoTs3WZFs+h0bKaA6BlsBpXY/XD3
-	BVgwPJZ9TdRE/GIxSUB0qWF8VBXkWSsQHkRUD4pMYDF8OJWMVMA3YwE10Yr+k8tT
-	OSMJeA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d3jt0gr43-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 07:17:45 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2b0601ff3d9so18755875ad.2
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 00:17:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774336664; x=1774941464; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HQM7eHnVoeAhrAn7FxIm1PZgvchjSYSQc/shb75BI+E=;
-        b=C3w/S2UrjujXE28pj02L7+IOuLbnLlin7QpXcMZqhgeZVyGsd/lEw+5Qcu7XV9+RAp
-         kQRVC5wSEvJtuVSzONePUQ796SvzLDVJZnvWfGlREyPKGJZ5e0XmwUxeUmg/jTSobyoH
-         Rp5dcmiUjAciyJuwM6NJQvC/PBo8WISKKADeLvOG/LWgCEntq72/hHT8mAAsNxBvboXl
-         KLa0MjBxcRKscEPzqEPCQL6EJaJwZn6Kl2mZnM81dUUBp7LdxP8s1T4jOnb4+exi1+TH
-         4fVkWM9/7OXrEotPCAkUo6pRdWe/9+jNsAve2EAS/PcZQ1GjOgkRSY2zfFX3QIJh9JGP
-         xi3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774336664; x=1774941464;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=HQM7eHnVoeAhrAn7FxIm1PZgvchjSYSQc/shb75BI+E=;
-        b=np6bfGTMPMNySzcvr/0D++aIgA7B0TEod31SiSEznxdEpK007z1RXQrm6FqFl4BX9o
-         0FMdLlPk22v02oXjQAOaMiMf1Ic6OjtgQtYmz9ufvu/rL6eV1RlNy3W++rNy9QR//EUE
-         ZALB6uxsrWLHx1JdQ/ZdxmNM4IKMle78vn3rMPk04JDcwjASBMuhh3Kejwz7tk4Qbiud
-         95idrC6NCH6SE5sw1+spzbOfR2DA/IFJfOqgj6a+JyhMTqpMdYvEuZ4GlDC6fKKlUesf
-         zhG87nVV+WiH4GBxNChPPHpFUuuKB5k6IazI+bxx4jpHqPa8/0gDSs9329cNAcWgCodB
-         wrZw==
-X-Forwarded-Encrypted: i=1; AJvYcCUsmrUcWZF+lKAbgbnqCJJ+3y4PfGDeYxQ0VxdpFCjqKYxvSJp9CyVV92DXlXeOm4FmYIaARBF64zHI@vger.kernel.org
-X-Gm-Message-State: AOJu0YxlN+L126bo+t7MogLs384Rb5rJ0nQnmRAUfMZ+nink3SEMmnNP
-	dCMPWOFXaGWtrKaAb+pyVo+Z0Q6lVeNPC8DKZFzy+YW5LjBIDlkZ5biS9Ltxa19aEr+8xb4P9Sg
-	5KIcVQ52ZHyB40ScMIFql2bxb91lTx1RV5Z7mvW/r82HGw/E9eA9i9Ngwd8Vw3g7Q
-X-Gm-Gg: ATEYQzxrfhhRauvualXSInpcnGJPEWcoFrYngMiiAWLrlZ+YBG81n9ooWzp3vc7RLbN
-	qn/jqi3Fnc3UYR1SZ8cY4GXZyryAD8VfVGo4Q4ZPN4x9+Q9+t80xXXT2zjl1/rbjSwg1C1LZXjL
-	a3n+5xNSkFgaIpDCzNRg2uUrc4pg1WxTTGWtcG/tzeuVvRsC1DoJyxt+FTU6hlr9KIlISvVb8yO
-	A44hEuDTpL1JeecIrNhejWVJF0RsnLE4dCq+08PnOjaTx44/gbTpx5eiOP0cuqB1RGQ8gTZ6tjS
-	Nl4LHF3ujCDge9FRkGSRr8k6O9f+3WRKjk0MlDbnYzeDIJglDi7E4x5Ua2cla6U7oJmy0fV+DmE
-	1yAxOcVVvDP01HCEE/atY/ew=
-X-Received: by 2002:a17:903:946:b0:2b0:531b:b3e6 with SMTP id d9443c01a7336-2b0826c382bmr151661905ad.10.1774336663914;
-        Tue, 24 Mar 2026 00:17:43 -0700 (PDT)
-X-Received: by 2002:a17:903:946:b0:2b0:531b:b3e6 with SMTP id d9443c01a7336-2b0826c382bmr151661745ad.10.1774336663426;
-        Tue, 24 Mar 2026 00:17:43 -0700 (PDT)
-Received: from [192.168.1.102] ([117.193.214.249])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0aa622677sm6868975ad.74.2026.03.24.00.17.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Mar 2026 00:17:43 -0700 (PDT)
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-X-Google-Original-From: Manivannan Sadhasivam <mani@kernel.org>
-To: lpieralisi@kernel.org, kwilczynski@kernel.org, robh@kernel.org,
-        bhelgaas@google.com, krzk+dt@kernel.org, conor+dt@kernel.org,
-        peter.chen@cixtech.com, Gary Yang <gary.yang@cixtech.com>
-Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        cix-kernel-upstream@cixtech.com
-In-Reply-To: <20260313114914.1564115-1-gary.yang@cixtech.com>
-References: <20260313114914.1564115-1-gary.yang@cixtech.com>
-Subject: Re: (subset) [PATCH v4 0/2] Add scmi powerdomain for sky1
-Message-Id: <177433665904.17735.11886295556987492843.b4-ty@b4>
-Date: Tue, 24 Mar 2026 12:47:39 +0530
+	s=arc-20240116; t=1774337474; c=relaxed/simple;
+	bh=ES4PY6sz1/3k8wpx0U92eY0angzcEObdhNR+lUrbOYc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rBOKlDrqSWkC7ecidxcXc75mCeD0i2ilBe+ZwjdN42322ugkywensMBGr4Y1Y3BQSVqhgY5/xEptmy6SCv5b4IEdIr2QhnbIYa9x/hRcrfa/muJBp2mvOrF+KFn6URIbrTTXk5U1DfMtrlJviuB4tqHIOBMQQ+A4bIqtgpvGHDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
+	by app2 (Coremail) with SMTP id TQJkCgBHXqGRPcJpsDYLAA--.53447S2;
+	Tue, 24 Mar 2026 15:30:28 +0800 (CST)
+From: lizhi2@eswincomputing.com
+To: devicetree@vger.kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com,
+	rmk+kernel@armlinux.org.uk,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	linux-riscv@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	maxime.chevallier@bootlin.com
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com,
+	pritesh.patel@einfochips.com,
+	weishangjuan@eswincomputing.com,
+	horms@kernel.org,
+	Zhi Li <lizhi2@eswincomputing.com>
+Subject: [PATCH net-next v5 0/3] net: stmmac: eic7700: fix EIC7700 eth1 RX sampling timing
+Date: Tue, 24 Mar 2026 15:30:17 +0800
+Message-ID: <20260324073017.376-1-lizhi2@eswincomputing.com>
+X-Mailer: git-send-email 2.52.0.windows.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.0
-X-Proofpoint-ORIG-GUID: VQT7mrFsVXvl_32NgQT4GiBgVPOibMcx
-X-Authority-Analysis: v=2.4 cv=Nc3rFmD4 c=1 sm=1 tr=0 ts=69c23a99 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=13ILl30Z8QjaXWZz8Pan+w==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=jNwzyYJvxPVIlz3NwY0A:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: VQT7mrFsVXvl_32NgQT4GiBgVPOibMcx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDA1OCBTYWx0ZWRfXzbEnkzD8HQWN
- 6MiKvGluO+gbjXHHfSDWTIT7nc5Iflw4MqvzaLfa+KGZcQPJvIZc7nfyuRsg2V0R//k4JsaM/6P
- pOAXZYP40gzpkWrg6fmyHLhR1j6NFa23KXBEGkfpjLafPnDgI4xFTB3VgftaI83Kk5kIdjH84Lf
- OZ2mOrpXLpw3nVrxxYn7/NbksgpAOdG8jM4YmmSAxuTvS7ybRhELrN5iLhJZ73z9QmZEvpxh0EZ
- u/DB6SZtgfin0SdqePSjQmpRLOB8q0GNAKC7l8yLwnCUJoySMZViZMPXL7lV6eQzmj7rY6jJo92
- u7OxZJ/yhFaUzNwLjY7EzkWQxHykKboQyjwP5xI7Q4pndqqy/dV43C3F/0fWfhyuj8kKRZgCttu
- +RtCdiekDsv780A3xP+9B+944dg5krWzLNPwjEKgEXnbMAliq6r+DbcSUpMvO9402c9IaN64CXf
- rCt85HbtHsnFs1t7pug==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-24_02,2026-03-23_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 spamscore=0 clxscore=1015 priorityscore=1501
- bulkscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240058
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TQJkCgBHXqGRPcJpsDYLAA--.53447S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAF1xCFWDAw4UZFykAw4ruFg_yoWrKw1rpa
+	1UWr15GF4DtryxJwsrtF109a4Fqan3G3W29r18JwnrJws0kF1qqr4IkF15ZFyDCrZ7ur1U
+	AF15Ka1UCa4j9rJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9E14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI4
+	8JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
+	wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjx
+	v20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20E
+	Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267
+	AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sRifHU3UUUUU==
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
 
+From: Zhi Li <lizhi2@eswincomputing.com>
 
-On Fri, 13 Mar 2026 19:49:12 +0800, Gary Yang wrote:
-> v4 changes:
-> - Pass dts build check with below commands:
-> make O=$OUTKNL dt_binding_check
-> make O=$OUTKNL dt_binding_check DT_SCHEMA_FILES=cix,sky1-pcie-host.yaml
-> make O=$OUTKNL CHECK_DTBS=y W=1 cix/sky1-orion-o6.dtb
-> scripts/checkpatch.pl 000*.patch
-> - delete power-domain-names property
-> 
-> [...]
+v4 -> v5:
+  - eswin,eic7700-eth.yaml:
+    - Add Acked-by from Conor Dooley
+    - No functional changes
 
-Applied, thanks!
+  - Update dwmac-eic7700.c:
+    - Disable clocks on the error path to fix a clock leak in
+      eic7700_dwmac_init() when regmap_set_bits() fails
+      (reported by Simon Horman <horms@kernel.org>)
 
-[1/2] dt-bindings: PCI: cix,sky1-pcie-host: Add power-domains
-      commit: 94c62cf0698c0edbf1f118dd80ea19d0ff5d834e
+  - Link to v4:
+    https://lore.kernel.org/lkml/20260313075234.1567-1-lizhi2@eswincomputing.com/
 
-Best regards,
+v3 -> v4:
+  - Update eswin,eic7700-eth.yaml:
+    - Improve commit message in dt-bindings patch to clarify the
+      hardware difference of the eth1 MAC and why a new compatible
+      string is required.
+    - Move the newly added eswin,hsp-sp-csr item to the end of the list
+      to avoid inserting entries in the middle of the binding schema.
+    - Simplify the compatible schema by replacing the previous oneOf
+      construct with an enum.
+
+  - Update dwmac-eic7700.c:
+    - Fix build issues.
+    - Adjust code to match the updated binding definition.
+
+  - Update DTS/DTSI descriptions:
+    - Move SoC-level descriptions to the .dtsi file.
+    - Keep board-specific configuration in the .dts file.
+
+  - Link to v3:
+    https://lore.kernel.org/lkml/20260303061525.846-1-lizhi2@eswincomputing.com/
+
+v2 -> v3:
+  - Update eswin,eic7700-eth.yaml:
+    - Extend rx-internal-delay-ps and tx-internal-delay-ps range
+      from 0-2400 to 0-2540 to match the full 7-bit hardware delay
+      field (127 * 20 ps).
+    - Add "multipleOf: 20" constraint to reflect the 20 ps hardware
+      step size.
+    - Make rx-internal-delay-ps and tx-internal-delay-ps optional.
+      A well-designed board should not require internal delay tuning.
+    - Remove rx-internal-delay-ps and tx-internal-delay-ps from the
+      example to avoid encouraging blind copy into board DTs.
+
+  - Update dwmac-eic7700.c:
+    - Treat rx-internal-delay-ps and tx-internal-delay-ps as optional
+      DT properties.
+    - Apply delay configuration only when properties are present.
+    - Keep TX/RX delay registers cleared by default to ensure a
+      deterministic state when no delay is specified.
+
+  - Describe Ethernet configuration for the HiFive Premier P550 board:
+    - Add GMAC controller nodes for the HiFive Premier P550 board
+      to describe the on-board Ethernet configuration.
+
+      The Ethernet controller depends on clock, reset, pinctrl
+      and HSP subsystem providers which are currently under
+      upstream review. These dependent nodes will be submitted
+      separately once the corresponding drivers are merged.
+
+      Due to these missing dependencies, dt-binding-check may
+      report warnings or failures for this series.
+
+  - No functional changes to RX clock inversion logic.
+
+  - Link to v2:
+    https://lore.kernel.org/lkml/20260209094628.886-1-lizhi2@eswincomputing.com/
+
+  - This series is based on the EIC7700 clock support series:
+    https://lore.kernel.org/all/20260210095008.726-1-dongxuyang@eswincomputing.com/
+    The clock series is currently under review.
+
+v1 -> v2:
+  - Update eswin,eic7700-eth.yaml:
+    - Drop the vendor-specific properties eswin,rx-clk-invert and
+      eswin,tx-clk-invert.
+    - Introduce a distinct compatible string
+      "eswin,eic7700-qos-eth-clk-inversion" to describe MAC instances that
+      require internal RGMII clock inversion.
+      This models the SoC-specific hardware difference directly via the
+      compatible string and avoids per-board configuration properties.
+    - Change rx-internal-delay-ps and tx-internal-delay-ps from enum to
+      minimum/maximum to reflect the actual delay range (0-2400 ps)
+    - Add reference to High-Speed Subsystem documentation in eswin,hsp-sp-csr
+      description. The HSP CSR block is described in Chapter 10
+      ("High-Speed Interface") of the EIC7700X SoC Technical Reference Manual,
+      Part 4 (EIC7700X_SoC_Technical_Reference_Manual_Part4.pdf):
+      https://github.com/eswincomputing/EIC7700X-SoC-Technical-Reference-Manual/releases
+
+  - Update dwmac-eic7700.c:
+    - Remove handling of eswin,rx-clk-invert and eswin,tx-clk-invert
+      properties.
+    - Select RX clock inversion based on the new
+      "eswin,eic7700-qos-eth-clk-inversion" compatible string, using
+      match data to apply the required configuration for affected MAC
+      instances (eth1).
+
+  - Link to v1:
+    https://lore.kernel.org/lkml/20260109080601.1262-1-lizhi2@eswincomputing.com/
+
+Zhi Li (3):
+  dt-bindings: ethernet: eswin: add clock sampling control
+  net: stmmac: eic7700: enable clocks before syscon access and correct
+    RX sampling timing
+  riscv: dts: eswin: eic7700-hifive-premier-p550: enable Ethernet
+    controller
+
+ .../bindings/net/eswin,eic7700-eth.yaml       |  69 +++++--
+ .../dts/eswin/eic7700-hifive-premier-p550.dts |  42 ++++
+ arch/riscv/boot/dts/eswin/eic7700.dtsi        |  66 +++++++
+ .../ethernet/stmicro/stmmac/dwmac-eic7700.c   | 183 ++++++++++++++----
+ 4 files changed, 303 insertions(+), 57 deletions(-)
+
 -- 
-Manivannan Sadhasivam <mani@kernel.org>
+2.25.1
 
