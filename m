@@ -1,101 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356FE33C52E;
-	Tue, 24 Mar 2026 22:57:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com [210.160.252.171])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5AEC12D238F;
+	Tue, 24 Mar 2026 22:57:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.160.252.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774393080; cv=none; b=SdJ0nKnlAMoUGbdGxIHY4Ly0cCFgqhl5nnOdH077CAL4fUUhwXQVB+jEGAwnSHNg9nWUfx3yZ74mz207n1Gjze6nQhc7tg8pQhJnRbn08Xzf7OlE2r7W/yrmGyfczOh7DD7p76507YEI3ryDqjGuWVtMDP032P4Ee1v91PYackc=
+	t=1774393082; cv=none; b=T9l2oB/Agh1VJyVtc52scN7DVdKPgCLRQB65RxHDcCa9w4KqyepfuF20bPuiXz05RBFUbmfbdyk7EFEHiAxuLL9VKjTfARZxU66i5cBxMqOA5NAMF+IZgvGXV4ON6h4vT1RbJMdsH/F7QputJPzIuyO/fj0JM49WqbLUAnBPflE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774393080; c=relaxed/simple;
-	bh=CMhGjpHVL0E5bl2i3OV14j4oPRoXe7C71tConmD/AU8=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=j9YfUj7AYNFAop+H1Goq5SseZKTuMR6qw7Phx9jDx6YkUphpNI6ldnORXOplxZqed8qGLEbTTtRLSLv8RU9Qq2AuTDC0LEtSrFQwgpGK0QVOau56cSH/5e4iV/hpeC6QyZKtzzBSwGBA1Vsn/98ijO0mIx09gWSQJY02qYg7QkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jnjEg8u6; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jnjEg8u6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82B6FC19424;
-	Tue, 24 Mar 2026 22:57:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774393079;
-	bh=CMhGjpHVL0E5bl2i3OV14j4oPRoXe7C71tConmD/AU8=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=jnjEg8u6tA6GdcwIKvw8RwZAOd36Nn7Ho6WTpexn7SIqvHQ/6KqJu2mTfRZYSfOY6
-	 9W3/xDOqV1fsI6aOI3guyoybnNgwD+gPAdDFoi7DS/+YP9ED+KZEru4Gzdj47FIFTz
-	 TXZfHoOWzFClb1Z8zDhufWSVHX2m9qyO6XdiuIc5x0UTs5GkQhWOLQ13qFXJlPT/Vz
-	 tXy/Cwj/N/PKebVR/ScjPK5EFyOTlWfVF7LVmVFzx1aJsnuwylvDTNz8NA0w7g9vku
-	 zK9dHJGPbbQVDx1vES6D39bxf5YX0SRMzlwrSu5EA/oCZrw62PGH5Ysm+53iS/7ppO
-	 hPd8xJTOqWLmg==
-Date: Tue, 24 Mar 2026 17:57:58 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1774393082; c=relaxed/simple;
+	bh=kbebKpZc+kOH/NCAbOn1JPHayuYXWSqmfRuqOsgshDI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Qq7dYz5mSoDVOGhCYdn7t1RaCEAoIq90MZLAxWODrUYq+fUBRkJo1JgjEFY7KXbg07tIdOS42EzAdk1SjFJz3SIRyoUKWgLGoITfe5N/6d9zy+h1v06WS42qOfFbVaZ5eRHng4n/jxWNswvu2picJSvLR1lLmj/1BjbAh8W34WY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; arc=none smtp.client-ip=210.160.252.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+X-CSE-ConnectionGUID: Vkd7Xo+HTQuLLxwzRJ6/dg==
+X-CSE-MsgGUID: WOxQGzJTTm6/+mSk05czbg==
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+  by relmlie5.idc.renesas.com with ESMTP; 25 Mar 2026 07:52:50 +0900
+Received: from mind-2s.example.org (unknown [10.24.0.35])
+	by relmlir5.idc.renesas.com (Postfix) with ESMTP id E9800400B54B;
+	Wed, 25 Mar 2026 07:52:46 +0900 (JST)
+From: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>
+Cc: Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH 0/2] Remove WDT{0,2,3} support from RZ/V2N
+Date: Tue, 24 Mar 2026 22:52:33 +0000
+Message-ID: <20260324225239.19136-1-fabrizio.castro.jz@renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Thierry Reding <thierry.reding@gmail.com>, 
- "David S . Miller" <davem@davemloft.net>, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
- linux-tegra@vger.kernel.org
-To: Jon Hunter <jonathanh@nvidia.com>
-In-Reply-To: <20260324121631.771628-3-jonathanh@nvidia.com>
-References: <20260324121631.771628-1-jonathanh@nvidia.com>
- <20260324121631.771628-3-jonathanh@nvidia.com>
-Message-Id: <177439307874.2078673.11304788250514370726.robh@kernel.org>
-Subject: Re: [PATCH V2 2/3] dt-bindings: net: Fix Tegra234 MGBE PTP clock
+Content-Transfer-Encoding: 8bit
 
+Dear All,
 
-On Tue, 24 Mar 2026 12:16:30 +0000, Jon Hunter wrote:
-> The PTP clock for the Tegra234 MGBE device is incorrectly named
-> 'ptp-ref' and should be 'ptp_ref'. This is causing the following
-> warning to be observed on Tegra234 platforms that use this device:
-> 
->  ERR KERN tegra-mgbe 6800000.ethernet eth0: Invalid PTP clock rate
->  WARNING KERN tegra-mgbe 6800000.ethernet eth0: PTP init failed
-> 
-> Although this constitutes an ABI breakage in the binding for this
-> device, PTP support has clearly never worked and so fix this now
-> so we can correct the device-tree for this device. Note that the
-> MGBE driver still supports the legacy 'ptp-ref' clock name and so
-> older/existing device-trees will still work, but given that this
-> is not the correct name, there is no point to advertise this in the
-> binding.
-> 
-> Fixes: 189c2e5c7669 ("dt-bindings: net: Add Tegra234 MGBE")
-> Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
-> ---
->  Documentation/devicetree/bindings/net/nvidia,tegra234-mgbe.yaml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+The HW user manual doesn't explicitly state which cores
+from the Renesas RZ/V2N SoC should use which watchdog,
+however, it turns out that the original intention was to
+only allow Linux access to WDT1.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+The purpose of this series is to remove WDT{0,2,3} support
+to prevent the CA55 cores from getting in the way of the
+firmware running on the CM33 core.
 
-yamllint warnings/errors:
+Cheers,
+Fab
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nvidia,tegra234-mgbe.example.dtb: ethernet@6800000 (nvidia,tegra234-mgbe): clock-names:3: 'ptp_ref' was expected
-	from schema $id: http://devicetree.org/schemas/net/nvidia,tegra234-mgbe.yaml
+Fabrizio Castro (2):
+  arm64: dts: renesas: r9a09g056: Remove wdt{0,2,3} nodes
+  clk: renesas: r9a09g056: Remove entries for WDT{0,2,3}
 
-doc reference errors (make refcheckdocs):
+ arch/arm64/boot/dts/renesas/r9a09g056.dtsi | 30 ----------------------
+ drivers/clk/renesas/r9a09g056-cpg.c        | 15 -----------
+ 2 files changed, 45 deletions(-)
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260324121631.771628-3-jonathanh@nvidia.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+-- 
+2.43.0
 
