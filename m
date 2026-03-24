@@ -1,83 +1,83 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9655935AC3D
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 21:21:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AB32459ED
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 21:23:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774387286; cv=none; b=RWTTHI7qgzHWym20JqjCMt0YXMsUMtNROCvSGopjoUQQpd7FtDAc7sA2GTpU14ITGa8Ndze1QPBjUeQSiONwsA90R9mkxgSRFIUjES6MJR9xVolNNe5mxo+ocmVYxOstje1Td8qjuZo/K9WK4/5gCgXT+O3fbaQ/BQ7+0tA3l0M=
+	t=1774387405; cv=none; b=kerFIuTs5pG2hHY6kDqsD0gbHgRqKSM4uM+jrGBigNBRqsgAsdTYsU3V2ZiEUusSE8H7z/PFScC94AQuUkfDDAEsGUT0vz8ghAq75kFMpWxaq89va1tBBYqI2amK7auUTt4t9aVHCIRvDG4oYx3kOPe4HLGV5vHNtTt49l84QKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774387286; c=relaxed/simple;
-	bh=X5TqivP/mzWuCDSR3clNcA6pGI7KNYgeFKAM8z9kWu0=;
+	s=arc-20240116; t=1774387405; c=relaxed/simple;
+	bh=UwUHERYtmXxJl0X66fQxCxhaSYJYyWT7RIeWnnfY58A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WKUQYeT++Z5BcZ8lUb1z1xGgEV5sV7IpkJxYGheqr0aacwh9x/e7r6dQJZiAa7AjuDMxIfJehz1EJwDnFpprYwbocIeXt10CxaVBdJDK0XsF1hgeIAXuVVlMK5hrn5qrKUIt69TBSMXNRNHeCI0+MWjVhWaTwhp/Ff61Bi9rc1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UO23y/td; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NRApj/Ww; arc=none smtp.client-ip=205.220.180.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=f/gPjwOBYlW6uFgn0xfPOP2GyW4MyVEvbqU+XUnMZFDsZJAq3Iq7uHBX2nXrkmpcS2k48wiuS8O3OoFkVi5lGxsTFAc62O6q5XIuzq4JxAxVyiA6D1B++AkMGpiWsWuQZVs71XTroBUbffuEDG8kDpVNAxdctgM1HqQjGRfLhdc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=an8mFH8L; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QAIHrQkr; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UO23y/td";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NRApj/Ww"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62OJCxmi2340490
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 21:21:23 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="an8mFH8L";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QAIHrQkr"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62OJObR31862776
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 21:23:23 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=v3FlVWLTLrlb7q3MsUEt7+4a
-	cg5XbvcZD8bNL6gYowM=; b=UO23y/td6R8s5XAVb3aYpvq0RCAJpjAN+0xiNR0i
-	udK2hvHP7x8GtjIz7+P+5vcjxtaBYpQzahKLUWGfJtzXzzUEolA03bdcnTdsZblN
-	Hes7aOJy0WqMEI3funjFNjwiSG4I8KVBTR4mTV+sWzZCxu49B4mMV+Ak3Uywd4So
-	6HXaOdam4zBGX4S5EU/jxoOgeWL03grrFFCxrMvyVvZh8sw1XN30mop4qYC2HThV
-	KAf+7/Zn/JUjuoG3q4Vlcwc4WYGTXZZq4nzRptTHdH0FCj1E9F7xc7kWW7kDGR15
-	oGiJMl2lYMP62PGdHWvYZaSnbDQKF+0cYufGs1DqyPqQWQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d3sw429gj-1
+	:references:subject:to; s=qcppdkim1; bh=1uYUkNycc1pWaJFwxUlYF9h0
+	XG3GMiPmjoHxa/L+c4s=; b=an8mFH8L6MaAq8RbRnDt9nxEsrCNEaceKSMGPHkh
+	1apxYF+3QwB9xV21Qjc82W8SjzcueranvaqlCxebVPo1qgeAlV+mu2xkNViVTWMk
+	9JcSqfqiUVd4fFeokslVy0HA0mIaezOrVUYZl6F4Mdz+4P90WlRYMHH6sFza4Bhz
+	ItHCBxjnJUC+aBqxHBEvunOeRpKdOR0Wq7ICaJQM6RFF07v04MlnmAFnZXUfnwiy
+	LACJhyWqHu8dEnhzjh/AFS5yXn+tjuUZwMOSXjzOXeWH1ZOlzCyx11+k5FTqEY9i
+	Zd2Lj6q40KAwyBtN++hNvn4lTjll/0SASiS5j/kVo6f79w==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d40raraah-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 21:21:23 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5091327215dso299428931cf.1
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 14:21:23 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 21:23:22 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5094ba09affso105436621cf.2
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 14:23:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774387283; x=1774992083; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1774387402; x=1774992202; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=v3FlVWLTLrlb7q3MsUEt7+4acg5XbvcZD8bNL6gYowM=;
-        b=NRApj/WwZ3KHEQXG3dQ1xYTwgeYXePCEark5uHcojhb8F06oSq/P2IovWd8ETq1nRN
-         UwwqeIRGf18cP8+nhKGn+iVPwwCg8H/SsvpARvkd3N9RDl+Znadp2Vh4tb4GONHdVfuC
-         CSSraRq81MYfHqAJKqVznFI4Grurcc/IrPH/7gaaG3mIxtOeWBhOyeg8b8jPH8YiHgH4
-         IoLbf6D2HiY6/er3kadIYAw70bGxn0GeK9zdckzN+2ZVn7y6r2nSxd4JQ7HpnxrFkQfH
-         W1paPk9l+y4CeZMkDlKyw8/Y3vBHbmakonvNI6Gtoaa9MUkGyZyd66WAZQS2R3/3sLYS
-         JW0A==
+        bh=1uYUkNycc1pWaJFwxUlYF9h0XG3GMiPmjoHxa/L+c4s=;
+        b=QAIHrQkraKwIiesUi4mpGZbaBbzrouPAO30qAGZVEMTEDEIod4GV6AIReWn+2QQERX
+         RdLPUmpHNH+eC8ImE9Cgki6MNUbVJEmQeREWB5KKJd69PL/I6CYiIO4f90WMy1RCQC1a
+         2zceDqLdiqWd6hFMBDwUk4/R9r+Dq7mPRaMCO6yn6WDgG63L0yByjKhFaMixiSwTVI15
+         sqREmyng/Si5iKq5cmtgOz4pp/xor3tykH5ZfW54VjwbaO6M27yRHEEPElzSLCeeT34r
+         T0Ejb2BOm+WpAuSzrQVXKOWf6bw2O5+f2jN/AyjpFDiVOz11HY+Db3yvko+nZMcAhCiG
+         QkBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774387283; x=1774992083;
+        d=1e100.net; s=20251104; t=1774387402; x=1774992202;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=v3FlVWLTLrlb7q3MsUEt7+4acg5XbvcZD8bNL6gYowM=;
-        b=TKs4nUKanVVnXit+advebJrEyVSwuS+5vwUNIF3NwikQWjd8ITib0bMKLBoJasvKZU
-         VmrVerp8/yiW5QQnRpA3HwCKez3ayjOPblJYBa7L0aNDavKvIXcpXT92rXslILyjyO+7
-         G1xYqDjXwt0uaOfBlFK2NfwHeNCExejfAsR1GLtOXYvjO0M3t1hgy2DjW21gUaUMrPQK
-         4qR3RhcUo+Yxba274Bcm/R0SGiFZQMZV4fRt/AYX3MXsayZrrq8T+xc3VeT3Ml20TiHL
-         txeCDXoPyfmUJRuYF+1wkMJg+iY4633wsiWPKCgXQb/l4Krq7g1Lx9Gfk4tFPPxv/2XY
-         aqHA==
-X-Forwarded-Encrypted: i=1; AJvYcCXkF96ew/pk1VD6ub+w+7YNFJfpoAPjQ3VYAb6N+diuOuVPqCfVAjIo4fec6MBtnFpPj+v4c7QNw1fW@vger.kernel.org
-X-Gm-Message-State: AOJu0YwA26FqR4WOat1UYcFN/aio5aSdOLL+URa/aW5dKUD4BTav0B3H
-	DlbZZv+CE+D5l5nWedIkqfApOCWJThF2550WTeAFf1R44WFg60FRqZ+5pWZPBDqAwMHnMLDAaIn
-	hOywtM2TLHVJ4zGHvtTPUAwTp2T9pT1C/UkQFFqByd7WndqHsjcZOrcMEURGotnBv
-X-Gm-Gg: ATEYQzyO6AXqtTtwRT0t3AIvB0M+HoAOYpcJSOJPl8TsEE9rDcpemtIO3XlxTw3cAC1
-	yHZkBhe5uEcC6HbrxzdoBVdCo46ZG5ht6CLC6hcfDTl/JMsHSBDYyqu9Xv1MyQ0jOLyVhXoge3+
-	mOUhqtt7iUQgHomugW/J9MWMV63D2DuUomR/ZQGnbmv3vpETfvLOcNKhtfzZsBR4fEDdXE9gU3i
-	fETjw0vJFqaCVdwnADTDmXAMDXTnnIEzitbV3DKYjwEDCobcGkzjuOBK/UTe1CQ7HsAer20q93G
-	3ZqcXSjXKyqm+RQvnTP0LStjEZih16Mudxg6MXQJgoJuFCCsovcstfyJ3xgp8z0xLO908/n0pYb
-	LRfeq2QwfNOyOZ4qd9oZ7l5KY/gfPfJDR6h+Qo6oMNFe4nekzSniqAP04/M/kQHdouESCO8N6rD
-	OoEwWnonPf1ACwIOquUBBulzuprdDaV4dhvLk=
-X-Received: by 2002:ac8:4993:0:b0:508:ff31:47f1 with SMTP id d75a77b69052e-50b80e27924mr13854731cf.50.1774387282863;
-        Tue, 24 Mar 2026 14:21:22 -0700 (PDT)
-X-Received: by 2002:ac8:4993:0:b0:508:ff31:47f1 with SMTP id d75a77b69052e-50b80e27924mr13854351cf.50.1774387282388;
-        Tue, 24 Mar 2026 14:21:22 -0700 (PDT)
+        bh=1uYUkNycc1pWaJFwxUlYF9h0XG3GMiPmjoHxa/L+c4s=;
+        b=RT0G84l1NShkxQV+CegFDboFcYm6nvfGQDrCotvEERQm1DUJs/EHMoLjVoyolZWN5w
+         7ED/PM12A/mXmNtZ+QaYpOiwLSJXuzy1Vbii6GDVT15b7R7CpV79bXWSkkMvZoikurso
+         NNdgefu16PEnkT14N059iMU/8CFsU5kaWCk5QL0WoWYEtOc2INBxmI2hadq6aEtZ8szs
+         AM4TOfDh7Sw714zpr4KolkSgm/7HIdJoYnmAcUhl8D2PNje5mIXyn818ml++jgzaJm4p
+         SzO6WBpfjExtWuoFnFmb325sLKhDvH+zc36ZUDLk0ob1vfvey+RJcus/3PC1vpCuqsYJ
+         GBhg==
+X-Forwarded-Encrypted: i=1; AJvYcCUjjhh0gTl4cuA4gJ8JxEeZTj0B8EML24COQVCwjrerVFx2ImhGRsSgAUO80dI/IITciVVI739TMZYB@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzy/oG2ttjRkdpQghgUCINKPsjqU1+YoCUwfTQL1mfk0p3Zocqq
+	KnglSFX2WJ7ZGg+Emrs57jFx7QTZc2tOfrVeQO7+rcYbRidaYo9R+0I4vGx1b1n2ggfZwkWtGHE
+	67lveCcgZhAaZIToaj46hY7VYyTkuNWJY13++6tPBVFFXdVaVAF5hqMYYotKbeN2b
+X-Gm-Gg: ATEYQzzDDASaDhCqKNd/S+UzY1eRuXH/sUqSritoR9g3NjFcNmp5ELn91P8c+OZHmKv
+	Nx3YNihwW9oHsA3IBIH++sYhQQL6IuG8bi4UmU/MbE7gfqLUpzZv97PrZAXO9wtEhmgXcUzvJlc
+	funwrjx7F+yzs+ML3Zyrbo8QqoSj9zNXUY+LlhO+gynXiKjPRqpmQiUREIIM3ZZ10F4pDkHWT90
+	Iz3/2+cp198RAh99fHg9ZTtjZg57QIBE4OXL4YTnkrhRDWSWa4eKzHtEv7UzZtToXatTDzR+hCL
+	ppj45q+5nmOQ+lRcOfRnx70/Y+N0/4nGjogZpnwPKQ+50Yzw5XcFBb2oEK4JCodhd1q+73s6I7y
+	T/OU3WrwnylXAzOXjQc8HY+ZpyHm5v1uCkbDDyPWq1CUDNvNjPnCKI8HU3pPdKoV1nbAejYNLTS
+	QYse2YcRltBCO2YFf/2rEjI1AsrQC+6o3rMEs=
+X-Received: by 2002:a05:622a:19a9:b0:509:50d:b9c8 with SMTP id d75a77b69052e-50b80cd0762mr19250571cf.1.1774387402294;
+        Tue, 24 Mar 2026 14:23:22 -0700 (PDT)
+X-Received: by 2002:a05:622a:19a9:b0:509:50d:b9c8 with SMTP id d75a77b69052e-50b80cd0762mr19250201cf.1.1774387401816;
+        Tue, 24 Mar 2026 14:23:21 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a285207500sm3469740e87.41.2026.03.24.14.21.21
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38bf9ae8570sm32654221fa.42.2026.03.24.14.23.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Mar 2026 14:21:21 -0700 (PDT)
-Date: Tue, 24 Mar 2026 23:21:19 +0200
+        Tue, 24 Mar 2026 14:23:20 -0700 (PDT)
+Date: Tue, 24 Mar 2026 23:23:19 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Qiang Yu <qiang.yu@oss.qualcomm.com>
 Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -89,10 +89,11 @@ Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
         Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
         linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 5/5] arch: arm64: dts: qcom: Add support for PCIe3a
-Message-ID: <odmf4zxf4p3luqimkbhggg6cyvjnlfhjsqsvpwpu5ctkviogrj@bmazfab5hb5y>
+Subject: Re: [PATCH v2 4/5] phy: qcom: qmp-pcie: Add Gen5 8-lanes mode for
+ Glymur
+Message-ID: <x3ts7to7c4qnorloahe7cgup3uekn4wolmmorqa3b3bjfslqfn@eijnzdp2ops3>
 References: <20260323-glymur_gen5x8_phy_0323-v2-0-ce0fc07f0e52@oss.qualcomm.com>
- <20260323-glymur_gen5x8_phy_0323-v2-5-ce0fc07f0e52@oss.qualcomm.com>
+ <20260323-glymur_gen5x8_phy_0323-v2-4-ce0fc07f0e52@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -101,89 +102,84 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260323-glymur_gen5x8_phy_0323-v2-5-ce0fc07f0e52@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDE2NSBTYWx0ZWRfX8mp0VrxZE8We
- 74z1dGjcUFjDW84FYz4+fhBkzutESPoweySPuUDg5VZ3BxipFrR00bmMD6QZeNTtl5OGic5vNNq
- qIabL5jIoOGKOqM9Z1olVGJgU/tWw5TI9hDqQ42z9FW8AlvmEa+VH0kpVc10IarBgVb9nLpcOFD
- U6G+cMFN78Yso5CNTUTzyE6CGNt2yvaJx7DtIXVVOEmetrXGTyPS81pP5WZNRjsR+yr8Q6ZbPro
- FvxTeZeJo5MqxqR3MQtjngqXr5C4RxSsZqEj4teFC1J+bstC1uluwLrC2GZOE86KU+IZ+pnO1Hx
- 5vMPoPs8BHfNc0e4n6iZy9DZvfyWmOSl85AovUbDeufq4wGPlA36hZNe5xcC2GNt3qT1R3jR7p3
- kKU3LaVhE0HM6A/dVf24ffKNsEJ8glRigdtThyKR+QLGvUk8MZ9RbWj5WLLU0LTPYQ9m/2VU1WM
- wsfvTTw849cnNpu+O1g==
-X-Proofpoint-GUID: U8o9TnoOqz1Tmv008Y8JWqQsHP3UWuQq
-X-Authority-Analysis: v=2.4 cv=bpVBxUai c=1 sm=1 tr=0 ts=69c30053 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260323-glymur_gen5x8_phy_0323-v2-4-ce0fc07f0e52@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=Jvr8bc4C c=1 sm=1 tr=0 ts=69c300ca cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=Xl-en66mSFc_yb9iBTIA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-ORIG-GUID: U8o9TnoOqz1Tmv008Y8JWqQsHP3UWuQq
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=8302d4AOEtq-Q5Zcfl0A:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: iQuq4MK888EqRjfnpL0JFHejuJSFcSjR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDE2NSBTYWx0ZWRfX9wBfCr8g/899
+ nZuSdQWjURrqHB8YyaDKATlxYX5s7ZzGp6S48quaA/Dxfde1m+okly4Ah/RmMS1VJtyCsxUI8st
+ CzyUp1+1Pp8YEPxyR3l9r3KTw1GzrMrgMh8lB36ueYJy0Ow1rjn1zisNsd7z5xeeVGv63sRW1x0
+ 742TGn6fUFeE0mAJZ7jN9ImTPrFh//0xA5Ah3GduHHZqoPJIbirlPbzgykG5YGyNN80I4i3Ccqo
+ ExAnbPadYlKWrQbw/no9gq2LdVSILrzG7aqKHzK0TJTcMWTxvWRh3jPFUcCdxXb4p7Sr6J/emUB
+ sl0Mcoct24bXG4ATd5KqKFdd2zTAoPWY/QZ1SSmr3ykEit+8VNt1+7dVuDv3Dnj4uG0Y2uGImx1
+ arpi6s/eoF1sx9t8NloRopXkUIqfa124KeTs9mLEV9pUOclZp+ayqilYKPHT8PEuMUicXGH39nZ
+ BrcQRQKAfifY9Di/cCQ==
+X-Proofpoint-GUID: iQuq4MK888EqRjfnpL0JFHejuJSFcSjR
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-24_03,2026-03-24_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 adultscore=0
- bulkscore=0 spamscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
+ lowpriorityscore=0 adultscore=0 impostorscore=0 suspectscore=0 phishscore=0
+ priorityscore=1501 spamscore=0 clxscore=1015 bulkscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240165
 
-On Mon, Mar 23, 2026 at 12:15:32AM -0700, Qiang Yu wrote:
-> Describe PCIe3a controller and PHY. Also add required system resources
-> like regulators, clocks, interrupts and registers configuration for PCIe3a.
+On Mon, Mar 23, 2026 at 12:15:31AM -0700, Qiang Yu wrote:
+> The third PCIe controller on Glymur SoC supports 8-lane operation via
+> bifurcation of two PHYs (each requires separate power domian, resets and
+> aux clk).
+> 
+> Add dedicated reset/no_csr reset list ("phy_b", "phy_b_nocsr") and
+> clock ("phy_b_aux") required for 8-lane operation. Introduce new
+> glymur_qmp_gen5x8_pciephy_cfg configuration to enable PCIe Gen5 x8 mode.
 > 
 > Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
 > ---
->  arch/arm64/boot/dts/qcom/glymur.dtsi | 314 ++++++++++++++++++++++++++++++++++-
->  1 file changed, 313 insertions(+), 1 deletion(-)
+>  drivers/phy/qualcomm/phy-qcom-qmp-pcie.c | 30 +++++++++++++++++++++++++++++-
+>  1 file changed, 29 insertions(+), 1 deletion(-)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> index bde287f645ee94116a489c55be3b7b80db3815e9..52104607a1713323fdfe2e7de710e38c1e22d06e 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> @@ -736,7 +736,7 @@ gcc: clock-controller@100000 {
->  				 <0>,				/* USB 2 Phy PCIE PIPEGMUX */
->  				 <0>,				/* USB 2 Phy PIPEGMUX */
->  				 <0>,				/* USB 2 Phy SYS PCIE PIPEGMUX */
-> -				 <0>,				/* PCIe 3a */
-> +				 <&pcie3a_phy>,			/* PCIe 3a */
->  				 <&pcie3b_phy>,			/* PCIe 3b */
->  				 <&pcie4_phy>,			/* PCIe 4 */
->  				 <&pcie5_phy>,			/* PCIe 5 */
-> @@ -2360,6 +2360,318 @@ pcie_west_slv_noc: interconnect@1920000 {
->  			#interconnect-cells = <2>;
->  		};
+> @@ -4705,6 +4713,23 @@ static const struct qmp_phy_cfg glymur_qmp_gen4x2_pciephy_cfg = {
+>  	.phy_status		= PHYSTATUS_4_20,
+>  };
 >  
-> +		pcie3a: pci@1c10000 {
-
-Incorrect placement. 1c10000 > 1bf0000.
-
-> +			device_type = "pci";
-> +			compatible = "qcom,glymur-pcie", "qcom,pcie-x1e80100";
-> +			reg = <0x0 0x01c10000 0x0 0x3000>,
-> +			      <0x0 0x70000000 0x0 0xf20>,
-> +			      <0x0 0x70000f40 0x0 0xa8>,
-> +			      <0x0 0x70001000 0x0 0x4000>,
-> +			      <0x0 0x70100000 0x0 0x100000>,
-> +			      <0x0 0x01c13000 0x0 0x1000>;
-
-[...]
-
-> +		};
+> +static const struct qmp_phy_cfg glymur_qmp_gen5x8_pciephy_cfg = {
+> +	.lanes = 8,
 > +
-> +		pcie3a_phy: phy@f00000 {
-
-This one too, it should be before PCIe3b PHY.
-
-> +			compatible = "qcom,glymur-qmp-gen5x8-pcie-phy";
-> +			reg = <0 0x00f00000 0 0x10000>;
+> +	.offsets		= &qmp_pcie_offsets_v8_50,
 > +
+> +	.reset_list		= glymur_pciephy_reset_l,
+> +	.num_resets		= ARRAY_SIZE(glymur_pciephy_reset_l),
+> +	.nocsr_reset_list	= glymur_pciephy_nocsr_reset_l,
+> +	.num_nocsr_resets	= ARRAY_SIZE(glymur_pciephy_nocsr_reset_l),
 
-[...]
+Just for my understanding. If it was not the NOCSR case and had to
+program the registers, would we have needed to program anything in the
+PCIe3B space?
 
-> +		};
+> +	.vreg_list		= qmp_phy_vreg_l,
+> +	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
 > +
->  		pcie4: pci@1bf0000 {
->  			device_type = "pci";
->  			compatible = "qcom,glymur-pcie", "qcom,pcie-x1e80100";
+> +	.regs			= pciephy_v8_50_regs_layout,
+> +
+> +	.phy_status		= PHYSTATUS_4_20,
+> +};
+> +
+>  static void qmp_pcie_init_port_b(struct qmp_pcie *qmp, const struct qmp_phy_cfg_tbls *tbls)
+>  {
+>  	const struct qmp_phy_cfg *cfg = qmp->cfg;
+> @@ -5483,6 +5508,9 @@ static const struct of_device_id qmp_pcie_of_match_table[] = {
+>  	}, {
+>  		.compatible = "qcom,glymur-qmp-gen5x4-pcie-phy",
+>  		.data = &glymur_qmp_gen5x4_pciephy_cfg,
+> +	}, {
+> +		.compatible = "qcom,glymur-qmp-gen5x8-pcie-phy",
+> +		.data = &glymur_qmp_gen5x8_pciephy_cfg,
+>  	}, {
+>  		.compatible = "qcom,ipq6018-qmp-pcie-phy",
+>  		.data = &ipq6018_pciephy_cfg,
 > 
 > -- 
 > 2.34.1
