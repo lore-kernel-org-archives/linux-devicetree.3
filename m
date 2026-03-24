@@ -1,91 +1,81 @@
-Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99430405ADD;
-	Tue, 24 Mar 2026 15:23:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.245
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9149C402459;
+	Tue, 24 Mar 2026 15:25:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774365829; cv=none; b=PXFkDtDREX5NPIS+F+6XDLu37ZZrBkkKIsfT4jT0NkloE28A7tbgAeajQ6EQGjTIxw19ftBagGSpafZJ/i03xAlqpYRQQlUoDsbzEyVnbwqotrxIDmJ22jsEzd6SbqkkJQZIYrb49pf26dhBgzRvbS/yW1OHI7eF+IA+FLCUdWk=
+	t=1774365909; cv=none; b=RkR2f33IrXC82NHJkBXWI9pIJldMhw7EzKXjqe4ePolFjvUg1iR1GZnzsm5IU7umt90W4BTPNe8WzqLnpvzfs047/pXWX0UFiLM2+9TKBmHMg+dVfz+utPiW4xQ6RESIjrdoCg3KCOjgsXLTUZFnXRGpRTxKIEfMrphl4Nr9rFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774365829; c=relaxed/simple;
-	bh=P4frT3gz7jlvVZkFCWYN3FtXDad6p5QMr9RqrMj39YY=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=SjsbAKPmGxY+TmWiPIEqR+pmIm8RNwwYDDzw0QW+15Xf4JEz8uPLMYj7JndgYeOVJmYU8rJDf2pjGxmHERLMEq/QO82EbApL4ALX4dTWKJkbcwuAZaDW8jJKC2LxjmRtVvruWROVFV6tpCLMcspxmCK5LwxV7Y86758ysIUHiMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=UU0EC8nn; arc=none smtp.client-ip=203.205.221.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1774365909; c=relaxed/simple;
+	bh=JNyYFA76J+jQHcBV1rf+dBeWcK1puB0zpjFH0YPVt7c=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FWY21vJYx+3VrYCIy9UeKB1KxYaSosR0C+naoUq1+ZBLS4w0fwMH+xk871XWHFHXW59m8MIr+es0F3yp0tt66rOzbrj36B4iWdGs5pmq+wtEl25W70U/vgUgHdfcwckPu7OvuvAUBbyUw3hKx901Xs74WbZ2PqovOm3ok8n/St8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=b14Pkza7; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="UU0EC8nn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1774365819; bh=P4frT3gz7jlvVZkFCWYN3FtXDad6p5QMr9RqrMj39YY=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=UU0EC8nnNMEYMp6mJGuJuqPs4ti5vtNP3aVyqO4xztqN44W9Zv92G9fzGOQryPKXw
-	 fiKXLqMnwgknpz+GjOFliZ5WoNhgCdDkWEW9t+W/+/zMFfMMCLAKIafctRnwfbx+tp
-	 5AqnqNbXS8Qt7T3ekX+rEEJp//DYZmqSscfUBu4k=
-Received: from [198.18.0.1] ([122.195.139.226])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 5E53EE37; Tue, 24 Mar 2026 23:23:37 +0800
-X-QQ-mid: xmsmtpt1774365817tbuo90a9u
-Message-ID: <tencent_E4D1B4064002D5AF59AA0BAD54EFE9885707@qq.com>
-X-QQ-XMAILINFO: NX3IH4pixvQA7ciSWzquRTMM9LyN2HL1jADOG0NX5loOszCUOpFEcut74oVUuF
-	 jMvl8RqbmXREMk0o+IRY97K9SnV6T1VXEJE6/vowtmj3InRmiCNUqhu2LAYNSPIs+7SuPoPlnmnW
-	 gg6dOmkKsoZ/krmUm14o5fHkpCaYEyXrC+kevu6iNVncskudUg9o7BBsWVF3qPA7C1ke5BUKBUqY
-	 ELOgYH9UNUctxIc5ubcoayCsJXEF/AtN96bP3iY1/vT8/VmhZH9dJzgXUWqZzWLHQgnN5FeVkShE
-	 87FZBJs0JDr/g20luG6bm991aYWurfoSzXKT9cGIUho3j7D9LgdqOUT7PuDEvsvQpme5rTScr9gZ
-	 4gNUwGi47L2ylsuc301eLJTqu6UDmDGKuXqFZ7IxVMMVbPIBwa7UJFHIp8+FPfqlZ15bDi9GGu2r
-	 3P6uLba6TmClff7FCvFQJxU//9fNx+ENa4a06NbM0MzTRkWiGJ/Vuie74KcOyTsr3+m8oopHenUC
-	 dE1zHKSzhqeOo9SuYAVk2zvejkORonJMUbJLEDpqH2w1iZaxy/jJN4rV/LJqveV+PbfKiZU/RgCY
-	 0r7xUlmu3F2G7ad8+80BlAM+j/hFLFwuEAr+ihBLHBTO6BDlzaEiBkyqxe5OzOGoKvilePT3v10F
-	 7DipBBf2qko5bn6mhAeMCIxewo/BUsuR4DAlAsLuTdJtjGNXP0CXRdxmniF3SH00VKGz+zSHajjV
-	 DojOW1CRzezog2+7xmqndHDP8GY9ddH9mq8DBZz5SiIq5IIxvSdupjuK18HoYQT+nh689qKe08hZ
-	 ig+CuTXdHJCCgMbjIHCc3Z9ciGK2oug8MELOTKgBhmMkCEjyCgilNRTWrz+7C6WX+/aUIVdtuhQh
-	 pFEcJGqcWhQerGBap9eMkyA+xnCn7qv+6WU3TV16WztCoZ79gd9viOnw10Ek3egyv6FtBleVdSVL
-	 4qtdynAdXWTfpVfYEBdfyNzL6VhThzqyKBsaTQNuiHgCsnJLD7qRJvIUjdtlwQcLqhwI1ANOomds
-	 LeY90Fn+yFC9azRvNRQAEkrAx/ZlI=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-OQ-MSGID: <6a5f98c1-331b-4958-93b1-5277572a7d22@qq.com>
-Date: Tue, 24 Mar 2026 23:23:36 +0800
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="b14Pkza7"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=HnMY1RSwhTCYvBir6obZ+OuRp6EWJUCF7twCrDHIGWw=;
+	t=1774365908; x=1775575508; b=b14Pkza7uhSf3cGA/sCfkuipU5d9DMuPWIW8VEWRBEwhwGG
+	3mTXQfM17WnxK356BQkH/6eC47P1/gEvW21SQWUmOPhLs3nUU2drWuNpJyoYTH58L1bUULkcwOm6v
+	SuQq5oSfe9Hmd6Wtrc7w7hy15ug+26a5gEYVIkKim5nsij54xIBmty8evrAGarSzWLxnXIZEFwLXn
+	9vnmRwr6VRSIORIOkRn68nxb7n9Ud55LrtpkD7pGdnhyLX/OcWniRwdSVj7j8dpp0/IBFHDxOKmbb
+	kwmm/uGHTkR6hI2Poof+uUyZZ82cEXMt2W/cXi5nvOjngGpAr+ml4Vvsb91GKB+A==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1w53co-0000000Azl0-1BAa;
+	Tue, 24 Mar 2026 16:24:58 +0100
+Message-ID: <3d2f9e4d3f06f93e8eb191ade69f4b43752a36bf.camel@sipsolutions.net>
+Subject: Re: pull request: mt76-next 2026-03-23
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Felix Fietkau <nbd@nbd.name>, linux-wireless
+	 <linux-wireless@vger.kernel.org>
+Cc: Ryder Lee <ryder.lee@mediatek.com>, devicetree@vger.kernel.org, 
+ Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Date: Tue, 24 Mar 2026 16:24:57 +0100
+In-Reply-To: <bf6858fc-98f0-4523-bca4-8da7ecf3738c@nbd.name>
+References: <bf6858fc-98f0-4523-bca4-8da7ecf3738c@nbd.name>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/2] Add Loongson-2K0300 processor support
-From: wjjsn <wjjsn@qq.com>
-To: Yao Zi <me@ziyao.cc>, Huacai Chen <chenhuacai@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- kernel@xen0n.name, devicetree@vger.kernel.org, loongarch@lists.linux.dev,
- linux-kernel@vger.kernel.org, wjjsn <2858482031@qq.com>
-References: <tencent_325FB1D2C600CD55E367332EC453E5A64B09@qq.com>
- <ab_iF2hjZRfp16HP@pie>
- <CAAhV-H7FZ65D9mHgW8_-_QiZ2Kv2cxVo5P72AJhc3JptviFpNA@mail.gmail.com>
- <tencent_CA7176E8823B957F1AEB15254D17904D5505@qq.com> <acCoo_ZrTmZGZH5d@pie>
- <tencent_414FBFBEE2A4510232AB52CE665C04A6C20A@qq.com>
-Content-Language: en-US
-In-Reply-To: <tencent_414FBFBEE2A4510232AB52CE665C04A6C20A@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-malware-bazaar: not-scanned
 
-On 3/24/26 23:09, wjjsn wrote:
-> On 3/23/26 10:42, Yao Zi wrote:
->> On Mon, Mar 23, 2026 at 12:33:31AM +0800, wjjsn wrote:
->>> On 3/22/26 21:15, Huacai Chen wrote:
->>> 1. The current clock driver in mainline has some problems.
->>>    The pll_ddr is lower than the user_manual,
->>
+On Mon, 2026-03-23 at 10:33 +0100, Felix Fietkau wrote:
 
-Sorry for the formatting issues and
-the messed up attribution in my previous mail.
-﻿
-The statement
-"1. The current clock driver in mainline has some problems..."
-was actually my observation, not Huacai's.
+> The following changes since commit 9ac76f3d0bb2940db3a9684d596b9c8f301ef3=
+15:
+>=20
+>    Merge tag 'wireless-next-2026-03-19' of https://git.kernel.org/pub/scm=
+/linux/kernel/git/wireless/wireless-next (2026-03-19 15:30:20 +0100)
+>=20
+> are available in the Git repository at:
+>=20
+>    https://github.com/nbd168/wireless tags/mt76-next-2026-03-23
 
-Also, I apologize for the long lines;
-I will fix my mail client's line-wrapping settings for future discussions.
-﻿
-Regards,
-wjjsn
+[...]
 
+>        dt-bindings: net: wireless: mt76: add mt79 PCI devices
+>        dt-bindings: net: wireless: mt76: clarify backoff limit usage
+
+OK I have no idea what happened here, apparently Ryder has a super
+messed up email setup that ended up sending different versions with the
+same Message-Id, so the lore archive is a big mess ... whatever is going
+on there, please fix that.
+
+But given what I _can_ see about these patches in the archive, I don't
+want to pull this now unless I get a clear ACK from DT maintainers.
+
+johannes
