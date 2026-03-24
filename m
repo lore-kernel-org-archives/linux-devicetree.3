@@ -1,97 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A68B218EB1;
-	Tue, 24 Mar 2026 16:19:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F1D39DBC2;
+	Tue, 24 Mar 2026 16:19:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774369167; cv=none; b=pz473scnYhL1W0+43wEMJDHP7Wt6VJCkmoWY584nRuIfYQGhsQw1iC/eIp5ZPWeO8B6/bJtKCNvDtMLXnaufL1QXdY/LkBEjflA2fQb640fJwiJ0TOO0y9Ke1VVecJngje24NTlfYtDjRu4KYGHJ+mLMSrYZBj8Qcyxzu97OdYY=
+	t=1774369176; cv=none; b=cCylQZiW0EtPdBOqCfBqoFP9EJHWtlOQx7OaojzEvXcH1DTxI/nsRdKWX5ECJAPSpxbl4YhYovdxldMi2IyOHcF8LWhCaRJM+93qOkziq9aFNvCJmW6WHxPUUSxSAZvfEMhIU7JR/rErQrfjcnCtFG8UniJmRvj2+AsG3aHYaX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774369167; c=relaxed/simple;
-	bh=Vzn4kK1OCgM0Du86XVzwCGWpQkxeiTsel/ZSclDtI4Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LamjUUzeD2B+FwFQf5rn3ED7Ab/Rvh9kgynEc+3K6txZkYRx0/ls0PbM3PDGBBC+CDNQzRyS7Liz3J8YLSE30NmuCSnvVQEcXUhdWaI1Hu8nDHjuv423+xALXA/uZfhNIb6t3WWHXriabZkrZsIIh6FkDAXrQokynEy8BfSJNGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UeoOa94U; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774369176; c=relaxed/simple;
+	bh=U0PWUj5062qmvlDAU2epmm8GpkD59Wxm5HsjIIPSxV4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mWeYpoiXNd/05sbQXZPLNw3Z1FUQuFzgTV5FrtH84eMLCcpctmJvmPkBbT9BQ1fajqL5HpCi41yrb6z5bNAAeXCZjpio29Dwb6YcNPLoF0KZviZZSumYu/Ky/pa2BZh2N1sr/ukGTw8I/PXLWDcM8WEfgCeVdNd+WThQi+FNul0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uvA1HOhI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UeoOa94U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03C59C19424;
-	Tue, 24 Mar 2026 16:19:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uvA1HOhI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E2D5C2BC87;
+	Tue, 24 Mar 2026 16:19:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774369167;
-	bh=Vzn4kK1OCgM0Du86XVzwCGWpQkxeiTsel/ZSclDtI4Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UeoOa94UORI96bBXQAySKUUV4lPOU5GgV/F0PP+tM2+qfdQcPDPGORvycEu59NGMf
-	 GmeBMCuc743ZB9v9NfJXzeHDR3P5uvVcFVNOE1vs07g/S8faGrHZEmMm6SciO+NtT/
-	 itfrqauIjX4n8AESW/eczPc4YcufV1pQvT2fu/c20aWivWwVynKVSZMt27gE6B5D7h
-	 GRhCtnyvt8KjFoGPzNF7KiuIl7F/pzVCQwx2J9J2IxSn5Gv9QzvBg/Rd0nK6d8KSQ2
-	 XtzpVMl4U/giunzl+qDtH3JUKpyC7MQCK5PE2hCdJppdd7SSFUPJUSK8Pm6n7nb74j
-	 TFR5ztzBFWAaA==
-Date: Tue, 24 Mar 2026 16:19:21 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Meiker Gao <ot_meiker.gao@mediatek.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Bayi Cheng <bayi.cheng@mediatek.com>,
-	Project_Global_Chrome_Upstream_Group@mediatek.com,
-	sirius.wang@mediatek.com, vince-wl.liu@mediatek.com,
-	jh.hsu@mediatek.com, linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	s=k20201202; t=1774369176;
+	bh=U0PWUj5062qmvlDAU2epmm8GpkD59Wxm5HsjIIPSxV4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=uvA1HOhIBtBO7Yv650j/0h/keBcN/53WmUpxl1IbKtHIEr87KOQqE1D/qrJ2mxaeE
+	 3lnezfXcpXRvflK+pQaH6MGxhmrxcdI7lX4Mv5GVBJItwETf24VvK+hkI4WK6W9e70
+	 T6i7Ao0QzIvk/udX0vy27OxoH5KgdUJJHXskswL9bsB70E34/1Li09efTCJxQL1LnG
+	 vYI3s16rtCau89257hZBOlxkeYE1Y/ex5rFsyLy1YnwKfKnj1qbSOBa01qcNkTdU5O
+	 eIdxU730QjKiCI3s1G4YYf+dRpildUV8tGPY6Nss8TiwOoK/FHILC+PfuHrorFZXXQ
+	 MhtEFUtB/ldCw==
+Received: by wens.tw (Postfix, from userid 1000)
+	id 0ACB05F941; Wed, 25 Mar 2026 00:19:33 +0800 (CST)
+From: Chen-Yu Tsai <wens@kernel.org>
+To: Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej@kernel.org>,
+	Samuel Holland <samuel@sholland.org>
+Cc: linux-sunxi@lists.linux.dev,
+	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 2/2] [v3] spi: spi-mtk-nor: Modify and optimization the
- SNFC.
-Message-ID: <9091b9d4-d32e-426f-835e-b62a933dbee0@sirena.org.uk>
-References: <20260324062835.1747943-1-ot_meiker.gao@mediatek.com>
- <20260324062835.1747943-3-ot_meiker.gao@mediatek.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] arm64: dts: allwinner: sun50i-h6: add UART DMA channels
+Date: Wed, 25 Mar 2026 00:19:29 +0800
+Message-ID: <20260324161930.1602083-2-wens@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260324161930.1602083-1-wens@kernel.org>
+References: <20260324161930.1602083-1-wens@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sjEoEUTHZWdhbgFK"
-Content-Disposition: inline
-In-Reply-To: <20260324062835.1747943-3-ot_meiker.gao@mediatek.com>
-X-Cookie: Forest fires cause Smokey Bears.
+Content-Transfer-Encoding: 8bit
 
+All the UARTs support DMA and are hooked up to the DMA controller.
 
---sjEoEUTHZWdhbgFK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Add the DMA channels for the UARTs
 
-On Tue, Mar 24, 2026 at 02:28:25PM +0800, Meiker Gao wrote:
-> Changes in v3:
->     -this patch is a further optimization for version v2.
->=20
-> Changes in v2:
->     -Use clk_bulk_xxx related functions to enable/disable clocks.
->=20
-> Changes in v1:
->     -Add new function mtk_nor_parse_clk() to parse nor clock parameters.
->=20
+Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-As covered in submtting-patches.rst inter-version changelogs should be
-after the --- so they get cut out of the git commits by tools.  There
-doesn't appear ot be an actual changelog for this patch beyond the
-(somewhat vague) subject.
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+index 73e8604315c5..72ce1a75647b 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+@@ -540,6 +540,8 @@ uart0: serial@5000000 {
+ 			reg-io-width = <4>;
+ 			clocks = <&ccu CLK_BUS_UART0>;
+ 			resets = <&ccu RST_BUS_UART0>;
++			dmas = <&dma 14>, <&dma 14>;
++			dma-names = "tx", "rx";
+ 			status = "disabled";
+ 		};
+ 
+@@ -551,6 +553,8 @@ uart1: serial@5000400 {
+ 			reg-io-width = <4>;
+ 			clocks = <&ccu CLK_BUS_UART1>;
+ 			resets = <&ccu RST_BUS_UART1>;
++			dmas = <&dma 15>, <&dma 15>;
++			dma-names = "tx", "rx";
+ 			status = "disabled";
+ 		};
+ 
+@@ -562,6 +566,8 @@ uart2: serial@5000800 {
+ 			reg-io-width = <4>;
+ 			clocks = <&ccu CLK_BUS_UART2>;
+ 			resets = <&ccu RST_BUS_UART2>;
++			dmas = <&dma 16>, <&dma 16>;
++			dma-names = "tx", "rx";
+ 			status = "disabled";
+ 		};
+ 
+@@ -573,6 +579,8 @@ uart3: serial@5000c00 {
+ 			reg-io-width = <4>;
+ 			clocks = <&ccu CLK_BUS_UART3>;
+ 			resets = <&ccu RST_BUS_UART3>;
++			dmas = <&dma 17>, <&dma 17>;
++			dma-names = "tx", "rx";
+ 			status = "disabled";
+ 		};
+ 
+-- 
+2.47.3
 
---sjEoEUTHZWdhbgFK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnCuYgACgkQJNaLcl1U
-h9BzOAf7BRKbdHMggUaXtpn7x4H6OdzYZO6/WAWJJz1vmMRz8ulzUUGezTKvUUa9
-40SehQQSX1sukWrSh0OQSB5rDbbWOWXw6eX4MjjH73JrQo0J4EKakFKmPfLMDVqY
-zhNMJv9jgZ2AF9Cr1DLa022zE+iaGyfR7e4x+LHVVbnXfH8pbzljlL7nIVfEbTI+
-efYwSUmrLw/9S58F9UtnZPBh0DWzWm2feecZowRf0lLQa+U5zg/24fMsAN6iaKAP
-9MvsvPiVg1/C7rfftkRppTcLboBVwEosCZqFF/hNtjufGxz/i0DpxaFtMBC72ZPo
-Oqh7O7cKGclP473yIFVNwmPtGCtT7w==
-=v1zA
------END PGP SIGNATURE-----
-
---sjEoEUTHZWdhbgFK--
