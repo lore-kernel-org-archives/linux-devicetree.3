@@ -1,149 +1,123 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6EDF3E5EC1
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 11:07:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2540C393DD1;
+	Tue, 24 Mar 2026 11:11:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774350451; cv=none; b=SLgitCw5QwleczA1SvCuGALulkISnlxRVijAqlk6ttvmo/gAwf7ZJea0xqyCPzqy5uz6u9ysZOx/W2cL4vPyNFJyEF/F0irJ2Coav4G+vZb1Yvf676T2PixmwmNmq1NLP7fj9Nkm1qMm6uKg/riKZE7RTEGkj3rKbNmhA51Cth4=
+	t=1774350668; cv=none; b=mg/LTdaJA1ujQdp1EaWIpoL7fXScymLiPIjK/xjayiTif5TlFDzvIJOC43yMrwIC/RonKxdNyUwoTM6pzfRk72fyoPBgUyIJSdo7fm3/RzMY6gJb8Sd8PImlJmwy2W5Sivn/WVvegRCN+dz6qrxSlA7QAdnoWpfeM+hu7SJTxP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774350451; c=relaxed/simple;
-	bh=At+Iqd/SgYcqAiAgI4rHTyzrH73kXeFcOkiwceJ6J4s=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=gMFGOh/+yhDsBNnEMv8hVA9bFaPBIFrsJXyOjQtdGURdfIQiIU8wSGlsuS0Ldtl0d6mW5LD4qxgbd58lZhfsYAkK0/gDvyG1SzNojpN24WF/CUogjNY+wIm4/obdBt96fcR4Ur8LqkBhIYfCngyGXCsX4B3KyNhwCZgHT+zJbgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=dwxT7PkG; arc=none smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1774350668; c=relaxed/simple;
+	bh=JPx1vrtX0C/tWMsdd1tQ7d3q/wTW+FZ0Zxpx2M3kcyY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XEoti03Xg/zREaEH9676hgUcTxqlRW2j4/9XZ4KEMzMpiI/QU15PRJBXYDEJ8w2/WLlfHdO2MkTym7/3F1ZdS8aB1SXZMTtdTAjUNh+Ej8iJKfRaKluaAPVXGRMZytWcV2Tv+CXsJ9Tv51LurCmw0zdRlaWCZaFtwJNul9sDdpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=iWLf6HxE; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="dwxT7PkG"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-b97bca3797dso148496266b.0
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 04:07:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1774350448; x=1774955248; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=97SUz9UBU7Ij4r0LCFNkUHZDbixoh2v3NinEmbjVCXw=;
-        b=dwxT7PkGiTnRWinpyBDzxZP79BO7CXEyJ0bfzXWXTiYUqKJgl84pWpiK3kvq6fXPwi
-         VjxQnaefumRIGfIcelGa0sPljRTJaE0M9O2KkQbR6n9Fscp7/rQLRTfOEdV2Tl8f3BXR
-         8OdNC/xodri8XQwPndNhaKoLB9yuwbDjInbnbxwnYbUtAP3f8DXoRXloEaD4j9qSEm5s
-         wJTPzkov5ruwkLpu2EMPiCIZ57Up3zXoVQ9yjqdNHsYYsNrOcPYqJgQE6/GewuTumdEA
-         bmsYOYCMZsNzS01Qf/I295zZ+sZEUY33sTZqKZKgS02i+R49uoGbRoEWpIGvPk9e4Cob
-         20ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774350448; x=1774955248;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=97SUz9UBU7Ij4r0LCFNkUHZDbixoh2v3NinEmbjVCXw=;
-        b=O101TzCRLuI6oKWfMxrWMKMlaJ6Am2cZFS8lLeP3Wp4UpugEKbfBe1KSrPyPLVJUcq
-         ziEBwjlHhdUG2Okt71Ty34PwBMzB9/KCUNiTOvDcvSU4wyfdlSE+69fZ4SQ5iz/TRKEk
-         9V5cEod+xCBqkCv6BLwCtYODEZS/FyekuZcBgzrKPMDE/lOPhCzs+foh/YnRK3GAa6kj
-         6930PLjpm21TcxGNhyr2/KGlgYLVKjqyksoaXADfkgEO4Id6gcodY1mWoD/GQ7Buhvc3
-         v5E5XIOV0Eo145NPdOa0tQxUdXGUB8NONRcXJdWotgdU4+we9XmLoSA0CkXmgNLOk3+9
-         pIlw==
-X-Forwarded-Encrypted: i=1; AJvYcCWifDGFbI+MEgouSRyqc34symvJMkSlmKvIhvh+EM8ussZa7VfLI/XHZ9eqoYWQ41nBltEmgrx/IrdU@vger.kernel.org
-X-Gm-Message-State: AOJu0Yya6/MfmVgEh/zit1lwzDGcMwI9/7LiVZsWkHGTsxEb/dUvNxsu
-	pJrbFEjoR56rrEbFaGxN9WQcVkVMaX8zHWFTMylQi7foteJwVmTTYz3XkUet3USc0Rc=
-X-Gm-Gg: ATEYQzwPl4gwuDdCG1IwIOBjvFppZ07ISqbjyu/2IqZ1F6CXEqNchgJ4ZXTsyb3B9kY
-	142aNF+/JXoOAbsrsB9SA/RgDbNy99GOjW4Icz+32zsvp1kLOkyqwAjO2yCmYt3ntgPinTtrZ6Q
-	6E5Bf0iSg9HLEjtM4uruvW+9d2S8xAxw3Pk0FFyJhZ1js4JPyhnVaNwpgtmA31V5SAxQe166VUM
-	nHoHccbs2zOqaWoVKC4UP31dbMUNEShVdZTvS0BqmbgAMj2pMee4pAqkfAuxMcu0ssvCagHnWPa
-	gDalXqGVK2zhON7bwHmO40qWfaNCcVUlsZlg633KYuvKjnHThm0p71HZIq7XR45P/c/FJa4hw9G
-	fXwpBrpuR86iwrXmgK0nHyk0UjmhUX1hzyqKRuMLU2qFOOFUbL+sLq2dXMAiRTvX/V4DkYdeb1j
-	T5NtU2EDFwmpUCG4JqEHT08HYU7PnPP9KblBr5xlRWUdiuXAabLpjXeYuEbr8Kw8eK5pLq
-X-Received: by 2002:a17:907:3e8c:b0:b98:33c5:1bb9 with SMTP id a640c23a62f3a-b9833c56776mr1159666366b.35.1774350447853;
-        Tue, 24 Mar 2026 04:07:27 -0700 (PDT)
-Received: from localhost (144-178-202-139.static.ef-service.nl. [144.178.202.139])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9833871d8asm625152766b.58.2026.03.24.04.07.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Mar 2026 04:07:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="iWLf6HxE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=cGWiExyIr/Sacve//+lspGagmILT6Xi0U+hA1nbMGtU=; b=iWLf6HxEdXSXA/cNpmIJZ2QAtA
+	DcXnPhmPAvgXXmYUQD3IAO6TLFsb9wz8egHj/H0MuxZZIu+XpYgNz33zNXDEMLPgKTJ/UJC8is0mq
+	+xdOuV64RMqGoZ4Z2F1N9z8nsaZt8hEVroM1xghd314+VKC08R8W0KCvTvZzaREXbJscHid0JHeK1
+	xiMnUll0gXpQ+5fTTTDRwdycWRpEsGZSrYeV3412EwSWwgsMr6U/iRugI5DoaSY0vf8S7mOBlFOUk
+	pSAhRbD1ZG1s7ea7cs5J5ZhbGAuuI6hZT4Q4CfvGlrhieO3uJ3w9SrfI1mDpOUlEBv3m0Nif216Ea
+	TgxMHziQ==;
+Received: from sslproxy04.your-server.de ([78.46.152.42])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1w4zf3-000KC3-0M;
+	Tue, 24 Mar 2026 12:11:01 +0100
+Received: from localhost ([127.0.0.1])
+	by sslproxy04.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1w4zf2-0004CR-0E;
+	Tue, 24 Mar 2026 12:11:00 +0100
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Marek Vasut <marex@nabladev.com>, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org, dri-devel@lists.freedesktop.org
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ valentin@compulab.co.il, philippe.schenker@toradex.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, tessolveupstream@gmail.com
+Subject:
+ Re: [PATCH v2 0/2] drm: bridge: ti-sn65dsi83: Improve dual-link LVDS support
+Date: Tue, 24 Mar 2026 12:10:59 +0100
+Message-ID: <3019871.ElGaqSPkdT@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <1ecbcd57-83d9-410c-8e1a-d6a171321ccd@gmail.com>
+References:
+ <20260312043743.261475-1-tessolveupstream@gmail.com>
+ <DH6T0NTZHP93.2DWN4BWDPP331@bootlin.com>
+ <1ecbcd57-83d9-410c-8e1a-d6a171321ccd@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 24 Mar 2026 12:07:27 +0100
-Message-Id: <DHAYQMHGE9CB.1TTDHVA4CZJFD@fairphone.com>
-Cc: <linux-arm-msm@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Brian
- Masney" <bmasney@redhat.com>, "Konrad Dybcio"
- <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/9] interconnect: qcom: let MSM8974 interconnect
- work again
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Georgi Djakov"
- <djakov@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>, "Bjorn
- Andersson" <andersson@kernel.org>, "Luca Weiss" <luca.weiss@fairphone.com>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Brian Masney"
- <masneyb@onstation.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260324-msm8974-icc-v2-0-527280043ad8@oss.qualcomm.com>
-In-Reply-To: <20260324-msm8974-icc-v2-0-527280043ad8@oss.qualcomm.com>
+Content-Type: text/plain; charset="iso-8859-1"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/27950/Tue Mar 24 07:24:19 2026)
 
-On Tue Mar 24, 2026 at 1:10 AM CET, Dmitry Baryshkov wrote:
-> Commit d6edc31f3a68 ("clk: qcom: smd-rpm: Separate out interconnect bus
-> clocks") moved control over several RPM resources from the clk-smd-rpm
-> driver to the icc-rpm.c interconnect helpers. Most of the platforms were
-> fixed before that commit or shortly after. However the MSM8974 was left
-> as a foster child in broken state. Fix the loose ends and reenable
-> interconnects on that platform.
+Am Dienstag, 24. M=E4rz 2026, 12:00:43 CET schrieb tessolveupstream@gmail.c=
+om:
+> [snip]
+> > Thanks for the detailed explanation.
+> Regarding the panel timings, they are not explicitly defined in the DTS.=
+=20
+> The panel is currently using the timings provided by the panel driver=20
+> (panel-simple.c), specifically:
+>=20
+> static const struct display_timing auo_g133han01_timings =3D {
+>         .pixelclock =3D { 134000000, 141200000, 149000000 },
+>         .hactive =3D { 1920, 1920, 1920 },
+>         .hfront_porch =3D { 39, 58, 77 },
+>         .hback_porch =3D { 59, 88, 117 },
+>         .hsync_len =3D { 28, 42, 56 },
+>         .vactive =3D { 1080, 1080, 1080 },
+>         .vfront_porch =3D { 3, 8, 11 },
+>         .vback_porch =3D { 5, 14, 19 },
+>         .vsync_len =3D { 4, 14, 19 },
+> };
+>=20
+> The panel I am using is based on AUO G133HAN01, and the datasheet can=20
+> be found here:
+> https://datasheet4u.com/pdf/1257948/G133HAN01.0.pdf > About CHA_DSI_CLK_R=
+ANGE: what is your DSI clock?
+> >=20
+>=20
+> In the current working configuration, the measured clock frequencies=20
+> are:
+> DSI_CLK: ~422MHz
+> LVDS_CLK(both A & B Channels): ~70MHz
+> > Finally I don't think the swing values are problematic, so I'd leave th=
+em
+> > as the last thing to check.
 
-Thanks for taking the time to fix this, really appreciate it! I've been
-carrying a partial revert of Konrad's commit for a while to get things
-moving again, without taking the time to properly fix this.
+I managed to get this display running with this DSI->LVDS bridge on
+TQMa8MxML/TQMa8MxNL (imx8mm or imx8mn) platform.
+See [1] for the DT. What platform/ DSI host are you using?
 
-I can confirm that my msm8974 phone boots fine on v7.0-rc5 with this
-series and your ocmem series applied. Not much possible to test on
-display/GPU since that was broken since a few releases ago. I will
-probably be applying this on 6.15/6.16 branch which still had
-display+GPU support.
+Best regards,
+Alexander
 
-Tested-by: Luca Weiss <luca.weiss@fairphone.com> # fairphone-fp2
+[1] https://lore.kernel.org/all/20260316135820.760073-2-alexander.stein@ew.=
+tq-group.com/
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
 
-Regards
-Luca
-
-
->
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Swapped order of clocks and clock-names properties (Konrad)
-> - Corrected the ocmem comment regarding core clock (Konrad)
-> - Link to v1: https://lore.kernel.org/r/20260323-msm8974-icc-v1-0-7892b8d=
-5f2ea@oss.qualcomm.com
->
-> ---
-> Dmitry Baryshkov (9):
->       dt-bindings: interconnect: qcom,msm8974: drop bus clocks
->       dt-bindings: interconnect: qcom,msm8974: use qcom,rpm-common
->       interconnect: qcom: drop unused is_on flag
->       interconnect: qcom: icc-rpm: allow overwriting get_bw callback
->       interconnect: qcom: define OCMEM bus resource
->       interconnect: qcom: let platforms declare their bugginess
->       interconnect: qcom: msm8974: switch to the main icc-rpm driver
->       interconnect: qcom: msm8974: expand DEFINE_QNODE macros
->       ARM: dts: qcom: msm8974: Drop RPM bus clocks
->
->  .../bindings/interconnect/qcom,msm8974.yaml        |   28 +-
->  arch/arm/boot/dts/qcom/qcom-msm8974.dtsi           |   21 +-
->  drivers/interconnect/qcom/icc-rpm-clocks.c         |    6 +
->  drivers/interconnect/qcom/icc-rpm.c                |   18 +-
->  drivers/interconnect/qcom/icc-rpm.h                |    7 +-
->  drivers/interconnect/qcom/msm8974.c                | 1637 ++++++++++++++=
-+-----
->  6 files changed, 1274 insertions(+), 443 deletions(-)
-> ---
-> base-commit: 8e5a478b6d6a5bb0a3d52147862b15e4d826af19
-> change-id: 20260322-msm8974-icc-0ac4c28e139a
->
-> Best regards,
-> -- =20
-> With best wishes
-> Dmitry
 
