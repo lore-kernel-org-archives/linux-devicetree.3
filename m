@@ -1,88 +1,231 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517893BE646
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 06:35:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F3BD3BED40
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 06:36:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774334129; cv=none; b=uwN1eQF1n7FM8zEPCJPYg3JqQRr1vOCgJlJwqnKlB1Hlwgc2Pw3mq3F3/zWzxICUrDWtIsD3rptD5FHOppvQ6yD/pGi3DrXohZgeOdDeEI6LY7Qjcm2uOwYi2f2TneGcg6LQETwGLztSraZMvCw7Y5CPZNe1GOPIuBDjk+1tkXw=
+	t=1774334213; cv=none; b=CLnKr0q7kGtxNDDBNzHH2JJMy62n3H4QCVWB3C+Pu8xc85UQ/Ue5aC0OKXJmTlkrNN74STpVr4+l4m7U6tHzIULHygE5dURSvirVi4xCgVdm7XWgi1PAnByYNXq0TKsGT49K3Swypudzv5LhdQ/ePes6PEK+o6TrIRKRpiSKOm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774334129; c=relaxed/simple;
-	bh=yu3nC6vhpzZez3hZu5WSDBz9l+V7URi8BT2ABBFXuP8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ta80LFJujHsuHLq+h5gGUB4WlFwTQfGvBG0FEasj4zdFUUGWavJ53ga5g15Z8rKfJi4P1GTNtZRkqn3hLk2uNYoQpHaTlc+HTLSp4cu/gR6jWRfksOJU9dLftQhYhFjWeb3RJ0yQDEoW7iVZlXy9tZ0imjvCcCjXadLX7tWq5RI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PMcMgJdl; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774334213; c=relaxed/simple;
+	bh=W8wdtUaweC4uy4bqFRHPty8+AHaXujJf4nvn1qtTk0s=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=naR0ZCRXfD3JfdRa2PQRv1iuMNrsnChLzHH3h/tSRQAIUE5RfcgfsshO6Y+H0fDjNeHfBivMqD4J1v6qMc827/xjwSdFaKKiB1/m+7ZHi3z6raE0nN2q78Eexqr9pA7/2jrTPX5RLyUJc/Bgo20NXxVEZBQweyE0yoTOmRvIJOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Mi/pWe7r; arc=none smtp.client-ip=91.218.175.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PMcMgJdl"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-43a03cb1df9so961035f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Mar 2026 23:35:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774334125; x=1774938925; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Mifv6lV/1vhl2tnAgC+pUhj48DLTv7wevR0+F6OEtI0=;
-        b=PMcMgJdl9+8nEGQiWKxf5k+f+ICevnvHpmyNIIebnq1FtFkE/eKPmDJO32bvzB/Ne2
-         wLtCDuYLT8RX+PC5LskQqp6Y+SD2O2ZMU5PJhOCWTdTFrxD2437tSkYxsmY1ut9+vD42
-         Sw/oZT00uEJ9Kju8mKIohmNb9xlYPjhOF9BvPBFV355YRteNnqNsmizeOOoHkR1h4yyU
-         ARky9VX4+fkk+1Y8Ym9qTYtdLcQIC3Sd4XYoRLL0XfCfIEhlmkT1JQpL/sK2ngw0mzri
-         hgehwSzc6SjzT3VLET+jNAvqPw2FIawqcbfQEL8YFIZo+WIZdrhFnkAmTKuhj1+n9SSn
-         A1VA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774334125; x=1774938925;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Mifv6lV/1vhl2tnAgC+pUhj48DLTv7wevR0+F6OEtI0=;
-        b=cz6Ncak/SS/9QJ0GSpaPOE7APZDr1XiVCWLmVecalWCrcoa/9p/X8Wwem1k7wzE5pF
-         S2y4oWMhsZcYR0qWJXG1omiOXee51RyN3s8NrCjyT9Tm1giYat4lz+FRbnquBPiIcjfH
-         3yvOR9LdRu3Cx4LFuIP9O7vim279qlxRlzFsF34qKD2MuT+gV9gBxxr3WSICuW8y/wZq
-         utCaPaltTC+MWw1RBn1bASACoqSk0/AIbMQ3mN/Mxb90rFF+U1jr5KEqKfUYriBOr4wQ
-         1vapQhDvhjANFbP/+ctCcHBuP300ck4S8PJmlIRbpK2r+BbO7RkfwceLmT8D/teACvXQ
-         Pxhg==
-X-Gm-Message-State: AOJu0Yy8nujEb2qVkL71qmbUpK42IVsQ24NrLhbnJZlfdqRWz9Q3YpzF
-	6Oe0Qkv7zu1LJVUyTfcRUj61D5QZE5gANeHdmgMUMbNqqvDRO5vlujT7
-X-Gm-Gg: ATEYQzwFwpu2McmppM0CwO7LDh955UUsIK7rjDQF4QijxpB11dnyuC94w8pmmS4GB72
-	NOKOh1ZnNowPzSKTyWOeUtaFl3YFwtVsnNeKqONTyd2KvNKDAthkDsu/zXhB+dUIFq6I7gr/HCG
-	RyltqmsghsEAmBfeP6uUuJZZpjZNOi6u88Eerqb44TrWPJQLTU14dta46mcOApa+yT8ln6e2AUO
-	GxMi2NqxCTTM3Afd8h2Hl9y2tvWdQxzM2CBfeRhPVMfVcKhyiRK4E8TjBrEdqMUVIHCEeOFuJQl
-	zK95k5bur2ZcPW51mpfvlcSMTp/g2VkRBJyoE7wbUixfmZrRGl2y8m5e9ohjWTmS2rq2oWZyLX+
-	LtokvFaf2ajeTZ/GIAT+pgkfbj4aY5VpCKTd7uApIb2gNqydO8OUBSdbdMV2b2WXfmaUreuW071
-	dmIDGo2C/mF0y5lB/2CzE=
-X-Received: by 2002:a05:6000:1aca:b0:439:be78:e1e9 with SMTP id ffacd0b85a97d-43b6423fabamr24225594f8f.14.1774334124571;
-        Mon, 23 Mar 2026 23:35:24 -0700 (PDT)
-Received: from localhost ([212.73.77.104])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-43b6470380asm34457509f8f.24.2026.03.23.23.35.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Mar 2026 23:35:23 -0700 (PDT)
-From: Askar Safin <safinaskar@gmail.com>
-To: ruanjinjie@huawei.com
-Cc: devicetree@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linuxppc-dev@lists.ozlabs.org,
-	loongarch@lists.linux.dev,
-	x86@kernel.org
-Subject: Re: [PATCH v9 0/5] arm64/riscv: Add support for crashkernel CMA reservation
-Date: Tue, 24 Mar 2026 09:35:18 +0300
-Message-ID: <20260324063519.3258161-1-safinaskar@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260323072745.2481719-1-ruanjinjie@huawei.com>
-References: <20260323072745.2481719-1-ruanjinjie@huawei.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Mi/pWe7r"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1774334209;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eikiYueo5xkJjyhkjm2EvOyg6k6D9e96SdESD93i13U=;
+	b=Mi/pWe7rSDhs+xCXOsJqaBmGSq30+Zu+uWM71H4I7yR7SO3HqwryfXshur/vq9Sb0f/jDM
+	8TwCh1c/6tEa/y+Pgx0FF0M9lUZAZuFLorcbf+7aUkULmIjIowUn424wK3DFhHFnyNu38N
+	NXWQh7akaNbpA1ZY7DWdpY81bc3qhp8=
+Date: Tue, 24 Mar 2026 06:36:44 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Frank Wunderlich" <frank.wunderlich@linux.dev>
+Message-ID: <e0ad52862d34cf4e0169c9850a7f164f127d0093@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v4 net-next 5/5] net: pcs: pcs-mtk-lynxi: deprecate
+ "mediatek,pnswap"
+To: "Vladimir Oltean" <vladimir.oltean@nxp.com>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org, "Daniel
+ Golle" <daniel@makrotopia.org>, "Horatiu Vultur"
+ <horatiu.vultur@microchip.com>, "=?utf-8?B?QmrDuHJuIE1vcms=?="
+ <bjorn@mork.no>, "Andrew Lunn" <andrew+netdev@lunn.ch>, "Heiner Kallweit"
+ <hkallweit1@gmail.com>, "Russell King" <linux@armlinux.org.uk>, "David S.
+ Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>,
+ "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Matthias
+ Brugger" <matthias.bgg@gmail.com>, "AngeloGioacchino Del Regno"
+ <angelogioacchino.delregno@collabora.com>, "Eric Woudstra"
+ <ericwouds@gmail.com>, "Alexander Couzens" <lynxis@fe80.eu>, "Chester A.
+ Unal" <chester.a.unal@arinc9.com>, "DENG Qingfang" <dqfext@gmail.com>,
+ "Sean Wang" <sean.wang@mediatek.com>, "Felix Fietkau" <nbd@nbd.name>
+In-Reply-To: <20260119091220.1493761-6-vladimir.oltean@nxp.com>
+References: <20260119091220.1493761-1-vladimir.oltean@nxp.com>
+ <20260119091220.1493761-6-vladimir.oltean@nxp.com>
+X-Migadu-Flow: FLOW_OUT
 
-Please, remove me from CC list in future versions of this patchset
+Hi,
 
--- 
-Askar Safin
+looks like this patch breaks BPI-R3 serdes between mt7986 SoC and mt7531 =
+switch in 7.0 (6.19 is ok).
+in ethtool i see only tx on mac but no rx. if i revert this patch i can p=
+ing through dsa-ports again.
+
+i did not completely understanding the code with the default-pol as it is=
+ now splitted between rx and tx.
+
+mt7986 and this board does not have mediatek,pnswap set, so the final  re=
+gmap_update_bits writes val=3D0,
+before there was only write to this register on invert mode...but i guess=
+ this should not break. Maybe some
+kind of timing issue between mac and switch?
+
+maybe reverting this patch skips changes made here:
+bde1ae2d52ab 2026-01-19 net: pcs: pcs-mtk-lynxi: pass SGMIISYS OF node to=
+ PCS
+
+I resend as last try was sending as html (option "always send as text" in=
+ webmailer seems to be ignored
+somehow, had to choose "unformatted" in this response too).
+
+regards Frank
+
+Am 19. Januar 2026 um 10:12 schrieb "Vladimir Oltean" <vladimir.oltean@nx=
+p.com mailto:vladimir.oltean@nxp.com?to=3D%22Vladimir%20Oltean%22%20%3Cvl=
+adimir.oltean%40nxp.com%3E >:
+>=20
+>=20Prefer the new "rx-polarity" and "tx-polarity" properties, which in t=
+his
+> case have the advantage that polarity inversion can be specified per
+> direction (and per protocol, although this isn't useful here).
+>=20
+>=20We use the vendor specific ones as fallback if the standard descripti=
+on
+> doesn't exist.
+>=20
+>=20Daniel, referring to the Mediatek SDK, clarifies that the combined
+> SGMII_PN_SWAP_TX_RX register field should be split like this: bit 0 is
+> TX and bit 1 is RX:
+> https://lore.kernel.org/linux-phy/aSW--slbJWpXK0nv@makrotopia.org/
+>=20
+>=20Suggested-by: Daniel Golle <daniel@makrotopia.org>
+> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+> ---
+> v3->v4: none
+> v2->v3: s/GENERIC_PHY_COMMON_PROPS/PHY_COMMON_PROPS/
+> v1->v2: patch is new
+>=20
+>=20 drivers/net/pcs/Kconfig | 1 +
+>  drivers/net/pcs/pcs-mtk-lynxi.c | 50 +++++++++++++++++++++++++++++----
+>  2 files changed, 45 insertions(+), 6 deletions(-)
+>=20
+>=20diff --git a/drivers/net/pcs/Kconfig b/drivers/net/pcs/Kconfig
+> index ecbc3530e780..e417fd66f660 100644
+> --- a/drivers/net/pcs/Kconfig
+> +++ b/drivers/net/pcs/Kconfig
+> @@ -20,6 +20,7 @@ config PCS_LYNX
+>=20=20
+>=20 config PCS_MTK_LYNXI
+>  tristate
+> + select PHY_COMMON_PROPS
+>  select REGMAP
+>  help
+>  This module provides helpers to phylink for managing the LynxI PCS
+> diff --git a/drivers/net/pcs/pcs-mtk-lynxi.c b/drivers/net/pcs/pcs-mtk-=
+lynxi.c
+> index 7f719da5812e..74dbce205f71 100644
+> --- a/drivers/net/pcs/pcs-mtk-lynxi.c
+> +++ b/drivers/net/pcs/pcs-mtk-lynxi.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/mdio.h>
+>  #include <linux/of.h>
+>  #include <linux/pcs/pcs-mtk-lynxi.h>
+> +#include <linux/phy/phy-common-props.h>
+>  #include <linux/phylink.h>
+>  #include <linux/regmap.h>
+>=20=20
+>=20@@ -62,8 +63,9 @@
+>=20=20
+>=20 /* Register to QPHY wrapper control */
+>  #define SGMSYS_QPHY_WRAP_CTRL 0xec
+> -#define SGMII_PN_SWAP_MASK GENMASK(1, 0)
+> -#define SGMII_PN_SWAP_TX_RX (BIT(0) | BIT(1))
+> +#define SGMII_PN_SWAP_RX BIT(1)
+> +#define SGMII_PN_SWAP_TX BIT(0)
+> +
+>=20=20
+>=20 /* struct mtk_pcs_lynxi - This structure holds each sgmii regmap and=
+associated
+>  * data
+> @@ -121,6 +123,42 @@ static void mtk_pcs_lynxi_get_state(struct phylink=
+_pcs *pcs,
+>  FIELD_GET(SGMII_LPA, adv));
+>  }
+>=20=20
+>=20+static int mtk_pcs_config_polarity(struct mtk_pcs_lynxi *mpcs,
+> + phy_interface_t interface)
+> +{
+> + struct fwnode_handle *fwnode =3D mpcs->fwnode, *pcs_fwnode;
+> + unsigned int pol, default_pol =3D PHY_POL_NORMAL;
+> + unsigned int val =3D 0;
+> + int ret;
+> +
+> + if (fwnode_property_read_bool(fwnode, "mediatek,pnswap"))
+> + default_pol =3D PHY_POL_INVERT;
+> +
+> + pcs_fwnode =3D fwnode_get_named_child_node(fwnode, "pcs");
+> +
+> + ret =3D phy_get_rx_polarity(pcs_fwnode, phy_modes(interface),
+> + BIT(PHY_POL_NORMAL) | BIT(PHY_POL_INVERT),
+> + default_pol, &pol);
+> + if (ret) {
+> + fwnode_handle_put(pcs_fwnode);
+> + return ret;
+> + }
+> + if (pol =3D=3D PHY_POL_INVERT)
+> + val |=3D SGMII_PN_SWAP_RX;
+> +
+> + ret =3D phy_get_tx_polarity(pcs_fwnode, phy_modes(interface),
+> + BIT(PHY_POL_NORMAL) | BIT(PHY_POL_INVERT),
+> + default_pol, &pol);
+> + fwnode_handle_put(pcs_fwnode);
+> + if (ret)
+> + return ret;
+> + if (pol =3D=3D PHY_POL_INVERT)
+> + val |=3D SGMII_PN_SWAP_TX;
+> +
+> + return regmap_update_bits(mpcs->regmap, SGMSYS_QPHY_WRAP_CTRL,
+> + SGMII_PN_SWAP_RX | SGMII_PN_SWAP_TX, val);
+> +}
+> +
+>  static int mtk_pcs_lynxi_config(struct phylink_pcs *pcs, unsigned int =
+neg_mode,
+>  phy_interface_t interface,
+>  const unsigned long *advertising,
+> @@ -130,6 +168,7 @@ static int mtk_pcs_lynxi_config(struct phylink_pcs =
+*pcs, unsigned int neg_mode,
+>  bool mode_changed =3D false, changed;
+>  unsigned int rgc3, sgm_mode, bmcr;
+>  int advertise, link_timer;
+> + int ret;
+>=20=20
+>=20 advertise =3D phylink_mii_c22_pcs_encode_advertisement(interface,
+>  advertising);
+> @@ -169,10 +208,9 @@ static int mtk_pcs_lynxi_config(struct phylink_pcs=
+ *pcs, unsigned int neg_mode,
+>  regmap_set_bits(mpcs->regmap, SGMSYS_RESERVED_0,
+>  SGMII_SW_RESET);
+>=20=20
+>=20- if (fwnode_property_read_bool(mpcs->fwnode, "mediatek,pnswap"))
+> - regmap_update_bits(mpcs->regmap, SGMSYS_QPHY_WRAP_CTRL,
+> - SGMII_PN_SWAP_MASK,
+> - SGMII_PN_SWAP_TX_RX);
+> + ret =3D mtk_pcs_config_polarity(mpcs, interface);
+> + if (ret)
+> + return ret;
+>=20=20
+>=20 if (interface =3D=3D PHY_INTERFACE_MODE_2500BASEX)
+>  rgc3 =3D SGMII_PHY_SPEED_3_125G;
+> --=20
+>=202.34.1
+>=20
+
+regards=20Frank
