@@ -1,110 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49243A0E81;
-	Tue, 24 Mar 2026 16:19:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DA6366546;
+	Tue, 24 Mar 2026 16:24:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774369177; cv=none; b=LZcR0eEOud8Kw9/DM/5uSykYM/hM1GwpJ4UsDDRfMiLKoudHv7CUt4HS9niGFuzmL8J3ZGgXi6n3PCw45zfa1ihFxzHfX0Og2OqXZM+W6dfhAGbHtY60N8GiELCIA+vcvuGDKe+2r4UUb6Jp8wZNiFQ6vWrdrsdHuFkPXYM2ffc=
+	t=1774369491; cv=none; b=PodjEKguK09s4qd+0tAsMu8LAcFvKWJkBv3tZhyPGLKfANXmOQsK90D2V8wiT8yKPILw0eaSUxTK/t1GdCFnZyg5kXTko0NAcZTHBfi9LZjRf1o5V0LL9pAKXrOvETzV5sIlxPcqWuDVk19zv5RFRnP6jYeABORCaa5kSSpIs+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774369177; c=relaxed/simple;
-	bh=OOoOHuRKnfY4pEIgmq0rR3HB4Sgy5RohzLtXdcbQlig=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DLPr5y1YmEu8qaMyTGPk+rSBi2Cc8mozfIaU6EaNW9xmFPrIcLrLXHpD1IMsYNSHxFqpmSJguRkkN4B2Q8+sfvHT4lJOP8EI+v4qKeTwrJnrGGVob4BEzbDo0Ql3DO/FViGTiT9sFWVzTxXKTWZhKaZs6+TNXMzpXhYdcyXwefA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=popDtLTe; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774369491; c=relaxed/simple;
+	bh=AV3JSQKuN5JjsAMvQHvfmEmII0cPQmEt6VWTDstHTBk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r7YqAeA4Iz/e/4gxYKjXkzEkPctxgJA/gRPwZvvabGq9/G+SePJ4i3Xj4RxHhTGks5YlennpAuZrKD/s2UVEjadHK99TEgjPsfvcdqPsv8sE5NXCTqu34OVWOd8s79mwC75kv9QjqMobwu+UjjERhanYVs55zqc8+ExuQDiagfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A+sqRzDa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="popDtLTe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79A06C19424;
-	Tue, 24 Mar 2026 16:19:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A+sqRzDa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0284C2BCB2;
+	Tue, 24 Mar 2026 16:24:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774369176;
-	bh=OOoOHuRKnfY4pEIgmq0rR3HB4Sgy5RohzLtXdcbQlig=;
-	h=From:To:Cc:Subject:Date:From;
-	b=popDtLTeN25BTHrI27WnsvkVsSv8K+tiyhbH7yJVKfjRGFDKC3yv3MnF+UxqeGDJt
-	 P0YeqRYwMDfjrAxQ8+RbOTJHlTwD7722oJtR5LTGt2LFPe4C/vvC+ZvLSNfmy72Es3
-	 r33085vOTy+LeoIsXtvIS9wCyEUDJgyHk9w74SToFX6uNMtrvlNdGdD+5Zjb/Jbu7X
-	 zb//NFvP6NpJr0RDU62HSqVzdql0C1npAc7inhWzXoMPWsEeBt0tLZjORXRtq0bxh9
-	 QMH6K7qSWLoxH76f7isidoB95UGc2veq4UoXvP/4scN44Uz9txxxRq0GZXPXGHNjcQ
-	 2w5ztWgtZD46w==
-Received: by wens.tw (Postfix, from userid 1000)
-	id E883F5FEB2; Wed, 25 Mar 2026 00:19:33 +0800 (CST)
-From: Chen-Yu Tsai <wens@kernel.org>
-To: Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej@kernel.org>,
-	Samuel Holland <samuel@sholland.org>
-Cc: linux-sunxi@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	s=k20201202; t=1774369491;
+	bh=AV3JSQKuN5JjsAMvQHvfmEmII0cPQmEt6VWTDstHTBk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=A+sqRzDaWhJwlRd8o7WxCj0yhm1IoCk4TASkn6BLPiYCjhSjAsUOmXxAGGuGKyfRO
+	 k8kzcbV+JtU1oB70Sc8uidyX7+9Wf+yLtT9O+KtxIxTBkX0hhNCKSz2+NXXfrJmzLp
+	 WlqcL6bJ3Q/6kknkguWOgy87/VM6Ebc7vixzLzaPjkePX8m9931unsB9Lr2xRmHVUF
+	 ybDg348tkmiYW9iXnoE0df9uFr1VtfFQtsvXdH3kcank6h1lEwLcm3Eo0GRqVQ77fo
+	 OWy8fmnh5a+Y3rGvBBOzIaaTmj8+f6rEz161fhEWLf4ZdkgXFxcA03Kgw0zCUiMqm0
+	 B3hHY3MmA5pQA==
+Date: Tue, 24 Mar 2026 16:24:46 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] arm64: dts: allwinner: sun50i-a64: add UART DMA channels
-Date: Wed, 25 Mar 2026 00:19:28 +0800
-Message-ID: <20260324161930.1602083-1-wens@kernel.org>
-X-Mailer: git-send-email 2.47.3
+Subject: Re: [PATCH v1 2/6] spi: spi-qcom-qspi: Add interconnect support for
+ memory path
+Message-ID: <92c58ea3-5492-4de9-bcf7-d4a419480002@sirena.org.uk>
+References: <20260324-spi-nor-v1-0-3efe59c1c119@oss.qualcomm.com>
+ <20260324-spi-nor-v1-2-3efe59c1c119@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="+9dB+3TDrc5h9gea"
+Content-Disposition: inline
+In-Reply-To: <20260324-spi-nor-v1-2-3efe59c1c119@oss.qualcomm.com>
+X-Cookie: To make an enemy, do someone a favor.
 
-All the UARTs support DMA and are hooked up to the DMA controller.
 
-Add the DMA channels for the UARTs
+--+9dB+3TDrc5h9gea
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
----
- arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+On Tue, Mar 24, 2026 at 06:43:19PM +0530, Viken Dadhaniya wrote:
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-index 0fecf0abb204..04a26762a19a 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-@@ -1000,6 +1000,8 @@ uart0: serial@1c28000 {
- 			reg-io-width = <4>;
- 			clocks = <&ccu CLK_BUS_UART0>;
- 			resets = <&ccu RST_BUS_UART0>;
-+			dmas = <&dma 6>, <&dma 6>;
-+			dma-names = "tx", "rx";
- 			status = "disabled";
- 		};
- 
-@@ -1011,6 +1013,8 @@ uart1: serial@1c28400 {
- 			reg-io-width = <4>;
- 			clocks = <&ccu CLK_BUS_UART1>;
- 			resets = <&ccu RST_BUS_UART1>;
-+			dmas = <&dma 7>, <&dma 7>;
-+			dma-names = "tx", "rx";
- 			status = "disabled";
- 		};
- 
-@@ -1022,6 +1026,8 @@ uart2: serial@1c28800 {
- 			reg-io-width = <4>;
- 			clocks = <&ccu CLK_BUS_UART2>;
- 			resets = <&ccu RST_BUS_UART2>;
-+			dmas = <&dma 8>, <&dma 8>;
-+			dma-names = "tx", "rx";
- 			status = "disabled";
- 		};
- 
-@@ -1033,6 +1039,8 @@ uart3: serial@1c28c00 {
- 			reg-io-width = <4>;
- 			clocks = <&ccu CLK_BUS_UART3>;
- 			resets = <&ccu RST_BUS_UART3>;
-+			dmas = <&dma 9>, <&dma 9>;
-+			dma-names = "tx", "rx";
- 			status = "disabled";
- 		};
- 
-@@ -1044,6 +1052,8 @@ uart4: serial@1c29000 {
- 			reg-io-width = <4>;
- 			clocks = <&ccu CLK_BUS_UART4>;
- 			resets = <&ccu RST_BUS_UART4>;
-+			dmas = <&dma 10>, <&dma 10>;
-+			dma-names = "tx", "rx";
- 			status = "disabled";
- 		};
- 
--- 
-2.47.3
+> @@ -829,6 +842,13 @@ static int __maybe_unused qcom_qspi_runtime_suspend(=
+struct device *dev)
+>  		return ret;
+>  	}
+> =20
+> +	ret =3D icc_disable(ctrl->icc_path_mem);
+> +	if (ret) {
+> +		dev_err_ratelimited(ctrl->dev, "ICC disable failed for memory: %d\n", =
+ret);
+> +		icc_enable(ctrl->icc_path_cpu_to_qspi);
+> +		return ret;
+> +	}
+> +
 
+This reenables the ICC but not the clocks on error (which is a
+preexisting bug with the error handling if the other ICC fails but
+still...).
+
+--+9dB+3TDrc5h9gea
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnCus0ACgkQJNaLcl1U
+h9CSBwf/SlssMZysnjl/o8P4q4C0hXZGv8rwgCV/cDjkmFh8QLdE1R1hUkbBS+aK
+7ecv/Mtj3NzB4bWuD/CnYmRWW07YajfBupommj0nf6aJr4xbufDbzWilo7pQDSSu
+40HmJscewLPrL6kLT5F1YC+7AUgoui/eKKeZ/o87Hd4v1SebZexmBMvrKu3ztXYo
+dXcGrOBz7McDvDk74QOxz3KPgHbk8bBW2iTisJev7fEclDYSY9SncnJhj9vkzTth
+9lSkluzZnsrGHP8qq2ZqVIy+kF6e8Q8MwEL7pfYmF3RJV65nt4mH/YxhulgZw5W8
+3eoGxDakn46tzr6HvQ9OeI88yMMGRg==
+=AfuE
+-----END PGP SIGNATURE-----
+
+--+9dB+3TDrc5h9gea--
