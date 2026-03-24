@@ -1,251 +1,282 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013026.outbound.protection.outlook.com [40.107.159.26])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010014.outbound.protection.outlook.com [52.101.228.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FF6401499;
-	Tue, 24 Mar 2026 14:47:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBCFA401493;
+	Tue, 24 Mar 2026 14:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.14
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774363634; cv=fail; b=Ch7VBPlXfdqdLw+yWypY8JVOlwZQeiTPz3lTDViHjjl/AqJeNJukHt3NkeAwYFDAczAJfMvYzgPwlOchLp+s/yxxXUQ63Bh6a4WaQn0M3qjk73kjzylxephN0TFYvrhqusalC2EGzvOgHk3xWXcJDAGJpv6zto++jf84vkxzpqk=
+	t=1774364196; cv=fail; b=AfAvQo/B07C/25QZeolazxXDDv7Y4vAScHNsphT0Ju4b5DMxAPkIefhpsQU/k39plXSrH89fMddY74bX4Ftv4dXJWwkR/lZtorVePRWjRQ3QiwDJl0kBHKbbckJh/cjSB2ANyhVTALB3BeWFQvbAj4cRbyW+v89jql6mS1ldsE0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774363634; c=relaxed/simple;
-	bh=VqXgHC2imfP0ejs7pnKEVvNKLdvGW/zHtLfxl1kpBzI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ovZCeAKW08Y9SBpcSEfdfCV9wL1FO1DyVINPia/uAC0J9ajIXYYbmUeKoDHW/j3YCOOxa7PxcMVl8e/1cCKPPBXIwozVZYR3tcb0o/h3A/2bPOQyPdc+6X4xBwBpsL6hOxVBPg35VH3X4VMHFDjXYw3trt/B6ktd9By0k2lzomk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=N9ggSINe; arc=fail smtp.client-ip=40.107.159.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	s=arc-20240116; t=1774364196; c=relaxed/simple;
+	bh=3CiF5h/AeAo7IOjyyN9irAUyTsUQdLc8bDr1rDBLxDg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=izPzUtnuZvqhw3Tyjpcz4Tg65yqxuPZw0Z4X5b9/doTtAVfy3OqXTjSL9XcHT9YVqJu11/OXcSD2sURUGFDxZU3F4c0Kfx07rxJQytFjS5l9SNuq5SNqszqU218dUBHDl2Bcv202Ik4YrrUJggdiifVIDuC7Q7T2gjtjZ3/YUdw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=OgQPgJZ/; arc=fail smtp.client-ip=52.101.228.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="N9ggSINe"
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="OgQPgJZ/"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ovj0aAxBz6EB/gcbD7blrvw1ptFjoH3/2dBGJ3vLt79KElSgFNN63Q3a6MEKmNbY10FaVhpH0KtTI51dZ3BcKk71njEHuU8fZogfpGBwPm01Up7TtdqbBjM/BkdasINglGZ+FoKJcqbvRiRKBcwZowpmBbj59iC4IdeqWIQoxicB0s6FEDya7PQJHLjr/jwt85dC34AJolmpMT+zmsxWMY26MTBjpBeUd7THPRrxD4q3+Wxeqx0vygXrU4IzpG02NFZjrfohxF6Uuz3RbD8LQ7GVyQkgE1TIyRrytjThwHiwcw5TwJ2RzKo5x16w7Cqh19fGV7vO/N277CIrzM3zqg==
+ b=lt3uQ5DZNIQXZ/8Aky/WSpQ4uzh21XeG4IuLjwJ/gvWPdlgUMQelxDusw6SmAkqvyGzL0VAXutaxBvSpZ8g8R6NK44sCoB00mTRUaG3Ht/PtGDYfIpspvM0Jcox2sC8aZ2QHlXvOf0F4/g/h5wuUQhwOrpGyXaXVAHp+QK1WOmgEpWY4bqcfQPIFdt4NIgtEY3mc3AB3L7ClPP4bUpiuFJngclnonBqwSQTI9jiHa78+ypPEWX52f2q5uKnyQ7n5G0/W530K3B8jl+Stc7cQI/KYzdI2p3Zo4gR2QRwoAhRZ9ui6ig0d7ODSJSF97he3b5oa+TGuyppPJcFr3VGLeA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=//4dXG69BfkjHlm/1bc3BTC1DThDBxKE38Q+uJjrG+w=;
- b=CWAeNVscXOBib1SC6uU9TelhzqL8/fEIhBkQg7uZV8azUxbmnz5VxQz6MF+7g+WRQ3ELGdKd/kbFlwVcIxHhWGGoILQgLvQf+alRmf3xfU7bxNw82NLbTAhRJWKEkul1T+igIj9M/Yf27Kuj/9EalwiPfBTuMvLihFnW4Pe5kV4M4wCPIu7lZhms3svroUrB417H2CkBsoaJzvlPrqRyUUzqvBow4wu42hYtW6CV5OpCEamSwe6R6z4IDnAHpTPg0I/8dgx1ijCjZBwd4FfBE3kseOit8a6o0q1NzJGt45pOSd3lKykSCsDRXb95ExHxOz2+wxs63n+DaHAJHg45fA==
+ bh=pw5MlVbECTH8tk1le+3d24CARYej6JdYAKoL6GS3eEE=;
+ b=Z0DZfzYNO9VsO3QWgEbGNcIoL4bwnO55uiEWRt8m/oYoVo5JpujZgnca5AY69MqCS0fFVz8eVeXJNf0/WuSHg06uuCQGWtrCiF92wW+AUdnbV8KVkcPjnAXzcZTRSbkoEkY6tH7J2/ErqSgy3Rzt+0LWTN7l5pcbSAG0ifqyToY+tj0iXfzd5I7khjZrJEmG6uE5guh7yRAsPl+HS4ej2hweD+fG6wtnTC9xDhZ3aimACxAoA8c2RcBXHvStnCmQpMCt3wA2o9lLWGawMJ+6L6tfAKUNCgM+ASU2ae659Ic17eRTOEEs9N4xaq1BQhht6YbW98gAs8MTK5aTH5t9cA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=//4dXG69BfkjHlm/1bc3BTC1DThDBxKE38Q+uJjrG+w=;
- b=N9ggSINeZ4cwqnf7fCASn5Rdr/qkq4pDsVWzxUcFbvsQ2fpX9iKICw4bsxb5v84XJFhBCv5+ZBG/915QOLcFZoRxZb9rMBxPw4E0cpnAtTVt+IRBvmqykWa69mNhrxlqFepK095lAP7wBJ11tet23YCmusH4iAf7w8r2B+AKkMZxdtrBPe5xvgL7uF2YrrFrULQot3T+K8q6ZCX25yBuKWFMhjJk0NnbsrxH70IZt4BK1kMRijuBUjsAGT561PGOwQMFyQiKkEhudrtf9d5YPdieTHLRbNBIqdellQ6JYn2pgS6oux8oezzvsTuGeqklJsVXQ8MhDFSEv3k/DxLVhg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by AS8PR04MB8850.eurprd04.prod.outlook.com (2603:10a6:20b:42d::9) with
+ bh=pw5MlVbECTH8tk1le+3d24CARYej6JdYAKoL6GS3eEE=;
+ b=OgQPgJZ/Mjr3kI10IkQpHapYdhQ1s/64KjQaTTwPQ6ydOhgTvG+bVy97uROb9lgmbd0flffSzGm2kotBL4t+9BBeIFWmnA1FqTd/IUvxwhl2ZFeEBg6sWnU+TLppeUTDgGpEDgLToCA58tZcCQfLjhY0fPq/bVEnAVCGHcAbRRU=
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com (2603:1096:405:35b::6)
+ by TY4PR01MB14915.jpnprd01.prod.outlook.com (2603:1096:405:262::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Tue, 24 Mar
- 2026 14:46:37 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9723.030; Tue, 24 Mar 2026
- 14:46:58 +0000
-Date: Tue, 24 Mar 2026 10:46:58 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Sherry Sun <sherry.sun@nxp.com>
-Cc: "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
-	"kernel@pengutronix.de" <kernel@pengutronix.de>,
-	"festevam@gmail.com" <festevam@gmail.com>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	Hongxing Zhu <hongxing.zhu@nxp.com>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH V2] arm64: dts: imx8mp-evk: Disable PCIe bus in the
- default dts
-Message-ID: <acKj4sWpzyAYExrK@lizhi-Precision-Tower-5810>
-References: <20260320090353.1483418-1-sherry.sun@nxp.com>
- <acGN-QsB65Kbs7Gf@lizhi-Precision-Tower-5810>
- <VI0PR04MB121147DEDEA2B8058666867F19248A@VI0PR04MB12114.eurprd04.prod.outlook.com>
- <VI0PR04MB121140F94476DBC9D2F845ADC9248A@VI0PR04MB12114.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <VI0PR04MB121140F94476DBC9D2F845ADC9248A@VI0PR04MB12114.eurprd04.prod.outlook.com>
-X-ClientProxiedBy: SA1P222CA0110.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:3c5::22) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+ 2026 14:56:27 +0000
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3]) by TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3%4]) with mapi id 15.20.9723.030; Tue, 24 Mar 2026
+ 14:56:27 +0000
+From: John Madieu <john.madieu.xa@bp.renesas.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+CC: Geert Uytterhoeven <geert+renesas@glider.be>, Vinod Koul
+	<vkoul@kernel.org>, Mark Brown <broonie@kernel.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Michael
+ Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@kernel.org>, Liam Girdwood
+	<lgirdwood@gmail.com>, magnus.damm <magnus.damm@gmail.com>, Thomas Gleixner
+	<tglx@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+	<tiwai@suse.com>, Philipp Zabel <p.zabel@pengutronix.de>, Claudiu.Beznea
+	<claudiu.beznea@tuxon.dev>, Biju Das <biju.das.jz@bp.renesas.com>, Fabrizio
+ Castro <fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
+	<prabhakar.mahadev-lad.rj@bp.renesas.com>, John Madieu
+	<john.madieu@gmail.com>, "linux-renesas-soc@vger.kernel.org"
+	<linux-renesas-soc@vger.kernel.org>, "linux-clk@vger.kernel.org"
+	<linux-clk@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "dmaengine@vger.kernel.org"
+	<dmaengine@vger.kernel.org>, "linux-sound@vger.kernel.org"
+	<linux-sound@vger.kernel.org>
+Subject: RE: [PATCH 09/22] ASoC: rsnd: Add RZ/G3E SoC probing and register map
+Thread-Topic: [PATCH 09/22] ASoC: rsnd: Add RZ/G3E SoC probing and register
+ map
+Thread-Index: AQHct7jjwhFoczrdQ0aCFW8UcaKRYbW7TbiAgAJ2muA=
+Date: Tue, 24 Mar 2026 14:56:27 +0000
+Message-ID:
+ <TY6PR01MB173773C4F9DC58C78FC801F91FF48A@TY6PR01MB17377.jpnprd01.prod.outlook.com>
+References: <20260319155334.51278-1-john.madieu.xa@bp.renesas.com>
+	<20260319155334.51278-10-john.madieu.xa@bp.renesas.com>
+ <87ldfj9xt3.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87ldfj9xt3.wl-kuninori.morimoto.gx@renesas.com>
+Accept-Language: en-US, en-GB
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY6PR01MB17377:EE_|TY4PR01MB14915:EE_
+x-ms-office365-filtering-correlation-id: d65e7b17-c1d3-4206-3fb1-08de89b586e5
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|376014|7416014|22082099003|38070700021|18002099003|56012099003;
+x-microsoft-antispam-message-info:
+ nkYlQ7Zi6OciNsobXL1Tpi7M8wswyMDKtNZK7oIeJJDOv4EF7pkQF8+W9USjBwdMyyD1qMvKHfw1mmZx4a4liKi96vpQr6bq44S+8AR9jty4Lo/00x9BMXNxRWHUwp4Ymy4SVe7N8VPCS7U7/DmnK5UZepcYlhiMV6ELgJbMmxP4sDReFl1vwjEiroctfG8LiJ9iP90j+yRn4owQo7lX4ETSwqtyMQbzIythTH35ytl7O7Eiwpi+qShzFQvhZgbXYopetx6TmC+2fWcsmKT3tV2lQjzV9M0WvnYFOMlp2h5dPOnNGPnfLDrFaZY4S2fgvGqrztUYWqE/Hml1X3xTmYmNKc1vn71X3dN9nA1NlrX9iKa/L+9GSdDMUpcGefZpmyDHfCfEzyboFsGmY0cabATNoAqei+NTq26HTI1ak0VAxnwDQZW4pm4Je4CnDy8DIvIJk7NVyaInR7SLmqKvCQFPbB20WVsaAELWqOEcJaSgHzEBjJ6qImHD9guidFpjEsQgBvEDZ+k0X7QCfNYXSJmanu0kbiEl9Q8dvijm9JnJ30ptJ2yyJOFBj4LwJXg7I/sC5iyzlPCAkZ3Euc6sDfZcuZ4TgfJaCBg93kj+fODk2u7ry4lHtY53i4xGkmRuEl+eTxSQag3C+zgcAzaVfEF16jJMxijh7rH70xH8YtF+cHvB5gNJ3DxK2LA6qdgcbVIL57hrkUI+iNO7EbeYLP4tqOsD1GHLRT22vdClLEC/IsIwWkLh+z+Ewv/SrJ5M6aUlbKYrgKlZgTuIM2rglIoGp3xWKzWJVYjYErSZV2A=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY6PR01MB17377.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(22082099003)(38070700021)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?h6yOexLb6OVNP/WRPyENX1lVfs4wm4n8N3SUdW1PJC9USR7cj9Q5W1X2v+GZ?=
+ =?us-ascii?Q?+Rc01tTFRAg1XrIwhpisEtSVoQRnc1/3Bj9Q7gVkYoUOU0mSEEMw/badGz/w?=
+ =?us-ascii?Q?zf/cQ99NxRa7HED1azyrNErVsqJi/EumCX7JEtcvu2wdRIFokaVGkZMATYUJ?=
+ =?us-ascii?Q?12thoFkAsoy/motVeXU2Qx7IetbQlIvLy5vhi/DcOF+icwy0oio16ZwGCdxq?=
+ =?us-ascii?Q?wv0iU9bjqO1mbWKrUO1FJzg8HiZK0w2FE5uJe6L7cqX9pWwSFnk/7on4RSSv?=
+ =?us-ascii?Q?OI5VIv1rVX7hSjijWA9dvfivL/SJC++TXGRxwInPU0swL26BWp+JChx4XzbQ?=
+ =?us-ascii?Q?dQrjyO4aEEfFdvFAjK7XToMZdAd984EUGeVfpUmJjKHuMvWKSnzPaM3KMbi4?=
+ =?us-ascii?Q?+81oByHon1MNBZKRaJGzT8KlRN2gaEO1uvoNL3qsqXvBRZvRixnvB9ixVlAD?=
+ =?us-ascii?Q?uAaQ0S0Y4NpLG8KtXKUHieyiTBxCZtzB1xKsZ1Hh2APsCNhH1ZNt4v2rKU1G?=
+ =?us-ascii?Q?vsYikomzb3fQebNloLGZ60sdJLH8SgzlFdsCfTJL3MyARAI4y3522pFp4fGY?=
+ =?us-ascii?Q?kzSbrqy7td9CRiu3b7dNF2vTDnfoaqVAgEfLKxqcd20kbgalVhQbzISmhX5o?=
+ =?us-ascii?Q?6XA6cxUkVGTIsz+fkNZGg3CBrQN0kz3/4qtLNTpaKbMW8h0lL8NroNMLufjs?=
+ =?us-ascii?Q?sB+vucEzMfLKYNANT385OlrIeMCE9/KbusrESvcCEM8EjZ1GOr7ntfUUA+Gu?=
+ =?us-ascii?Q?PO6veP3VBv4pvOyXVRYuGgICpS6V0A9akqwajRmSkfefjVAUgsaMgWI+L+ln?=
+ =?us-ascii?Q?VtWPIcwSX/b4PWe4fX9oP4092yACmg5jE4+zt1mPacS24kk5XLsSbX3332Wb?=
+ =?us-ascii?Q?mtYc+wI9m37wqK2M8ci0Mz79P6XBqlH6JGyeiKDLgJXzRm3lgIg5+2ObhccI?=
+ =?us-ascii?Q?1084YvJV0XRNCEyhl7Px7Lole53lNKZWmXyewx4dKbneA11QV6+qg/Ep4qwP?=
+ =?us-ascii?Q?v97zvBx3ASH6mrapLfGtFRP0ecZWLTtiT5felaxMznWBRajwnsvIoG/G7+X+?=
+ =?us-ascii?Q?rhwivdSaMoa97rOIntDJWr80lIWOjiPlmaYURg7ukMxM/RoIiy4/kGp4tLnd?=
+ =?us-ascii?Q?ONGJVn9jy58v465PHx1BSapabgamu2m/2QOc7U93u9R/W5C8NPUW8KetupId?=
+ =?us-ascii?Q?HLTDAABIVqrVOBTb+OFWkGS2rBspMffXX3/Cuo2qqhNfyI3KRzJ0NZUAzjQA?=
+ =?us-ascii?Q?WkUH3bK+lBCWYjBky0iUDGBi6yQbNiMmsyzCK0ehVGx3oJouKo/MbhoTg3Eq?=
+ =?us-ascii?Q?DeEj/cKbLJFhJZJneODxRKCRoTdw7a1LjbJdwqmonT9oXLhjAVZM2R2ynStd?=
+ =?us-ascii?Q?Ap+5bEtupDqUJ9Rj0fAIHfaxO3cWZlmemZKgSfWAB0lIR2WRXc0PSiKPOSyg?=
+ =?us-ascii?Q?PpghxT0foaliNFOxh8e3uEO2j0X2IYaW8TjXKmpERMvhjj2U3soq4Y+38yS6?=
+ =?us-ascii?Q?jWXxocweYElt/rUfX5cF382bFVRtkHcXy2TNnZ2vGyxWECAC22yblvT4/ik5?=
+ =?us-ascii?Q?vhxM6JkNpsr4uAVWJWY0A19xc6ztXxG0D3/fRdv/JG8c3rrAG0VMjqRjRi6A?=
+ =?us-ascii?Q?k4vJkSe8yqrIOVZn/bIU7TbKF8PyPGHn8rWLYPs2A/GnHoUohH9PfWhv4b0A?=
+ =?us-ascii?Q?rK+Zem+ufsiyubiQMkTmW7rmrt3ise5zqE9R+oJd+X1aIha7+4tNoNkwfTPO?=
+ =?us-ascii?Q?mwABxOuD62+2wBtu/SK4OMPRSGMhuBw=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AS8PR04MB8850:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b4fa3eb-f936-4e2e-45cf-08de89b43322
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|376014|7416014|19092799006|1800799024|366016|38350700014|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	NXBn0P8FiuoN00P8UIN2lbFb7SlflW/CuF6LENam087PZXa/C1fq8OXg5Dl+fAg0TV/LfLW1UY1c0RWrh9Jg6c0ZlahlJHcfriNMDSBfqOxytKkKekqvmyh/piz33cp/G9uzVDYAWFbXoBU3IMSckXShWuo3RiBkgnDSU0BU2Dfb4MwstR9/gjUoJYNC5DsSp/lC4UgRGGDtmfGI72u6jJuyJJW4FuLHLfcjyml9WqDR6nxNcd/vcz+9UxWspZ+KN8sN2+Vdjl1mCybTeVmbkkDcWipvBWr9rrZ+QVjWyLrWvDWwkh/5L6GwGtBYXSrsy24Xa2maxeLRgs3QvVo5xfk44O6iUtnqDcplkkcgDJBQNgjguj3FWbF06HkTD4bGn+D/xbtBXGUKZGqucruaxjL29kRidDhnZFY1yZySamfapD2RXu8tv9eVIRMiVXXMuqqp0hTC+jBFe4nxutcanWflaRvNgULtmPysh5q3cDQd0DoikRxx29ef3tvJNzWkUheDVkc42zfgTb7ygo9J4LB27baH24dR6ETK/5P0MIW9O2mfadGlI+VwB3hw/xMU00VFRL5QE/pvZffZZ9/k/Rn3mBpQCU3igAV8CKYBEMZRZOpUtUsR50heciVNrjJtEy9oWRv8pVCYKkZmV3sOynlXLCntULNTaGuoN5ShsCxjNleFUS+q7bED4RleWf5RIf///bpGEU/R2FIfkPcpxQ8rQC58F5FoI/ZDqN+sJ6jVIlQ6/7gxu5x/uSMJDN1gMoumzpKFIBvkt6KEmvzQG8a3D2R16g1lp/AL0TMwpG0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(7416014)(19092799006)(1800799024)(366016)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?XxWKKug4jVtGYuyLW/sjKxZVO8u87BXgbd2ZNb0MyKzGhU1KzFw5HgZz+cH8?=
- =?us-ascii?Q?s7KCQSH4182lrlc6KNgBECLcCCvsGM4PNp3w49Zmx6TYFqHTDV76tmNUlKip?=
- =?us-ascii?Q?szWwggzR1xTQn6GU9VK30aXLIG4cZrvNXoJzMz7+SnsrPvnLCgJleNLltY2f?=
- =?us-ascii?Q?+uRjMVINRz3btsrc/cLOuT0jS9qy83r244Z+6yHh/m+JLjFrsjIcm1jO/oEG?=
- =?us-ascii?Q?hdcQzeSs03pM7MpZjF7P/FPZ9oHA6053nu1y5DowOuqe4MD9qOstqjCWtEsW?=
- =?us-ascii?Q?bAITaR33u4z2Nn8aEyilFhPSaouj2hyODDYutU1iWX7h2DtgpR1Ga+5/E/Ca?=
- =?us-ascii?Q?hLF7U+c+Cp62E9lFePGwd3enQYHPijhiymWwC9O1xUr+y3p9L5qJVRmtpzbo?=
- =?us-ascii?Q?+7zgXmMQixasBLUOgOUn/XpluJBpntyTF+ji/IsAOXN1LJHJF4TiDzjrrSX9?=
- =?us-ascii?Q?KzWJPWTmap6A/Cc7JaQEe5spQ3C2D5IoTzHJx2aOSLEt4fSci7KKs0xz2TKQ?=
- =?us-ascii?Q?wBbZiEK2dHSsL/rXlJQsLIDlH3B/3HqrzX5sOPVAgszvg2ctv6RMcAUFsfx5?=
- =?us-ascii?Q?YH/UYmCaG19XMkyf4jlsrQULIqoRrYrm9oCXTLG8AMVmWRdYM6Ff4jXDiSZ1?=
- =?us-ascii?Q?++RO6p7hBafoVyFyvyCOm7EvWjTkRNmrN2LSu38f8Gwb9S7MD67NH/GSyaMW?=
- =?us-ascii?Q?L1kG4eWeU59d1KYeUB+IbGcOiyhmHLd/wQVkY7c9hJMzj2Sfhfkl/pFbL+n1?=
- =?us-ascii?Q?QX8EiZqqle4oFB5eeVLEd7oOhMyWmFG1alQMAjeNnjbsO9XExt1+2ziLGyr2?=
- =?us-ascii?Q?1WVK7EdErQy8uk4V6qmY4s10PfG9WQYObCBdMyXaSlVZbwfYPWXjMV32lSss?=
- =?us-ascii?Q?VMi2a6Nf4jLtZ1H2o9xmy871SCXMSwa2buK7FTniPgyttn4Ywxf6iDcKIYHX?=
- =?us-ascii?Q?Ttx5m2qVPaDgKmkwKJkEjom7+qm/JgRL84bjRRAMJEhbMgEZ21dTIQRlfkVd?=
- =?us-ascii?Q?bvhqUQ0M/0pPlQFeF/ffrnJmblMe9t6f5YUTIoHP+HSlnaKYigOnqwG5lYkR?=
- =?us-ascii?Q?iwG96Ye0EuyWrR69GTssRhrL2qk4V3aE7GM7QkmMVedrAgVC0n0Gh/6pPA/x?=
- =?us-ascii?Q?UOzXRWL/fA37Xu+ZddAy8WPR/b/s22/cQCW1Ax+NSvYIZypr+/u3RanK9Khj?=
- =?us-ascii?Q?pj9pqDKUw0N0etwC4EhmFC8cokBOSZAO0ko8cqGhEs0UZxmJ5YwrxuUFTJ35?=
- =?us-ascii?Q?lkcAV6gmTPEU/p2jRn+yOXm00qFOSwmWgnmVdcbAOShqwWHbjXvV2XmB/A5C?=
- =?us-ascii?Q?A72rNL9ZS4Jt0Ego7rMFi4+XlFosghgEtWgYzpH/zRWrwOJabH9uQGdksZlZ?=
- =?us-ascii?Q?oSI2R2VG1tg4TZ7WBCAkoj4Dwul9F+zy3bvOtQ/qBpPg9XxRBTQLuhxXbiIS?=
- =?us-ascii?Q?vCrE+Hk/Bg6zESSHstvHbxShcUOfSIgiXtZQRmv/XWrpg8ILKDlFT6MZ6z+N?=
- =?us-ascii?Q?9LIPSa3XoBXE78dN494BWOiOMcQhbXCrMM+Rd7GfnB8XlbEELYfS4sqoGvjy?=
- =?us-ascii?Q?t6YfshiyIsNpr8HHu11gx7fg80qFhB6C8H9YLdb8QM6yr+V/dmo7a0T2KinB?=
- =?us-ascii?Q?0faL+u3xyK2Pd8Lmb9ptFGrOBow2TfnVHkY4Y33mb14j9zQsktiYVyIp6kk/?=
- =?us-ascii?Q?qGt77YTb76ah+PFUER5IF7I6CI9mAw6Xi07O8yCUo7r5+kvr?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b4fa3eb-f936-4e2e-45cf-08de89b43322
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-OriginatorOrg: bp.renesas.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 14:46:58.1449
+X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17377.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d65e7b17-c1d3-4206-3fb1-08de89b586e5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2026 14:56:27.7961
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G+ONkNfGNPb24l1Pw5RgdUAgf0h2CTOLH8JC9RADqw8kXxZw9CM6REcbLCxFd2gHeYn/zTLBSHPYlW6le0yOPA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8850
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: RkaRvTQQB1QhQtZPMXUwrmIIKkaDCZy57Vcd+Ihd5InPxmr2p4NcDYz6yWVwfcqq7zL95SMQRq2CF7DIamC2433KHNkxsPB46yjtaQaGKKM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB14915
 
-On Tue, Mar 24, 2026 at 02:45:39AM +0000, Sherry Sun wrote:
-> > > Subject: Re: [PATCH V2] arm64: dts: imx8mp-evk: Disable PCIe bus in
-> > > the default dts
-> > >
-> > > On Fri, Mar 20, 2026 at 05:03:53PM +0800, Sherry Sun wrote:
-> > > > Disable the PCIe bus in the default device tree to avoid shared
-> > > > regulator conflicts between SDIO and PCIe buses. The
-> > > > non-deterministic probe order between these two buses can break the
-> > > > PCIe initialization sequence, causing PCIe devices to fail detection
-> > intermittently.
-> > > >
-> > > > On i.MX8MP EVK board, the M.2 connector is physically wired to both
-> > > > USDHC1 and PCIe0, however the out-of-box module is SDIO IW612 WiFi,
-> > > > so enable the SDIO WiFi in the default imx8mp-evk.dts, and provide a
-> > > > separate device tree overlay (imx8mp-evk-pcie.dtso) to enable the
-> > > > PCIe bus when needed.
-> > > >
-> > > > Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
-> > > > ---
-> > > > Chanegs in V2:
-> > > > 1. Improve the commit message to clarify SDIO WiFi is the out-of-box
-> > > module on
-> > > >    i.MX8MP EVK board.
-> > > > ---
-> > > >  arch/arm64/boot/dts/freescale/Makefile        |  4 +++-
-> > > >  .../boot/dts/freescale/imx8mp-evk-pcie.dtso   | 19
-> > +++++++++++++++++++
-> > > >  arch/arm64/boot/dts/freescale/imx8mp-evk.dts  |  4 ++--
-> > > >  3 files changed, 24 insertions(+), 3 deletions(-)  create mode
-> > > > 100644 arch/arm64/boot/dts/freescale/imx8mp-evk-pcie.dtso
-> > > >
-> > > > diff --git a/arch/arm64/boot/dts/freescale/Makefile
-> > > > b/arch/arm64/boot/dts/freescale/Makefile
-> > > > index 780682258e71..107ca270ef32 100644
-> > > > --- a/arch/arm64/boot/dts/freescale/Makefile
-> > > > +++ b/arch/arm64/boot/dts/freescale/Makefile
-> > > > @@ -333,12 +333,14 @@ imx8mp-evk-lvds0-imx-lvds-hdmi-dtbs +=
-> > > > imx8mp-evk.dtb imx8mp-evk-lvds0-imx-lvds-
-> > > > imx8mp-evk-lvds1-imx-dlvds-hdmi-channel0-dtbs += imx8mp-evk.dtb
-> > > > imx8mp-evk-lvds1-imx-dlvds-hdmi-channel0.dtbo
-> > > >  imx8mp-evk-lvds1-imx-lvds-hdmi-dtbs += imx8mp-evk.dtb
-> > > > imx8mp-evk-lvds1-imx-lvds-hdmi.dtbo
-> > > >  imx8mp-evk-mx8-dlvds-lcd1-dtbs += imx8mp-evk.dtb
-> > > > imx8mp-evk-mx8-dlvds-lcd1.dtbo -imx8mp-evk-pcie-ep-dtbs +=
-> > > > imx8mp-evk.dtb imx-pcie0-ep.dtbo
-> > > > +imx8mp-evk-pcie-dtbs := imx8mp-evk.dtb imx8mp-evk-pcie.dtbo
-> > > > +imx8mp-evk-pcie-ep-dtbs += imx8mp-evk-pcie.dtb imx-pcie0-ep.dtbo
-> > > >  dtb-$(CONFIG_ARCH_MXC) +=
-> > > > imx8mp-evk-lvds0-imx-dlvds-hdmi-channel0.dtb
-> > > >  dtb-$(CONFIG_ARCH_MXC) += imx8mp-evk-lvds0-imx-lvds-hdmi.dtb
-> > > >  dtb-$(CONFIG_ARCH_MXC) +=
-> > > > imx8mp-evk-lvds1-imx-dlvds-hdmi-channel0.dtb
-> > > >  dtb-$(CONFIG_ARCH_MXC) += imx8mp-evk-lvds1-imx-lvds-hdmi.dtb
-> > > >  dtb-$(CONFIG_ARCH_MXC) += imx8mp-evk-mx8-dlvds-lcd1.dtb
-> > > > +dtb-$(CONFIG_ARCH_MXC) += imx8mp-evk-pcie.dtb
-> > > >  dtb-$(CONFIG_ARCH_MXC) += imx8mp-evk-pcie-ep.dtb
-> > > >
-> > > >  imx8mp-tqma8mpql-mba8mpxl-lvds-tm070jvhg33-dtbs +=
-> > > > imx8mp-tqma8mpql-mba8mpxl.dtb
-> > > > imx8mp-tqma8mpql-mba8mpxl-lvds-tm070jvhg33.dtbo
-> > > > diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk-pcie.dtso
-> > > > b/arch/arm64/boot/dts/freescale/imx8mp-evk-pcie.dtso
-> > > > new file mode 100644
-> > > > index 000000000000..4f6546d442bf
-> > > > --- /dev/null
-> > > > +++ b/arch/arm64/boot/dts/freescale/imx8mp-evk-pcie.dtso
-> > > > @@ -0,0 +1,19 @@
-> > > > +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> > > > +/*
-> > > > + * Copyright 2026 NXP
-> > > > + */
-> > > > +
-> > > > +/dts-v1/;
-> > > > +/plugin/;
-> > > > +
-> > > > +&pcie_phy {
-> > > > +	status = "okay";
-> > > > +};
-> > > > +
-> > > > +&pcie0 {
-> > > > +	status = "okay";
-> > > > +};
-> > > > +
-> > > > +&usdhc1 {
-> > > > +	status = "disabled";
-> > > > +};
-> > >
-> > > Please use one overlay for both imx95 and imx8mp to enable pcie0 and
-> > > disable usdhc1.
+Hi Kuninori,
+
+Thanks for the review.
+
+> -----Original Message-----
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> Sent: Monday, March 23, 2026 1:47 AM
+> To: John Madieu <john.madieu.xa@bp.renesas.com>
+> Subject: Re: [PATCH 09/22] ASoC: rsnd: Add RZ/G3E SoC probing and registe=
+r
+> map
+>=20
+>=20
+> Hi John
+>=20
+> Thank you for the patch
+>=20
+> > RZ/G3E audio subsystem has a different register layout compared to
+> > R-Car Gen2/Gen3/Gen4, as described below:
 > >
-> > Hi Frank,
+> > - Different base address organization (SCU, ADG, SSIU, SSI as
+> >   separate regions accessed by name)
+> > - Additional registers: AUDIO_CLK_SEL3, SSI_MODE3, SSI_CONTROL2
+> > - Different register offsets within each region
 > >
-> > imx8mp has a specific pcie_phy, I disabled it in the default imx8mp-evk.dts
-
-Suppose, you needn't disable phy.
-
-> > and enabled it in xxx-pcie.dtso, if we use one overlay for both imx95 and
-> > imx8mp, is it acceptable that we need to keep the 8mp pcie_phy enabled
-> > even in non-PCIe usage scenarios?
+> > Add RZ/G3E SoC's audio subsystem register layouts and probe support.
 > >
->
-> In addition, another difference between imx8mp and imx95 is that imx8mp connects usdhc1 to the M.2 connector, while imx95 connects usdhc3 to the M.2 connector. The usdhc interfaces are different, so we cannot use the same DTSO file.
+> > Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> > ---
+> (snip)
+> > +	static const struct rsnd_regmap_field_conf conf_adg[] =3D {
+> > +		RSND_GEN_S_REG(BRRA,			0x00),
+> > +		RSND_GEN_S_REG(BRRB,			0x04),
+> > +		RSND_GEN_S_REG(BRGCKR,			0x08),
+> > +		RSND_GEN_S_REG(AUDIO_CLK_SEL0,		0x0c),
+> > +		RSND_GEN_S_REG(AUDIO_CLK_SEL1,		0x10),
+> > +		RSND_GEN_S_REG(AUDIO_CLK_SEL2,		0x14),
+> > +		RSND_GEN_S_REG(AUDIO_CLK_SEL3,		0x18),
+> > +		RSND_GEN_S_REG(DIV_EN,			0x30),
+> > +		RSND_GEN_S_REG(SRCIN_TIMSEL0,		0x34),
+> > +		RSND_GEN_S_REG(SRCIN_TIMSEL1,		0x38),
+> > +		RSND_GEN_S_REG(SRCIN_TIMSEL2,		0x3c),
+> > +		RSND_GEN_S_REG(SRCIN_TIMSEL3,		0x40),
+> > +		RSND_GEN_S_REG(SRCIN_TIMSEL4,		0x44),
+> > +		RSND_GEN_S_REG(SRCOUT_TIMSEL0,		0x48),
+> > +		RSND_GEN_S_REG(SRCOUT_TIMSEL1,		0x4c),
+> > +		RSND_GEN_S_REG(SRCOUT_TIMSEL2,		0x50),
+> > +		RSND_GEN_S_REG(SRCOUT_TIMSEL3,		0x54),
+> > +		RSND_GEN_S_REG(SRCOUT_TIMSEL4,		0x58),
+> > +		RSND_GEN_S_REG(CMDOUT_TIMSEL,		0x5c),
+> (snip)
+> > +	ret =3D rsnd_gen_regmap_init(priv, 10, RSND_RZG3E_ADG,
+> > +				   "adg", conf_adg);
+>=20
+> I don't think you need 10 ADG.
+>=20
+> And it can be 1 line here.
 
-you use addtional label.
+Agreed. Will update in v2.
 
-for example
+>=20
+> > --- a/sound/soc/renesas/rcar/rsnd.h
+> > +++ b/sound/soc/renesas/rcar/rsnd.h
+> > @@ -26,6 +26,11 @@
+> >  #define RSND_BASE_SSIU	2
+> >  #define RSND_BASE_SCU	3	// for Gen2/Gen3
+> >  #define RSND_BASE_SDMC	3	// for Gen4	reuse
+> > +
+> > +#define RSND_RZG3E_SCU		0
+> > +#define RSND_RZG3E_ADG		1
+> > +#define RSND_RZG3E_SSIU		2
+> > +#define RSND_RZG3E_SSI		3
+> >  #define RSND_BASE_MAX	4
+>=20
+> You can reuse existing RSND_BASE_xxx
 
-m2_usdhc: &usdhc1 {
-	...
-};
+Indeed. I'll update accordingly =20
 
-in overlay file
+>=20
+> >  	AUDIO_CLK_SEL2,
+> > +	AUDIO_CLK_SEL3,
+> >
+> >  	/* SSIU */
+> >  	SSI_MODE,
+> >  	SSI_MODE0,
+> >  	SSI_MODE1,
+> >  	SSI_MODE2,
+> > +	SSI_MODE3,
+> >  	SSI_CONTROL,
+> > +	SSI_CONTROL2,
+> >  	SSI_CTRL,
+> >  	SSI_BUSIF0_MODE,
+> >  	SSI_BUSIF1_MODE,
+>=20
+> Do you really use these reg ?
 
-&m2_usdhc {
-	status = "disabled";
-}
+Yes, they are being used.
 
-Frank
->
-> Best Regards
-> Sherry
+>=20
+> > @@ -627,6 +635,7 @@ struct rsnd_priv {
+> >  #define RSND_GEN2	(2 << 0)
+> >  #define RSND_GEN3	(3 << 0)
+> >  #define RSND_GEN4	(4 << 0)
+> > +#define RSND_RZG3E	(5 << 0)
+> >  #define RSND_SOC_MASK	(0xFF << 4)
+> >  #define RSND_SOC_E	(1 << 4) /* E1/E2/E3 */
+> (snip)
+> > +#define rsnd_is_rzg3e(priv)	(((priv)->flags & RSND_GEN_MASK) =3D=3D
+> RSND_RZG3E)
+>=20
+> (5 << 0) will be used for Gen5.
+> There is not detail rule yet, but I think we want to keep (x << 0) and (x
+> << 4) for R-Car.
+>=20
+> Maybe you can use (xx << 8) and (xx << 12) for RZ ?
+> Something like this
+>=20
+> 	#define RSND_RZ_MASK	(0xFF << 8)
+> 	#define RSND_RZ1	(1 << 8)
+> 	#define RSND_RZ2	(2 << 8)
+> 	#define RSND_RZ3	(3 << 8)
+>=20
+> 	#define RSND_RZG3E	(1 << 12)
+>=20
+> 	#define rsnd_is_rzg3e(priv)	(((priv)->flags & RSND_RZ_MASK) =3D=3D
+> (RSND_RZ3 | RSND_RZG3E))
+
+I got the idea behind. I'll switch to it in v2.
+
+Regards,
+John.
+
+>=20
+>=20
+> Thank you for your help !!
+>=20
+> Best regards
+> ---
+> Kuninori Morimoto
