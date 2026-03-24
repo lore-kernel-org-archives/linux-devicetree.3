@@ -1,101 +1,144 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8DA9A5477E
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 16:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35EA03DBD7D
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 16:14:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774368629; cv=none; b=Yyplsbx7iZmeUFJFqofIQUNvx9qXxfhIhexAcOPu5wdunyELAxcS8xKmgSEQ5FFnXBZODlaK72O24y2OqcOsUrGb/cLWFGOJPMc5iJ/WHrJBICuuxpB2Wn+xeEuKPkDh7ksiYcD4NQ0WVvf2dPfLdULXl6YnYs0PaLyBPLr6SdU=
+	t=1774368852; cv=none; b=Tee9gPex1C74Nam56O4QJawhni5MRuqbEJ18pj3L416yRw3q0ckOVxZnHuG+h1bYXDtzmfAZ2smFxCNqaP7QykHBRp/G7go7EU64Z740btHFo3ZCt9wggY7ELb+5CSVLwOGXgTLlALP1sbi/qWxr7P1ZRhzrnW1gEz5Xah1VMQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774368629; c=relaxed/simple;
-	bh=LiKq7+XEkERz+7oUFGh3hi6ZUUrEQoeRp+Pf+HHSaT8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PQ7P84dRjOSxLDuruQyE3Zm7czECf+vJjTjUu6KnsEEvndGECa4ZZNJ/ir8yxGxag1i+NIAkkui9N2pdhWkUH+zdzAuCZCsOW1hnOkQ6y5tuT0TGQn7o1umTmA9MiwMrSJiuutmA+hGoXGiq27wEARMsAZQeJ46D2ZUSX8Jbuhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Msc2lM9t; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Msc2lM9t"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 011A21A00
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 09:10:22 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 5D07F3F915
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 09:10:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1774368627; bh=LiKq7+XEkERz+7oUFGh3hi6ZUUrEQoeRp+Pf+HHSaT8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Msc2lM9t2qIII85/b1X5Smrd2axWA59y7FefHxEhpY27OChJBp2sz/EbSzHMj7D9H
-	 WDwNUEHGNvfMiVSxQbDscSaIN/EdkHBPYJwEYRW8C7yG/xB9iJ3SCUOW3odLhB67Z1
-	 PSeEIDOdsRZFKCAsxekmuVBtRI5p9MN7GVQyzKd0=
-Date: Tue, 24 Mar 2026 16:10:10 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Cunyuan Liu <cunyuan.liu@cixtech.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	neil.armstrong@linaro.org, heiko@sntech.de, marex@nabladev.com,
-	dev@kael-k.io, prabhakar.mahadev-lad.rj@bp.renesas.com,
-	andre.przywara@arm.com, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	cix-kernel-upstream@cixtech.com
-Subject: Re: [PATCH v2 0/3] Arm China Linlon-D6 display controller support
-Message-ID: <acK3YnKOyPbAroFu@e142607>
-References: <20260313033119.33686-1-cunyuan.liu@cixtech.com>
+	s=arc-20240116; t=1774368852; c=relaxed/simple;
+	bh=7AKvBSytO+0EDPLcfR7qFItoRg+qDA1zFe9xFObUDBw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=THsbsZmEVRYa3V4BsLZJa1X0AK8xeP3Abo0vIi3BJo0GNRFLHybkEZWMjCzMPDSUffMh+llWYsOfR2ICYL/gwOCDxy4VxEHStu6IgSTXxsN5ER0Opv6H0cIwhP3pNFHlZLY8TpKSjQK5jnlGy0D/NNv5mzn2cfSfLJ+RqMvNYvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.1])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <s.pueschel@pengutronix.de>)
+	id 1w54OA-0004bA-PA; Tue, 24 Mar 2026 17:13:54 +0100
+Message-ID: <8af3e277-a901-4b31-9729-032df3c0d56c@pengutronix.de>
+Date: Tue, 24 Mar 2026 17:13:51 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 11/27] media: rockchip: rga: avoid odd frame sizes for
+ YUV formats
+To: Nicolas Dufresne <nicolas@ndufresne.ca>,
+ Jacob Chen <jacob-chen@iotwrt.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner
+ <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, kernel@pengutronix.de
+References: <20260127-spu-rga3-v3-0-77b273067beb@pengutronix.de>
+ <20260127-spu-rga3-v3-11-77b273067beb@pengutronix.de>
+ <c154098ce7fd5d6bfcb44066b7c1f0cde07ff81d.camel@ndufresne.ca>
+Content-Language: en-US
+From: =?UTF-8?Q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+In-Reply-To: <c154098ce7fd5d6bfcb44066b7c1f0cde07ff81d.camel@ndufresne.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260313033119.33686-1-cunyuan.liu@cixtech.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-On Fri, Mar 13, 2026 at 11:31:16AM +0800, Cunyuan Liu wrote:
-> Adds Komeda DRM support for Arm China Linlon-D6. The IP is register-compatible
-> with Mali-D71, so we reuse the D71 code path.
-> 
->   [1/3] dt-bindings: vendor-prefixes: add Arm Technology (China) "armchina"
->   [2/3] dt-bindings: add armchina,linlon-d6 compatible (fallback to arm,mali-d71)
->   [3/3] drm/komeda: add Linlon-D6 product ID and of_device_id, use D71 funcs
-> 
-> Changes in v2:
-> - PATCH [2/3]: rework compatible schema using enum as suggested by Krzysztof.
-> 
-> v1: https://lore.kernel.org/dri-devel/20260311055506.12023-1-cunyuan.liu@cixtech.com/
-> 
-> Tested on Radxa Orion O6 with Linlon-D6, basic display bring-up works as expected.
-> 
-> Thanks,
-> Cunyuan
-> 
-> Cunyuan Liu (3):
->   dt-bindings: vendor-prefixes: Add Arm Technology (China) Co., Ltd.
->   dt-bindings: display: arm,komeda: add Arm China Linlon D6 compatible
->   drm/komeda: Add support for Arm China Linlon-D6
-> 
->  Documentation/devicetree/bindings/display/arm,komeda.yaml | 4 +++-
->  Documentation/devicetree/bindings/vendor-prefixes.yaml    | 2 ++
->  drivers/gpu/drm/arm/display/include/malidp_product.h      | 1 +
->  drivers/gpu/drm/arm/display/komeda/d71/d71_dev.c          | 1 +
->  drivers/gpu/drm/arm/display/komeda/komeda_drv.c           | 1 +
->  5 files changed, 8 insertions(+), 1 deletion(-)
-> 
-> -- 
-> 2.53.0
-> 
+Hi Nicolas,
 
-Pushed the whole series to drm-misc-next.
+On 3/20/26 6:47 PM, Nicolas Dufresne wrote:
+> Le mardi 27 janvier 2026 à 15:39 +0100, Sven Püschel a écrit :
+>> Avoid odd frame sizes for YUV formats, as they may cause undefined
+>> behavior. This is done in preparation for the RGA3, which hangs when the
+>> output format is set to 129x129 pixel YUV420 SP (NV12).
+>>
+>> This requirement is documented explicitly for the RGA3 in  section 5.6.3
+>> of the RK3588 TRM Part 2. For the RGA2 the RK3588 TRM Part 2
+>> (section 6.1.2) and RK3568 TRM Part 2 (section 14.2) only mentions the
+>> x/y offsets and stride aligning requirements. But the vendor driver for
+>> the RGA2 also contains checks for the width and height to be aligned to
+>> 2 bytes.
+>>
+>> Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+>> ---
+>>   drivers/media/platform/rockchip/rga/rga.c | 19 ++++++++++++++-----
+>>   1 file changed, 14 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+>> index 21a3c6cd38dbc..4fa6adb10b7ee 100644
+>> --- a/drivers/media/platform/rockchip/rga/rga.c
+>> +++ b/drivers/media/platform/rockchip/rga/rga.c
+>> @@ -337,6 +337,19 @@ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
+>>   	struct rga_ctx *ctx = file_to_rga_ctx(file);
+>>   	const struct rga_hw *hw = ctx->rga->hw;
+>>   	struct rga_fmt *fmt;
+>> +	struct v4l2_frmsize_stepwise frmsize = {
+>> +		.min_width = hw->min_width,
+>> +		.max_width = hw->max_width,
+>> +		.min_height = hw->min_height,
+>> +		.max_height = hw->max_height,
+>> +		.step_width = 1,
+>> +		.step_height = 1,
+>> +	};
+>> +
+>> +	if (v4l2_is_format_yuv(v4l2_format_info(pix_fmt->pixelformat))) {
+>> +		frmsize.step_width = 2;
+>> +		frmsize.step_height = 2;
+> For V4L2_PIX_FMT_YUV422P and NV16 this is 2/1. I believe you can generalize this
+> with the format info, and skip this conditions:
+>
+> 		.step_with = info->vdiv,
+> 		.step_height = info->hdiv
+>
+> Though, I'm saying that from a pixel format perspective, if the HW needs 2/2 for
+> all YUV formats, let me know, I'll give my Rb.
 
-Best regards,
-Liviu
+I've introduced this limitation after running into the 129x129 hang and 
+noticing that the librga just disallowed it. I've did a quick test with 
+128x129 RK_FORMAT_YCbCr_422_SP (NV16) and the librga also doesn't allow it:
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+rga_api version 1.10.1_[4]
+[  303.177480] rga: 1807   1807  : [tgid:1807] Destroy handle[1] when 
+the user exits
+101, check error! Invalid parameters: src, Error yuv not align to 2, 
+rect[x,y,w,h] = [0, 0, 128, 129], wstride = 128, hstride = 129, format = 
+0x800(cbcr422sp)
+
+The librga docs [1] also indicate that for all YUV formats on all RGA 
+versions the "height stride must be 2-aligned" (based on the librga 
+error output "height stride" probably means "height in pixels"). 
+Therefore I've copied this requirement globally into the driver to avoid 
+potential problems (e.g. hangs or using memory outside of the actual image).
+
+Sincerely
+     Sven
+
+[1] 
+https://codeberg.org/airockchip/librga/src/branch/main/docs/Rockchip_Developer_Guide_RGA_EN.md#image-format-alignment-instructions
+
+> Nicolas
+>
+>> +	}
+>>   
+>>   	if (V4L2_TYPE_IS_CAPTURE(f->type)) {
+>>   		const struct rga_frame *frm;
+>> @@ -358,11 +371,7 @@ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
+>>   	if (!fmt)
+>>   		fmt = &hw->formats[0];
+>>   
+>> -	pix_fmt->width = clamp(pix_fmt->width,
+>> -			       hw->min_width, hw->max_width);
+>> -	pix_fmt->height = clamp(pix_fmt->height,
+>> -				hw->min_height, hw->max_height);
+>> -
+>> +	v4l2_apply_frmsize_constraints(&pix_fmt->width, &pix_fmt->height, &frmsize);
+>>   	v4l2_fill_pixfmt_mp(pix_fmt, fmt->fourcc, pix_fmt->width, pix_fmt->height);
+>>   	pix_fmt->field = V4L2_FIELD_NONE;
+>>   
