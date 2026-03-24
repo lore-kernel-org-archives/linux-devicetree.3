@@ -1,136 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11F4377EBA;
-	Tue, 24 Mar 2026 09:38:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A27637187C;
+	Tue, 24 Mar 2026 09:39:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774345129; cv=none; b=OoPaoezlo44QcP+n353GR4tF9UWBs8LDyWH3hqDiJErll+nj4l4Ge1Nzkm1bxGan6caF2dxqWZBmMV3wxI5EWarpsXWxYonjVXkBbpmmM8Gka6aOp9OGPPQisHCgn8Sfwjqstm6HWBA41jUCrhJwEMmhIW2Rzd9fIYmN5CMU94Y=
+	t=1774345143; cv=none; b=PnW5eEGkgovpQXJliPtYCpEBxPMYxNqtXH/hoonmbD8HMPH1gETEE9+M9xLfz/Plo6nwzkmYgWCSMs3Wlm/hxJdHIKjokiVh51jTHZR0NM/Vxye8hPaVZCg+vh/J/I8bbkvkTSBRu8HhmLuYRumliVWpa4kYyrCdH6sVuq6UHKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774345129; c=relaxed/simple;
-	bh=QYHuo3LvKtnHxkFGFAV4Ag5JVz6LLOt8zNpY6s3Q5qM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BteyoTeY6POPNjTfB4JRrZlSpGVHqhd07BdAQQ7FsP7jevHbNbwCRHvgJbZhiSq+D1N9vOFSyZNuYcDFyKAqQjoDdf+0ILKv/dSpZtoUQFxcGvxmGZ3JbvYwFS2oY9b6q40Ycio/fMRo2vIK2E9ZD95E2AUwyJLjOia4PSUp5fM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sNSyszo/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774345143; c=relaxed/simple;
+	bh=TTPPThifz10UfsqhlGlvNt9t21lxMo7c1RkYUe/huN8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gri+H8uOIyRD3gRbgfPVBWol73FBgBEjwcmjMrvq4ltGX/3EybeOLWTRXTBZzTmdejdAjES+zPzqkRm2r+KVBhW2hsmETS2wcOps8Gog7W/4+FTpWndUisWzRFjpcRIGDFEucH5/yqTpeYOoRquDRteH3Y4uIzeyXQKhL9LPeAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=WrHhV/w8; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sNSyszo/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A3DFC19424;
-	Tue, 24 Mar 2026 09:38:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774345128;
-	bh=QYHuo3LvKtnHxkFGFAV4Ag5JVz6LLOt8zNpY6s3Q5qM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=sNSyszo/3cdwAYy5mWR+7JI1WW5kPs56e2NRzuhCJ1331jgSTxcXj1gyWaIIafH5Z
-	 9wiy82JL1J/YNOCvgyW4JO6+cZodaMD5QlfXzI/rdBit/iIV9jYPjXM/XmIiJIYvwm
-	 aIKSmy8MExUfEsfQVgNdRtjvcoEGSYnFMw3Vjo1aQ/i6KTNvpMOhXNuaaWTe1x8D5n
-	 uQ8UWpX4+IGhGS7C4cnROdrUCbgYBK71nntcnIlPHQ/kSVCyc0Xd39D/fR4Y+CnoJY
-	 0HRwqQre21DJUdwSIkdO81ayc3u0RL1h21TsIwsVNHfkjuUED3MzQe2OSI1uzTmiIW
-	 YEHbBDJ0YKmXw==
-Message-ID: <f69eabea-f065-437d-ba09-614ead9228ec@kernel.org>
-Date: Tue, 24 Mar 2026 10:38:43 +0100
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="WrHhV/w8"
+Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id B2858225;
+	Tue, 24 Mar 2026 10:37:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1774345054;
+	bh=TTPPThifz10UfsqhlGlvNt9t21lxMo7c1RkYUe/huN8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WrHhV/w89ce/JGcufnnEc3O5NAb+LNDf+08Cx4axQNens7oJanQZOHtm31Pgym1dX
+	 w3dPH5viujTqi6TLEDLKhSnodiE8mn8nv2WLT/yLl5L2H4cFcebENPimHq59kXBu6L
+	 GaeHDI9MKZ3iR2nZU8450z6rUGQH4R+eE2KVHloQ=
+Date: Tue, 24 Mar 2026 11:38:50 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Marco Felsch <m.felsch@pengutronix.de>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Peng Fan <peng.fan@nxp.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Stefan Klug <stefan.klug@ideasonboard.com>
+Subject: Re: [PATCH] arm64: dts: imx8mp-debix-model-a: Correct PAD settings
+ for pmicirqgrp
+Message-ID: <20260324093850.GA2351719@killaraus.ideasonboard.com>
+References: <20260324-imx8mp-dts-fix-v1-1-df0eb2f62543@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: sdm845-oneplus: Enable NFC
-To: David Heidelberg <david@ixit.cz>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Alexander Martinz <amartinz@shift.eco>
-Cc: Petr Hodina <petr.hodina@protonmail.com>,
- biemster <l.j.beemster@gmail.com>, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, oe-linux-nfc@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260324-oneplus-nfc-v2-0-3eef052c9bc6@ixit.cz>
- <20260324-oneplus-nfc-v2-1-3eef052c9bc6@ixit.cz>
- <93505653-ab2c-4cff-905e-bd5379550019@kernel.org>
- <42352c0c-7464-4e78-8f89-20bdf7abd988@ixit.cz>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <42352c0c-7464-4e78-8f89-20bdf7abd988@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260324-imx8mp-dts-fix-v1-1-df0eb2f62543@nxp.com>
 
-On 24/03/2026 10:35, David Heidelberg wrote:
-> On 24/03/2026 08:03, Krzysztof Kozlowski wrote:
->> On 24/03/2026 00:20, David Heidelberg via B4 Relay wrote:
->>> From: biemster <l.j.beemster@gmail.com>
->>>
->>> Enable NFC controller NXP PN553, which is part of the package NXP NQ330
->>> (NFC + eSE).
->>>
->>> Signed-off-by: biemster <l.j.beemster@gmail.com>
->>
->> Same comment as last time. We do not take anonymous contributions.
+Hi Peng,
+
+Thank you for the patch.
+
+On Tue, Mar 24, 2026 at 11:16:13AM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
 > 
->  > then you just add a line saying:
->  >
->  > Signed-off-by: Random J Developer <random@developer.example.org>
->  >
->  > using a known identity (sorry, no anonymous contributions.)
+> With commit 5d0efaf47ee90 ("regulator: pca9450: Correct interrupt type"),
+> there is interrupt storm for i.MX8MP DEBIX Model A. Per schematic, there
+> is no on board PULL-UP resistors for GPIO1_IO03, so need to set PAD
+> PUE and PU together to make pull up work properly.
 > 
-> Quoting the kernel documentation, biemster is known contributor to us (hanging 
-> in sdm845-next chat room, I'm personally aware of his presence for more than ~ 2 
-> years).
+> Fixes: c86d350aae68e ("arm64: dts: Add device tree for the Debix Model A Board")
+> Reported-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Closes: https://lore.kernel.org/all/20260323105858.GA2185714@killaraus.ideasonboard.com/
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Tested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+Frank, would you be able to handle this as a v7.0 regression fix ?
+
+I think the same is needed for imx8mp-debix-som-a.dtsi, but I can't
+confirm it as I don't have the schematics for the SoM, neither do I have
+access to the board.
+
+Dan, Kieran, Stefan, could one of you check if you get an interrupt
+storm from the PMIC on v7.0 ?
+
+> ---
+>  arch/arm64/boot/dts/freescale/imx8mp-debix-model-a.dts | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> I could switch Author / Co-developed-by with me in this case, but since biemster 
-> did the initial work, it feels right to keep the credit.
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-debix-model-a.dts b/arch/arm64/boot/dts/freescale/imx8mp-debix-model-a.dts
+> index 9422beee30b29c5a551b08476c80fbff96af3439..df7489587e48ed0c678f11291f6f2b77082ade95 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mp-debix-model-a.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-debix-model-a.dts
+> @@ -440,7 +440,7 @@ MX8MP_IOMUXC_SAI5_RXC__I2C6_SDA					0x400001c3
+>  
+>  	pinctrl_pmic: pmicirqgrp {
+>  		fsl,pins = <
+> -			MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03				0x41
+> +			MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03				0x000001c0
+>  		>;
+>  	};
+>  
+> 
+> ---
+> base-commit: 09c0f7f1bcdbc3c37a5a760cbec76bf18f278406
+> change-id: 20260324-imx8mp-dts-fix-512530fe4dcd
 
-Hanging in chat room is not a definition of a known contributor.
-Absolutely anyone can be behind a nickname on IRC channel. Or Github repo.
+-- 
+Regards,
 
-The kernel docs is not asking for known contributors. We ask for *known
-identity*.
-
-Quoting:
-"sorry, no anonymous contributions."
-
-Best regards,
-Krzysztof
+Laurent Pinchart
