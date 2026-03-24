@@ -1,137 +1,277 @@
-Received: from lx20.hoststar.hosting (lx20.hoststar.hosting [168.119.41.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618EA33065D;
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F7851A6807;
 	Tue, 24 Mar 2026 07:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.41.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774337548; cv=none; b=p4vG5n9u/iIzHPEhwG0DuBdySHnhX9C3grOKtRbxnMnrkEPUTqETCMlPUxc0LFxUQ1ptRN4fm0Jagpv09Qt1T4szEQukJKw0tVpfP1NB9/IFITqZ1RP6LTDgZ1kf7CojtoXrKXsGLjv/bz4VZQem9iZ8Xqv8iXfxx6W+HoulHC0=
+	t=1774337550; cv=none; b=mbVRgOGCyBLnJuR0ZkpX8OdaJDxT09QkbZGzQ4WpexnVsTIPdLVmEHEHgypZIr0NXtPb2QPID4G57rt0HRAAbbpOyErTzdqySpdsHwW+KEvOQ8gBweJj/cD78axvZVJCGIXdNHE6shZvenrqr3kYUhbV5GX3zFs8F53gQxVc2ZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774337548; c=relaxed/simple;
-	bh=DoySZJb+/dX4tX+SckY2cfiJpr62a6BkVboaZ+y3eVU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YN0IUT6FHTIa8D1vrhQrxSi+GVa88b+Byac4viJhzm+gYSORQYZJIOt6RHeU8KDMtKVoOsXfp0nhya+sQmfOuH3yUWlOv+fBvLqr62dmydrgFBTpatKggelPPuYDfXsqd2El0f4lN9vo3fHqF5vbxhoWPTQDIGeBidOQgiYfXjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at; spf=pass smtp.mailfrom=emfend.at; dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b=aMHgH1lo; arc=none smtp.client-ip=168.119.41.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=emfend.at
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b="aMHgH1lo"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=emfend.at;
-	 s=mail; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:Content-Description
-	:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=KS6J46kYK+sVTlFskCuxSfFQijC3eqAgPVExn/P68gI=; b=aMHgH1locKZJ7MEsKcLzpSNyRr
-	utWm2qH8ZZDRLXPCY3lFQSAomDAKdhhiDdUgjf6rH4AUR8CU/N8e0zlASKii6LXm4Qs0MgxRladQZ
-	icDW7twLiONsVl1Y8qgb2G9EzhIQPabmPAgfPdpO4OgLHS8o/9opAZ3xbZBOduMho/Ng=;
-Received: from 194-208-208-245.tele.net ([194.208.208.245]:62112 helo=[127.0.1.1])
-	by lx20.hoststar.hosting with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <matthias.fend@emfend.at>)
-	id 1w4vvO-009jM8-AH; Tue, 24 Mar 2026 08:11:41 +0100
-From: Matthias Fend <matthias.fend@emfend.at>
-Date: Tue, 24 Mar 2026 08:11:25 +0100
-Subject: [PATCH RESEND v2] media: i2c: imx283: add support for
- non-continuous MIPI clock mode
+	s=arc-20240116; t=1774337550; c=relaxed/simple;
+	bh=1gUWxuLGVhKAP4NDxrLqkR0pAoFWnUAm/zmpMxSlBeA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YH2ttK+u0xfGm52oa6jys6FG1nZFDbu2f7/vmtwr+GclB2q7JaPUyM8hSdPLoTPeJhVoizc4TOdAmUshXpkqWMlR3rzOfYPklRIreYsUJVXklYJ0R5sEUbvdO0e3WZuV1DsjiUMg239VvFcSmBcd3RINAjACghL8yC/laKtn4GA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
+	by app1 (Coremail) with SMTP id TAJkCgCXLHHjPcJplDsLAA--.42174S2;
+	Tue, 24 Mar 2026 15:31:48 +0800 (CST)
+From: lizhi2@eswincomputing.com
+To: devicetree@vger.kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com,
+	rmk+kernel@armlinux.org.uk,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	linux-riscv@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	maxime.chevallier@bootlin.com
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com,
+	pritesh.patel@einfochips.com,
+	weishangjuan@eswincomputing.com,
+	horms@kernel.org,
+	Zhi Li <lizhi2@eswincomputing.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH net-next v5 1/3] dt-bindings: ethernet: eswin: add clock sampling control
+Date: Tue, 24 Mar 2026 15:31:36 +0800
+Message-ID: <20260324073137.396-1-lizhi2@eswincomputing.com>
+X-Mailer: git-send-email 2.52.0.windows.1
+In-Reply-To: <20260324073017.376-1-lizhi2@eswincomputing.com>
+References: <20260324073017.376-1-lizhi2@eswincomputing.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260324-imx283-ext-v2-1-4931dbd46c95@emfend.at>
-To: Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Umang Jain <uajain@igalia.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Matthias Fend <matthias.fend@emfend.at>
-X-Mailer: b4 0.14.2
-X-Spam-Score: 
-X-Spam-Bar: 
-X-Spam-Report: 
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TAJkCgCXLHHjPcJplDsLAA--.42174S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxKr1rtr45ur43Xr1UXr17trb_yoWxtF15pF
+	W5CrW5GFn5Xr1fCa17tF10kFyfJws7uF9xCr18t3Z7Xws0vFWYqr12yFy5Ga4UCr4xZFy5
+	WFWYgay8ua4jk3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBm14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
+	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
+	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1U
+	MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
+	8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRimiiDUUUU
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
 
-Add support for selecting between continuous and non-continuous MIPI clock
-mode.
+From: Zhi Li <lizhi2@eswincomputing.com>
 
-Previously, the CSI-2 non-continuous clock endpoint flag was ignored and
-the sensor was always configured for non-continuous clock mode. For
-existing device tree nodes that do not have this property enabled, this
-update will therefore change the actual clock mode.
+Due to chip backend reasons, there is already an approximately 4-5 ns
+skew between the RX clock and data of the eth1 MAC controller inside
+the silicon.
 
-Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Signed-off-by: Matthias Fend <matthias.fend@emfend.at>
+For 1000M, the RX clock must be inverted since it is not possible to
+meet the RGMII timing requirements using only rx-internal-delay-ps on
+the MAC together with the standard 2 ns delay on the PHY. Therefore,
+even on a properly designed board, eth1 still requires RX clock
+inversion.
+
+This behaviour effectively breaks the RGMII timing assumptions at the
+SoC level.
+
+For the TX path of eth1, there is also a skew between the TX clock
+and data on the MAC controller inside the silicon. This skew happens
+to be approximately 2 ns. Therefore, it can be considered that the
+2 ns delay of TX is provided by the MAC, so the TX is compliant with
+the RGMII standard.
+
+For 10/100 operation, the approximately 4-5 ns skew in the chip does
+not break the standard. The RGMII timing table (Section 3.3) specifies
+that for 10/100 operation the maximum value is unspecified:
+https://community.nxp.com/pwmxy87654/attachments/pwmxy87654/imx-processors/20655/1/RGMIIv2_0_final_hp.pdf
+
+Due to the eth1 silicon behavior described above, a new compatible
+string "eswin,eic7700-qos-eth-clk-inversion" is added to the device
+tree. This allows the driver to handle the differences between eth1
+and eth0 through dedicated logic.
+
+The rx-internal-delay-ps and tx-internal-delay-ps properties now use
+minimum and maximum constraints to reflect the actual hardware delay
+range (0-2540 ps) applied in 20 ps steps. This relaxes the binding
+validation compared to the previous enum-based definition and avoids
+regressions for existing DTBs while keeping the same hardware limits.
+
+Treat the RX/TX internal delay properties as optional, board-specific
+tuning knobs and remove them from the example to avoid encouraging
+their use.
+
+In addition, the binding now includes additional background information
+about the HSP CSR registers accessed by the MAC. The TXD and RXD delay
+control registers are included so the driver can explicitly clear any
+residual configuration left by the bootloader.
+
+Background reference for the High-Speed Subsystem and HSP CSR block is
+available in Chapter 10 ("High-Speed Interface") of the EIC7700X SoC
+Technical Reference Manual, Part 4
+(EIC7700X_SoC_Technical_Reference_Manual_Part4.pdf):
+https://github.com/eswincomputing/EIC7700X-SoC-Technical-Reference-Manual/releases
+
+There are currently no in-tree users of the EIC7700 Ethernet driver, so
+these changes are safe.
+
+Fixes: 888bd0eca93c ("dt-bindings: ethernet: eswin: Document for EIC7700 SoC")
+Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
-Add support for selecting the MIPI clock mode (continuous, non-continuous).
----
-Changes in v2:
-- Drop '[PATCH 1/3] media: dt-bindings: imx283: add clock-noncontinuous' (Krzysztof)
-- Drop '[PATCH 3/3] media: i2c: imx283: implement {g,s}_register' (Dave)
-- Link to v1: https://lore.kernel.org/r/20251217-imx283-ext-v1-0-906a762f592d@emfend.at
----
- drivers/media/i2c/imx283.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ .../bindings/net/eswin,eic7700-eth.yaml       | 69 +++++++++++++++----
+ 1 file changed, 55 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/media/i2c/imx283.c b/drivers/media/i2c/imx283.c
-index 8ab63ad8f385f6e2a2d7432feff0af09a5356dc4..7a6ab2941ea985401b21d60163b58e980cf31ddc 100644
---- a/drivers/media/i2c/imx283.c
-+++ b/drivers/media/i2c/imx283.c
-@@ -149,6 +149,9 @@
- #define IMX283_REG_PLSTMG02		CCI_REG8(0x36aa)
- #define   IMX283_PLSTMG02_VAL		0x00
+diff --git a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+index 91e8cd1db67b..0b27719feb7d 100644
+--- a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
++++ b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+@@ -20,6 +20,7 @@ select:
+       contains:
+         enum:
+           - eswin,eic7700-qos-eth
++          - eswin,eic7700-qos-eth-clk-inversion
+   required:
+     - compatible
  
-+#define IMX283_REG_MIPI_CLK		CCI_REG8(0x3a43)
-+#define   IMX283_MIPI_CLK_NONCONTINUOUS	BIT(0)
+@@ -29,7 +30,9 @@ allOf:
+ properties:
+   compatible:
+     items:
+-      - const: eswin,eic7700-qos-eth
++      - enum:
++          - eswin,eic7700-qos-eth
++          - eswin,eic7700-qos-eth-clk-inversion
+       - const: snps,dwmac-5.20
+ 
+   reg:
+@@ -63,16 +66,29 @@ properties:
+       - const: stmmaceth
+ 
+   rx-internal-delay-ps:
+-    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
++    minimum: 0
++    maximum: 2540
++    multipleOf: 20
+ 
+   tx-internal-delay-ps:
+-    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
++    minimum: 0
++    maximum: 2540
++    multipleOf: 20
+ 
+   eswin,hsp-sp-csr:
+     description:
+       HSP CSR is to control and get status of different high-speed peripherals
+       (such as Ethernet, USB, SATA, etc.) via register, which can tune
+       board-level's parameters of PHY, etc.
 +
- #define IMX283_REG_EBD_X_OUT_SIZE	CCI_REG16_LE(0x3a54)
- 
- /* Test pattern generator */
-@@ -565,6 +568,7 @@ struct imx283 {
- 	struct v4l2_ctrl *hblank;
- 	struct v4l2_ctrl *vflip;
- 
-+	bool mipi_clk_noncontinuous;
- 	unsigned long link_freq_bitmap;
- 
- 	u16 hmax;
-@@ -988,6 +992,7 @@ static int imx283_set_pad_format(struct v4l2_subdev *sd,
- static int imx283_standby_cancel(struct imx283 *imx283)
- {
- 	unsigned int link_freq_idx;
-+	u8 mipi_clk;
- 	int ret = 0;
- 
- 	cci_write(imx283->cci, IMX283_REG_STANDBY,
-@@ -1007,6 +1012,10 @@ static int imx283_standby_cancel(struct imx283 *imx283)
- 	/* Enable PLL */
- 	cci_write(imx283->cci, IMX283_REG_STBPL, IMX283_STBPL_NORMAL, &ret);
- 
-+	/* Configure MIPI clock mode */
-+	mipi_clk = imx283->mipi_clk_noncontinuous ? IMX283_MIPI_CLK_NONCONTINUOUS : 0;
-+	cci_write(imx283->cci, IMX283_REG_MIPI_CLK, mipi_clk, &ret);
++      Additional background information about the High-Speed Subsystem
++      and the HSP CSR block is available in Chapter 10 ("High-Speed Interface")
++      of the EIC7700X SoC Technical Reference Manual, Part 4
++      (EIC7700X_SoC_Technical_Reference_Manual_Part4.pdf). The manual is
++      publicly available at
++      https://github.com/eswincomputing/EIC7700X-SoC-Technical-Reference-Manual/releases
 +
- 	/* Configure the MIPI link speed */
- 	link_freq_idx = __ffs(imx283->link_freq_bitmap);
- 	cci_multi_reg_write(imx283->cci, link_freq_reglist[link_freq_idx].regs,
-@@ -1426,6 +1435,9 @@ static int imx283_parse_endpoint(struct imx283 *imx283)
- 		goto done_endpoint_free;
- 	}
++      This reference is provided for background information only.
+     $ref: /schemas/types.yaml#/definitions/phandle-array
+     items:
+       - items:
+@@ -82,6 +98,8 @@ properties:
+           - description: Offset of AXI clock controller Low-Power request
+                          register
+           - description: Offset of register controlling TX/RX clock delay
++          - description: Offset of register controlling TXD delay
++          - description: Offset of register controlling RXD delay
  
-+	imx283->mipi_clk_noncontinuous =
-+		bus_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK;
+ required:
+   - compatible
+@@ -93,8 +111,6 @@ required:
+   - phy-mode
+   - resets
+   - reset-names
+-  - rx-internal-delay-ps
+-  - tx-internal-delay-ps
+   - eswin,hsp-sp-csr
+ 
+ unevaluatedProperties: false
+@@ -104,24 +120,49 @@ examples:
+     ethernet@50400000 {
+         compatible = "eswin,eic7700-qos-eth", "snps,dwmac-5.20";
+         reg = <0x50400000 0x10000>;
++        interrupt-parent = <&plic>;
++        interrupts = <61>;
++        interrupt-names = "macirq";
+         clocks = <&d0_clock 186>, <&d0_clock 171>, <&d0_clock 40>,
+                 <&d0_clock 193>;
+         clock-names = "axi", "cfg", "stmmaceth", "tx";
++        resets = <&reset 95>;
++        reset-names = "stmmaceth";
++        eswin,hsp-sp-csr = <&hsp_sp_csr 0x100 0x108 0x118 0x114 0x11c>;
++        phy-handle = <&gmac0_phy0>;
++        phy-mode = "rgmii-id";
++        snps,aal;
++        snps,fixed-burst;
++        snps,tso;
++        snps,axi-config = <&stmmac_axi_setup_gmac0>;
 +
- 	ret = v4l2_link_freq_to_bitmap(imx283->dev, bus_cfg.link_frequencies,
- 				       bus_cfg.nr_of_link_frequencies,
- 				       link_frequencies, ARRAY_SIZE(link_frequencies),
-
----
-base-commit: 3aa9296a23ec41a8424e9a2346eea59fb6cb7d8c
-change-id: 20251216-imx283-ext-5968a658dbe6
-
-Best regards,
++        stmmac_axi_setup_gmac0: stmmac-axi-config {
++            snps,blen = <0 0 0 0 16 8 4>;
++            snps,rd_osr_lmt = <2>;
++            snps,wr_osr_lmt = <2>;
++        };
++    };
++
++    ethernet@50410000 {
++        compatible = "eswin,eic7700-qos-eth-clk-inversion", "snps,dwmac-5.20";
++        reg = <0x50410000 0x10000>;
+         interrupt-parent = <&plic>;
+-        interrupts = <61>;
++        interrupts = <70>;
+         interrupt-names = "macirq";
+-        phy-mode = "rgmii-id";
+-        phy-handle = <&phy0>;
+-        resets = <&reset 95>;
++        clocks = <&d0_clock 186>, <&d0_clock 171>, <&d0_clock 40>,
++                <&d0_clock 194>;
++        clock-names = "axi", "cfg", "stmmaceth", "tx";
++        resets = <&reset 94>;
+         reset-names = "stmmaceth";
+-        rx-internal-delay-ps = <200>;
+-        tx-internal-delay-ps = <200>;
+-        eswin,hsp-sp-csr = <&hsp_sp_csr 0x100 0x108 0x118>;
+-        snps,axi-config = <&stmmac_axi_setup>;
++        eswin,hsp-sp-csr = <&hsp_sp_csr 0x200 0x208 0x218 0x214 0x21c>;
++        phy-handle = <&gmac1_phy0>;
++        phy-mode = "rgmii-id";
+         snps,aal;
+         snps,fixed-burst;
+         snps,tso;
+-        stmmac_axi_setup: stmmac-axi-config {
++        snps,axi-config = <&stmmac_axi_setup_gmac1>;
++
++        stmmac_axi_setup_gmac1: stmmac-axi-config {
+             snps,blen = <0 0 0 0 16 8 4>;
+             snps,rd_osr_lmt = <2>;
+             snps,wr_osr_lmt = <2>;
 -- 
-Matthias Fend <matthias.fend@emfend.at>
+2.25.1
 
