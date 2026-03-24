@@ -1,177 +1,215 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022075.outbound.protection.outlook.com [52.101.126.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E634D3EFD13
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 11:43:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774352632; cv=none; b=caWEKG/0cZtOjCMcp0V1eHMLrc82rgrzEi2fu4wBTd+0iBRnw8cnsoeMkQpXRSmKYovxk+5OTaJN/bJMomCdmS8QgmZegEVNRDzJInKc9lu473Mflk1hgKjRX7CKU0dPo22DmMIR/kYQ/KIz0D36yyzd772Wsg6G8DhmjDQKkyc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774352632; c=relaxed/simple;
-	bh=mR2hItSWrC3t16vQFhBn43dO7fQNDpoPvvx1+2mjr6U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=emtuWr/Ps4BbcRZZ72w6UHhEivJAud8mIGDfwg27ec32LEUEetsmGuNWZbtb4sbmN19/vJw3VwWIZxv2xu6/2VmZKTl18S06WXjl5Ee+7CEYx1N0xP+3Mvx9JaRef5Twn2eptoMK3b4879Tl7RMn3k4Z7gjzrWMeJoJU4WolE18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lnV6I8d2; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lnV6I8d2"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-486fb439299so43011625e9.0
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 04:43:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774352624; x=1774957424; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6O+qe+u4/j1RQP5lvPZzC/67zh2chDnbOC9lz0tvoJQ=;
-        b=lnV6I8d2Rg4lIJROHljBNMcb4Xf8skjLw+3U2O6FS3aHvu19EOyZRkIFK3lNphlv6T
-         aeIZlucc/04NN9YPh+GlrMPE1D/E8+qJKy+a/xNpG04JHWAQWP82/g14ofAJwziSjBVc
-         GnMd6rc4wI4aOCTc0M/jl4VS2lrVPDWD5c1hvDUxJJBs9D6kvWkeoiiEKPJj7KqaupXc
-         BI/yGLZj7V2v//+sP1onP3EjT99vQQJjjm+hihu9RLoIN46O2Oy3TiP2csVMkd0JRnz9
-         05yMGA1YBgNHpgfZqu/jCdIUqdn2128BcYUIDEzxdtyoNZmwtQjMlnHgEeG2AX/9byTZ
-         7BAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774352624; x=1774957424;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=6O+qe+u4/j1RQP5lvPZzC/67zh2chDnbOC9lz0tvoJQ=;
-        b=pTjK+qmdilfDfGf+sl2Xo1DYjXnFb1X7tVZ4X4pf5VVdCL7+OAf2QdfmsTierjdxBV
-         E30kO8d5NoyPlmmzfLFENMm8++hplGDQPDPyMryiCnnhmQrEDm6exxM4VLtVY4Gl9m5x
-         m7RkLrZUc2aoCjanRiPA/y5iRvjnnwXIX+1YEBwD43LMgsTgfL/nsVcjH5/ugBzPn+j+
-         Ed67JoBl1bWlp0tHhXh2k7aD0KMKN03ATAY+nYor9tDNU72oF8Kyd58lUbr4Er3zpR/9
-         +Zt/y+o5mwH6jH1T/jpKuBZhuMPCEsVFPIR5nH3JdfYwfvnKVzsZKJKk38Eoi0jsiSfJ
-         37fQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWGldfTXszHk2FVMQLgIRrz2zL/flGsJxk8qXZqwvbwdaeSi0INN/aBEloyaUetdhqIZ5nKTqFX5SyL@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzqvt5loRK0BolJPY8Fgdr/PtxDWk6XJaLpR4jVgT4OkbAO2nNW
-	blnAzvRTw25jHHX1wIZB3WQvo1RscK+orseDDoCLiyNoGOK6WDlBS2Uf
-X-Gm-Gg: ATEYQzy48PoCAm7affT1WQuHoA78lZ27oAXhtLcAyeQu5M6/gL4Qepg3rMo8kzzQa2D
-	5nGFSJ+ECVAcSC1pq3smS/dA7sXcjCavI40wqKAeWouolhwMiMUDgvWkA9RQ4vNRqxPLdHLCR5b
-	+GEc1j7amgMOvrdDCZcZgqV7gyT0kmROV364rn+GaDesonoKtU2h6CEpvawtdQ33mQNqgRJxCS6
-	1Xv1tLBddWdt2CA6M/QR7WQ872sCWAhpFXf5WOitYhE7s/35tla+25OXDxRGyN2Uo/2v9jk7Pbn
-	5o5Bbo3mLGmyxfMEwo+e0GE0I8rJsW53KST0LQcZfmsJxx2ReDAI3AGC/lAOnoaikEJMkbeoMM0
-	u8HBhr9Fl51WWwcRWy/1bGQHnQ2FxM5P0Q+Xu4hrqU1ojDkdnRqqcP2zHbNttUwYyTFKepE92lI
-	fQmmMaqp9YHpyeSHjfVci6tKjgUeF7PESWaW1UQ+gVsm6e9iAO
-X-Received: by 2002:a05:600c:1c0a:b0:486:fbc8:8dee with SMTP id 5b1f17b1804b1-486fee2dc56mr233497465e9.33.1774352623796;
-        Tue, 24 Mar 2026 04:43:43 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c4:a758:8a01:a4a6:e61e:cd81:c756])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4870f7f5682sm25416465e9.3.2026.03.24.04.43.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Mar 2026 04:43:43 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v8 11/11] arm64: dts: renesas: Add initial device tree for RZ/G3L SMARC EVK board
-Date: Tue, 24 Mar 2026 11:43:16 +0000
-Message-ID: <20260324114329.268249-12-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260324114329.268249-1-biju.das.jz@bp.renesas.com>
-References: <20260324114329.268249-1-biju.das.jz@bp.renesas.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F9E13E9F67;
+	Tue, 24 Mar 2026 11:45:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774352709; cv=fail; b=biRe38m21lwuLP7PWKugC5VmNREUOFb6xyJEkMXxWDKc0DGUZc5nYEQazrJzLn24AqZhr6W87128FiIbmFEupAu3s+0Fb2jdutX1//G7D8snmiNJzREhSaGs488Yy0f6BWCvAOprJCMFMN6Vs8wd3BuUyLzWcD4L3KnutLMsJpo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774352709; c=relaxed/simple;
+	bh=ceWqMsfU08wF3B58afqRvUcInEDQg+lsJRKTaA6FTJk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UyswDGOGTt7bm7GePFLR5zkP+Tew4VUHwOrwyRcOm4G0o/3I26cHE0Q1HwJ+ZNufu48WqpsngiGfQOgZwbsl1Ddy3DJNc/iuJ7OY6bBoOTvUPrWWACXkEOSUDZIw1g5qhT2O4MbSyy5Iwmad1azJB27o5PT/WW8A5j5kCt4/ZTY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.126.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IyCs/YwMQqRUAX9nsAq/+nIO1fACxqvU0ZmNhU1RRvXJurrYJP+C6fh0YOmh6zreJ+11cPTswapHMNYYdrz//Ny1coe4cEweY+FWyrwXzl235tne6zFJMZwJn8a1iTFEe16kHgy5H608spnXf8SU1SyWGc613QUTs+JA/cPjJDn50ZeYKvjjKYeYFC6cId+H9rstCOfTNcM8rAhwytYW0U6nQFlVufPVLJZ0mdHEUXfzhz88LO7FvdCiimZhn5Gzbsjp7zD1jOsXaZVL4MUMM8TooYgmNoXNA7lbjQht6JANaozwCa2/EUkcmdeV4IOoUlrb/J0PFluzYDjdUbL2Ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7bLDa5FatlQiQDgslRUvd7a89kzDDOt8E5RHDR74RRs=;
+ b=spDkp56luWT0Gg+OCBcCYJ3zfTQPZ7XeBJqTcmoQ+AHx+dRKSbBwWva9JqTNs6JP9w4x9qCmj4octRqfCxgEAPUJSDyg76P+g73bmeHMj1/8mCLgj8I6YxUXdJ+fiTrsfK/7HDh0FoqHPCcgC0FKE3LPvAoKjB7qM4LOBiYN80yGVEL4MEgHWZql2m1UYfVODioQYXpOEZu7F3c1o+33AHYzfQXpkSNu5MMVBwQGG9k6Gh0EvTI5Tm2SVCAWPQp9P9ENO/WO36TEtSJXrbgXQ9kQtnvXgwDyup9lVGppaOeFKDWAiX0nzWTMI6uqMeN09CMEHGnbzne71xezFS2Fdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from OSTP286CA0052.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:217::13)
+ by TYZPR06MB5321.apcprd06.prod.outlook.com (2603:1096:400:1f3::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Tue, 24 Mar
+ 2026 11:45:03 +0000
+Received: from OSA0EPF000000C7.apcprd02.prod.outlook.com
+ (2603:1096:604:217:cafe::58) by OSTP286CA0052.outlook.office365.com
+ (2603:1096:604:217::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Tue,
+ 24 Mar 2026 11:45:00 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000C7.mail.protection.outlook.com (10.167.240.53) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Tue, 24 Mar 2026 11:45:02 +0000
+Received: from nchen-desktop (unknown [172.16.64.25])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 4D3D24126F80;
+	Tue, 24 Mar 2026 19:45:01 +0800 (CST)
+Date: Tue, 24 Mar 2026 19:45:00 +0800
+From: Peter Chen <peter.chen@cixtech.com>
+To: Gary Yang <gary.yang@cixtech.com>
+Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+	robh@kernel.org, bhelgaas@google.com, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	cix-kernel-upstream@cixtech.com
+Subject: Re: [PATCH v4 2/2] arm64: dts: cix: Add scmi powerdomain nodes for
+ sky1
+Message-ID: <acJ5PLtFwZ8+E5q+@nchen-desktop>
+References: <20260313114914.1564115-1-gary.yang@cixtech.com>
+ <20260313114914.1564115-3-gary.yang@cixtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260313114914.1564115-3-gary.yang@cixtech.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000C7:EE_|TYZPR06MB5321:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94595e17-9618-44d1-bb56-08de899ac93c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|36860700016|82310400026|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	6cGnMZ4M/iTWiVaaIFdBOgnDmJGX+S6VrN25Oiv88uDO7g3o4nRExA+tVb/pSDvg+J4lXAPSBqzSGmgpYtriBGG9O9VefI4H4nUSwO3Fba3obt75lTPrM8SGHuTj8+V4JIPJYisjRSbynUO4OPGX6nLUBNTk1z67ngFrM6duUIp2/N/akv3AlnkHeCzTej6WU2RdL4DCBot4LpI0UdAS4lUMeaniEX0tTGTdMtHojPDVcSh2l54q55eCL9Bbs6MN2fXCMa9Hb1+ShZie4ADearNnc25vLOvesIrpO6IelpgRQyOjXF0vP70iPuilj7cA8Ef0utzae/8XPfWtKq94CHsK8XcJW7X2m68s5U6kbh78pG5D01CS3tp/as+6pJL3wsvleGxF7Mqj8XP7TL/dDeWzJIHcGIhN/8mV/+19+0UfKkBDMYp05AkPFQFy9IBlfIYQpB7dC4fs4zRJ/a/LX0bwrBlJZ7riw7DMiPnJVLBXzWwMO0RqOBmxvEfjsVefba2xYJMNmTVzPOCrnlq9fCq/TLiBPp9ERLMtRaugq7Tsnu3O4dMDbJqMZ8bkgnEPxKgXsalDLNWF7eOTCa0gPkT//3VqLnW65jQwu9Bo1UZoshZjeECYupdRYIfjeGO9FPYlclyFSImmmwM0N6jDmhSMROCLGeg/oA9kE2LMQy/jVqDaFcw4W5a0IfN86ys/2b3myjiJEGU4yRzRYW7KtzfVEwApWj3vYDO7/TELaiqHR6N+SiHKD19xY9Dc7C8vNwslyL0pbkhcJxiVu4r2uw==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(36860700016)(82310400026)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	8Z8loxmIfqF6ZeVp8D7FPIU/ufmfBabBkKXNcjtoZEEtDX9cBbCgIB45lQmcsfXRjzdzWmr2pVPAjHoi+adDxNp9cz9bji5gaFc7sDvxZF2HAAOa8H2RZS4bUMyRextHbJDR91GaM6HTRAU5wgHflcMgSAaV7GVhOu1E137jjaM/SUQvzrYxtrV4QJrT2VODirgmPymTYsd8lWriAeZyFLIOs9iJsdH7/U3rs0azjRDQ6iv4lr07AZfE96xvdS8XYGEooNMLOCmVllxzojRne3XKJzrHOH0fLOixIQd7M+Ai+f+NV42J9Nkq/kYtcdH51KyDsaZjuImAbCx5Vi2J5dl6ot6rl0c3Qa7VuUMy27fJKfMdtwzOT6Gqy5OTFYMVUdQXzOXO8fNSc5edmMXIl+Lx4xJ2A/w9gcvdgK8ukSU1K0H7E0BMtynrZIVPv46u
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 11:45:02.4934
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94595e17-9618-44d1-bb56-08de899ac93c
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000C7.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB5321
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+On 26-03-13 19:49:14, Gary Yang wrote:
+> Add a second SCMI channel using SMC transport to communicate with TF-A
+> for power domain management on the Sky1 SoC.
+> 
+> Signed-off-by: Gary Yang <gary.yang@cixtech.com>
 
-Add the initial device tree for the Renesas RZ/G3L SMARC EVK board.
+Applied, thanks.
 
-Added placeholders to avoid compilation error with the common code in
-renesas-smarc2.dtsi.
+Peter
+> ---
+>  arch/arm64/boot/dts/cix/sky1-power.h | 33 ++++++++++++++++++++++++++++
+>  arch/arm64/boot/dts/cix/sky1.dtsi    | 21 ++++++++++++++++++
+>  2 files changed, 54 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/cix/sky1-power.h
+> 
+> diff --git a/arch/arm64/boot/dts/cix/sky1-power.h b/arch/arm64/boot/dts/cix/sky1-power.h
+> new file mode 100644
+> index 000000000000..53f4a3af36b3
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/cix/sky1-power.h
+> @@ -0,0 +1,33 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright 2026 Cix Technology Group Co., Ltd.
+> + */
+> +
+> +#ifndef __SKY1_POWER_H__
+> +#define __SKY1_POWER_H__
+> +
+> +/* The Rich OS need flow the macro */
+> +#define SKY1_PD_AUDIO		0
+> +#define SKY1_PD_PCIE_CTRL0	1
+> +#define SKY1_PD_PCIE_DUMMY	2
+> +#define SKY1_PD_PCIEHUB		3
+> +#define SKY1_PD_MMHUB		4
+> +#define SKY1_PD_MMHUB_SMMU	5
+> +#define SKY1_PD_DPU0		6
+> +#define SKY1_PD_DPU1		7
+> +#define SKY1_PD_DPU2		8
+> +#define SKY1_PD_DPU3		9
+> +#define SKY1_PD_DPU4		10
+> +#define SKY1_PD_VPU_TOP		11
+> +#define SKY1_PD_VPU_CORE0	12
+> +#define SKY1_PD_VPU_CORE1	13
+> +#define SKY1_PD_VPU_CORE2	14
+> +#define SKY1_PD_VPU_CORE3	15
+> +#define SKY1_PD_NPU_CORE0	16
+> +#define SKY1_PD_NPU_CORE1	17
+> +#define SKY1_PD_NPU_CORE2	18
+> +#define SKY1_PD_NPU_TOP		19
+> +#define SKY1_PD_ISP0		20
+> +#define SKY1_PD_GPU		21
+> +
+> +#endif
+> diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
+> index 64b76905cbff..495ea91a63f5 100644
+> --- a/arch/arm64/boot/dts/cix/sky1.dtsi
+> +++ b/arch/arm64/boot/dts/cix/sky1.dtsi
+> @@ -6,6 +6,7 @@
+>  
+>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+>  #include <dt-bindings/clock/cix,sky1.h>
+> +#include "sky1-power.h"
+>  
+>  / {
+>  	interrupt-parent = <&gic>;
+> @@ -168,6 +169,19 @@ scmi_clk: protocol@14 {
+>  				#clock-cells = <1>;
+>  			};
+>  		};
+> +
+> +		ap_to_tfa_scmi: scmi-1 {
+> +			compatible = "arm,scmi-smc";
+> +			arm,smc-id = <0xc2000001>;
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +			shmem = <&ap_tfa_scmi_mem>;
+> +
+> +			smc_devpd: protocol@11 {
+> +				reg = <0x11>;
+> +				#power-domain-cells = <1>;
+> +			};
+> +		};
+>  	};
+>  
+>  	pmu-a520 {
+> @@ -428,6 +442,7 @@ pcie_x8_rc: pcie@a010000 {
+>  			#size-cells = <2>;
+>  			bus-range = <0xc0 0xff>;
+>  			device_type = "pci";
+> +			power-domains = <&smc_devpd SKY1_PD_PCIE_CTRL0>;
+>  			#interrupt-cells = <1>;
+>  			interrupt-map-mask = <0 0 0 0x7>;
+>  			interrupt-map = <0 0 0 1 &gic 0 0 GIC_SPI 407 IRQ_TYPE_LEVEL_HIGH 0>,
+> @@ -572,6 +587,12 @@ iomuxc_s5: pinctrl@16007000 {
+>  			compatible = "cix,sky1-pinctrl-s5";
+>  			reg = <0x0 0x16007000 0x0 0x1000>;
+>  		};
+> +
+> +		ap_tfa_scmi_mem: shmem@84380000 {
+> +			compatible = "arm,scmi-shmem";
+> +			reg = <0x0 0x84380000 0x0 0x80>;
+> +			reg-io-width = <4>;
+> +		};
+>  	};
+>  
+>  	timer {
+> -- 
+> 2.49.0
+> 
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v7->v8:
- * No change
-v6->v7:
- * No change
-v5->v6:
- * No change
-v4->v5:
- * No change
-v3->v4:
- * Collected the tag
-v2->v3:
- * No change.
-v1->v2:
- * Dropped scif node as it is already included in common platform
-   file.
----
- arch/arm64/boot/dts/renesas/Makefile          |  2 +
- .../boot/dts/renesas/r9a08g046l48-smarc.dts   | 37 +++++++++++++++++++
- 2 files changed, 39 insertions(+)
- create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-
-diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/renesas/Makefile
-index d4dfb7fd973b..76df20d2fd29 100644
---- a/arch/arm64/boot/dts/renesas/Makefile
-+++ b/arch/arm64/boot/dts/renesas/Makefile
-@@ -179,6 +179,8 @@ dtb-$(CONFIG_ARCH_R9A08G045) += r9a08g045s33-smarc-pmod1-type-3a.dtbo
- r9a08g045s33-smarc-pmod1-type-3a-dtbs := r9a08g045s33-smarc.dtb r9a08g045s33-smarc-pmod1-type-3a.dtbo
- dtb-$(CONFIG_ARCH_R9A08G045) += r9a08g045s33-smarc-pmod1-type-3a.dtb
- 
-+dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc.dtb
-+
- dtb-$(CONFIG_ARCH_R9A09G011) += r9a09g011-v2mevk2.dtb
- 
- dtb-$(CONFIG_ARCH_R9A09G047) += r9a09g047e57-smarc.dtb
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-new file mode 100644
-index 000000000000..86db86335d5e
---- /dev/null
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-@@ -0,0 +1,37 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+/*
-+ * Device Tree Source for the RZ/G3L SMARC EVK board
-+ *
-+ * Copyright (C) 2026 Renesas Electronics Corp.
-+ */
-+
-+/dts-v1/;
-+
-+/* Add place holder to avoid compilation error with renesas-smarc2.dtsi */
-+#define KEY_1_GPIO		1
-+#define KEY_2_GPIO		2
-+#define KEY_3_GPIO		3
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+#include "r9a08g046l48.dtsi"
-+#include "rzg3l-smarc-som.dtsi"
-+#include "renesas-smarc2.dtsi"
-+
-+/ {
-+	model = "Renesas SMARC EVK version 2 based on r9a08g046l48";
-+	compatible = "renesas,smarc2-evk", "renesas,rzg3l-smarcm",
-+		     "renesas,r9a08g046l48", "renesas,r9a08g046";
-+
-+	aliases {
-+		serial3 = &scif0;
-+	};
-+};
-+
-+&keys {
-+	status = "disabled";
-+
-+	/delete-node/ key-1;
-+	/delete-node/ key-2;
-+	/delete-node/ key-3;
-+};
 -- 
-2.43.0
 
+Best regards,
+Peter
