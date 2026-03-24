@@ -1,178 +1,162 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010025.outbound.protection.outlook.com [52.101.84.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D62E73E63B1;
-	Tue, 24 Mar 2026 11:03:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774350183; cv=fail; b=J+pll08aHNsOUU5P+O6oKgF9BvubFJvTlmqAGY/wfi5f3bjw6bU0gC+xn+OAtpIIAfxEHIzMBMIjNzJvt2aoQjN0SOB+nUh15yQoppCDoc519TmxJZZAgJNyJ9Qxs8M4WxHIxOz8toMfcs0/h4STl9v2Qhi5+EINXdce7FjcOsE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774350183; c=relaxed/simple;
-	bh=RCjOe1ngiXeGDtQEoyzOoTyUYTRe5MwPxuwwjD6CGpE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jKEU1xxYZPgshcEEwh4jB8uQrSaGDj0XoV8LytSyuNBgz796cb8SDFI1LdGDew9LRFm5iVY0PL9MbvnmSz23PImK6eiPxiprWaV12F6swKK+2Z0HG3RuaD4QJNitsjiSFtvd+5y5NN4xeVIcq4fQWv/uWSD+eviSlKHi7H/kmbs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=kRoQBGkY; arc=fail smtp.client-ip=52.101.84.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3B43E7149
+	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 11:04:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774350253; cv=none; b=iWFe0Ahg6FaW+IBj6W5G6wdtWJ1hPi5dqt091uL5z0rcpeLtBp2SfnNVdHht5vRWVgILF8Kqz4F5/OJUibHQ5Ra8vGJ/LiwED6VPcxLaxuLoM03z0DIhGA3T0grHEvTfqcbHQ0TZEHPVC9uHk5m4BVy3VeEmgJ7XURcKWZmifrI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774350253; c=relaxed/simple;
+	bh=kXwTzM8m3chUzL42QlXn8SAnILWR/tBEk4o9I2s9F4s=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=GyaLWQkEAHJ4Ib02ruAqlUKhqJ6t2fOVNVc/SEEa/w4BfM7cJmO3Bxh5Ez7/l9o6QAdavv4BR93crzZuXNK/UKaqPZD1ICJNX0DfKPIcfha8WIhLz/fsB+nsoigXTo9M6hM1dIbsEb1y/ag/6YWrTQx75Xrq0tmN9D/78oo7aaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=f05CdQI/; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="kRoQBGkY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c86+S82QDjYiYfT3R9QugxsA4r45sBIYFnInf2Gc6NzB6r85kkip30CukIqL2m6hqrNudSYJ3BhDIh0Xy/kFG0uGDqE2ymxLBDBl86r3SuXA9mg209rX0CThgQ9Y+u0N4lNPYvUvEwmQN4rKGdhgY4OvZuo3Y9WsVSJogQTYbdFTJYNGXDydYv2EcoFnz7n/i5H2MV7hf3HzSlIo8qMla54T2mHFOH3jTTm1TmgGzQ+xCb47wFO3JvSRSeqNKe3QJ8Od4lk7X9y41TYVC9BTdO/lhqrxxaqS2bfvL9X7OhwdZKq/ybVuzOIfphNFSIiv9so7VQ65Q1UiXJLJpd4BeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TQ6MyeFk/sd/C/YFUyOfdymuezTeA0B1hR12FgiVkXI=;
- b=XRFNAwBhC+mSN70A2/3LbMlQ4VAR560RH9go66uom0O77084CRjnZMT6QkKhT/Vd6cWvcclcXxXnJTLcBjfWQ3NTkqjAwh/+2OPaLjY5F4vfOh4Y1ISgSOH/TG0VPKg4MUxXXJ1zyz7/8WTFd1bqFbv8pRBldejkFJQYDZ9l8ssC85pFAwCO/qWe2UpxYRxj877lBOkYU54dKzm7LnIurPdX+P13NJw9oPu6zUTakAkX5QiJIClklHgGT9P3Qds3kKNtEaRBcJ6eVobECV6+eBu6AzrnaS+06o1yK1YKNZoKEnFmEFXEicLnRCSBCfPx/5GHhxft1uiG6vqbNdnn6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TQ6MyeFk/sd/C/YFUyOfdymuezTeA0B1hR12FgiVkXI=;
- b=kRoQBGkYCuYSHF0d0nZKFHoZs4dl/3PLcET/Kb46WbAqyaJtaqczOV7RLr3obX+SwCbWa2MSgWc5K6pXG0uQ/1J9uQ6uNvaTuBa4C7myR8mgv8eNA4MnbsX2+zoaW7dOhIN07cb+OIaeTPCSg6XCw9oiz5dqrl04CRnpYGcG2467WfhFi13prdlLOe5I1tGoX/mXOr7sB1HmPIRLExDH7wZ5xxL0UAkXSstKgZTAOek7YpyNvkNEiG5YHLcGeyrhh9vLb4BC4zkXZ2tBp30VmDyV8T2GESwcNA5fFnExp0z8RYsZ1FgxzdBEoOspjG+Qm9reOrvzJXQ8t892PMLZ4Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DU2PR04MB8822.eurprd04.prod.outlook.com (2603:10a6:10:2e1::11)
- by AS1PR04MB9504.eurprd04.prod.outlook.com (2603:10a6:20b:4c6::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Tue, 24 Mar
- 2026 11:02:48 +0000
-Received: from DU2PR04MB8822.eurprd04.prod.outlook.com
- ([fe80::c67b:71cd:6338:9dce]) by DU2PR04MB8822.eurprd04.prod.outlook.com
- ([fe80::c67b:71cd:6338:9dce%5]) with mapi id 15.20.9723.030; Tue, 24 Mar 2026
- 11:02:54 +0000
-From: Xu Yang <xu.yang_2@nxp.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com
-Cc: devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	jun.li@nxp.com
-Subject: [PATCH v2 2/2] arm64: dts: imx8qxp-mek: switch Type-C connector power-role to dual
-Date: Tue, 24 Mar 2026 19:04:59 +0800
-Message-Id: <20260324110459.2838767-2-xu.yang_2@nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260324110459.2838767-1-xu.yang_2@nxp.com>
-References: <20260324110459.2838767-1-xu.yang_2@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR02CA0029.apcprd02.prod.outlook.com
- (2603:1096:4:195::6) To DU2PR04MB8822.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::11)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="f05CdQI/"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-b97905516faso133559966b.1
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 04:04:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1774350250; x=1774955050; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HJSft7WXDopdPtbx38F8LsPABdfo1rbEMNuhG4z7KvU=;
+        b=f05CdQI/RavHH7lpKnR8u9xg+5kpwVVik9lHUmiBDRB9heFQblojFpnqXMhBEr5FVy
+         HOyDRAwoaWbuhCfjHMT5Xm1d/yYQ3rj5YLn+/3wLm+WRq0cP9HsWNmLyuxI2T84quOtZ
+         KsdOBQE6S4UOYggdm141w2LkF3QtPIWowY1MJ4XM5vs3p7coPS1laMINOfZU7KWBrJ7t
+         Qua30+1Kccp4JfNKOA4/LSEiDQ6cQGgihOT7tgNH6jyZ9ZF58F749tyZbR2wvkdc51kb
+         to6rB98I0bdETPYqdi/QIMV6DKUOXlK7Qt87jbvneKPb+1g/+6Wv64BcJ5i19lF+JNxT
+         XeFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774350250; x=1774955050;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=HJSft7WXDopdPtbx38F8LsPABdfo1rbEMNuhG4z7KvU=;
+        b=JxO6wZuqeIjPT3FHNInv1RC8KlYacaQL7sB+I/bQskQ95VH2fF3s7ief8FJ/77RDu7
+         9iOc+rUJTndk0nre/vAXiXAAeuAyCaz5Hx05Q1qgImFUtji9x2kMmHNVe1QUI4d1nLzU
+         Pij597bSRHEt0V2DtqBdV4NQFmyYfXtCvcqP+tblpWJYBR2MyRN5bXciuwiHJPUHHHfa
+         /wMcq59zGIyG7mGeF131xuKDrBHARSDQ8gyiCyGsOiUqFR1Nfr04bCWw+7ZJ/12Qhuzd
+         E6ym7xt2Jy4LxH94wbz0gdQ6Jcb3twhWf2fyGqFy26cmT39Rkk3iQsLixhvfcy2Td8JW
+         OITg==
+X-Forwarded-Encrypted: i=1; AJvYcCV/xMCt1pSPPYMHfPZfA6vU1HcUsEMTjQlxpliEzYrh+g/VsE7zdvABc/BPsEqZljMhZlEGq0pC3eCY@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyor05PP6DHLoHs3QqJTWHB6v3Y7cdKhCrCrrK0i4P7Ey34Wjkb
+	6j1LAE4Q92meVaWmyBryb59kp7S+1dv8B7G0gAUr6PGJHT2vJCy6yq4+fYo9Dt6LaV0=
+X-Gm-Gg: ATEYQzzooEhAHWzkN2nk/uinSDPHOoBSdxTyQ+gSsDwAxeglL63j/WMNEZP300EDYOo
+	m1wgug72qbjvkvZNradFKMFNn+6IoBw038iH2CYUE7W3Qawl8IYrUEYsbAi8E39xv1Qo+iNQ29n
+	9/Mtn13uYNgTyr1b5olgTQ2dE/jmIo+YS/fIDAfM6pvTyNB8WvXb816NCUa+X4r7Of+Yj0tR5Ze
+	6CnEoApITkVJXOXap81RfDyucNF0DfGFN/QC9IkKtGgFfbFvsK6CMCGA+UMKVSGGZEsXHMHFwz2
+	h69pSi2EWDhjztQyfcJErqx2Tyh2XJoI6OFsDa2VHZUXht+JOkMTRMs1G76xRYwMBsWP3WKssgF
+	HOusAKukgjM5LLL/6QqWJgV3vZRTR//V6BCG35BxIHOzNzQQ4Esicp1o+vii9arf3tOUYUwRs1a
+	tbhM2cEj2AnQ8308jcf2IG7QZ2ph1bSkm8j4gq0UeNiUbbfD5NrmlSMcL+Irv3ZC5wyJBp
+X-Received: by 2002:a17:907:7ba2:b0:b98:4156:878e with SMTP id a640c23a62f3a-b9841568891mr1060559066b.47.1774350249586;
+        Tue, 24 Mar 2026 04:04:09 -0700 (PDT)
+Received: from localhost (144-178-202-139.static.ef-service.nl. [144.178.202.139])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b983387103asm622419066b.57.2026.03.24.04.04.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Mar 2026 04:04:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8822:EE_|AS1PR04MB9504:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf9c261b-a51f-4891-d1d8-08de8994e603
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|376014|52116014|7416014|1800799024|38350700014|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	RNsY6hPjEl15oIfCyXNwYZRUgSUJpjVX1RWWZllpicrc+cB2b/shdUJy6GwC0xzCxUxuEOYaqFvFQLibKKNsiXiOXuiOn2A86hnw950wdJSMOu0nsk3oBrbxvPUXFSuzLgti1UX+fc2LHG3KERHRQBsB9mzsuq2hljRYF+vuQdPNTZa/kq3QYo6VyDm5Rsm5dYpovinfiJegL0fcXaeejDry0s9fRAIJkag7dggANgXC0+Sc+fhZyA4iB48TYLY7EdWiZyCX/h7cMSQrOp8NhL219n1AFkcLMkjBwAwACoGz/yPyAs5zCUEh0l+c3gBE+wPnf3USlNrdi0hY78RUldf6CtTvvcmTmZTrpdGX8uX9WAws2yyGYWaGPP8Ts/FOTZyY0jSoZOAcqcHc1FXuEi6uE7K8zIRYs3vubHcGDLzN9kQajtmBkoAbpFZV2dYyRREciB1pZQwDNu5k2cOULp/CBv9PtxgE6ib6LumWo4nOdysg2dwNhTyqFSV1wJCE5AYYfD5U5cITgolMrTbj3vQsgeuxUSvWoKqEdK6XapllV7FZ3w7SYfGwwtx+RPbHdj/u7GzIxr9zSZX2BNRFhaoIslVyrbFbDyydyxzk38vCGK8s22GOheG+ZJFJCYglCW1SgcUXbSOH7ZlgRzX5bfu9DsXcPO4q+WOxKuEbLMz34gD2AspKRWYXJY5uWOCYEDY4xX1LzbILQQ2hAB2+aivRtGCHa7/U7hfEf9V3V6gmPI54YxbFGo9KaOaAazjqtifAEJIHhksh4QFy629n9DnTQBumbXnNMHeoTjCz/AA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8822.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(52116014)(7416014)(1800799024)(38350700014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?a+nekUIPPRXJEa39EFiTeN+feOcnMpZ07wRog8MCFvvyUhaH84Ewr+us1QhC?=
- =?us-ascii?Q?AXbDjmWWdGFZOSGfHH1igSCtnRONXghKVUfxWWAqRGa74H8Y1t03wc+Rgg0t?=
- =?us-ascii?Q?wi3tRown0W7YHIFNgG7WmNux6ELnICe2wILp71ib13EeTc9r9LGFpBSgPgyz?=
- =?us-ascii?Q?kybOKUyQvPvzmhKKRzemx1CLmp/wwuTYIh05CZPqdKsLKYgZn0VdX+tBLYwD?=
- =?us-ascii?Q?lkgPdlFsXtoA6GdC+wyKBf1sW0ZM2FZPTJE/gTQKLEYknZ5L+MPm1IFpQ3kz?=
- =?us-ascii?Q?jgvVZ3q7+Do10HLZY/rP+nqsgPFMEoVyn/HDOzU2elINo42eVTyz6LC9mTs3?=
- =?us-ascii?Q?ivL3G4pKyTBL/YLHuMJNV3iGM/KvDH/hUMPKKkyrA9NLgPhSiosNvbqMJD9e?=
- =?us-ascii?Q?FYum0Ub407oh6QLQqG7rTjD8olkQQgvVbG7b1ILoUWwEMAhDlE7c8olXH6kg?=
- =?us-ascii?Q?+Lp1VUK8FX9+NQ3wWC/ChGvU6W+sjKcyQ+WE6yVrPAERkjQZV2qDeP2qxtN6?=
- =?us-ascii?Q?SrjC/247/9hylqngIX2/+Ne0oqNoANa9ncCX14HRyxyVSruShAj/Lh79DUwP?=
- =?us-ascii?Q?khA7BNcFjS5LD3sxOapfgqIwKvzc5q4L1aXFK5EfNjXiZYR43f9khuV2YLtc?=
- =?us-ascii?Q?c+hX7a3/BxIwJBVGBJjvKkPVOaobKFghTVQOQCoLpo8ZbR02v68R3UJSC24p?=
- =?us-ascii?Q?1p87+k9LCcYxhht2LYKPX0DlgPzBzTxJAiNcXYqoX8sphzqZUHQSQMl1fEIH?=
- =?us-ascii?Q?LGSwOMm1ty2V/scpChJezL1BVRDMK/KPBRnt+52joFFETL8ISbKX0834E5i5?=
- =?us-ascii?Q?iAhEV+rVy1B9mDj+iShBmO9Ym+vxykdMwvCVlyrvwM/Vn/aAzBtq2CqK3Ql7?=
- =?us-ascii?Q?WLP0KTJLGvelMNnHtjYgKbhmxgh8BNMD47AMugGjMjTWkI/LePV7ZumtEzMc?=
- =?us-ascii?Q?SerJZEHUR65w8kIjbLeXCOG3nCuqzXZ5UxPfdQIoQNwqdpy2xxKaDCarMxtf?=
- =?us-ascii?Q?yqbrkN0lnSMgodCss1a/LavUEvajQAzjX7o6VJuk5tTZl3BGfSGqZkwqK2Xb?=
- =?us-ascii?Q?IU+000+e1A3LZeFyReeXvD7rt83tZcgmHTbWv4JzvIB1FpRa70agGl7wxMzz?=
- =?us-ascii?Q?RAfyJcmUMateV1cRTNpJbYc2TIPG9OcjNx12A6PtXYr/g3w+YvY2+idVozqD?=
- =?us-ascii?Q?HoElBrsqw2qA2/AaguN6fHr6bR3+v1B+QNoRc5oNEw5WqwQtVpW0SHfEH4gk?=
- =?us-ascii?Q?s5klbLjpGHR5kmEaWew7+PdDq+YzyRRAoAHlZOhUp+ALKByZkQde3M6LHT9d?=
- =?us-ascii?Q?pLPQq0bC/9Ko2HeYZsGIC9E952U5x0nAScJms6SKxpJR9jVMPx+pFfaPqDjB?=
- =?us-ascii?Q?BOp1G6FHoxrqq9dD4k4vIm5EjTbueSmf3wJQq3W61tT3wGBibxWDduOYlWay?=
- =?us-ascii?Q?IDnyJtHImw543lmUobSx2jIUXerdfuB24Bt8zsoYq8OrlkJOcEzAbjuE6JYA?=
- =?us-ascii?Q?FZx3jUzhXnlzXQHQb/J9CIMLpbovd7fT7sjBQOpxdS4vhTDcIMb3PTZpc0OR?=
- =?us-ascii?Q?zkTlIwD8hZI+4pF7U9M65nJ9P2IyHhXNyp3SHCEsIH1rwaYWbKZ3gRV94hW4?=
- =?us-ascii?Q?x4FSW0AS/z/hlC77pUtkU0gzd+300jjlmpb1bLnhOo6KSPGwNH8RPY2nrqJg?=
- =?us-ascii?Q?rZmMZUFu1kxIMU8mIF538Inr1XrVVSugc7Hg0pVYMOoQ7FIhiOW3jgoDJpDt?=
- =?us-ascii?Q?/BquPvbH9g=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf9c261b-a51f-4891-d1d8-08de8994e603
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8822.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 11:02:54.1771
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vL9G4RT1avC5iX4VrGwOm3z8e/0NLwaLuXpefQ7BI7nY+mT+WFRfDz91WNJgHulzBzet5YRmdzdHgFqCCgFdHQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9504
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 24 Mar 2026 12:04:06 +0100
+Message-Id: <DHAYO287YDEO.12W871ZAAJ6GD@fairphone.com>
+Cc: <linux-arm-msm@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Brian
+ Masney" <bmasney@redhat.com>, "Konrad Dybcio"
+ <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/9] interconnect: qcom: let MSM8974 interconnect
+ work again
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Alexandre Messier" <alex@me.ssier.org>, "Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>, "Georgi Djakov" <djakov@kernel.org>,
+ "Konrad Dybcio" <konradybcio@kernel.org>, "Bjorn Andersson"
+ <andersson@kernel.org>, "Luca Weiss" <luca.weiss@fairphone.com>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Brian Masney"
+ <masneyb@onstation.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260324-msm8974-icc-v2-0-527280043ad8@oss.qualcomm.com>
+ <b09a51bf-26b8-4c88-ab23-c92ddc1fb801@me.ssier.org>
+In-Reply-To: <b09a51bf-26b8-4c88-ab23-c92ddc1fb801@me.ssier.org>
 
-When attach to PC Type-A port, the USB device controller does not function
-at all. Because it is configured as source-only and a Type-A port doesn't
-support PD capability, a data role swap is impossible.
+On Tue Mar 24, 2026 at 3:09 AM CET, Alexandre Messier wrote:
+> On 2026-03-23 20:10, Dmitry Baryshkov wrote:
+>> Commit d6edc31f3a68 ("clk: qcom: smd-rpm: Separate out interconnect bus
+>> clocks") moved control over several RPM resources from the clk-smd-rpm
+>> driver to the icc-rpm.c interconnect helpers. Most of the platforms were
+>> fixed before that commit or shortly after. However the MSM8974 was left
+>> as a foster child in broken state. Fix the loose ends and reenable
+>> interconnects on that platform.
+>>=20
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>> ---
+>> Changes in v2:
+>> - Swapped order of clocks and clock-names properties (Konrad)
+>> - Corrected the ocmem comment regarding core clock (Konrad)
+>> - Link to v1: https://lore.kernel.org/r/20260323-msm8974-icc-v1-0-7892b8=
+d5f2ea@oss.qualcomm.com
+>>=20
+>> ---
+>> Dmitry Baryshkov (9):
+>>       dt-bindings: interconnect: qcom,msm8974: drop bus clocks
+>>       dt-bindings: interconnect: qcom,msm8974: use qcom,rpm-common
+>>       interconnect: qcom: drop unused is_on flag
+>>       interconnect: qcom: icc-rpm: allow overwriting get_bw callback
+>>       interconnect: qcom: define OCMEM bus resource
+>>       interconnect: qcom: let platforms declare their bugginess
+>>       interconnect: qcom: msm8974: switch to the main icc-rpm driver
+>>       interconnect: qcom: msm8974: expand DEFINE_QNODE macros
+>>       ARM: dts: qcom: msm8974: Drop RPM bus clocks
+>>=20
+>>  .../bindings/interconnect/qcom,msm8974.yaml        |   28 +-
+>>  arch/arm/boot/dts/qcom/qcom-msm8974.dtsi           |   21 +-
+>>  drivers/interconnect/qcom/icc-rpm-clocks.c         |    6 +
+>>  drivers/interconnect/qcom/icc-rpm.c                |   18 +-
+>>  drivers/interconnect/qcom/icc-rpm.h                |    7 +-
+>>  drivers/interconnect/qcom/msm8974.c                | 1637 +++++++++++++=
+++-----
+>>  6 files changed, 1274 insertions(+), 443 deletions(-)
+>> ---
+>> base-commit: 8e5a478b6d6a5bb0a3d52147862b15e4d826af19
+>> change-id: 20260322-msm8974-icc-0ac4c28e139a
+>>=20
+>> Best regards,
+>> -- =20
+>> With best wishes
+>> Dmitry
+>>=20
+>>=20
+>
+> Tried this patch series on top of 7.0-rc5, using "htc,m8", and can confir=
+m the device boots properly now!
 
-Actually, PTN5110THQ is configured for Source role only at POR, but after
-POR it can operate as a DRP (Dual-Role Power). By switching the power-role
-to dual, the port can operate as a sink and enter device mode when attach
-to Type-A port.
+Thanks for testing!
 
-Since the board design uses EN_SRC to control the 5V VBUS path and EN_SNK
-to control the 12V VBUS output, to avoid outputting a higher VBUS when in
-sink role, we set the operation current limit to 0mA so that SW will not
-control EN_SNK at all.
+> I do see these messages in the kernel log now:
+>
+> [    0.692540] ocmem fdd00000.sram: error -ENOENT: Unable to get core clo=
+ck
+> [    0.692582] ocmem fdd00000.sram: probe with driver ocmem failed with e=
+rror -2
+> [   24.173125] mmcc-msm8974 fd8c0000.clock-controller: sync_state() pendi=
+ng due to fdd00000.sram
 
-Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
+For that you need this patch series
 
----
-Changes in v2:
-- improve commit message
-- add comments for 0mA operational current
----
- arch/arm64/boot/dts/freescale/imx8qxp-mek.dts | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+https://lore.kernel.org/linux-arm-msm/20260323-ocmem-v1-0-ad9bcae44763@oss.=
+qualcomm.com/t/
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8qxp-mek.dts b/arch/arm64/boot/dts/freescale/imx8qxp-mek.dts
-index 40a0bc9f4e84..623169f7ddb5 100644
---- a/arch/arm64/boot/dts/freescale/imx8qxp-mek.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8qxp-mek.dts
-@@ -566,9 +566,17 @@ ptn5110: tcpc@50 {
- 		usb_con1: connector {
- 			compatible = "usb-c-connector";
- 			label = "USB-C";
--			power-role = "source";
-+			power-role = "dual";
- 			data-role = "dual";
-+			try-power-role = "sink";
- 			source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
-+			/*
-+			 * Set operational current to 0mA as we don't want EN_SNK
-+			 * enable 12V VBUS switch when it work as a sink.
-+			 */
-+			sink-pdos = <PDO_FIXED(5000, 0, PDO_FIXED_USB_COMM)>;
-+			op-sink-microwatt = <0>;
-+			self-powered;
- 
- 			ports {
- 				#address-cells = <1>;
--- 
-2.34.1
+Then ocmem probes again correctly:
+[    0.859855] ocmem fdd00000.sram: 8 ports, 3 regions, 24 macros, interlea=
+ved
 
+Regards
+Luca
