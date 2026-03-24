@@ -1,74 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC19723EAB0;
-	Tue, 24 Mar 2026 01:06:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA4D2DB7B7;
+	Tue, 24 Mar 2026 01:11:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774314417; cv=none; b=GAVTyBKeszDKPJHXeO5jRzrTj58q1JiBP87b+zKhWXU5IqivC9kzwyOLZhioBgqNNm3NmkVOxdpVJbporQja8x9phhNuFE9pHAd+tcC1y0ukNnunL3k1Yl6VDDono0fcAfK1LCv4yDvlY6RpyiUBIVqH/RfaTQ/ldOfiap7mRJI=
+	t=1774314706; cv=none; b=ITow5b+ZBe4ZoERmge03HaWgILJKBrplsT50F3qktZPxelXK7HAPgwittJ27lTAtVV/nLNcgO1x9OqOFK7rfkoAchVgo5OgbxInDU1juAcuxAFrg+mlA16hZE/Sv9lgZWiJ5bmmBJ7AMeb2skZZ3cIMFv8aoGXPkpSu50EA8a/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774314417; c=relaxed/simple;
-	bh=hFETtntIhCuIt/MiuBe6rDfiOZBg/AhtFjio/+FUTzk=;
+	s=arc-20240116; t=1774314706; c=relaxed/simple;
+	bh=E9cCMGjU8K/dZwwXBy/xpq2fkGmeV9HMWGks3FqOKNI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T4kcKH2+r0MNojzXaDBbdRz4Qxla1/Xt3Kv6ghwDj7DWAPSEFyyweBX/vJ+Rzt5YAPHCqZFE9UqtEKw4EJ/slTw1WFQz4pGlCn0UD8bYZITtPxl/rqxX0meG3CMDLoeTzRvmpZm28Y3F+zCZ6ijhgMmBoos5bfxYo6If752PDrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZDMLrINU; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=Sokb6SzoACyWL+MbtArfIXEttex+UJjEeqNOESk4gNn8Kd3TLeDHMPLSaTsWXL1u+tEE18BD885HazzVBuQzqt0TJIsYbyGeeSitHLQC0Z820xk3WCXT4iimev+VP/bfmjJ4ETtYGkuljDraBnYR0lwlN4JsDZdHYN7qivEMDaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gQ1Lq8CX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZDMLrINU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50945C2BCB1;
-	Tue, 24 Mar 2026 01:06:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gQ1Lq8CX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D41BC4CEF7;
+	Tue, 24 Mar 2026 01:11:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774314416;
-	bh=hFETtntIhCuIt/MiuBe6rDfiOZBg/AhtFjio/+FUTzk=;
+	s=k20201202; t=1774314706;
+	bh=E9cCMGjU8K/dZwwXBy/xpq2fkGmeV9HMWGks3FqOKNI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZDMLrINUyxHL7uQMwRsHDBrClgV7H20tOJMgEvGMUxY8i13SNhuoO6bMm6kU4n4/s
-	 gp9TKFt/a1ZjmGXHfjx8IFShlfNrwasxB2xlwnaCx7g7E/TbOMhi6B/n/EKUoKqKQH
-	 wV7UNe+56y5VyfxD/XGi4QkDjfUUq2lBAQXm/A4b1Y5rSMd8G7aGl65C4WKiwoVO5n
-	 SZZZkjVYEH7037qwxeIYiX7wsHSIUaHY6Cu1E7ACPnVa0RGUySwKWpWBwLRoaOGHBt
-	 HPLVq/If+hn+fhd6jz0ogPVrzh/yRrg4FUP3xb/QDKLGjOnW5fjPhKjCSk+4Zraubz
-	 g/Dh6lTJ8PKKw==
-Date: Mon, 23 Mar 2026 20:06:55 -0500
+	b=gQ1Lq8CX51IIxGWUqO11sOlbruLXVao0SZGoZNySK9vJ6XwePjpA4KDCDLAs1j2bp
+	 1mFtRYrkIYb2lCfwKFHcla3OkyR30bsASk2+PyJsdJfIHk327coc/tv2E9qhEje9Gl
+	 s3c+bB0ftwqgTMkXK6WCbKY5g6E/qsb6Hh0TggtVqC3zxIjTItg1ZlucwLF2WpXYJh
+	 CUkdtahcKgWBVNCuN7ImriXsSvrf7fTVm7L4zrAqy/ktbZnIUmdGPTT6fFTwd0BH53
+	 XEuakGprR/gt4xf/B10L629e2GjanTSmS661xug+IA/zuAn7c5Q0LPAWKLEnaRwsMk
+	 TGlKjOeLjzRdQ==
+Date: Mon, 23 Mar 2026 20:11:45 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Peter Chen <peter.chen@cixtech.com>
-Cc: rogerq@kernel.org, linux-kernel@vger.kernel.org,
-	cix-kernel-upstream@cixtech.com, conor+dt@kernel.org,
-	pawell@cadence.com, devicetree@vger.kernel.org,
-	gregkh@linuxfoundation.org, krzk+dt@kernel.org,
-	linux-usb@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: usb: cdns,usb3: document USBSSP
- controller support
-Message-ID: <177431441475.1865084.10202415521295202897.robh@kernel.org>
-References: <20260316064831.274865-1-peter.chen@cixtech.com>
- <20260316064831.274865-2-peter.chen@cixtech.com>
+To: Pengyu Luo <mitltlatltl@gmail.com>
+Cc: devicetree@vger.kernel.org, Simona Vetter <simona@ffwll.ch>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v4 1/2] dt-bindings: display: panel: Add Himax HX83121A
+Message-ID: <177431470438.1869567.10359365187485586761.robh@kernel.org>
+References: <20260316084040.728106-1-mitltlatltl@gmail.com>
+ <20260316084040.728106-2-mitltlatltl@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260316064831.274865-2-peter.chen@cixtech.com>
+In-Reply-To: <20260316084040.728106-2-mitltlatltl@gmail.com>
 
 
-On Mon, 16 Mar 2026 14:48:30 +0800, Peter Chen wrote:
-> Update the Cadence USBSS DRD binding to document that it also covers
-> the USBSSP (SuperSpeed Plus, USB 3.1 gen2x1) controller. Both USBSS
-> and USBSSP share the same DRD/OTG register interface, so the driver
-> auto-detects the controller version at runtime — no additional
-> compatible string is needed.
+On Mon, 16 Mar 2026 16:40:39 +0800, Pengyu Luo wrote:
+> HX83121A is a driver IC used to drive MIPI-DSI panels. It is found
+> in HUAWEI Matebook E Go series (Gaokun2/3) with BOE or CSOT panels.
 > 
-> Changes to the binding:
-> - Update title and add description
-> - maximum-speed: add super-speed-plus
-> 
-> This patch is Assisted-by: Cursor:claude-4.6-opus
-> 
-> Signed-off-by: Peter Chen <peter.chen@cixtech.com>
+> Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
 > ---
->  Documentation/devicetree/bindings/usb/cdns,usb3.yaml | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
+> v4:
+> - use v2 as the base since v3 was using v1 as the base by mistake
+> - remove '|' from description (Krzysztof)
+> - drop description for reset-gpios (Krzysztof)
+> 
+> v3:
+> - remove '|' from description (Krzysztof)
+> - drop description for reset-gpios (Krzysztof)
+> ---
+>  .../display/panel/himax,hx83121a.yaml         | 91 +++++++++++++++++++
+>  1 file changed, 91 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/panel/himax,hx83121a.yaml
 > 
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
