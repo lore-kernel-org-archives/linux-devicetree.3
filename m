@@ -1,127 +1,131 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C325B24A06A
-	for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 19:43:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0489324A06A;
+	Tue, 24 Mar 2026 19:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774381384; cv=none; b=mthw763C+s5jH+70YPuxfYO5JZ/pHHIhDiDrCJlFCAP3nVrzfOBViG/hrfonH8fVsHrrzT3VjvkDnrTpbSrgOLlqPx8DcYAiCr6pJndTggLUG+DZxZy/LataZuYDqiEBOdHtzQq334MjyvyIRGLXsQcr1MbdXjnnvp2ZTBX9oHg=
+	t=1774381438; cv=none; b=qaN25+i6AAhxqrjgp38HBwAlJfkFRB9irLE5r+EKM9m7TKx8/rA3/xWnhYmALSybWq+sPXvPC2gmsEpbcabYuuP4bY4Im3fuVl3SdFSOFwDXneHm4GurPTCFk0ahekKqlAn0tapI02uGycUMRHanw+hTISHiJPtAlB7iLVKUS8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774381384; c=relaxed/simple;
-	bh=fBN0MhDEFUzS0U6dx0FqrazYoqTXsoKeLlxeDkI4A7k=;
+	s=arc-20240116; t=1774381438; c=relaxed/simple;
+	bh=kNNB3ARW8MAB0TKKRx9eUF6IcUYNngEha9H4UXUg9yw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DWxqU/zbj7Mm9XCmvu5MKCt38+MztC1LxqspqCBXz7X8V6sWBGmQHpgdhom6yFtjIhNbgkx7E3SVJ4U5IaWM10S0Ae3AX0TyEpnDmWkCdyUmaitOAbSuNmXp34LJobvAq7a2OidiEP8jmnCQMCG0izO8/67lmjdjQgcMpH2kdtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UE3rHcpL; arc=none smtp.client-ip=74.125.82.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=kWJKZJqlPGOnF397EuxEvqcIH5YuR88Jxp/qFlBw8fczfcQbO8E4acw9GZaFc1NU7FuDqhVIgznpbtJFYVVFbvSsGZtdH/EC2DhD2Im+AirtcrMM6giaGb88xAgiBneImohmwGoXvGn96+njRwBPsU4+AcRvWmBvaUILSjbbEX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=sAJ34CpZ; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UE3rHcpL"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-2bd9a485bd6so2954231eec.1
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 12:43:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774381382; x=1774986182; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=jvwht5JE6diwBV/hO3ygWTczq8GqXSLEKFpamj447+8=;
-        b=UE3rHcpLU0+qHMbhos9VfKS3kSoqR/kYe5GcJ6XRbUxzRcMLZovttLpQqZlAoxJQFC
-         QUtVoMk9tu3NbMpWKLGucNoygxAfBr8XNNtjJ24RbS+/iWLJSGEmct41xcZ9Rg/EpuJz
-         l2onHdf0j7Zo9gBEcNdp171l6IGr5pISs04BjnGYElMgABNtG18YxKYcmx4CYE3+D908
-         asBZjqEeJCjYSfI0EnfripapYmRpzUMn/WAYKszW6ngqoD4aunRHRgLbrViUsgGMqi/l
-         eKuAac7cn1a7CJ/IFgyJO8fqq6d7xrt+rhB3B+2yfhz5Tiry5aDujSppn9CbKIOhbBBR
-         J5zA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774381382; x=1774986182;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=jvwht5JE6diwBV/hO3ygWTczq8GqXSLEKFpamj447+8=;
-        b=IilOtFui3iQcCKpKyzWdo7CvDOx7eHh57w3IcfjaPxhoF4CNt0eYhGcCJbyA7LLSyd
-         /HZka/p3DRIno7d5aWQFMJkrzQRuRbVGiqPbqwiU69v3N1dONfohr1npgxpUcgDhcX6R
-         q2JkAhpcR7Irbf6lUw3NGOqsJVgXZhuqm0KVFgvEGJuF2nHZQRp6v6oPJGU2KVpwTHd1
-         NgnH+2YDDKpEyZbyW4dfh0mqpMlFohHABcdXJrM+mS7UAurSdsVIOdbCHuEcdMO/HoVf
-         DUzSv4Ahi85r0NQo/rq1Y1ELTpdn/t3Ji1MO35PsvKFe6kyKqhHt2q8WKvfWdXOerlpx
-         7QIw==
-X-Forwarded-Encrypted: i=1; AJvYcCV1HlJEvtz92Up7NO+q+Ob8mefFFVc92nNWZTHkHeA1KOlvewQ2U/76f6Xop42gcDfY7oUYkxksr8tj@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywuq6wyosBXbtH11qjEX7JYcHiww6jBLaK9MLzTzd7x57zwW9th
-	AK8PEVYETI5gbQYDGl1Q/Z/4OuGr9AXt92Gv5yaxYdRY7OQqx6irdS73yumoNw==
-X-Gm-Gg: ATEYQzwispeyhHZjfA4Iz7nR5q0xn6aHMkEd/DMa7LnmxneiLSKEm1a06lH/XuETIwx
-	fL7e59jTyVhdPOAGsuKHXhlXyGvC2+FUG2RqSEL2fVY7N2QFX8IJYjDdt273Mc0FEyEH30a7YZU
-	0pVraz3vpnixKLrLutwqWBzs/U9YPpHMOIfIpKBFSn4rGlFdTUgctEjPmVqjsYdTpkTl4I7TSUr
-	nt81vvAgiNT8fwlO0sawM7zbI2gk/1yra1OtOBYb6ICz0hSsjlIVMDjHQsjb714T7v/csIm8omG
-	NhNkFBNLtxGRAdV5NlZxu4kigEPP1rC8eO+gS9Mz4N5RC343ZqjyGURC+CXwJyv2GxMy1oyq3e9
-	tcQ230m56KoDnWXJb41ckJVkN1iGtYUWy7BwJx+UKPWR9W0Tht9IYV5tMgtQMTj5m7nUzNiBBpc
-	g+Z0Oxd2iZR2UBfVjNYR5ZK0KZYixlrFAkNNjLxhVWczhkxMRbBW0zcSSK3zQvQKPvkgZsWDRH+
-	Ak=
-X-Received: by 2002:a05:7301:1984:b0:2b7:32a6:82d1 with SMTP id 5a478bee46e88-2c15d322c28mr340452eec.13.1774381381746;
-        Tue, 24 Mar 2026 12:43:01 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:a686:fd7f:70d3:9156])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c1536aa870sm2915342eec.2.2026.03.24.12.43.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Mar 2026 12:43:00 -0700 (PDT)
-Date: Tue, 24 Mar 2026 12:42:57 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: david@ixit.cz
-Cc: Kaustabh Chakraborty <kauschluss@disroot.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>, 
-	Matthias Schiffer <matthias.schiffer@ew.tq-group.com>, Vincent Huang <vincent.huang@tw.synaptics.com>, 
-	Casey Connolly <casey.connolly@linaro.org>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH v8 1/7] dt-bindings: input: syna,rmi4: Document
- syna,rmi4-s3706b
-Message-ID: <acLpBXc9Qi5riQO0@google.com>
-References: <20260324-synaptics-rmi4-v8-0-2168d2df68f5@ixit.cz>
- <20260324-synaptics-rmi4-v8-1-2168d2df68f5@ixit.cz>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="sAJ34CpZ"
+Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 78789591;
+	Tue, 24 Mar 2026 20:42:37 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1774381357;
+	bh=kNNB3ARW8MAB0TKKRx9eUF6IcUYNngEha9H4UXUg9yw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sAJ34CpZdDWJm18yKHVWUdPrzJRwvPjbjmdZTBpbW7Y6OdXPde+6yM4MxQ+8CZyld
+	 YmpFyI8wB1rKiLEtT8hXEf+PaH62eBO2tkYlQHXminxPj/O25j7D9Y52fyG9KmZtS8
+	 nfR2UT8uZnclssb4uVlvRz8srtjRHhRIKaCKM6c8=
+Date: Tue, 24 Mar 2026 21:43:53 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Marco Felsch <m.felsch@pengutronix.de>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Peng Fan <peng.fan@nxp.com>,
+	Stefan Klug <stefan.klug@ideasonboard.com>
+Subject: Re: [PATCH] arm64: dts: imx8mp-debix-model-a: Correct PAD settings
+ for pmicirqgrp
+Message-ID: <20260324194353.GB2352505@killaraus.ideasonboard.com>
+References: <20260324-imx8mp-dts-fix-v1-1-df0eb2f62543@nxp.com>
+ <20260324093850.GA2351719@killaraus.ideasonboard.com>
+ <177437389415.1230693.16040948368071205395@ping.linuxembedded.co.uk>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260324-synaptics-rmi4-v8-1-2168d2df68f5@ixit.cz>
+In-Reply-To: <177437389415.1230693.16040948368071205395@ping.linuxembedded.co.uk>
 
-On Tue, Mar 24, 2026 at 08:40:34PM +0100, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
+On Tue, Mar 24, 2026 at 05:38:14PM +0000, Kieran Bingham wrote:
+> Quoting Laurent Pinchart (2026-03-24 09:38:50)
+> > On Tue, Mar 24, 2026 at 11:16:13AM +0800, Peng Fan (OSS) wrote:
+> > > From: Peng Fan <peng.fan@nxp.com>
+> > > 
+> > > With commit 5d0efaf47ee90 ("regulator: pca9450: Correct interrupt type"),
+> > > there is interrupt storm for i.MX8MP DEBIX Model A. Per schematic, there
+> > > is no on board PULL-UP resistors for GPIO1_IO03, so need to set PAD
+> > > PUE and PU together to make pull up work properly.
+> > > 
+> > > Fixes: c86d350aae68e ("arm64: dts: Add device tree for the Debix Model A Board")
+> > > Reported-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > > Closes: https://lore.kernel.org/all/20260323105858.GA2185714@killaraus.ideasonboard.com/
+> > > Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> > 
+> > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > Tested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > 
+> > Frank, would you be able to handle this as a v7.0 regression fix ?
+> > 
+> > I think the same is needed for imx8mp-debix-som-a.dtsi, but I can't
+> > confirm it as I don't have the schematics for the SoM, neither do I have
+> > access to the board.
+> > 
+> > Dan, Kieran, Stefan, could one of you check if you get an interrupt
+> > storm from the PMIC on v7.0 ?
 > 
-> Mostly irrelevant for authentic Synaptics touchscreens, but very important
-> for applying workarounds to cheap TS knockoffs.
+> Confirmed:
+>  35:      83626          0          0          0 gpio-mxc   3 Level     pca9450-irq
 > 
-> These knockoffs work well with the downstream driver, and since the user
-> has no way to distinguish them, later in this patch set, we introduce
-> workarounds to ensure they function as well as possible.
+>  and
 > 
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  Documentation/devicetree/bindings/input/syna,rmi4.yaml | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
+> 200:     270180          0          0          0    GICv3  67 Level     30a20000.i2c
+> ...
+> 200:     400925          0          0          0    GICv3  67 Level     30a20000.i2c
+> ...
 > 
-> diff --git a/Documentation/devicetree/bindings/input/syna,rmi4.yaml b/Documentation/devicetree/bindings/input/syna,rmi4.yaml
-> index 8685ef4481f4a..fb4804ac3544d 100644
-> --- a/Documentation/devicetree/bindings/input/syna,rmi4.yaml
-> +++ b/Documentation/devicetree/bindings/input/syna,rmi4.yaml
-> @@ -18,9 +18,14 @@ description: |
->  
->  properties:
->    compatible:
-> -    enum:
-> -      - syna,rmi4-i2c
-> -      - syna,rmi4-spi
-> +    oneOf:
-> +      - enum:
-> +          - syna,rmi4-i2c
-> +          - syna,rmi4-spi
-> +      - items:
-> +          - enum:
-> +              - syna,rmi4-s3706b  # OnePlus 6/6T
+> increasing rapidly on the debix-som.
+> 
+> I started out on the linux-media branches which were 7.0-rc2 based, and
+> this didn't happen but cherry-picking in 5d0efaf47ee90 certainly causes
+> this issue to occur on my board.
 
-I thought that all the workarounds will be keyed off this new
-compatible, but I do not see that. What am I missing?
+Could you confirm that setting MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03 to
+0x000001c0 fixes the issue ?
 
-Thanks.
+> > > ---
+> > >  arch/arm64/boot/dts/freescale/imx8mp-debix-model-a.dts | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > 
+> > > diff --git a/arch/arm64/boot/dts/freescale/imx8mp-debix-model-a.dts b/arch/arm64/boot/dts/freescale/imx8mp-debix-model-a.dts
+> > > index 9422beee30b29c5a551b08476c80fbff96af3439..df7489587e48ed0c678f11291f6f2b77082ade95 100644
+> > > --- a/arch/arm64/boot/dts/freescale/imx8mp-debix-model-a.dts
+> > > +++ b/arch/arm64/boot/dts/freescale/imx8mp-debix-model-a.dts
+> > > @@ -440,7 +440,7 @@ MX8MP_IOMUXC_SAI5_RXC__I2C6_SDA                                   0x400001c3
+> > >  
+> > >       pinctrl_pmic: pmicirqgrp {
+> > >               fsl,pins = <
+> > > -                     MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03                             0x41
+> > > +                     MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03                             0x000001c0
+> > >               >;
+> > >       };
+> > >  
+> > > 
+> > > ---
+> > > base-commit: 09c0f7f1bcdbc3c37a5a760cbec76bf18f278406
+> > > change-id: 20260324-imx8mp-dts-fix-512530fe4dcd
 
 -- 
-Dmitry
+Regards,
+
+Laurent Pinchart
