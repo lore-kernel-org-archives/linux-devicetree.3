@@ -1,50 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7F237CD21;
-	Tue, 24 Mar 2026 01:56:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2770037C103;
+	Tue, 24 Mar 2026 01:56:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774317388; cv=none; b=O3CuzcgvDTlq9Kttujnm+aZ4yxB46h3fZ3BdWhgjg4WRcx3uH3K0pVOyeTPBCObazWFPXRkNgc95p1GA0CUuzdF1h5gu0WjuGlkpvZdQgq7Gcb4EtQL2BDeTj+rERLeownUlkv8XcbHflHcTiyX2lEm+I99TECgbgZsB5a42TEI=
+	t=1774317390; cv=none; b=j4MnXfpXrDrWpg/JLZrVL2O8KWNJLD9HfijsAnXPbWqMn99IaRXzm77lBJWvWr6PNWcRH9lONUWxpZcy+UP0AA+xgVICTFORlWXLHj6U3lugG2Ah0QMwot9jEJsiY9A67yjb5Zf3CDNDIFe3K6xV88DqBOgG6csKoFogQH7SN7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774317388; c=relaxed/simple;
-	bh=Q+UquOnuGYeW6MFQGrXSMFvP8yvv6a3VrHK4iYkzm7I=;
+	s=arc-20240116; t=1774317390; c=relaxed/simple;
+	bh=R8tXmUCSEDWF3MTpZBsWDMeEzMSROw58eo0L8a5HwZk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QNdfqRivCr7/I93AUmgV/HtLwpfyax132EnZ8VkGPTjnCDEqUpkMz3Tlk9bSAcThsMnlkt5DHvBCI8fssnmba4JINL7RzBhc0F6e7PsPq4wWtczyb3ljl6MqUug48TfcXK6FhaoR9bVTsVg6DAtiKk19plSbG9LABbPsqN6RBnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uH2Ik1eL; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=BnGdbQNR3e7n7GEVZdiBOuwidzMNEK5jI5q2VFzMlis02oMR5Ykq2RJd5phou0dRMAKOf2g6WgWQzGXzpk4LEMdaUA4F7maBsaDkC1VxKV9fgZMsjGK8My9Vk+9x4DLcEpjCydhl703vrzPnfOYWqS4TFpIfjGcghnlGT2aahb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gFFX/yuZ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uH2Ik1eL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B29D5C2BCB0;
-	Tue, 24 Mar 2026 01:56:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gFFX/yuZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF4B2C4AF09;
+	Tue, 24 Mar 2026 01:56:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774317388;
-	bh=Q+UquOnuGYeW6MFQGrXSMFvP8yvv6a3VrHK4iYkzm7I=;
+	s=k20201202; t=1774317389;
+	bh=R8tXmUCSEDWF3MTpZBsWDMeEzMSROw58eo0L8a5HwZk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=uH2Ik1eLx94l2EmD8Hbkaift3AhTjMMFcDeddYf490Ve+Z4mz0SdwgcCGVeTtNO+G
-	 +2TJ252DbO8c1H6lAW0xWobys8kYPVKdGfn5yr8gSSw1lMOWo9Nnqytk/KkXD+d1xN
-	 Vp8iLQy95IWFC1wP5FocHNj7scoXTb7KAsjX1yujprcd6GEtpqQ3vdPaHKSFwmr8La
-	 /kPc5bWAlhjUIzA64Yi2Fa80CZXjIr9Y66YdyvNgK3M7w6e0ic8HFxC12a+zg5D2wQ
-	 bV+Y5TaFhBSlFQVgUWIyYr5PQA8E+vOfYlIgUSV3sOlAck++jcWl/e20PuzaOyNs8Y
-	 KMRs243ylgbOw==
+	b=gFFX/yuZ4GGJa77JVSyNON/2Vpn74Pmpiseq8RZyDPQtPLTH81AESBbG+5mijKXll
+	 KaZrA6EqNUf/BL60WbIdpAO1LIcvopKW8xn3VThBfw4w0aTu0Gh2CLzb1tHqZQl6p2
+	 /4YLXxnB9YHOsi7RF3d6fAsK1DqNfYSX+a+vRlWa99Ri1o6Gwu1VQ2CxnyM/EPVehY
+	 R7JAoZWs/BnjLCI3/H+o74kSrYrBcykqOVxWfykW3j9M7gCcERyVBz8Gg3o1zNefvo
+	 LmSGiOLFfp1EpK3ijeHA7oPpcPUNrR5kApWouRiugr5WrTuPnthvBX5mum4yKvar+6
+	 NjZA/QwT2bGuQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
+To: Linus Walleij <linusw@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
+	Luca Weiss <luca.weiss@fairphone.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v3 0/3] clk: qcom: Add Eliza Disp CC
-Date: Mon, 23 Mar 2026 20:56:18 -0500
-Message-ID: <177431737469.23057.9064236435225913383.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH 0/4] Add support for Milos LPASS LPI pinctrl
+Date: Mon, 23 Mar 2026 20:56:19 -0500
+Message-ID: <177431737466.23057.7104535276234811171.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260319-clk-qcom-dispcc-eliza-v3-0-d1f2b19a6e6b@oss.qualcomm.com>
-References: <20260319-clk-qcom-dispcc-eliza-v3-0-d1f2b19a6e6b@oss.qualcomm.com>
+In-Reply-To: <20260306-milos-pinctrl-lpi-v1-0-086946dbb855@fairphone.com>
+References: <20260306-milos-pinctrl-lpi-v1-0-086946dbb855@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,20 +55,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 19 Mar 2026 12:49:41 +0100, Krzysztof Kozlowski wrote:
-> Changes in v3:
-> - Patch #1: Use maxItems
-> - Patch #2: Follow legal requirements, add missing disp_cc_pll0_config
->   usage (W=1 build and actually test), regmap_set_bits.
-> - Add tags.
-> - Link to v2: https://patch.msgid.link/20260318-clk-qcom-dispcc-eliza-v2-0-8c05581168d1@oss.qualcomm.com
+On Fri, 06 Mar 2026 15:22:14 +0100, Luca Weiss wrote:
+> Add the bindings, driver, arm64 defconfig and dts bits to support the
+> LPASS LPI pinctrl on the Qualcomm Milos SoC.
+> 
+> The devicetree changes require the addition of GPR in milos.dtsi (as
+> specified in the b4 deps), the pinctrl changes have no dependency.
+> 
 > 
 > [...]
 
 Applied, thanks!
 
-[3/3] arm64: defconfig: Enable Qualcomm Eliza SoC display clock controller
-      commit: 263aaa90d8aa81310db8a754c86f7299c3df9d8f
+[4/4] arm64: dts: qcom: milos: Add LPASS LPI pinctrl node
+      commit: e7554449e9a225ee77600eef6bf410561de0d568
 
 Best regards,
 -- 
