@@ -1,100 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D83C3391859
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 10:24:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C9439C658;
+	Wed, 25 Mar 2026 10:25:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774434268; cv=none; b=jIAz3BOoDwj5sBNo0k23kc5Bqkx0QfK3p1G5Axdtlcf3oscfgs5GgV92aQw2NArd4aDcy8+PWZZjlIxZrn5rBnEZUGa20H+HUHeWMDJutYuzB9hntN6M+j0PKjHUOyWhtcdIIxjKlcua8u/Y/fxOVeDU1DFt99yKrXVQ7VixEwo=
+	t=1774434335; cv=none; b=m+b/pfpAp4QgSha0OLZxbBCjzWCD1ejgtPEP+/PvVH9fjA9FEp5QhZIHvf+wzpCbY0gLXkYKC1aJ8HAK4KMd3OiAmEIwcdYPwEbB58pOGkHsp0PGp4OLL9lEGE2vvxx0xWOt9el8x+22a/elGhHK87YeMF5IabAq09nxvH6rNqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774434268; c=relaxed/simple;
-	bh=DQWAjarmAEIR12f+N5kRbQsMdjqbb6LUni3iSD57BnA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ClPlOi6eh61dlZNY1UBVSwBTRnNjVSyDa0ydAUQTDr0iG2P+DyQw2EpA4fQ/lNgG+yuvaULIVuZ2NuDm1KPDBKyPRDhQDYD2c5F70iRdGGmn3QEkaaS+Kc9Omn2yuSeIK9asZS2zQK7cdJSjRfngxhaszxkf159h2sQ7x9eOsnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bEQrkKEz; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774434335; c=relaxed/simple;
+	bh=0A+FO9I7wqWwUKymAMAGNR/lvQFbkwTdv/HUEYMMEm0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=lED24hSkHFMvxHVdkkAo83lwkMgtqwst0yhucnuDbkXJYzoGCMRU0462/1WSlu99eFary3o7fMv7FVve+cPmm1j+76OdzggA0Y5aIzRPcrur5RFrBcQ8S2pNvWz1H8iemfDCFO29i3oKtmVxUiQtJVJIekxzhHV7PfS2VktOHNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BiWuMChI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bEQrkKEz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D7DBC2BCB4
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 10:24:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BiWuMChI"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A9BF0C2BC9E;
+	Wed, 25 Mar 2026 10:25:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774434268;
-	bh=DQWAjarmAEIR12f+N5kRbQsMdjqbb6LUni3iSD57BnA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=bEQrkKEzQxDGG2rRmwMwwzN1PH2pUmPqRZOMb7514c+kC5R2sVannMWLpgjySJZVe
-	 mbV+bE/TRHqs/ehwzg20kGw9dIaKov4LyqKeOg0JDwDgW84Bk2zOWCJ1thteWuIOKm
-	 pTPqPAOOCcooBmPBydv03XO29dmd9KDMaPDzA9ew2sjRhNnTsRP0TnNTwZy88n83Z4
-	 cuY6nJP5L7IN/VFyC6ZCF+m8vEywUbh4PWv31+bbtWma0mkO9TK79+f4Jf0FBzGmtc
-	 dVefH9QRJYh1T75xstMx0JOCKh6AZjLbU93SSPNR2iI/no0EE4DyOjTxgZclmdErBM
-	 DNK+jKKaLi7Bg==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-38bf47a6f02so18016001fa.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 03:24:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCVsHi9ioH2zl/YTkrwCWXVV3PdHOvkXMPhmMOXGcvxmMj3SYIdZElg3vJj3Fwu9E2IPWTAcu/+4TEJ1@vger.kernel.org
-X-Gm-Message-State: AOJu0YxPlP/GYec8VoSt8aViYHjkZkTbpqWe5Yvth1RqpR2o7bt4CNs5
-	VotlndO1hJmaf7glCoGRN5ig30ffAtcWncRPN6FNP3I73qWNvjJguy272X5O36LVCgbxwt03c+i
-	xtDgTrryUR9Wtcm8/Uupsb1tnBVe9dH09LQkt8YZ6oQ==
-X-Received: by 2002:a05:651c:1582:b0:38b:f0f0:e3cd with SMTP id
- 38308e7fff4ca-38c4320ca56mr8033351fa.36.1774434267149; Wed, 25 Mar 2026
- 03:24:27 -0700 (PDT)
+	s=k20201202; t=1774434335;
+	bh=0A+FO9I7wqWwUKymAMAGNR/lvQFbkwTdv/HUEYMMEm0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=BiWuMChIMPl4158xNK3qhrBvdz3GDzOiualP1tZWZn3JO3J/10v4du0ZCBTlZHgzY
+	 AtqrTmd9gnSxtdS4b0x4cgYeAmE1nrCJgT0zsqVNXg+0E59apnHQtls59ziqJEGvgG
+	 I4qzO5bDSvUJ6pnfUlcBaarajcP4oarPfaUMdFKDNIrVdPNaV4xVn5s6a48N9tu/Sl
+	 lOS6CZ+ub3XD+xNv2gvaPrFE+lVCWkazXGY+BdOh4QmCAWGxROUD9rC7fcc+oHaIor
+	 xfLdHJYYxwNKHEscl9f3WQ/FuE6QuJdil6dr/vrsvNDYP/R6oXIuY31v0UngMZ6ruD
+	 WL2LF39hYBR1Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99CF2FEA83B;
+	Wed, 25 Mar 2026 10:25:35 +0000 (UTC)
+From: Michael Riesch via B4 Relay <devnull+michael.riesch.collabora.com@kernel.org>
+Date: Wed, 25 Mar 2026 11:25:34 +0100
+Subject: [PATCH v3 1/2] media: dt-bindings: rockchip,rk3568-mipi-csi2: add
+ rk3588 compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1774283146.git.dan.carpenter@linaro.org> <CAD++jL=mz5jOLkq6GA6ZWzfGfFnVOLTCoXKOd38YHj2UZaZ9ww@mail.gmail.com>
-In-Reply-To: <CAD++jL=mz5jOLkq6GA6ZWzfGfFnVOLTCoXKOd38YHj2UZaZ9ww@mail.gmail.com>
-From: Bartosz Golaszewski <brgl@kernel.org>
-Date: Wed, 25 Mar 2026 11:24:13 +0100
-X-Gmail-Original-Message-ID: <CAMRc=Me2pyUshFZeXqWU0DF2eTkNjNvVDUP3LL9DO0ZfMOPJDA@mail.gmail.com>
-X-Gm-Features: AaiRm50nqwnVr1AXzgZWPax30PNVL9bQfMa7oruOnr447gPeYYgO3Xx86_ZMZ5g
-Message-ID: <CAMRc=Me2pyUshFZeXqWU0DF2eTkNjNvVDUP3LL9DO0ZfMOPJDA@mail.gmail.com>
-Subject: Re: [PATCH v6 0/7] gpio: introduce a GPIO driver for SCMI
-To: Linus Walleij <linusw@kernel.org>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>, AKASHI Takahiro <akashi.tkhro@gmail.com>, 
-	arm-scmi@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
-	Cristian Marussi <cristian.marussi@arm.com>, devicetree@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Rob Herring <robh@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Khaled Ali Ahmed <Khaled.AliAhmed@arm.com>, 
-	Michal Simek <michal.simek@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260305-rk3588-csi2rx-v3-1-754473981f39@collabora.com>
+References: <20260305-rk3588-csi2rx-v3-0-754473981f39@collabora.com>
+In-Reply-To: <20260305-rk3588-csi2rx-v3-0-754473981f39@collabora.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Frank Li <Frank.li@nxp.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Kever Yang <kever.yang@rock-chips.com>, 
+ Collabora Kernel Team <kernel@collabora.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Michael Riesch <michael.riesch@collabora.com>
+X-Mailer: b4 0.12.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774434334; l=1172;
+ i=michael.riesch@collabora.com; s=20250410; h=from:subject:message-id;
+ bh=owyE6wPADpqjuuesWZuMBWZ6EdPbmZuvga8S3U6flcM=;
+ b=vJ7Fc1HpYevNzycH9GPwR2MEat6rddJFIgnGVIbLdAj0wy70xJFjCv/94lQ+E3/1r18HOl2o5
+ GxIb0ohLW22C1BGoOMjeQ3ooDOv2wZ6VpNMUkuHoFsYYIePiWgB6LLK
+X-Developer-Key: i=michael.riesch@collabora.com; a=ed25519;
+ pk=+MWX1fffLFZtTPG/I6XdYm/+OSvpRE8D9evQaWbiN04=
+X-Endpoint-Received: by B4 Relay for michael.riesch@collabora.com/20250410
+ with auth_id=371
+X-Original-From: Michael Riesch <michael.riesch@collabora.com>
+Reply-To: michael.riesch@collabora.com
 
-On Tue, Mar 24, 2026 at 2:11=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
-rote:
->
-> On Mon, Mar 23, 2026 at 8:01=E2=80=AFPM Dan Carpenter <dan.carpenter@lina=
-ro.org> wrote:
->
-> > This basically abandons my earlier attempts and goes back to Takahiro
-> > Akashi's driver.  Here is the link to Takahiro's patchset:
-> >
-> > https://lore.kernel.org/all/20231005025843.508689-1-takahiro.akashi@lin=
-aro.org/
-> >
-> > v6: Fix a build error when CONFIG_PINCONF is disabled
-> >     Fix the dt-binding subject and my email address
-> >     Use pinconf_to_config_packed() instead of PIN_CONF_PACKED()
->
-> v6 applied to this immutable branch:
-> https://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-pinctrl.git/=
-log/?h=3Dib-scmi-pinctrl-gpio
->
-> Then merged into my devel branch for next.
->
-> Bartosz, you might want to pull it in!
->
-> Dan: thanks for your efforts to fix up the remaining hurdles and
-> bringing this to completion! Sometimes the last few % of work are
-> the hardest.
->
-> Also thanks to Takahiro for this idea: it worked out just like you
-> imagined.
->
+From: Michael Riesch <michael.riesch@collabora.com>
 
-Pulled, thanks!
+The RK3588 MIPI CSI-2 receivers are compatible to the ones found in
+the RK3568.
+Introduce a list of compatible variants and add the RK3588 variant to
+it.
 
-Bart
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
+---
+ .../devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml   | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml
+index 4ac4a3b6f406..3d3b3cd78884 100644
+--- a/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml
++++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml
+@@ -16,9 +16,13 @@ description:
+ 
+ properties:
+   compatible:
+-    enum:
+-      - fsl,imx93-mipi-csi2
+-      - rockchip,rk3568-mipi-csi2
++    oneOf:
++      - const: fsl,imx93-mipi-csi2
++      - const: rockchip,rk3568-mipi-csi2
++      - items:
++          - enum:
++              - rockchip,rk3588-mipi-csi2
++          - const: rockchip,rk3568-mipi-csi2
+ 
+   reg:
+     maxItems: 1
+
+-- 
+2.39.5
+
+
