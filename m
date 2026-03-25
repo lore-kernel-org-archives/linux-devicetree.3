@@ -1,33 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15D02D8364;
-	Wed, 25 Mar 2026 15:15:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030D52874FA
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 15:16:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774451742; cv=none; b=Mp07dPo664Fch3yG+kss9TSGMP8lbzISel95fEmsAXOr1+cZ9cT+FA5p76N3UnHF34Rza8eoloNyJL86KmAM1MPzBHP7nOqsBq47oX4Xiq6evtezcL+uJYEbpCxg/w3oZ8rVKMd7fptbsd799QCI4pUkTAJeBSqXFLwU1tEttiE=
+	t=1774451770; cv=none; b=k6WYCNVJY2Gt52LOAqyyogpf/QrIKER5n/z0DlhdNwSESMYTeT24sBO+yCKVKCQOwnr2cq0UmFBqpZI0ychI0INne2DvMP8PC2xxUQLnpibTrA5mAFWL+ELNoeCMOxGrYj7kpZajAGVWEzlVlh+SQsv7lsS+iUuRfUFyNe5cdhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774451742; c=relaxed/simple;
-	bh=j8gNRPy6u1ObH5yBkBbSK7NnYy7PdJdxRDpjmvu12+w=;
+	s=arc-20240116; t=1774451770; c=relaxed/simple;
+	bh=/vywv4hZ4+kE2TvgFYQ3L9kVw42zFJldnDoEQi5wZGU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L2s2mb67LSxDYYOaYe7Xl1hfusKt/jUXCaJj3EvmCMpaWznsjrzPFFAcIPCqYBzwcMaTOBr1nuZMPe//MqqEEoqmODwQmCP30VrHCoYYsYed15hzTPbOIykUe3lUFpDmkhwHUSS0tnwZMq8fXhbVweo86x7Rh7GuPm5Wly0z9ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QNd7/JMQ; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=bVC0Y67DuuTFU+v1TrcvEXqRycjUcsIx2rKpoyN2OJWLWMR+M7wzyFqYCaWRMr0pg5IkDkiJkAAtSduSusrOdPx5P1bEMxFwruluMMf44BY3z/Pa9pIw8WM3+rBBlWBVHQq7MK9mjDdCPaIwrFwwPhgJUD5vpAjqLUmydiDukrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Xtl9lsug; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QNd7/JMQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDCD1C4CEF7;
-	Wed, 25 Mar 2026 15:15:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774451742;
-	bh=j8gNRPy6u1ObH5yBkBbSK7NnYy7PdJdxRDpjmvu12+w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=QNd7/JMQ41FD96eSKtR29IHLye0P4gsZg7eKayyjwiEdKvP73+j6UoL2TEx+4URE+
-	 6FuX8H6i6fsZGlXZCDHy25NcxYEAAfIHebDbhIksda6lAaILdTwEZSX3+vdKIWSP+D
-	 fNHWDJSOmNQZL4fLoASVA1INyn5xqXKIEjuoSy+LZYrJYIOlmwmSn3/VbU+9d+UDrA
-	 5+5KmeKl8mKQb2yfN08U9JFbfJutxnNBZRENayGoqrzuLC0T8zMUX7taXnV8JPr/E2
-	 8Coh9aavHrVmHty+lj8hqD4ZB5YHiIep2gPmemZR/S/oEAwytJi/ee2gX2Iog8wQ/r
-	 +vrszntuT2GXg==
-Message-ID: <c9b68d56-48f1-4ade-8711-fedd8acf0666@kernel.org>
-Date: Wed, 25 Mar 2026 16:15:39 +0100
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Xtl9lsug"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-b886fc047d5so1129933066b.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 08:16:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1774451767; x=1775056567; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=jeZDmS4QXWBXj1GSyJBXJGYP+hGJySEXWFfrbydgUbc=;
+        b=Xtl9lsugTjkG1zZ3ws5CkNNW0aOB1buzoShWTUH9GO8vsOmYQ8EAdjqMrPBnZa24uJ
+         5Oj4ABMUHI00QYCSOUD6my+zhaz9e7UFsphPqhbvaxMEMRrcyxLmWlsJQABR9VSTSv6K
+         MysRVPFd5hXAOgErCJkqUQP42uxmbycD828DD1TJSpa2RqQvITZs9+gupw9snXR9kwcH
+         wqqITJdDFcGkvCgAGz8EsfSTpSee4lXNkI87HVUETqllVPy3L0FGqOrq4MqxursLHngD
+         UleQ6BtlB58AK/5VCf7FUsm+bY0dvRFJHXnNB+KqGy46rgBSyiJNm8UY55kJ2JfRNG0W
+         MH0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774451767; x=1775056567;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=jeZDmS4QXWBXj1GSyJBXJGYP+hGJySEXWFfrbydgUbc=;
+        b=gRSsGONEXhptOu6RZm0kijSDG60kHzTnQOW8tb4cXjbXB5HZ1orZzM9GrZ2JvNrNP7
+         9m/AuCYIwK9KZ/HsXJdIfm4NdUYH/ZR26Ma3QqA5i4rPzHJOzQJOB5PoE4zJxzfy4pGt
+         2cElTtsdT0IQVQZY8DkBLoe8ysAgRlReTViVEoTdF76jXp2MWknmmae615/IymAvXJRh
+         vUplq+olVWJwsSVM1cTdjj2rHakZAqIPz8GDoGd1TpEnLy7e7hirwMXRje+EMkiULgDU
+         bXBnRlHhqme0PPw1bnnkTAbgaWLAty3W4Ku1VDKLQDG5BSzyS/j1Gno2odQ6m0elVOdm
+         A4ew==
+X-Forwarded-Encrypted: i=1; AJvYcCVTnW7H4DI3HcWfpxzPf3aZ87X3z/TMuuYLtkBsaLQr1BFewJnrn4GYGrbHKhDB3k6m5rysxA3bxP1i@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzk3MQwA2GKjibTqemefV1vyKoxmJ78gkR1g+Jh538Pm+OajlXn
+	DeCNfGfaWVIE8EwN8ESZi2yjLDEx1isgOhafrRgN7P3QarZ1F6/RYEoZ2MKczBLqp3A=
+X-Gm-Gg: ATEYQzwxa8/Ueo9DhXDd4ziCO9capSht2KapJ0fmI29MDKgacrSL56dhk1GnTarkVco
+	DNj+S793aaWME5CUqj8tYXjyLZbXDV0F6XIb6q//8EZ7Ef4JqPc+9t33hyTnAyo3szGXkMMqzUF
+	6EoQQqyaCjb324HnApb3GTgj+VUak2ol29Kr9uzM0MFulCCPABsKRr+pLHscdSdxCQTZmAwPNnF
+	lxG43EhnbFQpyEpl4+7kdZ+rlVZo5v3iKBN3Qpx4+PfO5fdz+696mkudKYaVI4pxhEIuyb73+7a
+	zytsWrHJ8XZsx2LhguTi1s2sAjK7ViB0EFaw+LLuKoKE4uiShrNAfKC0o2a2npgiNx+fzoZg81Z
+	fhya6OOWzELfE2yTqPpwf2of8cOmaBHPcNniXOn44p/qQsum3B4Uuto2+KLhXvkaPGXHX5tKB9n
+	TADsTNbZpnelMQYXP1DnjGnEKG5KUF59kYpuNS
+X-Received: by 2002:a17:907:619b:b0:b98:1129:51 with SMTP id a640c23a62f3a-b9a3f1abe69mr195370666b.17.1774451767271;
+        Wed, 25 Mar 2026 08:16:07 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.163.154])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9832f440e7sm800025966b.3.2026.03.25.08.16.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Mar 2026 08:16:06 -0700 (PDT)
+Message-ID: <2c5b8402-6036-43b9-bda3-aeee0c6a9d7d@linaro.org>
+Date: Wed, 25 Mar 2026 15:16:03 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,89 +68,67 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: i2c: intel,ixp4xx-i2c: Convert to Dt schema
-To: ShiHao <i.shihao.999@gmail.com>
-Cc: andi.shyti@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- conor+dt@kernel.org, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260324135010.17730-1-i.shihao.999@gmail.com>
- <20260325-bulky-mushroom-of-science-8c95c4@quoll> <acP69aM-euL7wl87@fedora>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v3 2/7] media: iris: switch to hardware mode after
+ firmware boot
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Conor Dooley <conor+dt@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Stefan Schmidt <stefan.schmidt@linaro.org>,
+ Hans Verkuil <hverkuil@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev
+References: <20260313-kaanapali-iris-v3-0-9c0d1a67af4b@oss.qualcomm.com>
+ <20260313-kaanapali-iris-v3-2-9c0d1a67af4b@oss.qualcomm.com>
+ <7dbf7a23-7a02-4e9e-99c8-6716e3dcf7d9@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <acP69aM-euL7wl87@fedora>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <7dbf7a23-7a02-4e9e-99c8-6716e3dcf7d9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 25/03/2026 16:10, ShiHao wrote:
-> On Wed, Mar 25, 2026 at 12:16:27PM +0100, Krzysztof Kozlowski wrote:
+On 25/03/2026 15:14, Vikash Garodia wrote:
 > 
->> Please run scripts/checkpatch.pl on the patches and fix reported
->> warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
->> patches and (probably) fix more warnings. Some warnings can be ignored,
->> especially from --strict run, but the code here looks like it needs a
->> fix. Feel free to get in touch if the warning is not clear.
+> On 3/13/2026 6:49 PM, Vikash Garodia wrote:
+>> Currently the driver switches the vcodec GDSC to hardware (HW) mode
+>> before firmware load and boot sequence. GDSC can be powered off, keeping
+>> in hw mode, thereby the vcodec registers programmed in TrustZone (TZ)
+>> carry default (reset) values.
+>> Move the transition to HW mode after firmware load and boot sequence.
 >>
+>> The bug was exposed with driver configuring different stream ids to
+>> different devices via iommu-map. With registers carrying reset values,
+>> VPU would not generate desired stream-id, thereby leading to SMMU fault.
+>>
+>> For vpu4, when GDSC is switched to HW mode, there is a need to perform
+>> the reset operation. Without reset, there are occassional issues of
+>> register corruption observed. Hence the vpu GDSC switch also involves
+>> the reset.
+>>
+>> Fixes: dde659d37036 ("media: iris: Introduce vpu ops for vpu4 with 
+>> necessary hooks")
+>> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+>> ---
 > 
-> Hello Krzysztof, 
+> Hi Bryan,
 > 
->       Once again thank you for your time. Those warnings are from running
->       checkpatch.pl without the --strict option i myself discovered when you
->       said that because i only use it with --strict option. I thought
->       checkpatch.pl --strict  was more strict then checkpatch.pl but i guess
->       it is not so strict as i thought it was. But apart from this i mean
->       why in the first place there is the --strict option when it is actually
->       not so strict it must have shown all errors, checks and warnings but it
->       does not Anyway i will make sure to run both from now on thanks for pointing
->       it.
+> Please pull this fix patch, let me know if you need me to resend this 
+> separately.
+> 
+> Regards,
+> Vikash
 
-I don't understand this at all.
+np
 
-You did not run checkpatch. Neither with --strict nor without --strict.
-The --strict does not matter, why are you even mentioning it if you did
-not run the checkpatch in the first place?
-
-Best regards,
-Krzysztof
+---
+bod
