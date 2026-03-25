@@ -1,87 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0588A36C0BD
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 07:35:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 241B5371878
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 07:35:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774424128; cv=none; b=GzUnTj6R+sZkr4QPczE7Sw9ULDPGoLzFhWQxPNW0UHP/rRtZ8O/NC5/1Q/zjcHoIudN/DhXaFyS+FF4E+cPq2xEh5Gikw4GcETUS7w3bXNbA5L19cyQzdCBPxjxVAOt17O85vRzYw5RQKM0KKwB+qRt8qhIpOGLKBhqJ677MJJ0=
+	t=1774424133; cv=none; b=PqfPAZ5hAdpnLCsj9aa4b2+hz6IidXIPIOSBMS4rKb/E8iZ4UA2XJspxq8gArC0CzOIeZZIp7Cq4F86FL126qvnTkCcoB3RkWYEf70BAVfOLa6QECfcGXUJho11LzU1ByAGifoo0CO0JxpfRV8qetSDNHBDq0bZs7d19kVHdOnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774424128; c=relaxed/simple;
-	bh=HP+mqyFAMLaG5JbtzUuj2ODbvmGxKbRdJ4aEIhbTJIE=;
+	s=arc-20240116; t=1774424133; c=relaxed/simple;
+	bh=e+V4UublliuZTiBszpvyV27NrTlWjbWc5pf4LYBu6+E=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CxBZa7smP5QNSVjImcUMiavmcDht5xxE3FMqeBVKbv0CRF7nrMDpou/o6Hvc/OpqZauKAa10EGenda9zP8GCBPKspgJD2xOaHj0ihgcOuIPVWAYSfs2yjSl71ZGIyLyuQYTgstjTe7Q7WinSH0kROTbcbox84RMatEITQD6/dRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RTUHxj9T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cGzh9ioK; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=qG2BR9VnHp06Q5tcnTH3w38p3j0QKxqX1yg6/jNq+1Gpw7XAXRmIdpW3rWvDiBaw+YE8AJdDt3PKq7hoDmZwH325Ni88iXOTO30Fiaiv0WyAUS/xKs1FX/e3mtrfs2C91QNowFBqBU0wrtKjLQhwnrKjNmWpmbCoY/qt89tzPtM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=p2aFhzbj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JqFn38Qb; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RTUHxj9T";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cGzh9ioK"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62P3xHTw919628
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 07:35:26 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="p2aFhzbj";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JqFn38Qb"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62P2JDx43057430
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 07:35:30 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	mAKP200DhOcqupPIZbMFC27OoXdQJJ21uxtZjP6Qea8=; b=RTUHxj9TEM3fq1Gm
-	dCUDS/w480Ft+sasB0NfMrapC8tdBGxzOs8EP3bvtsPXLj6S7WsDqzSz6OaUdchP
-	6UgbzCfF77s9WeCF11pZZbyJ3sn8sjkz/IX8Mj0KRTv45DH9t4IsEvVCRJkqfaeT
-	IpUG42Zy/FbxSdZY062POVk0w0Br5sYL7P2owgiUiffCnrjOqeTdfpzTewAUdH1A
-	KMAYFrHZihFUh3z4y43Q15WLOrN9zqJTYewvZdhY+1eNK/AZBWdYuCe2ysiwBfJ2
-	Yezqt2+WLAiolrcKDwYbfHsW7RfZUG0ycILPwCbd4QSoS6Q+4k95xhZ9jaihsgJt
-	WoRigQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d489mgpb6-1
+	d/OEBn6BOwvct+IRkSrvIYRVtAnFLl3r5gniGuwwRp0=; b=p2aFhzbjOZYAKLsS
+	3PRESscvGEsPxmAqHIsHo4mVWuJBQvWWAUH8bA1Rhn5BZwVRy1yfx8d5GN7qo00q
+	mVslG1iX6NloB7oycglNy6iLJTWUKgRZ8bYdOE1kZ9A/nfte8qkx4G5VocGTLbtM
+	RkKxMER6m8ci8ez/186oNN7cWSGjWixC///Z6q9mnUq7DQM4trTOHIbp4eB3LE+9
+	OOhXgUS0ieXVk/8FN4+Gg0v9HnSyBtFi7P8ZPMaeOfMfsj8sl2mgKhay9ie8APWu
+	N8jP0tqbR3TKkqMRdHX52+RGain+E2k6FjoVul+5UFJ0JY2ru+HaXxeVDZvLJyjw
+	rIaJlA==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d46tp0xtb-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 07:35:26 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-359812e4fefso659208a91.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 00:35:26 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 07:35:30 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-359fe4e9ea7so5819600a91.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 00:35:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774424125; x=1775028925; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1774424130; x=1775028930; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=mAKP200DhOcqupPIZbMFC27OoXdQJJ21uxtZjP6Qea8=;
-        b=cGzh9ioKmKE70t17+3E3l2THdWFNIVUny6aOtKDqo6a+JX+EI2VwyF4L7Kvr88WgpH
-         C6fpyog0KOw84cZoY6T9G99qycfDdDEsqRFo6foXCe+wGL6vpcE2jCnPplWw15NE7n9H
-         AvidhFfZz9tkEyTby5eX/6VFS/anniLHAkKraHx2XOdQEH/q8irkKy5IvuR7K65I3nIJ
-         bIVjwLPHqh/w6TzYb1NECN0jxi2ZiZW3P1u4UH5JY95Gn4sGxltJq3C0bOr27eAA6bCS
-         4VB9ADIQqaTq5nnhdlqU3oa6IeCHNkmNQlN3SyUgaM1QvnmF8Qjeeg5oyWPpEgIWLlLK
-         Xu/w==
+        bh=d/OEBn6BOwvct+IRkSrvIYRVtAnFLl3r5gniGuwwRp0=;
+        b=JqFn38Qb0qBeIxvM9+3OHBNV168sK5bcCWS/qrbVMsDGNYQktYb0rfqyCx0JUOOxg6
+         WcNFuvziZxC/qcapwwoMkaID4QYKgnqFkBPFCHDDHIEC8DWDl5tftTx8mdFzPvc12X+I
+         dqFoGrupAYD4nKjBVw8RH5cdkaXVTA2z8eYeYFlLfjHp+fLv+aRKdieoMH5vz0rowpct
+         2Ye0fpimka/ETf3Qf1NQGBtFklm32TVNK8SjJrt/Ja6jSymqi9/cmXfEwe5EC0n7Stv+
+         lGGulVI2rhmqOv5vTDxwtiBz50q737jyefdUOjiWgzaCFdhMcIdAt8r0RxZ6An/Rk0kC
+         c5JQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774424125; x=1775028925;
+        d=1e100.net; s=20251104; t=1774424130; x=1775028930;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=mAKP200DhOcqupPIZbMFC27OoXdQJJ21uxtZjP6Qea8=;
-        b=gT97XJSv+eWOeLINGS6Zyb6adWgw+uIgkY2vJ5//MQ1f0n2lXle1uiEGZbKr9JD0Ie
-         HU2IFAxOF9GG+jVrzKXqSwkFT+LYc459pl4Z7WbB2qmXOQbzWmi+zH87AI0crWED06cC
-         of7ebDIBmhkSFBZ7GEGhONI8NTypYXtULTR/sQ22sQzRA6fT/bqUrk9SXnRSUiN/JN/4
-         YzK1G9LDmS/ND14p58XDw+yEbOZiRbMOX6epaafBbgB981wVJMLwEPpNCqglfD+w/UuL
-         SJT3eiE+5OC9h1l12880spa62eVcGhA/APWeIlUXzIaHsjPlAsaeFnyAnF3WkdyAdPaN
-         rdag==
-X-Forwarded-Encrypted: i=1; AJvYcCWmULBKA2DjzZzM0v7e/eDaqizF+BM0NJ/3mbP+AdJspQ7TcqN5ETlsF70Lbo8U58JQUy0YjoqDH5ER@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxx9bpILe+TZlOHppExBLfmVnJo2EcxQ+FsOq7LQhgfCEu/FW53
-	bay4BqJe52CTUniBXEpWpbAmFCiYsG1GT6DfUJLUAQL19NQkTddy8Q++SZ0YfZ6jGJjG8FjyPXB
-	3TVajzcGzhn16Nqzt7651fB6YVwoivzbHnOABoA/7V12sd53GshJ6JaUiCe/r36QW
-X-Gm-Gg: ATEYQzxmhyI96ToDRDpGUO24bZNlIDpn9t9J7VPI5fkGiQtRhyl+pKv/I0wF/leym7C
-	u0TzxS320H8v4DotOtHLvVFwPFuclUu6twX1dGThIJ5ApwbtkkZFbbmLyFf33OlC767Eqx9wRgh
-	MmgZ4EkeemBH4GoyHL/DG6BhX11zPOCxLIbKqm3kmTV3lbgz7mwjjzPsxR8sYhUSnaQORgTeMZY
-	pYcYp7symmcDKqMewPCwONwLUX1Jif570Cc7I+LeGobl9iBZ4WznMkXRv11xSE9aGAngVpi8Pk8
-	ypfNphPHYCGJfMhqqt5Vdi40lzKtt1nUGM5XKHa/R+Wes7tX3f52ulqyUt16L49auwu/fsZSExH
-	w00sIi375sJ+2vS5jheguZTKenDwRgQIaeT8jsyDQKJBaZraG6Lz/gDVXCdYTFlsTvNWsF4uSKl
-	SK9Fr7i8V/gm/nE1UUvJ2S6PDH9bE80mgVgMT55DX8SiyMCMVTxMpGcOti
-X-Received: by 2002:a17:90b:57e3:b0:34a:be93:72ee with SMTP id 98e67ed59e1d1-35c0d1451d7mr2069696a91.8.1774424125373;
-        Wed, 25 Mar 2026 00:35:25 -0700 (PDT)
-X-Received: by 2002:a17:90b:57e3:b0:34a:be93:72ee with SMTP id 98e67ed59e1d1-35c0d1451d7mr2069678a91.8.1774424124883;
-        Wed, 25 Mar 2026 00:35:24 -0700 (PDT)
+        bh=d/OEBn6BOwvct+IRkSrvIYRVtAnFLl3r5gniGuwwRp0=;
+        b=FyOEROy1vAYGjpE2oB6zG4qDTu7TmZ+Xh/J6UpBec+ryUz7gWNGBuxgBZqQ1yjkPPH
+         9BkAdPDfRhPQIPbi/hLkhC4AjYE1SF8qOYD3yGcrtyOYW1eJ7K1AuOnG3mfdiFod3XBQ
+         YW1TQHqiwCZCgt9w7O0MhYuDKFeyu0DmERLZCoIsHPhgV+jQE8Dxk6TM2s+fTFOltRDC
+         CL45KfrL/2waBagZIho3zvqYSF/SXd/tH84Ci/lXRITQsbRLYQopkruBqqo5dOF46SOK
+         7A7LgVbP9loVCmB2kHzSTeQVhv7M/tzd2y7JajDdelcuPjPnMXV+QiJvhLjc2LZ+tw5t
+         PE/w==
+X-Forwarded-Encrypted: i=1; AJvYcCVwgGSy73aOd3SqG16DFJQBRuYpyqn+kfh65EerLjKxVlq4p2Tuak7d0q9G34r2vtBCSclHDT5AyFXm@vger.kernel.org
+X-Gm-Message-State: AOJu0YzTUhHKGUmV3dXWSNf5o0qkcuTvOIOFMMvaAQXtTMvGA1Q4pAgB
+	7E7zrapRgC9SvYg1lLD+sCtEEQUN79wp5EvBf41GdiAv+nebH4iVBIJJ6Z689GZ5ioh8wqe5x8v
+	8Gh1Ju/fEBSgVvfuM/HLB5Xh5h66YnKqWqIPm36wAA8LRYtfghe+KbmEHC1UJiu2N
+X-Gm-Gg: ATEYQzxgeOfzDOqlTS3+bq6TtQT9alV6ztamVuXUUDnRPiMRKVqlyQ+O+WYo4rg3Rvs
+	uH/pvOVKqchtYZAFD84j+YgR1jfDSbBF3xZTk9pUCluFd+TSWlJjs4KNMGL2ofXXV+KmbQXqYpE
+	YFf4VrUwkBtRv8K9EnN+Ip32VoOmBXd2p9kS25PiejBO4pA+AiFUjLZ1gi9GNdgAng/iqYNwJHJ
+	u04Jfe08aAjmhkmbjNUbh+RMUZVokrQwdDpu+fu0ABuuwVLTy+sErO6IMcJaO1UgoVIYS1ktOQP
+	OMQDHYx1lJ3T0oxwoD5NRtGjb+/gZ5Pa24vkF6PQoFK60HgaYBjWg6RJBMDycbW64yACv57LM7t
+	TpIFAehgcNtJPLE+GH9qW1d+AJx4nrchKcwtkc7JU2RzM8aWp9NH9hlzgdAqxsUaXbz3hNnNwEd
+	UxQyRZ7LDgxhfCL61ZpLxlMon7yxAPk4EWIxF/lFGUkOHozf18CnRfE5T0
+X-Received: by 2002:a17:90b:4b06:b0:359:ff8a:ee42 with SMTP id 98e67ed59e1d1-35c0dcd6d15mr2193998a91.3.1774424129306;
+        Wed, 25 Mar 2026 00:35:29 -0700 (PDT)
+X-Received: by 2002:a17:90b:4b06:b0:359:ff8a:ee42 with SMTP id 98e67ed59e1d1-35c0dcd6d15mr2193976a91.3.1774424128677;
+        Wed, 25 Mar 2026 00:35:28 -0700 (PDT)
 Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35c03206dcfsm4814629a91.13.2026.03.25.00.35.21
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35c03206dcfsm4814629a91.13.2026.03.25.00.35.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 00:35:24 -0700 (PDT)
+        Wed, 25 Mar 2026 00:35:28 -0700 (PDT)
 From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Date: Wed, 25 Mar 2026 13:05:15 +0530
-Subject: [PATCH v3 1/2] dt-bindings: pinctrl: qcom: add IPQ5210 pinctrl
+Date: Wed, 25 Mar 2026 13:05:16 +0530
+Subject: [PATCH v3 2/2] pinctrl: qcom: Introduce IPQ5210 TLMM driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-ipq5210_tlmm-v3-1-3a4b9bb6b1fc@oss.qualcomm.com>
+Message-Id: <20260325-ipq5210_tlmm-v3-2-3a4b9bb6b1fc@oss.qualcomm.com>
 References: <20260325-ipq5210_tlmm-v3-0-3a4b9bb6b1fc@oss.qualcomm.com>
 In-Reply-To: <20260325-ipq5210_tlmm-v3-0-3a4b9bb6b1fc@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>,
@@ -101,175 +101,983 @@ Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774424117; l=4923;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774424117; l=28519;
  i=kathiravan.thirumoorthy@oss.qualcomm.com; s=20230906;
- h=from:subject:message-id; bh=HP+mqyFAMLaG5JbtzUuj2ODbvmGxKbRdJ4aEIhbTJIE=;
- b=EwzUnxbmBvnSeBwDViWl0UAsw8hIDfaGVRTUj423GxJnVNYtGP9URKRjHhtXZVAOGDBZoRnZy
- CF11WDKPwezDJIgS8vLu9TKvMWdZlk9HYDjBLmoNzJEtGbv09rklV0j
+ h=from:subject:message-id; bh=e+V4UublliuZTiBszpvyV27NrTlWjbWc5pf4LYBu6+E=;
+ b=YRAXbOEptbSMpRYsjWrRAfUeE5l1eKsfLvNTrOb0AooGjT0LPOGBFy+84kPlWXfjBwZiPgCwv
+ IoKKJDeQA6WCW/+UtR+nTm4y6PlaVQVpSUGoUQJeATeqvbqselVSMuS
 X-Developer-Key: i=kathiravan.thirumoorthy@oss.qualcomm.com; a=ed25519;
  pk=xWsR7pL6ch+vdZ9MoFGEaP61JUaRf0XaZYWztbQsIiM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDA1MyBTYWx0ZWRfXy4l9sG3PNH/t
- 9/CkrqDzub5vtV9OTZOq2UQUs6DeBlz1galywFSVNc86TdgHCRDs+7b2XTG1PneF1J17w5JuTmO
- LcM2sUDnFovTmPNYPmsKnnWhOEnS0GiFyhaqqaeEHez8PxfxHFHpLNclOiJJ1jPpn8+Q7QZDP/L
- DXQs3i/6cagcaKldYt80DmTDhupiF1jGA5iKww+65jtlPEcFmXx0zvEXzuzQb+U8vr/CC0DjUIH
- U8AxjTj5tOunD+Kr1sYqGJ+nym7vbrv1QLGZdHM0tyAMWngilWeYi6DEw30vBNpxkmWoDMqdrdu
- sw2EEn6MgOncnaftH52yp4IsbwwPo8MbX9s6b8Zn559BpNULQ9Hvkb+J1JYNsIdyX9ckVucpgEO
- CI1BQx2dtyi9rxyycdOnJfsAiM9S7BkL32X93tOCEFM9JsT//DTgfT1L1Tczdee9Ha6tHwCEmfM
- 6h8lWNSIOnsJ6DYuilA==
-X-Proofpoint-GUID: JXDL5mjp4NrpDLCzwvzYj4N2T5kj6gzD
-X-Proofpoint-ORIG-GUID: JXDL5mjp4NrpDLCzwvzYj4N2T5kj6gzD
-X-Authority-Analysis: v=2.4 cv=AKSYvs3t c=1 sm=1 tr=0 ts=69c3903e cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-ORIG-GUID: uf5VoCX8otr1M7G9CGLtDE7564NdhFOA
+X-Authority-Analysis: v=2.4 cv=F4lat6hN c=1 sm=1 tr=0 ts=69c39042 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=N690yQSzLXC5e7GKbG4A:9
- a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22 a=sptkURWiP4Gy88Gu7hUp:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=XU1uPzGwJ20oZLMEIFIA:9 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-GUID: uf5VoCX8otr1M7G9CGLtDE7564NdhFOA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDA1MyBTYWx0ZWRfXy7IyDqOLDs64
+ yW6bayHDiq6XLXLyHVcPyLgjfPUP0mEmzYHjyT08pT4NKhxwJXI1kGY7UGL+T4/Qc7DQT0h52Xo
+ uGIPpWvHhiAxO0tXJBhDMXvS5OewMQVG8dMZlNbynzvksLWa4Vi6MQ3o38HMt4ZAP/X+8WXWStM
+ +/CctnchMjE6aQbg8O8qmjYeEyY8F7FrmwJKkyo63cV+HK/KeWCERK1x7bnMa0JUljXICmzCjvT
+ 7ILXoQJnQsmL8oM1O5wKjsM1KNEwEAw3beIpwgHcf+4U5/wnMK3fNKMwO6I0IZSA3HiMMgusHX/
+ jzxmESK5W1jN04sDnWlBUoScOyUVJAQ+ZsB4rwQy8crwHfHFW+WGM/5iG0EU7nrLd1xVj6YN2nH
+ A2gCA0OaaRFrOrzen0FNxX/oFV09oDGUo8hPvRtToAJNl2q3HWJZoNqpJG8leHOgz0/NRJe6upw
+ Z2+3VGpq7LKXkEiu50g==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-25_02,2026-03-24_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 adultscore=0 lowpriorityscore=0
- malwarescore=0 suspectscore=0 bulkscore=0 clxscore=1015 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603250053
+ phishscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 suspectscore=0 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603250053
 
-Add device tree bindings for IPQ5210 TLMM block.
+Qualcomm's IPQ5210 SoC comes with a TLMM block, like all other platforms,
+so add a driver for it.
 
 Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 ---
- .../bindings/pinctrl/qcom,ipq5210-tlmm.yaml        | 123 +++++++++++++++++++++
- 1 file changed, 123 insertions(+)
+ drivers/pinctrl/qcom/Kconfig.msm       |   8 +
+ drivers/pinctrl/qcom/Makefile          |   1 +
+ drivers/pinctrl/qcom/pinctrl-ipq5210.c | 898 +++++++++++++++++++++++++++++++++
+ 3 files changed, 907 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,ipq5210-tlmm.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,ipq5210-tlmm.yaml
+diff --git a/drivers/pinctrl/qcom/Kconfig.msm b/drivers/pinctrl/qcom/Kconfig.msm
+index 6df6159fa5f8..17416dce8e70 100644
+--- a/drivers/pinctrl/qcom/Kconfig.msm
++++ b/drivers/pinctrl/qcom/Kconfig.msm
+@@ -58,6 +58,14 @@ config PINCTRL_IPQ8064
+ 	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
+ 	  Qualcomm TLMM block found in the Qualcomm IPQ8064 platform.
+ 
++config PINCTRL_IPQ5210
++	tristate "Qualcomm Technologies Inc IPQ5210 pin controller driver"
++	depends on ARM64 || COMPILE_TEST
++	help
++	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
++	  Qualcomm Technologies Inc TLMM block found on the Qualcomm
++	  Technologies Inc IPQ5210 platform.
++
+ config PINCTRL_IPQ5332
+ 	tristate "Qualcomm Technologies Inc IPQ5332 pin controller driver"
+ 	depends on ARM64 || COMPILE_TEST
+diff --git a/drivers/pinctrl/qcom/Makefile b/drivers/pinctrl/qcom/Makefile
+index a8fd12f90d6e..84ff95ff246a 100644
+--- a/drivers/pinctrl/qcom/Makefile
++++ b/drivers/pinctrl/qcom/Makefile
+@@ -8,6 +8,7 @@ obj-$(CONFIG_PINCTRL_GLYMUR)	+= pinctrl-glymur.o
+ obj-$(CONFIG_PINCTRL_IPQ4019)	+= pinctrl-ipq4019.o
+ obj-$(CONFIG_PINCTRL_IPQ5018)	+= pinctrl-ipq5018.o
+ obj-$(CONFIG_PINCTRL_IPQ8064)	+= pinctrl-ipq8064.o
++obj-$(CONFIG_PINCTRL_IPQ5210)	+= pinctrl-ipq5210.o
+ obj-$(CONFIG_PINCTRL_IPQ5332)	+= pinctrl-ipq5332.o
+ obj-$(CONFIG_PINCTRL_IPQ5424)	+= pinctrl-ipq5424.o
+ obj-$(CONFIG_PINCTRL_IPQ8074)	+= pinctrl-ipq8074.o
+diff --git a/drivers/pinctrl/qcom/pinctrl-ipq5210.c b/drivers/pinctrl/qcom/pinctrl-ipq5210.c
 new file mode 100644
-index 000000000000..12c5e76235a3
+index 000000000000..5467c886204c
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/pinctrl/qcom,ipq5210-tlmm.yaml
-@@ -0,0 +1,123 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pinctrl/qcom,ipq5210-tlmm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/pinctrl/qcom/pinctrl-ipq5210.c
+@@ -0,0 +1,898 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
 +
-+title: Qualcomm IPQ5210 TLMM pin controller
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
 +
-+maintainers:
-+  - Bjorn Andersson <andersson@kernel.org>
-+  - Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
++#include "pinctrl-msm.h"
 +
-+description:
-+  Top Level Mode Multiplexer pin controller in Qualcomm IPQ5210 SoC.
++#define REG_SIZE 0x1000
++#define PINGROUP(id, f1, f2, f3, f4, f5, f6, f7, f8, f9)	      \
++	{                                                             \
++		.grp = PINCTRL_PINGROUP("gpio" #id,                   \
++					gpio##id##_pins,              \
++					ARRAY_SIZE(gpio##id##_pins)), \
++		.ctl_reg = REG_SIZE * id,                             \
++		.io_reg = 0x4 + REG_SIZE * id,                        \
++		.intr_cfg_reg = 0x8 + REG_SIZE * id,                  \
++		.intr_status_reg = 0xc + REG_SIZE * id,               \
++		.intr_target_reg = 0x8 + REG_SIZE * id,               \
++		.mux_bit = 2,                                         \
++		.pull_bit = 0,                                        \
++		.drv_bit = 6,                                         \
++		.oe_bit = 9,                                          \
++		.in_bit = 0,                                          \
++		.out_bit = 1,                                         \
++		.intr_enable_bit = 0,                                 \
++		.intr_status_bit = 0,                                 \
++		.intr_target_bit = 5,                                 \
++		.intr_target_kpss_val = 3,                            \
++		.intr_raw_status_bit = 4,                             \
++		.intr_polarity_bit = 1,                               \
++		.intr_detection_bit = 2,                              \
++		.intr_detection_width = 2,                            \
++		.funcs = (int[]){                                     \
++			msm_mux_gpio, /* gpio mode */                 \
++			msm_mux_##f1,                                 \
++			msm_mux_##f2,                                 \
++			msm_mux_##f3,                                 \
++			msm_mux_##f4,                                 \
++			msm_mux_##f5,                                 \
++			msm_mux_##f6,                                 \
++			msm_mux_##f7,                                 \
++			msm_mux_##f8,                                 \
++			msm_mux_##f9,                                 \
++		},                                                    \
++		.nfuncs = 10,                                         \
++	}
 +
-+allOf:
-+  - $ref: /schemas/pinctrl/qcom,tlmm-common.yaml#
++static const struct pinctrl_pin_desc ipq5210_pins[] = {
++	PINCTRL_PIN(0, "GPIO_0"),
++	PINCTRL_PIN(1, "GPIO_1"),
++	PINCTRL_PIN(2, "GPIO_2"),
++	PINCTRL_PIN(3, "GPIO_3"),
++	PINCTRL_PIN(4, "GPIO_4"),
++	PINCTRL_PIN(5, "GPIO_5"),
++	PINCTRL_PIN(6, "GPIO_6"),
++	PINCTRL_PIN(7, "GPIO_7"),
++	PINCTRL_PIN(8, "GPIO_8"),
++	PINCTRL_PIN(9, "GPIO_9"),
++	PINCTRL_PIN(10, "GPIO_10"),
++	PINCTRL_PIN(11, "GPIO_11"),
++	PINCTRL_PIN(12, "GPIO_12"),
++	PINCTRL_PIN(13, "GPIO_13"),
++	PINCTRL_PIN(14, "GPIO_14"),
++	PINCTRL_PIN(15, "GPIO_15"),
++	PINCTRL_PIN(16, "GPIO_16"),
++	PINCTRL_PIN(17, "GPIO_17"),
++	PINCTRL_PIN(18, "GPIO_18"),
++	PINCTRL_PIN(19, "GPIO_19"),
++	PINCTRL_PIN(20, "GPIO_20"),
++	PINCTRL_PIN(21, "GPIO_21"),
++	PINCTRL_PIN(22, "GPIO_22"),
++	PINCTRL_PIN(23, "GPIO_23"),
++	PINCTRL_PIN(24, "GPIO_24"),
++	PINCTRL_PIN(25, "GPIO_25"),
++	PINCTRL_PIN(26, "GPIO_26"),
++	PINCTRL_PIN(27, "GPIO_27"),
++	PINCTRL_PIN(28, "GPIO_28"),
++	PINCTRL_PIN(29, "GPIO_29"),
++	PINCTRL_PIN(30, "GPIO_30"),
++	PINCTRL_PIN(31, "GPIO_31"),
++	PINCTRL_PIN(32, "GPIO_32"),
++	PINCTRL_PIN(33, "GPIO_33"),
++	PINCTRL_PIN(34, "GPIO_34"),
++	PINCTRL_PIN(35, "GPIO_35"),
++	PINCTRL_PIN(36, "GPIO_36"),
++	PINCTRL_PIN(37, "GPIO_37"),
++	PINCTRL_PIN(38, "GPIO_38"),
++	PINCTRL_PIN(39, "GPIO_39"),
++	PINCTRL_PIN(40, "GPIO_40"),
++	PINCTRL_PIN(41, "GPIO_41"),
++	PINCTRL_PIN(42, "GPIO_42"),
++	PINCTRL_PIN(43, "GPIO_43"),
++	PINCTRL_PIN(44, "GPIO_44"),
++	PINCTRL_PIN(45, "GPIO_45"),
++	PINCTRL_PIN(46, "GPIO_46"),
++	PINCTRL_PIN(47, "GPIO_47"),
++	PINCTRL_PIN(48, "GPIO_48"),
++	PINCTRL_PIN(49, "GPIO_49"),
++	PINCTRL_PIN(50, "GPIO_50"),
++	PINCTRL_PIN(51, "GPIO_51"),
++	PINCTRL_PIN(52, "GPIO_52"),
++	PINCTRL_PIN(53, "GPIO_53"),
++};
 +
-+properties:
-+  compatible:
-+    const: qcom,ipq5210-tlmm
++#define DECLARE_MSM_GPIO_PINS(pin) \
++	static const unsigned int gpio##pin##_pins[] = { pin }
++DECLARE_MSM_GPIO_PINS(0);
++DECLARE_MSM_GPIO_PINS(1);
++DECLARE_MSM_GPIO_PINS(2);
++DECLARE_MSM_GPIO_PINS(3);
++DECLARE_MSM_GPIO_PINS(4);
++DECLARE_MSM_GPIO_PINS(5);
++DECLARE_MSM_GPIO_PINS(6);
++DECLARE_MSM_GPIO_PINS(7);
++DECLARE_MSM_GPIO_PINS(8);
++DECLARE_MSM_GPIO_PINS(9);
++DECLARE_MSM_GPIO_PINS(10);
++DECLARE_MSM_GPIO_PINS(11);
++DECLARE_MSM_GPIO_PINS(12);
++DECLARE_MSM_GPIO_PINS(13);
++DECLARE_MSM_GPIO_PINS(14);
++DECLARE_MSM_GPIO_PINS(15);
++DECLARE_MSM_GPIO_PINS(16);
++DECLARE_MSM_GPIO_PINS(17);
++DECLARE_MSM_GPIO_PINS(18);
++DECLARE_MSM_GPIO_PINS(19);
++DECLARE_MSM_GPIO_PINS(20);
++DECLARE_MSM_GPIO_PINS(21);
++DECLARE_MSM_GPIO_PINS(22);
++DECLARE_MSM_GPIO_PINS(23);
++DECLARE_MSM_GPIO_PINS(24);
++DECLARE_MSM_GPIO_PINS(25);
++DECLARE_MSM_GPIO_PINS(26);
++DECLARE_MSM_GPIO_PINS(27);
++DECLARE_MSM_GPIO_PINS(28);
++DECLARE_MSM_GPIO_PINS(29);
++DECLARE_MSM_GPIO_PINS(30);
++DECLARE_MSM_GPIO_PINS(31);
++DECLARE_MSM_GPIO_PINS(32);
++DECLARE_MSM_GPIO_PINS(33);
++DECLARE_MSM_GPIO_PINS(34);
++DECLARE_MSM_GPIO_PINS(35);
++DECLARE_MSM_GPIO_PINS(36);
++DECLARE_MSM_GPIO_PINS(37);
++DECLARE_MSM_GPIO_PINS(38);
++DECLARE_MSM_GPIO_PINS(39);
++DECLARE_MSM_GPIO_PINS(40);
++DECLARE_MSM_GPIO_PINS(41);
++DECLARE_MSM_GPIO_PINS(42);
++DECLARE_MSM_GPIO_PINS(43);
++DECLARE_MSM_GPIO_PINS(44);
++DECLARE_MSM_GPIO_PINS(45);
++DECLARE_MSM_GPIO_PINS(46);
++DECLARE_MSM_GPIO_PINS(47);
++DECLARE_MSM_GPIO_PINS(48);
++DECLARE_MSM_GPIO_PINS(49);
++DECLARE_MSM_GPIO_PINS(50);
++DECLARE_MSM_GPIO_PINS(51);
++DECLARE_MSM_GPIO_PINS(52);
++DECLARE_MSM_GPIO_PINS(53);
 +
-+  reg:
-+    maxItems: 1
++enum ipq5210_functions {
++	msm_mux_atest_char_start,
++	msm_mux_atest_char_status0,
++	msm_mux_atest_char_status1,
++	msm_mux_atest_char_status2,
++	msm_mux_atest_char_status3,
++	msm_mux_atest_tic_en,
++	msm_mux_audio_pri,
++	msm_mux_audio_pri_mclk_out0,
++	msm_mux_audio_pri_mclk_in0,
++	msm_mux_audio_pri_mclk_out1,
++	msm_mux_audio_pri_mclk_in1,
++	msm_mux_audio_pri_mclk_out2,
++	msm_mux_audio_pri_mclk_in2,
++	msm_mux_audio_pri_mclk_out3,
++	msm_mux_audio_pri_mclk_in3,
++	msm_mux_audio_sec,
++	msm_mux_audio_sec_mclk_out0,
++	msm_mux_audio_sec_mclk_in0,
++	msm_mux_audio_sec_mclk_out1,
++	msm_mux_audio_sec_mclk_in1,
++	msm_mux_audio_sec_mclk_out2,
++	msm_mux_audio_sec_mclk_in2,
++	msm_mux_audio_sec_mclk_out3,
++	msm_mux_audio_sec_mclk_in3,
++	msm_mux_core_voltage_0,
++	msm_mux_cri_trng0,
++	msm_mux_cri_trng1,
++	msm_mux_cri_trng2,
++	msm_mux_cri_trng3,
++	msm_mux_dbg_out_clk,
++	msm_mux_dg_out,
++	msm_mux_gcc_plltest_bypassnl,
++	msm_mux_gcc_plltest_resetn,
++	msm_mux_gcc_tlmm,
++	msm_mux_gpio,
++	msm_mux_led0,
++	msm_mux_led1,
++	msm_mux_led2,
++	msm_mux_mdc_mst,
++	msm_mux_mdc_slv0,
++	msm_mux_mdc_slv1,
++	msm_mux_mdc_slv2,
++	msm_mux_mdio_mst,
++	msm_mux_mdio_slv0,
++	msm_mux_mdio_slv1,
++	msm_mux_mdio_slv2,
++	msm_mux_mux_tod_out,
++	msm_mux_pcie0_clk_req_n,
++	msm_mux_pcie0_wake,
++	msm_mux_pcie1_clk_req_n,
++	msm_mux_pcie1_wake,
++	msm_mux_pll_test,
++	msm_mux_pon_active_led,
++	msm_mux_pon_mux_sel,
++	msm_mux_pon_rx,
++	msm_mux_pon_rx_los,
++	msm_mux_pon_tx,
++	msm_mux_pon_tx_burst,
++	msm_mux_pon_tx_dis,
++	msm_mux_pon_tx_fault,
++	msm_mux_pon_tx_sd,
++	msm_mux_gpn_rx_los,
++	msm_mux_gpn_tx_burst,
++	msm_mux_gpn_tx_dis,
++	msm_mux_gpn_tx_fault,
++	msm_mux_gpn_tx_sd,
++	msm_mux_pps,
++	msm_mux_pwm0,
++	msm_mux_pwm1,
++	msm_mux_pwm2,
++	msm_mux_pwm3,
++	msm_mux_qdss_cti_trig_in_a0,
++	msm_mux_qdss_cti_trig_in_a1,
++	msm_mux_qdss_cti_trig_in_b0,
++	msm_mux_qdss_cti_trig_in_b1,
++	msm_mux_qdss_cti_trig_out_a0,
++	msm_mux_qdss_cti_trig_out_a1,
++	msm_mux_qdss_cti_trig_out_b0,
++	msm_mux_qdss_cti_trig_out_b1,
++	msm_mux_qdss_traceclk_a,
++	msm_mux_qdss_tracectl_a,
++	msm_mux_qdss_tracedata_a,
++	msm_mux_qrng_rosc0,
++	msm_mux_qrng_rosc1,
++	msm_mux_qrng_rosc2,
++	msm_mux_qspi_data,
++	msm_mux_qspi_clk,
++	msm_mux_qspi_cs_n,
++	msm_mux_qup_se0,
++	msm_mux_qup_se1,
++	msm_mux_qup_se2,
++	msm_mux_qup_se3,
++	msm_mux_qup_se4,
++	msm_mux_qup_se5,
++	msm_mux_qup_se5_l1,
++	msm_mux_resout,
++	msm_mux_rx_los0,
++	msm_mux_rx_los1,
++	msm_mux_rx_los2,
++	msm_mux_sdc_clk,
++	msm_mux_sdc_cmd,
++	msm_mux_sdc_data,
++	msm_mux_tsens_max,
++	msm_mux__,
++};
 +
-+  interrupts:
-+    maxItems: 1
++static const char *const gpio_groups[] = {
++	"gpio0",  "gpio1",  "gpio2",  "gpio3",	"gpio4",  "gpio5",  "gpio6",
++	"gpio7",  "gpio8",  "gpio9",  "gpio10", "gpio11", "gpio12", "gpio13",
++	"gpio14", "gpio15", "gpio16", "gpio17", "gpio18", "gpio19", "gpio20",
++	"gpio21", "gpio22", "gpio23", "gpio24", "gpio25", "gpio26", "gpio27",
++	"gpio28", "gpio29", "gpio30", "gpio31", "gpio32", "gpio33", "gpio34",
++	"gpio35", "gpio36", "gpio37", "gpio38", "gpio39", "gpio40", "gpio41",
++	"gpio42", "gpio43", "gpio44", "gpio45", "gpio46", "gpio47", "gpio48",
++	"gpio49", "gpio50", "gpio51", "gpio52", "gpio53",
++};
 +
-+  gpio-reserved-ranges:
-+    minItems: 1
-+    maxItems: 27
++static const char *const atest_char_start_groups[] = {
++	"gpio46",
++};
 +
-+  gpio-line-names:
-+    maxItems: 54
++static const char *const atest_char_status0_groups[] = {
++	"gpio34",
++};
 +
-+patternProperties:
-+  "-state$":
-+    oneOf:
-+      - $ref: "#/$defs/qcom-ipq5210-tlmm-state"
-+      - patternProperties:
-+          "-pins$":
-+            $ref: "#/$defs/qcom-ipq5210-tlmm-state"
-+        additionalProperties: false
++static const char *const atest_char_status1_groups[] = {
++	"gpio35",
++};
 +
-+$defs:
-+  qcom-ipq5210-tlmm-state:
-+    type: object
-+    description:
-+      Pinctrl node's client devices use subnodes for desired pin configuration.
-+      Client device subnodes use below standard properties.
-+    $ref: qcom,tlmm-common.yaml#/$defs/qcom-tlmm-state
-+    unevaluatedProperties: false
++static const char *const atest_char_status2_groups[] = {
++	"gpio36",
++};
 +
-+    properties:
-+      pins:
-+        description:
-+          List of gpio pins affected by the properties specified in this
-+          subnode.
-+        items:
-+          pattern: "^gpio([0-9]|[1-4][0-9]|5[0-3])$"
-+        minItems: 1
-+        maxItems: 36
++static const char *const atest_char_status3_groups[] = {
++	"gpio37",
++};
 +
-+      function:
-+        description:
-+          Specify the alternative function to be configured for the specified
-+          pins.
++static const char *const atest_tic_en_groups[] = {
++	"gpio42",
++};
 +
-+        enum: [ atest_char_start, atest_char_status0, atest_char_status1,
-+                atest_char_status2, atest_char_status3, atest_tic_en, audio_pri,
-+                audio_pri_mclk_out0, audio_pri_mclk_in0, audio_pri_mclk_out1,
-+                audio_pri_mclk_in1, audio_pri_mclk_out2, audio_pri_mclk_in2,
-+                audio_pri_mclk_out3, audio_pri_mclk_in3, audio_sec,
-+                audio_sec_mclk_out0, audio_sec_mclk_in0, audio_sec_mclk_out1,
-+                audio_sec_mclk_in1, audio_sec_mclk_out2, audio_sec_mclk_in2,
-+                audio_sec_mclk_out3, audio_sec_mclk_in3, core_voltage_0,
-+                cri_trng0, cri_trng1, cri_trng2, cri_trng3, dbg_out_clk, dg_out,
-+                gcc_plltest_bypassnl, gcc_plltest_resetn, gcc_tlmm, gpio, led0,
-+                led1, led2, mdc_mst, mdc_slv0, mdc_slv1, mdc_slv2, mdio_mst,
-+                mdio_slv0, mdio_slv1, mdio_slv2, mux_tod_out, pcie0_clk_req_n,
-+                pcie0_wake, pcie1_clk_req_n, pcie1_wake, pll_test,
-+                pon_active_led, pon_mux_sel, pon_rx, pon_rx_los, pon_tx,
-+                pon_tx_burst, pon_tx_dis, pon_tx_fault, pon_tx_sd, gpn_rx_los,
-+                gpn_tx_burst, gpn_tx_dis, gpn_tx_fault, gpn_tx_sd, pps, pwm0,
-+                pwm1, pwm2, pwm3, qdss_cti_trig_in_a0, qdss_cti_trig_in_a1,
-+                qdss_cti_trig_in_b0, qdss_cti_trig_in_b1, qdss_cti_trig_out_a0,
-+                qdss_cti_trig_out_a1, qdss_cti_trig_out_b0,
-+                qdss_cti_trig_out_b1, qdss_traceclk_a, qdss_tracectl_a,
-+                qdss_tracedata_a, qrng_rosc0, qrng_rosc1, qrng_rosc2,
-+                qspi_data, qspi_clk, qspi_cs_n, qup_se0, qup_se1, qup_se2,
-+                qup_se3, qup_se4, qup_se5, qup_se5_l1, resout, rx_los0, rx_los1,
-+                rx_los2, sdc_clk, sdc_cmd, sdc_data, tsens_max ]
++static const char *const audio_pri_groups[] = {
++	"gpio34", "gpio35", "gpio36", "gpio37",
++};
 +
-+    required:
-+      - pins
++static const char *const audio_pri_mclk_out0_groups[] = {
++	"gpio12",
++};
 +
-+required:
-+  - compatible
-+  - reg
++static const char *const audio_pri_mclk_in0_groups[] = {
++	"gpio12",
++};
 +
-+unevaluatedProperties: false
++static const char *const audio_pri_mclk_out1_groups[] = {
++	"gpio19",
++};
 +
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
++static const char *const audio_pri_mclk_in1_groups[] = {
++	"gpio19",
++};
 +
-+    tlmm: pinctrl@1000000 {
-+        compatible = "qcom,ipq5210-tlmm";
-+        reg = <0x01000000 0x300000>;
-+        gpio-controller;
-+        #gpio-cells = <0x2>;
-+        gpio-ranges = <&tlmm 0 0 54>;
-+        interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-controller;
-+        #interrupt-cells = <0x2>;
++static const char *const audio_pri_mclk_out2_groups[] = {
++	"gpio8",
++};
 +
-+        qup-uart1-default-state {
-+            pins = "gpio38", "gpio39";
-+            function = "qup_se1";
-+            drive-strength = <6>;
-+            bias-pull-down;
-+        };
-+    };
++static const char *const audio_pri_mclk_in2_groups[] = {
++	"gpio8",
++};
++
++static const char *const audio_pri_mclk_out3_groups[] = {
++	"gpio13",
++};
++
++static const char *const audio_pri_mclk_in3_groups[] = {
++	"gpio13",
++};
++
++static const char *const audio_sec_mclk_out0_groups[] = {
++	"gpio17",
++};
++
++static const char *const audio_sec_mclk_in0_groups[] = {
++	"gpio17",
++};
++
++static const char *const audio_sec_mclk_out1_groups[] = {
++	"gpio16",
++};
++
++static const char *const audio_sec_mclk_in1_groups[] = {
++	"gpio16",
++};
++
++static const char *const audio_sec_mclk_out2_groups[] = {
++	"gpio49",
++};
++
++static const char *const audio_sec_mclk_in2_groups[] = {
++	"gpio49",
++};
++
++static const char *const audio_sec_mclk_out3_groups[] = {
++	"gpio50",
++};
++
++static const char *const audio_sec_mclk_in3_groups[] = {
++	"gpio50",
++};
++
++static const char *const audio_sec_groups[] = {
++	"gpio40", "gpio41", "gpio42""gpio43",
++};
++
++static const char *const core_voltage_0_groups[] = {
++	"gpio22",
++};
++
++static const char *const cri_trng0_groups[] = {
++	"gpio6",
++};
++
++static const char *const cri_trng1_groups[] = {
++	"gpio7",
++};
++
++static const char *const cri_trng2_groups[] = {
++	"gpio8",
++};
++
++static const char *const cri_trng3_groups[] = {
++	"gpio9",
++};
++
++static const char *const dbg_out_clk_groups[] = {
++	"gpio23",
++};
++
++static const char *const dg_out_groups[] = {
++	"gpio46",
++};
++
++static const char *const gcc_plltest_bypassnl_groups[] = {
++	"gpio38",
++};
++
++static const char *const gcc_plltest_resetn_groups[] = {
++	"gpio40",
++};
++
++static const char *const gcc_tlmm_groups[] = {
++	"gpio39",
++};
++
++static const char *const led0_groups[] = {
++	"gpio6", "gpio23", "gpio39",
++};
++
++static const char *const led1_groups[] = {
++	"gpio7", "gpio27", "gpio39",
++};
++
++static const char *const led2_groups[] = {
++	"gpio9", "gpio26", "gpio38",
++};
++
++static const char *const mdc_mst_groups[] = {
++	"gpio26",
++};
++
++static const char *const mdc_slv0_groups[] = {
++	"gpio31",
++};
++
++static const char *const mdc_slv1_groups[] = {
++	"gpio20",
++};
++
++static const char *const mdc_slv2_groups[] = {
++	"gpio47",
++};
++
++static const char *const mdio_mst_groups[] = {
++	"gpio27",
++};
++
++static const char *const mdio_slv0_groups[] = {
++	"gpio33",
++};
++
++static const char *const mdio_slv1_groups[] = {
++	"gpio21",
++};
++
++static const char *const mdio_slv2_groups[] = {
++	"gpio49",
++};
++
++static const char *const mux_tod_out_groups[] = {
++	"gpio19",
++};
++
++static const char *const pcie0_clk_req_n_groups[] = {
++	"gpio31",
++};
++
++static const char *const pcie0_wake_groups[] = {
++	"gpio33",
++};
++
++static const char *const pcie1_clk_req_n_groups[] = {
++	"gpio28",
++};
++
++static const char *const pcie1_wake_groups[] = {
++	"gpio30",
++};
++
++static const char *const pll_test_groups[] = {
++	"gpio18",
++};
++
++static const char *const pon_active_led_groups[] = {
++	"gpio11",
++};
++
++static const char *const pon_mux_sel_groups[] = {
++	"gpio45",
++};
++
++static const char *const pon_rx_groups[] = {
++	"gpio48",
++};
++
++static const char *const pon_rx_los_groups[] = {
++	"gpio10",
++};
++
++static const char *const pon_tx_groups[] = {
++	"gpio15",
++};
++
++static const char *const pon_tx_burst_groups[] = {
++	"gpio14",
++};
++
++static const char *const pon_tx_dis_groups[] = {
++	"gpio12",
++};
++
++static const char *const pon_tx_fault_groups[] = {
++	"gpio17",
++};
++
++static const char *const pon_tx_sd_groups[] = {
++	"gpio16",
++};
++
++static const char *const gpn_rx_los_groups[] = {
++	"gpio47",
++};
++
++static const char *const gpn_tx_burst_groups[] = {
++	"gpio51",
++};
++
++static const char *const gpn_tx_dis_groups[] = {
++	"gpio13",
++};
++
++static const char *const gpn_tx_fault_groups[] = {
++	"gpio49",
++};
++
++static const char *const gpn_tx_sd_groups[] = {
++	"gpio50",
++};
++
++static const char *const pps_groups[] = {
++	"gpio18",
++};
++
++static const char *const pwm0_groups[] = {
++	"gpio10", "gpio11", "gpio12", "gpio13",
++};
++
++static const char *const pwm1_groups[] = {
++	"gpio6", "gpio7", "gpio8", "gpio9",
++};
++
++static const char *const pwm2_groups[] = {
++	"gpio0", "gpio1", "gpio2", "gpio3",
++};
++
++static const char *const pwm3_groups[] = {
++	"gpio22",
++};
++
++static const char *const qdss_cti_trig_in_a0_groups[] = {
++	"gpio30",
++};
++
++static const char *const qdss_cti_trig_in_a1_groups[] = {
++	"gpio33",
++};
++
++static const char *const qdss_cti_trig_in_b0_groups[] = {
++	"gpio34",
++};
++
++static const char *const qdss_cti_trig_in_b1_groups[] = {
++	"gpio37",
++};
++
++static const char *const qdss_cti_trig_out_a0_groups[] = {
++	"gpio28",
++};
++
++static const char *const qdss_cti_trig_out_a1_groups[] = {
++	"gpio31",
++};
++
++static const char *const qdss_cti_trig_out_b0_groups[] = {
++	"gpio16",
++};
++
++static const char *const qdss_cti_trig_out_b1_groups[] = {
++	"gpio35",
++};
++
++static const char *const qdss_traceclk_a_groups[] = {
++	"gpio23",
++};
++
++static const char *const qdss_tracectl_a_groups[] = {
++	"gpio26",
++};
++
++static const char *const qdss_tracedata_a_groups[] = {
++	"gpio6",  "gpio7",  "gpio8",  "gpio9",	"gpio10", "gpio11",
++	"gpio12", "gpio13", "gpio14", "gpio15", "gpio20", "gpio21",
++	"gpio38", "gpio39", "gpio40", "gpio41",
++};
++
++static const char *const qrng_rosc0_groups[] = {
++	"gpio12",
++};
++
++static const char *const qrng_rosc1_groups[] = {
++	"gpio13",
++};
++
++static const char *const qrng_rosc2_groups[] = {
++	"gpio14",
++};
++
++static const char *const qspi_data_groups[] = {
++	"gpio0", "gpio1", "gpio2", "gpio3",
++};
++
++static const char *const qspi_clk_groups[] = {
++	"gpio5",
++};
++
++static const char *const qspi_cs_n_groups[] = {
++	"gpio4",
++};
++
++static const char *const qup_se0_groups[] = {
++	"gpio6", "gpio7", "gpio8", "gpio9", "gpio14", "gpio15",
++};
++
++static const char *const qup_se1_groups[] = {
++	"gpio28", "gpio30", "gpio38", "gpio39",
++};
++
++static const char *const qup_se2_groups[] = {
++	"gpio12", "gpio13", "gpio20", "gpio21", "gpio52", "gpio53",
++};
++
++static const char *const qup_se3_groups[] = {
++	"gpio10", "gpio11", "gpio22", "gpio23",
++};
++
++static const char *const qup_se4_groups[] = {
++	"gpio40", "gpio41", "gpio42", "gpio43", "gpio52", "gpio53",
++};
++
++static const char *const qup_se5_groups[] = {
++	"gpio47", "gpio48", "gpio49", "gpio50", "gpio51", "gpio52",
++};
++
++static const char *const qup_se5_l1_groups[] = {
++	"gpio52", "gpio53",
++};
++
++static const char *const resout_groups[] = {
++	"gpio44",
++};
++
++static const char *const rx_los0_groups[] = {
++	"gpio37", "gpio42",
++};
++
++static const char *const rx_los1_groups[] = {
++	"gpio36", "gpio41",
++};
++
++static const char *const rx_los2_groups[] = {
++	"gpio35", "gpio40",
++};
++
++static const char *const sdc_clk_groups[] = {
++	"gpio5",
++};
++
++static const char *const sdc_cmd_groups[] = {
++	"gpio4",
++};
++
++static const char *const sdc_data_groups[] = {
++	"gpio0", "gpio1", "gpio2", "gpio3",
++};
++
++static const char *const tsens_max_groups[] = {
++	"gpio20",
++};
++
++static const struct pinfunction ipq5210_functions[] = {
++	MSM_PIN_FUNCTION(atest_char_start),
++	MSM_PIN_FUNCTION(atest_char_status0),
++	MSM_PIN_FUNCTION(atest_char_status1),
++	MSM_PIN_FUNCTION(atest_char_status2),
++	MSM_PIN_FUNCTION(atest_char_status3),
++	MSM_PIN_FUNCTION(atest_tic_en),
++	MSM_PIN_FUNCTION(audio_pri),
++	MSM_PIN_FUNCTION(audio_pri_mclk_out0),
++	MSM_PIN_FUNCTION(audio_pri_mclk_in0),
++	MSM_PIN_FUNCTION(audio_pri_mclk_out1),
++	MSM_PIN_FUNCTION(audio_pri_mclk_in1),
++	MSM_PIN_FUNCTION(audio_pri_mclk_out2),
++	MSM_PIN_FUNCTION(audio_pri_mclk_in2),
++	MSM_PIN_FUNCTION(audio_pri_mclk_out3),
++	MSM_PIN_FUNCTION(audio_pri_mclk_in3),
++	MSM_PIN_FUNCTION(audio_sec),
++	MSM_PIN_FUNCTION(audio_sec_mclk_out0),
++	MSM_PIN_FUNCTION(audio_sec_mclk_in0),
++	MSM_PIN_FUNCTION(audio_sec_mclk_out1),
++	MSM_PIN_FUNCTION(audio_sec_mclk_in1),
++	MSM_PIN_FUNCTION(audio_sec_mclk_out2),
++	MSM_PIN_FUNCTION(audio_sec_mclk_in2),
++	MSM_PIN_FUNCTION(audio_sec_mclk_out3),
++	MSM_PIN_FUNCTION(audio_sec_mclk_in3),
++	MSM_PIN_FUNCTION(core_voltage_0),
++	MSM_PIN_FUNCTION(cri_trng0),
++	MSM_PIN_FUNCTION(cri_trng1),
++	MSM_PIN_FUNCTION(cri_trng2),
++	MSM_PIN_FUNCTION(cri_trng3),
++	MSM_PIN_FUNCTION(dbg_out_clk),
++	MSM_PIN_FUNCTION(dg_out),
++	MSM_PIN_FUNCTION(gcc_plltest_bypassnl),
++	MSM_PIN_FUNCTION(gcc_plltest_resetn),
++	MSM_PIN_FUNCTION(gcc_tlmm),
++	MSM_GPIO_PIN_FUNCTION(gpio),
++	MSM_PIN_FUNCTION(led0),
++	MSM_PIN_FUNCTION(led1),
++	MSM_PIN_FUNCTION(led2),
++	MSM_PIN_FUNCTION(mdc_mst),
++	MSM_PIN_FUNCTION(mdc_slv0),
++	MSM_PIN_FUNCTION(mdc_slv1),
++	MSM_PIN_FUNCTION(mdc_slv2),
++	MSM_PIN_FUNCTION(mdio_mst),
++	MSM_PIN_FUNCTION(mdio_slv0),
++	MSM_PIN_FUNCTION(mdio_slv1),
++	MSM_PIN_FUNCTION(mdio_slv2),
++	MSM_PIN_FUNCTION(mux_tod_out),
++	MSM_PIN_FUNCTION(pcie0_clk_req_n),
++	MSM_PIN_FUNCTION(pcie0_wake),
++	MSM_PIN_FUNCTION(pcie1_clk_req_n),
++	MSM_PIN_FUNCTION(pcie1_wake),
++	MSM_PIN_FUNCTION(pll_test),
++	MSM_PIN_FUNCTION(pon_active_led),
++	MSM_PIN_FUNCTION(pon_mux_sel),
++	MSM_PIN_FUNCTION(pon_rx),
++	MSM_PIN_FUNCTION(pon_rx_los),
++	MSM_PIN_FUNCTION(pon_tx),
++	MSM_PIN_FUNCTION(pon_tx_burst),
++	MSM_PIN_FUNCTION(pon_tx_dis),
++	MSM_PIN_FUNCTION(pon_tx_fault),
++	MSM_PIN_FUNCTION(pon_tx_sd),
++	MSM_PIN_FUNCTION(gpn_rx_los),
++	MSM_PIN_FUNCTION(gpn_tx_burst),
++	MSM_PIN_FUNCTION(gpn_tx_dis),
++	MSM_PIN_FUNCTION(gpn_tx_fault),
++	MSM_PIN_FUNCTION(gpn_tx_sd),
++	MSM_PIN_FUNCTION(pps),
++	MSM_PIN_FUNCTION(pwm0),
++	MSM_PIN_FUNCTION(pwm1),
++	MSM_PIN_FUNCTION(pwm2),
++	MSM_PIN_FUNCTION(pwm3),
++	MSM_PIN_FUNCTION(qdss_cti_trig_in_a0),
++	MSM_PIN_FUNCTION(qdss_cti_trig_in_a1),
++	MSM_PIN_FUNCTION(qdss_cti_trig_in_b0),
++	MSM_PIN_FUNCTION(qdss_cti_trig_in_b1),
++	MSM_PIN_FUNCTION(qdss_cti_trig_out_a0),
++	MSM_PIN_FUNCTION(qdss_cti_trig_out_a1),
++	MSM_PIN_FUNCTION(qdss_cti_trig_out_b0),
++	MSM_PIN_FUNCTION(qdss_cti_trig_out_b1),
++	MSM_PIN_FUNCTION(qdss_traceclk_a),
++	MSM_PIN_FUNCTION(qdss_tracectl_a),
++	MSM_PIN_FUNCTION(qdss_tracedata_a),
++	MSM_PIN_FUNCTION(qrng_rosc0),
++	MSM_PIN_FUNCTION(qrng_rosc1),
++	MSM_PIN_FUNCTION(qrng_rosc2),
++	MSM_PIN_FUNCTION(qspi_data),
++	MSM_PIN_FUNCTION(qspi_clk),
++	MSM_PIN_FUNCTION(qspi_cs_n),
++	MSM_PIN_FUNCTION(qup_se0),
++	MSM_PIN_FUNCTION(qup_se1),
++	MSM_PIN_FUNCTION(qup_se2),
++	MSM_PIN_FUNCTION(qup_se3),
++	MSM_PIN_FUNCTION(qup_se4),
++	MSM_PIN_FUNCTION(qup_se5),
++	MSM_PIN_FUNCTION(qup_se5_l1),
++	MSM_PIN_FUNCTION(resout),
++	MSM_PIN_FUNCTION(rx_los0),
++	MSM_PIN_FUNCTION(rx_los1),
++	MSM_PIN_FUNCTION(rx_los2),
++	MSM_PIN_FUNCTION(sdc_clk),
++	MSM_PIN_FUNCTION(sdc_cmd),
++	MSM_PIN_FUNCTION(sdc_data),
++	MSM_PIN_FUNCTION(tsens_max),
++};
++
++static const struct msm_pingroup ipq5210_groups[] = {
++	[0] = PINGROUP(0, sdc_data, qspi_data, pwm2, _, _, _, _, _, _),
++	[1] = PINGROUP(1, sdc_data, qspi_data, pwm2, _, _, _, _, _, _),
++	[2] = PINGROUP(2, sdc_data, qspi_data, pwm2, _, _, _, _, _, _),
++	[3] = PINGROUP(3, sdc_data, qspi_data, pwm2, _, _, _, _, _, _),
++	[4] = PINGROUP(4, sdc_cmd, qspi_cs_n, _, _, _, _, _, _, _),
++	[5] = PINGROUP(5, sdc_clk, qspi_clk, _, _, _, _, _, _, _),
++	[6] = PINGROUP(6, qup_se0, led0, pwm1, _, cri_trng0, qdss_tracedata_a, _, _, _),
++	[7] = PINGROUP(7, qup_se0, led1, pwm1, _, cri_trng1, qdss_tracedata_a, _, _, _),
++	[8] = PINGROUP(8, qup_se0, pwm1, audio_pri_mclk_out2, audio_pri_mclk_in2, _, cri_trng2, qdss_tracedata_a, _, _),
++	[9] = PINGROUP(9, qup_se0, led2, pwm1, _, cri_trng3, qdss_tracedata_a, _, _, _),
++	[10] = PINGROUP(10, pon_rx_los, qup_se3, pwm0, _, _, qdss_tracedata_a, _, _, _),
++	[11] = PINGROUP(11, pon_active_led, qup_se3, pwm0, _, _, qdss_tracedata_a, _, _, _),
++	[12] = PINGROUP(12, pon_tx_dis, qup_se2, pwm0, audio_pri_mclk_out0, audio_pri_mclk_in0, _, qrng_rosc0, qdss_tracedata_a, _),
++	[13] = PINGROUP(13, gpn_tx_dis, qup_se2, pwm0, audio_pri_mclk_out3, audio_pri_mclk_in3, _, qrng_rosc1, qdss_tracedata_a, _),
++	[14] = PINGROUP(14, pon_tx_burst, qup_se0, _, qrng_rosc2, qdss_tracedata_a, _, _, _, _),
++	[15] = PINGROUP(15, pon_tx, qup_se0, _, qdss_tracedata_a, _, _, _, _, _),
++	[16] = PINGROUP(16, pon_tx_sd, audio_sec_mclk_out1, audio_sec_mclk_in1, qdss_cti_trig_out_b0, _, _, _, _, _),
++	[17] = PINGROUP(17, pon_tx_fault, audio_sec_mclk_out0, audio_sec_mclk_in0, _, _, _, _, _, _),
++	[18] = PINGROUP(18, pps, pll_test, _, _, _, _, _, _, _),
++	[19] = PINGROUP(19, mux_tod_out, audio_pri_mclk_out1, audio_pri_mclk_in1, _, _, _, _, _, _),
++	[20] = PINGROUP(20, qup_se2, mdc_slv1, tsens_max, qdss_tracedata_a, _, _, _, _, _),
++	[21] = PINGROUP(21, qup_se2, mdio_slv1, qdss_tracedata_a, _, _, _, _, _, _),
++	[22] = PINGROUP(22, core_voltage_0, qup_se3, pwm3, _, _, _, _, _, _),
++	[23] = PINGROUP(23, led0, qup_se3, dbg_out_clk, qdss_traceclk_a, _, _, _, _, _),
++	[24] = PINGROUP(24, _, _, _, _, _, _, _, _, _),
++	[25] = PINGROUP(25, _, _, _, _, _, _, _, _, _),
++	[26] = PINGROUP(26, mdc_mst, led2, _, qdss_tracectl_a, _, _, _, _, _),
++	[27] = PINGROUP(27, mdio_mst, led1, _, _, _, _, _, _, _),
++	[28] = PINGROUP(28, pcie1_clk_req_n, qup_se1, _, _, qdss_cti_trig_out_a0, _, _, _, _),
++	[29] = PINGROUP(29, _, _, _, _, _, _, _, _, _),
++	[30] = PINGROUP(30, pcie1_wake, qup_se1, _, _, qdss_cti_trig_in_a0, _, _, _, _),
++	[31] = PINGROUP(31, pcie0_clk_req_n, mdc_slv0, _, qdss_cti_trig_out_a1, _, _, _, _, _),
++	[32] = PINGROUP(32, _, _, _, _, _, _, _, _, _),
++	[33] = PINGROUP(33, pcie0_wake, mdio_slv0, qdss_cti_trig_in_a1, _, _, _, _, _, _),
++	[34] = PINGROUP(34, audio_pri, atest_char_status0, qdss_cti_trig_in_b0, _, _, _, _, _, _),
++	[35] = PINGROUP(35, audio_pri, rx_los2, atest_char_status1, qdss_cti_trig_out_b1, _, _, _, _, _),
++	[36] = PINGROUP(36, audio_pri, _, rx_los1, atest_char_status2, _, _, _, _, _),
++	[37] = PINGROUP(37, audio_pri, rx_los0, atest_char_status3, _, qdss_cti_trig_in_b1, _, _, _, _),
++	[38] = PINGROUP(38, qup_se1, led2, gcc_plltest_bypassnl, qdss_tracedata_a, _, _, _, _, _),
++	[39] = PINGROUP(39, qup_se1, led1, led0, gcc_tlmm, qdss_tracedata_a, _, _, _, _),
++	[40] = PINGROUP(40, qup_se4, rx_los2, audio_sec, gcc_plltest_resetn, qdss_tracedata_a, _, _, _, _),
++	[41] = PINGROUP(41, qup_se4, rx_los1, audio_sec, qdss_tracedata_a, _, _, _, _, _),
++	[42] = PINGROUP(42, qup_se4, rx_los0, audio_sec, atest_tic_en, _, _, _, _, _),
++	[43] = PINGROUP(43, qup_se4, audio_sec, _, _, _, _, _, _, _),
++	[44] = PINGROUP(44, resout, _, _, _, _, _, _, _, _),
++	[45] = PINGROUP(45, pon_mux_sel, _, _, _, _, _, _, _, _),
++	[46] = PINGROUP(46, dg_out, atest_char_start, _, _, _, _, _, _, _),
++	[47] = PINGROUP(47, gpn_rx_los, mdc_slv2, qup_se5, _, _, _, _, _, _),
++	[48] = PINGROUP(48, pon_rx, qup_se5, _, _, _, _, _, _, _),
++	[49] = PINGROUP(49, gpn_tx_fault, mdio_slv2, qup_se5, audio_sec_mclk_out2, audio_sec_mclk_in2, _, _, _, _),
++	[50] = PINGROUP(50, gpn_tx_sd, qup_se5, audio_sec_mclk_out3, audio_sec_mclk_in3, _, _, _, _, _),
++	[51] = PINGROUP(51, gpn_tx_burst, qup_se5, _, _, _, _, _, _, _),
++	[52] = PINGROUP(52, qup_se2, qup_se5, qup_se4, qup_se5_l1, _, _, _, _, _),
++	[53] = PINGROUP(53, qup_se2, qup_se4, qup_se5_l1, _, _, _, _, _, _),
++};
++
++static const struct msm_pinctrl_soc_data ipq5210_tlmm = {
++	.pins = ipq5210_pins,
++	.npins = ARRAY_SIZE(ipq5210_pins),
++	.functions = ipq5210_functions,
++	.nfunctions = ARRAY_SIZE(ipq5210_functions),
++	.groups = ipq5210_groups,
++	.ngroups = ARRAY_SIZE(ipq5210_groups),
++	.ngpios = 54,
++};
++
++static const struct of_device_id ipq5210_tlmm_of_match[] = {
++	{ .compatible = "qcom,ipq5210-tlmm", },
++	{ },
++};
++
++static int ipq5210_tlmm_probe(struct platform_device *pdev)
++{
++	return msm_pinctrl_probe(pdev, &ipq5210_tlmm);
++}
++
++static struct platform_driver ipq5210_tlmm_driver = {
++	.driver = {
++		.name = "ipq5210-tlmm",
++		.of_match_table = ipq5210_tlmm_of_match,
++	},
++	.probe = ipq5210_tlmm_probe,
++};
++
++static int __init ipq5210_tlmm_init(void)
++{
++	return platform_driver_register(&ipq5210_tlmm_driver);
++}
++arch_initcall(ipq5210_tlmm_init);
++
++static void __exit ipq5210_tlmm_exit(void)
++{
++	platform_driver_unregister(&ipq5210_tlmm_driver);
++}
++module_exit(ipq5210_tlmm_exit);
++
++MODULE_DESCRIPTION("QTI IPQ5210 TLMM driver");
++MODULE_LICENSE("GPL");
 
 -- 
 2.34.1
