@@ -1,142 +1,101 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3018330B01
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 08:47:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B08739A049
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 08:48:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774428445; cv=none; b=Os3niz7hT8Xk6+Yruo8KJcxRCV6Pms2IyOVv2SacetrGI65DnZGTOczMeBVVorOVDr8EoN3PbCNpKM0JF60YK9dmOBMmVPpfuveTTBEchxQgKwsc9/d1b4u+RF+5gGLCvPB9BQ+kuknFGXCggZwx+gPBomDh3gbENkxboSVYqfo=
+	t=1774428508; cv=none; b=p5MLAOSIu18Vz6dCiKHqKf2xCltxNUeok/83LpWJE3u0LUeqKeN59ZG2zCIKs5u9ChW7YP9XrlIMkcbXtpgXkC6SUND6dLWKWX2fjA8bLSH+TJJluyzT3rVirsMqKzVpCtFbgdi7L/Q6yB48KoSf8s9hRdnL+v23/9A5CpIS3y4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774428445; c=relaxed/simple;
-	bh=ztL5qrDQmt+89+QpvFC3jkjAmOts+inzbS/It1L6Fjk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qCnpHDzdVXUM/JNHQubQWN2/REExq9qmOE3b9/I+mD3VZovyZa/O8JiAg6T/i1zSDiN1oRWhavQkjIOWE+pw4V8wgzuH4s/4IaE5pPl1x2JOpomc/GoQPYNyCWMrnTZ+wtLFVN0UWwvWVlHTIE1oCkKl4Vm6Qv1FGpbNJ+c950g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HPb/eT5Y; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1774428508; c=relaxed/simple;
+	bh=Ui/B+EjELq89M7DdOa1qJ2iByB45eUm71MnYOkLiSuk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LBXQ6XSuPhurW1a5SQtr5LckPM4FruYZeLiMoHKKYdBihMPxmkwXfrs1484ArWHd+m1yiYwgkgazwk8fmPT2KpX30/K0m6TPMX29vHySB1zmXOIKxWURn1S+o7pFlX2biWTq589K4bGPU2v9guoxQ2qZDDz1kZWxVkbXwAYuPtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HPb/eT5Y"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2b0abdde280so13406875ad.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 01:47:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774428444; x=1775033244; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=OxEr38MnvqVqZ2J+GW/5gCOfjo4fanfd7DqD8+2VV5U=;
-        b=HPb/eT5YmLRHBcFT1ADW6dSnVUPKYZOmZ/jx5vRRFNvbiEhw/aqnllBJdR4Z26ZVbs
-         nLYiQweCsrxPuZRjClswqmi/MzRRkst//rg/Z161stdWV9lIsJO3i6hvkNRnknp8I/Rs
-         hZyIz6HCyyYC7hNRSl3teBEOQqJjZg3NHS4A4GZZ8Z6F+tUS3HFQzcac/nm76xMNiXry
-         0gjMI+xjzKyEflJ5m0/2I/xXjMgU/Di4JpzJaQFmx5XzqJU52fZ7YXSjddpwYBepx/Lq
-         gTzit2MvZjJcZYx7lg4JGJUlqaDUtycV80ZBAc14HlQy2lgvl9qlRq1hjuom9eYW1t/3
-         1mNg==
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-64ad019bbd4so6231816d50.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 01:48:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774428444; x=1775033244;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OxEr38MnvqVqZ2J+GW/5gCOfjo4fanfd7DqD8+2VV5U=;
-        b=GldsiQ/b0Vuq4IovLN5gxIThDSG8Ak/GHPFjDqFIPQXOPpfOfENHTVcpiiGaf93iiI
-         JZjgGvnBCWgznIUK4sWMRvZqSSBzv6u0dDl9qxjfi62Yi34vrrgKmJCxyd0Yp5vxROtv
-         zxOzEEb5Vri97SWY54VEdPyaM6MeSd+it4ogbAVomtishjptGY+rQXktv0qmpK/MjuXi
-         d30BKKNhH3SUfLBqHvaORP4T8N0icPaOUspc27reIGrloOaZK8nfnuylC7T1xlLIgsoX
-         MYyVzD0qQtZoIeZ3z0Hp1X/aglc9SVeWk5rno6hKUhlskyd245MufxvRKQEFjjl5djJR
-         LpyQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXgwnkCkDWcljy6JqccXAvL8ZQDaye6VhotUk0xDTQIsFXBCEt5PC4PXWXEGajA/u/wy5HUA5X3dwH6@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz8/iVyCA2tsr72cwc3toQ4eM+8ar/0gOUZgzMXrAyhs9s8dR2p
-	xMHfgRsHu+aqHjUkFiwvPob4JLiCokuvHT6RJE8NERQ3pte5A4dP+wZM
-X-Gm-Gg: ATEYQzyZjV5X/cOW3RACSwOX2kfNdzjko9HZWKjjlnguTX9CqvaBTJkfHZXCfnpwCko
-	pbqytAqDID7CW+lMwW7kPcn2nkbQnvG6qlBLkKC3hvU6niA7PxfO19b2/QGZk190ZXVyOF1Us1T
-	BrVrCFOCG2kLfvFnjOj9XrpRYki3kp/Dw5owGdvvs+v8RJjKkpb4kr0o07n94Bc8rcuuMEFNE6L
-	JoPfBoFuLEVCoWPHG6BygTHkJHgGMz88+O+cQ7wSRaarJYMwkARkSFQVvsIEbEWyJEAdaChfhRa
-	/38I5IYBmbSy6JArN5ZTbtSOh7n0ojrv97A6DRyrteO4EdIx5wRI4bXH07AjFoDRc4w0CF8JNhG
-	vnVcVQMnyDsyZvSL3GdzdW1VniIDXA/7SBZxWnDb9Hw5+A18WVcPLY3m8+8MRJbd4TXfpPYg3wX
-	DIXHenW7yqpFi7V2B/VOD0NZk=
-X-Received: by 2002:a17:902:d50c:b0:2b0:51f6:d46e with SMTP id d9443c01a7336-2b0b09cf4edmr33792755ad.15.1774428444074;
-        Wed, 25 Mar 2026 01:47:24 -0700 (PDT)
-Received: from localhost ([223.233.85.60])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0836556desm231009545ad.47.2026.03.25.01.47.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 01:47:23 -0700 (PDT)
-From: Anushka Badhe <anushkabadhe@gmail.com>
-To: alexandre.belloni@bootlin.com
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	dsd@laptop.org,
-	linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Anushka Badhe <anushkabadhe@gmail.com>
-Subject: [PATCH] dt-bindings: rtc: Convert olpc,xo1-rtc to DT schema
-Date: Wed, 25 Mar 2026 14:17:08 +0530
-Message-ID: <20260325084708.40629-1-anushkabadhe@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1774428506; x=1775033306;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Ui/B+EjELq89M7DdOa1qJ2iByB45eUm71MnYOkLiSuk=;
+        b=bud5sXfVQQDKVA6gJrNUl7c4v02TEBC0ffSGIbivucaCRlfmQPQEfKrWkg0i1qLFjJ
+         HQ4fy34Dyr7olBKWLWfVYX4Wn1dylerX4js2WelGcyczcN6mZEPlQpls4gn1nWbW7y+0
+         6L4Bxz519byoyeP9e44MwV/+fAHbXMroReI6j+kbeiZPq1vsoD9HRoxuebLgierxG2hD
+         5pbhM9vgngq/aFxQudQ+YQufWM/rzHUFa3RWWCwOdq0On1PkOYlfqp+/fyd6cmCdlCWc
+         xSiIbhTKmoIdlGvLKc6HDxvSBdkoJA8b4L1PFWpZYnS+z5+CSzWHklIq+ikktL/+tTvX
+         KPJw==
+X-Forwarded-Encrypted: i=1; AJvYcCUt3gpnpyE4tOrCWkUrTD0uVbVcOM/6mIw3fUutC2qLri1ugHd48U3i88vEA+PphaAvvz0hFBPxvUd9@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqsQcZne2UhpMRqRKe2t5E4cy7cVw5ASMPgBXOZ5fS+3P2GhO6
+	8GDmPEP57nWqMlgP2+x7Mk5TONrH9kuSPVQoT1ql1OasAmPdMi3/Yq6pyY5QAgO9
+X-Gm-Gg: ATEYQzzrbYA5U+aOfn1nkq8b+ze/n55n06G1xNAeJInvL5YsisAmqTrld7X3IdqO+W7
+	nYqgR1xkXonCf7cQ7vd+OP2TzZ6rLRBfHcAp1o2LWHmWFg2LvWfw+CgmyAPi5Uz56Au2WNIwG3h
+	flrGwdm8i6KHb1kxeqdGuTve85mg/nqIvvHl0HLyPdulw6xWJHgEkpjzv4ObJDi2wQHl5QvpX6+
+	9/xVHLjP6R56h3eqKhj6JH+E9E4QOf+oC5nF6sm8Iuv6L7O7fHmP7BZkNUvcUiqw9Oj5t1bzgwt
+	giIR/e9wnJ7xqcn3Wf0GgyfOL5WJgXJqGd9AHUr16GSC7mjbHDv3xgI5balYBY5JKEpWieNnWd9
+	OdPOS5zZRYZ+TcefVKNxg1081QzbY0tqSuPIi56pqtc4wF+rWF63VUkUBcohiwK3Z96ztiTmoUM
+	Pj/s+96OXKkOBeiWOCH0qkCvpvcMK/x53g+I1Je6es1Qn/OA1B13ZfMMRY03cPpTvFsec1vtqMF
+	42BovtGcEYAb9n3Xj1qloMkOkuWitIz0GCR89AkEGC3zQ03coFKFbes
+X-Received: by 2002:a05:690c:39b:b0:79a:702b:4ecc with SMTP id 00721157ae682-79acf6f60f2mr25936947b3.55.1774428505936;
+        Wed, 25 Mar 2026 01:48:25 -0700 (PDT)
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com. [74.125.224.45])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-79a903f4190sm85026437b3.15.2026.03.25.01.48.25
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Mar 2026 01:48:25 -0700 (PDT)
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-64ad019bbd4so6231787d50.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 01:48:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXaGiglvPLtlmfnB/APdbq+kwWewSq+ie1ICmwPTz0cjAw4afO1uLO4pAyhpQxrcMl54XEbVr/fp+55@vger.kernel.org
+X-Received: by 2002:a53:ab0f:0:b0:64e:a737:e1ab with SMTP id
+ 956f58d0204a3-64ee616314dmr1908327d50.37.1774428504983; Wed, 25 Mar 2026
+ 01:48:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260325063254.18062-1-email@sirat.me> <20260325063254.18062-2-email@sirat.me>
+ <20260325-gentle-earthworm-of-progress-1f9f46@quoll>
+In-Reply-To: <20260325-gentle-earthworm-of-progress-1f9f46@quoll>
+From: Sirat <email@sirat.me>
+Date: Wed, 25 Mar 2026 14:48:13 +0600
+X-Gmail-Original-Message-ID: <CANn+LW+Y6j0xk2x02-BUL9qNq2gf-PXspi4wP_KGd7Abz3hOYw@mail.gmail.com>
+X-Gm-Features: AQROBzCPEuZJqZcCIIPP-FKaXO5te60icvGpBgjyHBWGoldVR2MwA1H_0wSNnhM
+Message-ID: <CANn+LW+Y6j0xk2x02-BUL9qNq2gf-PXspi4wP_KGd7Abz3hOYw@mail.gmail.com>
+Subject: Re: [PATCH v7 1/2] dt-bindings: iio: proximity: add ST VL53L1X ToF sensor
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, jic23@kernel.org, 
+	dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Convert the OLPC XO-1 RTC device tree binding to DT schema format.
+On Wed, Mar 25, 2026 at 2:05=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+>
+> On Wed, Mar 25, 2026 at 12:32:22PM +0600, Siratul Islam wrote:
+> > Add device tree binding documentation for the STMicroelectronics
+> > VL53L1X Time-of-Flight ranging sensor connected via I2C.
+> >
+> > Make vdd-supply required. The device requires power to operate
+> > and the property should have been required from the start.
+>
+> That's ABI break and device for many years was working fine, so this
+> should not be changed.
+>
+Jonathan and David asked that vdd-supply be made required. I feel like
+there is a conflict here that I am not able to resolve myself.
 
-Signed-off-by: Anushka Badhe <anushkabadhe@gmail.com>
----
+What I think about it is the binding does not correctly describe the
+hardware and we should consider this a bug and fix it.
+The driver worked because of a fallback mechanism (dummy/fake
+regulator) and not because power was optional.
 
-Note:
-* This patch is part of the GSoC2026 application process for device tree 
-bindings conversions
-* https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
+But I am willing to follow whatever consensus is agreed upon.
 
- .../devicetree/bindings/rtc/olpc-xo1-rtc.txt  |  5 ----
- .../devicetree/bindings/rtc/olpc-xo1-rtc.yaml | 26 +++++++++++++++++++
- 2 files changed, 26 insertions(+), 5 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt
- create mode 100644 Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.yaml
-
-diff --git a/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt b/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt
-deleted file mode 100644
-index a2891ceb6344..000000000000
---- a/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt
-+++ /dev/null
-@@ -1,5 +0,0 @@
--OLPC XO-1 RTC
--~~~~~~~~~~~~~
--
--Required properties:
-- - compatible : "olpc,xo1-rtc"
-diff --git a/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.yaml b/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.yaml
-new file mode 100644
-index 000000000000..a5f029a4de92
---- /dev/null
-+++ b/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.yaml
-@@ -0,0 +1,26 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/rtc/olpc-xo1-rtc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: OLPC XO-1 RTC
-+
-+maintainers:
-+  - Alexandre Belloni <alexandre.belloni@bootlin.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - olpc,xo1-rtc
-+
-+required:
-+  - compatible
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    rtc {
-+       compatible = "olpc,xo1-rtc";
-+    };
--- 
-2.43.0
-
+Thanks,
+Sirat
