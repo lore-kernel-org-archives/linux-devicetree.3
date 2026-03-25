@@ -1,153 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFEDB3CEB85;
-	Wed, 25 Mar 2026 12:06:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6293D3BE63E;
+	Wed, 25 Mar 2026 12:13:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774440381; cv=none; b=enb83HUOEJZa7qJqcmMsAu/muV8oHgc+HeByi7eR8zC8lXG3FGUUXZsTWL+M8Ym2zbdBi3PpSis2hjS82zZIQDlTwi9A57XJhUkq3Lp2K89hZcy+6d87aJocv37lqwvAsblejTOx2ovwYuHN6CbKxqbUodfrMJxAjkkBEW9smMk=
+	t=1774440786; cv=none; b=WgrzImShNaaSnawPV2+IqF0sk48/gOPBxmztb1eAQuI2IlUKMqTufqym6r6i03gY6l4PxQKSSy60MHyZYLaYnwW0Ki7Xd9TwP0rE0jSdYb/u9NUD8UI2bm/x+R5yeAui227IpyAypBa9bKSSa5PVUwMZhf3wOcxOIVQdAHonAv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774440381; c=relaxed/simple;
-	bh=ueF0hrvRluFMJ/+IsNDv2TY9qAQLpZVCChvf6GImWMk=;
+	s=arc-20240116; t=1774440786; c=relaxed/simple;
+	bh=4b6xUiTXHzePN0g2sCrkKE5vlCv6hPj3JaThR6jfupU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UePQYMMHUF/w8im0JJRCGP8h++AX33oeb2sMfRAch2CTvkZnnX/RQjpaJe9ZCqUtZXTY0mBolr4AD1TseUHjJwYkCH6lLc9I1+/U2YuwnLyfOaxQY85cECeCrvYVBPxO38SFSHrowpm/K9TT9JRrjTml+7m9OlhyIieIf77S+dw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b64J3S/9; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=jZdfyA5xO1ylJaAUOtZd1gQJ+cHdY9L/kRg8xL5SGhxz3oy6Ew04ZPc7Lc5QTOGYfGNWg+B7dVKz428OmAOUdvAiThnXgtpUNDSYmSfOsrwLduUQJNbGZY6l9vWE51ET12B8YmgfUkik/rTuYl8tQUFClybsD0ZRonMxKaUIYNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MiKVgoiX; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b64J3S/9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFB30C4CEF7;
-	Wed, 25 Mar 2026 12:06:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774440381;
-	bh=ueF0hrvRluFMJ/+IsNDv2TY9qAQLpZVCChvf6GImWMk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=b64J3S/9wMpdMbsb28lUju0wP16mAjZXdtTfStiNijzPEkHs1QwjQqNJn9Vm96m4G
-	 SesNnOOhFr1Av4MG+5BeUKnlWQbTn7LgkfIEGssQYGwMJXp7uc7C3mqUl+mJqux3Mz
-	 7GVqbaVqgjEGvz6Dkath/TBSnChu4Yci0FfgPm2vMcRNKaevXioRglINXVrTJZU9MW
-	 NstZ4onOipYfdbdsAS/lY7IdpfwvbAM5L8zb11Se6dTjuxRPVKptHkfpZpHB14zIix
-	 egtrB549HcgGNnuMLCUyzdeVWiCIdft3TDwdf/Teh6A6NpfuRpF0LvSmjfIaruYB8r
-	 /NaH//k6jNhlQ==
-Date: Wed, 25 Mar 2026 17:36:08 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Rob Herring <robh@kernel.org>, Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
-	Greg KH <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nicolas.schier@linux.dev>, 
-	Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
-	"Derek J . Clark" <derekjohn.clark@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org, 
-	"platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, linux-pm@vger.kernel.org, 
-	Stephan Gerhold <stephan.gerhold@linaro.org>, "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>
-Subject: Re: [PATCH v6 6/9] dt-bindings: connector: m2: Add M.2 1620 LGA
- soldered down connector
-Message-ID: <cvqdbqnzjmzoowxkvz2lyv4avropu5jw7h2r6zng3ecf245hgg@fsysjqflqd35>
-References: <20260317-pci-m2-e-v6-6-9c898f108d3d@oss.qualcomm.com>
- <20260322233713.GA98177-robh@kernel.org>
- <to2mrizprc3hjufqbiplpqyek7f4uutqtn4hx4gkmdgv2rykbc@ybwwjhdec4nm>
- <CAL_JsqJXrHCJt770bJkMmAUhirSF3kHjYwSzkG7cXp7-eys8Rg@mail.gmail.com>
- <6aef3xxjjd4nbgrfx6jc6jt6rpqmttoui6hil5zqgdpas2j6gj@ie6j72orenou>
- <fsvmmgoe5wslmxebhrrwmdg2ldcmhzvj53gjkdfnfg2m2rz2lw@dcfboaakz7ae>
- <bguhzabwryayyqkv4ilzwr3ixwv6bzxncblo3ircz2wm3fs52k@66zvcrfcb4oe>
- <blhm4csjyw6r667cleljgzd6rpwagttjo5rau7wjrlnjakq2qm@ekyhc4jvwmwf>
- <m44mupdmg7kgco62n4evcviagqo7wwgyt3gybugbxwesd4ekjz@o24r6v4tpezc>
- <3faffec9-dc9d-4eec-a652-a84d30d85c96@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MiKVgoiX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774440786; x=1805976786;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4b6xUiTXHzePN0g2sCrkKE5vlCv6hPj3JaThR6jfupU=;
+  b=MiKVgoiXEh8/Vnu6jljIPBSVA9kFLHfHO0IHxbwqX0+bLIgisjL5H37R
+   5BpoI9EgUVM2i1J/ccpU5M2k5xvh44eVv/SGZTH9P7OqU2q+C7OdKk4Zd
+   MP7zX6TME72mSjWZguWPLHfteQjKuk/7GhwhO/vslnsaMZiG59ZOVPPvJ
+   I4LnbNegqo8kSSGMT5SyxUPIviNsa26DU1CY3DTw/GaU3Te2M+stRqAIB
+   pW3r5fmbsbS8u6LibPZG9QRoU9ij/lI+nT3WBaN+Ra6tJ7CgXc5MVrBFE
+   H7QAsKZ65IzjT3gzCWPYT6O90tckZe1IRQJ8m2bgEK4qcsmOVchHkfq4R
+   A==;
+X-CSE-ConnectionGUID: XzqdgDxjReKAdotDMlUUcg==
+X-CSE-MsgGUID: aEATqpJzRL6z0rkNACtL9g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="75191082"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
+   d="scan'208";a="75191082"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 05:13:05 -0700
+X-CSE-ConnectionGUID: XCyAjOpnSdu6xvnYQ34lTA==
+X-CSE-MsgGUID: l0NW04geQQ6AC7iIyLNypw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
+   d="scan'208";a="218089774"
+Received: from dalessan-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.32])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 05:13:01 -0700
+Date: Wed, 25 Mar 2026 14:12:59 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	"Sa, Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 2/2] iio: dac: ad5706r: Add support for AD5706R DAC
+Message-ID: <acPRSzrHUtSEx-J3@ashevche-desk.local>
+References: <20260318-dev_ad5706r-v3-0-5d078f41e988@analog.com>
+ <20260318-dev_ad5706r-v3-2-5d078f41e988@analog.com>
+ <abpfdELI33a0Ncl3@ashevche-desk.local>
+ <PH0PR03MB6351A1A32896F5CFF05A4C10F14FA@PH0PR03MB6351.namprd03.prod.outlook.com>
+ <abugoaMtEV75Fyk8@ashevche-desk.local>
+ <PH0PR03MB63519301C13837DBD94535E2F149A@PH0PR03MB6351.namprd03.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3faffec9-dc9d-4eec-a652-a84d30d85c96@app.fastmail.com>
+In-Reply-To: <PH0PR03MB63519301C13837DBD94535E2F149A@PH0PR03MB6351.namprd03.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Mar 23, 2026 at 01:23:07PM -0400, Mark Pearson wrote:
+On Wed, Mar 25, 2026 at 01:07:44AM +0000, Torreno, Alexis Czezar wrote:
+> > > > > Changes since v1:
+> > > > >   - Removed PWM, GPIO, clock generator, debugfs, regmap,
+> > > > > IIO_BUFFER
+> > > >
+> > > > Why was regmap removed?! Was it not used?
+> > >
+> > > As far as I understand it, regmap also gives access to debugfs. When I
+> > > removed debugfs I also added regmap as removed.
+> > 
+> > Not only debugfs, and it's unrelated to the any custom debugfs interfaces in
+> > the driver, it's just a feature out-of-the-box of regmap.
+> > 
+> > > For the spi write/read I am not using regmap as the device has some
+> > > features that I think regmap_read/write couldn't support. Namely the
+> > > variable data width, as the device only accepts exact amount of clock
+> > > cycles. Future patches will also add variable SPI speed.
+> > 
+> > We have a lot of flexibility in regmap core. Do you think it can be improved /
+> > extended to cover the cases like yours?
 > 
+> To neatly summarize, my needs are: (in future patches)
+> 1. SPI read/write can have different frequencies and runtime changeable
+
+How does it related to regmap? Is it dependent on the register?
+
+> 2. SPI data bits needs to be exactly 8bits or 16bits depending on register width
+
+This is solved very easily with regmap, no problem at all (two regmaps with
+configuration for 8-bit and 16-bit registers), I believe we have even driver
+in kernel that does exactly this.
+
+> 3. DAC Device reads SPI command bits [14:12] for communication, not just chip select
+
+Okay, but I'm not sure how this is a limitation...
+
+> For regmap to be used
+> 1. regmap_config would need new read_speed and write_speed entries.
+> 2. val_bits must now be changeable depending on the need.
+> 3. I think the read/write_flag_mask can do this.
 > 
-> On Mon, Mar 23, 2026, at 12:52 PM, Manivannan Sadhasivam wrote:
-> > On Mon, Mar 23, 2026 at 06:45:15PM +0200, Dmitry Baryshkov wrote:
-> >> On Mon, Mar 23, 2026 at 09:26:04PM +0530, Manivannan Sadhasivam wrote:
-> >> > On Mon, Mar 23, 2026 at 05:14:30PM +0200, Dmitry Baryshkov wrote:
-> >> > > On Mon, Mar 23, 2026 at 07:14:25PM +0530, Manivannan Sadhasivam wrote:
-> >> > > > On Mon, Mar 23, 2026 at 08:39:55AM -0500, Rob Herring wrote:
-> >> > > > > On Mon, Mar 23, 2026 at 7:16 AM Manivannan Sadhasivam <mani@kernel.org> wrote:
-> >> > > > > >
-> >> > > > > > On Sun, Mar 22, 2026 at 06:37:13PM -0500, Rob Herring wrote:
-> >> > > > > > > On Tue, Mar 17, 2026 at 09:59:56AM +0530, Manivannan Sadhasivam wrote:
-> >> > > > > > > > Lenovo Thinkpad T14s is found to have a soldered down version of M.2 1620
-> >> > > > > > > > LGA connector. Though, there is no 1620 LGA form factor defined in the M.2
-> >> > > > > > > > spec, it looks very similar to the M.2 Key E connector. So add the
-> >> > > > > > > > "pcie-m2-1620-lga-connector" compatible with "pcie-m2-e-connector" fallback
-> >> > > > > > > > to reuse the Key E binding.
-> >> > > > > > >
-> >> > > > > > > What is LGA?
-> >> > > > > > >
-> >> > > > > >
-> >> > > > > > Land Grid Array
-> >> > > > > >
-> >> > > > > > > If not in the spec, is it really something generic?
-> >> > > > > > >
-> >> > > > > >
-> >> > > > > > Good question. Yes and No! LGA is not something that Lenovo only uses. Other
-> >> > > > > > vendors may also use this form factor. PCIe connectors are full of innovation as
-> >> > > > > > the spec gives room for hardware designers to be as innovative as possible to
-> >> > > > > > save the BOM cost.
-> >> > > > > 
-> >> > > > > innovation == incompatible changes
-> >> > > > > 
-> >> > > > 
-> >> > > > Yes, I was trying to sound nice :)
-> >> > > > 
-> >> > > > > > This is why I do not want to make it Lenovo specific. But if you prefer that, I
-> >> > > > > > can name it as "lenovo,pcie-m2-1620-lga-connector".
-> >> > > > > 
-> >> > > > > Depends if you think that s/w needs to know the differences. Hard to
-> >> > > > > say with a sample size of 1.
-> >> > > > > 
-> >> > > > 
-> >> > > > Sure. Will add the 'lenovo' prefix then.
-> >> > > 
-> >> > > Is it really Lenovo? Or is it some other module vendor, whose LGAs are
-> >> > > being used by Lenovo?
-> >> > > 
-> >> > > I remember that DB820c also used some kind of a module for the WiFi card
-> >> > > (which might be M.2 compatible or might not, I can't find exact docs at
-> >> > > this point).
-> >> > > 
-> >> > 
-> >> > I don't know. These kind of designs might be reused by several vendors. But
-> >> > considering that we should not make it generic, I'd go with Lenovo as that's
-> >> > the only vendor we know as of now.
-> >> 
-> >> ... and later we learn that other vendors use the same idea /pinout,
-> >> then nothing stops us from still telling that it's a
-> >> "lenovo,pcie-m2-something-lga". 
-> >> 
-> >
-> > How do you possibly know whether a single vendor has introduced this form factor
-> > or reused by multiple ones? Atleast, I don't have access to such a source to
-> > confirm.
-> >
-> I've not really been following this thread/patchset in detail; but want me to try and check with the T14s platform team if this device is specifically made for us (Lenovo) or not?
-> I doubt it is - we just don't do that usually, but I can go and ask the question if it will help resolve this (with the caveat that it could hold up the review for a bit and I may not be able to get a straight answer)
-> 
+> 1) is relatively easy I think, but am not sure with 2) as it might break other regmap core code
+> that already assumes it to be fixed.
+> Feels like a lot of work for a niche amount of devices, I may still lean on the opinion of
+> keeping regmap as is.
 
-I can drop this specific patch in the meantime.
-
-> My vote (for what little it's worth) would be to make it non-Lenovo specific. Then when the same part causes issues on another vendors platform I won't get asked questions about why Lenovo is breaking <other vendor> :)
-> 
-
-Even if Lenovo prefix is used, it won't break other vendors. Just that we will
-end up adding more compatibles.
-
-Anyhow, I'll wait for your reply and drop this patch for next revision.
-
-- Mani
+Okay, I leave it to others, for the simplicity we can leave driver as is, but
+make sure you put the summary of this into the cover letter, so we will be
+crystal clear why regmap hasn't been chosen.
 
 -- 
-மணிவண்ணன் சதாசிவம்
+With Best Regards,
+Andy Shevchenko
+
+
