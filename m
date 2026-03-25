@@ -1,47 +1,48 @@
 Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8594B3C7E07
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 11:07:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E1AA3B4EA1
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 11:07:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774436846; cv=none; b=Ew6NSSshA5+DukuqTwpX3I4ErIyIEC30TUBz/6RYd/sxVKp8jp77ADKN1BR0TtNqfkc+4Puov6wQ3UstC2BkaPePoWdYX6O9idDdgQTrBsuWwnDUYTaY/da9CcfDQ4g/SX78XYFO4nGbUDQa8qszM/7oDRCdwveW5EVqFKQ1EdU=
+	t=1774436849; cv=none; b=qzpDA7ilcPcYu3MFdXtI6fBX/UGP/yXE7+OQPhf+NgwMxRi8J4HiF1uS9NYtZy31Ma5kfiHSUPV8dwlv7/5V0RswR8oMYa+QFvbClZXbGocOgUZqGh4q8AVbHTbAdBvW+BkoHkqgoBt57N/1crXx2NXm2moI1hb0KgVrB3fMg2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774436846; c=relaxed/simple;
-	bh=gT0ZXWJ1uiV1TcdQdeuxG+3Fiq3ngx1rL8+Gdvpc5pw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qjRQWaEymuGRgVQYonebv/qOkD1T4db8g+m+vF4ar01ub7rQNUGEf3l3wG4SVS/Kd4jv9xSeNom4wV9gj7hhwIYLMSbEntjVKT9nSftv/k8adF08sAgtOlQ7C/qWDGW1YW9dQgjmAyBgPHlnRLB2gdIlKHL85C/rk7dZCa8M01M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=eOePdaBu; arc=none smtp.client-ip=194.117.254.33
+	s=arc-20240116; t=1774436849; c=relaxed/simple;
+	bh=aIu5ABYuD1fk1eq9Ga3LCuwP7/q+DSpFfp9LZzrDYgU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=t2JiT4oS5LHgc8N4+FumrudcmwqMD+JW+Wv3XXv75xXLdUUsVhnS8b/M52nDqrCQg7x477SRYSYmVfrRoYZSIQnje11PVtzmUQhLdarVi+11UvZWaLdOpVZ2hOTkmSKmY8OnppbEs7EzzLftUhBFZaykGjJfV9hz3WbQORjxaaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=lo3Z6cey; arc=none smtp.client-ip=194.117.254.33
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="eOePdaBu"
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="lo3Z6cey"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	sang-engineering.com; h=from:to:cc:subject:date:message-id
-	:mime-version:content-transfer-encoding; s=k1; bh=E8yh68TeQnns/y
-	3/ib3am8CB2h57aExT1LK3V3hcdww=; b=eOePdaBuE5Oe9b/NmJMJDocc2JQBhU
-	YhEuc0upRfr6E/U8DIilmRA1UNMk7l2wNeTyCDlQKw0zHyWblJVTH0YUJ1mrqwpP
-	qOQW3ZtTiPKdY2yfLy8koJcDCMNUN0KCdvGW5RGPDsjvM9WbUKmw/lNpQZhBufRy
-	ynXUIg63UlcXBn68z0xioCpaky/xZcHs1NvzdXCrsMNcpCTRSqqbPNpoyDxV+5kx
-	zNlnkC5ygV/dOxUQGv8MVTJoqx/4cuz+Ymmm9Dos20UHZasH6gnSO7JKlet41t0I
-	L9kGFJA1VxUkmXTO/qUuBvffIWLbgvcaCqX9UtX+aR0KPC4gIP2A4iUA==
-Received: (qmail 3520732 invoked from network); 25 Mar 2026 12:07:18 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 25 Mar 2026 12:07:18 +0100
-X-UD-Smtp-Session: l3s3148p1@DoRsRddNVKIujnt7
+	:in-reply-to:references:mime-version:content-transfer-encoding;
+	 s=k1; bh=I7vF7IE8x+s4rVuu/TSvtJQBlsbLrKRWI9hYhk0VV+U=; b=lo3Z6c
+	eyjA+0t7DK2oQwma2ruwgMlWyQlv8MROR26thgsdOKcDg7Br4K7Q/IE4KYYeuZy5
+	DwXL0VYnFx1Q8LftJsPAsewhZxlcL+rqUZv4OzzKQrDTKayuuFjEejzEyHnDoHMT
+	IyxU4RLroiHR0agSaHy4aVg+DXS44OgHOemTqrui+7fMJ3SFCvUM9dM8Qbw5Xxq9
+	A2Qhn0/BCiwLRFwWrPKLhq/igLbe6M88ukPQaZUDyqVHiq+Hcwn8LKzBWP8CXNlt
+	xc73AZdG4D4KZlLQT16d7t26tjDjB4JH++pYg7V6OEQvrDba4n0kAB1/jryreDRi
+	UhoAfw94Aoni8p8Q==
+Received: (qmail 3520870 invoked from network); 25 Mar 2026 12:07:21 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 25 Mar 2026 12:07:21 +0100
+X-UD-Smtp-Session: l3s3148p1@z/yfRddNcqIujnt7
 From: Wolfram Sang <wsa+renesas@sang-engineering.com>
 To: linux-renesas-soc@vger.kernel.org
 Cc: Marek Vasut <marek.vasut@mailbox.org>,
 	Krzysztof Kozlowski <krzk@kernel.org>,
 	devicetree@vger.kernel.org,
 	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Conor Dooley <conor+dt@kernel.org>,
 	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>
-Subject: [PATCH v2 0/3] soc: renesas: add MFIS driver
-Date: Wed, 25 Mar 2026 12:07:12 +0100
-Message-ID: <20260325110717.17083-1-wsa+renesas@sang-engineering.com>
+	Magnus Damm <magnus.damm@gmail.com>
+Subject: [PATCH v2 3/3] soc: renesas: add X5H PRR support
+Date: Wed, 25 Mar 2026 12:07:15 +0100
+Message-ID: <20260325110717.17083-4-wsa+renesas@sang-engineering.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260325110717.17083-1-wsa+renesas@sang-engineering.com>
+References: <20260325110717.17083-1-wsa+renesas@sang-engineering.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,50 +51,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Changes since v1 are in the patch descriptions.
+On this SoC, PRR is now inside the MFIS memory block, so we need to
+access it similar to e.g. RZ/G2L.
 
-Renesas R-Car MFIS offers multiple features but most importantly
-mailboxes and hwspinlocks. Because they share a common register space
-and a common register unprotection mechanism, a single driver was chosen
-to handle all dependencies. (MFD and auxiliary bus have been tried as
-well, but they failed because of circular dependencies.)
+Suggested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
 
-In this first step, the driver implements common register access and a
-mailbox controller. hwspinlock support will be added incrementally, once
-the subsystem allows out-of-directory drivers (patches already under
-review). This driver has been tested on a Renesas Ironhide board (R-Car
-X5H) and is able to communicate with the SCP via mailboxes. Also, the
-mailbox-test driver was used to confirm back-and-forth communication
-between two application cores.
+Changes since v1:
+* added tag from Geert (thanks!)
 
-Because of its multifunctional nature, the driver lives in
-drivers/soc/renesas. As large parts of these patches handle mailbox
-support, review from mailbox expeirenced people is much appreciated.
+ drivers/soc/renesas/renesas-soc.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-A branch can be found here:
-
-git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git renesas/x5h/mfis-single-driver
-
-Thanks and happy hacking,
-
-   Wolfram
-
-Wolfram Sang (3):
-  dt-bindings: soc: renesas: Document MFIS IP core
-  soc: renesas: Add Renesas R-Car MFIS driver
-  soc: renesas: add X5H PRR support
-
- .../soc/renesas/renesas,r8a78000-mfis.yaml    | 187 ++++++++++
- drivers/soc/renesas/Kconfig                   |   9 +
- drivers/soc/renesas/Makefile                  |   1 +
- drivers/soc/renesas/rcar-mfis.c               | 344 ++++++++++++++++++
- drivers/soc/renesas/renesas-soc.c             |   8 +-
- .../dt-bindings/soc/renesas,r8a78000-mfis.h   |  28 ++
- 6 files changed, 576 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/devicetree/bindings/soc/renesas/renesas,r8a78000-mfis.yaml
- create mode 100644 drivers/soc/renesas/rcar-mfis.c
- create mode 100644 include/dt-bindings/soc/renesas,r8a78000-mfis.h
-
+diff --git a/drivers/soc/renesas/renesas-soc.c b/drivers/soc/renesas/renesas-soc.c
+index 38ff0b823bda..60b09020c935 100644
+--- a/drivers/soc/renesas/renesas-soc.c
++++ b/drivers/soc/renesas/renesas-soc.c
+@@ -442,8 +442,14 @@ static const struct renesas_id id_prr __initconst = {
+ 	.mask = 0xff00,
+ };
+ 
++static const struct renesas_id id_mfis __initconst = {
++	.offset = 0x44,
++	.mask = 0xff00,
++};
++
+ static const struct of_device_id renesas_ids[] __initconst = {
+ 	{ .compatible = "renesas,bsid",			.data = &id_bsid },
++	{ .compatible = "renesas,r8a78000-mfis",	.data = &id_mfis },
+ 	{ .compatible = "renesas,r9a07g043-sysc",	.data = &id_rzg2l },
+ 	{ .compatible = "renesas,r9a07g044-sysc",	.data = &id_rzg2l },
+ 	{ .compatible = "renesas,r9a07g054-sysc",	.data = &id_rzg2l },
+@@ -501,7 +507,7 @@ static int __init renesas_soc_init(void)
+ 		product = readl(chipid + id->offset);
+ 		iounmap(chipid);
+ 
+-		if (id == &id_prr) {
++		if (id == &id_prr || id == &id_mfis) {
+ 			/* R-Car M3-W ES1.1 incorrectly identifies as ES2.0 */
+ 			if ((product & 0x7fff) == 0x5210)
+ 				product ^= 0x11;
 -- 
 2.51.0
 
