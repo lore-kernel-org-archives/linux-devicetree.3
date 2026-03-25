@@ -1,126 +1,93 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E5B39A06E
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 08:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C977C27E05E
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 08:56:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774428904; cv=none; b=RpMkEHLoeCUEU13Rtjj2fiFJWqVom+hHXEKQR11boTDEj/Kw5P5NeJN12hRJwVG2OT8dWZQ+B73eR4jCWUQ1E/UVct1aWFqgehFF1B/sMLCiBj8aP/NkZr+P4syV7ZquwpPTWPJiiQYgLFEN5mWfJL8XxoZREjlo+lRZLW4KxJs=
+	t=1774428963; cv=none; b=DXISjukoa6v1U6Fo+rsaHgiw7wzGcH56sDEoSPhZOJtBxQC9Re2ikJIDU5AI3FcqMtDV1MFi0n6FHcSpVR2ZDRYawpXtG/nq1U1jARt97OX3l8K0A57xP39EXUqiRY7YaONdWfMILbdhLgK+FYb4lPM1Z1pUpclvIH5nlZuXk8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774428904; c=relaxed/simple;
-	bh=uBNGX6/ohZpOh4VJX6xaJ9Yp3oIzzgxxBOENBpJ2j3Q=;
+	s=arc-20240116; t=1774428963; c=relaxed/simple;
+	bh=/JMlAJtkVkMRk9eWWW8xRC7NujwNr+Vi5u7ZPMFm65A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cTN4GgPIUfPMomsjFI64zKoE+ScsjnZEwG75Y2Ygp0Lj3Zyq8p6kH1yxaK+Z2I95mIjYaNHbrMA+lWPM+kpvWWHDiSOIRjM2lHJWqTlLnUXEwbcoOGi3vNSB9zgcUk555U8tsoxOZMOMaooGbgPpZd/tnIgT8h84XVcyjmW2MNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vHX1DI1s; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=YdeMHXxDWKF3HthifyucfVvKEwevVdVMePlAx95EYNkc9L9pGItSZCQ/OeZHMMRjxMrVmnclg/AFpLCTE2/98bXk0COf+oJ9eLwPHc1QxH+MyjOneY+lR3hsRd6bnXPFYVGJ26D6wQeYy+JpoBXce38Qb3zDqXaw3a+X9kRR5d4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dZd/U6Tm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vHX1DI1s"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 50B401A2FED;
-	Wed, 25 Mar 2026 08:54:55 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1AE41601A1;
-	Wed, 25 Mar 2026 08:54:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9324910451011;
-	Wed, 25 Mar 2026 09:54:53 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1774428894; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=oifiJRo3htFrgRTCzmDDZEZuxfqk2csmmaaOHwOCET4=;
-	b=vHX1DI1s/eXFtZMGY9C175IeiDzLZHL5h0zIm4Swi/TMYstES0uFMexlPhbd9qFoSRkDRL
-	XEQReM0m7SEOVEpWx9d6bq0lnm+E6UW5GeDxAvxEjawyzMwdHz+3Zia657whad+FtQAWtO
-	42JCrWbGyZH1EzvquRmft8mDjQqrhqFDEaiAIsUYO4QxPFz2clEe5gFVUz3j0ryMXDvftB
-	rfgu+Ot9kls9JcEufgI2yruSS0g3T+U6Yw6/vsfstY7sIoEM+qoielZJND1Nvz0/xMQTCe
-	N7jWw78LFRlIf2p6PFACAOAjzThfPPauhEyJLoIKuHpoHwiikKdQ4fEwue14mA==
-Date: Wed, 25 Mar 2026 09:54:52 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Anushka Badhe <anushkabadhe@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	dsd@laptop.org, linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: rtc: Convert olpc,xo1-rtc to DT schema
-Message-ID: <202603250854523a8809af@mail.local>
-References: <20260325084708.40629-1-anushkabadhe@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dZd/U6Tm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3CF4C2BCB5;
+	Wed, 25 Mar 2026 08:56:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774428963;
+	bh=/JMlAJtkVkMRk9eWWW8xRC7NujwNr+Vi5u7ZPMFm65A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dZd/U6Tm3x6TyS+nWCPv4d4hPvSI6mO5XfGxHJsgyfP8ir//KnOrgVUPp7Vsb09Jn
+	 e3X8q0hpGNaZEF7+MbQ+U3fjNOxYQFx/q1dohoWvPQqc7RYh0miACYkaziJLrpFgeO
+	 OK39unOR4qLcXQ38I/J/sELVeEgqinwDrH+MeAnWmqtaDmbYX1tAcrpCXVd/rH8tZP
+	 ebR73IkSTakBkLi03moTrcocYL4U+1G1pILUGBgONkVQ4ImcTZAul4KOtDLB32u0XO
+	 YGAqUFToUk1eaTs2cErWhmZD4269UN+p90GnXLyCqs4r2MZRNaYqyhZ3XBpXo14l73
+	 nRYD7hNG6BMvg==
+Date: Wed, 25 Mar 2026 09:56:00 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH RESEND 1/2] regulator: dt-bindings: mt6315: Add regulator
+ supplies
+Message-ID: <20260325-uncovered-carp-of-inquire-8a7acf@quoll>
+References: <20260324053030.4077453-1-wenst@chromium.org>
+ <20260324053030.4077453-2-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260325084708.40629-1-anushkabadhe@gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <20260324053030.4077453-2-wenst@chromium.org>
 
-On 25/03/2026 14:17:08+0530, Anushka Badhe wrote:
-> Convert the OLPC XO-1 RTC device tree binding to DT schema format.
-> 
-> Signed-off-by: Anushka Badhe <anushkabadhe@gmail.com>
-> ---
-> 
-> Note:
-> * This patch is part of the GSoC2026 application process for device tree 
-> bindings conversions
-> * https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
-> 
->  .../devicetree/bindings/rtc/olpc-xo1-rtc.txt  |  5 ----
->  .../devicetree/bindings/rtc/olpc-xo1-rtc.yaml | 26 +++++++++++++++++++
->  2 files changed, 26 insertions(+), 5 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt
->  create mode 100644 Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt b/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt
-> deleted file mode 100644
-> index a2891ceb6344..000000000000
-> --- a/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt
-> +++ /dev/null
-> @@ -1,5 +0,0 @@
-> -OLPC XO-1 RTC
-> -~~~~~~~~~~~~~
-> -
-> -Required properties:
-> - - compatible : "olpc,xo1-rtc"
+On Tue, Mar 24, 2026 at 01:30:28PM +0800, Chen-Yu Tsai wrote:
+> diff --git a/Documentation/devicetree/bindings/regulator/mt6315-regulator.yaml b/Documentation/devicetree/bindings/regulator/mt6315-regulator.yaml
+> index fa6743bb269d..ba99a0d02bc7 100644
+> --- a/Documentation/devicetree/bindings/regulator/mt6315-regulator.yaml
+> +++ b/Documentation/devicetree/bindings/regulator/mt6315-regulator.yaml
+> @@ -29,6 +29,16 @@ properties:
+>      type: object
+>      description: List of regulators and its properties
+>  
+> +    properties:
+> +      pvdd1-supply:
+> +        description: Supply for vbuck1
+> +      pvdd2-supply:
+> +        description: Supply for vbuck2
+> +      pvdd3-supply:
+> +        description: Supply for vbuck3
+> +      pvdd4-supply:
+> +        description: Supply for vbuck4
 
+These all look per-regulator supplies, so I think they should be in each
+regulator node (see also regulator.yaml).
 
-I guess this should be move to trivial-rtc
+Or in top-level, but not in "regulators" node. The regulators is only
+wrapping node for children.
 
-> diff --git a/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.yaml b/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.yaml
-> new file mode 100644
-> index 000000000000..a5f029a4de92
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.yaml
-> @@ -0,0 +1,26 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/rtc/olpc-xo1-rtc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: OLPC XO-1 RTC
-> +
-> +maintainers:
-> +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - olpc,xo1-rtc
-> +
-> +required:
-> +  - compatible
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    rtc {
-> +       compatible = "olpc,xo1-rtc";
-> +    };
-> -- 
-> 2.43.0
-> 
+I wonder what should be our preference - have supplies per regulator or
+in top-level node. @Mark, any preference from your side?
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> +
+>      patternProperties:
+>        "^vbuck[1-4]$":
+>          type: object
+> @@ -51,6 +61,9 @@ examples:
+>        reg = <0x6 0>;
+>  
+>        regulators {
+> +        pvdd1-supply = <&pp4200_z2>;
+> +        pvdd3-supply = <&pp4200_z2>;
+
+Best regards,
+Krzysztof
+
