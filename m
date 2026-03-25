@@ -1,101 +1,262 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011027.outbound.protection.outlook.com [40.107.130.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB7F23ED60
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 01:49:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774403368; cv=none; b=q0J/XzjjgKC844c2TneRQgtGg+KsolHrqqsv5JOo4OQU2aWeXXucm0Hv1WkhNnGhxVdpEKl+TuRHQQBsyE3+q5aGvmFRxGUzXwJIXMQmIQjtEUefyV6zLb/522fmS/229YCDhs8tkG8yxQkx1AHmt/dhm4hANRDXTXz8i66EYeQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774403368; c=relaxed/simple;
-	bh=hNt8MNWtIP/O1R1/zHYxmr7W+C0wrYNqiVbk9jzLSGg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dhih82k2lopu/R768044+vY/FawwnjjLrPSg8QxLDFLrZFC1dLm1D2nNLUANd7XKHMFiG8/GXsa5MBxG44VSx+dIuEAp4T8PbT/ZXKKtzPzJmnf+9hmvfod7YPmnl1Izowkn4BmRRFVMjsrqZ+UDjtsaxZJF7Zfgur+c9cpD+t0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sL6zLVcp; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBEE13DDAA;
+	Wed, 25 Mar 2026 01:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774403617; cv=fail; b=iNnjB/pbGUHQ4tv4SFYgxsPrLTXJ4cw5VzIE7K1F8l/B9mBk+5XwTqGXEUxvSklKnMmifDD7gU0jnQ9iGHUR0uLQh/UYpf9LExM8VxePneGZ8fuzMGa3evZDb7yZExm8ZPn96kZSZIGPHfwKSX0t3GJXFbz3U8vfC0JQyaZ/q3A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774403617; c=relaxed/simple;
+	bh=HX/PDNHEoP6hXlBf+QPSRv/XY6uANuUkwlJ3AJYkBIo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=gT8jfbp1HFrH6dkF+GlKZ8+YWDpbJLqz8S19/AFg87UyoCPSnK2TNmPYVduqoX3I2p7vZSh3m5pYMjXdlG3wgMiSNQ0C9NiWafv0YVVI0y+Y6WaY6JykS25pHFFs+suWUhyB9D8++lx+mre/PM+sMB+E63v6AblJ2MvuMO47VSg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=dZq/nCLa; arc=fail smtp.client-ip=40.107.130.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sL6zLVcp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2914AC2BCB4
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 01:49:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774403368;
-	bh=hNt8MNWtIP/O1R1/zHYxmr7W+C0wrYNqiVbk9jzLSGg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=sL6zLVcpGTSZfNDfpAz0wCOaJmueeAU2MJ+vHx1qo1j1obYbd4lj7vbZa8udsQBbu
-	 fCP3NBxESjVOZKO70dK5pocz6izZxeox5ijRpR9jHYbGvdwlJ7kTnlTgzVXYirRY2L
-	 pffG8zWlVlocXuH0AyuXcCDDSshjIC2NM4V5iQvtsUJdOgxppKZUkidd1gRDJ/pekP
-	 aC4nEovcIjKDukcvG/DsUW4vqi8iVWYkom4HRR6Kl+FNhxZBQ1+GzjngPa9xG5l5wi
-	 wQMHfrfIde4z0reQ/0WlRhiO1XaznM/wCDd9JKNyZdNwpRmSGQxFwJIrGf83Et59Pe
-	 2dPnjkUPSyTMg==
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-660a58841d4so2759869a12.0
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 18:49:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCWB/rnoWg33QQsUSudEjtAgwHv4WhwBMWK7EK7OnyVZ3KUPvq7QYgkMyLbD4KnOi/+Or3JR5QfGqT5B@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1dO3K7I1TUu1pMCbhA/IbVhTm0sdaOAWGglkPn9Fbfb09B0p6
-	484tC+FdBLm+xNSXoQbar05xMGagcqk1ngmuQrxckoKSw96ipWEL8EAzNKKXTfL2JL9Lyq1Cl0U
-	vQ/rNv3yoawiXvDe/kQtogBQNcWWERA==
-X-Received: by 2002:a05:6402:40d5:b0:665:20dc:a900 with SMTP id
- 4fb4d7f45d1cf-66a82593876mr1081696a12.0.1774403366593; Tue, 24 Mar 2026
- 18:49:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="dZq/nCLa"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZhSlFQq7qgQgq4zUE6aqhZ0EKK/a+yos//WBo9vgn/kPQTnLKqHYoGKRjkQH7iiUyY8UhkozcJHT0MCKXo0g5mTC9Qs0ulX8yT3AjOedtmXVCJ6iDt3xDt2YVSZ96FR8wuml1xlscXlHvhd3LhzeuL30LB5njjmY7TOKP/obVw7VqNPYasAUPZXIQOpiTgDSa0DY3rYvigTe3hKvUPbNWNbV3sccnNRp1nzcjacOIoPA9thSjc38ZAVlW6Oj8aCswxmW+vA/nj6xPxn0/DXGGnB2UU/wSrHG4IS3F+7ah8BQa8RJ9etMv14wKX2vdVZRXJM7ibjtINsiV3Xs3mCReQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wDppV0/PVtQMkWNtR+DOHowtE6IeHsFRTHyY8wN2sWU=;
+ b=nRhCiUVFy3FViqV9bF7uBwhjOpAB39DmWNetKab2xKMWUU+3r2HQqoKVRCrxnjz3IKHoSSD03HUznrCOwPu26g+AToT+pl7o2FsIGigkWQjrId4l8Bg9nO+0Jvmi7ZX8U6Trnrwwdq2AFypQFyuk3d0i/RvpEJxFMwXWC4m7X5n2GvWop3AXRy8utI6uo6rX1xhgLkpj3Hjh2ZjELYAgqYI509M7IgpsgXHlEkUz1Nz/w8ZHAg5u0tLUVcVS8/24riBH+q/aqjXNkttDIqamnoLqt0qtW86H/4oGEsksK2EuKzdKYO0DdVFzt+DN8ch5kVUyfFeVqU9mWNmPUdrgJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wDppV0/PVtQMkWNtR+DOHowtE6IeHsFRTHyY8wN2sWU=;
+ b=dZq/nCLavmmvfraGUmDDRl7boWYBVa1PqsGDVJEJasvpVNMKTUbMBZqXTTgKUUAU2r4w/snJN6niH0dPL8MWULfYpOAYqBos1BsyZaEkpTRZ6wy2Dx8zYckjFKSj4lGOueFzfPL2jKfuVv9uBSs3NV7ytBEqg1Raw3Rrzf/nNCxGlgF9QuZCHqbyLKfeDnBU3ZY+ut2xIvmqWSp6oTrLNLRugwT+E1tXqza1LlYAr5n0sn/oaViUz5iRvti5pifto52eOCQWtXeTkWEGU8Gesx90cCkjnqXt0hH5HeObz8nlRyGMlVBqmlteCICTRCaqU1l3P5N/+iY0kgwFGSL4lQ==
+Received: from PAXPR04MB8510.eurprd04.prod.outlook.com (2603:10a6:102:211::7)
+ by AM8PR04MB7202.eurprd04.prod.outlook.com (2603:10a6:20b:1da::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
+ 2026 01:53:32 +0000
+Received: from PAXPR04MB8510.eurprd04.prod.outlook.com
+ ([fe80::b476:c19a:24cd:3694]) by PAXPR04MB8510.eurprd04.prod.outlook.com
+ ([fe80::b476:c19a:24cd:3694%3]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
+ 01:53:32 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: Simon Horman <horms@kernel.org>
+CC: Clark Wang <xiaoning.wang@nxp.com>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "kuba@kernel.org"
+	<kuba@kernel.org>, "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+	"chleroy@kernel.org" <chleroy@kernel.org>, "andrew@lunn.ch" <andrew@lunn.ch>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "edumazet@google.com"
+	<edumazet@google.com>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, Frank Li <frank.li@nxp.com>,
+	"robh@kernel.org" <robh@kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, Claudiu Manoil <claudiu.manoil@nxp.com>,
+	"f.fainelli@gmail.com" <f.fainelli@gmail.com>, Vladimir Oltean
+	<vladimir.oltean@nxp.com>, "linuxppc-dev@lists.ozlabs.org"
+	<linuxppc-dev@lists.ozlabs.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"davem@davemloft.net" <davem@davemloft.net>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "imx@lists.linux.dev" <imx@lists.linux.dev>
+Subject: RE: [PATCH v2 net-next 13/14] net: dsa: netc: initialize buffer bool
+ table and implement flow-control
+Thread-Topic: [PATCH v2 net-next 13/14] net: dsa: netc: initialize buffer bool
+ table and implement flow-control
+Thread-Index: AQHcuote84lxYz/saUypBRN66PVRZbW95VIAgACYkLA=
+Date: Wed, 25 Mar 2026 01:53:32 +0000
+Message-ID:
+ <PAXPR04MB8510C8FA7D3E0635EC23E2178849A@PAXPR04MB8510.eurprd04.prod.outlook.com>
+References: <20260323060752.1157031-14-wei.fang@nxp.com>
+ <20260324164234.238201-1-horms@kernel.org>
+In-Reply-To: <20260324164234.238201-1-horms@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAXPR04MB8510:EE_|AM8PR04MB7202:EE_
+x-ms-office365-filtering-correlation-id: 6b126050-cd03-4d14-bef0-08de8a1151c3
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|19092799006|1800799024|56012099003|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ iMLCGKbe1evIbv8dm8/JR72lHW6gljniCGxlRBlVk+0QMtbiMz/GJ4Owru31weNOKW+Mb8k6DkgYrxFOiFCvS97JGEK0PLop1U+tdZvIKdvaYCAfIdKks9Pu7p23hw98dzskDl9bj41MIFH5zGDCawgdpZi5+U6mHNWii4rrwin1J1fg/BZUUc+IshfCinOaCPMSbfALD5O4xHYdL1zFfpd/C/qH7Xn84yQcdHbjYvDuLoU31hNcvF/XIvIffh6uKLuq2tBMy6CUMBqB9l09tdFaF23kzqFj7BEWi/7uBQP89AmbScvq84MAnN1eAov04kq8ZJmq3jR0jaEulVA+aiNzJT0N8KS0OVC118S5LyxPUOVzUchzNcjo06/eDqqaXKXoPZ1oGsqmUQ2GODFHM4by9kirGL9BXa/v49TYBktcVHWH+/pfiN+SHph7ZQqVn0PkfhOv0kjZdjPJJlcnSuQMFH+fF56sGlTPJUcls/8EE/QBurUvbnGbBqUnvrNJACZFa2RU62iU6zn66nSYMKSlivxeuLCmocuE8NIG7arHEk8KUxuZDio0O4HvgHTA7O4vEYjK3fDZv4J1alvPa/pu1EWxTaQS6cdfE0L8L1Hd0uDXVicsBzR/+047XFPY1fvjcSJAIItTRLJYZZBcUMOWoF2c2lD1/SLmO85aP7zdgwKKJqWYwSbJoVa+vVTwP/UD5+x0Fyihf8HqrCFixFThKsm/h9m3gS9TiNKH6/PPgr+1+kAX2eMCIFjbxfcIFrros4c3L61av/afgl7WOCuX9UU4VpWtBzoVLoaFdQE=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB8510.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(19092799006)(1800799024)(56012099003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?g4jLznmHFxWYc6m8LzKds/hEkLPvJRnWepDYKrKJlz3wTNjAf4S5OBlkAwzi?=
+ =?us-ascii?Q?J0Zw0SrWuvF3VF6S6kQU2iYYRkSSjOZw6pQuAXr/90OvqWE/nc6uwJzTPA0j?=
+ =?us-ascii?Q?PcJvZEcG140Q8RPTm1kv3oLO925qBJ+mNqqU++tDBv05rwMGWggR3IYkN5/Y?=
+ =?us-ascii?Q?+oq44NYRZK6B2oyJwKtutY2bzPHfG4dUZZG5kK5P2i5fxF4D0hnRyEF0wmNG?=
+ =?us-ascii?Q?S1e9lS19neZ/DO0ULChW15U8OhpNCxZ9rsrlIlQ8GXgJMPyEAr2cZl+tFDnF?=
+ =?us-ascii?Q?YHTUp5RsWvukMcforptSwaTdaMAIv9yXVGSu2TnwcPdX3kgCm16BvIC26RQI?=
+ =?us-ascii?Q?xKPhUsFy+uYh1f4yDbGtOKN85FVjOLv4lRZsSVcGx+fYgRz4NimYdZ5P8hlm?=
+ =?us-ascii?Q?+zzJtpM1MJ/oXVsxwqBGi9+vNEl62qwfVlxAwy6CDLYrwSHmQZ8YNRzFbo56?=
+ =?us-ascii?Q?NH63ialX+2bRS1RTpoVdphSutDbj9eTEsV3GfsNedRbw7C5sPIfzKP3/Kthy?=
+ =?us-ascii?Q?7FU9O4mTc7MfKWTTMAMHKUOh0i0IIrzbwXquywanjUPwOohetUydnLcD3H7b?=
+ =?us-ascii?Q?sZ6/dJxVgalyOAKCkVNOXT2kjGYiTGlbgByrDNzs+2bTeh9QPZElRs2TIrvs?=
+ =?us-ascii?Q?S8Rw/F/OEWO3LRWDztrAQwCNCJhk8fQo4+GMutlCfdUAAVdPboT+DtrjYqYH?=
+ =?us-ascii?Q?rOeEX9ys0jZI5Va4b3F4U6pvlfP6312FNspw8owzZFAfjtIMbLFsg3gYw4cN?=
+ =?us-ascii?Q?XCqXg2t2HwiKcb9AmRLcxYCk/gFp7m4YFS8Qro0sielGHzkj2oXMm2DPfQrm?=
+ =?us-ascii?Q?mM/Nbaf6qQ+lrsEcBbr9J/igx97jVdhQVonvIKpshUCr0PVL9oVWde2XXooU?=
+ =?us-ascii?Q?I6f0B97FounfKzsy88EkuEFeM/scn1qHh26mdScyTuWp08QGphwAZ0tQbEYw?=
+ =?us-ascii?Q?zD04PBozWeYC5HlKxhWKhikF+FJV3u+/26GQBNfemJpyUOssB4ZwIQdov09S?=
+ =?us-ascii?Q?x8xJzAL0QcqZ2FiK0lyuwHz63NFRTcM75nG4FGfUr1VA4KT5F1kmPR7OqmR+?=
+ =?us-ascii?Q?QDstYPaDiy0fdi6HWETtLc6CyklXbmyFSJTgb64V1zNFmeMzV5CBAd6wSk3U?=
+ =?us-ascii?Q?Z8hFZoB6DI90IfnbFDtTnJTI42FSi0/UQGUndFE5srVjJqIyHBjZDbj4BIhx?=
+ =?us-ascii?Q?ukuZCTbYJoR19lfDfw3s52ZdtivM6Q2lfW/ayDiMBugb++VmQnanh1yBf6AX?=
+ =?us-ascii?Q?IAVZo3P7EuCXWb4cyTye4JzGhOW/JBHIAH8+TxCvtkinopkKGaI+MjgsNsNr?=
+ =?us-ascii?Q?JWvqIsZU8DbRJNvgkJuD9rcTckYA15P5J0wZfG8krYznnvjjLx4CZQ0kUGK2?=
+ =?us-ascii?Q?MmyxZ0bLy4sjpvyNAwIxMo+Ce21XVPYcqTLRdzbP0hGT0a7vKii2HiHvSoOq?=
+ =?us-ascii?Q?CPLbOtlNTfCNPFsogLSwjkns9mSsmJyGhG5h5JjNE/Lfr3GCqk94I1SYyLgC?=
+ =?us-ascii?Q?iyCRShPwhSrqOTwRzgRNUyY/AfPW5FOitLyhqiibvrmucL8LOAvNAa1EKm95?=
+ =?us-ascii?Q?Qg79GOhTuO2S2sSno6bDKOCp+JaFx46Pz1tmH9DWyiX8AgzwNUuDTwcfJ8yS?=
+ =?us-ascii?Q?8h9AmbF0tz1WlshGklfczuB3QZSAkzASnAJ7fP3i7XZuveq6UHPtbnNKIAy/?=
+ =?us-ascii?Q?hZQK2xjietvw8VxMqySk7hSGVTnonI4+rKuk5NqWrZkws3dw?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CGME20260323100908eucas1p2f471760fe1b26181c9b0cb90dd0739a6@eucas1p2.samsung.com>
- <20260323100901.4079171-1-m.szyprowski@samsung.com> <20260323131822.abae01e95817011f24bb8237@linux-foundation.org>
-In-Reply-To: <20260323131822.abae01e95817011f24bb8237@linux-foundation.org>
-From: Rob Herring <robh@kernel.org>
-Date: Tue, 24 Mar 2026 20:49:14 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqKbfFfWOzDL_KJLg7Gu-wCqE1Ch+yZ6-g-cNJD-rMzxXQ@mail.gmail.com>
-X-Gm-Features: AQROBzA9GVjXMZUCOkFS1ntzOZ2El9XjWSyU4NWT9q2kTbAcGrqDhysUX0MSxz0
-Message-ID: <CAL_JsqKbfFfWOzDL_KJLg7Gu-wCqE1Ch+yZ6-g-cNJD-rMzxXQ@mail.gmail.com>
-Subject: Re: [PATCH v2 0/7] Refactor reserved memory regions handling code
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-mm@kvack.org, iommu@lists.linux.dev, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Oreoluwa Babatunde <oreoluwa.babatunde@oss.qualcomm.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Robin Murphy <robin.murphy@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8510.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b126050-cd03-4d14-bef0-08de8a1151c3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2026 01:53:32.3772
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KfTzxF/R8v234/WkQ1o2t1R6W62ruLA6253gaW2VHjzvqJaGIaMnq4bmpBo4xtgna8pW8xKQWs4OOaOue0Pzow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7202
 
-On Mon, Mar 23, 2026 at 3:18=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
-n.org> wrote:
->
-> On Mon, 23 Mar 2026 11:08:54 +0100 Marek Szyprowski <m.szyprowski@samsung=
-.com> wrote:
->
-> > The reserved memory regions handling code was reworked to handle
-> > unlimited so called "static" memory nodes in commit 00c9a452a235 ("of:
-> > reserved_mem: Add code to dynamically allocate reserved_mem array").
+> > +static u32 netc_get_buffer_pool_num(struct netc_switch *priv)
+> > +{
+> > +	return netc_base_rd(&priv->regs, NETC_BPCAPR) & BPCAPR_NUM_BP;
+> > +}
+> > +
+> > +static void netc_port_set_pbpmcr(struct netc_port *np, u64 mapping)
+> > +{
+> > +	u32 pbpmcr0 =3D lower_32_bits(mapping);
+> > +	u32 pbpmcr1 =3D upper_32_bits(mapping);
+> > +
+> > +	netc_port_wr(np, NETC_PBPMCR0, pbpmcr0);
+> > +	netc_port_wr(np, NETC_PBPMCR1, pbpmcr1);
+> > +}
+> > +
+> > +static void netc_ipv_to_buffer_pool_mapping(struct netc_switch *priv)
+> > +{
+> > +	int num_port_bp =3D priv->num_bp / priv->info->num_ports;
+> > +	int q =3D NETC_IPV_NUM / num_port_bp;
+> >                ^^^^
+>=20
+> Can this cause a division by zero?  If netc_get_buffer_pool_num() reads
+
+From hardware perspective, num_bp is more than num_ports, so num_port_bp
+will not be zero. Let me think how to improve it to avoid such false positi=
+ve.
+
+> the hardware register NETC_BPCAPR and returns 0, then num_port_bp would
+> be
+> 0 and this division would crash the kernel.
+>=20
+> The call chain is:
+>=20
+> netc_setup()
+>   netc_switch_bpt_default_config()
+>     priv->num_bp =3D netc_get_buffer_pool_num()
+>     netc_ipv_to_buffer_pool_mapping()
+>       num_port_bp =3D priv->num_bp / priv->info->num_ports;
+>       q =3D NETC_IPV_NUM / num_port_bp;  <- division by zero
+>=20
+> Should netc_switch_bpt_default_config() validate that priv->num_bp is
+> non-zero before proceeding?
+>=20
+> > +	int r =3D NETC_IPV_NUM % num_port_bp;
+> > +	int num =3D q + r;
+> > +
+> > +	/* IPV-to-buffer-pool mapping per port:
+>=20
+> [ ... ]
+>=20
+> > +static int netc_switch_bpt_default_config(struct netc_switch *priv)
+> > +{
+> > +	priv->num_bp =3D netc_get_buffer_pool_num(priv);
+> > +	priv->bpt_list =3D devm_kcalloc(priv->dev, priv->num_bp,
+> > +				      sizeof(struct bpt_cfge_data),
+> > +				      GFP_KERNEL);
+> > +	if (!priv->bpt_list)
+> > +		return -ENOMEM;
+> > +
+> > +	/* Initialize the maximum threshold of each buffer pool entry */
+> > +	for (int i =3D 0; i < priv->num_bp; i++) {
+> > +		struct bpt_cfge_data *cfge =3D &priv->bpt_list[i];
+> > +		int err;
+> > +
+> > +		cfge->max_thresh =3D cpu_to_le16(NETC_BP_THRESH);
+> > +		err =3D ntmp_bpt_update_entry(&priv->ntmp, i, cfge);
+> > +		if (err)
+> > +			return err;
+> > +	}
+> > +
+> > +	netc_ipv_to_buffer_pool_mapping(priv);
+> > +
+> > +	return 0;
+> > +}
+> > +
+>=20
+> [ ... ]
+>=20
+> > @@ -1224,6 +1313,40 @@ static void netc_port_set_hd_flow_control(struct
+> netc_port *np, bool en)
+> >  			  en ? PM_CMD_CFG_HD_FCEN : 0);
+> >  }
 > >
-> > The side effect of this rework was a set of bugs fixed later by commits
-> > 0fd17e598333 ("of: reserved_mem: Allow reserved_mem framework detect
-> > "cma=3D" kernel param") and 2c223f7239f3 ("of: reserved_mem: Restructur=
-e
-> > call site for dma_contiguous_early_fixup()"). As a result, the code in
-> > drivers/of/of_reserved_mem.c became a mix of generic code and CMA
-> > specific fixups.
-> >
-> > In this patchset I try to untangle this spaghetti and perform some code
-> > cleanup. I hope nothing breaks this time.
->
-> AI review wasn't able to get all the patches to apply, but it asked a
-> few questions:
->
->         https://sashiko.dev/#/patchset/20260323100901.4079171-1-m.szyprow=
-ski@samsung.com
+> > +static void netc_port_set_tx_pause(struct netc_port *np, bool tx_pause=
+)
+> > +{
+> > +	struct netc_switch *priv =3D np->switch_priv;
+> > +	int port =3D np->dp->index;
+> > +	int i, j, num_bp;
+> > +
+> > +	num_bp =3D priv->num_bp / priv->info->num_ports;
+> > +	for (i =3D 0, j =3D port * num_bp; i < num_bp; i++, j++) {
+> > +		struct bpt_cfge_data *cfge;
+> > +
+> > +		cfge =3D &priv->bpt_list[j];
+> > +		if (tx_pause) {
+> > +			cfge->fc_on_thresh =3D cpu_to_le16(NETC_FC_THRESH_ON);
+> > +			cfge->fc_off_thresh =3D cpu_to_le16(NETC_FC_THRESH_OFF);
+> > +			cfge->fccfg_sbpen =3D FIELD_PREP(BPT_FC_CFG,
+> > +						       BPT_FC_CFG_EN_BPFC);
+> > +			cfge->fc_ports =3D cpu_to_le32(BIT(port));
+> > +		} else {
+> > +			cfge->fc_on_thresh =3D cpu_to_le16(0);
+> > +			cfge->fc_off_thresh =3D cpu_to_le16(0);
+> > +			cfge->fccfg_sbpen =3D 0;
+> > +			cfge->fc_ports =3D cpu_to_le32(0);
+> > +		}
+> > +
+> > +		ntmp_bpt_update_entry(&priv->ntmp, j, cfge);
+> >                 ^^^^
+>=20
+> Should the return value of ntmp_bpt_update_entry() be checked here?
+>=20
+> Simon Horman noted in v1 review that other NTMP table operations in the
+> driver propagate errors from the update functions. While this was fixed
+> in netc_switch_bpt_default_config() in v2, the same issue remains here.
+>=20
+> If the hardware update fails (for example, DMA allocation failure or
+> hardware timeout), the driver's bpt_list will have flow control values th=
+at
+> do not match the actual hardware state, potentially causing incorrect flo=
+w
+> control behavior.
 
-Now I get these in several reviews. Just posting links here really
-doesn't flow with the review process. How are we supposed to answer
-when AI is wrong? Manually quote everything? No thanks.
+Okay, I will improve it.
 
-To answer this one, I think 1 comment is wrong, 1 is right, and 1 I'm
-not sure about.
-
-Don't get me wrong, I think this all looks promising. I know email
-support is planned, but please get that in place before sending
-reports. Really, I'd rather just get the emails or mbox to review
-first and then decide what to send for things I maintain. At least
-initially.
-
-Rob
