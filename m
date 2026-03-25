@@ -1,123 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6316338E13E;
-	Wed, 25 Mar 2026 08:06:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774426003; cv=none; b=JR2r+6Vzr4YsnAb96e3W6MUiat9tQfCtsSFyCoGqckmLdadtjck820V+HLJp8+M4a9/SJJwWNEnwqPtXkKJ+XsEK3NT+B82tcxA3YKePl/V8AGmUbvmgFtQnyTcuG/ZZ3V48jx9PEgSqR3N2jx/8HIgkfZfgkK99WO0dOaQ0azE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774426003; c=relaxed/simple;
-	bh=L9Lcvg67aB3qX5H8IvbWdCsstgXK9TNJtpNl2A00B6I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K5teTBLsYZ8zGYzQLLVo+vNlyxf58g4bruV4vbmVIqpkKSoma7c/Ax42CvYGAAINO/6Q7DuD+oe4tj3X0PWD25gII/vtf6QqImqGNlLqj+B7bVGDD+xFhQyykhCxIOcdVgUyX7r6lgtbKQBMtN41xDY31ZRFQ+z/ik74Zw0ZN/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t2LUb3MD; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 721F52DCC05
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 08:09:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774426142; cv=pass; b=ownX6QmWPEBNRuVG47gz9A3It9Fvqwl73w7191hzcgPTIk11paEYxl3AAESNW1HYIPdSXlvvteEaiqbm1YC2xYZzNJRuMhG2CLlrwhKx/eBkOw1oj6HNUQVoL5LcW6IlVGKRGFrABfO36GIWv3lMOsWrXeXUViN/rpOmUbTyFX8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774426142; c=relaxed/simple;
+	bh=zB4lNaKYpQ2RZphP1kN53sQ22q6B+2T4menfF8kikEA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ps4y5E1BC7Jmk8CHNlkTYtn3u9lKl/9FYVkRpkS/uEVoEu5UAM6cEgJOA9VEmZ/sti5LymRNWEZ6OY+udRVfM+TqMKjmm2XEwQ20ToXJ9CVz4ANer7tAivT2qeegXARf2ejxoYe2vsjVYgvMwg2BWWAfbz9Za9Ik2Bq9l3jaln0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=XatOiTM+; arc=pass smtp.client-ip=209.85.167.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t2LUb3MD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 873C2C4CEF7;
-	Wed, 25 Mar 2026 08:06:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774426003;
-	bh=L9Lcvg67aB3qX5H8IvbWdCsstgXK9TNJtpNl2A00B6I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=t2LUb3MDhCki+0CFMqDSvfNy0OV8fysODkPWs3LbZF7DQZOOu5U4yHqbt3ocnPJvN
-	 OZ9TjV1x63rnde6LIL86TyTkD1v9+6LAiNGvRzMG7/a8tVyeYxVFsuZuofOz6h+EAe
-	 8ua9/3z2XG+J/Ug0jMhzPKvji/tq3TwM4BjgCDUrShdU4A/f/bX56eqOpnAOUZ7b6i
-	 q+9iyBJ/1vt7U/kDTZLZlWjxbTG+q3+Ctsd8RH4G++XM3TdCqPJoH0XPDIwgz1dlyJ
-	 QdG4xs9zUyk2RU44hslNYaxdnXhhsOfP3b24Kq9TWtafhnF9Un9uj7dfxXlBwrmxAl
-	 U/zaV32Eqy7eA==
-Message-ID: <83024a54-74dd-43b0-8c8c-0c23820bb5e0@kernel.org>
-Date: Wed, 25 Mar 2026 09:06:37 +0100
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="XatOiTM+"
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5a159c1e65aso4155460e87.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 01:09:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774426139; cv=none;
+        d=google.com; s=arc-20240605;
+        b=D651h0oHpmq4+/rgsY0XI6CDnXK90/sNtQ12tKnpa3N4HSxFWx7g7nFc2070V7ompj
+         e3jqNLNLWWb8O6KLJMSVRFDP26rcSzyxiuQqMcQ/nQo5x5KI8d3y5wC49fOCiRUJkx0C
+         iNdS60ytsMhg0nZddF9b5ZoPwpoiUd8HqQLqYYEy6DvMsuMKUBDw8s7gnE2q//GhXbkE
+         QNylV4SzYs3RGHTHPxAXSzLJRXTcXX2NzCOJ2zfBGTcLSu9jRVduLKjhp42G3vTVm/eG
+         s3+J4r5Mz83HxQ1qVcJ/eOLUN25uYdndmGwdJZMOulgbQpsh4FWW2jiLk/NI++ycD3SZ
+         1HYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=g0KgYtYkqUP59BqGGG61EV18AeUer+TehEbvZYdIpWI=;
+        fh=RUmEAXLc8ukXMjjy7V8NiSPOkfxKBLZxmxhSt3r1sAM=;
+        b=Ypm3fN8ZGWDAUUwkPIlIssUz8euX3pfngqHNs2a63vxdpV5edWL18ViW4oB24Jb0Y3
+         NDFkIRAXeTi3R/BR8qFVcu+obJPuM7s96jsezy09AB9Xm6PFCGS8Joy0STEmMtFYzrYZ
+         +/9ZjfNHCDTa6MvxYQMyxwS7ZspcbX6SC4GLIB5AeULSxYbjW8SoMGtTAvWfRS019LGS
+         nMm2sHpYFgsMBFP3kitvHtYgMRamKWmggqkyc6jTLmV79WdvXBVB0orLihORKXrRJRX3
+         1rGjqGKS5fZe42rONk4ZX0ky6ZeDr1xW8iJUH1gpwdRsUU291SWFFQYci2cL8yXYF4K1
+         J+Qg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1774426139; x=1775030939; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=g0KgYtYkqUP59BqGGG61EV18AeUer+TehEbvZYdIpWI=;
+        b=XatOiTM+zP4FCzdlvRTFgXX1QQV6DFUKf3are/qS0kueMARdfmtmlYQQUI30FBx1xL
+         6stmF13+g/cxZlbjORLQsgOg32ta8VwDNkZoQu1CvfXUgvnlQyv3dm1kWDGknMiACXJ5
+         F090bk698qw3YVDb8gz66Gdg25+zVlYbhVeA8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774426139; x=1775030939;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=g0KgYtYkqUP59BqGGG61EV18AeUer+TehEbvZYdIpWI=;
+        b=csf3k+Ik1EN69jf7+l33cDm6gKmPZWnsuNqDLKHHfIF6UGPD4S1nNeH7P9ydUzc8tl
+         UzVMCuzD1HBDeb+HV1EbkMQ7YOORXwTlcrVIjhAhlINublV9321GQHydyp4B1FqGxpav
+         O2Ok8PKA8bveczBc7lQb17kUQG8ptoK67YjRF+qYrmv6ERIwD7YT1ZW3dWcKmU3S03BH
+         tsBOZG53v4bq4oeKC6+ys4I31Xx8zWVkdK+yCZF43QKnVj24fAoqnZMrpoRV9Om0gEoZ
+         AUfpn6PmE+dnJ+3cDdTtWpmygLBVGF6tzu+KdPEvKo2hUHFCwlrNeL/A8PfvsFP+mdeL
+         1+nw==
+X-Forwarded-Encrypted: i=1; AJvYcCUl73Hij3iEKhSbUFmzk8XJVplMCIX/NQy/tcvPgI1etphyQLUvf1bhcw6YEyGZ/E41FDGXBMQ1Ta8g@vger.kernel.org
+X-Gm-Message-State: AOJu0YzcmFXa3voox3JuCfUC4EZA019D6wJwOtu0qhgFXEkX6ZeH6hPr
+	w8ZjiFp66f7XEZgAKU3cgpZWdNdGxQ4Xypjpj8O4CxmJC0NRF9GDQ3PmHggAhURTkRZq2bdwdxF
+	ZF8+A2LtVIzmU37nQpo5Cr3MSGeJ50LxX+2XzrRy5
+X-Gm-Gg: ATEYQzxBqLSQJVMDigcZWP1/eyR5UTnQrqM/RJWHUGiXGoaEIJ8qqM4rCi3v3kDLbLs
+	tojpJpJHD43D6AFs9beccz60xorp3QAvYd/DPaJpkJTIGiHHdcQEuh4u3OHWPGXZlq++FV66Lp5
+	v/syl6AtM/ckT6mxCvLyoEjZmWmpRLIPQDt0C9pTEFYX8CMbK0+O1Cy/sBTNs50E6WNIDF3qHie
+	tJ+NX87PJvKd0llGR4fUZJmwGllcw6XrlY+cx44DSV9pZ+CcdAp0b1XFkS6b/jrhHOSQIoQm9n4
+	ij5kF35teRrLh7v4ynYDNS/mp4C9qYsYicR8
+X-Received: by 2002:a05:6512:2206:b0:5a2:7ddd:ec16 with SMTP id
+ 2adb3069b0e04-5a29b99baa7mr981433e87.40.1774426138566; Wed, 25 Mar 2026
+ 01:08:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ASoC: dt-bindings: imx-card: Add dsp_a DAI format
-To: Chancel Liu <chancel.liu@nxp.com>
-Cc: "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "broonie@kernel.org" <broonie@kernel.org>, "robh@kernel.org"
- <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
- "shengjiu.wang@gmail.com" <shengjiu.wang@gmail.com>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260310063522.362545-1-chancel.liu@nxp.com>
- <20260311-brave-acoustic-mongrel-b3978d@quoll>
- <AM9PR04MB83531E00C21A5A2314A38F9AE349A@AM9PR04MB8353.eurprd04.prod.outlook.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <AM9PR04MB83531E00C21A5A2314A38F9AE349A@AM9PR04MB8353.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260325071951.544031-1-wenst@chromium.org> <93c1d325461cc0ffad890d64870de680506338c4.camel@icenowy.me>
+In-Reply-To: <93c1d325461cc0ffad890d64870de680506338c4.camel@icenowy.me>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Wed, 25 Mar 2026 16:08:47 +0800
+X-Gm-Features: AQROBzAcEDSwfaWS447vAKoAeNwXBwZATTBP1wT6QXTz02f-QcFivNXEvPY79i4
+Message-ID: <CAGXv+5FL2rs35V4F0bwq-a4ccvFaWKcr1cuKxT6sfTj9h+d6iA@mail.gmail.com>
+Subject: Re: [PATCH v2 0/5] powervr: MT8173 GPU support
+To: Icenowy Zheng <uwu@icenowy.me>
+Cc: Stephen Boyd <sboyd@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 25/03/2026 08:54, Chancel Liu wrote:
->>> The imx-card machine driver originally supported only codecs operating
->>> in i2s or dsp_b formats. This machine driver can support CS42448 codec
->>> and this codec typically uses dsp_a for its TDM interface. Therefore,
->>
->> And what about other formats, which was asked last time?
->>
-> 
-> The imx-card machine driver currently implements support only for
-> codecs with i2s and dsp_b format. The newly added CS42448 codec
-> requires dsp_a and that is why this patch adds dsp_a only. No other
-> formats are used or supported by the existing hardware covered by this
+On Wed, Mar 25, 2026 at 4:04=E2=80=AFPM Icenowy Zheng <uwu@icenowy.me> wrot=
+e:
+>
+> =E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 15:19 +0800=EF=BC=8CChen-Yu Tsai=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > Hi everyone,
+> >
+> > This is v2 of my MT8173 PowerVR GPU support series.
+> >
+> > Changes since v1:
+> > - Adapted to changed DT bindings
+> > - Dropped driver change
+> > - Use same power domain for "a" and "b" GPU power domains
+> >
+> > This update was requested by Icenowy.
+> >
+> >
+> > This series enables the PowerVR GPU found in the MT8173 SoC, found in
+> > some Chromebooks.
+> >
+> > This version is different from the initial powervr driver submission
+> > [1]
+> > in that it splits out the GPU glue layer support out of the powervr
+> > driver and into a separate clock and power domain driver. The glue
+> > code
+> > is otherwise the same, and also the same as found in the ChromeOS
+> > kernels, with some extra comments and macro names added where
+> > possible.
+> >
+> > Patch 1 adds a binding for the glue layer, called mfgtop. The glue
+> > layer
+> > contains clock and power controls for the GPU.
+> >
+> > Patch 2 adds a driver for the glue layer.
+> >
+> > Patch 3 adds an entry for the MT8173 GPU and 6XT series to the
+> > PowerVR
+> > binding.
+> >
+> > Patch 4 adds an entry for the PowerVR 6XT series GPU to the driver.
+> >
+> > Patch 5 corrects the clock for the GPU (called MFG) power domain.
+> >
+> > Patch 6 adds device nodes for the GPU and glue layer to the MT8173
+> > dtsi
+> > file.
+> >
+> > Patch 2 and 6 depend on patch 1 to build. I suppose some common
+> > immutable tree would be needed from the MediaTek maintainers.
+> >
+> > The kernel driver successfully probes the hardware and loads the
+> > "rogue_4.40.2.51_v1.fw" firmware provided by Imagination Technologies
+> > [2].
+> > Userspace was tested with Mesa 24.0.8 from Debian Trixie rebuilt with
+> > the powervr vulkan driver enabled. `vulkaninfo` gives some
+> > information
+> > about the GPU (attached at the end), but running the `triangle`
+> > example
+> > from the Sascha Willems demos [3] with -DUSE_D2D_WSI=3DON as
+> > recommended [4]
+> > failed with:
+> >
+> >     Can't find a display and a display mode!
+>
+> I think when using D2D the demos want width and height to be explicitly
+> specified, otherwise it seems to hardcode 1280x720.
+>
+> If you're using an elm, could you try to add `-w 1920 -h 1080` or for
+> hana `-w 1366 -h 768` ?
 
-First sentence says about driver, here you speak about hardware, so
-feels like you are mixing these.
+I only did the basic `vulkaninfo` test this time around. To do anything
+interesting probably requires the Mesa 26.1 release.
 
-Best regards,
-Krzysztof
+    PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 \
+        vkmark --winsys kms -D b81f54f8568deb0fb70a6a1ed845b65d
+
+just reports "Error: Device specified by uuid is not available"
+
+This is with Mesa 26.0.2 packages from Debian testing. At least now
+have the powervr vulkan driver enabled by default, so I don't have
+to rebuild the packages again.
+
+
+ChenYu
+
+> Thanks
+> Icenowy
+>
+> >
+> > Same program worked correctly on a BeaglePlay and displayed a color
+> > gradient triangle. Not sure what went wrong here.
+> >
+> > Anyway, please have a look and test.
+> >
+> >
+> > Thanks
+> > ChenYu
+> >
+> > [1]
+> > https://lore.kernel.org/dri-devel/20220815165156.118212-2-sarah.walker@=
+imgtec.com/
+> > [2]
+> > https://gitlab.freedesktop.org/imagination/linux-firmware/-/tree/powerv=
+r
+> > [3] https://github.com/SaschaWillems/Vulkan
+> > [4]
+> > https://lore.kernel.org/dri-devel/f2b2671e-5acc-4dec-9c2e-3c9cd2e1f19e@=
+imgtec.com/
+> >
+> > Chen-Yu Tsai (5):
+> >   dt-bindings: clock: mediatek: Add mt8173 mfgtop
+> >   clk: mediatek: Add mt8173-mfgtop driver
+> >   dt-bindings: gpu: powervr-rogue: Add MediaTek MT8173 GPU
+> >   arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain clock
+> >   arm64: dts: mediatek: mt8173: Add GPU device nodes
+> >
+> >  .../clock/mediatek,mt8173-mfgtop.yaml         |  70 +++++
+> >  .../bindings/gpu/img,powervr-rogue.yaml       |   1 +
+> >  arch/arm64/boot/dts/mediatek/mt8173.dtsi      |  33 ++-
+> >  drivers/clk/mediatek/Kconfig                  |   9 +
+> >  drivers/clk/mediatek/Makefile                 |   1 +
+> >  drivers/clk/mediatek/clk-mt8173-mfgtop.c      | 243
+> > ++++++++++++++++++
+> >  include/dt-bindings/clock/mt8173-clk.h        |   7 +
+> >  7 files changed, 363 insertions(+), 1 deletion(-)
+> >  create mode 100644
+> > Documentation/devicetree/bindings/clock/mediatek,mt8173-mfgtop.yaml
+> >  create mode 100644 drivers/clk/mediatek/clk-mt8173-mfgtop.c
