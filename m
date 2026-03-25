@@ -1,151 +1,139 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010063.outbound.protection.outlook.com [52.101.69.63])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B6133F8BE;
-	Wed, 25 Mar 2026 18:43:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.63
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774464190; cv=fail; b=pVjCTdsHGepA0k7CPjoQHIXOI2alWjaKieTh3ZmZxnH/QxRQTb3qHqGTG+QHb+qW93wcbXBFs1xmHt+kmrN/AF0RSAamw7v/9e4NV5SEYkZFF9UDvAwdlb5NqF/haeGz1GgXzh0v4YaX8xVttms8AejB9Jcn4qeYjiQKXBAGLoE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774464190; c=relaxed/simple;
-	bh=ADpVX3U21twlWmZ/ouh14HjtE0UYrDFSiiIolZuoAqs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 Content-Type:MIME-Version; b=Mqp+XlTyBkgf8d3s1hvdo7At7XMyebNnVy1s2YU6rmWNd56b8xVcf/mH6au+AeGMnyfXqFUJoEHFM5DCv6xKWGFnZlCaxWXRZmQ2uM09PT5A5h23R6Jy21ZW6feVwsqcmNwq9s9NDJO8R7CWJp59XYSzYy21l2HXm/SsJaVOJGI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=glZyEZWS; arc=fail smtp.client-ip=52.101.69.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23EB434B410;
+	Wed, 25 Mar 2026 18:57:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774465049; cv=none; b=PhUGyuXUbzKUWMhO/d1asaKlBmh+e3UuqT46FtXw27/FnzUJRXP1RizSEqv04IUipU/uYDvv81FgLQiVvvWmSMqKtrYTtyJ/KskJPhdMaYcR9wASQXVDz2crrFi+t8cxi797dzXMKqXBnfMGD8O6ySzA7IkRNzeN5PH1lluZiC0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774465049; c=relaxed/simple;
+	bh=aChN73re9+mDwaRjlRj252C+1Dh7cQiHjrvH4XH2fpA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jTpPvYU2p0ww/hR4vHYlsBAnw4+Hq0LnJKfeUq6FGlWUKLpN2zo1cmlle17YH4T1UbhyqlAoeThya1hR/My2ZrrCnfK/CLK3XMlm8iYfncNWQyfxgiTyEKkLTKhRUZ8hzfsLLjlIRmDvMUkqOmu/0OXTpbsrvmIaQJ1JM7r1dVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AL0Dlz26; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="glZyEZWS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eZ09ILPFnGok6dQDqLFbkH2kuW4xnXK41MySxiurOS7ypYE1fCkgaKl2J0JqlhYaRHh+YdKj6a6htkp9TY54dnNvO/8uHhvfVgKZsW1Gnzdyr1Q+U4KgZaBNFMrx/Oiv1FBRslFHOkYfKqa/fBnGOSoQmJqE4eK2RqE5hOUAD5MGIRSk0KMXC7KuOaJOWvKSkjGuHZeFjbBlg0EkoZwsaTNuSCDQS8yeqsJhAICi5yIHLOsofpUaTz/oPQhpuj5mn8N8jFxzwQW0tYr0zWvU6IXRFvV94qvbhFtPiLpYEHjLL4N5t6H6Aghv+0mexi2XB4lMZ8BKmv3S9KZHcFdXJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F0NYiD2XEJL3KU2vBuZ8TNEqHXGtUHgW1tLSrjQmIcM=;
- b=FdNOmWWIKYe8s9j+JC0Tje/hDkogB52nLQOWlciVICzFcTD/ythEq6Q/ofSEyWnkA1mnxriOx0/FAypiChjf3tuCB8FqJXZRVueX5F0iNhjvQHjT2zYQqgx72Ge0e1HWQH5+lkGJkTKnTHRFKuzeXjTPpA7xXVeMmN9sqOizTxN6MCcGu2+9ceqr7KNwxwStXzj3cEgu/r5vtoEDmAXmkA+UAxv3b22Sf00cUasgDf0Yp8bAE1whrIbz3JNlwDK/vAH93CFWO/lRU4y+/wwU6K06yBX91Xo8YTDxFE9R5kKnRVjrcv2c3MD+kyT4Ad4ySVBzPucBztWMTNoSAy8bvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F0NYiD2XEJL3KU2vBuZ8TNEqHXGtUHgW1tLSrjQmIcM=;
- b=glZyEZWS76lml1FeaoLho2iCPDVEom488PT+Itx+v/XSIRWOh824TKmWdaH01qxNp95v2Ga2VzYFT5anfkRSn/xVIwK2TegWs19XHu7uQDd/Zj5klNnPLTuDO9B1dg+DL3ZIgc7qJLz4Lk3RiD9qjjv4PICbnKYqChC/ztC6EU6oTEIB774sBp+cbEUA1HOyCBpSNV/mu8SyQwaLpaYHgkX/vF7DilVUTRiNSxasjQfWn5Br0c+3lPGP7EoJ9S4jv8oEQNaOEoEjTXLO5oKp9KbJ/AbU9yJhNIXVXGOZxwFiYSp3wzbkq+DvlJw3Tq/3w3ueZUd/xOGis9RFrmT5jg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DU0PR04MB9372.eurprd04.prod.outlook.com (2603:10a6:10:35b::7)
- by GV1PR04MB9182.eurprd04.prod.outlook.com (2603:10a6:150:26::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 18:43:06 +0000
-Received: from DU0PR04MB9372.eurprd04.prod.outlook.com
- ([fe80::4f6:1e57:c3b9:62b4]) by DU0PR04MB9372.eurprd04.prod.outlook.com
- ([fe80::4f6:1e57:c3b9:62b4%4]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
- 18:43:06 +0000
-From: Frank Li <Frank.Li@nxp.com>
-To: Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260324075842.815005-1-alexander.stein@ew.tq-group.com>
-References: <20260324075842.815005-1-alexander.stein@ew.tq-group.com>
-Subject: Re: [PATCH 1/1] arm64: dts: imx8mp-tqma8mpql: Add DT overlays to
- explicit list
-Message-Id: <177446418348.3232155.4775721798897353166.b4-ty@nxp.com>
-Date: Wed, 25 Mar 2026 14:43:03 -0400
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.2
-X-ClientProxiedBy: SJ0PR03CA0375.namprd03.prod.outlook.com
- (2603:10b6:a03:3a1::20) To DU0PR04MB9372.eurprd04.prod.outlook.com
- (2603:10a6:10:35b::7)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AL0Dlz26"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774465047; x=1806001047;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=aChN73re9+mDwaRjlRj252C+1Dh7cQiHjrvH4XH2fpA=;
+  b=AL0Dlz2656AzerMZuojBPYt35JNkuDqBS1h4N6Faz8HIE8QtMUT7CiEC
+   kfR18klm8V/bYe3D3QJArUS+NuyoHwGrT9iGlur04Qer56USpAV8Eu7Uc
+   kMPxNEfL9lJH5Yf8xyE0OJAw7xHaF465vNr7SEy8JFR7kT6n5k+p4YOJu
+   ZEDlgOqjkWlI0zRpTPUgMEefPomb+dLnjIUlriGHCcAGGPSwMtJPLklqA
+   vAjfKi0nNZwI6vlCykYxLk1l+VuCXPNsU2V2mzMkK0fx1ZGuwFkRnv5ME
+   MXaxsfKllH4dEGxBxmrT7Ry6l0euwqy8RVdW5CfZIjeEBf531guQO9cRE
+   w==;
+X-CSE-ConnectionGUID: R/12tRi4SCOTENmU2WL5Aw==
+X-CSE-MsgGUID: RxPbMxM4RmSs//trVzkApg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="75230446"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
+   d="scan'208";a="75230446"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 11:57:27 -0700
+X-CSE-ConnectionGUID: D6UEZT7PS+KeWoHvhF6ZIw==
+X-CSE-MsgGUID: JZ77ZO8xQaWiJnHqdFbBeA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
+   d="scan'208";a="229544630"
+Received: from lkp-server01.sh.intel.com (HELO 3905d212be1b) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 25 Mar 2026 11:57:22 -0700
+Received: from kbuild by 3905d212be1b with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1w5TPs-000000007Uf-1EVv;
+	Wed, 25 Mar 2026 18:57:20 +0000
+Date: Thu, 26 Mar 2026 02:57:18 +0800
+From: kernel test robot <lkp@intel.com>
+To: Lakshay Piplani <lakshay.piplani@nxp.com>, linux-kernel@vger.kernel.org,
+	linux-i3c@lists.infradead.org, alexandre.belloni@bootlin.com,
+	krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, broonie@kernel.org, lee@kernel.org,
+	Frank.Li@nxp.com, lgirdwood@gmail.com
+Cc: oe-kbuild-all@lists.linux.dev, vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com, aman.kumarpandey@nxp.com,
+	lakshay.piplani@nxp.com
+Subject: Re: [PATCH v8 7/7] i3c: hub: p3h2x4x: Add support for NXP P3H2x4x
+ I3C hub functionality
+Message-ID: <202603260207.uKW7MqMC-lkp@intel.com>
+References: <20260323062737.886728-8-lakshay.piplani@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU0PR04MB9372:EE_|GV1PR04MB9182:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff094755-623c-43dd-7b7a-08de8a9e5a75
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|52116014|366016|19092799006|38350700014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	J1MjHYfQJJt0jin1SdWE1526F6nluxvR85Dxup+4BzTON5FwZyi3de1gWIt5HDGRkpb+JSe3LBZRAnHGvLlCdJZSwr2Fa9T/fHTNFQU+64Z0tj3VRc3kG2XPzC/TpIQJ2Cx73BV0tlq/pA+49Kk7DFXixbl0MkFmX/BuSY+IH08Du4gK2xSFbdiZd7awJ8XN+kHGfh2HDBBrzvVn/KSlQc6q627HKngQ11L1e/MakBSDK2s7YU3MmNH6W1sWxwWSVxVA7JHfbw6HukmqEbd88xE3GmDPxutyVn6vHItRCWSke/UHFhxELEUq8zbQm2j5FUQg7bEEVKYBJSEYtXCVKzLghsGe9rIKDxwX9MEpuUbsR0AFPdukF8YSldSEu31cVkc+vAM/fx1E5Cdv89ueyU+7U95UBTm15+H6g9UIavb+pac7u3jswWbphIFv6LN+0OenJUAvjFNdDGCcVnlY19Nze/lUY5r/UtqA9RlxS00Zt4wrBljbUCQqQyQJSQWsmDGDPHCaTW4c70MynVqCtU55TWcqs1vijMNgpS3YTZW3VMBfHlD6xMgvHxACUDAWsw0K4Srki8N/XY0E5dAqyVUDGIOyLCmh4rMNoLiKh2mokLWnOJ4qz50WZaSpVU0edWv4XrZn0JC6CFf12MJxX28Ds/5uvoOei5w6XUvAlqgoEQo7GsfVcmCi61HbzCeXN/O5BReU8ScX8ZaFSQVj1HTFoakKR964SKW77eqO+F2TNa/apaMOaOOICMcc/fMwenObiFaHaNDV17GxT7TEbUQndTpFsMoIpiA2jgEukDs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR04MB9372.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(52116014)(366016)(19092799006)(38350700014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UUtWaXJXUGNadWVHK2RaUzlFaFlpUWZlUTBBV0lrY0VkU202dW1XZlJIdDUy?=
- =?utf-8?B?amcyMTBXZlUyUXVnSHZocmtLYkVIaDRZMW1hUklJelZ6RU14aDIwMlM0YjBy?=
- =?utf-8?B?ZHlTOFp3ZUM0VERXTENDQWpXZHhzR1Y2N2ZZS0RiOUZ2L0RQS042Y293TXM4?=
- =?utf-8?B?YWl1MFV2Zk9WMTR6UEhpN2FwWFdlUktnYVc3WlhQRGVZRGJDUGZkTFZhMXlF?=
- =?utf-8?B?Y2d2U3YveXZPL1VkZzdBVDNLekx1R0hDYldnemc4UmU1ZzJXRmMrSExuMHdN?=
- =?utf-8?B?N3dHMmF0cUlpdzF3VUZTcGtmR1IwWisyZmJ3cDdYc25nRWhUSGkvSUc2akRM?=
- =?utf-8?B?Um1ONlFreUhORVdSei9TOWxhT0VaWjVrK2lXY25VNlBVcGhwNkMvQysvREIr?=
- =?utf-8?B?TURZTGYwZE1haWJycGRmMGFkNmZ0SDJjZXN0ZHRzVDh0Y3JRckhad3ppV1Vk?=
- =?utf-8?B?U2tLK1RFODJ0WUNlQXpubk9vRVkwbTh3b2UwZGVTelhLcW5sMGFkSHd6S0xF?=
- =?utf-8?B?TWlXZ0NHeWlZeVF4aCt1amR2eFIrcHp0V1kzNFNkdVVubUNMUlNnMDZFVTJD?=
- =?utf-8?B?T2JhUVZLZGYrVFU1aFZBdEJHMGFoMjROTjBRaFpnZEdpcndCTit0WTd6SXVh?=
- =?utf-8?B?VTVXVHI5WUdoSnpOL2NNOWtqZmN2cGE0cjRmSjFRaWF5bER2MTdXK0ZCNmdp?=
- =?utf-8?B?YWI3c2lYWGJDMWpxWVRKWnlGSGRWQThqZDNHZ1B1S3lRaGtuVEo3VnBraXRE?=
- =?utf-8?B?ZXkrdUllL0JqMTVBaU1yOXRsUUF0STAzN2Z2UStkUmR2c3BsSTlabGNZL3By?=
- =?utf-8?B?VUxvZW1RZnhLQ2ttNUpOTXo0M0Q0WGp6UFVSSDNZOVc5UUxTWCtGSWd2WjVP?=
- =?utf-8?B?N3YyQVJWcHZLWWwzZUxJWEE2Ti9VWGR2UTJWaFpnQTFxTzhZWXp6NmxLZWlC?=
- =?utf-8?B?aTNpcjUwdXFjck0rZU5wV3AvYy9NeURDOTMwd1c2ZC82RHNESzlhRzVpVXN2?=
- =?utf-8?B?a0lqbnNSbUxnZEk1RWJYRzlMQ28xNUM0a2tPVE5wVy9RYUhMN1Nua0FIaTVE?=
- =?utf-8?B?MTFCaFNaeVkyUmZWd3Njb0YvYUNmZjRZcUdUdWZCOXlrSENSbCtieDZoSENo?=
- =?utf-8?B?V0phbHpjalYrYWoxb2lZSTBWODl1RHZHbG55V1V5dU5vSFI3MVhXN3NoK0ZH?=
- =?utf-8?B?RDZJaWw5bmVRQ29uN2xxMXVNL3BWVHgvVS83TWpxR012TStCOFd3akNBaW93?=
- =?utf-8?B?R1pjQlBSS1dsZHJ4cFlhckI2ZVZqeHNOK0NGV1VJWHcxVFRyR0F3T2FDZ0g4?=
- =?utf-8?B?Sm4zVWtaNkNoVW41NzZJdE95ZnpMVStRVUpWKzhySzBqNjZWcTJuTDhMNTdo?=
- =?utf-8?B?VTZIOGMzeFlya0pYbGlCc1JYcmx5WUlPV3FYZi94NHJmTmMxUlEvODN1VlA4?=
- =?utf-8?B?eVZUcWZLMTNPazFtL2Q3M1VDZUZURStXUWc2Mmpyck5ZWnZDWmZQMkR0dldW?=
- =?utf-8?B?TmdqVGtRaVlVamFrNCtaTXl2bEpNU0wyL2dnVTVqeHhZTkhDcm5tMWgvL0U4?=
- =?utf-8?B?dGl1M01SajB4cHM5aUZSYWU0OTgzZGd0VGRCTHcrb055YnByc0NGVk40UE84?=
- =?utf-8?B?WHRCRFNQQ2N3cjBzMldEK1h0UFdhcVZnMS9rVDJYcWxlTE1hdk5iU05JSFJu?=
- =?utf-8?B?WEc0RUp5MHBXRzZJb3M3TkRxMjVnVFRQTFo5UTQ1QkxSV0QyWXhqOFRYUG5I?=
- =?utf-8?B?WURndmVkQzZPRjVQTmRURE9SckJqZ1hCYjBnQU5jOU1uand6YzNrK2J1ODVJ?=
- =?utf-8?B?aThiNks3czROOXRiN3RtWXNKcEpJZk1raEljK1hBMW45cy9ORFRqYVBxYlF0?=
- =?utf-8?B?QXBKdVh0bk85Y1g0bnk0VGV4dVZRZVZRRG5tcTc2SGw3T0g3Zis1b2ZFRDdq?=
- =?utf-8?B?STNBaHNKVTBiVDFVY2VkWUR2NVpMZ3MrZUlwYVF1M2t2RDJ3b2QvNW9tUFYy?=
- =?utf-8?B?SXBUTnc0eXI0ZnMrRkRLN0xINVhwKy91cms1T3ppVnNmRkNCMG5rcm9pcXdN?=
- =?utf-8?B?SDlNNUk4OUEzV0JMdTRBbzJqSndPci9uVVpMS2t2bWk1Ri9GSmpMd2ZEMFJo?=
- =?utf-8?B?RHRqcjF3KzRkZEVwVXhkWUt1LzBpREtxcDBVT3V4bFo4U3RzYjZGSkFjQVNP?=
- =?utf-8?B?YkdoN21LNzluQW1JZS9CMjhmL1I1bmNiUjBnVCsrODRwUDY0Q1BsOW5FU3lq?=
- =?utf-8?B?Vms2bHVqSFUrS3JWZ2ptUkZ1K1YrUFBlWXdCalYxU3JPM3hZMHJkSUp5Y1R3?=
- =?utf-8?Q?AtU8XH8VENdp6WTWy+?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff094755-623c-43dd-7b7a-08de8a9e5a75
-X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9372.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 18:43:06.1631
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ed/Ft7gtUFSb1KZXRNCwzIG1uf0XJ71gmZLrnMqx8HtiocFXHWwovnYIuxAieTFjTtiWirCucpdv6ZBQyRE7dw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB9182
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260323062737.886728-8-lakshay.piplani@nxp.com>
+
+Hi Lakshay,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on broonie-regulator/for-next]
+[also build test ERROR on linus/master v7.0-rc5 next-20260324]
+[cannot apply to i3c/i3c/next lee-mfd/for-mfd-next lee-mfd/for-mfd-fixes]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Lakshay-Piplani/i3c-master-Expose-the-APIs-to-support-I3C-hub/20260325-150847
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-next
+patch link:    https://lore.kernel.org/r/20260323062737.886728-8-lakshay.piplani%40nxp.com
+patch subject: [PATCH v8 7/7] i3c: hub: p3h2x4x: Add support for NXP P3H2x4x I3C hub functionality
+config: um-randconfig-002-20260326 (https://download.01.org/0day-ci/archive/20260326/202603260207.uKW7MqMC-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260326/202603260207.uKW7MqMC-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603260207.uKW7MqMC-lkp@intel.com/
+
+All error/warnings (new ones prefixed by >>):
+
+>> drivers/i3c/hub/p3h2840_i3c_hub_smbus.c:357:10: error: 'struct i2c_algorithm' has no member named 'reg_slave'
+     357 |         .reg_slave = p3h2x4x_tp_i2c_reg_slave,
+         |          ^~~~~~~~~
+>> drivers/i3c/hub/p3h2840_i3c_hub_smbus.c:357:22: error: initialization of 'int (*)(struct i2c_adapter *, struct i2c_msg *, int)' from incompatible pointer type 'int (*)(struct i2c_client *)' [-Wincompatible-pointer-types]
+     357 |         .reg_slave = p3h2x4x_tp_i2c_reg_slave,
+         |                      ^~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/i3c/hub/p3h2840_i3c_hub_smbus.c:357:22: note: (near initialization for 'p3h2x4x_tp_i2c_algorithm.<anonymous>.xfer_atomic')
+>> drivers/i3c/hub/p3h2840_i3c_hub_smbus.c:358:10: error: 'struct i2c_algorithm' has no member named 'unreg_slave'
+     358 |         .unreg_slave = p3h2x4x_tp_i2c_unreg_slave,
+         |          ^~~~~~~~~~~
+>> drivers/i3c/hub/p3h2840_i3c_hub_smbus.c:358:24: error: initialization of 'int (*)(struct i2c_adapter *, u16,  short unsigned int,  char,  u8,  int,  union i2c_smbus_data *)' {aka 'int (*)(struct i2c_adapter *, short unsigned int,  short unsigned int,  char,  unsigned char,  int,  union i2c_smbus_data *)'} from incompatible pointer type 'int (*)(struct i2c_client *)' [-Wincompatible-pointer-types]
+     358 |         .unreg_slave = p3h2x4x_tp_i2c_unreg_slave,
+         |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/i3c/hub/p3h2840_i3c_hub_smbus.c:358:24: note: (near initialization for 'p3h2x4x_tp_i2c_algorithm.smbus_xfer')
+>> drivers/i3c/hub/p3h2840_i3c_hub_smbus.c:355:56: warning: missing braces around initializer [-Wmissing-braces]
+     355 | static struct i2c_algorithm p3h2x4x_tp_i2c_algorithm = {
+         |                                                        ^
+     356 |         .master_xfer    = p3h2x4x_tp_i2c_xfer,
+         |                                              }
+     357 |         .reg_slave = p3h2x4x_tp_i2c_reg_slave,
+         |                      {                       }
 
 
-On Tue, 24 Mar 2026 08:58:41 +0100, Alexander Stein wrote:
-> Armbian installs DT overlays using dtbs_install. For it to work all
-> the overlays have to be added to dtb-y explicitly.
-> Add the overlays for platforms supported by Armbian.
-> 
-> 
+vim +357 drivers/i3c/hub/p3h2840_i3c_hub_smbus.c
 
-Applied, thanks!
+   351	
+   352	/*
+   353	 * I2C algorithm Structure
+   354	 */
+ > 355	static struct i2c_algorithm p3h2x4x_tp_i2c_algorithm = {
+   356		.master_xfer    = p3h2x4x_tp_i2c_xfer,
+ > 357		.reg_slave = p3h2x4x_tp_i2c_reg_slave,
+ > 358		.unreg_slave = p3h2x4x_tp_i2c_unreg_slave,
+   359		.functionality  = p3h2x4x_tp_smbus_funcs,
+   360	};
+   361	
 
-[1/1] arm64: dts: imx8mp-tqma8mpql: Add DT overlays to explicit list
-      commit: 6cb68d84bc632865c89a22a4f956814df9b8d609
-
-Best regards,
 -- 
-Frank Li <Frank.Li@nxp.com>
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
