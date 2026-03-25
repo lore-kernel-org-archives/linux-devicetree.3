@@ -1,179 +1,174 @@
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0883385B9
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 22:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359BF359A86
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 22:35:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774477996; cv=none; b=DpYRDDNqn54ICltZuTKxd2Kk2bpL4k+dhHUwsWGlirgT+bOqz9UuQhIovH97stgu+EDol6PY7TAW0oTKodg1avB5Qz+Wj+G8iOVA8p1V5mB9Rc0hQbvDx/pfEDVLLJvUBMG3D8rLb7YskUKedj9gf2IeLZ2UNf30gSwvijnO4lE=
+	t=1774478105; cv=none; b=UV0/bTtki/3T2rR3Q6ssNjg8zpom6iFsTHKZhKDiRjqXQzystTyM/0C1M15OIMCH9vFxCtD0AGqA2nCH2xnrmJE43MPQJxcaepjAQKfupBPclLbVfI0A/Dj6N4HXzrFjeluAESPgstYC8P8IbIpEEr+ZAI3wCfZZ5ZxEB+WfETY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774477996; c=relaxed/simple;
-	bh=naBQi7shofUGxunBgNte7CeJA8dVw8PHKBKVIyPmkh4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OAXPmYH8Hddfs3Z0UaXKPVJGD8dt9cYAQCFXGKvGoMm8P2ZpLDnTuhLZrKkqPYM2y/pJGMtQz/zIncRs0R6Eg8CWVKIM1h6rvsS1Zzc9tkNw+QVzYMrwqBZyhMUoOmhy9X2hUzIH1f5NQJZOlVONUejYx80sKsmXEld4CPLPsnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sSZS/ohx; arc=none smtp.client-ip=74.125.82.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774478105; c=relaxed/simple;
+	bh=Vsu6yvOPj0Ebw9fWmhi6DvD27dNsT3H0Kr/1dRZe9G8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=kIXKVAAS8MTPF12XzZMNBDrkFs+5lZoqx0LbcjQEzjodhcCP1L4MnzSmW/SMYaTPzPYj06XZpxkBHSwZrZsR+L7UOND9B6eOI8Br/WpM1brILN5TbhuUipcjo3qOHfXLsVKVnDOgyj0pGVvqBDvtBPd+tEhLC+DqMmAZVwnBr6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ku+XI97H; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CeeMvO9m; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sSZS/ohx"
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-127380532eeso773670c88.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 15:33:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ku+XI97H";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CeeMvO9m"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62PFRIdW1432136
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 22:35:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	cSsuaR2zlios1+Mhi3FYYdxcb1QOyHXrIYv5McWKyVk=; b=ku+XI97HO+O8wvbI
+	0GAxSQoyHHh5QQ+hxFCw4TMWXfz8l53Y3TTMuz4MM8uVODAzHQmXGn4SWxfER7Q2
+	lUbHgNlRue/g3q6LG798XAKJstgpi9bmcExUgXUIc6tJjdJpDUjQvv2OcJFsdRzF
+	7VXo1ir3emv5xpTNukxowtNkbCvOqLyRr9PNksmqOL/0I+/7hLP/5Ku0y4sAD38P
+	OELt3iysYK80xKJLJ+5XRCAWtFmRD+MyiRtv3CmYsDbE30solVN6+nZPCK1lcuQJ
+	K1yuP7a2Sn6yBYEdFrKxbV/oj8BUh57hbbTagggh7nc23Sp+KKfYKVR5NXFrGNeV
+	/hK56Q==
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d4jc51feu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 22:35:02 +0000 (GMT)
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-463ee33f9b2so386616b6e.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 15:35:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774477994; x=1775082794; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=14O+rHUy9JUHv4nndxIKJLmJP+F4NFBUxwm3pxRAatw=;
-        b=sSZS/ohx2r5eSqD3yx1nUzQ2cL3d5PMh6tIFW3z5QIZjMrPdgGQkdwnSaFSnAW15zc
-         b2jagFUbbcSne5XZFRo5H1yb39FraR7PVLMKFgG0rTqHyGQcg1PUrGRJEzjJS2h7Hjru
-         tr9SSUqbRjbuXL+bNk2oZ9wMk0vOjiMY5bNgJHhgcSlXNSI5Hi+upeH9bVfHTC67rP9o
-         uUQVAe6B4w4KVww2AFk2BbaeHNxAGMxNWak5D4g+WOnKn2gsrVwectxpf/gcz6gdZ6My
-         wid/+tQ+/nYMDQUmCYC9kOtdeLuo6NZ9ivuSfKs9WZhqQh6EegWdxTMhlPCVvRbFCiOA
-         fJuw==
+        d=oss.qualcomm.com; s=google; t=1774478101; x=1775082901; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=cSsuaR2zlios1+Mhi3FYYdxcb1QOyHXrIYv5McWKyVk=;
+        b=CeeMvO9mHy/yWvY41WMP3AjF/znC0hj7bWI3Y8ZbWG/PDzpld209R75HudvHLSSoqB
+         866pBigDgOIKnTDxYymNjrnd3eqNccHeOogaKW0Gcd1Ipmh6gqpo/H/GfaJ3EP1yexCL
+         tBuszqsiiLEFmnGZ0/B4l37UvTeU/5/vpOFegMHTppTUHFhiOnZ1qE1LuxL9b6Y5VtY+
+         Sgs2yP6qBXAjpDdk8qYL35o8Wy28OIHqbQGB0qHKLdoYuh0rmlBzyWNrJ5s/lkc8d4re
+         C64d/HWPTO4PDem8S8qn2AIUc+3MdZKD/k8zbAVa7dJxVfd0N0XxZpWnqWPw9ICJol3T
+         p2qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774477994; x=1775082794;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=14O+rHUy9JUHv4nndxIKJLmJP+F4NFBUxwm3pxRAatw=;
-        b=kLrkyux8oehhTjhNrJxX+AKWGInljPgXNEA+7VHLKbeHoYZ7L+TustITLurljG64dt
-         l25rdDHnaDpo7DoRybURqpPDZD41HF0ki/jczEMxkCP2NvRQ0MtlKn55iinRh8LAqesO
-         1xeAn0E3JhTeqJC2i3Aomq9//caYS+nq6f8u8jCrfiF743zrsN5qqjhpeVZwbD93zEBX
-         P/BqpeIrgHRumyTWVSZ6u6H2MtwIWqe2Fs8/MNB019W9d7TB5xx1ti8qI9EDgjZt4f1h
-         J0KgMINuQFXckKfxT0Gqs5K1iQNJ4LtIayMA+297RAx7hFIh9qcgOSZZDroGQxCWw0LN
-         EG1A==
-X-Forwarded-Encrypted: i=1; AJvYcCWMSMcZE3UwOH1sruUbAIgotV2x7n9CV13Zcj2Lh7+dZbLySvyAGFMm7pNMx2mr3ttdHZSskN4ReGMf@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1VrLH/tzmAW+YcvWkBvJs24pg6abP91XncelabsUthgLjUkLc
-	Uhmbejz1vAKOJ8Y4vzQZHs4juf57EbkJuod9Oujyr/O+i0xU7a/sYW/b
-X-Gm-Gg: ATEYQzy87I22drT98w3C6d6LiXJQ1SdLCONIo7T+j0Z4uCGAz4/siXER+HOCKLwC9Mx
-	Dcga/HK3o58khXDQ1Zk7zLcDxd0iGbUe8fdwrHCmV73AAyODsd/ZbgA8dgxmOmSYul3ISigks3d
-	DPtcI+fudmwSXOh8lWMmdx83aYV/6Nqqw0v4lX5x3Vq4+qKbvaFCWJr+wOdsmn8Ef7SxrMXHgrK
-	yvblbkrjmJ4e8TPt9iTu/cRsNb1c+7ajPAKhOu7Udk5p9ezbWk4iBlR0ABANU8hmsfYCldkkbdp
-	fE/dA+DIsinG0g6VK611keDnfqsi1MMwR8ids9q2E4vYge3ShwKLSoVcDKfl9FEBmlgFaoe9xZn
-	9ub+daCOYL0JGajDZixfp7w9ahxApT2UPFFefS5PY59IWrAgfwwyt5cc8vbW7OPak7r16i8yW1K
-	5VDLEqfZUdSHoMO7m22pcfdAOOXUdf6MVugY82YlhKJEBW/UMsJ9VH8gTbwT8vhmgtJjjto8LZ
-X-Received: by 2002:a05:7022:402:b0:11b:c1ab:bdd4 with SMTP id a92af1059eb24-12a96f04f69mr2620804c88.38.1774477994108;
-        Wed, 25 Mar 2026 15:33:14 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12aa762430bsm1567649c88.10.2026.03.25.15.33.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Mar 2026 15:33:13 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <f016c567-dd37-4f1a-8c8d-5b8dc6a3b9a3@roeck-us.net>
-Date: Wed, 25 Mar 2026 15:33:11 -0700
+        d=1e100.net; s=20251104; t=1774478101; x=1775082901;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=cSsuaR2zlios1+Mhi3FYYdxcb1QOyHXrIYv5McWKyVk=;
+        b=mWc6aa5Yn+lTehgRR8wTuoESAxu5mPO3yUukRN/SdPs7AgnbGdF7ryYi0rseCeAV9o
+         1acs2fHrGSH4l6W6nYqhYM0i1VOyfvXTRQFnwyUefeu3Z8K7HJ3vKzF8zc66H5546LDv
+         vmUWIxHdrkvvBjI8t/LWhqeukXXphKXQNQwiOn+D30EIBaNZ7bFa4Di9NxUdHGYlBTq9
+         AslHIpnaWND3X0iLoK//fVfZmM/g4Pv+9kY8yd7cB/ymd1aNDBYPC5J9DVOi5ScUjdyx
+         5wuAAIgoRN2VqobtS+GlV5rN58vCFHiPELTAgwhxG1M3cEmyyV2GzPn4UTLfuQzqsRF2
+         N+Vw==
+X-Forwarded-Encrypted: i=1; AJvYcCVKCGCYhod37Tqg5wIJxVBmYQlyzLPgFgGY/m8MHSu/PZiUZ5x+cLHMb/xLDBjFJH83rqbLT2Xfob0V@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw9MSN8SYA+liNg2OtncJGgrZIwbTOTQ6bgVS0Gc03cfW3/Mi1H
+	sG4e/yc4bZnO0SsXxSf3+IeB05dLeWF1IwG4AyFyknkA/yuDIK6uqS5+oHpkuMRLSMytMyPmboo
+	b1X7W0285X882rddwBLU6YupwuJGLaDHtFalO3WpAf5WPUEmfM6e5LxCPO53xtzPh
+X-Gm-Gg: ATEYQzxrOo4c0MGgbTZW7HkTIgrhnbX+hdYzwd5jeP2jb5pg190zWVBKs9u9GyDB71N
+	iUdlqA8tvtu6FN034x9QkbOZpDaUOvlFBU1rKt274vewlDFhppDZlc8bSe/kvg2eA+UEm4lsYUo
+	T2IH8CMTsj2HkckOfS8voa+9fhWKsoRPNfuBfJ5HBl4bGDj4CwnISWLc9+ruVneccvsQixoGElv
+	l6mtwyUtqIbRWchXY4jAj1+BwZ9eoyuYX1FnLQvhME2feYxG6mJ9+NSV2r5MRi1WMQ4Rn7QY0cb
+	AXav4vOTOs+y+ziSR1qufg2T/vclNESHDpu2Co9C3Gvq9YdJGg6ogAqEaYA1TPjhnMDLTtqpVNZ
+	vjDTX5tNX7XcAOrPDGRIFPZRrOd9Gs609AtHkBRIx3AA=
+X-Received: by 2002:a05:6808:c1b0:b0:467:1e5:6764 with SMTP id 5614622812f47-46a5c7c06f8mr2524449b6e.54.1774478101516;
+        Wed, 25 Mar 2026 15:35:01 -0700 (PDT)
+X-Received: by 2002:a05:6808:c1b0:b0:467:1e5:6764 with SMTP id 5614622812f47-46a5c7c06f8mr2524435b6e.54.1774478101153;
+        Wed, 25 Mar 2026 15:35:01 -0700 (PDT)
+Received: from [192.168.86.59] ([104.57.184.186])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-46a70634941sm565790b6e.3.2026.03.25.15.35.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Mar 2026 15:35:00 -0700 (PDT)
+From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+Date: Wed, 25 Mar 2026 17:34:48 -0500
+Subject: [PATCH 1/3] dt-bindings: arm: qcom: Document the Lenovo IdeaCentre
+ Mini X
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: emc2305: Add
- fan-shutdown-percent property
-To: Rob Herring <robh@kernel.org>, florin.leotescu@oss.nxp.com
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Michael Shych <michaelsh@nvidia.com>,
- linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, daniel.baluta@nxp.com, viorel.suman@nxp.com,
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
- festevam@gmail.com, Florin Leotescu <florin.leotescu@nxp.com>
-References: <20260320152959.1575978-1-florin.leotescu@oss.nxp.com>
- <20260320152959.1575978-2-florin.leotescu@oss.nxp.com>
- <20260325215630.GA6513-robh@kernel.org>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260325215630.GA6513-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260325-ideacentre-v1-1-768b66aaef30@oss.qualcomm.com>
+References: <20260325-ideacentre-v1-0-768b66aaef30@oss.qualcomm.com>
+In-Reply-To: <20260325-ideacentre-v1-0-768b66aaef30@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1092;
+ i=bjorn.andersson@oss.qualcomm.com; h=from:subject:message-id;
+ bh=Vsu6yvOPj0Ebw9fWmhi6DvD27dNsT3H0Kr/1dRZe9G8=;
+ b=owEBgwJ8/ZANAwAKAQsfOT8Nma3FAcsmYgBpxGMSurcbSWpzV7iaIWqSij4EBag0RU6PFBqxW
+ WRyUDc22NOJAkkEAAEKADMWIQQF3gPMXzXqTwlm1SULHzk/DZmtxQUCacRjEhUcYW5kZXJzc29u
+ QGtlcm5lbC5vcmcACgkQCx85Pw2ZrcWOig/+KIZp2YZyEknnQ357s7+Tlq6hUgIFLN+WnHjtA8U
+ jNzYSJdA7HRqpjk/gUUAA/vx+E7MLqQBE01i3CPCeIoieEmlshGmEc4OJgS/97o3YOKhSTpiRD7
+ UeJJjxJ7XX1XrKCGOCdWxjNcdaZk7ARP+SYCHSKhqq7p+sSSJuFsqTzNb/j9mrkIiir1DnoX4Rz
+ SThixOPPn8GrhoHw5Ud0bXiEKmhBI8nuNH2eibUrhpNUBL98ExVrkdF+Ik+G0juwaxxPftZ9u4x
+ ai38Bkio2w2xVUIz21DPyK72RJZiehpTUPo23K1rreiCFyDYrm3PyP461Lc7yzzLuI9G4Cxt78H
+ TAZIb6rU7EUdQmuuYBJs41w4FnfDrnJ6S1bcSVq9nvC9Fah+0TcB1CwB8W6jCzRwSQQsJ1of/hF
+ tedesREW5tsk52spexN/dW/MmrL2ZyPSAUmZW4XiiQvc9IapZR+Dk5H6sifo7dgEck0rRed714c
+ SfVaeDvybZD2CYsnLtNQYjYXS4ZHqxR9w+5P0wr1JTl5kGkgr507wMxtwb1KO2Znp7WpFE96bK7
+ dPGUPI68azxMjsM6FQFjMI8XiRxDxV7YmJGY9+TwjmDiVu9VrdV8xxrxkuuExvAS9DDB2QR3UKv
+ liYYzXv4eQOAyHmOL8Et1liTmW3PBNAYvKkCnikkZW7k=
+X-Developer-Key: i=bjorn.andersson@oss.qualcomm.com; a=openpgp;
+ fpr=05DE03CC5F35EA4F0966D5250B1F393F0D99ADC5
+X-Proofpoint-GUID: SnY0gQSK9X2rjrjlJ76vDqsqUUaSkt5L
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDE2NyBTYWx0ZWRfX+aR9ICYkvB8l
+ PSATo17LlM3xl5POGW7oncBSLRg2N+aZrBb1Q9UCVOwi5BfbHkUcPm5qob8vN2m/oKk45TSzziN
+ 6k4WvXWFwoW3GsGjsHH+zQLiDotQeyqagLuJAsCYtCPozxOCizzF7Muxal86e+/CGQ/giRKk2Qg
+ jagxFZvPJ9Lbxg/qy719HW3/aGIHMyBOqMKL1aLd5s6S2ahOO/DUYeEjnzsmSVwdji7q9uel6Ne
+ wJlA0cBpd4HLZVsJcbhlL6hiHpo7W+4/aYiOaZVtpdND85y4zWODqFq/8amQFsQcu9t4cDFD+SV
+ Y+e9/NsWQIDe0Mll+LkWBgRdJk+gY37fC9e5W697R5RjeJcgXdzUQfP67GlMMT8zhmQZwzDmhDW
+ qu+hDI6UoNn+fRmwGabBjvbxnSiG7Du/bdrUd+cABvfAOxu4ACle03VxdOWQfp0eXRmikQqp2Xt
+ je+KkBqKNhoooXJP8VA==
+X-Proofpoint-ORIG-GUID: SnY0gQSK9X2rjrjlJ76vDqsqUUaSkt5L
+X-Authority-Analysis: v=2.4 cv=KaLfcAYD c=1 sm=1 tr=0 ts=69c46316 cx=c_pps
+ a=WJcna6AvsNCxL/DJwPP1KA==:117 a=DaeiM5VmU20ml6RIjrOvYw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=RTJPypKaMN8Ns2IMXk4A:9 a=QEXdDO2ut3YA:10
+ a=_Y9Zt4tPzoBS9L09Snn2:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-25_06,2026-03-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 adultscore=0 phishscore=0 bulkscore=0
+ priorityscore=1501 suspectscore=0 clxscore=1015 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603250167
 
-On 3/25/26 14:56, Rob Herring wrote:
-> On Fri, Mar 20, 2026 at 05:29:58PM +0200, florin.leotescu@oss.nxp.com wrote:
->> From: Florin Leotescu <florin.leotescu@nxp.com>
->>
->> The EMC2305 fan controller supports multiple independent PWM fan
->> outputs. Some systems require fans to enter a defined safe state
->> during system shutdown or reboot handoff, until firmware or the next
->> boot stage reconfigures the controller.
->>
->> Add an optional "fan-shutdown-percent" property to fan child nodes
->> allowing the shutdown fan speed to be configured per fan output.
-> 
-> Why not a common fan property in fan-common.yaml?
-> 
-> We generally specify fan speeds in RPM (and then map RPMs to duty cycle
-> for PWM).
-> 
+The Lenovo IdeaCentre Mini X (Snapdragon) Desktop is a Hamoa-based
+ultracompact desktop PC. It provides HDMI, DisplayPort, USB Type-C
+display outputs, 5 additional USB ports, Ethernet, dual NVME slots,
+headphone jack, WiFi, and Bluetooth.
 
-The problem here is mentioning "fan speed" instead of referring to pwm
-duty cyle in the first place. It is not just misleading, it is wrong.
+Document the compatible for this device.
 
-It is impossible to associate fan speed with a specific duty cycle because
-that differs for each fan. It isn't even consistent for the same fan model -
-one never knows what fan speed one gets for a given duty cycle. It depends
-on the air flow in the chassis and on fan-to-fan deviations. It will change
-over the lifetime of a fan. It may even change with the ambient temperature.
-Fan controllers use a feedback loop for that purpose, but that doesn't
-work here since, after all, this is a shutdown parameter.
+Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-I don't think anything but specifying a shutdown duty cycle is
-feasible here.
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 9f9930fb9a5e9cb76f508c1f2e86da6ad9bb44e0..0ab18e9b97ac0c6df0f069dc5b985c3df48f09d5 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1142,6 +1142,7 @@ properties:
+               - dell,xps13-9345
+               - hp,elitebook-ultra-g1q
+               - hp,omnibook-x14
++              - lenovo,ideacentre-mini-01q8x10
+               - lenovo,yoga-slim7x
+               - microsoft,romulus13
+               - microsoft,romulus15
 
-> Also, we have (or can have) cooling levels defined. Perhaps we should
-> define the cooling level for shutdown? Maybe other things with cooling
-> levels need a shutdown level too?
-> 
-
-Unless I am missing something, the thermal subsystem does not currently have
-a concept of a "shutdown cooling state". The driver supports registering
-with the thermal subsystem, but it is not mandatory. Even if the thermal
-subsystem would support shutdown cooling states or a similar concept,
-I do not think it would be a good idea to mandate its existence or in a fan
-controller driver.
-
-Thanks,
-Guenter
+-- 
+2.51.0
 
