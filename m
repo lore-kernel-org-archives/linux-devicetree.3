@@ -1,140 +1,151 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011008.outbound.protection.outlook.com [52.101.70.8])
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 049463DBD6E;
-	Wed, 25 Mar 2026 14:06:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774447569; cv=fail; b=S7IQ3DTnWa81X2AJiTpCtI4J8rIIhh6iaRquvJaIN9GXb46d5VwWNvHd+/Uuxkb7o5BPdlT9D60j4BMbayyZn+M36xHtXpO/m6Y6uyAHDKL8yCaBvFY/SMWLa+f9miF5mSI64wWTQiPC+gusxh4FzPlhiExS6bCJ7Uueq9bZNWk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774447569; c=relaxed/simple;
-	bh=LDsfUOeqnTKyFzuEAUEkVD8wMeiTbiakmLqqzIrbLGE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=YBqn5sOb3b/Wr7dRKie9FA7nC5hMks+GuYvowjZhnfDaqmOk0V+mOF2xJf15PPNyY6TPvI+fGUsX5Yyfe8v3FCiU5e96+eLMwdHHXOkYj/Vv9ekmAnfFhu8UlHt92e3Y/lni7p8gtnI5mgU+VFcKlJxhvP58muaalPK15QPDaqI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=YtYFzpSG; arc=fail smtp.client-ip=52.101.70.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="YtYFzpSG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jhxhe6Md8/8kObnKC1Fit2pvEmDsBYq3csI20tBpbkUTZVpuD+06UU6e5M1Co0/wK1G+W+DKwViOjbEynQdV1KjOfI7e7F5aaz3Y6JlKeHstScDeWHAx0HN/sGv3X+AGmCerrTVJRY4dXyPh1SDhJrrhveRAf8CwTW3f4NNwOAuGZ/vetTAhnhIR27qxRlKIprKLDCm5Xl2ChzwBpzl9bIzKo/Ewc4MGQuo0QfivhVrsnqVYOrSVvp6pPWWTJaN/DK11fqNtKL5I6s0vnD/8DqZlI+TJr1Z3Pes/h/EmqdR2f9d8ILMWsFZdxEpXtBpcK8aD11FiNUMUX0tdcppSJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SqxoRN5g0EKQMWQCd6IzRpFpiUiI25FuVz4/3jPuP10=;
- b=xk9C0yO+C6weQS5jma4gi7TbFw4OQNvS+azmLTwpW2wulq9wpg8zPzZ7xxPJecRNVrOTGMCaVoJRrXiz2w8kCxOpqQOJU4tpWlPoHOK8NhWftW9ckXp8rrMBgf4bhvgFQo3MbLrt/09KxoGGYASMpE+5PuFMaMS15MknBOsnyiCI5qQsPz5zNCBD8qwQS9aEQwxZFyOmsJpL/CFldSB+Gtpal3EEun0PjdBL3Pp+NkNxGAewudAfdY+aY8vrkIg80mIhmAmWYd2fFWDGCIzHjmhIQOr3NsnX7B/FO3AnAYZWu0/dw1TWENN7pGe+c7dtHFNkuyN+q2g3s2zxd48UzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SqxoRN5g0EKQMWQCd6IzRpFpiUiI25FuVz4/3jPuP10=;
- b=YtYFzpSGJ2tUeOJ0m1cvPjedBuWKEW6Fy++YnI4S24siJV+JUUw8r6No6fjex5cI+B+RoaDr54LYQvu9p84YAP0dqce3Q0nE7dxWo3a3foI9TYNU1PJvw1ia4bmV5vS1ovCC9HwQ27DjHM4zOvINhv8kBoVkxz6FSYm0hJI9JuK0oRfCWToeJK/25cOjbn+d45xMj5w4e5jNFadRxD5SZtRwt/VyaY8SGKT6xL9nXq4y2NM0QK/8HFpw1+MT+Ij76YVIFBK31CWsWTXwvESPyWRvZGw7syqVTVeBY3vrLe+FbGRolJTr9EGDCLFkq6FjSFBOkUCKcfsojeB+/GkIwQ==
-Received: from DU2PR04CA0074.eurprd04.prod.outlook.com (2603:10a6:10:232::19)
- by PAVPR10MB7260.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:31c::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Wed, 25 Mar
- 2026 14:06:03 +0000
-Received: from DB1PEPF000509FF.eurprd03.prod.outlook.com
- (2603:10a6:10:232:cafe::40) by DU2PR04CA0074.outlook.office365.com
- (2603:10a6:10:232::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Wed,
- 25 Mar 2026 14:06:03 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DB1PEPF000509FF.mail.protection.outlook.com (10.167.242.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19 via Frontend Transport; Wed, 25 Mar 2026 14:06:03 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 25 Mar
- 2026 15:08:32 +0100
-Received: from [10.48.86.79] (10.48.86.79) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 25 Mar
- 2026 15:05:40 +0100
-Message-ID: <2908a58f-90c8-45ef-8a6d-728bb7d0efaf@foss.st.com>
-Date: Wed, 25 Mar 2026 15:05:39 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8977372670;
+	Wed, 25 Mar 2026 14:06:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774447609; cv=none; b=dBc0QymmIfK3by17MJhLE6gy00foqYh4tWSA7duaP064k1kBjVMco1gmrtXWcWwQN848ZoFgip3Zr0ZLsgdx4Gjt6NXalLYbeK3HTR2xX7iTdaO/56oCO/2L5J6+2Htf0v7E69a3aFIX40EWIg8OMoI7enyCBfBqMNJSJjn6A44=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774447609; c=relaxed/simple;
+	bh=DEYpTaNunbjC4iWnem1Kupd0V7h5J3IaGpb9FI2MAIo=;
+	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JhhGFx7PiVQBqIwM2xl1sX/vw7CB4kElKvUmOHc13KJ7uIgVcILbuM/e92pAIVi7B8b1/16EkPBiCBj5bybJBTxZDRjlob5aWqUUjEIQZNm3CttdDQ5TrX99MMO2kTAVxe4U6Kz/gEX6hFqJj69ikMZvPLbm7beWQrnJ1649ejE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; arc=none smtp.client-ip=185.176.79.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Received: from mail.maildlp.com (unknown [172.18.224.150])
+	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4fgpc21sP7zJ46FB;
+	Wed, 25 Mar 2026 22:06:26 +0800 (CST)
+Received: from dubpeml500005.china.huawei.com (unknown [7.214.145.207])
+	by mail.maildlp.com (Postfix) with ESMTPS id DDAB54056A;
+	Wed, 25 Mar 2026 22:06:34 +0800 (CST)
+Received: from localhost (10.203.177.15) by dubpeml500005.china.huawei.com
+ (7.214.145.207) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 25 Mar
+ 2026 14:06:34 +0000
+Date: Wed, 25 Mar 2026 14:06:33 +0000
+From: Jonathan Cameron <jonathan.cameron@huawei.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: Sirat <email@sirat.me>, <linux-iio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <jic23@kernel.org>, <dlechner@baylibre.com>,
+	<nuno.sa@analog.com>, <andy@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v7 1/2] dt-bindings: iio: proximity: add ST VL53L1X ToF
+ sensor
+Message-ID: <20260325140633.0000059c@huawei.com>
+In-Reply-To: <f27bfbe4-aa90-4631-b96b-efb8465b05d4@kernel.org>
+References: <20260325063254.18062-1-email@sirat.me>
+	<20260325063254.18062-2-email@sirat.me>
+	<20260325-gentle-earthworm-of-progress-1f9f46@quoll>
+	<CANn+LW+Y6j0xk2x02-BUL9qNq2gf-PXspi4wP_KGd7Abz3hOYw@mail.gmail.com>
+	<4d10b6c0-d599-4fc5-b9ed-ce669ac46e84@kernel.org>
+	<CANn+LWJQM45rAT+mzS9ZEGBgmqChbxUtStdzhbzthXUPJ=2csg@mail.gmail.com>
+	<20260325133806.00007b68@huawei.com>
+	<f27bfbe4-aa90-4631-b96b-efb8465b05d4@kernel.org>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: st: omit unused pinctrl groups from stm32mp25
- dtb files
-To: Amelie Delaunay <amelie.delaunay@foss.st.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-CC: <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20260311-mp25_pinctrl_omit-v1-1-5a3d40046b10@foss.st.com>
-Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20260311-mp25_pinctrl_omit-v1-1-5a3d40046b10@foss.st.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509FF:EE_|PAVPR10MB7260:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba28ace0-89ba-4f90-1fe5-08de8a77a698
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|376014|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	N2tpbZskm7Ga8IoyMZjvK+KJ/sYZi8RP6/EDYqwDgqSA7VYoLsWMkSoPhCmVeO+17UpD7Lo4UqrFgXnkIjJMz3XbuYG+SccelTo5E695IBk0gSbiib9wMDlejpzWNz7kr334OjsvMzVJelNzcYmQXo300SKJem+TgjmsrIPRcC9xijpof8mT7J8WFJVXRiRwyLtbscz0Wr49sLzrubsOpMImRkkcb/DsgJAH4cwRMjR4er3Nc0Ya866uOv25WEVnODG1EdrIGmaBeJ0MGySKLgUcxgCpD1juhFBbyTXKlscDiIXMHvKK5PR+3EC0nhN8mNtNgiaMFEDMQDNUjietybY43MAqz/pv+y9EF7cslgdxgQ8wVrxEFnf7dxIAOviykmum+SkPDMroh91uTjkuQIL8Nv9rPo7AJhCg2cpRCmRMuTVspm499Ec5IE0j8dJuobuv/RCp+gboXkUtg9P35bRrW4H0Gz5OOEN3+ixe2NE+AiXvUQ+zKGFZR1pZF8MI9Z+TY0+gZd+fOgKDSaYlbAdO4ahAMt3rrglDpmqZoGlQkATOC8am/MwFT7XSYAWmITAb1p7fj1REMnA0Bxyqgl0th/pSISBbr5Bk2as6XULgnzOSn8argCkQgcCjvI8Cw7Mbj3GHWXi74tsIiLR4ST3z3tGPm787bgl0JwuX0KRAhTTH9Leejnf9Aq/vnePQWLHNRC99ZAW65Cq+nG7N9JrH0Tohv4kBW0Bz+v4gficXAyiklVzF+qT5RZ+MXzI9hwpMcP8GEgOgy2R3cLat5w==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ffWRCBGrHsj/1NXhjYY1zAE5aGsdJ9RzLJRdEeZpga5ukFAgHv1rawQp9pE2Iacuby/67mqq5cjpfMQqKys1Y6KowkuzfPqrvuKEha5jtpmseroEtrwLZasgQvYJ58adBuh79KJQ1F2LR8RIgtFKcFdqxxloOrxmQSawEbs6T2oZkbC5jjBrQZ+m4ywV2k80DWlkiaFXZFrC4TUdLIqRyGSaZDZ7QvqTTIfCpwrln67tTSwf5+QbNnU6lT9vgi0m4EvJ/AsGKf0LTws+zupEbVsQUxC6JVCxgeHSFjTSqzZ8Blem0eC746/bq/sQ9nZEpabcvRGfgUIDhrUo7Imo14ybo4ElaZOj7WlAC9C3kgyxqGSuUPeJkvo6UYI8uRwZWFxjC3MNFLhxlJ0JTRdF3cf6RijbO8TfCmDdhLLuxKWlpX+sDGmS2rsLzv8mssLj
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 14:06:03.2812
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba28ace0-89ba-4f90-1fe5-08de8a77a698
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509FF.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR10MB7260
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: lhrpeml500011.china.huawei.com (7.191.174.215) To
+ dubpeml500005.china.huawei.com (7.214.145.207)
 
-Dear Amélie
+On Wed, 25 Mar 2026 14:44:13 +0100
+Krzysztof Kozlowski <krzk@kernel.org> wrote:
 
-On 3/11/26 12:30, Amelie Delaunay wrote:
-> stm32mp25-pinctrl.dtsi gathers all pinctrl groups from current and future
-> STM32MP25-based boards. Some groups may remain unused by any board,
-> resulting in wasted binary space.
-> Adding /omit-if-no-ref/ to the groups will remove unused groups from the
-> device tree blobs.
-> 
-> Use the following regex to update the file:
-> 's/^\t[^:]\+: [^ ]\+ {$/\t\/omit-if-no-ref\/\n&/'
-> Also, merge the duplicated pinctrl_z node.
-> 
-> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
-> ---
->   arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 44 +++++++++++++++++++++++++--
->   1 file changed, 42 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-> index c34cd33cd855..a7ac9d08484c 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-> +++ b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
+> On 25/03/2026 14:38, Jonathan Cameron wrote:
+> > On Wed, 25 Mar 2026 15:18:05 +0600
+> > Sirat <email@sirat.me> wrote:
+> >  =20
+> >> On Wed, Mar 25, 2026 at 2:58=E2=80=AFPM Krzysztof Kozlowski <krzk@kern=
+el.org> wrote: =20
+> >>>
+> >>> On 25/03/2026 09:48, Sirat wrote:   =20
+> >>>> On Wed, Mar 25, 2026 at 2:05=E2=80=AFPM Krzysztof Kozlowski <krzk@ke=
+rnel.org> wrote:   =20
+> >>>>>
+> >>>>> On Wed, Mar 25, 2026 at 12:32:22PM +0600, Siratul Islam wrote:   =20
+> >>>>>> Add device tree binding documentation for the STMicroelectronics
+> >>>>>> VL53L1X Time-of-Flight ranging sensor connected via I2C.
+> >>>>>>
+> >>>>>> Make vdd-supply required. The device requires power to operate
+> >>>>>> and the property should have been required from the start.   =20
+> >>>>>
+> >>>>> That's ABI break and device for many years was working fine, so this
+> >>>>> should not be changed.
+> >>>>>   =20
+> >>>> Jonathan and David asked that vdd-supply be made required. I feel li=
+ke
+> >>>> there is a conflict here that I am not able to resolve myself.
+> >>>>
+> >>>> What I think about it is the binding does not correctly describe the
+> >>>> hardware and we should consider this a bug and fix it.
+> >>>> The driver worked because of a fallback mechanism (dummy/fake
+> >>>> regulator) and not because power was optional.
+> >>>>   =20
+> >>>
+> >>>
+> >>> I looked at v6 and v5 and I do not see such comment for binding that
+> >>> existing device should change ABI. Can you point me to it?
+> >>>   =20
+> >> "Make it required and add a note to the commit message to say why the
+> >> requirement should always have been there. Devices tend not to work
+> >> with no power." - Jonathan (v3:
+> >> https://lore.kernel.org/linux-iio/20260322115704.10b2e0d4@jic23-huawei)
+> >>
+> >> "No, bindings should not depend on driver implementation." - David
+> >> (When I asked if I should  drop the hard requirement in the binding,
+> >> v6: https://lore.kernel.org/linux-iio/55e92148-b5de-4fb8-af0b-94762353=
+41bc@baylibre.com/)
+> >>
+> >> "From the point of view of the devicetree, it doesn't matter what the
+> >> driver does. It matters that the chip can't work without power. ;-)" -
+> >> David (v1: https://lore.kernel.org/linux-iio/d0ec6a2f-6d30-4774-8950-1=
+5dd3c4b020b@baylibre.com)
+> >>
+> >> I'm not sure if this is the correct way to quote. But I have added the=
+ links. =20
+> >=20
+> > This came up a few years back - though I doubt I can track down the
+> > exact discussion however.
+> >=20
+> > From a Linux point of view we are breaking binding checks only if the
+> > supply (that should always have been there as chips tend not to work
+> > well without power) is not present.  We absolutely have to
+> > keep the driver running whether or not the supply is specified.
+> > Do other DT users provide such a constraint? I've no idea.
+> >=20
+> > If the DT maintainer preference is leave it not required (perhaps
+> > with a comment saying new users of the binding should supply it)
+> > then that's fine by me. I'll keep it in mind for future similar changes=
+. =20
+>=20
+> If this was other ABI, e.g. clock, then answer would be - do not require
+> it, because that's ABI break. Therefore I would stick to that also to
+> regulators. Once Rob also expressed such thoughts, although noting that
+> it is not that big deal.
+>=20
+> New device in this binding of course should require the supply.
+Seems my memory was less than perfect on this :=20
+https://lore.kernel.org/linux-iio/20241119140409.GA1093349-robh@kernel.org/=
+#t
 
-Applied on stm32-next.
+Rob expressed that we are inconsistent on this, but he'd rather not
+have regulators as a special case.
 
-Regards
-Alex
+So let's only make this required for the new device.=20
+
+Thanks,
+
+J
+
+>=20
+> Best regards,
+> Krzysztof
+>=20
+
