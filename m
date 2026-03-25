@@ -1,600 +1,158 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013026.outbound.protection.outlook.com [40.107.162.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7658C1E4BE;
-	Wed, 25 Mar 2026 14:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774448331; cv=fail; b=ddiBfdG8ttY2p24noUwRWR3Mh3i/E/TSH6nsAtxfI91JEWPEaLJtV2Z+be/RI7DJfRXyYlXDblBRro50yuO9LBzwfRyh5A1D+0FSSfYaRT3bNnQI9Qd+UR5Hjn1UC5n1iny1mKXtbNSvCamHOE3AIWFyvRrFYkdNXELErstMAZE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774448331; c=relaxed/simple;
-	bh=I+U3H9iobNRLUZt9uAxW3N3t3nwjtP4pC55LEOEMHZA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=ZPDFv6RdFFycugLran6oimejvP6rg4xGaCpuHtS/2qx2sYj6/tCHV8gnB3K2rb+iBLq5F+dVuHo2dXzdkjL0m2wludAPV+BtmvqWXuHy5WHF37ztdED+IpqR9S7HOOcjNhUjheAkzu1yhLswBZ5n8K3POQdkw5lTsLHD5twlfCs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=BFUwxH1h; arc=fail smtp.client-ip=40.107.162.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746CD3CF69D
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 14:21:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774448463; cv=none; b=CTHXRoSc4i8JxU9NclDqmK+9zAQLLDxrNhQySLlsha/xjJf2gOJhevD4U4YmvoxqCfTmxoG7fchEx87O540lY/OE1XpfUjGfhl5ea+CdSCqaHKaeiPd6QvBD09NHxYBAegXJIbMpVQAOdz8lrMt8B+FzAFL11lwi2I/FBGdEato=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774448463; c=relaxed/simple;
+	bh=nyIevaqXhT3rwmENRdoKTBDLBj1F8IcBozyA4s/q8FA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QCb/wm3sOEXBZXHpSjwvGw4KFQR46YIZikAmzv92Y6xIqnBdE6E/X7RgtLCHCBeQ1ESUCvKPxR56ONcXjKRxOKmW1dR28qlP8SdEr7ZRNXEbUGfOagpiAZwOZQ/v+whQoYBB0am6wFkS+BcVdzacpVdhC18rgEc53CMEajiKqb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=acB6yhhg; arc=none smtp.client-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="BFUwxH1h"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PGCSYVsGqg4K+3t3VVX0Ma8OGN39Q2oKQ+F7UV4+MiuHBuUz8+IQ3gmQUcrmBbBJVKwfinP5BhVoJbkkqoezVMZqqAeV07UZJGfna+gD1eJHsHtb4vDIgLm0s8/PIjruRnkn4Wmgoi2z7Mj8gCFqLPmPJA0o9rF2SzB+X9gE3ucZ0vrIxdTMDXt6oOEwHDsHQGpJpWqOm2XIqgnAkaB3G6gRt7iOxmhEd8yMHNAHjKGUAeTn7hfUhB/NI1vMXPOO6YOp46+2mI9cXth0xfv5m4Fft52gSbbA4tUSOPE1YEqnGk3sn0OHcMyjmyeJ4oXMytg55z9weSD6W/tRslCmCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QFE4IdhrhQ4/jt1l7Oh2DkjYFkz0UvJ0Wc/Jqw5MvzU=;
- b=MqJMmbDkh/huDs1AQbKaQ/2L3VcBJJpO0Zb6HlplmpMCByFLeoXPJSLJI4kIikCHObNN8MGiYZigEa2tOmUzkFivuILRcb5+2cZTawyzoW50z6rimIA0DzoZy3sOA+DYrJCcXLXM5TwG9BFsXd9k3XeLDuxFcr+uYfa1oD0eQ8YgVtUbJaNOJec4AJ8vdWcRnUyfJssQ4lXkP6re9B1R6z1lSNLF000KoqrqcXc6pbyR9kxh1Wd1T2DkZWk4DvKl2sTW7/hRGWVql16i0vDlCG7PUKt2zizPHORvLZ6m9CzL6HpSlGhjoa9hvHcUiwPOPpBhGBosl2OJ7kG9tx1+tw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=denx.de smtp.mailfrom=foss.st.com; dmarc=fail
- (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QFE4IdhrhQ4/jt1l7Oh2DkjYFkz0UvJ0Wc/Jqw5MvzU=;
- b=BFUwxH1hsF9lJt1HROyslaC2RYewdVdY+uZ79JXjLjoopIMp+BK1WuKWl82BA9RQoKzYofoAArIrcZ6zGXTL+v1j0XZwjeNti0X9lWOuTkX3VTIyYnSr5l6LrEg0nc3l05Rgo8x93mjMmYxmsGKxQAHGg9UpT7mdN2SgwKm8KsrxSvctdy5J9y5WDuSkzZB+WUu4XsBWHKsTcAdHnIJrqjcnarX2NU6W0bYrh/BrwsV265QZ3S60UVfNgmPE32WpdtaiZ1PEIlF+n6j847RDwAW0GWTH8SvNQAOWqhkW8xG4SUUadMymo8WOC6gVj9rVrGVGSef9/DgW3jF62w/tPA==
-Received: from DUZPR01CA0219.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b4::16) by PAXPR10MB5255.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:102:28e::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Wed, 25 Mar
- 2026 14:18:44 +0000
-Received: from DU6PEPF0000B61F.eurprd02.prod.outlook.com
- (2603:10a6:10:4b4:cafe::a6) by DUZPR01CA0219.outlook.office365.com
- (2603:10a6:10:4b4::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Wed,
- 25 Mar 2026 14:18:44 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DU6PEPF0000B61F.mail.protection.outlook.com (10.167.8.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19 via Frontend Transport; Wed, 25 Mar 2026 14:18:44 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 25 Mar
- 2026 15:20:56 +0100
-Received: from [10.48.87.93] (10.48.87.93) by STKDAG1NODE1.st.com
- (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 25 Mar
- 2026 15:18:04 +0100
-Message-ID: <e5bdb8fb-0dfe-4a78-bca9-89f060cd2886@foss.st.com>
-Date: Wed, 25 Mar 2026 15:18:05 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="acB6yhhg"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-2c0e38f3f60so382252eec.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 07:21:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774448461; x=1775053261; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/S5mOriTguhW1xaEQeXyyeJMvod6MSEvAssopruD0u8=;
+        b=acB6yhhgAJAwkzBErsun6FFDwRd0OT55HQ4LqThv7zpb9chNU8h3IOIm/fN86ElMDD
+         5tNKIYGqiQ1aNzQ1BD0RNyN5E5kTLuwT1Li6LLqWNAhSUbwuwXIqkvXRmVJKfj+nrepP
+         rrcqdpPpFyrkXCVRbo3OSspCs+PNo3rhpXqdIrC1LZFsDba7HIC7R8dEFPje4rmwaQtJ
+         Ox/b1XMP6EZB0CUUic6PyeKUExGZSSlzSWzUoyyEOIV2waD4KrUq7BIka2vUnZ5Fps8Q
+         KBk4KOQrtfLa/ZHFLHriEBi18zpBLq7ouY1+iUeXOjO0jr3/Nxc4BAtRHb+9beHgSlWd
+         xiGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774448461; x=1775053261;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=/S5mOriTguhW1xaEQeXyyeJMvod6MSEvAssopruD0u8=;
+        b=VoaYfIWYnD2YYd8uDvbaivRCdU6mvxDnBnMxpPiI+xzF8xxdwjiFaon0NCBpdJFwoG
+         AMd8oKx0QescpKQp4dxwirBUcn+Peq4cN3KD9O235zNSsEkeTglclgXIBjv1tsaqnppQ
+         5GkTp+8s9gKAghBaqn4R/GzMK6t3Q/n95uNUyvDdF9003WDSIyFzWuNZN9TLGmAwPWUP
+         DX859nftQbRQE+qt4UjFFpuY3zhdK+Y5YTaYQ4x1HMRV94bPCBPg79SACewL0RfkoBqN
+         RVyKLhzF6Ak8Nlopme6Pk3PtvL+Io/FIvb0Nc1ipTbgGCA1gKVbC84e5CWZLYCshRFH8
+         ktzQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXy1P//WPT0eMWr1gQ8vWyGCEop3hH1Af6iym/QbuTI3rmxb0NNbVPJfWLlWKH6/YPHjNdjSywN5J8J@vger.kernel.org
+X-Gm-Message-State: AOJu0YyFrwg6fMwQJxwWvvLtbxq+jtQ+yQi8GivJZvFv7JqlO+AQMc24
+	zZyHhSeVt7F3nXTV0Yyq9ba/GErURqn/zJmC529IucqckyhHBelO12BW
+X-Gm-Gg: ATEYQzwBmaq/a6PALSUQshckEqbGvGtqZc0yMvkrrQ7Ok8Fo3KbJQPeEgcCkka08qaW
+	dN6KLXP/fxqsK3gdxXy4LUt56QH8WSUF3wfKo7c9oox8jGLFO8lJpKcXVzdtzBKY6lNktoll79x
+	vw6TSa8eCaHBucRilMUTSKcoeEJMBXLgU+KqjyGUrp/CYVeIS8JBlx8M5wSbwJscCApv9lMFdVU
+	Ec8lmziC0zVdGMbci+TDUAJbn0Wzt4zN5nvJPM505ZRJptA9LhEaltOhaingzh/MxcsX0IT5O2G
+	RUuORnVdfXAdsS5XtXRbS+A4dtt5tcX61WLwvUMVku4veTr1Gx25GgRtwv5buJFpX/p54ZL26Qr
+	6QcUAXzdZKcXR36svgfWk5iNOhB3xJdReVFze1yNPJnG5Vs9RZ1HCF3v9OeCheElAVhdBQMw09R
+	m1nQ0s9QjgyO7imO5z7w6KaYpEImSj56RyawT9
+X-Received: by 2002:a05:7300:371e:b0:2c0:b92d:267d with SMTP id 5a478bee46e88-2c14b46dc8emr3673818eec.2.1774448461293;
+        Wed, 25 Mar 2026 07:21:01 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c10b2d01f7sm17923085eec.23.2026.03.25.07.21.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Mar 2026 07:21:00 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 25 Mar 2026 07:20:59 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Dawei Liu <dawei.liu.jy@renesas.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Grant Peltier <grant.peltier.jg@renesas.com>,
+	Linda Xin <linda.xin.jg@renesas.com>,
+	Tabrez Ahmed <tabreztalks@gmail.com>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] hwmon: (pmbus/isl68137) Add support for Renesas
+ RAA228942 and RAA228943
+Message-ID: <4e5107a3-6fee-42a7-9911-3d50a3557241@roeck-us.net>
+References: <20260325090208.857-1-dawei.liu.jy@renesas.com>
+ <20260325090208.857-3-dawei.liu.jy@renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/6] ARM: dts: stm32: Add boot phase tags for
- STMicroelectronics mp13 boards
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Marek Vasut
-	<marex@denx.de>
-CC: <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<kernel@dh-electronics.com>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Maxime
- Coquelin" <mcoquelin.stm32@gmail.com>, Patrick Delaunay
-	<patrick.delaunay@foss.st.com>, Christoph Niedermaier
-	<cniedermaier@dh-electronics.com>
-References: <20260123-upstream_uboot_properties-v5-0-5167929d5af5@foss.st.com>
- <20260123-upstream_uboot_properties-v5-4-5167929d5af5@foss.st.com>
-Content-Language: en-US
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <20260123-upstream_uboot_properties-v5-4-5167929d5af5@foss.st.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE1.st.com
- (10.75.128.132)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU6PEPF0000B61F:EE_|PAXPR10MB5255:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47e57442-6974-4081-2606-08de8a796c20
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|82310400026|1800799024|376014|36860700016|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	ueDbsInH6X63WdVv+MOmH2eJVsns875d+Zag8kdxrD9cOm1OYX7+fGcVSRVw3Z5SeSxm3mV56aPKbnPlSDzr6zLf/QGlpQK93S+UDkNagi9ut6X3GPGk9Ca8trGgPXG+X6pIY9M8/3Oho2paFacVcX4bmh075FXRnyc8I1N2+wFHl1VowdgYkIpvU5L0OfRqi76immRa+0ym3DGLpL/6D2TAx8urEiOPvF2Kj48qIBDToJrFBO+lGFuQ8wUMtXumz5qejiZBEfZgfMMtbIj9O8dKxgLm4LoY2nACOXmoCWXsD2nVfD4QFdp/EFa8eoVKRaDOsJQfQhjTqU4bYaqM1V2fveomdr0U81DMZFGsIf5iyDQEeSgMUkeDI8xYvQAQhnvEE9pHWcs3M3qIVj8FnS53Qg9YhC0mLarGiPJKal7QhuC9EFTRiIN0oLcv0hN1jwybS4xqix2qBAjSgWchI6nxpgfPNbwX6IFSX0xREoCW0qVsrpI1J31KawOJe3yYlezf9QWGUoPAuTthSteNIONCOgusOhdlG7ZAt+lhJ/rodLbMQ3ikkA2c1DgeaLBTAEHzUf2cfG7kj5JXDcy+Ux6CzfMqyqTJEAcQfYzn5uS2eYVwlFpwu/pnIcnFK3nl7KauQqrvLyPthJTz/9balVxlRddrXmFlCEN5BKDpP4gPU2ImfoByU0FZ6dCFDuPrkKw6X/cvvNQcHhtCKmXgxdsGogyeLQuv5Tzj63vF6rewfDvSribLAnkLB2mvX0i7rZlDVDxAlEZttEjG3ywapw==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(82310400026)(1800799024)(376014)(36860700016)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	wZebRlwG1BS7z0F5+tcGYEHhTJnz6AErBughDK64JBjE2lXpraaeEZyE5oOzcjGzgrGEL5Rs8HHRevkjOGqHaRqcxTB/WOYFZ3UDOdN1S8tqLpSgdw6xesDT3jp5vFKhnFDPwu6+2F1l+x/URr+tAWYjnD173jPfNzJXTa1AmCYFYV7rAaI1E5PLT68WRlLZr2tGSNy7+TG/4eg8ajR7d+zQrq7W5TDzkKQ7J3Ja7/t4/whNEpicKFAfjyx4XjHJhcAjb3XK4ZfQjwnYPJghe0rABKYIF2E9I69taEvhTOL8AQO2gb8f1fRolyTWaju3gcw0DV1RWeMRAJ4COpIVYyDCk5xVx5OB02VG8w5RmLoa7cdCAdqePMJH01GHRGTkDaDV9YIXh8XEWpRchG7Zq7n4WUVc3rMgip1xYo8kGbunNU/4YLIvUFkLE9aSYqgH
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 14:18:44.1721
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47e57442-6974-4081-2606-08de8a796c20
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU6PEPF0000B61F.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR10MB5255
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260325090208.857-3-dawei.liu.jy@renesas.com>
 
-Hi Marek
-
-Have you some remarks about DHCOR DT update ?
-
-Thanks
-Patrice
-
-On 1/23/26 11:14, Patrice Chotard wrote:
-> The bootph-all flag was introduced in dt-schema
-> (dtschema/schemas/bootph.yaml) to define node usage across
-> different boot phases.
+On Wed, Mar 25, 2026 at 05:02:08PM +0800, Dawei Liu wrote:
+> Add I2C device IDs for Renesas RAA228942 and RAA228943.
 > 
-> To ensure SD boot, timer, gpio, syscfg, clock and uart nodes need to be
-> present in all boot stages, so add missing bootph-all phase flag
-> to these nodes to support SD boot.
+> At the Linux PMBus hwmon interface level currently supported by this
+> driver, these devices are compatible with the existing 2-rail non-TC
+> controllers, so devicetree will use fallback compatibles and no
+> dedicated OF match entries are needed.
 > 
-> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+> Signed-off-by: Dawei Liu <dawei.liu.jy@renesas.com>
+
+Applied.
+
+Sorry for the v4 noise. Upside of AI reviews is that it finds lots
+of issues. Downside is that I now get flooded with lots of patch
+revisions. Still, I very much appreciate and prefer to get both.
+
+Thanks,
+Guenter
+
 > ---
->  arch/arm/boot/dts/st/stm32mp131.dtsi             |   4 +-
->  arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts |  21 ++++
->  arch/arm/boot/dts/st/stm32mp135f-dk.dts          | 101 ++++++++++++++++
->  arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi  | 145 +++++++++++++++++++----
->  4 files changed, 247 insertions(+), 24 deletions(-)
+>  Documentation/hwmon/isl68137.rst | 20 ++++++++++++++++++++
+>  drivers/hwmon/pmbus/isl68137.c   |  2 ++
+>  2 files changed, 22 insertions(+)
 > 
-> diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
-> index fd730aa37c22..80c97bc830eb 100644
-> --- a/arch/arm/boot/dts/st/stm32mp131.dtsi
-> +++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
-> @@ -30,7 +30,7 @@ arm-pmu {
->  	};
+> diff --git a/Documentation/hwmon/isl68137.rst b/Documentation/hwmon/isl68137.rst
+> index e77f582c2..0ce20d091 100644
+> --- a/Documentation/hwmon/isl68137.rst
+> +++ b/Documentation/hwmon/isl68137.rst
+> @@ -394,6 +394,26 @@ Supported chips:
 >  
->  	firmware {
-> -		optee {
-> +		optee: optee {
->  			method = "smc";
->  			compatible = "linaro,optee-tz";
->  			interrupt-parent = <&intc>;
-> @@ -85,7 +85,7 @@ intc: interrupt-controller@a0021000 {
->  		      <0xa0022000 0x2000>;
->  	};
+>        Provided by Renesas upon request and NDA
 >  
-> -	psci {
-> +	psci: psci {
->  		compatible = "arm,psci-1.0";
->  		method = "smc";
->  	};
-> diff --git a/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts b/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts
-> index 9902849ed040..526ab2e1a93c 100644
-> --- a/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts
-> +++ b/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts
-> @@ -350,6 +350,21 @@ timer@12 {
->  	};
->  };
+> +  * Renesas RAA228942
+> +
+> +    Prefix: 'raa228942'
+> +
+> +    Addresses scanned: -
+> +
+> +    Datasheet:
+> +
+> +      Provided by Renesas upon request and NDA
+> +
+> +  * Renesas RAA228943
+> +
+> +    Prefix: 'raa228943'
+> +
+> +    Addresses scanned: -
+> +
+> +    Datasheet:
+> +
+> +      Provided by Renesas upon request and NDA
+> +
+>    * Renesas RAA229001
 >  
-> +&uart4 {
-> +	bootph-all;
-> +};
-> +
-> +&uart4_pins_b {
-> +	bootph-all;
-> +
-> +	pins1 {
-> +		bootph-all;
-> +	};
-> +	pins2 {
-> +		bootph-all;
-> +	};
-> +};
-> +
->  &usart1 { /* Expansion connector: RX:pin33 TX:pin37 */
->  	pinctrl-names = "default", "sleep", "idle";
->  	pinctrl-0 = <&usart1_pins_b>;
-> @@ -367,6 +382,10 @@ &usart2 { /* Expansion connector: RX:pin10 TX:pin8 RTS:pin11 CTS:pin36 */
->  	status = "okay";
->  };
->  
-> +&usbphyc {
-> +	bootph-all;
-> +};
-> +
->  &usbh_ehci {
->  	phys = <&usbphyc_port0>;
->  	status = "okay";
-> @@ -432,6 +451,7 @@ connector {
->  
->  /* LDO2 is expansion connector 3V3 supply on STM32MP13xx DHCOR DHSBC rev.200 */
->  &vdd_ldo2 {
-> +	bootph-all;
->  	regulator-always-on;
->  	regulator-boot-on;
->  	regulator-min-microvolt = <3300000>;
-> @@ -440,6 +460,7 @@ &vdd_ldo2 {
->  
->  /* LDO5 is carrier board 3V3 supply on STM32MP13xx DHCOR DHSBC rev.200 */
->  &vdd_sd {
-> +	bootph-all;
->  	regulator-always-on;
->  	regulator-boot-on;
->  	regulator-min-microvolt = <3300000>;
-> diff --git a/arch/arm/boot/dts/st/stm32mp135f-dk.dts b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
-> index 9764a6bfa5b4..83bc5ea90c3a 100644
-> --- a/arch/arm/boot/dts/st/stm32mp135f-dk.dts
-> +++ b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
-> @@ -161,6 +161,10 @@ channel@12 {
->  	};
->  };
->  
-> +&bsec {
-> +	bootph-all;
-> +};
-> +
->  &crc1 {
->  	status = "okay";
->  };
-> @@ -208,6 +212,42 @@ phy0_eth1: ethernet-phy@0 {
->  	};
->  };
->  
-> +&gpioa {
-> +	bootph-all;
-> +};
-> +
-> +&gpiob {
-> +	bootph-all;
-> +};
-> +
-> +&gpioc {
-> +	bootph-all;
-> +};
-> +
-> +&gpiod {
-> +	bootph-all;
-> +};
-> +
-> +&gpioe {
-> +	bootph-all;
-> +};
-> +
-> +&gpiof {
-> +	bootph-all;
-> +};
-> +
-> +&gpiog {
-> +	bootph-all;
-> +};
-> +
-> +&gpioh {
-> +	bootph-all;
-> +};
-> +
-> +&gpioi {
-> +	bootph-all;
-> +};
-> +
->  &i2c1 {
->  	pinctrl-names = "default", "sleep";
->  	pinctrl-0 = <&i2c1_pins_a>;
-> @@ -342,6 +382,7 @@ goodix: goodix-ts@5d {
->  
->  &iwdg2 {
->  	timeout-sec = <32>;
-> +	bootph-all;
->  	status = "okay";
->  };
->  
-> @@ -349,6 +390,7 @@ &ltdc {
->  	pinctrl-names = "default", "sleep";
->  	pinctrl-0 = <&ltdc_pins_a>;
->  	pinctrl-1 = <&ltdc_sleep_pins_a>;
-> +	bootph-some-ram;
->  	status = "okay";
->  
->  	port {
-> @@ -358,6 +400,22 @@ ltdc_out_rgb: endpoint {
->  	};
->  };
->  
-> +&optee {
-> +	bootph-all;
-> +};
-> +
-> +&pinctrl {
-> +	bootph-all;
-> +};
-> +
-> +&psci {
-> +	bootph-some-ram;
-> +};
-> +
-> +&rcc {
-> +	bootph-all;
-> +};
-> +
->  &rtc {
->  	pinctrl-names = "default";
->  	pinctrl-0 = <&rtc_rsvd_pins_a>;
-> @@ -369,6 +427,14 @@ rtc_lsco_pins_a: rtc-lsco-0 {
->  	};
->  };
->  
-> +&scmi {
-> +	bootph-all;
-> +};
-> +
-> +&scmi_clk {
-> +	bootph-all;
-> +};
-> +
->  &scmi_regu {
->  	scmi_vdd_adc: regulator@10 {
->  		reg = <VOLTD_SCMI_STPMIC1_LDO1>;
-> @@ -392,6 +458,10 @@ scmi_v3v3_sw: regulator@19 {
->  	};
->  };
->  
-> +&scmi_reset {
-> +	bootph-all;
-> +};
-> +
->  &sdmmc1 {
->  	pinctrl-names = "default", "opendrain", "sleep";
->  	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_clk_pins_a>;
-> @@ -402,9 +472,24 @@ &sdmmc1 {
->  	st,neg-edge;
->  	bus-width = <4>;
->  	vmmc-supply = <&scmi_vdd_sd>;
-> +	bootph-pre-ram;
->  	status = "okay";
->  };
->  
-> +&sdmmc1_b4_pins_a {
-> +	bootph-pre-ram;
-> +	pins {
-> +		bootph-pre-ram;
-> +	};
-> +};
-> +
-> +&sdmmc1_clk_pins_a {
-> +	bootph-pre-ram;
-> +	pins {
-> +		bootph-pre-ram;
-> +	};
-> +};
-> +
->  /* Wifi */
->  &sdmmc2 {
->  	pinctrl-names = "default", "opendrain", "sleep";
-> @@ -436,6 +521,10 @@ &spi5 {
->  	status = "disabled";
->  };
->  
-> +&syscfg {
-> +	bootph-all;
-> +};
-> +
->  &timers3 {
->  	/delete-property/dmas;
->  	/delete-property/dma-names;
-> @@ -517,9 +606,20 @@ &uart4 {
->  	pinctrl-2 = <&uart4_idle_pins_a>;
->  	/delete-property/dmas;
->  	/delete-property/dma-names;
-> +	bootph-all;
->  	status = "okay";
->  };
->  
-> +&uart4_pins_a {
-> +	bootph-all;
-> +	pins1 {
-> +		bootph-all;
-> +	};
-> +	pins2 {
-> +		bootph-all;
-> +	};
-> +};
-> +
->  &uart8 {
->  	pinctrl-names = "default", "sleep", "idle";
->  	pinctrl-0 = <&uart8_pins_a>;
-> @@ -583,6 +683,7 @@ usbotg_hs_ep: endpoint {
->  };
->  
->  &usbphyc {
-> +	bootph-all;
->  	status = "okay";
->  };
->  
-> diff --git a/arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi b/arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi
-> index c18156807027..4efaca84a72c 100644
-> --- a/arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi
-> +++ b/arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi
-> @@ -54,6 +54,46 @@ vin: vin {
->  	};
->  };
->  
-> +&bsec {
-> +	bootph-all;
-> +};
-> +
-> +&gpioa {
-> +	bootph-all;
-> +};
-> +
-> +&gpiob {
-> +	bootph-all;
-> +};
-> +
-> +&gpioc {
-> +	bootph-all;
-> +};
-> +
-> +&gpiod {
-> +	bootph-all;
-> +};
-> +
-> +&gpioe {
-> +	bootph-all;
-> +};
-> +
-> +&gpiof {
-> +	bootph-all;
-> +};
-> +
-> +&gpiog {
-> +	bootph-all;
-> +};
-> +
-> +&gpioh {
-> +	bootph-all;
-> +};
-> +
-> +&gpioi {
-> +	bootph-all;
-> +};
-> +
->  &i2c3 {
->  	i2c-scl-rising-time-ns = <96>;
->  	i2c-scl-falling-time-ns = <3>;
-> @@ -216,9 +256,18 @@ eeprom0wl: eeprom@58 {
->  
->  &iwdg2 {
->  	timeout-sec = <32>;
-> +	bootph-all;
->  	status = "okay";
->  };
->  
-> +&pinctrl {
-> +	bootph-all;
-> +};
-> +
-> +&psci {
-> +	bootph-some-ram;
-> +};
-> +
->  &qspi {
->  	pinctrl-names = "default", "sleep";
->  	pinctrl-0 = <&qspi_clk_pins_a
-> @@ -229,6 +278,7 @@ &qspi_bk1_sleep_pins_a
->  		     &qspi_cs1_sleep_pins_a>;
->  	#address-cells = <1>;
->  	#size-cells = <0>;
-> +	bootph-all;
->  	status = "okay";
->  
->  	flash0: flash@0 {
-> @@ -238,37 +288,35 @@ flash0: flash@0 {
->  		spi-max-frequency = <108000000>;
->  		#address-cells = <1>;
->  		#size-cells = <1>;
-> +		bootph-all;
->  	};
->  };
->  
-> -/* Console UART */
-> -&uart4 {
-> -	pinctrl-names = "default", "sleep", "idle";
-> -	pinctrl-0 = <&uart4_pins_b>;
-> -	pinctrl-1 = <&uart4_sleep_pins_b>;
-> -	pinctrl-2 = <&uart4_idle_pins_b>;
-> -	/delete-property/dmas;
-> -	/delete-property/dma-names;
-> -	status = "okay";
-> +&qspi_clk_pins_a {
-> +	bootph-all;
-> +	pins {
-> +		bootph-all;
-> +	};
->  };
->  
-> -/* Bluetooth */
-> -&uart7 {
-> -	pinctrl-names = "default", "sleep", "idle";
-> -	pinctrl-0 = <&uart7_pins_a>;
-> -	pinctrl-1 = <&uart7_sleep_pins_a>;
-> -	pinctrl-2 = <&uart7_idle_pins_a>;
-> -	uart-has-rtscts;
-> -	status = "okay";
-> +&qspi_bk1_pins_a {
-> +	bootph-all;
-> +	pins {
-> +		bootph-all;
-> +	};
-> +};
->  
-> -	bluetooth {
-> -		compatible = "infineon,cyw43439-bt", "brcm,bcm4329-bt";
-> -		max-speed = <3000000>;
-> -		device-wakeup-gpios = <&gpiog 9 GPIO_ACTIVE_HIGH>;
-> -		shutdown-gpios = <&gpioi 2 GPIO_ACTIVE_HIGH>;
-> +&qspi_cs1_pins_a {
-> +	bootph-all;
-> +	pins {
-> +		bootph-all;
->  	};
->  };
->  
-> +&rcc {
-> +	bootph-all;
-> +};
-> +
->  /* SDIO WiFi */
->  &sdmmc1 {
->  	pinctrl-names = "default", "opendrain", "sleep";
-> @@ -312,3 +360,56 @@ &sdmmc2 {
->  	vqmmc-supply = <&vdd>;
->  	status = "okay";
->  };
-> +
-> +&syscfg {
-> +	bootph-all;
-> +};
-> +
-> +/* Console UART */
-> +&uart4 {
-> +	pinctrl-names = "default", "sleep", "idle";
-> +	pinctrl-0 = <&uart4_pins_b>;
-> +	pinctrl-1 = <&uart4_sleep_pins_b>;
-> +	pinctrl-2 = <&uart4_idle_pins_b>;
-> +	/delete-property/dmas;
-> +	/delete-property/dma-names;
-> +	status = "okay";
-> +};
-> +
-> +/* Bluetooth */
-> +&uart7 {
-> +	pinctrl-names = "default", "sleep", "idle";
-> +	pinctrl-0 = <&uart7_pins_a>;
-> +	pinctrl-1 = <&uart7_sleep_pins_a>;
-> +	pinctrl-2 = <&uart7_idle_pins_a>;
-> +	uart-has-rtscts;
-> +	status = "okay";
-> +
-> +	bluetooth {
-> +		compatible = "infineon,cyw43439-bt", "brcm,bcm4329-bt";
-> +		max-speed = <3000000>;
-> +		device-wakeup-gpios = <&gpiog 9 GPIO_ACTIVE_HIGH>;
-> +		shutdown-gpios = <&gpioi 2 GPIO_ACTIVE_HIGH>;
-> +	};
-> +};
-> +
-> +&vdd {
-> +	bootph-all;
-> +};
-> +
-> +&vddcpu {
-> +	bootph-all;
-> +};
-> +
-> +
-> +&vddcore {
-> +	bootph-all;
-> +};
-> +
-> +&vdd_ddr {
-> +	bootph-all;
-> +};
-> +
-> +&vref_ddr {
-> +	bootph-all;
-> +};
-> 
-
+>      Prefix: 'raa229001'
+> diff --git a/drivers/hwmon/pmbus/isl68137.c b/drivers/hwmon/pmbus/isl68137.c
+> index 3346afdf3..03c9adc0e 100644
+> --- a/drivers/hwmon/pmbus/isl68137.c
+> +++ b/drivers/hwmon/pmbus/isl68137.c
+> @@ -432,6 +432,8 @@ static const struct i2c_device_id raa_dmpvr_id[] = {
+>  	{"raa228228", raa_dmpvr2_2rail_nontc},
+>  	{"raa228244", raa_dmpvr2_2rail_nontc},
+>  	{"raa228246", raa_dmpvr2_2rail_nontc},
+> +	{"raa228942", raa_dmpvr2_2rail_nontc},
+> +	{"raa228943", raa_dmpvr2_2rail_nontc},
+>  	{"raa229001", raa_dmpvr2_2rail},
+>  	{"raa229004", raa_dmpvr2_2rail},
+>  	{"raa229141", raa_dmpvr2_2rail_pmbus},
