@@ -1,60 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F040D2D8773;
-	Wed, 25 Mar 2026 02:49:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 479A013A244;
+	Wed, 25 Mar 2026 02:57:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774406955; cv=none; b=QYMNQ4puawxPqbZDqZzu3YLcbTEVTmXfRfJ4WATL9JPAgzBKRF1DovdLzoMx0um285M859rpoypResCSizmlMKdsKfDu5u3Ek/cdfLs5HXfihdgZm5jYjp3T/qUPvvj8SD/e/1XaHAK4uB3EtuWoWfog9U+UBdphP9ZF05IN1pI=
+	t=1774407450; cv=none; b=pWu40V/tSyA2bh4kWPEFZc9qlisRIYsnNazZLO1XQeI7pieX/LqjCrpF75SZ7phlgtHS/bRN9wcGZnDes/uzau9qlK9RnBCZDtZwLaDcLyCjWGbn9iBjFC/OTlZ7LSPDFxaSI/6OAT3gF5snK2z5XRL5bLnIfBgCU9mmqJcYg5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774406955; c=relaxed/simple;
-	bh=+VMZxzxWPHPxlfkvFwfDZjxP5xM9wlOhgsLyDw/m218=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=Hh6artqvBQhCC8Q5IxRIc/omHwF4wRxKQp9hIRazXxVwLV3AHA4dnU0T3rPiwWhifefSo5WFR1V7Rer+st26Mj3zGVVssAK0mC4xWIt8CwlCmQZxKTqWewUf2+o7cSqewuQ5HDfONC7z5QQbjwUUdQmOE/3cTEXp4GNFdZsr1Ps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qqwx6y5x; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774407450; c=relaxed/simple;
+	bh=dadLwEk45JgDyaGlBSNKCNIGLRbpTR8hROU59Q81vfo=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hGoGvawZhFHrwjC1WrgHkPCuKNPYWNmQSPrQfkYqf/MDBxqKnLnktUgTpKx+kRVZ2jGgOdy372vObP+2gaG4KqRPvNG7r2rzPHWRcr4wulePmCz94S89iROPqv/GXNuhKmUycd19F+cIrIRGW46cvMH8RZAMzmL4WoNmGfaHD5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=FThqQYLa; arc=none smtp.client-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qqwx6y5x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B23C2BCB2;
-	Wed, 25 Mar 2026 02:49:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774406954;
-	bh=+VMZxzxWPHPxlfkvFwfDZjxP5xM9wlOhgsLyDw/m218=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=qqwx6y5xRCM/4u7dT4wZmDDjIZ9vfa8RYBvmydvdh9bouB7ebnGWCV1YJUEQYue7o
-	 c7/SFSHHIMMclU0c2PfTBetCQ93BCMuRtjYSkuPXNP20aimpG+LKt3lnsOCgUo2r1a
-	 MJSHV+Y0wIpOY1De2ElVh19vQJTcOdnJKdJDz0RhWW5l1H1+y32ApY809cOjlmllPT
-	 zBOEyothF/hN1c7+cJpqitcI+Wfo25xdjWWrQeU6j41JGPb0/AVQloQgDlbouMiQol
-	 K2abxGGBdpcEswtlyCN20hCBuH3c5pnxxBI14TTXJ5khftY9lHavjXnVKLWB3h4q95
-	 bhQeQ8yW8jA6g==
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="FThqQYLa"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Egb4IyOXbT/uZAplagVgZZDuS6BpP8QjqLm6e9M6jQI=;
+	b=FThqQYLaTLZeDrzKn/5ooHp6xmSSbuuVuVhI/fdJl/wxIMHmLT9jb56wDB+Z4jn4DMKemh2xF
+	mc1lqD3J69OPKaUGwcZZp786eQ5aGHhFBfhj3UxlonLjW2qZQXyrpE5DL9+apUuHnu6JWWQ33hU
+	0JHW+M9SVdTFwqxtoVTHGXw=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4fgWd12js1zKmB3;
+	Wed, 25 Mar 2026 10:51:17 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id 9273840539;
+	Wed, 25 Mar 2026 10:57:24 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
+ (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 25 Mar
+ 2026 10:57:21 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
+	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
+	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
+	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
+	<akpm@linux-foundation.org>, <bhe@redhat.com>, <vgoyal@redhat.com>,
+	<dyoung@redhat.com>, <rdunlap@infradead.org>, <peterz@infradead.org>,
+	<pawan.kumar.gupta@linux.intel.com>, <feng.tang@linux.alibaba.com>,
+	<dapeng1.mi@linux.intel.com>, <kees@kernel.org>, <elver@google.com>,
+	<paulmck@kernel.org>, <lirongqing@baidu.com>, <ruanjinjie@huawei.com>,
+	<rppt@kernel.org>, <ardb@kernel.org>, <leitao@debian.org>, <osandov@fb.com>,
+	<cfsworks@gmail.com>, <tangyouling@kylinos.cn>, <sourabhjain@linux.ibm.com>,
+	<ritesh.list@gmail.com>, <eajames@linux.ibm.com>,
+	<songshuaishuai@tinylab.org>, <kevin.brodsky@arm.com>,
+	<samuel.holland@sifive.com>, <vishal.moola@gmail.com>,
+	<junhui.liu@pigmoral.tech>, <coxu@redhat.com>, <liaoyuanhong@vivo.com>,
+	<jbohac@suse.cz>, <fuqiang.wang@easystack.cn>, <guoren@kernel.org>,
+	<chenjiahao16@huawei.com>, <hbathini@linux.ibm.com>, <james.morse@arm.com>,
+	<takahiro.akashi@linaro.org>, <lizhengyu3@huawei.com>, <x86@kernel.org>,
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <loongarch@lists.linux.dev>,
+	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>
+Subject: [PATCH v10 0/8] arm64/riscv: Add support for crashkernel CMA reservation
+Date: Wed, 25 Mar 2026 10:58:56 +0800
+Message-ID: <20260325025904.2811960-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260303080637.2100-1-dongxuyang@eswincomputing.com>
-References: <20260303080513.2042-1-dongxuyang@eswincomputing.com> <20260303080637.2100-1-dongxuyang@eswincomputing.com>
-Subject: Re: [PATCH v15 1/4] dt-bindings: clock: eswin: Documentation for eic7700 SoC
-From: Stephen Boyd <sboyd@kernel.org>
-Cc: ningyu@eswincomputing.com, linmin@eswincomputing.com, huangyifeng@eswincomputing.com, pinkesh.vaghela@einfochips.com, ganboing@gmail.com, marcel@ziswiler.com, Xuyang Dong <dongxuyang@eswincomputing.com>, Conor Dooley <conor.dooley@microchip.com>
-To: bmasney@redhat.com, conor+dt@kernel.org, devicetree@vger.kernel.org, dongxuyang@eswincomputing.com, krzk+dt@kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, mturquette@baylibre.com, robh@kernel.org, troy.mitchell@linux.dev
-Date: Tue, 24 Mar 2026 19:13:00 -0700
-Message-ID: <177440478056.5403.2390774146288465901@localhost.localdomain>
-User-Agent: alot/0.12
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-Quoting dongxuyang@eswincomputing.com (2026-03-03 00:06:37)
-> From: Xuyang Dong <dongxuyang@eswincomputing.com>
->=20
-> Add device tree binding documentation for the ESWIN eic7700
-> clock controller module.
->=20
-> Signed-off-by: Yifeng Huang <huangyifeng@eswincomputing.com>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Acked-by: Troy Mitchell <troy.mitchell@linux.dev>
-> Tested-by: Marcel Ziswiler <marcel@ziswiler.com> # ebc77
-> Signed-off-by: Xuyang Dong <dongxuyang@eswincomputing.com>
-> ---
+The crash memory allocation, and the exclude of crashk_res, crashk_low_res
+and crashk_cma memory are almost identical across different architectures,
+This patch set handle them in crash core in a general way, which eliminate
+a lot of duplication code.
 
-Applied to clk-next
+And add support for crashkernel CMA reservation for arm64 and riscv.
+
+Rebased on v7.0-rc1.
+
+Basic second kernel boot test were performed on QEMU platforms for x86,
+ARM64, and RISC-V architectures with the following parameters:
+
+	"cma=256M crashkernel=256M crashkernel=64M,cma"
+
+Changes in v10:
+- Fix crashk_low_res not excluded bug in the existing
+  RISC-V code.
+- Fix an existing memory leak issue in the existing PowerPC code.
+- Fix the ordering issue of adding CMA ranges to
+  "linux,usable-memory-range".
+- Fix an existing concurrency issue. A Concurrent memory hotplug may occur
+  between reading memblock and attempting to fill cmem during kexec_load()
+  for almost all existing architectures.
+- Link to v9: https://lore.kernel.org/all/20260323072745.2481719-1-ruanjinjie@huawei.com/
+
+Changes in v9:
+- Collect Reviewed-by and Acked-by, and prepare for Sashiko AI review.
+- Link to v8: https://lore.kernel.org/all/20260302035315.3892241-1-ruanjinjie@huawei.com/
+
+Changes in v8:
+- Fix the build issues reported by kernel test robot and Sourabh.
+- Link to v7: https://lore.kernel.org/all/20260226130437.1867658-1-ruanjinjie@huawei.com/
+
+Changes in v7:
+- Correct the inclusion of CMA-reserved ranges for kdump kernel in of/kexec
+  for arm64 and riscv.
+- Add Acked-by.
+- Link to v6: https://lore.kernel.org/all/20260224085342.387996-1-ruanjinjie@huawei.com/
+
+Changes in v6:
+- Update the crash core exclude code as Mike suggested.
+- Rebased on v7.0-rc1.
+- Add acked-by.
+- Link to v5: https://lore.kernel.org/all/20260212101001.343158-1-ruanjinjie@huawei.com/
+
+Changes in v5:
+- Fix the kernel test robot build warnings.
+- Sort crash memory ranges before preparing elfcorehdr for powerpc
+- Link to v4: https://lore.kernel.org/all/20260209095931.2813152-1-ruanjinjie@huawei.com/
+
+Changes in v4:
+- Move the size calculation (and the realloc if needed) into the
+  generic crash.
+- Link to v3: https://lore.kernel.org/all/20260204093728.1447527-1-ruanjinjie@huawei.com/
+
+Jinjie Ruan (7):
+  riscv: kexec_file: Fix crashk_low_res not exclude bug
+  powerpc/crash: Fix possible memory leak in update_crash_elfcorehdr()
+  crash: Exclude crash kernel memory in crash core
+  crash: Use crash_exclude_core_ranges() on powerpc
+  arm64: kexec: Add support for crashkernel CMA reservation
+  riscv: kexec: Add support for crashkernel CMA reservation
+  crash: Fix race condition between crash kernel loading and memory
+    hotplug
+
+Sourabh Jain (1):
+  powerpc/crash: sort crash memory ranges before preparing elfcorehdr
+
+ .../admin-guide/kernel-parameters.txt         |  16 +--
+ arch/arm64/kernel/machine_kexec_file.c        |  39 ++-----
+ arch/arm64/mm/init.c                          |   5 +-
+ arch/loongarch/kernel/machine_kexec_file.c    |  39 ++-----
+ arch/powerpc/include/asm/kexec_ranges.h       |   1 -
+ arch/powerpc/kexec/crash.c                    |   7 +-
+ arch/powerpc/kexec/ranges.c                   | 101 +----------------
+ arch/riscv/kernel/machine_kexec_file.c        |  38 ++-----
+ arch/riscv/mm/init.c                          |   5 +-
+ arch/x86/kernel/crash.c                       |  89 ++-------------
+ drivers/of/fdt.c                              |   9 +-
+ drivers/of/kexec.c                            |   9 ++
+ include/linux/crash_core.h                    |   9 ++
+ kernel/crash_core.c                           | 105 +++++++++++++++++-
+ 14 files changed, 195 insertions(+), 277 deletions(-)
+
+-- 
+2.34.1
+
