@@ -1,26 +1,26 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756D94218A8
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 14:51:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58D13FEB1B
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 14:51:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774450316; cv=none; b=lQqPQa/Faj89i8L7MMp9lWxGgnVmb6CoF6LWRxxRrrpeqn7jKVvb8RiDnskurkDDyrPZjIyFSeKzYZ5PNntaDhMUkUl+T3g59I9A7wWkBNYLZM0S3rK/o2WTze6T/bNOCryu5Bgo6AH0LenyZEhktLccNJtTdbm4ofrUUv1Hjf0=
+	t=1774450317; cv=none; b=bFKwsdlz+Ge2TqLJbs1Nj9OTPRwTTFI+TNTqOkrmQ5SUfPhVASxlPzxpmIwJhI8q1Tsm7czY80p9uW64SyADsPQbY20h0TxidDVkdrktMMkr5j6lZtchpZKYX+kz6NxnLOFPZYJcDrXD5jh0uAIJCg2ks3BhsQQlCUY/sqZF/1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774450316; c=relaxed/simple;
-	bh=ObZviKpJk4gfdCnRY802bi/Mc/33SGuma6hYQ7oO8iE=;
+	s=arc-20240116; t=1774450317; c=relaxed/simple;
+	bh=uoHeHlsfds/qqI2snQv2er1oCC5Zq5SxHe1tZGWlDnc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=N5cBBqg3Osg8HE2TBO8VvL/FG/EyiYoAHC+Mw0g/uNBlWT8vlgcIS39gNkwkZDo58clHMKx6kKiwvITuY01vINhioY1u96pInJQCYcP6+yWlPIoBjo0MMeDPu6hCMmMmwhEPYW9udZ09LubhXK0JcRjH6IJ5Poae/isTnqdJdWA=
+	 In-Reply-To:To:Cc; b=ksAUfff3iFkcsn+vsWHl0pq8XVTCMHHwpdty5UzUb9fVXWfm268+NHQM1l9G6K1idODJnoXShc0XFZCimqHaNI2jHKU0mUQw9+ROz49QNtlLUSjtSvJxGDxHYvYwD+EoupKaTy0hoQObH454zley2id1ww/hsXbgJeFPQNk4Th8=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1w5PZX-00050C-8q; Wed, 25 Mar 2026 15:51:03 +0100
+	id 1w5PZV-00050C-L1; Wed, 25 Mar 2026 15:51:01 +0100
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Wed, 25 Mar 2026 15:50:58 +0100
-Subject: [PATCH v4 27/27] arm64: dts: rockchip: add rga3 dt nodes
+Date: Wed, 25 Mar 2026 15:50:50 +0100
+Subject: [PATCH v4 19/27] media: rockchip: rga: support external iommus
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -29,7 +29,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260325-spu-rga3-v4-27-e90ec1c61354@pengutronix.de>
+Message-Id: <20260325-spu-rga3-v4-19-e90ec1c61354@pengutronix.de>
 References: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
 In-Reply-To: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -42,89 +42,167 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@pengutronix.de, nicolas@ndufresne.ca, 
  sebastian.reichel@collabora.com, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>
 X-Mailer: b4 0.15.0
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Add devicetree nodes for the RGA3 (Raster Graphics Acceleration 3)
-peripheral in the RK3588.
+In preparation for the RGA3 add support for external iommus. This is a
+transition step to just disable the RGA2 specific mmu table setup code.
 
-The existing rga node refers to the RGA2-Enhanced peripheral. The RK3588
-contains one RGA2-Enhanced core and two RGA3 cores. Both feature a similar
-functionality of scaling, cropping and rotating of up to two input
-images into one output image. Key differences of the RGA3 are:
+Currently a simple rga_hw struct field is used to set the internal iommu.
+But to handle the case of more sophisticated detection mechanisms
+(e.g. check for an iommu property in the device tree), it is abstracted
+by an inline function.
 
-- supports 10bit YUV output formats
-- supports 8x8 tiles and FBCD as inputs and outputs
-- supports BT2020 color space conversion
-- max output resolution of (8192-64)x(8192-64)
-- MMU can map up to 32G DDR RAM
-- fully planar formats (3 planes) are not supported
-- max scale up/down factor of 8 (RGA2 allows up to 16)
-
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 44 +++++++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
+ drivers/media/platform/rockchip/rga/rga-buf.c | 31 ++++++++++++++++++---------
+ drivers/media/platform/rockchip/rga/rga-hw.c  |  1 +
+ drivers/media/platform/rockchip/rga/rga.c     | 11 ++++++++--
+ drivers/media/platform/rockchip/rga/rga.h     |  6 ++++++
+ 4 files changed, 37 insertions(+), 12 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index 7fe9593d8c198..87334636544f8 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1273,6 +1273,50 @@ rga: rga@fdb80000 {
- 		power-domains = <&power RK3588_PD_VDPU>;
- 	};
+diff --git a/drivers/media/platform/rockchip/rga/rga-buf.c b/drivers/media/platform/rockchip/rga/rga-buf.c
+index bc349d0a46365..4e82ca1a5e8d9 100644
+--- a/drivers/media/platform/rockchip/rga/rga-buf.c
++++ b/drivers/media/platform/rockchip/rga/rga-buf.c
+@@ -12,6 +12,7 @@
+ #include <media/v4l2-ioctl.h>
+ #include <media/v4l2-mem2mem.h>
+ #include <media/videobuf2-dma-sg.h>
++#include <media/videobuf2-dma-contig.h>
+ #include <media/videobuf2-v4l2.h>
  
-+	rga3_core0: rga@fdb60000 {
-+		compatible = "rockchip,rk3588-rga3";
-+		reg = <0x0 0xfdb60000 0x0 0x200>;
-+		interrupts = <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_RGA3_0>, <&cru HCLK_RGA3_0>, <&cru CLK_RGA3_0_CORE>;
-+		clock-names = "aclk", "hclk", "sclk";
-+		resets = <&cru SRST_RGA3_0_CORE>, <&cru SRST_A_RGA3_0>, <&cru SRST_H_RGA3_0>;
-+		reset-names = "core", "axi", "ahb";
-+		power-domains = <&power RK3588_PD_RGA30>;
-+		iommus = <&rga3_0_mmu>;
-+	};
+ #include "rga.h"
+@@ -82,6 +83,9 @@ static int rga_buf_init(struct vb2_buffer *vb)
+ 	if (IS_ERR(f))
+ 		return PTR_ERR(f);
+ 
++	if (!rga_has_internal_iommu(rga))
++		return 0;
 +
-+	rga3_0_mmu: iommu@fdb60f00 {
-+		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
-+		reg = <0x0 0xfdb60f00 0x0 0x100>;
-+		interrupts = <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_RGA3_0>, <&cru HCLK_RGA3_0>;
-+		clock-names = "aclk", "iface";
-+		#iommu-cells = <0>;
-+		power-domains = <&power RK3588_PD_RGA30>;
-+	};
+ 	n_desc = DIV_ROUND_UP(f->size, PAGE_SIZE);
+ 
+ 	rbuf->n_desc = n_desc;
+@@ -136,17 +140,21 @@ static int rga_buf_prepare(struct vb2_buffer *vb)
+ 	for (i = 0; i < vb->num_planes; i++) {
+ 		vb2_set_plane_payload(vb, i, f->pix.plane_fmt[i].sizeimage);
+ 
+-		/* Create local MMU table for RGA */
+-		n_desc = fill_descriptors(&rbuf->dma_desc[curr_desc],
+-					  rbuf->n_desc - curr_desc,
+-					  vb2_dma_sg_plane_desc(vb, i));
+-		if (n_desc < 0) {
+-			v4l2_err(&ctx->rga->v4l2_dev,
+-				 "Failed to map video buffer to RGA\n");
+-			return n_desc;
++		if (rga_has_internal_iommu(ctx->rga)) {
++			/* Create local MMU table for RGA */
++			n_desc = fill_descriptors(&rbuf->dma_desc[curr_desc],
++						  rbuf->n_desc - curr_desc,
++						  vb2_dma_sg_plane_desc(vb, i));
++			if (n_desc < 0) {
++				v4l2_err(&ctx->rga->v4l2_dev,
++					 "Failed to map video buffer to RGA\n");
++				return n_desc;
++			}
++			dma_addrs[i] = curr_desc << PAGE_SHIFT;
++			curr_desc += n_desc;
++		} else {
++			dma_addrs[i] = vb2_dma_contig_plane_dma_addr(vb, i);
+ 		}
+-		dma_addrs[i] = curr_desc << PAGE_SHIFT;
+-		curr_desc += n_desc;
+ 	}
+ 
+ 	/* Fill the remaining planes */
+@@ -176,6 +184,9 @@ static void rga_buf_cleanup(struct vb2_buffer *vb)
+ 	struct rga_ctx *ctx = vb2_get_drv_priv(vb->vb2_queue);
+ 	struct rockchip_rga *rga = ctx->rga;
+ 
++	if (!rga_has_internal_iommu(rga))
++		return;
 +
-+	rga3_core1: rga@fdb70000 {
-+		compatible = "rockchip,rk3588-rga3";
-+		reg = <0x0 0xfdb70000 0x0 0x200>;
-+		interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_RGA3_1>, <&cru HCLK_RGA3_1>, <&cru CLK_RGA3_1_CORE>;
-+		clock-names = "aclk", "hclk", "sclk";
-+		resets = <&cru SRST_RGA3_1_CORE>, <&cru SRST_A_RGA3_1>, <&cru SRST_H_RGA3_1>;
-+		reset-names = "core", "axi", "ahb";
-+		power-domains = <&power RK3588_PD_RGA31>;
-+		iommus = <&rga3_1_mmu>;
-+	};
+ 	dma_free_coherent(rga->dev, rbuf->n_desc * sizeof(*rbuf->dma_desc),
+ 			  rbuf->dma_desc, rbuf->dma_desc_pa);
+ }
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
+index bf4a86a640ec5..2013b59701d12 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+@@ -577,6 +577,7 @@ static struct rga_fmt formats[] = {
+ 
+ const struct rga_hw rga2_hw = {
+ 	.card_type = "rga2",
++	.has_internal_iommu = true,
+ 	.formats = formats,
+ 	.num_formats = ARRAY_SIZE(formats),
+ 	.cmdbuf_size = RGA_CMDBUF_SIZE,
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index 421a70558c3c7..5bdc8dc51ab68 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -23,6 +23,7 @@
+ #include <media/v4l2-ioctl.h>
+ #include <media/v4l2-mem2mem.h>
+ #include <media/videobuf2-dma-sg.h>
++#include <media/videobuf2-dma-contig.h>
+ #include <media/videobuf2-v4l2.h>
+ 
+ #include "rga.h"
+@@ -95,7 +96,10 @@ queue_init(void *priv, struct vb2_queue *src_vq, struct vb2_queue *dst_vq)
+ 	src_vq->io_modes = VB2_MMAP | VB2_DMABUF;
+ 	src_vq->drv_priv = ctx;
+ 	src_vq->ops = &rga_qops;
+-	src_vq->mem_ops = &vb2_dma_sg_memops;
++	if (rga_has_internal_iommu(ctx->rga))
++		src_vq->mem_ops = &vb2_dma_sg_memops;
++	else
++		src_vq->mem_ops = &vb2_dma_contig_memops;
+ 	src_vq->gfp_flags = __GFP_DMA32;
+ 	src_vq->buf_struct_size = sizeof(struct rga_vb_buffer);
+ 	src_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
+@@ -110,7 +114,10 @@ queue_init(void *priv, struct vb2_queue *src_vq, struct vb2_queue *dst_vq)
+ 	dst_vq->io_modes = VB2_MMAP | VB2_DMABUF;
+ 	dst_vq->drv_priv = ctx;
+ 	dst_vq->ops = &rga_qops;
+-	dst_vq->mem_ops = &vb2_dma_sg_memops;
++	if (rga_has_internal_iommu(ctx->rga))
++		dst_vq->mem_ops = &vb2_dma_sg_memops;
++	else
++		dst_vq->mem_ops = &vb2_dma_contig_memops;
+ 	dst_vq->gfp_flags = __GFP_DMA32;
+ 	dst_vq->buf_struct_size = sizeof(struct rga_vb_buffer);
+ 	dst_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
+diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+index 025b1df594e9a..95fa7fd1c509a 100644
+--- a/drivers/media/platform/rockchip/rga/rga.h
++++ b/drivers/media/platform/rockchip/rga/rga.h
+@@ -146,6 +146,7 @@ static inline void rga_mod(struct rockchip_rga *rga, u32 reg, u32 val, u32 mask)
+ 
+ struct rga_hw {
+ 	const char *card_type;
++	bool has_internal_iommu;
+ 	struct rga_fmt *formats;
+ 	u32 num_formats;
+ 	size_t cmdbuf_size;
+@@ -161,6 +162,11 @@ struct rga_hw {
+ 	void (*get_version)(struct rockchip_rga *rga);
+ };
+ 
++static inline bool rga_has_internal_iommu(const struct rockchip_rga *rga)
++{
++	return rga->hw->has_internal_iommu;
++}
 +
-+	rga3_1_mmu: iommu@fdb70f00 {
-+		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
-+		reg = <0x0 0xfdb70f00 0x0 0x100>;
-+		interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_RGA3_1>, <&cru HCLK_RGA3_1>;
-+		clock-names = "aclk", "iface";
-+		#iommu-cells = <0>;
-+		power-domains = <&power RK3588_PD_RGA31>;
-+	};
-+
- 	vepu121_0: video-codec@fdba0000 {
- 		compatible = "rockchip,rk3588-vepu121";
- 		reg = <0x0 0xfdba0000 0x0 0x800>;
+ extern const struct rga_hw rga2_hw;
+ 
+ #endif
 
 -- 
 2.53.0
