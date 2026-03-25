@@ -1,55 +1,66 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022104.outbound.protection.outlook.com [40.107.75.104])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E16218E91;
-	Wed, 25 Mar 2026 06:05:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.104
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774418730; cv=fail; b=T/28G4UyAcFOoOWiW0TVwYYei7NpludDwYGTcOq4WGpQLS3rl8msqgzKqYqOHOKMru4XsRcU0EJqiikzyg4MEt+z6tDZox1dOADpGIunBM9pfD8dwgRdgsHAL7KTdeDZiljeknAzh0dtnAhr9xSLOF7RsgMlnJqLsa7JmFAAFJI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774418730; c=relaxed/simple;
-	bh=WJ2t8PztOT8ZV200u//bXw3LDBGzZReNzyDHGFGKjCU=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F8ADDCD
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 06:08:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774418928; cv=none; b=GC7TTZaXw6nTPXGbCscI5hMy5En2lwoqkeqJd5mdjbH9mXta2B+hXQSwQhlNPV7kEkjFrPA6Li6YedmzulD0BYn0fHXMkwiuYpFSQVWshE3rlR/H/15eifa7YILMYpKxHs127k6vw6jhIHpY3XC427AISuyGtvzS+NI/7spPUPo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774418928; c=relaxed/simple;
+	bh=1+D+BLaB5M4uWTmzm5krxPv4Gd9zSFI+qIO6M7pjiA0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OWlWQZGcjKvYW5kEsOLjeQFtcGwJsQ4ua0zT7SXql67Xriw6LqSlQ2fkCwPXV1dxboPON11lmMB7bMCX276MKaA+5l7CnJ0RkRmJ9xOoMqe3qzLDeja0qdEL3UfbV0iyWYKPmgxOFlO1y4qre3rLLfCaTA659y4Bl5uqHjFImCs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.75.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jWvnHeeRLoHVx8c1gTyipI2oENwzjVWifcflMXdjvbSmyygcO+F7G6IufP2bIj772dGGcFaXEpraB7pUBR5DEEeDKq1P7MSfzJqOGcPhSLdaOBfnKil+PDTp1vcKqWeveOau0WjuiToLF7DIVvGoH6kR9JxHqU9b4IEs4i93RZeHkk0ACN9KCcQ/3dNWt8Ln6hee+KnxkONCNCU2tjksF+f5QcodoM6IQsHHw3ydtOuGvVt7/k6LrG9TukDFu+Fz5BlsAOs8XkVqo9YT5uXXURMBQ6FcvnIlpk2H6TgHQReFX8BiRKzwR0hshNyxi92jfs7wOnWij57qQPMG7k6+Fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Crzzy0YhcpqVqU4T4AjJ7p7d/E9UfX/lu4LuJyozoUw=;
- b=sNJInuviccJvmpr40HBBN2B/XjOlesZzSWYJvsMP7aYoPmbubeeLsUO2z6RI1KmCd1Od2g9jBdMvXCYDPVqUCngfuJj7Jim5jtzxZ5lwx2tcB7TUHbtTQnE/TWA6QgISmMophmNrnlw1XlCVUdWQTEt7nzHhf+aSHqC9myV7alLzv5YM36BsqRV2HUtZ0BEXCc8fCPQV+NxB+cBYhrONYK39UR9L2B1cP0pPBQUjpxB+bMdjwPsQDiHdmpysbWXm0xNQmFfz9A2lEr9LBeCClndxV3AwjIMN5yv2PAyc2x7WKE1hpYVf4t7B1Qv53VCooVYDNBF9WOx+/YzKVMxQnw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SE2P216CA0164.KORP216.PROD.OUTLOOK.COM (2603:1096:101:2cb::16)
- by PS1PPF4E5A438BE.apcprd06.prod.outlook.com (2603:1096:308::24d) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 06:05:24 +0000
-Received: from TY2PEPF0000AB88.apcprd03.prod.outlook.com
- (2603:1096:101:2cb:cafe::cd) by SE2P216CA0164.outlook.office365.com
- (2603:1096:101:2cb::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Wed,
- 25 Mar 2026 06:05:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB88.mail.protection.outlook.com (10.167.253.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19 via Frontend Transport; Wed, 25 Mar 2026 06:05:22 +0000
-Received: from [172.20.96.43] (unknown [172.20.96.43])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 40C4B4126F98;
-	Wed, 25 Mar 2026 14:05:21 +0800 (CST)
-Message-ID: <96077d03-e2b9-4f7a-a8b6-c5bc762e771b@cixtech.com>
-Date: Wed, 25 Mar 2026 14:05:20 +0800
+	 In-Reply-To:Content-Type; b=aGmBHICE8ZRuSgMk1EQj66D5jT5qrIXzcbOm+5oG9K8mFwyQ3XwUlld4XugXlTc/B9m3R3CwqUTnkgU2qDI8Kq65vMp4NCPBdrH1WQARat8T+B2QTf++ggX2CDG6mS63cDO6bIu9v6LiGzzBzGtmIb4EAFRvA+Dpp6KJLZjN5Hk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pPNEfyLq; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pPNEfyLq"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-829b8b6c4d0so1705924b3a.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 23:08:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774418927; x=1775023727; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Zoa2MoiF0mKzbu/HxLLzZaaZ2klLwju72NrX2oHwXew=;
+        b=pPNEfyLqoDw6GQi0+zgOV0RpCbq6PSES7acMWOjH0W6dEDizD9qrP6TgYnUVWkRztm
+         somJxu/eGRZ8g++7zTaRIj06I+7LWrGe2X9VAH2SoAfW/iFYy5HF1acyh/jRn8DAB8kZ
+         wZWyXQwzMpA8dB5FOnM02hXVQcvRC6IGZRqGt9VU2pVRpWcQbHwjZgjxMGOP1GxEErHx
+         8ZWxSXC/cuqcNObl9F+yZlbDf6GNcknW3EYGAsd/rp/KM0gwIVQ2SKYb0MXQPWHvEJUg
+         GmGDUOiahcZqfb7qPUV4RizsD26FNIcBSieNbdPSWLflrE+4EMZbj2LcFLZJ25OMWgtH
+         nc8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774418927; x=1775023727;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Zoa2MoiF0mKzbu/HxLLzZaaZ2klLwju72NrX2oHwXew=;
+        b=JIRxsXMOL+nlLp2HNlhM3n7DzFauJszrGkFMZoEAgMcUjfl1+esYkImnys4MeagGSO
+         d1ZL2qawWrMQKf4cGLGtUrq4aueyipTaLnLLBSbl/6cEEzAQGCVLefzZFbxiI7HqUc1j
+         SX2j8ZHNlAWPl29dqlqr6eH3eZYO2ydiu+sxlAFs1Uu4UCs0gnSUh7DlP1vxnj8846Xn
+         8mYL4HNm1i8l49Dk7UXvTQk04XaY6VAdymLBnTU+8DTHNXKIU84Th/8vLLPmWM/oaHQu
+         XG94isggiD8arSCm6TMQv9nTBmMdhYlz4VQ8BrF1Z3x5naEL4wiipUdSK1HnnB3x5mKU
+         nW6w==
+X-Forwarded-Encrypted: i=1; AJvYcCWzM6M3lT19VhMpCDqJGxiJJ0RHqDt/P1Ad9OHhGqGcSHaJZD86kdYSWQYQ5yPnnDx+flna3K0PCO3k@vger.kernel.org
+X-Gm-Message-State: AOJu0YxkOs3qf1SeVdGZAow8RU7olSWT5LEgOWYbT/N6gFn2Gm5QjfU/
+	xjGULlLA2iAMnOvfrzajlZbky4z7h7B52aaLs410+dPw+ppoLMC4bJxE
+X-Gm-Gg: ATEYQzwzJUygHw8ynsnUZEMxf7QamHgUWpB4XrpFEYDSFNBVbnNgi573R6TgIDP5gD5
+	YciQ/YIlZaUzmP3+2CuTKjQ0U3HyV2kkqsZv8xY02vqnjwpBfNjZIrnWWpPPFRz/H+NXtMqvGGR
+	x1S0ZtcX/MiLyGgIqvFnWq24fcNnevSoFOMf33ACAuhHWEoySBMhXbFt9067wT+rHmcUNFAYvLx
+	Y1J0HVW2v0uARB7VbNIkgB3iA/WJ90tvRvugC4fDQ1vUzmfTg3UOxR3JRiAEvffYAQRtCw1AZKX
+	/5DAI+SKmDl3wl1qvcJmuFXgUHm7eJSoIFbvzRXNb+0u6GdSFX1VBNX65kZj2eS5lD0GUmRn9HR
+	/XlmcVJfvIG6sVYxXlD+39Iq5JP+Sz9Xj9EWEdDVR9Uf3/PlhPH3+n1j7wBeogE4aSS3h0CbxdB
+	Ue8VhJJUyn/ykex3QN6Bm6CNiLdVn6CNoAtqLJSf/guzekax6akxEIR3ZRoQ==
+X-Received: by 2002:a05:6a00:2da7:b0:82a:7758:1416 with SMTP id d2e1a72fcca58-82c6de6df6amr2498384b3a.12.1774418926718;
+        Tue, 24 Mar 2026 23:08:46 -0700 (PDT)
+Received: from [172.16.20.13] ([136.226.252.245])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82c76e5a6fcsm503033b3a.59.2026.03.24.23.08.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Mar 2026 23:08:46 -0700 (PDT)
+Message-ID: <d93f15af-219c-4118-bc33-e2ddd2188922@gmail.com>
+Date: Wed, 25 Mar 2026 11:39:07 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -57,117 +68,86 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] dt-bindings: dma: arm-dma350: document generic and
- combined IRQ topologies
-To: Robin Murphy <robin.murphy@arm.com>, peter.chen@cixtech.com,
- fugang.duan@cixtech.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, vkoul@kernel.org, ychuang3@nuvoton.com,
- schung@nuvoton.com, Frank.Li@kernel.org
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com,
- linux-arm-kernel@lists.infradead.org
-References: <20260323114822.1925869-1-jun.guo@cixtech.com>
- <20260323114822.1925869-2-jun.guo@cixtech.com>
- <c91176d1-851a-4cf5-b7dc-cde431a8326e@arm.com>
+Subject: Re: [PATCH v2 0/2] drm: bridge: ti-sn65dsi83: Improve dual-link LVDS
+ support
+To: Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@nabladev.com>,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ dri-devel@lists.freedesktop.org
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ valentin@compulab.co.il, philippe.schenker@toradex.com,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260312043743.261475-1-tessolveupstream@gmail.com>
+ <DH6T0NTZHP93.2DWN4BWDPP331@bootlin.com>
+ <1ecbcd57-83d9-410c-8e1a-d6a171321ccd@gmail.com>
+ <3019871.ElGaqSPkdT@steina-w>
 Content-Language: en-US
-From: Jun Guo <jun.guo@cixtech.com>
-In-Reply-To: <c91176d1-851a-4cf5-b7dc-cde431a8326e@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB88:EE_|PS1PPF4E5A438BE:EE_
-X-MS-Office365-Filtering-Correlation-Id: c9198cf9-16c7-4928-7f34-08de8a34806c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|7416014|376014|82310400026|18002099003|7053199007|56012099003|22082099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	SZx64z0kmURpQeln7yt6Xk+QwFamHhUY7nBEQjTnQ9398Yw8S96oKY429VqVvIFQtr3GwzniJOjTscJhzodhlHYcjBBwlY+L/sWF20MsOk95Uo53MA5D2J+vob18peboN6ypH/S/jZYrvio5xE0H//aLmtPjWF+/qADhSPCZKZmfgUZTkhg/q6gi5s6s7qA9W/1uleZumN0d8kKITJtJqvNeVCMwA1G7vyfuJ/wVrrnPJJ1su5Pwj/kdhcsJGbJU21tFCKMqpaPB8qwSs+HCxRFM1sgGiB1n4gg+Mhs4JbTW7YO3SqIeBd9bi0zm+PWgb6JF/TwwEonFPVVOanxsEbzyUxodjbCjDf61T8mW/NmHNiHCoohiFYWYjgVI/F8koPUemNlNXwMjWETfTUVwb8RtCPEpt1wOYSIqpT3BflVa2YlM9FzyyZXOmZ/3ZvF0NJyywx+eHVPfappTwzSS0gAr/VVGQqpWBr0PMhDoo3usJS8imENjMHvXAOQj8rCwnITP0FkkVqMnDBvrbq+GNzVwfkaUHGayToCRySRbKEVnLnO+xI7hgz128sGyV+eRIxZ0kfy2umTD4Dw9RLUzzILsRnE6uxj1VGc1jjIdnbOqgt2CsXGW+/x98eHN08/8VVrCgVNWV4XJovmjywW1L8Dc/J+STkCLwiypwd4Df5r3W6voXAA8QYp8Nva0KK8i7kDirQ6uk0a0abEM8RafkiDehjTagiCwsO1eW9j21Kv+ELhFyrxWAHW+/mGQXqbYyxXPY2dM8e9TO4Cy03YCEQ==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(7416014)(376014)(82310400026)(18002099003)(7053199007)(56012099003)(22082099003)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ugPHeeph6Eh/ERuzma0V292FdoYvsylTkW2HRapMeJsq/W1u/Ybe2clxaZywhsqpBqY2N6sg21sn8TRWPthu23cgx08QZvrr0TM5x4aa83e9c8daQ8lHLB/S+IrSjb9vo3aPcL3J8CsozePPz/yLxwOJGLc9DnTfVaGqaajRJAf9tgDeaZIPzPOZTrGjRtfGtXOh7X+FAgFwAVHAMg8sgrsZNC1iuWiTRvOQLUBJqRcZ7j7WYKdtVStAR+9ajB3p0yGUEib+ge0vTtYXundIchV/AMVwQs1XYvyO9grjddT8q1VeeMqHRP5dJvi6Je7YhpO8XrG//rYVU5X4DifJ6BcJ4s1E5ajaOWi1Cb6Yt4In3KXFiiOlK4xaCHXLtUi8NYaU/MmbrT0dRUXFAx+qxZoES58cbBmL1e5uvGEq4GVRiU5f9MeC4eseGXrJJR82
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 06:05:22.8039
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9198cf9-16c7-4928-7f34-08de8a34806c
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB88.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS1PPF4E5A438BE
+From: tessolveupstream@gmail.com
+In-Reply-To: <3019871.ElGaqSPkdT@steina-w>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
 
-On 3/24/2026 8:04 PM, Robin Murphy wrote:
-> [Some people who received this message don't often get email from 
-> robin.murphy@arm.com. Learn why this is important at https://aka.ms/ 
-> LearnAboutSenderIdentification ]
-> 
-> EXTERNAL EMAIL
-> 
-> On 2026-03-23 11:48 am, Jun Guo wrote:
->> Update the DMA-350 DT binding to match the current driver behavior.
+On 24-03-2026 16:40, Alexander Stein wrote:
+> Am Dienstag, 24. März 2026, 12:00:43 CET schrieb tessolveupstream@gmail.com:
+>> [snip]
+>>> Thanks for the detailed explanation.
+>> Regarding the panel timings, they are not explicitly defined in the DTS. 
+>> The panel is currently using the timings provided by the panel driver 
+>> (panel-simple.c), specifically:
 >>
->> Allow both:
->> - "arm,dma-350" as the generic compatible, and
->> - "cix,sky1-dma-350", "arm,dma-350" for SoC-specific fallback usage.
+>> static const struct display_timing auo_g133han01_timings = {
+>>         .pixelclock = { 134000000, 141200000, 149000000 },
+>>         .hactive = { 1920, 1920, 1920 },
+>>         .hfront_porch = { 39, 58, 77 },
+>>         .hback_porch = { 59, 88, 117 },
+>>         .hsync_len = { 28, 42, 56 },
+>>         .vactive = { 1080, 1080, 1080 },
+>>         .vfront_porch = { 3, 8, 11 },
+>>         .vback_porch = { 5, 14, 19 },
+>>         .vsync_len = { 4, 14, 19 },
+>> };
 >>
->> Also document interrupt topology variants supported by hardware
->> integration:
->> - one combined interrupt for all channels, or
->> - one interrupt per channel (up to 8 channels).
+>> The panel I am using is based on AUO G133HAN01, and the datasheet can 
+>> be found here:
+>> https://datasheet4u.com/pdf/1257948/G133HAN01.0.pdf > About CHA_DSI_CLK_RANGE: what is your DSI clock?
+>>>
+>>
+>> In the current working configuration, the measured clock frequencies 
+>> are:
+>> DSI_CLK: ~422MHz
+>> LVDS_CLK(both A & B Channels): ~70MHz
+>>> Finally I don't think the swing values are problematic, so I'd leave them
+>>> as the last thing to check.
 > 
-> To repeat myself for the 3rd time, this is at best unnecessary, and at
-> worst arguably wrong. Here's an example of a system which happens to use
-> the combined interrupt from another IP block which also offers both 
-> options:
-> 
-> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/ 
-> tree/arch/arm64/boot/dts/freescale/imx8qm.dtsi#n279
-> 
-> Same thing here; each channel is a distinct interrupt source, so it is
-> perfectly honest to describe that consistently in DT, regardless of
-> whether or not the interrupt signals are still distinct by the time they
-> reach the interrupt controller.
-> 
-> Furthermore, in this case the IRQ_COMB_NONSEC interrupt actually has
-> additional functionality beyond just being a mux of the individual
-> IRQ_CHANNEL interrupts. So although Linux probably won't ever care, if
-> it's going to be in the DT binding then it should really be distinct
-> from the channel interrupts anyway, since systems could well wire them
-> *all* up, and an OS could choose to use the IRQ_CHANNEL outputs directly
-> for individual channel completion/error status, while also using the
-> IRQ_COMB_NONSEC just for its overall INTR_ALLCH{STOPPED,PAUSED,IDLE} 
-> status.
-> 
-> If you only want to make your thing work in Linux, all that is needed is
-> a 1-line change in the driver to enable the INTR_ANYCHINTR bit (which as
-> I've also said before, we can do unconditionally because we're *not*
-> using the other INTR_ALLCH stuff), and to write your DT using the
-> existing binding. "One interrupt per channel" already carries no
-> expectation that they all have to be *different* interrupts.
-> 
-You've indeed said this for the third time, but I did not ignore your
-comments earlier. I carefully reviewed your feedback on both the V1
-and V2 patches. However, since your initial comments were not as detailed,
-I promptly replied to your emails hoping to discuss them further.
-Unfortunately, you did not respond to either of my follow-up emails,
-so I proceeded with submitting the current version of the patch.
+> I managed to get this display running with this DSI->LVDS bridge on
+> TQMa8MxML/TQMa8MxNL (imx8mm or imx8mn) platform.
+> See [1] for the DT. What platform/ DSI host are you using?
+>
 
-You can refer to the records here:
-https://lore.kernel.org/all/20251216123026.3519923-2-jun.guo@cixtech.com/
-or
-https://lore.kernel.org/all/20251117015943.2858-3-jun.guo@cixtech.com/
+Thanks for sharing your setup.
 
-Now, with this latest email, I clearly understand the point you are making.
-I will revise and resubmit the patch accordingly, which should result in
-a much more concise version. Thank you for your reply.
+I am currently working on the Qualcomm QCS615 platform. The setup 
+is as follows:
 
-Best regards,
-Jun
+- SoC: QCS615
+- Bridge: TI SN65DSI84 (DSI to dual-link LVDS)
+- Panel: AUO G133HAN01
+
+I am currently using the following DT overlay:
+(talos-evk-lvds-auo,g133han01.dtso)
+https://lore.kernel.org/all/20260302121159.1938694-1-tessolveupstream@gmail.com/T/#m00e90e7ff95915bbdb21dbd786c232526e3360a2
+
+Could you please confirm whether the display was brought up on your platform 
+using only the DT changes you shared, without requiring any driver 
+modifications?
+ 
+> Best regards,
+> Alexander
+> 
+> [1] https://lore.kernel.org/all/20260316135820.760073-2-alexander.stein@ew.tq-group.com/
 
