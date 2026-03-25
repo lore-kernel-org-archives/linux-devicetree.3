@@ -1,129 +1,188 @@
-Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011015.outbound.protection.outlook.com [52.101.62.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60D5233722;
-	Wed, 25 Mar 2026 13:38:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774445895; cv=none; b=eRSm015Az3tbXc0Z8lyhx2YJfloMK8ec7il55n0utl9OxviQphLtOcI9cm/z1g4MUOcFyW7SYs53BBE9LsG6C6CGz8fZuKzWKbFTV5xm0OTZi50uREhLWer22jCywiypzUuYASMkMGZfFF70ZcdmY4v3kQWaRbledWEoIvugYWQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774445895; c=relaxed/simple;
-	bh=NiNWg3IbyVoGqxPoeC/ygcgrciSr53x9ao4CqjN0MDQ=;
-	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ga9l4j/zH01MI4UV/ItzY8VoL8uVgizvpxMHbd4b/AjMljpMcBnajYZyJ3rtWumvr7YEAYrrgRp7qBcn2HEeErNKt7tg/U17No2T+PN/HZN6vY0pdYp04PafmwkEikxMZIHbWkTyrP6CblZbHMmEslrHphT0qaRS5gpBi5dM1sA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; arc=none smtp.client-ip=185.176.79.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Received: from mail.maildlp.com (unknown [172.18.224.83])
-	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4fgnzD4cJyzJ469q;
-	Wed, 25 Mar 2026 21:38:00 +0800 (CST)
-Received: from dubpeml500005.china.huawei.com (unknown [7.214.145.207])
-	by mail.maildlp.com (Postfix) with ESMTPS id 400D540569;
-	Wed, 25 Mar 2026 21:38:09 +0800 (CST)
-Received: from localhost (10.203.177.15) by dubpeml500005.china.huawei.com
- (7.214.145.207) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 25 Mar
- 2026 13:38:08 +0000
-Date: Wed, 25 Mar 2026 13:38:06 +0000
-From: Jonathan Cameron <jonathan.cameron@huawei.com>
-To: Sirat <email@sirat.me>
-CC: Krzysztof Kozlowski <krzk@kernel.org>, <linux-iio@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <jic23@kernel.org>, <dlechner@baylibre.com>,
-	<nuno.sa@analog.com>, <andy@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v7 1/2] dt-bindings: iio: proximity: add ST VL53L1X ToF
- sensor
-Message-ID: <20260325133806.00007b68@huawei.com>
-In-Reply-To: <CANn+LWJQM45rAT+mzS9ZEGBgmqChbxUtStdzhbzthXUPJ=2csg@mail.gmail.com>
-References: <20260325063254.18062-1-email@sirat.me>
-	<20260325063254.18062-2-email@sirat.me>
-	<20260325-gentle-earthworm-of-progress-1f9f46@quoll>
-	<CANn+LW+Y6j0xk2x02-BUL9qNq2gf-PXspi4wP_KGd7Abz3hOYw@mail.gmail.com>
-	<4d10b6c0-d599-4fc5-b9ed-ce669ac46e84@kernel.org>
-	<CANn+LWJQM45rAT+mzS9ZEGBgmqChbxUtStdzhbzthXUPJ=2csg@mail.gmail.com>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD032BD5A8;
+	Wed, 25 Mar 2026 13:41:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774446116; cv=fail; b=rpgyY9SkpIQnqnc251O0Blhtt847S4PAx/Ui2pMTIIef8jRk9fzDIEe1vhqn6tsr90Uv/7IZTlurKmhntqVS+dvrGC3XCpb1SGUjmba1LyMkQnfGjcQ4Mh5Z2roxRcRRnuvU7myqo9Bogs7upoo/nVfvIDDEVX2TmCTjab7CZds=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774446116; c=relaxed/simple;
+	bh=iMUg7JtwFWyXVzncdx0nzytetsXUo16hsgzGE2X/dQ8=;
+	h=Message-ID:Date:Subject:From:To:Cc:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=MST1t3nN9pf1SofVSHubDinqy2ZCkXB50Q1iZWW6Et+Teg1JK9azpqvpNcBmR6tMJf5NyOgD/G6/8PTLLGS1XHcIR64rG3oOxnnYJKumCXCS2NFRmV6mGAi1QSRseJFe7i1qaJnRJTPvpH/dp7rm5/01F3WQ9HrHtXuA2Prcnas=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=bIGemVPy; arc=fail smtp.client-ip=52.101.62.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="bIGemVPy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QIyfAljAtyNh52nMoH1GWfMcVrbASmNRJKS8AGWGd+SSv8loWj4r/nsHO229T0cSv92o9QfCqYPd4GCXj5espSILUz1EJv8qEJH6Ttt8v20UeuRNirMbpffX+ZVOqdgX0i+DkQCt7/+aeBt9WuE7sEsRxt+URZXFx5ztssL6GvnaxRcBGayAiFB5zlOWhsaiNjmre4x2B7Sm791zKsgkEykWmaOSYm8IvJ0cwTRIxocu0cgQDa1B+9s7EDRRRPTE7PMYrgMzqzzc8FawCqwTFGiuxr+xbH0yMBZNOlnxEnIvt76A1TEtGMfGU5BRobWDnMZccoShtAsbcK6WYKvggw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BYbga98ZiTETqFdLGeijs+DqY3dCAyYo5vUQTwv0kK0=;
+ b=tDBk5v/E0at3ua7zv4Gfz6KYLmgknXkFUqt8CTTdjgyMzLWDEqCoWVkHHKKcQTuGXw1sINpHur8+2xVrRz4TTAK5Ua9X3OlH8H0mDGJhybDEf9Q3p47zl39rWYgGLfrWx8qnjG+mUsWTLiVENU1YKpZ7z8HZGdW6QRz1yyuneSh/uJ6id0hdMnr+6qQSTACBafZqaHJRFwvZHU1x5MgYT9pF/EDKAYQ0dKRYw6nckcyqpFETbLroRjJxb/jvbaW0yPylPnG5w5g7Mexinh7Msy2d5upYjp14yYwPODyNpsyuskJxFBOTawQgTgipCWDJWFMyw6jQFcjPvS+CW3vnlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BYbga98ZiTETqFdLGeijs+DqY3dCAyYo5vUQTwv0kK0=;
+ b=bIGemVPyqqlyvrsgEb4tg4J3eibMoI5u6GlQjdKWiynfI9NgxVHk4PbzwensMKgEMNL/wNi7o/Vg9yu6kdbALwBEgTm6RCmrSLFa3rn3FI5amBJ1wTo2Sl+rop8f/VKHV+wQubIYnp5fQB05BPZc7GhmIbQUzvRDXJT21uKKwjATf2j3zfEQqjDfLzJCWXer1Chb3SaR3kb+mKjOojR6+Sn3zaBHFz2H/z2RGOyoDBE9z5OR5FlDdBKy/HZEit4/rvNhhd0ZAxthwVUabsF9rTqVWiEfGi8d5Yq0ajH4srCYbXM4eN4MozKVbSrnJHFByfhZRyyPaemolL2DlziT6Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS2PR12MB9750.namprd12.prod.outlook.com (2603:10b6:8:2b0::12)
+ by MN6PR12MB8470.namprd12.prod.outlook.com (2603:10b6:208:46d::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
+ 2026 13:41:52 +0000
+Received: from DS2PR12MB9750.namprd12.prod.outlook.com
+ ([fe80::56a8:d6bf:e24c:b391]) by DS2PR12MB9750.namprd12.prod.outlook.com
+ ([fe80::56a8:d6bf:e24c:b391%6]) with mapi id 15.20.9769.004; Wed, 25 Mar 2026
+ 13:41:52 +0000
+Message-ID: <954da5a0-1e85-4b43-9b7d-c1f025d5d1c7@nvidia.com>
+Date: Wed, 25 Mar 2026 13:41:47 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V2 2/3] dt-bindings: net: Fix Tegra234 MGBE PTP clock
+From: Jon Hunter <jonathanh@nvidia.com>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ linux-tegra@vger.kernel.org
+References: <20260324121631.771628-1-jonathanh@nvidia.com>
+ <20260324121631.771628-3-jonathanh@nvidia.com>
+ <177439307874.2078673.11304788250514370726.robh@kernel.org>
+ <5e0a6a5a-dded-449d-8789-e2a5e0a169e8@nvidia.com>
+Content-Language: en-US
+In-Reply-To: <5e0a6a5a-dded-449d-8789-e2a5e0a169e8@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO2P265CA0189.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a::33) To DS2PR12MB9750.namprd12.prod.outlook.com
+ (2603:10b6:8:2b0::12)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: lhrpeml500011.china.huawei.com (7.191.174.215) To
- dubpeml500005.china.huawei.com (7.214.145.207)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PR12MB9750:EE_|MN6PR12MB8470:EE_
+X-MS-Office365-Filtering-Correlation-Id: e005798b-d28c-4c2f-07a1-08de8a744580
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|10070799003|366016|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	aQvmdEuM2uWItcHWWGd0A7wMzBi7DKYxgEL4mXg/oCv2Khnrdj5au4I3hvqgjybyJzj8SWIgHvFMa9VyQsJ1yChYfwXRD2Iet1iN+L/AkE3Pc+CLUsq+nREelzMBw4OLMhbKludj6v3OHHpQmZyeatiGb7cVmzOGtFZLcETNiC1OioRIQFwQuvluvRg+fIfavjBohVM0jGajYUo0L1ShgaIbHu9xxNHYH4vHmm5pqdFGmffSGLd5WW3+ty890RacqE7lTGAs1br3YHGzBVSaldPq3DPlq32UU+gP+++DDt2j1o+xkBkrGd2rUDHYemekWL44hNWWFZzHu0AW6PJuVUQJZWORBDvrEoUHRzt5nnIMiLlf377wfDDha450ziNOmnU2+SHPRK3hXIBncI4TleKwpk+63tNq/UMMnCVee5OGPrz7SIsWShJtHwPCimRtWagsDi9QEz2WpfPLMFHB3PxD1JHp1h+Pbn/uo+/ZB7DWpEIXWXIHey79uyPndiOr6JZIliyDi0cU2HFmcbpZrhPXn4TUFKiFGm2+UyEtorDGPZsh4ySM9DsFWO+6mdftVY/At4FoHzMUQsg/5vMh+De0Xl25b+85K7rUMbG4HFgccxj7YZZmpGUz8nM+juRMOZsutQ+WBqT9yYpaZ4Ez3TkzbbIY6Of1idLYFdtR0JqtcI4h/HQbRW6HOPsMPcHDt1xzeYLfKowT3j2+j6ZnWF45l+Z1+kcZg1uTMd72c00=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9750.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(10070799003)(366016)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Wno2aWFkd0d5ZEU3VnFHeGUvVWhEUUplcVN1eTQzay9NQ0doaFhvNFFYRFVY?=
+ =?utf-8?B?SndsaXlrRTBTZHN6YjRNeGE5Qno4M3BhTUZsemtlWkhGVXZ1TUdob0x6MVhI?=
+ =?utf-8?B?OEVmbUo3T09XeXFTVFNzWWJHMURCN01iWkh2OWg5Qm9taHF3aE4rUVNHcVBw?=
+ =?utf-8?B?QWQ2WG5KSmJqRVF4U3RWU28rSmxML1RUdDVzalpneWRka0FGaDRmaUg1d2dy?=
+ =?utf-8?B?NEROUFA1M1ZvVFgwbnZLb2Z1bE05RU50amZWSmNETE96UTBZdnpDc3NpS3F2?=
+ =?utf-8?B?Nk1EcVc4bGRZMmF2NldsT1lmUFNFRmJvYWN1NUc0SzBzWGt5K3BIY0pIcXNW?=
+ =?utf-8?B?bWsvdDVyMm5qWVRoUVRTRHowZnhlL0RxS2lTQW5UcVFaTnJnWHZYdHN4MzFx?=
+ =?utf-8?B?anVIU2FEWkM2bTNoTkwzYmx2TEkxYndzRjRzWi9tMnE0NlZNVWNuUCtKMTha?=
+ =?utf-8?B?aVM5cW54VHBhcWgvUWI2RjlmTVFpRmhuUnA4TzQvRXM0SzAvVXdLeEpTNHQr?=
+ =?utf-8?B?Z3cvL1NMYlo3K0JBeC8vVUVhRXBERzVpeHE2MHFYSlh6WVF3ZUxFdHF2eFdw?=
+ =?utf-8?B?N2VRTEJ6VUhMZy9Va29icHUxbzJYcXo1ZjZQSHZzaldxVko3dzNrSnNVVi9t?=
+ =?utf-8?B?eHY3MTNKeUl4b0R3M0t1NmpoUlowWW01MWRzemRPckxyTzBsRVVlVy9aZXNj?=
+ =?utf-8?B?dXZEQkF4UklOWTFSakNUQkFUNTJGb29adll5UmNrMFNnTmVsbzJId0JqL2Jn?=
+ =?utf-8?B?VGxvYkd0MGV4bnJFSnBEamtMOHlrU1hQRm5kZEtkMHB5dlc2Uk9VVm56aVNE?=
+ =?utf-8?B?cGtrUFdnZjFvZ3RjeVRPSDVxZmtUQzVXSlFiaGZFWTJ0VUpwb0U0VmZ0MWtD?=
+ =?utf-8?B?b2N0a2F0QmRmSlBObVJRSHl4ZDM5U0wwYXBIV0hDMnptbmVJcXM2b0U2Skt4?=
+ =?utf-8?B?d0NCYlpZSHg3bkRqL3NsamtlelpyVzE2Ti9vNFdsRkhwTzFOUHBzaVZocWFz?=
+ =?utf-8?B?TVhzSmZaTG1SYzZndVFLNDZsbnFjQ2U4TTBsMmR1VkRORTMxdmUwVW5mMG52?=
+ =?utf-8?B?UytodXUzYk1TalZUYjcxbW41QkEzOXduTTJBWUwwd0xJditHYXFoVSt2eXRz?=
+ =?utf-8?B?REtXY0dWTHRVYjdzaFpmVVVPYzBwaE9Tb0QzTzBFUTNWamhHYVVvSHZDYlNC?=
+ =?utf-8?B?QmtaRGxvamhIWGRyaUNySXo0dGR1QmdrcDVMdWZCM2xGSURnZ0I0S2tJeTdO?=
+ =?utf-8?B?SnM0ZUVsa01MNll5RWVjeUwyTFZWRzN4WnVwWGVXK2NES0Mza3JsQU55ZmhO?=
+ =?utf-8?B?UVFRTEQ3OW9zRlVZUDIyVDVBOXprMlcrNmdmNlFDSHVUVDBYQmd3dDJjSlNS?=
+ =?utf-8?B?UEJBdFhjc3JBRjNPb21HZ1ZBTUZ5SzdqR2FYaVpIUmdnczlLN0xjeW0yenN6?=
+ =?utf-8?B?RFFTY0s5UDlVd3AxZzBzT2U0QUtaZllyTHIwNUVMQ0gvb0hkN2Z1SkdDWWYr?=
+ =?utf-8?B?K29ET0dCN0h3aVZ2azdnNnpMeVhLZmNIZEdzam5nMFd4OWcxTHY2NWs5WExN?=
+ =?utf-8?B?ZkI2QlFlNUJmKzZ5Zkg0R0RRbUhHY3JESE1KMzBiS2c5S3NPZUhQRFRQUWx6?=
+ =?utf-8?B?R0NRbmF6YW41TWFIRTdSdGdzbk9TMUovWDBzWkJGczBhMWpXcll4THdBcDBZ?=
+ =?utf-8?B?RFl4L1k5Q1EvQm1iTEdWc0huNXRBQVk5V3lHSEFQUi9wbEpEclFJUFlMOTk4?=
+ =?utf-8?B?WUNpTzRKaTR4ekhyekRIRWFEdzNEeElRV25nRk9QN2FaWTVxcTdyV0k2VzZj?=
+ =?utf-8?B?dVYyR0xYM1Q3cUNhQ1BreFpISmFNcFI3MlVjQ05BblFyZDc3ck4zZnphdGox?=
+ =?utf-8?B?M1FYSnQ4eDVQSWVUUzRnSFkyNlRhYTdTYUkzdFBaNWhUaWlLN3ZMdUxWNEVY?=
+ =?utf-8?B?WE9hSy9FQ3pJRVA0Z3BsajJGKzJYSU9Pd1pqTWNLRHV1SGJMZXc1TDRZdUdW?=
+ =?utf-8?B?K2F1T3FuS1lmSlN4cXFPVmFKUlAvYnFYckhZMlladkFPTlQ1Y1lQd2pHNjUy?=
+ =?utf-8?B?c2xQckhEVFN1ait3NUFSWGIvRGpJY3REczhEQjNiM2NVUmhlckRMWGt3R0oy?=
+ =?utf-8?B?NXc2SE5TOVU0YVJLOFlhYkJ3SWFRc0RzVGVtQWtLLzU1THZQdjF5N01uUkxP?=
+ =?utf-8?B?RzhUcVRSVjkwZTZFQVdadW5Sb2lZSEc0R090QklzUlNkcGJQTE5HcUsxK1dh?=
+ =?utf-8?B?Zm1LUnUyZExmemFoYXo2Z3BtcDY2blVYOFNmYjVRZEpVbmE0NlFoaGRVL21U?=
+ =?utf-8?B?NW1kSTJZVEJZRDVlczdjZnpXWjFQeVJ2ZGdQSnF4dmNuZGQ2ZnJ2dEJZRWhn?=
+ =?utf-8?Q?w+gB/EUL6rHtCpV2LzUCLRMzFxpPvvN8tjPW5Sqr/1fF7?=
+X-MS-Exchange-AntiSpam-MessageData-1: 1L5ehhJVMi/O5A==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e005798b-d28c-4c2f-07a1-08de8a744580
+X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9750.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 13:41:52.2545
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 48zKuqKzFoErW2BTEZjDEch34mpUbnF4bfQh5H3lciyn93wBZng/CZDmX78U3xdMpF9hr+kafTCihSNax4aV+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8470
 
-On Wed, 25 Mar 2026 15:18:05 +0600
-Sirat <email@sirat.me> wrote:
 
-> On Wed, Mar 25, 2026 at 2:58=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.=
-org> wrote:
-> >
-> > On 25/03/2026 09:48, Sirat wrote: =20
-> > > On Wed, Mar 25, 2026 at 2:05=E2=80=AFPM Krzysztof Kozlowski <krzk@ker=
-nel.org> wrote: =20
-> > >>
-> > >> On Wed, Mar 25, 2026 at 12:32:22PM +0600, Siratul Islam wrote: =20
-> > >>> Add device tree binding documentation for the STMicroelectronics
-> > >>> VL53L1X Time-of-Flight ranging sensor connected via I2C.
-> > >>>
-> > >>> Make vdd-supply required. The device requires power to operate
-> > >>> and the property should have been required from the start. =20
-> > >>
-> > >> That's ABI break and device for many years was working fine, so this
-> > >> should not be changed.
-> > >> =20
-> > > Jonathan and David asked that vdd-supply be made required. I feel like
-> > > there is a conflict here that I am not able to resolve myself.
-> > >
-> > > What I think about it is the binding does not correctly describe the
-> > > hardware and we should consider this a bug and fix it.
-> > > The driver worked because of a fallback mechanism (dummy/fake
-> > > regulator) and not because power was optional.
-> > > =20
-> >
-> >
-> > I looked at v6 and v5 and I do not see such comment for binding that
-> > existing device should change ABI. Can you point me to it?
-> > =20
-> "Make it required and add a note to the commit message to say why the
-> requirement should always have been there. Devices tend not to work
-> with no power." - Jonathan (v3:
-> https://lore.kernel.org/linux-iio/20260322115704.10b2e0d4@jic23-huawei)
->=20
-> "No, bindings should not depend on driver implementation." - David
-> (When I asked if I should  drop the hard requirement in the binding,
-> v6: https://lore.kernel.org/linux-iio/55e92148-b5de-4fb8-af0b-9476235341b=
-c@baylibre.com/)
->=20
-> "From the point of view of the devicetree, it doesn't matter what the
-> driver does. It matters that the chip can't work without power. ;-)" -
-> David (v1: https://lore.kernel.org/linux-iio/d0ec6a2f-6d30-4774-8950-15dd=
-3c4b020b@baylibre.com)
->=20
-> I'm not sure if this is the correct way to quote. But I have added the li=
-nks.
+On 25/03/2026 06:18, Jon Hunter wrote:
+> 
+> On 24/03/2026 22:57, Rob Herring (Arm) wrote:
+>>
+>> On Tue, 24 Mar 2026 12:16:30 +0000, Jon Hunter wrote:
+>>> The PTP clock for the Tegra234 MGBE device is incorrectly named
+>>> 'ptp-ref' and should be 'ptp_ref'. This is causing the following
+>>> warning to be observed on Tegra234 platforms that use this device:
+>>>
+>>>   ERR KERN tegra-mgbe 6800000.ethernet eth0: Invalid PTP clock rate
+>>>   WARNING KERN tegra-mgbe 6800000.ethernet eth0: PTP init failed
+>>>
+>>> Although this constitutes an ABI breakage in the binding for this
+>>> device, PTP support has clearly never worked and so fix this now
+>>> so we can correct the device-tree for this device. Note that the
+>>> MGBE driver still supports the legacy 'ptp-ref' clock name and so
+>>> older/existing device-trees will still work, but given that this
+>>> is not the correct name, there is no point to advertise this in the
+>>> binding.
+>>>
+>>> Fixes: 189c2e5c7669 ("dt-bindings: net: Add Tegra234 MGBE")
+>>> Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
+>>> ---
+>>>   Documentation/devicetree/bindings/net/nvidia,tegra234-mgbe.yaml | 2 +-
+>>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>
+>> My bot found errors running 'make dt_binding_check' on your patch:
+>>
+>> yamllint warnings/errors:
+>>
+>> dtschema/dtc warnings/errors:
+>> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/ 
+>> bindings/net/nvidia,tegra234-mgbe.example.dtb: ethernet@6800000 
+>> (nvidia,tegra234-mgbe): clock-names:3: 'ptp_ref' was expected
+>>     from schema $id: http://devicetree.org/schemas/net/ 
+>> nvidia,tegra234-mgbe.yaml
+> 
+> Yes this is expected until patch 3/3 is applied.
 
-This came up a few years back - though I doubt I can track down the
-exact discussion however.
+Well apparently somehow I managed to miss the example. I will fix that now.
 
-=46rom a Linux point of view we are breaking binding checks only if the
-supply (that should always have been there as chips tend not to work
-well without power) is not present.  We absolutely have to
-keep the driver running whether or not the supply is specified.
-Do other DT users provide such a constraint? I've no idea.
+Jon
 
-If the DT maintainer preference is leave it not required (perhaps
-with a comment saying new users of the binding should supply it)
-then that's fine by me. I'll keep it in mind for future similar changes.
-
-Thanks,
-
-Jonathan
-
->=20
-> Thanks,
-> Sirat
->=20
->=20
+-- 
+nvpublic
 
