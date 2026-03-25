@@ -1,195 +1,195 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013000.outbound.protection.outlook.com [52.101.72.0])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEDA8397E9F;
-	Wed, 25 Mar 2026 23:04:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774479900; cv=fail; b=M/JSCPrKIMPIbfes27mwFNFGjDdLusbvDX94fMQcLLxoMQcir3l7NpF7Uk8ZoMoAOUxJHpwB0h3S0J9SgqJxgo+KEVcana0H991PtUnyWNNIvUBZEUFJl84hjn8AO2LCO1I7NloHCf0IFZqHphtfuG9gr2YAihAlaSmo2RD9NeQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774479900; c=relaxed/simple;
-	bh=YjekS0zr/swbFjaUMALudPHZ5yVmBdXkiTRaBeNarUI=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=APIzpwKn0o9wUKUBEq6KKbIWl39p5YyeDlOhpFLk/23TXOd8wRsWY4KD8zlBeStl3BZv0g3rH3k4LJwphNK2NrV0QHx+ZJFb/22IwliSuG6J2UPWAtYBDkf9MT/OHsphILjjUgT6ZvtkK4ibtaVc4UP2oe+JR9VbNNW8Z0q6Lr8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=CTMv3rx1; arc=fail smtp.client-ip=52.101.72.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02BB438C409
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 23:06:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774479990; cv=none; b=EEMc7lkLJWjylkqeeE4khN4bVTZUJz2Xtom7jAXJVz8KhZnHpjGHOzRmPulptX81nGTnuMBA5q9jv85gEX0lkLh5ja4E6LU5SeRmnUdlQd8ZqlCW4Rwp7nHZmMsZknLKn6k5lPfD0GyWXRitk8L5rA5mJXsO6x/UCHftd1EPzr0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774479990; c=relaxed/simple;
+	bh=P8eJNKjxyO4SVAzXo6XNccIikLD+xI3iT00av9Yog1E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RNSSRJ251bxWOZEWwlkOsz0u1wwYuxBtuwV2DAs3JGLSpkyvir/BSmlA5JLunkAWITZoPQniw1rynKojBk12j/j/VVypgsg43D8/swVYXIrOAbQibEhaCKTy06M5VjCq7Swu+HUxPWWPuZSKPX7ZMCioCq0XlJI6LTchI6j2lR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hxm8mUbg; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="CTMv3rx1"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iPdXue4PXpFSnVG2wcmmuPkp5gJhxkMFlpHADmHu1RcwYJnruH7dRna0ey0tgrs+SC1KfmaENdFmkjjkYyMzDyTbA4nSM41QdtzIsCZznR/ZPVtN0qBjd7h6vZUsaqSaYtXnX4cb2u4SeOiedgds7wr5u8lWCZlkkxImOogPTBj9Axl+dEd8iBPen0Wt7aTnTW8bj7za/mfI7jUm3cb7aT7sn5gKtt6G6ZKiHlrZpDLfDN+FGk5CUvAYSaKDgkwEgxPdgv4MP0mviJ+fDdRBAcc45t388Z0eQJpFVhxB7gSnRI4JuTTLTxFCFLEoQQZ/Dnz/h6448e9Cw9Gd0EGcuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QrnfVBmH7lq0Sg1oOGIcvjqEwdPNcCOfRCUWaxpAoIE=;
- b=TXkKPkl3mnVaNn4kOmq3E3BNBHKH2MHRXKvkJe2br2TwbUgI9IVbEIm3Atz01BIxaN4jlfQgseuphax/QEEnGXN7KjtvGeSj3KmFX3D1062cJdXE05ymlnsvfalEMmXl2sKu874JsJ2E1iVUNbxeCwesmoiJWpIeb6RkUWxAk6icsMhdvzBw4am6YwzdZKlPb3EE1FvDdTcgGyDsFVsE5cu2v09rp/gJE7b8qVVh4Dv+OtwMFGD4F3ZHcibDHieRnDllWPFeWjQHdib7XyBm2bgGP4y0R8+BWMFiqKhYd5+6V7vNj94vWQP5EyHH+crQN+PGNzgxN3Vyx/EJqibT3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QrnfVBmH7lq0Sg1oOGIcvjqEwdPNcCOfRCUWaxpAoIE=;
- b=CTMv3rx15o9pHvH9yeGNzKFXDCmaGE3Ti6vGkdObZuapos8XXCRTu1+9q05wd9HgUs5r9ehlcRhgmlb/FgcHXlimnfheJ2GmtimkNS7DSKOzVVwqHQw+TCnb5uqyxQcrBQtXXoAxpHNo9siHHyAHNkQ3Mhabuni8zPP6tg/S5KtdQnhTXTX5TTbYGrA3yzLY6trj1Gxlf2e7jGwjqPK4cmMqzS2zOE3zRwQMXZfOUdYHYz1/GrY/i61ZYKjPy9dgVYPX6FDFhSwd350pgQo3HYrEqo3r74UGJSHMoWS4FclS65P+nIct7220uYWoer0WXC72Cb1SxQlqW9gW3yul/w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DU0PR04MB9372.eurprd04.prod.outlook.com (2603:10a6:10:35b::7)
- by GV2PR04MB12140.eurprd04.prod.outlook.com (2603:10a6:150:30c::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.24; Wed, 25 Mar
- 2026 23:04:55 +0000
-Received: from DU0PR04MB9372.eurprd04.prod.outlook.com
- ([fe80::4f6:1e57:c3b9:62b4]) by DU0PR04MB9372.eurprd04.prod.outlook.com
- ([fe80::4f6:1e57:c3b9:62b4%4]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
- 23:04:55 +0000
-From: Frank Li <Frank.Li@nxp.com>
-Date: Wed, 25 Mar 2026 19:04:16 -0400
-Subject: [PATCH v4 7/7] arm64: dts: imx8mp-evk: add flexcan2 overlay file
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-pinctrl-mux-v4-7-043c2c82e623@nxp.com>
-References: <20260325-pinctrl-mux-v4-0-043c2c82e623@nxp.com>
-In-Reply-To: <20260325-pinctrl-mux-v4-0-043c2c82e623@nxp.com>
-To: Peter Rosin <peda@axentia.se>, Linus Walleij <linusw@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
- devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, Haibo Chen <haibo.chen@nxp.com>, 
- Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774479864; l=1718;
- i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
- bh=YjekS0zr/swbFjaUMALudPHZ5yVmBdXkiTRaBeNarUI=;
- b=SY9zXi/wmM5r5toeB3fZAh5lxwEbDKg0iZe/jIJ0iVT2Y/4GDfjyienwSv25gCHlF4vUXCFao
- wyU3hOmRrEMB6qaCFNmRJBbzD+/ImtxU9i7iq/d51zt6kYXFB+RTDRK
-X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
- pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
-X-ClientProxiedBy: SJ0PR03CA0161.namprd03.prod.outlook.com
- (2603:10b6:a03:338::16) To DU0PR04MB9372.eurprd04.prod.outlook.com
- (2603:10a6:10:35b::7)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hxm8mUbg"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ad4d639db3so1654255ad.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 16:06:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774479988; x=1775084788; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=p8gyjWEMKeQzotP2hKQqpYN9gqNdwM1BT/NGfL3X+MM=;
+        b=hxm8mUbgJpHfz/UtxRy/Wk1nFPN1g81O8Dngva/kHRYwc9d6rtfOaSkA+cnY7fq99/
+         qjq9tM0F0Zph6vI+hTSYkkDHYKGoCT58yXE6bwVURhbuG6OkPrDHeK9W4xj53xSFiyyv
+         plHG9pNIdtsnYiYi0VG3UyuUsIcs2m9TYAMXOtJUYqlNFfa5eDBBHFcwxkXwaMy4KROC
+         d5riHZY4BPnRnNwi/lsIMtz8Nj9klkmfwjj6mZxHA4xp3YxVMpDjdswENfzIx/qhch6W
+         /3JHeaPr5pGNoCX8LPwFMz7UMKzFEguDU2TT9DTQAPlIQj1b7H0rD3C1CUkzIloARIWX
+         v8VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774479988; x=1775084788;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=p8gyjWEMKeQzotP2hKQqpYN9gqNdwM1BT/NGfL3X+MM=;
+        b=YuMnpZ7w0LWh0Otme6A9NNI3ueceRKX77xVx8zsWgOe06XUkFAuGeD4/mrpOS3BnSU
+         iSadxZfiA1XOYwTKsBNh3F+q+y69Hy4UfqSix/1Rz9DV8VIiBKYbCe6IWDzdGBzyvJ3f
+         FCxpG2GrnELQfr1/Bee/Y+tIFgrmyGZ5EUhKeSlhQLZ+/n8k/MW4Z1qqqEMuE302wjFC
+         IA4nQ6SPuLwe6GnNfUQWgBOaQOxMCYSWBog8+YIqgHc2XpdOiwJTwbCj4klWRb5XyySl
+         2SgCxIN0INDzSfUGyt3yzosPnKkrMg10g+NIY9+WKp2fpKehliEDYpMdYo4J75ZeJzof
+         +J3g==
+X-Gm-Message-State: AOJu0YzU+NoaCa4rM0iXyn6O2QN39AdellV33Po3GV41fqNRavGg1J0m
+	vlHd+UZ7WaWAFJYaIWaeD2qDteUVVmL5mcosjXA/MlFiLqLHgEVwGpWa6+p6GQ==
+X-Gm-Gg: ATEYQzwUMXR1ffqaV16MKMMoRzT2n08gheydrt6Q76gvcRjv3ZelWa3M0Q4i78LjG4H
+	N8RQS1zg52bbGhG50xO5lVRzbLUxP6jylK0+40UhXJxRctgrRYWxUOQHT2XGOLwxyxyKhZ/Nxo6
+	Li3e03m2mZwfXOfv57Ss83HAG+M0+d8cT4x6kGQMSZ7wueqIlHZUd+pGtcf3Do+i3k8ScY0uB50
+	e/aOozZDLJEiV1XxcqRydW4aLqbigQLdsXBODEGt+Zr/lPDHxd50mK897ar7wji6Xd2x+pZmTuJ
+	jBslfC53c/3vjcGkG42zK65rFgmKyciuMmrISxBoVdcJyhMxnYvEUOD4z5YpH5UHGxCzmkbfiRu
+	B9ArqFBiBQKIp8eH/gCxSZbrTSQVOJ+4bM7xeP2pN0wwPPYqrpmJyxSaD3eikUr2PBzmsGiR6GV
+	uyFAE8EStZ3NzlgCgcXe+LSj/va96ZCMJOYl4=
+X-Received: by 2002:a17:903:1b0e:b0:2ae:450c:951e with SMTP id d9443c01a7336-2b0b09da49amr59769705ad.17.1774479988270;
+        Wed, 25 Mar 2026 16:06:28 -0700 (PDT)
+Received: from arch ([2409:40c2:5018:3ab3:ebcf:9aee:dece:80da])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0bc79f7dbsm9951675ad.25.2026.03.25.16.06.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Mar 2026 16:06:27 -0700 (PDT)
+From: Bhargav Joshi <rougueprince47@gmail.com>
+To: devicetree@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	reichl@t-online.de,
+	sravanhome@gmail.com,
+	broonie@kernel.org,
+	lgirdwood@gmail.com
+Cc: daniel.baluta@nxp.com,
+	simona.toaca@nxp.com,
+	d-gole@ti.com,
+	m-chawdhry@ti.com,
+	rougueprince47@gmail.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] regulator: dt-bindings: mps,mp8859: convert to DT schema
+Date: Thu, 26 Mar 2026 04:35:59 +0530
+Message-ID: <20260325230559.73527-1-rougueprince47@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU0PR04MB9372:EE_|GV2PR04MB12140:EE_
-X-MS-Office365-Filtering-Correlation-Id: 46e20e5d-8186-4ff7-2cef-08de8ac2edca
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|52116014|19092799006|376014|1800799024|38350700014|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	i+JxUwmQGBH80enW5ydBplscE06ms37aqo6x32Z4/59KKnkyzuEVpIjpEangjQfvhRvD4ooklNPFAJ+T5/tsI0buGEscosRpSX5OkWEEPwIKw+38MhYR52xe3rS3nhiyR+s6MwUoPGR+TAHCakpyC6Ng4l40lzsKMNj/zaRh3ZbZMtcDz9OyTAfV6z0xjE7sN4KHAs5FYTPmYPWVesAkNHRS2imjtzAab3AfGZWovfY38jWBK6vDapZoaQCGyl+iXrF21ZlESARu54z8JuWtJH833iKi9GZanq/a7peV7yzQjdHihJoTrheqZnyppDYU5xRmevq78ruWz6MGpZIlvKvfbJQ2KHke6QAww+Qm/qUu2V5A9geuBZ3YO+MwgfCU9rRVk+Zulkjs/DS4/VNYqYrCWVZeiGzZLVy9nyjLwuA9fmAaRAsVS7qz1TzDETUHv/MhF2/TzY+rX1G9N/HyFKLTfOgCSIUeUR6JIZPF6HwWOW4pwIBp2aSUWKb1nwUnxHJDoVZ20Q0qI+BM+dVzvMLvOMj/+s7gLQxvxD7PH1FquR/tjSoYchr9f4XgTFni06WYZv50yRR+eXO2JTiWVLiOKj+B2oSMTtaXfZVaJ1apjN50hrFpPIDpUJm7TnJQmSk0vBX8nGqqjSRj/mPGXVKvj2Rs09nNN4mUfBTvjRkjuWD+B9avwhSLoDSjM1ewsW/M2NcgEdtV6n2nzgnyk7n6qzFihv/8Cl7Uy8dsChlsDmH306tZqJ5sdMIkq8MB8wDV6aScslq5CnXtleQhZ7qq3h72avlPicPbzd5YuO4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR04MB9372.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(52116014)(19092799006)(376014)(1800799024)(38350700014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dUJkem5MMjRHSFBQdDN2WHNKZ3Z6dmRLeVRjV2pFR2MzMTB3Q1o1V2NXS0I4?=
- =?utf-8?B?N3NhQ2NkRWQ2djFKRDNKdHczaGIzSHdvZlhmSytwK2llSklabFJGV3lERzFG?=
- =?utf-8?B?dTRXYThEbWN4ZTY1dklOZEJGVjVUZHF4SWlNa01GNXJ4NFRhTU9NaDB4K29w?=
- =?utf-8?B?RDdCTHdMc1oxQTh5VTNyWTkrZmpwczFqaTVLUml3Y1RVU29pRTlQL3BZUUUy?=
- =?utf-8?B?ZGZhbyttUTZDK2R5Si85SFVJd0NKdUVSdEJCRDc4MGhGQytIZURxTkVQNHNB?=
- =?utf-8?B?b0ZVR01xY0d1a1pLQmRrMWFKUjNkcUJHU1RNZ1N2cTZRQTNsMzVrVmp2djZY?=
- =?utf-8?B?emliQkxSaEYyWE5vcmR4U293eGlkbXlSNlJBQUhiK1pWZ0ZrakVXR29RWGtR?=
- =?utf-8?B?eEFaL1hMR0RxQllVN0dESVF6V29iL01NVVJJUFd3dkhKajJTU3NIUkJDTTlC?=
- =?utf-8?B?eTg5NlFUMmVWcWdYaVpaSkkyN1ZZMkZpZm5rRUgrcCtHVFd5MUFXNGQ2WTI1?=
- =?utf-8?B?dDNsQk1lV0hCb0JUcG1ZT2hNMUdmU1FSQWNXN25rQWZ2T2hjakFaS3czUFlY?=
- =?utf-8?B?b2tLeVFOblZsYitkVzNIT093OEFjemY5SVlYRkRCQ0o2aWdXN3oyTEtHeVR2?=
- =?utf-8?B?S0w5MWFpOEt2QXRTV1lRYm9LNURoSlNzcHF0aTlkM05uQWJ5Vi94UGFyWFAy?=
- =?utf-8?B?MXdFSkRiWkIvWXFya2tKcFZ5YThXMUJvaUlwVk9WU3FoaklrWVg5QVZkZi8v?=
- =?utf-8?B?RTNyKzNiQllUWHZEN2FqbEdJcGJ4QkdLUWNOdVErZnVGb3ZyYmtBNytoUHgr?=
- =?utf-8?B?UFRUcnNOLzZTVUFjT29Od3EvRnhNamZ6NVlQMDJpcXNnZzdkWDhRTno2cUJP?=
- =?utf-8?B?QTU0cU1MUWhrWDY1UmpMTXRhT3l0YVB6RDliSjFuUHpTNEZkeVdEYUNGZTds?=
- =?utf-8?B?YXZaWS9qdlNNcHdRYzhQQ3dISEhBQXBFbC9VcmRVZDNsMmV5bW5kVXNTOFlt?=
- =?utf-8?B?K0JlTFVlSmkrcnV3MnFqdFEvWjYxZUFlalE3MmtlNFVDdTNCOGFqcVFaZ3dX?=
- =?utf-8?B?N25HaU1KOERuVUNGWW9seGlYWm9tanpKcDBkLy9LMW8rTk5MUElUTXpyVE9n?=
- =?utf-8?B?V042eDErRDJtck5UN1NjTkN4OXNSRXB0Y1pucm9iQlZkaGpvZFRrSjB0M1Vq?=
- =?utf-8?B?aWExbkxJYWs2QjREc05QZUVLWERPSzA4N2xaZnVaNlp5aDdRRGJZazl1bHVP?=
- =?utf-8?B?UFVzclpyakdNNDlqMDNnZnRYSjJLK1ZyR3hCZmQ5clJPSkswNDdJdkFXa3E2?=
- =?utf-8?B?U3BLZU9GMEZmREpXZXVlbTNqRnMwZEtOYkd3YkR4SFpiRjZsRm9TTkN4SGpa?=
- =?utf-8?B?L3ZQd296SkdyYnJLU3h4dUJ1STg5QXhIQTB2blBYY2wzVXVJZHJXcDlBK2hH?=
- =?utf-8?B?anZ5YmtMOFB6RVViYXhVb3VqQlk2ditKalQvdHF4bE1DanhVQ3J3dEVzQ1NC?=
- =?utf-8?B?MW5iK3hURCtDZXRrWXpQa2x0b2dYYkpSdWJpcHlUbmV2Ti9BSHZzUXdYQitQ?=
- =?utf-8?B?UHpDNDBkbi96K0pCVGFMQjVmMjlXanZMOHNzdFhqSlk1aHh5VCthRTFHTndF?=
- =?utf-8?B?M25TSWREZHJsRjZoNlF4ZWpMRG5qamFrZlhqOCtVSjM1OUhuNXdldFFoMHh1?=
- =?utf-8?B?Ym9mZHRleVNoSWI2ZWVMbUFuMFFnZ3UyYlAzZTVoYjFaM1plK2E5NzJDZ2U0?=
- =?utf-8?B?clNhaWJIQXBpUkxEWUpEbnc3VlNuUWtJOWEwMEdDRDBOcktibnh3a2tpbkdv?=
- =?utf-8?B?ZDJucVBjcnZ2bTJUcTRvS3Z4QzlydTRGU0RZdEtqUlRtRXlPWnBGMjhFZklh?=
- =?utf-8?B?aS9xUkEyZnBxUWdqcmVTWUZXeW90V1JPekJCcXdTaGRLVjhBQXIzOFBhWmZm?=
- =?utf-8?B?Y2psSGMzMExuQ2pLQXFPTzA3TkhNSS9ZNk9Od3JuR3FSOHY3SjRzYXkrNjNB?=
- =?utf-8?B?Y01udG1LNEVPZUZ1QXNHcDl6N2FmOWpKWVBtSTZUT3BFSVhTOFJ6aGNDaXN2?=
- =?utf-8?B?UkUyMGpzVjAyZytwU3NlVTg5MkxjNE0ySzNESytBL2swOWxIWFByc0ZtNFFG?=
- =?utf-8?B?cDNxd0g2ZDJHZStwdDkzQW5EdU1oVXY0VzlEcUVFa0ZEQk9oRWx0ZWl3b2tW?=
- =?utf-8?B?aGVqOTN2MzVOQmlLbXB2UXg5Qkc4cGZvYVpLOGM1dDV4NzBuYUxHL1VxM0ww?=
- =?utf-8?B?K0dhTXRHNDMrL0g2aEJ1bEo5amdQYXR1MG5jeVNRd3ViTXFJZnJMQk5JdERs?=
- =?utf-8?Q?r44BIjqmt2Rsf8Ydzs?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46e20e5d-8186-4ff7-2cef-08de8ac2edca
-X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9372.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 23:04:55.1973
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UfsddiykwhSWh81goiu91AVz9EDnERUNORzGTMkuH8a+6FkJLh1furzLEnTTd2iGQWVm8Ew10TkRupIjmGJ0Gg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB12140
+Content-Transfer-Encoding: 8bit
 
-Add flexcan2 overlay file, which enable flexcan2 node and disable micfil
-node.
+Convert the Monolithic Power Systems MP8859 voltage regulator binding
+from legacy text format to DT schema. This patch does not change any
+functionality, the bindings remain the same.
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Bhargav Joshi <rougueprince47@gmail.com>
 ---
-change in v3-v4
-- none
----
- arch/arm64/boot/dts/freescale/Makefile                 |  4 ++++
- arch/arm64/boot/dts/freescale/imx8mp-evk-flexcan2.dtso | 15 +++++++++++++++
- 2 files changed, 19 insertions(+)
+Changes in v2:
+-changed markus email in maintainer as requested by him
+-changed subject line to match standard style
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 700bab4d3e6001fe6cf460fcb09cfe57acc77e36..bd377191a68a6167d5f9a65184d19c789a4223ee 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -233,6 +233,10 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-dhcom-pdk3.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-dhcom-picoitx.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-edm-g-wb.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-evk.dtb
-+
-+imx8mp-evk-flexcan2-dtbs += imx8mp-evk.dtb imx8mp-evk-flexcan2.dtbo
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-evk-flexcan2.dtb
-+
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-frdm.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-hummingboard-mate.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-hummingboard-pro.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk-flexcan2.dtso b/arch/arm64/boot/dts/freescale/imx8mp-evk-flexcan2.dtso
+Note:  this patch is part of the process for applying to GSoC device
+tree bindings conversion project #
+https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
+
+ .../devicetree/bindings/regulator/mp8859.txt  | 22 --------
+ .../bindings/regulator/mps,mp8859.yaml        | 54 +++++++++++++++++++
+ 2 files changed, 54 insertions(+), 22 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/regulator/mp8859.txt
+ create mode 100644 Documentation/devicetree/bindings/regulator/mps,mp8859.yaml
+
+diff --git a/Documentation/devicetree/bindings/regulator/mp8859.txt b/Documentation/devicetree/bindings/regulator/mp8859.txt
+deleted file mode 100644
+index 74ad69730989..000000000000
+--- a/Documentation/devicetree/bindings/regulator/mp8859.txt
++++ /dev/null
+@@ -1,22 +0,0 @@
+-Monolithic Power Systems MP8859 voltage regulator
+-
+-Required properties:
+-- compatible: "mps,mp8859";
+-- reg: I2C slave address.
+-
+-Optional subnode for regulator: "mp8859_dcdc", using common regulator
+-bindings given in <Documentation/devicetree/bindings/regulator/regulator.txt>.
+-
+-Example:
+-
+-	mp8859: regulator@66 {
+-		compatible = "mps,mp8859";
+-		reg = <0x66>;
+-		dc_12v: mp8859_dcdc {
+-			regulator-name = "dc_12v";
+-			regulator-min-microvolt = <12000000>;
+-			regulator-max-microvolt = <12000000>;
+-			regulator-boot-on;
+-			regulator-always-on;
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/regulator/mps,mp8859.yaml b/Documentation/devicetree/bindings/regulator/mps,mp8859.yaml
 new file mode 100644
-index 0000000000000000000000000000000000000000..f7d2674c45f72353a20300300e98c8a1eba4a2a6
+index 000000000000..523498adf003
 --- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-evk-flexcan2.dtso
-@@ -0,0 +1,15 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright 2026 NXP
-+ */
++++ b/Documentation/devicetree/bindings/regulator/mps,mp8859.yaml
+@@ -0,0 +1,54 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/mps,mp8859.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+/dts-v1/;
-+/plugin/;
++title: Monolithic Power Systems MP8859 Voltage Regulator
 +
-+&flexcan2 {
-+        status = "okay"; /* can2 pin conflict with pdm */
-+};
++maintainers:
++  - Markus Reichl <reichl@t-online.de>
 +
-+&micfil {
-+        status = "disabled";
-+};
-
++description:
++  The MP8859 is a synchronous, 4-switch, integrated buck-boost converter
++  capable of regulating the output voltage from 2.8V to 22V wide input voltage
++  range with high efficiency.
++
++properties:
++  compatible:
++    const: mps,mp8859
++
++  reg:
++    maxItems: 1
++
++  mp8859_dcdc:
++    $ref: /schemas/regulator/regulator.yaml#
++    type: object
++    description: DCDC regulator subnode
++    unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        regulator@66 {
++            compatible = "mps,mp8859";
++            reg = <0x66>;
++
++            mp8859_dcdc {
++                regulator-name = "dc_12v";
++                regulator-min-microvolt = <12000000>;
++                regulator-max-microvolt = <12000000>;
++                regulator-boot-on;
++                regulator-always-on;
++            };
++        };
++    };
 -- 
-2.43.0
+2.53.0
 
