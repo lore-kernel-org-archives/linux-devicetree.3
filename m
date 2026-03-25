@@ -1,86 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4EE83644D1;
-	Wed, 25 Mar 2026 20:20:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF5F2C3257;
+	Wed, 25 Mar 2026 20:46:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.32.30.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774470039; cv=none; b=eybBcXhRxMxmPtn87BtN2tyZcMcdfxSZUt/3Vfh4OOjuGp65DIV2u0pfE6O8/JElhxGUPZWbN+VE+kgpMOocSSz+uj2NLdfs7/+hRyKUaLlNHBDZ48YuTqK1vet6nCutMXOs6JvvBjMhSR/1EDgQc3XpoF4m6mbAR1aOSS6hZyY=
+	t=1774471599; cv=none; b=SuDamM8BsFFuuSs+WX0Mgzs/AURtYNpwCsUQwJpIAsRzkIT4arG07jwqO1EsQM8zEzi6y2eNK62y6XJ5/xY6uiN7cs46WDI8iy5wjfZ4XuGrgHHdOVrkfs+gTxPqGswA+6mG5iMtWysbbQzwH5BtwK3knpPc66MsR53z4ns3H+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774470039; c=relaxed/simple;
-	bh=EJf9EH03K048GnQyciGn9nJ/4njlCY8sY9h7aSYy5jQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=d/hwnw7DXZ71R5AFbQeXXCrtvFgOKDmscmEvalotQF+3a31/4Ma6W+uZ9Qw+wCSvMBWMNpapeMzBt22kwDRMBsextEGh8G4w2MfQoWoEFcWtHyC2rZfeue+sMkjxFXxIAkj8x6on8EibsojxQ1FTYudKAy2gjaUoASKU56Lwwjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R/sHWhQC; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774471599; c=relaxed/simple;
+	bh=5o1xohuKr0S+BiEvA0vQ9u8l2HBmv1np5Y69DlJp66g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=vBoHKTib1lNjLAnTGYBXa9e3eGTxu9VTDXzwK3hOhK7M1aB0clJOuCkOQZvX1/a6q1e7R/Nl+xtqcKUN+gG/CNI15rD3GOaakshuh7PlXfHaVAXn6QPDnlYdWX9ekFS+Q4pXg1zxCS6n+FiXC/XcO4tPXB7k6kGzzLCa+cUs1GY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk; spf=none smtp.mailfrom=armlinux.org.uk; dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b=Ve02YZRn; arc=none smtp.client-ip=78.32.30.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=armlinux.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/sHWhQC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 469B9C4CEF7;
-	Wed, 25 Mar 2026 20:20:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774470038;
-	bh=EJf9EH03K048GnQyciGn9nJ/4njlCY8sY9h7aSYy5jQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=R/sHWhQCzYd+ZF4ClNbFtPpjz3TwD6fZXZ1sS0wPW8AqP3rl0tovUYaWdonKVWaiJ
-	 OwlrlLGPKyQJzjTcNTMD7KHdXAJOjy/Pgec4iK1sQUwsjoZifIZYI5uC0jTlzEGcLG
-	 18viuyai68dZgzN8F87qzLT1SkxhJdMLTx9dm/6064TjKTmgnptwvlSI/XP/fcRtl4
-	 giL0rQUFbbUETMdG05uXbW4WH5fvuqaOMDFtm2P7I5VMCeTlaQAU4irvLB2JumoxMH
-	 16eIDSTM+Evjf3AQNa1cthVdIu/mws4vSuaCZCJQTTLQFydtFozsiRGP5ZJm2cF9Ry
-	 tmA3OJZNW4eqw==
-Date: Wed, 25 Mar 2026 15:20:37 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b="Ve02YZRn"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=9QKg/ec1UB4Iqjz+3XvMVVCaBUJlpvPmNLrcDpzXquo=; b=Ve02YZRnNB03ruvQ/IjMJ/1ue1
+	Bi8GDv/IOoGR1ANMgT981Oj4zKj2iU195jiS8WXu+7B+X6xJnKauwJSR4031QIWEgH+2vTwfVQr6y
+	6Uce6PdLDE3m76fpnRsKUBhpTJScPz4WkdEti7wSHIpkJlDYs4ox/dK/urm14+6tM4h1b8TQhing0
+	q3JBKDYwRFu+WNMRY0DtkGZxWIuqCxaxHYQ6kgObXg6QaE2h1AxVEp6VucVunJ22eCyC+c/8oM7Sd
+	UH972dpzdlSDv5EZv13lys3OTKfnntfc2ax0H2xncCFzdbdlgsnc4buqoC6Go4sQrHDOJ9VVuLLZ2
+	JvH2jTZA==;
+Received: from shell.armlinux.org.uk ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:46352)
+	by pandora.armlinux.org.uk with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <linux@armlinux.org.uk>)
+	id 1w5V7G-000000003sV-3Db4;
+	Wed, 25 Mar 2026 20:46:14 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+	(envelope-from <linux@shell.armlinux.org.uk>)
+	id 1w5V7D-000000006M4-0GW4;
+	Wed, 25 Mar 2026 20:46:11 +0000
+Date: Wed, 25 Mar 2026 20:46:10 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+	Jan Petrous <jan.petrous@oss.nxp.com>, s32@nxp.com,
+	Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+	Romain Gantois <romain.gantois@bootlin.com>,
 	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Kalle Niemi <kaleposti@gmail.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Peter Rosin <peda@axentia.se>, Arnd Bergmann <arnd@arndb.de>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Mark Brown <broonie@kernel.org>, Len Brown <lenb@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jonathan.cameron@huawei.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Ira Weiny <ira.weiny@intel.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Shawn Guo <shawnguo@kernel.org>, Wolfram Sang <wsa@kernel.org>,
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
-	linux-gpio@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-acpi@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	Allan Nielsen <allan.nielsen@microchip.com>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	Steen Hegelund <steen.hegelund@microchip.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v6 13/27] PCI: of: Remove fwnode_dev_initialized() call
- for a PCI root bridge node
-Message-ID: <20260325202037.GA1291636@bhelgaas>
+	Magnus Damm <magnus.damm@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Christophe Roullier <christophe.roullier@foss.st.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Radu Rendec <rrendec@redhat.com>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	Drew Fustini <dfustini@tenstorrent.com>,
+	linux-sunxi@lists.linux.dev, linux-amlogic@lists.infradead.org,
+	linux-mips@vger.kernel.org, imx@lists.linux.dev,
+	linux-renesas-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org, sophgo@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Subject: Re: [PATCH net-next v9 2/6] net: stmmac: qcom-ethqos: use generic
+ device properties
+Message-ID: <acRJkrKbF_lI03O4@shell.armlinux.org.uk>
+References: <20260316-qcom-sa8255p-emac-v9-0-c58934e76ff2@oss.qualcomm.com>
+ <20260316-qcom-sa8255p-emac-v9-2-c58934e76ff2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,67 +92,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260325143555.451852-14-herve.codina@bootlin.com>
+In-Reply-To: <20260316-qcom-sa8255p-emac-v9-2-c58934e76ff2@oss.qualcomm.com>
+Sender: Russell King (Oracle) <linux@armlinux.org.uk>
 
-On Wed, Mar 25, 2026 at 03:35:40PM +0100, Herve Codina wrote:
-> During the instantiation of devices described by a device-tree overlay
-> applied on a PCI device, devlink displays the following kind of debug
-> messages instead of creating the expected links:
->    'Not linking xxxx - might never become dev'
+On Mon, Mar 16, 2026 at 01:05:07PM +0100, Bartosz Golaszewski wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 > 
-> Without those expected links, the device removal order cannot be
-> correct.
-> 
-> Those debug traces are printed by fw_devlink_create_devlink(). In our
-> use case, they are all printed because the supplier of the link has at
-> least one of its ancestor with its fwnode flag FWNODE_FLAG_INITIALIZED
-> set.
-> 
-> The culprit ancestor is the PCI root bridge.
-> 
-> The fwnode related to the PCI root bridge is created dynamically by the
-> of_pci_make_host_bridge_node() function. During this creation
-> fwnode_dev_initialized() is called which set the FWNODE_FLAG_INITIALIZED
-> flag.
-> 
-> Calling fwnode_dev_initialized() tells devlink that the device related
-> to this node is handled out of the driver core. This is not correct in
-> our case. Indeed the device related to this firmware node is handled
-> using driver core mechanisms and is fully compliant devlink
-> expectations.
-> 
-> Simply remove the fwnode_dev_initialized() call. With that done, the
-> devlink debug messages are no more displayed and links that were missing
-> are correctly created.
-> 
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> In order to drop the dependency on CONFIG_OF, convert all device property
+> getters from OF-specific to generic device properties and stop pulling
+> in any linux/of.h symbols.
 
-I would ordinarily make sure the person who added
-fwnode_dev_initialized() here was ok with its removal, but it looks
-like you added this with 1f340724419e ("PCI: of: Create device tree
-PCI host bridge node"), so I assume you're ok with removing it :)
+Why is this desirable? Please see the recent discussion at
 
-I suppose there could be a "Fixes: 1f340724419e" tag, but maybe
-there's no need to backport this anywhere?
+https://lore.kernel.org/r/20260322-remove-device-find-by-of-node-v1-0-b72eb22a1215@gmail.com
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+specifically replies from Andrew and myself.
 
-> ---
->  drivers/pci/of.c | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/drivers/pci/of.c b/drivers/pci/of.c
-> index b694fcda16b1..0993257fe025 100644
-> --- a/drivers/pci/of.c
-> +++ b/drivers/pci/of.c
-> @@ -811,7 +811,6 @@ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
->  	 */
->  	of_node_set_flag(np, OF_POPULATED);
->  	fw_devlink_set_device(&np->fwnode, &bridge->dev);
-> -	fwnode_dev_initialized(&np->fwnode, true);
->  
->  	ret = of_changeset_apply(cset);
->  	if (ret)
-> -- 
-> 2.53.0
-> 
+Merely wanting to drop a dependency is not a good enough reason for
+these kinds of conversions, because they in effect make the DT
+properties also apply to ACPI which may not be appropriate (note
+for example that MDIO busses are not represented in ACPI.)
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
