@@ -1,164 +1,144 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0388E2EA72A
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:32:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774431159; cv=none; b=Ik2w53kJV9AyISmmoRYGSaSp6P+WkFLx2U4yCKSHtK+1nG0UPNhT5HZbt43I7i/W2dg7bs8AnYNsKDF6eiLi5Hvs7p1+dLDIAwbySlKgNqjVoFDyrNPEumMcw1eDJHAybnI9glyYrVievvzvGP8LMtKX55pdUtMM+4u1oHCzM4Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774431159; c=relaxed/simple;
-	bh=fSUL9igBA3KN4gm9BjiayxKw1TnmPlLVceGWkB0osq4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k7iCL6NM6vvA3LY9nxsh7IU2cl9FyfVm1xJzlz0dCwHlgSsAK6MT6jZf2dLrPVTWCwo6u3/NloT0Ztdg0Tr95DXQ6Vja/Qu0vaXMQ8Aui+XtMEh0W+XTl8VYXSLbiVVFjvZE7ttRjGaZ0hSKArC+bPwknv2r0LaiKZwLrGhliV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Pvpx+3rB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R4jsUSwT; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4841F30CD92
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:33:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774431230; cv=pass; b=HlMs6pjFGSkvKTKGDJAkEYr8TFTenvIblJN4aHxcP80rbgpLRJi9JmlTVYgrw3QTh8P7YrV2TJYg1akvQFwl6JX5BkBTVcG7kf/uarBh1OTTw6e27wjeR9kCnPN44KlhWWKRtCMitPmgeCP0zGDISnLbYss3zMWsvCLSy828lgo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774431230; c=relaxed/simple;
+	bh=+EKnHhRrK3CoSwAJkOxB7dEn+eWaxbzYXodW5WETKj4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HOZYaGyj9bt/tj+Z14c8oYssmAmeuV9EmhWoYcCzwR4FvAcCzbH/tBNgQLYt83Z6+3CbWdd0WxWtsMCT8l2iKCQazrIZLAaIwBp6330Yvo4lQSUqSok5u/OVVB6eO7RrkEVCtsyExiqrEUl+B1+Y6usmCDAT8WLGhUYmv1DKF2w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=iVqW+6R0; arc=pass smtp.client-ip=209.85.167.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Pvpx+3rB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R4jsUSwT"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62P401Yr658753
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:32:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	FJUFvWx22X5sgVS+otV+IEBw7LizmRlEPkfCL66YKKs=; b=Pvpx+3rBKH6CGRq5
-	Kq3BLyUlf5QmLyzMWs5tWe2hgeQvRlM7uvjnAbPhhsIUuF4XXct21C0kN7IyALPT
-	nAgyyttVxyIeQ5Z+qj/+Y7+FHQHLohgESbxgB5phhFklO79nUpnTZbz1a8Ddz3k3
-	1AMAwK+XmFWA/eOQMSXCTAVExsxz2hFRwc1Hymh3urAygOmIQ/HCadXEbvh2wq7B
-	SXe58CC6AlCRIIYVB1LWSKnS9Qd6jcXD3wqcRFue4+DDLIWbcpdDmCOVKxwr/DPt
-	mguiPNKmJlGEzjp4nz/S492AgJycvDcThaFbfjFMNrhzFmtUcofRImMjhBKMzXKT
-	g/dXLA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d489wh3g3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:32:37 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-89ccf10567dso880866d6.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 02:32:37 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="iVqW+6R0"
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-59dcdf60427so2256500e87.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 02:33:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774431227; cv=none;
+        d=google.com; s=arc-20240605;
+        b=X57MjRIfRT3UsqYXVWRNZMyFLqV33PPzowIzlNdheaqrqlVVgafYjDf3eYP5OigpWm
+         XL53BBgI5R6PQMc2Y919Rt9p/QqRxo9EP17C3lAijMB3FpRA6RGLpD7BzniEgaOWsCef
+         p80fFDdmjmQmo7QsqBUpIKO3suM8CI+bnI/mACfo6qENctDz9TCej4INbQ+kGp6d50O/
+         S3E4mik2m8H111zPfXbzaFpSMWggUvxpN1+OProk2DvIurzUEukwvs+o6Z70kjk7v8Is
+         Nyqx15mt24b6BzyhAT5WjHIxZ7fkh1MXDcXkKyU4iAdfqf3j6KgyjxIGxLR7Xyj09k9l
+         Xucw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fU4ut9+6hgjR8gcByS1Qfnrw19CdoqBab7lCYCwrhkw=;
+        fh=9MYqQqjJJHenMKV2dWnbW0nuNDhayOyYgOmOw0xOpoc=;
+        b=CO3MxT3xoxtKbzC8NLeq+Jaj81iYHKxIdqUGSwR0IpnWNgBMXWsmJDHfZMc5GhVFpP
+         DLLbY4HZiaM0xLyMOu1TSiUY4jH/6JjpMCGW3h7GPojeW0SwxZTNgimPlV58zMA51KSt
+         f9wJtx8cdgMP0RhT8S8cADGt1eAlkVPGFYFiaAsHR3dOoUNBQnZouatwc21jumuzyI8A
+         ZJ8lYn7qU7kegbuhyeuFhF/qKUTX1ebghh3mYWAu6TvaovIO0uYHTTEj6o+BuBUSq++8
+         P2xxsfdT7cMCtYS+qAzKPU/rfejcQAL5Vn+TTuq6TI/zb1E6CfxW7E3D/KWQU44x8Lzl
+         1seg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774431156; x=1775035956; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=FJUFvWx22X5sgVS+otV+IEBw7LizmRlEPkfCL66YKKs=;
-        b=R4jsUSwTN4HMuo0IVU5b6NfkJ42QTx4qnWHnOz4wDvNMY9VpsNtMFyODsaP+BxS2LT
-         bWzfyq53zScTayH4m0SQcKvlhnBIMMEba8CtQlHf4sk92dBiTxDA4ETDRCRNyikqPebU
-         ycAf7+WxB4BZCrbUSAluZ2EvG2WJlHe08OP+wpAdo+BGoKBy+YT1EiAD4JQVzdh1T/MC
-         rWadfL1EjDP5gjv7HBl2mVPprDuxvruHHvv4PRfqkaprZtYVVJTIJZlppreRIi5+nIXv
-         mS6ZNUwQ1xSRdBbsWoRJsob81hWERYNN/HbRzDryqNhVkc+sRcDKXjTjgeY09xA25x52
-         Yv7A==
+        d=chromium.org; s=google; t=1774431227; x=1775036027; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fU4ut9+6hgjR8gcByS1Qfnrw19CdoqBab7lCYCwrhkw=;
+        b=iVqW+6R0FMm408Hl1lZN/gi0nIcuZQBSRosZgfM68+eHNWUFNsaboC1wS1n5AxEmde
+         u4PwnMLMoijV54YoZVB7iQ+LEy491keeA+p1q0hdJxxvP0I1UBjX5SVHvYeVV6nH5TRG
+         8k5S5wSrWgd+h51Lzvz58eusVDlO5IlfhMTRA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774431156; x=1775035956;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=FJUFvWx22X5sgVS+otV+IEBw7LizmRlEPkfCL66YKKs=;
-        b=KbYciC3hU0URu/4n9qJf//WtLqmSFDeXqwQFXvWkYoFQhCvCbqaXMCt5vlAxerq6eT
-         GWoxO0EH/uX+wWwE3gdDl+yQ7EJbhmjcupBuHFdWaQL7ah3MSIAuuhM/1fMs5p1ny7Ci
-         8gQH1Dx2B3sB9QpmxVn2Y/ayN32Kv+/LN6xZjT0dP+79/53xkJvpwXUU6C2m/H3eeGbo
-         NfSiD53eIWc2Lu7xyvguzn9c8xw7XHvFJ4mSTtO+cw9DrZGoQaV+0jqRX09yzoUlrXCy
-         GhJbIKzf1kyNrpHKv8tk9uaQcwZ2rUREFj45BiVF+oNS8LWDGhyvn9abwJl+HLEg+h5U
-         147w==
-X-Forwarded-Encrypted: i=1; AJvYcCVXljC1uNwBnHZlIyFxfmbt8hib+fIP4HKmaViP403HgxIe21MU90qlMJmDkuR9W7CZgv92tJeT9FRD@vger.kernel.org
-X-Gm-Message-State: AOJu0YzE2KFi903ZDHpTVBibKdzS5k+OxM9cEap4um+eOZ9awBiEeNx7
-	29UXCCZ4C7/PklHDGIf8Yq6pWF8q6YcHl4YAQZ5zHdThVOt/gYxycZh0f4OhQuO27CdVHBf7WWB
-	jlw+s4iWjx6JvCcW/ExvEBmSpvTi8kMpe76KYBVxqVAzJbDfmm0jiglarX7SrwCEO
-X-Gm-Gg: ATEYQzzUnxhVEXdIgCqlJV/Ck8UZQpaRSa1U+GbLAPLPdDciCMLZkBM9/nS3C44bO2X
-	4a1t8x53/CpdaOrzJSs8eh77HEkxQrqCCf4+MrPxtjobGHWkN9S0H+5jYRVB/P7VpRlBT+TBgRY
-	FbyvxtcvZh5uBL/nbjygbTP0ctQOfPCb6FH68ZGCEyzGvHtxFiXG5z2GV5tBahSCN/aqSVpPfg2
-	w+Nkle5Ah4sxz0p9bbftIgRcXygfHC1R3Q7VF71dtFN5AJsBdfhlG7hvYLrxV9imPxSAFoV8mMl
-	G/k8VElg+hhG1q8E7LoLqmnAILUTTFtwzcAnqPkEKyyDJLJ/KI84SPey9y4LsXum0Qxx+xbN/uQ
-	MbDfS/ooZWcZ9NgvSwU82OSLtHsTpmnBV4Htu7FusLTsZgJC0onHsUjsa8U+LwG5xygEzMnsXGW
-	lAixo=
-X-Received: by 2002:a05:6214:5191:b0:89a:50b4:bc94 with SMTP id 6a1803df08f44-89cc4738ca7mr29547376d6.0.1774431156436;
-        Wed, 25 Mar 2026 02:32:36 -0700 (PDT)
-X-Received: by 2002:a05:6214:5191:b0:89a:50b4:bc94 with SMTP id 6a1803df08f44-89cc4738ca7mr29547166d6.0.1774431156025;
-        Wed, 25 Mar 2026 02:32:36 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b983365d86asm779950166b.48.2026.03.25.02.32.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Mar 2026 02:32:34 -0700 (PDT)
-Message-ID: <9d7c5d36-c981-43ed-a08b-3b75c25fad1e@oss.qualcomm.com>
-Date: Wed, 25 Mar 2026 10:32:31 +0100
+        d=1e100.net; s=20251104; t=1774431227; x=1775036027;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=fU4ut9+6hgjR8gcByS1Qfnrw19CdoqBab7lCYCwrhkw=;
+        b=UBIXJg4OzFnWzsNbvD0S8bJ1dHSeMybMo8sJFyfIbQYm8ktzISVuyJJk1GwTeAE1gI
+         Gqcc7qULBuiumUSTOaKAjz/wHuEeBZD+uNtPcP8vk3gVISyV4fIfIQZlTcCQuIEBFcP4
+         T0Du8S+VHV54csFkBOeCL5POkklede4vvXfUBqJf5EeRJVtsNuzN1RWQ3+djE4ZQyJfN
+         QCRklabmVuHTixnK4K4lrHpCFQi4cKZVd6KMM/ibSrIbjBbSfkX3ZXSpHxYjFPY0mjyY
+         opz051EHedRdp75i2LbHDMTgb2ONHMxXPC/r5poos1ed++tHmRDMFGCwLgcdk7bq4dam
+         WlEQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWhZWbPXVio056333Vzahq63oswNGrIOkU0uLqAZMaVmSguIl8nCGrlerV44Bvu8Y4fbkoSWuZrwwPB@vger.kernel.org
+X-Gm-Message-State: AOJu0Yww7OcQv6+JaPFwK9Tb4rGRM4XiBUdLRzEujenQA6mF61GEa6Yf
+	w+JfVeWdzgFJA41DOu4JcuO1a4uCiMKR+wAJoP1KM7nVAXabxuouHplx8iZmu7EDh4uin97spzM
+	QH83/BP3AV9EQQkjRvUWrT5cHfB32ZlqvaR7eF0J9
+X-Gm-Gg: ATEYQzxlB1SS3lUZmYXum4cLNBr7TXBPE3iOOqPLQEoZYgMUKqfmSUWVkedC+vpfa3O
+	J1BFqncNuafZKDh6TGO/n1KPhkdXYgSOZQ07C0IKkTS9HpwixMOLECucNMgeD//SbiAt3+9gh2a
+	eBX2TllQiNBjOXWR1j60SMXsLRDcf6OstRs4NeGkgd8uCHZEliZe5/cYRqaBKb3iDKzUssygbPX
+	JYcHhdmckaPs/Sk7a+KkiwQq6y70ygv3OBsv8zjANmxBsaYGZKnD9Syy//Mh7BXZTOfqMVuTOdh
+	9eXi+JYQUhTXB1LW/r1u88NT4XqHvb+mzyDz
+X-Received: by 2002:a05:6512:3e11:b0:5a1:3864:9306 with SMTP id
+ 2adb3069b0e04-5a29b99fe3emr1149914e87.43.1774431227426; Wed, 25 Mar 2026
+ 02:33:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/6] arm64: dts: qcom: talos: Add QSPI support
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260324-spi-nor-v1-0-3efe59c1c119@oss.qualcomm.com>
- <20260324-spi-nor-v1-3-3efe59c1c119@oss.qualcomm.com>
- <34cifkyw3pgky4nhcu4jwf2uveszre23kvesr7ksyjvmqhfspo@avsvwa3quvsp>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <34cifkyw3pgky4nhcu4jwf2uveszre23kvesr7ksyjvmqhfspo@avsvwa3quvsp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: ybDJFDTWhmLE5GTlq0IAlkv1jlpN7Ye9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDA2NyBTYWx0ZWRfX3aaqsltAj7+o
- qdVKfb7ZvDGHfWd4aG26R8MltsvpOyrL7y2uy4nrfA7Kx6jIgU08S6KRzcP2DGivwsXS9JPm1GD
- 7Vu1oB4BD1QaEABFzoOh3qEKmDtM444u+cE/EZph7Ad16iQmdJh//afc4oBa4fuJhpiNeBsuqoQ
- bDEUmcZScIJnxPeAc9elSxgn2y9IFzTSTbiuqv5YxpccnbysODRXS6vvTcj2aiq470n4aHiNXx2
- 8mWodrjFCFOqH90xgpN2V+XqgJCG4bMQX3L0/nYno7VfTEKh4De7YtV0z8PiR4sUaS5DobpZaZR
- iXJUZzgct33Lx0fXZRjOCe28PKC1mvl17eIVeCWI9gt0LscljRFCAowXtsOqMgX810ky6yxuORt
- pTL6npBFATDpBbx+fwB+Onokvcg/L4YWHujFQfjJTOZJByYXt4iGUaDD5iXDbEIVwNhosZkTXDs
- A9ejm9Kokp8fd2s5nLA==
-X-Authority-Analysis: v=2.4 cv=e/gLiKp/ c=1 sm=1 tr=0 ts=69c3abb5 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=Va9S0ePWEawDROJu0VIA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-ORIG-GUID: ybDJFDTWhmLE5GTlq0IAlkv1jlpN7Ye9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-25_03,2026-03-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 clxscore=1015 impostorscore=0 adultscore=0
- suspectscore=0 malwarescore=0 spamscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603250067
+References: <20260325082546.1572405-1-zhengxingda@iscas.ac.cn>
+In-Reply-To: <20260325082546.1572405-1-zhengxingda@iscas.ac.cn>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Wed, 25 Mar 2026 17:33:35 +0800
+X-Gm-Features: AQROBzCBmtM1crEyyFCRfioph5HGsVEx0Ru6HUQh1CoBPOQAq272r89mllAysys
+Message-ID: <CAGXv+5GwR69W5FVWzFYzdybdXv53ub-o9doDQOwey4O1HE6jCw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: arm: mediatek: add mt8173-hana rev2
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Mateusz Koza <mateusz.koza@grinn-global.com>, Frank Wunderlich <frank-w@public-files.de>, 
+	Gary Bisson <bisson.gary@gmail.com>, Cristian Cozzolino <cristian_ci@protonmail.com>, 
+	Jianeng Ceng <cengjianeng@huaqin.corp-partner.google.com>, 
+	Max Shevchenko <wctrl@proton.me>, Sean Wang <sean.wang@mediatek.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, Icenowy Zheng <uwu@icenowy.me>, 
+	Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 3/24/26 9:51 PM, Dmitry Baryshkov wrote:
-> On Tue, Mar 24, 2026 at 06:43:20PM +0530, Viken Dadhaniya wrote:
->> The Talos (QCS615) platform includes a QSPI controller used for accessing
->> external flash storage. Add the QSPI OPP table, TLMM pinmux entries, and
->> the QSPI controller node to enable support for this hardware.
->>
->> Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
->> ---
->>  arch/arm64/boot/dts/qcom/talos.dtsi | 80 +++++++++++++++++++++++++++++++++++++
->>  1 file changed, 80 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qcom/talos.dtsi
->> index 75716b4a58d6..fd727924b8ca 100644
->> --- a/arch/arm64/boot/dts/qcom/talos.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/talos.dtsi
->> @@ -530,6 +530,25 @@ cdsp_smp2p_in: slave-kernel {
->>  
->>  	};
->>  
->> +	qspi_opp_table: opp-table-qspi {
-> 
-> Why is it not defined inside the QSPI device itself?
+On Wed, Mar 25, 2026 at 4:25=E2=80=AFPM Icenowy Zheng <zhengxingda@iscas.ac=
+.cn> wrote:
+>
+> My Lenovo Flex 11 Chromebook contains a board with revision ID 2.
+>
+> Add rev2 to the compatible list of base hana DTB to allow depthcharge to
+> match the DTB.
 
-The QSPI device has #address-cells = <1>, so we'd get:
+By consumer electronics standards, this device is ancient.
 
-Warning (spi_bus_reg): /soc@0/spi@88dc000/opp-table-qspi: missing or empty reg property
+I couldn't dig up which revisions were commercially available, but
+our downstream kernel says that regvisions 0 through 6 are all
+compatible.
 
-Konrad
+Acked-by: Chen-Yu Tsai <wenst@chromium.org>
+
+> Signed-off-by: Icenowy Zheng <uwu@icenowy.me>
+> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> ---
+> Changes in v2:
+> - Added Conor's A-b.
+> - Changed mailbox to ISCAS one.
+>
+>  Documentation/devicetree/bindings/arm/mediatek.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/Documentation/devicetree/bindings/arm/mediatek.yaml b/Docume=
+ntation/devicetree/bindings/arm/mediatek.yaml
+> index 382d0eb4d0af6..2894c8a16c78c 100644
+> --- a/Documentation/devicetree/bindings/arm/mediatek.yaml
+> +++ b/Documentation/devicetree/bindings/arm/mediatek.yaml
+> @@ -148,6 +148,7 @@ properties:
+>            - const: google,hana-rev5
+>            - const: google,hana-rev4
+>            - const: google,hana-rev3
+> +          - const: google,hana-rev2
+>            - const: google,hana
+>            - const: mediatek,mt8173
+>        - description: Google Hana rev7 (Poin2 Chromebook 11C)
+> --
+> 2.52.0
+>
