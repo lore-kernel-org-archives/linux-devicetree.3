@@ -1,213 +1,171 @@
-Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011007.outbound.protection.outlook.com [52.101.70.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 744ED3F7AB4
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 16:27:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774456066; cv=none; b=r/vpG/aBsqarWf9Jp3HBW3qfIOS5+hFxfP6E47cR5Ynq2ylsLeqWk3hRjnVMR3RL3jtcfsgGukSueukqzaY5iuuTUYESyrfAZ+E0aCTiS1ou1LqPtc7MPKnnPstBZVo/Tc1YWxR1Ec7mcnp78rK8LZ8wqhebGlMKqY4iRhiYgm4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774456066; c=relaxed/simple;
-	bh=mPX6NAeZDkROhXMP56+7tMeFl2KtVn3Z1ugGBvlUIgE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rrB6JgEBaTDsR35i8CLHF5+agbeYpsa6cx0EF3gMaxZsGCZb5Qx4QVyg7ejZYYkfMFK/vgFxlJ30yRIYP6xjv2x3pZnDeU4+jvAddh4CAmT34wGUUcZMf4CU6Eoc2Y9E22Ee9Hfb24/ujDSA4fdiRvAxLakyjKsT44VUcLhZc24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dNr+JrzQ; arc=none smtp.client-ip=209.85.219.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A8DC3EE1E6;
+	Wed, 25 Mar 2026 16:28:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774456085; cv=fail; b=CwKN6dlSuvA/QuQhyvQM7LgeiVvuHgY5QCS2avAmFfYcBvkKZK0aHII+xUvCFgq+iXRGErO2tf4Tmw63S1ErvmO4m+CQyQAm2j6yVexRcj45d0irdtee3nljVkxpd3y3HAV02AVCxIrrSIgK5aaQE54m5Le6TY577Guno7kyDIk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774456085; c=relaxed/simple;
+	bh=Tx7M0kzu2wrBKsurwujnV6VmmTr2MrhwmuZzjDX/HIY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 Content-Type:MIME-Version; b=X38NDM4ImvKA9wAKryMmw4LgyYE+zUPJb78ZAjuABMPFydbVy9mRc5/Y7fofbkDTE6enL7JCtnN/iD7oLaZIIxQ6zxdzX7tidPiZebPLy9hcoFyQEwHbsO9ZgZ1snluB0ETAtNHHyBy8Bn6lrPtirHnMqDSnrPVZ3+Y7bEUxjKA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=EsKykfvI; arc=fail smtp.client-ip=52.101.70.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dNr+JrzQ"
-Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-89a6ac6f389so29723106d6.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:27:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774456061; x=1775060861; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=2g8topQOvfOO8rlahI8ziLuuIYQbiMR2HTZw8FnPzWs=;
-        b=dNr+JrzQiEjNtXNBio2QY8lVT2p7s9GrH6Sa8T6qcrkyU6swPUNXx3dkCRCL+leA8y
-         qnBkU/Z5gMz6rPjYILRaJKedyhiyHu9zZXi0+i0EFlx/24l/GnJhE+6Ol5lgUDVOky6D
-         P3WHXKFcaN+UmfBhTFgEPesMsAKQ0hgcWmmFK4KHzvHW3Ggy9XJNDKtzW/mHqyMhTT4m
-         gJAgMNWFwCqyJaIE8MRnNy+7ASkYIwtxBZyIhBnkw++4cB2MjNO5Wee5VwIN9MzLSCE6
-         0lkv8+g6Rv+fT4Ov6WypwtVyU5fta0O8S3psx3iT8vj1jGm0HbdWcaEgZNcF/JikSkhO
-         vv6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774456061; x=1775060861;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2g8topQOvfOO8rlahI8ziLuuIYQbiMR2HTZw8FnPzWs=;
-        b=L6qG1BzUekL1RYdXbnlMXd9We6Q2i2lRTZriQJMWZspugiSe5fBs2Ddo/wOhu6f3Hl
-         WZbHCMv6Cu4gbB4F8TQDblCxrNbyFIqgmi7SDjfKKovKFxDYaaewm4WzJZaFyLHUJNfl
-         zXp+7CAjpIZcgBNSH3dcuceCgDHrx87cNoxE5/NKMRBYH3Cuw15JSaMumUvCNjHT/82O
-         vskiLOX6EwXEgZzUt/9e5ZJgtd/Cb1GRErFEe33h/ELwVlDKDmxiHhhriKzF7OF/BpAo
-         6YfSGbDgkCISu8cm2uCjEPOsOtKtFIN6o/OL1hOZZ23CXUpPXUWZ+JTjjBh9CAoClMXE
-         i5Sg==
-X-Forwarded-Encrypted: i=1; AJvYcCWXhnX6331rvp2+6AAHTF0ntYXcEubW+0BdFTQCZPArN5dR78XeVnsdxr6sIxuNZGGQdJ8fQEmeRpke@vger.kernel.org
-X-Gm-Message-State: AOJu0YxXEnGlMI47cldaumzIHXajK2NlQhX+Uf8m9V9GZUFtNJhr3u+X
-	vFdkrJtMWTN8viCsBcEErupAhMofv9w61dhcHFKmaT+g90UYfElXHGFU
-X-Gm-Gg: ATEYQzwuzclIb2rpxW1PVOBS0IBLNNJZ4jNvdeS/BB166aBdb1HgHxRJypu6GoWgToF
-	D1/upoLuiWIyd2P8NfxMTPAt0DNUxYk7jqsxV/B8woCU5/Z4BioMX1OfBSrNePifIrOZlvmqUmR
-	KBxBF8kc0kq0fQ8h4VDiZwbH/JuczZUE/FNxJc8T2cxCVpKLw3WeXR15tjC0ctEfY5lVcfOnogj
-	SlONN+t5gDfzuarV6TppcRbWkeE/OrPeYb/Q0GUfF3AmveM8fwBw9QTUFQbTakzPIcZPmG6600T
-	RmoVzehUYL16DEiXkKE0QGtIJU4UEX3g+uzZ3HpKutMiQgfEMs4lBGAmUXGNG35z8mgtS9xJtA1
-	MNXrrDG48ZqiCLK+9nvFnm6cLLnCej1Dk3rK7Nyh3vIZ5xV0mYKF4raeko0FWJvU3vFKapg5HSf
-	DHd9u4jj1vFrkUCka4BqRm8pOWMJL5xwqbP+FHOP5x96ni0Ea2fpB3mB+gOEpIWJt7+ZLSsViwL
-	w==
-X-Received: by 2002:ad4:5ec9:0:b0:89a:14c5:f74 with SMTP id 6a1803df08f44-89cc55000fbmr61189566d6.54.1774456060874;
-        Wed, 25 Mar 2026 09:27:40 -0700 (PDT)
-Received: from aford-System-Version.lan (c-68-46-10-116.hsd1.mn.comcast.net. [68.46.10.116])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-89cd5a197aesm1167936d6.26.2026.03.25.09.27.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 09:27:40 -0700 (PDT)
-From: Adam Ford <aford173@gmail.com>
-To: linux-renesas-soc@vger.kernel.org
-Cc: marek.vasut@mailbox.org,
-	Adam Ford <aford173@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH V2] arm64: dts: beacon-renesom-baseboard: Remove LVDS Panel
-Date: Wed, 25 Mar 2026 11:27:35 -0500
-Message-ID: <20260325162735.24467-1-aford173@gmail.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="EsKykfvI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BqEQgjCr+tee9UQVGL0ZI20sOl4ukZBgAhJnA/GAq9yn1zERNQ1FsW+MkJZU29HDzbYHg7hwLeXtBWQ6QIv/hMCTwcEc4ViEPFbW2IVBxV/vk07+nUmpR2IVsluMAWyncQIiDe5ZYskZV2LtUoTmGLfBGByrQKfhh+ByozHYYN0xsom3F31ZfDhSD6oLHVRE/MN8jUtAKRRorNoBWioQGsvqvDPNbh2XrHdc2PlNZ/WchBGJBcTd7jqBIRX1S0vb1Z/tqy7XbIPAmwr/mEz0JFJW8K3Ul+hv+VdNiMZMYDzf4JoR8/gY2ZWW5oNYlKbrtrvgYsSxSAGi2xOAd7KlfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ufAT/FhBOZZoz0jFT2zXHvr+mBEe/u91vID6eiNzE9U=;
+ b=LKTXlXylhiQTiyfcrGgIvRvpb2HPdZuvU0gWxaL9L6soJYqni3umr6IcGsvnMwAWlSwc47CiUesQvEhWigXZQPb29WL0I6A9372A6W1gQaYpVo3Jm/CMuq7605UM2fXYM1P50umVTTv9s4bndfLVfU2XtP7LNcH2SvPx6/WDXkvYAzHBG3STUUJe2XWv5IRzTx3sCDwuyC0W3lafbvxmmaxA+IrYg2n5/LNzwHW05f1IBULeRycMZ9eXX9fm6YN3jw//bLvXIOsOygXwbMXMILrt0Eij+U0fsgYELU1KHDTV34F6TY/GcHkTY/2k5/v+y5+kT4ikU4AF3uqvxI4hJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ufAT/FhBOZZoz0jFT2zXHvr+mBEe/u91vID6eiNzE9U=;
+ b=EsKykfvIPyfP+vwPTyKowx6o/hZyXoRS1DUIfPLDxJKqZsNrhGGv0a/catCcTx3HYVqcjkhybl1DAWK4XNGUFNYZSXvQXUU85v/1q6jCRxOuoGDHCVbNPyGW/VHIAAMTvVO5BC4IzpnaLZ+TYCRvKhWnV/1UxDKsbZA3NSdTqPR/rUbZLiiBSSayyImRh8vTwsCTCdLkVtfO1QHL85styVFae4CUqasJxC3+7nV4idybhdnBDT/qMoMbzU8/ORXXAP5Uhmv9HN4Ko3tLPXsL2NgAJecQPzHbOUXmXlL5kDs/Gw6bpPtGPYDm6lHzT2BuNCS0Hw/EmcdlxBZvYQv8Ew==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from DU0PR04MB9372.eurprd04.prod.outlook.com (2603:10a6:10:35b::7)
+ by GV4PR04MB11291.eurprd04.prod.outlook.com (2603:10a6:150:28f::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
+ 2026 16:27:58 +0000
+Received: from DU0PR04MB9372.eurprd04.prod.outlook.com
+ ([fe80::4f6:1e57:c3b9:62b4]) by DU0PR04MB9372.eurprd04.prod.outlook.com
+ ([fe80::4f6:1e57:c3b9:62b4%4]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
+ 16:27:58 +0000
+From: Frank Li <Frank.Li@nxp.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, 
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260325-verdin-imx95-upstream-frank-li-base-v3-0-b2b5221a8077@toradex.com>
+References: <20260325-verdin-imx95-upstream-frank-li-base-v3-0-b2b5221a8077@toradex.com>
+Subject: Re: (subset) [PATCH v3 0/6] arm64: dts: freescale: add Verdin
+ iMX95
+Message-Id: <177445607381.3141305.13416954574124381215.b4-ty@nxp.com>
+Date: Wed, 25 Mar 2026 12:27:53 -0400
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.2
+X-ClientProxiedBy: BYAPR03CA0015.namprd03.prod.outlook.com
+ (2603:10b6:a02:a8::28) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU0PR04MB9372:EE_|GV4PR04MB11291:EE_
+X-MS-Office365-Filtering-Correlation-Id: d90027df-40a8-40ff-d192-08de8a8b7986
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|366016|19092799006|376014|1800799024|7416014|52116014|18002099003|22082099003|56012099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+ eyzNT/y7fRWlihHry/FAOGpw0CJgmj7JOPItoseQacI0gjygRN10FcNN2ua+hpCTub+YELmsLEEfQHl9uf1HFcVU9wMkZ5rFUsi5Jg7c8PueaKXh9a3TXoaPyjGYCNM/PanCIrfNQzHAiucvcmTt2EYGc8G02UR7gYASuTSUHPooVBFiJsn8WasjipQ96wSiS+SwTi+PIDbHJdLhluc5WzTbM9tkGDY5iYDZUmBnVgRmQjnQ2Uzs/LhgdD7HX98ayx3xrVmtz1+Iiv8mRh+enYOAMaItry8SeqBGCp2zEheTr8yh+nUJBk6rU9BJb5tQR0Hy+DcbSag193Qax9ZzSeV/c3BqUiGpXBLlTMMAu3Go8Ue459rDkc5F9Q3nUmGO9dMA70jg/asOAzFYQe9ZCHNMpkBkv4cu5pVYiStMIu/oFROyYkVWnTR7LakiBchE8WFNBbl5Tbz4LxDL4aMUZFrmsrdwTkcSWrdrRbYs7wfqBFZwMrZJE8eMq9YVIK6U9QxGVJ0AvJPz8HUMCDEwYCsN5RwoQKOBbU161VHTs3JWjNvAvfiubE1Roj0CjUnE1QgI7eOal9HHRvCK8KG7GzhyXiHxBeW8Nwnv/SIlpLIwstJshkDgkOchLw77mUwo7ZAir+95MEMWrzq3nKlhXCeTgnE8k7mGZcdGYNxKwm5UAa2p32A8niPKAsbCxtuYhVAaw29rUsDzR+VbbcqZUMozNkbBsL+AKYw7QpTa9+lkYTi0WOZ9KboDh78L1WVbFDkwARuWQq2avgSBhXuJkWYqc1aY45Fj4Lt9Tpdvhsk=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR04MB9372.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(376014)(1800799024)(7416014)(52116014)(18002099003)(22082099003)(56012099003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?czdlSVUzeXAvNDRkK1hUOXdsRGVINzgvNFVvRC91R2N5ckw2M2Z0L2lCdGRp?=
+ =?utf-8?B?RUVLakVMZUxVd2pMdjIwOFZYYVpEM2VpelI5WnhSek0zcExCVE0wL0tZcFpM?=
+ =?utf-8?B?Q1pKaXl2YmdTQm5PaUNVSW1HUGRzM3Z6b1NMY081VnJYeTM1QU5EaEs4bEhm?=
+ =?utf-8?B?M0l3YjZUQWx0Sis0bkU0bUxEdkx3R1dVK2RaOEpCbW1uRWNrK1Jqd3VGc3pK?=
+ =?utf-8?B?SHJsQm9pTUZFMDlvYXNwTm9POURzT0MyM2JxSy9oVFlFTHNrNTNsOCtkOVpX?=
+ =?utf-8?B?bE5RZEFsY3hibzMwNi9zOWpGNVJhZVRDbEpPWXdKdkxHL08yVy9Nd3hYWEJO?=
+ =?utf-8?B?WWxYM1FBeXNwRVRBMXpzQXhIY3hBUUJPVHpnM1UvWk1VR0pWTEhKZEVmQ2g4?=
+ =?utf-8?B?R3FXUFl0T01DSzFNdm13VlM4V1pOTDRjemo1WmdpRFZLTEM4Q3dTbVA4QnlJ?=
+ =?utf-8?B?aS9WN0REY1N5QUUzRlFhK3ZoMDVxdDJzeUR2a0FzVVRVdEVhZ3VoeHFYL3VO?=
+ =?utf-8?B?MDBNZ0xvbFRNeDFEdjhOdHVRWlBoTFYvNkpkWmEvbWpBL1VWdU1MV3RNcU9j?=
+ =?utf-8?B?UEpyOGNpMkw1Wm4zbjlIbVc4emlOVTJyd2ducC9EaVVhNGEramlMSWJaVmlt?=
+ =?utf-8?B?T0NPVEdZVnZSZnZXSE84K0x3c3pHM3NyN1dsWXU3VWVpK3drRnZnaFpLS2Qz?=
+ =?utf-8?B?cEdYSWx3b29LTHMyVHcybTBXQzhkQ0wvekFOZzFSZHk1QVFscG81VDhBNXZ6?=
+ =?utf-8?B?NWdva0hUTkhSbXdjNkFGSzdLRGtUVHhRUEFRS1pCTVhrVUE5ZWRiaEdnTmIy?=
+ =?utf-8?B?S1BBekp4U0NkREh4d2hkQlFadDgxVlpYNk1DZWFTTHRDeDhpY3hzUGIzZkQ1?=
+ =?utf-8?B?dDRXUTlHU1pkMGNrQVBSWWJ1ZmVuQ2dYeU4xb0VRY2tSVWhOT3NGb3FocktJ?=
+ =?utf-8?B?RVB5K2N1UzYxN3VJTUFUclMyRGkyTVpibEcwTlBMYUdweTZzOGd0Ynl3ZmNw?=
+ =?utf-8?B?SHd6eG5CUDBKa2E1R2xlWG44K2cwQW03YkhJV01zaCtCcE5zaFRRbFoyZEM3?=
+ =?utf-8?B?ejZxMnBjYkQvV1JMWXJrUGQxMjFFTGVlbGs4dC9HWDI3ZFoxaGtWVXRBbW80?=
+ =?utf-8?B?OE01b0MyNGZQN3FSU3lHb1lvUXU5YXh5NERRRjRnTmI4Z0k4djRNZFp3Z3Zx?=
+ =?utf-8?B?YkR0MkthOVJ3aThqSmJiOTVEMENaNGlQb1lnM2svaFVOSk9FbERhbTVtanZS?=
+ =?utf-8?B?U0NvS3FNNzFqQi9YQXpGQSt3M3JDME0vSkNRektEdjNBa2hrNHg3dGZwK2lv?=
+ =?utf-8?B?QzFzc1NXQktXYlFhODRHbjkrZ0hLTXphTVRpUXVwMFhQRjhXcU5PUUw0enl0?=
+ =?utf-8?B?Mzdhb244bVBvRS9jcnhTemRkQWF6b3dhcEp6RkpqOWl0SU5vUGc4SzRXbGFs?=
+ =?utf-8?B?bStvV3Mxc2JXRXVZVDFtWGtkY01YMXNHbkl1WS8zYlAzdlpsN3RvSjl3U1hG?=
+ =?utf-8?B?K3JEOUJQZmxRckEvcVdoRENEcXFpUkpOMy9pRmVqVmswandFTWRNNFNlejhN?=
+ =?utf-8?B?WW02TlpqVW9DVWlaYVpkcGovVG9oOW8yc21YNEtldFZSVjRmdUh0Ulp0cGt1?=
+ =?utf-8?B?aUlDOGlycFJSMk12NUllTmFuNG80ekFCclBQQ29KeG1ISmNscEI0bHZONlJR?=
+ =?utf-8?B?d1hsMG8vUFVUWXA3MWtrRkdVb0NVTktkSVpQTDRDLzhyeFBSR245Ym9VK25T?=
+ =?utf-8?B?NUNoVnlGTDAvOEdhNmlaUzlWa0ZXMk81RTZOV1ZMNzFHZEtzM2JaWVFBWjVJ?=
+ =?utf-8?B?WW1UK3NJNDdkVUNtQUZQNWtnOGhTck5LamxCeVNLeVpvVGFYalNINVBQS2hH?=
+ =?utf-8?B?VGFzZmxZNW0vWEh3TThBOE0rVE1QdG12WExTN21DZnNCOXNwejRKYk5CeCtS?=
+ =?utf-8?B?blI5K0hNNWxQUVNkU0g3b0hNMmlDZE9BdCtnRXpoTFNjNkJGeXYxcjJXMS9k?=
+ =?utf-8?B?aGo4M092SFZPbEpLaHM5N3o5Q2paR3k3d0haVkRtTXc1b3o4OVIxSFM2RDVn?=
+ =?utf-8?B?aUppRy80YTloWkE0VVE3M25WQ3BGN0NCOThzSFZKY1ZFdytFaWF0bEFZWllk?=
+ =?utf-8?B?VExVRXdzRWtjaTJzQ0lGU2dVblNldDVqY1RXOFh0b200ZFpVUHB1N2hSYmg4?=
+ =?utf-8?B?SU9RZ2tTTS9QcDBTSnFlc2xvYTVEVTUwekNJRklRQ040TW1xVE12eFRoYTVp?=
+ =?utf-8?B?bWtnay9kMWZyamlodUVSa29sYWRJZGhOSk4rQ3JKZlhTU3hlRG53Vm54RXd3?=
+ =?utf-8?B?d3Fwb1BnaUVyN1pCMjF1L0owdVBVRTFLY2lHeHZzS2gwOG9VMVdIdz09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d90027df-40a8-40ff-d192-08de8a8b7986
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 16:27:58.1894
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aFvGjxa1ETdBled3vDY5bNtybDtGqxGxILPxUV0i6EqXd8cIBnvLPnbWk50SquGwuWwrcOUKHIdI9vuyIneV/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB11291
 
-The LVDS Panel was never shipped from Beacon, and there are device
-tree errors, so rather than trying to fix them, remove it instead.
 
-Signed-off-by: Adam Ford <aford173@gmail.com>
----
-V2:  Add LVDS backlight, some power, pwm and pwm pins all associated with
-the LVDS panel.
+On Wed, 25 Mar 2026 15:46:01 +0100, Ernest Van Hoecke wrote:
+> This patch series adds support for the Toradex Verdin i.MX95 SoM and its
+> currently available carrier boards: the Verdin Development Board, and
+> the Dahlia, Ivy, Mallow and Yavia carrier boards.
+> 
+> The module consists of an NXP i.MX95 family SoC, up to 16GB LPDDR4x RAM,
+> up to 128GB of storage, a USB 3.2 OTG and USB 2.0 Host, a Gigabit
+> Ethernet PHY, an I2C EEPROM and Temperature Sensor, an RX8130 RTC, an
+> I3C bus, one Quad lane CSI interface, one Quad lane DSI or CSI
+> interface, one LVDS interface (one or two channels), and some optional
+> addons: TPM 2.0, and a WiFi/BT module.
+> 
+> [...]
 
-diff --git a/arch/arm64/boot/dts/renesas/beacon-renesom-baseboard.dtsi b/arch/arm64/boot/dts/renesas/beacon-renesom-baseboard.dtsi
-index d55f2d7066ad..62ab0a3776e7 100644
---- a/arch/arm64/boot/dts/renesas/beacon-renesom-baseboard.dtsi
-+++ b/arch/arm64/boot/dts/renesas/beacon-renesom-baseboard.dtsi
-@@ -8,15 +8,6 @@
- #include <dt-bindings/clock/versaclock.h>
- 
- / {
--	backlight_lvds: backlight-lvds {
--		compatible = "pwm-backlight";
--		power-supply = <&reg_lcd>;
--		enable-gpios = <&gpio_exp1 3 GPIO_ACTIVE_HIGH>;
--		pwms = <&pwm2 0 25000>;
--		brightness-levels = <0 4 8 16 32 64 128 255>;
--		default-brightness-level = <6>;
--	};
--
- 	backlight_dpi: backlight-dpi {
- 		compatible = "pwm-backlight";
- 		power-supply = <&reg_lcd>;
-@@ -101,38 +92,6 @@ led3 {
- 		};
- 	};
- 
--	lvds {
--		compatible = "panel-lvds";
--		power-supply = <&reg_lcd_reset>;
--		width-mm = <223>;
--		height-mm = <125>;
--		backlight = <&backlight_lvds>;
--		data-mapping = "vesa-24";
--
--		panel-timing {
--			/* 800x480@60Hz */
--			clock-frequency = <30000000>;
--			hactive = <800>;
--			vactive = <480>;
--			hsync-len = <48>;
--			hfront-porch = <40>;
--			hback-porch = <40>;
--			vfront-porch = <13>;
--			vback-porch = <29>;
--			vsync-len = <1>;
--			hsync-active = <1>;
--			vsync-active = <3>;
--			de-active = <1>;
--			pixelclk-active = <0>;
--		};
--
--		port {
--			panel_in: endpoint {
--				remote-endpoint = <&lvds0_out>;
--			};
--		};
--	};
--
- 	rgb {
- 		/* Different LCD with compatible timings */
- 		compatible = "rocktech,rk070er9427";
-@@ -164,16 +123,6 @@ reg_lcd: regulator-lcd {
- 		enable-active-high;
- 	};
- 
--	reg_lcd_reset: regulator-lcd-reset {
--		compatible = "regulator-fixed";
--		regulator-name = "nLCD_RESET";
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
--		gpio = <&gpio5 3 GPIO_ACTIVE_HIGH>;
--		enable-active-high;
--		vin-supply = <&reg_lcd>;
--	};
--
- 	reg_cam0: regulator-cam0 {
- 		compatible = "regulator-fixed";
- 		regulator-name = "reg_cam0";
-@@ -480,18 +429,6 @@ gpio_exp1: gpio@70 {
- 	};
- };
- 
--&lvds0 {
--	status = "okay";
--
--	ports {
--		port@1 {
--			lvds0_out: endpoint {
--				remote-endpoint = <&panel_in>;
--			};
--		};
--	};
--};
--
- &msiof1 {
- 	pinctrl-0 = <&msiof1_pins>;
- 	pinctrl-names = "default";
-@@ -562,11 +499,6 @@ pwm0_pins: pwm0 {
- 		function = "pwm0";
- 	};
- 
--	pwm2_pins: pwm2 {
--		groups = "pwm2_a";
--		function = "pwm2";
--	};
--
- 	sdhi0_pins: sd0 {
- 		groups = "sdhi0_data4", "sdhi0_ctrl";
- 		function = "sdhi0";
-@@ -617,12 +549,6 @@ &pwm0 {
- 	status = "okay";
- };
- 
--&pwm2 {
--	pinctrl-0 = <&pwm2_pins>;
--	pinctrl-names = "default";
--	status = "okay";
--};
--
- &rcar_sound {
- 	pinctrl-0 = <&sound_pins>, <&sound_clk_pins>;
- 	pinctrl-names = "default";
+Applied, thanks!
+
+[2/6] arm64: dts: freescale: Add Verdin iMX95 support
+      commit: d77901ff827c6583563d4b24b34efb795b63bdcf
+[3/6] arm64: dts: freescale: imx95-verdin: Add Dahlia carrier board
+      commit: e69a8fd8827699f9de5ec0e092f04462656d40bd
+[4/6] arm64: dts: freescale: imx95-verdin: Add Ivy carrier board
+      commit: ad37ed93a2b564cb7026faf9a0c9dd01ce566479
+[5/6] arm64: dts: freescale: imx95-verdin: Add Mallow carrier board
+      commit: 7d84f7fa8293739d71f92270f46079d4d7c5f0a2
+[6/6] arm64: dts: freescale: imx95-verdin: Add Yavia carrier board
+      commit: fd589d6e8b38eb2783980ba38cef9dd5cfc68386
+
+Best regards,
 -- 
-2.51.0
+Frank Li <Frank.Li@nxp.com>
 
