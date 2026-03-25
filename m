@@ -1,120 +1,546 @@
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com [209.85.222.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076C43D9024
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 16:01:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2216E3E023A
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 16:02:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774454490; cv=none; b=g23RBAlk9+qVNGw7d34buTvlyDiHk6fVrDn3/08KHiCZIomy8NeowGIZG2W8gq0ezkKUGErVJK+MVwoJtBUG5KTkwQCiLht7Wna8+O3mrN4NmT3dZVdvhubExYAMc2r3l1fkFbz/A74uDBwiq4MNP1g48rNnlunidahlc00mFgQ=
+	t=1774454527; cv=none; b=gNSkkj2gnmlBVdqwXVZ4KVAnGcn+SBWaVyt12fljyt9iYaRjvP9dzKGDWnRPyGF7jJD0TqysP21FcSswz+RkmRg/nD7QUPVMuh0C++92g42Y0JhBLXBdb6GHceJn6dRqkQXyU7uUHMlPrll49aOgd2p6lgozscLOlA7CFfDf+mI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774454490; c=relaxed/simple;
-	bh=AIVPf3es6gRbVZD1OjJY+7NHbNGFfUFHbP5UCcb+Ibo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JwS+yre82062AE8o2ynS1TgZxLqhDs5/vbEoTFQOEI8Hrcn3biTaCnXFJB+18hjARL4LbrxnSvVL7TolytRXS6Va78gSIrINJQ/QWnUvq7E/d4V3inVdHeMFBnqYw4hk80BFsmpZx5dCeyYuhgaOdwH0mgVbVU+77p0ts3FRSJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-94ddffda372so787177241.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:01:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774454488; x=1775059288;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TsaKl4jnMb/iLg/tAunTjLfMtEyxekduMqGv5XbCBMw=;
-        b=fHpmNS2cYfnwVE1OWLwqWSK7soQQz1oEu91eke6ott+rhDXXBv8RFaojaRLrE+xNJH
-         86VxYvEj8wC2gxIklAgsy24j2bCIpP40NgF1NHZGB8+6IgOyB0IGYVLpDyccIDdQ02hc
-         e8WDwtm+boyPtL1nSBjDf91lZeKU/f3CvWHTmMrn/i20Fygj6h6j8OYKHnGB0HlLLAIm
-         QxL3CmUEIeHetbyGhMk4x707AkVZWI2wyVTZBBb6I06yct5HrqvHDTHqPK/+hprInDRP
-         ezSEs8Df5rxeECtFbRpL6kGNmJ32aV/Zg52awOyZV4KaDMlzW7nX7yJ0r1jLBOZT6EpY
-         rDYQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXoXqkkFzZRzWZi0rbctd+PgkqNPD0OIidVadOu0oZaRRmbRv0Pyp56oF1S8mqMszlftHnKFueZDc10@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4ZISQyQ+np5wKnTLC10pwfiWFuajkQSa/LJ1DU30ssdSrsiQz
-	TCaCm1qb5HI4vYvLYW1b3RXCOjTzc26QC26WmBCyKVajk4dFFGqzePbKtu1IT2vInNI=
-X-Gm-Gg: ATEYQzyUMvlSDqp8B1gjAngdgdQeW3DKKaNC0icXOAHkgAd9hr9zMiIZe77blPjLjeg
-	zhD0oq57ipXsJ8YdAGqjZYcP2LBXaUL4ez39jUc1+rNPkoKsJk6Wj2ZkaUSvc1RaqKGNJpnKVDQ
-	6Aukhq30TGLH1ZvOm1/q7FjZciESugPvilLU/3+ZWUM0mTxZh+wyBPfdCgFz/xVNgYK5VCpirsw
-	394w4Pui5vCfhYpj7eei0+zsldCsnoVw4wtomsOvwka6Ym9O6EaM0dB+O5VhPHnfN6eLD/jHEFZ
-	U2gIfeqpSScCo+q7163fQqA1in4CJ0ZMWIhyKu+3LWG8+BgAuHtOhPOyuW8QPQmM+1W2RQ1MRvs
-	fvSTep4shggkc6MapfwtXBqxxqEb5OdIdtJi96wX0i1PwHZUUPQx8S2Co+bc0ltWiH3jdbXHh/q
-	QpGUAoWCYDZmnjulsv7xVL9OtjPfbNlgAH5UUzuQqJOdZcV6GSZ9/Y2bUEL3iSUEHY
-X-Received: by 2002:a05:6102:5e86:b0:5ff:e10e:b9fb with SMTP id ada2fe7eead31-60378fce56dmr1832340137.4.1774454487860;
-        Wed, 25 Mar 2026 09:01:27 -0700 (PDT)
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com. [209.85.221.182])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-604d5313adbsm57517137.8.2026.03.25.09.01.23
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Mar 2026 09:01:24 -0700 (PDT)
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-56b7fce3ae6so1072918e0c.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:01:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCU0mWHewNUkyPfWor51DMeEk8rP0D3Qa70ks/c/3wwjc1IoyOAdhRBuwWT+1/T9yoP3LLiMoWai7YY7@vger.kernel.org
-X-Received: by 2002:a05:6122:488b:b0:567:4f98:fb82 with SMTP id
- 71dfb90a1353d-56d221484dfmr1919276e0c.7.1774454483312; Wed, 25 Mar 2026
- 09:01:23 -0700 (PDT)
+	s=arc-20240116; t=1774454527; c=relaxed/simple;
+	bh=iesU595OGFCbBU7AuhLZ7LNQE3wjfBByFcgyyl3r1YM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Wi86mJlwKH9l1y/Z4PwwLbD1h2tmIRHj6jf9Yt8iJzWmdYmCf7/2DO0AI3GeUctZv1bGGf12dOffH2ihl+b4WDzoiqu1Ml3C0v/11TrOpCX8tYCE0m/YmPOjZy2lHKpta8J+B/7aXQBWQadBb85Kx/oJN/sRSM/dvTQNLqbG9Os=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <f.pfitzner@pengutronix.de>)
+	id 1w5QgA-0002Iy-8C; Wed, 25 Mar 2026 17:01:58 +0100
+From: Fabian Pfitzner <f.pfitzner@pengutronix.de>
+Date: Wed, 25 Mar 2026 17:01:49 +0100
+Subject: [PATCH v3] arm64: dts: imx8mp-frdm: add sd, ethernet, wifi, usb
+ and hdmi support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260318085119.44717-1-john.madieu.xa@bp.renesas.com> <20260318085119.44717-4-john.madieu.xa@bp.renesas.com>
-In-Reply-To: <20260318085119.44717-4-john.madieu.xa@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 25 Mar 2026 17:01:12 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUKCxfWPTyoV6nMGHkK32eeZFSEXnL3L2C5kGtOTUtJqA@mail.gmail.com>
-X-Gm-Features: AQROBzDNP67-ZuO5q3SWFmFGIjuJmCxHdim9QMA2vOC8b_1VjWoGuY0s8rTuFQA
-Message-ID: <CAMuHMdUKCxfWPTyoV6nMGHkK32eeZFSEXnL3L2C5kGtOTUtJqA@mail.gmail.com>
-Subject: Re: [PATCH v9 3/4] arm64: dts: renesas: r9a09g047e57-smarc-som: Add
- PCIe reference clock
-To: John Madieu <john.madieu.xa@bp.renesas.com>
-Cc: claudiu.beznea.uj@bp.renesas.com, lpieralisi@kernel.org, 
-	kwilczynski@kernel.org, mani@kernel.org, krzk+dt@kernel.org, robh@kernel.org, 
-	bhelgaas@google.com, conor+dt@kernel.org, magnus.damm@gmail.com, 
-	biju.das.jz@bp.renesas.com, linux-pci@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, john.madieu@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260325-fpf-imx8mp-frdm-v3-1-1c98eade991a@pengutronix.de>
+X-B4-Tracking: v=1; b=H4sIAOwGxGkC/3XNsQ6DIBDG8VcxzKWBw6rp1PdoOigceoNIwBIb4
+ 7sXXTqYjv8vud+tLGIgjOxerCxgokiTy6EuBdND63rkZHIzEFAJgJJbbzmNSzN6boMZeSlAl8a
+ KSglg+coHtLQc4vOVe6A4T+FzPEhyX/9bSXLJTW1Vd6u1bFA8PLr+PYfJ0XI1yHYwwQ9Rsjojk
+ BEEbNrWoO7AnpBt275fzgXY+AAAAA==
+X-Change-ID: 20260224-fpf-imx8mp-frdm-402c4df06302
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Fabian Pfitzner <f.pfitzner@pengutronix.de>
+X-Mailer: b4 0.14.2
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:1101:1d::54
+X-SA-Exim-Mail-From: f.pfitzner@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Hi John,
+Add support for the following new features:
 
-On Wed, 18 Mar 2026 at 09:51, John Madieu <john.madieu.xa@bp.renesas.com> wrote:
-> The RZ/G3E SMARC SoM has a fixed 100 MHz reference clock generator
-> for PCIe. Model it as a fixed-clock and assign it to the PCIe port.
->
-> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+- SD Card
+- Ethernet (FEC + EQOS)
+- Wifi
+- USB
+- HDMI
 
-Thanks for your patch!
+The imx8mp-evk dt and the NXP downstream imx8mp-frdm dts were
+taken as a reference.
 
-> --- a/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi
-> @@ -43,6 +43,12 @@ memory@48000000 {
->                 reg = <0x0 0x48000000 0x0 0xf8000000>;
->         };
->
-> +       pcie_refclk: clock-pcie-ref {
+Signed-off-by: Fabian Pfitzner <f.pfitzner@pengutronix.de>
+---
+Changes in v3:
+- Rebased onto for-next branch:
+  https://git.kernel.org/pub/scm/linux/kernel/git/frank.li/linux.git/log/?h=for-next
+- Link to v2: https://lore.kernel.org/r/20260316-fpf-imx8mp-frdm-v2-1-e2e8aadecb2f@pengutronix.de
 
-I will change the node name to "pcie-ref-clock" while applying,
-for consistency.
+Changes in v2:
+- Reorder nodes by name
+- Remove unused "realtek,clkout-disable" property
+- Link to v1: https://lore.kernel.org/r/20260224-fpf-imx8mp-frdm-v1-1-d7f3b57c18e0@pengutronix.de
+---
+ arch/arm64/boot/dts/freescale/imx8mp-frdm.dts | 407 ++++++++++++++++++++++++++
+ 1 file changed, 407 insertions(+)
 
-> +               compatible = "fixed-clock";
-> +               #clock-cells = <0>;
-> +               clock-frequency = <100000000>;
-> +       };
-> +
->         reg_1p8v: regulator-1p8v {
->                 compatible = "regulator-fixed";
->                 regulator-name = "fixed-1.8V";
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-frdm.dts b/arch/arm64/boot/dts/freescale/imx8mp-frdm.dts
+index d69d78fed4e1b151be3948bb8ef0888eb016c667..b301cf3d425b1b748e2be8f223bb703e7a4355f6 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-frdm.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-frdm.dts
+@@ -42,6 +42,67 @@ memory@40000000 {
+ 		reg = <0x0 0x40000000 0 0xc0000000>,
+ 		      <0x1 0x00000000 0 0x40000000>;
+ 	};
++
++	native-hdmi-connector {
++		compatible = "hdmi-connector";
++		label = "HDMI OUT";
++		type = "a";
++
++		port {
++			hdmi_in: endpoint {
++				remote-endpoint = <&hdmi_tx_out>;
++			};
++		};
++	};
++
++	reg_usdhc2_vmmc: regulator-sd {
++		compatible = "regulator-fixed";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_reg_usdhc2_vmmc>;
++		regulator-name = "VSD_3V3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&gpio2 19 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++
++	reg_usb_vbus: regulator-vbus {
++		compatible = "regulator-fixed";
++		regulator-name = "USB_VBUS";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		gpio = <&pcal6416_1 5 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++
++	reg_usdhc1_vmmc: regulator-wifi-vmmc {
++		compatible = "regulator-fixed";
++		regulator-name = "WLAN_EN";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&pcal6416_1 10 GPIO_ACTIVE_HIGH>;
++		/*
++		 * IW612 wifi chip needs more delay than other wifi chips to complete
++		 * the host interface initialization after power up, otherwise the
++		 * internal state of IW612 may be unstable, resulting in the failure of
++		 * the SDIO3.0 switch voltage.
++		 */
++		enable-active-high;
++		startup-delay-us = <20000>;
++	};
++
++	reg_usdhc1_vqmmc: regulator-wifi-vqmmc {
++		compatible = "regulator-fixed";
++		regulator-name = "regulator-wifi-vqmmc";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		enable-active-high;
++	};
++
++	sdio_pwrseq: usdhc1-pwrseq {
++		compatible = "mmc-pwrseq-simple";
++		reset-gpios = <&gpio2 10 GPIO_ACTIVE_LOW>;
++	};
+ };
+ 
+ &A53_0 {
+@@ -60,6 +121,147 @@ &A53_3 {
+ 	cpu-supply = <&reg_arm>;
+ };
+ 
++&eqos {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_eqos>;
++	phy-mode = "rgmii-id";
++	phy-handle = <&ethphy0>;
++	snps,force_thresh_dma_mode;
++	snps,mtl-tx-config = <&mtl_tx_setup>;
++	snps,mtl-rx-config = <&mtl_rx_setup>;
++	status = "okay";
++
++	mdio {
++		compatible = "snps,dwmac-mdio";
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		ethphy0: ethernet-phy@2 {
++			compatible = "ethernet-phy-ieee802.3-c22";
++			reg = <2>;
++			pinctrl-names = "default";
++			pinctrl-0 = <&pinctrl_eqos_phy>;
++			reset-gpios = <&gpio4 22 GPIO_ACTIVE_LOW>;
++			reset-assert-us = <10000>;
++			reset-deassert-us = <80000>;
++		};
++	};
++
++	mtl_tx_setup: tx-queues-config {
++		snps,tx-queues-to-use = <5>;
++
++		queue0 {
++			snps,dcb-algorithm;
++			snps,priority = <0x1>;
++		};
++
++		queue1 {
++			snps,dcb-algorithm;
++			snps,priority = <0x2>;
++		};
++
++		queue2 {
++			snps,dcb-algorithm;
++			snps,priority = <0x4>;
++		};
++
++		queue3 {
++			snps,dcb-algorithm;
++			snps,priority = <0x8>;
++		};
++
++		queue4 {
++			snps,dcb-algorithm;
++			snps,priority = <0xf0>;
++		};
++	};
++
++	mtl_rx_setup: rx-queues-config {
++		snps,rx-queues-to-use = <5>;
++		snps,rx-sched-sp;
++
++		queue0 {
++			snps,dcb-algorithm;
++			snps,priority = <0x1>;
++			snps,map-to-dma-channel = <0>;
++		};
++
++		queue1 {
++			snps,dcb-algorithm;
++			snps,priority = <0x2>;
++			snps,map-to-dma-channel = <1>;
++		};
++
++		queue2 {
++			snps,dcb-algorithm;
++			snps,priority = <0x4>;
++			snps,map-to-dma-channel = <2>;
++		};
++
++		queue3 {
++			snps,dcb-algorithm;
++			snps,priority = <0x8>;
++			snps,map-to-dma-channel = <3>;
++		};
++
++		queue4 {
++			snps,dcb-algorithm;
++			snps,priority = <0xf0>;
++			snps,map-to-dma-channel = <4>;
++		};
++	};
++};
++
++&fec {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_fec>;
++	phy-mode = "rgmii-id";
++	phy-handle = <&ethphy1>;
++	fsl,magic-packet;
++	status = "okay";
++
++	mdio {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		ethphy1: ethernet-phy@1 {
++			compatible = "ethernet-phy-ieee802.3-c22";
++			reg = <1>;
++			pinctrl-names = "default";
++			pinctrl-0 = <&pinctrl_fec_phy>;
++			eee-broken-1000t;
++			reset-gpios = <&gpio4 2 GPIO_ACTIVE_LOW>;
++			reset-assert-us = <10000>;
++			reset-deassert-us = <80000>;
++			realtek,aldps-enable;
++			realtek,clkout-disable;
++		};
++	};
++};
++
++
++&hdmi_pvi {
++	status = "okay";
++};
++
++&hdmi_tx {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_hdmi>;
++	status = "okay";
++
++	ports {
++		port@1 {
++			hdmi_tx_out: endpoint {
++				remote-endpoint = <&hdmi_in>;
++			};
++		};
++	};
++};
++
++&hdmi_tx_phy {
++	status = "okay";
++};
++
+ &i2c1 {
+ 	clock-frequency = <400000>;
+ 	pinctrl-names = "default";
+@@ -218,6 +420,32 @@ &i2c3 {
+ 	status = "okay";
+ };
+ 
++&lcdif3 {
++	status = "okay";
++};
++
++&usb3_0 {
++	status = "okay";
++};
++
++&usb3_1 {
++	status = "okay";
++};
++
++&usb3_phy0 {
++	status = "okay";
++};
++
++&usb3_phy1 {
++	vbus-supply = <&reg_usb_vbus>;
++	status = "okay";
++};
++
++&usb_dwc3_1 {
++	dr_mode = "host";
++	status = "okay";
++};
++
+ &snvs_pwrkey {
+ 	status = "okay";
+ };
+@@ -237,6 +465,36 @@ &uart3 {
+ 	status = "okay";
+ };
+ 
++&usdhc1 {
++	assigned-clocks = <&clk IMX8MP_CLK_USDHC1>;
++	assigned-clock-rates = <200000000>;
++	pinctrl-names = "default", "state_100mhz", "state_200mhz";
++	pinctrl-0 = <&pinctrl_usdhc1>;
++	pinctrl-1 = <&pinctrl_usdhc1_100mhz>;
++	pinctrl-2 = <&pinctrl_usdhc1_200mhz>;
++	mmc-pwrseq = <&sdio_pwrseq>;
++	vmmc-supply = <&reg_usdhc1_vmmc>;
++	vqmmc-supply = <&reg_usdhc1_vqmmc>;
++	bus-width = <4>;
++	non-removable;
++	no-sd;
++	no-mmc;
++	status = "okay";
++};
++
++&usdhc2 {
++	assigned-clocks = <&clk IMX8MP_CLK_USDHC2>;
++	assigned-clock-rates = <400000000>;
++	pinctrl-names = "default", "state_100mhz", "state_200mhz";
++	pinctrl-0 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
++	pinctrl-1 = <&pinctrl_usdhc2_100mhz>, <&pinctrl_usdhc2_gpio>;
++	pinctrl-2 = <&pinctrl_usdhc2_200mhz>, <&pinctrl_usdhc2_gpio>;
++	cd-gpios = <&gpio2 12 GPIO_ACTIVE_LOW>;
++	vmmc-supply = <&reg_usdhc2_vmmc>;
++	bus-width = <4>;
++	status = "okay";
++};
++
+ &usdhc3 {
+ 	assigned-clocks = <&clk IMX8MP_CLK_USDHC3>;
+ 	assigned-clock-rates = <400000000>;
+@@ -250,6 +508,74 @@ &usdhc3 {
+ };
+ 
+ &iomuxc {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_hog>;
++
++	pinctrl_eqos: eqosgrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_ENET_MDC__ENET_QOS_MDC				0x2
++			MX8MP_IOMUXC_ENET_MDIO__ENET_QOS_MDIO				0x2
++			MX8MP_IOMUXC_ENET_RD0__ENET_QOS_RGMII_RD0			0x90
++			MX8MP_IOMUXC_ENET_RD1__ENET_QOS_RGMII_RD1			0x90
++			MX8MP_IOMUXC_ENET_RD2__ENET_QOS_RGMII_RD2			0x90
++			MX8MP_IOMUXC_ENET_RD3__ENET_QOS_RGMII_RD3			0x90
++			MX8MP_IOMUXC_ENET_RXC__CCM_ENET_QOS_CLOCK_GENERATE_RX_CLK	0x90
++			MX8MP_IOMUXC_ENET_RX_CTL__ENET_QOS_RGMII_RX_CTL			0x90
++			MX8MP_IOMUXC_ENET_TD0__ENET_QOS_RGMII_TD0			0x16
++			MX8MP_IOMUXC_ENET_TD1__ENET_QOS_RGMII_TD1			0x16
++			MX8MP_IOMUXC_ENET_TD2__ENET_QOS_RGMII_TD2			0x16
++			MX8MP_IOMUXC_ENET_TD3__ENET_QOS_RGMII_TD3			0x16
++			MX8MP_IOMUXC_ENET_TX_CTL__ENET_QOS_RGMII_TX_CTL			0x16
++			MX8MP_IOMUXC_ENET_TXC__CCM_ENET_QOS_CLOCK_GENERATE_TX_CLK	0x16
++		>;
++	};
++
++	pinctrl_eqos_phy: eqosphygrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SAI2_RXC__GPIO4_IO22				0x10
++		>;
++	};
++
++	pinctrl_fec: fecgrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SAI1_RXD2__ENET1_MDC		0x2
++			MX8MP_IOMUXC_SAI1_RXD3__ENET1_MDIO		0x2
++			MX8MP_IOMUXC_SAI1_RXD4__ENET1_RGMII_RD0		0x90
++			MX8MP_IOMUXC_SAI1_RXD5__ENET1_RGMII_RD1		0x90
++			MX8MP_IOMUXC_SAI1_RXD6__ENET1_RGMII_RD2		0x90
++			MX8MP_IOMUXC_SAI1_RXD7__ENET1_RGMII_RD3		0x90
++			MX8MP_IOMUXC_SAI1_TXC__ENET1_RGMII_RXC		0x90
++			MX8MP_IOMUXC_SAI1_TXFS__ENET1_RGMII_RX_CTL	0x90
++			MX8MP_IOMUXC_SAI1_TXD0__ENET1_RGMII_TD0		0x16
++			MX8MP_IOMUXC_SAI1_TXD1__ENET1_RGMII_TD1		0x16
++			MX8MP_IOMUXC_SAI1_TXD2__ENET1_RGMII_TD2		0x16
++			MX8MP_IOMUXC_SAI1_TXD3__ENET1_RGMII_TD3		0x16
++			MX8MP_IOMUXC_SAI1_TXD4__ENET1_RGMII_TX_CTL	0x16
++			MX8MP_IOMUXC_SAI1_TXD5__ENET1_RGMII_TXC		0x16
++		>;
++	};
++
++	pinctrl_fec_phy: fecphygrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SAI1_RXD0__GPIO4_IO02		0x10
++		>;
++	};
++
++	pinctrl_hdmi: hdmigrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_HDMI_CEC__HDMIMIX_HDMI_CEC		0x10
++		>;
++	};
++
++	pinctrl_hog: hoggrp {
++		fsl,pins = <
++			/* Pin might be required by multiple drivers
++			 * (e. g. HDMI Audio and HDMI TX)
++			 */
++			MX8MP_IOMUXC_HDMI_HPD__HDMIMIX_HDMI_HPD		0x40000010
++		>;
++	};
++
+ 	pinctrl_i2c1: i2c1grp {
+ 		fsl,pins = <
+ 			MX8MP_IOMUXC_I2C1_SCL__I2C1_SCL	(MX8MP_DSE_X4 | MX8MP_I2C_DEFAULT)
+@@ -293,6 +619,12 @@ MX8MP_IOMUXC_SD1_STROBE__GPIO2_IO11
+ 		>;
+ 	};
+ 
++	pinctrl_reg_usdhc2_vmmc: regusdhc2vmmcgrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SD2_RESET_B__GPIO2_IO19	0x40
++		>;
++	};
++
+ 	pinctrl_uart2: uart2grp {
+ 		fsl,pins = <
+ 			MX8MP_IOMUXC_UART2_RXD__UART2_DCE_RX	(MX8MP_PULL_UP | MX8MP_PULL_ENABLE)
+@@ -310,6 +642,81 @@ MX8MP_IOMUXC_ECSPI1_MISO__UART3_DCE_CTS	(MX8MP_PULL_UP | MX8MP_PULL_ENABLE)
+ 		>;
+ 	};
+ 
++	pinctrl_usdhc1: usdhc1grp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SD1_CLK__USDHC1_CLK	0x190
++			MX8MP_IOMUXC_SD1_CMD__USDHC1_CMD	0x1d0
++			MX8MP_IOMUXC_SD1_DATA0__USDHC1_DATA0	0x1d0
++			MX8MP_IOMUXC_SD1_DATA1__USDHC1_DATA1	0x1d0
++			MX8MP_IOMUXC_SD1_DATA2__USDHC1_DATA2	0x1d0
++			MX8MP_IOMUXC_SD1_DATA3__USDHC1_DATA3	0x1d0
++		>;
++	};
++
++	pinctrl_usdhc1_100mhz: usdhc1-100mhzgrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SD1_CLK__USDHC1_CLK	0x194
++			MX8MP_IOMUXC_SD1_CMD__USDHC1_CMD	0x1d4
++			MX8MP_IOMUXC_SD1_DATA0__USDHC1_DATA0	0x1d4
++			MX8MP_IOMUXC_SD1_DATA1__USDHC1_DATA1	0x1d4
++			MX8MP_IOMUXC_SD1_DATA2__USDHC1_DATA2	0x1d4
++			MX8MP_IOMUXC_SD1_DATA3__USDHC1_DATA3	0x1d4
++		>;
++	};
++
++	pinctrl_usdhc1_200mhz: usdhc1-200mhzgrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SD1_CLK__USDHC1_CLK	0x196
++			MX8MP_IOMUXC_SD1_CMD__USDHC1_CMD	0x1d6
++			MX8MP_IOMUXC_SD1_DATA0__USDHC1_DATA0	0x1d6
++			MX8MP_IOMUXC_SD1_DATA1__USDHC1_DATA1	0x1d6
++			MX8MP_IOMUXC_SD1_DATA2__USDHC1_DATA2	0x1d6
++			MX8MP_IOMUXC_SD1_DATA3__USDHC1_DATA3	0x1d6
++		>;
++	};
++
++	pinctrl_usdhc2: usdhc2grp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SD2_CLK__USDHC2_CLK	0x190
++			MX8MP_IOMUXC_SD2_CMD__USDHC2_CMD	0x1d0
++			MX8MP_IOMUXC_SD2_DATA0__USDHC2_DATA0	0x1d0
++			MX8MP_IOMUXC_SD2_DATA1__USDHC2_DATA1	0x1d0
++			MX8MP_IOMUXC_SD2_DATA2__USDHC2_DATA2	0x1d0
++			MX8MP_IOMUXC_SD2_DATA3__USDHC2_DATA3	0x1d0
++			MX8MP_IOMUXC_GPIO1_IO04__USDHC2_VSELECT	0xc0
++		>;
++	};
++
++	pinctrl_usdhc2_100mhz: usdhc2-100mhzgrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SD2_CLK__USDHC2_CLK	0x194
++			MX8MP_IOMUXC_SD2_CMD__USDHC2_CMD	0x1d4
++			MX8MP_IOMUXC_SD2_DATA0__USDHC2_DATA0	0x1d4
++			MX8MP_IOMUXC_SD2_DATA1__USDHC2_DATA1	0x1d4
++			MX8MP_IOMUXC_SD2_DATA2__USDHC2_DATA2	0x1d4
++			MX8MP_IOMUXC_SD2_DATA3__USDHC2_DATA3	0x1d4
++			MX8MP_IOMUXC_GPIO1_IO04__USDHC2_VSELECT 0xc0
++		>;
++	};
++
++	pinctrl_usdhc2_200mhz: usdhc2-200mhzgrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SD2_CLK__USDHC2_CLK	0x196
++			MX8MP_IOMUXC_SD2_CMD__USDHC2_CMD	0x1d6
++			MX8MP_IOMUXC_SD2_DATA0__USDHC2_DATA0	0x1d6
++			MX8MP_IOMUXC_SD2_DATA1__USDHC2_DATA1	0x1d6
++			MX8MP_IOMUXC_SD2_DATA2__USDHC2_DATA2	0x1d6
++			MX8MP_IOMUXC_SD2_DATA3__USDHC2_DATA3	0x1d6
++			MX8MP_IOMUXC_GPIO1_IO04__USDHC2_VSELECT 0xc0
++		>;
++	};
++
++	pinctrl_usdhc2_gpio: usdhc2gpiogrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SD2_CD_B__GPIO2_IO12	0x1c4
++		>;
++	};
++
+ 	pinctrl_usdhc3: usdhc3grp {
+ 		fsl,pins = <
+ 			MX8MP_IOMUXC_NAND_WE_B__USDHC3_CLK
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.1.
+---
+base-commit: 6c4b48012d57f205c94f25da0c68a4027ea6daf6
+change-id: 20260224-fpf-imx8mp-frdm-402c4df06302
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
+Best regards,
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Fabian Pfitzner <f.pfitzner@pengutronix.de>
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
