@@ -1,124 +1,91 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD86C4218A4
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 18:08:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD52E38CFE8;
+	Wed, 25 Mar 2026 18:11:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774462106; cv=none; b=JDu0FNlVMDBWA8fZi+nQEfJXWKWLnm6+6mOf96LXASZMe+SDXR2wpfpzeaGKMTMLVj/3PXMIm1eZPuuwBAOqwZqc/VwJ/ajIuj0jVYJW1KZ4IpY52Ys5DlKw+MlgxJ5dXjCm7POt5iPx1kmtYJPTFrY5QHM1Vc7TdHrb/C+l4xQ=
+	t=1774462263; cv=none; b=WHIqe2nwWaIWBVpsu78w4PkAVsDx0N6Pgcl+qoYl7XSnD2IOnSjRxAsheoOhE9+CoI4jWXZaZo/tSTlKSb6sjPsrDtkDIjMEo9kACrjxaGxyeU1jLGJi8xr/QnU6J7BRRYQntOQE+oZuXhr03/gwZDoD5XGgn5Q+sUWWpFZeTns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774462106; c=relaxed/simple;
-	bh=O5VLqveoT1MLTeYBJSBjiMtqJBUVJFLJ/CLj6h7ZMKI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FPL8H7cNvPwd2fQ9YtDZE4YTzs/rFeU8CDhOfhw0cov7AsJgEvGa8KcwJ1ez57yYlaB6obPafvTk6TglvgilLwGdgIcbcCe6Rz1VSNLymQ+qhnYcm4Wx9Gvt3FbNZIW6y5qa83VPzfJKifAmpV/k7LqPVzisMP6L7Udse1i3gQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BowbVxWU; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774462263; c=relaxed/simple;
+	bh=4oQhPIsk8s+gU+3OK/VIznAuU6Se1gTBR1Cbpou/cBs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PR8ow/sp5CBROIm+kygwPH4SCDdmZI/vVpkljWk1RPSSlQK/28aSsllID+7Cx0tVoYoIpJIBrnhZXBWcNecuuR+RW2Tq+I+3JqWaF3Oml0TovuzXAVqtWnNLqnX4tsPab4h+oD3fE0a7VS44iJq4/RGtYsNH2Vvvxny4NkRjp/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=HTPL/eyb; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BowbVxWU"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2b04fc8851cso1090045ad.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 11:08:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774462100; x=1775066900; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+rvofdNd3f5+/efY7L/G9vZlRMw7vdhOoBtyFgJOyhQ=;
-        b=BowbVxWUsTxPoaN+CY/4SCHwbmKekGCN9oRDlaklsw8SuxO9WJB1c0981LdLlONhPe
-         SwaoMB5eTZvLEuRoCMtIwBNJhETQJql2EVD1lAZjnNL/LM9wuIzxfYs2SwBJFhFyYde5
-         AF0wkLrb8mZtVsrmgL4EAuEnKBVOuqc+muqxzsjEOQZ2AuCwNnr6W48hiC+JU6CSRMls
-         S2uHNUGm7Kr1xi31mTt8mSxNbHxKs3Tj3Ud80pGE/1NC59RITZ+ycot0AHe/7r47fYAP
-         LPz6S/9CGGb2ggzK4R5jo6YLTgj7CBrSAZeodDBD4thBFnuAWlTglg755o0YjNqYW+8q
-         gsKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774462100; x=1775066900;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=+rvofdNd3f5+/efY7L/G9vZlRMw7vdhOoBtyFgJOyhQ=;
-        b=jNGjZmtOxiDAqEMRoTtbv7hOZP4thfCNeqWx03IGKf5++16t0LhIp8ERf2j85Ai9El
-         +wmWJ6Jac9lwz+R0le+7Z0fYSLEiR5/cxnPmhpYCENco1bbuJ5ew0uSD3n49cc+Inttv
-         8mM89QaZUoZsQ1HXT4Fhf0S8B1jY4UrILw4ZAgR9+uITxwhCNEDrTAQ/AWz1gXMnyuHE
-         6JhJESvrSAXMUdaZEdj7+B6HxxA+a9oV6IVZhk8rZo9HWoJgijXDG/I42aoXIhvYGPtM
-         mr+h2o4cY3MpQByc+VVa+etITKWdLm8BgfbqFC95Nz+Tl4/nr/sotEi6fN7/K8cMygZe
-         OIog==
-X-Forwarded-Encrypted: i=1; AJvYcCU+kxT8FVJw6aJG+Jql2AXGEDpqN1jco3d8V+3Ns1ECnl7/LBwiv5CiNDaedG+K/XxojtSBp+YiHeoo@vger.kernel.org
-X-Gm-Message-State: AOJu0YzZb5Ujgrzx/pUXvjNrl6WOXW8Su0TEaxPyGRlRdkhD/V6NvPYJ
-	GR82h7WBUoIF7M3PQXjeQSJr2D5Z/I9yc3T4C8bskMOL216T8e0+RmVm
-X-Gm-Gg: ATEYQzy83VN1FbCMkhJfOuOIJfKVG8u8cW1l1hB8yuPkmYeJcUVMZWcP5/t77rSVxaZ
-	fZ41+z+Bc/x8yv3A3it5Jtnjq/XlCPTZ5kqRGgRR8dMnvydptrY472j1bjbJZ88XAe4KsL4WTSi
-	TsYxEoRKkZvWQ2eKDr+Vnio3ZGtyePGsqXP6eN1rMJZXUi6HLzBvp4qDlxdtkYWE6fTj6CHJvJj
-	xMk6dJWbNc6Tw8dbNTMhcngvdDEwmIPZSwxucvZw2v+ZXmMlBt+ZFtwN0J3m3ub1h1IhqEBeoC1
-	tvdqGdCJJkcHrk7/LLoDOBkNukwhQWG/NBgA1q2U8jmb/5gd6vPS59yMy8Q8bPe9DydCRDNOwZ9
-	l3g5vZ0y+GyK5Vd/cSJbinp3/kpykRjSP7lO+gYudb2gJmSb2UbPaCKO/N76gPJ6NW3gaR2rOeJ
-	SS+pkNKegOyeKr0vyPfmM7gKv6qyyk
-X-Received: by 2002:a17:903:3843:b0:2b0:9a61:916 with SMTP id d9443c01a7336-2b0b0a7f831mr49090795ad.31.1774462099766;
-        Wed, 25 Mar 2026 11:08:19 -0700 (PDT)
-Received: from [192.168.0.102] ([43.251.91.187])
-        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2b0bc773b33sm5687805ad.10.2026.03.25.11.08.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 11:08:19 -0700 (PDT)
-From: Biswapriyo Nath <nathbappai@gmail.com>
-Date: Wed, 25 Mar 2026 18:07:30 +0000
-Subject: [PATCH 7/7] dt-bindings: clock: qcom, dispcc-sm6125: Add
- #reset-cells property
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="HTPL/eyb"
+Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 85DE4201FE;
+	Wed, 25 Mar 2026 19:10:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1774462259;
+	bh=PCkaHroi7JtzDDzze2vqbAGbk2FNNhsqXTmz4G6Yku4=; h=From:To:Subject;
+	b=HTPL/eybTJsPutz99rLH2Kc9XS4yCKQ9tVvt21D/Dny52UiEPN0dwgsarYfUsCclo
+	 HUEZrkXRQ3dWgbNIfhphDb1MDgEBR3uTaC5SvK6gQUs2m/kaZtPBT7DBrAcieKcSLp
+	 6qR9DUeyTDM8T6cQ1VaR//JHQLsvD2YG/0FT6l6q9cEEgtmM4GW61ReIkxl5vk+pe4
+	 VCl7KK32sRv5RtZLa1rpNi//kTvBnN00RZywG7SHxqPhEVNnsXMY3auZHlwSqfjuKM
+	 j5xt4vSS3t+FFhFhwxchbv/INVOC9stGTSGlNFEMMvOpGFxU03EmKid9TGJgwwlQgP
+	 j3ancjOf701Yw==
+Date: Wed, 25 Mar 2026 19:10:57 +0100
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Frank Li <Frank.li@nxp.com>
+Cc: Franz Schnyder <fra.schnyder@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Franz Schnyder <franz.schnyder@toradex.com>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Francesco Dolcini <francesco@dolcini.it>
+Subject: Re: [PATCH 3/3] arm64: dts: freescale: imx95-toradex-smarc: Use
+ gpio-hog for WIFI_UART_EN
+Message-ID: <20260325181057.GB2972@francesco-nb>
+References: <20260325-mainline-update-imx95-v1-0-b5ebe976655b@toradex.com>
+ <20260325115513.707914-1-fra.schnyder@gmail.com>
+ <acP3NiGvRCc1SgjE@lizhi-Precision-Tower-5810>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-ginkgo-add-usb-ir-vib-v1-7-446c6e865ad6@gmail.com>
-References: <20260325-ginkgo-add-usb-ir-vib-v1-0-446c6e865ad6@gmail.com>
-In-Reply-To: <20260325-ginkgo-add-usb-ir-vib-v1-0-446c6e865ad6@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Sean Young <sean@mess.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Martin Botka <martin.botka@somainline.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, 
- linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- phone-devel@vger.kernel.org, Biswapriyo Nath <nathbappai@gmail.com>, 
- kernel test robot <lkp@intel.com>
-X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774462047; l=913;
- i=nathbappai@gmail.com; s=20260118; h=from:subject:message-id;
- bh=O5VLqveoT1MLTeYBJSBjiMtqJBUVJFLJ/CLj6h7ZMKI=;
- b=rUnZtLLz4Xmj0RcCQQLRkTmldWk3RQ1b5aFfulPjR4kYbTcb4NhNVfi/aoK7g8WkEfY0jg3ZZ
- 1uXUOvuzSagDL/2aA9WfaTAyKY05yLQdKb4KrPcmZQxOrgym2fPHKNZ
-X-Developer-Key: i=nathbappai@gmail.com; a=ed25519;
- pk=slmb/9yXbet+KTiT3EYLCp0p0MEOYa3EdjUXP+HXfjg=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <acP3NiGvRCc1SgjE@lizhi-Precision-Tower-5810>
 
-The '#reset-cells' property is permitted for the SM6125 SoC clock
-controllers, but not listed as a valid property.
+On Wed, Mar 25, 2026 at 10:54:46AM -0400, Frank Li wrote:
+> On Wed, Mar 25, 2026 at 12:55:11PM +0100, Franz Schnyder wrote:
+> > From: Franz Schnyder <franz.schnyder@toradex.com>
+> >
+> > On the Toradex SMARC iMX95, the WiFi UART signals are shared with the
+> > JTAG. The WIFI_UART_EN signal is used to select between these
+> > two functions.
+> >
+> > Configure the signal as gpio-hog and drive it high to select the UART
+> > function by default. Add a label to override the hog in derived
+> > device trees.
+> 
+> gpio hog have problem about probe order, are you sure gpio device probe
+> before pcie?
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202603150629.GYoouFwZ-lkp@intel.com/
-Signed-off-by: Biswapriyo Nath <nathbappai@gmail.com>
----
- Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+This is not about PCIe, we are talking about UART here. Specifically the
+module is a combo Wi-Fi/BT device, with Wi-Fi over SDIO, and BT over
+UART from NXP.
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml b/Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml
-index ef2b1e20443..0d467c1f30e 100644
---- a/Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml
-+++ b/Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml
-@@ -45,6 +45,9 @@ properties:
-   '#clock-cells':
-     const: 1
- 
-+  '#reset-cells':
-+    const: 1
-+
-   '#power-domain-cells':
-     const: 1
- 
+In any case, this DT is going to be used also by the boot firmware that will
+configure the GPIO hog way before the Linux driver probes.
 
--- 
-2.53.0
+The DT files from the Linux kernel are used also by other projects.
+
+> I have not seen any place refer to wifi_uart_en.
+
+There is none (as of now). This is there to make it easier for a user
+that needs access to debug to adjust this node enabling the JTAG
+functionality.
+
+Francesco
 
