@@ -1,185 +1,431 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011023.outbound.protection.outlook.com [52.101.62.23])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E2C3DEFE4;
-	Wed, 25 Mar 2026 14:26:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.23
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774448788; cv=fail; b=jXntlTNCS2kzX21Jg1/VuQutKlbhjESiU8iaJaPKY8hGYmcCoDTxTINrkIGrjmiq5aBMfrSP/hEJRBYJEQleP1swh5uFLDc4NN4x0avEvfiZAdOcmAHyvBWfP8xljKfLg/qhqlQx5YsSO7gYCFWRFQq8rqwsle/lro4bj7ApK30=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774448788; c=relaxed/simple;
-	bh=Jyl5eUFjP0dTwzaGEzB7KZ9zQQAUKP1LSZ9CTxXZroA=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=A+p5uBK5gCR4zmxdGIJ1EgsYLaR8ZCY0iqJ8P92be0CjY5DYbGT+IGaFGFRX1QWpAgv8DudOYjIGyoJv9VvPSChRp9OmYQgVlx2gy/XGCV6q0nbf5+CR8P8Ib1Y9MJvUvCtDZ2lotfsFhQyYx9gmkC7DVauDIzyFHSsn05konr4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JqCCjsKE; arc=fail smtp.client-ip=52.101.62.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7336E3E0240
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 14:27:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774448824; cv=none; b=rRdBC1IS9VNlsWNhK0Hq2/EP4cNRi30fndFq9y1NAL42JngjKZEX0F2WvwyfeLK0hvtmP3rEUyR3YeNSrH9UrwkZ3lLhy5vD/9o5AsduSECnQXfJSCPMML1q2/9Uvok1LV2sAwAIyUzi0PImHyfr1qWKieVeHjkaR2jgeuJ/6gE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774448824; c=relaxed/simple;
+	bh=6rM1Y5tXQgRjp8JOga4MDFoZW2JHjvyTAhbBJqByPnk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i4wnxvmgTAfbc/AEUU3otWGSbGerUcV9THcqmIfKq8AVskqFbk+/VaKpm+8h1MGg0ro+u1mSiXEaaiQeGyGS1Y9SpGOhXr7BXtwfbT2zGoGgMGCnxv/7B8RGahsqQcRJJBRAg/D0FJ/yIAnx1DJF1LinjwP7N9Q5+amLfT4xLdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ghe2LJB2; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Dg3NvRVX; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JqCCjsKE"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ITeIlhKT/DAHvOUN2HgMLfMuV0AJNR0K7hiZ0kH39O9rpkX99duo7rOfiO1BxwyeKK7XcEp/j6nPdEfsMXbVHgmLNOm1YL0ANQN5Tde2Ijo78WDZ3R1eVnusdS44kJP5NFLKUf/o8b/5yf8jqepnGMSptcxZIw6SBq9OfrcpFRWBVnhaqbzgTjFwqckvfbT4FzaIuFOFV2yfMhU2y6emCk6LSeehSeSm3+C+sM5DiK/iK8o+0wQ9oCp6sbH93KGG3+J2HHsEU48vNIa1/dPn7m0COErqLmhQcfewAKEaaJ5y6j5mDF30dwzwmAzMhZpdKADtNy7E4rMx5OUx+M81FQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OXmqqqaNn1hJW/lsrj8KsrDWEitfqDZ5TZ+LrnhmhAU=;
- b=oOhJ3Z6Heygda1+qbzyJ16KlHgJrwp2hxMNJ7AfqXq4qJvNlI3vqB0Y1gNq2XE/NJXC792QpR2kQYieJK4DmngaAE/RyhnXif+KeGzDlbDT1qh/JP/xDlczuHbuRqxZfhCCZGBEVPkdXb/wevCaNm9KdRJLeCq+qchg7LeOtTgulknnzF/a3ckvnEk0I6WCrfavId4fpsN9MI1MlOnVXU4lgyV417dqpaSMUtiEARKP0OgQ9ImV+/dIJdZGa3D4yj4gnkQ/QPdkP+gPteMAUonQeigWHR+CgbJp6BNrfP97qnbdLUCQZ2gNz04oluINpjwTwVS7cmo6H0VyNITmQog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OXmqqqaNn1hJW/lsrj8KsrDWEitfqDZ5TZ+LrnhmhAU=;
- b=JqCCjsKEmMakQ+YnfPXAcy5eD/Lt7REND45C//KUfLwikjbGqXT/up3NHMNxIdOY93SXjqD8T+NwJQUzFJsLTdrOo4C9C97hA7/vQYCGos3IMkRY1lC3PdHUp5MDLSRDLtXBM5UV41Ok9M0fvXUrsuDCopg0F3+iQKIu3uBeIJiZxf1gLc41ZJ2bTfmV4AwXq3uWRWlvJSp9tYfZ8QSJDkaeaTIUyQUUsBRfhfW5rqvZZvuhcX7n4LxfELVf/zlOeYzRNSv9UlN6DM4f0sqPv80l/cYKjgJ/YqpmKweScrhVwh5X9mneJextVX3h5UjkBZ8BFAya4je6DtdP9OvU8w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS2PR12MB9750.namprd12.prod.outlook.com (2603:10b6:8:2b0::12)
- by MN2PR12MB4285.namprd12.prod.outlook.com (2603:10b6:208:1d7::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 14:26:22 +0000
-Received: from DS2PR12MB9750.namprd12.prod.outlook.com
- ([fe80::56a8:d6bf:e24c:b391]) by DS2PR12MB9750.namprd12.prod.outlook.com
- ([fe80::56a8:d6bf:e24c:b391%6]) with mapi id 15.20.9769.004; Wed, 25 Mar 2026
- 14:26:21 +0000
-Message-ID: <188ef2a5-cd3d-4fde-943a-17d805d79ac1@nvidia.com>
-Date: Wed, 25 Mar 2026 14:26:16 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3 2/3] dt-bindings: net: Fix Tegra234 MGBE PTP clock
-To: Krzysztof Kozlowski <krzk@kernel.org>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org
-References: <20260325135811.148480-1-jonathanh@nvidia.com>
- <20260325135811.148480-3-jonathanh@nvidia.com>
- <ded77d4e-7ec3-4f3c-863c-2c0ef490e494@kernel.org>
- <5a0d431e-785c-4aef-8282-2a921865bb9e@kernel.org>
-From: Jon Hunter <jonathanh@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <5a0d431e-785c-4aef-8282-2a921865bb9e@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO2P265CA0456.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:e::36) To DS2PR12MB9750.namprd12.prod.outlook.com
- (2603:10b6:8:2b0::12)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ghe2LJB2";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Dg3NvRVX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1774448820;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KWGD4hQPLoVQRo9t8LEnKi+4d5KyybuIU/ivYgViFIE=;
+	b=Ghe2LJB2pKpuxoCOozcBCng1z/RofCGJZfkH7o3Yf6jIOWM3cfiylcOmwUEMIjTPSTZnt6
+	2Ubo7F9aXc9U0tq/2tFNdVpmhZDOIvYG2m6L95TLv5kV8gpHJ1xtbluYFugxK678n4BVMO
+	6DeGcvUG0WexF9qOVQszi7YiolBSur4=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-190-XGIp0uieOSWbeXxCQk5h4g-1; Wed, 25 Mar 2026 10:26:59 -0400
+X-MC-Unique: XGIp0uieOSWbeXxCQk5h4g-1
+X-Mimecast-MFC-AGG-ID: XGIp0uieOSWbeXxCQk5h4g_1774448818
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-89c4d85d619so377270546d6.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 07:26:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1774448818; x=1775053618; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KWGD4hQPLoVQRo9t8LEnKi+4d5KyybuIU/ivYgViFIE=;
+        b=Dg3NvRVXx+gjpCLmCByxuGpzJwGhrw80M8NQmZdgangsWb4dpxxIuc4L3E8Eo0AfYO
+         EpIuhui3VBCyvWI27oKg73Kz0uoCDIDNTF2qrZqul3a4jlN8CNO7WeBzrmBWLdnG5Zip
+         8aX6sts4E4PPecnZ97Q27cJd4LYSy/ptqmX5TmObj8YU4rK6UcxJMFgEDZY8T3hVHzZS
+         fVQ1i7Oto5Hsp3Uw9qx3y2YPXxotarLetyaQxFMb/wzkAHL/DXx0FqFAO36RHWOkfSFe
+         nLrifrhkblRs6u+NDQ/KrE4i2BTMoDK+wf+9dnTm8oaZ6q+gVdQlaZ/dtiSz3n3Iq48Z
+         ARMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774448818; x=1775053618;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=KWGD4hQPLoVQRo9t8LEnKi+4d5KyybuIU/ivYgViFIE=;
+        b=DdeLvMRQGkRuWOP2IRTcS78jNV56H0ubsDSmj3HM3hhkM2+KQ3ZFi7Fdnh1NTwfI1U
+         I/lV9RR56Do8CyFvB6R+9jpT49x0VX44UJ54L5459VBt2DpROVcO1VQq9NnbzNKhlu9P
+         XIgP7UnRmCGrbXRGrzKruSnvJQGzjK/CpkzaX57OsBBb47zGrCUyfandY2KALrTstBpc
+         UPVtwbZSpkHvE2pl7jHnOYHHmvkpbXrgmZMbSaaiV77n/Qy/oBhmCP7p2aIf+0Kc7XR9
+         zKASesc98rcvij3lWwqD02WadK1J6HW0LHunRWTCQ2l4OI1ic4CyXFXhiaF5JawOr47q
+         ok5w==
+X-Forwarded-Encrypted: i=1; AJvYcCUjnydHi0S3xU65F8YGf47bV+XmBg7fPS0LIgoTZqjpv3/O63+DF1rG0++IqXUP9eZk8J6eaywAvJ6u@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMTQyhaK2TWVk6/AR2OCYYWCN7TfP+3ZiYAg3iO/nb9wIsLPcv
+	bbKPQmU2fUC1/AgGUMH3OmnsB/4X3oB9Y1RytBzwo4Rqn9MZjJIQx/4dmUOP9RfFEGpbxiy2o7g
+	nGdIGD3KSlutA5gKmyrpXmT9+S11HS5FvuxCNrcd2HO4Tfpt4Sdls1g2SBTDrV8s=
+X-Gm-Gg: ATEYQzwAUZrY6iqI2SuqP0y6iRGIqA/1BoJuRDM7F5KTtWrksswN2gL1yMBT/Zcw3Gl
+	9RqwMS/0P9MgWoKwkPCG/iiQfDTmJPumwzJdr9oLIEM1WQEuqEnKBeU3Js5EV6p94g+o74DHu/P
+	clmBMP4iZb9bIIdOqm3tj7kbCae/b2NNe4rcNfvyWrLzaj6qKMsJ8JdtdT9/a1/sy1mZoqXEYuk
+	/ugOgo6cvhr7tlGQ0KW/a4U1tJgHi0l70jVW/DQjHdI10Iz0HynlHNCy8SpEG0SkAJDvQo7gNp2
+	UEGnpdwCNtGJlhRcbUKItmaNwnw2pwL3xjQbQnfyGKsScCLhATvtMy7urMxAXzRsd7z3ucVAXVn
+	oSdrb8r4w4mVK7yWQQ68A242Mm9h7rz+lJWfWrXmOAXmAmCiusucBfhiZ
+X-Received: by 2002:a05:6214:319e:b0:89a:b20:9f4e with SMTP id 6a1803df08f44-89cc4a445a8mr52199296d6.17.1774448818303;
+        Wed, 25 Mar 2026 07:26:58 -0700 (PDT)
+X-Received: by 2002:a05:6214:319e:b0:89a:b20:9f4e with SMTP id 6a1803df08f44-89cc4a445a8mr52198596d6.17.1774448817701;
+        Wed, 25 Mar 2026 07:26:57 -0700 (PDT)
+Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-89cad854addsm68276376d6.48.2026.03.25.07.26.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Mar 2026 07:26:56 -0700 (PDT)
+Date: Wed, 25 Mar 2026 10:26:54 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Stephen Boyd <sboyd@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Frank Binns <frank.binns@imgtec.com>,
+	Matt Coster <matt.coster@imgtec.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+	Icenowy Zheng <icenowy@aosc.io>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/5] clk: mediatek: Add mt8173-mfgtop driver
+Message-ID: <acPwruNQpLQg7W2A@redhat.com>
+References: <20260325071951.544031-1-wenst@chromium.org>
+ <20260325071951.544031-3-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PR12MB9750:EE_|MN2PR12MB4285:EE_
-X-MS-Office365-Filtering-Correlation-Id: 961b91a2-2c94-41fe-41e9-08de8a7a7cc0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|10070799003|366016|921020|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	sG+mlWnms3JScOJL4TO37L/oW0KqGe2Ttfp68rljTg4N2lGM5BU72ZQkzGZM/hKHfN+agcIdP2jhS5sB8ltH+QTharng3ahjwvz2FVvTKNUL6Kg19dXw6tc9KWEPeuK0ohXRceosq5M5e1OYkWeeTA/U69c0+Z/vHPIG6Lt/Hzrg+LnOtAKMKAJIz2euWnqmAhefw2w9sHkzjkzZAwpz8UkpBTmZb9OEbFlwWVhxKTI+ufrj1x9ESIsQlP2NCXkMF1t+VPwmnUdgc1nZDZgiiZ+2bC/MfqUAqbCkUvxuhgyeLFlosEfeiuY1XsMvawW15QlEKVaLEondNYMSV+RXa999WDfM5DYxxpDMP3Xd1LApA9x96x6YMM4fqzWlagP+BQwFg2jhkMy3Lw5SB2rgnB2+H5iwm8H2pWAgAtiIKuvVIHb2jxTkSiySO8/8ikvLfXl2kp9WSm4vTc8Tu4jpQzb4GzVG7DHk3R1UYUU2UYHSgkXrG5hLaoHSUyg0o6ZAH7RitymgZJWsJGaQuZ2h4Tkae6XGdhJTKnjhIjCGq7fENj7x5Y1GwNeV/evFJfmr3feB87CZW0JKFb8li0BFMmUUdcF/kSUtjF38Fcl4fH8DlFjddPpxwJaTsf1lKxJYHEwtgtMgFpirovMSGD+a/kCc+uMwE1zOaRUUJqRQ9FWwaQqT0GvAOZsDJUzYwlOfrodL9+hdswvqui9M/ksmmVoJOoU/7cy9lgoO3JpbZlzT9tjmmzdK8S4ive5rWqqwnAsTGEXnYZhQAGkd2WfuMg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9750.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(10070799003)(366016)(921020)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZVppMUd1T2Q0R2pJUCt6UXRnY2NqYlZnUktVVGtLT0JhS3BqM0xrektWQmRR?=
- =?utf-8?B?N04vWHRRNXZlOGhjcEZvSVFueU04TGtCcE52c0hyZm9NYmg2M28xVmtRSmUz?=
- =?utf-8?B?SVY2OWI4dHNRL2JQUU9mREc2eDJWaTI4WTl2NHNueCtKNTF4MHovWGZ5VzZv?=
- =?utf-8?B?MFpQK3owTGRWNkNFODY4MWVGUk9abS9mZ3VleXJoVmNva3dxNmc4MU95OEhL?=
- =?utf-8?B?eG5BZ3ZmbnR1anJYSFYxSjBZSTlzSWFTeXllRlZCdzd2dnQ5ZlNnNGppZkhk?=
- =?utf-8?B?M0dDOHFRUHZUd0lxbTlQanJwTWpING1DMFVXOTd6M2RDdlVQempXRld4Q3or?=
- =?utf-8?B?NWN6S2d1WUxaL2FLMkV1UVNKeTJ4R2drUXhHeEgycmpkY1VQaGFEOGVVYU4y?=
- =?utf-8?B?VlE4bE9YZ1V3bEpXcjZkQVpwakxkbEFTb1hFTmFhS1dYOHJybXM3WEdYWThR?=
- =?utf-8?B?RlJXU0lKbkw0Mld0dkZoMEU1MHBuM1dYZlVFK01CYUVUS2RTM0lHZmVydnU4?=
- =?utf-8?B?azN4YmRPZjl6NmxZOEtsaEhQS2p0U3JlOXNaQmJpQll1MzFqclpUeXQrZlJi?=
- =?utf-8?B?cHgyUlMwaVVqUWJUbFJtZE5OUUJYajN2LytSb3ByaWhqT05VbzJiV0JaeFVR?=
- =?utf-8?B?Q0hsZWZQMGxNTU0zMFM0NnUwcmlEMkZRYUxIcFA5d0dXU1E3dXlING1KdDk3?=
- =?utf-8?B?ZmFzcTlUc093QUFidXd1bElDMDlWdEw5OWRxRnJ1UjJhVnRRbUlQQXg5bXp6?=
- =?utf-8?B?RFZuRmFrK2RIY2Z4TWUvN3Fkemx4MEdsdFZURXZkNzlveXpjSjNKTmkweVhJ?=
- =?utf-8?B?Q2FITU1Zc282V2hEYkVmZU05RzhiZFRoZkNRTExuNlVhUVNBSlVSNVFQczRv?=
- =?utf-8?B?aWo5SFpRRjI0T2cyZHN0dVFCd3RWNk16djBNcVNveU9WbkN6bEN1cTNQcEZ5?=
- =?utf-8?B?eTFtcDVOK0FKOE5BdWxESENWQTlLYzA3SnVpMTZodnhPUG9RM3BVdnBCbG9h?=
- =?utf-8?B?NTlERUVoMEkxRjk2NGxaTWxZblhlM0Q2NjVMT3RyQzdMMzFYK0oxTDhxaEFv?=
- =?utf-8?B?OXJhMWZhaVpZSHVHek1kNTM3RjMydjdzNkJhUlFMM0NDM3FCMVdheDFWUUZ5?=
- =?utf-8?B?SUFzMHZNeDZNTUpGUGl1U0ZLNS9iYzMwMG8yU1Brd1pIMWVGbGNSV3pUNDlj?=
- =?utf-8?B?VHRCSjZtRGtnajZZa0Q2NDhMdUdwTGJReE5YMTJRLzBxaE9MZktubExtczNy?=
- =?utf-8?B?dzZhVGZuYXhWbTluU0wvYXpDdldpOW14NUJEV1pWemJSbTV3WXd0NHN6VWJn?=
- =?utf-8?B?YWJJNXkvVUUxaXphc1Z2VGVjeUM4N0VNejNrU0lGa2xNbktaT0p0dFNPUXdU?=
- =?utf-8?B?VklVTm8xbUY0L3lzMFgyOGNrRjA5QU1Pck11TE1BK3hqUmRiMlpWang3bVdy?=
- =?utf-8?B?bmpFQnp2ak1oUUdlSzJiY24xZldLRVprUGZPajk1di81Vkk4cTlaV1diNnFr?=
- =?utf-8?B?VkZxVk03cnZHWnE1WHVqWkVYU3c1YUxpbjMyWE5GOHlra3d6NGE2cEVET3pq?=
- =?utf-8?B?OFVTQ1lwQTBOYm1nck9PNnppSmlvQkhMbzJGSFM4UHlXVnpHQjdubVNXQTdJ?=
- =?utf-8?B?WU9EWU81OFVNM2t1K0VGanVaUmN6TlU0YUFqOS9ScTREcnN5bHJ1N2xXZUxr?=
- =?utf-8?B?cC9TNEgrbFhtZ28yUjg1M2ZHMlJuSEY1Zy9HUDVicllJR280NDZpdk1lcmw4?=
- =?utf-8?B?ZmlCVHRNSWxkWC95N2lWTFQ5ZHZBcTlJdGxVQ0xWaFlsL1FFK0VITmVVVS9Z?=
- =?utf-8?B?T1dBdkRLd3ZaUlA3cDVENjhGQ2lLSEF4SmtaZTN0T2dkT1RHaDNuUnhmWlFw?=
- =?utf-8?B?RXZWaU15dHVRWFhzek5GcC8wZURYQ1RGejk3L2QxV2IxenNNZUp3Mk15akJ4?=
- =?utf-8?B?TTE2dGdpUDlIeDFuU2hXci9EYVNIM24wdDZteStvTzJpd3N4cDJldUl3OVU2?=
- =?utf-8?B?RkU4ZUsxSXk2aSttQnpGTHhLL0o3NFQwSlh3SUM1NHdTNTdyRmorSG9PNTUx?=
- =?utf-8?B?L29ZZkZEQm1ncGM5UkRic0ZNbmF2ekUzMFJjTUJ0WnhNOUlJMzhoSVpoUXhK?=
- =?utf-8?B?V2p3bUxtZ2lMQU1ETW45N25BV0ZqU05WYTkvYmtlWWl3T3FDWDJWb2VqckJs?=
- =?utf-8?B?OVRsUDhieHFaLzc5ZzJFMU45NmdrdHpJNERySThpY0lVUEQxWmZnZ0E1Vmdr?=
- =?utf-8?B?Ui94eGtoc1NwaTByWDhaVlJqVU15S24yVWtRUUxtd1hrT3J3Q0ZzOEw5UlVo?=
- =?utf-8?B?RjRrazI2ZFpiYStkNXA1bGJ3Z0lHeTRRaGc0Q3dCOGIrMXdFYmkxL2JNZ3dP?=
- =?utf-8?Q?eH09fPbIZUYN3YiDQiWNSS4jGJv1GBZNN2EX2Bqkh9mZM?=
-X-MS-Exchange-AntiSpam-MessageData-1: CwsHXRltt8Cz6w==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 961b91a2-2c94-41fe-41e9-08de8a7a7cc0
-X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9750.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 14:26:21.7787
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cRUlZjUxpT9ZqcCB6YJMmjXUnAu192sjtldY3hqyVyeSImdM7hIdqDepGl4pupW7MYjzYO2Q6dPoihxC5kzUng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4285
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260325071951.544031-3-wenst@chromium.org>
+User-Agent: Mutt/2.3.0 (2026-01-25)
 
-
-On 25/03/2026 14:09, Krzysztof Kozlowski wrote:
-> On 25/03/2026 15:07, Krzysztof Kozlowski wrote:
->> On 25/03/2026 14:58, Jon Hunter wrote:
->>> The PTP clock for the Tegra234 MGBE device is incorrectly named
->>> 'ptp-ref' and should be 'ptp_ref'. This is causing the following
->>> warning to be observed on Tegra234 platforms that use this device:
+On Wed, Mar 25, 2026 at 03:19:46PM +0800, Chen-Yu Tsai wrote:
+> The MFG (GPU) block on the MT8173 has a small glue layer, named MFG_TOP
+> in the datasheet, that contains clock gates, some power sequence signal
+> delays, and other unknown registers that get toggled when the GPU is
+> powered on.
 > 
->                             ^^^^^^^^^^^^^ Tegra234 (see further)
->>>
->>>   ERR KERN tegra-mgbe 6800000.ethernet eth0: Invalid PTP clock rate
->>>   WARNING KERN tegra-mgbe 6800000.ethernet eth0: PTP init failed
->>>
->>> Although this constitutes an ABI breakage in the binding for this
->>> device, PTP support has clearly never worked and so fix this now
->>> so we can correct the device-tree for this device. Note that the
->>
->> I don't understand that explanation.
->>
->> Driver dwmac-tegra.c: ptp-ref
->> Binding: ptp-ref
->> DTS: ptp-ref
->>
->> but you say that nothing was working correctly?
->>
->> Judging by these three - driver+binding+dts - obvious fix is no fix
->> because everything was fine, so please clarify the exact problem.
+> The clock gates are exposed as clocks provided by a clock controller,
+> while the power sequencing bits are exposed as one singular power domain.
 > 
-> Correction - I missed in grep - there are ptp_ref users: tegra186 and
-> tegra194, but how tegra234 could not work if it has correctly in DTS
-> ptp-ref?
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> ---
+> Changes since v1:
+> - Reduce tab after GATE_MFG() by one tab
+> - Move of_match_clk_mt8173_mfgtop to just before clk_mt8173_mfgtop_drv
+> - Rename power domain to "mfg-top"
+> - Add FORCE_ABORT and ACTIVE_PWRCTL_EN bits and explicitly clear
+>   ACTIVE_PWRCTL_EN bit
+> ---
+>  drivers/clk/mediatek/Kconfig             |   9 +
+>  drivers/clk/mediatek/Makefile            |   1 +
+>  drivers/clk/mediatek/clk-mt8173-mfgtop.c | 243 +++++++++++++++++++++++
+>  3 files changed, 253 insertions(+)
+>  create mode 100644 drivers/clk/mediatek/clk-mt8173-mfgtop.c
+> 
+> diff --git a/drivers/clk/mediatek/Kconfig b/drivers/clk/mediatek/Kconfig
+> index 2c09fd729bab..8dbd9f14be62 100644
+> --- a/drivers/clk/mediatek/Kconfig
+> +++ b/drivers/clk/mediatek/Kconfig
+> @@ -537,6 +537,15 @@ config COMMON_CLK_MT8173_IMGSYS
+>  	help
+>  	  This driver supports MediaTek MT8173 imgsys clocks.
+>  
+> +config COMMON_CLK_MT8173_MFGTOP
+> +	tristate "Clock and power driver for MediaTek MT8173 mfgtop"
+> +	depends on COMMON_CLK_MT8173
+> +	default COMMON_CLK_MT8173
+> +	select PM_GENERIC_DOMAINS
+> +	select PM_GENERIC_DOMAINS_OF
+> +	help
+> +	  This driver supports MediaTek MT8173 mfgtop clocks and power domain.
+> +
+>  config COMMON_CLK_MT8173_MMSYS
+>         tristate "Clock driver for MediaTek MT8173 mmsys"
+>         depends on COMMON_CLK_MT8173
+> diff --git a/drivers/clk/mediatek/Makefile b/drivers/clk/mediatek/Makefile
+> index d8736a060dbd..892a54eeb281 100644
+> --- a/drivers/clk/mediatek/Makefile
+> +++ b/drivers/clk/mediatek/Makefile
+> @@ -82,6 +82,7 @@ obj-$(CONFIG_COMMON_CLK_MT8167_VDECSYS) += clk-mt8167-vdec.o
+>  obj-$(CONFIG_COMMON_CLK_MT8173) += clk-mt8173-apmixedsys.o clk-mt8173-infracfg.o \
+>  				   clk-mt8173-pericfg.o clk-mt8173-topckgen.o
+>  obj-$(CONFIG_COMMON_CLK_MT8173_IMGSYS) += clk-mt8173-img.o
+> +obj-$(CONFIG_COMMON_CLK_MT8173_MFGTOP) += clk-mt8173-mfgtop.o
+>  obj-$(CONFIG_COMMON_CLK_MT8173_MMSYS) += clk-mt8173-mm.o
+>  obj-$(CONFIG_COMMON_CLK_MT8173_VDECSYS) += clk-mt8173-vdecsys.o
+>  obj-$(CONFIG_COMMON_CLK_MT8173_VENCSYS) += clk-mt8173-vencsys.o
+> diff --git a/drivers/clk/mediatek/clk-mt8173-mfgtop.c b/drivers/clk/mediatek/clk-mt8173-mfgtop.c
+> new file mode 100644
+> index 000000000000..9e18f34166ae
+> --- /dev/null
+> +++ b/drivers/clk/mediatek/clk-mt8173-mfgtop.c
+> @@ -0,0 +1,243 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2024 Google LLC
+> + * Author: Chen-Yu Tsai <wenst@chromium.org>
+> + *
+> + * Based on driver in downstream ChromeOS v5.15 kernel.
+> + *
+> + * Copyright (c) 2014 MediaTek Inc.
+> + * Author: Chiawen Lee <chiawen.lee@mediatek.com>
+> + */
+> +
+> +#include <dt-bindings/clock/mt8173-clk.h>
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/clk.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_domain.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/regmap.h>
+> +
+> +#include "clk-gate.h"
+> +#include "clk-mtk.h"
+> +
+> +static const struct mtk_gate_regs mfg_cg_regs = {
+> +	.sta_ofs = 0x0000,
+> +	.clr_ofs = 0x0008,
+> +	.set_ofs = 0x0004,
+> +};
+> +
+> +#define GATE_MFG(_id, _name, _parent, _shift, _flags)	\
+> +	GATE_MTK_FLAGS(_id, _name, _parent, &mfg_cg_regs, _shift, &mtk_clk_gate_ops_setclr, _flags)
+> +
+> +/* TODO: The block actually has dividers for the core and mem clocks. */
+> +static const struct mtk_gate mfg_clks[] = {
+> +	GATE_MFG(CLK_MFG_AXI, "mfg_axi", "axi_mfg_in_sel", 0, CLK_SET_RATE_PARENT),
+> +	GATE_MFG(CLK_MFG_MEM, "mfg_mem", "mem_mfg_in_sel", 1, CLK_SET_RATE_PARENT),
+> +	GATE_MFG(CLK_MFG_G3D, "mfg_g3d", "mfg_sel", 2, CLK_SET_RATE_PARENT),
+> +	GATE_MFG(CLK_MFG_26M, "mfg_26m", "clk26m", 3, 0),
+> +};
+> +
+> +static const struct mtk_clk_desc mfg_desc = {
+> +	.clks = mfg_clks,
+> +	.num_clks = ARRAY_SIZE(mfg_clks),
+> +};
+> +
+> +struct mt8173_mfgtop_data {
+> +	struct clk_hw_onecell_data *clk_data;
+> +	struct regmap *regmap;
+> +	struct generic_pm_domain genpd;
+> +	struct of_phandle_args parent_pd, child_pd;
+> +	struct clk *clk_26m;
+> +};
+> +
+> +/* Delay count in clock cycles */
+> +#define MFG_ACTIVE_POWER_CON0	0x24
+> + #define RST_B_DELAY_CNT	GENMASK(7, 0)	/* pwr_rst_b de-assert delay during power-up */
+> + #define CLK_EN_DELAY_CNT	GENMASK(15, 8)	/* CLK_DIS deassert delay during power-up */
+> + #define CLK_DIS_DELAY_CNT	GENMASK(23, 16)	/* CLK_DIS assert delay during power-down */
+> + #define FORCE_ABORT		BIT(30)		/* write 1 to force abort a power event */
+> + #define ACTIVE_PWRCTL_EN	BIT(31)		/* enable ACTIVE_POWER */
+> +
+> +#define MFG_ACTIVE_POWER_CON1	0x28
+> + #define PWR_ON_S_DELAY_CNT	GENMASK(7, 0)	/* pwr_on_s assert delay during power-up */
+> + #define ISO_DELAY_CNT		GENMASK(15, 8)	/* ISO assert delay during power-down */
+> + #define ISOOFF_DELAY_CNT	GENMASK(23, 16)	/* ISO de-assert delay during power-up */
+> + #define RST__DELAY_CNT		GENMASK(31, 24) /* pwr_rsb_b assert delay during power-down */
 
-The problem lies in 
-drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c which uses the 
-name 'ptp_ref' which does not match 'ptp-ref'. This is where the warning 
-is coming from. So basic ethernet does work, but stmmac_platform.c 
-driver is complaining that the PTP clock is not found.
+Is the double underscore expected in the name?
 
-Yes Tegra186 and Tegra194 are not impacted by this, only Tegra234.
+> +
+> +static int clk_mt8173_mfgtop_power_on(struct generic_pm_domain *domain)
+> +{
+> +	struct mt8173_mfgtop_data *data = container_of(domain, struct mt8173_mfgtop_data, genpd);
+> +
+> +	/* drives internal power management */
+> +	clk_prepare_enable(data->clk_26m);
+> +
+> +	/* Power on/off delays for various signals */
+> +	regmap_write(data->regmap, MFG_ACTIVE_POWER_CON0,
 
-Jon
+Should the return value of clk_prepare_enable() and regmap_write() be
+checked?
 
--- 
-nvpublic
+> +		     FIELD_PREP(RST_B_DELAY_CNT, 77) |
+> +		     FIELD_PREP(CLK_EN_DELAY_CNT, 61) |
+> +		     FIELD_PREP(CLK_DIS_DELAY_CNT, 60) |
+> +		     FIELD_PREP(ACTIVE_PWRCTL_EN, 0));
+> +	regmap_write(data->regmap, MFG_ACTIVE_POWER_CON1,
+> +		     FIELD_PREP(PWR_ON_S_DELAY_CNT, 11) |
+> +		     FIELD_PREP(ISO_DELAY_CNT, 68) |
+> +		     FIELD_PREP(ISOOFF_DELAY_CNT, 69) |
+> +		     FIELD_PREP(RST__DELAY_CNT, 77));
+> +
+> +	/* Magic numbers related to core switch sequence and delays */
+> +	regmap_write(data->regmap, 0xe0, 0x7a710184);
+> +	regmap_write(data->regmap, 0xe4, 0x835f6856);
+> +	regmap_write(data->regmap, 0xe8, 0x002b0234);
+> +	regmap_write(data->regmap, 0xec, 0x80000000);
+> +	regmap_write(data->regmap, 0xa0, 0x08000000);
+> +
+> +	return 0;
+> +}
+> +
+> +static int clk_mt8173_mfgtop_power_off(struct generic_pm_domain *domain)
+> +{
+> +	struct mt8173_mfgtop_data *data = container_of(domain, struct mt8173_mfgtop_data, genpd);
+> +
+> +	/* Magic numbers related to core switch sequence and delays */
+> +	regmap_write(data->regmap, 0xec, 0);
+> +
+> +	/* drives internal power management */
+> +	clk_disable_unprepare(data->clk_26m);
+> +
+> +	return 0;
+> +}
+> +
+> +static int clk_mt8173_mfgtop_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct device_node *node = dev->of_node;
+> +	struct mt8173_mfgtop_data *data;
+> +	int ret;
+> +
+> +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	platform_set_drvdata(pdev, data);
+> +
+> +	data->clk_data = mtk_devm_alloc_clk_data(dev, ARRAY_SIZE(mfg_clks));
+> +	if (!data->clk_data)
+> +		return -ENOMEM;
+> +
+> +	/* MTK clock gates also uses regmap */
+> +	data->regmap = device_node_to_regmap(node);
+> +	if (IS_ERR(data->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(data->regmap), "Failed to get regmap\n");
+> +
+> +	data->child_pd.np = node;
+> +	data->child_pd.args_count = 0;
+> +	ret = of_parse_phandle_with_args(node, "power-domains", "#power-domain-cells", 0,
+> +					 &data->parent_pd);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to parse power domain\n");
+> +
+> +	devm_pm_runtime_enable(dev);
+> +	/*
+> +	 * Do a pm_runtime_resume_and_get() to workaround a possible
+> +	 * deadlock between clk_register() and the genpd framework.
+> +	 */
+> +	ret = pm_runtime_resume_and_get(dev);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to runtime resume device\n");
+> +		goto put_of_node;
+> +	}
+> +
+> +	ret = mtk_clk_register_gates(dev, node, mfg_clks, ARRAY_SIZE(mfg_clks),
+> +				     data->clk_data);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to register clock gates\n");
+> +		goto put_pm_runtime;
+> +	}
+> +
+> +	data->clk_26m = clk_hw_get_clk(data->clk_data->hws[CLK_MFG_26M], "26m");
+> +	if (IS_ERR(data->clk_26m)) {
+> +		dev_err_probe(dev, PTR_ERR(data->clk_26m), "Failed to get 26 MHz clock\n");
+> +		goto unregister_clks;
+> +	}
+> +
+> +	ret = of_clk_add_hw_provider(node, of_clk_hw_onecell_get, data->clk_data);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to add clk OF provider\n");
+> +		goto put_26m_clk;
+> +	}
+> +
+> +	data->genpd.name = "mfg-top";
+> +	data->genpd.power_on = clk_mt8173_mfgtop_power_on;
+> +	data->genpd.power_off = clk_mt8173_mfgtop_power_off;
+> +	ret = pm_genpd_init(&data->genpd, NULL, true);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to add power domain\n");
+> +		goto del_clk_provider;
+> +	}
+> +
+> +	ret = of_genpd_add_provider_simple(node, &data->genpd);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to add power domain OF provider\n");
+> +		goto remove_pd;
+> +	}
+> +
+> +	ret = of_genpd_add_subdomain(&data->parent_pd, &data->child_pd);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to link PM domains\n");
+> +		goto del_pd_provider;
+> +	}
+> +
+> +	pm_runtime_put(dev);
+> +	return 0;
+> +
+> +del_pd_provider:
+> +	of_genpd_del_provider(node);
+> +remove_pd:
+> +	pm_genpd_remove(&data->genpd);
+> +del_clk_provider:
+> +	of_clk_del_provider(node);
+> +put_26m_clk:
+> +	clk_put(data->clk_26m);
+> +unregister_clks:
+> +	mtk_clk_unregister_gates(mfg_clks, ARRAY_SIZE(mfg_clks), data->clk_data);
+> +put_pm_runtime:
+> +	pm_runtime_put(dev);
+> +put_of_node:
+> +	of_node_put(data->parent_pd.np);
+> +	return ret;
+> +}
+> +
+> +static void clk_mt8173_mfgtop_remove(struct platform_device *pdev)
+> +{
+> +	struct mt8173_mfgtop_data *data = platform_get_drvdata(pdev);
+> +	struct device_node *node = pdev->dev.of_node;
+> +
+> +	of_genpd_remove_subdomain(&data->parent_pd, &data->child_pd);
+> +	of_genpd_del_provider(node);
+> +	pm_genpd_remove(&data->genpd);
+> +	of_clk_del_provider(node);
+> +	clk_put(data->clk_26m);
+> +	mtk_clk_unregister_gates(mfg_clks, ARRAY_SIZE(mfg_clks), data->clk_data);
+> +}
+> +
+> +static const struct of_device_id of_match_clk_mt8173_mfgtop[] = {
+> +	{ .compatible = "mediatek,mt8173-mfgtop", .data = &mfg_desc },
+
+Is the match data and mfg_desc used?
+
+Brian
+
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, of_match_clk_mt8173_mfgtop);
+> +
+> +static struct platform_driver clk_mt8173_mfgtop_drv = {
+> +	.probe = clk_mt8173_mfgtop_probe,
+> +	.remove = clk_mt8173_mfgtop_remove,
+> +	.driver = {
+> +		.name = "clk-mt8173-mfgtop",
+> +		.of_match_table = of_match_clk_mt8173_mfgtop,
+> +	},
+> +};
+> +module_platform_driver(clk_mt8173_mfgtop_drv);
+> +
+> +MODULE_DESCRIPTION("MediaTek MT8173 mfgtop clock driver");
+> +MODULE_LICENSE("GPL");
+> -- 
+> 2.53.0.1018.g2bb0e51243-goog
+> 
 
