@@ -1,195 +1,104 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011011.outbound.protection.outlook.com [40.107.74.11])
+Received: from mail-m8245.xmail.ntesmail.com (mail-m8245.xmail.ntesmail.com [156.224.82.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F8572ED843;
-	Wed, 25 Mar 2026 04:18:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774412283; cv=fail; b=o6rptdfFwCMR8F4A3P0ktJBlfcXM5uoqA4GNUq2DIle4sQE5gvP25KohPKlO+yJauHd4LppjJo5hXOWRF8xWPo9Gmkm7ihPg/vAtDGX9cqIzWUST8L1eLYdQRBv5jlVIlkFkNmUbL9ffJvSyPFqJ0c/FMssvzkv9T4t09dwZYEg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774412283; c=relaxed/simple;
-	bh=lbbzWKeHHT18Gq0sjEN+GDRByraHjlCfwl0acbjJUVQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GoKpsTr8lxxbOpo1dl0sYOxNFo+/UDZJOqge+14/rVefzjeaJsLfcSpWwA7lnC4ugsSqxYlwrUyPlxIbrN8StGX8pzipPfyVWYSuMLzIReLG8YTmeHlVY03zf5M/n/wgMlF2vC3fYoIO/i763qHbTFwQVPaquYR1/+4FVcLx0c0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=CSaa5cGQ; arc=fail smtp.client-ip=40.107.74.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D05B12F9985;
+	Wed, 25 Mar 2026 04:33:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.224.82.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774413235; cv=none; b=Z+5QMldQZPkFpFtTnydl6L0qPO6BqqFjkJNhf6VfUiplhqSzQ6KKPUxtGTd5F2km0AWGTvJJDFZssb28UTKYMmG/1favfOjud4KwSNC2wtcPwdaSB2TUqDAycNgwfwPXMbgU/8i/zwpZ6i0ayOLBpV6B+yeFgWXpY/GKs69nD5E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774413235; c=relaxed/simple;
+	bh=Ev+5UIPXgNSsZ5AHraOgcPoGdebD/vcQcdwwxEQM4HQ=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=pfzTH5WPBcuq4GYIzXNEQTYFlpxTgh1Yeo0GJg+D0HwRFcXWUgFwhowluikLcUHdib8j0KDRG8TgBuT8X86IZl8wEOKFjGaCxb3tKEWQ4Z+pLQKVyBDOutgvLHLofytcd0Ix/Pmp4uITtUXRZGQuk6Su9RSYMjqHu9LX55vNVFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=SlF09ECw; arc=none smtp.client-ip=156.224.82.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="CSaa5cGQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m2R0A8RpYk8pPoixSzkmljiISW6TjOv0rggICR24x+8/Mr0ONsqtRvF6Z6vwcSApaSpgVYnN0gG0gaC/ZgDaseO/yPGzZKPF9Yn0DOGpZt/JVsDQHukGtPkbfIHuzw2XI5Zp8Vn0GDWsICfUWCNRFXY1Zqj6uPtIv156tPfFz+6JEoba87eggJJIIYL4iz+BKxsADEJqc/ejrx7NWEkAkzYhJ276KTcbU4hzx3eAPGc0Xr/RcI+/rqYEJIJBpl8U9bqlBPGC7eOtk7F+nn8O63sS4Wc5poF5C/8rMmpU3u9QE+SPeP0lDPRdvMlCeY8b5FbFxlYqIUSvRZOvZJ3Ikw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TVp2NU6P3RfgcVJ4NnPU5867NwDURHdPLMvOWMc54xc=;
- b=NBMpZgksz8vPIYLJFb60iTgOuX3UV2FbAErJSjJhksrsTllj3vDDI39mQ/Niqnmpu8vhZV1P8BTHg5nPoSRBqrNfLZ4Xpt5c8kJtTifXU6Cr3lSDjsEv8hntN92GV/oj40dzeRDeVv0I6MwLtS8shRwkFVPmzaL0iXGOxWohR+nVn5UnxmAkpsSkK6WbINTq5jPuvrfmG1eTBnImy2VVq6yyJZx+4krufqR4C2qs9LWppCdNu/PNWjmAKprzPhai8Mb71vDgY58yA5mLjlvJBQf0qkcXtQ/iyuJThl9lac35hlvXV45SthMJHUFS69fK12ARXQ8WnRmbZd2BKbi3Pg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TVp2NU6P3RfgcVJ4NnPU5867NwDURHdPLMvOWMc54xc=;
- b=CSaa5cGQZW/DkirT6dNSaFG+UrSa/jO87gB6mzlYKHIpsnOMq7P6AjQnCftk3OWsesGtVLIX/c1zg5al3pGlH1ULBVOmbL/U3ZKtLtIPsRrkLAJZW8D2t5lac89PjiWUI0aKjzrvfTO7INV60X7Q02BnrQy2oAgM40lXunr1pNE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYWPR01MB11935.jpnprd01.prod.outlook.com (2603:1096:400:403::9)
- by OSZPR01MB7130.jpnprd01.prod.outlook.com (2603:1096:604:137::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 04:17:58 +0000
-Received: from TYWPR01MB11935.jpnprd01.prod.outlook.com
- ([fe80::dc30:6b24:b7ba:d429]) by TYWPR01MB11935.jpnprd01.prod.outlook.com
- ([fe80::dc30:6b24:b7ba:d429%4]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
- 04:17:58 +0000
-From: Dawei Liu <dawei.liu.jy@renesas.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Grant Peltier <grant.peltier.jg@renesas.com>,
-	Linda Xin <linda.xin.jg@renesas.com>,
-	Tabrez Ahmed <tabreztalks@gmail.com>,
-	linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Dawei Liu <dawei.liu.jy@renesas.com>
-Subject: [PATCH v4 2/2] hwmon: (pmbus/isl68137) Add support for Renesas RAA228942 and RAA228943
-Date: Wed, 25 Mar 2026 12:17:28 +0800
-Message-Id: <20260325041728.68-3-dawei.liu.jy@renesas.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260325041728.68-1-dawei.liu.jy@renesas.com>
-References: <20260325041728.68-1-dawei.liu.jy@renesas.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TP0P295CA0011.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:2::17) To TYWPR01MB11935.jpnprd01.prod.outlook.com
- (2603:1096:400:403::9)
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="SlF09ECw"
+Received: from [172.16.12.43] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 38331aadd;
+	Wed, 25 Mar 2026 11:58:22 +0800 (GMT+08:00)
+Message-ID: <70204014-a416-466d-a960-67c86f20f08d@rock-chips.com>
+Date: Wed, 25 Mar 2026 11:58:21 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYWPR01MB11935:EE_|OSZPR01MB7130:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ca3c0a3-7fd4-49bd-642e-08de8a257ee4
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|52116014|376014|7416014|38350700014|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	FHZ1dGBwuZSpVQ+/uR1Wo4JWTc4YTsAHHtX6RRwG32iAKZgtO98gL/7GCxCrJ7pPJnKT2S/dnFQ47fiWOUUlhH4MBRZrq71QjGxne0N/dA6mNTRO04E7Tep48pmi4Ht4u1z64eSka+yRuSkkCuIq2C47mbMpA93mOMG+GP9sc73FZfUJ53R4uCoTlKPW5J5KbH8+zhTXo4lJcSNocmiBx7+u7gUYT6EjUafH3xU/wKLHPE3qgb+i7nRMtx+m5liwPU499g9RGsimsLqaoOnREy4A2AFUQLyxZR7QIM5ixFoe2jQSI8WpZLnLUJvNP1764RvIQ0ZdTosDLytszI4mX/PM9lyC9v/Zv/A04JdSOLqfH6wXQptPJ2Idp9KstIngpzEc6Vqd0xbbiiNNMmirNURv2gRDioyAJbNrlFLvVC8wJbPuxUfdjeSTe8wPoJJNliGsePFzceBdQe4JhYHkdHlqH27ZxYziiI0Avx2UM9h1pa10JdX5E+rsQXLaBoRODJRmlru1A7KW9ZQByNCrXOTw0/EBe91pX1/gwSh961E1ofmYSpKoqZpopAtdKEgGfH4cJ/+B7d26OifeWTZatjw0dmhGhwNbOdQYF+Bu8ZkQfuACFD6GMpEe04vD2Ty7vDZnT+g8Nfptw8H0B7Qt/PgoE2nhQ4hdndOhdFK5ZQMKpxUQccDqb3nLv6U5pFShV+rCPnSwx2JXFgdXOmUkswM1yOklO9SnvKjzHPefQn4dd0OaW89hjjB//XNmJLGSGBnF/2/R/294beZAbg04e4/y+qT4p0c05JzAB0XXvdM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYWPR01MB11935.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(52116014)(376014)(7416014)(38350700014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?p3FbvWYMBmlU6g1eKnUsmCQxNyHqPPfucfm5so1NiamNXhNyfg41RFzA7uMF?=
- =?us-ascii?Q?wi10+T01Ro8+9jvab9BKOtVy3Xs/5bNUaTsWLYd5J7fCxy82Ff+vNfnvFCm9?=
- =?us-ascii?Q?PPhJSPKSSTHfv87N2aUAOhlAr1+AzhZsImSE9HQDAelF6hiqhO1o9/Pussgg?=
- =?us-ascii?Q?7HzWRirnfyW3ZzWqzw19ckAtTpNf2HkwGAnMJRNLsWx1w3Vp7Wno2wFuhAKF?=
- =?us-ascii?Q?E/LVh7ifzhxIqHveiu5Qyz+h42Zbug9JPYKYrLSQKPYlZ3lVMwKIfA5r5Izy?=
- =?us-ascii?Q?mHs++HRZH9NdFsD3nMK5v1NYShnN7eNJtyk3t6ZTpRL87eu+jO9RFRu2HJBI?=
- =?us-ascii?Q?+NNuwvf+FLAXQVOES0tcKAVE9ePXtrhkNKYSOXG7W/6GKf9khDTaxSUaKbAf?=
- =?us-ascii?Q?sEIqUXp/z0jBAFUkLHmhXqVESVqhbbFv/iZMusKbF4c7iSO0MK2yExnd9eQJ?=
- =?us-ascii?Q?GQDSriZQvSA6TAmKL3qidXnzemW8nDs+NPlgfcpwD+y+CrppdpftpYFPGTYC?=
- =?us-ascii?Q?hipn9RcwSle4kLq12hNJlnpqvtcozRgDJVA9BbISuog33HyTbXMB0Lh1cwvd?=
- =?us-ascii?Q?AktxSnZgFK+MJzEBcBYDmELl140ziyYw6FYE5lksrDhx7aCiXEcTaqIfhi6x?=
- =?us-ascii?Q?q6la1TlPhDZzWt91yN0LXcDSs1t+zkmwvTR5g7eLddGXU86CmWiMfpdEuE2r?=
- =?us-ascii?Q?Ao9FsHowCqWB7jgRNJqgk8IE3mEO5t5jmzAKKyih8VaxrRNSWsm2FLaxpqSr?=
- =?us-ascii?Q?WIaDSWg/fEdiW03BHamIMrFP9D/17m2n9ZbaPJesx/YjtuWH6coy4XRvBjBl?=
- =?us-ascii?Q?oIgmdqBSk4Kq2vDSCTKNQ6iRD7EywTl4BLldjNMrTmGyLfHBFzHChS5oBurf?=
- =?us-ascii?Q?+9K5A58k0UIczXZTDhtDffyjS8qN6I07pltP2oxHLwUb3l7wvx3GRRHUxF9A?=
- =?us-ascii?Q?I+nAYFwmlmwBu0QxknMqIQQUfqo50/FlGg+FAISmzInyRe7kbM9hwelpThjY?=
- =?us-ascii?Q?r0xx1rQgQfTbTwh6aOW45C/XSq4ZmKItSq5tewGSZJBsJGJPDkoKEuHrdkNa?=
- =?us-ascii?Q?JAoOh4umFHzfn2fWdGl3Yg3PgM0XGOYAchc+UuwoQUdGn1bWiq0rtBTHL6FS?=
- =?us-ascii?Q?NefJe9sjhXQpYU+7IoB4FMRmigklqeinHqx45Ixm8EcuRRv5aLurjtG3wQ7l?=
- =?us-ascii?Q?Nw6V4g2F6AYTn1onyVuJjcviCiHNzRi8VnCkWdDDBNZXuKo/FwkCTEOuEP6g?=
- =?us-ascii?Q?fWcW2jv2Bg9JusMJCWRK1CXKNBiLd1CTwYC4xS1m3scY8t0hXg6EC2HlRUWp?=
- =?us-ascii?Q?VGCKAGiSWBh7QyD40/ph9bjjwUNfp6/D+JXsBlFP4wvDilvHkRJk88N9l0Hu?=
- =?us-ascii?Q?604NQTe2fcDNmTA2jCzW1XogtEDnfhd9LqoKgXwwrITzzdsuQ73G0tgD1q6f?=
- =?us-ascii?Q?99QnOeUbfixdvsiaR6e4599PhfMC2KlWK35qpr4CWGt37zLyWXBaFV6KK2+G?=
- =?us-ascii?Q?Nydgq6w5zgeF9maFQZzgeFjmny6ZjhAL+5Do4xqGnZyYGKG3lnCLcfs7TfZu?=
- =?us-ascii?Q?CDa9U+vdU3L2XOoXhTOH6A39jh7QlBIfvQMu8Ef7t0h/fMyUlnZ53jFxpoPP?=
- =?us-ascii?Q?A7cwLS+4p22JXO7NqSlcrJQMEoqnIfqzMU/rvpSS3PPsAUpOANVaYEjhWxc5?=
- =?us-ascii?Q?A8cvzml+jwseak3f2odmMgPoJWqSV4TfpVZf35kEZaMF9UWUbKsi/eQejK5R?=
- =?us-ascii?Q?wgqgQNZV+Q=3D=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ca3c0a3-7fd4-49bd-642e-08de8a257ee4
-X-MS-Exchange-CrossTenant-AuthSource: TYWPR01MB11935.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 04:17:58.2782
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aGDKr2850GB2MMz3GSKe4msYmxhX7h3DOcWZV0dOF2w9exw4L2XO4caqyhA6ZujYk08DcEn2L5fxrtzquDyOYAQCzaNLFmTh/IOQqqQv7ws=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB7130
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/9] drm/bridge: analogix_dp: Rename and simplify
+ is_rockchip()
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, hjc@rock-chips.com,
+ heiko@sntech.de, andy.yan@rock-chips.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
+ alchark@gmail.com, cristian.ciocaltea@collabora.com,
+ sebastian.reichel@collabora.com, kever.yang@rock-chips.com,
+ heiko.stuebner@cherry.de, tomeu@tomeuvizoso.net, amadeus@jmu.edu.cn,
+ michael.riesch@collabora.com, didi.debian@cknow.org,
+ dmitry.baryshkov@oss.qualcomm.com, dianders@chromium.org,
+ m.szyprowski@samsung.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260319104031.1986946-1-damon.ding@rock-chips.com>
+ <20260319104031.1986946-8-damon.ding@rock-chips.com>
+ <DHAANFJ6QZKU.5NN7RD47T8TI@bootlin.com>
+ <42c0641f-2e37-4ca4-a1ae-e8fde24c8460@rock-chips.com>
+Content-Language: en-US
+In-Reply-To: <42c0641f-2e37-4ca4-a1ae-e8fde24c8460@rock-chips.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9d2324b76103a3kunmff336bad6b84fe
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZQ08dTVZMQkJIQ0JOSEIfHRpWFRQJFh
+	oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpKQk
+	1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=SlF09ECwAohg5Ap+e76ztcvHcMcCup89QUrjufKePOJMVvefgml6iKa8StxI/kX+kdAVs/xzZyPLhe7ih/XAuku/tgibOsQdwu7Gcn/R/rxdWwNJ4Yu5bRB+zkUinUHmn4St1NlijSJtrKPo7wwjYsyCyh22HHDrUiqlZIHUmpE=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=9ZTEjmc2Lf7EnWXiGxkpS1MSw/+9KNGdTV6DrlGgK6I=;
+	h=date:mime-version:subject:message-id:from;
 
-Add I2C device IDs for Renesas RAA228942 and RAA228943.
+Hi Luca,
 
-At the Linux PMBus hwmon interface level currently supported by this
-driver, these devices are compatible with the existing 2-rail non-TC
-controllers, so devicetree will use fallback compatibles and no
-dedicated OF match entries are needed.
+On 3/24/2026 2:12 PM, Damon Ding wrote:
+> On 3/24/2026 12:14 AM, Luca Ceresoli wrote:
+>> On Thu Mar 19, 2026 at 11:40 AM CET, Damon Ding wrote:
+>>> Rename is_rockchip() to analogix_dp_is_rockchip() for naming consistency
+>>> and readability, and simplify the code with switch.
+>>>
+>>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+>>> Suggested-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+>>
+>> The patch content is OK:
+>> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>>
+>> However this won't apply without [0], correct?
+>>
+>> So, worth mentioning in the cover letter that this series depends on the
+>> [0] series.
+>>
+>> [0] https://lore.kernel.org/all/20260319071452.1961274-8- 
+>> damon.ding@rock-chips.com/
+>>
+> 
+> Yes, I will add it in v3.
+> 
 
-Signed-off-by: Dawei Liu <dawei.liu.jy@renesas.com>
----
- Documentation/hwmon/isl68137.rst | 20 ++++++++++++++++++++
- drivers/hwmon/pmbus/isl68137.c   |  2 ++
- 2 files changed, 22 insertions(+)
+BTW: Could you also help review the following two patches [0][1] when 
+you get a chance? Your review would be much appreciated.
 
-diff --git a/Documentation/hwmon/isl68137.rst b/Documentation/hwmon/isl68137.rst
-index e77f582c2..0ce20d091 100644
---- a/Documentation/hwmon/isl68137.rst
-+++ b/Documentation/hwmon/isl68137.rst
-@@ -394,6 +394,26 @@ Supported chips:
- 
-       Provided by Renesas upon request and NDA
- 
-+  * Renesas RAA228942
-+
-+    Prefix: 'raa228942'
-+
-+    Addresses scanned: -
-+
-+    Datasheet:
-+
-+      Provided by Renesas upon request and NDA
-+
-+  * Renesas RAA228943
-+
-+    Prefix: 'raa228943'
-+
-+    Addresses scanned: -
-+
-+    Datasheet:
-+
-+      Provided by Renesas upon request and NDA
-+
-   * Renesas RAA229001
- 
-     Prefix: 'raa229001'
-diff --git a/drivers/hwmon/pmbus/isl68137.c b/drivers/hwmon/pmbus/isl68137.c
-index 3346afdf3..03c9adc0e 100644
---- a/drivers/hwmon/pmbus/isl68137.c
-+++ b/drivers/hwmon/pmbus/isl68137.c
-@@ -432,6 +432,8 @@ static const struct i2c_device_id raa_dmpvr_id[] = {
- 	{"raa228228", raa_dmpvr2_2rail_nontc},
- 	{"raa228244", raa_dmpvr2_2rail_nontc},
- 	{"raa228246", raa_dmpvr2_2rail_nontc},
-+	{"raa228942", raa_dmpvr2_2rail_nontc},
-+	{"raa228943", raa_dmpvr2_2rail_nontc},
- 	{"raa229001", raa_dmpvr2_2rail},
- 	{"raa229004", raa_dmpvr2_2rail},
- 	{"raa229141", raa_dmpvr2_2rail_pmbus},
--- 
-2.34.1
+[0] 
+https://lore.kernel.org/all/20251110085823.1197472-1-damon.ding@rock-chips.com/
+[1] 
+https://lore.kernel.org/all/20251111022103.1350183-1-damon.ding@rock-chips.com/
+
+Best regards,
+Damon
 
