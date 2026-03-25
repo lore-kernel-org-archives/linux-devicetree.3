@@ -1,79 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49EF533D6D5;
-	Wed, 25 Mar 2026 16:37:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4513B8950
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 16:38:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774456650; cv=none; b=FrP+zo9btBXe7v332UiBh2Iz70YY46Z43YOe8miSPu3KxPArd8TiNv9HgprVaHfXL8YR4fVZplKI6OlxlDtJJRYTdA1nUAyUa68wvY/g+7Kqok/+FeWm2VPNTNil3lJKCzIIkV3iyWUtOz4cX6A8e4NIgOTcBa2uTRSQlBuf+pM=
+	t=1774456715; cv=none; b=fmqTG6WCcWFQc3NO6unxnbyje1sazz1EU4G7YLUzjSshgrIatfNgQtTUgERRn74hKOH3TIFnOD5CqLmb1Sby0pVPLvjFJymR9fnRlOv22o6uX6G9uAhdZN1zvmYPUjnKkQktMv+pegJA0WtYr/6eRpoNdNLNh1ZYKasEeoeJc+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774456650; c=relaxed/simple;
-	bh=TIVqJ/magIqW2AriXQPAaf863ehiNZa7AA4sr9WqXxY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gMUgeS43co+I/5roDthOFovlAbdfhY2TqhM3XHhoyg88ZxfH7jxQLucgmLHNTIIDWYUZMpdwrzb7aNz2jRlGzpjcJnFd93VX3lfIQ/ZK61sWzaMipct9fEJV8KTymo3C/rOqVtDZiGJXG5L/EaRePX5tl2zq5svvVC825EBnxVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iZU/SpKE; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iZU/SpKE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBD71C4CEF7;
-	Wed, 25 Mar 2026 16:37:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774456650;
-	bh=TIVqJ/magIqW2AriXQPAaf863ehiNZa7AA4sr9WqXxY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iZU/SpKEZxm1X+i7BkR/WwmF7hhzSyUNiPMQ3eXlQr4ButFfonyHAfAgwo3PcFPpI
-	 gwhxo+Uh1zNUj781xinf1F3pMUpyCuW9B1LIH8sD5XCVOsvkqjUA8+sRkbVb3gAlrp
-	 yAQYsQ9ZbMULVJWOCYKft6ZEF7UV0XRMA3TXXFvPdtCNV7zpwnxT57MvJak5X+qNTw
-	 ilsFTmOCLMJ09O7QnsjdC807cv6lT0q3drPxavkkhTeoOMivvBnLxw9OyWhDzw1Jh8
-	 LEwos9EVFYfk7DkVPVLZVZvC8iJifwXdnDyxA6K3Nu/kzuuwqfnEIRJdRLN4iTqGQx
-	 fZYuZFu0MvWUg==
-Date: Wed, 25 Mar 2026 11:37:28 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Akhil R <akhilrajeev@nvidia.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Laxman Dewangan <ldewangan@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Frank Li <Frank.Li@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>, dmaengine@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v3 2/9] dt-bindings: dma: nvidia,tegra186-gpc-dma: Make
- reset optional
-Message-ID: <177445664819.3770754.8129051164742800541.robh@kernel.org>
-References: <20260316171823.61800-1-akhilrajeev@nvidia.com>
- <20260316171823.61800-3-akhilrajeev@nvidia.com>
+	s=arc-20240116; t=1774456715; c=relaxed/simple;
+	bh=y7ZVsokYwrOCxsUDPu81piViO80ENG+JI7klgqrWxGM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Pu5y4jlvgW7iqP08qnXZ+HRJvtCBgDQ2LWXqb8HqsGcuSKnzkfJznXvunUjHwL3xnHcw4PpWApPw/Iinj1aaKhUWjOC38DS365rW01e/EasPgjvjqBjNg/Fsn1qnrOCVuIC9oq0Kt8+aSlvF5lzVou1tjKzckoicFBOeIZUc+4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5675d609621so100108e0c.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:38:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774456711; x=1775061511;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PFcu8ieGkR264Mz98C/g1GKpVrWkvJMfG29A108tGUA=;
+        b=FhGhd736G0Jzz2EeQeprN1i0GdfmBSZQZ4Wecs1t/uOWn4ZXd9pR/RzI63Ydia9h1t
+         b5WjHahY1YiRsOsPKi7JakxbItA9gLNdVj/1TTRYQ6Ix/e44XK73RUdETvMgomUfNT+Q
+         7RaOI9tTEjrLaNfEmPI9h2DAEub3RYZ2GbTE/0Vau1W5IVUw5EOYmTvDDEx+aP1fwISz
+         AQXBSGEXUiSb9BO/hBdkB9zjdh/dbcahftjV8W83Ub4UGC7ozEYEJxDeiLApblzF+ORo
+         MJfWlcR3j9WP1YFNnGyN2+DOXRvPvnUEONxp7v6Xu6Kdq9sAa6EIfdHR1FOby9vV8pK7
+         svgw==
+X-Forwarded-Encrypted: i=1; AJvYcCUDjQSf02H7SAoQTZYJ7otz8TFmyfrCGt6Z0PHmYysR1MhLIxsrJv9aWlyFrD19nGdj7CyLL5Q6CSSf@vger.kernel.org
+X-Gm-Message-State: AOJu0YxzatXdyjUZQOfl/aj/Asm3YGPYfsgv2Md9pZ4DPTkHfAid9ALH
+	dVAiGN1bQ6eHR47C4O90NGLQamrM16Aspx2C+uYgSCCBnBG0S0VHrMbHc//Yy6eBGQA=
+X-Gm-Gg: ATEYQzx1HELmfzPDvH0KZlQywRWZV8ujUSsAP97bpzQIFTVr2xOQhVgNh4Cd1rlENwr
+	JuzVvSHzc7ec3vXToO3JwtIHCyVLIAT7/7yjmqGZVIbCVZbvsCz2ZBuNvLHFf/xtyqdcFFYaVo+
+	COMii7CESMbgLLcvT+ar1JJKGah0LdLPMT92jXPw9mr2swwztxIcGwIEHkGLTEqpocXpT/V+osj
+	a8pXY+TCq6oBlguMhMtJiJySFxNt8wmxfvU8nvY3sf7W5QGeaFPRxdsbi7vRfRMkiLdIOOfCWYG
+	tFOCeJg2Xt8eV18uLz7TqsE7aCA0XTPIHVgzI82GCAdL2xQRXtBZLPV4zS29pdHAH5tle1hOEqV
+	G1P1JcEFidfSySUMLZbLMSUGHeXyoyuw453BUB3CTctzGeCZmcCVhSQkGIv6ma5TYgdj/ZTOYyg
+	wS+4KO45Io+sXg4Hg0jL0BsCc1NzH7PvdU77GXsZSMo9NqjDazXy526RZ9NZOo
+X-Received: by 2002:a05:6123:163:b0:566:354d:9f4a with SMTP id 71dfb90a1353d-56d21f3d368mr2317404e0c.1.1774456710651;
+        Wed, 25 Mar 2026 09:38:30 -0700 (PDT)
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com. [209.85.222.42])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56d31bf7190sm470836e0c.3.2026.03.25.09.38.29
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Mar 2026 09:38:29 -0700 (PDT)
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-94de88e52e5so18721241.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:38:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCWOOMxXyduBFdzvdf4Q6cBptb36jyAZ2gzBWc42ylzr9ADM3PI+jY5F1QqBI/+QneeujyiJ1XjSoKLA@vger.kernel.org
+X-Received: by 2002:a05:6102:2912:b0:5ff:dabc:db3c with SMTP id
+ ada2fe7eead31-60387434993mr2416423137.33.1774456709423; Wed, 25 Mar 2026
+ 09:38:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260316171823.61800-3-akhilrajeev@nvidia.com>
+References: <20260325162735.24467-1-aford173@gmail.com>
+In-Reply-To: <20260325162735.24467-1-aford173@gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 25 Mar 2026 17:38:17 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVnGv_vu7ZXWosGYP7-=c5wg71y0rHONUTrZCiJy5+shg@mail.gmail.com>
+X-Gm-Features: AQROBzAhdR6SWkA32yBTrlPDW0lwKRWOJknvBYfCLd5RT-Mwz1g2JnCkKIPxPxw
+Message-ID: <CAMuHMdVnGv_vu7ZXWosGYP7-=c5wg71y0rHONUTrZCiJy5+shg@mail.gmail.com>
+Subject: Re: [PATCH V2] arm64: dts: beacon-renesom-baseboard: Remove LVDS Panel
+To: Adam Ford <aford173@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org, marek.vasut@mailbox.org, 
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-
-On Mon, 16 Mar 2026 22:48:16 +0530, Akhil R wrote:
-> On Tegra264, GPCDMA reset control is not exposed to Linux and is handled
-> by the boot firmware.
-> 
-> Although the reset was not exposed in Tegra234 as well, the firmware
-> supported a dummy reset which just returns success on reset without doing
-> an actual reset. This is also not supported in Tegra264. Therefore mark
-> 'reset' and 'reset-names' properties as required only for devices prior
-> to Tegra264.
-> 
-> This also necessitates that the Tegra264 compatible be standalone and
-> cannot have the fallback compatible of Tegra186. Since there is no
-> functional impact, we keep reset as required for Tegra234 to avoid
-> breaking the ABI.
-> 
-> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+On Wed, 25 Mar 2026 at 17:27, Adam Ford <aford173@gmail.com> wrote:
+> The LVDS Panel was never shipped from Beacon, and there are device
+> tree errors, so rather than trying to fix them, remove it instead.
+>
+> Signed-off-by: Adam Ford <aford173@gmail.com>
 > ---
->  .../bindings/dma/nvidia,tegra186-gpc-dma.yaml | 25 +++++++++++++------
->  1 file changed, 18 insertions(+), 7 deletions(-)
-> 
+> V2:  Add LVDS backlight, some power, pwm and pwm pins all associated with
+> the LVDS panel.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.1.
 
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
