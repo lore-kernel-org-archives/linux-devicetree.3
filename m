@@ -1,26 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09480411638
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF56410D13
 	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 14:51:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774450307; cv=none; b=nKKJT43iMNBhri/WYKkNSkH5t5PO36TrkIkIiMb0R0HwgcKSMAQiHjk6reGKF2MgQGl6uCwrDDYzWVEpit+xHX69uXzEhli8alVkgxxxJDj4ah29i0/rRzueLMgjq3whCdshi7hjPglDbtphhFvf/dvnkiVSWWEpv+uqvJnER/k=
+	t=1774450309; cv=none; b=lmd3CpzsOLbEb9zg3bkPlbHTsYMkKBIBKHS9z9uZG7TFzl/pQan7On/8/l5pSLaBu007uj09vbed4RFCGUs0z0WJdsEjH2rCBuYHtMzhyAhfaH4iAfaxcBzEiu6mnDcAnLnjaw+0WiqVk8+P3JjfdrphGLT9xD9PM6bJ8HgReWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774450307; c=relaxed/simple;
-	bh=RpjF4yGvrkAYJc7036+B/nOmd4Wv/f+Rl/eEcwMFGBE=;
+	s=arc-20240116; t=1774450309; c=relaxed/simple;
+	bh=fN+VuIIDFsD+IofRR25yub/nitAW+RD1GEK9qG35KZQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YgDeTOm7srY35gHh34sbtFOEFxSZ7ejf3mgXoeu4PY5y7GZkI1sv8VRa39WOLts86y2F5XxC9lhKd8dZEtgyrIwf03l7BcAXBlaY+s004jWr2jYlZVOEpsazCY6tJo59GjXVZFIMDpfemRT00vV3TIECyQquNK7YFtDkCpj0Rws=
+	 In-Reply-To:To:Cc; b=nBsrflW2fbQaOB5GdnjqhXgwharms5CgnfHJK5p4Hvd0clHj0gBs/DJ2eCFa+bVbgTB6fLYkCIudz1gSZd18OSdk7nNWaRFwIxhc3kTPANB2m5JOMpUuzup31q0ACEytD+wOrCQSAM54n4IzEyw4FqzPQurYmpkSLYIinr0OEhs=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1w5PZT-00050C-CY; Wed, 25 Mar 2026 15:50:59 +0100
+	id 1w5PZV-00050C-BP; Wed, 25 Mar 2026 15:51:01 +0100
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Wed, 25 Mar 2026 15:50:37 +0100
-Subject: [PATCH v4 06/27] media: rockchip: rga: use clk_bulk api
+Date: Wed, 25 Mar 2026 15:50:48 +0100
+Subject: [PATCH v4 17/27] media: rockchip: rga: use card type to specify
+ rga type
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -29,7 +30,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260325-spu-rga3-v4-6-e90ec1c61354@pengutronix.de>
+Message-Id: <20260325-spu-rga3-v4-17-e90ec1c61354@pengutronix.de>
 References: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
 In-Reply-To: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -50,141 +51,58 @@ X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Use the clk_bulk API to avoid code duplication for each of the three
-clocks.
+In preparation of the RGA3 support add a filed to the rga_hw struct
+to specify the desired card type value. This allows the user to
+differentiate the RGA2 and RGA3 video device nodes.
 
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga.c | 65 ++++---------------------------
- drivers/media/platform/rockchip/rga/rga.h |  6 +--
- 2 files changed, 11 insertions(+), 60 deletions(-)
+ drivers/media/platform/rockchip/rga/rga-hw.c | 1 +
+ drivers/media/platform/rockchip/rga/rga.c    | 4 +++-
+ drivers/media/platform/rockchip/rga/rga.h    | 1 +
+ 3 files changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index fea63b94c5f3d..4e710a050cb7c 100644
---- a/drivers/media/platform/rockchip/rga/rga.c
-+++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -698,48 +698,10 @@ static const struct video_device rga_videodev = {
- 	.device_caps = V4L2_CAP_VIDEO_M2M_MPLANE | V4L2_CAP_STREAMING,
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
+index 7a4070665fed7..f6070508b1475 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+@@ -577,6 +577,7 @@ static struct rga_fmt formats[] = {
  };
  
--static int rga_enable_clocks(struct rockchip_rga *rga)
--{
--	int ret;
--
--	ret = clk_prepare_enable(rga->sclk);
--	if (ret) {
--		dev_err(rga->dev, "Cannot enable rga sclk: %d\n", ret);
--		return ret;
--	}
--
--	ret = clk_prepare_enable(rga->aclk);
--	if (ret) {
--		dev_err(rga->dev, "Cannot enable rga aclk: %d\n", ret);
--		goto err_disable_sclk;
--	}
--
--	ret = clk_prepare_enable(rga->hclk);
--	if (ret) {
--		dev_err(rga->dev, "Cannot enable rga hclk: %d\n", ret);
--		goto err_disable_aclk;
--	}
--
--	return 0;
--
--err_disable_aclk:
--	clk_disable_unprepare(rga->aclk);
--err_disable_sclk:
--	clk_disable_unprepare(rga->sclk);
--
--	return ret;
--}
--
--static void rga_disable_clocks(struct rockchip_rga *rga)
--{
--	clk_disable_unprepare(rga->sclk);
--	clk_disable_unprepare(rga->hclk);
--	clk_disable_unprepare(rga->aclk);
--}
--
- static int rga_parse_dt(struct rockchip_rga *rga)
+ const struct rga_hw rga2_hw = {
++	.card_type = "rga2",
+ 	.formats = formats,
+ 	.num_formats = ARRAY_SIZE(formats),
+ 	.cmdbuf_size = RGA_CMDBUF_SIZE,
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index 75d05c86b1c00..421a70558c3c7 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -306,8 +306,10 @@ static const struct v4l2_file_operations rga_fops = {
+ static int
+ vidioc_querycap(struct file *file, void *priv, struct v4l2_capability *cap)
  {
- 	struct reset_control *core_rst, *axi_rst, *ahb_rst;
-+	int ret;
- 
- 	core_rst = devm_reset_control_get(rga->dev, "core");
- 	if (IS_ERR(core_rst)) {
-@@ -771,23 +733,12 @@ static int rga_parse_dt(struct rockchip_rga *rga)
- 	udelay(1);
- 	reset_control_deassert(ahb_rst);
- 
--	rga->sclk = devm_clk_get(rga->dev, "sclk");
--	if (IS_ERR(rga->sclk)) {
--		dev_err(rga->dev, "failed to get sclk clock\n");
--		return PTR_ERR(rga->sclk);
--	}
--
--	rga->aclk = devm_clk_get(rga->dev, "aclk");
--	if (IS_ERR(rga->aclk)) {
--		dev_err(rga->dev, "failed to get aclk clock\n");
--		return PTR_ERR(rga->aclk);
--	}
--
--	rga->hclk = devm_clk_get(rga->dev, "hclk");
--	if (IS_ERR(rga->hclk)) {
--		dev_err(rga->dev, "failed to get hclk clock\n");
--		return PTR_ERR(rga->hclk);
-+	ret = devm_clk_bulk_get_all(rga->dev, &rga->clks);
-+	if (ret < 0) {
-+		dev_err(rga->dev, "failed to get clocks\n");
-+		return ret;
- 	}
-+	rga->num_clks = ret;
++	struct rockchip_rga *rga = video_drvdata(file);
++
+ 	strscpy(cap->driver, RGA_NAME, sizeof(cap->driver));
+-	strscpy(cap->card, "rockchip-rga", sizeof(cap->card));
++	strscpy(cap->card, rga->hw->card_type, sizeof(cap->card));
+ 	strscpy(cap->bus_info, "platform:rga", sizeof(cap->bus_info));
  
  	return 0;
- }
-@@ -935,7 +886,7 @@ static int __maybe_unused rga_runtime_suspend(struct device *dev)
- {
- 	struct rockchip_rga *rga = dev_get_drvdata(dev);
- 
--	rga_disable_clocks(rga);
-+	clk_bulk_disable_unprepare(rga->num_clks, rga->clks);
- 
- 	return 0;
- }
-@@ -944,7 +895,7 @@ static int __maybe_unused rga_runtime_resume(struct device *dev)
- {
- 	struct rockchip_rga *rga = dev_get_drvdata(dev);
- 
--	return rga_enable_clocks(rga);
-+	return clk_bulk_prepare_enable(rga->num_clks, rga->clks);
- }
- 
- static const struct dev_pm_ops rga_pm = {
 diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index 72a28b120fabf..2db10acecb405 100644
+index 454af283b1694..dc6f90b843c32 100644
 --- a/drivers/media/platform/rockchip/rga/rga.h
 +++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -6,6 +6,7 @@
- #ifndef __RGA_H__
- #define __RGA_H__
+@@ -145,6 +145,7 @@ static inline void rga_mod(struct rockchip_rga *rga, u32 reg, u32 val, u32 mask)
+ };
  
-+#include <linux/clk.h>
- #include <linux/platform_device.h>
- #include <media/videobuf2-v4l2.h>
- #include <media/v4l2-ctrls.h>
-@@ -81,9 +82,8 @@ struct rockchip_rga {
- 	struct device *dev;
- 	struct regmap *grf;
- 	void __iomem *regs;
--	struct clk *sclk;
--	struct clk *aclk;
--	struct clk *hclk;
-+	struct clk_bulk_data *clks;
-+	int num_clks;
- 	struct rockchip_rga_version version;
- 
- 	/* vfd lock */
+ struct rga_hw {
++	const char *card_type;
+ 	struct rga_fmt *formats;
+ 	u32 num_formats;
+ 	size_t cmdbuf_size;
 
 -- 
 2.53.0
