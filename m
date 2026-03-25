@@ -1,181 +1,118 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011039.outbound.protection.outlook.com [52.101.70.39])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C0741D798E;
-	Wed, 25 Mar 2026 19:02:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774465334; cv=fail; b=sDtbRF/3mEeaDK8OTFRJ5Gx9aDzrxBpp3cbzDsTrRtI+ladKd330JzsbYFK1cAV3o8wJtwptGlwQWAo97aEQzC/NbjQmn9xAOccBHkDx0+7fsL7dq+22n5LaEfKgdf5N8dowd36G68AgKZuoIjMpaB9WXNsXqwETslnMJJCCq/g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774465334; c=relaxed/simple;
-	bh=mX8itn9hZHsoDApBW80tjxpj7OCJtPoNrHD1ptQp5LA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=KmA/4IXBeKCs205aHmMouEi/DWFn5Vln0ZRilC6AeOgL0SfmEs8/4kHplqo2M7O00w6a6TFc8VE7KSyoG7CXbgIWo6rCV+9PLSLdNaFSoDrFQp+SSlDfJ+UDWAkCmOJ//eCy9lKvKUH4jGa7Hu8q7VHLVqsSnwdLmDikAalJRuU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Gwzpnb6V; arc=fail smtp.client-ip=52.101.70.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F6463112BA;
+	Wed, 25 Mar 2026 19:20:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774466404; cv=none; b=LU+alAjcnSkKFa5WnJNlR0VJMu4xXLmLYgokuOMxii2fUEqib2ynzABc50jPbrfIjG/cR3aGO2brOZl9DpYL9jdP6Ir8HLib1XCDENnzBK92W5HA3DIlRMyj6Jwwa5hONbZV42sieN682fMsxHWvraYEFKf5j5UD2h3oZIEGZV0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774466404; c=relaxed/simple;
+	bh=Zl1Bigh/DCbVR86lNOoS3KQYGvxji4Hi8ZirFRVRDk8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=d1dxxdTiEcxuiitJqTXpqfgwaiqxFvHwuUMdQ0z4/B/7kNgTboJcv5X8b9KGxu3+mZ+isoMU4JEkuaNj4qbvH+ssz21gmx8QZda1u4huL9VjyE/2LNDe9zFu8d4h3m+yBqhDfVfhJEJcpa8biqc+mXUYQ1KX+ME3N1ozYedk7Jo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W9CSgDd7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Gwzpnb6V"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rvZZVe3dKGsTfTMDyPj8oD9gxc0iyNmjqEpNLOkN/6bi4URL2/U4pmuwh+XNCwZC3SKd8YEYyFGOty844xeioHD2HphLg1PDvLMoVOZ6kFNfU15Ct5Lh8+2XXWtELiNRymqOqHWTeMfgadzQts7Lzcm9PrG8glcXtrWuG4N98d+grcgUil80y4gTGIeY6I9NbwUTJ7tjEnYZSMOomFOSc5svmUInIRfL519gua4P5aV34r8CLoWtKmMIPEQmzS+FhR6eOLTThFhcThpKqUmfuHe604okzc//jAr6zX204Wn/mmd6u3gWLzN+h00hFrNsRSPSaM6/XM6Gi5K+7BLBrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mX8itn9hZHsoDApBW80tjxpj7OCJtPoNrHD1ptQp5LA=;
- b=K+9KFxGo82KL7oOWiyjJbtoKYPnbb5MwZA5smj8jnghsUDX6w1WpmhLHcpECwyEBjUCLUR5PatlC9TuwSeOleekfKipKyp0UZsw1j1xp1gUbtzAbgDWWMVAmpOW6suKKIfC8HZ/oZknc6x8PULDGrCDetTgejEgvItrNNVHkRRqgnaqXdjdzapbfQVurFCnbuf4Rxepb0q7eH7NUAdwJC14dMSRqnnLEdtsdTh/86/wB6Z2Gy58vyRdWlJ7WOMG4oxsyOb5Lpgak8giXPzP5ADWibyW5MC6up6WhY3jvlUyeLGLQoekZ/e09SMbQq1GX15BVvqoLG+tDpvqIbknpxA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mX8itn9hZHsoDApBW80tjxpj7OCJtPoNrHD1ptQp5LA=;
- b=Gwzpnb6V/rQWCxsO/ioUKJiLhaDrlv+ZcICeHVyX3Ee0uXWtqKsYzby40rgi7y9jxl08Sc+MkyRNPusb2aPwZYkf4+wbD5OHMUsFFvMUh/zg7HfMiA31HsKrOVsIIL/T/ZWU13/IK7asGzJFTnnhcyrqBlVSDJlrf49e7XAwaTM4DmGJvC9cnH1h1DE4Bsk+3rXUQoDIJtB63TVtl/23DriAFr5zMdCdJfazUi+4+MsH5bJHzkh8A50TQ5NisdqXX2TB6wAB6Aquco94wNdnbVep4ogVrwuYxAeo2T+xuQCb9TDleYfxVaVPlPaJdGecIDg08ZTt0zYK22rdCQWO6A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DU0PR04MB9372.eurprd04.prod.outlook.com (2603:10a6:10:35b::7)
- by PA4PR04MB7997.eurprd04.prod.outlook.com (2603:10a6:102:c9::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 25 Mar
- 2026 19:02:10 +0000
-Received: from DU0PR04MB9372.eurprd04.prod.outlook.com
- ([fe80::4f6:1e57:c3b9:62b4]) by DU0PR04MB9372.eurprd04.prod.outlook.com
- ([fe80::4f6:1e57:c3b9:62b4%4]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
- 19:02:10 +0000
-Date: Wed, 25 Mar 2026 15:02:03 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Stefano Radaelli <stefano.radaelli21@gmail.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v7 0/2] Add support for Variscite DART-MX95 and Sonata
- board
-Message-ID: <acQxK4e4CzUWZiRi@lizhi-Precision-Tower-5810>
-References: <20260313174707.26902-1-stefano.r@variscite.com>
- <abRdwy_AS046QVRI@lizhi-Precision-Tower-5810>
- <acLqjeqmR4eVDoKw@lizhi-Precision-Tower-5810>
- <20260325122104.GA19112@francesco-nb>
- <acP2UX6B5js_ozWm@lizhi-Precision-Tower-5810>
- <20260325180604.GA2972@francesco-nb>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260325180604.GA2972@francesco-nb>
-X-ClientProxiedBy: SA9PR13CA0179.namprd13.prod.outlook.com
- (2603:10b6:806:28::34) To DU0PR04MB9372.eurprd04.prod.outlook.com
- (2603:10a6:10:35b::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W9CSgDd7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AF20C4CEF7;
+	Wed, 25 Mar 2026 19:19:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774466404;
+	bh=Zl1Bigh/DCbVR86lNOoS3KQYGvxji4Hi8ZirFRVRDk8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=W9CSgDd7ovvPeSiwKq8Nt7ziqWF0GR5946Fz/ccE0bZp1+VtBktZIJ5/pAmww4AOD
+	 oOKd7/fEOFOwhs/W1q+vvu4xlHhqaH9irXNHG5oQ9l48dM92n+Q7RirjStnj56Moxy
+	 fR07PpyuCwTUxYslB69UadGdp5MyKlvSsBHVSz7oOfKhW11Hd/0m0PPl6UddVbAa+N
+	 U88+A8TclTKYVRoxteAnfCaGXviNpw3TtpxHWcYEfap29Na1lO8zpt7iXaIgPlkMb+
+	 RqUwCvdeYERXJa2EoyHEgfj4I6k+RgAjA/TcDW5t9wvJ1CzYjTnVO36oCodbkrjdjv
+	 MgNFQ3fSNhD/Q==
+Date: Wed, 25 Mar 2026 19:19:53 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Jonathan Cameron <jonathan.cameron@huawei.com>, Rodrigo Alencar via B4
+ Relay <devnull+rodrigo.alencar.analog.com@kernel.org>,
+ rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Lars-Peter
+ Clausen <lars@metafoo.de>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: iio: amplifiers: ad8366: add
+ adrf5702/3 support
+Message-ID: <20260325191953.290a204f@jic23-huawei>
+In-Reply-To: <20260325-possibly-deploy-3ff69076a6e9@spud>
+References: <20260325-adrf570x-iio-support-v1-0-9a2685eb2e55@analog.com>
+	<20260325-adrf570x-iio-support-v1-1-9a2685eb2e55@analog.com>
+	<20260325124627.00006828@huawei.com>
+	<20260325-possibly-deploy-3ff69076a6e9@spud>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU0PR04MB9372:EE_|PA4PR04MB7997:EE_
-X-MS-Office365-Filtering-Correlation-Id: be9ce971-0e71-4b9e-1c52-08de8aa10450
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|19092799006|7416014|376014|1800799024|52116014|366016|38350700014|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
- mNtitSgNhJzFwxn8Veyu+ePGPX4va513KUfNJ+JQmC/cx9BQuC8GnKwPozW48tjwdd3dELw6zNg5GkYV15kW6QYe5l66jWCperyUbXaTYMxRcoXUDDWUCCFu4lwaxL32f9XnQupUHmywssp40qzPanbXpMwoXNXqYxpMatrR1f1x5WBRPwQtuVPW0cBzVzsWgsDrUnsoKddeUrCMeH8jZU+7D6XE5Kjo43eQGiF+ztSIdU+HkDvzYu3AsiFbxgXXryaxadXypq45v2g0/bGWHg3bBb3kHRl9uCQ1N9LNM29LsvwzE/yp2B9a7gs/zRUO0LInq2494uIOF+my+XKpwKUyMO5z29Yd1aNhsuj2apEMVtppOVuU4DWBui0NFJTF/6HYwbuDXpMAcA1U/9soWHnr6ReedqrRRSKKX4y2d8GnchOzouVqz31Er58VfyCjywD3MOHQAqb1qgEps9tgYQ6s7dGuq60Qgr6/RjMCyE9YbVJkxOoekHTp1DUbuibMgWjMENSF8lz10mTNJ2Mh+rJ2psPbpN7NfVAbBbXz6Pv2HHOUfa1jCDD3sXgqjd6P/Zmubi1ARhcMT/rt2gdzqPwktDeRzI+yfdXhiB8x2qMdCiNUYUKTIA+5ZsxYZL242o2rIsk7um7WvR6MrSvI6XdbCpmu7z2FhypuIRGduj7Ebkt5+55CZDb+KUhVDSh4kdZZyc5u2WlVkDADIxeYp7lEPlKcwp633GAldKfiTBQ9fJkMQrowZyIJ5Iyiw+WSGcWazpkensEGemJ9Eb7ZfttYX1J4HF+O2pqBc8v4T8E=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR04MB9372.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(376014)(1800799024)(52116014)(366016)(38350700014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?FbOOw7u59b1cah+GHja2uAN0IUW1ESpdCx7lbehRrCpdg2QrBRb7NbPPygye?=
- =?us-ascii?Q?xO/dftbCBZaRHLy1nQCcETjU5atnOa2ua/Ju2hAL8n2kwQJat11w+p7V5vwK?=
- =?us-ascii?Q?/94TgFumNt1OResYsb9ba8gaP3uXD0JNgGQvRT+el8FNWCaFLcCtN5VZs+s6?=
- =?us-ascii?Q?eZLR1ymWp9sd+TAlFKEBDlIvwfP2YRo3RkN0njMVuqrXfpBPSiDAUc3zoQxu?=
- =?us-ascii?Q?6QBf5Kx6RmWNyzfdPqH9sKJlS6oaxp/GlCLKguscQOqe613XQht8Isa/Wh7x?=
- =?us-ascii?Q?+xYjLbmzdj/gblg/xy5rNF7bJu/U5dUpPNgr+06XZ16geStZZetUiQFY/Zmn?=
- =?us-ascii?Q?OnicLOqSQf41b1+3IecUZHcN29b9BrvrBC+OJNYq/T2Oqi3xP6i70SJKfZQB?=
- =?us-ascii?Q?rrt89I3c60G0d0BenibmI7BpLgCDZtZWybRiWL552W6nEmdgVgQCMyFRdFqb?=
- =?us-ascii?Q?YChJgrLVTU7K8BaNNqSjlKpiCr/ZacV4hTUbwLKQAqaJH8+qyZPdD6j7U9Pt?=
- =?us-ascii?Q?UIAYHCbb/TqUO1UvV4iTrKGr/mz9y+dFWVKp/vHogVM7rvSOfwxfkVDES7Ze?=
- =?us-ascii?Q?HWXKWi2c9BBntYQeRsrst8iN3GlvUck1g39p3S48zYz61oKsjvjUkZmxxO55?=
- =?us-ascii?Q?fFimYZ1o7w6uCjfOqEAFGU/DzVB230fCcm7wMeXgzZqFMRCMX8Jd+dr6shPv?=
- =?us-ascii?Q?DgOWlWgB19NDtwnA4F7cpLEr17zo3/07f3cbR5KuwmpN+rsUTnHRzQh3pF7U?=
- =?us-ascii?Q?J3CfK19rZjFAauRnBoYkNdCfSu0V9QtXrn1JHT2lgnFE7Y+QMfrpNWOpLaiv?=
- =?us-ascii?Q?9o7+wVeKvEGR4S2FnCLS8pmABYyebhNgCP29dH7JC1zHEUFsdh2CgTHia6Co?=
- =?us-ascii?Q?YAxWns5pWx1M8GV/9Iqddesr2VqlPhSGBeNQGyrXW1IleyoUsoSLC0pBagbP?=
- =?us-ascii?Q?uxS9LYRqBd32Fs09XEU0MPyaWaPATWSyOvVkZx0MuWw6PBaQu4a6dyAMmdNf?=
- =?us-ascii?Q?yp8u5w9pyjQSAFg7INb/mepUdgIihGygKxMnOWEAmSnMqEEcq9lZq19eQAlW?=
- =?us-ascii?Q?c7n+A2lbEe86bZ1My4fNOEV2uAaTNYb0QGiOqGRCmwrKdU0nzQxMMjR94886?=
- =?us-ascii?Q?qrrCIAsqQROZs7HT5w2RqhC4QFDePurH8TCiDJW0s/54pemz7Vn+a33uTxL6?=
- =?us-ascii?Q?ZsAeZ95wl0/wYatc77PP5t7+wjurlHCHfT312Pk9Qs9XYXbRvky8M9u5NipS?=
- =?us-ascii?Q?3LglmkySpopN/d2ZWBvkZ/4speludeQY1ZcGij1YPmuJdiOBTu+z3Gt/I/dv?=
- =?us-ascii?Q?06KYmxX75Q2QIN2AaI+iErqu4yS//QAO3hkJo+GjBfBEQwGdCjpe+tg67FGw?=
- =?us-ascii?Q?0Jexeo4uJKEAGbmaGlboCA8J5hiVMBI7kq8hwimoiy25Ro/WOVeBkCRjw2X2?=
- =?us-ascii?Q?v1txxMSuX1VBaVHGvqwlw8/usyKeugIJVcI3w8q008bSJYscoLxJA+62H+Kr?=
- =?us-ascii?Q?Q9Qu0WhL9vJmzLGxm3ndq08j5qKXr1TwS9LiO95azefEdZpu0cXDmNkhQX8E?=
- =?us-ascii?Q?Kl6kMk2CrhKDXoHRPYV7PcJZYqnjD5SRmjm6H8xRi8cQdNPeGym1PZ4tTB4x?=
- =?us-ascii?Q?nnsgNxuyndZi/cpogdux4WwRx/Z/g1QGkrmM4Zxf5weYoPVmQfmYqP2OB9ff?=
- =?us-ascii?Q?WhxLb3j+xd7YpoBz0mVWIU33NLxIZfE04IOCIrcPYpv2FaJN?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be9ce971-0e71-4b9e-1c52-08de8aa10450
-X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9372.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 19:02:10.2778
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TaQ2ToEsh3jnc9j5EOFim/K7THCyna55Wh8gtPp+JMquZElTKNn/NdoufcMNpFUvDO+eSOKQSy8hhYoAQrDx5w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7997
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Mar 25, 2026 at 07:06:04PM +0100, Francesco Dolcini wrote:
-> On Wed, Mar 25, 2026 at 10:50:57AM -0400, Frank Li wrote:
-> > On Wed, Mar 25, 2026 at 01:21:04PM +0100, Francesco Dolcini wrote:
-> > > On Tue, Mar 24, 2026 at 03:48:29PM -0400, Frank Li wrote:
-> > > > On Fri, Mar 13, 2026 at 02:56:03PM -0400, Frank Li wrote:
-> > > > > On Fri, Mar 13, 2026 at 06:47:01PM +0100, Stefano Radaelli wrote:
-> > > > > > This patch series adds support for the Variscite DART-MX95 system on
-> > > > > > module and the Sonata carrier board.
-> > > > > >
-> > > > > > The series includes:
-> > > > > > - Device tree bindings documentation for both SOM and carrier board
-> > > > > > - SOM device tree with on-module peripherals
-> > > > > > - Sonata carrier board device tree with board-specific features
-> > > > > >
-> > > > > > The implementation follows the standard SOM + carrier board pattern
-> > > > > > where the SOM dtsi contains only peripherals mounted on the module,
-> > > > > > while carrier-specific interfaces are enabled in the board dts.
-> > > > > >
-> > > > > > v7:
-> > > > > > - Order nodes in symphony dts
-> > > > >
-> > > > > Can you run https://github.com/lznuaa/dt-format for new file to easy
-> > > > > track and check by script later.
-> > > >
-> > > > I applied with below change
-> > > > - update copywrite to 2026
-> > >
-> > > How do you know that the correct copyright year is 2026?
-> > > The copyright years does not change to today just because it is the year
-> > > it was submitted.
-> >
-> > At least it should include 2026 because it is new files in kernel
-> > tree.
->
-> The copyright year is not changing nor being updated just because you
-> are adding the file to the linux kernel tree.
+On Wed, 25 Mar 2026 18:13:45 +0000
+Conor Dooley <conor@kernel.org> wrote:
 
-It is impossible zero modify before submit patch. If update copywrite year,
-it needs include current years, I omit it when review it and find at apply.
+> On Wed, Mar 25, 2026 at 12:46:27PM +0000, Jonathan Cameron wrote:
+> > On Wed, 25 Mar 2026 11:12:02 +0000
+> > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> >   
+> > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > > 
+> > > Add compatible entries for ADRF5702 and ADRF5703 Digital Attenuators.  
+> > 
+> > Explain how they are different from the existing supported devices.
+> > 
+> > Something simple like the "Each device has its own gain range and step,
+> > hence no fallback compatibles are used." that you had in the original patch
+> > is what we need here.  
+> 
+> Which means that this is a v2 that doesn't say it is a v2, or explain
+> what has changed?
 
-And original owner Stefano Radaelli's agree on update to 2026.
+I meant the original driver - which only landed recently and answered
+the question of difference nicely.
 
-Frank
+This is adding more parts to that - but I believe is a v1.
 
->
-> Francesco
->
->
+J
+> 
+> >   
+> > > 
+> > > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > > ---
+> > >  Documentation/devicetree/bindings/iio/amplifiers/adi,ad8366.yaml | 4 ++++
+> > >  1 file changed, 4 insertions(+)
+> > > 
+> > > diff --git a/Documentation/devicetree/bindings/iio/amplifiers/adi,ad8366.yaml b/Documentation/devicetree/bindings/iio/amplifiers/adi,ad8366.yaml
+> > > index 2719de1166a1..065637ce33a5 100644
+> > > --- a/Documentation/devicetree/bindings/iio/amplifiers/adi,ad8366.yaml
+> > > +++ b/Documentation/devicetree/bindings/iio/amplifiers/adi,ad8366.yaml
+> > > @@ -20,6 +20,8 @@ properties:
+> > >        - adi,ad8366
+> > >        - adi,ada4961
+> > >        - adi,adl5240
+> > > +      - adi,adrf5702
+> > > +      - adi,adrf5703
+> > >        - adi,adrf5720
+> > >        - adi,adrf5730
+> > >        - adi,adrf5731
+> > > @@ -66,6 +68,8 @@ allOf:
+> > >                anyOf:
+> > >                  - const: adi,ad8366
+> > >                  - const: adi,ada4961
+> > > +                - const: adi,adrf5702
+> > > +                - const: adi,adrf5703
+> > >                  - const: adi,adrf5720
+> > >                  - const: adi,adrf5730
+> > >                  - const: adi,adrf5731
+> > >   
+> >   
+> 
+> pw-bot: changes-requested
+
