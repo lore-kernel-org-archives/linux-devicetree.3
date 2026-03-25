@@ -1,153 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E794D2E612E;
-	Wed, 25 Mar 2026 16:36:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49EF533D6D5;
+	Wed, 25 Mar 2026 16:37:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774456599; cv=none; b=mbFaTOckV6PxZqbwzySQk9/sOV5WPrQEgJ8XPwtivhrjslbqbM1TkYS7XlnXhbms+9vWZJhw6e/ir+nHgQ5yym+A4FeLs51o0Fkp/p25upM5OOkmB6ZUWpif6hXG5DhbXE4uYpoXW2aSVPHkfzscJsKO6XrCdxqPTbgfFTw0g0k=
+	t=1774456650; cv=none; b=FrP+zo9btBXe7v332UiBh2Iz70YY46Z43YOe8miSPu3KxPArd8TiNv9HgprVaHfXL8YR4fVZplKI6OlxlDtJJRYTdA1nUAyUa68wvY/g+7Kqok/+FeWm2VPNTNil3lJKCzIIkV3iyWUtOz4cX6A8e4NIgOTcBa2uTRSQlBuf+pM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774456599; c=relaxed/simple;
-	bh=VhIL6fLjtPzkfyMXrdTOmbzI3y+jzhOEWYMQaJHnKwg=;
+	s=arc-20240116; t=1774456650; c=relaxed/simple;
+	bh=TIVqJ/magIqW2AriXQPAaf863ehiNZa7AA4sr9WqXxY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GyFSjvy7kLmwqdLWSOS+o8w9X6wCrJkdaPlCjxwfuV5PS9efrBtXhUOV8/vOds3WtQzH2LhE9upuS760KI1DJZvKTyeaDBp+gLFvs+KjjxONCnY8+kpJ6VeqwS70e4WDqRt5+m3fKtHDJ0+Uix/F7LLmpHcMfAjO3Zj70MaEg+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mzux6vwX; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=gMUgeS43co+I/5roDthOFovlAbdfhY2TqhM3XHhoyg88ZxfH7jxQLucgmLHNTIIDWYUZMpdwrzb7aNz2jRlGzpjcJnFd93VX3lfIQ/ZK61sWzaMipct9fEJV8KTymo3C/rOqVtDZiGJXG5L/EaRePX5tl2zq5svvVC825EBnxVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iZU/SpKE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mzux6vwX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5BF4C4CEF7;
-	Wed, 25 Mar 2026 16:36:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iZU/SpKE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBD71C4CEF7;
+	Wed, 25 Mar 2026 16:37:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774456598;
-	bh=VhIL6fLjtPzkfyMXrdTOmbzI3y+jzhOEWYMQaJHnKwg=;
+	s=k20201202; t=1774456650;
+	bh=TIVqJ/magIqW2AriXQPAaf863ehiNZa7AA4sr9WqXxY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mzux6vwXHaR7V7neOoTISKQBA9WjUFg4+kBM+feyhHy1v+yuYN5KFjg/2GNiFlhSP
-	 AaRmAAC+/iA8V+IEwsULaogCp1gUs/03o0hmrCBYyh4R3UTN8uQ4MFCM8FdGrAsFFz
-	 qs0KEYkRvuokQghLH2NFYzschFfHJ23Rp1UlJT2rSboD9oYrebRFLk/FwiQq4bCEbl
-	 uBvVPQcc3CkWkKgGlKl1rE+cQu+vMXsTnusbKeqEb/c6H4je5yM9yZ4Bs+a22M/Ztt
-	 wlYGRT8oOUxqMyydZ8l00FrsV694meBoOJ9pjwb78wvLVTmxWE9sNHJMT+P+6S1DN2
-	 FHAkmOh4Fxslw==
-Date: Wed, 25 Mar 2026 16:36:32 +0000
-From: Will Deacon <will@kernel.org>
-To: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-Cc: joro@8bytes.org, robin.murphy@arm.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, heiko@sntech.de,
-	nicolas.dufresne@collabora.com, p.zabel@pengutronix.de,
-	mchehab@kernel.org, iommu@lists.linux.dev,
+	b=iZU/SpKEZxm1X+i7BkR/WwmF7hhzSyUNiPMQ3eXlQr4ButFfonyHAfAgwo3PcFPpI
+	 gwhxo+Uh1zNUj781xinf1F3pMUpyCuW9B1LIH8sD5XCVOsvkqjUA8+sRkbVb3gAlrp
+	 yAQYsQ9ZbMULVJWOCYKft6ZEF7UV0XRMA3TXXFvPdtCNV7zpwnxT57MvJak5X+qNTw
+	 ilsFTmOCLMJ09O7QnsjdC807cv6lT0q3drPxavkkhTeoOMivvBnLxw9OyWhDzw1Jh8
+	 LEwos9EVFYfk7DkVPVLZVZvC8iJifwXdnDyxA6K3Nu/kzuuwqfnEIRJdRLN4iTqGQx
+	 fZYuZFu0MvWUg==
+Date: Wed, 25 Mar 2026 11:37:28 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Akhil R <akhilrajeev@nvidia.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Laxman Dewangan <ldewangan@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Frank Li <Frank.Li@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>, dmaengine@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v13 3/6] iommu: Add verisilicon IOMMU driver
-Message-ID: <acQPEEd0hQrghGbw@willie-the-truck>
-References: <20260216095144.107356-1-benjamin.gaignard@collabora.com>
- <20260216095144.107356-4-benjamin.gaignard@collabora.com>
- <acKxzGk1Z541yoZ4@willie-the-truck>
- <e083e933-2746-4b26-ac33-3b32d362b28e@collabora.com>
+	linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v3 2/9] dt-bindings: dma: nvidia,tegra186-gpc-dma: Make
+ reset optional
+Message-ID: <177445664819.3770754.8129051164742800541.robh@kernel.org>
+References: <20260316171823.61800-1-akhilrajeev@nvidia.com>
+ <20260316171823.61800-3-akhilrajeev@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e083e933-2746-4b26-ac33-3b32d362b28e@collabora.com>
+In-Reply-To: <20260316171823.61800-3-akhilrajeev@nvidia.com>
 
-On Tue, Mar 24, 2026 at 05:28:44PM +0100, Benjamin Gaignard wrote:
+
+On Mon, 16 Mar 2026 22:48:16 +0530, Akhil R wrote:
+> On Tegra264, GPCDMA reset control is not exposed to Linux and is handled
+> by the boot firmware.
 > 
-> Le 24/03/2026 à 16:46, Will Deacon a écrit :
-> > On Mon, Feb 16, 2026 at 10:51:35AM +0100, Benjamin Gaignard wrote:
-> > > The Verisilicon IOMMU hardware block can be found in combination
-> > > with Verisilicon hardware video codecs (encoders or decoders) on
-> > > different SoCs.
-> > > Enable it will allow us to use non contiguous memory allocators
-> > > for Verisilicon video codecs.
-> > > If both decoder and this iommu driver are compiled has modules
-> > > there is undefined symboles issues so this iommu driver could
-> > > only be compiled has built-in.
-> > > 
-> > > Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-> > > ---
-> > >   MAINTAINERS               |   8 +
-> > >   drivers/iommu/Kconfig     |  11 +
-> > >   drivers/iommu/Makefile    |   1 +
-> > >   drivers/iommu/vsi-iommu.c | 794 ++++++++++++++++++++++++++++++++++++++
-> > >   include/linux/vsi-iommu.h |  21 +
-> > >   5 files changed, 835 insertions(+)
-> > >   create mode 100644 drivers/iommu/vsi-iommu.c
-> > >   create mode 100644 include/linux/vsi-iommu.h
-> > [...]
-> > 
-> > > +static size_t vsi_iommu_unmap(struct iommu_domain *domain, unsigned long _iova,
-> > > +			      size_t size, size_t count, struct iommu_iotlb_gather *gather)
-> > > +{
-> > > +	struct vsi_iommu_domain *vsi_domain = to_vsi_domain(domain);
-> > > +	dma_addr_t pte_dma, iova = (dma_addr_t)_iova;
-> > > +	unsigned long flags;
-> > > +	phys_addr_t pt_phys;
-> > > +	u32 dte;
-> > > +	u32 *pte_addr;
-> > > +	size_t unmap_size = 0;
-> > > +
-> > > +	spin_lock_irqsave(&vsi_domain->lock, flags);
-> > > +
-> > > +	dte = vsi_domain->dt[vsi_iova_dte_index(iova)];
-> > > +	/* Just return 0 if iova is unmapped */
-> > > +	if (!vsi_dte_is_pt_valid(dte))
-> > > +		goto unlock;
-> > > +
-> > > +	pt_phys = vsi_dte_pt_address(dte);
-> > > +	pte_addr = (u32 *)phys_to_virt(pt_phys) + vsi_iova_pte_index(iova);
-> > > +	pte_dma = pt_phys + vsi_iova_pte_index(iova) * sizeof(u32);
-> > > +	unmap_size = vsi_iommu_unmap_iova(vsi_domain, pte_addr, pte_dma, size);
-> > > +
-> > > +unlock:
-> > > +	spin_unlock_irqrestore(&vsi_domain->lock, flags);
-> > > +
-> > > +	return unmap_size;
-> > > +}
-> > I still think you need TLB invalidation here.
-> > 
-> > I looked at the downstream code that you linked to and it litters the
-> > invalidation in the callers via mpp_iommu_flush_tlb(), which tend to
-> > invalidate _before_ starting an operation. That's very likely buggy and
-> > certainly not something we want upstream.
-> > 
-> > The unmap routine should do the invalidation so that, when it returns,
-> > the pages really are unmapped from the device (assuming strict mode).
-> > 
-> > I know you said that you tried to add invalidation here and it "didn't
-> > work", but that's not something I can really help you with.
+> Although the reset was not exposed in Tegra234 as well, the firmware
+> supported a dummy reset which just returns success on reset without doing
+> an actual reset. This is also not supported in Tegra264. Therefore mark
+> 'reset' and 'reset-names' properties as required only for devices prior
+> to Tegra264.
 > 
-> I know you expect the hardware to work like that but that isn't not the
-> case.
+> This also necessitates that the Tegra264 compatible be standalone and
+> cannot have the fallback compatible of Tegra186. Since there is no
+> functional impact, we keep reset as required for Tegra234 to avoid
+> breaking the ABI.
+> 
+> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+> ---
+>  .../bindings/dma/nvidia,tegra186-gpc-dma.yaml | 25 +++++++++++++------
+>  1 file changed, 18 insertions(+), 7 deletions(-)
+> 
 
-The hardware appears to have a register to invalidate the entire TLB.
-We can use that if there's nothing else.
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-> I spend quite long to try to found hidden bit(s) or an other way to do like
-> you want but I can't find any solution.
-
-Then we can invalidate the entire TLB.
-
-> As you mention the downstream code suggest that the iommu can't invalidate
-> TLB in unmap routine so I don't see how to progress.
-
-The downstream code is a tangled mess; I don't think it suggests anything
-about what the IOMMU hardware is capable of.
-
-> Maybe we should just admit that is how the hardware work.
-
-No.
-
-The upstream kernel isn't a dumping ground for vendor crap. The hardware
-has TLB invalidation functionality and so we should use it. If we don't,
-then we're not giving the IOMMU API what it expects and any callers
-outside of the video codecs will be landed with problems when unmap
-doesn't work as expected.
-
-> This v13 has fixed the documentation so I don't plan to spend more time on this driver.
-
-That's a shame, I'm really not asking for much.
-
-Will
