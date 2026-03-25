@@ -1,132 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012035.outbound.protection.outlook.com [52.101.66.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F113CC9F8;
-	Wed, 25 Mar 2026 12:41:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774442484; cv=none; b=VgnkvUKkTWLJik1+gFzNpzmVVyjkZcTIMHjksue/dUNQP2+2enWOEL5IaE9QNxRTpH8raa1lw1r7axHnxbKWjrZRwSP8tw9dNvrm6bU3x9JWWx8ouTA6HV5l1e5yS7g+/5tGzFGwZeVJcNEQ3S7e60n+4+mH2RPecUy5T5GilBs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774442484; c=relaxed/simple;
-	bh=GFTUx3kdhgQgTWvb7Q2fjG3wR+lIHMZ/P3hX/zvDfV4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kKZyAyieiEnD4H1nsmririOHgS1g1m8ib1xpEImbYskky2kuyZ+7Dt34EQclRzI/0aY87xtR9xNhd+08KsGZUQaZMeLRA8pWOnhpAzn6pz69mLuw885MbshrTR1ERke1xxpKWcOzvTR3T5H2whHVq87grXNlzCidU7yy4ZCmhFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f16WpEVQ; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6C918D636;
+	Wed, 25 Mar 2026 12:46:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774442767; cv=fail; b=MmVNAgJusV5JT4H6MLqHEPUhQOj7gBBgSqLZUEjOKfGUzUUGyH+MgdyyU2fmDfHDYj2fqB1224enaEVwnK3fqGhTc5C2e1TDRfk8JZEUPp+c1XfvNtBb5DIKg/D4eMkcUWe+4YbCx1njcmbphSINzoYscnIlSsMXS1M7YMjB1S4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774442767; c=relaxed/simple;
+	bh=tdEs9UAo/ZTWTga044KqIEKWTduYlMJcYMMTfgkO2SQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=CjCx3xKBCiwN6X7lCN902DATh3NhTKh9n+hy7v9tex6dVBlz78e0S+/R/krwLbjn5HTcYRinTQsueAoseIVBk1YK3qxDDcIJuwxvKTUR9xIwgweeHnGeqcPQ59HqGUxwMvcyjI7b8lJUc/L4zjM+fDo1EkVAs+jyVhtnqhyBASo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=pNb+wFuI; arc=fail smtp.client-ip=52.101.66.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f16WpEVQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 857BAC4CEF7;
-	Wed, 25 Mar 2026 12:41:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774442484;
-	bh=GFTUx3kdhgQgTWvb7Q2fjG3wR+lIHMZ/P3hX/zvDfV4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=f16WpEVQ60zjYzS+sVNF502WXxMyeiBgyt2Q9wXCYo9w09DS/KwlV8lV3Cf4xrFU+
-	 u8uOaH2kdR8bZKl/0Rdghb4RBSMZRM8peRogRgbvew+wRQqtN0NDo5JJsZvWGpg3Jd
-	 y/O1waNE3BsFE7ij3l3/vw6aRmuRgWH24gY07DhtfoPvyWbZHCDrF0Fk6nF1ZhpcOP
-	 qf1X6IRQeDhdCt29bG480HRF0fNhOKSOBFPbhZwHPydtDMEKGcBTXPv6FiSgrHp5+H
-	 j+F76UZXDXTekW3r7AqjV6rmrODczfx9ulxNartk6tdcj1W86RiFzB5GDWcdWscD7t
-	 rEGL/gaG0612Q==
-Date: Wed, 25 Mar 2026 13:41:21 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Akhil R <akhilrajeev@nvidia.com>, Frank.Li@nxp.com, 
-	acpica-devel@lists.linux.dev, alexandre.belloni@bootlin.com, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, ebiggers@kernel.org, fredrik.markstrom@est.tech, 
-	jonathanh@nvidia.com, krzk+dt@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux@roeck-us.net, miquel.raynal@bootlin.com, 
-	p.zabel@pengutronix.de, rafael@kernel.org, robert.moore@intel.com, robh@kernel.org, 
-	smangipudi@nvidia.com
-Subject: Re: [PATCH 12/12] arm64: defconfig: Enable I3C and SPD5118 hwmon
-Message-ID: <acPWvjCJ426AyIQh@orome>
-References: <20260319-nano-manatee-of-vastness-fbafa1@quoll>
- <20260319170929.14543-1-akhilrajeev@nvidia.com>
- <67165a1f-9fa3-4853-b530-b1f9d6e4c2cf@kernel.org>
- <acO4NKPDUayny-I4@orome>
- <6342b6fd-9802-49d9-a269-ecb3b70b4604@kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="pNb+wFuI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EGja8SxhfwTxs54KFZan6FLWhU9tqV8idkAveDXBY1WRjUI29jETP2v2m2VTPOMOY/+e6/4g+vXF0Jnql3vj+lsNG/G03gif7w4ZeEB7UgQ7oPNVSNGkaSqCOfAxxoKJVUIuiof7YE9uNDnY2TCgkkM0kbrEMZ/58/wzEmzOqbK8OQuDt3JZXY65N3iWCOF1Es5lQC6C/k6pj5OCV5p6/V7t6JU1AjxKWd25l2hUYD2mtrhvY5+tsTPDtG9zKHiqvuPDAYbpkuEplFGAkcHH9DjNWTa6Cn8Hidzg6saQmTLA53PKs9ZJENjDsF1UUX0p1guhDSe0bPZzN6LqCoJwLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cn/j5AEATJyu/gslTf4VOymrJf7F+280q+8v1HG84y4=;
+ b=fZM8epHt1UFISM/pM0LuykImPIjpnFP7aYRluKfwZ2U9jZM1bMFrWTvmhm0EaQaoU9a5wgjyCGRJ9LSDfrG/+pXX59VPQqbKXVr6NyqfI1H7y3n0rzAelDOtA/+rJEVIgYYaLPTXkUe+t0j/KTYPuFHoA614DUIcVfeyhNX4AHYkOuDKwSGtkIW+72uiZEVh4+xozI7LeLOoAGkKpesBQkw9aY4Rr0cCdMFmYR3vZ0fHJX2PDcHvNJlLtoLdrq6GKBJwmfDszB4ivlN1fU3wl5Re0IndFwpTO2Rr2Ak1UndNopeaA6p3z/9N2xXa64JqzJu7RsA01odkrTr4fgdkZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cn/j5AEATJyu/gslTf4VOymrJf7F+280q+8v1HG84y4=;
+ b=pNb+wFuIwnS+nSNnEfjFeApMU6FIU/VTlXkmnOeLQnZlc1iPAKc/VtFIHvQVoxqeX57lsH7C5B0LjfvRGyXgMWbrTIEy5eX3FbCwg7bS8ylyIaL7+mMxWL5p3Nm1Md1IfrT4DpNRHjE7uLpha3DLuH/H0dCbV2ZEfy2TWjKl83Io5VV91lDSxNF7eTRQkwffJVOJnVDadNKegrBv0Rt1Llj5f2NzpSkNFHtivZD55+MifkRm8o5L8jLxZs+LWLNA7DQobHQRjp7a4HQRYzWBAopB9hio2LacEFFZmvpmCZpIAoTFsAfPJKw43x3w5n4K8IT2JecKVnksTxb+nPIWMg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DU0PR04MB9251.eurprd04.prod.outlook.com (2603:10a6:10:352::15)
+ by DB9PR04MB8153.eurprd04.prod.outlook.com (2603:10a6:10:245::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Wed, 25 Mar
+ 2026 12:45:22 +0000
+Received: from DU0PR04MB9251.eurprd04.prod.outlook.com
+ ([fe80::5c3a:1a67:2e02:20d0]) by DU0PR04MB9251.eurprd04.prod.outlook.com
+ ([fe80::5c3a:1a67:2e02:20d0%5]) with mapi id 15.20.9723.030; Wed, 25 Mar 2026
+ 12:45:38 +0000
+Message-ID: <215aa710-e848-4e79-a12f-e3a9c70a80a7@oss.nxp.com>
+Date: Wed, 25 Mar 2026 14:45:47 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/6] can: flexcan: Add NXP S32N79 SoC support
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, linux-can@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ NXP S32 Linux Team <s32@nxp.com>, Christophe Lizzi <clizzi@redhat.com>,
+ Alberto Ruiz <aruizrui@redhat.com>, Enric Balletbo <eballetb@redhat.com>,
+ Eric Chanudet <echanude@redhat.com>
+References: <20260323135827.2129371-1-ciprianmarian.costea@oss.nxp.com>
+ <20260324-visionary-vigilant-alpaca-a492d8-mkl@pengutronix.de>
+Content-Language: en-US
+From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+In-Reply-To: <20260324-visionary-vigilant-alpaca-a492d8-mkl@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0145.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b8::18) To DU0PR04MB9251.eurprd04.prod.outlook.com
+ (2603:10a6:10:352::15)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qna5mk7v3eomnmx3"
-Content-Disposition: inline
-In-Reply-To: <6342b6fd-9802-49d9-a269-ecb3b70b4604@kernel.org>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU0PR04MB9251:EE_|DB9PR04MB8153:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49145391-2319-40a1-e92a-08de8a6c6ac4
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|19092799006|7416014|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	zsp6oPFSiFQCTqZkEpuvyJTyrCn64RgLzbb/p6cF3GnrMiU399PVmuP4cTfUBApTrYJTItMd6s58Gmme4T6layd37mG/0ji1uvJhmAp/Pi/+p3VbQCFzzOwp8CrtNAw1lk81WtRWd0xbp/pVvn+SB9k20J/zZN+HzdgFeTYHc2FIJU9D9mdOz9AdFlhjNtEj0l+NIYfULWEConwCxY4F1OSSVTr82D8eHwKZl3AkXW3/3x8CoI+ovmkdmozRb1cn5b73hnj7rmEKwPJl3WvfVKo/Lk/wk/GXXNZK+0DMQKYfgTogU0PVtriKKkN6SsHVS+BLUKRFK5OQvbJERo0dOYBznRsRuFH17nUMD/+219Tdy1W1qo+JBtFGpN5KyLaW7Tv/ZSB/ma7i7RuaV1O9+jsvsx1I08FKdfs3s/EHnY1WGYm0E4RcMOzyTSWhkqwuu0OW1niImkuWfyZ9HgjuTCcGKcxadWoad7elvaLyJW2YEjeEGjksTEsN2jQyvNdhLIY38BORzpCuDqXP5mMFBnfmENvPr73GK9uDrNCloGS8722OZNDn675AhXDHZ5QcrvGuJM4tFW6+A6LB158AoRLRMIvAjb+oAM+RlnFLGnYmSNDUiA69zkaAR9aMcPlnV4xcTkK2kDG68eJTECSQXwvT3nBjocuWzhrcFXxOP0sdaZKGX5vU4iWuL9mssECn+yspQh6o9fK+mqlkomoZS1SG00rSAzGsn3JcKc1y3Hg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR04MB9251.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(19092799006)(7416014)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NXBDYmlJSWdPVzk2ZEFzTFY3NG5Uenhwd05CYm9TRmVGUXRvTlducTFRRi9s?=
+ =?utf-8?B?YWIxWW1JMjFFeDJ5WGN6Ym44My9WNDh3WEVPVTVYeWF2VzRIb21VVnFhSWxO?=
+ =?utf-8?B?RFhhempuMTdhMlZDZ0hoZTNyUkQxRk85SHFHUVNmZ2ZQZ0dkaFAwRFd3eEs5?=
+ =?utf-8?B?WnduYmJUMlFkVHdGa3h4OEt1TExweEM4ZUV4NUJud2RHQ2k4RWI5TUdHZlRn?=
+ =?utf-8?B?aUxMbVdpR1lOOGlqeFdSRVdFK3NIT1l1cnd6UXJ3RWtnSGxDWFUzc2FmVFhI?=
+ =?utf-8?B?a1poZU8rNVNhc244dUVwdFNlQmRiRFpXQWZ3REdWVUdUZENRek40RVlObmov?=
+ =?utf-8?B?NExDaDZqQmNCY3FNV1ZGczN1VlJWbTFaOEwzYjdLTi9mMmNEZTBXRmg1OCtX?=
+ =?utf-8?B?MHVIWit1cU1VdmpsZ3IvWXM1ZEs0cHV6dys5YVhYVDR2ZVAwTHdVN1B1Vnd4?=
+ =?utf-8?B?bkFCYmxYWkNYSHg1dXNuMEtsL3FGbGxPaGcyQmozMEpCR2w3SzBMSTMzNzNW?=
+ =?utf-8?B?bVdVaGVtdDVWR0Y4a2hqNFZrRjl0c094M0xVcHdBS0k2NHJ3SFpmbE91NnZ6?=
+ =?utf-8?B?NVNLOXBlaEVoWm0xajJGZDdtVkFSZFZvY0x1WElrVXpBcjhac08vZnpOSFE3?=
+ =?utf-8?B?a1orcE1MTm4valZGeFRhMHo3b3I5bVJRMXNBT0RsYzR2eVB2dnpzSFJUZTgy?=
+ =?utf-8?B?SWxvL29QMFBNcjZEQ3YwczdMSUpjVjM2Zk1LMy9mRjZKY0FhTjBmaUJHbnY5?=
+ =?utf-8?B?VFd6cUpEcm8ybmpQVncySU5TK3U2RDFtamRBUEhSWEhiaXVpZ2QzQlI5b0JK?=
+ =?utf-8?B?T2VhQm83MHU3STYzZWNRd1JNQ3pKZTl3T0k3OEwzWHdzRzFiS3VjdnVaUFVi?=
+ =?utf-8?B?Ri8vZGF5RTVobEtQcDVoVVhhWmhjUVdKNlIzb213VjNpaVNTbnlYMGV3WXY5?=
+ =?utf-8?B?bTNwcmNLeXhkVGNuKy9wb2todjJJNEErczgrRGlUby85ZnFSbWNCWjNONklX?=
+ =?utf-8?B?VXBkSzBXMSswL2dxZmhXRThsZW9CUWNib1F1S2p6WWxvQURHemNyN2M1bElI?=
+ =?utf-8?B?Qm1SbnNSM2twek5DT0UvSEttSXAyUGFTSWQ4VE5TZC9oaUJKbmN0TTBnSnNG?=
+ =?utf-8?B?aFFwVTBYaFBzbmtud2Z1WVhpNS9HNmh5L1dIQ0xBbEROYVBxZ2FqSnIzbFRT?=
+ =?utf-8?B?WEtDSzFjU0ZPako3d3BRd3V3cXo2dTd0L0laWDk5ek5HWElHT3pqc1E5di9V?=
+ =?utf-8?B?RVFXUkdKaENmaWRlbFZhTjFuamVuMHNGY1d5TCthNWZVQWRrK0o3dXRxRjNZ?=
+ =?utf-8?B?WGdFQjQ1N2xoSVVWNnh3MVF0M0ZJZ1NRRmE4TUk5VitBdlpEelhOSTFUK2dv?=
+ =?utf-8?B?MzlqU011ZFo1RXlyb1dhM1Z5Q29zdmluMzI4bXdGV0o0ZWpkWndYbk5KOTZt?=
+ =?utf-8?B?NzlzRDMwMG4rMHlIMzJnRGJUcjdYbmprZ0NRZzYrVStUUmpLbFF0d2Zsc3BJ?=
+ =?utf-8?B?UUVwOHV2YkJVZStPR2w5aUgxc1JrS2dmcUZHU3N5ZE50cDRWbVc3d0dmWm44?=
+ =?utf-8?B?QStwM3dod0RqR3htazg4L2ZVU2N2R0h2V285L1QyRmVlVnJERWJ2MzJ0dE9u?=
+ =?utf-8?B?M2g4cHVkdDhiaGhmNFRHTk5kUFROSmEzNFFhNm03TVlFNXFnb1kxcmxLUWhz?=
+ =?utf-8?B?Wk1ySXgxV2NFRWNjcHhVQ0cyb1VvelRzZlpGWnVlTThLVHNVQkpBd0JkcURR?=
+ =?utf-8?B?R1lGL0p0TXdCV0ZmamhzL0QxOHFIWitEelk0Sjl0OFJYUWxYRm1Pazh0dzR3?=
+ =?utf-8?B?VVphVVBOcmhnd1FHL1dhemxqNnFJN2tZOElzNXI3bi9JY1FqREtoRi91aEtZ?=
+ =?utf-8?B?cUR5TjVESDdiNUNKcW4vVjY3ZVZLNThDQmwwMzdlTWpMZ3B3cTBOWWdYWEps?=
+ =?utf-8?B?SXBwZnQrcTRRMW4wR1hNcm1jdmNsTW5FWG5BeFVvaDFzTVZ2U3k3MUpuMWhV?=
+ =?utf-8?B?RzRpQktvanM1YU5qNERrRTVMM0VqSkY4cVRoYXdRaWJnZmVlczlsWi9UOUFv?=
+ =?utf-8?B?NE9nelJNWGM5TkVGcmZZL2RvbVNTSFNMYjVKaEo5akwyQXVsZ3MrbEhjVDNU?=
+ =?utf-8?B?REdzZmhZVW95UUxWdThRdlliTm1PZTA2azNOZTdHV0txdnZKRFl5VFFIWlRJ?=
+ =?utf-8?B?clltZFBOcm13OVo4QUFIWFJCeUZZMUhPR2g3cE5IMFQvRG94QmFWSFhpUlF5?=
+ =?utf-8?B?QUg5K0E5cmllWnE5ckNUQU5IbkVJUnRMUnMvMlJtK0pQMUtxZmdZeDZheHl3?=
+ =?utf-8?B?TWRHUHV6bUlYSzU4UkFmWmtXZXVwUmNLNGo3d2NMYVdHUDg4VHZHcnMwUFlW?=
+ =?utf-8?Q?RfsNycWCWGf1Jxy0=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49145391-2319-40a1-e92a-08de8a6c6ac4
+X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9251.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 12:45:38.8817
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FoOH4+Mug3o8nRb4vUdOGEfAur+2Av+b7htDdcF7CRzaNyp3qxLfkgBCVaZe282wJI2s+vsBgSV0Fc1yDpQuSPSzCQ6xhbafdS5lVw4D7aI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8153
 
+On 3/24/2026 3:46 PM, Marc Kleine-Budde wrote:
+> On 23.03.2026 14:58:21, Ciprian Costea wrote:
+>> From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+>>
+>> This patch series adds FlexCAN support for the NXP S32N79 SoC.
+>>
+>> The S32N79 is an automotive-grade processor from NXP with multiple
+>> FlexCAN instances. The FlexCAN IP integration on S32N79 differs from
+>> other SoCs in the interrupt routing - it uses two separate interrupt
+>> lines:
+>>    - one interrupt for mailboxes 0-127
+>>    - one interrupt for bus error detection and device state changes
+> 
+> Can you check if the S32N79 suffers from the
+> 
+> | /* No interrupt for error passive */
+> | #define FLEXCAN_QUIRK_BROKEN_PERR_STATE BIT(6)
+> 
+> problem? Maybe everyone just added the FLEXCAN_QUIRK_BROKEN_PERR_STATE
+> for the new SoC without actually testing it.
+> 
+> regards,
+> Marc
+> 
 
---qna5mk7v3eomnmx3
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 12/12] arm64: defconfig: Enable I3C and SPD5118 hwmon
-MIME-Version: 1.0
+Hello Marc,
 
-On Wed, Mar 25, 2026 at 11:59:36AM +0100, Krzysztof Kozlowski wrote:
-> On 25/03/2026 11:31, Thierry Reding wrote:
-> > On Thu, Mar 19, 2026 at 06:15:14PM +0100, Krzysztof Kozlowski wrote:
-> >> On 19/03/2026 18:09, Akhil R wrote:
-> >>> On Thu, 19 Mar 2026 10:40:34 +0100, Krzysztof Kozlowski wrote:
-> >>>> On Wed, Mar 18, 2026 at 10:57:25PM +0530, Akhil R wrote:
-> >>>>> Add I3C subsystem support, DesignWare I3C master controller, and
-> >>>>> SPD5118 hwmon sensor as modules to the defconfig.
-> >>>>
-> >>>> Why? If there is no user of that, why would we want it? Your commit =
-msg
-> >>>> should explain that.
-> >>>
-> >>> Ack. This is for Tegra410 which has a DesignWare I3C host controller.
-> >>> I will add this in the commit message.
-> >>
-> >> Board or products. Not SoCs.
-> >=20
-> > Is this a new requirement? I see a bit of both in defconfig changes.
->=20
-> Almost every review from me has it for 2-3 years... And it is a known
-> thing since always in a bit different wording: we do not care about
-> downstream things and downstream products. defconfig does not serve
-> downstream at all, makes no sense outside of our (upstream) work.
+I've tested on S32N79 hardware. Without the quirk, the controller
+reaches Transmit-Error-Counter=128 (error-passive at HW level) but the
+driver only sees ERROR-WARNING - the passive interrupt never fires.
 
-I don't understand why you're turning this into a downstream vs.
-upstream discussion. This is all code that is being submitted upstream,
-because we want these new platforms with I3C support enabled upstream.
-It's as simple as that.
+With the quirk enabled, ERROR-PASSIVE is correctly reported.
+So FLEXCAN_QUIRK_BROKEN_PERR_STATE quirk is needed for S32N79.
 
-> > Some mention specific products, other mention SoCs. Does this
-> > requirement apply to DT platforms or also ACPI platforms?
->=20
-> Just like kernel, applies to all platforms, regardless of firmware
-> interface.
-
-Hm... again, I don't think there's every been a rule to the effect of
-needing to specify a particular platform or product when adding a new
-defconfig change. There's plenty of things that we're enabling in the
-defconfigs because we think they are generally useful.
-
-But alright, we'll either add more details to the commit message, or
-drop this patch entirely.
-
-Thierry
-
---qna5mk7v3eomnmx3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnD1+4ACgkQ3SOs138+
-s6FDCg//TEr1ZBNYM0xe8kwbmPyZIx3Vx3e28JVg+qyEspS58LsOeq9esxtRuXxS
-nbLyK6ZR2UMQSz8flsE3eTLe6uX2nS4M2ulMPPhiGmS68FWBMX87sjcgm838wRCY
-81kws1U2fMSmqX/4cPJ1GX+t0v5h33bMZR6NZnfQnuZA4XAUMpX8tc/yR1N7WkUM
-xx8snURBoY1HEyabSqye0F1kwIwBP4uD0Lp+BLb3WTcLnRlTShkmUiYN5XoIaZAr
-qqgERKNeG48lK8XB07DSNEi/vZF0SxMUvlv5xKZlK+G0m+Wdd8QaNrMqfZPQfvzk
-mT/ixvLEwmWhI6TjzbNeAh84MZoCNm6M1/khnUfiwECVZbiRubyO1f2MDwCC/Vej
-D8mZm0IKzSS1Nni8cccKarGjtf7AtziB6cTwmihlqpBvYCDMMtF/Pkz8JVX4rCSR
-F3F/dwnFWLHfzn9XIz0YFPQyeXYOjI8GpwdcCAYUv86M1c+b8hp6W2CDwdVhZrX6
-wcSAxuep2zqjuQ9qDMD+l2DHSuC4raYwmHR4SwkumNAUGumrOP5tGHpwPvcfzdBv
-W1vEzFjECkS6NxWfDxLtF3NbjKPbQ8WZHoKMmC8vQW8p5fd0WKHOfJjYSx9HSaET
-3Tk9L+O4ChP4yfX+vwPicJqk8Vo9yZUmeGXIN9hKUBBfYHR+tLQ=
-=TaJr
------END PGP SIGNATURE-----
-
---qna5mk7v3eomnmx3--
+Best Regards,
+Ciprian
