@@ -1,132 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8797927E05E;
-	Wed, 25 Mar 2026 08:51:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E5B39A06E
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 08:55:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774428713; cv=none; b=sKSFCWPXncIk6LKeSrDDK8ozDcqxhL4I+FzpbwZ/hlNJ2dLqHI5HNUAkcspgU5brE6Qw1aFPGcpJkrL2jlG65Tmlqq0d7gst0MpVZO25AlgkjTCxdpS0B9zdlCmjDToBOkvWPezxCuN0W2BuSqz1sAdukDEJ60LXcEhNoEw8QnA=
+	t=1774428904; cv=none; b=RpMkEHLoeCUEU13Rtjj2fiFJWqVom+hHXEKQR11boTDEj/Kw5P5NeJN12hRJwVG2OT8dWZQ+B73eR4jCWUQ1E/UVct1aWFqgehFF1B/sMLCiBj8aP/NkZr+P4syV7ZquwpPTWPJiiQYgLFEN5mWfJL8XxoZREjlo+lRZLW4KxJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774428713; c=relaxed/simple;
-	bh=wb0mpku6g4vk6LeYoqKTVgZtD079ouSEG5afLG7CYHo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nftf2ImoQNjFalmcayTxtG+yu50x3TVouFgdHShWretSJYZ63WP48gFT2BU5S9EXzjpf9ehTHDzKSKUqnwY3EaE1WsG0xWh/om7kNe7/iUApF1Xv8N+PW+UvrXD2Mf9jNwlRF4HGpJFD4l8Hd+GHMLGPU0CFKqw40l2wkX1MUjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b1e3/Kii; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774428904; c=relaxed/simple;
+	bh=uBNGX6/ohZpOh4VJX6xaJ9Yp3oIzzgxxBOENBpJ2j3Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cTN4GgPIUfPMomsjFI64zKoE+ScsjnZEwG75Y2Ygp0Lj3Zyq8p6kH1yxaK+Z2I95mIjYaNHbrMA+lWPM+kpvWWHDiSOIRjM2lHJWqTlLnUXEwbcoOGi3vNSB9zgcUk555U8tsoxOZMOMaooGbgPpZd/tnIgT8h84XVcyjmW2MNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vHX1DI1s; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b1e3/Kii"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67F3AC4CEF7;
-	Wed, 25 Mar 2026 08:51:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774428713;
-	bh=wb0mpku6g4vk6LeYoqKTVgZtD079ouSEG5afLG7CYHo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=b1e3/Kii8oNvJgJ1AntUStWco7jvCebnWCtuv9zQCi2oUsNeV3CcabZ/VnDWT/4Bu
-	 SdMcpnZUmux3R7PA238aj+buhQoQTRaRCXpWVo3lfGnlVNamvRsJHecUDO4uY4JETZ
-	 xHJynwGclZ7csipkKUqwqfdSbhr2yZe/cHdAo7WUa3IRdxgN7vSItNWj8/2zpJM8+z
-	 ZD01fhqLFQqk3slMEX+1PFlTdn7jeaS5TQm3vnMZ8RuoTjWtwNM3l4/A2ygJ2Hvbj0
-	 HyR0HIfxv2d4zYS9GJNQyVlSryBTgfJVvw36EgMl3VIff5tJxeQAebFY0sT7kqzmW+
-	 QsAWpfwuNt7wg==
-From: Mike Rapoport <rppt@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Mike Rapoport <rppt@kernel.org>
-Cc: Alexander Potapenko <glider@google.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Andreas Larsson <andreas@gaisler.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Brendan Jackman <jackmanb@google.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christian Brauner <brauner@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	David Hildenbrand <david@kernel.org>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Jan Kara <jack@suse.cz>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	"Liam R. Howlett" <Liam.Howlett@oracle.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Marco Elver <elver@google.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Michal Hocko <mhocko@suse.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Rob Herring <robh@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	devicetree@vger.kernel.org,
-	iommu@lists.linux.dev,
-	kasan-dev@googlegroups.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-efi@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-trace-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	sparclinux@vger.kernel.org,
-	x86@kernel.org,
-	Lorenzo Stoakes <ljs@kernel.org>
-Subject: Re: [PATCH v2 0/9] memblock: improve late freeing of reserved memory
-Date: Wed, 25 Mar 2026 10:51:37 +0200
-Message-ID: <177442863989.343689.8532363597437067519.b4-ty@b4>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260323074836.3653702-1-rppt@kernel.org>
-References: <20260323074836.3653702-1-rppt@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vHX1DI1s"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 50B401A2FED;
+	Wed, 25 Mar 2026 08:54:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1AE41601A1;
+	Wed, 25 Mar 2026 08:54:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9324910451011;
+	Wed, 25 Mar 2026 09:54:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1774428894; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=oifiJRo3htFrgRTCzmDDZEZuxfqk2csmmaaOHwOCET4=;
+	b=vHX1DI1s/eXFtZMGY9C175IeiDzLZHL5h0zIm4Swi/TMYstES0uFMexlPhbd9qFoSRkDRL
+	XEQReM0m7SEOVEpWx9d6bq0lnm+E6UW5GeDxAvxEjawyzMwdHz+3Zia657whad+FtQAWtO
+	42JCrWbGyZH1EzvquRmft8mDjQqrhqFDEaiAIsUYO4QxPFz2clEe5gFVUz3j0ryMXDvftB
+	rfgu+Ot9kls9JcEufgI2yruSS0g3T+U6Yw6/vsfstY7sIoEM+qoielZJND1Nvz0/xMQTCe
+	N7jWw78LFRlIf2p6PFACAOAjzThfPPauhEyJLoIKuHpoHwiikKdQ4fEwue14mA==
+Date: Wed, 25 Mar 2026 09:54:52 +0100
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Anushka Badhe <anushkabadhe@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	dsd@laptop.org, linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: rtc: Convert olpc,xo1-rtc to DT schema
+Message-ID: <202603250854523a8809af@mail.local>
+References: <20260325084708.40629-1-anushkabadhe@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260325084708.40629-1-anushkabadhe@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 23 Mar 2026 09:48:27 +0200, Mike Rapoport wrote:
-> From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+On 25/03/2026 14:17:08+0530, Anushka Badhe wrote:
+> Convert the OLPC XO-1 RTC device tree binding to DT schema format.
 > 
-> Hi,
+> Signed-off-by: Anushka Badhe <anushkabadhe@gmail.com>
+> ---
 > 
-> Following a recent discussion about leaks in x86 EFI [1], I audited usage of
-> memblock_free_late() and free_reserved_area() and made some imporovements how
-> we handle late freeing of the memory allocated with memblock.
+> Note:
+> * This patch is part of the GSoC2026 application process for device tree 
+> bindings conversions
+> * https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
 > 
-> [...]
+>  .../devicetree/bindings/rtc/olpc-xo1-rtc.txt  |  5 ----
+>  .../devicetree/bindings/rtc/olpc-xo1-rtc.yaml | 26 +++++++++++++++++++
+>  2 files changed, 26 insertions(+), 5 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt
+>  create mode 100644 Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt b/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt
+> deleted file mode 100644
+> index a2891ceb6344..000000000000
+> --- a/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt
+> +++ /dev/null
+> @@ -1,5 +0,0 @@
+> -OLPC XO-1 RTC
+> -~~~~~~~~~~~~~
+> -
+> -Required properties:
+> - - compatible : "olpc,xo1-rtc"
 
-Applied to for-next branch of memblock.git tree, thanks!
 
-[1/9] memblock: reserve_mem: fix end caclulation in reserve_mem_release_by_name()
-      commit: ea459d3c24fefd90b60a702f4a73833434ae0248
-[2/9] powerpc: fadump: pair alloc_pages_exact() with free_pages_exact()
-      commit: 6e827110aea5fb9c53a5bf070413ffe5cad105b0
-[3/9] powerpc: opal-core: pair alloc_pages_exact() with free_pages_exact()
-      commit: 3cf80188ecb828ed034ba562614cf1d48156b126
-[4/9] mm: move free_reserved_area() to mm/memblock.c
-      commit: 0aa264cda784f9fbe1a80ef13144cf81610086c7
-[5/9] memblock: make free_reserved_area() more robust
-      commit: 456ac994018598bc57ceaacb8a2c72e722c9755b
-[6/9] memblock: extract page freeing from free_reserved_area() into a helper
-      commit: 40191dae9ed84c816b593bb1b36a80f86c2279d1
-[7/9] memblock: make free_reserved_area() update memblock if ARCH_KEEP_MEMBLOCK=y
-      commit: b9e028ca869de24df00206d7ec640380670fc38f
-[8/9] memblock, treewide: make memblock_free() handle late freeing
-      commit: 64cb853c2ab4d8bd25b965f05e33ac0c6672bae7
-[9/9] memblock: warn when freeing reserved memory before memory map is initialized
-      commit: c7fc9cde41be029cf6675befbafcbb2dab40b39b
+I guess this should be move to trivial-rtc
 
-tree: https://git.kernel.org/pub/scm/linux/kernel/git/rppt/memblock
-branch: for-next
+> diff --git a/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.yaml b/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.yaml
+> new file mode 100644
+> index 000000000000..a5f029a4de92
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.yaml
+> @@ -0,0 +1,26 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/rtc/olpc-xo1-rtc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: OLPC XO-1 RTC
+> +
+> +maintainers:
+> +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - olpc,xo1-rtc
+> +
+> +required:
+> +  - compatible
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    rtc {
+> +       compatible = "olpc,xo1-rtc";
+> +    };
+> -- 
+> 2.43.0
+> 
 
---
-Sincerely yours,
-Mike.
-
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
