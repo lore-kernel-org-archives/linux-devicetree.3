@@ -1,96 +1,127 @@
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4513B8950
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 16:38:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A1B3D8905;
+	Wed, 25 Mar 2026 16:41:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774456715; cv=none; b=fmqTG6WCcWFQc3NO6unxnbyje1sazz1EU4G7YLUzjSshgrIatfNgQtTUgERRn74hKOH3TIFnOD5CqLmb1Sby0pVPLvjFJymR9fnRlOv22o6uX6G9uAhdZN1zvmYPUjnKkQktMv+pegJA0WtYr/6eRpoNdNLNh1ZYKasEeoeJc+E=
+	t=1774456878; cv=none; b=hAJC1ENCqjsTShz7WDhftC3RDdBCFgLO+Op5o8J5+neRigyddNYKNaFHepYBLILXjO/ksD5f/AR3l8AS94mnJq7mnZXX6HomBmW5h0p3XZ56gDoEbmWq+GvTMOatpUcjU+EHoX7bct9wqsA4FPylwgLkU6nUffzsEyRW36F2A50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774456715; c=relaxed/simple;
-	bh=y7ZVsokYwrOCxsUDPu81piViO80ENG+JI7klgqrWxGM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Pu5y4jlvgW7iqP08qnXZ+HRJvtCBgDQ2LWXqb8HqsGcuSKnzkfJznXvunUjHwL3xnHcw4PpWApPw/Iinj1aaKhUWjOC38DS365rW01e/EasPgjvjqBjNg/Fsn1qnrOCVuIC9oq0Kt8+aSlvF5lzVou1tjKzckoicFBOeIZUc+4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5675d609621so100108e0c.2
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:38:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774456711; x=1775061511;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PFcu8ieGkR264Mz98C/g1GKpVrWkvJMfG29A108tGUA=;
-        b=FhGhd736G0Jzz2EeQeprN1i0GdfmBSZQZ4Wecs1t/uOWn4ZXd9pR/RzI63Ydia9h1t
-         b5WjHahY1YiRsOsPKi7JakxbItA9gLNdVj/1TTRYQ6Ix/e44XK73RUdETvMgomUfNT+Q
-         7RaOI9tTEjrLaNfEmPI9h2DAEub3RYZ2GbTE/0Vau1W5IVUw5EOYmTvDDEx+aP1fwISz
-         AQXBSGEXUiSb9BO/hBdkB9zjdh/dbcahftjV8W83Ub4UGC7ozEYEJxDeiLApblzF+ORo
-         MJfWlcR3j9WP1YFNnGyN2+DOXRvPvnUEONxp7v6Xu6Kdq9sAa6EIfdHR1FOby9vV8pK7
-         svgw==
-X-Forwarded-Encrypted: i=1; AJvYcCUDjQSf02H7SAoQTZYJ7otz8TFmyfrCGt6Z0PHmYysR1MhLIxsrJv9aWlyFrD19nGdj7CyLL5Q6CSSf@vger.kernel.org
-X-Gm-Message-State: AOJu0YxzatXdyjUZQOfl/aj/Asm3YGPYfsgv2Md9pZ4DPTkHfAid9ALH
-	dVAiGN1bQ6eHR47C4O90NGLQamrM16Aspx2C+uYgSCCBnBG0S0VHrMbHc//Yy6eBGQA=
-X-Gm-Gg: ATEYQzx1HELmfzPDvH0KZlQywRWZV8ujUSsAP97bpzQIFTVr2xOQhVgNh4Cd1rlENwr
-	JuzVvSHzc7ec3vXToO3JwtIHCyVLIAT7/7yjmqGZVIbCVZbvsCz2ZBuNvLHFf/xtyqdcFFYaVo+
-	COMii7CESMbgLLcvT+ar1JJKGah0LdLPMT92jXPw9mr2swwztxIcGwIEHkGLTEqpocXpT/V+osj
-	a8pXY+TCq6oBlguMhMtJiJySFxNt8wmxfvU8nvY3sf7W5QGeaFPRxdsbi7vRfRMkiLdIOOfCWYG
-	tFOCeJg2Xt8eV18uLz7TqsE7aCA0XTPIHVgzI82GCAdL2xQRXtBZLPV4zS29pdHAH5tle1hOEqV
-	G1P1JcEFidfSySUMLZbLMSUGHeXyoyuw453BUB3CTctzGeCZmcCVhSQkGIv6ma5TYgdj/ZTOYyg
-	wS+4KO45Io+sXg4Hg0jL0BsCc1NzH7PvdU77GXsZSMo9NqjDazXy526RZ9NZOo
-X-Received: by 2002:a05:6123:163:b0:566:354d:9f4a with SMTP id 71dfb90a1353d-56d21f3d368mr2317404e0c.1.1774456710651;
-        Wed, 25 Mar 2026 09:38:30 -0700 (PDT)
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com. [209.85.222.42])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56d31bf7190sm470836e0c.3.2026.03.25.09.38.29
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Mar 2026 09:38:29 -0700 (PDT)
-Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-94de88e52e5so18721241.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:38:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCWOOMxXyduBFdzvdf4Q6cBptb36jyAZ2gzBWc42ylzr9ADM3PI+jY5F1QqBI/+QneeujyiJ1XjSoKLA@vger.kernel.org
-X-Received: by 2002:a05:6102:2912:b0:5ff:dabc:db3c with SMTP id
- ada2fe7eead31-60387434993mr2416423137.33.1774456709423; Wed, 25 Mar 2026
- 09:38:29 -0700 (PDT)
+	s=arc-20240116; t=1774456878; c=relaxed/simple;
+	bh=vtK7rSLmOZizMz4lOu2txEFWIOZihcAENkHz9Einb/Q=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pi0u3gAh17c+XlgHqEytuqwFqd+pm77nvrlp/ttjFw8T7tggdi5/G12PmU6hDRc38WipcPfhVTi3pNgu6MCs2oWaPiArGQdVtwASgKZqlEKMpL2DDygrXEdN9FJWqqTXg0ZXZLH5ZGWBI2jtwl+ptvUJvkHTKXXRn3aGcdJSqx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=En979Eku; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="En979Eku"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 87DB5C2BCB0;
+	Wed, 25 Mar 2026 16:41:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774456877;
+	bh=vtK7rSLmOZizMz4lOu2txEFWIOZihcAENkHz9Einb/Q=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=En979Eku+qvZsKfSn4jjAUbjbggnL5gq2Ibnvno3DzrEhSILZxBAS7QSoblws4YxW
+	 5rgmBqA4mL1PCReTdvObRE0eThDwEl3OWgxH0eze2LnrQevuaWPcKZUOrN7vxlO339
+	 Jc3n7n6v8A0t8Va2RT1NGZbFPt9fS+j4gzll6XCoGqQWj8AfsmskI2L9AeMc8bJdRK
+	 dXhQ1KPYzgfV5UNpM01WQb1lPtChszAQDw7C8p/B4AXNzV3CzkZbE0MrPYiYVbtOGS
+	 GEbvsHw6jtqRO6A1GWhz9qlvtbcloHZ1OwgBTtiyJjUTLdD+n9J1gk5ERG8CnvJeff
+	 cU3BU1twZeo3w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6FB39109C041;
+	Wed, 25 Mar 2026 16:41:17 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v3 0/3] ath10k: Introduce a devicetree quirk to skip host
+ cap QMI requests
+Date: Wed, 25 Mar 2026 17:41:11 +0100
+Message-Id: <20260325-skip-host-cam-qmi-req-v3-0-b163cf7b3c81@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260325162735.24467-1-aford173@gmail.com>
-In-Reply-To: <20260325162735.24467-1-aford173@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 25 Mar 2026 17:38:17 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdVnGv_vu7ZXWosGYP7-=c5wg71y0rHONUTrZCiJy5+shg@mail.gmail.com>
-X-Gm-Features: AQROBzAhdR6SWkA32yBTrlPDW0lwKRWOJknvBYfCLd5RT-Mwz1g2JnCkKIPxPxw
-Message-ID: <CAMuHMdVnGv_vu7ZXWosGYP7-=c5wg71y0rHONUTrZCiJy5+shg@mail.gmail.com>
-Subject: Re: [PATCH V2] arm64: dts: beacon-renesom-baseboard: Remove LVDS Panel
-To: Adam Ford <aford173@gmail.com>
-Cc: linux-renesas-soc@vger.kernel.org, marek.vasut@mailbox.org, 
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACcQxGkC/4WOS27DMAxErxJoXQaSErlyVrlHkQVr0zbRSHIo1
+ cgHvnsVX6CbAd5i3sxLZRKmrE67lxJaOHOKFQ4fO9VNGEcC7isrq60zxmjIPzzDlHKBDgPcAoP
+ QDcg411hP392hVbU7Cw1837xfl8qDpABlEsLNZhpttPPOGzDtsakJIxfIFHuggHwFDFz282/sW
+ c5Xjihpn2R8qyfOJclje7zY98B/5xYLGnSPw9E7bP0nnvle7d1TXdZ1/QPmdeibAwEAAA==
+X-Change-ID: 20251110-skip-host-cam-qmi-req-e155628ebc39
+To: Johannes Berg <johannes@sipsolutions.net>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Paul Sajna <sajattack@postmarketos.org>
+Cc: Amit Pundir <amit.pundir@linaro.org>, linux-wireless@vger.kernel.org, 
+ devicetree@vger.kernel.org, ath10k@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1865; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=vtK7rSLmOZizMz4lOu2txEFWIOZihcAENkHz9Einb/Q=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBpxBArTJ7PfpWkqgf/dBwhmh4IilQZcFtLdhKrY
+ 0cNZqsWLXuJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCacQQKwAKCRBgAj/E00kg
+ csJsEACKM0vsF6hpEzSHmJ0lYNQSj7bCkni9QQ5+PB4FQ/V/fhxXw5/NTjomHc5NDBcu9jFzVZi
+ kTx46Ars3CTwwhMClTb8+dnBzdTkGC2V9V+CBe+76+jCz8rR8WM07st6+3rsnIRS1d3Qg1/OT1S
+ tCDjwTy/Go9nCJeH9b02wseWUa8SWgVQItpXFwkB0PvmLXz0gWEu2DCoWn7Tq/wSd8ixG3+c/zU
+ aDeBma7exjYVaAg4sc9OG2j8biUe6tMWuFXt0Y0uys/Rqv6rM/EWHcWXPG7Et9Eusvs3qLAOBR/
+ LRFz8m2geTY2vWyWuKG0WaMgaE32VCDPq1st1qnHr94HC0Rhoo5m0C5/KbJegCedNfU1GVAU697
+ smIHLkSG8YvAIyGFrSxyVp7OhNWyr8sOaJhxF9apqDD2oAxKsE0ZMZRD9+ggAcS8wKV1W5oS/49
+ 69Ho3ypEm31JFw/ALPHtKCQgnrmBX6xF/5pcIrYjdDMPUZloV/4b9BcOx15j5lA4Mqu2DuXgTYH
+ r9pbBke/IXAVG2ClOeyru19Zvr5UzKVMbSw0/B2z4v/0BogFinvcuahduVJWv5cURVXO8MXoytg
+ SesbPIWgekWct70DNyIop6lYs+crUqxV1bG9LIibq5w5C+tfRdWfKU/bVPEUJ3mcc7AbKsdjha2
+ qaLtkSOtVRg8+HQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Wed, 25 Mar 2026 at 17:27, Adam Ford <aford173@gmail.com> wrote:
-> The LVDS Panel was never shipped from Beacon, and there are device
-> tree errors, so rather than trying to fix them, remove it instead.
->
-> Signed-off-by: Adam Ford <aford173@gmail.com>
-> ---
-> V2:  Add LVDS backlight, some power, pwm and pwm pins all associated with
-> the LVDS panel.
+This quirk is used so far used on:
+ - LG G7 ThinQ
+ - Xiaomi Poco F1
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.1.
+I'm resending it after ~ 4 years since initial send due to Snapdragon
+845 being one of best supported platform for mobile phones running
+Linux, so it would be shame to not have shiny support.
 
-Gr{oetje,eeting}s,
+Original thread:
+  https://lore.kernel.org/all/b796bfee-b753-479a-a8d6-ba1fe3ee6222@ixit.cz/
 
-                        Geert
+I tried the embedding the information inside the firmware, but the
+information is required *before* loading the firmware itself.
+Firmware quirk thread:
+  https://lore.kernel.org/linux-wireless/20251111-xiaomi-beryllium-firmware-v1-0-836b9c51ad86@ixit.cz/
 
+Until merged, available also at:
+  https://codeberg.org/sdm845/linux/commits/branch/b4/skip-host-cam-qmi-req
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v3:
+- Rebased on recent linux-next (next-20260325).
+- Improved motivation and description. (Dmitry)
+- Link to v2: https://lore.kernel.org/r/20251110-skip-host-cam-qmi-req-v2-0-0daf485a987a@ixit.cz
+
+---
+Amit Pundir (3):
+      dt-bindings: wireless: ath10k: Introduce quirk to skip host cap QMI requests
+      ath10k: Introduce a device-tree quirk to skip host cap QMI requests
+      arm64: dts: qcom: sdm845-xiaomi-beryllium: Enable ath10k host-cap skip quirk
+
+ .../devicetree/bindings/net/wireless/qcom,ath10k.yaml       |  6 ++++++
+ .../arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi |  1 +
+ drivers/net/wireless/ath/ath10k/qmi.c                       | 13 ++++++++++---
+ drivers/net/wireless/ath/ath10k/snoc.c                      |  3 +++
+ drivers/net/wireless/ath/ath10k/snoc.h                      |  1 +
+ 5 files changed, 21 insertions(+), 3 deletions(-)
+---
+base-commit: 85964cdcad0fac9a0eb7b87a0f9d88cc074b854c
+change-id: 20251110-skip-host-cam-qmi-req-e155628ebc39
+
+Best regards,
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+David Heidelberg <david@ixit.cz>
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+
