@@ -1,26 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D90E93F99FE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF7444070FC
 	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 14:51:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774450297; cv=none; b=ocsfDtxPlpb/0wCc2W/u4UnEr2EOZacytfPqDF/E96KrBS0KWRp3WX2MtDUaR2yop2hTL9qeA3U6RwCfzFMkkmmFp3GR2ELkYoTFEpNlVVpp/o+tmuJ8s9IW43L7uSj6ZUynoKOLZIEuq8eI1cSgBhhGP3Qev3gXaIjN5t1Sfw4=
+	t=1774450297; cv=none; b=Jl0gQP4kbA+BJjAAlWGxBYiZflfIRu8d2SmO+lkp2tNz27UE0x/CiCxj5a62aBnSStWpSqQ9CXC105kqhnX6c3orkCJ26LmKXzyW10jlqm6K3vSIRgWEwxKTFb51P33/GQf8vGmfwdHTDetmoI8+w9CfLJwXDDOrEKKroJ/Skx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774450297; c=relaxed/simple;
-	bh=+t1ljqFMMm+FTIySSjxYYzReYssRwxf1isY+1wLVCwM=;
+	bh=cH+QIdGv9CHGmBvpCSP+1qJWfJB8rOdt6vvgyGRyHPg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cZ4xcV3HVRT4hyCtwem8EmFBscQ3g7CAiFqq56mK2cY997RkepsuXzZRUIhTg+MAYxS6nvVrPhyBt8m+gFAoeEOgR450DntK21raZQsaBpxV30m0coUKWtt1DNtdIUIauGKuk7AULnRtK31Yg+yzxuf8L+WWg7WfmCbK8zQkJxg=
+	 In-Reply-To:To:Cc; b=J5PLzO8nfGjsUCnX1IBzkXxfljU00HE2ymLDIcaCh2GT2pIr8A7p94MaFqNnnrKUPgaKaj0N0PXPOxWli2Aab4rbelAHfjbv/KDemx+nvXYTNJ4ceTo3hBWvQaSxQoSQsH1p+9G1LvVcie+7E8gB7RcwYAoKNGFQrVWB43C/JVg=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1w5PZU-00050C-R0; Wed, 25 Mar 2026 15:51:00 +0100
+	id 1w5PZT-00050C-8W; Wed, 25 Mar 2026 15:50:59 +0100
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Wed, 25 Mar 2026 15:50:46 +0100
-Subject: [PATCH v4 15/27] media: rockchip: rga: prepare cmdbuf on streamon
+Date: Wed, 25 Mar 2026 15:50:36 +0100
+Subject: [PATCH v4 05/27] media: v4l2-common: add
+ v4l2_fill_pixfmt_mp_aligned helper
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -29,7 +30,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260325-spu-rga3-v4-15-e90ec1c61354@pengutronix.de>
+Message-Id: <20260325-spu-rga3-v4-5-e90ec1c61354@pengutronix.de>
 References: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
 In-Reply-To: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -42,119 +43,156 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@pengutronix.de, nicolas@ndufresne.ca, 
  sebastian.reichel@collabora.com, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
 X-Mailer: b4 0.15.0
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Prepare the command buffer on streamon to reuse it's contents instead of
-completely writing it for every frame. Due to the stream settings being
-fixed after a streamon we only need to replace the source and destination
-addresses for each frame. This reduces the amount of CPU and memory
-operations done in each frame.
+Add a v4l2_fill_pixfmt_mp_aligned helper which allows the user to
+specify a custom stride alignment in bytes. This is necessary for
+hardware like the Rockchip RGA3, which requires the stride value to be
+aligned to a 16 bytes boundary.
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+The code makes some assumptions about the v4l2 format to simplify the
+calculation. They currently hold for all known v4l2 formats.
+
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga-hw.c | 13 +++++++++----
- drivers/media/platform/rockchip/rga/rga.c    | 13 ++++++++++++-
- drivers/media/platform/rockchip/rga/rga.h    |  1 +
- 3 files changed, 22 insertions(+), 5 deletions(-)
+ drivers/media/v4l2-core/v4l2-common.c | 51 ++++++++++++++++++++++++++---------
+ include/media/v4l2-common.h           |  4 +++
+ 2 files changed, 43 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index 16380be598e4a..dcd540ed3fd5b 100644
---- a/drivers/media/platform/rockchip/rga/rga-hw.c
-+++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -417,8 +417,6 @@ static void rga_cmd_set(struct rga_ctx *ctx,
- {
- 	struct rockchip_rga *rga = ctx->rga;
- 
--	memset(ctx->cmdbuf_virt, 0, RGA_CMDBUF_SIZE * 4);
--
- 	rga_cmd_set_src_addr(ctx, src->dma_desc_pa);
- 	/*
- 	 * Due to hardware bug,
-@@ -427,11 +425,9 @@ static void rga_cmd_set(struct rga_ctx *ctx,
- 	rga_cmd_set_src1_addr(ctx, dst->dma_desc_pa);
- 
- 	rga_cmd_set_dst_addr(ctx, dst->dma_desc_pa);
--	rga_cmd_set_mode(ctx);
- 
- 	rga_cmd_set_src_info(ctx, &src->offset);
- 	rga_cmd_set_dst_info(ctx, &dst->offset);
--	rga_cmd_set_trans_info(ctx);
- 
- 	rga_write(rga, RGA_CMD_BASE, ctx->cmdbuf_phy);
- 
-@@ -440,6 +436,14 @@ static void rga_cmd_set(struct rga_ctx *ctx,
- 				   PAGE_SIZE, DMA_BIDIRECTIONAL);
+diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
+index 2b5ccedeb6841..d64d7e76c834d 100644
+--- a/drivers/media/v4l2-core/v4l2-common.c
++++ b/drivers/media/v4l2-core/v4l2-common.c
+@@ -431,14 +431,28 @@ static inline unsigned int v4l2_format_block_height(const struct v4l2_format_inf
  }
  
-+static void rga_hw_setup_cmdbuf(struct rga_ctx *ctx)
-+{
-+	memset(ctx->cmdbuf_virt, 0, RGA_CMDBUF_SIZE * 4);
-+
-+	rga_cmd_set_mode(ctx);
-+	rga_cmd_set_trans_info(ctx);
-+}
-+
- static void rga_hw_start(struct rockchip_rga *rga,
- 			 struct rga_vb_buffer *src,  struct rga_vb_buffer *dst)
+ static inline unsigned int v4l2_format_plane_stride(const struct v4l2_format_info *info, int plane,
+-						    unsigned int width)
++						    unsigned int width, u8 byte_alignment)
  {
-@@ -582,6 +586,7 @@ const struct rga_hw rga2_hw = {
- 	.max_height = MAX_HEIGHT,
- 	.stride_alignment = 4,
+ 	unsigned int hdiv = plane ? info->hdiv : 1;
+ 	unsigned int aligned_width =
+ 		ALIGN(width, v4l2_format_block_width(info, plane));
  
-+	.setup_cmdbuf = rga_hw_setup_cmdbuf,
- 	.start = rga_hw_start,
- 	.handle_irq = rga_handle_irq,
- 	.get_version = rga_get_version,
-diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index 16a663aeef8c9..d111b348255e2 100644
---- a/drivers/media/platform/rockchip/rga/rga.c
-+++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -568,6 +568,17 @@ static int vidioc_s_selection(struct file *file, void *priv,
- 	return ret;
+-	return DIV_ROUND_UP(aligned_width, hdiv) *
+-	       info->bpp[plane] / info->bpp_div[plane];
++	/*
++	 * Formats with a single memory plane derive the stride of the
++	 * other planes from the y stride. Due to chroma subsampling this
++	 * may cause the other plane strides to break the byte_alignment.
++	 * Increase the alignment if necessary to prevent this.
++	 *
++	 * It assumes the following format properties:
++	 * - bpp_div[0] == bpp_div[1]
++	 * - The multiplication factor doesn't differ between the non y planes
++	 */
++	if (info->mem_planes == 1 && info->comp_planes > 1 && plane == 0)
++		byte_alignment *= info->hdiv * info->bpp[0] / info->bpp[1];
++
++	return ALIGN(DIV_ROUND_UP(aligned_width, hdiv) * info->bpp[plane] /
++			     info->bpp_div[plane],
++		     byte_alignment);
  }
  
-+static int vidioc_streamon(struct file *file, void *priv,
-+			   enum v4l2_buf_type type)
+ static inline unsigned int v4l2_format_plane_height(const struct v4l2_format_info *info, int plane,
+@@ -452,9 +466,10 @@ static inline unsigned int v4l2_format_plane_height(const struct v4l2_format_inf
+ }
+ 
+ static inline unsigned int v4l2_format_plane_size(const struct v4l2_format_info *info, int plane,
+-						  unsigned int width, unsigned int height)
++						  unsigned int width, unsigned int height,
++						  u8 stride_alignment)
+ {
+-	return v4l2_format_plane_stride(info, plane, width) *
++	return v4l2_format_plane_stride(info, plane, width, stride_alignment) *
+ 	       v4l2_format_plane_height(info, plane, height);
+ }
+ 
+@@ -475,8 +490,9 @@ void v4l2_apply_frmsize_constraints(u32 *width, u32 *height,
+ }
+ EXPORT_SYMBOL_GPL(v4l2_apply_frmsize_constraints);
+ 
+-int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt,
+-			u32 pixelformat, u32 width, u32 height)
++int v4l2_fill_pixfmt_mp_aligned(struct v4l2_pix_format_mplane *pixfmt,
++				u32 pixelformat, u32 width, u32 height,
++				u8 stride_alignment)
+ {
+ 	const struct v4l2_format_info *info;
+ 	struct v4l2_plane_pix_format *plane;
+@@ -493,23 +509,34 @@ int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt,
+ 
+ 	if (info->mem_planes == 1) {
+ 		plane = &pixfmt->plane_fmt[0];
+-		plane->bytesperline = v4l2_format_plane_stride(info, 0, width);
++		plane->bytesperline = v4l2_format_plane_stride(info, 0, width,
++							       stride_alignment);
+ 		plane->sizeimage = 0;
+ 
+ 		for (i = 0; i < info->comp_planes; i++)
+ 			plane->sizeimage +=
+-				v4l2_format_plane_size(info, i, width, height);
++				v4l2_format_plane_size(info, i, width, height,
++						       stride_alignment);
+ 	} else {
+ 		for (i = 0; i < info->comp_planes; i++) {
+ 			plane = &pixfmt->plane_fmt[i];
+ 			plane->bytesperline =
+-				v4l2_format_plane_stride(info, i, width);
++				v4l2_format_plane_stride(info, i, width,
++							 stride_alignment);
+ 			plane->sizeimage = plane->bytesperline *
+ 				v4l2_format_plane_height(info, i, height);
+ 		}
+ 	}
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt_mp_aligned);
++
++int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt,
++			u32 pixelformat, u32 width, u32 height)
 +{
-+	struct rga_ctx *ctx = file_to_rga_ctx(file);
-+	const struct rga_hw *hw = ctx->rga->hw;
-+
-+	hw->setup_cmdbuf(ctx);
-+
-+	return v4l2_m2m_streamon(file, ctx->fh.m2m_ctx, type);
++	return v4l2_fill_pixfmt_mp_aligned(pixfmt, pixelformat,
++					   width, height, 1);
 +}
-+
- static const struct v4l2_ioctl_ops rga_ioctl_ops = {
- 	.vidioc_querycap = vidioc_querycap,
+ EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt_mp);
  
-@@ -592,7 +603,7 @@ static const struct v4l2_ioctl_ops rga_ioctl_ops = {
- 	.vidioc_subscribe_event = v4l2_ctrl_subscribe_event,
- 	.vidioc_unsubscribe_event = v4l2_event_unsubscribe,
+ int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt, u32 pixelformat,
+@@ -529,12 +556,12 @@ int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt, u32 pixelformat,
+ 	pixfmt->width = width;
+ 	pixfmt->height = height;
+ 	pixfmt->pixelformat = pixelformat;
+-	pixfmt->bytesperline = v4l2_format_plane_stride(info, 0, width);
++	pixfmt->bytesperline = v4l2_format_plane_stride(info, 0, width, 1);
+ 	pixfmt->sizeimage = 0;
  
--	.vidioc_streamon = v4l2_m2m_ioctl_streamon,
-+	.vidioc_streamon = vidioc_streamon,
- 	.vidioc_streamoff = v4l2_m2m_ioctl_streamoff,
+ 	for (i = 0; i < info->comp_planes; i++)
+ 		pixfmt->sizeimage +=
+-			v4l2_format_plane_size(info, i, width, height);
++			v4l2_format_plane_size(info, i, width, height, 1);
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt);
+diff --git a/include/media/v4l2-common.h b/include/media/v4l2-common.h
+index 401d8506c24b5..edd416178c333 100644
+--- a/include/media/v4l2-common.h
++++ b/include/media/v4l2-common.h
+@@ -558,6 +558,10 @@ int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt, u32 pixelformat,
+ 		     u32 width, u32 height);
+ int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt, u32 pixelformat,
+ 			u32 width, u32 height);
++/* @stride_alignment is a power of 2 value in bytes */
++int v4l2_fill_pixfmt_mp_aligned(struct v4l2_pix_format_mplane *pixfmt,
++				u32 pixelformat, u32 width, u32 height,
++				u8 stride_alignment);
  
- 	.vidioc_g_selection = vidioc_g_selection,
-diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index 38518146910a6..c741213710b32 100644
---- a/drivers/media/platform/rockchip/rga/rga.h
-+++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -152,6 +152,7 @@ struct rga_hw {
- 	u32 max_width, max_height;
- 	u8 stride_alignment;
- 
-+	void (*setup_cmdbuf)(struct rga_ctx *ctx);
- 	void (*start)(struct rockchip_rga *rga,
- 		      struct rga_vb_buffer *src, struct rga_vb_buffer *dst);
- 	bool (*handle_irq)(struct rockchip_rga *rga);
+ /**
+  * v4l2_get_link_freq - Get link rate from transmitter
 
 -- 
 2.53.0
