@@ -1,151 +1,122 @@
-Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8977372670;
-	Wed, 25 Mar 2026 14:06:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DC83D1CCF;
+	Wed, 25 Mar 2026 14:07:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774447609; cv=none; b=dBc0QymmIfK3by17MJhLE6gy00foqYh4tWSA7duaP064k1kBjVMco1gmrtXWcWwQN848ZoFgip3Zr0ZLsgdx4Gjt6NXalLYbeK3HTR2xX7iTdaO/56oCO/2L5J6+2Htf0v7E69a3aFIX40EWIg8OMoI7enyCBfBqMNJSJjn6A44=
+	t=1774447665; cv=none; b=XZBIUQ7utdeB2iZCR2/lHKAMYyZ0O0daHdhbSuV0ttzKwRuW5bIGjypAx1eNuyMnXMB3b4gFC/0gBixnVm53ldp3jbt21/GkX0DC0oGLQbrclP69dGz90DMAvgn7oyOhmVdY+JOReI+Ez/Tqgkh9+Cc+mDDUHcYdhT7Sh9rV1D0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774447609; c=relaxed/simple;
-	bh=DEYpTaNunbjC4iWnem1Kupd0V7h5J3IaGpb9FI2MAIo=;
-	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JhhGFx7PiVQBqIwM2xl1sX/vw7CB4kElKvUmOHc13KJ7uIgVcILbuM/e92pAIVi7B8b1/16EkPBiCBj5bybJBTxZDRjlob5aWqUUjEIQZNm3CttdDQ5TrX99MMO2kTAVxe4U6Kz/gEX6hFqJj69ikMZvPLbm7beWQrnJ1649ejE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; arc=none smtp.client-ip=185.176.79.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Received: from mail.maildlp.com (unknown [172.18.224.150])
-	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4fgpc21sP7zJ46FB;
-	Wed, 25 Mar 2026 22:06:26 +0800 (CST)
-Received: from dubpeml500005.china.huawei.com (unknown [7.214.145.207])
-	by mail.maildlp.com (Postfix) with ESMTPS id DDAB54056A;
-	Wed, 25 Mar 2026 22:06:34 +0800 (CST)
-Received: from localhost (10.203.177.15) by dubpeml500005.china.huawei.com
- (7.214.145.207) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 25 Mar
- 2026 14:06:34 +0000
-Date: Wed, 25 Mar 2026 14:06:33 +0000
-From: Jonathan Cameron <jonathan.cameron@huawei.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: Sirat <email@sirat.me>, <linux-iio@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <jic23@kernel.org>, <dlechner@baylibre.com>,
-	<nuno.sa@analog.com>, <andy@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v7 1/2] dt-bindings: iio: proximity: add ST VL53L1X ToF
- sensor
-Message-ID: <20260325140633.0000059c@huawei.com>
-In-Reply-To: <f27bfbe4-aa90-4631-b96b-efb8465b05d4@kernel.org>
-References: <20260325063254.18062-1-email@sirat.me>
-	<20260325063254.18062-2-email@sirat.me>
-	<20260325-gentle-earthworm-of-progress-1f9f46@quoll>
-	<CANn+LW+Y6j0xk2x02-BUL9qNq2gf-PXspi4wP_KGd7Abz3hOYw@mail.gmail.com>
-	<4d10b6c0-d599-4fc5-b9ed-ce669ac46e84@kernel.org>
-	<CANn+LWJQM45rAT+mzS9ZEGBgmqChbxUtStdzhbzthXUPJ=2csg@mail.gmail.com>
-	<20260325133806.00007b68@huawei.com>
-	<f27bfbe4-aa90-4631-b96b-efb8465b05d4@kernel.org>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
+	s=arc-20240116; t=1774447665; c=relaxed/simple;
+	bh=DpURZcXkBbkFBwlbeNEBfAP/4j2pXtXvGs65Z8r1tnU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Vqw8a2AFAAJLiBUw96M0J8CifZ01vle8CNN4X5uI1MzAt5aFWAQCDH6HXerjjzTNIlss2FRtfi5KLkK5HxBg0O4fa4f7YHB2bEYmjIgWPqZbeCUzzGIcXNn6yCf8PcfvuOrejC0hiBB1ev4J4d96E+YZUxbuJ4laEipe6bG4bzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KhXwXFB5; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KhXwXFB5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF144C116C6;
+	Wed, 25 Mar 2026 14:07:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774447665;
+	bh=DpURZcXkBbkFBwlbeNEBfAP/4j2pXtXvGs65Z8r1tnU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=KhXwXFB5LNz6aa+ELS2GXM9Q+eBg93c+8zFNhDXIBy3E2zp/GowL1RFP3H5NY4qDX
+	 4o7UU8e1vDEEE5Xin1ORdcZTTSWsd0V+eeUbSGqmERUs9Ba0rtja0NN4QWLYdEhi0C
+	 PhJvKUcBEvPVdpIfaOUBett0aGKu9Atvr5/i0dY5xgyNwPG1h2pjDWEx429lRbiHxX
+	 pcF+D3uEWBFJhJ+LvsIfROwcz6766iv6AFDfzrGVBx7rRusH17U8Fau1GGHeNuGIfC
+	 YEhXy0z/+tkkZzlBba0lF7Lm4z9cPQFGm/bJ0DIcglSRAl5kZFLGtdeN9hieoc85YB
+	 r8oysMvYiBo4A==
+Message-ID: <ded77d4e-7ec3-4f3c-863c-2c0ef490e494@kernel.org>
+Date: Wed, 25 Mar 2026 15:07:40 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: lhrpeml500011.china.huawei.com (7.191.174.215) To
- dubpeml500005.china.huawei.com (7.214.145.207)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V3 2/3] dt-bindings: net: Fix Tegra234 MGBE PTP clock
+To: Jon Hunter <jonathanh@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org
+References: <20260325135811.148480-1-jonathanh@nvidia.com>
+ <20260325135811.148480-3-jonathanh@nvidia.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260325135811.148480-3-jonathanh@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, 25 Mar 2026 14:44:13 +0100
-Krzysztof Kozlowski <krzk@kernel.org> wrote:
+On 25/03/2026 14:58, Jon Hunter wrote:
+> The PTP clock for the Tegra234 MGBE device is incorrectly named
+> 'ptp-ref' and should be 'ptp_ref'. This is causing the following
+> warning to be observed on Tegra234 platforms that use this device:
+> 
+>  ERR KERN tegra-mgbe 6800000.ethernet eth0: Invalid PTP clock rate
+>  WARNING KERN tegra-mgbe 6800000.ethernet eth0: PTP init failed
+> 
+> Although this constitutes an ABI breakage in the binding for this
+> device, PTP support has clearly never worked and so fix this now
+> so we can correct the device-tree for this device. Note that the
 
-> On 25/03/2026 14:38, Jonathan Cameron wrote:
-> > On Wed, 25 Mar 2026 15:18:05 +0600
-> > Sirat <email@sirat.me> wrote:
-> >  =20
-> >> On Wed, Mar 25, 2026 at 2:58=E2=80=AFPM Krzysztof Kozlowski <krzk@kern=
-el.org> wrote: =20
-> >>>
-> >>> On 25/03/2026 09:48, Sirat wrote:   =20
-> >>>> On Wed, Mar 25, 2026 at 2:05=E2=80=AFPM Krzysztof Kozlowski <krzk@ke=
-rnel.org> wrote:   =20
-> >>>>>
-> >>>>> On Wed, Mar 25, 2026 at 12:32:22PM +0600, Siratul Islam wrote:   =20
-> >>>>>> Add device tree binding documentation for the STMicroelectronics
-> >>>>>> VL53L1X Time-of-Flight ranging sensor connected via I2C.
-> >>>>>>
-> >>>>>> Make vdd-supply required. The device requires power to operate
-> >>>>>> and the property should have been required from the start.   =20
-> >>>>>
-> >>>>> That's ABI break and device for many years was working fine, so this
-> >>>>> should not be changed.
-> >>>>>   =20
-> >>>> Jonathan and David asked that vdd-supply be made required. I feel li=
-ke
-> >>>> there is a conflict here that I am not able to resolve myself.
-> >>>>
-> >>>> What I think about it is the binding does not correctly describe the
-> >>>> hardware and we should consider this a bug and fix it.
-> >>>> The driver worked because of a fallback mechanism (dummy/fake
-> >>>> regulator) and not because power was optional.
-> >>>>   =20
-> >>>
-> >>>
-> >>> I looked at v6 and v5 and I do not see such comment for binding that
-> >>> existing device should change ABI. Can you point me to it?
-> >>>   =20
-> >> "Make it required and add a note to the commit message to say why the
-> >> requirement should always have been there. Devices tend not to work
-> >> with no power." - Jonathan (v3:
-> >> https://lore.kernel.org/linux-iio/20260322115704.10b2e0d4@jic23-huawei)
-> >>
-> >> "No, bindings should not depend on driver implementation." - David
-> >> (When I asked if I should  drop the hard requirement in the binding,
-> >> v6: https://lore.kernel.org/linux-iio/55e92148-b5de-4fb8-af0b-94762353=
-41bc@baylibre.com/)
-> >>
-> >> "From the point of view of the devicetree, it doesn't matter what the
-> >> driver does. It matters that the chip can't work without power. ;-)" -
-> >> David (v1: https://lore.kernel.org/linux-iio/d0ec6a2f-6d30-4774-8950-1=
-5dd3c4b020b@baylibre.com)
-> >>
-> >> I'm not sure if this is the correct way to quote. But I have added the=
- links. =20
-> >=20
-> > This came up a few years back - though I doubt I can track down the
-> > exact discussion however.
-> >=20
-> > From a Linux point of view we are breaking binding checks only if the
-> > supply (that should always have been there as chips tend not to work
-> > well without power) is not present.  We absolutely have to
-> > keep the driver running whether or not the supply is specified.
-> > Do other DT users provide such a constraint? I've no idea.
-> >=20
-> > If the DT maintainer preference is leave it not required (perhaps
-> > with a comment saying new users of the binding should supply it)
-> > then that's fine by me. I'll keep it in mind for future similar changes=
-. =20
->=20
-> If this was other ABI, e.g. clock, then answer would be - do not require
-> it, because that's ABI break. Therefore I would stick to that also to
-> regulators. Once Rob also expressed such thoughts, although noting that
-> it is not that big deal.
->=20
-> New device in this binding of course should require the supply.
-Seems my memory was less than perfect on this :=20
-https://lore.kernel.org/linux-iio/20241119140409.GA1093349-robh@kernel.org/=
-#t
+I don't understand that explanation.
 
-Rob expressed that we are inconsistent on this, but he'd rather not
-have regulators as a special case.
+Driver dwmac-tegra.c: ptp-ref
+Binding: ptp-ref
+DTS: ptp-ref
 
-So let's only make this required for the new device.=20
+but you say that nothing was working correctly?
 
-Thanks,
+Judging by these three - driver+binding+dts - obvious fix is no fix
+because everything was fine, so please clarify the exact problem.
 
-J
-
->=20
-> Best regards,
-> Krzysztof
->=20
-
+Best regards,
+Krzysztof
