@@ -1,211 +1,294 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286CE3D524D;
-	Wed, 25 Mar 2026 17:20:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96AA3F9F42
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 17:21:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774459242; cv=none; b=K07zh4u9YdWAfqXT0YHslNanNN3aOgCZiEm1tWtIx52ec06kB8wS2A7OnioGSCNJ4s+U4lUYx1E4B4qc6dcEosOLLvxKxs+EkCeOzox2eXucng1oVf9/fu+Nm2kTOUElLtmeawLuJB25afkFzlVTjuHUxj2V/mZ/pNpn1dOAFSE=
+	t=1774459315; cv=none; b=Ri1QcuGNC4kAX4KBLyF3cssXRwZLy7uHAftiUPSt1IVcKJnPM+qyPOLg0glkLmHomyPvMieYK/RpUaZDvYmuw37PnDdnJVpsCFmRvroFPGwiHWWKpkqVo/HEy0+3Svp6ZOP6mcWPk1gGoQRcw15aWgjtTj2PEdGSCXp78YCCCQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774459242; c=relaxed/simple;
-	bh=87ANUPwrxb6++vBNh0D9MjQBUBMaaSCz5VPN+5B8Hls=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B5DWPWYk2J4th++wqshPB/VwHXq5TZxiSm7DVWZAlzS+YctXUOXG5NI1LrDuQ4FU+e+oEHoEusTDalej8inczQw1BpnnV8vw69pYot1zVRyKhZ9TuYXtyTLcm4OPB1/PNdByNFLRR22tu5kQxlixJz9d9w0nGRXv/XCsDTdolKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c+kHYstz; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c+kHYstz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F94FC4CEF7;
-	Wed, 25 Mar 2026 17:20:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774459241;
-	bh=87ANUPwrxb6++vBNh0D9MjQBUBMaaSCz5VPN+5B8Hls=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=c+kHYstzCCrbYem4xPebqnN0kbeAozRm4sEI7Qg0SJwVcpTCrt2qK+IPs2s7BpoTe
-	 FIWRSOBRvmxHV5AqbFxjLsvp7m7jhfhINyf0fZTsS3HIPIbWWAIL7bfosEXM0KslFf
-	 SCvVXejGKwQJ5HsDOknWchqnoIcxw18idz+LfTT40IXMOhIhDz0TzNLo6mopfu+Yzd
-	 PA+HGZ4bzGl5hoD0Vm4bCauYOxWao0thUXy6Fz5vfSPTxkBQ4QozH1zyvP+BYfSeS1
-	 M9eagg8mk7UcgCRaa0A4eZyUlTATuYaLARHJov8aW9Ff8NvYeZlLPeaER3JZ5F4oH7
-	 VhiVooJAwHyfg==
-Date: Wed, 25 Mar 2026 17:20:36 +0000
-From: Lee Jones <lee@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] mfd: arizona: Convert GPIO IRQ handling to
- descriptors
-Message-ID: <20260325172036.GF1141718@google.com>
-References: <20260319-mfd-arizona-irq-v3-0-24c251377ec2@kernel.org>
- <20260319-mfd-arizona-irq-v3-2-24c251377ec2@kernel.org>
+	s=arc-20240116; t=1774459315; c=relaxed/simple;
+	bh=RGoLyAUw8t6ofdf1nnPfBBx1IsggToI1EOe1J9z5b9o=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=sxlY5CkRq5D0sQeZblCYHySJRMYRuyDWf5QIJLTsUguNPp4Xa6NQplvjBZTgD3HDLsyzer6JKz8N598zPPoSQRtRUWncRwuxDFqchMu9uBRERbAMIWSu4eexurm6IIHEKvzihU4ENUTeeOosGMmJLVuG9Zkqx9Jmmtk4NDYs4MQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w5RvG-0006FR-RU; Wed, 25 Mar 2026 18:21:38 +0100
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w5RvG-0025yM-1l;
+	Wed, 25 Mar 2026 18:21:38 +0100
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w5RvG-00000000Ehq-1u0w;
+	Wed, 25 Mar 2026 18:21:38 +0100
+Message-ID: <526371c3755ea7f65e46f80326742225f72fa581.camel@pengutronix.de>
+Subject: Re: [PATCH v5 03/10] reset: Add Realtek basic reset support
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>, mturquette@baylibre.com, 
+	sboyd@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ 	cylee12@realtek.com, afaerber@suse.com, jyanchou@realtek.com
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com, 
+	cy.huang@realtek.com, stanley_chang@realtek.com
+Date: Wed, 25 Mar 2026 18:21:38 +0100
+In-Reply-To: <20260324025332.3416977-4-eleanor.lin@realtek.com>
+References: <20260324025332.3416977-1-eleanor.lin@realtek.com>
+	 <20260324025332.3416977-4-eleanor.lin@realtek.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260319-mfd-arizona-irq-v3-2-24c251377ec2@kernel.org>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-On Thu, 19 Mar 2026, Linus Walleij wrote:
-
-> Convert the arizona polling GPIO handling to use a GPIO descripor
-> instead of passing a global GPIO number as platform data.
-
-s/descripor/descriptor/
-
-> 
-> This mechanism is not used in the kernel, but let's preserve
-> the mechanism to be nice.
-> 
-> Users can define "irq-gpios" in the devicetree or software node
-> for the Arizona chip to provide the GPIO line corresponding to
-> the IRQ.
-> 
-> Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
+On Di, 2026-03-24 at 10:53 +0800, Yu-Chun Lin wrote:
+> From: Cheng-Yu Lee <cylee12@realtek.com>
+>=20
+> Define the reset operations backed by a regmap-based register
+> interface and prepare the reset controller to be registered
+> through the reset framework.
+>=20
+> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
 > ---
->  drivers/mfd/arizona-irq.c         | 45 ++++++++++++++++++---------------------
->  include/linux/mfd/arizona/core.h  |  2 ++
->  include/linux/mfd/arizona/pdata.h |  5 -----
->  3 files changed, 23 insertions(+), 29 deletions(-)
-> 
-> diff --git a/drivers/mfd/arizona-irq.c b/drivers/mfd/arizona-irq.c
-> index 544016d420fe..b6f63031268e 100644
-> --- a/drivers/mfd/arizona-irq.c
-> +++ b/drivers/mfd/arizona-irq.c
-> @@ -136,21 +136,19 @@ static irqreturn_t arizona_irq_thread(int irq, void *data)
->  			dev_err(arizona->dev,
->  				"Failed to read main IRQ status: %d\n", ret);
->  		}
-> -#ifdef CONFIG_GPIOLIB_LEGACY
->  		/*
->  		 * Poll the IRQ pin status to see if we're really done
->  		 * if the interrupt controller can't do it for us.
->  		 */
-> -		if (!arizona->pdata.irq_gpio) {
-> +		if (!arizona->irq_gpiod) {
->  			break;
->  		} else if (arizona->pdata.irq_flags & IRQF_TRIGGER_RISING &&
-> -			   gpio_get_value_cansleep(arizona->pdata.irq_gpio)) {
-> +			   gpiod_get_value_cansleep(arizona->irq_gpiod)) {
->  			poll = true;
->  		} else if (arizona->pdata.irq_flags & IRQF_TRIGGER_FALLING &&
-> -			   !gpio_get_value_cansleep(arizona->pdata.irq_gpio)) {
-> +			   !gpiod_get_value_cansleep(arizona->irq_gpiod)) {
->  			poll = true;
->  		}
-> -#endif
->  	} while (poll);
->  
->  	pm_runtime_put_autosuspend(arizona->dev);
-> @@ -350,27 +348,25 @@ int arizona_irq_init(struct arizona *arizona)
->  		goto err_map_main_irq;
->  	}
->  
-> -#ifdef CONFIG_GPIOLIB_LEGACY
-> -	/* Used to emulate edge trigger and to work around broken pinmux */
-> -	if (arizona->pdata.irq_gpio) {
-> -		if (gpio_to_irq(arizona->pdata.irq_gpio) != arizona->irq) {
-> -			dev_warn(arizona->dev, "IRQ %d is not GPIO %d (%d)\n",
-> -				 arizona->irq, arizona->pdata.irq_gpio,
-> -				 gpio_to_irq(arizona->pdata.irq_gpio));
-> -			arizona->irq = gpio_to_irq(arizona->pdata.irq_gpio);
-> -		}
-> -
-> -		ret = devm_gpio_request_one(arizona->dev,
-> -					    arizona->pdata.irq_gpio,
-> -					    GPIOF_IN, "arizona IRQ");
-> -		if (ret != 0) {
-> -			dev_err(arizona->dev,
-> -				"Failed to request IRQ GPIO %d:: %d\n",
-> -				arizona->pdata.irq_gpio, ret);
-> -			arizona->pdata.irq_gpio = 0;
-> +	/*
-> +	 * Used to emulate edge trigger and to work around broken pinmux
-> +	 * define "irq-gpios" in device tree or software node.
-> +	 */
-> +	arizona->irq_gpiod = devm_gpiod_get_optional(arizona->dev, "irq",
-> +						     GPIOD_IN);
-> +	if (IS_ERR(arizona->irq_gpiod)) {
-> +		ret = PTR_ERR(arizona->irq_gpiod);
-> +		dev_err(arizona->dev, "error getting IRQ GPIO (%d)\n", ret);
+> Changes in v5:
+> - Created drivers/reset/realtek/ directory and include/linux/reset/realte=
+k.h.
+> - Extracted the common reset helpers:
+>  - Moved the source code to drivers/reset/realtek/common.c and
+>  - the header to include/linux/reset/realtek.h
+> - Renamed rtk_reset_bank to rtk_reset_desc.
+> - Added 'bits' member to rtk_reset_desc structure.
+> - Removed rtk_reset_get_id() and rtk_reset_get_bank() helper.
+> - Introduced rtk_reset_get_desc().
+> ---
+>  MAINTAINERS                    |  1 +
+>  drivers/reset/Kconfig          |  1 +
+>  drivers/reset/Makefile         |  1 +
+>  drivers/reset/realtek/Kconfig  |  3 ++
+>  drivers/reset/realtek/Makefile |  2 +
+>  drivers/reset/realtek/common.c | 91 ++++++++++++++++++++++++++++++++++
+>  include/linux/reset/realtek.h  | 25 ++++++++++
+>  7 files changed, 124 insertions(+)
+>  create mode 100644 drivers/reset/realtek/Kconfig
+>  create mode 100644 drivers/reset/realtek/Makefile
+>  create mode 100644 drivers/reset/realtek/common.c
+>  create mode 100644 include/linux/reset/realtek.h
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 721356d4c02c..9419b0497e0b 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -22229,6 +22229,7 @@ L:	devicetree@vger.kernel.org
+>  L:	linux-clk@vger.kernel.org
+>  S:	Supported
+>  F:	Documentation/devicetree/bindings/clock/realtek*
+> +F:	drivers/reset/realtek/*
+>  F:	include/dt-bindings/clock/realtek*
+> =20
+>  REALTEK SPI-NAND
+> diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+> index 7ce151f6a7e4..03be1931f264 100644
+> --- a/drivers/reset/Kconfig
+> +++ b/drivers/reset/Kconfig
+> @@ -398,6 +398,7 @@ config RESET_ZYNQMP
+> =20
+>  source "drivers/reset/amlogic/Kconfig"
+>  source "drivers/reset/hisilicon/Kconfig"
+> +source "drivers/reset/realtek/Kconfig"
+>  source "drivers/reset/spacemit/Kconfig"
+>  source "drivers/reset/starfive/Kconfig"
+>  source "drivers/reset/sti/Kconfig"
+> diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
+> index fc0cc99f8514..4407d1630070 100644
+> --- a/drivers/reset/Makefile
+> +++ b/drivers/reset/Makefile
+> @@ -2,6 +2,7 @@
+>  obj-y +=3D core.o
+>  obj-y +=3D amlogic/
+>  obj-y +=3D hisilicon/
+> +obj-y +=3D realtek/
+>  obj-y +=3D spacemit/
+>  obj-y +=3D starfive/
+>  obj-y +=3D sti/
+> diff --git a/drivers/reset/realtek/Kconfig b/drivers/reset/realtek/Kconfi=
+g
+> new file mode 100644
+> index 000000000000..99a14d355803
+> --- /dev/null
+> +++ b/drivers/reset/realtek/Kconfig
+> @@ -0,0 +1,3 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +config RESET_RTK_COMMON
+> +	bool
+> diff --git a/drivers/reset/realtek/Makefile b/drivers/reset/realtek/Makef=
+ile
+> new file mode 100644
+> index 000000000000..b59a3f7f2453
+> --- /dev/null
+> +++ b/drivers/reset/realtek/Makefile
+> @@ -0,0 +1,2 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +obj-$(CONFIG_RESET_RTK_COMMON) +=3D common.o
+> diff --git a/drivers/reset/realtek/common.c b/drivers/reset/realtek/commo=
+n.c
+> new file mode 100644
+> index 000000000000..b9e3219dc8f7
+> --- /dev/null
+> +++ b/drivers/reset/realtek/common.c
+> @@ -0,0 +1,91 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2019 Realtek Semiconductor Corporation
+> + */
+> +
+> +#include <linux/device.h>
+> +#include <linux/of.h>
+> +#include <linux/regmap.h>
+> +#include <linux/reset-controller.h>
+> +#include <linux/reset/realtek.h>
+> +
+> +struct rtk_reset_data {
+> +	struct reset_controller_dev rcdev;
+> +	struct rtk_reset_desc *descs;
+> +	struct regmap *regmap;
+> +};
+> +
+> +static inline struct rtk_reset_data *to_rtk_reset_controller(struct rese=
+t_controller_dev *r)
+> +{
+> +	return container_of(r, struct rtk_reset_data, rcdev);
+> +}
+> +
+> +static inline struct rtk_reset_desc *rtk_reset_get_desc(struct rtk_reset=
+_data *data,
+> +							unsigned long idx)
+> +{
+> +	return &data->descs[idx];
+> +}
+> +
+> +static int rtk_reset_assert(struct reset_controller_dev *rcdev,
+> +			    unsigned long idx)
+> +{
+> +	struct rtk_reset_data *data =3D to_rtk_reset_controller(rcdev);
+> +	struct rtk_reset_desc *desc =3D rtk_reset_get_desc(data, idx);
+> +	u32 mask =3D desc->write_en ? (0x3 << desc->bit) : BIT(desc->bit);
+> +	u32 val  =3D desc->write_en ? (0x2 << desc->bit) : 0;
+> +
+> +	return regmap_update_bits(data->regmap, desc->ofs, mask, val);
+> +}
+> +
+> +static int rtk_reset_deassert(struct reset_controller_dev *rcdev,
+> +			      unsigned long idx)
+> +{
+> +	struct rtk_reset_data *data =3D to_rtk_reset_controller(rcdev);
+> +	struct rtk_reset_desc *desc =3D rtk_reset_get_desc(data, idx);
+> +	u32 mask =3D desc->write_en ? (0x3 << desc->bit) : BIT(desc->bit);
+> +	u32 val  =3D mask;
+> +
+> +	return regmap_update_bits(data->regmap, desc->ofs, mask, val);
+> +}
+> +
+> +static int rtk_reset_status(struct reset_controller_dev *rcdev,
+> +			    unsigned long idx)
+> +{
+> +	struct rtk_reset_data *data =3D to_rtk_reset_controller(rcdev);
+> +	struct rtk_reset_desc *desc =3D rtk_reset_get_desc(data, idx);
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(data->regmap, desc->ofs, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return !((val >> desc->bit) & 1);
+> +}
+> +
+> +static const struct reset_control_ops rtk_reset_ops =3D {
+> +	.assert   =3D rtk_reset_assert,
+> +	.deassert =3D rtk_reset_deassert,
+> +	.status   =3D rtk_reset_status,
+> +};
+> +
+> +int rtk_reset_controller_add(struct device *dev,
+> +			     struct rtk_reset_initdata *initdata)
+> +{
+> +	struct rtk_reset_data *data;
+> +
+> +	data =3D devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	data->regmap          =3D initdata->regmap;
+> +	data->descs           =3D initdata->descs;
+> +	data->rcdev.owner     =3D THIS_MODULE;
+> +	data->rcdev.ops       =3D &rtk_reset_ops;
+> +	data->rcdev.dev       =3D dev;
+> +	data->rcdev.of_node   =3D dev->of_node;
+> +	data->rcdev.nr_resets =3D initdata->num_descs;
+> +
+> +	return devm_reset_controller_register(dev, &data->rcdev);
+> +}
+> +EXPORT_SYMBOL_GPL(rtk_reset_controller_add);
 
-Since this function is called from the probe path and may return
--EPROBE_DEFER, should we use `dev_err_probe()` here to handle deferred
-probing correctly?
+Please implement this as an auxiliary device driver. Move the
+rtk_reset_initdata definitions in here and select them based on either
+auxiliary_device_id (see imx8mp-audiomix or spacemit) or of_device_id
+(see eyeq).
+The regmap can be retrieved from the parent (clk device) via
+dev_get_regmap (see imx8mp-audiomix).
 
-> +		goto err_irq_gpiod;
-> +	}
-> +	if (arizona->irq_gpiod) {
-> +		if (gpiod_to_irq(arizona->irq_gpiod) != arizona->irq) {
-> +			dev_warn(arizona->dev, "IRQ %d is not right GPIO\n",
-> +				 arizona->irq);
+> diff --git a/include/linux/reset/realtek.h b/include/linux/reset/realtek.=
+h
+> new file mode 100644
+> index 000000000000..3c2226e3ed26
+> --- /dev/null
+> +++ b/include/linux/reset/realtek.h
+> @@ -0,0 +1,25 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef __LINUX_RESET_REALTEK_H__
+> +#define __LINUX_RESET_REALTEK_H__
+> +
+> +#include <linux/types.h>
+> +
+> +struct device;
+> +struct regmap;
+> +
+> +struct rtk_reset_desc {
+> +	u32 ofs;
+> +	u32 bit;
+> +	u32 write_en;
+> +};
+> +
+> +struct rtk_reset_initdata {
+> +	struct rtk_reset_desc *descs;
+> +	u32 num_descs;
+> +	struct regmap *regmap;
+> +};
+> +
+> +int rtk_reset_controller_add(struct device *dev,
+> +			     struct rtk_reset_initdata *initdata);
+> +
+> +#endif /* __LINUX_RESET_REALTEK_H__ */
 
-How about a little for info for the user:
+With the above suggested changes, this header is not necessary.
 
-  "IRQ %d does not match GPIO's IRQ %d"
-
-> +			arizona->irq = gpiod_to_irq(arizona->irq_gpiod);
->  		}
-> +		gpiod_set_consumer_name(arizona->irq_gpiod, "arizona IRQ");
->  	}
-> -#endif
->  
->  	ret = request_threaded_irq(arizona->irq, NULL, arizona_irq_thread,
->  				   flags, "arizona", arizona);
-> @@ -409,6 +405,7 @@ int arizona_irq_init(struct arizona *arizona)
->  	arizona_free_irq(arizona, ARIZONA_IRQ_BOOT_DONE, arizona);
->  err_boot_done:
->  	free_irq(arizona->irq, arizona);
-> +err_irq_gpiod:
->  err_main_irq:
->  	regmap_del_irq_chip(irq_find_mapping(arizona->virq,
->  					     ARIZONA_MAIN_IRQ_INDEX),
-> diff --git a/include/linux/mfd/arizona/core.h b/include/linux/mfd/arizona/core.h
-> index 6d6f96b2b29f..7129651c9af6 100644
-> --- a/include/linux/mfd/arizona/core.h
-> +++ b/include/linux/mfd/arizona/core.h
-> @@ -11,6 +11,7 @@
->  #define _WM_ARIZONA_CORE_H
->  
->  #include <linux/clk.h>
-> +#include <linux/gpio/consumer.h>
->  #include <linux/interrupt.h>
->  #include <linux/notifier.h>
->  #include <linux/regmap.h>
-> @@ -136,6 +137,7 @@ struct arizona {
->  	struct irq_domain *virq;
->  	struct regmap_irq_chip_data *aod_irq_chip;
->  	struct regmap_irq_chip_data *irq_chip;
-> +	struct gpio_desc *irq_gpiod;
->  
->  	bool hpdet_clamp;
->  	unsigned int hp_ena;
-> diff --git a/include/linux/mfd/arizona/pdata.h b/include/linux/mfd/arizona/pdata.h
-> index f72e6d4b14a7..20118bad869a 100644
-> --- a/include/linux/mfd/arizona/pdata.h
-> +++ b/include/linux/mfd/arizona/pdata.h
-> @@ -188,11 +188,6 @@ struct arizona_pdata {
->  	/** Haptic actuator type */
->  	unsigned int hap_act;
->  
-> -#ifdef CONFIG_GPIOLIB_LEGACY
-> -	/** GPIO for primary IRQ (used for edge triggered emulation) */
-> -	int irq_gpio;
-> -#endif
-> -
->  	/** General purpose switch control */
->  	unsigned int gpsw;
->  };
-> 
-> -- 
-> 2.53.0
-> 
-
--- 
-Lee Jones [李琼斯]
+regards
+Philipp
