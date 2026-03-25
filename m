@@ -1,431 +1,101 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7336E3E0240
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 14:27:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAC83E0C54
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 14:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774448824; cv=none; b=rRdBC1IS9VNlsWNhK0Hq2/EP4cNRi30fndFq9y1NAL42JngjKZEX0F2WvwyfeLK0hvtmP3rEUyR3YeNSrH9UrwkZ3lLhy5vD/9o5AsduSECnQXfJSCPMML1q2/9Uvok1LV2sAwAIyUzi0PImHyfr1qWKieVeHjkaR2jgeuJ/6gE=
+	t=1774448980; cv=none; b=YKBeDBBnjj6wSwDaVPJU0A92UsyMSAf8sVVK/4d1QnvxkwQisfDaYQjJCrMp9fC6jc7BSbS2GULam0aPV3rRhfgQjoi08+nulRHrE8QEG+RiJP/JAUmCcaHsazm5ZzAYMaFB3nQRMWFpY6u+yY6ybKvAotqyzmfsjhMDaB8j44A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774448824; c=relaxed/simple;
-	bh=6rM1Y5tXQgRjp8JOga4MDFoZW2JHjvyTAhbBJqByPnk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i4wnxvmgTAfbc/AEUU3otWGSbGerUcV9THcqmIfKq8AVskqFbk+/VaKpm+8h1MGg0ro+u1mSiXEaaiQeGyGS1Y9SpGOhXr7BXtwfbT2zGoGgMGCnxv/7B8RGahsqQcRJJBRAg/D0FJ/yIAnx1DJF1LinjwP7N9Q5+amLfT4xLdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ghe2LJB2; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Dg3NvRVX; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ghe2LJB2";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Dg3NvRVX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1774448820;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KWGD4hQPLoVQRo9t8LEnKi+4d5KyybuIU/ivYgViFIE=;
-	b=Ghe2LJB2pKpuxoCOozcBCng1z/RofCGJZfkH7o3Yf6jIOWM3cfiylcOmwUEMIjTPSTZnt6
-	2Ubo7F9aXc9U0tq/2tFNdVpmhZDOIvYG2m6L95TLv5kV8gpHJ1xtbluYFugxK678n4BVMO
-	6DeGcvUG0WexF9qOVQszi7YiolBSur4=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-190-XGIp0uieOSWbeXxCQk5h4g-1; Wed, 25 Mar 2026 10:26:59 -0400
-X-MC-Unique: XGIp0uieOSWbeXxCQk5h4g-1
-X-Mimecast-MFC-AGG-ID: XGIp0uieOSWbeXxCQk5h4g_1774448818
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-89c4d85d619so377270546d6.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 07:26:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1774448818; x=1775053618; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KWGD4hQPLoVQRo9t8LEnKi+4d5KyybuIU/ivYgViFIE=;
-        b=Dg3NvRVXx+gjpCLmCByxuGpzJwGhrw80M8NQmZdgangsWb4dpxxIuc4L3E8Eo0AfYO
-         EpIuhui3VBCyvWI27oKg73Kz0uoCDIDNTF2qrZqul3a4jlN8CNO7WeBzrmBWLdnG5Zip
-         8aX6sts4E4PPecnZ97Q27cJd4LYSy/ptqmX5TmObj8YU4rK6UcxJMFgEDZY8T3hVHzZS
-         fVQ1i7Oto5Hsp3Uw9qx3y2YPXxotarLetyaQxFMb/wzkAHL/DXx0FqFAO36RHWOkfSFe
-         nLrifrhkblRs6u+NDQ/KrE4i2BTMoDK+wf+9dnTm8oaZ6q+gVdQlaZ/dtiSz3n3Iq48Z
-         ARMw==
+	s=arc-20240116; t=1774448980; c=relaxed/simple;
+	bh=pC3PtyrMmcEpGp+hfMhfoNh9MzNjqP+1TIbBKnXeEMA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SE9fx0s34pZzb9UxCoFydISk/XSM7A/M/uMUELcSUWQ7A06kl8tB/QoIXfCHKcGtTTH1INQQN6AdXqRojSC3zjXA91Ly/eglDX+yIj2xbkW0KlNrea5c9+ZHVVZKZdYObsHaDvu/JW0F70f4akSw8sl2LCdHuL1nAQ6gxWkrcEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-56b6c7c8d00so4104941e0c.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 07:29:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774448818; x=1775053618;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=KWGD4hQPLoVQRo9t8LEnKi+4d5KyybuIU/ivYgViFIE=;
-        b=DdeLvMRQGkRuWOP2IRTcS78jNV56H0ubsDSmj3HM3hhkM2+KQ3ZFi7Fdnh1NTwfI1U
-         I/lV9RR56Do8CyFvB6R+9jpT49x0VX44UJ54L5459VBt2DpROVcO1VQq9NnbzNKhlu9P
-         XIgP7UnRmCGrbXRGrzKruSnvJQGzjK/CpkzaX57OsBBb47zGrCUyfandY2KALrTstBpc
-         UPVtwbZSpkHvE2pl7jHnOYHHmvkpbXrgmZMbSaaiV77n/Qy/oBhmCP7p2aIf+0Kc7XR9
-         zKASesc98rcvij3lWwqD02WadK1J6HW0LHunRWTCQ2l4OI1ic4CyXFXhiaF5JawOr47q
-         ok5w==
-X-Forwarded-Encrypted: i=1; AJvYcCUjnydHi0S3xU65F8YGf47bV+XmBg7fPS0LIgoTZqjpv3/O63+DF1rG0++IqXUP9eZk8J6eaywAvJ6u@vger.kernel.org
-X-Gm-Message-State: AOJu0YzMTQyhaK2TWVk6/AR2OCYYWCN7TfP+3ZiYAg3iO/nb9wIsLPcv
-	bbKPQmU2fUC1/AgGUMH3OmnsB/4X3oB9Y1RytBzwo4Rqn9MZjJIQx/4dmUOP9RfFEGpbxiy2o7g
-	nGdIGD3KSlutA5gKmyrpXmT9+S11HS5FvuxCNrcd2HO4Tfpt4Sdls1g2SBTDrV8s=
-X-Gm-Gg: ATEYQzwAUZrY6iqI2SuqP0y6iRGIqA/1BoJuRDM7F5KTtWrksswN2gL1yMBT/Zcw3Gl
-	9RqwMS/0P9MgWoKwkPCG/iiQfDTmJPumwzJdr9oLIEM1WQEuqEnKBeU3Js5EV6p94g+o74DHu/P
-	clmBMP4iZb9bIIdOqm3tj7kbCae/b2NNe4rcNfvyWrLzaj6qKMsJ8JdtdT9/a1/sy1mZoqXEYuk
-	/ugOgo6cvhr7tlGQ0KW/a4U1tJgHi0l70jVW/DQjHdI10Iz0HynlHNCy8SpEG0SkAJDvQo7gNp2
-	UEGnpdwCNtGJlhRcbUKItmaNwnw2pwL3xjQbQnfyGKsScCLhATvtMy7urMxAXzRsd7z3ucVAXVn
-	oSdrb8r4w4mVK7yWQQ68A242Mm9h7rz+lJWfWrXmOAXmAmCiusucBfhiZ
-X-Received: by 2002:a05:6214:319e:b0:89a:b20:9f4e with SMTP id 6a1803df08f44-89cc4a445a8mr52199296d6.17.1774448818303;
-        Wed, 25 Mar 2026 07:26:58 -0700 (PDT)
-X-Received: by 2002:a05:6214:319e:b0:89a:b20:9f4e with SMTP id 6a1803df08f44-89cc4a445a8mr52198596d6.17.1774448817701;
-        Wed, 25 Mar 2026 07:26:57 -0700 (PDT)
-Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-89cad854addsm68276376d6.48.2026.03.25.07.26.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 07:26:56 -0700 (PDT)
-Date: Wed, 25 Mar 2026 10:26:54 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Stephen Boyd <sboyd@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Frank Binns <frank.binns@imgtec.com>,
-	Matt Coster <matt.coster@imgtec.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
-	Icenowy Zheng <icenowy@aosc.io>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] clk: mediatek: Add mt8173-mfgtop driver
-Message-ID: <acPwruNQpLQg7W2A@redhat.com>
-References: <20260325071951.544031-1-wenst@chromium.org>
- <20260325071951.544031-3-wenst@chromium.org>
+        d=1e100.net; s=20251104; t=1774448978; x=1775053778;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7isK/Dbl65EI3Rm86FPt2M8EyGlg1PW9pqCn5jlwq8k=;
+        b=BsWqNENIJUDnZpcmF8F1CMnhl1TKkzheAOZL4JnwJ+TkeNduDaeJTwHgXkJX7sge+9
+         DNDA5elXYDy7gWwkXrc6f4kq96pdWVuwejiGkN5Zc68ptYRzB9dzAIEWhFFolnUMdw02
+         pvbiqzyOMXnAehaeUxyh+3j/0Pq8a+6LQI6qSYEtUQlF5X+s8GOiuqFHhrl5HOEQMFCd
+         Bzs3X7EJNO4zDxSyd7e7EgFPrfn2QcT7iVo9QsilgvvvwAFeutiGD9GMjbcAGQ/m3DNQ
+         zn/1MWv09qzzOQUfUDI26X8D+T5BXs2ZobjCvvHfPMaM23PjveDLagASslF35UQ1K2yW
+         Icng==
+X-Forwarded-Encrypted: i=1; AJvYcCUpjax1pgHi0/doIf6pwimd33Cf+3BPF2vQ/YUmKjuiXRyXt+zC+fJJX+/oH90qc5vKmASdXLVkkgeV@vger.kernel.org
+X-Gm-Message-State: AOJu0YzjNyCZGwc8+I1ooa3ZWdkoWROz5l/Fr00yIeuzY9iFV66MHUxU
+	zv2yEZFaA47dnWkaHxzRUE9NM/0SJVygJGVFlwlqeG2jzQFuY0FrZ0G16nyqj7JQEH0=
+X-Gm-Gg: ATEYQzwIqUyuP/x8jsupIC2vJE5D6QAPrIaiT1Pn2MKC7aWu5gDLxmEaPcscRQQ07cw
+	bGQ6trYW+pm5WZ3zJvgyBdc7lpyWT+QSRJ/k56UjQZ4gC6sZa5X11pn1YX/l05nTRfUQzpIDVBk
+	rntfOuc/XPCZlZEIrh0Cg8BGeR+GSHyAK0BjR2b5EsDpvWFk/HS6qr9uBVVrdBXTURERNkgfSMy
+	9i3LMzfGGWbJIKBE8pvZ/2aQd4AIDppWOQJmXXwtOpNugsYuIc/l5ZLT2V/GitmHoCA7nZkmfZZ
+	XNVJkDDmvRBeQCQ8py2nCZ6qOgcsy4Qgv9Iu+eQG14RNhqxkUwZAHFlBoo0EloX+nXnhH26gNj/
+	lZEc0XLxeFwDFKIkSC3CIzMqxDCTF/UWFcY3TGD/MNdmBra36TYmfTsF3coDvnEEpePXgclXEZE
+	yE6A2QFP3t2NU7zJcducikjG/pApW+8cZPKaWNxkwB3PDgAzE6VyKO/Kthe+56Ua4VYlAWF94af
+	qs=
+X-Received: by 2002:a05:6122:4f9a:b0:56b:8ba0:fd6a with SMTP id 71dfb90a1353d-56d21d07a9dmr2121520e0c.0.1774448978327;
+        Wed, 25 Mar 2026 07:29:38 -0700 (PDT)
+Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com. [209.85.221.175])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56cddc7f877sm20580154e0c.10.2026.03.25.07.29.36
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Mar 2026 07:29:36 -0700 (PDT)
+Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5675d609621so4993538e0c.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 07:29:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCWSePUS/oFt3r4vs21L44Eow9OXcwY7xMiGytomvFAJOafhrx1WZk1oWnulnQ9ZuO+jwGyAJRmnUz5B@vger.kernel.org
+X-Received: by 2002:a05:6102:4bc5:b0:602:7627:6c4f with SMTP id
+ ada2fe7eead31-60387238034mr1950349137.17.1774448976166; Wed, 25 Mar 2026
+ 07:29:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260325071951.544031-3-wenst@chromium.org>
-User-Agent: Mutt/2.3.0 (2026-01-25)
+References: <20260313164008.40933-1-marek.vasut+renesas@mailbox.org> <20260313164008.40933-5-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260313164008.40933-5-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 25 Mar 2026 15:29:25 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdViXzq0H0UwZori2gh2Tcd6o4ssoGkXmJfFFwiL5AwHwg@mail.gmail.com>
+X-Gm-Features: AQROBzAzZX42-SVVM7_zKELfgnu5iQhGBNJzdGqfYMua7CEfqTRedVMpWqUArVY
+Message-ID: <CAMuHMdViXzq0H0UwZori2gh2Tcd6o4ssoGkXmJfFFwiL5AwHwg@mail.gmail.com>
+Subject: Re: [PATCH 4/4] arm64: dts: renesas: Fix KSZ9131 PHY bogus
+ txdv-skew-psec property
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, 
+	Biju Das <biju.das.jz@bp.renesas.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Mar 25, 2026 at 03:19:46PM +0800, Chen-Yu Tsai wrote:
-> The MFG (GPU) block on the MT8173 has a small glue layer, named MFG_TOP
-> in the datasheet, that contains clock gates, some power sequence signal
-> delays, and other unknown registers that get toggled when the GPU is
-> powered on.
-> 
-> The clock gates are exposed as clocks provided by a clock controller,
-> while the power sequencing bits are exposed as one singular power domain.
-> 
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-> ---
-> Changes since v1:
-> - Reduce tab after GATE_MFG() by one tab
-> - Move of_match_clk_mt8173_mfgtop to just before clk_mt8173_mfgtop_drv
-> - Rename power domain to "mfg-top"
-> - Add FORCE_ABORT and ACTIVE_PWRCTL_EN bits and explicitly clear
->   ACTIVE_PWRCTL_EN bit
-> ---
->  drivers/clk/mediatek/Kconfig             |   9 +
->  drivers/clk/mediatek/Makefile            |   1 +
->  drivers/clk/mediatek/clk-mt8173-mfgtop.c | 243 +++++++++++++++++++++++
->  3 files changed, 253 insertions(+)
->  create mode 100644 drivers/clk/mediatek/clk-mt8173-mfgtop.c
-> 
-> diff --git a/drivers/clk/mediatek/Kconfig b/drivers/clk/mediatek/Kconfig
-> index 2c09fd729bab..8dbd9f14be62 100644
-> --- a/drivers/clk/mediatek/Kconfig
-> +++ b/drivers/clk/mediatek/Kconfig
-> @@ -537,6 +537,15 @@ config COMMON_CLK_MT8173_IMGSYS
->  	help
->  	  This driver supports MediaTek MT8173 imgsys clocks.
->  
-> +config COMMON_CLK_MT8173_MFGTOP
-> +	tristate "Clock and power driver for MediaTek MT8173 mfgtop"
-> +	depends on COMMON_CLK_MT8173
-> +	default COMMON_CLK_MT8173
-> +	select PM_GENERIC_DOMAINS
-> +	select PM_GENERIC_DOMAINS_OF
-> +	help
-> +	  This driver supports MediaTek MT8173 mfgtop clocks and power domain.
-> +
->  config COMMON_CLK_MT8173_MMSYS
->         tristate "Clock driver for MediaTek MT8173 mmsys"
->         depends on COMMON_CLK_MT8173
-> diff --git a/drivers/clk/mediatek/Makefile b/drivers/clk/mediatek/Makefile
-> index d8736a060dbd..892a54eeb281 100644
-> --- a/drivers/clk/mediatek/Makefile
-> +++ b/drivers/clk/mediatek/Makefile
-> @@ -82,6 +82,7 @@ obj-$(CONFIG_COMMON_CLK_MT8167_VDECSYS) += clk-mt8167-vdec.o
->  obj-$(CONFIG_COMMON_CLK_MT8173) += clk-mt8173-apmixedsys.o clk-mt8173-infracfg.o \
->  				   clk-mt8173-pericfg.o clk-mt8173-topckgen.o
->  obj-$(CONFIG_COMMON_CLK_MT8173_IMGSYS) += clk-mt8173-img.o
-> +obj-$(CONFIG_COMMON_CLK_MT8173_MFGTOP) += clk-mt8173-mfgtop.o
->  obj-$(CONFIG_COMMON_CLK_MT8173_MMSYS) += clk-mt8173-mm.o
->  obj-$(CONFIG_COMMON_CLK_MT8173_VDECSYS) += clk-mt8173-vdecsys.o
->  obj-$(CONFIG_COMMON_CLK_MT8173_VENCSYS) += clk-mt8173-vencsys.o
-> diff --git a/drivers/clk/mediatek/clk-mt8173-mfgtop.c b/drivers/clk/mediatek/clk-mt8173-mfgtop.c
-> new file mode 100644
-> index 000000000000..9e18f34166ae
-> --- /dev/null
-> +++ b/drivers/clk/mediatek/clk-mt8173-mfgtop.c
-> @@ -0,0 +1,243 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) 2024 Google LLC
-> + * Author: Chen-Yu Tsai <wenst@chromium.org>
-> + *
-> + * Based on driver in downstream ChromeOS v5.15 kernel.
-> + *
-> + * Copyright (c) 2014 MediaTek Inc.
-> + * Author: Chiawen Lee <chiawen.lee@mediatek.com>
-> + */
-> +
-> +#include <dt-bindings/clock/mt8173-clk.h>
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm_domain.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/regmap.h>
-> +
-> +#include "clk-gate.h"
-> +#include "clk-mtk.h"
-> +
-> +static const struct mtk_gate_regs mfg_cg_regs = {
-> +	.sta_ofs = 0x0000,
-> +	.clr_ofs = 0x0008,
-> +	.set_ofs = 0x0004,
-> +};
-> +
-> +#define GATE_MFG(_id, _name, _parent, _shift, _flags)	\
-> +	GATE_MTK_FLAGS(_id, _name, _parent, &mfg_cg_regs, _shift, &mtk_clk_gate_ops_setclr, _flags)
-> +
-> +/* TODO: The block actually has dividers for the core and mem clocks. */
-> +static const struct mtk_gate mfg_clks[] = {
-> +	GATE_MFG(CLK_MFG_AXI, "mfg_axi", "axi_mfg_in_sel", 0, CLK_SET_RATE_PARENT),
-> +	GATE_MFG(CLK_MFG_MEM, "mfg_mem", "mem_mfg_in_sel", 1, CLK_SET_RATE_PARENT),
-> +	GATE_MFG(CLK_MFG_G3D, "mfg_g3d", "mfg_sel", 2, CLK_SET_RATE_PARENT),
-> +	GATE_MFG(CLK_MFG_26M, "mfg_26m", "clk26m", 3, 0),
-> +};
-> +
-> +static const struct mtk_clk_desc mfg_desc = {
-> +	.clks = mfg_clks,
-> +	.num_clks = ARRAY_SIZE(mfg_clks),
-> +};
-> +
-> +struct mt8173_mfgtop_data {
-> +	struct clk_hw_onecell_data *clk_data;
-> +	struct regmap *regmap;
-> +	struct generic_pm_domain genpd;
-> +	struct of_phandle_args parent_pd, child_pd;
-> +	struct clk *clk_26m;
-> +};
-> +
-> +/* Delay count in clock cycles */
-> +#define MFG_ACTIVE_POWER_CON0	0x24
-> + #define RST_B_DELAY_CNT	GENMASK(7, 0)	/* pwr_rst_b de-assert delay during power-up */
-> + #define CLK_EN_DELAY_CNT	GENMASK(15, 8)	/* CLK_DIS deassert delay during power-up */
-> + #define CLK_DIS_DELAY_CNT	GENMASK(23, 16)	/* CLK_DIS assert delay during power-down */
-> + #define FORCE_ABORT		BIT(30)		/* write 1 to force abort a power event */
-> + #define ACTIVE_PWRCTL_EN	BIT(31)		/* enable ACTIVE_POWER */
-> +
-> +#define MFG_ACTIVE_POWER_CON1	0x28
-> + #define PWR_ON_S_DELAY_CNT	GENMASK(7, 0)	/* pwr_on_s assert delay during power-up */
-> + #define ISO_DELAY_CNT		GENMASK(15, 8)	/* ISO assert delay during power-down */
-> + #define ISOOFF_DELAY_CNT	GENMASK(23, 16)	/* ISO de-assert delay during power-up */
-> + #define RST__DELAY_CNT		GENMASK(31, 24) /* pwr_rsb_b assert delay during power-down */
+On Fri, 13 Mar 2026 at 17:40, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> The KSZ9131 schema does not document "txdv-skew-psec" property, neither
+> does the kernel driver support this property. It does however document
+> and support "txen-skew-psec" property. Fix what is likely a copy-paste
+> error from the matching "rxdv-skew-psec" property, use "txen-skew-psec"
+> property instead of "txdv-skew-psec" property.
+>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Is the double underscore expected in the name?
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.1.
 
-> +
-> +static int clk_mt8173_mfgtop_power_on(struct generic_pm_domain *domain)
-> +{
-> +	struct mt8173_mfgtop_data *data = container_of(domain, struct mt8173_mfgtop_data, genpd);
-> +
-> +	/* drives internal power management */
-> +	clk_prepare_enable(data->clk_26m);
-> +
-> +	/* Power on/off delays for various signals */
-> +	regmap_write(data->regmap, MFG_ACTIVE_POWER_CON0,
+Gr{oetje,eeting}s,
 
-Should the return value of clk_prepare_enable() and regmap_write() be
-checked?
+                        Geert
 
-> +		     FIELD_PREP(RST_B_DELAY_CNT, 77) |
-> +		     FIELD_PREP(CLK_EN_DELAY_CNT, 61) |
-> +		     FIELD_PREP(CLK_DIS_DELAY_CNT, 60) |
-> +		     FIELD_PREP(ACTIVE_PWRCTL_EN, 0));
-> +	regmap_write(data->regmap, MFG_ACTIVE_POWER_CON1,
-> +		     FIELD_PREP(PWR_ON_S_DELAY_CNT, 11) |
-> +		     FIELD_PREP(ISO_DELAY_CNT, 68) |
-> +		     FIELD_PREP(ISOOFF_DELAY_CNT, 69) |
-> +		     FIELD_PREP(RST__DELAY_CNT, 77));
-> +
-> +	/* Magic numbers related to core switch sequence and delays */
-> +	regmap_write(data->regmap, 0xe0, 0x7a710184);
-> +	regmap_write(data->regmap, 0xe4, 0x835f6856);
-> +	regmap_write(data->regmap, 0xe8, 0x002b0234);
-> +	regmap_write(data->regmap, 0xec, 0x80000000);
-> +	regmap_write(data->regmap, 0xa0, 0x08000000);
-> +
-> +	return 0;
-> +}
-> +
-> +static int clk_mt8173_mfgtop_power_off(struct generic_pm_domain *domain)
-> +{
-> +	struct mt8173_mfgtop_data *data = container_of(domain, struct mt8173_mfgtop_data, genpd);
-> +
-> +	/* Magic numbers related to core switch sequence and delays */
-> +	regmap_write(data->regmap, 0xec, 0);
-> +
-> +	/* drives internal power management */
-> +	clk_disable_unprepare(data->clk_26m);
-> +
-> +	return 0;
-> +}
-> +
-> +static int clk_mt8173_mfgtop_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct device_node *node = dev->of_node;
-> +	struct mt8173_mfgtop_data *data;
-> +	int ret;
-> +
-> +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +
-> +	platform_set_drvdata(pdev, data);
-> +
-> +	data->clk_data = mtk_devm_alloc_clk_data(dev, ARRAY_SIZE(mfg_clks));
-> +	if (!data->clk_data)
-> +		return -ENOMEM;
-> +
-> +	/* MTK clock gates also uses regmap */
-> +	data->regmap = device_node_to_regmap(node);
-> +	if (IS_ERR(data->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(data->regmap), "Failed to get regmap\n");
-> +
-> +	data->child_pd.np = node;
-> +	data->child_pd.args_count = 0;
-> +	ret = of_parse_phandle_with_args(node, "power-domains", "#power-domain-cells", 0,
-> +					 &data->parent_pd);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to parse power domain\n");
-> +
-> +	devm_pm_runtime_enable(dev);
-> +	/*
-> +	 * Do a pm_runtime_resume_and_get() to workaround a possible
-> +	 * deadlock between clk_register() and the genpd framework.
-> +	 */
-> +	ret = pm_runtime_resume_and_get(dev);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "Failed to runtime resume device\n");
-> +		goto put_of_node;
-> +	}
-> +
-> +	ret = mtk_clk_register_gates(dev, node, mfg_clks, ARRAY_SIZE(mfg_clks),
-> +				     data->clk_data);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "Failed to register clock gates\n");
-> +		goto put_pm_runtime;
-> +	}
-> +
-> +	data->clk_26m = clk_hw_get_clk(data->clk_data->hws[CLK_MFG_26M], "26m");
-> +	if (IS_ERR(data->clk_26m)) {
-> +		dev_err_probe(dev, PTR_ERR(data->clk_26m), "Failed to get 26 MHz clock\n");
-> +		goto unregister_clks;
-> +	}
-> +
-> +	ret = of_clk_add_hw_provider(node, of_clk_hw_onecell_get, data->clk_data);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "Failed to add clk OF provider\n");
-> +		goto put_26m_clk;
-> +	}
-> +
-> +	data->genpd.name = "mfg-top";
-> +	data->genpd.power_on = clk_mt8173_mfgtop_power_on;
-> +	data->genpd.power_off = clk_mt8173_mfgtop_power_off;
-> +	ret = pm_genpd_init(&data->genpd, NULL, true);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "Failed to add power domain\n");
-> +		goto del_clk_provider;
-> +	}
-> +
-> +	ret = of_genpd_add_provider_simple(node, &data->genpd);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "Failed to add power domain OF provider\n");
-> +		goto remove_pd;
-> +	}
-> +
-> +	ret = of_genpd_add_subdomain(&data->parent_pd, &data->child_pd);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "Failed to link PM domains\n");
-> +		goto del_pd_provider;
-> +	}
-> +
-> +	pm_runtime_put(dev);
-> +	return 0;
-> +
-> +del_pd_provider:
-> +	of_genpd_del_provider(node);
-> +remove_pd:
-> +	pm_genpd_remove(&data->genpd);
-> +del_clk_provider:
-> +	of_clk_del_provider(node);
-> +put_26m_clk:
-> +	clk_put(data->clk_26m);
-> +unregister_clks:
-> +	mtk_clk_unregister_gates(mfg_clks, ARRAY_SIZE(mfg_clks), data->clk_data);
-> +put_pm_runtime:
-> +	pm_runtime_put(dev);
-> +put_of_node:
-> +	of_node_put(data->parent_pd.np);
-> +	return ret;
-> +}
-> +
-> +static void clk_mt8173_mfgtop_remove(struct platform_device *pdev)
-> +{
-> +	struct mt8173_mfgtop_data *data = platform_get_drvdata(pdev);
-> +	struct device_node *node = pdev->dev.of_node;
-> +
-> +	of_genpd_remove_subdomain(&data->parent_pd, &data->child_pd);
-> +	of_genpd_del_provider(node);
-> +	pm_genpd_remove(&data->genpd);
-> +	of_clk_del_provider(node);
-> +	clk_put(data->clk_26m);
-> +	mtk_clk_unregister_gates(mfg_clks, ARRAY_SIZE(mfg_clks), data->clk_data);
-> +}
-> +
-> +static const struct of_device_id of_match_clk_mt8173_mfgtop[] = {
-> +	{ .compatible = "mediatek,mt8173-mfgtop", .data = &mfg_desc },
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Is the match data and mfg_desc used?
-
-Brian
-
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, of_match_clk_mt8173_mfgtop);
-> +
-> +static struct platform_driver clk_mt8173_mfgtop_drv = {
-> +	.probe = clk_mt8173_mfgtop_probe,
-> +	.remove = clk_mt8173_mfgtop_remove,
-> +	.driver = {
-> +		.name = "clk-mt8173-mfgtop",
-> +		.of_match_table = of_match_clk_mt8173_mfgtop,
-> +	},
-> +};
-> +module_platform_driver(clk_mt8173_mfgtop_drv);
-> +
-> +MODULE_DESCRIPTION("MediaTek MT8173 mfgtop clock driver");
-> +MODULE_LICENSE("GPL");
-> -- 
-> 2.53.0.1018.g2bb0e51243-goog
-> 
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
