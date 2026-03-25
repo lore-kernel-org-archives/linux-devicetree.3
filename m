@@ -1,100 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3426C397E9F;
-	Wed, 25 Mar 2026 23:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4CA40DFB7;
+	Wed, 25 Mar 2026 23:38:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774481461; cv=none; b=Afg/1TFYTd4nY1WsV66UpZWmJ9ytQphdO1phiVxCppbK2sqccJHcnVaze+PbwxGXiEcXf1HjtkGLB6uj9s0th1viMJJVblYYrNVxKINt/m5ZZufD/yU4Ojsv+bFY9vG/bVJtdOdMLIzbZCxDWX+JHtU5tMod83roNZTv9mMpmiM=
+	t=1774481932; cv=none; b=A6wTY66D5mRqEs4fdWCDAh+OcTimjnFn2P9M8wa4rF3DdjvcOe03+3BcHdQzaFIEcffOWtou6ZpGExjKZUDjA0tKjjYhw8LB/jLTaYHUXfoXHUsOIb0QdO6SeoEZfkXXxzmAMTkU8ye7x+RucZn7cXmmCUKdrKIdIKkcTjRDBI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774481461; c=relaxed/simple;
-	bh=RMSeC2gAEh+2HdnAa6Jw3QK0vqH5MgV8KJw+tl+d6lM=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=iG3omFeXfjiH++Kp3UthUqDFicAptYlYBf+tHSMVM+CPUAv3NFwOmxXoOUaCivA5uXdUGzSB3SDlH5w1hXVx7Orn+JD9PcdbBPhppa6XkY3tn1urCZrmBkUtAQtNb9tAa16/d6bNiGfiqbpzyyMXSonMQFl+SHVZGqfo2NTgMWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ler/FPBB; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774481932; c=relaxed/simple;
+	bh=cr/m43OJN16mpRf3BEPu3m6ByiFKMLvsn5VZhf2VStg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=B5WZbB+/BKs1TYREgQWuq3oZ3zVz9fgNj+PrnQZLisjeqqzH4CKwNzz2YGRfCNMRXj/wgzEOCxYsc0yEQ11+Q5FxAK+Ph4m5uhPqudaLA4LyxIfTx+8z3M6G1JFH/QcW/OgPwi10JXEeY7fs1uHWfhx5XkPkhhC6Ih1kKZUR4Tk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=STyksvvP; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ler/FPBB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B6C6C116C6;
-	Wed, 25 Mar 2026 23:31:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774481460;
-	bh=RMSeC2gAEh+2HdnAa6Jw3QK0vqH5MgV8KJw+tl+d6lM=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=Ler/FPBBGsKfW+vY5Xp5XWkUq2+2Eoo1J5IuMO+tsjyOcnObr13ZcaU8hEH3LS9OP
-	 OxsP4VKOsESR4sRktrMGPJBk9M9ovQLyrlbjUBhE28CktfSmebsP3oxDNN6LMNb/3E
-	 MZneOOIv4BC/hSX3c5SCrqPRKHuq1liwb++JMNAh4o3iOZKm3Qmdehb/NsuTIXUZTO
-	 PJe3hGsFyK9k076rGdqOeoR6mLG0ily7/OFNGDtkzU1Iql4zVTVEpSn0zqyg5Z99gF
-	 JS+3CZe3ARCydQ7xb4viSAWfHT4imjCZ/+9w2uFa6cRICRiJEDT84kjdh/jL5EXp2h
-	 RnCIf9S6bFaxQ==
-Date: Wed, 25 Mar 2026 18:30:57 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="STyksvvP"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=cnwxTt1L/KFHjhq4SgpWoQjkbViqtcYR70ypPc9O5cI=; b=STyksvvPwh9MaOK2RojGKf0AZs
+	PjDtRWYh6XRe4A8hwDdtY1fQYoljnL2jsyLnbZZ5okWpIsLNUlPzY+bwZyWt8XtalNSwqumyIM0bE
+	pUJOJuh8xa6qiiXet0roD8Tf3BXy2+3xSFNsjyzla4wsSduzU+bmft+/+ybAm6rcWTh90rgG9SQ5d
+	+Gxyqg9wE++W3ftt03hB3hyvgobJ/dWTB6Ga6GFbmGdNhbrv7D4OVAUzOOO9piBmvbGt+kTuwfcpi
+	H+OCQEdt0xuLaQhsmeC93qCLd49dKTLGeMxXmu74MeVm3O7ogaVgnnvVPQJShAfGOcY99rs8N97rs
+	xeKMM+mg==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Pedro Alves <pta2002@pta2002.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RESEND v2] arm64: dts: rockchip: configure hdmirx in Rock 5 ITX
+Date: Thu, 26 Mar 2026 00:38:30 +0100
+Message-ID: <177448190116.1054629.6633892031656832251.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260323-radxa-r5-itx-hdmirx-v2-1-c52501909577@pta2002.com>
+References: <20260323-radxa-r5-itx-hdmirx-v2-1-c52501909577@pta2002.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- skhan@linuxfoundation.org, conor+dt@kernel.org, krzk+dt@kernel.org
-To: Udaya Kiran Challa <challauday369@gmail.com>
-In-Reply-To: <20260325181509.3430-1-challauday369@gmail.com>
-References: <20260325181509.3430-1-challauday369@gmail.com>
-Message-Id: <177448145727.289326.12296113937712003366.robh@kernel.org>
-Subject: Re: [PATCH v3] dt-bindings: arm: mediatek: mediatek,g3dsys:
- Convert to DT schema
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
 
-On Wed, 25 Mar 2026 23:45:09 +0530, Udaya Kiran Challa wrote:
-> Convert the MediaTek G3D system controller devicetree binding
-> from the legacy text format to DT schema.
+On Mon, 23 Mar 2026 09:25:33 +0000, Pedro Alves wrote:
+> The Radxa Rock 5 ITX board exposes an HDMI input exactly the same way as
+> the Rock 5B, but this was not reflected in its DTS.
 > 
-> Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
-> ---
-> Changelog:
-> Changes since v2:
-> - Move binding to soc/mediatek directory
-> - Rename file to mediatek,mt2701-g3dsys.yaml based on fallback compatible
+> Change the rk3588-rock-5-itx to configure and enable the hdmi_receiver
+> and hdmi_receiver_cma nodes.
 > 
-> Link to v2:https://lore.kernel.org/all/20260323180616.23333-1-challauday369@gmail.com/
+> The hot-plug detection (HPD) pin keeps the hdmirx_det name rather than
+> the hdmirx_hpd name used in other boards since that is what matches the
+> official schematics (HDMIIRX_DET_L).
 > 
-> Changes since v1:
-> - Drop redundant description for reg
-> - Drop redundant description for provider properties
-> 
-> Link to v1:https://lore.kernel.org/all/20260315080302.454233-1-challauday369@gmail.com/
-> ---
->  .../bindings/arm/mediatek/mediatek,g3dsys.txt | 30 ----------
->  .../soc/mediatek/mediatek,mt2701-g3dsys.yaml  | 58 +++++++++++++++++++
->  2 files changed, 58 insertions(+), 30 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.txt
->  create mode 100644 Documentation/devicetree/bindings/soc/mediatek/mediatek,mt2701-g3dsys.yaml
-> 
+> [...]
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Applied, thanks!
 
-yamllint warnings/errors:
+[1/1] arm64: dts: rockchip: configure hdmirx in Rock 5 ITX
+      commit: 6cb4ec63ba9a5831621cf951b7af55c67beeb97b
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/soc/mediatek/mediatek,mt2701-g3dsys.yaml: $id: Cannot determine base path from $id, relative path/filename doesn't match actual path or filename
- 	 $id: http://devicetree.org/schemas/arm/mediatek/mediatek,mt2701-g3dsys.yaml
- 	file: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/soc/mediatek/mediatek,mt2701-g3dsys.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260325181509.3430-1-challauday369@gmail.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Best regards,
+-- 
+Heiko Stuebner <heiko@sntech.de>
