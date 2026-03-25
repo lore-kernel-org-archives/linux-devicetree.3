@@ -1,233 +1,227 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013067.outbound.protection.outlook.com [40.107.201.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1EC2836AF
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 02:24:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774405469; cv=none; b=djKE0bZzC5UWK9CSeuOBBAkvBr8Hd93WsdyOnXbJzJZiBaufCI1YH0YqDr9XvVL25tp+Uv69Tbbh8gUZwhaRsOo4sfKpUJcoDYxX1wFIIxrVhgvRTppVUUNDWo10Z4sznihSXGsxTuJZhBkOa8Gy3ffG+ua4WnQdLGCs0s1jYjs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774405469; c=relaxed/simple;
-	bh=ypN7V548x4EKOmq5vAbetbJ4K584gqDCxFws7qAK/iA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Na2AwOiZAy5/FHVDfhqz0HojeNnAjOE3VSdr+kXXlFY+MJ66m7Sxsi24XbPP8JUkbkJDU4ZqGON7cBsBZ9PiRjJ6OxyP6XZsZYKEYUGP7YUQUrN1k3fqENLRjnZEzquHZRSGs29xZPGGi8wUH0mOB0JML3JBKVJtrPXqW1oFGII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z8GEQSQk; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D4AF279329;
+	Wed, 25 Mar 2026 02:28:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.67
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774405732; cv=fail; b=KjQLHlk21tDMKcRBA2ewD843Vsfvg8vMY5+thlen90ImWPFGmjA9qdK3K2DW8DEYe9RChfLQ0/M+raMqtG1XJXDDqRHoyi008cbHrldVYo+XQJSI+0RBNFc4E4MTgQ39LpvHQoMVDNHXi2SF4AnPB+caAI6BfP0EfKG5tuj/GD8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774405732; c=relaxed/simple;
+	bh=O32d8pHMh2kU68VDbA6hJfVQIU4RkUd4IZzsDoURSLs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XDu8KsgDT1oGd9cKO0/stqEFWhV0GOEipdHU3ZJg9ecQ66oP+XXoBTSLTELFYhAOFom+dkr0ar5bGXZzMPZv2JczVHd7AR88S9Hf7EUcu36w57oqZaNyWikLaaUXUC6SnnyjLiOGyAMNl1ZSIc0B3g679L7q+y2YNWxe+DRjrbY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=X0cG5Dp7; arc=fail smtp.client-ip=40.107.201.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z8GEQSQk"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ab077e3f32so21090885ad.3
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 19:24:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774405467; x=1775010267; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=VMpmsaiWG89XF5HzNW61uXjH9rISZDARf2EnPrRV2mU=;
-        b=Z8GEQSQkt6fR4TXL1Kj6EGPArX91TjMcw50a2L5SkHLJbNSsQM4Z63PqXXqfM0hMfG
-         UQcGdoA7n665QgEYRO80/mo5KnTOl5QdGb18t7Sdd/mBrBv7v1V1xe6laxjzN4M5VQWw
-         1/Kb/BBEoPZ6/fRQJDmUlfDD8TWgk5wCRxGgNWYxfVVxP6qCfU37dPDxRXzvQ7WvkfgU
-         9UwIoRaSPAuC88lRfyTbdy4rXjNFo+9Qnv8g2/d7gDGYmJ4XX94qsS1kZw6daPkZpIo7
-         +WxFepUiIfEbn9Dkr+qhWEnVueV/izqCg0Iy+5cccHkLqfTQg1Ot+dV84kimDk2M/gS0
-         d/Aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774405467; x=1775010267;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=VMpmsaiWG89XF5HzNW61uXjH9rISZDARf2EnPrRV2mU=;
-        b=IAYfmPXMKrUih/kII8sVwGmOkN6GQ7ZUdda3f8K26sGtvP/Q199SYKCTbNmvV+glvb
-         C0sOPvi/bq7Btj6IjzjqxjS6QCVZLR313DmMFKLvXR7Z7iyO8HAs6kr/7hzSF2t8Ug3l
-         fnInWqzgN6/9BKlGbVseRPonHuE4X8BYkGi4ABv09utUqRbSwl6f7ee6XLQQMlVFqAXN
-         N2l+G4RNMjmpFI8WzZJLRjzgNRpvKXJoP4Nv53/8VMjWrH/yLqOOsx3Ct+VBr0TrV1nO
-         MFOuJQ9KlWEmb21PMsH/BmPRegHJdJhwFYy7L1j6NH5WU26BampvY6QyVbP+GZJvDQzE
-         seqw==
-X-Forwarded-Encrypted: i=1; AJvYcCVRozfE83oJ8tKU7BxLtmtem+s6qcTQBleLxL1E6YrjtNmE6Q2XUiCiqXSO7XpaztYWw4SLgH1DLonU@vger.kernel.org
-X-Gm-Message-State: AOJu0YyhkhlU6YjqXznd3GejFzFReeK8wqpViAxqHF7HvWnwqZXEIz7b
-	RqhUreH7obmY6lY1OgSHOaEIoaPFR1j+ZdFc8NBH1PcEUpKAoUECsRcS
-X-Gm-Gg: ATEYQzyBHo3mVP+RUUIsrIxNmHeqrrTeIo7T5g7ncFoaEu7ADJqcbKk+dzMTwrbsMM8
-	Rpx+IMZJbCh7BDeJ5bIzBMKRU5HXtiPjR1i8QDg0wtavBMLyerwF7w+//mDJr1PaV8OBcL2bExA
-	ReXzELtqt2DyRDKTcbYx9CD5uY7TVvBm0U+250Fs72tiKnvCZi+7mSYRhK+N65NC9E+X09Eluc2
-	jXFaBAz5sXWQuZdzg1cpkGXLR0EQnQDg+cn/JN8X/kBdIFmOG69vkcGGTah39g5PRYO6pLcVtN5
-	0FtsD1ynll2cjJZMMt8WnAPGZF2xxAl9lKJnrCDiqGEAjrJCv0jSrhfTv2T3rOJD0ltSDUX8vDv
-	nvcrbk/61lUEoXMtyl1w7Z9EBSpIuW0XtBGcblljgfewdI5iIIEXTlbEeya4GLqeR4UxTzCRYI9
-	LHOKCNJm1wVTSW5+25X/I/oUxsN/ThlbYHaYMWZeCY1O5uXJUQRHiPECaocQjTEojmQ5jEpa5Il
-	A==
-X-Received: by 2002:a17:903:19cb:b0:2b0:68d1:2537 with SMTP id d9443c01a7336-2b0b0b106a1mr19748055ad.42.1774405467322;
-        Tue, 24 Mar 2026 19:24:27 -0700 (PDT)
-Received: from [127.0.1.1] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b08352ae70sm170348635ad.23.2026.03.24.19.24.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Mar 2026 19:24:27 -0700 (PDT)
-From: Kyle Hsieh <kylehsieh1995@gmail.com>
-Date: Wed, 25 Mar 2026 10:24:22 +0800
-Subject: [PATCH v5 3/3] iio: adc: ltc2309: add support for ltc2305
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="X0cG5Dp7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jFLyM3nbC3wgP82N4dKrpJSVKTbtoZ/4gL4yuo/9O1cCbD5okGG8jVsf0WCl3egEkszlo9DgrTd8zleSs5+XPJ5hhXlwy1oin9LQdYSY6k5Cmri/ar3G5vj19yzmSu103hL/zPHNCUYdWLXCGeXXR4J3WHdryUrgIFp/WoIhsF+bVkkzcTazSDvFgVZQh2gf4bx6ACulXJnba9GtBg+uJ/jzOZKAebBTENOA3gN0I4DiioDUJLspCpPG7WCQbW2jvHiGQ8+PhBAHGFh2zEUEPOtBkPY4q+uKtvGALrjet3xsuWlWN41WMvnLam7t8/48HZLmV8gKu2JVQBDxZUiwGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l58JxM4xHdybqGvLoTYBgSCY8HZWGbd1GSKB+m1Xig4=;
+ b=cpCfpyimpT0jv9yyuzUUnP+1puZ1vGiRpwYVskIbm83h8UIQtAxmWPFkg820uR87yonFoc6slxlTDc0Y06IbwgL0JwZSEozt3g+UhPNpi8UKFtbzIOD1jegXhlR3b23L3ieibpQ9TSW2Gza+bJkwEUXweSgY2Rgmft6dj5ZGNeCV24V/MHtxNLqlYNVdDK4hU1qAzJzhXOn1H5YPGl/CS0F0YRoC4hg9KXcMdBliFgMEiQi5uiLbwTx0PeN2dCjYIKIfsXy+sRtEvEcCb81AzsYu8M3nkB+mPFrWJDTlQEiJxeYnuWViJvCbF/obiGCaC306ZOz/Hhjg0fND5WOWXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l58JxM4xHdybqGvLoTYBgSCY8HZWGbd1GSKB+m1Xig4=;
+ b=X0cG5Dp7zX5sTcDCLCHTkGQ6EdkcPQ9frQcqZ1oFhixURHcYIv+yUKFXXUAblF81N0MPY/cZqvNtZ8/ZWrO17AfFiEI6ffPiRRT6VzMEJaVakJec5eq91PcstnzvgzdscpB7J/6+EZS7YTPp7osPhbhwoXvcviQ5tWNPjLys5FYBHdIuD5oUyLKgZDDMPEUMPdqWcz9ks5vyOlN9YyAFviZ72IOHv3vaM0MmtyHK6eEGdRG66pFXxZAbyjSeoNvDSVjQqOFJOMH+JW0mNt9Us8iiqv6kOm85J+Q1E+Wscmn8FSQ8wqW1MAUpWA7cBjlPWzgcXDQWWZwUZNe9TNRrcQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by DS0PR12MB8042.namprd12.prod.outlook.com (2603:10b6:8:141::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
+ 2026 02:28:46 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%4]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
+ 02:28:46 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>
+Cc: Jon Hunter <jonathanh@nvidia.com>, linux-pci@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-tegra@vger.kernel.org
+Subject:
+ Re: [PATCH v2 2/5] firmware: tegra: bpmp: Add tegra_bpmp_get_with_id()
+ function
+Date: Wed, 25 Mar 2026 11:28:41 +0900
+Message-ID: <24777801.6Emhk5qWAg@senjougahara>
+In-Reply-To: <20260320225443.2571920-3-thierry.reding@kernel.org>
+References:
+ <20260320225443.2571920-1-thierry.reding@kernel.org>
+ <20260320225443.2571920-3-thierry.reding@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TP0P295CA0046.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:3::9)
+ To SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-add_ltc2305_driver-v5-3-e0d29daa54f9@gmail.com>
-References: <20260325-add_ltc2305_driver-v5-0-e0d29daa54f9@gmail.com>
-In-Reply-To: <20260325-add_ltc2305_driver-v5-0-e0d29daa54f9@gmail.com>
-To: Lars-Peter Clausen <lars@metafoo.de>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Liam Beguin <liambeguin@gmail.com>
-Cc: Michael Hennerich <michael.hennerich@analog.com>, 
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Kyle Hsieh <kylehsieh1995@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4420;
- i=kylehsieh1995@gmail.com; h=from:subject:message-id;
- bh=ypN7V548x4EKOmq5vAbetbJ4K584gqDCxFws7qAK/iA=;
- b=owEBbQGS/pANAwAKAaWDQrcJVsSBAcsmYgBpw0df63jGHRr6Rb3yLa1VHFGG9IAXwD7kyho9E
- a8vf44CZI6JATMEAAEKAB0WIQTJHsaNZOdY+THGqJelg0K3CVbEgQUCacNHXwAKCRClg0K3CVbE
- gXAVB/97I2caN1oSKbHVQHDhnvsk053+AmckELCjiueujhlHB+JuB4yfBv7iaq8nC9OvERCjABV
- T/8u9+yC7vdBQw/yhFFLd6xcHp+HXYtRCg1s2sQh19u2v9sRmSwy/MR6+wIdmQ0vjHhBLKGIdNL
- 1YpWm/2ufYSzXdH1L4XK2LQuZTLN4XVg6DdJbKFRPGxLmjW5TFGLB/63Wk1Ru5KA9agi+vwnhx7
- JtSPeEU9BhScNVTp2WrEEvcjXZjMBf4U8FqpSLGKIDkpRZBj2+UZlA+X5r9qFMCpajRy/Y38GtJ
- v/tKexQF5WBZtlSb7Eqce9L7AUFE4V7sIYAhQYnL6TRCmVdO
-X-Developer-Key: i=kylehsieh1995@gmail.com; a=openpgp;
- fpr=C91EC68D64E758F931C6A897A58342B70956C481
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS0PR12MB8042:EE_
+X-MS-Office365-Filtering-Correlation-Id: dbd39a7f-78a3-4e95-6907-08de8a163db1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|10070799003|1800799024|366016|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	Y/XMMXgIZW8/4kTYiQJe6H2PTROyoulrQtpdk6yOqk+MxakzeP7/LMSGdFllolnsamVvKvwZnmdIAJuKqhVYsNktdrUNGFfZQULWj2uiOABvbnScOWPbKLBdlgbvg4SUqtCSCsPLN6Z/C0AY42PsGZMCak/oT7JilHW/z4ZMAclMNcFIEy+tJWcijpLu6aO9VRrR97cs+SnxZQIuz/LKoRDVcqvXL70fdLWfkSOpsgaJM31rJg64aXPCZ6zYYuMLTEZw6Ynq14lmGavZNDK3bAZLOM6FxiL/Ie/iQZthh/L0SeASLqi/vako7LSjX9rpMqZDp+P/H0UoAINSw54EkQOIvGvhl2ylWuodS4FP3mGVMHA+/ZpAd/fV7yGMYDqs+DImURsJHvcGGDCaN3Tss7Uipf+bnM7WxkNX9nf3Xk928jAh4iritMmlE8kDgf9xkYjQ661hapKi+2x1kg2rHuSBG93IoDSf5eFjHIi9v1dHTvQkOekCuKk4h6PF3ANVO/z3jl5JU7es6woKDsTF5xOHsMFVHZHDswFCqPa9ytc6gDSbu07R4fC+PKE9xmetktyJRYDCzeipuJREn2YIWig3TE6VWhcvqwmEZR/uGVIIKrBEw1iJ+CRM8WyXlrwofzpLq2CMTnLlGsSuw72KpRrkNsfCWkSMDZSQc3uaDZTmlFYcScIphtx4j+9jeKX8t+nIZXIr6iDRccPCDDjJctgS+HDRmcg6X6do1fMn9lI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(10070799003)(1800799024)(366016)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WlpvSmgzZ2hnQzN0bTdLZzNVcVM1MDBmMEk0NldBUnphREMxVFpnN0J0V09M?=
+ =?utf-8?B?OHpwWXpPMWJweTVXa0N4Q3cyUlZtZ012NzNxcVFaSmpETnV6aFpXbVI3YmRj?=
+ =?utf-8?B?S0h2Nk1qczJQdDdsWUtGWGJBRytYSTJmOFRTQVRML3B6YWxWa3JiWFl5ai83?=
+ =?utf-8?B?dWVCUExVZFViNVRYTmFOdDUrbytXWVVtVUhPYVA2TVJveElWZDJlcUdoWXo3?=
+ =?utf-8?B?bEFSd2RKNm12VUxwMzMvcGEyc3RSUXhkeGE5KzlZUDYxcEFScmo2VjA4RFpu?=
+ =?utf-8?B?WnRaaG1oRnNEQm42d0NTSk1kN3EwcEVyZ3k3d0c2anorL0pRUVpzY2ZwQVh4?=
+ =?utf-8?B?Rkc1dkFxdmUxZ3FtTkNsN000N1AwZFg2YkFZV0RWaHYwS2NIeWlLWUQ3L21S?=
+ =?utf-8?B?VlQ0L08vWUJCelY5bC91dGxLUmZ5ZzV5OUxxbnBhSHNkOEV4WXZKR2huL05Y?=
+ =?utf-8?B?d2Eza1RsN2toSlp1dDhmcUEvOXhMdGxFTHFPdkNMdFlnZDh5RG5xZm9FQTZW?=
+ =?utf-8?B?VVAyZ3lsYWxraFZodlNIRnJaNVVzdTlkWEs3UG1DNGNrbGQwblF6Q1U3dG5z?=
+ =?utf-8?B?UlhkN2ZHK25hbzlsdlFBcm95TU9lYkIvRjcvTmErbWJiNVNwYUJrZG9nVFNN?=
+ =?utf-8?B?MWRsR2RSMTRjWG9OdFp2VjlLcGtlOGY0WkRiSjltNm5zSkFtaFdqT2RiWDF3?=
+ =?utf-8?B?TkY0RWNHN0xwRzB1LzBlTkxUcXRaUGNQUUtRNW0vN2swb0VNektFSFR3NUho?=
+ =?utf-8?B?RURIUThnZnVIWUJaaFdrUklSYkp0eGpTMyt4a3k3ejA3OFE5cWIvY2E0eUZn?=
+ =?utf-8?B?blp6Z09DR2FkU0lId1hORmVDU1M0cU4rSDVYV2o3aXAxY1g5dkV0QjV0ajFB?=
+ =?utf-8?B?U0NUL0lidXhVaXBob3RvdlBVeWxnT0Z1TEhObGdheTN1MkdXa3Z2R1FNSkY4?=
+ =?utf-8?B?YmJpcGQ1RXczbXgxRWlxUXBxOTlKZWs1aXVZeGJtd3AxbE5acENiYlZiUVU0?=
+ =?utf-8?B?eHVZZE5iUThJNWZRUWNDdmQzQkNYODlhQmN4TERjeXg3dDBscXRZY1VOeTQw?=
+ =?utf-8?B?cTFuWm5zTW01TURzUC90WDJuQlFKUTdqbmQrQ2E1WEx3U3N3TS85MkRjT2Rl?=
+ =?utf-8?B?N0Erc21KOXRMYk4rSmh3R2tMK1dRQ1hpbEV4QSt5czhIcmI0RXorY2Q0ekta?=
+ =?utf-8?B?NEZVYkcxT3pmaXI2cUFpaVhOWjN0RjJjNGlkbFJoRE9GcVpSVFl2ZDlSYlpp?=
+ =?utf-8?B?WUk2R0tteDFLZ3BNYktHMDNITjVucnFRY0hvSktnYmlMNkliNXZTcEpudm9W?=
+ =?utf-8?B?dEdveThHcExnNzRkeE5LbTNKbTEzZUN0L3BqajR3alk3RE9ieDk3RDkvR1hq?=
+ =?utf-8?B?aFg4c3FISENRVDk4a2lSS1lGam5Od2JvUlpiNU1DK3BYOGNrdGdrUGprZGZl?=
+ =?utf-8?B?QjRsakF4bGZBZFRmNUl1dHZLOS9zWURONWZhY1lmSFlmVzZEek5zb2VRSlNK?=
+ =?utf-8?B?b2R1Z2R3c0Q3dnFzNmxwbjE3V2dDdE1PcXprdm9tenpvNWlYRDgvRmpZK3Bm?=
+ =?utf-8?B?VW9kZlpHUmliUkY5YWhNSEd1aFF5SDU2MjR0OFlMWWVVZDJSdWxXTnphZ2s1?=
+ =?utf-8?B?dXRjYzdTdUVMRDRWYzdvQmxvbFg0bll1QWRhRmpVRUp1bTk1WVhVT3pZbEo0?=
+ =?utf-8?B?UVlQWGM1VzMxUnhVUDVyY2ZlbEdyRUlrbzJ2U1hIYWtBeWhKaWVRL3V6OFVa?=
+ =?utf-8?B?U3RFWCtPSmZ4OWloVVRkU3hyUWlJdUQzSWRhOVpqaUV4QTQxVHp2VitRVTg1?=
+ =?utf-8?B?SSt3VDZNYkVOcTNrMDB5c3lKMDFXNUF5U1REb21XclJsa2RQM2M1YWg5OGxs?=
+ =?utf-8?B?VkNrMVRtckJyWUdWM094aVFudWVIOE9iQU5vOGpsYVJVWnU1N0lMSTdVcDNk?=
+ =?utf-8?B?QjZDaSt1b3RKOW9OVUVNRzNIaEszV00zMUIrdDF6SE5tYVlscTBGK0NMQUlB?=
+ =?utf-8?B?MmtSK3UvcG5JTGU5WUtsV1FURFUxdk1RSk5TZmp2Y3R1Q0dRRGRvVnZWeXc1?=
+ =?utf-8?B?OER6L2VDRjJicXJVTW00V01jakFMYkEyTFFldWFBVXIrTXIraXF6dVFDazlw?=
+ =?utf-8?B?STg5RWRNSFF1L3MxejgzN2l6UGNUOEU2OVhlU0NKTlBmeE16ZTQwbzNrSkhu?=
+ =?utf-8?B?SGFuN3hJL3JCbjdrMFE3Q1pmcHJUMTJpWlAyejZNbXEvZ1c5OXNpUlFzRU1t?=
+ =?utf-8?B?bXN3UUttZHA5MkxaMW1zZGZmRmhZV3lqeVA4d0lsTkxMNllPcFg5KzJGRmdj?=
+ =?utf-8?B?UDNrdWNpWnNpV0RJcDcvNWozZUVvRVlWMXQ4cWRVVHZsNXFJbEZuZ2l3c0lO?=
+ =?utf-8?Q?ym0gjzSZ9gLs3+YU6qeErewqpsalpodhoghg0uhbNKOso?=
+X-MS-Exchange-AntiSpam-MessageData-1: nwRV8B6p31Go0A==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dbd39a7f-78a3-4e95-6907-08de8a163db1
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 02:28:46.4577
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XluE2HHB0FEWk7r3WtnwmCzYw6W5zqRzXLbEBzy18ZuzZRFoluwZJAKPg5/Gk6jquoHXCm2edI2Nf3Saep+8bw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8042
 
-Add support for the LTC2305 ADC to the LTC2309 driver. The LTC2305 is
-a 2-channel, 12-bit SAR ADC that is register-compatible with the
-LTC2309 but has a different channel selection mapping and count.
+On Saturday, March 21, 2026 7:54=E2=80=AFAM Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+>=20
+> Some device tree bindings need to specify a parameter along with a BPMP
+> phandle reference to designate the ID associated with a given controller
+> that needs to interoperate with BPMP. Typically this is specified as an
+> extra cell in the nvidia,bpmp property, so add a helper to parse this ID
+> while resolving the phandle reference.
+>=20
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> ---
+>  drivers/firmware/tegra/bpmp.c | 34 ++++++++++++++++++++++++++++++++++
+>  include/soc/tegra/bpmp.h      |  1 +
+>  2 files changed, 35 insertions(+)
+>=20
+> diff --git a/drivers/firmware/tegra/bpmp.c b/drivers/firmware/tegra/bpmp.=
+c
+> index e74bba7ccc44..753472b53bd8 100644
+> --- a/drivers/firmware/tegra/bpmp.c
+> +++ b/drivers/firmware/tegra/bpmp.c
+> @@ -32,6 +32,40 @@ channel_to_ops(struct tegra_bpmp_channel *channel)
+>  	return bpmp->soc->ops;
+>  }
+> =20
+> +struct tegra_bpmp *tegra_bpmp_get_with_id(struct device *dev, unsigned i=
+nt=20
+*id)
+> +{
+> +	struct platform_device *pdev;
+> +	struct of_phandle_args args;
+> +	struct tegra_bpmp *bpmp;
+> +	int err;
+> +
+> +	err =3D __of_parse_phandle_with_args(dev->of_node, "nvidia,bpmp", NULL,
+> +					   1, 0, &args);
+> +	if (err < 0)
+> +		return ERR_PTR(err);
+> +
+> +	pdev =3D of_find_device_by_node(args.np);
+> +	if (!pdev) {
+> +		bpmp =3D ERR_PTR(-ENODEV);
+> +		goto put;
+> +	}
+> +
+> +	bpmp =3D platform_get_drvdata(pdev);
+> +	if (!bpmp) {
+> +		bpmp =3D ERR_PTR(-EPROBE_DEFER);
+> +		put_device(&pdev->dev);
+> +		goto put;
+> +	}
+> +
+> +	if (id)
+> +		*id =3D args.args[0];
+> +
+> +put:
+> +	of_node_put(args.np);
+> +	return bpmp;
+> +}
+> +EXPORT_SYMBOL_GPL(tegra_bpmp_get_with_id);
+> +
+>  struct tegra_bpmp *tegra_bpmp_get(struct device *dev)
+>  {
+>  	struct platform_device *pdev;
+> diff --git a/include/soc/tegra/bpmp.h b/include/soc/tegra/bpmp.h
+> index f5e4ac5b8cce..424188c100d9 100644
+> --- a/include/soc/tegra/bpmp.h
+> +++ b/include/soc/tegra/bpmp.h
+> @@ -127,6 +127,7 @@ struct tegra_bpmp_message {
+> =20
+>  #if IS_ENABLED(CONFIG_TEGRA_BPMP)
+>  struct tegra_bpmp *tegra_bpmp_get(struct device *dev);
+> +struct tegra_bpmp *tegra_bpmp_get_with_id(struct device *dev, unsigned i=
+nt=20
+*id);
 
-To support multiple chips in this family, introduce ltc2309_chip_info
-struct to store chip-specific channel specifications and names.
-The probe function now uses i2c_get_match_data() to retrieve the
-correct configuration for the detected device.
+Should add a stub function in the #else branch, as well.
 
-Specific channel addresses for LTC2305 (CH0, CH1, and differential
-pairs) are added based on the datasheet.
+>  void tegra_bpmp_put(struct tegra_bpmp *bpmp);
+>  int tegra_bpmp_transfer_atomic(struct tegra_bpmp *bpmp,
+>  			       struct tegra_bpmp_message *msg);
+> --=20
+> 2.52.0
+>=20
+>=20
 
-Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
----
- drivers/iio/adc/ltc2309.c | 49 ++++++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 44 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/iio/adc/ltc2309.c b/drivers/iio/adc/ltc2309.c
-index 3f27ffc66668..316256edf150 100644
---- a/drivers/iio/adc/ltc2309.c
-+++ b/drivers/iio/adc/ltc2309.c
-@@ -1,8 +1,10 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-+ * The LTC2305 is a  2-Channel, 12-Bit SAR ADC with an I2C Interface.
-  * The LTC2309 is an 8-Channel, 12-Bit SAR ADC with an I2C Interface.
-  *
-  * Datasheet:
-+ * https://www.analog.com/media/en/technical-documentation/data-sheets/23015fb.pdf
-  * https://www.analog.com/media/en/technical-documentation/data-sheets/2309fd.pdf
-  *
-  * Copyright (c) 2023, Liam Beguin <liambeguin@gmail.com>
-@@ -41,6 +43,13 @@ struct ltc2309 {
- };
- 
- /* Order matches expected channel address, See datasheet Table 1. */
-+enum ltc2305_channels {
-+	LTC2305_CH0_CH1 = 0x0,
-+	LTC2305_CH1_CH0 = 0x4,
-+	LTC2305_CH0     = 0x8,
-+	LTC2305_CH1     = 0xc,
-+};
-+
- enum ltc2309_channels {
- 	LTC2309_CH0_CH1 = 0x0,
- 	LTC2309_CH2_CH3 = 0x1,
-@@ -80,6 +89,13 @@ enum ltc2309_channels {
- 	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	\
- }
- 
-+static const struct iio_chan_spec ltc2305_channels[] = {
-+	LTC2309_CHAN(0, LTC2305_CH0),
-+	LTC2309_CHAN(1, LTC2305_CH1),
-+	LTC2309_DIFF_CHAN(0, 1, LTC2305_CH0_CH1),
-+	LTC2309_DIFF_CHAN(1, 0, LTC2305_CH1_CH0),
-+};
-+
- static const struct iio_chan_spec ltc2309_channels[] = {
- 	LTC2309_CHAN(0, LTC2309_CH0),
- 	LTC2309_CHAN(1, LTC2309_CH1),
-@@ -99,6 +115,24 @@ static const struct iio_chan_spec ltc2309_channels[] = {
- 	LTC2309_DIFF_CHAN(7, 6, LTC2309_CH7_CH6),
- };
- 
-+struct ltc2309_chip_info {
-+	const char *name;
-+	const struct iio_chan_spec *channels;
-+	int num_channels;
-+};
-+
-+static const struct ltc2309_chip_info ltc2305_chip_info = {
-+	.name = "ltc2305",
-+	.channels = ltc2305_channels,
-+	.num_channels = ARRAY_SIZE(ltc2305_channels),
-+};
-+
-+static const struct ltc2309_chip_info ltc2309_chip_info = {
-+	.name = "ltc2309",
-+	.channels = ltc2309_channels,
-+	.num_channels = ARRAY_SIZE(ltc2309_channels),
-+};
-+
- static int ltc2309_read_raw_channel(struct ltc2309 *ltc2309,
- 				    unsigned long address, int *val)
- {
-@@ -158,6 +192,7 @@ static const struct iio_info ltc2309_info = {
- 
- static int ltc2309_probe(struct i2c_client *client)
- {
-+	const struct ltc2309_chip_info *chip_info;
- 	struct iio_dev *indio_dev;
- 	struct ltc2309 *ltc2309;
- 	int ret;
-@@ -167,13 +202,15 @@ static int ltc2309_probe(struct i2c_client *client)
- 		return -ENOMEM;
- 
- 	ltc2309 = iio_priv(indio_dev);
-+	chip_info = i2c_get_match_data(client);
-+
- 	ltc2309->dev = &indio_dev->dev;
- 	ltc2309->client = client;
- 
--	indio_dev->name = "ltc2309";
-+	indio_dev->name = chip_info->name;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
--	indio_dev->channels = ltc2309_channels;
--	indio_dev->num_channels = ARRAY_SIZE(ltc2309_channels);
-+	indio_dev->channels = chip_info->channels;
-+	indio_dev->num_channels = chip_info->num_channels;
- 	indio_dev->info = &ltc2309_info;
- 
- 	ret = devm_regulator_get_enable_read_voltage(&client->dev, "vref");
-@@ -189,13 +226,15 @@ static int ltc2309_probe(struct i2c_client *client)
- }
- 
- static const struct of_device_id ltc2309_of_match[] = {
--	{ .compatible = "lltc,ltc2309" },
-+	{ .compatible = "lltc,ltc2305", .data = &ltc2305_chip_info },
-+	{ .compatible = "lltc,ltc2309", .data = &ltc2309_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, ltc2309_of_match);
- 
- static const struct i2c_device_id ltc2309_id[] = {
--	{ "ltc2309" },
-+	{ "ltc2305", (kernel_ulong_t)&ltc2305_chip_info },
-+	{ "ltc2309", (kernel_ulong_t)&ltc2309_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, ltc2309_id);
 
--- 
-2.34.1
 
