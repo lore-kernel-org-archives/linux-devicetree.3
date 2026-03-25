@@ -1,81 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E41931A072;
-	Wed, 25 Mar 2026 21:34:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF5531A072;
+	Wed, 25 Mar 2026 21:34:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774474478; cv=none; b=qIrAMNOJw+gXGol1HuN3a1GoONS1T9zV4EAhViWLbjSF/1mcrl0HZrP+WIynIB3dAuLgPBqCzSxxQmn3KxXBeljO4goV3zGyAtjbESC7LM1Gw/SsX9PeDqg2t2EOMotAMPtq6G8dEoJVSk1DpnOSSQO7r5/jumqOVDJyf9HRjvI=
+	t=1774474489; cv=none; b=T70XjjQnetiW4bRXLu2pPlbQXMO/1a6FoW12gETtq54FVFQnvheaz4fWxqlP1Tdgwyk5PwXWeqSBXr0tPJ4nOUmFHR2PLY1Oy1oqc9z+k73p1t95dEXMN8ltthL3KzLD+jK4bOnWIjMBP2/nYNYmxpaL8oVAE/Jzey08VxOa6X8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774474478; c=relaxed/simple;
-	bh=h5PQt8p/yxquAUwPbpbYrT2NXIJf9oAgbbhuwKf/o6Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d3ps56AJu2mJEYURK07Wia8dzVKwL5tRD/6otAuAaZRtrJao+u5Ucu0++HRpkpyYb6bEtN7Vwf3CaKiu9EFp8fzyYludr7la5dJAQlYIDUj27IRWKOs80CGD/vTmgl2uCHHlRqCza3gfxwGl/ORziSkFflmimsA+BmwCSWbBq64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qPCbvz/U; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774474489; c=relaxed/simple;
+	bh=E1WXPXz+/NlfRML46gDMJ4qfQn90FVfE9nYP5/MLyMg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GkV/d6xfX9EL+guNkhAxeg3YVC7PTKtad4ixvuZPyUfmbiQ3wCDIh5D/71O1sidTt+Vmb4KQM1gt9CITtubFe+iygSNhAkONWf3rcLcLsjlg1gmMldLvC3+lVtRK3wh2jA1C74teaRxFd4nwtpAP4WkoI+WFeueo1o+CE3SufVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=e+rDolsH; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qPCbvz/U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3182C4CEF7;
-	Wed, 25 Mar 2026 21:34:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774474478;
-	bh=h5PQt8p/yxquAUwPbpbYrT2NXIJf9oAgbbhuwKf/o6Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qPCbvz/UNypttFd6ULgtJFnr09wkA1QKODTctLZ5Qq6zHMBmJ4Pey0OIbHdbOduV+
-	 xcNsbR9Zff+menLwfg66rlbkF4X1LzdmsEFxgqnJvt5qkLFcVceKDf7ozkB4PXicpe
-	 5AH9SNkv7ffkK50HQc/yEbxVPDfix4nUvGdw2DltWLVWyHWVih9pe03TuKit6/6lNb
-	 b+jY8A7IvXEg78zj7xwSWw59VHMYolRLPdJgkvP2wzpNpAf8Jsmqcnyh05Xh725esv
-	 dKAeowEsr5qkweTrIvWTo65xmnZgQx+F4Dd6cIWYTuQ6OwAZ9wKybnnOqTCOWlxMrc
-	 RufHR23wqhAGg==
-Date: Wed, 25 Mar 2026 16:34:36 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Venkata Gopi Nagaraju Botlagunta <venkata.botlagunta@oss.qualcomm.com>
-Cc: Robert Foss <rfoss@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Marek Vasut <marex@denx.de>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	David Airlie <airlied@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
-	Nilesh Laad <nilesh.laad@oss.qualcomm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	jessica.zhang@oss.qualcomm.com,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	venkata.valluru@oss.qualcomm.com,
-	Yi Zhang <zhanyi@qti.qualcomm.com>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v5 1/2] dt-bindings: display: bridge: lontium,lt9211: Add
- lt9211c support
-Message-ID: <177447447542.4149755.9655940024257618231.robh@kernel.org>
-References: <20260323-add-lt9211c-bridge-v5-0-9c63bb035c17@oss.qualcomm.com>
- <20260323-add-lt9211c-bridge-v5-1-9c63bb035c17@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="e+rDolsH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1774474486;
+	bh=E1WXPXz+/NlfRML46gDMJ4qfQn90FVfE9nYP5/MLyMg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=e+rDolsHY8954s81Mp/fexI2cypjxrLKc6/hIUuDpERQFz1AgsSs/k6BYU7Sz3rrK
+	 SKImsKhlljGJuH+3OZEcXhJm8xoMTeiGsUijKm3BS/mgp70vScwP8BV9+qVzxuvmEZ
+	 DuPp1sLsSP5GFzOb1vQ5olRjkHik0XMRcwT0HYkhplYrTTbuR8Nxo1v/pkKOgam9JW
+	 ri0RroBwrfAP0fO00F15ZhuveO6PSW7Xrw113u8hOFw5ed3Tp3BjNUVj/4tQPDm/Ai
+	 DRHPVnmKm5oX5xuT2zWvxywDxOlEpkJxPzMXwaZDwAApkA2FgZvIH8T8iNAKH8VUza
+	 xjVE2rrtnyEGw==
+Received: from [10.40.0.100] (185-67-175-126.lampert.tv [185.67.175.126])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: mriesch)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B3FF117E5B52;
+	Wed, 25 Mar 2026 22:34:45 +0100 (CET)
+Message-ID: <703bcf13-ab45-4e9a-b80c-80911d85d819@collabora.com>
+Date: Wed, 25 Mar 2026 22:34:45 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260323-add-lt9211c-bridge-v5-1-9c63bb035c17@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] media: dt-bindings: rockchip,rk3568-mipi-csi2: add
+ rk3588 compatible
+To: Rob Herring <robh@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Frank Li <Frank.li@nxp.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Kever Yang <kever.yang@rock-chips.com>,
+ Collabora Kernel Team <kernel@collabora.com>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260305-rk3588-csi2rx-v3-0-754473981f39@collabora.com>
+ <20260305-rk3588-csi2rx-v3-1-754473981f39@collabora.com>
+ <20260325210634.GA3963190-robh@kernel.org>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20260325210634.GA3963190-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Hi Rob,
+
+On 3/25/26 22:06, Rob Herring wrote:
+> On Wed, Mar 25, 2026 at 11:25:34AM +0100, Michael Riesch wrote:
+>> The RK3588 MIPI CSI-2 receivers are compatible to the ones found in
+>> the RK3568.
+>> Introduce a list of compatible variants and add the RK3588 variant to
+>> it.
+>>
+>> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+
+First of all, apologies for applying your Acked-by tag. I figured
+resolving the merged conflict was trivial and impossible to screw up, but...
+
+>> Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
+>> ---
+>>  .../devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml   | 10 +++++++---
+>>  1 file changed, 7 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml
+>> index 4ac4a3b6f406..3d3b3cd78884 100644
+>> --- a/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml
+>> +++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml
+>> @@ -16,9 +16,13 @@ description:
+>>  
+>>  properties:
+>>    compatible:
+>> -    enum:
+>> -      - fsl,imx93-mipi-csi2
+>> -      - rockchip,rk3568-mipi-csi2
+>> +    oneOf:
+>> +      - const: fsl,imx93-mipi-csi2
+>> +      - const: rockchip,rk3568-mipi-csi2
+> 
+> These 2 should be a single enum as they were before.
+
+... hm. Well.
+
+First, do you mean
+
+properties:
+  compatible:
+    oneOf:
+      - enum:
+         - fsl,imx93-mipi-csi2
+         - rockchip,rk3568-mipi-csi2
+      - items:
+         - enum:
+            - rockchip,rk3588-mipi-csi2
+         - const: rockchip,rk3568-mipi-csi2
+?
+
+If so, what is the practical difference?
+
+Thanks and best regards,
+Michael
 
 
-On Mon, 23 Mar 2026 12:38:52 +0530, Venkata Gopi Nagaraju Botlagunta wrote:
-> From: Yi Zhang <zhanyi@qti.qualcomm.com>
 > 
-> Add binding for the Lontium LT9211C bridge chip.
-> 
-> Signed-off-by: Yi Zhang <zhanyi@qti.qualcomm.com>
-> Signed-off-by: Nilesh Laad <nilesh.laad@oss.qualcomm.com>
-> Signed-off-by: Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+>> +      - items:
+>> +          - enum:
+>> +              - rockchip,rk3588-mipi-csi2
+>> +          - const: rockchip,rk3568-mipi-csi2
+>>  
+>>    reg:
+>>      maxItems: 1
+>>
+>> -- 
+>> 2.39.5
+>>
 
