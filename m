@@ -1,161 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D50473BE623;
-	Wed, 25 Mar 2026 11:22:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F68C3A1A44;
+	Wed, 25 Mar 2026 11:26:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774437755; cv=none; b=QACSnGOucT5g1QJ+8Fv1xhX6hRbmwhUzCtftZ/LHuNgteGw1VkVNCB74VgRehuDlwkjYDsq4CmiEUs41lp2V1v1LGsacGzpfHGIl2EDv30sCx/iIxBtoPjk42GCyUWDs3kbjbZTMrv7B6pv7HmBaF0Zpj6yoMAc5fWWdWCl7WMg=
+	t=1774437996; cv=none; b=AA5VSwd7f0uf+5qpDOuira47dR+BUuII2V9Yhx9bYnvRhtCM0gMhd+tOVwEXdZqL6dJEDkcNEIyokZYUgYfA1RPPqeQ5SDHYNS9Gm4jUsOEEUchjO50ZvHQ8Oj1o/RWyK7nLqSftcQtZygnq1WGuq998VUIJhTOqqSkJYFUbxkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774437755; c=relaxed/simple;
-	bh=O6d0BGiBXFmx8FooLw5bLabbLInDXePEHVkVIeZrTSY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pgmPVTCHjdeRB1LOiBAYyohLlRX01GO9VA5xL8bUg7pg6/QcKOoXT088G0Mxm5ksa5VdXdy5go5KLvtyLlrmch631bUVsJFvsqniVLYyDsgRyRaHdg6A8T56dQJKYGMdTkxfAKA0pQ4ixpHHVSoFKOxx0PxPXk5gOGqe7bRqIfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uRRg3P8r; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774437996; c=relaxed/simple;
+	bh=XmNUJ0mpif4qhL8464aWIYdfMLi/kRQgNJ+zmPxYBN4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=s8xWgG4yaCvgdphw3IakZwnUGwTNHE79QHBQr0nM2ZBuLZLq9c0oMdajGimNuINFS+6Y//R98egn2X5o6vuw1jY+BiPCeJFao1ZeCMDM4GWZzJez2kdZQq6UOg+zi7BWPjd+Xex6CgNnwD6cQu8ItaTNSW0rFmQvy4hEQxLSdG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t/QxqqGd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uRRg3P8r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD94FC2BC9E;
-	Wed, 25 Mar 2026 11:22:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t/QxqqGd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28E1FC4CEF7;
+	Wed, 25 Mar 2026 11:26:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774437755;
-	bh=O6d0BGiBXFmx8FooLw5bLabbLInDXePEHVkVIeZrTSY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uRRg3P8rXQ70MgQZPJRGO5qWoPsq0GPMlKJC1zMfMw/q90eAVc4KwYvMn83N7apeA
-	 2HEwC6UcEZbNG4t6Q+sndvaqdgbgLslDuuaB2u+1qDPOq2S384D5UcHJrxYD/RdX7o
-	 t8YSFuv+IaSqUBS/AKJmjCD3ZqITrMr+GZXU4wgx5EKnNCHcvxXFyRwVUNRc8MpgHN
-	 cFjxNzBPpdza8AyE3dCrYUPLhIW9G+SkiG+PFn9Ja+7eDXGlBKpSUCiYeh3eEeFuUS
-	 8plv/u+U5NfoBY3LSWuyNi4U5LV/6I8vmGBFj934eNhwWw3iffHNiFWVjQXhI15awr
-	 xscZetLxYKQGw==
-Date: Wed, 25 Mar 2026 11:22:28 +0000
-From: Lee Jones <lee@kernel.org>
-To: Otto =?iso-8859-1?Q?Pfl=FCger?= <otto.pflueger@abscue.de>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Pavel Machek <pavel@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Sebastian Reichel <sre@kernel.org>,
-	linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH 4/6] mfd: sprd-sc27xx: Switch to devm_mfd_add_devices()
-Message-ID: <20260325112228.GF2902881@google.com>
-References: <20260222-sc27xx-mfd-cells-v1-0-69526fe74c77@abscue.de>
- <20260222-sc27xx-mfd-cells-v1-4-69526fe74c77@abscue.de>
- <20260309185856.GZ183676@google.com>
- <ab2i6i2D5q0t0xZ5@abscue.de>
+	s=k20201202; t=1774437996;
+	bh=XmNUJ0mpif4qhL8464aWIYdfMLi/kRQgNJ+zmPxYBN4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=t/QxqqGdqZAcefBlHzFAiSkEt+0dhU7HG/y/IBQU9HP69ETPhD4gJ++yhMtsVk4V6
+	 PgE7/kXvupUOZKDcIk4MS/nFY9j4tGQyyjtD8hjCL8jIadJCo76F6h7pOaqCt4ZNPD
+	 hrJZBUsxMr9gpSOHacvDAw686LzZnTSJeDKc4kWZcJmoh1bDsqgV6UVMILlQjMQ2bz
+	 ClW0gE9ng1LQVg/rtTHI/VDTFrjC8hdywba+556C0w/PDtHBFN71dcmpso2bmWxLpa
+	 H7V8I4lXYQdJdrbMYtRyGaqV4CLV4IQtpKOi/E5aw8VDBDOX7q7+8SbTD638x661Eo
+	 j1MApet909n4w==
+Message-ID: <fbb0fc19-45b1-4d5b-9954-9244cfec8027@kernel.org>
+Date: Wed, 25 Mar 2026 12:26:30 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ab2i6i2D5q0t0xZ5@abscue.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v27 3/4] i2c: ast2600: Add controller driver for AST2600
+ new register set
+To: kernel test robot <lkp@intel.com>, Ryan Chen <ryan_chen@aspeedtech.com>,
+ jk@codeconstruct.com.au, andriy.shevchenko@linux.intel.com,
+ Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Rayn Chen <rayn_chen@aspeedtech.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+References: <20260324-upstream_i2c-v27-3-f19b511c8c28@aspeedtech.com>
+ <202603251922.TFJuUipj-lkp@intel.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <202603251922.TFJuUipj-lkp@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> Could you clarify what should be changed?
-
-Sure.
-
-> On Mon, Mar 09, 2026 at 06:58:56PM +0000, Lee Jones wrote:
-> > On Sun, 22 Feb 2026, Otto Pflüger wrote:
-> > 
-> > > To allow instantiating subdevices such as the regulator and poweroff
-> > > devices that do not have corresponding device tree nodes with a
-> > > "compatible" property, use devm_mfd_add_devices() with MFD cells instead
-> > > of devm_of_platform_populate(). Since different PMICs in the SC27xx
-> > > series contain different components, use separate MFD cell tables for
-> > > each PMIC model. Define cells for all components that have upstream
-> > > drivers at this point.
-> > 
-> > We're not passing one device registration API's data (MFD)
-> > through another (Device Tree).
-> > 
-> > Pass an identifier through and match on that instead.
-> > 
-> > Look at how all of the other drivers in MFD do it.
-> >
-> > [...]
-> > > +static const struct mfd_cell sc2730_devices[] = {
-> > > +	MFD_CELL_OF("sc2730-adc", NULL, NULL, 0, 0, "sprd,sc2730-adc"),
-> > > +	MFD_CELL_OF("sc2730-bltc", NULL, NULL, 0, 0, "sprd,sc2730-bltc"),
-> > > +	MFD_CELL_OF("sc2730-efuse", NULL, NULL, 0, 0, "sprd,sc2730-efuse"),
-> > > +	MFD_CELL_OF("sc2730-eic", NULL, NULL, 0, 0, "sprd,sc2730-eic"),
-> > > +	MFD_CELL_OF("sc2730-fgu", NULL, NULL, 0, 0, "sprd,sc2730-fgu"),
-> > > +	MFD_CELL_OF("sc2730-rtc", NULL, NULL, 0, 0, "sprd,sc2730-rtc"),
-> > > +	MFD_CELL_OF("sc2730-vibrator", NULL, NULL, 0, 0, "sprd,sc2730-vibrator"),
-> > > +};
-> > > +
-> > > +static const struct mfd_cell sc2731_devices[] = {
-> > > +	MFD_CELL_OF("sc2731-adc", NULL, NULL, 0, 0, "sprd,sc2731-adc"),
-> > > +	MFD_CELL_OF("sc2731-bltc", NULL, NULL, 0, 0, "sprd,sc2731-bltc"),
-> > > +	MFD_CELL_OF("sc2731-charger", NULL, NULL, 0, 0, "sprd,sc2731-charger"),
-> > > +	MFD_CELL_OF("sc2731-efuse", NULL, NULL, 0, 0, "sprd,sc2731-efuse"),
-> > > +	MFD_CELL_OF("sc2731-eic", NULL, NULL, 0, 0, "sprd,sc2731-eic"),
-> > > +	MFD_CELL_OF("sc2731-fgu", NULL, NULL, 0, 0, "sprd,sc2731-fgu"),
-> > > +	MFD_CELL_NAME("sc2731-poweroff"),
-> > > +	MFD_CELL_NAME("sc2731-regulator"),
-> > > +	MFD_CELL_OF("sc2731-rtc", NULL, NULL, 0, 0, "sprd,sc2731-rtc"),
-> > > +	MFD_CELL_OF("sc2731-vibrator", NULL, NULL, 0, 0, "sprd,sc2731-vibrator"),
-> > >  };
+On 25/03/2026 12:20, kernel test robot wrote:
+> Hi Ryan,
 > 
-> Assuming that these tables are the "registration API's data", I don't
-> see where it is being passed through the device tree. The device tree
-> contains nodes for some of these MFD components, and I've listed their
-> compatibles here so that the MFD core finds these nodes and registers
-> them with the corresponding devices (which was previously done
-> automatically by devm_of_platform_populate).
+> kernel test robot noticed the following build errors:
 > 
-> > >  
-> > >  /*
-> > > @@ -59,12 +84,16 @@ static const struct sprd_pmic_data sc2730_data = {
-> > >  	.irq_base = SPRD_SC2730_IRQ_BASE,
-> > >  	.num_irqs = SPRD_SC2730_IRQ_NUMS,
-> > >  	.charger_det = SPRD_SC2730_CHG_DET,
-> > > +	.cells = sc2730_devices,
-> > > +	.num_cells = ARRAY_SIZE(sc2730_devices),
-
-Remove these from here.
-
-Either replace them with an ID that you can match on or stop passing
-'sc2730_data' through .data and pass an ID through there instead.  Then
-choose 'sc2730_data' and 'sc2730_devices' in an switch() statement
-instead, just like the vast majority of existing MFD drivers do.
-
-> > >  };
-> > >  
-> > >  static const struct sprd_pmic_data sc2731_data = {
-> > >  	.irq_base = SPRD_SC2731_IRQ_BASE,
-> > >  	.num_irqs = SPRD_SC2731_IRQ_NUMS,
-> > >  	.charger_det = SPRD_SC2731_CHG_DET,
-> > > +	.cells = sc2731_devices,
-> > > +	.num_cells = ARRAY_SIZE(sc2731_devices),
-> > >  };
+> [auto build test ERROR on 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f]
 > 
-> Here I am simply referencing the tables above in the device-specific
-> MFD data. These structs containing device-specific data already exist,
-> they are private to the MFD driver, and I wouldn't consider them part
-> of the device tree.
+> url:    https://github.com/intel-lab-lkp/linux/commits/Ryan-Chen/dt-bindings-i2c-Split-AST2600-binding-into-a-new-YAML/20260325-112805
+> base:   6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
+> patch link:    https://lore.kernel.org/r/20260324-upstream_i2c-v27-3-f19b511c8c28%40aspeedtech.com
+> patch subject: [PATCH v27 3/4] i2c: ast2600: Add controller driver for AST2600 new register set
+> config: i386-buildonly-randconfig-003-20260325 (https://download.01.org/0day-ci/archive/20260325/202603251922.TFJuUipj-lkp@intel.com/config)
+> compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260325/202603251922.TFJuUipj-lkp@intel.com/reproduce)
 > 
-> I've looked at mt6397-core.c and it seems to be doing the exact same
-> thing with its "struct chip_data".
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202603251922.TFJuUipj-lkp@intel.com/
+> 
+> All errors (new ones prefixed by >>):
+> 
+>>> drivers/i2c/busses/i2c-ast2600.c:955:15: error: no member named 'dma_abailable' in 'struct ast2600_i2c_bus'; did you mean 'dma_available'?
+>      955 |         if (i2c_bus->dma_abailable)
 
-That was a momentary oversight.  It's also passing a driver-level
-call-back which I despise.  However, past mistakes are not good
-justifications for new ones.
 
-> Some other drivers use a numeric ID
-> for this purpose, but how would that be different from a pointer as long
-> as it identifies the same data within the MFD driver?
+v27 which is still not building.
 
-The point is that sc2731_data->cells would be passed through the Device
-Tree's .data attribute, which is not allowed.
+This is madness.
 
--- 
-Lee Jones [李琼斯]
+Best regards,
+Krzysztof
