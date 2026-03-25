@@ -1,116 +1,254 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1370347507
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:08:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774429719; cv=none; b=LP8pVrNjnKTuORgR4BuoGVSvYJHOXRwM9jQs1xFV35X8iE9bbXearYmlRSHDU+HegnqIAJDTrDwICOg3uFAVjT5n1I4gBUTk813eVdEBgJrf640h3lKqk/hwxOY40F9+jHF6chI8WiK5+UfzVSTsEHAYLgj6GtHSOCh19HChlNU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774429719; c=relaxed/simple;
-	bh=Y1YDUMJ0n8VY4xi8WORJkohpo3iw+yO1KCBrDnrWWIY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=nWO0w++gMXy8t13FziO/A3osWEV44c20NnnAwkUlWWE7UeARZTt2mZjenXIZRSjN0af48nKzRRP8UF3apxRQC8mWE9VBlzO9tGmLoUHvXR7O1ZeLYqeSZsazCLTajW0x59S767UwNZJrQvc6DP1SgvYU9Oi4sHsRfJaOnWOzu5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NmhtCt7P; arc=none smtp.client-ip=209.85.215.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 020DD3033E3;
+	Wed, 25 Mar 2026 09:11:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774429918; cv=pass; b=mcrsYr74excKgTNJMaBBqaI/rOinmF7Yucyg41sYxtbT5EWS+vAtgoI5ok2Hfh/jKLQAdxMJirofDYv3mmQKT1JzxcfJevmPsIcsL4Ql6fSY0pxjVVbWEq/YBYzOkqw7bntQpgT4qYTHLcDC6Rn2qufMvokUbIkst7FVWEtlupM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774429918; c=relaxed/simple;
+	bh=nbGgH67bPt3QHUPIpc23YuEFi5K77qt04FwhAv400Ko=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GnNmxknD7D9PMYCShQE5dD6SmFiD76Zn7fvs/Kir1l1WmKq5CCf80jk6F1C0ZOFAb0+XSmdl7n6GeafMCDXSndIB76O/D8rmpT9CPJYWbIqT0uDW606x8gYIOWzwmee3rWHCi2BuPkgsp/YEUvhiyHni8SrasKf6P7j6l0MHmyM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=Wsu/KMwK; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NmhtCt7P"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-c736261ee8dso853681a12.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 02:08:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774429717; x=1775034517; darn=vger.kernel.org;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=mhWnbpoS9T7pkofCjEvHd+AoIWGTN97nVl4Dsa2uwX8=;
-        b=NmhtCt7Pc5PspekFeEaAdowiZo8TDhKUSVAPUBbfAtU5bM9LAkGSiJc9YhVN4tEbe4
-         WTPkfZsvtfxr97plyASxKzFCsfggVpIf2bXb186YyApoYu9FGpjesJ/0+GkDEll+hXKu
-         l7fPHhZb1++9eZ6Y91IS5Q2pA3/rAYgdgiFN4tTaT3JPezbghKsXpoudAdKyhWOSDUKP
-         ON9J5dtfA1pDa4+r4Rk0p4kr0WoDJpXj0fPqD3L7NS1N2KWR+EhZsVsVXhzMzcslAJ0b
-         Du3HVs1MQRvg9YaN4/I643hNqxpxYe20tG9hvU/K5KFnGSdDqBVeqOugAKiYyybUnImn
-         Ygaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774429717; x=1775034517;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=mhWnbpoS9T7pkofCjEvHd+AoIWGTN97nVl4Dsa2uwX8=;
-        b=gEsP38qwlQiRFoMreiq/NGoJYdYTIEUvDRxHQ33MM7hcymzqkm6ihS2hqiZI14uyNI
-         LgLXb9MHlWhBv01ZyBFgUW4G5tiH4LTP9XTUGxfAvis3yHs1OQg/g1BrsuM1AyuLQWU5
-         744auKtytHIX6tvIJriSAFqQYucH0OJXwy5RVi7qxeCsYB/D/0Zitw0Q3mbNTFnIFWYL
-         YcLhi/8zhK+kvJyvP5ft24LxUDfqUlQ1EpGZUZilkkm6WfCP4e4rT/M1UtrbbNW0mgVj
-         /5KIFvvk+azQPdNJHGdYl6Ei8peW/N6doJYjvvlJD4uryDZJnNXjSnADyN3yZNsvyXoF
-         C4dA==
-X-Forwarded-Encrypted: i=1; AJvYcCX9wyCqO1oF+GBOJFdKPTQ55wg5cBiAM9TZB+y7TTcN6cx7iv7jkXTtI/py+NbFRrww0oG97PjbznlO@vger.kernel.org
-X-Gm-Message-State: AOJu0YwCjGH5wFZ8oeD9JhlD6J7teA80LbbiznU8e6fIS7lkrbW5eeuZ
-	6e6T6vO+bVLNo0y4wQtagDB03paJdcsd+mdI4mUU4WeI3nr581xyx0+U
-X-Gm-Gg: ATEYQzxmXuln7kWlM2gPWng8x5EJPdKHYb3HoSqFEdVCq1p3CMq2cKiSCYLdG17qWVz
-	5WMzxMDi4SgJR0MScyrNQhFbgHdGahmABxxn27S+iz4D8PhI+sepY2h2jsUmziqWgk3He/x8JCy
-	pHzu1VLG8fk1poRTux3aKcVd27u+94jICpEZBkbuhJ37F5fPm3lU2Hf3UKm16uP5wVOXB4TlQtN
-	8CybdYtpxU+Qv6H1Tcd+xXIJa8E72jylGh3u7uuC934fQkzw0YQZnlRsrSzexjByDS7yKHSfW+A
-	dB6FGMMBI4IyEbMGrKAyzl06av2rbXxEIh7AGyvTCVieRH5uBFp9wAgAPpcSvVXytKRI0ddG1MO
-	HyiFhd7DlKPu9UoDJQ/8g/gxohUQM8BJOXleXsUQVQF8NUQZhyK9XraGSoWXuv1tvZWvrfNrLsP
-	pWdujnxRCxs4d7+iVbpR3dGnS1iTdeS4yJ2DYjNH2tgngZ8SqQWBOw
-X-Received: by 2002:a05:6300:8b0f:b0:398:e30d:da6d with SMTP id adf61e73a8af0-39c4ae4faaemr2929569637.68.1774429717318;
-        Wed, 25 Mar 2026 02:08:37 -0700 (PDT)
-Received: from ubuntu.localdomain ([27.217.83.168])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82b03bc6881sm17476982b3a.22.2026.03.25.02.08.34
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 25 Mar 2026 02:08:37 -0700 (PDT)
-From: Zaixiang Xu <zaixiang.xu.dev@gmail.com>
-To: linux@roeck-us.net
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zaixiang.xu.dev@gmail.com
-Subject: [PATCH v4 4/4] hwmon: (sht3x) Add support for GXCAS GXHT30
-Date: Wed, 25 Mar 2026 17:08:10 +0800
-Message-Id: <1774429690-129139-5-git-send-email-zaixiang.xu.dev@gmail.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1774429690-129139-1-git-send-email-zaixiang.xu.dev@gmail.com>
-References: <1774429690-129139-1-git-send-email-zaixiang.xu.dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="Wsu/KMwK"
+ARC-Seal: i=1; a=rsa-sha256; t=1774429900; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=PrIPW1XJ0vBASVR4vl3JpnjaVAE3cj+yD6nsufsyvsHK47HkuwpMj1Ln1kGt3mxp22u9PDmiH9lUz30+4Fnyq/CC2qVUNRl4KDKXmtcu2T8/4N7Uys3zi2gFXmgyEgKP3lBkTZlQIOM/FgCclL9czNiP9qv0O9q50GYi0MsDWLg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1774429900; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=nbGgH67bPt3QHUPIpc23YuEFi5K77qt04FwhAv400Ko=; 
+	b=ZYLxIFDLZagOZ+r1ajjXS6J9wZkY5fJX/ZslYGL0rhzPWL4/QR7Nkd3VnX3FY9ZSMQquTkiwvI/1r2yVBTCqotviGZEyU3yFer84PdXSBpiQkFxlynXZlvD8oyA4elkHePO1UPN1gMZqYCOGnkc2SD/leu8BV51mL/55f9WSVN8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774429900;
+	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=nbGgH67bPt3QHUPIpc23YuEFi5K77qt04FwhAv400Ko=;
+	b=Wsu/KMwKK2D/LCL65eqiqfEYj8D4LmtE0VKaiWQHW+BIUUhyhxcqVKf5wDgFz7pX
+	fCD7fqgNFyjdkVUeqPEEsF4hmTSSzLBZw4+tR3dU7H8H/c9DCshcTFiwB93xRLwUmws
+	x5ow6QsCgCqA0RBQyA4nDwx6OuXq3MiYIbSXU7/r0x2DFCSQnKhgSVQJlRT+bgtRZqZ
+	EgGMYtS7LUAIfuS4VJk99GaZ5tuZF49o2lLHlGST4NPsjlC7ETtbotKxWiqjXN8HAyj
+	CizhhPx2nmqePu1zmrTQphnnamS+iHCCNfSTx2aO6YD9Vzc9EuuH/r6O8ZfKboyA+tZ
+	cHWvf5oB4g==
+Received: by mx.zohomail.com with SMTPS id 1774429898766570.112596004536;
+	Wed, 25 Mar 2026 02:11:38 -0700 (PDT)
+Message-ID: <42fb6b7dfc6a9d66649e0a7040cdafc1289ddf63.camel@icenowy.me>
+Subject: Re: [PATCH v2 0/5] powervr: MT8173 GPU support
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>,  AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Frank Binns
+ <frank.binns@imgtec.com>, Matt Coster	 <matt.coster@imgtec.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Wed, 25 Mar 2026 17:11:31 +0800
+In-Reply-To: <0739597b7a9c162525c10d82c3993e37af1c8a75.camel@icenowy.me>
+References: <20260325071951.544031-1-wenst@chromium.org>
+		 <93c1d325461cc0ffad890d64870de680506338c4.camel@icenowy.me>
+		 <CAGXv+5FL2rs35V4F0bwq-a4ccvFaWKcr1cuKxT6sfTj9h+d6iA@mail.gmail.com>
+	 <0739597b7a9c162525c10d82c3993e37af1c8a75.camel@icenowy.me>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-ZohoMailClient: External
 
-Add support for the GXCAS GXHT30 humidity and temperature sensor.
-The GXHT30 is software compatible with the Sensirion SHT30.
+=E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 16:30 +0800=EF=BC=8CIcenowy Zheng=E5=
+=86=99=E9=81=93=EF=BC=9A
+> =E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 16:08 +0800=EF=BC=8CChen-Yu Tsai=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > On Wed, Mar 25, 2026 at 4:04=E2=80=AFPM Icenowy Zheng <uwu@icenowy.me>
+> > wrote:
+> > >=20
+> > > =E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 15:19 +0800=EF=BC=8CChen-Yu Ts=
+ai=E5=86=99=E9=81=93=EF=BC=9A
+> > > > Hi everyone,
+> > > >=20
+> > > > This is v2 of my MT8173 PowerVR GPU support series.
+> > > >=20
+> > > > Changes since v1:
+> > > > - Adapted to changed DT bindings
+> > > > - Dropped driver change
+> > > > - Use same power domain for "a" and "b" GPU power domains
+> > > >=20
+> > > > This update was requested by Icenowy.
+> > > >=20
+> > > >=20
+> > > > This series enables the PowerVR GPU found in the MT8173 SoC,
+> > > > found in
+> > > > some Chromebooks.
+> > > >=20
+> > > > This version is different from the initial powervr driver
+> > > > submission
+> > > > [1]
+> > > > in that it splits out the GPU glue layer support out of the
+> > > > powervr
+> > > > driver and into a separate clock and power domain driver. The
+> > > > glue
+> > > > code
+> > > > is otherwise the same, and also the same as found in the
+> > > > ChromeOS
+> > > > kernels, with some extra comments and macro names added where
+> > > > possible.
+> > > >=20
+> > > > Patch 1 adds a binding for the glue layer, called mfgtop. The
+> > > > glue
+> > > > layer
+> > > > contains clock and power controls for the GPU.
+> > > >=20
+> > > > Patch 2 adds a driver for the glue layer.
+> > > >=20
+> > > > Patch 3 adds an entry for the MT8173 GPU and 6XT series to the
+> > > > PowerVR
+> > > > binding.
+> > > >=20
+> > > > Patch 4 adds an entry for the PowerVR 6XT series GPU to the
+> > > > driver.
+> > > >=20
+> > > > Patch 5 corrects the clock for the GPU (called MFG) power
+> > > > domain.
+> > > >=20
+> > > > Patch 6 adds device nodes for the GPU and glue layer to the
+> > > > MT8173
+> > > > dtsi
+> > > > file.
+> > > >=20
+> > > > Patch 2 and 6 depend on patch 1 to build. I suppose some common
+> > > > immutable tree would be needed from the MediaTek maintainers.
+> > > >=20
+> > > > The kernel driver successfully probes the hardware and loads
+> > > > the
+> > > > "rogue_4.40.2.51_v1.fw" firmware provided by Imagination
+> > > > Technologies
+> > > > [2].
+> > > > Userspace was tested with Mesa 24.0.8 from Debian Trixie
+> > > > rebuilt
+> > > > with
+> > > > the powervr vulkan driver enabled. `vulkaninfo` gives some
+> > > > information
+> > > > about the GPU (attached at the end), but running the `triangle`
+> > > > example
+> > > > from the Sascha Willems demos [3] with -DUSE_D2D_WSI=3DON as
+> > > > recommended [4]
+> > > > failed with:
+> > > >=20
+> > > > =C2=A0=C2=A0=C2=A0 Can't find a display and a display mode!
+> > >=20
+> > > I think when using D2D the demos want width and height to be
+> > > explicitly
+> > > specified, otherwise it seems to hardcode 1280x720.
+> > >=20
+> > > If you're using an elm, could you try to add `-w 1920 -h 1080` or
+> > > for
+> > > hana `-w 1366 -h 768` ?
+> >=20
+> > I only did the basic `vulkaninfo` test this time around. To do
+> > anything
+> > interesting probably requires the Mesa 26.1 release.
+> >=20
+> > =C2=A0=C2=A0=C2=A0 PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 \
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vkmark --winsys kms -D b81f5=
+4f8568deb0fb70a6a1ed845b65d
+> >=20
+> > just reports "Error: Device specified by uuid is not available"
+>=20
+> I am very sorry to tell you that, when I run Sascha's demo with Mesa
+> main, I got GPU lost immediately...
+>=20
+> ```
+> [=C2=A0 441.509433] powervr 13000000.gpu: [drm] *ERROR* GPU device lost
+> ```
 
-Signed-off-by: Zaixiang Xu <zaixiang.xu.dev@gmail.com>
----
- drivers/hwmon/sht3x.c | 3 +++
- 1 file changed, 3 insertions(+)
+However, Zink on PowerVR works, and on Lichee Pi 4A I also got
+`VK_ERROR_DEVICE_LOST` when running Sascha's demos (although the kernel
+does not report device lost).
 
-diff --git a/drivers/hwmon/sht3x.c b/drivers/hwmon/sht3x.c
-index f2b1d3b8eb23..1561c0f46f75 100644
---- a/drivers/hwmon/sht3x.c
-+++ b/drivers/hwmon/sht3x.c
-@@ -934,6 +934,7 @@ static const struct i2c_device_id sht3x_ids[] = {
- 	{"sht3x", sht3x},
- 	{"sts3x", sts3x},
- 	{"sht85", sht3x},
-+	{"gxht30", sht3x},
- 	{}
- };
- 
-@@ -942,6 +943,7 @@ MODULE_DEVICE_TABLE(i2c, sht3x_ids);
- static const struct of_device_id sht3x_of_match[] = {
- 	{ .compatible = "sensirion,sht30", .data = (void *)sht3x },
- 	{ .compatible = "sensirion,sts30", .data = (void *)sts3x },
-+	{ .compatible = "gxcas,gxht30", .data = (void *)sht3x },
- 	{ }
- };
- 
-@@ -959,5 +961,6 @@ module_i2c_driver(sht3x_i2c_driver);
- 
- MODULE_AUTHOR("David Frey <david.frey@sensirion.com>");
- MODULE_AUTHOR("Pascal Sachs <pascal.sachs@sensirion.com>");
-+MODULE_AUTHOR("Zaixiang Xu <zaixiang.xu.dev@gmail.com>");
- MODULE_DESCRIPTION("Sensirion SHT3x humidity and temperature sensor driver");
- MODULE_LICENSE("GPL");
--- 
-2.34.1
+I bet it's a regression on the VK_KHR_display code.
 
+Thanks,
+Icenowy
+
+>=20
+> Icenowy
+>=20
+> >=20
+> > This is with Mesa 26.0.2 packages from Debian testing. At least now
+> > have the powervr vulkan driver enabled by default, so I don't have
+> > to rebuild the packages again.
+> >=20
+> >=20
+> > ChenYu
+> >=20
+> > > Thanks
+> > > Icenowy
+> > >=20
+> > > >=20
+> > > > Same program worked correctly on a BeaglePlay and displayed a
+> > > > color
+> > > > gradient triangle. Not sure what went wrong here.
+> > > >=20
+> > > > Anyway, please have a look and test.
+> > > >=20
+> > > >=20
+> > > > Thanks
+> > > > ChenYu
+> > > >=20
+> > > > [1]
+> > > > https://lore.kernel.org/dri-devel/20220815165156.118212-2-sarah.wal=
+ker@imgtec.com/
+> > > > [2]
+> > > > https://gitlab.freedesktop.org/imagination/linux-firmware/-/tree/po=
+wervr
+> > > > [3] https://github.com/SaschaWillems/Vulkan
+> > > > [4]
+> > > > https://lore.kernel.org/dri-devel/f2b2671e-5acc-4dec-9c2e-3c9cd2e1f=
+19e@imgtec.com/
+> > > >=20
+> > > > Chen-Yu Tsai (5):
+> > > > =C2=A0 dt-bindings: clock: mediatek: Add mt8173 mfgtop
+> > > > =C2=A0 clk: mediatek: Add mt8173-mfgtop driver
+> > > > =C2=A0 dt-bindings: gpu: powervr-rogue: Add MediaTek MT8173 GPU
+> > > > =C2=A0 arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain
+> > > > clock
+> > > > =C2=A0 arm64: dts: mediatek: mt8173: Add GPU device nodes
+> > > >=20
+> > > > =C2=A0.../clock/mediatek,mt8173-mfgtop.yaml=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 70 +++++
+> > > > =C2=A0.../bindings/gpu/img,powervr-rogue.yaml=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> > > > =C2=A0arch/arm64/boot/dts/mediatek/mt8173.dtsi=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0 33 ++-
+> > > > =C2=A0drivers/clk/mediatek/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0=C2=A0 9 +
+> > > > =C2=A0drivers/clk/mediatek/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
+=C2=A0 1 +
+> > > > =C2=A0drivers/clk/mediatek/clk-mt8173-mfgtop.c=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 | 243
+> > > > ++++++++++++++++++
+> > > > =C2=A0include/dt-bindings/clock/mt8173-clk.h=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 7 +
+> > > > =C2=A07 files changed, 363 insertions(+), 1 deletion(-)
+> > > > =C2=A0create mode 100644
+> > > > Documentation/devicetree/bindings/clock/mediatek,mt8173-
+> > > > mfgtop.yaml
+> > > > =C2=A0create mode 100644 drivers/clk/mediatek/clk-mt8173-mfgtop.c
