@@ -1,131 +1,189 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9E739A818
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:40:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774431626; cv=none; b=mPhXw3NHTrJqdbwtJ0M4sYBmwlFKfPJGpD7nPLvn8Fgo/JyEvxQb2K1RcocKMXSX2tJ7yXYxOTabTBMY6z/JM59nzVUdPoBy1r6fOD0yPsCxvE1WO59Hld4wBTcpZLJC4kGV3Gt+8y3QwbIuvxgtsEwlOpDguw2vB2HBe0yCfYw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774431626; c=relaxed/simple;
-	bh=ic4ovVVbngDbHXUn1s4sSFh/sIJ+WuTucWOFyOVbcJc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ETyBSi1e13h+Y2QndeLg5lMMCDc56zVajmXbJmyBeWHRa+aqcmT5FgkLedN0T1a8Te+nQrYvrf6lB0GhTE6CWZSkzZNOxxu0zu9IUtg5YFC1MlBBUK/Q7lsmjIlebTKbTMFnD9y85TFhALFpp0Iq9bTNvweAIl0nWrJjQja6JQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=SHoPhh5o; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C91039B963
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:42:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774431764; cv=pass; b=unq+D1JKob6rea3hnowx4+N+7Hjs6ZLL6OlloH1EEKG0u3cPFJZU3ER2IquTTowXWK0SvAzCkI2Tk2Qj5XlzuPMDgGRlTto+esUKOZLUazUHNjm5RxkDy25Dj8cXy4GCrUP4Ue06wD4ja9T+JjDWd6AVnOzVd3ij7IQGmG4Z83o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774431764; c=relaxed/simple;
+	bh=iB1MpeIq1U/rE6xcz0FTAu5KFzbYanQ/voAFz7+KWP0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=P1wygOtprp/xqTioRuLpieH6WqDIT6VUs3qi7p4zptQANwaDfKmm9yLhCyvw8qknex8xOO+gSTzQa2dwO/ZENfwzhX6KdRvty5rhfWbMDCoq3G7J4HLzfVrbqzVPRTlmWZjsaOUymo6giT2qTufIDAaTNrxmqP+noSTd2HAHbqk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ouup2Y++; arc=pass smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="SHoPhh5o"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 8609D1A2FE1;
-	Wed, 25 Mar 2026 09:40:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4CCBE601A1;
-	Wed, 25 Mar 2026 09:40:20 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E950A104513B2;
-	Wed, 25 Mar 2026 10:40:14 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1774431619; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=0ixsUbiwjr2cUCJBEr3rNQHAH9XP6hNBHzk2pZT9agY=;
-	b=SHoPhh5ohLqKRFyhAtzIElxDGJCK3uhMK5h3vKQRUgiXWVtAGX9DX1SGCIhFfzM/klpmUP
-	UIoSjK8c9VkbQPtoW23LBM1zpaaXPmf6+N581B0om6GuzHgoPiOEG+PQ3ANksPIHYjItTr
-	qNBrbyfpFXhyplGPqXH2nDVBu2LvgMiP3zhsMpDAhivvpo88LfxODZWSgI1jNHzQaxp3pB
-	p56CA3fy7Fe8YsXPpQfJrB6RdoulJwAVHjeoqKyo2RV/hjbCc7YgkiB5Q7DqNwhWUjaLQB
-	3mHB+g7ENoPmJSdYBJf5uvFk6eGrOcCEwWYwVI2ZqFvKEY8PDpZerf3nmlVV9Q==
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Cc: Mark Brown <broonie@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH net-next 2/2] net: sfp: manage receiver and transmitter regulators
-Date: Wed, 25 Mar 2026 10:40:09 +0100
-Message-ID: <5088970.31r3eYUQgx@fw-rgant>
-In-Reply-To: <ab1diwlayiWMsBIx@shell.armlinux.org.uk>
-References:
- <20260303-sfp-regulators-v1-0-7101ae34cb84@bootlin.com>
- <6022954.DvuYhMxLoT@fw-rgant> <ab1diwlayiWMsBIx@shell.armlinux.org.uk>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ouup2Y++"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-486507134e4so27093975e9.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 02:42:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774431761; cv=none;
+        d=google.com; s=arc-20240605;
+        b=bTiDZ948xc3SyQAu3lNKL28zdZG6I/E/iIqmizW4ncFR+zXyju1cNUjueRu5aHI9jD
+         fhb2e249mlBUMaz0WQ5TAuya3LdAcjmF6Gk7vlVfHvEC0KqjUsOl1VH8oTE32Ufaij6l
+         o31P92K5awHDhz7UidNyel6+biILtR+pETyaEwSFQrV7sizmG1ULzE57D43YYHqqMv6p
+         4HFlk2o75EBUGfOpZL8MU0xPaUoMhqWqBScLx9BSELRoFJP/1HS+yEZdECaN1NxmjmW/
+         fELCyE7scNO370QNJEEFxohSXGZN8nl1pcjWnB9W86Q7zjOllrXqMQAwK0dXpJ1sB2HP
+         Joww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=B8SmLIXQ3rCfuPKUyweZ8Jdf4VFN2OQAa6knDsMspLg=;
+        fh=3OEcIDdGIEUimQo5ZqHco7TKal/P2Ja96GkDyyHmjUE=;
+        b=Hrhg6uityr28eRh/yY0rLZQ+XpW8ONaBj5dxuIa53MosUaq8wA+8hcDswAwEjXBz2b
+         uDBo8uwJ0uORAY2UqmaDSAw+Clhej0+wlwyE4x+KM6KTjQKmk8x81idSfqT4mcI/ZWjA
+         qW/cYMtC5GciFG66UAYK3aI+Fv1TyL0vDLdIlZtw7KBL1Ya+J2oxLDCarE21kVOawbLA
+         X3ei2oJjdgumPKb60HYZ/14b0m5oE9A4JJIHJhHFrHEYM2lywzxBPnqGKzSiG6kNO1e0
+         BOVIEvzSmCvfeR5pL3eL53YyteI7q86dEGaIg6wC6lkxlF0vv2Y238d9RQ25gRFbZUGa
+         RFHg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774431761; x=1775036561; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=B8SmLIXQ3rCfuPKUyweZ8Jdf4VFN2OQAa6knDsMspLg=;
+        b=Ouup2Y++zGVJMKgkzqqkJVTiBroGJXZGaRx1oacMlnc1DUD+duQt4UkUtwnnheeGSz
+         wNLmXJaRlfHDr9+3uPL33CUUkqyjYoZ7JJ14FH+SX7JocpFZ57nbknZe3tuKaxSmW+w3
+         IlP4ysevRxc8K5ZsrjYA0n63ZaSKKGVW0okqOt4hVVxSFHsGmFiNRpGbPYE+RvB1fVDQ
+         72/KCClSaQbWBB0II3difRnlxz8RX8g8tg3LzqynJ9CwnIbknADgVwLPT5vwiPGQuUpk
+         vqTjNDeYJjjAncQ9E4KKEI7vfr1tB1hV4RM337KCEwdYanObrbNrZDHNKErcvlqVnyNw
+         vN+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774431761; x=1775036561;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=B8SmLIXQ3rCfuPKUyweZ8Jdf4VFN2OQAa6knDsMspLg=;
+        b=Fji3XulUbL69muaJp5HOdVgxwHHdepLJt8vZSuWi0PKC+k1dYfHdCMJ4MvQ+pboIHW
+         58Jpkvy3NN2Y2BHW7p/6vFc2twGvvOBvhACx8379TRUNW4cfd95+T2xRRSLD8FfibhSz
+         yYyaM0jfJ5DlvGp2ZAgsCW2ISUiL62Cx7YUv4vcoGbXVXMP5YR/bbY0QbUxX5ShiFmSz
+         xULCn8BhV3oBOVnEnb/qMQRDCdYbhGantAIc96svqlGcDqPMz/DMetl1o0f0zxhs72VR
+         rUXP71eQb0uxLyQzUo+XWvpmIWXlNMk6ThRCZwlm84H+rCVKF2IjMthDSAabSTPmFPbR
+         iWiw==
+X-Forwarded-Encrypted: i=1; AJvYcCVPkKKqIlJM5dUj12CwG9yTQGpsRWFjboXu4kN180mR+N209n2fCLWOYt5aVVmbQ15daiod/1d7f8L+@vger.kernel.org
+X-Gm-Message-State: AOJu0YwaMpeaMlSaCtgfhAsUmiMrwIR7zO9SFrmOVKSnUu3Qr35BSd8E
+	ABE+KTdFdLodavjBSyxY7Ax6JfEii2WH4lPbR/t8tdbpC0EUf9AVJqw7BC0bxuwAHVGQ04AIGD0
+	/x9vUo23XPxedh7X0ZVgsidbIl07EHebVzTGm8lnwtw==
+X-Gm-Gg: ATEYQzxyAbddQTnBHnxAkQWaQ8rvP06gTq40TdUqHFtdCRH4u/XmfoVTnKJ5CZEZrSD
+	4d+eHEw+ioQ2r6H8e99PGtax192d/3V4ZqylCyXgJbW3Mlhj1wZ5TE/v6H/vP0XrDRc69lUfkQ3
+	ofsQMJzAk9vMpKZjBdlBd76u6C2JrnkqAknBuJIAWY07pnUpugwhPJmlzvMLEMm/RaYK6NgXAtA
+	qusyNLXmbjiDKIehkIjELU3Vg57329lQJi6dO7BJRsc2O6aVsbNr2WMajioULYNy/mG4Mf2HuMH
+	j8D1X+VuY8CbriO8KBSi5ItWPnA4ikXnOqPY8H5MWkicgqQTFU+XejY=
+X-Received: by 2002:a05:600c:1394:b0:485:4388:348b with SMTP id
+ 5b1f17b1804b1-48715f0389dmr43148945e9.0.1774431760449; Wed, 25 Mar 2026
+ 02:42:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart4723872.LvFx2qVVIh";
- micalg="pgp-sha512"; protocol="application/pgp-signature"
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260324225239.19136-1-fabrizio.castro.jz@renesas.com> <20260324225239.19136-2-fabrizio.castro.jz@renesas.com>
+In-Reply-To: <20260324225239.19136-2-fabrizio.castro.jz@renesas.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Wed, 25 Mar 2026 09:42:14 +0000
+X-Gm-Features: AQROBzAT47VIcwfqTpzGpASCq2Db9bAff5rSwNiFG5slkBrcAGVZoDPbA5Eb1t0
+Message-ID: <CA+V-a8tDhStdSCkrvG7Bmrqci2CHscyd645B--XZaF_g4GsUuQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] arm64: dts: renesas: r9a09g056: Remove wdt{0,2,3} nodes
+To: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---nextPart4723872.LvFx2qVVIh
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Date: Wed, 25 Mar 2026 10:40:09 +0100
-Message-ID: <5088970.31r3eYUQgx@fw-rgant>
-In-Reply-To: <ab1diwlayiWMsBIx@shell.armlinux.org.uk>
-MIME-Version: 1.0
+On Tue, Mar 24, 2026 at 11:00=E2=80=AFPM Fabrizio Castro
+<fabrizio.castro.jz@renesas.com> wrote:
+>
+> The Renesas RZ/V2N SoC (a.k.a. r9a09g056) comes with 4 CA55
+> cores and 1 CM33 core.
+>
+> While the user manual doesn't explicitly specify which cores
+> should have access to particular watchdogs, it turns out that
+> (similarly to the Renesas RZ/V2H(P)) it only makes sense for
+> Linux to use WDT1.
+>
+> Remove DT nodes wdt{0,2,3} from the RZ/V2N SoC specific dtsi
+> to make it compliant with the original design intent.
+>
+> This change is harmless as there are no users for the nodes
+> being stripped out of this device tree.
+>
+> Signed-off-by: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
+> ---
+>  arch/arm64/boot/dts/renesas/r9a09g056.dtsi | 30 ----------------------
+>  1 file changed, 30 deletions(-)
+>
+Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-On Friday, 20 March 2026 15:45:31 CET Russell King (Oracle) wrote:
-> On Fri, Mar 20, 2026 at 10:39:10AM +0100, Romain Gantois wrote:
-> > Originally, I implemented a runtime PM support in the SFP core. This
-> > allowed to cut power to the cages when the attached network interface was
-> > down, thereby saving power.
-> 
-> Have you measured how much power is saved by this?
+Cheers,
+Prabhakar
 
-Sure, here are a few measures of saved power with several different modules 
-I've tested. The measures were done with a shunt resistor on the regulator 
-line feeding all power pins on both SFP cages. Only one SFP cage was occupied 
-during each measure and the upper network interface was down.
-
-Module           | Power saved (uW)
-SFP-10G-T-I    | 80
-SFP-10G-T-30 | 359
-SFP-GB-GE-T  | 191
-CHAMPION ONE 1000SFPT | 188
-SFP-H10GB-CU1M | 0
-ES8512-3LCD05 | 248
-SFP100BFXST | 351
-
-So with both SFP cages occupied, we could see about 0.7mW of saved power by 
-cutting the regulators to the cages.
-
-Thanks,
-
--- 
-Romain Gantois, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
---nextPart4723872.LvFx2qVVIh
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEIcCsAScRrtr7W0x0KCYAIARzeA4FAmnDrXkACgkQKCYAIARz
-eA6+Ow//bX4geV5K72UhtlUIxoYgnv1tWC40NCjRX+2zNNJKc2eWRMakvQEc0IZy
-chaHitXDIGm8ePOd2GYuSfjz9lCID2XJZ1hV0tfLI79roWbj32wSipFzZ0bNhoP9
-n4HunjB/fw4zthihRlXObsfNOPJ18LAnfGgvlbxnIGj7pVkOkxXfJyNaFcUZA8Pu
-jfGuq+bUsvZ5qO/24aBjHT4Hmtnl4BQno7ubaJHfiBa9JoMMU7JPIVKHIatCw/oK
-3V/PzrUrRbwCtik4bY/quJqdXMnsI0xM5CBOSYT3oObzTCBec+ANJwBEtY1b/ZtW
-HCgWA7hRHh1FD5CHJC1WBj7gRi6bIWn4vw4rafvTvw49KV7UKND1jg4ma6sESwg/
-sfAc3QLCU+TujUJ0zMWrdGyRc/KlgPLTZCuSP0esGlRuzY/pb+nhdYNusmgKJURE
-LQVzyokDVZHnbWROvdwxokMMdE0Z3JHUyhO8IK0GZdDfTJk/GVPUwyzD2glsLfBP
-CqccXVB+n8wDoHfJgYKt67BoYH21ZR5mvwyEq2gxGDxLHlnIGxoVnFhCUmENRY+3
-N2uotbdEYqi9uZ+kOXMDU+uPcLXPTQkbuDWlRyD0cC9HmnQIFJOTqZ1VMPwxcgW8
-V8E6f0JcrX4+XZfg7C97sOYjdrJ7t87bJsHCZ6BjOwEfp7ZVBj8=
-=EX2l
------END PGP SIGNATURE-----
-
---nextPart4723872.LvFx2qVVIh--
-
-
-
+> diff --git a/arch/arm64/boot/dts/renesas/r9a09g056.dtsi b/arch/arm64/boot=
+/dts/renesas/r9a09g056.dtsi
+> index 9192c5bf7e59..40525470194e 100644
+> --- a/arch/arm64/boot/dts/renesas/r9a09g056.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g056.dtsi
+> @@ -599,16 +599,6 @@ ostm7: timer@12c03000 {
+>                         status =3D "disabled";
+>                 };
+>
+> -               wdt0: watchdog@11c00400 {
+> -                       compatible =3D "renesas,r9a09g056-wdt", "renesas,=
+r9a09g057-wdt";
+> -                       reg =3D <0 0x11c00400 0 0x400>;
+> -                       clocks =3D <&cpg CPG_MOD 0x4b>, <&cpg CPG_MOD 0x4=
+c>;
+> -                       clock-names =3D "pclk", "oscclk";
+> -                       resets =3D <&cpg 0x75>;
+> -                       power-domains =3D <&cpg>;
+> -                       status =3D "disabled";
+> -               };
+> -
+>                 wdt1: watchdog@14400000 {
+>                         compatible =3D "renesas,r9a09g056-wdt", "renesas,=
+r9a09g057-wdt";
+>                         reg =3D <0 0x14400000 0 0x400>;
+> @@ -619,26 +609,6 @@ wdt1: watchdog@14400000 {
+>                         status =3D "disabled";
+>                 };
+>
+> -               wdt2: watchdog@13000000 {
+> -                       compatible =3D "renesas,r9a09g056-wdt", "renesas,=
+r9a09g057-wdt";
+> -                       reg =3D <0 0x13000000 0 0x400>;
+> -                       clocks =3D <&cpg CPG_MOD 0x4f>, <&cpg CPG_MOD 0x5=
+0>;
+> -                       clock-names =3D "pclk", "oscclk";
+> -                       resets =3D <&cpg 0x77>;
+> -                       power-domains =3D <&cpg>;
+> -                       status =3D "disabled";
+> -               };
+> -
+> -               wdt3: watchdog@13000400 {
+> -                       compatible =3D "renesas,r9a09g056-wdt", "renesas,=
+r9a09g057-wdt";
+> -                       reg =3D <0 0x13000400 0 0x400>;
+> -                       clocks =3D <&cpg CPG_MOD 0x51>, <&cpg CPG_MOD 0x5=
+2>;
+> -                       clock-names =3D "pclk", "oscclk";
+> -                       resets =3D <&cpg 0x78>;
+> -                       power-domains =3D <&cpg>;
+> -                       status =3D "disabled";
+> -               };
+> -
+>                 rtc: rtc@11c00800 {
+>                         compatible =3D "renesas,r9a09g056-rtca3", "renesa=
+s,rz-rtca3";
+>                         reg =3D <0 0x11c00800 0 0x400>;
+> --
+> 2.43.0
+>
+>
