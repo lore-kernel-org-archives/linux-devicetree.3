@@ -1,357 +1,332 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75734014BA
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 17:24:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D623406281;
+	Wed, 25 Mar 2026 17:35:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774459478; cv=none; b=D++9HtRb3I1IauJdXUp3qXPBtlIUx9WC60cHxgQIYl00rn8FuEBwy04Gox88xet1yt9aSh7N1SBg8d+wKiazq3RTdqLxLqDdNbZaq7QlsPeSp4yJhH8kvLHD4+5vGsv8GnZv66rZ4M6FB7aL8m7pUwmcnS3HS5u1pDTmXezKNTI=
+	t=1774460103; cv=none; b=Eyp5wecb5bCIhsWgxiIZy+gxxPeuYaRdbxBju6CAXmDvYqHFGmog3sje2sqIZ9lJvIYcVzo6DIUPotQTcZHJRtoG1aFaewrO/ak+POCtGlMruH79sxK92uSXvAZuhXbbyXh4b68pNXXcw+r2Bq6urxsH7bZpAvIcGhM1Lj4yTlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774459478; c=relaxed/simple;
-	bh=eo597RlHH4qDWONgoLGDeDHtulgPopgcZ53WbjyNJCo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=d0LRdfgHVMdHEE0bmWD3tP1CVcS3bXpoXgec8VwKsHrTUMVD+uFDmDTuxfGI0KOk3MK7nDce+FogmhS3kn/HbF7P7WtDBYy02RNfGlvUBfo4doWNMYJJpXSELKEm2Nd5WQ+xptCUzNMNVJZj9xaQIv+2nLjdFbq/mMqovsGibts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1w5Rxw-0006Z5-MU; Wed, 25 Mar 2026 18:24:24 +0100
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1w5Rxw-0025yc-12;
-	Wed, 25 Mar 2026 18:24:24 +0100
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1w5Rxw-00000000Ekt-0vop;
-	Wed, 25 Mar 2026 18:24:24 +0100
-Message-ID: <3c33d7799fa96b99d4d2bd4f45fa928739346b23.camel@pengutronix.de>
-Subject: Re: [PATCH v5 09/10] clk: realtek: Add RTD1625-CRT clock controller
- driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Yu-Chun Lin <eleanor.lin@realtek.com>, mturquette@baylibre.com, 
-	sboyd@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- 	cylee12@realtek.com, afaerber@suse.com, jyanchou@realtek.com
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com, 
-	cy.huang@realtek.com, stanley_chang@realtek.com
-Date: Wed, 25 Mar 2026 18:24:24 +0100
-In-Reply-To: <20260324025332.3416977-10-eleanor.lin@realtek.com>
-References: <20260324025332.3416977-1-eleanor.lin@realtek.com>
-	 <20260324025332.3416977-10-eleanor.lin@realtek.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1774460103; c=relaxed/simple;
+	bh=EbLhVB6iS1vlGuGUCtBUkhmq/icBUn65MiS+x1rEuCk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y02fRj4ZvI1mmOqjU463sAnbiPg2qZhc2EIYDGIMbanfLNtPYcTvtPiTWAJUNRD39/U7QbWA+xNDprV/4ZWGD7eRUzEGtv4VRWgpeJlm/BTFYQqxcgFnhEu16c1Pb9CyjPfYwhCW3656E4Ls6MpR57yqjePfuFeboqZteXPoBe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MKcBY6a7; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MKcBY6a7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F855C4CEF7;
+	Wed, 25 Mar 2026 17:34:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774460102;
+	bh=EbLhVB6iS1vlGuGUCtBUkhmq/icBUn65MiS+x1rEuCk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MKcBY6a791jkx5gHCq4ysr7GBZz7gmQITFvcNlX6dMlMJEdujsVrD10TuUdxKphgK
+	 vDjPavA1epu+sqJkkXrUFOIGYXIEvtFFRlwQE5pQPM5+2qGdFov5p+oDx+9k+4tebN
+	 +g2j7XcEzN5OuXLATS5W5tdWUTXCzutiSXS84vx5RltHbFqt6YIfMQxWYt0c9rzM0e
+	 nCcom3m459y+W5sCUtcKBDGAczJa8r4YawhGq+BqbnSpvrgZU6pGdCBpVmyOVgKfIz
+	 j2rTS9SENMw4tS8iRSDB/8DWW3R9tqxi99Jyp7FCCXoGti1XZBPh+N0wOu/o37YesT
+	 9/wPhJVRq5UJg==
+Date: Wed, 25 Mar 2026 17:34:57 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Frank Li <Frank.li@nxp.com>
+Cc: Linus Walleij <linusw@kernel.org>, Peter Rosin <peda@axentia.se>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Haibo Chen <haibo.chen@nxp.com>
+Subject: Re: [PATCH v3 3/7] pinctrl: pinctrl-generic: add
+ __pinctrl_generic_pins_function_dt_node_to_map()
+Message-ID: <20260325-rectified-filtrate-32a8f7345d37@spud>
+References: <20260311-pinctrl-mux-v3-0-236b1c17bf9b@nxp.com>
+ <20260311-pinctrl-mux-v3-3-236b1c17bf9b@nxp.com>
+ <CAD++jL=U2xNMMHk_LyH8CX+YpC5EGPVRasM11yesXSH4XLhqYw@mail.gmail.com>
+ <absvZ5wzAwpbjHf1@lizhi-Precision-Tower-5810>
+ <CAD++jLkp1CFcLccmLP0BWQSBKkruGCPT71dMeuyu3JY1N4T50g@mail.gmail.com>
+ <ab1Rpf2zS8Bn1-HV@lizhi-Precision-Tower-5810>
+ <acLxCnz3qYfAC3iB@lizhi-Precision-Tower-5810>
+ <20260325-riding-browbeat-293b47f43d82@spud>
+ <acP6oFsaD8PddWjg@lizhi-Precision-Tower-5810>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="CY/CCDWk7hyJWyAw"
+Content-Disposition: inline
+In-Reply-To: <acP6oFsaD8PddWjg@lizhi-Precision-Tower-5810>
 
-On Di, 2026-03-24 at 10:53 +0800, Yu-Chun Lin wrote:
-> From: Cheng-Yu Lee <cylee12@realtek.com>
->=20
-> Add support for the CRT (Clock, Reset, and Test) controller on the Realte=
-k
-> RTD1625 SoC. This driver provides clock and reset management for the
-> system, allowing peripheral clients to request necessary resources for
-> operation.
->=20
-> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
-> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> ---
-> Changes in v5:
-> - Added '#include <dt-bindings/reset/realtek,rtd1625.h>'.
-> - Replaced rtk_reset_bank array with rtk_reset_desc descriptor.
-> - Implemented complete a mapping table for all reset IDs.
-> ---
->  drivers/clk/realtek/Kconfig           |  14 +
->  drivers/clk/realtek/Makefile          |   1 +
->  drivers/clk/realtek/clk-rtd1625-crt.c | 913 ++++++++++++++++++++++++++
->  3 files changed, 928 insertions(+)
->  create mode 100644 drivers/clk/realtek/clk-rtd1625-crt.c
->=20
-[...]
-> diff --git a/drivers/clk/realtek/clk-rtd1625-crt.c b/drivers/clk/realtek/=
-clk-rtd1625-crt.c
-> new file mode 100644
-> index 000000000000..a56978aef83a
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-rtd1625-crt.c
-> @@ -0,0 +1,913 @@
-[...]
-> +static struct rtk_reset_desc rtd1625_crt_reset_descs[] =3D {
-> +	/* Bank 0: offset 0x0 */
-> +	[RTD1625_CRT_RSTN_MISC]         =3D { .ofs =3D 0x0, .bit =3D 0,  .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_DIP]          =3D { .ofs =3D 0x0, .bit =3D 2,  .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_GSPI]         =3D { .ofs =3D 0x0, .bit =3D 4,  .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SDS]          =3D { .ofs =3D 0x0, .bit =3D 6,  .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SDS_REG]      =3D { .ofs =3D 0x0, .bit =3D 8,  .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SDS_PHY]      =3D { .ofs =3D 0x0, .bit =3D 10, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_GPU2D]        =3D { .ofs =3D 0x0, .bit =3D 12, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_DC_PHY]       =3D { .ofs =3D 0x0, .bit =3D 22, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_DCPHY_CRT]    =3D { .ofs =3D 0x0, .bit =3D 24, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_LSADC]        =3D { .ofs =3D 0x0, .bit =3D 26, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SE]           =3D { .ofs =3D 0x0, .bit =3D 28, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_DLA]          =3D { .ofs =3D 0x0, .bit =3D 30, .write=
-_en =3D 1 },
-> +	/* Bank 1: offset 0x4 */
-> +	[RTD1625_CRT_RSTN_JPEG]         =3D { .ofs =3D 0x4, .bit =3D 0,  .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SD]           =3D { .ofs =3D 0x4, .bit =3D 2,  .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SDIO]         =3D { .ofs =3D 0x4, .bit =3D 6,  .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCR_CNT]      =3D { .ofs =3D 0x4, .bit =3D 8,  .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE0_STITCH] =3D { .ofs =3D 0x4, .bit =3D 10, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE0_PHY]    =3D { .ofs =3D 0x4, .bit =3D 12, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE0]        =3D { .ofs =3D 0x4, .bit =3D 14, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE0_CORE]   =3D { .ofs =3D 0x4, .bit =3D 16, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE0_POWER]  =3D { .ofs =3D 0x4, .bit =3D 18, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE0_NONSTICH] =3D { .ofs =3D 0x4, .bit =3D 20, .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE0_PHY_MDIO] =3D { .ofs =3D 0x4, .bit =3D 22, .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE0_SGMII_MDIO] =3D { .ofs =3D 0x4, .bit =3D 24, .w=
-rite_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_VO2]          =3D { .ofs =3D 0x4, .bit =3D 28, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_MISC_SC0]     =3D { .ofs =3D 0x4, .bit =3D 30, .write=
-_en =3D 1 },
-> +	/* Bank 2: offset 0x8 */
-> +	[RTD1625_CRT_RSTN_MD]           =3D { .ofs =3D 0x8, .bit =3D 4,  .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_LVDS1]        =3D { .ofs =3D 0x8, .bit =3D 6,  .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_LVDS2]        =3D { .ofs =3D 0x8, .bit =3D 8,  .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_MISC_SC1]     =3D { .ofs =3D 0x8, .bit =3D 10, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_I2C_3]        =3D { .ofs =3D 0x8, .bit =3D 12, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_FAN]          =3D { .ofs =3D 0x8, .bit =3D 14, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_TVE]          =3D { .ofs =3D 0x8, .bit =3D 16, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_AIO]          =3D { .ofs =3D 0x8, .bit =3D 18, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_VO]           =3D { .ofs =3D 0x8, .bit =3D 20, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_MIPI_CSI]     =3D { .ofs =3D 0x8, .bit =3D 22, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_HDMIRX]       =3D { .ofs =3D 0x8, .bit =3D 24, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_HDMIRX_WRAP]  =3D { .ofs =3D 0x8, .bit =3D 26, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_HDMI]         =3D { .ofs =3D 0x8, .bit =3D 28, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_DISP]         =3D { .ofs =3D 0x8, .bit =3D 30, .write=
-_en =3D 1 },
-> +	/* Bank 3: offset 0xc */
-> +	[RTD1625_CRT_RSTN_SATA_PHY_POW1] =3D { .ofs =3D 0xc, .bit =3D 0,  .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SATA_PHY_POW0] =3D { .ofs =3D 0xc, .bit =3D 2,  .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SATA_MDIO1]   =3D { .ofs =3D 0xc, .bit =3D 4,  .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SATA_MDIO0]   =3D { .ofs =3D 0xc, .bit =3D 6,  .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SATA_WRAP]    =3D { .ofs =3D 0xc, .bit =3D 8,  .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SATA_MAC_P1]  =3D { .ofs =3D 0xc, .bit =3D 10, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SATA_MAC_P0]  =3D { .ofs =3D 0xc, .bit =3D 12, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SATA_MAC_COM] =3D { .ofs =3D 0xc, .bit =3D 14, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE1_STITCH] =3D { .ofs =3D 0xc, .bit =3D 16, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE1_PHY]     =3D { .ofs =3D 0xc, .bit =3D 18, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE1]         =3D { .ofs =3D 0xc, .bit =3D 20, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE1_CORE]   =3D { .ofs =3D 0xc, .bit =3D 22, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE1_POWER]  =3D { .ofs =3D 0xc, .bit =3D 24, .write=
-_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE1_NONSTICH] =3D { .ofs =3D 0xc, .bit =3D 26, .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE1_PHY_MDIO] =3D { .ofs =3D 0xc, .bit =3D 28, .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_HDMITOP]      =3D { .ofs =3D 0xc, .bit =3D 30, .write=
-_en =3D 1 },
-> +	/* Bank 4: offset 0x68 */
-> +	[RTD1625_CRT_RSTN_I2C_4]        =3D { .ofs =3D 0x68, .bit =3D 2,  .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_I2C_5]        =3D { .ofs =3D 0x68, .bit =3D 4,  .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_TSIO]         =3D { .ofs =3D 0x68, .bit =3D 6,  .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_VI]           =3D { .ofs =3D 0x68, .bit =3D 8,  .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_EDP]          =3D { .ofs =3D 0x68, .bit =3D 10, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_VE1_MMU]      =3D { .ofs =3D 0x68, .bit =3D 12, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_VE1_MMU_FUNC] =3D { .ofs =3D 0x68, .bit =3D 14, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_HSE_MMU]      =3D { .ofs =3D 0x68, .bit =3D 16, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_HSE_MMU_FUNC] =3D { .ofs =3D 0x68, .bit =3D 18, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_MDLM2M]       =3D { .ofs =3D 0x68, .bit =3D 20, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_ISO_GSPI]     =3D { .ofs =3D 0x68, .bit =3D 22, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SOFT_NPU]     =3D { .ofs =3D 0x68, .bit =3D 24, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SPI2EMMC]     =3D { .ofs =3D 0x68, .bit =3D 26, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_EARC]         =3D { .ofs =3D 0x68, .bit =3D 28, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_VE1]          =3D { .ofs =3D 0x68, .bit =3D 30, .writ=
-e_en =3D 1 },
-> +	/* Bank 5: offset 0x90 */
-> +	[RTD1625_CRT_RSTN_PCIE2_STITCH]  =3D { .ofs =3D 0x90, .bit =3D 0,  .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE2_PHY]    =3D { .ofs =3D 0x90, .bit =3D 2,  .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE2]        =3D { .ofs =3D 0x90, .bit =3D 4,  .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE2_CORE]   =3D { .ofs =3D 0x90, .bit =3D 6,  .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE2_POWER]  =3D { .ofs =3D 0x90, .bit =3D 8,  .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE2_NONSTICH] =3D { .ofs =3D 0x90, .bit =3D 10, .wr=
-ite_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_PCIE2_PHY_MDIO] =3D { .ofs =3D 0x90, .bit =3D 12, .wr=
-ite_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_DCPHY_UMCTL2] =3D { .ofs =3D 0x90, .bit =3D 14, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_MIPI_DSI]     =3D { .ofs =3D 0x90, .bit =3D 16, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_HIFM]         =3D { .ofs =3D 0x90, .bit =3D 18, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_NSRAM]        =3D { .ofs =3D 0x90, .bit =3D 20, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_AUCPU0_REG]   =3D { .ofs =3D 0x90, .bit =3D 22, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_MDL_GENPW]    =3D { .ofs =3D 0x90, .bit =3D 24, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_MDL_CHIP]     =3D { .ofs =3D 0x90, .bit =3D 26, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_MDL_IP]       =3D { .ofs =3D 0x90, .bit =3D 28, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_TEST_MUX]     =3D { .ofs =3D 0x90, .bit =3D 30, .writ=
-e_en =3D 1 },
-> +	/* Bank 6: offset 0xb8 */
-> +	[RTD1625_CRT_RSTN_ISO_BIST]     =3D { .ofs =3D 0xb8, .bit =3D 0,  .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_MAIN_BIST]    =3D { .ofs =3D 0xb8, .bit =3D 2,  .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_MAIN2_BIST]   =3D { .ofs =3D 0xb8, .bit =3D 4,  .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_VE1_BIST]     =3D { .ofs =3D 0xb8, .bit =3D 6,  .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_VE2_BIST]     =3D { .ofs =3D 0xb8, .bit =3D 8,  .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_DCPHY_BIST]   =3D { .ofs =3D 0xb8, .bit =3D 10, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_GPU_BIST]     =3D { .ofs =3D 0xb8, .bit =3D 12, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_DISP_BIST]    =3D { .ofs =3D 0xb8, .bit =3D 14, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_NPU_BIST]     =3D { .ofs =3D 0xb8, .bit =3D 16, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_CAS_BIST]     =3D { .ofs =3D 0xb8, .bit =3D 18, .writ=
-e_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_VE4_BIST]     =3D { .ofs =3D 0xb8, .bit =3D 20, .writ=
-e_en =3D 1 },
-> +	/* Bank 7: offset 0x454 (DUMMY0, no write_en) */
-> +	[RTD1625_CRT_RSTN_EMMC]         =3D { .ofs =3D 0x454, .bit =3D 0 },
-> +	/* Bank 8: offset 0x458 (DUMMY1, no write_en) */
-> +	[RTD1625_CRT_RSTN_GPU]          =3D { .ofs =3D 0x458, .bit =3D 0 },
-> +	/* Bank 9: offset 0x464 (DUMMY4, no write_en) */
-> +	[RTD1625_CRT_RSTN_VE2]          =3D { .ofs =3D 0x464, .bit =3D 0 },
-> +	/* Bank 10: offset 0x880 */
-> +	[RTD1625_CRT_RSTN_UR1]          =3D { .ofs =3D 0x880, .bit =3D 0,  .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_UR2]          =3D { .ofs =3D 0x880, .bit =3D 2,  .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_UR3]          =3D { .ofs =3D 0x880, .bit =3D 4,  .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_UR4]          =3D { .ofs =3D 0x880, .bit =3D 6,  .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_UR5]          =3D { .ofs =3D 0x880, .bit =3D 8,  .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_UR6]          =3D { .ofs =3D 0x880, .bit =3D 10, .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_UR7]          =3D { .ofs =3D 0x880, .bit =3D 12, .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_UR8]          =3D { .ofs =3D 0x880, .bit =3D 14, .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_UR9]          =3D { .ofs =3D 0x880, .bit =3D 16, .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_UR_TOP]       =3D { .ofs =3D 0x880, .bit =3D 18, .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_I2C_7]        =3D { .ofs =3D 0x880, .bit =3D 28, .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_I2C_6]        =3D { .ofs =3D 0x880, .bit =3D 30, .wri=
-te_en =3D 1 },
-> +	/* Bank 11: offset 0x890 */
-> +	[RTD1625_CRT_RSTN_SPI0]         =3D { .ofs =3D 0x890, .bit =3D 0,  .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SPI1]         =3D { .ofs =3D 0x890, .bit =3D 2,  .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_SPI2]         =3D { .ofs =3D 0x890, .bit =3D 4,  .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_LSADC0]       =3D { .ofs =3D 0x890, .bit =3D 16, .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_LSADC1]       =3D { .ofs =3D 0x890, .bit =3D 18, .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_ISOMIS_DMA]   =3D { .ofs =3D 0x890, .bit =3D 20, .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_AUDIO_ADC]    =3D { .ofs =3D 0x890, .bit =3D 22, .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_DPTX]         =3D { .ofs =3D 0x890, .bit =3D 24, .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_AUCPU1_REG]   =3D { .ofs =3D 0x890, .bit =3D 26, .wri=
-te_en =3D 1 },
-> +	[RTD1625_CRT_RSTN_EDPTX]        =3D { .ofs =3D 0x890, .bit =3D 28, .wri=
-te_en =3D 1 },
-> +};
 
-These should be moved into the reset driver. Then rtk_reset_desc
-doesn't have to be a public interface between the clk and reset drivers
-anymore.
+--CY/CCDWk7hyJWyAw
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-regards
-Philipp
+On Wed, Mar 25, 2026 at 11:09:20AM -0400, Frank Li wrote:
+> On Wed, Mar 25, 2026 at 10:33:05AM +0000, Conor Dooley wrote:
+> > On Tue, Mar 24, 2026 at 04:16:10PM -0400, Frank Li wrote:
+> > > On Fri, Mar 20, 2026 at 09:54:45AM -0400, Frank Li wrote:
+> > > > On Fri, Mar 20, 2026 at 02:27:21PM +0100, Linus Walleij wrote:
+> > > > > On Thu, Mar 19, 2026 at 12:04=E2=80=AFAM Frank Li <Frank.li@nxp.c=
+om> wrote:
+> > > > > > On Mon, Mar 16, 2026 at 10:37:28AM +0100, Linus Walleij wrote:
+> > > > >
+> > > > > > > That said: in this case you're just adding a parameter, just =
+add
+> > > > > > > the parameter and change all of the in-tree users to pass fal=
+se
+> > > > > > > or whatever you need, these is just one (1) in-tree user anyw=
+ay.
+> > > > > >
+> > > > > > pinctrl_generic_pins_function_dt_node_to_map() directly feed to
+> > > > > > .dt_node_to_map() callback, add parameter will impact too much.
+> > > > >
+> > > > > Why do you say that. It already has many parameters, one more
+> > > > > or less doesn't matter. It's not like this call is performance-cr=
+itical.
+> > > > > Just change the users.
+> > > >
+> > > > In only user drivers/pinctrl/microchip/pinctrl-mpfs-mssio.c,
+> > > > 	.dt_node_to_map =3D pinctrl_generic_pins_function_dt_node_to_map;
+> > > >
+> > > > pinctrl_generic_pins_function_dt_node_to_map() need match .dt_node_=
+to_map()'s
+> > > > declear.
+> > > >
+> > > > So it can't direct add two parameters in pinctrl_generic_pins_funct=
+ion_dt_node_to_map()
+> > > > Need simple wrap function, which other in pinctrl-mpfs-mssio.c or in
+> > > > pinconf.h.
+> > > >
+> > > > If add two parameter in .dt_node_to_map(), need change all function=
+s, which
+> > > > .dt_node_to_map =3D xxx_to_map(). and OF core part.
+> > >
+> > > Linus Walleij:
+> > > 	Is my explain clear enough? I am preparing respin it?
+> > >
+> > > 	is okay use wrap function
+> > > 	pinctrl_generic_pins_function_dt_node_to_map_ext()?
+> >
+> > I don't understand this patch. The function is called
+> > pinctrl_generic_pins_function_dt_node_to_map(). You have no pins.
+> > You're adding a parameter to make a function with *pins* in its name not
+> > use pins. The new function doesn't use pins but has pins in the name.
+> > At the very least function names should not be misleading.
+> >
+> > I was going to suggest pulling out the relevant portions and creating
+> > some helpers that could be used by multiple different-but-similar
+> > functions, but I don't actually even think that there's much in common.
+> > Most damningly I think, you don't actually read either the functions or
+> > pins properties at all and neither are permitted by your binding.
+> > So turns out you use neither pins or functions...
+> >
+> > You don't actually have any of these properties which runs counter to t=
+he
+> > goal of the function, which is parsing. With this in mind, it feels to =
+me
+> > like you're trying way too hard to make use of a generic function when =
+the
+> > right thing to do is probably just have an entirely custom function.
+> > Maybe that's a custom implementation in your driver, or a new function
+> > here, but I think writing that will highlight just how little of the
+> > code would be shared between the existing function and what your
+> > use-case needs: no pin configuration stuff, no reading of the devicetree
+> > other than the node names and no dealing with the label pointing to the
+> > "wrong" place.
+> >
+> > I recently bought a spacemit k1 board to go and write a sister function
+> > to pinctrl_generic_pins_function_dt_node_to_map() that deals with pins
+> > and groups (because that's a pretty common pattern).
+> > I would be calling that pinctrl_generic_pinmux_dt_node_to_map(),
+> > because it that's the property it deals with. I have honestly got no
+> > idea what to call one for this situation since you don't have any of the
+> > properties in pinmux-node.yaml. Maybe that's a sign.
+>=20
+> At v2, I implemented customize dt_node_to_map(), Linus Walleij think it is
+> too similar with pinctrl_generic_pins_function_dt_node_to_map(), so ask me
+> to enhanance and reuse pinctrl_generic_pins_function_dt_node_to_map().
+
+Sure, and he's right that there's a lot similar. Everything you want to
+do, other than looking at the mux state, is something that
+pinctrl_generic_pins_function_dt_node_to_map() does. But bastardising
+a function that's explicitly about reading pins and functions properties
+to do things that have _neither_ is not a good implementation of that
+review feedback.
+
+If you're going to make something generic, the right level to hook in
+IMO is at the pinctrl_generic_pins_function_dt_subnode_to_map() level,
+I already know that 95% of the code in that function is identical to
+what will be used for the spacemit k1 that uses the pinmux property
+and changing its API is a lot easier than changing the API of something
+that is written to match the dt_node_to_map callback.
+You don't even benefit from the extra functionality that
+pinctrl_generic_pins_function_dt_node_to_map() provides, because you
+don't have ambiguity about where the phandle you're parsing from points.
+In your case, it has to be the group node.
+
+pinctrl_generic_pins_function_dt_subnode_to_map() could probably be
+split into two parts, one that does the dt parsing portion and a second
+portion that does the mapping to kernel data structures. The first
+portion of that is the for loop. The second portion is everything after
+the for loop and the bit that names the groups. IOW, do something like
+what I am pasting here, and you create your own function that wraps
+pinctrl_generic_to_map() in the way you want. I personally think this is
+more tasteful than what you've done, and more importantly I am pretty
+sure that this is what's needed to be able to maximise code reuse for
+the devices that use pinmux. I didn't compile this or anything, it's
+just speculative.
+
+diff --git a/drivers/pinctrl/pinctrl-generic.c b/drivers/pinctrl/pinctrl-ge=
+neric.c
+index efb39c6a67033..7f02af6d9f3e4 100644
+--- a/drivers/pinctrl/pinctrl-generic.c
++++ b/drivers/pinctrl/pinctrl-generic.c
+@@ -17,56 +17,30 @@
+ #include "pinctrl-utils.h"
+ #include "pinmux.h"
+=20
+-static int pinctrl_generic_pins_function_dt_subnode_to_map(struct pinctrl_=
+dev *pctldev,
+-							   struct device_node *parent,
+-							   struct device_node *np,
+-							   struct pinctrl_map **maps,
+-							   unsigned int *num_maps,
+-							   unsigned int *num_reserved_maps,
+-							   const char **group_names,
+-							   unsigned int ngroups)
++static int pinctrl_generic_to_map(struct pinctrl_dev *pctldev,
++				  struct device_node *parent,
++				  struct device_node *np,
++				  struct pinctrl_map **maps,
++				  unsigned int *num_maps,
++				  unsigned int *num_reserved_maps,
++				  const char **group_names,
++				  unsigned int ngroups,
++				  const char **functions,
++				  unsigned int *pins,
++				  void *function_data)
+ {
+ 	struct device *dev =3D pctldev->dev;
+-	const char **functions;
+ 	const char *group_name;
+ 	unsigned long *configs;
+-	unsigned int num_configs, pin, *pins;
++	unsigned int num_configs;
+ 	int npins, ret, reserve =3D 1;
+=20
+-	npins =3D of_property_count_u32_elems(np, "pins");
+-
+-	if (npins < 1) {
+-		dev_err(dev, "invalid pinctrl group %pOFn.%pOFn %d\n",
+-			parent, np, npins);
+-		return npins;
+-	}
+-
+ 	group_name =3D devm_kasprintf(dev, GFP_KERNEL, "%pOFn.%pOFn", parent, np);
+ 	if (!group_name)
+ 		return -ENOMEM;
+=20
+ 	group_names[ngroups] =3D group_name;
+=20
+-	pins =3D devm_kcalloc(dev, npins, sizeof(*pins), GFP_KERNEL);
+-	if (!pins)
+-		return -ENOMEM;
+-
+-	functions =3D devm_kcalloc(dev, npins, sizeof(*functions), GFP_KERNEL);
+-	if (!functions)
+-		return -ENOMEM;
+-
+-	for (int i =3D 0; i < npins; i++) {
+-		ret =3D of_property_read_u32_index(np, "pins", i, &pin);
+-		if (ret)
+-			return ret;
+-
+-		pins[i] =3D pin;
+-
+-		ret =3D of_property_read_string(np, "function", &functions[i]);
+-		if (ret)
+-			return ret;
+-	}
+-
+ 	ret =3D pinctrl_utils_reserve_map(pctldev, maps, num_reserved_maps, num_m=
+aps, reserve);
+ 	if (ret)
+ 		return ret;
+@@ -101,6 +75,52 @@ static int pinctrl_generic_pins_function_dt_subnode_to_=
+map(struct pinctrl_dev *p
+ 		return ret;
+=20
+ 	return 0;
++}
++
++static int pinctrl_generic_pins_function_dt_subnode_to_map(struct pinctrl_=
+dev *pctldev,
++							   struct device_node *parent,
++							   struct device_node *np,
++							   struct pinctrl_map **maps,
++							   unsigned int *num_maps,
++							   unsigned int *num_reserved_maps,
++							   const char **group_names,
++							   unsigned int ngroups)
++{
++	struct device *dev =3D pctldev->dev;
++	const char **functions;
++	unsigned int pin, *pins;
++	int npins, ret;
++
++	npins =3D of_property_count_u32_elems(np, "pins");
++
++	if (npins < 1) {
++		dev_err(dev, "invalid pinctrl group %pOFn.%pOFn %d\n",
++			parent, np, npins);
++		return npins;
++	}
++
++	pins =3D devm_kcalloc(dev, npins, sizeof(*pins), GFP_KERNEL);
++	if (!pins)
++		return -ENOMEM;
++
++	functions =3D devm_kcalloc(dev, npins, sizeof(*functions), GFP_KERNEL);
++	if (!functions)
++		return -ENOMEM;
++
++	for (int i =3D 0; i < npins; i++) {
++		ret =3D of_property_read_u32_index(np, "pins", i, &pin);
++		if (ret)
++			return ret;
++
++		pins[i] =3D pin;
++
++		ret =3D of_property_read_string(np, "function", &functions[i]);
++		if (ret)
++			return ret;
++	}
++	return pinctrl_generic_to_map(pctldev, parent, np, maps, num_maps,
++				  num_reserved_maps, group_names, ngroups,
++				  functions, pins, NULL);
+ };
+=20
+ /*
+
+
+
+--CY/CCDWk7hyJWyAw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacQcwAAKCRB4tDGHoIJi
+0nufAQC7IzecDMz+IrNzep7T25HQ6q+Wz7UOlRjqLF09T+nBpwD/bdchu60ojsQu
+Zgpf0gxXCq/NriMhr7Etk/Epp9gobQ0=
+=T+72
+-----END PGP SIGNATURE-----
+
+--CY/CCDWk7hyJWyAw--
