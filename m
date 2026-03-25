@@ -1,182 +1,224 @@
-Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011035.outbound.protection.outlook.com [40.107.130.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE863E63B7;
-	Wed, 25 Mar 2026 15:02:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774450927; cv=none; b=ToI9KZYqNkbme/mqE3OsgrG/NVDhACLH4bEsl/eDmtJsyixtYy06g/+4Jw+Go/OFEW/yiuZpkZyt/uqD9h/dSOIsGa8XG2gOavxD8rdWBp/EePEyBJDNcqEmTjSSTsv5tvnOM3uChlgsWeGsgHkrh35p7HdOL6XKeSkyv0lFNhc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774450927; c=relaxed/simple;
-	bh=DxdQ77nCASc6jDoVDE5avAvW8b84dFl6QPJEHn21+Z0=;
-	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qI8S7iQLAQRN6pFbquZ94K24qqSZozc4FPuMhAWN9q6LSacZyWHGBQQZ4BByrBZwwE3zbWcZVBkfj/sL4U8m8kQn/uO9bZp/X0UFQnIKXLM2nC1PWl71gd9/bvySQGhzQLCg5d7JIIJsYBe3qqrgCTg4rSHBPd9ss+OB3sVeT2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; arc=none smtp.client-ip=185.176.79.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Received: from mail.maildlp.com (unknown [172.18.224.107])
-	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4fgqqV1l0bzHnGhV;
-	Wed, 25 Mar 2026 23:01:26 +0800 (CST)
-Received: from dubpeml500005.china.huawei.com (unknown [7.214.145.207])
-	by mail.maildlp.com (Postfix) with ESMTPS id BF2FB40584;
-	Wed, 25 Mar 2026 23:02:01 +0800 (CST)
-Received: from localhost (10.203.177.15) by dubpeml500005.china.huawei.com
- (7.214.145.207) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 25 Mar
- 2026 15:02:00 +0000
-Date: Wed, 25 Mar 2026 15:01:59 +0000
-From: Jonathan Cameron <jonathan.cameron@huawei.com>
-To: Sirat <email@sirat.me>
-CC: Krzysztof Kozlowski <krzk@kernel.org>, <linux-iio@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <jic23@kernel.org>, <dlechner@baylibre.com>,
-	<nuno.sa@analog.com>, <andy@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v7 1/2] dt-bindings: iio: proximity: add ST VL53L1X ToF
- sensor
-Message-ID: <20260325150159.00004c3e@huawei.com>
-In-Reply-To: <CANn+LW+X5puvzY+cKYKAbWY6L2d_0P_2AZxuRkwH7ngc6T-vJA@mail.gmail.com>
-References: <20260325063254.18062-1-email@sirat.me>
-	<20260325063254.18062-2-email@sirat.me>
-	<20260325-gentle-earthworm-of-progress-1f9f46@quoll>
-	<CANn+LW+Y6j0xk2x02-BUL9qNq2gf-PXspi4wP_KGd7Abz3hOYw@mail.gmail.com>
-	<4d10b6c0-d599-4fc5-b9ed-ce669ac46e84@kernel.org>
-	<CANn+LWJQM45rAT+mzS9ZEGBgmqChbxUtStdzhbzthXUPJ=2csg@mail.gmail.com>
-	<20260325133806.00007b68@huawei.com>
-	<f27bfbe4-aa90-4631-b96b-efb8465b05d4@kernel.org>
-	<20260325140633.0000059c@huawei.com>
-	<CANn+LW+X5puvzY+cKYKAbWY6L2d_0P_2AZxuRkwH7ngc6T-vJA@mail.gmail.com>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F2B3ED112;
+	Wed, 25 Mar 2026 15:09:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774451374; cv=fail; b=jJlMP0rVQOHb8Foku+cyfneENJJIEBhC0rYyHlDkIuy4colRci8XfJSRsg7vpNDJV2hD1fTNpRh9MV0KebONB+uiRLgP8evVz1OC9L3QqMvPt5W+pskgEgE5Uk8kXzdHFl2XMy5H0pjX2r8OLXdJPcFLXNCfsXiLf5xedK5R9u4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774451374; c=relaxed/simple;
+	bh=v/WVH1FTkioeK1qMOUMspUZjrXeGeUa2iP1NCAVGfaE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=WVrp8cJl/OyQtM+k+GF7poT0vBTvsDsb/eBWq8XAPpNtthXRg3EM9UP3Vb+O4BwCpjJ1lkO5SrayEimwLAlaov1BYMDwlgX5VtpOEToW+AKMLLXojxTwqLzFz9NTI4xhUuW/bQto8T7ykJw96DeLvocJIK7avjRas0st5XXb04E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=H2q7H/N+; arc=fail smtp.client-ip=40.107.130.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="H2q7H/N+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XBGjFcFDzGysSN8l71/n6XMzPy6jdBw9X7ia6bxK0sYohoW5ldSnzPn+KD5WNVB7SgUZ3SU9r/Pwb5nj4z7yEVf+lGxO/NrXHuUBpJ8oqkuY7u7ThJ05kLsXu3+KeONQF1bVTK5pGvh6GiOF6cGUbmVMtjKYJms10X9JuBPX/D8BmUwYZuBv1zYTTZfnMXunHBCr3c9KId9xNE+b8tfPP0Y1CT7uaAYiXE0jEhVN4sEyGxuUKIFC9oV1rg8y/fH+MQBPbLZA1DRqJiPRzgV0/KgqrJyNrU1MvV6R2v+ePFjmzGKi0cdQeMw0gIZhDgGLrPXpJS0w5PJUrYe9lw2/gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TEaWoHk6up2f1s8d/Pf2XfRMzJMLX2C+z8vjCTX06B8=;
+ b=gqfCL5mWQzT8ftkp2KIkpEFF53pPs2fS0+KV6jrA7DqAOgcQZWBZ78YUAxsMlMvlKEKlHZk+5hVpGSq/jn/ODP+BZ9NwjVMaVbNxQbM2HGRt/HW6Tyv3HTCAsudiD71XE2lNfIRV49zKxJxtmNJOd9gzva8WA2jhSLm7iN6mQpNWhU2BrJkIOXLlDTVf7TY9pRM7dM7K4mW6iKhUAYGOaa+66iQlej55NCh91mEPylJqjPBgREGRHBokzibSjz7r5UdDYw2XZZwY/q4xQIs2uP2sDAhnCKC0zLtHrNqj8meH6p94Nyvn/Wm3N1mQ6ZZRpAe/eeP84vVNuLqN1obcKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TEaWoHk6up2f1s8d/Pf2XfRMzJMLX2C+z8vjCTX06B8=;
+ b=H2q7H/N+jOwdzyPXZSfUSve4JrOsiAfS8qtzd1ni6SVSoV2nkq5f0mycVs9nYgoGOGl7e1xDFovFTVXVZmscU3dD4zZybjclZX2V3Wx7gCSpac2tlgYInULkew+kOuuejGcrWc/qjaLe1UNmOs6uZpRKwMAVjRgrI1nmb4lizjyufWpUS9TDokS1mAAvZ+jcdXtrVNKN0WDmPFmfFcR1a1YVl5rHpQ8GBkhsz1kVJODEWVk/BRpPIAG0HP7EKqRae+SQ/lsTvdQA9hfzt+r+pAoionXYqk1obEYJjqBdSas24uNvfp1hxIFkos3LTQmp3ZbU1dI16mAHAJ/+L6YTqA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by PA4PR04MB9343.eurprd04.prod.outlook.com (2603:10a6:102:2a7::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
+ 2026 15:09:29 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9723.030; Wed, 25 Mar 2026
+ 15:09:29 +0000
+Date: Wed, 25 Mar 2026 11:09:20 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Peter Rosin <peda@axentia.se>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Haibo Chen <haibo.chen@nxp.com>
+Subject: Re: [PATCH v3 3/7] pinctrl: pinctrl-generic: add
+ __pinctrl_generic_pins_function_dt_node_to_map()
+Message-ID: <acP6oFsaD8PddWjg@lizhi-Precision-Tower-5810>
+References: <20260311-pinctrl-mux-v3-0-236b1c17bf9b@nxp.com>
+ <20260311-pinctrl-mux-v3-3-236b1c17bf9b@nxp.com>
+ <CAD++jL=U2xNMMHk_LyH8CX+YpC5EGPVRasM11yesXSH4XLhqYw@mail.gmail.com>
+ <absvZ5wzAwpbjHf1@lizhi-Precision-Tower-5810>
+ <CAD++jLkp1CFcLccmLP0BWQSBKkruGCPT71dMeuyu3JY1N4T50g@mail.gmail.com>
+ <ab1Rpf2zS8Bn1-HV@lizhi-Precision-Tower-5810>
+ <acLxCnz3qYfAC3iB@lizhi-Precision-Tower-5810>
+ <20260325-riding-browbeat-293b47f43d82@spud>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260325-riding-browbeat-293b47f43d82@spud>
+X-ClientProxiedBy: PH7PR03CA0024.namprd03.prod.outlook.com
+ (2603:10b6:510:339::7) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: lhrpeml500010.china.huawei.com (7.191.174.240) To
- dubpeml500005.china.huawei.com (7.214.145.207)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|PA4PR04MB9343:EE_
+X-MS-Office365-Filtering-Correlation-Id: da00eca7-d11c-4815-0eb1-08de8a80832e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|52116014|7416014|376014|366016|19092799006|38350700014|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	ju7Gt63TuOs2Uf8lqOIssfWIKmWKzvuJdJdCqK0ePU/yrzpuy9PvizCHqPClOuaWF4+1jLFOoG8HT52cSaDW1m3nNosYjKk5DvlQUligJEeFUnkniSmwQ6XIVmbixRZt50p744cFXFOJ6zFiPx3vW6jefmKaXrGxUEXScPuwO/2SwLUUWI+2bNd8n39ZPfOgOz/ShUntbdVzl18RYhLRxq+WWSSRc38u25cDsVBeRcHvdEBxDKK/C7d961FdfG0Cpo3uWXclGVOfztIUxbyAzHDCstMlj+TkWGD8iX2SBKkw1ulDc13AiU+gLzaZQN26tS7wBoVYKYCxFLijcI+/oRZYAt3igCEchlCtZJvg75xXmZPRaFtRB2dzLckHhvFlmyLT0RQoXn4GG0bLi23iQrEC+EHsWsWWNGo33kH46+O40LLJBhsODqM+nSbP9ZHLNFUFEwYwbSMTOiorwgFu5HulSFGGEZA0bj3/6E+7IJ6HhdYs4a/sqzLvgIOWfNcq81n8tYRhtgxfSAMu5Vf4ub/iLDj2O4dzWhsOGsh132+Qh13sdZwBBeOOyn7oxkPk6lplDMcNQCcWyykB+5GFMUwbRcPuFJCAuKoMlQPhhBPq7mSt3ZItcjnLedHFbWe9Nkbxmc6bfp4yZ3QVnNFM4Z1WPbmXqd5RLM/VYIzQ8hW77yTDFtrnns3yP82bYXgP1+1OSL8RZnxLTYnSeUcBxai40trS8aRsDkQsCBAPCc1rQykN1epZ+CxiHI3i5VIEE5y7bqc6Ox2OH0RgEJNLdkNY8E6AH1kU/BDwejb5lPM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(52116014)(7416014)(376014)(366016)(19092799006)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?N0ZPcUJoK3ZIT1pqUSsxR2RweDBjaFpQNVhRMXFreE16RjQxdEorbWVMS0tk?=
+ =?utf-8?B?MVo4UE9RWFRxMnlMenNkdHhJZUFaYThjQXF5bXVmWjI5NGRhNDNmOVU2Y3hY?=
+ =?utf-8?B?ZjRBbHBaT0ExeGhXWU0zclc4WXJGQ2M0ZkFiTlRBNG84YzJPWEVacFpJV2Ny?=
+ =?utf-8?B?djhPQ2dYRzR4SEJSMGErUzkycG8rRnRQdXBoSE1pc25Yb0QyTFY2L0FKMlM5?=
+ =?utf-8?B?d0FMNEw5dnBNWTFYdC9pNGs1aHJhYVFMMSt6MzFtaEw2TzB2QlBHamptUDJS?=
+ =?utf-8?B?WmdrSWFEMTF0QWRIVkpuR3VES0FaWjc5dEErdGZjUHU5aHlSeGxrUHA2U1h5?=
+ =?utf-8?B?bjhTUlh6K3EwVVNXNFJOZWxnRzA3MHlwZno2OVZ5dCtyaHRBd3BUNDEwb1dO?=
+ =?utf-8?B?Q1JhTXR2bVUzNm5vK3ZEZlBJN3h5eGV2Z0NBcm5ZbFR0U1VSai91WFlHaG5r?=
+ =?utf-8?B?UDFzOExMWHAwYysvTFMra1V6VFZRV29pSnZROGVKbkJSRGRmS0duc2dXNU42?=
+ =?utf-8?B?T1BNRjZSYUNCSllTYzVBMGxRcjh1dzBWUmFqL2YxUG5oT01pZ1VRd3NrRmxT?=
+ =?utf-8?B?UnhBbklxMEh4ZkxENlE4M3piSE5qNHcxT0NuN2tnN3AyeG03YmQ1TlZXclkx?=
+ =?utf-8?B?eDJwdTRVZVVyUmw5d1BzKzA5VG1FQVBRaUNpQ08zY0w5SFlMRmNCVXBXaGtU?=
+ =?utf-8?B?MGpEVHJ6MXc5bS9ud01oWXBEWFFUaXQ5ZnNjcDczcEhMZ2xaakxyU3h2cDI1?=
+ =?utf-8?B?WUZWQjczZk50bG4xRlo2Rm1yRDRhTExDRi9iWWR1MlJoeGFhS3YrYkpHbTV2?=
+ =?utf-8?B?bmw4eTRNZHF5SEE1ckhZWVNyK21rNXo2L0VzSHh4cEoza0UwV3c1Mmk3aGJG?=
+ =?utf-8?B?TlVsaXVZNVhjelh5UjVYbDlwVDlqWFRtUFk1S0F5Uk5tQy9HVWJXZWVMS0FP?=
+ =?utf-8?B?YWdIM2czQURXQzE2K24ra2JSM1greExKTzhEQWlCQmMvYUFHRzFhdzVrd2hW?=
+ =?utf-8?B?SGdCSlp5NDEzWU5aQ3p3eHVuOSt0SW5nRG9QTXRJN2pxTWQxVStZYWkzMXpa?=
+ =?utf-8?B?ZFBnUjVQVk52djkvR1Qzcno1WCt0Q0dTTFpSbjFxMTgrREEzeWIzVDl3YnBy?=
+ =?utf-8?B?VlA2cjIxRzNOWUtmQWFSWnNmNVlaUTVlcWkvUDcvS2pic084WVRJdmthRVFV?=
+ =?utf-8?B?NUJuR1VPOTVQSXVKV2d4dm5VUSsrcDJqbWN0RHQwUXJMZndQTjB6YTg3VlJj?=
+ =?utf-8?B?WmU4QnFvM1hLNUdEbkJoeXRScUxQOW1wTk9OQlhKTFgxL0xsNnpqczg4RVdB?=
+ =?utf-8?B?YW54Y3JOcG53UGVGT2Z6SnlOMzhLUFU4QXR3UjBXYVVXNjlPS1lDY20zMVZX?=
+ =?utf-8?B?S2Y5NjBSUUpKTVBVN01FblpBTlptVmVEdXIwQTJsbWs1UW55R3A4eWNpaHZW?=
+ =?utf-8?B?WkhkOXkzKzhFeDUvNEJySEQ5TGswVjlvVExSb1ZwYkRWRXhPN0Y3TG44ZStx?=
+ =?utf-8?B?NFNhYkpvbjRaQS9QR2lXNGV2Z2ozY1pmTWI2RWMwOW9qdVY3MU5pRWdWQnJt?=
+ =?utf-8?B?ejdaUGxlWVpJTXZCUkNBRkVlSTBiR1RORGJ3SmRQemhnc1ZBeGxlMVkyNUU1?=
+ =?utf-8?B?YVJjYVczUE95NWt5aEVvUEtOWi9KYWdaZExmenozOFd5dTB1aHdZMElWYlJ0?=
+ =?utf-8?B?N21qdXlzeUwzTHBaTjh5dUdqM0ZSNmVpQ2tnK2NPWHU2bUY3VDk2SWJRUXdt?=
+ =?utf-8?B?Mk5wVlJURDE3NDhUYjY0ZEVTVlBHbFhkRDhrZ1pGMWZoTDFBaTZjM0I3SXlM?=
+ =?utf-8?B?c3QyLzFxbzRFUUN3c1pkeCtMaWhMRUx1RUhSRHo4STMrMXFqUEtNOWwzUjda?=
+ =?utf-8?B?UEd4aDFsb1AzT2JqZk4yUGxzV09laVZRWVBQRXUzdmQvNkRqblR2TldsUldq?=
+ =?utf-8?B?ajJucW1XVk1rN3VrUFdjSEtKUGs3YUdEVElwRUlsRDlBOGNLbmRWdG5WTkN5?=
+ =?utf-8?B?YVlYdTN3VWNhOEFOUFA5eTRxQkVtUzZ3NCtWSXNhbWpJdDJvb0ZpaUgvZ0Vs?=
+ =?utf-8?B?ekI0QVhvcmZlcEYyWHJJU0dweDkrUlRYR2tNVlpJOHdBKysyV3ZtR1ZBKzJX?=
+ =?utf-8?B?clRaSGdDREhEVjdhVlBCVzFWSU5Dc1R6R3lyTlErM3lRdHpmbVNZbk9yd1d5?=
+ =?utf-8?B?YnlkZEgwUHMzZFVySEJkcFRJbVpVdWFKcU1kUjQzZXkxVXNJa1VaVGczYUFw?=
+ =?utf-8?B?SGpqVUlNTHRoTjQzQTFXRExNUGErVVJnT0VPN0hvUXVwT09Eb2cwS08vTHRZ?=
+ =?utf-8?B?dWVCYUtENGpIRTlhclBGRFBXSVl0cnJ5UERZU2xuODN1RzNwRCtEZz09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: da00eca7-d11c-4815-0eb1-08de8a80832e
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 15:09:29.6100
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: abqVH0B8jzYzZTXEcxqoWuurOlpLI2zc4voWqUJBPGxlWrtzLjXsrpTUCiwYo2wsbk0At9V8S5EtC/Hkrrk4Pw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9343
 
-On Wed, 25 Mar 2026 20:38:48 +0600
-Sirat <email@sirat.me> wrote:
-
-> On Wed, Mar 25, 2026 at 8:06=E2=80=AFPM Jonathan Cameron
-> <jonathan.cameron@huawei.com> wrote:
-> >
-> > On Wed, 25 Mar 2026 14:44:13 +0100
-> > Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> > =20
-> > > On 25/03/2026 14:38, Jonathan Cameron wrote: =20
-> > > > On Wed, 25 Mar 2026 15:18:05 +0600
-> > > > Sirat <email@sirat.me> wrote:
-> > > > =20
-> > > >> On Wed, Mar 25, 2026 at 2:58=E2=80=AFPM Krzysztof Kozlowski <krzk@=
-kernel.org> wrote: =20
-> > > >>>
-> > > >>> On 25/03/2026 09:48, Sirat wrote: =20
-> > > >>>> On Wed, Mar 25, 2026 at 2:05=E2=80=AFPM Krzysztof Kozlowski <krz=
-k@kernel.org> wrote: =20
-> > > >>>>>
-> > > >>>>> On Wed, Mar 25, 2026 at 12:32:22PM +0600, Siratul Islam wrote: =
-=20
-> > > >>>>>> Add device tree binding documentation for the STMicroelectroni=
-cs
-> > > >>>>>> VL53L1X Time-of-Flight ranging sensor connected via I2C.
-> > > >>>>>>
-> > > >>>>>> Make vdd-supply required. The device requires power to operate
-> > > >>>>>> and the property should have been required from the start. =20
-> > > >>>>>
-> > > >>>>> That's ABI break and device for many years was working fine, so=
- this
-> > > >>>>> should not be changed.
-> > > >>>>> =20
-> > > >>>> Jonathan and David asked that vdd-supply be made required. I fee=
-l like
-> > > >>>> there is a conflict here that I am not able to resolve myself.
-> > > >>>>
-> > > >>>> What I think about it is the binding does not correctly describe=
- the
-> > > >>>> hardware and we should consider this a bug and fix it.
-> > > >>>> The driver worked because of a fallback mechanism (dummy/fake
-> > > >>>> regulator) and not because power was optional.
-> > > >>>> =20
-> > > >>>
-> > > >>>
-> > > >>> I looked at v6 and v5 and I do not see such comment for binding t=
-hat
-> > > >>> existing device should change ABI. Can you point me to it?
-> > > >>> =20
-> > > >> "Make it required and add a note to the commit message to say why =
-the
-> > > >> requirement should always have been there. Devices tend not to work
-> > > >> with no power." - Jonathan (v3:
-> > > >> https://lore.kernel.org/linux-iio/20260322115704.10b2e0d4@jic23-hu=
-awei)
-> > > >>
-> > > >> "No, bindings should not depend on driver implementation." - David
-> > > >> (When I asked if I should  drop the hard requirement in the bindin=
-g,
-> > > >> v6: https://lore.kernel.org/linux-iio/55e92148-b5de-4fb8-af0b-9476=
-235341bc@baylibre.com/)
-> > > >>
-> > > >> "From the point of view of the devicetree, it doesn't matter what =
-the
-> > > >> driver does. It matters that the chip can't work without power. ;-=
-)" -
-> > > >> David (v1: https://lore.kernel.org/linux-iio/d0ec6a2f-6d30-4774-89=
-50-15dd3c4b020b@baylibre.com)
-> > > >>
-> > > >> I'm not sure if this is the correct way to quote. But I have added=
- the links. =20
+On Wed, Mar 25, 2026 at 10:33:05AM +0000, Conor Dooley wrote:
+> On Tue, Mar 24, 2026 at 04:16:10PM -0400, Frank Li wrote:
+> > On Fri, Mar 20, 2026 at 09:54:45AM -0400, Frank Li wrote:
+> > > On Fri, Mar 20, 2026 at 02:27:21PM +0100, Linus Walleij wrote:
+> > > > On Thu, Mar 19, 2026 at 12:04 AM Frank Li <Frank.li@nxp.com> wrote:
+> > > > > On Mon, Mar 16, 2026 at 10:37:28AM +0100, Linus Walleij wrote:
 > > > >
-> > > > This came up a few years back - though I doubt I can track down the
-> > > > exact discussion however.
+> > > > > > That said: in this case you're just adding a parameter, just add
+> > > > > > the parameter and change all of the in-tree users to pass false
+> > > > > > or whatever you need, these is just one (1) in-tree user anyway.
+> > > > >
+> > > > > pinctrl_generic_pins_function_dt_node_to_map() directly feed to
+> > > > > .dt_node_to_map() callback, add parameter will impact too much.
 > > > >
-> > > > From a Linux point of view we are breaking binding checks only if t=
-he
-> > > > supply (that should always have been there as chips tend not to work
-> > > > well without power) is not present.  We absolutely have to
-> > > > keep the driver running whether or not the supply is specified.
-> > > > Do other DT users provide such a constraint? I've no idea.
-> > > >
-> > > > If the DT maintainer preference is leave it not required (perhaps
-> > > > with a comment saying new users of the binding should supply it)
-> > > > then that's fine by me. I'll keep it in mind for future similar cha=
-nges. =20
+> > > > Why do you say that. It already has many parameters, one more
+> > > > or less doesn't matter. It's not like this call is performance-critical.
+> > > > Just change the users.
 > > >
-> > > If this was other ABI, e.g. clock, then answer would be - do not requ=
-ire
-> > > it, because that's ABI break. Therefore I would stick to that also to
-> > > regulators. Once Rob also expressed such thoughts, although noting th=
-at
-> > > it is not that big deal.
+> > > In only user drivers/pinctrl/microchip/pinctrl-mpfs-mssio.c,
+> > > 	.dt_node_to_map = pinctrl_generic_pins_function_dt_node_to_map;
 > > >
-> > > New device in this binding of course should require the supply. =20
-> > Seems my memory was less than perfect on this :
-> > https://lore.kernel.org/linux-iio/20241119140409.GA1093349-robh@kernel.=
-org/#t
+> > > pinctrl_generic_pins_function_dt_node_to_map() need match .dt_node_to_map()'s
+> > > declear.
+> > >
+> > > So it can't direct add two parameters in pinctrl_generic_pins_function_dt_node_to_map()
+> > > Need simple wrap function, which other in pinctrl-mpfs-mssio.c or in
+> > > pinconf.h.
+> > >
+> > > If add two parameter in .dt_node_to_map(), need change all functions, which
+> > > .dt_node_to_map = xxx_to_map(). and OF core part.
 > >
-> > Rob expressed that we are inconsistent on this, but he'd rather not
-> > have regulators as a special case.
+> > Linus Walleij:
+> > 	Is my explain clear enough? I am preparing respin it?
 > >
-> > So let's only make this required for the new device.
-> > =20
-> So since it is a new device, how do I require this? should we split to
-> a new binding (like I had in v1) and make that required. That would
-> also allow us to correctly name the xshut pin.
->=20
-> Or do we do the "allOf:" exclusion? In that case, I think it wouldn't
-> make sense to someone reading the binding without the context of
-> commit history, as it would imply one of the devices explicitly
-> doesn't need power.
-This + add a comment that it's only not required for other devices
-for backwards compatibility reasons.
+> > 	is okay use wrap function
+> > 	pinctrl_generic_pins_function_dt_node_to_map_ext()?
+>
+> I don't understand this patch. The function is called
+> pinctrl_generic_pins_function_dt_node_to_map(). You have no pins.
+> You're adding a parameter to make a function with *pins* in its name not
+> use pins. The new function doesn't use pins but has pins in the name.
+> At the very least function names should not be misleading.
+>
+> I was going to suggest pulling out the relevant portions and creating
+> some helpers that could be used by multiple different-but-similar
+> functions, but I don't actually even think that there's much in common.
+> Most damningly I think, you don't actually read either the functions or
+> pins properties at all and neither are permitted by your binding.
+> So turns out you use neither pins or functions...
+>
+> You don't actually have any of these properties which runs counter to the
+> goal of the function, which is parsing. With this in mind, it feels to me
+> like you're trying way too hard to make use of a generic function when the
+> right thing to do is probably just have an entirely custom function.
+> Maybe that's a custom implementation in your driver, or a new function
+> here, but I think writing that will highlight just how little of the
+> code would be shared between the existing function and what your
+> use-case needs: no pin configuration stuff, no reading of the devicetree
+> other than the node names and no dealing with the label pointing to the
+> "wrong" place.
+>
+> I recently bought a spacemit k1 board to go and write a sister function
+> to pinctrl_generic_pins_function_dt_node_to_map() that deals with pins
+> and groups (because that's a pretty common pattern).
+> I would be calling that pinctrl_generic_pinmux_dt_node_to_map(),
+> because it that's the property it deals with. I have honestly got no
+> idea what to call one for this situation since you don't have any of the
+> properties in pinmux-node.yaml. Maybe that's a sign.
 
->=20
-> I'm willing to do whichever is prefered tough and move this forward.
-> >
-> > =20
-> Thanks,
->=20
-> Sirat
+At v2, I implemented customize dt_node_to_map(), Linus Walleij think it is
+too similar with pinctrl_generic_pins_function_dt_node_to_map(), so ask me
+to enhanance and reuse pinctrl_generic_pins_function_dt_node_to_map().
+
+Frank
+>
+> Cheers,
+> Conor.
+
 
