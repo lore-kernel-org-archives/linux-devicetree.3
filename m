@@ -1,124 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B063039282C;
-	Wed, 25 Mar 2026 08:58:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA52C3009E2
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:00:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774429080; cv=none; b=XHcwx1p6YHU6JMK2GhWtXK0xZxIVqgCjeuXJT5ZRen+UsRZQCHetzKLqmYbZwhwYxyvPg7LeRl7b5zG/394nmEOMSUk8SsvjYw+fg2xBWxGxr0y0j3f5+DfgFUmmOkVddtWOqm7cl3pvzVp20C7eynMKeU+O1NIToKD5wtGz5w0=
+	t=1774429234; cv=none; b=NT5F1BXSYU3MT5s+IbnlPN3xn6mtVUPcpCXQhL5CqKNLhR8jU+0Eq4etILFmrjWSecjHpYHG5IrAi0y+7l/AiXsuXo+eoqTfuFlPFSz2HvdnmTlXlkkDh5bwL07bdsjokJ8wZ2iyMGP5b6knzChmbUmZVSA+VjdL6d6llSej3Rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774429080; c=relaxed/simple;
-	bh=RHV7dPFjKCS10WhsyRbEySf3zhgA9Tr47TRrrff7hII=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XZ6q6zPWzHvTJcfFEMiZlf6Vhr4qp4ENVkap5uRkYw16e6Xw0OkoZrH35gHfuEWdPEw7jlQMdhlE49Gzo7Y912XlNHExt976ASB1v4tee+i6CkEFFFaDGDZtGZbXBXrFYj+YQEa7iEFbHfUxDZMdyO+QGZ5kBYYmM+3j38tJWwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fQecE42v; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774429234; c=relaxed/simple;
+	bh=CPcTlIJgIyK5T1j0XTj81N/5/UyvrLhYjXjqTIrrO1s=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:MIME-Version:
+	 Content-Type:References; b=Xvl4HkyiJ0ZAL0KJ+6mnqe7i4OhJnY8YxvCQOttgD4IoJlsG1qcMBFxHec+XBpHQzTPLgRLoGmScpLTGt5HRJCP0gKwqAF32L0RUPEeqVhuij79OBktoEVbdNT+sN8IvhFsJLnEk76//OdREOMm8AC6HrlUnsHr+2ltT6Tj0HDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=FY5iUkMt; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fQecE42v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E65A8C4CEF7;
-	Wed, 25 Mar 2026 08:57:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774429080;
-	bh=RHV7dPFjKCS10WhsyRbEySf3zhgA9Tr47TRrrff7hII=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fQecE42v6hrZZj04TpdxDuhwrnuaslBdBkQmkvtTudL1/AmjbmtL7D2Olr9qThA/J
-	 eP4ikVWjqENAlwcNXMxEUdV6lNMUDWWRyW1hhXATGN90qFj/EDI/dM95Q68PVvUPXh
-	 fsBik2+gFfQJP2sNRZfg0bsd2PSYD53jiuHHxINY6bYZbB6tSZ0VtCmRL987fVwI4Y
-	 QTCaXlhKb20T4t7KbDtyZk518sBzhIwnrp6fU44fJM2v6J6zgyH7gFL0CoJznU1wmi
-	 T35KPPm8WQQ8hutj0+fWwskRMEV9DFvLaXd5iC7QJn+WCKAL2+0UxL/GQpXeijDKxN
-	 o3Az/SyKrK70g==
-Message-ID: <4d10b6c0-d599-4fc5-b9ed-ce669ac46e84@kernel.org>
-Date: Wed, 25 Mar 2026 09:57:56 +0100
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="FY5iUkMt"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260325090031euoutp02f8cc5d3f8d86f0c2c7120a32b01feb8b~gCfwhI_8Q0087600876euoutp02Z
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:00:31 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260325090031euoutp02f8cc5d3f8d86f0c2c7120a32b01feb8b~gCfwhI_8Q0087600876euoutp02Z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1774429231;
+	bh=qDkZBH8D9QGZmacGWO/wLlPET8ve8kNAHImwlz5MpvM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=FY5iUkMtR9ARTfG7/tVvrcKFos/ZapigxegUHHHt0vVky5lQ6qCjTliLvuGask1oQ
+	 21IwycinJ4E1/p2/flJXeKCCStkMrEvvF8uaS2bNbvl9sZI5ui9VowP/SNvPuwSh2c
+	 8+0fWXCDgF7ZVqkiXWdFAzAcncbLr7/irtU2PxMc=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260325090031eucas1p185465a9f6f2a06a4b1d0cb2b13a92aef~gCfwMvlkl0601006010eucas1p13;
+	Wed, 25 Mar 2026 09:00:31 +0000 (GMT)
+Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260325090030eusmtip1a3370e43b1c03e214df9fdc959e30922~gCfvqWu7e0170001700eusmtip1S;
+	Wed, 25 Mar 2026 09:00:30 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-mm@kvack.org, iommu@lists.linux.dev
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, Oreoluwa Babatunde
+	<oreoluwa.babatunde@oss.qualcomm.com>, Saravana Kannan
+	<saravanak@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Robin
+	Murphy <robin.murphy@arm.com>
+Subject: [PATCH v3 2/7] of: reserved_mem: use -ENODEV instead of -ENOENT
+Date: Wed, 25 Mar 2026 10:00:18 +0100
+Message-Id: <20260325090023.3175348-3-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260325090023.3175348-1-m.szyprowski@samsung.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/2] dt-bindings: iio: proximity: add ST VL53L1X ToF
- sensor
-To: Sirat <email@sirat.me>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, jic23@kernel.org,
- dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org
-References: <20260325063254.18062-1-email@sirat.me>
- <20260325063254.18062-2-email@sirat.me>
- <20260325-gentle-earthworm-of-progress-1f9f46@quoll>
- <CANn+LW+Y6j0xk2x02-BUL9qNq2gf-PXspi4wP_KGd7Abz3hOYw@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <CANn+LW+Y6j0xk2x02-BUL9qNq2gf-PXspi4wP_KGd7Abz3hOYw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260325090031eucas1p185465a9f6f2a06a4b1d0cb2b13a92aef
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260325090031eucas1p185465a9f6f2a06a4b1d0cb2b13a92aef
+X-EPHeader: CA
+X-CMS-RootMailID: 20260325090031eucas1p185465a9f6f2a06a4b1d0cb2b13a92aef
+References: <20260325090023.3175348-1-m.szyprowski@samsung.com>
+	<CGME20260325090031eucas1p185465a9f6f2a06a4b1d0cb2b13a92aef@eucas1p1.samsung.com>
 
-On 25/03/2026 09:48, Sirat wrote:
-> On Wed, Mar 25, 2026 at 2:05 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On Wed, Mar 25, 2026 at 12:32:22PM +0600, Siratul Islam wrote:
->>> Add device tree binding documentation for the STMicroelectronics
->>> VL53L1X Time-of-Flight ranging sensor connected via I2C.
->>>
->>> Make vdd-supply required. The device requires power to operate
->>> and the property should have been required from the start.
->>
->> That's ABI break and device for many years was working fine, so this
->> should not be changed.
->>
-> Jonathan and David asked that vdd-supply be made required. I feel like
-> there is a conflict here that I am not able to resolve myself.
-> 
-> What I think about it is the binding does not correctly describe the
-> hardware and we should consider this a bug and fix it.
-> The driver worked because of a fallback mechanism (dummy/fake
-> regulator) and not because power was optional.
-> 
+When given reserved memory region doesn't really support given node,
+return -ENODEV instead of -ENOENT. Then fix __reserved_mem_init_node()
+function to properly propagate error code different from -ENODEV instead
+of silently ignoring it.
 
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+---
+ drivers/of/of_reserved_mem.c | 7 ++++---
+ kernel/dma/coherent.c        | 2 +-
+ kernel/dma/contiguous.c      | 2 +-
+ 3 files changed, 6 insertions(+), 5 deletions(-)
 
-I looked at v6 and v5 and I do not see such comment for binding that
-existing device should change ABI. Can you point me to it?
+diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+index 6705b7afebf0..9aff460a0420 100644
+--- a/drivers/of/of_reserved_mem.c
++++ b/drivers/of/of_reserved_mem.c
+@@ -488,9 +488,10 @@ static int __init __reserved_mem_init_node(struct reserved_mem *rmem,
+ {
+ 	extern const struct of_device_id __reservedmem_of_table[];
+ 	const struct of_device_id *i;
+-	int ret = -ENOENT;
++	int ret = -ENODEV;
+ 
+-	for (i = __reservedmem_of_table; i < &__rmem_of_table_sentinel; i++) {
++	for (i = __reservedmem_of_table; ret == -ENODEV &&
++	     i < &__rmem_of_table_sentinel; i++) {
+ 		reservedmem_of_init_fn initfn = i->data;
+ 		const char *compat = i->compatible;
+ 
+@@ -574,7 +575,7 @@ static void __init fdt_init_reserved_mem_node(struct reserved_mem *rmem,
+ 	nomap = of_get_flat_dt_prop(node, "no-map", NULL) != NULL;
+ 
+ 	err = __reserved_mem_init_node(rmem, node);
+-	if (err != 0 && err != -ENOENT) {
++	if (err != 0 && err != -ENODEV) {
+ 		pr_info("node %s compatible matching fail\n", rmem->name);
+ 		if (nomap)
+ 			memblock_clear_nomap(rmem->base, rmem->size);
+diff --git a/kernel/dma/coherent.c b/kernel/dma/coherent.c
+index 34621acbd3c5..64f9ba618e19 100644
+--- a/kernel/dma/coherent.c
++++ b/kernel/dma/coherent.c
+@@ -370,7 +370,7 @@ static const struct reserved_mem_ops rmem_dma_ops = {
+ static int __init rmem_dma_setup(unsigned long node, struct reserved_mem *rmem)
+ {
+ 	if (of_get_flat_dt_prop(node, "reusable", NULL))
+-		return -EINVAL;
++		return -ENODEV;
+ 
+ #ifdef CONFIG_ARM
+ 	if (!of_get_flat_dt_prop(node, "no-map", NULL)) {
+diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
+index 81a2fa4971ee..e6fc6906b5c0 100644
+--- a/kernel/dma/contiguous.c
++++ b/kernel/dma/contiguous.c
+@@ -483,7 +483,7 @@ static int __init rmem_cma_setup(unsigned long node, struct reserved_mem *rmem)
+ 
+ 	if (!of_get_flat_dt_prop(node, "reusable", NULL) ||
+ 	    of_get_flat_dt_prop(node, "no-map", NULL))
+-		return -EINVAL;
++		return -ENODEV;
+ 
+ 	if (!IS_ALIGNED(rmem->base | rmem->size, CMA_MIN_ALIGNMENT_BYTES)) {
+ 		pr_err("Reserved memory: incorrect alignment of CMA region\n");
+-- 
+2.34.1
 
-Best regards,
-Krzysztof
