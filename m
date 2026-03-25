@@ -1,187 +1,179 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013049.outbound.protection.outlook.com [40.107.159.49])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F4C3F54D3;
-	Wed, 25 Mar 2026 15:01:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774450889; cv=fail; b=o74a4/YzOQ95wgTi1zExir+bY+oLAvVQ+b+JusOSW49EJF1tbSkGs9aI4C0wrU0NjP0FU/2s8P1fpp5yOdQJQnLmeIU1RHqGMZEZKDbuhV4O4rFrTFANtMlDt+6pSGRq9fMkKCuRiPw0hGMc6uFwgHcEYqdeXUMKsBHb+TgfJew=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774450889; c=relaxed/simple;
-	bh=nSvlUjXG8Jfj+aJLo+ZZSbGklX0OoppZDCspvkTLIMc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ffBVFIa11nTRm8ERyPEHCfuT6Lff8FcVqy9iyEhp0w1zoIztPO1vragSBZVudDpV54JtkQN+UUiX2IcyQDBZlLJgoINu+EKbOMAFgn3yzvlK2p8NM5UEioUCKYIur5zDlI353Ogx8XlfybmyxZWVfPcMK2okhAyLNbXrxZp0XKA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=ALcwvNFr; arc=fail smtp.client-ip=40.107.159.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B643D22E3E9;
+	Wed, 25 Mar 2026 15:02:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774450924; cv=none; b=AwZJa55mZa87IFUp2ZA3fbrAWG9SJZsaoaQRSyf9dqoi4AZbhrtk5FTYTFJySCYs73q9jL2pN77dNzN0167QhuvO4qTUzsAXa14bbIMg5lQf8D0IKN/klLVSQdAjE39iAhBmNfW8XD9rsniwCapgNH3qshjmkqF2NHJI2U42Hao=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774450924; c=relaxed/simple;
+	bh=gIUfeBRRWBa0s/P/ovRzF4jBgBesrI0Q2uvAtRlUSL8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i51GRu2oidwcCdKhphGYGjLO03LmKsC+4jmT3qcjNuJl32LgmChiyqVgVvwYtSJ2DL1PX+NLG5+sP4AF2k7Rul9DgYVw/qWVxlbUedv4d8lrwnQ2B+EesesQUrZtfBD2WIOSk/qckV7eDuDArGnIChRh2/DdsHsBQwli8HP57g8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=B5qtIkjM; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="ALcwvNFr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VxCcgkrqGRtEhTQB6Uq+qnANG8BuX6OZeYoCz2YrmAXUw0spHem0xjlKz/hm1S7zkbqDg3ESuLp4kyxoZyzYExr30pIC5LGfwBLwlqKilqtq03bcZGzdHDCUDZHdiY0X6NQ7g8HNVhWUf9xrBwWpV4HM6Ux+awlFPYC+Oeqz501qcmW1sBPy3FbRVXcmGpDcqo//dC69HRvdMCH6/V3vP2q+Yasq026xNgApOCNZRPOEIuYtSH5AgJ7IxEv6661MVeCI25YH/2r4d1VsuK2FlpISTV8OuuQrP63PxVc7TPd7v6EgZDOzbNNCAFxB20oIUZKz+z0Ga2y3uJpz9db/6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gv9HNQ5MoPLy+t0XbwaCPyA2iytsG9rMYXRd60f/DWc=;
- b=Wl7FT47M/DE5Dmh7tzGHBA2ZDt5GsT+STR1JfZc3jmesrv+pJHmj7SxRTTS+U7BIUk9/teKB7lpxysG52oA2/HB2XZaLeV7CXHHYdKGpyouAtfFdGqbI9XrhxmUXbl3J5Al6XmU0M/n6kjmCckWG4BHntne5p13nRTXERWeveZAyhoVM01pRwd+2NREqz1j2emkiq6q7Y/ulYGNc44jdDJ3yMyLGQuKdLgmcWujbSV2j4LvECRsJfxLyJspBp3PDQxgyCCU2EyXzPUPlnuEqUYIfqRPAkCH73gr9VLc6DI3bv1Q9Zie9H3dLS/kDlwx7wi14e4OOg/vL7LgEEqzAwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gv9HNQ5MoPLy+t0XbwaCPyA2iytsG9rMYXRd60f/DWc=;
- b=ALcwvNFr/UYmkODwYglgxxTVfyeuzA7XvUylQR7YKjPnuw6b5aG7wIBUrnzn1mEnWhnNc69hUsS7D0XNK8bLnUxIRQwn/TGS00wnxoFJUgT+KgxrXANGlFjLuqwq4D+/fzUulH+WOMpyeIQ20fvORYjeqX4g33s7ytBBQw+sh/HqM5+QYZNXrG2RmcVlYWjGGGcf30AMdgye4GgXlReVis8nFCuLASIGwDwAcTqoL9h9ytay/xe11PLVowQxqq5t3frYpRzVvbLkYQIwFhkWvsWYbaldCoPzX5UJfEz2mBGiFWnHuu/+TR06voVlIcOPP1mWFA3w3eUFzGk5NBr7Mw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by DU0PR04MB9322.eurprd04.prod.outlook.com (2603:10a6:10:355::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 15:01:25 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9723.030; Wed, 25 Mar 2026
- 15:01:24 +0000
-Date: Wed, 25 Mar 2026 11:01:15 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Ernest Van Hoecke <ernestvanhoecke@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="B5qtIkjM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774450923; x=1805986923;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gIUfeBRRWBa0s/P/ovRzF4jBgBesrI0Q2uvAtRlUSL8=;
+  b=B5qtIkjMAZpsDE68/3NKZpe9WBe7Xhp0foPie7FiLojMFCQaicRqaG9w
+   G/3CZ8DFm5PSkwk5Zc9KMQ4516ShY9/14g1GEYiFtGeEoBYdp0jILLXW7
+   IdBvR+X7TsYZdmCmkp436XzDRmxHmOkZkkn00laoB4I7Pit9+cHtfxHqM
+   mZxzgde5m1U4FX711LfcT678edu1JtXKi/IXVFqGYLkK9TWGXw/OFkzlE
+   3GvxnxjqWsBWdcWqIxxsowX4Mql76g5nWh8yiT3X3debo+uRqWtdXaePZ
+   XT7lRgdoyrXFtVccyzBE9co7llAvgpSuyAG7IdnDRk0+4wr9tPiC8V0BI
+   Q==;
+X-CSE-ConnectionGUID: wHIfhkybRWSa5KcSdqkm8w==
+X-CSE-MsgGUID: rNSZ0KuySQWcZRZzR/h1NQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="75395806"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
+   d="scan'208";a="75395806"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 08:02:02 -0700
+X-CSE-ConnectionGUID: 73C6AkAaTH+hmQJStSXH5A==
+X-CSE-MsgGUID: wzCUs5cJQuy8BEO4N6nDLg==
+X-ExtLoop1: 1
+Received: from lkp-server01.sh.intel.com (HELO 3905d212be1b) ([10.239.97.150])
+  by fmviesa003.fm.intel.com with ESMTP; 25 Mar 2026 08:01:57 -0700
+Received: from kbuild by 3905d212be1b with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1w5Pk2-0000000074z-3dZS;
+	Wed, 25 Mar 2026 15:01:54 +0000
+Date: Wed, 25 Mar 2026 23:01:15 +0800
+From: kernel test robot <lkp@intel.com>
+To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: oe-kbuild-all@lists.linux.dev, linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 2/6] arm64: dts: freescale: Add Verdin iMX95 support
-Message-ID: <acP4u5VWZzhFcw_b@lizhi-Precision-Tower-5810>
-References: <20260313-verdin-imx95-upstream-frank-li-base-v2-0-bd488be7c699@toradex.com>
- <20260313-verdin-imx95-upstream-frank-li-base-v2-2-bd488be7c699@toradex.com>
- <acK4awcokUyCHrG5@lizhi-Precision-Tower-5810>
- <20260325112724.GA7964@francesco-nb>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260325112724.GA7964@francesco-nb>
-X-ClientProxiedBy: PH7PR17CA0027.namprd17.prod.outlook.com
- (2603:10b6:510:323::13) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org,
+	Radu Sabau <radu.sabau@analog.com>
+Subject: Re: [PATCH v3 2/4] iio: adc: ad4691: add initial driver for AD4691
+ family
+Message-ID: <202603252241.8UAUrLG4-lkp@intel.com>
+References: <20260313-ad4692-multichannel-sar-adc-driver-v3-2-b4d14d81a181@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|DU0PR04MB9322:EE_
-X-MS-Office365-Filtering-Correlation-Id: a0de4e03-430b-49b0-bcf9-08de8a7f620b
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|19092799006|366016|52116014|7416014|376014|1800799024|38350700014|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
- 4YABHRx9eSTXqYNXpi+ASKc0129YV4wi2sA0B5OSabQvwugYGIQjz4QwGzbiZT9cHwLaKLCofX3Xfb1sKtoTk6wXfXXm8Ho2kkKzMvjvZ1mQn0z5VvFlobs2xx9+RQx6GoATemz7oOPECQaTfezGdDkMiIVFR//jT19jjAiV41RNwSrehwuSlVb1028DtWGb9ds1zJJGwKbBH6/rlDoyJu9Vk4jJZqAe63M/BeQqwzJ8QdikbaCg0pBD5P6HotsXyzyBMYc9/qwnBxoVgZlbyCX2dnZj1c+m0kTMWqLHonVW53rCRzwD91pSiTirW24ljrwy/rq23OKNjExSm7LULbG7eeOnRyLip4u2n9D0uoKUMKhdwO2KupgaWfE5tKXqutU/bQPBdDGCJQKnGQezcYIbK+6lPmUgCiSkrNL2Zec+H+qhp1TwZnftEVRv58SELNyx9w3oS5z/XtLNIdy90Eah0eDh9SflEJ9YiYmjLhFMrZgUewUQrqX5ISfkhXZxWhqKx7B7uF7MsjetyLAnL1XhYRHlqfFXMtf9OiN7NyM1WcROAUShB2TXlvCjid7/YGKOkt+yqHrQMlBjf7VXig+u4LOewGm1FlKR/OWGyRVnYHTJsD5FYBIQ5YzxHpGbWCYERlOgGNaBu5qqzVX2Ioqsobd3DwjjDRD3Ep962D4crIVSnJCcYYgbL/e1rBUdZhmENKT1p72wplxTwRNEYEdjxtM3tn04Z32kIOdJh2nR4tr6sJ5TMaXz5XK7P5zNakxZRzi9302qfphAsv6oJlsUR4guXAz3z3Bxck3KiOY=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(52116014)(7416014)(376014)(1800799024)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?WI7tf3MCyOUbeD5FqaZPp+EtnVu/BY1GAd47AvygoCRdpBBu6s+LLZMQymWN?=
- =?us-ascii?Q?8LcjB5nujG9OZQBf75j57WmKh/1avpL9mFhDoaHZWqRLv75Q9lZZzxuBKtBK?=
- =?us-ascii?Q?Cxvg/IflLEWf4HWxLBwcz/qit9McFxWk1d66+sZAffdYQ+5TVwjmJK2auW24?=
- =?us-ascii?Q?bo4q6jOpXAuxb1pxjzvv2Y0wN/PArpgflx3yKlgzDNPCJ7GvXFs3oIwOzsiO?=
- =?us-ascii?Q?BmxqcTfF53IBsY4XDGDbFy5c+leFXPQS/dQdL+gSOJSo3OmB5cY8L51R7Q3t?=
- =?us-ascii?Q?Q4lzsKYNXxyimr8OC3UtBb8pHc7WPsATnW1ZdjeZrG/+NtLO/whGP2MjvSS6?=
- =?us-ascii?Q?NFr1ownhj4a/txRxHSCL7DiieFYlroZbX68WrfHvxQpFIHShg6dg77cIQR5d?=
- =?us-ascii?Q?n0kmOMWnNpPdSYo6KrOVTR/f9FYhsJctNuY/iTZaJlES73IantK5NRsVxE0R?=
- =?us-ascii?Q?pPeHU37qhoMvTQdQ7zrbi3724EThExN4D5c1ajfEcxqkN/A8pKTl3eo43Nrs?=
- =?us-ascii?Q?WNNMC2yca6LHCbAUU4v3c6zYmahX57TOgYmEMY5k0ZMpFLWVqz69SJvEaoQz?=
- =?us-ascii?Q?eV4k3rYIC4DGIbvQsQMt9YKcGIiVfpRK4tH/fxT+9F4MjRhv5SHydMtgI8pK?=
- =?us-ascii?Q?Y/AiFtLs7LehNgcVVdIjhBMZ36II53uK2sor56royW78ieKxCDOzTEafJzRH?=
- =?us-ascii?Q?6h7/w53r8X2gttqIjttJU4Cn1iMB2DZucEQ7BK75GN2bEO2+vZtHZFhqtLqu?=
- =?us-ascii?Q?jqDrBbS/TkRxBNWJBBi3CfYxEWqRK4dpIpu45hy2U0gvKpmwP200iHLhtj3p?=
- =?us-ascii?Q?ixQcPPpAZiTpuawgqxJ19AI/g7iK9hSo06ZcIWFJs1Vw1B5SbPoVIlM2/iYy?=
- =?us-ascii?Q?zu3Ebv5LcEfq4dHHynHuA+h3yQfQu1pvnWkNjWr+y05ljEWz4+rmd1Pf3Epp?=
- =?us-ascii?Q?rDu9bjqbJjd4yMfJ+JUEXoA9lZGNXpkk/OsanwUiOEYnRfA5F4W+HC8Mi78t?=
- =?us-ascii?Q?FRAg8zJfe/bJMiYDQT96M4ebQ3WNq6ZUqkI30UCe2TuPcqQCxGBtvZY7jDI7?=
- =?us-ascii?Q?qWWuT6v+qN7LrFtx/Jp7ZPGxwBJMI9XOPnLLqQkoeXUfFiY+UNz35pG6+M+B?=
- =?us-ascii?Q?Wa16v5bQBM760PYUK9imrw4GuHdgFmHPemxlTrH1Q7GehlCHp1e5LgHltErJ?=
- =?us-ascii?Q?cI0TI/Gq8lbGHNqsZsn0GFpJwaY0D9RHaJYF80HnmoUz4B8Imo+nCBYMEb7T?=
- =?us-ascii?Q?JmMyFExwmKnbnFmk24iIVksQs7ZnTVsKh0pC5yr8Iuo+/26BKnkP0ub1lzUa?=
- =?us-ascii?Q?OAtrZkujOJayxMvJSjw6M4ISUtHvzC78XmaHsnzFryWe1bucNbNyqdudg8n9?=
- =?us-ascii?Q?myLyVIASWlXwc5AOysweWq4P4aViYG8pIh4NIDElvuZ3fOVy4WdTlH+m5wDf?=
- =?us-ascii?Q?co9AtlWzd9c9BWOwQ5DxJkBOp51mB+jtA2GaVlHU2sqb56JfBjn6IJjhN/EJ?=
- =?us-ascii?Q?1zDvt9qGwfg5Ht4LFsDR91UvL0JcsaRgyeMTGLOkZ8CRr5Y9StOjstjfoEAO?=
- =?us-ascii?Q?2spztuVmID7nnmr97E6L7VfKW3D7RRostaAg7LqhNvfnikZfQC6jamkNwVsW?=
- =?us-ascii?Q?4GtODHQAJQG6+TuuUAyUWEa5TRFCQXU37LEh5gofTPAqnpJ65V8RPTXs+lQY?=
- =?us-ascii?Q?SVrtFPgPM4cazSiq5l2MqEvZYGaHBd+bY5RA0RQ+Ef4WH0CXOKhdMFeE4WPU?=
- =?us-ascii?Q?8+4fBpUUnw=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0de4e03-430b-49b0-bcf9-08de8a7f620b
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 15:01:24.6510
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uVc7GukBZ9oYDnZGY6+jpCqHgHnarsUB7GWqekRnw/9TrveUdIoPHAtgY3f90aZC5l1XAeubN8AfVvDYSiBCsQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9322
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260313-ad4692-multichannel-sar-adc-driver-v3-2-b4d14d81a181@analog.com>
 
-On Wed, Mar 25, 2026 at 12:27:24PM +0100, Francesco Dolcini wrote:
-> On Tue, Mar 24, 2026 at 12:14:35PM -0400, Frank Li wrote:
-> > On Fri, Mar 13, 2026 at 09:57:43AM +0100, Ernest Van Hoecke wrote:
-> > > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > >
-> > > Add support for the Toradex Verdin iMX95 and its development carrier
-> > > board.
-> > >
-> > > The module consists of an NXP i.MX95 family SoC, up to 16GB LPDDR4x RAM,
-> > > up to 128GB of storage, a USB 3.2 OTG and USB 2.0 Host, a Gigabit
-> > > Ethernet PHY, an I2C EEPROM and Temperature Sensor, an RX8130 RTC, an
-> > > I3C bus, one Quad lane CSI interface, one Quad lane DSI or CSI
-> > > interface, one LVDS interface (one or two channels), and some optional
-> > > addons: TPM 2.0, and a WiFi/BT module.
-> > >
-> > > Link: https://www.toradex.com/computer-on-modules/verdin-arm-family/nxp-imx95
-> > > Link: https://www.toradex.com/products/carrier-board/verdin-development-board-kit
-> > > Co-developed-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-> > > Signed-off-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-> > > Co-developed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > > ---
-> > > v2: Reordered nodes alphanumerically by node name
-> > > v1: https://lore.kernel.org/all/20260305-verdin-imx95-upstream-frank-li-base-v1-2-823fad02def9@toradex.com/
-> > > ---
-> > > +
-> > > +/* Verdin UART_1, connector X50 through RS485 transceiver */
-> > > +&lpuart7 {
-> > > +	rs485-rts-active-low;
-> > > +	rs485-rx-during-tx;
-> > > +	linux,rs485-enabled-at-boot-time;
-> > > +
-> >
-> > Nit: needn't empty line between status and other property, suggest run
-> > https://github.com/lznuaa/dt-format to speed up process.
->
-> Please review Documentation/devicetree/bindings/dts-coding-style.rst.
->
-> Quoting from there
->  > "status" (if applicable), preceded by a blank line if there is content before the property
->
-> I would be careful on taking every detail of such a style guide literally,
-> but your comment here is not correct and it's not helping anyone.
+Hi Radu,
 
-Thank you point out,  there are not extra empty line in existing dts.
-git grep -r -a3 "status =" arch/arm64/boot/dts/
+kernel test robot noticed the following build errors:
 
-I think it should update dts-coding-style.rst to match most existing one.
+[auto build test ERROR on 11439c4635edd669ae435eec308f4ab8a0804808]
 
-Frank
+url:    https://github.com/intel-lab-lkp/linux/commits/Radu-Sabau-via-B4-Relay/dt-bindings-iio-adc-add-bindings-for-AD4691-family/20260314-040740
+base:   11439c4635edd669ae435eec308f4ab8a0804808
+patch link:    https://lore.kernel.org/r/20260313-ad4692-multichannel-sar-adc-driver-v3-2-b4d14d81a181%40analog.com
+patch subject: [PATCH v3 2/4] iio: adc: ad4691: add initial driver for AD4691 family
+config: nios2-allmodconfig (https://download.01.org/0day-ci/archive/20260325/202603252241.8UAUrLG4-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260325/202603252241.8UAUrLG4-lkp@intel.com/reproduce)
 
->
-> Francesco
->
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603252241.8UAUrLG4-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from <command-line>:
+   drivers/iio/adc/ad4691.c: In function '__ad4691_set_sampling_freq':
+>> include/linux/compiler_types.h:706:45: error: call to '__compiletime_assert_418' declared with attribute error: clamp(freq, 1, st->chip->max_rate) signedness error
+     706 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |                                             ^
+   include/linux/compiler_types.h:687:25: note: in definition of macro '__compiletime_assert'
+     687 |                         prefix ## suffix();                             \
+         |                         ^~~~~~
+   include/linux/compiler_types.h:706:9: note: in expansion of macro '_compiletime_assert'
+     706 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |         ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:39:37: note: in expansion of macro 'compiletime_assert'
+      39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/minmax.h:190:9: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+     190 |         BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),                          \
+         |         ^~~~~~~~~~~~~~~~
+   include/linux/minmax.h:195:9: note: in expansion of macro '__clamp_once'
+     195 |         __clamp_once(type, val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
+         |         ^~~~~~~~~~~~
+   include/linux/minmax.h:206:28: note: in expansion of macro '__careful_clamp'
+     206 | #define clamp(val, lo, hi) __careful_clamp(auto, val, lo, hi)
+         |                            ^~~~~~~~~~~~~~~
+   drivers/iio/adc/ad4691.c:419:16: note: in expansion of macro 'clamp'
+     419 |         freq = clamp(freq, 1, st->chip->max_rate);
+         |                ^~~~~
+--
+   In file included from <command-line>:
+   ad4691.c: In function '__ad4691_set_sampling_freq':
+>> include/linux/compiler_types.h:706:45: error: call to '__compiletime_assert_418' declared with attribute error: clamp(freq, 1, st->chip->max_rate) signedness error
+     706 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |                                             ^
+   include/linux/compiler_types.h:687:25: note: in definition of macro '__compiletime_assert'
+     687 |                         prefix ## suffix();                             \
+         |                         ^~~~~~
+   include/linux/compiler_types.h:706:9: note: in expansion of macro '_compiletime_assert'
+     706 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |         ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:39:37: note: in expansion of macro 'compiletime_assert'
+      39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/minmax.h:190:9: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+     190 |         BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),                          \
+         |         ^~~~~~~~~~~~~~~~
+   include/linux/minmax.h:195:9: note: in expansion of macro '__clamp_once'
+     195 |         __clamp_once(type, val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
+         |         ^~~~~~~~~~~~
+   include/linux/minmax.h:206:28: note: in expansion of macro '__careful_clamp'
+     206 | #define clamp(val, lo, hi) __careful_clamp(auto, val, lo, hi)
+         |                            ^~~~~~~~~~~~~~~
+   ad4691.c:419:16: note: in expansion of macro 'clamp'
+     419 |         freq = clamp(freq, 1, st->chip->max_rate);
+         |                ^~~~~
+
+
+vim +/__compiletime_assert_418 +706 include/linux/compiler_types.h
+
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  692  
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  693  #define _compiletime_assert(condition, msg, prefix, suffix) \
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  694  	__compiletime_assert(condition, msg, prefix, suffix)
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  695  
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  696  /**
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  697   * compiletime_assert - break build and emit msg if condition is false
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  698   * @condition: a compile-time constant condition to check
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  699   * @msg:       a message to emit if condition is false
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  700   *
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  701   * In tradition of POSIX assert, this macro will break the build if the
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  702   * supplied condition is *false*, emitting the supplied error message if the
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  703   * compiler has support to do so.
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  704   */
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  705  #define compiletime_assert(condition, msg) \
+eb5c2d4b45e3d2d Will Deacon 2020-07-21 @706  	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+eb5c2d4b45e3d2d Will Deacon 2020-07-21  707  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
