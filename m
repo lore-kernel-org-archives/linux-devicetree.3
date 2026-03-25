@@ -1,210 +1,148 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EDE33009E2
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:00:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3945351C3E;
+	Wed, 25 Mar 2026 09:00:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774429239; cv=none; b=D+nVi21iYSL8fuldoots8IS+lRC9i8D/GW8cxqvYdoozLGXtuIcppsWdE2163l7gv3ibMkhBptecHRVItrrp3WB4PVKR/kr2LPpENpK6VJavoWaGD91ug4+zQDKeKPp1x6thlWYi86Xmvhw0/9nnNEoVIy/5x/7a68za7frh0uo=
+	t=1774429241; cv=none; b=VEx/YkMTcnFBQk/eh6ukiToPe2zEbpTqaj6lTN5kqGVbXzS0YP8qr/eMRRla3zV/VEO4l+6BzqlEjiG72BVathNuT+99b6v1yBa9V0hy3xk6SqIZ55Os3Zc5dhcE0dl/9zieoRrDYPSg65a6zBX3aUt7z1cgltKLf0GLTl7tba0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774429239; c=relaxed/simple;
-	bh=P3AMQcGHZ8YR9ZVybND3kBp0O9Gr5HyF4BZhB4a6bUo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:MIME-Version:
-	 Content-Type:References; b=kvDBMAkFyUfGVFVpUmdWtW4ZUKvW1BD+31kduUz2GLkMDqqe5mgRy4/xoE7WCfXLdmkaXTZWUCicFhPU2i1Ujxv/ZxwC5w7Sq9Jexrzd6EgW/1sqqKUAWjBktVy2vwZZEJSYzJiLGrhqSVXrwJPzKf9OqklJsiuSs9Zc2D9kvqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=ivAGQBxD; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1774429241; c=relaxed/simple;
+	bh=DpD3cz3pQHgqJTBucX6RnJ1ygBMNYK/5RTUg9Cqf2cE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tHr3yQZV+IJJ8KJMKT5c+TnYvcJrVzGMGm2c2Cd3JaB0cewqtUM+zXnHhRi1xZkcI2HB7AmzYjnAiqVdu/DOmm3RXy7QYeFEk3Jk+GLU8mr6HGf2nKR5NkaIX1hIBmSNFyQoC7J7AAzmPgah45jzW/jPml9I5yQXe2rJSGAT3SI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=l6MkTfVQ; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="ivAGQBxD"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260325090034euoutp01b5fc3510769fe56178ba29a15765ba56~gCfziEsgJ2584925849euoutp01T
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:00:34 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260325090034euoutp01b5fc3510769fe56178ba29a15765ba56~gCfziEsgJ2584925849euoutp01T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1774429234;
-	bh=VJvoL7Svez6wRSfUGCmBuRi8m+f/G0Wc/DykecDJV2k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ivAGQBxDvj1e/LcGA0Bnu3dhxJuZBzp4M50oH5+6E4DArMz/uHngUdD86AE9LeJHH
-	 OXmv5T08PnWBDe8tdbqg5gTg2SnZvZqDytFG6Kss0aytHGJ6g34RCOiYvl2bJo6kgv
-	 5E2uKEWqIPu7qiux7fKT1zXT+dcmMuXs6s0Ee/zE=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260325090034eucas1p2fb10744edcc6cf8550e9855973492a00~gCfzU3Jn23169331693eucas1p2i;
-	Wed, 25 Mar 2026 09:00:34 +0000 (GMT)
-Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260325090034eusmtip15244f1412a032a5a834b55e8229409f2~gCfyy4X3J0318403184eusmtip1m;
-	Wed, 25 Mar 2026 09:00:34 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-mm@kvack.org, iommu@lists.linux.dev
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, Oreoluwa Babatunde
-	<oreoluwa.babatunde@oss.qualcomm.com>, Saravana Kannan
-	<saravanak@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Robin
-	Murphy <robin.murphy@arm.com>
-Subject: [PATCH v3 7/7] of: reserved_mem: rework
- fdt_init_reserved_mem_node()
-Date: Wed, 25 Mar 2026 10:00:23 +0100
-Message-Id: <20260325090023.3175348-8-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260325090023.3175348-1-m.szyprowski@samsung.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="l6MkTfVQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774429239; x=1805965239;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=DpD3cz3pQHgqJTBucX6RnJ1ygBMNYK/5RTUg9Cqf2cE=;
+  b=l6MkTfVQmJwvWEtdrVy+i5529g+EA4XUY60E1u432RTM5kqyFygXz9PC
+   q9T2NMs2Cy1liAhx+1om/JZSDTLLyTmSu0DwuqiUrDCRGEhz80F0lGjeR
+   oWUyYHZG5/Vc1M9HnpZMLqdTTIdrFv8Ll2z57SnzTsLl5xOgjAvfTXNp5
+   ZFOXkldYZhx9oOK09PMZ1ZsVRE3Py5eYJUwJ7+4MubD9PeOPnh91MACsX
+   bSGXOLNzilF3AP7o/CEwgTI0Uq1KTIt5s3aJAP4bPqWRVn9nBEOCUidxc
+   JMvfySTiCGgciFemRewffv8D6WLGnOr1rZLxLwqUXwXMrASRDWZ1AHtIj
+   w==;
+X-CSE-ConnectionGUID: GyY2p0t7QoWCoNBvakPBcg==
+X-CSE-MsgGUID: gVdthHgPRRalmZSYjvY+ZQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="85771607"
+X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; 
+   d="scan'208";a="85771607"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 02:00:38 -0700
+X-CSE-ConnectionGUID: FfBrG/siSUeCka5yu+K/8A==
+X-CSE-MsgGUID: YXrsMJFFTrywJEx/SOr1vg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; 
+   d="scan'208";a="226253949"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.245.94])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 02:00:33 -0700
+Date: Wed, 25 Mar 2026 10:00:25 +0100
+From: Mehdi Djait <mehdi.djait@linux.intel.com>
+To: Michael Riesch <michael.riesch@collabora.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Kever Yang <kever.yang@rock-chips.com>, 
+	Jagan Teki <jagan@amarulasolutions.com>, 
+	=?utf-8?B?0JrRg9C30L3QtdGG0L7QsiDQnNC40YXQsNC40Ls=?= <mai.kuznetsov.misha@gmail.com>, Sebastian Reichel <sebastian.reichel@collabora.com>, 
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>, Collabora Kernel Team <kernel@collabora.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/9] media: rockchip: rkcif: add support for rk3588
+ vicap mipi capture
+Message-ID: <acOjnYakfLwgIW2V@mdjait-mobl>
+References: <20250430-rk3588-vicap-v2-0-77de5ee9048e@collabora.com>
+ <20250430-rk3588-vicap-v2-3-77de5ee9048e@collabora.com>
+ <ablRBViDR996euua@mdjait-mobl>
+ <e894fe10-3780-465a-984d-01f5e8f4c97e@collabora.com>
+ <ablWdjlrPLGhDJi4@mdjait-mobl>
+ <d97b05cb-396b-4189-8b96-88eab6f85f24@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260325090034eucas1p2fb10744edcc6cf8550e9855973492a00
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260325090034eucas1p2fb10744edcc6cf8550e9855973492a00
-X-EPHeader: CA
-X-CMS-RootMailID: 20260325090034eucas1p2fb10744edcc6cf8550e9855973492a00
-References: <20260325090023.3175348-1-m.szyprowski@samsung.com>
-	<CGME20260325090034eucas1p2fb10744edcc6cf8550e9855973492a00@eucas1p2.samsung.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d97b05cb-396b-4189-8b96-88eab6f85f24@collabora.com>
 
-Move the content of fdt_reserved_mem_save_node() to
-fdt_init_reserved_mem_node() function. Initialization is no longer
-performed in two steps as it was initially, so
-fdt_reserved_mem_save_node() name is a bit misleading and that function
-now performs full initialization of the reserved memory region.
+Hi Michael,
 
-This also fixes the problem of keeping pointers to the regions, which
-failed to initialize, what might cause issues when such region is
-assigned to the device.
+On Wed, Mar 25, 2026 at 09:04:57AM +0100, Michael Riesch wrote:
+> Hi Mehdi,
+> 
+> On 3/17/26 14:28, Mehdi Djait wrote:
+> > Hi Michael,
+> > 
+> > On Tue, Mar 17, 2026 at 02:21:20PM +0100, Michael Riesch wrote:
+> >> Hi Mehdi,
+> >>
+> >> On 3/17/26 14:08, Mehdi Djait wrote:
+> >>> Hi Michael,
+> >>>
+> >>> Thank you for this nice patch!
+> >>>
+> >>> On Tue, Mar 17, 2026 at 10:32:21AM +0100, Michael Riesch via B4 Relay wrote:
+> >>>> From: Michael Riesch <michael.riesch@collabora.com>
+> >>>>
+> >>>> The RK3588 Video Capture (VICAP) unit features a Digital Video Port
+> >>>> (DVP) and six MIPI CSI-2 capture interfaces. Add initial support
+> >>>> for this variant to the rkcif driver and enable the MIPI CSI-2
+> >>>> capture interfaces.
+> >>>>
+> >>>> Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
+> >>>
+> >>> [...]
+> >>>
+> >>>>  static inline unsigned int rkcif_mipi_get_reg(struct rkcif_interface *interface,
+> >>>>  					      unsigned int index)
+> >>>>  {
+> >>>> @@ -631,6 +765,8 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
+> >>>>  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CTRL1, ctrl1);
+> >>>>  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CTRL0, ctrl0);
+> >>>>  
+> >>>> +	rkcif_mipi_write(interface, RKCIF_MIPI_CTRL, RKCIF_MIPI_CTRL_CAP_EN);
+> >>>> +
+> >>>
+> >>> while this is the correct solution for rk3588, for the rk3568 vicap this
+> >>> will write 0x1 to the VICAP_MIPI_CTRL : 0x00A0 which will enable the water line.
+> >>
+> >> nice catch ;-) However, the TRM (at least my version) claims that this
+> >> bit has a reset value of 0x1, so the bit in question should be already
+> >> set in the first place. Thus I decided to *not* make variant specific
+> >> code paths.
+> > 
+> > Yes, the reset value is indeed 0x1
+> > 
+> >>
+> >> Do you see problems in your setup?
+> >>
+> > 
+> > No problems, it works as expected, I was just confused to see the
+> > mipi capture enable added with this rk3588 patch and not before.
+> > 
+> > I just find it a bit confusing but if a nicer solution is too much
+> > hassle we can leave it like this.
+> 
+> I agree that this is (while correct) not the nicest way. I am still
+> bringing up the remaining features of the RK3588 VICAP (MUX + TOISP +
+> SCALER) and it looks like I need to do some refactoring anyway to
+> support them. When I do that, I shall rewrite this part. For the time
+> being it would be great to have this merged in order to provide initial
+> mainline support for this unit.
 
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
----
- drivers/of/of_reserved_mem.c | 62 ++++++++++++++++--------------------
- 1 file changed, 28 insertions(+), 34 deletions(-)
+That sounds good.
 
-diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-index 037e3d74dde1..8d5777cb5d1b 100644
---- a/drivers/of/of_reserved_mem.c
-+++ b/drivers/of/of_reserved_mem.c
-@@ -102,36 +102,13 @@ static void __init alloc_reserved_mem_array(void)
- 	reserved_mem = new_array;
- }
- 
--static void __init fdt_init_reserved_mem_node(struct reserved_mem *rmem,
--					      unsigned long node);
-+static void fdt_init_reserved_mem_node(unsigned long node, const char *uname,
-+				       phys_addr_t base, phys_addr_t size);
- static int fdt_validate_reserved_mem_node(unsigned long node,
- 					  phys_addr_t *align);
- static int fdt_fixup_reserved_mem_node(unsigned long node,
- 				       phys_addr_t base, phys_addr_t size);
- 
--/*
-- * fdt_reserved_mem_save_node() - save fdt node for second pass initialization
-- */
--static void __init fdt_reserved_mem_save_node(unsigned long node, const char *uname,
--					      phys_addr_t base, phys_addr_t size)
--{
--	struct reserved_mem *rmem = &reserved_mem[reserved_mem_count];
--
--	if (reserved_mem_count == total_reserved_mem_cnt) {
--		pr_err("not enough space for all defined regions.\n");
--		return;
--	}
--
--	rmem->name = uname;
--	rmem->base = base;
--	rmem->size = size;
--
--	/* Call the region specific initialization function */
--	fdt_init_reserved_mem_node(rmem, node);
--
--	reserved_mem_count++;
--}
--
- static int __init early_init_dt_reserve_memory(phys_addr_t base,
- 					       phys_addr_t size, bool nomap)
- {
-@@ -316,7 +293,7 @@ void __init fdt_scan_reserved_mem_late(void)
- 
- 		if (size) {
- 			uname = fdt_get_name(fdt, child, NULL);
--			fdt_reserved_mem_save_node(child, uname, base, size);
-+			fdt_init_reserved_mem_node(child, uname, base, size);
- 		}
- 	}
- 
-@@ -515,9 +492,8 @@ static int __init __reserved_mem_alloc_size(unsigned long node, const char *unam
- 	}
- 
- 	fdt_fixup_reserved_mem_node(node, base, size);
-+	fdt_init_reserved_mem_node(node, uname, base, size);
- 
--	/* Save region in the reserved_mem array */
--	fdt_reserved_mem_save_node(node, uname, base, size);
- 	return 0;
- }
- 
-@@ -619,30 +595,46 @@ static int __init __reserved_mem_init_node(struct reserved_mem *rmem,
- 	return ret;
- }
- 
--
- /**
-  * fdt_init_reserved_mem_node() - Initialize a reserved memory region
-- * @rmem: reserved_mem struct of the memory region to be initialized.
-  * @node: fdt node of the initialized region
-+ * @uname: name of the reserved memory node
-+ * @base: base address of the reserved memory region
-+ * @size: size of the reserved memory region
-  *
-- * This function is used to call the region specific initialization
-- * function for a reserved memory region.
-+ * This function calls the region-specific initialization function for a
-+ * reserved memory region and saves all region-specific data to the
-+ * reserved_mem array to allow of_reserved_mem_lookup() to find it.
-  */
--static void __init fdt_init_reserved_mem_node(struct reserved_mem *rmem,
--					      unsigned long node)
-+static void __init fdt_init_reserved_mem_node(unsigned long node, const char *uname,
-+					      phys_addr_t base, phys_addr_t size)
- {
- 	int err = 0;
- 	bool nomap;
- 
-+	struct reserved_mem *rmem = &reserved_mem[reserved_mem_count];
-+
-+	if (reserved_mem_count == total_reserved_mem_cnt) {
-+		pr_err("not enough space for all defined regions.\n");
-+		return;
-+	}
-+
-+	rmem->name = uname;
-+	rmem->base = base;
-+	rmem->size = size;
-+
- 	nomap = of_get_flat_dt_prop(node, "no-map", NULL) != NULL;
- 
- 	err = __reserved_mem_init_node(rmem, node);
- 	if (err != 0 && err != -ENODEV) {
- 		pr_info("node %s compatible matching fail\n", rmem->name);
-+		rmem->name = NULL;
-+
- 		if (nomap)
- 			memblock_clear_nomap(rmem->base, rmem->size);
- 		else
- 			memblock_phys_free(rmem->base, rmem->size);
-+		return;
- 	} else {
- 		phys_addr_t end = rmem->base + rmem->size - 1;
- 		bool reusable =
-@@ -654,6 +646,8 @@ static void __init fdt_init_reserved_mem_node(struct reserved_mem *rmem,
- 			reusable ? "reusable" : "non-reusable",
- 			rmem->name ? rmem->name : "unknown");
- 	}
-+
-+	reserved_mem_count++;
- }
- 
- struct rmem_assigned_device {
--- 
-2.34.1
+How about adding a TODO comment ?
 
+--
+Kind Regards
+Mehdi Djait
