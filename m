@@ -1,148 +1,73 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3945351C3E;
-	Wed, 25 Mar 2026 09:00:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987F01E32A2;
+	Wed, 25 Mar 2026 09:01:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774429241; cv=none; b=VEx/YkMTcnFBQk/eh6ukiToPe2zEbpTqaj6lTN5kqGVbXzS0YP8qr/eMRRla3zV/VEO4l+6BzqlEjiG72BVathNuT+99b6v1yBa9V0hy3xk6SqIZ55Os3Zc5dhcE0dl/9zieoRrDYPSg65a6zBX3aUt7z1cgltKLf0GLTl7tba0=
+	t=1774429311; cv=none; b=IKb+N1jmJzsIc52iGRApVJ+BCQLy6CE8ksG5/+zS+DqzVtAhQuHjTpEYhjQaYljT1w4bxQTuD5066XDGfkNEOS/Sw+vEzsU8U5tHzx454Qrp/lEVYb7KTaEhgua2ahWJba1QajwzHM4Cr0inW9swHXU8E7vqXhmbBSdoL5pCtHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774429241; c=relaxed/simple;
-	bh=DpD3cz3pQHgqJTBucX6RnJ1ygBMNYK/5RTUg9Cqf2cE=;
+	s=arc-20240116; t=1774429311; c=relaxed/simple;
+	bh=XvAxCyWu0L7zLc1NFfaPzwcbGzeBeEzFp0l8Vyl4SjU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tHr3yQZV+IJJ8KJMKT5c+TnYvcJrVzGMGm2c2Cd3JaB0cewqtUM+zXnHhRi1xZkcI2HB7AmzYjnAiqVdu/DOmm3RXy7QYeFEk3Jk+GLU8mr6HGf2nKR5NkaIX1hIBmSNFyQoC7J7AAzmPgah45jzW/jPml9I5yQXe2rJSGAT3SI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=l6MkTfVQ; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=uo4wUFS9R60C+uNboX8dQa+qIBUC/yCmrSJCSAz8alhNidbmDvaoOgAO/Ss1FA6UKcwMRWJCn9WwMS1vqsVWeibiZg4Sq5rRiQ+WazpIeJWCNK0uUXKvf7IpWQch4Ef5IZiA4Li621lGZ60CLlTIGNYZb1P2FXsiyb5WDogvvlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A9928HfE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="l6MkTfVQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774429239; x=1805965239;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=DpD3cz3pQHgqJTBucX6RnJ1ygBMNYK/5RTUg9Cqf2cE=;
-  b=l6MkTfVQmJwvWEtdrVy+i5529g+EA4XUY60E1u432RTM5kqyFygXz9PC
-   q9T2NMs2Cy1liAhx+1om/JZSDTLLyTmSu0DwuqiUrDCRGEhz80F0lGjeR
-   oWUyYHZG5/Vc1M9HnpZMLqdTTIdrFv8Ll2z57SnzTsLl5xOgjAvfTXNp5
-   ZFOXkldYZhx9oOK09PMZ1ZsVRE3Py5eYJUwJ7+4MubD9PeOPnh91MACsX
-   bSGXOLNzilF3AP7o/CEwgTI0Uq1KTIt5s3aJAP4bPqWRVn9nBEOCUidxc
-   JMvfySTiCGgciFemRewffv8D6WLGnOr1rZLxLwqUXwXMrASRDWZ1AHtIj
-   w==;
-X-CSE-ConnectionGUID: GyY2p0t7QoWCoNBvakPBcg==
-X-CSE-MsgGUID: gVdthHgPRRalmZSYjvY+ZQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="85771607"
-X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; 
-   d="scan'208";a="85771607"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 02:00:38 -0700
-X-CSE-ConnectionGUID: FfBrG/siSUeCka5yu+K/8A==
-X-CSE-MsgGUID: YXrsMJFFTrywJEx/SOr1vg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; 
-   d="scan'208";a="226253949"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.245.94])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 02:00:33 -0700
-Date: Wed, 25 Mar 2026 10:00:25 +0100
-From: Mehdi Djait <mehdi.djait@linux.intel.com>
-To: Michael Riesch <michael.riesch@collabora.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Kever Yang <kever.yang@rock-chips.com>, 
-	Jagan Teki <jagan@amarulasolutions.com>, 
-	=?utf-8?B?0JrRg9C30L3QtdGG0L7QsiDQnNC40YXQsNC40Ls=?= <mai.kuznetsov.misha@gmail.com>, Sebastian Reichel <sebastian.reichel@collabora.com>, 
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>, Collabora Kernel Team <kernel@collabora.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/9] media: rockchip: rkcif: add support for rk3588
- vicap mipi capture
-Message-ID: <acOjnYakfLwgIW2V@mdjait-mobl>
-References: <20250430-rk3588-vicap-v2-0-77de5ee9048e@collabora.com>
- <20250430-rk3588-vicap-v2-3-77de5ee9048e@collabora.com>
- <ablRBViDR996euua@mdjait-mobl>
- <e894fe10-3780-465a-984d-01f5e8f4c97e@collabora.com>
- <ablWdjlrPLGhDJi4@mdjait-mobl>
- <d97b05cb-396b-4189-8b96-88eab6f85f24@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A9928HfE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB99EC4CEF7;
+	Wed, 25 Mar 2026 09:01:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774429311;
+	bh=XvAxCyWu0L7zLc1NFfaPzwcbGzeBeEzFp0l8Vyl4SjU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=A9928HfEqco1L2ksGkLq5J1XZwYZB+wm7R1NLMjjKjFYzz6eZ99J1UyYE1eHxR9X1
+	 qvdNKIGZx+sVQ0KQsN77oD/kIlZO1jtn/gRmv27o+JtuIggY1/anV5/Q/8y+fxs7m4
+	 qDi32SBacHZ5rQDUp4GhuMEpWezxbGT8bT5V+MmCzmRY7TNLy9I9570yVxZ+56jIYo
+	 2F0fN7sdIi/8ez29j/W2yliQk5hv5rx1iZYIURdYTf5tsIL8FUbjWpS3pG2XoUR4gU
+	 s/5rH9rkplweCxt5UaFDyuAVjBcnJ9+dnzEby/UVAJzOWXMOw98JX9aCuSBKSbrNAn
+	 3PKB2/EtBipsA==
+Date: Wed, 25 Mar 2026 10:01:48 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	shawnguo@kernel.org, Frank.Li@nxp.com, dario.binacchi@amarulasolutions.com, 
+	alexander.stein@ew.tq-group.com, maudspierings@gocontroll.com, josua@solid-run.com, 
+	Markus.Niebel@tq-group.com, matthias.schiffer@tq-group.com, primoz.fiser@norik.com, 
+	francesco.dolcini@toradex.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 1/2] dt-bindings: arm: fsl: Add compatible for i.MX95
+ 15x15 audio board (version 2)
+Message-ID: <20260325-axiomatic-cunning-oriole-5badeb@quoll>
+References: <20260324061556.980621-1-shengjiu.wang@nxp.com>
+ <20260324061556.980621-2-shengjiu.wang@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <d97b05cb-396b-4189-8b96-88eab6f85f24@collabora.com>
+In-Reply-To: <20260324061556.980621-2-shengjiu.wang@nxp.com>
 
-Hi Michael,
-
-On Wed, Mar 25, 2026 at 09:04:57AM +0100, Michael Riesch wrote:
-> Hi Mehdi,
+On Tue, Mar 24, 2026 at 02:15:55PM +0800, Shengjiu Wang wrote:
+> Introduce a new DT compatible string for the NXP i.MX95 15x15 audio board
+> (version 2).
 > 
-> On 3/17/26 14:28, Mehdi Djait wrote:
-> > Hi Michael,
-> > 
-> > On Tue, Mar 17, 2026 at 02:21:20PM +0100, Michael Riesch wrote:
-> >> Hi Mehdi,
-> >>
-> >> On 3/17/26 14:08, Mehdi Djait wrote:
-> >>> Hi Michael,
-> >>>
-> >>> Thank you for this nice patch!
-> >>>
-> >>> On Tue, Mar 17, 2026 at 10:32:21AM +0100, Michael Riesch via B4 Relay wrote:
-> >>>> From: Michael Riesch <michael.riesch@collabora.com>
-> >>>>
-> >>>> The RK3588 Video Capture (VICAP) unit features a Digital Video Port
-> >>>> (DVP) and six MIPI CSI-2 capture interfaces. Add initial support
-> >>>> for this variant to the rkcif driver and enable the MIPI CSI-2
-> >>>> capture interfaces.
-> >>>>
-> >>>> Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
-> >>>
-> >>> [...]
-> >>>
-> >>>>  static inline unsigned int rkcif_mipi_get_reg(struct rkcif_interface *interface,
-> >>>>  					      unsigned int index)
-> >>>>  {
-> >>>> @@ -631,6 +765,8 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
-> >>>>  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CTRL1, ctrl1);
-> >>>>  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CTRL0, ctrl0);
-> >>>>  
-> >>>> +	rkcif_mipi_write(interface, RKCIF_MIPI_CTRL, RKCIF_MIPI_CTRL_CAP_EN);
-> >>>> +
-> >>>
-> >>> while this is the correct solution for rk3588, for the rk3568 vicap this
-> >>> will write 0x1 to the VICAP_MIPI_CTRL : 0x00A0 which will enable the water line.
-> >>
-> >> nice catch ;-) However, the TRM (at least my version) claims that this
-> >> bit has a reset value of 0x1, so the bit in question should be already
-> >> set in the first place. Thus I decided to *not* make variant specific
-> >> code paths.
-> > 
-> > Yes, the reset value is indeed 0x1
-> > 
-> >>
-> >> Do you see problems in your setup?
-> >>
-> > 
-> > No problems, it works as expected, I was just confused to see the
-> > mipi capture enable added with this rk3588 patch and not before.
-> > 
-> > I just find it a bit confusing but if a nicer solution is too much
-> > hassle we can leave it like this.
+> i.MX Audio Board is a configurable and functional audio processing
+> platform. Integrating a variety of audio input and output interfaces into
+> the system, the i.MX Audio Board supports HDMI input, HDMI eARC,
+> S/PDIF I/O, 2-ch ADC line-in, 24-ch DAC line-out and more. Based on these
+> features, rich audio application cases can be realized.
 > 
-> I agree that this is (while correct) not the nicest way. I am still
-> bringing up the remaining features of the RK3588 VICAP (MUX + TOISP +
-> SCALER) and it looks like I need to do some refactoring anyway to
-> support them. When I do that, I shall rewrite this part. For the time
-> being it would be great to have this merged in order to provide initial
-> mainline support for this unit.
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> ---
+>  Documentation/devicetree/bindings/arm/fsl.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-That sounds good.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-How about adding a TODO comment ?
+Best regards,
+Krzysztof
 
---
-Kind Regards
-Mehdi Djait
