@@ -1,147 +1,161 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022132.outbound.protection.outlook.com [40.107.75.132])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48ED93C9ECD;
-	Wed, 25 Mar 2026 11:22:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.132
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774437729; cv=fail; b=KfbFqKFVYO1dfZR08Nok3tzlSKTHRym5AvYRiB6o5lYrtfZn0ojGd/mDWu7FnKzyqlU3mot8y/bSBSXJhgxfFyUxoKFz+pqZLp/eiR1bNmFM4gVovSy/Eok9cjIgk6wSDTpKjKVAmkopN4KQGQmOxtQkLVJS1+T6p67GUw5MG0A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774437729; c=relaxed/simple;
-	bh=/WG+r9qlyoh7o6+HzeTeb88wBvI2Ha9TVZZ+C0mlEyc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KKXff5sjhSrhQT3iqSYoms+0UCYlhyQK9ga3ZHZ8OW73UxZxU3AY/2MYrqjDDHlvcfbFdaLO5J1ySN3wOVHJ+9Tkw6sYbxwVpebXpAn9Q12EppRIXhz6vSvhgnXnrSdzjPzWFPygbT/lCa2VsRasyh+BPbE5OayUemYl2giuTGA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.75.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T5EuAb/+EpWzto9PY28s875SlTXRc2rr0CcHBnKUAd8GAS4WjO4qn6oUYs403zbtLZUIuo0cOdoxPF1O/45FuyNPXgurPnd1ZrRkCMHXTZfIrb7pngW0CZF7K4u38sN73XLbuJE7XRHaZS7g2fYjxJGdhcSwZA1AwcYb05sxtLQwSZDGsYrmRkisekKLS2jFxeOIsY4HZ2No03oWNNyms/73OuG/3jFb2rx3FMmUWH5X1Htk//kxLlnqQKdD0V03wA7qgAMMo+N2aZ898fQun/ZCxolvqY1v/aAFCz0xcGGKA/eaPzPNHVrW5yrmKLvs7dwql5DlpaatkJU8RX7uCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/RcfmK23eMrZnuQiyO8pwAcvBrQzk3ZRoKwBv/3RIco=;
- b=yu91o7UtRBiLcNVDDjn+HgEiJ4OSESbVf/OlxDT+iVp1LEaNLOpwLxd0PtzQGgfing+Owq36cBYbO0wwZM7+Cmu7TibiQBEoW9PQ13JuIb7Io8Y6GUmpL39G+dKwtY6BV6gPDXkEEzGesjx4vEwBAvazDHTWO2HxQq6grMBipx65TQahDgj+ABWA2SLbEiwcrVkT3rJXkXH1/t+APDJ9goNxNzHQ0HA9P+Au1xWmyODoQWIMkZvmsr+wWgAOErZ3YDwD0TxIokgi8M6BqPzzB932x8A35wIbDAJTjSSsmKGGAfokI2yB01s1STBZ+5vNevAzJKoflyrBPJmjRBi/FQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from TYCPR01CA0031.jpnprd01.prod.outlook.com (2603:1096:405:1::19)
- by JH0PR06MB6581.apcprd06.prod.outlook.com (2603:1096:990:33::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 11:22:03 +0000
-Received: from TY2PEPF0000AB83.apcprd03.prod.outlook.com
- (2603:1096:405:1:cafe::19) by TYCPR01CA0031.outlook.office365.com
- (2603:1096:405:1::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Wed,
- 25 Mar 2026 11:22:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB83.mail.protection.outlook.com (10.167.253.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Wed, 25 Mar 2026 11:22:01 +0000
-Received: from guoo-System-Product-Name.. (unknown [172.20.64.188])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 473B64126F9B;
-	Wed, 25 Mar 2026 19:22:00 +0800 (CST)
-From: Jun Guo <jun.guo@cixtech.com>
-To: peter.chen@cixtech.com,
-	fugang.duan@cixtech.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	vkoul@kernel.org,
-	ychuang3@nuvoton.com,
-	schung@nuvoton.com,
-	robin.murphy@arm.com,
-	Frank.Li@kernel.org
-Cc: dmaengine@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cix-kernel-upstream@cixtech.com,
-	linux-arm-kernel@lists.infradead.org,
-	Jun Guo <jun.guo@cixtech.com>
-Subject: [PATCH v6 1/2] dma: arm-dma350: enable ANYCH interrupt for shared IRQ wiring
-Date: Wed, 25 Mar 2026 19:21:58 +0800
-Message-Id: <20260325112159.663881-2-jun.guo@cixtech.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260325112159.663881-1-jun.guo@cixtech.com>
-References: <20260325112159.663881-1-jun.guo@cixtech.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D50473BE623;
+	Wed, 25 Mar 2026 11:22:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774437755; cv=none; b=QACSnGOucT5g1QJ+8Fv1xhX6hRbmwhUzCtftZ/LHuNgteGw1VkVNCB74VgRehuDlwkjYDsq4CmiEUs41lp2V1v1LGsacGzpfHGIl2EDv30sCx/iIxBtoPjk42GCyUWDs3kbjbZTMrv7B6pv7HmBaF0Zpj6yoMAc5fWWdWCl7WMg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774437755; c=relaxed/simple;
+	bh=O6d0BGiBXFmx8FooLw5bLabbLInDXePEHVkVIeZrTSY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pgmPVTCHjdeRB1LOiBAYyohLlRX01GO9VA5xL8bUg7pg6/QcKOoXT088G0Mxm5ksa5VdXdy5go5KLvtyLlrmch631bUVsJFvsqniVLYyDsgRyRaHdg6A8T56dQJKYGMdTkxfAKA0pQ4ixpHHVSoFKOxx0PxPXk5gOGqe7bRqIfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uRRg3P8r; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uRRg3P8r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD94FC2BC9E;
+	Wed, 25 Mar 2026 11:22:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774437755;
+	bh=O6d0BGiBXFmx8FooLw5bLabbLInDXePEHVkVIeZrTSY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=uRRg3P8rXQ70MgQZPJRGO5qWoPsq0GPMlKJC1zMfMw/q90eAVc4KwYvMn83N7apeA
+	 2HEwC6UcEZbNG4t6Q+sndvaqdgbgLslDuuaB2u+1qDPOq2S384D5UcHJrxYD/RdX7o
+	 t8YSFuv+IaSqUBS/AKJmjCD3ZqITrMr+GZXU4wgx5EKnNCHcvxXFyRwVUNRc8MpgHN
+	 cFjxNzBPpdza8AyE3dCrYUPLhIW9G+SkiG+PFn9Ja+7eDXGlBKpSUCiYeh3eEeFuUS
+	 8plv/u+U5NfoBY3LSWuyNi4U5LV/6I8vmGBFj934eNhwWw3iffHNiFWVjQXhI15awr
+	 xscZetLxYKQGw==
+Date: Wed, 25 Mar 2026 11:22:28 +0000
+From: Lee Jones <lee@kernel.org>
+To: Otto =?iso-8859-1?Q?Pfl=FCger?= <otto.pflueger@abscue.de>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	Pavel Machek <pavel@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+	linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH 4/6] mfd: sprd-sc27xx: Switch to devm_mfd_add_devices()
+Message-ID: <20260325112228.GF2902881@google.com>
+References: <20260222-sc27xx-mfd-cells-v1-0-69526fe74c77@abscue.de>
+ <20260222-sc27xx-mfd-cells-v1-4-69526fe74c77@abscue.de>
+ <20260309185856.GZ183676@google.com>
+ <ab2i6i2D5q0t0xZ5@abscue.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB83:EE_|JH0PR06MB6581:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: e4343c19-d5fb-4620-f9c2-08de8a60bcb4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|7416014|376014|82310400026|921020|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	Wph2GkWum0a+qatuj4Q+14An9C0GYd2bANsWI66xI0OXvZX/tKVADknTLhIRUfQrofqr5rL5VbjLjtX6oj8Au/eZ/r99cktloXJjvelIHWbkLvbpVJnV6uQAxaqW2t9seF0Hs9o4e+mc2d/jx86sVsKSvR4hQufVrXWTS86qzHZmk9gsaSKjnUkQVOyC7zBTLxZ0Ytf6IQEBFVDmZN4HNeUi3iYvG4O6txnnTrPwiPGJgOPmvqqieteFOAHPXrnBJulDbzxvNHiN6JavFNrmWob/QWZ7ck7bTrnW7Q9ufzbSKm9pzV8+g8IJ0vHuEhp/4l4fwtv3eRtjd1yn2RGjaGyE2Eo4UEMIzkLh2HbMr9AleX0zWBQSHEFl9SO2gQM+IO/8uvIXmykbgtQrmtXndTNhEyAUEwm3TPnJ0OLPU+NziHRox6WCOsd3VIm06nk35n5bZlYGVKDlqUZkokon324VqQfWARLDvO7Q5rdk+/lN0410DGAY9Ig/lzjgGDlDLX6PS6xG84qCzlQW+73jAiI3TbXDP+0PbWzAjmdlKUfFBrfi986dqawZ9D42uySKhYYTLBemsU3VpaRuPma7hLX/rTbZCQABulwFoIsMIQfZ2/IzhLmf+I8Mivb3n2xXq4VD1l7S5onbu2SjeDFM4N5BoYJ3Mwm24f05mxwgQhWobVbV/lkkD4H9u1js1WeRUD2Z+spTpViLcVAz/dOgUd7b299u3uXaP4ITq9LiNFRoF0woQxAcx4prNlGyYWq8t2aq3WsOmViP0zmiQHLXrPa4uvlgoSdu10KRJzxPXhYUBTyNgxqhBm/VAEeN/pTX
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(7416014)(376014)(82310400026)(921020)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	rLSgBHwHcuKpu0xowvsPGP0oS8C/yvn4ZgEOWKtGQWcEPjIa16CMDX4WCj/9oNDDKBHJmKNyd/tTITINdxKXG32oJUclcy5C7Ltz/D0LN2h68ZuCsLJVI1nbDqN4/pqd63qUExj77nstNti+G25irS2m8Y1OgvwW7UChveBr/N/g256e/YBwjKe5lmVlb1s0544BBHanE4KIhRLM9RtwWAkasYly0Qa7h9w7aPelcT9SM482hpnNHi730/NacmVwQXx6HZoAvpEu8yeWitfafjT+UBjhwcuw9uC7/nTyk33i+iF97/PwFNUmFinQMSeQQp1/udIMbea4NDISMoHxbMhGxx4BioUHdTU9Cg/eR1ZUL/Uqa+1C9qcagXryklxbOZwhaZS44u8ga7nNcWK3YaJGnv1phBjqAhh42ejoT0Xeaa67lbZ0HiPX/g74+mk/
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 11:22:01.8228
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4343c19-d5fb-4620-f9c2-08de8a60bcb4
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB83.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6581
+In-Reply-To: <ab2i6i2D5q0t0xZ5@abscue.de>
 
-Enable DMANSECCTRL.INTREN_ANYCHINTR during probe so channel
-interrupts are propagated when integrators wire DMA-350 channels
-onto a shared IRQ line.
+> Could you clarify what should be changed?
 
-Signed-off-by: Jun Guo <jun.guo@cixtech.com>
----
- drivers/dma/arm-dma350.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Sure.
 
-diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
-index 84220fa83029..09403aca8bb0 100644
---- a/drivers/dma/arm-dma350.c
-+++ b/drivers/dma/arm-dma350.c
-@@ -13,6 +13,11 @@
- #include "dmaengine.h"
- #include "virt-dma.h"
- 
-+#define DMANSECCTRL		0x200
-+
-+#define NSEC_CTRL		0x0c
-+#define INTREN_ANYCHINTR_EN	BIT(0)
-+
- #define DMAINFO			0x0f00
- 
- #define DMA_BUILDCFG0		0xb0
-@@ -582,6 +587,10 @@ static int d350_probe(struct platform_device *pdev)
- 	dmac->dma.device_issue_pending = d350_issue_pending;
- 	INIT_LIST_HEAD(&dmac->dma.channels);
- 
-+	reg = readl_relaxed(base + DMANSECCTRL + NSEC_CTRL);
-+	writel_relaxed(reg | INTREN_ANYCHINTR_EN,
-+		       base + DMANSECCTRL + NSEC_CTRL);
-+
- 	/* Would be nice to have per-channel caps for this... */
- 	memset = true;
- 	for (int i = 0; i < nchan; i++) {
+> On Mon, Mar 09, 2026 at 06:58:56PM +0000, Lee Jones wrote:
+> > On Sun, 22 Feb 2026, Otto Pflüger wrote:
+> > 
+> > > To allow instantiating subdevices such as the regulator and poweroff
+> > > devices that do not have corresponding device tree nodes with a
+> > > "compatible" property, use devm_mfd_add_devices() with MFD cells instead
+> > > of devm_of_platform_populate(). Since different PMICs in the SC27xx
+> > > series contain different components, use separate MFD cell tables for
+> > > each PMIC model. Define cells for all components that have upstream
+> > > drivers at this point.
+> > 
+> > We're not passing one device registration API's data (MFD)
+> > through another (Device Tree).
+> > 
+> > Pass an identifier through and match on that instead.
+> > 
+> > Look at how all of the other drivers in MFD do it.
+> >
+> > [...]
+> > > +static const struct mfd_cell sc2730_devices[] = {
+> > > +	MFD_CELL_OF("sc2730-adc", NULL, NULL, 0, 0, "sprd,sc2730-adc"),
+> > > +	MFD_CELL_OF("sc2730-bltc", NULL, NULL, 0, 0, "sprd,sc2730-bltc"),
+> > > +	MFD_CELL_OF("sc2730-efuse", NULL, NULL, 0, 0, "sprd,sc2730-efuse"),
+> > > +	MFD_CELL_OF("sc2730-eic", NULL, NULL, 0, 0, "sprd,sc2730-eic"),
+> > > +	MFD_CELL_OF("sc2730-fgu", NULL, NULL, 0, 0, "sprd,sc2730-fgu"),
+> > > +	MFD_CELL_OF("sc2730-rtc", NULL, NULL, 0, 0, "sprd,sc2730-rtc"),
+> > > +	MFD_CELL_OF("sc2730-vibrator", NULL, NULL, 0, 0, "sprd,sc2730-vibrator"),
+> > > +};
+> > > +
+> > > +static const struct mfd_cell sc2731_devices[] = {
+> > > +	MFD_CELL_OF("sc2731-adc", NULL, NULL, 0, 0, "sprd,sc2731-adc"),
+> > > +	MFD_CELL_OF("sc2731-bltc", NULL, NULL, 0, 0, "sprd,sc2731-bltc"),
+> > > +	MFD_CELL_OF("sc2731-charger", NULL, NULL, 0, 0, "sprd,sc2731-charger"),
+> > > +	MFD_CELL_OF("sc2731-efuse", NULL, NULL, 0, 0, "sprd,sc2731-efuse"),
+> > > +	MFD_CELL_OF("sc2731-eic", NULL, NULL, 0, 0, "sprd,sc2731-eic"),
+> > > +	MFD_CELL_OF("sc2731-fgu", NULL, NULL, 0, 0, "sprd,sc2731-fgu"),
+> > > +	MFD_CELL_NAME("sc2731-poweroff"),
+> > > +	MFD_CELL_NAME("sc2731-regulator"),
+> > > +	MFD_CELL_OF("sc2731-rtc", NULL, NULL, 0, 0, "sprd,sc2731-rtc"),
+> > > +	MFD_CELL_OF("sc2731-vibrator", NULL, NULL, 0, 0, "sprd,sc2731-vibrator"),
+> > >  };
+> 
+> Assuming that these tables are the "registration API's data", I don't
+> see where it is being passed through the device tree. The device tree
+> contains nodes for some of these MFD components, and I've listed their
+> compatibles here so that the MFD core finds these nodes and registers
+> them with the corresponding devices (which was previously done
+> automatically by devm_of_platform_populate).
+> 
+> > >  
+> > >  /*
+> > > @@ -59,12 +84,16 @@ static const struct sprd_pmic_data sc2730_data = {
+> > >  	.irq_base = SPRD_SC2730_IRQ_BASE,
+> > >  	.num_irqs = SPRD_SC2730_IRQ_NUMS,
+> > >  	.charger_det = SPRD_SC2730_CHG_DET,
+> > > +	.cells = sc2730_devices,
+> > > +	.num_cells = ARRAY_SIZE(sc2730_devices),
+
+Remove these from here.
+
+Either replace them with an ID that you can match on or stop passing
+'sc2730_data' through .data and pass an ID through there instead.  Then
+choose 'sc2730_data' and 'sc2730_devices' in an switch() statement
+instead, just like the vast majority of existing MFD drivers do.
+
+> > >  };
+> > >  
+> > >  static const struct sprd_pmic_data sc2731_data = {
+> > >  	.irq_base = SPRD_SC2731_IRQ_BASE,
+> > >  	.num_irqs = SPRD_SC2731_IRQ_NUMS,
+> > >  	.charger_det = SPRD_SC2731_CHG_DET,
+> > > +	.cells = sc2731_devices,
+> > > +	.num_cells = ARRAY_SIZE(sc2731_devices),
+> > >  };
+> 
+> Here I am simply referencing the tables above in the device-specific
+> MFD data. These structs containing device-specific data already exist,
+> they are private to the MFD driver, and I wouldn't consider them part
+> of the device tree.
+> 
+> I've looked at mt6397-core.c and it seems to be doing the exact same
+> thing with its "struct chip_data".
+
+That was a momentary oversight.  It's also passing a driver-level
+call-back which I despise.  However, past mistakes are not good
+justifications for new ones.
+
+> Some other drivers use a numeric ID
+> for this purpose, but how would that be different from a pointer as long
+> as it identifies the same data within the MFD driver?
+
+The point is that sc2731_data->cells would be passed through the Device
+Tree's .data attribute, which is not allowed.
+
 -- 
-2.34.1
-
+Lee Jones [李琼斯]
