@@ -1,112 +1,123 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED8A3CF69D
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 12:28:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1833CCFBA;
+	Wed, 25 Mar 2026 12:36:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774441692; cv=none; b=W+VZjEMPS7DsRLzZ/hsIAhnS+qe2wktRwJyDWMwOjuzOzUR3o4jUIETL5DIqEI8BCm+E+Usu9QnhXTfsjL77w37ncp7VG2HZJAmlm+iChUaKceWN+56i6uO3j2sMlWAGZwC9Ab5JetvZQnfsu/gvIwyL+3YXK9NE8OUpx9x5CV0=
+	t=1774442180; cv=none; b=Hu7oqNEeXmqC2NkmZH2F47I6wSmv7Abn//2gBBJpiSFNy9PyAlJ+4AlA3EabKmJOjZHQtuw1FLnpWJ88FAnb7lmaBIvlEbia8WNF+X5Bh6Wus6SHpppYGqIjWhlfsTA8MzVZ6aS1zEvVw5VV+Ovg1CrYQgQJfVLG4TUSzZPXmlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774441692; c=relaxed/simple;
-	bh=g/6UWxw6tEfMb678Ee7PF48rfli6DCqIOAlLOaWdLvU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SShMwB05/irTKXKUOstUz1kKz7krPWv7ullp234FhqlWuFeGFdEFzJrtLu/9NV9xSlF+2rLaykM2Nd21A1pIKWENC2yli1N1TYZh3CTcvctNf65LUq2E25m5qI6Aog0GizQyTHPZfWnBzWrdJPrxKkcAW9qi6rtNai0TLQXj8wk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SxqY8xe3; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774442180; c=relaxed/simple;
+	bh=nUIKBGrlINd0Aqt02dXQQMuwK2Hj20wXs3Y6ofz1n88=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WBUqB7CVRvOgMl01i0nZLfGaPdPSJCoozdGpLsjOfVZ2CDbXEiFrJ8URUGwvOhu8LC2YaJbBbZ/VCps/PHRekgNIeyxDA1IiDtwNyrGBFLBWuC9Gv6fK4Jv1AYFcITUZeZYWRI6egLGLfmwZPKKDfWxtIzGPZvMm5xhrXxHpNS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AimVXysN; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SxqY8xe3"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-486b9675d36so53763755e9.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 05:28:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774441690; x=1775046490; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=g/6UWxw6tEfMb678Ee7PF48rfli6DCqIOAlLOaWdLvU=;
-        b=SxqY8xe3ysRamxUaQ+wNvz0UwpiYGWjmwe2146VN9ClLHMHy0t/Opq/43ahDlxyZCQ
-         IyZIxYUvm1eujExL6tTWlQFIMhY8/jfGMn9xrQVoryf2qQXJiM563O/vURuKxWv6vpJW
-         oQFpXaBOVLCjYYJC6aLnw2y+dZ2aKtMuwaQgECHWV/iWADw7sRPF3kct6wfLE0fF8BDG
-         ZYfL/wo1ALBmiNUEE2VpAeAHTbclMYA8cufimC9PnuTBJ/SdviztroWNM5IlDJI1wJcb
-         ZwncyFKvYc7HZD8AMAgJputE+ojJeQiB25OIj6YTWgASIlV0ZToeAgRZWUFKA1fPhDUH
-         0pyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774441690; x=1775046490;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=g/6UWxw6tEfMb678Ee7PF48rfli6DCqIOAlLOaWdLvU=;
-        b=f82qJUARaDXcCETZlTqRxtDkUEamPzjypqCVvumQl/KmPRE4Ok4rp3r5DwLrPaFKAO
-         rGvsU/JFIV7V69RZP9cwFM+RSqTY5wrhX6ycwAbb18Dawkuy9HldHkH/4FDhDHuGXVWt
-         nUoyAUSETsJ9u6lWZ7mbqkNfCqzclkQPZ///OZdan23FpJUfXQ1ziKjb1Pv/zp9SaqGF
-         emUO6yXrPGgDF4S64rltdoqxssCcm4vm4vNRVGDNACKefSNSV2lfVlL1yccTkJbv1mc2
-         5IUSJBKZfUFw5qnjHaETLUWKsQQZe968hlrvJiBPzCeQYxWRDgY9lK2xXkGwdCcCRA+H
-         YjGA==
-X-Forwarded-Encrypted: i=1; AJvYcCVMCqBFl+kkm1x820C7fmeofxOZKdoA2u6ZYfFVHh5Xqf+HYExhE4UZBhTO8vHhswq9SZbu7CqeAVOr@vger.kernel.org
-X-Gm-Message-State: AOJu0YxgoZVJYYrykEh6XQiz4N5PfiA4rm0l7xjAFdNzhrLkB1wzrh/g
-	uw/pxwtxK8Jj8TN8Rd/Ep0oWogpxzJvylznTRWMDxVYwLDbsXFEgyI1Akjn2a4BeBJc=
-X-Gm-Gg: ATEYQzy0WSBbpzvM11S+ZyalJbX2VKvupqoqagciT2i0MHoCCDa4R1jgSow+PvbvJEm
-	sCZy5vSm5rWkr8f55DG/EZ/ACVHw+hgBvKUzAzNlugEHRs/vOjAEg81A4cEC69LJOdn+eMpQWdP
-	LV0aLRPuTVvQNFNTDL+man6UnTP0QHCJlX/AqEfhcCmzEn4fmyo/cioS7FwRFRdFb5znoocKQR+
-	smQ0dinS98KjfMAoOz8awYqFCJIGvaqsoBPKVVdex3qqQTpFZMxPYfKIY4mnOIxJ8VWxsOfmG6D
-	TJlRWKrYQblKeQxhecML5YHAP9XF8vfhrUQB2RzsI0uzxCRfuTnDR4S2voCO8OEmy9PUdl6PPiv
-	FtU6sUNxcliV0EKkri9tTKbj2yH+gilLdeNgUDprD8rxHjBXFop+iDNxrRthbtuUSlcxJ8cbqVy
-	+4JaeGYlU5HqjhV3qd52ncQYNEGq2rRO8=
-X-Received: by 2002:a05:600c:4692:b0:485:4eaf:eb54 with SMTP id 5b1f17b1804b1-48716039b83mr48642735e9.20.1774441689774;
-        Wed, 25 Mar 2026 05:28:09 -0700 (PDT)
-Received: from [192.168.1.187] ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-487113d73c0sm145198315e9.0.2026.03.25.05.28.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 05:28:09 -0700 (PDT)
-Message-ID: <7ce63fa7bd71c7f844b02db0b2ea71bf7bfd7969.camel@gmail.com>
-Subject: Re: [PATCH 0/2] ADRF5702/ADRF5703 Digital Attenuator support
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich	
- <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, David
- Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob
- Herring <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Date: Wed, 25 Mar 2026 12:28:56 +0000
-In-Reply-To: <20260325-adrf570x-iio-support-v1-0-9a2685eb2e55@analog.com>
-References: <20260325-adrf570x-iio-support-v1-0-9a2685eb2e55@analog.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AimVXysN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04697C4CEF7;
+	Wed, 25 Mar 2026 12:36:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774442179;
+	bh=nUIKBGrlINd0Aqt02dXQQMuwK2Hj20wXs3Y6ofz1n88=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=AimVXysNQKkYUBc/XSuZ8cd+iJA25JXSHYtoN6adJCFGOpeFfLIBG+YLyj46fWRXL
+	 mKo3gw0f/Rr99zUldIBlIQlI+APut9IEmed/BZMmmKllf/innvSLoBgYEo+M/Wqw6j
+	 9RLf3VrYkb78cRAX+2kjBu72LuHLTxcDLKT0mgrOFMNoLGIHFib5R7DwlX78xUz82d
+	 UHHe2djD+JaT7LnrWbbbHvQp4FNK51/VmuXr5GapkYSKSbhRrJrdBedS4k3Sg5+Nrp
+	 kDMGCTguviKpqYpvCyQzjskBzsIvyKeZTPy+hnkvE5SE3/hNOu9ETLUhEhNE/I5wAH
+	 7Xc04i9EnfGiQ==
+Message-ID: <57e3e846-d679-4201-921c-69cdd4040d13@kernel.org>
+Date: Wed, 25 Mar 2026 13:36:15 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: reset: st: convert to dtschema
+To: Gopi Krishna Menon <krishnagopi487@gmail.com>
+Cc: sre@kernel.org, robh@kernel.org, krzk+dt@kernel.org, lee@kernel.org,
+ conor+dt@kernel.org, daniel.baluta@nxp.com, simona.toaca@nxp.com,
+ d-gole@ti.com, m-chawdhry@ti.com, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260324155935.183952-1-krishnagopi487@gmail.com>
+ <20260325-speedy-amethyst-beaver-08a3a4@quoll> <acPMx9NZBehAzkBp@toolbx>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <acPMx9NZBehAzkBp@toolbx>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, 2026-03-25 at 11:12 +0000, Rodrigo Alencar via B4 Relay wrote:
-> This is a small patch series that adds support for two extra attenuators.
-> Basically, new chip info and device table entries are added into the
-> AD8366 IIO driver.
->=20
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> ---
-> Rodrigo Alencar (2):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dt-bindings: iio: amplifiers: ad8366: add =
-adrf5702/3 support
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 iio: amplifiers: ad8366: add support for a=
-drf5702/3
->=20
-> =C2=A0.../bindings/iio/amplifiers/adi,ad8366.yaml=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++++
-> =C2=A0drivers/iio/amplifiers/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0 2 ++
-> =C2=A0drivers/iio/amplifiers/ad8366.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 | 22 ++++++++++++++++++++++
-> =C2=A03 files changed, 28 insertions(+)
-> ---
-> base-commit: af980a79bfed43c4a0be12cca786be46f1a0c5e8
-> change-id: 20260325-adrf570x-iio-support-e199418fba40
->=20
-> Best regards,
+On 25/03/2026 13:04, Gopi Krishna Menon wrote:
+> On Wed, Mar 25, 2026 at 12:39:36PM +0100, Krzysztof Kozlowski wrote:
+> 
+>> On Tue, Mar 24, 2026 at 09:29:30PM +0530, Gopi Krishna Menon wrote:
+>>> Convert the STiH4xx reset controller bindings to DT schema.
+>>>
+>>> Suggested-by: Daniel Baluta <daniel.baluta@nxp.com>
+>>> Suggested-by: Dhruva Gole <d-gole@ti.com>
+>>
+>> Both suggested you to write this patch?
+>>
+> Hi Krzysztof,
+> 
+> Thanks for the review, They helped me to improve the PATCH,
+> 
+> - Dhruva suggested me to change the subject from dt-bindings: power:
+>   reset: st: convert to dtschema to dt-bindings: reset: st: convert to
+>   dtschema as that was the general trend followed with similar files.
+> - Daniel suggested me to use the word 'reset' instead of 'restart' in
+>   the patch (whereever possible) as that is more accurate here.
+> 
+> That's why I added those Suggested-by tags.
 
-Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
+This is not the meaning of Suggested-by. Drop the tags.
+
+I gave you now review, so you will add "Suggested-by: Krzysztof ..."?
+
+Best regards,
+Krzysztof
