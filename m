@@ -1,192 +1,92 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17B438F23D
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 22:55:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F02741CFBA;
+	Wed, 25 Mar 2026 22:56:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774479328; cv=none; b=I5yHnjlWYpXCNUo8aUgocKrPmLevha3mMJYqmXBbs64LkKV+ZmuAUUbt6PmqvOG1PGsgcbP0TkEhQGFkuc7nzEmfGx0UCaPpK6QU8HOfcanNb6rDthGDYEwIxik22rriAtmo7Xbe1NjXiKMdoCo7iGcUid2zQEg2pA+iMOXTzIU=
+	t=1774479384; cv=none; b=A37Cam8Gp6pN/tiNkXirNDr/Um5IHYwAuM1jEVu1Vn026gm2nJZPcuAPV0oHthqgmhKW3eLq//TIVf2R4s4tjdA7W29JxguNpuFdDWI8LxfIYgp2gCs+2eAyNreZS11hdjTgr7iUBZtATj4/3LMmu/at4wEcAH/AwRB90aj4QY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774479328; c=relaxed/simple;
-	bh=yKRao8wed652hxeWQjA+R1P3kTbcNGO6m9lKM7GnMQQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=akgJCmqXGAjyXOI9WrDfmtqYt/Hll/BWmwsAVFPT8kpWXlPOTfK2lZ5gFM731Igu4V7ZGfF8fl56dDm822myeJvIUGQcqxlmAIjfL7CCWCsPtTTYSRlQyk1CEtklTEjkPnYgTbiCO76cqDw+MTdEG4L3yOzgEYmKwjWZLMiO1Zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pbVdLKQL; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774479384; c=relaxed/simple;
+	bh=1w2d3ITGOVbfzCTyT+2G94mj8V14/URsiXuFpQHnIg8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gTffAm1HcNKeRIZBLgJH67owQXSufd7C1OQ7PinyEg4J5pnyw6hWlJJk61RUIKaL9PzAhecjL6J81BIEoNJHbQ7IcAMI57DmoyWP2GvMDoPu5D7vbHtBWxRGiPPZzcu2QnCGpRvzS7a5sT/b92yoid6u1MsPe8v5Dnz1Zw2brXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OqrLtmca; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pbVdLKQL"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-35a1cc6e478so204940a91.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 15:55:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774479327; x=1775084127; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CdqH9GF/jHNSyWBdrNC7S/eoQNumPq7J4tkoPlO6e90=;
-        b=pbVdLKQLZ8Sz9tKzOIb/riZazptz3NYKsipr1yu8VEUbuXE0zv8srkW5sSKZHeDnaT
-         M8cHUwQN16LvN+rtLmR0J9Zl+NNg/ACuxdcwZTUspjLaGeHk7vP49BE2Af8Uv8LWkkCc
-         XkIBtj7z5WjXuuqFY0h9FNH1lScG5BeFhzPnBRp0FM7G80qQnWYJxlJCecN4kgNfsHC+
-         sFH9ax0l+d7CetzJjDg9ZSpOrdxDEFzw3zgcAmaCRuPtkX+CI+5PfF8IGrkqYIfKD2RB
-         hyxvwhVwD6lWPFibdL+v28uBU3mnGjiBnFcbhmSynM73/17MVPebTMKFO8H+lLP4q0SZ
-         oReg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774479327; x=1775084127;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=CdqH9GF/jHNSyWBdrNC7S/eoQNumPq7J4tkoPlO6e90=;
-        b=lAfnjRcRDIau72qJ5hkFPiakNsTqCl6lGGcwhGDuoQIxwkOaB7lwfAiyKU9UQ6GJ+b
-         0ZLSzBdhiIKC+1cxqYw0w3v4CnLfPHt2T3+aW1xLimgW7OHCP5Vz9Tz3Nv1SvimGVsXV
-         s78IN7Q+Axh5uA4OkwGCcw/uxJdT31rJg6ITYy6ZhWDXvgWnxvRDAybk7oImUu47UNif
-         4v3Wz+/5afFhwMt6caRgQ0lw0OvtA7Y13BCCz6MEFNP1msBK3NGoetYSgoWT6JNuciD5
-         cctDCckQGVCW2tHcsUEVeEc6N0t7MozmVeFAVyZdSft13mW2qKaJzOJIiaNXsuxnBCn5
-         RIXw==
-X-Gm-Message-State: AOJu0YwSbeHWTI166LMjPe3Jg0hT0PGfX1zP6qHDHeqqgyHFZEoA2+FT
-	zLisdwO5kB/gsK/TVcQVuluF1779oFWGx0I4R04rtwNpH4ZoR9Iz6k5KxSwphw==
-X-Gm-Gg: ATEYQzx0ZTDFxJoRoEmoe1064Ko4NWOoxFWBNsB3HNAc3BODCjeiTuFMYzXo5EueFYY
-	aABJVM3TWDWaXdx+h7liiUOgibtbSVSW096BaxVtuHkNZYbksQ6PJ0iS2FvnbdDzNy42XzhMyFR
-	eoawwW+IH0BRrO1QXSpt7728mOJAovrGqLTuvyZwVzbS+EHLdY51kxB7DI8F62cEtLqHh7sSDxS
-	0L5XG8DabStlk678CwJyZ6FTTg/dLd9ardYqd7bVCEgwMQVlDg102xpqrfkOvNqLiTAXNXxz0Uk
-	2N2Ac9e+1xyC55GKY6rrVMI4CmWf7nRzNiWPH7sWCAJKXL8VGInHTc62/bpL0r6MiCYSHWbYCA9
-	K/Ga55KUKNzoOIUpFbiw58otUgXCCpygb7OgG1hcGguEOaREfL7W1Pf2/KqchtzZh/NmuPVxSVK
-	LlG7QWJFdhWgsFcZqj96NruTFn
-X-Received: by 2002:a17:90a:e7d1:b0:359:ff8a:ee4c with SMTP id 98e67ed59e1d1-35c0dd11280mr4584019a91.11.1774479326857;
-        Wed, 25 Mar 2026 15:55:26 -0700 (PDT)
-Received: from arch ([2409:40c2:5018:3ab3:ebcf:9aee:dece:80da])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35c1e1a64absm84066a91.2.2026.03.25.15.55.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 15:55:26 -0700 (PDT)
-From: Bhargav Joshi <rougueprince47@gmail.com>
-To: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	xuwei5@hisilicon.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ulf.hansson@linaro.org,
-	zhangfei.gao@linaro.org,
-	linux-mmc@vger.kernel.org
-Cc: daniel.baluta@nxp.com,
-	simona.toaca@nxp.com,
-	d-gole@ti.com,
-	m-chawdhry@ti.com,
-	rougueprince47@gmail.com,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v2 2/2] arm64: dts: hisilicon: Rename dwmmc nodes to mmc
-Date: Thu, 26 Mar 2026 04:24:39 +0530
-Message-ID: <20260325225439.68161-3-rougueprince47@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260325225439.68161-1-rougueprince47@gmail.com>
-References: <20260325225439.68161-1-rougueprince47@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OqrLtmca"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0435BC4CEF7;
+	Wed, 25 Mar 2026 22:56:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774479383;
+	bh=1w2d3ITGOVbfzCTyT+2G94mj8V14/URsiXuFpQHnIg8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OqrLtmcaDSoQE39WKFwhGeW18R2GPkkQMe3KBsm3kRfWH+18Jujqdh49LDGLsLqU2
+	 VnEjH77MWdywGMtcVxZf2/NGjC0K8Imj60QXavP/NVcIj1h1BQqoryy9hkhn5TqLMi
+	 Fxr3K6WMfYguId40Wq2BhMR5h5jFP3tIApKcxxaAWJJ2/F5FkPvIyk4cCT8WVh4t9O
+	 DxzVc4wl8VJFdc5yLB22KCyMO798NZjuAQa3mP0NJ3TBJf/a0WPOj9adX9XqsOEQZ0
+	 p4FEUCcKGdmy+DS4rIt8qSnqcJmDmYBzVAWzlvKDaY9JoSDhp1hS4W/laUvj0eu2gI
+	 DUIJw6bNkygpA==
+Date: Wed, 25 Mar 2026 17:56:19 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: sc8280xp: Enable USB OTG on functional
+ Type-C ports
+Message-ID: <acRn4xQPsBJbCBmE@baldur>
+References: <20260313-topic-x13s_otg-v1-1-cb2e4a08e25d@oss.qualcomm.com>
+ <y7sxgdmxdn6fthnxkmhs2ja5hfw2mtbdl2zfqkfocn6pwnwxq2@cuoldngtvuht>
+ <0dfed5a0-1c07-4e7d-bca4-8183e44c3ada@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0dfed5a0-1c07-4e7d-bca4-8183e44c3ada@oss.qualcomm.com>
 
-The core mmc devicetree schema expects mmc controller nodes to be named
-using '^mmc(@.*)?$' pattern.
+On Thu, Mar 19, 2026 at 03:45:24PM +0100, Konrad Dybcio wrote:
+> On 3/13/26 3:37 PM, Dmitry Baryshkov wrote:
+> > On Fri, Mar 13, 2026 at 03:08:03PM +0100, Konrad Dybcio wrote:
+> >> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >>
+> >> The two non-multiport USB controllers present on the platform are
+> >> role-switch capable, so mark them as such. They need no additional
+> >> plumbing, as tested on the X13s.
+> >>
+> >> Enable OTG for all devices featuring a data-role provider in one fell
+> >> swoop to prevent hitting the edge case where UCSI code would time out
+> >> trying to get a reference to a struct usb_role_switch, which wouldn't
+> >> be registered if dr_mode was set to anything other than (the default)
+> >> OTG.
+> >>
+> >> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >> ---
+> >>  arch/arm64/boot/dts/qcom/sc8280xp-crd.dts                  | 8 --------
+> >>  arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts       | 8 --------
+> >>  arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts | 8 --------
+> >>  arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts     | 8 --------
+> >>  arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts  | 8 --------
+> >>  arch/arm64/boot/dts/qcom/sc8280xp.dtsi                     | 4 ++++
+> >>  6 files changed, 4 insertions(+), 40 deletions(-)
+> >>
+> > 
+> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> 
+> Unfortunately it seems like that while it works, it makes the x13s crash
+> upon resume
+> 
+> It also crashes there if we flatten the DT node and I'm hoping the solution
+> to that will fix both, but we have to hold it for now
+> 
 
-The legacy Hisilicon SoC files (hi3660, hi3670, and hi6220) previously
-used the 'dwmmc' prefix for their nodes. This caused warnings during
-dtbs_check.
+Please resubmit once this has been figured out.
 
-Rename the 'dwmmc' nodes to 'mmc' to comply with the standard schema and
-dtbs_check warnings. The legacy phandle labels are kept intact.
+Regards,
+Bjorn
 
-Signed-off-by: Bhargav Joshi <rougueprince47@gmail.com>
-Acked-by: Zhangfei Gao <zhangfei.gao@linaro.org>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
-Changes in v2:
-    - No code changes.
-    - Collected Acked-by and Reviewed-by tags.
-
- 
- arch/arm64/boot/dts/hisilicon/hi3660.dtsi | 4 ++--
- arch/arm64/boot/dts/hisilicon/hi3670.dtsi | 4 ++--
- arch/arm64/boot/dts/hisilicon/hi6220.dtsi | 6 +++---
- 3 files changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/hisilicon/hi3660.dtsi b/arch/arm64/boot/dts/hisilicon/hi3660.dtsi
-index 957a1b41f19b..374aa173bec6 100644
---- a/arch/arm64/boot/dts/hisilicon/hi3660.dtsi
-+++ b/arch/arm64/boot/dts/hisilicon/hi3660.dtsi
-@@ -1057,7 +1057,7 @@ ufs: ufs@ff3b0000 {
- 		};
- 
- 		/* SD */
--		dwmmc1: dwmmc1@ff37f000 {
-+		dwmmc1: mmc@ff37f000 {
- 			compatible = "hisilicon,hi3660-dw-mshc";
- 			reg = <0x0 0xff37f000 0x0 0x1000>;
- 			#address-cells = <1>;
-@@ -1075,7 +1075,7 @@ dwmmc1: dwmmc1@ff37f000 {
- 		};
- 
- 		/* SDIO */
--		dwmmc2: dwmmc2@ff3ff000 {
-+		dwmmc2: mmc@ff3ff000 {
- 			compatible = "hisilicon,hi3660-dw-mshc";
- 			reg = <0x0 0xff3ff000 0x0 0x1000>;
- 			#address-cells = <0x1>;
-diff --git a/arch/arm64/boot/dts/hisilicon/hi3670.dtsi b/arch/arm64/boot/dts/hisilicon/hi3670.dtsi
-index 886b93c5893a..0db1849a2878 100644
---- a/arch/arm64/boot/dts/hisilicon/hi3670.dtsi
-+++ b/arch/arm64/boot/dts/hisilicon/hi3670.dtsi
-@@ -679,7 +679,7 @@ ufs: ufs@ff3c0000 {
- 		};
- 
- 		/* SD */
--		dwmmc1: dwmmc1@ff37f000 {
-+		dwmmc1: mmc@ff37f000 {
- 			compatible = "hisilicon,hi3670-dw-mshc",
- 				     "hisilicon,hi3660-dw-mshc";
- 			reg = <0x0 0xff37f000 0x0 0x1000>;
-@@ -698,7 +698,7 @@ dwmmc1: dwmmc1@ff37f000 {
- 		};
- 
- 		/* SDIO */
--		dwmmc2: dwmmc2@fc183000 {
-+		dwmmc2: mmc@fc183000 {
- 			compatible = "hisilicon,hi3670-dw-mshc",
- 				     "hisilicon,hi3660-dw-mshc";
- 			reg = <0x0 0xfc183000 0x0 0x1000>;
-diff --git a/arch/arm64/boot/dts/hisilicon/hi6220.dtsi b/arch/arm64/boot/dts/hisilicon/hi6220.dtsi
-index f8b56d443850..61eaa7f8c1c9 100644
---- a/arch/arm64/boot/dts/hisilicon/hi6220.dtsi
-+++ b/arch/arm64/boot/dts/hisilicon/hi6220.dtsi
-@@ -799,7 +799,7 @@ mailbox: mailbox@f7510000 {
- 			#mbox-cells = <3>;
- 		};
- 
--		dwmmc_0: dwmmc0@f723d000 {
-+		dwmmc_0: mmc@f723d000 {
- 			compatible = "hisilicon,hi6220-dw-mshc";
- 			reg = <0x0 0xf723d000 0x0 0x1000>;
- 			interrupts = <0x0 0x48 0x4>;
-@@ -812,7 +812,7 @@ dwmmc_0: dwmmc0@f723d000 {
- 				     &emmc_cfg_func &emmc_rst_cfg_func>;
- 		};
- 
--		dwmmc_1: dwmmc1@f723e000 {
-+		dwmmc_1: mmc@f723e000 {
- 			compatible = "hisilicon,hi6220-dw-mshc";
- 			hisilicon,peripheral-syscon = <&ao_ctrl>;
- 			reg = <0x0 0xf723e000 0x0 0x1000>;
-@@ -828,7 +828,7 @@ dwmmc_1: dwmmc1@f723e000 {
- 			pinctrl-1 = <&sd_pmx_idle &sd_clk_cfg_idle &sd_cfg_idle>;
- 		};
- 
--		dwmmc_2: dwmmc2@f723f000 {
-+		dwmmc_2: mmc@f723f000 {
- 			compatible = "hisilicon,hi6220-dw-mshc";
- 			reg = <0x0 0xf723f000 0x0 0x1000>;
- 			interrupts = <0x0 0x4a 0x4>;
--- 
-2.53.0
-
+> Konrad
