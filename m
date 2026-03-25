@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5023D0901;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08763D1701;
 	Wed, 25 Mar 2026 11:51:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774439469; cv=none; b=eB2XmaOVvsgCoqs9ex9gPVZB4iUvO7+p+hFZgiIMdBRd8v1dJALTzvY2I4s8aKr2WW0i4HvROJDugQpl5DLQyxto6l71HB73Jw60F4EPiHCQD+K9pcGxyG51UsesVP9gANlgNyF8dlXfMTTNtKNHPN/LT2NIlSDR6iP5CmcfzZw=
+	t=1774439470; cv=none; b=ntHRvB/P4gSn78vBXnauNZIWDxG/lQ7mKflqTtrhRs69hdHteDS7Pli4WXC5IJ3GfD/Cbv7ihjJF/YEYl7unPEJv6V8CBl7aBhqlqgZFRbo6+bY4RMHfzSTpELxjpbVo0F4AlYcsQnjy1khHOyamchsKOtgr7IyGAeMVN2BUiog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774439469; c=relaxed/simple;
-	bh=160P6WISh+Fsx9Mux8forF424XDx9Hb/XbWBrIa5OIs=;
+	s=arc-20240116; t=1774439470; c=relaxed/simple;
+	bh=5L+7w/FMnAPGvTLC4Uwd39hUyOqoTG0DL3LkoLgAD90=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qPzv7iiB46/rmPlxYsG+76bdI44JYBX6M15DT4mYP8NaOjSrJ+EDgiAzWxqCep/FUAsCcg8Zhr3ihk1tLyWAFHGb5kZ80bOXzcSXK0s9nP8k29pPy2hm9ngc5GzxwU9p/q+UKndUR7dLJuAoczVB+H/npje1wr2rlaXXSIp0N7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m5SnJPKJ; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=lV1whiFYCqpvSySkYCJEhjwqjB2Tiji39dNuerGNOPRdyYcOEVjw8zxgH8c0h6gV3ozIbugLL62QvpnG5h3lfsZH3bWwrn72VOm4jMMM/xmDrWAlajaPqEg7PZ0JRD+XanXx11AC6fQmmBHAizLSaAPuCsFZhddWjQLWfJJYIYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NHA3V2Eb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m5SnJPKJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9BB67C2BCB7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NHA3V2Eb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CE0F6C2BCB2;
 	Wed, 25 Mar 2026 11:51:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1774439469;
-	bh=160P6WISh+Fsx9Mux8forF424XDx9Hb/XbWBrIa5OIs=;
+	bh=5L+7w/FMnAPGvTLC4Uwd39hUyOqoTG0DL3LkoLgAD90=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=m5SnJPKJQtu7Ku0/pcVsK6XnOzwEr2XK/RsDNKgzsp3ZB0anbtAgjBw+z8vVq1Pj9
-	 SGZkg/3M+8n0mZO3MPefy3E1loRg9hFHOK1HnOOx0jDNfbGjWSbEkjM0NL3I9i3ywH
-	 Hzo4bm7BKdZcgO2UszX6tk+7aHoZbr6TQlL7JQ00lpiDqeUsAcbdhWCkepRwkRdk8N
-	 DFlZci5FqiaMnesYikTtESg+W18cXRjjzojshLdKPFkM8sBYx0tkvALmQBPP4DPOnl
-	 QRTrTfv85mBPobxmzRV6YGdTKDgVhyt2K1UGbEAu3Fjw1hmOLgoEbu0LJD7eWMYeLM
-	 cRgBjZJ7JgQdQ==
+	b=NHA3V2EbB9eo8/G81aLUHPHNms/fRon7e72nGV67WYo5ZWakpAjY7Khjnv1ILJM0+
+	 EEmr79DImtY0KcpxV9O3yc4EWUVobbvGMoXy3Ada8PXlXdk/NTktRRkDrqVHw6tndb
+	 YiDY5tcXeNT5y0oHdbJv34QKXINJEyEBtOfwS1QhkW4lfcvCY4hPcqMvErwhex4CIY
+	 0E7Lk9OqrXdrxKt/RcFNtwPX6ETIOtbP8dNIW3ZmmWF+H4PR4o5eHufJ35bVlZ0cF3
+	 Uq/gBcAE8ypgwX1hccpl603WnyfdXh+Cx3n7tqvToqvdIi0NBrYJ4KgPrEAVB4cnzw
+	 Hj1wDrMbNwuJA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9175B1093176;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C148EFEC11B;
 	Wed, 25 Mar 2026 11:51:09 +0000 (UTC)
 From: Michael Riesch via B4 Relay <devnull+michael.riesch.collabora.com@kernel.org>
-Date: Wed, 25 Mar 2026 12:51:09 +0100
-Subject: [PATCH DONOTMERGE v3 4/9] media: dt-bindings:
- rockchip,rk3568-mipi-csi2: add rk3588 compatible
+Date: Wed, 25 Mar 2026 12:51:11 +0100
+Subject: [PATCH v3 6/9] arm64: dts: rockchip: add vicap node to rk3588
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250430-rk3588-vicap-v3-4-e38e428868cc@collabora.com>
+Message-Id: <20250430-rk3588-vicap-v3-6-e38e428868cc@collabora.com>
 References: <20250430-rk3588-vicap-v3-0-e38e428868cc@collabora.com>
 In-Reply-To: <20250430-rk3588-vicap-v3-0-e38e428868cc@collabora.com>
 To: Mehdi Djait <mehdi.djait@linux.intel.com>, 
@@ -61,11 +60,11 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Michael Riesch <michael.riesch@collabora.com>
 X-Mailer: b4 0.12.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774439467; l=1219;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774439467; l=3247;
  i=michael.riesch@collabora.com; s=20250410; h=from:subject:message-id;
- bh=/GzYE6Y65z4sqAFCGq0r5VgZhg70cR93RCV+j70gjCI=;
- b=rumYL0cT6v/mAk4sBmBymQu3l2qnRLwxnrYc8TFIKAHX/VVave0B4ZkbLy3lcDrTWToIMBiPo
- cLFWk+c+LgcBfWYM9WVSq2Fp+AXah0djUl5cvBmuSg2zWCtcRIrpfvz
+ bh=hvR3DNjF4Z+gqzZ4KtJS+9HylbHwDx6q1Xxnc+ArBRM=;
+ b=ixDIfg3ZxPVtoVby/vNTd2lrTGli7/Ciu2aUG8rhbq/UFyE9Hiq4fWKz5kmm6v/Ievl7njgrI
+ cUIigAJXIPxAPrdXAgQHcaIw36GbeCDpWvr48GpJjsOQlVZwemERuxc
 X-Developer-Key: i=michael.riesch@collabora.com; a=ed25519;
  pk=+MWX1fffLFZtTPG/I6XdYm/+OSvpRE8D9evQaWbiN04=
 X-Endpoint-Received: by B4 Relay for michael.riesch@collabora.com/20250410
@@ -75,39 +74,129 @@ Reply-To: michael.riesch@collabora.com
 
 From: Michael Riesch <michael.riesch@collabora.com>
 
-This patch is discussed over at
-https://lore.kernel.org/all/20260305-rk3588-csi2rx-v2-0-79d01b615486@collabora.com
-included here for testing purposes only.
-
-The RK3588 MIPI CSI-2 receivers are compatible to the ones found in
-the RK3568.
-Introduce a list of compatible variants and add the RK3588 variant to
-it.
+Add the device tree node for the RK3588 Video Capture (VICAP) unit.
 
 Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
 ---
- .../devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml      | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 91 +++++++++++++++++++++++++++
+ 1 file changed, 91 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml
-index 2c2bd87582eb..5e864e92f8a8 100644
---- a/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml
-+++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml
-@@ -16,8 +16,12 @@ description:
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 6c593b0255c3..8b98e5c3cc8b 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1430,6 +1430,89 @@ av1d: video-codec@fdc70000 {
+ 		resets = <&cru SRST_A_AV1>, <&cru SRST_P_AV1>, <&cru SRST_A_AV1_BIU>, <&cru SRST_P_AV1_BIU>;
+ 	};
  
- properties:
-   compatible:
--    enum:
--      - rockchip,rk3568-mipi-csi2
-+    oneOf:
-+      - const: rockchip,rk3568-mipi-csi2
-+      - items:
-+          - enum:
-+              - rockchip,rk3588-mipi-csi2
-+          - const: rockchip,rk3568-mipi-csi2
++	vicap: video-capture@fdce0000 {
++		compatible = "rockchip,rk3588-vicap";
++		reg = <0x0 0xfdce0000 0x0 0x800>;
++		interrupts = <GIC_SPI 155 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru ACLK_VICAP>, <&cru HCLK_VICAP>,
++			 <&cru DCLK_VICAP>, <&cru ICLK_CSIHOST0>,
++			 <&cru ICLK_CSIHOST1>;
++		clock-names = "aclk", "hclk", "dclk", "iclk0", "iclk1";
++		iommus = <&vicap_mmu>;
++		power-domains = <&power RK3588_PD_VI>;
++		resets = <&cru SRST_A_VICAP>, <&cru SRST_H_VICAP>,
++			 <&cru SRST_D_VICAP>, <&cru SRST_CSIHOST0_VICAP>,
++			 <&cru SRST_CSIHOST1_VICAP>,
++			 <&cru SRST_CSIHOST2_VICAP>,
++			 <&cru SRST_CSIHOST3_VICAP>,
++			 <&cru SRST_CSIHOST4_VICAP>,
++			 <&cru SRST_CSIHOST5_VICAP>;
++		reset-names = "arst", "hrst", "drst", "irst0", "irst1",
++			      "irst2", "irst3", "irst4", "irst5";
++		status = "disabled";
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			vicap_dvp: port@0 {
++				reg = <0>;
++			};
++
++			vicap_mipi0: port@1 {
++				reg = <1>;
++			};
++
++			vicap_mipi1: port@2 {
++				reg = <2>;
++			};
++
++			vicap_mipi2: port@3 {
++				reg = <3>;
++
++				vicap_mipi2_input: endpoint {
++					remote-endpoint = <&csi2_output>;
++				};
++			};
++
++			vicap_mipi3: port@4 {
++				reg = <4>;
++			};
++
++			vicap_mipi4: port@5 {
++				reg = <5>;
++
++				vicap_mipi4_input: endpoint {
++					remote-endpoint = <&csi4_output>;
++				};
++			};
++
++			vicap_mipi5: port@6 {
++				reg = <6>;
++			};
++
++			vicap_toisp0: port@10 {
++				reg = <16>;
++			};
++
++			vicap_toisp1: port@11 {
++				reg = <17>;
++			};
++		};
++	};
++
++	vicap_mmu: iommu@fdce0800 {
++		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
++		reg = <0x0 0xfdce0800 0x0 0x40>, <0x0 0xfdce0900 0x0 0x40>;
++		interrupts = <GIC_SPI 113 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru ACLK_VICAP>, <&cru HCLK_VICAP>;
++		clock-names = "aclk", "iface";
++		#iommu-cells = <0>;
++		power-domains = <&power RK3588_PD_VI>;
++		rockchip,disable-mmu-reset;
++		status = "disabled";
++	};
++
+ 	csi2: csi@fdd30000 {
+ 		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
+ 		reg = <0x0 0xfdd30000 0x0 0x10000>;
+@@ -1452,6 +1535,10 @@ csi2_in: port@0 {
  
-   reg:
-     maxItems: 1
+ 			csi2_out: port@1 {
+ 				reg = <1>;
++
++				csi2_output: endpoint {
++					remote-endpoint = <&vicap_mipi2_input>;
++				};
+ 			};
+ 		};
+ 	};
+@@ -1478,6 +1565,10 @@ csi4_in: port@0 {
+ 
+ 			csi4_out: port@1 {
+ 				reg = <1>;
++
++				csi4_output: endpoint {
++					remote-endpoint = <&vicap_mipi4_input>;
++				};
+ 			};
+ 		};
+ 	};
 
 -- 
 2.39.5
