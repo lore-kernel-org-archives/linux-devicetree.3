@@ -1,130 +1,116 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2F933C53F
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 13:11:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A88163DB652
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 13:13:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774444303; cv=none; b=n2UCdlUSMa1IdT+4fVQ0U71FzEbR7D210Z6QC40Cd2fsswJn866jdLzbGDiw8vQQZl8CNd0VF2dX2neazE6JUpBLEDJJNbUSgjoCbU6bxvM7MenX0qtupW43HJunzE3p4RuxEJIxed3nnxvNxvOc1LH28trsJLLVprtBHFrYkLk=
+	t=1774444398; cv=none; b=X3UxWhoIaj6wEKdLcZ5h5w3/uRIjAwZ3Uii1bxjOxx/vunPdjUILB/+OjUl5RQB7F89lKFDcQ1QwFykQ4a17RddWgda+C9KrvgcGAK5n45KN+veF7zv6h4p8bmAemHUzUGZVvG57zrUinC2AWBzm3Gh0iEgK5htnQscWOxD54yY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774444303; c=relaxed/simple;
-	bh=g4wYbCrQQciM5eAA7bNgeswNgh+jLdm3yzIf2O7Ct2c=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=or4Yfvh+Dq0Q1SHFKbyojwl2VXa6pWoK6SHdcEYtIuI9RLRvC0wP6UGwUmazQwtOn/c4/Vh61B29lpqSaH8n93/YYN/sXmU7n8EsuBz9SgEaGq00g86Lf7HtnNDJDuoQEefFsG8zbSdrkoPNzfxfjtuM5zWmL2ZA6FyBa4/HHpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FlUEcTUS; arc=none smtp.client-ip=209.85.128.44
+	s=arc-20240116; t=1774444398; c=relaxed/simple;
+	bh=p1CgH2aPFFSSIU0nL8Z5QCpMo08bn0aEmyIzHWVtXmY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FK5oP0USfRw+UQ+++Bh/SASMBsDS5XUpY7Sj0c89/7scF7kX+ZqhpXcOdUYSej/sI15mKJ5Fa+/+sgiA7lh6OLdhVfepofI57MsXLfL08q9DAQAiE4o09gJQCAgZoDB3/U4gyeBSKqWFjTdGYfdHNWRgyYL04xWjHr/Qd2lxA3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S073oI7S; arc=none smtp.client-ip=209.85.214.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FlUEcTUS"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-486507134e4so29758925e9.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 06:11:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S073oI7S"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2b0586d5bb8so47259455ad.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 06:13:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774444301; x=1775049101; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=3GPRX2Yqkh2fKcDql2NbbWnYF5EebgqjYrmp0cfTJ5I=;
-        b=FlUEcTUSYKpCxvw92RDkKefbBgYBLc4ykoYW58S+9zQ3sNCSyItFQKnJX0mKXARFO2
-         E9oo13U9zxVGkgarArAhzOZQliIG4F3CzAppc+X/xd1UklAGVxE+Pyv8oVqSR8Nmk7pW
-         D3/JeMcd/wjGKnW3U0iac994/Akstb/UZtq1CSVlJBeKPWLqELnkrYUAXL7CWpb1vgGH
-         uRdr/b4OWGQhJTwuP2vZIpjKAFm519CweJHdSicKy3nE3BYWKzM8/f0/tOJmVnsWc3CK
-         ofbPmE+kU383DzjJOFdNEjTZNRmX4Ospc/wb2eylB7QgKfdyW+OtmehKkRFnpycQdcm1
-         EZvw==
+        d=gmail.com; s=20251104; t=1774444397; x=1775049197; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=HXlIM/W5QtMeF1TTKLDLvCNleh8kdupGPpwsdQWbjac=;
+        b=S073oI7ScH7/nc3zKWmse8udWnKtrGdCsWrr8dgh9LYJJ74D8lufB3vCnmkc6tPk2M
+         AOdcwVsIIzbiJPz22C+YHPEw9+Gu09/daKM3dTg8j+QNFxh4DmCFEkP/noHxC7JZTMP5
+         nV0O8aivE8zffMIW6avzwckbPgJjBEglWLiy5sxcgbKU7oz09Aa7DHp7tBFzFDMfG246
+         1y0i4VaUmypb5AZj0pk0tixkRr/b4xy3JYgFafdlKJ3fDcrfUJG9eBIryKoNYVbxidD7
+         fMHa+5PoWvAG1sF3Fml9TbDlcQSD3kn+rHYbV2Ib5Y3AnT+jdjvpb1xHy2CUaqhTfPr3
+         nTWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774444301; x=1775049101;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3GPRX2Yqkh2fKcDql2NbbWnYF5EebgqjYrmp0cfTJ5I=;
-        b=IqGKYLnJlOT6T5/x1JrPDXvQzBRGKeB7tL4Iw0SY6o5qAs/Ufqy12CfxUrVuZInsNS
-         +5V/bbO85Z2KSY0XYvtF4PSZ5OG3zqROURRVZxqPf5MahnHS9l8lrcSpZDCAbRfRDROs
-         U42ui1yfXIn6KNhHXNYkNdTJB+HQwqOmd611xa47FWMgZEuFcnHvCwwkbROaH53uI8J6
-         u8QNQGhvWlr+KW4NqGdHveZq2XzOO8lf38UZcmyHczM6vNthq32vt/3e3ZGA8jFmQYrq
-         yy8o9HMc8gLvrDzEBl9Ts93XNgFrHUsOg01CNuvth7OgyVXChlqo+HhiqVyOU5HZsETp
-         rL3A==
-X-Forwarded-Encrypted: i=1; AJvYcCU2oQmw8RH4XXFX7TRRC3gYwrSTNYf5ukPI/s3IeUxSYKLoU8ORM05E5KslXULsY/R4nUo39/SbzUt/@vger.kernel.org
-X-Gm-Message-State: AOJu0YyrIsdN4e2LwOTR1Dxfl0Zk/p5bNxmqITK7+As0brhp9wgylrxQ
-	yPBLSrjBPdJqFKfDK05pdmci7oH9QguLc1JjsEkkRdgvV3mMx15aVQew
-X-Gm-Gg: ATEYQzzPm56bg3jEEQS61DXy9dEXv5EiHS+vZKyjGEJitWpLq4s8GIsrG0ZKVzfkhg2
-	tsmi6nz/pmtB72SYRgVQAIgFufmZ5kx3ygjyuVxOqt4pmzNNIHro4mTBfWi0yRLZmbqhYM1DBSQ
-	GEzlWROGeuO21oyU3RqGoZRgr+5/3wHRBrrJ9LCZrv0KuKfv+7qIGwyhIG7hhnNCncSjRTEuAAb
-	PRXJz2t9eTMl8ke75tbLV6U7H9ifreX9QWdglNK9Abt/BBFp1OpIS6kaO9doLAygxmHIK+VLv35
-	ovPq8RaYoo/mBaDkaXHi8K8M4x4KKm7tom9okUTI7WxDQBLXkDmWA0tDyETHOMXqsa1Q9bxBz8x
-	WZItu+WdTiRYyEMVofa+jKmyJ+KM9kJy5nqz2KdkihKb97WgvJaTf8Ya/08/MLzK0+iQ0v6y5vW
-	h9aC1oBrtSviDqyHQbcBvLgWoVgDi1Yq4=
-X-Received: by 2002:a05:600c:4ecb:b0:487:1520:d107 with SMTP id 5b1f17b1804b1-487160aa232mr49865885e9.31.1774444300774;
-        Wed, 25 Mar 2026 06:11:40 -0700 (PDT)
-Received: from [192.168.1.187] ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48711709e95sm132827945e9.8.2026.03.25.06.11.39
+        d=1e100.net; s=20251104; t=1774444397; x=1775049197;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=HXlIM/W5QtMeF1TTKLDLvCNleh8kdupGPpwsdQWbjac=;
+        b=Uef35UyX1BKKW32TR8plvfHKkl6bRw6LnzImwZdoy81LBM/vvi33oN/cCdg01787/t
+         rTAwEXZWEsHI6fuhpyJFK6kzqBFQ8CKIAi/56CrePGSWKKAClw049VATaX4pEmLTe12b
+         PTW68sOVKYNmIdEVs9fDRX3Op5rIv/1eSkR6x0TfP2FIap90/6P/2rtDiCR76QNhv8yA
+         uCpAMFApObP1FzyBvfm3paVv2C0Ggh7IUKInF62he/5+NLe/wNzipX+vgUzc4CUPhOUq
+         9voAnLfV7SzCwgDk69HlecDtJOqyT2rhlyyF+D726zgmtncvQ9OUcJ/Aphe9WoJJYRi6
+         aOCg==
+X-Forwarded-Encrypted: i=1; AJvYcCXjeeKLJdu2M5QNoqiKzeXhfuGtgAvyR1+Yq7oKkRPdOhtKy+Pi0N0hX0BZz3CBW3fPhfyH4A08IMs0@vger.kernel.org
+X-Gm-Message-State: AOJu0YzCFHg+Tph7f5yz3UAQ3YtDEnUl3AWP0HsqjtVw+sDeahv59v+8
+	f9TlfU4QQGKbg1OPpTsvrMfSU7OVh1h2lo1Y2K89Uwa0LWWZkytZ4yoA
+X-Gm-Gg: ATEYQzxqLlATjfJyqzN9ocFN34p4RkQ3ep7ExzfSPoEIfM0zcZ6xE8zVYC6NhnTjTZz
+	ckIHhIVkV8/OczWvT3+C6cqXfjSrDMPkZiVKqwDeNvyzIfCGh/GWLDQD28QCICYF80delNfbV+d
+	6/aOnWVQabONzknXgXPvftsaD+uhF02SzQbsugo6HfF0EhD2Nu+czSCJMOZ/EAtpRqjhS8v8T26
+	pp+4cps2dTQkejZp5U51gzqK7Ao19KTAVS8OYGpZ5eqxzIa0iMgT0pki2RdbyHV2wfNUiHBKdV0
+	tF2d8QqWdlB3mBhBio/nglSzLuuOteG0ti4e/2aKgV6cQ9egVTvNE538obSkaQB1wmON1IxyoAf
+	V9ui1q9ho/motsfPnB3iUl2ZvZQW5UG3ueLNrHa6O69fiCH0LZf1f4c/NEFPpldwNpZ1AjC1I+T
+	5HwTgCGsM16jXlQBUqNlNf+o5o1Rxbp6srhnJTDYC9DLzzCbbPD4/S5vYIu6M=
+X-Received: by 2002:a17:902:f550:b0:2ab:230d:2d96 with SMTP id d9443c01a7336-2b0b0a0f86cmr37207665ad.11.1774444396928;
+        Wed, 25 Mar 2026 06:13:16 -0700 (PDT)
+Received: from localhost ([103.70.166.143])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0836ace98sm182577905ad.80.2026.03.25.06.13.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 06:11:40 -0700 (PDT)
-Message-ID: <852233180cce9c9adffc491e4cdc16f281bfe09c.camel@gmail.com>
-Subject: Re: [PATCH v4 3/4] iio: adc: ad4691: add triggered buffer support
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>, Lars-Peter Clausen	
- <lars@metafoo.de>, "Hennerich, Michael" <Michael.Hennerich@analog.com>, 
- Jonathan Cameron	 <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, "Sa, Nuno"	 <Nuno.Sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Rob Herring	 <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Uwe
- =?ISO-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,  Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Linus Walleij
- <linusw@kernel.org>,  Bartosz Golaszewski	 <brgl@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>
-Cc: "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>, 
- "devicetree@vger.kernel.org"
-	 <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	 <linux-kernel@vger.kernel.org>, "linux-pwm@vger.kernel.org"
-	 <linux-pwm@vger.kernel.org>, "linux-gpio@vger.kernel.org"
-	 <linux-gpio@vger.kernel.org>
-Date: Wed, 25 Mar 2026 13:12:26 +0000
-In-Reply-To: <SA5PR03MB84250500F1FB9567F7FD2701F749A@SA5PR03MB8425.namprd03.prod.outlook.com>
-References: 
-	<20260320-ad4692-multichannel-sar-adc-driver-v4-0-052c1050507a@analog.com>
-		 <20260320-ad4692-multichannel-sar-adc-driver-v4-3-052c1050507a@analog.com>
-	 <83d87ff35002e5c7b9448a5ee7f2791a63c38c38.camel@gmail.com>
-	 <SA5PR03MB84250500F1FB9567F7FD2701F749A@SA5PR03MB8425.namprd03.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+        Wed, 25 Mar 2026 06:13:16 -0700 (PDT)
+Date: Wed, 25 Mar 2026 18:43:11 +0530
+From: Gopi Krishna Menon <krishnagopi487@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: sre@kernel.org, robh@kernel.org, krzk+dt@kernel.org, lee@kernel.org, 
+	conor+dt@kernel.org, daniel.baluta@nxp.com, simona.toaca@nxp.com, d-gole@ti.com, 
+	m-chawdhry@ti.com, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: reset: st: convert to dtschema
+Message-ID: <acPebHSUdu16bzw-@toolbx>
+References: <20260324155935.183952-1-krishnagopi487@gmail.com>
+ <20260325-speedy-amethyst-beaver-08a3a4@quoll>
+ <acPMx9NZBehAzkBp@toolbx>
+ <57e3e846-d679-4201-921c-69cdd4040d13@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <57e3e846-d679-4201-921c-69cdd4040d13@kernel.org>
 
-On Wed, 2026-03-25 at 12:47 +0000, Sabau, Radu bogdan wrote:
->=20
->=20
-> > -----Original Message-----
-> > From: Nuno S=C3=A1 <noname.nuno@gmail.com>
-> > Sent: Tuesday, March 24, 2026 2:23 PM
->=20
-> ...
->=20
-> > > +static int ad4691_cnv_burst_buffer_postdisable(struct iio_dev *indio=
-_dev)
-> > > +{
-> > > +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> > > +	struct device *dev =3D regmap_get_device(st->regmap);
-> > > +	int ret;
-> > > +
-> > > +	disable_irq(st->irq);
-> >=20
-> > Should we use disable_irq_sync()?
->=20
-> Isn't disable_irq() already calling synchronize_irq() inside it? I can't =
-see
-> disable_irq_sync() in the current kernel, only disable_irq_nosync().
+On Wed, Mar 25, 2026 at 01:36:15PM +0100, Krzysztof Kozlowski wrote:
 
-You're right! Sorry for the noise
-
-- Nuno S=C3=A1
-
->=20
-> > > +
-> > > +	ret =3D ad4691_sampling_enable(st, false);
-> > > +	if (ret)
-> > > +		return ret;
-> > > +
+> On 25/03/2026 13:04, Gopi Krishna Menon wrote:
+> > On Wed, Mar 25, 2026 at 12:39:36PM +0100, Krzysztof Kozlowski wrote:
+> > 
+> >> On Tue, Mar 24, 2026 at 09:29:30PM +0530, Gopi Krishna Menon wrote:
+> >>> Convert the STiH4xx reset controller bindings to DT schema.
+> >>>
+> >>> Suggested-by: Daniel Baluta <daniel.baluta@nxp.com>
+> >>> Suggested-by: Dhruva Gole <d-gole@ti.com>
+> >>
+> >> Both suggested you to write this patch?
+> >>
+> > Hi Krzysztof,
+> > 
+> > Thanks for the review, They helped me to improve the PATCH,
+> > 
+> > - Dhruva suggested me to change the subject from dt-bindings: power:
+> >   reset: st: convert to dtschema to dt-bindings: reset: st: convert to
+> >   dtschema as that was the general trend followed with similar files.
+> > - Daniel suggested me to use the word 'reset' instead of 'restart' in
+> >   the patch (whereever possible) as that is more accurate here.
+> > 
+> > That's why I added those Suggested-by tags.
+> 
+> This is not the meaning of Suggested-by. Drop the tags.
+> 
+Understood. Will remove it and send the v2.
+> I gave you now review, so you will add "Suggested-by: Krzysztof ..."?
+> 
+Earlier I would have. Didnt understand the use and meaning of this tag properly.
+But will take care not to let this happen in future.
+> Best regards,
+> Krzysztof
