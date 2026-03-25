@@ -1,57 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050332459C9;
-	Wed, 25 Mar 2026 14:22:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E63D30B509;
+	Wed, 25 Mar 2026 14:22:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774448526; cv=none; b=C2I6OFMizDCdri2R9bsXAaYBecrwOp7pq8BulhN4YQ8B0ziYeqUH5Nhm7CkPY3rf/mJ107QKZ+Ml1ljnVRAye5Bb2GYJheKT2Vm0fl6ovSxLeXz+r9pcyLDbSuAftDSjBCGNnOqpapVdfDEi/DpnZuyqsXgxeABlXxdhc822kVU=
+	t=1774448535; cv=none; b=dN55R0sYdzU76Om7/BZro4BBRidcJyo5s304kHz0+4RNtz7qQvtDweWCGwGjlJEa3R39GNdcoKFy49vldNlO1veJBpzRaX4+h9F5E+5juFhAVJoFBXVic4k2+cJwQ7BRj7Jobuygmn3JjqXy4MRPxw25g5mIWHzBHjyRVv6DRuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774448526; c=relaxed/simple;
-	bh=D8plBvkxo4lFOs0Y+oJaSKr/RKE855ApyeyhXvod+fA=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=aR/V1dsrGSnk0w0KYk8tEcVkcY6rGPiy8ixRB8TcZ1LhrI2CatdYw7f5GRp2oPOXke3BY1DhUe2ygWrXlYbck9Gn5VDvkuHAoN/45YaitwlnDb2ohjdiYN7Ar2XeVN5o8A5xisjoRCoBRMuiN0/JvMMpsBm577yjEkAoxEj9feM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q+qmW1/2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774448535; c=relaxed/simple;
+	bh=vmrj39rcfkGKh/Ia7TefUaESQzcw43p3ZywMgJ2IK3s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iJdYB8mTThB8e3hySYCQAbxCJs8X3oVUmQjT1HrnA18O50adUvz4PUmNHgi8IKFjtn+ndga2o0dxbGHE+MiV8RgYwLvKxQqHzngfkoRadZvwaIt5u1nhYKmZjIRDCt+dclw2kAbZtGXX1SkNm8dWjwt+HyscuNEauuHEXACpC+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aph2us2B; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q+qmW1/2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73195C4CEF7;
-	Wed, 25 Mar 2026 14:22:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aph2us2B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B15EC4CEF7;
+	Wed, 25 Mar 2026 14:22:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774448525;
-	bh=D8plBvkxo4lFOs0Y+oJaSKr/RKE855ApyeyhXvod+fA=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=Q+qmW1/21X4QW/08xsUd2EPczPV3dTj18p+zRVzh4A6EfSXHv+LpwoN4r7UvDnNjU
-	 YOYmcftw/1XtTkGSEUNHzlNSzYbRwpdDxiTEE/MjKutjGfxKEz/jVoG/xH+AfWty1L
-	 ZhITu4QVPEtFmo+JT2YA/PaYKY9ciOjtiqYRI1QdSPaSnQVfhXYG547eZgRu/qjdO0
-	 HGapF7WtaIkY2wIFyydbGGsbHdhC3/iP/OP2Tw4PGPVDlkZl8sEmIZ9QEke0GVus+n
-	 XoDMk9P+qYk2L11/oFWJQrtfSUrRKTbp9mrJdsAA/qTgrJBoiWgQ0Ifwbom939nV1u
-	 6WFQAMoVbTOog==
-Content-Type: text/plain; charset="utf-8"
+	s=k20201202; t=1774448535;
+	bh=vmrj39rcfkGKh/Ia7TefUaESQzcw43p3ZywMgJ2IK3s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aph2us2BflIXnVhCOfyNFd1GFIZnxAQJPccWNWn8EJPcFUsAqPoydGbOg70qjWrGy
+	 CVjndUFIAVL2gqoBxL7GyX36OrUXELjMMUxzcrnk3sO3Yl0gRoCkdjpGGvzg76CvUw
+	 ygqEH5FiczErRcYFujYwiIutjZSsabXVlbl2PJx164MJhBrUMuNuzGVfh5GVm0XiFa
+	 7oGPa8t89PfGEkBxJyy2chyzDXgU3g5MsmYPjXRoxN/g6GdHIWoU79e1TTeuaSgbna
+	 DRCDQSjwzgtuoKt3FCyy00YiG/2gqdbpRfo3saLoPIFa09pTyBrdMS1Z0lghhUhgGC
+	 fjJ25aXpZ02uw==
+Date: Wed, 25 Mar 2026 15:22:13 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v2 1/7] dt-bindings: pwm: Document Tegra194 and Tegra264
+ controllers
+Message-ID: <acPuMGhPw74roB1E@orome>
+References: <20260325-t264-pwm-v2-0-998d885984b3@nvidia.com>
+ <20260325-t264-pwm-v2-1-998d885984b3@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sznsudrqo2r736d6"
+Content-Disposition: inline
+In-Reply-To: <20260325-t264-pwm-v2-1-998d885984b3@nvidia.com>
+
+
+--sznsudrqo2r736d6
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260312162449.569359-3-cjd@cjdns.fr>
-References: <20260312162449.569359-1-cjd@cjdns.fr> <20260312162449.569359-3-cjd@cjdns.fr>
-Subject: Re: [PATCH 2/2] clk: airoha: Add econet EN751221 clock/reset support to en7523-scu
-From: Stephen Boyd <sboyd@kernel.org>
-Cc: linux-mips@vger.kernel.org, naseefkm@gmail.com, bmasney@redhat.com, mturquette@baylibre.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org, p.zabel@pengutronix.de, nbd@nbd.name, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Caleb James DeLisle <cjd@cjdns.fr>
-To: Caleb James DeLisle <cjd@cjdns.fr>, linux-clk@vger.kernel.org
-Date: Wed, 25 Mar 2026 07:22:03 -0700
-Message-ID: <177444852331.5403.14382259400187114857@lazor>
-User-Agent: alot/0.12
+Subject: Re: [PATCH v2 1/7] dt-bindings: pwm: Document Tegra194 and Tegra264
+ controllers
+MIME-Version: 1.0
 
-Quoting Caleb James DeLisle (2026-03-12 09:24:49)
-> EcoNet EN751221 clock/reset driver is significantly similar to the
-> EN7523 / EN7581, however the EN751221 does not have a neat batch of clock
-> divider registers so there are fewer known clocks, and the frequency of
-> each clock is derived differently. This clock driver will probably work
-> correctly on EN751627, EN7528, and EN7580.
+On Wed, Mar 25, 2026 at 07:16:59PM +0900, Mikko Perttunen wrote:
+> From: Thierry Reding <treding@nvidia.com>
 >=20
-> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+> The PWM controller found on Tegra264 is largely compatible with the one
+> on prior generations, but it comes with some extra features, hence a new
+> compatible string is needed.
+>=20
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
 > ---
+>  Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yam=
+l b/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
+> index 41cea4979132..15706d2a808d 100644
+> --- a/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
+> +++ b/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
+> @@ -16,6 +16,8 @@ properties:
+>        - enum:
+>            - nvidia,tegra20-pwm
+>            - nvidia,tegra186-pwm
+> +          - nvidia,tegra194-pwm
+> +          - nvidia,tegra264-pwm
 
-Applied to clk-next
+I think this was lost during the earlier conversation we had on the
+split of these patches. Krzysztof had pointed out that tegra194-pwm is
+now a duplicate entry. I don't know exactly how it ended up like this,
+but I'm pretty sure what I meant was:
+
+	- items:
+	    - const: tegra264-pwm
+	    - const: tegra194-pwm
+
+This mirrors the fact that this is in fact backwards-compatible with
+Tegra194 but also has additional features that we need the Tegra264
+compatible string for.
+
+Krzysztof also requested that we drop the latter part of, or reword, the
+commit message because we always want the compatible string to be added,
+regardless of backwards-compatibility, etc.
+
+So I think maybe something like this would be better for the commit
+message:
+
+  The PWM controller found on Tegra264 is largely compatible with the one
+  on prior generations, but it comes with some extra features. The new
+  Tegra264-specific compatible string can be used to distinguish between
+  the feature sets.
+
+Thierry
+
+--sznsudrqo2r736d6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnD75EACgkQ3SOs138+
+s6G5NQ/+LBYFLyiwHVj8hNS7M7cP6oPBAOX2MBsAWE9dUDKBjs4L/Ez/hVd5rhyU
+7qNedPNvkYS1K9BoCjEwXiazWiVytz8r0V+X7nn4zXl74s7T8wuVCuNXzANUMYpm
+n1LlIx2pSuHqT0M9vw+g8q+xtUGhepkv9gtypkMlD3kgoMmzesqz5/mtOfsqL+GQ
+jVzxCnsyMzpZvjYnQg9P5l7gHZbaFBiuE3ssz/uwjfMe5Yj7a2FS8hTqvAXPEWbP
+DO0xgF96kdb2dj8S7LYkqRxy++DrFlB9doALGgyET0jNv/xLajkwZn2fcmkHw0e1
+rlhR+Z+KZ+RUI4Fc1FFe6oVrHGWZCb3zLk/Ak1VzC1gEHBfHNaeDv7/V0BR1+isX
+9vMsXJbbi92lypvBoQGfnI/Xy5kiKJO0q4V3nrxlQat44henR2RvvvRrFFvl7yeR
+u+dcs+omSwNeZe5FmGNSTba5XGQvgCFoJR1mxAjvdabwiPxGuwEcvo4WiBRaorI1
+HZNd48jpDDAguA8Y96dd5SP4UUzQ3xJfDcGza1GpyaD/KkDaIGfcdYxYDITYVzOL
+hru8gXsym4c0iJexKYqZqMmhehrx/YacIyIecEp+x1fs4TYpem3/g7KbpStL8vpw
+pSSheEqc/B8+q2jItzeze85J5yyOwP91tLC/xIHqY6tDwrMozxY=
+=l5QA
+-----END PGP SIGNATURE-----
+
+--sznsudrqo2r736d6--
