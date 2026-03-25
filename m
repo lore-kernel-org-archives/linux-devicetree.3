@@ -1,106 +1,163 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B69733CEB8E;
-	Wed, 25 Mar 2026 11:27:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8B83C7E13;
+	Wed, 25 Mar 2026 11:32:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774438060; cv=none; b=ZjQQqHC12+Bg8ZK9P0fW+9Y102FAo2CEZpjbEPT37bPqv/NGTFTwSh+7T2twTa2WS2Fjig4CJJDZNqnFgfFZ+vmXo1J2RkVLtrMTbqQtKsnFUQqyEOF71MUxLGeVThdJuNzejFvPBG18Bo9M49UHCms+bJFbdhD6kpcz1V7WqDY=
+	t=1774438323; cv=none; b=BEc20ByUjGiIx6ZCkjhhG+01PbODW+boNthOlQQ8INQ4rpNENlaTmp/hjkmHNvA7jwNnOzRQMJff7o0k7iR9RQZAupcbuGSLUiP+7MV8gRAay9LWBcsx9atfFRSnia8BG0/IOqPlCemWh+oR82kbQEfLNjZ8tBkZiZM5iTBxngU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774438060; c=relaxed/simple;
-	bh=l8k94qCXX4up4bjhSDfUE0TCZEECdzAKty2f0bEPp8M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZqQWWACZ7c6h37oSM8aS7GT5+PvJsNV7s19+JFSFWfnrpOP1bEl5Lg7pKLz65SFY3daE6N07ecxGSkXLO2JcpBn7dDfEitHmFb2qqLTXCHZDyYBWlpZjDSRk1EEHx8GIIT2V9umRd8WJsOqIAacKv+RIQfOQs6ETqMpxe+VO4Rs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=Lve7YK+w; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1774438323; c=relaxed/simple;
+	bh=Pdu9z57yDEEmN+aEzcYH+0eI2CjV3sgqjGJN6kagq+k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mFhMk8R1zmLjIaCXryJsw88E78MilV7Fr+YQnwZoYS74qE2zU5beol07XDFOfGoo/IO1Td0CofemEQWj1BtPLI3dR78oQ7J2qWQktxETgGpV2cGvC3t1/kkK27FaMMafiGp4SA1w5g20Egus7DacDOBF+MSGO7Vun/4SfCuIv3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MycwOQlt; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="Lve7YK+w"
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 802C81FD07;
-	Wed, 25 Mar 2026 12:27:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1774438049;
-	bh=S2YQAGejwfR5ZlCcWyHUSZO12iuE4GgPthnFZ7lNm/A=; h=From:To:Subject;
-	b=Lve7YK+wnl2mE3II7S1FEj7bjiLJ4Anor5/kTXKOzbDteEX6YJLbLp5sEpKgWs+HP
-	 gnyqs4S3EqlSWVpUJcArFe5vDEH/5XWbhZs0AG7SdvZQBWwcAGYE4MbSA9rX+A4fEt
-	 QNlw7RrLFYOmOkY+Nvx21bJMBhzkQWDgbiKMQ9gdkSpM/K9hLZl/ZJidD/H2FuUgFO
-	 Rh2a1ul4NWs/P9Od/YJtMYi0O+mYJiNVsJNUqYN7T94SwQO1n6bjGu7cTY27EAsjTg
-	 ixYp+Dyubh61gmf4Br4fuY2aQYRtLzjsE4nLkLTQCSLYGVJL0ilLkPuqEpYI+qUHSh
-	 79tkNmj1ic8kw==
-Date: Wed, 25 Mar 2026 12:27:24 +0100
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Frank Li <Frank.li@nxp.com>
-Cc: Ernest Van Hoecke <ernestvanhoecke@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 2/6] arm64: dts: freescale: Add Verdin iMX95 support
-Message-ID: <20260325112724.GA7964@francesco-nb>
-References: <20260313-verdin-imx95-upstream-frank-li-base-v2-0-bd488be7c699@toradex.com>
- <20260313-verdin-imx95-upstream-frank-li-base-v2-2-bd488be7c699@toradex.com>
- <acK4awcokUyCHrG5@lizhi-Precision-Tower-5810>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MycwOQlt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 728F5C2BCB0;
+	Wed, 25 Mar 2026 11:31:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774438322;
+	bh=Pdu9z57yDEEmN+aEzcYH+0eI2CjV3sgqjGJN6kagq+k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=MycwOQltwHMQhaOInlNbtVPzW33iD0/ZecRnirjfS3QxJxrUTIGXatJdA8voseq2z
+	 BHdEbL4LOZHbGd9a9n57pyFmwjklfgHosWJpDC/hA/Su9+p0CS9hN6z+snpPwoVscg
+	 bLJMJk4f1KfM5hOKEeedJ1xx1p4FZXr+55mLoXmPtP3buxiVlCyvOFoaY+ZiSleu64
+	 KSgK1ZEnFIToM92CowrDCGxMw2Ku0toUbWD9MNf3J48eNPWmKp8Pp+MasBBcHrM9jv
+	 q495/4m8p7iUhtR/7/QEhNSiVg/eU3xSeKOPEcLEBE6xOyrDANf8hXt9IJUlDLhoxn
+	 68pvz/cLSbAYw==
+Message-ID: <c607e5e9-2e2c-450d-9ca2-5727ba99578c@kernel.org>
+Date: Wed, 25 Mar 2026 12:31:57 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <acK4awcokUyCHrG5@lizhi-Precision-Tower-5810>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sdm845-shift-axolotl: Enable NFC
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ David Heidelberg <david@ixit.cz>, Konrad Dybcio <konradybcio@kernel.org>,
+ Alexander Martinz <amartinz@shift.eco>
+Cc: Petr Hodina <petr.hodina@protonmail.com>,
+ biemster <l.j.beemster@gmail.com>, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ oe-linux-nfc@lists.linux.dev, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>
+References: <20260324-oneplus-nfc-v2-0-3eef052c9bc6@ixit.cz>
+ <20260324-oneplus-nfc-v2-2-3eef052c9bc6@ixit.cz>
+ <9d9ec994-c954-445d-97b2-772614d66f35@oss.qualcomm.com>
+ <041766dd-422e-40e1-9e5d-c220580871f5@ixit.cz>
+ <a0da2236-27b3-4491-862a-457a03cb4c5e@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <a0da2236-27b3-4491-862a-457a03cb4c5e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Mar 24, 2026 at 12:14:35PM -0400, Frank Li wrote:
-> On Fri, Mar 13, 2026 at 09:57:43AM +0100, Ernest Van Hoecke wrote:
-> > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> >
-> > Add support for the Toradex Verdin iMX95 and its development carrier
-> > board.
-> >
-> > The module consists of an NXP i.MX95 family SoC, up to 16GB LPDDR4x RAM,
-> > up to 128GB of storage, a USB 3.2 OTG and USB 2.0 Host, a Gigabit
-> > Ethernet PHY, an I2C EEPROM and Temperature Sensor, an RX8130 RTC, an
-> > I3C bus, one Quad lane CSI interface, one Quad lane DSI or CSI
-> > interface, one LVDS interface (one or two channels), and some optional
-> > addons: TPM 2.0, and a WiFi/BT module.
-> >
-> > Link: https://www.toradex.com/computer-on-modules/verdin-arm-family/nxp-imx95
-> > Link: https://www.toradex.com/products/carrier-board/verdin-development-board-kit
-> > Co-developed-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-> > Signed-off-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-> > Co-developed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > ---
-> > v2: Reordered nodes alphanumerically by node name
-> > v1: https://lore.kernel.org/all/20260305-verdin-imx95-upstream-frank-li-base-v1-2-823fad02def9@toradex.com/
-> > ---
-> > +
-> > +/* Verdin UART_1, connector X50 through RS485 transceiver */
-> > +&lpuart7 {
-> > +	rs485-rts-active-low;
-> > +	rs485-rx-during-tx;
-> > +	linux,rs485-enabled-at-boot-time;
-> > +
+On 25/03/2026 12:20, Konrad Dybcio wrote:
+>>
+>>>
+>>> FWIW TLMM subnodes are best sorted by pin index (although the file
+>>> currently doesn't really do that) as per dts coding style
+>>
+>> I assume when I group the -pins into -state it doesn't apply anymore? As I don't feel having pins relevant to one device / subsystem all over the place is extra clean.
 > 
-> Nit: needn't empty line between status and other property, suggest run
-> https://github.com/lznuaa/dt-format to speed up process.
 
-Please review Documentation/devicetree/bindings/dts-coding-style.rst.
+	nfc_int_default: nfc-int-default-state {
+		pins = "gpio63";
+	};
 
-Quoting from there
- > "status" (if applicable), preceded by a blank line if there is content before the property
+	nfc_enable_default: nfc-enable-default-state {
+		pins = "gpio12", "gpio62";
+	};
 
-I would be careful on taking every detail of such a style guide literally,
-but your comment here is not correct and it's not helping anyone.
+ 	sde_dsi_active: sde-dsi-active-state {
+ 		pins = "gpio6", "gpio11";
+	}
 
-Francesco
+Let's imagine future possible implementation of DTS coding style
+linter/checkpatch. How it would sort the nodes? Either by node name or
+the first value in "pins", this this would be:
 
+ 	sde_dsi_active: sde-dsi-active-state {
+ 		pins = "gpio6", "gpio11";
+	}
+
+	nfc_enable_default: nfc-enable-default-state {
+		pins = "gpio12", "gpio62";
+	};
+
+	nfc_int_default: nfc-int-default-state {
+		pins = "gpio63";
+	};
+
+So that's how you code. Less work for future linter/checkpatch.
+
+The trouble is that "pins" property sorting can result in nodes being
+spread all over, imagine:
+
+	nfc_enable_default: nfc-enable-default-state {
+		pins = "gpio5", "gpio62";
+			// ^^^^^ DIFFERENCE!
+	};
+
+ 	sde_dsi_active: sde-dsi-active-state {
+ 		pins = "gpio6", "gpio11";
+	}
+
+	nfc_int_default: nfc-int-default-state {
+		pins = "gpio63";
+	};
+
+That's why I would propose to keep everything sorted by node name, but I
+am fine with both choices. Qualcomm maintainers decide about such
+detailed style they want to impose.
+
+Best regards,
+Krzysztof
