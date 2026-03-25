@@ -1,27 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 590853C7E13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591A83CEBA5
 	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 11:32:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774438354; cv=none; b=XoS7YSuhGNmtfwonb1/A6xIFVV8j7FFUwXoei6lb2SLd26uJnTk5LVQP28HvAb2S+hVq21QPzBE/2o5+RiebGcCXfFuwKrQoyKXDYG3eWMJ9Ez/jztL6LzKupktDerTo3c4lV69AUUneiw1kMdC47SKHFWL0v8o1XOUCzAZYw8o=
+	t=1774438354; cv=none; b=d9UsM/Hndelw+YQ/JaQZ1HPXlQXStGLzUfHKbG3VtJBFcnEli5nY4wwLI3rcdcPw782Lm2V8KpGnjYmETbq/PVZFMSeSpJCvByjHHjfPpSbiTyN+nNsKbROhbXwGfZwrUvC2xgp7X1uOrGppbvzWtdmMJVxcmg0gqakkROeDe6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774438354; c=relaxed/simple;
-	bh=jQYVtuOktEghr7QRyczEivUVF+hfUs1IaDt/ct4MgRM=;
+	bh=6asgsNJtNzqMYXCTCShnu8Ynt63KMbLBDHWMKz336dA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fL0NaIydsUx853UDjGklV14F4Hn9jub+62Tjm1wvpIAZJQsRnOhvrbvjQdpEg0w9ReETaz2xbmlhYWvon17SyPXFhokIZ0AXV3gAZwrvcjAI9I8ppgG8gd6tD7nA5e6FomqimckGJUcrMjB1mJJ88lZ2Y8Z2D9MVhn4fifTxZBc=
+	 In-Reply-To:To:Cc; b=eIx3UEkIA+BZTpkEiCBWuGQcmalbptRZCvbynQUfynZVe11sMzuz/fgDWEQmoAE60u4W1EmbrOp1cynm/oXdepX4FPXFTBOCxDUWA5at2k/huV3WVaL2tyXikx2+0B3fbAA1cxVHAKG2LCehyznDJ8QteqgUCPQE0mESkjuA8mE=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.trumtrar.info)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.trumtrar@pengutronix.de>)
-	id 1w5MT7-0005WU-Ox; Wed, 25 Mar 2026 12:32:13 +0100
+	id 1w5MT8-0005WU-Uq; Wed, 25 Mar 2026 12:32:14 +0100
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Wed, 25 Mar 2026 12:31:59 +0100
-Subject: [PATCH 1/4] dt-bindings: display: simple: Add JuTouch JT070TM041
- panel
+Date: Wed, 25 Mar 2026 12:32:01 +0100
+Subject: [PATCH 3/4] dt-bindings: arm: fsl: add compatible for new Skov
+ I.MX8MP variant
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -30,7 +30,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v1-1-10255d236439@pengutronix.de>
+Message-Id: <20260325-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v1-3-10255d236439@pengutronix.de>
 References: <20260325-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v1-0-10255d236439@pengutronix.de>
 In-Reply-To: <20260325-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v1-0-10255d236439@pengutronix.de>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -55,26 +55,26 @@ X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Add the JuTouch Technology Co. 7" JT070TM041 LVDS panel.
+In preparation for adding a new device tree variant with a different 7"
+panel, describe the DT compatible in the binding.
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
- Documentation/devicetree/bindings/display/panel/panel-simple.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/arm/fsl.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-index 868edb04989a5..7a6a4e0db90d6 100644
---- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-@@ -188,6 +188,8 @@ properties:
-       - innolux,n156bge-l21
-         # Innolux Corporation 7.0" WSVGA (1024x600) TFT LCD panel
-       - innolux,zj070na-01p
-+        # JuTouch Technology Co.. 7" JT070TM041 WSVGA (1024 x 600) LVDS panel
-+      - jutouch,jt070tm041
-         # JuTouch Technology Co.. 10" JT101TM023 WXGA (1280 x 800) LVDS panel
-       - jutouch,jt101tm023
-         # Kaohsiung Opto-Electronics Inc. 5.7" QVGA (320 x 240) TFT LCD panel
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index 5716d701292cf..84ebc8c28b70a 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -1122,6 +1122,7 @@ properties:
+               - skov,imx8mp-skov-revb-mi1010ait-1cp1 # SKOV i.MX8MP climate control with 10.1" panel
+               - skov,imx8mp-skov-revc-hdmi # SKOV i.MX8MP climate control without panel
+               - skov,imx8mp-skov-revc-bd500 # SKOV i.MX8MP climate control with LED frontplate
++              - skov,imx8mp-skov-revc-jutouch-jt070tm041 # SKOV i.MX8MP climate control with 7" JuTouch panel
+               - skov,imx8mp-skov-revc-jutouch-jt101tm023 # SKOV i.MX8MP climate control with 10" JuTouch panel
+               - skov,imx8mp-skov-revc-tian-g07017 # SKOV i.MX8MP climate control with 7" panel
+               - ultratronik,imx8mp-ultra-mach-sbc # Ultratronik SBC i.MX8MP based board
 
 -- 
 2.51.0
