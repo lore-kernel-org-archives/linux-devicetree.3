@@ -1,119 +1,131 @@
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260AA33DED9
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774431245; cv=pass; b=Wu8jCDDcD5rp+U1u3uTKF8QMa71eosiY0AqLccpm+t+q0eR49RWCQjZ04dStWTUKFzQpHZEnPvAwu7p7QmHsTZxoaLbXniaI8gf25pgrKUqOpR3c/bkTNmwDajIReLFQBvi3ERpq6KGz2qqYQwSaf1iwLxFtBGyyPiuPkXKJOGk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774431245; c=relaxed/simple;
-	bh=MY2gl1nH38Ouss3TR0Op2BV2a45ltxMnBfWmMEGs8W0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kkYTduxbLYJ7glXOqOlOXWzJj3X5zJflJNnHHmDDTg6aXLL6stN55UYlYcjsgbuVefw8EhhO8qzQSP+dDlj3Sl04jOUo71alaxLH5hw75VAUwzAMncgxsEGwFu2tCi1nByAdpk8aLFDC5YfMT+/F7JvPnr8y4odVmhCMVBuyXHY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Ln0BTl4K; arc=pass smtp.client-ip=209.85.167.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9E739A818
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:40:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774431626; cv=none; b=mPhXw3NHTrJqdbwtJ0M4sYBmwlFKfPJGpD7nPLvn8Fgo/JyEvxQb2K1RcocKMXSX2tJ7yXYxOTabTBMY6z/JM59nzVUdPoBy1r6fOD0yPsCxvE1WO59Hld4wBTcpZLJC4kGV3Gt+8y3QwbIuvxgtsEwlOpDguw2vB2HBe0yCfYw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774431626; c=relaxed/simple;
+	bh=ic4ovVVbngDbHXUn1s4sSFh/sIJ+WuTucWOFyOVbcJc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ETyBSi1e13h+Y2QndeLg5lMMCDc56zVajmXbJmyBeWHRa+aqcmT5FgkLedN0T1a8Te+nQrYvrf6lB0GhTE6CWZSkzZNOxxu0zu9IUtg5YFC1MlBBUK/Q7lsmjIlebTKbTMFnD9y85TFhALFpp0Iq9bTNvweAIl0nWrJjQja6JQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=SHoPhh5o; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Ln0BTl4K"
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5a13a06fc85so5327036e87.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 02:34:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774431241; cv=none;
-        d=google.com; s=arc-20240605;
-        b=bxKky7wB4jVocgcyycq2eS/ffa2wM1yAMF9XG2hEm1CmtSv9qQ6tP/jZjRap4nfXhg
-         tVOxY7+rxqS/Z8IdOWOl2FdRrCQdb5NqTQSZO+wJUAj+8N99RkiegVO2h0fFryBHyhms
-         aX7Bxt/gXiNVnmHtTpyaHOi8OgJmXlEmLp7LxORWOq0RJl3MFma6jbASqe1F10AXw5JH
-         TI8WAR9TyMiGUyijGxpBOSAM5oke4aM3w14guhjbVEp6FPDXbV+8QipLhf6Q/xzqzfMd
-         +xWSE9mzmBaJ3I+2x5bHHy816oOyX12ZX0J9WZNgJDZOlGuHXvetpkrShv131uvYwsRn
-         hm9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MY2gl1nH38Ouss3TR0Op2BV2a45ltxMnBfWmMEGs8W0=;
-        fh=8Qmi6zmH3f/+MfmgEB2dia99SZXhPqy/lt7VuctnnI8=;
-        b=YOqE0cYJY998TU54Nrq73Gmu042b2/4gJlauNgcCVjnEVCnErfg9aP437FAAz73w8F
-         SZbjK+xSonkFSxtglrP3K3ChBIBK4pOfgt8rjqvKrlZYpZk661ZcaMNqd9NbJfn0xZUi
-         DodQTkusycS3Rk8WnphT6EVctWVxoCxCQD+UBTlmXMMYf4kF0dIujZuLJhgKBp8IS1ZP
-         HFS2gx96p996XYjBzXPAPgnNmDPYSD0ROyF+566fY69yrQIDFB+xqFyd/NdKJDB4EQSk
-         orZmZYgT6vKy73EMMOHigqyzvrLc5q7dNpnAUZLlMtr59g/XlOZjHNzjqqyw2BVxiOO0
-         FKbw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1774431241; x=1775036041; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MY2gl1nH38Ouss3TR0Op2BV2a45ltxMnBfWmMEGs8W0=;
-        b=Ln0BTl4KxBbkgKaKyp02cFD0NZviYDFhMDEXemA9kLNc5q7J2vV3cSbfZDI0EivJUe
-         /5ws21cx7CfRr+pfF1fzQSXAPP+8RQJzWBy3QKU+FkR8cKMiIUP6lwLwlcK+jO9kh28v
-         JNkl6FIvjsTHyNG9t6VdoSwQ0VWqTTGvFbjn4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774431241; x=1775036041;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=MY2gl1nH38Ouss3TR0Op2BV2a45ltxMnBfWmMEGs8W0=;
-        b=doZTsRECsUSVocp4P90ScmPhMioJlq5MZ/NbESghg7/HsgbFIFWA0jRditbZ8KBD/f
-         kJasvRE4V3TpqS4JsFbwQI+Tnq2DGzN9RH0a72nBDn+D/oy/f2eowWzz34f5P/NzYKZ1
-         u5Iraxikg7TsRTa5lb/udZaRJtk0lXG4C+Z91jG4ltkC7JV2or9nuei7NT01FWRHVooj
-         iQDGEUEZW9OiCh2lTnk4rgDul+YE7s0znaJL1JoiroQz5OAYqmlbyBWqe0SBPnBNlNsq
-         zWxKJNTbtOdIvr3wHxF5o8Exhwx3Z6Kxt8yBK+uWbF6CXfW5yJ1eX1uaMjhM1uYwr5v2
-         Xb+A==
-X-Forwarded-Encrypted: i=1; AJvYcCUkVoIxdejQoKcy8/PR0zn3pS6V2JJ/0X/BMWFliKatZTBDr9nzv01KWwKo9p/Iu2lWbfF8e7brgd9k@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx9QicfDgKufJdhISUM47Huhc82B0+M5d+dYr/88Ruqi1DBVuYU
-	HwD0ztFnebVgTe7CEeX/nM+83Kzy5z99cQNZipT3nyR55QjFk/Um8Ph4RNsiB8TemUOIlEWPWl7
-	rq4tpAUONTcb/3Yo7a5T7U4invk2rXSnsK/UJWpP7
-X-Gm-Gg: ATEYQzyCUEPrgGf+3gUtwoS6wRXEYMXIkPaDvTIDCcxP1od8DhSkwaVnRkMpbxLI/4H
-	6PWZigrNvRzcoZsEYzZtOxfdCcDSLjFI8CitaKVZStjjFkSZ6aglRs34yLPlds0hoPk8i/Jdmjx
-	l6tR7+pWvYjeyR505b52u6scbAOQ6/UqE/HH5OpwpcvT8sTvh/Dzv68l2+2MFznXtWwxrNTFiIE
-	X3XFitTI14XakuhiBu+5FjN13SF2l/lCd6eKc+JX5ssEx+dQYPLFPfZFYFWewNyQRA8hqrZ/B3B
-	EB48tjSCGdVb6P/h5vBrBIO/9sKdhHHW+A/i
-X-Received: by 2002:ac2:46c7:0:b0:5a2:95e6:8349 with SMTP id
- 2adb3069b0e04-5a29b995620mr642031e87.31.1774431241276; Wed, 25 Mar 2026
- 02:34:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="SHoPhh5o"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 8609D1A2FE1;
+	Wed, 25 Mar 2026 09:40:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4CCBE601A1;
+	Wed, 25 Mar 2026 09:40:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E950A104513B2;
+	Wed, 25 Mar 2026 10:40:14 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1774431619; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=0ixsUbiwjr2cUCJBEr3rNQHAH9XP6hNBHzk2pZT9agY=;
+	b=SHoPhh5ohLqKRFyhAtzIElxDGJCK3uhMK5h3vKQRUgiXWVtAGX9DX1SGCIhFfzM/klpmUP
+	UIoSjK8c9VkbQPtoW23LBM1zpaaXPmf6+N581B0om6GuzHgoPiOEG+PQ3ANksPIHYjItTr
+	qNBrbyfpFXhyplGPqXH2nDVBu2LvgMiP3zhsMpDAhivvpo88LfxODZWSgI1jNHzQaxp3pB
+	p56CA3fy7Fe8YsXPpQfJrB6RdoulJwAVHjeoqKyo2RV/hjbCc7YgkiB5Q7DqNwhWUjaLQB
+	3mHB+g7ENoPmJSdYBJf5uvFk6eGrOcCEwWYwVI2ZqFvKEY8PDpZerf3nmlVV9Q==
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Cc: Mark Brown <broonie@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH net-next 2/2] net: sfp: manage receiver and transmitter regulators
+Date: Wed, 25 Mar 2026 10:40:09 +0100
+Message-ID: <5088970.31r3eYUQgx@fw-rgant>
+In-Reply-To: <ab1diwlayiWMsBIx@shell.armlinux.org.uk>
+References:
+ <20260303-sfp-regulators-v1-0-7101ae34cb84@bootlin.com>
+ <6022954.DvuYhMxLoT@fw-rgant> <ab1diwlayiWMsBIx@shell.armlinux.org.uk>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260325082546.1572405-1-zhengxingda@iscas.ac.cn> <20260325082546.1572405-2-zhengxingda@iscas.ac.cn>
-In-Reply-To: <20260325082546.1572405-2-zhengxingda@iscas.ac.cn>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 25 Mar 2026 17:33:50 +0800
-X-Gm-Features: AQROBzBoVW0M0QSdDVNGtSFKBNttJVM9VIsbTSnjXBMQkFjb8Ekw7FmKmmCMyQE
-Message-ID: <CAGXv+5EEFtifhMeTKQ9uCvih+Le8XPafxASiVXzd8BW0swaRng@mail.gmail.com>
-Subject: Re: [PATCH 2/2] arm64: dts: mediatek: mt8173: add hana revision 2
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Mateusz Koza <mateusz.koza@grinn-global.com>, Frank Wunderlich <frank-w@public-files.de>, 
-	Gary Bisson <bisson.gary@gmail.com>, Cristian Cozzolino <cristian_ci@protonmail.com>, 
-	Jianeng Ceng <cengjianeng@huaqin.corp-partner.google.com>, 
-	Max Shevchenko <wctrl@proton.me>, Sean Wang <sean.wang@mediatek.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, Icenowy Zheng <uwu@icenowy.me>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; boundary="nextPart4723872.LvFx2qVVIh";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Mar 25, 2026 at 4:26=E2=80=AFPM Icenowy Zheng <zhengxingda@iscas.ac=
-.cn> wrote:
->
-> The current mt8173-elm-hana.dts file only contains compatible strings
-> for revision 3~6, makes boards with revision 0~2 to fail to match a
-> revision-specific DTS and may fall back to the rev7 one (which lacks
-> some gpio-keys).
->
-> As I've got a Lenovo Flex 11 Chromebook with board revision 2, add it to
-> the base hana DTB file.
->
-> Signed-off-by: Icenowy Zheng <uwu@icenowy.me>
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+--nextPart4723872.LvFx2qVVIh
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Date: Wed, 25 Mar 2026 10:40:09 +0100
+Message-ID: <5088970.31r3eYUQgx@fw-rgant>
+In-Reply-To: <ab1diwlayiWMsBIx@shell.armlinux.org.uk>
+MIME-Version: 1.0
 
-I couldn't dig up which revisions were commercially available, but
-our downstream kernel says that regvisions 0 through 6 are all
-compatible.
+On Friday, 20 March 2026 15:45:31 CET Russell King (Oracle) wrote:
+> On Fri, Mar 20, 2026 at 10:39:10AM +0100, Romain Gantois wrote:
+> > Originally, I implemented a runtime PM support in the SFP core. This
+> > allowed to cut power to the cages when the attached network interface was
+> > down, thereby saving power.
+> 
+> Have you measured how much power is saved by this?
 
-Acked-by: Chen-Yu Tsai <wenst@chromium.org>
+Sure, here are a few measures of saved power with several different modules 
+I've tested. The measures were done with a shunt resistor on the regulator 
+line feeding all power pins on both SFP cages. Only one SFP cage was occupied 
+during each measure and the upper network interface was down.
+
+Module           | Power saved (uW)
+SFP-10G-T-I    | 80
+SFP-10G-T-30 | 359
+SFP-GB-GE-T  | 191
+CHAMPION ONE 1000SFPT | 188
+SFP-H10GB-CU1M | 0
+ES8512-3LCD05 | 248
+SFP100BFXST | 351
+
+So with both SFP cages occupied, we could see about 0.7mW of saved power by 
+cutting the regulators to the cages.
+
+Thanks,
+
+-- 
+Romain Gantois, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+--nextPart4723872.LvFx2qVVIh
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEIcCsAScRrtr7W0x0KCYAIARzeA4FAmnDrXkACgkQKCYAIARz
+eA6+Ow//bX4geV5K72UhtlUIxoYgnv1tWC40NCjRX+2zNNJKc2eWRMakvQEc0IZy
+chaHitXDIGm8ePOd2GYuSfjz9lCID2XJZ1hV0tfLI79roWbj32wSipFzZ0bNhoP9
+n4HunjB/fw4zthihRlXObsfNOPJ18LAnfGgvlbxnIGj7pVkOkxXfJyNaFcUZA8Pu
+jfGuq+bUsvZ5qO/24aBjHT4Hmtnl4BQno7ubaJHfiBa9JoMMU7JPIVKHIatCw/oK
+3V/PzrUrRbwCtik4bY/quJqdXMnsI0xM5CBOSYT3oObzTCBec+ANJwBEtY1b/ZtW
+HCgWA7hRHh1FD5CHJC1WBj7gRi6bIWn4vw4rafvTvw49KV7UKND1jg4ma6sESwg/
+sfAc3QLCU+TujUJ0zMWrdGyRc/KlgPLTZCuSP0esGlRuzY/pb+nhdYNusmgKJURE
+LQVzyokDVZHnbWROvdwxokMMdE0Z3JHUyhO8IK0GZdDfTJk/GVPUwyzD2glsLfBP
+CqccXVB+n8wDoHfJgYKt67BoYH21ZR5mvwyEq2gxGDxLHlnIGxoVnFhCUmENRY+3
+N2uotbdEYqi9uZ+kOXMDU+uPcLXPTQkbuDWlRyD0cC9HmnQIFJOTqZ1VMPwxcgW8
+V8E6f0JcrX4+XZfg7C97sOYjdrJ7t87bJsHCZ6BjOwEfp7ZVBj8=
+=EX2l
+-----END PGP SIGNATURE-----
+
+--nextPart4723872.LvFx2qVVIh--
+
+
+
