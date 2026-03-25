@@ -1,101 +1,88 @@
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAC83E0C54
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 14:29:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 126133E1214;
+	Wed, 25 Mar 2026 14:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774448980; cv=none; b=YKBeDBBnjj6wSwDaVPJU0A92UsyMSAf8sVVK/4d1QnvxkwQisfDaYQjJCrMp9fC6jc7BSbS2GULam0aPV3rRhfgQjoi08+nulRHrE8QEG+RiJP/JAUmCcaHsazm5ZzAYMaFB3nQRMWFpY6u+yY6ybKvAotqyzmfsjhMDaB8j44A=
+	t=1774448981; cv=none; b=pDrIoKB93YwO5cJQ/j4AQiDJG7B7PHrsAB5nitLT0K/oDBmtUtnpK4nLAHdnTzCGnS5OeDowEOOXPTpjqt0KrZVIdLVtoZKVxKNP+N6rT4V3p7vyUoSD152tVReU4BWovjzPl4YRC1TJ/NqTZcgODihgMRJT3/O+9lw5QzJQxs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774448980; c=relaxed/simple;
-	bh=pC3PtyrMmcEpGp+hfMhfoNh9MzNjqP+1TIbBKnXeEMA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SE9fx0s34pZzb9UxCoFydISk/XSM7A/M/uMUELcSUWQ7A06kl8tB/QoIXfCHKcGtTTH1INQQN6AdXqRojSC3zjXA91Ly/eglDX+yIj2xbkW0KlNrea5c9+ZHVVZKZdYObsHaDvu/JW0F70f4akSw8sl2LCdHuL1nAQ6gxWkrcEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-56b6c7c8d00so4104941e0c.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 07:29:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774448978; x=1775053778;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7isK/Dbl65EI3Rm86FPt2M8EyGlg1PW9pqCn5jlwq8k=;
-        b=BsWqNENIJUDnZpcmF8F1CMnhl1TKkzheAOZL4JnwJ+TkeNduDaeJTwHgXkJX7sge+9
-         DNDA5elXYDy7gWwkXrc6f4kq96pdWVuwejiGkN5Zc68ptYRzB9dzAIEWhFFolnUMdw02
-         pvbiqzyOMXnAehaeUxyh+3j/0Pq8a+6LQI6qSYEtUQlF5X+s8GOiuqFHhrl5HOEQMFCd
-         Bzs3X7EJNO4zDxSyd7e7EgFPrfn2QcT7iVo9QsilgvvvwAFeutiGD9GMjbcAGQ/m3DNQ
-         zn/1MWv09qzzOQUfUDI26X8D+T5BXs2ZobjCvvHfPMaM23PjveDLagASslF35UQ1K2yW
-         Icng==
-X-Forwarded-Encrypted: i=1; AJvYcCUpjax1pgHi0/doIf6pwimd33Cf+3BPF2vQ/YUmKjuiXRyXt+zC+fJJX+/oH90qc5vKmASdXLVkkgeV@vger.kernel.org
-X-Gm-Message-State: AOJu0YzjNyCZGwc8+I1ooa3ZWdkoWROz5l/Fr00yIeuzY9iFV66MHUxU
-	zv2yEZFaA47dnWkaHxzRUE9NM/0SJVygJGVFlwlqeG2jzQFuY0FrZ0G16nyqj7JQEH0=
-X-Gm-Gg: ATEYQzwIqUyuP/x8jsupIC2vJE5D6QAPrIaiT1Pn2MKC7aWu5gDLxmEaPcscRQQ07cw
-	bGQ6trYW+pm5WZ3zJvgyBdc7lpyWT+QSRJ/k56UjQZ4gC6sZa5X11pn1YX/l05nTRfUQzpIDVBk
-	rntfOuc/XPCZlZEIrh0Cg8BGeR+GSHyAK0BjR2b5EsDpvWFk/HS6qr9uBVVrdBXTURERNkgfSMy
-	9i3LMzfGGWbJIKBE8pvZ/2aQd4AIDppWOQJmXXwtOpNugsYuIc/l5ZLT2V/GitmHoCA7nZkmfZZ
-	XNVJkDDmvRBeQCQ8py2nCZ6qOgcsy4Qgv9Iu+eQG14RNhqxkUwZAHFlBoo0EloX+nXnhH26gNj/
-	lZEc0XLxeFwDFKIkSC3CIzMqxDCTF/UWFcY3TGD/MNdmBra36TYmfTsF3coDvnEEpePXgclXEZE
-	yE6A2QFP3t2NU7zJcducikjG/pApW+8cZPKaWNxkwB3PDgAzE6VyKO/Kthe+56Ua4VYlAWF94af
-	qs=
-X-Received: by 2002:a05:6122:4f9a:b0:56b:8ba0:fd6a with SMTP id 71dfb90a1353d-56d21d07a9dmr2121520e0c.0.1774448978327;
-        Wed, 25 Mar 2026 07:29:38 -0700 (PDT)
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com. [209.85.221.175])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56cddc7f877sm20580154e0c.10.2026.03.25.07.29.36
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Mar 2026 07:29:36 -0700 (PDT)
-Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5675d609621so4993538e0c.2
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 07:29:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCWSePUS/oFt3r4vs21L44Eow9OXcwY7xMiGytomvFAJOafhrx1WZk1oWnulnQ9ZuO+jwGyAJRmnUz5B@vger.kernel.org
-X-Received: by 2002:a05:6102:4bc5:b0:602:7627:6c4f with SMTP id
- ada2fe7eead31-60387238034mr1950349137.17.1774448976166; Wed, 25 Mar 2026
- 07:29:36 -0700 (PDT)
+	s=arc-20240116; t=1774448981; c=relaxed/simple;
+	bh=QRNHI75je86qWmnoIxcJN/2gj4GFStsB4b6wlaojT84=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=WlGjRahWvsqb/NfhvcxG20kR2MQE2+tulXSEv2JzKt8qnE1eE2DJcuAx7H+nODVIw3fiXVoGtg3SNZl43eWJ/shpiRq5imFX/nRQsExe2ogi8elJILdEruUWAKxgTOJJxVOg8fw6FjiOKeeSSofPgBcZCBniHtB2XWmSFk1DVw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=O8rxUz9y; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="O8rxUz9y"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 85B881A2FE7;
+	Wed, 25 Mar 2026 14:29:38 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5974D601E2;
+	Wed, 25 Mar 2026 14:29:38 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 97A3C10451A66;
+	Wed, 25 Mar 2026 15:29:35 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1774448977; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=RMKdRLPo5ZxYLv8j+Hc3AaldOSYVznoKCZwnCSBgffY=;
+	b=O8rxUz9yHrILd9J72HXd3e+lz1mCEoFipYqmVDuoN2a/sdBJ7dGPkvZsGC55guTTFN4FDA
+	QEFalJInpzSfswBj2waEDlURaIh6JExc9PzuXdYhJ9+FBmL38uGSHug2VP2bvHArPmRElB
+	sFuLQr8pX/F3z8xAzReGtX4oC12Qa4ZXnOMU1ehKrN2sSjKdbcyv6xvGzmzuPtXWfkO1oD
+	jr8kQqbNZFWPquKqGkDeIz7xOwdnlwOzC9rp8uBUCvmEioW5YiUeki+ZaUZ61vYOzOEjUl
+	JQWhdvD956/sEgc66QHWyC4qzjo9oqp513XO/HCmwwg4vyoTyob+PjTIXxta1Q==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Richard Weinberger <richard@nod.at>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-mtd@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Frank Li <Frank.Li@nxp.com>
+Cc: imx@lists.linux.dev
+In-Reply-To: <20260324221624.2424092-1-Frank.Li@nxp.com>
+References: <20260324221624.2424092-1-Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 1/3] dt-bindings: mtd: refactor NAND bindings and
+ add nand-controller-legacy.yaml
+Message-Id: <177444897541.837464.3426048157066587709.b4-ty@bootlin.com>
+Date: Wed, 25 Mar 2026 15:29:35 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260313164008.40933-1-marek.vasut+renesas@mailbox.org> <20260313164008.40933-5-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260313164008.40933-5-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 25 Mar 2026 15:29:25 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdViXzq0H0UwZori2gh2Tcd6o4ssoGkXmJfFFwiL5AwHwg@mail.gmail.com>
-X-Gm-Features: AQROBzAzZX42-SVVM7_zKELfgnu5iQhGBNJzdGqfYMua7CEfqTRedVMpWqUArVY
-Message-ID: <CAMuHMdViXzq0H0UwZori2gh2Tcd6o4ssoGkXmJfFFwiL5AwHwg@mail.gmail.com>
-Subject: Re: [PATCH 4/4] arm64: dts: renesas: Fix KSZ9131 PHY bogus
- txdv-skew-psec property
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, 
-	Biju Das <biju.das.jz@bp.renesas.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, 13 Mar 2026 at 17:40, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> The KSZ9131 schema does not document "txdv-skew-psec" property, neither
-> does the kernel driver support this property. It does however document
-> and support "txen-skew-psec" property. Fix what is likely a copy-paste
-> error from the matching "rxdv-skew-psec" property, use "txen-skew-psec"
-> property instead of "txdv-skew-psec" property.
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+On Tue, 24 Mar 2026 18:16:18 -0400, Frank Li wrote:
+> The modern NAND controller binding requires NAND chips to be described as
+> child nodes of the controller, for example:
+> 
+>   nand-controller {
+>           ...
+>           nand@0 {
+>                   /* raw NAND chip properties */
+>           };
+>   };
+> 
+> [...]
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.1.
+Applied to nand/next, thanks!
 
-Gr{oetje,eeting}s,
+[1/3] dt-bindings: mtd: refactor NAND bindings and add nand-controller-legacy.yaml
+      commit: 0ba8da2f318efc006ae5c080a4abfbabb5d110e2
+[2/3] dt-bindings: mtd: gpmi-nand: ref to nand-controller-legacy.yaml
+      commit: 17de8a68ac9807adf551f7d2d980e26d1196e41a
+[3/3] dt-bindings: mtd: mxc-nand: add missing compatible string and ref to nand-controller-legacy.yaml
+      commit: 3b2a422e23cf1998b85ccbcb90cabff01d17422c
 
-                        Geert
+Patche(s) should be available on mtd/linux.git and will be
+part of the next PR (provided that no robot complains by then).
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Kind regards,
+Miquèl
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
