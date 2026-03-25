@@ -1,61 +1,63 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6138738837A
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 11:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B73C3793AF
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 11:36:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775216199; cv=none; b=mfdrwcIgWA8sKxF4Ol1dJyCvy6seYgGYgAxJ2/MBGtipFglwdrknFvnc2jo261GCuggD+KpyGg/UQYrj4cRXF8PeSgBglqTJ+w6HXHuLlvVDXs8gNNqvK7QYzENMdwo0PM65I01GyAGrvjo93QVrjmDSU9BCssS+Tf3xE1LFwac=
+	t=1775216217; cv=none; b=Za4H9RI4G9V7e5QOEqxZEa0WdpNr3efireCNOh9blZ/22Tb7qMdLhVRJGp0iGekU9NqAOg/a2kAUXPBEQPJIX5eaDegjaUmOMYcfxjaGojlrxv8onU4xSQmv57/6Dostk1V1sWShsqeB5Q5m3kKH+3cQOw9Fok19v+++MIPzhck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775216199; c=relaxed/simple;
-	bh=B8gWT6yTtSDGc4x7LRJPQ1QhmLOMEOeP5TcL05gueFw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q/n6A5/LYYmnZ7NdPF8SvkyHK417MQg6IDcJSQnVNiZaMWJkb51X8Lj7Rw9BA0bW+vph12jAB6fpa1PB+iLvEAnljGEmSFPp5Yuzen8aQeBPxJfJp4A9xCiWHDg2XNx3L3qPL6Nv4rXpFoFI+JVCwjO86Me1cKDbk1E6ITZ0xnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oF4wq75G; arc=none smtp.client-ip=209.85.216.42
+	s=arc-20240116; t=1775216217; c=relaxed/simple;
+	bh=VbEcjens4Q0c1VlnAoEQ4VJqjoYem7jVG3Exo3UuO84=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=X4l7GaneMQUrEBbU8lLCulgf57XVk1hhbZwXZxkIeu18DI7cfzhcmsE7uFS80y9KkXPqjYNxk69dUOdK+MHKmnHIOrnVt2WVM+t06ap/ZiBAx73XZ8Wt98Nh6756lqMTHGQjeH4puzzhw1ZyjlPbyPGWi2J+g7Uwww7gflCWyl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DVTdKbOB; arc=none smtp.client-ip=209.85.216.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oF4wq75G"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-354bc7c2c46so1004329a91.0
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 04:36:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DVTdKbOB"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-35c2fe0d90fso1070478a91.1
+        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 04:36:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775216198; x=1775820998; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ASYJwuBhu5a8LjNhoHAH0mC1WnGEKpiV1VXSV5azjak=;
-        b=oF4wq75GRYKXvurqENaf9ZMhqnf2RVWh98M8XZJrTUKyjWvxcYBwT/r4vFXV27tmla
-         Lr53WQcxq04+9MhcokYV1miZAD4BZCI+GL2vRwr0x/wUkIcn7wlMV0KWizWam2RPe6mk
-         YqzCHNSdkEQrKkN0JZI4T1EU9xfsS6qsH8K4p0os7ShIRuKTDHKWQfVMYHWt5vgFjtdW
-         fdwaRv352YPlOwAF1aNq7U/Iouy2e+ze2IRYgpH83cBlwcbNatbrXZM7USZd03sUc2ri
-         6i2S/Xmn559U06I+Vs84la2UZScr0V0kOFJX5hko42UoHchmUobviU8Nu4UB9pkGrWm2
-         J0bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775216198; x=1775820998;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1775216214; x=1775821014; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ASYJwuBhu5a8LjNhoHAH0mC1WnGEKpiV1VXSV5azjak=;
-        b=mgEUOlwIE5EWHOtSQuH6dWgAf4tE0sD5stzxUSsYtLT0f1+cpqzwJNw6nG6IbsdDLm
-         BIMEA1H/Ux5wf/c/yGKWn9IcfXLMWrwEPdCICHZTMzqvq7ObTH29Bc7etAxiT+UQKQXG
-         WWrl8rPZQ9dy8GA5bYarDSmYqk1DB+YaX80dlpqJk/f36q/u+lMh+ax5RO7oqXkuJpKF
-         +Wxb9WfFxr6gOuffLLrP+U2msvzaToOK0lkt96pzV7R3bPYljrWcNCWQfahD08MV3SVY
-         NGueJWqJzzo+zmkmF6K9d5IoIRFcsC1iACzIHPztMKNLRbcoSEnobexk8HlRGwUBqcTx
-         7m+w==
-X-Forwarded-Encrypted: i=1; AJvYcCVQ7zdLuHnPc6aNwp4one4OwFY0ygvJ8/tNcvxC31DEIUlI9um3cD0AalexrHDetSSijGrxNp5EqyHT@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6gMxDJf1iKJK853GMHHFe/C/+jftPL5LxEC4VJTHvqK40QLQ5
-	GOXW1hEnDHM4NcS+vIUXLHuzH/DNYlGHO+W7Bmw5/8M3LDpPXvDX9bdz
-X-Gm-Gg: AeBDievYgAbAoxFM/3qrqiXwVgIpw6nqPY2cHLPXwBb7ZqxHa1/selLUF2BfbBY0uLC
-	s0Ko7GB7Qy6mFDLprF6JH+754llUD9fKArPjDHQW6/QtPwkPuBHYnqSJ83gUCkXGYCEvy6AffxW
-	+tsLTpmnQh0hCa1UTk9JnkZ+zkDng+pOfZclwV9MZmqBh1lbOEiVADPDUhh6I8JQ4NWMay4yD43
-	h31nszconRqmdfkcmoFVqqtiGJuzCkgWNnPyV8KBCV89OTifraaDBlFXfdxGim6Li/qoZbGFf20
-	80iNeWiHu/1/c5mazKuKt133XEPpLwmEWb5ZED6GnCAVpFQbzDB/pjuSg6m72RbIkNLTpBoRcL3
-	JIcdbKi37CPNyxdWNmgum7l0Ep1bE4y+2klItiPn6gW76PqOF2lTD2+ZMJh/fS9g8Lwq+MfTWN+
-	d0bTFXPj9wcsn21a+M/uA=
-X-Received: by 2002:a17:90b:4b89:b0:35d:a9bd:1ff6 with SMTP id 98e67ed59e1d1-35de695fa86mr2252467a91.23.1775216197136;
-        Fri, 03 Apr 2026 04:36:37 -0700 (PDT)
+        bh=LSgprDobMmJNRlvBzxseyBmhNbTM0nryCqDbJlCu82A=;
+        b=DVTdKbOBaqMW0FrKNWrcH9RCY0bvgsWB6y48FmoXpHkjFmUabzaXGt6Dp+IMitk2bw
+         l//dTQrqznvYZqp0ylu5JlSElDEuSv6/CR2FOKBDNH1qaN+ZHFH8TeoHgqXL/we1UTmI
+         7Cks5ptd6LnEbDBLKuwNVBEF/3bqLMm0GUK1fgSlWGqWZLBj0QgQ0D3KZNmwBgczk8i8
+         W2L608e0s/OMCkal/N5qLD9eTfwZGSP2/o1j6LYFzGyxIBKR5jMukew7SbYByoy7jLae
+         yinZuJ/PKWeqAVC936LxHVUdTnDZF3uX18oyiBDBVVuo/H9XmLWuoRYhbF3FG3QtCkSl
+         77Tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775216214; x=1775821014;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=LSgprDobMmJNRlvBzxseyBmhNbTM0nryCqDbJlCu82A=;
+        b=IjK7ePovJTUjkKh6EsHvttwJDIvx6lP+enyMFy/OiYVVKPRlIvih+KINE8g8q8LAL1
+         6W+jbbz3+39+n6wwmsbKFWYLOk3iSUeERbXOLZmA9cjEqI92VTTtlXtp3j97eNQsVX3m
+         xi5LioPMKU2kBhsiybAXo2bWCI3hx7RyVZsqXhSJvnocd1D85HOTF4MWtVUUkiSh+FM9
+         6ktjpg7sKzKeG1FK0aNqQwgGxRPnYdjplSZOs2Ww37NRYnoPn6foQq05niG3xVpwfbfm
+         mAL9nV2n5Q92JVa2xOTMmUl/+8ICHV93hM3EiG8rJyVokOP1o0SdhyZ71wDWCInpTLkc
+         ix3g==
+X-Forwarded-Encrypted: i=1; AJvYcCW1BzQ7kaCKI2VGG4J0evtcNIW/0SHif77zudB/1SLG9y8QMTg2S2y2tCfe9mi6EAlZHPA9U4/wsmhH@vger.kernel.org
+X-Gm-Message-State: AOJu0YycQA7/oMecO1+2VsWTzjC6RDUWS80zaxQ3BDXq+6lFQefdIjgT
+	toHJVrjEGgqXCZRKu+r2QzZxYvhdMgqkAdF5vS3kB4ZpM7O3AQ8/ht4F
+X-Gm-Gg: AeBDieu7ynkrEe9sCEJd3ZChvUlxoOdg245Uz95TTdr7X5Nsgp3p9Z0ZbxCrwdYY++H
+	ilKnmQRiNVToMULiNVS844GF3/fVx+dmFNdyP27HQ3pnBlvgHjJqK9ujKP9BS4tpQgaJR29Lr3P
+	nQBvAMTbRTkBGnzr7uaDAfoF7oO4dluHVRq7Gu190TJYYRe2UxRolflFnTb+/EeIAQvz+lcwz5E
+	ca+8G6YO+YcebGgNQsvorSp+9hYP0bvJdDi87I64JGzY3hbJjku621G9vlTVu9RfFhaumhc6rs8
+	UaZuaGkERx1LdKdR7qgv+e3uDEeNT9LULpZEAqUSsJFXfkXdx8++GFIAs7l6OfHWf3s/e4+EQbz
+	2AFvGugzbI34IH3N96l0u/9cksl0Axh2j49E4QryBOFmCWNWno8cnVnLZyVboUK8ciBjVwvnEXj
+	VhYCHOxPIbSykqpiPR7xk=
+X-Received: by 2002:a17:90b:3b8a:b0:35d:8e4d:23a8 with SMTP id 98e67ed59e1d1-35de68f8b42mr2363418a91.15.1775216214567;
+        Fri, 03 Apr 2026 04:36:54 -0700 (PDT)
 Received: from archriscv ([45.112.0.200])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35de6860cfbsm957599a91.6.2026.04.03.04.36.32
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35de6860cfbsm957599a91.6.2026.04.03.04.36.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Apr 2026 04:36:36 -0700 (PDT)
+        Fri, 03 Apr 2026 04:36:53 -0700 (PDT)
 From: Anand Moon <linux.amoon@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -69,11 +71,16 @@ To: Rob Herring <robh@kernel.org>,
 	linux-riscv@lists.infradead.org (open list:RISC-V SPACEMIT SoC Support),
 	spacemit@lists.linux.dev (open list:RISC-V SPACEMIT SoC Support),
 	linux-kernel@vger.kernel.org (open list)
-Cc: Anand Moon <linux.amoon@gmail.com>
-Subject: [PATCH linux-next v1 0/3]  spacemit: k1-bananapi-f3: Fix the power source of USB3 nodes
-Date: Wed, 25 Mar 2026 13:46:07 +0530
-Message-ID: <20260325081700.1502-1-linux.amoon@gmail.com>
+Cc: Anand Moon <linux.amoon@gmail.com>,
+	Han Gao <gaohan@iscas.ac.cn>,
+	Ze Huang <huang.ze@linux.dev>,
+	Chukun Pan <amadeus@jmu.edu.cn>
+Subject: [PATCH linux-next v1 1/3] riscv: dts: spacemit: k1-bananapi-f3: Add vcc5v0_sys regulator for Banana Pi F3
+Date: Wed, 25 Mar 2026 13:46:08 +0530
+Message-ID: <20260325081700.1502-2-linux.amoon@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260325081700.1502-1-linux.amoon@gmail.com>
+References: <20260325081700.1502-1-linux.amoon@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,41 +89,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Following changes fix the power source of USB 3 on K1-Bananapi-F3
-development board.
+Define the system 5V fixed regulator (vcc5v0_sys) supplied by the
+DC input. As per the schematics, vcc5v0_sys is the input power source
+for the VCC5V0_HUB and 5V_VBUS reglators. Update these regulators
+to correctly reference vcc5v0_sys as their parent (vin-supply).
 
-Bananapi F3 schematics.
-[1] https://drive.google.com/file/d/19iLJ5xnCB_oK8VeQjkPGjzAn39WYyylv/view (page 24)
+Cc: Han Gao <gaohan@iscas.ac.cn>
+Cc: Ze Huang <huang.ze@linux.dev>
+Cc: Chukun Pan <amadeus@jmu.edu.cn>
+Signed-off-by: Anand Moon <linux.amoon@gmail.com>
+---
+ arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Use this patch now we can enable USB hub
-[2] https://lore.kernel.org/all/20260326100010.3588454-2-amadeus@jmu.edu.cn/
-
-check regulator_summary for more details
-
-$ cat /sys/kernel/debug/regulator/regulator_summary 
- dc_in_12v                        3    2      0 unknown 12000mV     0mA 12000mV 12000mV
-    vcc5v0_sys                    3    2      0 unknown  5000mV     0mA  5000mV  5000mV
-       5V_VBUS                    2    1      0 unknown  5000mV     0mA  5000mV  5000mV
-          c0a00000.usb:hub@1-vdd   1                                 0mA     0mV     0mV
-       VCC5V0_HUB                 2    1      0 unknown  5000mV     0mA  5000mV  5000mV
-          c0a00000.usb-vbus       1                                 0mA     0mV     0mV
-    vcc_4v                        1    0      0 unknown  4000mV     0mA  4000mV  4000mV
-
-Thanks
--Anand
-
-Anand Moon (3):
-  riscv: dts: spacemit: k1-bananapi-f3: Add vcc5v0_sys regulator for
-    Banana Pi F3
-  riscv: dts: spacemit: k1-bananapi-f3: Update USB regulator on onboard
-    usb and lable
-  riscv: dts: spacemit: k1-bananapi-f3: Correct USB hub power hierarchy
-
- .../boot/dts/spacemit/k1-bananapi-f3.dts      | 24 +++++++++++++++----
- 1 file changed, 19 insertions(+), 5 deletions(-)
-
-
-base-commit: cc13002a9f984d37906e9476f3e532a8cdd126f5
+diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+index 5790d927b93d..9727ecdd9f6b 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+@@ -50,6 +50,16 @@ reg_dc_in: regulator-dc-in-12v {
+ 		regulator-always-on;
+ 	};
+ 
++	reg_vcc5v0_sys: regulator-vcc5v0-sys {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc5v0_sys";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		regulator-boot-on;
++		regulator-always-on;
++		vin-supply = <&reg_dc_in>;
++	};
++
+ 	reg_vcc_4v: regulator-vcc-4v {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc_4v";
+@@ -66,6 +76,7 @@ regulator-usb3-vbus-5v {
+ 		regulator-min-microvolt = <5000000>;
+ 		regulator-max-microvolt = <5000000>;
+ 		regulator-always-on;
++		vin-supply = <&reg_vcc5v0_sys>;
+ 		gpio = <&gpio K1_GPIO(97) GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+ 	};
+@@ -75,6 +86,7 @@ usb3_hub_5v: regulator-usb3-hub-5v {
+ 		regulator-name = "USB30_HUB";
+ 		regulator-min-microvolt = <5000000>;
+ 		regulator-max-microvolt = <5000000>;
++		vin-supply = <&reg_vcc5v0_sys>;
+ 		gpio = <&gpio K1_GPIO(123) GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+ 	};
 -- 
 2.53.0
 
