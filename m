@@ -1,160 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013049.outbound.protection.outlook.com [40.107.159.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B184A3DB644;
-	Wed, 25 Mar 2026 14:58:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774450733; cv=none; b=W5uYcEVAXxKUif13HKcKci4cTIy/Cfl1lBwneabpOBHC1SgRu8dRHb4moIFAqyRNqZb84775rB/JsyDbgeT0QnO4Ne2VXjt3qmaqKDE7NG0W4ClHBYdOxf/iCgjjRdmsDSRuQM0ADXqmvEZXFfYbzt6/IvEfKsfEQhZhspfsJ+U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774450733; c=relaxed/simple;
-	bh=Q7Y7TIr5LpH0Ie+lGeQIaP4vsrzzTVRfvln8R9Xm3mI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I11kNrDO0GcefvY2qyu6X5qOZBGc9sgyDX6N0j6+fzm/UaSFy0rsuC85uvNrpGI3frY3sb8Qa5XhorV44aI3lNUWrNYSP6uR2y45MReq6F7z8nY5tQliIh+m/uFfJF27nLDL3GP+CoCUfIctn3+ubvZJ/1P/onxd30yFp6kXiGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I43VyWvU; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F4C3F54D3;
+	Wed, 25 Mar 2026 15:01:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774450889; cv=fail; b=o74a4/YzOQ95wgTi1zExir+bY+oLAvVQ+b+JusOSW49EJF1tbSkGs9aI4C0wrU0NjP0FU/2s8P1fpp5yOdQJQnLmeIU1RHqGMZEZKDbuhV4O4rFrTFANtMlDt+6pSGRq9fMkKCuRiPw0hGMc6uFwgHcEYqdeXUMKsBHb+TgfJew=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774450889; c=relaxed/simple;
+	bh=nSvlUjXG8Jfj+aJLo+ZZSbGklX0OoppZDCspvkTLIMc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ffBVFIa11nTRm8ERyPEHCfuT6Lff8FcVqy9iyEhp0w1zoIztPO1vragSBZVudDpV54JtkQN+UUiX2IcyQDBZlLJgoINu+EKbOMAFgn3yzvlK2p8NM5UEioUCKYIur5zDlI353Ogx8XlfybmyxZWVfPcMK2okhAyLNbXrxZp0XKA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=ALcwvNFr; arc=fail smtp.client-ip=40.107.159.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I43VyWvU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF3FFC2BCB2;
-	Wed, 25 Mar 2026 14:58:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774450733;
-	bh=Q7Y7TIr5LpH0Ie+lGeQIaP4vsrzzTVRfvln8R9Xm3mI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=I43VyWvUYyWmv/3FJuYZZsdDxXr19VOjCy5ldO7lQsh/kprsrY7EQrRXKkIPuPDxN
-	 r5hdgtYKSRO6UPhQk34MwMvPTzofuTvelcJd8MxQwrBjFccKrPAIJGqR7xC5kUBACS
-	 8/tXY6iBXcLjJUHIlld31norhL65jSQgz+Z1lz5Nwsce7VuibNsI3vSK+zyZPVI+Sn
-	 GYzSOqo96sH4DobOhWAsSmiqhLZVKtxCOoR44wbfXKNpqz1C0PwONeSdZGrb8UG/2j
-	 1Pz3AsEEdo3ywSYu3nIjEGpaUzXhSzX5gSyUkWFeW9UN3qvn3RadOZUPp+hRqdURW9
-	 0MAt1fcMbAusg==
-Date: Wed, 25 Mar 2026 14:58:45 +0000
-From: Lee Jones <lee@kernel.org>
-To: Kaustabh Chakraborty <kauschluss@disroot.org>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="ALcwvNFr"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VxCcgkrqGRtEhTQB6Uq+qnANG8BuX6OZeYoCz2YrmAXUw0spHem0xjlKz/hm1S7zkbqDg3ESuLp4kyxoZyzYExr30pIC5LGfwBLwlqKilqtq03bcZGzdHDCUDZHdiY0X6NQ7g8HNVhWUf9xrBwWpV4HM6Ux+awlFPYC+Oeqz501qcmW1sBPy3FbRVXcmGpDcqo//dC69HRvdMCH6/V3vP2q+Yasq026xNgApOCNZRPOEIuYtSH5AgJ7IxEv6661MVeCI25YH/2r4d1VsuK2FlpISTV8OuuQrP63PxVc7TPd7v6EgZDOzbNNCAFxB20oIUZKz+z0Ga2y3uJpz9db/6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gv9HNQ5MoPLy+t0XbwaCPyA2iytsG9rMYXRd60f/DWc=;
+ b=Wl7FT47M/DE5Dmh7tzGHBA2ZDt5GsT+STR1JfZc3jmesrv+pJHmj7SxRTTS+U7BIUk9/teKB7lpxysG52oA2/HB2XZaLeV7CXHHYdKGpyouAtfFdGqbI9XrhxmUXbl3J5Al6XmU0M/n6kjmCckWG4BHntne5p13nRTXERWeveZAyhoVM01pRwd+2NREqz1j2emkiq6q7Y/ulYGNc44jdDJ3yMyLGQuKdLgmcWujbSV2j4LvECRsJfxLyJspBp3PDQxgyCCU2EyXzPUPlnuEqUYIfqRPAkCH73gr9VLc6DI3bv1Q9Zie9H3dLS/kDlwx7wi14e4OOg/vL7LgEEqzAwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gv9HNQ5MoPLy+t0XbwaCPyA2iytsG9rMYXRd60f/DWc=;
+ b=ALcwvNFr/UYmkODwYglgxxTVfyeuzA7XvUylQR7YKjPnuw6b5aG7wIBUrnzn1mEnWhnNc69hUsS7D0XNK8bLnUxIRQwn/TGS00wnxoFJUgT+KgxrXANGlFjLuqwq4D+/fzUulH+WOMpyeIQ20fvORYjeqX4g33s7ytBBQw+sh/HqM5+QYZNXrG2RmcVlYWjGGGcf30AMdgye4GgXlReVis8nFCuLASIGwDwAcTqoL9h9ytay/xe11PLVowQxqq5t3frYpRzVvbLkYQIwFhkWvsWYbaldCoPzX5UJfEz2mBGiFWnHuu/+TR06voVlIcOPP1mWFA3w3eUFzGk5NBr7Mw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by DU0PR04MB9322.eurprd04.prod.outlook.com (2603:10a6:10:355::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
+ 2026 15:01:25 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9723.030; Wed, 25 Mar 2026
+ 15:01:24 +0000
+Date: Wed, 25 Mar 2026 11:01:15 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Ernest Van Hoecke <ernestvanhoecke@gmail.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	MyungJoo Ham <myungjoo.ham@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	Sebastian Reichel <sre@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Nam Tran <trannamatk@gmail.com>, linux-leds@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
-	linux-rtc@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v3 09/13] leds: flash: add support for Samsung S2M series
- PMIC flash LED device
-Message-ID: <20260325145845.GC1141718@google.com>
-References: <20260225-s2mu005-pmic-v3-0-b4afee947603@disroot.org>
- <20260225-s2mu005-pmic-v3-9-b4afee947603@disroot.org>
- <20260310113835.GG183676@google.com>
- <DH1XVOS6IIOE.HGIH6JQRHNAM@disroot.org>
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 2/6] arm64: dts: freescale: Add Verdin iMX95 support
+Message-ID: <acP4u5VWZzhFcw_b@lizhi-Precision-Tower-5810>
+References: <20260313-verdin-imx95-upstream-frank-li-base-v2-0-bd488be7c699@toradex.com>
+ <20260313-verdin-imx95-upstream-frank-li-base-v2-2-bd488be7c699@toradex.com>
+ <acK4awcokUyCHrG5@lizhi-Precision-Tower-5810>
+ <20260325112724.GA7964@francesco-nb>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260325112724.GA7964@francesco-nb>
+X-ClientProxiedBy: PH7PR17CA0027.namprd17.prod.outlook.com
+ (2603:10b6:510:323::13) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <DH1XVOS6IIOE.HGIH6JQRHNAM@disroot.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|DU0PR04MB9322:EE_
+X-MS-Office365-Filtering-Correlation-Id: a0de4e03-430b-49b0-bcf9-08de8a7f620b
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|19092799006|366016|52116014|7416014|376014|1800799024|38350700014|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ 4YABHRx9eSTXqYNXpi+ASKc0129YV4wi2sA0B5OSabQvwugYGIQjz4QwGzbiZT9cHwLaKLCofX3Xfb1sKtoTk6wXfXXm8Ho2kkKzMvjvZ1mQn0z5VvFlobs2xx9+RQx6GoATemz7oOPECQaTfezGdDkMiIVFR//jT19jjAiV41RNwSrehwuSlVb1028DtWGb9ds1zJJGwKbBH6/rlDoyJu9Vk4jJZqAe63M/BeQqwzJ8QdikbaCg0pBD5P6HotsXyzyBMYc9/qwnBxoVgZlbyCX2dnZj1c+m0kTMWqLHonVW53rCRzwD91pSiTirW24ljrwy/rq23OKNjExSm7LULbG7eeOnRyLip4u2n9D0uoKUMKhdwO2KupgaWfE5tKXqutU/bQPBdDGCJQKnGQezcYIbK+6lPmUgCiSkrNL2Zec+H+qhp1TwZnftEVRv58SELNyx9w3oS5z/XtLNIdy90Eah0eDh9SflEJ9YiYmjLhFMrZgUewUQrqX5ISfkhXZxWhqKx7B7uF7MsjetyLAnL1XhYRHlqfFXMtf9OiN7NyM1WcROAUShB2TXlvCjid7/YGKOkt+yqHrQMlBjf7VXig+u4LOewGm1FlKR/OWGyRVnYHTJsD5FYBIQ5YzxHpGbWCYERlOgGNaBu5qqzVX2Ioqsobd3DwjjDRD3Ep962D4crIVSnJCcYYgbL/e1rBUdZhmENKT1p72wplxTwRNEYEdjxtM3tn04Z32kIOdJh2nR4tr6sJ5TMaXz5XK7P5zNakxZRzi9302qfphAsv6oJlsUR4guXAz3z3Bxck3KiOY=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(52116014)(7416014)(376014)(1800799024)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?WI7tf3MCyOUbeD5FqaZPp+EtnVu/BY1GAd47AvygoCRdpBBu6s+LLZMQymWN?=
+ =?us-ascii?Q?8LcjB5nujG9OZQBf75j57WmKh/1avpL9mFhDoaHZWqRLv75Q9lZZzxuBKtBK?=
+ =?us-ascii?Q?Cxvg/IflLEWf4HWxLBwcz/qit9McFxWk1d66+sZAffdYQ+5TVwjmJK2auW24?=
+ =?us-ascii?Q?bo4q6jOpXAuxb1pxjzvv2Y0wN/PArpgflx3yKlgzDNPCJ7GvXFs3oIwOzsiO?=
+ =?us-ascii?Q?BmxqcTfF53IBsY4XDGDbFy5c+leFXPQS/dQdL+gSOJSo3OmB5cY8L51R7Q3t?=
+ =?us-ascii?Q?Q4lzsKYNXxyimr8OC3UtBb8pHc7WPsATnW1ZdjeZrG/+NtLO/whGP2MjvSS6?=
+ =?us-ascii?Q?NFr1ownhj4a/txRxHSCL7DiieFYlroZbX68WrfHvxQpFIHShg6dg77cIQR5d?=
+ =?us-ascii?Q?n0kmOMWnNpPdSYo6KrOVTR/f9FYhsJctNuY/iTZaJlES73IantK5NRsVxE0R?=
+ =?us-ascii?Q?pPeHU37qhoMvTQdQ7zrbi3724EThExN4D5c1ajfEcxqkN/A8pKTl3eo43Nrs?=
+ =?us-ascii?Q?WNNMC2yca6LHCbAUU4v3c6zYmahX57TOgYmEMY5k0ZMpFLWVqz69SJvEaoQz?=
+ =?us-ascii?Q?eV4k3rYIC4DGIbvQsQMt9YKcGIiVfpRK4tH/fxT+9F4MjRhv5SHydMtgI8pK?=
+ =?us-ascii?Q?Y/AiFtLs7LehNgcVVdIjhBMZ36II53uK2sor56royW78ieKxCDOzTEafJzRH?=
+ =?us-ascii?Q?6h7/w53r8X2gttqIjttJU4Cn1iMB2DZucEQ7BK75GN2bEO2+vZtHZFhqtLqu?=
+ =?us-ascii?Q?jqDrBbS/TkRxBNWJBBi3CfYxEWqRK4dpIpu45hy2U0gvKpmwP200iHLhtj3p?=
+ =?us-ascii?Q?ixQcPPpAZiTpuawgqxJ19AI/g7iK9hSo06ZcIWFJs1Vw1B5SbPoVIlM2/iYy?=
+ =?us-ascii?Q?zu3Ebv5LcEfq4dHHynHuA+h3yQfQu1pvnWkNjWr+y05ljEWz4+rmd1Pf3Epp?=
+ =?us-ascii?Q?rDu9bjqbJjd4yMfJ+JUEXoA9lZGNXpkk/OsanwUiOEYnRfA5F4W+HC8Mi78t?=
+ =?us-ascii?Q?FRAg8zJfe/bJMiYDQT96M4ebQ3WNq6ZUqkI30UCe2TuPcqQCxGBtvZY7jDI7?=
+ =?us-ascii?Q?qWWuT6v+qN7LrFtx/Jp7ZPGxwBJMI9XOPnLLqQkoeXUfFiY+UNz35pG6+M+B?=
+ =?us-ascii?Q?Wa16v5bQBM760PYUK9imrw4GuHdgFmHPemxlTrH1Q7GehlCHp1e5LgHltErJ?=
+ =?us-ascii?Q?cI0TI/Gq8lbGHNqsZsn0GFpJwaY0D9RHaJYF80HnmoUz4B8Imo+nCBYMEb7T?=
+ =?us-ascii?Q?JmMyFExwmKnbnFmk24iIVksQs7ZnTVsKh0pC5yr8Iuo+/26BKnkP0ub1lzUa?=
+ =?us-ascii?Q?OAtrZkujOJayxMvJSjw6M4ISUtHvzC78XmaHsnzFryWe1bucNbNyqdudg8n9?=
+ =?us-ascii?Q?myLyVIASWlXwc5AOysweWq4P4aViYG8pIh4NIDElvuZ3fOVy4WdTlH+m5wDf?=
+ =?us-ascii?Q?co9AtlWzd9c9BWOwQ5DxJkBOp51mB+jtA2GaVlHU2sqb56JfBjn6IJjhN/EJ?=
+ =?us-ascii?Q?1zDvt9qGwfg5Ht4LFsDR91UvL0JcsaRgyeMTGLOkZ8CRr5Y9StOjstjfoEAO?=
+ =?us-ascii?Q?2spztuVmID7nnmr97E6L7VfKW3D7RRostaAg7LqhNvfnikZfQC6jamkNwVsW?=
+ =?us-ascii?Q?4GtODHQAJQG6+TuuUAyUWEa5TRFCQXU37LEh5gofTPAqnpJ65V8RPTXs+lQY?=
+ =?us-ascii?Q?SVrtFPgPM4cazSiq5l2MqEvZYGaHBd+bY5RA0RQ+Ef4WH0CXOKhdMFeE4WPU?=
+ =?us-ascii?Q?8+4fBpUUnw=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0de4e03-430b-49b0-bcf9-08de8a7f620b
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 15:01:24.6510
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uVc7GukBZ9oYDnZGY6+jpCqHgHnarsUB7GWqekRnw/9TrveUdIoPHAtgY3f90aZC5l1XAeubN8AfVvDYSiBCsQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9322
 
-On Sat, 14 Mar 2026, Kaustabh Chakraborty wrote:
-
-> On 2026-03-10 11:38 +00:00, Lee Jones wrote:
-> > On Wed, 25 Feb 2026, Kaustabh Chakraborty wrote:
+On Wed, Mar 25, 2026 at 12:27:24PM +0100, Francesco Dolcini wrote:
+> On Tue, Mar 24, 2026 at 12:14:35PM -0400, Frank Li wrote:
+> > On Fri, Mar 13, 2026 at 09:57:43AM +0100, Ernest Van Hoecke wrote:
+> > > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > >
+> > > Add support for the Toradex Verdin iMX95 and its development carrier
+> > > board.
+> > >
+> > > The module consists of an NXP i.MX95 family SoC, up to 16GB LPDDR4x RAM,
+> > > up to 128GB of storage, a USB 3.2 OTG and USB 2.0 Host, a Gigabit
+> > > Ethernet PHY, an I2C EEPROM and Temperature Sensor, an RX8130 RTC, an
+> > > I3C bus, one Quad lane CSI interface, one Quad lane DSI or CSI
+> > > interface, one LVDS interface (one or two channels), and some optional
+> > > addons: TPM 2.0, and a WiFi/BT module.
+> > >
+> > > Link: https://www.toradex.com/computer-on-modules/verdin-arm-family/nxp-imx95
+> > > Link: https://www.toradex.com/products/carrier-board/verdin-development-board-kit
+> > > Co-developed-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+> > > Signed-off-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+> > > Co-developed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > ---
+> > > v2: Reordered nodes alphanumerically by node name
+> > > v1: https://lore.kernel.org/all/20260305-verdin-imx95-upstream-frank-li-base-v1-2-823fad02def9@toradex.com/
+> > > ---
+> > > +
+> > > +/* Verdin UART_1, connector X50 through RS485 transceiver */
+> > > +&lpuart7 {
+> > > +	rs485-rts-active-low;
+> > > +	rs485-rx-during-tx;
+> > > +	linux,rs485-enabled-at-boot-time;
+> > > +
 > >
-> >> Add support for flash LEDs found in certain Samsung S2M series PMICs.
-> >> The device has two channels for LEDs, typically for the back and front
-> >> cameras in mobile devices. Both channels can be independently
-> >> controlled, and can be operated in torch or flash modes.
-> >> 
-> >> The driver includes initial support for the S2MU005 PMIC flash LEDs.
-> >> 
-> >> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
-> >> ---
-> >>  drivers/leds/flash/Kconfig          |  12 +
-> >>  drivers/leds/flash/Makefile         |   1 +
-> >>  drivers/leds/flash/leds-s2m-flash.c | 429 ++++++++++++++++++++++++++++++++++++
-> >>  3 files changed, 442 insertions(+)
-> >> 
-> >> diff --git a/drivers/leds/flash/Kconfig b/drivers/leds/flash/Kconfig
-> >> index 5e08102a67841..be62e05277429 100644
-> >> --- a/drivers/leds/flash/Kconfig
-> >> +++ b/drivers/leds/flash/Kconfig
-> >> @@ -114,6 +114,18 @@ config LEDS_RT8515
-> >>  	  To compile this driver as a module, choose M here: the module
-> >>  	  will be called leds-rt8515.
-> >>  
-> >> +config LEDS_S2M_FLASH
-> >> +	tristate "Samsung S2M series PMICs flash/torch LED support"
-> >> +	depends on LEDS_CLASS
-> >> +	depends on MFD_SEC_CORE
-> >> +	depends on V4L2_FLASH_LED_CLASS || !V4L2_FLASH_LED_CLASS
-> >> +	select REGMAP_IRQ
-> >> +	help
-> >> +	  This option enables support for the flash/torch LEDs found in
-> >> +	  certain Samsung S2M series PMICs, such as the S2MU005. It has
-> >> +	  a LED channel dedicated for every physical LED. The LEDs can
-> >> +	  be controlled in flash and torch modes.
-> >> +
-> >>  config LEDS_SGM3140
-> >>  	tristate "LED support for the SGM3140"
-> >>  	depends on V4L2_FLASH_LED_CLASS || !V4L2_FLASH_LED_CLASS
-> >> diff --git a/drivers/leds/flash/Makefile b/drivers/leds/flash/Makefile
-> >> index 712fb737a428e..44e6c1b4beb37 100644
-> >> --- a/drivers/leds/flash/Makefile
-> >> +++ b/drivers/leds/flash/Makefile
-> >> @@ -10,6 +10,7 @@ obj-$(CONFIG_LEDS_MAX77693)	+= leds-max77693.o
-> >>  obj-$(CONFIG_LEDS_QCOM_FLASH)	+= leds-qcom-flash.o
-> >>  obj-$(CONFIG_LEDS_RT4505)	+= leds-rt4505.o
-> >>  obj-$(CONFIG_LEDS_RT8515)	+= leds-rt8515.o
-> >> +obj-$(CONFIG_LEDS_S2M_FLASH)	+= leds-s2m-flash.o
-> >>  obj-$(CONFIG_LEDS_SGM3140)	+= leds-sgm3140.o
-> >>  obj-$(CONFIG_LEDS_SY7802)	+= leds-sy7802.o
-> >>  obj-$(CONFIG_LEDS_TPS6131X)	+= leds-tps6131x.o
+> > Nit: needn't empty line between status and other property, suggest run
+> > https://github.com/lznuaa/dt-format to speed up process.
+>
+> Please review Documentation/devicetree/bindings/dts-coding-style.rst.
+>
+> Quoting from there
+>  > "status" (if applicable), preceded by a blank line if there is content before the property
+>
+> I would be careful on taking every detail of such a style guide literally,
+> but your comment here is not correct and it's not helping anyone.
 
-[...]
+Thank you point out,  there are not extra empty line in existing dts.
+git grep -r -a3 "status =" arch/arm64/boot/dts/
 
-> >> +static int s2mu005_fled_torch_brightness_set(struct led_classdev *cdev,
-> >> +					     enum led_brightness value)
-> >> +{
-> >> +	struct s2m_fled *priv = to_led_priv(to_cdev_flash(cdev));
-> >> +	struct regmap *regmap = priv->regmap;
-> >> +	int ret;
-> >> +
-> >> +	mutex_lock(&priv->lock);
-> >> +
-> >> +	if (value == LED_OFF) {
-> >
-> > These defines are deprecated.
-> >
-> > From include/linux/leds.h:
-> >
-> > /* This is obsolete/useless. We now support variable maximum brightness. */
-> > enum led_brightness {
-> >         LED_OFF         = 0,
-> >         LED_ON          = 1,
-> >         LED_HALF        = 127,
-> >         LED_FULL        = 255,
-> > };
-> >
-> 
-> Let me know what am I supposed to use then. The
-> brightness_set_blocking() function is defined as such:
-> 
-> 	int (*brightness_set_blocking)(struct led_classdev *led_cdev,
-> 				       enum led_brightness brightness);
-> 
-> Which has enum led_brightness as one of its params.
-> 
-> Do I just ignore the 'obsolete' param for now and replace ` == LED_OFF`
-> with a logical NOT?
+I think it should update dts-coding-style.rst to match most existing one.
 
-I'm pretty sure most places just treat this as a u8 these days.
+Frank
 
--- 
-Lee Jones [李琼斯]
+>
+> Francesco
+>
