@@ -1,164 +1,200 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B121A23A4
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 02:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C06E283CBF
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 02:31:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774405893; cv=pass; b=dpxq2CgsQYzk3wvLpwn80/Zo1XtbRUaKsC8H8x4bkbAiktzqyaErM4+8RRPATErD494Rfr+BOsoGcSDFPG0d0mcP40eAq6JOdAVWUJEzkW6Yc5Xxiowrrvoq3X8G7A0y9aH+vV/E+UAQoAUq0FSiK1BUThb7REanmvX5eI+sDDs=
+	t=1774405913; cv=pass; b=Lsn9kYX5bzvL0J2LROcS2I8Qt4XWA4rLsZo8/ASuUWVeIss/inZx1Z+9VepECNLnTGaGZYHh69fQ5PpskSOyEADVecTpplVpOfkHp2a5NDDL/prGp4+qKMPPZ6BhFI/BxfEB9/1lf2pE6evmdeP3IWXpk7AOPFDz5ZVlptwbj/A=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774405893; c=relaxed/simple;
-	bh=jYQ+nFfz/JuXlVa98dNyQAgI1duW+MnsVxSFH43aB6A=;
+	s=arc-20240116; t=1774405913; c=relaxed/simple;
+	bh=PyO7nXn0BKvL4OXhMD1Xm1VJSQgBBVytDo/XkUUyNfA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZFVm4sW8xfI31u0V4NmEmEnhKO9dal1Cm1uvFviXZYctvvGMeenKcqRMSpkFtsTRQPdBMbuqY3rI5t67xq3lCZ1VWcNyLd7I/+7B/+xxQ8ePlDZjIFjhFweWTgAAATFJWJKrl4uhkBYdon3gQz8wsHpocr0opAmayYtNjtV7C38=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fdZtuiIe; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OtoqjXeh; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 To:Cc:Content-Type; b=NEGgsW9CBl0yhLrtM25if9wUVCphNJcUEc+sWum5Dpux6ecFkHD0BaMFsI8ATtsYL1IiWO2YDz7mTuvBfVMVblY1fTM/QJNpOIT9NY6IIihJg2C44b6EeCWNYbw+SLEBlcjO+IhroSq3RTKMaw6ASYnAoLxnWerw9rfUrLt01Mg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=XxvB7sRH; arc=pass smtp.client-ip=209.85.210.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fdZtuiIe";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OtoqjXeh"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62OJCs2f104394
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 02:31:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=1ecNg33BXnd8FIwwFk/kNazy
-	X5nLnep0wIUCVx2Mpkw=; b=fdZtuiIe2gYZknKDrne/4AOcYC415j6Vu+pDG2hJ
-	tB/Gbk7Ym3nArt1oYdydIRUQnNtLp4XuNwtLMlJ/YXVxYeNCyAJCoONcAtGnVHfG
-	167WiffsENSwrWdo3/bN08u0cKVBZ/9gzAbogwsfxynu/BfaapxTZJW7pF175Tqp
-	+Fudukrr5Om/P3IKAvv33skDxumwGP/2zZM5cAXJhE6mmnJSNX0a/hR5WGxu+4t3
-	bY2lHhlp43Zqqgr9OCRGA3HRu7eh/9T6hO11Gq6E46Fb57bdBR7XCGP/bhXBEsTu
-	+5B58LSmwapjUo8RNRmwcNfIWNbTgWh9mGj4xudp+xaq7Q==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d3rf0k9jn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 02:31:31 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2b0601ff3d9so34416605ad.2
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 19:31:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774405890; cv=none;
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="XxvB7sRH"
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7d7f09aa39fso4943738a34.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 19:31:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774405911; cv=none;
         d=google.com; s=arc-20240605;
-        b=CdY9UqKQJcsQhk0RQmAeXptwFIPGOQX+nsEN25jspG60cbtJcemTN+o++sDecLMTKC
-         rGFcETBEddY8CNrA9ECGbjgsKZqmL3tCBYECKxvoObeASejXxIM89RXWHA8ifBBRUrti
-         pXEoM+Ub7Iqs72bgbIN+zigAyZDwoRq2yRwrPzXaQp8O+q38+9AlcmboCqjgXGUmxWM7
-         5NrozqAFGWIHxMNzL2CDq8mRqGHCxCEYzYoBJMbJcv+qH+GaG0awhQ49EIP30E4oKYtx
-         FU+GLtaX0XF55aK7QIsO7PlEGfasku8FksrvMzgpSSoFjNKgaCQ96dUQijCfdW+X1RUx
-         koSg==
+        b=Fze3xmlu2HaRl3V8px8IHjN33NqK6U6vmCVovtooeDgcE+ZTHoq2lJcUIAnZwDRNrP
+         xPW3S8WF2yucKGQPiuH9hQBkFpCTnCzeIiMwuJiqWADnvCdnmlHSBbL1WdSBDn6kl1/D
+         lE5xyGQlhFn4HHScqifMaPcAwHYYS8gsAUgQbgTacva2xmSYltaxnXKcabYWoMcvGuKa
+         cfwsJYSZwUHtOoSC7d3fEh1tM3Iy+zNTlYOL9RXigVG6worU+C+bjHpeJW5gdxM0s3sT
+         7DmhVMdm9ZZrO3olXGuLV6NPYFLPooejzF+j2qxqWMMYO9yoVthrqvkoXZhYjR1ZYTNV
+         X+sQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=1ecNg33BXnd8FIwwFk/kNazyX5nLnep0wIUCVx2Mpkw=;
-        fh=9I8F4xxINISLfb4P81l30z7wigEFLuYlPZhTc25xxTs=;
-        b=MAfsGaao7kh6b1Gv2yP9TG1G99zsQB7SY1+CHrsRNBWOI+VJSNMELgmO4fmlwbBAna
-         ubxVhq6AJzbUmF687wEYmOrO3fT54+9p8E72KBxHjeauikQVwepHjkZgGP7JjKGCm5QX
-         yXHxuz0YwJjVkPPYaafzw7od/X28fqSbGA6JjykQqzX060hK5XjcfRdGoZaE3Gv5Ud1e
-         m8DLIRYmJ7NglEEj1Z0hNCG0cB26unfk0IgH85aRAiYfmBq4hURjBAzRjg5c0Ww7SMmN
-         zY7/gaSRBH7kTKxpZg4Mzow46zL9p837IYHBNf6KbxCzSLLbM0DPbIFXu01QnSRTLvSX
-         M1sQ==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Z6L/dK9RXBU0ye50vaCd1XpagmdaKpcR91kPPZAxHEc=;
+        fh=OPRfgGZW9ej5Im8e2rLoPymlhOw755/GDXVn6TxceoA=;
+        b=ci2oaTh1B7CnL1AM4btxm13KFc1HKIcsicROFUI2p8WDDDMhXaJOEEg5wEMNRXJhTb
+         ppmT73apSRL1ymbKtycIvDReEQLswd2/dnzv57dW/rEw3hnXByLpgBoV+gkKTI7OBo4O
+         37ZibuXoAkRsSTDMMKzqG8jx8zEj4gDh3qxPbOXSgtiyxOqZqL/3IAr6DAPJm04QDMtu
+         QEOYfPvPqbi0TK7SSzKz5ewoXltFbXpjXd5TopcYb07ZzID/BHFJctEa49/5WAhJ7PhP
+         r4VbbYiIy140TFX0aIoAMS+dd8CkSuPYC1P1tSuIo9LnBKv0N9+riz2XfQeubh4QESy/
+         kfDQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774405890; x=1775010690; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=1ecNg33BXnd8FIwwFk/kNazyX5nLnep0wIUCVx2Mpkw=;
-        b=OtoqjXehkxPuSiM+pD4VI4An0wo8iideeCBwWWjtvji3GuCGMOeC+bbABsNgj7r2se
-         g3NFOkkOWEw73pBSw6tuRWi7geGKcEUzLDB+8xkoOcN/MfiBWsXVk49o6UN2HrnM2zm7
-         XBtGaLT2wG58h1XFVvmWPGnx1rPnRcNOJG/9sqEO2OjAId3AZTDHymxOU1q9zDH/9gz8
-         fOu0qsjyuT+yK3v36JWNM1TXANGgRbq4PB/iKOvgmGSMSRctsXHM4oyMMq1HkMN2CG/A
-         2ajkZSArCt2wUKoy4oldttSAyf5Js6qQG6XgHMYkCi29jKNkBwayt4B1HuvkoBmBhY7Q
-         7FmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774405890; x=1775010690;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=bytedance.com; s=google; t=1774405911; x=1775010711; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1ecNg33BXnd8FIwwFk/kNazyX5nLnep0wIUCVx2Mpkw=;
-        b=OknttbmfDupPMCbKMGvVOlOSNCNahPazGIEAMFoDwxboJCJFnUhA0fknrqt7YfCZZ4
-         FMQFNVJRSwcwDdDiTToxwFsHDEQFmXeLOEehcLDFsV9mzlkFC2M7LK2YhE7Fzg1OegB8
-         6SRtftWuhIbPxRKPVYaaEAAd6EtEhmY87xfgm9MBLhpmemgfVCdzsgXtNze9dgEgkF8x
-         Q8tHJMBCxZjcSa6wJwaHD1wl0r9fb2MttvpV3Rl6Rrhg8DonGf3w4oRTPzYzhoy3Q9HJ
-         EFhDW/RLrOmAvEJoLaO1ysOTiFL66Ipf4nlzxoW7EBjK7hF4ALEG6HrDRQksFsa0kJIj
-         XDiA==
-X-Forwarded-Encrypted: i=1; AJvYcCWaW+CKWvKACKft/PC8Ox19Y1oOSd+3ne8n0RCzH5iiq6XL/gm58gl22x1/wvYDFAjY1f0W59bdTzEn@vger.kernel.org
-X-Gm-Message-State: AOJu0YxlZrkrP1hkP3sE0wxnnOnOh5cYEGvG3twjzUVxVZJ/LxWeL234
-	U3bSuItc0H0cL5Wg8AYW1JnBvCd2mxbCWts1Qzo7VZ5Srq9n+VKZX2YatKHLYjkxBrPr0NXiBIu
-	JLtqYqfGr9bBiny1xcvWz5GcUs3OcOzZX9xeDpwTCriOOqAhAxY7oJCehUejvUlR5sgSyGzJ+k6
-	QTfp8ySQvV8iHhq1TVGiNyNhi1gfNxNLrVO8xhuUo=
-X-Gm-Gg: ATEYQzw90kxU1LDL7x5QSsVS19Er/eXO/hlzOuKNwOzcmbdKo0p7mGd5l99y9F+Ux+2
-	0o2eVUtZg3eoN4HDH6S4m/Kgyq9Hl4SClNvRtd+krpX6lIM/nKLnV+/gHW4iyKYreKV72Z6TeNq
-	3cOmOAUk77Qqx6Ac9TYaG6wuGDH+tuaZ85BblVNfNX2ARR85IyLiXB8Iz3v021GTy6fTGnpewjz
-	TNUI8A=
-X-Received: by 2002:a17:902:e54f:b0:2b0:67fa:dbf8 with SMTP id d9443c01a7336-2b0b0abfc7cmr19727725ad.41.1774405890267;
-        Tue, 24 Mar 2026 19:31:30 -0700 (PDT)
-X-Received: by 2002:a17:902:e54f:b0:2b0:67fa:dbf8 with SMTP id
- d9443c01a7336-2b0b0abfc7cmr19727355ad.41.1774405889714; Tue, 24 Mar 2026
- 19:31:29 -0700 (PDT)
+        bh=Z6L/dK9RXBU0ye50vaCd1XpagmdaKpcR91kPPZAxHEc=;
+        b=XxvB7sRH0o0pf5O5dAWb3nZX6x9FUXHXuG/0qppIDbNWejWzWXvB1/DpYnc0e8Q9/K
+         C7VcgUx4chLdQgG+ePYv8UVXkeZGUFAeXJ/PAB2iVGhx18CKWvHNTEZNb2cJ4L75xZbR
+         9Ppte0a1XoIfKh6TXHv46sVxfTzU9lD51vHQf4UA7w3qE5qgWVUocIR8lKGejRFQesTn
+         5m7ohp/FXaPWrhLsqk0Yfm3ECBUXPC9UuSQ3M/Q5HrpA8IM18/nt7L2Hwu4cz1aWFsC+
+         jKe24WPOwLIrnrufpTZoP4bm3Espw2JGfrO9VJHWdQ+ZHIKBvqXFwXINKQymXXEjFgNu
+         T2IQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774405911; x=1775010711;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Z6L/dK9RXBU0ye50vaCd1XpagmdaKpcR91kPPZAxHEc=;
+        b=rTWHYdI/cj1Xmw7L3UG5vn6vRmpp5obyIE5hyuqys6EVNlQg2h9J2VVLxMRq6/V/MJ
+         CZLfSXHDPZo5lQd98yG15Zmq0n9OxlZrLn2NvtQNf5ufMtPoZZN4zUb7M+si2fu/DA9v
+         a5az4xwb81eHp/PcfKDu5MZ1XcxmDMsN+Lm4LeGenuCj16Bf8/uAOoEnobMGuPSW1qN4
+         exR4LVFqKo1wyeZvl8u8wrTpPCltVNLflrt+7PwSYzJauQBXZSPPxKTqwtiH/J0ttqGE
+         1mTcsuirHMKxBs0FZIjDOuxg4QGCv0oSo4Ak75CQRBbPXSNn3QciKeaNpI+/bN+nyvlg
+         G34Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVmPogp7/QgvgApOK9Zk/YWZ7dGATenZ+ZMNgll5FPi1KI0j3Q6C09aCQ+XABdy7f4y8Cv2f0mUdE9c@vger.kernel.org
+X-Gm-Message-State: AOJu0YwYcuJOMO2tXvn9XK5r9udhPkQanEM/Zk4+3J8Dt9sO5EFCl4bD
+	h1PUmLgTRMFtEa5CItuSshO0Gf7Jxhdx5frZeo7evVa6MNhnjnYSXr74vUuJw8eU0zcUr/VqX6D
+	GSuKKPRYiITVLEfBKn909DPz7gUNJZJ1AYHEgHdtdfw==
+X-Gm-Gg: ATEYQzziTvuK619VsRh0blqUwMOxVyihUxk0or71kwHnTay/RVuMOF5Dg2JsQIcFd4g
+	hMNo1h8qtp60B/O59i8AT7SZZSghDnjZzxdwcabd6RK4O3hMWxjOJbaowRMWePWD8ILF60Hckf8
+	59CGZiv2EyxTXPdt7E0nW5QahCXy6nc3d4rIqOlYCMxtAFfWlK7QRQSENQmbeXfDl/llAt81YJd
+	0pgEFg199TQsY7Pf82lXa00DAn19OKtE8IaJk6N3OWcVvupBao//M3CbIwhycoTkQFhoL1cVBAt
+	h35DlYzJGSg4mw==
+X-Received: by 2002:a05:6830:82b4:b0:7d9:b46f:ee21 with SMTP id
+ 46e09a7af769-7d9d69cdf4bmr897075a34.16.1774405910770; Tue, 24 Mar 2026
+ 19:31:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260303-lt8713sx-bridge-driver-v5-0-6cc2a855aafa@oss.qualcomm.com>
- <177345419701.98253.11507693763985665579.b4-ty@oss.qualcomm.com> <CAPM=9tzAQaZbzpVw521cwBc2btWC4AK488edwuDE5D+Z6d6QYw@mail.gmail.com>
-In-Reply-To: <CAPM=9tzAQaZbzpVw521cwBc2btWC4AK488edwuDE5D+Z6d6QYw@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Wed, 25 Mar 2026 04:31:18 +0200
-X-Gm-Features: AaiRm50iUBDZT09wWWUTotuSx7Merw6EUyoVPC0MmHa3YQK_6ldwzXMeBMyZoso
-Message-ID: <CAO9ioeXf_BAXOS6unjZDZ0G-dC4ktLAzBgFn7-tF+XE_oAxiNA@mail.gmail.com>
-Subject: Re: [PATCH v5 0/2] Add lontium lt8713sx bridge driver
-To: Dave Airlie <airlied@gmail.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Robert Foss <rfoss@kernel.org>,
-        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-        Jonas Karlman <jonas@kwiboo.se>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Tony <syyang@lontium.com>,
-        Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
-        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, prahlad.valluru@oss.qualcomm.com,
-        Prahlad Valluru <vvalluru@qti.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Simon Zhu <xmzhu@lontium.corp-partner.google.com>
+References: <20260128-ssqosid-cbqri-v2-0-dca586b091b9@kernel.org> <20260128-ssqosid-cbqri-v2-6-dca586b091b9@kernel.org>
+In-Reply-To: <20260128-ssqosid-cbqri-v2-6-dca586b091b9@kernel.org>
+From: yunhui cui <cuiyunhui@bytedance.com>
+Date: Wed, 25 Mar 2026 10:31:39 +0800
+X-Gm-Features: AaiRm50kmkkX4lpUb-H53j141xOJJF0B4hNLojrNS59qLQl25FnWptD4NwPaAxM
+Message-ID: <CAEEQ3wmuAnHU1VBFDwbCBFb8j63ZcizJ3jEC2SiVWnoMPc4=SA@mail.gmail.com>
+Subject: Re: [External] [PATCH RFC v2 06/17] RISC-V: QoS: define CBQRI resctrl
+ resources and domains
+To: Drew Fustini <fustini@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	=?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, 
+	Samuel Holland <samuel.holland@sifive.com>, Adrien Ricciardi <aricciardi@baylibre.com>, 
+	Nicolas Pitre <npitre@baylibre.com>, =?UTF-8?Q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
+	Atish Patra <atish.patra@linux.dev>, Atish Kumar Patra <atishp@rivosinc.com>, 
+	Vasudevan Srinivasan <vasu@rivosinc.com>, Ved Shanbhogue <ved@rivosinc.com>, 
+	Chen Pei <cp0613@linux.alibaba.com>, Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, 
+	Weiwei Li <liwei1518@gmail.com>, guo.wenjia23@zte.com.cn, liu.qingtao2@zte.com.cn, 
+	Reinette Chatre <reinette.chatre@intel.com>, Tony Luck <tony.luck@intel.com>, 
+	Babu Moger <babu.moger@amd.com>, Peter Newman <peternewman@google.com>, 
+	Fenghua Yu <fenghua.yu@intel.com>, James Morse <james.morse@arm.com>, 
+	Ben Horgan <ben.horgan@arm.com>, Dave Martin <Dave.Martin@arm.com>, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, x86@kernel.org, 
+	Rob Herring <robh@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Robert Moore <robert.moore@intel.com>, Sunil V L <sunilvl@ventanamicro.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Paul Walmsley <paul.walmsley@sifive.com>, linux-acpi@vger.kernel.org, 
+	acpica-devel@lists.linux.dev, devicetree@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDAxNyBTYWx0ZWRfX3kYVQJql6E4E
- mlLaroFSa4CGP49QVME8cAfzwKUrOvsnZeyiQUbZPWBMXW+uBK8Y9YgwrrivjIJb7wmDhdReRC7
- qK9USv7TphrUrJV2L06HGNsjdvRqKLYqlTXM7X3b4wkIgOhrHx6B36x4uwVrrN+9tMwZjrUEoLh
- R3EpIwNav7Xufxdb5JgR8pUMcvsFsMXAuXNGn6rB0v/WRsS2RiajjN7nkdMsimfL8qjcYcl2Dh6
- Lbehhq05oF+aSLzbBRY6+VtVAOtUlhTKDAJnf0vJHozYbTTVdSTLpd3hq+b6P0Xcik2Ra7H45z4
- a4z3iKf8u2ZCgMr8Dxz+oU2MdIYHwGm2Ofy2yEwzDjsrMetP/IgNbe0FJUqSbXkNVSL7t7ZhonV
- 0ZczkdK7RShuH3F1I/zv7DiXQEuKfXMVX9WEfsB4Og9LQvq8VKC+zjtD4RjqTOKI6Q64Bbr9ca2
- ti0khY+XT+g85/HRAVg==
-X-Authority-Analysis: v=2.4 cv=Ua9ciaSN c=1 sm=1 tr=0 ts=69c34903 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=pGLkceISAAAA:8 a=EhbOz9AlyGEJ4U7p6VAA:9
- a=QEXdDO2ut3YA:10 a=GOxxtejO2lsA:10 a=QYH75iMubAgA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-ORIG-GUID: Ysh2HD2i0RP0euvJzhlogxh62z2a3nxt
-X-Proofpoint-GUID: Ysh2HD2i0RP0euvJzhlogxh62z2a3nxt
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-25_01,2026-03-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 malwarescore=0 phishscore=0 bulkscore=0
- spamscore=0 suspectscore=0 clxscore=1015 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603250017
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 25 Mar 2026 at 01:59, Dave Airlie <airlied@gmail.com> wrote:
+Hi Drew,
+
+On Thu, Jan 29, 2026 at 4:28=E2=80=AFAM Drew Fustini <fustini@kernel.org> w=
+rote:
 >
-> Can we apply the two follow-up fixes to this from Arnd, this is broken
-> now in drm-next.
+> Define data structures to encapsulate the resctrl resource
+> and domain structures.
+>
+> Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> [fustini: rebased current upstream]
+> Signed-off-by: Drew Fustini <fustini@kernel.org>
+> ---
+>  arch/riscv/kernel/qos/internal.h | 27 +++++++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+>
+> diff --git a/arch/riscv/kernel/qos/internal.h b/arch/riscv/kernel/qos/int=
+ernal.h
+> index ff2c7eff50be..c0402dd06cfa 100644
+> --- a/arch/riscv/kernel/qos/internal.h
+> +++ b/arch/riscv/kernel/qos/internal.h
+> @@ -65,6 +65,11 @@
+>  #define CBQRI_BC_ALLOC_CTL_OP_READ_LIMIT   2
+>  #define CBQRI_BC_ALLOC_CTL_STATUS_SUCCESS  1
+>
+> +int qos_resctrl_setup(void);
+> +void qos_resctrl_exit(void);
+> +int qos_resctrl_online_cpu(unsigned int cpu);
+> +int qos_resctrl_offline_cpu(unsigned int cpu);
+> +
+>  /* Capacity Controller hardware capabilities */
+>  struct riscv_cbqri_capacity_caps {
+>         u16 ncblks; /* number of capacity blocks */
+> @@ -125,4 +130,26 @@ struct cbqri_controller {
+>         bool mon_capable;
+>  };
+>
+> +struct cbqri_resctrl_res {
+> +       struct rdt_resource     resctrl_res;
+> +       struct cbqri_controller controller;
+> +       u32 max_rcid;
+> +       u32 max_mcid;
+> +};
+> +
+> +struct cbqri_resctrl_dom {
+> +       struct rdt_domain_hdr       resctrl_dom_hdr;
+> +       struct rdt_ctrl_domain  resctrl_ctrl_dom;
+> +       struct rdt_mon_domain   resctrl_mon_dom;
+> +       u64 cbm;
+> +       u64 rbwb;
+> +       u64 *ctrl_val;
+> +       struct cbqri_controller *hw_ctrl;
+> +};
+> +
 
-Done, sorry for the inconvenience.
+Can we trim down some fields? For example:
+ struct cbqri_resctrl_res {
+        struct rdt_resource     resctrl_res;
+-       struct cbqri_controller controller;
+        u32 max_rcid;
+        u32 max_mcid;
+ };
 
--- 
-With best wishes
-Dmitry
+ struct cbqri_resctrl_dom {
+-       struct rdt_domain_hdr       resctrl_dom_hdr;
+        struct rdt_ctrl_domain  resctrl_ctrl_dom;
+        struct rdt_mon_domain   resctrl_mon_dom;
+-       u64 cbm;
+-       u64 rbwb;
+        u64 *ctrl_val;
+        struct cbqri_controller *hw_ctrl;
+ };
+
+> +struct cbqri_config {
+> +       u64 cbm; /* capacity block mask */
+> +       u64 rbwb; /* reserved bandwidth blocks */
+> +};
+> +
+>  #endif /* _ASM_RISCV_QOS_INTERNAL_H */
+>
+> --
+> 2.43.0
+>
+
+Thanks,
+Yunhui
