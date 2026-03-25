@@ -1,109 +1,120 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E2534A77A;
-	Wed, 25 Mar 2026 23:41:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D952E541E;
+	Wed, 25 Mar 2026 23:48:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774482117; cv=none; b=t+yesqncTGkqeeDnASZZRFRBrmTYTW+hdsW9etzhR5vLaxhQIlJSqfryh/nkAL0np88DQi6VpKIpK1u0o1Hh4R8KT13hFjJcnukbfnkzzvkeQwk5Q+wJ6bazIVPjlrdDIezWujhhd6iB+Fqn1RKiUw8QkJ0UK5zIcCgtxdvrn8A=
+	t=1774482518; cv=none; b=oAqGIGyLKZND65mzXU4FINBglKJOKyJ42IG/iYsndEfCki5Pq7lBiOJ9fLAvr+abmECuCPlCuB2fjQLqomMParfh39TCivkLQbgH3b54OH58R2z/ZwCY1PEC8V14di90w5nQR61yIrqTK5g3ETK4I0bwA7Ol3BKhAFevE6VEv84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774482117; c=relaxed/simple;
-	bh=iElE4ejjUYaT352NBfHfX6XrchcDNcC85+ONG3JrBm4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QztlE+v3hYpiBukcUityKEVW62SXARA1IqHTko4v9DAJ+IKqvbY7cGEyGOoEahxNMaAjkXz8eYtCiQ9CiTbQ7xMBIZHzw6OdJwqVypuO7fB5zyJw7ISm2pBnE4vrjpFZb6Zo4PrV+YqXH0yMHN862V9XmIY5vMzERjLT3hv5kzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=M5lZcw4f; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1774482518; c=relaxed/simple;
+	bh=nvy92Lzp/GDB7hdawZwNUt/EDzG9tQBtTUqoo+26wnw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SNW/4uiiYxyzDyNS9Kdz+KWgJpKyMkuBSsdOTuDz6I/VUmcNuLaFfKuzqSEl2zjgteDo4aXnPHhHbtocuFqIIrfkgtGXIwkL9tMgmE3R+w2WL5bWKHto1/zUQvqObnyZ7U38UfkDbnVKS5nkeHKfAKywXsk/rOLmYyfk5sRKwxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OOFlObcf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="M5lZcw4f"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=b6yzGlttx+NXjSJf4aCL4qCZ2swewO2eS0YxkN2Iuaw=; b=M5lZcw4fBkUFqRe1eIpe6LvRwA
-	2ouXek52MBk/ibhN25yL4S394q/dCCjdw5Hs0EC13tfh7Irkc3ywd9nE4TCjFB9MYCYcEeOSDZ+qa
-	5eGiZ0Z+J3a3PSFRg24Tt98Nq7rpBx77Nu9SstJPtbAs+RDp4rsQ+Yl8qffT1Y7+CBZ9mCK0o21MR
-	4a8867X60jSEyOU5VUrxccGzTkxTQHi3StFomFYvQOVocQePOqtsCF60R2ZULlGPJSbJpkeO/6mMr
-	/5YQ4+LSO8TGOWyV+EMc9IqN2rFfN9vEbxSprZjKqyyfdeWSQlHW8O7hAyTkpbyfL1jJXrfAOMiee
-	qJVZgqlQ==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Pedro Alves <pta2002@pta2002.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OOFlObcf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856FCC4CEF7;
+	Wed, 25 Mar 2026 23:48:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774482518;
+	bh=nvy92Lzp/GDB7hdawZwNUt/EDzG9tQBtTUqoo+26wnw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OOFlObcflnSRjDlEvvzhmiprS9LEnc6Xq1FuQezugr9nHOp+UEduDF3FQd+jBa/97
+	 AtrCujsUfIgrrxIdJE3/BWHqIU5P0ESqn7L/fdLNL++qibpAUYNB2dJu8/1xvT+Q67
+	 QavC+g98T6qq/9Hja6mG95636vJ2bkfCiZoVwesItqxknxEdlwhl0+W4JLOd7fCVrw
+	 EvGFkiUekNaPA5sS5IgtKB1dXUioHjJNIkWH+bTTOK1Glp0pnwbG7nVKNL2TmpswLl
+	 NjhRhqfnTB/45ZtArs8w0xdaL5c1FRkG/91vGRoER1eB1YBKcYss5tVLP6qzRfsgCS
+	 +qF/TWaUeB91g==
+Date: Thu, 26 Mar 2026 07:48:35 +0800
+From: Yixun Lan <dlan@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH RESEND v2] arm64: dts: rockchip: configure hdmirx in Rock 5 ITX
-Date: Thu, 26 Mar 2026 00:41:49 +0100
-Message-ID: <23047464.EfDdHjke4D@phil>
-In-Reply-To: <1331010f-1446-4892-9d81-2f18b60f6977@pta2002.com>
-References:
- <20260323-radxa-r5-itx-hdmirx-v2-1-c52501909577@pta2002.com>
- <3407927.44csPzL39Z@phil> <1331010f-1446-4892-9d81-2f18b60f6977@pta2002.com>
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dts: riscv: spacemit: k3: add P1 PMIC regulator tree
+Message-ID: <20260325234835-GKA777612@kernel.org>
+References: <20260325-02-k3-i2c-v1-1-a793776b88bc@kernel.org>
+ <6530526f-59ca-4753-a068-46c62a1a1fed@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6530526f-59ca-4753-a068-46c62a1a1fed@kernel.org>
 
-Hi Pedro,
+Hi Krzysztof, 
 
-Am Mittwoch, 25. M=C3=A4rz 2026, 15:24:45 Mitteleurop=C3=A4ische Normalzeit=
- schrieb Pedro Alves:
-> Hi,
->=20
-> On 24/03/2026 14:18, Heiko Stuebner wrote:
-> > Am Montag, 23. M=C3=A4rz 2026, 10:25:33 Mitteleurop=C3=A4ische Normalze=
-it schrieb Pedro Alves:
-> >> +&hdmi_receiver {
-> >> +	pinctrl-0 =3D <&hdmim1_rx_cec &hdmim1_rx_hpdin &hdmim1_rx_scl &hdmim=
-1_rx_sda &hdmirx_det>;
-> >> +	pinctrl-names =3D "default";
-> >> +	hpd-gpios =3D <&gpio1 RK_PC6 GPIO_ACTIVE_LOW>;
-> >=20
-> > as said before, please also add a pinctrl setting for this pin.
-> >=20
-> > gpio1_c6 is not part of the main hdmirx set of pins, hence needs an
-> > additional pinctrl entry to configure it as gpio and possibly set any
-> > additional pull settings.
-> >=20
-> > And yes the pinctrl-driver does "implcitly" set the gpio-mode when
-> > a gpio is requested, but our more modern approach is to always have
-> > a real pinctrl entry even for gpios.
->=20
-> I am probably getting confused by what you are asking here, but I don't
-> understand what exactly I should add. There was already a pinctrl for
-> hdmirx_det (which is what the gpio1_c6 pin is) present in the file,
-> hence why I did not add it in this patch:
->=20
-> &pinctrl {
-> 	/* ... */
-> 	hdmirx {
-> 		hdmirx_det: hdmirx-det {
-> 			rockchip,pins =3D <1 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>;
-> 		};
-> 	};
-> 	/* ... */
-> };
->=20
-> Looking at the other boards, they do the same thing, but they call it
-> hdmirx-5v-detection instead, but as discussed in v1 of this patch I
-> ended up keeping the det naming to match the schematics.
->=20
-> Sorry if I am missing something, I don't have much experience with this,
-> so I would really appreciate some extra information.
+On 14:54 Wed 25 Mar     , Krzysztof Kozlowski wrote:
+> On 25/03/2026 10:56, Yixun Lan wrote:
+> > Add the P1 PMIC's regulator topology tree for pico-itx board.
+> > 
+> > Signed-off-by: Yixun Lan <dlan@kernel.org>
+> > ---
+> > This series try to add a regulator power tree from P1 PMIC,
+> > the PMIC is controlled via an I2C interface.
+> > 
+> > To test this patch, it will need the I2C patch series [1]
+> > 
+> > Link: https://lore.kernel.org/all/20260325-02-k3-i2c-v1-0-78f29c83d9ac@kernel.org [1]
+> > ---
+> >  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 185 +++++++++++++++++++++++++++
+> >  arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi |  11 ++
+> >  2 files changed, 196 insertions(+)
+> > 
+> > diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> > index b098dbd0e7a1..5b59c569dbde 100644
+> > --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> > +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> > @@ -23,6 +23,191 @@ memory@100000000 {
+> >  		device_type = "memory";
+> >  		reg = <0x1 0x00000000 0x4 0x00000000>;
+> >  	};
+> > +
+> > +	reg_dc_in: regulator-dc-in-12v {
+> > +		compatible = "regulator-fixed";
+> > +		regulator-name = "dc_in_12v";
+> > +		regulator-min-microvolt = <12000000>;
+> > +		regulator-max-microvolt = <12000000>;
+> > +		regulator-boot-on;
+> > +		regulator-always-on;
+> > +	};
+> 
+> This is a pointless supply. It's non-controllable and serves no devices,
+Yes.. I thought to describe a more complete regulator tree, it just
+shows more information - e.g. from $debugfs/regulator_summary
 
-You didn't miss anything - I did :-) .
+> so it only bloats the DTB and slows down boot process without any benefits.
+Ok, I will drop it then
+> 
+> 
+> 
+> > +
+> > +	reg_aux_vcc3v3: regulator-aux-vcc3v3 {
+> 
+> This is even more pointless because there is no user. Dead code.
+> 
+reg_aux_vcc3v3 is used by various devices, but I can drop it too,
+leaves till there is device really needed..
 
-Not finding an addition to the pinctrl definitions in the patch
-I misread the &hdmirx-det reference as the one defined in the core
-rk3588-base-pinctrl, not realizing that the rock5-itx one was
-already existing in the rock5-itx dts already.
+> > +		compatible = "regulator-fixed";
+> > +		regulator-name = "AUX_VCC3V3";
+> > +		regulator-min-microvolt = <3300000>;
+> > +		regulator-max-microvolt = <3300000>;
+> > +		regulator-always-on;
+> > +		vin-supply = <&reg_dc_in>;
+> > +	};
+> > 
+> 
+> 
+> Best regards,
+> Krzysztof
 
-
-Sorry about confusing you
-Heiko
-
-
+-- 
+Yixun Lan (dlan)
