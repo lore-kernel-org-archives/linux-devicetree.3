@@ -1,67 +1,67 @@
 Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899ED4218AF
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 18:07:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A080741C309
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 18:08:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774462076; cv=none; b=AuvzV9n1DfubXmoNgANkNc3yplrwYGKOaYVODXxp60UC0EukOMB6JWFFuZLsnJvH2TD9W8VN2Ip4wxz2tvP1F9vKH9L2v5LnASrUn9YbB1HlRWo/lFtHyBvBD15XYc0+fSeABSgpJL4bpMCL3FcqTAvwAisrMxjGvz3grOGlc6E=
+	t=1774462083; cv=none; b=rFVsbYTXdcH8Z4WXW+tZ9IBw56sWM52NPfBy727QhR4vCbQyzLeIcK7SGWxzXZhI9rEBiag4Fp5wtvGBUFDm9mCR+HPwVWFaAFeW/DHdKwWS8AVxcE+Z+pGRJGVkWofQRrPKwBAA9g/qdwRmbVdhMnc9hGeR/NM8YMTzZOnWXb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774462076; c=relaxed/simple;
-	bh=4jcpeoXLPiOxiHalfAjuvYT2yGFc2c9p3Rs4rW0U/Ds=;
+	s=arc-20240116; t=1774462083; c=relaxed/simple;
+	bh=idSfP5HyQiNIGHknsAW93yLVNiPUDIYoFLjjk8abFqc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SSZIzBViqMoAD9Ftf1UVHaBRbFI5IjZxRFzi6lA77ZZc1oUWpcQ2pvbAqwjPzU5tLEdcha5fyRxu0pBXzz9I47e37c0+WvUjyU+yEKyMHBtE4PMXnAcQ4JJa7d1ChN1y/rtdam/os6SzGL89xPnpJav/e4feE4Q6JiuCed+h0xA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rg3CnNqC; arc=none smtp.client-ip=209.85.214.174
+	 In-Reply-To:To:Cc; b=kRYi02zbMq0X5oC9f9xuuDHEWVyMNKqz++VUkqvmxvcNNE5IInDe6M+zhRXocTyLwclJBgbKBODhaLjlJn9yZoOworyzdC1jrzLLpCs/+KMCZ0FQA1KqxXcIGq9SDqeVp8pTnkuN7xG6UpzeIz++E+QVcEQTmkaQTk/fBfw8Z2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pq1ZarGF; arc=none smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rg3CnNqC"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2addb31945aso877255ad.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 11:07:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pq1ZarGF"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2ab46931cf1so9867635ad.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 11:08:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774462074; x=1775066874; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1774462080; x=1775066880; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=A+mOTnwT88rG+TLvmnzsj95Rl2YZE5vhiJFWZaB3EQE=;
-        b=rg3CnNqCqo4TbLmH4nqVWi+2sac5TNqWk4+rZBu2G6KqgZOFXDwFbY0X38X3PuYl8T
-         CTyM4j6rtsquyshphPvMIyDXjIsSg762Z8dZr7SSYwTtD06o2ioRivA+zqnpHrZxmo2T
-         NhEt5JqtxyCVzDppAVYkzjonaBgYZNvW83GFdauYFDiCBSG8veHHscuMbEnN7nun6bcW
-         C3iO2bgwZvZKvNAvYdsjc0EJBvXAaB/hlQLl7x1t7dlEBcfg9/tPMuT1qmhKyPIvuDfj
-         gBGwB+ph4DgBWaH3nJFS1p5EMoLeZoUsJfanE10D2GhiCUVxgk8PQtJPiQ3YSP/mtnom
-         IwZA==
+        bh=6RW8W7t9a2T2GNiqIF1Tp6pK/FWIbbUcezYtUjj9vmI=;
+        b=Pq1ZarGF9TL0vKJmvaevq1b13it8hPBAYEV8Snb+4rZKq0/HLKMcy4165GSIHgY8Et
+         06vb6HpVn0WO4z/ZKgYUJwaLOYQrBTW7YSXWAKPT+U2H2D/PRaG5VZQL7tgpgVaYiWCp
+         oeo4XnjVQu4R6EINyfy8Xv21vb/vU6oZl7hbIgxYPzzGgrY4KU3yBfvog+8sTc9+a5fz
+         VQ5jkB5hnkxjmuggtWH7ki9esxh+lPrf9z3slLwbzopfHvsZhTGN52gllnSUXdHUp5jq
+         xf9yHdFTsYUZEUo2nD8wHPCsgTzqcYt7e+NX+E5MKNKMS9ClS1tNjT1m8KSztt735BBh
+         QAew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774462074; x=1775066874;
+        d=1e100.net; s=20251104; t=1774462080; x=1775066880;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=A+mOTnwT88rG+TLvmnzsj95Rl2YZE5vhiJFWZaB3EQE=;
-        b=WUkmb3tq5tPucqFzr8GVkhDw/nHeV/V0hAJHxMUTBvcTXwXCDQZIncffrBs34VPW51
-         ReUTrMKa9kfZS5QLzzNilscaK1kvnHlYspoPkPp54bj8XJIfQ5WoYqLFcP6ymQoCEUoP
-         q30nQYbs+5Bvq8Ox07HgiB7uVtuTUjydxEPZ8s1s013wzw4lNgvrhktx+J4kLx+r3JWY
-         l27JRBN/5TSsRjXm/c8LSn0kXE3UHehieXNsobTQYvNlEdQV/laM1olqtBIMfk6xm766
-         aNpXLN3K19Yj2cnd63J6bx0/yO5fXiiui88yXKQpKYnNHY/L5RXp5O0bvL2tQDMEcRgv
-         iTzg==
-X-Forwarded-Encrypted: i=1; AJvYcCXpxr/CNHEpWfcNs5eOan6nJalUXDQzVnn5TiZriX1/VZ5PjROSDj+K4r0zZGdHxke9jEC5m6khAxTT@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy1+JKs/t5GqFBoF16g9FaeERP/gIjobqkCpOpQ43mKyvwl6r54
-	UO2I/8EjXYPYRDDQxe0JRe3OlXETwblxskIL2bFkHyTqal+9Uu086h/4
-X-Gm-Gg: ATEYQzys+LU6/QsAIqwcoF2XGlACjf7MLql8tF08TMf3VM/67Ont5kiLu2MymemD6Mz
-	6ob4d+Quj0kuoaiagTDPAAEDWFnu+mYgaw9nD3jKX5x4LArndqL1bdB9exBPHU/JXMlek0xWPNx
-	3TcNywk2Qr+8DM4GkiJq3DKF5E7k77Py3Bc8hpv9BwuhkxyiEu9SL4T6AYld30KUnoqT4ylE/9H
-	9cCW2sY1sdvTfup8HNewZ7+HhQCKtowg0/PeWTiUel4xOnIDe9p2LO5iMjCtElilUhPRS5o/4Bn
-	KpYgjxUiMZ8qqiz/Vda+w9VZke8oM/XEj9hR7Nxf953RLSmCKTBiHOmLZ7WuJ3131xlxU+bY3WI
-	f72Oxp5EPHx7M2mc4F8ljmZEexV5j9rQX8CCz9g76zvtPUjHlU5rqFvbta8JcCWtvRZgGH1kjhw
-	UAvY0zN5JGlCg8RYFZFEtSySB1ZYIZ
-X-Received: by 2002:a17:902:ea0e:b0:2b0:afad:7ab8 with SMTP id d9443c01a7336-2b0b0ad2382mr51898775ad.29.1774462073914;
-        Wed, 25 Mar 2026 11:07:53 -0700 (PDT)
+        bh=6RW8W7t9a2T2GNiqIF1Tp6pK/FWIbbUcezYtUjj9vmI=;
+        b=TZsrz10sIvdvZQzkBYPyBAFKRz86+7XgJl1khMjJ5mBkJzCr7KoAUCTWfPhxH330Nb
+         E6lO/OY+Ur14qrJIyFANMKZOFFJ8uAM+KRMI6Hc4F3tzft5GVt4z+B2N7uvUdMd5JBXU
+         OXz1AqucPGKThsPwPg5EXR6kgRWV18og/I7j+aRNRXXQ2CmUKEcpxpubFKWf4+jIs8o+
+         Ps19wA0yvoxSwRcUfgk0FkI1/hMerp8Oi3WdN2QAPZBzC/uxUI79JNsGxtdBiIq6buew
+         mJtFC/oweiS3/F9U0Igli8F7Of7Gvn+STq/U99eroMvFjnAYKQmCpa5lZIKMESHH3N9Y
+         gvBQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXdyzWnX54ODBw//MqzuYUpBOHwP51+06sAP4wWqnvAkmilS2w65+3medyzeAo3ih7LLrVPe36WgGiK@vger.kernel.org
+X-Gm-Message-State: AOJu0YxobZ13cnwH7l6t7BPqi7xs9/khXRk/v0A/i47T6DQE5oqYqIqo
+	Av5Cs8u0C4ZFYeaojGe+ls69a7vO294NP1YXAxO9mgNiOLm2KrXGrHYh
+X-Gm-Gg: ATEYQzzCGyqHtBD0jWuAA4E5nJQB3frAyHpGKO4N3z9hMUxNIl0zGgCZ3cVF9OuDAl4
+	+CCRC8bizUdIEWcEEH9sbpn0wUZo54cocSVSXBhUedQpwXRCvAu3BqVkNxCDSMhiF7xF93Xyzyo
+	jXO0CuxDpWL7/Nh2LtipHA6DrI9OM0etyhh/EoF+WgyrVsu3SZDXrgZqBW2LNopvTAaxbjTg6nh
+	LbAETYqEiDWQWFOy6WlcfKKqGdaOBBvV/ZROXYRsxZLYfFRsi5Unw34TBA0W1ix11fNlNIBzumO
+	hroP6Y2boU0TkcFl92FisziolsoDxImS47FYwoc4DQFEfS08L8XPFT5vE+eq/LRI/A+EKhWJ0+R
+	SYpGRRaTH5o6rwovKNGOJV30muzxX0pyYruOy02bR1moNbQnnvZMv77pX4B0rIa59BPeHy0nCb5
+	kWpyY02j2IWDHhVAPP7Q2DTCCY4RTL
+X-Received: by 2002:a17:903:8c7:b0:2ae:4aa8:cab8 with SMTP id d9443c01a7336-2b0b0695a47mr41847625ad.4.1774462080126;
+        Wed, 25 Mar 2026 11:08:00 -0700 (PDT)
 Received: from [192.168.0.102] ([43.251.91.187])
-        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2b0bc773b33sm5687805ad.10.2026.03.25.11.07.48
+        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2b0bc773b33sm5687805ad.10.2026.03.25.11.07.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 11:07:53 -0700 (PDT)
+        Wed, 25 Mar 2026 11:07:59 -0700 (PDT)
 From: Biswapriyo Nath <nathbappai@gmail.com>
-Date: Wed, 25 Mar 2026 18:07:26 +0000
-Subject: [PATCH 3/7] arm64: dts: qcom: sm6125-xiaomi-ginkgo: Add PMI632
- Type-C property
+Date: Wed, 25 Mar 2026 18:07:27 +0000
+Subject: [PATCH 4/7] dt-bindings: leds: irled: ir-spi-led: Add new
+ duty-cycle value
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-ginkgo-add-usb-ir-vib-v1-3-446c6e865ad6@gmail.com>
+Message-Id: <20260325-ginkgo-add-usb-ir-vib-v1-4-446c6e865ad6@gmail.com>
 References: <20260325-ginkgo-add-usb-ir-vib-v1-0-446c6e865ad6@gmail.com>
 In-Reply-To: <20260325-ginkgo-add-usb-ir-vib-v1-0-446c6e865ad6@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -85,68 +85,34 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
  phone-devel@vger.kernel.org, Biswapriyo Nath <nathbappai@gmail.com>
 X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774462047; l=1268;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774462047; l=850;
  i=nathbappai@gmail.com; s=20260118; h=from:subject:message-id;
- bh=4jcpeoXLPiOxiHalfAjuvYT2yGFc2c9p3Rs4rW0U/Ds=;
- b=Rb1tdZWGQx6hFZr4eESwpKU4K5eOaB1lL5/HKB0tRnFVmA0mXAdsiwXnXAu3WdUAlnwWvnqE+
- PNBv5qA8IpBBPJQtzrzD1uIjANQwg3/048MKk8LX+Hya2EFjYmmWf17
+ bh=idSfP5HyQiNIGHknsAW93yLVNiPUDIYoFLjjk8abFqc=;
+ b=f2ywcUw6qhQWvHyTyNv4T149ViOhu8Y4DN0CMzzvFS+yL2U+g3sDFvUmgPmgqRQun2OmgiGWK
+ iGQLZq9lALSDBlMVUEXSVv7UjdbHBHOv8L9hpbNCB5IlKhRe3SeE4+q
 X-Developer-Key: i=nathbappai@gmail.com; a=ed25519;
  pk=slmb/9yXbet+KTiT3EYLCp0p0MEOYa3EdjUXP+HXfjg=
 
-The USB-C port is used for powering external devices and transfer
-data from/to them.
+30 duty cycle for IR transmitter is used in Xiaomi Redmi Note 8 (ginkgo).
 
 Signed-off-by: Biswapriyo Nath <nathbappai@gmail.com>
 ---
- .../boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi | 31 ++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ Documentation/devicetree/bindings/leds/irled/ir-spi-led.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
-index 88691f1fa3a..f66ff5f7693 100644
---- a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
-@@ -116,6 +116,33 @@ &hsusb_phy1 {
- 	status = "okay";
- };
+diff --git a/Documentation/devicetree/bindings/leds/irled/ir-spi-led.yaml b/Documentation/devicetree/bindings/leds/irled/ir-spi-led.yaml
+index 72cadebf6e3..0297bfbb275 100644
+--- a/Documentation/devicetree/bindings/leds/irled/ir-spi-led.yaml
++++ b/Documentation/devicetree/bindings/leds/irled/ir-spi-led.yaml
+@@ -25,7 +25,7 @@ properties:
  
-+&pmi632_typec {
-+	status = "okay";
-+
-+	connector {
-+		compatible = "usb-c-connector";
-+
-+		power-role = "dual";
-+		data-role = "dual";
-+		self-powered;
-+
-+		typec-power-opmode = "default";
-+		pd-disable;
-+
-+		port {
-+			pmi632_hs_in: endpoint {
-+				remote-endpoint = <&usb_dwc3_hs>;
-+			};
-+		};
-+	};
-+};
-+
-+&pmi632_vbus {
-+	regulator-min-microamp = <500000>;
-+	regulator-max-microamp = <1000000>;
-+	status = "okay";
-+};
-+
- &pmi632_vib {
- 	status = "okay";
- };
-@@ -316,3 +343,7 @@ &uart4 {
- &usb3 {
- 	status = "okay";
- };
-+
-+&usb_dwc3_hs {
-+	remote-endpoint = <&pmi632_hs_in>;
-+};
+   duty-cycle:
+     $ref: /schemas/types.yaml#/definitions/uint8
+-    enum: [50, 60, 70, 75, 80, 90]
++    enum: [30, 50, 60, 70, 75, 80, 90]
+     description:
+       Percentage of one period in which the signal is active.
+ 
 
 -- 
 2.53.0
