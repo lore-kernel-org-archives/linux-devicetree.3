@@ -1,27 +1,26 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8DB406278
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 14:51:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D90E93F99FE
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 14:51:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774450296; cv=none; b=qF4BbRQIcy/RakG7NeMKTwkNbmtqBEWWtd7CfGw1HL+FfWFpoY9FRcAvhFWuYRf6AMByGc4aIrXfBTleKJxDyMkfL+Us2l25HNsHNBohz79enaoAwVgTQAW1m/oqnYTjd+69rNkeB8vPgl2RuUMeqkCMyStMHb6ae8HPxS9BXbM=
+	t=1774450297; cv=none; b=ocsfDtxPlpb/0wCc2W/u4UnEr2EOZacytfPqDF/E96KrBS0KWRp3WX2MtDUaR2yop2hTL9qeA3U6RwCfzFMkkmmFp3GR2ELkYoTFEpNlVVpp/o+tmuJ8s9IW43L7uSj6ZUynoKOLZIEuq8eI1cSgBhhGP3Qev3gXaIjN5t1Sfw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774450296; c=relaxed/simple;
-	bh=rkVV6aFeqN+yID7xwgN1w0/ibiBKIuuWpEd9xpG48VQ=;
+	s=arc-20240116; t=1774450297; c=relaxed/simple;
+	bh=+t1ljqFMMm+FTIySSjxYYzReYssRwxf1isY+1wLVCwM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=iCMl26MKxzcgSXoqD+LzmSBnQrODfn4brgaiS2LeqdhaQ7RNc2nds8kT562PsjawFPUPFgodXjbhx+W6zUM4EGfPwf9ADetUuaXQfu8TPIa786El6jVby/xdt5go8z9lURJvISmKJeNWyTz/KFxtKKzPpxZrblVcfE3x0c2klb0=
+	 In-Reply-To:To:Cc; b=cZ4xcV3HVRT4hyCtwem8EmFBscQ3g7CAiFqq56mK2cY997RkepsuXzZRUIhTg+MAYxS6nvVrPhyBt8m+gFAoeEOgR450DntK21raZQsaBpxV30m0coUKWtt1DNtdIUIauGKuk7AULnRtK31Yg+yzxuf8L+WWg7WfmCbK8zQkJxg=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1w5PZT-00050C-0c; Wed, 25 Mar 2026 15:50:59 +0100
+	id 1w5PZU-00050C-R0; Wed, 25 Mar 2026 15:51:00 +0100
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Wed, 25 Mar 2026 15:50:34 +0100
-Subject: [PATCH v4 03/27] media: v4l2-common: add missing 1 and 2 byte RGB
- formats to v4l2_format_info
+Date: Wed, 25 Mar 2026 15:50:46 +0100
+Subject: [PATCH v4 15/27] media: rockchip: rga: prepare cmdbuf on streamon
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -30,7 +29,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260325-spu-rga3-v4-3-e90ec1c61354@pengutronix.de>
+Message-Id: <20260325-spu-rga3-v4-15-e90ec1c61354@pengutronix.de>
 References: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
 In-Reply-To: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -51,50 +50,111 @@ X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Add all missing one and two byte RGB formats to v4l2_format_info. This
-allows drivers to more consistently use v4l2_format_info, as it now
-covers all currently defined RGB formats.
+Prepare the command buffer on streamon to reuse it's contents instead of
+completely writing it for every frame. Due to the stream settings being
+fixed after a streamon we only need to replace the source and destination
+addresses for each frame. This reduces the amount of CPU and memory
+operations done in each frame.
 
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/v4l2-core/v4l2-common.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ drivers/media/platform/rockchip/rga/rga-hw.c | 13 +++++++++----
+ drivers/media/platform/rockchip/rga/rga.c    | 13 ++++++++++++-
+ drivers/media/platform/rockchip/rga/rga.h    |  1 +
+ 3 files changed, 22 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
-index 49c1ec08e2eb3..58a4b372cf5be 100644
---- a/drivers/media/v4l2-core/v4l2-common.c
-+++ b/drivers/media/v4l2-core/v4l2-common.c
-@@ -246,8 +246,29 @@ const struct v4l2_format_info *v4l2_format_info(u32 format)
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
+index 16380be598e4a..dcd540ed3fd5b 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+@@ -417,8 +417,6 @@ static void rga_cmd_set(struct rga_ctx *ctx,
  {
- 	static const struct v4l2_format_info formats[] = {
- 		/* RGB formats (1 or 2 bytes per pixel) */
-+		{ .format = V4L2_PIX_FMT_RGB332,   .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 1, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_RGB444,   .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_ARGB444,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_XRGB444,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_RGBA444,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_RGBX444,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_ABGR444,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_XBGR444,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_BGRA444,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_BGRX444,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
- 		{ .format = V4L2_PIX_FMT_RGB555,   .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_ARGB555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_XRGB555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_RGBA555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_RGBX555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_ABGR555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_XBGR555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_BGRA555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_BGRX555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
- 		{ .format = V4L2_PIX_FMT_RGB565,   .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_RGB555X,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_ARGB555X, .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_XRGB555X, .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
- 		{ .format = V4L2_PIX_FMT_RGB565X,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
+ 	struct rockchip_rga *rga = ctx->rga;
  
- 		/* RGB formats (3 or 4 bytes per pixel) */
+-	memset(ctx->cmdbuf_virt, 0, RGA_CMDBUF_SIZE * 4);
+-
+ 	rga_cmd_set_src_addr(ctx, src->dma_desc_pa);
+ 	/*
+ 	 * Due to hardware bug,
+@@ -427,11 +425,9 @@ static void rga_cmd_set(struct rga_ctx *ctx,
+ 	rga_cmd_set_src1_addr(ctx, dst->dma_desc_pa);
+ 
+ 	rga_cmd_set_dst_addr(ctx, dst->dma_desc_pa);
+-	rga_cmd_set_mode(ctx);
+ 
+ 	rga_cmd_set_src_info(ctx, &src->offset);
+ 	rga_cmd_set_dst_info(ctx, &dst->offset);
+-	rga_cmd_set_trans_info(ctx);
+ 
+ 	rga_write(rga, RGA_CMD_BASE, ctx->cmdbuf_phy);
+ 
+@@ -440,6 +436,14 @@ static void rga_cmd_set(struct rga_ctx *ctx,
+ 				   PAGE_SIZE, DMA_BIDIRECTIONAL);
+ }
+ 
++static void rga_hw_setup_cmdbuf(struct rga_ctx *ctx)
++{
++	memset(ctx->cmdbuf_virt, 0, RGA_CMDBUF_SIZE * 4);
++
++	rga_cmd_set_mode(ctx);
++	rga_cmd_set_trans_info(ctx);
++}
++
+ static void rga_hw_start(struct rockchip_rga *rga,
+ 			 struct rga_vb_buffer *src,  struct rga_vb_buffer *dst)
+ {
+@@ -582,6 +586,7 @@ const struct rga_hw rga2_hw = {
+ 	.max_height = MAX_HEIGHT,
+ 	.stride_alignment = 4,
+ 
++	.setup_cmdbuf = rga_hw_setup_cmdbuf,
+ 	.start = rga_hw_start,
+ 	.handle_irq = rga_handle_irq,
+ 	.get_version = rga_get_version,
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index 16a663aeef8c9..d111b348255e2 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -568,6 +568,17 @@ static int vidioc_s_selection(struct file *file, void *priv,
+ 	return ret;
+ }
+ 
++static int vidioc_streamon(struct file *file, void *priv,
++			   enum v4l2_buf_type type)
++{
++	struct rga_ctx *ctx = file_to_rga_ctx(file);
++	const struct rga_hw *hw = ctx->rga->hw;
++
++	hw->setup_cmdbuf(ctx);
++
++	return v4l2_m2m_streamon(file, ctx->fh.m2m_ctx, type);
++}
++
+ static const struct v4l2_ioctl_ops rga_ioctl_ops = {
+ 	.vidioc_querycap = vidioc_querycap,
+ 
+@@ -592,7 +603,7 @@ static const struct v4l2_ioctl_ops rga_ioctl_ops = {
+ 	.vidioc_subscribe_event = v4l2_ctrl_subscribe_event,
+ 	.vidioc_unsubscribe_event = v4l2_event_unsubscribe,
+ 
+-	.vidioc_streamon = v4l2_m2m_ioctl_streamon,
++	.vidioc_streamon = vidioc_streamon,
+ 	.vidioc_streamoff = v4l2_m2m_ioctl_streamoff,
+ 
+ 	.vidioc_g_selection = vidioc_g_selection,
+diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+index 38518146910a6..c741213710b32 100644
+--- a/drivers/media/platform/rockchip/rga/rga.h
++++ b/drivers/media/platform/rockchip/rga/rga.h
+@@ -152,6 +152,7 @@ struct rga_hw {
+ 	u32 max_width, max_height;
+ 	u8 stride_alignment;
+ 
++	void (*setup_cmdbuf)(struct rga_ctx *ctx);
+ 	void (*start)(struct rockchip_rga *rga,
+ 		      struct rga_vb_buffer *src, struct rga_vb_buffer *dst);
+ 	bool (*handle_irq)(struct rockchip_rga *rga);
 
 -- 
 2.53.0
