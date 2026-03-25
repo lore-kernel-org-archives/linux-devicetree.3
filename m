@@ -1,114 +1,126 @@
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CDEF1C84DE
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 00:25:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24DAB1DE3B7
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 00:26:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774398320; cv=none; b=rQuri1Afm5xAh2el5XTMrLRPytKpFB6yADjAX37rYUDDmKt7mosWunSSCacvkDBakw0eeZVxtqQQ2vyXi428AkqLyK96NxYOFQHtgpT7OKxKK1PnmYuC4m2U1U2XAB3IH/3/DLSz2EafT57tXhKfttGbp+0kS/EU5gQNBjnzoTw=
+	t=1774398400; cv=none; b=aKLj9vciqWdMq9YI5NNp3+8ymiAyWDPac5i2VOrUKBu/F8mq32aZVa60YWYYLn97nTkOjroVrt64hba9DV4zfMwAF8d/DU1rnlAuDFWgd7TnWeSIKdn7sZAK5MOWQgq8eJjjCZKCH/ITLUrT1NkM+sNmvAkbDPXoYxwmfZKbOWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774398320; c=relaxed/simple;
-	bh=T62eLvCEArRzYZStwBuW/DskGoPmPid6WBtJuVPOf4Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=a9KrjF9uph1swAslhy4TTXfUXXEE2xW3L4ZKWuITgpheiffxLia11ts6TAvwAIipsHQffinVNh1Xy/3ngXT+FD+V28eW27kZJwzdf1PxqIJOTQA52naWK9SGom5VrjQpW1dhYrbG303L1ojs+VPn0XOMIOru9k5Rfj3bs2GFCQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ICia5Sjj; arc=none smtp.client-ip=209.85.222.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774398400; c=relaxed/simple;
+	bh=HFIgrWvt4+PejNB2udAhjDCQWsy3aJQEKvjmdaokDjE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=W8P9FtQcUh1Brta71m4mhYGDK0dfbn2/DVKYyAA9+2C6zWv5OjoJCm1MlxTT8KpRqmuLDkyCNATDCKOmZZWDCMAwQQscX/tU0itlj8tZGSRQK+yiJRVyfpg47F203JBVpwd3XKeFNjpioxynHHgCLGmVlwAxcqbzNZ4xp180ISU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SvRatgyi; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ICia5Sjj"
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-8cfc085395fso445670485a.2
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 17:25:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SvRatgyi"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-486507134e4so22716265e9.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 17:26:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774398318; x=1775003118; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=T62eLvCEArRzYZStwBuW/DskGoPmPid6WBtJuVPOf4Y=;
-        b=ICia5SjjK7+fA769m+K2idmiLSp3KpAzbj5IJCk5gcWhJHvNWFxhu4wP9wH/MF4bkX
-         ZGGGSZhFgMrk3pisNPWbJ5TMkPN8fxFVIgN5sEJiikr8Cfhiw1IrHqQLhERlmB428T98
-         /LAP7cf5YhPErxLTcAgyl5Hm5HQHq7TzO5g/uWKiQ4i8X+bqucDgZZHEhITjWEk1fWXc
-         hEuPXWHvCp8s97mGtHDRj6OXEu7tMiGQKt5UAAQXCqTl8nKLwNbw41SL1DKO8kOe1T+d
-         0HKmlSLwxtQKgRE5w7RQNW6EENm4UfsrVb6IkW8kW8OMcrzrLJC3Au7Owf6nU81ZBUyy
-         XMUw==
+        d=linaro.org; s=google; t=1774398397; x=1775003197; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=OR5AmQ5C+PwxUk96HWSvSEr+oIE5VPNLRZ7Lt5xbH4o=;
+        b=SvRatgyiY5Vytqe0Ci+W6WExQoC1iwmXH4vfVLnVnhPlSXRC61XCnWoi+ZVTmhiPi6
+         H5oHvHSsEJYNbHNQhIMSNQ0tZl7h46gqk/Na+9+cenL04TbG50PZ5HtEBDJQ0MWyYAYO
+         5qhIZ3IfZCsXz562/9hcxgMn/DYZ+P9/KtFAHF89I9J4+m2VJboJeGlYZzwNxjDvVkx4
+         TK3S2+ZQOLpmkDxEXehxh/o3IUKnHCXLITKCXYzUqP0dYfqWnL7aiN4T3bISSy/q5FIx
+         mDjcQFS2upOKxNItMjR+IQRHGI/ZHt9tY7Zn/7liBQpLyMb/YeRhwUIyLVP+B0wppuTV
+         KG8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774398318; x=1775003118;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=T62eLvCEArRzYZStwBuW/DskGoPmPid6WBtJuVPOf4Y=;
-        b=LmawkF3ZAlnigq0rsWvUWihfq+Meqaa59YCajbH9+HahaqhyQo8KpZRJm21bwoRPPn
-         ePLO6wFPQP2jQsR8EewdLaRqABT+5dvO2Lej4IH1a8ASRx2HzHDJEX4sXu05K6tWxR3g
-         GaxWudaJoDNznCzG7rDBwkA7nblD/P4qJBlMpTJMALxhz6WR67xZRT/6S/pAv4bbs+PU
-         EcXUvYIAGOIPuYHogzPlY2NUPXjnYAQKucIkkC8EM8DpvJvGqaO/u+r07Hlf3k/SBK6B
-         fCQTpg0VZZtShCHKQBsJcoCkiNxIqrTriPbuxL4KwpuNi681hlUaaLiWwdfnqUueVe8b
-         NVvg==
-X-Gm-Message-State: AOJu0Yzm8QuIlAvOEZHWoSsfnot+56O7HO7DEe+h5wECDfAjZD5WqnBl
-	JkVY60W46d39+H62SQV5Ck7t+WafMsFxpqMIy6yhdaCn+ipfDTTLh607
-X-Gm-Gg: ATEYQzxt+7jhVFUrKFskZ7xW+l+YWoWzlMxfWA1sv8jvgcoxFBAkaP3RZV0yZni6SP3
-	TZ7RAXgC+p0x1HPkIUEhIYG9EKfZIUVIOVjoNC3xYk04eRqqPi90qh872oU6L26vs72c5wA/QOF
-	b/Q74zro4U1+8uT3ifSsAxPO6xkr2HzRq6fatc0f1jADt4bCJCx0kuAcZv9IOflxembuD346anz
-	IjJAAWLNO83LndSIFlmrnz7eSLWerU9XsOdgJs9RQNGHW8NGmRpeo0pZNrTBMotLCG5wF8Cwepf
-	aa6QRUagPZ/JduGAgpjRtOAI7pH06vCJC0wNLlpcp31jn46+xRESNqldWeJ31mgulfBnEA8Z4vp
-	/5UN72uhT4fNW29IqK1HIkwnR5b6ehYwFVCDMEybpkmJLeNpDNmHv8vE4vnQX6UL0Q2zi6lpQGo
-	7Y1l7rzkC+qNC5th+iEvPLJ0xmO53Q/JjQLbyn2WS76wBsdHYopgk9pd5fG+fE2yKm7NkGc7hgr
-	R/4nl3yY82ORA==
-X-Received: by 2002:a05:620a:400e:b0:8cd:7f7d:b089 with SMTP id af79cd13be357-8d0010523b7mr229964885a.70.1774398318140;
-        Tue, 24 Mar 2026 17:25:18 -0700 (PDT)
-Received: from jernej-laptop.localnet (16.red-83-43-237.dynamicip.rima-tde.net. [83.43.237.16])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8cfd55e79e6sm1017406885a.29.2026.03.24.17.25.16
+        d=1e100.net; s=20251104; t=1774398397; x=1775003197;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OR5AmQ5C+PwxUk96HWSvSEr+oIE5VPNLRZ7Lt5xbH4o=;
+        b=ej+LwfeoDFPBiYUDPCxXdV68F9ISE2JJ8mDrw6o/loEfTsDTefaeQMOQ4otdyu6ree
+         3ue9vaRu2J+/AGhi91FABmgEhc8OAlFBP2Gk87V/Rc9/GiG765qjSshVrTIDT80alit2
+         HEcsNtWu4/bSiwIN47g6iAMRTBPfzOArK3MujynsoswieTb5+7xzAfSBpREPYiq/I7dy
+         Nm6tva7dsaR4dmG5Knft7SZVP+nZO1McZCH+sKvEPJe69E6aJ+GczvC7P29s6SP0hFDO
+         eAOp6T3AWIkjatSga3X1FBJ6Tf7xk0IvZx8PVH4QMdiU01DDojdwa3EGToL993NO0RXb
+         6A3w==
+X-Forwarded-Encrypted: i=1; AJvYcCUwJNcnhwVDq4Tc/Gm+5TDZqBexCcmyUcO4Vj68wZp5yIPHdQwR5pvY/kKw+WyMtwNFg0cTOdBBB2Y9@vger.kernel.org
+X-Gm-Message-State: AOJu0YyZ8kyRGKHVuhGc/Q2bsKhVDaA65LXekIRB+OADAohCvZ/8b9Wy
+	aDR4u2rP0RpBCcg1hGkU8iryAPZut+Q/Dc93KQhUom2Ux+LQxnynMtjdTaN8yLC/ZCM=
+X-Gm-Gg: ATEYQzyUerm04H9kVTeabPyLc+vCpq+0rTtyihJXiP92GJsufHmKd/7UM0Fd5i11HVw
+	KORyKxwM5RCKvZx79M7Le6mvSi8L8R5YwxALxyCyRFxc2dEhLOY+qWsJZExuamulP5gOMRCKVR1
+	OU2AeZqWfFy2lgKkLgmxRgMhKKMClS56Z6485QY/l7T1tUs8JnYPEYSC0riE1CAbmfswIg8Q693
+	Pmgy0FmxN4Atd477QA+r3Ig+v3Jj1DPi7KPQD16NGrbwJO6f6+TW6ZMvT22h4d1m5nqTNm8JkGF
+	RVKddE1x+KqTO/+Vb+7e/xovQlFcJKG1ix7emZlZhf+PgfgiJAXbv18esz4OU492Abd3cyhnl6p
+	BMvrGf1FSXCsAbjI8jlkyj54SHeV2vucZPSrj8Qcfj3XwOu0N8GMQVflE+DNSpQ10RlkkxG5Gmk
+	vWyWDmhWS/zq0TTxT5FwK4KvtkLLNYq+Wk6WqPtOvvzyjknDuVB+IDZ8Ap+f5A2AI5WcoTny9Js
+	Uy/ZelWsETtVRQ=
+X-Received: by 2002:a05:600c:190e:b0:483:7903:c3b1 with SMTP id 5b1f17b1804b1-4871604c856mr22473085e9.20.1774398397416;
+        Tue, 24 Mar 2026 17:26:37 -0700 (PDT)
+Received: from [127.0.1.1] ([94.4.193.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b85082842sm7233704f8f.20.2026.03.24.17.26.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Mar 2026 17:25:17 -0700 (PDT)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Chen-Yu Tsai <wens@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH 4/7] soc: sunxi: sram: Allow SRAM to be claimed multiple times
-Date: Wed, 25 Mar 2026 01:25:15 +0100
-Message-ID: <2342486.iZASKD2KPV@jernej-laptop>
-In-Reply-To: <20260324164357.1607247-5-wens@kernel.org>
-References:
- <20260324164357.1607247-1-wens@kernel.org>
- <20260324164357.1607247-5-wens@kernel.org>
+        Tue, 24 Mar 2026 17:26:36 -0700 (PDT)
+From: Alexey Klimov <alexey.klimov@linaro.org>
+Date: Wed, 25 Mar 2026 00:26:32 +0000
+Subject: [PATCH] arm64: dts: exynos850: Add syscon-poweroff node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260325-exynos850-poweroff-v1-1-34c19c06e74d@linaro.org>
+X-B4-Tracking: v=1; b=H4sIALcrw2kC/x3MQQqAIBBA0avIrBNMM6SrRAupsWbjhEIZ0t2Tl
+ m/xf4WMiTDDJCokvCgTx4a+E7AePu4oaWsGrfSojLYSyxM5O6vkyTcmDkH60fbWmME556GFZ8J
+ A5Z/Oy/t+INkMlGQAAAA=
+X-Change-ID: 20260325-exynos850-poweroff-a6515334888a
+To: Sam Protsenko <semen.protsenko@linaro.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-Dne torek, 24. marec 2026 ob 17:43:52 Srednjeevropski standardni =C4=8Das j=
-e Chen-Yu Tsai napisal(a):
-> On the H616, the SRAM C region is an alias mapping to part of the VE
-> SRAM (accessible in whole at a different address) and part of the DE
-> SRAM (otherwise unaccessible). As such both the VE and DE need to claim
-> this SRAM region to prevent access from the CPU.
->=20
-> The SRAM claim API is designed so that a "claim" routes the SRAM to the
-> peripheral device, disabling access from the CPU. So long as the written
-> register value is the same for all the claimants involved, allowing
-> multiple or repeated claims is trivial. This is indeed the case for all
-> supported SRAM regions. The only known SRAM region to have multiple
-> different settings is the SRAM C2 region; this can be claimed by the AE,
-> CE, or ACE (assumed to be AE + CE). This region is not supported, and
-> likely will never be needed nor supported, as there is no documentation
-> for the peripherals involved.
->=20
-> Change the SRAM region "claimed" field from a boolean to a reference
-> count. A claim will increment the count, while a release decreases it.
-> The first claim will trigger the register value write. The driver
-> otherwise behaves as before.
->=20
-> Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+Without poweroff node Exynos850-based board continue to draw current
+(around ~60 mA with my test setup) after poweroff. Kernel also reports
+different lockup problems and RCU stalls warnings continuosly after
+last kernel messages about hardware being switched off.
+Turns out we missed a write to PMU's PS_HOLD_CONTROL (PMU + 0x30c)
+register that actually switches the SoC off.
 
-Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Add poweroff node that implements this.
+
+With this change the current draw after power off is in range of few
+milliampers and lockup messages are no more.
+
+Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+---
+ arch/arm64/boot/dts/exynos/exynos850.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+index cb55015c8dce..3881f573ec08 100644
+--- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
++++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+@@ -215,6 +215,13 @@ pmu_system_controller: system-controller@11860000 {
+ 			compatible = "samsung,exynos850-pmu", "syscon";
+ 			reg = <0x11860000 0x10000>;
+ 
++			poweroff: syscon-poweroff {
++				compatible = "syscon-poweroff";
++				offset = <0x30c>; /* PS_HOLD_CONTROL */
++				mask = <0x00000100>;
++				value = <0x0>;
++			};
++
+ 			reboot: syscon-reboot {
+ 				compatible = "syscon-reboot";
+ 				regmap = <&pmu_system_controller>;
+
+---
+base-commit: 85964cdcad0fac9a0eb7b87a0f9d88cc074b854c
+change-id: 20260325-exynos850-poweroff-a6515334888a
 
 Best regards,
-Jernej
-
+-- 
+Alexey Klimov <alexey.klimov@linaro.org>
 
