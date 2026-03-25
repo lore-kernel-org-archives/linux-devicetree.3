@@ -1,415 +1,168 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010035.outbound.protection.outlook.com [52.101.69.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560B93B9601
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 11:01:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774436516; cv=none; b=hOSEFQbLXluJSaJCQt8Lq5rbOpBHzvYz1HXIzkEa2wPmdH4dvk2tksCMP0IM8oCzJ/E+Vm5pNLrns1f+t10wCkf1g2ZmRLoaFZgVMcM69MoYAO5ojZu2uHr0w2YVpV4TB86DKBAS2ZcGBJtuV5mwpi/1v76SWbbEpBj/uBWSm6U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774436516; c=relaxed/simple;
-	bh=cig6sPdMQIkhTTtCcrsqWIpzCRGJ5kA8tX/p0P6Yo20=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pm2iiNi0MXAjGc9Gt39IBN852z79f7rUFD2YUJXz3IMdJPm0chkAusup+jQRA0pVxIjWKrrbwx1ITJVPKYHdjDWElWjgOUe1NX+6/3/sDHLH4JLTQPOkaWxQPspkG2RltwBSpR51IQSCjxE+YPVxOZYlMdmNjqol5apGaHjU6FY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TPhieP6S; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255CF3B3887;
+	Wed, 25 Mar 2026 11:02:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774436526; cv=fail; b=QoYwa4TOlo4aFaB3GvXsVk4BOe07oeuWT19XKBzZMXtN8Cs2b5rPxQUL1uKd/sO/RO5WKwjbCzBEjiudG3MA/0hIndUa4YFwOkdJpvmH2YVy+Chrg3fBaN/OMvVxjWBJaR9hxOpXhrN9+MjPAteqH95UmFhFfY3hFC+3rOL4Tew=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774436526; c=relaxed/simple;
+	bh=+AmoF1XdUXTJeleE9Aq7sQkCUTiNspyi0UDWCgJeDN0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=f2fU0tzflBsL5Oj6epJmF4Mw8ujdXtFBvdEtXZbbaNncMoWM1hZjZFQ5O2WWcAR7Wowu5ZNZunLxWFTFgSjYGuLWr25oObSbr4VpxR4Yshp1rtxQC+sgfegFFWxzqf091OMxGCmDhLIPAxE7XMqy0Dqi1lRffQLM8HVDduE/LAk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Az4mbn2l; arc=fail smtp.client-ip=52.101.69.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TPhieP6S"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-439c56e822eso2180809f8f.2
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 04:01:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774436513; x=1775041313; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=2CmYpByYPZGX4g9nqhPAYqXEmVxCeRwCQg1UHu6Jr9s=;
-        b=TPhieP6SQhw2sy7V84ELwhFcyzmNua9Ic6KTAK/H1E7QAqqW4BNhkCqdPBfjWUgHXX
-         0R6TfOXOi7+T5iLH7bYjiH61Jg5F0WYa6Y1yVNbKWDVJjjj6ndbUozj8GO5gEbIiGKw+
-         9H5ln6GboOl68rFgymt2YrAXO3zZ3cE0dvnAGPZCP+Biy+9wrDtZ92dl0iOf8qIpRdJN
-         BwuFkJajcyIMJTSFnl+rJTQdJZ2bH2o8NSXpcYYjHUEp8vGuEiDk7TzmBjCbj4Wmw7Np
-         lq6pooptU9EHlhm01sjyFhcqcKsZxHjA+kyxw1PWKDD09kTmInBJOax+0CmCmNA1oAgw
-         Ia4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774436513; x=1775041313;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2CmYpByYPZGX4g9nqhPAYqXEmVxCeRwCQg1UHu6Jr9s=;
-        b=QYATAnPVrwG0wG30ddrqZSP7QDGVuIdP4Ey/fxRoleDCefB23SUB+xk9l/lqF1xGdo
-         Vlj4K/8znv7Jc/kX6rSMSA0XjDpToQZ/m9ZqKRTg/AIcVlz0McRhK0O7FT8fbAEZPckx
-         7LX4QJJsT6KY30brLk6sjPVJHmTUHXIk7zGWCVO1vY3461qKbjJlW6VeOiyOiwqtzyx/
-         Habk1zHgHdx9baX6ZxuVn4IixHUdV3wA8oz/3Eb9FeopXrAIlz/QnKKXBGAPfH6DWJ1S
-         vDRXtmkoeYNfifVphxs+D2nTL4SfxzoV0VZknkFcaqSRjK3o9sfWj8GqLjfhCRgFaFT6
-         pvNA==
-X-Forwarded-Encrypted: i=1; AJvYcCXJ1OrsZm8E282uVrQwLtJCrn95yfYcjxHhV763o2koShJNeg6PbwPoCC1OR8jVcZuhyGUxwN469eTS@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxl6GF/B/Ar0CIWY/UusZhV09Ua/0JRpN4nJZDOLMJYP5WnYouQ
-	5oWxASa5ayMNzZRu2ouzYNW6ghrn7/6BER5j7xw4dG7rK5tVNAaU51vT
-X-Gm-Gg: ATEYQzwrogL6aNm04ECOgVBRZeBOVR+GhIarOszTzN1UCQvt6DKD8G66KgKwsLekp6n
-	GFWVFF57WavhkMNBGncP0VSW6TDlK+lsTA48fY/RhYlR3oU8sdn113d6MDvCDxDRgfDxSRYqGgU
-	wQ2BoMgddz3zzq+QAh3Zu+YFlcY1JHbThUxpq57KXAdWD2KLDFLPJiWXvmOBSrbYJ68ZRMKBST7
-	5/KmnHDBUnIzb+yAec7C/W4g4/lpFwpHrpM5vlDDPRgUQ+9xU2V1o8zW1ffrRN9ZvUTag7GzIsf
-	nR/zxHXl5jHc+yvdet0NysFZfkMUF9he7JVK9WfVB4ecebrZyhNBby1KqXI9LXCVZl6ZRqMKQeN
-	5lKiKeF3zLVnx6LWi0NxAfs05xZIC0d4rU5ZXAQeWALHvwQAXtBe+cuVnUiNB8LF/LXyorQPucI
-	SM8LN9a/C0Cm5CrWswgZRLXv4oqNEtIEo=
-X-Received: by 2002:a05:6000:2483:b0:43b:4aba:8f4f with SMTP id ffacd0b85a97d-43b88a8ead2mr4271739f8f.45.1774436512571;
-        Wed, 25 Mar 2026 04:01:52 -0700 (PDT)
-Received: from [192.168.1.187] ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b64703c27sm46296280f8f.18.2026.03.25.04.01.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 04:01:52 -0700 (PDT)
-Message-ID: <1920a90a223c1394004d269895df54eee720125a.camel@gmail.com>
-Subject: Re: [PATCH v3 2/2] iio: dac: ad5706r: Add support for AD5706R DAC
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>, Lars-Peter
- Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, Jonathan Cameron	 <jic23@kernel.org>, David
- Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=	
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring	
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
- <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Az4mbn2l"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bHP1FtgMnw72luWVoRtKt04nU7Fp7ettpOe6lcNxZOejS0/qYouhKA1TSmUIEQliYfM3tW+cJPG0uetnaD1tDZ5IHEKSMAQiDdQn4vOor9s4Hk/c3bqmkaO0EnOHvH8oeJlRb75zsQnvvP2Wzd5DoSIXBBbxT0lk1w7c6rvAjMKS8Mwv0TORrHthuhOy2ncndUKIr5y6EL+4QM1XlYFwJb5VSCTHcQvpv/VxunZkt0DxgR+WeL1AStZ45BHc3aOj9FF8gWCnGLMaJ2KoDOB4txMbf4x8751qp99nZD5xGkjUMRUXgKYvMEPZFDc6YJxCTDeE4dl46OovOcEKukIZJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PLYqVx2OujO/SH62Jn8GFi6bJNOQ7tsalujPJgFHOm0=;
+ b=mYBe0rZXFOk2hY0I0MpEeV2nePUrcvyCSzSh7LDCEeZ2NwBikUhZqcOgoTACRop5XdBkeE8OQ5HRYJmNBbA0LOIAjS9JtX2/khsK4qSd79Cf/CsGxifzpUfeWN4vl9zzi/Lv4wjlKtKywUeggSp8foXeDvH6GDQSkHTeUgEDEdsD8Rix4ppgcEStmbia38xm4ND2TNe6jIqJGsgff1qMje6nzMFXOGYvvP4rfqyYCXy1q1klX7ulm+YlNjNeTxcvHyNEp432cLK7aKLUW4ipfZuM7u9//MFLrO6scElxconBpjAOHQAr3TZ/eeeYXsxUEs+/DVYkrN4QNk3RVCgzQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PLYqVx2OujO/SH62Jn8GFi6bJNOQ7tsalujPJgFHOm0=;
+ b=Az4mbn2lfG5ULUg2v0y6wA0dHUgLvR1Kfy+6UZ0KG0IQZjKyANd/tIEx6NH5kmhsCpQCElMsodELRfACWhKQZtn1eiN5Wg4rSf6lmS/nNVXOg2F9E8/ij7B1LgpVzt19BwFzwlZ/GqDgJziUAwC901+0e/pZ0oJkFNxOdqCOh752yKASbKDllwf1IvCWFkGpBveqgKR8U8uDxZY+5GnitMKeFfWRq+LGMNFx0LH8kkLvbQ8kf+Tu8vKQfREDuI1aL+urlXtb1kKsRtq2Cs2ziFIdIvQXusSMVmaw2EIqF0hov4IQKuh6kGn1uxBR4ndNE0DBTN0MofAM1mEdZ58Mng==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from VI0PR04MB12114.eurprd04.prod.outlook.com
+ (2603:10a6:800:315::13) by PA1PR04MB10398.eurprd04.prod.outlook.com
+ (2603:10a6:102:44d::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
+ 2026 11:02:02 +0000
+Received: from VI0PR04MB12114.eurprd04.prod.outlook.com
+ ([fe80::feda:fd0e:147f:f994]) by VI0PR04MB12114.eurprd04.prod.outlook.com
+ ([fe80::feda:fd0e:147f:f994%5]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
+ 11:02:02 +0000
+From: Sherry Sun <sherry.sun@nxp.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	bhelgaas@google.com,
+	hongxing.zhu@nxp.com,
+	l.stach@pengutronix.de
+Cc: imx@lists.linux.dev,
+	linux-pci@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Date: Wed, 25 Mar 2026 11:02:38 +0000
-In-Reply-To: <20260318-dev_ad5706r-v3-2-5d078f41e988@analog.com>
-References: <20260318-dev_ad5706r-v3-0-5d078f41e988@analog.com>
-	 <20260318-dev_ad5706r-v3-2-5d078f41e988@analog.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Subject: [PATCH 5/8] arm64: dts: imx8mp-evk: Move power supply properties to Root Port node
+Date: Wed, 25 Mar 2026 19:00:55 +0800
+Message-Id: <20260325110058.2854742-6-sherry.sun@nxp.com>
+X-Mailer: git-send-email 2.37.1
+In-Reply-To: <20260325110058.2854742-1-sherry.sun@nxp.com>
+References: <20260325110058.2854742-1-sherry.sun@nxp.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MA1PR01CA0174.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:d::12) To VI0PR04MB12114.eurprd04.prod.outlook.com
+ (2603:10a6:800:315::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI0PR04MB12114:EE_|PA1PR04MB10398:EE_
+X-MS-Office365-Filtering-Correlation-Id: 313953cd-8684-4706-ab05-08de8a5df155
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|366016|1800799024|19092799006|376014|7416014|921020|38350700014|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	huR/duGCND+LUiPhMLEvrLQhbJMB43nbBg/D8WruuxIZalCn8q1/vt7CX+gIzcOCqYwVq4XrH0pn5PzFk9z8z3PuRnRYq0HJ1dgUnn9doicclu7rSp2+rw8aniiO+T8aG+/8fpoVTZoK5kU0JQBpGms+Fle0kM7JX/CkL94DkCP32iHyCpHsf4vZrPFU54zdZ/3e8R23LSnTB4RKXA6ix1GJ5bw/CILO8TV+Vy8HMXSrQtWKC2rkX1NvhYxzHWDWgE+QXxaevtvEjpWG8FkMyLRu/UFHs8sa89NzG1M41uVnsIoDDkBsgKEDFMvGMdr8CWW1VRt/KmK7WOZKBrVNDEVSsVY1wrVkyn83Ckw1XbF4u9TgAFDUwmRseKbUE1OrxQ06arwsZIjKjrzoDFjyfx7YO7FXKi1fJs105S4L8r7Yaq8rs3ScGOWoe/DBU6LPkF6B/fyrjhmtUorWghrEvcx70Rg8CNhsVJBclMK1BKVIzc/ptImF+lpujso+yEWCTPhUPWkPRv0H30cAkc88M8OPhjuvXu/TDP2kasmmmrshNDZXEvHUD9UvqZFqekqY2DUyi5dFS+qd1YNzb/E8M5cd5Pm6KEvcTHVDRx4W2kzvPbYpgJiDWcyYpGSXJTbc5ZoO2LMeZ5HB/wNcoB5sTdx76btOorAuhrk08P+mZYvau4cpJxpUuV8glxfRSsuMoxW8olYtjNR+m/fKYknPQ8dsLvGMCKTSj8xhDMbjwGB3EmiuP/foLBTcUruQT30mdwnSklZAbYlFB1NlRLe1vCvhJjFQJNBS7OGS0aeTCFeOV25O4jTvsjbbiKaOHQ4z
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR04MB12114.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(366016)(1800799024)(19092799006)(376014)(7416014)(921020)(38350700014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?TnM6zufOIor4DAaTos2UDrzjkue1vTea8nifLkOmkXx/QUKKvbJ2xY4q6I7B?=
+ =?us-ascii?Q?CLB2qZU3QrZRQ7RlckDTbKx7nGqSC48D+f4mR/5F1FAzZsv8RDe2c5UpKdqV?=
+ =?us-ascii?Q?Cfp3ENHVSbHdntRjLdh6XLOa9kLc9upxQ6QUCnhC6/40culHZrQ9N1tCAojm?=
+ =?us-ascii?Q?6Ubr99/hxAahTkPfri0dqkYiL+xGBSC22wHmvh2kvczFbVrrFCuk1xHdQFcu?=
+ =?us-ascii?Q?cycqlBCZPBwASU/R++8py6b3tsYuib84OsKpU8mi0GuNafCmXbZjJgOyzQj0?=
+ =?us-ascii?Q?j0oPPjpKtqgs9++TtUddo92TLjYV0FXxL5peB9lvkfWkGdkcGs14zthBnk+0?=
+ =?us-ascii?Q?gT4XXx/KcZWbhKOrzh5TIWVTe3ML866P9SM/HAqCFFdxpoQnSdjMLJGClXKE?=
+ =?us-ascii?Q?BvpF7N1u59DaAWNCDoqB3Dg5xgyJmom0yszhPyPpjullaXlSceRInzr7vJ6a?=
+ =?us-ascii?Q?b+4G0wHUTldKhILmVC7fGFpWbss1grfUB4e7FbU9+vTJtFnxkQDycygTv9H4?=
+ =?us-ascii?Q?sREsjOcNp60YvzDDeOsphL5odvN3mDuk8OvIz+3lNe4g+k1aEuGXNgeUxwDI?=
+ =?us-ascii?Q?vth1w/5OqIBX2S9j3u5d+nSN51hbq+J1GfaKJkiO3St2jnSZ/m296wq+tr4V?=
+ =?us-ascii?Q?QuTOz1nyi9cyC8EPEP4IuZIzDceJShAUIABndJkYqn7rF3MkyzqiOrip33Vj?=
+ =?us-ascii?Q?87bO/zFB19VGNJwmBnc0n9feMvM1ewtdjUIpECsL2WkRE5bcE8WqS6kDT4Oa?=
+ =?us-ascii?Q?L0zd7P18tQXPEQ96KsFhOZJ60Frge6LjYyWXBIsopY/q/F3iSErbs7yFBcvY?=
+ =?us-ascii?Q?jSNYMOd/UKZfTqR8gHqRz5+Ogxpzq7F6q4yQjUHHjCFN9KMQWQ4KvXvIE82F?=
+ =?us-ascii?Q?FeHzF89MHfxYAR2erHyfV6h9gbyNB31WhyuafJaU36/LoJF2Q2lKbLgWSUKg?=
+ =?us-ascii?Q?VkLAFBJpPFaC4Z+ScoC4eXxnKNnwVR6IhvLIfbEK4n7I4tQKZyrAGhKj4o4y?=
+ =?us-ascii?Q?juMwM7izRnEknrrpk6ek7cBwRCBmNFrBY2Mmcl4YpoFIfCW1Xs/slvGPzyst?=
+ =?us-ascii?Q?4knzkpyPDsvY2Sh0aL5Z1IdC6w7Cdc/nay/FWlPqXTU+abdBMpKvQV8LtWUO?=
+ =?us-ascii?Q?oHoR0Es4Z/gf6JiuaLzWe5Im4vtNOuQd939fBJF3tdVtarOo0YTGK9vrRzN8?=
+ =?us-ascii?Q?y1A9cH3EAQzdWhN/clhRvVpkrf/CAWcsBvDlQjGDM6VyxseiDLQT+AtBMipu?=
+ =?us-ascii?Q?Ev/IdvnC6LgkwlQJR7lsqJw3WlCXHsIQQaV8Ki7bODEBoVB0WQoVmSp0NxwH?=
+ =?us-ascii?Q?8Fy06gaPnVoX6ubuibczjjwirIo3WRJBoqTUQMyRkJQ/7t/L80f3HejVA27n?=
+ =?us-ascii?Q?Jd+zolITnHvGT+8Ja5DOnilVVOZBFxoKyXFBg5X9PH1ze709RsrUAF/rID7B?=
+ =?us-ascii?Q?fndvGrilMWz9u7V0PEiZ2uYMYk6YworXrR2lN93YeN+L4kPTT56aDfQxrU+U?=
+ =?us-ascii?Q?MvPC2ZV9GOaUr0ZaYweXMvk4VuxrZWQcK5mnjgTSZGUWgpWP+gV54WTaIClE?=
+ =?us-ascii?Q?Pm5S6IxHwCQMvr+2aasTNEvmGVO67/vLI9CFzs0+gBMhqWdwSYh9TS7/tHp0?=
+ =?us-ascii?Q?FWanos/yqRHwt2W7cjeCGtek82OdOLnL5FxtS1k6sgIJnM12r6SSNoUVZ2Ze?=
+ =?us-ascii?Q?ABrXhSy+JfHHzWjYyRl99x6VElWaysTloxYopd1yK1z3eysu0mgC2tdDFFAP?=
+ =?us-ascii?Q?QzEMv8wZDA=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 313953cd-8684-4706-ab05-08de8a5df155
+X-MS-Exchange-CrossTenant-AuthSource: VI0PR04MB12114.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 11:02:01.9440
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DJPy4Fg366I2PX10eIhWS/Y/HCH/klxztZDaDX89jUhlQ8cceH1FMDC8+7HsrE9JFyKl38VS1SH03uo6XhlBtA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10398
 
-On Wed, 2026-03-18 at 13:13 +0800, Alexis Czezar Torreno wrote:
-> Add support for the Analog Devices AD5706R, a 4-channel 16-bit
-> current output digital-to-analog converter with SPI interface.
->=20
-> Features:
-> =C2=A0 - 4 independent DAC channels
-> =C2=A0 - Hardware and software LDAC trigger
-> =C2=A0 - Configurable output range
-> =C2=A0 - PWM-based LDAC control
-> =C2=A0 - Dither and toggle modes
-> =C2=A0 - Dynamically configurable SPI speed
->=20
-> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
->=20
-> ---
+Move the vpcie-supply and vpcie3v3aux-supply properties from the PCIe
+controller node to the Root Port child node to support the new PCI
+pwrctrl framework.
 
-Not sure if everyone is aware of this but AI review in:
+Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
+---
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-https://sashiko.dev/#/patchset/20260318-dev_ad5706r-v3-0-5d078f41e988%40ana=
-log.com
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 2c882e09ed4d..e2dad256cd4d 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -771,8 +771,6 @@ &pcie0 {
+ 	pinctrl-0 = <&pinctrl_pcie0>;
+ 	/* This property is deprecated, use reset-gpios from the Root Port node. */
+ 	reset-gpio = <&gpio2 7 GPIO_ACTIVE_LOW>;
+-	vpcie-supply = <&reg_pcie0>;
+-	vpcie3v3aux-supply = <&reg_pcie0>;
+ 	supports-clkreq;
+ 	status = "disabled";
+ };
+@@ -785,6 +783,8 @@ &pcie0_ep {
+ 
+ &pcie0_port0 {
+ 	reset-gpios = <&gpio2 7 GPIO_ACTIVE_LOW>;
++	vpcie-supply = <&reg_pcie0>;
++	vpcie3v3aux-supply = <&reg_pcie0>;
+ };
+ 
+ &pwm1 {
+-- 
+2.37.1
 
-The DMA comment is an interesting one. Likely it needs improvement in the r=
-eview-prompt repo given
-it's one of those case we know what we're doing (at least we think we know =
-:)).=C2=A0Still has a point
-in that IIO_DMA_MINALIGN should be used.
-
-At some point we need to add some IIO specific bits :)
-
-- Nuno S=C3=A1
-
-> Changes since v1:
-> =C2=A0 - Removed PWM, GPIO, clock generator, debugfs, regmap, IIO_BUFFER
-> =C2=A0 - Removed all custom ext_info sysfs attributes
-> =C2=A0 - Simplified to basic raw read/write and read-only scale
-> =C2=A0 - SPI read/write can handle multibyte registers
-> ---
-> ---
-> =C2=A0MAINTAINERS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/iio/dac/Kconfig=C2=A0=C2=A0 |=C2=A0 10 +++
-> =C2=A0drivers/iio/dac/Makefile=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/iio/dac/ad5706r.c | 222 +++++++++++++++++++++++++++++++++++=
-+++++++++++
-> =C2=A04 files changed, 234 insertions(+)
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 17a3d2d45fccb9cd3c93fd35666fb85d17d53cde..3d7bd98b4d1b55836e40687a9=
-a3ac9f4935a8acb 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -1502,6 +1502,7 @@ L:	linux-iio@vger.kernel.org
-> =C2=A0S:	Supported
-> =C2=A0W:	https://ez.analog.com/linux-software-drivers
-> =C2=A0F:	Documentation/devicetree/bindings/iio/dac/adi,ad5706r.yaml
-> +F:	drivers/iio/dac/ad5706r.c
-> =C2=A0
-> =C2=A0ANALOG DEVICES INC AD7091R DRIVER
-> =C2=A0M:	Marcelo Schmitt <marcelo.schmitt@analog.com>
-> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-> index db9f5c711b3df90641f017652fbbef594cc1627d..8ccbdf6dfbca8640a47bf05b4=
-afc6b4bf90a7e26 100644
-> --- a/drivers/iio/dac/Kconfig
-> +++ b/drivers/iio/dac/Kconfig
-> @@ -178,6 +178,16 @@ config AD5624R_SPI
-> =C2=A0	=C2=A0 Say yes here to build support for Analog Devices AD5624R, A=
-D5644R and
-> =C2=A0	=C2=A0 AD5664R converters (DAC). This driver uses the common SPI i=
-nterface.
-> =C2=A0
-> +config AD5706R
-> +	tristate "Analog Devices AD5706R DAC driver"
-> +	depends on SPI
-> +	help
-> +	=C2=A0 Say yes here to build support for Analog Devices AD5706R 4-chann=
-el,
-> +	=C2=A0 16-bit current output DAC.
-> +
-> +	=C2=A0 To compile this driver as a module, choose M here: the
-> +	=C2=A0 module will be called ad5706r.
-> +
-> =C2=A0config AD9739A
-> =C2=A0	tristate "Analog Devices AD9739A RF DAC spi driver"
-> =C2=A0	depends on SPI
-> diff --git a/drivers/iio/dac/Makefile b/drivers/iio/dac/Makefile
-> index 2a80bbf4e80ad557da79ed916027cedff286984b..0034317984985035f7987a744=
-899924bfd4612e3 100644
-> --- a/drivers/iio/dac/Makefile
-> +++ b/drivers/iio/dac/Makefile
-> @@ -21,6 +21,7 @@ obj-$(CONFIG_AD5449) +=3D ad5449.o
-> =C2=A0obj-$(CONFIG_AD5592R_BASE) +=3D ad5592r-base.o
-> =C2=A0obj-$(CONFIG_AD5592R) +=3D ad5592r.o
-> =C2=A0obj-$(CONFIG_AD5593R) +=3D ad5593r.o
-> +obj-$(CONFIG_AD5706R) +=3D ad5706r.o
-> =C2=A0obj-$(CONFIG_AD5755) +=3D ad5755.o
-> =C2=A0obj-$(CONFIG_AD5758) +=3D ad5758.o
-> =C2=A0obj-$(CONFIG_AD5761) +=3D ad5761.o
-> diff --git a/drivers/iio/dac/ad5706r.c b/drivers/iio/dac/ad5706r.c
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..840ee7b6db2e05ea35b27ff77=
-6f0c5c8a961d9c1
-> --- /dev/null
-> +++ b/drivers/iio/dac/ad5706r.c
-> @@ -0,0 +1,222 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * AD5706R 16-bit Current Output Digital to Analog Converter
-> + *
-> + * Copyright 2026 Analog Devices Inc.
-> + */
-> +
-> +#include <linux/array_size.h>
-> +#include <linux/bits.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/spi/spi.h>
-> +#include <linux/unaligned.h>
-> +
-> +/* SPI frame layout */
-> +#define AD5706R_RD_MASK			BIT(15)
-> +#define AD5706R_ADDR_MASK		GENMASK(11, 0)
-> +
-> +/* Registers */
-> +#define AD5706R_REG_DAC_INPUT_A_CH(x)		(0x60 + ((x) * 2))
-> +#define AD5706R_REG_DAC_DATA_READBACK_CH(x)	(0x68 + ((x) * 2))
-> +
-> +#define AD5706R_DAC_RESOLUTION		16
-> +#define AD5706R_DAC_MAX_CODE		BIT(16)
-> +#define AD5706R_MULTIBYTE_REG_START	0x14
-> +#define AD5706R_MULTIBYTE_REG_END	0x71
-> +#define AD5706R_SINGLE_BYTE_LEN		1
-> +#define AD5706R_DOUBLE_BYTE_LEN		2
-> +
-> +struct ad5706r_state {
-> +	struct spi_device *spi;
-> +	struct mutex lock; /* Protects SPI transfers */
-> +
-> +	u8 tx_buf[4] __aligned(ARCH_DMA_MINALIGN);
-> +	u8 rx_buf[2];
-> +};
-> +
-> +static int ad5706r_reg_len(unsigned int reg)
-> +{
-> +	if (reg >=3D AD5706R_MULTIBYTE_REG_START && reg <=3D AD5706R_MULTIBYTE_=
-REG_END)
-> +		return AD5706R_DOUBLE_BYTE_LEN;
-> +
-> +	return AD5706R_SINGLE_BYTE_LEN;
-> +}
-> +
-> +static int ad5706r_spi_write(struct ad5706r_state *st, u16 reg, u16 val)
-> +{
-> +	unsigned int num_bytes =3D ad5706r_reg_len(reg);
-> +	struct spi_transfer xfer =3D {
-> +		.tx_buf =3D st->tx_buf,
-> +		.len =3D num_bytes + 2,
-> +	};
-> +
-> +	put_unaligned_be16(reg, &st->tx_buf[0]);
-> +
-> +	if (num_bytes =3D=3D 1)
-> +		st->tx_buf[2] =3D val;
-> +	else if (num_bytes =3D=3D 2)
-> +		put_unaligned_be16(val, &st->tx_buf[2]);
-> +	else
-> +		return -EINVAL;
-> +
-> +	return spi_sync_transfer(st->spi, &xfer, 1);
-> +}
-> +
-> +static int ad5706r_spi_read(struct ad5706r_state *st, u16 reg, u16 *val)
-> +{
-> +	unsigned int num_bytes =3D ad5706r_reg_len(reg);
-> +	u16 cmd;
-> +	int ret;
-> +
-> +	struct spi_transfer xfer[] =3D {
-> +		{
-> +			.tx_buf =3D st->tx_buf,
-> +			.len =3D 2,
-> +		},
-> +		{
-> +			.rx_buf =3D st->rx_buf,
-> +			.len =3D num_bytes,
-> +		},
-> +	};
-> +
-> +	cmd =3D AD5706R_RD_MASK | (reg & AD5706R_ADDR_MASK);
-> +	put_unaligned_be16(cmd, &st->tx_buf[0]);
-> +
-> +	ret =3D spi_sync_transfer(st->spi, xfer, ARRAY_SIZE(xfer));
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (num_bytes =3D=3D 1)
-> +		*val =3D st->rx_buf[0];
-> +	else if (num_bytes =3D=3D 2)
-> +		*val =3D get_unaligned_be16(st->rx_buf);
-> +	else
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +
-> +static int ad5706r_read_raw(struct iio_dev *indio_dev,
-> +			=C2=A0=C2=A0=C2=A0 struct iio_chan_spec const *chan, int *val,
-> +			=C2=A0=C2=A0=C2=A0 int *val2, long mask)
-> +{
-> +	struct ad5706r_state *st =3D iio_priv(indio_dev);
-> +	u16 reg_val;
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		scoped_guard(mutex, &st->lock) {
-> +			ret =3D ad5706r_spi_read(st, AD5706R_REG_DAC_DATA_READBACK_CH(chan-
-> >channel),
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &reg_val);
-> +
-> +			if (ret)
-> +				return ret;
-> +
-> +			*val =3D reg_val;
-> +		}
-> +		return IIO_VAL_INT;
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*val =3D 50;
-> +		*val2 =3D AD5706R_DAC_RESOLUTION;
-> +		return IIO_VAL_FRACTIONAL_LOG2;
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-> +
-> +static int ad5706r_write_raw(struct iio_dev *indio_dev,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0 struct iio_chan_spec const *chan, int val,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0 int val2, long mask)
-> +{
-> +	struct ad5706r_state *st =3D iio_priv(indio_dev);
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		if (val < 0 || val >=3D AD5706R_DAC_MAX_CODE)
-> +			return -EINVAL;
-> +
-> +		guard(mutex)(&st->lock);
-> +		return ad5706r_spi_write(st,
-> +					 AD5706R_REG_DAC_INPUT_A_CH(chan->channel),
-> +					 val);
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static const struct iio_info ad5706r_info =3D {
-> +	.read_raw =3D ad5706r_read_raw,
-> +	.write_raw =3D ad5706r_write_raw,
-> +};
-> +
-> +#define AD5706R_CHAN(_channel) {				\
-> +	.type =3D IIO_CURRENT,					\
-> +	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |		\
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 BIT(IIO_CHAN_INFO_SCALE),	\
-> +	.output =3D 1,						\
-> +	.indexed =3D 1,						\
-> +	.channel =3D _channel,					\
-> +}
-> +
-> +static const struct iio_chan_spec ad5706r_channels[] =3D {
-> +	AD5706R_CHAN(0),
-> +	AD5706R_CHAN(1),
-> +	AD5706R_CHAN(2),
-> +	AD5706R_CHAN(3),
-> +};
-> +
-> +static int ad5706r_probe(struct spi_device *spi)
-> +{
-> +	struct iio_dev *indio_dev;
-> +	struct ad5706r_state *st;
-> +	int ret;
-> +
-> +	indio_dev =3D devm_iio_device_alloc(&spi->dev, sizeof(*st));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	st =3D iio_priv(indio_dev);
-> +	st->spi =3D spi;
-> +
-> +	ret =3D devm_mutex_init(&spi->dev, &st->lock);
-> +	if (ret)
-> +		return ret;
-> +
-> +	indio_dev->name =3D "ad5706r";
-> +	indio_dev->info =3D &ad5706r_info;
-> +	indio_dev->modes =3D INDIO_DIRECT_MODE;
-> +	indio_dev->channels =3D ad5706r_channels;
-> +	indio_dev->num_channels =3D ARRAY_SIZE(ad5706r_channels);
-> +
-> +	return devm_iio_device_register(&spi->dev, indio_dev);
-> +}
-> +
-> +static const struct of_device_id ad5706r_of_match[] =3D {
-> +	{ .compatible =3D "adi,ad5706r" },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, ad5706r_of_match);
-> +
-> +static const struct spi_device_id ad5706r_id[] =3D {
-> +	{ "ad5706r" },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(spi, ad5706r_id);
-> +
-> +static struct spi_driver ad5706r_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "ad5706r",
-> +		.of_match_table =3D ad5706r_of_match,
-> +	},
-> +	.probe =3D ad5706r_probe,
-> +	.id_table =3D ad5706r_id,
-> +};
-> +module_spi_driver(ad5706r_driver);
-> +
-> +MODULE_AUTHOR("Alexis Czezar Torreno <alexisczezar.torreno@analog.com>")=
-;
-> +MODULE_DESCRIPTION("AD5706R 16-bit Current Output DAC driver");
-> +MODULE_LICENSE("GPL");
