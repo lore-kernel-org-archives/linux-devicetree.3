@@ -1,310 +1,174 @@
-Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013000.outbound.protection.outlook.com [52.101.83.0])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B8F3E4C86;
-	Wed, 25 Mar 2026 14:47:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774450047; cv=none; b=usREeBPW15bBM8nD4+VnH4QLe4P9HEKX7Wu3M6L55N+uR4Rln5XsVd8Oq25HX7Nhci8bUhw6uo5p2Th6DUAGdvTY4IX05OA1qDYiguTLJhyIvMUnW+JNMDuEfW4kX/ASeShYtPuOO1Txvj4H8htpbRjvsJO1JqV9IFIkEVRGtwg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774450047; c=relaxed/simple;
-	bh=/C6cB0+Xx+NDl68yR+mJudD4MBpP7mbYmW9+uHqkPW8=;
-	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZFEUYOuYAPX2a+3l5TirGUyIdrCs0B4n17z6V0Oty9QNdGQ3pthUtMl5CtxDCtTqcQ5TOWZpgE7UMO+6+PakqjKJyiFP7qEY9SO4oy9wYIiEpu+ZPM7ruTcH2bBqsMXYdJtXdAIw506QTkyzzfrNw2is/2tGiu3e/PM/rosJfNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; arc=none smtp.client-ip=185.176.79.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Received: from mail.maildlp.com (unknown [172.18.224.150])
-	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4fgqVY3yYLzHnGj3;
-	Wed, 25 Mar 2026 22:46:45 +0800 (CST)
-Received: from dubpeml500005.china.huawei.com (unknown [7.214.145.207])
-	by mail.maildlp.com (Postfix) with ESMTPS id 123EE40571;
-	Wed, 25 Mar 2026 22:47:21 +0800 (CST)
-Received: from localhost (10.203.177.15) by dubpeml500005.china.huawei.com
- (7.214.145.207) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 25 Mar
- 2026 14:47:20 +0000
-Date: Wed, 25 Mar 2026 14:47:19 +0000
-From: Jonathan Cameron <jonathan.cameron@huawei.com>
-To: Siratul Islam <email@sirat.me>
-CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<jic23@kernel.org>, <dlechner@baylibre.com>, <nuno.sa@analog.com>,
-	<andy@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>, Andy Shevchenko
-	<andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v7 2/2] iio: proximity: add driver for ST VL53L1X ToF
- sensor
-Message-ID: <20260325144719.00005a92@huawei.com>
-In-Reply-To: <20260325063254.18062-3-email@sirat.me>
-References: <20260325063254.18062-1-email@sirat.me>
-	<20260325063254.18062-3-email@sirat.me>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B853FE667;
+	Wed, 25 Mar 2026 14:51:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.0
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774450278; cv=fail; b=XlCj/FHIi7nJJQeJKKdgB2qLAQEKDmkNTRVXHWz0HaoF+hGAeqJPk1kdj8BdbJZM7MekInpLIfERK023KvCuagDtRt5tI/rISlURgioXtIyha06Z1bGAC4O5crPt142eJpkrgvWyA9uCVuYE/48HDfK+2gJvmdYJx6iS44hT9a4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774450278; c=relaxed/simple;
+	bh=uxoygUHxo/0pE8phl8GWqJSsW/XWtd1VreSAFYEwZXM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=WMNNmu+qkj1y+VdVdR3N5EFvmtuv76F/8ZXYuIue84TeEVFMOAonq/ie8cGIQx1VRSwwO0P1JApQuXx304zlhIDLHTQbRCRN7IggMqU9Mp5MjilAb3yHQmmgEOwRmP7OOxaEocs1Y/fuiI37v5ph6I18Ug9pZFq1V4/pJFTmXfk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=AKpM0jRm; arc=fail smtp.client-ip=52.101.83.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="AKpM0jRm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=N30r/hLWZiegiOJojiWmO2BgqsXXp3auf6xpsJioylWnUZjZc/UkrBlaC9SBP+Q0p6yVqE+MUjYgYfss5CBtpKGM0NGKmArzIIeewPwirEqVTVuKJYydFDjDRl/BDgBM3d4Pfz9SCEIjwia7wVsocCymI8N/rFc0algtJkP4r63gpL9Z3FB34IBs5MrE6qda/YiHJAYrK7C8fC2KZM80JFB7PIAX18pB5G9mjDG4MZLRzxMj4nniPOxMEwfRiH+7sAwSZ1DoDQLnZeIwrNAMffpvKSAtDksjH5pgC4SpuLeml3q1AmNJSiN0vmshLMBpxE9dVpptJuw88fhJJg3hPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uxoygUHxo/0pE8phl8GWqJSsW/XWtd1VreSAFYEwZXM=;
+ b=M1LRf+pVPL/8iRL6ieoSDqRnVux6VEbuimZgBTw5D9MSbAJkDm66m6l9so3K9VacPpw5lkRWon+6/GYgIgxJDLFnt/SnvqaAGMcWORQFoPiPERWrX05xO0ZpbYQGEwf9czPlj5ilchYj8xtiQ1yEWW8jNTbCSqCcINF2gvukGWYOHkZl+x3bba2VDE1Rf2AgmtmdyIEPuqDbxUJnX3p7F8zG27KMYe3KFUDELxDEJko6PtIAG5zKgZmc+n4bKtRbVlosNwjKxwjc4zKO92Zng5JGXrfJuxhqfyLo7VJupVkjjDnjjW10KHEgcsBkbC/hZPDbsTG3S31yjgJ50BMhVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uxoygUHxo/0pE8phl8GWqJSsW/XWtd1VreSAFYEwZXM=;
+ b=AKpM0jRmrpZoWhppw6NKCJZfqJ8VV3uZksquEjbMRk7c+V5Zu+S+u5dqhYpWfpe0sZMpQ80Oz2dbx05UJSCNAP/NUFBRbVF64MpahQv8F/W8EpVg9MgwpKIXGUYyQs+XCqGopp77SN6wPVN7ZMob/9AxXYZwuK+Ga8vKpqoyAieBzvuaNR0npq9SQNeBEsMV9iJH2Xa4r9rtCDXfzNAIxHzr1mg97VtcxZbZc9FRC/yPyJ7JCEc4ChsPaFVZSdffqj+dN/+8407BJL0BD7TpGf8PjWHC5khbePwy+PuTFoGof/MSlLTjnPAlIG2gNnPz3n7Hj1gd/4xDcpYognANOA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by PAXPR04MB9349.eurprd04.prod.outlook.com (2603:10a6:102:2b8::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 25 Mar
+ 2026 14:50:56 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9723.030; Wed, 25 Mar 2026
+ 14:51:06 +0000
+Date: Wed, 25 Mar 2026 10:50:57 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Stefano Radaelli <stefano.radaelli21@gmail.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v7 0/2] Add support for Variscite DART-MX95 and Sonata
+ board
+Message-ID: <acP2UX6B5js_ozWm@lizhi-Precision-Tower-5810>
+References: <20260313174707.26902-1-stefano.r@variscite.com>
+ <abRdwy_AS046QVRI@lizhi-Precision-Tower-5810>
+ <acLqjeqmR4eVDoKw@lizhi-Precision-Tower-5810>
+ <20260325122104.GA19112@francesco-nb>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260325122104.GA19112@francesco-nb>
+X-ClientProxiedBy: SN7P220CA0005.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:806:123::10) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: lhrpeml500010.china.huawei.com (7.191.174.240) To
- dubpeml500005.china.huawei.com (7.214.145.207)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|PAXPR04MB9349:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0a64a29-407a-4b53-aea6-08de8a7df149
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|1800799024|19092799006|7416014|52116014|376014|366016|56012099003|18002099003|22082099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+ LvuajkrlKCdnjEnFCOsolADp6/FqpA5Q2j57SXFBlARfUjy1B6u2oa8KS3uwo6TyLMsW0+b7ah2cjyiqnGTiFwJygdI8YFPIKJkO+PcaZF5SJgcZDXqrV1KCQvhZkcHDCNa3IOhcG80HiO+FFAcxSeH7FN4/9AtAZmCorVDr6iKjbfK2wKOAmRzW4IoYoN0gQpBeke5qXADAq+JGTdbA/QcV0Qyhpc+84/45HvUfkyF1GkybaCSP/FgmTx4rqwtWrJiWiOnHw2FTTkCB/6Xe3LZeYmDNuCobNEnQuXzIvzJN3bZtdFfQP5ziEt+9qBNwMp+d55tK3bnb3UXrV9sDZcrzMQYc4kyzE9yPZ/kLGtTvsv/ukwwPyFsQx5zXj0d8FPSU62OcNG9hxHGAipUCgPc7Q7lEX6BGbocm+hM0CypFk/PAvNLCORgWWxF8uFBpUiczOXHGkKuJ+BrTKxXItx5UrTvfYJBy1HLShq0aT3dPIjAb6gCzqtGGKz5h5oY2gRkprK6fm6n1WDTPNXRPOQ1y5CUpS5df/eCHIVGR2sgXiva5WiAsR5eg5+WiCnwwdrb0UFKT0argfv70J1xpyn/skzcLVjDgVQEmpofXupCpCLHolZSYqXb87MRijo3BnjDofnRt8OipdFLQm1KJLP1LP1Mi/kq79adF5z0jeytxxBee9j34+YAGmJSCr8ekss6lgtgBbRJ8K/hLxLhCuyVOVXzGVyRrYn2g7/ScYGEd2P/jXSGzdFQk7uHnDhNPH5pz3r4m0ATBTRCwAjyRr6tXQvq1CKOqNFtB3asjqqw=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(7416014)(52116014)(376014)(366016)(56012099003)(18002099003)(22082099003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?nVp0ydja8lyeIFljj05hLK8TN1U30CffH1D9GWniSiLrFfpxr1+VGcjx/49U?=
+ =?us-ascii?Q?tnJQLJ+qlydur1VpdtTSe3lAP1jNB2psbP5/K0CvYXtwq4w+UEYOmKCTKxWT?=
+ =?us-ascii?Q?+R3LEUVOSaw4arf6MxDCf7e/+AWkesiGgCOKTDzQY4pldAU6aeUtdgcsDBo7?=
+ =?us-ascii?Q?bMA8I+s1ykr2KHKs+CKpmJfPug9bID0SJlPfYyEcKhB0POiYwkDq1BHp/GWl?=
+ =?us-ascii?Q?dd0WNgHQAqv3f4K/UevpCddtJ9mkljHiQWsXkpRP30SHnM4kTaYBGDhojLiK?=
+ =?us-ascii?Q?BS0ExXGUO6L+RGwD/o6AmnO4VUo/nRMzRZub1pqNw9wBrbISW6ZLw+ySe8z7?=
+ =?us-ascii?Q?9AA+exOJHc5F28m4CMGOesGvGxmhAA6ufz6R7Yjihh0y8Nv0aszyiV65lo2r?=
+ =?us-ascii?Q?yMDjbMWrxwUgMvOqKXQxoIxlgl464HJH65Pvls9ZCdR7WNvicYdYjcdxW19Q?=
+ =?us-ascii?Q?vDP7Jpycc6riXo0irlhclqwKNdkFwwFLhw3g41VhkUdLQtLWHQwiDVgqdIsq?=
+ =?us-ascii?Q?VKN6nCtzpb4qv4h9t/MCi+sGgBNTwpwiJgh3N0GPisZ+8EWCaDTHbM4zod93?=
+ =?us-ascii?Q?GtKPCHlaxlW4w1la2j2Z+C7WQlGH4teMVIaCTrTn3TQX1CZxtVEvLb44LEL5?=
+ =?us-ascii?Q?iyi21rK4as7ZQT/dmD10LQcwiE/pyZmrprlBtbATyoUcUfmGHzuPQQsTU8ow?=
+ =?us-ascii?Q?YR30Z5bjpc1BQRpUbcVIs00vqvU+CJ2LmQbgxBgSa2pRUAhsar+n0Kmu6FNB?=
+ =?us-ascii?Q?mU/Z3SXOwAyirOqoplMD1UpEIAEQ4hlp8k2lU0IjSksS2zUMeBwKwsxCT0Ik?=
+ =?us-ascii?Q?lCbkc/OlsZFAgHJx8dk7zVMBrACw0XfT7cU7Ve90ATyTXsoXvG76Lm6uDv1n?=
+ =?us-ascii?Q?BGhQ4p8ARePQJBZGKP0mlTfUDNPYqj6R63viHLPUl7+tyhoqgXMGVpuaGmHq?=
+ =?us-ascii?Q?X7qBKgBC7YqZsuqg1H3tSqSA6SHvRc8yO+AqFkMqGPv8lAnIqiMUiFltmwNh?=
+ =?us-ascii?Q?2D9cTOoiNt1zsy48w2/Tc33Hx3yRN8OECC+B8qrVAOnVCjSspODzbsUK2m1z?=
+ =?us-ascii?Q?qdEfAQK81o+xgyVWYk7i6vngou97N4Pg4gZuoDylYgeJG9Vde/lpuTJrni0b?=
+ =?us-ascii?Q?vcitZuXfCeKDBW+vv4NDQ7Th2gahbb0mJlKeg5Uc4nN5lrB38F7PO50HrgMa?=
+ =?us-ascii?Q?bczsU92J9X/l+Oysnkmsx3GqBsP1dfEakVAc2nFvz8KQl4QHuA33KGD7gHJL?=
+ =?us-ascii?Q?U4EXcFOaVBiSKRlp3W07+N2G0MsE2zeXT6IWM9C7irTBlDyjk3BGRlwJ5/nv?=
+ =?us-ascii?Q?PKCXQF60/J2cGDMftBqvRjAGrNIjmi+EDYks5xUis15ypOqWspqFuUfn8Rbs?=
+ =?us-ascii?Q?ZhlgLAGRdYpGuK4Gy5MrPENgFLXlQYhLf1/dWpU2l+eyUTZa/3+k82LA3xm/?=
+ =?us-ascii?Q?6N4JV2vPNe0BekwU5KZk4zH3rODb3UGE2EGj6PO2v4a3tW9bdXjTQjULd4Ep?=
+ =?us-ascii?Q?WQ7xJ0ZoDirgajfFzPtdRr5rT1TOhUzb8lcFR1Gx6V/V6sIC8+T1ZKSv3vtK?=
+ =?us-ascii?Q?w8UXwtdj2uwcLUf/j+JBGIWSAV6YlrR037sTllLgr1KpqDyScS+482lgFyQ3?=
+ =?us-ascii?Q?fecre5MccVwH6S4vSlRn1vVQfcjPCnD0k5kfqox4xjgfxV8w5ImSO7I0TxwK?=
+ =?us-ascii?Q?olTVzlhaF4dGXz8iQ9/WFSlQNqjlDkojX5yXUHmM4AbMhewU?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0a64a29-407a-4b53-aea6-08de8a7df149
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 14:51:06.1908
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1oWzG7ZWILlgAm+KgwUOzasKOt5YGnMFcwPcpOa0g576yUGaLKptO6pibgDxGslJcLoueR71DYKrFyMPyc6FZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9349
 
-On Wed, 25 Mar 2026 12:32:23 +0600
-Siratul Islam <email@sirat.me> wrote:
+On Wed, Mar 25, 2026 at 01:21:04PM +0100, Francesco Dolcini wrote:
+> On Tue, Mar 24, 2026 at 03:48:29PM -0400, Frank Li wrote:
+> > On Fri, Mar 13, 2026 at 02:56:03PM -0400, Frank Li wrote:
+> > > On Fri, Mar 13, 2026 at 06:47:01PM +0100, Stefano Radaelli wrote:
+> > > > This patch series adds support for the Variscite DART-MX95 system on
+> > > > module and the Sonata carrier board.
+> > > >
+> > > > The series includes:
+> > > > - Device tree bindings documentation for both SOM and carrier board
+> > > > - SOM device tree with on-module peripherals
+> > > > - Sonata carrier board device tree with board-specific features
+> > > >
+> > > > The implementation follows the standard SOM + carrier board pattern
+> > > > where the SOM dtsi contains only peripherals mounted on the module,
+> > > > while carrier-specific interfaces are enabled in the board dts.
+> > > >
+> > > > v7:
+> > > > - Order nodes in symphony dts
+> > >
+> > > Can you run https://github.com/lznuaa/dt-format for new file to easy
+> > > track and check by script later.
+> >
+> > I applied with below change
+> > - update copywrite to 2026
+>
+> How do you know that the correct copyright year is 2026?
+> The copyright years does not change to today just because it is the year
+> it was submitted.
 
-> Add support for the STMicroelectronics VL53L1X Time-of-Flight
-> ranging sensor with I2C interface.
-> 
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Signed-off-by: Siratul Islam <email@sirat.me>
+At least it should include 2026 because it is new files in kernel tree.
 
-Hi Siratul,
+>
+> I think that you should refrain yourself for doing these kind of changes
+> to the code when you apply patches.
 
-I used this as a bit of an experiment as you'd +CC lkml and took a close
-read of the feedback google's AI bot produced.
-https://sashiko.dev/#/patchset/20260325063254.18062-1-email%40sirat.me
+If original owner have concern, I can update it in my tree.
 
-Be very careful when considering the output. There are some things
-in here that are not true, or we don't generally defend against (like the
-interrupt type related comments).
-
-The iio_trigger_get() is (I think) a more general problem so ignore that
-for your driver - will just be a tiny memory leak and stop the
-module being easily unloaded.  I'll take a look at that one on a more general
-basis. 
-
-The regmap one is where these bots excel in that they sometimes go deeper
-in analysis than a typical person focused on one driver.
-
-The stuff on using standard devm_ wasn't from the bot and I think will make
-things rather simpler.
-
-Thanks,
-
-Jonathan
-
-
-> ---
->  MAINTAINERS                         |   1 +
->  drivers/iio/proximity/Kconfig       |  15 +
->  drivers/iio/proximity/Makefile      |   1 +
->  drivers/iio/proximity/vl53l1x-i2c.c | 795 ++++++++++++++++++++++++++++
->  4 files changed, 812 insertions(+)
->  create mode 100644 drivers/iio/proximity/vl53l1x-i2c.c
-> 
-
-> diff --git a/drivers/iio/proximity/vl53l1x-i2c.c b/drivers/iio/proximity/vl53l1x-i2c.c
-> new file mode 100644
-> index 000000000000..085bff04f5d9
-> --- /dev/null
-> +++ b/drivers/iio/proximity/vl53l1x-i2c.c
-
-> +static void vl53l1x_power_off(void *priv)
-
-See below. I'm not seeing a reason we need to handle this
-in a driver specific way.
-
-> +{
-> +	struct vl53l1x_data *data = priv;
-> +
-> +	reset_control_assert(data->xshut_reset);
-> +	regulator_disable(data->vdd_supply);
-> +}
-> +
-> +static int vl53l1x_power_on(struct vl53l1x_data *data)
-> +{
-> +	int ret;
-> +
-> +	ret = regulator_enable(data->vdd_supply);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = reset_control_deassert(data->xshut_reset);
-> +	if (ret) {
-> +		regulator_disable(data->vdd_supply);
-> +		return ret;
-> +	}
-> +	/*
-> +	 * 1.2 ms max boot duration.
-> +	 * Datasheet Section 3.6 "Power up and boot sequence".
-> +	 */
-> +	fsleep(1200);
-> +
-> +	return 0;
-> +}
-> +
-
-> +
-> +static int vl53l1x_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct vl53l1x_data *data;
-> +	struct iio_dev *indio_dev;
-> +	int ret;
-> +
-> +	if (!i2c_check_functionality(client->adapter,
-> +				     I2C_FUNC_SMBUS_READ_I2C_BLOCK |
-> +				     I2C_FUNC_SMBUS_BYTE_DATA))
-Sashiko had an interesting comment on this...
-https://sashiko.dev/#/patchset/20260325063254.18062-1-email%40sirat.me
-(note in general be careful with this tools feedback, it has a significant
-false positive rate!)
-
-"Does this check needlessly reject pure I2C adapters?
-The driver configures regmap with reg_bits = 16, which forces regmap to use
-raw I2C transfers requiring I2C_FUNC_I2C. Checking for SMBUS_READ_I2C_BLOCK
-might prevent the driver from loading on pure I2C adapters that can perfectly
-support the device via regmap."
-
-By by reading the comment is actually wrong, however... It did made me look.
-With regbits == 16 & valbits == 8
-The regmap code checks for I2C_FUNC_SMBUS_I2C_BLOCK
-(and if not present fails).
-
-So the I2C_FUNC_SMBUS_BYTE_DATA seems unused and
-a broader check on both read and write versions of I2C_BLOCK seems
-appropriate.
-
-However, not a lot of point in checking it at all given regmap does
-so for us. So I'd drop this check.
-
-If anyone is bored, we should probably take a look to see if there
-are other redundant (or wrong) calls for this.
-
-There is another point about trigger references that might be
-correct (but not unique to this driver so ignore it).  That warrants
-some investigation - I'll take a look in near future.
-
-> +		return -EOPNOTSUPP;
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	data = iio_priv(indio_dev);
-> +	data->irq = client->irq;
-> +
-> +	data->regmap = devm_regmap_init_i2c(client, &vl53l1x_regmap_config);
-> +	if (IS_ERR(data->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
-> +				     "regmap initialization failed\n");
-> +
-> +	data->vdd_supply = devm_regulator_get(dev, "vdd");
-
-I'm not sure if we had this discussion already but why do you need to keep vdd_supply
-around?  Why not
-	devm_regulator_get_enabled()?
-
-Given you turn it on before reset and off afterwards and otherwise don't touch
-it should end up as effectively the same as you have here.
-
-I was expecting to see use of the regulator elsewhere, but seems not for now.
-Note that if you do change this then rename the helpers to reflect they are
-only doing reset handling.
-
-
-> +	if (IS_ERR(data->vdd_supply))
-> +		return dev_err_probe(dev, PTR_ERR(data->vdd_supply),
-> +				     "Unable to get VDD regulator\n");
-> +
-> +	/*
-> +	 * XSHUT held low puts the chip in hardware standby. All register
-> +	 * state is lost on de-assert so this is functionally a reset.
-> +	 */
-> +	data->xshut_reset = devm_reset_control_get_optional_exclusive(dev, NULL);
-
-If you can switch to devm_regulator_get_enabled() this can I think be
-	ret = devm_reset_control_get_optional_exclusive_deasserted()
-removing the need to register the action to power off.
-
-If you do that remember we still need the sleep after this call.
-
-> +	if (IS_ERR(data->xshut_reset))
-> +		return dev_err_probe(dev, PTR_ERR(data->xshut_reset),
-> +				     "Cannot get reset control\n");
-> +
-> +	ret = vl53l1x_power_on(data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to power on the chip\n");
-> +
-> +	ret = devm_add_action_or_reset(dev, vl53l1x_power_off, data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = vl53l1x_chip_init(data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = vl53l1x_set_distance_mode(data, VL53L1X_LONG);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* 50 ms timing budget (per ST Ultra Lite Driver) */
-> +	ret = vl53l1x_set_timing_budget(data, 50);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* 50 ms inter-measurement period (per ST Ultra Lite Driver) */
-> +	ret = vl53l1x_set_inter_measurement_ms(data, 50);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * The hardware only supports "autonomous" continuous ranging mode.
-> +	 * Start ranging here and leave it running for the lifetime of
-> +	 * the device. Both direct reads and the buffer path rely on this.
-> +	 */
-> +	ret = vl53l1x_start_ranging(data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = devm_add_action_or_reset(dev, vl53l1x_stop_ranging_action, data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	indio_dev->name = "vl53l1x";
-> +	indio_dev->info = &vl53l1x_info;
-> +	indio_dev->channels = vl53l1x_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(vl53l1x_channels);
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +
-> +	if (client->irq) {
-> +		struct iio_trigger *trig;
-> +
-> +		init_completion(&data->completion);
-> +
-> +		trig = devm_iio_trigger_alloc(dev, "%s-dev%d", indio_dev->name,
-> +					      iio_device_id(indio_dev));
-> +		if (!trig)
-> +			return -ENOMEM;
-> +
-> +		trig->ops = &vl53l1x_trigger_ops;
-> +		iio_trigger_set_drvdata(trig, indio_dev);
-> +		ret = devm_iio_trigger_register(dev, trig);
-> +		if (ret)
-> +			return ret;
-> +
-> +		indio_dev->trig = iio_trigger_get(trig);
-
-So Sashiko had a comment on this that has me thinking.  Don't bother fixing it
-in this driver as it true it's a common bug (and leaks a trigger structure).
-I'll look into it.
-
-
-> +
-> +		ret = vl53l1x_configure_irq(dev, client->irq, indio_dev);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = devm_iio_triggered_buffer_setup(dev, indio_dev, NULL,
-> +						      &vl53l1x_trigger_handler,
-> +						      NULL);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-
-
+Frank
+>
+> Thanks
+> Francesco
+>
+>
