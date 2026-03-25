@@ -1,426 +1,168 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C9291531E8
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 20:06:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B74123644CE
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 20:07:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774469182; cv=none; b=IugYoSF5A7C65d5u/MsrrYRWVzOwE0P0YZw4nXA4qsonDVJyWi3vHTjRBK9MhwnjErg/rjiMzeg9a8RZDKtbCgdaKSAhaL4Q6+juvIJT+hQBxfb1Xl1kaDrqUo/AW7zNl5ANNIV887utimQtfyBXa8dR3p+lVTX4KwCHNS9jEgA=
+	t=1774469223; cv=none; b=ETHTYFr2cdFRp1+8VXxwjG/jWmwxDJ7RPrdrJJkJ1+xIHbG0GkkNTQ2wVKFlBjPnK83IoSkmoFF1kvptHVbmpGgdnLJIGIJUxnFKgqXH1tjXzjAVCQq8Y69dUeQF8p9W7PkjpIkG1hl93jxQtlh//kxkw9JtPG0NMZfwlzODVkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774469182; c=relaxed/simple;
-	bh=VaZb8EC0HyB9njxGMFlCsQ7lehiZDB027a0U6Tf/jMc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l6oCcyR5L+dQiq06CkneM8KL7sI0ed6KHWcdtZUaWHn0PkZakBoI3e+3h5+lKV2zMVR/MSk9wQBQXQzFqkzmSALGfxkYGTZrL7L3VFrJ53b/bmYPsI2+YIrs+5MdfjQuyLlu2vooUEXBJWU3DPv4fAjbtOp0B+DpYgv1BP2szgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=M75p2Lwm; arc=none smtp.client-ip=74.125.82.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1774469223; c=relaxed/simple;
+	bh=5ulfi4KVHnTTJuE7UV0uwZLQ3Tq0/UAGQR4Q6zmwnKE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b2QLlu1nJD/HRgzjO4A7Yrr1fD3DvnOVxwtBd1JoOj00ReXUirkc2Sr5RmtZXPUafgU87NVBuAyLRiMKDoQB+TxZk4Narh1dg3NsoBjLz+qtOILw7LbRm/I/tPvkWWCCM8QbcdPGWVmyot2yOcLsSprNf0saf69qAZQ/xXUF4i0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Mo/mJRct; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bN/ZEA3E; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="M75p2Lwm"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-2bdcf5970cdso132434eec.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 13:06:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Mo/mJRct";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bN/ZEA3E"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62PFHHGX779741
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 20:07:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=iqqLnvToFpREO2Iofc/xS+E1
+	0uwwM50L3x9HSlvOeVg=; b=Mo/mJRctKTzLh5aZSmjbg+V612DJe+GOdPr0732q
+	3n28lO1qqal5KCY/5/2/rubx0ueaL0cA2DEakGMMes1+51CCWFwYHfYPvFKtb6mL
+	a18plIammyJFL2LpnUJjZKqHdr6FPawa7BKlYnf0bAF25i7Ys50c7FrmKwVDE/L1
+	pAldsigQB+GOFgfvXgqsKEiq5aPPgfIz98bpM9Ecy+0kuZce2KHNoD6PH1659VeD
+	DqfYHmf7As7/ATFCSSuQGzraXMiNe9N/rHxFA0UNARq++r3L+sjA+sgQA+16KpMT
+	xEwCtJMUGCNYA09tf3BCWTD7tsLQj2voTliZWaRk90Q0nA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d4cvp2ccm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 20:07:00 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5090cc6a7d2so10205061cf.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 13:07:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1774469178; x=1775073978; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qYs0N76tYfCcM5LVQXVnLx1Cd3lbi2ymgwe34/d1KfU=;
-        b=M75p2LwmGC2yE6Ev/cJoTRivOI8gXnonZCw2odIts7chrHFnIJnzkO7ZaZRvAslwug
-         NNwndp0/by6N7jTxGkwZ5JBYCaimcSth4H+t/Lrl/Q4b7FEuY1Bc8vBGpKF1YjlEZykY
-         i7PhicMXPv4z8WjuocSi/ZHpdrzGAxJnn2ZhErmdwxoBQF31u+ymI9DFJi1uAQCsomfq
-         6NszrOj15PYBZZt6VLPl5gFlKNN2xfvXAJf+C7WTiZYOSMEzXQBR69N1G3CujlTwwLAZ
-         Dd/4kRjIU4Az+GtvC4X1h59oFkeCRPGNFroM7e2J782UC12aDfg9qm9IYm/i/J6GgiJi
-         851w==
+        d=oss.qualcomm.com; s=google; t=1774469220; x=1775074020; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=iqqLnvToFpREO2Iofc/xS+E10uwwM50L3x9HSlvOeVg=;
+        b=bN/ZEA3EtgKEjdsVflvQeDbyKki5LWafiuoScpVKhXELw4Fa8hwMqCdlZlpdHjl3NV
+         0HSwXsIBj9Yj0D1y/5yH4Tf6ao7T9ZHN/oPHpW4rbWQHYkZSly0i/EO6LGwpUyJf+LNi
+         Iq/kjr8IsyJz0Ewi75edPx3pZ7THCcNhXtVMzYjPB07HRKOBThzBr2agmNYj6XJeYV79
+         Lx30pn4HzwtAUm2/4RZ37q9YVAZfu+Osh1xJMs9ZlXFmCJqBfUPyDBLqXOw1EIDZw1AK
+         a1Qm/7I3YmJtiKkpdzcg2ILk9rwZ4S1H6udTGoap7j+nuklRnZhz7kfm8d66jvM6lglp
+         q9eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774469178; x=1775073978;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qYs0N76tYfCcM5LVQXVnLx1Cd3lbi2ymgwe34/d1KfU=;
-        b=lkpVnziJgpklQIbiyYuOA0nSAg/AOEOdbWBw2nRXx1PPuk+a51pd4IFXa7UpFem2e+
-         VPUnSOA+jgns8odnE1WilTXrUSPzK3NXxaMGMhhwWrCHd4LXR7DBt6VfCQ3xDYPOIabu
-         ehDFVsgc1+IbN8fZ9GXgKBd+ab044H/orkVuofGo+OTbGz5zuPl5Nd7Y/duUfzehcdbQ
-         eQokw7a5BbmvVZKGTPexTWEF9va9MkrQA/4vnPl57oX44NlUrKNciPWnhDUJciihuDNC
-         rk/ocvMRFfybZvaR0dDKwPKV0z4pWo8k4qLRuDmb8L1b+8lQEBMF6NSwgibIw/smk+mA
-         90pQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWmXTB8E2KpcrRfb5Q6U284292uUP3s5qyuRmbvEwlw1uOPz2MYGTYWfaHZP89IosmstLocjAcQI7Pu@vger.kernel.org
-X-Gm-Message-State: AOJu0YylJkzIoSO6Vy4yCwKwx/2TY19wvMVm1B0ymBHySaXOjT0014FS
-	xxTwWvDQWqB0JwyFU12Q7ZpkgTcRZ2y+V7goAgFiS+95gUrE05nOA/dxrle+Jz8iqQ==
-X-Gm-Gg: ATEYQzzm0gMS0l5wV3ucY3s5VasQ6oeHxPvd+lgjketbboQxG81/5AEVz7a2aeDou2h
-	2gCy1C2GX9Fm0RAe5X8OlnaCR/uAeb1Da7tFq57cGyDHS44US1QvXvkgtdIewl1TJcvEdlVPyTX
-	39mRE0883aSQFJa9TamssmuYE/b11KnVjjIUa+fWfNLYsL08nXUbjCJ9LKrN54+8KJ3j+J5/ZQE
-	9QdNwfJ54ilgmG4DgdPRjpvO5+yFRCNLmNEHzbM5M+oEIV9UuMUaV2dMTH8YTmps7ldN4zK8DU3
-	cgU3rYjNUrYJfA1noQ8pzz0FbPJ/NGJiwia3t2NgM5qQ/KTYxaoGGhk22wcgx5pS1sCLnPL+D53
-	hyBKBUS89FsRRlYbQ3H9bzxuai6V+wI4JdiRm8xkLSqkMgnh7179ShxMhAJLzedwD388jo2D54q
-	nzABRfGvJfAbqBiaKU6j483uPhDGNEm7vjoFlxY7qRU6yKVc3BaeopdccrROANhZnrAs7aiT/nc
-	hcDk5OYEcY1qCcb0RGFcGAFQw==
-X-Received: by 2002:a05:7300:e790:b0:2be:1f56:ed2a with SMTP id 5a478bee46e88-2c15bddba72mr2570232eec.16.1774469177832;
-        Wed, 25 Mar 2026 13:06:17 -0700 (PDT)
-Received: from ?IPV6:2a00:79e0:2e7c:8:e936:31c5:12be:a407? ([2a00:79e0:2e7c:8:e936:31c5:12be:a407])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c16ed9ceb0sm539807eec.19.2026.03.25.13.06.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Mar 2026 13:06:17 -0700 (PDT)
-Message-ID: <51a60b2d-1461-46a8-8ed4-4622b9f19124@google.com>
-Date: Wed, 25 Mar 2026 13:06:12 -0700
+        d=1e100.net; s=20251104; t=1774469220; x=1775074020;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=iqqLnvToFpREO2Iofc/xS+E10uwwM50L3x9HSlvOeVg=;
+        b=D9GrXf1HFGcEc14vvqyV9Ppyj+EUAxdbHaU6LRsUW6Fg7hVyz0TqOL8CC6bBBO6KqE
+         S3h1Q+47K5wT06iJo+EnF+75KMmJRwQUYnjvLzqsvpy1yTRm2GxI0iZZ/TRGxZSKwGJR
+         UsBWv+xpcMoW/+HXd6zJgDUeICqUaeALLjAiTjbSo73vOYKu7KFXjh4se535/LAAq6kN
+         QnFOJ6kK+g6qzKo/Qg9tHiF70YNiswXU6aUE4jFBlKekVP5GPrgdGixuDkw/CBHOKPQU
+         cOe7reEdJ3NYjkCJK0M77ZqKKeQyJz6rF1CAeXj3i/faT1j+yIS95bAWecmmWvltzygI
+         sh5w==
+X-Forwarded-Encrypted: i=1; AJvYcCVquKi7yTbdyXj/bRVYzsWvuc4o6EgIeapmG2jYnx2B7cOYCmDE81pLSKNwIqMHZP/fBcZV3cv1qhCu@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFoe8nb+Yb0x0z+YmCXLrwzv2cVeaXg4jKASJ1+S4JysUZGeKB
+	E8uLD1iUh/N3U23il/B6ZT8RTeKxc/lLQAQi2zrBSzHa8IZT/ewAKG5QOOgvI9VmnrGfY1DVtak
+	xHyJ/kXsr943n2jXqxt5Hnk0HVYiV8NddZxNCYOpLMkz2lIMmUxuVtrZkagtr4mnx
+X-Gm-Gg: ATEYQzwlILUQmZ9fAd54mF8a0n1nD8uYX59cpbN5Tkbn3HoOvZUrMub78x7WyyeT7F1
+	Ge/mrJmSM8LHoNBxxzgheTZREDQ04Fi77EkQh6UmfIGpS4ly1EmBZxDpt8voirxz53nN8ysP8Qm
+	kjxwS35rEatDt27QaSrzAWJe12wbAtsSK/9YaTrtB/nrIrHkz73Mh+c3NRbp9To+Y8ZY5R+7xkf
+	9t1eFK0OD2G3TklMcNxZRyGpDJdFolHnqjA7unNWc58eZpBWkA9ECAmnZR12NV7KFadc3Pq8YXU
+	sr+6FUlS+ZqrIJASVm4WDY+19bjRndPyMB6RuxD84dIQOAIqtpAbvLdqiG9mZiHMzhfNMbpuf6f
+	lDzZTZUHkJ0tiATyrh9rhpA5efdcSdjsehMSkncwyQA+t+2ad0C/KM/3pxNY9iUUdrIeyn3O8Xc
+	o6fpIMcMCyo3DGhzitoZpbXyV5/rEOQhqvCr8=
+X-Received: by 2002:a05:622a:1f06:b0:50b:6cc1:38b7 with SMTP id d75a77b69052e-50b80ebf459mr65956141cf.58.1774469220094;
+        Wed, 25 Mar 2026 13:07:00 -0700 (PDT)
+X-Received: by 2002:a05:622a:1f06:b0:50b:6cc1:38b7 with SMTP id d75a77b69052e-50b80ebf459mr65955851cf.58.1774469219478;
+        Wed, 25 Mar 2026 13:06:59 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2a063eecdsm107879e87.8.2026.03.25.13.06.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Mar 2026 13:06:58 -0700 (PDT)
+Date: Wed, 25 Mar 2026 22:06:56 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: cristian_ci <cristian_ci@protonmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v3 1/6] dt-bindings: display: panel: Add Novatek NT35532
+ LCD DSI
+Message-ID: <6yrsr3fsmg43xad7oasye4deankykwxef6m33ogypaeykclfyn@ws5gj2zydyyz>
+References: <20260321-rimob-new-features-v3-0-d4b8ee867de7@protonmail.com>
+ <20260321-rimob-new-features-v3-1-d4b8ee867de7@protonmail.com>
+ <sdcfwycey5ykhn2fghun7imx3tjtnwat3ny3mut5dwstl7wvw6@maqrzlycwdn5>
+ <GF8zsK-szOM98Ck2jznCOZ4xjuJTl9g1b0uPc1N79Dzf7PNzOiVgewdqPFGjqF3YD7tOUa2tzdc7rG_e7iNH8yjHOJ9DobsihTxRLUk8EL4=@protonmail.com>
+ <fh7rfswcwcrquijgjq547b6jjuq2v3wxiweh5xnnd4z5ql5n7r@gt425ujkpctu>
+ <E_O40YTvp6FW2yHa_lQOmzZwB1BZ7r_uCfh82T3BeO-SLK255eefzThCZDYJ2PFi3Hlnp3JXL7JWrlIU2ymh7m68wkNMTsM7jcMa8XxuxCs=@protonmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v8 3/6] mfd: max77759: add register bitmasks and
- modify irq configs for charger
-To: Lee Jones <lee@kernel.org>,
- Amit Sunil Dhamne via B4 Relay <devnull+amitsd.google.com@kernel.org>
-Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?=
- <andre.draszik@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Badhri Jagan Sridharan <badhri@google.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Mark Brown <broonie@kernel.org>,
- Matti Vaittinen <mazziesaccount@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, RD Babiera <rdbabiera@google.com>,
- Kyle Tso <kyletso@google.com>
-References: <20260314-max77759-charger-v8-0-226ca5f8c7d2@google.com>
- <20260314-max77759-charger-v8-3-226ca5f8c7d2@google.com>
- <20260325151004.GD1141718@google.com>
-Content-Language: en-US
-From: Amit Sunil Dhamne <amitsd@google.com>
-In-Reply-To: <20260325151004.GD1141718@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <E_O40YTvp6FW2yHa_lQOmzZwB1BZ7r_uCfh82T3BeO-SLK255eefzThCZDYJ2PFi3Hlnp3JXL7JWrlIU2ymh7m68wkNMTsM7jcMa8XxuxCs=@protonmail.com>
+X-Proofpoint-ORIG-GUID: JqQlEObL0DPWk-iwxFvbeC8osWqcBi71
+X-Proofpoint-GUID: JqQlEObL0DPWk-iwxFvbeC8osWqcBi71
+X-Authority-Analysis: v=2.4 cv=Q73fIo2a c=1 sm=1 tr=0 ts=69c44064 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=fnGvSGuzkqCyUKXIORQA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDE0OCBTYWx0ZWRfXwnoHrTZPG8/E
+ WwphzGpeYiqtyMZTnQeKcEVTRbwM8GvzuvKZkmg+/rgs1MDDjs8dD0oJH2C6Fi8N7nWR7dpL1TJ
+ +3DgAxjfina+2pSCbUbBVBmN5n8yaOlEcQXCt1JX/yC40Agp2bDkhKGu2J6YUzhi7W3eU9bcoze
+ 7xthff10eDIKP2s1j4MwgE2aqDVCnNNte1w9xrUnhGPhmy8LC0TOLghF811GdWmJLebp2hYl/8R
+ BdsN0lr+SMAr/EYOsGNK0nbfJ7STJmLtOuETyhS7c/1qgjTb1lgoaU1RN8BvHstPBnoJFVetTK8
+ llrircj1V4QDMi//rjJ7IQqJ/YlGZYQGKHxEpV9CR+v6xDxY/dlxjxCC6DwW+rqztUlhv5gAUja
+ T8wiTVh14rSTsb1THO6/nVGgMTphG8pTfe+nMlMj/x960B0GDzClJRIjm3lKBA9+nh6KEHQevQk
+ 9zm8MHJmE/H0h2EUBVA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-25_05,2026-03-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603250148
 
-Hi Lee,
+On Wed, Mar 25, 2026 at 06:31:47PM +0000, cristian_ci wrote:
+> On Tuesday, March 24th, 2026 at 23:20, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> 
+> > On Tue, Mar 24, 2026 at 01:10:13PM +0000, cristian_ci wrote:
+> > > On Saturday, March 21st, 2026 at 17:46, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> > 
+> > In the lack of any information, this is probably as good as anything
+> > else. Please describe in your commit message that you don't know the
+> > exact vendor of the panel (nor the id of the panel). 
+> 
+> Ok, apart adding a new compatible ("flipkart,rimob-panel-nt35532-cs") to 
+> dt-bindings (patch 1/6) - leaving  "novatek,nt35532" as fallback - and 
+> setting that to panel node (patch 3/6), I'll have to change (patch 2/6) 
+> too, by renaming nt35532_on to rimob_panel_on and so on for nt35532_off, 
+> nt35532_mode; by adding a new struct named rimob_panel_desc defining 
 
-Thanks for the review!
+struct nt35532_panel_desc
 
-On 3/25/26 8:10 AM, Lee Jones wrote:
-> On Sat, 14 Mar 2026, Amit Sunil Dhamne via B4 Relay wrote:
->
->> From: Amit Sunil Dhamne <amitsd@google.com>
->>
->> Add register bitmasks for charger function.
->>
->> In addition split the charger IRQs further such that each bit represents
->> an IRQ downstream of charger regmap irq chip. In addition populate the
->> ack_base to offload irq ack to the regmap irq chip framework.
->>
->> Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
->> Reviewed-by: André Draszik <andre.draszik@linaro.org>
->> ---
->>   drivers/mfd/max77759.c       |  91 ++++++++++++++++++++--
->>   include/linux/mfd/max77759.h | 176 ++++++++++++++++++++++++++++++++++++-------
->>   2 files changed, 230 insertions(+), 37 deletions(-)
->>
->> diff --git a/drivers/mfd/max77759.c b/drivers/mfd/max77759.c
->> index a7efe233ec8c..288746f675b8 100644
->> --- a/drivers/mfd/max77759.c
->> +++ b/drivers/mfd/max77759.c
->> @@ -201,8 +201,24 @@ static const struct regmap_config max77759_regmap_config_charger = {
->>    *         - SYSUVLO_INT
->>    *         - FSHIP_NOT_RD
->>    *     - CHGR_INT: charger
->> - *       - CHG_INT
->> - *       - CHG_INT2
->> + *       - INT1
->> + *         - AICL
->> + *         - CHGIN
->> + *         - WCIN
->> + *         - CHG
->> + *         - BAT
->> + *         - INLIM
->> + *         - THM2
->> + *         - BYP
->> + *       - INT2
->> + *         - INSEL
->> + *         - SYS_UVLO1
->> + *         - SYS_UVLO2
->> + *         - BAT_OILO
->> + *         - CHG_STA_CC
->> + *         - CHG_STA_CV
->> + *         - CHG_STA_TO
->> + *         - CHG_STA_DONE
->>    */
->>   enum {
->>   	MAX77759_INT_MAXQ,
->> @@ -256,8 +286,38 @@ static const struct regmap_irq max77759_topsys_irqs[] = {
->>   };
->>   
->>   static const struct regmap_irq max77759_chgr_irqs[] = {
->> -	REGMAP_IRQ_REG(MAX77759_CHARGER_INT_1, 0, GENMASK(7, 0)),
->> -	REGMAP_IRQ_REG(MAX77759_CHARGER_INT_2, 1, GENMASK(7, 0)),
->> +	REGMAP_IRQ_REG(MAX77759_CHGR_INT1_AICL, 0,
->> +		       MAX77759_CHGR_REG_CHG_INT_AICL),
->> +	REGMAP_IRQ_REG(MAX77759_CHGR_INT1_CHGIN, 0,
->> +		       MAX77759_CHGR_REG_CHG_INT_CHGIN),
->> +	REGMAP_IRQ_REG(MAX77759_CHGR_INT1_WCIN, 0,
->> +		       MAX77759_CHGR_REG_CHG_INT_WCIN),
->> +	REGMAP_IRQ_REG(MAX77759_CHGR_INT1_CHG, 0,
->> +		       MAX77759_CHGR_REG_CHG_INT_CHG),
->> +	REGMAP_IRQ_REG(MAX77759_CHGR_INT1_BAT, 0,
->> +		       MAX77759_CHGR_REG_CHG_INT_BAT),
->> +	REGMAP_IRQ_REG(MAX77759_CHGR_INT1_INLIM, 0,
->> +		       MAX77759_CHGR_REG_CHG_INT_INLIM),
->> +	REGMAP_IRQ_REG(MAX77759_CHGR_INT1_THM2, 0,
->> +		       MAX77759_CHGR_REG_CHG_INT_THM2),
->> +	REGMAP_IRQ_REG(MAX77759_CHGR_INT1_BYP, 0,
->> +		       MAX77759_CHGR_REG_CHG_INT_BYP),
->> +	REGMAP_IRQ_REG(MAX77759_CHGR_INT2_INSEL, 1,
->> +		       MAX77759_CHGR_REG_CHG_INT2_INSEL),
->> +	REGMAP_IRQ_REG(MAX77759_CHGR_INT2_SYS_UVLO1, 1,
->> +		       MAX77759_CHGR_REG_CHG_INT2_SYS_UVLO1),
->> +	REGMAP_IRQ_REG(MAX77759_CHGR_INT2_SYS_UVLO2, 1,
->> +		       MAX77759_CHGR_REG_CHG_INT2_SYS_UVLO2),
->> +	REGMAP_IRQ_REG(MAX77759_CHGR_INT2_BAT_OILO, 1,
->> +		       MAX77759_CHGR_REG_CHG_INT2_BAT_OILO),
->> +	REGMAP_IRQ_REG(MAX77759_CHGR_INT2_CHG_STA_CC, 1,
->> +		       MAX77759_CHGR_REG_CHG_INT2_CHG_STA_CC),
->> +	REGMAP_IRQ_REG(MAX77759_CHGR_INT2_CHG_STA_CV, 1,
->> +		       MAX77759_CHGR_REG_CHG_INT2_CHG_STA_CV),
->> +	REGMAP_IRQ_REG(MAX77759_CHGR_INT2_CHG_STA_TO, 1,
->> +		       MAX77759_CHGR_REG_CHG_INT2_CHG_STA_TO),
->> +	REGMAP_IRQ_REG(MAX77759_CHGR_INT2_CHG_STA_DONE, 1,
->> +		       MAX77759_CHGR_REG_CHG_INT2_CHG_STA_DONE),
->>   };
->>   
->>   static const struct regmap_irq_chip max77759_pmic_irq_chip = {
->> @@ -302,6 +362,7 @@ static const struct regmap_irq_chip max77759_chrg_irq_chip = {
-> Minor nit: The new code in this patch consistently uses "chgr" as the prefix
-> for charger-related names. To improve consistency, how about we rename this
-> struct to `max77759_chgr_irq_chip`?
+> .mode, .on, .off members and moving .lanes, .format and .mode_flags from 
+> nt35532_probe to this new desc specific struct and by adding .data argument 
 
-Sure I can rename it for the goal of maintaining consistency.
+I'd say, keep it simple. Move just let that struct have .mode and .on. I
+think the rest can be generic until somebody needs those.
 
+> to nt35532_of_match. What about the other nt35532 functions (i.e. nt35532_reset)?
 
->
->>   	.domain_suffix = "CHGR",
->>   	.status_base = MAX77759_CHGR_REG_CHG_INT,
->>   	.mask_base = MAX77759_CHGR_REG_CHG_INT_MASK,
->> +	.ack_base = MAX77759_CHGR_REG_CHG_INT,
->>   	.num_regs = 2,
->>   	.irqs = max77759_chgr_irqs,
->>   	.num_irqs = ARRAY_SIZE(max77759_chgr_irqs),
->> @@ -325,8 +386,22 @@ static const struct resource max77759_gpio_resources[] = {
->>   };
->>   
->>   static const struct resource max77759_charger_resources[] = {
->> -	DEFINE_RES_IRQ_NAMED(MAX77759_CHARGER_INT_1, "INT1"),
->> -	DEFINE_RES_IRQ_NAMED(MAX77759_CHARGER_INT_2, "INT2"),
->> +	DEFINE_RES_IRQ_NAMED(MAX77759_CHGR_INT1_AICL,         "AICL"),
->> +	DEFINE_RES_IRQ_NAMED(MAX77759_CHGR_INT1_CHGIN,        "CHGIN"),
->> +	DEFINE_RES_IRQ_NAMED(MAX77759_CHGR_INT1_WCIN,         "WCIN"),
->> +	DEFINE_RES_IRQ_NAMED(MAX77759_CHGR_INT1_CHG,          "CHG"),
->> +	DEFINE_RES_IRQ_NAMED(MAX77759_CHGR_INT1_BAT,          "BAT"),
->> +	DEFINE_RES_IRQ_NAMED(MAX77759_CHGR_INT1_INLIM,        "INLIM"),
->> +	DEFINE_RES_IRQ_NAMED(MAX77759_CHGR_INT1_THM2,         "THM2"),
->> +	DEFINE_RES_IRQ_NAMED(MAX77759_CHGR_INT1_BYP,          "BYP"),
->> +	DEFINE_RES_IRQ_NAMED(MAX77759_CHGR_INT2_INSEL,        "INSEL"),
->> +	DEFINE_RES_IRQ_NAMED(MAX77759_CHGR_INT2_SYS_UVLO1,    "SYS_UVLO1"),
->> +	DEFINE_RES_IRQ_NAMED(MAX77759_CHGR_INT2_SYS_UVLO2,    "SYS_UVLO2"),
->> +	DEFINE_RES_IRQ_NAMED(MAX77759_CHGR_INT2_BAT_OILO,     "BAT_OILO"),
->> +	DEFINE_RES_IRQ_NAMED(MAX77759_CHGR_INT2_CHG_STA_CC,   "CHG_STA_CC"),
->> +	DEFINE_RES_IRQ_NAMED(MAX77759_CHGR_INT2_CHG_STA_CV,   "CHG_STA_CV"),
->> +	DEFINE_RES_IRQ_NAMED(MAX77759_CHGR_INT2_CHG_STA_TO,   "CHG_STA_TO"),
->> +	DEFINE_RES_IRQ_NAMED(MAX77759_CHGR_INT2_CHG_STA_DONE, "CHG_STA_DONE"),
->>   };
->>   
->>   static const struct mfd_cell max77759_cells[] = {
->> diff --git a/include/linux/mfd/max77759.h b/include/linux/mfd/max77759.h
->> index c6face34e385..fd5aea21ab2e 100644
->> --- a/include/linux/mfd/max77759.h
->> +++ b/include/linux/mfd/max77759.h
->> @@ -59,35 +59,65 @@
->>   #define MAX77759_MAXQ_REG_AP_DATAIN0            0xb1
->>   #define MAX77759_MAXQ_REG_UIC_SWRST             0xe0
->>   
->> -#define MAX77759_CHGR_REG_CHG_INT               0xb0
->> -#define MAX77759_CHGR_REG_CHG_INT2              0xb1
->> -#define MAX77759_CHGR_REG_CHG_INT_MASK          0xb2
->> -#define MAX77759_CHGR_REG_CHG_INT2_MASK         0xb3
->> -#define MAX77759_CHGR_REG_CHG_INT_OK            0xb4
->> -#define MAX77759_CHGR_REG_CHG_DETAILS_00        0xb5
->> -#define MAX77759_CHGR_REG_CHG_DETAILS_01        0xb6
->> -#define MAX77759_CHGR_REG_CHG_DETAILS_02        0xb7
->> -#define MAX77759_CHGR_REG_CHG_DETAILS_03        0xb8
->> -#define MAX77759_CHGR_REG_CHG_CNFG_00           0xb9
->> -#define MAX77759_CHGR_REG_CHG_CNFG_01           0xba
->> -#define MAX77759_CHGR_REG_CHG_CNFG_02           0xbb
->> -#define MAX77759_CHGR_REG_CHG_CNFG_03           0xbc
->> -#define MAX77759_CHGR_REG_CHG_CNFG_04           0xbd
->> -#define MAX77759_CHGR_REG_CHG_CNFG_05           0xbe
->> -#define MAX77759_CHGR_REG_CHG_CNFG_06           0xbf
->> -#define MAX77759_CHGR_REG_CHG_CNFG_07           0xc0
->> -#define MAX77759_CHGR_REG_CHG_CNFG_08           0xc1
->> -#define MAX77759_CHGR_REG_CHG_CNFG_09           0xc2
->> -#define MAX77759_CHGR_REG_CHG_CNFG_10           0xc3
->> -#define MAX77759_CHGR_REG_CHG_CNFG_11           0xc4
->> -#define MAX77759_CHGR_REG_CHG_CNFG_12           0xc5
->> -#define MAX77759_CHGR_REG_CHG_CNFG_13           0xc6
->> -#define MAX77759_CHGR_REG_CHG_CNFG_14           0xc7
->> -#define MAX77759_CHGR_REG_CHG_CNFG_15           0xc8
->> -#define MAX77759_CHGR_REG_CHG_CNFG_16           0xc9
->> -#define MAX77759_CHGR_REG_CHG_CNFG_17           0xca
->> -#define MAX77759_CHGR_REG_CHG_CNFG_18           0xcb
->> -#define MAX77759_CHGR_REG_CHG_CNFG_19           0xcc
->> +#define MAX77759_CHGR_REG_CHG_INT                      0xb0
->> +#define   MAX77759_CHGR_REG_CHG_INT_AICL               BIT(7)
->> +#define   MAX77759_CHGR_REG_CHG_INT_CHGIN              BIT(6)
->> +#define   MAX77759_CHGR_REG_CHG_INT_WCIN               BIT(5)
->> +#define   MAX77759_CHGR_REG_CHG_INT_CHG                BIT(4)
->> +#define   MAX77759_CHGR_REG_CHG_INT_BAT                BIT(3)
->> +#define   MAX77759_CHGR_REG_CHG_INT_INLIM              BIT(2)
->> +#define   MAX77759_CHGR_REG_CHG_INT_THM2               BIT(1)
->> +#define   MAX77759_CHGR_REG_CHG_INT_BYP                BIT(0)
->> +#define MAX77759_CHGR_REG_CHG_INT2                     0xb1
->> +#define   MAX77759_CHGR_REG_CHG_INT2_INSEL             BIT(7)
->> +#define   MAX77759_CHGR_REG_CHG_INT2_SYS_UVLO1         BIT(6)
->> +#define   MAX77759_CHGR_REG_CHG_INT2_SYS_UVLO2         BIT(5)
->> +#define   MAX77759_CHGR_REG_CHG_INT2_BAT_OILO          BIT(4)
->> +#define   MAX77759_CHGR_REG_CHG_INT2_CHG_STA_CC        BIT(3)
->> +#define   MAX77759_CHGR_REG_CHG_INT2_CHG_STA_CV        BIT(2)
->> +#define   MAX77759_CHGR_REG_CHG_INT2_CHG_STA_TO        BIT(1)
->> +#define   MAX77759_CHGR_REG_CHG_INT2_CHG_STA_DONE      BIT(0)
->> +#define MAX77759_CHGR_REG_CHG_INT_MASK                 0xb2
->> +#define MAX77759_CHGR_REG_CHG_INT2_MASK                0xb3
->> +#define MAX77759_CHGR_REG_CHG_INT_OK                   0xb4
->> +#define MAX77759_CHGR_REG_CHG_DETAILS_00               0xb5
->> +#define   MAX77759_CHGR_REG_CHG_DETAILS_00_CHGIN_DTLS  GENMASK(6, 5)
->> +#define MAX77759_CHGR_REG_CHG_DETAILS_01               0xb6
->> +#define   MAX77759_CHGR_REG_CHG_DETAILS_01_BAT_DTLS    GENMASK(6, 4)
->> +#define   MAX77759_CHGR_REG_CHG_DETAILS_01_CHG_DTLS    GENMASK(3, 0)
->> +#define MAX77759_CHGR_REG_CHG_DETAILS_02               0xb7
->> +#define   MAX77759_CHGR_REG_CHG_DETAILS_02_CHGIN_STS   BIT(5)
->> +#define MAX77759_CHGR_REG_CHG_DETAILS_03               0xb8
->> +#define MAX77759_CHGR_REG_CHG_CNFG_00                  0xb9
->> +#define   MAX77759_CHGR_REG_CHG_CNFG_00_MODE           GENMASK(3, 0)
->> +#define MAX77759_CHGR_REG_CHG_CNFG_01                  0xba
->> +#define MAX77759_CHGR_REG_CHG_CNFG_02                  0xbb
->> +#define   MAX77759_CHGR_REG_CHG_CNFG_02_CHGCC          GENMASK(5, 0)
->> +#define MAX77759_CHGR_REG_CHG_CNFG_03                  0xbc
->> +#define MAX77759_CHGR_REG_CHG_CNFG_04                  0xbd
->> +#define   MAX77759_CHGR_REG_CHG_CNFG_04_CHG_CV_PRM     GENMASK(5, 0)
->> +#define MAX77759_CHGR_REG_CHG_CNFG_05                  0xbe
->> +#define MAX77759_CHGR_REG_CHG_CNFG_06                  0xbf
->> +#define   MAX77759_CHGR_REG_CHG_CNFG_06_CHGPROT        GENMASK(3, 2)
->> +#define MAX77759_CHGR_REG_CHG_CNFG_07                  0xc0
->> +#define MAX77759_CHGR_REG_CHG_CNFG_08                  0xc1
->> +#define MAX77759_CHGR_REG_CHG_CNFG_09                  0xc2
->> +#define   MAX77759_CHGR_REG_CHG_CNFG_09_CHGIN_ILIM     GENMASK(6, 0)
->> +#define MAX77759_CHGR_REG_CHG_CNFG_10                  0xc3
->> +#define MAX77759_CHGR_REG_CHG_CNFG_11                  0xc4
->> +#define MAX77759_CHGR_REG_CHG_CNFG_12                  0xc5
->> +/* Wireless Charging input channel select */
->> +#define   MAX77759_CHGR_REG_CHG_CNFG_12_WCINSEL        BIT(6)
->> +/* CHGIN/USB input channel select */
->> +#define   MAX77759_CHGR_REG_CHG_CNFG_12_CHGINSEL       BIT(5)
->> +#define MAX77759_CHGR_REG_CHG_CNFG_13                  0xc6
->> +#define MAX77759_CHGR_REG_CHG_CNFG_14                  0xc7
->> +#define MAX77759_CHGR_REG_CHG_CNFG_15                  0xc8
->> +#define MAX77759_CHGR_REG_CHG_CNFG_16                  0xc9
->> +#define MAX77759_CHGR_REG_CHG_CNFG_17                  0xca
->> +#define MAX77759_CHGR_REG_CHG_CNFG_18                  0xcb
->> +#define   MAX77759_CHGR_REG_CHG_CNFG_18_WDTEN          BIT(0)
->> +#define MAX77759_CHGR_REG_CHG_CNFG_19                  0xcc
->>   
->>   /* MaxQ opcodes for max77759_maxq_command() */
->>   #define MAX77759_MAXQ_OPCODE_MAXLENGTH (MAX77759_MAXQ_REG_AP_DATAOUT32 - \
->> @@ -101,6 +131,94 @@
->>   #define MAX77759_MAXQ_OPCODE_USER_SPACE_READ     0x81
->>   #define MAX77759_MAXQ_OPCODE_USER_SPACE_WRITE    0x82
->>   
->> +/*
->> + * Charger Input Status
->> + * @MAX77759_CHGR_CHGIN_DTLS_VBUS_UNDERVOLTAGE:
->> + *     Charger input voltage (Vchgin) < Under Voltage Threshold (Vuvlo)
->> + * @MAX77759_CHGR_CHGIN_DTLS_VBUS_MARGINAL_VOLTAGE: Vchgin > Vuvlo and
->> + *     Vchgin < (Battery Voltage (Vbatt) + system voltage (Vsys))
->> + * @MAX77759_CHGR_CHGIN_DTLS_VBUS_OVERVOLTAGE:
->> + *     Vchgin > Over Voltage threshold (Vovlo)
->> + * @MAX77759_CHGR_CHGIN_DTLS_VBUS_VALID:
->> + *     Vchgin > Vuvlo, Vchgin < Vovlo and Vchgin > (Vsys + Vbatt)
->> + */
->> +enum max77759_chgr_chgin_dtls_status {
->> +	MAX77759_CHGR_CHGIN_DTLS_VBUS_UNDERVOLTAGE,
->> +	MAX77759_CHGR_CHGIN_DTLS_VBUS_MARGINAL_VOLTAGE,
->> +	MAX77759_CHGR_CHGIN_DTLS_VBUS_OVERVOLTAGE,
->> +	MAX77759_CHGR_CHGIN_DTLS_VBUS_VALID,
->> +};
->> +
->> +/*
->> + * Battery Details
->> + * @MAX77759_CHGR_BAT_DTLS_NO_BATT_CHG_SUSP:
->> + *     No battery and the charger suspended
->> + * @MAX77759_CHGR_BAT_DTLS_DEAD_BATTERY: Vbatt < Vtrickle
->> + * @MAX77759_CHGR_BAT_DTLS_BAT_CHG_TIMER_FAULT:
->> + *     Charging suspended due to timer fault
->> + * @MAX77759_CHGR_BAT_DTLS_BAT_OKAY:
->> + *     Battery okay and Vbatt > Min Sys Voltage (Vsysmin)
->> + * @MAX77759_CHGR_BAT_DTLS_BAT_UNDERVOLTAGE:
->> + *     Battery is okay. Vtrickle < Vbatt < Vsysmin
->> + * @MAX77759_CHGR_BAT_DTLS_BAT_OVERVOLTAGE:
->> + *     Battery voltage > Overvoltage threshold
->> + * @MAX77759_CHGR_BAT_DTLS_BAT_OVERCURRENT:
->> + *     Battery current exceeds overcurrent threshold
->> + * @MAX77759_CHGR_BAT_DTLS_BAT_ONLY_MODE:
->> + *     Battery only mode and battery level not available
->> + */
->> +enum max77759_chgr_bat_dtls_states {
->> +	MAX77759_CHGR_BAT_DTLS_NO_BATT_CHG_SUSP,
->> +	MAX77759_CHGR_BAT_DTLS_DEAD_BATTERY,
->> +	MAX77759_CHGR_BAT_DTLS_BAT_CHG_TIMER_FAULT,
->> +	MAX77759_CHGR_BAT_DTLS_BAT_OKAY,
->> +	MAX77759_CHGR_BAT_DTLS_BAT_UNDERVOLTAGE,
->> +	MAX77759_CHGR_BAT_DTLS_BAT_OVERVOLTAGE,
->> +	MAX77759_CHGR_BAT_DTLS_BAT_OVERCURRENT,
->> +	MAX77759_CHGR_BAT_DTLS_BAT_ONLY_MODE,
->> +};
->> +
->> +/*
->> + * Charger Details
->> + * @MAX77759_CHGR_CHG_DTLS_PREQUAL: Charger in prequalification mode
->> + * @MAX77759_CHGR_CHG_DTLS_CC:      Charger in fast charge const curr mode
->> + * @MAX77759_CHGR_CHG_DTLS_CV:      Charger in fast charge const voltage mode
->> + * @MAX77759_CHGR_CHG_DTLS_TO:      Charger is in top off mode
->> + * @MAX77759_CHGR_CHG_DTLS_DONE:    Charger is done
->> + * @MAX77759_CHGR_CHG_DTLS_RSVD_1:  Reserved
->> + * @MAX77759_CHGR_CHG_DTLS_TIMER_FAULT:   Charger is in timer fault mode
->> + * @MAX77759_CHGR_CHG_DTLS_SUSP_BATT_THM:
->> + *     Charger is suspended as bettery removal detected
-> Typo here, s/bettery/battery/.
+You don't need to complicate the driver, keep the reset as is.
 
-Will fix.
-
-
->
->> + * @MAX77759_CHGR_CHG_DTLS_OFF:
->> + *     Charger is off. Input invalid or charger disabled
->> + * @MAX77759_CHGR_CHG_DTLS_RSVD_2:  Reserved
->> + * @MAX77759_CHGR_CHG_DTLS_RSVD_3:  Reserved
->> + * @MAX77759_CHGR_CHG_DTLS_OFF_WDOG_TIMER:
->> + *     Charger is off as watchdog timer expired
->> + * @MAX77759_CHGR_CHG_DTLS_SUSP_JEITA:    Charger is in JEITA control mode
->> + */
->> +enum max77759_chgr_chg_dtls_states {
-> Just a small style suggestion, could you please align the descriptions in this
-> kerneldoc block? It improves readability. Using a consistent number of spaces
-> or tabs after the colon helps.
->
-> Feel free to use up to 100-chars if it improves readability.
-
-I will try to align the descriptions for enumerators inside each enum. 
-Since I can use 100 chars I can try to fit the descriptions in a single 
-line for this and  `enum max77759_chgr_bat_dtls_states` as well. Hope 
-that's okay?
-
-
-BR,
-
-Amit
-
+-- 
+With best wishes
+Dmitry
