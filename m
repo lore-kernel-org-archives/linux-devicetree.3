@@ -1,109 +1,100 @@
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2480344DB9
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 10:23:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D83C3391859
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 10:24:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774434234; cv=none; b=TRWef9bSU1HkfRBAjknpP/iS/RGy86CXKqBEkH4jxet3W4DG9d8s+waU/7nsu9XOACeRivVK1GHYQhUCXNVS/bqUpjU96SZSVoClCGVnFg1ussZomvHxPmYYLp8Kq6ZnJh+I4rulbqW7SZwaYhF+j2aIKmj3JJKtYRa9jydGHHk=
+	t=1774434268; cv=none; b=jIAz3BOoDwj5sBNo0k23kc5Bqkx0QfK3p1G5Axdtlcf3oscfgs5GgV92aQw2NArd4aDcy8+PWZZjlIxZrn5rBnEZUGa20H+HUHeWMDJutYuzB9hntN6M+j0PKjHUOyWhtcdIIxjKlcua8u/Y/fxOVeDU1DFt99yKrXVQ7VixEwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774434234; c=relaxed/simple;
-	bh=OEBtpeSr41dZ3EZGknc7L9hCWxi5F1KcZZ1/d9YvxG4=;
+	s=arc-20240116; t=1774434268; c=relaxed/simple;
+	bh=DQWAjarmAEIR12f+N5kRbQsMdjqbb6LUni3iSD57BnA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iQx7iu+/fSGh5njuYBAwvvyz5P9/MsW/1mEB+RyJ1ycYwrNA6J/3+0BGBBPfucBkiwOSsdO5BIDTsD3Y9BAOQDyiWcboe2M9H+391YNu05Sp/7l2fd6ZTwborDTNaUcBsou6AdvFAWraGwjhnpXEdmMrAEkpE8KMqyVpHU92Gpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.160.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-5091d71aa11so9258481cf.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 03:23:52 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774434232; x=1775039032;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HNQGjJuwM+3CX5QT0Pm/2VPyuySRhYU5/R5xPZKy+IA=;
-        b=SAVDIdIAE/U4rl8uqvNV1ddFI36gWL1De8lMgqelZ4wtDVxQ5Zkr0DEzdB7BUeARwU
-         yMPMp2pJgceW0aBWcjM7qQrbeOP8PYpQxBJVOzGSwUMHUnDPuoYlspYHt4BMajq2LosY
-         9nuj8mtlp+fqN2NAUEZt4U7DdtkrdUbxvw/YRJs5CCrbg6qZFx26Wzrit/wGcdA5RtIc
-         XMqKHj3x4ZmrrlLfN2wm7ZOL+ukw20I7K2XGQxnzV3D5VmpzcAA22ty8Gng3njB9WZ4w
-         OYr3IVcgWRXPW7UujE7vDNWxCMIaB/1lODI/wZEaq3dj4hKhZcl2xNCwnMt3R3wxChAj
-         x01w==
-X-Forwarded-Encrypted: i=1; AJvYcCVkM8n39I9/4kYmjVMYhE/JQKxsgaswzmu0YnC9ysfKr8B0rxhh11zn8MdJfqoNwmX8QMTJSeRhoj4g@vger.kernel.org
-X-Gm-Message-State: AOJu0YzDxAmD/48ApeAmLX2CIY2wZ/3O60OT7xZD7tJh2VKWxDxTTDkU
-	FaOPqmYDa6gDX9nMou1/0knSEPGbeVgHFNqZFP8jjR6pWq+a+Y5S63bbOql04bvsASo=
-X-Gm-Gg: ATEYQzyQ09FJF9Kp8TO7KjCUsYK7carBvzMR3tAtyAKJWuKecCDqwzyX6cesu5Xr4dH
-	6OGyQx77p8yFoWQtVk1mBdNTVLkICSMqhxBw1G0iGuEkf73SNk97ukF+YQTMMwGWnMjkqFtehg+
-	IUYIHRa4A8mkKCPag9nt2ApJ6CItiyMW3j0hkL43hQGMds/7ovPR92gWcS0Bt4MzTDsjtYcgtse
-	hAOmqu+pX7lRCAjwsF7JVi9lPfODfAYE8cCnxhdJh9DSJOedKj92I82BW5ezjGvH+jts1Elx+ZV
-	HptCY1ZZu2lywqUHVL7qaCPXPZxQ1s831inmFUC1Qu2aPInH2vm7TG3DhxbGseKjzJq2lvkSsc/
-	9w54KOYulSLzB5Ru0VVG+zt+MdLRQdePR/u/gMxcg9FQr1DIws7L3zG9ZlJ1P0+oZthJu7qMXdO
-	yaxTnv1xjrBKfyDAF+8yc4ACNc3KHoqv2ClIVqso5bMH9yYP88fb7pyQnbuk0OgLjohxogQy3GB
-	9Q=
-X-Received: by 2002:ac8:7fc1:0:b0:50b:3128:9916 with SMTP id d75a77b69052e-50b6ed9c8cbmr88572181cf.18.1774434231549;
-        Wed, 25 Mar 2026 03:23:51 -0700 (PDT)
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com. [209.85.222.178])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-89c85215255sm170385906d6.3.2026.03.25.03.23.51
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Mar 2026 03:23:51 -0700 (PDT)
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-8cfbbdbaf3cso88768785a.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 03:23:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCWv0pcyK9TfzNN3qFs7kScpPegpq/Ew3oYDpgLzQVlGENAnKMUW6BU1qZE+4IP6NrqcknU9vY7M0hwL@vger.kernel.org
-X-Received: by 2002:a05:6102:2ac7:b0:600:d0f:bacf with SMTP id
- ada2fe7eead31-603161b855fmr3344811137.11.1774433798679; Wed, 25 Mar 2026
- 03:16:38 -0700 (PDT)
+	 To:Cc:Content-Type; b=ClPlOi6eh61dlZNY1UBVSwBTRnNjVSyDa0ydAUQTDr0iG2P+DyQw2EpA4fQ/lNgG+yuvaULIVuZ2NuDm1KPDBKyPRDhQDYD2c5F70iRdGGmn3QEkaaS+Kc9Omn2yuSeIK9asZS2zQK7cdJSjRfngxhaszxkf159h2sQ7x9eOsnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bEQrkKEz; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bEQrkKEz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D7DBC2BCB4
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 10:24:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774434268;
+	bh=DQWAjarmAEIR12f+N5kRbQsMdjqbb6LUni3iSD57BnA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=bEQrkKEzQxDGG2rRmwMwwzN1PH2pUmPqRZOMb7514c+kC5R2sVannMWLpgjySJZVe
+	 mbV+bE/TRHqs/ehwzg20kGw9dIaKov4LyqKeOg0JDwDgW84Bk2zOWCJ1thteWuIOKm
+	 pTPqPAOOCcooBmPBydv03XO29dmd9KDMaPDzA9ew2sjRhNnTsRP0TnNTwZy88n83Z4
+	 cuY6nJP5L7IN/VFyC6ZCF+m8vEywUbh4PWv31+bbtWma0mkO9TK79+f4Jf0FBzGmtc
+	 dVefH9QRJYh1T75xstMx0JOCKh6AZjLbU93SSPNR2iI/no0EE4DyOjTxgZclmdErBM
+	 DNK+jKKaLi7Bg==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-38bf47a6f02so18016001fa.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 03:24:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCVsHi9ioH2zl/YTkrwCWXVV3PdHOvkXMPhmMOXGcvxmMj3SYIdZElg3vJj3Fwu9E2IPWTAcu/+4TEJ1@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPlP/GYec8VoSt8aViYHjkZkTbpqWe5Yvth1RqpR2o7bt4CNs5
+	VotlndO1hJmaf7glCoGRN5ig30ffAtcWncRPN6FNP3I73qWNvjJguy272X5O36LVCgbxwt03c+i
+	xtDgTrryUR9Wtcm8/Uupsb1tnBVe9dH09LQkt8YZ6oQ==
+X-Received: by 2002:a05:651c:1582:b0:38b:f0f0:e3cd with SMTP id
+ 38308e7fff4ca-38c4320ca56mr8033351fa.36.1774434267149; Wed, 25 Mar 2026
+ 03:24:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260324225239.19136-1-fabrizio.castro.jz@renesas.com> <20260324225239.19136-2-fabrizio.castro.jz@renesas.com>
-In-Reply-To: <20260324225239.19136-2-fabrizio.castro.jz@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 25 Mar 2026 11:16:25 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXcKBYrQ+5fP4b99zKD0q81LXeH4w6ssP+iOUQNEeB3Vw@mail.gmail.com>
-X-Gm-Features: AQROBzC-crhwu8Gg_duZpu3fi-1fiqmCCzQLU7W9KwffAtApPIHHGTBoF1MILbE
-Message-ID: <CAMuHMdXcKBYrQ+5fP4b99zKD0q81LXeH4w6ssP+iOUQNEeB3Vw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] arm64: dts: renesas: r9a09g056: Remove wdt{0,2,3} nodes
-To: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <cover.1774283146.git.dan.carpenter@linaro.org> <CAD++jL=mz5jOLkq6GA6ZWzfGfFnVOLTCoXKOd38YHj2UZaZ9ww@mail.gmail.com>
+In-Reply-To: <CAD++jL=mz5jOLkq6GA6ZWzfGfFnVOLTCoXKOd38YHj2UZaZ9ww@mail.gmail.com>
+From: Bartosz Golaszewski <brgl@kernel.org>
+Date: Wed, 25 Mar 2026 11:24:13 +0100
+X-Gmail-Original-Message-ID: <CAMRc=Me2pyUshFZeXqWU0DF2eTkNjNvVDUP3LL9DO0ZfMOPJDA@mail.gmail.com>
+X-Gm-Features: AaiRm50nqwnVr1AXzgZWPax30PNVL9bQfMa7oruOnr447gPeYYgO3Xx86_ZMZ5g
+Message-ID: <CAMRc=Me2pyUshFZeXqWU0DF2eTkNjNvVDUP3LL9DO0ZfMOPJDA@mail.gmail.com>
+Subject: Re: [PATCH v6 0/7] gpio: introduce a GPIO driver for SCMI
+To: Linus Walleij <linusw@kernel.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>, AKASHI Takahiro <akashi.tkhro@gmail.com>, 
+	arm-scmi@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
+	Cristian Marussi <cristian.marussi@arm.com>, devicetree@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Khaled Ali Ahmed <Khaled.AliAhmed@arm.com>, 
+	Michal Simek <michal.simek@amd.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 24 Mar 2026 at 23:53, Fabrizio Castro
-<fabrizio.castro.jz@renesas.com> wrote:
-> The Renesas RZ/V2N SoC (a.k.a. r9a09g056) comes with 4 CA55
-> cores and 1 CM33 core.
+On Tue, Mar 24, 2026 at 2:11=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
+rote:
 >
-> While the user manual doesn't explicitly specify which cores
-> should have access to particular watchdogs, it turns out that
-> (similarly to the Renesas RZ/V2H(P)) it only makes sense for
-> Linux to use WDT1.
+> On Mon, Mar 23, 2026 at 8:01=E2=80=AFPM Dan Carpenter <dan.carpenter@lina=
+ro.org> wrote:
 >
-> Remove DT nodes wdt{0,2,3} from the RZ/V2N SoC specific dtsi
-> to make it compliant with the original design intent.
+> > This basically abandons my earlier attempts and goes back to Takahiro
+> > Akashi's driver.  Here is the link to Takahiro's patchset:
+> >
+> > https://lore.kernel.org/all/20231005025843.508689-1-takahiro.akashi@lin=
+aro.org/
+> >
+> > v6: Fix a build error when CONFIG_PINCONF is disabled
+> >     Fix the dt-binding subject and my email address
+> >     Use pinconf_to_config_packed() instead of PIN_CONF_PACKED()
 >
-> This change is harmless as there are no users for the nodes
-> being stripped out of this device tree.
+> v6 applied to this immutable branch:
+> https://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-pinctrl.git/=
+log/?h=3Dib-scmi-pinctrl-gpio
 >
-> Signed-off-by: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
+> Then merged into my devel branch for next.
+>
+> Bartosz, you might want to pull it in!
+>
+> Dan: thanks for your efforts to fix up the remaining hurdles and
+> bringing this to completion! Sometimes the last few % of work are
+> the hardest.
+>
+> Also thanks to Takahiro for this idea: it worked out just like you
+> imagined.
+>
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.1.
+Pulled, thanks!
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Bart
