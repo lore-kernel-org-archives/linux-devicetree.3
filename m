@@ -1,232 +1,172 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996C03AF645;
-	Wed, 25 Mar 2026 10:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 421863A5448
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 10:52:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774435767; cv=none; b=IuL9eobuofekLQxFajEjO+Vb3QPrAN3sdqGBYUHwpo0Uhgyxy7T3sr/5m+K0QtJVMJ1irEgsjUJwvBVdqqxEr8f2U44xNqdbHQFTaVhFTDNh36FupgrqIBAgAssqtuwy3kZntVmJnG4Ycxk9IA2TizlB0R1uOINN7ZGARZrH5Eo=
+	t=1774435965; cv=none; b=G2SS797x9iwI8nhoVnSBNxjcN0F4OFxyLh//BOo82n0cynDLhkyP98WGuuqbl4oMvky+GUinuXSgyvGQTcUq3IzaE2+MGF56BtD+u0nWad7c6y77PBJ7cYylRhERtRPLfKOtXw66jfxlm9tDH5Bb/heXyQn2ttsi1cjz3nYZqT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774435767; c=relaxed/simple;
-	bh=Y4rM1iLTl82BhRRs5Nx7wm1CXx7QRUPDPGxS9HlKH1E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d50hhRsd0g9LNq5Yh/BNQFmC/cslgp5s+98OG9RRfd0v4GHMZsnz8G+yo7DiCYwvo0UXX5K14lNxPQ1JRH4QmitrTIlh+mEHmh7A2Wx0MQuKoEAoJv0kN6pOmc3UWNIEdoc8AHvQ8pJztBQRZfykOOB8YSy+efCVwmyJrD9dDdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nxu7d1GX; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1774435965; c=relaxed/simple;
+	bh=wmuaaOg4CnipIOHEA8jDhmtHGu0mwlaisEtJOq8v8NA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sgIyvvpSlhkmPowNSyKp3edQ5uV19DtcZBtH1Hnw0AHuDKVgyGztWm+3IChWkuX8+vaQoJgQi2UWgRrk7vsEvXENsgxqubfxelZqakltDtxwjiXWpUO6KzKkMZA3znPnChIaxB0PCyMidx7VfnuAO6KfbQ/YfANewBkHwVoCz+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AMzm6wiL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KeLH0kb5; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nxu7d1GX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774435767; x=1805971767;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Y4rM1iLTl82BhRRs5Nx7wm1CXx7QRUPDPGxS9HlKH1E=;
-  b=nxu7d1GX4F7V5Srusf2JFscLEntsFZwf9yQy4Ui6gndjTI2404MNdLsb
-   Na2kNdJjPbErknPwUnnslYGKLMlh1o1tE41jmxGA6KnnnDlve1ma1ZAEi
-   HaMVaJ2lHhKDCdLgPyJ1FaX+3coPoCLALprLkwL4EXaamn6E4vBHRV6e5
-   gOa8KmaQ1CMSA0TiuujUbQxGZs3P27YuzSkvAgijRMyuLzVj5lqz3Zp9g
-   X/uqaekiZbIrxHdD6URMtv14J0xuL5PKOAcjuzzXLaPTJJDPfIzGJIa/e
-   AJs/piJY5Z40d5Xh14uCeTEOb2G7wxLjsmoxp/vu9qNIceTrpIfH9e7DO
-   A==;
-X-CSE-ConnectionGUID: wXCkTCCyTgqyxCSWNiEWZw==
-X-CSE-MsgGUID: pKLdEK5fR/OUroDwukcTfA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="79325148"
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="79325148"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:49:26 -0700
-X-CSE-ConnectionGUID: 7OsIQRFCTLuqPlybnrUTfg==
-X-CSE-MsgGUID: nOQqZgnMTDyMoRJF43rx7g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="224905102"
-Received: from lkp-server01.sh.intel.com (HELO 3905d212be1b) ([10.239.97.150])
-  by orviesa007.jf.intel.com with ESMTP; 25 Mar 2026 03:49:21 -0700
-Received: from kbuild by 3905d212be1b with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1w5Lna-000000006f7-2Nd7;
-	Wed, 25 Mar 2026 10:49:18 +0000
-Date: Wed, 25 Mar 2026 18:48:49 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ryan Chen <ryan_chen@aspeedtech.com>, jk@codeconstruct.com.au,
-	andriy.shevchenko@linux.intel.com,
-	Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Rayn Chen <rayn_chen@aspeedtech.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: oe-kbuild-all@lists.linux.dev, linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-	openbmc@lists.ozlabs.org, Ryan Chen <ryan_chen@aspeedtech.com>
-Subject: Re: [PATCH v27 3/4] i2c: ast2600: Add controller driver for AST2600
- new register set
-Message-ID: <202603251835.KJc3nKCn-lkp@intel.com>
-References: <20260324-upstream_i2c-v27-3-f19b511c8c28@aspeedtech.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AMzm6wiL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KeLH0kb5"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62PAAQCs920422
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 10:52:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ReUMwUL96j+Y3C2vukr2YAZoWKe15yppO5rPQ/p+//s=; b=AMzm6wiL8DM3Up0O
+	qBvKg1SclfNHoaAw42n+6CIiEfrcO7OifTXUnvdYPxA2bbyQ7XQnJ9nzL4TAXmtH
+	SwJLoQhgtGfF16vK62QTY44w1+TE1B91aQ9H46Ij7DmJLxz7zO9O1fwXBG7x/g/m
+	tCrt4D4sGCxpce3yqAVaavvl0sm1desidvqrziOMLiwVRMZBGGRZhmG6bsv8C8xU
+	txN7MpBR1uR+Bknn/Op9EZPQ5b3GX1HZ9nsXLIZnh24OVSah5LCZIAERtzYI0Kf8
+	b7jb9bm996i1mjH7Z0hwh2TnZLw7kV6jVsR0XbodtQZu/BuR16DUhG+OqYELUbzx
+	aAONrw==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d489mhekx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 10:52:43 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-89a04e9d4faso46065126d6.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 03:52:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774435962; x=1775040762; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ReUMwUL96j+Y3C2vukr2YAZoWKe15yppO5rPQ/p+//s=;
+        b=KeLH0kb5F7b4ojksy5iZHlK75E+4MO4Xv9PznDSyJ64j5YAnIvt2KjO9JimdT1+KNF
+         OVvNSjnl0PQDYK0riLUe0ESwXM5k09vDWIUNfn/Hoi/jzMDWqhtBbP/p8GgUEXf/ETZS
+         wPe9nB0/wTippH+sLi9bH7bNEpRS17dDiYVtmMbeOaWaDaIfJE+3iq5+TsxVquMypeI7
+         doCUShyjsoX3VCUCd0r53s7yMLHCJ3sJuxwffAMpA2UOuER4ZbMm4oUetzUwdJCOoBuL
+         QBYOH7+KmijpNqaBwqtNZ5KqP3vlPyGSaFeJAD55HkP8kWOrHVO7mpzMq6Q3yiGjReJ1
+         tOQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774435962; x=1775040762;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ReUMwUL96j+Y3C2vukr2YAZoWKe15yppO5rPQ/p+//s=;
+        b=O8ZW1vzgIFCNog8XrV/njDJdNgoKSrrj1eFW3pdszvEY7supOvF0uue/2O0K09GkKd
+         xV7ZZ9bJa5Zli6JmdCHtTWUbcFgEcriNpk1SWc3M/ksYTkG72RpjYllqBPD6jqiIZnki
+         i5G7Qo2JnljNw6I7YBcKDH6FAJLhj2uXf6Q/hwZVH9ylAFsWB7cGPI1TR+R22WfA2mOi
+         nYQhvdUnsqox3G07I8KhwUdkantMyeJjPC40dkHQ7+k+6eXVIX6rs7eRpHKfEXHOzaes
+         e9wnoIfwMnQJy24qhxnLD9tR2xJb6/fC1wmn+ueeiteVCUsMijdvoDzicTvUlt4gmBfA
+         hWWw==
+X-Forwarded-Encrypted: i=1; AJvYcCUElDqp67p4E+Qdv/2LrSxUHKB1FGC8ZAv7/Z+ZT9unEkQUKDVofw6g5gwGmAfJTZ7L48sHVWzWBD2O@vger.kernel.org
+X-Gm-Message-State: AOJu0YyL7SfFDks7ZAbpNJQ7RTSXxr8cgK9RgvFGuQgr9pOOL8JOVeG6
+	DifsAGDwbyh39C8G6PIj5XvRq9ZOOOLWk4rHDxB2yEQkZ3iQjBs1k17k6WqWsk8O1uV9Scu0Ssd
+	Rz8d2XoTeQKwaYUCwZKWeVvGKSzeDOEFey5dOxcyK6W7lZDjsN1GuZfCZHS6/qoGM
+X-Gm-Gg: ATEYQzzMUkqovhM6d/6rQp4PpmVAyMvr2b1NBbiJCCqkcA413qOEzEpUvcF7XtsF7R5
+	Py0bs3vVgQjowfheaindkwrQPxXwIfvRDAsP5BkrnLWmqBIctqSBLJ72KOhEA3v1MtsEG5D8azN
+	/Md9ZfNBcV9ILU/fmAk/CcUJavKsFBtcMqlpgDQdVeJT4ZaBVD9v+14jhN/mGHuRKhSW4f4Y88O
+	a9iABz2DWRCJC0HbvmCQkZ3wumUhDNozcC00GsBaCnnX5yWgjaID5SNTFvu5ZC/+sWhGjKrmBR2
+	wphipiZ2NXkhgeQKg8H60IlfW+HAJyFAxuMSRNA5VjIQB/dXXFaub+UbCuP0Hm0Iy5qixVkWn+A
+	9O5K+5PfdlClzUdc7GMIPoJ3TnwE6kgkSp2rC4EoFTRsvu7E5yuHd9dHMF9diqWPSOdEa19Nh9Q
+	OMzhE=
+X-Received: by 2002:a05:622a:5287:b0:501:4767:a6f with SMTP id d75a77b69052e-50b80cdd452mr29777661cf.3.1774435962594;
+        Wed, 25 Mar 2026 03:52:42 -0700 (PDT)
+X-Received: by 2002:a05:622a:5287:b0:501:4767:a6f with SMTP id d75a77b69052e-50b80cdd452mr29777441cf.3.1774435962183;
+        Wed, 25 Mar 2026 03:52:42 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9b133e0796sm56053666b.16.2026.03.25.03.52.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Mar 2026 03:52:41 -0700 (PDT)
+Message-ID: <da741f9e-d5ff-45d2-9b1e-7f15f71352a8@oss.qualcomm.com>
+Date: Wed, 25 Mar 2026 11:52:38 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260324-upstream_i2c-v27-3-f19b511c8c28@aspeedtech.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/9] interconnect: qcom: let platforms declare their
+ bugginess
+To: Luca Weiss <luca.weiss@fairphone.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Georgi Djakov <djakov@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Brian Masney <masneyb@onstation.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Brian Masney <bmasney@redhat.com>
+References: <20260324-msm8974-icc-v2-0-527280043ad8@oss.qualcomm.com>
+ <20260324-msm8974-icc-v2-6-527280043ad8@oss.qualcomm.com>
+ <DHB05UJMTAVN.17X2QI6XGHB37@fairphone.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <DHB05UJMTAVN.17X2QI6XGHB37@fairphone.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDA3NyBTYWx0ZWRfXwKnOq51GfhTO
+ 5xsZ50RTFyG+AwFNpiQz0AeQ2uLd3R2hgMCdACn4CXTfL1mk+KI8gRICWEBnyDe4TxmbY2/Vhd3
+ 3v1RQEwjSn3bkDJB9zePuOVUeApy7d3+4eGJ1mV5KWYayFCPvyWVSpenDj4Akn4kml82W3jWqYB
+ zxKWbbmxfkwiH/z/EPhZrn6zDGXIytBBT7AYbr6tejNFep4DrZnsrZjOLl9xQYtfhPWx6sjmukm
+ kOAyIkaGGSfgQP+WfTRj0lk+j+Gk9slyx2JY/sKlpqj9utzkcErT9812jr9En7tWhuRZrJ+pMGR
+ TqSgDv6+LpoTzXhfAFW0Pk/FcmmrBvFqTQddakN8AZBc2zPK6lNzhI/t8mj3Oq8KKsiWDGJP1sq
+ 19Bj/VJa7OUGiy0J9csDmIOO8C40VWp9I0VdHei9GNOnyZXPn/MQm/u6b9aYfTUeFfiT48S9fIc
+ VeupFzmj7fcxnpMeBtw==
+X-Proofpoint-GUID: zDlUivGun1TBYlT1S4eakSOXcIdrMsGR
+X-Proofpoint-ORIG-GUID: zDlUivGun1TBYlT1S4eakSOXcIdrMsGR
+X-Authority-Analysis: v=2.4 cv=AKSYvs3t c=1 sm=1 tr=0 ts=69c3be7b cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=Oh2cFVv5AAAA:8 a=m7pxcdcc42vr7exHiogA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22 a=7KeoIwV6GZqOttXkcoxL:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-25_03,2026-03-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 adultscore=0 lowpriorityscore=0
+ malwarescore=0 suspectscore=0 bulkscore=0 clxscore=1015 impostorscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603250077
 
-Hi Ryan,
+On 3/24/26 1:14 PM, Luca Weiss wrote:
+> On Tue Mar 24, 2026 at 1:10 AM CET, Dmitry Baryshkov wrote:
+>> On MSM8974 programming some of the RPM resources results in the
+>> "resource does not exist" messages from the firmware. This occurs even
+>> with the downstream bus driver, which happily ignores the errors. My
+>> assumption is that these resources existed in the earlier firmware
+>> revisions but were later switched to be programmed differently (for the
+>> later platforms corresponding nodes use qos.ap_owned, which prevents
+>> those resources from being programmed.
+>>
+>> In preparation for conversion of the MSM8974 driver (which doesn't have
+>> QoS code yet) to the main icc-rpm set of helpers, let the driver declare
+>> that those -ENXIO errors must be ignored (for now). Later, when the QoS
+>> programming is sorted out (and more interconnects are added to the DT),
+>> this quirk might be removed.
+> 
+> For reference, these are the errors I see on fairphone-fp2
+> 
+> [    5.534806] qcom_icc_rpm_smd_send mas 8 error -6
+> [    5.535010] qcom_icc_rpm_smd_send mas 8 error -6
+> [    5.535218] qcom_icc_rpm_smd_send slv 16 error -6
+> [    5.535445] qcom_icc_rpm_smd_send slv 16 error -6
 
-kernel test robot noticed the following build errors:
+I only checked these two, but 8994 (basically largely reused design
+thought) sets them as AP owned intentionally
 
-[auto build test ERROR on 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f]
+https://android.googlesource.com/kernel/msm/+/android-msm-angler-3.10-nougat/arch/arm/boot/dts/qcom/msm8994-bus.dtsi
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Ryan-Chen/dt-bindings-i2c-Split-AST2600-binding-into-a-new-YAML/20260325-112805
-base:   6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
-patch link:    https://lore.kernel.org/r/20260324-upstream_i2c-v27-3-f19b511c8c28%40aspeedtech.com
-patch subject: [PATCH v27 3/4] i2c: ast2600: Add controller driver for AST2600 new register set
-config: sparc-randconfig-r073-20260325 (https://download.01.org/0day-ci/archive/20260325/202603251835.KJc3nKCn-lkp@intel.com/config)
-compiler: sparc-linux-gcc (GCC) 8.5.0
-smatch: v0.5.0-9004-gb810ac53
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260325/202603251835.KJc3nKCn-lkp@intel.com/reproduce)
+so I suppose the fix is to simply denote all of them as such and go on
+with our life!
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603251835.KJc3nKCn-lkp@intel.com/
+Konrad
 
-All errors (new ones prefixed by >>):
-
-   drivers/i2c/busses/i2c-ast2600.c: In function 'ast2600_i2c_probe':
->> drivers/i2c/busses/i2c-ast2600.c:955:15: error: 'struct ast2600_i2c_bus' has no member named 'dma_abailable'; did you mean 'dma_available'?
-     if (i2c_bus->dma_abailable)
-                  ^~~~~~~~~~~~~
-                  dma_available
-
-
-vim +955 drivers/i2c/busses/i2c-ast2600.c
-
-   916	
-   917	static int ast2600_i2c_probe(struct platform_device *pdev)
-   918	{
-   919		struct device *dev = &pdev->dev;
-   920		struct ast2600_i2c_bus *i2c_bus;
-   921		struct reset_control *rst;
-   922		struct resource *res;
-   923		u32 global_ctrl;
-   924		int ret;
-   925	
-   926		if (!device_property_present(dev, "aspeed,global-regs"))
-   927			return -ENODEV;
-   928	
-   929		i2c_bus = devm_kzalloc(dev, sizeof(*i2c_bus), GFP_KERNEL);
-   930		if (!i2c_bus)
-   931			return -ENOMEM;
-   932	
-   933		i2c_bus->reg_base = devm_platform_ioremap_resource(pdev, 0);
-   934		if (IS_ERR(i2c_bus->reg_base))
-   935			return PTR_ERR(i2c_bus->reg_base);
-   936	
-   937		rst = devm_reset_control_get_shared_deasserted(dev, NULL);
-   938		if (IS_ERR(rst))
-   939			return dev_err_probe(dev, PTR_ERR(rst), "Missing reset ctrl\n");
-   940	
-   941		i2c_bus->global_regs =
-   942			syscon_regmap_lookup_by_phandle(dev_of_node(dev), "aspeed,global-regs");
-   943		if (IS_ERR(i2c_bus->global_regs))
-   944			return PTR_ERR(i2c_bus->global_regs);
-   945	
-   946		regmap_read(i2c_bus->global_regs, AST2600_I2CG_CTRL, &global_ctrl);
-   947		if ((global_ctrl & AST2600_GLOBAL_INIT) != AST2600_GLOBAL_INIT) {
-   948			regmap_write(i2c_bus->global_regs, AST2600_I2CG_CTRL, AST2600_GLOBAL_INIT);
-   949			regmap_write(i2c_bus->global_regs, AST2600_I2CG_CLK_DIV_CTRL, I2CCG_DIV_CTRL);
-   950		}
-   951	
-   952		i2c_bus->dev = dev;
-   953		i2c_bus->multi_master = device_property_read_bool(dev, "multi-master");
-   954		i2c_bus->dma_available = device_property_read_bool(dev, "aspeed,enable-dma");
- > 955		if (i2c_bus->dma_abailable)
-   956			i2c_bus->mode = DMA_MODE;
-   957		else
-   958			i2c_bus->mode = BUFF_MODE;
-   959	
-   960		if (i2c_bus->mode == BUFF_MODE) {
-   961			i2c_bus->buf_base = devm_platform_get_and_ioremap_resource(pdev, 1, &res);
-   962			if (IS_ERR(i2c_bus->buf_base))
-   963				i2c_bus->mode = BYTE_MODE;
-   964			else
-   965				i2c_bus->buf_size = resource_size(res) / 2;
-   966		}
-   967	
-   968		ast2600_i2c_set_xfer_mode(i2c_bus, i2c_bus->mode);
-   969	
-   970		/*
-   971		 * i2c timeout counter: use base clk4 1Mhz,
-   972		 * per unit: 1/(1000/1024) = 1024us
-   973		 */
-   974		ret = device_property_read_u32(dev, "i2c-scl-clk-low-timeout-us", &i2c_bus->timeout);
-   975		if (!ret)
-   976			i2c_bus->timeout = DIV_ROUND_UP(i2c_bus->timeout, 1024);
-   977	
-   978		init_completion(&i2c_bus->cmd_complete);
-   979	
-   980		i2c_bus->irq = platform_get_irq(pdev, 0);
-   981		if (i2c_bus->irq < 0)
-   982			return i2c_bus->irq;
-   983	
-   984		platform_set_drvdata(pdev, i2c_bus);
-   985	
-   986		i2c_bus->clk = devm_clk_get(i2c_bus->dev, NULL);
-   987		if (IS_ERR(i2c_bus->clk))
-   988			return dev_err_probe(i2c_bus->dev, PTR_ERR(i2c_bus->clk), "Can't get clock\n");
-   989	
-   990		i2c_bus->apb_clk = clk_get_rate(i2c_bus->clk);
-   991	
-   992		i2c_parse_fw_timings(i2c_bus->dev, &i2c_bus->timing_info, true);
-   993	
-   994		/* Initialize the I2C adapter */
-   995		i2c_bus->adap.owner = THIS_MODULE;
-   996		i2c_bus->adap.algo = &i2c_ast2600_algorithm;
-   997		i2c_bus->adap.retries = 0;
-   998		i2c_bus->adap.dev.parent = i2c_bus->dev;
-   999		device_set_node(&i2c_bus->adap.dev, dev_fwnode(dev));
-  1000		i2c_bus->adap.algo_data = i2c_bus;
-  1001		strscpy(i2c_bus->adap.name, pdev->name);
-  1002		i2c_set_adapdata(&i2c_bus->adap, i2c_bus);
-  1003	
-  1004		ret = ast2600_i2c_init(i2c_bus);
-  1005		if (ret < 0)
-  1006			return dev_err_probe(dev, ret, "Unable to initial i2c %d\n", ret);
-  1007	
-  1008		ret = devm_request_irq(dev, i2c_bus->irq, ast2600_i2c_bus_irq, 0,
-  1009				       dev_name(dev), i2c_bus);
-  1010		if (ret < 0) {
-  1011			ret = dev_err_probe(dev, ret, "Unable to request irq %d\n",
-  1012					    i2c_bus->irq);
-  1013			goto err;
-  1014		}
-  1015	
-  1016		writel(AST2600_I2CM_PKT_DONE | AST2600_I2CM_BUS_RECOVER,
-  1017		       i2c_bus->reg_base + AST2600_I2CM_IER);
-  1018	
-  1019		ret = devm_i2c_add_adapter(dev, &i2c_bus->adap);
-  1020		if (ret)
-  1021			goto err;
-  1022	
-  1023		ret = sysfs_create_file(&dev->kobj, &dev_attr_xfer_mode.attr);
-  1024		if (ret)
-  1025			goto err;
-  1026	
-  1027		return 0;
-  1028	
-  1029	err:
-  1030		writel(0, i2c_bus->reg_base + AST2600_I2CC_FUN_CTRL);
-  1031		writel(0, i2c_bus->reg_base + AST2600_I2CM_IER);
-  1032		return ret;
-  1033	}
-  1034	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
