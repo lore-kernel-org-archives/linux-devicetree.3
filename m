@@ -1,126 +1,99 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24DAB1DE3B7
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 00:26:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093704F881
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 00:29:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774398400; cv=none; b=aKLj9vciqWdMq9YI5NNp3+8ymiAyWDPac5i2VOrUKBu/F8mq32aZVa60YWYYLn97nTkOjroVrt64hba9DV4zfMwAF8d/DU1rnlAuDFWgd7TnWeSIKdn7sZAK5MOWQgq8eJjjCZKCH/ITLUrT1NkM+sNmvAkbDPXoYxwmfZKbOWM=
+	t=1774398545; cv=none; b=TCdAfcuygOCKSZPKIyFZ4tECSKugWW0TVkEDZtC6GRmQG2aebGWONqOaDyN1dozdiX4KNUeCS2vrKy0ycmPOfoPrvBaYlg82ySw+fIurD8uOnEud8+2vjsvjyq8yXbHHelbIgdbSY8yNQZgUIM9cdk0QwO+OG3nILS6xozNLZhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774398400; c=relaxed/simple;
-	bh=HFIgrWvt4+PejNB2udAhjDCQWsy3aJQEKvjmdaokDjE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=W8P9FtQcUh1Brta71m4mhYGDK0dfbn2/DVKYyAA9+2C6zWv5OjoJCm1MlxTT8KpRqmuLDkyCNATDCKOmZZWDCMAwQQscX/tU0itlj8tZGSRQK+yiJRVyfpg47F203JBVpwd3XKeFNjpioxynHHgCLGmVlwAxcqbzNZ4xp180ISU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SvRatgyi; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1774398545; c=relaxed/simple;
+	bh=+W2l6HF6dMk2sjxzN6yjkAVU0JUCRJ2zSiQX38l0Uk8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BvlHnm4qy1CsMPkaog3BWTVOBP8W0bYbcUSAgiZ3zXe9nQxrv3fipoHWyT0LuOx22zzuseysb3rccaPti2I/oJJ0YU5WMVdZpNvZN/7XnxgRxbznFdx7MKh0hUgPvHP9u0LlMn2PcO6ZWDtUrY5Ifu5mo19xM/Esl1dIT4Bt0Oc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rIfhscRM; arc=none smtp.client-ip=209.85.222.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SvRatgyi"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-486507134e4so22716265e9.0
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 17:26:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rIfhscRM"
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-8d006a80ccbso1142285a.2
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 17:29:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774398397; x=1775003197; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=OR5AmQ5C+PwxUk96HWSvSEr+oIE5VPNLRZ7Lt5xbH4o=;
-        b=SvRatgyiY5Vytqe0Ci+W6WExQoC1iwmXH4vfVLnVnhPlSXRC61XCnWoi+ZVTmhiPi6
-         H5oHvHSsEJYNbHNQhIMSNQ0tZl7h46gqk/Na+9+cenL04TbG50PZ5HtEBDJQ0MWyYAYO
-         5qhIZ3IfZCsXz562/9hcxgMn/DYZ+P9/KtFAHF89I9J4+m2VJboJeGlYZzwNxjDvVkx4
-         TK3S2+ZQOLpmkDxEXehxh/o3IUKnHCXLITKCXYzUqP0dYfqWnL7aiN4T3bISSy/q5FIx
-         mDjcQFS2upOKxNItMjR+IQRHGI/ZHt9tY7Zn/7liBQpLyMb/YeRhwUIyLVP+B0wppuTV
-         KG8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774398397; x=1775003197;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1774398543; x=1775003343; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OR5AmQ5C+PwxUk96HWSvSEr+oIE5VPNLRZ7Lt5xbH4o=;
-        b=ej+LwfeoDFPBiYUDPCxXdV68F9ISE2JJ8mDrw6o/loEfTsDTefaeQMOQ4otdyu6ree
-         3ue9vaRu2J+/AGhi91FABmgEhc8OAlFBP2Gk87V/Rc9/GiG765qjSshVrTIDT80alit2
-         HEcsNtWu4/bSiwIN47g6iAMRTBPfzOArK3MujynsoswieTb5+7xzAfSBpREPYiq/I7dy
-         Nm6tva7dsaR4dmG5Knft7SZVP+nZO1McZCH+sKvEPJe69E6aJ+GczvC7P29s6SP0hFDO
-         eAOp6T3AWIkjatSga3X1FBJ6Tf7xk0IvZx8PVH4QMdiU01DDojdwa3EGToL993NO0RXb
-         6A3w==
-X-Forwarded-Encrypted: i=1; AJvYcCUwJNcnhwVDq4Tc/Gm+5TDZqBexCcmyUcO4Vj68wZp5yIPHdQwR5pvY/kKw+WyMtwNFg0cTOdBBB2Y9@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZ8kyRGKHVuhGc/Q2bsKhVDaA65LXekIRB+OADAohCvZ/8b9Wy
-	aDR4u2rP0RpBCcg1hGkU8iryAPZut+Q/Dc93KQhUom2Ux+LQxnynMtjdTaN8yLC/ZCM=
-X-Gm-Gg: ATEYQzyUerm04H9kVTeabPyLc+vCpq+0rTtyihJXiP92GJsufHmKd/7UM0Fd5i11HVw
-	KORyKxwM5RCKvZx79M7Le6mvSi8L8R5YwxALxyCyRFxc2dEhLOY+qWsJZExuamulP5gOMRCKVR1
-	OU2AeZqWfFy2lgKkLgmxRgMhKKMClS56Z6485QY/l7T1tUs8JnYPEYSC0riE1CAbmfswIg8Q693
-	Pmgy0FmxN4Atd477QA+r3Ig+v3Jj1DPi7KPQD16NGrbwJO6f6+TW6ZMvT22h4d1m5nqTNm8JkGF
-	RVKddE1x+KqTO/+Vb+7e/xovQlFcJKG1ix7emZlZhf+PgfgiJAXbv18esz4OU492Abd3cyhnl6p
-	BMvrGf1FSXCsAbjI8jlkyj54SHeV2vucZPSrj8Qcfj3XwOu0N8GMQVflE+DNSpQ10RlkkxG5Gmk
-	vWyWDmhWS/zq0TTxT5FwK4KvtkLLNYq+Wk6WqPtOvvzyjknDuVB+IDZ8Ap+f5A2AI5WcoTny9Js
-	Uy/ZelWsETtVRQ=
-X-Received: by 2002:a05:600c:190e:b0:483:7903:c3b1 with SMTP id 5b1f17b1804b1-4871604c856mr22473085e9.20.1774398397416;
-        Tue, 24 Mar 2026 17:26:37 -0700 (PDT)
-Received: from [127.0.1.1] ([94.4.193.72])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b85082842sm7233704f8f.20.2026.03.24.17.26.36
+        bh=+W2l6HF6dMk2sjxzN6yjkAVU0JUCRJ2zSiQX38l0Uk8=;
+        b=rIfhscRMro/oT15LQ1UEK5dRHLl3aWwChDv26EucE6WtEcratjz4HXKacEMxrfI+B4
+         JjgVFvCZ5g2kNGdzLCMO9EITDK21BwJJWFN+2gFLjpE2pNvLpLopXOlTWU+l0r+/vkPH
+         QuT1ueTG0FXAue9ubDoXZ8613p6RTGJcLQZhrLuy5rE1GMnt0hJ0TPWU7bNLV/nXnEJ6
+         +tPYWXNErck+Fb26ArwQdSYNFp8LSeSwtbF4wvlr063eOcDBdluxlWqxh7bujmIzL2KJ
+         y2Q6WEjLt2O4fp4/DhoCT5I8j4mQXAuSrUFNdYMLg1FB55k9rLJGLrVpK6owziLVxol1
+         adIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774398543; x=1775003343;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=+W2l6HF6dMk2sjxzN6yjkAVU0JUCRJ2zSiQX38l0Uk8=;
+        b=rU0Cm3UMugKdbUKi3ShV/jpv2Q9JQ3MXsSaXU+15nIWzNu+NzHdYzYXU+8Swfbguqk
+         vUhxz9DjfXJoHdNtM7NtUI2rVAH4Nw5EWJSPU1xHHyMAyT+9ILvz5eY+4LiwGhJd67Y9
+         zzq8zhsyvVvOlyncJdTHJlzQqZRpciuE0sADXo2a7v/0DTnYgu4Y6XWJ+syUsfdhMtOu
+         XYSRlroXW5N/YXDb84iiS8Ilbzbz6lTKrlvqFslxfT3eQt7OUvHB6Qaa0uIh4DtM1krv
+         q5Yubmq2ZsrhQUSCuFIjvTanXGYYu1DSr+WGkOyz+44KsqAN1Jab7SgsZukSKvYzKA2O
+         OyLw==
+X-Gm-Message-State: AOJu0Yy8w0/lnXUiSB+BWKtECF3GIJ8bLH9Y8G/+1eN3G3Jnd4bQcOF1
+	qc5oiH0FLTZR0s5fXl8BsY76mdNDStvMjSL/0xRGkvbOsyq/QnLW4qQV
+X-Gm-Gg: ATEYQzyLRK1/eCkUi2lZCnxttf8sTQz6AXQA63F5NOukr1ev0zI7LgBN9WZjQglGC45
+	oy7VHVgJ6X9rW8g2AQQGcubtJm/KmsVFLbFK29+hG02r9m1FzYTNqYgyVmNt3YgocHvH3vfMd3j
+	pPwbRkTQCPUgaruXnpXNVwpn82GXIFTfeenar9trpbtncMov3R4mb6BmldejDaadrwUzh7aO9Gv
+	HTjBZIgQ0766mgVDY51ZfxPmFgtVcpdCtOKWN2HwtsLPZNZcfSP7i4sYE4mR60OJBBT6wYUTJ7P
+	0x2pGJii8NyEeEPbVKEFb5pzW8y0gBRBeFenm95/G4/rpiSIAshNC1RkjO0rxCLTkGAUMVXmrL3
+	RWShGJ2W2cbsquZ0Qzu20E2XETNXgb8Y/p0c/7FKnyatZMFTQohl7ofkpohKt/DjKAYlnnPsH5w
+	K/684aZk77/YywIjH5cDaP+oBrIcZqyf9upebUu00Lthn2/ba41zwTXbYzTMze48RUPeJI7giCz
+	bEwY0xcDf9dhw==
+X-Received: by 2002:a05:620a:1788:b0:8cf:b7c2:fd20 with SMTP id af79cd13be357-8d000ed1743mr238935385a.11.1774398542974;
+        Tue, 24 Mar 2026 17:29:02 -0700 (PDT)
+Received: from jernej-laptop.localnet (16.red-83-43-237.dynamicip.rima-tde.net. [83.43.237.16])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8cfc90bb7f0sm1172723985a.38.2026.03.24.17.29.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Mar 2026 17:26:36 -0700 (PDT)
-From: Alexey Klimov <alexey.klimov@linaro.org>
-Date: Wed, 25 Mar 2026 00:26:32 +0000
-Subject: [PATCH] arm64: dts: exynos850: Add syscon-poweroff node
+        Tue, 24 Mar 2026 17:29:02 -0700 (PDT)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Chen-Yu Tsai <wens@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH 5/7] soc: sunxi: sram: Support claiming multiple regions per
+ device
+Date: Wed, 25 Mar 2026 01:28:59 +0100
+Message-ID: <7923014.EvYhyI6sBW@jernej-laptop>
+In-Reply-To: <20260324164357.1607247-6-wens@kernel.org>
+References:
+ <20260324164357.1607247-1-wens@kernel.org>
+ <20260324164357.1607247-6-wens@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-exynos850-poweroff-v1-1-34c19c06e74d@linaro.org>
-X-B4-Tracking: v=1; b=H4sIALcrw2kC/x3MQQqAIBBA0avIrBNMM6SrRAupsWbjhEIZ0t2Tl
- m/xf4WMiTDDJCokvCgTx4a+E7AePu4oaWsGrfSojLYSyxM5O6vkyTcmDkH60fbWmME556GFZ8J
- A5Z/Oy/t+INkMlGQAAAA=
-X-Change-ID: 20260325-exynos850-poweroff-a6515334888a
-To: Sam Protsenko <semen.protsenko@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.3
 
-Without poweroff node Exynos850-based board continue to draw current
-(around ~60 mA with my test setup) after poweroff. Kernel also reports
-different lockup problems and RCU stalls warnings continuosly after
-last kernel messages about hardware being switched off.
-Turns out we missed a write to PMU's PS_HOLD_CONTROL (PMU + 0x30c)
-register that actually switches the SoC off.
+Dne torek, 24. marec 2026 ob 17:43:53 Srednjeevropski standardni =C4=8Das j=
+e Chen-Yu Tsai napisal(a):
+> On the H616, the video engine needs to claim two SRAM regions.
+>=20
+> Support claiming multiple regions per device.
+>=20
+> Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
 
-Add poweroff node that implements this.
-
-With this change the current draw after power off is in range of few
-milliampers and lockup messages are no more.
-
-Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
----
- arch/arm64/boot/dts/exynos/exynos850.dtsi | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-index cb55015c8dce..3881f573ec08 100644
---- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
-+++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-@@ -215,6 +215,13 @@ pmu_system_controller: system-controller@11860000 {
- 			compatible = "samsung,exynos850-pmu", "syscon";
- 			reg = <0x11860000 0x10000>;
- 
-+			poweroff: syscon-poweroff {
-+				compatible = "syscon-poweroff";
-+				offset = <0x30c>; /* PS_HOLD_CONTROL */
-+				mask = <0x00000100>;
-+				value = <0x0>;
-+			};
-+
- 			reboot: syscon-reboot {
- 				compatible = "syscon-reboot";
- 				regmap = <&pmu_system_controller>;
-
----
-base-commit: 85964cdcad0fac9a0eb7b87a0f9d88cc074b854c
-change-id: 20260325-exynos850-poweroff-a6515334888a
+Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
 Best regards,
--- 
-Alexey Klimov <alexey.klimov@linaro.org>
+Jernej
+
 
