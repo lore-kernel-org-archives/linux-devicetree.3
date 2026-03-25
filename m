@@ -1,93 +1,96 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DCE72C0270;
-	Wed, 25 Mar 2026 21:37:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6102773DE;
+	Wed, 25 Mar 2026 21:46:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774474636; cv=none; b=TU2SDCbXvcP5iCkIq4f7Tp3c2hiSVHlELG4BwyFCTAGGr4VHY19OORdSX4CiRCixOyt+Yp+TSVS5K81rGsvGHtJr0ndaUcINKSNbeIJxZgAZzw4ehwk6T3rVlu97jP30nEFHnf2TFcvxd4+LMsLwiG9RdTFCMZYmUixBzB5imLM=
+	t=1774475191; cv=none; b=fsv+gGBzFtiJvMaWQ+TA86za1rGGS2pNkHLfwsB1PhVyhUU1nLXbnf2U0ViLG+agNLSR6wNhibxM5AZLOvljwoMuGnkuHeEMAQ5bawKt5eixnAPqaTZUY1viaPxDRK1KGuxJ6WgvRpjEEIKgU+9Mvgc90dKKsSmQ9d+QmMv6VZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774474636; c=relaxed/simple;
-	bh=QYq6hDCQE07/eY7zkfeMf3T6tS4Ol5kK/UBOk7Mtg6s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m7XuzQ7koWzLE2eYOkFyPYL3FdcjHe91oW77n9iMEAlCcd7OrR7/6MekYhuVzEW9fUpcR6NwySjA4dlgDWkdGXoc7cj2TgvLBL94+y7c4+Bs3m8GZmpmKY5XZ6/hULY5GNevNrkdAnQGQU9c2wLRcMQkF2BIjpQSI1UwKpPBTJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=OcaUFfH1; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1774475191; c=relaxed/simple;
+	bh=4Fe2RtyviX4XAyMQSkJ4js2V2P1pz5B/N7YGrsl9zcc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e3LGQhAetbNF0MR7eFxixddUUQrwk04O1mYuTSgUIRLxba+tLtrKNxGhssvpbgbomE3yiByOlI4MJT4hp3ONGAbVFQ3Fbioa6HvQ1RucPTo1/Wp+70r/QiTNyyQ3c+Laj8UGb6DqcR+hYGguFxqBsx2RmEEDgcrVX+NZLZGv9vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gd+skQjS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="OcaUFfH1"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=A38lUMps9DF5y3xNfXoOWbS7ysXAXmQCcp5dIehhsdE=; b=OcaUFfH186W55SS9YxoOzhT6nO
-	vDSLadi4/9jyzzjUOGduh1e4yqbjjlJyERJcrIRHFJOZuPbm+mDPtB/kegovUeMg8+qGtCijTm2C8
-	u6XhuMP6O57RPiAjzsGYpqFNsUhonttvgD41d5qQmI8w0ViuVlOxHhP/bctwe+9ubYKRk+4fUOe5c
-	HAXONjrO2J4Xq2SEF1Pc/LjiCYtXZ0nwnpGo5746TrDl0uYy7A1YplWL8THEuNzebIrQI8BBmEXYS
-	LPdXNzgZ5I3wZosI/I18z3wZ2kGfmkAdK5FzA8XVFBl2oT4AtpWytwqOrmTxRhpSsHCgP+k9FoBDO
-	xDKIkjMA==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
-	id 1w5VuX-00000004HxL-1AC3;
-	Wed, 25 Mar 2026 21:37:09 +0000
-Message-ID: <3077792d-8ca2-4096-b198-68bad573d31f@infradead.org>
-Date: Wed, 25 Mar 2026 14:37:07 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gd+skQjS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FEC6C4CEF7;
+	Wed, 25 Mar 2026 21:46:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774475190;
+	bh=4Fe2RtyviX4XAyMQSkJ4js2V2P1pz5B/N7YGrsl9zcc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gd+skQjS3BMVlPvY/Wq2/oTBkb3Q/8to8HmZ2p3JV8T6KVAB0Hdh3NuBqQibWG69O
+	 sTIdjVfGv/pVHtEboALTgNO8qC4pctE9+BrgnOFbNoSJQWvd2ho2m3stM8wW9QVRrB
+	 jsqc/XHaccHO/YHl2JI3wRXJnr8s+HTlQS1fYge0ucJe2vG4RpE1nTr/0s53cFYJ/N
+	 M8eYlciKHFcCoh2AdKuge+r0/BbSunYysDZqgLvqP47ttBFcfh4pPQSraN1QvsffbX
+	 wKW1iYoqH26weoB/8paywGKkmu9d+XwJSxkzsv/ju6Gl3XS97nHfty+38gOL8CePP/
+	 NBfC4CCUN+hUg==
+Date: Wed, 25 Mar 2026 16:46:29 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Samuel Holland <samuel.holland@sifive.com>,
+	Jakub Kicinski <kuba@kernel.org>, linux-kernel@vger.kernel.org,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
+	Paul Walmsley <pjw@kernel.org>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	devicetree@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Daire McNamara <daire.mcnamara@microchip.com>,
+	linux-riscv@lists.infradead.org,
+	=?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>,
+	Valentina.FernandezAlanis@microchip.com,
+	Alexandre Ghiti <alex@ghiti.fr>, Abin Joseph <abin.joseph@amd.com>,
+	Sean Anderson <sean.anderson@linux.dev>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Vineeth Karumanchi <vineeth.karumanchi@amd.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Conor Dooley <conor+dt@kernel.org>, Ryan.Wanner@microchip.com
+Subject: Re: [PATCH net-next v4 03/13] dt-bindings: net: cdns,macb: replace
+ cdns,refclk-ext with cdns,refclk-source
+Message-ID: <177447518882.6335.6622280371140449690.robh@kernel.org>
+References: <20260318-surpass-puzzle-f94b46aa8808@spud>
+ <20260318-mobilize-rule-d4a704468218@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/5] platform: arm64: Add driver for EC found on
- Qualcomm reference devices
-To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>,
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- Maya Matuszczyk <maccraft123mc@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260325-add-driver-for-ec-v6-0-a8e888d09f0f@oss.qualcomm.com>
- <20260325-add-driver-for-ec-v6-2-a8e888d09f0f@oss.qualcomm.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260325-add-driver-for-ec-v6-2-a8e888d09f0f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260318-mobilize-rule-d4a704468218@spud>
 
 
+On Wed, 18 Mar 2026 16:37:34 +0000, Conor Dooley wrote:
+> From: Conor Dooley <conor.dooley@microchip.com>
+> 
+> Ryan added cdns,refclk-ext with the intent of decoupling the source of
+> the reference clock on sama7g5 (and related platforms) from the
+> compatible. Unfortunately, the default for sama7g5-emac is an external
+> reference clock, so this property had no effect there, so that
+> compatibility with older devicetrees is preserved.
+> Replace cdns,refclk-ext with one that supports both default states and
+> therefore is usable for sama7g5-emac.
+> 
+> For now, limit it to only the platforms that have USRIO controlled
+> reference clock selection, but this could be generalised in the future.
+> 
+> The existing property only works on devices that are compatible with
+> sama7g5-gem, so mark it deprecated, and limit its use to that specific
+> scenario.
+> 
+> Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
+> ---
+>  .../devicetree/bindings/net/cdns,macb.yaml    | 56 ++++++++++++++++++-
+>  1 file changed, 53 insertions(+), 3 deletions(-)
+> 
 
-On 3/25/26 4:39 AM, Anvesh Jain P wrote:
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 30ca84404976..bcd7b0729ab7 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -22001,6 +22001,14 @@ S:	Supported
->  W:	https://wireless.wiki.kernel.org/en/users/Drivers/wcn36xx
->  F:	drivers/net/wireless/ath/wcn36xx/
->  
-> +QUALCOMM HAMOA EMBEDDED CONTROLLER DRIVER
-> +M:	Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-> +M:	Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-> +L:	linux-arm-msm@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-ec.yaml
-> +F:	drivers/platform/arm64/qcom-hamoa-ec.c
-> +
-
-Please keep the entries in the MAINTAINERS file in alphabetical order.
-
->  QUANTENNA QTNFMAC WIRELESS DRIVER
->  M:	Igor Mitsyanko <imitsyanko@quantenna.com>
->  R:	Sergey Matyukevich <geomatsi@gmail.com>
-
--- 
-~Randy
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
