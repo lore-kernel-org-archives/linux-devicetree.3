@@ -1,67 +1,67 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D4C234964
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 02:24:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1EC2836AF
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 02:24:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774405466; cv=none; b=ZKXPWpdtAFXZOPSToKYvEiL55oQQ+yQ3DcECYDjeVzZI93YbE7wh3Ld1LX7Y7Zpt96PBO8tJHQhRDh1swIfdOSAaFeARSq0sSzgJkaiuIE+J1MknOmHLbumSCrpIVjODWERjcVu2LzOmTWIgXhEI6wiy1hh/n8GqU3ko8sRWBNg=
+	t=1774405469; cv=none; b=djKE0bZzC5UWK9CSeuOBBAkvBr8Hd93WsdyOnXbJzJZiBaufCI1YH0YqDr9XvVL25tp+Uv69Tbbh8gUZwhaRsOo4sfKpUJcoDYxX1wFIIxrVhgvRTppVUUNDWo10Z4sznihSXGsxTuJZhBkOa8Gy3ffG+ua4WnQdLGCs0s1jYjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774405466; c=relaxed/simple;
-	bh=T3wmcEio4nV98m1Ned6EMqO4QaNGiBBOKlkusXtBlaE=;
+	s=arc-20240116; t=1774405469; c=relaxed/simple;
+	bh=ypN7V548x4EKOmq5vAbetbJ4K584gqDCxFws7qAK/iA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Mb+Cg5hCkXgCWVPPYWCGgLctOIp2reFGzmZNPM88c0xM01EF5t7wJma79CTDZ/p3lLnyPiVUimjPerQkF3FILWBMAlQmSsNJmZwPXRgO/aa+2rbHoORE4dIizCXhoyypVx98d0WETzY5IH1jF8OXEZtXENZM7EY7xm1KAFFzr58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RWZV4EVP; arc=none smtp.client-ip=209.85.214.176
+	 In-Reply-To:To:Cc; b=Na2AwOiZAy5/FHVDfhqz0HojeNnAjOE3VSdr+kXXlFY+MJ66m7Sxsi24XbPP8JUkbkJDU4ZqGON7cBsBZ9PiRjJ6OxyP6XZsZYKEYUGP7YUQUrN1k3fqENLRjnZEzquHZRSGs29xZPGGi8wUH0mOB0JML3JBKVJtrPXqW1oFGII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z8GEQSQk; arc=none smtp.client-ip=209.85.214.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RWZV4EVP"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2aecc6b0861so35183285ad.2
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 19:24:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z8GEQSQk"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ab077e3f32so21090885ad.3
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 19:24:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774405465; x=1775010265; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1774405467; x=1775010267; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=eRt8TH5o+UOIPSqAYAlinmlE/GxmV+GvavMDzY+Mpr8=;
-        b=RWZV4EVPsZ3ZfqRB0wC7oX8QJbOPPV1ckLLigYHOeVoCpQHHFphIWuUXtKoh9QNxF2
-         ehczUpiz2fMccBos9P0FBkF+hA01ky9I5txNn0ss7qvyBVHI3Z7bQtyQeLZfHOmFuREM
-         N/hVkHzUyj4+I2e2nFTUosFnNUmi8g7QvAzHfkuhSrcEgUzzQnKhEX7M7r2rCv6sG2ts
-         B5gt/ZICJlGmfaFTFGkRq/8euLwX39B+9Gd0sYGEHkGWIkp3Nsof09ZCHhRRWZ7Sxu8P
-         4OQpyxVw1DgY9f0Q7E0owAy7UFLpwmglpPBRSTY8X64/+Rl4ZW6asLbvcFukaXSxMXFV
-         7/+w==
+        bh=VMpmsaiWG89XF5HzNW61uXjH9rISZDARf2EnPrRV2mU=;
+        b=Z8GEQSQkt6fR4TXL1Kj6EGPArX91TjMcw50a2L5SkHLJbNSsQM4Z63PqXXqfM0hMfG
+         UQcGdoA7n665QgEYRO80/mo5KnTOl5QdGb18t7Sdd/mBrBv7v1V1xe6laxjzN4M5VQWw
+         1/Kb/BBEoPZ6/fRQJDmUlfDD8TWgk5wCRxGgNWYxfVVxP6qCfU37dPDxRXzvQ7WvkfgU
+         9UwIoRaSPAuC88lRfyTbdy4rXjNFo+9Qnv8g2/d7gDGYmJ4XX94qsS1kZw6daPkZpIo7
+         +WxFepUiIfEbn9Dkr+qhWEnVueV/izqCg0Iy+5cccHkLqfTQg1Ot+dV84kimDk2M/gS0
+         d/Aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774405465; x=1775010265;
+        d=1e100.net; s=20251104; t=1774405467; x=1775010267;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=eRt8TH5o+UOIPSqAYAlinmlE/GxmV+GvavMDzY+Mpr8=;
-        b=D0vwEdwKRXkSRdQCJ4AKe6AGEmoaExWhvsrqdiTXTm5LgwyJmd8PntZz3Vc9kk8Ji0
-         FWaHe39TZLXboYEmNB3goTX+KbA39iGFLNxZhEpVeoQNRLoD6FH5zASp//HrsgQ7pups
-         Yr0AxCbICQdS2+H5nx3VuS0LDmHEozV0MtU/ERf8RGn8pvi4AQV7jR4nEIZPY13weLTZ
-         04YeYpvpNtusXS4TOmh3i7FSgBkmkKAr9H7dKXFXB+zWauJisiZKuV3AcScUZGlddtdU
-         FxW6vbh6bPXXIvazGCkyRcjCxU/F7EL+BkHZlu4GQGv6FQ6TicS2/36eYhcoQT7j2Pme
-         m7dw==
-X-Forwarded-Encrypted: i=1; AJvYcCWBHSCbUC+yvaILIb73WQc4/u1mHVOS/oWe/8UvA+0sa11xFpICPu4WFbvt5kByHi8emMhToGh5oIwg@vger.kernel.org
-X-Gm-Message-State: AOJu0YxX9qwTGy/AvFYtPyx8BOAe30DY9rUCRbI8XdoMAbJ2xsKU8u9A
-	KaEZuoBjHWt7Q3b35Idsu1EbXezondBE0W801h0y/buutSbMDO9kHIof
-X-Gm-Gg: ATEYQzzsZglnsUluBL42mVlmHnQNc1mtTgRmN9PKlFmyWBTtjXJCVLUW0X9mfXCC1FD
-	yUHL7B4+dmLwogY/CewaMV/z97WfxWsTMg8MMqPVRtw2QQ4xX9Vy8opF65RuDt64njuJh+MnajF
-	urIEYB5X28xQ3zVNsHV2JJiLjbt+qELvuXvl151oJ+qpNJoaga68plJrWLgE4L/+6EkTCdJXrI1
-	B7UFM/7aIhs6ZRf9UUB4eqhN/aSTTp9ThcIrk/M4x+PV2LFccfruZQr7G0qEKVid4CvDUUTJgcT
-	ZCAc14lDwQoSj/LgVvIqPrj9fVZaxzEjjI6AUrl4A/6Q49+8LWaJeteqJoV0b2CRDtLLPCZSCRn
-	T5aKxvya4+ITqxLlvKhF+ZHC0YWwUw8iKk/kZHGBZyVcOpH6YVEfWqZj2s9bxPwL6bRTMZHKuZ7
-	Ky/aoedw5OK9Tp7PenJOeLPmk7DvnRmq/LZlzhGvMvCsHCcSZSl0JHnapWaOjByzY=
-X-Received: by 2002:a17:903:230c:b0:2b0:b41e:c5c3 with SMTP id d9443c01a7336-2b0b41ed524mr6509125ad.29.1774405464543;
-        Tue, 24 Mar 2026 19:24:24 -0700 (PDT)
+        bh=VMpmsaiWG89XF5HzNW61uXjH9rISZDARf2EnPrRV2mU=;
+        b=IAYfmPXMKrUih/kII8sVwGmOkN6GQ7ZUdda3f8K26sGtvP/Q199SYKCTbNmvV+glvb
+         C0sOPvi/bq7Btj6IjzjqxjS6QCVZLR313DmMFKLvXR7Z7iyO8HAs6kr/7hzSF2t8Ug3l
+         fnInWqzgN6/9BKlGbVseRPonHuE4X8BYkGi4ABv09utUqRbSwl6f7ee6XLQQMlVFqAXN
+         N2l+G4RNMjmpFI8WzZJLRjzgNRpvKXJoP4Nv53/8VMjWrH/yLqOOsx3Ct+VBr0TrV1nO
+         MFOuJQ9KlWEmb21PMsH/BmPRegHJdJhwFYy7L1j6NH5WU26BampvY6QyVbP+GZJvDQzE
+         seqw==
+X-Forwarded-Encrypted: i=1; AJvYcCVRozfE83oJ8tKU7BxLtmtem+s6qcTQBleLxL1E6YrjtNmE6Q2XUiCiqXSO7XpaztYWw4SLgH1DLonU@vger.kernel.org
+X-Gm-Message-State: AOJu0YyhkhlU6YjqXznd3GejFzFReeK8wqpViAxqHF7HvWnwqZXEIz7b
+	RqhUreH7obmY6lY1OgSHOaEIoaPFR1j+ZdFc8NBH1PcEUpKAoUECsRcS
+X-Gm-Gg: ATEYQzyBHo3mVP+RUUIsrIxNmHeqrrTeIo7T5g7ncFoaEu7ADJqcbKk+dzMTwrbsMM8
+	Rpx+IMZJbCh7BDeJ5bIzBMKRU5HXtiPjR1i8QDg0wtavBMLyerwF7w+//mDJr1PaV8OBcL2bExA
+	ReXzELtqt2DyRDKTcbYx9CD5uY7TVvBm0U+250Fs72tiKnvCZi+7mSYRhK+N65NC9E+X09Eluc2
+	jXFaBAz5sXWQuZdzg1cpkGXLR0EQnQDg+cn/JN8X/kBdIFmOG69vkcGGTah39g5PRYO6pLcVtN5
+	0FtsD1ynll2cjJZMMt8WnAPGZF2xxAl9lKJnrCDiqGEAjrJCv0jSrhfTv2T3rOJD0ltSDUX8vDv
+	nvcrbk/61lUEoXMtyl1w7Z9EBSpIuW0XtBGcblljgfewdI5iIIEXTlbEeya4GLqeR4UxTzCRYI9
+	LHOKCNJm1wVTSW5+25X/I/oUxsN/ThlbYHaYMWZeCY1O5uXJUQRHiPECaocQjTEojmQ5jEpa5Il
+	A==
+X-Received: by 2002:a17:903:19cb:b0:2b0:68d1:2537 with SMTP id d9443c01a7336-2b0b0b106a1mr19748055ad.42.1774405467322;
+        Tue, 24 Mar 2026 19:24:27 -0700 (PDT)
 Received: from [127.0.1.1] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b08352ae70sm170348635ad.23.2026.03.24.19.24.22
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b08352ae70sm170348635ad.23.2026.03.24.19.24.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Mar 2026 19:24:24 -0700 (PDT)
+        Tue, 24 Mar 2026 19:24:27 -0700 (PDT)
 From: Kyle Hsieh <kylehsieh1995@gmail.com>
-Date: Wed, 25 Mar 2026 10:24:21 +0800
-Subject: [PATCH v5 2/3] iio: adc: ltc2309: explicitly assign hex values to
- channel enums
+Date: Wed, 25 Mar 2026 10:24:22 +0800
+Subject: [PATCH v5 3/3] iio: adc: ltc2309: add support for ltc2305
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-add_ltc2305_driver-v5-2-e0d29daa54f9@gmail.com>
+Message-Id: <20260325-add_ltc2305_driver-v5-3-e0d29daa54f9@gmail.com>
 References: <20260325-add_ltc2305_driver-v5-0-e0d29daa54f9@gmail.com>
 In-Reply-To: <20260325-add_ltc2305_driver-v5-0-e0d29daa54f9@gmail.com>
 To: Lars-Peter Clausen <lars@metafoo.de>, 
@@ -84,77 +84,149 @@ Cc: Michael Hennerich <michael.hennerich@analog.com>,
  linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Kyle Hsieh <kylehsieh1995@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1724;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4420;
  i=kylehsieh1995@gmail.com; h=from:subject:message-id;
- bh=T3wmcEio4nV98m1Ned6EMqO4QaNGiBBOKlkusXtBlaE=;
- b=owEBbQGS/pANAwAKAaWDQrcJVsSBAcsmYgBpw0dfhUjCRx49ekcHNiYWpM7+PkhgJT0qLQj51
- oMivaSlCKSJATMEAAEKAB0WIQTJHsaNZOdY+THGqJelg0K3CVbEgQUCacNHXwAKCRClg0K3CVbE
- gaTKB/9SLADHIgra6NriznrRkqlVJfP2AleyIpDVzZnbnLTtXAXjREbrG7s9ZSR3xHh6vXm9V+u
- EBL+cmbnGBRbZufdB55zJ13UqQDVtJRJWrGWz7mBCQq6nz+M5PD2j59/4lvsaNluTo+VvuljMks
- fKO4hsKcuE+xPcZBQshVu31mdTtdA9v+Coy6QJkylZk6DOpkuURalLVrIkPbi7AgZemXmidd0dJ
- R+N2Cos8/d1uxsyjFctyvDyh0D1tNaUXV+6qfQJTEqHD+MvKPpBdQ0QBZOfY1xfiuEmDJpzfWOZ
- LEbS1Y4jTcQrIiRf9WR1GnbTabP8AZS07eLYzuHvNx8IiJI+
+ bh=ypN7V548x4EKOmq5vAbetbJ4K584gqDCxFws7qAK/iA=;
+ b=owEBbQGS/pANAwAKAaWDQrcJVsSBAcsmYgBpw0df63jGHRr6Rb3yLa1VHFGG9IAXwD7kyho9E
+ a8vf44CZI6JATMEAAEKAB0WIQTJHsaNZOdY+THGqJelg0K3CVbEgQUCacNHXwAKCRClg0K3CVbE
+ gXAVB/97I2caN1oSKbHVQHDhnvsk053+AmckELCjiueujhlHB+JuB4yfBv7iaq8nC9OvERCjABV
+ T/8u9+yC7vdBQw/yhFFLd6xcHp+HXYtRCg1s2sQh19u2v9sRmSwy/MR6+wIdmQ0vjHhBLKGIdNL
+ 1YpWm/2ufYSzXdH1L4XK2LQuZTLN4XVg6DdJbKFRPGxLmjW5TFGLB/63Wk1Ru5KA9agi+vwnhx7
+ JtSPeEU9BhScNVTp2WrEEvcjXZjMBf4U8FqpSLGKIDkpRZBj2+UZlA+X5r9qFMCpajRy/Y38GtJ
+ v/tKexQF5WBZtlSb7Eqce9L7AUFE4V7sIYAhQYnL6TRCmVdO
 X-Developer-Key: i=kylehsieh1995@gmail.com; a=openpgp;
  fpr=C91EC68D64E758F931C6A897A58342B70956C481
 
-The current ltc2309_channels enum relies on implicit sequential
-assignment. While this works for the 8-channel LTC2309, it is
-not intuitive and makes it difficult to support other chips in
-the same family that might have different bit mappings.
+Add support for the LTC2305 ADC to the LTC2309 driver. The LTC2305 is
+a 2-channel, 12-bit SAR ADC that is register-compatible with the
+LTC2309 but has a different channel selection mapping and count.
 
-Explicitly assign hex values to the enum members based on the
-channel selection bits defined in the datasheet. This improves
-code readability and provides a consistent pattern for future
-chip support.
+To support multiple chips in this family, introduce ltc2309_chip_info
+struct to store chip-specific channel specifications and names.
+The probe function now uses i2c_get_match_data() to retrieve the
+correct configuration for the detected device.
+
+Specific channel addresses for LTC2305 (CH0, CH1, and differential
+pairs) are added based on the datasheet.
 
 Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
 ---
- drivers/iio/adc/ltc2309.c | 32 ++++++++++++++++----------------
- 1 file changed, 16 insertions(+), 16 deletions(-)
+ drivers/iio/adc/ltc2309.c | 49 ++++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 44 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/iio/adc/ltc2309.c b/drivers/iio/adc/ltc2309.c
-index 5f0d947d0615..3f27ffc66668 100644
+index 3f27ffc66668..316256edf150 100644
 --- a/drivers/iio/adc/ltc2309.c
 +++ b/drivers/iio/adc/ltc2309.c
-@@ -42,22 +42,22 @@ struct ltc2309 {
- 
- /* Order matches expected channel address, See datasheet Table 1. */
- enum ltc2309_channels {
--	LTC2309_CH0_CH1 = 0,
--	LTC2309_CH2_CH3,
--	LTC2309_CH4_CH5,
--	LTC2309_CH6_CH7,
--	LTC2309_CH1_CH0,
--	LTC2309_CH3_CH2,
--	LTC2309_CH5_CH4,
--	LTC2309_CH7_CH6,
--	LTC2309_CH0,
--	LTC2309_CH2,
--	LTC2309_CH4,
--	LTC2309_CH6,
--	LTC2309_CH1,
--	LTC2309_CH3,
--	LTC2309_CH5,
--	LTC2309_CH7,
-+	LTC2309_CH0_CH1 = 0x0,
-+	LTC2309_CH2_CH3 = 0x1,
-+	LTC2309_CH4_CH5 = 0x2,
-+	LTC2309_CH6_CH7 = 0x3,
-+	LTC2309_CH1_CH0 = 0x4,
-+	LTC2309_CH3_CH2 = 0x5,
-+	LTC2309_CH5_CH4 = 0x6,
-+	LTC2309_CH7_CH6 = 0x7,
-+	LTC2309_CH0     = 0x8,
-+	LTC2309_CH2     = 0x9,
-+	LTC2309_CH4     = 0xa,
-+	LTC2309_CH6     = 0xb,
-+	LTC2309_CH1     = 0xc,
-+	LTC2309_CH3     = 0xd,
-+	LTC2309_CH5     = 0xe,
-+	LTC2309_CH7     = 0xf,
+@@ -1,8 +1,10 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /*
++ * The LTC2305 is a  2-Channel, 12-Bit SAR ADC with an I2C Interface.
+  * The LTC2309 is an 8-Channel, 12-Bit SAR ADC with an I2C Interface.
+  *
+  * Datasheet:
++ * https://www.analog.com/media/en/technical-documentation/data-sheets/23015fb.pdf
+  * https://www.analog.com/media/en/technical-documentation/data-sheets/2309fd.pdf
+  *
+  * Copyright (c) 2023, Liam Beguin <liambeguin@gmail.com>
+@@ -41,6 +43,13 @@ struct ltc2309 {
  };
  
- #define LTC2309_CHAN(_chan, _addr) {				\
+ /* Order matches expected channel address, See datasheet Table 1. */
++enum ltc2305_channels {
++	LTC2305_CH0_CH1 = 0x0,
++	LTC2305_CH1_CH0 = 0x4,
++	LTC2305_CH0     = 0x8,
++	LTC2305_CH1     = 0xc,
++};
++
+ enum ltc2309_channels {
+ 	LTC2309_CH0_CH1 = 0x0,
+ 	LTC2309_CH2_CH3 = 0x1,
+@@ -80,6 +89,13 @@ enum ltc2309_channels {
+ 	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	\
+ }
+ 
++static const struct iio_chan_spec ltc2305_channels[] = {
++	LTC2309_CHAN(0, LTC2305_CH0),
++	LTC2309_CHAN(1, LTC2305_CH1),
++	LTC2309_DIFF_CHAN(0, 1, LTC2305_CH0_CH1),
++	LTC2309_DIFF_CHAN(1, 0, LTC2305_CH1_CH0),
++};
++
+ static const struct iio_chan_spec ltc2309_channels[] = {
+ 	LTC2309_CHAN(0, LTC2309_CH0),
+ 	LTC2309_CHAN(1, LTC2309_CH1),
+@@ -99,6 +115,24 @@ static const struct iio_chan_spec ltc2309_channels[] = {
+ 	LTC2309_DIFF_CHAN(7, 6, LTC2309_CH7_CH6),
+ };
+ 
++struct ltc2309_chip_info {
++	const char *name;
++	const struct iio_chan_spec *channels;
++	int num_channels;
++};
++
++static const struct ltc2309_chip_info ltc2305_chip_info = {
++	.name = "ltc2305",
++	.channels = ltc2305_channels,
++	.num_channels = ARRAY_SIZE(ltc2305_channels),
++};
++
++static const struct ltc2309_chip_info ltc2309_chip_info = {
++	.name = "ltc2309",
++	.channels = ltc2309_channels,
++	.num_channels = ARRAY_SIZE(ltc2309_channels),
++};
++
+ static int ltc2309_read_raw_channel(struct ltc2309 *ltc2309,
+ 				    unsigned long address, int *val)
+ {
+@@ -158,6 +192,7 @@ static const struct iio_info ltc2309_info = {
+ 
+ static int ltc2309_probe(struct i2c_client *client)
+ {
++	const struct ltc2309_chip_info *chip_info;
+ 	struct iio_dev *indio_dev;
+ 	struct ltc2309 *ltc2309;
+ 	int ret;
+@@ -167,13 +202,15 @@ static int ltc2309_probe(struct i2c_client *client)
+ 		return -ENOMEM;
+ 
+ 	ltc2309 = iio_priv(indio_dev);
++	chip_info = i2c_get_match_data(client);
++
+ 	ltc2309->dev = &indio_dev->dev;
+ 	ltc2309->client = client;
+ 
+-	indio_dev->name = "ltc2309";
++	indio_dev->name = chip_info->name;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
+-	indio_dev->channels = ltc2309_channels;
+-	indio_dev->num_channels = ARRAY_SIZE(ltc2309_channels);
++	indio_dev->channels = chip_info->channels;
++	indio_dev->num_channels = chip_info->num_channels;
+ 	indio_dev->info = &ltc2309_info;
+ 
+ 	ret = devm_regulator_get_enable_read_voltage(&client->dev, "vref");
+@@ -189,13 +226,15 @@ static int ltc2309_probe(struct i2c_client *client)
+ }
+ 
+ static const struct of_device_id ltc2309_of_match[] = {
+-	{ .compatible = "lltc,ltc2309" },
++	{ .compatible = "lltc,ltc2305", .data = &ltc2305_chip_info },
++	{ .compatible = "lltc,ltc2309", .data = &ltc2309_chip_info },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, ltc2309_of_match);
+ 
+ static const struct i2c_device_id ltc2309_id[] = {
+-	{ "ltc2309" },
++	{ "ltc2305", (kernel_ulong_t)&ltc2305_chip_info },
++	{ "ltc2309", (kernel_ulong_t)&ltc2309_chip_info },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, ltc2309_id);
 
 -- 
 2.34.1
