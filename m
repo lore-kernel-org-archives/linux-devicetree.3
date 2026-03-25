@@ -1,105 +1,231 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485273B6342;
-	Wed, 25 Mar 2026 10:31:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A93583B6C02;
+	Wed, 25 Mar 2026 10:31:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774434674; cv=none; b=CjJ5CCYnoqMIrEvR+p6uXFHVL5fCu2FBYo7d1+tMdPZOLuI7G3NmfVtZlA+0WeLtbvcgXwNSNdCLq0TfjmVwCDlB+IUzApVWuuSMOLImy2r3e/7a1vvlbVskPyI3PaJnnrakTA/Kzb50Xy04b77B41S5xdKDKD++q3cdl3Ubvmw=
+	t=1774434678; cv=none; b=qtTKVRswiyA1YbYZLaTu/SJce3OPFLeNRP0mwfESx/eAm0LevR5Nk6zg4zCncOfkKGEgKJ7/aSg5YWeLYLGUUjWSfi4MSbC480F7eJQWedkMV4kvdSm7bfjDR5zKTr10cR8v4O4ssbJ586gLdGJem+FM0RziXzJYqDJUbcFkM6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774434674; c=relaxed/simple;
-	bh=oJjXP7xdNnZ/BGIVuhLzu0MfsHL3XvKpMIM3SaBhYfk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oJTOnEZwmqOEOgrZ8ukUv2dAIsqrAxgZbQAuwJSnXdtgzOCzDygyYepIB+NSSGb2wEFB1hTcTGzjBZD96Tp3X+LqnSRtFyQMIL1Bkid8gYoCC6J34vwaQK6wgGvE9OFzu7J5s4ZTjsbKEbtGNzGAyRJIdTGvAOIzuaL7IuhLWPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MNmggxTi; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774434678; c=relaxed/simple;
+	bh=Ytgb+4Z3q1HjWEbfbi8B+K2f4PrwdXddDyYI43PpL0Q=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=QM1RRyzNtHFvn2ZG9chIhkPecWiy6rhRyN95U7ALg/gybOUzYBmWj8p2utPZ0jsOwaoOvm6bNO9cQUAXT38zr39JGFWs6ByVUGxCoEXXbL8RkA6atBSqq6Kaaca7Mz75JijMDVEZiSXkfossn+xAawg/Ci7rRaFbC7bB58MLd80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=U55CSvfC; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=McxXC8B1; arc=none smtp.client-ip=103.168.172.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MNmggxTi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68BABC4CEF7;
-	Wed, 25 Mar 2026 10:31:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774434673;
-	bh=oJjXP7xdNnZ/BGIVuhLzu0MfsHL3XvKpMIM3SaBhYfk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MNmggxTin7K/6W/4SAhXxVVhhDmcwZaEhsjbkFJHNe0FYCa7T9o4k6z1t2QuMcGmk
-	 77wUYCQTFU54CIbmC1E+4JnJe/CDzVLutHSsNR3KlBsrlAzWiGVU8lz97OAW7eNgLn
-	 ALBL9WqwNniCGj6bi5utGFCqQ5UN9ep5k6/6yd8ImitK/Xp8jlegDjw45EM29a+j4N
-	 NkpbYmaW3cdXPPUHrBCkfPh+yfzQIXixAyYawvKhvA3/ia8HXrlMRm2a2qebz5JhoG
-	 00Pfy1wr7CgjBofXbGUNLA4uZhJ9yqh+asjiB1txJ98jFVMPlNTrrfibDmL9NQ9Sr9
-	 WARIuC86D6dCw==
-Date: Wed, 25 Mar 2026 11:31:11 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Akhil R <akhilrajeev@nvidia.com>, Frank.Li@nxp.com, 
-	acpica-devel@lists.linux.dev, alexandre.belloni@bootlin.com, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, ebiggers@kernel.org, fredrik.markstrom@est.tech, 
-	jonathanh@nvidia.com, krzk+dt@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux@roeck-us.net, miquel.raynal@bootlin.com, 
-	p.zabel@pengutronix.de, rafael@kernel.org, robert.moore@intel.com, robh@kernel.org, 
-	smangipudi@nvidia.com
-Subject: Re: [PATCH 12/12] arm64: defconfig: Enable I3C and SPD5118 hwmon
-Message-ID: <acO4NKPDUayny-I4@orome>
-References: <20260319-nano-manatee-of-vastness-fbafa1@quoll>
- <20260319170929.14543-1-akhilrajeev@nvidia.com>
- <67165a1f-9fa3-4853-b530-b1f9d6e4c2cf@kernel.org>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="U55CSvfC";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="McxXC8B1"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id 8E576EC007A;
+	Wed, 25 Mar 2026 06:31:15 -0400 (EDT)
+Received: from phl-imap-02 ([10.202.2.81])
+  by phl-compute-04.internal (MEProxy); Wed, 25 Mar 2026 06:31:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1774434675;
+	 x=1774521075; bh=nOZsBL95nAhweeH92Dp+s8gwCED82gOoXWW4sho0wpc=; b=
+	U55CSvfC6XY4xAzmu3d81QOxz+teYemQsdjYqgshmirhrKBPvbfJyiHI6KY/gfak
+	HRdwOjYxac9Od/IQgZbvh0aaRuZzfxPAe5OxwHaINgqGug+9L+RjTvIMP9MBWn0L
+	wWEvCS0oPtA5FSo++BIb3cSTCj1sFI3Kh7K71LHr7ozp/Xw6be6l5mCgVGHf68LA
+	bU7bHBRuSmMeXmpkvH5Qv44aoJTZdNl5C9MHsAgtB7KzKClRr2n/15GnlTdcMA3n
+	bZDoR33vkAtk65Qf0E9xq6VYkgY7DVcdR6Sfg3rfNO42RwFRgfRWEDkrM/zWP4Oz
+	f9kMiuakxhbkFwkEkffIrA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1774434675; x=
+	1774521075; bh=nOZsBL95nAhweeH92Dp+s8gwCED82gOoXWW4sho0wpc=; b=M
+	cxXC8B1pZ4XhHJEJRe6XbyGjh5qfn6+y1LoL5Zmhwm2Y2jWtK8ayNKsvSFBCD2Re
+	NhkOHVLHBHxrpm5WCn11HFvu99IhHgQ4uPn5hjGJSyacBJJfB1hdX0Wtnr5jdLHp
+	On+wES7TE+DDq9bxMFXwVGk1ovH4zPNk+VyIuvMshKQCAadEzKka6Pwam0EmOcgW
+	nTum7nJRXz/s/2LS9cy8GefACy4FNdAzxhVjf1J5RS+2Kt5Ymp8HOpWZDJeLYb+O
+	lByrJ2s2FoIEkhHdUNqhaA8MNG9HHtbphZwrzO3RMafyrGItU3I4E7PjZ9oMZ/+2
+	Qvxzg12o+uEqz9yQgeSgg==
+X-ME-Sender: <xms:cbnDabo1UFdJwpbrxA42Igr1OKxwCPdt4VhsZBItEEyf9yxfS18raQ>
+    <xme:cbnDaQfQcuzSkpGf8E-FKYeOWogdqddxOVyoXVs2eFjgWS_IVR7fE6vW3qWs5dJ8_
+    rzfJCQKyY_G6pye56t7F_i82T1HZ4IScR4zEBArsqaLjhVelaidYw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdefvdegvdefucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhepofggfffhvfevkfgjfhfutgfgsehtqhertdertdejnecuhfhrohhmpedftehrnhgu
+    uceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrthhtvg
+    hrnhepkedvuefhiedtueeijeevtdeiieejfeelvefffeelkeeiteejffdvkefgteeuhffg
+    necuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtne
+    curfgrrhgrmhepmhgrihhlfhhrohhmpegrrhhnugesrghrnhgusgdruggvpdhnsggprhgt
+    phhtthhopeduiedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprhihrghnpggthh
+    gvnhesrghsphgvvgguthgvtghhrdgtohhmpdhrtghpthhtohephihhpggthhhunhhgsegr
+    shhpvggvughtvggthhdrtghomhdprhgtphhtthhopegrnhgurhgvfiestghouggvtghonh
+    hsthhruhgtthdrtghomhdrrghupdhrtghpthhtohepmhgrtghivghjrdhlrgifnhhitgii
+    rghksehinhhtvghlrdgtohhmpdhrtghpthhtohepjhhovghlsehjmhhsrdhiugdrrghupd
+    hrtghpthhtohepsghrohhonhhivgeskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheptgho
+    nhhorhdoughtsehkvghrnhgvlhdrohhrghdprhgtphhtthhopegtohhnohhrsehkvghrnh
+    gvlhdrohhrghdprhgtphhtthhopehkrhiikhdoughtsehkvghrnhgvlhdrohhrgh
+X-ME-Proxy: <xmx:cbnDaX2k39X3tB1eVoZdsH3a2rR-Kfzg45viTlUTMzx7dJPQRugnYQ>
+    <xmx:cbnDaSAWglBxqkW5Xfz_eloOAf5tS0s_icOs_dbVJxcvcEulqbkhaQ>
+    <xmx:cbnDaeDHpQ8mB2dETY6HX5RcLgaDNdeI7a7RDo5qbXI8rWyT7TBQiQ>
+    <xmx:cbnDaTMzT0ABjv5WXH6o-HY8dXRNkmkey-a9FMsPaGZJ94atmHtC6w>
+    <xmx:c7nDacnB8ldaU7195uwNYbGFDkaHpRwFU3uW6h3AmpoWapnIxKblE41i>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id BFFF9700065; Wed, 25 Mar 2026 06:31:13 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hefw7yhop4kz6jja"
-Content-Disposition: inline
-In-Reply-To: <67165a1f-9fa3-4853-b530-b1f9d6e4c2cf@kernel.org>
-
-
---hefw7yhop4kz6jja
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
+X-ThreadId: A224H4bSXjB-
+Date: Wed, 25 Mar 2026 11:30:53 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: aspeedyh <yh_chung@aspeedtech.com>,
+ "Andrew Jeffery" <andrew@codeconstruct.com.au>,
+ "Conor Dooley" <conor@kernel.org>
+Cc: "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Joel Stanley" <joel@jms.id.au>,
+ "Ryan Chen" <ryan_chen@aspeedtech.com>,
+ "Philipp Zabel" <p.zabel@pengutronix.de>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "maciej.lawniczak@intel.com" <maciej.lawniczak@intel.com>,
+ "Mark Brown" <broonie@kernel.org>
+Message-Id: <14870d17-2471-4522-b8b5-03cb9002a4f7@app.fastmail.com>
+In-Reply-To: 
+ <KL1PR0601MB4276B5BE3B96C18E3A66AD709049A@KL1PR0601MB4276.apcprd06.prod.outlook.com>
+References: <20260313-upstream_espi-v1-0-9504428e1f43@aspeedtech.com>
+ <20260313-energy-casket-ca8adc1f1fd1@spud>
+ <23909400-4e7f-49c9-a982-14036372af98@app.fastmail.com>
+ <c3b28ee92fa46700887d0c68b23045b2418358a7.camel@codeconstruct.com.au>
+ <KL1PR0601MB4276ED93723F0B1F42349AD89041A@KL1PR0601MB4276.apcprd06.prod.outlook.com>
+ <0f7f0f96-a918-47d5-a0bd-bbde494c8fed@app.fastmail.com>
+ <KL1PR0601MB4276B5BE3B96C18E3A66AD709049A@KL1PR0601MB4276.apcprd06.prod.outlook.com>
+Subject: Re: [PATCH 0/7] soc: aspeed: Add AST2600 eSPI controller support
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 12/12] arm64: defconfig: Enable I3C and SPD5118 hwmon
-MIME-Version: 1.0
 
-On Thu, Mar 19, 2026 at 06:15:14PM +0100, Krzysztof Kozlowski wrote:
-> On 19/03/2026 18:09, Akhil R wrote:
-> > On Thu, 19 Mar 2026 10:40:34 +0100, Krzysztof Kozlowski wrote:
-> >> On Wed, Mar 18, 2026 at 10:57:25PM +0530, Akhil R wrote:
-> >>> Add I3C subsystem support, DesignWare I3C master controller, and
-> >>> SPD5118 hwmon sensor as modules to the defconfig.
-> >>
-> >> Why? If there is no user of that, why would we want it? Your commit msg
-> >> should explain that.
-> >=20
-> > Ack. This is for Tegra410 which has a DesignWare I3C host controller.
-> > I will add this in the commit message.
->=20
-> Board or products. Not SoCs.
+On Wed, Mar 25, 2026, at 09:41, YH Chung wrote:
+>> On Tue, Mar 17, 2026, at 09:14, YH Chung wrote:
+>> From reading the old comments that Andrew linked to at
+>>=20
+>> https://lore.kernel.org/linux-aspeed/HK0PR06MB377924CFCBFE9BD40E1C4A5=
+D91
+>> D49@HK0PR06MB3779.apcprd06.prod.outlook.com/
+>>=20
+>> I understand that the SoC has a "hardware mode" in which eSPI is
+>> directly implemented by redirecting upper-level eSPI transactions into
+>> functional blocks of the chip, while the software mode behaves like
+>> a regular SPI endpoint controller and your driver implements the
+>> same interfaces in a mix of kernel and userspace components. Can you
+>> confirm that this is a correct understanding of what the hardware
+>> does, or where I misunderstand parts?
+>
+> Broadly yes, except that the AST2600 does not operate in a single glob=
+al
+> "hardware mode" or "software mode". Instead, some backends in the eSPI=
+ target
+> controller support per-function HW/SW mode selection.
+>
+> Depending on that function-specific setting, the controller either for=
+wards a
+> received transaction directly to the corresponding hardware block or t=
+raps it
+> for software handling instead.
+>
+> This mechanism exists because some backend blocks include their own ha=
+rdware
+> filtering, but not all request types could be validated generically in
+> hardware. For example, the LPC bridge can reject illegal requests. In =
+some
+> cases, blindly forwarding host requests to the target block would also=
+ have
+> security implications.
+>
+> The channel/backend mapping on AST2600 can be summarized as:
+>
+> eSPI
+> =E2=94=9C=E2=94=80=E2=94=80 Peripheral
+> =E2=94=82 =E2=94=9C=E2=94=80=E2=94=80 Memory (HW mode only)
+> =E2=94=82 =E2=94=94=E2=94=80=E2=94=80 LPC bridge (HW mode only)
+> =E2=94=9C=E2=94=80=E2=94=80 Virtual Wire
+> =E2=94=82 =E2=94=94=E2=94=80=E2=94=80 GPIO (HW/SW mode selection)
+> =E2=94=9C=E2=94=80=E2=94=80 Out-of-Band (SW mode only)
+> =E2=94=94=E2=94=80=E2=94=80 Flash
+>    =E2=94=94=E2=94=80=E2=94=80 Storage controller (HW/SW mode selectio=
+n)
+>
+> From the link thread, what Jeremy mentioned is the GPIO HW/SW mode for=
+ CH1,
+> which determines whether the host can directly control the correspondi=
+ng BMC
+> GPIO output, or whether BMC software can inspect and decide whether to=
+ act on
+> that request.
+>
+> Another example is the Target Attached Flash Sharing (TAFS) defined by=
+ the
+> eSPI specification that allows BMC to share its storage with the host.
+>
+> In hardware mode, the eSPI Target Device controller routes the request
+> directly to a predefined storage controller on AST2600.
+> In software mode, it raises an interrupt and lets software handle the
+> transaction instead.
+>
+> So I would not describe the AST2600 eSPI block as being globally in ei=
+ther
+> "hardware mode" or "software mode".
+> That choice is made per backend function, and some backend functions d=
+o not
+> implement such a switch at all.
 
-Is this a new requirement? I see a bit of both in defconfig changes.
-Some mention specific products, other mention SoCs. Does this
-requirement apply to DT platforms or also ACPI platforms?
+I see, thanks for the detailed explanation! Two follow-up questions:
 
-Thierry
+- For the HW-mode-only peripherals (memory, LPC), is there any
+  driver interaction at all for setting it up, or is this completely
+  transparent to Linux running on the BMC?
 
---hefw7yhop4kz6jja
-Content-Type: application/pgp-signature; name="signature.asc"
+- For the other devices running in SW mode, is the interface that the
+  driver sees abstract in the sense that the same low-level code
+  is shared for all of them, or are these still separate functional
+  blocks that each need their own register-level interface?
 
------BEGIN PGP SIGNATURE-----
+>> For the higher-level interfaces (flash, gpio, ...), I don't think
+>> there is any consensus yet about how this should be done, but again
+>> I think this won't be drivers/soc but instead something more
+>> generic.
+>
+> For the flash-related interface, would it make sense to follow the
+> configuration model used by the USB gadget mass-storage function, and =
+expose
+> the backing storage selection through configfs?=20
+>
+> For the attributes, perhaps the only backing storage object and read-o=
+nly
+> flag would be required in our case.
+>
+> For the Virtual Wire GPIO, we think GPIO subsystem may be leveraged he=
+re,
+> though some corner cases may not map cleanly to a typical GPIO control=
+ler
+> model.
+>
+> For the Out-of-band channel, since the eSPI spec models it for tunnele=
+d SMBus
+> packets, we may want to integrate it with the kernel's MCTP stack if t=
+hat is
+> a suitable fit.
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnDuWsACgkQ3SOs138+
-s6GkJQ/+KHih7KGdwK8LUXDaRizPuwcIwvX5HHc3TOdKw2Gw/XtV+JaoI7c4wtx4
-MvnJjhsHhu4zH+4SMnxqEzTP8jbxcV96L9WhQ+Zfurvs+4X+vZ0KsNXN7H+uTeOB
-UKlf8JumnoVOs74dUSxIy4c9s2XoY/q6W/pBIguuczmMO/uyuUIIV7tiS+IAHVvG
-V+ySkgCNZR+6XH9tyAdN5xTvt7K26KFKoPUgOEXzY7k1gPWCL297YdEoWAfaw0PR
-7DxE9hn9z8DcflEbdkwLwD6z5wfJBgTPvZZgXNheyMv3Spr3lpmAOLFqW6a5QicG
-HllawC3G+ShlLltKAbjxygCX87Wf6fmKKYT40da3GrEkex+GWfDsDYXK5hijGDas
-2nxOZPvXBvQ8aV4Fx4kJHr0GmL6psv8VRVvDT1GWn3clzC7VBOzeMvf7cJBXImMv
-uxr53vBDzVSuLNZbt2ZZu+teJREZG+pM4nxC3jPIgh2t2tXWDtfco9O9qUyJsK2Y
-ibZ4l+p2uBzRu3cD3obBsHjnVLY79XEd6LN9RH6ZXNGn5t6PVHarP2gLW5hx5VI/
-rc++EMVFU2qrO2fe+duASYGyQs+BS4u7u5S9j/jnjEO+Z7kZi4zPk9cnAZEZXSZl
-tWV0O0BCLlbHYHHVrKTMZmT7Ay//JLt0uEEsogX+Cm7vH3z0U6M=
-=cTw6
------END PGP SIGNATURE-----
+These all seem to be viable options, but I still think we should
+focus on agreeing on a design for the low-level hardware interface
+and whether this can or should be abstracted between SoC vendor
+specific drivers before trying to solve the user interface side.
 
---hefw7yhop4kz6jja--
+      Arnd
