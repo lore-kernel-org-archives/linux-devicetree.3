@@ -1,162 +1,155 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A74D23D6473;
-	Wed, 25 Mar 2026 12:51:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774443096; cv=none; b=MrVjaVOP9N/f6v1Q96YCJ7eLAmQHrF0WjIPmxhHWtU3n4p6BJXQmGygVDTDH8P+z57YXJM2g+34flj6xqcNYK1OYFfb9PiOI3S9bG7qxVy284SDzkP9gjC/DFuGsA+r2CXZaejm6qIJgbEvvV0dXcObBRfo7YQ0QHmLsa8iDp+0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774443096; c=relaxed/simple;
-	bh=UdCD7q/IJ6c5q+uZca+/BPC2/pc/qVGnBSkfmGLHrdo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ErGXjeKPoJwwUw/TU8n/8xhGicA59uz/XgZFJOWB1IhKlkw/bhpINmn4P+MCxVCzV2MzGRaeVykbmLqvjHd+hdVk/UUCDG3FTIaMGzyMrfOofg532K9XlSApZXBVwuqgt1MixtYbwvLc+xRwgNQUgEd81O+FDvdN2VldyMXk8TI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=VxqI3tMF; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C796C3D47AE
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 12:55:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774443345; cv=pass; b=o4To7t1XvUvyqnydMWBEeDRG9FPtBVheG8tx3KFVX1D5xr96+3ejjMqppPLKhQY49EI9weLLKEVzN37+IHN5wN8OeZ6RyxE2sqKUZzp+pKPZiMxJ14bYUJ0MNG88WZUvfYYhu5+KcKFeqXZJYAkKj74BNClPbHm2bEcpZbOo5Mw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774443345; c=relaxed/simple;
+	bh=BV3nfYDh8WB934qXYoTUNUtO0cx+cauV4kfuBRprQk8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YIJActgxxo7H6qdiUENkVezsBqUilIFf4+AmROiAL9zMBmkl+I/MBfqKDeqwcFFS1aI0Ae4yjiU02uCKcY5N+kdM0aHrymIGWO/dPzvEHhaV7SICPFWtV4XbajujW0I/EgUiz4jgU9zNNrQBteLsRseB/q+w3qPxqgzfUYSrJzw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O+sP/6dR; arc=pass smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="VxqI3tMF"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3046D10D7D0;
-	Wed, 25 Mar 2026 13:51:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1774443091;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=UU6Obqyjf0TTXWPo4v01hIfA04+zL1qD53sBGNeuK8c=;
-	b=VxqI3tMFtrpMG5jkTRi/WUjSfF6HrBWxTPwBpkgujiMLF8Y4/CeMP1y5Errzfiw1T4souj
-	uH9ZOxYlXXXOJciqqRSxvZ9Nqk9vAZql7soEOXqCFs1KayBZCJn0YVcs/qhEmD9i6DWT3P
-	fyxVUOxhI7R5kBx+8wmuebIYf8EFwvpGK6FisKWj9G4tnUk1AYpaQ1XBRw+R/sQrbvBKFH
-	p+rzVQLSaoohOKPb8Cxp1gSGFNt0aNEfy3JzFIcQlLAi57FUZN9dOcJuNRryCiDYdpAbtF
-	id4WqScaGGWOOKJ7sOrzxTI4yFq9DmqaNryINH341RF8I4gOGwtXcLAfzCTtzA==
-Message-ID: <5fdc83c2-28c7-4aec-9dee-dd8c9ab6548b@nabladev.com>
-Date: Wed, 25 Mar 2026 13:51:27 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O+sP/6dR"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-43b7481f9d3so2161509f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 05:55:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774443342; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Zjt45idMjp3wIMhBN9hEXE5Ma50yFzx3der0Kj4KFj1LaUUZqM06Vy4izCmqsLD+oo
+         wAnhQgWYxcsGBf2CLIOebCufPITBTXh+iwIRKoTmdr1l/BUBjPZyEYa5Z24PIbnEliSk
+         YAfEeMEti1U17I0wYw7t+WqhRb56KHQIDnoOLvQcH2TS5PSMicC752NfXZWlfW0RWt1l
+         pNBhSyj2JiqCYbBihNKkazawKeZ8HtoXDv/eSAAlb/QcsUzVJJZSH7AwKawoihSAw9pq
+         yUlQEb9imAYbTenE5ngm60RMPhCPk+Ntd/t3u6raxwrgcGcOTMNyDTlvmbRKte9pdLXt
+         2VWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ibd9SV4JUyqdlWcLocgMKTGACJe/SwVChUcXVjG7qHs=;
+        fh=jpvuoIB3jmWA7JpIZcnKhksGtpYcBbZwulcu7SeJiWM=;
+        b=BHSrJXw2JMbnx1Xh+W9QdBAJ42/8vgHuwfEYGsnFoHntqREDaZ88A+jTTKIhUJHewU
+         L2x7naLC6d4LhA2qx9lLZot9jjUAbiOxxwPgs6u8aLP2TwzSnV4B5zwGhQ3h6KYQPuN2
+         e5YW6oD8T0Nz8K4Q3NzB8Mklhn40bTwG67knk8dg5SatdBdfQVxQbSzbn2vrlkeAfyuG
+         lYi7v4x2ckMKrR6KUx6EBt1T324u5NyyCrkgdvIzAXXeXx5773ZzldoFo9edh4MZP44X
+         x+bu072rmw5OjYvtOgn80M2bA98VyBCZEfwBo7kpK7lS1vR6j/1c+sdjAln9+iNct92u
+         ym1A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774443342; x=1775048142; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ibd9SV4JUyqdlWcLocgMKTGACJe/SwVChUcXVjG7qHs=;
+        b=O+sP/6dRCaL0nLXWqubpcIGPAPmK6hAvedPEKsrG1nXIjvsfkA0575y7LPfGBriuHV
+         9gb9oArVQRwDzqbZ3qf1pd2HwnnIc4CRQ3MCmXbRdyBcVwYFzCOuD12+o7r1CWNoQEgK
+         tZNTg+WyHSXjh1YSD+Gf2OBwrpgmCLzG5l5a/A26WvlU0JkU7UKSAPyWAwYjMBUqCUro
+         WEMEK7dkOeS2jl/40GD9dJNvLmC93j835cSFut7R7EaQfW/3NTkICWf5qo9GXVlPYSn9
+         HMs7SvtU5NKJpPSlp4H03JnvfzWVDMrdNSMyALf1vxdaqhgUbGcrN2CGOC6Vhd4ll8p1
+         BLbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774443342; x=1775048142;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ibd9SV4JUyqdlWcLocgMKTGACJe/SwVChUcXVjG7qHs=;
+        b=Vy19CSvFgM29UCXgBnPs32ZaaAeRlKY5NZ8zTEsRtOY9PKQOFY/sDxa3MG9oKkyZuq
+         +cOk2x/bk15/V9sYfCN0xE9ujKIXbw4wYvbtE+hGSL/SCG6aEHBnNx7z1hnh+1uSENU/
+         rBvhTE6u4OIMlvgDVpq4WrrM2kMSjnEoop+8r9/Cfb7I1yYmWR92TY8U9iFbDRlL7iF6
+         03hw/BEQjLxw4pfboVzM+TKregDbluUCBUZ0RrRmTEFFSmAQBpgUJOuOuGUJ9CTIhcH1
+         Vyi5nkhI+5WQtBewcoGI4ErNQXhkF7Y0XOxp1f9Yuwze0rmFd04MqXJZlwnrGZMeQuVK
+         Z+SA==
+X-Forwarded-Encrypted: i=1; AJvYcCWJrQwZm5V5KrtS/Yh3vUY3F7sN6noOlrTRendXIitxKDLuXW++RfwC3ZTrkqyo3WlbPZtlDHw8c06l@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMPWvjadOCfs2t9PVy5JGGydI2ECZUZLCzok2nV28Cw/RJcPdS
+	D+3QgZYjESgGLDx2+Fc4AKXCWjTz4TyNtm7mgFdstRwUJ4/xdHlYIM9bXrMNV5yoSiiRHuvJo82
+	H/WOXZauEJE31C250g1bstG/Puc3t8c0=
+X-Gm-Gg: ATEYQzy7NFu7IwTZFX4+Vna3IHeEg7YyN2/lTLb3GctZKr0KApKIbcUSZDbf8WTaMCf
+	QN6M+5OrDduEwVF70qkaxhZurL7oF+KRyZZ4WIZOM52t/7GHmoSm+gambSFccQd9pggdcFv6YUR
+	FO1cbtczeq3WURAXqNDmJ0a1yMq9Z2x0Fxm/FgRqnqF3MfSRsp0cqh0DkPl9cKzF5vlOpR6YcDn
+	dyrinbi1kPUNFKOU9eg3CiKV5tfS86wMf6pqIVKgFCoeAoVwKViXgWm6ykRamyJDXkQ9gLyaDwE
+	9XBKEgPE7Uy2qUJK5nOObuD6E+0bp8jpnqvqcObySTHb/9X6LCZEdqZSupDyQDKbkJqI
+X-Received: by 2002:a05:6000:2c08:b0:439:b564:7a71 with SMTP id
+ ffacd0b85a97d-43b889ac037mr4873482f8f.1.1774443341855; Wed, 25 Mar 2026
+ 05:55:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/9] dt-bindings: display: fsl,ldb: Add i.MX94 LDB
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Liu Ying <victor.liu@nxp.com>, Marco Felsch <m.felsch@pengutronix.de>
-Cc: imx@lists.linux.dev, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- dri-devel@lists.freedesktop.org, Frank Li <Frank.Li@nxp.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260304-dcif-upstreaming-v8-0-bec5c047edd4@oss.nxp.com>
- <20260304-dcif-upstreaming-v8-1-bec5c047edd4@oss.nxp.com>
- <b7968f1a-c4bc-4bad-bcf8-407ff2d8db27@nxp.com>
- <dmqbmmpyi3ssvq67iqwbt6ww7tsaik7ifi5dnupmuhep7u5saz@ads5g7ette3y>
- <mx6b5svmvlonil4efuiaxcmtygn7lld3nj7gcxnnauaryt2yed@gohjshakc2g6>
- <40b3d1c8-0cf2-470d-8223-751240061735@nabladev.com>
- <xqy67fmh42k26iagl7wqrh2dbsn7c5fytwbkcksfzagefp327j@s5hg4lpuvy3q>
- <4e75f1d3-29ff-46a2-adb5-78a08f781834@nabladev.com>
- <2fe36f04-97d3-4e99-97e9-7a3ac53cffdb@nxp.com>
- <p7glzm344tiu76zm5aa7qq4lswdcjuqlqel3hl3tr3s2cllltj@i2eyzuux4cj3>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <p7glzm344tiu76zm5aa7qq4lswdcjuqlqel3hl3tr3s2cllltj@i2eyzuux4cj3>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260310212927.3372410-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260310212927.3372410-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <abgQpsArW3VrCAns@shikoro> <CA+V-a8us8MiyRtAy9ySShY9XKepY6-Cwy3MpVgMCVK47adAV8g@mail.gmail.com>
+In-Reply-To: <CA+V-a8us8MiyRtAy9ySShY9XKepY6-Cwy3MpVgMCVK47adAV8g@mail.gmail.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Wed, 25 Mar 2026 12:55:15 +0000
+X-Gm-Features: AQROBzCOBzAmxi7Y3wwnl03cmp576d14Z3rDc6ctssra-K9ee0QCXJNFHrcMG0k
+Message-ID: <CA+V-a8tj=LyJ4zoFvfp4a+d-MacE8k90V8bMnkHRKyZQG3xLwg@mail.gmail.com>
+Subject: Re: [PATCH 3/3] memory: renesas-rpc-if: Add support for RZ/T2H SoC
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 3/25/26 9:02 AM, Laurentiu Palcu wrote:
-> On Mon, Mar 23, 2026 at 03:22:35PM +0800, Liu Ying wrote:
->> On Sat, Mar 21, 2026 at 03:37:47AM +0100, Marek Vasut wrote:
->>> On 3/20/26 9:23 AM, Marco Felsch wrote:
->>>
->>> Hello Marco,
->>>
->>>>> The LDB driver was always written with parsing 'reg' out of the DT, so
->>>>
->>>> Not sure what you mean by always.
->>>
->>> By always, I mean since the very beginning.
->>
->> Marek, your below patch is not accepted(at least for now).  In that patch,
->> register offset(s) are directly parsed by calling of_property_read_reg().
->> Without that patch, register offset(s) are determined via device data in
->> driver according to compatible string.
->>
->> [PATCH v3] drm/bridge: fsl-ldb: Parse register offsets from DT
->> https://lore.kernel.org/all/20260104213712.128982-1-marek.vasut@mailbox.org/
->>
->> [...]
->>
->>>
->>>>> encoding the register offsets into the driver was a mistake. The LDB
->>>>> controls two registers, which can be comfortably described in DT.
->>>>
->>>> Sorry but I have to disagree on this. It's no about if it's possible,
->>>> it's about if the abstraction is correct and IMHO the LDB is just one
->>>> subdevice of the syscon. For i.MX6SX the syscon is the iomuxc-gpr for
->>>> the i.MX8M and i.MX9 this is now a blkctrl.
->>>
->>> Right, and the "reg" DT property specifies at which offsets are the LDB
->>> control registers from the start of that blkctrl. What is the problem
->>> with that ?
->>
->> The problem is that ...
->>
->>>
->>> Look at e.g. imx8mp.dtsi as an example with blkctrl and LDB as a subnode
->>> with "reg" DT properties:
->>>
->>> 1938                         media_blk_ctrl: blk-ctrl@32ec0000 {
->>> 1939                                 compatible = "fsl,imx8mp-media-blk-ctrl",
->>> 1940                                              "syscon";
->>> ...
->>> 2003                                 lvds_bridge: bridge@5c {
->>> 2004                                         compatible = "fsl,imx8mp-ldb";
->>> 2005                                         reg = <0x5c 0x4>, <0x128 0x4>;
->>> 2006                                         reg-names = "ldb", "lvds";
->>
->> ... i.MX8MP LVDS bridge node is fine with the reg property, but the property
->> is not allowed for i.MX93 LVDS bridge node according to commit[1] while
->> commit[2] requires the property for all LVDS bridge nodes.  See the contradict
->> here?
->>
->> [1] 3feaa4342637 dt-bindings: soc: imx93-media-blk-ctrl: Add PDFC subnode to schema and example
->> [2] 8aa2f0ac08d3 dt-bindings: display: bridge: ldb: Add check for reg and reg-names
->>
->> To avoid the contradict, how about requiring the reg property only for i.MX6SX
->> and i.MX8MP LVDS bridge nodes and making it kind of optional for i.MX93 and
->> i.MX94 LVDS bridge nodes?  Overall, in terms of the reg property, I feel the
->> LVDS bridge nodes look similar to reg-mux/mmio-mux(See reg-mux.yaml) where
->> the property is optional.  BTW, there is a mux-controller node with 'mmio-mux'
->> compatible string in i.MX8mq syscon@30340000:
->>
->> iomuxc_gpr: syscon@30340000 {
->> 	compatible = "fsl,imx8mq-iomuxc-gpr", "syscon", "simple-mfd";
->> 	reg = <0x30340000 0x10000>;
->>
->> 	mux: mux-controller {
->> 		compatible = "mmio-mux";
->> 		#mux-control-cells = <1>;
->> 		mux-reg-masks = <0x34 0x00000004>; /* MIPI_MUX_SEL */
->> 	};
->> };
->>
->> We never know if HW designer would put a mux-controller next to a LVDS
->> bridge under a syscon device like gpr or blk-ctrl in future i.MX SoCs,
->> so the optional reg property would buy us some flexibility.
->>
->> The below patch is what I propose together with a Fixes tag for commit[2].
->> Since commit[2] is not in v6.19 and v7.0-rc5 was just released, it seems
->> that we have time to land the proposal fix if it makes sense.  WDYT?
-> 
-> Marek, Marco,
-> 
-> Does Ying's proposed solution sound reasonable? Having the 'reg'
-> property optional for i.MX93 and i.MX94 platforms seems like  a good
-> compromise. Can we move forward with this?
-I only skimmed through it thus far, I need to read through it again when 
-time permits, after which I will reply to it.
+Hi Wolfram,
+
+On Wed, Mar 18, 2026 at 2:03=E2=80=AFPM Lad, Prabhakar
+<prabhakar.csengg@gmail.com> wrote:
+>
+> Hi Wolfram,
+>
+> Thank you for the review.
+>
+> On Mon, Mar 16, 2026 at 2:16=E2=80=AFPM Wolfram Sang
+> <wsa+renesas@sang-engineering.com> wrote:
+> >
+> >
+> > > Add a new compatible string "renesas,r9a09g077-xspi" for RZ/T2H while
+> > > reusing the existing xspi_info_r9a09g047 OF data. This allows the dri=
+ver
+> > > to bind correctly on RZ/T2H while the register differences can be han=
+dled
+> > > in future updates as the affected configuration registers are not cur=
+rently
+> > > accessed by the driver.
+> >
+> > This sounds fragile to me. Can you add a comment somewhere in the drive=
+r
+> > or headers so people wanting to use these registers will find out that
+> > the SoCs are not compatible anymore?
+> >
+> I could but they would stay unused.
+>
+> For example, consider the COMCFG register.
+> On RZ/G3E, bits 0-1 are used to control the `Channel arbitration mode`
+> On RZ/T2H, bits 0-1 are marked as reserved and the write value should be =
+0.
+>
+> Currently the COMCFG register is not handled in the driver. Similarly
+> it's the same for other differences.
+>
+> Can you please suggest how to handle this case.
+>
+Would adding SoC specific data like below be OK?
+
+static const struct rpcif_info xspi_info_r9a09g077 =3D {
+       .regmap_config =3D &xspi_regmap_config,
+       .impl =3D &xspi_impl,
+       .type =3D XSPI_RZ_T2H,
+};
+
+
+{ .compatible =3D "renesas,r9a09g077-xspi", .data =3D &xspi_info_r9a09g077 =
+},
+
+Cheers,
+Prabhakar
