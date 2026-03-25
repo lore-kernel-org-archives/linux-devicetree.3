@@ -1,26 +1,26 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3603F8DE3
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 14:51:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE8241B359
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 14:51:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774450312; cv=none; b=LZDXCINze3FeCnJEmXNI5OBb56qy8b/WOd0usPJrBGcROXcGztCSNn/Af2qMuBmpafXLPbU5UaMmfEo+hiTcXgwSt3SOHFJNY6E3r0EouukVZFbAlthrqCW55Mdawh9/UJ28g0uMC3g5oNDtGoo1KusS+X8GQcb773r1VHbSqZQ=
+	t=1774450311; cv=none; b=r1jMDTncJSkgqjNwAqrcaQirx5bS/3sX3VNT2OmfFE1j3Z/iaRPnBvVKQT8o706Oq94knyv2EdAbibGxCOxUpVDf2DTA57u6S+3oHXHAF61A+n6uU9LURR/sHVpjfd8sgNU9EtIZDeLPDGfirWWCpPCW99ydyvZV9Hl3/lZCxGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774450312; c=relaxed/simple;
-	bh=ZXYO7kIog/AI6uLtHPQGmNzSY6yomfIr4tQRh+p0Y7k=;
+	s=arc-20240116; t=1774450311; c=relaxed/simple;
+	bh=dTqzbxm6klr8/m7B13qvKNvy3ZwdLeF9iC4vbG1f4/c=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=f69mvrlf4rO+BNfnXXqrtky+71hRB3iuAfHhV3hr4lzozHYM8AiQKNENivYH9m5fjGqZ38iOJTurylWxU8qd35sw/Jq2tR7QnntdI4jLyK1W3+Em3zY/OPUQVLQFnBq02bBCV5vkBy3B37omF6gT0A+6fcPXIgnhZKZkAyTpTjo=
+	 In-Reply-To:To:Cc; b=PzOfg0p4i4Acedt4yeBhd7J1nw/S2dADtDzpZKfOD4e7rt3s2+1J1u+Q1dZlSYPA5g9B/89fZBskLSq4f2clvpSyv2OeahXgulrsmdiwKIoYMMeLIHGg3GceHgfHhGGzSwF+Ivllcvpsn2Kh2kp54vq5JRgJjVLjeBUxsIJMs6w=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1w5PZV-00050C-Up; Wed, 25 Mar 2026 15:51:01 +0100
+	id 1w5PZW-00050C-Hh; Wed, 25 Mar 2026 15:51:02 +0100
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Wed, 25 Mar 2026 15:50:52 +0100
-Subject: [PATCH v4 21/27] media: rockchip: rga: remove size from rga_frame
+Date: Wed, 25 Mar 2026 15:50:55 +0100
+Subject: [PATCH v4 24/27] media: rockchip: rga: add feature flags
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -29,7 +29,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260325-spu-rga3-v4-21-e90ec1c61354@pengutronix.de>
+Message-Id: <20260325-spu-rga3-v4-24-e90ec1c61354@pengutronix.de>
 References: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
 In-Reply-To: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -50,90 +50,110 @@ X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-The size member is only used for the mmu page table mapping.
-Therefore avoid storing the value and instead only calculate it
-in place. This also avoids the calculation entirely when an external
-iommu is used.
+In preparation to the RGA3 addition add feature flags, which can limit
+the exposed feature set of the video device, like rotating or selection
+support. This is necessary as the RGA3 doesn't initially implement the
+full feature set currently exposed by the driver.
 
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga-buf.c | 6 +++++-
- drivers/media/platform/rockchip/rga/rga.c     | 8 ++------
- drivers/media/platform/rockchip/rga/rga.h     | 1 -
- 3 files changed, 7 insertions(+), 8 deletions(-)
+ drivers/media/platform/rockchip/rga/rga-hw.c |  4 ++++
+ drivers/media/platform/rockchip/rga/rga.c    | 23 +++++++++++++++--------
+ drivers/media/platform/rockchip/rga/rga.h    |  7 +++++++
+ 3 files changed, 26 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga-buf.c b/drivers/media/platform/rockchip/rga/rga-buf.c
-index 4e82ca1a5e8d9..c0cc885ba58a8 100644
---- a/drivers/media/platform/rockchip/rga/rga-buf.c
-+++ b/drivers/media/platform/rockchip/rga/rga-buf.c
-@@ -79,6 +79,8 @@ static int rga_buf_init(struct vb2_buffer *vb)
- 	struct rockchip_rga *rga = ctx->rga;
- 	struct rga_frame *f = rga_get_frame(ctx, vb->vb2_queue->type);
- 	size_t n_desc = 0;
-+	u32 size = 0;
-+	u8 i;
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
+index e76d1994b8684..c7b68b27f89b2 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+@@ -602,6 +602,10 @@ const struct rga_hw rga2_hw = {
+ 	.max_height = MAX_HEIGHT,
+ 	.max_scaling_factor = MAX_SCALING_FACTOR,
+ 	.stride_alignment = 4,
++	.features = RGA_FEATURE_FLIP
++		  | RGA_FEATURE_ROTATE
++		  | RGA_FEATURE_BG_COLOR
++		  | RGA_FEATURE_SELECTION,
  
- 	if (IS_ERR(f))
- 		return PTR_ERR(f);
-@@ -86,7 +88,9 @@ static int rga_buf_init(struct vb2_buffer *vb)
- 	if (!rga_has_internal_iommu(rga))
- 		return 0;
- 
--	n_desc = DIV_ROUND_UP(f->size, PAGE_SIZE);
-+	for (i = 0; i < f->pix.num_planes; i++)
-+		size += f->pix.plane_fmt[i].sizeimage;
-+	n_desc = DIV_ROUND_UP(size, PAGE_SIZE);
- 
- 	rbuf->n_desc = n_desc;
- 	rbuf->dma_desc = dma_alloc_coherent(rga->dev,
+ 	.setup_cmdbuf = rga_hw_setup_cmdbuf,
+ 	.start = rga_hw_start,
 diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index eb7b211a99e66..2695bc5077a03 100644
+index 364c1dac3f81c..b0c88ad647e96 100644
 --- a/drivers/media/platform/rockchip/rga/rga.c
 +++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -221,7 +221,6 @@ static int rga_open(struct file *file)
- 	};
+@@ -162,17 +162,21 @@ static int rga_setup_ctrls(struct rga_ctx *ctx)
  
- 	def_frame.stride = (def_width * def_frame.fmt->depth) >> 3;
--	def_frame.size = def_frame.stride * def_height;
+ 	v4l2_ctrl_handler_init(&ctx->ctrl_handler, 4);
  
- 	ctx = kzalloc_obj(*ctx);
- 	if (!ctx)
-@@ -459,9 +458,6 @@ static int vidioc_s_fmt(struct file *file, void *priv, struct v4l2_format *f)
- 	frm = rga_get_frame(ctx, f->type);
- 	if (IS_ERR(frm))
- 		return PTR_ERR(frm);
--	frm->size = 0;
--	for (i = 0; i < pix_fmt->num_planes; i++)
--		frm->size += pix_fmt->plane_fmt[i].sizeimage;
- 	frm->fmt = rga_fmt_find(rga, pix_fmt->pixelformat);
- 	frm->stride = pix_fmt->plane_fmt[0].bytesperline;
+-	v4l2_ctrl_new_std(&ctx->ctrl_handler, &rga_ctrl_ops,
+-			  V4L2_CID_HFLIP, 0, 1, 1, 0);
++	if (rga->hw->features & RGA_FEATURE_FLIP) {
++		v4l2_ctrl_new_std(&ctx->ctrl_handler, &rga_ctrl_ops,
++				  V4L2_CID_HFLIP, 0, 1, 1, 0);
  
-@@ -485,10 +481,10 @@ static int vidioc_s_fmt(struct file *file, void *priv, struct v4l2_format *f)
- 	frm->pix = *pix_fmt;
+-	v4l2_ctrl_new_std(&ctx->ctrl_handler, &rga_ctrl_ops,
+-			  V4L2_CID_VFLIP, 0, 1, 1, 0);
++		v4l2_ctrl_new_std(&ctx->ctrl_handler, &rga_ctrl_ops,
++				  V4L2_CID_VFLIP, 0, 1, 1, 0);
++	}
  
- 	v4l2_dbg(debug, 1, &rga->v4l2_dev,
--		 "[%s] fmt - %p4cc %dx%d (stride %d, sizeimage %d)\n",
-+		 "[%s] fmt - %p4cc %dx%d (stride %d)\n",
- 		  V4L2_TYPE_IS_OUTPUT(f->type) ? "OUTPUT" : "CAPTURE",
- 		  &frm->fmt->fourcc, pix_fmt->width, pix_fmt->height,
--		  frm->stride, frm->size);
-+		  frm->stride);
+-	v4l2_ctrl_new_std(&ctx->ctrl_handler, &rga_ctrl_ops,
+-			  V4L2_CID_ROTATE, 0, 270, 90, 0);
++	if (rga->hw->features & RGA_FEATURE_ROTATE)
++		v4l2_ctrl_new_std(&ctx->ctrl_handler, &rga_ctrl_ops,
++				  V4L2_CID_ROTATE, 0, 270, 90, 0);
  
- 	for (i = 0; i < pix_fmt->num_planes; i++) {
- 		v4l2_dbg(debug, 1, &rga->v4l2_dev,
+-	v4l2_ctrl_new_std(&ctx->ctrl_handler, &rga_ctrl_ops,
+-			  V4L2_CID_BG_COLOR, 0, 0xffffffff, 1, 0);
++	if (rga->hw->features & RGA_FEATURE_BG_COLOR)
++		v4l2_ctrl_new_std(&ctx->ctrl_handler, &rga_ctrl_ops,
++				  V4L2_CID_BG_COLOR, 0, 0xffffffff, 1, 0);
+ 
+ 	if (ctx->ctrl_handler.error) {
+ 		int err = ctx->ctrl_handler.error;
+@@ -536,6 +540,9 @@ static int vidioc_s_selection(struct file *file, void *priv,
+ 	struct rga_frame *f;
+ 	int ret = 0;
+ 
++	if (!(rga->hw->features & RGA_FEATURE_SELECTION))
++		return -EINVAL;
++
+ 	f = rga_get_frame(ctx, s->type);
+ 	if (IS_ERR(f))
+ 		return PTR_ERR(f);
 diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index 95fa7fd1c509a..2838fc7785f72 100644
+index d98e57c6d7b57..849b96392b780 100644
 --- a/drivers/media/platform/rockchip/rga/rga.h
 +++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -34,7 +34,6 @@ struct rga_frame {
+@@ -6,6 +6,7 @@
+ #ifndef __RGA_H__
+ #define __RGA_H__
  
- 	/* Variables that can calculated once and reused */
- 	u32 stride;
--	u32 size;
++#include <linux/bits.h>
+ #include <linux/clk.h>
+ #include <linux/platform_device.h>
+ #include <media/videobuf2-v4l2.h>
+@@ -133,6 +134,11 @@ static inline void rga_mod(struct rockchip_rga *rga, u32 reg, u32 val, u32 mask)
+ 	rga_write(rga, reg, temp);
  };
  
- struct rga_dma_desc {
++#define RGA_FEATURE_FLIP	BIT(0)
++#define RGA_FEATURE_ROTATE	BIT(1)
++#define RGA_FEATURE_BG_COLOR	BIT(2)
++#define RGA_FEATURE_SELECTION	BIT(3)
++
+ struct rga_hw {
+ 	const char *card_type;
+ 	bool has_internal_iommu;
+@@ -141,6 +147,7 @@ struct rga_hw {
+ 	u32 max_width, max_height;
+ 	u8 max_scaling_factor;
+ 	u8 stride_alignment;
++	u8 features;
+ 
+ 	void (*setup_cmdbuf)(struct rga_ctx *ctx);
+ 	void (*start)(struct rockchip_rga *rga,
 
 -- 
 2.53.0
