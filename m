@@ -1,49 +1,50 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14414352C29
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 06:33:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C48F358360
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 06:33:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774420400; cv=none; b=KZfDbM9oIA3bRjXdpJhLoV+N7uvKPFP0IIz7FPQwFaqIUIhKBIctiWcLC8kwHE8HCQPp5y0YmZIXzunwehDblnm0c4ZujFtyUP+xXcuh+1OizlEkixfR0OkLvb3RPZmO2uA2Cw/H9Plpp7GHRv0xGr4wF0yYaY64n9AepAWiJK8=
+	t=1774420407; cv=none; b=KGuqLoGTYoDqg/Xv7/6krXUZYdaG6hhJoQuGw4FTRodKtP0VYDJPbezdauV1PSkzsqRaLy4v05oAbO6OtVv1FIPj64xRnNhADpnUDwt+yDfCRT9WH2ro9lR7WU5BBMPygHSFiYyzpOIVFCodlSRza92EPDgZQ+r2ksCsb1U1qr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774420400; c=relaxed/simple;
-	bh=uHir9CYrWEBi781+9y6gAhB+KAavpeSqcW3nrlXIWqI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=vDd5/TmYtlpQ08muCKLN1pnldidZ5EvvfqwExSxVTMCrz3sjbSdFIiFNYoBX/+A7dGZhwLJt+Oh/70BWPwOU57AhnBaAs6EWSQ3L1qs97ACMBeyo0EIRQnZeMF63H0wS/YY2FcEUfnnwUdjNCzMBowXxuloAAn7/mOycw/kwcbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.216.54
+	s=arc-20240116; t=1774420407; c=relaxed/simple;
+	bh=M6krZqWk+1xRZ1+XHAx11ZNWOnRIL7gAft8MYXY7kBg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BFZ3a0/IZGRvLDxvmcMZK+Z1MH2rBFn4xuFwvhaVEvnS3NI5JyXWTNpfbYVBH/BnQ0YAMwuzGkqZEB/3wh3EBopHRWljc/GcKQOnogxKIex7gf12fByZtLfuYb2fJD2hOYt61pELb7d0u0+mrXvoKToZV0DxAhthHHBBKQi1Bl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3591cc98871so2652555a91.3
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 23:33:18 -0700 (PDT)
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-35a1d4a095bso403955a91.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 23:33:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774420398; x=1775025198;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=a3T22FtHj7PiVjh8CPSoc3ZFVw7lP3ieK+jLM3FL9ck=;
-        b=jHGv2BrMOkGoDX5i5gFnIemBA7HNhD2/ao1JKCnqjPGkblIkF8vYWVFgvwrpZKpthM
-         xwW2+6CppuZum3z5cbBGYfZ3VEKj7HumaiZ0oDrEDb5ytjyJfWOeI64yPEjXJs+57Y59
-         EgiSq1Pwmy4EM4eikiCab9PRjYMKrvoTp0gGPtrjgXPY6D1P6z1wcgmwwWmyYGxldRiv
-         0Qn81rtag/STPiSLjFswFGsA+C/YyuuAUrIWBk0vidgdvXbzgJJ5PLt6dxJuM6cVhr3s
-         jdlxGT1ZJHsSrL42Bwi0V2wG6labktHk6v3R8H+o/hVchx9Y+UXqso1/UnG6l07tW7/4
-         +M3w==
-X-Forwarded-Encrypted: i=1; AJvYcCWHOlVH4gD0RJP/zteahO6W8DdZfAJg5dKecF+ddfEc3MqOEbYQc3TxyIuCPEU/jDhsehGk2x760Hg6@vger.kernel.org
-X-Gm-Message-State: AOJu0YzCwEElFfvXaE0JwqSrKtg9IZIiOFWpyocWIzJ3X/MzI89Pw1li
-	dJILDf2xvOSeJqx1qy31WxHHnICgLgpbHF4Y+o2g1mFt9t7NVna5FX4u
-X-Gm-Gg: ATEYQzztPMfP76q3EwU8ow0WzVACSw9i0ch/GpEwV5fXFBI/kVKYpOx5CNfv7bKvT7z
-	HBJjZ9IKG3YJ4g+0o7k1GyUIMIqn+Aye83m9N+OCFigwsLgg0CHBHktWu++4hiUs1/QjRJ8cwih
-	GBncvmaBGAIuZPUI8JtNbpDfrk+6NsQ0/EXoYPy5/qYpvjy8i81SMCnnCQ8u2ICDgAZ8LfVqO63
-	vV2lmFw7+pv0fe3jIgClJqDJI83wWAqUuBIgzeGbmyv/CNrYHBmcX3Xyo0yf5Y/97FAwarH6+hG
-	A+CvFzJp8QK81/KrNDHsHN0LmaeMVKLjwWyeDHo91M22OBpnjySNN2kqtPySRzkqn9Mow3k61XB
-	/kZ/pdDdWNdKHXyPmkb7d1R8gBLfKCA7UZhiQERcPBUoJmfs+klr0mgeb4ybFflbLoa6552hcMF
-	RluMkQ/totKtSFUCrQEFQq0tRNpq4syNE7bb27MoMAyFrYG+FFpt6gbqMiCt2L0uJpuIyq1mSlD
-	fjfSOzQomhIs0ec0w==
-X-Received: by 2002:a17:90b:3c08:b0:35b:945d:752a with SMTP id 98e67ed59e1d1-35c0dd6b7bfmr2049677a91.17.1774420398092;
-        Tue, 24 Mar 2026 23:33:18 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1774420404; x=1775025204;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=8q7m09ueuFwbYZwgVeKygswhkm7TJMTHIOKO/qEEZyc=;
+        b=Z5Kuo7s2CBddmvAEFZ1TCsHeA9Nus+EZeWT0ZMe5NqRstycfH4bAUYhmohtEwDzWX7
+         ALEhcXsy6RO1fx0kzwmdnJZvLSMnTlwqUyfC+qum64imIBak/a8I/Ip4DavGUXm6BsOl
+         WqbzeA7+HviPE0bVVBzI9V0SqcT2q7C9QtY21lWjgGnGtuXmK5DAmeI0BhWz7IB18ah3
+         X2UI9ghbzmnT7q+fKEgc1LH52C9Ll64N/pQgO60sLjUtxruGd3I69y6kYbxPES2aIhrZ
+         GiHRNJedlt/qjHuX42E6+EUgMfe9pXGJfkySAPv0o3KnlXxXkCcNnYMgN2+XNmHGlr3g
+         Py9Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUB2xMqGzSESsAoFOQYOUu0gk/l2Q92hXZ8WB0Hjuf0o6ZIOROUYphSDcKD4MQPeGq1iBF8cGZjRVOg@vger.kernel.org
+X-Gm-Message-State: AOJu0YzGd059TkapqDBDGr1l4+8qrVNNfY0mvP4gvQi300euciuplttN
+	D0ks0Yk5NSTBo/QoqafpgSkb760voUoTJ3ubUFjiBi/bFkZZTk5EtQa2
+X-Gm-Gg: ATEYQzyRPme47NR3x+3fY/HEdbokgbXddbc5bBEBFv+2RZo30TEGLNIrdzaTm2+dmOI
+	Pghj6JxWfUVKf43U35CmzmbQeXeMuMEWzNOF2+tJb84B//qI1dej2Oos3s6DpCekShI5p2O4Tqu
+	QiiXH4uevQneQdgsCx3oIMkpaESy4BcN776rVVCsWJgDx+m8arbV/l7LpMAjzsyafZHf1QCVLEL
+	GWo5e0Nt5o0mE5l6+vB9f1Xu+DDH6qQU/V2L0L6UxIN2ooBOUI01IE1iXv9RYcdsJkvjAwTEag0
+	yHSe74Uuyyy3bDi4L3oeRtmurS4V+JZcSaATsugDMu8lWe66WsMuVFJcPybi28IkhlZAOXYQKuw
+	SJtkWhBTcMptN0+D9ws+FR0C0M3aC0dUzhjJ8hngPNZRnO6L+hSiGoq9oJPe63XVY/bBdnCzLVL
+	gFvqvu0nNGy3dByFskWpIv/VM3nB6zT+IMPEfaxi8eoOqkW4SHHBlBWnwL7a8M6ZWi79Ucw3PPJ
+	mu7b5Y=
+X-Received: by 2002:a17:90b:4ccc:b0:35b:e962:11e0 with SMTP id 98e67ed59e1d1-35c007f4eb4mr5369874a91.8.1774420404401;
+        Tue, 24 Mar 2026 23:33:24 -0700 (PDT)
 Received: from archlinux ([103.135.252.21])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35c0e954ba9sm526854a91.5.2026.03.24.23.33.11
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35c0e954ba9sm526854a91.5.2026.03.24.23.33.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Mar 2026 23:33:17 -0700 (PDT)
+        Tue, 24 Mar 2026 23:33:24 -0700 (PDT)
 From: Siratul Islam <email@sirat.me>
 To: linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org
@@ -56,10 +57,12 @@ Cc: jic23@kernel.org,
 	conor+dt@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Siratul Islam <email@sirat.me>
-Subject: [PATCH v7 0/2] iio: proximity: add driver for ST VL53L1X ToF sensor
-Date: Wed, 25 Mar 2026 12:32:21 +0600
-Message-ID: <20260325063254.18062-1-email@sirat.me>
+Subject: [PATCH v7 1/2] dt-bindings: iio: proximity: add ST VL53L1X ToF sensor
+Date: Wed, 25 Mar 2026 12:32:22 +0600
+Message-ID: <20260325063254.18062-2-email@sirat.me>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260325063254.18062-1-email@sirat.me>
+References: <20260325063254.18062-1-email@sirat.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,123 +71,86 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds support for the STMicroelectronics VL53L1X
-Time-of-Flight ranging sensor.
+Add device tree binding documentation for the STMicroelectronics
+VL53L1X Time-of-Flight ranging sensor connected via I2C.
 
-The VL53L1X is a ToF laser-ranging sensor with I2C interface,
-capable of measuring distances up to 4 meters. The driver
-supports both interrupt-driven and polled operation.
+Make vdd-supply required. The device requires power to operate
+and the property should have been required from the start.
 
-Why a separate driver is needed (instead of extending vl53l0x-i2c.c):
-The VL53L1X is fundamentally different from the VL53L0X despite the
-similar naming. Extending the existing driver would require rewriting
-the majority of it.
-
-Key differences include:
-- A different register map (16-bit addresses vs. 8-bit addresses).
-- Requires a 91-byte firmware configuration blob to be loaded at boot.
-- Requires a VHV calibration cycle.
-- Has distance mode and timing budget configurations.
-- Uses the regmap API rather than raw i2c_smbus calls.
-
-I also reviewed other drivers in drivers/iio/proximity/ and can
-confirm this IP block does not appear to be shared by any other
-existing driver.
-
-Tested on Raspberry Pi 5 with a VL53L1X breakout board.
-
-Note on vdd-supply:
-vdd-supply is now required. The VL53L0X required a physical
-regulator, but it did not specify the requirement in the binding.
-It should have always been there. The VL53L1X also requires it.
-Hence I added the requirement.
-
+Signed-off-by: Siratul Islam <email@sirat.me>
 ---
-Changes in v7:
-- Add VL53L1X_REG_ prefix for register defines.
-- Use iio_push_to_buffers_with_ts().
-- Use continuous ranging and drop postenable/predisable.
-- Add comments for XSHUT reset, default config values.
-- Drop vdd-supply description in binding and comment in driver.
-- Add ABI rationale for vdd-supply to commit message (per Krzysztof, Jonathan).
+ .../bindings/iio/proximity/st,vl53l0x.yaml          | 13 ++++++++++---
+ MAINTAINERS                                         |  6 ++++++
+ 2 files changed, 16 insertions(+), 3 deletions(-)
 
-
-Changes in v6:
-- Make vdd-supply required. Add descriptions to vdd-supply and reset-gpios (per Jonathan).
-- Check reset_control_deassert() return value (per Andy).
-- Use volatile table for result registers and caching for the rest. Also mark write-only registers.
-
-
-Changes in v5:
-- Patch 1: No changes. Collected Reviewed-by tag from Krzysztof Kozlowski.
-- Switch XSHUT pin handling from the GPIO consumer API to the Reset controller API.
-- Drop <linux/gpio/consumer.h> and include <linux/reset.h>.
-
-
-Changes in v4:
-- Move i2c_check_functionality() to the top of probe before allocations.
-- Use struct u32_fract for oscillator correction math.
-- Explicitly set .cache_type = REGCACHE_NONE.
-- Document intentional predisable drain
-- Use dev_err_probe() for firmware boot timeout and remove duplicate IRQ request error message.
-- Use sizeof() in regmap bulk read/writes instead of hardcoded lengths.
-- Add missing headers (<linux/math.h>, <linux/time.h>, <asm/byteorder.h>).
-- Various formatting cleanups per Andy's review.
-
-
-Changes in v3:
-- Merge DT binding into existing st,vl53l0x.yaml (per Krzysztof).
-- Use "reset-gpios" in the binding but xshut_gpio in the driver since that's the actual pin name.
-- Replace manual polling loops in chip_init and read_proximity with regmap_read_poll_timeout().
-- Remove irq_get_trigger_type() and pass IRQF_NO_THREAD directly (per Andy).
-- Drop struct i2c_client from private data and store irq as int instead. Derive struct device from regmap where needed.
-- Add dev_err_probe() to first devm_request_irq() error path.
-- Replace linux/device.h with linux/dev_printk.h, add linux/array_size.h, linux/err.h, linux/types.h (per Andy).
-- Use USEC_PER_MSEC for poll timeouts.
-- Remove unnecessary casts.
-- Divide long config blob to 8 values per line.
-- Rename goto label to notify_and_clear_irq and drop unused dev_dbg.
-- Add datasheet section reference for boot delay comment.
-- vdd-supply no longer required in shared binding to avoid breaking existing st,vl53l0x devicetrees.
-
-
-Changes in v2:
-- Skip software reset in chip_init when xshut GPIO is available, since the device was already hardware-reset during power-on.
-- Rename "reset" GPIO to "xshut" to match the datasheet pin name and updated DT binding accordingly.
-- Make vdd-supply required in DT binding.
-- Use reg_sequence arrays and regmap_multi_reg_write() for distance mode configuration.
-- Switch to a hardirq handler with iio_trigger_poll() and IRQF_NO_THREAD instead of a threaded handler.
-- Drop IRQF_TRIGGER_FALLING fallback. Leave trigger type to firmware/DT.
-- Use iio_validate_own_trigger() instead of a custom validate_trigger, drop trig pointer from driver data.
-- Switch usleep_range() to fsleep() throughout and add comments for sleep values.
-- Don't fail probe on unknown model ID, just log with dev_info().
-- Split stop_ranging cleanup into its own devm action, separate from power_off.
-- Add missing includes: device.h, bitfield.h, completion.h, mod_devicetable.h.
-- Use FIELD_GET() for range status checks.
-- Move configure_irq() closer to probe(), use dev_err_probe() for its error paths.
-- Fix buffer ops symmetry: postdisable -> predisable.
-- Drop reg_format_endian from regmap config.
-- Various alignment and formatting fixes.
-
-Link to v6: https://lore.kernel.org/linux-iio/20260319190738.151614-1-email@sirat.me
-Link to v5: https://lore.kernel.org/linux-iio/20260313113737.151881-1-email@sirat.me
-Link to v4: https://lore.kernel.org/linux-iio/20260312183721.40482-1-email@sirat.me
-Link to v3: https://lore.kernel.org/linux-iio/20260311224044.21480-1-email@sirat.me
-Link to v2: https://lore.kernel.org/linux-iio/20260308113728.40860-1-email@sirat.me
-Link to v1: https://lore.kernel.org/linux-iio/20260303090253.42076-1-email@sirat.me
-
-Siratul Islam (2):
-  dt-bindings: iio: proximity: add ST VL53L1X ToF sensor
-  iio: proximity: add driver for ST VL53L1X ToF sensor
-
- .../bindings/iio/proximity/st,vl53l0x.yaml    |  13 +-
- MAINTAINERS                                   |   7 +
- drivers/iio/proximity/Kconfig                 |  15 +
- drivers/iio/proximity/Makefile                |   1 +
- drivers/iio/proximity/vl53l1x-i2c.c           | 795 ++++++++++++++++++
- 5 files changed, 828 insertions(+), 3 deletions(-)
- create mode 100644 drivers/iio/proximity/vl53l1x-i2c.c
-
---
+diff --git a/Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml b/Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml
+index 322befc41de6..09102310abc3 100644
+--- a/Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml
++++ b/Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml
+@@ -4,14 +4,17 @@
+ $id: http://devicetree.org/schemas/iio/proximity/st,vl53l0x.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: ST VL53L0X ToF ranging sensor
++title: ST VL53L0X/VL53L1X ToF ranging sensor
+ 
+ maintainers:
+   - Song Qiang <songqiang1304521@gmail.com>
++  - Siratul Islam <email@sirat.me>
+ 
+ properties:
+   compatible:
+-    const: st,vl53l0x
++    enum:
++      - st,vl53l0x
++      - st,vl53l1x
+ 
+   reg:
+     maxItems: 1
+@@ -21,12 +24,15 @@ properties:
+ 
+   reset-gpios:
+     maxItems: 1
++    description:
++      Phandle to the XSHUT GPIO. Used for hardware reset.
+ 
+   vdd-supply: true
+ 
+ required:
+   - compatible
+   - reg
++  - vdd-supply
+ 
+ additionalProperties: false
+ 
+@@ -38,8 +44,9 @@ examples:
+         #size-cells = <0>;
+ 
+         proximity@29 {
+-            compatible = "st,vl53l0x";
++            compatible = "st,vl53l1x";
+             reg = <0x29>;
++            vdd-supply = <&reg_3v3>;
+             interrupt-parent = <&gpio>;
+             interrupts = <23 IRQ_TYPE_EDGE_FALLING>;
+         };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 61bf550fd37c..a142a97be4cb 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25093,6 +25093,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml
+ F:	drivers/iio/proximity/vl53l0x-i2c.c
+ 
++ST VL53L1X ToF RANGER(I2C) IIO DRIVER
++M:	Siratul Islam <email@sirat.me>
++L:	linux-iio@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/iio/proximity/st,vl53l0x.yaml
++
+ STABLE BRANCH
+ M:	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+ M:	Sasha Levin <sashal@kernel.org>
+-- 
 2.53.0
 
