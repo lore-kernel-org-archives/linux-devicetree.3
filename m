@@ -1,127 +1,186 @@
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from courrier.aliel.fr (pouet.aliel.fr [65.21.61.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B82347536
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 09:18:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD468342CB1;
+	Wed, 25 Mar 2026 09:18:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774430300; cv=none; b=Ov0+pJ8HISikgFq5zJNob2Hpa6wv3I6Ghjktf0f4WYVhbfgXiOdfSlONORZWjhPDRByN0VaV3T3uzf5TG+4uRwRlTrVpiJwgVY8xaW+9DgtDl/9Drl8AU97wxo3hDp9PfC28bym5EKaPVgeGUIxJjps53P9N3RJZN4mTKJVyO+o=
+	t=1774430330; cv=none; b=Hq/WsBsr+MyPu8i6vjuqZt5gK0YOc21KxQ46wep3Ptfm4dcBgOnwfHQHgdI92h/Bz0J2T1X/lIXkie6ofMxu/SxxOfs+cpwlXrTjZIYJJ348HJJY9hOrmF2A5zIvCQwdJ+7W5ywbgGJD4uKHPNPGHU3hcXXuutBt0rKY8a6cnqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774430300; c=relaxed/simple;
-	bh=qrYKJpnV5q5wsZW/KCJEGBve3p9zylQB/0fgxRV8QwI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=R6YcRi4R3NISahCs6a4SLRGN4TkYhkLFEleplbdaOON8TieGVm/D7DOkztG2GU5xBqlh5sDGlH0N4xBsOe7EHljeSuQoUVBNF8h8vvFMig0r/OmKYqqtEVn6cMeUnB1Nd874eFcUomw1lrL3SL1ocFcpQacHr01d21f3KYkID2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.224.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-64ee82e853cso400244d50.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 02:18:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774430298; x=1775035098;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=kqw4hGAptzQW40hqgwgs8wt06iUhcX/hjN2fKnH5lLk=;
-        b=DDVDcZyGPv1YI/0MnpKRefom4HhTHc2s+A6OOxA2h+cJlZjtP7N2zY9LJhWPUqxD/r
-         UF9U36aLaZsaaxdrndZvJ4WuzyKSTtoFBFBDi0nw8aqNvTv79djwXpnIpo0qWUUJG2BN
-         tRLyfNZskvej3Vf17ePEpYxG1nbvjEFVx9xo5BlNpB8bKkrlw+omx8VQ+otEDkT+9MgE
-         cNIx9bvzxteQHFc3LILUxi2OHUlJY4eXM4g8EjrUouDngwLsln5nF0EwvFgVqCSTt/Qd
-         88TEJI5Glaoa/Lw+S9QyYR8rWEAqRvEa8UNHPU1M4mYdP3xilQEz1z8R+EeRZTqwffjA
-         4UUw==
-X-Forwarded-Encrypted: i=1; AJvYcCWk8R5RON9+PVckeg23PUI1KfL7IoMSWYqzlgGQdb/LW4XisW8Af8SOOgMCIS5sUb7jtTSgKYT+hw8b@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzg/6bligai1MEYCeEPhl5t35gBWN3YQ+EeN7vFFCOC3rtkpMLw
-	qKBliCMH2RibHzTHy1ZOyeLb6omoVEmvgJ68ifnWQiBcx8XnEdgFsCB7J5Xew4A8
-X-Gm-Gg: ATEYQzzz9aPbQojQD4IdTHiG6koHZx7qxiit2dfCuYRNZ+CmPzPHYLqeMBxDD/4+RCF
-	uD3Osagc39lU46OyySD7wg/hnm4wucxsvV162YMd7pZg1ap6+w7JN4T9yYBNgzCPI16YgU7itcP
-	j7myI2TD/rkxqGoC/KytRxkZRNiBFLY6FNjNVh4fAxtOuJNrjKXAJ7V5QXxMDZzmVXcifXHTgEj
-	lz8WAaZOS/NZY64AOi9qMcZb8z37Iq+NeuvIvUetDlW6NuwezALI3KccjLqbpcymp0NgHBwf+9b
-	VhUd7qpPgCt88cPIJ680WzNUfV2X7Mtr4oRZN9IToSVNo7wyHgYSkO+9vb3yUQGwnkRrfn7pXCZ
-	Vmdho6O4w41yj+szH+qESV4hSEME23MAOfK/WtIK2NhSFP00XFkHtHpUXm7zNyYojkdAC+88Qvu
-	IL39x6DOIAN9ixg7/Z2Hm0ZbP6wNc/dMrbf8HvjjfVSW98SbUa16aAvFsDeHXPIOjuldh4wJwdH
-	aJI/JD3tYw7DN9INwj8veezY6EIQ16jPtisvoRXko4RKw==
-X-Received: by 2002:a53:d005:0:b0:64e:71b7:58b5 with SMTP id 956f58d0204a3-64ee60b5687mr2223664d50.32.1774430298291;
-        Wed, 25 Mar 2026 02:18:18 -0700 (PDT)
-Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com. [74.125.224.49])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-64eef9b34b9sm55089d50.21.2026.03.25.02.18.17
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Mar 2026 02:18:17 -0700 (PDT)
-Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-64ae222d978so6469194d50.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 02:18:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCUdybLem6STkNM3+66Vn+P79HqFHWywRR5XGFzbtoezwezPee6TzdMYDng2W98YVVn6y3eyDb5X/Tzb@vger.kernel.org
-X-Received: by 2002:a05:690e:dc9:b0:64e:a7bd:b9d0 with SMTP id
- 956f58d0204a3-64ee6180639mr2634258d50.68.1774430297013; Wed, 25 Mar 2026
- 02:18:17 -0700 (PDT)
+	s=arc-20240116; t=1774430330; c=relaxed/simple;
+	bh=wu/b79MKo6jI6RaveGAeQqWZhXTfTOC6UghGktEKf1k=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=rWA5Q5Zu4Xkh924GexM+cilCjuOnhh7dzbCWd+L5q6iP13BKlBT8v/Wn80QpYDtYfZ/K2JMuzwlGIU0bbSgR9z3gg6jwrzTCmw6aS7R9nFeygvRmB0D+wrGr0YC7lGugAp9xuON3e7PnnYnAmmZnfGDTtYx5Fm9DXm64ie5SFeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=P7p3nOyw; arc=none smtp.client-ip=65.21.61.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="P7p3nOyw"
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1774430327;
+	bh=wu/b79MKo6jI6RaveGAeQqWZhXTfTOC6UghGktEKf1k=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=P7p3nOywkhLItWRISSEl6auxw/Ol/OVmfR6SbkBiA/J4+lBN8ksXRzv4WOobA6pEN
+	 fsAlL/pCoSx2nHy3D3TYX1J9jkUf7vg2ib0UW5NKFh4YpNP9dWDUJPQYY+J4g5k+Yx
+	 cpENCddvDsHVcKZabN4aVo+0KwwF5ZlUYMZ4z2wk=
+Date: Wed, 25 Mar 2026 10:15:19 +0100
+Subject: [PATCH v4 1/9] arm64: dts: amlogic: t7: Add eMMC, SD card and SDIO
+ pinctrl nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260325063254.18062-1-email@sirat.me> <20260325063254.18062-2-email@sirat.me>
- <20260325-gentle-earthworm-of-progress-1f9f46@quoll> <CANn+LW+Y6j0xk2x02-BUL9qNq2gf-PXspi4wP_KGd7Abz3hOYw@mail.gmail.com>
- <4d10b6c0-d599-4fc5-b9ed-ce669ac46e84@kernel.org>
-In-Reply-To: <4d10b6c0-d599-4fc5-b9ed-ce669ac46e84@kernel.org>
-From: Sirat <email@sirat.me>
-Date: Wed, 25 Mar 2026 15:18:05 +0600
-X-Gmail-Original-Message-ID: <CANn+LWJQM45rAT+mzS9ZEGBgmqChbxUtStdzhbzthXUPJ=2csg@mail.gmail.com>
-X-Gm-Features: AQROBzDJdQ9Ro-BvrJ9gUlQ4zZ0Q8A9d8tMT9v5AumlPlE1K2xslZ-F-ZXsII98
-Message-ID: <CANn+LWJQM45rAT+mzS9ZEGBgmqChbxUtStdzhbzthXUPJ=2csg@mail.gmail.com>
-Subject: Re: [PATCH v7 1/2] dt-bindings: iio: proximity: add ST VL53L1X ToF sensor
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, jic23@kernel.org, 
-	dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260325-add-emmc-t7-vim4-v4-1-44c7b4a5e459@aliel.fr>
+References: <20260325-add-emmc-t7-vim4-v4-0-44c7b4a5e459@aliel.fr>
+In-Reply-To: <20260325-add-emmc-t7-vim4-v4-0-44c7b4a5e459@aliel.fr>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>, 
+ Johannes Berg <johannes@sipsolutions.net>, van Spriel <arend@broadcom.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mmc@vger.kernel.org, linux-wireless@vger.kernel.org, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openssh-sha256; t=1774430323; l=2892;
+ i=linux-kernel-dev@aliel.fr; s=id_ed25519; h=from:subject:message-id;
+ bh=wu/b79MKo6jI6RaveGAeQqWZhXTfTOC6UghGktEKf1k=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgMGec55oxeeisqykQiUedekMYyOnR9
+ BG9E/7rDWyqdNoAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QPkmgpDa0m8GxQ8OFJhdlzh5ok2WolXHpWSIYqA8wBwsfT9UK6yTSsh78Hvxt2tGV5MdfGoUhvv
+ lX7X/5/yFhA8=
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openssh;
+ fpr=SHA256:kch4osYZ6A1BrPps5AUs6KnfdE2wm4ocMtyTc8TmZMs
 
-On Wed, Mar 25, 2026 at 2:58=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On 25/03/2026 09:48, Sirat wrote:
-> > On Wed, Mar 25, 2026 at 2:05=E2=80=AFPM Krzysztof Kozlowski <krzk@kerne=
-l.org> wrote:
-> >>
-> >> On Wed, Mar 25, 2026 at 12:32:22PM +0600, Siratul Islam wrote:
-> >>> Add device tree binding documentation for the STMicroelectronics
-> >>> VL53L1X Time-of-Flight ranging sensor connected via I2C.
-> >>>
-> >>> Make vdd-supply required. The device requires power to operate
-> >>> and the property should have been required from the start.
-> >>
-> >> That's ABI break and device for many years was working fine, so this
-> >> should not be changed.
-> >>
-> > Jonathan and David asked that vdd-supply be made required. I feel like
-> > there is a conflict here that I am not able to resolve myself.
-> >
-> > What I think about it is the binding does not correctly describe the
-> > hardware and we should consider this a bug and fix it.
-> > The driver worked because of a fallback mechanism (dummy/fake
-> > regulator) and not because power was optional.
-> >
->
->
-> I looked at v6 and v5 and I do not see such comment for binding that
-> existing device should change ABI. Can you point me to it?
->
-"Make it required and add a note to the commit message to say why the
-requirement should always have been there. Devices tend not to work
-with no power." - Jonathan (v3:
-https://lore.kernel.org/linux-iio/20260322115704.10b2e0d4@jic23-huawei)
+These pinctrl nodes are required by the eMMC, SD card and SDIO drivers
+to configure pin muxing at runtime.
 
-"No, bindings should not depend on driver implementation." - David
-(When I asked if I should  drop the hard requirement in the binding,
-v6: https://lore.kernel.org/linux-iio/55e92148-b5de-4fb8-af0b-9476235341bc@=
-baylibre.com/)
+- eMMC: control, 4-bit/8-bit data, data strobe and clock gate pins
+- SD card: data, clock, command and clock gate pins
+- SDIO: data, clock, command and clock gate pins
 
-"From the point of view of the devicetree, it doesn't matter what the
-driver does. It matters that the chip can't work without power. ;-)" -
-David (v1: https://lore.kernel.org/linux-iio/d0ec6a2f-6d30-4774-8950-15dd3c=
-4b020b@baylibre.com)
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+---
+ arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 98 +++++++++++++++++++++++++++++
+ 1 file changed, 98 insertions(+)
 
-I'm not sure if this is the correct way to quote. But I have added the link=
-s.
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+index 6510068bcff92..016b5429c8d1b 100644
+--- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
++++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+@@ -250,6 +250,104 @@ gpio: bank@4000 {
+ 					#gpio-cells = <2>;
+ 					gpio-ranges = <&periphs_pinctrl 0 0 157>;
+ 				};
++
++				emmc_ctrl_pins: emmc-ctrl {
++					mux-0 {
++						groups = "emmc_cmd";
++						function = "emmc";
++						bias-pull-up;
++					};
++
++					mux-1 {
++						groups = "emmc_clk";
++						function = "emmc";
++						bias-disable;
++					};
++				};
++
++				emmc_data_4b_pins: emmc-data-4b {
++					mux-0 {
++						groups = "emmc_nand_d0",
++							 "emmc_nand_d1",
++							 "emmc_nand_d2",
++							 "emmc_nand_d3";
++						function = "emmc";
++						bias-pull-up;
++					};
++				};
++
++				emmc_data_8b_pins: emmc-data-8b {
++					mux-0 {
++						groups = "emmc_nand_d0",
++							 "emmc_nand_d1",
++							 "emmc_nand_d2",
++							 "emmc_nand_d3",
++							 "emmc_nand_d4",
++							 "emmc_nand_d5",
++							 "emmc_nand_d6",
++							 "emmc_nand_d7";
++						function = "emmc";
++						bias-pull-up;
++					};
++				};
++
++				emmc_ds_pins: emmc-ds {
++					mux {
++						groups = "emmc_nand_ds";
++						function = "emmc";
++						bias-pull-down;
++					};
++				};
++
++				emmc_clk_gate_pins: emmc-clk-gate {
++					mux {
++						groups = "GPIOB_8";
++						function = "gpio_periphs";
++						bias-pull-down;
++					};
++				};
++
++				sdcard_pins: sdcard {
++					mux {
++						groups = "sdcard_d0",
++							 "sdcard_d1",
++							 "sdcard_d2",
++							 "sdcard_d3",
++							 "sdcard_clk",
++							 "sdcard_cmd";
++						function = "sdcard";
++						bias-pull-up;
++					};
++				};
++
++				sdcard_clk_gate_pins: sdcard-clk-gate {
++					mux {
++						groups = "GPIOC_4";
++						function = "gpio_periphs";
++						bias-pull-down;
++					};
++				};
++
++				sdio_pins: sdio {
++					mux-0 {
++						groups = "sdio_d0",
++							 "sdio_d1",
++							 "sdio_d2",
++							 "sdio_d3",
++							 "sdio_clk",
++							 "sdio_cmd";
++						function = "sdio";
++						bias-pull-up;
++					};
++				};
++
++				sdio_clk_gate_pins: sdio-clk-gate {
++					mux {
++						groups = "GPIOX_4";
++						function = "gpio_periphs";
++						bias-pull-up;
++					};
++				};
+ 			};
+ 
+ 			gpio_intc: interrupt-controller@4080 {
 
-Thanks,
-Sirat
+-- 
+2.49.0
+
