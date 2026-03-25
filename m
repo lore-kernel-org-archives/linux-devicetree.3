@@ -1,97 +1,66 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DFF17A31E
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 00:32:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C7A018AFE;
+	Wed, 25 Mar 2026 00:54:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774398724; cv=none; b=h3L5xNrEGC4XJd1joeaWVf/cea48Nj4iitWMALNw3967lOrTvjW4RRRoN09G2ilCp0lc8Hs2V+3XF2wY5eTLvrCjsBoME6ZWKMtjsdXCxZptBvqkZKdPPlvfpjI0e0WEbwlylDllTTxNPK8HYPISgNT0/rVP3TFDgTHJc61Jxb4=
+	t=1774400046; cv=none; b=DlnI5LFX6xbosGztlltHD+b4EZJQXJp7QTO3gFpmpHsk6lxaiVdTqZYFTsgNhuUue4tFqaFGXgS+reIwr7oyLh6vMdqtK8CxkWzu/f8skCdCrRSLrxL4VibvDRtRDK/XcnTmffAanPGQJmVCi07k5cWazytjOj8SO53MfFUkvyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774398724; c=relaxed/simple;
-	bh=gCLRk+NAkU6fy7pdsIcUwbode2bX+R63hoRqk/fGQl4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hAGXXSolUtNf+tnC9UvVsDIWOFEHFQqKtEUfO88X+DiQ4z6NFmwoS11ae6UgauDHe6mDICsounlK2g/5iq9V0PWrxcCkHUTdKKDzRsnaQw9lHbKdcfg3V12QrBOiVk8KbXdC3AxKiQI4tccD2BYs/7sPd84Isgr+6MOv9o2KVlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QwPjg8aG; arc=none smtp.client-ip=209.85.160.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774400046; c=relaxed/simple;
+	bh=dRfWufNAJCcOhh0AhmUSfHoYAd4HMIuJBmV7zbhHIv8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OVvN659fG1aoK2Q84hryIyBvzIO0mWNk7o0u+NK1dnJJ2ZYyAazAvg4rAV/Uj7luQ1dnutopVUTwIbidErhfhvVhZn2kvv1BWv4YSQFxtpQc/5OUYh2dmuCILOgSkwimnhNk1RY+M6EGNflj8kY/nxRkkHKxtA950ub5nz5UDUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AUbP/vJT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QwPjg8aG"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-5094e1d17d3so48565711cf.3
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 17:32:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774398722; x=1775003522; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gCLRk+NAkU6fy7pdsIcUwbode2bX+R63hoRqk/fGQl4=;
-        b=QwPjg8aGvv5AM3kEap9u5JHkAvyOM9dilpYLyjeggmSEaoqz482SKgIDFpPBLO+t1C
-         UgIQE1wFnjawFVPmrArI0eUjnH3cH34KoBluanpVbGflSMHOAltyApZuhUs1TtUJYWwo
-         HL6di6n/ef9WXd1NYDm90DLCEHk6FLBGDWTbI2SnCv7lNKdXJaIzvBJ6rqDowuvHIOOO
-         qmca5pDQxtE7CrxdaXf3MWGQ1eHfaK7UfPczg/QP7+AI+9ZO7GnJwnyIFectjP2um+Yc
-         mmyIrBkolCTWIfOKYjh6OY0gzh6QgwaGiPMGLlFdt4Bub1rDy3ZAfj7NVo52czNnBc2/
-         GJjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774398722; x=1775003522;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=gCLRk+NAkU6fy7pdsIcUwbode2bX+R63hoRqk/fGQl4=;
-        b=gIQNK80Xt6REM7PZ1zgvp7RSWYvIl746zptKkmX9eTC8IMncUSP7DwCv3GmC2F4Ctg
-         +tSxTFqHIJCjE8IsvwTOoCyzZCdYOJ9i8jZU2tdp+Y/8wyWmqUBjqVLkwOc0gcI2t07z
-         8LwAS3XPQONKu+CRn2tuZ9RB0OpGKfxgQzJJF1E6bLlCrj7hambiXLdKIpIK91IAuErX
-         bfIcZRyq2XQvNGYfpspYCC5ZHrMOW2c1gfTDzPwp8uKLZTMmjw49xs+OTsnNeaZ9WED7
-         jaISmQGSXJEEsvvY9CMrScdEXN+cUoPCSlE3I5TDtGLdwl0Lmu7f5SOuPiyI3K9AMUmZ
-         mATw==
-X-Forwarded-Encrypted: i=1; AJvYcCVhopzELp6RnmaWnvccQr1nBvkNAy+7a+f/7xICkpbyFtZklLE3GUCXk49rpVB8O6K7NdS08Ox9UxoY@vger.kernel.org
-X-Gm-Message-State: AOJu0YyuEWtRb4XkG7mkt04/UaaQX8qCBMy8JU+PawUPMTF+TXhs+qwi
-	Y/UQSQSP73gSbZsyBRtSSa9hXXsMCXSSwpi/4yGNUkXdlEeqpAy8BH3f
-X-Gm-Gg: ATEYQzzN6sfPEkfmaQGLM15bWQuwV/SP6R2A6ynKhWTAs2O1uPWIhCvQJm3bhSm13/n
-	W7ApVThQy6NnNzumPv/nB8zbGMQXFAfEV62M+ApVeKRfDbt826OyNkEvL18TICkak2PLxvsYzts
-	aXp/wPe+4PUleXfJaPYGThWV/KYzqPrtMpZXSmVc4WrEUrbyjnrTXFqG+4mhT29v3UiZZ7m08kj
-	G9zdc+cPDzehf6iZKHW2yumxUmGLwTuYfTO9Bl8l1bCVPD7qpn4aIuhSQjOMA1B52UvwXpXfS7w
-	IPdY0Nk9faBhL0zkqMy53/zJgtlUU6j4aKv6FdGkmCsG2hFEA809+gVVrhEa5PhpCnzmB7pFteB
-	z+0Yjj5Tk8w5VugV57sP/A9AJ8+FvjYOl7OoKe7q6IQbBr9BFZYpiJ5uODJ/EQCG9OXvW5x4CEJ
-	vcjaEpotDiHTdy/+gXNsjfiyqV7MTyvf+HTGqPnUotr5Me+qN0fPkUEfCpGR9h5PjblghLKwqsr
-	fBvqY/FRvQNrIi6cSHWXKvA
-X-Received: by 2002:a05:622a:a291:b0:50b:4116:78dd with SMTP id d75a77b69052e-50b80ec12camr21220341cf.66.1774398721780;
-        Tue, 24 Mar 2026 17:32:01 -0700 (PDT)
-Received: from jernej-laptop.localnet (16.red-83-43-237.dynamicip.rima-tde.net. [83.43.237.16])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-50b36e34f8bsm146375291cf.15.2026.03.24.17.31.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Mar 2026 17:32:01 -0700 (PDT)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Chen-Yu Tsai <wens@kernel.org>
-Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH 2/2] arm64: dts: allwinner: sun50i-h6: add UART DMA channels
-Date: Wed, 25 Mar 2026 01:31:57 +0100
-Message-ID: <2052919.usQuhbGJ8B@jernej-laptop>
-In-Reply-To: <20260324161930.1602083-2-wens@kernel.org>
-References:
- <20260324161930.1602083-1-wens@kernel.org>
- <20260324161930.1602083-2-wens@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AUbP/vJT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68BF3C19424;
+	Wed, 25 Mar 2026 00:54:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774400045;
+	bh=dRfWufNAJCcOhh0AhmUSfHoYAd4HMIuJBmV7zbhHIv8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AUbP/vJT3ju85md9fr2qXnnguARCnC6pYHEWEpWgxdy3mERVlbgDcDeN0tTsdggeF
+	 KxflKX2yJwN7hFAEkp8hMd8eaVm5AUgnfY2+97Ty1E7yBjuR/Wl5PRZYCNeSrtPb3f
+	 /kxaCN8j1pDIOkvGRsFvzPTB0rCZzuPhn1Y9rVwhKmm2HqQhOhNkCPN+H6l6VKgg/i
+	 F9aG7r+Zu6Vfd4IUxNNp/DhFsEzIJ0BfxyIKb7z6ooH8gC2QhBxJYrECUxjAJGpvLG
+	 js2BbpJNCjvSNmdhCNS+CrcA9r6yute3EqWKFLWaS7GtuxH1Z1n9edAI/rn63JdOE/
+	 msh13CzeR4YhA==
+Date: Tue, 24 Mar 2026 19:54:04 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Richard Zhu <hongxing.zhu@nxp.com>
+Cc: kernel@pengutronix.de, linux-kernel@vger.kernel.org, krzk+dt@kernel.org,
+	l.stach@pengutronix.de, s.hauer@pengutronix.de, imx@lists.linux.dev,
+	devicetree@vger.kernel.org, festevam@gmail.com, frank.li@nxp.com,
+	linux-arm-kernel@lists.infradead.org, lpieralisi@kernel.org,
+	linux-pci@vger.kernel.org, conor+dt@kernel.org,
+	kwilczynski@kernel.org, mani@kernel.org, bhelgaas@google.com
+Subject: Re: [PATCH v8 2/5] dt-bindings: PCI: imx6q-pcie: Add i.MX94 and
+ i.MX943 PCIe compatible strings
+Message-ID: <177440004361.2302904.12708290351428536062.robh@kernel.org>
+References: <20260324023036.784466-1-hongxing.zhu@nxp.com>
+ <20260324023036.784466-3-hongxing.zhu@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260324023036.784466-3-hongxing.zhu@nxp.com>
 
-Dne torek, 24. marec 2026 ob 17:19:29 Srednjeevropski standardni =C4=8Das j=
-e Chen-Yu Tsai napisal(a):
-> All the UARTs support DMA and are hooked up to the DMA controller.
->=20
-> Add the DMA channels for the UARTs
->=20
-> Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
 
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+On Tue, 24 Mar 2026 10:30:33 +0800, Richard Zhu wrote:
+> Add i.MX94 and i.MX943 PCIe compatible strings and fallback to
+> i.MX95 PCIe compatible string.
+> 
+> Signed-off-by: Richard Zhu <hongxing.zhu@nxp.com>
+> ---
+>  .../bindings/pci/fsl,imx6q-pcie-ep.yaml       | 18 ++++++++-----
+>  .../bindings/pci/fsl,imx6q-pcie.yaml          | 26 ++++++++++++-------
+>  2 files changed, 28 insertions(+), 16 deletions(-)
+> 
 
-Best regards,
-Jernej
-
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
