@@ -1,82 +1,38 @@
-Received: from elephant.ash.relay.mailchannels.net (elephant.ash.relay.mailchannels.net [23.83.222.57])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1BB30EF84;
-	Wed, 25 Mar 2026 22:20:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.222.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774477225; cv=pass; b=WNsQzgrnkMAbgpUHsLxkt8nKOo6uBnSJFRFjN2WGJZpJqNFGSSaNJfcDjbTFf84ERwOEoSkAYUco3mqKjBOSFnRkFal8d3GkyjrtqnsdTv2fJlQnD1Wbl9OdPRBdlzoDlatrjAkV7mwAac1zaTez2GwiN+RiTI658D6LIFhjO2U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774477225; c=relaxed/simple;
-	bh=nJbv4Uv7vv3VstTMSXBfyR9c+4pxEc0DD1EnJ4GOiVQ=;
-	h=From:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc:Date; b=Sp5FQV4UY3Rie2M4Q3PQuuYO0NA/TSanKQJqF2aMu72ryPQU99FOtvInkwOqlQqFegHn5ppGtL/5ITDYFCrKcIT3BHckroA+JsYxz1Jus+nzjuO25dOHf/hYrqxZBV0DinLatZ9THHNFGEgzT/QlYHotohKmEyyWNABk7T8Xgsw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=VYtyKf84; arc=pass smtp.client-ip=23.83.222.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7509D322B7B;
+	Wed, 25 Mar 2026 22:22:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774477355; cv=none; b=qtMgbhJMX5q+6LYfunU8YS1hvupoUcpeTvf6WpMs0DRcwjsWcuN7NFz9moZq1sZPsjwYjoiQHlwYzRosSe8Z3Tx6czenkjJMVUJ72w4V9LY9Yt+fvpGP7PEmjoQTH1fItvxWWUmvPWhYGg/t8mF69EPdSKfcy1MZDg+XCAVFT5w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774477355; c=relaxed/simple;
+	bh=2aya4qzSBOnrqFcF0qCiQffRH1oUsnDZtVMTEa3jgnE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=IBzY1qykXeZgqFkQi60g7qryJ/32A899e0A7amhiloGBM+/v9s33LGFY84Ku9aHqapBGH4sEul5nOjQp7UocvkR1fyBX/CpZZZA4DVngP0XDS6hPtxafgNICQfSfMxytztzj60PnYBDb4QC0VgH0XmQAMhHnVStHx8U0huEhf7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ml0wSrig; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="VYtyKf84"
-X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 05AFB401DE1;
-	Wed, 25 Mar 2026 21:02:47 +0000 (UTC)
-Received: from fr-int-smtpout25.hostinger.io (100-96-3-148.trex-nlb.outbound.svc.cluster.local [100.96.3.148])
-	(Authenticated sender: hostingeremail)
-	by relay.mailchannels.net (Postfix) with ESMTPA id BFF234022D1;
-	Wed, 25 Mar 2026 21:02:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
-	t=1774472565;
-	b=gyyaBMjzjlb9IQAAr3ppxC78TiHyLWg5MLvuPcWkR0WNpagQKWxMrd6Qimi5c70xKbCZo0
-	LHRMo478dWh81OnDNbz8/rlygQ5Qe0SJ7JeJdDGwE95FIv+jU6/M76Otps8CWM7d2GFWIk
-	rEcqk7gMFQ0yY0i6yp8U96DCgVinUiGEzgAB923k2f2fBbHxQv4sDFktzw0F1Lhkg108d1
-	ebbpQndqC21cyGGm7OSH2RODgCxhRFrz1P0L+dWi2/GZqX2AHaiEH1k3agBxkhZiF0pdZh
-	tWAT69PepK17LAOInQ3/NsPfLhCGdTNKf7hwZQefI05ZG+Kzj2DvBnJq3WkDZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1774472565;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=lm0BxjCjfCkRl1JbPIp6Z4LxVXg7sLgdMNJO9XHpTAg=;
-	b=7gxHuyyGxI9hjhUQo/22kBYtD+I0kFw/2As0UzcrE+D8wI3Do8ZIU5JqSnqw+L0qeaTPUE
-	/ZPdDpkgbQ5V2ZbGFayqmRfQ7Cb+kMeMdAATNWeDGUsLBSHxTKBOzODhmW/R3hK0BGSASR
-	mAN382YDZ5KyKDQeH5Swc0kTO7XN52K2QEqflroG7dagQYGjXeurkxvZjEIzUh5+BnKUw+
-	7oCuscZsR1/25ymRYRbqlAc+r5kKI772gsVnGoryPIgqD2HPE778hP2vsExipbxQyOLGME
-	xhgDaKBKGn0sKDyR8uWLjGquhDTyobPCYBDrErD1lzKhhlmeSpmqmBaqZhdpVQ==
-ARC-Authentication-Results: i=1;
-	rspamd-db964497c-jpd75;
-	auth=pass smtp.auth=hostingeremail smtp.mailfrom=linux@smankusors.com
-X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
-X-MailChannels-Auth-Id: hostingeremail
-X-Whispering-Belong: 7c605ef37447ce8c_1774472566727_2979167319
-X-MC-Loop-Signature: 1774472566727:1219778712
-X-MC-Ingress-Time: 1774472566726
-Received: from fr-int-smtpout25.hostinger.io (fr-int-smtpout25.hostinger.io
- [148.222.54.38])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.96.3.148 (trex/7.1.5);
-	Wed, 25 Mar 2026 21:02:46 +0000
-Received: from [172.17.0.2] (unknown [180.253.44.220])
-	(Authenticated sender: linux@smankusors.com)
-	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4fgzrG17MFz1xms;
-	Wed, 25 Mar 2026 21:02:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
-	s=hostingermail-a; t=1774472561;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lm0BxjCjfCkRl1JbPIp6Z4LxVXg7sLgdMNJO9XHpTAg=;
-	b=VYtyKf843P7EVGIShIRpS4ELubeLGe+TwHyENeZSfe2WYxGOXqF4FDQ5Ln7S+wqLeR+Peh
-	eQEnNBr4rrXFGjwSbiRema6yrz/8u7Osq+fz4ZDvaShB8/Bj+Yt5arRfo6aoDNcz0FC+wi
-	X6VlG4hJJZwghVGcpu6orij8wcbDV2qTcuFY7qrH8V1QZq5cDqIOyg+Bn9pql+lX9jwxlZ
-	siIToRMP3i72e0jtfttPuekSLZePursDsq8L7CtrmFfZYSWOlvmLCbsKJhnPT+xtQYsT7u
-	IYzgCzoPYyMrLU1lr7FiDn/bj20Qn5mt7MN4juvMskGW6zAuxhxXqI64Ngks6w==
-From: Antony Kurniawan Soemardi <linux@smankusors.com>
-Subject: [PATCH 1/2] ARM: dts: qcom: pm8921: add labels for ADC channels
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ml0wSrig"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 405E1C2BCB4;
+	Wed, 25 Mar 2026 22:22:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774477355;
+	bh=2aya4qzSBOnrqFcF0qCiQffRH1oUsnDZtVMTEa3jgnE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=ml0wSrigpR2DeHga6KHr4v8dLcTUo6ZEco/FPiw8erY70q6kzf7ChYRCbB2s0ofgb
+	 lyASFqjbGMUfN5L6AdvdLHLN7ekJi2XNYkYSeRz73uM+dINv+ffNxuhLPoY5sqgm1G
+	 GEr3N5/5sNx+cHyIGzHr6yMKnnTbnzkPkufn4cWvHLeR9XAOpkOmZKfTLzO36OYgsP
+	 cBW53YtJBPDamav8JExn4XpIJlywsnnNtXUSkG6HWFHaIagdQaLq7AnYGwqPdyBJ8B
+	 mkqQoVWtVaal+uwX2jwTyhi+eI5Y7kLlw69SuVKN5XhyndQ8uz28iY7hhuQmKOOWS+
+	 sTBdrObXYChgg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 34FD4109E529;
+	Wed, 25 Mar 2026 22:22:35 +0000 (UTC)
+From: Amit Sunil Dhamne via B4 Relay <devnull+amitsd.google.com@kernel.org>
+Date: Wed, 25 Mar 2026 22:22:23 +0000
+Subject: [PATCH v9 2/6] dt-bindings: usb: maxim,max33359: Add supply
+ property for vbus
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -85,110 +41,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260326-pm8xxx-xoadc-label-v1-1-027805dad4db@smankusors.com>
-References: <20260326-pm8xxx-xoadc-label-v1-0-027805dad4db@smankusors.com>
-In-Reply-To: <20260326-pm8xxx-xoadc-label-v1-0-027805dad4db@smankusors.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+Message-Id: <20260325-max77759-charger-v9-2-4486dd297adc@google.com>
+References: <20260325-max77759-charger-v9-0-4486dd297adc@google.com>
+In-Reply-To: <20260325-max77759-charger-v9-0-4486dd297adc@google.com>
+To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
- phone-devel@vger.kernel.org, 
- Antony Kurniawan Soemardi <linux@smankusors.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774472553; l=1799;
- i=linux@smankusors.com; s=20250609; h=from:subject:message-id;
- bh=nJbv4Uv7vv3VstTMSXBfyR9c+4pxEc0DD1EnJ4GOiVQ=;
- b=4atxdDVRyt//kBzSeYlAOxvHGqp+6XZPjDgeiKNvK+eUy6qgsFBKXxEoY0SoiCaxoWUj1b865
- YBwOrXwFClyA7f5cCBQf8rppvuGPBSX+jtsKA9qUwWsOZtctnOtgqzM
-X-Developer-Key: i=linux@smankusors.com; a=ed25519;
- pk=65wTy06fJl2/h/EJwjr704YG+yjHFhZObJBWzzK+N00=
-Date: Wed, 25 Mar 2026 21:02:37 +0000 (UTC)
-X-CM-Analysis: v=2.4 cv=GMJaEfNK c=1 sm=1 tr=0 ts=69c44d71 a=9XgiG0qChrIWxZZBWkq1Wg==:117 a=9XgiG0qChrIWxZZBWkq1Wg==:17 a=IkcTkHD0fZMA:10 a=wxLWbCv9AAAA:8 a=rt3x4hDEALvJiYIjBx4A:9 a=QEXdDO2ut3YA:10 a=A2jKFiM6YE6-xbDe-2e4:22 a=QJY96suAAestDpCc5Gi9:22
-X-CM-Envelope: MS4xfPgPRraqBYvL/4a+NiP2k4Jb3qXBKE25GbkM3H+WWm4CQ4pT9tayRkhYvAD57xxqu8ht5CTi15Ud70V4IpSiYBFj0cdbL35Ait8tSe4mZSEHF2DdPG/w bHfxuiRRUkUfDH0drJ+tWROfntIZFNHVLNDvQk5ErUO9C0huS/EeUKBOMygxoRyAXj+n6O6iqQlWu7SBTTQ0UvyWp13PEgH5keFPQj0Jd3DQO1WHH61zjk+u DcKzkxTOccS8Zmmb0azcjp67o+PMhpcuZXJOYpdZ5CWRqgLAQCcO3a7UcdPavSLim1t0ujvbHZmexuTgaxaB8QhVnZh2sgKZnD6nevDo6h/8pr7RA2DeJiUc XbDEHEQJbw3t/E5zvjlar0wbuXK/cRrqrnKZZNDYjv15iSkq2jv/T0u1kRdza0mkXPgzsrFtT5ORogUkqBewJyimTABwUuTFbKpqMEk0i9bUtR5mZz0yHtWE X6k7sOD6rZ1MGlcwCl+zkaLvmlzJOkfee9fxmShnQeGag0WBkn2Cb7101kFcHOPSUhIMa1Op1LUsMPRA1Os3UFUpowfCNPq/p22ltP1gta8J6LLaownqZ6uk CncMnh6VH48KIA5y4AT+ey1FJbkvlPZB6M/FYY23sRIXmvuHY3QQc/Kt3AnEMMOkLP8=
-X-AuthUser: linux@smankusors.com
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Lee Jones <lee@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Badhri Jagan Sridharan <badhri@google.com>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Mark Brown <broonie@kernel.org>, 
+ Matti Vaittinen <mazziesaccount@gmail.com>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ RD Babiera <rdbabiera@google.com>, Kyle Tso <kyletso@google.com>, 
+ Amit Sunil Dhamne <amitsd@google.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774477354; l=1273;
+ i=amitsd@google.com; s=20241031; h=from:subject:message-id;
+ bh=xHGJ1Vk5ohekxV/HkgsFaQ5FhplVGnbXa8tx/HTuhSE=;
+ b=CTTOsuHGqVUcu4uWfAFuYbSqHf/2gLAtRaF9QcKDjxZI511TxrXnXqTcN5uL2O40X58LVgvhg
+ 2xQrghgR95LAiEQ4UxBVsFYDj/kEO+8Q7PFMWxrkTvQlb05IeA8qpkG
+X-Developer-Key: i=amitsd@google.com; a=ed25519;
+ pk=wD+XZSST4dmnNZf62/lqJpLm7fiyT8iv462zmQ3H6bI=
+X-Endpoint-Received: by B4 Relay for amitsd@google.com/20241031 with
+ auth_id=262
+X-Original-From: Amit Sunil Dhamne <amitsd@google.com>
+Reply-To: amitsd@google.com
 
-Add label properties to all XOADC ADC channel nodes in the PM8921 PMIC
-device tree. This allows userspace and drivers to identify channels by
-name rather than relying on datasheet name.
+From: Amit Sunil Dhamne <amitsd@google.com>
 
-Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
+Add a regulator supply property for vbus. This notifies the regulator
+provider to source vbus when Type-C operates in Source power mode,
+while turn off sourcing vbus when operating in Sink mode or
+disconnected.
+
+Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- arch/arm/boot/dts/qcom/pm8921.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ Documentation/devicetree/bindings/usb/maxim,max33359.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/arch/arm/boot/dts/qcom/pm8921.dtsi b/arch/arm/boot/dts/qcom/pm8921.dtsi
-index 535cb6a2543f69bc30abc89bff4e14a19147ce38..15246f4bd2672ccd4fc3359b66541d53d4da88b4 100644
---- a/arch/arm/boot/dts/qcom/pm8921.dtsi
-+++ b/arch/arm/boot/dts/qcom/pm8921.dtsi
-@@ -75,50 +75,62 @@ pm8921_xoadc: xoadc@197 {
+diff --git a/Documentation/devicetree/bindings/usb/maxim,max33359.yaml b/Documentation/devicetree/bindings/usb/maxim,max33359.yaml
+index 3de4dc40b791..e652a24902ea 100644
+--- a/Documentation/devicetree/bindings/usb/maxim,max33359.yaml
++++ b/Documentation/devicetree/bindings/usb/maxim,max33359.yaml
+@@ -32,6 +32,9 @@ properties:
+     description:
+       Properties for usb c connector.
  
- 			vcoin: adc-channel@0 {
- 				reg = <0x00 0x00>;
-+				label = "vcoin";
- 			};
++  vbus-supply:
++    description: Regulator to control sourcing Vbus.
++
+ required:
+   - compatible
+   - reg
+@@ -53,6 +56,7 @@ examples:
+             reg = <0x25>;
+             interrupt-parent = <&gpa8>;
+             interrupts = <2 IRQ_TYPE_LEVEL_LOW>;
++            vbus-supply = <&chgin_otg_reg>;
  
- 			vbat: adc-channel@1 {
- 				reg = <0x00 0x01>;
-+				label = "vbat";
- 			};
- 
- 			dcin: adc-channel@2 {
- 				reg = <0x00 0x02>;
-+				label = "dcin";
- 			};
- 
- 			vph_pwr: adc-channel@4 {
- 				reg = <0x00 0x04>;
-+				label = "vph_pwr";
- 			};
- 
- 			batt_therm: adc-channel@8 {
- 				reg = <0x00 0x08>;
-+				label = "batt_therm";
- 			};
- 
- 			batt_id: adc-channel@9 {
- 				reg = <0x00 0x09>;
-+				label = "batt_id";
- 			};
- 
- 			usb_vbus: adc-channel@a {
- 				reg = <0x00 0x0a>;
-+				label = "usb_vbus";
- 			};
- 
- 			die_temp: adc-channel@b {
- 				reg = <0x00 0x0b>;
-+				label = "die_temp";
- 			};
- 
- 			ref_625mv: adc-channel@c {
- 				reg = <0x00 0x0c>;
-+				label = "ref_625mv";
- 			};
- 
- 			ref_1250mv: adc-channel@d {
- 				reg = <0x00 0x0d>;
-+				label = "ref_1250mv";
- 			};
- 
- 			chg_temp: adc-channel@e {
- 				reg = <0x00 0x0e>;
-+				label = "chg_temp";
- 			};
- 
- 			ref_muxoff: adc-channel@f {
- 				reg = <0x00 0x0f>;
-+				label = "ref_muxoff";
- 			};
- 		};
- 	};
+             connector {
+                 compatible = "usb-c-connector";
 
 -- 
-2.34.1
+2.53.0.1018.g2bb0e51243-goog
+
 
