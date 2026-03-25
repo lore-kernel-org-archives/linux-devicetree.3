@@ -1,405 +1,310 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672813FADE2
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 14:46:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B8F3E4C86;
+	Wed, 25 Mar 2026 14:47:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774450004; cv=none; b=bx2yjrRVtnCfLNX5/ORpcY59Stbjo1pk98uKqnto6qVdHo0uBuZjL5mIT93IMlze/mPZn090IP+PY0kDuXx7s3gtUA2V6GqEc6lWbDsQMcKPT7/deSCagOI9NeJphsWxnuIVy8AZYfdyGQVoJ4MCMGK+4/l61okXQHu5tLgTZ8g=
+	t=1774450047; cv=none; b=usREeBPW15bBM8nD4+VnH4QLe4P9HEKX7Wu3M6L55N+uR4Rln5XsVd8Oq25HX7Nhci8bUhw6uo5p2Th6DUAGdvTY4IX05OA1qDYiguTLJhyIvMUnW+JNMDuEfW4kX/ASeShYtPuOO1Txvj4H8htpbRjvsJO1JqV9IFIkEVRGtwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774450004; c=relaxed/simple;
-	bh=8qB+9iWMmtG/bUdEVnuNISlvjWZxC1V+Y5D8ZDAx+NQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UDI2rN5vyHWi/t4CO8EGwquiHcix1F35Ei5bsDzT4HXelFNlX7oLDmEmBDp2OKAcu4cl7W/Yvjzt44qCEkvVDpjZFFk20CebUOguv2FZcLxwJzYgi1YutHp2spOq3ql/9Xuq0oinIZ5HHW8wpSAiPZY7eF8a2Q2kGK+1pjGrj5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o9RdLn8r; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o9RdLn8r"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-43b48ac2727so1809697f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 07:46:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774449997; x=1775054797; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=IrlBOke3UCcCRXGtCiCjDm/vPc8qLCfIRNlITCApmXs=;
-        b=o9RdLn8rwTP37Y+J/LikFRV44thRcXgxFpPdLLKnacbhTh83c5sgFvtY6pmz34rJpW
-         G7bVyyulo/kIZovXh9Gl/Tjo0b2jFK0gukPfDsrefmwpYiyi4JfoTzuBqar4Bj2tUXaw
-         OtNWc2Gh6pG+BpzLSBq7Fbmq8dRPdxLcvi06oxihiOQt6F9XpOnJp8tI0vLpVzVzVsPJ
-         po0QPPIdHSrQQrgo3EpfBPFngad7BtD/sffvTE8ea6hNSCB1SkP7eeEFCLteY9p7jkwj
-         NQeGWMpTv7EYzNObj8QGclXPXGI2S1eW7izQMA4Ca8lXbB0w2dDprjceDgF7FldcgoVd
-         4ZYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774449997; x=1775054797;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=IrlBOke3UCcCRXGtCiCjDm/vPc8qLCfIRNlITCApmXs=;
-        b=pwMTBfPoUe3j3DH1v46Jv+kM+hSKC59+guPzYb7VzjS9WOJgMrbBt6Sh/9K4HfE9A+
-         J9MG0UVqfRq+gZgcZKohf6d7NSNBrXEo3+sAlgBWdhTfcOOH9joZ22PfYSA5XRjd0hoy
-         0Pfe+dqQ9Th+pibSqJajEEO1JuCj/WVmrBwoEQkmq6OicQTVHJQuQqWSTYynm5sX0pw8
-         njmiUXhjef+VCTMIYyn8HCxYY0aCtgn06L9WFpIN4qWYvjYytIN7wcQsbnJR1oK9r/US
-         fyZ0up/h36+DMb4l2nGnRJ69Qqi/Ek9z6hRUKSeRiclPKjakmCjF16Id+RjzOmQpa8ct
-         /EGQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUzksYyH8t8WIHV36iPLWuvAN5T1FDbM35sqTG/bplntyLM1LdLqAE/Zglk+W9/fl9XDFZUK3cKN1NR@vger.kernel.org
-X-Gm-Message-State: AOJu0YyL92uWbRSeGpuAYzedzm4iYKjSpXToXOUP3nCwTkM6H2FX2uUk
-	3Qbe8r+wSaSMXHwJq47LDgn0Dux2qM/NKOq+Rw596MdxCFdB0VEJ46FC
-X-Gm-Gg: ATEYQzxTUIArbsArHKKM/O0YccW2b3shdUWkvugDK110LzpjfrUPkpvwH+CCxyTHS4h
-	zdznCqgGdgysPthsDBc3xh5OhlHh/rRjpGPdATkVwgWkws5mj9neDC9VbcXoFMWfxgRUr8rw9QA
-	svhSBKSYRjh+4VqQmlZjNJXOuPImMVF9JWSO/du9LOrMhO4bxhr56WY4NhCrwg0dHnspHiBtyGZ
-	lkKuD/408vbmUfoXPgpLNXqMbZ9vDtyRD/A249C6nAmBWvJlL3Ph7rP3PQR+/YKNDHB4BhQY2Fd
-	sVx/YXlmwT1W6UIF6P3RA7I7PiAyUPY7WnjDUgmQ1BldfAMeien0NM25nVe6MJG7pg1UoAAU56v
-	kO6HxmKVG0/sA0CRlmH683Gx7xGzzZ2jXV1JUd69PwMX0XB5NlYfH4YS6kiYtS4bYq2Via45Sv/
-	WA+IqcCavxC+2ggEohBSHcdg+V5DucNW5wiPWjjzvGJieC9QNcCTW8713+/Wu6p+j7GsZ7dutqk
-	5FCJqDs8ZSTurMCNon8t3uqeqo=
-X-Received: by 2002:a05:6000:288c:b0:43b:3be3:9a16 with SMTP id ffacd0b85a97d-43b88a29212mr6080023f8f.38.1774449997217;
-        Wed, 25 Mar 2026 07:46:37 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b9192e305sm304592f8f.8.2026.03.25.07.46.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 07:46:36 -0700 (PDT)
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Wed, 25 Mar 2026 15:46:07 +0100
-Subject: [PATCH v3 6/6] arm64: dts: freescale: imx95-verdin: Add Yavia
- carrier board
+	s=arc-20240116; t=1774450047; c=relaxed/simple;
+	bh=/C6cB0+Xx+NDl68yR+mJudD4MBpP7mbYmW9+uHqkPW8=;
+	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZFEUYOuYAPX2a+3l5TirGUyIdrCs0B4n17z6V0Oty9QNdGQ3pthUtMl5CtxDCtTqcQ5TOWZpgE7UMO+6+PakqjKJyiFP7qEY9SO4oy9wYIiEpu+ZPM7ruTcH2bBqsMXYdJtXdAIw506QTkyzzfrNw2is/2tGiu3e/PM/rosJfNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; arc=none smtp.client-ip=185.176.79.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Received: from mail.maildlp.com (unknown [172.18.224.150])
+	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4fgqVY3yYLzHnGj3;
+	Wed, 25 Mar 2026 22:46:45 +0800 (CST)
+Received: from dubpeml500005.china.huawei.com (unknown [7.214.145.207])
+	by mail.maildlp.com (Postfix) with ESMTPS id 123EE40571;
+	Wed, 25 Mar 2026 22:47:21 +0800 (CST)
+Received: from localhost (10.203.177.15) by dubpeml500005.china.huawei.com
+ (7.214.145.207) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 25 Mar
+ 2026 14:47:20 +0000
+Date: Wed, 25 Mar 2026 14:47:19 +0000
+From: Jonathan Cameron <jonathan.cameron@huawei.com>
+To: Siratul Islam <email@sirat.me>
+CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<jic23@kernel.org>, <dlechner@baylibre.com>, <nuno.sa@analog.com>,
+	<andy@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>, Andy Shevchenko
+	<andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v7 2/2] iio: proximity: add driver for ST VL53L1X ToF
+ sensor
+Message-ID: <20260325144719.00005a92@huawei.com>
+In-Reply-To: <20260325063254.18062-3-email@sirat.me>
+References: <20260325063254.18062-1-email@sirat.me>
+	<20260325063254.18062-3-email@sirat.me>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="US-ASCII"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-verdin-imx95-upstream-frank-li-base-v3-6-b2b5221a8077@toradex.com>
-References: <20260325-verdin-imx95-upstream-frank-li-base-v3-0-b2b5221a8077@toradex.com>
-In-Reply-To: <20260325-verdin-imx95-upstream-frank-li-base-v3-0-b2b5221a8077@toradex.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, 
- Emanuele Ghidoli <emanuele.ghidoli@toradex.com>, 
- Francesco Dolcini <francesco.dolcini@toradex.com>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.13.0
+X-ClientProxiedBy: lhrpeml500010.china.huawei.com (7.191.174.240) To
+ dubpeml500005.china.huawei.com (7.214.145.207)
 
-From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+On Wed, 25 Mar 2026 12:32:23 +0600
+Siratul Islam <email@sirat.me> wrote:
 
-Add support for the Verdin i.MX95 SoM mated with the Yavia carrier
-board.
+> Add support for the STMicroelectronics VL53L1X Time-of-Flight
+> ranging sensor with I2C interface.
+> 
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Signed-off-by: Siratul Islam <email@sirat.me>
 
-Link: https://www.toradex.com/computer-on-modules/verdin-arm-family/nxp-imx95
-Link: https://www.toradex.com/products/carrier-board/yavia
-Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
----
-v3: no changes
-v2: no changes
-v1: https://lore.kernel.org/all/20260305-verdin-imx95-upstream-frank-li-base-v1-6-823fad02def9@toradex.com/
----
- arch/arm64/boot/dts/freescale/Makefile             |   2 +
- .../dts/freescale/imx95-verdin-nonwifi-yavia.dts   |  21 ++
- .../boot/dts/freescale/imx95-verdin-wifi-yavia.dts |  21 ++
- .../boot/dts/freescale/imx95-verdin-yavia.dtsi     | 217 +++++++++++++++++++++
- 4 files changed, 261 insertions(+)
+Hi Siratul,
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 10417fc895de..5bee7c83a724 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -501,10 +501,12 @@ dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-nonwifi-dahlia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-nonwifi-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-nonwifi-ivy.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-nonwifi-mallow.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-nonwifi-yavia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-dahlia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-ivy.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-mallow.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-yavia.dtb
- 
- imx95-15x15-evk-pcie0-ep-dtbs = imx95-15x15-evk.dtb imx-pcie0-ep.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-evk-pcie0-ep.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx95-verdin-nonwifi-yavia.dts b/arch/arm64/boot/dts/freescale/imx95-verdin-nonwifi-yavia.dts
-new file mode 100644
-index 000000000000..4f7b4e3a518b
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx95-verdin-nonwifi-yavia.dts
-@@ -0,0 +1,21 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * https://www.toradex.com/computer-on-modules/verdin-arm-family/nxp-imx95
-+ * https://www.toradex.com/products/carrier-board/yavia
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx95-verdin.dtsi"
-+#include "imx95-verdin-nonwifi.dtsi"
-+#include "imx95-verdin-yavia.dtsi"
-+
-+/ {
-+	model = "Toradex Verdin iMX95 on Yavia Board";
-+	compatible = "toradex,verdin-imx95-nonwifi-yavia",
-+		     "toradex,verdin-imx95-nonwifi",
-+		     "toradex,verdin-imx95",
-+		     "fsl,imx95";
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx95-verdin-wifi-yavia.dts b/arch/arm64/boot/dts/freescale/imx95-verdin-wifi-yavia.dts
-new file mode 100644
-index 000000000000..43d35b770db2
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx95-verdin-wifi-yavia.dts
-@@ -0,0 +1,21 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * https://www.toradex.com/computer-on-modules/verdin-arm-family/nxp-imx95
-+ * https://www.toradex.com/products/carrier-board/yavia
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx95-verdin.dtsi"
-+#include "imx95-verdin-wifi.dtsi"
-+#include "imx95-verdin-yavia.dtsi"
-+
-+/ {
-+	model = "Toradex Verdin iMX95 WB on Yavia Board";
-+	compatible = "toradex,verdin-imx95-wifi-yavia",
-+		     "toradex,verdin-imx95-wifi",
-+		     "toradex,verdin-imx95",
-+		     "fsl,imx95";
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx95-verdin-yavia.dtsi b/arch/arm64/boot/dts/freescale/imx95-verdin-yavia.dtsi
-new file mode 100644
-index 000000000000..6403ae584e70
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx95-verdin-yavia.dtsi
-@@ -0,0 +1,217 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Common dtsi for Verdin iMX95 SoM on Yavia carrier board
-+ *
-+ * https://www.toradex.com/computer-on-modules/verdin-arm-family/nxp-imx95
-+ * https://www.toradex.com/products/carrier-board/yavia
-+ */
-+
-+#include <dt-bindings/leds/common.h>
-+
-+/ {
-+	aliases {
-+		eeprom1 = &carrier_eeprom;
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_qspi1_clk_gpio>,
-+			    <&pinctrl_qspi1_cs_gpio>,
-+			    <&pinctrl_qspi1_io0_gpio>,
-+			    <&pinctrl_qspi1_io1_gpio>,
-+			    <&pinctrl_qspi1_io2_gpio>,
-+			    <&pinctrl_qspi1_io3_gpio>;
-+
-+		/* SODIMM 52 - LD1_RED */
-+		led-0 {
-+			color = <LED_COLOR_ID_RED>;
-+			function = LED_FUNCTION_DEBUG;
-+			function-enumerator = <1>;
-+			gpios = <&gpio5 9 GPIO_ACTIVE_HIGH>;
-+		};
-+		/* SODIMM 54 - LD1_GREEN */
-+		led-1 {
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_DEBUG;
-+			function-enumerator = <1>;
-+			gpios = <&gpio5 10 GPIO_ACTIVE_HIGH>;
-+		};
-+		/* SODIMM 56 - LD1_BLUE */
-+		led-2 {
-+			color = <LED_COLOR_ID_BLUE>;
-+			function = LED_FUNCTION_DEBUG;
-+			function-enumerator = <1>;
-+			gpios = <&gpio5 0 GPIO_ACTIVE_HIGH>;
-+		};
-+		/* SODIMM 58 - LD2_RED */
-+		led-3 {
-+			color = <LED_COLOR_ID_RED>;
-+			function = LED_FUNCTION_DEBUG;
-+			function-enumerator = <2>;
-+			gpios = <&gpio5 1 GPIO_ACTIVE_HIGH>;
-+		};
-+		/* SODIMM 60 - LD2_GREEN */
-+		led-4 {
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_DEBUG;
-+			function-enumerator = <2>;
-+			gpios = <&gpio5 2 GPIO_ACTIVE_HIGH>;
-+		};
-+		/* SODIMM 62 - LD2_BLUE */
-+		led-5 {
-+			color = <LED_COLOR_ID_BLUE>;
-+			function = LED_FUNCTION_DEBUG;
-+			function-enumerator = <2>;
-+			gpios = <&gpio5 3 GPIO_ACTIVE_HIGH>;
-+		};
-+	};
-+};
-+
-+/* Verdin ADC_1, ADC_2, ADC_3 and ADC_4 */
-+&adc1 {
-+	status = "okay";
-+};
-+
-+/* Verdin ETH_1 (On-module PHY) */
-+&enetc_port0 {
-+	status = "okay";
-+};
-+
-+/* Verdin CAN_1 */
-+&flexcan1 {
-+	status = "okay";
-+};
-+
-+/* Verdin CAN_2 */
-+&flexcan2 {
-+	status = "okay";
-+};
-+
-+&gpio1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_ctrl_sleep_moci>;
-+};
-+
-+&gpio2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio1>,
-+		    <&pinctrl_gpio2>,
-+		    <&pinctrl_gpio3>;
-+};
-+
-+&gpio3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio6>;
-+};
-+
-+&gpio4 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio5>;
-+};
-+
-+&gpio5 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio4>,
-+		    <&pinctrl_qspi1_cs2_gpio>,
-+		    <&pinctrl_qspi1_dqs_gpio>;
-+};
-+
-+/* Verdin I2C_3_HDMI */
-+&i3c2 {
-+	status = "okay";
-+};
-+
-+/* Verdin I2C_2_DSI */
-+&lpi2c3 {
-+	status = "okay";
-+};
-+
-+/* Verdin I2C_1 */
-+&lpi2c4 {
-+	status = "okay";
-+
-+	temperature-sensor@4f {
-+		compatible = "ti,tmp75c";
-+		reg = <0x4f>;
-+	};
-+
-+	carrier_eeprom: eeprom@57 {
-+		compatible = "st,24c02", "atmel,24c02";
-+		reg = <0x57>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+/* Verdin I2C_4_CSI */
-+&lpi2c5 {
-+	status = "okay";
-+};
-+
-+/* Verdin UART_3, used as the Linux console */
-+&lpuart1 {
-+	status = "okay";
-+};
-+
-+/* Verdin UART_4 */
-+&lpuart2 {
-+	status = "okay";
-+};
-+
-+/* Verdin UART_1 */
-+&lpuart7 {
-+	status = "okay";
-+};
-+
-+/* Verdin UART_2 */
-+&lpuart8 {
-+	status = "okay";
-+};
-+
-+/* Verdin PCIE_1 */
-+&pcie0 {
-+	status = "okay";
-+};
-+
-+/* Verdin PWM_1 */
-+&tpm4 {
-+	status = "okay";
-+};
-+
-+/* Verdin PWM_2 */
-+&tpm5 {
-+	status = "okay";
-+};
-+
-+/* Verdin PWM_3_DSI */
-+&tpm6 {
-+	status = "okay";
-+};
-+
-+/* Verdin USB_1 */
-+&usb2 {
-+	status = "okay";
-+};
-+
-+/* Verdin USB_2 */
-+&usb3 {
-+	fsl,permanently-attached;
-+
-+	status = "okay";
-+};
-+
-+&usb3_phy {
-+	status = "okay";
-+};
-+
-+/* Verdin SD_1 */
-+&usdhc2 {
-+	status = "okay";
-+};
-+
-+/* Verdin CTRL_WAKE1_MICO# */
-+&verdin_gpio_keys {
-+	status = "okay";
-+};
+I used this as a bit of an experiment as you'd +CC lkml and took a close
+read of the feedback google's AI bot produced.
+https://sashiko.dev/#/patchset/20260325063254.18062-1-email%40sirat.me
 
--- 
-2.43.0
+Be very careful when considering the output. There are some things
+in here that are not true, or we don't generally defend against (like the
+interrupt type related comments).
+
+The iio_trigger_get() is (I think) a more general problem so ignore that
+for your driver - will just be a tiny memory leak and stop the
+module being easily unloaded.  I'll take a look at that one on a more general
+basis. 
+
+The regmap one is where these bots excel in that they sometimes go deeper
+in analysis than a typical person focused on one driver.
+
+The stuff on using standard devm_ wasn't from the bot and I think will make
+things rather simpler.
+
+Thanks,
+
+Jonathan
+
+
+> ---
+>  MAINTAINERS                         |   1 +
+>  drivers/iio/proximity/Kconfig       |  15 +
+>  drivers/iio/proximity/Makefile      |   1 +
+>  drivers/iio/proximity/vl53l1x-i2c.c | 795 ++++++++++++++++++++++++++++
+>  4 files changed, 812 insertions(+)
+>  create mode 100644 drivers/iio/proximity/vl53l1x-i2c.c
+> 
+
+> diff --git a/drivers/iio/proximity/vl53l1x-i2c.c b/drivers/iio/proximity/vl53l1x-i2c.c
+> new file mode 100644
+> index 000000000000..085bff04f5d9
+> --- /dev/null
+> +++ b/drivers/iio/proximity/vl53l1x-i2c.c
+
+> +static void vl53l1x_power_off(void *priv)
+
+See below. I'm not seeing a reason we need to handle this
+in a driver specific way.
+
+> +{
+> +	struct vl53l1x_data *data = priv;
+> +
+> +	reset_control_assert(data->xshut_reset);
+> +	regulator_disable(data->vdd_supply);
+> +}
+> +
+> +static int vl53l1x_power_on(struct vl53l1x_data *data)
+> +{
+> +	int ret;
+> +
+> +	ret = regulator_enable(data->vdd_supply);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = reset_control_deassert(data->xshut_reset);
+> +	if (ret) {
+> +		regulator_disable(data->vdd_supply);
+> +		return ret;
+> +	}
+> +	/*
+> +	 * 1.2 ms max boot duration.
+> +	 * Datasheet Section 3.6 "Power up and boot sequence".
+> +	 */
+> +	fsleep(1200);
+> +
+> +	return 0;
+> +}
+> +
+
+> +
+> +static int vl53l1x_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct vl53l1x_data *data;
+> +	struct iio_dev *indio_dev;
+> +	int ret;
+> +
+> +	if (!i2c_check_functionality(client->adapter,
+> +				     I2C_FUNC_SMBUS_READ_I2C_BLOCK |
+> +				     I2C_FUNC_SMBUS_BYTE_DATA))
+Sashiko had an interesting comment on this...
+https://sashiko.dev/#/patchset/20260325063254.18062-1-email%40sirat.me
+(note in general be careful with this tools feedback, it has a significant
+false positive rate!)
+
+"Does this check needlessly reject pure I2C adapters?
+The driver configures regmap with reg_bits = 16, which forces regmap to use
+raw I2C transfers requiring I2C_FUNC_I2C. Checking for SMBUS_READ_I2C_BLOCK
+might prevent the driver from loading on pure I2C adapters that can perfectly
+support the device via regmap."
+
+By by reading the comment is actually wrong, however... It did made me look.
+With regbits == 16 & valbits == 8
+The regmap code checks for I2C_FUNC_SMBUS_I2C_BLOCK
+(and if not present fails).
+
+So the I2C_FUNC_SMBUS_BYTE_DATA seems unused and
+a broader check on both read and write versions of I2C_BLOCK seems
+appropriate.
+
+However, not a lot of point in checking it at all given regmap does
+so for us. So I'd drop this check.
+
+If anyone is bored, we should probably take a look to see if there
+are other redundant (or wrong) calls for this.
+
+There is another point about trigger references that might be
+correct (but not unique to this driver so ignore it).  That warrants
+some investigation - I'll take a look in near future.
+
+> +		return -EOPNOTSUPP;
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	data = iio_priv(indio_dev);
+> +	data->irq = client->irq;
+> +
+> +	data->regmap = devm_regmap_init_i2c(client, &vl53l1x_regmap_config);
+> +	if (IS_ERR(data->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
+> +				     "regmap initialization failed\n");
+> +
+> +	data->vdd_supply = devm_regulator_get(dev, "vdd");
+
+I'm not sure if we had this discussion already but why do you need to keep vdd_supply
+around?  Why not
+	devm_regulator_get_enabled()?
+
+Given you turn it on before reset and off afterwards and otherwise don't touch
+it should end up as effectively the same as you have here.
+
+I was expecting to see use of the regulator elsewhere, but seems not for now.
+Note that if you do change this then rename the helpers to reflect they are
+only doing reset handling.
+
+
+> +	if (IS_ERR(data->vdd_supply))
+> +		return dev_err_probe(dev, PTR_ERR(data->vdd_supply),
+> +				     "Unable to get VDD regulator\n");
+> +
+> +	/*
+> +	 * XSHUT held low puts the chip in hardware standby. All register
+> +	 * state is lost on de-assert so this is functionally a reset.
+> +	 */
+> +	data->xshut_reset = devm_reset_control_get_optional_exclusive(dev, NULL);
+
+If you can switch to devm_regulator_get_enabled() this can I think be
+	ret = devm_reset_control_get_optional_exclusive_deasserted()
+removing the need to register the action to power off.
+
+If you do that remember we still need the sleep after this call.
+
+> +	if (IS_ERR(data->xshut_reset))
+> +		return dev_err_probe(dev, PTR_ERR(data->xshut_reset),
+> +				     "Cannot get reset control\n");
+> +
+> +	ret = vl53l1x_power_on(data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to power on the chip\n");
+> +
+> +	ret = devm_add_action_or_reset(dev, vl53l1x_power_off, data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = vl53l1x_chip_init(data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = vl53l1x_set_distance_mode(data, VL53L1X_LONG);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* 50 ms timing budget (per ST Ultra Lite Driver) */
+> +	ret = vl53l1x_set_timing_budget(data, 50);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* 50 ms inter-measurement period (per ST Ultra Lite Driver) */
+> +	ret = vl53l1x_set_inter_measurement_ms(data, 50);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * The hardware only supports "autonomous" continuous ranging mode.
+> +	 * Start ranging here and leave it running for the lifetime of
+> +	 * the device. Both direct reads and the buffer path rely on this.
+> +	 */
+> +	ret = vl53l1x_start_ranging(data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_add_action_or_reset(dev, vl53l1x_stop_ranging_action, data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	indio_dev->name = "vl53l1x";
+> +	indio_dev->info = &vl53l1x_info;
+> +	indio_dev->channels = vl53l1x_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(vl53l1x_channels);
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +
+> +	if (client->irq) {
+> +		struct iio_trigger *trig;
+> +
+> +		init_completion(&data->completion);
+> +
+> +		trig = devm_iio_trigger_alloc(dev, "%s-dev%d", indio_dev->name,
+> +					      iio_device_id(indio_dev));
+> +		if (!trig)
+> +			return -ENOMEM;
+> +
+> +		trig->ops = &vl53l1x_trigger_ops;
+> +		iio_trigger_set_drvdata(trig, indio_dev);
+> +		ret = devm_iio_trigger_register(dev, trig);
+> +		if (ret)
+> +			return ret;
+> +
+> +		indio_dev->trig = iio_trigger_get(trig);
+
+So Sashiko had a comment on this that has me thinking.  Don't bother fixing it
+in this driver as it true it's a common bug (and leaks a trigger structure).
+I'll look into it.
+
+
+> +
+> +		ret = vl53l1x_configure_irq(dev, client->irq, indio_dev);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = devm_iio_triggered_buffer_setup(dev, indio_dev, NULL,
+> +						      &vl53l1x_trigger_handler,
+> +						      NULL);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+
 
