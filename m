@@ -1,103 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from courrier.aliel.fr (pouet.aliel.fr [65.21.61.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8C9347BD9;
-	Wed, 25 Mar 2026 08:45:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A543A398903;
+	Wed, 25 Mar 2026 08:45:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774428316; cv=none; b=UfSCc7vIlIkMy60UFOG6ilXwtWXldefl8XkEXiVqYfvdOlqVvf2He6OZM1C4zqOCrkvlu6FoYVOYmADsebFkANukNrp/TOrLZhNipmrQ8veBIQESrYeoD+SjZtCrPF3LQhYlM/PO1gCgJTA/GB4NUfvi8HztKCGKwvk0rXT2sF8=
+	t=1774428341; cv=none; b=erxIhpQhw7W9iU6RM5WF9b0IVXZs93QoAIKGq1bRzznqXvgDWM5ypYPnsE+NFU83S4UUKdzDanCernL3PT0iXAB6UBAvgxM/8j+VfddjYxsUJ65W1elGAyo9tCa0DbAhzOzNzgtBiHRVAPbse3u+aQsiUSlw9XRJ7kveUL6iA/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774428316; c=relaxed/simple;
-	bh=RaxfN/o8jLEUzXDbWswxoJsPvsxzdUtRAYEbKG1akDs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D3N27mC1qwV0eA0iDwUl8LP8P7RmEZvlOfxui7Iyux6THjdeZwPiT3QkVv0NKgnSBi9o5nktlWgebQNvuK/MeDqACgM2Qz4wPikvxLGZbFDoFtyRtTcSiki14TR0T3n2sn7RcgOIbMocjylMuaaXByqdtc74Ye6RrGbHzLnJL48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kOMiIoxA; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774428341; c=relaxed/simple;
+	bh=EbpGoxqQXt+Kk2/8U5yoMgWyFVaTQNOoOx8b2j6G0us=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=jgCq6uIG1+rdeH/K3aY5Tb5FpSOCPKPnP5zJzGZipqkDJwwkwxJFtlA+CZ6Lj39U6cQ4HdCvdoGjE83ZIDn3P1IZHs9lDjivr5zyMHeonO7LEEswsL9B0OzMYl9HM/JZheBT5lXXaQK7TITqyRQohOt5dyrxcoIzGbeb8n7qOPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=QoTeywTx; arc=none smtp.client-ip=65.21.61.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kOMiIoxA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B03F8C4CEF7;
-	Wed, 25 Mar 2026 08:45:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774428316;
-	bh=RaxfN/o8jLEUzXDbWswxoJsPvsxzdUtRAYEbKG1akDs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kOMiIoxAdEp4GiakbpZiotB6tttGuzKnmpwV5f122bWFZT4n+YXYNbueEGFar8GEo
-	 26HrmBtMrCCtzs3kpSbPXpmd3hzPCbO/wWEod7/BHSoOQh91sfbirmA+VLh4jwTUZM
-	 li6gHqcocH98Jzu29B8ThzMW4+4+a43wv/oPhPbPM1170d+cTQBXVwvpaskvo3OQlC
-	 XW1Uiz/eSitKTJK5AAVjWOfT9KDJAIA+8l3zk7Wf9ugeufBHzECBDCoXonteEJbvDI
-	 InfGswTfcfp4iKXq2sFnpOEPR84I0/06Xr7IM7RiGDR7JKaFTSehIHlHFrjoxIxB1L
-	 cAjw90taooKxw==
-Date: Wed, 25 Mar 2026 09:45:13 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Zaixiang Xu <zaixiang.xu.dev@gmail.com>
-Cc: linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/4] dt-bindings: hwmon: Add Sensirion SHT30 series
-Message-ID: <20260325-true-glistening-mole-a49303@quoll>
-References: <1774354869-119736-1-git-send-email-zaixiang.xu.dev@gmail.com>
- <1774354869-119736-3-git-send-email-zaixiang.xu.dev@gmail.com>
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="QoTeywTx"
+Message-ID: <2c63a66c-8562-48d5-ac25-50359de3ad8b@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1774428337;
+	bh=EbpGoxqQXt+Kk2/8U5yoMgWyFVaTQNOoOx8b2j6G0us=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=QoTeywTx0cyBayxdpZrL++1gsw2TV/mGYRha6OoPqh2MWI4qe86v7yv0IaGWjfsgD
+	 vUHRmtZyEyZ+HLcQw8qqsDlx1zxXOXLy8hQWTFHQg6WzvuXNK4giOmZKw/+zavaxT8
+	 q9S9AX8y/ZNWIRI0QT0BWC0Pfe1Wn7//P/Qpnh3Y=
+Date: Wed, 25 Mar 2026 09:45:36 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <1774354869-119736-3-git-send-email-zaixiang.xu.dev@gmail.com>
+User-Agent: Mozilla Thunderbird Beta
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Subject: Re: [PATCH v3 2/9] dt-bindings: mmc: amlogic: Add compatible for T7
+ mmc
+To: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-wireless@vger.kernel.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Johannes Berg <johannes@sipsolutions.net>, van Spriel <arend@broadcom.com>
+References: <20260323-add-emmc-t7-vim4-v3-0-5159d90a984c@aliel.fr>
+ <20260323-add-emmc-t7-vim4-v3-2-5159d90a984c@aliel.fr>
+ <c01c4e7e-1c0c-4bbf-b126-831160c8e32b@amlogic.com>
+Content-Language: en-US
+In-Reply-To: <c01c4e7e-1c0c-4bbf-b126-831160c8e32b@amlogic.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Mar 24, 2026 at 08:21:07PM +0800, Zaixiang Xu wrote:
-> Add YAML devicetree binding schema for Sensirion SHT30 series and
-> GXCAS GXHT30 sensors. Wildcards are replaced with specific model
-> names as per maintainer feedback.
-
-Which wildcards? I do not see your patch replacing any wildcards. Your
-patch only adds new code, so what "are replaced" means?
-
+On 3/25/26 3:38 AM, Xianwei Zhao wrote:
+> Hi Ronald,
 > 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/r/202603212044.BRPaiz86-lkp@intel.com/
-
-What kernel test robot exactly report? That SHT30 is missing?
-
-> Signed-off-by: Zaixiang Xu <zaixiang.xu.dev@gmail.com>
-> ---
->  .../bindings/hwmon/sensirion,sht30.yaml       | 50 +++++++++++++++++++
->  1 file changed, 50 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/hwmon/sensirion,sht30.yaml
+> On 2026/3/23 17:55, Ronald Claveau wrote:
+>> Add amlogic,t7-mmc compatible string, falling back to amlogic,meson-
+>> axg-mmc
+>> as the T7 MMC controller is compatible with the AXG implementation.
+>>
+>> Signed-off-by: Ronald Claveau<linux-kernel-dev@aliel.fr>
+>> ---
+>>   Documentation/devicetree/bindings/mmc/amlogic,meson-gx-mmc.yaml | 5
+>> ++++-
+>>   1 file changed, 4 insertions(+), 1 deletion(-)
+>>
+>> diff --git
+>> a/Documentation/devicetree/bindings/mmc/amlogic,meson-gx-mmc.yaml
+>> b/Documentation/devicetree/bindings/mmc/amlogic,meson-gx-mmc.yaml
+>> index 57646575a13f8..40dccf9715781 100644
+>> --- a/Documentation/devicetree/bindings/mmc/amlogic,meson-gx-mmc.yaml
+>> +++ b/Documentation/devicetree/bindings/mmc/amlogic,meson-gx-mmc.yaml
+>> @@ -19,7 +19,10 @@ allOf:
+>>   properties:
+>>     compatible:
+>>       oneOf:
+>> -      - const: amlogic,meson-axg-mmc
+>> +      - items:
+>> +          - enum:
+>> +              - amlogic,t7-mmc
+>> +          - const: amlogic,meson-axg-mmc
 > 
-> diff --git a/Documentation/devicetree/bindings/hwmon/sensirion,sht30.yaml b/Documentation/devicetree/bindings/hwmon/sensirion,sht30.yaml
-> new file mode 100644
-> index 000000000000..1b5ce822b37b
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/sensirion,sht30.yaml
-> @@ -0,0 +1,50 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/hwmon/sensirion,sht30.yaml#
-> +$schema: http://devicetree.org/meta-schema.yaml#
-> +
-> +title: Sensirion SHT30 Humidity and Temperature Sensor
-> +
-> +maintainers:
-> +  - Zaixiang Xu <zaixiang.xu.dev@gmail.com>
-> +
-> +description: |
+> It seems that break API here.
+> One item should be added here instead of being replaced.
+> 
 
-No improvements. More comments were also ignored.
+Thanks Xianwei, ok I will change that in a new version.
 
-<form letter>
-This is a friendly reminder during the review process.
+>>         - items:
+>>             - const: amlogic,meson-gx-mmc
+>>             - const: amlogic,meson-gxbb-mmc
+>>
+>> -- 
+>> 2.49.0
 
-It seems my or other reviewer's previous comments were not fully
-addressed. Maybe the feedback got lost between the quotes, maybe you
-just forgot to apply it. Please go back to the previous discussion and
-either implement all requested changes or keep discussing them.
 
-Thank you.
-</form letter>
-
+-- 
 Best regards,
-Krzysztof
-
+Ronald
