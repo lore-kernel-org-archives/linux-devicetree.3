@@ -1,102 +1,84 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DDFE41325E;
-	Wed, 25 Mar 2026 18:06:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A81410D1F;
+	Wed, 25 Mar 2026 18:06:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774461976; cv=none; b=On6kte9qe8nyKk0uetZKtB26y0HeUOYCZ661DBe9NayJ/dqIo1jbOoWfxmArSr5iOn0Y1FzPElE15l3ZVzC3XYZk3CbNpwL9NBX/OYXIHFpJ1PCiLCFJIikE9T4+aorRrY5m71JJXf1WjLE93Ux5GORuODlB3REpMHqHJKc2m+U=
+	t=1774462012; cv=none; b=f69dpl5kpAxdkeVYeK6b+C1uO4stUnBQXqVmSZ8WHuWs7anlkNpE6LrblP3itBMbyTrhNpEWS0eFeWPKMd6HqhjT0x3KiBeqRbn6IadCEbtIU6scPlF8dGlhxgMMTwf7uhRiADUuerMMafnCOq+H1OFF2KZplK4QiBlj7oarQEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774461976; c=relaxed/simple;
-	bh=j62gI3zsL0xUb/XyIelbUH41oWt3ntZ0N7neIeWFo8Y=;
+	s=arc-20240116; t=1774462012; c=relaxed/simple;
+	bh=NrASyDXrPTRzOdXMt+rY87vftM8wegQWKG3EcVZsavw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n6++rY2aQ6ltcQsdJ8vXSqDiyqk9a4LgpHhUHobOT4e5q8GuUuTKWLQrQtMPQVvhkqlLQnWSHk12woWhRwWlzSpzpycgHIJwInZ7sLzBTfLSw8wvm8KNWmlms1u0keCsxTICAuVugIt00VWrDonBGaO2UvJSDeloNgvnICIQxl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=gvaf1Xkm; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	 Content-Type:Content-Disposition:In-Reply-To; b=u4/7WHSKckzjqMeQnLHAfw5FtPrhFhLJb78sCszsUoo6Qin05vaC3wZJ3E8Nq5G8SN3mDB8HHusTggfA1jzeq0MHB4q1uJo70peH1BTBZgjEoOJKYuJ2tKNIDDoBjOiALz3Po24zzyeLnhsCAyUwq9efSUwyS9RWqpYNE7P1BNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AUU+WkdG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="gvaf1Xkm"
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 0B98F20202;
-	Wed, 25 Mar 2026 19:06:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1774461968;
-	bh=4N4WM+cmPpBaKwZWyDFo1qlxcYPuytvpbUHsAspj/Fw=; h=From:To:Subject;
-	b=gvaf1Xkmq4pXHVPZjj6KAFXDHN/fL0TeZTegQTWxY1b+5waPJE2O9hyyMIE0BDy+1
-	 OrcP2dfTtNcosLeKdO4I7eCUMq/qYLMut8F2HlBbO3lkdCb8cWxY/EDTStoRYOBxAV
-	 ppUtyOkxfDD9RTmN2PzjQtEvW6nwWjMK88v2Wb87MwR7er+TVtNUpc/Yib/uCS8WFt
-	 a/ucL2qyzRRciW0bqeVzx3bAyM8RE1GAGxOyEZfZtBZIVtZ6eRbC2PB1JqVtvfJcXy
-	 5tv0r5eVg7RGzYnoFJdzGD7sJ0EPmBJWJDAbab6ZFigKjiZN2Iv5tR4rO2eu5BQ9dA
-	 474/tmhHHqNrA==
-Date: Wed, 25 Mar 2026 19:06:04 +0100
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Frank Li <Frank.li@nxp.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	Stefano Radaelli <stefano.radaelli21@gmail.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AUU+WkdG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1384AC19423;
+	Wed, 25 Mar 2026 18:06:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774462011;
+	bh=NrASyDXrPTRzOdXMt+rY87vftM8wegQWKG3EcVZsavw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AUU+WkdGqhPPGBJsyxlRKgS0WHccD27F+kY9qWgUG84BLHPPtNPWCGQoCOk3YFWXX
+	 V9vPXLoZ0Roax9hgRmUZ2qlbxZpoZ8vsYPe3HMkLaEB1bpKgkZIXu9syWEB/whji4C
+	 fRMlKI+MnZWtlCX4H3el/NZLyHHtdF+pcdyUt2xN1n19Rocynt9flKl74H66r+EmNb
+	 NrwXGDDKNgKtyrm7TID9cyxtEKTSz2xr2CmsJzm3DXwz8wOnV9Tj3LavZz5XtD/UOu
+	 mIbUJ99sSOq4eLYnbdmpJw67p39qmaLom0FUhjoED+uvH6G/Tlc2VCXMH9FnV4OJN9
+	 CepO2tOLvWKIg==
+Date: Wed, 25 Mar 2026 18:06:45 +0000
+From: Conor Dooley <conor@kernel.org>
+To: michael.riesch@collabora.com
+Cc: Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v7 0/2] Add support for Variscite DART-MX95 and Sonata
- board
-Message-ID: <20260325180604.GA2972@francesco-nb>
-References: <20260313174707.26902-1-stefano.r@variscite.com>
- <abRdwy_AS046QVRI@lizhi-Precision-Tower-5810>
- <acLqjeqmR4eVDoKw@lizhi-Precision-Tower-5810>
- <20260325122104.GA19112@francesco-nb>
- <acP2UX6B5js_ozWm@lizhi-Precision-Tower-5810>
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Kever Yang <kever.yang@rock-chips.com>,
+	Jagan Teki <jagan@amarulasolutions.com>,
+	=?utf-8?B?0JrRg9C30L3QtdGG0L7QsiDQnNC40YXQsNC40Ls=?= <mai.kuznetsov.misha@gmail.com>,
+	Charalampos Mitrodimas <charmitro@posteo.net>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Collabora Kernel Team <kernel@collabora.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/9] media: dt-bindings: add rockchip rk3588 vicap
+Message-ID: <20260325-goofiness-smoky-05a9da4ab7c7@spud>
+References: <20250430-rk3588-vicap-v3-0-e38e428868cc@collabora.com>
+ <20250430-rk3588-vicap-v3-2-e38e428868cc@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="S07loI5ARDnCLB+6"
+Content-Disposition: inline
+In-Reply-To: <20250430-rk3588-vicap-v3-2-e38e428868cc@collabora.com>
+
+
+--S07loI5ARDnCLB+6
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <acP2UX6B5js_ozWm@lizhi-Precision-Tower-5810>
 
-On Wed, Mar 25, 2026 at 10:50:57AM -0400, Frank Li wrote:
-> On Wed, Mar 25, 2026 at 01:21:04PM +0100, Francesco Dolcini wrote:
-> > On Tue, Mar 24, 2026 at 03:48:29PM -0400, Frank Li wrote:
-> > > On Fri, Mar 13, 2026 at 02:56:03PM -0400, Frank Li wrote:
-> > > > On Fri, Mar 13, 2026 at 06:47:01PM +0100, Stefano Radaelli wrote:
-> > > > > This patch series adds support for the Variscite DART-MX95 system on
-> > > > > module and the Sonata carrier board.
-> > > > >
-> > > > > The series includes:
-> > > > > - Device tree bindings documentation for both SOM and carrier board
-> > > > > - SOM device tree with on-module peripherals
-> > > > > - Sonata carrier board device tree with board-specific features
-> > > > >
-> > > > > The implementation follows the standard SOM + carrier board pattern
-> > > > > where the SOM dtsi contains only peripherals mounted on the module,
-> > > > > while carrier-specific interfaces are enabled in the board dts.
-> > > > >
-> > > > > v7:
-> > > > > - Order nodes in symphony dts
-> > > >
-> > > > Can you run https://github.com/lznuaa/dt-format for new file to easy
-> > > > track and check by script later.
-> > >
-> > > I applied with below change
-> > > - update copywrite to 2026
-> >
-> > How do you know that the correct copyright year is 2026?
-> > The copyright years does not change to today just because it is the year
-> > it was submitted.
-> 
-> At least it should include 2026 because it is new files in kernel
-> tree.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-The copyright year is not changing nor being updated just because you
-are adding the file to the linux kernel tree.
+--S07loI5ARDnCLB+6
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Francesco
+-----BEGIN PGP SIGNATURE-----
 
+iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacQkNQAKCRB4tDGHoIJi
+0trSAP9NhcSN5IwjQxra/MoajEVkzUk285uvd3tnxxt6xebTeQD40Ti+GjJ8RBsz
+y/CiyatNQxTRh/VP0eEHfoLlCuj6BA==
+=yM+a
+-----END PGP SIGNATURE-----
 
+--S07loI5ARDnCLB+6--
