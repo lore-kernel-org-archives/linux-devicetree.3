@@ -1,262 +1,247 @@
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011023.outbound.protection.outlook.com [40.107.74.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF37B1A3166
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 01:34:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33B02066DE;
+	Wed, 25 Mar 2026 01:41:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.23
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774402476; cv=pass; b=fni0XWH1krnYx2KkRolvuJ8fo1pRiGkQ9HcWUvDdFPhWjh3YpSx3jtvp/B3HtF5I90I9MAWvkwnC0fz4yra+k3GQNdgSCYSLo2pBvDhOIaYwsoOOKIi+GcXym0SgnKx6Pphr1tKJ+MYCzwqkx7nCL1xQRdFXeDu4o4J55HSf11g=
+	t=1774402866; cv=fail; b=aMPcucP7191Y47ufM/dXLpXvFPVxmI1S3o9pF6jMdhkJZa77r1GzDZTYX/eeh9Z2gRrD2Dy7R+QSddATbMPYkh7LgHnsZnOp27RXFRUOu/eVeAIUkf3A24vy4sGZPLZYlV3+5pO9Hi7+mCei6DPKWQFqHkmlaHFZ778gb7H+JE0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774402476; c=relaxed/simple;
-	bh=rdSvCP52jZz7SDxDuWHrEpzIrkFP71B3BSjjo54bZpw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=khlRsvZ2YE1rEIjShObmtNLgc61PDE27lul5kg3vD/NEGu6d6bRVBOyfPjJBBfvpXOPc+HTqGJ+WbXkqN2o5LCsxe7uN/QvmfqYk+2JVHdZynA+ZRteHV4kEMbPkLQjZvNpdK3HXtopnvGzfbUp2fcCSploXSNZdS8y/DczvO3E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=WBenOCrX; arc=pass smtp.client-ip=209.85.210.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1774402866; c=relaxed/simple;
+	bh=0rlKfZGuH2y0J0eBtnEisMDJZb6ZWTKQKf/gcMOdUnE=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=EX1XUTn3hMd734Jse9Q2EVa8d3a7IWtRFf/41l3YffaY0EBx+qmkvpBo6CNcCBnEkCjib9rpwCIjFAlaDpNQ+tWHQVN2GwbPjiPwUmslq6mG6ejIhzTufILCLdKyq1DPZQYxYoTB68c2HuZpODkyFCndyI1YqE08HAvmkj4RWXc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=iFSCD+nJ; arc=fail smtp.client-ip=40.107.74.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="WBenOCrX"
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7d7eb85fb81so2102497a34.0
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 18:34:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774402474; cv=none;
-        d=google.com; s=arc-20240605;
-        b=ewltiqUH+SmASsjyys8mXoyBp5ZE3WHEcgKT2fXsO27sUnvtITXmYnlGqn/EcFOVV+
-         dROp8Q9B9dXLPV+hgz0tCLU0NjXdHlHmpfjlD2u9aK7h7SIj6kqWwhwJtmTTGZY+7foh
-         bD9BlZPA7FjlS+fU08dmzOeEJsQOdeIXrXEr3KntTSYbPBQVhLd+IgQYw93cxtSl0uzZ
-         akaK7KmeCltlzcReCuRqpcmsYG2y6b6Qv8nLw21ORA2eI5QWdLsX/9NsoNVPkXHj9hrF
-         F1CejJIfZjD1QM6U4lgDljRQ0QWvXclJ9fiE3tyw2XZvAndPd6sYl9W5gZHNidmpWMJR
-         5hBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nMJSXWHElAalaVGIQXtj4XQ2QzHBElxpVqzpZTWIIiA=;
-        fh=Nm1S2NaAkevW3ueyOGfwhJAbXCP+Xr/j8GupyXVKdaY=;
-        b=XrzOQKuNzkcYTiBqjVd80oJHsSpjEAj3zzrxAKRMwPRnNHycindQNJU0JLhia/9DxD
-         QWyKt2m1mSyyK56ZRHcWD9MOUlocwjNPfqjFs+nRo5WUEOKCXuIocLzNnuZnY52pLvep
-         FrrWkv3KwP3vFfdOly7ecKdCcmilUZ1Dy6qLx7daWJZqjFiW+48RRNaqiZiomyp0Cku7
-         2n/jJmh3Zvyz3dtdrAj8AzUhdaB5KZ4iwm0tTqsu2UJL9hXF+qjb0LUyMLpPv1Lj6rJY
-         NnUiipacIW44UthCboLmzhUu+oxsXFF3B25C7xmIXzsTYw9lKJw44gK/FA1ll1sSG4jz
-         w+yQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1774402474; x=1775007274; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nMJSXWHElAalaVGIQXtj4XQ2QzHBElxpVqzpZTWIIiA=;
-        b=WBenOCrXnoa+h7DNAg7AN2od2WNw2ODn5uiVHl32LOAk0cJLIKcbtJyrp4oYobz66k
-         htENFHrNOd2XjwYiFc0Gi0gBmTNrNLCv9C6M2EW+auQketqk9cN64XXLIwsXXfClITUY
-         lYm0G5W2feJy+7bnDXg1N3UY9BtRyr66HJ87kFBI+M8q8lU/Gu0dTXXzCdTKIH2e4wi6
-         Hv7GWTaEOz1637xSBZHxIODGbbwQE3ZeNiVr6FlCf1asE2A7U1E+8Dw4aY0xBon9AU8n
-         OwBwHLgNMwMp6d5OTG3WhyHTQsOLBRtaQtDkcLC7YnsYIVokw4lnD0fdtWPs/r1RMA0u
-         FJgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774402474; x=1775007274;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=nMJSXWHElAalaVGIQXtj4XQ2QzHBElxpVqzpZTWIIiA=;
-        b=pcaMAteQ6opurwAXMgMOYhCaR1nJX2HNetsIZ1EqbzWcrzBbbBbVrwW/hmM2QrRx1f
-         w1M9WOD3DjbPYGMZjziqOrmer6rYir0v1f4qMP1iWoHGSrq6Ba/5GAUVlANcckNJMTgN
-         Kx15OTcw4Q361AhjJaTm4Hvj0yxbDJkRS66JhyQxVkClfY3TokN8zWxowLWBs4yguMqw
-         nHM/IO3kYBuP36WH4eKJ9nqWq3DRERtBDwqpJTWkKp/wYsiOr/hvT2Ip2GTEyI4tomOh
-         2F751GNzIoa7lOCUV6e+mH5xgPdgco+GN+BOeX01tGayq6jcOSMdDBkQwdrGFGg5VPtz
-         KJlQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXXFNUm5ATSDRdWulacaj5Fs3r+kCAe5xo6EjFDkmUmuPRAtYOgq9v0Xg8PAAIjqWxYiSwUG8hXrB2S@vger.kernel.org
-X-Gm-Message-State: AOJu0YwQIDE5WigKGt13zaB1duARrB7a9IZHniXX4tVSN+y2xbocRAHU
-	rDWWQTKLHzbWrh3bExVuQaSZcZcOmRODzTc77W3RO8GyQddLJOMLDLvMAqqSslNMZ0I31Mz3Dzl
-	XxLANxbobEgcx97ziTM4sf3NLdAuiN6z0IqRyJ5HOUQ==
-X-Gm-Gg: ATEYQzwwl4D3S9acKf1jrZHM/pT2mcb69v6uQ6oDrJyqChX0F0zuHwwr/8Dv138Zr7K
-	5Kfb9tk+uLI5ADooAllPnTj6Bg6eU7KFQpEhyAGE1W9NtabcdDyl9FIuA1ffmSvJnrYFV1qw7vH
-	uGeGsakyZ/uvrlK/KuWRDlY1WkzfUTaEhHNFluLs+/qSemmzad1xoUqq+FolYxHR1TAZMoIImJF
-	Pl7YrIhJhtQ2QsqdGnYMi19md+7Y4Xlzpwl01E1PdTa9cziKjPr9smpV0xNi+i21tn0PMEyEHT6
-	nr+s20jPqYH4S/8VNf8DNACq
-X-Received: by 2002:a05:6808:1786:b0:467:254:ba8 with SMTP id
- 5614622812f47-46a5c559a3fmr976022b6e.11.1774402473754; Tue, 24 Mar 2026
- 18:34:33 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="iFSCD+nJ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=c61+UbpSTlm4oMQ1MlXn/UiQq+3ao21eC2XyN2G7oZgEb8i/InZpRR60rUknqWtKodtruSwRqzwEb+M7ooam/PXpGOqO9dCAaTcBTSDNi7gYJ2tFCTx8uvicZ5KrkdkH9RyNOmAz66m1kVR8snuOTYjJ3BYnICiBIPi0RwbfIX2uvSwOg/vFtptG7BhYzP1DSZ5Z+ye5eyiu6o7u64t0VqCRAcMYAEyOFXEHlK3vfX8nTzpia8umGfOvTz8d9wmsKeHxSIEBWmdhWx+Z5nvSAt3vZtEx/IpUWpHlZauUVKcZa/URRuRhZgyBstJ63zeA2dVSVIHdf3AmzyHrBE5Buw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EMqHfz6CPM2RF0SQRTL7hnPKH70exQN6wlGADDTDlRw=;
+ b=ZIIqIbCT2zIRZeXSkRUXRDtkOz0K6U+piFC35praoVREntwTeHRA7GtuRqKvNrlrmdXX4jFcCsc70dcVqIqHPzu+sQk3SFAB62vJORCJBXJZgv0F6NJgzeVekLDb9mo4SGkjg8zhKTZg1oJEThZihrKeKOtHt9yf9zM+mI+/6OTrk/tpJOtLDf+zsBHzLHOwTTBW8hQPcH8lXSBIigll2uVjiaKwvqSEwjCZx2DOC84gLAk6JEL0xxqYzIv39Z6uEY51AdUiCQ0oAx5BsHVs8Qr1+uOb1CRu+txIS0I499luWVrw3nEkMvaqXPMF1mGI39pOTDAWOSVUovdApQsg5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EMqHfz6CPM2RF0SQRTL7hnPKH70exQN6wlGADDTDlRw=;
+ b=iFSCD+nJR21txLPcIqI0KvN4+dY52O2KBPQ6bo0u/60yr4U2pSxwkuRbS1CeSyxi3wgI5UJ9lakm3n3gKrd5RxJDovY100MT/s1+bhg9Z34f0MJXdpSIUrboeNDMvzy7q+jVQRBdtjikIrk4kgL8YEGPAfjnWDfsbRJyT0Dzsfw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com (2603:1096:400:373::8)
+ by TY7PR01MB14310.jpnprd01.prod.outlook.com (2603:1096:405:242::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Wed, 25 Mar
+ 2026 01:41:00 +0000
+Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com
+ ([fe80::1868:c915:c230:a383]) by TY3PR01MB11797.jpnprd01.prod.outlook.com
+ ([fe80::1868:c915:c230:a383%5]) with mapi id 15.20.9723.030; Wed, 25 Mar 2026
+ 01:41:00 +0000
+Message-ID: <871ph8ptxx.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: John Madieu <john.madieu.xa@bp.renesas.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Vinod Koul
+	<vkoul@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring
+	<robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	"Michael\
+ Turquette" <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	"Conor\
+ Dooley" <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Liam Girdwood
+	<lgirdwood@gmail.com>,
+	magnus.damm <magnus.damm@gmail.com>,
+	Thomas Gleixner
+	<tglx@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai
+	<tiwai@suse.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Claudiu.Beznea
+	<claudiu.beznea@tuxon.dev>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	"Fabrizio\
+ Castro" <fabrizio.castro.jz@renesas.com>,
+	Prabhakar Mahadev Lad
+	<prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	John Madieu
+	<john.madieu@gmail.com>,
+	"linux-renesas-soc@vger.kernel.org"
+	<linux-renesas-soc@vger.kernel.org>,
+	"linux-clk@vger.kernel.org"
+	<linux-clk@vger.kernel.org>,
+	"devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+	"dmaengine@vger.kernel.org"
+	<dmaengine@vger.kernel.org>,
+	"linux-sound@vger.kernel.org"
+	<linux-sound@vger.kernel.org>
+Subject: Re: [PATCH 17/22] ASoC: rsnd: Add system suspend/resume support
+In-Reply-To: <TY6PR01MB17377203552FF28EB7DCDA071FF48A@TY6PR01MB17377.jpnprd01.prod.outlook.com>
+References: <20260319155334.51278-1-john.madieu.xa@bp.renesas.com>
+	<20260319155334.51278-18-john.madieu.xa@bp.renesas.com>
+	<878qbj9uk7.wl-kuninori.morimoto.gx@renesas.com>
+	<TY6PR01MB17377203552FF28EB7DCDA071FF48A@TY6PR01MB17377.jpnprd01.prod.outlook.com>
+User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Wed, 25 Mar 2026 01:40:59 +0000
+X-ClientProxiedBy: OS3PR01CA0083.jpnprd01.prod.outlook.com
+ (2603:1096:604:da::16) To TY3PR01MB11797.jpnprd01.prod.outlook.com
+ (2603:1096:400:373::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260128-ssqosid-cbqri-v2-0-dca586b091b9@kernel.org> <20260128-ssqosid-cbqri-v2-13-dca586b091b9@kernel.org>
-In-Reply-To: <20260128-ssqosid-cbqri-v2-13-dca586b091b9@kernel.org>
-From: yunhui cui <cuiyunhui@bytedance.com>
-Date: Wed, 25 Mar 2026 09:34:22 +0800
-X-Gm-Features: AaiRm50-EQhX5eRfy8n3fhONNShK5GtzIxF13pcKegKveCXY8vae28POGPRFJcE
-Message-ID: <CAEEQ3wka26n8koB3tErRE=rgE1Bxnn7PDCjnXp2j67gdkp-=Zg@mail.gmail.com>
-Subject: Re: [External] [PATCH RFC v2 13/17] acpi: pptt: Add helper to find a
- cache from id
-To: Drew Fustini <fustini@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	=?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, 
-	Samuel Holland <samuel.holland@sifive.com>, Adrien Ricciardi <aricciardi@baylibre.com>, 
-	Nicolas Pitre <npitre@baylibre.com>, =?UTF-8?Q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
-	Atish Patra <atish.patra@linux.dev>, Atish Kumar Patra <atishp@rivosinc.com>, 
-	Vasudevan Srinivasan <vasu@rivosinc.com>, Ved Shanbhogue <ved@rivosinc.com>, 
-	Chen Pei <cp0613@linux.alibaba.com>, Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, 
-	Weiwei Li <liwei1518@gmail.com>, guo.wenjia23@zte.com.cn, liu.qingtao2@zte.com.cn, 
-	Reinette Chatre <reinette.chatre@intel.com>, Tony Luck <tony.luck@intel.com>, 
-	Babu Moger <babu.moger@amd.com>, Peter Newman <peternewman@google.com>, 
-	Fenghua Yu <fenghua.yu@intel.com>, James Morse <james.morse@arm.com>, 
-	Ben Horgan <ben.horgan@arm.com>, Dave Martin <Dave.Martin@arm.com>, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, x86@kernel.org, 
-	Rob Herring <robh@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Robert Moore <robert.moore@intel.com>, Sunil V L <sunilvl@ventanamicro.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Paul Walmsley <paul.walmsley@sifive.com>, linux-acpi@vger.kernel.org, 
-	acpica-devel@lists.linux.dev, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Drew,
-
-On Thu, Jan 29, 2026 at 4:28=E2=80=AFAM Drew Fustini <fustini@kernel.org> w=
-rote:
->
-> Add function to find the pointer to an instance of acpi_pptt_cache.
->
-> find_acpi_cache_from_id() is based on find_acpi_cache_level_from_id()
-> from commit c4170570cc7f ("ACPI / PPTT: Find PPTT cache level by ID") in
-> the morse/mpam/snapshot/v6.14-rc1 branch.
->
-> TODO: find_acpi_cache_level_from_id() has changed since then so this
-> function should be updated. In additon, there may be a simpler way for
-> acpi_parse_rqsc() than adding this function to get a pointer to
-> acpi_pptt_cache.
->
-> Signed-off-by: Drew Fustini <fustini@kernel.org>
-> ---
->  drivers/acpi/pptt.c  | 63 ++++++++++++++++++++++++++++++++++++++++++++++=
-++++++
->  include/linux/acpi.h |  8 +++++++
->  2 files changed, 71 insertions(+)
->
-> diff --git a/drivers/acpi/pptt.c b/drivers/acpi/pptt.c
-> index de5f8c018333..d1002673dc39 100644
-> --- a/drivers/acpi/pptt.c
-> +++ b/drivers/acpi/pptt.c
-> @@ -1063,3 +1063,66 @@ int acpi_pptt_get_cpumask_from_cache_id(u32 cache_=
-id, cpumask_t *cpus)
->
->         return 0;
->  }
-> +
-> +/*
-> + * find_acpi_cache_from_id() is adapted from find_acpi_cache_level_from_=
-id()
-> + * introduced by c4170570cc7f ("ACPI / PPTT: Find PPTT cache level by ID=
-")
-> + * in the morse/mpam/snapshot/v6.14-rc1 branch.
-> + *
-> + * TODO: find_acpi_cache_level_from_id() has changed since then so this
-> + * function should be updated. In additon, there may be a simpler way fo=
-r
-> + * acpi_parse_rqsc() than adding this function to get a pointer to
-> + * acpi_pptt_cache.
-> + */
-> +struct acpi_pptt_cache *find_acpi_cache_from_id(u32 cache_id)
-> +{
-> +       u32 acpi_cpu_id;
-> +       acpi_status status;
-> +       int level, cpu, num_levels;
-> +       struct acpi_pptt_cache *cache;
-> +       struct acpi_table_header *table;
-> +       struct acpi_pptt_cache_v1 *cache_v1;
-> +       struct acpi_pptt_processor *cpu_node;
-> +
-> +       status =3D acpi_get_table(ACPI_SIG_PPTT, 0, &table);
-> +       if (ACPI_FAILURE(status)) {
-> +               acpi_pptt_warn_missing();
-> +               return NULL;
-> +       }
-> +
-> +       if (table->revision < 3) {
-> +               acpi_put_table(table);
-> +               return NULL;
-> +       }
-> +
-> +       for_each_possible_cpu(cpu) {
-> +               num_levels =3D 0;
-> +               acpi_cpu_id =3D get_acpi_id_for_cpu(cpu);
-> +
-> +               cpu_node =3D acpi_find_processor_node(table, acpi_cpu_id)=
-;
-> +               if (!cpu_node)
-> +                       break;
-
-break or continue?
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY3PR01MB11797:EE_|TY7PR01MB14310:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a1e0ee9-43bd-49d5-51ee-08de8a0f9148
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|52116014|376014|7416014|38350700014|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	WBfj8YRhZPyzio+dX9H3zzm1N498aMKsZ0ooM/8E07w82OkAFVMsSAG9+7HPN4om08A5//A22iCRdQda/IeeZiBA3qugPVdDzjzYV/DBA/0JUhwSozIlZ1XsAcq9yq386pm6eGS/ehpI/XgHWzK1LTakSRa+sxEZ2S96ZjR/p9O/nb7VaNpv7ooVASXYiV50Fi4jfK6UWz1q7nGr4UcMe5bbUJlQJp+tu56DvP7tdyj4CU/Nw2om7GEWn9lFzaziLmFjmmOQgu3h3xdedX2KnLxDVi3MJ2JpyTxndNLISwu0+C7R1lYS0SXduqtOtM9uILAS/HI0ElDU9VoOgqP/FGVZSj7zXkqrpIE2e5hUTePF9ejl84Or2Iz8sOpIfkX/SER0TL42T5QDpwpISbLq9lPVdPqAcDV/PDHIfYuFWqPL68gNOR16twz1S3hR4g3FgQINzq0hDdypajNu8Kp4Xf/Rvb0mx3W7xXp8P6dUdivSZq3IFJ3cZYqQxTrB3+ta+nrpnSYZb7pmb3bSCBNj+IweHkibtuhJyhUyHihyf5yqMBausJCOW/YVUXATggxPDkkr95HtnVEEaJ7AmL4RhlJzDUumU3IiAkW2YF0DcExGYpEyqVYdX+g+3Leq5gVjy2lLTL6f5qTML1E+TcnKI90YcyqT+1EXhBWrrT2KVdqFtZ8PWUOCq5PLNBHsf6xwmbFnkjJl70xSTHB0NmDl4F6ERhp6BwABPoOitRpKrkLnmkdhOrqoiWYsaETzHFSP0nF1ZErJbw7vLB9S3huAQcVa2ke968PWdk+EXCCYKmc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11797.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(52116014)(376014)(7416014)(38350700014)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?wiucwtEph7IshiNAguRv+V3hU8Xd3BH4KwfWxXUWTdo7Ta2ek/t4SW0zgAPU?=
+ =?us-ascii?Q?7SjHq5iw08j80DhqAxMlz6JpVmDbMwP8okfkhDoyPMjCqBUCY5IXLYoykFpa?=
+ =?us-ascii?Q?foj/0Q+t/OlEe06bWwzT/bMlg+gfk7oBx38nEzKYFPlRCW5zALu9Ikbh+/HK?=
+ =?us-ascii?Q?wfngWy50d0PKXOW09U0j7nSVm82LYY39NBKZPgG/YqesG0lGZAa3/OnoVaX4?=
+ =?us-ascii?Q?BSKzoCVl0fVyd7oRYeEcFd0QWQo10/qYzr0IdgsBQhRRxBq2lOgDgtiuGXPy?=
+ =?us-ascii?Q?OapeXZiBXhGiBmJ66222I1S1F5De6SYA7P/8EV2ffsZXvaPYyTniJFT9Ae+m?=
+ =?us-ascii?Q?fI7kW8fA99OoufGPErqc9bOmB91zaDPCP+X4qm4ZppfcL448nnSfE/thWHS1?=
+ =?us-ascii?Q?wjQBy5rBs4bv7fBSrOstdkP30gC1CGQghQb7rwrjH7cekK9287u5GhcCxBEF?=
+ =?us-ascii?Q?xSFLcreAycYDBSSxOKP+sNiryels2+iPKfL4Ltkv9baprHILNvZN5QOblIce?=
+ =?us-ascii?Q?I6Lum5jXbDc2g0suak2xjpeFQs8IJZhJbz2Qrn1atClYneUnXvv4vfWY1cIe?=
+ =?us-ascii?Q?/0sMeE7c4Eqbk8NCqjngvSkQ6B7jMn1NG8ZyV6rmzBLN2efi9Btr2h0QlUB4?=
+ =?us-ascii?Q?3pBc/f5bnS0O3rxAmt4WGWtMILr8N7b2Atq1NmsFRSpfoDNpTAC2eHtX8t9C?=
+ =?us-ascii?Q?1mBVWyiVWr/zLmYyR8eGVCe0p+jUZ1bDM4rRAXOTDzTCS+tplUwWGUqD26Fh?=
+ =?us-ascii?Q?VRO2GemNCFn4tNPICSb0gACIJSMWIg8y/jnvT2cLNvciPGLGAQKNNhhwrz0f?=
+ =?us-ascii?Q?u5tJqZOTHrW4BFPBnc9D6VF5tyQCXjv0u27GcfOuNp+vzlAMXzJwMvOT/lB9?=
+ =?us-ascii?Q?pLgEzNynnWd4XucyfoYs986lADs71iH+5xCk4PQRYYRIB9j+GpuMCLy2xMwp?=
+ =?us-ascii?Q?h6XKID08L6M5DTp2dVg04+8h9dajsEQy3A3kgQDDpOS/3zQ6h3DqT+bhdwQa?=
+ =?us-ascii?Q?k2TqYW0P9yJHYdsFRMfarVxRd1bEg61DtWtM2iJxXTyZcimXP/1ytCR6Legh?=
+ =?us-ascii?Q?rLMk+V4Vm5o8OOqWAHkeVRfNjCIHz0/vhQZT4+1SDTnik7QXDk4uhgBwo5P8?=
+ =?us-ascii?Q?KkL1Ii/QjT6B44zj7e/5vrBJ7rfkOA6UVZRAG7LgZ6ZF6paLKFWl/Dfztgb4?=
+ =?us-ascii?Q?fDATxWWdHWboMtKHdPqMG+GNU0it0B5M68fCt7UTRC5gxvAcFgoUCSp1BRfZ?=
+ =?us-ascii?Q?NhRUJXi2TqrmdQMshqSAM2zVbMuKLYnw1qFehJ3Qx64doRrgXRP68NEXGZkQ?=
+ =?us-ascii?Q?TlWjEwLyzh8JDnB/qrN0mrgY2CwYiogrzXXLAeWdXLHFhaXl9+2Upy5IPVje?=
+ =?us-ascii?Q?l4XECi0V0qWvi4MsqocvoX83etZ9m8dRmCVjmtbi3lzuPU72r0AtRbVXWA+b?=
+ =?us-ascii?Q?UVYZZn0wWaY/corKvecxCYi8zHCGbXBh94GO8PK03HIZYZaeMX8w+JLkQe4R?=
+ =?us-ascii?Q?tZXICRdREPURd02/IzeBZADpBddhSBg3pV5tK8yav71DQVaVi4tLjzQs8DIJ?=
+ =?us-ascii?Q?Y7HuVgSC5Hm837fm2+MZ2mwbZwuG82DPQ9W1jiWL4XfsWPgdQvDCNnfyVw4Y?=
+ =?us-ascii?Q?JSaCo6FFtjyTN/0c7/j4nxwx7Z56Kd2jI7s68Bg9/hEFRi2aI6+ZycD3IX60?=
+ =?us-ascii?Q?3JMDZ4J5lp1REOFzgNbw7s0tX7McMiEJOkjgtWHU2OrdjIpgnA9rOPykQXi/?=
+ =?us-ascii?Q?LhR2Ycn9M8C30AC0sd6Af76oDLXJWj/iCQZs9VX9ppqk6XgX3gHI?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a1e0ee9-43bd-49d5-51ee-08de8a0f9148
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11797.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 01:41:00.1657
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: URYAIdabXtjv+Ywtdw+J45WK98u7FMiRL9PbshuniSUTD9OcmLYlQSMEPut1zS5URR8QIYlwBA7Y8YrMWFO2bpFtq+U3Bq/lkfoeX20bOf4cBz2oz/N7wXFRf997VJjo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7PR01MB14310
 
 
-> +               num_levels =3D acpi_count_levels(table, cpu_node, NULL);
-> +
-> +               for (level =3D 1; level <=3D num_levels; level++) {
-> +                       cache =3D acpi_find_cache_node(table, acpi_cpu_id=
-,
-> +                                                    ACPI_PPTT_CACHE_TYPE=
-_UNIFIED,
-> +                                                    level, &cpu_node);
-> +                       if (!cache)
-> +                               continue;
-> +
-> +                       cache_v1 =3D ACPI_ADD_PTR(struct acpi_pptt_cache_=
-v1,
-> +                                               cache,
-> +                                               sizeof(struct acpi_pptt_c=
-ache));
-> +
-> +                       if (cache->flags & ACPI_PPTT_CACHE_ID_VALID &&
-> +                           cache_v1->cache_id =3D=3D cache_id) {
-> +                               acpi_put_table(table);
-> +                               return cache;
-> +                       }
-> +               }
-> +       }
-> +
-> +       acpi_put_table(table);
-> +       return NULL;
-> +}
-> diff --git a/include/linux/acpi.h b/include/linux/acpi.h
-> index fbf0c3a65f59..fee6a5059a46 100644
-> --- a/include/linux/acpi.h
-> +++ b/include/linux/acpi.h
-> @@ -1546,6 +1546,7 @@ int find_acpi_cpu_topology_package(unsigned int cpu=
-);
->  int find_acpi_cpu_topology_hetero_id(unsigned int cpu);
->  void acpi_pptt_get_cpus_from_container(u32 acpi_cpu_id, cpumask_t *cpus)=
-;
->  int find_acpi_cache_level_from_id(u32 cache_id);
-> +struct acpi_pptt_cache *find_acpi_cache_from_id(u32 cache_id);
->  int acpi_pptt_get_cpumask_from_cache_id(u32 cache_id, cpumask_t *cpus);
->  #else
->  static inline int acpi_pptt_cpu_is_thread(unsigned int cpu)
-> @@ -1570,10 +1571,17 @@ static inline int find_acpi_cpu_topology_hetero_i=
-d(unsigned int cpu)
->  }
->  static inline void acpi_pptt_get_cpus_from_container(u32 acpi_cpu_id,
->                                                      cpumask_t *cpus) { }
-> +
->  static inline int find_acpi_cache_level_from_id(u32 cache_id)
->  {
->         return -ENOENT;
->  }
-> +
-> +static inline struct acpi_pptt_cache *find_acpi_cache_from_id(u32 cache_=
-id)
-> +{
-> +       return NULL;
-> +}
-> +
->  static inline int acpi_pptt_get_cpumask_from_cache_id(u32 cache_id,
->                                                       cpumask_t *cpus)
->  {
->
-> --
-> 2.43.0
->
+Hi John
 
-Thanks,
-Yunhui
+> You're right. The ALSA framework already handles per-module stop/start
+> through SNDRV_PCM_TRIGGER_SUSPEND/RESUME, which calls each module's
+> .quit/.init (and thus rsnd_mod_power_off/rsnd_mod_power_on).
+> 
+> So the per-module clk_prepare/clk_unprepare cycle in rsnd_suspend_mod/
+> rsnd_resume_mod is unnecessary.
+> 
+> What RZ/G3E actually needs beyond the existing ADG handling is:
+> 
+> 1- Reset handling for modules that have reset control
+> 2- audmac-pp clock/reset toggle (infrastructure, like ADG)
+> 
+> However, there is no need to make these changes conditionally
+> based on SoC family as the optional clock/reset APIs are used.
+> Do you find any issues with my approach ?
+
+OK
+
+Since we have separated files for each modules, I think it's beter
+to follow that style.
+
+This is just an idea
+
+core.c
+	void rsnd_suspend_xxx(clk, reset)
+	{
+		clk_unprepare(clk);
+		reset_control_assert(rstc);
+	}
+
+	int rsnd_suspend(struct device *dev)
+	{
+
+		/*
+		 * Reverse order of probe:
+		 * ADG -> DVC -> MIX -> CTU -> SRC -> SSIU -> SSI -> DMA
+		 */
+		rsnd_adg_suspend(...);
+		rsnd_dvc_suspend(...);
+		rsnd_mix_suspend(...);
+		rsnd_ctu_suspend(...);
+		rsnd_src_suspend(...);
+		...
+	}
+
+
+ssi.c
+	void rsnd_ssi_suspend(priv)
+	{
+		for_each_rsnd_ssi(ssi, priv, i) {
+			mod = rsnd_mod_get(ssi);
+			rsnd_suspend_xxx(mod->clk, mod->rstc);
+		}
+	}
+
+src.c
+	void rsnd_src_suspend(priv)
+	{
+		for_each_rsnd_src(src, priv, i) {
+			mod = rsnd_mod_get(src);
+			rsnd_suspend_xxx(mod->clk, mod->rstc);
+		}
+
+		rsnd_suspend_xxx(priv->clk_scu_x2, NULL);
+		rsnd_suspend_xxx(priv->clk_scu, NULL);
+	}
+
+dma.c
+	void rsnd_dma_suspend_xxx(priv)
+	{
+		rsnd_suspend_xxx(priv->clk_audmac_pp, NULL);
+		rsnd_suspend_xxx(priv->rstc_audmac_pp, NULL);
+	}
+
+
+Thank you for your help !!
+
+Best regards
+---
+Kuninori Morimoto
