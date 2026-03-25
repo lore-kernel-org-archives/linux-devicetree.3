@@ -1,63 +1,63 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C65D189BB6
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 00:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650621D54FA
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 00:23:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774398167; cv=none; b=B5qlDxyqgsvB++jSH28RPN/sbhEtmcdAOC8k+o0S1tcD4DM5rUrgW/7H3XMXYHQvRANX5Ohrc0jEHU6vze+qNo8UH7p9ZBVUK5B5nVkgMa8Gtdch4Kr+EpjKjC9/hnDthQp3M4fk8l0NakfJsSrcryWYZokkz1uvvp8rTBSIEjU=
+	t=1774398202; cv=none; b=Id+pvGeB3AKQgCKsv8x+h7dW/F0DJuIGpBCSq1wlviNGkLsBWBhLaIPsyC4ccmZ0U63exdgbit+vspC2eI9nFomzrTLrscbff2Mz0rSMoCIFJKc3/psdCS8HqZvx1qk1b/keF095+m9vkrJznUGBKPLhDI5A2iXPF0j/i44o7sY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774398167; c=relaxed/simple;
-	bh=TFnnbTIC9o19/HLCf7RRUSX0316kx/uZhdRjEgeR9LY=;
+	s=arc-20240116; t=1774398202; c=relaxed/simple;
+	bh=y6+6ift8pFETJSyRES9gpCeUsUR281Y0rbI8CYXXvQ4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lrIyqO5o5cmKDWhHHJmKx1PMZ+ZvWV6P0lFDabI6kH1VfgECvBZXMf7kNyUKGB37QAKoR6Sz+mcxbT2dOaJ19U/M0MjjFNU8+1mAWu3teHyxVoFxKFyBsmJQXobX7t+yPVfKyK3S80rP+S4Lk7/LeuGEbXJFE1cukIwEZluo6Qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bFcM3sAG; arc=none smtp.client-ip=209.85.160.177
+	 MIME-Version:Content-Type; b=UaOchSQagk4qLlGmzMQaaUKDS4J253UYSWU/1HqXOFzXAzAHGmWvDFx13dVyn5EP63BeeK5Wm5m1z7rwTAVadx5vKB76Srit8ui872HJT349DENr1E90erR6XfwZ0QHu4gETfNsHKK9EMBLTw4xuCtPi8Bubzh9uKlgWu34u4CE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q13u1zWw; arc=none smtp.client-ip=209.85.222.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bFcM3sAG"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-50904a8f421so43488911cf.2
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 17:22:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q13u1zWw"
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-8cfc2d1fdbfso153409585a.3
+        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 17:23:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774398165; x=1775002965; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1774398200; x=1775003000; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=j/L1QpJi1pkLlnS2R1iZ460CX5uyexB55OG07HYgp2s=;
-        b=bFcM3sAGhoHCFOPHA4XK1SnPq8pQZ72yKHpsld/T7C2LIASfmCNyFrwIrFCovR0xId
-         QwEqghFlklpqjXegPqzc+iloLkuxIbU4r4nGZx0s7mZI9W1ndbHAcngqQ4QtXHW837Gh
-         tlkFLWleS+5ch9pTOgStyTE1iXd2NxhWwrCjZXizxtRBCIzTWcxPPG/vOtNLzzmHhrHu
-         Hp5bDkGxgsEPnF//ZnF5r/B2QLMeQOSYFZct+NV59Daw23YgRhWnfJmuvGFwp0n/7RWn
-         xG8tYOFWz9BTBj2LHoOj903mgm2XrNgC7mZ4Bw5TKb1kyQTO4ZQiSGtYbQ5RWoQs7jhX
-         Sfgw==
+        bh=kqM38fZ/Ssz+tyho4othW8DbZuAzZOYo70QaO7E9QSE=;
+        b=q13u1zWwqPv1veotXQTzyjA9Yw3C8njPUWiv/2etvtuW1tn+qtvpxOBX7gE7OEgdcr
+         4IaUGjsX4riUlZtFhZjCf5CP4WW5BqgcwOzNLobH+tU40EqRsQ5r8J7znV8PLXVjHtms
+         Wn/azsETKuJyeFvZ5H1S1mtrt71PXILE4uBAVPE18XdCMLy/00i8ZSr8STrOQQW7PVah
+         lgTdnLOFPp7Yuo8pFJvix30D9UwUT5R6r9606bl8TqTR32WL2FZFp1LpENbh3Vh2w4rW
+         KNPRiXHtlsy/NGP6yt8fCiVfi2iIUDlQ99RgRfp9ZX+Bxj/CuLDET3kyf+2MioU697LR
+         POUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774398165; x=1775002965;
+        d=1e100.net; s=20251104; t=1774398200; x=1775003000;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=j/L1QpJi1pkLlnS2R1iZ460CX5uyexB55OG07HYgp2s=;
-        b=QsXzesP3NAwfaP9kpb+kMK+aNoIuJynzUIrK3eNTb99YGH23P+92rH2SzjqoLLD6aI
-         SsmE0EFvBeKXHdY66pdUyhWurES9kodNxaBXsP80wBN6ftX42QjjNO++4+LsGE4iY/Lv
-         OSw+9bbGzyPQEIqeOxsvLJ7qHEaJJtiipz9zcO5HiHnqt81QpRRb6EStVfW8XmnS7x+c
-         xRXTqLMTP/EaiLYExOzK5NUo6XWrsDP9qzHgNNrrwyZuzfXBnsrIDpOJMtB0cy6sUv9E
-         4FMCg2/QBG2ko8TDZPcmHkflxwBRnDBPcYdSX8thfFLZ4wq84JSVwc4Y3O3vKxiZHDLi
-         MCAQ==
-X-Gm-Message-State: AOJu0YxN/F3HZYEYOO20OcW7E7QXneDOIt5H7QU7RN7O4g7lnjzmfXGh
-	0CHcUSuyyUy8u2NGdCSkiGeVaF+C1aCqOjhYgkjM7yidYJPz+j6CAj9a
-X-Gm-Gg: ATEYQzzJYoPQcU/xOLJCQOrU4/ULCkOwO3+D85aFzwpDr3K1QrcY106Ms9Uh6FX6BC3
-	IzUZF6W22wpcrErQwZNpJRmqZMct30HeiZAs7kQW89KzPE9jiDQD1+SghLaAVdwEaCv4Y2TQLA/
-	aYEHaLjQEAfxVg1Rpo45b6Q46al6J3Eo0HDyfEMarrFLj3Ic/NpG9fQ8KWgacwzAB463nRa90zb
-	u4dWXsbN1EGGYitOl2/z/v74ev9X6DCPZcpvqcoOEk6uib+S3AvtdUfKZNUAqjZGnDwgm57XNId
-	+MNsKsyr4exWJwqZS3y+/GZ9EaCtE1LhAfZ3S+yE4B/D6IiqJREMfhJUoHu9ZOO8dWjveYB8Fil
-	hdFoBzwG0hI4E9CNp8d3C5cpMDEVIza5jGNfysntKcXj2jIXgUkf6Aitdoj99ZNja7gu1tsyhf6
-	Wt+KKyYbbpag2CcKR+z/xVkNQL4sJP/UPFMZpvT7qsz/r8F1W/Dmx6tg/ga6gR1uPKaWyHYxkCi
-	865i3v7lT6GDQ==
-X-Received: by 2002:ac8:5905:0:b0:50b:26d7:eaa0 with SMTP id d75a77b69052e-50b80e59457mr26782481cf.40.1774398165131;
-        Tue, 24 Mar 2026 17:22:45 -0700 (PDT)
+        bh=kqM38fZ/Ssz+tyho4othW8DbZuAzZOYo70QaO7E9QSE=;
+        b=NdgABuQqgSpAMdwkl3Dce/sacBq1v8eXJ7v6j5nByJr4AXoI9W5RQVExIchzEpViYl
+         X50rfBLVHo2LvJBd75qpS1HafwQ36kzPEPYlOoqMErjkhMsUtE7Vpxdnl0HHLJ2nSB+c
+         Myl7YyXSC/9MYSwWiXPeTDcEb6aucq5+FFCiKf1ORb7Dvxggbm+n01wEeTYiIMGBEPye
+         gWwvg2eD9HGWVkEFX3Ortm1fwZVMlQjit2oB7kcQ/HK9efCQuWMMQmkdCdWEla2+xVsY
+         RsuhQMUgYh0G5igD4ljyrtsHrFrM87nxGzygfYaJ3ezEosTwhp+iqKgFUjPftcVibucb
+         Zltg==
+X-Gm-Message-State: AOJu0Yy/CnreEZey8nZOV33hrb5UcQJLAQqnjo+sWAcwFg7NRILfblYH
+	WgobDjMPMKgt0cJ+3FVytDoYohAELG7uqSQUHBcUm8k5dWzkW1hWkyo3
+X-Gm-Gg: ATEYQzxOe+MLZlx0Neatf+2CglDHln72geoGpDsNyvVJKk4405INKJVgt7LozKUh0z6
+	wozOk5eTB8spRsB60rk4jp04NjgVdPzCg9cgL119UUBdHDQT9YqjAXACGdWHW+ttx0HbfMJkkYj
+	H5KxyjwaZHcP7N49SL/NE9Cqc4sfciLpuRBHwvww7fqjElGFHtIVv5tomMEkrYuiYcxJ7tbPPcO
+	sPbTPJhWo1CQ0Y8iIWp3lFYwNmnsI7LBmcvXtD0S3UzclHzAi3bgCi8KDihbBUTetOpzxxi2f5t
+	zXJ0odYBaF1hEPUiE8WNcjkBK7E6XV5VAJDyCXoJjToFQaZQB5ekAP6mp6eI1rxHNIWW1A96nBI
+	Ei/PnsDQHRpmKFa/X1yKukHMTQFblxBqqXM/sUyHxN4IoFGO+YIuVY6ofeCCMOeRp6IoOjZZzw8
+	KpXMQ8TOg01HgeWIiqMg8tfT4lpj3A2ANZr+5CZrb9CejM3EQiwteXgp4xJuLKjXbfld0n0LBuo
+	kOHirM+csv8jw==
+X-Received: by 2002:a05:620a:2893:b0:8ca:105a:298e with SMTP id af79cd13be357-8d0010753cfmr213579685a.63.1774398200388;
+        Tue, 24 Mar 2026 17:23:20 -0700 (PDT)
 Received: from jernej-laptop.localnet (16.red-83-43-237.dynamicip.rima-tde.net. [83.43.237.16])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-50b36d23237sm150693321cf.13.2026.03.24.17.22.43
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-89c8536ba60sm128830856d6.44.2026.03.24.17.23.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Mar 2026 17:22:44 -0700 (PDT)
+        Tue, 24 Mar 2026 17:23:20 -0700 (PDT)
 From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
@@ -65,13 +65,13 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Chen-Yu Tsai <wens@kernel.org>
 Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/7] dt-bindings: sram: Document Allwinner H616 VE SRAM
-Date: Wed, 25 Mar 2026 01:22:42 +0100
-Message-ID: <13973231.uLZWGnKmhe@jernej-laptop>
-In-Reply-To: <20260324164357.1607247-2-wens@kernel.org>
+Subject: Re: [PATCH 2/7] dt-bindings: sram: sunxi-sram: Add H616 SRAM regions
+Date: Wed, 25 Mar 2026 01:23:17 +0100
+Message-ID: <3400822.aeNJFYEL58@jernej-laptop>
+In-Reply-To: <20260324164357.1607247-3-wens@kernel.org>
 References:
  <20260324164357.1607247-1-wens@kernel.org>
- <20260324164357.1607247-2-wens@kernel.org>
+ <20260324164357.1607247-3-wens@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -81,7 +81,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
 
-Dne torek, 24. marec 2026 ob 17:43:49 Srednjeevropski standardni =C4=8Das j=
+Dne torek, 24. marec 2026 ob 17:43:50 Srednjeevropski standardni =C4=8Das j=
 e Chen-Yu Tsai napisal(a):
 > The Allwinner H616 has two switchable peripheral SRAM regions:
 >=20
@@ -90,19 +90,16 @@ e Chen-Yu Tsai napisal(a):
 >   after which reads will show the same stale value for all addresses,
 >   while writes are ignored.
 >=20
->   The mux value for this region is different from previous generations,
->   and thus needs a completely new compatible.
+>   The mux value for this region is different from previous generations.
 >=20
 > - The SRAM C region is an alias of the first 128 KB of VE SRAM, plus 64
 >   KB of DE SRAM. The latter is otherwise unaccessible from the CPU. When
 >   CPU access is disabled, the whole region reads as zero, while writes
 >   are ignored.
 >=20
->   The mux value for this region is the same as on the A64 and H6. The
->   existing compatible for the A64 already covers this.
+>   The mux value for this region is the same as on the A64 and H6.
 >=20
-> Add the compatible for the VE SRAM to the list of covered compatibles in
-> the generic SRAM region binding.
+> Add compatible strings for both of them.
 >=20
 > Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
 
