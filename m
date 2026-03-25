@@ -1,198 +1,162 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1509E352C39
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 13:00:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3700B3D75BD;
+	Wed, 25 Mar 2026 13:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774443659; cv=none; b=iGV3+sxVnveXEjy+jPxHI6fUm5mjsfNy7ktQcc6MrUUDScv03Zyrm/Dn/EVelVPxYt05kt4Y7KEkY06WI8IoW63wZCvKhkg47w2A5jyIYSy2MWAOIU54TYBhVFCaQCn63wYlvuGUhR1QdqqZkaHJZkiw28K7pIETelG2uVO6YiM=
+	t=1774443929; cv=none; b=E/R2FFDwH9u8blcE6Wg7YLxXzaG+iJ15Q3Ux6Fr+Ep9CUK74t6zjfAHcLqHZYZ3QoQuEcVTQEKxkc/VYDHmsaNnZev31ockx0QOu2jjLRFl42Z+dct/iD1uwSMhQrQGlCQ3XCRP1E+Hj0wDeQlhrN+MGcEZphuNvmaBrujvHIIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774443659; c=relaxed/simple;
-	bh=iECa52X1WMxQXk08e2oTItD2s9nnyd0o6WElpXC8J/Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=airmLMpW79YtjvmCxeqHHdwt45EB88F8IdSROngkRaL2ePGYfnuDnD075mSJeM6HouPz/4T2tt+IjK0JqKIy/WUZDmIdyF70fYb720M7xJnAhtE9JCSvpT3peWPgcKh7GAYOnaB+4vqmZv5EUiKvryCuRKezORuEiDXvDDzInUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nP4LXN+x; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RJGeply1; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774443929; c=relaxed/simple;
+	bh=Nd8wP6iLVfhuyQt7uT+GPPJVlZFWhFntjUM8RUS0D+k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=na4BsahCPsqJA2nilklsBxgoy/G9DifxFlUXT851r1xjRovFmwuZQCV6hgMNFxxRM2lHFLARntbvzuDp3JEiijLodEozpMJUodlsoXfqZt1TNt2Vf+oC8QlxsXFyajs5CExdALlDPFhjpmBQ3WuG9Azt6akKlbZBRM/6vSy9Eb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F5xStT4B; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nP4LXN+x";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RJGeply1"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62PBGJDp721528
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 13:00:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=LjdBzauvOqjzi+H4aHlYeX
-	gujOJFM540mstkGc96erE=; b=nP4LXN+xdbQ3uQDml1CVFhdhQPcjogVx96VHYt
-	blUy3wFnf7PB3e8Imt/g03JwpYDlNjKUHT/SbEZ83G89KQLyyNi6uC3Mo6MDDGJG
-	tOwT9PH8kTDJbGKOsVCta8KB62MXMdnplDQ7mgSUVkO+wqO/4Bn+ZrzkFxe1xGeA
-	T1lioRc5zvJcFCdLdAs1trBWGc8eZWft8bbNAKlNaGb7kzEJ+ZL2Qx/vaq/47fo2
-	Hg5mgHvsCmnflaZaV7LO/7GeJkOoueM+CIZd/8K/6AZPxNCuwZnAPqvA48RQQrOl
-	anmX9tIT0Ahdr3D7FyPP0fJxECqookHmux7jNrOqvId8FCrw==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d4dm2rkcg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 13:00:56 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2b0baf3cf5bso1031515ad.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 06:00:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774443656; x=1775048456; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=LjdBzauvOqjzi+H4aHlYeXgujOJFM540mstkGc96erE=;
-        b=RJGeply199+Zz0wGDrrxDCnJorsE/lWRsRmcZv5IyxvlYg9puEIAGFmtue1g+C+Xyw
-         7sfUjCVi7O23E625o3TBfEMg0CBPQR/UiMslss0qx+EmZc1qr9qmu5AG3pubJYdNx4om
-         sYcIVXgLqVbJb+dkvnKA+nNTVR/8dDsGDSd/Wt7mKqX5bAa4EGBioD/7gFsPrDDzHuAD
-         OZA26F1jof23ou25FeHf1ywbrc0kCt50LdQZsLkLOnuAO6ZiO3U84Lj+xThB/VpI0ujU
-         uUDCaCiNYzliowTfPBR5gWGo/1vYe+xFXto+cboSImYR7JY3mrwrE/puwtZmO1WVTyRX
-         8wDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774443656; x=1775048456;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LjdBzauvOqjzi+H4aHlYeXgujOJFM540mstkGc96erE=;
-        b=XCX3oYsuTP4iFzueBMdXH+njM+b79B+sqwblnt4X+zWIB/F1T4Bg0u8JWtOv3VS0H/
-         QVh2Nm9OBt9NF3dDhQfM6LYZ3qqbQPK8YLJ8+s/z31CXhl/Sj+4lomuRdxqGvgHXwMSI
-         ptmZfsoop0iKheuPCqY+JCceIOjcBOT30GWWdg7N7xuqmaaGt7EryHDJ3eUMxHQdGwcA
-         7VUnEwOUV/1E3cBrWKcGJCZA5yM4ClJhmnfi8d5N23PCqdfcoWQVh2iXWb1/rJgZsMG9
-         wC++JRoZgtKMykB7+LgiTYX5B5b3RUYlEuFzqhfnv5aX1j9RSyFLLm/GlbR4BLhI/79s
-         0Zgw==
-X-Forwarded-Encrypted: i=1; AJvYcCUX34iWFP+mziVvWo5i9aOL9HXpumYs5PbmGc1cSG+3AXW+JEJt5SFMpLXKwzMmoErdqR2S5z6UqZ1n@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywuy1Zj6nnnZrJ3BQxNTLOpsEKiZqsZ2A2w/NS6sSBgWBHY2+nI
-	VQF8c3yFuKFqiu+/ZWfxEMEwSOVXsTIthiKeTu1/TM3RYtfl7w+OiZOs6gdx3V4jmXI5iieJjho
-	83sFVE2TIN0bWW/OiH9iORujjhFZMul9qUX13WR2M0Rkv5Q0uIt6EZ1ER36oB3tzu
-X-Gm-Gg: ATEYQzx7FZsWkI0ng7TR5bBlreXt/W5KSzndx0nkwDuPG6hvDtfRaAduldOBhRwKtEL
-	I+wMLaIwLf5eC1TE4za2NZeJZndLyoObffe/jCZwHR+OF3+9PNAUgXZcfHLW4B6MdrU4g+pfZA5
-	4ur93zYOhCpKd8+X7coI9Xr5CtWAO6IyAm0OzVUjDDnawgh251SdT3TG8+KL732+mkBRYwcDIGh
-	147++fEb51MSGdCYw8ksTDDvl8vo99W62yzIcDmkV6Au0JU4P37mzAeufeJHThv13V6od8yl0cD
-	kdiumn0v0YE8qPjkzjNsLoNGlyIldrxHCWRxUIOr8HkMGFu6LaU1fBkP0Ss5/R1+NiKyxb62j9N
-	u9Kdg4dnjxToH5Q3VcdYKBErHuBldoyV6QH5fO9EMAtGzdO/91TsbansgMQ==
-X-Received: by 2002:a17:902:f607:b0:2ae:5350:3a4e with SMTP id d9443c01a7336-2b0b07efad5mr35559725ad.21.1774443655469;
-        Wed, 25 Mar 2026 06:00:55 -0700 (PDT)
-X-Received: by 2002:a17:902:f607:b0:2ae:5350:3a4e with SMTP id d9443c01a7336-2b0b07efad5mr35558835ad.21.1774443654537;
-        Wed, 25 Mar 2026 06:00:54 -0700 (PDT)
-Received: from hu-vdadhani-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b083656f65sm262575755ad.45.2026.03.25.06.00.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 06:00:53 -0700 (PDT)
-From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Date: Wed, 25 Mar 2026 18:30:37 +0530
-Subject: [PATCH v1] arm64: dts: qcom: lemans: Correct QUP interrupt numbers
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F5xStT4B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47260C2BCB2;
+	Wed, 25 Mar 2026 13:05:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774443928;
+	bh=Nd8wP6iLVfhuyQt7uT+GPPJVlZFWhFntjUM8RUS0D+k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=F5xStT4B36TVquA6exeu5U6m+NS1v5gmT95cCU2NkTx9t4Dz8CfqAxHZlJhG4mOd9
+	 SD4v4Tluc5Y3WR4wHwLMr9dhByg0yonEcrChqq8uDnv667Sbre66wwzdgQySy/uKWX
+	 zOYOHNMBNlqAbHIc1TO8p1sM2EsyZVyQG0tHFz6g/SRQYTnQjk0+G9+wbsm+gUu9QR
+	 Zj6LI+CKJ+Y80C2TSnnSEoZxVCrhT/MDFnsMeWVYFib0rvAirraNtIb5fwmHDDSbri
+	 8hqWIRdf+IGuH+mGnGKwYiKky6aF1CG1w2WmX9kU3Tij6HS9jKTl6pU2JlhrvgE9VQ
+	 Jk8JKh5RUlO1Q==
+Date: Wed, 25 Mar 2026 14:05:26 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Akhil R <akhilrajeev@nvidia.com>, Frank.Li@nxp.com, 
+	acpica-devel@lists.linux.dev, alexandre.belloni@bootlin.com, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org, ebiggers@kernel.org, fredrik.markstrom@est.tech, 
+	jonathanh@nvidia.com, krzk+dt@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux@roeck-us.net, miquel.raynal@bootlin.com, 
+	p.zabel@pengutronix.de, rafael@kernel.org, robert.moore@intel.com, robh@kernel.org, 
+	smangipudi@nvidia.com
+Subject: Re: [PATCH 12/12] arm64: defconfig: Enable I3C and SPD5118 hwmon
+Message-ID: <acPcM4dlvpdo3L59@orome>
+References: <20260319-nano-manatee-of-vastness-fbafa1@quoll>
+ <20260319170929.14543-1-akhilrajeev@nvidia.com>
+ <67165a1f-9fa3-4853-b530-b1f9d6e4c2cf@kernel.org>
+ <acO4NKPDUayny-I4@orome>
+ <6342b6fd-9802-49d9-a269-ecb3b70b4604@kernel.org>
+ <acPWvjCJ426AyIQh@orome>
+ <61ec49e8-9b60-467e-8ca9-c1246ae5caa2@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-lemans-irq-num-v1-1-a470d544966a@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAHXcw2kC/yWMwQqDMBAFf0Xe2YUkVgv+SvGgca1bNG2zKoL47
- 03b4wzMHFCOwoo6OxB5E5VnSGDzDH5sw51J+sRwxlWmcCVNPLdBSeKbwjqT96a4OjtcStsjRa/
- Ig+y/4Q2bRfN3unYP9sv3hPP8AKhdIGR2AAAA
-X-Change-ID: 20260325-lemans-irq-num-cc03721f451d
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>,
-        Viken Dadhaniya <quic_vdadhani@quicinc.com>,
-        Shazad Hussain <quic_shazhuss@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774443649; l=2483;
- i=viken.dadhaniya@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
- bh=iECa52X1WMxQXk08e2oTItD2s9nnyd0o6WElpXC8J/Q=;
- b=h7U3vULDB7kvty2wDiJfNo0SWaU2i9OgE41ELIdnqbE5iVVqQ7OQGEVtcw67Vr2XB2V3Cd5d6
- novS8Vn0CVAAYodn9Z+B+8hwCdrVdlXpXgIduN37LRhShOP8opzZvNn
-X-Developer-Key: i=viken.dadhaniya@oss.qualcomm.com; a=ed25519;
- pk=C39f+LOIGhh/02LQpT46TsUSXRvBn9qXC8Xb26KJ44Y=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDA5MyBTYWx0ZWRfXxlQdJyelT/+R
- lQnw8W8OQjQzEjCdu/V6lZe5ZrK5CtrTi2R3NsBDaC1eQuEvQe0HRjelKYI96u6lkjByklYiaKw
- ornLtxlsPOcVPf3HiusFNVsGEnXZtI0S6cDLn4Mhxk/7Ww8AbYCAXm9WgVcJ4ocHzHMPC0bUK7p
- VxtCM4H1taeA+SjXy5bCDR6qpFIG57ozxmbZeNqZtNqryQ7wBGqx9SZp45/DXVCRQjHSX7tMtsE
- 2AW/I8Xwq/IB0oTKScY7+LT0zPwxE+NRo5zU3jnhLSb0OwKnV0l/gOfbrQQXOxia++Wc8bCl36u
- 9GBJNntGUwhs/5CYIr1LQpQ68jWSXXD26En6ojrYXsUJ4qW2960EtLW57heYzloS9u1zFovdSvv
- MNObcRIcWM8pCbTQVIk/yH7gWzCI7PLFEj0L+Kqh7fWuKctplgdLRT90tt20H/WjMBfoIqiHRBJ
- 0BEmKF+pBPuDzY+IYkg==
-X-Proofpoint-GUID: pz5kjc7ttn9kVQ8Qg80OTjKVnV05Dbet
-X-Authority-Analysis: v=2.4 cv=Fo0IPmrq c=1 sm=1 tr=0 ts=69c3dc88 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=nXOf96giqOHqJdTUQPAA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-ORIG-GUID: pz5kjc7ttn9kVQ8Qg80OTjKVnV05Dbet
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-25_04,2026-03-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 malwarescore=0 clxscore=1015 spamscore=0
- bulkscore=0 phishscore=0 priorityscore=1501 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603250093
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fc67txugx4wle5yh"
+Content-Disposition: inline
+In-Reply-To: <61ec49e8-9b60-467e-8ca9-c1246ae5caa2@kernel.org>
 
-Fix GIC_SPI interrupt numbers for QUPv3 SE6 nodes on Lemans SoC.
-Using incorrect interrupt lines can prevent IRQs from triggering
-and break I2C, SPI, and UART operation.
 
-Fixes: 34a407316b7d3 ("arm64: dts: qcom: sa8775p: Populate additional UART DT nodes")
-Fixes: 1b2d7ad5ac14d ("arm64: dts: qcom: sa8775p: add missing spi nodes")
-Fixes: ee2f5f906d69d ("arm64: dts: qcom: sa8775p: add missing i2c nodes")
-Cc: stable@vger.kernel.org
-Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/lemans.dtsi | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+--fc67txugx4wle5yh
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 12/12] arm64: defconfig: Enable I3C and SPD5118 hwmon
+MIME-Version: 1.0
 
-diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
-index f565067bda31..05c0888e2bc6 100644
---- a/arch/arm64/boot/dts/qcom/lemans.dtsi
-+++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
-@@ -1512,7 +1512,7 @@ i2c20: i2c@898000 {
- 				reg = <0x0 0x898000 0x0 0x4000>;
- 				#address-cells = <1>;
- 				#size-cells = <0>;
--				interrupts = <GIC_SPI 834 IRQ_TYPE_LEVEL_HIGH>;
-+				interrupts = <GIC_SPI 833 IRQ_TYPE_LEVEL_HIGH>;
- 				clocks = <&gcc GCC_QUPV3_WRAP2_S6_CLK>;
- 				clock-names = "se";
- 				pinctrl-0 = <&qup_i2c20_default>;
-@@ -1539,7 +1539,7 @@ spi20: spi@898000 {
- 				reg = <0x0 0x898000 0x0 0x4000>;
- 				#address-cells = <1>;
- 				#size-cells = <0>;
--				interrupts = <GIC_SPI 834 IRQ_TYPE_LEVEL_HIGH>;
-+				interrupts = <GIC_SPI 833 IRQ_TYPE_LEVEL_HIGH>;
- 				clocks = <&gcc GCC_QUPV3_WRAP2_S6_CLK>;
- 				clock-names = "se";
- 				pinctrl-0 = <&qup_spi20_default>;
-@@ -1564,7 +1564,7 @@ &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>,
- 			uart20: serial@898000 {
- 				compatible = "qcom,geni-uart";
- 				reg = <0x0 0x00898000 0x0 0x4000>;
--				interrupts = <GIC_SPI 834 IRQ_TYPE_LEVEL_HIGH>;
-+				interrupts = <GIC_SPI 833 IRQ_TYPE_LEVEL_HIGH>;
- 				clocks = <&gcc GCC_QUPV3_WRAP2_S6_CLK>;
- 				clock-names = "se";
- 				pinctrl-0 = <&qup_uart20_default>;
-@@ -2510,7 +2510,7 @@ i2c13: i2c@a98000 {
- 				reg = <0x0 0xa98000 0x0 0x4000>;
- 				#address-cells = <1>;
- 				#size-cells = <0>;
--				interrupts = <GIC_SPI 836 IRQ_TYPE_LEVEL_HIGH>;
-+				interrupts = <GIC_SPI 835 IRQ_TYPE_LEVEL_HIGH>;
- 				clocks = <&gcc GCC_QUPV3_WRAP1_S6_CLK>;
- 				clock-names = "se";
- 				pinctrl-0 = <&qup_i2c13_default>;
+On Wed, Mar 25, 2026 at 01:47:44PM +0100, Krzysztof Kozlowski wrote:
+> On 25/03/2026 13:41, Thierry Reding wrote:
+> > On Wed, Mar 25, 2026 at 11:59:36AM +0100, Krzysztof Kozlowski wrote:
+> >> On 25/03/2026 11:31, Thierry Reding wrote:
+> >>> On Thu, Mar 19, 2026 at 06:15:14PM +0100, Krzysztof Kozlowski wrote:
+> >>>> On 19/03/2026 18:09, Akhil R wrote:
+> >>>>> On Thu, 19 Mar 2026 10:40:34 +0100, Krzysztof Kozlowski wrote:
+> >>>>>> On Wed, Mar 18, 2026 at 10:57:25PM +0530, Akhil R wrote:
+> >>>>>>> Add I3C subsystem support, DesignWare I3C master controller, and
+> >>>>>>> SPD5118 hwmon sensor as modules to the defconfig.
+> >>>>>>
+> >>>>>> Why? If there is no user of that, why would we want it? Your commi=
+t msg
+> >>>>>> should explain that.
+> >>>>>
+> >>>>> Ack. This is for Tegra410 which has a DesignWare I3C host controlle=
+r.
+> >>>>> I will add this in the commit message.
+> >>>>
+> >>>> Board or products. Not SoCs.
+> >>>
+> >>> Is this a new requirement? I see a bit of both in defconfig changes.
+> >>
+> >> Almost every review from me has it for 2-3 years... And it is a known
+> >> thing since always in a bit different wording: we do not care about
+> >> downstream things and downstream products. defconfig does not serve
+> >> downstream at all, makes no sense outside of our (upstream) work.
+> >=20
+> > I don't understand why you're turning this into a downstream vs.
+> > upstream discussion. This is all code that is being submitted upstream,
+> > because we want these new platforms with I3C support enabled upstream.
+> > It's as simple as that.
+> >=20
+> >>> Some mention specific products, other mention SoCs. Does this
+> >>> requirement apply to DT platforms or also ACPI platforms?
+> >>
+> >> Just like kernel, applies to all platforms, regardless of firmware
+> >> interface.
+> >=20
+> > Hm... again, I don't think there's every been a rule to the effect of
+> > needing to specify a particular platform or product when adding a new
+> > defconfig change. There's plenty of things that we're enabling in the
+> > defconfigs because we think they are generally useful.
+>=20
+> And the commit msg MUST always explain WHY we are doing it, in this case
+> - why do you think it is generally useful.
+>=20
+> If you add new driver, it is usually obvious why it is generally useful.
+>=20
+> If you add defconfig change for dead stuff, it is not obvious. That's
+> why commit msg must provide arguments WHY do we want it, WHY do you
+> think it is useful for us.
 
----
-base-commit: 85964cdcad0fac9a0eb7b87a0f9d88cc074b854c
-change-id: 20260325-lemans-irq-num-cc03721f451d
+You're making too many assumptions. What's your basis for calling this
+dead stuff? Do you really think we'd be spending any time on this if it
+wasn't going to get used?
 
-Best regards,
---  
-Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+> If you add defconfig change for device which no one (in terms of
+> upstream) can use, then automatically it is not useful. Whether this
+> change is like that - I do not know. That's why you have commit msg to
+> provide argument WHY maintainer should take it. And it is as simple as
+> one sentence explaining the upstream kernel user/use case of this
+> defconfig change...
 
+Again, why are you making this about upstream vs. downstream? The goal
+of these submissions is to make upstream capable of running on real
+devices that real people want to run (preferably upstream) Linux on.
+
+Anyway, I think this clarifies some of the questions I posed in my other
+mail, so we'll go and add more information to this commit message to let
+you know what products this will be used in.
+
+Thierry
+
+--fc67txugx4wle5yh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnD3ZYACgkQ3SOs138+
+s6HqnA/+P03d+00aePdIY1d5lvoSj0XuW+/aqqO4nV1DoFXpS+mnbELzT7yPwaK/
+sfkhXNyOUvsUmlQ7ju57UnZ3XnhytbtcpeNl3cqulmYIZI66lyES7Y62pspIYNQS
+m3pgJON/az0czoUtBUT91iecML/P7L9ptHSxUwlwtZTeLNjwMw7a7+IV2gnfe1s0
+wgAhwgs9aWKRJPFZGJU4YFeOL9GS9KHX4gvwgrMG/ywarpYonmpZU1x4AxA7HU6Z
+mYxc6Of/re6QeIS9uYLQ13zniIA9FF1DetMIJLoroRkTfIYKeSWfVrdEMEYVUFEU
+TIpkb056mdTO72yITBR9rNWG1tK0AxdDrBl4w/LedEDnKGsLAHyEyAMfPHJh2/Ux
+a33Tp98ARFO0b3ofSMXCheNW8ouvVb2wzA+5zyP50yvkP1uC7JMtVUkFH/5ccTQO
+ZwL42W9mO/MYg4hvhowS0OZhbjGPAJP2ikHwLXoN4iAjbBVdhfib74SWlO1IRfRg
+eIz8P8Eu4VzAnnZSj+2l/xf4XTj/3SflK8yeSeix0foPVDxZkR1QPPywtBomrRyb
+XQ2a58nsFXBdNaTMAH+MVU6xTD7/FNE2BapUN07rw7zvnewqK3xKhdT1NHn83wyO
+KJ9ByhxUakXBv7sxc3f46Ri4D3XIznGUPf1Fsk342HR6PsWIoVc=
+=ysnB
+-----END PGP SIGNATURE-----
+
+--fc67txugx4wle5yh--
