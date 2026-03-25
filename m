@@ -1,200 +1,89 @@
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-172.mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C06E283CBF
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 02:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774405913; cv=pass; b=Lsn9kYX5bzvL0J2LROcS2I8Qt4XWA4rLsZo8/ASuUWVeIss/inZx1Z+9VepECNLnTGaGZYHh69fQ5PpskSOyEADVecTpplVpOfkHp2a5NDDL/prGp4+qKMPPZ6BhFI/BxfEB9/1lf2pE6evmdeP3IWXpk7AOPFDz5ZVlptwbj/A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774405913; c=relaxed/simple;
-	bh=PyO7nXn0BKvL4OXhMD1Xm1VJSQgBBVytDo/XkUUyNfA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NEGgsW9CBl0yhLrtM25if9wUVCphNJcUEc+sWum5Dpux6ecFkHD0BaMFsI8ATtsYL1IiWO2YDz7mTuvBfVMVblY1fTM/QJNpOIT9NY6IIihJg2C44b6EeCWNYbw+SLEBlcjO+IhroSq3RTKMaw6ASYnAoLxnWerw9rfUrLt01Mg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=XxvB7sRH; arc=pass smtp.client-ip=209.85.210.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C6228F50F
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 02:35:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774406150; cv=none; b=mIk7Gw/BMEU9q4ZwlUQioAnLFmENq6V9GtqpXWg2hKiGN45EYX6A03wAKuA81RyXlAR3ZY7nVsTYwwp+7QBItes/yfx0uVGLt/vCBFgVN5HTm4bM9I4VjSwvEWJ46/SFyURGkZ329Evs3Eqe7wyDCSfW+p4s5Y3hlvFORJ7uQjI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774406150; c=relaxed/simple;
+	bh=SGDmbIspiQNVImx18plf5FR6FwVpfISCceQ8VFjXesQ=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=CcxASmAkuD5ueDsBvCZczV3q/x6s1YvX/Lt3tcjEp8mZvlVBq2idQ+DEOKbGljYYg5enYClgBoiojmTvIy4BzwmZdduNUNQk562hcOVwwBVFv4/aVB28X3SVMMKXuTymiNX6//II9Nn+SRvOO6RFgD2h7yKjehXMDTtx3d5qeq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=Sf3dpGRV; arc=none smtp.client-ip=91.218.175.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="XxvB7sRH"
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7d7f09aa39fso4943738a34.0
-        for <devicetree@vger.kernel.org>; Tue, 24 Mar 2026 19:31:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774405911; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Fze3xmlu2HaRl3V8px8IHjN33NqK6U6vmCVovtooeDgcE+ZTHoq2lJcUIAnZwDRNrP
-         xPW3S8WF2yucKGQPiuH9hQBkFpCTnCzeIiMwuJiqWADnvCdnmlHSBbL1WdSBDn6kl1/D
-         lE5xyGQlhFn4HHScqifMaPcAwHYYS8gsAUgQbgTacva2xmSYltaxnXKcabYWoMcvGuKa
-         cfwsJYSZwUHtOoSC7d3fEh1tM3Iy+zNTlYOL9RXigVG6worU+C+bjHpeJW5gdxM0s3sT
-         7DmhVMdm9ZZrO3olXGuLV6NPYFLPooejzF+j2qxqWMMYO9yoVthrqvkoXZhYjR1ZYTNV
-         X+sQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Z6L/dK9RXBU0ye50vaCd1XpagmdaKpcR91kPPZAxHEc=;
-        fh=OPRfgGZW9ej5Im8e2rLoPymlhOw755/GDXVn6TxceoA=;
-        b=ci2oaTh1B7CnL1AM4btxm13KFc1HKIcsicROFUI2p8WDDDMhXaJOEEg5wEMNRXJhTb
-         ppmT73apSRL1ymbKtycIvDReEQLswd2/dnzv57dW/rEw3hnXByLpgBoV+gkKTI7OBo4O
-         37ZibuXoAkRsSTDMMKzqG8jx8zEj4gDh3qxPbOXSgtiyxOqZqL/3IAr6DAPJm04QDMtu
-         QEOYfPvPqbi0TK7SSzKz5ewoXltFbXpjXd5TopcYb07ZzID/BHFJctEa49/5WAhJ7PhP
-         r4VbbYiIy140TFX0aIoAMS+dd8CkSuPYC1P1tSuIo9LnBKv0N9+riz2XfQeubh4QESy/
-         kfDQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1774405911; x=1775010711; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Z6L/dK9RXBU0ye50vaCd1XpagmdaKpcR91kPPZAxHEc=;
-        b=XxvB7sRH0o0pf5O5dAWb3nZX6x9FUXHXuG/0qppIDbNWejWzWXvB1/DpYnc0e8Q9/K
-         C7VcgUx4chLdQgG+ePYv8UVXkeZGUFAeXJ/PAB2iVGhx18CKWvHNTEZNb2cJ4L75xZbR
-         9Ppte0a1XoIfKh6TXHv46sVxfTzU9lD51vHQf4UA7w3qE5qgWVUocIR8lKGejRFQesTn
-         5m7ohp/FXaPWrhLsqk0Yfm3ECBUXPC9UuSQ3M/Q5HrpA8IM18/nt7L2Hwu4cz1aWFsC+
-         jKe24WPOwLIrnrufpTZoP4bm3Espw2JGfrO9VJHWdQ+ZHIKBvqXFwXINKQymXXEjFgNu
-         T2IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774405911; x=1775010711;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Z6L/dK9RXBU0ye50vaCd1XpagmdaKpcR91kPPZAxHEc=;
-        b=rTWHYdI/cj1Xmw7L3UG5vn6vRmpp5obyIE5hyuqys6EVNlQg2h9J2VVLxMRq6/V/MJ
-         CZLfSXHDPZo5lQd98yG15Zmq0n9OxlZrLn2NvtQNf5ufMtPoZZN4zUb7M+si2fu/DA9v
-         a5az4xwb81eHp/PcfKDu5MZ1XcxmDMsN+Lm4LeGenuCj16Bf8/uAOoEnobMGuPSW1qN4
-         exR4LVFqKo1wyeZvl8u8wrTpPCltVNLflrt+7PwSYzJauQBXZSPPxKTqwtiH/J0ttqGE
-         1mTcsuirHMKxBs0FZIjDOuxg4QGCv0oSo4Ak75CQRBbPXSNn3QciKeaNpI+/bN+nyvlg
-         G34Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVmPogp7/QgvgApOK9Zk/YWZ7dGATenZ+ZMNgll5FPi1KI0j3Q6C09aCQ+XABdy7f4y8Cv2f0mUdE9c@vger.kernel.org
-X-Gm-Message-State: AOJu0YwYcuJOMO2tXvn9XK5r9udhPkQanEM/Zk4+3J8Dt9sO5EFCl4bD
-	h1PUmLgTRMFtEa5CItuSshO0Gf7Jxhdx5frZeo7evVa6MNhnjnYSXr74vUuJw8eU0zcUr/VqX6D
-	GSuKKPRYiITVLEfBKn909DPz7gUNJZJ1AYHEgHdtdfw==
-X-Gm-Gg: ATEYQzziTvuK619VsRh0blqUwMOxVyihUxk0or71kwHnTay/RVuMOF5Dg2JsQIcFd4g
-	hMNo1h8qtp60B/O59i8AT7SZZSghDnjZzxdwcabd6RK4O3hMWxjOJbaowRMWePWD8ILF60Hckf8
-	59CGZiv2EyxTXPdt7E0nW5QahCXy6nc3d4rIqOlYCMxtAFfWlK7QRQSENQmbeXfDl/llAt81YJd
-	0pgEFg199TQsY7Pf82lXa00DAn19OKtE8IaJk6N3OWcVvupBao//M3CbIwhycoTkQFhoL1cVBAt
-	h35DlYzJGSg4mw==
-X-Received: by 2002:a05:6830:82b4:b0:7d9:b46f:ee21 with SMTP id
- 46e09a7af769-7d9d69cdf4bmr897075a34.16.1774405910770; Tue, 24 Mar 2026
- 19:31:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="Sf3dpGRV"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260128-ssqosid-cbqri-v2-0-dca586b091b9@kernel.org> <20260128-ssqosid-cbqri-v2-6-dca586b091b9@kernel.org>
-In-Reply-To: <20260128-ssqosid-cbqri-v2-6-dca586b091b9@kernel.org>
-From: yunhui cui <cuiyunhui@bytedance.com>
-Date: Wed, 25 Mar 2026 10:31:39 +0800
-X-Gm-Features: AaiRm50kmkkX4lpUb-H53j141xOJJF0B4hNLojrNS59qLQl25FnWptD4NwPaAxM
-Message-ID: <CAEEQ3wmuAnHU1VBFDwbCBFb8j63ZcizJ3jEC2SiVWnoMPc4=SA@mail.gmail.com>
-Subject: Re: [External] [PATCH RFC v2 06/17] RISC-V: QoS: define CBQRI resctrl
- resources and domains
-To: Drew Fustini <fustini@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	=?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, 
-	Samuel Holland <samuel.holland@sifive.com>, Adrien Ricciardi <aricciardi@baylibre.com>, 
-	Nicolas Pitre <npitre@baylibre.com>, =?UTF-8?Q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
-	Atish Patra <atish.patra@linux.dev>, Atish Kumar Patra <atishp@rivosinc.com>, 
-	Vasudevan Srinivasan <vasu@rivosinc.com>, Ved Shanbhogue <ved@rivosinc.com>, 
-	Chen Pei <cp0613@linux.alibaba.com>, Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, 
-	Weiwei Li <liwei1518@gmail.com>, guo.wenjia23@zte.com.cn, liu.qingtao2@zte.com.cn, 
-	Reinette Chatre <reinette.chatre@intel.com>, Tony Luck <tony.luck@intel.com>, 
-	Babu Moger <babu.moger@amd.com>, Peter Newman <peternewman@google.com>, 
-	Fenghua Yu <fenghua.yu@intel.com>, James Morse <james.morse@arm.com>, 
-	Ben Horgan <ben.horgan@arm.com>, Dave Martin <Dave.Martin@arm.com>, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, x86@kernel.org, 
-	Rob Herring <robh@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Robert Moore <robert.moore@intel.com>, Sunil V L <sunilvl@ventanamicro.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Paul Walmsley <paul.walmsley@sifive.com>, linux-acpi@vger.kernel.org, 
-	acpica-devel@lists.linux.dev, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
+	s=key1; t=1774406145;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=K7IiqspCvnP0oEDFZpJaGFjVlgHOfuowmEyXaR7/MOE=;
+	b=Sf3dpGRV9xBGIiW34MWCOFd9xzuh93hoOzyLyQJCfvTx1NDZHMumyLU6i69veTvFsyztLn
+	xSD8hBSx3q7blBl7Jl/ax9eZ4I9bvHtjhBQpw4OPgPubuLzNAI0AVHdnSw09O1QN23chdF
+	KpwxSUUoIhfAF0MO66m4zLx7j1ZKMYPPRxmohpOmMaPaIqMYiwSdoc4/+wHbCNiGvwWEYl
+	UOAnOzSz6IkGJv5WjJ3O2tvj9bpAIPQO/f/XMLnxvcFqBHTihpug6zGpXVp/sdU5Ug9UY4
+	UziUq1RGrZQf3qyZLlT4c7X7D/mIWp9MFcU0sxl7yePxbPiodYaSHr9/hxpI5A==
+Date: Wed, 25 Mar 2026 02:35:33 +0000
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Paul Sajna" <sajattack@postmarketos.org>
+Message-ID: <b75b4b217c2a1d1a5edefd699f0ae9966e612d64@postmarketos.org>
+TLS-Required: No
+Subject: Re: [PATCH v6 09/15] arm64: dts: qcom: sdm845-lg-judyln: Add
+ firmware nodes, change path
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Bjorn Andersson"
+ <andersson@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "David Heidelberg" <david@ixit.cz>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht, "Amir Dahan"
+ <system64fumo@tuta.io>, "Christopher Brown" <crispybrown@gmail.com>
+In-Reply-To: <vjf4lqbd5igkhvonxed3tkydxkcc5rmt2hsefng4oojrpzf3fc@a5hujilezcdy>
+References: <20260323-judyln-dts-v6-0-29d70ca1651c@postmarketos.org>
+ <20260323-judyln-dts-v6-9-29d70ca1651c@postmarketos.org>
+ <e32a0a50-9c15-4f3e-8c83-1f96e5aae4b0@oss.qualcomm.com>
+ <e833f72236342a7efbce04c2109bf921f770673c@postmarketos.org>
+ <vjf4lqbd5igkhvonxed3tkydxkcc5rmt2hsefng4oojrpzf3fc@a5hujilezcdy>
+X-Migadu-Flow: FLOW_OUT
 
-Hi Drew,
+March 24, 2026 at 8:55 PM, "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualc=
+omm.com mailto:dmitry.baryshkov@oss.qualcomm.com?to=3D%22Dmitry%20Baryshk=
+ov%22%20%3Cdmitry.baryshkov%40oss.qualcomm.com%3E > wrote:
 
-On Thu, Jan 29, 2026 at 4:28=E2=80=AFAM Drew Fustini <fustini@kernel.org> w=
-rote:
->
-> Define data structures to encapsulate the resctrl resource
-> and domain structures.
->
-> Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> [fustini: rebased current upstream]
-> Signed-off-by: Drew Fustini <fustini@kernel.org>
-> ---
->  arch/riscv/kernel/qos/internal.h | 27 +++++++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
->
-> diff --git a/arch/riscv/kernel/qos/internal.h b/arch/riscv/kernel/qos/int=
-ernal.h
-> index ff2c7eff50be..c0402dd06cfa 100644
-> --- a/arch/riscv/kernel/qos/internal.h
-> +++ b/arch/riscv/kernel/qos/internal.h
-> @@ -65,6 +65,11 @@
->  #define CBQRI_BC_ALLOC_CTL_OP_READ_LIMIT   2
->  #define CBQRI_BC_ALLOC_CTL_STATUS_SUCCESS  1
->
-> +int qos_resctrl_setup(void);
-> +void qos_resctrl_exit(void);
-> +int qos_resctrl_online_cpu(unsigned int cpu);
-> +int qos_resctrl_offline_cpu(unsigned int cpu);
-> +
->  /* Capacity Controller hardware capabilities */
->  struct riscv_cbqri_capacity_caps {
->         u16 ncblks; /* number of capacity blocks */
-> @@ -125,4 +130,26 @@ struct cbqri_controller {
->         bool mon_capable;
->  };
->
-> +struct cbqri_resctrl_res {
-> +       struct rdt_resource     resctrl_res;
-> +       struct cbqri_controller controller;
-> +       u32 max_rcid;
-> +       u32 max_mcid;
-> +};
-> +
-> +struct cbqri_resctrl_dom {
-> +       struct rdt_domain_hdr       resctrl_dom_hdr;
-> +       struct rdt_ctrl_domain  resctrl_ctrl_dom;
-> +       struct rdt_mon_domain   resctrl_mon_dom;
-> +       u64 cbm;
-> +       u64 rbwb;
-> +       u64 *ctrl_val;
-> +       struct cbqri_controller *hw_ctrl;
-> +};
-> +
 
-Can we trim down some fields? For example:
- struct cbqri_resctrl_res {
-        struct rdt_resource     resctrl_res;
--       struct cbqri_controller controller;
-        u32 max_rcid;
-        u32 max_mcid;
- };
-
- struct cbqri_resctrl_dom {
--       struct rdt_domain_hdr       resctrl_dom_hdr;
-        struct rdt_ctrl_domain  resctrl_ctrl_dom;
-        struct rdt_mon_domain   resctrl_mon_dom;
--       u64 cbm;
--       u64 rbwb;
-        u64 *ctrl_val;
-        struct cbqri_controller *hw_ctrl;
- };
-
-> +struct cbqri_config {
-> +       u64 cbm; /* capacity block mask */
-> +       u64 rbwb; /* reserved bandwidth blocks */
-> +};
-> +
->  #endif /* _ASM_RISCV_QOS_INTERNAL_H */
->
-> --
-> 2.43.0
+>=20
+>=20On Tue, Mar 24, 2026 at 04:17:09PM +0000, Paul Sajna wrote:
+>=20
+>=20>=20
+>=20> March 24, 2026 at 10:49 AM, "Konrad Dybcio" <konrad.dybcio@oss.qual=
+comm.com mailto:konrad.dybcio@oss.qualcomm.com?to=3D%22Konrad%20Dybcio%22=
+%20%3Ckonrad.dybcio%40oss.qualcomm.com%3E > wrote:
+> >  What about the other board (judyp)?
+> >=20=20
+>=20>  Konrad
+> >=20
+>=20>=20=20
+>=20>  I don't have it.
+> >=20
+>=20You don't need it to define firmware paths.
+>=20
+>=20--=20
+>=20With best wishes
+> Dmitry
 >
 
-Thanks,
-Yunhui
+Should I put firmware-paths for both boards in 1 commit or 2?
