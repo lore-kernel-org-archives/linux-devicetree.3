@@ -1,63 +1,63 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E82351C3A
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 19:24:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8335E34F46F
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 19:24:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774466698; cv=none; b=bYMhpXVNnK3uiPRpX5IiyV3xpM4eu32JDcd2UbI0WCCKMmNQQ3APX3Lv/lSi5NcWAf/ozFyJSOZBQb8gMLyZ/pi1rTmXJGp8ATd/EMKd1WCWgfJZFom/JGVzqMZ6+3tVCT7B4ZViE4+uJCA+Wjtt00SxpY9XWp7sCgB3Cb15QLg=
+	t=1774466699; cv=none; b=sE5mA38YjVt8Gtx2Mg+ctUOIGnUjrU+sbjLuhbL/BTJnvBi8OwbKsY1f1m0Sga4lyWJHY35p2ERCGkshJ/Hm6YSaUaHRoQRr6UA9prlT1pz1VjesssC/nDYyF1klnJG7XoanPVQKLfNxX1NNU3C/DUoqrAeOCDR79h4M0q3Cfps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774466698; c=relaxed/simple;
-	bh=VLqRs4Z+TlZFkqPL9lA/KP2hABPrJ6FXrZ5BEUxerfU=;
+	s=arc-20240116; t=1774466699; c=relaxed/simple;
+	bh=dr0hoUUrW6vj9urNlGrnX8d1+Sfr5kIRvgTpPgnWXSU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r2I+0rvKWMse+cetsnHDoW+HZlEmMpN5QzjFXFRRHCwMzMlFQfqQYiIRO3a/8NJAgHk4KzgQ8bV+R8sGhla64lua9tQoNQqpHsgD8UPZkHFgd4nyDqzHVfSBfGGy3ImI4IeOSA/TRp9H9V59gZk4jrTp/FuaLoj79Ku5FlnihSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f7YkUyqf; arc=none smtp.client-ip=209.85.221.41
+	 MIME-Version; b=RAHJkKWMsJQunURDKBFAbruz2a3JIViAfF0yWtd8Fs+ddEV+/rTz5vmYMd4AYZNiiXNGGtx5gTgW8lwSVnCMdDNUMSZ42mWYLPHISrMWhEltThRPkD1ZY8wR9YHWFwKCN0AqpJGxy1tMZXlVdp7mISbR7nOnpzotqNMhniqBM6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XBN/W0D0; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f7YkUyqf"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-439b94a19fdso152705f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 12:24:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XBN/W0D0"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-439cd6b09f8so100093f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 12:24:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774466696; x=1775071496; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1774466695; x=1775071495; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mFx6UUPP8hEeX+S9NN+ZbAQ52l6KXscUunPIZqDqnbg=;
-        b=f7YkUyqfxwgeTdF0HkWPV/I8WvbL/eJVIKReWPo03Ynp6t/RvJCtji6UQUKe3n6G4w
-         mrkrXOdL5hb2sBleXd5evtKHkyEA7KLMRNhYeBtlYtmhJ5v+jfhDAFa+/WQzh9nWpbS5
-         8fuC2BoDYzGL48ml1BBuzXmzzN/mTqMPLSO7rw5Av8c+C07ARGmezEzE5Fgzhxb3Ajhl
-         7gfFvgKJJri+s2SXpqNOoOcKbt/SlRy0dxeRs6TQY/yZyrdxHO0PkjLOPagSwhYDlCfa
-         avMyLX3HoSHra0M4GoPKbOoopVZoV+2eIJoYm0TwQk+LK9Q9+Sn9xsStJ3KusuKe8C5m
-         ODgg==
+        bh=K1vQlbGeloOuUiIVtqcbhBtuip2JwXGeKasixrFaD6Y=;
+        b=XBN/W0D0q3DscLWOeYzz3MVNA/xiOUD8telENmZ+NPjNl4AroOSSkEdKy/4o9eYiXB
+         4dTnCdr+6eS+QteHnfo3mwJHBHJmTfwAGj8PEr8AVwevnziniAj5SED/3LW/iSPmh7Wp
+         F4KcUabBA6l6h7jH0tQUtKUqvQjFZkNilUW/z5Ih4cUZ1ONPOtkQlRXLLhQ4Xmp7SlTZ
+         MBRvH0D380tOEOc2f+/nhOd7Vze88U8/J3AdZW/0f7/zWW45raM6Yqm7rar2TTLsYi0u
+         Z0XAL/drEHw2dUoOHjY5W46OPKEZDEtl4566oqLyiww9+mpc2oieEkueM6ndEGzt3m5T
+         GwDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774466696; x=1775071496;
+        d=1e100.net; s=20251104; t=1774466695; x=1775071495;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=mFx6UUPP8hEeX+S9NN+ZbAQ52l6KXscUunPIZqDqnbg=;
-        b=XiqZTmKLeuMsImlElqGv57yqLikicMUEc/8qTZt4zZ/FMZN74PZMbmMz/2/V9GWIp7
-         NrHMFzPHM0HxYsDX8fJN4JVFdsPf/OjlYWuVaUN642CBLkHhKaxoxL8fSci+4NVZSUj0
-         Vve2a4wudilmo2zrRUzixb7iiYwE7v6ZttCXYmMYowGQBLeglDEU/vGiLazSdaGfNgy/
-         cuDUx2KF5cyodxAkkujsBo4ovAjxYUdqqcqtSqc6zvPc41b4gGKX6pF729yaeq0eoMEA
-         WQXvNVQb5cCS3TUyPUFlsHcdVewm7D3XlRwwRaRq2Y+MAEZNT2R1nVczRz8IwWRtzawa
-         mq7w==
-X-Forwarded-Encrypted: i=1; AJvYcCU2bq0vJ/qeBksGDwhsy+xtjCOS/OqwSCJ1LgfK+x0vPgJQeMyjw3Bv1jecqRF77DQhixd/iUhAJjVI@vger.kernel.org
-X-Gm-Message-State: AOJu0YxK6eUFFcr00IIK7ZX8yhs6AxfTsG9MK8R2DxupjwI1K8UYUe8m
-	mTqG8wy7uenOu1Q9R4CUebnWMI2/NPEExITgeF5vrAhrOn7Di9EWkR3X
-X-Gm-Gg: ATEYQzwhBDPDzeeHzryE5jc9lRf/8ooEFF3di7gZ8OlXUYosbMa0TiZaEWyhdPRJjtx
-	lrjAL9ObndxknMeA1GhszC1+CRyGMILgPBQ7wbIGYD2DVibcGXp74N3w0X02O6mFRrPX0D+orT5
-	Kr4aNkTMPjjy7x7RSi4zqBqt4AdDGruUcQyUuEoqa8IMA2+W671cJUR586p3ytvexWdIB4gZSxC
-	NDn0kWkSzZUp6WhyS2BTLHw46AQ1c0XDc3cmIrJl2BPPgN3kgafU8/mnFj3baSJ1rQ58YT6sxuv
-	nD9kB319ycDKojl6xvYMTWnIljsukrD9YY00exn23aDNH0jz1tWpC/8toirzAxEkmSelSe1GtGF
-	hyLMJ7fX6q6jitNwgeCcWuX1o0DKl0Q7+rKNBS/3JtPbD2Lv+vyj1AHkWFRT4cGxv/pAPpPfnWj
-	QqWlRZRIzTDO8vuhsU5eLr22MB94FNrcVLDG7BlWEEbH/KIOxbaaQoO20Yzhk=
-X-Received: by 2002:adf:e6cd:0:b0:43b:4989:869d with SMTP id ffacd0b85a97d-43b88a055f2mr5072167f8f.33.1774466695675;
-        Wed, 25 Mar 2026 12:24:55 -0700 (PDT)
+        bh=K1vQlbGeloOuUiIVtqcbhBtuip2JwXGeKasixrFaD6Y=;
+        b=j5tTz7M4YQacBed8YmfXqPBeWSeZCsLfIukjDo2o+WBA/9yIA1vp+A/CH91cCLDSN/
+         JO5lUY3hw0p+FDhvfS4MxZOShkgLhqR1zHKNKXIy7tNM6Iv/NjiFypYbzgHPwwaD5YvI
+         Y6YejkjfP5VEjomX26SsZeCKLeNtDq+UsqaUaSjFQOrgOD5s6sKdKvZQQm+3azxv5d/R
+         o2wd1RlZgtmEu88VE+3CXnBsLrchvo5XfE1pEXaNKgqG3TK2C+4mfUg1SMQkr7jzdl9P
+         uFlkM5F2djJSp1DKQbd5Sus1KPavdq8xTJYxxV7p4VIPJhH0HlWr8lYDecugfVVxfGlT
+         omuA==
+X-Forwarded-Encrypted: i=1; AJvYcCU6WALDq2JU9CXnMZrHmsk/s14IO2prgkcaaPZ2wsUJz/wMgFH+5Km3VAc5V9t0aaVAnBPd8CRLVwgK@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxd8jqtb8xWTMA0qOolmD4diqXMllV/wNhX7Z01FlUhnhnH72zV
+	QBFwT5lHqMDVM+iMtTONzZev3nabcK60FPKxkPf/QA7gpoQ10buZu0tA
+X-Gm-Gg: ATEYQzw4t6BswkbmNTVWZ4IW7ybwkCgiKjAs9j5DzwNZOlXCKqOL8Z65GJzD69caLDE
+	qzr/Qpje8Ubuv6HXLHPlkbR74zbMf7twU0CMiLNa8PMrBJ0CHvMPIH4AF73et6iCAcwDLbFCz05
+	0XJK5nD/+ZU5edj6X9R1GpDzfgpKJduC1grEl1j302kGnrQXRe4MOvRjwI5y/oecggQLGhZm9wm
+	Y1f3PcxNENSQuOvozWps4Q39JF0QkE8a9vIEpamARQI4LmLNvRWkuihtLuTblHldcL/tQDtJfkW
+	Utf1rK8WtD5/XGjMgakprxuSleFAgsIWRGkb0zwusa03FpFFpNMRWlEwoxp+vcOfRdu/uFUKF6K
+	sh1RKJ2p+A7Rn0T7BCV5EHqGU4FdP7gpU7J9ck4b2xAG2xlmKDibjVtoE36/hBdc7MmkL8MPOr6
+	ZxyznKo3GWtXt5eBVqXZTzaNLDZI2yGRuDQI+gGQMpU86ahkpN
+X-Received: by 2002:a05:6000:2401:b0:43b:3d83:f04f with SMTP id ffacd0b85a97d-43b889993d7mr7169669f8f.9.1774466694830;
+        Wed, 25 Mar 2026 12:24:54 -0700 (PDT)
 Received: from localhost.localdomain ([2a00:23c4:a758:8a01:8138:17e4:88b1:468c])
         by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b9192e533sm2464485f8f.2.2026.03.25.12.24.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 12:24:55 -0700 (PDT)
+        Wed, 25 Mar 2026 12:24:54 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
 To: Thomas Gleixner <tglx@kernel.org>,
@@ -72,9 +72,9 @@ Cc: Biju Das <biju.das.jz@bp.renesas.com>,
 	devicetree@vger.kernel.org,
 	linux-renesas-soc@vger.kernel.org,
 	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v7 02/16] dt-bindings: interrupt-controller: renesas,rzg2l-irqc: Document RZ/G3L SoC
-Date: Wed, 25 Mar 2026 19:24:17 +0000
-Message-ID: <20260325192451.172562-3-biju.das.jz@bp.renesas.com>
+Subject: [PATCH v7 01/16] dt-bindings: interrupt-controller: renesas,rzg2l-irqc: Use pattern for interrupt-names
+Date: Wed, 25 Mar 2026 19:24:16 +0000
+Message-ID: <20260325192451.172562-2-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260325192451.172562-1-biju.das.jz@bp.renesas.com>
 References: <20260325192451.172562-1-biju.das.jz@bp.renesas.com>
@@ -88,13 +88,8 @@ Content-Transfer-Encoding: 8bit
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Document RZ/G3L (R9A08G046) IRQC. The IRQC block on the RZ/G3L SoC is
-nearly identical to that found on the RZ/G3S SoC, with the following
-differences: it supports more external interrupts and GPT error
-interrupts, and adds registers for GPT/MTU interrupt selection and shared
-interrupt selection between external interrupt and TINT. A new compatible
-string "renesas,r9a08g046-irqc" is therefore introduced for the RZ/G3L
-SoC.
+Simplify the bindings by using pattern property for interrupt-names.
+It also allows to change the ordering of interrupts.
 
 Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
@@ -102,10 +97,10 @@ Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 v6->v7:
  * No change.
 v5->v6:
- * Collected tag.
+ * No change.
 v4->v5:
  * No change.
-v3->v4: [4]
+v3->v4:
  * Updated commit description.
 v2->v3: [3]
  * Dropped items and instead used enum for single compatible values
@@ -116,107 +111,159 @@ v2->v3: [3]
 v1->v2: [2]
  * Simplified the binding using pattern
 
-[4] https://lore.kernel.org/all/20260227140316.308106-3-biju.das.jz@bp.renesas.com/
 [3] https://lore.kernel.org/all/20260204180632.249139-3-biju.das.jz@bp.renesas.com/
 [2] https://lore.kernel.org/all/20260206111658.231934-3-biju.das.jz@bp.renesas.com/
 [1]https://lore.kernel.org/all/20260204142320.103184-2-biju.das.jz@bp.renesas.com/
 ---
- .../renesas,rzg2l-irqc.yaml                   | 43 ++++++++++++++++---
- 1 file changed, 36 insertions(+), 7 deletions(-)
+v3->v4:
+ * Collected tag from Rob [1]
+ * Updated commit description and kept the tag as it is trivial change.
+v2->v3: [2]
+ * No change
+v1->v2:
+ * New patch [1].
+
+[1] https://lore.kernel.org/all/20260204180632.249139-2-biju.das.jz@bp.renesas.com/
+[2] https://lore.kernel.org/all/20260206111658.231934-2-biju.das.jz@bp.renesas.com/
+---
+ .../renesas,rzg2l-irqc.yaml                   | 120 ++++--------------
+ 1 file changed, 23 insertions(+), 97 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/interrupt-controller/renesas,rzg2l-irqc.yaml b/Documentation/devicetree/bindings/interrupt-controller/renesas,rzg2l-irqc.yaml
-index a0b57d808639..3a221e1800a0 100644
+index 44b6ae5fc802..a0b57d808639 100644
 --- a/Documentation/devicetree/bindings/interrupt-controller/renesas,rzg2l-irqc.yaml
 +++ b/Documentation/devicetree/bindings/interrupt-controller/renesas,rzg2l-irqc.yaml
-@@ -30,7 +30,9 @@ properties:
-               - renesas,r9a08g045-irqc     # RZ/G3S
-           - const: renesas,rzg2l-irqc
- 
--      - const: renesas,r9a07g043f-irqc     # RZ/Five
-+      - enum:
-+          - renesas,r9a07g043f-irqc    # RZ/Five
-+          - renesas,r9a08g046-irqc     # RZ/G3L
- 
-   '#interrupt-cells':
-     description: The first cell should contain a macro RZG2L_{NMI,IRQX} included in the
-@@ -48,17 +50,17 @@ properties:
+@@ -48,107 +48,33 @@ properties:
  
    interrupts:
      minItems: 45
--    maxItems: 48
-+    maxItems: 61
+-    items:
+-      - description: NMI interrupt
+-      - description: IRQ0 interrupt
+-      - description: IRQ1 interrupt
+-      - description: IRQ2 interrupt
+-      - description: IRQ3 interrupt
+-      - description: IRQ4 interrupt
+-      - description: IRQ5 interrupt
+-      - description: IRQ6 interrupt
+-      - description: IRQ7 interrupt
+-      - description: GPIO interrupt, TINT0
+-      - description: GPIO interrupt, TINT1
+-      - description: GPIO interrupt, TINT2
+-      - description: GPIO interrupt, TINT3
+-      - description: GPIO interrupt, TINT4
+-      - description: GPIO interrupt, TINT5
+-      - description: GPIO interrupt, TINT6
+-      - description: GPIO interrupt, TINT7
+-      - description: GPIO interrupt, TINT8
+-      - description: GPIO interrupt, TINT9
+-      - description: GPIO interrupt, TINT10
+-      - description: GPIO interrupt, TINT11
+-      - description: GPIO interrupt, TINT12
+-      - description: GPIO interrupt, TINT13
+-      - description: GPIO interrupt, TINT14
+-      - description: GPIO interrupt, TINT15
+-      - description: GPIO interrupt, TINT16
+-      - description: GPIO interrupt, TINT17
+-      - description: GPIO interrupt, TINT18
+-      - description: GPIO interrupt, TINT19
+-      - description: GPIO interrupt, TINT20
+-      - description: GPIO interrupt, TINT21
+-      - description: GPIO interrupt, TINT22
+-      - description: GPIO interrupt, TINT23
+-      - description: GPIO interrupt, TINT24
+-      - description: GPIO interrupt, TINT25
+-      - description: GPIO interrupt, TINT26
+-      - description: GPIO interrupt, TINT27
+-      - description: GPIO interrupt, TINT28
+-      - description: GPIO interrupt, TINT29
+-      - description: GPIO interrupt, TINT30
+-      - description: GPIO interrupt, TINT31
+-      - description: Bus error interrupt
+-      - description: ECCRAM0 or combined ECCRAM0/1 1bit error interrupt
+-      - description: ECCRAM0 or combined ECCRAM0/1 2bit error interrupt
+-      - description: ECCRAM0 or combined ECCRAM0/1 error overflow interrupt
+-      - description: ECCRAM1 1bit error interrupt
+-      - description: ECCRAM1 2bit error interrupt
+-      - description: ECCRAM1 error overflow interrupt
++    maxItems: 48
  
    interrupt-names:
      minItems: 45
--    maxItems: 48
-+    maxItems: 61
++    maxItems: 48
      items:
-       oneOf:
-         - description: NMI interrupt
-           const: nmi
-         - description: External IRQ interrupt
--          pattern: '^irq([0-7])$'
-+          pattern: '^irq([0-9]|1[0-5])$'
-         - description: GPIO interrupt
-           pattern: '^tint([0-9]|1[0-9]|2[0-9]|3[0-1])$'
-         - description: Bus error interrupt
-@@ -75,6 +77,8 @@ properties:
-           const: ec7tie2-1
-         - description: ECCRAM1 error overflow interrupt
-           const: ec7tiovf-1
-+        - description: Integrated GPT Error interrupt
-+          pattern: '^ovfunf([0-7])$'
+-      - const: nmi
+-      - const: irq0
+-      - const: irq1
+-      - const: irq2
+-      - const: irq3
+-      - const: irq4
+-      - const: irq5
+-      - const: irq6
+-      - const: irq7
+-      - const: tint0
+-      - const: tint1
+-      - const: tint2
+-      - const: tint3
+-      - const: tint4
+-      - const: tint5
+-      - const: tint6
+-      - const: tint7
+-      - const: tint8
+-      - const: tint9
+-      - const: tint10
+-      - const: tint11
+-      - const: tint12
+-      - const: tint13
+-      - const: tint14
+-      - const: tint15
+-      - const: tint16
+-      - const: tint17
+-      - const: tint18
+-      - const: tint19
+-      - const: tint20
+-      - const: tint21
+-      - const: tint22
+-      - const: tint23
+-      - const: tint24
+-      - const: tint25
+-      - const: tint26
+-      - const: tint27
+-      - const: tint28
+-      - const: tint29
+-      - const: tint30
+-      - const: tint31
+-      - const: bus-err
+-      - const: ec7tie1-0
+-      - const: ec7tie2-0
+-      - const: ec7tiovf-0
+-      - const: ec7tie1-1
+-      - const: ec7tie2-1
+-      - const: ec7tiovf-1
++      oneOf:
++        - description: NMI interrupt
++          const: nmi
++        - description: External IRQ interrupt
++          pattern: '^irq([0-7])$'
++        - description: GPIO interrupt
++          pattern: '^tint([0-9]|1[0-9]|2[0-9]|3[0-1])$'
++        - description: Bus error interrupt
++          const: bus-err
++        - description: ECCRAM0 or combined ECCRAM0/1 1bit error interrupt
++          const: ec7tie1-0
++        - description: ECCRAM0 or combined ECCRAM0/1 2bit error interrupt
++          const: ec7tie2-0
++        - description: ECCRAM0 or combined ECCRAM0/1 error overflow interrupt
++          const: ec7tiovf-0
++        - description: ECCRAM1 1bit error interrupt
++          const: ec7tie1-1
++        - description: ECCRAM1 2bit error interrupt
++          const: ec7tie2-1
++        - description: ECCRAM1 error overflow interrupt
++          const: ec7tiovf-1
  
    clocks:
      maxItems: 2
-@@ -106,6 +110,24 @@ required:
- allOf:
-   - $ref: /schemas/interrupt-controller.yaml#
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - renesas,r9a07g043f-irqc
-+              - renesas,r9a07g043u-irqc
-+              - renesas,r9a07g044-irqc
-+              - renesas,r9a07g054-irqc
-+    then:
-+      properties:
-+        interrupts:
-+          minItems: 48
-+          maxItems: 48
-+        interrupt-names:
-+          minItems: 48
-+          maxItems: 48
-+
-   - if:
-       properties:
-         compatible:
-@@ -118,12 +140,19 @@ allOf:
-           maxItems: 45
-         interrupt-names:
-           maxItems: 45
--    else:
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - renesas,r9a08g046-irqc
-+    then:
-       properties:
-         interrupts:
--          minItems: 48
-+          minItems: 61
-         interrupt-names:
--          minItems: 48
-+          minItems: 61
- 
- unevaluatedProperties: false
- 
 -- 
 2.43.0
 
