@@ -1,99 +1,157 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from ixit.cz (ixit.cz [185.100.197.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CB03FB7E0;
-	Wed, 25 Mar 2026 17:38:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2299E3CC9F8;
+	Wed, 25 Mar 2026 17:39:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774460304; cv=none; b=WzUhkHogEyfcTu23r9sMLNUOLQ6owgPz0ESNItfmCLUu3+VvEVUeGmj/tUv9ofIga9Vt5l4dpYfmtvUzqnbj0AnyBd0VZs+M4xeQPaHWwzGK0w+ec5uDO+SMLEA8gmYw+e/SE/9RQLGwVVqvl/SIzbLbAuESY5J3SQ5RgzbRb6o=
+	t=1774460381; cv=none; b=jqqA43up+RhUJN4RK+Y4uR2eUm3vESg0X60Ig3UDDjpPndDXni58WtDfvnmjGDb3xlEvuzqB+B71RNvpELI1jriE+3CGlQP0/EAo28gCzvSsf2EHjB1iaPLR/T7Uivs5p3IiqmqX8FAnJdVz/NwGNu4WZpyNCXNMbvK/RWeS5q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774460304; c=relaxed/simple;
-	bh=tTM6qpl5dmfbHIRbO8CS8UflwO2BMvQhMGPDek8bavg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PDBlzMRqWdbvykrrZm/j5U4cEHytis3F/8Cl+kH39pAEpsX2FTTQ8EY0BWN57z0sDoVhQmqwkrHli9AW0fctgQwVAhhuoXX+1YZbElWA34w3EwzLexGp0QSWqIf2hh8RTrDsn5ALrBYH5/fF7G6N5W0ehs3vb3Shn4jUdBj5+UU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NPJ7DfLy; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1774460381; c=relaxed/simple;
+	bh=U1CClbbYMV3aDRX/EeYBmhygOq7XX1V8RT7YNZEpQ0U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GDyW6jqBCG5P+EZgNLEJCMN6hVFFsgOppEMK44m+T5IA2rzMDmnu4d3UIdQKAX+jkqhiZuEZaQn6i7/OLU+YR24DiMN+valKcusHn3Dz9rusx8Xs48f4BiJ6oZ2Ddd1WF6OS4WJLtXk8DfG3r7Xr+8Mad00B9FbVZ/hKL5iOO7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=Jv+70GcG; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NPJ7DfLy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774460302; x=1805996302;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=tTM6qpl5dmfbHIRbO8CS8UflwO2BMvQhMGPDek8bavg=;
-  b=NPJ7DfLyqjXoka9XhbqbSBmSQ77bu4NTy0DkiEj6lSoreTWVXLmxjFNP
-   5voLBGd5DNA6RC35B/5YYsGzLFWJbR9VgchP81V8z+xYGZDdpSKEfkpia
-   DLd6Y3h/uDfDIH/oaoZYvTUvqplsd1dCcKS3Qw4ny6X+GFHSFFMiH3eUq
-   iWrvD7MqFqHdmb0XmietrDE+2M8ORXfxn25cMFWKUYQ0SJS+H6sq3JV5t
-   7KR8Q8dipyZgJ/La4GRjCUyqTAd8FB7nzjYAASx4lKNtW7/v4mgOrNzoX
-   r/f+5X1Z4rekcq6Tb8/MpUOAeC/jBMfXrNEbRN9zCaZMyBWdBeXRRBdQ5
-   Q==;
-X-CSE-ConnectionGUID: ZkvZDmEMTRiwm3XwQDAbzQ==
-X-CSE-MsgGUID: gtS8rzu3SkWrprWbJoNQPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="75527086"
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="75527086"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 10:38:21 -0700
-X-CSE-ConnectionGUID: O2KGlQQqTJadrw+GoRloHw==
-X-CSE-MsgGUID: 3jjEfzDVTpCR49VsLPA4fA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="220347066"
-Received: from vpanait-mobl.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.245.187])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 10:38:17 -0700
-Date: Wed, 25 Mar 2026 18:38:10 +0100
-From: Mehdi Djait <mehdi.djait@linux.intel.com>
-To: michael.riesch@collabora.com
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Kever Yang <kever.yang@rock-chips.com>, 
-	Jagan Teki <jagan@amarulasolutions.com>, 
-	=?utf-8?B?0JrRg9C30L3QtdGG0L7QsiDQnNC40YXQsNC40Ls=?= <mai.kuznetsov.misha@gmail.com>, Charalampos Mitrodimas <charmitro@posteo.net>, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>, Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
-	Collabora Kernel Team <kernel@collabora.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/9] media: rockchip: rkcif: add support for rk3588
- vicap mipi capture
-Message-ID: <acQdGy39-3H_nyKL@mdjait-mobl>
-References: <20250430-rk3588-vicap-v3-0-e38e428868cc@collabora.com>
- <20250430-rk3588-vicap-v3-3-e38e428868cc@collabora.com>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="Jv+70GcG"
+Received: from [IPV6:2a02:f000:10bd:e301::1d7] (unknown [IPv6:2a02:f000:10bd:e301::1d7])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id D057653400DE;
+	Wed, 25 Mar 2026 18:39:33 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1774460374;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=WmUIEtW5+eXkmHyv6fj0xD4LEO3YM6Y6FsgaI2ESrFA=;
+	b=Jv+70GcGKOM3rOK39+5T7uC+XF5901O5ly5/cEBZINaw2aiAPIhzJuh0/pTOHV4dF22s8c
+	zSyM8y1LA9EeW90FiTvpUsY2Lw58PjmTMJewJXHucGl21qVPehrlDNTYU7T6xdFxYukOhE
+	u0UidhPpc2o38pzzwwROQQO4Iv2XKi4=
+Message-ID: <323d5570-ae3d-4083-bbc8-8ce2ef53a34c@ixit.cz>
+Date: Wed, 25 Mar 2026 18:39:32 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250430-rk3588-vicap-v3-3-e38e428868cc@collabora.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] ath10k: Introduce a device-tree quirk to skip host
+ cap QMI requests
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Paul Sajna <sajattack@postmarketos.org>, Amit Pundir
+ <amit.pundir@linaro.org>, linux-wireless@vger.kernel.org,
+ devicetree@vger.kernel.org, ath10k@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ phone-devel@vger.kernel.org
+References: <20260325-skip-host-cam-qmi-req-v3-0-b163cf7b3c81@ixit.cz>
+ <20260325-skip-host-cam-qmi-req-v3-2-b163cf7b3c81@ixit.cz>
+ <d6pv62kc5zyqite7krm65vbtlqnsc3v53rlrtilchyk5c7uad2@iu4yaw2ksr65>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <d6pv62kc5zyqite7krm65vbtlqnsc3v53rlrtilchyk5c7uad2@iu4yaw2ksr65>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Michael,
-
-Thank you for the patch!
-
-On Wed, Mar 25, 2026 at 12:51:08PM +0100, Michael Riesch via B4 Relay wrote:
-> From: Michael Riesch <michael.riesch@collabora.com>
+On 25/03/2026 18:15, Dmitry Baryshkov wrote:
+> On Wed, Mar 25, 2026 at 05:41:13PM +0100, David Heidelberg via B4 Relay wrote:
+>> From: Amit Pundir <amit.pundir@linaro.org>
+>>
+>> There are firmware versions which do not support host capability QMI
+>> request. We suspect either the host cap is not implemented or there may
+>> be firmware specific issues, but apparently there seem to be a generation
+>> of firmware that has this particular behavior.
 > 
-> The RK3588 Video Capture (VICAP) unit features a Digital Video Port
-> (DVP) and six MIPI CSI-2 capture interfaces. Add initial support
-> for this variant to the rkcif driver and enable the MIPI CSI-2
-> capture interfaces.
+> It needs to be explicit that this happens _before_ firmware-N.bin and
+> board-M.bin loading. As such, you can't add a quirk to the firmware.bin
+> (a standard way to handle firmware issues).
+
+Ok, let me send with updated desc :)
+
+> 
+>> For example, firmware build on Xiaomi Poco F1 (sdm845) phone:
+>> "QC_IMAGE_VERSION_STRING=WLAN.HL.2.0.c3-00257-QCAHLSWMTPLZ-1"
+>>
+>> If we do not skip the host cap QMI request on Poco F1, then we get a
+>> QMI_ERR_MALFORMED_MSG_V01 error message before loading the firmware in the
+>> ath10k_qmi_host_cap_send_sync(). This error message is not fatal to the
+>> firmware nor to the ath10k driver and we can still bring up the WiFi
+>> services successfully if we just ignore it.
+>>
+>> Hence introducing this device-tree quirk to skip host capability
+>> QMI request for the devices with firmware versions which do not support
+>> this feature.
+>>
+>> Suggested-by: Bjorn Andersson <andersson@kernel.org>
+>> Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
+> 
+> You are sending the patch, but it misses your SoB.
+
+Oh, sorry bout that.
+
+checkpatch.pl could spot this kind of an issue :P
+
+David>
+>> ---
+>>   drivers/net/wireless/ath/ath10k/qmi.c  | 13 ++++++++++---
+>>   drivers/net/wireless/ath/ath10k/snoc.c |  3 +++
+>>   drivers/net/wireless/ath/ath10k/snoc.h |  1 +
+>>   3 files changed, 14 insertions(+), 3 deletions(-)
 > 
 
-Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+-- 
+David Heidelberg
 
-> Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
-> ---
->  .../platform/rockchip/rkcif/rkcif-capture-mipi.c   | 141 +++++++++++++++++++++
->  .../platform/rockchip/rkcif/rkcif-capture-mipi.h   |   1 +
->  .../media/platform/rockchip/rkcif/rkcif-common.h   |   2 +-
->  drivers/media/platform/rockchip/rkcif/rkcif-dev.c  |  18 +++
->  4 files changed, 161 insertions(+), 1 deletion(-)
-
---
-Kind Regards
-Mehdi Djait
