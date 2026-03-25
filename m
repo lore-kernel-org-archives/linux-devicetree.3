@@ -1,227 +1,206 @@
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023096.outbound.protection.outlook.com [40.107.44.96])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 721F52DCC05
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 08:09:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5294E366069;
+	Wed, 25 Mar 2026 08:11:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.96
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774426142; cv=pass; b=ownX6QmWPEBNRuVG47gz9A3It9Fvqwl73w7191hzcgPTIk11paEYxl3AAESNW1HYIPdSXlvvteEaiqbm1YC2xYZzNJRuMhG2CLlrwhKx/eBkOw1oj6HNUQVoL5LcW6IlVGKRGFrABfO36GIWv3lMOsWrXeXUViN/rpOmUbTyFX8=
+	t=1774426322; cv=fail; b=VCk1K2puQUKRKO+tEUDH5ezQ5ZXV7JZd93oDSbhEtzkvrU/lEagwlWslMNV3qD4jR9nZlB9yB+kriuth5Jbxj2E2fdc3ow2rADis7vq4hM6BvKCyueXHpAmKmPvPW7+9kaKFUj1W3fY/x5Ewj6Nh7AfEAf7YLDmP44l19CRrP2U=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774426142; c=relaxed/simple;
-	bh=zB4lNaKYpQ2RZphP1kN53sQ22q6B+2T4menfF8kikEA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ps4y5E1BC7Jmk8CHNlkTYtn3u9lKl/9FYVkRpkS/uEVoEu5UAM6cEgJOA9VEmZ/sti5LymRNWEZ6OY+udRVfM+TqMKjmm2XEwQ20ToXJ9CVz4ANer7tAivT2qeegXARf2ejxoYe2vsjVYgvMwg2BWWAfbz9Za9Ik2Bq9l3jaln0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=XatOiTM+; arc=pass smtp.client-ip=209.85.167.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1774426322; c=relaxed/simple;
+	bh=/yDs/FdQq/1BW4PEAFwjO7/Rkk0PYccQhccYTeqMUAY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Rkh9+yODRKCoZdi4QAdZRXMYY9O0YDe+0BltkBdNKPGUdsRiCXjkNGm7IzPxigJnDPDgbagFBpmepLTQ2j8zouVQlYTu+/cyxqKxHsnLTXFX7+henaRZcttn/UM47QhMjAS2iiOuePtRxnfFxkF8a9pdXCsJva6Wh9EELnvDryA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=b2567ZVR; arc=fail smtp.client-ip=40.107.44.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="XatOiTM+"
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5a159c1e65aso4155460e87.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 01:09:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774426139; cv=none;
-        d=google.com; s=arc-20240605;
-        b=D651h0oHpmq4+/rgsY0XI6CDnXK90/sNtQ12tKnpa3N4HSxFWx7g7nFc2070V7ompj
-         e3jqNLNLWWb8O6KLJMSVRFDP26rcSzyxiuQqMcQ/nQo5x5KI8d3y5wC49fOCiRUJkx0C
-         iNdS60ytsMhg0nZddF9b5ZoPwpoiUd8HqQLqYYEy6DvMsuMKUBDw8s7gnE2q//GhXbkE
-         QNylV4SzYs3RGHTHPxAXSzLJRXTcXX2NzCOJ2zfBGTcLSu9jRVduLKjhp42G3vTVm/eG
-         s3+J4r5Mz83HxQ1qVcJ/eOLUN25uYdndmGwdJZMOulgbQpsh4FWW2jiLk/NI++ycD3SZ
-         1HYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=g0KgYtYkqUP59BqGGG61EV18AeUer+TehEbvZYdIpWI=;
-        fh=RUmEAXLc8ukXMjjy7V8NiSPOkfxKBLZxmxhSt3r1sAM=;
-        b=Ypm3fN8ZGWDAUUwkPIlIssUz8euX3pfngqHNs2a63vxdpV5edWL18ViW4oB24Jb0Y3
-         NDFkIRAXeTi3R/BR8qFVcu+obJPuM7s96jsezy09AB9Xm6PFCGS8Joy0STEmMtFYzrYZ
-         +/9ZjfNHCDTa6MvxYQMyxwS7ZspcbX6SC4GLIB5AeULSxYbjW8SoMGtTAvWfRS019LGS
-         nMm2sHpYFgsMBFP3kitvHtYgMRamKWmggqkyc6jTLmV79WdvXBVB0orLihORKXrRJRX3
-         1rGjqGKS5fZe42rONk4ZX0ky6ZeDr1xW8iJUH1gpwdRsUU291SWFFQYci2cL8yXYF4K1
-         J+Qg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1774426139; x=1775030939; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=g0KgYtYkqUP59BqGGG61EV18AeUer+TehEbvZYdIpWI=;
-        b=XatOiTM+zP4FCzdlvRTFgXX1QQV6DFUKf3are/qS0kueMARdfmtmlYQQUI30FBx1xL
-         6stmF13+g/cxZlbjORLQsgOg32ta8VwDNkZoQu1CvfXUgvnlQyv3dm1kWDGknMiACXJ5
-         F090bk698qw3YVDb8gz66Gdg25+zVlYbhVeA8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774426139; x=1775030939;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=g0KgYtYkqUP59BqGGG61EV18AeUer+TehEbvZYdIpWI=;
-        b=csf3k+Ik1EN69jf7+l33cDm6gKmPZWnsuNqDLKHHfIF6UGPD4S1nNeH7P9ydUzc8tl
-         UzVMCuzD1HBDeb+HV1EbkMQ7YOORXwTlcrVIjhAhlINublV9321GQHydyp4B1FqGxpav
-         O2Ok8PKA8bveczBc7lQb17kUQG8ptoK67YjRF+qYrmv6ERIwD7YT1ZW3dWcKmU3S03BH
-         tsBOZG53v4bq4oeKC6+ys4I31Xx8zWVkdK+yCZF43QKnVj24fAoqnZMrpoRV9Om0gEoZ
-         AUfpn6PmE+dnJ+3cDdTtWpmygLBVGF6tzu+KdPEvKo2hUHFCwlrNeL/A8PfvsFP+mdeL
-         1+nw==
-X-Forwarded-Encrypted: i=1; AJvYcCUl73Hij3iEKhSbUFmzk8XJVplMCIX/NQy/tcvPgI1etphyQLUvf1bhcw6YEyGZ/E41FDGXBMQ1Ta8g@vger.kernel.org
-X-Gm-Message-State: AOJu0YzcmFXa3voox3JuCfUC4EZA019D6wJwOtu0qhgFXEkX6ZeH6hPr
-	w8ZjiFp66f7XEZgAKU3cgpZWdNdGxQ4Xypjpj8O4CxmJC0NRF9GDQ3PmHggAhURTkRZq2bdwdxF
-	ZF8+A2LtVIzmU37nQpo5Cr3MSGeJ50LxX+2XzrRy5
-X-Gm-Gg: ATEYQzxBqLSQJVMDigcZWP1/eyR5UTnQrqM/RJWHUGiXGoaEIJ8qqM4rCi3v3kDLbLs
-	tojpJpJHD43D6AFs9beccz60xorp3QAvYd/DPaJpkJTIGiHHdcQEuh4u3OHWPGXZlq++FV66Lp5
-	v/syl6AtM/ckT6mxCvLyoEjZmWmpRLIPQDt0C9pTEFYX8CMbK0+O1Cy/sBTNs50E6WNIDF3qHie
-	tJ+NX87PJvKd0llGR4fUZJmwGllcw6XrlY+cx44DSV9pZ+CcdAp0b1XFkS6b/jrhHOSQIoQm9n4
-	ij5kF35teRrLh7v4ynYDNS/mp4C9qYsYicR8
-X-Received: by 2002:a05:6512:2206:b0:5a2:7ddd:ec16 with SMTP id
- 2adb3069b0e04-5a29b99baa7mr981433e87.40.1774426138566; Wed, 25 Mar 2026
- 01:08:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="b2567ZVR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zUqMnzK1HoDPZPsUFRNRrb2gVeK3N5AScx1BruijQQXyln9MDF9OQQp9ccxg+Mb7F+SOaRYrHsY9O3UuVeolA2pD/7E3PbxTJO4ys+3CfPbPKRQrX8ivkgPhEXzWRHTERR8hHNCMDXLqDNS9XFRK8CK1Wp1kKjVnRjX630mV41yJ8e9s+1UkDq0JZ3QoPA3E/RXeXmlCQ6uovSaII/sOTjghHfaI1FZNE41hSGJ2qdEbj25GY0Yfo4gVKgmrhUkzc0OBPunS/zWvCvYPkfdRk0E8QokKsDdL5AoruNVLKZoIhyFefOvkx649BUuDvs3SS7+p+nOOfry5cY63htqM6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/yDs/FdQq/1BW4PEAFwjO7/Rkk0PYccQhccYTeqMUAY=;
+ b=ioMHfJo8Hxduk/gIpc1q0+bdXG078Zl/930dQIIQuxQbAsKK7CVJCIFui9o7o5M6eqDhD7NoQt5Pk0xru6QjJvT6dphKRFBvSmQIc5h06UYVf3bYoFQT7OAMLpXUxzht8R+vjWCXNHteilTOhQlQHb0SRn20iN5B/WwOrw4oxgJi1dZc4RLdWCG2qAMGRma2x3ijm9pZBZdkgCEMPRpph3zSfko/j8rKF2VujtZcyY0m1Wu5hEUbQONDcyRxJk235Jf1JfUPlizgnXZpA+6mCcKO71R1NpE83a0RpOIHxf2TkZTyxcew2Hk/AplSwf/WIEksEPuzdZYeP9XzS9EwEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/yDs/FdQq/1BW4PEAFwjO7/Rkk0PYccQhccYTeqMUAY=;
+ b=b2567ZVRd6IfVOccvuC+LLFp6y/sbmrRdl8zyFD1Vq21TrcRJ18rKUIUcfEyXME5ZE5ijH5Yyv7QHyUJu2pF8Mg02Sx6uxcsN7GgNyzzQPas5C7H5GRKtiPY+LIkQUNHnVsxKr+cGMyyb49FQv2ut7JgtB3azRlvJ/4gDWwq4OibuEAYPiju/2kbagvny8EqaUgwXNHUyBHHFQI3T2QjWr+IJ8oxPy46lBS17+EIc+ZbfkEqJwqzgOXujjAa0og1giaDh1mj7eHnQhWYvwTgsjP7D1j4R/88Z2p0IWzJRW9z4iZ5mJLntT0cIEtxiPdeoC5B4KtBqyHaOQBBkE1ieQ==
+Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com (2603:1096:408::791)
+ by SEYPR06MB5492.apcprd06.prod.outlook.com (2603:1096:101:b4::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
+ 2026 08:11:54 +0000
+Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+ ([fe80::8c70:cb01:78fb:d9c0]) by TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+ ([fe80::8c70:cb01:78fb:d9c0%6]) with mapi id 15.20.9723.018; Wed, 25 Mar 2026
+ 08:11:54 +0000
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+To: Jeremy Kerr <jk@codeconstruct.com.au>, "andriy.shevchenko@linux.intel.com"
+	<andriy.shevchenko@linux.intel.com>, Andi Shyti <andi.shyti@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, Andrew Jeffery
+	<andrew@codeconstruct.com.au>, Benjamin Herrenschmidt
+	<benh@kernel.crashing.org>, Rayn Chen <rayn_chen@aspeedtech.com>, Philipp
+ Zabel <p.zabel@pengutronix.de>
+CC: "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
+	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "openbmc@lists.ozlabs.org"
+	<openbmc@lists.ozlabs.org>
+Subject: RE: [PATCH v27 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add
+ global-regs and transfer-mode properties
+Thread-Topic: [PATCH v27 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add
+ global-regs and transfer-mode properties
+Thread-Index: AQHcuzs4qjzU97MMJUicgXu5EEZ27bW9AWUAgAHaG5A=
+Date: Wed, 25 Mar 2026 08:11:54 +0000
+Message-ID:
+ <TY2PPF5CB9A1BE6F0B9087048F46ABD72A6F249A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+References: <20260324-upstream_i2c-v27-0-f19b511c8c28@aspeedtech.com>
+	 <20260324-upstream_i2c-v27-2-f19b511c8c28@aspeedtech.com>
+ <405f6b1b4081ffb379a21bcdb5d2a8e81d2e2e3e.camel@codeconstruct.com.au>
+In-Reply-To:
+ <405f6b1b4081ffb379a21bcdb5d2a8e81d2e2e3e.camel@codeconstruct.com.au>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY2PPF5CB9A1BE6:EE_|SEYPR06MB5492:EE_
+x-ms-office365-filtering-correlation-id: 17135cc2-8e57-42b8-2370-08de8a462d0d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|1800799024|366016|921020|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info:
+ N7dpt4al5xnd8ZxOh2bZaFM1l2pU9Bx4UBrttsWjOaY4oFKbJi7iCjOgxhKtTGuwYKDzBN3dFTWjkhYqT3wOaANgijj7Sy9558wQOSJjRNxYPiUTjHPbrg3F4Z3WtnEzSsnosfqnNiCO/epmg1//jnN6grtDWj6elOQTP8bd0z5v5IwSL0HfFRPmFMuqPSnNQ83MygwqL540WPZ0bBRMbEIjI40JpPkljCyt8aopRQVkX1QQiuwR4CL/78qFJ+foZE0D7Gl/dbXQh0ll9f4l3H4AzYx7Uz1+qa3G5ThWZB48T3GFGmYUJUY8R3XP2pXeuj9BOAgBr4ytWD76lCeV9MzD5FGn/V1Kb3V4Bb+W1z9zveH4rknqy0aGydhdsvbP5Kg4l47MvxBPRtYJNp/exqNXEx82D5/yHTgRJuBHLOHpnlUfTmJ4to6vwfrtRXF0lyK0ptsIf7h5Hr8U9L4gA3AlvtEIP911GuH6bV+o7PnZTVZcwXNHOqT/ATXltqKZ5NNT+Jt8G4fl1ANmVAg7h5xQ7IKzXNVDuyGLeYO85UO2+RnVqQSqqEQVRCglQ19xt1S77yZlnXkwO4yORDWAbPUJgOhsyAkzojFVZepVs+iQQluDv0kDXNCxieQ/qJ0GfiVRbFiN5jdcxQZGPfbGp1TYE7sJahjvjUeBQBdpNoA4D/aArhiFJ8bm5i+byfIIa019E529icWFUn6ISkkB89joz9wkhrfUHIQQ0MlYzd906l5Uvli3AD6OJc6XtFgWcCCx0pp0w6NlkK2Ujh/jhUdMx82RwTjEX5QHl016Ht0a2JZryf6Bu8vN+pa05rcq
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(921020)(38070700021)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?S2p5bnVCbDRBaVVaZGlSY0hmOVh3ajZydVVJbHVrL1NFMENlUDRIV2p6VVA3?=
+ =?utf-8?B?Q0JpaEFJNFhWSUp1WUVCYVdaT0FpWmloQU85c0pRbGpySUVxdHFXYnZYcUJM?=
+ =?utf-8?B?VEV6akdYVUxEYXErWGZyaGhsbDEwZndCaDB1K3VTcUt3VzBsUUFoYVphL1ZQ?=
+ =?utf-8?B?WTNhZlY3cTMwOWFReDN4amFPTzFrWDFCTk51bzVCeFI4d2ZTdVNvOWpNd05q?=
+ =?utf-8?B?d1dBT3dHWmZMcjhNNFBONy9EaVBka05sR2dORnVPUWp3eVBRa0I4TGgwQW1X?=
+ =?utf-8?B?MG5kdEUwVUh6ZmwyU3VFSzBIdkh0R3lYaXlKMDl3MndqcUUyWExjc21zdUVM?=
+ =?utf-8?B?ZHpYOCtMUFpyelgvTzFpNVhXRkMrMmtQK0J3bDMwMVEzTS8rNk1YbnRNZHhJ?=
+ =?utf-8?B?R1FxUTdCektaMkMxVzFzeGQ4c3VvcTR3K2VadDBEN0h4NURTTmE3ODZKeEFy?=
+ =?utf-8?B?ditDb1FOTEd3bDZQOERVR2hMdHdHZjllblRycmFjdjNpTjdpMVpaVFhzbzNq?=
+ =?utf-8?B?aG1FY0MyRzAvVEtmN1U0enFMd1kyczkxdm1iSjlvUlhaeUtCVGkrVWJRYm5F?=
+ =?utf-8?B?U2tsdzZhSndhSHA0SjROSWRHL2RuQXQwa28vTmVnUy8yckN4OEwzSVhBOWE2?=
+ =?utf-8?B?Z3NXaDRYYnN1WE16UkE3M1BTelN2MlVuZ0YvWkRXaS83dUo2eHVvOWJLNUdP?=
+ =?utf-8?B?VEFqeHZrWFEzMXBoWUgveVF2OC9aRUtlVjlLcE8xRk90VXlrN1ZiU0JmYWdh?=
+ =?utf-8?B?NU5ERU1ySHFxNG15T2VURTZLdDZXa2lOdnhFVStvblVSNDRpcGlHaSt0ajlx?=
+ =?utf-8?B?MU5vanM4TkI0TzZCbUNKdkp3b0N6TUZrOFhadDRVMGZvTXk2b2I1d2JFS2tn?=
+ =?utf-8?B?aW1KRGFCR1dtazZvL1dub0VYbWxlYnREWmhnQTZrbHpZQkgycnVRczJkTjdq?=
+ =?utf-8?B?anpEUXJhV3dKelJPMnZHSGZDZTljcXdmelVhKy9OUjNkaEdXaUhpNGVEakdW?=
+ =?utf-8?B?b2YrWTdLWWFQczd4TGxNSjhtSjZJVXBYRlJzS1hDOVVZV2VxM0pCY3ZFbDVi?=
+ =?utf-8?B?b2EvU3ZhSzYxb1RncjF4OWpQM1FsdWxITDRuZ3k5N3U5WUZoNWlQVWJuNUp2?=
+ =?utf-8?B?T0JMTmpWdDhEK0hyampMVlI0VTN2eHA2cnd3emljTi83cnAxd25TRDd1R2dL?=
+ =?utf-8?B?OGJhU3ZRbHNweXBIMW5TWHcyMXpSaDFOTFlTQ203OXdkWkJSR2labVJ3K3dG?=
+ =?utf-8?B?VDVObzJlZExveU9xalg1ZWVVVit5VVppc1A5YzNwM0p2ZjZ5YTZ5dnlKNnVv?=
+ =?utf-8?B?aFVvd2tuT3ltRXYvVEpJK1RwL2hRUTZXc0FJQU5TUHUxSjdyQjROMmFKc2o5?=
+ =?utf-8?B?MFdlaFBBZ3dPS21xTnROU1htaDRXL2ZuVmE1VllNeEFEaDVuL1NPOTFuQTRn?=
+ =?utf-8?B?eFlJYlI3RnZqRnNMZGEzWEZRS0VCU1hnV1BXbm9ReVdOSWY1SUZRVk9lYVhz?=
+ =?utf-8?B?Ti8xNFQ3YnRRZHp0WjZyaFZRMGVyOHdRTHZNRkJWcWJmV1JPQzRUcWtVT3pj?=
+ =?utf-8?B?cGl1SDk2V1pwL3VVeDVGYjd6bmRnUW9YUVVXR2FHS292Wnh6TkpKUVhZVFpl?=
+ =?utf-8?B?aHRqTVVlM1lKVGtTZHpoSG5UMEh1V2M5aWlHa28xMEp6SUE5S1JPUG5lVHEz?=
+ =?utf-8?B?KytOcG41M0s3bWZ1R3Z6dFowbzNOUThaYVYyeGx0QytKQ0UyMWJFcmswT1pM?=
+ =?utf-8?B?Y2N3dnRHckpCQXMxK1ZtWEhDMloyMXFOSWQ5L0x0eDAvQ1NodlBzVDJxRzFh?=
+ =?utf-8?B?MU9EWk1PVG1jcUpFY0lMRVIxRWxmUGl4c0wxbndCQTNlNXJFTHNBRjVNOFZh?=
+ =?utf-8?B?NEVRdU4vZ2MwZnYyMzY5b3lQL1FJWmwzVWx3RlZobnlaZEJrVVpsbDFFMkxC?=
+ =?utf-8?B?OE9jL3ZqK3dkdi9IQmlZK3dvL01IZ0RrQmhibGpUL2pSQ2RmTnNsWTQ1UmRk?=
+ =?utf-8?B?dTFwRkthVkxINldYcFRXemhRT0xzK3k5cHJ5Vi9idGYzcG5uUVl0RDA4UEkr?=
+ =?utf-8?B?MDczaFdnMFdoZEczSXJpWWZkb3QvdnFIVk8yUEpFVEhMbVQya1hBbnZwTklh?=
+ =?utf-8?B?WTNYMVUzcEsvdVFXTXVpQkpQTVlaUldJQkpkU2lTWVcxZFZNQ09UQlQ0Z2Zu?=
+ =?utf-8?B?Z1YwblZkYkhYSEgzKzNyWG8vc09ZYlpvWXpKeDlCdTh1L0lPNkplcmJlL0ZR?=
+ =?utf-8?B?dGtYOVpoMVQxZlg0cnFpS203aGRJNnZyVHRybHoyRWFXYUQ1NHZOQk5FcWRz?=
+ =?utf-8?B?UHdYTnlhT3FpWU1QeUltR3VKam9BcUQzRTBKS2pWUFpVTVBoRVAwQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260325071951.544031-1-wenst@chromium.org> <93c1d325461cc0ffad890d64870de680506338c4.camel@icenowy.me>
-In-Reply-To: <93c1d325461cc0ffad890d64870de680506338c4.camel@icenowy.me>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 25 Mar 2026 16:08:47 +0800
-X-Gm-Features: AQROBzAcEDSwfaWS447vAKoAeNwXBwZATTBP1wT6QXTz02f-QcFivNXEvPY79i4
-Message-ID: <CAGXv+5FL2rs35V4F0bwq-a4ccvFaWKcr1cuKxT6sfTj9h+d6iA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/5] powervr: MT8173 GPU support
-To: Icenowy Zheng <uwu@icenowy.me>
-Cc: Stephen Boyd <sboyd@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17135cc2-8e57-42b8-2370-08de8a462d0d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2026 08:11:54.1285
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +7kWORLoyDn7MuFU8bUIGyLuloaG0LeutTP5KXQJOUxtKvnWSVjMYPsyrNu4hg63qOzqljbIw3ymm31vQHTYjuNQ4lNA4j8vF/HnDJsnh5s=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB5492
 
-On Wed, Mar 25, 2026 at 4:04=E2=80=AFPM Icenowy Zheng <uwu@icenowy.me> wrot=
-e:
->
-> =E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 15:19 +0800=EF=BC=8CChen-Yu Tsai=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > Hi everyone,
-> >
-> > This is v2 of my MT8173 PowerVR GPU support series.
-> >
-> > Changes since v1:
-> > - Adapted to changed DT bindings
-> > - Dropped driver change
-> > - Use same power domain for "a" and "b" GPU power domains
-> >
-> > This update was requested by Icenowy.
-> >
-> >
-> > This series enables the PowerVR GPU found in the MT8173 SoC, found in
-> > some Chromebooks.
-> >
-> > This version is different from the initial powervr driver submission
-> > [1]
-> > in that it splits out the GPU glue layer support out of the powervr
-> > driver and into a separate clock and power domain driver. The glue
-> > code
-> > is otherwise the same, and also the same as found in the ChromeOS
-> > kernels, with some extra comments and macro names added where
-> > possible.
-> >
-> > Patch 1 adds a binding for the glue layer, called mfgtop. The glue
-> > layer
-> > contains clock and power controls for the GPU.
-> >
-> > Patch 2 adds a driver for the glue layer.
-> >
-> > Patch 3 adds an entry for the MT8173 GPU and 6XT series to the
-> > PowerVR
-> > binding.
-> >
-> > Patch 4 adds an entry for the PowerVR 6XT series GPU to the driver.
-> >
-> > Patch 5 corrects the clock for the GPU (called MFG) power domain.
-> >
-> > Patch 6 adds device nodes for the GPU and glue layer to the MT8173
-> > dtsi
-> > file.
-> >
-> > Patch 2 and 6 depend on patch 1 to build. I suppose some common
-> > immutable tree would be needed from the MediaTek maintainers.
-> >
-> > The kernel driver successfully probes the hardware and loads the
-> > "rogue_4.40.2.51_v1.fw" firmware provided by Imagination Technologies
-> > [2].
-> > Userspace was tested with Mesa 24.0.8 from Debian Trixie rebuilt with
-> > the powervr vulkan driver enabled. `vulkaninfo` gives some
-> > information
-> > about the GPU (attached at the end), but running the `triangle`
-> > example
-> > from the Sascha Willems demos [3] with -DUSE_D2D_WSI=3DON as
-> > recommended [4]
-> > failed with:
-> >
-> >     Can't find a display and a display mode!
->
-> I think when using D2D the demos want width and height to be explicitly
-> specified, otherwise it seems to hardcode 1280x720.
->
-> If you're using an elm, could you try to add `-w 1920 -h 1080` or for
-> hana `-w 1366 -h 768` ?
-
-I only did the basic `vulkaninfo` test this time around. To do anything
-interesting probably requires the Mesa 26.1 release.
-
-    PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 \
-        vkmark --winsys kms -D b81f54f8568deb0fb70a6a1ed845b65d
-
-just reports "Error: Device specified by uuid is not available"
-
-This is with Mesa 26.0.2 packages from Debian testing. At least now
-have the powervr vulkan driver enabled by default, so I don't have
-to rebuild the packages again.
-
-
-ChenYu
-
-> Thanks
-> Icenowy
->
-> >
-> > Same program worked correctly on a BeaglePlay and displayed a color
-> > gradient triangle. Not sure what went wrong here.
-> >
-> > Anyway, please have a look and test.
-> >
-> >
-> > Thanks
-> > ChenYu
-> >
-> > [1]
-> > https://lore.kernel.org/dri-devel/20220815165156.118212-2-sarah.walker@=
-imgtec.com/
-> > [2]
-> > https://gitlab.freedesktop.org/imagination/linux-firmware/-/tree/powerv=
-r
-> > [3] https://github.com/SaschaWillems/Vulkan
-> > [4]
-> > https://lore.kernel.org/dri-devel/f2b2671e-5acc-4dec-9c2e-3c9cd2e1f19e@=
-imgtec.com/
-> >
-> > Chen-Yu Tsai (5):
-> >   dt-bindings: clock: mediatek: Add mt8173 mfgtop
-> >   clk: mediatek: Add mt8173-mfgtop driver
-> >   dt-bindings: gpu: powervr-rogue: Add MediaTek MT8173 GPU
-> >   arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain clock
-> >   arm64: dts: mediatek: mt8173: Add GPU device nodes
-> >
-> >  .../clock/mediatek,mt8173-mfgtop.yaml         |  70 +++++
-> >  .../bindings/gpu/img,powervr-rogue.yaml       |   1 +
-> >  arch/arm64/boot/dts/mediatek/mt8173.dtsi      |  33 ++-
-> >  drivers/clk/mediatek/Kconfig                  |   9 +
-> >  drivers/clk/mediatek/Makefile                 |   1 +
-> >  drivers/clk/mediatek/clk-mt8173-mfgtop.c      | 243
-> > ++++++++++++++++++
-> >  include/dt-bindings/clock/mt8173-clk.h        |   7 +
-> >  7 files changed, 363 insertions(+), 1 deletion(-)
-> >  create mode 100644
-> > Documentation/devicetree/bindings/clock/mediatek,mt8173-mfgtop.yaml
-> >  create mode 100644 drivers/clk/mediatek/clk-mt8173-mfgtop.c
+SGVsbG8gSmVyZW15LA0KCVRoYW5rcyB0aGUgcmV2aWV3Lg0KDQo+IFN1YmplY3Q6IFJlOiBbUEFU
+Q0ggdjI3IDIvNF0gZHQtYmluZGluZ3M6IGkyYzogYXN0MjYwMC1pMmMueWFtbDogQWRkIGdsb2Jh
+bC1yZWdzDQo+IGFuZCB0cmFuc2Zlci1tb2RlIHByb3BlcnRpZXMNCj4gDQo+IEhpIFJ5YW4sDQo+
+IA0KPiA+IFRoZSBBU1QyNjAwIEkyQyBjb250cm9sbGVyIHN1cHBvcnRzIHRocmVlIHRyYW5zZmVy
+IG1vZGVzIChieXRlLA0KPiA+IGJ1ZmZlciwgRE1BKS4gQWRkICJhc3BlZWQsdHJhbnNmZXItbW9k
+ZSIgc28gRFQgY2FuIHNlbGVjdCB0aGUNCj4gPiBwcmVmZXJyZWQgdHJhbnNmZXIgbWV0aG9kIHBl
+ciBjb250cm9sbGVyIGluc3RhbmNlLg0KPiANCj4gVGhpcyBwYXRjaCBkb2VzIG5vdCBhZGQgYW4g
+YXNwZWVkLHRyYW5zZmVyLW1vZGUgcHJvcGVydHkuDQpXaWxsIHVwZGF0ZSB1c2UgYXNwZWVkLGVu
+YWJsZS1kbWENCj4gDQo+ID4gQWxzbyBhZGQgdGhlICJhc3BlZWQsZ2xvYmFsLXJlZ3MiDQo+ID4g
+cGhhbmRsZSB0byByZWZlcmVuY2UgdGhlIEFTVDI2MDAgZ2xvYmFsIHJlZ2lzdGVycyBzeXNjb24v
+cmVnbWFwIHVzZWQNCj4gPiBieSB0aGUgY29udHJvbGxlci4NCj4gPg0KPiA+IFRoZXNlIHByb3Bl
+cnRpZXMgYXBwbHkgb25seSB0byB0aGUgQVNUMjYwMCBiaW5kaW5nIGFuZCBhcmUgbm90IHBhcnQg
+b2YNCj4gPiB0aGUgbGVnYWN5IGJpbmRpbmcsIHdoaWNoIHVzZXMgYSBtaXhlZCBjb250cm9sbGVy
+L3RhcmdldCByZWdpc3Rlcg0KPiA+IGxheW91dCBhbmQgZG9lcyBub3QgaGF2ZSB0aGUgc3BsaXQg
+cmVnaXN0ZXIgYmxvY2tzIG9yIHRoZXNlIG5ldw0KPiA+IGNvbmZpZ3VyYXRpb24gcmVnaXN0ZXJz
+LiBMZWdhY3kgRFRzIHJlbWFpbiB1bmNoYW5nZWQuDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBS
+eWFuIENoZW4gPHJ5YW5fY2hlbkBhc3BlZWR0ZWNoLmNvbT4NCj4gPiAtLS0NCj4gPiBDaGFuZ2Vz
+IGluIHYyNzoNCj4gPiAtIGNoYW5nZSBhc3BlZWQsdHJhbnNmZXItbW9kZSB0byBhc3BlZWQsZW5h
+YmxlLWRtYS4NCj4gDQo+IFdoYXQgYWJvdXQgYWxsIHRoZSBwcmV2aW91cyBjaGFuZ2VzPw0KV2ls
+bCB1cGRhdGUNClJlbW92ZSBhc3BlZWQsdHJhbnNmZXItbW9kZSBpbnN0ZWFkIGFzcGVlZCxlbmFi
+bGUtZG1hDQo+IA0KPiA+IC0tLQ0KPiA+IMKgLi4uL2RldmljZXRyZWUvYmluZGluZ3MvaTJjL2Fz
+cGVlZCxhc3QyNjAwLWkyYy55YW1swqDCoMKgwqAgfCAxNw0KPiA+ICsrKysrKysrKysrKysrKysr
+DQo+ID4gwqAxIGZpbGUgY2hhbmdlZCwgMTcgaW5zZXJ0aW9ucygrKQ0KPiA+DQo+ID4gZGlmZiAt
+LWdpdA0KPiA+IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2kyYy9hc3BlZWQs
+YXN0MjYwMC1pMmMueWFtbA0KPiA+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdz
+L2kyYy9hc3BlZWQsYXN0MjYwMC1pMmMueWFtbA0KPiA+IGluZGV4IGRlMmMzNTkwMzdkYS4uMzhk
+YTZmYzY0MjRmIDEwMDY0NA0KPiA+IC0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
+aW5ncy9pMmMvYXNwZWVkLGFzdDI2MDAtaTJjLnlhbWwNCj4gPiArKysgYi9Eb2N1bWVudGF0aW9u
+L2RldmljZXRyZWUvYmluZGluZ3MvaTJjL2FzcGVlZCxhc3QyNjAwLWkyYy55YW1sDQo+ID4gQEAg
+LTM3LDYgKzM3LDIxIEBAIHByb3BlcnRpZXM6DQo+ID4gwqDCoCByZXNldHM6DQo+ID4gwqDCoMKg
+wqAgbWF4SXRlbXM6IDENCj4gPg0KPiA+ICvCoCBhc3BlZWQsZW5hYmxlLWRtYToNCj4gPiArwqDC
+oMKgIHR5cGU6IGJvb2xlYW4NCj4gPiArwqDCoMKgIGRlc2NyaXB0aW9uOiB8DQo+ID4gK8KgwqDC
+oMKgwqAgSTJDIGJ1cyBlbmFibGUgZG1hIG1vZGUgdHJhbnNmZXIuDQo+ID4gKw0KPiA+ICvCoMKg
+wqDCoMKgIEFTUEVFRCBhc3QyNjAwIHBsYXRmb3JtIGVxdWlwcGVkIHdpdGggMTYgSTJDIGNvbnRy
+b2xsZXJzIHRoYXQNCj4gPiArc2hhcmUgYQ0KPiA+ICvCoMKgwqDCoMKgIHNpbmdsZSBETUEgZW5n
+aW5lLiBEVFMgZmlsZXMgY2FuIHNwZWNpZnkgdGhlIGRhdGEgdHJhbnNmZXIgbW9kZQ0KPiA+ICt0
+by9mcm9tDQo+ID4gK8KgwqDCoMKgwqAgdGhlIGRldmljZSwgZWl0aGVyIERNQSBvciBwcm9ncmFt
+bWVkIEkvTy4NCj4gDQo+IEFzIHdlIGhhZCBkaXNjdXNzZWQ6IHRoaXMgZG9lcyBub3QgZGVmaW5l
+IHRoZSB0cmFuc2ZlciBtb2RlLCBvbmx5IHdoZXRoZXINCj4gRE1BIGlzIGF2YWlsYWJsZSB0byB0
+aGUgcGVyaXBoZXJhbC4NCj4gDQo+IFdoeSBtZW50aW9uIHRoZSAxNiBpMmMgY29udHJvbGxlcnMg
+aGVyZT8NCj4gDQo+IFBsZWFzZSBrZWVwIHRoaXMgZGVzY3JpcHRpb24gc2ltcGxlIGFuZCByZWxl
+dmFudCB0byB0aGUgc3BlY2lmaWMgcHVycG9zZSBvZiB0aGUNCj4gcHJvcGVydHkuDQoNCldpbGwg
+dXBkYXRlIHdpdGggZm9sbG93aW5nLg0KZGVzY3JpcHRpb246IEVuYWJsZSBETUEgZm9yIHRyYW5z
+ZmVycyBvbiB0aGlzIEkyQyBidXMuDQo+IA0KPiA+ICsNCj4gPiArwqAgYXNwZWVkLGdsb2JhbC1y
+ZWdzOg0KPiA+ICvCoMKgwqAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMv
+cGhhbmRsZQ0KPiA+ICvCoMKgwqAgZGVzY3JpcHRpb246DQo+ID4gK8KgwqDCoMKgwqAgUGhhbmRs
+ZSByZWZlcmVuY2UgdG8gdGhlIGkyYyBnbG9iYWwgc3lzY29uIG5vZGUsIGNvbnRhaW5pbmcgdGhl
+DQo+ID4gK8KgwqDCoMKgwqAgU29DLWNvbW1vbiBpMmMgcmVnaXN0ZXIgc2V0Lg0KPiA+ICsNCj4g
+PiDCoHJlcXVpcmVkOg0KPiA+IMKgwqAgLSByZWcNCj4gPiDCoMKgIC0gY29tcGF0aWJsZQ0KPiA+
+IEBAIC01OSw0ICs3NCw2IEBAIGV4YW1wbGVzOg0KPiA+IMKgwqDCoMKgwqDCoMKgwqAgcmVzZXRz
+ID0gPCZzeXNjb24gQVNQRUVEX1JFU0VUX0kyQz47DQo+ID4gwqDCoMKgwqDCoMKgwqDCoCBjbG9j
+ay1mcmVxdWVuY3kgPSA8MTAwMDAwPjsNCj4gPiDCoMKgwqDCoMKgwqDCoMKgIGludGVycnVwdHMg
+PSA8R0lDX1NQSSAxMTAgSVJRX1RZUEVfTEVWRUxfSElHSD47DQo+ID4gK8KgwqDCoMKgwqDCoMKg
+IGFzcGVlZCxnbG9iYWwtcmVncyA9IDwmaTJjX2dsb2JhbD47DQo+ID4gK8KgwqDCoMKgwqDCoMKg
+IGFzcGVlZCx0cmFuc2Zlci1tb2RlID0gImJ1ZmZlciI7DQo+IA0KPiBUaGlzIGV4YW1wbGUgZG9l
+cyBub3QgbWF0Y2ggdGhlIGJpbmRpbmcuDQpXaWxsIHJlbW92ZSBhc3BlZWQsdHJhbnNmZXItbW9k
+ZSA9ICJidWZmZXIiOw0KQWRkIHdpdGggYXNwZWVkLGVuYWJsZS1kbWENCg0KPiANCj4gQ2hlZXJz
+LA0KPiANCj4gDQo+IEplcmVteQ0K
