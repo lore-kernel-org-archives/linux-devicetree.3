@@ -1,174 +1,178 @@
-Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011032.outbound.protection.outlook.com [52.101.70.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22916329E6C;
-	Wed, 25 Mar 2026 18:32:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774463523; cv=none; b=G8EtCfwdVcmhNQClBVuNFmJxZ+DBZeFPkVv+gkw9yJciLOnSTUskS2bhk0+a9DrjiuhVmR6Vmv2XV1hskQQS1/uNJ+yIA4mg1wHMWTY5Z9I35sTdKHfrNKbs+pzeT1zfzUhheTtC+1tuwj1nnZh2pmKxo1+3GgIDdlqldxAhMcI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774463523; c=relaxed/simple;
-	bh=VoEoJuUr2Lj+hHN5wBOfe52hwrMPIs3kY7QEt2p4Ih0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ipSIZlYiFzikNpjzqGUYdY0y8EL5DVGOFij8VQK1qJinjf7EA1bZYcma02DMgj6eyeQjUGJv1TTu8ZKUZR+4aI1/mWqrycvnZ8wYFoxoD/ZhxQH8QE4Azlow7IIyThyFo6YEVwzaeXMMBO3rmoeXMWgbzQKco4rp0Gde1aBmIFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=EDFwCxBz; arc=none smtp.client-ip=85.9.206.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3983E330D3B;
+	Wed, 25 Mar 2026 18:34:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774463641; cv=fail; b=nijQsbGQLasw1FufWdMQPyAZQB5Od0z1j4EBiG2SQI2H/fHpdmjaqdklKyR+Ga64edN2GpLIp2fL6OQyqVpAgHV+84vRSDZuMhJUgqN5x3fjzGdUd2yDWw2tuqGCEDMJlc4SUWK8S1raWcBnyA6WvA0P03Y7QZdR2fwPSwnFYxs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774463641; c=relaxed/simple;
+	bh=pHc8jMcoZaNaTNQUFxcnJXTkaiPHpWgMtTSXvQHtCgk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=REqpPZ+RWNnVjeXmMpLOnsNblFnjJYbqFNzsoUiRqv94HrrZii6+MSvwf0cUd7OJ0ZhnwL52eZF7xi8IV/Lx5LowBUpcyy+A9Ngcas00t1JF1A0Etoae09NfWf1s1VLl3idJvsKxySLqKV0rFMhuySyz6b1AysFlKjclpuCBLa8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=K2xn0AFD; arc=fail smtp.client-ip=52.101.70.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="EDFwCxBz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1774463513; x=1774722713;
-	bh=j86thck0cTqsFgXxw60goLvNyAwdeaXAk0Tlweu0J7A=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=EDFwCxBz+oeTss4TdxJTaOi/GaI36MwEjl7TfA4WB3rpdj8VmPUDgXenXHZ+Xs5Vp
-	 FYua2lTAJmXiR/LEBCTiCS8ZVvICPaSG+f7cnjKmRjiiK+NHT8PQ6aU8nHPThumDyE
-	 tgYF+KDwh7TAubhbT6vUjNx8/gzHrUd4oedw4KBHV6bzp2CfDb8cDO5/QAoj9CaYox
-	 Ljn6XpU2v5U1N1qQIDqt6kZrpWH8nqOrrWMMk6q0KGzbIaaWnaJXTLShy4VHEzZ6hK
-	 hPKB2rlqj2UupFz5+9PHA80/MNApMOExCxjN7+A8o8skPdhPziayWCQjtyNlHiBrhG
-	 rvGQOQXBbGLZg==
-Date: Wed, 25 Mar 2026 18:31:47 +0000
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-From: cristian_ci <cristian_ci@protonmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v3 1/6] dt-bindings: display: panel: Add Novatek NT35532 LCD DSI
-Message-ID: <E_O40YTvp6FW2yHa_lQOmzZwB1BZ7r_uCfh82T3BeO-SLK255eefzThCZDYJ2PFi3Hlnp3JXL7JWrlIU2ymh7m68wkNMTsM7jcMa8XxuxCs=@protonmail.com>
-In-Reply-To: <fh7rfswcwcrquijgjq547b6jjuq2v3wxiweh5xnnd4z5ql5n7r@gt425ujkpctu>
-References: <20260321-rimob-new-features-v3-0-d4b8ee867de7@protonmail.com> <20260321-rimob-new-features-v3-1-d4b8ee867de7@protonmail.com> <sdcfwycey5ykhn2fghun7imx3tjtnwat3ny3mut5dwstl7wvw6@maqrzlycwdn5> <GF8zsK-szOM98Ck2jznCOZ4xjuJTl9g1b0uPc1N79Dzf7PNzOiVgewdqPFGjqF3YD7tOUa2tzdc7rG_e7iNH8yjHOJ9DobsihTxRLUk8EL4=@protonmail.com> <fh7rfswcwcrquijgjq547b6jjuq2v3wxiweh5xnnd4z5ql5n7r@gt425ujkpctu>
-Feedback-ID: 27475468:user:proton
-X-Pm-Message-ID: c9e8d4bc47d850f720563065e567891a08ab9c34
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="K2xn0AFD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bsi56KtgvYtPDZJxU13J29bprDjgAlMXe98rn1fVjN9KivyczNIqVG4tj2naNTW8MDdJb0n8STm5NgqGuAEcrdXwvxNFnZp4FJq7Gc3M5B6RvDPufFTyrQivUae2V4nSVOEVoWjLNLJlvbrWKQS2ZorZq4hBdf8acTTntIreYJqOjnKJWZm1SyYnvYzkBBVc9Ih+MNpf8aQjH66yJa9B766OvvMHeTQpO7Qrqrfg5kidyhBmAPEoOausRb3CsI4uqjPWYvhfaiMiaW994PfrmuKQhIGHsoNw9DtG/vM3F5g+8mJudCBZmrwabjDNgD1MOjEeizQqy217BkRahBDX6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A+0QVDflYB9FKWYz+ub5yo4geWTJxXiVNqvN8TvF1o4=;
+ b=qUXqEewpUd0TgFoZW55vhjYsnqDYAY4kbBj+TDvx6n00302Qwvh/Ae4Eb/ZdQ/h+gmqk4tn8mePuvkJtDcRlpBXv+kCDIQwrJ/FkJTHxr//lAUpJ+d18FYeMqX2uc1kaUE/SBSJ9aguXcG5PpGecEW3xwCfkzEcdOf49XYTzxjMtFn/JACdz65SKLfBKZfHe6U45zjts4BEMJMEz9Yef54jHym8Mh+KIr+smPQt3gbd+cSn+2TjjGkLS6ylMR1KSlhOqZu7PnWhoOPrIfu/cIhaJ5ttaATt6lOyaTu3k/rGj4nuXVbG+gUf6LR1qN9gsSJnPZCxz1eE00ltSPKsGeQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A+0QVDflYB9FKWYz+ub5yo4geWTJxXiVNqvN8TvF1o4=;
+ b=K2xn0AFDN8SkBpDxXYzDYBJaVNhaaqYXMYZgrc/cxP2KwiSVxUKtfCPvgz3kDDIN7SNLqaHmDXsNO9xdb5vB/x4yN2zax9/1hcYPJMRsQVS2H/VVlb2uCQ/Q7mI5Sosanl8vMcLX2TUq8a8nJ0RaWD+UGQD5z4IHIVy8hZKVKlB4KoBARh4OpOdsd5iF95VnSxH9hb2tnlWBlWaOJ+U49WaWzvic+tIwZ8ssPly8NeoKQModk+qrhUN0JaEObQm3ln8EEBmDXs5VC0SyAm2TNZsDWqS/oRtpAWRv3M939oCvxoA0jqiq16UvbWzMewD9uSCN+M+dZ5GoHdKC8HHa3Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from DU0PR04MB9372.eurprd04.prod.outlook.com (2603:10a6:10:35b::7)
+ by PA1PR04MB10323.eurprd04.prod.outlook.com (2603:10a6:102:44e::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Wed, 25 Mar
+ 2026 18:33:23 +0000
+Received: from DU0PR04MB9372.eurprd04.prod.outlook.com
+ ([fe80::4f6:1e57:c3b9:62b4]) by DU0PR04MB9372.eurprd04.prod.outlook.com
+ ([fe80::4f6:1e57:c3b9:62b4%4]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
+ 18:33:52 +0000
+Date: Wed, 25 Mar 2026 14:33:23 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, kernel@dh-electronics.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: dts: imx8mp: Add DT overlays for DH i.MX8M
+ Plus DHCOM SoM and boards
+Message-ID: <acQqc1AuCa1Tkb-w@lizhi-Precision-Tower-5810>
+References: <20260324190544.74531-1-marex@nabladev.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260324190544.74531-1-marex@nabladev.com>
+X-ClientProxiedBy: PH7PR02CA0011.namprd02.prod.outlook.com
+ (2603:10b6:510:33d::8) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU0PR04MB9372:EE_|PA1PR04MB10323:EE_
+X-MS-Office365-Filtering-Correlation-Id: c8d860f9-389e-4837-7b03-08de8a9d08b6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|19092799006|366016|1800799024|52116014|56012099003|18002099003|22082099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	LaElR2XGUKjq2uAGnPfjETg8KF20OWmHZUx2g5GtNOcaN9Acm8qi+2VSqZbjIC2W1BhhrCfYOxm0PtDwn9gCkUCXCgXFXS8XPfhIxaMjGAkel3LyUg/9RORqyiKqtVGrDxBxr0Rqwi1mCwjjcBYswLh12PdQu5HbFc2yX0D/fxvasMhO+KqDwdmPw1yuzHHZSJ3IN9zaGvTkGsPaW2/mkb97Q0wCMnpl3WLUqsIrMKPb5sogneF6//uD1hhwiln7GTrvN0hMLO9KShrLseBTRi6ZrbNixkYngh23N/6HvN00Bz+L7vLNH1wP/WG/5FTZyIjk/oSyJMV+EoC3fx6pN6J5M8jduNBekIjku8T0qhVUsf9B/ppQXgfhFQqhRZh/QHbD0WUPzS/dwBAYKPa5kkG1JKfCmYM28+yqXCxH/2IN9INVppsuQRCGCmrYAroQGAB1tJlGmadY4WDsM0igy2pVdBWNnZNCmvtr8dX2uUu/7lOTg4tBda6FXQOBngZwCJ50bVUILqMQyriP/yE+N9MQ7DYcipg8RkLV0fREvsPn1lDrYhhshpUCw5M3INRuNx/nx0/jOvmO6VFBsnI1NSaIHNM5JVVtfZjITOH2sMnHMEEGIBKu+2eYalDxp9XZaH91qWdm8st9WFcxawndG22dihWmN7GGVtNY9O7bxAZ+Tq6OPzjermn0NVeDSqnpFJ135Zd8wujSIQbO+6yFZg762UPcs+qT0Ei6rbtmU5ISnCSuQwOHAwovaIrYYoOruJaltixuMRSZohfN6rUzxPI1ghacg9fEQD0Hryst1uo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR04MB9372.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(19092799006)(366016)(1800799024)(52116014)(56012099003)(18002099003)(22082099003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?l3pHE8VzYhWcA3XJWV0edp4qyaPzsNGfsNaVj1T+GIqXgGui4hFOoX64vTzv?=
+ =?us-ascii?Q?q/18FSW/c3ZcSK2Z39Zo2NB/Aapg3YGd+ntajpPK0AawuM2+Pyar75FnKSxV?=
+ =?us-ascii?Q?/cpIsbhSr19xnvlo0zWpECgdWcv0V5rODsNNswaP/eaMmMG2hBa2mrPFUela?=
+ =?us-ascii?Q?dE+LBAkkbHRHygUNCoD1GtwoWLtT652DadV8cNH3Bscgweu1Rr0O7/3ZhW/D?=
+ =?us-ascii?Q?ww2BlqZQWVJUi5PHMwFCuqrPz0x6oZWrq9Qts6liGwJZ/JhWci5jqp1j77bo?=
+ =?us-ascii?Q?GL70TKjb2zHG/DFCoDQ5jM8zy4g1WznzfB2T/PzInMC8zcuvJtOR2yhp3YUK?=
+ =?us-ascii?Q?0QrwvPjWepB/Rlfdiz70IsiHekNEzxrHxzn5KDGTfrlmhDqhkhKB6oOPgQjs?=
+ =?us-ascii?Q?U4j8YxUltxkTZaR2Zmm4kvhf1ocDm+8apt6N5SRQW6RhutwdkskjMYX1jACO?=
+ =?us-ascii?Q?nE5I6LWayIdel9DxSnDjSIEWaNJl12Rei7/0mB9TOSPitd9P1Umd1SwTjmlF?=
+ =?us-ascii?Q?jrfy2Q4ts6pcW3uIsNIuVt5LrsiKt/F5xknJBqHi2A2mX0hJhTLvT7NH+h4/?=
+ =?us-ascii?Q?QG1dLA3DStTpmI5IB3TSaGLT5CbomxMQkLlhr6he0KrHuN5S9h5bDwhPiKGE?=
+ =?us-ascii?Q?tFyhVNnzSUlf2V93hwoq3KjcWNO3iZG0HI5Y8+AiVvaL3JsEkh/cknmlrllN?=
+ =?us-ascii?Q?AqATbDeo6pTcOt5iAyLNO1SsAbDiliJVAF8/yZ5pqp56aBEswMAVRdbI2s0a?=
+ =?us-ascii?Q?As1C8ZWjHtHnTO6KMd6/MfgfY1ZeWWhJdJC0ZtWjPZXmbRvZJWAZzvmwhsIE?=
+ =?us-ascii?Q?KJZ1OgvwkmcLSKfM4qZwPllvsS2QTDwg8gZ7+i8sFyx+/r+2D/1uIs5yDhGM?=
+ =?us-ascii?Q?oFFAHBdv23byYb3YfZIPJT4QJDegR+6upZwQZEllN5gn5CKm0XPmTYk8v9xD?=
+ =?us-ascii?Q?LmolnRJDyqxRHULw1FgHTlBOHyFj8959jcQsCY4upM2fYGxWFWZnVhuMQNpb?=
+ =?us-ascii?Q?kwrxpfB00VAA6xVkmC8BGhqCwjk6nCq1CwLNN1zQkFxt7iXtvqQERM9zeU3P?=
+ =?us-ascii?Q?wQONLVAo7iUMnYGQuQ1xpPlZbGhpJIlpMmW6YLqP3HZ5awNWu3ugFueHTmI1?=
+ =?us-ascii?Q?RucND6X0lEhX/WHWC2mVhnS2nExb/46mQnYKZoHrZJxjr4xgVmGwWQEtr05O?=
+ =?us-ascii?Q?XE/XxxhpC5KnJunuqTUOUoBrB6AlnCU9Iv3o9SBmK8uJXo5B4xbqIVa7GFX0?=
+ =?us-ascii?Q?GUI5SW/G0XYwp8CpiEgdYR+1JYs6J2CVFApaG8V6R6i/y7eAE8tqlYApIKvW?=
+ =?us-ascii?Q?pErmlSIULniynr+k9jM2ERwmFAPVNyAGHhsiU0FEIRTltADk2cgvVPz0xPWM?=
+ =?us-ascii?Q?ps15ni4RnjrElqxCYPPL89PN41pWOiWfOnAHIAJfZsAOj8sraYLFlwmJu1kt?=
+ =?us-ascii?Q?LyZnu2DhypmII1NzW5KsMkENnXcilzQ0tEuzhrvlzJsg88OzgQBu/u9jkW9A?=
+ =?us-ascii?Q?V5rhi1MDFYA7A58EyZU/UedQ5BjnGa3NZw9b7vxbvMqL+u/tUhZM/2FvUhfO?=
+ =?us-ascii?Q?4Amn1asfJomN20H43LkUB4NWic6h0hMZpIYO7kT1QMDrt64lh+3X+jOMXqZX?=
+ =?us-ascii?Q?eBDqzU5M8MDV1sQNrKxMht1VC8IKxRjrNLI+0hX0FoWeKtItHdJ8DOfpHl3w?=
+ =?us-ascii?Q?6tABI6tJ0lHI6k4vAhXYMoWtvZvelFRze2rUYVGfV50lqAks?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8d860f9-389e-4837-7b03-08de8a9d08b6
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 18:33:52.6842
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: y4PzrzzLJsaDf8KZsKuxI0y9uk3OVqTC4tVvcvC4ZKSlIholhyRM/yahISpw7gJIy8uL2v+hlHKGLF+f5kIi8A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10323
 
-On Tuesday, March 24th, 2026 at 23:20, Dmitry Baryshkov <dmitry.baryshkov@o=
-ss.qualcomm.com> wrote:
+On Tue, Mar 24, 2026 at 08:04:19PM +0100, Marek Vasut wrote:
+> Add DT overlays to support DH i.MX8M Plus DHCOM SoM variants and carrier
+> board expansion modules. The following DT overlays are implemented:
+> - SoM:
+>   - DH 660-x00 SoM with 1xRMII PHY
+>   - DH 660-x00 SoM with 2xRMII PHY
+> - PDK2:
+>   - DH 505-200 Display board in edge connector X12 via direct LVDS
+>   - DH 531-100 SPI/I2C board in header X21
+>   - DH 531-200 SPI/I2C board in header X22
+>   - DH 560-200 Display board in edge connector X12
+> - PDK3:
+>   - DH 505-200 Display board in edge connector X36 via direct LVDS
+>   - DH 531-100 SPI/I2C board in header X40
+>   - DH 531-200 SPI/I2C board in header X41
+>   - DH 560-300 Display board in edge connector X36
+>   - EA muRata 2AE M.2 A/E-Key card in connector X20
+>   - NXP SPF-29853-C1 MINISASTOCSI with OV5640 sensor in connector X31
+>   - NXP SPF-29853-C1 MINISASTOCSI with OV5640 sensor in connector X29
+> - PicoITX:
+>   - DH 626-100 Display board in edge connector X2
+>
+...
+> + * Copyright (C) 2022-2026 Marek Vasut
+> + */
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +#define DH_OVERLAY_PANEL_I2C_BUS			i2c5
+> +#define DH_OVERLAY_PANEL_I2C_TOUCHSCREEN_PINCTRL	&pinctrl_dhcom_b &pinctrl_dhcom_h
 
-> On Tue, Mar 24, 2026 at 01:10:13PM +0000, cristian_ci wrote:
-> > On Saturday, March 21st, 2026 at 17:46, Dmitry Baryshkov <dmitry.barysh=
-kov@oss.qualcomm.com> wrote:
-> >
-> > > This is not enough to identify the panel. This name identifies the
-> > > controller inside the panel, however the exact settings (and the
-> > > behaviour) would depend on the exact TFT "glass" used with this
-> > > controller. Downstream usually doesn't care that much and frequently
-> > > just uses the controller name or the the controller with some kind of
-> > > "description" like ("wqhd-dsc-cmd").
-> >
-> > Ok but I just don't understand the following: I'd like to know (also
-> > considering that I find it difficult to find someone, outside of this
-> > ML, available to discuss this stuff, specifically) exactly why the
-> > current bindings are not enough.
-> > I mean: looking at schematics and datasheets of other similar devices
-> > and based on observations about my device, I believe the generic bindin=
-gs
-> > approach for nt35532 works quite well for panels.
-> > Novatek made the IC first and then whoever buys it can be a display
-> > vendor. If we talk about downstream, differences between panels are des=
-cribed
-> > there (i.e. my panel makes use of four supplies, while other ones could=
- use
-> > a different configuration).
->=20
-> Different "glass" means different programming sequences. Take a look
-> at the existing drivers which handle multiple panels. Sequences, modes,
-> etc. are different though the DDIC (controller) is the same. For Android
-> kernels this is handled by putting all the information into the DT. This
-> approach does not align well with the upstream DT expectations /
-> guidelines / philosophy / etc.
+This is not straight forward.
 
-True. I completely forgot about that, my bad. Yes, vendors handle init=20
-sequences, modes and other information in the DT, while upstream puts=20
-initialization into panel driver. Now, I've looked at panel-sitronix-st7703=
-.c=20
-driver to get an example of multiple panels supported by the same DDIC=20
-driver.
+you can add label like panel_i2c at dts file.
 
-> For example, let's take two NT35532 panels described by [1], [2]. The
-> sequences are somewhat similar, but the contents is completely
-> different. From the upstream point of view, each should be described by
-> its own compatible string (so that the kernel can identify them).
->=20
-> [1] https://github.com/eliot-shao/qcom/blob/master/display/LCM-NT35532-JM=
-55FH-1080p/kernel/arch/arm/boot/dts/qcom/dsi-panel-nt35532-jm55fh-1080p-vid=
-eo.dtsi
-> [2] https://github.com/balika011/android_kernel_xiaomi_msm8953/blob/maste=
-r/arch/arm/boot/dts/qcom/dsi-panel-nt35532-fhd-video.dtsi
->=20
-> >
-> > > What does it mean for the upstream:
-> > > - Try identifying the actual panel used for the phones. Sometimes
-> > >   googling for spare or replacement parts would reveal such a name.
-> > >   Sometimes it can be seen as a marking on the cable or on the backsi=
-de
-> > >   of the panel (again, googling).
-> >
-> > It seems that 'google' approach fails, in my case :( (I only know that
-> > the vendor assigned Smartron the work to design the HW - but SW too -
-> > of the device. Nevertheless, Smartron is neither OEM nor ODM, so the
-> > company was relying, at the time, on a series of chinese manufacturers =
-to provide
-> > parts required for this device, including panel suppliers: in general,
-> > the list of panel suppliers for Smartron includes BOE, Tianma and other=
- known
-> > companies. So, this panel may be any of those, paired with NT35532, and=
- work
-> > anyway). Unfortunately, even if marking on the cable is known, that doe=
-sn't
-> > identify the panel but the cable itself (which is available on the mark=
-et,
-> > though), instead, in this case.
-> >
-> > > - If not found, come up with some artificial identifier that would
-> > >   identify the controller+glass combo (e.g. "tianma,fhd-video" or
-> > >   "lenovo,j606f-boe-nt36523w" (where lenovo,j6006f is a device name a=
-nd
-> > >   boe is a "supplier").
-> >
-> > Assuming that resources available which I've as source of information
-> > for this panel are limited (the ones also described in v1's review thre=
-ad),
-> > my vendor devicetree describes the panel in  'qcom,mdss_dsi_nt35532_108=
-0p_cs_video'
-> > node and makes use of:
-> >
-> > qcom,mdss-dsi-panel-name =3D "nt35532 1080p cs video mode dsi panel";
-> >
-> > property. Until now, close-to-mainline devicetree I was using the follo=
-wing
-> > compatible for the panel:
-> >
-> > compatible =3D "flipkart,rimob-nt35532-cs";
->=20
-> In the lack of any information, this is probably as good as anything
-> else. Please describe in your commit message that you don't know the
-> exact vendor of the panel (nor the id of the panel).=20
+panel_i2c: &i2c5 {
+}
 
-Ok, apart adding a new compatible ("flipkart,rimob-panel-nt35532-cs") to=20
-dt-bindings (patch 1/6) - leaving  "novatek,nt35532" as fallback - and=20
-setting that to panel node (patch 3/6), I'll have to change (patch 2/6)=20
-too, by renaming nt35532_on to rimob_panel_on and so on for nt35532_off,=20
-nt35532_mode; by adding a new struct named rimob_panel_desc defining=20
-.mode, .on, .off members and moving .lanes, .format and .mode_flags from=20
-nt35532_probe to this new desc specific struct and by adding .data argument=
-=20
-to nt35532_of_match. What about the other nt35532 functions (i.e. nt35532_r=
-eset)?
+in overlay file use
 
-> > and I'm not sure about the exact meaning of 'cs' suffix. I cannot state=
- 'CS'
-> > as panel supplier and use that upstream without proof/evidence. What do
-> > you suggest, in this regard?
-> >
-> >
->=20
-> --
-> With best wishes
-> Dmitry
-> 
+&panel_i2c {
+	....
+}
+
+So you use the same overlay file for difference dts. The same as others
+
+Frank
+
+> +#define DH_OVERLAY_PANEL_I2C_TOUCHSCREEN_IRQ_PARENT	gpio1
+> +#define DH_OVERLAY_PANEL_I2C_TOUCHSCREEN_IRQ_PIN	11
+> +#define DH_OVERLAY_PANEL_I2C_TOUCHSCREEN_RESET_GPIO	gpio1
+> +#define DH_OVERLAY_PANEL_I2C_TOUCHSCREEN_RESET_PIN	8
