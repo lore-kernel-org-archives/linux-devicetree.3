@@ -1,125 +1,129 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B635523C4E9
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 13:32:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60D5233722;
+	Wed, 25 Mar 2026 13:38:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774445544; cv=none; b=FYVt8jWLQ/Ezzd1fzly5DqNaqthavgPi7UBEu1k388lQrjIPNqxADUXVNmEdY3eUP+Cv++8DYDXJup9fKmNxWbeorElZVidb4sFQPVaumTyPBkd/DbwNE11pgMIy8jrn6DL9/Yjf/ddsoZkbSEMFAERaUgm272njFbb867Riftw=
+	t=1774445895; cv=none; b=eRSm015Az3tbXc0Z8lyhx2YJfloMK8ec7il55n0utl9OxviQphLtOcI9cm/z1g4MUOcFyW7SYs53BBE9LsG6C6CGz8fZuKzWKbFTV5xm0OTZi50uREhLWer22jCywiypzUuYASMkMGZfFF70ZcdmY4v3kQWaRbledWEoIvugYWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774445544; c=relaxed/simple;
-	bh=rkpIXgDQz1UgC1XYYX1tm6OOg5kF5dWhygEa7cgINow=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GQasSj8vOKMYg4xSZiSOJsE5Ndo1Cvp4UGxwpyonfROE41/PbL4NfEAe/WpqeMrrHovrdac4z5UjJLauMBZ+QwcjUfhlhWgMkzFMp4UkrdgHUX25P+4OMGomdBTLzNyLka2DdpJQKnN85ZmadHbJ1jmSjS0DcQgaf0c1YuV6DuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-b982518b73fso428862366b.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 06:32:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774445541; x=1775050341;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=71PZmwBCGt13+2E2u4S7ZamRqElFJ3XFkvVJ95R0Un4=;
-        b=iF1PeR75b74ehr9CBhyrIq5wg3wXoQxMONly4NEb2nnsLPMlJTBIow+sVVuiG2Z/Lp
-         QCbqC6TIIKvIobF39ysbNykRZ7n3+YDP79B7IqvEdWkavC4/qJvGYTFu27CsHgVqVvjN
-         XJtSWbkWmc1bQI+yQWgQpAAtnX+IJVbnQ/1Oqd7DPhMBsn6+ZCUkgtjmrlC6eWe93E2D
-         uC5vh9qNcREqwvPgqNUiaBDkj7hJbltU7XKRs7CVmFbEJyWwGqIcSXUvqiXl+SjJ/ijl
-         ViekiSR2PUgOBbh/FMuKzhXtUL4BoWDCMcEjh1ySHRdtnTOYP9E8JDNuD01ndqtt9RSs
-         xMuQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUyVIgZTysKP7yrcUC96e0ft4AygELvLmGTPSlf5QrVQsisVvRBhekrjxfwr3pfok6ugd48i6M7gA1c@vger.kernel.org
-X-Gm-Message-State: AOJu0YwhK+ReqICNStWDzeMTvmcq3b8Db2gxsnUXvVxJ+dJCLwTcV8Rt
-	jWifz+5mB+rA7aulA+fdjjn40ARWnqRXvnFoe196Xb/QhkrMzgr3nWC7HkOMhUC9tK0=
-X-Gm-Gg: ATEYQzwL7DNhzntHYp76UQEQNGfcD9ouhM0E0HZnJnNqO9Hfiric6TI8kZuEUT9nnxj
-	b5QGdkY4F3jjHDkyEBnfqPitaiPi3bxSWYyog5aUAkcR8IMnRzrVJ2UKUDUw+KS2ONLS4gYxtsy
-	7Pg7ebiwECOMU8E4QLtHvmYGxfLKDn2tBSdkZA7z7QJVbJAQmxlVjOVcpoiew855jjaRUkUvJFJ
-	4LbgrilYeksbcnm7uETkO1wjVpKCbTDvSemXHPHvUIjM8ZFuN/j2HI/UKVDRGLLAJgM/2KLTuSQ
-	KvIPmoa+Y2AWeAp8JFPeR4DE5K2SK9EIirjggGVs3aZRtAyqQ38o9Ayk0G5LauqMK0Y2E2Uv1QJ
-	39EFbEgqSu3FJ0m/YQpbRLCBUiGLQaWqU/eaOrnkTEcApV4nayqO2SKR9meOlWICv4cFL+Xj5cs
-	THvN8J2/mHazuZ4XmQALL7sxeLPs4H3cDR1Qqp+EW62mnxUvDUE1+RHabjCs73
-X-Received: by 2002:a17:906:2887:b0:b94:a1d4:ceff with SMTP id a640c23a62f3a-b9a54237a71mr172846466b.35.1774445540769;
-        Wed, 25 Mar 2026 06:32:20 -0700 (PDT)
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com. [209.85.208.53])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b98335de0b2sm793441566b.34.2026.03.25.06.32.19
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Mar 2026 06:32:19 -0700 (PDT)
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6611f41eebcso3572069a12.2
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 06:32:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCUbxegXbJXIyhEGuKHjNYVmQLfrRILFJy3qUP6TEtcdxpBJW71T70P7TubMu63QR+5qwcYy7BP+lzr5@vger.kernel.org
-X-Received: by 2002:a17:907:c08:b0:b98:6984:661c with SMTP id
- a640c23a62f3a-b9a3f14900fmr255405366b.10.1774445539317; Wed, 25 Mar 2026
- 06:32:19 -0700 (PDT)
+	s=arc-20240116; t=1774445895; c=relaxed/simple;
+	bh=NiNWg3IbyVoGqxPoeC/ygcgrciSr53x9ao4CqjN0MDQ=;
+	h=Date:From:To:CC:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ga9l4j/zH01MI4UV/ItzY8VoL8uVgizvpxMHbd4b/AjMljpMcBnajYZyJ3rtWumvr7YEAYrrgRp7qBcn2HEeErNKt7tg/U17No2T+PN/HZN6vY0pdYp04PafmwkEikxMZIHbWkTyrP6CblZbHMmEslrHphT0qaRS5gpBi5dM1sA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; arc=none smtp.client-ip=185.176.79.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Received: from mail.maildlp.com (unknown [172.18.224.83])
+	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4fgnzD4cJyzJ469q;
+	Wed, 25 Mar 2026 21:38:00 +0800 (CST)
+Received: from dubpeml500005.china.huawei.com (unknown [7.214.145.207])
+	by mail.maildlp.com (Postfix) with ESMTPS id 400D540569;
+	Wed, 25 Mar 2026 21:38:09 +0800 (CST)
+Received: from localhost (10.203.177.15) by dubpeml500005.china.huawei.com
+ (7.214.145.207) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 25 Mar
+ 2026 13:38:08 +0000
+Date: Wed, 25 Mar 2026 13:38:06 +0000
+From: Jonathan Cameron <jonathan.cameron@huawei.com>
+To: Sirat <email@sirat.me>
+CC: Krzysztof Kozlowski <krzk@kernel.org>, <linux-iio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <jic23@kernel.org>, <dlechner@baylibre.com>,
+	<nuno.sa@analog.com>, <andy@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v7 1/2] dt-bindings: iio: proximity: add ST VL53L1X ToF
+ sensor
+Message-ID: <20260325133806.00007b68@huawei.com>
+In-Reply-To: <CANn+LWJQM45rAT+mzS9ZEGBgmqChbxUtStdzhbzthXUPJ=2csg@mail.gmail.com>
+References: <20260325063254.18062-1-email@sirat.me>
+	<20260325063254.18062-2-email@sirat.me>
+	<20260325-gentle-earthworm-of-progress-1f9f46@quoll>
+	<CANn+LW+Y6j0xk2x02-BUL9qNq2gf-PXspi4wP_KGd7Abz3hOYw@mail.gmail.com>
+	<4d10b6c0-d599-4fc5-b9ed-ce669ac46e84@kernel.org>
+	<CANn+LWJQM45rAT+mzS9ZEGBgmqChbxUtStdzhbzthXUPJ=2csg@mail.gmail.com>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260320025328.509003-1-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260320025328.509003-1-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 25 Mar 2026 14:32:03 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWO9Qc=mn1SAwZt1HJK2VkU++G_8N+eVuN5AWTrLnVxUQ@mail.gmail.com>
-X-Gm-Features: AQROBzATJnixo_UeI8ufWETnQDalm61zGkrEBTKZCHPPX7aWGGL_4MFy_z_N-QI
-Message-ID: <CAMuHMdWO9Qc=mn1SAwZt1HJK2VkU++G_8N+eVuN5AWTrLnVxUQ@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: renesas: sparrow-hawk: Add overlay for Olimex
- MIPI-HDMI adapter
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Scott Murray <scott.murray@konsulko.com>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: lhrpeml500011.china.huawei.com (7.191.174.215) To
+ dubpeml500005.china.huawei.com (7.214.145.207)
 
-Hi Marek, Scott,
+On Wed, 25 Mar 2026 15:18:05 +0600
+Sirat <email@sirat.me> wrote:
 
-On Fri, 20 Mar 2026 at 03:53, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
->
-> From: Scott Murray <scott.murray@konsulko.com>
->
-> Add a DT overlay to bind the Olimex MIPI-HDMI dual-lane DSI-to-HDMI adapter
-> on the Retronix R-Car V4H Sparrow Hawk board.
->
-> Current device link is at https://www.olimex.com/Products/IoT/ESP32-P4/MIPI-HDMI/open-source-hardware
->
-> Signed-off-by: Scott Murray <scott.murray@konsulko.com>
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> On Wed, Mar 25, 2026 at 2:58=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.=
+org> wrote:
+> >
+> > On 25/03/2026 09:48, Sirat wrote: =20
+> > > On Wed, Mar 25, 2026 at 2:05=E2=80=AFPM Krzysztof Kozlowski <krzk@ker=
+nel.org> wrote: =20
+> > >>
+> > >> On Wed, Mar 25, 2026 at 12:32:22PM +0600, Siratul Islam wrote: =20
+> > >>> Add device tree binding documentation for the STMicroelectronics
+> > >>> VL53L1X Time-of-Flight ranging sensor connected via I2C.
+> > >>>
+> > >>> Make vdd-supply required. The device requires power to operate
+> > >>> and the property should have been required from the start. =20
+> > >>
+> > >> That's ABI break and device for many years was working fine, so this
+> > >> should not be changed.
+> > >> =20
+> > > Jonathan and David asked that vdd-supply be made required. I feel like
+> > > there is a conflict here that I am not able to resolve myself.
+> > >
+> > > What I think about it is the binding does not correctly describe the
+> > > hardware and we should consider this a bug and fix it.
+> > > The driver worked because of a fallback mechanism (dummy/fake
+> > > regulator) and not because power was optional.
+> > > =20
+> >
+> >
+> > I looked at v6 and v5 and I do not see such comment for binding that
+> > existing device should change ABI. Can you point me to it?
+> > =20
+> "Make it required and add a note to the commit message to say why the
+> requirement should always have been there. Devices tend not to work
+> with no power." - Jonathan (v3:
+> https://lore.kernel.org/linux-iio/20260322115704.10b2e0d4@jic23-huawei)
+>=20
+> "No, bindings should not depend on driver implementation." - David
+> (When I asked if I should  drop the hard requirement in the binding,
+> v6: https://lore.kernel.org/linux-iio/55e92148-b5de-4fb8-af0b-9476235341b=
+c@baylibre.com/)
+>=20
+> "From the point of view of the devicetree, it doesn't matter what the
+> driver does. It matters that the chip can't work without power. ;-)" -
+> David (v1: https://lore.kernel.org/linux-iio/d0ec6a2f-6d30-4774-8950-15dd=
+3c4b020b@baylibre.com)
+>=20
+> I'm not sure if this is the correct way to quote. But I have added the li=
+nks.
 
-Thanks for your patch!
+This came up a few years back - though I doubt I can track down the
+exact discussion however.
 
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-olimex-dsi-hdmi.dtso
-> @@ -0,0 +1,94 @@
-> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +/*
-> + * Device Tree Overlay for Olimex MIPI-HDMI adapter connected to J4:DSI
-> + * on R-Car V4H ES3.0 Sparrow Hawk board
-> + *
-> + * Copyright (C) 2026 Scott Murray <scott.murray@konsulko.com>
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
+=46rom a Linux point of view we are breaking binding checks only if the
+supply (that should always have been there as chips tend not to work
+well without power) is not present.  We absolutely have to
+keep the driver running whether or not the supply is specified.
+Do other DT users provide such a constraint? I've no idea.
 
-This include is not needed, so I will drop it while applying.
+If the DT maintainer preference is leave it not required (perhaps
+with a comment saying new users of the binding should supply it)
+then that's fine by me. I'll keep it in mind for future similar changes.
 
-The rest LGTM, so
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.1.
+Thanks,
 
-Gr{oetje,eeting}s,
+Jonathan
 
-                        Geert
+>=20
+> Thanks,
+> Sirat
+>=20
+>=20
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
