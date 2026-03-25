@@ -1,197 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010010.outbound.protection.outlook.com [52.101.56.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8763D6CB4;
-	Wed, 25 Mar 2026 13:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774444220; cv=none; b=q0or+9FpZExkTFJVxV/wonZhGwECDlJMHpg3ir5Gi+lkql/lgA3OF+E7a5Hb0/+Ow34gv0pkO5yF6j3Y+dIuFY7g6i7C22NFeMTjIO3J0BybcrTcN105tXhKaxk6l549O3hCTSMV1snogzv4R9HjBWRB0IIMh2TlB4pNdowVKTE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774444220; c=relaxed/simple;
-	bh=hri9O7RDzVRUa1dc4kn+6ScPE1cGtXfcQojPOZKDPTc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nZ0jvKZS7FL8Cmu1/j0K4tjFlEelj+uve88GdJLDg0PQiAoY1sqnrkA+W3J01ho+4JfbHa24SE3oAoT1G5PfBYKVrl6sDw+PnonUKLXZHxQdD8Ii6S0QAIeCrIsdXNt7++wdtI2MFQJh+4GdUxvt4FwNQRg96LABufnsBlhajYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OsB1uzLO; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69FF73D6483;
+	Wed, 25 Mar 2026 13:11:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774444266; cv=fail; b=r3cH/RQHbcvDkXdpptcxvPD1fK47A7tvomhcqIDD4bsqDEqa5i5PArwyPLRqXy3s9XW81MHg7oqS+coB7elDppydC4vz6tXXJsestPKoHwTZ9MHLl821nhrpk/oMJMGGMVQJP/0wFU6+9EKZeHWtuMXVURn5mryivK4jA268BaU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774444266; c=relaxed/simple;
+	bh=2FzHmr+9rrrADfCvG/ettVJbHNS/8r1mV+oCWUHve4k=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jm33gRlaJOq9/eu0j/o1FBLRZXoBRPXybdlGm+PgU6G+e1wvq216TaNBz1SAmpClJ6H5i3Q8wIfcuJam0EBxM07v9ExfD904/GSUdKErlpmPa0CL/1rrc85j8jpzmNUXRJBwVOJDLkGg7kDs4+AR6HVvcmw1o2NXQFGLFPpwxGk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=qHgVTY48; arc=fail smtp.client-ip=52.101.56.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OsB1uzLO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75AACC4CEF7;
-	Wed, 25 Mar 2026 13:10:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774444220;
-	bh=hri9O7RDzVRUa1dc4kn+6ScPE1cGtXfcQojPOZKDPTc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=OsB1uzLOiWf2WTln/PW2F2D5STWpR2zFMLycuuNcL2u+7M4n16Gb0wif/W2/Sor7H
-	 2eK3XjwT5hrgZwCLFeKimSM6H6eaCZKwmgFevhVH+tw/NrQrlfglbrENFQtj+FKnQ1
-	 797D1YZBvHr6WVFYOk4yhs1RV/aSKfd8hIlgBbU09+Lycn/127DYwqr3sryFJCt0Ls
-	 9PagWo0GGuMxxWM3YEjzQBZJfqZgtaFGlmhKAv64dmakaOkzldylsIVxTQ6srSFDpT
-	 bgqx9OwKAgsKTaSlQf2kVylvJohnVJf9CaimxuiRtf28yBuxSis28+6orhWDT0j8DP
-	 eDg/dRg5qxvvg==
-Message-ID: <d5f5a1c4-cc3b-4bae-955e-05c20d08602e@kernel.org>
-Date: Wed, 25 Mar 2026 14:10:13 +0100
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="qHgVTY48"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ApUVTrtL2D+VXrWqHy7d+g4VD6mO1pWufjB60n3w+VvIQBFuI3zPmrgv5QBztxV1o4a80047FCfOA8ZcyQTFdWVmNME67YIxZBeGoXV3c6l3SC3AxDU+Uj/Uyijg77UkYXjaTzq/13/RTNeGuvRdoAGaCVKe0UabS8ileIhRVTJfxaFRBO2uOj+xAlU/ayR+TzMpzRpa9xcxegvoxFV1RUNl03MNxNko9VqaVpvgNKZrBVhMl1kgwKLlwUcmymHb8QUfD4m10HLylArgJOBnhHXmxZGU0lh1mqX+QdZz7C5iMYDYTaXhESuvr+BSVtCB4sPcaKvMqqfNfiIFNA2wkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2FzxaGE9cFHTDN9DH8SHijN2YSgwmc8c9Y9A9tve/HI=;
+ b=RbAaeD3oTyH1lX776kxX5esX2cQnD5Md4M8rLYXwjgAVFsJTXxjl8HsTi6zRWFyacnzR9Z+hVvxnw7yo2eWNF1CB4sY0rEFqxPogj3Zz2BUGapHCc+cWge4AMrxJUCf5lgAFNJyVNkeRsbTlMEX4uGVbKeESIk2Q3pAx1CosLpvWhIF6sS2QDhGuhR6mT0SY2Tb1tFymFa3O0S0AlUVn6jvfErtjIjfi6rw69UL1BNynjj53/7fVXAyOivP8ryH2jnF3PgveFWNy3V13X6L81mHKz8tUPd6BFT3ohzgFmhhHWnFsx6uxk14v4n+WTRAZxnmeIW616O8UDcPL3g/Weg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2FzxaGE9cFHTDN9DH8SHijN2YSgwmc8c9Y9A9tve/HI=;
+ b=qHgVTY48u/cuRD2BEdPrcOP7oTB4NLP6SrbdY3CxO/P3aOUqp8OH6qhYX6bG9I/gVoGr/0/xa3ud2jw34EV4YPM0Xl0o2VHwKzKIVXVkPXW8OBPogJTyd1taiyQSzBJ7PWlqBi7jdQPefjtN3b3HxAmSY63IeYq2bGd1a56DpsM=
+Received: from SA9P221CA0011.NAMP221.PROD.OUTLOOK.COM (2603:10b6:806:25::16)
+ by IA4PR10MB8610.namprd10.prod.outlook.com (2603:10b6:208:55f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
+ 2026 13:10:55 +0000
+Received: from SN1PEPF00026367.namprd02.prod.outlook.com
+ (2603:10b6:806:25:cafe::75) by SA9P221CA0011.outlook.office365.com
+ (2603:10b6:806:25::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Wed,
+ 25 Mar 2026 13:10:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ SN1PEPF00026367.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Wed, 25 Mar 2026 13:10:53 +0000
+Received: from DFLE212.ent.ti.com (10.64.6.70) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 25 Mar
+ 2026 08:10:43 -0500
+Received: from DFLE201.ent.ti.com (10.64.6.59) by DFLE212.ent.ti.com
+ (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 25 Mar
+ 2026 08:10:42 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE201.ent.ti.com
+ (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Wed, 25 Mar 2026 08:10:42 -0500
+Received: from localhost (lcpd911.dhcp.ti.com [172.24.233.130])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 62PDAfrR4037479;
+	Wed, 25 Mar 2026 08:10:42 -0500
+Date: Wed, 25 Mar 2026 18:40:41 +0530
+From: Dhruva Gole <d-gole@ti.com>
+To: Gopi Krishna Menon <krishnagopi487@gmail.com>
+CC: <sre@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<lee@kernel.org>, <conor+dt@kernel.org>, <daniel.baluta@nxp.com>,
+	<simona.toaca@nxp.com>, <m-chawdhry@ti.com>, <linux-pm@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] dt-bindings: reset: st: convert to dtschema
+Message-ID: <20260325131041.qafej5qzbs6iyypt@lcpd911>
+References: <20260325130623.36710-1-krishnagopi487@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/12] arm64: defconfig: Enable I3C and SPD5118 hwmon
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Akhil R <akhilrajeev@nvidia.com>, Frank.Li@nxp.com,
- acpica-devel@lists.linux.dev, alexandre.belloni@bootlin.com,
- conor+dt@kernel.org, devicetree@vger.kernel.org, ebiggers@kernel.org,
- fredrik.markstrom@est.tech, jonathanh@nvidia.com, krzk+dt@kernel.org,
- lenb@kernel.org, linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux@roeck-us.net, miquel.raynal@bootlin.com,
- p.zabel@pengutronix.de, rafael@kernel.org, robert.moore@intel.com,
- robh@kernel.org, smangipudi@nvidia.com
-References: <20260319-nano-manatee-of-vastness-fbafa1@quoll>
- <20260319170929.14543-1-akhilrajeev@nvidia.com>
- <67165a1f-9fa3-4853-b530-b1f9d6e4c2cf@kernel.org> <acO4NKPDUayny-I4@orome>
- <6342b6fd-9802-49d9-a269-ecb3b70b4604@kernel.org>
- <ed3828b9-fd2d-46c1-b486-c5172f61eafa@kernel.org> <acPX-clIX4UfBNdM@orome>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <acPX-clIX4UfBNdM@orome>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260325130623.36710-1-krishnagopi487@gmail.com>
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00026367:EE_|IA4PR10MB8610:EE_
+X-MS-Office365-Filtering-Correlation-Id: 32edde6f-fbd0-49d0-d520-08de8a6ff1ff
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|376014|7416014|82310400026|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	hGE2udhz5EgVBfqWEUaGBDnkroK1q95m4ZJ7NKCWO2iIkFRy4kLTJ7O0V/IEdz1Bi1IBowQ2ifznPvDjqB620dIeT81pf1+Llud7dsLMrLzDYwprx3a6dOb79NVuZgeJGbCOZAkvp6cqH7on9lhh0YOLjEdUHGP9OcdjnYMWQquKydtHb85AUYLLZpRHf/aOCF1BcYFSSZhTIljw7D10l7spNXeQdVbO39C84EDEE2AIIoG6NVGthOvtkyqVE9jUgq0STeYvgPitpjM6WcRjNO2ic6U+Gs58JJAfwnV49VAXYIbAKYB5wforqwFtsdugXwAUfIbEMQxqqjT9k1poZunpducnhKeKDUYfF97vNVpICKT/z21aNphdnacAFgIP6GSj5oMscbYWZoXO+KrsXSLygnaXL7gBVGWIrMJ2wEJTnVfcLiy24OUrfMiEExV6ubiZbGZcFqnVwJ4RNfmG35kQltN4CO09NyVGCa7m/xh/WWMFuW0o3clkczjmahv0BlGwFD2obl4t5LlMZljMZXMAKN2XIQc51IfYufDVBnhOTnwHYOdrIUJOxBXVhmaj6oHCzklHBC41r0NYW3/xlVgTavlWzqGdA82p256r9PSMU0M2U9hAJuMrcy5jE5k8jF5miM8vABynbugcAGgXadYLsW91c8RGeQwseWjCrCM6QPmEI92SPk0RyZC07mTsDiZUxTnRXfm+Z88YCpR/1FXlwLjXuqsBWwAdCwdXkVo=
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(7416014)(82310400026)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	imLv1J1J5gTcT/5z1KFsv1EzKx604eQwPIzWFgFwd0fON62niMOE1P/5iMGf9zv2zreoHbNDCMIHYcG7wx3uWwZarg7ncNHZUy2Za+ckAunAJr7XXNYkcp+cR43YIQEd2JelpsJzSZOLDytHrLzXb8t1ENyIvrG4ay1JzI5Ws0jO0JjsuET2GszN6gO3MEnhCyXNA1OymddioxECa8ygAwIIGg+xmjq/ecmFOfaJ6hTa1mvDvmgwy/wU4IaX2hT1H5/fpVCOK8mhW21iWVaken8sE/3MKHzeh0Tw/DBtzKM1lvO1Znx5voXZeMPtOIXHZ+PPK3NlynsrbmJqeBwIyk+91Fq43ALO63fITJCXa2AQSi41mI+UMKJ6aY6lMO13GrI84PvEBwy6ZfQDveYv9hemWyzI73o0Kh+xUphMQcwjHfrkk5/0atWRxO/Np0Gh
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 13:10:53.8484
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32edde6f-fbd0-49d0-d520-08de8a6ff1ff
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF00026367.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR10MB8610
 
-On 25/03/2026 13:58, Thierry Reding wrote:
-> On Wed, Mar 25, 2026 at 12:03:37PM +0100, Krzysztof Kozlowski wrote:
->> On 25/03/2026 11:59, Krzysztof Kozlowski wrote:
->>> On 25/03/2026 11:31, Thierry Reding wrote:
->>>> On Thu, Mar 19, 2026 at 06:15:14PM +0100, Krzysztof Kozlowski wrote:
->>>>> On 19/03/2026 18:09, Akhil R wrote:
->>>>>> On Thu, 19 Mar 2026 10:40:34 +0100, Krzysztof Kozlowski wrote:
->>>>>>> On Wed, Mar 18, 2026 at 10:57:25PM +0530, Akhil R wrote:
->>>>>>>> Add I3C subsystem support, DesignWare I3C master controller, and
->>>>>>>> SPD5118 hwmon sensor as modules to the defconfig.
->>>>>>>
->>>>>>> Why? If there is no user of that, why would we want it? Your commit msg
->>>>>>> should explain that.
->>>>>>
->>>>>> Ack. This is for Tegra410 which has a DesignWare I3C host controller.
->>>>>> I will add this in the commit message.
->>>>>
->>>>> Board or products. Not SoCs.
->>>>
->>>> Is this a new requirement? I see a bit of both in defconfig changes.
->>>
->>> Almost every review from me has it for 2-3 years... And it is a known
->>
->> And I already explained this to *you* 3 years ago:
->>
->> https://lore.kernel.org/all/ac8f30a7-fc72-9a44-74b3-a69001bfdaaf@linaro.org/
->>
->> So how this could be a new requirement *now* if three years ago we had
->> exactly same discussion.
->>
->> I understand question for the first time, but why this being brought up
->> as "why is this a new thing" again?
+On Mar 25, 2026 at 18:36:21 +0530, Gopi Krishna Menon wrote:
+> Convert the STiH4xx reset controller bindings to DT schema.
 > 
-> I have to admit I did not remember what we discussed, so I had to go
-> read that exchange again. It sounds to me like we were not discussing
-> the specific issue of a missing description as to which particular
-> product needed this, but you were instead rejecting the idea of
-> enabling drivers that were not strictly necessary like those for PCI
-> devices because they were making your life more difficult by building
-> drivers by default that you were not interested in.
+> Signed-off-by: Gopi Krishna Menon <krishnagopi487@gmail.com>
+> ---
+> Changes since v1:
+> - Changed unevaluatedProperties to additionalProperties
+> - Removed the Suggested-by tags
+
+Reviewed-by: Dhruva Gole <d-gole@ti.com>
+
 > 
-> Here you're arguing that you want proof that this is going to be used
-> by some upstream-supported device, which are two different things,
-> because they might very well be drivers that you're not interested in
-> but end up building if documented properly.
+> Note:
+> * This patch is part of the GSoC2026 application process for device tree bindings conversions
+> * https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
 > 
-> So I find it a little hard to keep track of what is acceptable to you
-> and what isn't. Are you objecting to this on the grounds of it bloating
-> the kernel build or because you want documentation for what platforms a
-> driver is being used on?
+>  .../power/reset/st,stih407-restart.yaml       | 31 +++++++++++++++++++
+>  .../bindings/power/reset/st-reset.txt         | 11 -------
+>  2 files changed, 31 insertions(+), 11 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/power/reset/st,stih407-restart.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/power/reset/st-reset.txt
 > 
-> Our action items will be different depending on what your answer is: if
-> you want documentation about what device this will be used for, we'll
-> get you that information. If your concern is that it bloats the build we
-> drop the patch and will have to ask users to build their own
-> configurations.
+> diff --git a/Documentation/devicetree/bindings/power/reset/st,stih407-restart.yaml b/Documentation/devicetree/bindings/power/reset/st,stih407-restart.yaml
+> new file mode 100644
+> index 000000000000..0dd7f5e98157
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/power/reset/st,stih407-restart.yaml
+> @@ -0,0 +1,31 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/power/reset/st,stih407-restart.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: ST SW reset controller
+> +
+> +maintainers:
+> +  - Lee Jones <lee@kernel.org>
+> +
+> +properties:
+> +  compatible:
+> +    const: st,stih407-restart
+> +
+> +  st,syscfg:
+> +    description: phandle of the syscfg node
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +
+> +required:
+> +  - compatible
+> +  - st,syscfg
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    reset {
+> +      compatible = "st,stih407-restart";
+> +      st,syscfg = <&syscfg_sbc_reg>;
+> +    };
+> diff --git a/Documentation/devicetree/bindings/power/reset/st-reset.txt b/Documentation/devicetree/bindings/power/reset/st-reset.txt
+> deleted file mode 100644
+> index b63948737d80..000000000000
+> --- a/Documentation/devicetree/bindings/power/reset/st-reset.txt
+> +++ /dev/null
+> @@ -1,11 +0,0 @@
+> -*Device-Tree bindings for ST SW reset functionality
+> -
+> -Required properties:
+> -- compatible: should be "stih407-restart".
+> -- st,syscfg: should be a phandle of the syscfg node.
+> -
+> -Example node:
+> -	restart {
+> -		compatible = "st,stih407-restart";
+> -		st,syscfg = <&syscfg_sbc_reg>;
+> -	};
+> -- 
+> 2.52.0
 > 
-> Maybe to avoid these kinds of discussions in the past you can write down
-> your rules about what should go into defconfig and what should not. And
-> maybe we can eventually find consensus and find something that people
-> can use as a reference.
 
-I think answer is pretty simple and comes from the reason WHAT is the
-purpose of defconfig. It's purpose is only for us.
-
-Therefore defconfig can have anything anyone will find useful, when
-building and running vanilla upstream kernel on their devices, with
-exception of explicit needs for pluggable devices because then it bloats
-the kernel to impossible stage (otherwise look for me sending all USB,
-PCI, MEDIA, whatever devices for defconfig...).
-
-For example:
-1. Something used only by a DT board not enabled upstream: no, because
-you cannot run upstream kernel on it,
-2. Something used only by a ACPI platform, which require some out of
-tree patches to build: no, because you cannot run upstream kernel on it
-3. Something not being part of the device but pluggable: depends,
-explain why upstream contributors would want it.
-
-Look at the commit here:
-
-"Add I3C subsystem support, DesignWare I3C master controller, and
-SPD5118 hwmon sensor as modules to the defconfig."
-
-Does it say why doing it? No.
-
-Nowhere in this posting I was objecting to actual change. At least not
-yet. I only ask WHY you are doing it.
-
-Why is it so hard for a contributor to know and express why they are
-doing something? If one does not know WHY they are doing it, then why
-the heck they are doing it?
-
+-- 
 Best regards,
-Krzysztof
+Dhruva Gole
+Texas Instruments Incorporated
