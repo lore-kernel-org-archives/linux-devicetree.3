@@ -1,119 +1,105 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EC939A814
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 10:14:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE993B27F0
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 10:17:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774433647; cv=none; b=cQ1Z85kxF0loptygptLJbGLRO+agCjhYiBerC/WaztX0L0DNbTDPZxuyAinqZdCCG4zIaDOoRaxcVRXbHJWHZGfUZIT+Fhb37ifd8BgtAWQBOqrxkjdw1g1eg0LnHhSvK056L3ZBuu6gVdZUR32i/FrAonQCjRgUtQFw1pbz+JY=
+	t=1774433823; cv=none; b=E/xtMqw6Ptz+8WaGkc2PP6XaXLg8sIrMTkPLZyh0iwJvc3FY2Uv2n3ZxUO+yuHEWIcquiSsUU4OZzxPT1yX9qLOIkqMjaIysDonWB1rtul4b5QJeIO+XuvJ+cph2Fi/ZH+wRm8MWJIvIuJLm+75t7aW7RDBt6VO8cV3TFezhnCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774433647; c=relaxed/simple;
-	bh=odJWbCaP0lmit5rLsXxRBXtkP6ZV4LNpp0nhdo89p6I=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=r9JFQONhTDDCuvmvTkaw31x/qdmcqd4yKYXBSpKJ5HhU0lHN5/hhcBV63K7H8IGfEnZi+tW1499v5BWb/R2L51jXLVse/jeFTiwGWh8b8NYnLC3f2YAMq7o9SV1jNZnnOoa51kH9Cfr4KId21WBGXEBdCZDCJy0iAHTGpxHORwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X6Wi+i3D; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1774433823; c=relaxed/simple;
+	bh=62igCHF5603h2cDAAalhEN5a09CaNNC/4Ln4C74bl7o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ukQqhMPylbmLr+X/R8wwARTjYV4cjDoMbC7TH9IAj0m9wyGpkAeTTVAhdCUiaKGGgqoZ+SizxLAnJ3KvdPhZTSjbPnZpWg8gErdQpwr0NJh2EsUCDuOvFwI2mrjG3nRX9Y7DMjDnUWjCFMQ5Y9H8R3j9RHu93EIoXxWpg6e9sII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X6Wi+i3D"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-439b9b1900bso3342740f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 03:14:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774433644; x=1775038444; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=dFC9v3RA0+njBsaguL/yT+mILr4lqhBw+oEWCcpW5UA=;
-        b=X6Wi+i3DJPfitsgNgUCGfJwzqTR1BeZL9HBN9wBb5/pVskRv89DBmHtir5M3DEufFE
-         ApA7cZvoy2J1mbPVVjB1CK2iMhyQzNYJ7+xx0XckftRKrlTgH6j1BZbaQ4bjILL+k1Eu
-         TG3HkU+cUN0C6Ck9jdr8IXlG5/i7tODdJlAz7HdyA9ytvARpt6B8Tt0pJGmEpQndvPpj
-         p0hZaOhsFhrC9uksfPwp3ormm/ObRiA5/8S3hAv3rfw/1Akd/ddmPTdiLpV+c3ulLGef
-         lqtCHwVv1JtAleoSizJ4kyCgXsukcQxdH8Oc4g6IvqRPYtiB8GWoZ9NZXdHddj7BPEqo
-         T1fw==
+Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-5ffa277c115so4166577137.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 03:17:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774433644; x=1775038444;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dFC9v3RA0+njBsaguL/yT+mILr4lqhBw+oEWCcpW5UA=;
-        b=NdYEL15LgqE2j2tcqL3fo/NkMdJb+sjV/Uv/POWyR2HkUL1PWpIbHdiDEj/UMRCiBg
-         sfDXNbHmSaN6SZFzozK2pT/0sXhnxnONHcR/0XSNT8vTMCA0W0OSzvtwTtFYKaLEyQEM
-         eGS5FcJ/L0zJCT3tTbAPqEt5Ya25+2DFJWNq+HwIf/QjCbv49qc8s48qun2Gje2Nf81L
-         aLmHmokjmSvdpCcjwel0pWUlbES7wZsbKCetvuNq1sknSAxv5pBZI0TRN+W9h+MLZSuP
-         INK/tu5/vJYuEZx/yluocSsC0GEKZk+qsQ0SiKhkMaHD3Mmi2+3tQt1FcSKvfNfdCbY4
-         xQmw==
-X-Forwarded-Encrypted: i=1; AJvYcCVjhc8cr/kHAPC/h5mfSx5FdLAzoWkFk+HCs8MsPvYvnYcEx7U1EWXwT3eHS0VnSMM0r3Pouq30sZ2Z@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy+X3zEBXvjkwVSPjKqC87+PEk6f2jZhHAd1jaj5iNNqExsTnjR
-	NGLq4W3pD2O7JL2YGmBAtu6Z52g6DIQVZbbxekXTJBeUBTonFfTBgaUQ
-X-Gm-Gg: ATEYQzyCldMA8ivQTi943YQGDe/iHt9x1IfSWBK33vgqPo9I0CgQzp7844b++LBmvnn
-	QeNDhMpskmGuNPewdJaed1KKb3M94hPe1vuwoEAMFYdYGr04v4L3Am225/OlPaZQqjKJOTNSaNt
-	4EI+WQgO1C2wdBXrxPOZXOCNv3yFklZ4EUc98gnpJaAfOxMRRq3MOlo7A3F7McUqHv4BIyBFMdL
-	HV4f35tePfN8HcjpZMj2VmHwDkqOREyb/rMcOwSNt7cnveUSBoRdIT6blXUkJz6wvtU7dWEq3OR
-	nJ86T5h2e7/Gc3VtfiUrcjp0HEckBSPm/RQFytwr07vOyMgQTRbsZTC98DpfQHOeyIBSg9qTYmO
-	g+qPQPyAwotqpH8753QfSGGr+Jk21Rv2GxvgVrIMoI1f3iRbGhuz7ntEc7fh7q4IkWKG/RLsr7l
-	URAMo2xdlrAMw24oADliLX1/kRXEksJEE=
-X-Received: by 2002:a05:6000:22c1:b0:43b:87e9:6aee with SMTP id ffacd0b85a97d-43b88a57005mr3984417f8f.54.1774433643870;
-        Wed, 25 Mar 2026 03:14:03 -0700 (PDT)
-Received: from [192.168.1.187] ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b85082842sm10732177f8f.20.2026.03.25.03.14.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 03:14:03 -0700 (PDT)
-Message-ID: <975f2df6090f3aea0524369ef07f2a648064f010.camel@gmail.com>
-Subject: Re: [PATCH v3 2/2] iio: dac: ad5706r: Add support for AD5706R DAC
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>, Jonathan
- Cameron <jic23@kernel.org>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"	
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, "Sa,
- Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,  "linux-iio@vger.kernel.org"	
- <linux-iio@vger.kernel.org>, "devicetree@vger.kernel.org"	
- <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"	
- <linux-kernel@vger.kernel.org>
-Date: Wed, 25 Mar 2026 10:14:50 +0000
-In-Reply-To: <PH0PR03MB6351C1D87987E0533F4A07EEF149A@PH0PR03MB6351.namprd03.prod.outlook.com>
-References: <20260318-dev_ad5706r-v3-0-5d078f41e988@analog.com>
-		<20260318-dev_ad5706r-v3-2-5d078f41e988@analog.com>
-	 <20260321183909.45761710@jic23-huawei>
-	 <PH0PR03MB635133FB434235B7542770ABF149A@PH0PR03MB6351.namprd03.prod.outlook.com>
-	 <PH0PR03MB6351C1D87987E0533F4A07EEF149A@PH0PR03MB6351.namprd03.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+        d=1e100.net; s=20251104; t=1774433821; x=1775038621;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KTLtnGl1M6udnRP5yuu+s9KqbRSTNVgcMGsOu4/hFHA=;
+        b=PIhjJKlR10Q0ROIiqbF6JGWiV/vrEM6RGUtwM0lPrVZNDUhs9frXsffAiMqzKoxlWc
+         +ZyXLY9Z9y3OWTjzAxUEaVgV9GtaVWJmHfc+YOCfZesIbSv14F7M9UK10AQMbpaVcgnZ
+         bc+1gy4BpbIOmGdPhEEMSStxkRdDnc011/ky+MJtWMaFKGarX5AsFHL+Zyce265wcktM
+         fVGooDbo6KkXD+BVSvkuwDVXem83OYY9Kz0uO6SmUWAJYugYT/7qIR9Fpn3XjQcO4CBU
+         3NKDkXMUMeqYi+d0C3PL25IZ6lH/xATlVDF4eJasWVcr8vWlwtR9U4MK91OjDAjtkxKN
+         sI1A==
+X-Forwarded-Encrypted: i=1; AJvYcCXE4pt6kx4pbu12KgjmU7rYtw1hWHavFSUwhobfKUPFdKp/3jB0zOvIz2HcXwirStpInsi1ttSy/MBT@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8dvjyrlTCaxVo9uIPZk6Jxirv19J8SgbneR0h0DNmE5KVJw+W
+	IfLfUuVD2QFDo021vl/7N865hfBy/74tXGdlmLTU2QHR2BzMgnypniu1JcHI1ObZAUQ=
+X-Gm-Gg: ATEYQzytKBPDk7qTGOjfhz5VAoD2/vrNyq48a53rAvo9ZutoyYZIOdQnayAoWScJcMd
+	QUvn2+6GGbN3lC9AwKQ9SmQLA9JXEWIoLxZjQOqhJRoalCxlyl0krBmjFrYtLm7xmJlKIB/ZCJM
+	w8M9lT+KNw+ZaW3dQr2OH3VckDlSOJYsC6YZ+9EsFERtMPSwMSKLGDZkWlcLdZdapNC5tX5001v
+	jk4cVVLr5e4wsvazvLNzSK329amef0SFGEpJTHMxmfsU6ynOleyNKRtbauCiIivMqX5W7Mo1Pip
+	L1rdhOkNG+B4rUDNb/HloWeI6NMjuyG4eve/wJuniS5VRMpFEKmtBBavL7jtIQyDo7fpD3LQv4w
+	wQ1ME6IkjYwwAkqcH/LIqcdRBWEtuMBjAJ+Rf9LeIvT/Yk23nUXpZfpdfcMiT9BcRDNhN0mszL2
+	Mnn+Iaua4QfyHN/KWL0Y9B4p62893Eflf9PtHd9MwZTiU8SZHf8VgDjsE9oLWE
+X-Received: by 2002:a05:6102:8557:10b0:5f9:39eb:590a with SMTP id ada2fe7eead31-60379044000mr931545137.9.1774433821023;
+        Wed, 25 Mar 2026 03:17:01 -0700 (PDT)
+Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com. [209.85.222.52])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-602afb00179sm13177037137.9.2026.03.25.03.17.00
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Mar 2026 03:17:00 -0700 (PDT)
+Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-950c41532e1so3438749241.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 03:17:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUdyykgijSaX153c7V/XwLFTE349u5A75m3kwalodVGZ5csYEzjU7dHUuCohULZgW2Oz54ns3V3JeIp@vger.kernel.org
+X-Received: by 2002:a67:e705:0:b0:5ff:b684:f7c5 with SMTP id
+ ada2fe7eead31-60378fe5973mr1555537137.8.1774433820077; Wed, 25 Mar 2026
+ 03:17:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260324225239.19136-1-fabrizio.castro.jz@renesas.com> <20260324225239.19136-3-fabrizio.castro.jz@renesas.com>
+In-Reply-To: <20260324225239.19136-3-fabrizio.castro.jz@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 25 Mar 2026 11:16:48 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVEtjDMfzo=ZQig3+3eYa=vxkAx8cHwxdmC7L3kTdS+vQ@mail.gmail.com>
+X-Gm-Features: AQROBzDiB3ZNSpBoCH-0zzZh64dFUliOdmHE4q1JciSR7WAkrsj16jKQbjIuw6U
+Message-ID: <CAMuHMdVEtjDMfzo=ZQig3+3eYa=vxkAx8cHwxdmC7L3kTdS+vQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] clk: renesas: r9a09g056: Remove entries for WDT{0,2,3}
+To: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 2026-03-25 at 03:13 +0000, Torreno, Alexis Czezar wrote:
-> > > > +	ret =3D spi_sync_transfer(st->spi, xfer, ARRAY_SIZE(xfer));
-> > >=20
-> > > Can you use spi_write_the_read()?
-> > > Has the added advantage that it bounces the data so doesn't need DMA =
-safe.
-> > > Can also use more meaningful types like
-> > > __be16 tx;
-> > > __be16 rx16;
-> > > u8 rx8;
-> >=20
-> > Ok, will shift to spi_write_the_read(). There was another place to use =
-this
-> > above, just trimmed it off here. Noted on the more meaningful variables=
-.
-> >=20
->=20
-> I only just checked spi_write_then_read() but, it seems this doesn't supp=
-ort
-> variable spi_speed_frequency for my future patches. Should I still use it=
- for now
-> and revert in the future?
+On Tue, 24 Mar 2026 at 23:53, Fabrizio Castro
+<fabrizio.castro.jz@renesas.com> wrote:
+> The Renesas RZ/V2N SoC (a.k.a. r9a09g056) comes with 4 watchdogs.
+>
+> As it turns out, it only makes sense for Linux to have access to
+> WDT1.
+>
+> Remove the clock and reset entries for WDT{0,2,3} to prevent
+> interfering with the CM33 core.
+>
+> This change is harmless as only WDT1 is currently used in Linux,
+> there are no users for the WDT{0,2,3} IPs.
+>
+> Signed-off-by: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
 
-There's still the open regmap discussion. Independent of that, if you can't=
- use
-spi_write_then_read(), you need to make sure the buffers you pass spi are D=
-MA safe.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-clk for v7.1.
 
-- Nuno S=C3=A1
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
