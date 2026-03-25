@@ -1,67 +1,67 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE0E3F9F4B
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 14:46:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4862853E0
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 14:46:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774449999; cv=none; b=g9KRuadnuOGSuwYRywOH8NEq4eaEWF3Ih65z0YcLsjT3AZEg/9WZd/RBUHZB1+36UwlTkH82TQwWP2iuUp7eBbeDt1/NboHMIxZpxl++sO83X6F3ErDT93RTirTYUfYug5dmFJ377N0P8awhiTXtPk/8wXgkz357X0jLNsgVR+E=
+	t=1774450001; cv=none; b=jXD+65DbvKhSxwHif3ijMP7xBYB43RXRh+hBX12lq67RzC+Xr4XvCkD4fM4eenlCr0evZsmfPSR/gTa1XV7Vf6+jMgVEhYA7siowC/vi+dafMvxv4xaEgTEkVP/DY0SacX44jnH+cOsf/U1w9iuPvV2zsPxL51sQ/gzMwiL1vM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774449999; c=relaxed/simple;
-	bh=0M8bC8s4CQRoL47kiXxXJsMthW3oUTt23PyDFJOgaNw=;
+	s=arc-20240116; t=1774450001; c=relaxed/simple;
+	bh=0ZOYgIbrraUIDmqU9A99qHZczz1+D83J6iifzdZxZRI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qB4aDGwybxBwrDxPYN/746kjiw6PO8tp66aV4XoE0MYOfftQR32688SX7D5zH11cs9IBptFFb5pCt4lEf39NGajpSL+RktS03E2ihyC4K6VpeLR7zCMIT5LKxG/Pqmdwo6BHL6lmfYFSChvB+1gm0eQkLg7ZajGdeXeCBtK9McM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VjDFqywM; arc=none smtp.client-ip=209.85.221.53
+	 In-Reply-To:To:Cc; b=MdPpOFqPHEQQStzoJYRjKNiq56t38nDOARxrII940WcqFgEgXF+rmvBDwNEPjmyyMDVEa3t8zAdKKP7d54H1lv6HMafB5EymeCBWjIZsnxfdAAUUwtZNoxCMi1ZFTEeKxFv5VI30HjrRnmiRdlNviHypflsGauXFU+QcXYyPBV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I9tTAmsw; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VjDFqywM"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-43b9144790dso71550f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 07:46:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I9tTAmsw"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-43b4d734678so2416622f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 07:46:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774449994; x=1775054794; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1774449996; x=1775054796; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=K56QdSgJZYNMBcYP6tlC/3xyKloobCMQ/93giVqKRL4=;
-        b=VjDFqywMr8XK/Csu50MvpVEd+c8IafE0k3DTHvlTT7AgP7lNYbXcK2tGKsc8RIxsqe
-         zOwsCgPlLSTpw7NQuhHLl8PO6GC2Xzh2ffehK03KpYd/zrYL86hxDPS5CVxsa8zg+MUj
-         GmN4LWwFSmhJ+vs2DsQpefM9RYytQ5P1JkrsFnK6nXBRfmSofxoZLII0UKlz1cvTuE7y
-         VuKw+EM0a+ccnAeT44m7H7hrV4iD37Wx9j2ZeIDucu8buq+BerWLwrrrK/izLnISdYu3
-         61s2mBOGp3/IR3bup9vi1FG/s/b52kg3pf+yvNU8PTHuWjE1QaP0PjpVA973Sc1hMxkT
-         04Uw==
+        bh=eEAQifmW6GbEwhlfuqNE2AiGxXOiSlZr/1dU3Ei/HJc=;
+        b=I9tTAmswLrXN/TcjxUWhC1M5x3Pto/rO4ym6Ly++WaeluiaSTq1mZP88YDjQJpWasi
+         46IH7QuMRAGenfPVfbbH172Ucqoam4r64fBEvnMKKvm8F8P1PF7JJO771nOEa0rxH8SV
+         P1osfRaHxlv2gNPoeAx3ThdxidOpZz5p87e0XtQYVGxz9izQ+X+jL88f+8Bluv33j1EG
+         XCODtghJJuDt/0D1U5H+0SqPQDKlQ5SmoKAzG7lUMNUdnUmLc0R0BFIKa/Z60H36T/qm
+         plXYtxH3PiniGFnk4uW/RU6iitzAkIEdu+3gHC8/sxpNhDdGUu40ou2tAo4xJSBRYzY+
+         hM8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774449994; x=1775054794;
+        d=1e100.net; s=20251104; t=1774449996; x=1775054796;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=K56QdSgJZYNMBcYP6tlC/3xyKloobCMQ/93giVqKRL4=;
-        b=kRLlBWFjW0I0LqOgAu+8ZPqYuESYFmmE312qGUk6T1klK3Jgmpnf1m006vqhwDzl2F
-         eUgl1btLbl9W28uQGOiS3PvWtFLLMegEIIvKUngdK14y4QNim94JckcjPRrTxB7pLahc
-         fu5RrHQKY4LSq7jKC1yu92UmnvG98mDF5pj4xFOihrM6iKGLgSAaawKBl9gMetauOGXv
-         pm/oe/ZAERZCQiIDf2wE55RzEEelhMgYO1hvgqM0Wwp3av5xgnhI/iuD9A4soYs2xqfx
-         KqSouo3PBSjQ5IL3nlRYBb3KDlI12OHwRjSYUhlVhY7323RtTSKMYj3r51FvRd2VvmLP
-         gisA==
-X-Forwarded-Encrypted: i=1; AJvYcCV/liPQZ/NdTmuKYDb+i/wT2CJV1fSj4+xaNxuUbMvhKX3QsgrRCHUajDZCYc+wE8fY1ZmbEzAKW8cJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YxniLoJ1xyKVE6co2knR9ETNeZC+ttg6WlQkrJIsuPVGYhkD5mO
-	IvBD8k2Pw5uIaEsnhCcNDhXUC2KynZmRMmYe5tTB8C0GFz4Dc4jwag+u
-X-Gm-Gg: ATEYQzxdLmauZS8EyiDxuniwHJ8HNuXfFY5BZCss8eLNzKQTjVbvexuHgeKyWSYYVDF
-	KR17VVBmVo7RTUoCM6el9dJkno56YlRj9kRLqCfIuRTYHS/cj997cBxKskzbDwQLnDNxqZ53H43
-	RWX2iTzbEsThZpBKbu885+G6dUFqezF0sso0BFhqkAMRR9qWV1fMAbf6rk2czfyNNEXAknK7Z3U
-	DVNCRKfwUFqBBvw2dV7fWWpXQZX2EzUryGOsQDxPa1lnWrPHjBwCdqeCmUo9a3WKjNVNKAppmSD
-	WoUpfH4Sr2RbvkyoMlYgBn3N6mwzJPYcVS3qM/RJuX+bL62xb6TJxzF49L5ieM7zO8nSVh/+Iew
-	Z9lzzZszKAUqrKWsRcNb7a1ltfZ2Ze0PjtxCTB8jKLx2y1mutwI6q5G+KAvaMjP7OF6wWYdrfD0
-	Qs9brnV6CAW1TIRRsIpi7lifnU4GX2Y38O3h1h3uUSuBRmFc3MhfY1A/IpiRt1xGdH8gnN35Sse
-	LSRgJ2nBzAYUsZ29cySgRoE9RNCSVr8iqyz/g==
-X-Received: by 2002:a5d:5270:0:b0:43b:88e9:588 with SMTP id ffacd0b85a97d-43b88e9083amr4001503f8f.37.1774449994187;
-        Wed, 25 Mar 2026 07:46:34 -0700 (PDT)
+        bh=eEAQifmW6GbEwhlfuqNE2AiGxXOiSlZr/1dU3Ei/HJc=;
+        b=DP+3oEubOi1oxNKlHNLDt6f+7UQ2KxFjuEzzbG1/Kh31mmtw6bhKczeOwEbkAYXdJ7
+         SvPLJHrDUdJmhPM1uwm2Zb+ZOWdEZ9SnNJhVGrNN9BQykEVfmG/zTSTKH9WS8VAyP1j6
+         ygnj6/DqUZbD9lEqCi82otLsNV4Lr51srL3zr94ngP+QrOWE+Ey4+RctwtT6Lq/h8CVb
+         sffjEbFqKEvf6m3IsURnJih1BjfkgbmTBv4cVub/18Nw53S5LyRxzt/DF1BNeRkqsqQx
+         Iuy3oZr852lRZ0tqKj1O7NPSEMAyiP1fsoq4gczxuqDNXiFhCyN1leV8cqLAtKSkG+Cc
+         KZ/A==
+X-Forwarded-Encrypted: i=1; AJvYcCVxhzl8uD5rksVeiDcvNwGrM09Hhqpcg4XKTj0w10nr0BpS1Z9fIiWtv98oO7YqAnWxKKxZ2JhpzNe3@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7lgUAqvnGfxetIwS5jqJ322+15WhD5gNvk7NJlZbLcxUY0yiK
+	cNihu7JTL2YG/UCHvBCWzbCG9wTgsHS23Pl9Od7OOlIF0vzWLUX09aNS
+X-Gm-Gg: ATEYQzx4a/2Enwfr+KJSQT4AUSaPmEOkAVFSGEo8vs7dK3mpVSxnl0qQL9mpTk+oGrl
+	foo19tOi/OosaZVgMi8M/6lo2E6CTwJdUJqLN5yZck9yj4KBToROoOvQVE0BsZWTz3Velze8f/6
+	ECgENCFVJ7OFRKZLuaLd257rLHIEM8OITjQJsmSUVgq7lIOuczHknAeD96oO7USzb91bqbiSAHl
+	cI6bJk6WvUlE9DTOLZSxp+hVUZgnN/rZUCaL2F/7RttDzhTAcdv9aTY5Q0ikIcoJSTY6BZ4LXtS
+	ZKTrFZ0RPfLqSQu7I1NAJgxGZXMTGLZlCim5plzLsw2C9pE1dvl45pitaXf3BV+8TyfnvP53lLD
+	mz25HWjQhmK8ahqnlyAWaIupk6zvzoPe8/N06BMHtFF1EhgNgjjdTRh0zYkdIONKrKIbxZk6eg7
+	6Aa69ZEOPmbwe1fHV+fOSkxw/uxwHz9GOikblxi8Lb3j5IZkJMcKurrgkTAa/GQqPFD+H+3Bsk0
+	ZF21+ydE9jmLujlyJBX0U1BGeA=
+X-Received: by 2002:a5d:5847:0:b0:43b:5672:efe with SMTP id ffacd0b85a97d-43b88994eeemr5561169f8f.9.1774449995254;
+        Wed, 25 Mar 2026 07:46:35 -0700 (PDT)
 Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b9192e305sm304592f8f.8.2026.03.25.07.46.33
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b9192e305sm304592f8f.8.2026.03.25.07.46.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 07:46:33 -0700 (PDT)
+        Wed, 25 Mar 2026 07:46:34 -0700 (PDT)
 From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Wed, 25 Mar 2026 15:46:04 +0100
-Subject: [PATCH v3 3/6] arm64: dts: freescale: imx95-verdin: Add Dahlia
+Date: Wed, 25 Mar 2026 15:46:05 +0100
+Subject: [PATCH v3 4/6] arm64: dts: freescale: imx95-verdin: Add Ivy
  carrier board
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-verdin-imx95-upstream-frank-li-base-v3-3-b2b5221a8077@toradex.com>
+Message-Id: <20260325-verdin-imx95-upstream-frank-li-base-v3-4-b2b5221a8077@toradex.com>
 References: <20260325-verdin-imx95-upstream-frank-li-base-v3-0-b2b5221a8077@toradex.com>
 In-Reply-To: <20260325-verdin-imx95-upstream-frank-li-base-v3-0-b2b5221a8077@toradex.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -88,109 +88,273 @@ X-Mailer: b4 0.13.0
 
 From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-Add support for the Verdin i.MX95 mated with the Verdin Dahlia carrier
-board.
+Add support for the Verdin i.MX95 SoM mated with the Ivy carrier board.
 
 Link: https://www.toradex.com/computer-on-modules/verdin-arm-family/nxp-imx95
-Link: https://www.toradex.com/products/carrier-board/dahlia-carrier-board-kit
+Link: https://www.toradex.com/products/carrier-board/ivy-carrier-board
 Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 ---
-v3: Rebased
+v3: no changes
 v2: Reordered nodes alphanumerically by node name
-v1: https://lore.kernel.org/all/20260305-verdin-imx95-upstream-frank-li-base-v1-3-823fad02def9@toradex.com/
+v1: https://lore.kernel.org/all/20260305-verdin-imx95-upstream-frank-li-base-v1-4-823fad02def9@toradex.com/
 ---
  arch/arm64/boot/dts/freescale/Makefile             |   2 +
- .../boot/dts/freescale/imx95-verdin-dahlia.dtsi    | 270 +++++++++++++++++++++
- .../dts/freescale/imx95-verdin-nonwifi-dahlia.dts  |  21 ++
- .../dts/freescale/imx95-verdin-wifi-dahlia.dts     |  21 ++
- 4 files changed, 314 insertions(+)
+ .../arm64/boot/dts/freescale/imx95-verdin-ivy.dtsi | 515 +++++++++++++++++++++
+ .../dts/freescale/imx95-verdin-nonwifi-ivy.dts     |  21 +
+ .../boot/dts/freescale/imx95-verdin-wifi-ivy.dts   |  21 +
+ 4 files changed, 559 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index c46059cd2331..bcf54b4ed66c 100644
+index bcf54b4ed66c..4417b4a3d245 100644
 --- a/arch/arm64/boot/dts/freescale/Makefile
 +++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -497,7 +497,9 @@ dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk-sof.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-toradex-smarc-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-tqma9596sa-mb-smarc-2.dtb
+@@ -499,8 +499,10 @@ dtb-$(CONFIG_ARCH_MXC) += imx95-tqma9596sa-mb-smarc-2.dtb
  dtb-$(CONFIG_ARCH_MXC) += imx95-var-dart-sonata.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-nonwifi-dahlia.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-nonwifi-dahlia.dtb
  dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-nonwifi-dev.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-dahlia.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-nonwifi-ivy.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-dahlia.dtb
  dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-dev.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-ivy.dtb
  
  imx95-15x15-evk-pcie0-ep-dtbs = imx95-15x15-evk.dtb imx-pcie0-ep.dtbo
-diff --git a/arch/arm64/boot/dts/freescale/imx95-verdin-dahlia.dtsi b/arch/arm64/boot/dts/freescale/imx95-verdin-dahlia.dtsi
+ dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-evk-pcie0-ep.dtb
+diff --git a/arch/arm64/boot/dts/freescale/imx95-verdin-ivy.dtsi b/arch/arm64/boot/dts/freescale/imx95-verdin-ivy.dtsi
 new file mode 100644
-index 000000000000..889b71aa3de0
+index 000000000000..8337c8b25f05
 --- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx95-verdin-dahlia.dtsi
-@@ -0,0 +1,270 @@
++++ b/arch/arm64/boot/dts/freescale/imx95-verdin-ivy.dtsi
+@@ -0,0 +1,515 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
 +/*
 + * Copyright (c) Toradex
 + *
-+ * Common dtsi for Verdin iMX95 SoM on Dahlia carrier board
++ * Common dtsi for Verdin iMX95 SoM on Ivy carrier board
 + *
 + * https://www.toradex.com/computer-on-modules/verdin-arm-family/nxp-imx95
-+ * https://www.toradex.com/products/carrier-board/dahlia-carrier-board-kit
++ * https://www.toradex.com/products/carrier-board/ivy-carrier-board
 + */
++
++#include <dt-bindings/mux/mux.h>
++#include <dt-bindings/leds/common.h>
++#include <dt-bindings/net/ti-dp83867.h>
 +
 +/ {
 +	aliases {
 +		eeprom1 = &carrier_eeprom;
 +	};
 +
-+	reg_1v8_sw: regulator-1v8-sw {
-+		compatible = "regulator-fixed";
-+		regulator-max-microvolt = <1800000>;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-name = "On-carrier +V1.8_SW";
++	ain1-current {
++		compatible = "io-channel-mux";
++		channels = "", "ain1_current";
++		io-channels = <&ain1_current_unmanaged>;
++		io-channel-names = "parent";
++		mux-controls = <&ain1_mode_mux_ctrl>;
++		settle-time-us = <1000>;
 +	};
 +
-+	reg_pcie: regulator-pcie {
-+		compatible = "regulator-fixed";
-+		/* Verdin CTRL_SLEEP_MOCI# (SODIMM 256) */
-+		gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		regulator-boot-on;
-+		regulator-name = "PCIE_1_PWR_EN";
++	ain1-voltage {
++		compatible = "io-channel-mux";
++		channels = "ain1_voltage", "";
++		io-channels = <&ain1_voltage_unmanaged 0>;
++		io-channel-names = "parent";
++		mux-controls = <&ain1_mode_mux_ctrl>;
++		settle-time-us = <1000>;
 +	};
 +
-+	reg_usb_hub: regulator-usb-hub {
-+		compatible = "regulator-fixed";
-+		/* Verdin CTRL_SLEEP_MOCI# (SODIMM 256) */
-+		gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		regulator-boot-on;
-+		regulator-name = "HUB_PWR_EN";
++	ain2-current {
++		compatible = "io-channel-mux";
++		channels = "", "ain2_current";
++		io-channels = <&ain2_current_unmanaged>;
++		io-channel-names = "parent";
++		mux-controls = <&ain2_mode_mux_ctrl>;
++		settle-time-us = <1000>;
 +	};
 +
-+	sound {
-+		compatible = "simple-audio-card";
-+		simple-audio-card,bitclock-master = <&codec_dai>;
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,frame-master = <&codec_dai>;
-+		simple-audio-card,mclk-fs = <256>;
-+		simple-audio-card,name = "verdin-wm8904";
-+		simple-audio-card,routing =
-+			"Headphone Jack", "HPOUTL",
-+			"Headphone Jack", "HPOUTR",
-+			"IN2L", "Line In Jack",
-+			"IN2R", "Line In Jack",
-+			"Microphone Jack", "MICBIAS",
-+			"IN1L", "Microphone Jack";
-+		simple-audio-card,widgets =
-+			"Microphone", "Microphone Jack",
-+			"Headphone", "Headphone Jack",
-+			"Line", "Line In Jack";
++	ain2-voltage {
++		compatible = "io-channel-mux";
++		channels = "ain2_voltage", "";
++		io-channels = <&ain2_voltage_unmanaged 0>;
++		io-channel-names = "parent";
++		mux-controls = <&ain2_mode_mux_ctrl>;
++		settle-time-us = <1000>;
++	};
 +
-+		codec_dai: simple-audio-card,codec {
-+			sound-dai = <&wm8904_1a>;
++	/* AIN1 Current w/o AIN1_MODE gpio control */
++	ain1_current_unmanaged: current-sense-shunt-ain1 {
++		compatible = "current-sense-shunt";
++		#io-channel-cells = <0>;
++		io-channels = <&ivy_adc1 1>;
++		shunt-resistor-micro-ohms = <100000000>;
++	};
++
++	/* AIN2 Current w/o AIN2_MODE gpio control */
++	ain2_current_unmanaged: current-sense-shunt-ain2 {
++		compatible = "current-sense-shunt";
++		#io-channel-cells = <0>;
++		io-channels = <&ivy_adc2 1>;
++		shunt-resistor-micro-ohms = <100000000>;
++	};
++
++	/* Ivy Power Supply Input Voltage */
++	ivy-1v8-voltage {
++		compatible = "voltage-divider";
++		/* Verdin ADC_4 */
++		io-channels = <&adc1 3>;
++		full-ohms = <39000>; /* 12k + 27k */
++		output-ohms = <27000>;
++	};
++
++	ivy-3v3-voltage {
++		compatible = "voltage-divider";
++		/* Verdin ADC_3 */
++		io-channels = <&adc1 2>;
++		full-ohms = <54000>; /* 27k + 27k */
++		output-ohms = <27000>;
++	};
++
++	ivy-5v-voltage {
++		compatible = "voltage-divider";
++		/* Verdin ADC_2 */
++		io-channels = <&adc1 1>;
++		full-ohms = <39000>; /* 27k + 12k */
++		output-ohms = <12000>;
++	};
++
++	ivy-input-voltage {
++		compatible = "voltage-divider";
++		/* Verdin ADC_1 */
++		io-channels = <&adc1 0>;
++		full-ohms = <204700>; /* 200k + 4.7k */
++		output-ohms = <4700>;
++	};
++
++	leds {
++		compatible = "gpio-leds";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_ivy_leds>;
++
++		/* D7 Blue - SODIMM 30 - LEDs.GPIO1 */
++		led-0 {
++			color = <LED_COLOR_ID_BLUE>;
++			default-state = "off";
++			function = LED_FUNCTION_STATUS;
++			function-enumerator = <1>;
++			gpios = <&gpio2 16 GPIO_ACTIVE_HIGH>;
 +		};
 +
-+		simple-audio-card,cpu {
-+			sound-dai = <&sai3>;
++		/* D7 Green - SODIMM 32 - LEDs.GPIO2 */
++		led-1 {
++			color = <LED_COLOR_ID_GREEN>;
++			default-state = "off";
++			function = LED_FUNCTION_STATUS;
++			function-enumerator = <1>;
++			gpios = <&gpio2 26 GPIO_ACTIVE_HIGH>;
 +		};
++
++		/* D7 Red - SODIMM 34 - LEDs.GPIO3 */
++		led-2 {
++			color = <LED_COLOR_ID_RED>;
++			default-state = "off";
++			function = LED_FUNCTION_STATUS;
++			function-enumerator = <1>;
++			gpios = <&gpio2 21 GPIO_ACTIVE_HIGH>;
++		};
++
++		/* D8 Blue - SODIMM 36 - LEDs.GPIO4 */
++		led-3 {
++			color = <LED_COLOR_ID_BLUE>;
++			default-state = "off";
++			function = LED_FUNCTION_STATUS;
++			function-enumerator = <2>;
++			gpios = <&gpio2 20 GPIO_ACTIVE_HIGH>;
++		};
++
++		/* D8 Green - SODIMM 54 - LEDs.GPIO5 */
++		led-4 {
++			color = <LED_COLOR_ID_GREEN>;
++			default-state = "off";
++			function = LED_FUNCTION_STATUS;
++			function-enumerator = <2>;
++			gpios = <&gpio5 10 GPIO_ACTIVE_HIGH>;
++		};
++
++		/* D8 Red - SODIMM 44 - LEDs.GPIO6 */
++		led-5 {
++			color = <LED_COLOR_ID_RED>;
++			default-state = "off";
++			function = LED_FUNCTION_STATUS;
++			function-enumerator = <2>;
++			gpios = <&gpio5 5 GPIO_ACTIVE_HIGH>;
++		};
++
++		/* D9 Blue - SODIMM 46 - LEDs.GPIO7 */
++		led-6 {
++			color = <LED_COLOR_ID_BLUE>;
++			default-state = "off";
++			function = LED_FUNCTION_STATUS;
++			function-enumerator = <3>;
++			gpios = <&gpio5 4 GPIO_ACTIVE_HIGH>;
++		};
++
++		/* D9 Red - SODIMM 48 - LEDs.GPIO8 */
++		led-7 {
++			color = <LED_COLOR_ID_RED>;
++			default-state = "off";
++			function = LED_FUNCTION_STATUS;
++			function-enumerator = <3>;
++			gpios = <&gpio5 7 GPIO_ACTIVE_HIGH>;
++		};
++	};
++
++	/* AIN1_MODE - SODIMM 216 */
++	ain1_mode_mux_ctrl: mux-controller-0 {
++		compatible = "gpio-mux";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_gpio5>;
++		#mux-control-cells = <0>;
++		mux-gpios = <&gpio4 28 GPIO_ACTIVE_HIGH>;
++	};
++
++	/* AIN2_MODE - SODIMM 218 */
++	ain2_mode_mux_ctrl: mux-controller-1 {
++		compatible = "gpio-mux";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_gpio6>;
++		#mux-control-cells = <0>;
++		mux-gpios = <&gpio3 27 GPIO_ACTIVE_HIGH>;
++	};
++
++	reg_3v2_ain1: regulator-3v2-ain1 {
++		compatible = "regulator-fixed";
++		regulator-max-microvolt = <3200000>;
++		regulator-min-microvolt = <3200000>;
++		regulator-name = "+3V2_AIN1";
++	};
++
++	reg_3v2_ain2: regulator-3v2-ain2 {
++		compatible = "regulator-fixed";
++		regulator-max-microvolt = <3200000>;
++		regulator-min-microvolt = <3200000>;
++		regulator-name = "+3V2_AIN2";
++	};
++
++	/* AIN1 Voltage w/o AIN1_MODE gpio control */
++	ain1_voltage_unmanaged: voltage-divider-ain1 {
++		compatible = "voltage-divider";
++		#io-channel-cells = <1>;
++		io-channels = <&ivy_adc1 0>;
++		full-ohms = <19>;
++		output-ohms = <1>;
++	};
++
++	/* AIN2 Voltage w/o AIN2_MODE gpio control */
++	ain2_voltage_unmanaged: voltage-divider-ain2 {
++		compatible = "voltage-divider";
++		#io-channel-cells = <1>;
++		io-channels = <&ivy_adc2 0>;
++		full-ohms = <19>;
++		output-ohms = <1>;
 +	};
 +};
 +
@@ -204,6 +368,14 @@ index 000000000000..889b71aa3de0
 +	status = "okay";
 +};
 +
++/* Verdin ETH_2_RGMII */
++&enetc_port1 {
++	phy-handle = <&ethphy2>;
++	phy-mode = "rgmii-id";
++
++	status = "okay";
++};
++
 +/* Verdin CAN_1 */
 +&flexcan1 {
 +	status = "okay";
@@ -214,76 +386,94 @@ index 000000000000..889b71aa3de0
 +	status = "okay";
 +};
 +
-+/* Verdin QSPI_1 */
-+&flexspi1 {
-+	status = "okay";
-+};
-+
 +&gpio1 {
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&pinctrl_ctrl_sleep_moci>;
++	gpio-line-names = "";
 +};
 +
 +&gpio2 {
 +	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio1>,
-+		    <&pinctrl_gpio2>,
++	pinctrl-0 = <&pinctrl_gpio2>,
 +		    <&pinctrl_gpio3>;
++	gpio-line-names =
++		"", /* 0 */
++		"",
++		"",
++		"",
++		"",
++		"",
++		"",
++		"",
++		"",
++		"",
++		"", /* 10 */
++		"",
++		"",
++		"",
++		"",
++		"",
++		"",
++		"",
++		"GPIO2", /* Verdin GPIO_2 - SODIMM 208 */
++		"",
++		"", /* 20 */
++		"",
++		"",
++		"",
++		"GPIO3", /* Verdin GPIO_3 - SODIMM 210 */
++		"",
++		"",
++		"",
++		"",
++		"",
++		"", /* 30 */
++		"";
 +};
 +
 +&gpio3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio6>;
++	gpio-line-names = "";
 +};
 +
 +&gpio4 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio5>;
++	gpio-line-names = "";
 +};
 +
 +&gpio5 {
 +	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio4>;
-+};
-+
-+/* Verdin I2C_3_HDMI */
-+&i3c2 {
-+	status = "okay";
-+};
-+
-+/* Verdin I2C_2_DSI */
-+&lpi2c3 {
-+	status = "okay";
++	pinctrl-0 = <&pinctrl_qspi1_cs2_gpio>,
++		    <&pinctrl_qspi1_dqs_gpio>,
++		    <&pinctrl_qspi1_io0_gpio>,
++		    <&pinctrl_qspi1_io1_gpio>,
++		    <&pinctrl_qspi1_io2_gpio>,
++		    <&pinctrl_qspi1_io3_gpio>;
++	gpio-line-names =
++		"DIGI_1", /* SODIMM 56 */
++		"DIGI_2", /* SODIMM 58 */
++		"REL1",   /* SODIMM 60 */
++		"REL2",   /* SODIMM 62 */
++		"",
++		"",
++		"",
++		"",
++		"REL4", /* SODIMM 66 */
++		"",
++		"", /* 10 */
++		"REL3", /* SODIMM 64 */
++		"",
++		"",
++		"",
++		"",
++		"",
++		"";
 +};
 +
 +/* Verdin I2C_1 */
 +&lpi2c4 {
 +	status = "okay";
 +
-+	wm8904_1a: audio-codec@1a {
-+		compatible = "wlf,wm8904";
-+		reg = <0x1a>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_sai3_mclk>;
-+		clocks = <&scmi_clk IMX95_CLK_SAI3>;
-+		clock-names = "mclk";
-+		#sound-dai-cells = <0>;
-+		AVDD-supply = <&reg_1v8_sw>;
-+		CPVDD-supply = <&reg_1v8_sw>;
-+		DBVDD-supply = <&reg_1v8_sw>;
-+		DCVDD-supply = <&reg_1v8_sw>;
-+		MICVDD-supply = <&reg_1v8_sw>;
-+	};
-+
-+	/* Current measurement into module VCC */
-+	hwmon@40 {
-+		compatible = "ti,ina219";
-+		reg = <0x40>;
-+		shunt-resistor = <10000>;
-+	};
-+
 +	temperature-sensor@4f {
-+		compatible = "ti,tmp75c";
++		compatible = "ti,tmp1075";
 +		reg = <0x4f>;
 +	};
 +
@@ -297,15 +487,88 @@ index 000000000000..889b71aa3de0
 +/* Verdin I2C_4_CSI */
 +&lpi2c5 {
 +	status = "okay";
++
++	ivy_adc1: adc@40 {
++		compatible = "ti,ads1119";
++		reg = <0x40>;
++		interrupt-parent = <&som_gpio_expander>;
++		interrupts = <0 IRQ_TYPE_EDGE_FALLING>;
++		avdd-supply = <&reg_3v2_ain1>;
++		dvdd-supply = <&reg_3v2_ain1>;
++		vref-supply = <&reg_3v2_ain1>;
++		#address-cells = <1>;
++		#io-channel-cells = <1>;
++		#size-cells = <0>;
++
++		/* AIN1 0-33V Voltage Input */
++		channel@0 {
++			reg = <0>;
++			diff-channels = <0 1>;
++		};
++
++		/* AIN1 0-20mA Current Input */
++		channel@1 {
++			reg = <1>;
++			diff-channels = <2 3>;
++		};
++	};
++
++	ivy_adc2: adc@41 {
++		compatible = "ti,ads1119";
++		reg = <0x41>;
++		interrupt-parent = <&som_gpio_expander>;
++		interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
++		avdd-supply = <&reg_3v2_ain2>;
++		dvdd-supply = <&reg_3v2_ain2>;
++		vref-supply = <&reg_3v2_ain2>;
++		#address-cells = <1>;
++		#io-channel-cells = <1>;
++		#size-cells = <0>;
++
++		/* AIN2 0-33V Voltage Input */
++		channel@0 {
++			reg = <0>;
++			diff-channels = <0 1>;
++		};
++
++		/* AIN2 0-20mA Current Input */
++		channel@1 {
++			reg = <1>;
++			diff-channels = <2 3>;
++		};
++	};
++};
++
++/* Verdin SPI_1 */
++&lpspi6 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_lpspi6>,
++		    <&pinctrl_spi1_cs>,
++		    <&pinctrl_gpio1>,
++		    <&pinctrl_gpio4>;
++	cs-gpios = <&gpio4 29 GPIO_ACTIVE_LOW>,
++		   <&som_gpio_expander 13 GPIO_ACTIVE_LOW>,
++		   <&gpio2 0 GPIO_ACTIVE_LOW>,
++		   <&gpio5 12 GPIO_ACTIVE_LOW>;
++
++	tpm@2 {
++		compatible = "infineon,slb9670", "tcg,tpm_tis-spi";
++		reg = <2>;
++		spi-max-frequency = <18500000>;
++	};
++
++	fram@3 {
++		compatible = "fujitsu,mb85rs256", "atmel,at25";
++		reg = <3>;
++		address-width = <16>;
++		size = <32768>;
++		spi-max-frequency = <33000000>;
++		pagesize = <1>;
++	};
 +};
 +
 +/* Verdin UART_3, used as the Linux console */
 +&lpuart1 {
-+	status = "okay";
-+};
-+
-+/* Verdin UART_4 */
-+&lpuart2 {
 +	status = "okay";
 +};
 +
@@ -314,41 +577,34 @@ index 000000000000..889b71aa3de0
 +	status = "okay";
 +};
 +
-+/* Verdin UART_2 */
++/* Verdin UART_2, through RS485 transceiver */
 +&lpuart8 {
++	rs485-rts-active-low;
++	rs485-rx-during-tx;
++	linux,rs485-enabled-at-boot-time;
++
 +	status = "okay";
++};
++
++&netc_emdio {
++	ethphy2: ethernet-phy@2 {
++		reg = <2>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_eth2_rgmii_int>;
++		interrupt-parent = <&gpio1>;
++		interrupts = <12 IRQ_TYPE_LEVEL_LOW>;
++		ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
++		ti,tx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
++	};
 +};
 +
 +/* Verdin PCIE_1 */
 +&pcie0 {
-+	vpcie-supply = <&reg_pcie>;
-+
 +	status = "okay";
 +};
 +
-+/* We support turning off sleep moci on Dahlia */
-+&reg_force_sleep_moci {
-+	status = "disabled";
-+};
-+
-+/* Verdin I2S_1 */
-+&sai3 {
-+	status = "okay";
-+};
-+
-+/* Verdin PWM_1 */
-+&tpm4 {
-+	status = "okay";
-+};
-+
-+/* Verdin PWM_2 */
-+&tpm5 {
-+	status = "okay";
-+};
-+
-+/* Verdin PWM_3_DSI */
-+&tpm6 {
-+	status = "okay";
++&som_gpio_expander {
++	gpio-line-names = "";
 +};
 +
 +/* Verdin USB_1 */
@@ -363,25 +619,6 @@ index 000000000000..889b71aa3de0
 +	status = "okay";
 +};
 +
-+&usb3_dwc3 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	usb_hub_3_0: usb-hub@1 {
-+		compatible = "usb424,5744";
-+		reg = <1>;
-+		peer-hub = <&usb_hub_2_0>;
-+		vdd-supply = <&reg_usb_hub>;
-+	};
-+
-+	usb_hub_2_0: usb-hub@2 {
-+		compatible = "usb424,2744";
-+		reg = <2>;
-+		peer-hub = <&usb_hub_3_0>;
-+		vdd-supply = <&reg_usb_hub>;
-+	};
-+};
-+
 +&usb3_phy {
 +	status = "okay";
 +};
@@ -391,60 +628,68 @@ index 000000000000..889b71aa3de0
 +	status = "okay";
 +};
 +
-+/* Verdin CTRL_WAKE1_MICO# */
-+&verdin_gpio_keys {
-+	status = "okay";
++&scmi_iomuxc {
++	pinctrl_ivy_leds: ivyledsgrp {
++		fsl,pins = <IMX95_PAD_GPIO_IO16__GPIO2_IO_BIT16		0x11e>, /* SODIMM 30 */
++			   <IMX95_PAD_GPIO_IO26__GPIO2_IO_BIT26		0x11e>, /* SODIMM 32 */
++			   <IMX95_PAD_GPIO_IO21__GPIO2_IO_BIT21		0x11e>, /* SODIMM 34 */
++			   <IMX95_PAD_GPIO_IO20__GPIO2_IO_BIT20		0x11e>, /* SODIMM 36 */
++			   <IMX95_PAD_XSPI1_DATA5__GPIO5_IO_BIT5	0x11e>, /* SODIMM 44 */
++			   <IMX95_PAD_XSPI1_DATA4__GPIO5_IO_BIT4	0x11e>, /* SODIMM 46 */
++			   <IMX95_PAD_XSPI1_DATA7__GPIO5_IO_BIT7	0x11e>, /* SODIMM 48 */
++			   <IMX95_PAD_XSPI1_SS0_B__GPIO5_IO_BIT10	0x11e>; /* SODIMM 54 */
++	};
 +};
-diff --git a/arch/arm64/boot/dts/freescale/imx95-verdin-nonwifi-dahlia.dts b/arch/arm64/boot/dts/freescale/imx95-verdin-nonwifi-dahlia.dts
+diff --git a/arch/arm64/boot/dts/freescale/imx95-verdin-nonwifi-ivy.dts b/arch/arm64/boot/dts/freescale/imx95-verdin-nonwifi-ivy.dts
 new file mode 100644
-index 000000000000..16975ae12fcb
+index 000000000000..ebe1aec1ffa4
 --- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx95-verdin-nonwifi-dahlia.dts
++++ b/arch/arm64/boot/dts/freescale/imx95-verdin-nonwifi-ivy.dts
 @@ -0,0 +1,21 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
 +/*
 + * Copyright (c) Toradex
 + *
 + * https://www.toradex.com/computer-on-modules/verdin-arm-family/nxp-imx95
-+ * https://www.toradex.com/products/carrier-board/dahlia-carrier-board-kit
++ * https://www.toradex.com/products/carrier-board/ivy-carrier-board
 + */
 +
 +/dts-v1/;
 +
 +#include "imx95-verdin.dtsi"
 +#include "imx95-verdin-nonwifi.dtsi"
-+#include "imx95-verdin-dahlia.dtsi"
++#include "imx95-verdin-ivy.dtsi"
 +
 +/ {
-+	model = "Toradex Verdin iMX95 on Dahlia Board";
-+	compatible = "toradex,verdin-imx95-nonwifi-dahlia",
++	model = "Toradex Verdin iMX95 on Ivy Board";
++	compatible = "toradex,verdin-imx95-nonwifi-ivy",
 +		     "toradex,verdin-imx95-nonwifi",
 +		     "toradex,verdin-imx95",
 +		     "fsl,imx95";
 +};
-diff --git a/arch/arm64/boot/dts/freescale/imx95-verdin-wifi-dahlia.dts b/arch/arm64/boot/dts/freescale/imx95-verdin-wifi-dahlia.dts
+diff --git a/arch/arm64/boot/dts/freescale/imx95-verdin-wifi-ivy.dts b/arch/arm64/boot/dts/freescale/imx95-verdin-wifi-ivy.dts
 new file mode 100644
-index 000000000000..bafbe1179ec8
+index 000000000000..7ff2d03a254d
 --- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx95-verdin-wifi-dahlia.dts
++++ b/arch/arm64/boot/dts/freescale/imx95-verdin-wifi-ivy.dts
 @@ -0,0 +1,21 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
 +/*
 + * Copyright (c) Toradex
 + *
 + * https://www.toradex.com/computer-on-modules/verdin-arm-family/nxp-imx95
-+ * https://www.toradex.com/products/carrier-board/dahlia-carrier-board-kit
++ * https://www.toradex.com/products/carrier-board/ivy-carrier-board
 + */
 +
 +/dts-v1/;
 +
 +#include "imx95-verdin.dtsi"
 +#include "imx95-verdin-wifi.dtsi"
-+#include "imx95-verdin-dahlia.dtsi"
++#include "imx95-verdin-ivy.dtsi"
 +
 +/ {
-+	model = "Toradex Verdin iMX95 WB on Dahlia Board";
-+	compatible = "toradex,verdin-imx95-wifi-dahlia",
++	model = "Toradex Verdin iMX95 WB on Ivy Board";
++	compatible = "toradex,verdin-imx95-wifi-ivy",
 +		     "toradex,verdin-imx95-wifi",
 +		     "toradex,verdin-imx95",
 +		     "fsl,imx95";
