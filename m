@@ -1,21 +1,22 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 123633932FE;
-	Wed, 25 Mar 2026 08:26:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300F230EF64;
+	Wed, 25 Mar 2026 08:26:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774427193; cv=none; b=njE38Zlwwh+e7f0dOwnN1cy+Dof935BG6pHhfFW5/FsPPDNKcnOZKG7PyArNdGjGptL4Pd5LE/HrL4zD2Vi6jcrLwAlvAD5MfysFhxvVrNyvCVjALGTJo/HGc/fSK9LRykbQvsMONQnsu9yyXEvwdHAJzuyv+2dIQAWJyflpnEY=
+	t=1774427206; cv=none; b=bJABaJyJbP9sTVx0SvzJPkJhpBQyoM6xPyC29moC4C/8X31NviPxyMcb3I9RFKi7EPGfAt4MmxqhBmUNCpRkgj/TpIJ6zSo7PeThIqULRvDggqAAkEpJiKLlI6Ec5DZTzZtOd49hOAXoWIsrPLtecam1EnuJdp4TTI8IdP8SvuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774427193; c=relaxed/simple;
-	bh=W4XKIH6cy5CRmVbhyzaccefspvVv/UoMzu1VcrDaUE4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pBnKvmDdyBFtKuR+/M7rcDhjsDoIrZW1nfd6z7hs2t9Hz0aUqtyE/9n8bazWuM1oxBcEzRzCdu38y6Ry9iE6sailSAtkN1o0EkrhQ6X7a8j0YaHLn4xPewSHsTzlSWTaAnZ+yU/eu5UOfgOc5DZGHBDhiCNVXjOAoFmoYAKqJ88=
+	s=arc-20240116; t=1774427206; c=relaxed/simple;
+	bh=M+kKx1ylIubT0nQl1WSNvE9WYN5Vezbi3u80ScBEv7Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=egQqcZ+6FxvIAfDHMEl4w1vkxqYnor7iNdXLDOS6Zxr6SsSW2ChCWOYcsV9HRX4lFeXs/FiRz8KwngyBElsX/So+hamAgDk1NNs9QFYZXrcytZUrS9ix7M5FrL9BiDjbi7dJt3qfz1fB4jdNTDuAVvrUX2pAooiir3kRFS6cKL0=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.202])
-	by APP-05 (Coremail) with SMTP id zQCowAA3zRAMnMNpPvpuCw--.51434S2;
-	Wed, 25 Mar 2026 16:25:49 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowAA3zRAMnMNpPvpuCw--.51434S3;
+	Wed, 25 Mar 2026 16:25:51 +0800 (CST)
 From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -35,12 +36,13 @@ Cc: Mateusz Koza <mateusz.koza@grinn-global.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org,
 	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
-	Icenowy Zheng <uwu@icenowy.me>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v2 1/2] dt-bindings: arm: mediatek: add mt8173-hana rev2
-Date: Wed, 25 Mar 2026 16:25:45 +0800
-Message-ID: <20260325082546.1572405-1-zhengxingda@iscas.ac.cn>
+	Icenowy Zheng <uwu@icenowy.me>
+Subject: [PATCH 2/2] arm64: dts: mediatek: mt8173: add hana revision 2
+Date: Wed, 25 Mar 2026 16:25:46 +0800
+Message-ID: <20260325082546.1572405-2-zhengxingda@iscas.ac.cn>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260325082546.1572405-1-zhengxingda@iscas.ac.cn>
+References: <20260325082546.1572405-1-zhengxingda@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,53 +50,54 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAA3zRAMnMNpPvpuCw--.51434S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtFWxJF4fWr13Xw1DWF4rXwb_yoWDtFc_Ca
-	97u3Wqgr1kJa4S9F4qyF4kAF1UXw4rGFZ7Arn8JF45ta47CrWUWayvq3sxCryUWF4xur13
-	ZFs5CFZrXFsrCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb38FF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
-	Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s
-	1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0
-	cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8Jw
-	ACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka
-	0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
-	v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
-	1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
-	AIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI
-	42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWI
-	evJa73UjIFyTuYvjTRNJ5oDUUUU
+X-CM-TRANSID:zQCowAA3zRAMnMNpPvpuCw--.51434S3
+X-Coremail-Antispam: 1UD129KBjvdXoWruw1kArWrXF1UuFyUur1kGrg_yoWkZFc_JF
+	n29Fn8XF4kJas8Zw1YqFsYvr12q3y8ZrWrGFs8Jr1Dt3W5XryUG3y0v345Gr4Uu39agF45
+	ZFZ8ZFW8JrnIvjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbPxYjsxI4VWDJwAYFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7
+	IE14v26r18M28IrcIa0xkI8VCY1x0267AKxVW8JVW5JwA2ocxC64kIII0Yj41l84x0c7CE
+	w4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6x
+	kF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY
+	1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4
+	xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCa
+	FVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI4
+	02YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCF
+	x2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14
+	v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY
+	67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2
+	IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pEnYFtUUUUU=
 X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-My Lenovo Flex 11 Chromebook contains a board with revision ID 2.
+The current mt8173-elm-hana.dts file only contains compatible strings
+for revision 3~6, makes boards with revision 0~2 to fail to match a
+revision-specific DTS and may fall back to the rev7 one (which lacks
+some gpio-keys).
 
-Add rev2 to the compatible list of base hana DTB to allow depthcharge to
-match the DTB.
+As I've got a Lenovo Flex 11 Chromebook with board revision 2, add it to
+the base hana DTB file.
 
 Signed-off-by: Icenowy Zheng <uwu@icenowy.me>
 Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
 Changes in v2:
-- Added Conor's A-b.
 - Changed mailbox to ISCAS one.
 
- Documentation/devicetree/bindings/arm/mediatek.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/arm/mediatek.yaml b/Documentation/devicetree/bindings/arm/mediatek.yaml
-index 382d0eb4d0af6..2894c8a16c78c 100644
---- a/Documentation/devicetree/bindings/arm/mediatek.yaml
-+++ b/Documentation/devicetree/bindings/arm/mediatek.yaml
-@@ -148,6 +148,7 @@ properties:
-           - const: google,hana-rev5
-           - const: google,hana-rev4
-           - const: google,hana-rev3
-+          - const: google,hana-rev2
-           - const: google,hana
-           - const: mediatek,mt8173
-       - description: Google Hana rev7 (Poin2 Chromebook 11C)
+diff --git a/arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dts b/arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dts
+index fcf0cb76a87c3..84638a07587f3 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dts
++++ b/arch/arm64/boot/dts/mediatek/mt8173-elm-hana.dts
+@@ -11,5 +11,5 @@ / {
+ 	chassis-type = "laptop";
+ 	compatible = "google,hana-rev6", "google,hana-rev5",
+ 		     "google,hana-rev4", "google,hana-rev3",
+-		     "google,hana", "mediatek,mt8173";
++		     "google,hana-rev2", "google,hana", "mediatek,mt8173";
+ };
 -- 
 2.52.0
 
