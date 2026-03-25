@@ -1,135 +1,111 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A59F43254A5
-	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 10:12:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B2127FB2E
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 10:13:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774433547; cv=none; b=hc3NUcy4ZBaNISOiiBnZyVfDpViVI+QC9/gFBRXkvj1jLBQRZdv2/t1GAUUZMOCYLPz6C+eaYlZ7jnxsW4s1BwX23OXYzCIPRdfyVDJt9x3UP6viXquu4i/vLkC31XNa6l7nKwzfuCxn60MXB9SZKO1R5MYp3d0rzI9eYYnCi5k=
+	t=1774433630; cv=none; b=nV0tLOn/GQDIudvroNl/7i7GFYG+U8T/rCiZ9BXNwlGNkb2ldBBzRx9G1Zs34lw5g5WgK1lwREmaoRzKvQRx6HHmrzT22ukcaA8NnfqN1exKXjBcOJCy+9o+dtX2X7U6QETYi9lcwU/GIeZzAQW79aBWouBqWvUK8ySf6osoGwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774433547; c=relaxed/simple;
-	bh=m56/b3WOzdczHaxO3PWQ3LHZIR79H+h2yCAj5xOJYe0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MYy6noLmqzsoI3eZw+x5pzpA3ysXjVxQtMj9Zdj/vu/91QXMNSk/RRyEo0ST/XNaspFyNMwuLEYIpbMxx/wCS7I1ZX/hgjuevCsV2u52tQXhwR+bEsI9S+sp/T72TUrbJ+HV33dte03nHUJKjEQaePLJfIrczxZuJf3onh/3ZGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=avc3bssr; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1774433630; c=relaxed/simple;
+	bh=d10Wzuq54/lvVZqTRXUFEqKdYGcg4pnSSJK7jHjepFQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GcEkukzfIGSp7zty+LSGX/Lpi6zTbu0C599p1v/4v/Yv16S9iho4mb0gW+vz9IzCRkwV+WtA3zm6ykzuYmTHInu5sqz3+nPYSnccw2cEIQRX/dVNBiE/yrjcbuJO+jDTyY0si9R9IwkrGsND2Cc/vTvTmYwuVGkPCTbhymHS+NU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="avc3bssr"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4870206f73bso27858845e9.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 03:12:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774433544; x=1775038344; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=m56/b3WOzdczHaxO3PWQ3LHZIR79H+h2yCAj5xOJYe0=;
-        b=avc3bssreIgFfAmdzrvzIr/Tf0xQ5t5dN+pgfWGhW8TlGyuDhQu385sDwBo9iYv65m
-         F3vBh9M+VfI2ywySrtXISxuUxZnh3t3/MjuVBFbISOx8XRSiVGGS7LIjtzRtmfV/7FNK
-         zcmE+HhMM9YrfKw2eLjAjSABm1cNthihOdV18QgwPNX+lyIKoCXtpnoI52J9UVZvwKyU
-         IwGw+sV3fSDxumuqECvL4rK5LQeKV/oIjZKJ0Q78oGUbECJPJ4aU1RslBFmilm11Pf3M
-         gRWBH4yx4U7cQxAaaMDfuVyjCjFu0sNvzZ8sf6hw/b95Td+l/4QmMZIhQ77aihwMNzUD
-         yN1w==
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-56ba039eecbso1996033e0c.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 03:13:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774433544; x=1775038344;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=m56/b3WOzdczHaxO3PWQ3LHZIR79H+h2yCAj5xOJYe0=;
-        b=cLVGFH97VI8ximeE749btgPINQ071c/DMuJ780UH+OOkAZPm7spe+5NR9R5L4oUAhl
-         cORVMnfn07BGpKleQVdwq4/dEbrhOeChkuZZQHHWFfluaML750lz7XU4iwhwwNxBmmKx
-         1oqXkc+q4Z2ArcOvs7IwpagvsFsnLWCbeDwtoeeiLT+/s1x8QmgoSk7xKPMT7K3oDZqa
-         pKQ57qzEKjE/mRgWj3UjMFb98y0PjlzOvgzpkwGGP/V0o/HtXe2lkMX1oY5UBEbcnnsQ
-         pdZd7H2/O1bKTQPawLdciY3/k/DcvmzoyFfEfUnITCvfqN78WJTPbhBTEWRYuvrNgDPl
-         f13g==
-X-Forwarded-Encrypted: i=1; AJvYcCUOZpgQTkSYScyy1H82/f75nNbrp/qnUKW1r0I3yc4mjnlv/bVOOJNNt8uC0uomprPwJ7SifqLF1ktn@vger.kernel.org
-X-Gm-Message-State: AOJu0YwN0Aak9nHo4XfIfI6D1AvEv0aYAD35qkmzj3m5ilk2ydZr/1/a
-	spRlnoIR2ScucIF4HtGJc53eorxMnMRgJIj7h6hQEhWwoKJAyLGl5GUN
-X-Gm-Gg: ATEYQzyi187yTdX4qnY0zLQF171SpR9nmR21wQXX77o2q5VVlGmyFIK/m/O9LV35s+c
-	1dkNlm9KJ0MMlsDGwzDaKiYegRNlo9mo6wMnrPhceinOnzyn2U64CSUSzdAwZx2X1GtYPTZYL7j
-	kDsKzlAjxojsteOjrzo4Awd8OJ1OERGxZ/JZVEX971nFsx7IuI+nRlce1K7IwBkpbMANLKw4Jbx
-	r14UmLu1zHPBN7/wjopRv8vfwwxLXdZVsHfy7fJAArANRtm2XPbAPTcYyjPKnxIAdInzI3lZpE+
-	SgY/BhmLfKgTl0QjlvZyi9LqFIErkzW+XW3JU6iPoeoR+kYW4scKmNpNp5w8W2V/7Lkols7Iv0T
-	ZvXmpaJbCkQcJYHj9ZoeXFQo01sWe8vsdZ/t7SsFHDafSS+bMzRp5jstN4L7V4VE013qCO6HfoS
-	XoqXjYD7xPnafwg14+qPMRNe5ZLI+9qKw=
-X-Received: by 2002:a05:600c:5296:b0:487:13d:4e77 with SMTP id 5b1f17b1804b1-48716067315mr43725525e9.27.1774433543852;
-        Wed, 25 Mar 2026 03:12:23 -0700 (PDT)
-Received: from [192.168.1.187] ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4871739609csm16267605e9.33.2026.03.25.03.12.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 03:12:23 -0700 (PDT)
-Message-ID: <9bd364de66e86c8f94e410cc926775997f85b070.camel@gmail.com>
-Subject: Re: [PATCH v3 2/2] iio: dac: ad5706r: Add support for AD5706R DAC
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>, Andy
- Shevchenko <andriy.shevchenko@intel.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"	
- <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, David
- Lechner <dlechner@baylibre.com>, "Sa, Nuno" <Nuno.Sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>,  Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- "linux-iio@vger.kernel.org"	 <linux-iio@vger.kernel.org>,
- "devicetree@vger.kernel.org"	 <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>
-Date: Wed, 25 Mar 2026 10:13:10 +0000
-In-Reply-To: <PH0PR03MB63519301C13837DBD94535E2F149A@PH0PR03MB6351.namprd03.prod.outlook.com>
-References: <20260318-dev_ad5706r-v3-0-5d078f41e988@analog.com>
-	 <20260318-dev_ad5706r-v3-2-5d078f41e988@analog.com>
-	 <abpfdELI33a0Ncl3@ashevche-desk.local>
-	 <PH0PR03MB6351A1A32896F5CFF05A4C10F14FA@PH0PR03MB6351.namprd03.prod.outlook.com>
-	 <abugoaMtEV75Fyk8@ashevche-desk.local>
-	 <PH0PR03MB63519301C13837DBD94535E2F149A@PH0PR03MB6351.namprd03.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+        d=1e100.net; s=20251104; t=1774433628; x=1775038428;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CDaG/7sO/tQakw0RmIEn3KICwhpxzHUr5uWeZRW8Hmw=;
+        b=PpNfK/yGF7vBI2Ccm7lWJlj74eq3NiVgpwCPBh0DX4yfH54WtWoH0pILE7xG8gdI1R
+         akzFUQs/rlBrK8rTfg6BSOmWZLYQKHYBBYEs5uo8lvc4tm/9ZzemD4Uv09vNKZFV4tDD
+         /DXXV4BmkNckTk2Wk/tZh37zYKcJIFDfDmPkeJL6FLABkZSKIfVzzfuPxx9WugYJwN2v
+         jVyr967GKCPLNhiMC4kEiZtoQ9lWZo+KtTctcRXowBid11bAby5j/AyK2GgxTMgJJpSW
+         bRDEGkRBPpv5ZvTNhCDgr/Zy4bMYFep0DOlDueiK8YRzl4wAywKm6HQQaRvzLsr4qhn4
+         vdww==
+X-Forwarded-Encrypted: i=1; AJvYcCV5WmflfYkm6WJqYyqwxkkhAePg7mTN/+wyY1TShC7Nz0NJuAhKkh/CJZ1sjJlFyfL1brkOjexPsm/5@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxh//RIchPl3UJ/uY/pKoskOxzAJznfRak/FiSuW7z1xi4C8saw
+	In0Bkbn2wUJcpoj2UAVRxBuOLenoXlnlK/YykjYB/WAQo5XENFcwM4PMkYeZpz8WigQ=
+X-Gm-Gg: ATEYQzy+IgiLGQj6Z8S1vaAmVBEur4FhS9/YhucTgVcBiOuV307nCbeA0/vvFy6pRsX
+	LbTxuQS9wtm2HfNF0lbp6UKt9j0FSKehsNz/ePOaSHadArX7z1Vsz9BzC2POk0UCLJ176xU6tVm
+	3mvNgrcuRmwxQKfjPgw8+wM+HtGGh+QC+lndEWjxRXHG96iosuxee6fD8Q/wyQQ8kEPVceBg5N/
+	PdYv03tlQkqRbCMszktDVcWmCZF2aVUiD1182srnFt3EbIC/DFHeu/15u137IiXCJ0AKVlUVKMD
+	t2RcLhrGLnlITyMrxAw8PP3ap7OgYzD2DL6HWee1E8S29uk+hkGN4M24oSIYNO49j95ZJ2OIEpB
+	YRIJHn8EWOSROuoCXbhxIULOjggO3NyuPCGyZYXHmdXBSXoodl8MV+Hv2zCSj5+Ygz4QGIVRQJJ
+	LcWtVTUZ9MrGyQM0fegZDcV5r74dK1izKwplV3mu0ebY9Flg7BgH8HXBgnY1Gc
+X-Received: by 2002:a05:6122:3383:b0:56b:5e7e:d3fb with SMTP id 71dfb90a1353d-56d220627a0mr1375569e0c.12.1774433627718;
+        Wed, 25 Mar 2026 03:13:47 -0700 (PDT)
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com. [209.85.217.41])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56cddcc34afsm20163882e0c.16.2026.03.25.03.13.47
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Mar 2026 03:13:47 -0700 (PDT)
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-5ffd57b6fc6so1485614137.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 03:13:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXp9JG8i6nivgJDumI/DqTlZ+/Hqjh4zBMx49OD7H7i9GkFr+dze6oS2HmEytHr0u+MJfjQ8XQPmm/6@vger.kernel.org
+X-Received: by 2002:a05:6102:5091:b0:5ff:f516:a2aa with SMTP id
+ ada2fe7eead31-603870e0d2emr1309775137.12.1774433626857; Wed, 25 Mar 2026
+ 03:13:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260325095718.388157-1-herve.codina@bootlin.com>
+In-Reply-To: <20260325095718.388157-1-herve.codina@bootlin.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 25 Mar 2026 11:13:35 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXp_ruuv5ap1onR7eSc8zvnDEDPjUu9FPsQbFzqCRC2Tg@mail.gmail.com>
+X-Gm-Features: AQROBzD4PFt-v9V-tVmsmIWbbuwIBhiLHVDtgtW23ooqR9mX6RydgMF4Wv44TKg
+Message-ID: <CAMuHMdXp_ruuv5ap1onR7eSc8zvnDEDPjUu9FPsQbFzqCRC2Tg@mail.gmail.com>
+Subject: Re: [PATCH v2] ARM: dts: r9a06g032: Add #address-cells in the GIC node
+To: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Pascal Eberhard <pascal.eberhard@se.com>, 
+	Miquel Raynal <miquel.raynal@bootlin.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 2026-03-25 at 01:07 +0000, Torreno, Alexis Czezar wrote:
-> > > > > Changes since v1:
-> > > > > =C2=A0 - Removed PWM, GPIO, clock generator, debugfs, regmap,
-> > > > > IIO_BUFFER
-> > > >=20
-> > > > Why was regmap removed?! Was it not used?
-> > >=20
-> > > As far as I understand it, regmap also gives access to debugfs. When =
-I
-> > > removed debugfs I also added regmap as removed.
-> >=20
-> > Not only debugfs, and it's unrelated to the any custom debugfs interfac=
-es in
-> > the driver, it's just a feature out-of-the-box of regmap.
-> >=20
-> > > For the spi write/read I am not using regmap as the device has some
-> > > features that I think regmap_read/write couldn't support. Namely the
-> > > variable data width, as the device only accepts exact amount of clock
-> > > cycles. Future patches will also add variable SPI speed.
-> >=20
-> > We have a lot of flexibility in regmap core. Do you think it can be imp=
-roved /
-> > extended to cover the cases like yours?
-> >=20
->=20
-> To neatly summarize, my needs are: (in future patches)
-> 1. SPI read/write can have different frequencies and runtime changeable
-> 2. SPI data bits needs to be exactly 8bits or 16bits depending on registe=
-r width
-> 3. DAC Device reads SPI command bits [14:12] for communication, not just =
-chip select
->=20
-> For regmap to be used
-> 1. regmap_config would need new read_speed and write_speed entries.
-> 2. val_bits must now be changeable depending on the need.
-> 3. I think the read/write_flag_mask can do this.
->=20
+On Wed, 25 Mar 2026 at 10:58, Herve Codina (Schneider Electric)
+<herve.codina@bootlin.com> wrote:
+> When checking dts involving the r9a06g032.dtsi file, the following kind
+> of warnings are reported:
+>    Missing property '#address-cells' in node xxx, using 0 as fallback
+>
+> Indeed, #address-cells is not present in the GIC interrupt controller
+> node.
+>
+> Fix it adding the missing property.
+>
+> Value '0' is correct because:
+> 1. GIC interrupt controller does not have children,
+> 2. interrupt-map property in PCI node and in IRQ mux node consists of
+>    several components and the component related to "parent unit
+>    address", which size is defined by '#address-cells' of the node
+>    pointed to by the interrupt-parent component, is not used (=0)
+>
+> No functional change.
+>
+> Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
+> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-Do not forget you can just implement your custom regmap_bus which also open=
-s new "doors".
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.1.
 
+Gr{oetje,eeting}s,
 
-- Nuno S=C3=A1
+                        Geert
 
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
