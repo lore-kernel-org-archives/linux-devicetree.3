@@ -1,162 +1,107 @@
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E844718BC3B;
-	Wed, 25 Mar 2026 08:20:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09C0B26159E
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 08:23:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774426805; cv=none; b=oRKD6kpF3rkmHiPyR/l3bf95CMkyS/ZjvZPUbgpYdVDf8lWLUy3BFTzBlO5/IOkpO8xRCqhk/D3j7dG9xndiWrIErYaR1/sUl0SrONR15uoPnhGCEJADru1IV4OLTxQtTPOc3IkNl3ZKMFyMHP39+kWnBKuTg7X3kETbfvcYdXQ=
+	t=1774427020; cv=none; b=d7GraD5duqyBe/MDfq/8pt25+AhpeQImwL81QscEZWk6X7MvHxiXmezeqcwHWqG9nLwKyGlRrBY+7MUoVBB6feMM28J1+4XhPKTRlp1vJbP9OTjl5lsUcYvJsXBQyBn9xLdbiaVmVehwy7IwgEe0HW7g68HXm18lvrajZrSjlIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774426805; c=relaxed/simple;
-	bh=pTg+utSCyG7wZZOQyIhVF1sI+fvLSEvknrPySU/Dpk4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=ZHK0nL7h2jPry+NmO8WbPb75lOpnF9yeJNmVAG/VZy7i/V/0mqQZy7YDUohVBa795lY/4u2uxB2+HEeBVkKXQ1dfRCtq2Us7eXe1XK1Q7J7tTvoGEURdcoWRKYLWXGiIwseiLmpgBd09ddAV7VB6/YXljiwbS6xjywRSDYfIB2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=stDsGRAf; arc=none smtp.client-ip=185.132.180.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="stDsGRAf"
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62P3lmak4038010;
-	Wed, 25 Mar 2026 08:19:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=dk201812; bh=afRNwy/kx9NsNPjTaedXKXS
-	gza37hgSnrdJAE79BC2Q=; b=stDsGRAfKTwBIMgpoH58J/JLIOgZG8Hjk5xZ6sL
-	L8mJrlVsVBenV4Oug9dSYytXOpIXdRcTltbljRpPP5JnmSbNe/yqX20IJi+p3NRr
-	FDWJCOAPhGzDyg+4+vxwUFc9trR1PKfL7QxGQcgBQea6WT9E1SclZ37OxzqXhyLH
-	WtR4nN4tKlxwQhrPCGEw/3i1WEY4S8Fxa8o+Z2bVD6kIE3BMJVaGyKnqyiiQgwwX
-	CoOFEfexBTxuI39KljS6S/035hJNJlKf8NPrXV6bdy1invzZWHWzpGjiKe38HmL5
-	yDsb/ofnw21AH9U13blOMOHp5R/LN9A/N/oceaYdRUMAh+w==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4d3xbc8hmc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 25 Mar 2026 08:19:32 +0000 (GMT)
-Received: from [127.0.1.1] (172.25.10.92) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 25 Mar
- 2026 08:19:30 +0000
-From: Robert Mazur <robert.mazur@imgtec.com>
-Date: Wed, 25 Mar 2026 09:18:59 +0100
-Subject: [PATCH] riscv: dts: thead: beaglev-ahead: enable HDMI output
+	s=arc-20240116; t=1774427020; c=relaxed/simple;
+	bh=Hg08va1NfeGii59zk2DHu0XkPiNAL/Bra9Zqs3KObiU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oPCn4zdTqeSgGJWcbdxY0xgzmUWooWw3fLOcWyfNIV5AENYFcmdGdehLpH4TU5K5AY0Hv3RSqUPQfwNVxc/4XGtgbsbcq6Qj0G7xUig5kgyn0NFSm2tuGLTd5pSRlu5QOoiyWHAQzkBWl7T+cvIEsf/L87VKdIjKwWR14i67ctQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.224.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-64937edbc9eso4558758d50.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 01:23:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774427018; x=1775031818;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Hg08va1NfeGii59zk2DHu0XkPiNAL/Bra9Zqs3KObiU=;
+        b=GUFMHZ2BQecD7rAeUUapYHN3NCdzNRWJ8iH7SQ6zE431e/k9d0rp3jH9DQRXAtsCtb
+         nKHyv0MvhcPcsZc89nRSUlquTOE2et9xRdGPd168QVMLq6cxP3fhCQ2W48gQtEIVyeww
+         KXJr6YLAosq/fSbUkK0HFERLpyuPzzX1CEmfCfthG8Ekq6C2XanfeDgZMLgf1Yi0W/Yv
+         s5pzHNs+JYzdWmo71guua3U5XGaQMGmaQTf3GbmjCv2/clHeGB5TksPOcs1CkxkBWMVg
+         pjgpAsD+c5nK80U4nVx3dkT4B0hS+cCtBcW0MyfVtEjlEhNeIXnUpcgfNDFn5PDWI6DU
+         +VNA==
+X-Forwarded-Encrypted: i=1; AJvYcCXEnzgG5Ho+tbX2Cg22cqTAH0l1TjjfdDD4nVIYauh4BLXlEUVy2JVHuQjjPPSGgllfhiiatbunJYaJ@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywpg7C0uSNyNOS+/e8pZ3U9osOzV05e84VgGlHHa4NrgRVaJiTa
+	LqEgYqC6Tq2zyXNlT6XvwQF1okyT77qkl6T4/I6gllKDzry6+jc9LQmrn4Zb+fEE
+X-Gm-Gg: ATEYQzySomnvuxvGW3poEdrJbBdOZk003Af6qST1ZkgYCPASipFy/z0yE8OJZPy6Qc7
+	Z7IR0cVsKXT29svkUit/pNmMrGrFB8QDFZT1TltfAIREr5qdIHDClnxWiyCwmzUogenbEJv7DIP
+	vwxqkCE/temsojzk8ye9JhvT3RQ4Cw46Xj9y27DcEimckpMM80Pa3DwCAnbAR2EvBgN1g3auqRN
+	yQ5YCGvvrCxlAg4GPNmP6ycx6N90xf2aXCAyrKv6R2ifCt2d1YDqW8j8mxqLwm7Hr3x3OLAJPqJ
+	iPx+rJlRdyiYQCl5dvqQw5pPolyKEeWBzDf5fMuBv2/VHSOuidM4CgZED0nHke8F9EYGeygztjy
+	8blNZcaNXEYrRn03gHtn5cI9hwXdhO6l73qcqnWogeE95yZJNDS5OziSItXhyJ0IIBYe6+JUI7w
+	TYYuXCviOTl397ofXKiuKw10Etrueds0gwgeDGFofMC0LSPMx+WNb/zKh0zGfWU8slNwfoi9+ch
+	uwKfE87ew2Z0qpErL9sdH0g1gcze4DtTBIOCFIujdvcOQ==
+X-Received: by 2002:a05:690e:1241:b0:64d:626a:f4fd with SMTP id 956f58d0204a3-64ee61670efmr2253412d50.71.1774427017813;
+        Wed, 25 Mar 2026 01:23:37 -0700 (PDT)
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com. [74.125.224.45])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-64ee6c7cc02sm891388d50.0.2026.03.25.01.23.37
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Mar 2026 01:23:37 -0700 (PDT)
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-64937edbc9eso4558746d50.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 01:23:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCVKmDHjcVmjo4fKhUZb4mJ4Mr8jCTfri9oOTiKZnJUGvjFL8BZ4YJe7XkAGSc7kBn2rbvxzlfqOxsxw@vger.kernel.org
+X-Received: by 2002:a05:690e:dc6:b0:64a:d672:dafb with SMTP id
+ 956f58d0204a3-64ee6073950mr2268673d50.8.1774427016800; Wed, 25 Mar 2026
+ 01:23:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260325-hdmi-beaglev-ahead-v1-1-e71b41b98dca@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAHOaw2kC/x3MSwqAIBRG4a3EHXehFI3aSjSw/MsLvVCIINp70
- vAbnPNQQhQk6oqHIi5JcuwZdVnQFNy+gMVnk6qUrbQyHPwmPMItKy52Ac7zOBmjW+tNA0s5PCN
- muf9pP7zvB0yG+XVkAAAA
-X-Change-ID: 20260325-hdmi-beaglev-ahead-bc55396d57e6
-To: Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>,
-        Fu Wei
-	<wefu@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski
-	<krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Paul Walmsley
-	<pjw@kernel.org>,
-        Palmer Dabbelt <palmer@dabbelt.com>,
-        Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-CC: <linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, Robert Mazur <robert.mazur@imgtec.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774426770; l=1787;
- i=robert.mazur@imgtec.com; s=20260324; h=from:subject:message-id;
- bh=pTg+utSCyG7wZZOQyIhVF1sI+fvLSEvknrPySU/Dpk4=;
- b=NX+ICaWJ7ng7R2yfs5biUZLBjOJfQ26w/qtnvDdYYkW6gsxZRgEeRJNmfwe7/Lfr/NKSJ22p0
- q+8IhntunuXAvl+XywFmLbJJZdMFjdaTP46yRJGVOfsYBZEPwy5b23Z
-X-Developer-Key: i=robert.mazur@imgtec.com; a=ed25519;
- pk=X5uhazsNnVDpw/srawR3m7WOmgzFZXdecapAeML2ZgM=
-X-Proofpoint-ORIG-GUID: LYlXj9FfH91mfh2kmKBTdCfjYAqdjnxc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDA1OCBTYWx0ZWRfX5uBeveiAnQBt
- UwpW1pClmNs/BVMi0D1XNnckfwJn5sGokXHzgvbQQ2rIQCmqS6b5B7Msejzhh+kZrPBYNtp85Dd
- O2kGeiw2qwIFpQOqo4libKTSJSmIBkbf3NhXyIOjikc8NXvvO+Uk7mle7sfUB16VoCjuZ+DSqAR
- REw6ptK4IVyRLH3N/qGtgNSfXVop/4ZV77pbi7ThKiLTROGuRriibNpSXkDI3Z2wme3Xdd1asin
- WDSx9mb/USfNH2SRcJOCzPj6Vuprv9uGhRx3pzVrG1weWlmxa5CEC2H1Tp2hCZ7RKwHi1iUKQHp
- zPPjJBD0Rb6zj+F9DrVLMcDLJm0BBuwFOSLhOJvpxdF1EaZkATGm61uSy3zMrUp2oTFxisHkx/0
- j1M8YqsrB10ZmbswIegC15DhwfKgpYi2UdL4kibHBSRJgp8enVTNGXoZ7QtJnItheselzhKW4RU
- 3vgxO896m1Dw+DGeyjg==
-X-Proofpoint-GUID: LYlXj9FfH91mfh2kmKBTdCfjYAqdjnxc
-X-Authority-Analysis: v=2.4 cv=bMkb4f+Z c=1 sm=1 tr=0 ts=69c39a94 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=REVHNWFD5ocA:10 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=VwQbUJbxAAAA:8 a=r_1tXGB3AAAA:8 a=dc_29QX9MvWPFfCYLDcA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
+References: <20260325063254.18062-1-email@sirat.me> <20260325-perfect-locust-of-serendipity-b0cdfc@quoll>
+In-Reply-To: <20260325-perfect-locust-of-serendipity-b0cdfc@quoll>
+From: Sirat <email@sirat.me>
+Date: Wed, 25 Mar 2026 14:23:25 +0600
+X-Gmail-Original-Message-ID: <CANn+LW+_VPJ12ESR61xmq2Kw5+q4x=++C_uXckf_YGR_Lxms8A@mail.gmail.com>
+X-Gm-Features: AQROBzCb0c1yCGK240KD6g6MkgsnRfjcUsb6bd4H2kW3AdpCENOoiKdIVAWTitI
+Message-ID: <CANn+LW+_VPJ12ESR61xmq2Kw5+q4x=++C_uXckf_YGR_Lxms8A@mail.gmail.com>
+Subject: Re: [PATCH v7 0/2] iio: proximity: add driver for ST VL53L1X ToF sensor
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, jic23@kernel.org, 
+	dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The BeagleV Ahead board includes a micro HDMI connector (Type-D)
-wired to the TH1520 SoC's HDMI transmitter.
+On Wed, Mar 25, 2026 at 1:55=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+>
+> On Wed, Mar 25, 2026 at 12:32:21PM +0600, Siratul Islam wrote:
+...
+> > ---
+> > Changes in v7:
+> > - Add VL53L1X_REG_ prefix for register defines.
+> > - Use iio_push_to_buffers_with_ts().
+> > - Use continuous ranging and drop postenable/predisable.
+> > - Add comments for XSHUT reset, default config values.
+> > - Drop vdd-supply description in binding and comment in driver.
+> > - Add ABI rationale for vdd-supply to commit message (per Krzysztof, Jo=
+nathan).
+> >
+> >
+> > Changes in v6:
+> > - Make vdd-supply required. Add descriptions to vdd-supply and reset-gp=
+ios (per Jonathan).
+> > - Check reset_control_deassert() return value (per Andy).
+> > - Use volatile table for result registers and caching for the rest. Als=
+o mark write-only registers.
+>
+> So where did you explain dropping tag as I requested? Did you read the
+> exact paragraph I asked you to read?
+>
+I dropped the tag in v6 and I was not sure if it was ok to modify the chang=
+elog
+of v6 when sending v7. But I will keep this in mind.
 
-Enable the display pipeline by adding the HDMI connector node,
-connecting it to the HDMI controller, and activating the DPU
-and HDMI nodes.
-
-Signed-off-by: Robert Mazur <robert.mazur@imgtec.com>
----
-This patch enables HDMI output on the BeagleV-Ahead board by wiring up
-the DPU and HDMI nodes added in the following series:
-
-Depends-on: https://lore.kernel.org/r/20260129023922.1527729-7-zhengxingda@iscas.ac.cn/
-
-The patch has been tested on BeagleV-Ahead hardware with the above
-series applied. HDMI output is functional.
----
- arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts | 25 ++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
-
-diff --git a/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts b/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
-index 21c33f165ba9..91f3f9b987bc 100644
---- a/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
-+++ b/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
-@@ -75,6 +75,17 @@ led-5 {
- 			label = "led5";
- 		};
- 	};
-+
-+	hdmi-connector {
-+		compatible = "hdmi-connector";
-+		type = "d";
-+
-+		port {
-+			hdmi_con_in: endpoint {
-+				remote-endpoint = <&hdmi_out_con>;
-+			};
-+		};
-+	};
- };
- 
- &osc {
-@@ -236,6 +247,20 @@ &sdio0 {
- 	status = "okay";
- };
- 
-+&dpu {
-+	status = "okay";
-+};
-+
-+&hdmi {
-+	status = "okay";
-+};
-+
-+&hdmi_out_port {
-+	hdmi_out_con: endpoint {
-+		remote-endpoint = <&hdmi_con_in>;
-+	};
-+};
-+
- &uart0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&uart0_pins>;
-
----
-base-commit: d2e20c8951e4bb5f4a828aed39813599980353b6
-change-id: 20260325-hdmi-beaglev-ahead-bc55396d57e6
-
-Best regards,
--- 
-Robert Mazur <robert.mazur@imgtec.com>
-
+Thanks,
+Sirat
