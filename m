@@ -1,123 +1,155 @@
-Received: from srv01.abscue.de (abscue.de [89.58.28.240])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012046.outbound.protection.outlook.com [40.107.209.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211B73DDDC0;
-	Wed, 25 Mar 2026 13:55:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.58.28.240
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774446906; cv=none; b=sJTKx5Smliw/C/yL5Hb6bQ79eDjsoztY7+QYdBaBicGUTu8V/DFBH0kWFVl4AyYkN8W7yryc++2P9J93+DYtP4AMemUiJgZWOh+IzgQAZRIe/KmYxRSG0Erb0rMDE1iXCyzOPOBTtmU/K9nGjJCAN2sY122qpGNllB4dCIYRT2g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774446906; c=relaxed/simple;
-	bh=iDKvaeDvnMyZNEDCO+iH5La4SPaeOS8gVVZsISM+/78=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jOmPqG4msEieK545DXm0a1oEcgqs/jXifen73JJ2m9TzoZLow/OP7nIzcrpdA/VZtyRlAm+R5RYWcJDBoo3FuQPzlKaSs7LRRtnYCXazzUBNxlPS7Evy5Gh3ZZ+THAggS56i7OywBL7ON8dBTyMCdr8ronyGjVLtJFA2vSjDBls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=abscue.de; spf=pass smtp.mailfrom=abscue.de; dkim=pass (2048-bit key) header.d=abscue.de header.i=@abscue.de header.b=FRoR1cQ9; arc=none smtp.client-ip=89.58.28.240
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=abscue.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=abscue.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FBE533B974;
+	Wed, 25 Mar 2026 13:58:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774447140; cv=fail; b=R3SAGwXydCDq0CaaBXCasVk1lUw9bqb5T0C48rhE5y4es8EKxuzi6JqsCM1PX67TDS8PFbvyMAFeWLWfODMUPVh/Kehcza9gP/g2XZ+yh9dhnsBFUfrz/tUHpST8marQkXWCDiVWx5wcDf4r/zC403OJL2pG7CzKzbGG26UbKQQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774447140; c=relaxed/simple;
+	bh=o6NGVLYh0nhPsP1u/ahOsuzqv+Jem1v2a4jRiJ/rc2E=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=flfQFX2jaHkrc5rJVxjCJLcQ/woE6jF/ctPaE/zEk+bhvKDeySX5lwBcgC+qb1nOAW7s1tSs0xctAOH4YoXYr8OsV5Zlf+HMZt0L5xfQfot595J72xtYd7O/DxxqYH2m3atkGT7g7nphMWxXPLiZJ+4VIkSa+1xxous8cLJ4O1A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=B3RvDqc7; arc=fail smtp.client-ip=40.107.209.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=abscue.de header.i=@abscue.de header.b="FRoR1cQ9"
-Received: from fluffy-mammal.metal.fwg-cag.de (unknown [IPv6:2001:9e8:cde0:9600:8d27:ae39:1dce:2212])
-	by srv01.abscue.de (Postfix) with ESMTPSA id 93D7E1C3A8B;
-	Wed, 25 Mar 2026 14:54:55 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=abscue.de; s=dkim;
-	t=1774446895;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4Vvz9BBCdCjmAKX3x6b5LHDmFkQb7BZeGItD0dshHTs=;
-	b=FRoR1cQ9xfDn68CQwKYxV7tH5hnWgj9zu9G9i7k3rUs4SZ3Drfe7AXK2vPw0Gt/2ed38YG
-	9dYIYc66WmjmbxWQCmVAYxH6wEKxcRKBgJsOIaDtOdaXxmYdYAg5tXNnyY+JONWDZgR00/
-	00Yprj+4KWWRkPdW32sxcrbAbtYOZKi/UJWofvW1XY7r23vERCPEWHxigic5mIPbJVQd72
-	zdCb9+aBGOsy27L+MUifumctiYAFXWTzh9AhFwSa2BQDBt82NyVVIzTEbHCcaii7B1dyjV
-	bNZ0EFRxRazNrxFrWote6ckkZmkkxnNnrohBgrDMdR3X7n5VWkP7wYEowsSdfw==
-From: =?utf-8?q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>
-Date: Wed, 25 Mar 2026 14:53:47 +0100
-Subject: [PATCH v2 5/5] regulator: sc2731: Add platform_device_id table
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="B3RvDqc7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wmZ7xAX2PBQVbukYuIFhaGso4LpMUstEyGifl6p8hvbbopRpgvFg753+w5E/WR4Cg0A0oyKjjvPrKk6uDsdO5gN5Dza8a6rn4TWpLZHEslt8dj4Mo/2sSlMb6Q0uK2Bf2ogWO16ddnehzPbv4d3qtdk3hZRC9aeT33in1lN0kje0SMkgH/tY1xmvKhL3RULwuNChuyHo1ZTFcezorDF9VStaD/PKp/tom3p3gJT/kocrVjYW88SDa4LXpE2kDpGehpR6DduhAHcjWD6aQByTdj31BUFMvlhOPE8O5sJhm3qaOyTP48CVu8uOzK5ZIc9oMaxv4SAthJ8wjy3F2ZcBDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yF/F17NhDB5ZOXSo7KrCe94UDYQu7IrWcs0jox9vyWI=;
+ b=JbhyFYevF2/xWSqalNuR+KgQs+7Hd9jYUtuz8z9FJSdw4hsseJ4nFEa3DRweFcdAnXmtWEkebY1pjZHYTr2VATjHgew/dfvsuQmBkwjBB5EimbxdAu3wCxmcNDHwlpcn4cVR9ETS358YUN7vykPAwbHKSI2v/8bgsdqJdinur2xgA4cLakg18V7ozNi5w5nKLx65Jzr5OvvsHMLLvtha/GEtorhgZT7xnYzxA+Vseyku1Wnnx85517PV20/G+pVX6jo88V3YmsqTrd1EOzptn4G0rnEwMtRYQDGhPLFtIU3V31uqjHi0/C/N6azzthAr04Mv/PNEx2VqImz4Pk2kKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.233) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yF/F17NhDB5ZOXSo7KrCe94UDYQu7IrWcs0jox9vyWI=;
+ b=B3RvDqc744vcbmCTJ63FsqMZmJCBTims+mXdNS0N/zrymx0Ch5SvPkv6HcNYSdvd5VzQRmxrzXASsIQNT5zq7Oro8LonO8iI0g+8lCo8nHAyWRTDfWkELl2hH771KMjQe9M5HJW6Kl8el3I2pkxagEfTNKfzElCGN3OmpSyoOORFyZUK9KmXuZDv4fMkCVu5yJI+EUZjjDJRIoVA4cY/1DwqWSLsrKRT6LTqmVPsZKvm2CxNVkMQqAsuMSdW4EttcBKBjAFn6ZTviAT+SiYlh4THZbKV70kdkgb9Uos9e4qDwxPCs2wdvNSv35gcygbVAZo4HszkUUwy+gNBSta8pQ==
+Received: from SA1PR02CA0014.namprd02.prod.outlook.com (2603:10b6:806:2cf::21)
+ by DS4PR12MB9612.namprd12.prod.outlook.com (2603:10b6:8:278::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.7; Wed, 25 Mar
+ 2026 13:58:51 +0000
+Received: from SN1PEPF0002BA4B.namprd03.prod.outlook.com
+ (2603:10b6:806:2cf:cafe::20) by SA1PR02CA0014.outlook.office365.com
+ (2603:10b6:806:2cf::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.32 via Frontend Transport; Wed,
+ 25 Mar 2026 13:58:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.233)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ SN1PEPF0002BA4B.mail.protection.outlook.com (10.167.242.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Wed, 25 Mar 2026 13:58:50 +0000
+Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 25 Mar
+ 2026 06:58:34 -0700
+Received: from drhqmail201.nvidia.com (10.126.190.180) by
+ drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.20; Wed, 25 Mar 2026 06:58:33 -0700
+Received: from moonraker.home (10.127.8.14) by mail.nvidia.com
+ (10.126.190.180) with Microsoft SMTP Server id 15.2.2562.20 via Frontend
+ Transport; Wed, 25 Mar 2026 06:58:30 -0700
+From: Jon Hunter <jonathanh@nvidia.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>
+CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-tegra@vger.kernel.org>, Jon Hunter <jonathanh@nvidia.com>
+Subject: [PATCH V3 0/3] net: stmmac: Fix Tegra234 MGBE clock
+Date: Wed, 25 Mar 2026 13:58:08 +0000
+Message-ID: <20260325135811.148480-1-jonathanh@nvidia.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260325-sc27xx-mfd-cells-v2-5-d0ebb60aa4a7@abscue.de>
-References: <20260325-sc27xx-mfd-cells-v2-0-d0ebb60aa4a7@abscue.de>
-In-Reply-To: <20260325-sc27xx-mfd-cells-v2-0-d0ebb60aa4a7@abscue.de>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Orson Zhai <orsonzhai@gmail.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, Sebastian Reichel <sre@kernel.org>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, 
- linux-pm@vger.kernel.org, 
- =?utf-8?q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4B:EE_|DS4PR12MB9612:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2afe06f8-2c93-498a-d2f0-08de8a76a4b5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|36860700016|82310400026|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	e31CFDxa4nCHqVvz8t4oUB22IA9gHXSp5E8nQeM9lOp/BOJ1OiRWWVdWTinjl+eLwlsgKgyAgF2t96cduES9wsQye3CrVhkhnAvMVeyIj59Kj8nC1+WJldsaOAwiyyoqtuPfRPmAxmcjncfyEpKz87ynf6KxRFwzKBfebWgskh1z5QO62O9WdxXGgqaUDMvnJZTbeaKi3CszIDL5vdpJE5aMwexSpmpqWCiMxqycQkvheSAIlRNe6HxfC5KqTQJdRT5VghEHc+l1mn7digkH2OZoNNwRR3pTxi8YjvKj/WLnrs91NqJ926i4DeASARWVn9ysHcDZjNP7iMufBCmAqQwHmIu9vzXT1YQzlfoPLC0NPINLk6Q6t26bY2SCwCR6fXGD3vHcXM6oy9tEjPOLASLcB4zikZXPtepwJ36Z7JtCGvfnZlaLAae54TLwY2U2HyEDEa7P1AqQJO1jriJXeKX0KwD5oUC+cwpy/N+7iugjh7G5Sam+iRTEb9dGAfJFWKe8EUEOxhozL1zByubCaruiMoHvq3EMOLCMwSmwBpd2Ynkhp5A9krkMymk7PS9wB3jX/uBtlFCLS1kPJADEOi12euSygMre09CULkxt8xF/AJrqfHHGX+yq3SA9nCtMpyBgT5ecr+bDh05GvstrxjSjJKgnmQXAMG6GXiftcKX51XzXvTmEed0WUUtKXQC0hOMqQfrjwldyrE+UwPxJiueyEU0KFge+Dw8mDtuTQMny7dkhbXWPNHn5UVU9BAoxSdYndqVvWYaOppoCFLUyDA==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(36860700016)(82310400026)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	J3ynWlxvLjxwfAFQ+mSWdxlBJN8DZ13uDOSjnax12/4smTPcZwOLSdN3UM+JvEtBOzPnZq0h/NPpFw6eloswuEAKPfTyaH6j2UgWSnneiPjSAcj6ikWMDEhTMfNQKdf5cJmi1J143PoSroVnHiqUXDwBczsDOj5Am+ZmvfflgZr/3jj+5+YKy6WzUklqXx8zx8xgzXqpww5jpoFtTZrStdGPBm71mAtnMUUwWRenbGwgV8xb9ZplkeVwHzz2ENisOUCs7ror5vF4s9mUg6MOt8c2QH1wEc9ApjPv1hsyNbkxEL5G4KobGbDSbLEU0dBoWxZlG6+NzYvsPwRU22a3pC5LgV8dfGIXNAbBl+gQziK1EGE3b4DT/obPxzk7mXSrQH5CcrTAc0MHS7nqXPynSX+ZM2AcK9x+7FRpJq8UVn3v9weaX6wM58wIbrAbG875
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 13:58:50.6105
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2afe06f8-2c93-498a-d2f0-08de8a76a4b5
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF0002BA4B.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9612
 
-Make the regulator driver for the SC2731 PMIC probe automatically. Using
-a platform_device_id table instead of DT compatible matching avoids the
-need for a separate compatible property in the "regulators" node, which
-simplifies the DT bindings and makes the parent MFD device responsible
-for selecting the correct regulator driver for the PMIC.
+The name of the PTP ref clock for the Tegra234 MGBE ethernet controller
+does not match the generic name in the stmmac platform driver. Despite
+this basic ethernet is functional on the Tegra234 platforms that use
+this driver and as far as I know, we have not tested PTP support with
+this driver. Hence, the risk of breaking any functionality is low.
 
-However, this means that the regulator device is not automatically
-associated with the "regulators" node. Tell the regulator core to
-perform device tree lookups using the parent MFD device instead of
-the regulator sub-device and set the .regulators_node member in all
-regulator definitions so that the "regulators" sub-node is used.
+The previous attempt to fix this in the stmmac platform driver, by
+supporting the Tegra234 PTP clock name, was rejected [0]. The preference
+from the netdev maintainers is to fix this in the DT binding for
+Tegra234.
 
-Acked-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Otto Pflüger <otto.pflueger@abscue.de>
----
- drivers/regulator/sc2731-regulator.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+This series fixes this by correcting the device-tree binding to align
+with the generic name for the PTP clock. I understand that this is
+breaking the ABI for this device, which we should never do, but this
+is a last resort for getting this fixed. I am open to any better ideas
+to fix this. Please note that we still maintain backward compatibility
+in the driver to allow older device-trees to work, but we don't
+advertise this via the binding, because I did not see any value in doing
+so.
 
-diff --git a/drivers/regulator/sc2731-regulator.c b/drivers/regulator/sc2731-regulator.c
-index 5447e1a47d15..93c8156c5110 100644
---- a/drivers/regulator/sc2731-regulator.c
-+++ b/drivers/regulator/sc2731-regulator.c
-@@ -131,6 +131,7 @@ static const struct regulator_ops sc2731_regu_linear_ops = {
- 			  vstep, vmin, vmax) {			\
- 	.name			= #_id,				\
- 	.of_match		= of_match_ptr(#_id),		\
-+	.regulators_node	= of_match_ptr("regulators"),	\
- 	.ops			= &sc2731_regu_linear_ops,	\
- 	.type			= REGULATOR_VOLTAGE,		\
- 	.id			= SC2731_##_id,			\
-@@ -226,7 +227,7 @@ static int sc2731_regulator_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
--	config.dev = &pdev->dev;
-+	config.dev = pdev->dev.parent;
- 	config.regmap = regmap;
- 
- 	for (i = 0; i < ARRAY_SIZE(regulators); i++) {
-@@ -242,12 +243,19 @@ static int sc2731_regulator_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
-+static const struct platform_device_id sc2731_regulator_id_table[] = {
-+	{ "sc2731-regulator" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(platform, sc2731_regulator_id_table);
-+
- static struct platform_driver sc2731_regulator_driver = {
- 	.driver = {
- 		.name = "sc27xx-regulator",
- 		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
- 	},
- 	.probe = sc2731_regulator_probe,
-+	.id_table = sc2731_regulator_id_table,
- };
- 
- module_platform_driver(sc2731_regulator_driver);
+Changes since V2:
+- Corrected example in dt-binding doc.
+
+Changes since V1:
+- Moved handling of different PTP clock names into Tegra234 MGBE driver.
+- Add changes to update the Tegra234 MGBE DT binding and DT source.
+
+[0] https://lore.kernel.org/linux-tegra/20250612062032.293275-1-jonathanh@nvidia.com/
+
+Jon Hunter (3):
+  net: stmmac: Fix PTP ref clock for Tegra234
+  dt-bindings: net: Fix Tegra234 MGBE PTP clock
+  arm64: tegra: Fix Tegra234 MGBE PTP clock
+
+ .../bindings/net/nvidia,tegra234-mgbe.yaml    |  4 ++--
+ arch/arm64/boot/dts/nvidia/tegra234.dtsi      |  8 ++++----
+ .../net/ethernet/stmicro/stmmac/dwmac-tegra.c | 19 +++++++++++++++++--
+ 3 files changed, 23 insertions(+), 8 deletions(-)
 
 -- 
-2.51.0
+2.43.0
 
