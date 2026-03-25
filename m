@@ -1,473 +1,179 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F90B309EE9;
-	Wed, 25 Mar 2026 22:32:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0883385B9
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 22:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774477951; cv=none; b=l/H7cc4RftVFFBYQ7uyp/mUcUSUvnDal4Tx+ZU9ECieX2XbZ/UHjQx+VCbDKxPhCGzPi5ajPs8wD0Epd/hsuzQ4VRt3urwJaaYzBITN1qfTbMy99qFYM54N3DILkQ707y/e72TbLN+56+4RABUZK8D3iZ40c2yKrRvBYhaEzGEs=
+	t=1774477996; cv=none; b=DpYRDDNqn54ICltZuTKxd2Kk2bpL4k+dhHUwsWGlirgT+bOqz9UuQhIovH97stgu+EDol6PY7TAW0oTKodg1avB5Qz+Wj+G8iOVA8p1V5mB9Rc0hQbvDx/pfEDVLLJvUBMG3D8rLb7YskUKedj9gf2IeLZ2UNf30gSwvijnO4lE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774477951; c=relaxed/simple;
-	bh=ursab/n2AiJf6C5AZD21xV3n11Oj8/12y2M7o6GYEA4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=Nydk9Z1D5bS8RzdXKn6v9jSBVzwOn6BVEUXPxX/tRDuv6G9ajBHv5IMQ3RlEyphYW9U3bMGpapxrXdCoT3gdc3yIiO6byhqn0HTETPSpY4ehHa99XCz/IQn+RfDVq5UTxM+72w3wbrq7fToQc8qvN9740JPiDMEr4vqxjslWr6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=o2vswXYZ; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1774477996; c=relaxed/simple;
+	bh=naBQi7shofUGxunBgNte7CeJA8dVw8PHKBKVIyPmkh4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OAXPmYH8Hddfs3Z0UaXKPVJGD8dt9cYAQCFXGKvGoMm8P2ZpLDnTuhLZrKkqPYM2y/pJGMtQz/zIncRs0R6Eg8CWVKIM1h6rvsS1Zzc9tkNw+QVzYMrwqBZyhMUoOmhy9X2hUzIH1f5NQJZOlVONUejYx80sKsmXEld4CPLPsnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sSZS/ohx; arc=none smtp.client-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="o2vswXYZ"
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62PKMJwT039446;
-	Wed, 25 Mar 2026 18:32:21 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=VPaEn
-	dXXV6gdKYfFDumFMzxEiVrqbQDqq7Bywu9T+dw=; b=o2vswXYZaSmJa4HaUsSSj
-	bd8HpNvpkhCCznAbSEd/ccy+2hvY/XOVxclAnlCiB2WNOReSLkP0lG5pxCuUVyrR
-	bqRC6JGIgX9Jlu/LIWaxXR++cYoRVdoB5QlDCv+nOguuHvRqTRvVLHBO/cQzejq5
-	5sYP8EIuJCIGPl+iaFL9ct8ZdatSGU26MmcqEssRTlhKT0JQuFgwI2jwo48pWuej
-	vhcRsWxs6uhWx6QW7VUD8EgYYeIvXR5Q6JP/rcQhJxM1//ld1i6gxXHAceu1GokH
-	YErjKJCTWSfD533lxAj4XkWNpX4jn86JHwrnBqW7XrkaYVQAC6GVVqhXdZ19oi/n
-	w==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4d3un5gssh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 25 Mar 2026 18:32:21 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 62PMWKpH054884
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 25 Mar 2026 18:32:20 -0400
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Wed, 25 Mar 2026 18:32:19 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Wed, 25 Mar 2026 18:32:19 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Wed, 25 Mar 2026 18:32:19 -0400
-Received: from HYB-VFz9h4bIQxi.ad.analog.com (HYB-VFz9h4bIQxi.ad.analog.com [10.118.4.22])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 62PMW4aj032703;
-	Wed, 25 Mar 2026 18:32:15 -0400
-From: Jan Carlo Roleda <jancarlo.roleda@analog.com>
-Date: Thu, 26 Mar 2026 06:30:11 +0800
-Subject: [PATCH v2 2/3] leds: ltc3208: add driver
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sSZS/ohx"
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-127380532eeso773670c88.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 15:33:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774477994; x=1775082794; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=14O+rHUy9JUHv4nndxIKJLmJP+F4NFBUxwm3pxRAatw=;
+        b=sSZS/ohx2r5eSqD3yx1nUzQ2cL3d5PMh6tIFW3z5QIZjMrPdgGQkdwnSaFSnAW15zc
+         b2jagFUbbcSne5XZFRo5H1yb39FraR7PVLMKFgG0rTqHyGQcg1PUrGRJEzjJS2h7Hjru
+         tr9SSUqbRjbuXL+bNk2oZ9wMk0vOjiMY5bNgJHhgcSlXNSI5Hi+upeH9bVfHTC67rP9o
+         uUQVAe6B4w4KVww2AFk2BbaeHNxAGMxNWak5D4g+WOnKn2gsrVwectxpf/gcz6gdZ6My
+         wid/+tQ+/nYMDQUmCYC9kOtdeLuo6NZ9ivuSfKs9WZhqQh6EegWdxTMhlPCVvRbFCiOA
+         fJuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774477994; x=1775082794;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=14O+rHUy9JUHv4nndxIKJLmJP+F4NFBUxwm3pxRAatw=;
+        b=kLrkyux8oehhTjhNrJxX+AKWGInljPgXNEA+7VHLKbeHoYZ7L+TustITLurljG64dt
+         l25rdDHnaDpo7DoRybURqpPDZD41HF0ki/jczEMxkCP2NvRQ0MtlKn55iinRh8LAqesO
+         1xeAn0E3JhTeqJC2i3Aomq9//caYS+nq6f8u8jCrfiF743zrsN5qqjhpeVZwbD93zEBX
+         P/BqpeIrgHRumyTWVSZ6u6H2MtwIWqe2Fs8/MNB019W9d7TB5xx1ti8qI9EDgjZt4f1h
+         J0KgMINuQFXckKfxT0Gqs5K1iQNJ4LtIayMA+297RAx7hFIh9qcgOSZZDroGQxCWw0LN
+         EG1A==
+X-Forwarded-Encrypted: i=1; AJvYcCWMSMcZE3UwOH1sruUbAIgotV2x7n9CV13Zcj2Lh7+dZbLySvyAGFMm7pNMx2mr3ttdHZSskN4ReGMf@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw1VrLH/tzmAW+YcvWkBvJs24pg6abP91XncelabsUthgLjUkLc
+	Uhmbejz1vAKOJ8Y4vzQZHs4juf57EbkJuod9Oujyr/O+i0xU7a/sYW/b
+X-Gm-Gg: ATEYQzy87I22drT98w3C6d6LiXJQ1SdLCONIo7T+j0Z4uCGAz4/siXER+HOCKLwC9Mx
+	Dcga/HK3o58khXDQ1Zk7zLcDxd0iGbUe8fdwrHCmV73AAyODsd/ZbgA8dgxmOmSYul3ISigks3d
+	DPtcI+fudmwSXOh8lWMmdx83aYV/6Nqqw0v4lX5x3Vq4+qKbvaFCWJr+wOdsmn8Ef7SxrMXHgrK
+	yvblbkrjmJ4e8TPt9iTu/cRsNb1c+7ajPAKhOu7Udk5p9ezbWk4iBlR0ABANU8hmsfYCldkkbdp
+	fE/dA+DIsinG0g6VK611keDnfqsi1MMwR8ids9q2E4vYge3ShwKLSoVcDKfl9FEBmlgFaoe9xZn
+	9ub+daCOYL0JGajDZixfp7w9ahxApT2UPFFefS5PY59IWrAgfwwyt5cc8vbW7OPak7r16i8yW1K
+	5VDLEqfZUdSHoMO7m22pcfdAOOXUdf6MVugY82YlhKJEBW/UMsJ9VH8gTbwT8vhmgtJjjto8LZ
+X-Received: by 2002:a05:7022:402:b0:11b:c1ab:bdd4 with SMTP id a92af1059eb24-12a96f04f69mr2620804c88.38.1774477994108;
+        Wed, 25 Mar 2026 15:33:14 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12aa762430bsm1567649c88.10.2026.03.25.15.33.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Mar 2026 15:33:13 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <f016c567-dd37-4f1a-8c8d-5b8dc6a3b9a3@roeck-us.net>
+Date: Wed, 25 Mar 2026 15:33:11 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: emc2305: Add
+ fan-shutdown-percent property
+To: Rob Herring <robh@kernel.org>, florin.leotescu@oss.nxp.com
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Michael Shych <michaelsh@nvidia.com>,
+ linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, daniel.baluta@nxp.com, viorel.suman@nxp.com,
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+ festevam@gmail.com, Florin Leotescu <florin.leotescu@nxp.com>
+References: <20260320152959.1575978-1-florin.leotescu@oss.nxp.com>
+ <20260320152959.1575978-2-florin.leotescu@oss.nxp.com>
+ <20260325215630.GA6513-robh@kernel.org>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260325215630.GA6513-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260326-upstream-ltc3208-v2-2-3dbc992b6098@analog.com>
-References: <20260326-upstream-ltc3208-v2-0-3dbc992b6098@analog.com>
-In-Reply-To: <20260326-upstream-ltc3208-v2-0-3dbc992b6098@analog.com>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-        Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <linux-leds@vger.kernel.org>,
-        <devicetree@vger.kernel.org>,
-        Jan Carlo Roleda <jancarlo.roleda@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774477924; l=11825;
- i=jancarlo.roleda@analog.com; s=20260317; h=from:subject:message-id;
- bh=ursab/n2AiJf6C5AZD21xV3n11Oj8/12y2M7o6GYEA4=;
- b=kUg/y6z4mlXmtYqVVl0t/O2/Cjt5ALQ0QXk8m7Z2E4ySs4k8jNSWMzb1FXCRsRemIOnVfLqQm
- pNN5ou0H+kGCZoHtsJtPVKmPCPvR8v7mF7B2b3aw0UW08RisG4mP/U/
-X-Developer-Key: i=jancarlo.roleda@analog.com; a=ed25519;
- pk=zPMh+eO6/Mj6tqaie75BLiTLQvE3f9pck0UejKLmLMc=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDE2NyBTYWx0ZWRfX1Yccy6bI0TOg
- 0cyvk1SoDcpFj0oWmjmb+zzNPFOIfLu0T6u24UWTp9EkdPO+YQYqPBtOUwjw4/WY6Gn87Hfba3+
- MfbFQR8MgJWMj68TBGkEHrh5ro3FVE5gB9Ep2nquPpEyLCYWTKlF0viYmf6jLWcUJ+oMY7iXHfw
- 03OJvkzTM1/3j6ecLMlpCQ0p5ujRkg7q7F05ApPPHsXu4So7BNO84MwbUPMpM2ZOH4dEZ1zP8Sb
- sAhRAx+/ZCEZWvsHivhaXwuBF8m/EO+ED9tAFcOmRy9X/EPc5NkWGPm4xS15KOy/MYA61oysWG4
- 5Qi/UalYhubIBJqgNI52uxmqL7WpK6eWhlTaSpbZb54mplUxrSSm5ycxM7ScH4rIBxZdAd40maU
- 3HL3+mgx1XaSLAtHisyQAVeDtgqom+8yhKb8WBJ98eZB/dlPCu3FHBpEOl9IJTNuIgQBd4BzKwa
- j2agMwgqi+k1BF9HQNw==
-X-Proofpoint-ORIG-GUID: WwFzaXWUfOrn-uQOLOXhJn_Wh2uYoeer
-X-Authority-Analysis: v=2.4 cv=GdQaXAXL c=1 sm=1 tr=0 ts=69c46275 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8
- a=VwQbUJbxAAAA:8 a=pd7qEwP8XzxV70z26qgA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: WwFzaXWUfOrn-uQOLOXhJn_Wh2uYoeer
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-25_06,2026-03-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 phishscore=0 spamscore=0 priorityscore=1501
- bulkscore=0 malwarescore=0 impostorscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603250167
 
-Kernel driver implementation for LTC3208 Multidisplay LED Driver
+On 3/25/26 14:56, Rob Herring wrote:
+> On Fri, Mar 20, 2026 at 05:29:58PM +0200, florin.leotescu@oss.nxp.com wrote:
+>> From: Florin Leotescu <florin.leotescu@nxp.com>
+>>
+>> The EMC2305 fan controller supports multiple independent PWM fan
+>> outputs. Some systems require fans to enter a defined safe state
+>> during system shutdown or reboot handoff, until firmware or the next
+>> boot stage reconfigures the controller.
+>>
+>> Add an optional "fan-shutdown-percent" property to fan child nodes
+>> allowing the shutdown fan speed to be configured per fan output.
+> 
+> Why not a common fan property in fan-common.yaml?
+> 
+> We generally specify fan speeds in RPM (and then map RPMs to duty cycle
+> for PWM).
+> 
 
-Signed-off-by: Jan Carlo Roleda <jancarlo.roleda@analog.com>
----
- MAINTAINERS                 |   1 +
- drivers/leds/Kconfig        |  11 ++
- drivers/leds/Makefile       |   1 +
- drivers/leds/leds-ltc3208.c | 298 ++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 311 insertions(+)
+The problem here is mentioning "fan speed" instead of referring to pwm
+duty cyle in the first place. It is not just misleading, it is wrong.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3f3331d7272a..48bae02057d5 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15131,6 +15131,7 @@ M:	Jan Carlo Roleda <jancarlo.roleda@analog.com>
- L:	linux-leds@vger.kernel.org
- S:	Maintained
- W:	https://ez.analog.com/linux-software-drivers
-+F:	drivers/leds/leds-ltc3208.c
- 
- LTC4282 HARDWARE MONITOR DRIVER
- M:	Nuno Sa <nuno.sa@analog.com>
-diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
-index 597d7a79c988..867b120ea8ba 100644
---- a/drivers/leds/Kconfig
-+++ b/drivers/leds/Kconfig
-@@ -1029,6 +1029,17 @@ config LEDS_ACER_A500
- 	  This option enables support for the Power Button LED of
- 	  Acer Iconia Tab A500.
- 
-+config LEDS_LTC3208
-+	tristate "LED Driver for Analog Devices LTC3208"
-+	depends on LEDS_CLASS && I2C
-+	select REGMAP_I2C
-+	help
-+	  Say Y to enable the LTC3208 LED driver.
-+	  This supports the LED device LTC3208.
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called ltc3208.
-+
- source "drivers/leds/blink/Kconfig"
- 
- comment "Flash and Torch LED drivers"
-diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
-index 8fdb45d5b439..b08b539112b6 100644
---- a/drivers/leds/Makefile
-+++ b/drivers/leds/Makefile
-@@ -61,6 +61,7 @@ obj-$(CONFIG_LEDS_LP8788)		+= leds-lp8788.o
- obj-$(CONFIG_LEDS_LP8860)		+= leds-lp8860.o
- obj-$(CONFIG_LEDS_LP8864)		+= leds-lp8864.o
- obj-$(CONFIG_LEDS_LT3593)		+= leds-lt3593.o
-+obj-$(CONFIG_LEDS_LTC3208)		+= leds-ltc3208.o
- obj-$(CONFIG_LEDS_MAX5970)		+= leds-max5970.o
- obj-$(CONFIG_LEDS_MAX77650)		+= leds-max77650.o
- obj-$(CONFIG_LEDS_MAX77705)		+= leds-max77705.o
-diff --git a/drivers/leds/leds-ltc3208.c b/drivers/leds/leds-ltc3208.c
-new file mode 100644
-index 000000000000..65e65cd73d73
---- /dev/null
-+++ b/drivers/leds/leds-ltc3208.c
-@@ -0,0 +1,298 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * LED driver for Analog Devices LTC3208 Multi-Display Driver
-+ *
-+ * Copyright 2026 Analog Devices Inc.
-+ *
-+ * Author: Jan Carlo Roleda <jancarlo.roleda@analog.com>
-+ */
-+#include <linux/bitfield.h>
-+#include <linux/errno.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/init.h>
-+#include <linux/leds.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+#include <linux/types.h>
-+#include <linux/workqueue.h>
-+
-+#define LTC3208_SET_HIGH_BYTE_DATA(x)	FIELD_PREP(GENMASK(7, 4), (x))
-+
-+/* Registers */
-+#define LTC3208_REG_A_GRNRED	0x1 /* Green (High half-byte) and Red (Low half-byte) current DAC*/
-+#define LTC3208_REG_B_AUXBLU	0x2 /* AUX (High half-byte) and Blue (Low half-byte) current DAC*/
-+#define LTC3208_REG_C_MAIN	0x3 /* Main current DAC */
-+#define LTC3208_REG_D_SUB	0x4 /* Sub current DAC */
-+#define LTC3208_REG_E_AUX	0x5 /* AUX DAC Select */
-+#define LTC3208_REG_F_CAM	0x6 /* CAM (High half-byte and Low half-byte) current DAC*/
-+#define LTC3208_REG_G_OPT	0x7 /* Device Options */
-+
-+/* Device Options register */
-+#define LTC3208_OPT_CPO_MASK	GENMASK(7, 6)
-+#define LTC3208_OPT_DIS_RGBDROP	BIT(3)
-+#define LTC3208_OPT_DIS_CAMHILO	BIT(2)
-+#define LTC3208_OPT_EN_RGBS	BIT(1)
-+
-+/* Auxiliary DAC select masks */
-+#define LTC3208_AUX1_MASK	GENMASK(1, 0)
-+#define LTC3208_AUX2_MASK	GENMASK(3, 2)
-+#define LTC3208_AUX3_MASK	GENMASK(5, 4)
-+#define LTC3208_AUX4_MASK	GENMASK(7, 6)
-+
-+#define LTC3208_MAX_BRIGHTNESS_4BIT 0xF
-+#define LTC3208_MAX_BRIGHTNESS_8BIT 0xFF
-+
-+#define LTC3208_NUM_LED_GRPS	8
-+#define LTC3208_NUM_AUX_LEDS	4
-+
-+#define LTC3208_NUM_AUX_OPT	4
-+#define LTC3208_MAX_CPO_OPT	3
-+
-+enum ltc3208_aux_channel {
-+	LTC3208_AUX_CHAN_AUX = 0,
-+	LTC3208_AUX_CHAN_MAIN,
-+	LTC3208_AUX_CHAN_SUB,
-+	LTC3208_AUX_CHAN_CAM
-+};
-+
-+enum ltc3208_channel {
-+	LTC3208_CHAN_MAIN = 0,
-+	LTC3208_CHAN_SUB,
-+	LTC3208_CHAN_AUX,
-+	LTC3208_CHAN_CAML,
-+	LTC3208_CHAN_CAMH,
-+	LTC3208_CHAN_RED,
-+	LTC3208_CHAN_BLUE,
-+	LTC3208_CHAN_GREEN
-+};
-+
-+static const char * const ltc3208_dt_aux_channels[] = {
-+	"adi,aux1-channel", "adi,aux2-channel",
-+	"adi,aux3-channel", "adi,aux4-channel"
-+};
-+
-+static const char * const ltc3208_aux_opt[] = {
-+	"aux", "main", "sub", "cam"
-+};
-+
-+
-+struct ltc3208_led {
-+	struct led_classdev cdev;
-+	struct i2c_client *client;
-+	enum ltc3208_channel channel;
-+};
-+
-+struct ltc3208_dev {
-+	struct i2c_client *client;
-+	struct regmap *map;
-+	struct ltc3208_led *leds;
-+};
-+
-+static const struct regmap_config ltc3208_regmap_cfg = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+};
-+
-+static int ltc3208_led_set_brightness(struct led_classdev *led_cdev,
-+				      enum led_brightness brightness)
-+{
-+	struct ltc3208_led *led = container_of(led_cdev,
-+					struct ltc3208_led, cdev);
-+	struct i2c_client *client = led->client;
-+	struct ltc3208_dev *dev = i2c_get_clientdata(client);
-+	struct regmap *map = dev->map;
-+	u8 current_level = brightness;
-+
-+	/*
-+	 * For registers with 4-bit splits (CAM, AUX/BLUE, GREEN/RED), the other
-+	 * half of the byte will be retrieved from the stored DAC value before
-+	 * updating the register.
-+	 */
-+	switch (led->channel) {
-+	case LTC3208_CHAN_MAIN:
-+		return regmap_write(map, LTC3208_REG_C_MAIN, current_level);
-+	case LTC3208_CHAN_SUB:
-+		return regmap_write(map, LTC3208_REG_D_SUB, current_level);
-+	case LTC3208_CHAN_AUX:
-+		/* combine both low and high halves of byte */
-+		current_level = LTC3208_SET_HIGH_BYTE_DATA(current_level);
-+		current_level |= dev->leds[LTC3208_CHAN_BLUE].cdev.brightness;
-+		return regmap_write(map, LTC3208_REG_B_AUXBLU, current_level);
-+	case LTC3208_CHAN_BLUE:
-+		/* apply high bits stored in other led */
-+		current_level |= LTC3208_SET_HIGH_BYTE_DATA(
-+			dev->leds[LTC3208_CHAN_AUX].cdev.brightness);
-+		return regmap_write(map, LTC3208_REG_B_AUXBLU, current_level);
-+	case LTC3208_CHAN_CAMH:
-+		current_level = LTC3208_SET_HIGH_BYTE_DATA(current_level);
-+		current_level |= dev->leds[LTC3208_CHAN_CAML].cdev.brightness;
-+		return regmap_write(map, LTC3208_REG_F_CAM, current_level);
-+	case LTC3208_CHAN_CAML:
-+		current_level |= LTC3208_SET_HIGH_BYTE_DATA(
-+			dev->leds[LTC3208_CHAN_CAMH].cdev.brightness);
-+		return regmap_write(map, LTC3208_REG_F_CAM, current_level);
-+	case LTC3208_CHAN_GREEN:
-+		current_level = LTC3208_SET_HIGH_BYTE_DATA(current_level);
-+		current_level |= dev->leds[LTC3208_CHAN_RED].cdev.brightness;
-+		return regmap_write(map, LTC3208_REG_A_GRNRED, current_level);
-+	case LTC3208_CHAN_RED:
-+		current_level |= LTC3208_SET_HIGH_BYTE_DATA(
-+			dev->leds[LTC3208_CHAN_GREEN].cdev.brightness);
-+		return regmap_write(map, LTC3208_REG_A_GRNRED, current_level);
-+	default:
-+		dev_err(&client->dev, "Invalid LED Channel\n");
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ltc3208_update_options(struct ltc3208_dev *dev,
-+				  bool is_sub, bool is_cam_hi, bool is_rgb_drop)
-+{
-+	struct regmap *map = dev->map;
-+	u8 val =	FIELD_PREP(LTC3208_OPT_EN_RGBS, is_sub) |
-+			FIELD_PREP(LTC3208_OPT_DIS_CAMHILO, is_cam_hi) |
-+			FIELD_PREP(LTC3208_OPT_DIS_RGBDROP, is_rgb_drop);
-+
-+	return regmap_write(map, LTC3208_REG_G_OPT, val);
-+}
-+
-+static int ltc3208_update_aux_dac(struct ltc3208_dev *dev,
-+	enum ltc3208_aux_channel aux_1, enum ltc3208_aux_channel aux_2,
-+	enum ltc3208_aux_channel aux_3, enum ltc3208_aux_channel aux_4)
-+{
-+	struct regmap *map = dev->map;
-+	u8 val =	FIELD_PREP(LTC3208_AUX1_MASK, aux_1) |
-+			FIELD_PREP(LTC3208_AUX2_MASK, aux_2) |
-+			FIELD_PREP(LTC3208_AUX3_MASK, aux_3) |
-+			FIELD_PREP(LTC3208_AUX4_MASK, aux_4);
-+
-+	return regmap_write(map, LTC3208_REG_E_AUX, val);
-+}
-+
-+static int ltc3208_probe(struct i2c_client *client)
-+{
-+	enum ltc3208_aux_channel aux_channels[LTC3208_NUM_AUX_LEDS];
-+	struct ltc3208_dev *data;
-+	struct ltc3208_led *leds;
-+	struct regmap *map;
-+	int ret, i;
-+	u32 val;
-+	bool dropdis_rgb_aux4;
-+	bool dis_camhl;
-+	bool en_rgbs;
-+
-+	map = devm_regmap_init_i2c(client, &ltc3208_regmap_cfg);
-+	if (IS_ERR(map))
-+		return dev_err_probe(&client->dev, PTR_ERR(map),
-+				     "Failed to initialize regmap\n");
-+
-+	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	leds = devm_kcalloc(&client->dev, LTC3208_NUM_LED_GRPS,
-+			    sizeof(struct ltc3208_led), GFP_KERNEL);
-+	if (!leds)
-+		return -ENOMEM;
-+
-+	data->client = client;
-+	data->map = map;
-+
-+	/* initialize options from devicetree */
-+	dis_camhl = device_property_read_bool(&client->dev,
-+					      "adi,disable-camhl-pin");
-+	en_rgbs = device_property_read_bool(&client->dev,
-+					    "adi,cfg-enrgbs-pin");
-+	dropdis_rgb_aux4 = device_property_read_bool(&client->dev,
-+						     "adi,disable-rgb-aux4-dropout");
-+
-+	ret = ltc3208_update_options(data, en_rgbs, dis_camhl,
-+				     dropdis_rgb_aux4);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "error writing to options register\n");
-+
-+	/* initialize aux channel configurations from devicetree */
-+	for (i = 0; i < LTC3208_NUM_AUX_LEDS; i++) {
-+		ret = device_property_match_property_string(&client->dev,
-+							    ltc3208_dt_aux_channels[i],
-+							    ltc3208_aux_opt,
-+							    LTC3208_NUM_AUX_OPT);
-+		/* use default value if absent in devicetree */
-+		if (ret == -EINVAL)
-+			aux_channels[i] = LTC3208_AUX_CHAN_AUX;
-+		else if (ret >= 0)
-+			aux_channels[i] = ret;
-+		else
-+			return dev_err_probe(&client->dev, ret,
-+					     "Failed getting aux-channel.\n");
-+	}
-+
-+	ret = ltc3208_update_aux_dac(data, aux_channels[0], aux_channels[1],
-+				     aux_channels[2], aux_channels[3]);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "error writing to aux %u channel register.\n", i);
-+
-+	i2c_set_clientdata(client, data);
-+
-+	device_for_each_child_node_scoped(&client->dev, child) {
-+		struct ltc3208_led *led;
-+		struct led_init_data init_data = {};
-+
-+		ret = fwnode_property_read_u32(child, "reg", &val);
-+		if (ret || val >= LTC3208_NUM_LED_GRPS)
-+			return dev_err_probe(&client->dev, -EINVAL,
-+					     "Invalid reg property for LED\n");
-+
-+		led = &leds[val];
-+		led->client = client;
-+		led->channel = val;
-+		led->cdev.brightness_set_blocking = ltc3208_led_set_brightness;
-+		led->cdev.max_brightness = LTC3208_MAX_BRIGHTNESS_4BIT;
-+		if (val == LTC3208_CHAN_MAIN || val == LTC3208_CHAN_SUB)
-+			led->cdev.max_brightness = LTC3208_MAX_BRIGHTNESS_8BIT;
-+
-+		init_data.fwnode = child;
-+
-+		ret = devm_led_classdev_register_ext(&client->dev, &led->cdev,
-+			&init_data);
-+		if (ret)
-+			return dev_err_probe(&client->dev, ret,
-+					     "Failed to register LED %u\n", val);
-+	}
-+
-+	data->leds = leds;
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id ltc3208_match_table[] = {
-+	{.compatible = "adi,ltc3208"},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ltc3208_match_table);
-+
-+static const struct i2c_device_id ltc3208_idtable[] = {
-+	{ "ltc3208" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, ltc3208_idtable);
-+
-+static struct i2c_driver ltc3208_driver = {
-+	.driver = {
-+		.name = "ltc3208",
-+		.of_match_table = ltc3208_match_table,
-+	},
-+	.id_table = ltc3208_idtable,
-+	.probe = ltc3208_probe,
-+};
-+module_i2c_driver(ltc3208_driver);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Jan Carlo Roleda <jancarlo.roleda@analog.com>");
-+MODULE_DESCRIPTION("LTC3208 LED Driver");
+It is impossible to associate fan speed with a specific duty cycle because
+that differs for each fan. It isn't even consistent for the same fan model -
+one never knows what fan speed one gets for a given duty cycle. It depends
+on the air flow in the chassis and on fan-to-fan deviations. It will change
+over the lifetime of a fan. It may even change with the ambient temperature.
+Fan controllers use a feedback loop for that purpose, but that doesn't
+work here since, after all, this is a shutdown parameter.
 
--- 
-2.43.0
+I don't think anything but specifying a shutdown duty cycle is
+feasible here.
+
+> Also, we have (or can have) cooling levels defined. Perhaps we should
+> define the cooling level for shutdown? Maybe other things with cooling
+> levels need a shutdown level too?
+> 
+
+Unless I am missing something, the thermal subsystem does not currently have
+a concept of a "shutdown cooling state". The driver supports registering
+with the thermal subsystem, but it is not mandatory. Even if the thermal
+subsystem would support shutdown cooling states or a similar concept,
+I do not think it would be a good idea to mandate its existence or in a fan
+controller driver.
+
+Thanks,
+Guenter
 
