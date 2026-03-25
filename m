@@ -1,131 +1,170 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7A53A16B0;
-	Wed, 25 Mar 2026 17:49:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 156093AA4F1;
+	Wed, 25 Mar 2026 17:57:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774460983; cv=none; b=AH5OkDOoetANmWUpRTDnLBXi8n7FEFMs6J1jCSF1PQ9uPCdu8I8jh8Qvmnv9+FiQfOQaQm+caCH25JguaWKpGndxcBfTUJsh9fjb3mJGyKAe6N03NohFvRHepkidhCzmONEyaSMw9IfvlbNpkWJjpJSC538mN/71Tk8f9l2fmMo=
+	t=1774461438; cv=none; b=Y9Vu7U3MMv+d2d5BJfz3fvxXNas/4PciHu0ui/LeoRLwR1cOlRK1b9ax/LM0vISYIhiXducMuvvkPgPcpdgnbPfCVS+d0odPlQeNwb7UOB52s5cVW7JgRpbbhBpQxasqjHs3zS97LpnpFJqew+vmOR98F5bNAbGISex4+bS3AdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774460983; c=relaxed/simple;
-	bh=DXtnp+wMxtJFBTU2VZeVpqzL0GX1tWCUxADa+Fqi9IA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fXiha06qsuoDk7n3GCbIYBpJAkBohi3kicqFLciFavGFUOnUBDmjuhFrazOb3A8XFbyRvOHYypSc3wdG3o9WGRseCF2mfgkuVUFkuRxKCvPuxV0D9w35eZQMxdrmZdraIf5LJlzDoRu0v8wcaynUqKPR9e7KNz0d1EStZvmMs/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OMjwEP+6; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774461438; c=relaxed/simple;
+	bh=SRtdPBa0tcNCzl+HO0BObCvLUHh2UjsIHIIIQfNSZlI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=G1dF474JEvq5wPhcs0VZ8rrh7NCQ87y0PbPdY958Pl8/YQrXCvazYl7zW+VoIXpIbe8dpZ7cfkVjPaZuGtZGVwiGOqSntoD87LpCN2iZgo8ytFp1HIxy6KPlMUBv6mkWabFkJASylBqaQDpTwunftVQ9nEDaZjXxh5VuNXyvX2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EbWhKFgr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OMjwEP+6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4A20C4CEF7;
-	Wed, 25 Mar 2026 17:49:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EbWhKFgr"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CB3CDC2BCB0;
+	Wed, 25 Mar 2026 17:57:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774460983;
-	bh=DXtnp+wMxtJFBTU2VZeVpqzL0GX1tWCUxADa+Fqi9IA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OMjwEP+6Dy3h0E8vbDv7WMaefbe92U6sGCsugAHjvUNnyueNWyr4I3VgCacAMYOWS
-	 bcaHaiSkz0+QelMqrKXqs/iMCbvQo4xiaXCTmE+wM+XkqoslWgflNEfXIOOWLUCVe7
-	 F2K1rhk50FUHlbFxV89hBvTX1f/JRbc0xun1EWGgITylZ4qKqPpnjyu9ZpRYvmUQWu
-	 2Z8neszaFd1QrT6e4YBjWX32Bhu3zGNq8ybaGgaMKO0ETKl5ATAaHxyIaMe6RjeCBU
-	 x5YIgOHq5GKFGKiWl4GEuXHDD0zD8ZpCB8rXxCklcKM7A0JYU/jWIyhYM6vUKtREz5
-	 EYcU1icl9xTFA==
-Date: Wed, 25 Mar 2026 17:49:39 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Anushka Badhe <anushkabadhe@gmail.com>
-Cc: alexandre.belloni@bootlin.com, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, dsd@laptop.org, krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org,
-	robh@kernel.org
-Subject: Re: [PATCH v2] dt-bindings: rtc: add olpc,xo1-rtc to trivial-rtc
-Message-ID: <20260325-aflutter-waged-2c3af1f1bb4b@spud>
-References: <202603250854523a8809af@mail.local>
- <20260325093003.44051-1-anushkabadhe@gmail.com>
+	s=k20201202; t=1774461437;
+	bh=SRtdPBa0tcNCzl+HO0BObCvLUHh2UjsIHIIIQfNSZlI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=EbWhKFgrWvOyu1Bkls+wkgIu5jN63+7sCO7rwEl6dzagOTLNt3QI/0jXXjP3xqXVG
+	 TPP1iPH1EO59Q8w7Nl0Xy2jWdTaKpBfkM85sFnTVgypGKFkIb+FWr/f0gz4RcHrQBS
+	 aTArQYepo5Oc9kfzfOH2Q3dfOmZgB5U3RTfhfQ6XkQOqvT8sryJfgxjzgqoVLsvpZs
+	 hpa4wyvFYwR9BwV2RddUVsuOGg5TXwA5xLfP17ErG0d/m5rY+eNWlD7Xby4cwfEqm/
+	 kDOTxNakE37AWHBHB4Lh7NXwg3JCq2EPsOYJ2UZWAEABjz/upaOEMZIb16Gal2UuL+
+	 WMYFGCzUevT4w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B8AE6109C052;
+	Wed, 25 Mar 2026 17:57:17 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Wed, 25 Mar 2026 18:57:16 +0100
+Subject: [PATCH v4 2/3] ath10k: Add device-tree quirk to skip host cap QMI
+ requests
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wqIVxawSGUibAEuz"
-Content-Disposition: inline
-In-Reply-To: <20260325093003.44051-1-anushkabadhe@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260325-skip-host-cam-qmi-req-v4-2-bc08538487aa@ixit.cz>
+References: <20260325-skip-host-cam-qmi-req-v4-0-bc08538487aa@ixit.cz>
+In-Reply-To: <20260325-skip-host-cam-qmi-req-v4-0-bc08538487aa@ixit.cz>
+To: Johannes Berg <johannes@sipsolutions.net>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Paul Sajna <sajattack@postmarketos.org>
+Cc: Amit Pundir <amit.pundir@linaro.org>, linux-wireless@vger.kernel.org, 
+ devicetree@vger.kernel.org, ath10k@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3364; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=UTkKBACGLvaXcmRbJw5uCHiS4miIsN2vwhwdC9DQ5n0=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBpxCH78K9ly8lE2lWicWxBVkBFyYWU04No+j2Jp
+ qVgJGG89FKJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCacQh+wAKCRBgAj/E00kg
+ cnP1D/0atIwyGIZK7+wVOOqpa3UaZtclm1FJLcJIQpZ5fPRlUvXpvInUN9KAOLwzDy29m3b9VWf
+ /osir0ogyljci6mawtR+bRGu3Ms1Ecvt/l980YfVrVAkPiFUdADdwA9lYPoxQuLSbvO9BZIxnH2
+ sUlVHEGaZoZ6K8M8dqP3jlRDwXPO1rn/JKNKw+ycc5Jvin1NhS6uT2PQc9hWXbFDZXnzBTwoeIY
+ 9x7PK4VpcPMDvipLkwilkJmUtPMK+hZ3+ikNJY7hFy6srUNLRqja8XS+IiA5V2V41U8h4uw/m6M
+ aN+MGS9i2ornGL7s9bmrYfW656w+Sn52Nq2bixIeF5pgZtYt0QBvZq8tWZwxISlmL/9Cd8moNjR
+ 1OofbzQ8sAdX654u3jGYrkWUiqdk2gFUAeQgs4bbJBLa4DbViRAP7DlNkxbW1Tc0t9ChmOEC4Hw
+ pVyaJVShcs2sAPbwts+pTaWkDASlnLV/vxYzg1akal7mv/xrH1uP1Fn9TwZ2M8LWf4frO4DEnHQ
+ 7I9d9W7oZ0tH4qEv0qFT86XDLnQKR/AMHUO0hyc1x5+waf0u4myJ+z/tDkscYAXwDYsUH0CGIW3
+ MOXvPh0CQkem9Mrvz1PiLheo2mjzxq97NZj6Xq8T6XZrNqixqXHZvIqeCzUrQ2C4AfFUPRJJ761
+ K89RaYQ42ci4BbQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+
+From: Amit Pundir <amit.pundir@linaro.org>
+
+Some firmware versions do not support the host capability QMI request.
+Since this request occurs before firmware-N.bin and board-M.bin are
+loaded, the quirk cannot be expressed in the firmware itself.
+
+The root cause is unclear, but there appears to be a generation of
+firmware that lacks host capability support.
+
+Without this quirk, ath10k_qmi_host_cap_send_sync() returns
+QMI_ERR_MALFORMED_MSG_V01 before loading the firmware. This error is not
+fatal - Wi-Fi services still come up successfully if the request is simply
+skipped.
+
+Add a device-tree quirk to skip the host capability QMI request on devices
+whose firmware does not support it.
+
+For example, firmware build
+"QC_IMAGE_VERSION_STRING=WLAN.HL.2.0.c3-00257-QCAHLSWMTPLZ-1"
+on Xiaomi Poco F1 phone requires this quirk.
+
+Suggested-by: Bjorn Andersson <andersson@kernel.org>
+Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/net/wireless/ath/ath10k/qmi.c  | 13 ++++++++++---
+ drivers/net/wireless/ath/ath10k/snoc.c |  3 +++
+ drivers/net/wireless/ath/ath10k/snoc.h |  1 +
+ 3 files changed, 14 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath10k/qmi.c b/drivers/net/wireless/ath/ath10k/qmi.c
+index eebd78e7ff6bc..e7f90fd9e9b83 100644
+--- a/drivers/net/wireless/ath/ath10k/qmi.c
++++ b/drivers/net/wireless/ath/ath10k/qmi.c
+@@ -808,6 +808,7 @@ ath10k_qmi_ind_register_send_sync_msg(struct ath10k_qmi *qmi)
+ static void ath10k_qmi_event_server_arrive(struct ath10k_qmi *qmi)
+ {
+ 	struct ath10k *ar = qmi->ar;
++	struct ath10k_snoc *ar_snoc = ath10k_snoc_priv(ar);
+ 	int ret;
+ 
+ 	ret = ath10k_qmi_ind_register_send_sync_msg(qmi);
+@@ -819,9 +820,15 @@ static void ath10k_qmi_event_server_arrive(struct ath10k_qmi *qmi)
+ 		return;
+ 	}
+ 
+-	ret = ath10k_qmi_host_cap_send_sync(qmi);
+-	if (ret)
+-		return;
++	/*
++	 * Skip the host capability request for the firmware versions which
++	 * do not support this feature.
++	 */
++	if (!test_bit(ATH10K_SNOC_FLAG_SKIP_HOST_CAP_QUIRK, &ar_snoc->flags)) {
++		ret = ath10k_qmi_host_cap_send_sync(qmi);
++		if (ret)
++			return;
++	}
+ 
+ 	ret = ath10k_qmi_msa_mem_info_send_sync_msg(qmi);
+ 	if (ret)
+diff --git a/drivers/net/wireless/ath/ath10k/snoc.c b/drivers/net/wireless/ath/ath10k/snoc.c
+index f72f236fb9eb3..3106502275781 100644
+--- a/drivers/net/wireless/ath/ath10k/snoc.c
++++ b/drivers/net/wireless/ath/ath10k/snoc.c
+@@ -1362,6 +1362,9 @@ static void ath10k_snoc_quirks_init(struct ath10k *ar)
+ 
+ 	if (of_property_read_bool(dev->of_node, "qcom,snoc-host-cap-8bit-quirk"))
+ 		set_bit(ATH10K_SNOC_FLAG_8BIT_HOST_CAP_QUIRK, &ar_snoc->flags);
++
++	if (of_property_read_bool(dev->of_node, "qcom,snoc-host-cap-skip-quirk"))
++		set_bit(ATH10K_SNOC_FLAG_SKIP_HOST_CAP_QUIRK, &ar_snoc->flags);
+ }
+ 
+ int ath10k_snoc_fw_indication(struct ath10k *ar, u64 type)
+diff --git a/drivers/net/wireless/ath/ath10k/snoc.h b/drivers/net/wireless/ath/ath10k/snoc.h
+index 1ecae34687c21..46574fd8f84ee 100644
+--- a/drivers/net/wireless/ath/ath10k/snoc.h
++++ b/drivers/net/wireless/ath/ath10k/snoc.h
+@@ -51,6 +51,7 @@ enum ath10k_snoc_flags {
+ 	ATH10K_SNOC_FLAG_MODEM_STOPPED,
+ 	ATH10K_SNOC_FLAG_RECOVERY,
+ 	ATH10K_SNOC_FLAG_8BIT_HOST_CAP_QUIRK,
++	ATH10K_SNOC_FLAG_SKIP_HOST_CAP_QUIRK,
+ };
+ 
+ struct clk_bulk_data;
+
+-- 
+2.53.0
 
 
---wqIVxawSGUibAEuz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Mar 25, 2026 at 03:00:03PM +0530, Anushka Badhe wrote:
-> Add the OLPC XO-1 RTC compatible string to the trivial-rtc schema
-> instead of creating a standalone binding file, as it only requires
-> a compatible property with no additional configuration.
->=20
-> Signed-off-by: Anushka Badhe <anushkabadhe@gmail.com>
-> ---
->=20
-> Changes in v2:
-> - Move binding to trivial-rtc.yaml instead of separate file
-
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-
-Please don't send new versions in response to old ones.
-
-pw-bot: not-applicable
-
-Cheers,
-Conor.
-
->=20
-> Note:
-> * This patch is part of the GSoC2026 application process for device tree=
-=20
-> bindings conversions
-> * https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Devi=
-ce-Tree-Bindings
->=20
->  Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt | 5 -----
->  Documentation/devicetree/bindings/rtc/trivial-rtc.yaml | 2 ++
->  2 files changed, 2 insertions(+), 5 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt
->=20
-> diff --git a/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt b/Doc=
-umentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt
-> deleted file mode 100644
-> index a2891ceb6344..000000000000
-> --- a/Documentation/devicetree/bindings/rtc/olpc-xo1-rtc.txt
-> +++ /dev/null
-> @@ -1,5 +0,0 @@
-> -OLPC XO-1 RTC
-> -~~~~~~~~~~~~~
-> -
-> -Required properties:
-> - - compatible : "olpc,xo1-rtc"
-> diff --git a/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml b/Doc=
-umentation/devicetree/bindings/rtc/trivial-rtc.yaml
-> index b47822370d6f..722176c831aa 100644
-> --- a/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
-> +++ b/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
-> @@ -65,6 +65,8 @@ properties:
->        - microcrystal,rv3029
->        # Real Time Clock
->        - microcrystal,rv8523
-> +      # OLPC XO-1 RTC
-> +      - olpc,xo1-rtc
->        # I2C bus SERIAL INTERFACE REAL-TIME CLOCK IC
->        - ricoh,r2025sd
->        # I2C bus SERIAL INTERFACE REAL-TIME CLOCK IC
-> --=20
-> 2.43.0
->=20
-
---wqIVxawSGUibAEuz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacQgMwAKCRB4tDGHoIJi
-0uq+AQDDRwPk4CZjW2War3mkb5oYAXtUaK1luHE0z3gm3OLsxQEAmfJbOLlfwEzq
-h4Dc2wHL93iiB8rnJZ/Azguxyv5JGwk=
-=eT2u
------END PGP SIGNATURE-----
-
---wqIVxawSGUibAEuz--
