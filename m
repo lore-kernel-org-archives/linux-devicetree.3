@@ -1,242 +1,354 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010000.outbound.protection.outlook.com [40.93.198.0])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547983B7748;
-	Wed, 25 Mar 2026 10:18:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774433899; cv=fail; b=IB/dj76ZHqCdWijJaAAWZp8Qj7v6q8/lZ2zpniaVYaboh7SlfUvUHTSV8FndRlM0ibztfvn1HFFHqn7tbLf7xI729oqi8xgJW/RDtjWnCtiNb7zW0TgTO/eGMq8Niw7Im7ATAHzNJxc8Igc0nLqVmNyQztrpoCX2EpEJkw39qq4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774433899; c=relaxed/simple;
-	bh=IWXVKMOzEauRJgtnkd36iseIw+8u8718aDzc3frkdc0=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=Lm+KGYw3adV7GOq2g9sSU3QWbr18YRaA/94e2qUZ76qrKpejUn+gjdk40YMieMxhwqetvL6aDL9lKVnQWr/2FFtiq0bVPPxUN/zlhzThnl97AaBumB9fQYh4xNCIpIANhnCay4Im8R+a5L0gB1Yeho6BJsxK/NbUt+fQvFfF6/o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=EAZmt4zH; arc=fail smtp.client-ip=40.93.198.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A3139B951
+	for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 10:18:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774433935; cv=none; b=dQUvsjbsoMBguquA0y7n4i/R4rFu/uwG0mIYaPM1ePWqOfSrnHOzW7MHZO806dZe8E6PrUgNj5bEQDlFqWULrdrKCZthWKJHJzudPhHRwHHj/vbwiha7aG67HFIGLq3UljsIPRopnmqcN36ZiFtrzFlljsZ/Fe3tME8Qlft76W4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774433935; c=relaxed/simple;
+	bh=jsLz9QPCZ657lh+kQV+wCuFG8MjRyfgZqPGbEHb+ODs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PtmuxIDPc7YiZFrZZIDsTZtctXTdIk11PC1Dos1J8zPKobz6Wjwm0d2GzktnIvN3dRo8hC64iOR8ru4ygR770UblYi1OABQxUXJqhG3K1CJxQvb4MF9DySs1pBFQU8gGImZvS7Wr6a1bsxELoJkGwBSvZUBAr82mBF7Iga7z59I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=X6MOycuK; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="EAZmt4zH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RT7I83XJ1D98GF1QhEvw9ZiOpgqxj9GBMz4IR+qTmiYtS3oVr4ZGUrcA8ZNr4qrK3kCH0r280ylTRhIw5AkrvKHQsmB4isKw4946pdabBKT7FMqqYrnyS2uBVJKNUqZlqEUHTdBF5eOY6q2MegMdWHOoBhRBJOqdQpQQ3tazyx9OWnuM6/j+v7mfFCLXittW8mFjUhRRQ648Wlrn4bzlMujaS1Ud0z450g9V3ryn/pVzJtMM2fXTPLeHKsOi5+V0e6l7rYQdOT5pFWXOyHaDEk8fx9J+KGYwZH1NpUe6ZuCEz/OKNjLMXILe1Xpx783PKqy2Uly1AOfruaMlK8uCaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y34SQhZ1jJ0NlbPYP7Z5/d4wlBqLWpPwtcEYHj1e80k=;
- b=lqbin+MVKSs+0mJf50aI5Um6noHSsmuKOnedAbZQhV15UZyZTZALOSkP9wV5tQmMEuVG8/PHTyE91eTgU2jbExcm5uQUx1Y/AgK3GCFqKdUuS8Dc4eNyW5+8rwPbynaisek+Fv7xtAnfPGnlHgGzXbaIWVt7k1GVH7L9hZmBe5G0PDETlSKwbuENUB9W7iptw2XalKQw/OaW71Dd0jbqEy/n2KuWYF7jphuPk29Cmlibfn52KDq2nmPQeGfMr2rKH40zrI4ZO8I7h6q7pLz0AJtRDaLrgYXJ7pBuC+7emlIapbDWr3eGj/dNDfbpBzphJfVTOa89nK0umrveXtJOxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y34SQhZ1jJ0NlbPYP7Z5/d4wlBqLWpPwtcEYHj1e80k=;
- b=EAZmt4zH7NPb9yr/GuSVhzWe2b26cTcWqzx9CQltWMDHYWmYtobsE+Mn4M1LXi8NTPhroc7b26oqF0WxUSf+ZOWd0DVpj8J6Jc505Mlyq7BKvuZ8KpAa1crW0v+7dTDfcZFWpMfFU2MtjnALOWxih34jW45xb30j8Sh7IGn4XLdoJEhAEriqTEItaY6Ma/Q1xeKBYiPQ6sWquXtn7MIm9QzMT2JzF+fKtZp/RBj5iLJtzBjIw6zIy7wJ+4AkQ7fz3RpJL3ClTOTldqhYxv1Akwq6lDiTxyXJZquFUn0QhIDgK9jse1iwwxf5NqdZEwyF1ogd7w+efc1bfWb8nRph4g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by DS5PPFA3734E4BA.namprd12.prod.outlook.com (2603:10b6:f:fc00::65c) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 10:18:09 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%4]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
- 10:18:09 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-Date: Wed, 25 Mar 2026 19:17:05 +0900
-Subject: [PATCH v2 7/7] arm64: tegra: Add PWM controllers on Tegra264
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260325-t264-pwm-v2-7-998d885984b3@nvidia.com>
-References: <20260325-t264-pwm-v2-0-998d885984b3@nvidia.com>
-In-Reply-To: <20260325-t264-pwm-v2-0-998d885984b3@nvidia.com>
-To: Thierry Reding <thierry.reding@gmail.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Thierry Reding <treding@nvidia.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>
-X-Mailer: b4 0.14.3
-X-ClientProxiedBy: TP0P295CA0002.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:2::15) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="X6MOycuK"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4852e9ca034so45880675e9.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 03:18:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tuxon.dev; s=google; t=1774433932; x=1775038732; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=fBzgoYZDjhTKxl6obsy4HR8kQLZOhNu4r9GMkjdheHo=;
+        b=X6MOycuK0Czo8l3C17E0su5Vi1Q9pTorLHt4mMpyG5iLbX3EgNMjXvBKYdhJaoongr
+         sT3kIqbN3HNCy722gRRgcCuX5LEnTgo0Sy20754VE+ZspFBLPFVVwQ6kjFbNUuLnOIxE
+         rbTvCUC28cO8u2Hyh9XxN5NyncfbelQoIcCEB8nd2Tkr0vAQKRzOloO4XH6Y9LKRmMSu
+         F1cHTB8+R9KM4/ZTCFDVhfOHhJ6E2DvVzVpkrmkElyk+BREljFFbd1XXpTV6Gpi7gHgi
+         x1x3YlxVha7lfOQ/a5F9Nppxi7kuU0lZg5FLkVFbsDQEdXDWWbh31KrOpoyT2SQVKk2+
+         qL0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774433932; x=1775038732;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fBzgoYZDjhTKxl6obsy4HR8kQLZOhNu4r9GMkjdheHo=;
+        b=UcPtdAxCOwFVgyNsSKs4PV1OlyWAOgaKEASvqB7BxBD/nFlQsY1HYMHJM4m7xjHigs
+         XmIxLcWyvCEwToghzciIYM4m1vaOKGw8pbAUmUz20NqAcQ9Xg6aWJsnQdLjuNAmwu6WX
+         qw8IlgpGbLFUyo74TB/GiBErcRBZ4DusdZyAHUJL4frIWxD9+9r3dp3aNC8mFwNtVgdo
+         6Lw+XLuLwjGohUczyIzv2vweiMg5ov+9zBqxEz6URIgr4ReqXNCtyd9ubJW1FX+0lNAq
+         jPxAT8k02q4O3PlGCRiyQXTHRzmk9S8njJrt2kAwT2Tc/6mHGFARb1XvJbsdiTKcavP3
+         J1NQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVAi/vGBx90yD7GqHLKx9GxApB3LsUgEIMU+hL4fRIeEhE1/QBI0X8qYJeBrGxzR4axExdEB4gv2v4b@vger.kernel.org
+X-Gm-Message-State: AOJu0YzeI1eiBT/mr9gQF0O65Jz0NeV2n+5FGnAFke3S+VhmHXJoHdbH
+	HK4UAWpF6mBtwNtRJCv0zi5NjCVYOkAmnmNAZ17Aeh9Sq47cFmZpXfNUSiunLYN/ZYo=
+X-Gm-Gg: ATEYQzzqpCw03EP0cG6v15k5Fdp21FBM2cbtsUzREa5nTbqGVmS9mOyfeYJ/4GOypS1
+	E+w93m0OS0h0HqbClAFTHsrhQsz954dcIBAKtrxukByoqQuPyAr90M/RKchFLKXDvT018ySUCnj
+	ncyd914wlmv8FfbnFRyfBhTtphvpuRj/pTb9AyWPB+ADBFPMALMR/ZEY/P0vfkJ7rml/Sg/LjVF
+	f7XtEoD05tqEzsXClmOEgAWqvCJJA+AZCBu4TRc4xN4Jj3damx1OdxxOz0Y89EVaGEJK5BaIJjd
+	qwMBSDaGIiVpUqA7JMetgvgulSRWqrZD5DQLgrRH5Y+Wt4FhFPKDm7522tD22cqIxGCVoHEjKfx
+	ngMZvCZ4EawlQOaMlVd3Itd+sGkf74dUhtlMbmr3HGaH7bo5l5B0G3uz7z1aYDWDnGhu//yV631
+	uO31++L/SPVBxAtC20k72UoL2f3dewsvY=
+X-Received: by 2002:a05:600c:5296:b0:486:fbdb:b718 with SMTP id 5b1f17b1804b1-4871605bdffmr43328175e9.25.1774433931616;
+        Wed, 25 Mar 2026 03:18:51 -0700 (PDT)
+Received: from [192.168.50.4] ([82.78.167.216])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4871736befbsm16244365e9.25.2026.03.25.03.18.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Mar 2026 03:18:51 -0700 (PDT)
+Message-ID: <605e8d4c-09e7-4d11-acdb-7829a85eacc3@tuxon.dev>
+Date: Wed, 25 Mar 2026 12:18:48 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS5PPFA3734E4BA:EE_
-X-MS-Office365-Filtering-Correlation-Id: a913edb5-56e8-4d89-858f-08de8a57cff9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|10070799003|376014|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	zE+UfE4yCLOYRinX7SbhdLsSNsHVKflV5ZT9aI55lzkq5dTP0voir0GZ0UaaTDfDy3VSxY6HyRopAk7PVgE1jvJmPGyEX6HIdHGNLfbwZ8JcdV/Mh7xdhMCdi3/XTrr9Ptr1rzdbKIMwOMI3EaJ3QfdxPeFf2MDQfhFv5R0QsgBfQFv7l/g1TnKZ3WlFPlYdG81G96pdcrYhJp4orOuG92nBu08JcNiofYKd+ERh7y9DpT+LGDe4xtNy9SmtTCmEU8crVlvOhjjL+PGvci07qx4cZVaqhX8q2jgmUFMZTIMK1OGvyfgnoPORvm5B1PggDpCsDggR6HK7a3jAszlM0rAUn+NHo+YQnnHRYtJtaa+9ZtG8ehHZHNw2mMZaorL4r9hkJMCD1swBn6/moTO0BAxnyvQgimooalEg+d/DwPpqgN21M2602w8VbvmJ4oJp2iCCsBc3YyrEsoxH/ecCY0db2mrGQrr8WLCYkLJrTxEbcJ95YBJax04j5N3MGlP16k/vCS6RS0Cb6OV5gO4z14NVKd8ggD5n7BDA2QCs8SNsDhqzo1HdtRDfPQxnhu7T5/ust9FgjGYhTKw/tgapiudWkJcK/OpZmrWJLu7s1qztjnhQzy6wA5iUYm+dhXk/W/yKxFGO7RkJWqG8xJ7M8EjMgtftnyHjq/22chU3o17Kc5v67NAYguejSXqD32fjaTvmQxexuBNkl3fetScz8tHgOERyzjciGsB2t3X9lxg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SFNhc2F0L1huZEFPbHF1MDNxb2JKZWJWZGdCRTlpeDlOb2RlZ0VkSEI1SkZ2?=
- =?utf-8?B?dzQ3dlBYK1g5cnljbHNDektCWXdzd1A4M3hoSFE4WTV2ajh2UndoQjI3cWFS?=
- =?utf-8?B?QS9adzdSeE1BOXpRTmN6cnVMYTdta245cTVMYXFNOCtKYjk5ZmFZTk5CMFlw?=
- =?utf-8?B?UEFpQlV5QkI3R1R4ZWRYc1pVK2NiSFRuM2FuYXA1MENCNVY4TXlLOS9LS0dz?=
- =?utf-8?B?WitpSjB3V1ExUjQ4bXR1RmNxeXFJSUxJSHpXSS8raDA3RFd0N2ZLaHRZUExT?=
- =?utf-8?B?bDhSTmFFaDdUTFd3YnhtZnBjbk56cFZMT2RYV1F6c2dWTnl6dFlzU0hYaEJn?=
- =?utf-8?B?M1JKTWhoenU5MzRUanRtQ1JFOEdOSkJJeWR4dGZjU0pDaU5EZkxPb2Z2UVo2?=
- =?utf-8?B?S3BEakZtSGFjVDJyMXBQa1QxbWwrcUFWWHh5NHZyQWt3aXV4YVg0R1BBakJI?=
- =?utf-8?B?eGdZcm5QTmdlOVp5VTh6NENJZjdjTm93T1RDVmdHdHZ2UlRGYWQ5a0Z5c3Vj?=
- =?utf-8?B?KzVyR2orakFnVXdRU3pTMVRWNWk4eFVHVEltc2xkdGJvQmhXaWhPcVBVTlNy?=
- =?utf-8?B?dEZIQlJybDBNMnMyUmhlQzZnVEVuemRrU1g3NkRnOHNMNnd5TFdUeXdSRUUv?=
- =?utf-8?B?T1JQc2JyeXR3UjJwNVhZZk5GRVhTUklzQVRpb3dQZmVxbDYrQTJMZzNKcXQr?=
- =?utf-8?B?WHBiRU5DTVAwWEE2OHp1b0hQdi80RTdLNU1xaDg2MkJnc0lyR3Z0d1dyUDF5?=
- =?utf-8?B?R0JBNUZhdy9rUVRSTXUyZlV4T2N5WS9ZSmJGblBUZ1B3aDBibTBjdExrYkxV?=
- =?utf-8?B?K2hXSnA4S2ZPSU9WLzBnOElPWFFDNVR5WG9xbkVoNFYyeElaWHFDdHRkUk9R?=
- =?utf-8?B?bHV3VU9aL1Y4bmo2dUczZ2I4SVI4TW9JZGYyOU1TTzlVUzltVzFHTStjTmtI?=
- =?utf-8?B?WCt0VTBER1N1OXRVeFMyaGVIS2lhOGZWOVB5MExpOU80TFdvWk5NSTVyUFMw?=
- =?utf-8?B?bm44NDF6aUZGNnZ5TzdDTFQ4Zk01QlNLYWVoZWlaOS9SNmsyVWVOKzc0dTNx?=
- =?utf-8?B?SW5FZDBlem1DVlVZMmI1aGQzODd1ZWlwNFlTWmNvOGZpWkthT0wvY2FvZFNs?=
- =?utf-8?B?eGloVE5YOXEza0xWWVBDMi9nZ1h6c3NDSGhIVFlTYmpPUnZNa244b2F0cUxU?=
- =?utf-8?B?anRYc0R1NWoxSEtWNEZNd2FPcmhWa0psaTJXenpEUzVFS2x6YW1MbnJrWjdk?=
- =?utf-8?B?QjMza01OMko1alR3bnRXWUczRytPT1NBeDk1QkpramhZME9sb2QwNWlDMmhF?=
- =?utf-8?B?MXBiRUtXNldMU3Q4S0g4NE9WeTFwMGh5YWRheHBpRXFVMTdMRnlEMEExU29s?=
- =?utf-8?B?WGFOa1c0ZlEzUmlYUHIzbzBQZ1ZBRGVQZERhWmRyOWcxN1N1bFFSMDhteFI2?=
- =?utf-8?B?bDJPSHR1NlVJc0grTE9GZFhkVzU0N1FCMHNRL21ibzZNRmZCNkpBODlMUTVQ?=
- =?utf-8?B?cW8wUFkzQitnSWNYdEswa1U2VUhVVzJuNk1tMFhDTUFVa1FYcTR4aU9PYTha?=
- =?utf-8?B?a2tZdG95QlFlOHd4cDlIWUQvcXVQZjk1NUs5SHl4cVh0cFRuTHBNeUZPRGp4?=
- =?utf-8?B?VkhCOFZLZXIwdHN5RFRZaEpUTm05aE1pcSsyd0Zjek5ERDBDR2F2bTkxRXhK?=
- =?utf-8?B?RUdoRXRZQUdwRHhYVktUZWFZRlA3UTV5bjhucmZkVkNwUCttWEJKeWZqMDNM?=
- =?utf-8?B?OW9WNEVBL3lpdFNHM1p0UVdYekdVNGZOT3p4cG14V3QwVlNXa3pUTzJTdGs5?=
- =?utf-8?B?TGw0TndyUUhzcXRRMVdKWlhjcGlRQzIzRW5GQTg4dWV4M2ZYamphWkF6VE9x?=
- =?utf-8?B?bW9wb2Y4bVE5dCt1OVJPV2VYRzlHb2s1WVF6SzdKY2x0cWsxQkkrQ2RseDFh?=
- =?utf-8?B?TUw1bCtPQjQ1ODlFbitKL2ZXaDJ5YTJsY0tsRFV3eTZVNXJMUlJuZFhXWlQx?=
- =?utf-8?B?T3cwL2FORmxNOHlGaUYraGZRelRIU3RhWWlEcy9nM1pTdytxTFQ2NnZLYTNK?=
- =?utf-8?B?cTB5cERPMy9ySVlwdlNRNGh2c0dvNUxkMzY3VUx1T2R3T3JUemJycFU5enBC?=
- =?utf-8?B?L1ZzMjRpVnhoOGo2N1FFeDZqYkpWNFM2MVdod2x6VmtvYlp3YXJaeWNNcjNK?=
- =?utf-8?B?Zlo3cHBIZHVGajhzOENRYUwvVlZoazdEMGRqYjdydmpReHBwLy9keFJDNTgr?=
- =?utf-8?B?c0VidVdlK1hlTGxtS3ZTQ1JXb3BOWm5zWE5wRGhvNHFCK283S3FSZHFsbUJl?=
- =?utf-8?B?cDFOR09TQk1jTWszaTZGK1hNVUd3bzJjaWRzQUdvamYzMDhIdGs0eHRuOFl3?=
- =?utf-8?Q?a5LFZWt3+jFj9S481iB0bNq5FnYvOhMiTz0a4CeBBfxJe?=
-X-MS-Exchange-AntiSpam-MessageData-1: H9IXf5czcbskRg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a913edb5-56e8-4d89-858f-08de8a57cff9
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 10:18:09.1678
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gcUReNsTV5SGfjHjpjag/mtpW+CQWGuxX9qcLy7qKCgwG/mha+pK+gAJUmGrTTNiZhsZoWDtRi0nk992Loxa8A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFA3734E4BA
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/5] PCI: rzg3s-host: Add support for RZ/V2H(P) SoC
+To: Prabhakar <prabhakar.csengg@gmail.com>,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: John Madieu <john.madieu.xa@bp.renesas.com>, linux-pci@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260318124450.163471-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260318124450.163471-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Language: en-US
+From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+In-Reply-To: <20260318124450.163471-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Thierry Reding <treding@nvidia.com>
+Hi, Prabhakar,
 
-Tegra264 has a number of PWM controller which are similar to those found
-on earlier chips but with some added functionality.
+On 3/18/26 14:44, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> Add support for the RZ/V2H(P) SoC PCIe controller to the rzg3s-host
+> driver.
+> 
+> The RZ/V2H(P) SoC features two independent PCIe channels that share
+> physical lanes. The hardware supports two configuration modes: single
+> x4 mode where one controller uses all four lanes, or dual x2 mode
+> where both controllers use two lanes each.
+> 
+> Introduce configure_lanes() function pointer to configure the PCIe
+> lanes based on the number of channels enabled. Implement
+> rzv2h_pcie_configure_lanes() to detect the active PCIe channels at
+> boot time and program the lane mode via the system controller using
+> the new RZG3S_SYSC_FUNC_ID_LINK_MASTER function ID.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+>   drivers/pci/controller/pcie-rzg3s-host.c | 142 +++++++++++++++++++++++
+>   1 file changed, 142 insertions(+)
+> 
+> diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
+> index a629e861bbd0..d1bf1e750d9b 100644
+> --- a/drivers/pci/controller/pcie-rzg3s-host.c
+> +++ b/drivers/pci/controller/pcie-rzg3s-host.c
+> @@ -179,6 +179,16 @@
+>   /* Timeouts experimentally determined */
+>   #define RZG3S_REQ_ISSUE_TIMEOUT_US		2500
+>   
+> +/**
+> + * enum rzg3s_sysc_link_mode - PCIe link configuration modes
+> + * @RZG3S_SYSC_LINK_MODE_SINGLE_X4: Single port with x4 lanes
+> + * @RZG3S_SYSC_LINK_MODE_DUAL_X2: Dual ports with x2 lanes each
+> + */
+> +enum rzg3s_sysc_link_mode {
+> +	RZG3S_SYSC_LINK_MODE_SINGLE_X4 = 1,
+> +	RZG3S_SYSC_LINK_MODE_DUAL_X2 = 3,
+> +};
+> +
+>   /**
+>    * struct rzg3s_sysc_function - System Controller function descriptor
+>    * @offset: Register offset from the System Controller base address
+> @@ -194,12 +204,14 @@ struct rzg3s_sysc_function {
+>    * @RZG3S_SYSC_FUNC_ID_RST_RSM_B: RST_RSM_B SYSC function ID
+>    * @RZG3S_SYSC_FUNC_ID_L1_ALLOW: L1 allow SYSC function ID
+>    * @RZG3S_SYSC_FUNC_ID_MODE: Mode SYSC function ID
+> + * @RZG3S_SYSC_FUNC_ID_LINK_MASTER: Link master SYSC function ID
+>    * @RZG3S_SYSC_FUNC_ID_MAX: Max SYSC function ID
+>    */
+>   enum rzg3s_sysc_func_id {
+>   	RZG3S_SYSC_FUNC_ID_RST_RSM_B,
+>   	RZG3S_SYSC_FUNC_ID_L1_ALLOW,
+>   	RZG3S_SYSC_FUNC_ID_MODE,
+> +	RZG3S_SYSC_FUNC_ID_LINK_MASTER,
+>   	RZG3S_SYSC_FUNC_ID_MAX,
+>   };
+>   
+> @@ -261,6 +273,7 @@ struct rzg3s_pcie_host;
+>    * @config_pre_init: Optional callback for SoC-specific pre-configuration
+>    * @config_post_init: Callback for SoC-specific post-configuration
+>    * @config_deinit: Callback for SoC-specific de-initialization
+> + * @setup_lanes: Callback for setting up the number of lanes
+>    * @power_resets: array with the resets that need to be de-asserted after
+>    *                power-on
+>    * @cfg_resets: array with the resets that need to be de-asserted after
+> @@ -268,17 +281,20 @@ struct rzg3s_pcie_host;
+>    * @sysc_info: System Controller info for each PCIe channel
+>    * @num_power_resets: number of power resets
+>    * @num_cfg_resets: number of configuration resets
+> + * @num_channels: number of PCIe channels
+>    */
+>   struct rzg3s_pcie_soc_data {
+>   	int (*init_phy)(struct rzg3s_pcie_host *host);
+>   	void (*config_pre_init)(struct rzg3s_pcie_host *host);
+>   	int (*config_post_init)(struct rzg3s_pcie_host *host);
+>   	int (*config_deinit)(struct rzg3s_pcie_host *host);
+> +	int (*setup_lanes)(struct rzg3s_pcie_host *host);
+>   	const char * const *power_resets;
+>   	const char * const *cfg_resets;
+>   	struct rzg3s_sysc_info sysc_info[RZG3S_PCIE_CHANNEL_ID_MAX];
+>   	u8 num_power_resets;
+>   	u8 num_cfg_resets;
+> +	u8 num_channels;
+>   };
+>   
+>   /**
+> @@ -309,6 +325,7 @@ struct rzg3s_pcie_port {
+>    * @intx_irqs: INTx interrupts
+>    * @max_link_speed: maximum supported link speed
+>    * @channel_id: PCIe channel identifier, used for System Controller access
+> + * @num_lanes: The number of lanes
+>    */
+>   struct rzg3s_pcie_host {
+>   	void __iomem *axi;
+> @@ -325,6 +342,7 @@ struct rzg3s_pcie_host {
+>   	int intx_irqs[PCI_NUM_INTX];
+>   	int max_link_speed;
+>   	enum rzg3s_pcie_channel_id channel_id;
+> +	u8 num_lanes;
+>   };
+>   
+>   #define rzg3s_msi_to_host(_msi)	container_of(_msi, struct rzg3s_pcie_host, msi)
+> @@ -1155,6 +1173,13 @@ static int rzg3s_pcie_config_init(struct rzg3s_pcie_host *host)
+>   	rzg3s_pcie_update_bits(host->pcie, PCI_CLASS_REVISION, mask,
+>   			       field_prep(mask, PCI_CLASS_BRIDGE_PCI_NORMAL));
+>   
+> +	if (host->num_lanes) {
+> +		rzg3s_pcie_update_bits(host->pcie + RZG3S_PCI_CFG_PCIEC,
+> +				       PCI_EXP_LNKCAP, PCI_EXP_LNKCAP_MLW,
+> +				       FIELD_PREP(PCI_EXP_LNKCAP_MLW,
+> +						  host->num_lanes));
+> +	}
+> +
+>   	/* Disable access control to the CFGU */
+>   	writel_relaxed(0, host->axi + RZG3S_PCI_PERM);
+>   
+> @@ -1687,6 +1712,63 @@ rzg3s_pcie_host_setup(struct rzg3s_pcie_host *host,
+>   	return ret;
+>   }
+>   
+> +static int rzg3s_pcie_get_controller_id(struct rzg3s_pcie_host *host)
+> +{
+> +	struct device_node *np = host->dev->of_node;
+> +	u32 domain;
+> +	int ret;
+> +
+> +	if (host->data->num_channels == 1)
+> +		return 0;
+> +
+> +	ret = of_property_read_u32(np, "linux,pci-domain", &domain);
 
-Signed-off-by: Thierry Reding <treding@nvidia.com>
-Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
----
- arch/arm64/boot/dts/nvidia/tegra264.dtsi | 72 ++++++++++++++++++++++++++++++++
- 1 file changed, 72 insertions(+)
+This introduces some limits in the systems with RZ/V2H(P) SoCs with regards to 
+the usage of linux,pci-domain. I would like the PCIe maintainers take on this.
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra264.dtsi b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-index 7644a41d5f72..13fd04068016 100644
---- a/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-@@ -3336,6 +3336,18 @@ i2c3: i2c@c610000 {
- 			status = "disabled";
- 		};
- 
-+		pwm4: pwm@c6a0000 {
-+			compatible = "nvidia,tegra264-pwm";
-+			reg = <0x0 0xc6a0000 0x0 0x10000>;
-+			status = "disabled";
-+
-+			clocks = <&bpmp TEGRA264_CLK_PWM4>;
-+			resets = <&bpmp TEGRA264_RESET_PWM4>;
-+			reset-names = "pwm";
-+
-+			#pwm-cells = <2>;
-+		};
-+
- 		pmc: pmc@c800000 {
- 			compatible = "nvidia,tegra264-pmc";
- 			reg = <0x0 0x0c800000 0x0 0x100000>,
-@@ -3538,6 +3550,66 @@ i2c16: i2c@c430000 {
- 			status = "disabled";
- 		};
- 
-+		pwm2: pwm@c5e0000 {
-+			compatible = "nvidia,tegra264-pwm";
-+			reg = <0x0 0xc5e0000 0x0 0x10000>;
-+			status = "disabled";
-+
-+			clocks = <&bpmp TEGRA264_CLK_PWM2>;
-+			resets = <&bpmp TEGRA264_RESET_PWM2>;
-+			reset-names = "pwm";
-+
-+			#pwm-cells = <2>;
-+		};
-+
-+		pwm3: pwm@c5f0000 {
-+			compatible = "nvidia,tegra264-pwm";
-+			reg = <0x0 0xc5f0000 0x0 0x10000>;
-+			status = "disabled";
-+
-+			clocks = <&bpmp TEGRA264_CLK_PWM3>;
-+			resets = <&bpmp TEGRA264_RESET_PWM3>;
-+			reset-names = "pwm";
-+
-+			#pwm-cells = <2>;
-+		};
-+
-+		pwm5: pwm@c600000 {
-+			compatible = "nvidia,tegra264-pwm";
-+			reg = <0x0 0xc600000 0x0 0x10000>;
-+			status = "disabled";
-+
-+			clocks = <&bpmp TEGRA264_CLK_PWM5>;
-+			resets = <&bpmp TEGRA264_RESET_PWM5>;
-+			reset-names = "pwm";
-+
-+			#pwm-cells = <2>;
-+		};
-+
-+		pwm9: pwm@c610000 {
-+			compatible = "nvidia,tegra264-pwm";
-+			reg = <0x0 0xc610000 0x0 0x10000>;
-+			status = "disabled";
-+
-+			clocks = <&bpmp TEGRA264_CLK_PWM9>;
-+			resets = <&bpmp TEGRA264_RESET_PWM9>;
-+			reset-names = "pwm";
-+
-+			#pwm-cells = <2>;
-+		};
-+
-+		pwm10: pwm@c620000 {
-+			compatible = "nvidia,tegra264-pwm";
-+			reg = <0x0 0xc620000 0x0 0x10000>;
-+			status = "disabled";
-+
-+			clocks = <&bpmp TEGRA264_CLK_PWM10>;
-+			resets = <&bpmp TEGRA264_RESET_PWM10>;
-+			reset-names = "pwm";
-+
-+			#pwm-cells = <2>;
-+		};
-+
- 		i2c0: i2c@c630000 {
- 			compatible = "nvidia,tegra264-i2c";
- 			reg = <0x00 0x0c630000 0x0 0x10000>;
+As this is necessary to index in the system controller driver specific data (as 
+there are different SYSC offsets for different PCIe controllers) I see the 
+following alternatives, if any:
 
--- 
-2.53.0
+1/ add a dedicated DT property for this, e.g. renesas,pcie-controller-id
+2/ Add dedicated DT bindings for RZ/V2H(P) SoC that would be used to specify the
+    system controller register offset and mask for different functionalities.
 
+    E.g.:
+    renesas,sysc-l1-allow = <&sysc 0x1020 0x1>;
+    renesas,sysc-mode = <&sysc 0x1024 0x1>;
+    renesas,sysc-link-master = <&sysc 0x1060 0x300>;
+
+    And use them in each controller DT node. E.g.:
+
+    pcie0: pcie@add1 {
+        // ...
+
+        renesas,sysc-l1-allow = <&sysc 0x1020 0x1>;
+        renesas,sysc-mode = <&sysc 0x1024 0x1>;
+        renesas,sysc-link-master = <&sysc 0x1060 0x300>;
+
+        // ...
+    };
+
+    pcie0: pcie@add1 {
+        // ...
+
+        renesas,sysc-l1-allow = <&sysc 0x1050 0x1>;
+        renesas,sysc-mode = <&sysc 0x1054 0x1>;
+        renesas,sysc-link-master = <&sysc 0x1060 0x300>;
+
+        // ...
+    };
+
+3/ as sashiko.dev mentions [1], using aliases for the PCIe nodes should also be
+    what you need here.
+
+[1] 
+https://sashiko.dev/#/patchset/20260318124450.163471-1-prabhakar.mahadev-lad.rj%40bp.renesas.com
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (domain >= host->data->num_channels)
+> +		return -EINVAL;
+> +
+> +	host->channel_id = domain;
+> +
+> +	return 0;
+> +}
+> +
+> +static int rzv2h_pcie_setup_lanes(struct rzg3s_pcie_host *host)
+> +{
+> +	struct device_node *np = host->dev->of_node;
+> +	static u8 rzv2h_num_total_lanes;
+> +	u32 num_lanes;
+> +	int ret;
+> +
+> +	ret = of_property_read_u32(np, "num-lanes", &num_lanes);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * RZ/V2H(P) supports up to 4 lanes, but only in single x4 mode.
+> +	 * Dual x2 mode is only supported with 2 total lanes. Validate
+> +	 * the configuration to avoid conflicts with other host, if any.
+> +	 */
+> +	if (num_lanes != 4 && num_lanes != 2)
+> +		return -EINVAL;
+> +
+> +	if (rzv2h_num_total_lanes == 2 && num_lanes != 2)
+> +		return -EINVAL;
+> +
+> +	if (rzv2h_num_total_lanes == 4)
+> +		return -EINVAL;
+> +
+> +	rzv2h_num_total_lanes += num_lanes;
+
+There is a a valid concern raised by sashiko.dev [1] with regards to 
+incrementing this if later the probe fails:
+
+from [1]:
+"For example, if rzg3s_pcie_resets_prepare_and_get() returns -EPROBE_DEFER,
+the static variable is never decremented. On subsequent probe retries,
+the variable will be artificially inflated, eventually causing the bounds
+check to fail and returning a permanent -EINVAL. This would also prevent
+driver unbind and rebind from working correctly."
+
+also:
+
+"Additionally, since the driver sets .probe_type = PROBE_PREFER_ASYNCHRONOUS,
+could multiple PCIe controllers probing concurrently cause a data race when
+reading and modifying this static variable without locking?"
+
+> +
+> +	host->num_lanes = num_lanes;
+> +
+> +	return rzg3s_sysc_config_func(host->sysc,
+> +				      RZG3S_SYSC_FUNC_ID_LINK_MASTER,
+> +				      num_lanes == 2 ?
+> +				      RZG3S_SYSC_LINK_MODE_DUAL_X2 :
+> +				      RZG3S_SYSC_LINK_MODE_SINGLE_X4);
+
+I think this one should also be configured on resume (to have the same 
+configuration sequence as in probe) even though RZ/V2H(P) don't currently 
+support s2ram. E.g. so something like:
+
+if (host->num_lanes) {
+	ret = rzg3s_sysc_config_func(host->sysc,
+				     RZG3S_SYSC_FUNC_ID_LINK_MASTER,
+				     host->num_lanes == 2  ?
+				     RZG3S_SYSC_LINK_MODE_DUAL_X2 :
+				     RZG3S_SYSC_LINK_MODE_SINGLE_X4);
+	if (ret)
+		goto assert_rst_rsm_b;
+}
+
+after ret = rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 1);
+
+Thank you,
+Claudiu
