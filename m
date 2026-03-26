@@ -1,237 +1,119 @@
-Received: from TWMBX01.aspeed.com (mail.aspeedtech.com [211.20.114.72])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 281F73AF660;
-	Thu, 26 Mar 2026 06:20:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7533B311C11;
+	Thu, 26 Mar 2026 06:25:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774506015; cv=none; b=o2doth0ttluCBbVNvjTEFb8wqHzQUjez4tm4eogL6AzPkOehLDNQOUCpmDkhNHIYwChJ1vJwbwqbjJ6iOc3mmBIsAUFkkaNOZoxAAM9h3FuREXC8wU27wPDG/lOVlRJ0gLzGvklrnw+GIqL2qSY7uh2wNYLByL/kCUE42+/8Gns=
+	t=1774506338; cv=none; b=HwQO8WTOqepD8SeoAeSTQNNaNkiLHU8a/ccRhHPhHum83r8mzkLx/LX07wDpSAOzKWqHu4g2r/DLalRfnS8cQ9+VPEO+Yf7rHVuZtwAL4LgEeXez6F4O+0tDHIPg2Uxw9Xfxw9g2G6kpkvFtqDqfiBvrKVQ4CCLq4q9S9otHIAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774506015; c=relaxed/simple;
-	bh=dDHK26Pv3om1nVVi9t4wNhYIZIKE7ffity4S2AcBKdE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=glFcc6fFT8XTml++zf7gm2rHKzROQB4iuoblRH7Mg2aXhS5c0lQJaV/fMREU7IfXf2MfJi0QB5pD+Mx+BSNKXnCw2YGU/I6BGZAT75cfjISJ10hdqhBVGekgYL1UAXhBGMQTkaJkafEQnTOT2BeQ7jKEeEUJDtGaJoO1/RUovC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 26 Mar
- 2026 14:19:50 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Thu, 26 Mar 2026 14:19:50 +0800
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-Date: Thu, 26 Mar 2026 14:19:53 +0800
-Subject: [PATCH v3 4/4] irqchip/aspeed-intc: Remove AST2700-A0 support
+	s=arc-20240116; t=1774506338; c=relaxed/simple;
+	bh=raWvA7R2GZ1Ic17nJin0P24yloyYXkRv5ZmyOw3YXZo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=mFstyH6tPl5MImpb8s3L5vIwlm+xoSciuuRhh+RPm2uCsMjymq9ClIDqWqySmuY4Vl8dTm0Lji4gnYKC1WdHvldxT0bkIJKFGwQ7iPv4b7mHZxCuPI7+Q8axiQs+JH2iia/VH+auvsGKfP/C1UV7wmXjd2ogHb+77CRTOIQoTQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=m2F1VRLu; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="m2F1VRLu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1774506335;
+	bh=qyl2tRm9hwQuxiJfS+7z0mBBb4tN3hi0dNEI5cPRQeU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=m2F1VRLu/z3h8YIiv7trbgAiAAm6P5Qmqlm2K8m0WMAkklBjdOHKK2qH+3jKOg808
+	 87SnMIqU08U0frdGWu0lwmFPUhoe/efmKqSOtLbUtzQkqL3r8jrjZv1lPf+wLPqoFl
+	 l+7v57m9JyoPSY8k0pua4Gz3vbWGjN92YBBw7Y8V6jqjNilu/9b5AJsLFetf3X3qqq
+	 ABSANVeY/39ywVNSZb/QZxqE8zKty2pJ7Kxb03mXUy9sDhCND2xX8nw6cmQZgesXBz
+	 zstN6KwZaLRvPieyfHtF7oQvWXP+3exgqvkPZAXUKgGuUVdMkQ21H2VoxdXfukWxqA
+	 KunTFnm1d75WQ==
+Received: from [192.168.68.115] (unknown [180.150.112.60])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 1AF006597C;
+	Thu, 26 Mar 2026 14:25:35 +0800 (AWST)
+Message-ID: <eacfdc8637a7e59457c3c7d29e1044426d5c7f75.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v2] ARM: dts: aspeed: anacapa: Add eeprom device node
+ for NFC adaptor board
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: carl.lee@amd.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, 	linux-kernel@vger.kernel.org,
+ peter.shen@amd.com, colin.huang2@amd.com
+Date: Thu, 26 Mar 2026 16:55:34 +1030
+In-Reply-To: <20260309-arm-dts-aspeed-anacapa-add-eeprom-device-v2-1-91c7dde4b79d@amd.com>
+References: 
+	<20260309-arm-dts-aspeed-anacapa-add-eeprom-device-v2-1-91c7dde4b79d@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260326-irqchip-v3-4-366739f57acf@aspeedtech.com>
-References: <20260326-irqchip-v3-0-366739f57acf@aspeedtech.com>
-In-Reply-To: <20260326-irqchip-v3-0-366739f57acf@aspeedtech.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
- Jeffery" <andrew@codeconstruct.com.au>, Paul Walmsley <pjw@kernel.org>,
-	"Palmer Dabbelt" <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
-	"Alexandre Ghiti" <alex@ghiti.fr>, Thomas Gleixner <tglx@kernel.org>, Thomas
- Gleixner <tglx@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
-	<linux-riscv@lists.infradead.org>, Ryan Chen <ryan_chen@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774505990; l=5800;
- i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=dDHK26Pv3om1nVVi9t4wNhYIZIKE7ffity4S2AcBKdE=;
- b=a2LIRMfXKomh6waSLwNLx6F2dZ7sgFn/YDi/hbGuAXv7USC+g/es12mIQBD90HMv8I794aidD
- IDd8TVO6gP/Dqq+Ygw38WvtbA9wmEqv70V0pMDemv0+IGtz5c/wRUQU
-X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
- pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-The existing AST2700 interrupt controller driver
-("aspeed,ast2700-intc-ic") was written against the A0 pre-production
-design.
+Hi Carl,
 
-From A1 onwards (retained in the A2 production silicon), the interrupt
-fabric was re-architected: interrupt routing is programmable and
-interrupt outputs can be directed to multiple upstream controllers
-(PSP GIC, Secondary Service Processor (SSP) NVIC, Tertiary Service
-Processor (TSP) NVIC, and Boot MCU interrupt controller). This design
-requires route resolution and a controller hierarchy model which the
-A0 driver cannot represent.
+Sorry for the delayed in review.
 
-Remove driver support for A0 in favour of the driver for the A2
-production design.
+On Mon, 2026-03-09 at 11:46 +0800, Carl Lee via B4 Relay wrote:
+> From: Carl Lee <carl.lee@amd.com>
+>=20
+> Add eeprom device node for NFC adaptor board FRU.
+>=20
+> Signed-off-by: Carl Lee <carl.lee@amd.com>
+> ---
+> Add eeprom device nodes used to store FRU data for the PRoT
+> module and NFC adapter board on Anacapa platform.
 
-Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
----
- drivers/irqchip/Makefile          |   1 -
- drivers/irqchip/irq-aspeed-intc.c | 139 --------------------------------------
- 2 files changed, 140 deletions(-)
+This patch note seems inaccurate for the purpose of v2?
 
-diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
-index ac04a4b97797..3d02441b3ee6 100644
---- a/drivers/irqchip/Makefile
-+++ b/drivers/irqchip/Makefile
-@@ -92,7 +92,6 @@ obj-$(CONFIG_LS_SCFG_MSI)		+= irq-ls-scfg-msi.o
- obj-$(CONFIG_ASPEED_AST2700_INTC)	+= irq-ast2700.o irq-ast2700-intc0.o irq-ast2700-intc1.o
- obj-$(CONFIG_ASPEED_AST2700_INTC_TEST)	+= irq-ast2700-intc0-test.o
- obj-$(CONFIG_ARCH_ASPEED)		+= irq-aspeed-vic.o irq-aspeed-i2c-ic.o irq-aspeed-scu-ic.o
--obj-$(CONFIG_ARCH_ASPEED)		+= irq-aspeed-intc.o
- obj-$(CONFIG_STM32MP_EXTI)		+= irq-stm32mp-exti.o
- obj-$(CONFIG_STM32_EXTI) 		+= irq-stm32-exti.o
- obj-$(CONFIG_QCOM_IRQ_COMBINER)		+= qcom-irq-combiner.o
-diff --git a/drivers/irqchip/irq-aspeed-intc.c b/drivers/irqchip/irq-aspeed-intc.c
-deleted file mode 100644
-index 4fb0dd8349da..000000000000
---- a/drivers/irqchip/irq-aspeed-intc.c
-+++ /dev/null
-@@ -1,139 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- *  Aspeed Interrupt Controller.
-- *
-- *  Copyright (C) 2023 ASPEED Technology Inc.
-- */
--
--#include <linux/bitops.h>
--#include <linux/irq.h>
--#include <linux/irqchip.h>
--#include <linux/irqchip/chained_irq.h>
--#include <linux/irqdomain.h>
--#include <linux/of_address.h>
--#include <linux/of_irq.h>
--#include <linux/io.h>
--#include <linux/spinlock.h>
--
--#define INTC_INT_ENABLE_REG	0x00
--#define INTC_INT_STATUS_REG	0x04
--#define INTC_IRQS_PER_WORD	32
--
--struct aspeed_intc_ic {
--	void __iomem		*base;
--	raw_spinlock_t		gic_lock;
--	raw_spinlock_t		intc_lock;
--	struct irq_domain	*irq_domain;
--};
--
--static void aspeed_intc_ic_irq_handler(struct irq_desc *desc)
--{
--	struct aspeed_intc_ic *intc_ic = irq_desc_get_handler_data(desc);
--	struct irq_chip *chip = irq_desc_get_chip(desc);
--
--	chained_irq_enter(chip, desc);
--
--	scoped_guard(raw_spinlock, &intc_ic->gic_lock) {
--		unsigned long bit, status;
--
--		status = readl(intc_ic->base + INTC_INT_STATUS_REG);
--		for_each_set_bit(bit, &status, INTC_IRQS_PER_WORD) {
--			generic_handle_domain_irq(intc_ic->irq_domain, bit);
--			writel(BIT(bit), intc_ic->base + INTC_INT_STATUS_REG);
--		}
--	}
--
--	chained_irq_exit(chip, desc);
--}
--
--static void aspeed_intc_irq_mask(struct irq_data *data)
--{
--	struct aspeed_intc_ic *intc_ic = irq_data_get_irq_chip_data(data);
--	unsigned int mask = readl(intc_ic->base + INTC_INT_ENABLE_REG) & ~BIT(data->hwirq);
--
--	guard(raw_spinlock)(&intc_ic->intc_lock);
--	writel(mask, intc_ic->base + INTC_INT_ENABLE_REG);
--}
--
--static void aspeed_intc_irq_unmask(struct irq_data *data)
--{
--	struct aspeed_intc_ic *intc_ic = irq_data_get_irq_chip_data(data);
--	unsigned int unmask = readl(intc_ic->base + INTC_INT_ENABLE_REG) | BIT(data->hwirq);
--
--	guard(raw_spinlock)(&intc_ic->intc_lock);
--	writel(unmask, intc_ic->base + INTC_INT_ENABLE_REG);
--}
--
--static struct irq_chip aspeed_intc_chip = {
--	.name			= "ASPEED INTC",
--	.irq_mask		= aspeed_intc_irq_mask,
--	.irq_unmask		= aspeed_intc_irq_unmask,
--};
--
--static int aspeed_intc_ic_map_irq_domain(struct irq_domain *domain, unsigned int irq,
--					 irq_hw_number_t hwirq)
--{
--	irq_set_chip_and_handler(irq, &aspeed_intc_chip, handle_level_irq);
--	irq_set_chip_data(irq, domain->host_data);
--
--	return 0;
--}
--
--static const struct irq_domain_ops aspeed_intc_ic_irq_domain_ops = {
--	.map = aspeed_intc_ic_map_irq_domain,
--};
--
--static int __init aspeed_intc_ic_of_init(struct device_node *node,
--					 struct device_node *parent)
--{
--	struct aspeed_intc_ic *intc_ic;
--	int irq, i, ret = 0;
--
--	intc_ic = kzalloc_obj(*intc_ic);
--	if (!intc_ic)
--		return -ENOMEM;
--
--	intc_ic->base = of_iomap(node, 0);
--	if (!intc_ic->base) {
--		pr_err("Failed to iomap intc_ic base\n");
--		ret = -ENOMEM;
--		goto err_free_ic;
--	}
--	writel(0xffffffff, intc_ic->base + INTC_INT_STATUS_REG);
--	writel(0x0, intc_ic->base + INTC_INT_ENABLE_REG);
--
--	intc_ic->irq_domain = irq_domain_create_linear(of_fwnode_handle(node), INTC_IRQS_PER_WORD,
--						    &aspeed_intc_ic_irq_domain_ops, intc_ic);
--	if (!intc_ic->irq_domain) {
--		ret = -ENOMEM;
--		goto err_iounmap;
--	}
--
--	raw_spin_lock_init(&intc_ic->gic_lock);
--	raw_spin_lock_init(&intc_ic->intc_lock);
--
--	/* Check all the irq numbers valid. If not, unmaps all the base and frees the data. */
--	for (i = 0; i < of_irq_count(node); i++) {
--		irq = irq_of_parse_and_map(node, i);
--		if (!irq) {
--			pr_err("Failed to get irq number\n");
--			ret = -EINVAL;
--			goto err_iounmap;
--		}
--	}
--
--	for (i = 0; i < of_irq_count(node); i++) {
--		irq = irq_of_parse_and_map(node, i);
--		irq_set_chained_handler_and_data(irq, aspeed_intc_ic_irq_handler, intc_ic);
--	}
--
--	return 0;
--
--err_iounmap:
--	iounmap(intc_ic->base);
--err_free_ic:
--	kfree(intc_ic);
--	return ret;
--}
--
--IRQCHIP_DECLARE(ast2700_intc_ic, "aspeed,ast2700-intc-ic", aspeed_intc_ic_of_init);
+Doesn't matter too much in this instance, but should be fixed for any
+subsequent revision. Which, speaking of ...
 
--- 
-2.34.1
+> ---
+> Changes in v2:
+> - Remove PRoT module eeprom commit since it is already included in anothe=
+r series under review.
+> - Only include NFC adapter board eeprom node.
+> - Link to v1: https://lore.kernel.org/r/20260309-arm-dts-aspeed-anacapa-a=
+dd-eeprom-device-v1-0-45092310e0e6@amd.com
+> ---
+> =C2=A0arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts | 5 +++++
+> =C2=A01 file changed, 5 insertions(+)
+>=20
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts b/a=
+rch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+> index 2cb7bd128d24..69c41532fdfb 100644
+> --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+> @@ -815,6 +815,11 @@ i2c13mux0ch7: i2c@7 {
+> =C2=A0			#address-cells =3D <1>;
+> =C2=A0			#size-cells =3D <0>;
+> =C2=A0
+> +			eeprom@50 {
+> +				compatible =3D "atmel,24c128";
+> +				reg =3D <0x50>;
+> +			};
+> +
+> =C2=A0			nfc@28 {
 
+... these nodes are out of order.
+
+Can you please order them by ascending unit address, as per the DTS
+coding style?
+
+https://docs.kernel.org/devicetree/bindings/dts-coding-style.html#order-of-=
+nodes
+
+Andrew
+
+> =C2=A0				compatible =3D "nxp,nxp-nci-i2c";
+> =C2=A0				reg =3D <0x28>;
+>=20
+> ---
+> base-commit: a0ae2a256046c0c5d3778d1a194ff2e171f16e5f
+> change-id: 20260309-arm-dts-aspeed-anacapa-add-eeprom-device-a1aabe06a35b
+>=20
+> Best regards,
