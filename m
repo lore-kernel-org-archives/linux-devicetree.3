@@ -1,108 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE85534845C;
-	Thu, 26 Mar 2026 14:26:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5FBB30DEBE
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 14:28:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774535161; cv=none; b=K+OA+t6UUl1KBW2ZDH82RPGqhkqmwxULNdDc0kZQVs2bUrLfv8/g+QB1VZKFugiVKhO4v8nrO1UTgqWqcpdcEPyl/hwkkDpP0mJXOcCg3avXdAF4vh8nPa0hjQYIcqXjREqrqxT1wX23s7UhwohMWEKzzYmZ2TFjLTRbn/5F5sI=
+	t=1774535304; cv=none; b=d2+gBBzZpeTMvdBIt5rWrfI/DGm7o5Nw5MwCGZjmL8PdfJOwdJtcQCCHaUL5QOLTqMx9jxvSJ+XkacXGRViB28mhH6ycQLto4MqmfBhHgpVsGiaqs+16yJs+6CZ+eRdBBfdOvoASu5PdYuKTI4lTZ3gzJckKxGi+Omi5ddbRFZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774535161; c=relaxed/simple;
-	bh=vNBTrVDnW/URd3RrmMmEiiXu5fmhbexsJfa2CjQ8+3A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U29z/LbDklQmXrTWczUKCU8qw0SK3tNxFkh3LVEF1lW5kVLi3Gx31fbWio1Qf6yvzlWwYqyJ8Y69rLHx3ZVhN3HEnFXjFd+MUAIPzQFUR8SIIOWTwwa3AJu5jBPjsBQE6k/XTQrrHRMSie2he58jPpBCaTVhMjmdo4+0vZcZj1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ahTv9wBD; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ahTv9wBD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D0AEC116C6;
-	Thu, 26 Mar 2026 14:25:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774535160;
-	bh=vNBTrVDnW/URd3RrmMmEiiXu5fmhbexsJfa2CjQ8+3A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ahTv9wBD3YSN27wS5cDGlSPq0FBlNn1zF/4xC6D4LLg2/fBv95RNhfSXhMOVhtj27
-	 KYu1IT5reoSgj//neFjPczzpjE+8NbgesWbxKo7i3w8yHyB4IupX9aab64K2MmrL/q
-	 ItWOPokw+o1fzv9x+Hail9fwTb0KBaLqpKa1suetaj+/m7DujQrb0SluB3BN8EkWHK
-	 MX7t+/RR3fbxQjnsW+XIQpjtuxVlWNnKmzwQgtBb7bEQdoYLP3MJTq6wWXB3TTXNqk
-	 JqIvBCwTOtjOWA+PgoBe1hbRRFpK++6YhZZnfJCKBSL5FO23BUa/WwxvYskc1khpqr
-	 9E1Kwzbzx4qUQ==
-Message-ID: <03996c07-f9f3-4586-96ae-075927da2577@kernel.org>
-Date: Thu, 26 Mar 2026 15:25:54 +0100
+	s=arc-20240116; t=1774535304; c=relaxed/simple;
+	bh=Qu3UrdHfRGUo+IQpch7jHWfBEGOhd/gFnZp38a4AiS4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RMDDDhtGcvb7r4fdrkqbitBtwE9nw3ZIDAblSHf+sc3puyS9E2hl8pc+pdvZgBDEBf3tY/EhIebNpL17KIbh2roHIzgzdrk5teyJQKzN0H9egJRHPzheQTdcAR1noe5hXz4dysTXKT6/95tQxhjEvNLQ4Io+NnCLm21HcpE1RvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-56a9c5cb48bso495513e0c.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 07:28:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774535302; x=1775140102;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fx17fbCum0HxJGLiZIM7+APW+qVuJWwyHiukjhC23hI=;
+        b=V0BGkqTPYKshGylu8dxpU1OkJwpaKCweVCROnnA2PSx+IJ5daHtnr03Oxtrpkyct0f
+         jXP65QW8oAIM2uGNE5fjrEbQCD+YCF8+22Gfjw28a+/OMBsK2KNQunebEY4/QGgh23pM
+         yHbZAi9w9e14VDILL2XmzM/llkGHIfvE6kT+U9Rlsg2ZL2nQcpV6u+wbMWbxHw7+wrXk
+         T6R4VSXQqjjGB80pZ0wHrVhJq+1vti+WO4ynJMwJzCDmXS7vtLoVq03Ic1x5gZZdivLA
+         5XuTJ228Oa/sBTMGLlmw3U0qLSGQaV7go1Qm7GmYNaMDCGNHxfTRwE0Nx1cWkYMmzyc/
+         DNCQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUdJAux7aY0jOEJCqZgORpjYT3GbZvxlvn035DtzMDqIEN8xv4ATRbE57wV4obAQgib4jHLnwBx8uhH@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMQCOOXn4fcroHhnBAGngSfS3s5rKlVrBohqeR1d+BgVeXR9ij
+	MV2FkPOFC0cHoM3o8dosSCe+NiMOOZzeSwISACO+FrH8Xf97rvSaUcPuJyvUGydUHXc=
+X-Gm-Gg: ATEYQzz8i7UplQUfbPTji8Ai+yTDgYMA4Nw2DT64SAKAD53agANb8JFmDkFgyEVMM6F
+	uXvewDgy6Oej7ruKliK+GxZWwww+TNFfmdUvOpwuUmntHn8ZUOKqx3ywJ8P16GCMDS8NT+FgKvb
+	fhA0fc3+wuREKjET9iIMHqftS8WZ784mzkKg67T5E4KwtnSzxUwE3eebWfo/RoHHoTNLY1CMRqv
+	QiMEPvLm5kJ+ylMIk2qdSesNWFWoWeJqwX9ZNjOD4IkFlIyS3tcM9ye4y8W7rPoE9jzthWrEm+4
+	w6ediWXiVF0qMWTRj4HGdRUf8t7qPFi0XLDYVocttIbnF6Jp/vY7WvVj987wKop/FHCL9ZsaOme
+	K9qiQjMDvpuUqw7OhP6Y2gt9auWCrJMh8LU9WP+SyLCemUF9xhynwXM7G9kD/hOxwn4lwJHaLf3
+	kFKqxalzdfJO2NvgI69TGPsYG5qFjH/VyZdXqgaWyIGyb0aUhdP2+bJtZUrBGfS+fW
+X-Received: by 2002:a05:6102:ccb:b0:5fd:ff75:f41d with SMTP id ada2fe7eead31-603872ac3b1mr3107850137.24.1774535301578;
+        Thu, 26 Mar 2026 07:28:21 -0700 (PDT)
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com. [209.85.221.173])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-951be1a149asm3766161241.7.2026.03.26.07.28.21
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Mar 2026 07:28:21 -0700 (PDT)
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-56cde757d3dso387876e0c.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 07:28:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUnh6QVWT7O49H66Os1w3rsFRWX0Y3bLXGWYtEIlu8th4ghgYV1vinF43xSvF7SvXUSzPPWx6q5gGOy@vger.kernel.org
+X-Received: by 2002:a05:6122:62f2:b0:56b:7a5b:3cee with SMTP id
+ 71dfb90a1353d-56d220699d4mr3816280e0c.12.1774535300726; Thu, 26 Mar 2026
+ 07:28:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: Move board nodes to common DTSI
-To: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, sibi.sankar@oss.qualcomm.com,
- rajendra.nayak@oss.qualcomm.com
-References: <20260326-glymur-mahua-common-nodes-v1-1-12bb26920ea4@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260326-glymur-mahua-common-nodes-v1-1-12bb26920ea4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260304074907.9697-1-biju.das.jz@bp.renesas.com> <20260304074907.9697-2-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260304074907.9697-2-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 26 Mar 2026 15:28:09 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdWQOQwZ9qgVaqWNrhA2mVe-5s5QcmJHD10QheSOcOn7qQ@mail.gmail.com>
+X-Gm-Features: AQROBzAhM3AW6MrbB4cFj6sp3RlNTps86eZahrOvjSYvBr_GjZzQv99EoywigDk
+Message-ID: <CAMuHMdWQOQwZ9qgVaqWNrhA2mVe-5s5QcmJHD10QheSOcOn7qQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: spi: renesas,rzv2h-rspi: Document RZ/G3L SoC
+To: Biju <biju.das.au@gmail.com>
+Cc: Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 26/03/2026 15:21, Gopikrishna Garmidi wrote:
-> The display, peripherals (touchpad/touchscreen/keypad), usb and their
-> dependent device nodes are common to both Glymur and Mahua CRDs,
-> so move them from glymur-crd.dts to glymur-crd.dtsi to enable code
-> reuse.
-> 
+On Wed, 4 Mar 2026 at 08:49, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> Document RSPI IP found on the RZ/G3L SoC. The RSPI IP is compatible with
+> the RZ/V2H RSPI IP, but has 2 clocks compared to 3 on RZ/V2H.
+>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-Same questions as for earlier tries (why this has to be repeated?), e.g.
-x1-crd: Please describe here what is the actual common hardware. In
-terms of physical hardware, not what you want to share.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Best regards,
-Krzysztof
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
