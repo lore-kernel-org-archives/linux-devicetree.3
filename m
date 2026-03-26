@@ -1,116 +1,81 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8560D391501;
-	Thu, 26 Mar 2026 04:24:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C683939C624;
+	Thu, 26 Mar 2026 04:28:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774499080; cv=none; b=GK3jR+90nA41bhpi+zdikMX0w9GbemnvHoInub62UtSURcd1aZxvf/03Fi5ZVtlhgrOSlWYbg57IhBwgrqV+nIFFBlJWy5R9Uw/fDe1uJoB0JnKWReEXx5sWL0H5XasWdQBVhjg4IqgznSZaBP8tpjmwngeh1zXg5TZZLIUvpuA=
+	t=1774499310; cv=none; b=jFI5PGfh1v/OfPsh9CxnAlN7wFnnpdwUA9Ej0qdfiUod3MH1jzMJhVPAwgc5yX3aOTgvdpXsOS6RksjfTeZd24LrmV1XtCHwEq1ExJmqk1RjvM3Es/C1L21pjWPwotV06lItho9f2jHoLzSMxVgM2hywTlxHFEkLp9xJ6Ob5FHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774499080; c=relaxed/simple;
-	bh=AJdJjCQipZ/3vXI3YxYY1ujWiRdZlx2miqftSqttx6Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Rnev1rvn316X+Hd1mAF/f3oMln2Fn/qy43l8KfaMVD9tbKm5MiAySzu5FiJAq7eBp9ZVXmefEbLrrItrWOY21hPFN1JhxSKy5YiFxQPEkumcghlYZaohvA+rHeDZlt+2B7CU9uImZkv83tzcEp04clN0EHm7pOe8jQ12xLpBTu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=BrjI85Uc; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=AFRLrZta; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1774499310; c=relaxed/simple;
+	bh=MfeCrWnZI6Chf+c6NFu44lpjGhI2Fvkl128+VJIXsHE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LBfE1H4gelTO/a8lGyvtHaeeShsNS/OEJdhhLySRXVN8glSdde/VEU4ClSR+VmLCpJhyu/uTVWCSGLxdpnlCY1TqTjcj0dGJnLa56wnqnqhBuK7tlLl4kZ9P+ptRnPG/+utVVt2t/Tytc237Kx9jAB6ItLK6kIO5LDlm73AHoZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=AjaK5I7B; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="BrjI85Uc";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="AFRLrZta"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4fh9f60H5pz9v01;
-	Thu, 26 Mar 2026 05:24:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1774499070;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mjJ47iz69kffMqjrmrab+FRigiZP+JvFCki4MhCjrAw=;
-	b=BrjI85Uca/IG5hHM/bNDRYDl7BITyI5UD2zAIVB1CD6FOowWah1bDPkkfnaHJgkIenvU0Y
-	CDCMppcq/vPmHRxRF8V8pcCM03mA7S4YgGpT+DSdfjMyYkQ8JyOWLGk1H8qLMtH8jwRfo0
-	1Df+w6Ybz+KNvv77TSgrinr3L/vxwp9ovmIQig4fpQiPt1fpcDZnoyE7EJoG8g0pNKKn9c
-	0IL4Jp/OJkFvdzUDUMyxOl++8eistHyzM+MQw8syVkXVKijm7JZ4v16Mqmavj56x65h/xb
-	3zKteFV5JwgCBWPAU/z2P5PdzO/VgRjqzB1MFSjMYdDDjlujba1De87R/hku0g==
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1774499068;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mjJ47iz69kffMqjrmrab+FRigiZP+JvFCki4MhCjrAw=;
-	b=AFRLrZtadueE6nkaAXnOCPfuKtPNXnYDuoYrUydn1G1D4F3lHp5sUBMDf30oa5obA4TpuG
-	ERzyRzPwYmPk/DFk4QRC4+ZInFG9tQtkgFKvjuMCvU3Fn5UFXZ2YKTL7zu72QaZFIUt6hy
-	4OJMopvqNNdQi5VK5DiHr82a8z9KNb82ydORFnlBH7WC0mLdb0WnfQu8X0kjzlRLMgkPCf
-	xIZfa3crTftonRaxWKfjwWJ67f/DB2Vx45pwqYqqLavcOD+zH54ka3rmA6ezuzg1yBp0RU
-	2Ih9T+txicJmuNWyOSKpTg02ArMxMCHLEaENdSgq/lxUZqgBDLpf4O9hFxo8nw==
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH 4/4] arm64: dts: renesas: rzg2l-smarc: Fix missing cells and reg into DU subnode
-Date: Thu, 26 Mar 2026 05:24:01 +0100
-Message-ID: <20260326042411.215241-5-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260326042411.215241-1-marek.vasut+renesas@mailbox.org>
-References: <20260326042411.215241-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="AjaK5I7B"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7526511235B;
+	Thu, 26 Mar 2026 05:28:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1774499300;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=L8MoVHmnri3Cl6KqI9p0QwU1t7f2UmlqeymbhBedSQk=;
+	b=AjaK5I7BFXMnFI+2HcRDawC/xob/VQ748J5RHgRbK9FLPWVJAtFvIPdyzojUsHATfSkonD
+	84Ms/M70WkiQV79UxjekOE2hMsc6KxPV2q90HU6F29rpPB95vRVRa4MCQzNCWp1H2sJlvC
+	22lWXixYleZz7ZUL160jpXngAtAPeaxbSNU76GZaAGSC5MtYC4DcjkNid2f3y3aSuT/Bg0
+	jLUP/0RoETGqSwVPRAYIpUQ0vhaKe/758QHD8jwWD4odLVAV9vZiCNngvoeNzXW3CE68eT
+	A2Nta6wLH3YRrBDQOdpGnDsnbDFHAeKbKlZW3H/BBRJn/4l3MXhxyK2Mwz9JcQ==
+Message-ID: <49b82956-4ec8-4602-9aaa-0d6a2a612fca@nabladev.com>
+Date: Thu, 26 Mar 2026 05:28:15 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 8195f495464a61884c3
-X-MBO-RS-META: 4os6sgow5fx197emqeseecb1h9nh57cc
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: imx8mp: Add DT overlays for DH i.MX8M Plus
+ DHCOM SoM and boards
+To: Frank Li <Frank.li@nxp.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+ Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+ Conor Dooley <conor+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Rob Herring <robh@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ devicetree@vger.kernel.org, imx@lists.linux.dev, kernel@dh-electronics.com,
+ linux-kernel@vger.kernel.org
+References: <20260324190544.74531-1-marex@nabladev.com>
+ <acQqc1AuCa1Tkb-w@lizhi-Precision-Tower-5810>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <acQqc1AuCa1Tkb-w@lizhi-Precision-Tower-5810>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Add missing cells and reg DT property into DU subnode to fix
-the following warning:
+On 3/25/26 7:33 PM, Frank Li wrote:
 
-"
-arch/arm64/boot/dts/renesas/rz-smarc-du-adv7513.dtsi:29.10-33.5: Warning (unit_address_vs_reg): /fragment@1/__overlay__/ports/port@0: node has a unit name, but no reg or ranges property
-"
+Hello Frank,
 
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
----
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Magnus Damm <magnus.damm@gmail.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
----
- arch/arm64/boot/dts/renesas/rz-smarc-du-adv7513.dtsi | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/renesas/rz-smarc-du-adv7513.dtsi b/arch/arm64/boot/dts/renesas/rz-smarc-du-adv7513.dtsi
-index 36707576030d4..f5412578ee65f 100644
---- a/arch/arm64/boot/dts/renesas/rz-smarc-du-adv7513.dtsi
-+++ b/arch/arm64/boot/dts/renesas/rz-smarc-du-adv7513.dtsi
-@@ -26,7 +26,12 @@ &du {
- 	status = "okay";
- 
- 	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
- 		port@0 {
-+			reg = <0>;
-+
- 			du_out_rgb: endpoint {
- 				remote-endpoint = <&adv7513_in>;
- 			};
--- 
-2.53.0
-
+>> +#define DH_OVERLAY_PANEL_I2C_BUS			i2c5
+>> +#define DH_OVERLAY_PANEL_I2C_TOUCHSCREEN_PINCTRL	&pinctrl_dhcom_b &pinctrl_dhcom_h
+> 
+> This is not straight forward.
+> 
+> you can add label like panel_i2c at dts file.
+> 
+> panel_i2c: &i2c5 {
+> }
+> 
+> in overlay file use
+> 
+> &panel_i2c {
+> 	....
+> }
+> 
+> So you use the same overlay file for difference dts. The same as others
+I did that in V3, thanks.
