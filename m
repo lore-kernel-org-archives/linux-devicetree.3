@@ -1,199 +1,115 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7EFE3876AB;
-	Thu, 26 Mar 2026 11:13:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E448391820;
+	Thu, 26 Mar 2026 11:18:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774523637; cv=none; b=omC+5VA/9op3FG32FvWUSc2dJd/+3kEWJ52sgR7g0xUApv/Kr18ZkMJh8vhHNz9cidTdeHK0Q2ZAiPzzObRKs6EqaS7X2P30fRmc+c7g7lsaVHY7HLp1169SRe10ZlMSkN1CdprN3UatWHcJDu1riiQm9bv12SyUlwXAcFSXQu0=
+	t=1774523902; cv=none; b=eh9RjkCrZScsjgOULQBx+3IyjsDkYLT1p4e3L2hXhERH2TrFluw7r78Fv7n+AURgS0ICriyPgPEh7NLvkPA6rYn1qPRKOo+nOxY3A9HRruxNvUErooAUlsmjIjj+Tq3fdKExnUGJJAxYhq/23zHmQBPRxQnVRi1Bb7Cq598b2V4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774523637; c=relaxed/simple;
-	bh=fvAU+Ju+dI6rjigsBHAd/7B9gtQjb/SPfrAcLIZjUBA=;
-	h=Message-Id:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type; b=YvX/VJG3yOgyNWy7payGqy7VuUeAU6VmQ0/6YhcAus70nXS0iRlXriHUSLqMbhxGq3sXGTwM2BjVtMz8DTKirNdHSB2WeIWi6uN3j76/6xRLroYcf30lumAwOecNVuTKAyHkfX0Iejv5v4u7FDgm2MxT11oo6vJkynsXFB/3jXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-db.zte.com.cn (unknown [10.5.228.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4fhLkS4GSDz8Xs71;
-	Thu, 26 Mar 2026 19:13:52 +0800 (CST)
-Received: (from root@localhost)
-	by mse-db.zte.com.cn id 62QBDn8T007047;
-	Thu, 26 Mar 2026 19:13:49 +0800 (+08)
-	(envelope-from guo.wenjia23@zte.com.cn)
-Message-Id: <202603261113.62QBDn8T007047@mse-db.zte.com.cn>
-Received: from njb2app06.zte.com.cn ([10.55.23.119])
-	by mse-fl2.zte.com.cn with SMTP id 62QB5kdA005832;
-	Thu, 26 Mar 2026 19:05:46 +0800 (+08)
-	(envelope-from guo.wenjia23@zte.com.cn)
-Received: from mapi (njy2app08[null])
-	by mapi (Zmail) with MAPI id mid202;
-	Thu, 26 Mar 2026 19:05:48 +0800 (CST)
-X-Zmail-TransId: 2b0069c5130c527-f477b
-X-Mailer: Zmail v1.0
-In-Reply-To: <20260119-ssqosid-cbqri-v1-8-aa2a75153832@kernel.org>
-References: 20260119-ssqosid-cbqri-v1-0-aa2a75153832@kernel.org,20260119-ssqosid-cbqri-v1-8-aa2a75153832@kernel.org
-Date: Thu, 26 Mar 2026 19:05:48 +0800 (CST)
+	s=arc-20240116; t=1774523902; c=relaxed/simple;
+	bh=YuMHGyrzDfm7+wvWkbeGmLgAvNN80q6cdvki+xTCBTU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e6xxnHkQYZHRpNJBqD3yvJ1APd1wJg0B7eeY3CfU/FDTcG53lg/sMZR7VtZhjjWqWqveIgXqlXAv7uC+Gw4q8diqsbcliVZQh/MsgNYuRGJsQvGrtgdyNIWbPY7tfSM0Rb3G5zcojGBIkZ9fnF9nTVd5m1wtEepG0CKtti3SMTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=FdBVBEhn; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="FdBVBEhn"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
+	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=nf+rMiHi6jNbgWaWaj5/gNwKBHvcOV2zQhPWDkDxDaI=; b=FdBVBEhnr8+ZxXqeLS+DtRcTPS
+	HrlVaqUHTUl0IGhIWj6bIj6FC2AxqEHiIuOLK6NU1sg2qxa0Bl88BZNmyDNxCcwWvUFwUq0JNB3A6
+	NdCAcfM5pnFe1SxX/csuMK/bDRVCgtbxCgQ1PBwNxsoMBpHEqWPE9crolx6qLor3XvylRq3KG1Od8
+	vp90GYMNzm6JmNCSUKIhT+adTxBJaeEH4k01X31SvWhKPYKrFm+41VYrrbSbVk7qPMllSvctKsqWH
+	xYpuwn5oRnUma/WojDr+vfWBR0xqkv27grMehuiX+TkIzq8aVRbKtybRRYxblvu2lv4EYQrMhkxfA
+	ngnYV/4g==;
+Received: from sslproxy06.your-server.de ([78.46.172.3])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1w5ij8-000LWf-25;
+	Thu, 26 Mar 2026 12:18:14 +0100
+Received: from localhost ([127.0.0.1])
+	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1w5iia-000JmA-2Z;
+	Thu, 26 Mar 2026 12:18:14 +0100
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>
+Cc: Markus Niebel <Markus.Niebel@ew.tq-group.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux@ew.tq-group.com,
+	linux-renesas-soc@vger.kernel.org,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v2 1/2] dt: bindings: arm: add bindings for TQMa95xxLA
+Date: Thu, 26 Mar 2026 12:03:29 +0100
+Message-ID: <20260326111803.1248934-1-alexander.stein@ew.tq-group.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <guo.wenjia23@zte.com.cn>
-To: <fustini@kernel.org>
-Cc: <dave.martin@arm.com>, <acpica-devel@lists.linux.dev>, <alex@ghiti.fr>,
-        <aou@eecs.berkeley.edu>, <aricciardi@baylibre.com>,
-        <atish.patra@linux.dev>, <atishp@rivosinc.com>, <babu.moger@amd.com>,
-        <ben.horgan@arm.com>, <conor+dt@kernel.org>,
-        <cp0613@linux.alibaba.com>, <cuiyunhui@bytedance.com>,
-        <devicetree@vger.kernel.org>, <fenghua.yu@intel.com>,
-        <guo.wenjia23@zte.com.cn>, <james.morse@arm.com>, <krzk+dt@kernel.org>,
-        <lenb@kernel.org>, <linux-acpi@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
-        <liu.qingtao2@zte.com.cn>, <liwei1518@gmail.com>,
-        <mindal@semihalf.com>, <npitre@baylibre.com>, <palmer@dabbelt.com>,
-        <paul.walmsley@sifive.com>, <peternewman@google.com>, <pjw@kernel.org>,
-        <rafael@kernel.org>, <reinette.chatre@intel.com>,
-        <rkrcmar@ventanamicro.com>, <robert.moore@intel.com>,
-        <robh@kernel.org>, <samuel.holland@sifive.com>,
-        <sunilvl@ventanamicro.com>, <tony.luck@intel.com>, <vasu@rivosinc.com>,
-        <ved@rivosinc.com>, <x86@kernel.org>, <zhiwei_liu@linux.alibaba.com>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSCBSRkMgMDgvMTldIFJJU0MtVjogUW9TOiBhZGQgcmVzY3RybCBpbnRlcmZhY2UgZm9yIENCUVJJIGNvbnRyb2xsZXJz?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-db.zte.com.cn 62QBDn8T007047
-X-MSS: AUDITRELEASE@mse-db.zte.com.cn
-X-TLS: YES
-X-SPF-DOMAIN: zte.com.cn
-X-ENVELOPE-SENDER: guo.wenjia23@zte.com.cn
-X-SPF: None
-X-SOURCE-IP: 10.5.228.131 unknown Thu, 26 Mar 2026 19:13:52 +0800
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 69C514F0.001/4fhLkS4GSDz8Xs71
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/27952/Thu Mar 26 07:24:52 2026)
 
-Hi Drew,
+From: Markus Niebel <Markus.Niebel@ew.tq-group.com>
 
-On Thu, Jan 29, 2026 at 4:28 AM Drew Fustini <fustini@kernel.org> wrote:>
-> Add interface for CBQRI controller drivers to make use of the resctrl
-> filesystem.
->
-> Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> Signed-off-by: Drew Fustini <fustini@kernel.org>
-> ---
->  arch/riscv/kernel/qos/qos_resctrl.c | 1192 +++++++++++++++++++++++++++++++++++
->  1 file changed, 1192 insertions(+)
->
-> ...
->
-> +
-> +int resctrl_arch_update_one(struct rdt_resource *r, struct rdt_ctrl_domain *d,
-> +                           u32 closid, enum resctrl_conf_type t, u32 cfg_val)
-> +{
-> +       struct cbqri_controller *ctrl;
-> +       struct cbqri_resctrl_dom *dom;
-> +       struct cbqri_config cfg;
-> +       int err = 0;
-> +
-> +       dom = container_of(d, struct cbqri_resctrl_dom, resctrl_ctrl_dom);
-> +       ctrl = dom->hw_ctrl;
-> +
-> +       if (!r->alloc_capable)
-> +               return -EINVAL;
-> +
-> +       switch (r->rid) {
-> +       case RDT_RESOURCE_L2:
-> +       case RDT_RESOURCE_L3:
-> +               cfg.cbm = cfg_val;
-> +               err = cbqri_apply_cache_config(dom, closid, t, &cfg);
-> +               break;
-> +       case RDT_RESOURCE_MBA:
-> +               /* covert from percentage to bandwidth blocks */
-> +               cfg.rbwb = cfg_val * ctrl->bc.nbwblks / 100;
+TQMa95xxLA is a SOM using NXP i.MX95 CPU. MBa95xxCA is a carrier
+reference design / starter kit board.
 
-Should use bc.mrbwb to calculate rbwb? 
-I think bc.nbwblks represent the available bw blks in the controller. It should should decrease as they are allocated.
+[1] https://www.tq-group.com/en/products/tq-embedded/arm-architecture/tqma95xxla/
 
-> +               err = cbqri_apply_bw_config(dom, closid, t, &cfg);
-> +               break;
-> +       default:
-> +               return -EINVAL;
-> +       }
-> +
-> +       return err;
-> +}
->
-> ...
->
-> +u32 resctrl_arch_get_config(struct rdt_resource *r, struct rdt_ctrl_domain *d,
-> +                           u32 closid, enum resctrl_conf_type type)
-> +{
-> +       struct cbqri_resctrl_dom *hw_dom;
-> +       struct cbqri_controller *ctrl;
-> +       int reg_offset;
-> +       u32 percent;
-> +       u32 rbwb;
-> +       u64 reg;
-> +       int err;
-> +
-> +       hw_dom = container_of(d, struct cbqri_resctrl_dom, resctrl_ctrl_dom);
-> +
-> +       ctrl = hw_dom->hw_ctrl;
-> +
-> +       if (!r->alloc_capable)
-> +               return resctrl_get_default_ctrl(r);
-> +
-> +       switch (r->rid) {
-> +       case RDT_RESOURCE_L2:
-> +       case RDT_RESOURCE_L3:
-> +               /* Clear cc_block_mask before read limit operation */
-> +               cbqri_set_cbm(ctrl, 0);
-> +
-> +               /* Capacity read limit operation for RCID (closid) */
-> +               err = cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT, type, closid);
-> +               if (err < 0) {
-> +                       pr_err("%s(): operation failed: err = %d", __func__, err);
-> +                       return resctrl_get_default_ctrl(r);
-> +               }
-> +
-> +               /* Read capacity block mask for RCID (closid) */
-> +               reg_offset = CBQRI_CC_BLOCK_MASK_OFF;
-> +               reg = ioread64(ctrl->base + reg_offset);
-> +
-> +               /* Update the config value for the closid in this domain */
-> +               hw_dom->ctrl_val[closid] = reg;
-> +               return hw_dom->ctrl_val[closid];
-> +
-> +       case RDT_RESOURCE_MBA:
-> +               /* Capacity read limit operation for RCID (closid) */
-> +               err = cbqri_bc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT, closid);
-> +               if (err < 0) {
-> +                       pr_err("%s(): operation failed: err = %d", __func__, err);
-> +                       return resctrl_get_default_ctrl(r);
-> +               }
-> +
-> +               hw_dom->ctrl_val[closid] = cbqri_get_rbwb(ctrl);
-> +
-> +               /* Convert from bandwidth blocks to percent */
-> +               rbwb = hw_dom->ctrl_val[closid];
-> +               rbwb *= 100;
-> +               percent = rbwb / ctrl->bc.nbwblks;
-> +               if (rbwb % ctrl->bc.nbwblks)
+Signed-off-by: Markus Niebel <Markus.Niebel@ew.tq-group.com>
+Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+Changes in v2:
+* Added Krzysztof's A-b
 
-Same problem.
+ Documentation/devicetree/bindings/arm/fsl.yaml | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-> +                       percent++;
-> +               return percent;
-> +
-> +       default:
-> +               return resctrl_get_default_ctrl(r);
-> +       }
-> +}
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index a476a6b11ba06..db8f8a0c87619 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -1614,6 +1614,17 @@ properties:
+           - const: kontron,imx93-osm-s    # Kontron OSM-S i.MX93 SoM
+           - const: fsl,imx93
+ 
++      - description:
++          TQMa95xxLA is a series of SOM featuring NXP i.MX95 SoC variants,
++          designed to be soldered on different carrier boards.
++          MBa95xxCA is a carrier reference design / starter kit that allows
++          to use TQMa95xxLA via an adaper board.
++        items:
++          - enum:
++              - tq,imx95-tqma9596la-mba95xxca  # TQ-Systems GmbH i.MX95 TQMa95xxLA SOM on MBa95xxCA
++          - const: tq,imx95-tqma9596la         # TQ-Systems GmbH i.MX95 TQMa95xxLA SOM
++          - const: fsl,imx95
++
+       - description:
+           TQMa95xxSA is a series of SOM featuring NXP i.MX95 SoC variants.
+           It has the SMARC form factor and is designed to be placed on
+-- 
+2.43.0
 
-
-Thank,
-Wenjia
