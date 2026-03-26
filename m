@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8383C1414;
-	Thu, 26 Mar 2026 10:22:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA883BFE4D;
+	Thu, 26 Mar 2026 10:22:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774520523; cv=none; b=AiYVf1DsBe4GYcuwevrvrM+X6viatryYrqRYxH6ZYhYCey32hCPPT9jcqYjSBrLK/+53W43twI9fUZiAGQZ3gor59b0bgEAOfPumIqFnTOlip/tfPr97NKVeWqCfL4lTf0RsLjmxRpJbufYGcDwfLbaTI8AswZj+NHULRS+lk2s=
+	t=1774520576; cv=none; b=Pe9RyObDkabrCyAEzI+dGghR2H1KSR76qOjKOXjgz1o6u1QQh3bxGveZNEjZijMS4jiJ8krEbZlzfNMr0Qw1eLac5QrizKXM6VX9/QQQOn2Tj8Bm8FbYADUTnYfbKtYadg76mVQExBmFrQQDCsLgoQLPxIvAy1ETlq78sYj8QJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774520523; c=relaxed/simple;
-	bh=30tjvfOT+W9FwgjTzxB+nZb9EcsEOPVPQ+/3tMwv+rY=;
+	s=arc-20240116; t=1774520576; c=relaxed/simple;
+	bh=k59cDz5SZZg+FBMjsLYNQPqI2K29HiBjyL8X88iJR2I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VafQWLo6Q0ngAts6QH6LFoy5wz4xPobWVWiy2BFKqz0T+eim9dJeuuyR08fSpWIMo6/VxILoMIk2lWfa1qUYIi+iOKGBiUTo0PPE+WmGb3NvtQth1+EqDhXPLm0sebqscN7t9FODVpIylRRxOJvUh5ID7v9HKof9hRRj08uionc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tZFsNn48; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=aHJ15zpIAYW7eBTnsh5yRkaa/ETlxFMHERt/qdwvmnJz7C3z+LM7FYT+UIhPrT3UVzIU7INSvrdc4iHD0CkSQ3Mu2TXG5x7txONC5utAAogkr3AKC4VHHpNiX4WG9R4Hp5lbomdO56/5My549gKAHvOiDabCnBLOK4HaWDVReR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XGaYefES; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tZFsNn48"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10F83C2BC87;
-	Thu, 26 Mar 2026 10:22:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XGaYefES"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75552C116C6;
+	Thu, 26 Mar 2026 10:22:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774520522;
-	bh=30tjvfOT+W9FwgjTzxB+nZb9EcsEOPVPQ+/3tMwv+rY=;
+	s=k20201202; t=1774520575;
+	bh=k59cDz5SZZg+FBMjsLYNQPqI2K29HiBjyL8X88iJR2I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tZFsNn48vkvKg1n0wVMoWFaPGPNpr2ACcq8iwv//Q9USbUNI4HfZ77J1yTRvAErza
-	 oa0xBdZmiJ7Y+NcNXAbLB46CS7QXfhIiBVvInVz2yMHyFn/R/Lt7KNR0RQr0kzPG1b
-	 aOtG/Vus2SOLSqYdt3DnsXg+HnmyJYUZk0hVaYomcZoicPdOaRKF88UjZ/VUTPDgeL
-	 th1Kl/kpADLvNrsjA8ozKHiTyDacaUvMv0l6rY6lX20+nvslIfi4rkTBgzYF/To88a
-	 5AKfopYU5lmoaZbtBXANvQISe1GAngbXef0LOqWtXotVALmqifshG8fy/CuvK513Mn
-	 BJdctfgR3H0Ow==
-Date: Thu, 26 Mar 2026 11:22:00 +0100
+	b=XGaYefES69ZvWl5IBV3tBmKpPQ0E0vXDxn6Dy+R14yuwHEkn/zmzYTVMaiXewFt0S
+	 n7vvIT79MzkZ9ENuAG6jokoRkT7MMh7qJn+Yw0vD7qnDTI4ZPwdI2mPONbZO7nyzte
+	 gQGeBaaNlbGpRyuCOQeC4rud0/428DDbGBZYlPDYGQywqbcqzjo+cqzQFyaDgDOQi7
+	 nU/Ib1WTe2TZgGs8YlXBLdUGjfDSO7kkXzs749IMy/NJXKvfyTGxk+G2RKwG3p+eYy
+	 j4CjCeXUFk69gFwV7CvR4JVS5/1Ohhd3/3nM1eIB9/HZZkso7B8Cp4MrP4Z281fqUb
+	 hrUSV/CxL7HDg==
+Date: Thu, 26 Mar 2026 11:22:53 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Chun Ng <chunn@nvidia.com>
-Cc: linux-tegra@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	thierry.reding@gmail.com, jonathanh@nvidia.com, ankitag@nvidia.com
-Subject: Re: [PATCH 3/4] dt-bindings: mailbox: tegra186-hsp: allow
- doorbell+shared or shared-only
-Message-ID: <20260326-powerful-cunning-spider-dd31aa@quoll>
-References: <20260325212628.1234082-1-chunn@nvidia.com>
- <20260325212628.1234082-4-chunn@nvidia.com>
+To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: arm: qcom: Document the Lenovo
+ IdeaCentre Mini X
+Message-ID: <20260326-fluffy-judicious-degu-3c4daa@quoll>
+References: <20260325-ideacentre-v1-0-768b66aaef30@oss.qualcomm.com>
+ <20260325-ideacentre-v1-1-768b66aaef30@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,45 +46,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260325212628.1234082-4-chunn@nvidia.com>
+In-Reply-To: <20260325-ideacentre-v1-1-768b66aaef30@oss.qualcomm.com>
 
-On Wed, Mar 25, 2026 at 09:26:27PM +0000, Chun Ng wrote:
-> On Tegra238, hsp_top0 mailbox has doorbell plus shared0, while hsp_top1
-> and aon_hsp mailboxes expose only a single shared interrupt (shared0 and
-> shared1 respectively) with no doorbell.
+On Wed, Mar 25, 2026 at 05:34:48PM -0500, Bjorn Andersson wrote:
+> The Lenovo IdeaCentre Mini X (Snapdragon) Desktop is a Hamoa-based
+> ultracompact desktop PC. It provides HDMI, DisplayPort, USB Type-C
+> display outputs, 5 additional USB ports, Ethernet, dual NVME slots,
+> headphone jack, WiFi, and Bluetooth.
 > 
-> Update the schema to support Tegra238 by adding an extra oneOf options for:
-
-NAK, there is no Tegra238 in that file nor in youro diff. Just open it
-and look around.
-
-> - doorbell with one shared interrupt (shared0..shared15)
-> - single shared interrupt only (no doorbell)
+> Document the compatible for this device.
 > 
-> Signed-off-by: Chun Ng <chunn@nvidia.com>
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 > ---
->  .../devicetree/bindings/mailbox/nvidia,tegra186-hsp.yaml   | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/mailbox/nvidia,tegra186-hsp.yaml b/Documentation/devicetree/bindings/mailbox/nvidia,tegra186-hsp.yaml
-> index f833b845de0d..274480a04c70 100644
-> --- a/Documentation/devicetree/bindings/mailbox/nvidia,tegra186-hsp.yaml
-> +++ b/Documentation/devicetree/bindings/mailbox/nvidia,tegra186-hsp.yaml
-> @@ -82,6 +82,13 @@ properties:
->        - items:
->            - const: doorbell
->  
-> +      - items:
-> +          - const: doorbell
-> +          - pattern: "^shared([0-9]|1[0-5])$"
 
-Here and...
-
-> +
-> +      - items:
-> +          - pattern: "^shared([0-9]|1[0-5])$"
-
-here: Commit msg says shared0, here you say up to shared15.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
