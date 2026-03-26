@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923B7311C11;
-	Thu, 26 Mar 2026 10:08:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE5C342CB4;
+	Thu, 26 Mar 2026 10:09:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774519702; cv=none; b=fe3BsFX+MRm4oxOysNVZQ6vu/AtbvBgh1FYq6BlL/FVuZPlK6SNcz5LE9gmP79aXC5mcejKh8u5lNUycs/vD51b4bWAZS/bUvMZ8UoYSk+Vby5jU8ttotXNNpbj9VKMx6Nb/C52sN0TWOl2efTU5VqM9StI3KBnOpCejpsPlJGE=
+	t=1774519773; cv=none; b=WX8YW3YfeBDSMzhSWJ/OlUhnx6HsNOnW72PZAaTHkJkZ+vS/+H5f0mCDlZlgvLIwgtvaP6lZLaSTr2DxWaAH1SacuDdpiugsNK1JOlWPVoBasWA8m3Uxg7IuJK978rkOI1LIjEgIF+PerLeMVmYG9FpH81JzNJkFUVDpjsyQFnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774519702; c=relaxed/simple;
-	bh=dig3vy1sDg7wLf0L1FKw4FdoIeG6qqm9PmtjzFHb/S0=;
+	s=arc-20240116; t=1774519773; c=relaxed/simple;
+	bh=7GqOdAr/+QsckbW+eE4wQGgGMhyHarlMo9zT41o2qsI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Frmp5xhWta0wQe1Eg16m1LG2cxhtZH/kQyXat9Moau+hWiqmu8SPBCsPpKMBaUgIB/kFGPJAuj3u37iZumIGLJTPB5TKHiNXTcaKOnIo10/JkONH4gNDVSokxXfO5g9yfCYy8pK0fLwxCgqRl1h1bbssOOEpaSzQ1UTrByOiF7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j5iIglKR; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=RABip1nsw1tFN2NYRhYqa2FpobkauS/QuCZ0xFd2tgLZrMaT1cXL+2BagV0yO7u1JX7oLG4C1VpoZVKA1jzYWEoWXg8jW4KcjqoUE8kAzONgzqWmEATsMfT8uRSQIgOyDtveXM8QU9q7ypLw2TZ5cyvMwp4PABevcqr3VELj6vk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JpveWrEr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j5iIglKR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B88EFC116C6;
-	Thu, 26 Mar 2026 10:08:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JpveWrEr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F52FC116C6;
+	Thu, 26 Mar 2026 10:09:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774519702;
-	bh=dig3vy1sDg7wLf0L1FKw4FdoIeG6qqm9PmtjzFHb/S0=;
+	s=k20201202; t=1774519773;
+	bh=7GqOdAr/+QsckbW+eE4wQGgGMhyHarlMo9zT41o2qsI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=j5iIglKRW/AsB0TozLCeWB3zWunAkjWd7PY9rkIo4Jy6jLG/GE/UHv1hvHIOk78og
-	 11ou7rom1/FYZOCHfRpJS69DtR6GhlJcO2Z0AWEzyXUrB00168wMSbTGrCqMopnCFU
-	 8qwBwkpJJtmfIJGf/vqBX2eSYu35cSGk3ORQyVh/bYIUnJ4fTdQSvQLSw96PKkdZVO
-	 zGAYOrir8u31tLBSodN8gI94TCWMhNChwxk8HLHl7Li6U+KquiHcxrYjeWgkHZ3J/Q
-	 11qYZu5+9VO8CpWiPrilDSWZfD9kSI1hqE71xuOCvU/LkBM0PoC907Liw0ES0bfdeN
-	 Gnv7miOHarR8g==
-Message-ID: <8e7d0c53-aa23-4514-81a5-335a76bb0c45@kernel.org>
-Date: Thu, 26 Mar 2026 11:08:17 +0100
+	b=JpveWrErEpda9ZzzF4stIFXdZw2Xkax1JnVkEhZ+f3n2z3i+V+R8w4cczEQxZjSUa
+	 1AwNG2/nXjgeryB8t/hXfeqe8JrWWxjYIx1Bsa/CEB9xUpeP100clvGSzEcR/l9huh
+	 1dGiqIHtRvaaHMXCfYfqI5yUHF9qD3JHA9q8cMeqBpxF8RKu70T9kt02klhyWU9XNV
+	 qrIvH2CnqxQIeHKnMEhtOb46ZvlqWKjdBUDLeHIfyxa8lKPLg3Ohpf3oFSBvlHOt2d
+	 To2E7TkB4GxxeAgt2EQC5TRvPPGNKN0BDH2R9pi4QtfqO/40WzgWh1FhRXrAfcaGdq
+	 cZjRbDOMXaFPg==
+Message-ID: <0e88f413-82c4-4986-9d9c-122e0b0377b1@kernel.org>
+Date: Thu, 26 Mar 2026 11:09:27 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,21 +35,25 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: Add clock guard DT description
-To: Vyacheslav Yurkov <uvv.mail@gmail.com>, Conor Dooley <conor@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Vyacheslav Yurkov
- <V.Yurkov.EXT@bruker.com>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260318-feature-clock-guard-v1-0-6137cb4084b7@bruker.com>
- <20260318-feature-clock-guard-v1-2-6137cb4084b7@bruker.com>
- <20260318225510.GA639444-robh@kernel.org>
- <7c7034a7-686a-42c2-bdba-6f31b5179f7c@gmail.com>
- <20260319-yearly-wrongful-883f7fd86a69@spud>
- <b45d9845-2d56-4fdd-a3ac-b0e0e27ba573@gmail.com>
- <20260323-sanctuary-semantic-432089feb1c7@spud>
- <d097826c-3db5-4902-acee-ffcff7436d4e@gmail.com>
+Subject: Re: [PATCH v6 1/4] dt-bindings: usb: Add binding for Genesys Logic
+ GL3590 hub
+To: Swati Agarwal <swati.agarwal@oss.qualcomm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Icenowy Zheng <uwu@icenowy.me>,
+ Matthias Kaehlcke <mka@chromium.org>,
+ Mike Looijmans <mike.looijmans@topic.nl>,
+ Pin-yen Lin <treapking@chromium.org>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, =?UTF-8?B?SiAuIE5ldXNjaMOkZmVy?=
+ <j.ne@posteo.net>, Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+References: <20260318040644.3591478-1-swati.agarwal@oss.qualcomm.com>
+ <20260318040644.3591478-2-swati.agarwal@oss.qualcomm.com>
+ <20260318-devious-spider-of-endurance-ede46f@quoll>
+ <CAHz4bYsUAojfB3BCHVoc8PMQBrjme6grdEnkxu7KhTQ+sxOf0A@mail.gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -95,48 +99,14 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <d097826c-3db5-4902-acee-ffcff7436d4e@gmail.com>
+In-Reply-To: <CAHz4bYsUAojfB3BCHVoc8PMQBrjme6grdEnkxu7KhTQ+sxOf0A@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26/03/2026 10:54, Vyacheslav Yurkov wrote:
-> On 23.03.2026 21:14, Conor Dooley wrote:
-> 
->>
->> The binding you've got says "GPIOs used to control or guard the clocks",
->> which is not what you're saying that is going on in this mail. A more
->> suitable description would be "GPIOs used to check the status of the
->> clocks".
-> 
-> Agree, the description I provided is not very accurate.
-> 
->> I want to see an example dts user for this please.
-> 
-> DTS example:
->    clock_guard: clock_controller_guard {
->      compatible = "clock-controller-guard";
->      #clock-cells = <1>;
->      clocks = <&h2f_clk 0>, <&clk_fgpa_rx 0>, <clk_fpga_tx 0>;
->      clock-names = "h2f_clk0", "clk_fpga_rx", "clk_fpga_tx";
->      gpios = <&fpga_ip 0 GPIO_ACTIVE_HIGH>, <&fpga_ip 1 GPIO_ACTIVE_HIGH>;
->      gpio-names = "gpio-input0", "gpio-input1";
->      clock-output-names = "clkctrl-guard";
->    };
-> 
->    custom_device {
->      compatible = "...";
->      ...
->      #clock-cells = <1>;
->      clocks = <&clock_guard 0>;
->      clock-names = "clock-guard";
->    };
+On 26/03/2026 11:07, Swati Agarwal wrote:
+> https://lore.kernel.org/all/20260121022449.GA1804139-robh@kernel.org/#t
 
-So a pure SW construct? Device has specific clock inputs but you do not
-model them and instead replace with one fake-guard-input.
-
-I don't see how this represents the hardware at all.
-
-Maybe some diagrams would help, assuming we still talk about hardware.
+Exactly this comment is not implemented. v5 repeated it. I repeated now.
 
 Best regards,
 Krzysztof
