@@ -1,88 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337DE4070F2;
-	Thu, 26 Mar 2026 16:33:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359383090D9;
+	Thu, 26 Mar 2026 16:41:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774542781; cv=none; b=TDWFhiCN3AeUh2sg8f7YU6KMiHPx5adTdFq3ogy5k7qs3KyduQxZeuTexejdhquOfoyRSUwBjDW84XWGaGWbOjyZ61I24T6TgUezBh11mUJKUXPzy9Aj76Q62trbrIXqxw3vqsPpKhPIJ1UJSPYEeFkGT/bqiWP88Bz1zW7O4c8=
+	t=1774543280; cv=none; b=UJAOEkMdm77opyvbJsDufauRG7ZGsbqwLbqHSB18+i6uC64Ztt/IFwYsdpkPpqdghumjV609HbGbsDW1cwdrMX5w/ubMyCsuLpchVxkp8In62KfmUoGfEkAkd+lHc0Lbcnex9X1tpxp55aRwnJcNb/7ge3Gk8y43TrILw1rppVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774542781; c=relaxed/simple;
-	bh=/25y2CaZKQmBZNRvI6Wl24tasPq9KSEN9f+Y3k5KuKw=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=cxvl2Dxz9e1jkRzEXnZb2RC/iS25K2RqzIobRYdCqYKfUCbBWLTFRsZCkrXIvdjW4eVwCnUEgy5TvJwvvg73jdW2X5uuRIxKfVxtM2VDQZytyOefqxH7pz/nWBVeonuyjGjnzGVt1rtl3P6hObTH/yENCc427MzCA3IwbQ7diAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OL2srYkV; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774543280; c=relaxed/simple;
+	bh=khIsf09HQtQVSltTOpFlaqNb+U+eny/5md8ooQmm3wY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MxzywDfsxl0MDNxVnSWtcghaqBBTGwsM+effRjvD3OTWV3UJd6ugLDZ0cCN/blZy/glxtLZ/RPas7nujN8nHOaGPDwJX62avOfpr3P/lAH5XU9TvIhyIXtBvPaa7+OXWsxn7B5YpD/z8ENpns2o9sXscGdMjyz/g4Exk63ZDX/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=q9TWMJPG; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OL2srYkV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89EA2C2BCB1;
-	Thu, 26 Mar 2026 16:33:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774542780;
-	bh=/25y2CaZKQmBZNRvI6Wl24tasPq9KSEN9f+Y3k5KuKw=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=OL2srYkVAZDkAXo/GUV6xJ0I2zaC5yFrtr3NG7sT9GsU5Wab8psX6LCchpVTnhdwA
-	 tvIF7nlvXWnEJuMlYK/JqDOtpC1UNMqdE8/1E+jOLJ8nHy/5AqUbQLnRm2Ytzk59Is
-	 0Jig74tQdtkjLg1z8eyx55QHCxqF6CveWoDCMBNKj2JqQ1crxq7w+rvKtSmCBNOB7K
-	 IQm2BsfqC2+4xORtKdZYr//cR4dgdQrgsjQFsBH08DHGFon0T23s2i492cuJGmtlz1
-	 d6LioOG+digkt4V3GnOF4Gv5U4toAJjeEXOWnw3dmFSo4B+kPrLHkjqGgCtFaB8XME
-	 ZTbUHqzf02g3w==
-Date: Thu, 26 Mar 2026 11:32:57 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="q9TWMJPG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=agMaZ/GJdV/tQntvePGg+8RCVIEFh9a0LvO+9OiF9Gw=; b=q9TWMJPGOXFs5VNWji2LA6+xEP
+	V/YB30gwd6WHEvU3qLBNOeIQbvcDQ7UFhm3M27rbkUztcWJ+HA353etvFovRlIqM9HMPEyvybMjMV
+	6obeQZuh4oKjKNaTPvZHwHWca/1DvCiUesOJHyg7W+l0pOGYx/4Yy9s1DcU3yN9u6Yj4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1w5nlg-00DVjM-8f; Thu, 26 Mar 2026 17:41:12 +0100
+Date: Thu, 26 Mar 2026 17:41:12 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Josua Mayer <josua@solid-run.com>,
+	Markus Niebel <Markus.Niebel@tq-group.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Primoz Fiser <primoz.fiser@norik.com>
+Subject: Re: [PATCH v1 2/3] arm64: dts: freescale: Add support for Variscite
+ DART-MX93
+Message-ID: <bf7680d3-0c93-40c8-b56b-4f91e03f5e36@lunn.ch>
+References: <cover.1774539301.git.stefano.r@variscite.com>
+ <304e5edc9ed11a552ac96c28d1046e4b13d5f960.1774539301.git.stefano.r@variscite.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: lgirdwood@gmail.com, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org, krzk+dt@kernel.org, broonie@kernel.org, 
- conor+dt@kernel.org, k.marinushkin@gmail.com, devicetree@vger.kernel.org
-To: Padmashree S S <padmashreess2006@gmail.com>
-In-Reply-To: <20260326153041.496811-1-padmashreess2006@gmail.com>
-References: <20260326153041.496811-1-padmashreess2006@gmail.com>
-Message-Id: <177454277698.110132.16843010568181790581.robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: sound: Convert pcm3060 to DT schema
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <304e5edc9ed11a552ac96c28d1046e4b13d5f960.1774539301.git.stefano.r@variscite.com>
 
+> +&eqos {
+> +	pinctrl-names = "default", "sleep";
+> +	pinctrl-0 = <&pinctrl_eqos>;
+> +	pinctrl-1 = <&pinctrl_eqos_sleep>;
+> +	/*
+> +	 * The required RGMII TX and RX 2ns delays are implemented directly
+> +	 * in hardware via passive delay elements on the SOM PCB.
+> +	 * No delay configuration is needed in software via PHY driver.
+> +	 */
+> +	phy-mode = "rgmii";
+> +	phy-handle = <&ethphy0>;
+> +	snps,clk-csr = <5>;
+> +	status = "okay";
+> +
+> +	mdio {
+> +		compatible = "snps,dwmac-mdio";
+> +		clock-frequency = < 1000000>;
 
-On Thu, 26 Mar 2026 21:00:40 +0530, Padmashree S S wrote:
-> Note:
-> * This patch is part of the GSoC2026 application process for device tree bindings conversions
-> * https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
-> 
-> Signed-off-by: Padmashree S S <padmashreess2006@gmail.com>
-> ---
->  .../devicetree/bindings/sound/pcm3060.txt     | 23 ----------
->  .../devicetree/bindings/sound/pcm3060.yaml    | 45 +++++++++++++++++++
->  2 files changed, 45 insertions(+), 23 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/pcm3060.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/pcm3060.yaml
-> 
+As far as i know, stmmac does not implement that property. There is
+the danger somebody does implement it sometime in the future, and your
+board breaks because it does not work a 10MHz.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+I suggest removing this.
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/sound/pcm3060.yaml:45:7: [error] no new line character at the end of file (new-line-at-end-of-file)
-
-dtschema/dtc warnings/errors:
-
-doc reference errors (make refcheckdocs):
-Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/sound/pcm3060.txt
-MAINTAINERS: Documentation/devicetree/bindings/sound/pcm3060.txt
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260326153041.496811-1-padmashreess2006@gmail.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+	Andrew
