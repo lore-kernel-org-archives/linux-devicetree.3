@@ -1,134 +1,164 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C553CB2F2
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 10:33:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E8F394495;
+	Thu, 26 Mar 2026 10:44:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774521212; cv=none; b=Z945pAxM8kI7VKe+0dF6VOAIEM9ft+dtwHCEvcrhiQX466kCgnofsJOHSMbDydqrQycaA9Wx1z1GBb+7YdXbAFfqmFFS3tVlh2+YK8YTXuzZy80PA6lp8NEnTQEBtgze+98XE43S6IbaBS+Uz8b507/nuZD+OJ28Hp7WA1rqZKs=
+	t=1774521868; cv=none; b=gQY+hLKnYi+slCAVxb8lHLv6nMxoVL0NP7hPVkt8dC3JARs6N2WHEoymFCpF1v3G65TpNdlec5fNfQtXVjyrOywiZyDaoj2uT/uf20S5V6IeeWPXQ7MXzrQymwJ7V4aXqaA85gAtaNr5y0Yc/9chlMb7a615cUmzZuEC5h6pevE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774521212; c=relaxed/simple;
-	bh=ZudevnbvHxuJFNRVUgY0l6TTlPYj57cCXzQfq18RxyU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RGND5Tk6sZo1QNAWUHcn9RSbt38jLPeNhR8XF9Cb4S54x6BT6xA9q7QDA9xvhqmDWev3uMpDjXwCa77UJlEbsvthk0ZGFLHAYe1NwaTAsiQ3VuoY1knVUCkYkUrl2M+aZWVkgJABCKeMTovZrAfCWdTH7MmhMsnkuIF2oxKZJ8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kLAVn+yy; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774521868; c=relaxed/simple;
+	bh=wYyWKLKHzE8kFdi3vkKIQNJjQ2xVIQi9Z3+ApgMANsU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EwwXN2uScSdd/t8Z/NZ0aJtBjor5Pgmuc1EZ9NbuLcncVICkYNxEQKzvdOEPwG+xdyYbmAk5tNHX0U2XWB2gnIyUcDsA99ttp/rf1scvzKOYZ0TNBT/vImmmx7lgHuBzH6BuGwgALwq0oZfhnY2eWpyjgr1ClZdMPzgJrGwckgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ExS4F9cj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kLAVn+yy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6E02C19423
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 10:33:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ExS4F9cj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F37CAC116C6;
+	Thu, 26 Mar 2026 10:44:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774521211;
-	bh=ZudevnbvHxuJFNRVUgY0l6TTlPYj57cCXzQfq18RxyU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=kLAVn+yyTl/Q8z+UhqbNmfz2LrWrp36HL1Ae4tSkcqPbq1qp3GRw4UjT323vqOUua
-	 8ahJjFB01lxdM/2KIMuWIT/npAo065XzkAEJITt09khnLhIl+eLEP4WHkDeGlGhT4f
-	 e0aeWHoRGhZBI4R40jiCJ1bYcjad052WCHxrFwLVGoii6XzPg7Pg1HGrPKXJuKh9dZ
-	 FixFToi4dvl3Fnnmk6MV3sIitDaktMkzrAFWZVUVpwagZgrFRx2FtV0UYZvB2u1NgG
-	 sqo55jxPVDBNxHLQcxm2vrGc3ZOgOvS+j+ZAYexlcyf+b06vLqMYU9z3zUlgUTwEUY
-	 w55U+UPZxDs9w==
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-79628fb5c05so6860407b3.2
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 03:33:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCX463q18PafntPV4pTS7tmzdho72E5mQAqrge6xumHrECby+CJCei2/QC5Ij721a4tKsYbFsMGg3Ozz@vger.kernel.org
-X-Gm-Message-State: AOJu0YzWJUL7B73Bb2AK7NJszKaFuK5yhXyhwq9GvHeyqhG7q2e3S3vZ
-	fwsvwXD1KJwzigc28SncVUBNoIZF/1iVuUrXAO60rzBdLAXI43xo8Zsb6Q7rkOkysknT5YQrzDZ
-	o0ep+LfMnXgEtDKkWoA5aDyhlLO8eanw=
-X-Received: by 2002:a05:690c:6086:b0:79a:69bc:f20f with SMTP id
- 00721157ae682-79acf3a8b76mr76387137b3.21.1774521210579; Thu, 26 Mar 2026
- 03:33:30 -0700 (PDT)
+	s=k20201202; t=1774521867;
+	bh=wYyWKLKHzE8kFdi3vkKIQNJjQ2xVIQi9Z3+ApgMANsU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ExS4F9cj1qPv8ZD99tED4KgYGzwKJhaPjQjk4AbLynuZJmdpxyUdMu4s4DpPRKQcy
+	 EX+sxI3Pg3rr5S95A15P2YhtG0cuWqKP6Gl4RKIfASOySd5XB12Q99efWvMMndFrAY
+	 4UvCfzNbpwfQwr6BOSpidNaaIHTpfc0CAGF+9fcsk7OSC57QhjSnsu5gtXq3lCU5RB
+	 iEaLl5obtx59jVaOyXh9g2gPZ/lfTcoSWktWUA8VeHShmGJg9zGvDORi8LIJJg3tif
+	 5d2lWXmQ41pDTRDHmj3bQfcjClhTXGl8lKqiv77eqZf6+w0AoRfcHvOpuI/FNt7J1z
+	 8Cv/OVQ88wOlA==
+Date: Thu, 26 Mar 2026 10:44:23 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Vyacheslav Yurkov <uvv.mail@gmail.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/2] dt-bindings: Add clock guard DT description
+Message-ID: <20260326-lustiness-borrower-530898a5ce28@spud>
+References: <20260318-feature-clock-guard-v1-0-6137cb4084b7@bruker.com>
+ <20260318-feature-clock-guard-v1-2-6137cb4084b7@bruker.com>
+ <20260318225510.GA639444-robh@kernel.org>
+ <7c7034a7-686a-42c2-bdba-6f31b5179f7c@gmail.com>
+ <20260319-yearly-wrongful-883f7fd86a69@spud>
+ <b45d9845-2d56-4fdd-a3ac-b0e0e27ba573@gmail.com>
+ <20260323-sanctuary-semantic-432089feb1c7@spud>
+ <d097826c-3db5-4902-acee-ffcff7436d4e@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260325143555.451852-1-herve.codina@bootlin.com> <20260325143555.451852-21-herve.codina@bootlin.com>
-In-Reply-To: <20260325143555.451852-21-herve.codina@bootlin.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 26 Mar 2026 11:33:19 +0100
-X-Gmail-Original-Message-ID: <CAD++jLkFu+Z22QBFiaa9S+Epeh=RJZOYX8BOLVDFw4bhEoYF1Q@mail.gmail.com>
-X-Gm-Features: AQROBzC4i_eE97sXtt89YSs_3fVQUuKW8eO9nnDvhVba5azUhozyRvIt7ceD-wY
-Message-ID: <CAD++jLkFu+Z22QBFiaa9S+Epeh=RJZOYX8BOLVDFw4bhEoYF1Q@mail.gmail.com>
-Subject: Re: [PATCH v6 20/27] misc: lan966x_pci: Fix dtso nodes ordering
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Kalle Niemi <kaleposti@gmail.com>, 
-	Matti Vaittinen <mazziesaccount@gmail.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, Peter Rosin <peda@axentia.se>, 
-	Arnd Bergmann <arnd@arndb.de>, Saravana Kannan <saravanak@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Charles Keepax <ckeepax@opensource.cirrus.com>, 
-	Richard Fitzgerald <rf@opensource.cirrus.com>, David Rhodes <david.rhodes@cirrus.com>, 
-	Ulf Hansson <ulf.hansson@linaro.org>, Mark Brown <broonie@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Davidlohr Bueso <dave@stgolabs.net>, 
-	Jonathan Cameron <jonathan.cameron@huawei.com>, Dave Jiang <dave.jiang@intel.com>, 
-	Alison Schofield <alison.schofield@intel.com>, Vishal Verma <vishal.l.verma@intel.com>, 
-	Ira Weiny <ira.weiny@intel.com>, Dan Williams <dan.j.williams@intel.com>, 
-	Shawn Guo <shawnguo@kernel.org>, Wolfram Sang <wsa@kernel.org>, linux-kernel@vger.kernel.org, 
-	driver-core@lists.linux.dev, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
-	patches@opensource.cirrus.com, linux-gpio@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-spi@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-cxl@vger.kernel.org, 
-	Allan Nielsen <allan.nielsen@microchip.com>, Horatiu Vultur <horatiu.vultur@microchip.com>, 
-	Steen Hegelund <steen.hegelund@microchip.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="72NOa8YuikAK5mKM"
+Content-Disposition: inline
+In-Reply-To: <d097826c-3db5-4902-acee-ffcff7436d4e@gmail.com>
+
+
+--72NOa8YuikAK5mKM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Herve,
+On Thu, Mar 26, 2026 at 10:54:52AM +0100, Vyacheslav Yurkov wrote:
+> On 23.03.2026 21:14, Conor Dooley wrote:
+>=20
+> >=20
+> > The binding you've got says "GPIOs used to control or guard the clocks",
+> > which is not what you're saying that is going on in this mail. A more
+> > suitable description would be "GPIOs used to check the status of the
+> > clocks".
+>=20
+> Agree, the description I provided is not very accurate.
+>=20
+> > I want to see an example dts user for this please.
+>=20
+> DTS example:
+>   clock_guard: clock_controller_guard {
+>     compatible =3D "clock-controller-guard";
+>     #clock-cells =3D <1>;
+>     clocks =3D <&h2f_clk 0>, <&clk_fgpa_rx 0>, <clk_fpga_tx 0>;
 
-this is nitpicking, but if you respin the series consider the following:
+Unfortunately, this doesn't contain the part that I wanted to see - who
+the providers of these clocks here actually are.
 
-On Wed, Mar 25, 2026 at 3:42=E2=80=AFPM Herve Codina <herve.codina@bootlin.=
-com> wrote:
->
-> Nodes available in the dtso are not ordered by their unit address.
->
-> Fix that re-ordering them according to their unit address.
->
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-(...)
-> +                               switch: switch@e0000000 {
+To be frank, I am not sure how this block would know that these clocks
+are enabled but their providers do not. I can think of a few ideas for
+how this block would know, but I don't understand why the providers
+themselves don't, and therefore why you need this gpio to tell you.
 
-Recommended practice is:
+>     clock-names =3D "h2f_clk0", "clk_fpga_rx", "clk_fpga_tx";
+>     gpios =3D <&fpga_ip 0 GPIO_ACTIVE_HIGH>, <&fpga_ip 1 GPIO_ACTIVE_HIGH=
+>;
+>     gpio-names =3D "gpio-input0", "gpio-input1";
+>     clock-output-names =3D "clkctrl-guard";
+>   };
+>=20
+>   custom_device {
+>     compatible =3D "...";
+>     ...
+>     #clock-cells =3D <1>;
+>     clocks =3D <&clock_guard 0>;
+>     clock-names =3D "clock-guard";
+>   };
+>=20
+> The driver usage exaple:
+>=20
+> clk =3D devm_clk_get(dev, "clock-guard");
+> if (IS_ERR(clk))
+> 	return dev_err_probe(dev, PTR_ERR(clk), "failed to get clock\n");
+>=20
+> ret =3D clk_prepare_enable(clk);
+> if (ret) {
+> 	dev_warn(dev, "Clock is not ready, %d\n", ret);
+> 	return -EPROBE_DEFER;
+> }
+>=20
+>=20
+> > TBH, I don't understand your driver implementation either and why it has
+> >=20
+> > +static const struct clk_ops clkctrl_guard_ops =3D {
+> >=20
+> > +	.enable =3D	clkctrl_guard_enable,
+> > +	.disable =3D	clkctrl_guard_disable,
+> > +	.prepare =3D	clkctrl_guard_prepare,
+> > +	.unprepare =3D	clkctrl_guard_unprepare,
+> > +	.is_prepared =3D	clkctrl_guard_is_prepared,
+> >=20
+> > any of these 4 implemented when you have no control over the clock.
+> > I didn't think it was required to call your parent clocks enables in
+> > your own enable either, thought that was handled by the core recursively
+> > calling clk_enable() on clk->parent. The one thing I would expect you to
+> > have implemented ops wise is is_enabled, which you don't have.
+> > Also no sign of any rate acquisition functions, which I thought were
+> > mandatory.
+> >=20
+> > +	.get_parent =3D	clkctrl_guard_get_parent,
+> > +};
+>=20
+> Good point on .is_enabled, I indeed missed that. As for the rate acquisit=
+ion
+> functions I referred to this table
+> https://docs.kernel.org/driver-api/clk.html#id4 , and it see that .set_ra=
+te
+> is actually optional.
 
-ethernet-switch@...
+=2Eset_rate is not rate acquisition. .round_rate and .determine_rate are.
+I thought they were mandatory, but for a gate clock I guess they are not
+and the parent rate gets used automatically.
 
-> +                                       compatible =3D "microchip,lan966x=
--switch";
-> +                                       reg =3D <0xe0000000 0x0100000>,
-> +                                             <0xe2000000 0x0800000>;
-> +                                       reg-names =3D "cpu", "gcb";
-> +
-> +                                       interrupt-parent =3D <&oic>;
-> +                                       interrupts =3D <12 IRQ_TYPE_LEVEL=
-_HIGH>,
-> +                                                    <9 IRQ_TYPE_LEVEL_HI=
-GH>;
-> +                                       interrupt-names =3D "xtr", "ana";
-> +
-> +                                       resets =3D <&reset 0>;
-> +                                       reset-names =3D "switch";
-> +
-> +                                       pinctrl-names =3D "default";
-> +                                       pinctrl-0 =3D <&tod_pins>;
-> +
-> +                                       ethernet-ports {
-> +                                               #address-cells =3D <1>;
-> +                                               #size-cells =3D <0>;
-> +
-> +                                               port0: port@0 {
+--72NOa8YuikAK5mKM
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Recommended practice is:
-ethernet-port@...
+-----BEGIN PGP SIGNATURE-----
 
-Yours,
-Linus Walleij
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacUOBwAKCRB4tDGHoIJi
+0p35APwM6IgF3CNzxliJf3k0IJWw3lKQWkTG1iT/DuVvPfDOyQD/WoFBCbreKH3p
+FQLv5UYcBgZwbxHHqjd/FcrAjhSTJgc=
+=TceI
+-----END PGP SIGNATURE-----
+
+--72NOa8YuikAK5mKM--
