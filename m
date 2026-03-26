@@ -1,115 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F215B3B2FD5;
-	Thu, 26 Mar 2026 09:10:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3C03B893B
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:10:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774516244; cv=none; b=ZoNQkZ1f3EdFUk4EmLj7DcAgBSTyedcIzc5kw0/K0o70M0AVj75L6Ksj5uRWAt8ahUw0vK6TFNZb2Zk6dKaM8eEAjQR/lyuUZWQxNOlLMddkvi4qCiGycDAkySLTHhSqvFJ2YC0PRhipu9NUTzwBO/pl9F2hG/JJb9BU9iR/m3o=
+	t=1774516252; cv=none; b=fYgy53vq9PIBLuCZlMVC98ztufCdPHiFttRpgAMz8DA6Asx+na4PGaaJ2xO1d9Ixm5E78ESBNZ0wJtPj5qu3rKT2XvXDZdGCowvV9H4Xy1N+szxkUb37UQHnS/u/mbnvOYeH88yS9MA9bWdGRGB8Oey5B8ONJvRcqwpYTd3/RHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774516244; c=relaxed/simple;
-	bh=EjZpcrAur5FvPQc3moL8Cjlg6WecnKEFT1b2Hs2brFw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CqVf8RbncxZIaHvlvX+l/IH7KAV/icjEoRspWx7fBIyydEbLPzvKy2QiPgx36Ulb4RcLs8g99DNkNTrxfvgp8cI0bMdI40g9Y9+3kk7/F64rQMul1VlgC0i/dbEsYpXXA4FbfMpc+MVjQds+wx+TbEhcv1NnSPFl8diCyqTYsVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LmSft1bQ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774516252; c=relaxed/simple;
+	bh=jlfzUqL5XaI195zD9OLF2Th7Si2B8ruPet0hTv9v4Ns=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QLybys5Sx9NDnGQbrmHHz1fBVFK0tGYvMkzT8pcLYifu7AIluFf+5Y40zyO8Rzqa+fSw9Ow5D6+lkytF8ZtPJwmtoj+nguCSdqrDkg5wZbLM9J5QFSCvwp65mjmQp0VZu195peuj5bZySTbXs0s2khN+LIjxjAWZK/QaJlOSWRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OZyQpkn5; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LmSft1bQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB356C116C6;
-	Thu, 26 Mar 2026 09:10:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774516243;
-	bh=EjZpcrAur5FvPQc3moL8Cjlg6WecnKEFT1b2Hs2brFw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=LmSft1bQVS/1dyrNQEjpMff3JZHX1EVmAysV2Xvi0FJXKGHqAY02o4gyUDpiuMPsl
-	 ECLMhUplMpUusTDRJrum0stIp8WOKg5QTw4U22m8LJ2ox9Vxnn41wikdr6jFYc2XQJ
-	 2CMHJeMOwR6H7KKE/fJluXVP704NF56Y4Qp5pZDHTAjvKtZusVsl2zktzDMOKqlMuy
-	 hJm+r8fSNHQHaQC8HgNWJlFpGF0YARHe/0zp/hEhqrhObwKzyEIB8lHmW0o3kl5EX3
-	 aLoFiNBeLPJuF5zL87oTqLTAzSmi7zaAwLVpuALRk6PwJLBtgr0+GKLgLT3m4MutSk
-	 l/2eSx/xaQ1KA==
-Message-ID: <9687b21e-e6f9-4d66-b8ad-a5f2e60bb787@kernel.org>
-Date: Thu, 26 Mar 2026 10:10:39 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OZyQpkn5"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-439d8df7620so478224f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:10:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774516250; x=1775121050; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=sMvbvGrl3e3VBg8APBt/Zd4LqlkyH4JNJs+/pCZCmgc=;
+        b=OZyQpkn5FzvoPEFNDwTrBGjW/fgxRCufxDhh9yGPZtbd4ZFkkqWVt5HYb58IeHqrOT
+         DJi5Y54CkJG6n8uLOukJ0iVBhJS+E5GC3znv1CbCozodUgjfeU/zdHFdZXteQRS8fXdh
+         8QCg15By3Q+YzB+yAOLFb/e8Zqw+9TiAbfFaRqTGBhvyImKXajUBTIzp2A30UHchQXoI
+         L5OPrnM7qlwH/b0bADnSS+uOsD/a1aKsRaYIcH2PXUK8rIz4VY3DaeZikU18Y5l2RMVD
+         9zV2hhaz2yWuaLUuqhDB9tcQBNBG1YYZr9AINs01Y2yDPwbGw/fvKvC5X4ptdaQ3OWoo
+         nsmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774516250; x=1775121050;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=sMvbvGrl3e3VBg8APBt/Zd4LqlkyH4JNJs+/pCZCmgc=;
+        b=AGjpv5rxuC3nQ6IKfz0aX1h4i/FIAbOMkVDyRDmM7wKEUqQierFbIf+kBHKdj4yRyL
+         mLYEK5MCB0omsvG4G559GZ9R30wOUx0VnE1+lzECFCQK4fFSAsc7rBirYMgpRIud8bTj
+         7H/9C6PvXsnz67OqcpIPNlL5R11+Ef7IkdwriWClXGxEHzOhruZVkMQMqEx4xx7ny/p2
+         EymM+gktMQ13ebCL+ALvcCgZ05V7wyBXIzMe+ezKQYhzjCbBbH3ywYYjyzXJOOuMBfd7
+         focc+vGSDk/ATy4rcQSyNDXokKY+SRh6njW/OkNVXTp6Bu9L7CtFWpZsTOvs7N8UgLxQ
+         rPug==
+X-Forwarded-Encrypted: i=1; AJvYcCUffly4lm7c0TKTcHeExdJL0Olny8Rlzh9kHU5tbeYwI+Zm41PPMvvJDh4BGb2I+C96WdCfryPn1Np6@vger.kernel.org
+X-Gm-Message-State: AOJu0YxXhEnaJsWceBYBdRg9r2Bx8Ms3mYFMzMZBAiXgm2Cw7cmGqY+/
+	e8AJ4Za3Fi9hONTHf0+gDLRev4WfEXYecYAvn8THiE5cDSvQ2L1/ZXDtv+QgQeJW
+X-Gm-Gg: ATEYQzzGaRgl2UXAcVvzi0e5tobTukBXrwxOjJfZBW+M8lxpS/loqfytlRQY44tvpwS
+	1NBY3xtzlSSZrmvorL8ushabdQvj7F6y0NDbxcGTABvmWgL1585wKQ1sK6NRq0kdo0510bYBuZ7
+	rmChkFeJrBPJsxyW/SGCEoh/HmHIddOpBa5+3GSP0sTODzytt4bbEE/2ANNe84/M+nQq9qTFc2I
+	lMfabwxeg+VqHIfB82MrtaFRQglvoLLmq562Ne3DqxX3qZRtBW6RlDQNnoPTtvEK7/q4q3cdint
+	X/FMlk+avbZP4lXCNefTzR03yUOZ+fht4jxGXXiIqbmlHMOPc2XxXqvEhfxct0vjbk1+e2ftPfx
+	t/eUtV/n1JyisezbbKOOqRaQhCp2NdiylWXCNBPEldmH2+/dl8z9YHmICu4klGOUstCRGoEdsoR
+	LQ+62AsnNLaddtTPQ0rMlJhcRDjCeR3gQyNwDNPVpzftbnk374/EKAtvQrzu1pMOVXPTYmDXcVS
+	3XeP7sy2Q==
+X-Received: by 2002:a05:6000:60f:b0:43b:5765:96a9 with SMTP id ffacd0b85a97d-43b889af1d0mr9982897f8f.24.1774516249379;
+        Thu, 26 Mar 2026 02:10:49 -0700 (PDT)
+Received: from [127.0.1.1] (cust-east-par-46-193-119-166.cust.wifirst.net. [46.193.119.166])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b919e7111sm6381199f8f.37.2026.03.26.02.10.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Mar 2026 02:10:48 -0700 (PDT)
+From: Fidelio Lawson <lawson.fidelio@gmail.com>
+X-Google-Original-From: Fidelio Lawson <fidelio.lawson@exotec.com>
+Subject: [PATCH 0/3] ksz87xx: add support for low-loss cable equalizer
+ errata
+Date: Thu, 26 Mar 2026 10:10:20 +0100
+Message-Id: <20260326-ksz87xx_errata_low_loss_connections-v1-0-79a698f43626@exotec.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/6] spi: dt-bindings: qcom-qspi: Add QCS615 compatible
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, cros-qcom-dts-watchers@chromium.org,
- linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260324-spi-nor-v1-0-3efe59c1c119@oss.qualcomm.com>
- <20260324-spi-nor-v1-1-3efe59c1c119@oss.qualcomm.com>
- <20260325-vehement-bronze-manul-ce6bcb@quoll>
- <0c3c0d7d-b108-4295-96da-a261e65cd16e@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <0c3c0d7d-b108-4295-96da-a261e65cd16e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPz3xGkC/yWNwQrCMBBEf6Xs2UBMair+ikhI4qpRSWS32mDpv
+ 7vqYQ4PZt7MwEgZGXbdDISvzLkWgfWqg3QJ5YwqH4XBaOO0NVbd+L0dWvNIFMbg73WSMPtUS8E
+ 0ypxVdBscHJrYawtiehCecvu97A9/5me8Sv2rhmX5AGYdrFmHAAAA
+X-Change-ID: 20260323-ksz87xx_errata_low_loss_connections-b65e76e2b403
+To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Woojung Huh <Woojung.Huh@microchip.com>, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Fidelio Lawson <fidelio.lawson@exotec.com>
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774516248; l=1968;
+ i=fidelio.lawson@exotec.com; s=20260326; h=from:subject:message-id;
+ bh=jlfzUqL5XaI195zD9OLF2Th7Si2B8ruPet0hTv9v4Ns=;
+ b=S/roDsVN3Wq7zvzTF/aHCH1/5dfMWW/cty9n3DjadfYyFJRUSGTSmsQ7sEQzyfLTGePzH4qFA
+ C9n3mmOj4v1CP05vTUtTDjYs5aj3KsTim7BTPyQuXA3t5uKvt8HucI8
+X-Developer-Key: i=fidelio.lawson@exotec.com; a=ed25519;
+ pk=866eH9Bmmpjc+ctgkr5T1uXxBefZzob3tEEuiVWZ6BI=
 
-On 26/03/2026 10:07, Konrad Dybcio wrote:
->>>        - enum:
->>> +          - qcom,qcs615-qspi
->>
->> Existing bindings allow flexible interconnects, but it should be
->> constrained. At least for new variants. Please move allOf: to the bottom
->> (after required:) and add there if:then: requiring min two interconnects
->> for qcs615.
-> 
-> FWIW they should have never been flexible on any platform
+Hello,
 
-Changing existing ones affects ABI and I do not wamt to stall this
-contribution. New code however must be correct.
+This patch series adds support for the "Module 3: Equalizer fix for short
+cables" erratum documented in Microchip KSZ87xx Errata DS80000687C.
+
+According to the erratum, the embedded PHY receiver in KSZ87xx switches is
+tuned by default for long, high-loss Ethernet cables. When operating with
+short or low-loss cables (for example CAT5e or CAT6), the PHY equalizer may
+over-amplify the incoming signal, leading to internal distortion and link
+establishment failures.
+
+Microchip provides two workarounds, each requiring a write to a different
+indirect PHY register access mechanism.
+
+This series introduces:
+
+ - Device Tree bindings to enable the errata fix and select workaround 1 or 2,
+ - driver-level parsing of these bindings,
+ - implementation of the indirect register programming sequence required
+   for Workaround 1 and Workaround 2.
+
+If the errata is enabled but no mode is explicitly selected, the driver
+defaults to Workaround 1, following Microchip guidance.
+
+The feature is opt-in and does not affect existing platforms that do not
+enable the errata.
+
+Tested on KSZ8795 with both Workaround 1 and Workaround 2.
+
+Signed-off-by: Fidelio Lawson <fidelio.lawson@exotec.com>
+---
+Fidelio Lawson (3):
+      dt-bindings: dsa: microchip: add KSZ low-loss cable errata properties
+      net: dsa: microchip: parse KSZ87xx low-loss errata from DT
+      net: dsa: microchip: implement KSZ87xx Module 3 low-loss cable errata
+
+ .../devicetree/bindings/net/dsa/microchip,ksz.yaml | 18 ++++++
+ drivers/net/dsa/microchip/ksz8.c                   | 71 ++++++++++++++++++++++
+ drivers/net/dsa/microchip/ksz8.h                   |  1 +
+ drivers/net/dsa/microchip/ksz_common.h             |  9 +++
+ 4 files changed, 99 insertions(+)
+---
+base-commit: 2d1373e4246da3b58e1df058374ed6b101804e07
+change-id: 20260323-ksz87xx_errata_low_loss_connections-b65e76e2b403
 
 Best regards,
-Krzysztof
+--  
+Fidelio Lawson <fidelio.lawson@exotec.com>
+
