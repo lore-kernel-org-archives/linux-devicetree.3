@@ -1,151 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B6539FCAD;
-	Thu, 26 Mar 2026 18:32:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84BD39FCA0;
+	Thu, 26 Mar 2026 18:32:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774549943; cv=none; b=XweSbSd8E54bkzwDvKQYkFtBtJlACwC0tbgvFA42Nzq/7J7PING6gtgzI9JWu8ktK+ifNRlV+uYbOcTcxFzbABHIUSt777Y6aNDCWx2YRSmSGBiVmEU2nqSD3aOkQv7P6EBeHh1+Ps3Rv/aYqIFxku1v+p3Z3ioIXlsnJ7SW1mo=
+	t=1774549967; cv=none; b=UeBlP8MeAwANu5vmfoW2d0ifyfSVQIBDQYtNPb2ST7lEbWJ7nNFWKH5CcmMiExzM3AVxruySentpHpTitBL4EG6clchrUuSu/ix43f9bBQV1drNlliSPqdhmwSSb1vtDryP0jkKUX/6Nu3ORPX0RyLOlts/C9zeyWN9ZtO93rSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774549943; c=relaxed/simple;
-	bh=Hom04uPizYqHH9Z7CUP6T+8bG4T7pz30VDETLsxikXo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nXhzMb4DEIm0Rc/NMHcJB1xB4sdUErIXcxNjwa5qkanZkioFY6tQN5UO/q5qmZCIt+DyLzbBrWuBf03W0cHxLFdAWyUO94MdjHxdWnK3Ij20PTCdHhe5iRNRaJsjYvHx8ivB2kzzJWcQrELDUWy6O9laVbsl5bjSrME+XRZCzTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LRYQeNqe; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774549967; c=relaxed/simple;
+	bh=e3IQSyuBkI2uxnImkTHRmeOQRMXLH8i/LlfJruNVzDU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZYM0/Hf4QY0uUDlpBorKmDy12EDZ/RP9TUTfrkd1xRemo8ypPOW2Kc4CCP7MqnbgoY+LN+/nCFKt5MavVXlwdOi0imKAaBsnEiNqP74szqD1e5uefT0BvFuUVv/z6yMcYYAA4H+qfXBl4yLD/wLPHhq7MkeIipO6jRZhMWFHZYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oXBOTXGp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LRYQeNqe"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 466C1C2BCB2;
-	Thu, 26 Mar 2026 18:32:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oXBOTXGp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46051C19423;
+	Thu, 26 Mar 2026 18:32:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774549943;
-	bh=Hom04uPizYqHH9Z7CUP6T+8bG4T7pz30VDETLsxikXo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=LRYQeNqeMxxZLZq+s/Xhf5Xwa2D9/q/z0dKdznRLzFbr75wFclTZMl77FKX8J3CeZ
-	 Lmysg/U7zRRGZ9drdG/wq7SRCOM3d0R/00HPXdpF1VD8lQSA+3+K3HOZDUfVvyTisN
-	 8bvG1GfcRW4+753rWzJqftTkMz6KCbjpRPUvAuPXccXSrw0AVcEsoZtrTWc6T/+G8G
-	 DrznNSf16NC1QUUnOzawI+nmgRoGtjUR68KO4DWfuf5uQyRt30ZA5+c/lM+JlGcJmP
-	 sld40QeyWNWvm8dTexCWPInKorDtDBXXHO26QA8hkHjAzqWtNGShpiqg7Vp3MN4946
-	 cvz1808fYUsqg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 32CDC10A1E63;
-	Thu, 26 Mar 2026 18:32:23 +0000 (UTC)
-From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Thu, 26 Mar 2026 18:32:17 +0000
-Subject: [PATCH v2 2/2] iio: amplifiers: ad8366: add support for adrf5702/3
+	s=k20201202; t=1774549967;
+	bh=e3IQSyuBkI2uxnImkTHRmeOQRMXLH8i/LlfJruNVzDU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=oXBOTXGp4xmTGCKJSE7gm9Xu637AwSplxv8pVowIRY2BfpbbWAUK26SxzC0EDJEBQ
+	 l9UK68GExK+Ub8zKEZ8UIP+yAPJGkOjhosdhzrlnlPzcj0AO4CzcnSj7pEZg9IFS6E
+	 gGQj9rwKa6GNBTkyFyI3sPxE/EP5vWg+ddJAdVVXGUgSI1+FRZPMIz9edXrq5w27kB
+	 90ytl2eN3oUNElRJzjzGCjvkjrSTro4qXZDMCG87HUYx+sZ6aeMXNFV7FPBCpJyZwO
+	 upr/Yd3k16qXCEUH7rBcpqwsh5cB8ksql9JnWpUb3qGb0Fd5O8iRx1piEtO0NDACD8
+	 0QwNqfuUjSNzQ==
+Date: Thu, 26 Mar 2026 18:32:42 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Vyacheslav Yurkov <uvv.mail@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+	Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/2] dt-bindings: Add clock guard DT description
+Message-ID: <20260326-nursery-outer-55799f675e14@spud>
+References: <20260318-feature-clock-guard-v1-0-6137cb4084b7@bruker.com>
+ <20260318-feature-clock-guard-v1-2-6137cb4084b7@bruker.com>
+ <20260318225510.GA639444-robh@kernel.org>
+ <7c7034a7-686a-42c2-bdba-6f31b5179f7c@gmail.com>
+ <20260319-yearly-wrongful-883f7fd86a69@spud>
+ <b45d9845-2d56-4fdd-a3ac-b0e0e27ba573@gmail.com>
+ <20260323-sanctuary-semantic-432089feb1c7@spud>
+ <d097826c-3db5-4902-acee-ffcff7436d4e@gmail.com>
+ <8e7d0c53-aa23-4514-81a5-335a76bb0c45@kernel.org>
+ <4d575f17-5cd5-495c-99a9-176b3393d54d@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260326-adrf570x-iio-support-v2-2-b622a17335d0@analog.com>
-References: <20260326-adrf570x-iio-support-v2-0-b622a17335d0@analog.com>
-In-Reply-To: <20260326-adrf570x-iio-support-v2-0-b622a17335d0@analog.com>
-To: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Cc: Lars-Peter Clausen <lars@metafoo.de>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Rodrigo Alencar <rodrigo.alencar@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774549942; l=3552;
- i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=C6P6Zr+ZHRuErV9w+QMBv1TsPXudqbrh6GcR2maa73k=;
- b=ixIs+B5ItIa27KzDB0Q8Ui8rF3K+OdrI65dGqEd+ydTV2axa3QYIbvhwJmGgHcsSuwyQ3i4XR
- QVDGvhI7hOXDU2s5wJGBHUn9jdR7JbUyYnKLQvgYJP1vRS1JXbwwPFu
-X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
- pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
-X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
- with auth_id=561
-X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Reply-To: rodrigo.alencar@analog.com
-
-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-
-Add chip info structs and device table entries for ADRF5702 and ADRF5703
-Digital Step Attenuators.
-
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
-Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
----
- drivers/iio/amplifiers/Kconfig  |  2 ++
- drivers/iio/amplifiers/ad8366.c | 22 ++++++++++++++++++++++
- 2 files changed, 24 insertions(+)
-
-diff --git a/drivers/iio/amplifiers/Kconfig b/drivers/iio/amplifiers/Kconfig
-index 39d280d4d437..9e24421b5e97 100644
---- a/drivers/iio/amplifiers/Kconfig
-+++ b/drivers/iio/amplifiers/Kconfig
-@@ -18,6 +18,8 @@ config AD8366
- 	    AD8366 Dual-Digital Variable Gain Amplifier (VGA)
- 	    ADA4961 BiCMOS RF Digital Gain Amplifier (DGA)
- 	    ADL5240 Digitally controlled variable gain amplifier (VGA)
-+	    ADRF5702: 0.125 dB LSB, 8-Bit, Silicon Digital Attenuator
-+	    ADRF5703: 0.25 dB LSB, 7-Bit, Silicon Digital Attenuator
- 	    ADRF5720: 0.5 dB LSB, 6-Bit, Silicon Digital Attenuator
- 	    ADRF5730: 0.5 dB LSB, 6-Bit, Silicon Digital Attenuator
- 	    ADRF5731: 2 dB LSB, 4-Bit, Silicon Digital Attenuator
-diff --git a/drivers/iio/amplifiers/ad8366.c b/drivers/iio/amplifiers/ad8366.c
-index 334ca91c0f59..bbf41a1fb3a1 100644
---- a/drivers/iio/amplifiers/ad8366.c
-+++ b/drivers/iio/amplifiers/ad8366.c
-@@ -5,6 +5,8 @@
-  *   AD8366 Dual-Digital Variable Gain Amplifier (VGA)
-  *   ADA4961 BiCMOS RF Digital Gain Amplifier (DGA)
-  *   ADL5240 Digitally controlled variable gain amplifier (VGA)
-+ *   ADRF5702: 0.125 dB LSB, 8-Bit, Silicon Digital Attenuator, 50 MHz to 20 GHz
-+ *   ADRF5703: 0.25 dB LSB, 7-Bit, Silicon Digital Attenuator, 9 kHz to 20 GHz
-  *   ADRF5720: 0.5 dB LSB, 6-Bit, Silicon Digital Attenuator, 9 kHz to 40 GHz
-  *   ADRF5730: 0.5 dB LSB, 6-Bit, Silicon Digital Attenuator, 100 MHz to 40 GHz
-  *   ADRF5731: 2 dB LSB, 4-Bit, Silicon Digital Attenuator, 100 MHz to 40 GHz
-@@ -106,6 +108,22 @@ static const struct ad8366_info adl5240_chip_info = {
- 	.num_channels = 1,
- };
- 
-+static const struct ad8366_info adrf5702_chip_info = {
-+	.name = "adrf5702",
-+	.gain_min = -31875,
-+	.gain_max = 0,
-+	.gain_step = -125,
-+	.num_channels = 1,
-+};
-+
-+static const struct ad8366_info adrf5703_chip_info = {
-+	.name = "adrf5703",
-+	.gain_min = -31750,
-+	.gain_max = 0,
-+	.gain_step = -250,
-+	.num_channels = 1,
-+};
-+
- static const struct ad8366_info adrf5720_chip_info = {
- 	.name = "adrf5720",
- 	.gain_min = -31500,
-@@ -337,6 +355,8 @@ static const struct spi_device_id ad8366_id[] = {
- 	{ "ad8366", (kernel_ulong_t)&ad8366_chip_info },
- 	{ "ada4961", (kernel_ulong_t)&ada4961_chip_info },
- 	{ "adl5240", (kernel_ulong_t)&adl5240_chip_info },
-+	{ "adrf5702", (kernel_ulong_t)&adrf5702_chip_info },
-+	{ "adrf5703", (kernel_ulong_t)&adrf5703_chip_info },
- 	{ "adrf5720", (kernel_ulong_t)&adrf5720_chip_info },
- 	{ "adrf5730", (kernel_ulong_t)&adrf5730_chip_info },
- 	{ "adrf5731", (kernel_ulong_t)&adrf5731_chip_info },
-@@ -353,6 +373,8 @@ static const struct of_device_id ad8366_of_match[] = {
- 	{ .compatible = "adi,ad8366", .data = &ad8366_chip_info },
- 	{ .compatible = "adi,ada4961", .data = &ada4961_chip_info },
- 	{ .compatible = "adi,adl5240", .data = &adl5240_chip_info },
-+	{ .compatible = "adi,adrf5702", .data = &adrf5702_chip_info },
-+	{ .compatible = "adi,adrf5703", .data = &adrf5703_chip_info },
- 	{ .compatible = "adi,adrf5720", .data = &adrf5720_chip_info },
- 	{ .compatible = "adi,adrf5730", .data = &adrf5730_chip_info },
- 	{ .compatible = "adi,adrf5731", .data = &adrf5731_chip_info },
-
--- 
-2.43.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UQ9U3XuY+nYj6U50"
+Content-Disposition: inline
+In-Reply-To: <4d575f17-5cd5-495c-99a9-176b3393d54d@gmail.com>
 
 
+--UQ9U3XuY+nYj6U50
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Mar 26, 2026 at 02:39:22PM +0100, Vyacheslav Yurkov wrote:
+> On 26.03.2026 11:08, Krzysztof Kozlowski wrote:
+>=20
+> > >=20
+> > > DTS example:
+> > >     clock_guard: clock_controller_guard {
+> > >       compatible =3D "clock-controller-guard";
+> > >       #clock-cells =3D <1>;
+> > >       clocks =3D <&h2f_clk 0>, <&clk_fgpa_rx 0>, <clk_fpga_tx 0>;
+> > >       clock-names =3D "h2f_clk0", "clk_fpga_rx", "clk_fpga_tx";
+> > >       gpios =3D <&fpga_ip 0 GPIO_ACTIVE_HIGH>, <&fpga_ip 1 GPIO_ACTIV=
+E_HIGH>;
+> > >       gpio-names =3D "gpio-input0", "gpio-input1";
+> > >       clock-output-names =3D "clkctrl-guard";
+> > >     };
+> > >=20
+> > >     custom_device {
+> > >       compatible =3D "...";
+> > >       ...
+> > >       #clock-cells =3D <1>;
+> > >       clocks =3D <&clock_guard 0>;
+> > >       clock-names =3D "clock-guard";
+> > >     };
+> >=20
+> > So a pure SW construct? Device has specific clock inputs but you do not
+> > model them and instead replace with one fake-guard-input.
+> >=20
+> > I don't see how this represents the hardware at all.
+> >=20
+> > Maybe some diagrams would help, assuming we still talk about hardware.
+> >=20
+> > Best regards,
+> > Krzysztof
+>=20
+> Techincally that's correct, it's a software construct. If this is not a
+
+Is it a software construct?
+I assume that the PLL status is going to be some lock bit in a register,
+and you're got some "hardware" in your FPGA fabric that reads that bit
+and sets a GPIO when it gets locked? Or maybe it's even simpler, and
+your GPIO just gets set once your custom HDL comes out of reset, which
+happens when the PLL locks?
+If that's an approximation of what you have, that's not a software
+construct.
+
+> right place to submit such a helper driver, I'd appreciate a hint what
+> subsystem is the right one.
+>=20
+> I was not sure how to provide a diagram in the mailing list, so I posted =
+in
+> on Github https://github.com/OSS-Keepers/clock-controller-guard/issues/1
+>=20
+> It is a driver which models dependencies for other drivers. These are soft
+> or "indirect" dependencies, because we cannot access the FPGA unless the
+> FPGA_PLL_locked, and GPIO is telling us we are good to go.
+>=20
+> Conor, I think this should answer your question as well.
+
+Not really, but it gets part of the way there. I want to know what this
+provider actually is. I now know it is a PLL, not an off-chip
+oscillator, but I know nothing about the interface that you have to it
+(or if you have one at all). What compatible string/kernel driver does
+it use?
+
+Because SoC-FPGAs can route GPIOs from the SoC part to the FPGA fabric
+and use them as if interacting with something off-chip, I'm not sure if
+we are dealing with an separate FPGA or a SoC-FPGA. Which is it?
+Effectively I want to understand why you cannot just read the lock bit
+=66rom the PLL directly. In my experience with *SoC*-FPGAs, things like
+PLLs that must lock for the fabric to be usable have a register
+interface from which the lock bit can be read, that is of course not
+clocked by the PLL output clock and therefore accessible before the
+PLL has locked.
+
+I think more info is needed here to guide you on where such a "helper
+driver" should be located and what the dt represetation should be.
+
+
+--UQ9U3XuY+nYj6U50
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacV7ygAKCRB4tDGHoIJi
+0kvOAQC3Yl85Pkdjs5ANcVdE5+cS5UTtUgANY2BkzORrhG9MrwEA3Cp5Fdjq73Im
+02tAQyjZKEeIz8XYECMdVI5AiW2PsQQ=
+=TKDd
+-----END PGP SIGNATURE-----
+
+--UQ9U3XuY+nYj6U50--
