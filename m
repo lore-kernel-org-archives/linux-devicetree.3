@@ -1,104 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp1.tecnico.ulisboa.pt (smtp1.tecnico.ulisboa.pt [193.136.128.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E0E37DEBE;
-	Thu, 26 Mar 2026 14:15:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC7C3947A5;
+	Thu, 26 Mar 2026 14:17:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.136.128.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774534554; cv=none; b=gtgQUY5OO8zwKwHo2A+5CCe0rHjd7GrKjRtWKlC7rkmlsneVRAyfP/meptbbjGxpYdtQE9ELKRJyxapu89GEMvOkJdkghZ/OOmWqW3IQIWUHd4crVYZa/3NyZ31RmLY8Auj1h7LsiKEZO1g47qKkmM/8yaqwJEXkIgYE1p/Hjvw=
+	t=1774534675; cv=none; b=SGs/lmcX0QLiLiRrmgp7YtTn9rZziApV+d5f+dFIZ4e6V4kUJiFcqAKGRrTNPJW0agQVJLmsXz7U2fOsCF7Lcnf82isLsX5PTRG5x4bPva0rnvpiNxze18F9LEL3zC2kxGmfmuEuO2dyXdJ0sL1mwq5qS3PJh5m2pixZaii5FRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774534554; c=relaxed/simple;
-	bh=2RZWmgIMN32Ld/zS0XFp/dL0v7eVrDu3aVOrKj7HWvA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BXZn7iePPUPRLLTWgJ5qSTfPH1CrWbPlCd80fRp+U9O1dTKCf4syO4YT9tOIJgMIMiH2fDRsC2uR/RzFLbPf8pHIMaI6xfVYbvsFk5zFbxAb/D1SdPxI83oeDUHunk9hA2bp/Uws1FCRD4oG+jr2o2arSLO89brEYSXeNcjdUvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SdbxgJVX; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774534675; c=relaxed/simple;
+	bh=zwDDkhJK0AE6U2QDF4UZEa4mUik/b+6/BEss8fkIWhM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AB9IK1DPaPMui4Rv1WoA1tX2E6NTZ0GDQXRF7v8ijIrEpkb9sZVvcrd8V7ZLCB2Mi6FSQfzuel3vT66CbY3fmmDj6ZRaSBHk4rTJNxNnZU/n65bMtxfVA5wdNWW8/OdckYhMQmcvd2kN7o8PIZSBvqBtaKx+tAOq3OwbclWNZcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tecnico.ulisboa.pt; spf=pass smtp.mailfrom=tecnico.ulisboa.pt; dkim=pass (2048-bit key) header.d=tecnico.ulisboa.pt header.i=@tecnico.ulisboa.pt header.b=SzQXiluf; arc=none smtp.client-ip=193.136.128.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tecnico.ulisboa.pt
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tecnico.ulisboa.pt
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SdbxgJVX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646BAC116C6;
-	Thu, 26 Mar 2026 14:15:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774534553;
-	bh=2RZWmgIMN32Ld/zS0XFp/dL0v7eVrDu3aVOrKj7HWvA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SdbxgJVXD0oitPY5JmOHlVBOuX4INv9NcTBdVcAXxY2+XQpTxiBxsD/0qADCqVEzW
-	 /6eKDdnDR0gQFoqnVv0YMZRM0MFFqNaaDerPdyRB0YXuLuwgnonEcggpOmj1V5G6GT
-	 dvbkmMJRvhWFXyQYBpV1TkQZBKFMxEWDG2U3/2wIvm1I3HE0LVmXwiHSqkdehocP8z
-	 8wutGGZ+PVHVLthmzhVl7S6GazjSgGm6H9YrYGxjGvAUX/NuWn3ivS79MclbWnzYRe
-	 vPC2gstGK6gLLjPm2WoSmvtBG8izsEzEDrCXBuhHGTQlNKyFsz0P9siznFuslp5DlR
-	 hkUSg/fL7TxLw==
-Date: Thu, 26 Mar 2026 09:15:51 -0500
-From: Rob Herring <robh@kernel.org>
-To: phucduc.bui@gmail.com
-Cc: conor+dt@kernel.org, krzk+dt@kernel.org, conor@kernel.org,
-	devicetree@vger.kernel.org, dmitry.torokhov@gmail.com,
-	krzk@kernel.org, linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org, marex@denx.de, mingo@kernel.org,
-	tglx@kernel.org
-Subject: Re: [PATCH v3] dt-bindings: input: touchscreen: ti,tsc2005: Add
- wakeup-source
-Message-ID: <20260326141551.GA2304345-robh@kernel.org>
-References: <20260318083124.21793-1-phucduc.bui@gmail.com>
+	dkim=pass (2048-bit key) header.d=tecnico.ulisboa.pt header.i=@tecnico.ulisboa.pt header.b="SzQXiluf"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp1.tecnico.ulisboa.pt (Postfix) with ESMTP id 453936005407;
+	Thu, 26 Mar 2026 14:17:38 +0000 (WET)
+X-Virus-Scanned: by amavis-2.13.0 (20230106) (Debian) at tecnico.ulisboa.pt
+Received: from smtp1.tecnico.ulisboa.pt ([127.0.0.1])
+ by localhost (smtp1.tecnico.ulisboa.pt [127.0.0.1]) (amavis, port 10025)
+ with LMTP id wr8wfvIZqns2; Thu, 26 Mar 2026 14:17:36 +0000 (WET)
+Received: from mail1.tecnico.ulisboa.pt (mail1.ist.utl.pt [IPv6:2001:690:2100:1::b3dd:b9ac])
+	by smtp1.tecnico.ulisboa.pt (Postfix) with ESMTPS id CF460600541A;
+	Thu, 26 Mar 2026 14:17:35 +0000 (WET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tecnico.ulisboa.pt;
+	s=mail2; t=1774534655;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rvQsKEXQhKikL43r2HYSuOkLKDFB3Ln6VwgjO0Zbpus=;
+	b=SzQXilufkaGFcdTXbWmAnpt7L3WG3ak/VhAsrAWKhIivce0zdSsPJ3fSmhLbF+sTE3q+CS
+	fzGhaYwpLBiDalAesgJ1f7sXJpgLAYgnCu4U2fC10TmPOyDIVON0F9+4VGdUC0RLR/6/7i
+	ZMX23wH5TymhgF/6NB7gbgCGEhR/rLzr/UbKF8aDcO1lbQVmZ24lb3LYyDBiMk4shW1cLe
+	jfCS0fYT4W/dJ7WCCoSvKDtyyY2DqPeYwKWd71a6BDdCrJ5scOAZNW1XvsK2a235LEyo1P
+	s3/SkloqIhxs5fW5oBdPiO8Q40v2sqxTOzNgaj5C0VHWabmoj3LGL/pDxrvCcg==
+Received: from [IPV6:2001:8a0:57db:f00:3ee2:38aa:e2c9:7dde] (unknown [IPv6:2001:8a0:57db:f00:3ee2:38aa:e2c9:7dde])
+	(Authenticated sender: ist187313)
+	by mail1.tecnico.ulisboa.pt (Postfix) with ESMTPSA id 374A9360243;
+	Thu, 26 Mar 2026 14:17:34 +0000 (WET)
+Message-ID: <00aeda7a-e5e5-4779-b212-6e56c2c5ec31@tecnico.ulisboa.pt>
+Date: Thu, 26 Mar 2026 14:17:33 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260318083124.21793-1-phucduc.bui@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/6] usb: xhci: tegra: Remove redundant mutex when
+ setting phy mode
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Mathias Nyman <mathias.nyman@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, JC Kuo <jckuo@nvidia.com>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-usb@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org
+References: <20260127-diogo-tegra_phy-v2-0-787b9eed3ed5@tecnico.ulisboa.pt>
+ <20260127-diogo-tegra_phy-v2-2-787b9eed3ed5@tecnico.ulisboa.pt>
+ <acJ50sQraVmy4zXs@orome>
+Content-Language: en-US
+From: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
+In-Reply-To: <acJ50sQraVmy4zXs@orome>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Mar 18, 2026 at 03:31:24PM +0700, phucduc.bui@gmail.com wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
-> 
-> Document the "wakeup-source" property for the ti,tsc2005 touchscreen
-> controllers to allow the device to wake the system from suspend.
-> 
-> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
-> ---
-> 
-> changes:
-> v3: Remove blank lines
-> v2: Revise the commit content and remove patch1 related to I2C and SPI 
-> wakeup handling
-> 
->  .../devicetree/bindings/input/touchscreen/ti,tsc2005.yaml    | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/input/touchscreen/ti,tsc2005.yaml b/Documentation/devicetree/bindings/input/touchscreen/ti,tsc2005.yaml
-> index 7187c390b2f5..a9842509c1fe 100644
-> --- a/Documentation/devicetree/bindings/input/touchscreen/ti,tsc2005.yaml
-> +++ b/Documentation/devicetree/bindings/input/touchscreen/ti,tsc2005.yaml
-> @@ -55,6 +55,9 @@ properties:
->    touchscreen-size-x: true
->    touchscreen-size-y: true
->  
-> +  wakeup-source:
-> +    type: boolean
+Hello,
 
-wakeup-source already has a defined type.
-
-wakeup-source: true
-
-> +
->  allOf:
->    - $ref: touchscreen.yaml#
->    - if:
-> @@ -97,6 +100,7 @@ examples:
->  
->              ti,x-plate-ohms = <280>;
->              ti,esd-recovery-timeout-ms = <8000>;
-> +            wakeup-source;
->          };
->      };
->    - |
-> @@ -124,5 +128,6 @@ examples:
->  
->              ti,x-plate-ohms = <280>;
->              ti,esd-recovery-timeout-ms = <8000>;
-> +            wakeup-source;
->          };
->      };
-> -- 
-> 2.43.0
+On 3/24/26 11:48, Thierry Reding wrote:
+> On Tue, Jan 27, 2026 at 03:11:48PM +0000, Diogo Ivo wrote:
+>> As the PHY subsystem already synchronizes concurrent accesses to a PHY
+>> instance with a core-internal mutex remove the driver specific mutex
+>> synchronization.
+>>
+>> Signed-off-by: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
+>> ---
+>> v1->v2:
+>> - New patch
+>> ---
+>>   drivers/usb/host/xhci-tegra.c | 4 ----
+>>   1 file changed, 4 deletions(-)
+>>
+>> diff --git a/drivers/usb/host/xhci-tegra.c b/drivers/usb/host/xhci-tegra.c
+>> index 8b492871d21d..927861ca14f2 100644
+>> --- a/drivers/usb/host/xhci-tegra.c
+>> +++ b/drivers/usb/host/xhci-tegra.c
+>> @@ -1357,15 +1357,11 @@ static void tegra_xhci_id_work(struct work_struct *work)
+>>   
+>>   	dev_dbg(tegra->dev, "host mode %s\n", str_on_off(tegra->host_mode));
+>>   
+>> -	mutex_lock(&tegra->lock);
+>> -
+>>   	if (tegra->host_mode)
+>>   		phy_set_mode_ext(phy, PHY_MODE_USB_OTG, USB_ROLE_HOST);
+>>   	else
+>>   		phy_set_mode_ext(phy, PHY_MODE_USB_OTG, USB_ROLE_NONE);
+>>   
+>> -	mutex_unlock(&tegra->lock);
+>> -
 > 
+> It looks to me like the mutex here is trying to protect against
+> tegra->host_mode changing while we're setting a different mode. That
+> doesn't seem to be taken care of by the PHY internal mutex.
+
+After taking another look at it I think I understand your point for the
+mutex, but in that case wouldn't it also need to be held in the writer
+of host_mode, tegra_xhci_id_notify()?
+
+This patch has been picked up as-is into usb-next so it would be nice to
+figure this out before it gets merged in the next merge window.
+
+Diogo
+
+> Thierry
