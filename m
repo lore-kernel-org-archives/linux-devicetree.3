@@ -1,65 +1,56 @@
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68583FFAD4;
-	Thu, 26 Mar 2026 15:13:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.32.30.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 530CD325485;
+	Thu, 26 Mar 2026 15:18:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774538025; cv=none; b=CHDgjttR7vOXGjK2DHHVUb6fXg/SJnchF1OcYMdYStA3NmxJRa+b+OslkSqS5mnsPCgL1IZIr4NX9elD9GCdF33sLYbNqZIXextXkk+U9KrbsdC0hVts1SCTJtFSJFqRxMxzlZQkvXD+9ZgHcIw2CfgWLmkwt9oLkHGObZqxeAc=
+	t=1774538331; cv=none; b=e2pUdRc99+e65nQUFUJ3wthKm0GCaj2j/Z2M1/ADBzX/BKMwGG9STL4svqYVt2A99PbNWTUicY2jT8m+qZ3TcBB39Ti7CUgKTKel286efI+TJ+0MU6PWeJYjRglrXcexVktKaxKo2qM4kOJL/7YL2WlbAZlwYl2xr6gVqf4wulk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774538025; c=relaxed/simple;
-	bh=N+/c+VEkHUX4RzdGtlmQrP7VRuoaCtyBtIZNHlIVElk=;
+	s=arc-20240116; t=1774538331; c=relaxed/simple;
+	bh=1pNCUWUk5UquqTKdcr0V7Dl6T/ZHqBWgDbFw6S0sOmE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TMD5YZOiekFaZDLEwkoXNeHpiV44qWrkVKZx2jj4SVddhglhU0E7dbrqxBnxElOqPqtLyyLdE+vkEkjpJYMpeq7nFlKxx3oT+stChxcEtVvJX9n8PjdhlB4BN/9dXCo5hb35EuZPtfhaT2zKXIj9tL1LOxcF5QDBIuVMg1/fRfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk; spf=none smtp.mailfrom=armlinux.org.uk; dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b=YLuLyUr8; arc=none smtp.client-ip=78.32.30.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=armlinux.org.uk
+	 Content-Type:Content-Disposition:In-Reply-To; b=WUOKOZgu0rm+OTGkX41JTzwTIYDx77axd3o/h18tSbesml+zsewjsNvpbRP4cMPsrDwjZD7f9SdQH5Qs5WfHJhP1Kvh4QIyI6ainQ1PTtSVWYa4/bhxns2/TbwrYW1a1v/08WPQNWUz24Kv1vw72B85czrONzPNDt5dVICODA2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d8gm2iFF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b="YLuLyUr8"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
-	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=yoPRntc725ITLfGgqIRFU6DPMCxT8aSkgEEY7vmF7eg=; b=YLuLyUr8vwasLtKLoNTx842J2L
-	DhoPufecckhHL/YoiQgqmGbZCRWCvKeV24NjWI7pYFZwZsDGZBiRA4UpzU49fcoy3XNe0euSq3tdN
-	gE7dWwfeZonPegJJaBCEUJDmwLzVmkP0OHVOIqgJ6i/FaFXxvCGlqeibMl1HmdsII+JSv2p6ITqbh
-	qPxOJpvQvkfRVF2dEKefl3xUDKA/ZletVCC1uOd7MnuVPgC8ZNG8BsW2GT8ruQPTTzPvncwXEeoi9
-	UW5BD91NMIR1pS58nMn+HLqZ94G/wyUrU49tO1VSwZz7TGqWqg/7H4fOif1pmLUuMxO7TUZVqFxgN
-	rX6aIMZA==;
-Received: from shell.armlinux.org.uk ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:57924)
-	by pandora.armlinux.org.uk with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <linux@armlinux.org.uk>)
-	id 1w5mOh-000000004vM-3Dlj;
-	Thu, 26 Mar 2026 15:13:23 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
-	(envelope-from <linux@shell.armlinux.org.uk>)
-	id 1w5mOd-0000000077d-3cH2;
-	Thu, 26 Mar 2026 15:13:19 +0000
-Date: Thu, 26 Mar 2026 15:13:19 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d8gm2iFF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD977C116C6;
+	Thu, 26 Mar 2026 15:18:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774538331;
+	bh=1pNCUWUk5UquqTKdcr0V7Dl6T/ZHqBWgDbFw6S0sOmE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=d8gm2iFFLyWBTHDO07gv6lEf+axSsmP9yKd9zsutsaHh3ZaoQfTr5K3tXupV8uQL9
+	 S27q4umBJFlv8LACpOJOM2/mgQwEMGSwLeLLCeK9S0CBGoF0J/52lN+6R13aLQh3kG
+	 Ra77CoJS7jTux+cp4L4a3Lgn9756Si/HnKEx2YWFUmTagKgAnXMPpYVQRWf0TM+Emx
+	 QIbtBIUGN9yat3H+VxNADRRRgvhqNHLeWQ3ENM+FJBB45eyUeChQFqtCUoUlNQ474g
+	 otVGJFQkoyGM4MC9AQ5ojcg4DdNiB8vZjm0esxhkJraxpT3iZkQLdfGFiGPCiJwna1
+	 YASFQKzLyA4QQ==
+Date: Thu, 26 Mar 2026 10:18:47 -0500
+From: Rob Herring <robh@kernel.org>
+To: Akhil R <akhilrajeev@nvidia.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>, kevin-kw.huang@airoha.com,
-	macpaul.lin@mediatek.com, matthias.bgg@gmail.com,
-	kernel@collabora.com, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 4/4] net: phy: Introduce Airoha AN8801/R
- Gigabit Ethernet PHY driver
-Message-ID: <acVND6DdpM9czIwU@shell.armlinux.org.uk>
-References: <20260326-add-airoha-an8801-support-v2-0-1a42d6b6050f@collabora.com>
- <20260326-add-airoha-an8801-support-v2-4-1a42d6b6050f@collabora.com>
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Robert Moore <robert.moore@intel.com>, Len Brown <lenb@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Fredrik Markstrom <fredrik.markstrom@est.tech>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Suresh Mangipudi <smangipudi@nvidia.com>,
+	linux-tegra@vger.kernel.org, linux-i3c@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
+	linux-hwmon@vger.kernel.org
+Subject: Re: [PATCH 03/12] i3c: master: Use unified device property interface
+Message-ID: <20260326151847.GB2360967-robh@kernel.org>
+References: <20260318172820.13771-1-akhilrajeev@nvidia.com>
+ <20260318172820.13771-4-akhilrajeev@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,27 +59,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260326-add-airoha-an8801-support-v2-4-1a42d6b6050f@collabora.com>
-Sender: Russell King (Oracle) <linux@armlinux.org.uk>
+In-Reply-To: <20260318172820.13771-4-akhilrajeev@nvidia.com>
 
-On Thu, Mar 26, 2026 at 01:04:15PM +0100, Louis-Alexis Eyraud wrote:
-> +static int an8801r_set_wol(struct phy_device *phydev,
-> +			   struct ethtool_wolinfo *wol)
-> +{
-> +	struct net_device *attach_dev = phydev->attached_dev;
-> +	const unsigned char *macaddr = attach_dev->dev_addr;
+On Wed, Mar 18, 2026 at 10:57:16PM +0530, Akhil R wrote:
+> Replace all OF-specific functions with unified device property functions
+> as a prerequisite to support both ACPI and device tree.
+> 
+> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+> ---
+>  drivers/i3c/master.c       | 91 ++++++++++++++++++++++----------------
+>  include/linux/i3c/master.h |  5 ++-
+>  2 files changed, 55 insertions(+), 41 deletions(-)
+> 
+> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+> index c32847bc4d0d..2c479fecbfdf 100644
+> --- a/drivers/i3c/master.c
+> +++ b/drivers/i3c/master.c
 
-This isn't a criticism for this patch, but a discussion point for
-phylib itself.
+[...]
 
-It occurs to me that there's a weakness in the phylib interface for WoL,
-specifically when WoL is enabled at the PHY, but someone then changes
-the interface's MAC address - there doesn't seem to be a way for the
-address programmed into the PHY to be updated. Should there be?
+> @@ -3300,11 +3310,14 @@ static int __init i3c_init(void)
+>  {
+>  	int res;
+>  
+> -	res = of_alias_get_highest_id("i3c");
+> -	if (res >= 0) {
+> -		mutex_lock(&i3c_core_lock);
+> -		__i3c_first_dynamic_bus_num = res + 1;
+> -		mutex_unlock(&i3c_core_lock);
+> +	/* of_alias_get_highest_id is DT-specific, only call for DT systems */
+> +	if (IS_ENABLED(CONFIG_OF)) {
 
-Do we instead expect users to disable WoL before changing the MAC for
-a network interface?
+BTW, CONFIG_OF is *always* enabled on arm64.
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+> +		res = of_alias_get_highest_id("i3c");
+
+This will just return an error if not booting with DT or if CONFIG_OF is 
+disabled.
+
+> +		if (res >= 0) {
+> +			mutex_lock(&i3c_core_lock);
+> +			__i3c_first_dynamic_bus_num = res + 1;
+> +			mutex_unlock(&i3c_core_lock);
+> +		}
+>  	}
+>  
+>  	res = bus_register_notifier(&i2c_bus_type, &i2cdev_notifier);
