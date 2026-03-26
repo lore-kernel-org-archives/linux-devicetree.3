@@ -1,257 +1,163 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010028.outbound.protection.outlook.com [52.101.229.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D537341AD6;
-	Thu, 26 Mar 2026 17:15:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF8C2ED843;
+	Thu, 26 Mar 2026 17:21:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774545344; cv=pass; b=XOLfY2fO/DXxM0M2ae+GGVIHR0UOaGb0GbWfIgBa0Wd9pKohcw5x+hLhzZvVZU0hI713jGFBMOcswzz4sj6ldv/KwXcEtFOeWCn9OeaMtYE/j/4Nh9T6Ex3aU5aKN6CAsVFWPGL/IVjawuRJw5PmpytsT2kt+XATHn53ki6pvR0=
+	t=1774545684; cv=fail; b=j+M018PuVHoskVXlIxjnfw+OGaEw2GGHptcWgQJJRzPLwFyLd0ODpjst+I4TMyYoMGjusNGybzlz+XEi9bex8Kw2NndEAHWjmVGN66K5VjR4GDGJagK55GZaLtUeVMcV1OrYUVBKdbCCAyworpdeMLpdt2zDSS14SFy4Fc8dfHE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774545344; c=relaxed/simple;
-	bh=VTzEkr7L4aS/sPn6TLczQ6LKYQ2s4kS044JuP3HQbnM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gC25tTY8UrVRexyjqDgsRIbGeEHHj7f6BT+ky5QNge3TKlk2mMZ97kRigshbZPcyAbvjP6SSvRqpRO5NoSqHYwpXlqiHcKF8wTgisbeu4/xia8vHV15C9kVpB3cmUJ6mRLt7D7I+tsSZNE8ej3bPLG8U+I+LfC59oDRWkn2a4HY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=martyn.welch@collabora.com header.b=NeDsS1PI; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1774545684; c=relaxed/simple;
+	bh=+kcuMiXaRvHYxyTAoCSsttB7oUomyJGhepKpPODBAWs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=MfxzPEIANA7obMUwervhRWNOak1QRgCsD7x9wv9MFPnjd88636T+7a+xFG2K9FhBQh0JNjiemXmcKWdei/csrK/m10FAYMJQlKGk41u5dVspBGI9mW5Jqpd4NYEctTJ9+jGqbIODCJXxYs8j9+6zalHxIBc1a9ajjVx/dcM0bZU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=B1sfRVW+; arc=fail smtp.client-ip=52.101.229.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=martyn.welch@collabora.com header.b="NeDsS1PI"
-ARC-Seal: i=1; a=rsa-sha256; t=1774545262; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=kqAZwu1ySKx6jur+08R360LzwVwNexY+I9eifdZiGiuS/VO+cJvBsAsNCtFs45jfyD2UkAtmAgFrL924JMAactXBcGDT5HYIFmNCy1xxBzit0PasNKufuP25O2YvhY0L5YXmsFd4fedTYNcC4M/nxBxfYAz1mDhR2kevHyDPbGk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1774545262; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=hIwHPgKroczcraBFmjBx7sfSYocmTQ5ow6bV/DaRoOc=; 
-	b=j0BXiYRNWAAHv6Sqt6V9YCMLkInUDD0PFBR4ukE5EMXeCw2N5fttFNgBdIRPfrEiZffWgMLzxGXM9lmp+rC4+orSxBH1y0vYjoZvM7o8JyN6jpVarGK9a8VuUTbHQa9FjaXljnzEztWEgdQjYNrmUiMb1aIT7J5o76Q4LFuScfg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=martyn.welch@collabora.com;
-	dmarc=pass header.from=<martyn.welch@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774545262;
-	s=zohomail; d=collabora.com; i=martyn.welch@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=hIwHPgKroczcraBFmjBx7sfSYocmTQ5ow6bV/DaRoOc=;
-	b=NeDsS1PIKBLqQEwWGWTBMga7hItj0jFa5ZyblKGysbeGmszU+yKU14Rwo8bF9p5E
-	ePtFvq3CEHN3szypTv4rV6b9b4olr8+UBQD95nBMTAIb3PTHywGgLgh1C+s/U5TtN+a
-	8nUbLCamqQDGAA2g6JFUI0+zxXgYb5psFOsNEo9E=
-Received: by mx.zohomail.com with SMTPS id 1774545258284948.1058809311842;
-	Thu, 26 Mar 2026 10:14:18 -0700 (PDT)
-Message-ID: <25aaed3b-1f15-44ca-bd0e-e16c683ee403@collabora.com>
-Date: Thu, 26 Mar 2026 17:13:59 +0000
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="B1sfRVW+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bHWyPMtcrto/c+5P5HLXGUtA4p60Vp38rCmxNiarShDIMJEGvAJKEp+g3aubbao3lzNmkd+YilxQl74WO2Tyvr23M5YslD2tTRT0/Sf20M9wLalmQEd9ZJNRYQWmle3JE+L8FIksHZDP7MnpfrcozE4LVoksBw0+k/1/kBWFMBVB89t/qkJYYGrleBm5k7uvvcCv4dSlohCxLrjf5/60NdX9hvQuWtIj7GQekq2eaGcpGcG1FRwmlW53bRsw+i4Ki8xdAq/DkgHsk2UQjYgkwGVxvYgtYXkgQwfKUyVODA0uUUvZeXcFWBDwdrPjd7rlmh6AR5sbAY5X4FUTkEiPmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OEG0oF8P5vm/y7ArNyQdhW+6yPZDlIRo0JPmX7cmXH4=;
+ b=DOOSLU/HkAHzYusFXKQyaITURkmW6pTvB1S0crRAt2ysHfZZyL03h4FouS22vvaqu3cU5wpO830DJF7gOycPTwoDzZPlxdZBMnnSKmgBG/AY7m/ZJ/EQOnsGnENg6Ob4twTPq4lJksLi/7juOTM8XW+9BY6UOFtT+xm7uDHgmCBvpKKxwHpASnuEODGENf7yhqsGqaUK/MjpXYkqHNoghZbFiWmRTRl4qO3HAAzCoPj7lirhIQhE3P4Bh+ZvFt9m/UMP+3McgRTbc/h6fr0QzYJizBFGe9C8PyufuRvhg8UXV5VNosBlqEuxdX1O3BlruymBFKixZXLQXc8vhv4MSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OEG0oF8P5vm/y7ArNyQdhW+6yPZDlIRo0JPmX7cmXH4=;
+ b=B1sfRVW+WOIAD0of5QVZzAe475zzENJ+nXbBSgs1n+VGLH9i86Et8i8cKVdPVFJt/vdPTfDe1kWZ/BZDUl2Hee7wklEvRSkbJ67yigXRK7+awTgSKePIAAy+Ho9Go11e6Yo3FUfR9fzj8XRPmpMwlTZmbsLQQhD4QtK2eEMjfcA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
+ by OSCPR01MB14964.jpnprd01.prod.outlook.com (2603:1096:604:3ab::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.22; Thu, 26 Mar
+ 2026 17:21:19 +0000
+Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
+ ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
+ ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9745.022; Thu, 26 Mar 2026
+ 17:21:13 +0000
+Date: Thu, 26 Mar 2026 18:20:56 +0100
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: tomm.merciai@gmail.com, peda@axentia.se,
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Ulf Hansson <ulf.hansson@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Josua Mayer <josua@solid-run.com>, Arnd Bergmann <arnd@arndb.de>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 1/5] mux: Add driver for Renesas RZ/V2H USB VBENCTL
+ VBUS_SEL mux
+Message-ID: <acVq3skGavh_yytv@tom-desktop>
+References: <cover.1773319566.git.tommaso.merciai.xr@bp.renesas.com>
+ <67a38e592551e1a8ac4f9810fd4cdbab729169db.1773319566.git.tommaso.merciai.xr@bp.renesas.com>
+ <eae7dbabeca13c023dd253fe7c1c1d588c585d94.camel@pengutronix.de>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <eae7dbabeca13c023dd253fe7c1c1d588c585d94.camel@pengutronix.de>
+X-ClientProxiedBy: FR0P281CA0166.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b4::18) To TYCPR01MB11947.jpnprd01.prod.outlook.com
+ (2603:1096:400:3e1::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/8] drm/mxsfb/lcdif: use DRM_BRIDGE_ATTACH_NO_CONNECTOR
- and the bridge-connector
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
- Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>
-Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
- =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- Anson Huang <Anson.Huang@nxp.com>,
- Christopher Obbard <christopher.obbard@linaro.org>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
- Fabio Estevam <festevam@denx.de>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- Frieder Schrempf <frieder.schrempf@kontron.de>,
- Gilles Talis <gilles.talis@gmail.com>,
- =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
- Heiko Schocher <hs@denx.de>,
- Joao Paulo Goncalves <joao.goncalves@toradex.com>,
- Josua Mayer <josua@solid-run.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Marco Felsch <m.felsch@pengutronix.de>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
- Philippe Schenker <philippe.schenker@toradex.com>,
- Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
- <shengjiu.wang@nxp.com>,
- Stefan Eichenberger <stefan.eichenberger@toradex.com>,
- Vitor Soares <vitor.soares@toradex.com>
-References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
-Content-Language: en-US
-From: Martyn Welch <martyn.welch@collabora.com>
-In-Reply-To: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|OSCPR01MB14964:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9db98225-6472-4962-73b8-08de8b5c1470
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|52116014|366016|38350700014|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	4cZaQaivlMd6FH0vpghQL9FSmQS4FRGKWPE+vHqR7nhU00sXBcJ7v00ztyOSaCgExHWkhN9mGrQjq+gjbff2hl0IwU2hTE4ZdBXQT4Gb3MAgL5vbN6m9AscaUyOQtSalXKAUKjlqjI6nCKY7jsARQy1+V98ER5YXT5Av5ncR5H0BJsALPrYNi/vrVfE7+HShGXfzh7fDbwGREB85MRLGQouJL142OJoY2Nop+psOHSExhIe+45JG85EkMzOVuEZpyK1gAMF656BBceDP3AGpXkP7UqRkQs4UeCf/PD33uYXlYo58yq+EdzKWIG6Zs1qoAKfj6hmhYSBilie29vg6VxWj4KYwFnd/bhgnJm2wEmV59lleUgP14ZP1FakH7jXqHLdhGucBcaYv4XJMWKZIiqFdlQpm32lJWld8IuCoTd30MiY06TBL3VPJGy63mBnwONAeAuZxPFWkNpqVFis/cLw/78tCvemQ5lp3KYdlKGIUFVaUbcVqieJIvhc4yvIjIrib0sAaUGME0VLJW7c+7Aglkh92pMuofnkOa6HJKP/ahyBZrsEAm3kDBvz+Xf/Jae9xyLaK77VgqL4HI/MTTtP5jDle+XuCkuAOXhRMcYsZRIEXsRdkg7xuDbzaAG70rwVByPFHI5yfOtEuqyPkT9ewXk3a0eYCqRuHqWkPfMcdYWeVGY6BEnJ8dLCmKp8Jq9ehjeXVPL4rRujdklMhaDdWl6Ov5IRWDeO9O341suSC0e5eOInCsFQu8BomVw8UljCMI8TADpCUUzwi1rZJQaR9dMF3cTN/pPFm+e7SZdg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB11947.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(52116014)(366016)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?QPzUQ29ewAwMYXEkocerIjLR80sw5Are9lwu0K1zJLGZUY1Nrh1q5mz01r9d?=
+ =?us-ascii?Q?05fzBpGy5kAlKLzJvZ9jmhV68ZSxlz4p0FQW1IjdObhABo2vL2OR0M8WKYJp?=
+ =?us-ascii?Q?abXycKsnv7v/gG5S5ykTWlF6Ov4sLkFVdhO+icIcc64wLNI+Y93r4F2u0o8v?=
+ =?us-ascii?Q?co1vJraMYzEp8wV2Jxm5WZmSeWCEDhdw1yyakQ9P3yTNU9ARU7tSalBXadYh?=
+ =?us-ascii?Q?vHWjDK7IoeUEpDU6xo9QPjJWzy8t8jwD4yuhfOvkCP4O85z5TBp5KmGgEYaE?=
+ =?us-ascii?Q?pFXflZffw99dq8NKMm/Onfm4C3XBo318HaoBO1CVcmrNTDEYawGSdR4WN50D?=
+ =?us-ascii?Q?EKaeqHzLsLVFoTwB1j4KlgA2kjp7Pvc+sUjJaK/nM93lw1w6Km4ms9hlDpcw?=
+ =?us-ascii?Q?ZQhJSmf+CpfyInxJIR7jecM98il+RqOE3XuGYs2+5zvP+2SNqdQ/WVUFoLU1?=
+ =?us-ascii?Q?pCVK6b6A3ySLa//Sa8JfCgx86rv0D2+tcywecr9ZS+t70uCTDkrUm1yYoj9q?=
+ =?us-ascii?Q?ADmr16aCyuzQ/EkonToJHobAjMu6yQgj/xzWgl/X+rKIa3Zs3hNLQFyqvnS8?=
+ =?us-ascii?Q?SQTA+Ora1Cbx1Ufhjiq83RH/fubaETCzhx9lc8PnGHu06CEuiJUcIBgEMr/B?=
+ =?us-ascii?Q?a+2I898C+lRpMaHMHAutNfhor8g8z8QYd0TUtml2ZXm+elLweve/4RcdRVnA?=
+ =?us-ascii?Q?aMpEY4FB1PqPgLZKig12VRimiZgmpW0SHpyaUU8pvBoOAzjSg5nJOFO2Ani0?=
+ =?us-ascii?Q?GE5SdmWyUGwV689xFEw6+60+6J/KfwRFhcKAEeqMWQmyXQ6v0Er4qKWnAzsK?=
+ =?us-ascii?Q?DJVx2jLUru65mugOW7Y3rWkmwMbDA9umq8z+HSAh8+hPw0PzBuznFqKi1Bp1?=
+ =?us-ascii?Q?/A5Q1bzLECWiHs3mfMb40jwpRIUZxDr4YyB9YxEELJRdQ9efQsASN+++xK4i?=
+ =?us-ascii?Q?B2t+/MUGRDQZvT6nhi9yrtXuVtA0lkL1GfXyIfYapsrS89yGdCm81Wf4ZkMA?=
+ =?us-ascii?Q?vhlqvf/1j578rAfJ9iDOg8CDvM6rwvU1GWx0lTXGTe0t1P8PXPftCfpmV2uJ?=
+ =?us-ascii?Q?t2CXXx6b5tdgpHjuutUaICZqFY3DuPTdA6rOOCZkBdTGP13D3dXr92jeYLQl?=
+ =?us-ascii?Q?LZp9z9RsfCowvPDNgaVH7874M1fuzdu6MwV1E7Cr3L55W4DHCyuSHGMc9MZp?=
+ =?us-ascii?Q?XwWCnwJ98xw2BNn4KOkjVAKzokLAB/VMgJMiWaYA7Umei4RGFitRw4kIKp4V?=
+ =?us-ascii?Q?WhGkdNnjYw+22RmJMWYEXYGuc7SkuUYZolVEKaIkwgfNbeztFguRjc8r7irU?=
+ =?us-ascii?Q?79oQZL0zQ5/vTl8ZmQsJRr2Rg1mMLHpcR+g4AryiHBS7IaPSQVDw0lrcdpLw?=
+ =?us-ascii?Q?FMuyki2hrSJofNZKb4PApsvd1rqGA5XLc7N7kG9y+eMi4veuUTQRJ1HxjQvH?=
+ =?us-ascii?Q?O3YnOgKK6aD8qOEBHi8y6zWz4EDwsyEjJlSPGixOa+JUoUundHaMu+05MJYF?=
+ =?us-ascii?Q?3k4nZ4nEhewLoKsxZOMbiJbHlWHKWwMsf3ti9e1cEclH6JtCEECjxHz1YHe+?=
+ =?us-ascii?Q?8yLVC3CtPkOOnWZDtFLsJLNdqc5MNpWIXJK0Y9rVOut76v9tCCjqmi/cwC+j?=
+ =?us-ascii?Q?ugnL7a4m97nYrax+2aV0IWgHYa/nnDQ5ZssxovZMSKREIr2WTDP6rIXMklln?=
+ =?us-ascii?Q?nv+oovAVT2XR0a5Bs2e9GEjCEzx70t/3FPsgKWaoQaN+iaI8HOUrmI+xUILe?=
+ =?us-ascii?Q?COllQS3ZFGBl6TOt9FWPggtSbhd3VAjTJjdVFOPtRsvY043rP+yJ?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9db98225-6472-4962-73b8-08de8b5c1470
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 17:21:13.4775
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6g29DUh15g06yekdg37jRJdppYfn2HdaJ8RMTZ4wemQ9MZlZjuomxRfXVKHOHtEEtT4SD3iW4aCxsFoaL/yZ5lsfwEIb7+6/LS0kpeaFS6kyxRu+xFx3BrmP6BbHwoXK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB14964
 
-On 20/03/2026 10:46, Luca Ceresoli wrote:
-> This series modernizes the i.mx8mp LCDIF driver to use the
-> bridge-connector, which is the current best practice in DRM.
-> 
-> == Call for testing on i.MX8MP boards (especially those using HDMI)!
-> 
-> This series applies changes to how video output devices are probed on
-> i.MX8MP, especially those using HDMI. Even though I have put care in not
-> breaking anything, there could potentially be pitfalls I haven't realized,
-> causing regressions on existing boards.
-> 
-> I have thus added in Cc all developers which appeared active on dts files
-> for imx8mp boards involving video. I would appreciate testing on as many
-> boards as possible, along with a Tested-by tag, or a report about any
-> issues encountered.
-> 
-> Thanks in advance to all testers!
-> 
+Hi Philipp,
+Thanks for your review!
 
-Tested-by: Martyn Welch <martyn.welch@collabora.com>
+On Thu, Mar 12, 2026 at 04:23:28PM +0100, Philipp Zabel wrote:
+> On Do, 2026-03-12 at 15:50 +0100, Tommaso Merciai wrote:
+> > As per the RZ/V2H(P) HW manual, VBUSEN can be controlled by the VBUS_SEL
+> > bit of the VBENCTL Control Register. This register is mapped in the
+> > reset framework. The reset driver expose this register as mux-controller
+> > and instantiates this driver. The consumer will use the mux API to
+> > control the VBUS_SEL bit.
+> > 
+> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> 
+> 
+> Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+> 
+> Converting the reset driver to regmap and passing the regmap via
+> dev_get_regmap() would allow to get rid of the dependency between
+> patches 1 and 5.
 
-Using Ezurio Nitrogen8M Plus ENC Carrier Board with i.MX88MP SOM and 
-1280x800 HDMI display.
+Thanks for the hint.
+I will switch to regmap API in v9.
 
+Kind Regards,
+Tommaso
 
-> == Review recommendation
 > 
-> I recommend reviewing patches in this order to be understood more
-> effectively:
-> 
->   * Cover letter
->   * Patches 1-5 are small preliminary cleanups/improvements
->   * Patch 8 is the goal of this series, but would not work alone
->   * Patch 7 this lets patch 8 work; but in turn it can't work alone
->   * Patch 6 lets patch 7 work
-> 
-> == Series description
-> 
-> This series is not strictly related to DRM bridge hotplug, it is rather a
-> preparation step. Introducing hotplug would need two different approaches:
-> one for the new way, for drivers using bridge-connector and
-> DRM_BRIDGE_ATTACH_NO_CONNECTOR, another for drivers using the "old, legacy
-> way" where the last bridge is supposed to instantiate the
-> drm_connector. Hotplug is complicated enough in one case, so it makes sense
-> to only support the new way.
-> 
-> The hardware I'm working on is an i.MX8MP, whose LCDIF driver is still
-> using the old way. So this series converts to the new way as a preparation
-> step.
-> 
-> Patch 8 does the conversion, which is simple. However this would introduce
-> a regression on some boards. Here's why:
-> 
-> There are 3 instances of the LCDIF in i.MX8MP:
-> 
->   * LCDIF1, driving the DSI output
->   * LCDIF2, driving the LVDS output
->   * LCDIF3, driving the HDMI output
-> 
-> The device drivers of peripherals connected to LCDIF1 and LCDIF2 already
-> support the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag. So far so good.
-> 
-> LCDIF3 is more tricky. The HDMI pipeline is:
-> 
->    LCDIF3 -> fsl,imx8mp-hdmi-pvi -> fsl,imx8mp-hdmi-tx -> HDMI connector
-> 
-> The fsl,imx8mp-hdmi-tx (hdmi-tx) component supports both cases (with or
-> without DRM_BRIDGE_ATTACH_NO_CONNECTOR), but in the
-> DRM_BRIDGE_ATTACH_NO_CONNECTOR case it does not create a drm_connector,
-> thus preventing the creation of the pipeline. To make it work a connector
-> must be created, and the way to do so is describing the connector in the
-> device tree (compatible = "hdmi-connector"), so the display-driver will add
-> the connector along with a wrapping bridge.
-> 
-> Unfortunately not all device trees in mainline have an hdmi-connector
-> node. Adding one is easy, but would break existing hardware upgrading to a
-> newer kernel without upgrading the device tree blob. This is addressed by
-> patch 7 reusing an existing approach to add such a node to the live device
-> tree at init time using a device tree overlay for boards which don't have
-> one.
-> 
-> Finally, patch 7 cannot work alone because of a bad interaction between
-> devlink and device tree overlays. Patch 6 solves that.
-> 
-> == Grand plan
-> 
-> This is part of the work to support hotplug of DRM bridges. The grand plan
-> was discussed in [0].
-> 
-> Here's the work breakdown (➜ marks the current series):
-> 
->   1. … add refcounting to DRM bridges struct drm_bridge,
->        based on devm_drm_bridge_alloc()
->      A. ✔ add new alloc API and refcounting (v6.16)
->      B. ✔ convert all bridge drivers to new API (v6.17)
->      C. ✔ kunit tests (v6.17)
->      D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
->           and warn on old allocation pattern (v6.17)
->      E. … add get/put on drm_bridge accessors
->         1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
->         2. ✔ drm_bridge_get_prev_bridge() (v6.18)
->         3. ✔ drm_bridge_get_next_bridge() (v6.19)
->         4. ✔ drm_for_each_bridge_in_chain() (v6.19)
->         5. ✔ drm_bridge_connector_init (v6.19)
->         6. … protect encoder bridge chain with a mutex
->         7. … of_drm_find_bridge
->            a. ✔ add of_drm_get_bridge() (v7.0),
-> 	       convert basic direct users (v7.0-v7.1)
-> 	  b. ✔ convert direct of_drm_get_bridge() users, part 2 (v7.0)
-> 	  c. ✔ convert direct of_drm_get_bridge() users, part 3 (v7.0)
-> 	  d. ✔… convert direct of_drm_get_bridge() users, part 4
-> 	        (some v7.1, some pending)
-> 	  e.   convert bridge-only drm_of_find_panel_or_bridge() users
->         8. drm_of_find_panel_or_bridge, *_of_get_bridge
->         9. ✔ enforce drm_bridge_add before drm_bridge_attach (v6.19)
->      F. ✔ debugfs improvements
->         1. ✔ add top-level 'bridges' file (v6.16)
->         2. ✔ show refcount and list lingering bridges (v6.19)
->   2. … handle gracefully atomic updates during bridge removal
->      A. ✔ Add drm_bridge_enter/exit() to protect device resources (v7.0)
->      B. … protect private_obj removal from list
->      C. ✔ Add drm_bridge_clear_and_put() (v7.1)
->   3. … DSI host-device driver interaction
->   4. ✔ removing the need for the "always-disconnected" connector
->   5. ➜ Migrate i.MX LCDIF driver to bridge-connector
->   6.   DRM bridge hotplug
->      A.   Bridge hotplug management in the DRM core
->      B.   Device tree description
-> 
-> [0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
-> 
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
-> Luca Ceresoli (8):
->        drm/mxsfb/lcdif: simplify remote pointer management using __free
->        drm/mxsfb/lcdif: don't unnecessarily loop over ports
->        drm/mxsfb/lcdif: use dev_err_probe() consistently in lcdif_attach_bridge
->        drm/bridge: dw-hdmi: document the output_port field
->        drm/bridge: dw-hdmi: warn on unsupported attach combination
->        drm/bridge: dw-hdmi: move next_bridge lookup to attach time
->        drm/bridge: imx8mp-hdmi-tx: add an hdmi-connector when missing using a DT overlay at boot time
->        drm/mxsfb/lcdif: use DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
-> 
->   drivers/gpu/drm/bridge/imx/Kconfig                 | 17 +++++
->   drivers/gpu/drm/bridge/imx/Makefile                |  2 +
->   .../bridge/imx/imx8mp-hdmi-tx-connector-fixup.c    | 60 +++++++++++++++
->   .../bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso | 38 ++++++++++
->   drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c        |  1 +
->   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c          | 45 ++++-------
->   drivers/gpu/drm/mxsfb/Kconfig                      |  1 +
->   drivers/gpu/drm/mxsfb/lcdif_drv.c                  | 88 +++++++++-------------
->   include/drm/bridge/dw_hdmi.h                       |  5 ++
->   9 files changed, 174 insertions(+), 83 deletions(-)
-> ---
-> base-commit: 8402cf4fc8f8d5756dc81cf9fda1dccdb3622634
-> change-id: 20260306-drm-lcdif-dbanc-83dd948327de
-> 
-> Best regards,
-
+> regards
+> Philipp
