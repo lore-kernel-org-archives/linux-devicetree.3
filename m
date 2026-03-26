@@ -1,143 +1,98 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981FE3B8D58;
-	Thu, 26 Mar 2026 08:48:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89D43C276B
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 08:48:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774514906; cv=none; b=KQQxkBxrd7UN/JrvB10j/OyVNvfA6YmaGhDMEjqqXKJwVcsYewwRWdOD01bDsWrln5kR99liUSAowk6ZYGD1rGCf1iw1yAGH/jQX8hlW775dkFJSSOaMWzWYw6tUF/jqpSfizYrk6Iloy3Q2oht++86ArdgO+P3yYGknigmQu28=
+	t=1774514913; cv=none; b=a9DEzQd+tu66q7VyZ4TlgK0qVN6NKtDFrGm3KPVwmfskWn+Fuur3hIodmcctSagOp4jIvqr4YoE63w5ZzGxAhgz6y6vTM2MPwCJznpCNuDQp8J1nt3bXVGVRyjFgfb0dEFtwS0ecoyJswW3ZGJ4V3X7ms6CiyszQFOq0zkgOHSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774514906; c=relaxed/simple;
-	bh=9IZHdFG9znARtDh/oliZSJzf4JxW7DWhn4r1I6ZLEeI=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=fHXXO4Y+WuZhoNseN1gsyOClU4yGzrsJ1lbrZOD2ERIvj3oMWcIJ/ZeCX4wsZwIgFgINO6ka4jT7SG83gSbFhzbFApK67b4YRwiYmk77arcc+YkUnFfohIG/GNOnp12MALGdV/pGMY1ASka01MAj30twpd3HrHcNr4LC6Kal8Oo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=fail (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=SkemjdrG reason="signature verification failed"; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1774514913; c=relaxed/simple;
+	bh=xDpz5toXT9+YnrNMtuCC5O0FW4S4IE6N5NmMAjyruQI=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jKU3BabBRS7yA22rXJoUyRyZeuHNVNqbOQ50cS4ovh2rSZAkccBa/wLD1bcWJP95bzydf4sFUutUYO4GyPJ8X9Oc+PX2B88vLgWCXEECRRdKHLU3Jwf28Cngx9DOT41+MBk/f+5LhQWmVNco//dZaDGA4d0Ga4jngeIBlWcVhvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ls/2dVtd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="SkemjdrG"
-Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 58A96FCC;
-	Thu, 26 Mar 2026 09:47:02 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1774514822;
-	bh=9IZHdFG9znARtDh/oliZSJzf4JxW7DWhn4r1I6ZLEeI=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=SkemjdrGePjQXWznj2EQIVgcKJv1uoVw4B6U1arSbUf1jk6R3Q/c26GmKZpTPUBbV
-	 TkDcVVXlu1R7qAbzMCuRBUMdhpo8iR9GuOuxLoQuLKr4E+3NbpfJUv8VBSqlSLgOaB
-	 Ffx/qFD6HEXx/u9/Ej9Czh1n8sfK/GbTM1CBkmIw=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ls/2dVtd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA680C2BCB7
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 08:48:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774514912;
+	bh=xDpz5toXT9+YnrNMtuCC5O0FW4S4IE6N5NmMAjyruQI=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc:From;
+	b=Ls/2dVtdnHLwYF3B4kiQyaJlXONuHLts6cQQ2mr0Co9Gd7w6hr3oBtUh9FXdCpEE6
+	 Dj381/ZxqtIOPm/DJCvMGnojS7YqXZEod4NbwHmQSkic7lpdCuoIUl2OXM9CXaj3JZ
+	 ugLAAGl/BZSvCm18UbxX6kBY9+4MtpC5ShgNgcm8eolJ9VOInYpscluQhuQ/U04M4X
+	 VzhdvUyg3zHF7Mdx/zsdQoA1m32bYH9MlCem+iPgAHU0x0c3ktkLVnjdET2uiJsjuS
+	 iG692SrWU+QRlwyhq/emAymNL5sodIdQbUS4RXjgP2RuH28Cht4Z+5orRn4rjsyFoN
+	 J2Xl2A5mj/sbg==
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-38704f70ea3so6745421fa.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 01:48:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUEucTAxqjEThDB0Q3Al1rJEwEyTqPf21yS5ugl6WXD+OArSPWTy9ATI/KdiEO0n/i3nOLAwqgJLvHh@vger.kernel.org
+X-Gm-Message-State: AOJu0YxLESsFhIo1ciKkejssjKdTy6iiEmrQADt66XTMBSJpAVsaiOCI
+	z+QPdeUCtidzp78sWJ2BU+qYyCKqj+MukPwqqGeR7W8iHpryy5As7STA0laR7+0hLjMbqDlVAVZ
+	EDq5W7WzR6B7RNxZ5b2gx/BbRrOgct/t3YwCasQEDiA==
+X-Received: by 2002:a05:651c:1587:b0:38a:332c:777a with SMTP id
+ 38308e7fff4ca-38c43206b02mr27254831fa.34.1774514911324; Thu, 26 Mar 2026
+ 01:48:31 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 26 Mar 2026 01:48:29 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 26 Mar 2026 01:48:29 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260326-pci-m2-e-v7-5-43324a7866e6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260326-imx8mp-dts-fix-v2-v2-2-62c4ce727448@nxp.com>
-References: <20260326-imx8mp-dts-fix-v2-v2-0-62c4ce727448@nxp.com> <20260326-imx8mp-dts-fix-v2-v2-2-62c4ce727448@nxp.com>
-Subject: Re: [PATCH v2 02/12] arm64: dts: imx8mp-debix-som-a: Correct PAD settings for PMIC_nINT
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@dh-electronics.com, Peng Fan <peng.fan@nxp.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, =?utf-8?q?B=C3=B6rge_Str=C3=BCmpfel?= <boerge.struempfel@gmail.com>, Christoph Niedermaier <cniedermaier@dh-electronics.com>, Conor Dooley <conor+dt@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Gilles Talis <gilles.talis@gmail.com>, Goran =?utf-8?q?Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, Heiko Schocher <hs@denx.de>, Jagan Teki <jagan@amarulasolutions.com>, Josua Mayer <josua@solid-run.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Manoj Sai <abbaraju.manojsai@amarulasolutions.com>, Marco Felsch <m.felsch@pengutronix.de>, Marek Vasut <marex@denx.de>, Martyn Welch <martyn.welch@collabora.com>, Matteo Lisi <matteo.lisi@engicam.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, Ray Chang <ray.chang@technexion.com>, Richard Hu <richard.hu@technexion.com>, Rob Herring <robh@kernel.org>, Sascha Hauer <s.h
- auer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, Shengjiu Wang <shengjiu.wang@nxp.com>, Viorel Suman <viorel.suman@nxp.com>
-Date: Thu, 26 Mar 2026 08:48:17 +0000
-Message-ID: <177451489789.1230693.17921355068406519595@ping.linuxembedded.co.uk>
-User-Agent: alot/0.9.1
+References: <20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com> <20260326-pci-m2-e-v7-5-43324a7866e6@oss.qualcomm.com>
+Date: Thu, 26 Mar 2026 01:48:29 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfcT2hLOQ6yVQrvdgimsA1oDzGM3e_7nAWyUAFoOyhH6A@mail.gmail.com>
+X-Gm-Features: AQROBzDDnGGEISO25bRpZEkvayXNWHPvGoERJaG_tDIkHVVI5jwB71NCISyV7hU
+Message-ID: <CAMRc=MfcT2hLOQ6yVQrvdgimsA1oDzGM3e_7nAWyUAFoOyhH6A@mail.gmail.com>
+Subject: Re: [PATCH v7 5/8] dt-bindings: connector: Add PCIe M.2 Mechanical
+ Key E connector
+To: manivannan.sadhasivam@oss.qualcomm.com
+Cc: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>, 
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+	linux-pm@vger.kernel.org, Stephan Gerhold <stephan.gerhold@linaro.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, linux-acpi@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nicolas Schier <nicolas.schier@linux.dev>, Hans de Goede <hansg@kernel.org>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+	Bartosz Golaszewski <brgl@bgdev.pl>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Quoting Peng Fan (OSS) (2026-03-26 07:28:06)
-> From: Peng Fan <peng.fan@nxp.com>
->=20
-> With commit 5d0efaf47ee90 ("regulator: pca9450: Correct interrupt type"),
-> there is interrupt storm for i.MX8MP DEBIX SOM A. Need to set PAD
-> PUE and PU together to make pull up work properly.
->=20
-> Fixes: 21baf0b47f81b ("arm64: dts: freescale: Add DEBIX SOM A and SOM A I=
-/O Board support")
-> Reported-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Closes: https://lore.kernel.org/all/20260323105858.GA2185714@killaraus.id=
-easonboard.com/
-> Reported-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
-> Closes: https://lore.kernel.org/imx/20260324194353.GB2352505@killaraus.id=
-easonboard.com/T/#m9a07fdc75496369a7d76d52c5e34ed140dcabfe3
-
-
-Much quieter, thank you.
-
-Tested with
-
- watch -n0.5 cat /proc/interrupts
-
-...
- 28:          0          0          0          0    GICv3  23 Level     arm=
--pmu
- 29:          0          0          0          0    GICv3 130 Level     imx=
-8_ddr_perf_pmu
- 35:          0          0          0          0 gpio-mxc   3 Level     pca=
-9450-irq
-137:          0          0          0          0 gpio-mxc   3 Edge      hym=
-8563
-200:        919          0          0          0    GICv3  67 Level     30a=
-20000.i2c
-201:          5          0          0          0    GICv3  68 Level     30a=
-30000.i2c
-202:          5          0          0          0    GICv3  69 Level     30a=
-40000.i2c
-203:        157          0          0          0    GICv3  70 Level     30a=
-50000.i2c
-204:          0          0          0          0    GICv3  57 Level     380=
-08000.gpu
-207:          0          0          0          0    GICv3 180 Level     32f=
-10100.usb
-...
-
-And only the timers are increasing (as expected).
-
-
-Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
-
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
->  arch/arm64/boot/dts/freescale/imx8mp-debix-som-a-bmb-08.dts | 2 +-
->  arch/arm64/boot/dts/freescale/imx8mp-debix-som-a.dtsi       | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-debix-som-a-bmb-08.dts =
-b/arch/arm64/boot/dts/freescale/imx8mp-debix-som-a-bmb-08.dts
-> index 04619a7229065be496611128ecf6848c9dd7102c..1471ff361b54cba05bb0e0734=
-aa6e8d149309025 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mp-debix-som-a-bmb-08.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-debix-som-a-bmb-08.dts
-> @@ -499,7 +499,7 @@ MX8MP_IOMUXC_SAI1_RXD1__GPIO4_IO03          0x140
-> =20
->         pinctrl_pmic: pmicgrp {
->                 fsl,pins =3D <
-> -                       MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03             0=
-x41
-> +                       MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03             0=
-x1c0
->                 >;
->         };
-> =20
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-debix-som-a.dtsi b/arch=
-/arm64/boot/dts/freescale/imx8mp-debix-som-a.dtsi
-> index 91094c2277443c1585dfb7f31dccfb27aa1bcc8d..b31e8fe95ca74500fdc459aec=
-feb3f4b573f4244 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mp-debix-som-a.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-debix-som-a.dtsi
-> @@ -241,7 +241,7 @@ MX8MP_IOMUXC_I2C4_SDA__I2C4_SDA                     0=
-x400001c3
-> =20
->         pinctrl_pmic: pmicgrp {
->                 fsl,pins =3D <
-> -                       MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03             0=
-x41
-> +                       MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03             0=
-x1c0
->                 >;
->         };
-> =20
->=20
-> --=20
-> 2.37.1
+On Thu, 26 Mar 2026 09:06:33 +0100, Manivannan Sadhasivam via B4 Relay
+<devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org> said:
+> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 >
+> Add the devicetree binding for PCIe M.2 Mechanical Key E connector defined
+> in the PCI Express M.2 Specification, r4.0, sec 5.1.2. This connector
+> provides interfaces like PCIe or SDIO to attach the WiFi devices to the
+> host machine, USB or UART+PCM interfaces to attach the Bluetooth (BT)
+> devices. Spec also provides an optional interface to connect the UIM card,
+> but that is not covered in this binding.
+>
+> The connector provides a primary power supply of 3.3v, along with an
+> optional 1.8v VIO supply for the Adapter I/O buffer circuitry operating at
+> 1.8v sideband signaling.
+>
+> The connector also supplies optional signals in the form of GPIOs for fine
+> grained power management.
+>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> ---
+
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
