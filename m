@@ -1,134 +1,167 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE7534F48F
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:58:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 106943CB2E6;
+	Thu, 26 Mar 2026 10:00:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774519125; cv=none; b=U6W2UTIv3jHVRkJQP0mpL9uZUo6BL+1OVm4VviXrTnc5kNi6BeZsRzQ1wbdT4z/zX9yn8YcX7hkUwjzUvFWUap5wb886Praw3bCZGeCYrGv4SD+zIxqXh3gHM/pHT5Io1NV8QZVQR6M6aD4a9rgAGzY6VxbzW67m63KAYnmFLnA=
+	t=1774519229; cv=none; b=eVNuNSvKKsYKU8bXlth80yC8o985xKWD2XCOjyoEUJvcTFKT+A/BOYqpE2iVA6G/CiUFFv8GPIxvaEzQ1fQx2dfAfuhsAhivriWkxzNKg6ZRKTkrpmv1pn1FYwboKOmNipv2t89dYOemT+YC/xgfHSdj0M/Ff3BAHua/uix+PLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774519125; c=relaxed/simple;
-	bh=6IqqQfMoQbRxVazGX5hKi7O8RtJ1WBB2vj4yvCARcA4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=Y/vqTsnHUJxdzdmyfPm2/xZhJYDdy6ByFSmkmEwp58GL1QTjzITfy80MRHucSK4NSfuXk1ZMdX+keZxJcozz3j+UGANSR2AvcVXfje4HYwgJ1eW8rHlcUkDxR11lgTzeIel6bU8FVGYq1Uxmf9V8laFmvAZE7kIcKHxNig1thoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=XVGLFt7A; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1774519229; c=relaxed/simple;
+	bh=YpjKz+MXrEJKD/amzHLZygjzl2q1zYJTn/2+9zrnFbk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lphtx27Pxfg1PvOn1e9HAkqjruzv7nI4O1cX9Xkwwa/u8cz4UhvlLcY6u/bx0XaWtJvKKswvV0MFJtXtRGA+8PPmrq3dGrhuGs3l+pw5AgTF7dBDCsy6eMUHt5HiOMJxWQmmMY8zrKD/P4Wv7Zj4kNYrmrqRMDQAnz0/z/NMB00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HbnZB+J2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="XVGLFt7A"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260326095833euoutp02fede41848cd56f0f28399a2c6c6b7718~gW7tvu7k10342703427euoutp02j
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:58:33 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260326095833euoutp02fede41848cd56f0f28399a2c6c6b7718~gW7tvu7k10342703427euoutp02j
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1774519113;
-	bh=guDjPoCVnwYxXsCuno8FxlAqWDyeX+17V89RQydjDBU=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=XVGLFt7Apqn21yhPWeW1UNuhKNqTboOtZ+UhS0CgObFVgMXWsowDWbu+tsM39Lyws
-	 WYbg+km/a8z317lu3iAH0Q8461T4DF+/r6W6OVS6Kv5p6Qa60MMn0mGJBdimobDgV3
-	 0Sm0SC4jjh7ucYpJIlfauJFgIvcrvltVOJDm2l8M=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260326095833eucas1p1f993eda67f6c9a6b3e67a439f023871d~gW7tMghLC0527405274eucas1p1x;
-	Thu, 26 Mar 2026 09:58:33 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260326095832eusmtip2da486e52f07287d36be8ef809ccac84b~gW7sXJRUn1854318543eusmtip2P;
-	Thu, 26 Mar 2026 09:58:32 +0000 (GMT)
-Message-ID: <fe9359e0-1c9a-4113-82c3-0275c932a58a@samsung.com>
-Date: Thu, 26 Mar 2026 10:58:31 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HbnZB+J2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1692C19423;
+	Thu, 26 Mar 2026 10:00:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774519228;
+	bh=YpjKz+MXrEJKD/amzHLZygjzl2q1zYJTn/2+9zrnFbk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HbnZB+J2EUiWTIcTl5ux6o4nmsX0zdPCeKA9X2E2pqwVjLqHXljiFGkZePyN9Uo5k
+	 UQq2HnTy4Jh6bUXew9Nk6dQR9OcIPSjXV3O6fT5jnjvr4okYPP59GBAoIc0X+HX6C3
+	 rZ2BSOZhNu0rhiapGbswtE+4dWW3abszZ2TernYS1U7Y9mktHT9zFxsq7DnzcKKfvQ
+	 exvsjEcmDHQwwcxLWLVoeYE8/tR2Bszae26Tuve04yoL5qmJaiHH7jWMAgdVDqlCow
+	 fAUsK3OrU+CclrDswok0HGiZaDO6fTtArHEIvjD062Lk03TVEQorQXzibIR4NKtEsb
+	 MRpiZiCbzgwqQ==
+Date: Thu, 26 Mar 2026 11:00:24 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jon Hunter <jonathanh@nvidia.com>, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v2 2/5] firmware: tegra: bpmp: Add
+ tegra_bpmp_get_with_id() function
+Message-ID: <acUDq3bt7P2vL5tg@orome>
+References: <20260320225443.2571920-1-thierry.reding@kernel.org>
+ <20260320225443.2571920-3-thierry.reding@kernel.org>
+ <24777801.6Emhk5qWAg@senjougahara>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v3 0/7] Refactor reserved memory regions handling code
-To: Rob Herring <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-mm@kvack.org, iommu@lists.linux.dev, Krzysztof Kozlowski
-	<krzk@kernel.org>, Oreoluwa Babatunde <oreoluwa.babatunde@oss.qualcomm.com>,
-	Saravana Kannan <saravanak@kernel.org>, Andrew Morton
-	<akpm@linux-foundation.org>, Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260325141648.GA2685599-robh@kernel.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260326095833eucas1p1f993eda67f6c9a6b3e67a439f023871d
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260325090029eucas1p1932917cc4839c3349932aeda37a7125d
-X-EPHeader: CA
-X-CMS-RootMailID: 20260325090029eucas1p1932917cc4839c3349932aeda37a7125d
-References: <CGME20260325090029eucas1p1932917cc4839c3349932aeda37a7125d@eucas1p1.samsung.com>
-	<20260325090023.3175348-1-m.szyprowski@samsung.com>
-	<20260325141648.GA2685599-robh@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pu5ew2iy2ugqzuez"
+Content-Disposition: inline
+In-Reply-To: <24777801.6Emhk5qWAg@senjougahara>
 
-Hi Rob
 
-On 25.03.2026 15:16, Rob Herring wrote:
-> On Wed, Mar 25, 2026 at 10:00:16AM +0100, Marek Szyprowski wrote:
->> The reserved memory regions handling code was reworked to handle
->> unlimited so called "static" memory nodes in commit 00c9a452a235 ("of:
->> reserved_mem: Add code to dynamically allocate reserved_mem array").
->>
->> The side effect of this rework was a set of bugs fixed later by commits
->> 0fd17e598333 ("of: reserved_mem: Allow reserved_mem framework detect
->> "cma=" kernel param") and 2c223f7239f3 ("of: reserved_mem: Restructure
->> call site for dma_contiguous_early_fixup()"). As a result, the code in
->> drivers/of/of_reserved_mem.c became a mix of generic code and CMA
->> specific fixups.
->>
->> In this patchset I try to untangle this spaghetti and perform some code
->> cleanup. I hope nothing breaks this time.
->>
->> Best regards
->> Marek Szyprowski, PhD
->> Samsung R&D Institute Poland
->>
->>
->> Changelog:
->>
->> v3:
->> - fixed more issues pointed by Sashiko in
->>    https://protect2.fireeye.com/v1/url?k=c0975fdb-a11c4aed-c096d494-74fe485cbff1-5d0a8d4ece172e7b&q=1&e=abd3a151-11c5-430e-a6ac-b04cc3b34ab7&u=https%3A%2F%2Fsashiko.dev%2F%23%2Fpatchset%2F20260323100901.4079171-1-m.szyprowski%40samsung.com
->>    (restored use of _OF_DECLARE macro, extended some comments and commit
->>    descriptions, the remaining items I consider not relevant)
->>
->> v2: https://lore.kernel.org/all/20260323100901.4079171-1-m.szyprowski@samsung.com/
->> - added missing ops assignment removal in tegra210-emc-table and swiotlb
->>    drivers
->> - fixed issues pointed by kernel test robot and Sashiko: removed typos,
->>    improved comments
->> - fixed incorrect node passed to fdt_validate_reserved_mem_node() in
->>    fdt_scan_reserved_mem_reg_nodes()
->>
->> v1: https://lore.kernel.org/all/20260313150802.1121442-1-m.szyprowski@samsung.com/
->> - initial version
->>
->>
->> Patch summary:
->>
->> Marek Szyprowski (7):
->>    of: reserved_mem: remove fdt node from the structure
->>    of: reserved_mem: use -ENODEV instead of -ENOENT
->>    of: reserved_mem: switch to ops based OF_DECLARE()
->>    of: reserved_mem: replace CMA quirks by generic methods
->>    of: reserved_mem: rearrange code a bit
->>    of: reserved_mem: clarify fdt_scan_reserved_mem*() functions
->>    of: reserved_mem: rework fdt_init_reserved_mem_node()
-> I've applied the series, thanks!
+--pu5ew2iy2ugqzuez
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 2/5] firmware: tegra: bpmp: Add
+ tegra_bpmp_get_with_id() function
+MIME-Version: 1.0
 
-I forgot to mention this earlier. There are other pending changes 
-tokernel/dma/contiguous.c like 
-https://lore.kernel.org/all/20260303-dma-buf-heaps-as-modules-v3-0-24344812c707@kernel.org/ 
-which I would like to merge to -next. This conflicts with this patchset. 
-Could You provide a stable branch with those changes to let me resolve 
-conflicts in kernel/dma/contiguous.c on top of it?
+On Wed, Mar 25, 2026 at 11:28:41AM +0900, Mikko Perttunen wrote:
+> On Saturday, March 21, 2026 7:54=E2=80=AFAM Thierry Reding wrote:
+> > From: Thierry Reding <treding@nvidia.com>
+> >=20
+> > Some device tree bindings need to specify a parameter along with a BPMP
+> > phandle reference to designate the ID associated with a given controller
+> > that needs to interoperate with BPMP. Typically this is specified as an
+> > extra cell in the nvidia,bpmp property, so add a helper to parse this ID
+> > while resolving the phandle reference.
+> >=20
+> > Signed-off-by: Thierry Reding <treding@nvidia.com>
+> > ---
+> >  drivers/firmware/tegra/bpmp.c | 34 ++++++++++++++++++++++++++++++++++
+> >  include/soc/tegra/bpmp.h      |  1 +
+> >  2 files changed, 35 insertions(+)
+> >=20
+> > diff --git a/drivers/firmware/tegra/bpmp.c b/drivers/firmware/tegra/bpm=
+p.c
+> > index e74bba7ccc44..753472b53bd8 100644
+> > --- a/drivers/firmware/tegra/bpmp.c
+> > +++ b/drivers/firmware/tegra/bpmp.c
+> > @@ -32,6 +32,40 @@ channel_to_ops(struct tegra_bpmp_channel *channel)
+> >  	return bpmp->soc->ops;
+> >  }
+> > =20
+> > +struct tegra_bpmp *tegra_bpmp_get_with_id(struct device *dev, unsigned=
+ int=20
+> *id)
+> > +{
+> > +	struct platform_device *pdev;
+> > +	struct of_phandle_args args;
+> > +	struct tegra_bpmp *bpmp;
+> > +	int err;
+> > +
+> > +	err =3D __of_parse_phandle_with_args(dev->of_node, "nvidia,bpmp", NUL=
+L,
+> > +					   1, 0, &args);
+> > +	if (err < 0)
+> > +		return ERR_PTR(err);
+> > +
+> > +	pdev =3D of_find_device_by_node(args.np);
+> > +	if (!pdev) {
+> > +		bpmp =3D ERR_PTR(-ENODEV);
+> > +		goto put;
+> > +	}
+> > +
+> > +	bpmp =3D platform_get_drvdata(pdev);
+> > +	if (!bpmp) {
+> > +		bpmp =3D ERR_PTR(-EPROBE_DEFER);
+> > +		put_device(&pdev->dev);
+> > +		goto put;
+> > +	}
+> > +
+> > +	if (id)
+> > +		*id =3D args.args[0];
+> > +
+> > +put:
+> > +	of_node_put(args.np);
+> > +	return bpmp;
+> > +}
+> > +EXPORT_SYMBOL_GPL(tegra_bpmp_get_with_id);
+> > +
+> >  struct tegra_bpmp *tegra_bpmp_get(struct device *dev)
+> >  {
+> >  	struct platform_device *pdev;
+> > diff --git a/include/soc/tegra/bpmp.h b/include/soc/tegra/bpmp.h
+> > index f5e4ac5b8cce..424188c100d9 100644
+> > --- a/include/soc/tegra/bpmp.h
+> > +++ b/include/soc/tegra/bpmp.h
+> > @@ -127,6 +127,7 @@ struct tegra_bpmp_message {
+> > =20
+> >  #if IS_ENABLED(CONFIG_TEGRA_BPMP)
+> >  struct tegra_bpmp *tegra_bpmp_get(struct device *dev);
+> > +struct tegra_bpmp *tegra_bpmp_get_with_id(struct device *dev, unsigned=
+ int=20
+> *id);
+>=20
+> Should add a stub function in the #else branch, as well.
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Good point. Done.
 
+Thierry
+
+--pu5ew2iy2ugqzuez
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnFA7UACgkQ3SOs138+
+s6Em5w/+KkKgYHMUISCj532bdIof02gpfGfp/DB5EFjFjW6ST6rASh5Q2g272YNw
+n9nD8AxA3Z89OZgoAl5pqZ6AFFghe2eK2I7yGV3rxcIoxGvBF37Yl9caQp+YO+H5
+2FBj6MSmBN8Rf/4IMZavXfxjCfvrfHU01qYUL73bPtQAzKaWGW4Opc284LIi/STw
+vRoqqpAtxRdqtMvA81z24BQ0n5UyDiUJmvy/QMoNea8wRwVkVp2mmltx1foJ1PZA
+ze7OxaOe2dVj4dsfJYd7D0rDf9k1Wp9XG065Zvn1orsAfj8s3bqPT4nFz8mggxID
+jSCNFdp8PtWwwNOWr90Z0rBrBX/uI2E77q3phWHWqQ41JFK0EHAunBQ/pAJ82d5T
+STSApB7hquaMv3QEf2gryrCHu2r+nbBD7QrP4hQpH/MvxLu8mJ86zimmsQEvdc4h
+lczoADmSIen5E4MuF+bTvguVvCbAsHyuUIZ45LhIZTWH8FjQkY0OaT0gy4x/2mBc
+QVRjucIInQDtKfQtcv925RYzwkmCTnI6O135v8kyGEIxmBXA9uOUcmV6cn6luhbJ
+cnkrcT8o2XO4QIT5Qh7Y+guVlsvz+T4aN0pWUmMecxJJCtJ9X7b298tUJtyTzEVU
+1A2Gsa10bUeMTQL0WUHhNkBRrftScKT/xjjpOq0ClmVRc44wSPE=
+=qh4a
+-----END PGP SIGNATURE-----
+
+--pu5ew2iy2ugqzuez--
