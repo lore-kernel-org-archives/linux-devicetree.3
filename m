@@ -1,123 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5CD401A16;
-	Thu, 26 Mar 2026 15:58:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A38406278
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 16:01:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774540729; cv=none; b=i6alan95lD4SV7aT8+9ekj/vrA2qoDWV7/EbVPfp30HNXSTk1mDxe5nVMB7EHi+WZqdQvEP4CKp+1J7LaHru0rx/y0JytaULzLN1S48aN+LJ9BWDewyVvCPLsvw4JaabNxkWVK2P+9A4v3pRMqgzU2Ru/mWyZqSNH9eDWgqOQEM=
+	t=1774540880; cv=none; b=Hy3cMBJhOBCGjFVXSuKcei4R8UgPdYICBe+/5eW+BOCP0mfFy093kxK2uVzgviFPARo3Mgou88IQbt3bC8pQiHMWBaavoJuvTmI90bhIsIkvwr0OA419p6NiNPIF8XQOQjCYhzEkO3iy3/lWwRhRTTrUnMuB1t1yiA/vm0yabHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774540729; c=relaxed/simple;
-	bh=tTQxD9EHRYahV5vajLwoH5cOmwDwYqTZzE3aTrnmmRA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dwK9A8y2PZhmoVairrn+4Ep+O2rcfo3xQvrmvEq2/UrH4Nn3p5lDke76zzwkZo/7pzYUSJELgST40+qSt0jGzDbkbe34F9OVjZobRKYm8jg7Sgmdfn0Ke/x9ETllVq1wKDIyaPnzlaR1qm6Q3tc5gjwoi+D99vLAguZwR+0xP6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BAcWM7ct; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BAcWM7ct"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01FFDC116C6;
-	Thu, 26 Mar 2026 15:58:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774540728;
-	bh=tTQxD9EHRYahV5vajLwoH5cOmwDwYqTZzE3aTrnmmRA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BAcWM7ct+tSe96JXMXQjjuR+xRmsdakYqdUam7sAe1arIjeds+uoCtqwyQEcnIwRm
-	 oddaBY8DCQZMFEmELY6vZXE18Hh4Hp/gHAEjydww9YpcK3OfHb7OQot5VlMtVUEQlj
-	 yS5mxCVqf6t6luH62UWpXv2e3AP9Ro6DkJ7Fa+rw5/rDi0deE/gIE25empz+u2mTZT
-	 77IMGTOkIvrEsbnJs7pQImnJiaEZAjkISToUzlxFFR1t3+2EqIprUULe3I39IQlDNL
-	 KposIUGT64pgRYNa9w0hhwRwBl8ZnKwDoBdM51MZzhorgldWQWp+QuD+4ur1MOXKJ/
-	 gLEJIvjbsTQQQ==
-Date: Thu, 26 Mar 2026 10:58:45 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Ayushi Makhija <quic_amakhija@quicinc.com>
-Cc: konrad.dybcio@linaro.org, robh+dt@kernel.org, 
-	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org, dmitry.baryshkov@linaro.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com
-Subject: Re: [PATCH] arm64: dts: qcom: sm8750-mtp: Set sufficient voltage for
- panel nt37801
-Message-ID: <acVWseivbxLQ_uDM@baldur>
-References: <20260323102229.1546504-1-quic_amakhija@quicinc.com>
- <acHwvzjcvqNxUjm3@baldur>
- <ccb11c2a-4cf1-4486-be71-d4bcc983cee6@quicinc.com>
+	s=arc-20240116; t=1774540880; c=relaxed/simple;
+	bh=nJJ044CFG8WFf7uTek+YoTRHmmGxlXFM1S9hcGLROjI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oxXmXcFd2wakhcAcgSNXiQfMW83cDmEjFmYKfSSLePOiC3bQBVXPH7ChlkCoW2N4jeWiBMcG3XawxuwX7A+AXdbJD1EVh9xLU9dDW/4jy7H7G8CEimKM4wZ1WkmWIRGUPOX9OuKJcYs8je/m1TScpiKBhJOE9UGkGxYBsunMtwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-56ceded5a11so437720e0c.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:01:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774540875; x=1775145675;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EjJkfoCYmqHBebtmH7jbwGZvaBZg+X2t2r1EMwQ2wHs=;
+        b=Zcmg+ev5qbxCoby8TDkYN0xUgNSYtcDcic4dGahWpa6ni+44V9mmixJfbo6Y2B+n+v
+         jGxC+ZjlaYOrmxI2wFVXAcmaPMXiLZM1UP6MJG9Buuy1r/ywMQP3QrYUSXhdcJW1L1QJ
+         wrBOqO2igPaLAzJNbu+daRQLTcnBELK5jceGE+i7LDZMcQ5DbdjnCuNvNSy3GTeBer5X
+         eQ3h8l9BokzslqBWwh3yY9fNSf/cI3xQ0uYd9gZpoka+TDF5/v4NTZhIMEwlChkStxOu
+         g3k8Jkz7RnuhSuSYtXcmW6vYiPXoM/Wl/b+/5lZ64VB8tjs0G6psrECFmjtBbMikN/ff
+         GMWg==
+X-Forwarded-Encrypted: i=1; AJvYcCWmKKVwIILCf6XH199XKQ8+nm/MdW0VvqesqdCOlpUNH5isbTz/eGX0qmlmWM4GkNyzSewa4mFeNu9R@vger.kernel.org
+X-Gm-Message-State: AOJu0YxAXylzRgN+Tth9AasQ5IDtt/6gRXYw+AMJhkzgNyHO9U5fWSML
+	2wC7zyQVx6R2mU2pdgZzWUf9z5i4cl7YqaNoMIkJNiZtxww5eeEuJlqD4nfJbv9xjNE=
+X-Gm-Gg: ATEYQzx2uErO0ZX74t+oMNqdPfo7fqO8ayOr3e5di1CwZTNy27uARjA/7w4WwOrId1f
+	t6hFP4P2x9eiQGL+q2M1FsXFlrdK7SQHhk2bz5B/D0CPJ0alKY49aA7NgIR6iw2i7cCSyAZrhY/
+	iaWXIXQCR1QKx5qDlcHENY92jdQrYLI7+37ZktxETDA4fXWhthaMLKJzvs/B3GYPaxnI5MNSG8U
+	qmS0SwKXgxfvVrTx6JoxIjWeBChZ0dzz7lIVERlUlei1cO4GginYTP88cd/5RdtIVGFVKlryvSv
+	r3Acj5+2JRjA2/RxmKEMaUuEWrVL2a9aMUjJooiBprPIbbbbl7nFmqXDT38mizcbO6oNIKaJ+Zc
+	Cl5I2xb+lXTbnq6MMSRxeQ8ht2DHduPQBzEEkzQ+Fw/r9PyRbHDWcr0RC3ZZ4/IK+hsQCVhV4dL
+	6vt17DQzXBiBQ8RquJjOeurMY0XXu1Ugdkr4zcFFc8h9qARVC9YqJhlT+7cBi30FTd
+X-Received: by 2002:a05:6122:32d5:b0:56a:fc35:966d with SMTP id 71dfb90a1353d-56d21fb12c5mr4010762e0c.8.1774540875233;
+        Thu, 26 Mar 2026 09:01:15 -0700 (PDT)
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com. [209.85.221.180])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-951be56f28esm3957929241.10.2026.03.26.09.01.13
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Mar 2026 09:01:13 -0700 (PDT)
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5637886c92aso596982e0c.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:01:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCWd6BHPKy9qIzr/HNKJ0wEwhFviHPPzT7Q4hnfmb/q0EgeNEe9m20O6/UfytWnKoChiwobPm+nbW9T/@vger.kernel.org
+X-Received: by 2002:a05:6122:8c13:b0:56c:ce0b:fecd with SMTP id
+ 71dfb90a1353d-56d2208bef0mr4303675e0c.12.1774540872761; Thu, 26 Mar 2026
+ 09:01:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ccb11c2a-4cf1-4486-be71-d4bcc983cee6@quicinc.com>
+References: <20260319141515.2053556-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260319141515.2053556-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260319141515.2053556-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 26 Mar 2026 17:01:00 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXeRRWi1g72p_2Rq-dYO=pD6aLkWC-x5fZpHa7WMQZR2w@mail.gmail.com>
+X-Gm-Features: AQROBzAu-o_sjRBfd6AHvLbmqr0rTNnVFjjdYlB7t2PFooSBjTFI7oEHrcpJ_Zc
+Message-ID: <CAMuHMdXeRRWi1g72p_2Rq-dYO=pD6aLkWC-x5fZpHa7WMQZR2w@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: pinctrl: renesas,r9a09g077: Document
+ pin configuration properties
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Mar 26, 2026 at 03:06:52PM +0530, Ayushi Makhija wrote:
-> On 3/24/2026 7:34 AM, Bjorn Andersson wrote:
-> > On Mon, Mar 23, 2026 at 03:52:29PM +0530, Ayushi Makhija wrote:
-> >> The NT37801 Sepc V1.0 chapter "5.7.1 Power On Sequence" states
-> >> VDDI=1.65V~1.95V, so set sufficient voltage for panel nt37801.
-> >>
-> > 
-> > Please add Fixes: tag.
-> > 
-> 
-> Hi Bjorn,
-> 
-> Sure, will add in new patchset.
-> 
-> >> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
-> > 
-> > Please start using your oss.qualcomm.com address.
-> > 
-> >> ---
-> >>  arch/arm64/boot/dts/qcom/sm8750-mtp.dts | 2 +-
-> >>  1 file changed, 1 insertion(+), 1 deletion(-)
-> >>
-> >> diff --git a/arch/arm64/boot/dts/qcom/sm8750-mtp.dts b/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
-> >> index 3837f6785320..6ba4e69bf377 100644
-> >> --- a/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
-> >> +++ b/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
-> >> @@ -462,7 +462,7 @@ vreg_l11b_1p0: ldo11 {
-> >>  
-> >>  		vreg_l12b_1p8: ldo12 {
-> >>  			regulator-name = "vreg_l12b_1p8";
-> >> -			regulator-min-microvolt = <1200000>;
-> >> +			regulator-min-microvolt = <1650000>;
-> > 
-> > Are you sure it's not supposed to be 1.8V, given the name of the rail?
-> > 
-> > Regards,
-> > Bjorn
-> 
-> There was already discussion regarding the minimum voltage for this regulator on sm8550 target
-> on other upstream patch. 
-> 
-> Link: https://lore.kernel.org/all/aQQdQoCLeKhYtY7W@yuanjiey.ap.qualcomm.com/
-> 
-> This values is according to the NT37801 panel sec
-> "The NT37801 Sepc V1.0 chapter "5.7.1 Power On Sequence" states 
-> VDDI=1.65V~1.95V."
-> 
+On Thu, 19 Mar 2026 at 15:15, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> Document the pin configuration properties supported by the RZ/T2H
+> pinctrl driver.
+>
+> The RZ/T2H SoC allows configuring several electrical characteristics
+> through the DRCTLm (I/O Buffer Function Switching) registers. These
+> registers control drive strength, bias configuration, Schmitt trigger
+> input, and output slew rate.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> v1->v2:
+> - Updated commit description
+> - Switched to using the standard drive-strength-microamp property
+>   name instead of a custom one
+> - Added a description for slew-rate property
 
-Yes, so the panel requires 1.65V, so regulator-min-microvolt needs to be
-at least that. But regulator-min-microvolt should account for all the
-consumers of the rail, are there any others?
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-pinctrl for v7.1.
 
-Which leads me to my question, the people designing the board named the
-rail VREG_L12B_1P8 in the schematics, why didn't they name it
-VREG_L12B_1P65?
+Gr{oetje,eeting}s,
 
-Please check all the consumers and make the regulator-min-microvolt work
-for all of them - if that's 1.65V, then your change is good.
+                        Geert
 
-Regards,
-Bjorn
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-> Thanks,
-> Ayushi
-> 
-> >>  			regulator-max-microvolt = <1800000>;
-> >>  			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> >>  			regulator-allow-set-load;
-> >> -- 
-> >> 2.34.1
-> >>
-> 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
