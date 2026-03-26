@@ -1,341 +1,312 @@
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222E73B3BE7
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 12:34:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774528488; cv=pass; b=Rl5ptuOwrTKqu4TfZfOdjEER2Vz+VNWL1lOIPWrQPHLQs2YSnLShBqyX0ZO7ySBAH9j6WsH/acwmTSYi+HxjgW1Cusk7XjfPo+nvkorBgCXRfrikFPK1b2lBfz0LuTdvMyA/5g8fmC9p21gh/7nlXaBChftE3+1GjJqCjQ/9Qu4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774528488; c=relaxed/simple;
-	bh=Kh8C2yd0QW5E5Nn2o1qDw2Ib5nSTc8p+g0FkjkfPiDI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UXQGdPnO/2gNkLzK7u0+UWAaWOz9mAI1nmCzKp/473IsSh8I8rVwSf3eF9ybs8Y/nGUxTLeP6D6Uyja77l/tgtm59+yW4GO/o8M5uvEoiBmlvmv4R/heXjmZoJ4oPBJiQtKXbfk30CglXcTC/wcmA1SG8w162TuEmGyMUXgPGQM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=F4DP+qOp; arc=pass smtp.client-ip=209.85.208.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32132347FCD;
+	Thu, 26 Mar 2026 12:38:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774528717; cv=none; b=LhPphDouB9B0STnovcz9eXXeT3DweqI/0dXh38CrqW8KJoN6qYU3+3wLf2DeVnkg5Un3WSMUQeb5nftrOW8OSTNon9T6x82TelJoQ9/fHFn/AOF4XxDlSQv9LwwKE6DMTjijE2qa4GlXS13Hr1Rabc8NL5s9XF0maD/06GhoLkg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774528717; c=relaxed/simple;
+	bh=qjey+VcgjL3Yo7kDtwbvv9DRXVGVGoFZZTBZ+RV8oPQ=;
+	h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To; b=X115suvSZtdhLUJowtJuj5D88B1kBBOvykHrhA+quvA9rTmZt/IYHvt5rpAAzIp+2k5EnltJSjIPXVWK06sjSh1Qf3zANpCdVJQXFhpexGa2mUUbB6uWwbKtd+sU+MTZtjQ2n93cwXHPBlyaGeK1ivHjX+OYlzKeACVYugRfzog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=arTG7Anx; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="F4DP+qOp"
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-38a2f196cbaso7065151fa.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 05:34:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774528485; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Po7ZQcPxfB3P83LfWxq9kNKyLA5J2BKQ2u1Bv557mSL0Hwf8Z6STUo92MiC1wu/nCY
-         PbNNWLOsnBc5jBNB8nypTs3WBAvwDHCmyXLfNgx5FKpLqsZj+HRnM1BOSXUuOnzlSjqJ
-         jpatQuXn+0L0nSc16NzwsdWGNZ7sdkNRYkY0n/fAka9nRmjk7J8gVQePdrU4lOMaFrmN
-         ZscParmEnRclwe5CguBn4BS4pr4Cd76wC/JqD3OwmsaraSut6QR7ytSeO9XzjbR3zgQh
-         Ko8k4SLFepE7ax/3jDZV+j8ctGFhuCTIMF/6M8DgZ0pZjEwv4n7CUnBovNILoCR06+hO
-         MLAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=w8arL5aX7YsSdvIL2KLEa2SjWw/0ygcrFGAOAqfvGZA=;
-        fh=oi0ws+zwoP3DDBeqr+toiUVw1uO5tXEcjvuOrLnH5Ew=;
-        b=VGpvLjs8RgI112gVA4rcb+oXbxsOWKWbYpGyVy1tUvJpTkCPtMwBX6E9vLjF/ZfWZG
-         ORmwCKXAxH+u1zVxFYj08ubqkrZpRgAyq5o2GtdSMlo3MG+yDTa7b5SRKe0cGyMaWT1Y
-         ZC4VS1uG4utS2VEP5xKKEJxT6Q4dMiuemnxo9ZNi79xeSuEGUc5yNFQUQccpPm0Xhocz
-         V5nXvwuFzTLNuZPiP3Bx+ul/rO8w6jK20zCxRMrfsDSw+L+gjpSlsPQZkjPl6BcqjPkf
-         u+WW4eKkr4W23TQDwjG5S6KrWbWLCQYZuVr6HCmetnU+ocsEyrntDWLwhBnEra8KFeRa
-         nv7A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774528485; x=1775133285; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=w8arL5aX7YsSdvIL2KLEa2SjWw/0ygcrFGAOAqfvGZA=;
-        b=F4DP+qOpaxvrrK3Kivb5yaJXpL6HP+GptmnIQorhZDKTToxrIelX5EkYMbUqcdqnUW
-         IFmDvt1uymzvURo/j1v+LjAgjcBrgCRuBlyo0AI+r8jhsob+qm94uzw6UKetrTtampbm
-         q560eZCcWJ0pZTuhxJ/lc/K59LVOTARsBQMypRZWwzTae/repluOig6+X4MpRUXSZqAF
-         BLM/HgKnU+yT1Mx0ntNYdOK6Vgq1Lr+M9pDLxt6BFbURyfaOylfAv4DGx8I9v6xQMZWX
-         r8kCShwEd2/rGj9N5MUfqWe49PnWlGTWOOoDPXscDUSzc8+hhebaAkce/ebr+9J+v+Q4
-         AXAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774528485; x=1775133285;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=w8arL5aX7YsSdvIL2KLEa2SjWw/0ygcrFGAOAqfvGZA=;
-        b=qBau44eX29HVdaE2c/yIh3XCL0Y4ssJfyyPK9ehx/+PCmsojI+ZjUVio83t/dxTu5+
-         qEEOgUTZgr1TUs6BLfOCEgGFwvo4wWKnKa67Kgcumde9gfdc0uZLrdfDV8UmazM3NoWF
-         EIINFHf5DnY2OjZr71YRq+lhj8GF1vfdOhPlweBgAOb0/SQgOkYBU3M5lnjkx043f6pR
-         H9GbF7N6tZrlzd/2XDT0s2ty9KWsLjoewo+ycVbU2xBJUydkgaQA0QNOnYYTdsoUAox6
-         vFpZ7cMzPFnpHlzf6GBdpQvDOGAiV9QGqaCSKLe+EjAArvO0sTX0mJ+Imcd1SRvFIHar
-         hbMA==
-X-Gm-Message-State: AOJu0Ywy9etKRJ9AFtagK6MbVNrUdtwCTjsBwhzR3MPmMyRRY7yirsVe
-	O421ZzLxSYURSfXLznCLzmbjoBqRwIJo1Pmv7ug/EDgFQM0Lrvs3QPzCJ5VutEVEQruGEEc5axr
-	DvfyAwz4GjCWcfEbeCrSiNcJkYMoKZ0ahxOtqtNyDWA==
-X-Gm-Gg: ATEYQzznRHvECqSJxr8dvOMNxc+octR4N4YGGFlgo42ZSqCMH3zCod7muzX8KUonNGT
-	8jCQ1zuW6R31maT86d8XpowrnXMHoiXLVDbhlRjI9YfAzbc1q3QOtIkLi5Oo59Vo7fJN0SrflqL
-	o3LEEs8zrEr4/czbQzCwpO7pRnGl0PQouytqMVQoRdluFFIja6omgEMt59fGaN39ymJSMX7AyV6
-	DOBGd7mdIrkBA5VxY64o66Ib9cvNlAkaAnd8nMWfXmm2f+8oluvjlqlwtxkHA+v+nVDvencynCj
-	gkN+wqI=
-X-Received: by 2002:a05:6512:3503:b0:5a2:787a:fa54 with SMTP id
- 2adb3069b0e04-5a29b984575mr3819487e87.18.1774528485146; Thu, 26 Mar 2026
- 05:34:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="arTG7Anx"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8BAD310D9CF;
+	Thu, 26 Mar 2026 13:38:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1774528712;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-language:in-reply-to:references;
+	bh=2e3ZvnSQSPjVnerdWD41L2g+lwnYBfiJ/hW/bqpwyiE=;
+	b=arTG7AnxuBGf+pMsv7Ed368ec04WzWtIOq9RToQKGosbUX5GL41iKwcxEY0LjLv6va4Nj0
+	6s9V2/vHmGWG4UVE+w3eNRN+dW2itTTkExqbpaefyBL8CE/I0uiwWl9j+nVoOx1RZTSQBl
+	AcEM1oXcKv0lmpOhbcEvri7ELybP8SFU1fnOe980uKWXsneDUV9QOYfeiLP9FGSu8Bh/fO
+	3sKaGUY8poOkVGJLQoCgku2ZjSQxsy4SFRBp5Zm5ujcagTrbI1KAE4tMqNS59ui/mubJ8X
+	UzFMmLYEx+UwyjPBbZijXnuMcb0OmlQopAwWWqpjblxqbK4AvsBKDzb33vPOGA==
+Content-Type: multipart/mixed; boundary="------------MFz30WOzW5H8gEKjOl5rLerx"
+Message-ID: <14d42756-8b97-40a5-ac1d-1d1a0dd3c87d@nabladev.com>
+Date: Thu, 26 Mar 2026 13:38:29 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260325225439.68161-1-rougueprince47@gmail.com> <20260325225439.68161-2-rougueprince47@gmail.com>
-In-Reply-To: <20260325225439.68161-2-rougueprince47@gmail.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Thu, 26 Mar 2026 13:34:08 +0100
-X-Gm-Features: AQROBzA9ouu9GctOeENUqpjJUJQ5Hy-gzMk2QIkjrS5DYDZYZfDgFBRbTuNSliw
-Message-ID: <CAPDyKFo29rgaf7OtvbkP85w96Y3nRJZORO_Sog70hdoxzYVzSw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: mmc: hisilicon,hi3660-dw-mshc:
- Convert to DT schema
-To: Bhargav Joshi <rougueprince47@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	xuwei5@hisilicon.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, zhangfei.gao@linaro.org, linux-mmc@vger.kernel.org, 
-	daniel.baluta@nxp.com, simona.toaca@nxp.com, d-gole@ti.com, m-chawdhry@ti.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] net: dsa: microchip: implement KSZ87xx Module 3
+ low-loss cable errata
+To: Fidelio Lawson <lawson.fidelio@gmail.com>,
+ Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Fidelio Lawson <fidelio.lawson@exotec.com>
+References: <20260326-ksz87xx_errata_low_loss_connections-v1-0-79a698f43626@exotec.com>
+ <20260326-ksz87xx_errata_low_loss_connections-v1-3-79a698f43626@exotec.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20260326-ksz87xx_errata_low_loss_connections-v1-3-79a698f43626@exotec.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, 25 Mar 2026 at 23:55, Bhargav Joshi <rougueprince47@gmail.com> wrote:
->
-> Convert the Hisilicon DesignWare Mobile Storage Host Controller
-> (dw-mshc) bindings from text format to DT schema.
->
-> As part of this conversion, the binding file is renamed from
-> k3-dw-mshc.txt to hisilicon,hi3660-dw-mshc.yaml to align with compatible
-> string naming conventions. Examples have been updated to pass schema
-> validation.
->
-> Note: synopsys-dw-mshc binding specifies clock names as "biu" followed
-> by "ciu". However, this Hisilicon binding reverses the order to 'ciu'
-> then 'biu' to match both the legacy text binding and in-kernel Hisilicon
-> DTS board files.
->
-> Signed-off-by: Bhargav Joshi <rougueprince47@gmail.com>
-> Acked-by: Zhangfei Gao <zhangfei.gao@linaro.org>
+This is a multi-part message in MIME format.
+--------------MFz30WOzW5H8gEKjOl5rLerx
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Applied for next, thanks!
+On 3/26/26 10:10 AM, Fidelio Lawson wrote:
 
-Kind regards
-Uffe
+> +static int ksz8_handle_module3_errata(struct ksz_device *dev)
+> +{
+> +	int ret = 0;
+> +	const u16 *regs = dev->info->regs;
+> +	u16 indir_reg = 0x0000;
+> +	u8 indir_val = 0x00;
+> +
+> +	switch (dev->low_loss_wa_mode) {
+> +	case KSZ_LOW_LOSS_WA_1:
+> +		indir_reg = 0x3C;
+> +		indir_val = 0x15;
+> +		break;
+> +	case KSZ_LOW_LOSS_WA_2:
+> +		indir_reg = 0x4C;
+> +		indir_val = 0x40;
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +	mutex_lock(&dev->alu_mutex);
+> +
+> +	ret = ksz_write8(dev, regs[REG_IND_CTRL_0], 0xA0);
+> +
+> +	if (!ret)
+> +		ret = ksz_write8(dev, 0x6F, indir_reg);
+> +
+> +	if (!ret)
+> +		ret = ksz_write8(dev, regs[REG_IND_BYTE], indir_val);
+> +
+> +	mutex_unlock(&dev->alu_mutex);
+> +
+> +	return ret;
+> +}
+Since this is configurable from DT, please adjust the bindings and make 
+the low pass filter bandwidth actually configurable according to the 
+values supported by the hardware, see this article:
 
+https://microchip.my.site.com/s/article/Solution-for-Using-CAT-5E-or-CAT-6-Short-Cable-with-a-Link-Issue-for-the-KSZ8795-Family
 
+The indirect register (0x4C) is an 8-bit register. The bits [7:6] are 
+described in the table below.
 
-> ---
-> Changes in v2:
->     - Grouped compatible strings into an enum.
->     - Replaced raw numbers with proper flags.
->     - Fixed property order and removed invalid hex values.
->     - Added explanation for clock order change in commit message.
->     - Collected Acked-by tag.
->
->  .../mmc/hisilicon,hi3660-dw-mshc.yaml         | 117 ++++++++++++++++++
->  .../devicetree/bindings/mmc/k3-dw-mshc.txt    |  73 -----------
->  2 files changed, 117 insertions(+), 73 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/mmc/hisilicon,hi3660-dw-mshc.yaml
->  delete mode 100644 Documentation/devicetree/bindings/mmc/k3-dw-mshc.txt
->
-> diff --git a/Documentation/devicetree/bindings/mmc/hisilicon,hi3660-dw-mshc.yaml b/Documentation/devicetree/bindings/mmc/hisilicon,hi3660-dw-mshc.yaml
-> new file mode 100644
-> index 000000000000..296bd776488e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mmc/hisilicon,hi3660-dw-mshc.yaml
-> @@ -0,0 +1,117 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/mmc/hisilicon,hi3660-dw-mshc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Hisilicon specific extensions to the Synopsys Designware Mobile Storage Host Controller
-> +
-> +maintainers:
-> +  - Zhangfei Gao <zhangfei.gao@linaro.org>
-> +
-> +description:
-> +  The Synopsys designware mobile storage host controller is used to interface
-> +  a SoC with storage medium such as eMMC or SD/MMC cards. This file documents
-> +  differences between the core Synopsys dw mshc controller properties described
-> +  by synopsys-dw-mshc.txt and the properties used by the Hisilicon specific
-> +  extensions to the Synopsys Designware Mobile Storage Host Controller.
-> +
-> +allOf:
-> +  - $ref: /schemas/mmc/synopsys-dw-mshc-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - enum:
-> +          - hisilicon,hi3660-dw-mshc
-> +          - hisilicon,hi4511-dw-mshc
-> +          - hisilicon,hi6220-dw-mshc
-> +      - items:
-> +          - const: hisilicon,hi3670-dw-mshc
-> +          - const: hisilicon,hi3660-dw-mshc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: card interface unit clock
-> +      - description: bus interface unit clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: ciu
-> +      - const: biu
-> +
-> +  hisilicon,peripheral-syscon:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: phandle of syscon used to control peripheral.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/hi3620-clock.h>
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    mmc@fcd03000 {
-> +        compatible = "hisilicon,hi4511-dw-mshc";
-> +        reg = <0xfcd03000 0x1000>;
-> +        interrupts = <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>;
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +        clocks = <&mmc_clock HI3620_SD_CIUCLK>, <&clock HI3620_DDRC_PER_CLK>;
-> +        clock-names = "ciu", "biu";
-> +        vmmc-supply = <&ldo12>;
-> +        fifo-depth = <0x100>;
-> +        pinctrl-names = "default";
-> +        pinctrl-0 = <&sd_pmx_pins &sd_cfg_func1 &sd_cfg_func2>;
-> +        bus-width = <4>;
-> +        disable-wp;
-> +        cd-gpios = <&gpio10 3 GPIO_ACTIVE_HIGH>;
-> +        cap-mmc-highspeed;
-> +        cap-sd-highspeed;
-> +    };
-> +
-> +  - |
-> +    #include <dt-bindings/clock/hi6220-clock.h>
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    soc {
-> +      #address-cells = <2>;
-> +      #size-cells = <2>;
-> +
-> +      mmc@f723e000 {
-> +          compatible = "hisilicon,hi6220-dw-mshc";
-> +          reg = <0x0 0xf723e000 0x0 0x1000>;
-> +          interrupts = <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>;
-> +          clocks = <&clock_sys HI6220_MMC1_CIUCLK>,
-> +                   <&clock_sys HI6220_MMC1_CLK>;
-> +          clock-names = "ciu", "biu";
-> +          bus-width = <4>;
-> +          disable-wp;
-> +          cap-sd-highspeed;
-> +          sd-uhs-sdr12;
-> +          sd-uhs-sdr25;
-> +          card-detect-delay = <200>;
-> +          hisilicon,peripheral-syscon = <&ao_ctrl>;
-> +          cd-gpios = <&gpio1 0 GPIO_ACTIVE_LOW>;
-> +          pinctrl-names = "default", "idle";
-> +          pinctrl-0 = <&sd_pmx_func &sd_clk_cfg_func &sd_cfg_func>;
-> +          pinctrl-1 = <&sd_pmx_idle &sd_clk_cfg_idle &sd_cfg_idle>;
-> +          vqmmc-supply = <&ldo7>;
-> +          vmmc-supply = <&ldo10>;
-> +      };
-> +    };
-> diff --git a/Documentation/devicetree/bindings/mmc/k3-dw-mshc.txt b/Documentation/devicetree/bindings/mmc/k3-dw-mshc.txt
-> deleted file mode 100644
-> index 36c4bea675d5..000000000000
-> --- a/Documentation/devicetree/bindings/mmc/k3-dw-mshc.txt
-> +++ /dev/null
-> @@ -1,73 +0,0 @@
-> -* Hisilicon specific extensions to the Synopsys Designware Mobile
-> -  Storage Host Controller
-> -
-> -Read synopsys-dw-mshc.txt for more details
-> -
-> -The Synopsys designware mobile storage host controller is used to interface
-> -a SoC with storage medium such as eMMC or SD/MMC cards. This file documents
-> -differences between the core Synopsys dw mshc controller properties described
-> -by synopsys-dw-mshc.txt and the properties used by the Hisilicon specific
-> -extensions to the Synopsys Designware Mobile Storage Host Controller.
-> -
-> -Required Properties:
-> -
-> -* compatible: should be one of the following.
-> -  - "hisilicon,hi3660-dw-mshc": for controllers with hi3660 specific extensions.
-> -  - "hisilicon,hi3670-dw-mshc", "hisilicon,hi3660-dw-mshc": for controllers
-> -     with hi3670 specific extensions.
-> -  - "hisilicon,hi4511-dw-mshc": for controllers with hi4511 specific extensions.
-> -  - "hisilicon,hi6220-dw-mshc": for controllers with hi6220 specific extensions.
-> -
-> -Optional Properties:
-> -- hisilicon,peripheral-syscon: phandle of syscon used to control peripheral.
-> -
-> -Example:
-> -
-> -       /* for Hi3620 */
-> -
-> -       /* SoC portion */
-> -       dwmmc_0: dwmmc0@fcd03000 {
-> -               compatible = "hisilicon,hi4511-dw-mshc";
-> -               reg = <0xfcd03000 0x1000>;
-> -               interrupts = <0 16 4>;
-> -               #address-cells = <1>;
-> -               #size-cells = <0>;
-> -               clocks = <&mmc_clock HI3620_SD_CIUCLK>, <&clock HI3620_DDRC_PER_CLK>;
-> -               clock-names = "ciu", "biu";
-> -       };
-> -
-> -       /* Board portion */
-> -       dwmmc0@fcd03000 {
-> -               vmmc-supply = <&ldo12>;
-> -               fifo-depth = <0x100>;
-> -               pinctrl-names = "default";
-> -               pinctrl-0 = <&sd_pmx_pins &sd_cfg_func1 &sd_cfg_func2>;
-> -               bus-width = <4>;
-> -               disable-wp;
-> -               cd-gpios = <&gpio10 3 0>;
-> -               cap-mmc-highspeed;
-> -               cap-sd-highspeed;
-> -       };
-> -
-> -       /* for Hi6220 */
-> -
-> -       dwmmc_1: dwmmc1@f723e000 {
-> -               compatible = "hisilicon,hi6220-dw-mshc";
-> -               bus-width = <0x4>;
-> -               disable-wp;
-> -               cap-sd-highspeed;
-> -               sd-uhs-sdr12;
-> -               sd-uhs-sdr25;
-> -               card-detect-delay = <200>;
-> -               hisilicon,peripheral-syscon = <&ao_ctrl>;
-> -               reg = <0x0 0xf723e000 0x0 0x1000>;
-> -               interrupts = <0x0 0x49 0x4>;
-> -               clocks = <&clock_sys HI6220_MMC1_CIUCLK>, <&clock_sys HI6220_MMC1_CLK>;
-> -               clock-names = "ciu", "biu";
-> -               cd-gpios = <&gpio1 0 1>;
-> -               pinctrl-names = "default", "idle";
-> -               pinctrl-0 = <&sd_pmx_func &sd_clk_cfg_func &sd_cfg_func>;
-> -               pinctrl-1 = <&sd_pmx_idle &sd_clk_cfg_idle &sd_cfg_idle>;
-> -               vqmmc-supply = <&ldo7>;
-> -               vmmc-supply = <&ldo10>;
-> -       };
-> --
-> 2.53.0
->
+Low pass filter bandwidth
+00 = 90MHz
+01 = 62MHz
+10 = 55MHz
+11 = 44MHz
+
+...
+
+I had this attached patch in my tree for a while, I just never got 
+around to finishing it, because even with this in place, there was some 
+packet loss with short cables at low temperatures. Maybe it can help:
+
+ From 937278ee6dc0aa46797cc4b2d53078f95b6557a9 Mon Sep 17 00:00:00 2001
+From: Marek Vasut <marex@nabladev.com>
+Date: Mon, 2 Jun 2025 01:42:17 +0200
+Subject: [PATCH] net: dsa: microchip: Fix KSZ87xx high quality cable errata
+  module 3
+
+KSZ87xx may fail to establish link, or may take long time to
+establish link, when using high quality > CAT-5 ethernet cables.
+This is described in KSZ87xx Errata DS80000687C Module 3:
+
+Module 3: Establishing a link through low loss connections.
+   The receiver of the embedded PHYs is tuned by default to
+   support long cable length applications. This was developed
+   using low quality, high loss cables. Because of this, the
+   equalizer in the PHY may amplify high amplitude receiver
+   signals to the point that the signal is distorted internally,
+   preventing a link from being established.
+
+More detailed description and a more advanced fix is described in
+"
+Solution for Using CAT-5E or CAT-6 Short Cable with a Link Issue
+for the KSZ8795 Family
+"
+https://microchip.my.site.com/s/article/Solution-for-Using-CAT-5E-or-CAT-6-Short-Cable-with-a-Link-Issue-for-the-KSZ8795-Family
+
+The fix reduces low pass filter bandwidth from 90 MHz to 62 MHz
+to block higher frequency components which make it through the
+higher quality cables and saturate the receiver amplifier. In
+case of even shorter cables, the link equalizer function has to
+start from position 0 instead of the default position 0xf to
+cater for those cables, configure the equalizer position as well.
+
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+  drivers/net/dsa/microchip/ksz8.c     | 33 ++++++++++++++++++++++++++--
+  drivers/net/dsa/microchip/ksz8_reg.h |  2 +-
+  2 files changed, 32 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/dsa/microchip/ksz8.c 
+b/drivers/net/dsa/microchip/ksz8.c
+index 3309c2c172f02..f8716c8d0d375 100644
+--- a/drivers/net/dsa/microchip/ksz8.c
++++ b/drivers/net/dsa/microchip/ksz8.c
+@@ -1891,10 +1891,39 @@ static int ksz8_handle_global_errata(struct 
+dsa_switch *ds)
+  	 *   KSZ879x/KSZ877x/KSZ876x and some EEE link partners may result in
+  	 *   the link dropping.
+  	 */
+-	if (dev->info->ksz87xx_eee_link_erratum)
++	if (dev->info->ksz87xx_eee_link_erratum) {
+  		ret = ksz8_ind_write8(dev, TABLE_EEE, REG_IND_EEE_GLOB2_HI, 0);
++		if (ret)
++			return ret;
++	}
+
+-	return ret;
++	/*
++	 * Module 3: Establishing a link through low loss connections.
++	 *   The receiver of the embedded PHYs is tuned by default to
++	 *   support long cable length applications. This was developed
++	 *   using low quality, high loss cables. Because of this, the
++	 *   equalizer in the PHY may amplify high amplitude receiver
++	 *   signals to the point that the signal is distorted internally,
++	 *   preventing a link from being established.
++	 *
++	 * More detailed description and a more advanced fix is described in
++	 * "
++	 * Solution for Using CAT-5E or CAT-6 Short Cable with a Link Issue
++	 * for the KSZ8795 Family
++	 * "
++	 * 
+https://microchip.my.site.com/s/article/Solution-for-Using-CAT-5E-or-CAT-6-Short-Cable-with-a-Link-Issue-for-the-KSZ8795-Family
++	 *
++	 * The following two magic writes are the implementation of the
++	 * aforementioned workaround.
++	 */
++
++	/* Force low pass filter bandwidth from 90 MHz to 62 MHz */
++	ret = ksz8_ind_write8(dev, TABLE_LINK_MD, 0x4c, 0x40);
++	if (ret)
++		return ret;
++
++	/* Force DSP EQ initial value to 0 */
++	return ksz8_ind_write8(dev, TABLE_LINK_MD, 0x08, 0);
+  }
+
+  int ksz8_enable_stp_addr(struct ksz_device *dev)
+diff --git a/drivers/net/dsa/microchip/ksz8_reg.h 
+b/drivers/net/dsa/microchip/ksz8_reg.h
+index 329688603a582..c4897f27c6d1c 100644
+--- a/drivers/net/dsa/microchip/ksz8_reg.h
++++ b/drivers/net/dsa/microchip/ksz8_reg.h
+@@ -342,7 +342,7 @@
+  #define TABLE_EEE			(TABLE_EEE_V << TABLE_EXT_SELECT_S)
+  #define TABLE_ACL			(TABLE_ACL_V << TABLE_EXT_SELECT_S)
+  #define TABLE_PME			(TABLE_PME_V << TABLE_EXT_SELECT_S)
+-#define TABLE_LINK_MD			(TABLE_LINK_MD << TABLE_EXT_SELECT_S)
++#define TABLE_LINK_MD			(TABLE_LINK_MD_V << TABLE_EXT_SELECT_S)
+  #define TABLE_READ			BIT(4)
+  #define TABLE_SELECT_S			2
+  #define TABLE_STATIC_MAC_V		0
+-- 
+2.53.0
+
+--------------MFz30WOzW5H8gEKjOl5rLerx
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-net-dsa-microchip-Fix-KSZ87xx-high-quality-cable-err.patch"
+Content-Disposition: attachment;
+ filename*0="0001-net-dsa-microchip-Fix-KSZ87xx-high-quality-cable-err.pa";
+ filename*1="tch"
+Content-Transfer-Encoding: base64
+
+RnJvbSA5MzcyNzhlZTZkYzBhYTQ2Nzk3Y2M0YjJkNTMwNzhmOTViNjU1N2E5IE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBNYXJlayBWYXN1dCA8bWFyZXhAbmFibGFkZXYuY29t
+PgpEYXRlOiBNb24sIDIgSnVuIDIwMjUgMDE6NDI6MTcgKzAyMDAKU3ViamVjdDogW1BBVENI
+XSBuZXQ6IGRzYTogbWljcm9jaGlwOiBGaXggS1NaODd4eCBoaWdoIHF1YWxpdHkgY2FibGUg
+ZXJyYXRhCiBtb2R1bGUgMwoKS1NaODd4eCBtYXkgZmFpbCB0byBlc3RhYmxpc2ggbGluaywg
+b3IgbWF5IHRha2UgbG9uZyB0aW1lIHRvCmVzdGFibGlzaCBsaW5rLCB3aGVuIHVzaW5nIGhp
+Z2ggcXVhbGl0eSA+IENBVC01IGV0aGVybmV0IGNhYmxlcy4KVGhpcyBpcyBkZXNjcmliZWQg
+aW4gS1NaODd4eCBFcnJhdGEgRFM4MDAwMDY4N0MgTW9kdWxlIDM6CgpNb2R1bGUgMzogRXN0
+YWJsaXNoaW5nIGEgbGluayB0aHJvdWdoIGxvdyBsb3NzIGNvbm5lY3Rpb25zLgogIFRoZSBy
+ZWNlaXZlciBvZiB0aGUgZW1iZWRkZWQgUEhZcyBpcyB0dW5lZCBieSBkZWZhdWx0IHRvCiAg
+c3VwcG9ydCBsb25nIGNhYmxlIGxlbmd0aCBhcHBsaWNhdGlvbnMuIFRoaXMgd2FzIGRldmVs
+b3BlZAogIHVzaW5nIGxvdyBxdWFsaXR5LCBoaWdoIGxvc3MgY2FibGVzLiBCZWNhdXNlIG9m
+IHRoaXMsIHRoZQogIGVxdWFsaXplciBpbiB0aGUgUEhZIG1heSBhbXBsaWZ5IGhpZ2ggYW1w
+bGl0dWRlIHJlY2VpdmVyCiAgc2lnbmFscyB0byB0aGUgcG9pbnQgdGhhdCB0aGUgc2lnbmFs
+IGlzIGRpc3RvcnRlZCBpbnRlcm5hbGx5LAogIHByZXZlbnRpbmcgYSBsaW5rIGZyb20gYmVp
+bmcgZXN0YWJsaXNoZWQuCgpNb3JlIGRldGFpbGVkIGRlc2NyaXB0aW9uIGFuZCBhIG1vcmUg
+YWR2YW5jZWQgZml4IGlzIGRlc2NyaWJlZCBpbgoiClNvbHV0aW9uIGZvciBVc2luZyBDQVQt
+NUUgb3IgQ0FULTYgU2hvcnQgQ2FibGUgd2l0aCBhIExpbmsgSXNzdWUKZm9yIHRoZSBLU1o4
+Nzk1IEZhbWlseQoiCmh0dHBzOi8vbWljcm9jaGlwLm15LnNpdGUuY29tL3MvYXJ0aWNsZS9T
+b2x1dGlvbi1mb3ItVXNpbmctQ0FULTVFLW9yLUNBVC02LVNob3J0LUNhYmxlLXdpdGgtYS1M
+aW5rLUlzc3VlLWZvci10aGUtS1NaODc5NS1GYW1pbHkKClRoZSBmaXggcmVkdWNlcyBsb3cg
+cGFzcyBmaWx0ZXIgYmFuZHdpZHRoIGZyb20gOTAgTUh6IHRvIDYyIE1Iegp0byBibG9jayBo
+aWdoZXIgZnJlcXVlbmN5IGNvbXBvbmVudHMgd2hpY2ggbWFrZSBpdCB0aHJvdWdoIHRoZQpo
+aWdoZXIgcXVhbGl0eSBjYWJsZXMgYW5kIHNhdHVyYXRlIHRoZSByZWNlaXZlciBhbXBsaWZp
+ZXIuIEluCmNhc2Ugb2YgZXZlbiBzaG9ydGVyIGNhYmxlcywgdGhlIGxpbmsgZXF1YWxpemVy
+IGZ1bmN0aW9uIGhhcyB0bwpzdGFydCBmcm9tIHBvc2l0aW9uIDAgaW5zdGVhZCBvZiB0aGUg
+ZGVmYXVsdCBwb3NpdGlvbiAweGYgdG8KY2F0ZXIgZm9yIHRob3NlIGNhYmxlcywgY29uZmln
+dXJlIHRoZSBlcXVhbGl6ZXIgcG9zaXRpb24gYXMgd2VsbC4KClNpZ25lZC1vZmYtYnk6IE1h
+cmVrIFZhc3V0IDxtYXJleEBuYWJsYWRldi5jb20+Ci0tLQogZHJpdmVycy9uZXQvZHNhL21p
+Y3JvY2hpcC9rc3o4LmMgICAgIHwgMzMgKysrKysrKysrKysrKysrKysrKysrKysrKystLQog
+ZHJpdmVycy9uZXQvZHNhL21pY3JvY2hpcC9rc3o4X3JlZy5oIHwgIDIgKy0KIDIgZmlsZXMg
+Y2hhbmdlZCwgMzIgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL25ldC9kc2EvbWljcm9jaGlwL2tzejguYyBiL2RyaXZlcnMvbmV0L2RzYS9t
+aWNyb2NoaXAva3N6OC5jCmluZGV4IDMzMDljMmMxNzJmMDIuLmY4NzE2YzhkMGQzNzUgMTAw
+NjQ0Ci0tLSBhL2RyaXZlcnMvbmV0L2RzYS9taWNyb2NoaXAva3N6OC5jCisrKyBiL2RyaXZl
+cnMvbmV0L2RzYS9taWNyb2NoaXAva3N6OC5jCkBAIC0xODkxLDEwICsxODkxLDM5IEBAIHN0
+YXRpYyBpbnQga3N6OF9oYW5kbGVfZ2xvYmFsX2VycmF0YShzdHJ1Y3QgZHNhX3N3aXRjaCAq
+ZHMpCiAJICogICBLU1o4Nzl4L0tTWjg3N3gvS1NaODc2eCBhbmQgc29tZSBFRUUgbGluayBw
+YXJ0bmVycyBtYXkgcmVzdWx0IGluCiAJICogICB0aGUgbGluayBkcm9wcGluZy4KIAkgKi8K
+LQlpZiAoZGV2LT5pbmZvLT5rc3o4N3h4X2VlZV9saW5rX2VycmF0dW0pCisJaWYgKGRldi0+
+aW5mby0+a3N6ODd4eF9lZWVfbGlua19lcnJhdHVtKSB7CiAJCXJldCA9IGtzejhfaW5kX3dy
+aXRlOChkZXYsIFRBQkxFX0VFRSwgUkVHX0lORF9FRUVfR0xPQjJfSEksIDApOworCQlpZiAo
+cmV0KQorCQkJcmV0dXJuIHJldDsKKwl9CiAKLQlyZXR1cm4gcmV0OworCS8qCisJICogTW9k
+dWxlIDM6IEVzdGFibGlzaGluZyBhIGxpbmsgdGhyb3VnaCBsb3cgbG9zcyBjb25uZWN0aW9u
+cy4KKwkgKiAgIFRoZSByZWNlaXZlciBvZiB0aGUgZW1iZWRkZWQgUEhZcyBpcyB0dW5lZCBi
+eSBkZWZhdWx0IHRvCisJICogICBzdXBwb3J0IGxvbmcgY2FibGUgbGVuZ3RoIGFwcGxpY2F0
+aW9ucy4gVGhpcyB3YXMgZGV2ZWxvcGVkCisJICogICB1c2luZyBsb3cgcXVhbGl0eSwgaGln
+aCBsb3NzIGNhYmxlcy4gQmVjYXVzZSBvZiB0aGlzLCB0aGUKKwkgKiAgIGVxdWFsaXplciBp
+biB0aGUgUEhZIG1heSBhbXBsaWZ5IGhpZ2ggYW1wbGl0dWRlIHJlY2VpdmVyCisJICogICBz
+aWduYWxzIHRvIHRoZSBwb2ludCB0aGF0IHRoZSBzaWduYWwgaXMgZGlzdG9ydGVkIGludGVy
+bmFsbHksCisJICogICBwcmV2ZW50aW5nIGEgbGluayBmcm9tIGJlaW5nIGVzdGFibGlzaGVk
+LgorCSAqCisJICogTW9yZSBkZXRhaWxlZCBkZXNjcmlwdGlvbiBhbmQgYSBtb3JlIGFkdmFu
+Y2VkIGZpeCBpcyBkZXNjcmliZWQgaW4KKwkgKiAiCisJICogU29sdXRpb24gZm9yIFVzaW5n
+IENBVC01RSBvciBDQVQtNiBTaG9ydCBDYWJsZSB3aXRoIGEgTGluayBJc3N1ZQorCSAqIGZv
+ciB0aGUgS1NaODc5NSBGYW1pbHkKKwkgKiAiCisJICogaHR0cHM6Ly9taWNyb2NoaXAubXku
+c2l0ZS5jb20vcy9hcnRpY2xlL1NvbHV0aW9uLWZvci1Vc2luZy1DQVQtNUUtb3ItQ0FULTYt
+U2hvcnQtQ2FibGUtd2l0aC1hLUxpbmstSXNzdWUtZm9yLXRoZS1LU1o4Nzk1LUZhbWlseQor
+CSAqCisJICogVGhlIGZvbGxvd2luZyB0d28gbWFnaWMgd3JpdGVzIGFyZSB0aGUgaW1wbGVt
+ZW50YXRpb24gb2YgdGhlCisJICogYWZvcmVtZW50aW9uZWQgd29ya2Fyb3VuZC4KKwkgKi8K
+KworCS8qIEZvcmNlIGxvdyBwYXNzIGZpbHRlciBiYW5kd2lkdGggZnJvbSA5MCBNSHogdG8g
+NjIgTUh6ICovCisJcmV0ID0ga3N6OF9pbmRfd3JpdGU4KGRldiwgVEFCTEVfTElOS19NRCwg
+MHg0YywgMHg0MCk7CisJaWYgKHJldCkKKwkJcmV0dXJuIHJldDsKKworCS8qIEZvcmNlIERT
+UCBFUSBpbml0aWFsIHZhbHVlIHRvIDAgKi8KKwlyZXR1cm4ga3N6OF9pbmRfd3JpdGU4KGRl
+diwgVEFCTEVfTElOS19NRCwgMHgwOCwgMCk7CiB9CiAKIGludCBrc3o4X2VuYWJsZV9zdHBf
+YWRkcihzdHJ1Y3Qga3N6X2RldmljZSAqZGV2KQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQv
+ZHNhL21pY3JvY2hpcC9rc3o4X3JlZy5oIGIvZHJpdmVycy9uZXQvZHNhL21pY3JvY2hpcC9r
+c3o4X3JlZy5oCmluZGV4IDMyOTY4ODYwM2E1ODIuLmM0ODk3ZjI3YzZkMWMgMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvbmV0L2RzYS9taWNyb2NoaXAva3N6OF9yZWcuaAorKysgYi9kcml2ZXJz
+L25ldC9kc2EvbWljcm9jaGlwL2tzejhfcmVnLmgKQEAgLTM0Miw3ICszNDIsNyBAQAogI2Rl
+ZmluZSBUQUJMRV9FRUUJCQkoVEFCTEVfRUVFX1YgPDwgVEFCTEVfRVhUX1NFTEVDVF9TKQog
+I2RlZmluZSBUQUJMRV9BQ0wJCQkoVEFCTEVfQUNMX1YgPDwgVEFCTEVfRVhUX1NFTEVDVF9T
+KQogI2RlZmluZSBUQUJMRV9QTUUJCQkoVEFCTEVfUE1FX1YgPDwgVEFCTEVfRVhUX1NFTEVD
+VF9TKQotI2RlZmluZSBUQUJMRV9MSU5LX01ECQkJKFRBQkxFX0xJTktfTUQgPDwgVEFCTEVf
+RVhUX1NFTEVDVF9TKQorI2RlZmluZSBUQUJMRV9MSU5LX01ECQkJKFRBQkxFX0xJTktfTURf
+ViA8PCBUQUJMRV9FWFRfU0VMRUNUX1MpCiAjZGVmaW5lIFRBQkxFX1JFQUQJCQlCSVQoNCkK
+ICNkZWZpbmUgVEFCTEVfU0VMRUNUX1MJCQkyCiAjZGVmaW5lIFRBQkxFX1NUQVRJQ19NQUNf
+VgkJMAotLSAKMi41My4wCgo=
+
+--------------MFz30WOzW5H8gEKjOl5rLerx--
