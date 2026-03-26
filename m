@@ -1,102 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D061922F5;
-	Thu, 26 Mar 2026 08:41:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981FE3B8D58;
+	Thu, 26 Mar 2026 08:48:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774514463; cv=none; b=ZxSDigvgprDlAdaGl+NyRZa9rDV2JCGSBGHv62u+LvuPzfWsdly/FUcxwkw7aSmds36/AuaC1cTUX3RflHeRd+r4XmsB6PwukLuCJKKMfGSYyCPSJkZWIkLHTl3a2s2cef9+UCzh23TcbxJv2C8WOf/KU8wfOJtgLKFa/ZyC0ok=
+	t=1774514906; cv=none; b=KQQxkBxrd7UN/JrvB10j/OyVNvfA6YmaGhDMEjqqXKJwVcsYewwRWdOD01bDsWrln5kR99liUSAowk6ZYGD1rGCf1iw1yAGH/jQX8hlW775dkFJSSOaMWzWYw6tUF/jqpSfizYrk6Iloy3Q2oht++86ArdgO+P3yYGknigmQu28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774514463; c=relaxed/simple;
-	bh=0SAblPH1XqQLvGdcjAfRvzYQoMpv55rPMjM79Ead8qU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bP/liHLWNJ0gRDhs/d/Hkv1mGQcz97Bb2ild3enl4UKnGdgAhO+FDl9fQBaqJujTFsl3SVhPtRCqHRjIkivTyWDuGsg0KOFZyGNC5zVXLHNECNtgPZn+8cJzCGNEEfSU15qXVtZMvgAG5L1dALG8RLseJbF0XwR6LwCoc9DbWWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QT4bUVZS; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774514906; c=relaxed/simple;
+	bh=9IZHdFG9znARtDh/oliZSJzf4JxW7DWhn4r1I6ZLEeI=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=fHXXO4Y+WuZhoNseN1gsyOClU4yGzrsJ1lbrZOD2ERIvj3oMWcIJ/ZeCX4wsZwIgFgINO6ka4jT7SG83gSbFhzbFApK67b4YRwiYmk77arcc+YkUnFfohIG/GNOnp12MALGdV/pGMY1ASka01MAj30twpd3HrHcNr4LC6Kal8Oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=fail (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=SkemjdrG reason="signature verification failed"; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QT4bUVZS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F08C4C116C6;
-	Thu, 26 Mar 2026 08:41:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774514463;
-	bh=0SAblPH1XqQLvGdcjAfRvzYQoMpv55rPMjM79Ead8qU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QT4bUVZSZJt2iGbjA/8YCh+whQgc1RthrPG4RcNog4KZOUFY+y5GVyUjadAmuYCZA
-	 wyIsj0ZoCczBmpEIAqDy/ZT5qf+8KtNMG7EGAzIlZhhl/3Exxg3qL8HaWvuOsJcXwV
-	 roRahoskkiIwH96+zDYEv9pUuzIhGTBeINGnQmLzpnsW7fYfLq00J9K1Wd+SPyS6HB
-	 w32be45mS3v9lrW0+KjkIvd1h1xasFnL4xMn9PbEWvJ/5U9u52seTj2Wkqcp4FuG/7
-	 3Yzl8b14MJvL8RGNTQXii/bL64YSCfBzhZedMD/LpIJ79K6QiWTjgtmINaTmET28VY
-	 yPNX1Lxq1cL7w==
-Date: Thu, 26 Mar 2026 09:41:01 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Mikko Perttunen <mperttunen@nvidia.com>, 
-	Thierry Reding <thierry.reding@gmail.com>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	Thierry Reding <treding@nvidia.com>
-Subject: Re: [PATCH v2 1/7] dt-bindings: pwm: Document Tegra194 and Tegra264
- controllers
-Message-ID: <20260326-lean-nippy-flamingo-4437bb@quoll>
-References: <20260325-t264-pwm-v2-0-998d885984b3@nvidia.com>
- <20260325-t264-pwm-v2-1-998d885984b3@nvidia.com>
- <acPuMGhPw74roB1E@orome>
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="SkemjdrG"
+Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 58A96FCC;
+	Thu, 26 Mar 2026 09:47:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1774514822;
+	bh=9IZHdFG9znARtDh/oliZSJzf4JxW7DWhn4r1I6ZLEeI=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=SkemjdrGePjQXWznj2EQIVgcKJv1uoVw4B6U1arSbUf1jk6R3Q/c26GmKZpTPUBbV
+	 TkDcVVXlu1R7qAbzMCuRBUMdhpo8iR9GuOuxLoQuLKr4E+3NbpfJUv8VBSqlSLgOaB
+	 Ffx/qFD6HEXx/u9/Ej9Czh1n8sfK/GbTM1CBkmIw=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <acPuMGhPw74roB1E@orome>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260326-imx8mp-dts-fix-v2-v2-2-62c4ce727448@nxp.com>
+References: <20260326-imx8mp-dts-fix-v2-v2-0-62c4ce727448@nxp.com> <20260326-imx8mp-dts-fix-v2-v2-2-62c4ce727448@nxp.com>
+Subject: Re: [PATCH v2 02/12] arm64: dts: imx8mp-debix-som-a: Correct PAD settings for PMIC_nINT
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@dh-electronics.com, Peng Fan <peng.fan@nxp.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, =?utf-8?q?B=C3=B6rge_Str=C3=BCmpfel?= <boerge.struempfel@gmail.com>, Christoph Niedermaier <cniedermaier@dh-electronics.com>, Conor Dooley <conor+dt@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Gilles Talis <gilles.talis@gmail.com>, Goran =?utf-8?q?Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, Heiko Schocher <hs@denx.de>, Jagan Teki <jagan@amarulasolutions.com>, Josua Mayer <josua@solid-run.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Manoj Sai <abbaraju.manojsai@amarulasolutions.com>, Marco Felsch <m.felsch@pengutronix.de>, Marek Vasut <marex@denx.de>, Martyn Welch <martyn.welch@collabora.com>, Matteo Lisi <matteo.lisi@engicam.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, Ray Chang <ray.chang@technexion.com>, Richard Hu <richard.hu@technexion.com>, Rob Herring <robh@kernel.org>, Sascha Hauer <s.h
+ auer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, Shengjiu Wang <shengjiu.wang@nxp.com>, Viorel Suman <viorel.suman@nxp.com>
+Date: Thu, 26 Mar 2026 08:48:17 +0000
+Message-ID: <177451489789.1230693.17921355068406519595@ping.linuxembedded.co.uk>
+User-Agent: alot/0.9.1
 
-On Wed, Mar 25, 2026 at 03:22:13PM +0100, Thierry Reding wrote:
-> On Wed, Mar 25, 2026 at 07:16:59PM +0900, Mikko Perttunen wrote:
-> > From: Thierry Reding <treding@nvidia.com>
-> > 
-> > The PWM controller found on Tegra264 is largely compatible with the one
-> > on prior generations, but it comes with some extra features, hence a new
-> > compatible string is needed.
-> > 
-> > Signed-off-by: Thierry Reding <treding@nvidia.com>
-> > Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
-> > ---
-> >  Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml | 2 ++
-> >  1 file changed, 2 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml b/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
-> > index 41cea4979132..15706d2a808d 100644
-> > --- a/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
-> > +++ b/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
-> > @@ -16,6 +16,8 @@ properties:
-> >        - enum:
-> >            - nvidia,tegra20-pwm
-> >            - nvidia,tegra186-pwm
-> > +          - nvidia,tegra194-pwm
-> > +          - nvidia,tegra264-pwm
-> 
-> I think this was lost during the earlier conversation we had on the
-> split of these patches. Krzysztof had pointed out that tegra194-pwm is
-> now a duplicate entry. I don't know exactly how it ended up like this,
-> but I'm pretty sure what I meant was:
-> 
-> 	- items:
-> 	    - const: tegra264-pwm
-> 	    - const: tegra194-pwm
-> 
-> This mirrors the fact that this is in fact backwards-compatible with
-> Tegra194 but also has additional features that we need the Tegra264
-> compatible string for.
+Quoting Peng Fan (OSS) (2026-03-26 07:28:06)
+> From: Peng Fan <peng.fan@nxp.com>
+>=20
+> With commit 5d0efaf47ee90 ("regulator: pca9450: Correct interrupt type"),
+> there is interrupt storm for i.MX8MP DEBIX SOM A. Need to set PAD
+> PUE and PU together to make pull up work properly.
+>=20
+> Fixes: 21baf0b47f81b ("arm64: dts: freescale: Add DEBIX SOM A and SOM A I=
+/O Board support")
+> Reported-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Closes: https://lore.kernel.org/all/20260323105858.GA2185714@killaraus.id=
+easonboard.com/
+> Reported-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
+> Closes: https://lore.kernel.org/imx/20260324194353.GB2352505@killaraus.id=
+easonboard.com/T/#m9a07fdc75496369a7d76d52c5e34ed140dcabfe3
 
-If the devices are compatible. You have quite a lot of differences in
-the driver, so the question is whether driver will work fine when bound
-via old interface.
 
-This was EXACTLY explained in DTS101 last year. I really focused on that
-because after repeating for few years and two previous speeches people
-still claim compatibility is something else. :(
+Much quieter, thank you.
 
-Best regards,
-Krzysztof
+Tested with
 
+ watch -n0.5 cat /proc/interrupts
+
+...
+ 28:          0          0          0          0    GICv3  23 Level     arm=
+-pmu
+ 29:          0          0          0          0    GICv3 130 Level     imx=
+8_ddr_perf_pmu
+ 35:          0          0          0          0 gpio-mxc   3 Level     pca=
+9450-irq
+137:          0          0          0          0 gpio-mxc   3 Edge      hym=
+8563
+200:        919          0          0          0    GICv3  67 Level     30a=
+20000.i2c
+201:          5          0          0          0    GICv3  68 Level     30a=
+30000.i2c
+202:          5          0          0          0    GICv3  69 Level     30a=
+40000.i2c
+203:        157          0          0          0    GICv3  70 Level     30a=
+50000.i2c
+204:          0          0          0          0    GICv3  57 Level     380=
+08000.gpu
+207:          0          0          0          0    GICv3 180 Level     32f=
+10100.usb
+...
+
+And only the timers are increasing (as expected).
+
+
+Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
+
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+>  arch/arm64/boot/dts/freescale/imx8mp-debix-som-a-bmb-08.dts | 2 +-
+>  arch/arm64/boot/dts/freescale/imx8mp-debix-som-a.dtsi       | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-debix-som-a-bmb-08.dts =
+b/arch/arm64/boot/dts/freescale/imx8mp-debix-som-a-bmb-08.dts
+> index 04619a7229065be496611128ecf6848c9dd7102c..1471ff361b54cba05bb0e0734=
+aa6e8d149309025 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mp-debix-som-a-bmb-08.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-debix-som-a-bmb-08.dts
+> @@ -499,7 +499,7 @@ MX8MP_IOMUXC_SAI1_RXD1__GPIO4_IO03          0x140
+> =20
+>         pinctrl_pmic: pmicgrp {
+>                 fsl,pins =3D <
+> -                       MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03             0=
+x41
+> +                       MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03             0=
+x1c0
+>                 >;
+>         };
+> =20
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-debix-som-a.dtsi b/arch=
+/arm64/boot/dts/freescale/imx8mp-debix-som-a.dtsi
+> index 91094c2277443c1585dfb7f31dccfb27aa1bcc8d..b31e8fe95ca74500fdc459aec=
+feb3f4b573f4244 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mp-debix-som-a.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-debix-som-a.dtsi
+> @@ -241,7 +241,7 @@ MX8MP_IOMUXC_I2C4_SDA__I2C4_SDA                     0=
+x400001c3
+> =20
+>         pinctrl_pmic: pmicgrp {
+>                 fsl,pins =3D <
+> -                       MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03             0=
+x41
+> +                       MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03             0=
+x1c0
+>                 >;
+>         };
+> =20
+>=20
+> --=20
+> 2.37.1
+>
