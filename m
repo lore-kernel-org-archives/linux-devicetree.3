@@ -1,206 +1,177 @@
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F5B2D0622;
-	Thu, 26 Mar 2026 13:09:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2B02BD587
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 13:10:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774530576; cv=none; b=K8F5p9ISKzXaHLMotPIpnrrPtwrBlclrLbMmxtiYy8VU+a6atuCwKILoEjLgQTkxhxwM1uV+X6bkZVx9NuvPlOtZGA4FAabtxWggNkGo9Vl9y4ILlcA2UuwMhuQGaj4z8JaM0TzhyrwmEB8cCyb+yfCsvPctB6w5DGQATOPFq2w=
+	t=1774530614; cv=none; b=S278fVP8mfZnfgx09uAgA0OA9m6JUbiwcUw8HYZkuGqONEjhrSfGfkUVB/rb0gypmHSj4SLyjZWKClO4HB/laV0SxUL31A5D+21e0SK+gUbBG9e+LNh5pLaWx9AbZXxo2AY2BRX+Uhxr33tuyq9TZJZKMi4FYTp4ivBuolZRrHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774530576; c=relaxed/simple;
-	bh=cJ+6s4wtZuyu1fPN5SKZQHdBVTRbaK7BNHXrHI3+FsY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=G4YGbperMlaImw5Wb8lUfzSjB0jfLa22ULi4EXBWrRdLglqmk7BUV7EuYlKsprP43W6bX2ktrSJ1leVxstKVA7JuEdOIH0IbTQ+SMcPH5HXHUlMY2DbcD1kw47d7JPgU125Rn0IrmkunxchmGT7sMywYkp4WPKYU2lH4CUyVSVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=r27NhnWJ; arc=none smtp.client-ip=113.46.200.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1774530614; c=relaxed/simple;
+	bh=/BTY/bju8juKMiPv6KMmBaFgb1YzXi1o6CFBMQIgtiU=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=u4egxLZAKHqw1LfDHuyA7V5McIfxhs9VhF28UVAO/G7bCSbGyMFWZ2O55G6W2UEycaFXZ5/r2KjeE1SEq6man/shRBXOjJTXj/ZZiKZ6l1Y3eTVpdHZow8byi/jrABoPWQCv+nJSagDBhnZ8x5maxbVli5G8Q8vAE36qVa+5+OM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Yx0jE3c5; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="r27NhnWJ"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=jLyfKSEzGPeE1dJtR15Kc0eOwoYz6wTxdsqltUK1s+8=;
-	b=r27NhnWJDoBRU0BLviPWrzC48eoWH2aXc39RU0NNg9RfVmkYMPQAakNbwupG9o1vLSlUZgi3I
-	9q6pjI1LWhogcfA3FIhnuqdaqvSt3N0ef5hNY4GTFUKrfjR9jw+KWWzREvNA4nYdsjVC61P8MMl
-	7eCWHr3D/yJXJKgUr+I5ku0=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4fhP8j2swwz1prmY;
-	Thu, 26 Mar 2026 21:03:17 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id 757E14056A;
-	Thu, 26 Mar 2026 21:09:26 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 26 Mar 2026 21:09:22 +0800
-Message-ID: <b82f26e6-adac-e921-6547-94d3284d2678@huawei.com>
-Date: Thu, 26 Mar 2026 21:09:16 +0800
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Yx0jE3c5"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-48700b1ba53so9538265e9.1
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 06:10:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1774530611; x=1775135411; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:from:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=j5T/06PnZQDDMs+KvURgz2r0ZPGg12B/UFXU9prTTL0=;
+        b=Yx0jE3c56aZC9S4hUV0eVd3IY7nSwPUyEPirSk73YGAmVuZiqHuOebB1SCTA7BmZnm
+         dJJow7FLK7/7tAXkEK2SmBYJ7lvdmCY7asObTTGoslNAnWVjm3TXUxWVqJUNJ+IizhOG
+         vy7cnU/ec7v3wdsw88CexgSA43aVyzL2Iy/6v2PhoT0e9gY6EBuaeEqtfY897mHhAQlA
+         uAtLPO4Bbfx9Bh2m373StUNHrwgECbLW/+fpM5+0IXyLiIEyRngXuzRwThiZZhEOYeeB
+         3XDCE9hNzBCSQk1gLZLWCQySnRu+vpK5fbsSyvGnNLM2znhAqlxNJcLosgBJEjpDt9yI
+         H+Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774530611; x=1775135411;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:from:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=j5T/06PnZQDDMs+KvURgz2r0ZPGg12B/UFXU9prTTL0=;
+        b=J+7dvV1y83o4kWjRTW2IJuCu2bSPCDfaSnwptwdFCF4q0f1bOv4mci6enrKjIALIv1
+         cSm2Q9RkAMSFgma+7yX+6ffbv3Ry/M7MOAKKH9dVS+JnKVREE2OJqPBrpT7qperOgwGM
+         cdLIKOEckZEovGG7mZFMuCrg1jSL+3AFna/L3ZaoI/1a5IQQXk52mQEcp2Atqb/r/owr
+         gSJP5TnxoW0YD9tbUnDqVJhGzlH+Sr6r7XJhjzqtOZSYQDerg9YqqsH3QmyxOiNIuFU+
+         ho4DZkQUjrSVqR0uHwK4jz9nxcMGpQPWb99Cc2dFZHBM/8GBpIpFL64rq7L2J4yrXtvs
+         Sfwg==
+X-Forwarded-Encrypted: i=1; AJvYcCU3/K/C3HgaqEebLUknEQvZBkARvYwQIy84/TGrd3AES9JeScuqH4qA60ftKs6oeTBOqxpTjEXxHLky@vger.kernel.org
+X-Gm-Message-State: AOJu0YzeJ86RgnAzeOxpedu4qe/w1SE7fQqjj2Mbwy4OaFiKHI4ZRa6n
+	f1XIM4V+lL5qzYdB91dQq9cVoGO9UEBoDxYykW/X/N4ZeTsYjRBw6c7+Zzl2mmfphwE=
+X-Gm-Gg: ATEYQzyh8QD39p5VdMoN4KrFxixFrrPLfCSYd1Jf99BY182wjP0d6+UY3Uk94uyr94N
+	LbrvpE2snhozpl/u+sy3Cj/+qUpRtEIskWXlIcdn/xX/biDVS0E8i4PASMcJaePt0OgGLW5n9Za
+	E9HikNxB+NKPaXgjFKZdzw/WYqZbSucsNlw10U3fuZEln8Vj0ygHpsMShaeDGbRxiXarEBSl5JX
+	I+3sW+dtYrrsKgJicwLdIqReshmPCbeatPjwnApkMcvX/NOcMqD8dbM6ARMEP2b3ixtlYxBk8sI
+	b3IUsfhYIx2cY9RGdhDsR1r5kIikMGa7DvTCrgqqGS25joLEmMKo6va5IELGaQZKo9wT6gDmraM
+	oeUS2ZpGOq8FdBdbWp3m0Eu9oxhVQvZ+5ss/WdrXrN2V+0RVFnU2qIT0S2o5obBff0DUNw16b7U
+	m7cD7KXGwCJy/BDw9ukIvFoxyVHYd7gaIalhMxyzv3UaUYXPtvPyNjaXMYjg92JgH/L63dBJF40
+	bMmVx0=
+X-Received: by 2002:a05:600c:620b:b0:485:3f72:323f with SMTP id 5b1f17b1804b1-48715fdebd2mr120329765e9.11.1774530610950;
+        Thu, 26 Mar 2026 06:10:10 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:8431:f88b:714d:f78d? ([2a01:e0a:106d:1080:8431:f88b:714d:f78d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722c78bc2sm29702165e9.5.2026.03.26.06.10.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Mar 2026 06:10:10 -0700 (PDT)
+Message-ID: <c54566e1-f0e2-4584-bc4d-484ebfd40324@linaro.org>
+Date: Thu, 26 Mar 2026 14:10:09 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.0
-Subject: Re: [PATCH v10 0/8] arm64/riscv: Add support for crashkernel CMA
- reservation
-Content-Language: en-US
-To: Andrew Morton <akpm@linux-foundation.org>
-CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
-	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
-	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>, <bhe@redhat.com>,
-	<vgoyal@redhat.com>, <dyoung@redhat.com>, <rdunlap@infradead.org>,
-	<peterz@infradead.org>, <pawan.kumar.gupta@linux.intel.com>,
-	<feng.tang@linux.alibaba.com>, <dapeng1.mi@linux.intel.com>,
-	<kees@kernel.org>, <elver@google.com>, <paulmck@kernel.org>,
-	<lirongqing@baidu.com>, <rppt@kernel.org>, <ardb@kernel.org>,
-	<leitao@debian.org>, <osandov@fb.com>, <cfsworks@gmail.com>,
-	<tangyouling@kylinos.cn>, <sourabhjain@linux.ibm.com>,
-	<ritesh.list@gmail.com>, <eajames@linux.ibm.com>,
-	<songshuaishuai@tinylab.org>, <kevin.brodsky@arm.com>,
-	<samuel.holland@sifive.com>, <vishal.moola@gmail.com>,
-	<junhui.liu@pigmoral.tech>, <coxu@redhat.com>, <liaoyuanhong@vivo.com>,
-	<jbohac@suse.cz>, <fuqiang.wang@easystack.cn>, <guoren@kernel.org>,
-	<chenjiahao16@huawei.com>, <hbathini@linux.ibm.com>, <james.morse@arm.com>,
-	<takahiro.akashi@linaro.org>, <lizhengyu3@huawei.com>, <x86@kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <loongarch@lists.linux.dev>,
-	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>
-References: <20260325025904.2811960-1-ruanjinjie@huawei.com>
- <20260325210049.28cca592a001e745954b3241@linux-foundation.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260325210049.28cca592a001e745954b3241@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: (subset) [PATCH v5 0/9] arm64: dts: amlogic: Add MMC/SD/SDIO
+ support for Khadas VIM4 (Amlogic T7)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Kevin Hilman <khilman@baylibre.com>, Jerome Brunet
+ <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Johannes Berg <johannes@sipsolutions.net>, van Spriel <arend@broadcom.com>,
+ Ronald Claveau <linux-kernel-dev@aliel.fr>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-wireless@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Xianwei Zhao <xianwei.zhao@amlogic.com>, Nick Xie <nick@khadas.com>
+References: <20260326-add-emmc-t7-vim4-v5-0-d3f182b48e9d@aliel.fr>
+ <177453048347.439230.1647215482099213609.b4-ty@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <177453048347.439230.1647215482099213609.b4-ty@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- dggpemf500011.china.huawei.com (7.185.36.131)
 
-
-
-On 2026/3/26 12:00, Andrew Morton wrote:
-> On Wed, 25 Mar 2026 10:58:56 +0800 Jinjie Ruan <ruanjinjie@huawei.com> wrote:
+On 3/26/26 14:08, Neil Armstrong wrote:
+> Hi,
 > 
->> The crash memory allocation, and the exclude of crashk_res, crashk_low_res
->> and crashk_cma memory are almost identical across different architectures,
->> This patch set handle them in crash core in a general way, which eliminate
->> a lot of duplication code.
+> On Thu, 26 Mar 2026 10:59:11 +0100, Ronald Claveau wrote:
+>> This patch series depends on Jian's SCMI clock patches yet to merge
+>> https://lore.kernel.org/all/20260313070022.700437-1-jian.hu@amlogic.com/
 >>
->> And add support for crashkernel CMA reservation for arm64 and riscv.
+>> This series adds device tree support for the MMC, SD card and SDIO
+>> interfaces on the Amlogic T7 SoC and the Khadas VIM4 board.
+>>
+>> The first patches add the necessary building blocks in the T7 SoC
+>> DTSI: pinctrl nodes for pin muxing, PWM controller nodes, and MMC
+>> controller nodes. The amlogic,t7-mmc and amlogic,t7-pwm compatible
+>> strings are introduced with fallbacks to existing drivers, avoiding
+>> the need for new driver code.
+>>
+>> [...]
 > 
-> So who is patchmonkey for this.
+> Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git (v7.1/arm64-dt)
 > 
->>  .../admin-guide/kernel-parameters.txt         |  16 +--
->>  arch/arm64/kernel/machine_kexec_file.c        |  39 ++-----
->>  arch/arm64/mm/init.c                          |   5 +-
->>  arch/loongarch/kernel/machine_kexec_file.c    |  39 ++-----
->>  arch/powerpc/include/asm/kexec_ranges.h       |   1 -
->>  arch/powerpc/kexec/crash.c                    |   7 +-
->>  arch/powerpc/kexec/ranges.c                   | 101 +----------------
->>  arch/riscv/kernel/machine_kexec_file.c        |  38 ++-----
->>  arch/riscv/mm/init.c                          |   5 +-
->>  arch/x86/kernel/crash.c                       |  89 ++-------------
->>  drivers/of/fdt.c                              |   9 +-
->>  drivers/of/kexec.c                            |   9 ++
->>  include/linux/crash_core.h                    |   9 ++
->>  kernel/crash_core.c                           | 105 +++++++++++++++++-
-> 
-> Me, I guess, with as many arch acks as I can gather, please.
-> 
-> I'm seriously trying to slow things down now, but I guess I can make an
-> exception for non-MM material.
-> 
-> AI review asks a few questions:
-> 	https://sashiko.dev/#/patchset/20260325025904.2811960-1-ruanjinjie@huawei.com
-> 
-> Can you please check these?  And I'm interested in learning how many of
-> these are valid.  Thanks.
-
-Thanks for the feedback. At the very least, the issue highlighted below
-remains valid and needs to be addressed, which can be fixed with below
-fixed number usable ranges.
-
-+#define MAX_USABLE_RANGES		(6)
-
-"
-> */
-> -#define MAX_USABLE_RANGES		2
-> +#define MAX_USABLE_RANGES		(2 + CRASHKERNEL_CMA_RANGES_MAX)
-Could this silently drop crash memory if the crash kernel is built without
-CONFIG_CMA?
-If the main kernel is compiled with CONFIG_CMA, it might append up to 6
-regions to the linux,usable-memory-range property (2 standard + 4 CMA).
-If the crash kernel is compiled without CONFIG_CMA,
-CRASHKERNEL_CMA_RANGES_MAX
-evaluates to 0. During boot, the crash kernel's FDT parsing logic limits the
-ranges to MAX_USABLE_RANGES (which would be 2). This truncates the ranges
-and drops all the CMA-backed crash memory.
-Since the crash kernel only registers these regions as normal RAM, it
-doesn't
-require CONFIG_CMA to use them. Should MAX_USABLE_RANGES unconditionally
-accommodate the maximum possible ranges any sender might provide?"
+> [1/9] arm64: dts: amlogic: t7: Add eMMC, SD card and SDIO pinctrl nodes
+>        https://git.kernel.org/amlogic/c/fb69fa2cabc68da247bcc0bc99a14dc857b16842
+> [4/9] arm64: dts: amlogic: t7: Add PWM pinctrl nodes
+>        https://git.kernel.org/amlogic/c/b1e49f6c1ac15b2c947bdb1d22a82b823de22d27
+> [6/9] arm64: dts: amlogic: t7: khadas-vim4: Add power regulators
+>        https://git.kernel.org/amlogic/c/60eff75ac67bbf5445bdbd2842b0109ac591441c
 
 
+I'll pick patch 3,5,7 & 9 once patches 1 & 2 from [1] are merged.
 
-Regarding the concurrency issue mentioned below, as noted in my v9
-response, could we confirm if this is indeed a bug? If so, I believe
-each affected architecture might need a separate fix, as this issue
-already exists in the current code and likely requires a more
-comprehensive solution. Does anyone have thoughts on whether this is a
-valid concern or suggestions on how to address it?
+[1] https://lore.kernel.org/all/20260326092645.1053261-1-jian.hu@amlogic.com/
 
-
-Link:
-https://lore.kernel.org/all/4cfde40c-673a-12b0-dfc5-703d582d6ea9@huawei.com/
-
-
-"
-> --- a/kernel/crash_core.c
-> +++ b/kernel/crash_core.c
-> @@ -326,15 +326,25 @@ int crash_prepare_headers(int need_kernel_map,
-void **addr, unsigned long *sz,
->  	struct crash_mem *cmem;
->  	int ret;
->
-> +	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
-> +		lock_device_hotplug();
-Can this cause a self-deadlock during memory hotplug?
-When memory is onlined or offlined via sysfs (for example, in state_store()
-calling lock_device_hotplug_sysfs()), the device_hotplug_lock is already
-acquired before initiating the hotplug sequence.
-Since crash_prepare_headers() can be invoked by the crash_memhp_notifier
-during these memory hotplug operations, acquiring device_hotplug_lock again
-here would cause a recursive mutex acquisition.
-> +
->  	max_nr_ranges = arch_get_system_nr_ranges();
-> -	if (!max_nr_ranges)
-> -		return -ENOMEM;
-> +	if (!max_nr_ranges) {
-> +		ret = -ENOMEM;
-> +		goto unlock;
-> +	}
->
->  	cmem = alloc_cmem(max_nr_ranges);
-> -	if (!cmem)
-> -		return -ENOMEM;
-> +	if (!cmem) {
-> +		ret = -ENOMEM;
-> +		goto unlock;
-> +	}
->
->  	ret = arch_crash_populate_cmem(cmem);
-While the locking attempts to address the race, is it possible that the
-architecture specific population callbacks could still write out of bounds?
-The callbacks appear to unconditionally write to
-cmem->ranges[cmem->nr_ranges]
-without verifying if cmem->nr_ranges >= cmem->max_nr_ranges.
-Would it be safer to also add explicit bounds checking inside the populate
-callbacks to return an error like -ENOMEM when the array capacity is
-exceeded?"
+Thanks,
+Neil
 
 > 
+> These changes has been applied on the intermediate git tree [1].
+> 
+> The v7.1/arm64-dt branch will then be sent via a formal Pull Request to the Linux SoC maintainers
+> for inclusion in their intermediate git branches in order to be sent to Linus during
+> the next merge window, or sooner if it's a set of fixes.
+> 
+> In the cases of fixes, those will be merged in the current release candidate
+> kernel and as soon they appear on the Linux master branch they will be
+> backported to the previous Stable and Long-Stable kernels [2].
+> 
+> The intermediate git branches are merged daily in the linux-next tree [3],
+> people are encouraged testing these pre-release kernels and report issues on the
+> relevant mailing-lists.
+> 
+> If problems are discovered on those changes, please submit a signed-off-by revert
+> patch followed by a corrective changeset.
+> 
+> [1] https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git
+> [2] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+> [3] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+> 
+
