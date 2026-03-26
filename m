@@ -1,68 +1,66 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94750248861
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 12:56:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC04C29ACDB
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 12:56:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774529769; cv=none; b=ckiPxmT80ETFlUjAq0yX2hfQ28SsJlzQjeWMSY5bRlknlppCJFFKB5bbkcWoDEAW7JZkZcCesjSyB4vXkb0LVUQBHukX7Erns/RUs9rt+S0F7ijF4lKvqc/2/1KdyVtUUH8RJjZ5rDE9bdUg2PAhFUYhKnGFojrgz2IyuRAgOFY=
+	t=1774529773; cv=none; b=ucYfSN5WZyA5t1Ao3vA8GW/JzwfaJIYXXTHylAdf4qkPAyBq+11YlRKXblEye3QD9puu0Sj2nkiojKhYg0qCQcaGXWTlM4P0j5ue/0AlO6ERdqcQHdFGAZD7b1BIaJResMHPrb/R7oeLyVuR/5/FaAtDRKL8RYd+kNCXY7xsekU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774529769; c=relaxed/simple;
-	bh=f5JciFCLHuQRid8O58UfBpq58kWGNO3IgcP/oZDy9Qk=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=MJ473gmxXmQ/cyQdXOiwKqyK4MrRg9ejeO09DnLJb6yJ6xzTWG5c0EIHTPCmFCXAvlKdkL1z2BwV+RZqOj4gMWppFWf+0fbA2A9HkxCP5ilMuSCqwa/owwmYz6RiYDcvlMw7gq9dcyMC7y3Nr2oqdoNko5KQitgQI2Z8KbZqAXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lBBeooUG; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1774529773; c=relaxed/simple;
+	bh=AOyK9K7He9jaWEQcI0TLML2gpG/QGkSkNBxuQXYT1yc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VBt/tA1PQDZ69fpc7lymuAD5yPlK9THzJidaCXcSkyOyoiEuvKYVG2C9FKxNf4fs4gbv5gjL+rIMtwSOTe5PKz7ncVLza3g2OgUasMdqNg/yYfEwBiTm+q7kKqk/poGsTAoqPRJn6Oj0kkzVjs4WDOjf9x6BZ+beyNGys5bGtos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=KQhxWVqm; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lBBeooUG"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-486fe655187so10825865e9.2
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 05:56:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="KQhxWVqm"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4852b81c73aso8412605e9.3
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 05:56:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774529766; x=1775134566; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Yx9U8ru1kAXiSx+zB+95J2U/zt+/QpX2ZNGpavJgFb0=;
-        b=lBBeooUGTcVMGUmYIIsgsZSVPt+kb0NROOP2ua1CkbSAunz0UEWFqciKka5DHiJm3R
-         O/uzQE+2V/GBKfZlgYTJwXLN3QEA1F/sWZ1LPsbY4SyJY0hVIcNYk5BRGmUyS5Pyrjmd
-         g2yuP13BsIAJX02ezQqRVbGy0JIlywtB9n22uD4qWJCF2ENXPz8ALbzF8IepY9i1H0m2
-         mIhC240MsYDabE7I9q1surjkDbVFzXNu1p2jEymBLadwWLGo6ZnF8fzQOw++HrmMxd0F
-         Arl3XPWdqHHKLy1bJr8sNSQi1DU4L2taVsB2dlcifqU5w9O0DT+4noNKv2hSfwqKRR0r
-         SGuw==
+        d=tuxon.dev; s=google; t=1774529770; x=1775134570; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=v53LCrPXAsR6yI+88VBtN+4JZC9PqA7W1DCpmW7oQMM=;
+        b=KQhxWVqmIDKZj8pG7iMOWyg01iAWIJGnIXDPbSc6mez85fbhulOa2RfJStsIfd6irK
+         +8lwYtZlzdL0gU7qZ53QUXfPbgAFP6dfXE79KezzfGq7S8W6y4ABqoSS0db2Q/J7Cag5
+         /7F/uWyyp+jVLrNR9msAaMYwgxNEZ9xYFJmIoOQaMocPtLipWpMRvDx+VgGtdN+FGGXM
+         dR69jS4u5fdxISlSdAHLf3V+vym9tyfApJARZSjRSL4aNQfpWV5fBEOzDnEBEMEyvtbA
+         k3XsHx5/TuvBOBiBtgr5SGM87HuoE9dDXfAiHtsduian3PpW6BtuDtQMm3cn9lrqG3AW
+         4vBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774529766; x=1775134566;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Yx9U8ru1kAXiSx+zB+95J2U/zt+/QpX2ZNGpavJgFb0=;
-        b=hkzBBLm3NxITGAer2BWgl/7py+kKOpNC9uY6a1UO1TyWgQM6kmxwA5VskmLB28TiQg
-         A6TEY36bGefnp8pAaZmxgxhHQ0ELAtDaYoj3Ioiu/AkiIlnFrNeXfMItuFPIUseu/nW4
-         9Eq4R/oM3tOE3j1zjdrLig+rwJn8pxONG/SOsYxGCCfRKdCS+hyRLlEKizhU+ueArS2v
-         OedrngYU9s3ZAs0AWEjIC2DMvsOGD/42zO3niRxFXUtzVgWmMCCojDcY/bRDqS1E2Ekl
-         JDSa9DuayvwmgFSYtTOZ3bIkDF0G3Vp52Icj9QigGGK5MjSK0vVpnOebCQApOBW+F+N5
-         bS/A==
-X-Forwarded-Encrypted: i=1; AJvYcCV181399mExUSE3TUJa2P24be1es3ppiePmQ3rAg9eclIEoYfYM+WYmlb3waheFbutcP8YrWSvYaQ/k@vger.kernel.org
-X-Gm-Message-State: AOJu0YwSCN+q3r2LZ+cHOi3hOWIr3kTEep2g1CQOfR7YeZNdN/jPmCOS
-	HJNhIikcuvXjbeMGxXnlw9YVR4BF87UFBGea4CEA/pLHJqXvvmFbTN9MlZUO2IcrMP4=
-X-Gm-Gg: ATEYQzziRzegvl//z5OG0K1AiLUaK13eCMBOLvFg0f9aBFfjWMMHBg88Me25PziIa2U
-	+YdvuS2V8y0mBFlilIYWgaU4Ad+9aAM7ZezoEySHMJRKJl5bqvnEDDqR3eYV3x8aks803PnLstC
-	xiQmD7aSP9HVAScjPZ+cpCkAXoBGAhJNpf6IHYulBv8WSL/begoX17fOVcoQwa5kRc8iadQuvOl
-	tf8OhPtZoZVqaq1rvZFF9KVe9RHe2RwsemnHiBBT/tyJ+elos9ZHN6QD4dyr6wed+XApfGHVdVM
-	FHbZY8N3lFlR1M2eAqqd7SBJXxOEaLaqyEI4XvYgyF5+xcr2r1+XQniziqJ8MSqXQKOIeZcsAAx
-	LT7DCRKNDnxBrc3+oqBUaUQ9Sy45eVhRwMdZYOED2tEcPQMIOkq52jzdTQ/na5lpwrxK3onXxTL
-	jSXrtDd2ySOleGZMEBiXh32LSXW3jXnBILy5dvAhQf63SjTdAmhcJjKik8dvuB+mR9A4z4LYEB6
-	ORn5/Y=
-X-Received: by 2002:a05:600c:45d4:b0:485:2c61:9457 with SMTP id 5b1f17b1804b1-48715fd5277mr105962645e9.10.1774529765762;
-        Thu, 26 Mar 2026 05:56:05 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:8431:f88b:714d:f78d? ([2a01:e0a:106d:1080:8431:f88b:714d:f78d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b919dfb54sm8088573f8f.31.2026.03.26.05.56.04
+        d=1e100.net; s=20251104; t=1774529770; x=1775134570;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=v53LCrPXAsR6yI+88VBtN+4JZC9PqA7W1DCpmW7oQMM=;
+        b=XoqeU5ocPNK8kfnCstjYaKrIyOSMRmUWXul//x99DoX6JYLf2fNvAxK3Uq3AUWCRIx
+         R6PUsNAg5ZmwBNM+6FWtFBIKA1PxPIBIqGupxLivQW1V1hsyNgVvlVEsgQeYx8ztiPTj
+         ECzdCiJG+QVlOKqMhnLs9pKhXFPY52lQ0amV7FjDuCkNObIiGP00KT264RXdgLytMbSg
+         Yp4Js+kmAn/jtIoJRYzrtCaLfIdVb4l1N54b+SEhhccQLQ31HkpGaNNrxRJNhkZDp3T+
+         JjqOHqD4FJCP6eeKAvf/CQI5QwFkos3khm2r/cNJYW4dred4ShgPjTKczn4m47sbM3kg
+         VBiQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWgah2lBBzFPrDOuoEFEQQwESbFxgTeLL/6nVQElFxIsw4279eWK2CdlRaYfum+kOFgC4tI4vYmSXNt@vger.kernel.org
+X-Gm-Message-State: AOJu0YxDT1l/YDZU3fWHwwYMMASHp8JyjMa7CqJCxFPpY8+jQFsGPKDJ
+	+Cp2t2GaGu5EQx5Z4zxHbTq2/WombgYPPlO9tI2vflELEBAoLyZyLl3A+N9x8dy0cjg=
+X-Gm-Gg: ATEYQzyf5/yhLcbQHvLK9k6hCCj2dkgiTsXMDJ6jjtZi2/5QAnjQ0iXhjoj7y06oViE
+	6V3llRX8V7UdrF2Jnydipw1LhwhKVzMcOSznhPvbFsrESOTsdhhxIC0ZeI4DmOY6Rw4z96QbHyO
+	YMWlddw6HvKvQQ1ZQoRrCwKTnhwVs+e3dPi3y5Tei/4EVPzxpO+2PyebwjfhHEBUOsbvrLA/f6r
+	U82m+PdMJf0BJTRyvl8rVDccMK9Qy7gPtSNUWYy7pOK5DiKjIdNbQoArkoRjoYgUwRd2KqQPXWm
+	y2fNAdCU7pI/x3s23E0yhYJc1yzg5iTNR7GcV0V4eyJr/3Xz0kMmJ0wA36Uoij1jLq4vJman9lY
+	l8/JiwvnNi57d2+hG9qUuaV2ju5BYuJDf6m5Fo5PZeoGgmUPaCFQzGG5RKpB07KFjZS6uamhtdL
+	oYT3FosI8l2fY+XbKJvwi89kLrzN0soAM=
+X-Received: by 2002:a05:600c:3490:b0:486:f8e9:add5 with SMTP id 5b1f17b1804b1-48716042c08mr111608235e9.19.1774529770172;
+        Thu, 26 Mar 2026 05:56:10 -0700 (PDT)
+Received: from [192.168.50.4] ([82.78.167.216])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722c789ecsm28316645e9.4.2026.03.26.05.56.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Mar 2026 05:56:05 -0700 (PDT)
-Message-ID: <9dcb5e67-6a30-4ca3-b324-a57faee7d767@linaro.org>
-Date: Thu, 26 Mar 2026 13:56:04 +0100
+        Thu, 26 Mar 2026 05:56:09 -0700 (PDT)
+Message-ID: <693acd52-987e-4018-ae02-386dbd430462@tuxon.dev>
+Date: Thu, 26 Mar 2026 14:56:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,114 +68,75 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v5 3/9] arm64: dts: amlogic: t7: Add MMC controller nodes
-To: Ronald Claveau <linux-kernel-dev@aliel.fr>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
- Johannes Berg <johannes@sipsolutions.net>, van Spriel <arend@broadcom.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-wireless@vger.kernel.org
-References: <20260326-add-emmc-t7-vim4-v5-0-d3f182b48e9d@aliel.fr>
- <20260326-add-emmc-t7-vim4-v5-3-d3f182b48e9d@aliel.fr>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260326-add-emmc-t7-vim4-v5-3-d3f182b48e9d@aliel.fr>
+Subject: Re: [PATCH 5/5] PCI: rzg3s-host: Add support for RZ/V2H(P) SoC
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Cc: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ John Madieu <john.madieu.xa@bp.renesas.com>, linux-pci@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260318124450.163471-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260318124450.163471-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <605e8d4c-09e7-4d11-acdb-7829a85eacc3@tuxon.dev>
+ <CA+V-a8s_Kv5WwocsKy_qBEtZ=0gzN-YbAz3pYjubf_qZVLhBew@mail.gmail.com>
+Content-Language: en-US
+From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+In-Reply-To: <CA+V-a8s_Kv5WwocsKy_qBEtZ=0gzN-YbAz3pYjubf_qZVLhBew@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 3/26/26 10:59, Ronald Claveau wrote:
-> Add device tree nodes for the three MMC controllers available
-> on the Amlogic T7 SoC, using amlogic,meson-axg-mmc as fallback compatible.
-> All nodes are disabled by default and should be
-> enabled in the board-specific DTS file.
-> 
-> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> ---
->   arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 39 +++++++++++++++++++++++++++++
->   1 file changed, 39 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-> index 36d13371f56ba..fe1ced0a58967 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-> @@ -374,6 +374,45 @@ sec_ao: ao-secure@10220 {
->   				reg = <0x0 0x10220 0x0 0x140>;
->   				amlogic,has-chip-id;
->   			};
-> +
-> +			sd_emmc_a: mmc@88000 {
-> +				compatible = "amlogic,t7-mmc", "amlogic,meson-axg-mmc";
-> +				reg = <0x0 0x88000 0x0 0x800>;
-> +				interrupts = <GIC_SPI 176 IRQ_TYPE_LEVEL_HIGH>;
-> +				clocks = <&clkc_periphs CLKID_SYS_SD_EMMC_A>,
-> +					 <&clkc_periphs CLKID_SD_EMMC_A>,
-> +					 <&scmi_clk CLKID_FCLK_DIV2>;
-> +				clock-names = "core", "clkin0", "clkin1";
-> +				assigned-clocks = <&clkc_periphs CLKID_SD_EMMC_A_SEL>;
-> +				assigned-clock-parents = <&xtal>;
-> +				status = "disabled";
-> +			};
-> +
-> +			sd_emmc_b: mmc@8a000 {
-> +				compatible = "amlogic,t7-mmc", "amlogic,meson-axg-mmc";
-> +				reg = <0x0 0x8a000 0x0 0x800>;
-> +				interrupts = <GIC_SPI 177 IRQ_TYPE_EDGE_RISING>;
-> +				clocks = <&clkc_periphs CLKID_SYS_SD_EMMC_B>,
-> +					 <&clkc_periphs CLKID_SD_EMMC_B>,
-> +					 <&scmi_clk CLKID_FCLK_DIV2>;
-> +				clock-names = "core", "clkin0", "clkin1";
-> +				assigned-clocks = <&clkc_periphs CLKID_SD_EMMC_B_SEL>;
-> +				assigned-clock-parents = <&xtal>;
-> +				status = "disabled";
-> +			};
-> +
-> +			sd_emmc_c: mmc@8c000 {
-> +				compatible = "amlogic,t7-mmc", "amlogic,meson-axg-mmc";
-> +				reg = <0x0 0x8c000 0x0 0x800>;
-> +				interrupts = <GIC_SPI 178 IRQ_TYPE_EDGE_RISING>;
-> +				clocks = <&clkc_periphs CLKID_SYS_SD_EMMC_C>,
-> +					 <&clkc_periphs CLKID_SD_EMMC_C>,
-> +					 <&scmi_clk CLKID_FCLK_DIV2>;
-> +				clock-names = "core", "clkin0", "clkin1";
-> +				assigned-clocks = <&clkc_periphs CLKID_SD_EMMC_C_SEL>;
-> +				assigned-clock-parents = <&xtal>;
-> +				status = "disabled";
-> +			};
->   		};
->   
->   	};
-> 
+Hi, Prabhakar,
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+On 3/25/26 13:53, Lad, Prabhakar wrote:
+>> from [1]:
+>> "For example, if rzg3s_pcie_resets_prepare_and_get() returns -EPROBE_DEFER,
+>> the static variable is never decremented. On subsequent probe retries,
+>> the variable will be artificially inflated, eventually causing the bounds
+>> check to fail and returning a permanent -EINVAL. This would also prevent
+>> driver unbind and rebind from working correctly."
+>>
+> The other alternative would be the below, where we wouldn't need to
+> use the num-lanes property but would need a comparison with the DT
+> compatible,
 
-Thanks,
-Neil
+Or move rzv2h_num_total_lanes outside of rzv2h_pcie_setup_lanes() and reset it 
+on failure path.
+
+> 
+> +       for_each_compatible_node(np, NULL, "renesas,r9a09g057-pcie") {
+
+If it's possible I would avoid spreading compatibles though the file but instead 
+use driver data where possible.
+
+Thank you,
+Claudiu
+
+> +               if (of_device_is_available(np))
+> +                       count++;
+> +       }
+> +       if (!count)
+> +               return 0;
+> +
+> +       /* If both PCIe channels are enabled configure the LINK_MASTER
+> in x2 lane mode.
+> +        * If only one channel is enabled check the port index and if
+> port1 is enabled
+> +        * configure the LINK_MASTER in x2 lane mode, otherwise keep
+> it in x4 lane mode.
+> +        */
+> +       if (count == RZV2H_MAX_PCIE_PORTS ||
+> +           (count == 1 && host->channel == 1))
+> +               host->link_mode = RZV2H_PCIE_MODE_DUAL_X2;
+> +       else
+> +               host->link_mode = RZV2H_PCIE_MODE_SINGLE_X4;
+
