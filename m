@@ -1,106 +1,120 @@
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A6137F740;
-	Thu, 26 Mar 2026 15:27:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.32.30.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332FC4035DA;
+	Thu, 26 Mar 2026 15:27:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774538836; cv=none; b=IGTUL7wJHx80FWZJjc8Fdq3Lm3bPlslPytd55iZM+3cBpYqST244bpaxZvcLvaigFnWUOGshVGaNbjYQjgdy21CnBBoxMOZfuCCeWCu6sv9aBaSe4FWf8DqGTCu1vyxsy3r1qiXw2zIaiau0PNWsRDsFxsuGB9aCwAgNYOs5aUY=
+	t=1774538846; cv=none; b=BXTdgbdeuz58n5sEoNjMJCzYBH4tnVA55Qij1ltJkBvAGeWLekR877171lzvJLwMP5oodKlidQ50QuiLxsfp96Be0PR7tiIdCf0MW1uOQCNlATZBd3ir7iPozyls0m4r0Jg1mt9wocM3hgp/A2IHACpFEvQvkJoSenBzyuWgn7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774538836; c=relaxed/simple;
-	bh=xp/FcAIY4MWxs591sba8YBWW3xp77iN8bj2fb0SMr0Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nby8glWsi8LNylwA4iLma8GNtFvoV7W4ta4iemsfGeLj6CrwtijAaJSdycufD287KeIbjGeodiy1+xg7TXareUl06BR1xvTQpq1MabKVr+DMKeTGJ2nots4uwGM5Hj+jOxr+3zffqMcW3mgtbPtgexI2N8JGDAOOteR+I8QTu30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk; spf=none smtp.mailfrom=armlinux.org.uk; dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b=1T8b5Jwh; arc=none smtp.client-ip=78.32.30.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=armlinux.org.uk
+	s=arc-20240116; t=1774538846; c=relaxed/simple;
+	bh=F/NVPAUEX863N5p/JogYiLbDmDQADflpMpHbLXA+WdI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y8W6g3x/CSa7L4ewat6UaW4Z334G2JXvSywy9YCD6gLZQ1jY4WNU3ZarJkBaK/w0Tbkv/OFPS5NcjkhdVPijUqm40g1L2aJW/uTp2Or1KTzdxBF/8cImF2I32saMACk7H5Czlz+vnpjDW2wnQWvzofX068vjTuah7m2qpyXC5Z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=Pn8mO+aa; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b="1T8b5Jwh"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
-	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=gzVATzeIpqjOe+8Cx38MLFUSi1q5cYwLtg5AqfYWoD0=; b=1T8b5Jwhep6s1bdWD5TFn69pLd
-	SZy76s1Snrm8+z47EkFs8pZ+0aN7O1f/CRLTzggTAK990pTxU/0jKo2cqbVyH6JLzbiRwv14myAiT
-	eTR5fybqRfzJ31fYr2YHTHbg2A68ALLDfCJbdipXFN7uhgA+1NVXH2puZFFppl3R+IsnI8D7Rd3Iy
-	yxjDkb5v6q0ydugukyqGcRF8U125/05UaD43B7lTf8nI3TnXbp/gXXQfL3QmejCzKSrIvZFu36hxC
-	Vn/nM434Xrgmgt020x4M0+hBAje0q8xBEhZ+6yB1qj2vdhNBkchMmXOEv7UmuthB5MCmMx/YrYF7Q
-	HQF3D0bA==;
-Received: from shell.armlinux.org.uk ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:51150)
-	by pandora.armlinux.org.uk with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <linux@armlinux.org.uk>)
-	id 1w5mbs-000000004xT-2JKK;
-	Thu, 26 Mar 2026 15:27:00 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
-	(envelope-from <linux@shell.armlinux.org.uk>)
-	id 1w5mbq-0000000078D-0OZH;
-	Thu, 26 Mar 2026 15:26:58 +0000
-Date: Thu, 26 Mar 2026 15:26:57 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="Pn8mO+aa"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 5A8E426272;
+	Thu, 26 Mar 2026 16:27:23 +0100 (CET)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id ugizE2OidUAj; Thu, 26 Mar 2026 16:27:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1774538842; bh=F/NVPAUEX863N5p/JogYiLbDmDQADflpMpHbLXA+WdI=;
+	h=From:To:Cc:Subject:Date;
+	b=Pn8mO+aak2XI2zdbheSVMH022Bgqk1IGkLOfPrpceEmfiIg1zOusLvNa6sTOFbA6Q
+	 5C760+VihtUfegyp94dDeH4lltyvgSomc/wN8aPW0jWEdiYfUz/MfhgbDs8Q1/7F8v
+	 xBD9pv6xk2kkkyFGV88ljoIEmzA4cY9h48HtScYADDXpXQ7D6EWv1lVGuhZGVdy1jJ
+	 ts9lRWN4jtm2KCnmOCvRkZ436fR9yJtrQYQC7KH+aHd/6whSnYPtsIpZ5Xg56XJmD0
+	 yh9KdrLcOBEKzrEH+MJAKTwBMJKjqdp3aMxTVnYZDOL0OUNB6HMZYMan9l/SqrdI++
+	 rNlJTuoZ9Idpw==
+From: Rustam Adilov <adilov@disroot.org>
+To: Chris Packham <chris.packham@alliedtelesis.co.nz>,
+	Andi Shyti <andi.shyti@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>, kevin-kw.huang@airoha.com,
-	macpaul.lin@mediatek.com, matthias.bgg@gmail.com,
-	kernel@collabora.com, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 4/4] net: phy: Introduce Airoha AN8801/R
- Gigabit Ethernet PHY driver
-Message-ID: <acVQQQiciPQBkQOG@shell.armlinux.org.uk>
-References: <20260326-add-airoha-an8801-support-v2-0-1a42d6b6050f@collabora.com>
- <20260326-add-airoha-an8801-support-v2-4-1a42d6b6050f@collabora.com>
- <acVND6DdpM9czIwU@shell.armlinux.org.uk>
- <044110c5-da1e-48c0-93fd-35553e86b271@lunn.ch>
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Rustam Adilov <adilov@disroot.org>
+Subject: [PATCH v5 0/8] i2c: rtl9300: support for RTL9607C I2C controller
+Date: Thu, 26 Mar 2026 20:26:48 +0500
+Message-ID: <20260326152656.14030-1-adilov@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <044110c5-da1e-48c0-93fd-35553e86b271@lunn.ch>
-Sender: Russell King (Oracle) <linux@armlinux.org.uk>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Mar 26, 2026 at 04:24:23PM +0100, Andrew Lunn wrote:
-> On Thu, Mar 26, 2026 at 03:13:19PM +0000, Russell King (Oracle) wrote:
-> > On Thu, Mar 26, 2026 at 01:04:15PM +0100, Louis-Alexis Eyraud wrote:
-> > > +static int an8801r_set_wol(struct phy_device *phydev,
-> > > +			   struct ethtool_wolinfo *wol)
-> > > +{
-> > > +	struct net_device *attach_dev = phydev->attached_dev;
-> > > +	const unsigned char *macaddr = attach_dev->dev_addr;
-> > 
-> > This isn't a criticism for this patch, but a discussion point for
-> > phylib itself.
-> > 
-> > It occurs to me that there's a weakness in the phylib interface for WoL,
-> > specifically when WoL is enabled at the PHY, but someone then changes
-> > the interface's MAC address - there doesn't seem to be a way for the
-> > address programmed into the PHY to be updated. Should there be?
-> > 
-> > Do we instead expect users to disable WoL before changing the MAC for
-> > a network interface?
-> 
-> Program the MAC address during suspend? I assume userspace is no
-> longer active at this point, so the address should be stable.
+This patch series for the RTL9300 I2C driver adds i2c support for
+RTL9607C SoC. They are somewhat different to the RTL9300 and
+RTL9310 but not enough to warrant a new whole driver.
 
-What is the timing requirements for a system going into suspend vs a WoL
-packet being sent? Should a WoL packet abort entry into suspend? If yes,
-then we need to program the MAC before the PHY is suspended, because
-suspend could already be in progress.
+The patch series was split into patches that add/change something in the
+driver to smooth out the RTL9607C support addition in the end and for
+ease of review. Because of that, the patch 8 depends on all the prior
+patches before it.
+
+RTL9607C primarly uses the i2c controller for communication with laser
+driver over on i2c interface 1 or 2.
+
+I have successfully tested the byte read operations on my RTL9607C board
+which has GN25L95 laser driver in OpenWrt.
+
+This patch series now depends on the patch [1] from Jan Kantert.
+
+[1] -
+https://lore.kernel.org/all/20260227111134.2163701-1-jan-kernel@kantert.net/
+
+---
+Changelog in v5
+- reworded the commit message in Patch 5 to make it clear that the existing
+  devices also have i2c master controller clocks.
+- Link to v4: https://lore.kernel.org/linux-i2c/20260323071337.15410-1-adilov@disroot.org/
+
+Changelog in v4
+- moved the patch 7 that changes bindings to be before patch 5 where clk
+  is introduced in the driver.
+- changed the "realtek,rtl9607-i2c" compatible to require the "clocks" to
+  be specified and with it moved it out of "realtek,rtl9310-i2c" check to its
+  own place for cleanliness (how it was originally in v1).
+- Link to v3: https://lore.kernel.org/linux-i2c/20260322123411.32102-1-adilov@disroot.org/
+
+Changelog in v3
+- Patch 7
+  - reworded the commit message to better describe i2c clock.
+  - make clocks property available for all compatibles.
+  - change "realtek,rtl9607-i2c" compatible to be under the same if statement
+    as "realtek,rtl9310-i2c" for "realtek,scl".
+- Link to v2: https://lore.kernel.org/linux-i2c/20260319175753.32338-1-adilov@disroot.org/
+
+Changelog in v2
+- rebased on top of the patch from Jan Kantert.
+- Patch 7 (to my best understanding of Krzysztof's request):
+ - added the "clocks: false" for compatibles that are not realtek,rtl9607-i2c.
+- Link to v1: https://lore.kernel.org/linux-i2c/20260314082628.25206-1-adilov@disroot.org/
+
+Rustam Adilov (8):
+  i2c: rtl9300: split data_reg into read and write reg
+  i2c: rtl9300: introduce max length property to driver data
+  i2c: rtl9300: introduce F_BUSY to the reg_fields struct
+  i2c: rtl9300: introduce a property for 8 bit width reg address
+  dt-bindings: i2c: realtek,rtl9301-i2c: extend for clocks and RTL9607C
+    support
+  i2c: rtl9300: introduce clk struct for upcoming rtl9607 support
+  i2c: rtl9300: intoduce new function properties to driver data
+  i2c: rtl9300: add RTL9607C i2c controller support
+
+ .../bindings/i2c/realtek,rtl9301-i2c.yaml     |  15 ++
+ drivers/i2c/busses/i2c-rtl9300.c              | 191 ++++++++++++++----
+ 2 files changed, 171 insertions(+), 35 deletions(-)
 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.53.0
+
