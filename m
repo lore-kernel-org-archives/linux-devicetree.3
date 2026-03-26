@@ -1,224 +1,155 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013007.outbound.protection.outlook.com [52.101.72.7])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28C6191F94;
-	Thu, 26 Mar 2026 06:39:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774507171; cv=fail; b=OQrDuopagKuJN+heqtw9ptLLbNh2tXr6AODAYNiQyUPym1JpgBPxXM/1y2ln1q2c69A+7cMqCoN7W/n7FSOLzHElif71ijM/HYNQdbhHVIMaJwxpSzCsD6d3XYpYlFbafKUUrtqA0/M4TZaqwG7ybbI4FRM4EElMTD4+pM7AGGI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774507171; c=relaxed/simple;
-	bh=RuFhTqyKd/lH3itQQ/H49Pb5+KQwdI7+XaH5xnBGQNk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=teKkLMpvgB6OMkATg/GDdPzh+V5g5WUASTPmMf396oADbIJTQbCl7mlU6xD474JSOJ2VEMJRmfja67wn77SnFSsfy8OvqKEsJtHNEvcjxp+OK71HTyQKa3aXL99IByxjaq5FUp2Bxma0v+vI6rA5NMZ32hSD/4Xsm3T+HNZW6XE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=NiXa5TId; arc=fail smtp.client-ip=52.101.72.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D9D33B96F;
+	Thu, 26 Mar 2026 06:43:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774507439; cv=none; b=E3nMioVF06TnNcjtyujcKyLQrAfGiZIheU9DaaY0Y0zVLlezlwJJzevMQqp+ddweuIAd2IMU8YXt0VhHx+Ha8XYjxIb+Ut8FFDZ/I/CSy8JpbqOPNWeMTOFa4W1V026Q1VNtmzwhXC6VUfKKMOl85pok6xiApH9r+6GPkTnVSW8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774507439; c=relaxed/simple;
+	bh=MmXvXN5usJhalvoG7PmV4+ZJSGUSowCZG7zrDGEjo08=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Zmn57ygAyD64G4ZDFbgZ/ll3ccAfSPfV+yle8Y077b3GKlVQ0NI2QIwdX1yzX5KmDcZiL8GsvXDUSo7yHAb4WwbPysWyGIcaDJ84Py5qac8FJy0HnltIHxG2WFfpUcs+Kg5ioSf08k3jxnKk7chESlrmLbSiNHxVC2DGQ427DS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=Bf9/ogWG; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="NiXa5TId"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aSpLYUs4GdD2poSTf8YJqoJrw1VMBKlrr99SCGxR5gZRJpyryS9M+tClI5O14ZBzQsKmtV5oYR2uobpsQ1so9lrr2afCEE2yi882RJa4gaqGpxlLQhYoRNdyO3rl/EyOTCVv48Q3wyWbeWkLHfIh9V83soJUqtiixvE0f6YshwR3JBbrBSPima8wO5VEpiJaPGXfY1znBdvyMRZmkQh9j+iXS7K2tR6AfcI+ZHXJDwBBytV4eJhpHFNXMLEnWmElgRTMWVmwQCrySWtO7KyKXD4OJpto/Rwd+l2ecDRJvPGp1fW6bBwzsAO/0hfT6SNPLN4zCUBLEkHBkYP8EO14/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bRENcoXvZwzqU9rcO8bDskM2TeDoUmRt7kve2U0wFJM=;
- b=fO3oARzqEF8ABlk9j4o+CZUzo8jK1c54B9X6GKi1pgF6rEid2jrRQnmSjf7eH2AjRqca0rH7Sv/VfUho3egcoWhZRsLJnxvg5RzUgSIxeDIlXXIHVAmCzDO2qoi8b/256CSInKapkNZ1jR3c1h0PuFANTp5Rjx9VB1b+n8STO3zrelxxJwgiGaFzqicGxodruR8+r8I5Ty5AakD+HH7owRM5ekLM6y+7WZjhk5Ef2N7ClaPArUlVQCOKrUxugPGa2FIkNIES31yWWmR11fV2iuYV/z5Pyr1UkjjoIgpfI2Tpnx5AGE8JpRu9lnnGUjVSAW5T9q0IGoGbrf7KAc6J3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bRENcoXvZwzqU9rcO8bDskM2TeDoUmRt7kve2U0wFJM=;
- b=NiXa5TId0f7Ch7NC+Jt5dE4NtW+uxhclneJNI7MjqBkJEOntHKsaMhQLCnCPCzaFt2UuW12CDRArvhyhLsPYNVRZwqBajryDIgdoMa1M7RxBl/gYWzJ+EIWHBVZV0LFV4zmvzenaC11QBpfokavY/ZlY75bYjPSnXEYdmDw9DheQuyh2Iwh5OjxvSwt9NCA4N225K5WTMWY7kT9JMyRXYl8BojBybp/7/e62DRnAPAUz3PpHfsQC10My4ovD1Lw61toGnHyCxozGdvM/0CfpgjwVvxNC7A+hIIAqWAoqisnrgqqqFE9luB5WSdy3MoL4K1Mwg3RQU75ziheqiOw+oQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
- by AMDPR04MB11300.eurprd04.prod.outlook.com (2603:10a6:20b:6cb::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Thu, 26 Mar
- 2026 06:39:24 +0000
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9745.019; Thu, 26 Mar 2026
- 06:39:24 +0000
-Message-ID: <2d6cfad8-7f2c-4c78-9f93-136d6757ab9d@nxp.com>
-Date: Thu, 26 Mar 2026 14:40:25 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] drm/mxsfb/lcdif: simplify remote pointer management
- using __free
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
- Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
-Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
- =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- Anson Huang <Anson.Huang@nxp.com>,
- Christopher Obbard <christopher.obbard@linaro.org>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
- Fabio Estevam <festevam@denx.de>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- Frieder Schrempf <frieder.schrempf@kontron.de>,
- Gilles Talis <gilles.talis@gmail.com>,
- =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
- Heiko Schocher <hs@denx.de>,
- Joao Paulo Goncalves <joao.goncalves@toradex.com>,
- Josua Mayer <josua@solid-run.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Marco Felsch <m.felsch@pengutronix.de>,
- Martyn Welch <martyn.welch@collabora.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
- Philippe Schenker <philippe.schenker@toradex.com>,
- Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
- <shengjiu.wang@nxp.com>,
- Stefan Eichenberger <stefan.eichenberger@toradex.com>,
- Vitor Soares <vitor.soares@toradex.com>
-References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
- <20260320-drm-lcdif-dbanc-v1-1-479a04133e70@bootlin.com>
-From: Liu Ying <victor.liu@nxp.com>
-Content-Language: en-US
-In-Reply-To: <20260320-drm-lcdif-dbanc-v1-1-479a04133e70@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0085.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:ae::6) To DB8PR04MB7051.eurprd04.prod.outlook.com
- (2603:10a6:10:fd::20)
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="Bf9/ogWG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1774507435;
+	bh=vOXu1h7wNBU0MwKwR9KWxa8v2aRV0Z0aQ49i9AHsRjA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Bf9/ogWGTOWi9NWWT9MjUL9Xb1gjCktDc22xDsaivLJwvaS7q8h5C23xkT/LuqKDP
+	 zNantjz4ge2Q6oLy8byxuFDXcu/NCMtwp4sAargNiSXUILCWq24o5O1afnUOF2tz9g
+	 4Eb2KvSzTpfv6o6z+ft7X7JK6I0Cnx6pElqB+66gZJ4QkVZcG7FsmBQ+El9evKu9vd
+	 z9F6EoHHNrxdBxTfVf8XLOwmRtbYtX4fl3ZoTChx7FgNE+TG4I+qC7b8Fur1FBNv9E
+	 R42CYgLOWyulFYM1cwKjq2Jw2NLAsxRmtW0/pfR+9z9sLcYRPyRoUJQGqoTyOXt87a
+	 PBtgDQ3v6mJVw==
+Received: from [192.168.68.115] (unknown [180.150.112.60])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id B68C46597C;
+	Thu, 26 Mar 2026 14:43:54 +0800 (AWST)
+Message-ID: <47adfd499195738bd5539c4e438af5dc1ae75559.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v3 2/3] ARM: dts: aspeed: anacapa: update SGPIO mappings
+ for DFT integration
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Colin Huang <u8813345@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
+	 <joel@jms.id.au>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	Colin.Huang2@amd.com, Carl.Lee@amd.com, Peter.Shen@amd.com
+Date: Thu, 26 Mar 2026 17:13:54 +1030
+In-Reply-To: <20260310-anacapa-dts-sgpio-v3-2-12d9b7f1202e@gmail.com>
+References: <20260310-anacapa-dts-sgpio-v3-0-12d9b7f1202e@gmail.com>
+	 <20260310-anacapa-dts-sgpio-v3-2-12d9b7f1202e@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|AMDPR04MB11300:EE_
-X-MS-Office365-Filtering-Correlation-Id: df13a71b-5463-45fb-647d-08de8b026a95
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|7416014|376014|19092799006|1800799024|366016|921020|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
- GgIynwBXMdnR0Mi+myCnIH2wOc85WsPDGEZhfTvfET9vgQL7LJ9o2S/to2ZBIBpWX5WQIEoI2LUjGepZm4t8r2FnfkQ78XxK6rvEc7zbXqlw2EQ+0GeydC1Ecoo30z1mtbMP6R5h3ORjZxewi50gTYzS9Ato2k2PcjW7boUVwA2bvjxH3f6k+OUtE1aetSOgImgOOmgGJ5vD97bW9gcOw6WSlDZcGi3Gary0nmJUhLkK5fV69yWlCF9Kb86YPcplqlveC03HAXvveio+PewkA0LeCGok9ncHV+T0L5l0FdmmD9iAmf2ETH/d1ywI4SMkgC76HIvT/YDl3uOWtZgApsrdc0cPiKoqa3++GonL+jcE0qZeACHlPVhZm3NS8eQw2mKcZx1Dx7g8CG2U2FVDuxhDtBmGnZIToTnS34ve2YezXmHRVd784FncjVRnkNi4wqKwJyOuujZXY1hm0R4/wAxg72FlnWdsuqlowyPIlyjUH+kVrQIRsmGGMLU169kQXCeVVjwX6BYueZmCqoBbITQUE94PAMgyzA/Sm0bJ6uc7ZYicbEL5NL49gaeLnyRENP6O5m4l1fpZz63oYzBXvMk9EEPMN1xDWw3c7E6b8eWUbE7Vf97O+fN4l8XDYm6JARCGgTUEGfZdjTaRsU8F3J033RYsS/V6MLvb7R8ZQbpIVhFccmtc1PUFfT2UHjnBnG1U1/L6WnBMMbAt9kgtBa/2oUHqx/BJm54lY02rfe7hbO8iLsEQAfYxwYyIlmA9t3GfGXEGja9JBwI9ksLwFw==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7PR04MB7046.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(19092799006)(1800799024)(366016)(921020)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?dlJlbnVURXVEM1QzaUlJWGJ4cVljN0NTeWRad0NxcDFLeEwxUWR5UHh5WjRp?=
- =?utf-8?B?RFNyYUd4cll0T0V4L2h4SmpMRmY0RVR4Vm5NcHFYWUVveUNoM3dUZUZVeVhY?=
- =?utf-8?B?M2RXcWJJMFVjc3NieC9FVEIwajY5SE5lNUp2dU9xVDBRdkpPRmRoTmk5bWVG?=
- =?utf-8?B?RGwzWk55TlE4cEhvUjNqRWtGcEFKdU5LWVM4UENvYVRXMFQxL1R0OGtPd3dP?=
- =?utf-8?B?TjdTbC9sTW0xSkgxR3V3enVYbmh3MjBtNnV5RFBLblBpamFlRk4rK1lGUDJV?=
- =?utf-8?B?ZEtiMEMzMHpObENGTWFBbWhNYXM1Um9TajdIbXpPZHRscXRwL2FFZ3FKNitZ?=
- =?utf-8?B?Z0JYc2hGNkNZRlBYbVdVT0ZFS2pTM1RNUjlsdUR2L0NBS3d0M3I5blJ4THNm?=
- =?utf-8?B?NHRJTmkxVVZYSHNCUDVHNnVHcTVHSE1wdlhSUS9zKzNJNlZ6TWI2UHNaOEp5?=
- =?utf-8?B?VU5PUmlhRXNyZEJBd1pWWHN5TmlEWjVuZFluamgxWmNWanNKdE1qOWFqdGlU?=
- =?utf-8?B?cGVhS01WNzMvbDhRazNmM0ZIOTloWVZ6SnViSEsyWVZzb1BhaEttdDVFVDFr?=
- =?utf-8?B?elgvLzdUdzEzbUlZVTVoUE9OU3BWaXJFL1JUbjBGclc4Z0wrMEdsb2ZJUXdy?=
- =?utf-8?B?aDQwSy9RR1VhWDJPdWc4aDF1RUZTZEkxUzFoanZPU0NrckdJVENWWkRPNnAv?=
- =?utf-8?B?b0NXOWlMWDhXNi9FckcySlZyekF5WXQ3RjNvMEloUnZUK0lDcFJvQ1NCd2l1?=
- =?utf-8?B?Q2pXM3JXSTU5N1cyUmtma1N5aGovdStlUW5LdVJNQjZpNTdLWEl0WGNuUFAx?=
- =?utf-8?B?dFJiRTdKKzFETXM2OUFaNUZ2NFdaUlA2ZlRYcitBOWszd3g2cFc0Zlp5cWk3?=
- =?utf-8?B?Yjh0QXJIWnNCSjAybWV4bzQyYVFaK2M5aEtDUnhzM3UyNDJGbXFtY2xLbjcw?=
- =?utf-8?B?ZXRhV2M1Zk85RVF6dldzRU95aFY1N3lIOVI2bVpSV1FqVFYyOUY2RnJOUSt4?=
- =?utf-8?B?bDU5QVpyVlVSdndZMW1SUDBGbHhEVTlzUUdKajVudGlSL3lnMHZWNUJGK2w0?=
- =?utf-8?B?RUJPenQyQUg1c3pTL2xJNFY5bFB1ZVY2amVMOHdZN2xXbnBZaDlMNUE3MFdP?=
- =?utf-8?B?QVdhVjcyd0R4Yk5qblJPVGx2U09VSmhzYVplbGNEbno3b3pmM3VWMDBmUUlu?=
- =?utf-8?B?VUJTM2F2QWc5SEpUelNGcW1mSlBvYjFsZnFZUmd2V2I1UEo1M3FuSUwxeE11?=
- =?utf-8?B?QzROays5dmp0TXNiM3RFVGxXUnM1Wlpzd3VsL3VUcVhJVW1DTWdCZ2Y2RFQw?=
- =?utf-8?B?SENZSGo0ajBTaTYvQXdFNzV3M3pBOC9zTGxEQU9pNjlTdmZCR1g3UWVRNWsx?=
- =?utf-8?B?bWlNRktkZFhIRFJYUnlIdVMrcXNjd2haTEo4NmZrdEFjM1BiQk5NM1EyZHdQ?=
- =?utf-8?B?VFFpK2p4dFowSWFGTTZYeVZFaS9lZS9PUzE0eEMwNEc1TXBlVzFCOGRNeGk4?=
- =?utf-8?B?RDg1aTBWMHF6dXIyY08zRDcvUmhFQjQxYjJpVzdlLyszSk1Mc2QyTk10ckRy?=
- =?utf-8?B?R3JUU3NnTDk0T0FkNEsvUmk5c0hFTUpSZXJnWTYxRWNZZjNlZGx5MjY4NDYr?=
- =?utf-8?B?RWlDakZaN0M0bm1yMFA1bHRBY1k0KzVWOHI3ekx5dHZzd0xiVnRmeWY5ZXdX?=
- =?utf-8?B?SmVFS044blpQaUVYcjdwcit5WEZpbHBKL3d0bWU0dkZVaWJqRHF1OGlFMFBh?=
- =?utf-8?B?elM4WG1PbHVNcU9zbFFVNHJiaXU2RURRS2JwU0ZTQ2VpZE9mVGVRSGpoL2dM?=
- =?utf-8?B?em4rMXZGdzdzckU0STVsdTdHb2Z3RmxCVTV2b0owYXoxOTVEa1NmdTNja0wv?=
- =?utf-8?B?bXFLM1VHTzZucytERjhhbVE2b1dIOHI0R0MySjdkOEtqL0JVcUJOVTA1dkZw?=
- =?utf-8?B?OHNZSGFpWW5zbk4yc3JJbENTeFg4SGZLOUJsNnVNU2RLQlNvM1dNVjVaV2p0?=
- =?utf-8?B?VmpaRmhCZU9kYm5nQWQxazlnWUdrd3NGRm5IM29hYmh3ckV2WFFEazUyK0p4?=
- =?utf-8?B?aU1LakFNa0FJSFg3S1E2UzhCNWxKRUxJdDZWWGVTeDBRTElLQVBkM1JFRHJT?=
- =?utf-8?B?QnZ0MkZzUndDU1QxWjA3aWRNVC9TL2JQVEdvdjlqNytNOEg1ZXVVdVhlb3hk?=
- =?utf-8?B?djZGc0xpU2owUVJjdGhQZEJwa2xyaXVxWi9TUDc5R3BrYjJDZEkyZWZaWDhN?=
- =?utf-8?B?cEpWS3gwSEMxOTdwQVBvWUI3N3ZEUzk0S3ZBcGVTaUhCR2dnRmxJZWdJKyt1?=
- =?utf-8?B?dG5HUGZVT0cwWjFPcjk0VURwdTdaMXVQbGNWeGVmZytpVkJoNjRxZz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: df13a71b-5463-45fb-647d-08de8b026a95
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB7051.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 06:39:23.9427
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 94j0vyUDpQunDZQujQdmvsb8WYL4THZRmbdAW5fHPAIZKc6X40QdTIy9Y/+dtQB92qJVR/HkdJ7A4XeLa66JOA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMDPR04MB11300
 
-Hi Luca,
+Hi Colin,
 
-On Fri, Mar 20, 2026 at 11:46:12AM +0100, Luca Ceresoli wrote:
-> Putting the remote device_node reference requires a of_node_put(ep) in both
+On Tue, 2026-03-10 at 17:49 +0800, Colin Huang wrote:
+> Update SGPIOM0 GPIO line names and signal mappings to align with the
+> latest DFT (Design For Tooling) integration requirements.
+>=20
+> This change reworks SGPIO input/output assignments, replaces legacy
+> or reserved placeholders, and updates signal naming to match the
+> definitions provided by the CPLD on 2026-03-03.=C2=A0
+>=20
 
-s/of_node_put(ep)/of_node_put(remote)/
+I feel this statement isn't super helpful, but no matter.
 
-> error return points.
+> The update improves
+> signal clarity and correctness across leakage detection, presence,
+> fault, power-good, and debug-related GPIOs.
 
-Should be cleanup points instead?
+I prefer you drop this assessment.
 
-> Use a cleanup action to simplify the code.
-> 
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>=20
+> Signed-off-by: Colin Huang <u8813345@gmail.com>
 > ---
->  drivers/gpu/drm/mxsfb/lcdif_drv.c | 9 +++------
->  1 file changed, 3 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-> index 47da1d9336b9..756ca96373c8 100644
-> --- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
-> +++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-> @@ -53,16 +53,13 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
->  	int ret;
->  
->  	for_each_endpoint_of_node(dev->of_node, ep) {
-> -		struct device_node *remote;
-> +		struct device_node *remote __free(drm_bridge_put) =
+> =C2=A0.../dts/aspeed/aspeed-bmc-facebook-anacapa.dts=C2=A0=C2=A0=C2=A0=C2=
+=A0 | 143 ++++++++++++---------
+> =C2=A01 file changed, 83 insertions(+), 60 deletions(-)
+>=20
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts b/a=
+rch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+> index 3e297abc5ba4..85b7e027daef 100644
+> --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+> @@ -862,89 +862,106 @@ &sgpiom0 {
+> =C2=A0	ngpios =3D <128>;
+> =C2=A0	bus-frequency =3D <2000000>;
+> =C2=A0	gpio-line-names =3D
+> -	/*in - out - in - out */
+> +	/*in - out */
+> =C2=A0	/* A0-A7 line 0-15 */
+> -	"", "FM_CPU0_SYS_RESET_N", "", "CPU0_KBRST_N",
+> -	"", "FM_CPU0_PROCHOT_trigger_N", "", "FM_CLR_CMOS_R_P0",
+> -	"", "Force_I3C_SEL", "", "SYSTEM_Force_Run_AC_Cycle",
+> -	"", "", "", "",
+> +	"L_FNIC_FLT", "FM_CPU0_SYS_RESET_N",
+> +	"L_BNIC0_FLT", "CPU0_KBRST_N",
+> +	"L_BNIC1_FLT", "FM_CPU0_PROCHOT_trigger_N",
+> +	"L_BNIC2_FLT", "FM_CLR_CMOS_R_P0",
+> +	"L_BNIC3_FLT", "Force_I3C_SEL",
+> +	"L_RTM_SW_FLT", "SYSTEM_Force_Run_AC_Cycle",
+> +	"", "",
+> +	"", "",
+> =C2=A0
+> =C2=A0	/* B0-B7 line 16-31 */
+> =C2=A0	"Channel0_leakage_EAM3", "FM_CPU_FPGA_JTAG_MUX_SEL",
+> =C2=A0	"Channel1_leakage_EAM0", "FM_SCM_JTAG_MUX_SEL",
+> =C2=A0	"Channel2_leakage_Manifold1", "FM_BRIDGE_JTAG_MUX_SEL",
+> =C2=A0	"Channel3_leakage", "FM_CPU0_NMI_SYNC_FLOOD_N",
+> -	"Channel4_leakage_Manifold2", "",
+> -	"Channel5_leakage_EAM1", "",
+> -	"Channel6_leakage_CPU_DIMM", "",
+> -	"Channel7_leakage_EAM2", "",
+> +	"Channel4_leakage_Manifold2", "BMC_AINIC0_WP_R2_L",
+> +	"Channel5_leakage_EAM1", "BMC_AINIC1_WP_R2_L",
+> +	"Channel6_leakage_CPU_DIMM", "CPLD_BUF_R_AGPIO330",
+> +	"Channel7_leakage_EAM2", "CPLD_BUF_R_AGPIO331",
+> =C2=A0
+> =C2=A0	/* C0-C7 line 32-47 */
+> -	"RSVD_RMC_GPIO3", "", "LEAK_DETECT_RMC_N", "",
+> -	"", "", "", "",
+> -	"", "", "", "",
+> -	"", "", "", "",
+> +	"RSVD_RMC_GPIO3", "RTM_MUX_L",
+> +	"LEAK_DETECT_RMC_N", "RTM_MUX_R",
+> +	"HDR_P0_NMI_BTN_BUF_R_N", "FPGA_JTAG_SCM_DBREQ_N",
+> +	"No_Leak_Sensor_flag", "whdt_sel",
+> +	"", "",
+> +	"", "",
+> +	"", "",
+> +	"", "",
+> =C2=A0
+> =C2=A0	/* D0-D7 line 48-63 */
+> -	"PWRGD_PDB_EAMHSC0_CPLD_PG_R", "",
+> -	"PWRGD_PDB_EAMHSC1_CPLD_PG_R", "",
+> -	"PWRGD_PDB_EAMHSC2_CPLD_PG_R", "",
+> -	"PWRGD_PDB_EAMHSC3_CPLD_PG_R", "",
+> -	"AMC_BRD_PRSNT_CPLD_L", "", "", "",
+> -	"", "", "", "",
+> +	"PWRGD_CHAD_CPU0_FPGA", "",
+> +	"PWRGD_CHEH_CPU0_FPGA", "",
+> +	"PWRGD_CHIL_CPU0_FPGA", "",
+> +	"PWRGD_CHMP_CPU0_FPGA", "",
+> +	"AMC_BRD_PRSNT_CPLD_L", "",
 
-s/drm_bridge_put/device_node/, though I know you've already realized the
-mistake in a separate reply.
+Can you discuss this patch in the context of my other replies to both
+yourself and Kevin?
 
-With the above comments addressed:
-Reviewed-by: Liu Ying <victor.liu@nxp.com>
+https://lore.kernel.org/all/d7794f74b26bbc1ee0a70e39c5671acc018f80eb.camel@=
+codeconstruct.com.au/
 
-> +			of_graph_get_remote_port_parent(ep);
->  		struct of_endpoint of_ep;
->  		struct drm_encoder *encoder;
->  
-> -		remote = of_graph_get_remote_port_parent(ep);
-> -		if (!of_device_is_available(remote)) {
-> -			of_node_put(remote);
-> +		if (!of_device_is_available(remote))
->  			continue;
-> -		}
-> -		of_node_put(remote);
->  
->  		ret = of_graph_parse_endpoint(ep, &of_ep);
->  		if (ret < 0) {
-> 
-
--- 
-Regards,
-Liu Ying
+Andrew
