@@ -1,37 +1,37 @@
 Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C63A3A6B61;
-	Thu, 26 Mar 2026 19:35:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6CA53A6F0A;
+	Thu, 26 Mar 2026 19:35:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774553707; cv=none; b=fqqXlnAxKY9CNjrMIoHyB56nkRBQjhqMstXbvYPdtY9JffBxBGD/SRri32aXE64WyAXJnsqDkNsm40e8YJ6WuqvthO+r5Vc6yGN18rENRH5NSyPniLOZ3MuV2+Tl4J+n992EfX4+e4BrQ6X/q1QLaqKXbUgKM4eWt7IYI/hESUc=
+	t=1774553711; cv=none; b=t5774wlv5vo/uY3wxYeF5G1OmrHFfKZIOGm8HxUC5lZIoTdGZcjix9TOQPdZRzh45f1Psg+5+3Dto66i40Ar+sADDLh4R4GGKS959LN2xizuC/j/aG8xOOWKzcD6akXsc0yHgUccfnP7BpRr6fWHYVXBhto5VtvmgJBwbRFzzwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774553707; c=relaxed/simple;
-	bh=4ZmFKr7dM5tEngab2lKeqNKhMtO+0Uw5iKWA8I4POAQ=;
+	s=arc-20240116; t=1774553711; c=relaxed/simple;
+	bh=A2n8k6aIgmIJ4ucRQWwBcogmliaMS8yEWnuf1xcyKuE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FZ+8SO0/EFpLzyzolQC1+AQFTHN6oPyWpPF1kLb08XERvOS6U59kv+8/1+seihHYjrkhpD9AY3n7gru0VEl7y5jBW+ZfECd7utZ9S8pf0oObgHwL/HQMWJKF4UfVknovWsD1HvWj8zBGCuxCyPsFa5J5pey8pse6YkbXyOI4e24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=HVjdZM2m; arc=none smtp.client-ip=178.21.23.139
+	 MIME-Version; b=pob6cr5e1C3WWBVtEumTlGk9ASelJvCvrlJlBChy81fm3xJcYTxFfy/Jb/dEmFXzeBg5kKP+C9wqZjzRW/zCje9kwU9YUT3b87UoJNhbj5sp8yWHADcEyZF8k1n7mvEeIS5dyylG2zThDPjOGK1goPHJI6no9iDMrV1igEwKa3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=e13b6Eok; arc=none smtp.client-ip=178.21.23.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="HVjdZM2m"
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="e13b6Eok"
 Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id A1ED227080;
-	Thu, 26 Mar 2026 20:35:04 +0100 (CET)
+	by disroot.org (Postfix) with ESMTP id 43ABD26FFC;
+	Thu, 26 Mar 2026 20:35:08 +0100 (CET)
 X-Virus-Scanned: SPAM Filter at disroot.org
 Received: from layka.disroot.org ([127.0.0.1])
  by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id otfLdpXYr2hf; Thu, 26 Mar 2026 20:35:04 +0100 (CET)
+ id 6WwhpugZu9q4; Thu, 26 Mar 2026 20:35:07 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1774553704; bh=4ZmFKr7dM5tEngab2lKeqNKhMtO+0Uw5iKWA8I4POAQ=;
+	t=1774553707; bh=A2n8k6aIgmIJ4ucRQWwBcogmliaMS8yEWnuf1xcyKuE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HVjdZM2mEKkS4pMN92I83CQk7IKDECsPmh2N+/ClIisxfq6F6ozQav+7j5IlbgDd6
-	 ZvxguyAQ9A2Ipb4vbJClYvHcqEchx2J9YGqp4ZU0m6eLsIQsutsQfwqS/p5AGrMXcu
-	 +6i2U+AIVRiEWuJpbNxNuDBiXYn40ig2Uhktu1ZyQFAQ4FpKs1CvjRKlO6CiPJ8FfS
-	 eT5ZIM9Ah571ELwoPk6dD+Kaeck7kTyBEMKTChs0RcXkM2lVuopMZcm7OJup5y0JTd
-	 4yxnBcLxlj7528hiud/2p65sF5DBBmSPFYc4uwBX3eS2mw57vV0DJtSM5c3LyNzj66
-	 GDPS1zet0IvrQ==
+	b=e13b6EokfOfBvap7f5YTsZCTpSjPuyrx4uHeU4fSdPPHFLFi2TF4dUEG+g+mORS55
+	 R/sHzd+YS9mmYJ6nD/RBSWVw2VIFSVZjmQUFnzcZTp4W/LmcpqhviIyFb8AFslEOio
+	 9O4oD/IdXawgRBJwOMWrBZijWEENqOCPjVpgpEOupWoHuRGjj8cSrEYaCB/Uc0sGyP
+	 UPvUVOYldCorL0a101ZZj3qPiRWa12hvENW8+ZSmKZAoFt60uhbIYDQuKxPIjz+bpq
+	 yXOCDUQDXCQgf0NKFgY4HT2qHtQPfcDJQx/Ko/NVVyt0d/R+AMy5Fgk6aurL93yo2O
+	 X/MlQ7ap046Tw==
 From: Rustam Adilov <adilov@disroot.org>
 To: Vinod Koul <vkoul@kernel.org>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -42,10 +42,11 @@ To: Vinod Koul <vkoul@kernel.org>,
 	linux-phy@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Rustam Adilov <adilov@disroot.org>
-Subject: [PATCH 3/6] dt-bindings: phy: realtek,usb2phy.yaml: extend for resets and RTL9607C support
-Date: Fri, 27 Mar 2026 00:34:16 +0500
-Message-ID: <20260326193419.48419-4-adilov@disroot.org>
+Cc: Rustam Adilov <adilov@disroot.org>,
+	Michael Zavertkin <misha.zavertkin@mail.ru>
+Subject: [PATCH 4/6] phy: realtek: usb2: introduce reset controller struct
+Date: Fri, 27 Mar 2026 00:34:17 +0500
+Message-ID: <20260326193419.48419-5-adilov@disroot.org>
 In-Reply-To: <20260326193419.48419-1-adilov@disroot.org>
 References: <20260326193419.48419-1-adilov@disroot.org>
 Precedence: bulk
@@ -56,90 +57,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the "realtek,rtl9607-usb2phy" compatible for USB2 PHY on the RTL9607C
-SoC series.
+In RTL9607C, there is so called "IP Enable Controller" which resemble
+reset controller with reset lines and is used for various things like
+USB, PCIE, GMAC and such.
 
-Add a resets property to properties to describe the usb2phy reset line.
+Introduce the reset_control struct to this driver to handle deasserting
+usb2 phy reset line.
 
-In RTL9607C, USB2 PHY reset line is from "IP Enable controller" which is
-multipurpose and handle activating various SoC peripherals.
+Make use of the function devm_reset_control_array_get_optional_exclusive()
+function to get the reset controller and since existing RTD SoCs don't
+specify the resets we can have a cleaner code.
 
-It is unclear whether RTD SoCs have something similar to that but make it
-available to them anyway.
-
-RTL9607C requires the "resets" to be specified so add the corresponding
-if check for the "realtek,rtl9607-usb2phy" compatible.
-
+Co-developed-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
 Signed-off-by: Rustam Adilov <adilov@disroot.org>
 ---
- .../bindings/phy/realtek,usb2phy.yaml         | 23 ++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+ drivers/phy/realtek/phy-rtk-usb2.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/phy/realtek,usb2phy.yaml b/Documentation/devicetree/bindings/phy/realtek,usb2phy.yaml
-index 9911ada39ee7..cdc7b72e5f60 100644
---- a/Documentation/devicetree/bindings/phy/realtek,usb2phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/realtek,usb2phy.yaml
-@@ -11,10 +11,12 @@ maintainers:
-   - Stanley Chang <stanley_chang@realtek.com>
+diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy-rtk-usb2.c
+index e65b8525b88b..070cba1e0e0a 100644
+--- a/drivers/phy/realtek/phy-rtk-usb2.c
++++ b/drivers/phy/realtek/phy-rtk-usb2.c
+@@ -17,6 +17,7 @@
+ #include <linux/sys_soc.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/phy/phy.h>
++#include <linux/reset.h>
+ #include <linux/usb.h>
  
- description: |
--  Realtek USB 2.0 PHY support the digital home center (DHC) RTD series SoCs.
-+  Realtek USB 2.0 PHY support the digital home center (DHC) RTD and
-+  RTL9607C series SoCs.
-   The USB 2.0 PHY driver is designed to support the XHCI controller. The SoCs
-   support multiple XHCI controllers. One PHY device node maps to one XHCI
-   controller.
-+  This driver also supports the OCHI and EHCI controllers.
+ /* GUSB2PHYACCn register */
+@@ -130,6 +131,7 @@ struct rtk_phy {
+ 	struct phy_cfg *phy_cfg;
+ 	int num_phy;
+ 	struct phy_parameter *phy_parameter;
++	struct reset_control *phy_rst;
  
-   RTD1295/RTD1619 SoCs USB
-   The USB architecture includes three XHCI controllers.
-@@ -57,6 +59,12 @@ description: |
-   XHCI controller#1 -- usb2phy -- phy#0
-   XHCI controller#2 -- usb2phy -- phy#0
+ 	struct dentry *debug_dir;
+ };
+@@ -602,6 +604,10 @@ static int do_rtk_phy_init(struct rtk_phy *rtk_phy, int index)
+ 	phy_parameter = &((struct phy_parameter *)rtk_phy->phy_parameter)[index];
+ 	phy_reg = &phy_parameter->phy_reg;
  
-+  RTL9607C SoCs USB
-+  The USB architecture includes OHCI and EHCI controllers.
-+  Both of them map to one USB2.0 PHY.
-+  OHCI controller#0 -- usb2phy -- phy#0
-+  EHCI controller#0 -- usb2phy -- phy#0
++	reset_control_deassert(rtk_phy->phy_rst);
 +
- properties:
-   compatible:
-     enum:
-@@ -69,6 +77,7 @@ properties:
-       - realtek,rtd1395-usb2phy-2port
-       - realtek,rtd1619-usb2phy
-       - realtek,rtd1619b-usb2phy
-+      - realtek,rtl9607-usb2phy
- 
-   reg:
-     items:
-@@ -130,6 +139,9 @@ properties:
-     minimum: -8
-     maximum: 8
- 
-+  resets:
-+    maxItems: 1
++	mdelay(5);
 +
- required:
-   - compatible
-   - reg
-@@ -157,6 +169,15 @@ allOf:
-     then:
-       properties:
-         realtek,driving-level-compensate: false
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - realtek,rtl9607-usb2phy
-+    then:
-+      required:
-+        - resets
+ 	if (phy_cfg->use_default_parameter) {
+ 		dev_dbg(rtk_phy->dev, "%s phy#%d use default parameter\n",
+ 			__func__, index);
+@@ -1069,6 +1075,12 @@ static int rtk_usb2phy_probe(struct platform_device *pdev)
  
- additionalProperties: false
+ 	rtk_phy->num_phy = phy_cfg->num_phy;
  
++	rtk_phy->phy_rst = devm_reset_control_array_get_optional_exclusive(dev);
++	if (IS_ERR(rtk_phy->phy_rst)) {
++		dev_err(dev, "usb2 phy resets are not working\n");
++		return PTR_ERR(rtk_phy->phy_rst);
++	}
++
+ 	ret = parse_phy_data(rtk_phy);
+ 	if (ret)
+ 		goto err;
 -- 
 2.53.0
 
