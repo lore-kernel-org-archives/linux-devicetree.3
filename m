@@ -1,90 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5DA9224B05;
-	Thu, 26 Mar 2026 18:13:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A0839EF30;
+	Thu, 26 Mar 2026 18:15:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.32.30.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774548805; cv=none; b=hr1xVM8OFd2yzjhQ1iMNG06KsfnYKcD3Ic8uEy/BsDwlf3dSps66I8V2Kzoruvkfms3t8dBTNEZVxdUFqLYc0o6J5siKukj9s/DZd/69khx+xkT9fQ4zOTt8tGOc4zVBSpI8zF+TyO7E48rOVyeSBsg3KNvNOfYNrgyFWjVl81g=
+	t=1774548937; cv=none; b=iP8t/QLCWIylJeM54/MBS7CCfDsI+Yyu0ZsGcuLooiw3bT5i0LWNkxfBuC3ksZWmIdPr7vvbAwRjjFEE3vj9ZYZYIiHR+G37vM6d2oy3NBCpIY4cLqyaLkzVtn0gN1xhAUgrQsBgcuUD6xc10yeevLT9avNcno+X7Bpvd02VKpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774548805; c=relaxed/simple;
-	bh=sgSWf6Ik1PmzJbWPKwNKI+eu5m/jYqqkVN8lBSM6lZs=;
+	s=arc-20240116; t=1774548937; c=relaxed/simple;
+	bh=InLnSJBLzWxlxo3dw4P0X/q8o5CvV5UAEslhTc14/us=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GFFSeWz4riULyxFH3wgNJtJ61jm4CIpunfacuGh4elrwJLFwWNdCykdZiIx5tkR2yazzQf/3ye+GJKYoexddfRK183wgWld7EHRQPOWDTVXcjN8WuCzFTg1z+UFgpDrcfhJOUUkEqxpARyJDtJ3NWKZ5Rd0ku7thOogaZ8ypaoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ji0A894k; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=mZcpCHxg0TN/+broZvAUEaMi9iYwKymmtL1v0ou23kPBT+lhh8OXAfqf1kIzjd6jtqZmcZ9dALP5ww7rrBjH2Ea+cPqwepAEpAf0dgGcqTbR1SE75FyPDcAQrpUSo+OlLLqsTDh2IxaVpEb6sM4Ue1pL9eZM+L9/2Ni/0t+x3sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk; spf=none smtp.mailfrom=armlinux.org.uk; dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b=A91llKaR; arc=none smtp.client-ip=78.32.30.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=armlinux.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ji0A894k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCDFAC116C6;
-	Thu, 26 Mar 2026 18:13:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774548805;
-	bh=sgSWf6Ik1PmzJbWPKwNKI+eu5m/jYqqkVN8lBSM6lZs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ji0A894k5jnE4nhBshX9xb0yB2AIjM9mWilWquMemANEcu05cJPh/7AG5t+MA9oIs
-	 nPBkS4Ifu7lymgk51/fWZaSy3IirjasalaqwrnjpKLrRiCF1cVk3fil3Qoht+HqJ1i
-	 lNDI6nVmhJiMLyI9o6Izd7ccVyEfCdpaglu/BKIErAnauJrmIcc7dlkhlanSz6tALl
-	 tKQ2DzdDzXHUaUalpVDgwgB7sHNdLo2inkJXbJTrzFmiHSdt94p+Vo4wf2XqJZKL8k
-	 FKH8jQ4e/ao1LR3LrhNB9PPTGVUpuOBPMQ9jTtd2yFKkatT+4NyUhu1e9hA+RnQwu8
-	 1qXEKOA7xqaZg==
-Date: Thu, 26 Mar 2026 18:13:21 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Rustam Adilov <adilov@disroot.org>
-Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>,
-	Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b="A91llKaR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=Q04VIAHNkeO/Oab8CZfYBVf+J5N6KJreQMXprmET4N4=; b=A91llKaRZg1Kmp6LhWd1OiFvcj
+	3itUEP0PSvXO6oGyTtfgHDbDG28LoaPafvUnAUVxPxPAGgzivyFflJrT+8x7+D5B6aEBiE5KUJvpx
+	hsLC3Q9MtLtj5zS6XTV+mTFQHCTk/a4GPoJsYEIH5dzvP8DG3wwdU6/BAhPw3H9Z4kE7jlOleNzY4
+	938Lcw/7mq1ZxXXkBvdTj0rrQ/E8FqgyUjbin2ESTPaMpntIg5biA5leRtVjbSi3EMVY1NPQ2UQUW
+	vZvi82S6JJQyDlX/01L00gn7bQ3JaN9y4RDLm9UG60iu0fAZ20CIs2Nv6xeag98tIykPe2I/N4nY9
+	WeQ2ggwA==;
+Received: from shell.armlinux.org.uk ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:54672)
+	by pandora.armlinux.org.uk with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <linux@armlinux.org.uk>)
+	id 1w5pEw-0000000059k-0PVC;
+	Thu, 26 Mar 2026 18:15:30 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+	(envelope-from <linux@shell.armlinux.org.uk>)
+	id 1w5pEt-000000007G1-3NVj;
+	Thu, 26 Mar 2026 18:15:27 +0000
+Date: Thu, 26 Mar 2026 18:15:27 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Simon Horman <horms@kernel.org>
+Cc: Andrew Lunn <andrew@lunn.ch>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>, devicetree@vger.kernel.org,
+	Eric Dumazet <edumazet@google.com>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Jakub Kicinski <kuba@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 5/8] dt-bindings: i2c: realtek,rtl9301-i2c: extend for
- clocks and RTL9607C support
-Message-ID: <20260326-sixtyfold-ooze-912e198a3057@spud>
-References: <20260326152656.14030-1-adilov@disroot.org>
- <20260326152656.14030-6-adilov@disroot.org>
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com, netdev@vger.kernel.org,
+	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+	Yao Zi <me@ziyao.cc>
+Subject: Re: [PATCH net-next 1/2] net: stmmac: remove axi_kbbe, axi_mb and
+ axi_rb members
+Message-ID: <acV3v-iyoCUTh2a8@shell.armlinux.org.uk>
+References: <acJh4z3pRKkeaFbR@shell.armlinux.org.uk>
+ <E1w4ydo-0000000Dlpb-34jd@rmk-PC.armlinux.org.uk>
+ <20260326172943.GR111839@horms.kernel.org>
+ <acVxNBLE8Ck2qfjc@shell.armlinux.org.uk>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rW1a+UZ60u43IVEq"
-Content-Disposition: inline
-In-Reply-To: <20260326152656.14030-6-adilov@disroot.org>
-
-
---rW1a+UZ60u43IVEq
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <acVxNBLE8Ck2qfjc@shell.armlinux.org.uk>
+Sender: Russell King (Oracle) <linux@armlinux.org.uk>
 
-On Thu, Mar 26, 2026 at 08:26:53PM +0500, Rustam Adilov wrote:
-> Add the "realtek,rtl9607-i2c" compatible for i2c controller on the
-> RTL9607C SoC series.
->=20
-> Add a clocks property to the properties to describe the i2c reference
-> clock and make it available for all the compatibles. This i2c reference
-> clock is assumed to be coming from switchcore region via Lexra bus as
-> the other SoC peripherals.
->=20
-> According to the info available about the existing devices, they also
-> have the i2c master controller clocks.
->=20
-> RTL9607C requires the "realtek,scl" and "clocks" to be specified
-> and so handle it under separate if check for "realtek,rtl9607-i2c".
->=20
-> Signed-off-by: Rustam Adilov <adilov@disroot.org>
+On Thu, Mar 26, 2026 at 05:47:32PM +0000, Russell King (Oracle) wrote:
+> On Thu, Mar 26, 2026 at 05:29:43PM +0000, Simon Horman wrote:
+> > On Tue, Mar 24, 2026 at 10:05:40AM +0000, Russell King (Oracle) wrote:
+> > > axi_kbbe, axi_mb and axi_rb are all written, but nothing ever reads
+> > > their values. Remove the code that sets these and the struct members.
+> > > 
+> > > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> > 
+> > Hi Russell,
+> > 
+> > FYI, AI review suggests that these fields should also be removed from
+> > Documentation/networking/device_drivers/ethernet/stmicro/stmmac.rst
+> 
+> I noticed. I've prepared an update if netdev folk want that to happen
+> as I've noticed that that documentation is fairly out of date now.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+There's another reason I haven't submitted an update, and that's
+because netdev is fairly backlogged at the moment - currently there's
+381 patches in patchwork - four pages of patchwork, with the oldest
+"new" patch dated 21st March. I don't think netdev patchwork needs
+more patches at the moment!
 
---rW1a+UZ60u43IVEq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacV3QQAKCRB4tDGHoIJi
-0u6uAQDJ3mkMcsKGEarCQ1ArHfx9YY/yFDLF3q7Jcvnik14zHAD/c5iyFI2gfcnw
-R14YZJe/GkYwCEtgHR1oC9/92wiBrg4=
-=44hh
------END PGP SIGNATURE-----
-
---rW1a+UZ60u43IVEq--
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
