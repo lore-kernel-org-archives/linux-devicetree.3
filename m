@@ -1,222 +1,150 @@
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9B42DECC6
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 01:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553DE2F6565;
+	Thu, 26 Mar 2026 01:08:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774487126; cv=none; b=XP0GZnBE+wiTnEOu/JNgIzhvxxiGFRyzWZEEpLyz9+ZUu+l3KzZ0d+OW5nmZFBsApt8XCvwyrTYlI84bn0B/ueSJnqRXkEK2Rby18VU/GftGp4QiXAjyhDIrKvqn1VGdCGdxVSfya2vjOCAwkx3PX5O7YJaRFCwVzqRa6IEir6M=
+	t=1774487329; cv=none; b=Xu5ixHmGqsn203IT4tIoTaKN4vE/KxJCYHO7B/obcPvaGp0/YxlxRThmum5ELWSUmTxLIzFzoktrpHFtqpxuPASz/8TqsXluduA95sliV6+5eNa2RJlSWGmZwOsDEAgEWp+RjYPvqFe1G+/xf3f9eeu9Y82+ebx3LN7e5LBUdw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774487126; c=relaxed/simple;
-	bh=+mWhncabqWyY3T2HcPLgbIJyR/uo3fZmCp8oxxEjaEY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ThhT6SMzp9EbrqeYzo6+Ko7FZR7wX/yST5OQJBFAp+YNzene4iwaqmK0RwVWrqgPpQRFThZ0X31c0jLYPkCKgSR2VcPGx+GL8xkpiRMuCeRR5UDenyV7CjaXB2erUDWHsffyD5ZFyM2BG9zcnvikXlfH9PS3W2Wvuh+EAy8tOgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m93uHEtm; arc=none smtp.client-ip=74.125.82.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774487329; c=relaxed/simple;
+	bh=4uecKRHDBhbz6GMEPeOcd+SqBF5xnJKMd0h9nwTDfzc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BWJgV14UBUG0dy8VgshPnNDlcBBLIOX3jlOGml4zxUZJn7VIGUWpm8YvGOwYpeMCuZeuC0sH/vb4SHlpi83fx5+xFqwEh3Jm863+LfCyi1HRbRyTUC+bejz9qXO7dQ/IwpHAXwpEO79TZ3m87sdomsHxmTqUpbl9BpGSFasM7u4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=3k+TjSE4; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m93uHEtm"
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-2c0c955a481so661282eec.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 18:05:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774487125; x=1775091925; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=OdGBSEoHUXT6Lvd0T5SefG5fM4+mDZz0Khmf6pUh9sQ=;
-        b=m93uHEtmZ+bS6JihS2r2uRrjQ2vZL3iy6utyVvhmsZHMtDSgqQjEKzaibiiqsvhX6S
-         yPTKZYL5mLFwbTWZkO3yESwpdt1JFQyCIIYNFvRQmwLG91te5bYh3VYPPBDUaK/MwxXE
-         dzLacW8aXUPwUrBFekU1bgPR7HPFkBuoNipcJp3WJrKq8DvHD/EHiMl2JXT+yfRX4UAm
-         23gxvzP4zO5kdAToFyCwRO7SxnN7Wy7nN9kNTnEwHPxwjINbZbd5ZysYyhihn5FPvTwM
-         SsTty1o+Qn0lQc2rKRMUgYvRAjytocWM33doTl3thECERVbd/O3FNiTImMlFNsKx83gh
-         1fZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774487125; x=1775091925;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=OdGBSEoHUXT6Lvd0T5SefG5fM4+mDZz0Khmf6pUh9sQ=;
-        b=GPuqvDrbPyJVdd0LSEAKKA3sZmWsKSPB4Bz7FQ4hDvouO2R0jO3uwfVr5pGvKgsbjI
-         JcqlcDakk/RxGNSBAOJ9P9lJFC/8F1WF8/aeEra/h7G/5ve+yUla6OavB3puLN8b19ji
-         TWgjJbqUQD7PHR51gn/OLPrm6tnQbvpOwyitopGKUb6FdlH107HVnTP/gpsjl0Hi+X71
-         OSCQ+bDqb6A4xnHlQv4LSzgFMrpT9ATQJgfy1WSpCoMGqJ4xlYyMmpcrwZXi7/uhmlNU
-         k1fHN0XQcC8X4E+mrR7dNhi3C7lXefZcT26RpP7xmANzGkLtoVPuE9s36OEyWEpIOd7f
-         5/SQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUlxVpsoXV4fWXCGTtH90MjS+BW5y/0ZMebeqUcUCzcmU+QMkIj69R1pxcDXr6Bqoh0BlgLqGzMtcz0@vger.kernel.org
-X-Gm-Message-State: AOJu0YwehUn4hbpnHiis+9eKQR7WhPXPSQVVaeP8+ItZcOO1WEFL71+D
-	yeFbHhImwtvgnWvIWVm3iTh2sBZvy3NM2wU8dDPihDev5z+5io3xE7fCuRmEzA==
-X-Gm-Gg: ATEYQzxAARwyIX827TsI3oa0COELk2MGmickHQKZeM578x7NjLzdLSz77Rc6JPXUdkH
-	hl1/qPeeOWwKmsX+xLkAc1VfbH7lThzjrpHitZ+dEdtKC/5Gt/8VZZMG7h/LsdG1UAtdXBXkbm0
-	qdln8k7Pl7mRHbXYmQj9ZxEkfhELD3Pv725JdTlW99MyCA7dRB37NlPdv04PcvRjhsrMrbnoQb1
-	gleSCQrV3amBX7Hv71hC7tJo2KKOPl2K05N4h8ZBwr5SX9SPKybrNPc2k0DlGHcriVKYQRAv4OG
-	5IErvpKdiS2PQarxvsimwVVrLTnS6q+z5zEfO1knudPUcNDzMrNgHoRPewm2M2Rc1xUhuz1mBs9
-	tVespzPJM/kXomEaFnNKlFH/mddDt4buhkHet6BKOlfeCdpHBGZ5iFx5D6EnhZj5F1UEoCP//CJ
-	CHsRodMrh3JKUpz+A1JpdNAHVV7VwYwLGyclerA3Z9kR2rhJ7izFiYSo3qnAat2ax1Z9k7l5tBj
-	zEoAw8hrS4=
-X-Received: by 2002:a05:7300:3c05:b0:2c1:69d:a604 with SMTP id 5a478bee46e88-2c15d38118cmr3222314eec.20.1774487124620;
-        Wed, 25 Mar 2026 18:05:24 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c16edd570asm1037271eec.24.2026.03.25.18.05.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Mar 2026 18:05:24 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <09105b02-3d85-4808-ba0a-f3799787425a@roeck-us.net>
-Date: Wed, 25 Mar 2026 18:05:22 -0700
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="3k+TjSE4"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=HZk9cX6zPb++VDwxFCjztWsZ6cPWXsFQhOd6PIpC+jg=; b=3k+TjSE4T5siYJvmjf+q67z7Bo
+	blgq/01N77awBnx7m8dxKS+XWCjvcdDITItvnD/oPHPgdpnl/fYTwqn9SZnLpumvD+4pQ9MuXPyJz
+	LLcgWn8WmSKGBEQCaDnMeONlaYVoPwlRLHNuJiDEDQk8r41BKPWSIExdHBN5qyXIf2iA=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1w5ZD0-00DNsG-6i; Thu, 26 Mar 2026 02:08:26 +0100
+Date: Thu, 26 Mar 2026 02:08:26 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+	Jan Petrous <jan.petrous@oss.nxp.com>, s32@nxp.com,
+	Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+	Romain Gantois <romain.gantois@bootlin.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Christophe Roullier <christophe.roullier@foss.st.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Radu Rendec <rrendec@redhat.com>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	Drew Fustini <dfustini@tenstorrent.com>,
+	linux-sunxi@lists.linux.dev, linux-amlogic@lists.infradead.org,
+	linux-mips@vger.kernel.org, imx@lists.linux.dev,
+	linux-renesas-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org, sophgo@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Subject: Re: [PATCH net-next v9 2/6] net: stmmac: qcom-ethqos: use generic
+ device properties
+Message-ID: <409265d8-532a-44d4-abc6-02ac5a19d286@lunn.ch>
+References: <20260316-qcom-sa8255p-emac-v9-0-c58934e76ff2@oss.qualcomm.com>
+ <20260316-qcom-sa8255p-emac-v9-2-c58934e76ff2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] dt-bindings: hwmon: Add Sensirion SHT30 series
-To: Conor Dooley <conor@kernel.org>, Zaixiang Xu <zaixiang.xu.dev@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <1774429690-129139-1-git-send-email-zaixiang.xu.dev@gmail.com>
- <1774429690-129139-3-git-send-email-zaixiang.xu.dev@gmail.com>
- <20260325-napping-turmoil-de37168fb072@spud>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
- RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
- nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
- 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
- gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
- IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
- kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
- VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
- jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
- BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
- ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
- CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
- oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
- VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
- 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
- onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
- DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
- rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
- WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
- qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
- 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
- qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
- 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
- pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
- J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
- pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
- 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
- ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
- I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
- nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
- HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
- JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
- H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
- njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
- dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
- j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
- scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
- zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
- RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
- F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
- FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260325-napping-turmoil-de37168fb072@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260316-qcom-sa8255p-emac-v9-2-c58934e76ff2@oss.qualcomm.com>
 
-On 3/25/26 11:20, Conor Dooley wrote:
-> On Wed, Mar 25, 2026 at 05:08:08PM +0800, Zaixiang Xu wrote:
->> Add YAML devicetree binding schema for Sensirion SHT30 series.
->> Use fallback compatibles for compatible chips and add optional
->> interrupts and vdd-supply properties.
->>
->> Reported-by: kernel test robot <lkp@intel.com>
->> Closes: https://lore.kernel.org/r/202603212044.BRPaiz86-lkp@intel.com/
+On Mon, Mar 16, 2026 at 01:05:07PM +0100, Bartosz Golaszewski wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 > 
-> The robot did not report that this binding was missing.
-> It also told you not to add these tags.
+> In order to drop the dependency on CONFIG_OF, convert all device property
+> getters from OF-specific to generic device properties and stop pulling
+> in any linux/of.h symbols.
 > 
-> You also ignored my and Krzysztof's reviews.
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/Kconfig             | 2 +-
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 9 ++++-----
+>  2 files changed, 5 insertions(+), 6 deletions(-)
 > 
-> NAK.
-> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> index 07088d03dbab5bd1abf66e9460613b839c1d565e..e2af4fdd654340d618477ed87d3889dbb9aab456 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> @@ -135,7 +135,7 @@ config DWMAC_MESON
+>  config DWMAC_QCOM_ETHQOS
+>  	tristate "Qualcomm ETHQOS support"
+>  	default ARCH_QCOM
+> -	depends on OF && (ARCH_QCOM || COMPILE_TEST)
+> +	depends on ARCH_QCOM || COMPILE_TEST
+>  	help
+>  	  Support for the Qualcomm ETHQOS core.
 
-Maybe we should just point to AI feedback:
+Are you sure you want to do that?
 
-https://sashiko.dev/#/patchset/1774429690-129139-1-git-send-email-zaixiang.xu.dev%40gmail.com
+static int qcom_ethqos_probe(struct platform_device *pdev)
+{
+	struct device_node *np = pdev->dev.of_node;
+	const struct ethqos_emac_driver_data *data;
+	struct plat_stmmacenet_data *plat_dat;
+	struct stmmac_resources stmmac_res;
+	struct device *dev = &pdev->dev;
+	struct qcom_ethqos *ethqos;
+	int ret, i;
 
-and only get involved after AI does not report any problems.
+	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+	if (ret)
+		return dev_err_probe(dev, ret,
+				     "Failed to get platform resources\n");
 
-Guenter
+	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
+	if (IS_ERR(plat_dat)) {
+		return dev_err_probe(dev, PTR_ERR(plat_dat),
+				     "dt configuration failed\n");
+	}
 
-> pw-bot: changes-requested
-> 
->> Signed-off-by: Zaixiang Xu <zaixiang.xu.dev@gmail.com>
->> ---
->>   .../bindings/hwmon/sensirion,sht30.yaml       | 50 +++++++++++++++++++
->>   1 file changed, 50 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/hwmon/sensirion,sht30.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/hwmon/sensirion,sht30.yaml b/Documentation/devicetree/bindings/hwmon/sensirion,sht30.yaml
->> new file mode 100644
->> index 000000000000..1b5ce822b37b
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/hwmon/sensirion,sht30.yaml
->> @@ -0,0 +1,50 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/hwmon/sensirion,sht30.yaml#
->> +$schema: http://devicetree.org/meta-schema.yaml#
->> +
->> +title: Sensirion SHT30 Humidity and Temperature Sensor
->> +
->> +maintainers:
->> +  - Zaixiang Xu <zaixiang.xu.dev@gmail.com>
->> +
->> +description: |
->> +  The SHT30 series is a family of humidity and temperature sensors by Sensirion.
->> +  Compatible sensors like the GXCAS GXHT30 are also supported.
->> +
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - gxcas,gxht30
->> +      - sensirion,sht30
->> +      - sensirion,sht31
->> +      - sensirion,sht35
->> +      - sensirion,sht85
->> +      - sensirion,sts30
->> +      - sensirion,sts31
->> +      - sensirion,sts32
->> +      - sensirion,sts35
->> +
->> +  reg:
->> +    maxItems: 1
->> +    description: I2C address (usually 0x44 or 0x45)
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    i2c {
->> +        #address-cells = <1>;
->> +        #size-cells = <0>;
->> +
->> +        sensor@44 {
->> +            compatible = "gxcas,gxht30";
->> +            reg = <0x44>;
->> +        };
->> +    };
->> +
->> -- 
->> 2.34.1
->>
+https://elixir.bootlin.com/linux/v6.19.9/source/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c#L684
 
+
+#else
+struct plat_stmmacenet_data *
+devm_stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+{
+	return ERR_PTR(-EINVAL);
+}
+#endif /* CONFIG_OF */
+
+It seems like this is just going to result in the probe failing with
+-EINVAL.
+
+	Andrew
