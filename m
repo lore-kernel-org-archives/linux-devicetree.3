@@ -1,171 +1,102 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011031.outbound.protection.outlook.com [52.101.65.31])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8F430E82E;
-	Thu, 26 Mar 2026 20:26:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774556778; cv=fail; b=o5egCA89dEMlXUkfFl60R6Xc5p98jsSyNO1puyi+SK1Is7PU0u/I/E0d8d0q1oSp3XlfIvKcSDX8WTrwFN9hQS3ajpXIp9/mb5cSxXAl5CeMmC3FeZ+TL/+gCBC71YlZ/p/wdcdz9xNFEFC8/feqqNll9rKXNZUF63yJSlCfctY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774556778; c=relaxed/simple;
-	bh=jXREtua2jwzZvuoz6v/rB0PvZye2t3jyW9005/+pe0Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=s1qNOFanxpKPLldUmhezallkayrVuL/F/CXIVOVQ8mA4KLVzDodHiaIWGHFfsCFkN9IwE2CGtIJHa0fFw9YRpOzLeeVFC8fiyODTFCIGfqOV2d0w1u4oqgiSdsUdLZ9zXIPwv4FbXlak1SySwtEvWKkzZ8sXqZOqhUMOz3lSsAY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=DI5/d31d; arc=fail smtp.client-ip=52.101.65.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF3630B53A;
+	Thu, 26 Mar 2026 20:40:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774557629; cv=none; b=o+IT4i7own0lavTkZMmqX3ICAv+9GSffTTVJ1uzK3Qi37aoiF6qnWGgH9QQ/z6WbbTXEiw/aCzw5Kdx3iyoQLB+pPujKXF4e9vis9tz7nV2/l7d161G/ToBKzus3vy0oSPUbHcvgu7USWFhZRyxhsYg9FsRua2kwPbPFmTx4BNU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774557629; c=relaxed/simple;
+	bh=8a+/CieD0GhHGFs0zJNBuFHCEbl0c6fVpxAh2+MpsLo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nEvZGnDT0BWSMdzG+Jvj9l0UzhOTgjrFErM0HW+pK90JRypD24e+yiRJ1J/XFg4ZRTrwNBFeO+XSgNojtU+bx3NikIaCN03IEmKJuBrh5qxXf92fWQbY6VjBZjorvUE/RPYfNgHFsm2RLXktKt+Pfvx3XKFaXPuLYDKPoS6Kzrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=inGwPJKw; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=XQZqfJv0; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="DI5/d31d"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dwy5jJklUThz4W4+pFNsoskCE7rKp5HtUQqQ92g0KnL5X2DHtv32WWqEfjuTVfcaYl7vNMn8Alpd7NwTMH7KUFcKgWK9PVBXbt99VhFrwxQYBaktIhMGoH5CBFjYg4pebzbAchP2HQTfKNswkDhGNoU7NOoXw1oL1WlqcPf8gsg+qFrezE2IzsqSLTKm4Vr1Ele8aq/yGJGAMJk51zOoowC3r1ndq6fsUjl2dM+zL3/4HABV7yGkuUE5nd8F8L8I6omcPg0t0HQRhsUNbCITg/2/D5FAgS9p9TTOTrq3v340Tdit50zsAELjihQ+SoM8qmKE9xHg4BlikHg4xM+qsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZfPwqhqYegYcF5pREENsWhUKovVmegV0mHDomNGhRvM=;
- b=UsyrX5qvTSiv2ebxZAiW2n2BbXab5Not+YJhJPrNyniZvzZd1qOg/4ZFRit4lFeau67Hcq8PRqXUiSLnVBdvHekNIPf3bATeEpuReBtXY4ROGeGlgGIiksLHUXLiCGyk5A5tiimZIlAImTjPf3Lz1vp+fn0cLpcMVBJBQCLgMSN++wAuH7UPHLsg7+poHfH/kWXuXoADx+enYuvRNWzJ4SY/ucVsfv/yAenycUlNmFZAS+U90R2FeIvcbSdRsaMH5VfuqaMP9Pi2+XctUEImS5prccV1YAKYhrlAq3smeItUY8lFktbpjb631vuVndOi423RKZKpWj11DfF3Uqv18Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZfPwqhqYegYcF5pREENsWhUKovVmegV0mHDomNGhRvM=;
- b=DI5/d31dKa/LO/vm3LF2r0dQrRxZKbW+ZH3luoSBVvs+cAyaJhwYvkLpW9DO7Kp7GXiMymS6EKtQAPsF4FJ2o0EAfilRmyA9JDflslp9nPpGF3bBrW8xF/mxISAdF2PcGuRkd3VxAVYPUiTV2m6zKeqfHlg3eVcg8G2yQoVOnhzNuNearaLa+KHQmYRK9ljXFubrjgn8eQuO72n8g46lMko2R9dq542gIyv9VD11mYUsyAafZsFgtMmw+B4VLc1o4WLQXBV8IK1y3hPWQ8/mVlsKBknEbxADjwmYuqAvJnfUDi7FZeaSMWowCBhLtAoV3+afd64uEpFQobJc6IbMVA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by PR3PR04MB7420.eurprd04.prod.outlook.com (2603:10a6:102:93::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
- 2026 20:26:12 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9745.022; Thu, 26 Mar 2026
- 20:26:12 +0000
-Date: Thu, 26 Mar 2026 16:26:03 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Akhil R <akhilrajeev@nvidia.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>, dmaengine@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 08/10] dmaengine: tegra: Use iommu-map for stream ID
-Message-ID: <acWWW6r5gZ2nGerQ@lizhi-Precision-Tower-5810>
-References: <20260326110948.68908-1-akhilrajeev@nvidia.com>
- <20260326110948.68908-9-akhilrajeev@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260326110948.68908-9-akhilrajeev@nvidia.com>
-X-ClientProxiedBy: SJ0PR03CA0203.namprd03.prod.outlook.com
- (2603:10b6:a03:2ef::28) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="inGwPJKw";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="XQZqfJv0"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4fhbJ328wGz9thj;
+	Thu, 26 Mar 2026 21:40:19 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1774557619;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uwxYm6b4gzNXkghMb09qSf9ltTkLFWhWb7e84RMEH2o=;
+	b=inGwPJKw2ZKqtUghNNDNo6RahTUjv/uTihaDUEYunKvzDJDN8WOwg70KoHFie69cErA0Pp
+	YFkNhzhhjKLU+9itkgtq5XtATM0LmIBuowW8Q4GU2ajZdtEuptVxe9K4bOQ/hNGj6eyq76
+	F6A3z3C2HBYlfBzVW80BVJsf2j1xzPxJy0PUKYHmt+vwTchy6FKt5ThfkxGgVnOTM/HN2R
+	tOOirLoTgGbWtYmyEaKagH7ly4/zhbczFOu5FEHBywS6r6t3CP75nKDhgdyT7uBO72cP9u
+	NrpXXSqtauvlNh83MmeACzUGEdhKF4tVFfulLwMrUSXPCs0P+4+Q6lFGEMoNaA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=XQZqfJv0;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut@mailbox.org designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=marek.vasut@mailbox.org
+Message-ID: <2ad69ee6-9170-46dc-a963-71f327192bad@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1774557617;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uwxYm6b4gzNXkghMb09qSf9ltTkLFWhWb7e84RMEH2o=;
+	b=XQZqfJv0+w8bL27DFlE4QIYWHH7et3lrMK9NYA9rLMj5SDvU44KwxfTVX3P5peYsLneBZD
+	l3jIXSuIguZVXhGfdVHGIt3Zm9QEOMPWgAopx9IzOEmC2ZoWnhJRcaG4g77ly1T13DNnSN
+	woa/UXmguaYmbzkJEx313N3toGxk0PGk92AdLf6BqH7goiyTeekfBt72XzdZxOgeexbHeN
+	hm0sKruiiUhec58jvjAdfB9K5RD0odIKAL4JEoO+0vUm3tGzCJOBPYvqMmgSvSh/oMkozi
+	q4pyvNnwFDw9YdSAhbgC3v5tASUoCAtl6/tnpdLR8hB6BTD/0ncsKScQ+9HDzA==
+Date: Thu, 26 Mar 2026 13:49:34 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|PR3PR04MB7420:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3cf4444a-1fd6-4874-c8a0-08de8b75ebf6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|52116014|7416014|1800799024|376014|366016|38350700014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	bJ7dVFgjyygYRe2dGavpbKaV82TUYcNTytYQsVrfOKtGoYa7LAtFupqWu03T+mPuxB0T8BM1XJLdt8SeNoXsEYFIYhknimkEJVWBf5YwDEmfwRQYyuScHUby+LxdzUiXDj8Fjmb9aiG2Tet7BOTUu4o38MV0F/qJHRc6j6vgqSPfwsxcBO+Xgx+yeTqu70WwVp8RqKyDgicNB2n0ws6bfF5fM9Q5O+5FhiTN6z0DiGktqqZwtlWzIKeMG548XhKcEzC/w+SmCmgxcW4ujvUPJzsnzWOUnH+VfMYufbGGqHcCTB1W69a6rMJoyiwdvwlVkrFN/H133anbzDZF++P8mm7ZIcw5c7WIVwf4HYcgl2gzMFkJWfSEADSx58XBFt4FvdmMWz7pxyLB9Cfi4MnFWqGAMl3FrO0J+dRHNAnqb+/ny+x08LnVNJFrs5+wcVMzWgSTjxhKZrWNx9D19XNvOgKxDzh2mcSKB1CErYRQaY9LusW9rrNb6dxo8hYbUnTOwzrgCT/79EggecNhbpDOKWgQk95WSQxKp6myzsGck4NgDVSB/bTekX5Sp1qWxGX9HgzPbCgOJBdcjSRayYhQgQg73qtrb3+CUwYYJSrbleS9KBG6PHLBcKpcAM37aDhBbAPCn7JeY8oU0kdFrtiDkVJ4tCulmy0UvjG4SeeMbA8Fb1plFsZm1kwEzt3Xg3jx4oygXEP3UtjzKnKqcBIDD1w23YmKp1ZroBWAZyQbABBsfFa1Y/3xXR2IXtRcghYbKASn45zlIKb+ahK8+s+7qxNWdxGi+m0XmeqXbe3GUsc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(52116014)(7416014)(1800799024)(376014)(366016)(38350700014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Avf+hQGD7ALxVBgC8kkzruLRXAQboslaVFgni9WJbD+m7UZ6gCyZlreUEZDV?=
- =?us-ascii?Q?A11xmf3NMUa7UwXgaILPmRgbapAHWL/Xel1rypFPOpcV5rM2C1eL9Qsu3ShX?=
- =?us-ascii?Q?AAlTF6ekyY7xUeGdgGreuvWBp1Ih+NmdP/rwqjRSASCrYUdOBYO34ucK/0lh?=
- =?us-ascii?Q?sKLxmYesRwDv9r55jdHWTQN7K0u6j0B/L//w2jqINiO++W2hdKqilwfyX68T?=
- =?us-ascii?Q?UQOrpXt4wnLjhDcLVbHEwDZD6+BRWddRslcG3W055rkSGZQqa3H4X04VDhqM?=
- =?us-ascii?Q?+4ddJEoruD5IfznBfuywQKXa/j3+vteTnUEEQqYh6OTI60rJBq5Qj+B3eOKF?=
- =?us-ascii?Q?fi77z2+ai10vC76UsNFysXLApN1KB/63MCfapSYDMC9LktjbxgoqVqCk6dpn?=
- =?us-ascii?Q?Pq9FW5c8Ibbd23rYApbbB72ModrqURx6BLzUCyPlhFSAjJIYtNb3tFXcufKD?=
- =?us-ascii?Q?EWIFw8Qux61qt16T/7TSWXQSWkbGgtgCLOQI7jslnEfBTdWropJMIy++P24z?=
- =?us-ascii?Q?YmehcrILPd2eIIJjQuEOzD3Sl4N9PxcY5gDXiYwKe3MIjY3vvgmnh0iaVTGp?=
- =?us-ascii?Q?dRP5z+OK+1wwBUOf7H3KamJgBo06BEwN2ki6W5L6b0m1Ig/KUMWM1/6rQ/j9?=
- =?us-ascii?Q?J/rtfEO9TLO5nqFvV4+E4RO7JvEz2zu/MQt/yex8cjkcHqqcq7n7r13HcXFZ?=
- =?us-ascii?Q?+TGd4RhR/AWJ65+gYvpYZahLHJUq3oi8ibTBmLkFMfRPpscXcQF7QSTGAP+t?=
- =?us-ascii?Q?OEuWPaPxdPl1qDTU95mq2Lf1Wd6a81H9pJO1SUIzcAT55KhFLhjLVfuJyWrr?=
- =?us-ascii?Q?TMQbflxn83nLzXHawe0w4+0kasMNc/AuUxhVzDllC3IzAzXHwQhSuRfldZ4p?=
- =?us-ascii?Q?bTaj90fIUTXfN+PKD5B3zxrjpXCViNqQ/MWuLwuLLPIrYLRTKRsZNzovkt3Z?=
- =?us-ascii?Q?mjUowYlMyIubQN1Qs6cLfF+pvgnJ+nK2tPWYi/gW070P0YZTPZS/enQh9Gj/?=
- =?us-ascii?Q?yNUhGabNMyUe+HXGg0mObSdI0sf94+JQFb8drGmPhBldZBtxK/1DYKDvXozd?=
- =?us-ascii?Q?O2SwjlLgAH9DKlcv8AJvmPSeANAQOrq0EqJPRAzk0CHYMj9j2wRu+1M4Kb8X?=
- =?us-ascii?Q?44JtHuM3hsghUmADM11HawKrP3ZM7fbMTjzPT3fj/J4YtTMWjs0IpYxpxG8M?=
- =?us-ascii?Q?XOJK88mEl67easrq8BtrNBbk+45KBvTWjIzYxUADc+v1bm84C8GTtuIDuYFU?=
- =?us-ascii?Q?Zcd/JsTiXT7bm/lUntUZpk9NKRhTqDoAj2vhYPwfaUao9sj3erWJ2jk4ajsy?=
- =?us-ascii?Q?bi3eFFRgvoJqxR8oER3b0zKNY3Eo1VKsNqK3OHJRSs6xRusza9xcgSRf8GsR?=
- =?us-ascii?Q?Jv6WmUaEYswvu4rjm7TXfUALuUswDV+iEXNdwS52tQiXDH0cgaP7lO3UTdHs?=
- =?us-ascii?Q?NweY5QZDGrgXZRAAwcnXGOq2ITA3+A21NLrFO4najGzKSsur4WcR/mPW/Vc8?=
- =?us-ascii?Q?MHuOWHq0tf51hInvpDYnTd/tINKslRjz7VizkdkZ0I7H46FE9srBw7qOrGjz?=
- =?us-ascii?Q?IgCqGAPKjQjo2vMjb6RwW8W6s7gLjt66T2AqIInUdELe6CajjNmhg9TVXPIa?=
- =?us-ascii?Q?3Re3bhwcipP/CjIFR6/tbioEeQYI+95rw/m+oZDMsOS0xcX46d7aXLT+0Hwq?=
- =?us-ascii?Q?UpC8KiAYsj6MDUHordd6Vn08BSX7Jk1Q44IjWgwgPulgvYLtV0xIiBd4E8/s?=
- =?us-ascii?Q?FWBX2IiQNg=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3cf4444a-1fd6-4874-c8a0-08de8b75ebf6
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 20:26:12.2314
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5eBve5plZ3UruErZavVsHFU9Q47fBrkssoF8ogoGmLWCZnm0uLmPP4kn4O31CeRvJnpzRnK+CKM/bTr9j7M9Sw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7420
+Subject: Re: [PATCH 0/4] arm64: dts: renesas: Fix missing cells and reg
+To: Geert Uytterhoeven <geert@linux-m68k.org>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm
+ <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260326042411.215241-1-marek.vasut+renesas@mailbox.org>
+ <CAMuHMdVtea9q1Yoaq1sEquxEAnQ-armLRdO1cMtJnp2K2mYtOg@mail.gmail.com>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <CAMuHMdVtea9q1Yoaq1sEquxEAnQ-armLRdO1cMtJnp2K2mYtOg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: s3nhmh9fqayeirbex9kzm9hxj798zp68
+X-MBO-RS-ID: b89e9bfb6c652140b90
+X-Rspamd-Queue-Id: 4fhbJ328wGz9thj
 
-On Thu, Mar 26, 2026 at 04:39:45PM +0530, Akhil R wrote:
-> Use 'iommu-map', when provided, to get the stream ID to be programmed
-> for each channel. Iterate over the channels registered and configure
-> each channel device separately using of_dma_configure_id() to allow
-> it to use a separate IOMMU domain for the transfer. But do this
-> in a second loop since the first loop populates the DMA device channels
-> list and async_device_register() registers the channels. Both are
-> prerequisites for using the channel device in the next loop.
->
-> Channels will continue to use the same global stream ID if the
-> 'iommu-map' property is not present in the device tree.
->
-> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
-> ---
-...
-> @@ -1490,6 +1496,41 @@ static int tegra_dma_probe(struct platform_device *pdev)
->  		return ret;
->  	}
->
-> +	/*
-> +	 * Configure stream ID for each channel from the channels registered
-> +	 * above. This is done in a separate iteration to ensure that only
-> +	 * the channels available and registered for the DMA device are used.
-> +	 */
-> +	list_for_each_entry(chan, &tdma->dma_dev.channels, device_node) {
-> +		chdev = &chan->dev->device;
-> +		tdc = to_tegra_dma_chan(chan);
-> +
-> +		if (use_iommu_map) {
-> +			chdev->bus = pdev->dev.bus;
-> +			dma_coerce_mask_and_coherent(chdev, DMA_BIT_MASK(cdata->addr_bits));
-> +
-> +			ret = of_dma_configure_id(chdev, pdev->dev.of_node,
-> +						  true, &tdc->id);
-> +			if (ret) {
-> +				dev_err(chdev, "Failed to configure IOMMU for channel %d: %d\n",
-> +					tdc->id, ret);
-> +				return ret;
+On 3/26/26 11:07 AM, Geert Uytterhoeven wrote:
 
-This is in probe funciton
+Hello Geert,
 
-	return dev_err_probe();
+> Thanks for your series!
+> 
+> On Thu, 26 Mar 2026 at 05:24, Marek Vasut
+> <marek.vasut+renesas@mailbox.org> wrote:
+>> Add missing cells and reg DT property into DTOs to fix warnings like this:
+>>
+>> "
+>> arch/arm64/boot/dts/renesas/draak-ebisu-panel-aa104xd12.dtso:30.10-34.5: Warning (unit_address_vs_reg): /fragment@2/__overlay__/ports/port@1: node has a unit name, but no reg or ranges property
+>> "
+> 
+> All of these are dtc W=1 warnings, right?
 
-Frank
+Yes, I slowly started linting and validating the various DTs we have to 
+remove leftover warnings.
+
+-- 
+Best regards,
+Marek Vasut
