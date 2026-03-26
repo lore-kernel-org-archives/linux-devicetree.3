@@ -1,43 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE2F3845C9;
-	Thu, 26 Mar 2026 11:03:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31892389DE6
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 11:08:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774523010; cv=none; b=rOzVCQAEKAHW0uydwfzh63vepsrdLhK9AdTsl0F0z1oduh25rN6JJMXBF7oNY9sYmQ9nYwoQj/SdwbIP4WWs1G+vhmcM0stOgX8LtpUZ1mQgZTtOBiHeumN7l3G1onmivVdnG/FUNXJyhRvIoF8rtA5qzn0DJUSsFtIfA9rGNrw=
+	t=1774523290; cv=none; b=g0ChEJlrS/3miMTX1Ija83aKWdVMXAG0o6C6qGOM+A1zdyFImPUaNUyE5Zue9F1UDbCbcDpkzRfIFY8itUSB9bgFpp6r4Xsao/ZOMntpZwqrMNhIKffAih19o018kMhSD4kGVFVIkiuXQ+n0EgsNTJ0y8/YM3zD9G4VBRadZAog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774523010; c=relaxed/simple;
-	bh=enWWOHgo6xY4oSckq4fSt/3V6ILppOAOlBWBTMp/XRI=;
+	s=arc-20240116; t=1774523290; c=relaxed/simple;
+	bh=+FhWc0INodHNcusM5JjA9bz3CwoI7iZDfiT6TTB+4QA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ulxMVwU6Qe8tU7fKukGcGcvSb9l+s8IuO9C50cFxJwFubThCWqYr2mfUso6qxEiEcNpTdTrxklMCr4vfGXvVQJEy4ocLB/5vGnwF73MTb+AR/xvRHRDRppZocMQa7RuZjb0wk+FsZOu2443126Y9FcuClz5yV5jSS03g19WIEeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ACqXHXtd; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=JcXR25N1e+DNxeuAI+WuR1CW9lncXXT0Rdak+q/R2aaPzlwUy0CvjM0q2ajD5AkKoy7fte3ml+bKN36iMRGFP6JS04KLkorTay9H7IBOKWhpvNWQcO4fgKtALLTqKpeMD3JLqrn2o6r6UVHOq5s1D1JAWcB3M5mfoG6ZvnlZgtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lOgdNxLs; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ACqXHXtd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 599CFC116C6;
-	Thu, 26 Mar 2026 11:03:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lOgdNxLs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91817C116C6;
+	Thu, 26 Mar 2026 11:08:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774523009;
-	bh=enWWOHgo6xY4oSckq4fSt/3V6ILppOAOlBWBTMp/XRI=;
+	s=k20201202; t=1774523289;
+	bh=+FhWc0INodHNcusM5JjA9bz3CwoI7iZDfiT6TTB+4QA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ACqXHXtdgRCIVbr1z+TKgik2DJvFyv/yUK1IxzyKcNWFpOq8NWJY+XaBR/lsv2oVC
-	 kS9w0kWaQAwRwHpcKW50ZJedzlMjdvbp8Cg2hPx9aHLXeJaryANnhBJy6jdNc2m85b
-	 hjltH+IZmJfx2uHJtZ2zsNswL3MCXfyd/UtENRqovtx+FSGiVPAswYtaxVqTQpKyKC
-	 JnpCVgFsnXqtUTQBg5mJuhJP+kbW/fgb2KDXVJPi1a6d2uUhIVdGlsMtfrYXIVTp85
-	 iyMqUXCaHYVcqx+Obe7gU0fFxr2IUfW8xrwHU5n+9KK3/H0gyzQxtXmqxnLfvx7MK7
-	 dEG5umlaCoXiw==
-Date: Thu, 26 Mar 2026 12:03:27 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Chun Ng <chunn@nvidia.com>, linux-tegra@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, thierry.reding@gmail.com, 
-	jonathanh@nvidia.com, ankitag@nvidia.com
-Subject: Re: [PATCH 4/4] arm64: tegra: add e2426-1099+e2423-1099 support
-Message-ID: <acUQ1mOQ2ajrnUC9@orome>
-References: <20260325212628.1234082-1-chunn@nvidia.com>
- <20260325212628.1234082-5-chunn@nvidia.com>
- <20260326-valiant-marmot-of-variation-9df0be@quoll>
+	b=lOgdNxLsTi8DtMDzePjgCDmLAHI5mhZkzKeH7gXHNmILLQJwgN+KjBX5ja3sWHVQ8
+	 dOYWiUkC0dY/HRVSqfbB5jPWnjBYLt7uXcrCzmF0NMQ0Wb+8gk3c/UDUiiaUbcUdcx
+	 44tT+tHR+AVhfL/BdHxujl5NxuTiD7XRocYQyUo6MZXeSY1QmeQSN9DVDMouytg2XN
+	 PhqZ7oehi5pR/1/b1E3srSGvx0BFg8mBDE2Fq8Gc5NfwQl/b28iMzeuK2yZmililqC
+	 gwV7jhPOgAMYiEx/csjr5zacH8CCPdZns5Uw5iDLfzt/HL+XvlDdojiQL7uzIN0hSf
+	 /sZSgaNOMehzQ==
+Date: Thu, 26 Mar 2026 11:08:04 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH RESEND 1/2] regulator: dt-bindings: mt6315: Add regulator
+ supplies
+Message-ID: <0d027c7e-f1a3-492f-880b-4b48d64bbd41@sirena.org.uk>
+References: <20260324053030.4077453-1-wenst@chromium.org>
+ <20260324053030.4077453-2-wenst@chromium.org>
+ <20260325-uncovered-carp-of-inquire-8a7acf@quoll>
+ <32638731-8f33-4203-9e68-1170cff99280@sirena.org.uk>
+ <CAGXv+5Fo2GmvWQGogA-KTsFChE0-SOwWek6BQ+ZA3xaXup_z+A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,64 +52,49 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sdeoinhtsefdqaur"
+	protocol="application/pgp-signature"; boundary="q/FgDHQaj/4ct7kW"
 Content-Disposition: inline
-In-Reply-To: <20260326-valiant-marmot-of-variation-9df0be@quoll>
+In-Reply-To: <CAGXv+5Fo2GmvWQGogA-KTsFChE0-SOwWek6BQ+ZA3xaXup_z+A@mail.gmail.com>
+X-Cookie: Here there be tygers.
 
 
---sdeoinhtsefdqaur
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--q/FgDHQaj/4ct7kW
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 4/4] arm64: tegra: add e2426-1099+e2423-1099 support
-MIME-Version: 1.0
 
-On Thu, Mar 26, 2026 at 11:18:17AM +0100, Krzysztof Kozlowski wrote:
-> On Wed, Mar 25, 2026 at 09:26:28PM +0000, Chun Ng wrote:
-> > Add the Tegra238 SoC device tree (tegra238.dtsi) and a minimal device
-> > tree for the Tegra238 E2426-1099+E2423-1099 engineering reference
-> > platform. The device-tree is not yet bootable and further enablement
->=20
-> Then drop it. If this cannot be booted then it is pointless in the
-> kernel, no benefit, no one can ever use it.
+On Thu, Mar 26, 2026 at 12:14:32PM +0800, Chen-Yu Tsai wrote:
+> On Thu, Mar 26, 2026 at 12:55=E2=80=AFAM Mark Brown <broonie@kernel.org> =
+wrote:
 
-The purpose of this series is to establish a common baseline that people
-can use to work on top off. We expect the non-bootable state to be very
-temporary, but for practical reasons I want to get this merged so we can
-make quicker progress.
+> > The top level, so people can figure out where to describe supplies
+> > without having to read the bindings so much - the supplies go into the
+> > chip, even if they're distributed within it.
 
-[...]
-> > +		hsp_top0: tegra-hsp@3c00000 {
-> > +			compatible =3D "nvidia,tegra234-hsp", "nvidia,tegra194-hsp";
->=20
-> DTSI says 238, compatible says 234.
+> OK. What about the more complicated mfd PMICs? We already added
+> *-supplies for the regulator side of these PMICs in
 
-Tegra238 is a derivative of Tegra234, so there's even more similarities
-than we typically have across generational gaps. Your recent comments
-suggested that you'd like to see new compatible strings no matter how
-minimal (or even non-existent) the differences might be, so I suppose we
-could prepend a Tegra238-specific compatible to this.
+>   - regulator/mediatek,mt6358-regulator.yaml
+>   - regulator/mediatek,mt6363-regulator.yaml
 
-Thierry
+> And my other series for the MT6359 also adds them in this manner.
 
---sdeoinhtsefdqaur
+Existing bindings are existing bindings, we can't really do anything
+with them.
+
+--q/FgDHQaj/4ct7kW
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnFEnsACgkQ3SOs138+
-s6EUUxAAvyrXZ3GyM6LjtSf3cTRQwqoUCHPDaHIBG46UfczInOAJmnMHrREcxG4y
-ekB+/30JQDlH/uxMA00BR+BBZuhP89WfP/qGO1KeuE4iTp5QI30f8RV/ECexLOs8
-Nj31/WPewrTM1JqG+CMkTKnR0rw9RJeew1hh0MjaNzm6m1Vtw8F9Mk8huE0oZQq3
-kZr3bVQFxi3Wlow1T6RI+PU0p+EhJ1T0kFAojCtR0jXPrJTbocvQDSOGxdVHwW5e
-wP7JeFlqjU4s3Gt1h82Cw6NfDrGEMmcjCmKUvNiWn53Amln489vP2zrHCHbvkMIJ
-QEBt2piFsZwZ+oiIQ9d+6d6NeCy0OhmKqsTN0evsmuFWsbm2Knv6x6thkcy900pA
-9SKvm1KCCnvY7OS61VdpLRQFTqp+QGlysaAl0E1Jy4I+t3USevZvf+xwipWPYyWx
-5nyVAO3kU3uOJBo4YvZoudhYBAU9QxVRkxHL7dxcKA2LZcVeF2AbeAzagWnxsSqN
-FDeAaBOd2YAfgpNvASUfKkuGGdeT9TCkrzzvsSVTjU+meWLsAk7XvH6W/CtoL43e
-QJ/FnEJizTWQ5uMq6AbYBcUCsvmkut8sK7LJ0y5S3A1+PFGhFh1BUzz3hxZk3hd+
-K5UH5Q96XpzWkQFbcXj0DZwfONino9SqOI9N+KqWrqRT3d7gmsU=
-=46Ah
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnFE5QACgkQJNaLcl1U
+h9CL7ggAgKF6xfRBI6ZivfcXbd/SrQnByho2Y1xJl2cnd1Y0TCfoatIiZB7ZiYz5
+qCv+EKML1pICmBQM+d2qEJfssXEOVqou60WZIaiK35y8/G7WuubtGGHeOTaj3ISC
+tYBPuL0xZkBonsk54HqiLedLdPI6kqudc17Bpjky4ohW5OEc6tBceHpIQ5JjeT47
+XWnIUn4lT2ceikRNsgj5AI7EaVYTSVh6o/cXPHuz1FbQMlEj9htuvaey7/NpH76f
+9N00HqwUP9qAesmrjOjVDa7M8sj5aPNLfH1YVL/qH03lP2dAOiqhYlmebW/YItNQ
+ZN0kBy1Lv2fAMLBLsMn4GlliVMsccQ==
+=aoz7
 -----END PGP SIGNATURE-----
 
---sdeoinhtsefdqaur--
+--q/FgDHQaj/4ct7kW--
