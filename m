@@ -1,71 +1,70 @@
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com [209.85.222.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A38406278
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 16:01:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF45B40626C
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 16:12:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774540880; cv=none; b=Hy3cMBJhOBCGjFVXSuKcei4R8UgPdYICBe+/5eW+BOCP0mfFy093kxK2uVzgviFPARo3Mgou88IQbt3bC8pQiHMWBaavoJuvTmI90bhIsIkvwr0OA419p6NiNPIF8XQOQjCYhzEkO3iy3/lWwRhRTTrUnMuB1t1yiA/vm0yabHg=
+	t=1774541537; cv=none; b=KaSSRljLhdKSy3rKUDKEqBKTZNmqk88dw5rvBSzDyLjWrpddfzDrn/OJAAtAdTiuQG7xd0ezK+EstVUK2En+yru7rSeYJ6j1+NWCIJSeQlyiN42GkgHYn6UVSJyL6IcZpwZXpS1vqDRGQURa8OPBcgurJcrKrX4EOZWc6szM5co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774540880; c=relaxed/simple;
-	bh=nJJ044CFG8WFf7uTek+YoTRHmmGxlXFM1S9hcGLROjI=;
+	s=arc-20240116; t=1774541537; c=relaxed/simple;
+	bh=rNsqYs9XZiNIs58rpzMtgeYcYIlt3WXgo1ohw4icZf4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oxXmXcFd2wakhcAcgSNXiQfMW83cDmEjFmYKfSSLePOiC3bQBVXPH7ChlkCoW2N4jeWiBMcG3XawxuwX7A+AXdbJD1EVh9xLU9dDW/4jy7H7G8CEimKM4wZ1WkmWIRGUPOX9OuKJcYs8je/m1TScpiKBhJOE9UGkGxYBsunMtwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.180
+	 To:Cc:Content-Type; b=Im/8kVrcgLi0wbJwTssP/WSgHy7nSmX7afrXJygEyQ6K/VwjccxzbCx3TAz5XE4rn8vN0oHDqCRs06ipnWe6iFHB676HFzHpsAYNwkLsIFz5vDPrhR5kx/9m/bSXCcVbvO1gY3dS9tU7WgYAEa0Auw3dUHuDlr7hJcqasQrZmTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-56ceded5a11so437720e0c.2
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:01:16 -0700 (PDT)
+Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-94dd7178d63so685147241.3
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:12:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774540875; x=1775145675;
+        d=1e100.net; s=20251104; t=1774541535; x=1775146335;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EjJkfoCYmqHBebtmH7jbwGZvaBZg+X2t2r1EMwQ2wHs=;
-        b=Zcmg+ev5qbxCoby8TDkYN0xUgNSYtcDcic4dGahWpa6ni+44V9mmixJfbo6Y2B+n+v
-         jGxC+ZjlaYOrmxI2wFVXAcmaPMXiLZM1UP6MJG9Buuy1r/ywMQP3QrYUSXhdcJW1L1QJ
-         wrBOqO2igPaLAzJNbu+daRQLTcnBELK5jceGE+i7LDZMcQ5DbdjnCuNvNSy3GTeBer5X
-         eQ3h8l9BokzslqBWwh3yY9fNSf/cI3xQ0uYd9gZpoka+TDF5/v4NTZhIMEwlChkStxOu
-         g3k8Jkz7RnuhSuSYtXcmW6vYiPXoM/Wl/b+/5lZ64VB8tjs0G6psrECFmjtBbMikN/ff
-         GMWg==
-X-Forwarded-Encrypted: i=1; AJvYcCWmKKVwIILCf6XH199XKQ8+nm/MdW0VvqesqdCOlpUNH5isbTz/eGX0qmlmWM4GkNyzSewa4mFeNu9R@vger.kernel.org
-X-Gm-Message-State: AOJu0YxAXylzRgN+Tth9AasQ5IDtt/6gRXYw+AMJhkzgNyHO9U5fWSML
-	2wC7zyQVx6R2mU2pdgZzWUf9z5i4cl7YqaNoMIkJNiZtxww5eeEuJlqD4nfJbv9xjNE=
-X-Gm-Gg: ATEYQzx2uErO0ZX74t+oMNqdPfo7fqO8ayOr3e5di1CwZTNy27uARjA/7w4WwOrId1f
-	t6hFP4P2x9eiQGL+q2M1FsXFlrdK7SQHhk2bz5B/D0CPJ0alKY49aA7NgIR6iw2i7cCSyAZrhY/
-	iaWXIXQCR1QKx5qDlcHENY92jdQrYLI7+37ZktxETDA4fXWhthaMLKJzvs/B3GYPaxnI5MNSG8U
-	qmS0SwKXgxfvVrTx6JoxIjWeBChZ0dzz7lIVERlUlei1cO4GginYTP88cd/5RdtIVGFVKlryvSv
-	r3Acj5+2JRjA2/RxmKEMaUuEWrVL2a9aMUjJooiBprPIbbbbl7nFmqXDT38mizcbO6oNIKaJ+Zc
-	Cl5I2xb+lXTbnq6MMSRxeQ8ht2DHduPQBzEEkzQ+Fw/r9PyRbHDWcr0RC3ZZ4/IK+hsQCVhV4dL
-	6vt17DQzXBiBQ8RquJjOeurMY0XXu1Ugdkr4zcFFc8h9qARVC9YqJhlT+7cBi30FTd
-X-Received: by 2002:a05:6122:32d5:b0:56a:fc35:966d with SMTP id 71dfb90a1353d-56d21fb12c5mr4010762e0c.8.1774540875233;
-        Thu, 26 Mar 2026 09:01:15 -0700 (PDT)
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com. [209.85.221.180])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-951be56f28esm3957929241.10.2026.03.26.09.01.13
+        bh=uSoOoWFbk127jfYcbLQVHGWRDLpMWSdUjX9Ohf2bfKM=;
+        b=bz0hEcxOYePla9KCRfvjn9qmfrMm50TYvtpevhPSeceT5llQQItDgkZUgypTOwvOaD
+         I8kivBKZxWCiODRIlT4U3T25p8DfIk+XfS/rn9RvxgeFI1GudikswkjPXvmXo2Oyajxt
+         Ai4Jlpru1ZSs5n3TaGBA3p/0bGHgbEiAIkyrGet+zKG/MgjReYMPIfD65PbEqavRXarG
+         tkFLXU4ksVGfOFBu9ow/W1xoDSJqgDE2AvneBEoMKPMX6ZTmS6rwfhe5J4FjD3rCPMBD
+         PfXpcUVUvgxjv9oaLmYSkamdp4ny78izc+XZHfqUzT8AV5CH7i0nt68BFC0092Ksaetk
+         mC+w==
+X-Forwarded-Encrypted: i=1; AJvYcCXrV2rSNTvBGMSM8ecTaLJUszkAAbAGHl1jtPD0ZB6CFZxwj+4GbNN14WUNsJ9hkhyKSlZeYU3Wh1mX@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw+5pyqY/7eIPiU2ZwF5IYZbm+NB8DMwxFRWoxy1qYG3FrYLgnd
+	qNY4N/O72th8dqtWa6NcvtbY5RmGig62GOwqJonncMgvkYPiHvWm/nrI3By6b/we38Y=
+X-Gm-Gg: ATEYQzwoyB9aCgfbh3rsxo7ZlL79+uwO4Nt/PAZvF15WV0k+bI0wQp8yiS7fVIE9m8G
+	58/+lVD6vK9RYO0VodKh1UbVGKyFfatkBah76XLWMk956bpF55253sWMR2U2gMqG1LmXoP9f8UJ
+	bRPEG3467nLbz49gokN0whAMIjn3+byL8q9wPYLDxg/d2xWDiBRauR5hVlAtUXi8OW6wIrjIkSB
+	YvhlPzrQxREl8mwsGkPWyQwAGv+TM+lDx46Rw//eALerJQX6LgWcC+Wh0e5RRK9dEUX/daeOCDS
+	GK+Sde8ZiSNW/yy3KR4FmuQbP9evmSEDMrVKwgSUzD5v3fY7fGCvBAL52rgYz/zkxLJKT0rKjfT
+	dLPKZi9pV3ROJVpg1MiBd4kRlG03iTLH+W8oC+hgHSrhsW2k0JNDWCgRpswnMo+NXdpVpa0IVAF
+	4N7WXqCywwJFXaWAg2YkO5mC8U9/tNrDebu3cp9km1E9cW1Bkjh0V2oQRh0gBF
+X-Received: by 2002:a05:6102:5f02:b0:602:9977:a4e1 with SMTP id ada2fe7eead31-60387235b56mr3662162137.18.1774541534726;
+        Thu, 26 Mar 2026 09:12:14 -0700 (PDT)
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com. [209.85.217.54])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-604d50677f0sm3645545137.1.2026.03.26.09.12.13
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Mar 2026 09:01:13 -0700 (PDT)
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5637886c92aso596982e0c.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:01:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCWd6BHPKy9qIzr/HNKJ0wEwhFviHPPzT7Q4hnfmb/q0EgeNEe9m20O6/UfytWnKoChiwobPm+nbW9T/@vger.kernel.org
-X-Received: by 2002:a05:6122:8c13:b0:56c:ce0b:fecd with SMTP id
- 71dfb90a1353d-56d2208bef0mr4303675e0c.12.1774540872761; Thu, 26 Mar 2026
- 09:01:12 -0700 (PDT)
+        Thu, 26 Mar 2026 09:12:13 -0700 (PDT)
+Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-6028bb29cc9so669030137.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:12:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCX3fc5vsqKRQSYDy9usXpc5xm1RPiVZw1p4VvKRSzoIU+0nBbKSBE6fhQbECm/mkaCB6drEaw3gYQIi@vger.kernel.org
+X-Received: by 2002:a05:6102:6c4:b0:5ff:1cc2:aa8c with SMTP id
+ ada2fe7eead31-60387536b11mr3781605137.36.1774541533179; Thu, 26 Mar 2026
+ 09:12:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260319141515.2053556-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260319141515.2053556-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260319141515.2053556-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260319141515.2053556-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260319141515.2053556-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260319141515.2053556-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 26 Mar 2026 17:01:00 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXeRRWi1g72p_2Rq-dYO=pD6aLkWC-x5fZpHa7WMQZR2w@mail.gmail.com>
-X-Gm-Features: AQROBzAu-o_sjRBfd6AHvLbmqr0rTNnVFjjdYlB7t2PFooSBjTFI7oEHrcpJ_Zc
-Message-ID: <CAMuHMdXeRRWi1g72p_2Rq-dYO=pD6aLkWC-x5fZpHa7WMQZR2w@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: pinctrl: renesas,r9a09g077: Document
- pin configuration properties
+Date: Thu, 26 Mar 2026 17:12:01 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXzWFHxeyR4Z4fLUc-QhwPK1RnB5VTzQODjzoR6oDwKHg@mail.gmail.com>
+X-Gm-Features: AQROBzB4lDDc6Paz2lavGGOEVw_oYmGOkaXAJNxgaMlSXZ2W_dPOAbJR1CHRwrA
+Message-ID: <CAMuHMdXzWFHxeyR4Z4fLUc-QhwPK1RnB5VTzQODjzoR6oDwKHg@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] pinctrl: renesas: rzt2h: Add pin configuration support
 To: Prabhakar <prabhakar.csengg@gmail.com>
 Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
@@ -76,24 +75,52 @@ Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset="UTF-8"
 
+Hi Prabhakar,
+
 On Thu, 19 Mar 2026 at 15:15, Prabhakar <prabhakar.csengg@gmail.com> wrote:
 > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 >
-> Document the pin configuration properties supported by the RZ/T2H
-> pinctrl driver.
+> Add pin configuration support for the Renesas RZ/T2H SoC. The RZ/T2H SoC
+> allows configuring several electrical characteristics through the DRCTLm
+> (I/O Buffer Function Switching) registers. These registers control bias
+> configuration, Schmitt trigger input, output slew rate, and drive
+> strength.
 >
-> The RZ/T2H SoC allows configuring several electrical characteristics
-> through the DRCTLm (I/O Buffer Function Switching) registers. These
-> registers control drive strength, bias configuration, Schmitt trigger
-> input, and output slew rate.
+> Implement pinconf_ops to allow reading and updating these properties
+> through the generic pin configuration framework. The implementation
+> supports bias-disable, bias-pull-up, bias-pull-down,
+> input-schmitt-enable, slew-rate, and drive-strength-microamp.
 >
 > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > ---
 > v1->v2:
 > - Updated commit description
-> - Switched to using the standard drive-strength-microamp property
->   name instead of a custom one
-> - Added a description for slew-rate property
+> - Dropped 32 bit reg access for DRCTLm registers
+> - Switched using to guard for locking in rzt2h_pinctrl_drctl_rmwq
+>   helper function
+> - Dropped using RENESAS_RZT2H_PIN_CONFIG_DRIVE_STRENGTH instead
+>   switched to using the standard PIN_CONFIG_DRIVE_STRENGTH_UA
+
+Thanks for the update!
+
+> --- a/drivers/pinctrl/renesas/pinctrl-rzt2h.c
+> +++ b/drivers/pinctrl/renesas/pinctrl-rzt2h.c
+
+> @@ -54,6 +56,16 @@
+>  #define PFC_PIN_MASK(pin)      (PFC_MASK << ((pin) * 8))
+>  #define PFC_FUNC_INTERRUPT     0
+>
+> +#define DRCTL_PIN_SHIFT(pin)   ((pin) << 3)
+
+"* 8" sounds more logical to me.
+
+> +#define DRCTL_DRV_PIN_MASK(pin)        (GENMASK_ULL(1, 0) << DRCTL_PIN_SHIFT(pin))
+> +#define DRCTL_PUD_PIN_MASK(pin)        (GENMASK_ULL(3, 2) << DRCTL_PIN_SHIFT(pin))
+> +#define DRCTL_SMT_PIN_MASK(pin)        (BIT_ULL(4) << DRCTL_PIN_SHIFT(pin))
+> +#define DRCTL_SR_PIN_MASK(pin) (BIT_ULL(5) << DRCTL_PIN_SHIFT(pin))
+
+I will drop DRCTL_PIN_SHIFT(), and replace it by "((pin) * 8)" while
+applying, for consistency with e.g. PFC_PIN_MASK() above.
 
 Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 i.e. will queue in renesas-pinctrl for v7.1.
