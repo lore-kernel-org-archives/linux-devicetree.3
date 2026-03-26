@@ -1,131 +1,345 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45ED53FCB25
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 14:37:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A45463FD138;
+	Thu, 26 Mar 2026 14:42:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774535859; cv=none; b=nUt7Xy7syzMnkbfowhDPpro+MEa1BWvu0BpeMQ1ofK16Mz1rJXPnF/q5BsHlTtXnEcHEhA6rPzC8hNe6QWD4WlO2JEO4bbA0RJNNy0xVHqB9m4zJjAM4J8khOUkqU9AzPNX1HkLqr+tR5/6iNlTXw1Tu32vHofB+uJjm7iCMrtk=
+	t=1774536134; cv=none; b=hD8244Edk4mV61548H2rtU+/qM5KAIw+DmtWsA1f3z3sRBvIpB1yu1wXM08rgm/+pAV4+LkCbSluKBLAv4LVpawdtMK4l7bU4dvyj/7veKGil4e/c6WRz+sqnIVv6xzk8FtVxfbB9RbD6k+H1OglkLSfaeJ3eXm72NexaCLkwE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774535859; c=relaxed/simple;
-	bh=F0duyRcsT8AH6l2yenI1qefeUWrcLVZCaJdSuM5TBZs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tSjNQ9JuFvprEXTByvDYTRMhXsF+QO4+nb+bPOEhPQ29W7KDu3AHH7sRHj6GB0p/SeNTvMen0jsLysKVnES9jRB/HkWOmAy0NWL/dmlJfKuiAeNfkrc4599WzcG9gBaCDnnzQoDNETngmpymfk/LmlTVyH23JrZc9mCqPqUx0qI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q+54T2h9; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774536134; c=relaxed/simple;
+	bh=MTJP2oisWG7BF1HsPDguerRmNEgncTtHi666WRC4WZU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=psRXS7pXMaTo/x3M6B9Od4ThLh8igCXuHaNSJNWswTxz4HjRGZ/WwZVUdSb8LHF9KphX2Kmg8xR26/FB66NwBQF0K7kldY5HvGeQ4B1EWW1QDsx4KWS1CvWABiVCHzs+7d094DOO8c3Ckm50BkZxgtfpxHp1/fdNvbzj3cjF/LM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pvMT+E3w; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q+54T2h9"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-486fba7ce4cso11073525e9.3
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 07:37:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774535857; x=1775140657; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mM0UiIcJttTcdCI1/5YlbfPbmrdM8cHS05utyZNdE8s=;
-        b=q+54T2h9bRYpWCGv8Ca/5FMaclrMf6aUOVC29tfZbnTrxS67K466yBt0CyeWVwF4s4
-         pr12krpXisdEWO1SBKaPNTBMulamEgS/DD325IV8mcJSr+iCDvejO+XSgjMq8X0eeI98
-         KUhvN/LLThUzYFWr9ZMdFqvDWJwG9+Sr5ABtX3fLIdS6ElQTtVSRfle0lQmB4mmVMaD7
-         vhG2UByyXt20IB85nZWaOPLSFas77p/i8gHKDoUhHbNcLTgobEHXM00ESw69tNAU2SQD
-         o63c0OeWQDbV1Owg9rPBRKuCOqh7lSnKy6myKOXAQKJQljvzL8Z+q0/kfDaya8WTM+GY
-         F3ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774535857; x=1775140657;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=mM0UiIcJttTcdCI1/5YlbfPbmrdM8cHS05utyZNdE8s=;
-        b=OzQAXpmFDB90+iaU8HCVmxRzV7prakO4AsHv+bB4QNv9N9fpdIF3e4DUeYe+GPAEqq
-         an9aVNM3u0iatA7u8JjALr8LJHO4Hz5to+jfYrWd/T9fkYBtl80i2WQXnAJ0VxmgD3i/
-         /HmMR7yuqMctYwb15+rbTOaV7Z6KY+rJqzec86QC7GyTMxSqaNavMWDL0LgiwvVaP/+n
-         C+zSwFfkfEb6Nh49bV484GH5Ciy5de82poIHB+EDqhOK/w4JLMalwCs2sxmJIXInqNBd
-         u03ue1XuaBJfWnyuO+auh4bvtD1+thc1MAKc1F+pBX1gb82zdts151NF2ATLXmJLAN+B
-         gFeQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXhfKZYhFHhKDSlzodXRgrHNSk1HyW3dHHtDVPTcoxAqdppRISLU3W4rvBrQEL0baWk24uthMjU+auC@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxm/CfGXpXr7OT3bTfAZ0ooMWzq/Qx7ILT7YCIF93udSocUmv8x
-	jD4pXlUx2GejKSrKFqzRusRjDQQM1wxHDddJCt9xoacpU6x+wKFURxQR
-X-Gm-Gg: ATEYQzz+DzKMvdTxUMgO2LrPJ7mzbOyt9Xw30V2V/in/RiDfdb31LfBwv8GWiMQZ4gG
-	d741XLJUGRS+k+qQlr3NqfH6zZfvc3hhuDsYLnBLrG7sXxXlGncb234elz32cNsCDl8PAf4dCst
-	MgwYeSOfETUmN+uytrbRyoTiZAr+pX1f0kG9SjPJy52Ui9U94uWPA7axZXQGheY3V4uYwJaMrvQ
-	gxw8euI6FIZW9MX2rfSZaWGUZVx3f46xj1ia/7BtwDUOsy6tmBLLPHAqthoJeaObzeqk9mxZSlk
-	bUwKlbdjwp3FPkBJTGLHxFY5DUex1dsvdknCdf9qKa2Q/9ORVKY89bllcJvDfGj/2NYeScjb6Jr
-	gnyQS/RJrMfT/oymc/IZaEnICQlykZt9TfY3+N7O2ZelpC4Qm81G8fPtw1vs9n5Iui4Gc6haJkq
-	eHGeBXEMz1eRQmWocZt9mX2d3YWtJZ6sttkYT9ugdwmeuZPSCz7zv8GqP9I45RBQ7tLYNBeETOv
-	cNcS2Qx0XqSWdUpA9Dtf+W2Y5KEBUmI2cEwCi4dI3OrlVUEADmp9/LWbiEwiBB9eHy5LwmtNP9i
-	L6KVDQVbNC8lU2AuEvn7
-X-Received: by 2002:a05:600c:5296:b0:485:364e:9328 with SMTP id 5b1f17b1804b1-4871605ceb5mr124171915e9.16.1774535856243;
-        Thu, 26 Mar 2026 07:37:36 -0700 (PDT)
-Received: from franzs-nb.corp.toradex.com (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722cb5845sm34024185e9.15.2026.03.26.07.37.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Mar 2026 07:37:35 -0700 (PDT)
-From: Franz Schnyder <fra.schnyder@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Franz Schnyder <franz.schnyder@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Francesco Dolcini <francesco@dolcini.it>
-Subject: [PATCH v2 3/3] arm64: dts: freescale: imx95-toradex-smarc: Use gpio-hog for WIFI_UART_EN
-Date: Thu, 26 Mar 2026 15:37:06 +0100
-Message-ID: <20260326143711.143462-4-fra.schnyder@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260326143711.143462-1-fra.schnyder@gmail.com>
-References: <20260326143711.143462-1-fra.schnyder@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pvMT+E3w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30C4C19423;
+	Thu, 26 Mar 2026 14:42:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774536134;
+	bh=MTJP2oisWG7BF1HsPDguerRmNEgncTtHi666WRC4WZU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=pvMT+E3wy0UCs6zWh8lf8kbKeKOZiIgqyn/5tVRQctj5uFf2gonuZdT/6NnznwcRB
+	 1pwEFCQaAodROwxGXhCv77FF88vhagof9+Q6w8JlhWD8djge2MlZyJlj7Ys+YmyZ+L
+	 JmfszFWXVcHtdvxnNx5ozsuCDxHnT9SFrpZYZr7rLgxlRuSWHWGWTQyzaDswPByJZK
+	 aOVasZeG6awhOrbiTitiH4tLfiBjpLCJtp7HNXLGRHPg9qwnTwXB6mB4eNrW25C45J
+	 14gUUU4K/PDynZ2BX+NzBqgVW7SMZY4cig6oJJ8e7a+46B5TSqa1iSFmAcEgfPrBkK
+	 EsCnmVx5+3ydA==
+Message-ID: <5d7d5bf8-4420-4d75-b928-820bb9233e52@kernel.org>
+Date: Thu, 26 Mar 2026 14:42:10 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
+ <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org>
+ <20260326-x1e-csi2-phy-v5-1-0c0fc7f5c01b@linaro.org>
+ <72ef6c9e-feb6-4e57-b8cc-7801bd748698@linaro.org>
+ <f1c8c412-1d27-4c83-8c5e-76b9369ea6e9@linaro.org>
+ <VwCtoebjwHqLTucsrGruvBpedA4k-Melt7C0DA0aHSVld3PeotwZdtMUm3EFpvQyScrl6yejmLaK7bY1avT1zQ==@protonmail.internalid>
+ <8ac55e5f-72ed-4331-bf42-92ccf97507dd@linaro.org>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+In-Reply-To: <8ac55e5f-72ed-4331-bf42-92ccf97507dd@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Franz Schnyder <franz.schnyder@toradex.com>
+On 26/03/2026 10:28, Vladimir Zapolskiy wrote:
+> On 3/26/26 04:03, Bryan O'Donoghue wrote:
+>> On 26/03/2026 01:46, Vladimir Zapolskiy wrote:
+>>> On 3/26/26 03:04, Bryan O'Donoghue wrote:
+>>>> Add a base schema initially compatible with x1e80100 to describe MIPI
+>>>> CSI2
+>>>> PHY devices.
+>>>>
+>>>> The hardware can support both CPHY, DPHY and a special split-mode
+>>>> DPHY. We
+>>>> capture those modes as:
+>>>>
+>>>> - PHY_QCOM_CSI2_MODE_DPHY
+>>>> - PHY_QCOM_CSI2_MODE_CPHY
+>>>> - PHY_QCOM_CSI2_MODE_SPLIT_DPHY
+>>>
+>>> Distinction between PHY_QCOM_CSI2_MODE_DPHY and
+>>> PHY_QCOM_CSI2_MODE_SPLIT_DPHY
+>>> is
+>>> 1) insufficient in just this simplistic form, because the assignment of
+>>> particular lanes is also needed,
+>>> 2) and under the assumption that the lane mapping is set somewhere else,
+>>> then
+>>> there should be no difference between PHY_QCOM_CSI2_MODE_{DPHY,SPLIT_DPHY},
+>>> it's just DPHY, and the subtype is deductible from data-lanes property on
+>>> the consumer side.
+>>>
+>>> So far the rationale is unclear, why anything above regular PHY_TYPE_DPHY
+>>> and PHY_TYPE_CPHY is needed here, those two are sufficient.
+>>
+>> Because knowing the split-mode exists and that you have asked about how
+>> such a thing would be supported, I thought about how to represent that
+>> mode right from the start, even if we don't support it.
+> 
+> It is good to think about this hardware confguration in advance, however
+> the process of describing such hardware setup is incomplete.
+> 
+>>
+>> To support split phy we will need to pass the parameter.
+> 
+> What you call "split phy" is a DPHY, and "split phy" can not be supported
+> by adding this parameter, because it does not provide information about
+> lanes, and after removing this information it is just DPHY.
 
-On the Toradex SMARC iMX95, the WiFi UART signals are shared with the
-JTAG. The WIFI_UART_EN signal is used to select between these
-two functions. A GPIO hog is used to select the UART function by
-default. This DT file is going to be used by both Linux and the boot
-firmware, and the boot firmware will configure the GPIO hog way before
-the Linux kernel is booted, therefore there is no actual race condition
-between the Linux kernel BT UART driver and GPIO hog probe.
+That's just not true. If you read the camx source code you can see 
+split/combo mode 2+1 1+1 data/clock mode requires special programming of 
+the PHY to support.
 
-Configure WIFI_UART_EN as a gpio-hog driven high.
+https://review.lineageos.org/c/LineageOS/android_kernel_motorola_sm6375/+/423960/1/drivers/cam_sensor_module/cam_csiphy/cam_csiphy_core.c#b285
 
-Signed-off-by: Franz Schnyder <franz.schnyder@toradex.com>
+There is disjunction all over this file depending on the mode.
+
+https://review.lineageos.org/c/LineageOS/android_kernel_motorola_sm6375/+/423960/1/drivers/cam_sensor_module/cam_csiphy/cam_csiphy_core.c#b767
+
+And besides, think about it - you need different init sequences if one 
+of the lanes is clock instead of data...
+
+If we use phy.h::PHY_TYPE_DPHY then that means to support split-mode in 
+the future we need to get that mode represented in phy.h - but really 
+this fixed split mode isn't a generic CSI2 PHY mode, its a Qualcommism.
+
+Nothing wrong with that - but then the mode should reflect the fact it 
+is vendor specific and we absolutely 100% have to do different things in 
+the PHY driver whether we are in regular DPHY mode or in split DPHY mode.
+
+If we use PHY_TYPE_DPHY as I did in the previous patch then we can't 
+convert to a vendor type later on as its an ABI break.
+
+So we have both a sound technical reason hardware will require it to 
+differentiate between DPHY and split-mode DPHY - and we also don't want 
+to be bound to phy.h and then try to upstream a new DPHY_SPLIT_MODE here 
+which a reviewer might reasonably say "why is this special mode from a 
+specific vendor driving new defines in a shared file"
+
+> 
+>> So we define those parameters upfront.
+> 
+> This new header file has to be removed, it does not bring anything valuable.
+> 
+>>>
+>>>>
+>>>> The CSIPHY devices have their own pinouts on the SoC as well as their own
+>>>> individual voltage rails.
+>>>>
+>>>> The need to model voltage rails on a per-PHY basis leads us to define
+>>>> CSIPHY devices as individual nodes.
+>>>>
+>>>> Two nice outcomes in terms of schema and DT arise from this change.
+>>>>
+>>>> 1. The ability to define on a per-PHY basis voltage rails.
+>>>> 2. The ability to require those voltage.
+>>>>
+>>>> We have had a complete bodge upstream for this where a single set of
+>>>> voltage rail for all CSIPHYs has been buried inside of CAMSS.
+>>>>
+>>>> Much like the I2C bus which is dedicated to Camera sensors - the CCI
+>>>> bus in
+>>>> CAMSS parlance, the CSIPHY devices should be individually modelled.
+>>>>
+>>>> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>>>> ---
+>>>>     .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 130 +++++++++++
+>>>> ++++++++++
+>>>>     include/dt-bindings/phy/phy-qcom-mipi-csi2.h       |  15 +++
+>>>>     2 files changed, 145 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-
+>>>> phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-
+>>>> phy.yaml
+>>>> new file mode 100644
+>>>> index 0000000000000..63114151104b4
+>>>> --- /dev/null
+>>>> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+>>>> @@ -0,0 +1,130 @@
+>>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>>>> +%YAML 1.2
+>>>> +---
+>>>> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
+>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>> +
+>>>> +title: Qualcomm CSI2 PHY
+>>>> +
+>>>> +maintainers:
+>>>> +  - Bryan O'Donoghue <bod@kernel.org>
+>>>> +
+>>>> +description:
+>>>> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2
+>>>> sensors
+>>>> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and
+>>>> D-PHY
+>>>> +  modes.
+>>>> +
+>>>> +properties:
+>>>> +  compatible:
+>>>> +    const: qcom,x1e80100-csi2-phy
+>>>> +
+>>>> +  reg:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  "#phy-cells":
+>>>> +    const: 1
+>>>> +    description:
+>>>> +      The single cell specifies the PHY operating mode.
+>>>> +      See include/dt-bindings/phy/phy-qcom-mipi-csi2.h for valid values.
+>>>
+>>> include/dt-bindings/phy/phy.h should be good enough as it's stated above.
+>>
+>> While include/dt-bindings/phy/phy.h provides generic definitions for
+>> D-PHY and C-PHY, it does not contain a definition for Qualcomm's
+>> proprietary Split D-PHY mode. Because this hardware supports a
+> 
+> What Qualcomm's proprietary Split D-PHY mode is manifested by lane mapping,
+> there is no need to introduce another PHY mode, it is DPHY.
+> 
+>> vendor-specific operating mode, introducing a vendor-specific header to
+>> define that state is necessary.
+>>
+>> This is exactly what we do with the QMP to support a similar use-case -
+>> the PHYs do vendor specific things, so we use vendor specific defines.
+>>
+>> If we lock to phy.h CPHY/DPHY only then we exclude the possibility of
+>> say adding split-mode to an upstream SoC as the DT ABI will not then
+>> facilitate the mode.
+>>
+>>>
+>>>> +
+>>>> +  clocks:
+>>>> +    maxItems: 2
+>>>> +
+>>>> +  clock-names:
+>>>> +    items:
+>>>> +      - const: core
+>>>> +      - const: timer
+>>>> +
+>>>> +  interrupts:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  operating-points-v2:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  power-domains:
+>>>> +    items:
+>>>> +      - description: MXC or MXA voltage rail
+>>>> +      - description: MMCX voltage rail
+>>>> +
+>>>> +  power-domain-names:
+>>>> +    items:
+>>>> +      - const: mx
+>>>> +      - const: mmcx
+>>>> +
+>>>> +  vdda-0p9-supply:
+>>>> +    description: Phandle to a 0.9V regulator supply to a PHY.
+>>>> +
+>>>> +  vdda-1p2-supply:
+>>>> +    description: Phandle to 1.2V regulator supply to a PHY.
+>>>> +
+>>>> +required:
+>>>> +  - compatible
+>>>> +  - reg
+>>>> +  - "#phy-cells"
+>>>> +  - clocks
+>>>> +  - clock-names
+>>>> +  - interrupts
+>>>> +  - operating-points-v2
+>>>> +  - power-domains
+>>>> +  - power-domain-names
+>>>> +  - vdda-0p9-supply
+>>>> +  - vdda-1p2-supply
+>>>> +
+>>>> +additionalProperties: false
+>>>> +
+>>>> +examples:
+>>>> +  - |
+>>>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>>> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
+>>>> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
+>>>> +    #include <dt-bindings/phy/phy-qcom-mipi-csi2.h>
+>>>> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+>>>> +
+>>>> +    csiphy4: csiphy@ace4000 {
+>>>> +        compatible = "qcom,x1e80100-csi2-phy";
+>>>> +        reg = <0x0ace4000 0x2000>;
+>>>> +        #phy-cells = <1>;
+>>>> +
+>>>> +        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
+>>>> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>;
+>>>> +        clock-names = "core",
+>>>> +                      "timer";
+>>>> +
+>>>> +        operating-points-v2 = <&csiphy_opp_table>;
+>>>> +
+>>>> +        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
+>>>> +
+>>>> +        power-domains = <&rpmhpd RPMHPD_MX>,
+>>>> +                        <&rpmhpd RPMHPD_MMCX>;
+>>>> +        power-domain-names = "mx",
+>>>> +                             "mmcx";
+>>>> +
+>>>> +        vdda-0p9-supply = <&vreg_l2c_0p8>;
+>>>> +        vdda-1p2-supply = <&vreg_l1c_1p2>;
+>>>> +    };
+>>>> +
+>>>> +    csiphy_opp_table: opp-table {
+>>>> +        compatible = "operating-points-v2";
+>>>> +
+>>>> +        opp-300000000 {
+>>>> +            opp-hz = /bits/ 64 <300000000>;
+>>>> +            required-opps = <&rpmhpd_opp_low_svs_d1>,
+>>>> +                            <&rpmhpd_opp_low_svs_d1>;
+>>>> +        };
+>>>> +
+>>>> +        opp-400000000 {
+>>>> +            opp-hz = /bits/ 64 <400000000>;
+>>>> +            required-opps = <&rpmhpd_opp_low_svs>,
+>>>> +                            <&rpmhpd_opp_low_svs>;
+>>>> +        };
+>>>> +
+>>>> +        opp-480000000 {
+>>>> +            opp-hz = /bits/ 64 <480000000>;
+>>>> +            required-opps = <&rpmhpd_opp_low_svs>,
+>>>> +                            <&rpmhpd_opp_low_svs>;
+>>>> +        };
+>>>> +    };
+>>>> +
+>>>> +    isp@acb7000 {
+>>>> +        phys = <&csiphy4 PHY_QCOM_CSI2_MODE_DPHY>;
+>>>> +    };
+>>>
+>>> This example is incomplete in sense that it does not include CAMSS
+>>> CSIPHY IP hardware configuration in whole.
+>>
+>>
+>> No that's not the way examples work. You don't replicate entire nodes
+>> from other schemas you just give a terse reference.
+>>
+> 
+> If so, then this example makes no sense and it'd be better to remove it.
+You know you're right its not strictly necessary - its just there to be 
+helpful.
+
+"Be less helpful" is not usually review feedback I give or take but, 
+I'll drop this anyway.
+
 ---
-v2: Remove unused label for wifi-uart-en-hog node
-    Add explanation to clarify the safe usage of the GPIO hog
----
- arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi b/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi
-index a90edefc5197..8eef26eb0f87 100644
---- a/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi
-@@ -451,6 +451,13 @@ som_gpio_expander_1: gpio@21 {
- 			"",
- 			"",
- 			"SMARC_SDIO_WP";
-+
-+		wifi-uart-en-hog {
-+			gpio-hog;
-+			gpios = <12 GPIO_ACTIVE_HIGH>;
-+			line-name = "WIFI_UART_EN";
-+			output-high;
-+		};
- 	};
- 
- 	embedded-controller@28 {
--- 
-2.43.0
+bod
 
