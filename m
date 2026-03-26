@@ -1,100 +1,49 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3586394477
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 04:34:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F9A345745;
+	Thu, 26 Mar 2026 04:44:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774499643; cv=none; b=oBGfnmUyQfEa3v/ccigsxyMq9DPrOmtekp4P5bq6wsN0NxFgtf2lny+BdV4yboaXvqQpIiL8hFZsQXb2hpW+VaVwf7zql4fnyk315NR9UsLeSpJ7DMobj562oNHkvA0hIFBpOh8q9FiGPG+mlQ7OD+BKZO12ZSJxzL55lBGSgLU=
+	t=1774500263; cv=none; b=c5Y65+WAYxixTNgUQD8SjUFqJFKFP6hg1oXM6+bJQrSKpXYuruAxdPQsaIO7Xcq8y4YwefPJhQCSFIGULyrKJbSUv6xbL/ikSwUwoT1UuBtrYOwSbgVP2hDyXvv8iD9/IQ1WzTYj1AIJT55mzP+7F7/bAWx3DtPw83lY2MXRZqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774499643; c=relaxed/simple;
-	bh=l4ivXt3lsKb4kgsBy1mCcps0SSDFqqQ/qyQMopTJGyk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cvex9gKO3t+IOctd7b3lejJHbIpNn7j9pxOwg6eDabayTWcFCYxw+/sdIH6JOsTv1iPNqSluUcG5yWEvmZWoeL8Zgo0TS6aWnEdp17OpMiVgSdBXD16n4ePltLGr0cCXEHayZpzpERhgLrhwAA2DWMOy/8vS9GocIiCkF1bQEMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=P8DT6Sl1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dj67NoHM; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774500263; c=relaxed/simple;
+	bh=3kMwCJmf0hdxHW23/GyiZt1GU606+3wA0OxUVEwWetI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BNKShsmyMiMbWlzgTKrSKDD1ohRCw8S7jxvjRpCCMCfquQF+P0WQFQQba8yoiarvjeke/yTZiCPlIL8W2vHIq6+NWBV7cVzWnlQnvT8bIZsRnNgVMAX7uk8g9Bgg+dMVDuVdk83/JZSjg3Wpsww88E+OJYXK6CFmaRjZHJKFS0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=eRelMFrY; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="P8DT6Sl1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dj67NoHM"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62PKkuTt051541
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 04:34:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=b1gGYzVXgpW
-	/TOjAzqqRnI55kNpdkgiirOaPxukUIGI=; b=P8DT6Sl1HzxN4C2oGlRZFb0DRii
-	maU21x0lRkH6wW/FmG5zi7hQ8VGcACVWHhKbpPMu/u0E05lHVYuBHPRmS+Zc1Kbs
-	1XSsAK6lCncPoNwMYBHj1L/jBZWXZ4KBE/tnDVds04RhkkhdnmTI3Qyas37vPIi/
-	ZET8ZaLIbzET7P1X/5WKfWJzKUeko+aSgDA1c2Kg+3bOwkoWB9ipksxNGlRhk0Ya
-	J0BtkX6Lpz46UKZezGoeynSawVXfMV0DAjrm6ZDR7E1M4LCwYmptG4kk5zoLW2SJ
-	y+XFd8fRy/xmpjEw1cgz1S3PMsGAfAj0ItDp6ap3O/E8UwMLraypGRQFuSQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d4q1t166b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 04:34:00 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2b079b4a8c3so20469285ad.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 21:34:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774499640; x=1775104440; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=b1gGYzVXgpW/TOjAzqqRnI55kNpdkgiirOaPxukUIGI=;
-        b=dj67NoHMKdvOgZZKo8WXwwfn93AANtOQ4g1TgmM6QeARtW+RZw9/M9ar7KkYzB+npm
-         5KzGWOKpDlwUdtSePTtDWbLylWhjw/HczPNz8SALwJEIt1iZANCym0mhJyXS9jGWsl5j
-         gOT9JR2bvPgRNwf2FGlx7HfnjhJMR1/TNaAB5tbV7htKXt3/X7LhxVrQU/v0ZaOBHgBj
-         03nhyapC/L4hq3nLGRTZCJKHN08r5PY1ZFywxMMolH7u/wTxxmHYhezQh7SRN29x9Dp0
-         ick1ClL+uisbyCYTRZkNiia2gCof7xW/3VKVhQTFN96nFTXLnhx6F8CxyQrLpAfSZ8Kj
-         vdjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774499640; x=1775104440;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=b1gGYzVXgpW/TOjAzqqRnI55kNpdkgiirOaPxukUIGI=;
-        b=hYwjRxtAkElqGGBq6p26qFl0y+siSL7Ln4I5pdAzpKZxhLG1qyc1EB0HYanjE2pEhd
-         02PIHVvFjI1sQKMbPwMwhRj+TdHrsn+cH8KjTKE9pkqM/G5ja/AxNqLJRYnqCuQQXNuh
-         i+mlLYSVdb455Ql6D/G+9LP3A8eE3udALNg460Qjs8RYx3DnW99EAiUR3oHSPPcu4bgx
-         ZS0vpWetwDjvrivXIZN2YN7wRtXK+Fw/ubRREQVkPf/F9MbS9h/RQ/6rCzC5a6ayHEtV
-         DK617ipZD7fDwB3syAL/4Z1i2YcyA7tFBgsGGYzZHZ19lL6auk/BbNZmvyNGvkElqayJ
-         YIMA==
-X-Forwarded-Encrypted: i=1; AJvYcCWziSY9Fnwu7GUvSxPosiaaZ9ZXNizWxd8kjttYkgWRuuknOD8TP1ZWTl2Qqx3qFLdMUcmrgb8bM+rp@vger.kernel.org
-X-Gm-Message-State: AOJu0YzZA8QkYE6eYY/UU/VNBk5rpakZOmFpgKKcf34s1/Q0iPUa8x3X
-	HQtq70hIDCWpaU4JgVX54suFc9DuYezoxPVqIk1Vx6dA9Csrn7jXm2eHZ0yq9Xw1qajTTv5jiTl
-	EzksXSyb1jD/I1PMiukFN2XJFYECZZtX98TbNEpzbkiJ/kaPzsdeUuJXM4d7v9zlY
-X-Gm-Gg: ATEYQzxrNjEqaXEizCsmRhkE5YmiEWKdawTfvCD7XbHsw92WjUJEM8HdU+0CGBeeT9u
-	jYmGSv06V/XpmG28nw/DD3zCIgP3HO6xWSLbhEewzm4OiJAEJdHhQnZBGbSJn8Jqec4DwA6xs0t
-	ShiJdROehrp7ivJsfVIH+Kk4d2eezs+4HRmMgU9NQnbi2bxMbUlxpZE0kC5csg8mWXNY+u8yx7I
-	2zIZyMoycqvIDtY/E9L55+yVoVi2VN9rs9ZwO7wl8qrTUSgg+o3q+1GZ9eay/Vc1qMQBDBj0tYs
-	qcwEdLss2aFpU5urE6SSqVElD6khBMlsveZVwjO3H/vAOGjIJjZay1DaMMybE/MzRQWynJUgQHO
-	KmvK6KmeIrzirYfm0jNaaFJyTrk5vwGQ4Mi6FDLuqi+0pqsTqfK7NOlmMyLGt5jtCsLB2GY92Jx
-	JEJmIGBJwmpBgvbp0B59bMHJCAX6/+JpIqz4WCfj0g02uCtX3yrjY=
-X-Received: by 2002:a17:903:1ae6:b0:2b0:643b:41c9 with SMTP id d9443c01a7336-2b0b0987e0amr71476775ad.9.1774499639855;
-        Wed, 25 Mar 2026 21:33:59 -0700 (PDT)
-X-Received: by 2002:a17:903:1ae6:b0:2b0:643b:41c9 with SMTP id d9443c01a7336-2b0b0987e0amr71476435ad.9.1774499639367;
-        Wed, 25 Mar 2026 21:33:59 -0700 (PDT)
-Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0bc7b233fsm15163715ad.32.2026.03.25.21.33.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 21:33:59 -0700 (PDT)
-From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-To: andersson@kernel.org, mathieu.poirier@linaro.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, konradybcio@kernel.org,
-        quic_mmanikan@quicinc.com, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Gokul Sriram Palanisamy <gokul.sriram.p@oss.qualcomm.com>,
-        George Moussalem <george.moussalem@outlook.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Subject: [PATCH v11 6/6] arm64: dts: qcom: ipq9574: add nodes to bring up q6
-Date: Thu, 26 Mar 2026 10:03:20 +0530
-Message-Id: <20260326043320.2507890-7-varadarajan.narayanan@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260326043320.2507890-1-varadarajan.narayanan@oss.qualcomm.com>
-References: <20260326043320.2507890-1-varadarajan.narayanan@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="eRelMFrY"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 886071123C9;
+	Thu, 26 Mar 2026 05:44:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1774500256; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=v6EE5S9RuiTG3FQQsLiP3XafZH9/hJ1JHFZhimnS5xQ=;
+	b=eRelMFrYaWLxdI51uJS8xY4la1f4cD63qVHRNAmpPnjzktCXFXVv3X0qtT4EtVY6JA1GA3
+	FtQXwlj69rHmWlQK78haqXc5hhpQylkVD5hbZrRVq4I2xby2FXIB3epcMBkoqhg81oPeyr
+	qE/KBzA9WD+obrz01MNfZrsyaeX9cVHL8r7dLanzNJK6ScJ4O/LzfOQMYoBOjQxOFiLIti
+	ULgbXaYUWjk3MMyBq8z/hf3cWwW6qpcagJzsfZGF8K+pWw6P40XcoIje7dEIVCPTweaGrR
+	I/zxuMj7stm8h/nx8FC7oHjoaBC5xih8q/StYtfd0H0aXMrqaTlHrwR2F4Rc+g==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	kernel@dh-electronics.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] arm64: dts: imx8mp: Add DT overlays for DH i.MX8M Plus DHCOM SoM and boards
+Date: Thu, 26 Mar 2026 05:43:21 +0100
+Message-ID: <20260326044411.222907-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -102,132 +51,1327 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=e7cLiKp/ c=1 sm=1 tr=0 ts=69c4b738 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=COk6AnOGAAAA:8
- a=EUspDBNiAAAA:8 a=UqCG9HQmAAAA:8 a=nG0a804IO7H6KQc07wUA:9
- a=324X-CrmTo6CU4MGRt3R:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: yEXSCYGyAqZNp33cCtlWB7pPh1yfaOEM
-X-Proofpoint-ORIG-GUID: yEXSCYGyAqZNp33cCtlWB7pPh1yfaOEM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI2MDAzMiBTYWx0ZWRfX4zkIVCfG4DSO
- uHTM3wDSXbddFBs0Hkcy5e+uwfiJlzUEoebILZpFroA8CCsCDgxBYIMFYXm4XJS8lF8CnZyDvPc
- FKcuI0Bw3Ev5xt/05gDRyAg1kY9wT1BprSADV7G8MYj4/JLhuf8NyGV+QFMcuKnBgf+Zuq8jm6l
- ioSgA0g46v5mOebnjkHdLR1uFTsYqOxyh7HEG24UhbH4Ram8MO7Vhyt9I+Gm7dnlQsdzFn8oDTA
- gmkiRVsjkxvELRRYs+JoBWjjZDyApQ1hs4KvQS9ipbnoygXSVrPUWGqV9+LoS60ou55+2h91mA8
- iE9pP8PVoSOAhKNWtLoPkFtAli4mL/jwJM9yy61izOylcpBbr7VKF/CfBaV9Hvsfa77xWKX/jxm
- 6FuP1RHT2lgHwDy1YAvhnxOD/OYOI4iGa0V0YUmiwb9M5I2Q2R38hVqbF8ShvHSe5xpM6ZPb48/
- 7TG6jXgbrKblvIBIZQg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-26_01,2026-03-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 spamscore=0 bulkscore=0 phishscore=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603260032
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Manikanta Mylavarapu <quic_mmanikan@quicinc.com>
+Add DT overlays to support DH i.MX8M Plus DHCOM SoM variants and carrier
+board expansion modules. The following DT overlays are implemented:
+- SoM:
+  - DH 660-x00 SoM with 1xRMII PHY
+  - DH 660-x00 SoM with 2xRMII PHY
+- PDK2:
+  - DH 505-200 Display board in edge connector X12 via direct LVDS
+  - DH 531-100 SPI/I2C board in header X21
+  - DH 531-200 SPI/I2C board in header X22
+  - DH 560-200 Display board in edge connector X12
+- PDK3:
+  - DH 505-200 Display board in edge connector X36 via direct LVDS
+  - DH 531-100 SPI/I2C board in header X40
+  - DH 531-200 SPI/I2C board in header X41
+  - DH 560-300 Display board in edge connector X36
+  - EA muRata 2AE M.2 A/E-Key card in connector X20
+  - NXP SPF-29853-C1 MINISASTOCSI with OV5640 sensor in connector X31
+  - NXP SPF-29853-C1 MINISASTOCSI with OV5640 sensor in connector X29
+- PicoITX:
+  - DH 626-100 Display board in edge connector X2
 
-Enable nodes required for q6 remoteproc bring up.
-
-Signed-off-by: Manikanta Mylavarapu <quic_mmanikan@quicinc.com>
-Signed-off-by: Gokul Sriram Palanisamy <gokul.sriram.p@oss.qualcomm.com>
-Signed-off-by: George Moussalem <george.moussalem@outlook.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
-v9: Add R-b Konrad and Signed-off-by
+Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: devicetree@vger.kernel.org
+Cc: imx@lists.linux.dev
+Cc: kernel@dh-electronics.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
 ---
- arch/arm64/boot/dts/qcom/ipq9574.dtsi | 60 ++++++++++++++++++++++++++-
- 1 file changed, 59 insertions(+), 1 deletion(-)
+V2: - Update copyright years
+    - Add newline between reg and port
+    - Place status = "okay" at the end of nodes
+    - Sort compatible and reg
+V3: Drop the macros and use DT labels instead
+---
+ arch/arm64/boot/dts/freescale/Makefile        | 115 +++++++++++++++++-
+ ...mx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi |  37 ++++++
+ .../imx8mp-dhcom-overlay-panel-clock.dtsi     |  33 +++++
+ .../imx8mp-dhcom-overlay-panel-common.dtsi    |  31 +++++
+ .../imx8mp-dhcom-overlay-panel-dpi.dtsi       |  35 ++++++
+ ...8mp-dhcom-overlay-panel-etm0700g0edh6.dtsi |  53 ++++++++
+ .../imx8mp-dhcom-overlay-panel-lvds.dtsi      |  22 ++++
+ .../imx8mp-dhcom-pdk-overlay-eth2xfast.dtso   |  10 ++
+ ...-pdk2-overlay-505-200-x12-ch101olhlwh.dtso |  40 ++++++
+ ...imx8mp-dhcom-pdk2-overlay-531-100-x21.dtso |  32 +++++
+ ...imx8mp-dhcom-pdk2-overlay-531-100-x22.dtso |  32 +++++
+ ...imx8mp-dhcom-pdk2-overlay-560-300-x12.dtso |  25 ++++
+ .../boot/dts/freescale/imx8mp-dhcom-pdk2.dts  |   2 +-
+ ...-pdk3-overlay-505-200-x36-ch101olhlwh.dtso |  53 ++++++++
+ ...imx8mp-dhcom-pdk3-overlay-531-100-x40.dtso |  32 +++++
+ ...imx8mp-dhcom-pdk3-overlay-531-100-x41.dtso |  32 +++++
+ ...imx8mp-dhcom-pdk3-overlay-560-300-x36.dtso |  24 ++++
+ ...imx8mp-dhcom-pdk3-overlay-732-100-x36.dtso |  36 ++++++
+ ...-dhcom-pdk3-overlay-ea-murata-2ae-x20.dtso |  56 +++++++++
+ ...3-overlay-nxp-spf-29853-c1-ov5640-x29.dtso |  30 +++++
+ ...3-overlay-nxp-spf-29853-c1-ov5640-x31.dtso |  30 +++++
+ ...-pdk3-overlay-nxp-spf-29853-c1-ov5640.dtsi |  64 ++++++++++
+ .../boot/dts/freescale/imx8mp-dhcom-pdk3.dts  |   2 +-
+ ...icoitx-overlay-626-100-x2-ch101olhlwh.dtso |  77 ++++++++++++
+ .../dts/freescale/imx8mp-dhcom-picoitx.dts    |   3 +
+ .../imx8mp-dhcom-som-overlay-eth1xfast.dtso   |  85 +++++++++++++
+ .../imx8mp-dhcom-som-overlay-eth2xfast.dtso   |  29 +++++
+ .../boot/dts/freescale/imx8mp-dhcom-som.dtsi  |   4 +-
+ 28 files changed, 1017 insertions(+), 7 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-clock.dtsi
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-common.dtsi
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-dpi.dtsi
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-etm0700g0edh6.dtsi
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-lvds.dtsi
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk-overlay-eth2xfast.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2-overlay-505-200-x12-ch101olhlwh.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2-overlay-531-100-x21.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2-overlay-531-100-x22.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2-overlay-560-300-x12.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-505-200-x36-ch101olhlwh.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-531-100-x40.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-531-100-x41.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-560-300-x36.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-732-100-x36.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-ea-murata-2ae-x20.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640-x29.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640-x31.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640.dtsi
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-picoitx-overlay-626-100-x2-ch101olhlwh.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-som-overlay-eth1xfast.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-dhcom-som-overlay-eth2xfast.dtso
 
-diff --git a/arch/arm64/boot/dts/qcom/ipq9574.dtsi b/arch/arm64/boot/dts/qcom/ipq9574.dtsi
-index 622cfa96ed2b..5c828c855c98 100644
---- a/arch/arm64/boot/dts/qcom/ipq9574.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq9574.dtsi
-@@ -3,7 +3,7 @@
-  * IPQ9574 SoC device tree source
-  *
-  * Copyright (c) 2020-2021 The Linux Foundation. All rights reserved.
-- * Copyright (c) 2023-2024, Qualcomm Innovation Center, Inc. All rights reserved.
-+ * Copyright (c) 2023-2025, Qualcomm Innovation Center, Inc. All rights reserved.
-  */
- 
- #include <dt-bindings/clock/qcom,apss-ipq.h>
-@@ -222,6 +222,35 @@ smem@4aa00000 {
- 			hwlocks = <&tcsr_mutex 3>;
- 			no-map;
- 		};
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index 31bc80586c682..e054fdba72d7a 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -232,9 +232,118 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-data-modul-edm-sbc.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-debix-model-a.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-debix-som-a-bmb-08.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-dhcom-drc02.dtb
+-dtb-$(CONFIG_ARCH_MXC) += imx8mp-dhcom-pdk2.dtb
+-dtb-$(CONFIG_ARCH_MXC) += imx8mp-dhcom-pdk3.dtb
+-dtb-$(CONFIG_ARCH_MXC) += imx8mp-dhcom-picoitx.dtb
 +
-+		q6_region: wcss@4ab00000 {
-+			reg = <0x0 0x4ab00000 0x0 0x2b00000>;
-+			no-map;
++imx8mp-dhcom-pdk2-overlay-505-200-x12-ch101olhlwh-dtbs := \
++	imx8mp-dhcom-pdk2.dtb \
++	imx8mp-dhcom-pdk2-overlay-505-200-x12-ch101olhlwh.dtbo
++
++imx8mp-dhcom-pdk2-overlay-531-100-x21-dtbs := \
++	imx8mp-dhcom-pdk2.dtb \
++	imx8mp-dhcom-pdk2-overlay-531-100-x21.dtbo
++
++imx8mp-dhcom-pdk2-overlay-531-100-x22-dtbs := \
++	imx8mp-dhcom-pdk2.dtb \
++	imx8mp-dhcom-pdk2-overlay-531-100-x22.dtbo
++
++imx8mp-dhcom-pdk2-overlay-560-300-x12-dtbs := \
++	imx8mp-dhcom-pdk2.dtb \
++	imx8mp-dhcom-pdk2-overlay-560-300-x12.dtbo
++
++imx8mp-dhcom-pdk2-overlay-eth1xfast-dtbs := \
++	imx8mp-dhcom-pdk2.dtb \
++	imx8mp-dhcom-som-overlay-eth1xfast.dtbo
++
++imx8mp-dhcom-pdk2-overlay-eth2xfast-dtbs := \
++	imx8mp-dhcom-pdk2.dtb \
++	imx8mp-dhcom-som-overlay-eth2xfast.dtbo \
++	imx8mp-dhcom-pdk-overlay-eth2xfast.dtbo
++
++imx8mp-dhcom-pdk3-overlay-505-200-x36-ch101olhlwh-dtbs := \
++	imx8mp-dhcom-pdk3.dtb \
++	imx8mp-dhcom-pdk3-overlay-505-200-x36-ch101olhlwh.dtbo
++
++imx8mp-dhcom-pdk3-overlay-531-100-x40-dtbs := \
++	imx8mp-dhcom-pdk3.dtb \
++	imx8mp-dhcom-pdk3-overlay-531-100-x40.dtbo
++
++imx8mp-dhcom-pdk3-overlay-531-100-x41-dtbs := \
++	imx8mp-dhcom-pdk3.dtb \
++	imx8mp-dhcom-pdk3-overlay-531-100-x41.dtbo
++
++imx8mp-dhcom-pdk3-overlay-560-300-x36-dtbs := \
++	imx8mp-dhcom-pdk3.dtb \
++	imx8mp-dhcom-pdk3-overlay-560-300-x36.dtbo
++
++imx8mp-dhcom-pdk3-overlay-732-100-x36-dtbs := \
++	imx8mp-dhcom-pdk3.dtb \
++	imx8mp-dhcom-pdk3-overlay-732-100-x36.dtbo
++
++imx8mp-dhcom-pdk3-overlay-ea-murata-2ae-x20-dtbs := \
++	imx8mp-dhcom-pdk3.dtb \
++	imx8mp-dhcom-pdk3-overlay-ea-murata-2ae-x20.dtbo
++
++imx8mp-dhcom-pdk3-overlay-eth1xfast-dtbs := \
++	imx8mp-dhcom-pdk3.dtb \
++	imx8mp-dhcom-som-overlay-eth1xfast.dtbo
++
++imx8mp-dhcom-pdk3-overlay-eth2xfast-dtbs := \
++	imx8mp-dhcom-pdk3.dtb \
++	imx8mp-dhcom-som-overlay-eth2xfast.dtbo \
++	imx8mp-dhcom-pdk-overlay-eth2xfast.dtbo
++
++imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640-x29-dtbs := \
++	imx8mp-dhcom-pdk3.dtb \
++	imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640-x29.dtbo
++
++imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640-x31-dtbs := \
++	imx8mp-dhcom-pdk3.dtb \
++	imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640-x31.dtbo
++
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-dhcom-som-overlay-eth1xfast.dtbo \
++			  imx8mp-dhcom-som-overlay-eth2xfast.dtbo
++
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-dhcom-pdk-overlay-eth2xfast.dtbo
++
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-dhcom-pdk2.dtb \
++			  imx8mp-dhcom-pdk2-overlay-505-200-x12-ch101olhlwh.dtb \
++			  imx8mp-dhcom-pdk2-overlay-505-200-x12-ch101olhlwh.dtbo \
++			  imx8mp-dhcom-pdk2-overlay-531-100-x21.dtb \
++			  imx8mp-dhcom-pdk2-overlay-531-100-x21.dtbo \
++			  imx8mp-dhcom-pdk2-overlay-531-100-x22.dtb \
++			  imx8mp-dhcom-pdk2-overlay-531-100-x22.dtbo \
++			  imx8mp-dhcom-pdk2-overlay-560-300-x12.dtb \
++			  imx8mp-dhcom-pdk2-overlay-560-300-x12.dtbo \
++			  imx8mp-dhcom-pdk2-overlay-eth1xfast.dtb \
++			  imx8mp-dhcom-pdk2-overlay-eth2xfast.dtb
++
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-dhcom-pdk3.dtb \
++			  imx8mp-dhcom-pdk3-overlay-505-200-x36-ch101olhlwh.dtb \
++			  imx8mp-dhcom-pdk3-overlay-505-200-x36-ch101olhlwh.dtbo \
++			  imx8mp-dhcom-pdk3-overlay-531-100-x40.dtb \
++			  imx8mp-dhcom-pdk3-overlay-531-100-x40.dtbo \
++			  imx8mp-dhcom-pdk3-overlay-531-100-x41.dtb \
++			  imx8mp-dhcom-pdk3-overlay-531-100-x41.dtbo \
++			  imx8mp-dhcom-pdk3-overlay-560-300-x36.dtb \
++			  imx8mp-dhcom-pdk3-overlay-560-300-x36.dtbo \
++			  imx8mp-dhcom-pdk3-overlay-732-100-x36.dtb \
++			  imx8mp-dhcom-pdk3-overlay-732-100-x36.dtbo \
++			  imx8mp-dhcom-pdk3-overlay-ea-murata-2ae-x20.dtb \
++			  imx8mp-dhcom-pdk3-overlay-ea-murata-2ae-x20.dtbo \
++			  imx8mp-dhcom-pdk3-overlay-eth1xfast.dtb \
++			  imx8mp-dhcom-pdk3-overlay-eth2xfast.dtb \
++			  imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640-x29.dtb \
++			  imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640-x29.dtbo \
++			  imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640-x31.dtb \
++			  imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640-x31.dtbo
++
++imx8mp-dhcom-picoitx-overlay-626-100-x2-ch101olhlwh-dtbs := \
++	imx8mp-dhcom-picoitx.dtb \
++	imx8mp-dhcom-picoitx-overlay-626-100-x2-ch101olhlwh.dtbo
++
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-dhcom-picoitx.dtb \
++			  imx8mp-dhcom-picoitx-overlay-626-100-x2-ch101olhlwh.dtb \
++			  imx8mp-dhcom-picoitx-overlay-626-100-x2-ch101olhlwh.dtbo
++
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-edm-g-wb.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-evk.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-frdm.dtb
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi
+new file mode 100644
+index 0000000000000..cabda8648e0fd
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi
+@@ -0,0 +1,37 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2022-2026 Marek Vasut
++ */
++
++&display_bl {
++	pwms = <&pwm1 0 5000000 0>;
++};
++
++&i2c_dhpdk_panel {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	touch_lvds: touchscreen@41 {
++		compatible = "ilitek,ili251x";
++		reg = <0x41>;
++		reset-gpios = <&gpio1 8 GPIO_ACTIVE_LOW>;
++		touchscreen-size-x = <16384>;
++		touchscreen-size-y = <9600>;
++		touchscreen-inverted-x;
++		touchscreen-inverted-y;
++	};
++
++	eeprom@50 {
++		compatible = "atmel,24c04";
++		reg = <0x50>;
++		pagesize = <16>;
++	};
++};
++
++&panel {
++	compatible = "chefree,ch101olhlwh-002";
++};
++
++&pwm1 {
++	status = "okay";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-clock.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-clock.dtsi
+new file mode 100644
+index 0000000000000..8e702636a8021
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-clock.dtsi
+@@ -0,0 +1,33 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2024-2026 Marek Vasut
++ */
++
++#include <dt-bindings/clock/imx8mp-clock.h>
++
++&media_blk_ctrl {
++	/*
++	 * Sys PLL3 supplies TC9595 RefClk
++	 * Audio PLL2 supplies MEDIA_DISP1_PIX (DSI)
++	 * Video PLL1 supplies MEDIA_DISP2_PIX (LVDS)
++	 */
++	assigned-clocks = <&clk IMX8MP_CLK_MEDIA_AXI>,
++			  <&clk IMX8MP_CLK_MEDIA_APB>,
++			  <&clk IMX8MP_CLK_MEDIA_DISP1_PIX>,
++			  <&clk IMX8MP_CLK_MEDIA_DISP2_PIX>,
++			  <&clk IMX8MP_AUDIO_PLL2>,
++			  <&clk IMX8MP_VIDEO_PLL1>;
++	assigned-clock-parents = <&clk IMX8MP_SYS_PLL2_1000M>,
++				 <&clk IMX8MP_SYS_PLL1_800M>,
++				 <&clk IMX8MP_AUDIO_PLL2_OUT>,
++				 <&clk IMX8MP_VIDEO_PLL1_OUT>;
++	assigned-clock-rates = <500000000>, <200000000>,
++			       <0>, <0>, <0>, <0>;
++};
++
++&tc_bridge {
++	assigned-clocks = <&clk IMX8MP_CLK_CLKOUT2_SEL>,
++			  <&clk IMX8MP_CLK_CLKOUT2>,
++			  <&clk IMX8MP_SYS_PLL3_OUT>;
++	assigned-clock-parents = <&clk IMX8MP_SYS_PLL3_OUT>;
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-common.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-common.dtsi
+new file mode 100644
+index 0000000000000..e8e4b40e20449
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-common.dtsi
+@@ -0,0 +1,31 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2023-2026 Marek Vasut
++ */
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++#include <dt-bindings/pwm/pwm.h>
++
++#include "imx8mp-dhcom-overlay-panel-clock.dtsi"
++
++&{/} {
++	display_bl: display-bl {
++		compatible = "pwm-backlight";
++		brightness-levels = <0 16 22 30 40 55 75 102 138 188 255>;
++		default-brightness-level = <8>;
++		enable-gpios = <&gpio1 0 GPIO_ACTIVE_HIGH>;	/* GPIO G */
++		status = "okay";
++	};
++
++	panel: panel {
++		backlight = <&display_bl>;
++		power-supply = <&reg_vdd_3p3v_awo>;
++
++		port {
++			panel_in: endpoint {
++			};
++		};
++	};
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-dpi.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-dpi.dtsi
+new file mode 100644
+index 0000000000000..9c81e9f28852c
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-dpi.dtsi
+@@ -0,0 +1,35 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2022-2026 Marek Vasut
++ */
++
++#include "imx8mp-dhcom-overlay-panel-common.dtsi"
++
++&lcdif1 {
++	status = "okay";
++};
++
++&mipi_dsi {
++	status = "okay";
++};
++
++&panel_in {
++	remote-endpoint = <&tc_bridge_out>;
++};
++
++&tc_bridge {
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@1 {
++			reg = <1>;
++
++			tc_bridge_out: endpoint {
++				remote-endpoint = <&panel_in>;
++			};
++		};
++	};
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-etm0700g0edh6.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-etm0700g0edh6.dtsi
+new file mode 100644
+index 0000000000000..e3a521343cdfd
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-etm0700g0edh6.dtsi
+@@ -0,0 +1,53 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (C) 2022-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/clock/imx8mp-clock.h>
++#include "imx8mp-dhcom-overlay-panel-dpi.dtsi"
++
++&{/} {
++	led {
++		led-0 {
++			/* LED5 GPIO conflicts with Touchscreen IRQ GPIO-E */
++			status = "disabled";
++		};
++	};
++};
++
++&i2c_dhpdk_panel {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	touchscreen@38 {
++		compatible = "edt,edt-ft5406";
++		reg = <0x38>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_dhcom_e>;
++		/* Touchscreen IRQ GPIO-E conflicts with LED5 GPIO */
++		interrupt-parent = <&gpio5>;
++		interrupts = <22 IRQ_TYPE_EDGE_FALLING>; /* GPIO E */
++	};
++};
++
++&display_bl {
++	pwms = <&pwm1 0 5000000 PWM_POLARITY_INVERTED>;
++};
++
++&mipi_dsi {
++	/*
++	 * This is DSIM PLL frequency, DSI HS clock lane frequency
++	 * is half of the "samsung,burst-clock-frequency" value.
++	 */
++	samsung,burst-clock-frequency = <500000000>;
++};
++
++&panel {
++	compatible = "edt,etm0700g0edh6";
++};
++
++&pwm1 {
++	status = "okay";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-lvds.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-lvds.dtsi
+new file mode 100644
+index 0000000000000..c6e60a99488a5
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-overlay-panel-lvds.dtsi
+@@ -0,0 +1,22 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2023-2026 Marek Vasut
++ */
++
++#include "imx8mp-dhcom-overlay-panel-common.dtsi"
++
++&ldb_lvds_ch0 {
++	remote-endpoint = <&panel_in>;
++};
++
++&lcdif2 {
++	status = "okay";
++};
++
++&lvds_bridge {
++	status = "okay";
++};
++
++&panel_in {
++	remote-endpoint = <&ldb_lvds_ch0>;
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk-overlay-eth2xfast.dtso b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk-overlay-eth2xfast.dtso
+new file mode 100644
+index 0000000000000..0da2b11720db3
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk-overlay-eth2xfast.dtso
+@@ -0,0 +1,10 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (C) 2023-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++&ethphypdk {	/* Micrel KSZ9131RNXI */
++	status = "disabled";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2-overlay-505-200-x12-ch101olhlwh.dtso b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2-overlay-505-200-x12-ch101olhlwh.dtso
+new file mode 100644
+index 0000000000000..92f92e6700ed6
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2-overlay-505-200-x12-ch101olhlwh.dtso
+@@ -0,0 +1,40 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2022-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++#include "imx8mp-dhcom-overlay-panel-lvds.dtsi"
++#include "imx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi"
++
++&{/} {
++	gpio-keys {
++		button-1 {
++			/* BUTTON1 GPIO conflicts with Touchscreen RESET GPIO-B */
++			status = "disabled";
 +		};
 +	};
 +
-+	wcss: smp2p-wcss {
-+		compatible = "qcom,smp2p";
-+		qcom,smem = <435>, <428>;
-+
-+		interrupt-parent = <&intc>;
-+		interrupts = <GIC_SPI 322 IRQ_TYPE_EDGE_RISING>;
-+
-+		mboxes = <&apcs_glb 9>;
-+
-+		qcom,local-pid = <0>;
-+		qcom,remote-pid = <1>;
-+
-+		smp2p_wcss_out: master-kernel {
-+			qcom,entry-name = "master-kernel";
-+			#qcom,smem-state-cells = <1>;
++	led {
++		led-2 {
++			/* LED7 GPIO conflicts with Touchscreen IRQ GPIO-H */
++			status = "disabled";
 +		};
++	};
++};
 +
-+		smp2p_wcss_in: slave-kernel {
-+			qcom,entry-name = "slave-kernel";
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
++&media_blk_ctrl {
++	/*
++	 * The Chefree CH101OLHLWH-002 panel requires 71.1 MHz LVDS clock.
++	 * Set IMX8MP_VIDEO_PLL1 to 497.7 MHz , since 497.7 MHz / 7 = 71.1 MHz .
++	 */
++	assigned-clock-rates = <500000000>, <200000000>, <0>, <0>, <0>, <497700000>;
++};
++
++&touch_lvds {
++	pinctrl-0 = <&pinctrl_dhcom_b &pinctrl_dhcom_h>;
++	pinctrl-names = "default";
++	interrupt-parent = <&gpio1>;
++	interrupts = <11 IRQ_TYPE_EDGE_FALLING>;
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2-overlay-531-100-x21.dtso b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2-overlay-531-100-x21.dtso
+new file mode 100644
+index 0000000000000..64c730d11e6a8
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2-overlay-531-100-x21.dtso
+@@ -0,0 +1,32 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (C) 2022-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++&ecspi1 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	eeprom@0 {
++		compatible = "microchip,25aa010a", "atmel,at25";
++		reg = <0>;
++		address-width = <8>;
++		pagesize = <16>;
++		size = <128>;
++		spi-max-frequency = <5000000>;
++	};
++};
++
++&i2c5 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	eeprom@56 {
++		compatible = "atmel,24c04";
++		reg = <0x56>;
++		pagesize = <16>;
++	};
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2-overlay-531-100-x22.dtso b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2-overlay-531-100-x22.dtso
+new file mode 100644
+index 0000000000000..d789bf07cbb84
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2-overlay-531-100-x22.dtso
+@@ -0,0 +1,32 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (C) 2022-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++&ecspi2 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	eeprom@0 {
++		compatible = "microchip,25aa010a", "atmel,at25";
++		reg = <0>;
++		address-width = <8>;
++		pagesize = <16>;
++		size = <128>;
++		spi-max-frequency = <5000000>;
++	};
++};
++
++&i2c4 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	eeprom@56 {
++		compatible = "atmel,24c04";
++		reg = <0x56>;
++		pagesize = <16>;
++	};
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2-overlay-560-300-x12.dtso b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2-overlay-560-300-x12.dtso
+new file mode 100644
+index 0000000000000..8ca2bd564db26
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2-overlay-560-300-x12.dtso
+@@ -0,0 +1,25 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (C) 2022-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++#include "imx8mp-dhcom-overlay-panel-etm0700g0edh6.dtsi"
++#include "imx8mp-pinfunc.h"
++
++&{/} {
++	led {
++		led-0 {
++			/* LED5 GPIO conflicts with Touchscreen IRQ GPIO-E */
++			status = "disabled";
 +		};
++	};
++};
++
++&pinctrl_dhcom_e {
++	fsl,pins = <
++		/* GPIO_E */
++		MX8MP_IOMUXC_UART1_RXD__GPIO5_IO22 0x40000000
++	>;
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2.dts b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2.dts
+index 3d18c964a22cd..12fcc8f59aba0 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk2.dts
+@@ -152,7 +152,7 @@ codec_dai: simple-audio-card,codec {
  	};
+ };
  
- 	soc: soc@0 {
-@@ -914,6 +943,35 @@ frame@b128000 {
- 			};
- 		};
- 
-+		q6v5_wcss: remoteproc@cd00000 {
-+			compatible = "qcom,ipq9574-wcss-sec-pil";
-+			reg = <0x0cd00000 0x10000>;
-+			firmware-name = "ath11k/IPQ9574/hw1.0/q6_fw.mbn";
-+			interrupts-extended = <&intc GIC_SPI 325 IRQ_TYPE_EDGE_RISING>,
-+					      <&smp2p_wcss_in 0 IRQ_TYPE_NONE>,
-+					      <&smp2p_wcss_in 1 IRQ_TYPE_NONE>,
-+					      <&smp2p_wcss_in 2 IRQ_TYPE_NONE>,
-+					      <&smp2p_wcss_in 3 IRQ_TYPE_NONE>;
-+			interrupt-names = "wdog",
-+					  "fatal",
-+					  "ready",
-+					  "handover",
-+					  "stop-ack";
+-&i2c5 {
++i2c_dhpdk_panel: &i2c5 {
+ 	sgtl5000: codec@a {
+ 		compatible = "fsl,sgtl5000";
+ 		reg = <0x0a>;
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-505-200-x36-ch101olhlwh.dtso b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-505-200-x36-ch101olhlwh.dtso
+new file mode 100644
+index 0000000000000..397fa17a9ca22
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-505-200-x36-ch101olhlwh.dtso
+@@ -0,0 +1,53 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2022-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
 +
-+			qcom,smem-states = <&smp2p_wcss_out 1>,
-+					   <&smp2p_wcss_out 0>;
-+			qcom,smem-state-names = "stop",
-+						"shutdown";
-+			memory-region = <&q6_region>;
++#include "imx8mp-dhcom-overlay-panel-lvds.dtsi"
++#include "imx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi"
++#include "imx8mp-pinfunc.h"
 +
-+			glink-edge {
-+				interrupts = <GIC_SPI 321 IRQ_TYPE_EDGE_RISING>;
-+				label = "rtr";
-+				qcom,remote-pid = <1>;
-+				mboxes = <&apcs_glb 8>;
++&{/} {
++	gpio-keys {
++		button-1 {
++			/* TA2 GPIO conflicts with Touchscreen RESET GPIO-B */
++			status = "disabled";
++		};
++
++		button-2 {
++			/* TA3 GPIO conflicts with Touchscreen IRQ GPIO-C */
++			status = "disabled";
++		};
++	};
++
++	led {
++		led-2 {
++			/* LED2 GPIO conflicts with BL-ON1 GPIO-G */
++			status = "disabled";
++		};
++	};
++};
++
++&media_blk_ctrl {
++	/*
++	 * The Chefree CH101OLHLWH-002 panel requires 71.1 MHz LVDS clock.
++	 * Set IMX8MP_VIDEO_PLL1 to 497.7 MHz , since 497.7 MHz / 7 = 71.1 MHz .
++	 */
++	assigned-clock-rates = <500000000>, <200000000>, <0>, <0>, <0>, <497700000>;
++};
++
++&pinctrl_dhcom_c {
++	fsl,pins = <
++		/* GPIO_C */
++		MX8MP_IOMUXC_SAI3_MCLK__GPIO5_IO02		0x40000000
++	>;
++};
++
++&touch_lvds {
++	pinctrl-0 = <&pinctrl_dhcom_b &pinctrl_dhcom_c>;
++	pinctrl-names = "default";
++	interrupt-parent = <&gpio5>;
++	interrupts = <2 IRQ_TYPE_EDGE_FALLING>;
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-531-100-x40.dtso b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-531-100-x40.dtso
+new file mode 100644
+index 0000000000000..a319f0d881a52
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-531-100-x40.dtso
+@@ -0,0 +1,32 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (C) 2023-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++&ecspi1 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	eeprom@0 {
++		compatible = "microchip,25aa010a", "atmel,at25";
++		reg = <0>;
++		address-width = <8>;
++		pagesize = <16>;
++		size = <128>;
++		spi-max-frequency = <5000000>;
++	};
++};
++
++&i2cmuxed0 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	eeprom@56 {
++		compatible = "atmel,24c04";
++		reg = <0x56>;
++		pagesize = <16>;
++	};
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-531-100-x41.dtso b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-531-100-x41.dtso
+new file mode 100644
+index 0000000000000..aaddcc88087ae
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-531-100-x41.dtso
+@@ -0,0 +1,32 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (C) 2023-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++&ecspi2 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	eeprom@0 {
++		compatible = "microchip,25aa010a", "atmel,at25";
++		reg = <0>;
++		address-width = <8>;
++		pagesize = <16>;
++		size = <128>;
++		spi-max-frequency = <5000000>;
++	};
++};
++
++&i2c4 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	eeprom@56 {
++		compatible = "atmel,24c04";
++		reg = <0x56>;
++		pagesize = <16>;
++	};
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-560-300-x36.dtso b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-560-300-x36.dtso
+new file mode 100644
+index 0000000000000..8e9fba9297401
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-560-300-x36.dtso
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (C) 2023-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++#include "imx8mp-dhcom-overlay-panel-etm0700g0edh6.dtsi"
++
++&{/} {
++	gpio-keys {
++		button-3 {
++			/* TA4 GPIO conflicts with Touchscreen IRQ GPIO-E */
++			status = "disabled";
++		};
++	};
++
++	led {
++		led-2 {
++			/* LED2 GPIO conflicts with BL-ON1 GPIO-G */
++			status = "disabled";
++		};
++	};
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-732-100-x36.dtso b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-732-100-x36.dtso
+new file mode 100644
+index 0000000000000..a527b7abf9a28
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-732-100-x36.dtso
+@@ -0,0 +1,36 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2024-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++#include "imx8mp-dhcom-overlay-panel-clock.dtsi"
++
++&lcdif1 {
++	status = "okay";
++};
++
++&mipi_dsi {
++	samsung,burst-clock-frequency = <1000000000>;
++	status = "okay";
++};
++
++&tc_bridge {
++	assigned-clock-rates = <26000000>, <26000000>, <416000000>;
++	toshiba,hpd-pin = <0>;
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@2 {
++			reg = <2>;
++
++			endpoint {
++				toshiba,pre-emphasis = /bits/ 8 <1 1>;
 +			};
 +		};
++	};
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-ea-murata-2ae-x20.dtso b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-ea-murata-2ae-x20.dtso
+new file mode 100644
+index 0000000000000..92ed69baea452
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-ea-murata-2ae-x20.dtso
+@@ -0,0 +1,56 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (C) 2023-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
 +
- 		pcie1: pcie@10000000 {
- 			compatible = "qcom,pcie-ipq9574";
- 			reg = <0x10000000 0xf1d>,
++#include <dt-bindings/clock/imx8mp-clock.h>
++#include <dt-bindings/gpio/gpio.h>
++
++/* This DTO requires HI00106 SoM variant. */
++
++&{/} {
++	led {
++		led-0 {
++			/* LED0 GPIO conflicts with #SDIO_RST GPIO-D */
++			status = "disabled";
++		};
++	};
++};
++
++&uart3 {
++	assigned-clocks = <&clk IMX8MP_CLK_UART3>;
++	assigned-clock-parents = <&clk IMX8MP_SYS_PLL1_80M>;
++	assigned-clock-rates = <80000000>;
++
++	bluetooth {
++		compatible = "cypress,cyw4373a0-bt";
++		max-speed = <4000000>;
++	};
++};
++
++/* SD slot */
++&usdhc2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_usdhc2>;
++	broken-cd;
++	cap-power-off-card;
++	keep-power-in-suspend;
++	non-removable;
++	vmmc-supply = <&buck4>;
++
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	wifi@1 {	/* muRata 2AE */
++		compatible = "cypress,cyw4373-fmac", "brcm,bcm4329-fmac";
++		reg = <1>;
++		/*
++		 * The "host-wake" interrupt output is by default not
++		 * connected to the SoC, but can be connected on to
++		 * SoC pin on the carrier board.
++		 */
++		reset-gpios = <&gpio4 27 GPIO_ACTIVE_LOW>; /* GPIO D */
++	};
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640-x29.dtso b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640-x29.dtso
+new file mode 100644
+index 0000000000000..8ff313ede7c75
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640-x29.dtso
+@@ -0,0 +1,30 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (C) 2023-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++#include "imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640.dtsi"
++
++&mipi_csi_1 {
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@0 {
++			mipi_csi0_ep: endpoint {
++				remote-endpoint = <&ov5640_to_mipi_csi2>;
++				clock-lanes = <0>;
++				data-lanes = <1 2>;
++			};
++		};
++	};
++};
++
++&ov5640 {
++	powerdown-gpios = <&csi2exp 1 GPIO_ACTIVE_HIGH>;
++	reset-gpios = <&csi2exp 0 GPIO_ACTIVE_LOW>;
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640-x31.dtso b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640-x31.dtso
+new file mode 100644
+index 0000000000000..52cdafa5dd2d9
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640-x31.dtso
+@@ -0,0 +1,30 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (C) 2023-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++#include "imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640.dtsi"
++
++&mipi_csi_0 {
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@0 {
++			mipi_csi0_ep: endpoint {
++				remote-endpoint = <&ov5640_to_mipi_csi2>;
++				clock-lanes = <0>;
++				data-lanes = <1 2>;
++			};
++		};
++	};
++};
++
++&ov5640 {
++	powerdown-gpios = <&csi2exp 2 GPIO_ACTIVE_HIGH>;
++	reset-gpios = <&csi2exp 3 GPIO_ACTIVE_LOW>;
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640.dtsi
+new file mode 100644
+index 0000000000000..4e56547e229ee
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3-overlay-nxp-spf-29853-c1-ov5640.dtsi
+@@ -0,0 +1,64 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (C) 2023-2026 Marek Vasut
++ */
++
++#include <dt-bindings/clock/imx8mp-clock.h>
++#include <dt-bindings/gpio/gpio.h>
++
++&{/} {
++	camera0_1v5_pwr: regulator-camera0-1v5 {
++		compatible = "regulator-fixed";
++		regulator-name = "camera0-1v5-reg";
++		regulator-min-microvolt = <1500000>;
++		regulator-max-microvolt = <1500000>;
++		regulator-always-on;
++	};
++
++	camera0_1v8_pwr: regulator-camera0-1v8 {
++		compatible = "regulator-fixed";
++		regulator-name = "camera0-1v8-reg";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		regulator-always-on;
++	};
++
++	camera0_2v8_pwr: regulator-camera0-2v8 {
++		compatible = "regulator-fixed";
++		regulator-name = "camera0-2v8-reg";
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++		regulator-always-on;
++	};
++};
++
++&i2cmuxed0 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	ov5640: camera@3c {
++		compatible = "ovti,ov5640";
++		reg = <0x3c>;
++		clocks = <&clk IMX8MP_CLK_CLKOUT1>;
++		clock-names = "xclk";
++		assigned-clocks = <&clk IMX8MP_CLK_CLKOUT1_SEL>,
++				  <&clk IMX8MP_CLK_CLKOUT1>;
++		assigned-clock-parents = <&clk IMX8MP_CLK_24M>;
++		assigned-clock-rates = <24000000>, <24000000>;
++		AVDD-supply = <&camera0_2v8_pwr>;
++		DOVDD-supply = <&camera0_1v8_pwr>;
++		DVDD-supply = <&camera0_1v5_pwr>;
++
++		port {
++			ov5640_to_mipi_csi2: endpoint {
++				remote-endpoint = <&mipi_csi0_ep>;
++				clock-lanes = <0>;
++				data-lanes = <1 2>;
++			};
++		};
++	};
++};
++
++&isi_0 {
++	status = "okay";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3.dts b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3.dts
+index 6ad824a7e07e0..a6a8262dc6be3 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-pdk3.dts
+@@ -165,7 +165,7 @@ i2c-mux@70 {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 
+-		i2cmuxed0: i2c@0 {
++		i2c_dhpdk_panel: i2cmuxed0: i2c@0 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <0>;
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-picoitx-overlay-626-100-x2-ch101olhlwh.dtso b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-picoitx-overlay-626-100-x2-ch101olhlwh.dtso
+new file mode 100644
+index 0000000000000..34b060cdeae1e
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-picoitx-overlay-626-100-x2-ch101olhlwh.dtso
+@@ -0,0 +1,77 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2024-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++#include "imx8mp-dhcom-overlay-panel-dpi.dtsi"
++#include "imx8mp-dhcom-overlay-panel-ch101olhlwh.dtsi"
++#include "imx8mp-pinfunc.h"
++
++&{/} {
++	lvds-encoder {
++		compatible = "onnn,fin3385", "lvds-encoder";
++		pclk-sample = <1>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++
++				lvds_bridge_in: endpoint {
++					remote-endpoint = <&tc_bridge_out>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++
++				lvds_bridge_out: endpoint {
++					remote-endpoint = <&panel_in>;
++				};
++			};
++		};
++	};
++};
++
++&mipi_dsi {
++	/*
++	 * This is DSIM PLL frequency, DSI HS clock lane frequency
++	 * is half of the "samsung,burst-clock-frequency" value.
++	 */
++	samsung,burst-clock-frequency = <900000000>;
++};
++
++&panel_in {
++	remote-endpoint = <&lvds_bridge_out>;
++};
++
++&tc_bridge_out {
++	remote-endpoint = <&lvds_bridge_in>;
++};
++
++&touch_lvds {
++	pinctrl-0 = <&pinctrl_dhcom_b &pinctrl_dhcom_h>;
++	pinctrl-names = "default";
++	interrupt-parent = <&gpio1>;
++	interrupts = <11 IRQ_TYPE_EDGE_FALLING>;
++};
++
++&iomuxc {
++	/*
++	 * The following DHCOM GPIOs are used on this board.
++	 * Therefore, they have been removed from the list below.
++	 * B: Touch controller #RESET
++	 * H: Touch controller IRQ
++	 * I: Yellow led
++	 */
++	pinctrl-0 = <&pinctrl_dhcom_a &pinctrl_dhcom_c &pinctrl_dhcom_d
++		     &pinctrl_dhcom_e &pinctrl_dhcom_f &pinctrl_dhcom_g
++		     &pinctrl_dhcom_j &pinctrl_dhcom_k &pinctrl_dhcom_l
++		     &pinctrl_dhcom_m &pinctrl_dhcom_n &pinctrl_dhcom_o
++		     &pinctrl_dhcom_p &pinctrl_dhcom_q &pinctrl_dhcom_r
++		     &pinctrl_dhcom_s &pinctrl_dhcom_int>;
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-picoitx.dts b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-picoitx.dts
+index 703cf0fb3d2be..ac179765d5628 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-picoitx.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-picoitx.dts
+@@ -114,6 +114,9 @@ &hdmi_tx_phy {
+ 	status = "disabled";
+ };
+ 
++i2c_dhpdk_panel: &i2c5 {
++};
++
+ &irqsteer_hdmi {
+ 	status = "disabled";
+ };
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-som-overlay-eth1xfast.dtso b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-som-overlay-eth1xfast.dtso
+new file mode 100644
+index 0000000000000..49cbf3e44601e
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-som-overlay-eth1xfast.dtso
+@@ -0,0 +1,85 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (C) 2023-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/clock/imx8mp-clock.h>
++
++&eqos {	/* First ethernet */
++	pinctrl-0 = <&pinctrl_eqos_rmii>;
++	phy-handle = <&ethphy0f>;
++	phy-mode = "rmii";
++
++	assigned-clock-parents = <&clk IMX8MP_SYS_PLL1_266M>,
++				 <&clk IMX8MP_SYS_PLL2_100M>,
++				 <&clk IMX8MP_SYS_PLL2_50M>;
++	assigned-clock-rates = <0>, <100000000>, <50000000>;
++};
++
++&ethphy0g {	/* Micrel KSZ9131RNXI */
++	status = "disabled";
++};
++
++&ethphy0f {	/* SMSC LAN8740Ai */
++	status = "okay";
++};
++
++&fec {	/* Second ethernet -- HS connector not populated on 1x RMII PHY SoM */
++	status = "disabled";
++};
++
++/* No HS connector on this SoM variant, so no HDMI, PCIe and only USB HS. */
++
++&hdmi_blk_ctrl {
++	status = "disabled";
++};
++
++&hdmi_pvi {
++	status = "disabled";
++};
++
++&hdmi_tx {
++	status = "disabled";
++};
++
++&hdmi_tx_phy {
++	status = "disabled";
++};
++
++&irqsteer_hdmi {
++	status = "disabled";
++};
++
++&lcdif3 {
++	status = "disabled";
++};
++
++&pcie_phy {
++	status = "disabled";
++};
++
++&pcie {
++	status = "disabled";
++};
++
++/* No WiFi/BT chipset on this SoM variant. */
++&uart2 {
++	bluetooth {
++		status = "disabled";
++	};
++};
++
++&usb_dwc3_0 {
++	maximum-speed = "high-speed";
++};
++
++&usb_dwc3_1 {
++	maximum-speed = "high-speed";
++};
++
++/* No WiFi/BT chipset on this SoM variant. */
++&usdhc1 {
++	status = "disabled";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-som-overlay-eth2xfast.dtso b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-som-overlay-eth2xfast.dtso
+new file mode 100644
+index 0000000000000..e773a754477cc
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-som-overlay-eth2xfast.dtso
+@@ -0,0 +1,29 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (C) 2023-2026 Marek Vasut
++ */
++#include "imx8mp-dhcom-som-overlay-eth1xfast.dtso"
++
++/* Dual RMII 100/Full Fast ethernet on this SoM variant. */
++
++&ethphy1f {	/* SMSC LAN8740Ai */
++	status = "okay";
++};
++
++&fec {	/* Second ethernet */
++	pinctrl-0 = <&pinctrl_fec_rmii>;
++	phy-handle = <&ethphy1f>;
++	phy-mode = "rmii";
++	status = "okay";
++
++	assigned-clock-parents = <&clk IMX8MP_SYS_PLL1_266M>,
++				 <&clk IMX8MP_SYS_PLL2_100M>,
++				 <&clk IMX8MP_SYS_PLL2_50M>,
++				 <&clk IMX8MP_SYS_PLL2_50M>;
++	assigned-clock-rates = <0>, <100000000>, <50000000>, <0>;
++};
++
++/* Resistive touch controller not populated on this one SoM variant. */
++&touch_som {
++	status = "disabled";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-som.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-som.dtsi
+index f8303b7e2bd22..9d735a4a36d32 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-dhcom-som.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-dhcom-som.dtsi
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /*
+- * Copyright (C) 2021-2022 Marek Vasut <marex@denx.de>
++ * Copyright (C) 2021-2026 Marek Vasut
+  */
+ 
+ #include "imx8mp.dtsi"
+@@ -398,7 +398,7 @@ channel@7 {	/* Voltage over AIN3 and GND. */
+ 		};
+ 	};
+ 
+-	touchscreen@49 {
++	touch_som: touchscreen@49 {
+ 		compatible = "ti,tsc2004";
+ 		reg = <0x49>;
+ 		interrupts-extended = <&gpio4 0 IRQ_TYPE_EDGE_FALLING>;
 -- 
-2.34.1
+2.53.0
 
