@@ -1,137 +1,291 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010068.outbound.protection.outlook.com [52.101.69.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B9D2376FD
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 19:42:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774554159; cv=none; b=idSPB3MQzhVh9jz5acs35iCq9nspJeBQK4edvu4nRDUmtzOPDeH2WTCuB8HcdgxiHw2L0MVcVjGeE7P8nbiRWvEX13MkQbFy3CKAbNyoesCF+eDCNqLuTzvIwm/vUeDaSDw7atfRMwZto9qt1L+P/8HKy+25iQ6jydoE9s2Ghvw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774554159; c=relaxed/simple;
-	bh=Y2ZHozORnLfqvKi2dwhQTPb5sPuBtjKNxVIRQIiOzsg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ABhiy8SSQDiTjS1n1Ls8HjOKb/TNQoyb1SUushqNr+jM7ZjryAzeKQbxAMdyUAVKK1b2uHEmyuP/Q5UQvU86/Ngi08DGxM/hRDamdAHvLZVB3X1wuJKSW1yJVHTvnu2vbnwvLraX9Ra2dOEpzH5kaNWTv+4bp0q1IDbfhTjM7sc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZLbLVLgv; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB9B925F99B;
+	Thu, 26 Mar 2026 19:47:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774554440; cv=fail; b=fTQBEwNh4VAfgtRXPW6p3sGWO17XI95yU3Me09T9UPwkQI/08KDGHy5Pxpb0p7RzL3QHKRuRDGRVx+OLyBjRu/ZGEZypMg0JSgoFUnjxLACbeu9JyMiQ5ThWoKaL62CdjWMk5XKqi0hZRJ3MKiqmfa0nQ7zs/vgO+/dy5wkfhM8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774554440; c=relaxed/simple;
+	bh=WK5fxPAdvnIaqYgv6Q3s47YQLY3S6YdjmtgozSCpJjE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ZRwSzmvO2JBDpuOr2EsVnkru9/l8aDup9+1i7IG8Wa1w5Ke0CBhGXLUrrOjtHCF14XI7yrFxutrKC3lVnqLAI3PczTrLlVLMIiAOYJECnryHZxO1qRt2cT6y0dPoFJm1Bm02rf8XEHOEpLUrJSE9mwmC0nnw1rb9TzAZ+RgC3xY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=mszQzplg; arc=fail smtp.client-ip=52.101.69.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZLbLVLgv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C9B6C4AF0B
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 19:42:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774554159;
-	bh=Y2ZHozORnLfqvKi2dwhQTPb5sPuBtjKNxVIRQIiOzsg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=ZLbLVLgvUsqHZKVA1+e3imKCmqIoVEkun5ZRNqM7lbL1EeK45BJ63eP/YP64X0gBA
-	 0fbGQKnS/h8sMuT0HSsszhRY3fO/xwDo3yGNxd9wqqBupGAqjPDOYWM4JO+5VkKrY2
-	 rbk7a+2hjn6RrquDffH43lFRwFN+wS56GYGSqgLM9PzRj1BvplJw5gUEj2llY8NyrT
-	 QhIOGjjRGTOB1FcuuZRqvmv0/4SOEbv+7hi834VtTaKeQx1nkElKWQE37ZwApuN/IR
-	 t3ah8M72NV4upm4AJ95KO7OtNI8Myy1O1sklmXIbTZ3v81aHnBEFNjZpS+RaV2DStW
-	 3g8GOFo1OspQw==
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-b97bca3797dso212702966b.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 12:42:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCXXEoWFI6kmwXfvRYIWeQQScqEkp1ew+OoWY4mU7Z6RajXfq6nqwEY2tHk2h4qmO6x7G7OZljL5iNz3@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw17U6QhleofDo4/PEOkT+CRu23YKhcqCAagRB1oGpGP/82DACW
-	vRPJiEg5gu/8Zo8O9ION2/uZdZy9Sg00CjqZbCAxUkA7LkYTCy0lb5Ju6gx9HgMHFZYdM6swx4H
-	NHFyXVHiSMds1b1/J4ZFzILLQ0OCIIg==
-X-Received: by 2002:a17:907:3c96:b0:b98:49d:7e37 with SMTP id
- a640c23a62f3a-b9a5427e5a8mr665511866b.44.1774554157684; Thu, 26 Mar 2026
- 12:42:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="mszQzplg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gKBCLcMqDSwhLLBB5uxOZxxwJgFjiFRwIvhajliswt4Dui9fFmLy35bsEUqA9/F7jd/gOP/zuX+8g3FQ7/Ay883R4fpdO+sriEt8fdTh1yCH9ldyTQDTi/9eH0cWTUumdnrhU9YGUg2goZNyKisCL4FD3ot/+XI1YlrmHk61UaOpyAkcPzqxipPqh71ntqag//Qz/CTVpyq1DgWmn87A/ite1Xl/4tCHj5ycwWEY/hzeHb0MI7be5CQv9j9WmuSD8VAZgHgvVxvhImZIHa1w8NqETFiTYCcgmBPRkuolDWbj/pHJAVOhKQhA2kGyjPJy5gGsHxjLNbj8EnBQ4r9S0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VLIzwB5kEFGI/DvTT0q7RQouEwYDVjXCy7eU0mMpxo0=;
+ b=m2ZOjZNW1aHiv04rIuSdzgSgeIJUNniem4hlT8X5pguuByu7+ZyV5uKLX7zBjx+HTlBANSSTUJv2WOXz95s57WhWMD9H+zkve8NMmmiZ5m/z+VL49Mb6lfA/VPzeeTdNtADCxVWpDiPTrK+IYO51HfAcdXR8mhz9c3UunGr6NP4752skKNz8tX0Zyde0HtakNmUbqr3rC1nwGlAdenmRMrLFJtN5KT7sAm2D4bOQbGuAMvLOHCZDsFeW0iQEd7AjDjADsHaL8bRhbvW3CqnZLX+AzFcyJF8bFAD9KEdW3A5izy27EK4jjsWqSgJ+nOtuNeYACU6IR/kmZjUhCeQvAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VLIzwB5kEFGI/DvTT0q7RQouEwYDVjXCy7eU0mMpxo0=;
+ b=mszQzplgjx1CfbQLOYqCM+8uhUQNo8bVjzKIQqfSztao0TJr5pzd6c4l6rWCCHPy4AyJrxA/U6nLzNQ2dwGC+xsBnT9h7YexTtN2ODfXi1T46Ivt6AkXPoi7Cw4im7slh/yhgxgfF9XJcDyxGeRxDKLgVEzTkGbUBtu3mdjcz73/MYs9lft7et3f5QAiTSFyMppZDoK2tP4VYmf/a/B5OlI5ZQ60vjJZbqm9GFTbQQQuSJMkepvbcEZUUA5bODFWUXgc6R+PGgFuOwTfAw9YsSGDlgl7kUsm7EwUm9yw2WXKA4AVZ9uf5grLy9Y9oa2XoJ93J6r0DXD/pBijgNQO6w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by OSKPR04MB11368.eurprd04.prod.outlook.com (2603:10a6:e10:9e::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
+ 2026 19:47:14 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9745.022; Thu, 26 Mar 2026
+ 19:47:14 +0000
+Date: Thu, 26 Mar 2026 15:47:06 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Peter Rosin <peda@axentia.se>, Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Haibo Chen <haibo.chen@nxp.com>
+Subject: Re: [PATCH v4 3/7] pinctrl: extract pinctrl_generic_to_map() from
+ pinctrl_generic_pins_function_dt_node_to_map()
+Message-ID: <acWNOhnBvA5l9NW3@lizhi-Precision-Tower-5810>
+References: <20260325-pinctrl-mux-v4-0-043c2c82e623@nxp.com>
+ <20260325-pinctrl-mux-v4-3-043c2c82e623@nxp.com>
+ <20260326-concur-eel-3e0b3d91e00a@spud>
+ <20260326-poncho-expanse-d30a9eded8e2@spud>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260326-poncho-expanse-d30a9eded8e2@spud>
+X-ClientProxiedBy: PH7PR10CA0016.namprd10.prod.outlook.com
+ (2603:10b6:510:23d::8) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260305-rk3588-csi2rx-v3-0-754473981f39@collabora.com>
- <20260305-rk3588-csi2rx-v3-1-754473981f39@collabora.com> <20260325210634.GA3963190-robh@kernel.org>
- <703bcf13-ab45-4e9a-b80c-80911d85d819@collabora.com>
-In-Reply-To: <703bcf13-ab45-4e9a-b80c-80911d85d819@collabora.com>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 26 Mar 2026 14:42:26 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqLy4=z24-RrJWLp3hPpTwYLJ8=ehRw8cRdhZiW-eAsYCA@mail.gmail.com>
-X-Gm-Features: AQROBzAHITEw9UIh2Vq6i4lzrBpyx12hq94f54-wyHg8H8rls8eAXLegvhqv8Gk
-Message-ID: <CAL_JsqLy4=z24-RrJWLp3hPpTwYLJ8=ehRw8cRdhZiW-eAsYCA@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] media: dt-bindings: rockchip,rk3568-mipi-csi2: add
- rk3588 compatible
-To: Michael Riesch <michael.riesch@collabora.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Frank Li <Frank.li@nxp.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Kever Yang <kever.yang@rock-chips.com>, 
-	Collabora Kernel Team <kernel@collabora.com>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|OSKPR04MB11368:EE_
+X-MS-Office365-Filtering-Correlation-Id: cbbd8a41-5df6-4896-e576-08de8b707a81
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|376014|1800799024|7416014|52116014|366016|56012099003|22082099003|18002099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	L140J1Mu5+6B/johF89xk3yauB3eM2KlqHeylYEUPcvDyDABB3ZrUrZVwLPOSkNIkUdCeGUJJDvasLCZJT5h3nypg1yuZjYSAT8K/EBPCY78GCl/6sfoLxZrx98KxXqD8a1yOvpBSWRaAVvma3sKSTK4HbkH3w40iFKE6X5FNDRbkUeGrQGO/3Weldz48z00DXrKomGfmmJtLr32lYGpXPKB7zE/3sSgGzYF9TYtHPgS3VoduForIQERUY70f3zE2BuEfnkpzwKn6vfjnCCYq+u+AvocZPH+ZfpvTApbSPKPjfrvvHQRaoAENT+07YrkJC4YaVo5G18NBYGJq+J9td0KYvbEWm/QLx7HehUNAQ6iI+tUS0dbBCtDjtXO/0qefatxPX7+9fZgFyGXlDZLEvuiRtc1Msy5+NCPb/AqVp8DdXvhNGUWFfTSBLSxDTJj6FnKKWp3EtKqOyDzMqYYs6wN2c8YUwmlQLZsX8KzoQnm4ivs0V+6D/3/UeHyoAXSZm55b6Xw3zf9XSe4+GcJMbqKmQub4CTvUUR7aMd6BP64TUCaIT0w13sKfemtJmYxhDg0ZoZCW/GUYvsC+E79lDqMjniRZ6SBN+f/WVMCWf/XBBv2wZhlVoZSX5fARl/ESEn5wLatx0hMLNcl3RMmY/W0b6x/2xnH6ribS0rH///k7qlO3tLjzxm3mfPmzSjFULtiHaRXTBYxVt8TMuik+VAWzWWX1asqnPqbcMoebhZ2KFy57csuagPXAVD+aAv1OkvRuolJ4aut3suF5nsXgBFGDXvaP2NOqtUn2pzk2NU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(1800799024)(7416014)(52116014)(366016)(56012099003)(22082099003)(18002099003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?z1OT0MV72s1Gou/+mw/lx/b2fMONEjCrC+XziZZ2C34NOOfsNvsT72TeaL1z?=
+ =?us-ascii?Q?wUdyqGd1zWy9vCHhgQ/9/vA4mGtCTxSg2NkgA0lJCjLXIi+kfxFWsx471XgN?=
+ =?us-ascii?Q?yl216SETG5DcoffrYpPW2x0h+7RFuAw9sFaLHKV9MyryVMOexgOUI6ov+xUE?=
+ =?us-ascii?Q?ipNHj98QbigQVc0nlZQG+4or0sXNgB1m1oDPe1RW/wikg9D5Lf9qOablVdgt?=
+ =?us-ascii?Q?wbve0jtrrXc6g7iRj5TEQ/x7RHbaDOLfXXjroQFIZH/dPmHNaBQaXaHvNJeB?=
+ =?us-ascii?Q?wx1cTXM/dn9xKak7GX635jJxRHLyuk9h7DwB5z7TINUWbYoCKiPFJdsQynqX?=
+ =?us-ascii?Q?FeIIbpjxylBbcGLLs46EKzv9LRzDwuF9r2FTy+A8DQ1vl+LnOhjyudVR/0Gw?=
+ =?us-ascii?Q?EL50hea+MiYafzmn8u5qRKXBh2SmrZl1ldyNQAZrApOrU3Y1yvo7t7+sQS9t?=
+ =?us-ascii?Q?UE9rI065D9YSFjQHE70ylbzaDUiLEEz7ZS5+2VwgFgiUqRJScW2YcsmkvsMt?=
+ =?us-ascii?Q?4qA+ji7yAlSl280YO3JngobXaFvWz+bmd/g90rwfGrWsjMxSlXDqMwQiypb5?=
+ =?us-ascii?Q?KWwFoYY9h/iUx7mRhTIRm7sOtdfrcIgTDfQtllhABGSN1IBPjw0fmEKhCREy?=
+ =?us-ascii?Q?p5ZcOs9/oXmbQyY1AkfxqTXzHH/8IVk2PdYePHC8gCmJAevKQ4lLWGCk+SqU?=
+ =?us-ascii?Q?bUxV2hx1/mzJpsCKK+FAnq3vBGqNco2ssNfPnOxdGSMI1H/S+ZeHX2ZnaxJb?=
+ =?us-ascii?Q?Q8bo/k2mreTy9UyBUVtK8LdDhMiGsDvpyfmmjNo22on4kFFuGITtu/iTzQ7G?=
+ =?us-ascii?Q?GH/YpHm2s2Uw9zpfhQgcJoXRKIq5KbTHEp6+GnP463+e1oWHma3962nJtXi/?=
+ =?us-ascii?Q?j5g6pY7DJU0ZD/AGPhtt36A413eTISwhz0z0AP/T39To+VGh/gOi6nsIUSkw?=
+ =?us-ascii?Q?kW24h41F0qXiM+FytosMmoG9wLvR66/XxSgXcFbBPsafoygNdG8kBjDm7Lz2?=
+ =?us-ascii?Q?TUKjO4MAeLRuS0vXhdqcfft0ozj5cpcGpdXH2at/W1rnTD3gUGWjVA0yZNtS?=
+ =?us-ascii?Q?VdV71dwjrqcnIqS/CI2K9OPMLo4VO2uVwLf95StxAt0MGPoWLZq3IlyrdNQn?=
+ =?us-ascii?Q?OecjJsI+EYZDwBI+Wor5jhsR0xuAvENtVIcBo4nCT0ybIAwJfc84HE8dXp9N?=
+ =?us-ascii?Q?7Qn/5AsLNLyR5oo8KtzjorU0INEsAYSkHBqBbcg+Cyb1xjzWaMJMKTxZ1jUE?=
+ =?us-ascii?Q?Kmqzny4rwXF6xCuoG+lfinNP46E4tzCQLT7f+/WKgUu8SG1viZLYvinYxaDK?=
+ =?us-ascii?Q?gBPf6Ozqf9pf3IYT8xZycgQ+ZA7f86SqoYD1YT2FaeJ3RD1Bpe5FU3rp7YF4?=
+ =?us-ascii?Q?gqn+cW98XEKpIimMHYKO2hWAHnlJvmK9CRxmqSYmYu9VVWDEDgpn69/cl96d?=
+ =?us-ascii?Q?cdH8ZU6QZN17qPiA/YBeWb6yqh/i7p30oPgiuoj7pvuDG9RTVe6f/I2Ffpav?=
+ =?us-ascii?Q?xy6jZuI3QzOMnocRIP+Y0XfkQkBBYqPz0mdNNRooF5IfrmXvRWq1mVaIP4Iz?=
+ =?us-ascii?Q?8her54qchJr3qvrsxw82uAymrzGzqqaDKKbL+RYrv+a8pOHKAXnpKbNautlV?=
+ =?us-ascii?Q?Mkt5rGpvelNFZDL15OepAlw9890N4h1luIKvsWZ13nWTsO4OlN9dDcUpDRDg?=
+ =?us-ascii?Q?gziJsSqEditwRv9WxC9qIQ30HmHNVohzCkpsalQTt5fIFrgI?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbbd8a41-5df6-4896-e576-08de8b707a81
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 19:47:14.2393
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NEMmM+ZWr2YSSg5nJulsEvj4h49OEiajs+X/vTQUlTyx2SX6F2B0aJ8ugt+101IBWI7CMGhHXYb5oZ/Jm3fEWQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSKPR04MB11368
 
-On Wed, Mar 25, 2026 at 4:34=E2=80=AFPM Michael Riesch
-<michael.riesch@collabora.com> wrote:
->
-> Hi Rob,
->
-> On 3/25/26 22:06, Rob Herring wrote:
-> > On Wed, Mar 25, 2026 at 11:25:34AM +0100, Michael Riesch wrote:
-> >> The RK3588 MIPI CSI-2 receivers are compatible to the ones found in
-> >> the RK3568.
-> >> Introduce a list of compatible variants and add the RK3588 variant to
-> >> it.
-> >>
-> >> Acked-by: Rob Herring (Arm) <robh@kernel.org>
->
-> First of all, apologies for applying your Acked-by tag. I figured
-> resolving the merged conflict was trivial and impossible to screw up, but=
-...
-
-No worries. I would have kept it too.
-
-> >> Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
-> >> ---
-> >>  .../devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml   | 10 +=
-++++++---
-> >>  1 file changed, 7 insertions(+), 3 deletions(-)
-> >>
-> >> diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-m=
-ipi-csi2.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-mip=
-i-csi2.yaml
-> >> index 4ac4a3b6f406..3d3b3cd78884 100644
-> >> --- a/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi=
-2.yaml
-> >> +++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi=
-2.yaml
-> >> @@ -16,9 +16,13 @@ description:
-> >>
-> >>  properties:
-> >>    compatible:
-> >> -    enum:
-> >> -      - fsl,imx93-mipi-csi2
-> >> -      - rockchip,rk3568-mipi-csi2
-> >> +    oneOf:
-> >> +      - const: fsl,imx93-mipi-csi2
-> >> +      - const: rockchip,rk3568-mipi-csi2
+On Thu, Mar 26, 2026 at 06:55:01PM +0000, Conor Dooley wrote:
+> On Thu, Mar 26, 2026 at 06:52:12PM +0000, Conor Dooley wrote:
+> > On Wed, Mar 25, 2026 at 07:04:12PM -0400, Frank Li wrote:
 > >
-> > These 2 should be a single enum as they were before.
+> > > diff --git a/drivers/pinctrl/pinctrl-generic.c b/drivers/pinctrl/pinctrl-generic.c
+> > > index efb39c6a670331775855efdc8566102b5c6202ef..20a216ae63e91b69985ea4cfcd0b57103c6ca950 100644
+> > > --- a/drivers/pinctrl/pinctrl-generic.c
+> > > +++ b/drivers/pinctrl/pinctrl-generic.c
+> > > @@ -17,29 +17,18 @@
+> > >  #include "pinctrl-utils.h"
+> > >  #include "pinmux.h"
+> > >
+> > > -static int pinctrl_generic_pins_function_dt_subnode_to_map(struct pinctrl_dev *pctldev,
+> >
+> > > +int
+> > > +pinctrl_generic_to_map(struct pinctrl_dev *pctldev, struct device_node *parent,
+> >
+> > Can you drop this stylistic change please? The
 >
-> ... hm. Well.
+> Whoops, cut myself off. To be clear, what I am asking for is to keep the
+> "int" etc on the same line as the function name. This function is new,
+> but you did it for the existing function too and the comparison is here.
 >
-> First, do you mean
+> >
+> > > +		       struct device_node *np, struct pinctrl_map **maps,
+> > > +		       unsigned int *num_maps, unsigned int *num_reserved_maps,
+> > > +		       const char **group_names, unsigned int ngroups,
+> > > +		       const char **functions, unsigned int *pins)
+> > >  {
+> > >  	struct device *dev = pctldev->dev;
+> > > -	const char **functions;
+> > > +	int npins, ret, reserve = 1;
+> > > +	unsigned int num_configs;
+> > >  	const char *group_name;
+> > >  	unsigned long *configs;
+> > > -	unsigned int num_configs, pin, *pins;
+> > > -	int npins, ret, reserve = 1;
+> > > -
+> > > -	npins = of_property_count_u32_elems(np, "pins");
+> > > -
+> > > -	if (npins < 1) {
+> > > -		dev_err(dev, "invalid pinctrl group %pOFn.%pOFn %d\n",
+> > > -			parent, np, npins);
+> > > -		return npins;
+> > > -	}
+> > >
+> > >  	group_name = devm_kasprintf(dev, GFP_KERNEL, "%pOFn.%pOFn", parent, np);
+> > >  	if (!group_name)
+> > > @@ -51,22 +40,6 @@ static int pinctrl_generic_pins_function_dt_subnode_to_map(struct pinctrl_dev *p
+> > >  	if (!pins)
+> > >  		return -ENOMEM;
+> >
+> > This looks suspect. You've left the pins allocation behind:
+> > 	pins = devm_kcalloc(dev, npins, sizeof(*pins), GFP_KERNEL);
+> > 	if (!pins)
+> > 		return -ENOMEM;
+> > but pinctrl_generic_pins_function_dt_subnode_to_map() has already
+> > populated this array before calling the function.
+
+what's means?
+
+pinctrl_generic_pins_function_dt_subnode_to_map()
+{
+	pins = devm_kcalloc(dev, npins, sizeof(*pins), GFP_KERNEL);
+	...
+	pinctrl_generic_to_map();
+}
+
+pinctrl_generic_pins_function_dt_subnode_to_map() have not use this array.
+
+Frank
+> >
+> > Also, this should probably be
+> > Suggested-by: Conor Dooley <conor.dooley@microchip.com>
+> >
+> > Cheers,
+> > Conor.
+> >
+> > >
+> > > -	functions = devm_kcalloc(dev, npins, sizeof(*functions), GFP_KERNEL);
+> > > -	if (!functions)
+> > > -		return -ENOMEM;
+> > > -
+> > > -	for (int i = 0; i < npins; i++) {
+> > > -		ret = of_property_read_u32_index(np, "pins", i, &pin);
+> > > -		if (ret)
+> > > -			return ret;
+> > > -
+> > > -		pins[i] = pin;
+> > > -
+> > > -		ret = of_property_read_string(np, "function", &functions[i]);
+> > > -		if (ret)
+> > > -			return ret;
+> > > -	}
+> > > -
+> > >  	ret = pinctrl_utils_reserve_map(pctldev, maps, num_reserved_maps, num_maps, reserve);
+> > >  	if (ret)
+> > >  		return ret;
+> > > @@ -103,6 +76,54 @@ static int pinctrl_generic_pins_function_dt_subnode_to_map(struct pinctrl_dev *p
+> > >  	return 0;
+> > >  };
+> > >
+> > > +static int
+> > > +pinctrl_generic_pins_function_dt_subnode_to_map(struct pinctrl_dev *pctldev,
+> > > +						struct device_node *parent,
+> > > +						struct device_node *np,
+> > > +						struct pinctrl_map **maps,
+> > > +						unsigned int *num_maps,
+> > > +						unsigned int *num_reserved_maps,
+> > > +						const char **group_names,
+> > > +						unsigned int ngroups)
+> > > +{
+> > > +	struct device *dev = pctldev->dev;
+> > > +	unsigned int pin, *pins;
+> > > +	const char **functions;
+> > > +	int npins, ret;
+> > > +
+> > > +	npins = of_property_count_u32_elems(np, "pins");
+> > > +
+> > > +	if (npins < 1) {
+> > > +		dev_err(dev, "invalid pinctrl group %pOFn.%pOFn %d\n",
+> > > +			parent, np, npins);
+> > > +		return npins;
+> > > +	}
+> > > +
+> > > +	pins = devm_kcalloc(dev, npins, sizeof(*pins), GFP_KERNEL);
+> > > +	if (!pins)
+> > > +		return -ENOMEM;
+> > > +
+> > > +	functions = devm_kcalloc(dev, npins, sizeof(*functions), GFP_KERNEL);
+> > > +	if (!functions)
+> > > +		return -ENOMEM;
+> > > +
+> > > +	for (int i = 0; i < npins; i++) {
+> > > +		ret = of_property_read_u32_index(np, "pins", i, &pin);
+> > > +		if (ret)
+> > > +			return ret;
+> > > +
+> > > +		pins[i] = pin;
+> > > +
+> > > +		ret = of_property_read_string(np, "function", &functions[i]);
+> > > +		if (ret)
+> > > +			return ret;
+> > > +	}
+> > > +
+> > > +	return pinctrl_generic_to_map(pctldev, parent, np, maps, num_maps,
+> > > +				      num_reserved_maps, group_names, ngroups,
+> > > +				      functions, pins);
+> > > +}
+> > > +
+> > >  /*
+> > >   * For platforms that do not define groups or functions in the driver, but
+> > >   * instead use the devicetree to describe them. This function will, unlike
+> > >
+> > > --
+> > > 2.43.0
+> > >
 >
-> properties:
->   compatible:
->     oneOf:
->       - enum:
->          - fsl,imx93-mipi-csi2
->          - rockchip,rk3568-mipi-csi2
->       - items:
->          - enum:
->             - rockchip,rk3588-mipi-csi2
->          - const: rockchip,rk3568-mipi-csi2
-> ?
+>
 
-Yes.
 
-> If so, what is the practical difference?
-
-First, then you aren't changing what's already there. For validation,
-there is no difference other than failures with 'oneOf' give poor
-error messages. It wouldn't be much better, just one less oneOf entry.
-
-Rob
