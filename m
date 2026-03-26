@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD4A427A13;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DE4D427A14;
 	Thu, 26 Mar 2026 17:31:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774546306; cv=none; b=bUF5E32q8ygwtAJ7SWWIraxivgQk4JVMVEyowHUthT5CxL4mVwGJNkI+JxDLxc5UsS945q3z59pVD/1rU8UG6C8Lus31gYvUGLprSmh+sWK+hzwVCnwcPdmci4D3Dsb0aZ3rvpOOeFQzaBfpa0PDRw22xs/P0A0I11o+YEsr5l0=
+	t=1774546307; cv=none; b=of2mimjTuwJ6zcTcALCch135lzB7MQDBMnaSwZseFyGpG7Ohhbc1bSzsLbuWdN12UhJjQGHY6wii/vTS7iqvZJtryHKoBgab/80M7qsZabu6bcT/Tlgsg6rXXViKXYYX+xillwlCZLswa9y0FkeZFvET4ynwXC3S+xYteikfdME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774546306; c=relaxed/simple;
-	bh=vXSMlfnFJobHWPCmXLs+jZ975SzlTret6G5BHToTXjQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qfvgU8PgbLXFbco6GnIisGLDorRSqFyCvxS/JhtKrtb4Sk4/9pXAt2wHWMdbwZUiIpx5NCFMGfRNSzqtTTFNX6SY99bgU8WchFe6dmc4EEFSUhWroaUyCHbNBjSNTjPO7ILmM+cI3V7RSMuiIRJwKEE2CyEOBeezYPgatEwJFIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Hqf6Uxa2; arc=none smtp.client-ip=148.251.105.195
+	s=arc-20240116; t=1774546307; c=relaxed/simple;
+	bh=ib7f4PTuwY8kPJVoSf2e6nZJwrE7r5uosxSm8TrvvSk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RKJKOKzprptEe1P/vIlD8MiLthoUXFRwm74jeFZ3xsSAPXbbhsv/wRKxyMJOlffFVaMfe8NRFZS2jnSp4+EY8xTUJVXst+Mi+VeKwBGdE5QPZ0eGxLaQfzPbwnG78fPA87KOTZ2OjBsN993uBSalkMi1vUb0A/SE6Wi6XV4aL48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=e9NHhoOC; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Hqf6Uxa2"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="e9NHhoOC"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1774546298;
-	bh=vXSMlfnFJobHWPCmXLs+jZ975SzlTret6G5BHToTXjQ=;
-	h=From:Subject:Date:To:Cc:From;
-	b=Hqf6Uxa2V1Z3nvXD7aSjfaZKYtCFUunhvl+aR0o3ph11xD422+OSpYCQ24gI4Kbe3
-	 XrHrzYUTP0DLqWdcQunO/SAV6MWoBOTrYLAyOF2FXeRf7pdowq2UJUFmqEb8RojHF1
-	 dBDZ8INXnQeM4LDd8wMk2djJzqrrJRTIx3r2mUt3QGbR3VllZvUz3bM/98E4czW2TF
-	 CEfsRBS1NDsC1/6CXC6LFNFxMf5YRjEh8c9GDokQyeK669/oX4UHAXPh327WGHYHTS
-	 k2DnbIX1D/aY69Mvv8pRhuLT1tXM2H2AUbNLnMRMM9RnjZoCOThHmb5DG0ofJ1e2/h
-	 1UF5wgriBb05w==
+	bh=ib7f4PTuwY8kPJVoSf2e6nZJwrE7r5uosxSm8TrvvSk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=e9NHhoOC/tS4QF6dvsQmLl/fSCjHJ7Ar/sftRfUqtINjfevSvGHNvyOkhufYEUJPx
+	 15l9oJJnMO57BtvoF49ywI4Q9WVfGey8nxPKvSx1USG7qqcwF1eZsCt0caMUP1tYIN
+	 yOsESEDcNlt32DxHu0ouyrO/gUMYZd/v9gzznhCzf5qk5FDbGdvAb3TGbyAtkcf9FT
+	 YPZOEiTn4ZP5b/ko8nwmDG2N1AKVwl61S01O3qs18cdZkx/6rzIphWR12OFUwcGg9Z
+	 yiBZAxnLR8OiuYXb7rM1rI4Tyb3vg6F3uWceiRKvDR+Z7dgnGNxVuGoXyHCsavrO/B
+	 TK2dgbaXtfeEQ==
 Received: from jupiter.universe (dyndsl-091-248-208-149.ewe-ip-backbone.de [91.248.208.149])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8447217E6048;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9B20817E6190;
 	Thu, 26 Mar 2026 18:31:38 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 3DA2348002A; Thu, 26 Mar 2026 18:31:38 +0100 (CET)
+	id 4057948002B; Thu, 26 Mar 2026 18:31:38 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: [PATCH 00/10] Synopsys DisplayPort Controller improvements for
- Rockchip platforms
-Date: Thu, 26 Mar 2026 18:31:24 +0100
-Message-Id: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
+Date: Thu, 26 Mar 2026 18:31:26 +0100
+Subject: [PATCH 02/10] drm/bridge: synopsys: dw-dp: Support
+ MEDIA_BUS_FMT_FIXED
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,10 +47,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGxtxWkC/x3MOwqAMAwA0KtIZgNa8XsVcRATNYNtacQP4t0tj
- m95DygHYYUueSDwISrORuRpAtM62oVRKBpMZqqsMCXqbZ3XW5FOJI+y+eAO3tjuijWNhtuG5pw
- I4uADz3L9ez+87wfIOUB2bQAAAA==
-X-Change-ID: 20260325-synopsys-dw-dp-improvements-7da2e98df1dd
+Message-Id: <20260326-synopsys-dw-dp-improvements-v1-2-501849162290@collabora.com>
+References: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
+In-Reply-To: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
  =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
  Andy Yan <andy.yan@rock-chips.com>, 
@@ -68,87 +67,60 @@ Cc: Damon Ding <damon.ding@rock-chips.com>,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2957;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1544;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=vXSMlfnFJobHWPCmXLs+jZ975SzlTret6G5BHToTXjQ=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnFbXngsbl1x0TPdrPLkOGJGsIh3WY7uN0/3
- M/tLY7s0s0oVYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJpxW15AAoJENju1/PI
- O/qasu0QAIio8x0zfbPD9Dlu94zX6PnbJ4xUIHrhn3eRQ4J5aIbNo/ec1gCVM995Ql87krJto/a
- rSeVQEtBJGsJooT3EV/IGAXLJPyGnQdVXNBaHsJ889KEVmkSMzwQy3g8TMnXCROTDlKROsjhi2X
- syExDiVJuIxBw2Q8VmfWZgbiyRoWRNeI1FOaeywFP563dLm6BAfQs31irNtTiMcFdBIwAVrc4CZ
- O85VAidN1lqDjdmdmhnCnhh/dHBwzpmn4os0rfZVt3KOg4jDpoUw6ArE2mwfzgrFU1GHmVwjPVd
- xpISw/eNJybiu03+5sHs10WF20HHIRRp9QVYcZ9ciW2m9u74GyyV/vvTQW1YYNxx/BJ63gX9LjK
- iyj91gqiRRLGVkIaXcoVCo28NteuSKplokYCPuiq4f3EjxYvc0ihzvhXuGTHhG23VMjcibFvXCe
- sK0MT2p1visGr9ub68kpMCaiyvykOxK7DQYcbYxhQgZcYB0ZOxQqxcc2MINyUcf+2in3TXqrR2i
- MY+p67NNqlWRlPJz4iE9xqUqjX+p2dFnY8i2iKtX1Fc2pzkZw9KVWnuSYSwVQXkuAm0J/ACXhPq
- Ym4kR5TPoMe5ny/49BOlmBIUXB2QI+dRF2Fu0fyqgXpTKJM54LQYuuWMcHuegbTUOTkJCeJahLM
- ECDL2wGlb3otSuOdMrD0vEg==
+ bh=ib7f4PTuwY8kPJVoSf2e6nZJwrE7r5uosxSm8TrvvSk=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnFbXmnC95nPls+Yyqj1s1uG/t8PoHbkbItM
+ bGyvgrYUxUvbIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJpxW15AAoJENju1/PI
+ O/qaRRkP/3sVxjoSl1PgF87qI641Ov3TtoVcKAbmcIJqgaXsblfVJwnpBmlL1Mgx9Dz4tO0KuDX
+ lQhaFyKh4KSBnlGtoRK19Tv9/4PRi1XjU7LVwp+GARCJTJeyf8fNmFpZaqyp98NRX9NFNIZpQ6G
+ P0QG2//my/aVFJBYymneWVSOt3h1Q9xX8btrbvFRtR34LGceSD5EkKk7lX5w1phjAnorkGTV08N
+ PXzbqDe+sMKiscKDzVfG8IgoOD1m+bw05XBm2LbbHgyp8VEWAuwDnDz1EHcMV2OI+Ak745UBzzP
+ NCxZ1xCu62N9D3JkQ49MmT+Z+GG1JYbc/ihnlfS3vYBOef0MVGblknVFti/r+icjl48/h3lC+Kx
+ btHavU8mKc1HAUVIbFmG91rmmyw2gK9AnRaGJosbeGc3Y9sZMQUbiRVFKn1srsYclHBXoQHlK8/
+ 2fyuNN1Sn7IQws3bj7QLVW1+Ia5U95O2wrB8DtpArUEM5fB1D7+//FGL33XuRvCECCVF5mK/Wck
+ /QU7KshHx/QzBvGj/upYW1RusnHu8apSh2tthsoEOybCQ86yR3Z2Sss35FI6yfp18Zxjsecmb4u
+ T7r/1u+qQY5LiHtbZ/qajIPhwAxEhrhMWYZjEWsxNB3J40IEo8GaYhn97zQyjjXDRxne32fGiT/
+ 12nDsKJrEgnQuNV3/nPk15Q==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-This patch series updates the Synopsys Designware DisplayPort bridge
-together with the only existing user: The Rockchip RK3576/RK3588:
-
- 1. follow-up bridges (PHY, USB-C connector)
-    this is needed to get USB-C DP AltMode working; I've followed the
-    Qualcomm driver as reference
-
- 2. runtime PM
-    the initial driver has been upstreamed without RPM; add it to
-    avoid wasting power when nothing is plugged
-
- 3. audio
-    the initial driver has been upstreamed without audio support;
-    this adds all missing bits for audio with single stream transport
-
-The series is based on drm-misc-next with Cristian's cleanup series
-applied as I expect that to land first:
-
-https://lore.kernel.org/linux-rockchip/20260310-drm-rk-fixes-v2-0-645ecfb43f49@collabora.com/
-
-To properly make use of the bridge code the following USBDP PHY series
-is also needed:
-
-https://lore.kernel.org/linux-rockchip/20260313-rockchip-usbdp-cleanup-v3-0-3e8fe89a35b5@collabora.com/
-
-There are two parts, which possibly need some discussion:
-
- 1. I added a dedicated bridge callback for out-of-band hotplug events,
-    which is separate from the hotplug_notify. I have a feeling, that
-    there might be a better solution, but haven't found it.
-
- 2. The DT binding for audio support - explicitly marked as RFC - works
-    perfectly fine, but is not ready for MST. I don't intend to
-    implement that right now, but the binding should obviously take it
-    into consideration to avoid breaking it in the future. I've put
-    some points for discussion into the relevant patch.
+Add support for MEDIA_BUS_FMT_FIXED, which is e.g. requested for USB-C
+DP chains as the last bridge in the chain (aux-hpd-bridge) does not
+implement atomic_get_output_bus_fmts(), which results in the generic
+drm_atomic_bridge_chain_select_bus_fmts() code using MEDIA_BUS_FMT_FIXED
+instead.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
-Sebastian Reichel (10):
-      drm/bridge: synopsys: dw-dp: Simplify driver data setting
-      drm/bridge: synopsys: dw-dp: Support MEDIA_BUS_FMT_FIXED
-      drm/bridge: synopsys: dw-dp: Add follow-up bridge support
-      drm/bridge: Add out-of-band HPD notify handler
-      drm/bridge: synopsys: dw-dp: Support software triggered OOB HPD
-      drm/rockchip: dw_dp: Implement out-of-band HPD handling
-      drm/bridge: synopsys: dw-dp: Add Runtime PM support
-      drm/rockchip: dw_dp: Add runtime PM support
-      [RFC] dt-bindings: display: rockchip: dw-dp: fix sound DAI cells
-      drm/bridge: synopsys: dw-dp: Add audio support
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
- .../bindings/display/rockchip/rockchip,dw-dp.yaml  |   5 +-
- drivers/gpu/drm/bridge/synopsys/dw-dp.c            | 284 ++++++++++++++++++++-
- drivers/gpu/drm/display/drm_bridge_connector.c     |   6 +
- drivers/gpu/drm/rockchip/dw_dp-rockchip.c          | 167 +++++++++++-
- include/drm/bridge/dw_dp.h                         |   6 +
- include/drm/drm_bridge.h                           |  14 +
- 6 files changed, 469 insertions(+), 13 deletions(-)
----
-base-commit: 0660ee19141e5e90b422b7daa0d8518a8d0d898b
-change-id: 20260325-synopsys-dw-dp-improvements-7da2e98df1dd
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 8f2739fa189e..222862d962d9 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -1528,6 +1528,7 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 				     struct drm_connector_state *conn_state)
+ {
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
++	unsigned int out_bus_format = bridge_state->output_bus_cfg.format;
+ 	struct dw_dp *dp = bridge_to_dp(bridge);
+ 	struct dw_dp_bridge_state *state;
+ 	const struct dw_dp_output_format *fmt;
+@@ -1538,7 +1539,10 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 	state = to_dw_dp_bridge_state(bridge_state);
+ 	mode = &state->mode;
+ 
+-	fmt = dw_dp_get_output_format(bridge_state->output_bus_cfg.format);
++	if (out_bus_format == MEDIA_BUS_FMT_FIXED)
++		out_bus_format = MEDIA_BUS_FMT_RGB888_1X24;
++
++	fmt = dw_dp_get_output_format(out_bus_format);
+ 	if (!fmt)
+ 		return -EINVAL;
+ 
 
-Best regards,
 -- 
-Sebastian Reichel <sebastian.reichel@collabora.com>
+2.53.0
 
