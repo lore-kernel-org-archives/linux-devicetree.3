@@ -1,181 +1,165 @@
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8AF2DB789
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 15:34:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853DC2C08AB
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 15:38:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774539276; cv=none; b=dDBTVB3ur/o1AyYHy5G7lmq28EdtUmnlGVhz5Dh1nfzarF1jwN8mRaWpOttIscoj/59Elal3adEwhLy6OYqRTjTFIpO79INmiuf/V/IFTtBItrbs6RX7HIXAkpe6C7VZwnvYnAeV6dT3HhnaoxSg4gOmXyH//N8l7Zp80PUFG68=
+	t=1774539492; cv=none; b=Re0J9QFo21Btz2rEAJVA55OtwkwxjdA1+oSzDXFpfkj9KK/sv/ZRAPqp0X1+gq6wwu0WyxQnx5VgR6HwY3W6NmUG0SsU6U4FRO2Mia/Puhhasg+4Kvozi405mkm4yGhVPNhIA2JjtCEXT7j1oennYH9/2TpQDywU4C3U2m3NRVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774539276; c=relaxed/simple;
-	bh=peWwslY60X5deNxQgqJv7OYyoSx6v0JNvTUpeeVZ1q4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Q1qG6eyINCnOqmjrbV3hx3dp6aQ7P8GWZ14RL/oazW3dxLA5nvDscX/5CHMwB07XxTSd2KPgiqoukmclYAakkW0C1FkEDCNN2QQZNr0uSLUhHNXmgXWKTZZThb2gPxHNvW96bTytOieIRDVjH1dQGWV3sgyi6iQXki+vyORz5Gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-94de68feaf4so691139241.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 08:34:34 -0700 (PDT)
+	s=arc-20240116; t=1774539492; c=relaxed/simple;
+	bh=lLSeniYsoBWSndP75E4zyqs5qfewY+ASCyHOj1CT8U8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BKn6UyCuVHQDLV7czyjG+rLzVKpG+ywbd8Js5sapeylftsuyJ3F2AWSKNV0Fg1nIN4Ptjs8BeAskT2eh1LgplnkdIfx70dE3G0RWcIUenTif6p0P7dSIqMZcF84eH5rEQLDamQc8PT8FTia3pRSNdwdRSwu0x0V2241iFTeO7DM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YJr2l14T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TT4n3Gql; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YJr2l14T";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TT4n3Gql"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62QFA4CO2878484
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 15:38:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	5YPFl1KJhjzK3rxoLoSivtVJTdJfjHKNGOAignUCRoY=; b=YJr2l14TYxduuMEn
+	/a1mL1NhjtrlkXCweoa+FA0vKAjJPisdslUIEUsmX/NVoytBHrSrn2dmKwfQqM6q
+	pIEj5mTPV39/2L5qr+ABhqoSblO2HDm60V8tXZZ8uJYq6lNNVf4RGlFfbSmfzuIE
+	k3o4Gtij56snABpnUEaLKR36d2s+cUpruP2IsUGEFlEz0NaN5K5LRjkz4FoDg3qm
+	VQT2nUnot4qDO6i5XGQoXwI/aez4TJVmLdRM90ZeEzYmZpiah95S6xbmwPPDFS73
+	IJfjBG7GugnTFwJggCKOllWhXfMTAM+N3iwPgMusOJ+eUXF8TLuZq/b6TBEwjkmT
+	sJofkg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d4q093fk4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 15:38:10 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5093025ffecso34348351cf.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 08:38:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774539490; x=1775144290; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5YPFl1KJhjzK3rxoLoSivtVJTdJfjHKNGOAignUCRoY=;
+        b=TT4n3GqlnRkA7AeNSNNeJmkF3VTwmR8iubo6w9tUMV2z+3APNfGQAO1AdnSRmioku8
+         hk1d5eBGYTM9CoRveFRY7jAdvydeev1tyz+aWyPfdU/eNS17oQEM9FEej6S2wJTja/pP
+         L8epo4yTOh6VEL4/xifb4RMcQSO7obTKKOXbK3uW9723KoyFiWWgmRoC62xcDyqXivFR
+         ISBr+MBClcuDAXUVSuNRsZ1MwtiLTpgI/Gk7PJqVQm8ZwJ97EyXP9GLiqXkDKtKL5Sx9
+         Rf6O2npEME73VoVPkYkTWI/wDmOjEUAmq1jTLgWL9kmBiKh9mufNQ0Sk4ts24DFJvZC1
+         0vaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774539274; x=1775144074;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ICY5En3i4NzNQi5qrag5c9s0SZbURVLCotK2DvpExx4=;
-        b=YWbgZwarmx45PTYhNW1ufPb+XVaEbq5YMT+G4mzs1QZWCBCxYueVP6BuVzck9RmWAj
-         ymcvq+Y0P6yKmu95MC3NfTjt2VL1Ao3sXCeSnAzXlX9uvGDL7mwKpTd2E0fsqZD4C4sT
-         sHYCxZBkd7MpQ+4PZPWA3oRAL2CRyQE6pQgZ1K6r4H4U/w2uk9TxaqqyRAtucTHp2pES
-         bw0U80k67NJFXzXgDPZKWd4S7e1VOfsMhQNRG7qAE353lbYGpkIVxY3I1VCqeHh+i/IK
-         hv+0iVjUZ0HFivsl3ud5fZDFgqFzkcNUM7TCQ3Z0/ovNnakSDIJMSPxGUqjiS1zgy/dR
-         XOxA==
-X-Forwarded-Encrypted: i=1; AJvYcCUmWxORk8MQOxs1S/7mwpoaDj3akcyVThx7icNAvEAzSW2IMpxuEYRHMTkyk9zs7Py2GmCL6IW8JeND@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzqr6WkrD6pJgd4D7Pk54bF2ZINh+WyietVREl9lMNIaSjji7Ng
-	sr05D827SPHBRg+MjOeyO4AUXCQoIapuFNsY2R8rM+JdCPm11M8V44K4gTEV1nKoO0s=
-X-Gm-Gg: ATEYQzwWo5Dly2uTgBB0ng25JfvdxBTLiGr3gmJuyiRITFMwId4nCp8gqJM6QVePktv
-	3wsx56TAiCJlnC2vPhRzREb4n85/ynCQUpeBszM1INlyM3zdmQbPQ16zLgVEVIe+7YI+Iwn6wx8
-	7rgInrD2/N8clzfvEMQAWZxRQxaWT+HpFTwduH+U/xBiDmutQYmb5JnJ2CWcmoHkW00R596eEDj
-	WA5+yw+oQGt673ep8N9xX2ohpqNGnc55dhxBcC3sdkbyXsIZ+WhBwiOkNuV/ObjjoxyDQ5DU2zC
-	BreMjOVXaEQ2fqkv/yfZKawH9OJlJ2XLm9hweh8a2KrdeJZwwrl7Y+LO7F9+AjqY7lB2+jF11bc
-	v5vqov/tuUw+54d6OeDWZxjyouiJVesid+By+qE8ouO1ZvrWhbeI7oXAfcRD+CTAdB88iId1Rxe
-	fP+CUqZxHzNSHIgj+o9iIDMVQTMAq2aaf3h8MPZoE2WONkFYBmKLFAUXgKKnBLVaTP
-X-Received: by 2002:a05:6102:3a0c:b0:5ee:a0e6:a9f4 with SMTP id ada2fe7eead31-603870ce0bcmr4281069137.12.1774539274043;
-        Thu, 26 Mar 2026 08:34:34 -0700 (PDT)
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com. [209.85.221.180])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-951be1065ffsm4155962241.2.2026.03.26.08.34.33
-        for <devicetree@vger.kernel.org>
+        d=1e100.net; s=20251104; t=1774539490; x=1775144290;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=5YPFl1KJhjzK3rxoLoSivtVJTdJfjHKNGOAignUCRoY=;
+        b=roDZoQACr2WfrzdkD4ssH12Oh8+FS/bmv5y4sajlKoJjXGg62r1NdTa5bqj/93f7fd
+         L5Yl9FmFQVZP1lRoPryaJupwG5wKxvueuXw7ewdv1K4ypbC4LM/7xInFn06ZL1TyZEZN
+         XnZaHJKSo4AUh0ss4sqZx5k8W8DhLQRDtb1P/eO/i0QoWiYjeiznOiJhAG5nKH9iDWTz
+         +/+lbWnCaQYN1mAt1QT36vMWtVfgT3T6TLL/U/w8XyN0jcSb6+WVM1d1MqIy8mTIz9Y8
+         lz5twlnSmkRM4uE6kQRthCqVCB29uBbuEOoBCcF5rioieMYZlbuSvaFq2jaYUg0JNreM
+         6QDA==
+X-Forwarded-Encrypted: i=1; AJvYcCXJ25O6KA4yAiej4379m8OVo93f7QiWHTqbTp1WrNDpM3aw8xKJhHTiuy6hhMIzFL01lGdijYQvfB2f@vger.kernel.org
+X-Gm-Message-State: AOJu0YwbHv8c5CKmacpticZ6P9MbImte57rCFqsCVWAQJ4GdCjGYDRqZ
+	Uo6wlrSF3/E9XGUKb9N0WTmleqJjanXYZ3P8DLkxleRFRCVlwDNb3B370Yb7hgV/IMLptmPEGkd
+	1pUm4TkzAtKB+vgNQYul7WUz+frjcepRmwmE8/imGukXkkLGhNtILQtKiRxJkQUBzX7UfgF+C
+X-Gm-Gg: ATEYQzzCa1MAL8rMmQ1cYHJsWbO//teagzXoSxM62lrWwXbNQYbzkJxKOjNQ52roynB
+	tm67BJI/iZXJiRGaEvYlRXbaOizhuZSM/v75baDZgVXVA0GuXanEbVYl88gfdcX3ZbNBSvJm5wc
+	kn8NJl/IuVQ27mQoA9U4fKC7YZcCz5uSbnZzLjxkD1DcirXL9ZXMbYz0ULBz9y5MKenFNcf1xtz
+	uywo/a24p82hi6AQdiPFmQwdV8eqxc6HC+xsjzgl0gr7HAB39z5gh3+wYVqIWsUlobWE9Hcu1tZ
+	YmCOHHnDkty2VEcGejIoQWLir+iFMjv/z5/wLaUG8wOS/fiUv4v+f1dkuEQfXkPWBNswxev5jQr
+	9lBFCWNfnKIg/im4BeSuK8kZHU71hwKvX5e/vjeVsgPc4pLPq
+X-Received: by 2002:ac8:1108:0:b0:509:329e:bd5 with SMTP id d75a77b69052e-50b80cabd6bmr88375671cf.3.1774539489669;
+        Thu, 26 Mar 2026 08:38:09 -0700 (PDT)
+X-Received: by 2002:ac8:1108:0:b0:509:329e:bd5 with SMTP id d75a77b69052e-50b80cabd6bmr88374941cf.3.1774539489036;
+        Thu, 26 Mar 2026 08:38:09 -0700 (PDT)
+Received: from [192.168.68.114] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-43b9192e305sm9457599f8f.8.2026.03.26.08.38.07
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Mar 2026 08:34:33 -0700 (PDT)
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-56ce44a204dso843373e0c.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 08:34:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCVDPKVak+pF4TKJjBj+ZzhPCCWLi/vY3QroGHrBV0YCWhsE8r5XAfOweNTAGnC7j9Fu6DmYQL2rj9L/@vger.kernel.org
-X-Received: by 2002:a05:6102:5801:b0:5f5:2539:9b11 with SMTP id
- ada2fe7eead31-603870ce0f5mr4152226137.14.1774538871002; Thu, 26 Mar 2026
- 08:27:51 -0700 (PDT)
+        Thu, 26 Mar 2026 08:38:08 -0700 (PDT)
+Message-ID: <fd537c2e-3ae4-4c96-bad4-64f846f2f17b@oss.qualcomm.com>
+Date: Thu, 26 Mar 2026 15:38:07 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260319155334.51278-1-john.madieu.xa@bp.renesas.com> <20260319155334.51278-5-john.madieu.xa@bp.renesas.com>
-In-Reply-To: <20260319155334.51278-5-john.madieu.xa@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 26 Mar 2026 16:27:40 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdVbP5Bbr9KuxoEb48zUvubT3CN7sC9oVat2NcNWaBwOtQ@mail.gmail.com>
-X-Gm-Features: AQROBzCXM6uPDs6UcVr58TTtg0-_14CRbEgbIPerOfaOzDyxBM9HF9kuEp2hlRY
-Message-ID: <CAMuHMdVbP5Bbr9KuxoEb48zUvubT3CN7sC9oVat2NcNWaBwOtQ@mail.gmail.com>
-Subject: Re: [PATCH 04/22] dt-bindings: dma: renesas,rz-dmac: Document
- optional DMA ACK cell
-To: John Madieu <john.madieu.xa@bp.renesas.com>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Vinod Koul <vkoul@kernel.org>, 
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Magnus Damm <magnus.damm@gmail.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	John Madieu <john.madieu@gmail.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, 
-	linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: monaco: extend fastrpc compute cb
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260326125834.2758331-1-srinivas.kandagatla@oss.qualcomm.com>
+ <acUzKYUCbUOIOrw2@baldur>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <acUzKYUCbUOIOrw2@baldur>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=fufRpV4f c=1 sm=1 tr=0 ts=69c552e2 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=vFMI6QV04ZLWi53vWY8A:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: vryT1V2zOCiqD-ASJJH856_lnec7ppku
+X-Proofpoint-ORIG-GUID: vryT1V2zOCiqD-ASJJH856_lnec7ppku
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI2MDExMCBTYWx0ZWRfXwMcFbsI6pTFL
+ RmDQ7jI+pY3+Bt34xwMyvAmvj+IYMfSB+TGky+YQP0q9IdXoT1JxJnRt3ouf6ByQa37K8jctQxG
+ klJsQp9pzy26konv40AmVziBYmobNLH+wYjce9Mjnl3i880xzs2Xa81gZxBaT/U6If/LMEdtTQP
+ ShX98Ar1xQILZSiCEboyk24mwLBNCkPG6I5KUZxPWZyFUWJTuQgryqa506GPpt8e/FkO85SgWy3
+ dmtDWpHNdv2gaJgOLMAWqYi33qGV/Qjjz4MJ4EwaYjxV0ISs4/LXD3/hJ6Ekp267a2zh7kbZNB9
+ oz/kkEguwCqqxMnZ7o3WZFmHK0Rhl6a9jOB/fxbBinOyKIx/eH94iMzz8MW6F3XUVmuk56vFYui
+ DDAnFWkz4EwPQZS6Os3/jmCxyxpa8v160PGwPsZRUGLA7kaarakIviQbK3fY9VdOnusH9ybbrQt
+ N/6NTC6fohvWJawGtGg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-26_03,2026-03-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
+ suspectscore=0 bulkscore=0 phishscore=0 impostorscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603260110
 
-Hi John,
+On 3/26/26 1:24 PM, Bjorn Andersson wrote:
+> On Thu, Mar 26, 2026 at 12:58:34PM +0000, Srinivas Kandagatla wrote:
+>> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
+> [..]
+>> +
+>> +					compute-cb@b {
+> 
+> That doesn't match the patternProperties "(compute-)?cb@[0-9]*$".
+> 
+> Is the reg an index, or an "address"? Should we use base 10, or should
+> we fix the yaml?
 
-On Thu, 19 Mar 2026 at 16:55, John Madieu <john.madieu.xa@bp.renesas.com> wrote:
-> Some peripherals on RZ/V2H, RZ/V2N, and RZ/G3E SoCs require explicit
-> ACK signal routing through the ICU. Document the optional second cell
-> in the DMA specifier for specifying the ACK signal number.
->
-> The first cell remains unchanged and specifies the encoded MID/RID and
-> channel configuration. The optional second cell specifies the DMA ACK
-> signal number for peripherals requiring level-based handshaking.
->
-> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+Ah.. sorry for this, will fix this in next spin,
 
-Thanks for your patch!
+--srini
 
-Just a quick head-up, as I haven't read the actual secion in the
-documentation yet.
+> 
+> Regards,
+> Bjorn
+> 
+>> +						compatible = "qcom,fastrpc-compute-cb";
+>> +						reg = <0xb>;
+>> +						iommus = <&apps_smmu 0x19cb 0x0400>;
+>> +						dma-coherent;
+>> +					};
+>> +
+>> +					compute-cb@c {
+>> +						compatible = "qcom,fastrpc-compute-cb";
+>> +						reg = <0xc>;
+>> +						iommus = <&apps_smmu 0x19cc 0x000>;
+>> +						dma-coherent;
+>> +					};
+>>  				};
+>>  			};
+>>  		};
+>> -- 
+>> 2.47.3
+>>
 
-> --- a/Documentation/devicetree/bindings/dma/renesas,rz-dmac.yaml
-> +++ b/Documentation/devicetree/bindings/dma/renesas,rz-dmac.yaml
-> @@ -63,17 +63,27 @@ properties:
->        - const: register
->
->    '#dma-cells':
-> -    const: 1
-> -    description:
-> +    description: |
->        The cell specifies the encoded MID/RID or the REQ No values of
->        the DMAC port connected to the DMA client and the slave channel
->        configuration parameters.
-> +      Use 1 cell for basic DMA configuration.
-> +      Use 2 cells when DMA ACK signal routing through ICU is required
-> +      (RZ/V2H, RZ/V2N, RZ/G3E audio peripherals such as SSIU, SPDIF, SRC, DVC).
-> +
-> +      First cell:
->        bits[0:9] - Specifies the MID/RID or the REQ No value
->        bit[10] - Specifies DMA request high enable (HIEN)
->        bit[11] - Specifies DMA request detection type (LVL)
->        bits[12:14] - Specifies DMAACK output mode (AM)
->        bit[15] - Specifies Transfer Mode (TM)
->
-> +      Second cell (optional, when #dma-cells = <2>):
-> +      bits[6:0] - DMA acknowledge signal number (from ICU ACK table),
-> +                  where 0 is a valid signal number.
-> +                  Required for peripherals using level-based DMA
-> +                  handshaking (SSIU, SPDIF, RSPI, SCU, ADC, PDM).
-
-How do you expect this to work? #dma-cells applies to all DMA consumers
-of this provider, and these SoCs already have DMA users relying on
-#dma-cells being one.
-In addition, you cannot have optional cells: if #dma-cells is two,
-then all consumers must supply two cells (of course we could switch
-all of them to two cells at once).  However, as zero is a valid signal
-number, we cannot use that as a dummy when no DMA acknowledge signal
-number is needed (we could use e.g. 0xffffffff instead).
-
-Is there any other way to provide this information?
-E.g. could we have a table in the driver that contains this info for
-the (presumably few) MID/RID values that need it?
-
-> +
->    dma-channels:
->      const: 16
->
-> @@ -212,6 +222,20 @@ allOf:
->          - renesas,icu
->          - resets
->
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: renesas,r9a09g057-dmac
-> +    then:
-> +      properties:
-> +        '#dma-cells':
-> +          enum: [1, 2]
-> +    else:
-> +      properties:
-> +        '#dma-cells':
-> +          const: 1
-> +
->    - if:
->        properties:
->          compatible:
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
