@@ -1,88 +1,79 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1151D3BE165
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB5253BED0F
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:02:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774515764; cv=none; b=fNtWQlljO1jZSHz4GX9y284HJmP9GykrbygWXqNOKPGhiFlbEtoo5AnLlVh7hKG2PktV1OH6clg6ipEStDBqIId/GdiZTDF08KokjpUnVXMcnBnTyEhF1QHku9O2X6bLUdm+i5SbUYOwgyaLhuhNpQDuI7njtznUepc7qTU6U2Y=
+	t=1774515766; cv=none; b=DNfQraEEPhy9WJ6xNkYfro8ykprxJsNvxN3Wkp25m4/JjuTWaIJgNJ8h+Bl7EFN6WGUSsLX79AujU/95U2bKCOWB9UCzMkmj8BJkZGQbQd1iOhwJT3FtDIY7pZlyMP6f5eXhOukVAs1DpwuSR3/Wx7KZ9Cfzb/lgmYgtwUns31k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774515764; c=relaxed/simple;
-	bh=J+rhQyRTfoZzJ0GI7GG9EXyupU3nMVnHvjxZxGN6brQ=;
+	s=arc-20240116; t=1774515766; c=relaxed/simple;
+	bh=kC4f8Hr+laqsiqLRNBlsElLNUuG/yDm7JSOtydy3Fyw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Njkw91frwuWgLEMv3yACiowyCAYcf9Alznh4EoYCufOOIMFlNc1GlUm0N97SG2CiQ04MGXVlC1L31ZxfjXdH7rWj8qABXf6K6jvNBVgoCf1/rKLaEQuYC/iFPaz8UQpqgemDdbAO5m7tAICpG5zvnb/E3gq/PX1bMrOatb9171g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=L52QhdVO; arc=none smtp.client-ip=209.85.208.54
+	 MIME-Version:Content-Type; b=rnJTtqr7U6QbjFqnA+RAhqWLCd3TYc1Ewt0lVtjg5tOKbvkOPsXj+l4nRSB40+Dp198arZNdJbfNpnIhS/XCxg32vLUo3zGLCa9hOneZLH0wowWMlY++9ZPxVnle1+6R53QZ86Wf6z/4lyn4PmID5CNzjzqQCIQBaSpbkroLCV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nB79GShY; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="L52QhdVO"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-65c4152313fso908272a12.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:02:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nB79GShY"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-486fb14227cso8652925e9.3
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:02:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774515761; x=1775120561; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1774515763; x=1775120563; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:date:message-id:subject
          :references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NXPKOAWpcR9xHk9hAzrUFCp6rLb1/uw3dh+uChYT9mc=;
-        b=L52QhdVOzz/ndoThLufo6fEDjpf1zvoBSHkgmCa5IF+23bPvzJADXmj8QRy9WlXtd7
-         wqtLnUWwHBGHlJMAsW/bKdKJabVWK64vBAqyi+Fh/f2IhVO0fh1wsY8ZWT4B/aTh23pD
-         k3OaYxPcH4QYnGr4498LAF8Sy/atplEWcs7vyItje2XfiCFdvww981ie9BSCooyiClS5
-         WAEqapKtwaJKZcI86lRymWWVSwAnVjS+l3EH6o1eQNDmofDJvMvnjfdavb6AEPNA8z/3
-         K3IzjxdqxJUG5olCozkQ+9OStPr/yuh8IHTPuSeTCyZ4pp/flYmpyEbo3ID0SeGli+UL
-         YDSQ==
+        bh=SO+1oE17hDIKR5mphj28NGtnxtIqXY3QHBAqdZU43PI=;
+        b=nB79GShY8+M4ApzQ/gIYax9KrLl41Tman17FIQm/6ogi0mFEBGcNY8qsyB7zzvWivD
+         sCGahLw05cPItJfjqoKhy/sKmVkKF9RRflqlfd8rUkNmhdgBylL8w9Qz9PILwmXCKH6p
+         0gimI6wdama65I72t1Z6Sah0yWet3LL5xPQhvVaHQOt3B3FoaBmLDcle8zQ1zMictcik
+         z0aQZtqfsJcB+DyuPfxLv740322QGkuKEhX2h9fqNC1i8wydS5l0uEGn6tg6o8iEOqPn
+         EZIV3tNFoPGWGdQR3bG9SLOZ3WC3Qz7XVF3RgO0RqlI88hWLcqMPhnI3LuXUisA4btZ4
+         p/2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774515761; x=1775120561;
+        d=1e100.net; s=20251104; t=1774515763; x=1775120563;
         h=content-transfer-encoding:mime-version:date:message-id:subject
          :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=NXPKOAWpcR9xHk9hAzrUFCp6rLb1/uw3dh+uChYT9mc=;
-        b=Nzu7HWYT3PpQPTyLqEgzvxEd+linCXWCv0qyQRLzLDJlio7llTicIp10Fq+hQQEbc3
-         ak6ZnKfzv/e6dD6RL2b33fHtdBQx2AKCT/xy0eD6bT0uzPWhMJkRq+USQAifJJpRSjgF
-         dMGcw+wjvfEF2k/1Y2nSaB5NqCFk/0PHu3iJ4dnoy5qIgNAtX1GbikEdF4Fc3L20GV5D
-         rKc0FEs3RYKykqfizu0Aw9lLTb3o0R/DoIgRUnXBJ3IoealmVIAy2N6RxndWIQNvMQnM
-         BN26is8zkrl8NZWaF4Q/vDYcvbhy2lfjW82UJuMj94v1/6omy/GlBwmy4iYFjxxOzjCg
-         4oew==
-X-Forwarded-Encrypted: i=1; AJvYcCVjDk3+M5upyOfcnPQ1SHwW9vo2vmuBMrscG9JoJqV1EAskzRTOusDUU4LfR7/0WC/pl71AxOEX25FT@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz6r3Ftij8Azi6DaNAs5/p9hGQW29l1cNl8e3rII+EibMeUmwnA
-	lwibmscwkcCwzWiMmZMchNfH9H20vcU78L4RRsVME4cBhjuY2ZPPsmzBoAu8IohSO2c=
-X-Gm-Gg: ATEYQzyQq3BsZ6rn09SryJyak3CZ3VJ7fSdNWVDp39wLsEB6xl8DLdwUa+56216OGAZ
-	P5TwkMjlfvnZJ9uHLXPHSTdJTAcIBkqvnBn4gPOvVwgOFI1xp3f50Drs+knSzm8I+x0/cPdners
-	WkrscigoY0ODsGAlVzdsAjZtget2G8bpv00/3WeYhQARt+3FoMl28JvcTEF9/wdUvi7Pn/sX7Ip
-	WxNfIpZhWPMJ8kNxSXag/fhV1aFHLm8EJhu1lhVmngUF/zPtFgXaYQ66Px+2oI4r04894Whr8uI
-	LdoVxcPeH9+PuX3nkWKNwqlfY0cLUl35z4UtR6DRRWqMH4U+0erAMQlBBIBu04P412qdKm8GyXJ
-	VsMsZVLQ88EBFWks9ADTyutfLdeTrwaAAKM9dLXk00E4qqASDgkaPPtfpK4LBxjpAI3C6IM/a6D
-	ruYX92940dE2SQFsC7IBFUABeSkOCBME0Fh/1RWyEIEzlE
-X-Received: by 2002:a17:906:e097:b0:b97:ba90:edb2 with SMTP id a640c23a62f3a-b9a599a5322mr343969666b.50.1774515760204;
-        Thu, 26 Mar 2026 02:02:40 -0700 (PDT)
+        bh=SO+1oE17hDIKR5mphj28NGtnxtIqXY3QHBAqdZU43PI=;
+        b=qldDs4XVaPRb3VJe+9M3rtvLx/OHpEGUNXvqCWE+Vrt0S7uKnQO7lTQh5JnS4WwFuC
+         mw41NVM0ZiyS9JVKOx2wWW5iao4j9xkLnMPgDJgagfYjQDksfXWdpuGnBML/uEV3iV2Q
+         K39yQPZgcWYpyMXYpH8ICtY+qoIsTL3G1W5Fa7WP6PSAjo3DF3Lg6nLXHEjLuV3mmVHc
+         WAmmVb44Z4ZROXVyc//RXWYu6Wl8ZebvCnDgLh+cGlZStJk+c4CHYlxk0FHBevMXxw/k
+         vVdpjIXO04sV8OadmFMnNpDrABmcuaZVP91pjBMs5ezG0+AnwU1fIKfBSM8ekrQbgtDb
+         K/sg==
+X-Gm-Message-State: AOJu0YwbsSuN+2UISj8DRybIJ/II16ElOKc1Flpd+GJH3ZEHkTph2fnv
+	Fw5z22LGCM6uNbmXf7YhbA0efUFgOo0+Z3IdxsTtGfkFsoeenw5sxwobNxR8aB3QIhk=
+X-Gm-Gg: ATEYQzx0vDfB3IIvW87Anu3S6BfBraWiLd+z8aYnpkCzAxzV1onfEq7re350li1Hu8j
+	Qp/AQ3aBEACYT3Kuwm80eJ6QrTS4X+/rLCDAEScjGltsvHIVLIYFFDlqHLUh+ADmodlcLWrOIG6
+	Luv9IgC1kgiGoG8pBxk1iEiSMCaJlXST86zm870madKr2/Sox2P3N/TkkQEOg/VP3MG/CTRfVFh
+	DesJCYoHR22kF078vvynBAjFZX9rgtue0xsDGhA/RMk7Wwe/bRNUVZbMeijFOIA7giUw5yD5ZCV
+	KxgoosqsUzcneXSRfle2f5UlT5McsJLN5aOaVSq4nF66HJNa5PbpI99HeP1HlBg8v633JcQ0G6h
+	tLjIR1WKO8g/DdS0ojiOZ+Hi8jJNaV4AP2TZXtBeGJx2P1dy+8jN1CLWNaSfNFpfXcXCcuKgXeP
+	Xu3r5WTpJ6ce+t2EbPU7Y1iwLN4dhbR9lhOHyurWbLQ4k4
+X-Received: by 2002:a05:600c:4ecb:b0:487:1520:d107 with SMTP id 5b1f17b1804b1-487160aa232mr97071565e9.31.1774515763192;
+        Thu, 26 Mar 2026 02:02:43 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b919cf069sm6213436f8f.22.2026.03.26.02.02.39
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b919cf069sm6213436f8f.22.2026.03.26.02.02.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Mar 2026 02:02:39 -0700 (PDT)
+        Thu, 26 Mar 2026 02:02:42 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Kamil_Go=C5=82da?= <kamil.golda@protonmail.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Kaustabh Chakraborty <kauschluss@disroot.org>, 
- Yedaya Katsman <yedaya.ka@gmail.com>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- David Heidelberg <david@ixit.cz>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260320-panel-patches-v7-0-3eaefc4b3878@gmail.com>
-References: <20260320-panel-patches-v7-0-3eaefc4b3878@gmail.com>
-Subject: Re: (subset) [PATCH v7 0/3] Add support for the Samsung S6E8FC0
- DSI and M1906F9 display panel
-Message-Id: <177451575929.103892.7506565955077481700.b4-ty@linaro.org>
-Date: Thu, 26 Mar 2026 10:02:39 +0100
+To: aaro.koskinen@iki.fi, airlied@gmail.com, andreas@kemnade.info, 
+ conor+dt@kernel.org, jernej.skrabec@gmail.com, jonas@kwiboo.se, 
+ khilman@baylibre.com, krzk+dt@kernel.org, laurent.pinchart@ideasonboard.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ prabhakar.mahadev-lad.rj@bp.renesas.com, jesszhan0024@gmail.com, 
+ rfoss@kernel.org, robh@kernel.org, rogerq@kernel.org, simona@ffwll.ch, 
+ thierry.reding@gmail.com, tony@atomide.com, tzimmermann@suse.de, 
+ andrzej.hajda@intel.com, Mithil Bavishi <bavishimithil@gmail.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org
+In-Reply-To: <20260303203017.511-1-bavishimithil@gmail.com>
+References: <20260303203017.511-1-bavishimithil@gmail.com>
+Subject: Re: (subset) [PATCH v9 0/8] Initial support for Samsung Galaxy Tab
+ 2 series
+Message-Id: <177451576215.103892.12129135091369769725.b4-ty@linaro.org>
+Date: Thu, 26 Mar 2026 10:02:42 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -95,24 +86,20 @@ X-Mailer: b4 0.14.3
 
 Hi,
 
-On Fri, 20 Mar 2026 16:41:37 +0200, Yedaya Katsman wrote:
-> This adds a driver to support the Samsung S6E8FC0 DSI controller with the
-> M1906F9 display panel found in Xiaomi Mi A3 (xiaomi-laurel). The driver is
-> generated using linux-mdss-dsi-panel-driver-generator[0].
-> 
-> The mdss reset dependency makes the screen work more reliably.
-> 
-> [0]: https://github.com/msm8916-mainline/linux-mdss-dsi-panel-driver-generator
-> Original tree with patches: https://gitlab.postmarketos.org/SzczurekYT/linux/-/tree/laurel
+On Tue, 03 Mar 2026 15:30:09 -0500, Mithil Bavishi wrote:
+> This series adds initial support for the Samsung Galaxy Tab 2
+> (samsung-espresso7/10) series of devices. It adds support for 6 variants
+> (P3100, P3110, P3113, P5100, P5110, P5113). Downstream categorised them
+> based on 3G and WiFi, but since they use different panel, touch
+> controllers, batteries, I decided to categorise them based on screen
+> size as espresso7 and espresso10.
 > 
 > [...]
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/3] dt-bindings: display: panel: Add Samsung S6E8FC0-M1906F9
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/f4693b88bc730cddc6d69f6f11b64e6d93a8e373
-[2/3] drm: panel: Add Samsung S6E8FC0 DSI controller for M1906F9 panel
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/49837b6babe71fac84cda2a0d3cf9c085bf3a2f9
+[4/8] dt-bindings: display: panel-lvds: Add compatibles for Samsung LTN070NL01 and LTN101AL03 panels
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/d37690b5e02418a2365548300628ef3895a24ed2
 
 -- 
 Neil
