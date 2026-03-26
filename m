@@ -1,222 +1,193 @@
-Received: from mail-sc.amlogic.com (unknown [64.106.246.77])
+Received: from courrier.aliel.fr (pouet.aliel.fr [65.21.61.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79BE9322C73;
-	Thu, 26 Mar 2026 09:27:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=64.106.246.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB83630E85D;
+	Thu, 26 Mar 2026 09:27:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774517233; cv=none; b=b70h5wnOdqsuAgOsiSGMSHk5fMY7l9pHgWszzkUHV2lJ89txzJKjXxTVXalXVPZD49wgRQ4c1keLD2yRWw4ETHRY+fevWOzh7dlnaAS65HJz0D3DhdtmcpACE1kTwpimhsEbFa3pAc2NS0+NXpLt9euTjgb+X6RQwuruT9UXPUo=
+	t=1774517280; cv=none; b=BMuEu7QbtapL5ugjrsD/FJelThMIpseSBag7IGJ68BiuVMOPlUfivzaa40c038Xv8Lg/E7Pmv3j2gg2Uc6/URJNaRYC9gBxG0A9KjDV59IijGJGlEAHDI1maUMEEVN4KJPWfN0Lp9Ka/TZ6KLfQ3XW63q12OcVrkN9SVs+2bWDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774517233; c=relaxed/simple;
-	bh=deWfPzJhzlv1fkeF50cXnzz1XyDkcw2HsSicIQ6GuRk=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OegPHPLBgMPJHutzik3jLUjt1f0hYLms5KlhL62UcJsKB7oCUgIpzUZbyKeRyHgcj+LqRrzrYWONZgUOmJQV49zXbIrUud3Uvbku1m097/RlaIyPiQzJ24jYBzfbP4hpWIBsWGKFlTUM/rAQ5s0N+gQhL/1dC6qwrg4jyepw1nM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; arc=none smtp.client-ip=64.106.246.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
-Received: from rd03-sz.software.amlogic (10.28.11.121) by mailsc.amlogic.com
- (10.8.11.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Thu, 26 Mar
- 2026 02:26:11 -0700
-From: Jian Hu <jian.hu@amlogic.com>
-To: Jerome Brunet <jbrunet@baylibre.com>, Neil Armstrong
-	<neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, "Martin
- Blumenstingl" <martin.blumenstingl@googlemail.com>, Stephen Boyd
-	<sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>, robh+dt
-	<robh+dt@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: Jian Hu <jian.hu@amlogic.com>, Ronald Claveau <linux-kernel-dev@aliel.fr>,
-	devicetree <devicetree@vger.kernel.org>, linux-clk
-	<linux-clk@vger.kernel.org>, linux-amlogic
-	<linux-amlogic@lists.infradead.org>, linux-kernel
-	<linux-kernel@vger.kernel.org>, linux-arm-kernel
-	<linux-arm-kernel@lists.infradead.org>, Ferass El Hafidi
-	<funderscore@postmarketos.org>
-Subject: [PATCH v3 3/3] arm64: dts: amlogic: t7: Add clock controller nodes
-Date: Thu, 26 Mar 2026 17:26:45 +0800
-Message-ID: <20260326092645.1053261-4-jian.hu@amlogic.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20260326092645.1053261-1-jian.hu@amlogic.com>
-References: <20260326092645.1053261-1-jian.hu@amlogic.com>
+	s=arc-20240116; t=1774517280; c=relaxed/simple;
+	bh=hCffSrytymkZsTF+g18yVFG0ugDdfGbOo15ZfjxCRlA=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=oi/QB8bQGg/UqNW+U0Ie9NRkSRawe16hQdxcIZVWKllR3TMJ2BKyafPJSNK/Tv0HvgBUlisBlpkEWk+HlLpnPZHEokiLSqDoWxIsWZDFfLXDKuA32ChaNJfXPVPYCaJZv/Zd+zgOSPmcQi0FcpgvUG/BprcUOhbDjupeqyjod1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=eQ3/7Ykj; arc=none smtp.client-ip=65.21.61.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="eQ3/7Ykj"
+Message-ID: <802bc778-9e18-4273-9757-c0d663e8b14a@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1774517276;
+	bh=hCffSrytymkZsTF+g18yVFG0ugDdfGbOo15ZfjxCRlA=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=eQ3/7Ykj9LCvsbKYSiqPnT9GfUx9Eyibc77/pFGLIy68mfwchsIIBIA4mt1YpPzMX
+	 qzJhnNCu+i0VUh5RXafyaHWePHRsm3BCaZsY6YTN8ZRBwHqCqzovwcig9uJMe0TfqI
+	 xvgmxbihm57B90MJpQ3wb+JUn+BMn80mc8QgNLa4=
+Date: Thu, 26 Mar 2026 10:27:54 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird Beta
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Subject: Re: [PATCH v4 9/9] arm64: dts: amlogic: t7: khadas-vim4: Add MMC
+ nodes
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-wireless@vger.kernel.org,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Johannes Berg <johannes@sipsolutions.net>, van Spriel <arend@broadcom.com>
+References: <20260325-add-emmc-t7-vim4-v4-0-44c7b4a5e459@aliel.fr>
+ <20260325-add-emmc-t7-vim4-v4-9-44c7b4a5e459@aliel.fr>
+ <512d95b5-5348-4c7c-961c-b6ca1431cee4@linaro.org>
+Content-Language: en-US
+In-Reply-To: <512d95b5-5348-4c7c-961c-b6ca1431cee4@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: mailsh.amlogic.com (10.18.11.5) To mailsc.amlogic.com
- (10.8.11.35)
 
-Add the required clock controller nodes for Amlogic T7 SoC family:
-- SCMI clock controller
-- PLL clock controller
-- Peripheral clock controller
+On 3/26/26 9:54 AM, Neil Armstrong wrote:
+> On 3/25/26 10:15, Ronald Claveau wrote:
+>> Enable and configure the three MMC controllers for the Khadas VIM4 board:
+>> - sd_emmc_a: SDIO interface for the BCM43752 Wi-Fi module
+>> - sd_emmc_b: SD card slot
+>> - sd_emmc_c: eMMC storage
+>>
+>> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>> ---
+>>   .../dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts  | 90 ++++++++++++
+>> +++++++++-
+>>   1 file changed, 89 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-
+>> vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>> index 770f06b0b16c7..5a73ae081036c 100644
+>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>> @@ -14,7 +14,10 @@ / {
+>>       compatible = "khadas,vim4", "amlogic,a311d2", "amlogic,t7";
+>>         aliases {
+>> -        serial0 = &uart_a;
+>> +        serial0    = &uart_a;
+> 
+> Spurious change
+> 
 
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Signed-off-by: Jian Hu <jian.hu@amlogic.com>
----
- arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 125 ++++++++++++++++++++
- 1 file changed, 125 insertions(+)
+Thanks I will keep space instead of tab here.
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-index 6510068bcff9..a610f642953d 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-@@ -6,6 +6,9 @@
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/power/amlogic,t7-pwrc.h>
- #include "amlogic-t7-reset.h"
-+#include <dt-bindings/clock/amlogic,t7-scmi.h>
-+#include <dt-bindings/clock/amlogic,t7-pll-clkc.h>
-+#include <dt-bindings/clock/amlogic,t7-peripherals-clkc.h>
- 
- / {
- 	interrupt-parent = <&gic>;
-@@ -201,6 +204,34 @@ pwrc: power-controller {
- 		};
- 	};
- 
-+	sram@f7042000 {
-+		compatible = "mmio-sram";
-+		reg = <0x0 0xf7042000 0x0 0x100>;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges = <0 0x0 0xf7042000 0x100>;
-+
-+		scmi_shmem: sram@0 {
-+			compatible = "arm,scmi-shmem";
-+			reg = <0x0 0x100>;
-+		};
-+	};
-+
-+	firmware {
-+		scmi: scmi {
-+			compatible = "arm,scmi-smc";
-+			arm,smc-id = <0x820000c1>;
-+			shmem = <&scmi_shmem>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			scmi_clk: protocol@14 {
-+				reg = <0x14>;
-+				#clock-cells = <1>;
-+			};
-+		};
-+	};
-+
- 	soc {
- 		compatible = "simple-bus";
- 		#address-cells = <2>;
-@@ -224,6 +255,42 @@ apb4: bus@fe000000 {
- 			#size-cells = <2>;
- 			ranges = <0x0 0x0 0x0 0xfe000000 0x0 0x480000>;
- 
-+			clkc_periphs: clock-controller@0 {
-+				compatible = "amlogic,t7-peripherals-clkc";
-+				reg = <0x0 0x0 0x0 0x1c8>;
-+				#clock-cells = <1>;
-+				clocks = <&xtal>,
-+					 <&scmi_clk CLKID_SYS_CLK>,
-+					 <&scmi_clk CLKID_FIXED_PLL>,
-+					 <&scmi_clk CLKID_FCLK_DIV2>,
-+					 <&scmi_clk CLKID_FCLK_DIV2P5>,
-+					 <&scmi_clk CLKID_FCLK_DIV3>,
-+					 <&scmi_clk CLKID_FCLK_DIV4>,
-+					 <&scmi_clk CLKID_FCLK_DIV5>,
-+					 <&scmi_clk CLKID_FCLK_DIV7>,
-+					 <&hifi CLKID_HIFI_PLL>,
-+					 <&gp0 CLKID_GP0_PLL>,
-+					 <&gp1 CLKID_GP1_PLL>,
-+					 <&mpll CLKID_MPLL1>,
-+					 <&mpll CLKID_MPLL2>,
-+					 <&mpll CLKID_MPLL3>;
-+				clock-names = "xtal",
-+					      "sys",
-+					      "fix",
-+					      "fdiv2",
-+					      "fdiv2p5",
-+					      "fdiv3",
-+					      "fdiv4",
-+					      "fdiv5",
-+					      "fdiv7",
-+					      "hifi",
-+					      "gp0",
-+					      "gp1",
-+					      "mpll1",
-+					      "mpll2",
-+					      "mpll3";
-+			};
-+
- 			reset: reset-controller@2000 {
- 				compatible = "amlogic,t7-reset";
- 				reg = <0x0 0x2000 0x0 0x98>;
-@@ -269,6 +336,64 @@ uart_a: serial@78000 {
- 				status = "disabled";
- 			};
- 
-+			gp0: clock-controller@8080 {
-+				compatible = "amlogic,t7-gp0-pll";
-+				reg = <0x0 0x8080 0x0 0x20>;
-+				clocks = <&scmi_clk CLKID_TOP_PLL_OSC>;
-+				clock-names = "in0";
-+				#clock-cells = <1>;
-+			};
-+
-+			gp1: clock-controller@80c0 {
-+				compatible = "amlogic,t7-gp1-pll";
-+				reg = <0x0 0x80c0 0x0 0x14>;
-+				clocks = <&scmi_clk CLKID_TOP_PLL_OSC>;
-+				clock-names = "in0";
-+				#clock-cells = <1>;
-+			};
-+
-+			hifi: clock-controller@8100 {
-+				compatible = "amlogic,t7-hifi-pll";
-+				reg = <0x0 0x8100 0x0 0x20>;
-+				clocks = <&scmi_clk CLKID_TOP_PLL_OSC>;
-+				clock-names = "in0";
-+				#clock-cells = <1>;
-+			};
-+
-+			pcie: clock-controller@8140 {
-+				compatible = "amlogic,t7-pcie-pll";
-+				reg = <0x0 0x8140 0x0 0x1c>;
-+				clocks = <&scmi_clk CLKID_PCIE_OSC>;
-+				clock-names = "in0";
-+				#clock-cells = <1>;
-+			};
-+
-+			mpll: clock-controller@8180 {
-+				compatible = "amlogic,t7-mpll";
-+				reg = <0x0 0x8180 0x0 0x28>;
-+				clocks = <&scmi_clk CLKID_FIXED_PLL_DCO>;
-+				clock-names = "in0";
-+				#clock-cells = <1>;
-+			};
-+
-+			hdmi: clock-controller@81c0 {
-+				compatible = "amlogic,t7-hdmi-pll";
-+				reg = <0x0 0x81c0 0x0 0x20>;
-+				clocks = <&scmi_clk CLKID_HDMI_PLL_OSC>;
-+				clock-names = "in0";
-+				#clock-cells = <1>;
-+			};
-+
-+			mclk: clock-controller@8300 {
-+				compatible = "amlogic,t7-mclk-pll";
-+				reg = <0x0 0x8300 0x0 0x18>;
-+				clocks = <&scmi_clk CLKID_MCLK_PLL_OSC>,
-+					 <&xtal>,
-+					 <&scmi_clk CLKID_FCLK_50M>;
-+				clock-names = "in0", "in1", "in2";
-+				#clock-cells = <1>;
-+			};
-+
- 			sec_ao: ao-secure@10220 {
- 				compatible = "amlogic,t7-ao-secure",
- 					     "amlogic,meson-gx-ao-secure",
+>> +        mmc0    = &sd_emmc_c;
+>> +        mmc1    = &sd_emmc_b;
+>> +        mmc2    = &sd_emmc_a;
+>>       };
+>>         memory@0 {
+>> @@ -159,6 +162,91 @@ &pwm_ab {
+>>       pinctrl-names = "default";
+>>   };
+>>   +/* SDIO */
+>> +&sd_emmc_a {
+>> +    status = "okay";
+>> +    pinctrl-0 = <&sdio_pins>;
+>> +    pinctrl-1 = <&sdio_clk_gate_pins>;
+>> +    pinctrl-names = "default", "clk-gate";
+>> +    #address-cells = <1>;
+>> +    #size-cells = <0>;
+>> +
+>> +    bus-width = <4>;
+>> +    cap-sd-highspeed;
+>> +    sd-uhs-sdr12;
+>> +    sd-uhs-sdr25;
+>> +    sd-uhs-sdr50;
+>> +    sd-uhs-sdr104;
+>> +    cap-sdio-irq;
+>> +    max-frequency = <200000000>;
+>> +    non-removable;
+>> +    disable-wp;
+>> +    no-mmc;
+>> +    no-sd;
+>> +
+>> +    power-domains = <&pwrc PWRC_T7_SDIO_A_ID>;
+>> +
+>> +    keep-power-in-suspend;
+>> +
+>> +    mmc-pwrseq = <&sdio_pwrseq>;
+>> +
+>> +    vmmc-supply = <&vddao_3v3>;
+>> +    vqmmc-supply = <&vddao_1v8>;
+>> +
+>> +    brcmf: wifi@1 {
+>> +        reg = <1>;
+>> +        compatible = "brcm,bcm43752-fmac", "brcm,bcm4329-fmac";
+>> +    };
+>> +};
+>> +
+>> +/* SD card */
+>> +&sd_emmc_b {
+>> +    status = "okay";
+>> +    pinctrl-0 = <&sdcard_pins>;
+>> +    pinctrl-1 = <&sdcard_clk_gate_pins>;
+>> +    pinctrl-names = "default", "clk-gate";
+>> +
+>> +    bus-width = <4>;
+>> +    cap-sd-highspeed;
+>> +    sd-uhs-sdr12;
+>> +    sd-uhs-sdr25;
+>> +    sd-uhs-sdr50;
+>> +    sd-uhs-sdr104;
+>> +    max-frequency = <200000000>;
+>> +    disable-wp;
+>> +    no-sdio;
+>> +    no-mmc;
+>> +
+>> +    power-domains = <&pwrc PWRC_T7_SDIO_B_ID>;
+>> +
+>> +    cd-gpios = <&gpio GPIOC_6 GPIO_ACTIVE_LOW>;
+>> +    vmmc-supply = <&sd_3v3>;
+>> +    vqmmc-supply = <&vddio_c>;
+>> +};
+>> +
+>> +/* eMMC */
+>> +&sd_emmc_c {
+>> +    status = "okay";
+>> +    pinctrl-0 = <&emmc_ctrl_pins>, <&emmc_data_8b_pins>,
+>> <&emmc_ds_pins>;
+>> +    pinctrl-1 = <&emmc_clk_gate_pins>;
+>> +    pinctrl-names = "default", "clk-gate";
+>> +
+>> +    bus-width = <8>;
+>> +    cap-mmc-highspeed;
+>> +    mmc-ddr-1_8v;
+>> +    mmc-hs200-1_8v;
+>> +    max-frequency = <200000000>;
+>> +    disable-wp;
+>> +    non-removable;
+>> +    no-sdio;
+>> +    no-sd;
+>> +
+>> +    power-domains = <&pwrc PWRC_T7_EMMC_ID>;
+>> +
+>> +    vmmc-supply = <&vddio_3v3>;
+>> +    vqmmc-supply = <&vddio_1v8>;
+>> +};
+>> +
+>>   &uart_a {
+>>       status = "okay";
+>>       clocks = <&xtal>, <&xtal>, <&xtal>;
+>>
+> 
+> With that:
+> 
+> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> 
+> Thanks,
+> Neil
+
+
 -- 
-2.47.1
-
+Best regards,
+Ronald
