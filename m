@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC0537F8BA;
-	Thu, 26 Mar 2026 15:25:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374103F210F;
+	Thu, 26 Mar 2026 15:26:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774538757; cv=none; b=YQjmh3/UR3rOEy11ADlryCd/8nvGdSjz7cZASMWGS6DklVaVvZzKyeusxd51t6MV+ib3GzHH/Q4iJDdMCcoR1M13qiqQSW8EXZcbl9nev25p9QYpZ2cNX9i8jbi72ILs0DZdKNEJwovJjqKmtvd2+T+exkPqZhVV1nq/6sLLAhc=
+	t=1774538776; cv=none; b=DIJqtcQVYRo9sk9ijUrHk2auY8sO+pKweVAGeE1tvzod2N496Yh6Qr45VHSF9Oq0yhYnbg8v90KiRAqwnrWuvrAYYywfa3nGxLWQhpK8rhtYevvS01axhyS31kUf5fYlYkiHkJiuf4dndDavMJVErx0ePReXs97lGDqlSPrRI24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774538757; c=relaxed/simple;
-	bh=qk/rcRQ3hjSJAYtvCxohTRw/Hyc74Sdqg0FjnvL1Grs=;
+	s=arc-20240116; t=1774538776; c=relaxed/simple;
+	bh=n+bIFKSjOB2crmf5AvxNH7lVOr7PCQpihLEsRVjMmi0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RY9LnYkLTuOXspShiqY/dlgPcx50Po/su89Rl1AzByNsKHqUYDT/ikHKiI72LO+Yxg1YWLaUm1gXsaA7u7RJ4Ebz2QBOtr35DclaxMUWstjf4oVZ3gU79uJ8e2JB4dL9c6C2tiWbPD5iC5SzfnbcK44GRvKw6fOw8/MT3zX/5Ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cil34ZzA; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=A7jpUoBLEZfR1+1F3H/NWj6P4ycryKsUsP2iaBxRGrpzJsBtAY34OpWuJ9rEA98LNOavrSF1dUuan97H9HDZDNUWi1jmr896Q2f2X+UvbWZ9Zrn5Lflzh1QgrgAaYnYv1tL99P5lJclYVn9hFW9sEUCjfqY6I7jppT2XFzmGrc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OiQg2z3P; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cil34ZzA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 954E2C2BCB1;
-	Thu, 26 Mar 2026 15:25:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OiQg2z3P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B53FC2BCB0;
+	Thu, 26 Mar 2026 15:26:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774538757;
-	bh=qk/rcRQ3hjSJAYtvCxohTRw/Hyc74Sdqg0FjnvL1Grs=;
+	s=k20201202; t=1774538775;
+	bh=n+bIFKSjOB2crmf5AvxNH7lVOr7PCQpihLEsRVjMmi0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Cil34ZzA9c0vm5+RaNiqZV5rrSey2kC30oN8kmO4QDIDwUzmmjT5dSdRri7WXcuHv
-	 QrYSqW+D3ZUaJOfH5j7nKOGUEJxB091+avUpnrCW77ylEqkdYQPVGcyHhBovk5Uh8b
-	 cIRyVhA01Pwmu00v6nNkRRYe/u+CMkI0PSu7mY7ceSE3RD/6cyhc8V8ibAjAg3tnom
-	 hQoSIHJztEtln3S6/Fpqj1VfnltQSPHI9e5Smsgvl+5mxsaVdDKrbrIposUq0kr6ic
-	 uHe8FFsl77wLtQkYgCOh4RNHDnPoZgr+mdYQAwYoAx82R9dbzXvgkUeSM+sWgjxam5
-	 xBJSsP7UuxW1g==
-Date: Thu, 26 Mar 2026 10:25:53 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Le Qi <le.qi@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kernel@oss.qualcomm.com
-Subject: Re: [PATCH v2] arm64: dts: qcom: hamoa-evk: Add DP0/DP1 audio
- playback support
-Message-ID: <acVPsjFuFITlsihL@baldur>
-References: <20260210024037.3719191-1-le.qi@oss.qualcomm.com>
+	b=OiQg2z3PfkurTNn6KUVBI3W95j4EtDIUdMOnt/ajBxfnUzKpI7FbeG7N/Hp7xP1qy
+	 aBNGJbPw1mvIx8zdLU9X4uZUmaOhHB1mq5fjof7xh+QAzvQS+W9zfg00IsE5D1jSZA
+	 RJ9aExSejDG2F+fJ0YX9h7erEVGXC8DjBAMCXvozi9RspGoKy3WI7Oq9YEqZd3TV1/
+	 dXFTNJwODrGTyl7KSqEc8pN63XfmF9qQF22hCo+dI23TELjRvettaOMpi/CCRQ7iIS
+	 JVpV1mEFUGSKOTb+URSeDkAqNAfLiYRbpviLeGrH8O/SOK52KV40vVKUVVWjS4Jmos
+	 aEWIoRfh/G1yg==
+Date: Thu, 26 Mar 2026 10:26:12 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Yixun Lan <dlan@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Inochi Amaoto <inochiama@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	spacemit@lists.linux.dev, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
+	Matthias Kaehlcke <mka@chromium.org>, devicetree@vger.kernel.org,
+	Junzhong Pan <panjunzhong@linux.spacemit.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: usb: Add support for Terminus FE1.1s
+ USB2.0 Hub controller
+Message-ID: <177453877141.2506202.3743813210780505738.robh@kernel.org>
+References: <20260319-03-usb-hub-fe1-v2-0-e4e26809dd7d@kernel.org>
+ <20260319-03-usb-hub-fe1-v2-1-e4e26809dd7d@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,77 +48,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260210024037.3719191-1-le.qi@oss.qualcomm.com>
+In-Reply-To: <20260319-03-usb-hub-fe1-v2-1-e4e26809dd7d@kernel.org>
 
-On Tue, Feb 10, 2026 at 10:40:37AM +0800, Le Qi wrote:
-> The hamoa-evk DTS currently lacks DAI links for DP0 and DP1, preventing
-> the sound card from exposing these playback paths. Add the missing links
-> to enable audio output on both DP interfaces.
+
+On Thu, 19 Mar 2026 07:51:03 +0000, Yixun Lan wrote:
+> Terminus FE1.1s is USB2.0 protocol compliant 4-port USB HUB, It support
+> MTT (Multiple Transaction Translator) mode, the upstream port supports
+> high-speed 480MHz and full-speed 12MHz modes, also has integrated 5V to
+> 3.3V, 1.8V regulator and Power-On-Reset circuit.
 > 
+> Introduce the DT binding for it.
+> 
+> Link: https://terminus-usa.com/wp-content/uploads/2024/06/FE1.1s-Product-Brief-Rev.-2.0-2023.pdf [1]
+> Signed-off-by: Yixun Lan <dlan@kernel.org>
 > ---
-> Changelog:
+>  .../devicetree/bindings/usb/terminus,fe11.yaml     | 62 ++++++++++++++++++++++
+>  1 file changed, 62 insertions(+)
 > 
-> v2:
->   - Changed commit message to explain motivation
->   - Removed redundant sound-name-prefix properties for DP0/DP1, since these
->     are already defined in the SoC DTSI.
->   - v1-link: https://lore.kernel.org/all/20260209091139.622756-1-le.qi@oss.qualcomm.com/
-> 
-> Signed-off-by: Le Qi <le.qi@oss.qualcomm.com>
 
-This should be here, now I had to rebase my whole tree to fix the
-missing s-o-b. Please use b4 to avoid such mistakes.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-Regards,
-Bjorn
-
-> ---
->  arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts | 32 ++++++++++++++++++++++
->  1 file changed, 32 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
-> index 2390648a248f..4428c8f45493 100644
-> --- a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
-> @@ -616,6 +616,38 @@ platform {
->  				sound-dai = <&q6apm>;
->  			};
->  		};
-> +
-> +		dp0-dai-link {
-> +			link-name = "DP0 Playback";
-> +
-> +			codec {
-> +				sound-dai = <&mdss_dp0>;
-> +			};
-> +
-> +			cpu {
-> +				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_0>;
-> +			};
-> +
-> +			platform {
-> +				sound-dai = <&q6apm>;
-> +			};
-> +		};
-> +
-> +		dp1-dai-link {
-> +			link-name = "DP1 Playback";
-> +
-> +			codec {
-> +				sound-dai = <&mdss_dp1>;
-> +			};
-> +
-> +			cpu {
-> +				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_1>;
-> +			};
-> +
-> +			platform {
-> +				sound-dai = <&q6apm>;
-> +			};
-> +		};
->  	};
->  
->  	usb-1-ss0-sbu-mux {
-> -- 
-> 2.34.1
-> 
