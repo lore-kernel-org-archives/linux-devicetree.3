@@ -1,88 +1,142 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDE23597B;
-	Thu, 26 Mar 2026 06:33:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79CB233C18E;
+	Thu, 26 Mar 2026 06:35:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774506834; cv=none; b=FGXH4TXgtrDr/rtbffM8JkaNX3k0uMW6ZqRS8FAC+RKY8x2RWoJNQwwXsA3L/HZJMCWK4DlYIBK0tWl4vwwSqHGmtmSqdKuGNV3rNNAMgh4qKhE2/ScHrcAFh5lS749QKesT+zaJN1sN97qGiIhk/EmBAKqgX8K+By+Z4VWtVFQ=
+	t=1774506947; cv=none; b=MwEa208fj62aCCEVjtJYieF3pBrrlZ22pwx73cCoAcfL221x88FUdAQnH8lG8y5rrvQ8CvML6lE5WGzNOGap10Xe3OCyypRD6XQo9yApOplCgqSj4OzMHNFSlWuo30kGgpGPoV+rEPQJHnEhMQLr0EW89AYsm6PXZ/z9DHTegxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774506834; c=relaxed/simple;
-	bh=om8C4xRL4G5OJYvxqnzGtRDXoa6aYun3rB72EV+Md+Q=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dbugTebAjp6NBG8rzwD1iuasSSORo0yBhd7mhXeIVDi5tqRYtmEp4tA8uTkHYn8NPCSCYyCsDHwJJ7q8HC+Tfs4PwZZxNG7gxknsR/y1qB20skK/k+yAJI6n/+u9Er9VzElgM/whgzMA22HiwDLkkyg0f4fhbhED1O5OtiTI5No=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=RVchZcSx; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	s=arc-20240116; t=1774506947; c=relaxed/simple;
+	bh=XgK+c61EJ3POwwUA4dYICWS5n7txtDGgDK9lPOzEOoY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=DKld1Re+1DB7n98jxS3HR6krDH92cpwsOQUadIGmlJSWVNWKUWVSDY5jHehSxn0Lyxuqf3Hv659k/gmNqzoM3LgTlc1ZAWA+/FEyI0IbbW7t3mgMFGh+wgQKHLoaOn3sctIbAUvVlDvGQhLKnJYyMjJWnmuFyUk5H6inYv5hXS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kgx5PVz7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="RVchZcSx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1774506830;
-	bh=om8C4xRL4G5OJYvxqnzGtRDXoa6aYun3rB72EV+Md+Q=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=RVchZcSxXPFdsmnvH4AnQkN2+1gupNkeRKHB4UHoEkEzw6Fy9/wccbzesTahCb74v
-	 fFVTp01572MGe129MFl9h0qdwaG8L8FM57vgieBVBIQ3OfjyDj1PM0EcXma98VM1Es
-	 6sSVHur16IsQVaJahX3t+3cTBeWUleQWGaEZyM7jN/9Q/ubIr+TdApYHdwJKKNEBHp
-	 rss334e0TEB5gA+Insa7bE/hIDbhw7M2kqr0cvGCPORbmRBwVa0Erx3+VEkYP0BVrf
-	 96Rm1Na7Zy9HCT43XSST04jQzJcJjvr9kU45Z5dLezfk9MgjCVSlALzF/Ln2hInT7w
-	 6M0alBAbbVcDQ==
-Received: from [192.168.68.115] (unknown [180.150.112.60])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id CF6326597C;
-	Thu, 26 Mar 2026 14:33:49 +0800 (AWST)
-Message-ID: <0f98ee4fcc662e80160026208b18e655eeb50ad1.camel@codeconstruct.com.au>
-Subject: Re: [PATCH] ARM: dts: aspeed: anacapa: Add eeprom device node
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Colin Huang <u8813345@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, 	linux-kernel@vger.kernel.org,
- colin.huang2@amd.com
-Date: Thu, 26 Mar 2026 17:03:49 +1030
-In-Reply-To: <CAPBH0A9oatx7U2+3dvGVgonHEm+yq5TFM9mTcdStau2Lk1XytA@mail.gmail.com>
-References: <20260302-add-new-eeprom-node-v1-1-2bcf87bc22e4@gmail.com>
-	 <fd932aa3f0cae64f40c3b207657032e7bf61066a.camel@codeconstruct.com.au>
-	 <CAPBH0A9oatx7U2+3dvGVgonHEm+yq5TFM9mTcdStau2Lk1XytA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kgx5PVz7"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 310E4C2BC87;
+	Thu, 26 Mar 2026 06:35:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774506947;
+	bh=XgK+c61EJ3POwwUA4dYICWS5n7txtDGgDK9lPOzEOoY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=kgx5PVz7pfvEDHR6tWXx8Q8qJSFZ091irntbeytd6xr4kTLw1BztVuKrCcy9GbJ1D
+	 ySO9EIdAklDv/hh1VBjjtXXRnn0fjuQ7Mq6xFUPXUq7IMLqkFTOrNmdIg8iigJ+NA5
+	 ZGsQ/cpPCd0bfmW8oyPDA7P4IRwsDFxrBGdXhaSwUZ4162Ib00tNP3Htx7svdWUoTc
+	 I6AkbXTsHiSitiYO8YfvPXIm3phld3SSnJbL7t3XGRz8uT/8h5yZMAe2x+irLN7nPj
+	 UMrofdLRaQiAnkytd/P0thnbYlbFA8VQsZuHUzBvd1s45HeiaR8LwxurmD3z9q40/w
+	 S0aWCsM9MVoCQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D385109E558;
+	Thu, 26 Mar 2026 06:35:47 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Date: Thu, 26 Mar 2026 06:35:38 +0000
+Subject: [PATCH 1/2] dt-bindings: pwm: amlogic: Add new bindings for S6 S7
+ S7D
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260326-s6-s7-pwm-v1-1-67e2f72b98bc@amlogic.com>
+References: <20260326-s6-s7-pwm-v1-0-67e2f72b98bc@amlogic.com>
+In-Reply-To: <20260326-s6-s7-pwm-v1-0-67e2f72b98bc@amlogic.com>
+To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
+ Junyi Zhao <junyi.zhao@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774506945; l=1979;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=7pPP6FCX/JHlWDMsAPkXc7yrHLEf0gHhe1iZNl6X4a4=;
+ b=0ilGapcjKBpO/yK6NfK5WTocVVTM8wUZtDKxrEbLtgMa9SrXPk5KYA3+Iw0XSPAux28L6n1uy
+ B5TH4iJqCF4AqIjE3i1yrWcPRAknu8w7aMs+3i+x1uC9MaCgI3MTaOy
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-On Fri, 2026-03-06 at 14:06 +0800, Colin Huang wrote:
-> Hi Andrew,
->=20
-> Thanks for the feedback.
->=20
-> In our case the only functional difference between DCSCM rev=E2=80=AFB/C =
-and
-> rev=E2=80=AFD is the EEPROM I=C2=B2C address change (0x50 =E2=86=92 0x51)=
-.
-> Other than this, the hardware is identical and all device-tree
-> described components share the same wiring and behaviour.
->=20
-> Maintaining two separate devicetrees for a single=E2=80=91byte address sh=
-ift
-> doesn=E2=80=99t scale well for us.=20
+From: Junyi Zhao <junyi.zhao@amlogic.com>
 
-I disagree that there's a problem of scale. The kernel's dts files are
-processed with the C pre-processor - you can #include one file from
-another. .dtsi files work this way, and as a related example, we
-maintain two devicetrees for the AST2600 EVB where -A1 had some minor
-differences in the regulator configuration:
+Amlogic S7/S7D/S6 different from the previous SoCs, a controller
+includes one pwm, at the same time, the controller has only one
+input clock source.
 
- * https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/=
-arch/arm/boot/dts/aspeed/aspeed-ast2600-evb.dts?h=3Dv7.0-rc5
- * https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/=
-arch/arm/boot/dts/aspeed/aspeed-ast2600-evb-a1.dts?h=3Dv7.0-rc5
+Signed-off-by: Junyi Zhao <junyi.zhao@amlogic.com>
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+---
+ .../devicetree/bindings/pwm/pwm-amlogic.yaml       | 27 ++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-See also my response to Kevin Tung earlier:
+diff --git a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+index c337d85da40f..f0c40dc359ad 100644
+--- a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
++++ b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+@@ -37,6 +37,7 @@ properties:
+       - enum:
+           - amlogic,meson8-pwm-v2
+           - amlogic,meson-s4-pwm
++          - amlogic,s7-pwm
+       - items:
+           - enum:
+               - amlogic,a4-pwm
+@@ -45,6 +46,11 @@ properties:
+               - amlogic,t7-pwm
+               - amlogic,meson-a1-pwm
+           - const: amlogic,meson-s4-pwm
++      - items:
++          - enum:
++              - amlogic,s6-pwm
++              - amlogic,s7d-pwm
++          - const: amlogic,s7-pwm
+       - items:
+           - enum:
+               - amlogic,meson8b-pwm-v2
+@@ -146,6 +152,20 @@ allOf:
+         clock-names: false
+       required:
+         - clocks
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - amlogic,s7-pwm
++    then:
++      properties:
++        clocks:
++          items:
++            - description: input clock of PWM
++        clock-names: false
++      required:
++        - clocks
+ 
+   - if:
+       properties:
+@@ -182,3 +202,10 @@ examples:
+       clocks = <&pwm_src_a>, <&pwm_src_b>;
+       #pwm-cells = <3>;
+     };
++  - |
++    pwm@1000 {
++      compatible = "amlogic,s7-pwm";
++      reg = <0x1000 0x10>;
++      clocks = <&pwm_src>;
++      #pwm-cells = <3>;
++    };
 
-https://lore.kernel.org/all/d7794f74b26bbc1ee0a70e39c5671acc018f80eb.camel@=
-codeconstruct.com.au/
+-- 
+2.52.0
 
-Andrew
+
