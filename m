@@ -1,236 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53DA3FE34C;
-	Thu, 26 Mar 2026 18:55:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82B1312815;
+	Thu, 26 Mar 2026 19:04:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774551306; cv=none; b=XwqLfIZp+NPiTqELew6adr5lHZjWyJCkc19c/Ft96gVTLuvD205x7abSOHEXlE0Y3J/iGTbgULT0PqfydXTU9PN/bvlKhD/rMYEfreunWi8vmmD7EpL0Eoud140Nya9G5FOCjhQbR1IKK6pwPIo96YrOYXzzT0MVUNJJrNd7lp4=
+	t=1774551867; cv=none; b=L7XkQf1Mq+nxGpMH2mh/TF0ogsxJZKSl521jZOXYqlpHhcSQZGFvbCGkutatiHVJkAbbARNMWBnqHWu1sHkS8fATCnjhQpH9gZuujhzqSjRyRLaRyOmySAlhB2UVtRsJivMynn1uIU95cc9s2FtLfwXcU+ZPMhVbu19reUb5KkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774551306; c=relaxed/simple;
-	bh=/20vy7mkXZdNsQUe9UU7hz+oDH36c9Dx6GRPFYTupu8=;
+	s=arc-20240116; t=1774551867; c=relaxed/simple;
+	bh=2GdEkka0Rx1k7PnbHtzzL6iWygOPHt0EXermV7BBad8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cc761Az/gOefIwBq6O05re8V1YDRXo9n1YFyplMig52+rVICJEP6ZN7rkESNliwCY5u67bm86MUzfXkxV18NTk6O+i0dLEWGDunN9pLrUNUvUff0oGbvWMrWK8P1UrRLzqHhon3FUvDkVfYs5qa+ECOIhxvMJ5EvGtp0TI+uWpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VdEC1pp0; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=G2+my6Kg8bw5ysT3eqpqDwsBVyWAXhtTbUGAqp6IH5CUw8ixb997dMBvDcjY63BLPgjThoQoMXHcfPXwEtarn6TTQnf/WaB0bXDMWhc19OkDeWbCQssfFxQ3xRfOuAQW06++Cp7+uz5BWehh31u0KmFxnlIddJxvnWdgavrXXt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U6ExEklm; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VdEC1pp0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68955C2BCB4;
-	Thu, 26 Mar 2026 18:55:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774551306;
-	bh=/20vy7mkXZdNsQUe9UU7hz+oDH36c9Dx6GRPFYTupu8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VdEC1pp0gNuXrBleDHGi/gcvUBCDBIRB7OlugjHpLC5cdgWnYZuhfDDURLhczn4le
-	 ufIVCPnmARX9SBN+2CC7Vy9VZ0PolpAYbGmBmdXqHi+b8m35KdZ6H38zeK4MlpauSK
-	 rmnt0YKKQAlWSkIOFlPCTOVT1rQGqQlr4wzUxq5sXKGCrvvvy1XjHAqVq0cNM7rFeZ
-	 jGLDkfjN/TWS9KxnDeVaWtNEkPzdnyAvnJ9BusHhZo7Vj5hu5KBc0OVdxHII/jYLhJ
-	 IWhE0gr8XZ0iAJxd77bDTRASl+rlILfbuDg/vIa19wdBcaMZjoLMcXF91i1i1zgWWf
-	 gHf88kUB6DrJQ==
-Date: Thu, 26 Mar 2026 18:55:01 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Frank Li <Frank.Li@nxp.com>
-Cc: Peter Rosin <peda@axentia.se>, Linus Walleij <linusw@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U6ExEklm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774551866; x=1806087866;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=2GdEkka0Rx1k7PnbHtzzL6iWygOPHt0EXermV7BBad8=;
+  b=U6ExEklmbFeKybEin0xG7zKvQ13SNE+6WoFFy4MoczUqJ6iEPlb06MQG
+   OLOTyFUrRay5/mGYDal185MHCWmEg2OZGNERju76VBmr6xcEHQKSAnnlb
+   9ave1+qAdl5JiOANgdjaYEs2vHEUEVveu5tZoUbT6EvolLxSamIJTK9lh
+   rU/aBKcQCDylQgHP6lXcKsXk8FE8R+uWQXuCVgu4uv6iFZS44NgKJ1EaO
+   J+nMdShRv/PVH1u1EZ9V3Roq+hVmXt9jIKvA0ZlgJ8njOdpGiiSZS+cGw
+   AXWclUGfAEjpWXTj7B3EniQWcQ7LrAmREzU5Ut7Wl8/AZUg6fLWy9JZYt
+   w==;
+X-CSE-ConnectionGUID: tPfG/najRjypQ7j62Ra8vA==
+X-CSE-MsgGUID: o5kvUWc2QZ++FHA80pihSQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11741"; a="74805631"
+X-IronPort-AV: E=Sophos;i="6.23,142,1770624000"; 
+   d="scan'208";a="74805631"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Mar 2026 12:04:25 -0700
+X-CSE-ConnectionGUID: dJEwYd7UR4OOE4MUQB2E2A==
+X-CSE-MsgGUID: V/RzEx+QQMm69OICDPV8uQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,142,1770624000"; 
+   d="scan'208";a="225092187"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.216])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Mar 2026 12:04:21 -0700
+Date: Thu, 26 Mar 2026 21:04:18 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Antony Kurniawan Soemardi <linux@smankusors.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Haibo Chen <haibo.chen@nxp.com>
-Subject: Re: [PATCH v4 3/7] pinctrl: extract pinctrl_generic_to_map() from
- pinctrl_generic_pins_function_dt_node_to_map()
-Message-ID: <20260326-poncho-expanse-d30a9eded8e2@spud>
-References: <20260325-pinctrl-mux-v4-0-043c2c82e623@nxp.com>
- <20260325-pinctrl-mux-v4-3-043c2c82e623@nxp.com>
- <20260326-concur-eel-3e0b3d91e00a@spud>
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: adc: qcom-pm8xxx-xoadc: add support for reading
+ channel labels
+Message-ID: <acWDMg58qxyeM5Eq@ashevche-desk.local>
+References: <20260326-pm8xxx-xoadc-label-v1-0-027805dad4db@smankusors.com>
+ <20260326-pm8xxx-xoadc-label-v1-2-027805dad4db@smankusors.com>
+ <acUIAh_r7mSfIiEB@ashevche-desk.local>
+ <0b85a229-219f-4457-8fe4-bd4b3545684f@smankusors.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bdrvhubYCtkQ5gtU"
-Content-Disposition: inline
-In-Reply-To: <20260326-concur-eel-3e0b3d91e00a@spud>
-
-
---bdrvhubYCtkQ5gtU
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <0b85a229-219f-4457-8fe4-bd4b3545684f@smankusors.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Mar 26, 2026 at 06:52:12PM +0000, Conor Dooley wrote:
-> On Wed, Mar 25, 2026 at 07:04:12PM -0400, Frank Li wrote:
->=20
-> > diff --git a/drivers/pinctrl/pinctrl-generic.c b/drivers/pinctrl/pinctr=
-l-generic.c
-> > index efb39c6a670331775855efdc8566102b5c6202ef..20a216ae63e91b69985ea4c=
-fcd0b57103c6ca950 100644
-> > --- a/drivers/pinctrl/pinctrl-generic.c
-> > +++ b/drivers/pinctrl/pinctrl-generic.c
-> > @@ -17,29 +17,18 @@
-> >  #include "pinctrl-utils.h"
-> >  #include "pinmux.h"
-> > =20
-> > -static int pinctrl_generic_pins_function_dt_subnode_to_map(struct pinc=
-trl_dev *pctldev,
->=20
-> > +int
-> > +pinctrl_generic_to_map(struct pinctrl_dev *pctldev, struct device_node=
- *parent,
->=20
-> Can you drop this stylistic change please? The=20
+On Thu, Mar 26, 2026 at 12:00:52PM +0000, Antony Kurniawan Soemardi wrote:
+> On 3/26/2026 5:18 PM, Andy Shevchenko wrote:
 
-Whoops, cut myself off. To be clear, what I am asking for is to keep the
-"int" etc on the same line as the function name. This function is new,
-but you did it for the existing function too and the comparison is here.
+...
 
->=20
-> > +		       struct device_node *np, struct pinctrl_map **maps,
-> > +		       unsigned int *num_maps, unsigned int *num_reserved_maps,
-> > +		       const char **group_names, unsigned int ngroups,
-> > +		       const char **functions, unsigned int *pins)
-> >  {
-> >  	struct device *dev =3D pctldev->dev;
-> > -	const char **functions;
-> > +	int npins, ret, reserve =3D 1;
-> > +	unsigned int num_configs;
-> >  	const char *group_name;
-> >  	unsigned long *configs;
-> > -	unsigned int num_configs, pin, *pins;
-> > -	int npins, ret, reserve =3D 1;
-> > -
-> > -	npins =3D of_property_count_u32_elems(np, "pins");
-> > -
-> > -	if (npins < 1) {
-> > -		dev_err(dev, "invalid pinctrl group %pOFn.%pOFn %d\n",
-> > -			parent, np, npins);
-> > -		return npins;
-> > -	}
-> > =20
-> >  	group_name =3D devm_kasprintf(dev, GFP_KERNEL, "%pOFn.%pOFn", parent,=
- np);
-> >  	if (!group_name)
-> > @@ -51,22 +40,6 @@ static int pinctrl_generic_pins_function_dt_subnode_=
-to_map(struct pinctrl_dev *p
-> >  	if (!pins)
-> >  		return -ENOMEM;
->=20
-> This looks suspect. You've left the pins allocation behind:
-> 	pins =3D devm_kcalloc(dev, npins, sizeof(*pins), GFP_KERNEL);
-> 	if (!pins)
-> 		return -ENOMEM;
-> but pinctrl_generic_pins_function_dt_subnode_to_map() has already
-> populated this array before calling the function.
->=20
-> Also, this should probably be
-> Suggested-by: Conor Dooley <conor.dooley@microchip.com>
->=20
-> Cheers,
-> Conor.
->=20
-> > =20
-> > -	functions =3D devm_kcalloc(dev, npins, sizeof(*functions), GFP_KERNEL=
-);
-> > -	if (!functions)
-> > -		return -ENOMEM;
-> > -
-> > -	for (int i =3D 0; i < npins; i++) {
-> > -		ret =3D of_property_read_u32_index(np, "pins", i, &pin);
-> > -		if (ret)
-> > -			return ret;
-> > -
-> > -		pins[i] =3D pin;
-> > -
-> > -		ret =3D of_property_read_string(np, "function", &functions[i]);
-> > -		if (ret)
-> > -			return ret;
-> > -	}
-> > -
-> >  	ret =3D pinctrl_utils_reserve_map(pctldev, maps, num_reserved_maps, n=
-um_maps, reserve);
-> >  	if (ret)
-> >  		return ret;
-> > @@ -103,6 +76,54 @@ static int pinctrl_generic_pins_function_dt_subnode=
-_to_map(struct pinctrl_dev *p
-> >  	return 0;
-> >  };
-> > =20
-> > +static int
-> > +pinctrl_generic_pins_function_dt_subnode_to_map(struct pinctrl_dev *pc=
-tldev,
-> > +						struct device_node *parent,
-> > +						struct device_node *np,
-> > +						struct pinctrl_map **maps,
-> > +						unsigned int *num_maps,
-> > +						unsigned int *num_reserved_maps,
-> > +						const char **group_names,
-> > +						unsigned int ngroups)
-> > +{
-> > +	struct device *dev =3D pctldev->dev;
-> > +	unsigned int pin, *pins;
-> > +	const char **functions;
-> > +	int npins, ret;
-> > +
-> > +	npins =3D of_property_count_u32_elems(np, "pins");
-> > +
-> > +	if (npins < 1) {
-> > +		dev_err(dev, "invalid pinctrl group %pOFn.%pOFn %d\n",
-> > +			parent, np, npins);
-> > +		return npins;
-> > +	}
-> > +
-> > +	pins =3D devm_kcalloc(dev, npins, sizeof(*pins), GFP_KERNEL);
-> > +	if (!pins)
-> > +		return -ENOMEM;
-> > +
-> > +	functions =3D devm_kcalloc(dev, npins, sizeof(*functions), GFP_KERNEL=
-);
-> > +	if (!functions)
-> > +		return -ENOMEM;
-> > +
-> > +	for (int i =3D 0; i < npins; i++) {
-> > +		ret =3D of_property_read_u32_index(np, "pins", i, &pin);
-> > +		if (ret)
-> > +			return ret;
-> > +
-> > +		pins[i] =3D pin;
-> > +
-> > +		ret =3D of_property_read_string(np, "function", &functions[i]);
-> > +		if (ret)
-> > +			return ret;
-> > +	}
-> > +
-> > +	return pinctrl_generic_to_map(pctldev, parent, np, maps, num_maps,
-> > +				      num_reserved_maps, group_names, ngroups,
-> > +				      functions, pins);
-> > +}
-> > +
-> >  /*
-> >   * For platforms that do not define groups or functions in the driver,=
- but
-> >   * instead use the devicetree to describe them. This function will, un=
-like
-> >=20
-> > --=20
-> > 2.43.0
-> >=20
+> >> Tested-on: Sony Xperia SP (PM8921)
+> >
+> > Interesting, never saw this tag before.
+> 
+> Oh, I just realized I misremember Tested-by tag as Tested-on... Let me
+> know if it's not acceptable.
+
+You can just put it in a free text:
+
+  "The change has been tested on ..."
+
+...
 
 
+> >> +	if (!ch) {
+> >> +		dev_err(adc->dev, "no such channel %lu\n", chan->address);
+> >> +		return -EINVAL;
+> >> +	}
+> >
+> > Isn't it a dead code? Also poisoning dmesg with this recurrent message is
+> > not good idea to begin with (the user space will have a door to flood it,
+> > which might be considered as an assistance to hackers to clear immediate
+> > logs after a successful attack).
+> 
+> Good point about the successful attack hint! I was copying the existing
+> code from pm8xxx_read_raw. Do you think those checks are unnecessary for
+> pm8xxx_read_raw as well?
 
---bdrvhubYCtkQ5gtU
-Content-Type: application/pgp-signature; name="signature.asc"
+Yes, I think they are not as the returned code should be enough to identify
+the problem. (For no such channel I would rather see -ENOENT, but we can't
+simply replace that in the existing code as it's part of ABI.)
 
------BEGIN PGP SIGNATURE-----
+-- 
+With Best Regards,
+Andy Shevchenko
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacWBBQAKCRB4tDGHoIJi
-0g0VAQDhYVisZEV26nl2hUahv0HDUAfeNj10VyO6jOb4tFJkqQD9GVos7vS63Q9O
-c1ZR6hyLIo8RH4ETmjEnkrFbYXEzag4=
-=hRAx
------END PGP SIGNATURE-----
 
---bdrvhubYCtkQ5gtU--
