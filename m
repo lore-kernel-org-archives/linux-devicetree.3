@@ -1,132 +1,153 @@
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com [209.85.222.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m15597.qiye.163.com (mail-m15597.qiye.163.com [101.71.155.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AEE13783C8
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:30:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6C2325491;
+	Thu, 26 Mar 2026 09:30:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774517404; cv=none; b=XsE1sPhFyxkeTqXnLIYYcqoLLiXW5xRvVczrAGqCD8yYYjMl0yiCNY2ZcBDawT+uOa9UDo4SkNlKOfgoyDe69WC58JfB6aduX2f/59ZG782CdqNWB3ky6e6/u4mec3mZ1ubuf9GKz8v85b86Y0sFeEdzw/mwjDSXSDxC4lWz0v0=
+	t=1774517443; cv=none; b=SRzvIRRLLlglIIBQnXZ5NydtHhgSO6iV5O5+WiYfGwtagEHWArVXJ7b1JnYjgAOU/7qB2CwaGXNR/cpmiQQ7MgWkJXXaly3e6GYedq/r8HVcXYJUg+m4dVD1UcGA0Xrr+lcGpNdsDrpnCwiwf8Yx4S68cwmN4bIiUC8gkBcc8dA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774517404; c=relaxed/simple;
-	bh=k9HDcRqBnuJFvwQk6gqRTKhQzZwVzR+lN2z+BoG0Ts4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qPh6+RyadUS6WGF3ZNRLTHl/m/95wQ1m71qQt/I6bQjby5VuXYYQznNUZE9NtlRSF4LIr1b4rS5VGgIlCim4nwkbHCsb3WwShcBnv5AB+dlnrHUpiW6OPDH9vZ85AYIC87onaTD9mFVk2WsAvFSvbNMpXvkJMIRupMh8Sm+6zEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-94ab69af6c8so1191867241.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:30:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774517401; x=1775122201;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2PE3iyzx6jIK3ZsNdv8OtLecBaLX2UfrDS1pqoPXCU0=;
-        b=f8JBbduQjqa9xUcSvi/j4GE6sJ60FBQ2f3Ewbrbme0MEvoTOnBPgHvozi6X8/EkKOt
-         yWdzNnSJgdJlNnnyQ1ADv3tOQmiZAMK8/vcqM9de3mWC1DhNNT4fPZT6x1CwLYzldrLF
-         O+KKIq5FkykfwyDPjs+a8FodO+TH9Z4bE1IHieYufPOpsQT53IYZY1+LTVQPNZtHj+fR
-         U9J42UZH4YzpVr0bPc/q39AmcYrV6nHz4ygW4QtEdi0bew4j4sPaWM3zL1hB5Gx/LnPC
-         rdAud8oKMYmwmnVN0koILz4wKblft3cf5K5VoXdQXfC/oGN/qYS4k8PMMdoXNuT+ajEJ
-         SDgQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW9Hin+B0Dheo0qK3gFPXtRQlp6pGIDupx0P9+Mtwsi3oV9Q86h5cleQGuhu9Vp0evF6Ips+bu+QEZR@vger.kernel.org
-X-Gm-Message-State: AOJu0YzOWPgG3ztQ6S7H2nwtl1Y9N3LKP0rH3cGRf3fTT55tFiU5k5tG
-	DYbCNMU2tX4KEpY9q8ccB7FhSn58nM4ron5c9DMJB7qWotLyc2JcMoO7JrxUS7AqRaM=
-X-Gm-Gg: ATEYQzx844bfHehSWSuEIpL/HGBKUysrOF2nZ84dn/CBJ3KMjl5ncQZhBfCk6IF1fth
-	bl2Je9u30ZunKmoJ/6epFt1HYKg7uChqvnPbpJZzeR7fj6ItnYdF/LF6OiA/arn3I/mz2NZzmhh
-	lTemXJEJ+Y4iguPjCnAZPxIfAkaSWJoWmH+CfiHUoBIr3ehW/jKUeTvg4XtNnrRnGnsOQCWOAxP
-	WGnkhhRJqar2HthsL1Dn4IRWsuuHB4gFWRNHyXT/TOcRXiZogcbXay5PgpxYHKmV966xg8tL9wc
-	EqvHs+yh/uVZeUfeDhvwAbAvlcKF0PYhOikIiHK44x39LB0WRwgl6apr9hKxpSXOVD/Jck+Nnv2
-	KHFsE0RK4LjOZOP9P47MYd+2oL9JuNiWXk8GE3NrO9pGFW/aQBg2n/7Tj9XKmiuUbFzwN9J5a62
-	C+8TEBLaaX9Ng8iDftCVgzIGyNpFgS9yj6fRFVNx9aUFy8PJKaT3XS5ibvSKtW
-X-Received: by 2002:a05:6102:580d:b0:5ff:fac2:836e with SMTP id ada2fe7eead31-604e4961ec0mr277912137.4.1774517401563;
-        Thu, 26 Mar 2026 02:30:01 -0700 (PDT)
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com. [209.85.217.42])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-604d5313adbsm2460892137.8.2026.03.26.02.30.00
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Mar 2026 02:30:00 -0700 (PDT)
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-5ffdd9a6155so1689747137.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:30:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCXOXYD//t2IxfjZPRga6FQfGs/XwUi1//cGWmquCa/syd2Q3U01ybL93cCbByD3XEXZfQRlOxk8Q5Uh@vger.kernel.org
-X-Received: by 2002:a05:6102:f95:b0:600:d0f:bacf with SMTP id
- ada2fe7eead31-604e4d73ea0mr248413137.11.1774517400168; Thu, 26 Mar 2026
- 02:30:00 -0700 (PDT)
+	s=arc-20240116; t=1774517443; c=relaxed/simple;
+	bh=wDla5NyAgljsvaMvqYC5JGSoXENcFslDuleW6mXDGwg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZhBNb6ueLTiB6qRUm223BfEGpSdR8GjUoxQzRbGCtuP6UVV7kxImwTjtj32UI4bVyS22PJKxoasbUve7rpeuxDCUX45m5T5I+fC8zHNBhUyrWivVbzvUzgKxStPEDiyFsq13hsSwvKi8MU30Jy+zOAOAQ46HHC9zqFiMQgf4zFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=BBz6saw1; arc=none smtp.client-ip=101.71.155.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="BBz6saw1"
+Received: from [172.16.12.43] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3865a941e;
+	Thu, 26 Mar 2026 17:15:11 +0800 (GMT+08:00)
+Message-ID: <ea1bf890-c4be-4d66-ad26-a6bdb58a9292@rock-chips.com>
+Date: Thu, 26 Mar 2026 17:15:11 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260203123503.314755-1-biju.das.jz@bp.renesas.com> <20260203123503.314755-3-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260203123503.314755-3-biju.das.jz@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 26 Mar 2026 10:29:48 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWS4QuPL31T8TGhs_iK3oG0wkRgtoMXF0n0YVBdBJk-ww@mail.gmail.com>
-X-Gm-Features: AQROBzAm_WIhUFg5CDklg-yPQ4dppCZIKqU-HJ1ZQvbi70s_CgoDPHKhQhy0-xk
-Message-ID: <CAMuHMdWS4QuPL31T8TGhs_iK3oG0wkRgtoMXF0n0YVBdBJk-ww@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] arm64: dts: renesas: rzg3l-smarc-som: Enable eth0
- (GBETH0) interface
-To: Biju <biju.das.au@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/8] drm/bridge: dw-hdmi: document the output_port field
+To: Liu Ying <victor.liu@nxp.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Anson Huang <Anson.Huang@nxp.com>,
+ Christopher Obbard <christopher.obbard@linaro.org>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+ Fabio Estevam <festevam@denx.de>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Frieder Schrempf <frieder.schrempf@kontron.de>,
+ Gilles Talis <gilles.talis@gmail.com>,
+ =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
+ Heiko Schocher <hs@denx.de>,
+ Joao Paulo Goncalves <joao.goncalves@toradex.com>,
+ Josua Mayer <josua@solid-run.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Marco Felsch <m.felsch@pengutronix.de>,
+ Martyn Welch <martyn.welch@collabora.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
+ Philippe Schenker <philippe.schenker@toradex.com>,
+ Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
+ <shengjiu.wang@nxp.com>,
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+ Vitor Soares <vitor.soares@toradex.com>
+References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
+ <20260320-drm-lcdif-dbanc-v1-4-479a04133e70@bootlin.com>
+ <050c6532-8122-4ded-9946-3ce1a86d2be0@nxp.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <050c6532-8122-4ded-9946-3ce1a86d2be0@nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9d296d244d03a3kunm1010b4977b1d91
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZGR5OS1ZLSxpMSBpMSh0fGE1WFRQJFh
+	oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpKQk
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=BBz6saw1bA1HipARZJu1Th3JeGDhlWRDZM5b3IG6nb6VPuZJDLQA30JTB/X6J79LLkbgUnkqaZqnmMnVOtKWw03gpXLqkD6fTgBZcfRXfa74ymJvbj3O7FKcBLPHT1zk8aZ8xOSoV6SuC+/1g7OjciB+8/8J4m3qKQN1tjIqK4Y=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=hV1UzNvduceK201Bbs4LBHoL7oLLk3YAabMlA/Ugb6M=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi Biju,
+On 3/26/2026 3:25 PM, Liu Ying wrote:
+> Hi Luca,
+> 
+> On Fri, Mar 20, 2026 at 11:46:15AM +0100, Luca Ceresoli wrote:
+>> The meaning of this flag may not be obvious at first sight.
+>>
+>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>> ---
+>>   include/drm/bridge/dw_hdmi.h | 5 +++++
+>>   1 file changed, 5 insertions(+)
+>>
 
-On Tue, 3 Feb 2026 at 13:35, Biju <biju.das.au@gmail.com> wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->
-> Enable the Gigabit Ethernet Interfaces (GBETH0) populated on the RZ/G3L
-> SMARC EVK. The eth1, pincontrol definitions and hotplug support will be
-> added later.
->
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+First of all, these changes related to the DW HDMI controller work well 
+when tested on RK3399 HDMI.
 
-Thanks for your patch!
+>> diff --git a/include/drm/bridge/dw_hdmi.h b/include/drm/bridge/dw_hdmi.h
+>> index 336f062e1f9d..45f6ba1a8ee1 100644
+>> --- a/include/drm/bridge/dw_hdmi.h
+>> +++ b/include/drm/bridge/dw_hdmi.h
+>> @@ -126,6 +126,11 @@ struct dw_hdmi_phy_ops {
+>>   struct dw_hdmi_plat_data {
+>>   	struct regmap *regm;
+>>   
+>> +	/*
+>> +	 * The HDMI output port number (which must be 1) if it is described
+> 
+> I'd rephrase:
+> The HDMI output port number must be 1 ...
+> 
 
-> --- a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
+Yes, the output port number should be 1, but I found that the output 
+port number in the Rockchip-side dw-hdmi driver remains 0.
 
->  &extal_clk {
->         clock-frequency = <24000000>;
->  };
-> +
-> +&mdio0 {
-> +       phy0: ethernet-phy@7 {
-> +               compatible = "ethernet-phy-id0022.1640",
-> +                            "ethernet-phy-ieee802.3-c22";
+Therefore, it may be better to adapt the dw-hdmi drivers across all 
+platforms to the bridge-connector architecture simultaneously.
 
-Drop the latter?
+This would allow removing &dw_hdmi_plat_data.output_port and unify the 
+setting of DRM_BRIDGE_ATTACH_NO_CONNECTOR during the attach stage.
+(Just as the Analogix DP driver does [0])
 
-> +               reg = <7>;
-> +               rxc-skew-psec = <1400>;
-> +               txc-skew-psec = <1400>;
-> +               rxdv-skew-psec = <0>;
-> +               txdv-skew-psec = <0>;
+[0] 
+https://lore.kernel.org/all/20260319071452.1961274-1-damon.ding@rock-chips.com/
 
-txen-skew-psec?
+>> +	 * in the device tree. 0 if the device tree does not describe the
+>> +	 * next component (legacy mode).
+> 
+> Maybe be a bit more specific about "legacy mode":
+> legacy mode without DRM_BRIDGE_ATTACH_NO_CONNECTOR flag when attaching bridge
+> ?
+> 
+> Reviewed-by: Liu Ying <victor.liu@nxp.com>
+> 
+>> +	 */
+>>   	unsigned int output_port;
+>>   
+>>   	unsigned long input_bus_encoding;
+>>
+> 
 
-> +               rxd0-skew-psec = <0>;
-> +               rxd1-skew-psec = <0>;
-> +               rxd2-skew-psec = <0>;
-> +               rxd3-skew-psec = <0>;
-> +               txd0-skew-psec = <0>;
-> +               txd1-skew-psec = <0>;
-> +               txd2-skew-psec = <0>;
-> +               txd3-skew-psec = <0>;
-> +       };
-> +};
+Best regards,
+Damon
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
