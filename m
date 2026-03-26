@@ -1,164 +1,219 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E8F394495;
-	Thu, 26 Mar 2026 10:44:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A05A3090CD
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 10:45:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774521868; cv=none; b=gQY+hLKnYi+slCAVxb8lHLv6nMxoVL0NP7hPVkt8dC3JARs6N2WHEoymFCpF1v3G65TpNdlec5fNfQtXVjyrOywiZyDaoj2uT/uf20S5V6IeeWPXQ7MXzrQymwJ7V4aXqaA85gAtaNr5y0Yc/9chlMb7a615cUmzZuEC5h6pevE=
+	t=1774521944; cv=none; b=VS0rKTN+IMPNlDMZ3v70O+MgGK0zImD3mTPVOsdtO/PBjs57c99AnnpjZ7CtPyAxRp/Y4DPNrZLn5shCc86Iy4Q0qgMyJ4tA7S3XygOmDeyFF3nOpx1oAMUBvANyrm0MXh6Z3n5IMOG0KpU274+hFSgnb8lQPhNQt4h+qCWl/mM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774521868; c=relaxed/simple;
-	bh=wYyWKLKHzE8kFdi3vkKIQNJjQ2xVIQi9Z3+ApgMANsU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EwwXN2uScSdd/t8Z/NZ0aJtBjor5Pgmuc1EZ9NbuLcncVICkYNxEQKzvdOEPwG+xdyYbmAk5tNHX0U2XWB2gnIyUcDsA99ttp/rf1scvzKOYZ0TNBT/vImmmx7lgHuBzH6BuGwgALwq0oZfhnY2eWpyjgr1ClZdMPzgJrGwckgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ExS4F9cj; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774521944; c=relaxed/simple;
+	bh=KuE5wMXOF5HDbAynVpU3oy802Br8p58lz9x7bevUe5A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Wv4APHP2DrWxy0k7JIg/WlsFxxrqvBtLRUXeJ0UKbkXgNQu31Pqh6lsnx1SOCQnG+mLYKUDsw9Sucwx4CCX5gf8lmrTzfYMaS9DHF3m6r8YqqljY1KFeh+sTvkTRptV4dTcZhiBjXvIQvpQ5O4yv9UKUOYI+ckqqReyHVFidKFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DFM9xEKA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=U+1VSlyL; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ExS4F9cj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F37CAC116C6;
-	Thu, 26 Mar 2026 10:44:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774521867;
-	bh=wYyWKLKHzE8kFdi3vkKIQNJjQ2xVIQi9Z3+ApgMANsU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ExS4F9cj1qPv8ZD99tED4KgYGzwKJhaPjQjk4AbLynuZJmdpxyUdMu4s4DpPRKQcy
-	 EX+sxI3Pg3rr5S95A15P2YhtG0cuWqKP6Gl4RKIfASOySd5XB12Q99efWvMMndFrAY
-	 4UvCfzNbpwfQwr6BOSpidNaaIHTpfc0CAGF+9fcsk7OSC57QhjSnsu5gtXq3lCU5RB
-	 iEaLl5obtx59jVaOyXh9g2gPZ/lfTcoSWktWUA8VeHShmGJg9zGvDORi8LIJJg3tif
-	 5d2lWXmQ41pDTRDHmj3bQfcjClhTXGl8lKqiv77eqZf6+w0AoRfcHvOpuI/FNt7J1z
-	 8Cv/OVQ88wOlA==
-Date: Thu, 26 Mar 2026 10:44:23 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Vyacheslav Yurkov <uvv.mail@gmail.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 2/2] dt-bindings: Add clock guard DT description
-Message-ID: <20260326-lustiness-borrower-530898a5ce28@spud>
-References: <20260318-feature-clock-guard-v1-0-6137cb4084b7@bruker.com>
- <20260318-feature-clock-guard-v1-2-6137cb4084b7@bruker.com>
- <20260318225510.GA639444-robh@kernel.org>
- <7c7034a7-686a-42c2-bdba-6f31b5179f7c@gmail.com>
- <20260319-yearly-wrongful-883f7fd86a69@spud>
- <b45d9845-2d56-4fdd-a3ac-b0e0e27ba573@gmail.com>
- <20260323-sanctuary-semantic-432089feb1c7@spud>
- <d097826c-3db5-4902-acee-ffcff7436d4e@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DFM9xEKA";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="U+1VSlyL"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62Q8D2kR1810931
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 10:45:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	wr11UVgqGoxu05TLkOfnjgR77V8kxzjaqIhhpa+9RfI=; b=DFM9xEKApWvq8G7d
+	Phgz+UslHMg27+So/3F2w88xVAP//Sh81Bj/6kjF4mW+HhAkRnTG4gvhtsHestsH
+	kHR6HlVA57FToqI9/IXk74tRAeKkzf4L2qg6JV+oH31fk44pve8Eng6y62S41arP
+	Pf82j0BSgGm/UHwp4YPXuHicR3nPYZ8zYEukLNY6RJQb5siMSC6U+81t+o59x+Yp
+	qqz0gk7wyN1PJFrN5Qfof+4Bv4w0w0wFJXSbSAwTOMlPC7GDC/ZLB7vtorbC1k1u
+	484ZJ+QQqyy1ojvmJfecUS6IwbJpvVIBrPXd5pnMfIBp6rntTnrOOFwCGK9etxm+
+	zfuNng==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d4tkn1uht-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 10:45:42 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50b86b756c4so2867961cf.1
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 03:45:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774521941; x=1775126741; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=wr11UVgqGoxu05TLkOfnjgR77V8kxzjaqIhhpa+9RfI=;
+        b=U+1VSlyLp3zAkO7gD71k5G5rZv8qdwSRgMrRKF1HGUL4Yg7QnDnTsMo7ZTUmxBzrpy
+         Qfa8ybSfw3DgrJVjIFEMEi6eObjVYL/P2s5NMBd3CYAdLvrb2h9/4Jiy2r6aBDrZH7X6
+         m14FHEucthxApvUIAg5HJLOr/wFUJKNqBbivtuduFNQxxuipr+ZUN9OPqxAvtXLQBD0p
+         p4f/qE5HWmdzzZzZtSdYrzrEMzXlI0dRhrfD5DtMqAfa7/fai8QJyiTOvNt9wgAddsVi
+         NSxWoTUZnQdJ2Vivq7Xdo2ANJe2u84RVjSu3QhIMOvp+9Mrl4JDJUxdczYmzqpdGYzDT
+         xlXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774521941; x=1775126741;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wr11UVgqGoxu05TLkOfnjgR77V8kxzjaqIhhpa+9RfI=;
+        b=EJt1/9tlP9oiLB9p2yxwZtjwELIgI7OrK9hRid4PE51yReTt8jysPZGuqUyJhjhT9i
+         5lB1uUt3NHMAYIz1/P8cXoT8yaZ0KZNXCII6/BYGa4Xwfk2+zSJY/KrIJhD48ciyLa6g
+         drOCahUlJA/P0P66gnyR0cW8Pf+gxs4yOYTibLJxcUzJuzZF2d6S8Szh0OZLXGj3ohC5
+         cWuXFg0byMUPf9Xt4IXpt+aq/E7bSJD7x5WPR+TrPcGUJK5NpJe8tX5fQHgGXvziWl1f
+         JGtVe98LaDFrNCF6eL6V00P3pV7KEu61tncmCFgsZiPXALBI0t0DseanEKspayPRBDgx
+         URDA==
+X-Forwarded-Encrypted: i=1; AJvYcCUWG751kvCwV5/rwFjAcmG7WLLzggse1o0AsHikrunuevJ0oUvkO6a/1LZDRnU/NypLTi1meIMotob0@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy2fC32LBF188c/pq/lOYZWcJOfNuUHDq25bjMArvGj25Zg4v9Y
+	2YcjuJlfi8FKSTV3G0zK5Y6tvtV3/jvyUUXpkiU/bdJ8vUPjvmA3NQx3LHMctB7zyfWo5F9bLeu
+	AolTD1Bz30oeK6tLSOvZHKYOuLANs/kfiymdHSDDN+DBkBu2lDZOaKf9agKxs3IEh
+X-Gm-Gg: ATEYQzx3sQZmb9AqtLbcu4BdELyqvLLl2Zr6Wj60xh+AAUTvv+CSaYK5TDyVGvruWsO
+	QMwqdJkhVC6ULbnyvYrwUvOQztH6oEGSKwtgHifgBHNbpElpxP+SgTYUmn6rYtzctytN6wi7iC5
+	ZlVBR6Y4X38tBkRnD108Umx/O4mUfqJhrndEgky//xs35s5khHFyn3Lst0KUnm6SwKd16yi7dtl
+	vM6t6Ica01MPDjPya6/v+03WYx1idTM5mMmrK9JjuV29XfX3g6YdQes/ooQfUEDgoLJ9yREAZJU
+	zhGZ/QL1+TPZJSbXTPuoNz7iMrRM5pRJ9bkzx2/s0do4f9gyHHesaR8QQUYgfz8KF0TkO81gvWQ
+	w1eFU3MOODO64zmR/9Gik8eWGfJ0ffGm/UmX0H+tmoAju9wIJmu9kFAg4cMkVnrIysbb+9Pvhhg
+	vORsE=
+X-Received: by 2002:ac8:7d0a:0:b0:509:47e2:9df3 with SMTP id d75a77b69052e-50b80cf75f5mr70961231cf.1.1774521941434;
+        Thu, 26 Mar 2026 03:45:41 -0700 (PDT)
+X-Received: by 2002:ac8:7d0a:0:b0:509:47e2:9df3 with SMTP id d75a77b69052e-50b80cf75f5mr70961001cf.1.1774521940881;
+        Thu, 26 Mar 2026 03:45:40 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9b20265120sm102392966b.16.2026.03.26.03.45.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Mar 2026 03:45:39 -0700 (PDT)
+Message-ID: <9c7b16f8-047a-4cec-b34a-28b94040f9d9@oss.qualcomm.com>
+Date: Thu, 26 Mar 2026 11:45:38 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="72NOa8YuikAK5mKM"
-Content-Disposition: inline
-In-Reply-To: <d097826c-3db5-4902-acee-ffcff7436d4e@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: Add the Lenovo IdeaCentre Mini X
+To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260325-ideacentre-v1-0-768b66aaef30@oss.qualcomm.com>
+ <20260325-ideacentre-v1-2-768b66aaef30@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260325-ideacentre-v1-2-768b66aaef30@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI2MDA3NCBTYWx0ZWRfX4s5LzaEVvnsU
+ Z9kDgZPNU9dJ8hsFs/Cwjb5OuiR5XUbO+p+XDndsEaqQBJC/0VDP/PgAelZx8iLF+jqtNNm1pSW
+ rSviU3JZR5/sylk6VwM//BWWlk/Oq19OAi3GEOb/jExwkT0tZXPW08UsnFChl6A9M2pZfhurivr
+ Sod5R2DrbUFYLuetxC88s0wSjzIoIGYBX7UahYxXXpWDgoS7bl/eFO7QiGrYxkjUevFqfFhelDY
+ gyE4ZlZQG7smPmUsWqh/vipcikh9ahHoGeOxH/MfHZdxu8sq1NbyyrdMjSenns4/TyUw1EFf5Ww
+ Sj9GU++hxRt38kgYyt127+R9Hb9ze3yESiJhYweSrmOioEIz14S5RMJmbgCMAEckDSm961Lq7Wi
+ P1/CxGIN2MBl4tkO0zIkYIQYg2whCAxJ8+QeLUwR2W3Lps4jexFdmegCGaeKgD/UEDdE5y8b/Nn
+ wfrstiLhbe/6A8tTaeQ==
+X-Authority-Analysis: v=2.4 cv=It8Tsb/g c=1 sm=1 tr=0 ts=69c50e56 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=oh5tWtvl8tmv48WKmsIA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-GUID: bHs4rPMS-ZNgh9_6UQDTMs-gum99Rag6
+X-Proofpoint-ORIG-GUID: bHs4rPMS-ZNgh9_6UQDTMs-gum99Rag6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-26_02,2026-03-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0
+ malwarescore=0 priorityscore=1501 suspectscore=0 clxscore=1015
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603260074
+
+On 3/25/26 11:34 PM, Bjorn Andersson wrote:
+> The Lenovo IdeaCentre Mini X (Snapdragon) Desktop is a Hamoa-based
+> ultracompact desktop PC. It provides HDMI, DisplayPort, USB Type-C
+> display outputs, 5 additional USB ports, Ethernet, dual NVME slots,
+> headphone jack, WiFi, and Bluetooth.
+> 
+> Introduce a DeviceTree describing this device.
+> 
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+> ---
+
+[...]
+
+> +&iris {
+> +	firmware-name = "qcom/x1e80100/LENOVO/91B6/qcvss8380.mbn";
+> +	status = "okay";
+
+nit: \n before status, please
+
+[...]
+
+> +&usb_1_ss1_qmpphy {
+> +	vdda-phy-supply = <&vreg_l2j>;
+> +	vdda-pll-supply = <&vreg_l2d>;
+> +
+> +	/delete-property/ mode-switch;
+> +	/delete-property/ orientation-switch;
+> +
+> +	status = "okay";
+> +
+> +	ports {
+> +		port@0 {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			/delete-node/ endpoint;
+> +
+> +			/* XXX: why @0? */
+
+Because the binding defined it that way
+
+Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
+
+->
+
+ports:
+  port@0:
+    endpoint@0:
+	Display Port Output lanes of the PHY when used with static mapping [...]
 
 
---72NOa8YuikAK5mKM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> +			usb_1_ss1_qmpphy_out_dp: endpoint@0 {
+> +				reg = <0>;
+> +
+> +				data-lanes = <3 2 1 0>;
+> +				remote-endpoint = <&dp_port_in>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&usb_1_ss2_qmpphy {
+> +	vdda-phy-supply = <&vreg_l2j>;
+> +	vdda-pll-supply = <&vreg_l2d>;
+> +
+> +	/delete-property/ mode-switch;
+> +	/delete-property/ orientation-switch;
+> +
+> +	status = "okay";
+> +
+> +	ports {
+> +		port@0 {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			/delete-node/ endpoint;
+> +
+> +			/* XXX: why @0? */
 
-On Thu, Mar 26, 2026 at 10:54:52AM +0100, Vyacheslav Yurkov wrote:
-> On 23.03.2026 21:14, Conor Dooley wrote:
->=20
-> >=20
-> > The binding you've got says "GPIOs used to control or guard the clocks",
-> > which is not what you're saying that is going on in this mail. A more
-> > suitable description would be "GPIOs used to check the status of the
-> > clocks".
->=20
-> Agree, the description I provided is not very accurate.
->=20
-> > I want to see an example dts user for this please.
->=20
-> DTS example:
->   clock_guard: clock_controller_guard {
->     compatible =3D "clock-controller-guard";
->     #clock-cells =3D <1>;
->     clocks =3D <&h2f_clk 0>, <&clk_fgpa_rx 0>, <clk_fpga_tx 0>;
+Same here
 
-Unfortunately, this doesn't contain the part that I wanted to see - who
-the providers of these clocks here actually are.
+other than that, please fix up the odd misordered pinctrl-n/pinctrl-names
+and feel free to add my:
 
-To be frank, I am not sure how this block would know that these clocks
-are enabled but their providers do not. I can think of a few ideas for
-how this block would know, but I don't understand why the providers
-themselves don't, and therefore why you need this gpio to tell you.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
->     clock-names =3D "h2f_clk0", "clk_fpga_rx", "clk_fpga_tx";
->     gpios =3D <&fpga_ip 0 GPIO_ACTIVE_HIGH>, <&fpga_ip 1 GPIO_ACTIVE_HIGH=
->;
->     gpio-names =3D "gpio-input0", "gpio-input1";
->     clock-output-names =3D "clkctrl-guard";
->   };
->=20
->   custom_device {
->     compatible =3D "...";
->     ...
->     #clock-cells =3D <1>;
->     clocks =3D <&clock_guard 0>;
->     clock-names =3D "clock-guard";
->   };
->=20
-> The driver usage exaple:
->=20
-> clk =3D devm_clk_get(dev, "clock-guard");
-> if (IS_ERR(clk))
-> 	return dev_err_probe(dev, PTR_ERR(clk), "failed to get clock\n");
->=20
-> ret =3D clk_prepare_enable(clk);
-> if (ret) {
-> 	dev_warn(dev, "Clock is not ready, %d\n", ret);
-> 	return -EPROBE_DEFER;
-> }
->=20
->=20
-> > TBH, I don't understand your driver implementation either and why it has
-> >=20
-> > +static const struct clk_ops clkctrl_guard_ops =3D {
-> >=20
-> > +	.enable =3D	clkctrl_guard_enable,
-> > +	.disable =3D	clkctrl_guard_disable,
-> > +	.prepare =3D	clkctrl_guard_prepare,
-> > +	.unprepare =3D	clkctrl_guard_unprepare,
-> > +	.is_prepared =3D	clkctrl_guard_is_prepared,
-> >=20
-> > any of these 4 implemented when you have no control over the clock.
-> > I didn't think it was required to call your parent clocks enables in
-> > your own enable either, thought that was handled by the core recursively
-> > calling clk_enable() on clk->parent. The one thing I would expect you to
-> > have implemented ops wise is is_enabled, which you don't have.
-> > Also no sign of any rate acquisition functions, which I thought were
-> > mandatory.
-> >=20
-> > +	.get_parent =3D	clkctrl_guard_get_parent,
-> > +};
->=20
-> Good point on .is_enabled, I indeed missed that. As for the rate acquisit=
-ion
-> functions I referred to this table
-> https://docs.kernel.org/driver-api/clk.html#id4 , and it see that .set_ra=
-te
-> is actually optional.
-
-=2Eset_rate is not rate acquisition. .round_rate and .determine_rate are.
-I thought they were mandatory, but for a gate clock I guess they are not
-and the parent rate gets used automatically.
-
---72NOa8YuikAK5mKM
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacUOBwAKCRB4tDGHoIJi
-0p35APwM6IgF3CNzxliJf3k0IJWw3lKQWkTG1iT/DuVvPfDOyQD/WoFBCbreKH3p
-FQLv5UYcBgZwbxHHqjd/FcrAjhSTJgc=
-=TceI
------END PGP SIGNATURE-----
-
---72NOa8YuikAK5mKM--
+Konrad
