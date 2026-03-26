@@ -1,98 +1,142 @@
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850413B47C1
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 10:07:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923B7311C11;
+	Thu, 26 Mar 2026 10:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774519673; cv=none; b=oUnM/nNEJ396sG3xToBWR94mslIaUfmmjV53xA6kgiAhhCHXapqta+cyMtB2GirX215FOPUJ7LW1M9Cig2+0essfYRL4NpB3qeTTFSuyLvvCjfhjJzmFr89K37QP5fNeF61OWFwKOKyddhiIL+ChxUQqn0YsxXRN4ztJvFHJa0w=
+	t=1774519702; cv=none; b=fe3BsFX+MRm4oxOysNVZQ6vu/AtbvBgh1FYq6BlL/FVuZPlK6SNcz5LE9gmP79aXC5mcejKh8u5lNUycs/vD51b4bWAZS/bUvMZ8UoYSk+Vby5jU8ttotXNNpbj9VKMx6Nb/C52sN0TWOl2efTU5VqM9StI3KBnOpCejpsPlJGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774519673; c=relaxed/simple;
-	bh=XsGegs66l1CKoLtu/+3QgbtTvmQGUGUmoelFQjWXbtM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DlBeEwbn/RnSC07BlLdqJWw19WuFSEWZylHRbY9sET/i1Rh0wuk1zvrTPczuG/K+o1X2C/7Mnec8OzRExYkwLVLN6QdNfW9RZUNzmwXb4Za7NspyHTn0NbSzxNn7hmnfmmohxEc1lkvn0DfltiK3Lf5efwpIhg6612V6X+UQcYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5674d8be45eso361638e0c.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 03:07:52 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774519671; x=1775124471;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=F94y0mp+/D6GVV7M4ewGzosByGn4hznQhChrZ7f2x4Y=;
-        b=gedWB7IomDbgoqyQUfKsiTS+mOGiv07PSh2tI802BtARDdJze4WIEtkNK9ToSzbE8w
-         cH1+jzAxrlrkggIUqiH4CixbLGBcxSZ7HuullMU1lwMDtPwWdVsfwUZQXYVyupiWkJxJ
-         VGk+j0HQJjAbH2c5GT5XZ/8BvgNMUi/U3cBVHa/4uK211vN+qciwA89IluTZxICpCPE/
-         tKaKsA9miMcnCbzO1oCvB1ixixo30EUQkP3Uv2cEfq7yvcU3B/MwBV+s8P/LjsTgCEql
-         qrpAUFfOhTUMvd7PKPB6yYfm3FlpAw88OqAGaYwryaupov08coSrYjJPJx2HGdfW8imS
-         bLuA==
-X-Forwarded-Encrypted: i=1; AJvYcCW8FChQIWJJKlyVjZ3vqeQStlDfwk3InZ10N0AyAZOfSJvR4YurEDGl+9ZaWfxTDfIUX422P/GGHh6S@vger.kernel.org
-X-Gm-Message-State: AOJu0YwkQJx5OI8GlQPg2sKg8Ni5fniEzC5PYqYgl/2AjCMbq8vixROe
-	dUA3p85Qxse1jw08f/ZBNFQ4Qom7UhWxmWaL/5vatQji6DjoV9TbOsaqeYGDY/SA8hA=
-X-Gm-Gg: ATEYQzzoEnsl0GEbYZyuheywtbsndi5eiGElelXY+Dy+JcDoEVAhYfnO/VPjeEZCjWQ
-	JBUhlkvBZblo4U1ZUT66ScCOLmEzols8jkhKe0w54dPkEmYUPM77vb4CzPmaAjZfCk+m/zTI5gJ
-	j/om+sbyVETik71Bo+75AVamNzDpowseDgIcQ8Nt8jArIrZCWcX9WbswBi/xE5IsmWbJk8zcoEh
-	2Sy5CPCFwcaeBvWPBd1NOszAuCE8/kEfKGsOMFqb0IGKLyGuj4HJBRDNz6eb4iawJ52TO/AwBhx
-	QPqh7vO/8Yv9gIbR9tKAjA0FR9cpnZf2klxNuNtGQd1sF+TpZlvcx0KSGxYmGR+Y3r8LrkHogXE
-	q5ZWnwZumLUCLyTKosXEGbGMomhP2xDODGBhbEw4JJs15cxDmlmp1SNRpIcytBnAuwA7UtxedqN
-	4sYGAOa1OBTD5IYB9zxVhyK27xgE/mI+xb7AEkTRgfslmbAvOvhUyjj5TUfVbp8Sn3
-X-Received: by 2002:a05:6122:a08:b0:559:5dbe:fe29 with SMTP id 71dfb90a1353d-56d21f275d8mr2997824e0c.2.1774519671334;
-        Thu, 26 Mar 2026 03:07:51 -0700 (PDT)
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com. [209.85.221.181])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56d31bf74basm3847739e0c.2.2026.03.26.03.07.49
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Mar 2026 03:07:50 -0700 (PDT)
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5673804da95so373463e0c.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 03:07:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCVqzNCSK42dUD5s+vBBvmq3Uj7jICua5IJazJSVfJA8LEOBJmqwazbO4NOhhsR/M5PTpigwxL1RQ3jj@vger.kernel.org
-X-Received: by 2002:a05:6122:3387:b0:56b:5e7e:d3fa with SMTP id
- 71dfb90a1353d-56d21f56bcfmr3191484e0c.7.1774519669709; Thu, 26 Mar 2026
- 03:07:49 -0700 (PDT)
+	s=arc-20240116; t=1774519702; c=relaxed/simple;
+	bh=dig3vy1sDg7wLf0L1FKw4FdoIeG6qqm9PmtjzFHb/S0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Frmp5xhWta0wQe1Eg16m1LG2cxhtZH/kQyXat9Moau+hWiqmu8SPBCsPpKMBaUgIB/kFGPJAuj3u37iZumIGLJTPB5TKHiNXTcaKOnIo10/JkONH4gNDVSokxXfO5g9yfCYy8pK0fLwxCgqRl1h1bbssOOEpaSzQ1UTrByOiF7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j5iIglKR; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j5iIglKR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B88EFC116C6;
+	Thu, 26 Mar 2026 10:08:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774519702;
+	bh=dig3vy1sDg7wLf0L1FKw4FdoIeG6qqm9PmtjzFHb/S0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=j5iIglKRW/AsB0TozLCeWB3zWunAkjWd7PY9rkIo4Jy6jLG/GE/UHv1hvHIOk78og
+	 11ou7rom1/FYZOCHfRpJS69DtR6GhlJcO2Z0AWEzyXUrB00168wMSbTGrCqMopnCFU
+	 8qwBwkpJJtmfIJGf/vqBX2eSYu35cSGk3ORQyVh/bYIUnJ4fTdQSvQLSw96PKkdZVO
+	 zGAYOrir8u31tLBSodN8gI94TCWMhNChwxk8HLHl7Li6U+KquiHcxrYjeWgkHZ3J/Q
+	 11qYZu5+9VO8CpWiPrilDSWZfD9kSI1hqE71xuOCvU/LkBM0PoC907Liw0ES0bfdeN
+	 Gnv7miOHarR8g==
+Message-ID: <8e7d0c53-aa23-4514-81a5-335a76bb0c45@kernel.org>
+Date: Thu, 26 Mar 2026 11:08:17 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260326042411.215241-1-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260326042411.215241-1-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 26 Mar 2026 11:07:37 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdVtea9q1Yoaq1sEquxEAnQ-armLRdO1cMtJnp2K2mYtOg@mail.gmail.com>
-X-Gm-Features: AQROBzAkfIER99cc95oQTkegA98ufjqQruJaj6kJ10lCtG__AGEprt5eHbo-Ac8
-Message-ID: <CAMuHMdVtea9q1Yoaq1sEquxEAnQ-armLRdO1cMtJnp2K2mYtOg@mail.gmail.com>
-Subject: Re: [PATCH 0/4] arm64: dts: renesas: Fix missing cells and reg
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dt-bindings: Add clock guard DT description
+To: Vyacheslav Yurkov <uvv.mail@gmail.com>, Conor Dooley <conor@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Vyacheslav Yurkov
+ <V.Yurkov.EXT@bruker.com>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260318-feature-clock-guard-v1-0-6137cb4084b7@bruker.com>
+ <20260318-feature-clock-guard-v1-2-6137cb4084b7@bruker.com>
+ <20260318225510.GA639444-robh@kernel.org>
+ <7c7034a7-686a-42c2-bdba-6f31b5179f7c@gmail.com>
+ <20260319-yearly-wrongful-883f7fd86a69@spud>
+ <b45d9845-2d56-4fdd-a3ac-b0e0e27ba573@gmail.com>
+ <20260323-sanctuary-semantic-432089feb1c7@spud>
+ <d097826c-3db5-4902-acee-ffcff7436d4e@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <d097826c-3db5-4902-acee-ffcff7436d4e@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Marek,
+On 26/03/2026 10:54, Vyacheslav Yurkov wrote:
+> On 23.03.2026 21:14, Conor Dooley wrote:
+> 
+>>
+>> The binding you've got says "GPIOs used to control or guard the clocks",
+>> which is not what you're saying that is going on in this mail. A more
+>> suitable description would be "GPIOs used to check the status of the
+>> clocks".
+> 
+> Agree, the description I provided is not very accurate.
+> 
+>> I want to see an example dts user for this please.
+> 
+> DTS example:
+>    clock_guard: clock_controller_guard {
+>      compatible = "clock-controller-guard";
+>      #clock-cells = <1>;
+>      clocks = <&h2f_clk 0>, <&clk_fgpa_rx 0>, <clk_fpga_tx 0>;
+>      clock-names = "h2f_clk0", "clk_fpga_rx", "clk_fpga_tx";
+>      gpios = <&fpga_ip 0 GPIO_ACTIVE_HIGH>, <&fpga_ip 1 GPIO_ACTIVE_HIGH>;
+>      gpio-names = "gpio-input0", "gpio-input1";
+>      clock-output-names = "clkctrl-guard";
+>    };
+> 
+>    custom_device {
+>      compatible = "...";
+>      ...
+>      #clock-cells = <1>;
+>      clocks = <&clock_guard 0>;
+>      clock-names = "clock-guard";
+>    };
 
-Thanks for your series!
+So a pure SW construct? Device has specific clock inputs but you do not
+model them and instead replace with one fake-guard-input.
 
-On Thu, 26 Mar 2026 at 05:24, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> Add missing cells and reg DT property into DTOs to fix warnings like this:
->
-> "
-> arch/arm64/boot/dts/renesas/draak-ebisu-panel-aa104xd12.dtso:30.10-34.5: Warning (unit_address_vs_reg): /fragment@2/__overlay__/ports/port@1: node has a unit name, but no reg or ranges property
-> "
+I don't see how this represents the hardware at all.
 
-All of these are dtc W=1 warnings, right?
+Maybe some diagrams would help, assuming we still talk about hardware.
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Best regards,
+Krzysztof
