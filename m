@@ -1,191 +1,218 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6349C23D2AB
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 12:58:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D9EA2848A7
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 13:02:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774529932; cv=none; b=B6ncm+3J0e29awxcPTjbyUwAwuykyPEVbWndIzwFhVg8WFIve00Cf9AECRpAIkdjnWJHGreLmxPxomf/vZ0A8Vl+YJ7cyLnKvTUYC5C7FWvfJv/8GMvYwklmFuGzllGqDCup6PGUalCIUO/zYBgaOIsAHC2VocoLtArhRc4mIjI=
+	t=1774530176; cv=none; b=KBPzm9sIFAzxwKCh8kRIQdI8F3gx864vFs8F2LjJNCGThixCj9if3PqKWPXw4fiMZAs07W9Fv5tfAzn+1ZwNp0RciypYrnA5XGM7cpecHpR2ZKwUHAlWAy6+KLnaqgEMssoMUNm8ehXWJELPi9ZjM7Z45g8SmbSSlvy5NCcxFDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774529932; c=relaxed/simple;
-	bh=Ixl7gLyyEq/SPWGuNNI3GOGTtT5V3OFcz7bvTjmm5Xo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fGkkNWoJE0d8tHPHxbHjtub+ybRNwVBw+VRGwKaXky4YkQUOhQYKqQtPwIOTv5EVfD15AIIKnFHIh4huLJrtwPZKkp1zZAv3+Wy3hjSp/2bS7oa9rWgudt1tM7SCAyI0OUNSNHOCljh/k0KRVNA2Z7tqpTrW3+por3U9TeOY1NU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MNj7sv3c; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=f+AIHeE8; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774530176; c=relaxed/simple;
+	bh=jKX+SQCqxTstz4Yz3auE7XL0Ie43vgH+CNTRsn2H/7I=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=WRNh5B2dn/1m1cH75Pm4VLbknhi3ctUqnrOYpFMv9kAuzhmuW3gnorcFla1vDsZtY3z/K/RKnbQT5bkSp1pjnHTfVOK3hGgV1iONca1SLUobHGU5rapGah3aeAozBk3XApqgRKqSeeZqgFF9AOn6bUfbTIYtpTAsIMHYpKZfZeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=r6Alunm1; arc=none smtp.client-ip=185.67.36.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MNj7sv3c";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="f+AIHeE8"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62Q7clj42887508
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 12:58:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=IAUY1T64AJ4zQXFEnxXtoGFezJ96g7h5QWZ
-	s/MqIj2s=; b=MNj7sv3cELfSx0qzLdTV6y28QuBelArBM91cjY/97rQwz2rHJkS
-	XCS7G/NIdLVRgeUid61RBahVG16fR2XHDklQg7qWcyJkAzqbpjQ46agdPagnagA1
-	iJ3maovuQvfJzpotj6NZ5TKMYPLXcIoe1Wt7NIqB9QIukTSB75RYIaUPiBQr7YAt
-	OrjMG44jb+eJyMy1Vohzy+aUxr4qZW4vQU0E2dgRU+RwHCD6jDW41cg/Ec2T5vfx
-	ugG4gD76HTEwhSH1+Tc1HPf9UcNkcuIRaMQJea2i51iU8goDEdWCUEnTLUK4RYI1
-	+yPHzLuD5wK7yiiQcHLh5cwQrLUlje7HdiQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d50kg9314-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 12:58:50 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50b4987c698so24713491cf.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 05:58:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774529930; x=1775134730; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=IAUY1T64AJ4zQXFEnxXtoGFezJ96g7h5QWZs/MqIj2s=;
-        b=f+AIHeE8XTpSInpPHKKGlYkDVLs7WWgakTHtlWzOwQ+egBAQs0nWd214pM1Ti3RA0N
-         Ah0ciWCU3Nnc70B0bxqs1vTOt/v70LFeaSbxOaoaWC/iShNxFoQiiTIi/xyKCrreHBVl
-         LjahpEnIgqiFE2G4oIx+8fcRJB9jD1pODsTk/rhpOkPt7lZMzu95qZykBVjQAKAnlZXd
-         2pqfHeitucIRfSWhyr31JpMkrx4cLH0RKrk4/3k7PTOFqQ3qvpRoUqoVm9GIEHDbtIcR
-         hxc6jbgxd7XoraM3F9zMWPliMhLKGMKDgwddLmiYwn32eEEt3r+StREuuD8hVKtDBemP
-         sB1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774529930; x=1775134730;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IAUY1T64AJ4zQXFEnxXtoGFezJ96g7h5QWZs/MqIj2s=;
-        b=rmWrDHnmnb9+VeQn4npskC//DuS8xXBxrr6AKpK7QCo0C/JgbTc/1uuik4MwGzxnKD
-         TxD+yPVCX/Apdu3ri86H0EaijNIahnSxgs0ey4PzM1mtUd3ZDlNOXjZ+tVcVZ/zoDGOE
-         fiUN9P607+BHsKvI5iEdBOQ9zXIscPFJ6dl1g60fc0j9G3PgZSluXQqI46qgOdjB14yB
-         1HwE4zhkT/fBRDJHbIA3NJz5ZCxDtWB8/B/6ucT4PN7sPAZx2+J53MUnMUP9Tr2z3zCb
-         ufcKRS/i0mPeFo/IohcvNn1cXfFH8Rf2NMKGdyQJarwXWn11PRww+LvdbnPeKmSVDAdD
-         enUw==
-X-Forwarded-Encrypted: i=1; AJvYcCXX4vhwN7+qULm0ipivC8XMfhyGlVEh0giX4M0Ob2mgURbbtuO/SNUqGErYnScAl6Qbz02uvCVofktD@vger.kernel.org
-X-Gm-Message-State: AOJu0YxiWL7gQgEh5umz6IjHf7j82UPMZ8MDUl4rQ5jxWz2x0GkIEclD
-	h3cjNQ50QeERIh71bLgMuhaeXelpr/ACFyhHItAU24WdswqmzfT2p4Ovk8o9VblXz82D9+irkte
-	noqzfmmUWeTjV4GQiO5ANmXd1IeWYe61FHfrm426iEL4YQ9i7fdxH9tIKzTa1Gje+
-X-Gm-Gg: ATEYQzzmZn1K5ktb7BGX9rhtgaRviOLnUEaxsNRYdAz8XJmH5ujrf2H9fzWKE8YvAPd
-	f/APowHxPj5rVqROb9gHl0GKii86zJ97/cxM1Yjdqd8lfB6wc4Dq2PYOSz7X5TL6wQlbTfUnPuy
-	5HLqPmTPqAMeWVae+Q2i4sxTVTrE2lPbqay+zOACpljz+NJJFssvMWlcjQwDvqyfzi9+B99YHIz
-	qpR7sBWy2zGR02VqOkGc7YXH84l5bELqvvYbG8d+syvY6Uk5qJKrgCBv3NqZCeZIDjOy+ez3D7G
-	NkSKp7f8mXzrZtXG8VET1AxUSrQuEXWBcxepe/Li9IpWAlp3/twbnWORpS31j9+Fz6oLKaY/lAN
-	iJD6fqgZTNY6O0Gg81eXWi5bb77s7NWx3Rn7XSI9nsTo7vtjYOeBUTK4=
-X-Received: by 2002:ac8:7d05:0:b0:506:baf9:5dd9 with SMTP id d75a77b69052e-50b993e4965mr14197571cf.17.1774529929875;
-        Thu, 26 Mar 2026 05:58:49 -0700 (PDT)
-X-Received: by 2002:ac8:7d05:0:b0:506:baf9:5dd9 with SMTP id d75a77b69052e-50b993e4965mr14197221cf.17.1774529929450;
-        Thu, 26 Mar 2026 05:58:49 -0700 (PDT)
-Received: from localhost.localdomain ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722cb0d83sm29253065e9.13.2026.03.26.05.58.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Mar 2026 05:58:48 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-To: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Subject: [PATCH] arm64: dts: monaco: extend fastrpc compute cb
-Date: Thu, 26 Mar 2026 12:58:34 +0000
-Message-ID: <20260326125834.2758331-1-srinivas.kandagatla@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="r6Alunm1"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout01.posteo.de (Postfix) with ESMTPS id 01265240027
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 14:02:47 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
+	t=1774530168; bh=8D5RUCFCzzI6tssL0TKoTALpO3v9xvBpTfxtDwrZmJo=;
+	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+	 MIME-Version:OpenPGP:From;
+	b=r6Alunm1vznswNbinR6fqlZuUkU9OPWXc89iCrpESuiJ4YXgYQcjQM9Kkf+PVuqL4
+	 XUKuiZq/PIl+ts5U1GyOhfNtYVbvyc7zVedEdb4C4/UPzeuKOsio6EI3c6P3m8krP3
+	 bl5a0qCmzcaK3R0KI9Oos3COsNkF9ADiimBTfoH0y/D+fIvgkphsCbqRZ8BkO+qgke
+	 WG+Pp4D/FKoWshH0g4NDaSvFlpJb6YtlyXfZ80oko0CJHE2hxqL2CTto4x7bvfZS4a
+	 HPMRrCMopTmgdfIaac2sW81yVMJoqCtRdp8cX+DoJgLoyAVB4mw8bIFi54+TGHAx0y
+	 RVJ/hoqKnTfBA==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4fhP852KcFz9rxL;
+	Thu, 26 Mar 2026 14:02:45 +0100 (CET)
+Message-ID: <3281ba870fff981a1c37989000fdc6a8c448a304.camel@posteo.de>
+Subject: Re: [PATCH v4 1/2] dt-bindings: embedded-controller: Add
+ synology,microp device
+From: Markus Probst <markus.probst@posteo.de>
+To: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda	
+ <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Greg
+ Kroah-Hartman	 <gregkh@linuxfoundation.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Date: Thu, 26 Mar 2026 13:02:47 +0000
+In-Reply-To: <20260325220749.GA17597-robh@kernel.org>
+References: <20260320-synology_microp_initial-v4-0-0423ddb83ca4@posteo.de>
+	 <20260320-synology_microp_initial-v4-1-0423ddb83ca4@posteo.de>
+	 <20260321-rose-armadillo-of-drama-09fdcf@quoll>
+	 <a6fe54fcf985100fc85450e680e8f7da49e6b067.camel@posteo.de>
+	 <56ece3e3-871f-4ef7-9ad1-cd7f68f9d003@kernel.org>
+	 <881644afe920a222a7fa6b2221fcc157c037ccd5.camel@posteo.de>
+	 <20260325220749.GA17597-robh@kernel.org>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-D23wPW0YuoH2GJPyqFYu"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=SMZPlevH c=1 sm=1 tr=0 ts=69c52d8a cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=ebg3YuX8VNz3oMcFMKwA:9 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI2MDA5MCBTYWx0ZWRfX2HrICi3fF2+U
- 9xPVeqwbT7qKCeZu86LQ+0BiLNjsAHbryhemkfCR8//+Hy3Ul9Wko7dGa/JWScoPfPOhXvDygWW
- F6nZ82CC8xpI2D3bDq6h5M+nY7qEuE2H4VkoiHbVbYNrV9wQXj5rfUOI35A2kJIFE0Y8auyITiq
- KkSQX9BUKJrOknXwgpNpnoGhGTquNq48KaDO4eORb1rhqAtHeJXq6WeNE3j11p7nzXGBO2/PnWp
- gYy3twhdGD0AOJI8U9hH1NdXhYvHx4wB5qLSLD8dQIzJZOvo1IevszuFUyAynmGi7wXYZcvLFLf
- vU0sPBqzG8ik95jY3ZDoLw1VNIg+nm5a14pHLjbJJRU1XOL9jF+C3aqgLtW3MHXHEFvybjfAgxe
- BK8niOKcI0vM+MdVOeRKK7yENh4ddmi2gyZiLYMe2yeaoQZH1i6Gq1WjBfgnGwK7E3wht/VtvKU
- hdu85ybZpbQQJ26SNfg==
-X-Proofpoint-GUID: FJUSed-gOXD_meZdjCAIkRiY-njmC-3_
-X-Proofpoint-ORIG-GUID: FJUSed-gOXD_meZdjCAIkRiY-njmC-3_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-26_02,2026-03-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 bulkscore=0
- impostorscore=0 spamscore=0 clxscore=1015 adultscore=0 phishscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603260090
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-For some reason we ended up adding only 4 out of 11 compute cb's for
-CDSP, add the missing compute cb. This will also improve the end
-user-experience by enabling running multiple AI usecases in parallel.
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/monaco.dtsi | 49 ++++++++++++++++++++++++++++
- 1 file changed, 49 insertions(+)
+--=-D23wPW0YuoH2GJPyqFYu
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
-index 10e799dd4a78..884a49c0b019 100644
---- a/arch/arm64/boot/dts/qcom/monaco.dtsi
-+++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
-@@ -7739,6 +7739,55 @@ compute-cb@4 {
- 							 <&apps_smmu 0x1964 0x0400>;
- 						dma-coherent;
- 					};
-+
-+					compute-cb@5 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <5>;
-+						iommus = <&apps_smmu 0x19c5 0x0400>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@6 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <6>;
-+						iommus = <&apps_smmu 0x19c6 0x0400>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@7 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <7>;
-+						iommus = <&apps_smmu 0x19c7 0x0400>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@8 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <8>;
-+						iommus = <&apps_smmu 0x19c8 0x0400>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@9 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <9>;
-+						iommus = <&apps_smmu 0x19c9 0x0400>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@b {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <0xb>;
-+						iommus = <&apps_smmu 0x19cb 0x0400>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@c {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <0xc>;
-+						iommus = <&apps_smmu 0x19cc 0x000>;
-+						dma-coherent;
-+					};
- 				};
- 			};
- 		};
--- 
-2.47.3
+On Wed, 2026-03-25 at 17:07 -0500, Rob Herring wrote:
+> On Sat, Mar 21, 2026 at 01:02:22PM +0000, Markus Probst wrote:
+> > On Sat, 2026-03-21 at 13:32 +0100, Krzysztof Kozlowski wrote:
+> > > On 21/03/2026 13:17, Markus Probst wrote:
+> > > > On Sat, 2026-03-21 at 11:21 +0100, Krzysztof Kozlowski wrote:
+> > > > > On Fri, Mar 20, 2026 at 11:09:53PM +0100, Markus Probst wrote:
+> > > > > > +
+> > > > > > +examples:
+> > > > > > +  - |
+> > > > > > +    #include <dt-bindings/leds/common.h>
+> > > > > > +
+> > > > > > +    embedded-controller {
+> > > > > > +      compatible =3D "synology,microp";
+> > > > > > +
+> > > > > > +      power-led {
+> > > > > > +        color =3D <LED_COLOR_ID_BLUE>;
+> > > > > > +        function =3D LED_FUNCTION_POWER;
+> > > > > > +      };
+> > > > > > +
+> > > > > > +      status-led {
+> > > > > > +        color =3D <LED_COLOR_ID_MULTI>;
+> > > > > > +        function =3D LED_FUNCTION_STATUS;
+> > > > > > +      };
+> > > > >=20
+> > > > > Where are other leds? Binding mentions 4.
+> > > > >=20
+> > > > Status and Power leds exist on every Synology NAS model I am aware =
+of.
+> > > > But there are models which have additionally a usb or alert led. Th=
+e
+> > > > device nodes for those leds should only be present, if they exist
+> > > > physically on the device.
+> > >=20
+> > > Then help me to understand - are these different models?
+> > Yes, even with different CPU architectures.
+> > How much the "microp" device differs is not clear, but the
+> > communication protocol is the same.
+> > >=20
+> > > EC is not a generic purpose component and is tightly coupled with the
+> > > actual board it is being present on. Unless exactly same board is use=
+d
+> > > in different models (unlikely) then the compatible defines the LEDs a=
+nd
+> > > they are not needed in DT.
+> > So for instance "synology,ds923p-microp", "synology,ds723p-microp" etc.
+> > ?
+> >=20
+> > I can do that, but that would be many.
+>=20
+> How many is many?
+Estimated 300.
 
+As a side note: I only have 1 model I can test the driver with.
+>=20
+> > Having it generic seems more flexible.
+>=20
+> Is there firmware for these ECs? If so is it the same or different=20
+> firmware for each device? If the former or the functionality is really=
+=20
+> trivial, then I'd be more comfortable with 1 or a few compatibles.=20
+The firmware is not public and the exact differences between them isn't
+documented. The communication protocol is the same though.
+
+>=20
+> Generic means you'll need to add quirk properties when there is some=20
+> difference the OS needs to handle which we'll reject. So stuck with one=
+=20
+> compatible and no way to distinguish different ECs is anything but=20
+> flexible.
+Describing the physical leds that are present on the NAS device are not
+quirk properties, at least in my definition.
+
+Thanks
+- Markus Probst
+
+
+>=20
+> Rob
+
+--=-D23wPW0YuoH2GJPyqFYu
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmnFLmYbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTEsMiwyAAoJEDR2H/jnrUPSigwP/RZwWVRZtNf4KdOvVP+V
+5hkEwvkbX+UFK+yZHXJQS6Vgma73RipzRhdX2aP7d4s+NC3U1kbw8hy1eun8Qz5s
+eHOO7lDgsoE5X0dyCqCaFR7dYXOXSLRUkvW6xLOCarOdltZ4VwOFlhkS5Y0qCIRg
+MV9uZbiSCYCflDuNtblygHHWxbMGKoyYXK7yzd3AC0mE7QK0c2x0hK9BlUVkqJzh
+RCWYGHuRORiIHxC3RXelxik2Qmf+0PccMnKdl/mAexhpb9jfX7CxBCXh+5OBG4w/
+KYRvp9DubAU80wN6YPeW1mLI4Ibqhfefo8gmWu7g6h7zFGjwhtfhPWkjFd+ZS22T
+z9gkI+1DoUWqoHJZ3JPlBJIe5uHf2iVJZdhhI6r5kY/6mScA9WcI0efJhBtTTNe9
+th69W+FAUEP3DQDcq5a8rPOA3bOqBPrD2mbDpmCs7Zi87u6SHsSKu+1gJ3BDAN6u
+lYLv5EfH7dIyss50HEgpF55ACIqhc4fA2FNLK3HMbkfDiNCdXhT6c/NBxS8H7S8P
+O+SxjKOfe5cIx+EbW5XwNO2AegCOX7cN2RxHB1CiouIeS5eot2tLIfbIZUF8OyMh
+S5oDV/kE2YmuSZnGAimIryDE7p80I5ZlL991Z7ggV+lnINLqbDGwIiFOncsx74IN
+tQTz3g63ydwPKRayhA8gnl91
+=S2g8
+-----END PGP SIGNATURE-----
+
+--=-D23wPW0YuoH2GJPyqFYu--
