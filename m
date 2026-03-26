@@ -1,120 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from ixit.cz (ixit.cz [185.100.197.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D952E541E;
-	Wed, 25 Mar 2026 23:48:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B207E1C69D;
+	Thu, 26 Mar 2026 00:02:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774482518; cv=none; b=oAqGIGyLKZND65mzXU4FINBglKJOKyJ42IG/iYsndEfCki5Pq7lBiOJ9fLAvr+abmECuCPlCuB2fjQLqomMParfh39TCivkLQbgH3b54OH58R2z/ZwCY1PEC8V14di90w5nQR61yIrqTK5g3ETK4I0bwA7Ol3BKhAFevE6VEv84=
+	t=1774483340; cv=none; b=mLYoJoeINQxgkyh2h7ZNmfwbt3sSjE2DtjGFq9reNLWAUdAfnNX+dfSbeQyMkG6L8cGtKBhkWtmv3QADKCP4+O0kQJootpYoA5ObcpWkQKrrd5st2zFtPdFYGmClvr9VTFPgtkXE7Nw7C7dWxNEAS9RwxppguqM5WAsCQ054mNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774482518; c=relaxed/simple;
-	bh=nvy92Lzp/GDB7hdawZwNUt/EDzG9tQBtTUqoo+26wnw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SNW/4uiiYxyzDyNS9Kdz+KWgJpKyMkuBSsdOTuDz6I/VUmcNuLaFfKuzqSEl2zjgteDo4aXnPHhHbtocuFqIIrfkgtGXIwkL9tMgmE3R+w2WL5bWKHto1/zUQvqObnyZ7U38UfkDbnVKS5nkeHKfAKywXsk/rOLmYyfk5sRKwxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OOFlObcf; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774483340; c=relaxed/simple;
+	bh=cKkuUnANPH2hVC80X9v70NueCB7aA218RY+Nm1l3uc4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=udi4zu3rWYAXmjhs5YciFMZnI1zNDNuQPI+eFh77zN0qpRm9lbD0iB8prLR3IRfEnFXS5hqv4wEOOmyjwSev/70va6DLQht77WZCpUVwC/zXgepxwt6WIhxXjTjqpG2pXlsTObErzZx0OTzhNY2+c9ononOIwJbWgiujiTSwjsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=CasRDRPX; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OOFlObcf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856FCC4CEF7;
-	Wed, 25 Mar 2026 23:48:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774482518;
-	bh=nvy92Lzp/GDB7hdawZwNUt/EDzG9tQBtTUqoo+26wnw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OOFlObcflnSRjDlEvvzhmiprS9LEnc6Xq1FuQezugr9nHOp+UEduDF3FQd+jBa/97
-	 AtrCujsUfIgrrxIdJE3/BWHqIU5P0ESqn7L/fdLNL++qibpAUYNB2dJu8/1xvT+Q67
-	 QavC+g98T6qq/9Hja6mG95636vJ2bkfCiZoVwesItqxknxEdlwhl0+W4JLOd7fCVrw
-	 EvGFkiUekNaPA5sS5IgtKB1dXUioHjJNIkWH+bTTOK1Glp0pnwbG7nVKNL2TmpswLl
-	 NjhRhqfnTB/45ZtArs8w0xdaL5c1FRkG/91vGRoER1eB1YBKcYss5tVLP6qzRfsgCS
-	 +qF/TWaUeB91g==
-Date: Thu, 26 Mar 2026 07:48:35 +0800
-From: Yixun Lan <dlan@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dts: riscv: spacemit: k3: add P1 PMIC regulator tree
-Message-ID: <20260325234835-GKA777612@kernel.org>
-References: <20260325-02-k3-i2c-v1-1-a793776b88bc@kernel.org>
- <6530526f-59ca-4753-a068-46c62a1a1fed@kernel.org>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="CasRDRPX"
+Received: from [IPV6:2a02:f000:10bd:e301::1d7] (unknown [IPv6:2a02:f000:10bd:e301::1d7])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 916155341243;
+	Thu, 26 Mar 2026 01:02:14 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1774483334;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=R2Ewo+XzkBojo1ZNJfUV1ACLFD16IiiNHPZC2/wPH/E=;
+	b=CasRDRPXFnnKcJl3cBHPWyMk1NRbraOmFmlhca8LCnGq7hrHDO9IiOc01LzFm4tpZzIQgt
+	zXk+woMJ6pK6Q7ivxqmcl9pJOb4jdGaXt1SlQYgK907NveHcKKgs4SLL7c4yWTZfFmyZXH
+	uIWfG+TbF0vOLRuRAxGu5Fxv4S07660=
+Message-ID: <a75f80bc-d2fa-41f6-91aa-8252fbb415e6@ixit.cz>
+Date: Thu, 26 Mar 2026 01:02:13 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6530526f-59ca-4753-a068-46c62a1a1fed@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 7/8] arm64: dts: qcom: sdm845-db845c: describe WiFi/BT
+ properly
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Vinod Koul <vkoul@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Rob Herring
+ <robh@kernel.org>, linux-bluetooth@vger.kernel.org,
+ Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+ Matthias Kaehlcke <mka@chromium.org>, linux-wireless@vger.kernel.org,
+ Jeff Johnson <jjohnson@kernel.org>, ath10k@lists.infradead.org,
+ linux-pm@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Marcel Holtmann <marcel@holtmann.org>, Conor Dooley <conor+dt@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>
+References: <20260119-wcn3990-pwrctl-v3-0-948df19f5ec2@oss.qualcomm.com>
+ <20260119-wcn3990-pwrctl-v3-7-948df19f5ec2@oss.qualcomm.com>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260119-wcn3990-pwrctl-v3-7-948df19f5ec2@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Krzysztof, 
+On 19/01/2026 18:08, Dmitry Baryshkov wrote:
 
-On 14:54 Wed 25 Mar     , Krzysztof Kozlowski wrote:
-> On 25/03/2026 10:56, Yixun Lan wrote:
-> > Add the P1 PMIC's regulator topology tree for pico-itx board.
-> > 
-> > Signed-off-by: Yixun Lan <dlan@kernel.org>
-> > ---
-> > This series try to add a regulator power tree from P1 PMIC,
-> > the PMIC is controlled via an I2C interface.
-> > 
-> > To test this patch, it will need the I2C patch series [1]
-> > 
-> > Link: https://lore.kernel.org/all/20260325-02-k3-i2c-v1-0-78f29c83d9ac@kernel.org [1]
-> > ---
-> >  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 185 +++++++++++++++++++++++++++
-> >  arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi |  11 ++
-> >  2 files changed, 196 insertions(+)
-> > 
-> > diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> > index b098dbd0e7a1..5b59c569dbde 100644
-> > --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> > +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> > @@ -23,6 +23,191 @@ memory@100000000 {
-> >  		device_type = "memory";
-> >  		reg = <0x1 0x00000000 0x4 0x00000000>;
-> >  	};
-> > +
-> > +	reg_dc_in: regulator-dc-in-12v {
-> > +		compatible = "regulator-fixed";
-> > +		regulator-name = "dc_in_12v";
-> > +		regulator-min-microvolt = <12000000>;
-> > +		regulator-max-microvolt = <12000000>;
-> > +		regulator-boot-on;
-> > +		regulator-always-on;
-> > +	};
-> 
-> This is a pointless supply. It's non-controllable and serves no devices,
-Yes.. I thought to describe a more complete regulator tree, it just
-shows more information - e.g. from $debugfs/regulator_summary
+[...]
 
-> so it only bloats the DTB and slows down boot process without any benefits.
-Ok, I will drop it then
-> 
-> 
-> 
-> > +
-> > +	reg_aux_vcc3v3: regulator-aux-vcc3v3 {
-> 
-> This is even more pointless because there is no user. Dead code.
-> 
-reg_aux_vcc3v3 is used by various devices, but I can drop it too,
-leaves till there is device really needed..
+> +	wcn3990-pmu {
+> +		compatible = "qcom,wcn3990-pmu";
+> +
+> +		pinctrl-0 = <&sw_ctrl_default>;
+> +		pinctrl-names = "default";
+> +
+> +		vddio-supply = <&vreg_s4a_1p8>;
+> +		vddxo-supply = <&vreg_l7a_1p8>;
+> +		vddrf-supply = <&vreg_l17a_1p3>;
+> +		vddch0-supply = <&vreg_l25a_3p3>;
+> +		vddch1-supply = <&vreg_l23a_3p3>;
+> +
+> +		swctrl-gpios = <&pm8998_gpios 3 GPIO_ACTIVE_HIGH>;
 
-> > +		compatible = "regulator-fixed";
-> > +		regulator-name = "AUX_VCC3V3";
-> > +		regulator-min-microvolt = <3300000>;
-> > +		regulator-max-microvolt = <3300000>;
-> > +		regulator-always-on;
-> > +		vin-supply = <&reg_dc_in>;
-> > +	};
-> > 
-> 
-> 
-> Best regards,
-> Krzysztof
+Do you know if the GPIO is common for whole sdm845, or it's only recommended as 
+reference design, or nothing?
+
+I did test defaulting to GPIO 3 on Pixel 3 and WiFi works as before, but since 
+previous downstream kernel didn't touched GPIO 3 at all, I'm worried about 
+toggling unrelated GPIO.
+
+Thanks!
+David
+
+> +
+> +		regulators {
+> +			vreg_pmu_io: ldo0 {
+> +				regulator-name = "vreg_pmu_io";
+> +			};
+> +
+> +			vreg_pmu_xo: ldo1 {
+> +				regulator-name = "vreg_pmu_xo";
+> +			};
+> +
+> +			vreg_pmu_rf: ldo2 {
+> +				regulator-name = "vreg_pmu_rf";
+> +			};
+> +
+> +			vreg_pmu_ch0: ldo3 {
+> +				regulator-name = "vreg_pmu_ch0";
+> +			};
+> +
+> +			vreg_pmu_ch1: ldo4 {
+> +				regulator-name = "vreg_pmu_ch1";
+> +			};
 
 -- 
-Yixun Lan (dlan)
+David Heidelberg
