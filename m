@@ -1,145 +1,158 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013069.outbound.protection.outlook.com [40.93.201.69])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99B23002B3;
-	Thu, 26 Mar 2026 13:49:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774532987; cv=fail; b=ZQsFK4X509wsE791+ZOCD4fQK2OArrdEftSypLviqJCmK5oBzQl+U6lRBG9huhvkSr6K5CpzeRBRT23kyFmR6kFuLnVc17CZBxp0Sq/C6GAvS0sXTOPmbxwopWVpRrGqm/wgxZ6U9uNgqIEpactPHCvBMngt2lW39tFvdTFMeso=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774532987; c=relaxed/simple;
-	bh=WrIcARZk1EqWLe9Ytmguwza6A6LIylWmEP63DoU9N0A=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Abx30z+yn2Saf7W5WEKxrb9ClPKvsoRfaHWP4s9WZ+GsQOXRu8sMzmY6thcLIt7OAHS1PcEcIGTKtHyXnktTyN4kak+XmW3V8Wx/yvL9MSHKnKNhwFqu8m7gDi+9c3YlqY5wdkbZxcr+ewjxN49ZlU+Vzoz7DWn2N9egRC3YKVY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=Z8/ZkeQQ; arc=fail smtp.client-ip=40.93.201.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E6929A32D;
+	Thu, 26 Mar 2026 13:49:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774532999; cv=none; b=simChH78HnYT9q1J7fPyKfXtW3OE62c9IL+IuXi9U8ocTxhgyJCzM31VGvxrOzk/5snMEXCncQ9bp6JPWydJvGaWxHRhDS+YGUwj/BRrjE9AdY86KcRKKLWAhl3vYdvZiLWFdWvmbFfyifrb0gEczsqnD2bvRsm7ry9IsxRl38w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774532999; c=relaxed/simple;
+	bh=x+fkM6vu5h7RY1/dOIAEf+g4E+vu6Ey+LIqxNEADWHo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fwfbc8gUuje3Yfwe/pjUVl+o9d/SkfnBjV/42BTFrje4vmXNWREEVfqoRnp5C77eRk7cwsMz+iPaDBQjs2FDTEwQDlGgns/QNHqPoCbaYjTHa0J1cKGwwAutOsxzyLvvK6UeIfMMMZAZjp4kUwmVEebdSGRLAwMNFQMdkkGwoiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KrHV1CTn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Z8/ZkeQQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WhSnJMmn2mYRaIID2f+b2V/vLRUcopWCJ/HEn3/4mcW8aoodzMCHLhPVR8U3zvw0zyCD/dsTWwe45WGVwdtB0kbQ+zAWUBgdu6J1IG/k227B9s5cSM0mpXqygRsHq60lhfIaG5klDtvXO/OfaI8QDrXISR95X8QwEdhTemew7WUToTQ2qroZt9lh9JoHLVUvwwocVjGvcsrtt5VapYn2VU0+4Lqn5DZ6sgEZn4LW3JArB2fcJKGStElv4c8fRnUO/ocaNdx129emwBnsXo17Y8i8P5n0UJPUbqsLhav31rRHVQVAfhrBrgZIiOTBeqLg7DUClwpsE3XS+R0NNchBLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qcuBciYJaURuvmrN0El+EmdiCnn6gDTtubutA/kj+Jk=;
- b=FLKJ7BjmmwZoM5Puc1y+SV3hu/hlwr/rd7nwgdRluyc5nNOvZS0BAv0nsAusNYKhE78lsNHpx3oFuFYCctL0WCSYl9sl/qkjfidGjzuQzNNe380+4/Frtl3QiAmWYmSZSitF0kkfJtuRVEwcsFntCDnSMQgN3xX8vgTxEMoBDPVr4mf6hzfnzHnMivWtSE1HWI+vbXdndqvwgXQB5YbAsysBPeazSqGYw8Y5QP76SZ2oOzX5szj4YqjBJItXLtBzcWSDxw7R6oUhUMQcDHJD8jeFqdus6TE6WFlg/BLJXxSCW9mPBLcTv8uq+qeduhrgl7YudNES+oKU5f8C8/gcpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qcuBciYJaURuvmrN0El+EmdiCnn6gDTtubutA/kj+Jk=;
- b=Z8/ZkeQQBOXSH/lOZkjAHF125CxN81iV84BoHNBO81p2Gkc3SYPqTPqM+W9G8KNYzhUICTby7n9CqByRRD4ZM17JgUgrArwGtbwtgJmDa0dof9NolvCLN26Myyp+haYz5ea06LXt6syUjdG2tf0ZE/A6nEKmEQSsXE9lDkYFmDI=
-Received: from BY3PR05CA0030.namprd05.prod.outlook.com (2603:10b6:a03:254::35)
- by CY8PR10MB6562.namprd10.prod.outlook.com (2603:10b6:930:5a::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
- 2026 13:49:40 +0000
-Received: from SJ1PEPF000023CD.namprd02.prod.outlook.com
- (2603:10b6:a03:254:cafe::2f) by BY3PR05CA0030.outlook.office365.com
- (2603:10b6:a03:254::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.21 via Frontend Transport; Thu,
- 26 Mar 2026 13:49:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- SJ1PEPF000023CD.mail.protection.outlook.com (10.167.244.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Thu, 26 Mar 2026 13:49:38 +0000
-Received: from DFLE214.ent.ti.com (10.64.6.72) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 26 Mar
- 2026 08:49:31 -0500
-Received: from DFLE215.ent.ti.com (10.64.6.73) by DFLE214.ent.ti.com
- (10.64.6.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 26 Mar
- 2026 08:49:31 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE215.ent.ti.com
- (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Thu, 26 Mar 2026 08:49:31 -0500
-Received: from localhost (chintan-thinkstation-p360-tower.dhcp.ti.com [172.24.231.164])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 62QDnUPo1747784;
-	Thu, 26 Mar 2026 08:49:31 -0500
-From: Chintan Vankar <c-vankar@ti.com>
-To: Siddharth Vadapalli <s-vadapalli@ti.com>, Andrew Davis <afd@ti.com>,
-	"Conor Dooley" <conor+dt@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, Tero Kristo
-	<kristo@kernel.org>, "Vignesh Raghavendra" <vigneshr@ti.com>, Nishanth Menon
-	<nm@ti.com>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <c-vankar@ti.com>
-Subject: [PATCH] arm64: dts: ti: k3-j7200: Fix QSGMII overlay by adding SERDES PHY
-Date: Thu, 26 Mar 2026 19:19:29 +0530
-Message-ID: <20260326134929.1696750-1-c-vankar@ti.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KrHV1CTn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9DEC116C6;
+	Thu, 26 Mar 2026 13:49:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774532998;
+	bh=x+fkM6vu5h7RY1/dOIAEf+g4E+vu6Ey+LIqxNEADWHo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=KrHV1CTnkTzSlumk1EEyxUu+GRLJnu+FL95+kGj/yh0MC3EMjWf1+XB/HMzf7I9RG
+	 Y5D+K7uO0JZjV9+bzASroCdyKyz7PCY4wswtiFu6dkiFSK82pDcBfEgjypEOMOeQbJ
+	 Mxp9Y21UXiA+i+PZ3If+3QesNlg8JehOOToMmJy5nJtF6HdPsIMN/ceZxEsFZCVbS6
+	 JW/km02lHPcd2mkBylT3szbC87lg93oei+pnpgOYNqV9/Wt3ihE5GCp2NjN6hARF2/
+	 yHdlaMH/n1o05XSd/zkmB/NivUVf7sxLWscU01YiPA4GV5oMuK7KudVWZFDEfopcCD
+	 RMhH+8494LkJA==
+Message-ID: <b7a4f719-b605-4d26-a5ef-9ef2ba8d07ec@kernel.org>
+Date: Thu, 26 Mar 2026 14:49:54 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CD:EE_|CY8PR10MB6562:EE_
-X-MS-Office365-Filtering-Correlation-Id: b512cfab-c675-4a5e-6945-08de8b3e8608
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700016|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	QjRcwJRDqG/zwO6Ga2yt6tp6iadV4jfUuENtp4wkroK15GKEo6FhMYspkGXsT65+yTEI5ErfvvR8xZmVrNDeLdICg1ISQZJlIdccZyMGgPcUtyJK3N5Wi3uhAiGmVHdU5ytn+t2BLNbH/gHG/q8G2RJ4JXUkcaWRwwt7An/rI9QHtPFXwJ/P8TDJxnJAP3o2UqYCDC3ojWJuy8/zhw9LWLz7joFKu8ihqjgW/VXBIFP0oaME/wWaZbYu4h4hRapggpWc97dAWAt3szsqrebPKT1yQffMMhCwF660hZwLbSoBXXi1BffaT+5K1A4Q1txPX7RqojkVFu01RoIzAak21edB0eNU8RFnPs1CKt69/KSLMkLi9pi5BHBw10mq9VbmMc8xKZhwWC5+0vT9+pAuRwTTKcQ0MZM/IrUynoljPksukgL9DgdPf0rrsQaQvDg5TY4PgWZG8bQRy0WeUYUcA/xQAz4vxGHkcMNAu2sFvXOx1H72lbSIJCig/wBNRjsTJbTVzh8N9J4ZN0bwgnv6ivHATmXLcPZLP6mt0yh9VdP7uUx/92QQGxtsBkkbujVvhm9EfhE8BP9gGJis2Cf6eTwJip8/3GX/MmvwZhhRjnzUZbFx1ZP4bsvs/mWSQh3RXGjC5R2loU5EX7x8AR6w/YNC+I8cgjHsnoSbIuVIlrrEqq1hpHckUjHgqrZCKCIeTeenfKSXhPXlhb6qcAbkANX9lBi4+ZwjTddcCMAmNJ1lJiI0rxjs54mQfPZLO/bwcCbCPzVOONsyVeeZ9ZGJ7Q==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	U0ceJx62pmX+5SIlI5JuFKKigcaEQbkxtRz9HC+E5vp795ZDVrRQJYfjtNhZBUlOUbc2Wl105ApPPyhoNF59V3o3lHaLLRKiHfpof4xkCehKTYtMjld8wCc9cjGVWr215ZCMMPUDjbp6fIoiIuFjaX25m5j277qBcUINtiTzMWrwQuPZK5oYJPK9cFm+/Rl/tkGiM/kbwf2nURupZYi55EdkPJsmpYniDOT4inMKA2GK0Vlg6Y0v9Vmm69rejfM7jdDnpoLeVBgH27Blorzb25CqGdDdUPs0YE+WJJZTxjLTBxt4Svig3gV9B1pagQ71VBORb49AMHJKVdCUw3Zp2L/Sv2XhSzkc0uPmRaOEFaeeLUOw6qfCBHJDidydfT85/A9spSWXEKBuIKBL5UVudzq2wuvprMymZOZtwYcGTFK0J4jvu/TnBYsI3H4lORoi
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 13:49:38.4853
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b512cfab-c675-4a5e-6945-08de8b3e8608
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000023CD.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR10MB6562
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dt-bindings: Add clock guard DT description
+To: Vyacheslav Yurkov <uvv.mail@gmail.com>, Conor Dooley <conor@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Vyacheslav Yurkov
+ <V.Yurkov.EXT@bruker.com>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260318-feature-clock-guard-v1-0-6137cb4084b7@bruker.com>
+ <20260318-feature-clock-guard-v1-2-6137cb4084b7@bruker.com>
+ <20260318225510.GA639444-robh@kernel.org>
+ <7c7034a7-686a-42c2-bdba-6f31b5179f7c@gmail.com>
+ <20260319-yearly-wrongful-883f7fd86a69@spud>
+ <b45d9845-2d56-4fdd-a3ac-b0e0e27ba573@gmail.com>
+ <20260323-sanctuary-semantic-432089feb1c7@spud>
+ <d097826c-3db5-4902-acee-ffcff7436d4e@gmail.com>
+ <8e7d0c53-aa23-4514-81a5-335a76bb0c45@kernel.org>
+ <4d575f17-5cd5-495c-99a9-176b3393d54d@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <4d575f17-5cd5-495c-99a9-176b3393d54d@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-For CPSW5G QSGMII ports, CPSW assumes SERDES to be configured. Since it
-may not be always true, add SERDES phys to guarantee it.
+On 26/03/2026 14:39, Vyacheslav Yurkov wrote:
+> On 26.03.2026 11:08, Krzysztof Kozlowski wrote:
+> 
+>>>
+>>> DTS example:
+>>>     clock_guard: clock_controller_guard {
+>>>       compatible = "clock-controller-guard";
+>>>       #clock-cells = <1>;
+>>>       clocks = <&h2f_clk 0>, <&clk_fgpa_rx 0>, <clk_fpga_tx 0>;
+>>>       clock-names = "h2f_clk0", "clk_fpga_rx", "clk_fpga_tx";
+>>>       gpios = <&fpga_ip 0 GPIO_ACTIVE_HIGH>, <&fpga_ip 1 GPIO_ACTIVE_HIGH>;
+>>>       gpio-names = "gpio-input0", "gpio-input1";
+>>>       clock-output-names = "clkctrl-guard";
+>>>     };
+>>>
+>>>     custom_device {
+>>>       compatible = "...";
+>>>       ...
+>>>       #clock-cells = <1>;
+>>>       clocks = <&clock_guard 0>;
+>>>       clock-names = "clock-guard";
+>>>     };
+>>
+>> So a pure SW construct? Device has specific clock inputs but you do not
+>> model them and instead replace with one fake-guard-input.
+>>
+>> I don't see how this represents the hardware at all.
+>>
+>> Maybe some diagrams would help, assuming we still talk about hardware.
+>>
+>> Best regards,
+>> Krzysztof
+> 
+> Techincally that's correct, it's a software construct. If this is not a 
+> right place to submit such a helper driver, I'd appreciate a hint what 
+> subsystem is the right one.
+> 
+> I was not sure how to provide a diagram in the mailing list, so I posted 
+> in on Github https://github.com/OSS-Keepers/clock-controller-guard/issues/1
 
-Fixes: 496cdc82e05f ("arm64: dts: ti: k3-j7200: Add overlay to enable CPSW5G ports in QSGMII mode")
-Signed-off-by: Chintan Vankar <c-vankar@ti.com>
----
+Diagram of hardware. We talk here about hardware.
 
-This patch is based on commit "0138af2472df" of origin/master branch of
-Linux repo.
+> 
+> It is a driver which models dependencies for other drivers. These are 
+> soft or "indirect" dependencies, because we cannot access the FPGA 
+> unless the FPGA_PLL_locked, and GPIO is telling us we are good to go.
 
- arch/arm64/boot/dts/ti/k3-j7200-evm-quad-port-eth-exp.dtso | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+DT is not for drivers. It's not about subsystem, but concept. DT
+describes hardware.
 
-diff --git a/arch/arm64/boot/dts/ti/k3-j7200-evm-quad-port-eth-exp.dtso b/arch/arm64/boot/dts/ti/k3-j7200-evm-quad-port-eth-exp.dtso
-index 6432ca08ee8e..4824d53c95bb 100644
---- a/arch/arm64/boot/dts/ti/k3-j7200-evm-quad-port-eth-exp.dtso
-+++ b/arch/arm64/boot/dts/ti/k3-j7200-evm-quad-port-eth-exp.dtso
-@@ -32,7 +32,8 @@ &cpsw0_port1 {
- 	phy-handle = <&cpsw5g_phy0>;
- 	phy-mode = "qsgmii";
- 	mac-address = [00 00 00 00 00 00];
--	phys = <&cpsw0_phy_gmii_sel 1>;
-+	phys = <&cpsw0_phy_gmii_sel 1>, <&serdes0_qsgmii_link>;
-+	phy-names = "mac", "serdes";
- };
- 
- &cpsw0_port2 {
--- 
-2.34.1
+Certain generic bindings which solve real and common hardware problems
+are accepted, but so far I miss what hardware problem are you solving here.
 
+Best regards,
+Krzysztof
