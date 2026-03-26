@@ -1,45 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FF739BFF6;
-	Thu, 26 Mar 2026 17:45:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAE613A5444;
+	Thu, 26 Mar 2026 17:46:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774547138; cv=none; b=RUoaIuC8WjjlxW42MvcK2ygrFDbbQZ1q4hdZGfe3IFTWwwKeyxzPNJQT+8dyahkofp6P0Ma7A2PkzVa2b+7yJGYZ7pMpGnJpI9/XQWUhtRXDEKCcmN1QX7RonUgoY8+rLDEw+8L6F5eDBbeWae70AJGFC7E3Epm+zEAb/yAsMOg=
+	t=1774547199; cv=none; b=IUwrKZFx9qmDRC4OzS7X2keW02aCa033XjOcH7L3np0vZXDI987W1SOkJX+U04L3xsrTiVxaoIvYRnRH9iMtsa6uBmNYPToCNsqU9F3tOSLIIVBTGJShVOMEmHmpLRLNGFNBKDxQs3WyUf5n4gsB9NmDkbo46QCmNJic3lvSrxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774547138; c=relaxed/simple;
-	bh=kxNYsTSUOAGQeVxK433Pg8jeWXPC6fLTd5Mnx0qyrg0=;
+	s=arc-20240116; t=1774547199; c=relaxed/simple;
+	bh=CVwfAmH5u+DO6xJAeimWSSYi2LBO8JE7ZmqRYhQRusw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LhOvuGSCCIgHbVq3yn2s4n6YBhAxu3haiylD3lJx0MW/E1khip5mHdJKFLnyzF6Bn0xNizd8rfy7llAungDYkmSqysg0sobCRQ/fUYnW3Q/rR4yXelHIX01xr5RmwCpvgkEr0CaHkd1jcl9BWoptL/Yfn64Fir5rjxUdlvULHIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mq+0ETiL; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=s0Ah2wQm64umJT03ueODLj+pIzaDeHeA/8NMdCLaP4LyTbiKYFl3s665XcmdbcL+hMIIjpnt3pdEaUTeLG25odtvvfzFpcvDrXSjtgeCRAUGk9y1MscCRa5GW7okk9+z201ZOwNbDIQC2amDMSP9PWvJwBDFeltgxcliO6JukJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GQ1w7PZY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mq+0ETiL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6492C2BCB0;
-	Thu, 26 Mar 2026 17:45:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GQ1w7PZY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B77D1C2BCB1;
+	Thu, 26 Mar 2026 17:46:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774547137;
-	bh=kxNYsTSUOAGQeVxK433Pg8jeWXPC6fLTd5Mnx0qyrg0=;
+	s=k20201202; t=1774547198;
+	bh=CVwfAmH5u+DO6xJAeimWSSYi2LBO8JE7ZmqRYhQRusw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mq+0ETiLFCw6bN/xd7ulu6ogS9wpllmtuOacfbkWiJPeJHrgOg1OpxO5ZWpRRuebB
-	 bktiqIVCCKmFnvKgIxRZJ4S1Vep3KNO3r7WemVJmTKl8K/5Ftb2I52dz7ajOiq0g7B
-	 lxy8mL446tPRnjpNqkBh0KxRlSe+MVz40tgQ+aJuk3oqpUvT1ZujmmSyMjPfnEQ8wM
-	 WywqM1a08ca4BaxFSCx722NhLPw5dWi0A4NTA6+fnIwHfIJ8cnCywKUAxgye46Nloi
-	 Gaf7CdUjq5WSaBkqNGb7F7D9mX1FkXQjyFuYzCNBzTyH74rFd5TduHELNRWTwmU22c
-	 CBCN8zpIPj+Qw==
-Date: Thu, 26 Mar 2026 17:45:33 +0000
+	b=GQ1w7PZYNZh8Sx6kO9Iba1IUYQFPP8rxiobY3yDsSYyHVKpZmMnCIV1xPMgJkEUGE
+	 2HZtbh7eq33c/qG1EejSJ1VciKx3AwVdhcV3F1U04MfOzy9faEe3q7dLqhjO2pLX2F
+	 Gh30xCiPDoW2lYdp2aZmQFwKKpedIVY/ZgRPEeBsKw+I8IDIHKZJ2Cz9hSIvp/CLtH
+	 68h8TwZY925iXNNIsc4EhtaYhYSU9rp/eL3VI3z325Yntjlwrvd7XLFntveHZlCSJe
+	 YPrcNoKEHhDEdWctJfrZLUMbsWMMOfIPSNWWG70Kt3A5AfIG/I2LrS7cdopoQ+mQfh
+	 YglkJdmXnJt1Q==
+Date: Thu, 26 Mar 2026 17:46:33 +0000
 From: Conor Dooley <conor@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Zaixiang Xu <zaixiang.xu.dev@gmail.com>, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/4] dt-bindings: hwmon: Add Sensirion SHT30 series
-Message-ID: <20260326-opposing-footsie-33a0deb2ba90@spud>
-References: <1774429690-129139-1-git-send-email-zaixiang.xu.dev@gmail.com>
- <1774429690-129139-3-git-send-email-zaixiang.xu.dev@gmail.com>
- <20260325-napping-turmoil-de37168fb072@spud>
- <09105b02-3d85-4808-ba0a-f3799787425a@roeck-us.net>
- <20260326-lullaby-elevator-3a3d25e9a6c0@spud>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Jonathan Cameron <jonathan.cameron@huawei.com>,
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>,
+	rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: iio: amplifiers: ad8366: add adrf5702/3
+ support
+Message-ID: <20260326-swimwear-thrash-dc6668850621@spud>
+References: <20260325-adrf570x-iio-support-v1-0-9a2685eb2e55@analog.com>
+ <20260325-adrf570x-iio-support-v1-1-9a2685eb2e55@analog.com>
+ <20260325124627.00006828@huawei.com>
+ <20260325-possibly-deploy-3ff69076a6e9@spud>
+ <20260325191953.290a204f@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,60 +54,55 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yqiArGzkRvrAykub"
+	protocol="application/pgp-signature"; boundary="NpFQbEmKAM2pTwcr"
 Content-Disposition: inline
-In-Reply-To: <20260326-lullaby-elevator-3a3d25e9a6c0@spud>
+In-Reply-To: <20260325191953.290a204f@jic23-huawei>
 
 
---yqiArGzkRvrAykub
+--NpFQbEmKAM2pTwcr
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Mar 26, 2026 at 05:42:30PM +0000, Conor Dooley wrote:
-> On Wed, Mar 25, 2026 at 06:05:22PM -0700, Guenter Roeck wrote:
-> > On 3/25/26 11:20, Conor Dooley wrote:
-> > > On Wed, Mar 25, 2026 at 05:08:08PM +0800, Zaixiang Xu wrote:
-> > > > Add YAML devicetree binding schema for Sensirion SHT30 series.
-> > > > Use fallback compatibles for compatible chips and add optional
-> > > > interrupts and vdd-supply properties.
-> > > >=20
-> > > > Reported-by: kernel test robot <lkp@intel.com>
-> > > > Closes: https://lore.kernel.org/r/202603212044.BRPaiz86-lkp@intel.c=
-om/
-> > >=20
-> > > The robot did not report that this binding was missing.
-> > > It also told you not to add these tags.
-> > >=20
-> > > You also ignored my and Krzysztof's reviews.
-> > >=20
-> > > NAK.
-> > >=20
-> >=20
-> > Maybe we should just point to AI feedback:
-> >=20
-> > https://sashiko.dev/#/patchset/1774429690-129139-1-git-send-email-zaixi=
-ang.xu.dev%40gmail.com
-> >=20
-> > and only get involved after AI does not report any problems.
-> >=20
+On Wed, Mar 25, 2026 at 07:19:53PM +0000, Jonathan Cameron wrote:
+> On Wed, 25 Mar 2026 18:13:45 +0000
+> Conor Dooley <conor@kernel.org> wrote:
 >=20
-> The presentation of info in that is weird, it creates a pseudo-commit
-> message, and then goes on to talk about things that the pseudo-commit
-> message has had culled.
+> > On Wed, Mar 25, 2026 at 12:46:27PM +0000, Jonathan Cameron wrote:
+> > > On Wed, 25 Mar 2026 11:12:02 +0000
+> > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kern=
+el.org> wrote:
+> > >  =20
+> > > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > > >=20
+> > > > Add compatible entries for ADRF5702 and ADRF5703 Digital Attenuator=
+s. =20
+> > >=20
+> > > Explain how they are different from the existing supported devices.
+> > >=20
+> > > Something simple like the "Each device has its own gain range and ste=
+p,
+> > > hence no fallback compatibles are used." that you had in the original=
+ patch
+> > > is what we need here. =20
+> >=20
+> > Which means that this is a v2 that doesn't say it is a v2, or explain
+> > what has changed?
+>=20
+> I meant the original driver - which only landed recently and answered
+> the question of difference nicely.
 
-How good is this LLM stuff at figuring out if previous review feedback
-has been resolved? Or is it not capable of looking at earlier revisions?
+Ah I see. Wording confused me!
 
---yqiArGzkRvrAykub
+--NpFQbEmKAM2pTwcr
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacVwvQAKCRB4tDGHoIJi
-0oMxAP99d/PniJzC7SasV+Tv/rGpg6lUfVbr8QApXedeYgOKRQEA8PS7SyEEJT0k
-sHwiuqqUk2NdOAXbR2JJ8cmOGH1J2AA=
-=Ngqb
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacVw+QAKCRB4tDGHoIJi
+0gBsAP0QnDgQfS0TqUCIclAilJpw2cqxQmeObA99EigK7X/wZgEA498b9J7Vy5zA
+CQspXNTjWiFMfu6AqMcgdEFwk3UvrgQ=
+=T+DN
 -----END PGP SIGNATURE-----
 
---yqiArGzkRvrAykub--
+--NpFQbEmKAM2pTwcr--
