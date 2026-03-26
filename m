@@ -1,59 +1,61 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB87346AC0
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 08:11:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC91364EAA
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 08:11:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774512674; cv=none; b=FbLqGM8GtJrYuNR2v8krrf6A0tzThaMmnW+mywzJRIlubnHjT7oTPYLZlX/Jx6Ex1GA/qaavJXhYl8AIYfNVFHgLZpqjqx28k/hVob+5YK0WugvExdy82UP8Lg4HJp+et58JPe6r4Is6fZmrBVlj+Cju/hZCrhTjpW+wCVNVNhI=
+	t=1774512679; cv=none; b=q2OZlw3PHHBTYgaBrvfEdzgi3I3e8Q0iTI2kMwTicppVp8q5KvoWLInBssj35siEuPK1+F8w5FGuAMRrlGau0+94TfHT22YJudotpyNOLaMdNRjH3zA9hndwx03X4t6uCFvf7VeTJL5aH9iPIcHLTlGjwjHKDhKqU+U517wjUT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774512674; c=relaxed/simple;
-	bh=2zlaEDaROISinVqtSwCTGVhWXIC8chYqjnn4Qnd8dPI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Imi4EIoM61mH/anhyPmwHJI6DfSuat2jd+jlYny+r2cb4k/rfbF+eNJnP4QT+fXDStMuCnG/ERDTzJY2onf31Gq6/UmPbFeSOR6Np46PgXr9mZRoMadZSrpcVRVhDo9Y6ixC8HyIokElHSvcjuYUsiAUa9CZhJElNwlqr5He718=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=A7wP+9X/; arc=none smtp.client-ip=209.85.216.53
+	s=arc-20240116; t=1774512679; c=relaxed/simple;
+	bh=WVD+oQYU4DDjFVTcmhlg4TA6UdE36jaEIjF1vHU+HN8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Da2eJds878t6QRHNKSR+fr0GI+yw4uUIeOlWabnQ/fbQkDqTFWMAf82a5t3UBrHvJ/7xpTeva0b0GZ6MWbdSDBlbd4g29XsxFBnnE86kjbZrxml+OlsaQbof/AIdpmcZB6oN6dOJwh2MUq4uZuBnA5BGAvG2EnftVhyDlc4jL1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=kKBP9zZV; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="A7wP+9X/"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-35a211df8e3so505928a91.2
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 01:11:12 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="kKBP9zZV"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-35c06831dd3so703147a91.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 01:11:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1774512672; x=1775117472; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=oI7ncm47EFLHRAd6LbtDz8JRD0+IusIPO58qA+zSWN8=;
-        b=A7wP+9X/Mv9aMU9ueN9bscYideuaaOtO1cX5g/K6uYwtNd/yPMM6R/Zc3un47nShiV
-         GLhBvjBkQ9cOTnnOn2hKNT9H/d3WxQzU+/IEhNwL987oUAaEvCQgECoDr29SWN6bAihv
-         kkv4GLo3nyKN5oDKVkpGQJ+h9s17G7aN6YlCg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774512672; x=1775117472;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=chromium.org; s=google; t=1774512677; x=1775117477; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oI7ncm47EFLHRAd6LbtDz8JRD0+IusIPO58qA+zSWN8=;
-        b=U0KhMrHSdZLMTKiJ5CV4wFhlafyYqFONJupNoPQiYBIegrvP6W4t3fdrz+Q4HPX3MZ
-         7QjW4M0bPA0COMb8J5wO/sE4/gj8KDvr9BtH+muehV8L7MDikn9JoaScBumGvZoaYmBZ
-         VoGTlpQkPXutaIgwPNpT/Uf8JrNcHtdbna7eUEY6TAEBhso0YlYwEBrhXDe6rrQJzewh
-         Vocy5rZGu0bwwHOTUr9mHyQtdtEZT2hUJKkE4nzxsti3V5OdIfrW7fnZkONJAStJiX7C
-         6eMvmbOrQB0ouvAM+xfdWBidOFsUHUnYgkEP/OfpF4ejqmgz+9KbS5qr7xhbY0/UmLj+
-         /a0g==
-X-Forwarded-Encrypted: i=1; AJvYcCURIb9SEGkjL+zdlQgVqiuc2iAU0VZfvP0Ewt0NFiBBxfQ/o3Z+iVptmMk/OnL3hu1cgQ4C4K6FNSdE@vger.kernel.org
-X-Gm-Message-State: AOJu0YwVKPbK386tYbewWPA0G9MIiSEqjWT79Lx8c1KzVncPtOHVNbwA
-	xnaCyWjEAQyNCzL81wTuYD9QUpH5LK0rjiWKER9jkbG5vLD2sjetzxEE65f5GEuJrg==
-X-Gm-Gg: ATEYQzwIb8lfMQifrkNKewCYbg7bYDTs5NyFl+TdIF/vDaAjcTjMtfZ+xQBb3kW0sJ1
-	GHLYdfrcFQl2yt9PlOEWiTtFSQPesUjkkqq5JAE0rWdiWd7uMtr7E57/BxOljbiALvJDqkGndYb
-	XHsOo6iPYpkPFhITNoJPRi9WqXceFPA9ITmWwJ/mH5rGba5dZT29Fk1DcsPvewEsVW2+LP0Gm4F
-	BUNmNISXu3KRjOIZ7BjucNB0iw6jrM93B6tlW9AGFC4CI7AJ9zpj/o/bmW4HP8Nai/yPyOu4G1q
-	YjYaeIfBpbbkuoONCPGeacLezeDd2OsUY9vd5JXRlA5MqK3UrfJw6oxGDfnyL8VNLV/tYurSH2E
-	HO3SKg+5tV3AwMJ6idDeUPEbDkadgrf9/K/88EbfLRBmRuEUB9UfprPbWA3hGKZM3YNN/pz/mJF
-	G9TkfBTKKTK76kuit3QdxpZ55mnErxdzLSaqKizExmhqsjRLY96uaxVBoinPYMhdERNh9gFtnGN
-	jusKfs0i35LfrIZYzc=
-X-Received: by 2002:a17:90b:37c8:b0:359:fe72:3559 with SMTP id 98e67ed59e1d1-35c0ddad8e2mr6144191a91.21.1774512672187;
-        Thu, 26 Mar 2026 01:11:12 -0700 (PDT)
+        bh=CC10WFWDdAyN+TFjNPYY2y7LqaKz7gtKkshZ6FuGwXQ=;
+        b=kKBP9zZVmWQRQnekQhtilcASqz1VnyBnkhl1pze2bWbG3LPGTurbXoG3/hV+ud6qYD
+         gIMensIMDP6u+N8YqLdkgxmGJD7dCixfANwlWV8BOL/ww0+6i7akQU13G72Peyt0T3FB
+         LPfSMGP1CjCfvaAvOpHreRp8RYkMcwkSPILKU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774512677; x=1775117477;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=CC10WFWDdAyN+TFjNPYY2y7LqaKz7gtKkshZ6FuGwXQ=;
+        b=BaJzaKMv6zlhzSJFDBfvosMYqoR9HYFfqxqI2x9wy3mgHRJX4eemIfyre/RU1cd9UI
+         TtvQ1IIU5jX76wAqSRLe44TpzQANkrLGr64YBhv0LjYiLb5Cg/E+QMQ36ndPgzwkHbuP
+         q9ciIv0aZ5tB4j89Ax19DSq/fOHp1XFn10mcL2ROcFf17ZwdSXAdvompZtESuIN6wUyu
+         65f+/al05cga5+9+rPAFD//ACc82AAPAA6Nhpgz0RkcPRWKCzQQHePcBicZl8FaY+oPa
+         tLjnzFWq/7YPQGMaPsZZqfrxO1rRJYLl62pHMLVNEeKUoH4LUlZveR/B86r/wnniAjtJ
+         q3uA==
+X-Forwarded-Encrypted: i=1; AJvYcCVHNhQLr17pbzVvfLx+DnvF9jLL32Cdy9GVkrQ4ALSne3wMwd1T7BF9R976DsBxPExesmcy5MaZdLPg@vger.kernel.org
+X-Gm-Message-State: AOJu0YzhGTHTwNAu664LaaFTEfwevHDcMvqe+QvuT7JncyaEGE2XGTtR
+	nbVhzhQoShrLhCgY8bG6xsVw/sYCLn3dTWdbfsbHEjiwDtj+gqzgI5M1wM65PfEQow==
+X-Gm-Gg: ATEYQzzwzelRiwwTlahk0tR85bclQvqRxW749Vv4pxehaI3hLYu2bhG+hNwEchi2O6D
+	8L9E/FAkl8dfiQIUhI4wE0kxlMYpVcRrYCZsVYV5c9tRIygNEIsraxEWpIYWr6N4CRHZzdV7R7l
+	TcJ8HW506fy9qFHlKRVFxFt5Tu1sues3xFGb7Z+GCBjbh2ua45tepVK1WH2dqn2jP3HiaBdkAFo
+	kNk+Dx5iGnRI7wntGKzqT6O4St7T8mxQ6NmLXJJLlawse1AxvHRrp5izzoRDKjBEgJjnYrZXnAE
+	QeeQy3+GzBYKO67QhfDRJjZf/yGEaSa5JrARS5NCcE/Rk0NIvv9FTkmFmGmE7wNbdfeF3tCFD7q
+	ZKBoLbk2T8fEP48Jjz+y7f3eHQQBEcAnE1NfP0rop0YUWq/8fPXSUEM/whYYoUp+7BSC1MzevpW
+	NtFQYGDoAa1vjkakYPmJ5/FSATcLMGvLBg5Amj5shZY5Xr6b3YnDkv9oOBHPcWPXiM8vCFwmTLP
+	P9phteN
+X-Received: by 2002:a17:90b:2645:b0:359:ff8a:ee44 with SMTP id 98e67ed59e1d1-35c0dc8ee2bmr6266111a91.2.1774512677238;
+        Thu, 26 Mar 2026 01:11:17 -0700 (PDT)
 Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:3ed5:7e63:b37c:a7d7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35c22d09573sm823452a91.16.2026.03.26.01.11.09
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35c22d09573sm823452a91.16.2026.03.26.01.11.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Mar 2026 01:11:11 -0700 (PDT)
+        Thu, 26 Mar 2026 01:11:16 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -67,10 +69,12 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH v2 0/2] regulator: mt6315: add regulator supplies
-Date: Thu, 26 Mar 2026 16:10:47 +0800
-Message-ID: <20260326081050.1115201-1-wenst@chromium.org>
+Subject: [PATCH v2 2/2] regulator: mt6315: Add regulator supplies
+Date: Thu, 26 Mar 2026 16:10:49 +0800
+Message-ID: <20260326081050.1115201-3-wenst@chromium.org>
 X-Mailer: git-send-email 2.53.0.1018.g2bb0e51243-goog
+In-Reply-To: <20260326081050.1115201-1-wenst@chromium.org>
+References: <20260326081050.1115201-1-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -79,44 +83,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+The MT6315 family of PMICs has 4 buck regulators. Each regulator has a
+separate supply.
 
-This is v2 of the "Add MT6315 regulator supplies" series.
+Add these supplies to the driver.
 
-Changes since v1:
-- Link to v1: https://lore.kernel.org/all/20260324053030.4077453-1-wenst@chromium.org/
-- Move supplies to top level node, at the same level as the compatible
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+ drivers/regulator/mt6315-regulator.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-This series is part of a broader collection of regulator related
-cleanups for MediaTek Chromebooks. This one covers the MT6315 PMIC.
-
-Patch 1 adds the names of the power supply inputs to the binding.
-
-Patch 2 adds the supply names from the DT binding change in patch 1
-to the regulator descriptions in the driver. This patch has a
-checkpatch.pl warnings, but I wonder if it's because the context size
-for checking complex macros is not large enough.
-
-Device tree changes will be sent separately. The goal is to get the
-regulator tree as complete as possible. This includes adding supply
-names to other regulator DT bindings, and adding all the supply links
-to the existing DTs.
-
-Please have a look.
-
-
-Thanks
-ChenYu
-
-
-Chen-Yu Tsai (2):
-  regulator: dt-bindings: mt6315: Add regulator supplies
-  regulator: mt6315: Add regulator supplies
-
- .../bindings/regulator/mt6315-regulator.yaml         | 12 ++++++++++++
- drivers/regulator/mt6315-regulator.c                 | 11 ++++++-----
- 2 files changed, 18 insertions(+), 5 deletions(-)
-
+diff --git a/drivers/regulator/mt6315-regulator.c b/drivers/regulator/mt6315-regulator.c
+index d3f93aae0fc5..231e64fb0596 100644
+--- a/drivers/regulator/mt6315-regulator.c
++++ b/drivers/regulator/mt6315-regulator.c
+@@ -31,10 +31,11 @@ struct mt6315_chip {
+ 	struct regmap *regmap;
+ };
+ 
+-#define MT_BUCK(_name, _bid, _vsel)				\
++#define MT_BUCK(_name, _bid, _supply, _vsel)			\
+ [_bid] = {							\
+ 	.desc = {						\
+ 		.name = _name,					\
++		.supply_name = _supply,				\
+ 		.of_match = of_match_ptr(_name),		\
+ 		.regulators_node = "regulators",		\
+ 		.ops = &mt6315_volt_range_ops,			\
+@@ -190,10 +191,10 @@ static const struct regulator_ops mt6315_volt_range_ops = {
+ };
+ 
+ static const struct mt6315_regulator_info mt6315_regulators[MT6315_VBUCK_MAX] = {
+-	MT_BUCK("vbuck1", MT6315_VBUCK1, MT6315_BUCK_TOP_ELR0),
+-	MT_BUCK("vbuck2", MT6315_VBUCK2, MT6315_BUCK_TOP_ELR2),
+-	MT_BUCK("vbuck3", MT6315_VBUCK3, MT6315_BUCK_TOP_ELR4),
+-	MT_BUCK("vbuck4", MT6315_VBUCK4, MT6315_BUCK_TOP_ELR6),
++	MT_BUCK("vbuck1", MT6315_VBUCK1, "pvdd1", MT6315_BUCK_TOP_ELR0),
++	MT_BUCK("vbuck2", MT6315_VBUCK2, "pvdd2", MT6315_BUCK_TOP_ELR2),
++	MT_BUCK("vbuck3", MT6315_VBUCK3, "pvdd3", MT6315_BUCK_TOP_ELR4),
++	MT_BUCK("vbuck4", MT6315_VBUCK4, "pvdd4", MT6315_BUCK_TOP_ELR6),
+ };
+ 
+ static const struct regmap_config mt6315_regmap_config = {
 -- 
 2.53.0.1018.g2bb0e51243-goog
 
