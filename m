@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64DC0428848;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8206542884B;
 	Thu, 26 Mar 2026 17:31:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774546314; cv=none; b=ZYE2pF8gGJioR/vBv1rhqUhRrnYpW2idzdZwl6cIde+m5cih15AVUKLO4/hcx8mqqsl0yiEUVXuYCa1KR6hl6d5oDskI2F70TmzUXQb9YxuOjj5gaG2ToyG0ArnOv+GzNUQ9qinR/AjxCh3Xxrj9Tr6rVC8zqoBze/w8LHhTdjM=
+	t=1774546314; cv=none; b=jqGtJQbuRsuWgmMlCWud4cgQZbdb7GNTVcvpfkc0BdSowGaqYH26KKVGuL3PVKssYEmqGEZGzbBewlWMatK4DY9RoZyiLYovHh0Fjq9BrvFEBY7fjpuIexrFBfIh0Q3OmfHDM4CcQT60ts8WYhlf7OO9q4roH2ziTpyG3IBs+mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774546314; c=relaxed/simple;
-	bh=BXeARZ0ujZDNhdquS/qJc3J32JsHagxLqC8adFmTGE8=;
+	bh=LUVBt0a9e/3u7eeqwpYouo5CnB40cE0kF77UUAB2x5o=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PNc9lE14HjBa7sp45TBnaeaoPeaBf/xIe1rJtQGvwToIyw7pgH2vmRgmY2I4YCykXvYmCoGNh5bGk6FwKr8nN8Vmx0HBGsGboBQSbhpse24HfedFPqpawCudrFbdlKlPuH0g1e8CebZcB+QtphwW5PmLAGR72ea5SWdds6OoB/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=lUtECpZf; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=WzWs6EXZ8AP3qmCJR2oLUzV5VNY4OeQZDhvZyA1yMoqi5ZgC3SB2UdbBKXz1/+snHIQe4rrqqjMg4Ts9xyWgO1kWj91u9H05kavyQnPDUAZxqHMyf5+3QwMLJet2JKy6ksNlTMGDujOSbDi5LbSV0uXy/4zeUHQt4Znf7cl5eBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ZtkZzRDW; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="lUtECpZf"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ZtkZzRDW"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1774546299;
-	bh=BXeARZ0ujZDNhdquS/qJc3J32JsHagxLqC8adFmTGE8=;
+	bh=LUVBt0a9e/3u7eeqwpYouo5CnB40cE0kF77UUAB2x5o=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=lUtECpZflrzEV7Y/C3QNwh5eSfsIXVZc+NuscTKP8vrB36laJ0emXms1TQ5fa3E3Z
-	 mjPUlmJawKvFJVd2Sw2Gvdsq5tVl7TUn9OzHoWuHP9f/O8Dq/hHgh5cF4tW/qQfoYe
-	 1ip7R7lwlESpxQHzBeKc/fa1NvKR1aW2Jc+pTC43s1Avs2BjZ3hZniHmdfJ26EtEPL
-	 JRvvyB0fI5WKCtwIIg4vSy+/bYch2XWX7LFn+cqLC3go3WNnUkd94dYCivUOjcPoRC
-	 NOqE3jo/toQdOQ2pKlzGSSmWsX4t4T/Be/xNs/Eh+ZecejEdB41+//RsXmj821g4/X
-	 10wfYi2aegTGA==
+	b=ZtkZzRDWdfqwCLCoh/EG2llkskWvuI94KvwhfGrROwed8xidwU0/EXCEt5uStGdCi
+	 RnYwhYF0RdmrP2dtJKF8QPRMiOo5qJLAN/FBUZGx3cC2FKxDQHQi5ugvv/JzRGtLEE
+	 aO/BbfF0KcG1HKP4cwPqUQEobZYuMsGb0FOmbMVSjOv4XJWQ/rjrtu0UVuMxqR/aXr
+	 BejdPGAkAy3h14nbnaO+xCqXRp2e5oH9PF8ytR1mZJ4cPIUJlDYwzjSo1n+ezp5XvH
+	 NOXNKDhg8MxrCMarppsKqv68dqhvrHfndIWRI/zS1vlZ/un1/XVWwVhVFWSFrVIqnz
+	 UVgX6Y85TVQCA==
 Received: from jupiter.universe (dyndsl-091-248-208-149.ewe-ip-backbone.de [91.248.208.149])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 00AE417E6195;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0C03117E6198;
 	Thu, 26 Mar 2026 18:31:39 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 4B5BC480038; Thu, 26 Mar 2026 18:31:38 +0100 (CET)
+	id 44E1248002F; Thu, 26 Mar 2026 18:31:38 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 26 Mar 2026 18:31:33 +0100
-Subject: [PATCH RFC 09/10] dt-bindings: display: rockchip: dw-dp: fix sound
- DAI cells
+Date: Thu, 26 Mar 2026 18:31:29 +0100
+Subject: [PATCH 05/10] drm/bridge: synopsys: dw-dp: Support software
+ triggered OOB HPD
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260326-synopsys-dw-dp-improvements-v1-9-501849162290@collabora.com>
+Message-Id: <20260326-synopsys-dw-dp-improvements-v1-5-501849162290@collabora.com>
 References: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
 In-Reply-To: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -67,86 +67,127 @@ Cc: Damon Ding <damon.ding@rock-chips.com>,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2725;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3766;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=BXeARZ0ujZDNhdquS/qJc3J32JsHagxLqC8adFmTGE8=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnFbXoF33zhgR9SvgPUXj9MDDV/sb/P2F7oO
- r4fWYbF7lcxxYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJpxW16AAoJENju1/PI
- O/qa97gQAJr3OiTK64k3GSVNa+jwT1TOo9gm73/St/RMv2FZ4DBMcQbOk6zfHtVt/3J9kw5LsPO
- dRSnxtFtf7GeB4OckpulcUPw9prXcjGLmwZEPeiLCtNGjhHfn7rTJ773KOX0/8fOBPuhtsi1xLW
- TxWyYZwwdD0OJM645/XXD3W5o2WZtjSzMpRbVQcsuCwqWsr67dpS1Dknnez2lpO8LzaudEn1OCe
- LmxomtsFmVPYgmrQqbWcS3vAoTprVeo6FUEmeEOfkLeOuDiv4QHOi/JjRDJlv91NfP5djfKCd/u
- RPB1ARB56iI8p9UMPRsb72B73N4idCChnd4Lm3i5jQFIWZEFLs9mDPEP12QXRinoCYWPBS/9bw5
- Wd6HIahA2qlyc+AkRzsohDhrdjkI8nWjNokTtD/T+6D1Cof9Lqi9Ai8WGsEsO5v1fhpcDZUKWHs
- YEKAzu7T7ekzEhVpdk5JY4wM6+VXWo979rFKVOGPfvbOcXyr9fItesWGl0kDb7HAC9xr4qdt0RU
- 9ekxBWlQLxdUwRFHJ2i0BQtIZGqLK66cwhhCDMQpImk/zaCj6QC/Wbw2DWsG1WS8JxPIJAxJa5o
- i20yGf/fEGiJ41sif6Qt/wWdS6bKy2M2aq4k8y/p5TvsVDdKlAGUNMgex4wlYLy+7o6Pq1VJpVB
- PcCiczkHlal1rb5eIV9wvdg==
+ bh=LUVBt0a9e/3u7eeqwpYouo5CnB40cE0kF77UUAB2x5o=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnFbXn8OLq1td1QPrCxAmzGR/Li5V8Xuh/Cr
+ bn/q2ss2ZXC5YkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJpxW15AAoJENju1/PI
+ O/qaXFsP/1lQ2vZSGC393cFb19tWxy3npPmE6gfBd4BI2lhwJ4qJndQChOqJGHShu/QMro7XIqb
+ 5JZJ1hhJtzK6pLJUb1RGhB5S3fA5hiBUbKARN+fW/XvU4jv4S4hmWPJ7Lz/8stxzzFqvMEWxYaG
+ KW8DY+PaiCSXUGs1yuP9UT0eyxsZD2DsFUz+gWXPpg+BJAuU0znO/zjO1h/M6TK2QKx/Yvrs7r+
+ pvrNnl6Gocej7jKMsPjqMkTO2adtYgTIYNd50+eFbe9Eh/IBLxRt73m1/0WB1ym9K1xOz8g0IWZ
+ yzy6QUbAhFGQvpQC+37wWT1HDCkfDiX+lpKRyHWTH4zxReVnayCYzkwynlMELDyEE5mMbh+176a
+ xVDDf0dMGGa8xeZ9YxobdBg3mKXiIKRlREwbporK+w6Ruxpys0SfaIrDvoEAVMqw/4cImeuDyDb
+ QL8RLQArDaLrflZvcHZh82FBpVEyNwWprI4cEkZ7JgdDWUvAIy8E2+rkwjrQ05zu//qhbo79nov
+ doKaZlPBfNI6TeIbMuwEmiEHBdy1+8JXsj2OojkglP4ndeJcYs3YuwtYptiRCNm4adGVt8Vmxtg
+ jPS92X8sckKy4o2GrWyc/fTZKCv1dJ4LgBD66kkmQwcokgeIEMdibX980/NVKivBpu8++PKB8pS
+ 9nW94I/2qOUbx5eZ/dWE20Q==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
-possible DAI interfaces: I2S and S/PDIF. Thus it is needed to have an
-argument to select the right interface.
-
-In case of RK3576 this is not enough though. The RK3576 has the same IP
-as RK3588, but configured with Multi Stream Transport (MST) enabled for
-up to 3 displays and thus has a total of 6 DAI interfaces (I2S and
-S/PDIF for each possible stream. Meanwhile the RK3588 does not support
-MST and thus has only 2 DAI interfaces.
-
-The binding update right now only supports the simple single stream
-transport (SST) setup. To avoid further DT ABI breakage (or complicated
-bindings supporting different number of arguments), it's probably a good
-idea to take MST into account now even though the upstream Linux driver
-does not yet support it.
-
-I see two options:
-
-1. Adding yet another cell, so that we have the following:
-   <&dp_ctrl [display_stream] [i2s_or_spdif]>; potentially append
-   extra input ports for MST video data to existing ports node
-   (e.g. port@2). I would only handle the sound DAI part in my
-   patch and basically use '0' for the display stream and just
-   leave the option of using '1' or '2' once MST support is added.
-
-2. The vendor kernel creates a sub-node for each supported display
-   stream and puts the ports mapping as well as the DAI reference
-   into that. This bundles all information for one display stream
-   together, which creates a clean look but the subnode does not
-   really describe any real thing in the hardware.
-
-As upstream MST support seems to be quite limited, I wish for some
-feedback about the preferred way to handle this.
+Add support for USB-C DP AltMode out-of-band hotplug handling. The
+handling itself is implemented in the platform specific driver as the
+registers to force HPD state are not part of the Designware DisplayPort
+IP itself. Instead the platform integration might provide the necessary
+functionality to mux the HPD signal.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- .../devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml         | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 38 ++++++++++++++++++++++++++++++++-
+ include/drm/bridge/dw_dp.h              |  3 +++
+ 2 files changed, 40 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-index 2b0d9e23e943..1303d0e2145a 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-@@ -83,7 +83,8 @@ properties:
-     maxItems: 1
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index c3a108f1faa9..df2d629287fd 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -1824,6 +1824,19 @@ static struct drm_bridge_state *dw_dp_bridge_atomic_duplicate_state(struct drm_b
+ 	return &state->base;
+ }
  
-   "#sound-dai-cells":
--    const: 0
-+    const: 1
-+    description: 0 for I2S, 1 for SPDIF
++static void dw_dp_bridge_oob_notify(struct drm_bridge *bridge,
++				    struct drm_connector *connector,
++				    enum drm_connector_status status)
++{
++	bool hpd_high = status != connector_status_disconnected;
++	struct dw_dp *dp = bridge_to_dp(bridge);
++
++	if (dp->plat_data.hpd_sw_cfg)
++		dp->plat_data.hpd_sw_cfg(dp->plat_data.data, hpd_high);
++	else
++		dev_err_once(dp->dev, "Missing platform handler for OOB HPD handling\n");
++}
++
+ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
+ 	.atomic_duplicate_state = dw_dp_bridge_atomic_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+@@ -1837,6 +1850,7 @@ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
+ 	.detect = dw_dp_bridge_detect,
+ 	.edid_read = dw_dp_bridge_edid_read,
+ 	.detach = dw_dp_bridge_detach,
++	.oob_notify = dw_dp_bridge_oob_notify,
+ };
  
- required:
-   - compatible
-@@ -144,7 +145,7 @@ examples:
-         resets = <&cru SRST_DP0>;
-         phys = <&usbdp_phy0 PHY_TYPE_DP>;
-         power-domains = <&power RK3588_PD_VO0>;
--        #sound-dai-cells = <0>;
-+        #sound-dai-cells = <1>;
+ static int dw_dp_link_retrain(struct dw_dp *dp)
+@@ -1973,6 +1987,19 @@ static void dw_dp_phy_exit(void *data)
+ 	phy_exit(dp->phy);
+ }
  
-         ports {
-           #address-cells = <1>;
++static bool dw_dp_is_routed_to_usb_c(struct drm_encoder *encoder)
++{
++	struct drm_bridge *last_bridge __free(drm_bridge_put) = NULL;
++	struct fwnode_handle *fwnode;
++
++	last_bridge = drm_bridge_chain_get_last_bridge(encoder);
++	if (!last_bridge)
++		return false;
++
++	fwnode = of_fwnode_handle(last_bridge->of_node);
++	return fwnode_device_is_compatible(fwnode, "usb-c-connector");
++}
++
+ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+ 			 const struct dw_dp_plat_data *plat_data)
+ {
+@@ -1988,7 +2015,9 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+ 
+ 	dp->dev = dev;
+ 	dp->pixel_mode = plat_data->pixel_mode;
+-
++	dp->plat_data.hpd_sw_sel = plat_data->hpd_sw_sel;
++	dp->plat_data.hpd_sw_cfg = plat_data->hpd_sw_cfg;
++	dp->plat_data.data = plat_data->data;
+ 	dp->plat_data.max_link_rate = plat_data->max_link_rate;
+ 	bridge = &dp->bridge;
+ 	mutex_init(&dp->irq_lock);
+@@ -2086,6 +2115,13 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+ 		goto unregister_aux;
+ 	}
+ 
++	if (dw_dp_is_routed_to_usb_c(encoder)) {
++		dev_dbg(dev, "USB-C mode\n");
++
++		if (dp->plat_data.hpd_sw_sel)
++			dp->plat_data.hpd_sw_sel(dp->plat_data.data, 1);
++	}
++
+ 	dw_dp_init_hw(dp);
+ 
+ 	ret = phy_init(dp->phy);
+diff --git a/include/drm/bridge/dw_dp.h b/include/drm/bridge/dw_dp.h
+index 25363541e69d..4aacd0e56f50 100644
+--- a/include/drm/bridge/dw_dp.h
++++ b/include/drm/bridge/dw_dp.h
+@@ -20,6 +20,9 @@ enum {
+ struct dw_dp_plat_data {
+ 	u32 max_link_rate;
+ 	u8 pixel_mode;
++	void *data;
++	void (*hpd_sw_sel)(void *data, bool hpd);
++	void (*hpd_sw_cfg)(void *data, bool hpd);
+ };
+ 
+ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
 
 -- 
 2.53.0
