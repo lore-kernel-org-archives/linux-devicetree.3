@@ -1,86 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010015.outbound.protection.outlook.com [52.101.229.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A057725EFBB;
-	Thu, 26 Mar 2026 17:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774545720; cv=none; b=NCSx/ti6LidZMi71A2yQgG2S4TK/eV3AtaJfAZe4j4izIn2merhmuir7eM0VUCPtMuat4YmpPaSSBS16iDNQk5zwg+PUtkFYKK6h61TIXewrL7eMhHA4FcUxudpHp7MnuoWiJsmoVtXZe1ZqB9WQE+/8JSZpVpst4wvrgfjx9Ls=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774545720; c=relaxed/simple;
-	bh=gWAQKtriBxFBte89uPYeWlvezYh2OvK63i/Tp6/VF7k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CH9y8M1K/RpTaRzSUi5hOtpyrSpOAEL0DAJ3iyCBx7KMISHnRMFVompaKMhCnF7l0lwKzErnZj2JMYf/7XsbDp5qicXyYIP0CspKTBNm7oiWI1Y3MXVJCGIPqKIkGXzMyFnUv6JgdK32j9iEcRBu9yhqb6WK/VT73oYoO9JBtrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ruj8Lsbc; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C7B32ABCA;
+	Thu, 26 Mar 2026 17:23:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774545787; cv=fail; b=W21x/KXjRvzeSY5DUN3+V/gUr2W4i/bZjkZtzL344XNaYHfNzpAZqlUWnxRlmGRpkpuZwt71mK1xo+RRFMej651NF/7UmojWX5j0bjMzrgZN4JTEmk54BDiZO2zXok2e3IYCiYix6yIJ29Kqa0TUxE1vQ+LEEn1WfDa1xNwFD8o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774545787; c=relaxed/simple;
+	bh=OXIRk+VAnUDtinRdsyrxGyObsSavw658MqOCcHiOerg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Fe1XLf9NS9qTa/X20j2zfizPaiRfyW7VnQ8VZ+5kjBNnHSuGP0UmS4SunU9wyy5YurUT1EKl/suMUtpLL635I1qA0eMe+KJaqG9dbz4NW1mGFoEepgDiuLD7VHlTcu6FN8kIWadn8L4MiChWcj9p093YZaW1T8XE5taU6cJl7TQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=VhRIs3t4; arc=fail smtp.client-ip=52.101.229.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ruj8Lsbc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CC95C2BCB0;
-	Thu, 26 Mar 2026 17:21:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774545720;
-	bh=gWAQKtriBxFBte89uPYeWlvezYh2OvK63i/Tp6/VF7k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ruj8LsbcbV4dCDq0E48OMRhVzsMLuW17ySAFidrwpOPI40LzVLOiGQ8tlIpee46IV
-	 NVnj/U+ctWN8apMnF7ah0Z3pKHeoYBjboAHwulMGFECwUtBmsUbqZElv8W1/Rhnjjj
-	 cdxnu5ZGxYk9zca2iRoQ7nuKRj8+/FhHDSPUuFWcAajYRoZuibqnMX7q51UAhjTwnE
-	 VdRHq5EpNHzWQEoZibO89qbiOBYCdScrXm11x8doEqQ0e64wsj3Qmep3EO9qmp3YMy
-	 EDl7rxZQeMxuvDvukj9qbgbHeJ33ud4N3udWdBh4q0bSCB3iXYH/sb5PVHHkBAHaCB
-	 IXnzD3kyCiDSA==
-Date: Thu, 26 Mar 2026 17:21:52 +0000
-From: Simon Horman <horms@kernel.org>
-To: =?utf-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
-Cc: devicetree@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, netdev@vger.kernel.org,
-	pabeni@redhat.com, mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com, rmk+kernel@armlinux.org.uk,
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	alex@ghiti.fr, linux-riscv@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	maxime.chevallier@bootlin.com, ningyu@eswincomputing.com,
-	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com,
-	pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com
-Subject: Re: Re: [PATCH net-next v5 3/3] riscv: dts: eswin:
- eic7700-hifive-premier-p550: enable Ethernet controller
-Message-ID: <20260326172152.GQ111839@horms.kernel.org>
-References: <20260324073017.376-1-lizhi2@eswincomputing.com>
- <20260324073408.439-1-lizhi2@eswincomputing.com>
- <20260325180330.GL111839@horms.kernel.org>
- <2a12c839.5e64.19d28232537.Coremail.lizhi2@eswincomputing.com>
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="VhRIs3t4"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DyXJPJ9e30i6bYGVwSUrdKnmZwpaaLN7z46WkzbepI8AJKgmKHk1Kihi/D3jdiPnKvI6LClHSEyy9tM/9tMapjn5DNxSWl0gADl8WZJ52qi8abNsJ/xq5HPHi6ZQXwCUHgPSDRaqY8VuO2OIQ/p4n5WmLqdhYY5wmbsyZJUjkdRxagllBtLpU77O3mJjsYG0O0rSDiBdeY4siwKu1+Y4UVoYDOOOSh9Jy7Vw+N6yvdVBUpBXa31cDJr3/+RdyvTdAuCwfpdGFjs1UUf9eNPySnr/v6fSJXS6bm4+l7LjhxHQd3Iu+aV7k4aTi0Bk/FLS7oz/m9R0cAjXWesZP2PT/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pQh5OmcEa/p2aBONn5Qy5XRksrg3ro4UzHaUWKX9stE=;
+ b=md41HoaUaabBScKyvk5pRUqHupG3k83JH9lP6re5yE9V1NAyhKNrhietRP7+GfIfKX2SWyP4aBsYJ1rITZL3SHtM4EQS1BcH/wTbQo03VzX90N+pGzL7PlNoTs1bynfw65dLiikNV05g5QNxbNmeWz6lSpnCQvDfR3WmTjQhzc2TeSyILPvHLNQxZoX+75tCg2o5rj1+R3hKtMOh/GyaiBZs52QTc6+K+YhWVSl9+WPczIxHY+GamBsT5/cqE9gkOM23jtpWghHt7i/c0lEns91NH3qjl4+/co47jqttE5pIqmA8E5EFn7KKTQXf/tfrsIIccyguPustpDUul/EhIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pQh5OmcEa/p2aBONn5Qy5XRksrg3ro4UzHaUWKX9stE=;
+ b=VhRIs3t41yNM9p+4fP75QmMSplHYgDtnOa1rEONgXDmoblX5/m9AXbecJ++n/N70KvJLyUo1PnMBmOHXy7lwDX6XHYBaw/HHDyileRDuMMt+AucXOgqTrtXhE+nCSzUWfG4M6DJNyj9kGMRXCm1K0r+Lrn36KM1+awDrgX5TtS4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
+ by OSCPR01MB14964.jpnprd01.prod.outlook.com (2603:1096:604:3ab::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.22; Thu, 26 Mar
+ 2026 17:23:03 +0000
+Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
+ ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
+ ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9745.022; Thu, 26 Mar 2026
+ 17:23:03 +0000
+Date: Thu, 26 Mar 2026 18:22:50 +0100
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: tomm.merciai@gmail.com, peda@axentia.se,
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Ulf Hansson <ulf.hansson@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Josua Mayer <josua@solid-run.com>, Arnd Bergmann <arnd@arndb.de>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v8 4/5] reset: rzv2h-usb2phy: Keep PHY clock enabled for
+ entire device lifetime
+Message-ID: <acVralT-c-IkIbSI@tom-desktop>
+References: <cover.1773319566.git.tommaso.merciai.xr@bp.renesas.com>
+ <6584aed8dc4fddb28c2184c83b92b4f3b419bc31.1773319566.git.tommaso.merciai.xr@bp.renesas.com>
+ <37f389274e5c0e33c0e8fad8ffed0237b0127b07.camel@pengutronix.de>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <37f389274e5c0e33c0e8fad8ffed0237b0127b07.camel@pengutronix.de>
+X-ClientProxiedBy: MR1P264CA0026.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:2f::13) To TYCPR01MB11947.jpnprd01.prod.outlook.com
+ (2603:1096:400:3e1::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2a12c839.5e64.19d28232537.Coremail.lizhi2@eswincomputing.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|OSCPR01MB14964:EE_
+X-MS-Office365-Filtering-Correlation-Id: a5ab3f3f-2fa6-4dfe-d8bf-08de8b5c5635
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|52116014|366016|38350700014|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	qiLwRxqKBvlIBqUKKsPV/LwkBeKjlFrfEMsQ+XDxcISkhJ0DEAj9WARDcUqPCRVr9iAJmyWMXCX13zBMR0jDA5R6HDX/1kdzlFpAdGREw1i2TVlSHWyzyy0NN4Y7G4DiUNMoNUhCw6Twp1RWQomCM0scJcrMbc8KZdtY7zEeCZlMk4lWEnUT4skS7aWW8q+se77nl29CoX/ceykusarS0OgBBQgQ8CVZWy0vv3gpLn5/ayDgVymn+GdpR4ndEF4Vw/xWvurabXbggXMaPVGCuWIPF7CcyVf4IiReA3HJwZKL8+XHRhV4rTZRlnXz5knuLqxMnMNPz1ERthSQwXG86INUEwqgaMFAhNO2PNRMcNXnRV6bpa6l4to0kMbhBIp6UDRIX07ArPom18dygZvTEMyAu0SeXdcuIUah0vqK06/8Y4jJLhcdetfUL81Hy9oZNMz6Jwp/EiG7KOe+pHRjf+744QWPIWLRyPjDyKvrDicONr1bAnyLWL1Z+e0DAV9YSGjOBh1wzJNtUHqeRw9xo4QeRNCtJJadkn2NGR2oWjYj4zWyAWVykWB/j5s2dgEGtr6OO3EIexV40IoNKsUpM9yuAMY2F50/cmjBerJ9rbRvuFIDp72d2FS2jwVcFLQnVvrIw7k+TO6Ds0ptYWZSk2dQv7V3CJq0C/dSWiybkqgXD7EyHx1PxbxME0JXGDPFFDDlkJH8Ig9AUFEjuyYmByoRab4ZSX+FG1EirdhqE6G/mpVTmnq4VOs8c3inXfvnu88sCdEMs4aQHHtRAZObxQBjtmMjIX6A87cpiMRL574=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB11947.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(52116014)(366016)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?km0j2ycTcLO/AfnUbKtM8cuUyhTejyKZ5HkWPtO14ZJzgsdSONbjVQYN3UN1?=
+ =?us-ascii?Q?sZ5ljkeGESBsWNazag75d4GNQUKT/PrwIRSPk6c0qumnp1vhb9KyoAqJZOOq?=
+ =?us-ascii?Q?M+39hu/cxk8szubri92TWmzU3nYQBzAUZXGfiLeFLWW7AYIr09N9t6viqFVu?=
+ =?us-ascii?Q?99okAniz1wFeD26qnuIDNEYvfeSuxrvhcbg39FL82vEDmaXZupnJRWktqbHf?=
+ =?us-ascii?Q?Dc0cmj8ane/C7n6KAuxdQyAZN0AKei01P0v8LvDm4tF3N/y84gYgTev0q2Si?=
+ =?us-ascii?Q?keF8ltSlr7Q+42Q+NEFda4tOfVNNl1pT63s6gCo41fv0yGNm9BF8LGy74vJA?=
+ =?us-ascii?Q?AdJICRzDEcu6/tE2kXHzwj1/+6pLu/fN8RYgAJUq27ERUfSN7cA+0+QfOJtC?=
+ =?us-ascii?Q?ORdw9TjZL+8MnNsHrU6V4hB6FXjTe5SwVvUrvGH00NIKwP5R3aWAAHOfC5/B?=
+ =?us-ascii?Q?YBibsqB73nMsYEF704C0CVb23PXs3LkqW6gVycGI0EGPc5Tojddm1CQJjJ64?=
+ =?us-ascii?Q?cXRM8i8UMWtfnXwxu206O24LThrF2HoZo4VPP5IIFpYPXqXjywWdF4Wgw6CK?=
+ =?us-ascii?Q?yxx2s4Olf5OmwWBsxqLMSFQurev3oX5yzFYTzXYPrllXvkph94Z+AMs7qMe1?=
+ =?us-ascii?Q?VOT7UMD24v4CemeBg4WAMM2eGGcWS8sDfq0Ayes1K2fEeWT2VoFOUrTZqqbw?=
+ =?us-ascii?Q?F3T8NHNqcgbu4w3Ui5rMFdRRTSbBvvheXggOA5pl5cOHZEqv9k4EU3ZsdY9f?=
+ =?us-ascii?Q?eo6Db8GDFLXtfhrepgHtuCvx8tdFhYGHrLGxO6tPwB9ydW3w1X4zXdzxcx19?=
+ =?us-ascii?Q?Mn1gybwh4rg7QjUomI1ZDazGChhbzlYes2SDWo3zAQOyUZCkgO8mS9uQ17mG?=
+ =?us-ascii?Q?YsgNdStrsyUBDvcfjbxHwXdyZ8+sG69/bA20rNclTfnSj0SqEdtYe2o4mgYZ?=
+ =?us-ascii?Q?dEJepxwsrY069+RpuCoqw1JoocBzJv40XXEGMpPM5bJFxJVy80X3f/J1eU0/?=
+ =?us-ascii?Q?HgbzPZet/ZQKksOYqfIedqaDYd5t4VEFZyGeLFb5rJd3xTWnlKyPgVGZ3KGB?=
+ =?us-ascii?Q?dypf11v1t0bleR9pzvV0P1G3Z0Kiy5uoIQfg3UptftODKK5uow+NsmJF71cl?=
+ =?us-ascii?Q?o9+SMuhUIJJkYxZG5q375SOPzhkdAeMlz6VZKV4AJHE9cF9plHuvpKarnu/z?=
+ =?us-ascii?Q?Crbo47woPxfStLzj4uvwXPYY5hpJ8B7CW4b341lQG0HKCmJwdHNqHB07U6jB?=
+ =?us-ascii?Q?U8pAysTPFRZ92ppLOAxL7lyjNgJnFAVBwmEUnAZ5DBwq2qVEtPT+3dA3Zl6z?=
+ =?us-ascii?Q?gjDe9Ot/XYXwHMVjxGjmuoZjUJg43EnufqXNdlD6ypIkl5+JStS1fY2Fl9Qe?=
+ =?us-ascii?Q?m3/9ydi2xcFNd9XbeK54Okg6UKgka6BMi9hf/3RM8Wl+IhY/KpdbcyjJbJSA?=
+ =?us-ascii?Q?cWSXYiLOcz50beBrjn/1SsYP1y/Lqnc1h2vraq9fFC5xn20pGLtXe2kCTKXk?=
+ =?us-ascii?Q?i/lyULWcpbkK6fZq7oaNQnD8luBnz1nuCWm2etjO3fZMc8mQoXfpwMa8bfwH?=
+ =?us-ascii?Q?Ka5ONz6gr0WpElyLYhjJIeAAU2o2Q45hP+bSJiE2g2biDoAJBmI+MBNwQaK0?=
+ =?us-ascii?Q?QJG1ITzR9Ol2qZEZ08NwB+cJ3Yy7Tc9uctoDWk90hN6V2OITGANR8zQJBFTb?=
+ =?us-ascii?Q?iTgBlq+cVlbroTmRDPbJjj+F+AC4cANcsmPFGNdHtkXY5H8ty2kGk1fn29tI?=
+ =?us-ascii?Q?X9dPTFIhYOmFBV0hD8o0eEBWveDDOKxqHjOmhH4CRTNB8yl5LFpa?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5ab3f3f-2fa6-4dfe-d8bf-08de8b5c5635
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 17:23:03.6323
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZsjUPBaGl3ucZebgvXl72q9XUjrx/TDneX2o/unjjnhFbi+oZMkrEU82YvFlnM4IHWV8EFbfITmqbh6BolCxBIO3yV4PoJOTwgb3wQf2JPB2OqbJWGQec4kpR4c3KIrF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB14964
 
-On Thu, Mar 26, 2026 at 11:14:45AM +0800, 李志 wrote:
+Hi Philipp,
+Thanks for your review.
 
-...
+On Thu, Mar 12, 2026 at 04:24:28PM +0100, Philipp Zabel wrote:
+> On Do, 2026-03-12 at 15:50 +0100, Tommaso Merciai wrote:
+> > The driver was disabling the USB2 PHY clock immediately after register
+> > initialization in probe() and after each reset operation. This left the
+> > PHY unclocked even though it must remain active for USB functionality.
+> > 
+> > The behavior appeared to work only when another driver
+> > (e.g., USB controller) had already enabled the clock, making operation
+> > unreliable and hardware-dependent. In configurations where this driver
+> > is the sole clock user, USB functionality would fail.
+> > 
+> > Fix this by:
+> > - Enabling the clock once in probe() via pm_runtime_resume_and_get()
+> > - Removing all pm_runtime_put() calls from assert/deassert/status
+> > - Registering a devm cleanup action to release the clock at removal
+> > - Removed rzv2h_usbphy_assert_helper() and its call in
+> >   rzv2h_usb2phy_reset_probe()
+> > 
+> > This ensures the PHY clock remains enabled for the entire device lifetime,
+> > preventing instability and aligning with hardware requirements.
+> > 
+> > Cc: stable@vger.kernel.org
+> > Fixes: e3911d7f865b ("reset: Add USB2PHY port reset driver for Renesas RZ/V2H(P)")
+> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> 
+> Given the Cc: stable tag I assume I can apply this first, independently
+> of the other patches?
 
-> Hi Simon,
-> 
-> Thanks for your review.
-> 
-> You're right, this build failure is due to an invalid clock reference
-> ("clk") in the Ethernet node, which does not correspond to an existing
-> clock provider label in the current DTS.
-> 
-> For context, this was discussed during an earlier revision:
-> https://lore.kernel.org/lkml/5dea8ce0.4435.19c471231f5.Coremail.lizhi2@eswincomputing.com/
-> 
-> The EIC7700 clock controller support has since been applied, so I will
-> update the DTS to reference the correct clock provider and ensure the
-> build passes cleanly.
-> 
-> I will fix this in the next revision (v6).
+Yes, Thanks for asking.
 
-Thanks.
+Kind Regards,
+Tommaso
 
-Please be aware that if the patch is routed via net-next,
-then the dependency will need to be present in net-next.
+> 
+> Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+> 
+> regards
+> Philipp
