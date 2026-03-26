@@ -1,67 +1,67 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0700A37B018
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 01:28:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E70A437B033
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 01:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774488496; cv=none; b=Cr40gqt2UtSb0KnLcbCEpQFF6tZrULsRoloVjU+HYFT9DrcxVIxi0waViSc7c7Mlu1AisM5ugacwTVtxUir3w1L+6C8ELAm/JZCQ0mTDobVqCVn5aHtjfTMlqs/FoiEUfzWOEk4MtlcoDaMukJxOMUJ5cOfGr7BBgzI1Xg9KwCg=
+	t=1774488497; cv=none; b=KfhCTk77q3rKyKELWQ8fTS3DIClQ4Wkkn7J9EmY/c07WEtM5SVX6v9co+ZM15rMIqrqMRkCWN6yGw1OwlVgCBHt09oZZJgk6pm9thZcFHmK4LkuuMtWcVnfjpmqqJ3RgbSG277tA42hcKrj4LQ2GEoUaj/ULDuMCp1jXDt/3WsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774488496; c=relaxed/simple;
-	bh=RysHVq0N4+YzTb4e9cFYCnf19hquCbv9aui7fBhcLT4=;
+	s=arc-20240116; t=1774488497; c=relaxed/simple;
+	bh=we5ywP7iRPMRTAg6yOKxUrxdHq7+NpGw0G97RgZw0gY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Kz+glBOyjxMQ2vyGNKOpx141n4vlwlUe3aLAu4gy7M9i7g6CGa0sZ7GfmGTegyLURk/M/GBmiiLU1tkm9hiZ/Tt4hp2tqZmJZ1lB1pYZcAuhwh4vuP8Kd/+HRMhySrFi98BrJFNpTx9lOvhWtytB4Y8+eRO/J2e8yex764FaE1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=WmVPmPML; arc=none smtp.client-ip=209.85.221.54
+	 In-Reply-To:To:Cc; b=JmNWdcuwjLbdDT8R4srjCkTzypMmQIeS1o+XV1KVrk6F5KT00Hu73sYLmRN/Kwf1yOyNtOsyoR2ymuqiynkmn6gux3HVaYrXoEoF3rPzdM6SkBev5MWFitYHueTQnbH0MssZ1uPC53GQBUs1qJZ2mPrYE93RGdp9hW8Zcj04VrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=S2hibFnS; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="WmVPmPML"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-43a03cb1df9so355728f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 18:28:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="S2hibFnS"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-43b4f48c47cso295525f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 18:28:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774488488; x=1775093288; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1774488490; x=1775093290; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=AqJm1xZwLehDeiB9ZhDe2YZdoSqbYfjYIEA7QeOvbXQ=;
-        b=WmVPmPMLg5cHLA8iedgfnYlvZlnh/EKxSoE/DD0UeeIjOpsf7893oZTwou3ltuyVdq
-         TRhHyZDASKyCL6Dk8bHs5tNHImjs0tNstchbNlcnHlPBkri+mpsB7yTYhftiI3Hy0lb7
-         YOHzBqZsH0DoiGw2xQAoBhGUGLNlxRPNmIGIG+TUI3Rpog4xNwqIWJQmCEOPIQJ0x02s
-         G6F4zUlTnwd/PenIRi120yhYAvmQrA06l0XKPH3s36fR0m0zztEX8TuixjL0MerjGCv8
-         PiGcvnJcH+aFzkxMHim9gPhYeHgYhUkMT4Eo513QRs2IuJaJKA4rL6vkqtmyZngv6h/p
-         zYdw==
+        bh=ekM3vLkgNR/9kVDhmI/IiqMjFO2m+5M/TZ2EQg913rs=;
+        b=S2hibFnS7z7UqamuRYPGNdC1kP+ia8WoFCBnZaIoQ1Kpg5ZHwgZ7QYy5D0r7WXKbb+
+         e+a81wpJUmiLL/7hysVokUDxOWpDzic6qZWzQn8WUc4Rlrt1x61LcBUHJA4HK+mtl3uL
+         r7ivIRJRfy621WKEQWVzjZieu+5463wCyzROYlqyqQwVjF0UbitDWfYxRapHFtFPL6D5
+         ABtu9rZsUKElcqRa5+Ulp+Vhr+b4j0gXOnIrMPgp2Cmry27L8bpwp5Iay/rl3JAPCQVJ
+         xs/m4+0hZW6BXWpgaP5UsHv0rhtlId04kMYedUna8ozYL//DTFBrDuRX0UuJTd7dWVV1
+         E1+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774488488; x=1775093288;
+        d=1e100.net; s=20251104; t=1774488490; x=1775093290;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=AqJm1xZwLehDeiB9ZhDe2YZdoSqbYfjYIEA7QeOvbXQ=;
-        b=VgLacU7cHVwph1Y3VPIy3AAZAnNpQqi6bq26Q6VrpA1akmrHcmEOU5zfVpmCXAyXhP
-         fKmrhENbeIXjau36sG1oQFsYR7Gyfh2nuhOs6pAineppksoe8sB+TPqvSy+L0p5Y88Gy
-         GtwNiSKvacFkGcgDmlWeGmCqy0mqvPr5FIMhtmbGeWc+gD2K1VXDUqmaeEv+veZ8zXpr
-         6LAafUydkuDfkE65ezWqQaoeKUnL5hWT+WD6Jrfklra3jkr2DE3C/rboKJwsgK3LQH52
-         CjTOSIRQUDeAgHdBJh5birvIFEXm5nlN+T+s9LBiI7gxsvPtn/esDuoyQXN3eQFlQQGh
-         niYw==
-X-Forwarded-Encrypted: i=1; AJvYcCUJs8crNlKfGrwGgOVU+unSW6fOEdWc3717KsXtzWmIUmATeKU0wFNjCbKV9jWaaC1GZkOej/vBC4tp@vger.kernel.org
-X-Gm-Message-State: AOJu0YxWm+l6Oo0vfWthswX/sdPTlJP4UNREYpS1Lf/zK7i1rfzrjlvo
-	vGeh5Nwn5u3AXsietAnW+58VjiV+jcScu29WFZic0YtcITpbdATJwwre2lwZFIILwY8=
-X-Gm-Gg: ATEYQzyAuomb/mSPWfhRJYgg/jVcaGCM989FpnIMzFlLhk+jUd5FMABP0p8kj1Tdg/a
-	CTBRVkMJeAROsZbEJfgyRtPMCitgO4GuMN5GunU5C2X9jPLHl2sIfz7t0NZxL2nBk2PhiOZZlFw
-	3nrq9EVndRXYxTpVvVC4LZjyy4/6RFefpqF7b3bR2Fb+jB567dZxQKl9aPSoTtImGUNCKKsgY2z
-	5F1ifjdiAZ0oQTgYgjOSYVGjxRxrtmWfzy05uFARRAqr7UvDUE8I2EuORUxapcyny9PshzsxQcP
-	tRebSnPFcO+rSjpzCwXuVWFsKgc4KirnrMKoh94aPofuSMdJxA64fwqmFy8TwdknbTAedC9dfcG
-	lhiUYQNCtc8cyL60+pGEPGeClP1SgsYPwPLphZc9cf52uP4SxGRnx/YDpPj7YmiUHoH4aQfXYKC
-	x2nutkeEWVaWbKLD6BXG7VkpT7xSw2/ZKJKNY=
-X-Received: by 2002:a05:6000:2890:b0:43b:4625:5933 with SMTP id ffacd0b85a97d-43b88a88baamr8337146f8f.30.1774488488352;
-        Wed, 25 Mar 2026 18:28:08 -0700 (PDT)
+        bh=ekM3vLkgNR/9kVDhmI/IiqMjFO2m+5M/TZ2EQg913rs=;
+        b=VB3b6GrRBeVuApKV4F3uQDDH9RufiICbX3GnVqQzImtZBIOOTg+TC/v0u0MoenRlmu
+         daVXWHhmIJcs/oJnFxVzZX5mFDCAZLv95EW2xSSh4hL6vCHkLKJgtqZaT3JomoPo5l75
+         98zsX1jsyUJivjVTK9vlthI0MrJxcYo+oIYVjP1PsL+NO28oDPhROZVWaSyQbaB0vkJ2
+         p0Uairsa2y12d+3uSHLiazwcdXk7nntyMnjcrrt9Pfdl1JOhZEkn4RTlYaK1FGZoU787
+         T+htNL68hJZjVNQdlpoUxKazRdKe64X56Kn3yFHVL5JEEd880KBy688mAzN22yssMZHu
+         B7kw==
+X-Forwarded-Encrypted: i=1; AJvYcCWog9Jgr9yCzGyyD2nO7tE+kNRyZAT0hiee803sqLPP/cBvJoE8L7mc2hvF1qh2yh3gY9+bf2FrUlao@vger.kernel.org
+X-Gm-Message-State: AOJu0YzEYH3y0NQMn7YkduGgtBx705d3TXspAzpL074JV0x8/UrwCekG
+	s1Vhl1BBKNSPRovL+if6JlNx4wxC9UubHjGGgyiA+R9r7bQt61gcBUb1wasFZJalPPc=
+X-Gm-Gg: ATEYQzxEq00iM4e3AbDNTIUPJ0n209Etl6TJS6geDq3uW6qA9So/JgQj7eiXzfAEaz2
+	e5cx/PeU4STy5locfuDP8fyr0GTvws/iI85v32ZLq3B/cXRdTcOCZQ0stArgu/WEcbI/ucGKZMk
+	jdy33wAZncInaKS3w1IntPH83U/DrAVtJ7jNuyGmBdYTCoeUyz9Al6CVTZ8APRYoDVyjOGOu6sO
+	aa93t7kfLd+5dZotDAZk8vsW1lcrQ8HLOzutYbpoBMvKqwNyWlTf8U6Xi0/PLAWy4OsuDo6IDQ4
+	JPBwlyGfT4szCfGYYM7zLFZSTy0gcSEkQlfgEvUMZFSDZx5Nh5yeOUlHcGTSh5HJXRpYeSMIBWV
+	Ha/BQOG0+NeP6epiH2Nij1x79atKY8ZPBsaPtgLT06uQwMThlQhLJsbZN135IDw7Z0r71l/aQWv
+	hJr+q3yXZad6A1NKf0V/56FvsyH9j4pspPNJc=
+X-Received: by 2002:a05:6000:26c3:b0:43b:42af:75b with SMTP id ffacd0b85a97d-43b88a3a379mr8156018f8f.55.1774488490319;
+        Wed, 25 Mar 2026 18:28:10 -0700 (PDT)
 Received: from [192.168.0.35] ([109.76.163.154])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b919cf1c4sm3918051f8f.23.2026.03.25.18.28.07
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b919cf1c4sm3918051f8f.23.2026.03.25.18.28.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 18:28:07 -0700 (PDT)
+        Wed, 25 Mar 2026 18:28:09 -0700 (PDT)
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Thu, 26 Mar 2026 01:28:32 +0000
-Subject: [PATCH v11 4/7] media: qcom: camss: Add support to populate
- sub-devices
+Date: Thu, 26 Mar 2026 01:28:33 +0000
+Subject: [PATCH v11 5/7] media: qcom: camss: Add legacy_phy flag to SoC
+ definition structures
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-4-5b93415be6dd@linaro.org>
+Message-Id: <20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-5-5b93415be6dd@linaro.org>
 References: <20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-0-5b93415be6dd@linaro.org>
 In-Reply-To: <20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-0-5b93415be6dd@linaro.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -86,54 +86,191 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-media@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Christopher Obbard <christopher.obbard@linaro.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=941;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6433;
  i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=RysHVq0N4+YzTb4e9cFYCnf19hquCbv9aui7fBhcLT4=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBpxIu/++z8oXlchbJP/1M16TqvlqfGF301jKf2r
- tvWAN5KfSmJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCacSLvwAKCRAicTuzoY3I
- OvDmD/9IeYsBBB79Uzcq2AiGxUn5frbN2yao4rM5EyI5w/zdWIwI8vVhpwVrKUTRnPJ1DrvcovQ
- fb6EwO+HedpbY8CYcPjKLFWRNxM8B9CymD0RJh/GyNimakpmkqsK/ZzjRW0qJyHLMwxzVcKBQgZ
- 6STIheHOVMYoCqmuMWC5Q0yDrkia1uCszfyaARyX1V/ZNDwBQ8qX/bcl/g5hxuG+k8VQVzlVNhV
- NOH0xS6kyAALaVifjCjL8z/A8491mvPf4ml//sVj10+4pHu5QrkcQwIRXOvbJHmIjkyz+dGDkX/
- cyjqEiqPQK45U+k7Qwnn2ZwKVfkxiEvvmojLvfQECfFh49JvyPXTo6JvyYlKZ8o/6COYLD2IXAq
- /1uOuMxz/5YTuuZcL/G2jvgkAJl+dVSe+t61zL6HrtGp9dRxdA1/bjwuZ4YKjcI5pVBT8dINs86
- tPjzP5qu8CQWrvgpuuTOf9PGwr0KTMeBILGjMGsYhgI4Rf0+N5OZhoh70uXgU8V+ykJl6eDcTIO
- WH37pYR2LCzoLFH4pKeJmXT7umNMkx9tK009I5PkmZNwM+EhJuaOJQdoISyrEqSBfXhzFdYwdHC
- k7snsqE0XnDaEXLa0ZmLyJeJBkmf8NsFfsTzfwNZi+0N/5N+eoLzp8NVTv/fK9kAhf7NtD1cAHX
- dzKtZJFOLXIw6Jg==
+ bh=we5ywP7iRPMRTAg6yOKxUrxdHq7+NpGw0G97RgZw0gY=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBpxIvARhAaqvf4pYzE1y4EDxMLp+F/9kmDukiyq
+ 4maGPZhhvuJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCacSLwAAKCRAicTuzoY3I
+ Oh2DEACsXDzvF7YwEWShB3maiqgvopBIILEb0v6l1Q0PD6l5clhv1ks5cyRsWTbbPeIU+sz+gFB
+ YOy16TjM329e1NAT21DCjZlumVO6ACXpjLnsf6vP5BFpkdjGFg2sDqcGmWDQO4xTe+a3ISMPhux
+ ywmvKfwThxCfKX3+IWZWVdzqvz45Y+KqrAeo9HMvuik05VD1VD6okbzN8i/a5JXv3u4otjCS4MZ
+ wIrUoEY/BSMSh0K9PH3fw+2Sd8R8Q6jFqYpQ36zupJcjA9nbwwgbCRF4wcHG7fAuk8IUGo3NJoc
+ Q9ng2PWuqd5l/akKr6uoVcod47xmOmG/xVL6K2klmhnVgvXxnD0hfLmcDrcOcyLIpicfp7nNlEV
+ RKeMdAWUpEQylJ6gq484VXmpw0LuG2JBhLejnLIQ7Ic4ICwapWuIicqRS2W22IlqmsajJkybJJ4
+ GvJk+kquheyKh26OhgB5ZcPJ3xEelzIHM52F2vFCOnKBXh7TB+QzA5eiwIOeQWH1pRUM8TQfhhT
+ 3kiZfQ2ta7NzuuNsWeXelRDzPw4IaGq2+R0k+63uZ6jT6QuctGJPBpj6epzDLXg7ZzzZoH8rDv1
+ OuKwScm9evoI9y0Lizq+wgo+O0bu7CwlR3Wk0vRRdRS+rh2hsifWC4sx0i/iP2kYUyeJmrvG3iO
+ OgqDd24FsqINPBQ==
 X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Use devm_of_platform_populate() to populate subs in the tree.
+Flag which SoCs have legacy - builtin PHY code. This will be useful in
+subsequent patches to inform PHY bringup logic if legacy bindings are
+available.
 
+Reviewed-by: Christopher Obbard <christopher.obbard@linaro.org>
+Tested-by: Christopher Obbard <christopher.obbard@linaro.org>
 Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- drivers/media/platform/qcom/camss/camss.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/media/platform/qcom/camss/camss.c | 17 +++++++++++++++++
+ drivers/media/platform/qcom/camss/camss.h |  1 +
+ 2 files changed, 18 insertions(+)
 
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 00b87fd9afbd8..66ea057291f6d 100644
+index 66ea057291f6d..2749895152e32 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -16,6 +16,7 @@
- #include <linux/of.h>
- #include <linux/of_device.h>
- #include <linux/of_graph.h>
-+#include <linux/of_platform.h>
- #include <linux/pm_runtime.h>
- #include <linux/pm_domain.h>
- #include <linux/slab.h>
-@@ -4964,6 +4965,8 @@ static int camss_probe(struct platform_device *pdev)
- 	if (!camss)
- 		return -ENOMEM;
+@@ -5107,6 +5107,7 @@ static void camss_remove(struct platform_device *pdev)
  
-+	devm_of_platform_populate(dev);
-+
- 	camss->res = of_device_get_match_data(dev);
+ static const struct camss_resources msm8916_resources = {
+ 	.version = CAMSS_8x16,
++	.legacy_phy = true,
+ 	.csiphy_res = csiphy_res_8x16,
+ 	.csid_res = csid_res_8x16,
+ 	.ispif_res = &ispif_res_8x16,
+@@ -5118,6 +5119,7 @@ static const struct camss_resources msm8916_resources = {
  
- 	atomic_set(&camss->ref_count, 0);
+ static const struct camss_resources msm8939_resources = {
+ 	.version = CAMSS_8x39,
++	.legacy_phy = true,
+ 	.csiphy_res = csiphy_res_8x39,
+ 	.csid_res = csid_res_8x39,
+ 	.ispif_res = &ispif_res_8x39,
+@@ -5129,6 +5131,7 @@ static const struct camss_resources msm8939_resources = {
+ 
+ static const struct camss_resources msm8953_resources = {
+ 	.version = CAMSS_8x53,
++	.legacy_phy = true,
+ 	.icc_res = icc_res_8x53,
+ 	.icc_path_num = ARRAY_SIZE(icc_res_8x53),
+ 	.csiphy_res = csiphy_res_8x96,
+@@ -5142,6 +5145,7 @@ static const struct camss_resources msm8953_resources = {
+ 
+ static const struct camss_resources msm8996_resources = {
+ 	.version = CAMSS_8x96,
++	.legacy_phy = true,
+ 	.csiphy_res = csiphy_res_8x96,
+ 	.csid_res = csid_res_8x96,
+ 	.ispif_res = &ispif_res_8x96,
+@@ -5153,6 +5157,7 @@ static const struct camss_resources msm8996_resources = {
+ 
+ static const struct camss_resources qcm2290_resources = {
+ 	.version = CAMSS_2290,
++	.legacy_phy = true,
+ 	.csiphy_res = csiphy_res_2290,
+ 	.csid_res = csid_res_2290,
+ 	.vfe_res = vfe_res_2290,
+@@ -5166,6 +5171,7 @@ static const struct camss_resources qcm2290_resources = {
+ static const struct camss_resources qcs8300_resources = {
+ 	.version = CAMSS_8300,
+ 	.pd_name = "top",
++	.legacy_phy = true,
+ 	.csiphy_res = csiphy_res_8300,
+ 	.csid_res = csid_res_8775p,
+ 	.csid_wrapper_res = &csid_wrapper_res_sm8550,
+@@ -5180,6 +5186,7 @@ static const struct camss_resources qcs8300_resources = {
+ static const struct camss_resources sa8775p_resources = {
+ 	.version = CAMSS_8775P,
+ 	.pd_name = "top",
++	.legacy_phy = true,
+ 	.csiphy_res = csiphy_res_8775p,
+ 	.csid_res = csid_res_8775p,
+ 	.csid_wrapper_res = &csid_wrapper_res_sm8550,
+@@ -5193,6 +5200,7 @@ static const struct camss_resources sa8775p_resources = {
+ 
+ static const struct camss_resources sdm660_resources = {
+ 	.version = CAMSS_660,
++	.legacy_phy = true,
+ 	.csiphy_res = csiphy_res_660,
+ 	.csid_res = csid_res_660,
+ 	.ispif_res = &ispif_res_660,
+@@ -5204,6 +5212,7 @@ static const struct camss_resources sdm660_resources = {
+ 
+ static const struct camss_resources sdm670_resources = {
+ 	.version = CAMSS_845,
++	.legacy_phy = true,
+ 	.csiphy_res = csiphy_res_670,
+ 	.csid_res = csid_res_670,
+ 	.vfe_res = vfe_res_670,
+@@ -5215,6 +5224,7 @@ static const struct camss_resources sdm670_resources = {
+ static const struct camss_resources sdm845_resources = {
+ 	.version = CAMSS_845,
+ 	.pd_name = "top",
++	.legacy_phy = true,
+ 	.csiphy_res = csiphy_res_845,
+ 	.csid_res = csid_res_845,
+ 	.vfe_res = vfe_res_845,
+@@ -5226,6 +5236,7 @@ static const struct camss_resources sdm845_resources = {
+ static const struct camss_resources sm6150_resources = {
+ 	.version = CAMSS_6150,
+ 	.pd_name = "top",
++	.legacy_phy = true,
+ 	.csiphy_res = csiphy_res_sm6150,
+ 	.csid_res = csid_res_sm6150,
+ 	.vfe_res = vfe_res_sm6150,
+@@ -5239,6 +5250,7 @@ static const struct camss_resources sm6150_resources = {
+ static const struct camss_resources sm8250_resources = {
+ 	.version = CAMSS_8250,
+ 	.pd_name = "top",
++	.legacy_phy = true,
+ 	.csiphy_res = csiphy_res_8250,
+ 	.csid_res = csid_res_8250,
+ 	.vfe_res = vfe_res_8250,
+@@ -5252,6 +5264,7 @@ static const struct camss_resources sm8250_resources = {
+ static const struct camss_resources sc8280xp_resources = {
+ 	.version = CAMSS_8280XP,
+ 	.pd_name = "top",
++	.legacy_phy = true,
+ 	.csiphy_res = csiphy_res_sc8280xp,
+ 	.csid_res = csid_res_sc8280xp,
+ 	.ispif_res = NULL,
+@@ -5266,6 +5279,7 @@ static const struct camss_resources sc8280xp_resources = {
+ static const struct camss_resources sc7280_resources = {
+ 	.version = CAMSS_7280,
+ 	.pd_name = "top",
++	.legacy_phy = true,
+ 	.csiphy_res = csiphy_res_7280,
+ 	.csid_res = csid_res_7280,
+ 	.vfe_res = vfe_res_7280,
+@@ -5279,6 +5293,7 @@ static const struct camss_resources sc7280_resources = {
+ static const struct camss_resources sm8550_resources = {
+ 	.version = CAMSS_8550,
+ 	.pd_name = "top",
++	.legacy_phy = true,
+ 	.csiphy_res = csiphy_res_8550,
+ 	.csid_res = csid_res_8550,
+ 	.vfe_res = vfe_res_8550,
+@@ -5293,6 +5308,7 @@ static const struct camss_resources sm8550_resources = {
+ static const struct camss_resources sm8650_resources = {
+ 	.version = CAMSS_8650,
+ 	.pd_name = "top",
++	.legacy_phy = true,
+ 	.csiphy_res = csiphy_res_sm8650,
+ 	.csid_res = csid_res_sm8650,
+ 	.csid_wrapper_res = &csid_wrapper_res_sm8550,
+@@ -5307,6 +5323,7 @@ static const struct camss_resources sm8650_resources = {
+ static const struct camss_resources x1e80100_resources = {
+ 	.version = CAMSS_X1E80100,
+ 	.pd_name = "top",
++	.legacy_phy = true,
+ 	.csiphy_res = csiphy_res_x1e80100,
+ 	.csid_res = csid_res_x1e80100,
+ 	.vfe_res = vfe_res_x1e80100,
+diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
+index 6d048414c919e..24ec3ad7990e7 100644
+--- a/drivers/media/platform/qcom/camss/camss.h
++++ b/drivers/media/platform/qcom/camss/camss.h
+@@ -104,6 +104,7 @@ enum icc_count {
+ struct camss_resources {
+ 	enum camss_version version;
+ 	const char *pd_name;
++	const bool legacy_phy;
+ 	const struct camss_subdev_resources *csiphy_res;
+ 	const struct camss_subdev_resources *csid_res;
+ 	const struct camss_subdev_resources *ispif_res;
 
 -- 
 2.52.0
