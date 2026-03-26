@@ -1,94 +1,109 @@
-Received: from TWMBX01.aspeed.com (mail.aspeedtech.com [211.20.114.72])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EFB320C490;
-	Thu, 26 Mar 2026 10:29:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3550839527D;
+	Thu, 26 Mar 2026 10:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774520975; cv=none; b=SEZ7OPLxLs5eToFQZyupx5smBRyK+OrCvMec7VosI3xDBev323PwUYLhGsp5l9zkZiuTWSKtsQ/HyVWuf+xf04TelV4i2c8Xh6hEJX33AzXBnx1Iu73SDk05UXc+ETxxvl414WNgZgEjMmjKrINk2oVWFXk2LrGUBBn/QoAEIW8=
+	t=1774521195; cv=none; b=lZzSFMt6WvwVoUVon8jDRdEvODoBOQQQv1+3CLzP9Y/coey8RcAL/Ent9TU89UDMp0CURmAmncdFu0BtUwj/XHpeVifUtkqx6+QMUg1ctMNZln5EUXxjK9VOWXBtTeClft/5yVr193AV1L9TmSZonpGteNdh9oFzL8udEfoRnN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774520975; c=relaxed/simple;
-	bh=VdlCgfKxytsoAxz1ceuN+oZF1N/0ydu9279KC7M2B6Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=fPheQ2m1gnMR5bZJvHbU5op4lEgQqVmyZeyHu0aNVVR+Pdo+3rXNT/CpYH6AUgPPCoQQFzsIzOIFlawYNs8tbR8/uCNzHRsXITR5t5zP1MZ50NW/0nMX9NdpzEn5gNtm00i5uTKQmXEX3sWuhCfzrrYYMbTcMJu+r+ss72QClUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 26 Mar
- 2026 18:29:31 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Thu, 26 Mar 2026 18:29:31 +0800
-From: Billy Tsai <billy_tsai@aspeedtech.com>
-Date: Thu, 26 Mar 2026 18:29:22 +0800
-Subject: [PATCH] ARM: dts: aspeed: g6: Add PWM/Tach controller node
+	s=arc-20240116; t=1774521195; c=relaxed/simple;
+	bh=U+D1ePS2FV3R9NNHRWgbO4ds4WQObUGHt1MWL2/Kg/8=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=aWApmpSDCRANZGJ1tORNbhXl31+Ds0yMd3wy0r+0HofVydM1w0M7dV6gTGCg78SrZ+mj4bGzQPVLCi8Q1dGaaizOhnMhhrXKafKEgc5wlflZvhJNjdDWcBHqT267TVeVD0B2uLYv0NnvtP7GdZscOCFcuaGc2r+FkynV5LV8hgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DmSmvcLC; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DmSmvcLC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4A2EC116C6;
+	Thu, 26 Mar 2026 10:33:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774521194;
+	bh=U+D1ePS2FV3R9NNHRWgbO4ds4WQObUGHt1MWL2/Kg/8=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=DmSmvcLCJHHCiVak/qNmYcyiR3sXSVIC/Hn070doXPbYEfYjUfUGq/2Tdo5jxhWHC
+	 8VoDUAe/M3IwxWyLejTC1bm1D1XGmBZS3q75IssNA11siYUKmhNUZr2iEfgb8EAels
+	 p8LX6G9aqIsSic78SoC4sa+dMmTC5X8glY6Vo/TPDqo/kIYKu8HidxtCbj7TxtEOQv
+	 WXnyEG3bcPzyL1H0pAuA1YEtxshAyRQgd90/4UYS2Zy6bY/9lMVxKOUKv/84/jOKpW
+	 i3dV0mDT606XRCpuUVUffxK62N+KOULGQ13WQm/+vQMkSGxqu7lHlbuJn6TrpRteYO
+	 bxc28TTj7u+7g==
+Date: Thu, 26 Mar 2026 05:33:12 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260326-g6-dtsi-v1-1-348e7a0661c2@aspeedtech.com>
-X-B4-Tracking: v=1; b=H4sIAIEKxWkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDYyMz3XQz3ZSS4kxdy9RU4xRLI4OkZINkJaDqgqLUtMwKsEnRsbW1ABG
- wlgRZAAAA
-X-Change-ID: 20260326-g6-dtsi-9ee3d920bc0c
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
- Jeffery" <andrew@codeconstruct.com.au>
-CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>, Billy Tsai
-	<billy_tsai@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774520971; l=1258;
- i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
- bh=VdlCgfKxytsoAxz1ceuN+oZF1N/0ydu9279KC7M2B6Q=;
- b=6LQIfCPgwe2WTbwtFBzk67e1rmbGs8rZ2uOnqh+PSZ9DXZv9Rn4tKkJdjKheF3/+gY9bieilX
- qUclh29h+NiAF6R789GZKqv2U8efedQl54cShepZyIWqe9JFI5NhGEb
-X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
- pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ "David S. Miller" <davem@davemloft.net>, Marek Vasut <marex@denx.de>, 
+ Eric Dumazet <edumazet@google.com>, Woojung Huh <woojung.huh@microchip.com>, 
+ Fidelio Lawson <fidelio.lawson@exotec.com>, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, 
+ UNGLinuxDriver@microchip.com, Woojung Huh <Woojung.Huh@microchip.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, netdev@vger.kernel.org, 
+ Vladimir Oltean <olteanv@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Conor Dooley <conor+dt@kernel.org>, Jakub Kicinski <kuba@kernel.org>
+To: Fidelio Lawson <lawson.fidelio@gmail.com>
+In-Reply-To: <20260326-ksz87xx_errata_low_loss_connections-v1-1-79a698f43626@exotec.com>
+References: <20260326-ksz87xx_errata_low_loss_connections-v1-0-79a698f43626@exotec.com>
+ <20260326-ksz87xx_errata_low_loss_connections-v1-1-79a698f43626@exotec.com>
+Message-Id: <177452119127.1921528.3944564852994197440.robh@kernel.org>
+Subject: Re: [PATCH 1/3] dt-bindings: dsa: microchip: add KSZ low-loss
+ cable errata properties
 
-Introduce a device tree node for the AST2600 PWM/Tach controller.
-Describe register range, clock, reset, and cell configuration.
-Set status to "disabled" by default.
 
-Prepares for enabling PWM and tachometer support on platforms
-utilizing this SoC.
+On Thu, 26 Mar 2026 10:10:21 +0100, Fidelio Lawson wrote:
+> Microchip KSZ87xx switches are affected by the "Module 3: Equalizer fix
+> for short cables" erratum described in DS80000687C.
+> The embedded PHY receivers are tuned for long, high-loss cables,
+> which may cause signal distortion when operated with short or low-loss
+> cabling such as CAT5e or CAT6. In these cases,
+> the PHY may fail to establish a link due to internal over-amplification.
+> 
+> Two workarounds are provided by Microchip, each configuring a different
+> indirect register value to adjust the PHY equalizer settings.
+> 
+> This patch introduces two new device tree properties to enable and
+> select the appropriate workaround:
+> 
+>   - microchip,low-loss-errata-enable: boolean enabling the feature
+>   - microchip,low-loss-errata: selects workaround 1 or 2 (default: 1)
+> 
+> These properties allow board designers to opt into the errata fix
+> according to the targeted cable characteristics of their platform.
+> 
+> Signed-off-by: Fidelio Lawson <fidelio.lawson@exotec.com>
+> ---
+>  .../devicetree/bindings/net/dsa/microchip,ksz.yaml     | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
+> 
 
-Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
----
- arch/arm/boot/dts/aspeed/aspeed-g6.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
+My bot found errors running 'make dt_binding_check' on your patch:
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-index 189bc3bbb47c..818d486b94ac 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-+++ b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-@@ -102,6 +102,15 @@ ahbc: bus@1e600000 {
- 			reg = <0x1e600000 0x100>;
- 		};
- 
-+		pwm_tach: pwm-tach-controller@1e610000 {
-+			compatible = "aspeed,ast2600-pwm-tach";
-+			reg = <0x1e610000 0x100>;
-+			clocks = <&syscon ASPEED_CLK_AHB>;
-+			resets = <&syscon ASPEED_RESET_PWM>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
- 		fmc: spi@1e620000 {
- 			reg = <0x1e620000 0xc4>, <0x20000000 0x10000000>;
- 			#address-cells = <1>;
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml:90:111: [warning] line too long (121 > 110 characters) (line-length)
+./Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml:91:111: [warning] line too long (128 > 110 characters) (line-length)
+./Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml:93:111: [warning] line too long (118 > 110 characters) (line-length)
 
----
-base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
-change-id: 20260326-g6-dtsi-9ee3d920bc0c
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml: microchip,low-loss-errata: missing type definition
 
-Best regards,
--- 
-Billy Tsai <billy_tsai@aspeedtech.com>
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260326-ksz87xx_errata_low_loss_connections-v1-1-79a698f43626@exotec.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
