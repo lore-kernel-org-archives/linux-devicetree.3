@@ -1,187 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF67394799;
-	Thu, 26 Mar 2026 16:19:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9810939183F;
+	Thu, 26 Mar 2026 16:21:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774541999; cv=none; b=Pt17Ym0TTJg0WF63ESf6hP0F6aRLugnspj4p4VT2WXGNPGmifrCozeaPpNbjzh+K5/3bAeUXjR+E4MZ8+QPM51cFx2jA0zzg7dcDM26KFXne1a/cRXzo3NGFEGh8FH9eUYvgY8emqG4TLkXGxohLFC+wZpbVhlSomfnTSIl9jEk=
+	t=1774542095; cv=none; b=Ec57ryBr0YLDVPw6V/L1YZaKnL17DnWOsZNHyyyS7FA0lenoSOBthNCLrlZ4K8Yb+SYVbZpW3tp8IeCokzdZDrLof3su/dVDEcGjRkrdlGBrPgpZATBi0Xn9sThxwKtErZk/6hHCTvMNlQEFNwkVcGCDsLKPKiw1vbXbv1ZWNA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774541999; c=relaxed/simple;
-	bh=HUtRwEpymq8y1tHT5IuCcbjZ8WgelRutIBJgFxgBfwY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=Nh3GDQ1K/Dlmns3pEiP7iu5pALHQQQhqqwlq4K48jB7ip6yfWThZYwov4EesUDfSL4MEqNqEBP5B/CYHZeoMUnTbWR//heA28XYyZndZi2OYNfN/TsVFu9kqqFYrq4AxmByJIiuSRGk+NOrdcNICw+FFIHK9xIFJuOBkVd/v0x4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F8mHPbZM; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774542095; c=relaxed/simple;
+	bh=Hu6yCmKFhpF8KsYaw6JMZq0ywUgmk9NRpJpO3yCBaJI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=dIHucOvmvM/loqTpWmBP4kXfsDOhnoUigglUKTzhjFR3VlPYILRoUc2i1hkZp3Mg8rj8LHUDFwSwt0oS8F63gpEuAhhURxklKW6ue7T4JupaDf0KrZWfyabnnvQmad3MKcy7iyEiCjSnoKA2Dz01jIYMQbp0AcdjLJUyR33VhpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tQ13c5bZ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F8mHPbZM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58181C116C6;
-	Thu, 26 Mar 2026 16:19:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tQ13c5bZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8F0CC116C6;
+	Thu, 26 Mar 2026 16:21:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774541998;
-	bh=HUtRwEpymq8y1tHT5IuCcbjZ8WgelRutIBJgFxgBfwY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=F8mHPbZMLywhR2KPKiO47GUlQve1aWTvrP9jUY2zHBn/GgXJAJ8kIosO6KRmT2xPy
-	 0IOXnbxBuiHeZMvRl+TjIGCZL+xLIklcHleCk7JhPz7DuyprdCRvXeIavUjsvsJn3u
-	 2Q1RhEo14xk900QBnukOrxjvVlgBCi/2LncSYTzSdhsFA5hJ9IBKJY83E/k7nfnIj+
-	 5lTlIF6wm86KROEBrkkqhHauUmxF3ByqGulkPiq2SUiGMalg+b2lo7okZjYoEqA7SE
-	 DQIUYImcIBQS+JZCWgUDtLEZ0SBKAUGmugBagt425A+Pxg6+wxIOHa2m/AYEY0slHj
-	 ZzEGDAJHfpMMw==
-Date: Thu, 26 Mar 2026 11:19:57 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
-	Richard Zhu <hongxing.zhu@nxp.com>,
-	Lucas Stach <l.stach@pengutronix.de>
-Cc: Nipun Gupta <nipun.gupta@amd.com>,
-	Nikhil Agarwal <nikhil.agarwal@amd.com>,
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, Marc Zyngier <maz@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-pci@vger.kernel.org, imx@lists.linux.dev,
-	xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org,
-	Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-Subject: Re: [PATCH v11 2/3] of: Factor arguments passed to of_map_id() into
- a struct
-Message-ID: <20260326161957.GA1324845@bhelgaas>
+	s=k20201202; t=1774542095;
+	bh=Hu6yCmKFhpF8KsYaw6JMZq0ywUgmk9NRpJpO3yCBaJI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=tQ13c5bZBl9WubaovdBQPBpj60vOnkZowI7G9PEBHe+C4fXORlzAA44AwBIS0yBF2
+	 MXIbiFLpxHSVxO30HpdQ1JKLKEHl39cTj2h2eVyxhCG7DWw/p0TB3bAnUubY1hpQBf
+	 TP7ybBqHTQw2cFOPnu9AUNoq02PQ6ikUOIHEvRkdDtHxSZYnujaDphsfrkt8JlW7rn
+	 DI6IrCYSx9aHWPqll+zhOXAQyUg+hVzczEiehXXjWmp0Pzb3uMjNNt9T2HXxnmcirj
+	 NX4gqjD67tNeHa/VxuQh8G8d8oE6VZor6stse2fgZwt32Xsbu8n69kBVoxENUQovvj
+	 0+s9RaC2Wld/Q==
+From: Mark Brown <broonie@kernel.org>
+To: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, reichl@t-online.de, sravanhome@gmail.com, 
+ lgirdwood@gmail.com, Bhargav Joshi <rougueprince47@gmail.com>
+Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, d-gole@ti.com, 
+ m-chawdhry@ti.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20260325230559.73527-1-rougueprince47@gmail.com>
+References: <20260325230559.73527-1-rougueprince47@gmail.com>
+Subject: Re: [PATCH v2] regulator: dt-bindings: mps,mp8859: convert to DT
+ schema
+Message-Id: <177452613865.64163.9836789020511532055.b4-ty@b4>
+Date: Thu, 26 Mar 2026 11:55:38 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260325-parse_iommu_cells-v11-2-1fefa5c0e82c@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev-ad80c
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1139; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=Hu6yCmKFhpF8KsYaw6JMZq0ywUgmk9NRpJpO3yCBaJI=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBpxV0LeZE5mc6CtR6sTPhI/ijBhYTMyFaWapIgq
+ uYlb3rf/aSJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCacVdCwAKCRAk1otyXVSH
+ 0Pt5B/0WvKUGDVj+Ws4HA5rhap6I/ue8b1HMCHJu2nOsW+u2/d7V5fMXOiW7Nel0iCQAI1ZcqPs
+ 4Dh5fSq/IVSQva3PnXevIXokTLHTwYaywvcfRcwyvz38Sht6ptoLqYmiMPTEKjNzs/8OxN1f5EV
+ vD+aMqpwHhx7zFaSzBnzwnjXjrBD+krsb1zlI8lqR+XMBntuXr2B2TqvoBUId8JmVhFhO4qacq8
+ g76UvNl2/rpAk/JSiM/FDEXcRlnFwFqV+6XblQUhJctnMt2r8hcrY1Xf9KHlAVDR7zU1CktxlmG
+ JCquiucR1CyijGnyRQHk+oxC+VPseWDKZNq3ANsppsOgLxVV
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-[cc->to: Richard, Lucas for pci-imx6.c question]
+On Thu, 26 Mar 2026 04:35:59 +0530, Bhargav Joshi wrote:
+> regulator: dt-bindings: mps,mp8859: convert to DT schema
 
-On Wed, Mar 25, 2026 at 04:38:23PM +0530, Vijayanand Jitta wrote:
-> From: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-> 
-> Change of_map_id() to take a pointer to struct of_phandle_args
-> instead of passing target device node and translated IDs separately.
-> Update all callers accordingly.
-> 
-> Add an explicit filter_np parameter to of_map_id() and of_map_msi_id()
-> to separate the filter input from the output. Previously, the target
-> parameter served dual purpose: as an input filter (if non-NULL, only
-> match entries targeting that node) and as an output (receiving the
-> matched node with a reference held). Now filter_np is the explicit
-> input filter and arg->np is the pure output.
-> 
-> Previously, of_map_id() would call of_node_put() on the matched node
-> when a filter was provided, making reference ownership inconsistent.
-> Remove this internal of_node_put() call so that of_map_id() now always
-> transfers ownership of the matched node reference to the caller via
-> arg->np. Callers are now consistently responsible for releasing this
-> reference with of_node_put(arg->np) when done.
-> ...
+Applied to
 
-Not actually part of *this* patch, and AFAICS this patch is correct
-as-is, but is it necessary to have different logic around
-of_node_put() for imx_pcie_add_lut_by_rid() and
-apple_pcie_enable_device()?
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.1
 
-> +++ b/drivers/pci/controller/dwc/pci-imx6.c
-> @@ -1137,6 +1137,8 @@ static void imx_pcie_remove_lut(struct imx_pcie *imx_pcie, u16 rid)
->  
->  static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
->  {
-> +	struct of_phandle_args iommu_spec = {};
-> +	struct of_phandle_args msi_spec = {};
->  	struct device *dev = imx_pcie->pci->dev;
->  	struct device_node *target;
->  	u32 sid_i, sid_m;
-> @@ -1144,7 +1146,12 @@ static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
->  	u32 sid = 0;
->  
->  	target = NULL;
-> -	err_i = of_map_iommu_id(dev->of_node, rid, &target, &sid_i);
-> +	err_i = of_map_iommu_id(dev->of_node, rid, &iommu_spec);
-> +	if (!err_i) {
-> +		target = iommu_spec.np;
-> +		sid_i = iommu_spec.args[0];
-> +	}
-> +
->  	if (target) {
->  		of_node_put(target);
+Thanks!
 
-Here it's conditional on "target" even though of_node_put() checks
-internally for non-NULL, so it would be safe without the conditional
-here.
+[1/1] regulator: dt-bindings: mps,mp8859: convert to DT schema
+      https://git.kernel.org/broonie/regulator/c/32a4cd3d451d
 
->  	} else {
-> @@ -1156,8 +1163,11 @@ static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
->  		err_i = -EINVAL;
->  	}
->  
-> -	target = NULL;
-> -	err_m = of_map_msi_id(dev->of_node, rid, &target, &sid_m);
-> +	err_m = of_map_msi_id(dev->of_node, rid, NULL, &msi_spec);
-> +	if (!err_m) {
-> +		target = msi_spec.np;
-> +		sid_m = msi_spec.args[0];
-> +	}
->  
->  	/*
->  	 *   err_m      target
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-And here (outside the diff context) we also call of_node_put()
-conditionally:
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-  ...
-  else if (target)
-    of_node_put(target);
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-> diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
-> index a0937b7b3c4d..c2cffc0659f4 100644
-> --- a/drivers/pci/controller/pcie-apple.c
-> +++ b/drivers/pci/controller/pcie-apple.c
-> @@ -755,6 +755,7 @@ static int apple_pcie_enable_device(struct pci_host_bridge *bridge, struct pci_d
->  {
->  	u32 sid, rid = pci_dev_id(pdev);
->  	struct apple_pcie_port *port;
-> +	struct of_phandle_args iommu_spec = {};
->  	int idx, err;
->  
->  	port = apple_pcie_get_port(pdev);
-> @@ -764,10 +765,12 @@ static int apple_pcie_enable_device(struct pci_host_bridge *bridge, struct pci_d
->  	dev_dbg(&pdev->dev, "added to bus %s, index %d\n",
->  		pci_name(pdev->bus->self), port->idx);
->  
-> -	err = of_map_iommu_id(port->pcie->dev->of_node, rid, NULL, &sid);
-> +	err = of_map_iommu_id(port->pcie->dev->of_node, rid, &iommu_spec);
->  	if (err)
->  		return err;
->  
-> +	of_node_put(iommu_spec.np);
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Here we call of_node_put() unconditionally.
+Thanks,
+Mark
 
-I think it would be much nicer if imx_pcie_add_lut_by_rid() used the
-same style as apple_pcie_enable_device() and did the of_node_put()
-unconditionally.  That would untangle the function a bit and make it
-easier to analyze.
-
-> +	sid = iommu_spec.args[0];
->  	mutex_lock(&port->pcie->lock);
->  
->  	idx = bitmap_find_free_region(port->sid_map, port->sid_map_sz, 0);
