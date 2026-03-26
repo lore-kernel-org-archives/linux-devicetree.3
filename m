@@ -1,212 +1,343 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4428F38F651
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 01:44:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5AB734EF03
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 01:46:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774489481; cv=none; b=EL8gUFGReQQ7uecpDK/VsyJ/VddW5E1BhjHAsn8HcgUbC689yq09rApdFN7//fTkgV6xMw3iab7PalAdKf45XajMrkqkW/dp8rO/j0KXnKkZZcAazatmNaZoUCA+wEZk5nhtPEOXQdr0TRVevFHkDuev8g1g4Is9k7XX6CZqIcg=
+	t=1774489597; cv=none; b=Wzlmhl6/8onzEHIIyrlv9Bgn3rG1BhILhgZOGZnQ+w27LlVpVpNf4Pt+I7r/tuggamYM7fFBIXtXO5nMLhIPYF1SuZlx9vzp8TMQPKsOBURWlpWJ++jfV/PtPiFAxfXQTsgYthpTcGUWoJLNwRA5M9WetpM5YqRXVKssHNFIfXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774489481; c=relaxed/simple;
-	bh=l7f97CKt2YtMqwewMmAG7iRRlNaG2imV8RvlA0oPPB4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ppF+k/5tW080mjimD9bwk9Oe19+AEb9yzYEwXZ3hDw1Zc3rh5ZqFyIv00wI31j0Q2u8Jbhk3hHmxaA+k9MZt1CuBNG/hSqkLjlekbYi59ukTYa11AGPaIeZGceCyGJpPUjXB/fFT2VUTWeC18hAvAzDR3uufPLT1mSP+KBXKmkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SlstX98P; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JKQCdlfL; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774489597; c=relaxed/simple;
+	bh=2JdWtj8jHoziLokeQl/cJ1LmihyFXi4ry53iPjdK6Ak=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uigXgdpqI48mYvqZoDeBuRrQ+yqumgdWHRvU0cDSXJ+hzkv3oWBcj7aHqLJr376ATmuKGk9+F5FYFIXxEg6r/vOUnYkD0m2pd3ndWIQZVGnnaAYwHei9oVjBcXYDv0Fz+6lCkeKabJNdwOSlMflL0QxpeatFGCI4rgfEzLurh4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NXc1FmZr; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SlstX98P";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JKQCdlfL"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62Q1eOgT779760
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 01:44:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	m6ez9EuGU+IEwV61QCocA0qqKSX45fjlTOqhijiaG7o=; b=SlstX98PkxclghRJ
-	KvzNI9KeZdcrUZldgm7xtqeaqqlJd18rE1tVTE0HMpLWP9GZ5H06AxfNIH0AuJx6
-	Zv3V1aHGHspE4HSiCAzCOKsERYMlt+UKUL2g0YSOoKimBCLgxvnKVYWe5OzgILUG
-	Qf9p6zZLRFwwPHGxHal8NaxIlylseRbdei8+fcnM2yT4dJMU5hz4NuZz4BN9+XAM
-	YhqICRZn1HDZTo4pgV3UwE5G0Kw2TvAmbPw/1SjVXw0M5cWGYWXiDIDxSRL97olw
-	A86I9LpLVF3NVYTgLy1AVLP2A6gJucQasO9qaWpBI1QGyf3gI8jsTCXYfOCTznPc
-	KTykEA==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d4cvp37t9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 01:44:39 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-2c0d15416b3so1902364eec.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 18:44:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NXc1FmZr"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-35c06831dd3so432357a91.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 18:46:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774489478; x=1775094278; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=m6ez9EuGU+IEwV61QCocA0qqKSX45fjlTOqhijiaG7o=;
-        b=JKQCdlfLtKnixx2JK/T3o57zl9QB8zjZr+Jac8fS2Khzfkduy5tvLhW/O9PU/DFDyK
-         i11r86n2gkqZgkZiCQQ/tsUry5etgYlpL+8Wy68uxTJZs6BUh9/c2AGQ7qw48IRWaouG
-         1YsNCOeMQCaQe1o2xvGuptw0OzycIjBsnYRAEoZYImt3oL1diiR4L1eBInG0f+LOZCa7
-         zjGOvvRP/NM/VREoEbrkIHob7pjuua1XalZVuyXcmFQkWiqjOgxIMgOdal7nWNdc27Ao
-         c0L6nltabvugGMaX6kstkfdmjaTCjCYFdqvzivCLlw3WnaR4yp1PhBT8+nUmuSGeWwGu
-         keqA==
+        d=gmail.com; s=20251104; t=1774489595; x=1775094395; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=FvrpaPMv4wQW9rLV6Y/lNvOSwC23X2i4bR0ncVYXo34=;
+        b=NXc1FmZrLGkk+g/APMRhO+J2h5HWqjgT7iyfPmOOpO2HlxMn/wmym6iIgmBoJDyhc1
+         TX455TUlCer7bbwGnh7VXIvmmhf01Cyqo4goH9hXPQPeTAb1o2VFP0HlZQYUSUirbf8W
+         w62+QpscoWOkmvo8FJcWnpsseOgALE1vDBV34GKp02e4UH71m6ZM/3syO/Asd0XGBA00
+         6cyM+GZRG+PmpXqw4Mixj3mbIW8+7/4ZMVQiYDb+aahfbcrZPMwzPAfAswV6Z4V0bDpP
+         SHTRAzbkScmctJohM15fdWxPWFMqCIs2V5zHG6kcT+aVRH66hFJ6pK2LQl1YWqJqRmVW
+         ieEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774489478; x=1775094278;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=m6ez9EuGU+IEwV61QCocA0qqKSX45fjlTOqhijiaG7o=;
-        b=nr2uj9ryjyJolr9BExQ2TGnl8qFqGp4Nlo2wc33lkAa4Wurbw4JQsGXqZP7G8yubwr
-         BLzsSHfhhnuWwrzK4Tb3s/CXQaHc6f2D0j26lLsdsKl0JKzgT7ZESg3Suj1031GwBXXo
-         2lJ2RZFhppQ2aFO/SWg8RNFIKZXHd6Rj8UhW/Iirj5cLNFyLDDrVqBT7Jl1OY9emlJLh
-         TwbZ0pyQA3FosflkwkTxWui20l+CI80vi9wleYqsXPgT5EfqOr/wgiJofnGRVorKKk/1
-         HFVDqcxofRYx4KqKVZui7gejEt/lmCudLZqxeJNdCoqNkM8+klQRlPpuhsPIa7g8BXmG
-         9FNg==
-X-Forwarded-Encrypted: i=1; AJvYcCVh5aALd/pD5AROwoO0lWihbvCLhWKxDVWkuuzC08krl3GPkIjgTQryLNge6fuVcStA5GAN4GE/aG7C@vger.kernel.org
-X-Gm-Message-State: AOJu0YyFG66D1CFcmjTuPpfKzMaNB03Q2aK+DOjdQN26mKo5WgEBUOOe
-	peq8a/67rlM1q2W8Lsyv8tTlA9N6CdFfuvM4j2N6GlYI+99n6bN+ywRff5T7quHh3g3CkBAarde
-	gmFZ1jlYm3tueZL3hwxGEP1k1GZJiGFpp06svh/Zp7nCLJ5fwk8x8wvu2m/mMwuTU
-X-Gm-Gg: ATEYQzwAov4/tF20TeYQaK7EuCMDEin3JqjSjaRO7HrBpDEAC0rhNVLEqMireyN8ein
-	asQcv0R16SqFfbWK5OVlgOPeYQrXk7ZVv5yKM0RecgeIPfl/X3Cis2kmGhfvb9iT07vfp0QnAqp
-	XKZY8Y9VROqD0dorxcXMzA6V4CIys+AXDXT29Qgh+hEvErC+hXr+rcsOwQ81BHL5ENI/NrL2bm7
-	tY9QrkkH6idadfNd0OgBVQ9b2FYonJkxB6VeHR1y12NHhNw7dIFmUQ5Gu0JMcU+GajEWK0FyfCF
-	EAuwswoi+bM9ll8iP+56IL3XYqJcAUzlECHdBNcRjZLgwXlUdZSyKXwHOp8GV+CQ5Ayjr9QTGxx
-	KLgrUfDCCZd/SXyptqJwH+/lBJO53D+nzEIJRxZOn6DoN6BRrqoo=
-X-Received: by 2002:a05:7300:cd8a:b0:2c1:27c:75a0 with SMTP id 5a478bee46e88-2c15d340c05mr3216058eec.9.1774489477959;
-        Wed, 25 Mar 2026 18:44:37 -0700 (PDT)
-X-Received: by 2002:a05:7300:cd8a:b0:2c1:27c:75a0 with SMTP id 5a478bee46e88-2c15d340c05mr3216033eec.9.1774489477341;
-        Wed, 25 Mar 2026 18:44:37 -0700 (PDT)
-Received: from [192.168.1.132] ([70.95.199.79])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c16ec277edsm2104460eec.3.2026.03.25.18.44.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Mar 2026 18:44:36 -0700 (PDT)
-Message-ID: <28c9c2b5-feeb-49ae-9d4c-51ac571ad8a1@oss.qualcomm.com>
-Date: Wed, 25 Mar 2026 18:44:35 -0700
+        d=1e100.net; s=20251104; t=1774489595; x=1775094395;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FvrpaPMv4wQW9rLV6Y/lNvOSwC23X2i4bR0ncVYXo34=;
+        b=Fc8HPRNQ2IcFofY3DCdsqfghTzptMOsJaEXMQjN/AlOtcoLUbmdrnfZ8JxNlQN3zko
+         UTgVKdunGz0REeiJgg6wLb1hFYu0gNqH3EPlsDA0u3MhACSRdmTwnwJY6uWzz4Rl9Yd2
+         QG0NNt41nSyBSfpmNuQl5/wdr4ey2SFXQ5fMMbBQzHiQjZkKKi7owEmVatVkCd+QDDCT
+         Z0clvxSnc1VxRqkSaW0NYwGNbv2iWykRsqRrx+aYkdV6MVuvz5KaBiSLyFBrhX8I0Dhw
+         zID0XHOAyutLiDF4jowDQElALy5zvMsLvVHMnbiKm23/goJl4rehyXH+0KrQFd91Kqja
+         882Q==
+X-Forwarded-Encrypted: i=1; AJvYcCW17SoO45qwHeKT/8zelYLp92mFYjWsy0U8QxKESW0uEhmNys8yVrqd2FMnADo7CAlzTN5cA6y2sRPg@vger.kernel.org
+X-Gm-Message-State: AOJu0YyjxwMlJJXBZu7J6QkCf82B7xYlPem58rX1kVMhK0lhXd97VXJQ
+	MRCMRBzaow3364HD+ZQgZ+tvTr1bOTnXuaWbRXYE0BDDRLE8EzwnBPb1
+X-Gm-Gg: ATEYQzw6GwikXODVuNEf0G5KPUiLDys3wq0fB4GcOJv6ItjaEaRUZDtAM2luxXnF0Lo
+	lxoPp5JLnJnvkfQ0wpz27E9f3G0JFb2yxpiAhiZa0mknCqDXX0XRLqEP2FJIUaJ1k+bawaY5IPt
+	i4rmK+MMf/L4LF6nRJHj/wH/bGQ6LjeqXJfqFr55PCEZnYJ4p0Y3+eKWm5lTLH18JfSvZwh6IdW
+	VlvWliu/J7p/JkhXwkqbhn2R+lGWmi/emUxKQaFy5APW1Q4n0DgYDZgnKcWCpiLu2ck0iVu1n4k
+	ZExVrUchkeX9I/RvQr0ZiZ5qbF6yMGR6Pq+gP5ZJxGMLoSZOqNByCuHTLL8IzloD6XimEpyVmBT
+	E3qMRyf8ujlyCCU4TjAV/FOEhywzbsn0TzWmoCspLs447x7G4VNwyqInWrAXwnnfuN7mfE9Rlfi
+	8rBA+ycsT0DcjETGAmqP+iWqU=
+X-Received: by 2002:a17:90b:518e:b0:35b:e56e:a17e with SMTP id 98e67ed59e1d1-35c0dd7ac8amr5444206a91.17.1774489595082;
+        Wed, 25 Mar 2026 18:46:35 -0700 (PDT)
+Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35c1dd3800bsm569329a91.1.2026.03.25.18.46.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Mar 2026 18:46:34 -0700 (PDT)
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>
+Cc: Inochi Amaoto <inochiama@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: [PATCH v6] riscv: dts: spacemit: Add ethernet device for K3
+Date: Thu, 26 Mar 2026 09:46:17 +0800
+Message-ID: <20260326014617.1011732-1-inochiama@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: =?UTF-8?Q?Re=3A_=5BPATCH_v2_0/1=5D_dt-bindings=3A_connector=3A_Add_?=
- =?UTF-8?Q?role=E2=80=91switch_provider_phandle?=
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260324172916.804229-1-elson.serrao@oss.qualcomm.com>
- <CAO9ioeUhkwCPsjS4Pm5DKHZdQjLxvfy=fkcJfbF2hsgq9Ljqww@mail.gmail.com>
-Content-Language: en-US
-From: Elson Serrao <elson.serrao@oss.qualcomm.com>
-In-Reply-To: <CAO9ioeUhkwCPsjS4Pm5DKHZdQjLxvfy=fkcJfbF2hsgq9Ljqww@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: b6jeOaMKRzSYX6qRVt90ej9_t7Xn2_Bp
-X-Proofpoint-GUID: b6jeOaMKRzSYX6qRVt90ej9_t7Xn2_Bp
-X-Authority-Analysis: v=2.4 cv=Q73fIo2a c=1 sm=1 tr=0 ts=69c48f87 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=uHxescsG3rBdxcXwcPaeSg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=5KLPUuaC_9wA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=FUNPCKqUHVlFUV5SY1YA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI2MDAxMSBTYWx0ZWRfXwc6Hqmg9VsqT
- h1TBx96py+wyGazjSvNj9t9p9l6e+z1N4LL9ttEeAaUWBC0p+E/h2kUuGIRF8MMFw0bQhVxg9/Y
- i76We/gGieUyvVYPmQ0uCGM+z6+QVudElAybaxlL5w5kW2PjKx1IXGksYSX+98EMApzFCNTzvkT
- yCS24hR1lZQdUjw/X/q8adfz32TIXsLblt1B8Yw7M855CRoIAU1b/R2CCMFVbODNlaFLAZ0qYcP
- KoJjrCXQm9wTVR4LKV1MrSHS1hdrFCcdb3IRqdsm0J8XojG4g4kpFlIXHtRkweV7AgOxOiDcCWO
- 29RD4RjW+eEJxQEn7ykWFdDBu/aLU9go7IE87IXVPH2VXtBkHve4T+daq4PX6iFuoyit+w90sNf
- OS90c4PAl4pp2VKwZ2QRayT8nlNM74oVMd1L5Fj2iC6zfDTmXZBJwCqQGx8TXEnw7MqwAEHGYj2
- rzkoUTRXNq/uQEX/h7w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-26_01,2026-03-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- malwarescore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603260011
 
+Add all ethernet device nodes for K3 SoC.
 
+Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+---
+Require the following patch series:
+1. Basic DT device patch
+https://lore.kernel.org/spacemit/20260304-01-dts-uart-full-v1-0-50a0aa53a245@kernel.org
+2. Ethernet driver patch
+https://lore.kernel.org/spacemit/20260316010041.164360-1-inochiama@gmail.com
 
-On 3/24/2026 10:46 AM, Dmitry Baryshkov wrote:
-> Hello,
-> 
-> On Tue, 24 Mar 2026 at 19:29, Elson Serrao
-> <elson.serrao@oss.qualcomm.com> wrote:
->>
->> Hi all,
->>
->> This patch proposes a generic Devicetree mechanism for a USB connector to
->> reference the USB role‑switch provider when there is an intermediate,
->> block between the connector and the controller in the OF graph.
-> 
-> Please, don't describe what the patch or the change does, see
-> Documentation/processes/submitting-patches.rst.
-> 
->>
->> Problem
->> =======
->> OF‑graph links are strictly point‑to‑point via remote-endpoint, so a
->> consumer can only discover its immediate neighbor in the graph. When an
->> intermediate node sits between the USB connector and the controller, the
->> connector cannot identify the controller (the role‑switch provider) from
->> the graph alone.
-> 
-> DT is a hardware description. Here you are trying to describe the
-> software behaviour. Please don't mix those.
-> 
-> [skipped diagrams]
-> 
->>
->> From the OF‑graph structure alone, Conn‑0 cannot determine that
->> USBCtrl‑0 (and not USBCtrl‑1) is the correct role‑switch provider.
->>
->> Proposal
->> ========
->> Add an optional consumer→provider phandle on the connector:
->>
->>     usb-role-switch = <&controller>;
-> 
-> An alternative proposal: let EUD register as a role-switch and then
-> retranslate usb-role-switch events. This is how it is handled by the
-> Type-C-related objects (muxes and orientation switches).
-> 
+Changed from v5:
+1. Fix DT warning cause by stmmac-axi-config.
 
-Hi Dmitry,
+Changed from v4:
+1. Fix pinctrl pin name
+2. Remove alias for disabled node
 
-Thank you for the review and suggestions.
+Changed from v3:
+1. Separate the pin as RGMII pin and INT pin.
+2. Add comment for pin usage.
+3. Rename the ethernet pinctrl node to address it is RGMII node.
 
-To better understand the intended model: are you proposing that the EUD
-register a separate usb‑role‑switch instance per connector → controller
-relationship, or a single role‑switch instance representing the EUD as a
-whole?
+Changed from v2:
+1. keep aliases in alphabetical order.
 
-I understand the analogy with Type‑C muxes and orientation switches, which
-are typically modeled on a per‑connector basis. In contrast, the EUD hardware
-block spans multiple connectors and controllers and can carry traffic from
-multiple independent USB connections concurrently.
-For example:
-  - Connector0 operating in host mode (connected to Controller0)
-  - Connector1 operating in device mode (connected to Controller1)
-  - Both active at the same time
+Changed from v1:
+1. remove interrupt-parents property
+2. add aliases for ethernet node
+---
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts |  20 ++++
+ arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi |  34 ++++++
+ arch/riscv/boot/dts/spacemit/k3.dtsi         | 117 +++++++++++++++++++
+ 3 files changed, 171 insertions(+)
 
-In such a scenario, a single role‑switch instance representing both
-connectors appears ambiguous, as different roles may be active
-simultaneously on different ports.
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+index b098dbd0e7a1..504fe6bd46b2 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+@@ -3,6 +3,7 @@
+  * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
+  * Copyright (c) 2026 Guodong Xu <guodong@riscstar.com>
+  */
++#include <dt-bindings/gpio/gpio.h>
 
-Registering multiple role‑switch instances—one per connector/controller
-pair—would avoid that ambiguity. However, this would imply a single EUD
-device registering multiple role‑switch instances associated with the same
-firmware node. As the USB role‑switch framework currently assumes a 1:1
-relationship between a firmware node and its role‑switch instance, this
-would likely require non‑trivial changes to USB role switch framework on
-how role‑switch instances are represented and managed.
+ #include "k3.dtsi"
+ #include "k3-pinctrl.dtsi"
+@@ -12,6 +13,7 @@ / {
+ 	compatible = "spacemit,k3-pico-itx", "spacemit,k3";
 
-Thanks,
-Elson
+ 	aliases {
++		ethernet0 = &eth0;
+ 		serial0 = &uart0;
+ 	};
 
+@@ -25,6 +27,24 @@ memory@100000000 {
+ 	};
+ };
+
++&eth0 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&gmac0_rgmii_0_cfg>, <&gmac0_phy_0_cfg>;
++	phy-mode = "rgmii-id";
++	phy-handle = <&phy0>;
++	status = "okay";
++
++	mdio {
++		phy0: phy@1 {
++			compatible = "ethernet-phy-ieee802.3-c22";
++			reg = <1>;
++			reset-gpios = <&gpio 0 15 GPIO_ACTIVE_LOW>;
++			reset-assert-us = <10000>;
++			reset-deassert-us = <10000>;
++		};
++	};
++};
++
+ &uart0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart0_0_cfg>;
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+index efb0f1572188..a7b5d10c332e 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+@@ -11,6 +11,40 @@
+ #define K3_GPIO(x)	(x / 32) (x % 32)
+
+ &pinctrl {
++	gmac0_rgmii_0_cfg: gmac0-rgmii-0-cfg {
++		gmac0-rgmii-0-pins {
++			pinmux = <K3_PADCONF(0, 1)>,	/* gmac0_rxdv */
++				 <K3_PADCONF(1, 1)>,	/* gmac0_rx_d0 */
++				 <K3_PADCONF(2, 1)>,	/* gmac0_rx_d1 */
++				 <K3_PADCONF(3, 1)>,	/* gmac0_rx_clk */
++				 <K3_PADCONF(4, 1)>,	/* gmac0_rx_d2 */
++				 <K3_PADCONF(5, 1)>,	/* gmac0_rx_d3 */
++				 <K3_PADCONF(6, 1)>,	/* gmac0_tx_d0 */
++				 <K3_PADCONF(7, 1)>,	/* gmac0_tx_d1 */
++				 <K3_PADCONF(8, 1)>,	/* gmac0_tx_clk */
++				 <K3_PADCONF(9, 1)>,	/* gmac0_tx_d2 */
++				 <K3_PADCONF(10, 1)>,	/* gmac0_tx_d3 */
++				 <K3_PADCONF(11, 1)>,	/* gmac0_tx_en */
++				 <K3_PADCONF(12, 1)>,	/* gmac0_mdc */
++				 <K3_PADCONF(13, 1)>;	/* gmac0_mdio */
++
++			bias-disable;
++			drive-strength = <25>;
++			power-source = <1800>;
++		};
++
++	};
++
++	gmac0_phy_0_cfg: gmac0-phy-0-cfg {
++		gmac0-phy-0-pins {
++			pinmux = <K3_PADCONF(14, 1)>;   /* gmac0_int */
++
++			bias-disable;
++			drive-strength = <25>;
++			power-source = <1800>;
++		};
++	};
++
+ 	/omit-if-no-ref/
+ 	uart0_0_cfg: uart0-0-cfg {
+ 		uart0-0-pins {
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index a3a8ceddabec..5f4818cd5d6d 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -438,6 +438,123 @@ soc: soc {
+ 		dma-noncoherent;
+ 		ranges;
+
++		eth0: ethernet@cac80000 {
++			compatible = "spacemit,k3-dwmac", "snps,dwmac-5.40a";
++			reg = <0x0 0xcac80000 0x0 0x2000>;
++			clocks = <&syscon_apmu CLK_APMU_EMAC0_BUS>,
++				 <&syscon_apmu CLK_APMU_EMAC0_1588>,
++				 <&syscon_apmu CLK_APMU_EMAC0_RGMII_TX>;
++			clock-names = "stmmaceth", "ptp_ref", "tx";
++			interrupts = <131 IRQ_TYPE_LEVEL_HIGH>,
++				     <276 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "macirq", "eth_wake_irq";
++			resets = <&syscon_apmu RESET_APMU_EMAC0>;
++			reset-names = "stmmaceth";
++			rx-fifo-depth = <8192>;
++			tx-fifo-depth = <8192>;
++			snps,multicast-filter-bins = <64>;
++			snps,perfect-filter-entries = <32>;
++			snps,aal;
++			snps,tso;
++			snps,txpbl = <8>;
++			snps,rxpbl = <8>;
++			snps,force_sf_dma_mode;
++			snps,axi-config = <&gmac0_axi_setup>;
++			spacemit,apmu = <&syscon_apmu 0x3e4 0x3e8>;
++			status = "disabled";
++
++			mdio {
++				compatible = "snps,dwmac-mdio";
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++
++			gmac0_axi_setup: stmmac-axi-config {
++				snps,wr_osr_lmt = <0xf>;
++				snps,rd_osr_lmt = <0xf>;
++				/* max axi burst len is 256 */
++				snps,blen = <256 128 64 32 16 0 0>;
++			};
++		};
++
++		eth1: ethernet@cac82000 {
++			compatible = "spacemit,k3-dwmac", "snps,dwmac-5.40a";
++			reg = <0x0 0xcac82000 0x0 0x2000>;
++			clocks = <&syscon_apmu CLK_APMU_EMAC1_BUS>,
++				 <&syscon_apmu CLK_APMU_EMAC1_1588>,
++				 <&syscon_apmu CLK_APMU_EMAC1_RGMII_TX>;
++			clock-names = "stmmaceth", "ptp_ref", "tx";
++			interrupts = <133 IRQ_TYPE_LEVEL_HIGH>,
++				     <277 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "macirq", "eth_wake_irq";
++			resets = <&syscon_apmu RESET_APMU_EMAC1>;
++			reset-names = "stmmaceth";
++			rx-fifo-depth = <8192>;
++			tx-fifo-depth = <8192>;
++			snps,multicast-filter-bins = <64>;
++			snps,perfect-filter-entries = <32>;
++			snps,aal;
++			snps,tso;
++			snps,txpbl = <8>;
++			snps,rxpbl = <8>;
++			snps,force_sf_dma_mode;
++			snps,axi-config = <&gmac1_axi_setup>;
++			spacemit,apmu = <&syscon_apmu 0x3ec 0x3f0>;
++			status = "disabled";
++
++			mdio {
++				compatible = "snps,dwmac-mdio";
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++
++			gmac1_axi_setup: stmmac-axi-config {
++				snps,wr_osr_lmt = <0xf>;
++				snps,rd_osr_lmt = <0xf>;
++				/* max axi burst len is 256 */
++				snps,blen = <256 128 64 32 16 0 0>;
++			};
++		};
++
++		eth2: ethernet@cac8e000 {
++			compatible = "spacemit,k3-dwmac", "snps,dwmac-5.40a";
++			reg = <0x0 0xcac8e000 0x0 0x2000>;
++			clocks = <&syscon_apmu CLK_APMU_EMAC2_BUS>,
++				 <&syscon_apmu CLK_APMU_EMAC2_1588>,
++				 <&syscon_apmu CLK_APMU_EMAC2_RGMII_TX>;
++			clock-names = "stmmaceth", "ptp_ref", "tx";
++			interrupts = <130 IRQ_TYPE_LEVEL_HIGH>,
++				     <278 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "macirq", "eth_wake_irq";
++			resets = <&syscon_apmu RESET_APMU_EMAC2>;
++			reset-names = "stmmaceth";
++			rx-fifo-depth = <4096>;
++			tx-fifo-depth = <4096>;
++			snps,multicast-filter-bins = <64>;
++			snps,perfect-filter-entries = <32>;
++			snps,aal;
++			snps,tso;
++			snps,txpbl = <8>;
++			snps,rxpbl = <8>;
++			snps,force_sf_dma_mode;
++			snps,axi-config = <&gmac2_axi_setup>;
++			spacemit,apmu = <&syscon_apmu 0x248 0x24c>;
++			status = "disabled";
++
++			mdio {
++				compatible = "snps,dwmac-mdio";
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++
++			gmac2_axi_setup: stmmac-axi-config {
++				snps,wr_osr_lmt = <0xf>;
++				snps,rd_osr_lmt = <0xf>;
++				/* max axi burst len is 256 */
++				snps,blen = <256 128 64 32 16 0 0>;
++			};
++		};
++
+ 		syscon_apbc: system-controller@d4015000 {
+ 			compatible = "spacemit,k3-syscon-apbc";
+ 			reg = <0x0 0xd4015000 0x0 0x1000>;
+--
+2.53.0
 
