@@ -1,53 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E5C939E178;
-	Thu, 26 Mar 2026 03:19:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8978239A7EC;
+	Thu, 26 Mar 2026 03:19:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774495187; cv=none; b=GkV2uDJfDyec/VpzsVlcLy2mvd1LzaOHvI8HVv4pqMAWfYVlhu2bRnPs743d2xkVZTU0Y6jXzEWJYYym7lxeV/364XfobMtdZELNFGJOqY4goERa6he8QCL1/P1hZlncObF6Zm1MNB3QaaYISH74qBipIyKkYCupcE0K/eG4/pk=
+	t=1774495188; cv=none; b=Sce4D9ZzerHXhdkFN00NsgcBS3LctAV3UD7C9yanvsVzJRjI7SESdS9t5ydE/iUKqAJdG6q51Vs8M2RaJkEY3qxBA5n1INkyMhFkHDD7kolFy8C81Mr1sFEEMCzzU/deG1lhey2gEDkoKljBCsPcstZ3knamoP38isEOfBpGI4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774495187; c=relaxed/simple;
-	bh=5BJkq7vb2+iXRV99aMmF1GtkaM5Wixv8vaAYo0T5e0g=;
+	s=arc-20240116; t=1774495188; c=relaxed/simple;
+	bh=I97y4VSJgKXQTUTItOSekUE7njYBvhdFCTVij6GdgBo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=szRCmGuHaAryqtmUayZDezXzOlrDFLpUZSrn/2cpEHcPGsHxLaxweA2pGwpIl8PDKBsAvHU/1dkJlZeDzKY9kg+lGkscdUoTzGfA7nw3HJVUZyi6Fq3vdaxR9XmSzvDEBnL3mqjwRJa7teSAsxTTACdhW9y0X1Wp3VnbmMia75c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VjzTdEPZ; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=rQYEpjLNwtwhzJNYra0ILTRBi9FQBg2KHQiB5DJMG0G0UxjVDhpecanFLFp9A/UrTP1jKAfpHVEfYR0IRwFcT8VVDBkxFzVkRqA3AdYI+3HoggLJZeWmtjkrrJomYALOYF6YyvplKryT60INL4/KaBc8B9to8F6Cb89Wm5+xe/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ibmaoHP/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VjzTdEPZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73E21C2BCB2;
-	Thu, 26 Mar 2026 03:19:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ibmaoHP/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FFDBC2BC9E;
+	Thu, 26 Mar 2026 03:19:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774495186;
-	bh=5BJkq7vb2+iXRV99aMmF1GtkaM5Wixv8vaAYo0T5e0g=;
+	s=k20201202; t=1774495188;
+	bh=I97y4VSJgKXQTUTItOSekUE7njYBvhdFCTVij6GdgBo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=VjzTdEPZJIUDkIaYc/BbOHFEKWIypc3i84wxuw/xGmVLeym1IILl2OnWJuZboM5+4
-	 Dx+u+x8hESQmx3SjfdGgSMofunuaQBR3lnCy0snP79XrHLM5rh1KpgBH7Q4r0TqYd6
-	 kvbI0bduIbSG2fBWV0+UhxzW6OT6wcPp04tqde/4eVPg8z+9QkoxB5mA/6U/OBJQp3
-	 6A3S9GqbxPvo7PBU199sabnZKUMlCNOeLiMUEvwXpcxxBAj6nnfY3XrpoXFFRM4NsB
-	 0RI1kBuVr4qrj+F0Z8AaGZKUKVZzGUMqqLqePdbKFyTt72Mm8cSOZ3rcPw5of270A8
-	 6SW1fpeUSqztg==
+	b=ibmaoHP/FwSSTBFjNx4cXts3J/qCWaM+TU0mK27nH+LQrpZAePlxRNxOusF/l+5hj
+	 gFEU8EK371WL7UnCtVhiKpkqCTx2NKNcxlsAAqOOK796M1Jew2fXzIffHolrBny8iq
+	 EyfOuC82/gRW7kvyNMWhib1UR+kFtVar6zhPot8FU9tJubIcAMbtTRNeQynP39yjrb
+	 9pQT4/FEXn/RmAxNwZ7KlhR5PKUmx/oz5FNOeE1J3PYS4OGl9FgWoPB6uE9+c9tmt3
+	 vd3xQ0OzOfTPaRElGlHImX3kjASmaE8oM4Lk+JUYny96VVhO6F5W3/f2RxbOVz3pKY
+	 0FQ+Vrk/iPj2A==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
-	Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
-	Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
-	Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>
+	Val Packett <val@packett.cool>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] Misc BWMON fixes for glymur/mahua
-Date: Wed, 25 Mar 2026 22:19:26 -0500
-Message-ID: <177449516596.60308.17541233624252365720.b4-ty@kernel.org>
+Subject: Re: [PATCH] arm64: dts: qcom: kodiak: Add LPASS I2S2 pinctrl definitions
+Date: Wed, 25 Mar 2026 22:19:28 -0500
+Message-ID: <177449516612.60308.6654202253703462894.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260325-bwmon_fixes-v1-0-9433f9d4c276@oss.qualcomm.com>
-References: <20260325-bwmon_fixes-v1-0-9433f9d4c276@oss.qualcomm.com>
+In-Reply-To: <20260323095247.92890-1-val@packett.cool>
+References: <20260323095247.92890-1-val@packett.cool>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -58,18 +51,16 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 25 Mar 2026 21:51:49 +0530, Pragnesh Papaniya wrote:
-> This series adds the missing opp entry for Glymur/Mahua SoCs and deletes
-> bwmon node that corresponds to non-existent cluster2 for Mahua SoCs.
+On Mon, 23 Mar 2026 06:40:47 -0300, Val Packett wrote:
+> Add the pinctrl definitions to configure gpio10-gpio13 of the lpass_tlmm
+> for I2S output.
 > 
 > 
 
 Applied, thanks!
 
-[1/2] arm64: dts: qcom: glymur: Add missing opp entry
-      commit: 6921e10a808ab261974b5800e175b6e284b4ff6f
-[2/2] arm64: dts: qcom: mahua: Fix mahua bwmon
-      commit: 8e1f585aab4f044d49cf5147d89a6edaa90273c8
+[1/1] arm64: dts: qcom: kodiak: Add LPASS I2S2 pinctrl definitions
+      commit: 5e25296941545e4739bbdec8084185b1a945381f
 
 Best regards,
 -- 
