@@ -1,188 +1,132 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317AC37F73C
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:37:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB67412F585;
+	Thu, 26 Mar 2026 02:41:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774492656; cv=none; b=sjoWb8vDm9sPyefnlgS9ysbM9aVWc/wmq/BSSK79DQg+RN5hSoItqTVMYVcdxapLwlNIMe7PzQurd7zu1J+Tn71WVMhNJVvpPEhA388C+9zEvoQvO2m0/Rltoksm5F6HdszYxtR9HhTiQ0ax5S6TClek+Bi7Gkmnww+iDSfe5Ew=
+	t=1774492862; cv=none; b=PGNHp/TYilhkjDi1zFIhityEQIMXx0MLRJmP8C5z3k7rd0oes88qzg74snAbf9Ch1qvlGB5Yexwpth3dL6RTDQshOKmtyVaaHcxW5Emnbw7rkI/DlkaFRBbq3TVkDKE1m5zWpsKsaV5dvBrJhwkj2YImCDboL526/NewoyvMikQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774492656; c=relaxed/simple;
-	bh=CO1Xl56yA5yxPK2Rf16ztEEe9RkQZ6sk559VWf3vJs8=;
+	s=arc-20240116; t=1774492862; c=relaxed/simple;
+	bh=1VDBhYCJ2BETy5mGSLkU/VcwUGRUaX/Cd91vaqYUZOc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mzz5EdYa5qVI4LNqETBIcPOvNw3TaAJ4xEXEZRtCokXIYctbmXYsETZihgSmDbaHPuUcTZF+4cfsrLa6r1MAbo/1tJpSXOUomJhrNcgu50LYrkaJfyFmEziakvzwYtgs5ylKC28wela+HmOtn5e0uojs9XEr0rZJ/V+d/tE1CBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X+LOh+dF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a1d2s6gN; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=iWfzr4/b6Jl1Qs+Og4xs8ZCbaUhLI9bCEzqOkDNzHryNtTxTS4C7w8dFOpGYMNytD7t8eAfS7lDkZDrRhMVmWkODcZ7sCrhBm3aEcTz6wy7HiT3IrB77sF/YTQBALjUU/giqK+GH0PCmtpi/vL3uz6G3Pq4HMmhSvZiczwDGtl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bEU0U4U1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X+LOh+dF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a1d2s6gN"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62PKhKr2141404
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:37:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=CwMbSu6i+zGZS+U5lR/PyrPE
-	FdnGy+7Mp+i4QCz/JXc=; b=X+LOh+dFyy8by8iTQRT9qBXkrBh0RMeqsY4GDZ36
-	WO6LjrIU2iOfA2gVZPigWH9uX6kNOU2q5zD2QN2LRnKKeQsv6kkSVMENRXxhuqBF
-	/mDjdWsROti5ukqIiqWneDCUVYbjuxuLwx79oJL+MT6o3wR9iVTZ50iil5ADvxYD
-	4ZwLjKEo2bij/tDRpw5hmEWtI0xYUgOkpsCaZmx+eKM9uvtO2i3fKKRpGMiX2V8f
-	RodI2vy7T3l1SZJtTAwXsoCqKkdmIEWwBXYISsPaewaIB+Y9NWSy/f67DG//gDUd
-	B41xxYa3lCPTZoSu9sbB64M3dFW2j5pqJCmuVaRKujsN3g==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d4q090wec-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:37:34 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-89c4a339b6bso16622766d6.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 19:37:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774492653; x=1775097453; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=CwMbSu6i+zGZS+U5lR/PyrPEFdnGy+7Mp+i4QCz/JXc=;
-        b=a1d2s6gNg3jk62GwrH4IRZ3UsApVZq0vTU7LUuRXsDPld8aYvTw0g4mJ7/I1evDcFL
-         jfBesTzXLTNzRqr8h6Opo0wqOjmDYlt25+Tt/TEIRJKbF6qg0dcg9gP3Eu3PfIXcAGlp
-         ji8JC/e9pRu+vHOhrMFFJ5k6GFZxG3VRxF8k6YKIT3MCfe+71hIeu33sAX6ZZAk0mtyA
-         slkSF5UuxpYxeRhu/FEeT1ZTQqF0MujuKhbrLI89BdHTLMl4mAlXpegS2NAGNOZcYBlW
-         hf3Q2tYQ1yeJBHYbrn6JkohedLu8mvYgfs6k+Z0L+g5f/Vta3UmGv2/S2Q/8on57x2sI
-         i87Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774492653; x=1775097453;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=CwMbSu6i+zGZS+U5lR/PyrPEFdnGy+7Mp+i4QCz/JXc=;
-        b=DFOIiz1TXFkpELawEi9s5M3+22jl8suzR3PYe9g5UgOA2igguZRhnA47z+W/6e6c+M
-         2OP8mBphRV1V42PV5JEWJEnelKqxoK62ViFNzaCFxtVuoR+DnM0af6d1AmH6SwOAxdSL
-         1QJGfJxGTeLHFQAqlU4RqqieGJoVmrBzu5IapG7DprOhRlJSW21WvlJIvknvC3G6Sqig
-         M6z6D1DAPmdQfkogRXqZ/8nh+qck/fnty5HZnZn4Nw9pWJftYkAoPjuPqpD1v4CEHoLP
-         pxBL1z4JRa0mMapMyhP9LgDXLDZYBSHN3tqJgM5Qo5CZhO1jR809YqNz5FEZzkuFNqxK
-         9r5g==
-X-Forwarded-Encrypted: i=1; AJvYcCUrAZnJadZoh+k2v7otzQA3wmngXqtOfjwDTqUdhf0cIKHuedsZQ9nHnR6XQ/rmxC9fw1F5NFfVCGFe@vger.kernel.org
-X-Gm-Message-State: AOJu0YyHnlgWup0KcvAW+KayqhTYL3QnfFbnDOxUD6nu/trHB1UCIrc+
-	PjYEzE2Mh52PZs7knYTSbTW9ZJh8FVKMSOwTxsxA772bojjpSqadehRMOSRxU+hAD/crkvUBCti
-	MESWrx1wPFqvWMbllzRu+iinbH5p2hcV4zIpIazrtJTwVew1qi/2z6pMMdRaxy2fl
-X-Gm-Gg: ATEYQzxezka+3g5LMaTc3xYVeG3B42fkknfzgJaW27ngPZMF+nyj5kz8xQisQutt+H5
-	zLLJVr1yk+PXI+T+cED5M9po8FVwWakqfhjMIL4rD6n2uNV2ceCrJS+M4g+fQCXCWY+fKivP5+8
-	SnrwQRduVZtfXJWyfQUabazru65BfdwOE0rUD9blkOfPJ9DmF6mOk/D8fiDARCwSp2P+Q1g3tEg
-	EG2Cst4/CDxXvqjuBqHH59mcnbWhsHeDkAz9aA13TFDYVl0gUQgQ0hxAGhD0fgWsB1jXiM/vER1
-	zlGY/nbWb9M0cJssBOEDZ0DIhyAcXvPbDFCdsddpy0aEKIe7DTjSUOqhpNwoIQlebM3Xqs/hUuU
-	a4mL/Z14T3HPnAcXhkC334W8EKcQSxCvFmONStgl1zmo78B+vAxmkGPxeAilDlCZ2d1bIIgfBj7
-	rmZVP9Bwo=
-X-Received: by 2002:a05:6214:1d03:b0:89a:593:fb30 with SMTP id 6a1803df08f44-89cc42b20e5mr92905636d6.20.1774492653529;
-        Wed, 25 Mar 2026 19:37:33 -0700 (PDT)
-X-Received: by 2002:a05:6214:1d03:b0:89a:593:fb30 with SMTP id 6a1803df08f44-89cc42b20e5mr92905176d6.20.1774492653023;
-        Wed, 25 Mar 2026 19:37:33 -0700 (PDT)
-Received: from yuanjiey.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-89cd5a6a840sm12899956d6.36.2026.03.25.19.37.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 19:37:32 -0700 (PDT)
-Date: Thu, 26 Mar 2026 10:37:24 +0800
-From: yuanjiey <yuanjie.yang@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bEU0U4U1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91BBEC2BC9E;
+	Thu, 26 Mar 2026 02:41:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774492862;
+	bh=1VDBhYCJ2BETy5mGSLkU/VcwUGRUaX/Cd91vaqYUZOc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bEU0U4U1mDHr6WinNDFWo8hdCj4fyDjBC1k1fz8Jd/eHg4kQrz8tvr/K5pXDSswb3
+	 qiCMDw4GjgBIdh4HfdPU+BOmHz5KJxiNGlQGHL/l5CtPeAy5A/1LhZzfY3X8xA0Oki
+	 h9Lxbx0byNMp/30jIZY7WFJ3XpVxMINApGTFuALF3KWQAYXdaxKAL2owJjvwXIs8zH
+	 T/mT4I3zU9JquiR9F/oxxWbRwFGMLYztaHRrSOwWkn/Kz+e+bdMPNvY7s4XnJy+H1e
+	 Hl4UlmbRcRyGlcyzzMOtp746vYDqDZHfvMBuYYwssJcq/5MrLS2rjwn2sUo+HV0wdg
+	 eFVY6sEpwGPYw==
+Date: Wed, 25 Mar 2026 21:40:58 -0500
+From: Bjorn Andersson <andersson@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, aiqun.yu@oss.qualcomm.com,
-        tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com,
-        yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        20260224-knp-dts-misc-v6-0-79d20dab8a60@oss.qualcomm.com
-Subject: Re: [PATCH 5/6] arm64: dts: qcom: kaanapali: add display hardware
- devices
-Message-ID: <acSb5F9gZAVg76V9@yuanjiey.ap.qualcomm.com>
-References: <20260322-knp-pmic-dt-v1-0-70bc40ea4428@oss.qualcomm.com>
- <20260322-knp-pmic-dt-v1-5-70bc40ea4428@oss.qualcomm.com>
- <vqj2pvtjs7dgkr65e4mzt6ezoxgq5gl5kyxbbol3tbtvw6bltx@yhf2x7oix2ss>
+Cc: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: dts: qcom: qcs6490-rb3gen2: Enable uPD720201
+ and GL3590
+Message-ID: <acSZ8AqKC3hdaz2A@baldur>
+References: <20260323-rb3gen2-upd-gl3590-v2-1-073514bf9ed5@oss.qualcomm.com>
+ <hrebrfsc4lcsrpk7thg72f7gdmi3btuiphdwh2ft7algej72xz@cijypbournvw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <vqj2pvtjs7dgkr65e4mzt6ezoxgq5gl5kyxbbol3tbtvw6bltx@yhf2x7oix2ss>
-X-Authority-Analysis: v=2.4 cv=fufRpV4f c=1 sm=1 tr=0 ts=69c49bee cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=kj9zAlcOel0A:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=VCkt8IDonr1v1M0M5vYA:9 a=CjuIK1q_8ugA:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-GUID: RwzGLXRIDPSVGIDqApwrw-dfTGHd7foC
-X-Proofpoint-ORIG-GUID: RwzGLXRIDPSVGIDqApwrw-dfTGHd7foC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI2MDAxNyBTYWx0ZWRfX4OXZ5EMIw2+Y
- HbLKJF9DLrjWemOwyLjWFGoeXBb9DYWHEDjDEpsnnP5d7oeKEjTL6iNY20eLx8wheE1Z2gt70fn
- jVEaaRM7vaizWZ7tTCPXykdTx6/h+h3G9EMHrv18t3o7Fk55ibUEchxmc9ng+N6dal58UYbf8O9
- 75cMgGwA+YS5MgWejOkRU8GfZAXdTe3fIVr2mFIhzenGy/ublKy+4ZEAX8YDjGdNLBdn5Xa00vZ
- ij2mexzDNqht3vUHhLny+LanDtTlrt3T0gw7HNmAhUaWgaaEuBb4xwfrGJrK+Y1Fm92FW2B1twD
- 8417ADma1NDfFKSpwaGF+8ngYV521zM7iAisYQE89Yeq/U4DbGdflBfs+pb9qvV0/PPkgqi3J7f
- n4lj4vQDQGEjzNNWfljkXUp6Qq9ZWPL9DZemTC/ZtRR3vbQI+duUX60YcexxP7oFy+DEagdZZt2
- 8xwpBuutJjgkuC7PmyQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-26_01,2026-03-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
- suspectscore=0 bulkscore=0 phishscore=0 impostorscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603260017
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <hrebrfsc4lcsrpk7thg72f7gdmi3btuiphdwh2ft7algej72xz@cijypbournvw>
 
-On Tue, Mar 24, 2026 at 03:20:15AM +0200, Dmitry Baryshkov wrote:
-> On Sun, Mar 22, 2026 at 11:19:45PM -0700, Jingyi Wang wrote:
-> > From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+On Wed, Mar 25, 2026 at 01:35:46AM +0200, Dmitry Baryshkov wrote:
+> On Mon, Mar 23, 2026 at 09:32:39PM -0500, Bjorn Andersson wrote:
+> > The QCS6490 Rb3Gen2 has a Renesas μPD720201 XHCI controller hanging off
+> > the TC9563 PCIe switch, on this a Genesys Logic GL3590 USB hub provides
+> > two USB Type-A ports and an ASIX AX88179 USB 3.0 Gigabit Ethernet
+> > interface.
 > > 
-> > Add MDSS/MDP/DSI controllers and DSI PHYs for Kaanapali. DP controllers
-> > are not included.
-> 
-> Why?
-
-DP driver is not ready.
-
- 
+> > The Renesas chip is powered by two regulators controlled through PM7250B
+> > GPIOs 1 and 4, and the power/reset pin is pulled down by PM8350C GPIO 4.
+> > The Genesys chip power is always-on, but the reset pin is controlled
+> > through TLMM GPIO 162.
 > > 
-> > Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-> > Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+> > Describe the Renesas chip on the PCIe bus, with supplies and reset, to
+> > allow it to be brought out of reset and discovered. Then describe the
+> > two peers of the USB hub, with its reset GPIO, to allow this to be
+> > brought out of reset.
+> > 
+> > The USB Type-A connectors are not described, as they are in no regard
+> > controlled by the operating system.
+> > 
+> > Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 > > ---
-> >  arch/arm64/boot/dts/qcom/kaanapali.dtsi | 242 +++++++++++++++++++++++++++++++-
-> >  1 file changed, 240 insertions(+), 2 deletions(-)
-> > 
-> > +
-> > +				ports {
-> > +					#address-cells = <1>;
-> > +					#size-cells = <0>;
-> > +
-> > +					port@0 {
-> > +						reg = <0>;
-> > +
-> > +						dpu_intf1_out: endpoint {
-> > +							remote-endpoint = <&mdss_dsi0_in>;
-> > +						};
-> > +					};
-> > +
-> > +					port@1 {
-> > +						reg = <1>;
-> > +
-> > +						dpu_intf2_out: endpoint {
+> > Dependencies has now landed, so this provides USB Type-A and Ethernet
+> > support (when renesas_usb_fw.mem) is present.
 > 
-> Missing DSI1. Please add it back.
-OK, will add it.
+> Note, I initially applied the patch to the bit old -next (20260317) and
+> I ended up with no PCIe host at all (bare -next would still show the
+> PCIe host and the TC9563 bridge).
+> 
 
-Thanks,
-Yuanjie
+Applied the patch to next-20260323 and tested again.
 
-> > +						};
-> > +					};
-> > +
-> > +					port@2 {
-> > +						reg = <2>;
-> > +
-> > +						dpu_intf0_out: endpoint {
-> > +						};
-> > +					};
-> > +				};
-> > +
+> 
+> ANyway, does this actually work for you?
+
+Yes, I booted with pcie_aspm=off I have functional ethernet and I can
+plug/unplug a USB storage device and access the content on this.
+
+> The hub is detected, but the USB bus is empty.
+
+I've disconnected the USB stick again, so here's the output when only
+ethernet is present.
+
+/:  Bus 001.Port 001: Dev 001, Class=root_hub, Driver=xhci-pci-renesas/4p, 480M
+    |__ Port 001: Dev 002, If 0, Class=Hub, Driver=hub/4p, 480M
+/:  Bus 002.Port 001: Dev 001, Class=root_hub, Driver=xhci-pci-renesas/4p, 5000M
+    |__ Port 001: Dev 002, If 0, Class=Hub, Driver=hub/4p, 5000M
+        |__ Port 001: Dev 003, If 0, Class=Vendor Specific Class, Driver=ax88179_178a, 5000M
+
+> I tried plugging in several devices (includin the
+> powered USB hub) and they were completely ignored by the hub.
+> 
+
+The USB stick above was powered by the device, so that part is tested as
+well. (And schematics shows VBUS is always present on the Type-A ports).
+
+Regards,
+Bjorn
+
+> FWIW I tried both the the pcie_aspm=off and w/o it.
+> 
+> > Missing from the RFC/v1 description was the mentioning that unless I
+> > pass "pcie_aspm=off" to the kernel, the Renesas controller fails with:
+> > 
+> >   xhci-pci-renesas 0001:04:00.0: Abort failed to stop command ring: -110
+> 
+> Interesting, it "worked" in my case, having everythign built in into the
+> kernel.
+> 
+> > ---
+> > Changes in v2:
+> > - Waited for dependencies to land.
+> > - Dropped "RFC".
+> > - Link to v1: https://lore.kernel.org/r/20260212-rb3gen2-upd-gl3590-v1-1-18fb04bb32b0@oss.qualcomm.com
+> > ---
+> >  arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 93 ++++++++++++++++++++++++++++
+> >  1 file changed, 93 insertions(+)
+> > 
 > 
 > -- 
 > With best wishes
