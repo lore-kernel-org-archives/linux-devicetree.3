@@ -1,92 +1,269 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from lx20.hoststar.hosting (lx20.hoststar.hosting [168.119.41.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9810939183F;
-	Thu, 26 Mar 2026 16:21:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16E894014B5;
+	Thu, 26 Mar 2026 16:25:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.41.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774542095; cv=none; b=Ec57ryBr0YLDVPw6V/L1YZaKnL17DnWOsZNHyyyS7FA0lenoSOBthNCLrlZ4K8Yb+SYVbZpW3tp8IeCokzdZDrLof3su/dVDEcGjRkrdlGBrPgpZATBi0Xn9sThxwKtErZk/6hHCTvMNlQEFNwkVcGCDsLKPKiw1vbXbv1ZWNA8=
+	t=1774542328; cv=none; b=iThb63eQQngK3CqPm9UNVz3FzU/5Mqb2bMg2ZIBwl/q3TdqrcOXfPyRzSJyTpYLmxUgvuMJpvDNfi0q8+mKSxXcZv+ynJllfE/gSp9sxa/JJW4iBump86tQt7QSTZqTsRE65WtvXjIGNZH05jeZhWHqkqJjvSClWlQBNGx58HtA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774542095; c=relaxed/simple;
-	bh=Hu6yCmKFhpF8KsYaw6JMZq0ywUgmk9NRpJpO3yCBaJI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=dIHucOvmvM/loqTpWmBP4kXfsDOhnoUigglUKTzhjFR3VlPYILRoUc2i1hkZp3Mg8rj8LHUDFwSwt0oS8F63gpEuAhhURxklKW6ue7T4JupaDf0KrZWfyabnnvQmad3MKcy7iyEiCjSnoKA2Dz01jIYMQbp0AcdjLJUyR33VhpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tQ13c5bZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774542328; c=relaxed/simple;
+	bh=qF6gRDc8RYgoX+No8kzyA59zdoU3O7W1kBS00VWobyE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CSCD+BWr0XjjtAggn24eC50TYe//Tvi7Z5Q2M7VB2omAUE5RYbckS5klu6JWnZoCwcXDtE1Vvtr18oJo3MLA/PiaNMvfE2ZKSPvNwWd8sX6KJbqW0qmk5HFIQL/BgiRnir8ozMkuB/mQkH0MpzNYgTav+ZR9kpSJNXo2dj+gA9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at; spf=pass smtp.mailfrom=emfend.at; dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b=cjiUQbwb; arc=none smtp.client-ip=168.119.41.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=emfend.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tQ13c5bZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8F0CC116C6;
-	Thu, 26 Mar 2026 16:21:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774542095;
-	bh=Hu6yCmKFhpF8KsYaw6JMZq0ywUgmk9NRpJpO3yCBaJI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=tQ13c5bZBl9WubaovdBQPBpj60vOnkZowI7G9PEBHe+C4fXORlzAA44AwBIS0yBF2
-	 MXIbiFLpxHSVxO30HpdQ1JKLKEHl39cTj2h2eVyxhCG7DWw/p0TB3bAnUubY1hpQBf
-	 TP7ybBqHTQw2cFOPnu9AUNoq02PQ6ikUOIHEvRkdDtHxSZYnujaDphsfrkt8JlW7rn
-	 DI6IrCYSx9aHWPqll+zhOXAQyUg+hVzczEiehXXjWmp0Pzb3uMjNNt9T2HXxnmcirj
-	 NX4gqjD67tNeHa/VxuQh8G8d8oE6VZor6stse2fgZwt32Xsbu8n69kBVoxENUQovvj
-	 0+s9RaC2Wld/Q==
-From: Mark Brown <broonie@kernel.org>
-To: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, reichl@t-online.de, sravanhome@gmail.com, 
- lgirdwood@gmail.com, Bhargav Joshi <rougueprince47@gmail.com>
-Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, d-gole@ti.com, 
- m-chawdhry@ti.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20260325230559.73527-1-rougueprince47@gmail.com>
-References: <20260325230559.73527-1-rougueprince47@gmail.com>
-Subject: Re: [PATCH v2] regulator: dt-bindings: mps,mp8859: convert to DT
- schema
-Message-Id: <177452613865.64163.9836789020511532055.b4-ty@b4>
-Date: Thu, 26 Mar 2026 11:55:38 +0000
+	dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b="cjiUQbwb"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=emfend.at;
+	 s=mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References
+	:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=4UuansGauhhO4oWioGAsAw03xo3dgsUr/Pr5BJ42cQ4=; b=cjiUQbwbHseDGJ892BMJTMm3hF
+	UUBNuOFN1tRdW4DieTlOHxlZ70eZyXIeUL8K+AnPEWRhORvpAhmGl+yRfZ8GhdLjLc9qQK0nXZLip
+	t+T2pSGDzdUCpav2VnUifFsI18X6XoF66zlJB9kKP0knQ7NAHaov3gyv4sruUl2Xkv3g=;
+Received: from 194-208-226-106.tele.net ([194.208.226.106]:52693 helo=[192.168.0.207])
+	by lx20.hoststar.hosting with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+	(Exim 4.93)
+	(envelope-from <matthias.fend.oss@emfend.at>)
+	id 1w5nWE-00GGZa-AL; Thu, 26 Mar 2026 17:25:15 +0100
+Message-ID: <0faf22b3-e20a-40ce-b628-54d33e123e0d@emfend.at>
+Date: Thu, 26 Mar 2026 17:25:13 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 8/9] media: i2c: ov08d10: add support for reset and
+ power management
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Matthias Fend <matthias.fend@emfend.at>
+Cc: Jimmy Su <jimmy.su@intel.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, bsp-development.geo@leica-geosystems.com
+References: <20260324-ov08d10-v3-0-1e44069cf91e@emfend.at>
+ <20260324-ov08d10-v3-8-1e44069cf91e@emfend.at>
+ <acU0Gky-EldJlx0t@kekkonen.localdomain>
+Content-Language: de-DE
+From: Matthias Fend <matthias.fend.oss@emfend.at>
+In-Reply-To: <acU0Gky-EldJlx0t@kekkonen.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev-ad80c
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1139; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Hu6yCmKFhpF8KsYaw6JMZq0ywUgmk9NRpJpO3yCBaJI=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBpxV0LeZE5mc6CtR6sTPhI/ijBhYTMyFaWapIgq
- uYlb3rf/aSJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCacVdCwAKCRAk1otyXVSH
- 0Pt5B/0WvKUGDVj+Ws4HA5rhap6I/ue8b1HMCHJu2nOsW+u2/d7V5fMXOiW7Nel0iCQAI1ZcqPs
- 4Dh5fSq/IVSQva3PnXevIXokTLHTwYaywvcfRcwyvz38Sht6ptoLqYmiMPTEKjNzs/8OxN1f5EV
- vD+aMqpwHhx7zFaSzBnzwnjXjrBD+krsb1zlI8lqR+XMBntuXr2B2TqvoBUId8JmVhFhO4qacq8
- g76UvNl2/rpAk/JSiM/FDEXcRlnFwFqV+6XblQUhJctnMt2r8hcrY1Xf9KHlAVDR7zU1CktxlmG
- JCquiucR1CyijGnyRQHk+oxC+VPseWDKZNq3ANsppsOgLxVV
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+X-Spam-Score: 
+X-Spam-Bar: 
+X-Spam-Report: 
 
-On Thu, 26 Mar 2026 04:35:59 +0530, Bhargav Joshi wrote:
-> regulator: dt-bindings: mps,mp8859: convert to DT schema
+Hi Sakari,
 
-Applied to
+Am 26.03.2026 um 14:26 schrieb Sakari Ailus:
+> Hi Matthias,
+> 
+> A few more minor comments.
+> 
+> On Tue, Mar 24, 2026 at 11:41:42AM +0100, Matthias Fend wrote:
+>> Add support for the required power supplies as well as the control of an
+>> optional sensor reset.
+>>
+>> Signed-off-by: Matthias Fend <matthias.fend@emfend.at>
+>> ---
+>>   drivers/media/i2c/ov08d10.c | 93 ++++++++++++++++++++++++++++++++++++++++++++-
+>>   1 file changed, 92 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
+>> index ce0fa30a86129302b5dda0b8796e44054fd77c88..19035991e8bb164d4fca5d87ee4551191974e8bb 100644
+>> --- a/drivers/media/i2c/ov08d10.c
+>> +++ b/drivers/media/i2c/ov08d10.c
+>> @@ -8,6 +8,7 @@
+>>   #include <linux/module.h>
+>>   #include <linux/pm_runtime.h>
+>>   #include <linux/regulator/consumer.h>
+>> +#include <linux/reset.h>
+>>   #include <media/v4l2-ctrls.h>
+>>   #include <media/v4l2-device.h>
+>>   #include <media/v4l2-fwnode.h>
+>> @@ -513,9 +514,17 @@ static const char * const ov08d10_test_pattern_menu[] = {
+>>   	"Standard Color Bar",
+>>   };
+>>   
+>> +static const char *const ov08d10_supply_names[] = {
+>> +	"dovdd",	/* Digital I/O power */
+>> +	"avdd",		/* Analog power */
+>> +	"dvdd",		/* Digital core power */
+>> +};
+>> +
+>>   struct ov08d10 {
+>>   	struct device *dev;
+>>   	struct clk *clk;
+>> +	struct reset_control *reset;
+>> +	struct regulator_bulk_data supplies[ARRAY_SIZE(ov08d10_supply_names)];
+>>   
+>>   	struct v4l2_subdev sd;
+>>   	struct media_pad pad;
+>> @@ -1265,6 +1274,56 @@ static const struct v4l2_subdev_internal_ops ov08d10_internal_ops = {
+>>   	.open = ov08d10_open,
+>>   };
+>>   
+>> +static int ov08d10_power_off(struct device *dev)
+>> +{
+>> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+>> +	struct ov08d10 *ov08d10 = to_ov08d10(sd);
+>> +
+>> +	reset_control_assert(ov08d10->reset);
+>> +
+>> +	regulator_bulk_disable(ARRAY_SIZE(ov08d10->supplies),
+>> +			       ov08d10->supplies);
+>> +
+>> +	clk_disable_unprepare(ov08d10->clk);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int ov08d10_power_on(struct device *dev)
+>> +{
+>> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+>> +	struct ov08d10 *ov08d10 = to_ov08d10(sd);
+>> +	int ret;
+>> +
+>> +	ret = regulator_bulk_enable(ARRAY_SIZE(ov08d10->supplies),
+>> +				    ov08d10->supplies);
+>> +	if (ret < 0) {
+>> +		dev_err(dev, "failed to enable regulators: %d\n", ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	ret = clk_prepare_enable(ov08d10->clk);
+>> +	if (ret < 0) {
+>> +		regulator_bulk_disable(ARRAY_SIZE(ov08d10->supplies),
+>> +				       ov08d10->supplies);
+>> +
+>> +		dev_err(dev, "failed to enable imaging clock: %d\n", ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	if (ov08d10->reset) {
+>> +		/* Delay from DVDD stable to sensor XSHUTDN pull up: 5ms */
+>> +		fsleep(5 * USEC_PER_MSEC);
+>> +
+>> +		reset_control_deassert(ov08d10->reset);
+>> +
+>> +		/* Delay from XSHUTDN pull up to SCCB start: 8ms */
+>> +		fsleep(8 * USEC_PER_MSEC);
+> 
+> Don't you need the fsleep()'s (or at least the latter one) even if you have
+> no reset GPIO?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.1
+Good point. I couldn't find any explicit information in the datasheet 
+about operating without a hardware reset.
 
-Thanks!
+While I didn't encounter any problems during my tests without a reset, 
+that's probably just coincidence, and I think it's a good idea to wait 
+for the delay you suggested in any case.
 
-[1/1] regulator: dt-bindings: mps,mp8859: convert to DT schema
-      https://git.kernel.org/broonie/regulator/c/32a4cd3d451d
+> 
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>   static int ov08d10_identify_module(struct ov08d10 *ov08d10)
+>>   {
+>>   	struct i2c_client *client = v4l2_get_subdevdata(&ov08d10->sd);
+>> @@ -1371,6 +1430,10 @@ static void ov08d10_remove(struct i2c_client *client)
+>>   	media_entity_cleanup(&sd->entity);
+>>   	v4l2_ctrl_handler_free(sd->ctrl_handler);
+>>   	pm_runtime_disable(ov08d10->dev);
+>> +	if (!pm_runtime_status_suspended(ov08d10->dev)) {
+>> +		ov08d10_power_off(ov08d10->dev);
+>> +		pm_runtime_set_suspended(ov08d10->dev);
+>> +	}
+>>   	mutex_destroy(&ov08d10->mutex);
+>>   }
+>>   
+>> @@ -1378,6 +1441,7 @@ static int ov08d10_probe(struct i2c_client *client)
+>>   {
+>>   	struct ov08d10 *ov08d10;
+>>   	unsigned long freq;
+>> +	unsigned int i;
+>>   	int ret;
+>>   
+>>   	ov08d10 = devm_kzalloc(&client->dev, sizeof(*ov08d10), GFP_KERNEL);
+>> @@ -1403,12 +1467,32 @@ static int ov08d10_probe(struct i2c_client *client)
+>>   		return ret;
+>>   	}
+>>   
+>> +	ov08d10->reset = devm_reset_control_get_optional_exclusive(ov08d10->dev, NULL);
+> 
+> This is a bit long.
+> 
+> I'll take the set now but please post a fix on top.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+I just posted a fixup. I hope it was as you intended.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Thanks
+  ~Matthias
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+> 
+>> +	if (IS_ERR(ov08d10->reset))
+>> +		return dev_err_probe(ov08d10->dev, PTR_ERR(ov08d10->reset),
+>> +				     "failed to get reset\n");
+>> +	reset_control_assert(ov08d10->reset);
+>> +
+>> +	for (i = 0; i < ARRAY_SIZE(ov08d10_supply_names); i++)
+>> +		ov08d10->supplies[i].supply = ov08d10_supply_names[i];
+>> +
+>> +	ret = devm_regulator_bulk_get(ov08d10->dev,
+>> +				      ARRAY_SIZE(ov08d10->supplies),
+>> +				      ov08d10->supplies);
+>> +	if (ret)
+>> +		return dev_err_probe(ov08d10->dev, ret,
+>> +				     "failed to get regulators\n");
+>> +
+>>   	v4l2_i2c_subdev_init(&ov08d10->sd, client, &ov08d10_subdev_ops);
+>>   
+>> +	ret = ov08d10_power_on(ov08d10->dev);
+>> +	if (ret)
+>> +		return dev_err_probe(ov08d10->dev, ret, "failed to power on\n");
+>> +
+>>   	ret = ov08d10_identify_module(ov08d10);
+>>   	if (ret) {
+>>   		dev_err(ov08d10->dev, "failed to find sensor: %d\n", ret);
+>> -		return ret;
+>> +		goto probe_error_power_off;
+>>   	}
+>>   
+>>   	mutex_init(&ov08d10->mutex);
+>> @@ -1452,9 +1536,15 @@ static int ov08d10_probe(struct i2c_client *client)
+>>   	v4l2_ctrl_handler_free(ov08d10->sd.ctrl_handler);
+>>   	mutex_destroy(&ov08d10->mutex);
+>>   
+>> +probe_error_power_off:
+>> +	ov08d10_power_off(ov08d10->dev);
+>> +
+>>   	return ret;
+>>   }
+>>   
+>> +static DEFINE_RUNTIME_DEV_PM_OPS(ov08d10_pm_ops,
+>> +				 ov08d10_power_off, ov08d10_power_on, NULL);
+>> +
+>>   #ifdef CONFIG_ACPI
+>>   static const struct acpi_device_id ov08d10_acpi_ids[] = {
+>>   	{ "OVTI08D1" },
+>> @@ -1473,6 +1563,7 @@ MODULE_DEVICE_TABLE(of, ov08d10_of_match);
+>>   static struct i2c_driver ov08d10_i2c_driver = {
+>>   	.driver = {
+>>   		.name = "ov08d10",
+>> +		.pm = pm_ptr(&ov08d10_pm_ops),
+>>   		.acpi_match_table = ACPI_PTR(ov08d10_acpi_ids),
+>>   		.of_match_table = ov08d10_of_match,
+>>   	},
+>>
+> 
 
