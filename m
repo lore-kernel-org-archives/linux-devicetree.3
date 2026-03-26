@@ -1,160 +1,133 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012014.outbound.protection.outlook.com [52.101.66.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E097177F39;
-	Thu, 26 Mar 2026 02:54:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774493658; cv=fail; b=gzAr78pTvUz234K6dDKKHcdkDqf40/oAnG8l3Y7Ejb7XSgUGtHyhkld4p5MLvOaFjnEhrE0IqAuf3quwRsS1tkL7FNbo26vUATje9ZEZPLwbvm5NSIeYIhFF+mzRyFtf7BbrRZLm+f1yGCLGWlAJ0Xsc/IotF90iSN2ivj0wrDo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774493658; c=relaxed/simple;
-	bh=AMlEhtWq3IBO8QmqXM9rszXXpQ+UcLWAO//mc0WOoEM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=RRuiNy9s3v31JU+72ZF2CVZz5YBCDLhjOPLdUhYshkXqAIFV7hRiL5Wfe+cJZL5qv2tFrBO1Ar/dB7XhWF8jDBQIpJGQoX7nNd9zzyjba1RIaSs0RiQIsLvi+Q30FsS0EwHGLQKLbPZLoJ7q1fVuqsyLBdlGbiZzAXygID37JQU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=M/rnnKbx; arc=fail smtp.client-ip=52.101.66.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4263B3033E3;
+	Thu, 26 Mar 2026 02:59:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774493989; cv=none; b=pmNWGnd8mds5h36SB1PUF+zcIpHnKHf4jqRo0l/Wlqdo93RKo+b+XNmxF6zHGc9UTHpUW2nt8Z7YkNV9U1RXuipFyQOQ2+1E/yG6qes/SQi4wWDx9MnyAKg09nrgn5g7s4l4A9zlovnkicrwI1QdC/0T606sLfJfbxGm5XO7cjA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774493989; c=relaxed/simple;
+	bh=/7vcTvm23g1uzQvse1d2+r5TcQXE4AwAkdMx223kSz4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Odcm5oKQV0I4Mj3uLXAEPMWNZ52ezVp6neyA7ViUOY+v7oqC8w1R9K72xqlIm2tPnVIadIPPPrkBTXbvKUofrUBDARKVBabIgwyfC1ev4nU7ht3CDPBsf0RYQoiJatvPD0jqDOesn3Gtzp4iEua3oPoaFxh7QgA+p/Kgqco8d+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fhTuGgBO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="M/rnnKbx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I3cBJ6zEEs4n9jyzTHVfHjFTPPnj0oE7TDfkh6h2iOMVFCcjwePFllZUZArPusN6qLpKIM9mVYe6ZSglUtZS+NeOKG9sTmRi7MrFPydCQh1+tQ0IKLI4YLYMwkoRcCYh0SW/5WijrCkueQbxCPl93THdWe0M+m++FWDsleCDPNmhfIiRGfXM5aKDz9eAvB7LrGsfJqjq7/E86KmmEG8pqen2JB5Iv5HC9frkV6Hp1UatkXh0qLkf81m4CbikKf//lQyxGkJRZ/WvDnsq01YNeIpECq7hyjaDiWc1P/gJxmHtXduoryOOddOpcha3ExQIyKBvfAaKElB2zXKR8R7n2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AMlEhtWq3IBO8QmqXM9rszXXpQ+UcLWAO//mc0WOoEM=;
- b=A+pZL28AXNV6hc/PZKrJoosrxKocpI2BpJtvbNrXkIWmBr6EgNOc8XxwKRrStBKqToTSJBR9ofcEUtJ7i3YLqx34MLeZrPPE2ncnen7lXrRAIsE6IKH6hsDbKku0fmp3Fmqhx8tH2JBYQoyNScjaOlPZxaIMa0RwLeq5yHkp3CAzLJzhaPY1WU9XikFcFF98vVPzkPxW47EaBFFuiPfjOPpXT2mzULr9orVOnQ0BA/rMStRtq63p0TLBrybOmoHaQocw2p7UXG6LlieZ7dZqcI2Uu/qQFL1QBz0HNl6UG8AEPJcHxCRkIGMyaAs/r6DUjxEMM68bPGiK1nGVKYeM7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AMlEhtWq3IBO8QmqXM9rszXXpQ+UcLWAO//mc0WOoEM=;
- b=M/rnnKbxFQOA9klGmI1wCOXAQaSamR0SBnnJtSPenyjh71Sp8p6WYq1NIJYGp6xv20sEKYkFjsFf+UkV5XV5V+8C++5M0HM58dGzR3tOSOAaHragJWWeMXn3sDysFl7wh0Vku95qiT5MSLn3L/M3aHGSMlVEDBBmLzeoeS/i2xvZdgcSK/n18bJwMYafPtd/JEJKYg3PmAK3zgCNIQZJf0C+buI+Xu7p9p8Hx8RaMXLsYx+EH89DXUyoOBQeTbcEPI/YLDRiWuppGHkeCnaWUepnXg60L70fq2Zh6vn+hMA/crsHVjJYf12vJzjSdnKVU5Q0g3Ip8qbM3MHgyBWE5Q==
-Received: from AM9PR04MB8353.eurprd04.prod.outlook.com (2603:10a6:20b:3ef::22)
- by AMBPR04MB12614.eurprd04.prod.outlook.com (2603:10a6:20b:778::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
- 2026 02:54:14 +0000
-Received: from AM9PR04MB8353.eurprd04.prod.outlook.com
- ([fe80::46ae:f774:f04c:a1bc]) by AM9PR04MB8353.eurprd04.prod.outlook.com
- ([fe80::46ae:f774:f04c:a1bc%5]) with mapi id 15.20.9723.030; Thu, 26 Mar 2026
- 02:54:14 +0000
-From: Chancel Liu <chancel.liu@nxp.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "broonie@kernel.org"
-	<broonie@kernel.org>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>, "shengjiu.wang@gmail.com"
-	<shengjiu.wang@gmail.com>, "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
-	"kernel@pengutronix.de" <kernel@pengutronix.de>, "festevam@gmail.com"
-	<festevam@gmail.com>, "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: Re: [PATCH v2] ASoC: dt-bindings: imx-card: Add dsp_a DAI format
-Thread-Topic: Re: [PATCH v2] ASoC: dt-bindings: imx-card: Add dsp_a DAI format
-Thread-Index: AQHcvMvU27HyemfnC0iHqCSNhDkt8g==
-Date: Thu, 26 Mar 2026 02:54:14 +0000
-Message-ID:
- <AM9PR04MB8353E922E93AFA9F513BEA6FE356A@AM9PR04MB8353.eurprd04.prod.outlook.com>
-References: <20260310063522.362545-1-chancel.liu@nxp.com>
- <20260311-brave-acoustic-mongrel-b3978d@quoll>
- <AM9PR04MB83531E00C21A5A2314A38F9AE349A@AM9PR04MB8353.eurprd04.prod.outlook.com>
- <83024a54-74dd-43b0-8c8c-0c23820bb5e0@kernel.org>
-In-Reply-To: <83024a54-74dd-43b0-8c8c-0c23820bb5e0@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM9PR04MB8353:EE_|AMBPR04MB12614:EE_
-x-ms-office365-filtering-correlation-id: 1d4482b3-9964-4a30-860b-08de8ae2f6d5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|7416014|19092799006|366016|38070700021|18002099003|56012099003|22082099003;
-x-microsoft-antispam-message-info:
- VHtbZ7KlYHvuAWAsvA4BmIqS9z5js+yk6GAwrGKwEauLAvN1tUMYnzTdMQ86I2Bj9Rda+mJjsnbpKwVnFkk6sJuuRxFxnCAI7DnLi+uRM2rafIrpnGuuh+QN5wwGiLiH6PEW1Pz3VP9SKkhM05Qx8vX31SXtvfuH2K0Dg9XKEwf4f1K68wzBXj7+Tj/atwjs7IHc5Kp5uKNfxn5MHgkqnpnjfE9VMP2nhX4Q9UdkVBPSg8naNzkiUj+2edPWue/SH+WXMJsQRCZ5uQ6lYALnK5HSd4ro8EceYqtuw1LpqPHcQMxySGXJUcRKTZ6+mdZjrUWDc16/CEGMkdDh8kP/guEEwooJwJeXemTXvdb/VjpCdWa+MjBkygXMnhNfapLLwWZEb1ZcR5ZkcWccwKIrAyPkrT4wqG4erBR8edo+tBArI9w3PFuCZGK2yCPWkd5tYlmwuC9+unofPGvKWIU8BgJQ0eFmHZoY7wxinbWpIFerC8ZwGV3PEPj0Ox5WClT2qcDHa5cQYOglro5OmqLRnilC5LT7chVEJP72Z2Fn4+9mmxEB/P+u/ycHPN9NrGgXx7OcdYMtAEwZdCG3cxKoX5dPvKVIYc2g7xi+09MfjLhgTTebaZQrYNIRRelZnI/bpwzodlUKf6BZ3UxpF7+X6H/Tb583bKMeBnlmsEO3dn1b7UzhnZ11GkSiss8NbxWvdNF4EcclH5ShMNjXSLrtAlDS4PgtB1NDZhXhCwTXKTHDE0kRyGAYraM15yI7V+WZURYOXkTuyw2qCcLTQEP2AIgXLzYSY8QNC161c1MPclM=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8353.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(19092799006)(366016)(38070700021)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?TBq2gVHSlL8pzMlvk5oPLMvrFZxCVQ87uPwLUJ6q043fw1/LHuzZymNNPWV3?=
- =?us-ascii?Q?i0u4i8Vp3VN2PPskRT1L1FW8hHQygjwimWcUzlkm+bLPGQvO3IePVxFuYQra?=
- =?us-ascii?Q?bBaIfqhZOJ+sorCG7Ba373bNWbifksTVu/EmndCW78L4vSy1/0sAFiL40FsM?=
- =?us-ascii?Q?ZHAdbS2MHCTGxQiGlX6WbqlgomOERTSDr25M1Zp2Ifs920lFnabfK4ifhWo6?=
- =?us-ascii?Q?u3qZTUq+dQKRhWQdVdILC+4FIkt8rwW5JaPGbYlblB7u/N7Nz9AsR+iOmMCn?=
- =?us-ascii?Q?R1TIMn6XsrrwKnBUbOU7RV6tf82Wba9Nd1N5TTt4EPaHH/LKIsMtJQRpASJw?=
- =?us-ascii?Q?UuvRQikqwn3jtvqNSuahd3Yq9HXjrBfSU/tNg4WsIVGARbDXsw51AYRqGmHO?=
- =?us-ascii?Q?IvsfJTwWcJWsmvjmBNDmKw+LXiz4gA0wKQX9RrrhXAJn4XYoM2eYGA8099YS?=
- =?us-ascii?Q?xsBpgF5YTfzcVleKTtZ1TNqch9bUAYAJ7+VnGnVWqgt+03FnerHU37+kS+oK?=
- =?us-ascii?Q?DDKlBUgbZR7NSNcZvgDS7/uBIeHopGgl2hK+G02P5bGbdKMHGBNFL86sEAbr?=
- =?us-ascii?Q?0pzK260b6/irB23yU65tbDikdMm7PwexHaLm/vLBuGVexYu4Qbqllc5czPCB?=
- =?us-ascii?Q?glNxaRWhRa+1YPZ5YHTB4s/kCDKhggzBuQMK7eNwxEWH8g3tnvUzskAarzt9?=
- =?us-ascii?Q?z44V8s953TONE9wZC8+mJRzYXxdIMBb03xpWYtWxOz6n6WYdhSyen2VYGGcj?=
- =?us-ascii?Q?rQuQDYa+9naK2Aj3EE2wCtb4cAOinHliGLtPKPnFStz7aderBt1AZyRToE9O?=
- =?us-ascii?Q?uPsbQJwnS9bKAYvRXDMLpE2hjKbJ/Pfj+hlKH+HbPLOPv8WkuqajwnAkoTz0?=
- =?us-ascii?Q?TadgbOFTcOyMGJ2HlFMTc/S5JCSuVNQ5um7OKKWH5JVE1YY2jT8jE6Uns3nK?=
- =?us-ascii?Q?BcOhTKQMfgOaFsYEcz8g+AzoDAYBH/mPzCqP6t4Tk9goN2EGxvgoP1tqXRcZ?=
- =?us-ascii?Q?E4SJ1wwBgAkLLqKCCIqpQtspZ4jMe/JslpSqwBoH1LflGxfQPxvTwI15f4g7?=
- =?us-ascii?Q?5fp80CYekhiIXsGoLV06lt6KeD5XLcpbKlpHs6jUV8tBCb2FaHDFBqvebs7z?=
- =?us-ascii?Q?Q7ZwchWHdRwzhDtKj1OTEYS/W1mLKZxjZ6bZpn+T7em82G/kjBWoKXbxfVnn?=
- =?us-ascii?Q?P61uWnBQKeiwMeSmlANcVy+xQo8qVoPcaCwReqjSlS9zcnuf5jKTwbIwcGVF?=
- =?us-ascii?Q?7rIE9wTKuwMIWSL4d8hrqXtIG9ZccSj8qIv98KaMtlzAMQgaOo+7HbxN3Gqd?=
- =?us-ascii?Q?9VeNIoiVdQv4i1LyQgiAdExosqxgG/ohIQLr4rObXCu9FG6y499eYUMD40iV?=
- =?us-ascii?Q?hymJGeY4H7KxfeJ14EBrS1HyT9HWMLxwdYoZFHzLOXwFAKgvx/iEz5q1bnY5?=
- =?us-ascii?Q?6BeZ/1qgkySVFjqEOtSXF/h8mTJEdHEuJVRAaSX2C0EzjokOjEcKAX5lWMhm?=
- =?us-ascii?Q?5/JyGJ4dCzFXriwvXPv4joy7y8dBsO6gwB8JeWU6G51z7qYBXlU9Eqq5GrJn?=
- =?us-ascii?Q?eHDa2df6eiX0CBLyL7VDOJzkHMVvqQVtKORPQmt/bQsDJlEqvrrlNLDFrucD?=
- =?us-ascii?Q?tv4mCq5dWMYi9LFZPtzLAODZnP4vecZ0K62c/pLFK1tQbRgXubrFbWPndZ5q?=
- =?us-ascii?Q?3rDYywAUFXN0/LYxBmPcr/hjmSiBrNaUspBsY6v5zy9yDK19?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fhTuGgBO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1B4AC4CEF7;
+	Thu, 26 Mar 2026 02:59:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774493988;
+	bh=/7vcTvm23g1uzQvse1d2+r5TcQXE4AwAkdMx223kSz4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=fhTuGgBOeSa05mZKyQTT2DBngfn17d4CZ6+lZmxIf5TyDMc7Wo3ORWZ3uJvamXAhq
+	 v2+8tHJdD+HWLSuDMWn0RTKq3japzL+0f9p+DM1JQbCku3i4aTjdS1kQNu5WfSHeXc
+	 KXLuieI0vsEjvTO9CjzDdX9c7hcb/f3kbVwmMpjNgejSbIStdzgYQrPGJA5En7PhsE
+	 r1NEztKJgS17yS6jk5xeT36q5zFvr71/O95RyEkZ24RvlIflDgiqCBU6O8I5apUwqU
+	 aZccePJNO2YEgVcdQriuiTCjLmIcCf5uC27fw+LAI/vhSleexBhd+RIDuvlZv2p4wQ
+	 LZgd0FUXapH5w==
+Date: Wed, 25 Mar 2026 21:59:44 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Umang Chheda <umang.chheda@oss.qualcomm.com>, konradybcio@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	richardcochran@gmail.com, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] arm64: dts: qcom:
+ qcs6490-rb3gen2-industrial-mezzanine: Add model string
+Message-ID: <acSfUEVueSR5Ikq7@baldur>
+References: <20260309121936.1289615-1-umang.chheda@oss.qualcomm.com>
+ <rdglzhmncexfcvec5hyenj7jx3m5hsphjlxsaeq2zhi4z4arml@bjeqghbbaoa2>
+ <64f43d77-7c09-453e-8d7b-b4e0e5f05598@oss.qualcomm.com>
+ <gmeo7kiryfh3qxspzidpwknxgmxqeqr6on2glrjj4tioh6apv5@p6rxe3jw2rkm>
+ <0a44b9ea-9f2d-496e-8915-45186433dc1e@oss.qualcomm.com>
+ <srndqldc5c3hr3vozvndl4zt66jb47b3iwyjghiqcjg2uoespg@yxg2hvugjrwe>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8353.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d4482b3-9964-4a30-860b-08de8ae2f6d5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Mar 2026 02:54:14.1355
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EZDlQEnEWc1R0GHDAH3Kaqs+x/5JgxLGIw70/OzFUmH/q7fqzcYYDppHxEssVx0MUbi0gG1x50XGDTq2uip/LA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB12614
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <srndqldc5c3hr3vozvndl4zt66jb47b3iwyjghiqcjg2uoespg@yxg2hvugjrwe>
 
-> >>> The imx-card machine driver originally supported only codecs
-> >>> operating in i2s or dsp_b formats. This machine driver can support
-> >>> CS42448 codec and this codec typically uses dsp_a for its TDM
-> >>> interface. Therefore,
-> >>
-> >> And what about other formats, which was asked last time?
-> >>
-> >
-> > The imx-card machine driver currently implements support only for
-> > codecs with i2s and dsp_b format. The newly added CS42448 codec
-> > requires dsp_a and that is why this patch adds dsp_a only. No other
-> > formats are used or supported by the existing hardware covered by this
->=20
-> First sentence says about driver, here you speak about hardware, so feels=
- like
-> you are mixing these.
->=20
-> Best regards,
-> Krzysztof
+On Mon, Mar 23, 2026 at 09:06:54PM +0200, Dmitry Baryshkov wrote:
+> On Mon, Mar 23, 2026 at 10:33:45PM +0530, Umang Chheda wrote:
+> > Hello Dmitry,
+> > 
+> > On 3/13/2026 11:23 PM, Dmitry Baryshkov wrote:
+> > > On Tue, Mar 10, 2026 at 02:09:58PM +0530, Umang Chheda wrote:
+> > >> Hello Dmitry,
+> > >>
+> > >> On 3/10/2026 2:07 AM, Dmitry Baryshkov wrote:
+> > >>> On Mon, Mar 09, 2026 at 05:49:35PM +0530, Umang Chheda wrote:
+> > >>>> The RB3 Gen2 Industrial mezzanine DT file lacks a "model" property,
+> > >>>> resulting in the hardware always being reported as the "Robotics RB3gen2".
+> > >>>> This prevents applications and user-space tooling from distinguishing
+> > >>>> the Industrial mezzanine Kit from other RB3Gen2 variants.
+> > >>>>
+> > >>>> To ensure consistent identification across all RB3 Gen2 mezzanines,
+> > >>>> add the appropriate model string.
+> > >>>>
+> > >>>> Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
+> > >>>> ---
+> > >>>>  .../boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso   | 4 ++++
+> > >>>>  1 file changed, 4 insertions(+)
+> > >>>>
+> > >>>> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
+> > >>>> index 619a42b5ef48..7d6e425dae89 100644
+> > >>>> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
+> > >>>> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
+> > >>>> @@ -8,6 +8,10 @@
+> > >>>>  #include <dt-bindings/clock/qcom,gcc-sc7280.h>
+> > >>>>  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+> > >>>>
+> > >>>> +&{/} {
+> > >>>> +	model = "Qualcomm Technologies, Inc. QCS6490 RB3gen2 Industrial Mezzanine";
+> > >>> So, what happens if I combine Industrial and Vision mezzanines?
+> > >> H/W does not support to connect both Industrial and vision mezzanine at same time - only single mezzanine can be
+> > >>
+> > >> connected at a given point in time - hence probably the above scenario would never occur.
+> > > Industrial mezzanine has all LS and HS connectors, so it is possible to
+> > > stack Vision mezz on top of the industrial one.
+> > 
+> > I re-checked - from f/w side as well multiple DTSO selection is not supported - and at a single point in time only single mezz can be selected
+> 
+> What does this have to do with the firmware? From the Linux build system
+> point of view we are combining the overlay into a single
+> qcs6490-rb3gen2-industrial-mezzanine.dtb file.
+> 
+> Nothing prevents me from writing:
+> 
+> qcs6490-rb3gen2-multi-mezzanine-dtbs := qcs6490-rb3gen2.dtb \
+> 		qcs6490-rb3gen2-industrial-mezzanine.dtbo \
+> 		qcs6490-rb3gen2-vision-mezzanine.dtbo
+> dtb-$(CONFIG_ARCH_QCOM)        += qcs6490-rb3gen2-multi-mezzanine.dtb
+> 
+> > considering above point - is it okay to have this patch ? I believe it would be good to have model string in the DTSO file added.
+> 
+> No. A _mezzanine_ can not be a device model. It is by definition
+> something that you plug into the main device. Maybe creating something
+> new, a new kit.
+> 
+> Moreover, the model name is not an ABI, we should not be using it for
+> device identification.
+> 
 
-You're right, I should not mention the driver. What I meant is that the
-existing i.MX audio sound card described by this binding use codecs
-that operate in i2s or dsp_b formats.
+I do agree.
 
-Regards,=20
-Chancel Liu
+That said, as we (others) discussed during LPC, it would be very useful
+for bug reporting purposes to know what overlays has been applied - or
+in general what "version" of the dtb we're running the system from.
+
+I don't think "model" is what we're looking for there though.
+
+Regards,
+Bjorn
+
+> > Kindly share your views
+> 
+> -- 
+> With best wishes
+> Dmitry
