@@ -1,79 +1,76 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB5253BED0F
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:02:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085423B9D9A
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:03:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774515766; cv=none; b=DNfQraEEPhy9WJ6xNkYfro8ykprxJsNvxN3Wkp25m4/JjuTWaIJgNJ8h+Bl7EFN6WGUSsLX79AujU/95U2bKCOWB9UCzMkmj8BJkZGQbQd1iOhwJT3FtDIY7pZlyMP6f5eXhOukVAs1DpwuSR3/Wx7KZ9Cfzb/lgmYgtwUns31k=
+	t=1774515782; cv=none; b=a9liXnPYq0pUBYGgVrr4RLuU3Cc7WfNlDgdiwM7Px1ClZtviOb9KVlX5pdJ0zmo+S4gWxckmE6kruXGCx/K4hl362QR4/lpfYN6boj8YER3oKGCRCQ0HRv2zF18gEno/vK1pQAjA/AyPw+Hu1J05PZw+tY6jvUEE9bWqwI69eLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774515766; c=relaxed/simple;
-	bh=kC4f8Hr+laqsiqLRNBlsElLNUuG/yDm7JSOtydy3Fyw=;
+	s=arc-20240116; t=1774515782; c=relaxed/simple;
+	bh=lm1k8et7Yv8mQrSDauzS0HhW87V0qbQsppOUSVqQiYU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=rnJTtqr7U6QbjFqnA+RAhqWLCd3TYc1Ewt0lVtjg5tOKbvkOPsXj+l4nRSB40+Dp198arZNdJbfNpnIhS/XCxg32vLUo3zGLCa9hOneZLH0wowWMlY++9ZPxVnle1+6R53QZ86Wf6z/4lyn4PmID5CNzjzqQCIQBaSpbkroLCV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nB79GShY; arc=none smtp.client-ip=209.85.128.47
+	 MIME-Version:Content-Type; b=JansVSeYdL1y1yG0hxl28u706k9crHAHG4v3BEXmrF9CrGEeIYxBb//DRG62pjU6R5aPS2dJPgavwefHm2Gnuz4ZfMvoscZKjYd2I2l9MeFyIslIcNpcxHCAGuVeUJ35g/WsW8pdx4l6gW12MChec3OaB7XO5gwSez01QOLZM4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=OCx91vxC; arc=none smtp.client-ip=209.85.221.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nB79GShY"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-486fb14227cso8652925e9.3
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:02:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="OCx91vxC"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-43b41b545d9so681205f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:03:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774515763; x=1775120563; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1774515779; x=1775120579; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:date:message-id:subject
          :references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SO+1oE17hDIKR5mphj28NGtnxtIqXY3QHBAqdZU43PI=;
-        b=nB79GShY8+M4ApzQ/gIYax9KrLl41Tman17FIQm/6ogi0mFEBGcNY8qsyB7zzvWivD
-         sCGahLw05cPItJfjqoKhy/sKmVkKF9RRflqlfd8rUkNmhdgBylL8w9Qz9PILwmXCKH6p
-         0gimI6wdama65I72t1Z6Sah0yWet3LL5xPQhvVaHQOt3B3FoaBmLDcle8zQ1zMictcik
-         z0aQZtqfsJcB+DyuPfxLv740322QGkuKEhX2h9fqNC1i8wydS5l0uEGn6tg6o8iEOqPn
-         EZIV3tNFoPGWGdQR3bG9SLOZ3WC3Qz7XVF3RgO0RqlI88hWLcqMPhnI3LuXUisA4btZ4
-         p/2Q==
+        bh=chfQa56N2VjG2v6F2IbXFU05HV/0k0eqizo1MsT+xd0=;
+        b=OCx91vxCK8bHs5H5K1efL00h8yVqYrpt5MZfF3OFmVd52DTX4maQLGRPGw3OgcpBkC
+         kJRnK6OYmhzbRc2DQtXK0TH2PSd+/Y1FCLCy+uJuo8+jjM0YYZStNRowF2dyypkLwD2P
+         MOtix3ExoQHhQQUqn7Le+gy9sYE0MSSS4mCqBrcU+0+rFn4NbPK/ktOv8mjR/LGzflfx
+         nRxnkPoQkzT2W4YuUZiMz9n4/LFt35tgXn4dB9eKVRjDfNKf8n2j8zPWs51Oh4b7n2cW
+         NeFAe02doaPAxGC1TaUUYGoKqxpBmEAEMNWQtxFUDCtzKmk0d0tcG3fugDaW5raTBE4N
+         bDUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774515763; x=1775120563;
+        d=1e100.net; s=20251104; t=1774515779; x=1775120579;
         h=content-transfer-encoding:mime-version:date:message-id:subject
          :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=SO+1oE17hDIKR5mphj28NGtnxtIqXY3QHBAqdZU43PI=;
-        b=qldDs4XVaPRb3VJe+9M3rtvLx/OHpEGUNXvqCWE+Vrt0S7uKnQO7lTQh5JnS4WwFuC
-         mw41NVM0ZiyS9JVKOx2wWW5iao4j9xkLnMPgDJgagfYjQDksfXWdpuGnBML/uEV3iV2Q
-         K39yQPZgcWYpyMXYpH8ICtY+qoIsTL3G1W5Fa7WP6PSAjo3DF3Lg6nLXHEjLuV3mmVHc
-         WAmmVb44Z4ZROXVyc//RXWYu6Wl8ZebvCnDgLh+cGlZStJk+c4CHYlxk0FHBevMXxw/k
-         vVdpjIXO04sV8OadmFMnNpDrABmcuaZVP91pjBMs5ezG0+AnwU1fIKfBSM8ekrQbgtDb
-         K/sg==
-X-Gm-Message-State: AOJu0YwbsSuN+2UISj8DRybIJ/II16ElOKc1Flpd+GJH3ZEHkTph2fnv
-	Fw5z22LGCM6uNbmXf7YhbA0efUFgOo0+Z3IdxsTtGfkFsoeenw5sxwobNxR8aB3QIhk=
-X-Gm-Gg: ATEYQzx0vDfB3IIvW87Anu3S6BfBraWiLd+z8aYnpkCzAxzV1onfEq7re350li1Hu8j
-	Qp/AQ3aBEACYT3Kuwm80eJ6QrTS4X+/rLCDAEScjGltsvHIVLIYFFDlqHLUh+ADmodlcLWrOIG6
-	Luv9IgC1kgiGoG8pBxk1iEiSMCaJlXST86zm870madKr2/Sox2P3N/TkkQEOg/VP3MG/CTRfVFh
-	DesJCYoHR22kF078vvynBAjFZX9rgtue0xsDGhA/RMk7Wwe/bRNUVZbMeijFOIA7giUw5yD5ZCV
-	KxgoosqsUzcneXSRfle2f5UlT5McsJLN5aOaVSq4nF66HJNa5PbpI99HeP1HlBg8v633JcQ0G6h
-	tLjIR1WKO8g/DdS0ojiOZ+Hi8jJNaV4AP2TZXtBeGJx2P1dy+8jN1CLWNaSfNFpfXcXCcuKgXeP
-	Xu3r5WTpJ6ce+t2EbPU7Y1iwLN4dhbR9lhOHyurWbLQ4k4
-X-Received: by 2002:a05:600c:4ecb:b0:487:1520:d107 with SMTP id 5b1f17b1804b1-487160aa232mr97071565e9.31.1774515763192;
-        Thu, 26 Mar 2026 02:02:43 -0700 (PDT)
+        bh=chfQa56N2VjG2v6F2IbXFU05HV/0k0eqizo1MsT+xd0=;
+        b=RXXhAkrNob6fJhz1851kxXH+kTieiyIAi0GN3k7LRr3Zx3z5WMVR9rQ3Y9shzm/KC0
+         OKIeXWaAejIibN24VAzDjhlry4GLnHhZ98jEYhf1Z9H1pWINAZbSuodOdKWb1xwiK/0R
+         VkrDaI0HOlLOrWXMdBukR6jqBGeJs/MBtodiT2LS/hT1uTKhrtyVQuvrWjYGfO1/tZRv
+         K0iLXBosbRNq5uv1Huynj/Xaiz0BYeaeRlt9a64qMRQMwScRYj5eOWTUcSF8EEDeUzt6
+         IieY6zS3K/bHfbSdKgcvj+IrRbpicFuRGW5sgHEqEzuez+dD428av+lTzxp3mhk38oWK
+         hwJg==
+X-Forwarded-Encrypted: i=1; AJvYcCV9LnapbOi8RQKCbFgFV7LMcEVLtvppzNzYX3Mdp4m11zBVh3bJKr/i1IJ8PJkVE0PJkpSfzkLhtJT8@vger.kernel.org
+X-Gm-Message-State: AOJu0YwT7RqmonrxtLW11LB4yqjA3/5Ths4JzSxH1qGRUMEyXKmOauCJ
+	OLy+IA+TcgE7Bu8G0ldmIAI8YfVKHESF7we9cREF882O7yBqNbtjZ/2RD0x3LKk8vUQ=
+X-Gm-Gg: ATEYQzzmRNluGJ4cl4AtDcOIr8d6IimvEIOUJA7x0DkjrHGf6P/N+eQxW8k8zGOoLCk
+	CYg/8UL/SIid4a6uyHFPHfnhTMz3SfuvPCj1R/4DCgSggXsU0MUOoCS3IDtMkZODCJfTdBysIbE
+	XIcaSI1ZWBvruVYLablQRcTRgXLNvNX7WwdidJxUptPHE+taMCLdeedLhekASE6W8bUc2lwO96O
+	Vo5xrbfUncyG9lxmDf7yksAmMynbz4RBIy47Bd+ff+Mig8wRcnZCQRvJJBquCxhGpTULW+7wXa3
+	kGNTO0zirHLs5Vzr+IYPqcntx1zWdHIVnZ4n3GjAhAMaSbToAjSeLE/2f+3HDOVmAktorbmKZcb
+	vkiNrNSJulrw0fb7M8TczDZAD/ET2xpPx8hQ7ztHtSfbeg9t3ukwCzJHznFJ2MWrv7HOnbcll8G
+	BDd8GbMXzJLOMRoBXFZIuGBId2KGYiWqiDSAL/aE+mucGY1TY+KzI/f04=
+X-Received: by 2002:a05:600c:1d02:b0:487:338:b4f3 with SMTP id 5b1f17b1804b1-4871605076fmr107817825e9.17.1774515779244;
+        Thu, 26 Mar 2026 02:02:59 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b919cf069sm6213436f8f.22.2026.03.26.02.02.42
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722ca344dsm14612305e9.12.2026.03.26.02.02.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Mar 2026 02:02:42 -0700 (PDT)
+        Thu, 26 Mar 2026 02:02:58 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: aaro.koskinen@iki.fi, airlied@gmail.com, andreas@kemnade.info, 
- conor+dt@kernel.org, jernej.skrabec@gmail.com, jonas@kwiboo.se, 
- khilman@baylibre.com, krzk+dt@kernel.org, laurent.pinchart@ideasonboard.com, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- prabhakar.mahadev-lad.rj@bp.renesas.com, jesszhan0024@gmail.com, 
- rfoss@kernel.org, robh@kernel.org, rogerq@kernel.org, simona@ffwll.ch, 
- thierry.reding@gmail.com, tony@atomide.com, tzimmermann@suse.de, 
- andrzej.hajda@intel.com, Mithil Bavishi <bavishimithil@gmail.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org
-In-Reply-To: <20260303203017.511-1-bavishimithil@gmail.com>
-References: <20260303203017.511-1-bavishimithil@gmail.com>
-Subject: Re: (subset) [PATCH v9 0/8] Initial support for Samsung Galaxy Tab
- 2 series
-Message-Id: <177451576215.103892.12129135091369769725.b4-ty@linaro.org>
-Date: Thu, 26 Mar 2026 10:02:42 +0100
+To: khilman@baylibre.com, martin.blumenstingl@googlemail.com, 
+ jbrunet@baylibre.com, Nick Xie <nick@khadas.com>
+Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>
+In-Reply-To: <20260319023446.3422695-1-nick@khadas.com>
+References: <20260319023446.3422695-1-nick@khadas.com>
+Subject: Re: [PATCH v2] arm64: dts: amlogic: t7: khadas-vim4: fix memory
+ layout for 8GB RAM
+Message-Id: <177451577850.104526.16114207536960435176.b4-ty@linaro.org>
+Date: Thu, 26 Mar 2026 10:02:58 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -86,20 +83,47 @@ X-Mailer: b4 0.14.3
 
 Hi,
 
-On Tue, 03 Mar 2026 15:30:09 -0500, Mithil Bavishi wrote:
-> This series adds initial support for the Samsung Galaxy Tab 2
-> (samsung-espresso7/10) series of devices. It adds support for 6 variants
-> (P3100, P3110, P3113, P5100, P5110, P5113). Downstream categorised them
-> based on 3G and WiFi, but since they use different panel, touch
-> controllers, batteries, I decided to categorise them based on screen
-> size as espresso7 and espresso10.
+On Thu, 19 Mar 2026 10:34:46 +0800, Nick Xie wrote:
+> The Khadas VIM4 features 8GB of LPDDR4X RAM. The previous memory node
+> mapped a single incorrect region. This caused the kernel to map MMIO
+> and secure firmware (ATF/TrustZone) memory holes as standard RAM,
+> leading to an Asynchronous SError Interrupt during early boot
+> (paging_init) when the kernel attempted to clear those pages.
+> 
+> Fix this by splitting the 8GB memory layout into three separate
+> regions to properly avoid the memory holes (e.g., 0xe0000000 -
+> 0xffffffff):
+> - 3.5GB @ 0x000000000
+> - 3.5GB @ 0x100000000
+> - 1.0GB @ 0x200000000
 > 
 > [...]
 
-Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
+Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git (v7.1/arm64-dt)
 
-[4/8] dt-bindings: display: panel-lvds: Add compatibles for Samsung LTN070NL01 and LTN101AL03 panels
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/d37690b5e02418a2365548300628ef3895a24ed2
+[1/1] arm64: dts: amlogic: t7: khadas-vim4: fix memory layout for 8GB RAM
+      https://git.kernel.org/amlogic/c/4b3917cd8492d72e576b837f78c0c398bda4ec27
+
+These changes has been applied on the intermediate git tree [1].
+
+The v7.1/arm64-dt branch will then be sent via a formal Pull Request to the Linux SoC maintainers
+for inclusion in their intermediate git branches in order to be sent to Linus during
+the next merge window, or sooner if it's a set of fixes.
+
+In the cases of fixes, those will be merged in the current release candidate
+kernel and as soon they appear on the Linux master branch they will be
+backported to the previous Stable and Long-Stable kernels [2].
+
+The intermediate git branches are merged daily in the linux-next tree [3],
+people are encouraged testing these pre-release kernels and report issues on the
+relevant mailing-lists.
+
+If problems are discovered on those changes, please submit a signed-off-by revert
+patch followed by a corrective changeset.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
 
 -- 
 Neil
