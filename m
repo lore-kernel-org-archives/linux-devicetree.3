@@ -1,343 +1,302 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5AB734EF03
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 01:46:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0E2638F643
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 01:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774489597; cv=none; b=Wzlmhl6/8onzEHIIyrlv9Bgn3rG1BhILhgZOGZnQ+w27LlVpVpNf4Pt+I7r/tuggamYM7fFBIXtXO5nMLhIPYF1SuZlx9vzp8TMQPKsOBURWlpWJ++jfV/PtPiFAxfXQTsgYthpTcGUWoJLNwRA5M9WetpM5YqRXVKssHNFIfXw=
+	t=1774489602; cv=none; b=qMUDV93lDGltvvN+vtQ4c7N10SiV5tnIJ2ElVvEKlf3CqtI2ixU7vJY6TLrSZN+n+nZMh0TSIMs/2JQUXx3EyBHq+eA8mgR8Mq4dTRoeKqv1EzxcqmhotwLvtD5PqBmmpOxGnhZmNb59Dzk6KxZz/bFMzr1eDPt8P+HE86Wjy3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774489597; c=relaxed/simple;
-	bh=2JdWtj8jHoziLokeQl/cJ1LmihyFXi4ry53iPjdK6Ak=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uigXgdpqI48mYvqZoDeBuRrQ+yqumgdWHRvU0cDSXJ+hzkv3oWBcj7aHqLJr376ATmuKGk9+F5FYFIXxEg6r/vOUnYkD0m2pd3ndWIQZVGnnaAYwHei9oVjBcXYDv0Fz+6lCkeKabJNdwOSlMflL0QxpeatFGCI4rgfEzLurh4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NXc1FmZr; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774489602; c=relaxed/simple;
+	bh=evJCgtmUCKMOUoX5jIoibYRIq4Js+xZOoni/9Fwf0RA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fznrIol8qleN6MvsJvmlFeMojaM3RR3KIT6LJbnkm+VxHCzn4izH/q5+aYZuCKe/6l+UtrYXQ5aGNSOMGOz3nFJqpQQ8itUy4X4JOCXIwcymp1Lqd9XO4ZKtUzxbq0LVxqUByTNPRiueEMaPRul/iKe+vAluWd0OL8dEN8k5zyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=F3XwXZnX; arc=none smtp.client-ip=209.85.167.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NXc1FmZr"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-35c06831dd3so432357a91.2
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 18:46:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="F3XwXZnX"
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5a28cdf7a92so70366e87.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 18:46:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774489595; x=1775094395; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=FvrpaPMv4wQW9rLV6Y/lNvOSwC23X2i4bR0ncVYXo34=;
-        b=NXc1FmZrLGkk+g/APMRhO+J2h5HWqjgT7iyfPmOOpO2HlxMn/wmym6iIgmBoJDyhc1
-         TX455TUlCer7bbwGnh7VXIvmmhf01Cyqo4goH9hXPQPeTAb1o2VFP0HlZQYUSUirbf8W
-         w62+QpscoWOkmvo8FJcWnpsseOgALE1vDBV34GKp02e4UH71m6ZM/3syO/Asd0XGBA00
-         6cyM+GZRG+PmpXqw4Mixj3mbIW8+7/4ZMVQiYDb+aahfbcrZPMwzPAfAswV6Z4V0bDpP
-         SHTRAzbkScmctJohM15fdWxPWFMqCIs2V5zHG6kcT+aVRH66hFJ6pK2LQl1YWqJqRmVW
-         ieEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774489595; x=1775094395;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1774489598; x=1775094398; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FvrpaPMv4wQW9rLV6Y/lNvOSwC23X2i4bR0ncVYXo34=;
-        b=Fc8HPRNQ2IcFofY3DCdsqfghTzptMOsJaEXMQjN/AlOtcoLUbmdrnfZ8JxNlQN3zko
-         UTgVKdunGz0REeiJgg6wLb1hFYu0gNqH3EPlsDA0u3MhACSRdmTwnwJY6uWzz4Rl9Yd2
-         QG0NNt41nSyBSfpmNuQl5/wdr4ey2SFXQ5fMMbBQzHiQjZkKKi7owEmVatVkCd+QDDCT
-         Z0clvxSnc1VxRqkSaW0NYwGNbv2iWykRsqRrx+aYkdV6MVuvz5KaBiSLyFBrhX8I0Dhw
-         zID0XHOAyutLiDF4jowDQElALy5zvMsLvVHMnbiKm23/goJl4rehyXH+0KrQFd91Kqja
-         882Q==
-X-Forwarded-Encrypted: i=1; AJvYcCW17SoO45qwHeKT/8zelYLp92mFYjWsy0U8QxKESW0uEhmNys8yVrqd2FMnADo7CAlzTN5cA6y2sRPg@vger.kernel.org
-X-Gm-Message-State: AOJu0YyjxwMlJJXBZu7J6QkCf82B7xYlPem58rX1kVMhK0lhXd97VXJQ
-	MRCMRBzaow3364HD+ZQgZ+tvTr1bOTnXuaWbRXYE0BDDRLE8EzwnBPb1
-X-Gm-Gg: ATEYQzw6GwikXODVuNEf0G5KPUiLDys3wq0fB4GcOJv6ItjaEaRUZDtAM2luxXnF0Lo
-	lxoPp5JLnJnvkfQ0wpz27E9f3G0JFb2yxpiAhiZa0mknCqDXX0XRLqEP2FJIUaJ1k+bawaY5IPt
-	i4rmK+MMf/L4LF6nRJHj/wH/bGQ6LjeqXJfqFr55PCEZnYJ4p0Y3+eKWm5lTLH18JfSvZwh6IdW
-	VlvWliu/J7p/JkhXwkqbhn2R+lGWmi/emUxKQaFy5APW1Q4n0DgYDZgnKcWCpiLu2ck0iVu1n4k
-	ZExVrUchkeX9I/RvQr0ZiZ5qbF6yMGR6Pq+gP5ZJxGMLoSZOqNByCuHTLL8IzloD6XimEpyVmBT
-	E3qMRyf8ujlyCCU4TjAV/FOEhywzbsn0TzWmoCspLs447x7G4VNwyqInWrAXwnnfuN7mfE9Rlfi
-	8rBA+ycsT0DcjETGAmqP+iWqU=
-X-Received: by 2002:a17:90b:518e:b0:35b:e56e:a17e with SMTP id 98e67ed59e1d1-35c0dd7ac8amr5444206a91.17.1774489595082;
-        Wed, 25 Mar 2026 18:46:35 -0700 (PDT)
-Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35c1dd3800bsm569329a91.1.2026.03.25.18.46.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Mar 2026 18:46:34 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>
-Cc: Inochi Amaoto <inochiama@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH v6] riscv: dts: spacemit: Add ethernet device for K3
-Date: Thu, 26 Mar 2026 09:46:17 +0800
-Message-ID: <20260326014617.1011732-1-inochiama@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        bh=tMM8gnzSZHuXSR/4tgTYg0ThVeyoW9N0uLZg0sQTEPk=;
+        b=F3XwXZnX5ju96FUaDalJB4ylLq2PiI9l3XXhGChR0Hee6/hD49o7wGfzJZ72hMtPYe
+         wngoq+vWFQmckdIf7Q/JpVvXMxRU8lGwR9/ucdnmDDu1e/3iE2iuvs/BdbXJkXwN9yVJ
+         nVXQVnAE9jFgRhi+bQLyEga67x26VAyUFz3t5q+zgTLdzueYJRwc+Gx53OIXkc0IMpre
+         41MsieE7UOTWXC+KfO5n0BdP23P+s+HgcEHa1iycTot9zwpUPDoVzVvQoLQ2DFQ9YxT1
+         UgzEmxvClT8Xq3Lqd3wHqsgwL5lKp5QT/TRvUoBPGLAFb01m8lTvru2XY6BpiTKwkV8A
+         OwVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774489598; x=1775094398;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=tMM8gnzSZHuXSR/4tgTYg0ThVeyoW9N0uLZg0sQTEPk=;
+        b=WVkXtuV09RddJ8rQSi9zm9/KIey/l/aPNwUivRvGncvJwX/+TOZHHHLCgYi7sGvqKV
+         HYNq9WnowzbFuhP5LtMV/ZZcbzOPHCNBOAl9iAqn0dohb/OYJCmLvZaeZ7dPzJJYFZj5
+         2LIly7G0CetoqpQwv7kb6KOl/GrfE5g8yrQOED+4+D3YRKFYd/e6PXBuq2EZ3Yr0UfDZ
+         ClAKki1cLM3TwJ0FP9QhHF2CFai7i73Ap6SQ2S+NgVbDrgLAmw8dB8/A9B+Ak7slNU3K
+         YHXa0zvsjdTM7nZms4eMUZr5vE0zxEwlSkVPaQJllxMKArfysQuWKQJSdzdxzpMb+SLz
+         HOew==
+X-Forwarded-Encrypted: i=1; AJvYcCU1raS6gP8m4dx42sq/2Bz6tgto5qdjUB+8rIyhFEjLKveBTKR26jc5AvrUHWnSiiRjdoEjVyHyoTEE@vger.kernel.org
+X-Gm-Message-State: AOJu0YyRS+8L8CB8YWv0sOCJRmt2f0LfatNznDSnzfU0xHNfMt5BpI7y
+	UhuQ90C2uXXlmHzXHFJi4G9BJwaT5736OAllEKLxb/M5y3R2xV/aahsMveJ3QlDgkOc=
+X-Gm-Gg: ATEYQzwRhTz8ZKSNBHynYdUOErFSaek3L/IOjUSUmkn15q9mlYO6Ss+pbUhH4xbkGOA
+	km3y345cyeaVjEQAv9A7NIEeH6puHuYMTveYRN8BkR6E6PThTVV6zoQ1UHZ93D5YarZpfTl+6VD
+	ZE/rU72KTZ5vwordQA5cOUubaO7iSRFLAjT7J/mrNrfxrqBTdbOv+sYpFLJ2mYDJx5kcSk7NHUG
+	LSxlmrjsk1Ewgz03oywOwKkDYMO2EIU3c2uHKFGFf2hthOgW9ByX4BtCZsHTJ95eAud4MvxKDP7
+	7stW/4NX71yIuFl0MD/4DXTJpCUQZmYJmfNwGDXkDWPunB7VWoGj7OQHeNC9l/U7rGOJ16Ipu51
+	JZWdThq25hvLnFUW3KGIKR/I3ZyJsQmLKZKQFpefMGmDH2HfaS+fftICfmlL/VIm8fmcUQ4ytn3
+	Pf8vjZ1XFJFVRvk5lfbyBHjudUpFXIx7tb2phLT5go/vKCC2V8Yo2sGZKYvudIb+UXqLsVqr+3f
+	td0u2pibe0J3kKD
+X-Received: by 2002:a05:6512:3d0b:b0:5a2:78e2:504b with SMTP id 2adb3069b0e04-5a29b9a974emr1031388e87.7.1774489597790;
+        Wed, 25 Mar 2026 18:46:37 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2a064c187sm243911e87.27.2026.03.25.18.46.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Mar 2026 18:46:37 -0700 (PDT)
+Message-ID: <72ef6c9e-feb6-4e57-b8cc-7801bd748698@linaro.org>
+Date: Thu, 26 Mar 2026 03:46:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org>
+ <20260326-x1e-csi2-phy-v5-1-0c0fc7f5c01b@linaro.org>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260326-x1e-csi2-phy-v5-1-0c0fc7f5c01b@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add all ethernet device nodes for K3 SoC.
+On 3/26/26 03:04, Bryan O'Donoghue wrote:
+> Add a base schema initially compatible with x1e80100 to describe MIPI CSI2
+> PHY devices.
+> 
+> The hardware can support both CPHY, DPHY and a special split-mode DPHY. We
+> capture those modes as:
+> 
+> - PHY_QCOM_CSI2_MODE_DPHY
+> - PHY_QCOM_CSI2_MODE_CPHY
+> - PHY_QCOM_CSI2_MODE_SPLIT_DPHY
 
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
----
-Require the following patch series:
-1. Basic DT device patch
-https://lore.kernel.org/spacemit/20260304-01-dts-uart-full-v1-0-50a0aa53a245@kernel.org
-2. Ethernet driver patch
-https://lore.kernel.org/spacemit/20260316010041.164360-1-inochiama@gmail.com
+Distinction between PHY_QCOM_CSI2_MODE_DPHY and PHY_QCOM_CSI2_MODE_SPLIT_DPHY
+is
+1) insufficient in just this simplistic form, because the assignment of
+particular lanes is also needed,
+2) and under the assumption that the lane mapping is set somewhere else, then
+there should be no difference between PHY_QCOM_CSI2_MODE_{DPHY,SPLIT_DPHY},
+it's just DPHY, and the subtype is deductible from data-lanes property on
+the consumer side.
 
-Changed from v5:
-1. Fix DT warning cause by stmmac-axi-config.
+So far the rationale is unclear, why anything above regular PHY_TYPE_DPHY
+and PHY_TYPE_CPHY is needed here, those two are sufficient.
 
-Changed from v4:
-1. Fix pinctrl pin name
-2. Remove alias for disabled node
+> 
+> The CSIPHY devices have their own pinouts on the SoC as well as their own
+> individual voltage rails.
+> 
+> The need to model voltage rails on a per-PHY basis leads us to define
+> CSIPHY devices as individual nodes.
+> 
+> Two nice outcomes in terms of schema and DT arise from this change.
+> 
+> 1. The ability to define on a per-PHY basis voltage rails.
+> 2. The ability to require those voltage.
+> 
+> We have had a complete bodge upstream for this where a single set of
+> voltage rail for all CSIPHYs has been buried inside of CAMSS.
+> 
+> Much like the I2C bus which is dedicated to Camera sensors - the CCI bus in
+> CAMSS parlance, the CSIPHY devices should be individually modelled.
+> 
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>   .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 130 +++++++++++++++++++++
+>   include/dt-bindings/phy/phy-qcom-mipi-csi2.h       |  15 +++
+>   2 files changed, 145 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> new file mode 100644
+> index 0000000000000..63114151104b4
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> @@ -0,0 +1,130 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm CSI2 PHY
+> +
+> +maintainers:
+> +  - Bryan O'Donoghue <bod@kernel.org>
+> +
+> +description:
+> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2 sensors
+> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and D-PHY
+> +  modes.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,x1e80100-csi2-phy
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  "#phy-cells":
+> +    const: 1
+> +    description:
+> +      The single cell specifies the PHY operating mode.
+> +      See include/dt-bindings/phy/phy-qcom-mipi-csi2.h for valid values.
 
-Changed from v3:
-1. Separate the pin as RGMII pin and INT pin.
-2. Add comment for pin usage.
-3. Rename the ethernet pinctrl node to address it is RGMII node.
+include/dt-bindings/phy/phy.h should be good enough as it's stated above.
 
-Changed from v2:
-1. keep aliases in alphabetical order.
+> +
+> +  clocks:
+> +    maxItems: 2
+> +
+> +  clock-names:
+> +    items:
+> +      - const: core
+> +      - const: timer
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  operating-points-v2:
+> +    maxItems: 1
+> +
+> +  power-domains:
+> +    items:
+> +      - description: MXC or MXA voltage rail
+> +      - description: MMCX voltage rail
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: mx
+> +      - const: mmcx
+> +
+> +  vdda-0p9-supply:
+> +    description: Phandle to a 0.9V regulator supply to a PHY.
+> +
+> +  vdda-1p2-supply:
+> +    description: Phandle to 1.2V regulator supply to a PHY.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - "#phy-cells"
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - operating-points-v2
+> +  - power-domains
+> +  - power-domain-names
+> +  - vdda-0p9-supply
+> +  - vdda-1p2-supply
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
+> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
+> +    #include <dt-bindings/phy/phy-qcom-mipi-csi2.h>
+> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+> +
+> +    csiphy4: csiphy@ace4000 {
+> +        compatible = "qcom,x1e80100-csi2-phy";
+> +        reg = <0x0ace4000 0x2000>;
+> +        #phy-cells = <1>;
+> +
+> +        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
+> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>;
+> +        clock-names = "core",
+> +                      "timer";
+> +
+> +        operating-points-v2 = <&csiphy_opp_table>;
+> +
+> +        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
+> +
+> +        power-domains = <&rpmhpd RPMHPD_MX>,
+> +                        <&rpmhpd RPMHPD_MMCX>;
+> +        power-domain-names = "mx",
+> +                             "mmcx";
+> +
+> +        vdda-0p9-supply = <&vreg_l2c_0p8>;
+> +        vdda-1p2-supply = <&vreg_l1c_1p2>;
+> +    };
+> +
+> +    csiphy_opp_table: opp-table {
+> +        compatible = "operating-points-v2";
+> +
+> +        opp-300000000 {
+> +            opp-hz = /bits/ 64 <300000000>;
+> +            required-opps = <&rpmhpd_opp_low_svs_d1>,
+> +                            <&rpmhpd_opp_low_svs_d1>;
+> +        };
+> +
+> +        opp-400000000 {
+> +            opp-hz = /bits/ 64 <400000000>;
+> +            required-opps = <&rpmhpd_opp_low_svs>,
+> +                            <&rpmhpd_opp_low_svs>;
+> +        };
+> +
+> +        opp-480000000 {
+> +            opp-hz = /bits/ 64 <480000000>;
+> +            required-opps = <&rpmhpd_opp_low_svs>,
+> +                            <&rpmhpd_opp_low_svs>;
+> +        };
+> +    };
+> +
+> +    isp@acb7000 {
+> +        phys = <&csiphy4 PHY_QCOM_CSI2_MODE_DPHY>;
+> +    };
 
-Changed from v1:
-1. remove interrupt-parents property
-2. add aliases for ethernet node
----
- arch/riscv/boot/dts/spacemit/k3-pico-itx.dts |  20 ++++
- arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi |  34 ++++++
- arch/riscv/boot/dts/spacemit/k3.dtsi         | 117 +++++++++++++++++++
- 3 files changed, 171 insertions(+)
+This example is incomplete in sense that it does not include CAMSS
+CSIPHY IP hardware configuration in whole.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-index b098dbd0e7a1..504fe6bd46b2 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-@@ -3,6 +3,7 @@
-  * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
-  * Copyright (c) 2026 Guodong Xu <guodong@riscstar.com>
-  */
-+#include <dt-bindings/gpio/gpio.h>
+> diff --git a/include/dt-bindings/phy/phy-qcom-mipi-csi2.h b/include/dt-bindings/phy/phy-qcom-mipi-csi2.h
+> new file mode 100644
+> index 0000000000000..fa48fd75c58d8
+> --- /dev/null
+> +++ b/include/dt-bindings/phy/phy-qcom-mipi-csi2.h
+> @@ -0,0 +1,15 @@
+> +/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
+> +/*
+> + * Qualcomm MIPI CSI2 PHY constants
+> + *
+> + * Copyright (C) 2026 Linaro Limited
+> + */
+> +
+> +#ifndef __DT_BINDINGS_PHY_MIPI_CSI2__
+> +#define __DT_BINDINGS_PHY_MIPI_CSI2__
+> +
+> +#define PHY_QCOM_CSI2_MODE_DPHY		0
+> +#define PHY_QCOM_CSI2_MODE_CPHY		1
+> +#define PHY_QCOM_CSI2_MODE_SPLIT_DPHY	2
+> +
+> +#endif /* __DT_BINDINGS_PHY_MIPI_CSI2__ */
+> 
 
- #include "k3.dtsi"
- #include "k3-pinctrl.dtsi"
-@@ -12,6 +13,7 @@ / {
- 	compatible = "spacemit,k3-pico-itx", "spacemit,k3";
-
- 	aliases {
-+		ethernet0 = &eth0;
- 		serial0 = &uart0;
- 	};
-
-@@ -25,6 +27,24 @@ memory@100000000 {
- 	};
- };
-
-+&eth0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gmac0_rgmii_0_cfg>, <&gmac0_phy_0_cfg>;
-+	phy-mode = "rgmii-id";
-+	phy-handle = <&phy0>;
-+	status = "okay";
-+
-+	mdio {
-+		phy0: phy@1 {
-+			compatible = "ethernet-phy-ieee802.3-c22";
-+			reg = <1>;
-+			reset-gpios = <&gpio 0 15 GPIO_ACTIVE_LOW>;
-+			reset-assert-us = <10000>;
-+			reset-deassert-us = <10000>;
-+		};
-+	};
-+};
-+
- &uart0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&uart0_0_cfg>;
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-index efb0f1572188..a7b5d10c332e 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-@@ -11,6 +11,40 @@
- #define K3_GPIO(x)	(x / 32) (x % 32)
-
- &pinctrl {
-+	gmac0_rgmii_0_cfg: gmac0-rgmii-0-cfg {
-+		gmac0-rgmii-0-pins {
-+			pinmux = <K3_PADCONF(0, 1)>,	/* gmac0_rxdv */
-+				 <K3_PADCONF(1, 1)>,	/* gmac0_rx_d0 */
-+				 <K3_PADCONF(2, 1)>,	/* gmac0_rx_d1 */
-+				 <K3_PADCONF(3, 1)>,	/* gmac0_rx_clk */
-+				 <K3_PADCONF(4, 1)>,	/* gmac0_rx_d2 */
-+				 <K3_PADCONF(5, 1)>,	/* gmac0_rx_d3 */
-+				 <K3_PADCONF(6, 1)>,	/* gmac0_tx_d0 */
-+				 <K3_PADCONF(7, 1)>,	/* gmac0_tx_d1 */
-+				 <K3_PADCONF(8, 1)>,	/* gmac0_tx_clk */
-+				 <K3_PADCONF(9, 1)>,	/* gmac0_tx_d2 */
-+				 <K3_PADCONF(10, 1)>,	/* gmac0_tx_d3 */
-+				 <K3_PADCONF(11, 1)>,	/* gmac0_tx_en */
-+				 <K3_PADCONF(12, 1)>,	/* gmac0_mdc */
-+				 <K3_PADCONF(13, 1)>;	/* gmac0_mdio */
-+
-+			bias-disable;
-+			drive-strength = <25>;
-+			power-source = <1800>;
-+		};
-+
-+	};
-+
-+	gmac0_phy_0_cfg: gmac0-phy-0-cfg {
-+		gmac0-phy-0-pins {
-+			pinmux = <K3_PADCONF(14, 1)>;   /* gmac0_int */
-+
-+			bias-disable;
-+			drive-strength = <25>;
-+			power-source = <1800>;
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	uart0_0_cfg: uart0-0-cfg {
- 		uart0-0-pins {
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index a3a8ceddabec..5f4818cd5d6d 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -438,6 +438,123 @@ soc: soc {
- 		dma-noncoherent;
- 		ranges;
-
-+		eth0: ethernet@cac80000 {
-+			compatible = "spacemit,k3-dwmac", "snps,dwmac-5.40a";
-+			reg = <0x0 0xcac80000 0x0 0x2000>;
-+			clocks = <&syscon_apmu CLK_APMU_EMAC0_BUS>,
-+				 <&syscon_apmu CLK_APMU_EMAC0_1588>,
-+				 <&syscon_apmu CLK_APMU_EMAC0_RGMII_TX>;
-+			clock-names = "stmmaceth", "ptp_ref", "tx";
-+			interrupts = <131 IRQ_TYPE_LEVEL_HIGH>,
-+				     <276 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "macirq", "eth_wake_irq";
-+			resets = <&syscon_apmu RESET_APMU_EMAC0>;
-+			reset-names = "stmmaceth";
-+			rx-fifo-depth = <8192>;
-+			tx-fifo-depth = <8192>;
-+			snps,multicast-filter-bins = <64>;
-+			snps,perfect-filter-entries = <32>;
-+			snps,aal;
-+			snps,tso;
-+			snps,txpbl = <8>;
-+			snps,rxpbl = <8>;
-+			snps,force_sf_dma_mode;
-+			snps,axi-config = <&gmac0_axi_setup>;
-+			spacemit,apmu = <&syscon_apmu 0x3e4 0x3e8>;
-+			status = "disabled";
-+
-+			mdio {
-+				compatible = "snps,dwmac-mdio";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+
-+			gmac0_axi_setup: stmmac-axi-config {
-+				snps,wr_osr_lmt = <0xf>;
-+				snps,rd_osr_lmt = <0xf>;
-+				/* max axi burst len is 256 */
-+				snps,blen = <256 128 64 32 16 0 0>;
-+			};
-+		};
-+
-+		eth1: ethernet@cac82000 {
-+			compatible = "spacemit,k3-dwmac", "snps,dwmac-5.40a";
-+			reg = <0x0 0xcac82000 0x0 0x2000>;
-+			clocks = <&syscon_apmu CLK_APMU_EMAC1_BUS>,
-+				 <&syscon_apmu CLK_APMU_EMAC1_1588>,
-+				 <&syscon_apmu CLK_APMU_EMAC1_RGMII_TX>;
-+			clock-names = "stmmaceth", "ptp_ref", "tx";
-+			interrupts = <133 IRQ_TYPE_LEVEL_HIGH>,
-+				     <277 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "macirq", "eth_wake_irq";
-+			resets = <&syscon_apmu RESET_APMU_EMAC1>;
-+			reset-names = "stmmaceth";
-+			rx-fifo-depth = <8192>;
-+			tx-fifo-depth = <8192>;
-+			snps,multicast-filter-bins = <64>;
-+			snps,perfect-filter-entries = <32>;
-+			snps,aal;
-+			snps,tso;
-+			snps,txpbl = <8>;
-+			snps,rxpbl = <8>;
-+			snps,force_sf_dma_mode;
-+			snps,axi-config = <&gmac1_axi_setup>;
-+			spacemit,apmu = <&syscon_apmu 0x3ec 0x3f0>;
-+			status = "disabled";
-+
-+			mdio {
-+				compatible = "snps,dwmac-mdio";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+
-+			gmac1_axi_setup: stmmac-axi-config {
-+				snps,wr_osr_lmt = <0xf>;
-+				snps,rd_osr_lmt = <0xf>;
-+				/* max axi burst len is 256 */
-+				snps,blen = <256 128 64 32 16 0 0>;
-+			};
-+		};
-+
-+		eth2: ethernet@cac8e000 {
-+			compatible = "spacemit,k3-dwmac", "snps,dwmac-5.40a";
-+			reg = <0x0 0xcac8e000 0x0 0x2000>;
-+			clocks = <&syscon_apmu CLK_APMU_EMAC2_BUS>,
-+				 <&syscon_apmu CLK_APMU_EMAC2_1588>,
-+				 <&syscon_apmu CLK_APMU_EMAC2_RGMII_TX>;
-+			clock-names = "stmmaceth", "ptp_ref", "tx";
-+			interrupts = <130 IRQ_TYPE_LEVEL_HIGH>,
-+				     <278 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "macirq", "eth_wake_irq";
-+			resets = <&syscon_apmu RESET_APMU_EMAC2>;
-+			reset-names = "stmmaceth";
-+			rx-fifo-depth = <4096>;
-+			tx-fifo-depth = <4096>;
-+			snps,multicast-filter-bins = <64>;
-+			snps,perfect-filter-entries = <32>;
-+			snps,aal;
-+			snps,tso;
-+			snps,txpbl = <8>;
-+			snps,rxpbl = <8>;
-+			snps,force_sf_dma_mode;
-+			snps,axi-config = <&gmac2_axi_setup>;
-+			spacemit,apmu = <&syscon_apmu 0x248 0x24c>;
-+			status = "disabled";
-+
-+			mdio {
-+				compatible = "snps,dwmac-mdio";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+
-+			gmac2_axi_setup: stmmac-axi-config {
-+				snps,wr_osr_lmt = <0xf>;
-+				snps,rd_osr_lmt = <0xf>;
-+				/* max axi burst len is 256 */
-+				snps,blen = <256 128 64 32 16 0 0>;
-+			};
-+		};
-+
- 		syscon_apbc: system-controller@d4015000 {
- 			compatible = "spacemit,k3-syscon-apbc";
- 			reg = <0x0 0xd4015000 0x0 0x1000>;
---
-2.53.0
-
+-- 
+Best wishes,
+Vladimir
