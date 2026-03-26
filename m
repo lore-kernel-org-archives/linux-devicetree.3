@@ -1,159 +1,123 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010062.outbound.protection.outlook.com [52.101.69.62])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720283932C5;
-	Thu, 26 Mar 2026 15:58:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.62
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774540693; cv=fail; b=pvxSYhMe48TIWGOkVlAr5li9zOZ2phd3/+2r61AtX1PYdZQSYPwnCJvAB73hLv/H4faJ91KNzI9gVqr3uZQJZmbLzNfgqdFhZzNC92kmzXZWkNdc/hcL424h3aG1umUeAG9eHebaPUtU0iuatMv4WrBR4KJZpTQCo9lp+dNUBZY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774540693; c=relaxed/simple;
-	bh=cA+5ujOV+gUIFLAo4QOH+rj9MqqUzzJkEEGG9dItTYM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=DjAHd+R7/UejyiQoN186WtY8f8ok3WKhggB61CDQfxvkbYmM6IkypUPoCrHmeu9AuB2G3AVUTd+IQc4ReDKFSrctkEJ7DASTMIyA16EP2E8t1y6+zKspRyjtfxROqdn/GXfXwXhsLzkPFBQCMyVT0cKOpVjDGIGgAzyKkxcqxKQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=RazeuMtE; arc=fail smtp.client-ip=52.101.69.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5CD401A16;
+	Thu, 26 Mar 2026 15:58:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774540729; cv=none; b=i6alan95lD4SV7aT8+9ekj/vrA2qoDWV7/EbVPfp30HNXSTk1mDxe5nVMB7EHi+WZqdQvEP4CKp+1J7LaHru0rx/y0JytaULzLN1S48aN+LJ9BWDewyVvCPLsvw4JaabNxkWVK2P+9A4v3pRMqgzU2Ru/mWyZqSNH9eDWgqOQEM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774540729; c=relaxed/simple;
+	bh=tTQxD9EHRYahV5vajLwoH5cOmwDwYqTZzE3aTrnmmRA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dwK9A8y2PZhmoVairrn+4Ep+O2rcfo3xQvrmvEq2/UrH4Nn3p5lDke76zzwkZo/7pzYUSJELgST40+qSt0jGzDbkbe34F9OVjZobRKYm8jg7Sgmdfn0Ke/x9ETllVq1wKDIyaPnzlaR1qm6Q3tc5gjwoi+D99vLAguZwR+0xP6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BAcWM7ct; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="RazeuMtE"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LP0n/3N++xMIUdS7tTEK+3Xvl57waFiRRkShvX7Cmm9ufcNHiwnRuEw6NE1Pu/ekJ3GNA9VX+RqUzQ1AOhARcoETpne9M0wqVpnIU+tYd/DcaX7GBoDXY9OkmgqlWMFvvksuFsVvvzsjMjlPbajrqUxzNeMI/s8yVjPDFenJ1B2G7Ier716w+TroNlBqysXHIFZbv8e1ZS9vGkMn94WffyUIJ6wWVICrCrhDN6W0JAZqvTuecO1Lig9nUntUKnnSDZnMcWw6GTaiLsr8wZxc5W7UfeAqzuqGc2P33WJcPLBEZ22mPve6T515pb4fjPeK6uAnLjKBgJPnvdG8IUNmew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1JZ0FfDdnlixNx4zFT8GXGx6gj+gUGUDPyPY70mgnqo=;
- b=OBvzrQwqb3HihKW6oy0eDziFdU1iGup7JIcedDacVBCw5UaveY+VIlK8yX/IuMraTMctSHpeKiFkE0Vjmrys3cVxlmRQXqh0EMAS2Tq1QB45ruShQN+1+2P3iwoz440QK2pOLxKnbCZWW0Fr/cpxdzFD07fW66qJ1I9kmWMMAmp0k07B2MeWl0UVTQXEylDJooh4K7RxBYYMcujje7E+KY5IhfgxNrryoMwgOZMvQhLbdztdfrwW/mVFS3jyzb1CJ4omyukeCQXtf4d4F1/OtA/aXiree08TVanMtbFienEQ/94QrvQyHUNBaYfy8DiaAhq58uZ3E08Z1p34yfu0xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1JZ0FfDdnlixNx4zFT8GXGx6gj+gUGUDPyPY70mgnqo=;
- b=RazeuMtEnlcbLWAgfo8kP6fBqJgL4ZyK58BdlAWs1QM8vzrMi3vM63F+ISUVUWxtUR3ScXaj2yba0B4IxMtTWjBS1OAgBeAHkVCVXfIHWU4NLjBDFHEg8zBme9gkIKRB+S9kumeTuZgS6+P2VZKeienTnGG2JStP8aZOeRIbr7IJuaj8ttHklH6WyCeZEpC9j1gfxKyG0yk/Yt1vJI59vzbeag89X3ajFDQgGNjMuJiqTsJbIMs4v4ZIQ0yAMYcAExhgQXrOzHVrja9gUfD405eVssLwBaxeo7H+WVr/HshXtY70AsrppyZCXcqP7+wS1CznqMfAaRRDgNtj7p8J4g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by DU2PR04MB8680.eurprd04.prod.outlook.com (2603:10a6:10:2df::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
- 2026 15:58:08 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9745.022; Thu, 26 Mar 2026
- 15:58:08 +0000
-Date: Thu, 26 Mar 2026 11:57:59 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Rui Miguel Silva <rmfrfs@gmail.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Martin Kepplinger <martink@posteo.de>,
-	Purism Kernel Team <kernel@puri.sm>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: (subset) [PATCH v10 0/5] Add MIPI CSI-2 support for i.MX8ULP
-Message-ID: <acVXhxohG8RS67_U@lizhi-Precision-Tower-5810>
-References: <20251205-csi2_imx8ulp-v10-0-190cdadb20a3@nxp.com>
- <177453839102.4969.6512848643800500076.b4-ty@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <177453839102.4969.6512848643800500076.b4-ty@nxp.com>
-X-ClientProxiedBy: PH0P220CA0012.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:d3::35) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BAcWM7ct"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01FFDC116C6;
+	Thu, 26 Mar 2026 15:58:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774540728;
+	bh=tTQxD9EHRYahV5vajLwoH5cOmwDwYqTZzE3aTrnmmRA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BAcWM7ct+tSe96JXMXQjjuR+xRmsdakYqdUam7sAe1arIjeds+uoCtqwyQEcnIwRm
+	 oddaBY8DCQZMFEmELY6vZXE18Hh4Hp/gHAEjydww9YpcK3OfHb7OQot5VlMtVUEQlj
+	 yS5mxCVqf6t6luH62UWpXv2e3AP9Ro6DkJ7Fa+rw5/rDi0deE/gIE25empz+u2mTZT
+	 77IMGTOkIvrEsbnJs7pQImnJiaEZAjkISToUzlxFFR1t3+2EqIprUULe3I39IQlDNL
+	 KposIUGT64pgRYNa9w0hhwRwBl8ZnKwDoBdM51MZzhorgldWQWp+QuD+4ur1MOXKJ/
+	 gLEJIvjbsTQQQ==
+Date: Thu, 26 Mar 2026 10:58:45 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Ayushi Makhija <quic_amakhija@quicinc.com>
+Cc: konrad.dybcio@linaro.org, robh+dt@kernel.org, 
+	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org, dmitry.baryshkov@linaro.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com
+Subject: Re: [PATCH] arm64: dts: qcom: sm8750-mtp: Set sufficient voltage for
+ panel nt37801
+Message-ID: <acVWseivbxLQ_uDM@baldur>
+References: <20260323102229.1546504-1-quic_amakhija@quicinc.com>
+ <acHwvzjcvqNxUjm3@baldur>
+ <ccb11c2a-4cf1-4486-be71-d4bcc983cee6@quicinc.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|DU2PR04MB8680:EE_
-X-MS-Office365-Filtering-Correlation-Id: d588cc2a-66ea-4eb5-10ab-08de8b507919
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|366016|19092799006|1800799024|7416014|52116014|376014|921020|56012099003|22082099003|18002099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
- PsRm69/SBh3QBlCmKzOiyfVToOiihOwur2A34ycFvtkZHlXr81iUUm7Nb8yY2pHFA1I7NiIc+lpEKp10CTDKVVNcTYrVr/z+AZMH6mfo9di3dujyKYlHmtV5hqHgB+p9Exi8L1RHXa0zOT4sP4vmpOImtQCKwM+zwrY5NeVGKPMsG0PSGkKmnFF6aouZRZWq2wyMvcXQs9ReiB47jX3Groi8xMNIqColY6V5v1aFBikX5gsa/0DsLBj0smjWFspRFkHzDNRvLkaItR7AZnNkf42xlkEBUM8eN5+EswhSbbr3PQaG5a7K+T9lNSE9yItPfC/8VVsMkDw6Y3w8jQ+Hsnba0mOMCk6Re0V/ny9x2sphZrx7VPVwG4teDRGCfTHQnlFGmAZEDuRy4AMr6RrlkcBNfH8mFpqeAZV1LFIiEQetcuzW7yE6+GYxjyjCeCtKSVuK1T7T7TiRHkIOSI1URGTr/YRaqaypfNQxko1mauFVRUSnV6GQzu9xTkTe8iBPVkzOpMo5pRvWQuoTSiZrXSIcWPh0KZVyX0er64fk8tbHHqjWYAnQL/ZgpJD6zszS6z8oaf9sXlG0feI2+9hKDDZppk9ogfoXGCk9+YfeakXiR2ov3CEf/p8tpB1VLBXfTdBT3sM7ZyXOvxa5h02ijMYmaBAkHS61iLrJ/9ERRpEEUgqYuXA6Oc+6cPmpxiuDoCaHZcfYSWtrurCIrE40ULJ7PYOaGhQfUs0iyA1MeX+zs7wL6jw1avXvKmzWHyWaxrmFtnkrMXII5ATmh9qTlRvnilOHFB2DH+JibFFvY3O3Ts8tFRU3H9MV/kiDRcuH
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(7416014)(52116014)(376014)(921020)(56012099003)(22082099003)(18002099003)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?2gNUspJfN1GF5NTYltQQtDE4+EyuvmWrG10FTpjM36A7BCfsyqEXCQbLxSgO?=
- =?us-ascii?Q?e7Cm634OzPb9S+WfFp4Mq3xEDCIyw6BHtZt9iGJBCwrNi/67vDClUKAJEnvi?=
- =?us-ascii?Q?rynNf8JwFgUf+mwFcgFTeEydybzo2wZHUc2+AAT81o0S1M7OFatoIq6Cgxvd?=
- =?us-ascii?Q?LQfIZCPmSJBvFXjGHVv4x31nGdk9X94CoicQEo5p065MH1pgDAjpgozQIgOo?=
- =?us-ascii?Q?8YcznbGw+NiOYHzzaLVFK7ieDtX1qoUGyXU+m/1PhukuzYssgA5cbhz3aWSb?=
- =?us-ascii?Q?HUDziYu4sZK5MSyKXklla1vYrzLXtIaqcN3Hc8LJM2mSEiaYyrrALajG1uy8?=
- =?us-ascii?Q?6ycKivxNnrPpW1PpQ5ZIXnPmoRFsP8gIN7ACuHHaIFVlZyRpFZHM9BiruehT?=
- =?us-ascii?Q?ay2Ul0Rgx1rZFPP4PiGt3ogrnqnfptfpdlooQGRUBQxiggLvhG5frZS98HIt?=
- =?us-ascii?Q?gG+1J6oXwX3XVcqCr+3XIGribf4Ux+u0sTJtU7unB/EyGISZtjwSBxtvmtTU?=
- =?us-ascii?Q?iC3n2lYahwomgzHjaXgmt0s6I9tGkL/Iv/pUL2kM2i/O3IbRqLX5jpssl2Ea?=
- =?us-ascii?Q?9hHshUw4NUkKPKSJ46EYbPqUy8SjbnSpvxHwgvpWNT5GzEsBhKJu6HAH3ghj?=
- =?us-ascii?Q?d/fpeuReMoK9WAra8S6fKIBNVkWpmxQO8wCvNqij91hFQdyx8b9zUWC/DRjH?=
- =?us-ascii?Q?GB98pWDB+lbg0kr+PnObqjTbXqlQQs8JyFGGPCrMUYducYp3f6Bfe2FGGh0p?=
- =?us-ascii?Q?Nlt8A/tNr3D9+g7OMWVZkeOQ7Hdz2pYmeZ/yWBuWjJfUFIXHE6/RctTwB67u?=
- =?us-ascii?Q?0SvFNb1ffBTUgJpfKHQcwn0yHyDJ7rwf3VONVK8ie3O/VdmLSmsTqRDzwEJJ?=
- =?us-ascii?Q?+CU3r7UKHO4qbxmJ5IepA3xcfYw0TEawyKXLHpX3iU+lT2fKhmBKRvLODQBb?=
- =?us-ascii?Q?p7JIn12GIvCAbEkzsF+Mvsk2E3829kXQ9g4vumBEAtZN75TxoaSpt4vsUNsg?=
- =?us-ascii?Q?89RMXCayErzRFFRR54i3UiH3SK8Xli0TL0Hfrxi0wKqY3oYaherp0jxeYEHo?=
- =?us-ascii?Q?7RgtDeiOA8stqk5fa2JUwfFo5b0nhGzcA1mmoIUVX+d/bSlglziX/syQ2XAr?=
- =?us-ascii?Q?vXgLwMMOj7PPxTqnU8qkLB1/uzHK7H6wmKx0D9sNY/jsLj84ahngQqJMDn35?=
- =?us-ascii?Q?LLBb8YoQzBfHdrnaHpCNw7RtjzG/j2bZQFWVRf50Me05nQzJZc58E4PUUM1i?=
- =?us-ascii?Q?vO6wvsCoRAW1oaB/JSCsSfKF8a5Q5FltzPEiqEvRums+BKd0iWs4xZn80upC?=
- =?us-ascii?Q?sfI+p0Io6T3TlPpFCDPADXljsWV6Su/NNOkOmtt2fXa3qveB2Al/mkQouNHM?=
- =?us-ascii?Q?k2AXebMOEINVxBbL72WBXxJCnF05MOZQbRwQqSXIL1PMjXFTREI8e7zQmENc?=
- =?us-ascii?Q?p5LnYeNP3HyFuHSonmwmtOafcxJ3pyPJ1hPIbvNqbgYEpNpSKa9YOWm+ealh?=
- =?us-ascii?Q?agkPfp4soUmb0kgYytBYjVxENBW5uxEU52NLYTWPXBJnhabu7QcljIVWevDS?=
- =?us-ascii?Q?rvnMgub2JcwhdISWzYrL+mDiDL0tiMwis+NTdh4Fz6ooZeLnQmCn5UFAe7NT?=
- =?us-ascii?Q?evAayikazwiihRN/WZHOU3fKOiolEX1YwVDB3sGfmtmWkwkwfQmA8XOqVy1C?=
- =?us-ascii?Q?WCQhq8tiAo6cLKzc3LrRr1W3xpb2obT5NauVGnAJh+QqZa/6v7YWOxpgPgCG?=
- =?us-ascii?Q?Jc4hPSYPwg=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d588cc2a-66ea-4eb5-10ab-08de8b507919
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 15:58:08.0390
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7QWJcIRRtFI1VhbbQFIziRuFY0WU0HYRq9k0F+JfN4sW/dxnttwDsc72cECOe7KNXYUNmvUq0BRePMfybHMetQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8680
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ccb11c2a-4cf1-4486-be71-d4bcc983cee6@quicinc.com>
 
-On Thu, Mar 26, 2026 at 11:20:54AM -0400, Frank Li wrote:
->
-> On Fri, 05 Dec 2025 17:07:42 +0800, Guoniu Zhou wrote:
-> > The serial adds MIPI CSI-2 support for i.MX8ULP.
-> >
-> >
->
-> Applied, thanks!
->
-> [5/5] arm64: dts: imx8ulp: Add CSI and ISI Nodes
->       commit: 73f3ca0f85285b2fc4ea05affb9a44bf899cd595
->
-> Add extra empty line between reg and child node.
+On Thu, Mar 26, 2026 at 03:06:52PM +0530, Ayushi Makhija wrote:
+> On 3/24/2026 7:34 AM, Bjorn Andersson wrote:
+> > On Mon, Mar 23, 2026 at 03:52:29PM +0530, Ayushi Makhija wrote:
+> >> The NT37801 Sepc V1.0 chapter "5.7.1 Power On Sequence" states
+> >> VDDI=1.65V~1.95V, so set sufficient voltage for panel nt37801.
+> >>
+> > 
+> > Please add Fixes: tag.
+> > 
+> 
+> Hi Bjorn,
+> 
+> Sure, will add in new patchset.
+> 
+> >> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
+> > 
+> > Please start using your oss.qualcomm.com address.
+> > 
+> >> ---
+> >>  arch/arm64/boot/dts/qcom/sm8750-mtp.dts | 2 +-
+> >>  1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/arch/arm64/boot/dts/qcom/sm8750-mtp.dts b/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
+> >> index 3837f6785320..6ba4e69bf377 100644
+> >> --- a/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
+> >> +++ b/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
+> >> @@ -462,7 +462,7 @@ vreg_l11b_1p0: ldo11 {
+> >>  
+> >>  		vreg_l12b_1p8: ldo12 {
+> >>  			regulator-name = "vreg_l12b_1p8";
+> >> -			regulator-min-microvolt = <1200000>;
+> >> +			regulator-min-microvolt = <1650000>;
+> > 
+> > Are you sure it's not supposed to be 1.8V, given the name of the rail?
+> > 
+> > Regards,
+> > Bjorn
+> 
+> There was already discussion regarding the minimum voltage for this regulator on sm8550 target
+> on other upstream patch. 
+> 
+> Link: https://lore.kernel.org/all/aQQdQoCLeKhYtY7W@yuanjiey.ap.qualcomm.com/
+> 
+> This values is according to the NT37801 panel sec
+> "The NT37801 Sepc V1.0 chapter "5.7.1 Power On Sequence" states 
+> VDDI=1.65V~1.95V."
+> 
 
-Guoniu Zhou:
+Yes, so the panel requires 1.65V, so regulator-min-microvolt needs to be
+at least that. But regulator-min-microvolt should account for all the
+consumers of the rail, are there any others?
 
-I have to drop this one because miss <dt-bindings/reset/imx8ulp-pcc-reset.h>
+Which leads me to my question, the people designing the board named the
+rail VREG_L12B_1P8 in the schematics, why didn't they name it
+VREG_L12B_1P65?
 
-Do you miss some dependence?
+Please check all the consumers and make the regulator-min-microvolt work
+for all of them - if that's 1.65V, then your change is good.
 
-Frank
->
-> Best regards,
-> --
-> Frank Li <Frank.Li@nxp.com>
+Regards,
+Bjorn
+
+> Thanks,
+> Ayushi
+> 
+> >>  			regulator-max-microvolt = <1800000>;
+> >>  			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> >>  			regulator-allow-set-load;
+> >> -- 
+> >> 2.34.1
+> >>
+> 
