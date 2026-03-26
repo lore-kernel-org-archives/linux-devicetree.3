@@ -1,167 +1,87 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413D22222AA;
-	Thu, 26 Mar 2026 12:47:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB43D2367CF;
+	Thu, 26 Mar 2026 12:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774529280; cv=none; b=FWUC/pt/DMkvbf8UUZVd4GKxvxA1uHooYXIyO7Lf6epXbpEkJuUfjE7SyKnAOP634/NpNM3lY4DBbLk9VC/IJiRhIk+2ruSZNNalnJF33ycO7bhvVzqe4WwsXYinC3JTUnoeIfbSaekEVEdZ7z42CQv7Jq8mmBRvjGlkYDWi+s8=
+	t=1774529543; cv=none; b=MkhAGk07Fxku9mCbm8tHX70X4JXo3hKptMJBUDiC7C3KGJEPquhyKpJmM6vZTI0iLK2AznrNSxqM4aZfeEW5DoblghcDEm1WYOI0HzsuuAyB4Ftaue1HJ4wTEKdfrCSWjAr7Wm7rXV89VbOkJP4VU1SHMq5cJy8yPADKHxxGxfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774529280; c=relaxed/simple;
-	bh=WtDmRmh3cezpVSUF61m5UaSrXX0HE0AV8bz/TNmrCwA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hTZzUbDE3hMLIFpYscX1bfwsQ6gDevy6hks8FjqUdcylapzjud7PRL+yG4SG0+p5TiKQ9Ae/m0F1AWf9eJTiujvIQYwAACtX09v56rRrzdpf38/c5rf1/8ys8XtW4B9Ajg5fv9POWxTByOggfkL9tl7Sqn6F8+zf9beaNoEpX6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=uKUnAe1I; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1774529543; c=relaxed/simple;
+	bh=6VTGxkyW4cvcq2uXEpakbEWpEtG2wAQ9UNwAI15+iYs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=inSCGgCG8TsO6YTNLW1ZY8fMuYufyHGS0F09Clf9HqbrjlBxSBrL+lKXGYrmqRrGDqJ6oc//LIa4Hs9LT4kTxUGYjVlfFc6H5m5Xi1jFdM9eoV9jHc8oDrRU4Ys9mPZ2DowmQcf94mnFod8SetVHOYx5GEfbnmu7SqH7Y3qlxTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=YTUZUxBJ; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=MEKXNnKQ; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="uKUnAe1I"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=PA9iwmtkzKj9Ikfo9/YTRI8DYBCeEBqDSq+sUCDMqak=; b=uKUnAe1I0gtODvDexpiP1eYn+R
-	9Z/SzkqaIY5/pjMge45XSOjwGrvWIIAwgzy/zMNk2vriES1mDVXqbm3fSUpJyy6pqgc30UF6xSJ8u
-	CvyDA+oMLUiSnVP9yIGxIQcThbKuX31hY75UQmOFRPE9bZjmsQaS65k87U7N/sys580c=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1w5k7j-00DTiW-NH; Thu, 26 Mar 2026 13:47:43 +0100
-Date: Thu, 26 Mar 2026 13:47:43 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, kevin-kw.huang@airoha.com,
-	macpaul.lin@mediatek.com, matthias.bgg@gmail.com,
-	kernel@collabora.com, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 4/4] net: phy: Introduce Airoha AN8801/R
- Gigabit Ethernet PHY driver
-Message-ID: <3688a285-7f98-4afa-80ad-697094cd7b97@lunn.ch>
-References: <20260326-add-airoha-an8801-support-v2-0-1a42d6b6050f@collabora.com>
- <20260326-add-airoha-an8801-support-v2-4-1a42d6b6050f@collabora.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="YTUZUxBJ";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="MEKXNnKQ"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4fhNvv6ZCHz9ttG;
+	Thu, 26 Mar 2026 13:52:11 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1774529532;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=I9Chy8AgzevwPYn3/hEg4YkH331ROLRWKE0sUs35RwM=;
+	b=YTUZUxBJ3RzbZuMkbGTZyU2cHqO5J0MT0pTPXjOb2ufwyEWX68TABeLbIdZ6TTFW8NEUOE
+	P1+/i2GWHb1Cib/0vLXXR6g7XQUeUX/hO1Whwl2tcp5uNzbJmRznafMAjZHjyY/2km/S1M
+	gT3etrZkBCwElSlOKKu9a0W3DI9iX0q1yEzOZEkaQAEPf+h2IEm7Cn5Rvz6Qvsdrcgghpz
+	R7hlL4mrxyK/VBB9KpDJj5pi944csDVKuECCPMet9ZczEuGcLXK589E4Temv0hz1gXWtKz
+	rGnJoiAQzqFUrVMlFYApYJ/TBW8FlNf8+WTmMz2SHWYqhcKuGBredCBIkiJqcw==
+Message-ID: <d6696825-f739-4427-bb60-abf8afd82b66@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1774529530;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=I9Chy8AgzevwPYn3/hEg4YkH331ROLRWKE0sUs35RwM=;
+	b=MEKXNnKQsTujq/wMDVDbuIdq5AnzVzA2L09JW/JbiGZfyOu3FYlqpvMBmY2GUCMUEuAMBV
+	nQtejxsfaEMlF2MMKxv6dyrLQTs+myKV94u8hCtg2A2Eu+LrHZhpW687mcYMXUKiMYXJ7K
+	QMaSwH6OMgxcDkR29L1ddHEY/vT0UOFwpJHCVTDD6geM9dwIViDOAESqUZd4qEzlO7wXgK
+	4t2gEG/OItcvI0DW9GXe5R3shX0MJEHiHJecdGyUHTMd8vWXUSmpb1TtOIvgA0mHKaYiSg
+	BqVyXddH4uXWUbwNcdgCkBDuxgA6xghOJy4MoCDY4ervnisz3eDucMI2mZnNRg==
+Date: Thu, 26 Mar 2026 13:52:07 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260326-add-airoha-an8801-support-v2-4-1a42d6b6050f@collabora.com>
+Subject: Re: [PATCH] ARM: dts: renesas: rza2mevb: Drop RTL8211F PHY C22
+ compatible string
+To: Geert Uytterhoeven <geert@linux-m68k.org>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm
+ <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260326045416.223556-1-marek.vasut+renesas@mailbox.org>
+ <CAMuHMdVwa47N2VsvH8pBkAD215dr3M-qkA0SXed0vhLS2-aoKA@mail.gmail.com>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <CAMuHMdVwa47N2VsvH8pBkAD215dr3M-qkA0SXed0vhLS2-aoKA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: 0aa1a6b254c98a861e0
+X-MBO-RS-META: 89mianiegazzsg9eorrsbp6xffnu78nw
 
-> +static int an8801r_led_blink_set(struct phy_device *phydev, u8 index,
-> +				 unsigned long *delay_on,
-> +				 unsigned long *delay_off)
-> +{
+On 3/26/26 10:45 AM, Geert Uytterhoeven wrote:
 
-...
+Hello Geert,
 
-> +	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND2, LED_ON_CTRL(index),
-> +			     LED_ON_EN, blink ? LED_ON_EN : 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-
-Just
-
-
-	return phy_modify_mmd(phydev, MDIO_MMD_VEND2, LED_ON_CTRL(index),
-			     LED_ON_EN, blink ? LED_ON_EN : 0);
-
-> +		if (!led_trigger)
-> +			continue;
-> +
-> +		ret = an8801r_led_hw_control_set(phydev, led_id, led_trigger);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +	return 0;
-> +}
-
-
-Please take a look at all your functions. Can the last error check be
-removed and just use return ret, etc.
-
-> +static int an8801r_of_init_leds(struct phy_device *phydev, u8 *led_cfg)
-> +{
-> +	struct device *dev = &phydev->mdio.dev;
-> +	struct device_node *np = dev->of_node;
-> +	struct device_node *leds;
-> +	u32 function_enum_idx;
-> +	int ret;
-> +
-> +	if (!np)
-> +		return 0;
-> +
-> +	/* If devicetree is present, leds configuration is required */
-> +	leds = of_get_child_by_name(np, "leds");
-> +	if (!leds)
-> +		return 0;
-> +
-> +	for_each_available_child_of_node_scoped(leds, led) {
-> +		u32 led_idx;
-> +
-> +		ret = of_property_read_u32(led, "reg", &led_idx);
-> +		if (ret)
-> +			goto out;
-> +
-> +		if (led_idx >= AN8801R_NUM_LEDS) {
-> +			ret = -EINVAL;
-> +			goto out;
-> +		}
-> +
-> +		ret = of_property_read_u32(led, "function-enumerator",
-> +					   &function_enum_idx);
-> +		if (ret)
-> +			function_enum_idx = AN8801R_LED_FN_NONE;
-> +
-
-What is this doing? Is this documented in the binding?
-
-> +		if (function_enum_idx >= AN8801R_LED_FN_MAX) {
-> +			ret = -EINVAL;
-> +			goto out;
-> +		}
-> +
-> +		led_cfg[led_idx] = function_enum_idx;
-> +	}
-> +out:
-> +	of_node_put(leds);
-> +	return ret;
-> +}
-
-> +static int an8801r_read_status(struct phy_device *phydev)
-> +{
-> +	int prev_speed, ret;
-> +	u32 val;
-> +
-> +	prev_speed = phydev->speed;
-> +
-> +	ret = genphy_read_status(phydev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (phydev->link && prev_speed != phydev->speed) {
-> +		val = phydev->speed == SPEED_1000 ?
-> +		      AN8801_BPBUS_LINK_MODE_1000 : 0;
-> +
-> +		return an8801_buckpbus_reg_rmw(phydev,
-> +					       AN8801_BPBUS_REG_LINK_MODE,
-> +					       AN8801_BPBUS_LINK_MODE_1000,
-> +					       val);
-> +	};
-
-This is unusual. What is it doing? Please add a comment.
-
-	Andrew
+> On Thu, 26 Mar 2026 at 05:54, Marek Vasut
+> <marek.vasut+renesas@mailbox.org> wrote:
+>> Realtek RTL8211F PHY schema indicates that compatible string
+>> "ethernet-phy-id001c.c916" must not be followed by any other
+> 
+> This is actually RTL8201F / c816; I will fix this while applying.
+Ouf ... thank you.
