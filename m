@@ -1,291 +1,98 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010068.outbound.protection.outlook.com [52.101.69.68])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB9B925F99B;
-	Thu, 26 Mar 2026 19:47:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.68
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774554440; cv=fail; b=fTQBEwNh4VAfgtRXPW6p3sGWO17XI95yU3Me09T9UPwkQI/08KDGHy5Pxpb0p7RzL3QHKRuRDGRVx+OLyBjRu/ZGEZypMg0JSgoFUnjxLACbeu9JyMiQ5ThWoKaL62CdjWMk5XKqi0hZRJ3MKiqmfa0nQ7zs/vgO+/dy5wkfhM8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774554440; c=relaxed/simple;
-	bh=WK5fxPAdvnIaqYgv6Q3s47YQLY3S6YdjmtgozSCpJjE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ZRwSzmvO2JBDpuOr2EsVnkru9/l8aDup9+1i7IG8Wa1w5Ke0CBhGXLUrrOjtHCF14XI7yrFxutrKC3lVnqLAI3PczTrLlVLMIiAOYJECnryHZxO1qRt2cT6y0dPoFJm1Bm02rf8XEHOEpLUrJSE9mwmC0nnw1rb9TzAZ+RgC3xY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=mszQzplg; arc=fail smtp.client-ip=52.101.69.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5D334B662;
+	Thu, 26 Mar 2026 19:57:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774555055; cv=none; b=EwIplTUcuSY6IH0O2EQlpCw5auFzeyDoXMM7oDJTdu0MW2C23UUWYC84HM2Dy1NUHtoeu0wwyIq5m0L1zvhvo88H8JqXwp0IUd+gjDHsdZf0gK9XK2PgYcfHM3fbkP7pOljJlJDAY6CccvICrEBJmWEf7m4NahYYxshJD8QnouQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774555055; c=relaxed/simple;
+	bh=JttQr6ja19BA2NJCGUge8nm+gAYUlqCp/BXQRJsn6tk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LCxC59vrNrQ2S+6U1yOSUIbbPujAlOyKBeiR2lcda7gR7ih0skchiVKwbjv4JwJImHo9lwxCbXgkyPNSMOUIiyxEcWPwg3ai4l5lt52/Zw20GempgoW+1rFVQ/PWrb2Ok1gtKjlxnChpS2481XXcpsOZfOpbEM3LDz16c81NKnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q4rcr3ic; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="mszQzplg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gKBCLcMqDSwhLLBB5uxOZxxwJgFjiFRwIvhajliswt4Dui9fFmLy35bsEUqA9/F7jd/gOP/zuX+8g3FQ7/Ay883R4fpdO+sriEt8fdTh1yCH9ldyTQDTi/9eH0cWTUumdnrhU9YGUg2goZNyKisCL4FD3ot/+XI1YlrmHk61UaOpyAkcPzqxipPqh71ntqag//Qz/CTVpyq1DgWmn87A/ite1Xl/4tCHj5ycwWEY/hzeHb0MI7be5CQv9j9WmuSD8VAZgHgvVxvhImZIHa1w8NqETFiTYCcgmBPRkuolDWbj/pHJAVOhKQhA2kGyjPJy5gGsHxjLNbj8EnBQ4r9S0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VLIzwB5kEFGI/DvTT0q7RQouEwYDVjXCy7eU0mMpxo0=;
- b=m2ZOjZNW1aHiv04rIuSdzgSgeIJUNniem4hlT8X5pguuByu7+ZyV5uKLX7zBjx+HTlBANSSTUJv2WOXz95s57WhWMD9H+zkve8NMmmiZ5m/z+VL49Mb6lfA/VPzeeTdNtADCxVWpDiPTrK+IYO51HfAcdXR8mhz9c3UunGr6NP4752skKNz8tX0Zyde0HtakNmUbqr3rC1nwGlAdenmRMrLFJtN5KT7sAm2D4bOQbGuAMvLOHCZDsFeW0iQEd7AjDjADsHaL8bRhbvW3CqnZLX+AzFcyJF8bFAD9KEdW3A5izy27EK4jjsWqSgJ+nOtuNeYACU6IR/kmZjUhCeQvAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VLIzwB5kEFGI/DvTT0q7RQouEwYDVjXCy7eU0mMpxo0=;
- b=mszQzplgjx1CfbQLOYqCM+8uhUQNo8bVjzKIQqfSztao0TJr5pzd6c4l6rWCCHPy4AyJrxA/U6nLzNQ2dwGC+xsBnT9h7YexTtN2ODfXi1T46Ivt6AkXPoi7Cw4im7slh/yhgxgfF9XJcDyxGeRxDKLgVEzTkGbUBtu3mdjcz73/MYs9lft7et3f5QAiTSFyMppZDoK2tP4VYmf/a/B5OlI5ZQ60vjJZbqm9GFTbQQQuSJMkepvbcEZUUA5bODFWUXgc6R+PGgFuOwTfAw9YsSGDlgl7kUsm7EwUm9yw2WXKA4AVZ9uf5grLy9Y9oa2XoJ93J6r0DXD/pBijgNQO6w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by OSKPR04MB11368.eurprd04.prod.outlook.com (2603:10a6:e10:9e::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
- 2026 19:47:14 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9745.022; Thu, 26 Mar 2026
- 19:47:14 +0000
-Date: Thu, 26 Mar 2026 15:47:06 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Peter Rosin <peda@axentia.se>, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Haibo Chen <haibo.chen@nxp.com>
-Subject: Re: [PATCH v4 3/7] pinctrl: extract pinctrl_generic_to_map() from
- pinctrl_generic_pins_function_dt_node_to_map()
-Message-ID: <acWNOhnBvA5l9NW3@lizhi-Precision-Tower-5810>
-References: <20260325-pinctrl-mux-v4-0-043c2c82e623@nxp.com>
- <20260325-pinctrl-mux-v4-3-043c2c82e623@nxp.com>
- <20260326-concur-eel-3e0b3d91e00a@spud>
- <20260326-poncho-expanse-d30a9eded8e2@spud>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260326-poncho-expanse-d30a9eded8e2@spud>
-X-ClientProxiedBy: PH7PR10CA0016.namprd10.prod.outlook.com
- (2603:10b6:510:23d::8) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q4rcr3ic"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB2D5C116C6;
+	Thu, 26 Mar 2026 19:57:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774555055;
+	bh=JttQr6ja19BA2NJCGUge8nm+gAYUlqCp/BXQRJsn6tk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=Q4rcr3icHxtXNIKV8otrzy/M2ts4J7FKyHvTRDMiThEsg3UsHYnmzKAdkZBLAiAVw
+	 eFF4tMoGYttH/02V0fPgQPIa3MhtZJ8b+yceKHAxBRXzsbt1N+72iLv03D+yauctUu
+	 9LT26ZJbFPwjYlnM7WNeCBaos22MgZljhJCRLJKRfGjVy+9rUmnGupu+cy6fXs5B7y
+	 8kuddANncDFk51SIdCZLxdHVk0ima/XP8697+mocmMMikvRi9Hqbr400A6GkIqfXOz
+	 nkUwG1vWUhYvBsSGmWl9Gs6Opcb8SRt/6C3Lw8M1h5hApLzdIb4Wg10GlygF926V2O
+	 Be9VPD/rBkL7Q==
+Date: Thu, 26 Mar 2026 19:57:25 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nick Xie <nick@khadas.com>
+Cc: neil.armstrong@linaro.org, khilman@baylibre.com,
+ martin.blumenstingl@googlemail.com, jbrunet@baylibre.com,
+ dlechner@baylibre.com, andy@kernel.org, krzk+dt@kernel.org,
+ robh@kernel.org, conor+dt@kernel.org, linux-iio@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/4] iio: adc: meson-saradc: add support for Meson S4
+Message-ID: <20260326195725.4be0624a@jic23-huawei>
+In-Reply-To: <20260325070618.81955-1-nick@khadas.com>
+References: <20260325070618.81955-1-nick@khadas.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|OSKPR04MB11368:EE_
-X-MS-Office365-Filtering-Correlation-Id: cbbd8a41-5df6-4896-e576-08de8b707a81
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|1800799024|7416014|52116014|366016|56012099003|22082099003|18002099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	L140J1Mu5+6B/johF89xk3yauB3eM2KlqHeylYEUPcvDyDABB3ZrUrZVwLPOSkNIkUdCeGUJJDvasLCZJT5h3nypg1yuZjYSAT8K/EBPCY78GCl/6sfoLxZrx98KxXqD8a1yOvpBSWRaAVvma3sKSTK4HbkH3w40iFKE6X5FNDRbkUeGrQGO/3Weldz48z00DXrKomGfmmJtLr32lYGpXPKB7zE/3sSgGzYF9TYtHPgS3VoduForIQERUY70f3zE2BuEfnkpzwKn6vfjnCCYq+u+AvocZPH+ZfpvTApbSPKPjfrvvHQRaoAENT+07YrkJC4YaVo5G18NBYGJq+J9td0KYvbEWm/QLx7HehUNAQ6iI+tUS0dbBCtDjtXO/0qefatxPX7+9fZgFyGXlDZLEvuiRtc1Msy5+NCPb/AqVp8DdXvhNGUWFfTSBLSxDTJj6FnKKWp3EtKqOyDzMqYYs6wN2c8YUwmlQLZsX8KzoQnm4ivs0V+6D/3/UeHyoAXSZm55b6Xw3zf9XSe4+GcJMbqKmQub4CTvUUR7aMd6BP64TUCaIT0w13sKfemtJmYxhDg0ZoZCW/GUYvsC+E79lDqMjniRZ6SBN+f/WVMCWf/XBBv2wZhlVoZSX5fARl/ESEn5wLatx0hMLNcl3RMmY/W0b6x/2xnH6ribS0rH///k7qlO3tLjzxm3mfPmzSjFULtiHaRXTBYxVt8TMuik+VAWzWWX1asqnPqbcMoebhZ2KFy57csuagPXAVD+aAv1OkvRuolJ4aut3suF5nsXgBFGDXvaP2NOqtUn2pzk2NU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(1800799024)(7416014)(52116014)(366016)(56012099003)(22082099003)(18002099003)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?z1OT0MV72s1Gou/+mw/lx/b2fMONEjCrC+XziZZ2C34NOOfsNvsT72TeaL1z?=
- =?us-ascii?Q?wUdyqGd1zWy9vCHhgQ/9/vA4mGtCTxSg2NkgA0lJCjLXIi+kfxFWsx471XgN?=
- =?us-ascii?Q?yl216SETG5DcoffrYpPW2x0h+7RFuAw9sFaLHKV9MyryVMOexgOUI6ov+xUE?=
- =?us-ascii?Q?ipNHj98QbigQVc0nlZQG+4or0sXNgB1m1oDPe1RW/wikg9D5Lf9qOablVdgt?=
- =?us-ascii?Q?wbve0jtrrXc6g7iRj5TEQ/x7RHbaDOLfXXjroQFIZH/dPmHNaBQaXaHvNJeB?=
- =?us-ascii?Q?wx1cTXM/dn9xKak7GX635jJxRHLyuk9h7DwB5z7TINUWbYoCKiPFJdsQynqX?=
- =?us-ascii?Q?FeIIbpjxylBbcGLLs46EKzv9LRzDwuF9r2FTy+A8DQ1vl+LnOhjyudVR/0Gw?=
- =?us-ascii?Q?EL50hea+MiYafzmn8u5qRKXBh2SmrZl1ldyNQAZrApOrU3Y1yvo7t7+sQS9t?=
- =?us-ascii?Q?UE9rI065D9YSFjQHE70ylbzaDUiLEEz7ZS5+2VwgFgiUqRJScW2YcsmkvsMt?=
- =?us-ascii?Q?4qA+ji7yAlSl280YO3JngobXaFvWz+bmd/g90rwfGrWsjMxSlXDqMwQiypb5?=
- =?us-ascii?Q?KWwFoYY9h/iUx7mRhTIRm7sOtdfrcIgTDfQtllhABGSN1IBPjw0fmEKhCREy?=
- =?us-ascii?Q?p5ZcOs9/oXmbQyY1AkfxqTXzHH/8IVk2PdYePHC8gCmJAevKQ4lLWGCk+SqU?=
- =?us-ascii?Q?bUxV2hx1/mzJpsCKK+FAnq3vBGqNco2ssNfPnOxdGSMI1H/S+ZeHX2ZnaxJb?=
- =?us-ascii?Q?Q8bo/k2mreTy9UyBUVtK8LdDhMiGsDvpyfmmjNo22on4kFFuGITtu/iTzQ7G?=
- =?us-ascii?Q?GH/YpHm2s2Uw9zpfhQgcJoXRKIq5KbTHEp6+GnP463+e1oWHma3962nJtXi/?=
- =?us-ascii?Q?j5g6pY7DJU0ZD/AGPhtt36A413eTISwhz0z0AP/T39To+VGh/gOi6nsIUSkw?=
- =?us-ascii?Q?kW24h41F0qXiM+FytosMmoG9wLvR66/XxSgXcFbBPsafoygNdG8kBjDm7Lz2?=
- =?us-ascii?Q?TUKjO4MAeLRuS0vXhdqcfft0ozj5cpcGpdXH2at/W1rnTD3gUGWjVA0yZNtS?=
- =?us-ascii?Q?VdV71dwjrqcnIqS/CI2K9OPMLo4VO2uVwLf95StxAt0MGPoWLZq3IlyrdNQn?=
- =?us-ascii?Q?OecjJsI+EYZDwBI+Wor5jhsR0xuAvENtVIcBo4nCT0ybIAwJfc84HE8dXp9N?=
- =?us-ascii?Q?7Qn/5AsLNLyR5oo8KtzjorU0INEsAYSkHBqBbcg+Cyb1xjzWaMJMKTxZ1jUE?=
- =?us-ascii?Q?Kmqzny4rwXF6xCuoG+lfinNP46E4tzCQLT7f+/WKgUu8SG1viZLYvinYxaDK?=
- =?us-ascii?Q?gBPf6Ozqf9pf3IYT8xZycgQ+ZA7f86SqoYD1YT2FaeJ3RD1Bpe5FU3rp7YF4?=
- =?us-ascii?Q?gqn+cW98XEKpIimMHYKO2hWAHnlJvmK9CRxmqSYmYu9VVWDEDgpn69/cl96d?=
- =?us-ascii?Q?cdH8ZU6QZN17qPiA/YBeWb6yqh/i7p30oPgiuoj7pvuDG9RTVe6f/I2Ffpav?=
- =?us-ascii?Q?xy6jZuI3QzOMnocRIP+Y0XfkQkBBYqPz0mdNNRooF5IfrmXvRWq1mVaIP4Iz?=
- =?us-ascii?Q?8her54qchJr3qvrsxw82uAymrzGzqqaDKKbL+RYrv+a8pOHKAXnpKbNautlV?=
- =?us-ascii?Q?Mkt5rGpvelNFZDL15OepAlw9890N4h1luIKvsWZ13nWTsO4OlN9dDcUpDRDg?=
- =?us-ascii?Q?gziJsSqEditwRv9WxC9qIQ30HmHNVohzCkpsalQTt5fIFrgI?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cbbd8a41-5df6-4896-e576-08de8b707a81
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 19:47:14.2393
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NEMmM+ZWr2YSSg5nJulsEvj4h49OEiajs+X/vTQUlTyx2SX6F2B0aJ8ugt+101IBWI7CMGhHXYb5oZ/Jm3fEWQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSKPR04MB11368
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Mar 26, 2026 at 06:55:01PM +0000, Conor Dooley wrote:
-> On Thu, Mar 26, 2026 at 06:52:12PM +0000, Conor Dooley wrote:
-> > On Wed, Mar 25, 2026 at 07:04:12PM -0400, Frank Li wrote:
-> >
-> > > diff --git a/drivers/pinctrl/pinctrl-generic.c b/drivers/pinctrl/pinctrl-generic.c
-> > > index efb39c6a670331775855efdc8566102b5c6202ef..20a216ae63e91b69985ea4cfcd0b57103c6ca950 100644
-> > > --- a/drivers/pinctrl/pinctrl-generic.c
-> > > +++ b/drivers/pinctrl/pinctrl-generic.c
-> > > @@ -17,29 +17,18 @@
-> > >  #include "pinctrl-utils.h"
-> > >  #include "pinmux.h"
-> > >
-> > > -static int pinctrl_generic_pins_function_dt_subnode_to_map(struct pinctrl_dev *pctldev,
-> >
-> > > +int
-> > > +pinctrl_generic_to_map(struct pinctrl_dev *pctldev, struct device_node *parent,
-> >
-> > Can you drop this stylistic change please? The
->
-> Whoops, cut myself off. To be clear, what I am asking for is to keep the
-> "int" etc on the same line as the function name. This function is new,
-> but you did it for the existing function too and the comparison is here.
->
-> >
-> > > +		       struct device_node *np, struct pinctrl_map **maps,
-> > > +		       unsigned int *num_maps, unsigned int *num_reserved_maps,
-> > > +		       const char **group_names, unsigned int ngroups,
-> > > +		       const char **functions, unsigned int *pins)
-> > >  {
-> > >  	struct device *dev = pctldev->dev;
-> > > -	const char **functions;
-> > > +	int npins, ret, reserve = 1;
-> > > +	unsigned int num_configs;
-> > >  	const char *group_name;
-> > >  	unsigned long *configs;
-> > > -	unsigned int num_configs, pin, *pins;
-> > > -	int npins, ret, reserve = 1;
-> > > -
-> > > -	npins = of_property_count_u32_elems(np, "pins");
-> > > -
-> > > -	if (npins < 1) {
-> > > -		dev_err(dev, "invalid pinctrl group %pOFn.%pOFn %d\n",
-> > > -			parent, np, npins);
-> > > -		return npins;
-> > > -	}
-> > >
-> > >  	group_name = devm_kasprintf(dev, GFP_KERNEL, "%pOFn.%pOFn", parent, np);
-> > >  	if (!group_name)
-> > > @@ -51,22 +40,6 @@ static int pinctrl_generic_pins_function_dt_subnode_to_map(struct pinctrl_dev *p
-> > >  	if (!pins)
-> > >  		return -ENOMEM;
-> >
-> > This looks suspect. You've left the pins allocation behind:
-> > 	pins = devm_kcalloc(dev, npins, sizeof(*pins), GFP_KERNEL);
-> > 	if (!pins)
-> > 		return -ENOMEM;
-> > but pinctrl_generic_pins_function_dt_subnode_to_map() has already
-> > populated this array before calling the function.
+On Wed, 25 Mar 2026 15:06:14 +0800
+Nick Xie <nick@khadas.com> wrote:
 
-what's means?
+> This series adds support for the SARADC IP block found in the Amlogic
+> Meson S4 (S905Y4) SoC and enables it for the Khadas VIM1S board to
+> support the onboard ADC 'Function' key.
+> 
+> There are no known hardware differences between the SARADC on the S4
+> and the previous G12A generation. The S4 bindings utilize a fallback
+> to G12A, but a dedicated driver match entry is included to ensure the
+> correct part name is exposed to the userspace ABI.
+> 
+Applied patches 1 and 2 to the togreg branch of iio.git.
 
-pinctrl_generic_pins_function_dt_subnode_to_map()
-{
-	pins = devm_kcalloc(dev, npins, sizeof(*pins), GFP_KERNEL);
-	...
-	pinctrl_generic_to_map();
-}
-
-pinctrl_generic_pins_function_dt_subnode_to_map() have not use this array.
-
-Frank
-> >
-> > Also, this should probably be
-> > Suggested-by: Conor Dooley <conor.dooley@microchip.com>
-> >
-> > Cheers,
-> > Conor.
-> >
-> > >
-> > > -	functions = devm_kcalloc(dev, npins, sizeof(*functions), GFP_KERNEL);
-> > > -	if (!functions)
-> > > -		return -ENOMEM;
-> > > -
-> > > -	for (int i = 0; i < npins; i++) {
-> > > -		ret = of_property_read_u32_index(np, "pins", i, &pin);
-> > > -		if (ret)
-> > > -			return ret;
-> > > -
-> > > -		pins[i] = pin;
-> > > -
-> > > -		ret = of_property_read_string(np, "function", &functions[i]);
-> > > -		if (ret)
-> > > -			return ret;
-> > > -	}
-> > > -
-> > >  	ret = pinctrl_utils_reserve_map(pctldev, maps, num_reserved_maps, num_maps, reserve);
-> > >  	if (ret)
-> > >  		return ret;
-> > > @@ -103,6 +76,54 @@ static int pinctrl_generic_pins_function_dt_subnode_to_map(struct pinctrl_dev *p
-> > >  	return 0;
-> > >  };
-> > >
-> > > +static int
-> > > +pinctrl_generic_pins_function_dt_subnode_to_map(struct pinctrl_dev *pctldev,
-> > > +						struct device_node *parent,
-> > > +						struct device_node *np,
-> > > +						struct pinctrl_map **maps,
-> > > +						unsigned int *num_maps,
-> > > +						unsigned int *num_reserved_maps,
-> > > +						const char **group_names,
-> > > +						unsigned int ngroups)
-> > > +{
-> > > +	struct device *dev = pctldev->dev;
-> > > +	unsigned int pin, *pins;
-> > > +	const char **functions;
-> > > +	int npins, ret;
-> > > +
-> > > +	npins = of_property_count_u32_elems(np, "pins");
-> > > +
-> > > +	if (npins < 1) {
-> > > +		dev_err(dev, "invalid pinctrl group %pOFn.%pOFn %d\n",
-> > > +			parent, np, npins);
-> > > +		return npins;
-> > > +	}
-> > > +
-> > > +	pins = devm_kcalloc(dev, npins, sizeof(*pins), GFP_KERNEL);
-> > > +	if (!pins)
-> > > +		return -ENOMEM;
-> > > +
-> > > +	functions = devm_kcalloc(dev, npins, sizeof(*functions), GFP_KERNEL);
-> > > +	if (!functions)
-> > > +		return -ENOMEM;
-> > > +
-> > > +	for (int i = 0; i < npins; i++) {
-> > > +		ret = of_property_read_u32_index(np, "pins", i, &pin);
-> > > +		if (ret)
-> > > +			return ret;
-> > > +
-> > > +		pins[i] = pin;
-> > > +
-> > > +		ret = of_property_read_string(np, "function", &functions[i]);
-> > > +		if (ret)
-> > > +			return ret;
-> > > +	}
-> > > +
-> > > +	return pinctrl_generic_to_map(pctldev, parent, np, maps, num_maps,
-> > > +				      num_reserved_maps, group_names, ngroups,
-> > > +				      functions, pins);
-> > > +}
-> > > +
-> > >  /*
-> > >   * For platforms that do not define groups or functions in the driver, but
-> > >   * instead use the devicetree to describe them. This function will, unlike
-> > >
-> > > --
-> > > 2.43.0
-> > >
->
->
-
+> Changes in v3:
+> - Patch 1: Updated the commit message to explicitly explain why the
+>   comment regarding the generic fallback was added.
+> - Patch 2: Retained the driver patch and updated the commit message to
+>   clarify that the dedicated match entry is kept specifically for
+>   userspace ABI naming purposes.
+> - Link to v2: https://lore.kernel.org/all/20260323013408.429701-1-nick@khadas.com/
+> 
+> Changes in v2:
+> - Addressed feedback from Krzysztof Kozlowski:
+>   - Updated dt-bindings commit message to explain the hardware compatibility.
+>   - Separated the S4 compatible string in the YAML bindings to ensure it
+>     correctly falls back to the specific "amlogic,meson-g12a-saradc" rather
+>     than the generic "amlogic,meson-saradc".
+>   - Updated the S4 SoC dtsi to use the correct G12A fallback.
+> - Added Martin's Reviewed-by tags where appropriate.
+> - Link to v1: https://lore.kernel.org/all/20260228065840.702651-1-nick@khadas.com/
+> 
+> 
+> Nick Xie (4):
+>   dt-bindings: iio: adc: amlogic,meson-saradc: add S4 compatible
+>   iio: adc: meson-saradc: add support for Meson S4
+>   arm64: dts: amlogic: meson-s4: add internal SARADC controller
+>   arm64: dts: amlogic: meson-s4-s905y4-khadas-vim1s: add Function key
+>     support
+> 
+>  .../iio/adc/amlogic,meson-saradc.yaml         |  4 ++++
+>  .../amlogic/meson-s4-s905y4-khadas-vim1s.dts  | 19 +++++++++++++++++++
+>  arch/arm64/boot/dts/amlogic/meson-s4.dtsi     | 14 ++++++++++++++
+>  drivers/iio/adc/meson_saradc.c                |  8 ++++++++
+>  4 files changed, 45 insertions(+)
+> 
 
