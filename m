@@ -1,121 +1,115 @@
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32CE38C430;
-	Thu, 26 Mar 2026 11:19:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53732DF12F
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 11:19:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774523984; cv=none; b=TOhLqhtSns7yEJ6lLJ2RZmxW4uMRSeIZHVYso2SwBX/tLlHR7NLpVLvSFmF80y0/i1inXYNSvEmZJ4QjNDot25e78t/8z7EdYNE+WFXPY2MrAkKbM7eW04PasMGpMU53XFmGoMExqCPui5QOMSwIfqnJIJqsu7YbvpeUJg+4fNw=
+	t=1774523999; cv=none; b=lOJzuCcoq9gpj9XfDh9+Zok31jalhDkhAfXntBb9Fam9J6SBoBmUGeEE798bsZ471z0bR2A4DQ2xLHDmlE3ZWmVcJRwJayxX/1tKmZa8uJbjYARLODlU1MY3yGHOC9eUIrpUrjvJ0QRD7oCSG9k3K2BOdcM4ogjFlG/zEnv2kco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774523984; c=relaxed/simple;
-	bh=5zWpjUiosTsBLXN9TPN/TysyeBthI/0455XUGFFlDcc=;
-	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
-	 In-Reply-To:Content-Type; b=tp1KnaMpWTo5fyQkZuj0osO+D76KBzx5tpiUyEkHJEpu3hmm7T0jGfJIKgGZONS3/aM3nvq3DrVWW4AzG+Y8zqRmmjOLAqVtYS7eOsd+pXB/uEjX77ONOL+PlKO15gy8sL3ksIXHDmn0jWyErvQvgdwHJx1tzl3XVwRT+danms4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=PqfD5wy9; arc=none smtp.client-ip=113.46.200.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1774523999; c=relaxed/simple;
+	bh=pjR1FeYWT3fCK07KymFSlvdN61443JK+C04q/CejLQU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cuUpWl0kuGuY9G625zSYmT++QEpnKfEIj97nNx6abeeMdlaRk8Rw9qe5GuxGCf/Ne1lBTTMukxvro5onucnPY8VL7zCBLd3Kkg2q8HBZOHAl4N/xw7n0fNIltPqB4fy2IDmLNh7dLJrwasbNSR755eCICYvosbaUMpi3+ipLSkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g441ur58; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="PqfD5wy9"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=4eUbyrBQrZeyw3b/k/SDrTACodn8YBSMmYKpGCCfH9E=;
-	b=PqfD5wy934jLNLeuXyaaOLg1+NyOaHiHgYF2LSoav3XafE3peWSUj2uOnPF8hsW/eYKyKuIHB
-	5/KMAFgPcTmA6XJp+T7F8S82XOXNdfs6CQzyraZDnhcdH+dqpo7V67PYgw8rXtt9iqY99o2hes/
-	oZm+auom9IW5mWJazjO8v/8=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4fhLkf6WRjz12LGC;
-	Thu, 26 Mar 2026 19:14:02 +0800 (CST)
-Received: from dggemv706-chm.china.huawei.com (unknown [10.3.19.33])
-	by mail.maildlp.com (Postfix) with ESMTPS id A396C2025E;
-	Thu, 26 Mar 2026 19:19:29 +0800 (CST)
-Received: from kwepemq100003.china.huawei.com (7.202.195.72) by
- dggemv706-chm.china.huawei.com (10.3.19.33) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 26 Mar 2026 19:19:29 +0800
-Received: from [10.67.113.213] (10.67.113.213) by
- kwepemq100003.china.huawei.com (7.202.195.72) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 26 Mar 2026 19:19:28 +0800
-Message-ID: <69C51640.8070408@hisilicon.com>
-Date: Thu, 26 Mar 2026 19:19:28 +0800
-From: Wei Xu <xuwei5@hisilicon.com>
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:24.0) Gecko/20100101 Thunderbird/24.2.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g441ur58"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-486ff3a0fc1so8072035e9.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 04:19:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774523996; x=1775128796; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=1cM2Ed0+UHaZsndyPhA9BP7E7XUawbgfNpYu8w9suDg=;
+        b=g441ur5810zFIj8p/ikB4/u9DQBIEXWGcwR0c546n+4wOqdhdX8dHbARNBS3gVkQx+
+         KwU4yJemUQL57Gu/7Wux/arX7/4F8PCOaeeBItmkafzJUnrqaXl01WpxMB09N4aqjmSp
+         B8ORP+zmTcB1EOISOhYCFmHeAEyctm8VxJ3i67nMXkwUkXEylLYEByeBG0MzynapI42W
+         ROyl+IGbDgpSnhaIh9AZD3yRmUSv+4ZXAVTnT/+cVEVtVB4TEDWbfAgV4fUynvh6Ev8X
+         0h2/XjcwnMsqHt2ttXPU0qo+I2DYs51ZZ9QXhWFQg1AfXBb/2jUxPMX+mhRrb9wL7KZJ
+         jcog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774523996; x=1775128796;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1cM2Ed0+UHaZsndyPhA9BP7E7XUawbgfNpYu8w9suDg=;
+        b=JoiuE2niliLa8t7pmOI7J/aX/CtX1uii/cvs2vG7xtdG9C29ER7wBciWtUJVVfmRoD
+         q7C2lXfWRofRCA5/8FRUmT7VnYbMskIMYuTOTFekPFoJJ5kOmZJj+uPiYN89X7EGW/gH
+         Bfhi4aEHSGBv2n+LBddOtrJYXhl1Cwlmb41OAp8WPVHEvOkaEqbcKFUPxxrbkvuLrOoB
+         T1Z8pgQVY80vmqmHpya6WjNqhah3hjXcB37Hd0BvTyFwVILtG57iQHQXqkBdqPvSjDZG
+         rzJSpyvVSsCZAnQ13XU4DVO+omcKv9JZJuq59p86qs36VkjdTjfFCF+PMn2/lYemcy4D
+         ZwcA==
+X-Forwarded-Encrypted: i=1; AJvYcCXWtBUvmheaqqWvwg7ngY0WdhIf8rI34D1P5foORAkqdTVyGHhUPhcoYnlHqe+M+qeMMbqO7atcrf7S@vger.kernel.org
+X-Gm-Message-State: AOJu0YzOpJqwTfhR8WhUsWLaLX1+dUdYcTx8qsSY9/g5qEjBhgVMo7z2
+	gFdt95JpiNjGkWLg1iHulkcaoBNmOaJ3B5f4jDTw9HWIEQPTBnecw0ka
+X-Gm-Gg: ATEYQzwmSGh08AUVkH9ue9JzftcDZaB1xSW7B5858G+d8ydpwyT5ZuTG6cmo3/lA291
+	FKSChOAZYuD8jQ9YlnSr4/W3+sgPvx438JOKKZ7X3kt3Vnbhal9syDsRTptZ8pirl254ttk60jK
+	h9G1o4HMRbnyqgEagbzvqK+iGv7folFrTNo17T2ujzgzulYVMW+VwTasqTOLYFL5czAzvO2rJ+T
+	r1pyQciXOvQ2G9O1HpIVG3Wf8iMYtXbO4y70/R4vADOggzxUxaeAUrSAX1dW6pOQ7NpHFpojqZ2
+	D4+g20gQK6C4mffVj4hXzKJANd/ux/Y6TKZUN/jOXMI265k8qsQFEOyHbvO8fXpcRS3VGajmEMZ
+	a/Ep5MwJOKsagVUG6M1a3FTRhcQeNDnNHeqbgYoe3b0WpDTIzWgJd9uzd8PSYOBj9WgjZz/VH+8
+	FkKNhalfj/fmS2knB/FQFt/qmHooV5dqWF4hU/7Gz0zljV2tou
+X-Received: by 2002:a05:600c:8219:b0:485:ae14:8187 with SMTP id 5b1f17b1804b1-48715fc3250mr98179175e9.2.1774523995840;
+        Thu, 26 Mar 2026 04:19:55 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a758:8a01:377f:9a3e:6c94:560d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4872092e105sm13428045e9.29.2026.03.26.04.19.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Mar 2026 04:19:55 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v3 0/2] Enable Renesas RZ/G3L GBETH0
+Date: Thu, 26 Mar 2026 11:19:48 +0000
+Message-ID: <20260326111953.31024-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-To: Bhargav Joshi <rougueprince47@gmail.com>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <ulf.hansson@linaro.org>,
-	<zhangfei.gao@linaro.org>, <linux-mmc@vger.kernel.org>
-CC: <daniel.baluta@nxp.com>, <simona.toaca@nxp.com>, <d-gole@ti.com>,
-	<m-chawdhry@ti.com>, <linux-kernel@vger.kernel.org>, <xuwei5@hisilicon.com>
-Subject: Re: [PATCH v2 0/2] mmc: hisilicon: Convert dw-mshc bindings and fix
- dtbs
-References: <20260325225439.68161-1-rougueprince47@gmail.com>
-In-Reply-To: <20260325225439.68161-1-rougueprince47@gmail.com>
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemq100003.china.huawei.com (7.202.195.72)
+Content-Transfer-Encoding: 8bit
 
-Hi Bhargav,
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-On 2026/3/26 6:54, Bhargav Joshi wrote:
-> This series converts the Hisilicon dw-mshc text bindings to DT schema
-> format and cleans up legacy node names in Hisilicon board files.
-> 
-> While testing the new YAML schema, dtbs_check flagged the hi3660, 
-> hi3670, and hi6220 SoC files for using the non-standard 'dwmmc' node 
-> name prefix. resulting in warnings.
-> 
-> Patch 1 Convert to DT schema
-> Patch 2 updates the Hisilicon dtsi files to use standard 'mmc' 
-> node name.
-> 
-> Changes in v2:
->  - Patch 1: 
->     - Grouped compatible strings into an enum.
->     - Replaced raw numbers with proper flags.
->     - Fixed property order and removed invalid hex values.
->     - Added explanation for clock order change in commit message.
->     - Collected Acked-by tag.
->  - Patch 2: 
->     - No code changes.
->     - Collected Acked-by and Reviewed-by tags.
-> 
-> Signed-off-by: Bhargav Joshi <rougueprince47@gmail.com>
-> ---
-> Note: this patch is part of the process for applying to GSoC device
-> tree bindings conversion project #
-> https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
-> 
-> - The file is enabled by arm64 defconfig (CONFIG_MMC_DW_K3=y)
-> - It is used in following
->     /arch/arm64/boot/dts/hisilicon/hi3660.dtsi
->     -included by /arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts
->     /arch/arm64/boot/dts/hisilicon/hi3670.dtsi
->     -included by /arch/arm64/boot/dts/hisilicon/hi3670-hikey970.dts
-> 
-> Bhargav Joshi (2):
->   dt-bindings: mmc: hisilicon,hi3660-dw-mshc: Convert to DT schema
->   arm64: dts: hisilicon: Rename dwmmc nodes to mmc
-> 
->  .../mmc/hisilicon,hi3660-dw-mshc.yaml         | 117 ++++++++++++++++++
->  .../devicetree/bindings/mmc/k3-dw-mshc.txt    |  73 -----------
->  arch/arm64/boot/dts/hisilicon/hi3660.dtsi     |   4 +-
->  arch/arm64/boot/dts/hisilicon/hi3670.dtsi     |   4 +-
->  arch/arm64/boot/dts/hisilicon/hi6220.dtsi     |   6 +-
->  5 files changed, 124 insertions(+), 80 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/mmc/hisilicon,hi3660-dw-mshc.yaml
->  delete mode 100644 Documentation/devicetree/bindings/mmc/k3-dw-mshc.txt
-> 
+Enable the Gigabit Ethernet Interface (GBETH0) populated on the RZ/G3L
+SMARC EVK. The eth1, pincontrol definitions and hotplug support will be
+added later.
 
-Series applied to the HiSilicon arm64 dt tree.
-Thanks!
+This patch series depend upon [1]
 
-Best Regards,
-Wei
+v2->v3:
+ * Rebased to boot series [1].
+ * Dropped ethernet-phy-ieee802.3-c22 from compatible.
+ * Fixed the typo txdv-skew-psec->txen-skew-psec.
+v1->v2:
+ * Separated ethernet dts patches from series [2]
+ * Added rmii_{tx,rx) clocks.
+
+[1] https://lore.kernel.org/all/20260324114329.268249-12-biju.das.jz@bp.renesas.com/
+[2] https://lore.kernel.org/all/20260128125850.425264-1-biju.das.jz@bp.renesas.com/
+
+Biju Das (2):
+  arm64: dts: renesas: r9a08g046: Add GBETH nodes
+  arm64: dts: renesas: rzg3l-smarc-som: Enable eth0 (GBETH0) interface
+
+ arch/arm64/boot/dts/renesas/r9a08g046.dtsi    | 241 ++++++++++++++++++
+ .../boot/dts/renesas/rzg3l-smarc-som.dtsi     |  34 +++
+ 2 files changed, 275 insertions(+)
+
+-- 
+2.43.0
+
