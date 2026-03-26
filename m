@@ -1,345 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A45463FD138;
-	Thu, 26 Mar 2026 14:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBFC73F9F43
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 14:47:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774536134; cv=none; b=hD8244Edk4mV61548H2rtU+/qM5KAIw+DmtWsA1f3z3sRBvIpB1yu1wXM08rgm/+pAV4+LkCbSluKBLAv4LVpawdtMK4l7bU4dvyj/7veKGil4e/c6WRz+sqnIVv6xzk8FtVxfbB9RbD6k+H1OglkLSfaeJ3eXm72NexaCLkwE8=
+	t=1774536479; cv=none; b=XtPW9bQ23lQmoGTgPPIdmU4jtJ6lfpt7u0UV2lIAK3GjxOsbURoOaFB9Kze8PWXUylpO1QIfhJaWB8KPZomYI9MNoCj9SYgFLwriv+9/uLJLp53wBhUrZcyrllA4kCgSaw9OwArGsy5sAIDVZJBArMsYnPniN1BFYNBynEBLXXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774536134; c=relaxed/simple;
-	bh=MTJP2oisWG7BF1HsPDguerRmNEgncTtHi666WRC4WZU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=psRXS7pXMaTo/x3M6B9Od4ThLh8igCXuHaNSJNWswTxz4HjRGZ/WwZVUdSb8LHF9KphX2Kmg8xR26/FB66NwBQF0K7kldY5HvGeQ4B1EWW1QDsx4KWS1CvWABiVCHzs+7d094DOO8c3Ckm50BkZxgtfpxHp1/fdNvbzj3cjF/LM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pvMT+E3w; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pvMT+E3w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30C4C19423;
-	Thu, 26 Mar 2026 14:42:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774536134;
-	bh=MTJP2oisWG7BF1HsPDguerRmNEgncTtHi666WRC4WZU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=pvMT+E3wy0UCs6zWh8lf8kbKeKOZiIgqyn/5tVRQctj5uFf2gonuZdT/6NnznwcRB
-	 1pwEFCQaAodROwxGXhCv77FF88vhagof9+Q6w8JlhWD8djge2MlZyJlj7Ys+YmyZ+L
-	 JmfszFWXVcHtdvxnNx5ozsuCDxHnT9SFrpZYZr7rLgxlRuSWHWGWTQyzaDswPByJZK
-	 aOVasZeG6awhOrbiTitiH4tLfiBjpLCJtp7HNXLGRHPg9qwnTwXB6mB4eNrW25C45J
-	 14gUUU4K/PDynZ2BX+NzBqgVW7SMZY4cig6oJJ8e7a+46B5TSqa1iSFmAcEgfPrBkK
-	 EsCnmVx5+3ydA==
-Message-ID: <5d7d5bf8-4420-4d75-b928-820bb9233e52@kernel.org>
-Date: Thu, 26 Mar 2026 14:42:10 +0000
+	s=arc-20240116; t=1774536479; c=relaxed/simple;
+	bh=Mz7743cLHKjDcfZBNnXTh/3101R4N8P42GWsc5M0tE4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ErNiIX9rXPMdb/kYrSt6RuHC2liMxPjdubkBHIO+4Wdn/X7o9LAFrC9Jj3A8G/R2WxuYHPpfJ562506f9vDsjxgi3uAy16bkMxwXwH6L/HslK14L+4FzdiQng30dAk2WAI0LTOpvjLbhBvhjkg8HNIfJRev9HJoVyVYvMdlbQiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-b982518b73fso176164166b.1
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 07:47:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774536471; x=1775141271;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VE2E786ICpZIcnAV4rwWupP+nyLC84JrXsMF73F6KhE=;
+        b=fKEP54e93rU25OtF4ALB7AtgRQysm82yfRvLOmCzcFDslt3CCAdiXVylRPf427kgNU
+         FtPARKxsQv8npw+rbWUEp9W/N1b7QUXDUmcOteP9g1mNNDRY2U5ohR6N59ZKrtLYCx9L
+         4g5LlASGLhqK3l+Ip+hQ9LjkSItL9KwAwpCx9EqsMlF6+KOuA0rNyR3a2RGE0u14q3YU
+         qy25FbqQFQYHQqtcdU40cCgEVD7A2p7M5e1pvyW/nwEvqmUfTRX4hKcFXtcoU9usJyyQ
+         ylJ3/Es3kMVZKeuLnz6qhM1Y1vKwMAtVCBvta/668uG9d5r3yMIGnXGboWD9LC6kHi9o
+         JyZw==
+X-Forwarded-Encrypted: i=1; AJvYcCWxux/1OnS5oi7ibmaRQr/9DmGKaHAUllH+cil4ltgFOSipveDkeCdEsVZZ3dPCdUNAEWOOGRCpfPUu@vger.kernel.org
+X-Gm-Message-State: AOJu0YyFNVlO4DEgaDKKxiETAS6CinGrnyDe1QlAjPmJcqRnps1AmKLH
+	aTDgQJ5+x5jBAe0w44bvebypaniCj1atBDmEswROKmXQovTuTMPPsFgUwssz9t82I1Y=
+X-Gm-Gg: ATEYQzy/E23IlD8NRYYS/CXKQcDvbM8OzOzS+1tcR34+TFQqPIlCayhSzuU0Ltteaod
+	sfj/UgtKOLg36HJgBD6v1R9VRScW8rKFY0i9gYZy0wp+GL2U91dKPEBInemwY2+zQjNnyoxDrTS
+	VAZOI4Ip9eGxUftKTt9WHzzzmD+Yc5fk+vcg3XSPcS8TvGYa4BvyM1+pKSvcsheKtJAdXlQs+zo
+	y1MbGzqtTzJ1KyW1xXUVv7GAFd4t0t9TNmp6FIPqmvlVQovLVZIkfDgPHjRqAadmuwf4+ZSUtbH
+	BgbS3G7R4cl2XGnQlyAhNa0txgmYS32Hmk7QTIw+DdkTdJyZ+T15fpbDDTBMu7+vfAlw0NZ2RFF
+	ifzVMZuRQjz0VEF0QyoXclIC7UQvSil2WE9AT3b0T8LqFyBWff5w0FIpKawTY0q/CviWhJRa1S+
+	bhAis5w7ikvIkHm5dMw0k3ucaPFTGWN8GiLZ/Da9Yh9nudwb6Ri4kWvTT1vVr2
+X-Received: by 2002:a17:907:1c90:b0:b97:4e42:23e7 with SMTP id a640c23a62f3a-b9b3470e5c9mr98723366b.24.1774536470873;
+        Thu, 26 Mar 2026 07:47:50 -0700 (PDT)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com. [209.85.208.47])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9b203c2225sm124349066b.37.2026.03.26.07.47.49
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Mar 2026 07:47:49 -0700 (PDT)
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6611f41eebcso1371251a12.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 07:47:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUDAt5GokZ4glgVctTcUZMCAwRQ8sgj/5LL5Ey3hjI22+tZ3pghkSUi8XweyOQ3XMyM7vb7tF0S0VFN@vger.kernel.org
+X-Received: by 2002:a05:6402:400a:b0:663:6d0a:6f97 with SMTP id
+ 4fb4d7f45d1cf-66a826e17a4mr5435034a12.27.1774536469098; Thu, 26 Mar 2026
+ 07:47:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
- <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org>
- <20260326-x1e-csi2-phy-v5-1-0c0fc7f5c01b@linaro.org>
- <72ef6c9e-feb6-4e57-b8cc-7801bd748698@linaro.org>
- <f1c8c412-1d27-4c83-8c5e-76b9369ea6e9@linaro.org>
- <VwCtoebjwHqLTucsrGruvBpedA4k-Melt7C0DA0aHSVld3PeotwZdtMUm3EFpvQyScrl6yejmLaK7bY1avT1zQ==@protonmail.internalid>
- <8ac55e5f-72ed-4331-bf42-92ccf97507dd@linaro.org>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-In-Reply-To: <8ac55e5f-72ed-4331-bf42-92ccf97507dd@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260312082708.98835-1-biju.das.jz@bp.renesas.com> <20260312082708.98835-2-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260312082708.98835-2-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 26 Mar 2026 15:47:36 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdUV9XEQQb6bX40UoeNrs1DsueLWXcyY8wMGmrW54xPD8Q@mail.gmail.com>
+X-Gm-Features: AQROBzBG2_5XR9iswvQhc2D8hUfkOYm4fbALofzpvMNtbuFoQlJK3H7uau0MO3s
+Message-ID: <CAMuHMdUV9XEQQb6bX40UoeNrs1DsueLWXcyY8wMGmrW54xPD8Q@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: serial: renesas,rsci: Document RZ/G3L SoC
+To: Biju <biju.das.au@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, linux-kernel@vger.kernel.org, 
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 26/03/2026 10:28, Vladimir Zapolskiy wrote:
-> On 3/26/26 04:03, Bryan O'Donoghue wrote:
->> On 26/03/2026 01:46, Vladimir Zapolskiy wrote:
->>> On 3/26/26 03:04, Bryan O'Donoghue wrote:
->>>> Add a base schema initially compatible with x1e80100 to describe MIPI
->>>> CSI2
->>>> PHY devices.
->>>>
->>>> The hardware can support both CPHY, DPHY and a special split-mode
->>>> DPHY. We
->>>> capture those modes as:
->>>>
->>>> - PHY_QCOM_CSI2_MODE_DPHY
->>>> - PHY_QCOM_CSI2_MODE_CPHY
->>>> - PHY_QCOM_CSI2_MODE_SPLIT_DPHY
->>>
->>> Distinction between PHY_QCOM_CSI2_MODE_DPHY and
->>> PHY_QCOM_CSI2_MODE_SPLIT_DPHY
->>> is
->>> 1) insufficient in just this simplistic form, because the assignment of
->>> particular lanes is also needed,
->>> 2) and under the assumption that the lane mapping is set somewhere else,
->>> then
->>> there should be no difference between PHY_QCOM_CSI2_MODE_{DPHY,SPLIT_DPHY},
->>> it's just DPHY, and the subtype is deductible from data-lanes property on
->>> the consumer side.
->>>
->>> So far the rationale is unclear, why anything above regular PHY_TYPE_DPHY
->>> and PHY_TYPE_CPHY is needed here, those two are sufficient.
->>
->> Because knowing the split-mode exists and that you have asked about how
->> such a thing would be supported, I thought about how to represent that
->> mode right from the start, even if we don't support it.
-> 
-> It is good to think about this hardware confguration in advance, however
-> the process of describing such hardware setup is incomplete.
-> 
->>
->> To support split phy we will need to pass the parameter.
-> 
-> What you call "split phy" is a DPHY, and "split phy" can not be supported
-> by adding this parameter, because it does not provide information about
-> lanes, and after removing this information it is just DPHY.
+On Thu, 12 Mar 2026 at 09:27, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> Document the serial communication interface (RSCI) used on the Renesas
+> RZ/G3L (R9A08G046) SoC. This SoC integrates the same RSCI IP block as
+> the RZ/G3E (R9A09G047), but it has 3 clocks compared to 6 clocks on
+> the RZ/G3E SoC. The RZ/G3L has a single TCLK with internal dividers,
+> whereas the RZ/G3E has explicit clocks for TCLK and its dividers.
+>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-That's just not true. If you read the camx source code you can see 
-split/combo mode 2+1 1+1 data/clock mode requires special programming of 
-the PHY to support.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-https://review.lineageos.org/c/LineageOS/android_kernel_motorola_sm6375/+/423960/1/drivers/cam_sensor_module/cam_csiphy/cam_csiphy_core.c#b285
+Gr{oetje,eeting}s,
 
-There is disjunction all over this file depending on the mode.
+                        Geert
 
-https://review.lineageos.org/c/LineageOS/android_kernel_motorola_sm6375/+/423960/1/drivers/cam_sensor_module/cam_csiphy/cam_csiphy_core.c#b767
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-And besides, think about it - you need different init sequences if one 
-of the lanes is clock instead of data...
-
-If we use phy.h::PHY_TYPE_DPHY then that means to support split-mode in 
-the future we need to get that mode represented in phy.h - but really 
-this fixed split mode isn't a generic CSI2 PHY mode, its a Qualcommism.
-
-Nothing wrong with that - but then the mode should reflect the fact it 
-is vendor specific and we absolutely 100% have to do different things in 
-the PHY driver whether we are in regular DPHY mode or in split DPHY mode.
-
-If we use PHY_TYPE_DPHY as I did in the previous patch then we can't 
-convert to a vendor type later on as its an ABI break.
-
-So we have both a sound technical reason hardware will require it to 
-differentiate between DPHY and split-mode DPHY - and we also don't want 
-to be bound to phy.h and then try to upstream a new DPHY_SPLIT_MODE here 
-which a reviewer might reasonably say "why is this special mode from a 
-specific vendor driving new defines in a shared file"
-
-> 
->> So we define those parameters upfront.
-> 
-> This new header file has to be removed, it does not bring anything valuable.
-> 
->>>
->>>>
->>>> The CSIPHY devices have their own pinouts on the SoC as well as their own
->>>> individual voltage rails.
->>>>
->>>> The need to model voltage rails on a per-PHY basis leads us to define
->>>> CSIPHY devices as individual nodes.
->>>>
->>>> Two nice outcomes in terms of schema and DT arise from this change.
->>>>
->>>> 1. The ability to define on a per-PHY basis voltage rails.
->>>> 2. The ability to require those voltage.
->>>>
->>>> We have had a complete bodge upstream for this where a single set of
->>>> voltage rail for all CSIPHYs has been buried inside of CAMSS.
->>>>
->>>> Much like the I2C bus which is dedicated to Camera sensors - the CCI
->>>> bus in
->>>> CAMSS parlance, the CSIPHY devices should be individually modelled.
->>>>
->>>> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
->>>> ---
->>>>     .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 130 +++++++++++
->>>> ++++++++++
->>>>     include/dt-bindings/phy/phy-qcom-mipi-csi2.h       |  15 +++
->>>>     2 files changed, 145 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-
->>>> phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-
->>>> phy.yaml
->>>> new file mode 100644
->>>> index 0000000000000..63114151104b4
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
->>>> @@ -0,0 +1,130 @@
->>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->>>> +%YAML 1.2
->>>> +---
->>>> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
->>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: Qualcomm CSI2 PHY
->>>> +
->>>> +maintainers:
->>>> +  - Bryan O'Donoghue <bod@kernel.org>
->>>> +
->>>> +description:
->>>> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2
->>>> sensors
->>>> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and
->>>> D-PHY
->>>> +  modes.
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    const: qcom,x1e80100-csi2-phy
->>>> +
->>>> +  reg:
->>>> +    maxItems: 1
->>>> +
->>>> +  "#phy-cells":
->>>> +    const: 1
->>>> +    description:
->>>> +      The single cell specifies the PHY operating mode.
->>>> +      See include/dt-bindings/phy/phy-qcom-mipi-csi2.h for valid values.
->>>
->>> include/dt-bindings/phy/phy.h should be good enough as it's stated above.
->>
->> While include/dt-bindings/phy/phy.h provides generic definitions for
->> D-PHY and C-PHY, it does not contain a definition for Qualcomm's
->> proprietary Split D-PHY mode. Because this hardware supports a
-> 
-> What Qualcomm's proprietary Split D-PHY mode is manifested by lane mapping,
-> there is no need to introduce another PHY mode, it is DPHY.
-> 
->> vendor-specific operating mode, introducing a vendor-specific header to
->> define that state is necessary.
->>
->> This is exactly what we do with the QMP to support a similar use-case -
->> the PHYs do vendor specific things, so we use vendor specific defines.
->>
->> If we lock to phy.h CPHY/DPHY only then we exclude the possibility of
->> say adding split-mode to an upstream SoC as the DT ABI will not then
->> facilitate the mode.
->>
->>>
->>>> +
->>>> +  clocks:
->>>> +    maxItems: 2
->>>> +
->>>> +  clock-names:
->>>> +    items:
->>>> +      - const: core
->>>> +      - const: timer
->>>> +
->>>> +  interrupts:
->>>> +    maxItems: 1
->>>> +
->>>> +  operating-points-v2:
->>>> +    maxItems: 1
->>>> +
->>>> +  power-domains:
->>>> +    items:
->>>> +      - description: MXC or MXA voltage rail
->>>> +      - description: MMCX voltage rail
->>>> +
->>>> +  power-domain-names:
->>>> +    items:
->>>> +      - const: mx
->>>> +      - const: mmcx
->>>> +
->>>> +  vdda-0p9-supply:
->>>> +    description: Phandle to a 0.9V regulator supply to a PHY.
->>>> +
->>>> +  vdda-1p2-supply:
->>>> +    description: Phandle to 1.2V regulator supply to a PHY.
->>>> +
->>>> +required:
->>>> +  - compatible
->>>> +  - reg
->>>> +  - "#phy-cells"
->>>> +  - clocks
->>>> +  - clock-names
->>>> +  - interrupts
->>>> +  - operating-points-v2
->>>> +  - power-domains
->>>> +  - power-domain-names
->>>> +  - vdda-0p9-supply
->>>> +  - vdda-1p2-supply
->>>> +
->>>> +additionalProperties: false
->>>> +
->>>> +examples:
->>>> +  - |
->>>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->>>> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
->>>> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
->>>> +    #include <dt-bindings/phy/phy-qcom-mipi-csi2.h>
->>>> +    #include <dt-bindings/power/qcom,rpmhpd.h>
->>>> +
->>>> +    csiphy4: csiphy@ace4000 {
->>>> +        compatible = "qcom,x1e80100-csi2-phy";
->>>> +        reg = <0x0ace4000 0x2000>;
->>>> +        #phy-cells = <1>;
->>>> +
->>>> +        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
->>>> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>;
->>>> +        clock-names = "core",
->>>> +                      "timer";
->>>> +
->>>> +        operating-points-v2 = <&csiphy_opp_table>;
->>>> +
->>>> +        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
->>>> +
->>>> +        power-domains = <&rpmhpd RPMHPD_MX>,
->>>> +                        <&rpmhpd RPMHPD_MMCX>;
->>>> +        power-domain-names = "mx",
->>>> +                             "mmcx";
->>>> +
->>>> +        vdda-0p9-supply = <&vreg_l2c_0p8>;
->>>> +        vdda-1p2-supply = <&vreg_l1c_1p2>;
->>>> +    };
->>>> +
->>>> +    csiphy_opp_table: opp-table {
->>>> +        compatible = "operating-points-v2";
->>>> +
->>>> +        opp-300000000 {
->>>> +            opp-hz = /bits/ 64 <300000000>;
->>>> +            required-opps = <&rpmhpd_opp_low_svs_d1>,
->>>> +                            <&rpmhpd_opp_low_svs_d1>;
->>>> +        };
->>>> +
->>>> +        opp-400000000 {
->>>> +            opp-hz = /bits/ 64 <400000000>;
->>>> +            required-opps = <&rpmhpd_opp_low_svs>,
->>>> +                            <&rpmhpd_opp_low_svs>;
->>>> +        };
->>>> +
->>>> +        opp-480000000 {
->>>> +            opp-hz = /bits/ 64 <480000000>;
->>>> +            required-opps = <&rpmhpd_opp_low_svs>,
->>>> +                            <&rpmhpd_opp_low_svs>;
->>>> +        };
->>>> +    };
->>>> +
->>>> +    isp@acb7000 {
->>>> +        phys = <&csiphy4 PHY_QCOM_CSI2_MODE_DPHY>;
->>>> +    };
->>>
->>> This example is incomplete in sense that it does not include CAMSS
->>> CSIPHY IP hardware configuration in whole.
->>
->>
->> No that's not the way examples work. You don't replicate entire nodes
->> from other schemas you just give a terse reference.
->>
-> 
-> If so, then this example makes no sense and it'd be better to remove it.
-You know you're right its not strictly necessary - its just there to be 
-helpful.
-
-"Be less helpful" is not usually review feedback I give or take but, 
-I'll drop this anyway.
-
----
-bod
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
