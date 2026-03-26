@@ -1,172 +1,92 @@
-Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7911839EF2D
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 19:40:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9D733EAE6;
+	Thu, 26 Mar 2026 19:41:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774554013; cv=none; b=fnJfZh0UkvxHvaZgT2H37hnKefYolqaVSgAqC26SlReQ5fIyLnNG3azqO7JUFXaesyRy9Gb/Xd759Gl6PF6fNOxcIc+ZWPHS8GpbdgJ/wsl0jQ9zNcP3vHcYg1L84Je+xrPc1KhJlzkBk2Aqvei5u8uT8A9ea92pcpnRdx5AKjk=
+	t=1774554095; cv=none; b=fEyfjTEnoLug7kTujeyTTvaTQGOQAwgo9hVyLgyd7xWNX1tVtoayH4Fsws5dvPhkN+bkVXX0QygTEKVP6KD9fPpajyWTF8MNCmFIuEDRs/3Aq9kGJGcWjl1xBShI1Kqa+ELhS+++wBnqt1LB39Utty9TvhO5Bww2nBW2D53Vu08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774554013; c=relaxed/simple;
-	bh=vrl0CXld5pnl3+j2iO7woriOvcxFLATcV9RLuYGwkcU=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=Uc4WxjZj8MiwoBT/EsGZilkWelau6ViW0Ca72dBVd5pG/7PTmqJlZ+6XB3tatAwrE1uigvDJRppXQ32dk7AWHVlvGVf9VGRVqVn/q35RXJPueAEOsRTc93TCC9mIxPYIMc5DvkswOXh2dSTIB6vj8WLhDHL1NiVL2uL1KLihrqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=XTH6vNZf; arc=none smtp.client-ip=95.215.58.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	s=arc-20240116; t=1774554095; c=relaxed/simple;
+	bh=em8UZf/f+4PxDG3BVyhlRjFiAr/cgm2WnglEmMQ6Pbs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rla/yt6C1Knrqx5nxpOb5yoohGLvk0iVTGQV+rLHfVAUzKdeaVKiMDVdrlUSUjOr/vW56hZ6QdA6SrUcfGvAji9UPZeFa/pF6KBBo7SjFIObKrS2TtX79N/iPknAqf1PFNlZwBNm1tojFP0EDQg4ugz7a2j5N9XCsUUjhyw4Gv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=hwE8Y/Mr; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="XTH6vNZf"
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="hwE8Y/Mr"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 93DCB269C2;
+	Thu, 26 Mar 2026 20:34:54 +0100 (CET)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id UaiAd6agqRC4; Thu, 26 Mar 2026 20:34:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1774553693; bh=em8UZf/f+4PxDG3BVyhlRjFiAr/cgm2WnglEmMQ6Pbs=;
+	h=From:To:Cc:Subject:Date;
+	b=hwE8Y/MreRJqy40rH0Nl9HWQtmkgL24NpDSBuqkuuIZMptmsRTeyII1UgsDDpGFe2
+	 byWof2wyjAjDIcwe0y/XP+L0LNUrb7SLuuo/KTV4U819O6F6LGpIhlSLgJQKE/a2ZD
+	 X2kiAQoypp+mffsxNdsOdWVT0qNdoQPZco7mGzzP/ui2i6/Z2egx7/CKgkikewBejW
+	 jQT16yBLVQMhfjjSZv9zFEQzIX9S4ngeB5eMXM4LR0su7MJne4ln0zEy/goVi7R1/R
+	 hC8J8SNUybzp56UkpLLbObVYIAYtSnOhrtQyExSdQBt1SvA44DER9J2IRPcktuBdrG
+	 qSBRrSeU3MVWg==
+From: Rustam Adilov <adilov@disroot.org>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stanley Chang <stanley_chang@realtek.com>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Rustam Adilov <adilov@disroot.org>
+Subject: [PATCH 0/6]  phy: realtek: usb2: support for RTL9607C USB2 PHY
+Date: Fri, 27 Mar 2026 00:34:13 +0500
+Message-ID: <20260326193419.48419-1-adilov@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
-	s=key1; t=1774553998;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2sSZdOlH6LcaXmEulL+Z3vD5W8JNjS8vj1IOyQwqalY=;
-	b=XTH6vNZfTs+Rhn/5LbLqBySMN0ZX5pl6xsbTh9654tQcRAh1k+4nFg2w4G1u1qCntQiaZ8
-	A/R2MUis4bsWUAwdlxAgvsKMoCQTVTKo5FYZ+UF5W86+DpeBTmUVbgxC4++ZpZuZrgdUd4
-	CJEUl378fYQ+f+HtmI79PftGLkYVsggFhKDl/3JVteu3ZiYS8a22o8T7OP9KUtpDC4JYac
-	9CXVos/p6+ikPQVwciRBc6BdRnFiAKhP5CmwYb+nAvENQrNDTM6rf7qlh3ECM895NMgvQF
-	+ztY6H8YDr09klaAyYgCcmhSwrhKLlLhwgvTQs0BGGViqdjhMKM87IDTt2Ed8Q==
-Date: Thu, 26 Mar 2026 19:39:49 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: "Paul Sajna" <sajattack@postmarketos.org>
-Message-ID: <425dcdb501ed6ebb0e652c58ef2c56c78754884b@postmarketos.org>
-TLS-Required: No
-Subject: Re: [PATCH v4 2/3] ath10k: Add device-tree quirk to skip host cap
- QMI requests
-To: david@ixit.cz, "Johannes Berg" <johannes@sipsolutions.net>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Jeff Johnson" <jjohnson@kernel.org>,
- "Bjorn Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>
-Cc: "Amit Pundir" <amit.pundir@linaro.org>, linux-wireless@vger.kernel.org,
- devicetree@vger.kernel.org, ath10k@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- phone-devel@vger.kernel.org, "David Heidelberg" <david@ixit.cz>
-In-Reply-To: <20260325-skip-host-cam-qmi-req-v4-2-bc08538487aa@ixit.cz>
-References: <20260325-skip-host-cam-qmi-req-v4-0-bc08538487aa@ixit.cz>
- <20260325-skip-host-cam-qmi-req-v4-2-bc08538487aa@ixit.cz>
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
 
-March 25, 2026 at 5:57 PM, "David Heidelberg via B4 Relay" <devnull+david=
-.ixit.cz@kernel.org mailto:devnull+david.ixit.cz@kernel.org?to=3D%22David=
-%20Heidelberg%20via%20B4%20Relay%22%20%3Cdevnull%2Bdavid.ixit.cz%40kernel=
-.org%3E > wrote:
+This patch series for Realtek USB2 PHY driver adds support for RTL9607C
+USB2 PHY.
 
+RTL9607C is a big endian MIPS CPU which is quite far from RTD series SoCs
+supported by realtek usb2 phy driver, but the phy initilization is found
+to be very indentical in most areas.
 
->=20
->=20From: Amit Pundir <amit.pundir@linaro.org>
->=20
->=20Some firmware versions do not support the host capability QMI request=
-.
-> Since this request occurs before firmware-N.bin and board-M.bin are
-> loaded, the quirk cannot be expressed in the firmware itself.
->=20
->=20The root cause is unclear, but there appears to be a generation of
-> firmware that lacks host capability support.
->=20
->=20Without this quirk, ath10k_qmi_host_cap_send_sync() returns
-> QMI_ERR_MALFORMED_MSG_V01 before loading the firmware. This error is no=
-t
-> fatal - Wi-Fi services still come up successfully if the request is sim=
-ply
-> skipped.
->=20
->=20Add a device-tree quirk to skip the host capability QMI request on de=
-vices
-> whose firmware does not support it.
->=20
->=20For example, firmware build
-> "QC_IMAGE_VERSION_STRING=3DWLAN.HL.2.0.c3-00257-QCAHLSWMTPLZ-1"
-> on Xiaomi Poco F1 phone requires this quirk.
->=20
->=20Suggested-by: Bjorn Andersson <andersson@kernel.org>
-> Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  drivers/net/wireless/ath/ath10k/qmi.c | 13 ++++++++++---
->  drivers/net/wireless/ath/ath10k/snoc.c | 3 +++
->  drivers/net/wireless/ath/ath10k/snoc.h | 1 +
->  3 files changed, 14 insertions(+), 3 deletions(-)
->=20
->=20diff --git a/drivers/net/wireless/ath/ath10k/qmi.c b/drivers/net/wire=
-less/ath/ath10k/qmi.c
-> index eebd78e7ff6bc..e7f90fd9e9b83 100644
-> --- a/drivers/net/wireless/ath/ath10k/qmi.c
-> +++ b/drivers/net/wireless/ath/ath10k/qmi.c
-> @@ -808,6 +808,7 @@ ath10k_qmi_ind_register_send_sync_msg(struct ath10k=
-_qmi *qmi)
->  static void ath10k_qmi_event_server_arrive(struct ath10k_qmi *qmi)
->  {
->  struct ath10k *ar =3D qmi->ar;
-> + struct ath10k_snoc *ar_snoc =3D ath10k_snoc_priv(ar);
->  int ret;
->=20=20
->=20 ret =3D ath10k_qmi_ind_register_send_sync_msg(qmi);
-> @@ -819,9 +820,15 @@ static void ath10k_qmi_event_server_arrive(struct =
-ath10k_qmi *qmi)
->  return;
->  }
->=20=20
->=20- ret =3D ath10k_qmi_host_cap_send_sync(qmi);
-> - if (ret)
-> - return;
-> + /*
-> + * Skip the host capability request for the firmware versions which
-> + * do not support this feature.
-> + */
-> + if (!test_bit(ATH10K_SNOC_FLAG_SKIP_HOST_CAP_QUIRK, &ar_snoc->flags))=
- {
-> + ret =3D ath10k_qmi_host_cap_send_sync(qmi);
-> + if (ret)
-> + return;
-> + }
->=20=20
->=20 ret =3D ath10k_qmi_msa_mem_info_send_sync_msg(qmi);
->  if (ret)
-> diff --git a/drivers/net/wireless/ath/ath10k/snoc.c b/drivers/net/wirel=
-ess/ath/ath10k/snoc.c
-> index f72f236fb9eb3..3106502275781 100644
-> --- a/drivers/net/wireless/ath/ath10k/snoc.c
-> +++ b/drivers/net/wireless/ath/ath10k/snoc.c
-> @@ -1362,6 +1362,9 @@ static void ath10k_snoc_quirks_init(struct ath10k=
- *ar)
->=20=20
->=20 if (of_property_read_bool(dev->of_node, "qcom,snoc-host-cap-8bit-qui=
-rk"))
->  set_bit(ATH10K_SNOC_FLAG_8BIT_HOST_CAP_QUIRK, &ar_snoc->flags);
-> +
-> + if (of_property_read_bool(dev->of_node, "qcom,snoc-host-cap-skip-quir=
-k"))
-> + set_bit(ATH10K_SNOC_FLAG_SKIP_HOST_CAP_QUIRK, &ar_snoc->flags);
->  }
->=20=20
->=20 int ath10k_snoc_fw_indication(struct ath10k *ar, u64 type)
-> diff --git a/drivers/net/wireless/ath/ath10k/snoc.h b/drivers/net/wirel=
-ess/ath/ath10k/snoc.h
-> index 1ecae34687c21..46574fd8f84ee 100644
-> --- a/drivers/net/wireless/ath/ath10k/snoc.h
-> +++ b/drivers/net/wireless/ath/ath10k/snoc.h
-> @@ -51,6 +51,7 @@ enum ath10k_snoc_flags {
->  ATH10K_SNOC_FLAG_MODEM_STOPPED,
->  ATH10K_SNOC_FLAG_RECOVERY,
->  ATH10K_SNOC_FLAG_8BIT_HOST_CAP_QUIRK,
-> + ATH10K_SNOC_FLAG_SKIP_HOST_CAP_QUIRK,
->  };
->=20=20
->=20 struct clk_bulk_data;
->=20
->=20--=20
->=202.53.0
->
+Most of the code was based on the Realtek's usb driver from the GPL tarball
+in [1] and adjusted to fit into the realtek usb2 phy driver code format.
 
-Tested-by: Paul Sajna <sajattack@postmarketos.org>
+The patch series was split into smaller patches that add/change something
+in the driver that are not exactly related to RTL9607C and that also
+helps for easier review. That also means, patch 5 depends on all the prior
+patches that come before it.
+
+USB2 PHY on RTL9607C is primarly used for its internal OHCI/EHCI controllers.
+
+[1] - https://github.com/jameywine/GPL-for-GP3000/blob/main/linux-5.10.x/arch/mips/rtl9607c/usb.c
+
+Rustam Adilov (6):
+  phy: realtek: usb2: introduce vstatus/new_reg_req variables to driver
+    data
+  phy: realtek: usb2: introduce read and write functions to driver data
+  dt-bindings: phy: realtek,usb2phy.yaml: extend for resets and RTL9607C
+    support
+  phy: realtek: usb2: introduce reset controller struct
+  phy: realtek: usb2: add support for RTL9607C USB2 PHY
+  phy: realtek: usb2: Make configs available for MACH_REALTEK_RTL
+
+ .../bindings/phy/realtek,usb2phy.yaml         |  23 ++-
+ drivers/phy/realtek/Kconfig                   |   2 +-
+ drivers/phy/realtek/phy-rtk-usb2.c            | 189 ++++++++++++++++--
+ 3 files changed, 194 insertions(+), 20 deletions(-)
+
+-- 
+2.53.0
+
