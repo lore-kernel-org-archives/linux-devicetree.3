@@ -1,94 +1,74 @@
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D2F83F7861
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 12:24:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F7CC34752A;
+	Thu, 26 Mar 2026 12:30:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774527895; cv=none; b=VyPrWXmz3KP7+VC49AMXaTl98prr3CitPJ6evQyUhS6Uwp29SD6SRjhYCVsdk488Xqzw+zNGB3Y1vuDSeUPeqzIv3radzXWMdZPpNCKtvDV8+PXfux7O/QpRQc89sMzvsfmTeT6FX8uArkozoJ+4/+YF00hpX/KxFCIsRlEjc84=
+	t=1774528256; cv=none; b=qrTtwuUL1KYC+hSiV7mDkinBQD+fxz525rz1W/IcR227CEUCZ4RFQj0vAk4IHQcGWVnksTVKC2/FrDYmujHT/cJc5GJ/QGwTdc+4hIfov7Jgv96hu6UP0kfMZ3YXRNtUqZyzR20mifQuwHqWWcd1jGmhiHJhR+jc8qJ2j2cya60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774527895; c=relaxed/simple;
-	bh=mRH8dsJYsEf6aldFwfdTs6JkiAnPmrdYZd1nLYrfFck=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oBm/Av7/BgbKwHM2kwtBRxkXovUyCmn68lYYmqwmFzWMEfV97dtgXehc4bBPKN+LwZTBPHDj1kn+IIV2sse//XN3pr51WbUqHClebxUjgczHrCFZ6vvN5977zGMbFkRYk8B3Khg/nkRs/G4+fd/hPbnYJt77QBOQyAqE5CziC3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-7991db3dc98so9981667b3.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 05:24:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774527893; x=1775132693;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=mRH8dsJYsEf6aldFwfdTs6JkiAnPmrdYZd1nLYrfFck=;
-        b=o5tdZdVrGlTZziBS68obQ/J6PCHiR37J54NIcTCfLod/q4/9qCbqEyP1ThYUc1ns4/
-         3GD7DPWaJ2rMN/nH42nt0A455w6IC/Ws4R9YlAr/pqSdiH+7S6dU7c0Ckow4zGBcHewP
-         rBnxfRQj7PLE2uMwOt+aJLERgdicAVO4KjdlPEkKUeoGx8FsuqYZjWaDCTSeMy6rdGdb
-         H2kF5Llc1NZPidGrwrNyH6pI8UQU2cnz2eszNIzfUBXoUM/a43TUAJZPIV3J6aCXO8NN
-         9l4BeuJ9Dnmu1hL53o+o4Qbi4jSXym6Lzo2auHswBMXaV1ZYtXLQdqxeSS0XBb/zbDJh
-         mhxA==
-X-Forwarded-Encrypted: i=1; AJvYcCVOCYqtu4OIg3EVU4apSUx2AgVnYv+54r6GKcytLOiuOyEnmdqhP6f6sp1C3ZE2iGi+Uf5++BhFgIgH@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVa55dK8cZY/N1owJlmysypqsxd0FH6I+rkmFufj0jenJt9fK2
-	Jw09BK1dd6hfWYTLjbXTX9IZ0DwqAcA9lTskjcXagRAkJPQqci2l7vGSEqF1V/YW
-X-Gm-Gg: ATEYQzxUWwqc193OMqVgy0FgbGESFYKL7KFTH3Wo/akyaLCwIEP4/mqhXnBu5n1FH54
-	l0NCKk3/twmuyh2BhoIZAb/BERxXGsruvlQrSnqxQtOH6rCu4plrja5Wmk5VBM+lB0yXq1GiIvF
-	atggH7HfBCuBkvcveTIp31dthCkwBzypTdfD14F/+Q6V8A8sdGKg7TdSB2MoHMXl7Za/zxfxMDA
-	BJzHvYTTDwic80cX/KBA9qSWLNFsy9Do73PxYRhwhV2PzNwHGhdXXEYpT6Qs7RACgGv91rGbrra
-	/9Vx3ZbC6H7Czsmc3F+PbEtZQ3zOdBfBtJ/l89yJlT7bRE3Jbe7iOM00biUSPQRbvywhgNaNgAx
-	zF6MFwQvFc18nC7RYEfzY4mUoNrLedvSrtJuYwqXe1PLS6DUC2O7f0NCqQph7XEgSAiRQHOcjr5
-	RRUYDfZUiDSmhmc9qA54PQzjlMfnYUaJTdO33FE0CFlwY4Csm67tMyPfTCy2a1Z5i6DTSB0LZW9
-	+4gfa+JnKXjGgOdQjn0Zdqkx8z0TMWsuOppOhPk+A==
-X-Received: by 2002:a05:690c:e3c7:b0:79a:cd3b:d9ae with SMTP id 00721157ae682-79acf67f5a9mr78508017b3.33.1774527892897;
-        Thu, 26 Mar 2026 05:24:52 -0700 (PDT)
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com. [74.125.224.53])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-79b10d711f9sm12204477b3.10.2026.03.26.05.24.52
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Mar 2026 05:24:52 -0700 (PDT)
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-64ca423ad53so897648d50.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 05:24:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCX+w4AsJdb11PUhViS7kY13kGH2c1ehg4RLyWp3tlbJBbJPseWK7pR+KkwWnI/Ah1X4jPr5eI/0TDeb@vger.kernel.org
-X-Received: by 2002:a05:690e:1c0c:b0:64f:c830:1e47 with SMTP id
- 956f58d0204a3-64fc830804fmr1809469d50.21.1774527892188; Thu, 26 Mar 2026
- 05:24:52 -0700 (PDT)
+	s=arc-20240116; t=1774528256; c=relaxed/simple;
+	bh=RjvDQC1oQ3UHHvEXuIIMU37RbORV6qF9eWHDoq3G4rg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q4OfreDVc+VeT/GdPsdsJeYJZx20NrLm6bMrGKi6+WQc3Abdm3W9w8fd/n21yTg0XBtz09skGxRCO4QNslLsGd6rVSTaRCkiYLpBXwoUC3ZMJK+BXD03TKuAV4oLwBKbbu6NVKTnly17nsdRp4NV4ilIP/FeqXhBGQOOOE6KsVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=12yVv4kb; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="12yVv4kb"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=TgolnSBH+ynVMNrVf0h58DK/Vli52VqvQ0ctg5iB3tA=; b=12yVv4kblc0T+US3oSZ8Iw2Sc+
+	zzOYDPXwgygaj4SI9XH2A9BM27TKLWQjkyX6ik6BrxGnQCEM2oQ8Z4YsOEOlN4ehs9ap0E+3aTk/k
+	nwsySW0RLKl5ByWluBh3kOG34Sc+Cu0YcK6GnsKFkM1VGxsSAF/5770zRFbI3Me/NVRs=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1w5jrD-00DTWt-6Q; Thu, 26 Mar 2026 13:30:39 +0100
+Date: Thu, 26 Mar 2026 13:30:39 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, kevin-kw.huang@airoha.com,
+	macpaul.lin@mediatek.com, matthias.bgg@gmail.com,
+	kernel@collabora.com, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 3/4] net: phy: air_phy_lib: Factorize
+ BuckPBus register accessors
+Message-ID: <3bd7803d-4c4a-4f61-9434-a6bf25627b58@lunn.ch>
+References: <20260326-add-airoha-an8801-support-v2-0-1a42d6b6050f@collabora.com>
+ <20260326-add-airoha-an8801-support-v2-3-1a42d6b6050f@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260325202005.29822-1-email@sirat.me> <20260326082447.5e447606@jic23-huawei>
-In-Reply-To: <20260326082447.5e447606@jic23-huawei>
-From: Sirat <email@sirat.me>
-Date: Thu, 26 Mar 2026 18:24:41 +0600
-X-Gmail-Original-Message-ID: <CANn+LW+zqf-VwAw8Ci+ZkTO95ktASyUBjg=O8NAGjMc-g39H7g@mail.gmail.com>
-X-Gm-Features: AQROBzAgQAUJ_PyzObb5sGIYSy3eHoXce_8tfyN_aOmeiG4bEBi1gQYt7vl5eCo
-Message-ID: <CANn+LW+zqf-VwAw8Ci+ZkTO95ktASyUBjg=O8NAGjMc-g39H7g@mail.gmail.com>
-Subject: Re: [PATCH v8 0/2] iio: proximity: add driver for ST VL53L1X ToF sensor
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260326-add-airoha-an8801-support-v2-3-1a42d6b6050f@collabora.com>
 
-On Thu, Mar 26, 2026 at 2:25=E2=80=AFPM Jonathan Cameron <jic23@kernel.org>=
- wrote:
->
-> On Thu, 26 Mar 2026 02:19:40 +0600
-> Siratul Islam <email@sirat.me> wrote:
->
-...
-> Applied to the testing branch of iio.git.
->
-> Thanks,
->
-> J
+> @@ -480,8 +287,8 @@ static int en8811h_wait_mcu_ready(struct phy_device *phydev)
+>  {
+>  	int ret, reg_value;
+>  
+> -	ret = air_buckpbus_reg_write(phydev, EN8811H_FW_CTRL_1,
+> -				     EN8811H_FW_CTRL_1_FINISH);
+> +	ret = air_phy_buckpbus_reg_write(phydev, EN8811H_FW_CTRL_1,
+> +					 EN8811H_FW_CTRL_1_FINISH);
 
-Thanks for applying the patch. Thanks to you and all the reviewers.
-The code it ended up becoming is much superior to what I initially
-had.
+Is a rename required? Is the namespace air_buckpbus_ used somewhere
+else?
 
-Best regards
-Sirat
+	Andrew
