@@ -1,235 +1,97 @@
-Received: from ZR1P278CU001.outbound.protection.outlook.com (mail-switzerlandnorthazon11022119.outbound.protection.outlook.com [40.107.168.119])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF26832A3C9;
-	Thu, 26 Mar 2026 18:30:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.168.119
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774549845; cv=fail; b=IE0hx6Diz0XGgaMld3cPs1zRFfUfo2hS5/ymMjkQ0vKeSAKu8/XG34PqxGulcrM2fpvXoItjmTxd8RVEMXj7Bc4HQCP9XVKnKvRwA5z8kYf7SdWKR7UcFzXUbbkcgfNnm439ejuopbyjspT1Qj+qYS5cb2GO3nXY4ekE5iRttz0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774549845; c=relaxed/simple;
-	bh=TS+HWRJW9lMBAAT+nOVCJvHgXn0TkLzVEVBgdGwM2TE=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=m9ukSKiJE7v7awZEVdJwDIF+xyFb7zxYPcyo1Lrg5vUexdLXCk2PD3A+Q8KDDvA9xInd1ZMR8sxGDt2d/pl3I1GlWigfSAwTR6Jvsyl4M9Evu4neTduQEZfexgJBYdYOqHJ7hBBrNDSec8S0IVY/e6CYdQBT9B2P2aJZ3tcRHm4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cern.ch; spf=pass smtp.mailfrom=cern.ch; dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b=i/Vq3uRb; dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b=i/Vq3uRb; arc=fail smtp.client-ip=40.107.168.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cern.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cern.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87ACE39FCAC;
+	Thu, 26 Mar 2026 18:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774549943; cv=none; b=tSoE5l+LpvzylgBcx1uDDI7GzvnakxKvjN4uNLrEvyCz/mT1KUGAUZnb6M4hEGAX1jZkgRnYnigZul8jrfN86IjE1QSDbZ74TCxTjBgGgp3vjnFY6+EM6GoPEM2e6njQkTJl/3V1ZWiRM4drgkyK1NUn4cF4ineuzYrtCqHbjLA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774549943; c=relaxed/simple;
+	bh=CzsFZIJiKMsLWlfT0H5N9wCIpe9LumoDaQPCrhbfnfI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=A+klh7wY2VsLMv8+HMAR9lEamaWQ64QX1CYznRfj0AtipVwe/CFZcGMk0uL0ACPSzCZ/ZKKUVYGapuxG69voEZQOcgg6QcgAaK9oWRKiOINjcCveJ1Hmz8OUeIen8vzMvTRSAPhoVXZJIJAGSGImRkXNoNPK7zEW6cVmKmNY6r4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XkI7yvsQ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b="i/Vq3uRb";
-	dkim=pass (1024-bit key) header.d=cern.ch header.i=@cern.ch header.b="i/Vq3uRb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sdfvNSuRFNtmVGeIvsufMlRbcw9Og7aIsCj2tp/LtEp8Qz5E1WrHhdxR8+FF/2ECTjZBfkBPEeOpKGkujhvTePiDI69rToO72TxttOAlC8xARA9TqRqvG9QqsY4l/IHBc5zRHkTTEnrXtbQFMG4eAhtF+xCiLtEfXVkx+ajySSoRn9TWmNwTvHXl043/hOGB0KL2Mh9Eb8DsMNu2sG2ysvqXcoPatVBLOTr7UU348pTA6Ud3iJDtyF8OMzlVmJ4yKdtoH2rcFYEFKfd6RAxQt8uIaFoHHqisqUA2zb2acjSOilrcs+WDAOBub0JusUQQcRXosQuZakrsfdYin4lZNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dBLajaTA3FXAQVjnQ1dhuqdIgBSzXVlGJfP3amo10qQ=;
- b=wbt8NmXXB0LKbZJoIQ5jARKWNlyqhWG/u0vEpfYctqKJYuvTdw0lLcLBP8bqf1ZJtTM/9D0fWRPxTSblf84Eu45WpXFuOBQQ0p0lieuGoaNzw0fw1qFdlFpxIisfuXTI934Y1zR7UBIEQdTK3YP5egahrSgO5s587VjMp9Q//32B+43YW4EDBn2+4Utksa8UYbbeqYG7/7iOSUcTDUIXfsXeP1RoCQBmiuOJ8NkOc8n6yHvQMvcoO79Sj+L1mg2GJ6w8fxXRX8+yPQeJrdHfxHWtUlQFLYySonYLmrYBpoky5KWYCqrYFA/FnO6yRj3MAta8vHN4zPag1wo2U3XvYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 51.107.2.244) smtp.rcpttodomain=kernel.org smtp.mailfrom=cern.ch; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=cern.ch; dkim=pass
- (signature was verified) header.d=cern.ch; arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cern.ch; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dBLajaTA3FXAQVjnQ1dhuqdIgBSzXVlGJfP3amo10qQ=;
- b=i/Vq3uRbDLY/iQPUqLSiDPfFJNZdWUuyUS1Jt8EtJGwbnhL5115hwtS2jClR9vZ85qlu97Vq+PT3E8BvkDcQI6xGw+6BJIUSDqZsO5sq3Dalr/MOto/utOfdHwGOepEJSMJy32DLrco/ggJd5BPO94q3QtCzhaPz+KwaxHO/S1M=
-Received: from CWLP123CA0232.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:19f::14)
- by ZR2PPF4A8D38F75.CHEP278.PROD.OUTLOOK.COM (2603:10a6:918::2d2) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
- 2026 18:30:36 +0000
-Received: from AMS1EPF0000003F.eurprd04.prod.outlook.com
- (2603:10a6:400:19f:cafe::c7) by CWLP123CA0232.outlook.office365.com
- (2603:10a6:400:19f::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.32 via Frontend Transport; Thu,
- 26 Mar 2026 18:30:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 51.107.2.244)
- smtp.mailfrom=cern.ch; dkim=pass (signature was verified)
- header.d=cern.ch;dmarc=pass action=none header.from=cern.ch;
-Received-SPF: Pass (protection.outlook.com: domain of cern.ch designates
- 51.107.2.244 as permitted sender) receiver=protection.outlook.com;
- client-ip=51.107.2.244; helo=mx2.crn.activeguard.cloud; pr=C
-Received: from mx2.crn.activeguard.cloud (51.107.2.244) by
- AMS1EPF0000003F.mail.protection.outlook.com (10.167.16.36) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.21
- via Frontend Transport; Thu, 26 Mar 2026 18:30:35 +0000
-Authentication-Results-Original: auth.opendkim.xorlab.com;	dkim=pass (1024-bit
- key; unprotected) header.d=cern.ch header.i=@cern.ch header.a=rsa-sha256
- header.s=selector1 header.b=i/Vq3uRb
-Received: from ZRAP278CU002.outbound.protection.outlook.com (mail-switzerlandnorthazlp17010001.outbound.protection.outlook.com [40.93.85.1])
-	by mx2.crn.activeguard.cloud (Postfix) with ESMTPS id 30DCA7E643;
-	Thu, 26 Mar 2026 19:30:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cern.ch; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dBLajaTA3FXAQVjnQ1dhuqdIgBSzXVlGJfP3amo10qQ=;
- b=i/Vq3uRbDLY/iQPUqLSiDPfFJNZdWUuyUS1Jt8EtJGwbnhL5115hwtS2jClR9vZ85qlu97Vq+PT3E8BvkDcQI6xGw+6BJIUSDqZsO5sq3Dalr/MOto/utOfdHwGOepEJSMJy32DLrco/ggJd5BPO94q3QtCzhaPz+KwaxHO/S1M=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=cern.ch;
-Received: from ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:5d::11)
- by ZR4P278MB1867.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:b2::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.23; Thu, 26 Mar
- 2026 18:30:30 +0000
-Received: from ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM
- ([fe80::79ac:8d79:4b56:709c]) by ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM
- ([fe80::79ac:8d79:4b56:709c%2]) with mapi id 15.20.9745.022; Thu, 26 Mar 2026
- 18:30:30 +0000
-Message-ID: <f6323f22-27c8-4ae5-83d3-59831b62b5da@cern.ch>
-Date: Thu, 26 Mar 2026 19:30:29 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: Add Samsung Galaxy Book4 Edge
- DTS/DTSI
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, andersson@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: marcus@nazgul.ch, marijn.suijten@somainline.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, abel.vesa@linaro.org,
- abel.vesa@oss.qualcomm.com, johan@kernel.org, konradybcio@kernel.org,
- kirill@korins.ky
-References: <p3mhtj2rp6y2ezuwpd2gu7dwx5cbckfu4s4pazcudi4j2wogtr@4yecb2bkeyms>
- <20260322160317.424797-1-mstoretv@cern.ch>
- <20260322160317.424797-4-mstoretv@cern.ch>
- <881975ea-cc16-4b26-9672-731c146a1ba8@oss.qualcomm.com>
- <40e31e2f-84ff-425c-a7e9-f2df4210ddbc@cern.ch>
- <892fe03c-f3d5-4b6c-b821-95dad55fdade@oss.qualcomm.com>
-Content-Language: en-US
-From: Maxim Storetvedt <mstoretv@cern.ch>
-In-Reply-To: <892fe03c-f3d5-4b6c-b821-95dad55fdade@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0010.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1d::9) To ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:5d::11)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XkI7yvsQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 23C81C116C6;
+	Thu, 26 Mar 2026 18:32:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774549943;
+	bh=CzsFZIJiKMsLWlfT0H5N9wCIpe9LumoDaQPCrhbfnfI=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=XkI7yvsQQp9pk4i9aTqXbp7iRnWawmQ56KO6+yiJb2nlaEGMc/Rw3C65LyPKRZ6P9
+	 ArhR9U7kAXTNMaskuDgtNQRiKbJ0y/lX3aUADJHfoTJkHWsMFxLFy4Gr21NYSxDNBD
+	 jBx6cTWfoCxw4vVhWHhO+LTYbpQKRoQwruXZ1J8fx4rHlMetsGqU28mDmjnCE8qJL7
+	 b+Xvfqv+OUw2xO456Kvjjfk+06v3qqFZRGWsh1wuZEF4RU3h4cKU2vv4KnY5e7IXD/
+	 9ucz7QBpshHEzaEYjWvwLXS2pkqErX1ZAuRRj12Yd74Kj6/OqBFqqKoe9mRV0AlY26
+	 EbAEZjOz8hgwA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1094810A3D96;
+	Thu, 26 Mar 2026 18:32:23 +0000 (UTC)
+From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Subject: [PATCH v2 0/2] ADRF5702/ADRF5703 Digital Attenuator support
+Date: Thu, 26 Mar 2026 18:32:15 +0000
+Message-Id: <20260326-adrf570x-iio-support-v2-0-b622a17335d0@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	ZR2P278MB1053:EE_|ZR4P278MB1867:EE_|AMS1EPF0000003F:EE_|ZR2PPF4A8D38F75:EE_
-X-MS-Office365-Filtering-Correlation-Id: 50614813-02f5-41b8-f48f-08de8b65c5c1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|376014|7416014|366016|1800799024|19092799006|786006|10070799003|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info-Original:
- v4NRQZ3CPO89524/ExCp053GwQI1y2tfGlRftnlNrUgjozxSaGuwoR3wOMNdpxRqWQDflIIuiGCq741xwoLOILTfCgdisykPbDnKavceliGD68aixtuDIfL/cByfeg7V8szlr1SuaeM/hFoI3tnxkIta/DUqIUh1s+LLFL5fd9xZ6lWBPh3vLWTDBTwvAkYezwwwsX9iRtaPSDMP2rwHa63u461rWrqMrpwj4xvG9fIz6nROKl6cx6dd6oMDlkFPrcXbqfjayvv1NHGPLCM9UzHM43WgtnVcK8hwHUzetkMYdTzh/uROx+xslTBDiNlPWxRJCDNYS/q0MA8qUzt1ftCTh6iMZe04KQ0QwAS0FYUjv6d9PW5ojquulyez1wh9+aCrtrQSDX8NRcEWUji3IWHwxaep+AFVtGkn6nxVMy0D0/E2sF9qmkXYX7QHhmM/Ut7J79BPpilSZZxolpwEemXEt8M0SqztqwKm5PITyXC56Xxfr5raAlwp73iHfG7uXYiq70hVUPf4F5vDCbIWQGzBfRpye5Cy/uIk6YNvpIfOLcvDRM6f89mz2sX6r8bjwBaDbUZlHt+TVLv0MLjvjPkpaZWJd8aWYtJOhkCbPB0KYeVJtcf5DcBUiypmkY9dchGPghdAo3POOrlQiwPwtOvmJM3YDSAuuqLWZHl3wB8rQNv8R4Zrhg7v1xRt/Q1Q
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZR2P278MB1053.CHEP278.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(19092799006)(786006)(10070799003)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1102;
-X-Exchange-RoutingPolicyChecked:
- I7yWd0LdLPi3UqlgKyrMWbe2MKZJy2KsBy99lMGWHvrtWSCsA8ptx7vgohxjnZfSRpvPppl2uUvv/IlnwzopGb6b9p2kjW+ka3Lwx/+7gzGBN9lzfHwyXQxFFS4dfCP9XBYVxNG/2t/tT/ekwAVB7YBkcY1Ya+lZMOovtmmqPcyYaHZyeONPd5tgIUrsVB6K0T5k6YaNfwDaQEnEKcnmEMSknS3vnCs8UdS7+GXvoWNPwlwrWoFQetaEqlhRZrCpV7+qp9HB2Kaoieai4sEvqjmyBYHATGNQuSZPcHtIWiVunhFDGXu+6fWcYFKOhEyin5R7FUR66P5A/yp2DnG7mg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR4P278MB1867
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AMS1EPF0000003F.eurprd04.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	34ca3595-2b04-4ff2-a17b-08de8b65c28f
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|19092799006|36860700016|14060799003|35042699022|30052699003|1800799024|82310400026|786006|13003099007|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	1A0leNVY3J/bO/rDl5VZWp/qiuiHqAQ5OTiSgNrrW2ogtjsRWRZkO++kTsl9fULhOAlKhYslhCpezOCtKuaWE+Tx5veeaEp4F/ht+ojuB+Ni1ZkzOZdsevM65ksrAszWurNlYrec51Vd2tQTL+jAH7TIgxukRIA3AxFC5+J5dvOg81j19qcLUzvFzGM1lndJUH7GAp5wP/BnTBJ9KdmzKXXR0HMAm51XQF18xZaVpIuwqsY1RP2h61VX1UZvznRFBYFSPw4NckZpTLuNhvl/6PX1uAcLVce2LmIDlhJJc9CxyCuyMtpGiGs/DR76Sw44CiCMP/PY3c88K6aF1sXGjVVQ5b2Pe77ICgFIOb/F2PjAaFK9sU7Oq/VR4K3ltknA49gX+FECK+vkTA4FmE6SzLxz5Mg9pRDoeLFs3ZFpibYG4EVmEusxqNzgdEah7nwwvGoeYEwwUEU4onb5CUnqfPtmErmP28TvRnOW0JuxmXIwm/At/e/9ts1fz2ZiAY11raV5QOkO89cS4KAoDGd4mYYAvAAO6SPyRsCVBzLpgrudHQMoxxLqDGWgFWn1aV61VHL3F6F+QfSIjbcfbBirY6fHq5nNZzZjpDN3858R0zdc2hlCM/UpOYmHqpsJEaIJkzYnB8y9xwu6nXoAtXHupNR1F+CY7bLcIxy/95ZgoBIYa28Nop9B+NP1qT4PfXGiWJXJdD9w8NEH/7BpiKlwryg5RHx6m1NTHTeLdDkJ6bA=
-X-Forefront-Antispam-Report:
-	CIP:51.107.2.244;CTRY:CH;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:mx2.crn.activeguard.cloud;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(19092799006)(36860700016)(14060799003)(35042699022)(30052699003)(1800799024)(82310400026)(786006)(13003099007)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	E/uR3bL9kKQaeAEGO9fXtKrFRKaIDrqb1O4REJ+71kD/363NpmgNrME8Wj7h7sHBtmyoGL5bO65p2JUUDCy4SqhgbzxKaSqIegPX2Cxie2TlbxwUOUQwl4tY3XJBuH5eyCJOmTRNh5Zi5IeEPlyI/jw3RZ7R504vXH6Q2W46/1anBSpotrtFnt3L6VZTnIXoCNLaoTzAJAGwCqGblFKNhHjOKLCQimdrr3hBSDpCKodJMtbLyUGj8IJgGxFaKizNSoeIQUUUFqUh4w0eeb7Pgy3F+noQhw994VV8tbvVGKAYqIChcJtxpy5r8m9F03MDFV68wnunTurfflifdDOSrwYPCkL1N7gVEjp6gBonqPIf1Muw7Jln+8ojOah2vrppdP/xL50Jr9RjhnJ3tw1ppKQAZL2lHI4zmnvbqab7tciskGI9JYlbxWv93IXuu1DK
-X-OriginatorOrg: cern.ch
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 18:30:35.8137
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50614813-02f5-41b8-f48f-08de8b65c5c1
-X-MS-Exchange-CrossTenant-Id: c80d3499-4a40-4a8c-986e-abce017d6b19
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=c80d3499-4a40-4a8c-986e-abce017d6b19;Ip=[51.107.2.244];Helo=[mx2.crn.activeguard.cloud]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS1EPF0000003F.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR2PPF4A8D38F75
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAK97xWkC/4WNQQ6CMBBFr0Jm7Zi2UgRX3sOwKDCFSZQ2LRIM6
+ d2tXMDle8l/f4dIgSnCrdgh0MqR3ZxBnQroJzOPhDxkBiVUJS5KoxmC1VexIbPD+PbehQVJNk0
+ pa9uZUkCe+kCWtyP7aDNPHBcXPsfLKn/2T3CVKLAxqqo1dYq0vpvZPN147t0L2pTSF8ftO6G5A
+ AAA
+X-Change-ID: 20260325-adrf570x-iio-support-e199418fba40
+To: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Cc: Lars-Peter Clausen <lars@metafoo.de>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Rodrigo Alencar <rodrigo.alencar@analog.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774549942; l=986;
+ i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
+ bh=CzsFZIJiKMsLWlfT0H5N9wCIpe9LumoDaQPCrhbfnfI=;
+ b=TuNHdp+ljawlKp6O97s1DzuisbOEEDdcextDE34p8Mt70LsrYQpTHXumNirEjUzRJvPrvTbP7
+ DERO2VcEXyGD1oxR8My5XngtUgyqr9XJth0tYG8MOZwhwIIsbiNOFdr
+X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
+ pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
+X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
+ with auth_id=561
+X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Reply-To: rodrigo.alencar@analog.com
+
+This is a small patch series that adds support for two extra attenuators.
+Basically, new chip info and device table entries are added into the
+AD8366 IIO driver.
+
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+---
+Changes in v2:
+- Add more context to the dt-bindings commit message.
+- Link to v1: https://lore.kernel.org/r/20260325-adrf570x-iio-support-v1-0-9a2685eb2e55@analog.com
+
+---
+Rodrigo Alencar (2):
+      dt-bindings: iio: amplifiers: ad8366: add adrf5702/3 support
+      iio: amplifiers: ad8366: add support for adrf5702/3
+
+ .../bindings/iio/amplifiers/adi,ad8366.yaml        |  4 ++++
+ drivers/iio/amplifiers/Kconfig                     |  2 ++
+ drivers/iio/amplifiers/ad8366.c                    | 22 ++++++++++++++++++++++
+ 3 files changed, 28 insertions(+)
+---
+base-commit: af980a79bfed43c4a0be12cca786be46f1a0c5e8
+change-id: 20260325-adrf570x-iio-support-e199418fba40
+
+Best regards,
+-- 
+Rodrigo Alencar <rodrigo.alencar@analog.com>
 
 
-
-On 3/26/26 12:33, Konrad Dybcio wrote:
-> On 3/25/26 7:30 PM, Maxim Storetvedt wrote:
->>
->>
->> On 3/23/26 13:17, Konrad Dybcio wrote:
->>> On 3/22/26 5:03 PM, Maxim Storetvedt wrote:
->>>> Adds devicetrees for the 14-inch and 16-inch SKUs of the Samsung Galaxy Book4 Edge.
->>>>
->>>> These use a common dtsi derived from nodes that were able to work on Linux
->>>> from the initial Galaxy Book4 Edge DTS by Marcus:
->>>>
->>>> Link: https://lore.kernel.org/all/p3mhtj2rp6y2ezuwpd2gu7dwx5cbckfu4s4pazcudi4j2wogtr@4yecb2bkeyms/
->>>>
->>>> combined with the ongoing patch for the Honor Magicbook Art 14, and its downstream by
->>>> Valentin Manea, which shares device similarities:
->>>
->>> [...]
->>>
->>>> +&i2c8 {
->>>> +	clock-frequency = <400000>;
->>>> +
->>>> +	status = "okay";
->>>> +
->>>> +	touchscreen@5d {
->>>> +		compatible = "hid-over-i2c";
->>>> +		reg = <0x5d>;
->>>> +
->>>> +		hid-descr-addr = <0x1>;
->>>> +		interrupts-extended = <&tlmm 34 IRQ_TYPE_LEVEL_LOW>;
->>>> +
->>>> +		vdd-supply = <&vreg_misc_3p3>;
->>>> +		/* Lower power supply is not enoug to work. */
->>>> +		// vddl-supply = <&vreg_l15b_1p8>;
->>>
->>> How should we interpret that?
->>>
->>
->> This was in the original patch, but using that same regulator appears to
->> be enough to also get touchscreen working on the 16" book4e. That said,
->> it still does not work on the 14". Something to revisit later...
->>
->>>
->>> [...]
->>>
->>>> +&panel {
->>>> +	compatible = "samsung,atna40cu07", "samsung,atna33xc20";
->>>
->>> I think it'd make sense to move the compatible from 'common' to the
->>> 16in DTS then too
->>>
->>>> +	enable-gpios = <&pmc8380_3_gpios 4 GPIO_ACTIVE_HIGH>;
->>>
->>> this matches the common definition
->>>
->>>> +	power-supply = <&vreg_edp_3p3>;
->>>
->>> ditto
->>>
->>>> +	no-hpd;
->>>
->>> really??
->>>
->> One less thing to debug while previously attempting to work around the
->> "illegal link rate" error, which turned out to be related to eDP 1.4
->> (similar to the sp11). I've kept it as-is in case other SKUs attempt
->> booting from this dts, such as the x1e80100 16" (as it might be getting
->> a black screen using the current x1e84100 16" dts, though this is not
->> fully tested).
-> 
-> So do the 80100 and 84100-equipped SKUs of the laptop come with different
-> displays?
-> 
-> Konrad
-
-So far assumed both 16" variants to be fairly similar, though one
-valiant 16" 80100 user over in the debug thread did try to boot via the
-84100 dts, with no success. Instead having the screen go dark after the
-first post-tux kernel prints.
-
-This was strapped together via WSL though, so could be there was
-something else at fault, but strange it didn't at least fall back to a
-visible initramfs shell.
-
-Cheers,
--Max
