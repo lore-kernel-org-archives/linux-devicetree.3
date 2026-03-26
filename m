@@ -1,117 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7085526CE2D;
-	Thu, 26 Mar 2026 12:23:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D2F83F7861
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 12:24:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774527831; cv=none; b=uQWnivODHcggh5UQGw5BwPPC8mrm8rcHUHJPtf1fI9A9efYXBGuvQOysZyWFRazqiIU4zMwMQgQ+1mlUXvF8O9JMhdkhYUtius5KwxhicFxnH8w+ssC7eorQeSTcr5wyqZrsH3KGCTniuaTVx0i9GPieQs7qngH5ZqozTro2pcY=
+	t=1774527895; cv=none; b=VyPrWXmz3KP7+VC49AMXaTl98prr3CitPJ6evQyUhS6Uwp29SD6SRjhYCVsdk488Xqzw+zNGB3Y1vuDSeUPeqzIv3radzXWMdZPpNCKtvDV8+PXfux7O/QpRQc89sMzvsfmTeT6FX8uArkozoJ+4/+YF00hpX/KxFCIsRlEjc84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774527831; c=relaxed/simple;
-	bh=IIGDiiH+1xpNX8BpC4b5C2ozi5Ra3Qjpr62Lf75qZxo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tWnyXAILeV20RGlH4sSGA4TSyZsX3dngjXrWy1xi672qrIfpYPNko976NrJvs8Kk6TVKPbSh6VoHqfJas9nS9GI+DdgB0nNEFMs/eBPS74odRYxE/7DXuKW+8dNHYhVMElQwGEwMCXh3pTjq2LCyiLnsc3GqMxH/MpE6houkoCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t2+BVWsd; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t2+BVWsd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12C79C116C6;
-	Thu, 26 Mar 2026 12:23:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774527831;
-	bh=IIGDiiH+1xpNX8BpC4b5C2ozi5Ra3Qjpr62Lf75qZxo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=t2+BVWsdeytNNta8UI7Xhc5rqS2EWBT1/DLuX5xzzJETDS0gtijuxyRXFIRDSn4y6
-	 wC8aqru2vLwCQ+i/j/HQld0vPTQW9wQSwtOGN+c5OTbrxFxZCk0StkOB+xYZY9QLtl
-	 x5bQmZXp0JKGjNIqs7REH2HVVQ0wwvUqmpaFAhvi3V/tpXYtxcZBuA80whm+dNxDKg
-	 SH6JIX8o6KTzyefRGElb5ckLmSOZ3BcRz7ZDddwRHmK3pvOvnhOHFlyZZh+fwaM9PA
-	 UQNOvUtqd3NGECXT1Afa5fTLVvaE5Ryi+jW+PPCpvWIwevbFif/ryIaEiqckfFhOuw
-	 7eAU4Qtbmzr9A==
-Message-ID: <4516aba8-e776-41e1-ad26-c6f817b11b58@kernel.org>
-Date: Thu, 26 Mar 2026 13:23:47 +0100
+	s=arc-20240116; t=1774527895; c=relaxed/simple;
+	bh=mRH8dsJYsEf6aldFwfdTs6JkiAnPmrdYZd1nLYrfFck=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oBm/Av7/BgbKwHM2kwtBRxkXovUyCmn68lYYmqwmFzWMEfV97dtgXehc4bBPKN+LwZTBPHDj1kn+IIV2sse//XN3pr51WbUqHClebxUjgczHrCFZ6vvN5977zGMbFkRYk8B3Khg/nkRs/G4+fd/hPbnYJt77QBOQyAqE5CziC3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sirat.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-7991db3dc98so9981667b3.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 05:24:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774527893; x=1775132693;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=mRH8dsJYsEf6aldFwfdTs6JkiAnPmrdYZd1nLYrfFck=;
+        b=o5tdZdVrGlTZziBS68obQ/J6PCHiR37J54NIcTCfLod/q4/9qCbqEyP1ThYUc1ns4/
+         3GD7DPWaJ2rMN/nH42nt0A455w6IC/Ws4R9YlAr/pqSdiH+7S6dU7c0Ckow4zGBcHewP
+         rBnxfRQj7PLE2uMwOt+aJLERgdicAVO4KjdlPEkKUeoGx8FsuqYZjWaDCTSeMy6rdGdb
+         H2kF5Llc1NZPidGrwrNyH6pI8UQU2cnz2eszNIzfUBXoUM/a43TUAJZPIV3J6aCXO8NN
+         9l4BeuJ9Dnmu1hL53o+o4Qbi4jSXym6Lzo2auHswBMXaV1ZYtXLQdqxeSS0XBb/zbDJh
+         mhxA==
+X-Forwarded-Encrypted: i=1; AJvYcCVOCYqtu4OIg3EVU4apSUx2AgVnYv+54r6GKcytLOiuOyEnmdqhP6f6sp1C3ZE2iGi+Uf5++BhFgIgH@vger.kernel.org
+X-Gm-Message-State: AOJu0YxVa55dK8cZY/N1owJlmysypqsxd0FH6I+rkmFufj0jenJt9fK2
+	Jw09BK1dd6hfWYTLjbXTX9IZ0DwqAcA9lTskjcXagRAkJPQqci2l7vGSEqF1V/YW
+X-Gm-Gg: ATEYQzxUWwqc193OMqVgy0FgbGESFYKL7KFTH3Wo/akyaLCwIEP4/mqhXnBu5n1FH54
+	l0NCKk3/twmuyh2BhoIZAb/BERxXGsruvlQrSnqxQtOH6rCu4plrja5Wmk5VBM+lB0yXq1GiIvF
+	atggH7HfBCuBkvcveTIp31dthCkwBzypTdfD14F/+Q6V8A8sdGKg7TdSB2MoHMXl7Za/zxfxMDA
+	BJzHvYTTDwic80cX/KBA9qSWLNFsy9Do73PxYRhwhV2PzNwHGhdXXEYpT6Qs7RACgGv91rGbrra
+	/9Vx3ZbC6H7Czsmc3F+PbEtZQ3zOdBfBtJ/l89yJlT7bRE3Jbe7iOM00biUSPQRbvywhgNaNgAx
+	zF6MFwQvFc18nC7RYEfzY4mUoNrLedvSrtJuYwqXe1PLS6DUC2O7f0NCqQph7XEgSAiRQHOcjr5
+	RRUYDfZUiDSmhmc9qA54PQzjlMfnYUaJTdO33FE0CFlwY4Csm67tMyPfTCy2a1Z5i6DTSB0LZW9
+	+4gfa+JnKXjGgOdQjn0Zdqkx8z0TMWsuOppOhPk+A==
+X-Received: by 2002:a05:690c:e3c7:b0:79a:cd3b:d9ae with SMTP id 00721157ae682-79acf67f5a9mr78508017b3.33.1774527892897;
+        Thu, 26 Mar 2026 05:24:52 -0700 (PDT)
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com. [74.125.224.53])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-79b10d711f9sm12204477b3.10.2026.03.26.05.24.52
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Mar 2026 05:24:52 -0700 (PDT)
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-64ca423ad53so897648d50.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 05:24:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCX+w4AsJdb11PUhViS7kY13kGH2c1ehg4RLyWp3tlbJBbJPseWK7pR+KkwWnI/Ah1X4jPr5eI/0TDeb@vger.kernel.org
+X-Received: by 2002:a05:690e:1c0c:b0:64f:c830:1e47 with SMTP id
+ 956f58d0204a3-64fc830804fmr1809469d50.21.1774527892188; Thu, 26 Mar 2026
+ 05:24:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] dt-bindings: i2c: ls2x-i2c: Add clock- related
- properties
-To: Hongliang Wang <wanghongliang@loongson.cn>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, loongarch@lists.linux.dev
-References: <20260325011852.19079-1-wanghongliang@loongson.cn>
- <20260325011852.19079-2-wanghongliang@loongson.cn>
- <20260325-outstanding-weasel-of-fruition-89db37@quoll>
- <1b5283d8-294c-86de-c3d8-bf205ac24216@loongson.cn>
- <0d7dfe5b-5e2d-4850-8922-16eb6bd9bcae@kernel.org>
- <900dc1a4-66ab-411f-8a32-4c6cf339e8ec@kernel.org>
- <2d032399-d3fd-92b3-6dd4-28e0c78f199d@loongson.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <2d032399-d3fd-92b3-6dd4-28e0c78f199d@loongson.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260325202005.29822-1-email@sirat.me> <20260326082447.5e447606@jic23-huawei>
+In-Reply-To: <20260326082447.5e447606@jic23-huawei>
+From: Sirat <email@sirat.me>
+Date: Thu, 26 Mar 2026 18:24:41 +0600
+X-Gmail-Original-Message-ID: <CANn+LW+zqf-VwAw8Ci+ZkTO95ktASyUBjg=O8NAGjMc-g39H7g@mail.gmail.com>
+X-Gm-Features: AQROBzAgQAUJ_PyzObb5sGIYSy3eHoXce_8tfyN_aOmeiG4bEBi1gQYt7vl5eCo
+Message-ID: <CANn+LW+zqf-VwAw8Ci+ZkTO95ktASyUBjg=O8NAGjMc-g39H7g@mail.gmail.com>
+Subject: Re: [PATCH v8 0/2] iio: proximity: add driver for ST VL53L1X ToF sensor
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26/03/2026 12:48, Hongliang Wang wrote:
-> Hi Krzysztof and Andi,
-> 
-> Sorry, I didn't express myself clearly. The purpose of defining clock-input and
-> clock-div properties is to use them in both acpi and dts. If these properties
-> cannot be used in dts, can I first use them in acpi? and second, use clock
-> framework in dts.
+On Thu, Mar 26, 2026 at 2:25=E2=80=AFPM Jonathan Cameron <jic23@kernel.org>=
+ wrote:
+>
+> On Thu, 26 Mar 2026 02:19:40 +0600
+> Siratul Islam <email@sirat.me> wrote:
+>
+...
+> Applied to the testing branch of iio.git.
+>
+> Thanks,
+>
+> J
 
-I already asked you:
-1. Stop requesting read receipts on your email
-2. Don't top post.
+Thanks for applying the patch. Thanks to you and all the reviewers.
+The code it ended up becoming is much superior to what I initially
+had.
 
-I already told you also why these cannot be in DTS. Respond to technical
-arguments, not top-post of what you want.
-
-Best regards,
-Krzysztof
+Best regards
+Sirat
