@@ -1,139 +1,139 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D612BE641
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 13:39:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E352DA769
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 13:48:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774532375; cv=none; b=VdPv7f86h1Y2XPdjtFHjY4V6bj51XgN3Dm7x16ligyLcv/LMmdXEBa00XbbfIVhldHYu6EJkymev+QsYF5SNqPNif34/WeUjWsc7Sf0401/yGDmWAdH9gNs4NBa5ievs34ju6EXEJ2qgbalxaBuMHE4LoPW4epDN5WOAbjJI3Pk=
+	t=1774532914; cv=none; b=EAuhZ/FdmPHP9UHhBfRHlNkTmsFFNs4/xGNDU5UYmIql/QGBdQ4NjMi1jod2p9lWH+ptIKuEuNpup+h5iJs7pCGQv5iqju3dCDMTBzPzA3DpGGdXgV2ggKDhlP/lZFjWBmpv64+zICibe3sqOkQftGqbPJRd0w511BcuiSnq7kg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774532375; c=relaxed/simple;
-	bh=JkgrpngiL+BEeaapm2HsfEabVVknDSBXGysIaqseEg0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R3kkZgPA85blmn8+kJ/jhdFv9bar4wd5Az0mKZcyuFei9GEWdQGICL6/rGG6MD2ZTdAm/7G8EEBwH7S598IL4SLd472o2QbJDnXz3QgH64Q/gi6Sik3EsxWOlGwG4WagIwsfNtIHF0YhcSW4WCg629VrlsJjtdJEIFP+k0oFoBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DHmpZeot; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774532914; c=relaxed/simple;
+	bh=fkANkZGrlPyyPf87t+LAjl2jdK/qL0Ex3c77JETrFyE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rL5eFXPkWAlP8TA3KWiEbjwMSTB569yjXnyUZ/EGMunZIB94vA6mCm14ZPB+S/touQU3JTPN69zm2l1PG3CaJWkK5Upt6O673KrOQk9LaWk963qicoSFxnLLZDDMs2xMr1SI8IL5CH3zdwos3hSJ4He0jFO4IuvMjMAwXPKG978=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com; spf=fail smtp.mailfrom=inventec.com; dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b=D9MydwTy; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=inventec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DHmpZeot"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-824c9da9928so902006b3a.3
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 06:39:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b="D9MydwTy"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-c741692db4cso259903a12.1
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 06:48:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774532374; x=1775137174; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=yGSjpvKZZs8UcqAPmpfnz9AxdNUGLCzJ29ws53Cs8es=;
-        b=DHmpZeotoBgXvuf6VumIs6SBR4Ur6EFfsd5sAnKT60/NpTgZ9XdgAv7dj6ncXW3Ydc
-         aHNXLBTl/Q3EIRjE7/aqGwX1HaLgv6lPXpjSL+ivoRZ/iA2RIM0+qcwjLo82/8SaEsl5
-         LCA6eMqWR1RqAELVOT5/mYdLh8e+HoiMh2DEF4zVbEVsT4ExxQVJjmNa39DWPPpCWLea
-         MTbibXs0ZBgxc3pahOYsQWNwzxJDT3YsUv9uO/SfvpxkuP3UNrzz99tPfY1WtTuhud4X
-         bVEvJdVfnHKIiI2jcVIRFMIEt2jlLm4gxxvS4dcHB5PLCkRhSXBTIaJkGyCVPp40OLOJ
-         YKjQ==
+        d=inventec.com; s=google; t=1774532910; x=1775137710; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=+h3PhzbBEUuFG1BSZSLnovJIQ8tNsqLyZwY5UDDcc4s=;
+        b=D9MydwTyDj2CE8tQxaRsZUKh98sjs4sPVs+L2sS0gqTUJMqgH4Y+p9VXi98IDxlgYX
+         LZBSSUs2dmTDHcaIu+KSBqQPm37TuTfCMLYkLtX8UQocSciitxk2LP+PNPa+khzsCa/T
+         3w5QBva58/2Ve3n4ASw4CrOFhquUDC4kywgytBE4JoCHaCL7FqqQFQqNjlGrfKPnMxlH
+         GKjt/4bMnoBhUw7hYFMEjfkyCpQcU+5BqDi9d0W6CxAicGgGDIi+GIg0x1hgZnKk+M+H
+         w6o5utn6JpvB2wY37V805DoREx1Dd5VtniezougU3BrNA+AKoaOnB27MS/921haMMzS5
+         hJDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774532374; x=1775137174;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=yGSjpvKZZs8UcqAPmpfnz9AxdNUGLCzJ29ws53Cs8es=;
-        b=PJDYeRGWyOcbJHt5mds4AMKO18jncnuYmPryufbxU8Sos8OFHmjmd1apVnkXvG+w3m
-         7lSlMe23INq07B9iwkoHXmSbPVZUy53AFQgDjXkXwmRMBLON3Yt0jJMtYiDw8oor0DTD
-         tDZTX0mnrDbePYpwNvLtB2ygq0jb8sTsRv4Q6QdfsByOIMqdwJAqMhhqiatB8zXDBvN0
-         RlUk2yQVWXp/pBfio0YdI/RZemUtWejU+XnkW9EvPaMTk/j8VSbq0od4Vzn/vwMrnzeI
-         trwt+vBzvDAE9JqkxsSVmVRp0G9Xe6xTS2RsYOHTmPZNoLFHK0/QE2iQ/E9MsKTyMfWo
-         nA9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCX079IDTvnis2Z98a0o03uH4JVM36yb6wh8MSVFJbTKz4cLNUbNUA5yHvnsfibnv+dxMHzLpX8fmjJd@vger.kernel.org
-X-Gm-Message-State: AOJu0YyX63aJEo0CZWsCS8Jxt4MGzAr3gvufgETij8yvaZEAXOMPWOpU
-	bJQ0nbFikF7W/CEj5yjq5wZbStatB/aO+VlFgOwrTuVT5E4yI91Q92Yi
-X-Gm-Gg: ATEYQzyWu8mqFwhtIBGu0J3NzoAMnjyJuVfQOFxrMgZ9p0SyNx2pTYWeLLtkrUw2W2+
-	kj6llNxaOZan4nYTdfMKMEsWcVdQpgPqYiiUZ1AmI6yqG/cnKLa2GIedKNfmmKuUqQQXaNAjpBP
-	ilYZiYZlYzs2mMWC2s4gbgYLzgAuENVW9cdNISHLG3aqSzvM4Xva8gqHrMeabJTH+RNSuSjfk6b
-	u9Qw33VwRLwzalp1PYKPAjM39oJowvyyNWq6Rh/NiBQldfMGLVTT5XR5dkM82C4QdHBfQMEKXzn
-	E+67cj0Uer1vuMUn07ztGNcGcm+N3truXm7qfywwsMMAj0q6SHwMOzcpZv6nXrJxLv6jUdvHpdS
-	bgoR8z9qdrxuuvVmJ12ZNNxtZoXySWQbu0gVkxYBZRvegXkgbEheJNCdfAnzBcDJpTrbRF9e6c4
-	c5XxifFmwRT5xhjU2COQ1xpZA9LGnZA0/aNOEQwrIa
-X-Received: by 2002:aa7:88c7:0:b0:81f:3afe:281e with SMTP id d2e1a72fcca58-82c6de8c9damr7486345b3a.3.1774532369606;
-        Thu, 26 Mar 2026 06:39:29 -0700 (PDT)
-Received: from [10.55.234.194] ([129.227.3.138])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82c7d3ca803sm2841015b3a.50.2026.03.26.06.39.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Mar 2026 06:39:28 -0700 (PDT)
-Message-ID: <4d575f17-5cd5-495c-99a9-176b3393d54d@gmail.com>
-Date: Thu, 26 Mar 2026 14:39:22 +0100
+        d=1e100.net; s=20251104; t=1774532910; x=1775137710;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+h3PhzbBEUuFG1BSZSLnovJIQ8tNsqLyZwY5UDDcc4s=;
+        b=q20LkzRlnjOp3zM5yMAXD8jxKXp5t93+bkkgbkk5Ykjr6uJbfeCd/2O3lsf6alcS1J
+         W5UFfaMcRCE4blZsPfNpec9SV4yWjIIScwGRN+VonS18fX2I9vZWFn6SkQH1rb4iqJ8A
+         6qQ3Y4F/CnRRJZrSNBVGoCMphdUVeEeHCokGMP3cVEgMR00hZiSO+H0jTgnRKqLFKmfm
+         s+AAv8eyf3stcOijoG/GP5BCuRM/ZUhyuG0HLcPiHEN+iaFJbvT3zBUMZfeLVx4cK8Lf
+         Od2RetZxHhOGIdliyCYXLDdBy92IecY+dBaZKiyUYSgqgZe3+vaGKxSXM67ev8/e4M6/
+         IokQ==
+X-Gm-Message-State: AOJu0YyvDF0zVBuWaLgvOCs2nNNcYoNJWueWjOZjZ72f+tJpdkVgZSh6
+	zRPqCgoK0dkMosbPFWv2Um6YgLX876IMWsePjEsi2HnLhX+v6mIX9JMb3ILN1z22lHk=
+X-Gm-Gg: ATEYQzyNiE/ZgGhZaPzeTal5NpV75WaI0AlfSkKb13R9UX6ur4gxuaQDI2yBfn0A1G4
+	rkM3QLXdbiFcMgHUhE26vQixxOrs9ZM8mL9XnlUU+mCvMSonSZ2iioeULh+KrvUhawU8cAJhp1N
+	huuffu/crNHKqcOAd0MqLO4mzjKjuE9463eqPiKZvoosDspW6aTZSuOTQDAROkbJrn59PJKj1nE
+	bIOyDZHjoZo0WIdHEUUHzbB2c8FZtAgSmeLZaUcak4OQC3wWc4aMHodyI8bxCiv4y0G5JTByoIB
+	U6jk7DnA9/QXj2gHcKqU0zMZYwiHkcUuPXs5e1SxNM4UnDsgHkfB6cJTnyHxyNyXgYLugsOU+iP
+	mqeBCOWZEZrQwzHHQjWkeA9zH9sfFe9DGmyH7GUZnj+gvAAhK2DQcwHoAcPxAzSP7qnR9rITg+v
+	pwLMWmjvYAIe34jQ+vYyvFLzDPvEBcf51gzCYVMqCo9eEh0xw89CH257x+cxn02Fw=
+X-Received: by 2002:a05:6a21:339e:b0:39c:5952:eab8 with SMTP id adf61e73a8af0-39c735564dcmr1832586637.15.1774532900411;
+        Thu, 26 Mar 2026 06:48:20 -0700 (PDT)
+Received: from [127.0.1.1] (60-248-18-139.hinet-ip.hinet.net. [60.248.18.139])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c76737f28d6sm2706683a12.6.2026.03.26.06.48.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Mar 2026 06:48:19 -0700 (PDT)
+From: Brian Chiang <chiang.brian@inventec.com>
+Subject: [PATCH v2 0/2] Add support for q50sn12072 and q54sn120a1
+Date: Thu, 26 Mar 2026 13:48:04 +0000
+Message-Id: <20260326-add-support-for-q50sn12072-and-q54sn120a1-v2-0-77bc77eedc76@inventec.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: Add clock guard DT description
-To: Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Vyacheslav Yurkov
- <V.Yurkov.EXT@bruker.com>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260318-feature-clock-guard-v1-0-6137cb4084b7@bruker.com>
- <20260318-feature-clock-guard-v1-2-6137cb4084b7@bruker.com>
- <20260318225510.GA639444-robh@kernel.org>
- <7c7034a7-686a-42c2-bdba-6f31b5179f7c@gmail.com>
- <20260319-yearly-wrongful-883f7fd86a69@spud>
- <b45d9845-2d56-4fdd-a3ac-b0e0e27ba573@gmail.com>
- <20260323-sanctuary-semantic-432089feb1c7@spud>
- <d097826c-3db5-4902-acee-ffcff7436d4e@gmail.com>
- <8e7d0c53-aa23-4514-81a5-335a76bb0c45@kernel.org>
-Content-Language: en-US
-From: Vyacheslav Yurkov <uvv.mail@gmail.com>
-In-Reply-To: <8e7d0c53-aa23-4514-81a5-335a76bb0c45@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABQ5xWkC/53NQQ6CMBCF4auQWTumHUWoK+9hWJR2kC5socVGQ
+ 7i7lSO4/CaT96+QODpOcK1WiJxdcsEX0KECM2r/YHS2GEhQLRohUVuL6TVNIS44hIhzLZKXJBp
+ C7W3heacun8qQUnyxrbRQ9qbIg3vvrXtXPLq0hPjZ01n+rv9UskSB5tQ2vR4Utaa/OZ/ZL2yOJ
+ jyh27btC9kKL0nlAAAA
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, Jack Cheng <Cheng.JackHY@inventec.com>, 
+ Brian Chiang <chiang.brian@inventec.com>, 
+ Jack Cheng <cheng.jackhy@inventec.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774532898; l=2270;
+ i=chiang.brian@inventec.com; s=20260316; h=from:subject:message-id;
+ bh=fkANkZGrlPyyPf87t+LAjl2jdK/qL0Ex3c77JETrFyE=;
+ b=QKSSsi0U06Lyy2yupRpEXwso8Uj+nschuIGsT4CNzi11AkUy2lp8bG+pGv4Ri32gd0ouUv0jX
+ 8gIek8OSF38BfYKUdxawPHq0WDE2bLCPkOmfkQ8TOCGJ+WO9gTqygKa
+X-Developer-Key: i=chiang.brian@inventec.com; a=ed25519;
+ pk=q+NqJYuJbGpA9KS9941D7f+8PVVW+k7DvaGgFykBiUc=
 
-On 26.03.2026 11:08, Krzysztof Kozlowski wrote:
+The Q54SN12072 and Q54SN120A1 are high-efficiency, high-density DC-DC power
+module from Delta Power Modules.
 
->>
->> DTS example:
->>     clock_guard: clock_controller_guard {
->>       compatible = "clock-controller-guard";
->>       #clock-cells = <1>;
->>       clocks = <&h2f_clk 0>, <&clk_fgpa_rx 0>, <clk_fpga_tx 0>;
->>       clock-names = "h2f_clk0", "clk_fpga_rx", "clk_fpga_tx";
->>       gpios = <&fpga_ip 0 GPIO_ACTIVE_HIGH>, <&fpga_ip 1 GPIO_ACTIVE_HIGH>;
->>       gpio-names = "gpio-input0", "gpio-input1";
->>       clock-output-names = "clkctrl-guard";
->>     };
->>
->>     custom_device {
->>       compatible = "...";
->>       ...
->>       #clock-cells = <1>;
->>       clocks = <&clock_guard 0>;
->>       clock-names = "clock-guard";
->>     };
-> 
-> So a pure SW construct? Device has specific clock inputs but you do not
-> model them and instead replace with one fake-guard-input.
-> 
-> I don't see how this represents the hardware at all.
-> 
-> Maybe some diagrams would help, assuming we still talk about hardware.
-> 
-> Best regards,
-> Krzysztof
+The Q54SN12072, quarter brick, single output 12V. This product provides up
+to 1200 watts of output power at 38~60V. The Q54SN12072 offers peak
+efficiency up to 98.3%@54Vin.
 
-Techincally that's correct, it's a software construct. If this is not a 
-right place to submit such a helper driver, I'd appreciate a hint what 
-subsystem is the right one.
+The Q54SN120A1, quarter brick, single output 12V. This product provides up
+to 1300 watts of output power at 40~60V. The Q54SN120A1 offers peak
+efficiency up to 98.1%@54Vin.
 
-I was not sure how to provide a diagram in the mailing list, so I posted 
-in on Github https://github.com/OSS-Keepers/clock-controller-guard/issues/1
+Add support for them to q54sj108a2 driver.
 
-It is a driver which models dependencies for other drivers. These are 
-soft or "indirect" dependencies, because we cannot access the FPGA 
-unless the FPGA_PLL_locked, and GPIO is telling us we are good to go.
+Signed-off-by: Jack Cheng <Cheng.JackHY@inventec.com>
+Co-developed-by: Brian Chiang <chiang.brian@inventec.com>
+Signed-off-by: Brian Chiang <chiang.brian@inventec.com>
 
-Conor, I think this should answer your question as well.
+Changes in v2:
+- Drop Q50SN12072_DEBUGFS_VOUT_COMMAND debugfs entry
+- Add .format[PSC_VOLTAGE_OUT] = linear explicitly to all three chip
+  entries for consistency
+- Replace hardcoded MFR_MODEL check (ret != 14 || strncmp("Q54SJ108A2"))
+  with a loop over q54sj108a2_id[] using strncasecmp to support all
+  three chip variants dynamically
+- Remove of_device_get_match_data()/i2c_match_id() early chip_id path;
+  derive chip_id exclusively from MFR_MODEL hardware read
+- Remove unused .data fields from of_device_id entries
+- Guard store_default, blackbox_erase, blackbox_set_offset, blackbox_read,
+  and flash_key debugfs entries under psu->chip == q54sj108a2 check
+- Add dev_notice() when configured device name differs from detected model
+- Update MODULE_DESCRIPTION to "PMBus driver for Delta Q54SJ108A2 and
+  compatibles"
+- Fix commit message typo: "Q54SN12072" -> "Q50SN12072"
+- Link to v1: https://lore.kernel.org/r/20250701-add-support-for-q50sn12072-and-q54sn120a1-v1-0-c387baf928cb@inventec.com
 
-Thanks,
-Slava
+---
+Jack Cheng (2):
+      dt-bindings: trivial: Add q50sn12072 and q54sn120a1 support
+      hwmon: (pmbus/q54sj108a2) Add support for q50sn12072 and q54sn120a1
+
+ .../devicetree/bindings/trivial-devices.yaml       |  4 +
+ drivers/hwmon/pmbus/q54sj108a2.c                   | 97 +++++++++++++++-------
+ 2 files changed, 72 insertions(+), 29 deletions(-)
+---
+base-commit: f338e77383789c0cae23ca3d48adcc5e9e137e3c
+change-id: 20250701-add-support-for-q50sn12072-and-q54sn120a1-a9c299e6d81d
+
+Best regards,
+-- 
+Brian Chiang <chiang.brian@inventec.com>
+
