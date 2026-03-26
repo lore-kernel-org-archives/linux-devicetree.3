@@ -1,100 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-sc.amlogic.com (unknown [64.106.246.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31D63218B3;
-	Thu, 26 Mar 2026 09:25:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ECD8322C73;
+	Thu, 26 Mar 2026 09:27:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=64.106.246.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774517159; cv=none; b=YZoIMIzFaUT8/CctYiow6RPkqFLTfMcBNqO7MUiztW88Ztgy0AA0bvT3h6dXsCp4Okg3U/P/9T1GjipqEx5kXhqh7GEbCkG0WMzQgGSo0Ctaeffcablqtfi3ZrEhaMyBTmYym30s7410FaXZkP0qfZV0aLMHLWoo81HhVezz3Xo=
+	t=1774517229; cv=none; b=iNxZJrOVAkcI5Y/pSKHCKGWsl5Z1Y8B8czNPW1lV0xcRGvfQzFl9FJ0UoVpoC/eMNCslnLtWDAIXUzBtAP9nnXJ3T5b8Xt9BBZS+3pxnB6gKT9/qJm9KuqqGod2MLgcri9yZrDPpaKggw2TvLqfIQgmds/6fYVR9VPD+I69oGKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774517159; c=relaxed/simple;
-	bh=bBViXac1s1HzjQE4ZEPCOzLXVvupztlcldihSdx6tMs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bAJeHdPkrz0dIIJs9UAHtO9HYuIb3pVuhpBEbSWsCAgYWcJ2WrBygKYCSJ7P9J8NzWfRTHhWXwGZb2MSqiAyEkd9L2k5noMWfNHrQloy+j2V5tQnCvIonqQOBsvBVp/D7R1CE1hIDmNXKp49c0UK/KqZBOrFfCfp++OZCU1cK0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i5RrIUBC; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i5RrIUBC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9C4DC116C6;
-	Thu, 26 Mar 2026 09:25:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774517158;
-	bh=bBViXac1s1HzjQE4ZEPCOzLXVvupztlcldihSdx6tMs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=i5RrIUBC2At8KnYfWNO1JFi8v8xn8sSkf44BAPRC6ojGSx2VyKZwlkKfKm1JQBAvb
-	 k2r3zEXC0EfN9gkUEpv5ibD50ts/pp9iC4LI5PuKrgc8R0aql5Uiu4h/BFH1EPxMnD
-	 9ATo05H2ez3Hr74IbrQF5Jdi0QpIhbwNKzbxdCzk3ilzc0Oaj8MA/JPotqB2QNaBjR
-	 TOzu72w+r0f8JZneXamUKOUYMXPdgh6sI3D+HzFILnNBT9AH1Sc9AOGG3WmOh8SIiU
-	 a/B0qjMq19NwUUAJfRFTHZNdcprtseulF9a/6OB3TRT6UJZmNX/Xdev53dT0V9+fGS
-	 qr8G+/M4q8xQA==
-Date: Thu, 26 Mar 2026 09:25:52 +0000
-From: Lee Jones <lee@kernel.org>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-mediatek@lists.infradead.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
-	lgirdwood@gmail.com, broonie@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	kernel@collabora.com, igor.belwon@mentallysanemainliners.org
-Subject: Re: [PATCH v11 0/9] Add support MT6316/6363/MT6373 PMICs regulators
- and MFD
-Message-ID: <20260326092552.GG1141718@google.com>
-References: <20251027110527.21002-1-angelogioacchino.delregno@collabora.com>
- <20251106161149.GU8064@google.com>
- <701b6abc-71e8-43fc-adfd-211a62dbec64@collabora.com>
- <20260326053449.GA910813@google.com>
+	s=arc-20240116; t=1774517229; c=relaxed/simple;
+	bh=YiOpBYpC7zIceCNPlIOnkQdJViqvTrsjnZpf6ZBADj0=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=U1LxZ7wc0Vrc9kA8vSHG6XYevMoQLnw6MNMW0dazmIK7cXJsEheFJiXpnlu8c5mQoiVYK63uDA+Jizv1c0ghBXTJeDA4a0xndQtbMrTYx0gGXrGET95KP7PAQhjN1+imdC+O3JpAHnCmhE4ltNNO/JPVFXKy1U17DPE5/NEJL34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; arc=none smtp.client-ip=64.106.246.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+Received: from rd03-sz.software.amlogic (10.28.11.121) by mailsc.amlogic.com
+ (10.8.11.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Thu, 26 Mar
+ 2026 02:26:07 -0700
+From: Jian Hu <jian.hu@amlogic.com>
+To: Jerome Brunet <jbrunet@baylibre.com>, Neil Armstrong
+	<neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, "Martin
+ Blumenstingl" <martin.blumenstingl@googlemail.com>, Stephen Boyd
+	<sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>, robh+dt
+	<robh+dt@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: Jian Hu <jian.hu@amlogic.com>, Krzysztof Kozlowski
+	<krzysztof.kozlowski@oss.qualcomm.com>, devicetree
+	<devicetree@vger.kernel.org>, linux-clk <linux-clk@vger.kernel.org>,
+	linux-amlogic <linux-amlogic@lists.infradead.org>, linux-kernel
+	<linux-kernel@vger.kernel.org>, linux-arm-kernel
+	<linux-arm-kernel@lists.infradead.org>, Ronald Claveau
+	<linux-kernel-dev@aliel.fr>, Ferass El Hafidi <funderscore@postmarketos.org>
+Subject: [PATCH v3 2/3] dt-bindings: clock: amlogic: t7: Add missing mpll3 parent clock
+Date: Thu, 26 Mar 2026 17:26:44 +0800
+Message-ID: <20260326092645.1053261-3-jian.hu@amlogic.com>
+X-Mailer: git-send-email 2.47.1
+In-Reply-To: <20260326092645.1053261-1-jian.hu@amlogic.com>
+References: <20260326092645.1053261-1-jian.hu@amlogic.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260326053449.GA910813@google.com>
+Content-Type: text/plain
+X-ClientProxiedBy: mailsh.amlogic.com (10.18.11.5) To mailsc.amlogic.com
+ (10.8.11.35)
 
-On Thu, 26 Mar 2026, Chen-Yu Tsai wrote:
+The mpll3 clock is one parent clock of the sd_emmc and mipi_isp clocks
+on the Amlogic T7 SoC, but was missing from t7-peripherals-clkc.yaml
+bindings. Add the mpll3 clock source to the T7 peripherals clock
+controller input clock list, so that sd_emmc and mipi_isp can use it.
 
-> On Fri, Nov 07, 2025 at 10:01:56AM +0100, AngeloGioacchino Del Regno wrote:
-> > Il 06/11/25 17:11, Lee Jones ha scritto:
-> > > On Mon, 27 Oct 2025, AngeloGioacchino Del Regno wrote:
-> > > 
-> > > > Changes in v11:
-> > > >   - Removed unnecessary #address-cells in all mt6316 bindings
-> > > > 
-> > > > Changes in v10:
-> > > >   - Added "struct" prefix to structs kerneldoc
-> > > >   - Renamed struct mtk_spmi_pmic_pdata to mtk_spmi_pmic_variant
-> > > >   - Added "REG_" to MT6363/73 mfd register definitions to disambiguate
-> > > >   - Expanded MTK_SPMI_PMIC_IRQ_GROUP macro parameter names as suggested
-> > > >   - Some rewording of comments as suggested, addition of more comments
-> > > >   - Refactored IRQ domain handling due to deprecation of function
-> > > >     irq_domain_add_tree() to use the new irq_domain_create_tree()
-> > > >   - Fixed to use generic_handle_domain_irq_safe() to avoid races
-> > > >   - Added support for two interrupt cells in translation
-> > > >   - Removed .irq_lock() and .irq_unlock() in favor of lockdep classes
-> > > >   - Added support for handling PMICs without IRQ Group register for
-> > > >     upcoming MT6685 implementation
-> > > 
-> > > The MFD part looks okay.
-> > > 
-> > > Let me know when you have all the Acks and the set is ready to be merged.
-> > > 
-> > 
-> > 
-> > Lee, the regulators part was picked by Mark, so I guess you can take the MFD part
-> > through your tree.
-> > 
-> > I'm not sure if you can also take patch [7/9] (auxadc binding), but it would be
-> > great if you could, because there is an auxadc example in the mfd binding that
-> > needs that commit in order to succeed the binding check.
-> 
-> Friendly ping. You might want to resend the remaining patches. Looks
-> like they are all ready to be merged?
+For logical consistency, place the required mpll3 entry before the
+optional entry.
 
-This is an _old_ set.
+This change breaks the ABI, but while the amlogic,t7-peripherals-clkc
+bindings have been merged upstream, the corresponding DT has not been
+merged yet. Thus, no real users or systems are affected.
 
-Please rebase it onto today's -next branch and provide a [RESEND].
+Fixes: b4156204e0f5 ("dt-bindings: clock: add Amlogic T7 peripherals clock controller")
+Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ .../bindings/clock/amlogic,t7-peripherals-clkc.yaml  | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
+diff --git a/Documentation/devicetree/bindings/clock/amlogic,t7-peripherals-clkc.yaml b/Documentation/devicetree/bindings/clock/amlogic,t7-peripherals-clkc.yaml
+index 55bb73707d58..a4b214a941ea 100644
+--- a/Documentation/devicetree/bindings/clock/amlogic,t7-peripherals-clkc.yaml
++++ b/Documentation/devicetree/bindings/clock/amlogic,t7-peripherals-clkc.yaml
+@@ -24,7 +24,7 @@ properties:
+     const: 1
+ 
+   clocks:
+-    minItems: 14
++    minItems: 15
+     items:
+       - description: input oscillator
+       - description: input sys clk
+@@ -40,12 +40,13 @@ properties:
+       - description: input gp1 pll
+       - description: input mpll1
+       - description: input mpll2
++      - description: input mpll3
+       - description: external input rmii oscillator (optional)
+       - description: input video pll0 (optional)
+       - description: external pad input for rtc (optional)
+ 
+   clock-names:
+-    minItems: 14
++    minItems: 15
+     items:
+       - const: xtal
+       - const: sys
+@@ -61,6 +62,7 @@ properties:
+       - const: gp1
+       - const: mpll1
+       - const: mpll2
++      - const: mpll3
+       - const: ext_rmii
+       - const: vid_pll0
+       - const: ext_rtc
+@@ -97,7 +99,8 @@ examples:
+                      <&gp0 1>,
+                      <&gp1 1>,
+                      <&mpll 4>,
+-                     <&mpll 6>;
++                     <&mpll 6>,
++                     <&mpll 8>;
+             clock-names = "xtal",
+                           "sys",
+                           "fix",
+@@ -111,6 +114,7 @@ examples:
+                           "gp0",
+                           "gp1",
+                           "mpll1",
+-                          "mpll2";
++                          "mpll2",
++                          "mpll3";
+         };
+     };
 -- 
-Lee Jones [李琼斯]
+2.47.1
+
