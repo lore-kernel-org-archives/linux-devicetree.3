@@ -1,315 +1,145 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013069.outbound.protection.outlook.com [40.93.201.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84BB2303CAE
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 13:48:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774532917; cv=none; b=f/NSDtBDU0XmaZbz4OSLOSlVnb4V+j3DRKj3xHk4DnSx7HirjxJXTxYOJv0J7DsFz4+yh+yLh0VO0cnKraHVBMbzZMF73pXFjWKttF56MyNxuHgm3IMZc/yGxa0hv2CyjnmMLKlIQdllARoqSPkcDYb9FU2d6DyBHru7qTWg0ME=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774532917; c=relaxed/simple;
-	bh=cR8AuliDwGMd7SkLiVsgXWd5m8KP6QBBfEHWMLQ5h5I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eGFp53OMZUljnjUBCYjCUr0WrlzngoeVDIGSIY18/T7S4XFqBgnrR4qlzQ8W8kn+MlVekmviiP5fqqCwQPj1eWDkNrqx3yqDo093wOeKASJwQl8AUwhTMEZAdpX4nC7WUb2lqdM6R8Lbldh98h1xh9YpsL3ob+CY6gIXnkKvdZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com; spf=fail smtp.mailfrom=inventec.com; dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b=B+BoPyLz; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=inventec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99B23002B3;
+	Thu, 26 Mar 2026 13:49:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.69
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774532987; cv=fail; b=ZQsFK4X509wsE791+ZOCD4fQK2OArrdEftSypLviqJCmK5oBzQl+U6lRBG9huhvkSr6K5CpzeRBRT23kyFmR6kFuLnVc17CZBxp0Sq/C6GAvS0sXTOPmbxwopWVpRrGqm/wgxZ6U9uNgqIEpactPHCvBMngt2lW39tFvdTFMeso=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774532987; c=relaxed/simple;
+	bh=WrIcARZk1EqWLe9Ytmguwza6A6LIylWmEP63DoU9N0A=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Abx30z+yn2Saf7W5WEKxrb9ClPKvsoRfaHWP4s9WZ+GsQOXRu8sMzmY6thcLIt7OAHS1PcEcIGTKtHyXnktTyN4kak+XmW3V8Wx/yvL9MSHKnKNhwFqu8m7gDi+9c3YlqY5wdkbZxcr+ewjxN49ZlU+Vzoz7DWn2N9egRC3YKVY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=Z8/ZkeQQ; arc=fail smtp.client-ip=40.93.201.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b="B+BoPyLz"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-b6ce6d1d3dcso411383a12.3
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 06:48:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=inventec.com; s=google; t=1774532915; x=1775137715; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=DZ2qtiQKchOdrxNxTqVNhWG/CGjQa4vu3Qzgtzd8CDA=;
-        b=B+BoPyLztH5YNa4VPNkLHeXtiG2Q8g/iBAtoR1euTDJczc6ND0JvUy5jY/ZNqfcGE6
-         HVBBwYrnU9rzSAVy+zbiPlDFQhu2lZgR7TtteGQrLB93NTBX1oF7HoZEVhZZUcycXieH
-         VEZo09KMi/8i2udBZDqleW9DIksVN9WZTxluOwMTsqYBR99SCHNMRNNnF4KNkJUEjd3P
-         LMED58+OrVn+f9mUYmDwI/QMq0RoAygauRW2ESc3jvdjy3xQYtAvuPFcUoXMMKebXY+5
-         6202NpP5CqhzBP3C8Qfgky5SSel1YlnwN5ggyTM/P9mHl/dDu4wc5A+ZuyELZ1DFdOfY
-         VmzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774532915; x=1775137715;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=DZ2qtiQKchOdrxNxTqVNhWG/CGjQa4vu3Qzgtzd8CDA=;
-        b=aFPbBE2YXHZQxvZEjLNK8TNdy5DsgtD+cboqvGkJVlnGzNXjcg36opHrqRbh8oUHTt
-         r/VmTXFauG2KqpDESSJubCcumYzOU3cr9Op8WwZgR++fDNq8Y0MwQlXQazw5BVbpR76N
-         GGKhzCzEmtx/RyCaFbXZjvA6oX/CNhV0ArmP1deqQY8FQ4/VQLg9wDhx5HZNhgxNLxkO
-         NG78iOIpKbNmhms+CzgWISTvIyxUgTtF5bsj9NN+c554meMXQjmn5IPssWcB/mhx6A95
-         1Wu66Uyk4B+Cfp8YrstjayMFYzfM2NypnKK7UBnFoDXAe6NfYPNXnygAgGajcQjw/SIJ
-         E5vA==
-X-Gm-Message-State: AOJu0Yw2YXoZQipIZmPXJJUULiXl7X49zkzSgI7f74MnwXLDkNfLwGc8
-	lwMkpLqTM9W2ssd8Tje3SUuxQRY19XUhxOLrNDkgRCNzhmxrtIHxdhFvTAK/3ObPLcE=
-X-Gm-Gg: ATEYQzzStmSQPRz5Yu+yqP+RPpzO8xhc64fyPSqS3QWkCkbxpK4KkR8rb30tuSMu+AM
-	WRF3ntEFoJFtb4gQa7S1mFxbVaQL6U1YSIz1+Yflvv6VxD9pjSuAkh2NiKVLnPpHuORb29paHZk
-	0LqnAAHPqr+MPYYLA2N51pM1mfz3geHr1i5v0vawjkMnjb5HCoRmpB9Zvzw4Sl0iYeGuqToJuQW
-	r/DYYCaoD32MHY1SFFmMiSwJCL2vyCBNWIN6DhPsT8p+pJ5N0LEUb0oYlgKvAlkYwTIM1p99JyT
-	DBXwwGOp9789MURTEZQlbzUj5mH4q8k4/Bc0GMgcA/EQCzTA/s3XGqsbTWkbFE0eZgh4kunZTlf
-	3rBhn19WM3jokL6a90QkB2qi6uiizV0RLdkgJDxUzWzxcoguUBydxW7mCt6HC0swQVFj9cMoba3
-	iErnBVFvapEWmAjTR9kAk5OB/xNicTfmQ+GgJW3AkmLvljIKHtzCR7PyQjDtEeLxw=
-X-Received: by 2002:a05:6a21:6d88:b0:398:7137:272a with SMTP id adf61e73a8af0-39c4ad62945mr7685205637.32.1774532914929;
-        Thu, 26 Mar 2026 06:48:34 -0700 (PDT)
-Received: from [127.0.1.1] (60-248-18-139.hinet-ip.hinet.net. [60.248.18.139])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c76737f28d6sm2706683a12.6.2026.03.26.06.48.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Mar 2026 06:48:34 -0700 (PDT)
-From: Brian Chiang <chiang.brian@inventec.com>
-Date: Thu, 26 Mar 2026 13:48:06 +0000
-Subject: [PATCH v2 2/2] hwmon: (pmbus/q54sj108a2) Add support for
- q50sn12072 and q54sn120a1
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Z8/ZkeQQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WhSnJMmn2mYRaIID2f+b2V/vLRUcopWCJ/HEn3/4mcW8aoodzMCHLhPVR8U3zvw0zyCD/dsTWwe45WGVwdtB0kbQ+zAWUBgdu6J1IG/k227B9s5cSM0mpXqygRsHq60lhfIaG5klDtvXO/OfaI8QDrXISR95X8QwEdhTemew7WUToTQ2qroZt9lh9JoHLVUvwwocVjGvcsrtt5VapYn2VU0+4Lqn5DZ6sgEZn4LW3JArB2fcJKGStElv4c8fRnUO/ocaNdx129emwBnsXo17Y8i8P5n0UJPUbqsLhav31rRHVQVAfhrBrgZIiOTBeqLg7DUClwpsE3XS+R0NNchBLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qcuBciYJaURuvmrN0El+EmdiCnn6gDTtubutA/kj+Jk=;
+ b=FLKJ7BjmmwZoM5Puc1y+SV3hu/hlwr/rd7nwgdRluyc5nNOvZS0BAv0nsAusNYKhE78lsNHpx3oFuFYCctL0WCSYl9sl/qkjfidGjzuQzNNe380+4/Frtl3QiAmWYmSZSitF0kkfJtuRVEwcsFntCDnSMQgN3xX8vgTxEMoBDPVr4mf6hzfnzHnMivWtSE1HWI+vbXdndqvwgXQB5YbAsysBPeazSqGYw8Y5QP76SZ2oOzX5szj4YqjBJItXLtBzcWSDxw7R6oUhUMQcDHJD8jeFqdus6TE6WFlg/BLJXxSCW9mPBLcTv8uq+qeduhrgl7YudNES+oKU5f8C8/gcpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qcuBciYJaURuvmrN0El+EmdiCnn6gDTtubutA/kj+Jk=;
+ b=Z8/ZkeQQBOXSH/lOZkjAHF125CxN81iV84BoHNBO81p2Gkc3SYPqTPqM+W9G8KNYzhUICTby7n9CqByRRD4ZM17JgUgrArwGtbwtgJmDa0dof9NolvCLN26Myyp+haYz5ea06LXt6syUjdG2tf0ZE/A6nEKmEQSsXE9lDkYFmDI=
+Received: from BY3PR05CA0030.namprd05.prod.outlook.com (2603:10b6:a03:254::35)
+ by CY8PR10MB6562.namprd10.prod.outlook.com (2603:10b6:930:5a::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
+ 2026 13:49:40 +0000
+Received: from SJ1PEPF000023CD.namprd02.prod.outlook.com
+ (2603:10b6:a03:254:cafe::2f) by BY3PR05CA0030.outlook.office365.com
+ (2603:10b6:a03:254::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.21 via Frontend Transport; Thu,
+ 26 Mar 2026 13:49:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ SJ1PEPF000023CD.mail.protection.outlook.com (10.167.244.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Thu, 26 Mar 2026 13:49:38 +0000
+Received: from DFLE214.ent.ti.com (10.64.6.72) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 26 Mar
+ 2026 08:49:31 -0500
+Received: from DFLE215.ent.ti.com (10.64.6.73) by DFLE214.ent.ti.com
+ (10.64.6.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 26 Mar
+ 2026 08:49:31 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE215.ent.ti.com
+ (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Thu, 26 Mar 2026 08:49:31 -0500
+Received: from localhost (chintan-thinkstation-p360-tower.dhcp.ti.com [172.24.231.164])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 62QDnUPo1747784;
+	Thu, 26 Mar 2026 08:49:31 -0500
+From: Chintan Vankar <c-vankar@ti.com>
+To: Siddharth Vadapalli <s-vadapalli@ti.com>, Andrew Davis <afd@ti.com>,
+	"Conor Dooley" <conor+dt@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, Tero Kristo
+	<kristo@kernel.org>, "Vignesh Raghavendra" <vigneshr@ti.com>, Nishanth Menon
+	<nm@ti.com>
+CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <c-vankar@ti.com>
+Subject: [PATCH] arm64: dts: ti: k3-j7200: Fix QSGMII overlay by adding SERDES PHY
+Date: Thu, 26 Mar 2026 19:19:29 +0530
+Message-ID: <20260326134929.1696750-1-c-vankar@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260326-add-support-for-q50sn12072-and-q54sn120a1-v2-2-77bc77eedc76@inventec.com>
-References: <20260326-add-support-for-q50sn12072-and-q54sn120a1-v2-0-77bc77eedc76@inventec.com>
-In-Reply-To: <20260326-add-support-for-q50sn12072-and-q54sn120a1-v2-0-77bc77eedc76@inventec.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, Jack Cheng <Cheng.JackHY@inventec.com>, 
- Brian Chiang <chiang.brian@inventec.com>, 
- Jack Cheng <cheng.jackhy@inventec.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774532898; l=8151;
- i=chiang.brian@inventec.com; s=20260316; h=from:subject:message-id;
- bh=91SYENlkxjgb2yRLOz3F7wtT3gaDUEKatWNsA79N0sQ=;
- b=wUioQLtnRcHNuvbU6fad4V+4R+2IcmvnoUQrqux5maoE53EnMvhVCSIdRkpQJP96izPfr9zMS
- sLBRcuucUWDA7ACTdSxOixR8LQEs5bkOzj7n1147yeBgtDbv+tRdVRg
-X-Developer-Key: i=chiang.brian@inventec.com; a=ed25519;
- pk=q+NqJYuJbGpA9KS9941D7f+8PVVW+k7DvaGgFykBiUc=
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CD:EE_|CY8PR10MB6562:EE_
+X-MS-Office365-Filtering-Correlation-Id: b512cfab-c675-4a5e-6945-08de8b3e8608
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700016|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	QjRcwJRDqG/zwO6Ga2yt6tp6iadV4jfUuENtp4wkroK15GKEo6FhMYspkGXsT65+yTEI5ErfvvR8xZmVrNDeLdICg1ISQZJlIdccZyMGgPcUtyJK3N5Wi3uhAiGmVHdU5ytn+t2BLNbH/gHG/q8G2RJ4JXUkcaWRwwt7An/rI9QHtPFXwJ/P8TDJxnJAP3o2UqYCDC3ojWJuy8/zhw9LWLz7joFKu8ihqjgW/VXBIFP0oaME/wWaZbYu4h4hRapggpWc97dAWAt3szsqrebPKT1yQffMMhCwF660hZwLbSoBXXi1BffaT+5K1A4Q1txPX7RqojkVFu01RoIzAak21edB0eNU8RFnPs1CKt69/KSLMkLi9pi5BHBw10mq9VbmMc8xKZhwWC5+0vT9+pAuRwTTKcQ0MZM/IrUynoljPksukgL9DgdPf0rrsQaQvDg5TY4PgWZG8bQRy0WeUYUcA/xQAz4vxGHkcMNAu2sFvXOx1H72lbSIJCig/wBNRjsTJbTVzh8N9J4ZN0bwgnv6ivHATmXLcPZLP6mt0yh9VdP7uUx/92QQGxtsBkkbujVvhm9EfhE8BP9gGJis2Cf6eTwJip8/3GX/MmvwZhhRjnzUZbFx1ZP4bsvs/mWSQh3RXGjC5R2loU5EX7x8AR6w/YNC+I8cgjHsnoSbIuVIlrrEqq1hpHckUjHgqrZCKCIeTeenfKSXhPXlhb6qcAbkANX9lBi4+ZwjTddcCMAmNJ1lJiI0rxjs54mQfPZLO/bwcCbCPzVOONsyVeeZ9ZGJ7Q==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	U0ceJx62pmX+5SIlI5JuFKKigcaEQbkxtRz9HC+E5vp795ZDVrRQJYfjtNhZBUlOUbc2Wl105ApPPyhoNF59V3o3lHaLLRKiHfpof4xkCehKTYtMjld8wCc9cjGVWr215ZCMMPUDjbp6fIoiIuFjaX25m5j277qBcUINtiTzMWrwQuPZK5oYJPK9cFm+/Rl/tkGiM/kbwf2nURupZYi55EdkPJsmpYniDOT4inMKA2GK0Vlg6Y0v9Vmm69rejfM7jdDnpoLeVBgH27Blorzb25CqGdDdUPs0YE+WJJZTxjLTBxt4Svig3gV9B1pagQ71VBORb49AMHJKVdCUw3Zp2L/Sv2XhSzkc0uPmRaOEFaeeLUOw6qfCBHJDidydfT85/A9spSWXEKBuIKBL5UVudzq2wuvprMymZOZtwYcGTFK0J4jvu/TnBYsI3H4lORoi
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 13:49:38.4853
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b512cfab-c675-4a5e-6945-08de8b3e8608
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000023CD.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR10MB6562
 
-From: Jack Cheng <cheng.jackhy@inventec.com>
+For CPSW5G QSGMII ports, CPSW assumes SERDES to be configured. Since it
+may not be always true, add SERDES phys to guarantee it.
 
-The Q50SN12072 and Q54SN120A1 are high-efficiency, high-density DC-DC power
-module from Delta Power Modules.
-
-The Q50SN12072, quarter brick, single output 12V. This product provides up
-to 1200 watts of output power at 38~60V. The Q50SN12072 offers peak
-efficiency up to 98.3%@54Vin.
-
-The Q54SN120A1, quarter brick, single output 12V. This product provides up
-to 1300 watts of output power at 40~60V. The Q54SN120A1 offers peak
-efficiency up to 98.1%@54Vin.
-
-Add support for them to q54sj108a2 driver.
-
-Signed-off-by: Jack Cheng <cheng.jackhy@inventec.com>
-Co-developed-by: Brian Chiang <chiang.brian@inventec.com>
-Signed-off-by: Brian Chiang <chiang.brian@inventec.com>
+Fixes: 496cdc82e05f ("arm64: dts: ti: k3-j7200: Add overlay to enable CPSW5G ports in QSGMII mode")
+Signed-off-by: Chintan Vankar <c-vankar@ti.com>
 ---
- drivers/hwmon/pmbus/q54sj108a2.c | 97 ++++++++++++++++++++++++++++------------
- 1 file changed, 68 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/hwmon/pmbus/q54sj108a2.c b/drivers/hwmon/pmbus/q54sj108a2.c
-index d5d60a9af8c5..cc2b32ad935c 100644
---- a/drivers/hwmon/pmbus/q54sj108a2.c
-+++ b/drivers/hwmon/pmbus/q54sj108a2.c
-@@ -22,7 +22,9 @@
- #define PMBUS_FLASH_KEY_WRITE		0xEC
- 
- enum chips {
--	q54sj108a2
-+	q50sn12072,
-+	q54sj108a2,
-+	q54sn120a1
- };
- 
- enum {
-@@ -55,10 +57,24 @@ struct q54sj108a2_data {
- #define to_psu(x, y) container_of((x), struct q54sj108a2_data, debugfs_entries[(y)])
- 
- static struct pmbus_driver_info q54sj108a2_info[] = {
--	[q54sj108a2] = {
-+	[q50sn12072] = {
- 		.pages = 1,
-+		/* Source : Delta Q50SN12072 */
-+		.format[PSC_VOLTAGE_OUT] = linear,
-+		.format[PSC_TEMPERATURE] = linear,
-+		.format[PSC_VOLTAGE_IN] = linear,
-+		.format[PSC_CURRENT_OUT] = linear,
- 
-+		.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_IIN | PMBUS_HAVE_PIN |
-+		PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT |
-+		PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT |
-+		PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP |
-+		PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_POUT,
-+	},
-+	[q54sj108a2] = {
-+		.pages = 1,
- 		/* Source : Delta Q54SJ108A2 */
-+		.format[PSC_VOLTAGE_OUT] = linear,
- 		.format[PSC_TEMPERATURE] = linear,
- 		.format[PSC_VOLTAGE_IN] = linear,
- 		.format[PSC_CURRENT_OUT] = linear,
-@@ -69,6 +85,20 @@ static struct pmbus_driver_info q54sj108a2_info[] = {
- 		PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP |
- 		PMBUS_HAVE_STATUS_INPUT,
- 	},
-+	[q54sn120a1] = {
-+		.pages = 1,
-+		/* Source : Delta Q54SN120A1 */
-+		.format[PSC_VOLTAGE_OUT] = linear,
-+		.format[PSC_TEMPERATURE] = linear,
-+		.format[PSC_VOLTAGE_IN] = linear,
-+		.format[PSC_CURRENT_OUT] = linear,
-+
-+		.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_IIN | PMBUS_HAVE_PIN |
-+		PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT |
-+		PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT |
-+		PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP |
-+		PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_POUT,
-+	},
- };
- 
- static ssize_t q54sj108a2_debugfs_read(struct file *file, char __user *buf,
-@@ -270,7 +300,9 @@ static const struct file_operations q54sj108a2_fops = {
- };
- 
- static const struct i2c_device_id q54sj108a2_id[] = {
-+	{ "q50sn12072", q50sn12072 },
- 	{ "q54sj108a2", q54sj108a2 },
-+	{ "q54sn120a1", q54sn120a1 },
- 	{ },
- };
- 
-@@ -280,6 +312,7 @@ static int q54sj108a2_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
- 	u8 buf[I2C_SMBUS_BLOCK_MAX + 1];
-+	const struct i2c_device_id *mid;
- 	enum chips chip_id;
- 	int ret, i;
- 	struct dentry *debugfs;
-@@ -292,14 +325,9 @@ static int q54sj108a2_probe(struct i2c_client *client)
- 				     I2C_FUNC_SMBUS_BLOCK_DATA))
- 		return -ENODEV;
- 
--	if (client->dev.of_node)
--		chip_id = (enum chips)(unsigned long)of_device_get_match_data(dev);
--	else
--		chip_id = i2c_match_id(q54sj108a2_id, client)->driver_data;
--
- 	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
- 	if (ret < 0) {
--		dev_err(&client->dev, "Failed to read Manufacturer ID\n");
-+		dev_err(dev, "Failed to read Manufacturer ID\n");
- 		return ret;
- 	}
- 	if (ret != 6 || strncmp(buf, "DELTA", 5)) {
-@@ -308,19 +336,25 @@ static int q54sj108a2_probe(struct i2c_client *client)
- 		return -ENODEV;
- 	}
- 
--	/*
--	 * The chips support reading PMBUS_MFR_MODEL.
--	 */
- 	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to read Manufacturer Model\n");
- 		return ret;
- 	}
--	if (ret != 14 || strncmp(buf, "Q54SJ108A2", 10)) {
-+	for (mid = q54sj108a2_id; mid->name[0]; mid++) {
-+		if (ret == strlen(mid->name) && !strncasecmp(mid->name, buf, ret))
-+			break;
-+	}
-+	if (!mid->name[0]) {
- 		buf[ret] = '\0';
- 		dev_err(dev, "Unsupported Manufacturer Model '%s'\n", buf);
- 		return -ENODEV;
- 	}
-+	chip_id = mid->driver_data;
-+
-+	if (strcmp(client->name, mid->name) != 0)
-+		dev_notice(dev, "Device mismatch: Configured %s, detected %s\n",
-+			   client->name, mid->name);
- 
- 	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_REVISION, buf);
- 	if (ret < 0) {
-@@ -341,6 +375,7 @@ static int q54sj108a2_probe(struct i2c_client *client)
- 	if (!psu)
- 		return 0;
- 
-+	psu->chip = chip_id;
- 	psu->client = client;
- 
- 	debugfs = pmbus_get_debugfs_dir(client);
-@@ -359,9 +394,6 @@ static int q54sj108a2_probe(struct i2c_client *client)
- 	debugfs_create_file("write_protect", 0444, q54sj108a2_dir,
- 			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_WRITEPROTECT],
- 			    &q54sj108a2_fops);
--	debugfs_create_file("store_default", 0200, q54sj108a2_dir,
--			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_STOREDEFAULT],
--			    &q54sj108a2_fops);
- 	debugfs_create_file("vo_ov_response", 0644, q54sj108a2_dir,
- 			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_VOOV_RESPONSE],
- 			    &q54sj108a2_fops);
-@@ -383,27 +415,34 @@ static int q54sj108a2_probe(struct i2c_client *client)
- 	debugfs_create_file("mfr_location", 0444, q54sj108a2_dir,
- 			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_MFR_LOCATION],
- 			    &q54sj108a2_fops);
--	debugfs_create_file("blackbox_erase", 0200, q54sj108a2_dir,
--			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_BLACKBOX_ERASE],
--			    &q54sj108a2_fops);
- 	debugfs_create_file("blackbox_read_offset", 0444, q54sj108a2_dir,
- 			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_BLACKBOX_READ_OFFSET],
- 			    &q54sj108a2_fops);
--	debugfs_create_file("blackbox_set_offset", 0200, q54sj108a2_dir,
--			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_BLACKBOX_SET_OFFSET],
--			    &q54sj108a2_fops);
--	debugfs_create_file("blackbox_read", 0444, q54sj108a2_dir,
--			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_BLACKBOX_READ],
--			    &q54sj108a2_fops);
--	debugfs_create_file("flash_key", 0444, q54sj108a2_dir,
--			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_FLASH_KEY],
--			    &q54sj108a2_fops);
-+	if (psu->chip == q54sj108a2) {
-+		debugfs_create_file("store_default", 0200, q54sj108a2_dir,
-+				    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_STOREDEFAULT],
-+				    &q54sj108a2_fops);
-+		debugfs_create_file("blackbox_erase", 0200, q54sj108a2_dir,
-+				    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_BLACKBOX_ERASE],
-+				    &q54sj108a2_fops);
-+		debugfs_create_file("blackbox_set_offset", 0200, q54sj108a2_dir,
-+				    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_BLACKBOX_SET_OFFSET],
-+				    &q54sj108a2_fops);
-+		debugfs_create_file("blackbox_read", 0444, q54sj108a2_dir,
-+				    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_BLACKBOX_READ],
-+				    &q54sj108a2_fops);
-+		debugfs_create_file("flash_key", 0444, q54sj108a2_dir,
-+				    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_FLASH_KEY],
-+				    &q54sj108a2_fops);
-+	}
- 
- 	return 0;
- }
- 
- static const struct of_device_id q54sj108a2_of_match[] = {
--	{ .compatible = "delta,q54sj108a2", .data = (void *)q54sj108a2 },
-+	{ .compatible = "delta,q50sn12072" },
-+	{ .compatible = "delta,q54sj108a2" },
-+	{ .compatible = "delta,q54sn120a1" },
- 	{ },
- };
- 
-@@ -421,6 +460,6 @@ static struct i2c_driver q54sj108a2_driver = {
- module_i2c_driver(q54sj108a2_driver);
- 
- MODULE_AUTHOR("Xiao.Ma <xiao.mx.ma@deltaww.com>");
--MODULE_DESCRIPTION("PMBus driver for Delta Q54SJ108A2 series modules");
-+MODULE_DESCRIPTION("PMBus driver for Delta Q54SJ108A2 and compatibles");
- MODULE_LICENSE("GPL");
- MODULE_IMPORT_NS("PMBUS");
+This patch is based on commit "0138af2472df" of origin/master branch of
+Linux repo.
 
+ arch/arm64/boot/dts/ti/k3-j7200-evm-quad-port-eth-exp.dtso | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/ti/k3-j7200-evm-quad-port-eth-exp.dtso b/arch/arm64/boot/dts/ti/k3-j7200-evm-quad-port-eth-exp.dtso
+index 6432ca08ee8e..4824d53c95bb 100644
+--- a/arch/arm64/boot/dts/ti/k3-j7200-evm-quad-port-eth-exp.dtso
++++ b/arch/arm64/boot/dts/ti/k3-j7200-evm-quad-port-eth-exp.dtso
+@@ -32,7 +32,8 @@ &cpsw0_port1 {
+ 	phy-handle = <&cpsw5g_phy0>;
+ 	phy-mode = "qsgmii";
+ 	mac-address = [00 00 00 00 00 00];
+-	phys = <&cpsw0_phy_gmii_sel 1>;
++	phys = <&cpsw0_phy_gmii_sel 1>, <&serdes0_qsgmii_link>;
++	phy-names = "mac", "serdes";
+ };
+ 
+ &cpsw0_port2 {
 -- 
-2.43.0
+2.34.1
 
