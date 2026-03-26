@@ -1,202 +1,268 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010065.outbound.protection.outlook.com [52.101.201.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF0813B5B3;
-	Thu, 26 Mar 2026 00:47:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774486061; cv=fail; b=r8IZTfvDW4iqxg6wCAeL71LDHykcMpcx4iDW3vO3Z8YkLGPMDgr9iPM9Id2eNiruQSDofsD1HtSgxqmASvLelaBvpn77GWzuMcYLq+x5wnzIq9LMFx8fhCzmnK5toq+lrpfzavHk09+8v/wDmny9NUVtzi+KNr6BRwC1Fh46XRI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774486061; c=relaxed/simple;
-	bh=3lP5lubRtlH6JKMsphHeFwBUTLyfTgcP08PyEm4ewu4=;
-	h=Content-Type:Subject:From:To:Cc:In-Reply-To:References:Date:
-	 Message-Id:MIME-Version; b=MS9eKpxrBpJec8fPxPYH/ZBbs0cS4w0Vxe9zUST2RwglYhR9qmqWEzEsM4IeHRonct8eJTMJ5TANWyitCMJjHuKwuoUvkGbGfQdc3gxecWD49BLUji99DGsK6kAGJLXn95TEKWBT5KMnbzMd+GLYK6C5V8OLXDfD+UF54LwlOK0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=pmBYKt+W; arc=fail smtp.client-ip=52.101.201.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D9252D9EFB
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 01:04:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774487066; cv=none; b=n9B0hrAc4xT867mVL4LirK/Odkf9iBGwvOyi4YyLq+sPfOnf2SzQMrxh/RjvyqaIVz9uo4/BemZSZRyyRhifW4nxMsEZciEJR1zvMO3goD1NO9Gmx6kfjnQw4BoPmnQ/7UwEc0anh0l5iCrS6a4NJmiwezhp7upLqufCnLZr90k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774487066; c=relaxed/simple;
+	bh=YvDTDmQnhx3vxUiunxT+fQW6fD6S0rofG4JhusvgMgE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JvKrs3r+ZCmTgh9sA+nzB1I3Zr/NQRENc82rifGcKBMxTlS1BhTfU7A+ngu6W5FSp1cGkNmBbaohAzgyGGrAnXIR3M6ed57IVHNp+jZIZLgSHHFuy86AvJwRCxZ2fnC0ooztX/37581z79aJw7KRNC/xphsFkQ17KHcov/RjA/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=R5BaxNvF; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="pmBYKt+W"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ALyiS+of7iYpmCcMWZnwDqby1iecou30t0ZQrH9ghBSHSyuxDMSWm35db8LaAsRl0mOGi1emvFIXABjcH8AQIEIpisbfqMF4pLAFiUMBNl8xngaAhKcCQA8yqg+hlKeVLaMcsIwOEVJpf4YI/aNnTdpa6f5E2E1PNC4EJMWdbKxmpS3zYcI0dYaUUmG+4BzGqFiELkibx2KVaiQM14F8dEhZ/RncjAbwgoZ7GIe/CpZrB0Bj4pUyU0AK271xdifa/emvtsqclrn2tFBrb8hJ4bTbFrRKz+Eiqiq+P19bvIWy5oo5V2R4vFb9oty6xwdRsNQsu5qpDQ/KKWiG5Te2IA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S4QG/tK/pHb1Qt++D1wRTl3B+usucQP4K3R1xsDvV/c=;
- b=F/6OyuVeWHlkv/cgiy8RxJ8z6EfqyVCCCs7SneTKCfznakVRyRArcoilJEBwDC70HSW0S9dzG43+MSnHWjOqvxLwa2ohqaGdF5jJxTbhV3I5qtLkzhZRir9+g2VXF/jG/omibCtqh3JC2ti6SXSNaJxKyrvmt4H5BnCC8YtEFRQOEBcn7Nhht9+Z5TtEbTuFMXSzJXswdSt5YeFV/TA2kI1Wf6rPbxu4iM7S31FXMGW1VXHOntu0s+WpIrmG6iSLPHTALAJmTHbh2s+OwxGo8kkqG5eH4IqrGkGP7ltpB5z4UlcRQnsdj1SERPkun+msIvtfedS6fNAwjbQ213jdWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S4QG/tK/pHb1Qt++D1wRTl3B+usucQP4K3R1xsDvV/c=;
- b=pmBYKt+WQ6tfpRdDTxi/aH9wORk1RUVeacTOQlP7I84zjaVGZ37FP9gHlJmgvkQHWOK44f1yWlo44sYLfAKL5Hia/fAC7a4Voy8u+aE71LcsaNOQa1u1VfG5esrehFRgDP3RKyxl1z3EKusMBBQxxXnFX8rm4sKadiSDDhN/pNIJngzNIMVl/+i53+EjD5/3BXWZDx6R75lHIWky6NHTgAoLDPj/YGAiP9qIwu2U9cjkYpbrvDrj1j5cSA3xhEm46gaW36KjuhbCNkaFEGWXk1lB1rJiN+yQic2B5DegSJnkqp+n3F9jePMyC8APwtnI49QWYGtMeRpUKmuPDRZyEA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by DS0PR12MB7656.namprd12.prod.outlook.com (2603:10b6:8:11f::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.8; Thu, 26 Mar
- 2026 00:47:34 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%4]) with mapi id 15.20.9745.019; Thu, 26 Mar 2026
- 00:47:34 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 1/7] dt-bindings: pwm: Document Tegra194 and
- Tegra264 controllers
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Mikko Perttunen <mperttunen@nvidia.com>, 
- Thierry Reding <thierry.reding@gmail.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-In-Reply-To: <acPuMGhPw74roB1E@orome>
-References: <20260325-t264-pwm-v2-0-998d885984b3@nvidia.com>
- <20260325-t264-pwm-v2-1-998d885984b3@nvidia.com> <acPuMGhPw74roB1E@orome>
-Date: Thu, 26 Mar 2026 09:47:30 +0900
-Message-Id: <177448605080.767719.1955302882683123394.b4-reply@b4>
-X-Mailer: b4 0.16-dev-ad80c
-X-ClientProxiedBy: TYCP286CA0043.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:29d::14) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="R5BaxNvF"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-483487335c2so4725395e9.2
+        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 18:04:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1774487062; x=1775091862; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=RzOhGMXA3iY/y3X8z63jsZGinmq1HuIC9LpaciptV1w=;
+        b=R5BaxNvFNocThNB7s81yXDIv87waXGroF1k4KPCRFbM5zy5nlEtOpS+sIDWAQlN8HC
+         MhhiCotpj7+E5EQau/tjS26V1O1/gsZV4UsRNd5PSMC5cUt1IY200w24URjsxs7m6umW
+         pOUpI4fbWWkFIChuAjqk1YXPfRGjPsLAG/ioBmc0tCuHNffIi7LSHTbRLhlx6hbgdYD8
+         kTJ4h2RZBVZkRKsvIGIVTmONKhDpVZPFvynPmRLC9bJ51S6qs+RLBctljz9OpAY7m2AO
+         PsD/tMde19UUz8PcRNMHkEi2LGGYENXe/lwkpGRzU4x+TY76FTVsnbpke5oTOAy6n+Bq
+         V+TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774487062; x=1775091862;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RzOhGMXA3iY/y3X8z63jsZGinmq1HuIC9LpaciptV1w=;
+        b=ZaKfJj6A8y5zwkhNAX0BSEstvGas9j0LQoaeI13fxzP+Fzw38f0zSptI7mQFireZui
+         JmwwJGFv1aZX/jkxTMZ4pF6/5EHioXzIK+SJmSUWMtmucwwzO0PxgfVo8yPBlLuqUDPK
+         4jF4veJONA99vOyhs9ujCbV2SkH4cfUsvt3eMgzbtuzARW3T7JzFa6Uu+YPc7bTTUcPA
+         VXEl6Vld06/HbW6srjt4zcd8Y0zUZDKbx4ep2Vj3Gcris7wBjoicHtGE/xxKpYz1SJ3y
+         /Zl9aEwUDTGQZfxGVxkNzCZ2itj4UYNxvUBFEe2svw7OgClq3YFNWOT2nRBgxj2Oh+qG
+         1XUg==
+X-Forwarded-Encrypted: i=1; AJvYcCXmIHlM9aAm8q6zptEmXSNBu2PQM6MqlVr2J2ymdb+aslyG+nOLfG1qBhDAHgwCCPzIc6ksMNfjODJH@vger.kernel.org
+X-Gm-Message-State: AOJu0YzqAV8805jiD5U7mBGsSo7lRK2CIaKHtg+TK42O3t4KxCMMRd6l
+	S36zJ4WncmV9cjxAB4df1B4CuTJ78Nlrl6Gf4Aw+BYpEIJuDw0xphnK6Ycq2thb0KYo=
+X-Gm-Gg: ATEYQzy91oWsmcEce7utcAuqkwAunL6J4RTxNSMm4xFaGktxASm6hh846x545ATrDr1
+	5kMvDGoAHM0nU5BKXPi8deZxiKV0+j+8jAagLVNyb21v7Gn3nXOBMSzZDjyRsOAuG23ZexrwD0c
+	Awuf+A2PrxbiJwLOMFFdXXERyd04NUw51O4BxtizmM7fiKMCBDse+z/eQsNm7QN0BGrbhDkxwFa
+	7otN6JQyMVKpd7EFe+S0a85ry89OaxlEwsdZE8dWhSk6VuXr7C+kqRiKP2WlJgqnHe4/XUzN4CY
+	6VgAJ+2nnE2gTwazdC9kdUdFzGksLxXWUF1c3jInQq/XiiMLDJCVp5/z+txj0tOt2/6x4A3Y3Gl
+	LiYuzFbYQJP8lfFhqDxiKDFV1i6eScY7S+G2f1RTXDhvU6wA+h0MuDeHw/9FNSpibGcP/SR/qRY
+	Y+GNdJlHB39mB1/mIsB2RywKWuL3w2S80eiqLY9H8JWDZElA==
+X-Received: by 2002:a05:600d:486:20b0:487:386:3714 with SMTP id 5b1f17b1804b1-48716043919mr61187515e9.17.1774487061774;
+        Wed, 25 Mar 2026 18:04:21 -0700 (PDT)
+Received: from [192.168.0.35] ([109.76.163.154])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48711701804sm168552605e9.4.2026.03.25.18.04.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Mar 2026 18:04:21 -0700 (PDT)
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: [PATCH v5 0/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+Date: Thu, 26 Mar 2026 01:04:42 +0000
+Message-Id: <20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS0PR12MB7656:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5be0beda-3178-4e22-7376-08de8ad144dc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|10070799003|1800799024|7416014|376014|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	Cn/TQwW9BfHmi+FdJMYcYNwdSRoSdEurpdSBaD2ETLJ7pbGvWSwm4IzldUcCl4FK1J0PmsaITClPxuf12bNC9J9zcyZEB5MmDQICYE32UiiJ6ga3GF4Gy5BrYznOTMPLOkQmlDFBt19qVWtv169oNLoC+QW6PfRWik6HilQKO2XVCtZUlrQpKPuv0RBOXAq5vSqplHTai8GSEGo5NJsphNarFy4qE9A7MXBx1m9bDRWXJv6xhLKKzrSsWM8ylgMVJFj/4gscvxBJETQ/vGjz7Yck4AKpxh6nsMb8SDGe39Sh+WwknOvE3PelNxMKWshokhi5FXVlBhGdsAgQHoFCj82p+Ju6vBH7o0KCWP3wUTp/CvdOAunFMqX19CJsb6EyYPMOmrgVGdmfJrWoirk0OGUiBFKww7gR9fXqOW3HuJ95u3tD4fKuI47vzJrplUXP8GKN11jn2i9N1g4SJWjI5ApBUUDqX6dgnfFewzU1eeuM9BxENuvNmWuAOYj49paO4wstqljAevzQb8dlZQTMtQmK+4/nAu3lRU//0B6ucqVHJ9qkzh/94OzJUVD2wZSETo+1zbQ9hm1jfzFWO7YVhwrtB/KBwUHCcjOc8+9Yg7nGEx3X960QRjV5NXzITp1jruc9yAd8i97lWLefbE8zP7BCvmUNa5p6QIU5osFsQnZe8btEuGSRQ5wwY43uf+kiGVpR4WnakysDSRKfDaj9UI3xJmCND4i0O6wfnZm+gaI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(1800799024)(7416014)(376014)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Ykg4MUNGalpwa281R2ZTOGw1UFdvQVlGV21FV0g2RVlOcjQ0S2lHMFhHRWl2?=
- =?utf-8?B?aGRXSjdHZnhJMXFzSTB2d3I5TndNQ2ZvSUtCcU1UVWs3Y2FzMm4xR0RmcEEy?=
- =?utf-8?B?WVFJQUJ0MExoaGhzOWN2cjErL0Rzek95R245NmQvck01bmVvYnpTSEJEdzhq?=
- =?utf-8?B?Rk4raThudWhpOWtTS3JVN0d6eE8ySDNhVGMwRml0VE1wOXQ1TE82S0s4c1Yz?=
- =?utf-8?B?MCs2Z2IrY2pSOWFjYXdHanU5S0FLZjU5dzN2S2hnTTNGUTFDbTQ1NG1FOXlI?=
- =?utf-8?B?Um5UaEtoRjk4UXBFQ29vMTFmN1NyRWthZGRNMVJ6cTVKR1ZQU3JHWkNTcTEw?=
- =?utf-8?B?WmhRMlRPRE96V2x3THliZ0VMbTVGbUQ1OTRMU0JoV24vdU9reWxGUzdFTDM5?=
- =?utf-8?B?d1RxbWVERDYzVjk1NzAzM1dTd2RvRzcwYUNRYnNoUFZwZW5ZM3FJbDhWa0tq?=
- =?utf-8?B?YzJHZUNqU1pTMlhKeFN2OTR6M0puVkMvSTg5aDZzUndPbDQzMHF0LzI1U1My?=
- =?utf-8?B?eFhpeW5zdkU2TXFDQzFxMkV1TzdGRzc0M3dxNHU4aHdWeHRrZHZhbkNDZDJm?=
- =?utf-8?B?YmhPYyt5bDVDQ3ppWUtPdXMvWlBHTDFaNjFBUTlNRWY3cGpSR1ZZNzBlalpt?=
- =?utf-8?B?Z3hJcjI2M3N0U3FlV09PRlVnU1YwSUdVaFhYb2tjbmtDamRPMTFEQzFKNGlC?=
- =?utf-8?B?ZXlqUmlmSGhlV29tOWhpWjJDMllnbmhYYW5BVXZzTFdXTjlScm04YUtjbXlS?=
- =?utf-8?B?Y2xwOTdUTFBBcWF1V01jalg3dHY1Y2VORWNZWkw5K3JDMTNIdjVDUjY1N1No?=
- =?utf-8?B?R0Q5OWgvTDNSK052SC9UQWNXS2RzSlBiMW1kbDhOR3lkNTl5RTdienAzcWs5?=
- =?utf-8?B?alhUUTFnd2JSSERlRzYxU3dxYytZL0NDdjNvZ2hwVXErT3ZyNVpzYkpSSWN4?=
- =?utf-8?B?UkhQWXdFRkZ6bVJManlhTlc0YzVRWTZNMmN3dkdjQWNDUWg1NlRITytmQlp1?=
- =?utf-8?B?VVZKb0tTRFRRQ2o2T1QvMXlxV0hvd3doR1lTays4b0lKL1FjcXg3WXJmMmNV?=
- =?utf-8?B?Wkxjbitvc0luRWFuOGVTRlZqN0sxcDF5MnhXZldsVUpCZ1lhd1pmYzJQZWxV?=
- =?utf-8?B?cFBGVWY2VUdzNEhhd0psRkpvTmVVMjF5dzdlS2xFcVRhK2h1MGswQXdrZElu?=
- =?utf-8?B?cDBLT3hCSkM2b04xQmtSL2ZJUmNpREtlTnovcEVsVzZlSmQxWlpyQVV1STIy?=
- =?utf-8?B?RG4xTHJKZVNLVTQrN0p5UGtaN3BLU3RxT3pSa0VWbnJHem9GNjlnVUxTSGZF?=
- =?utf-8?B?amQySUNveUQzOFlWRTFheGtORmw1eTVXbGZkeGVmMzJZSjJGYUN5WXpPQTMw?=
- =?utf-8?B?anNMS1lCSWRSQ1FMd0NrUk1ub3o4dWNyN1hDalpTd3VyZXNqSDFvTWsrRHVI?=
- =?utf-8?B?Nnh2cHJSYjN0RXMwa24zN2hVTVdZenFOTWJOQjJ2RHR2Z0lpNmNQRERxa0d1?=
- =?utf-8?B?NU81TEZYaWQ5WFJtK1BtNWwxSTNNcmZTRFN1Yys1N25YTnlGYWltdkZ0M0l5?=
- =?utf-8?B?M2RDL0dNS094VFdUN200ZlZUT0tiWWxrV1ZYQ0MwUVEwd1RxcGZ2NTlCZWR5?=
- =?utf-8?B?ZjJMaGF6eVBrZmRKcE5GMGpyZ2lEbmZmM2hFYzQ0Nll3UWQwcFhHOTNjdjlZ?=
- =?utf-8?B?ZHhMR1pyZGw3b1ppenNBWkJrQVJYNDFwMUI4OXJJL1Z6Z2ptSGNMSlpHNThu?=
- =?utf-8?B?ZVh1YnV0TzIyRzV2Y1FSVXgydGhPSityaVFSbjRtVnd2WnowemFHcHM2RHlQ?=
- =?utf-8?B?RStPMWVRSmF2TThsZExDcXJ6SFA0M2pRTnQ3em1jQThsblZNSU1VWnJia1l1?=
- =?utf-8?B?dm8yeTJtOE5zcGdKSlZKZ09qNTg1Tys0clAwNnVmYWdIMVhzakZrQzNEcWlY?=
- =?utf-8?B?cTcwUnBIWDMyUWpydVVUaWQwTC9MeDRNbXdQK0d0WXA2THo4UTBqMnAvL3g4?=
- =?utf-8?B?VnZuTytaRk9JTnRYeTA4bGJUbXdkUHpwTnRaVVVVSW0ySnVPYnYxSHgwQlQ4?=
- =?utf-8?B?amdFQ3JpNlhnMndYVmttVUs0SG15SXpQcUJGaCtWQUg3cUVlUnR2K2ZkMjF2?=
- =?utf-8?B?YmtycXltVDF1eVFkaElOcTc0SnY1RmFKZlVhNHlpNEdWc1J0KzFnSEsxaGhL?=
- =?utf-8?B?elI4RmxPWG9QbVZLeWhWaGFXa1dpU0VDRWd3QnN1bW8zbElidzliMkt0aUJS?=
- =?utf-8?B?WFV0V2NvbGRYMnVSS1huN2I5OGc5ZFM1WmNyWjNYcVlHczZmS0R6TUkrbmxC?=
- =?utf-8?B?RDh0TGpmMnJwSGV3ZnBRTm02LzQvMVJjd1Z5WWZaRTRHV0QrUDFpM3hoYXNR?=
- =?utf-8?Q?zyUWMT1crNaXVGTHAtF036D6ovBBaEkeEDq1yV0xt3snS?=
-X-MS-Exchange-AntiSpam-MessageData-1: DY37qynPNEyUQg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5be0beda-3178-4e22-7376-08de8ad144dc
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 00:47:34.3025
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fbNbXhALBb00OOAFBGUDQg1GUL9OgRbkBeGFMbMmORgXsm76qJuYOjlfp98K7RMZdEH9JnX+xvSnwMiT1b9Oow==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7656
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACqGxGkC/3XNzarCMBCG4VuRrE9kZvLXuvI+xEXSjjZwaCWRo
+ kjv3VQQteLyG3jeuYnMKXIWm9VNJB5jjkNfhvlbiabz/ZFlbMsWBGTAIcgLsmxyJHnqrvJgtdL
+ BGmyVF4WcEh/i5ZHb7cvuYj4P6fqojzhff4RGlCCd9k0IJqClsP2PvU/DekhHMZdGemoLRGaha
+ dbOWG6DdezrL63etV1oVTQiW6icqTXCl9YvrXD5WxddQwM1gaqqqv3Q0zTdAbIht89jAQAA
+X-Change-ID: 20250710-x1e-csi2-phy-f6434b651d3a
+To: Vinod Koul <vkoul@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7525;
+ i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
+ bh=YvDTDmQnhx3vxUiunxT+fQW6fD6S0rofG4JhusvgMgE=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBpxIY0jpv66iOlcbst+c4xGWuCZvY5ts71aRyRo
+ qoA028nBq+JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCacSGNAAKCRAicTuzoY3I
+ OkaID/4xLxYb90R6pASE02+jN9+VwdDsc8oROxx9WO62OPmPYegwdYZOHAhLSQSKuN6OGjmXCuy
+ C16ZsNo/jlNj3Sfd7dc598lbYPzmkMuDphHmaQ/3K6MtN7vcjV3OJffWCLO02xZ+ToU29wHvTuP
+ UwNBmprxVyl8yHnjWpm/Pe/sCiiNt4dnheEwcVYe6XL2YiaIqXvq05TMdURQ3KohX7jdKTGhYA6
+ nNCUx7siTUfnYUM9r7spyruv1uGSoHgOBtqDVGzlM5/Qr7PUntCLiItsLIkYHbOpxBxIMZA9wiO
+ ERcVHXt0uDhWZzhxzahL4hhfZEvydh4W0+k97/1jX9+a0ColLkOdLASAOl1jTxJIVygdwCx0VF3
+ r5O+oYETOVg8JfB2fyFvTeo0AAKMcqDGomilGggkkngdxOutk//y2y/HiqMZ5wrEs6HATKrVKoo
+ K/LRFpLp6k2PPR03Ti/BqKi8+6p0XpCB8BakIMPH3V9Wm8LULm7NXhi2exud8s4moMY4FHNNuQI
+ 5yVL1vsP6OS7OD9+knGyIV6yFh19fyGKNe7eNdY0zXFpO8cYroRaQA+u2DUxKpY2unv8teaQ81Z
+ Iujj45j7AoLsJq0EklGIClW5AQAXyqKMKGvU+3KUq5U4yRDOroe1EJvqVEuS7RPFLX0EFSkonm2
+ MfG74fcBpp+TBgg==
+X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On 2026-03-25 15:22 +0100, Thierry Reding wrote:
-> On Wed, Mar 25, 2026 at 07:16:59PM +0900, Mikko Perttunen wrote:
-> > From: Thierry Reding <treding@nvidia.com>
-> > 
-> > The PWM controller found on Tegra264 is largely compatible with the one
-> > on prior generations, but it comes with some extra features, hence a new
-> > compatible string is needed.
-> > 
-> > Signed-off-by: Thierry Reding <treding@nvidia.com>
-> > Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
-> > ---
-> >  Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml | 2 ++
-> >  1 file changed, 2 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml b/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
-> > index 41cea4979132..15706d2a808d 100644
-> > --- a/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
-> > +++ b/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
-> > @@ -16,6 +16,8 @@ properties:
-> >        - enum:
-> >            - nvidia,tegra20-pwm
-> >            - nvidia,tegra186-pwm
-> > +          - nvidia,tegra194-pwm
-> > +          - nvidia,tegra264-pwm
-> 
-> I think this was lost during the earlier conversation we had on the
-> split of these patches. Krzysztof had pointed out that tegra194-pwm is
-> now a duplicate entry. I don't know exactly how it ended up like this,
-> but I'm pretty sure what I meant was:
-> 
-> 	- items:
-> 	    - const: tegra264-pwm
-> 	    - const: tegra194-pwm
+v5:
+- Adds support to apply passed parameters for clock/data position/polarity - Neil
+- Drops GEN1/GEN2 differentiation this can be reconstituted if GEN1 ever
+  gets supported in this driver - Dmitry
+- Drops camnoc_axi, cpas_ahb - Konrad
+- Renames csiphy->core csiphy_timer->timer - Konrad
+- Renames rail from 0p8 to 0p9 schematics say  VDD_A_CSI_n_0P9 - Konrad
+- TITAN_TOP_GDSC dropped - Konrad
+- Passes PHY_QCOM_CSI2_MODE_{DPHY|CPHY|SPLIT_DPHY} with the controller
+  selecting the mode. Only DPHY mode is supported but the method to pass
+  CPHY or split-mode DPHY configuration is there.
+  Since split-mode is a Qualcomm specific mode the PHY modes are defined in
+  our binding instead of adding a new type to include/linux/phy/phy.h - bod
+- Depends-on: https://lore.kernel.org/r/20260325-dphy-params-extension-v1-0-c6df5599284a@linaro.org
+- Link to v4: https://lore.kernel.org/r/20260315-x1e-csi2-phy-v4-0-90c09203888d@linaro.org
 
-Ah, I see now.
+v4:
+- MMCX, MCX and MX/MXA power-domains added - Dmitry, Vijay, Konrad
+- power-domain-names added as required - bod
+- opp-tables amended to capture RPMHPD deps - Dmitry, Vijay
+- Switched to dev_pm_opp_set_rate, dev_pm_domain_attach_by_name etc
+  dropped inherited CAMSS code - Dmitry
+- Amended parameters structure to specify power-domain name list - bod
+- Removed dead defines - Dmitry
+- Noted in CSIPHY commit log intention to rework patterns of
+  PHY lane configs into loops/defines/bit-fields later - Dmitry, bod
+- Lowercase hex throughout - Dmitry
+- The yaml and code in this driver doesn't care if the node is a
+  sibling or a sub-node of CAMSS confirmed to work both ways - Dmitry, bod
+- Link to v3: https://lore.kernel.org/r/20260226-x1e-csi2-phy-v3-0-11e608759410@linaro.org
 
-> 
-> This mirrors the fact that this is in fact backwards-compatible with
-> Tegra194 but also has additional features that we need the Tegra264
-> compatible string for.
+v3:
 
-The Tegra264 PWM controller is in fact not backwards compatible with
-Tegra194. It is close but not quite. I will drop the duplicate tegra194
-compatible string and update the commit message accordingly.
+- Resending this to make clear this submission is additive to x1e/Hamoa
+  The existing bindings and code will continue to work 
+  Bindings are added only, nothing is subtracted from existing ABI.
+- Link to v2: https://lore.kernel.org/r/20260225-x1e-csi2-phy-v2-0-7756edb67ea9@linaro.org
 
-Mikko
+v2:
 
-> 
-> Krzysztof also requested that we drop the latter part of, or reword, the
-> commit message because we always want the compatible string to be added,
-> regardless of backwards-compatibility, etc.
-> 
-> So I think maybe something like this would be better for the commit
-> message:
-> 
->   The PWM controller found on Tegra264 is largely compatible with the one
->   on prior generations, but it comes with some extra features. The new
->   Tegra264-specific compatible string can be used to distinguish between
->   the feature sets.
-> 
-> Thierry
+In this updated version
 
+- Added operating-point support
+  The csiphy clock sets the OPP prior to setting the rate
+  for csiphy and csiphy_timer - Konrad
+
+- Combo mode
+  Combo mode in CAMSS yaml has been added. Right now
+  no code has been changed in the PHY driver to support it as
+  I don't have hardware to test. In principle though it can
+  be supported. - Vladimir
+
+- CSIPHY init sequences
+  I left these as their "magic number formats". With my diminished
+  status as a non-qcom VPN person - I can no longer see what the bits
+  map to. Moreover this is the situation any non-VPN community member
+  will be in when submitting CSIPHY sequences derived from downstream.
+
+  I think it is perfectly reasonable to take public CSIPHY init sequences
+  as magic numbers. If someone with bit-level access wants to enumerate
+  the bits that's fine but, it shouldn't gate in the interim. - Konrad/bod
+
+- Sensor endpoints
+  I've stuck to the format used by every other CSIPHY in upstream.
+  Sensor endpoints hit the CAMSS/CSID endpoint not a endpoint in the PHY.
+  Given the proposed changes to CAMSS though to support "combo mode" I
+  think this should achieve the same outcome - multiple sensors on the one
+  PHY without introducing endpoints into the PHY that no other CSIPHY in
+  upstream currently has.
+
+- Bitmask of enabled lanes
+  Work needs to be done in the v4l2 layer to really support this.
+  I propose making a separate series dedicated to non-linear bit
+  interpretation after merging this so as to contain the scope of the
+  series to something more bite (byte haha) sized. - Konrad/bod
+
+- Link to v1: https://lore.kernel.org/r/20250710-x1e-csi2-phy-v1-0-74acbb5b162b@linaro.org
+
+v1:
+This short series adds a CSI2 MIPI PHY driver, initially supporting D-PHY
+mode. The core logic and init sequences come directly from CAMSS and are
+working on at least five separate x1e devices.
+
+The rationale to instantiate CSI2 PHYs as standalone devices instead of as
+sub-nodes of CAMSS is as follows.
+
+1. Precedence
+   CAMSS has a dedicated I2C bus called CCI Camera Control Interface.
+   We model this controller as its own separate device in devicetree.
+   This makes sense and CCI/I2C is a well defined bus type already modelled
+   in Linux.
+
+   MIPI CSI2 PHY devices similarly fit into a well defined separate
+   bus/device structure.
+
+   Contrast to another CAMSS component such as VFE, CSID or TPG these
+   components only interact with other CAMSS inputs/outputs unlike CSIPHY
+   which interacts with non-SoC components.
+
+2. Hardware pinouts and rails
+   The CSI2 PHY has its own data/clock lanes out from the SoC and indeed
+   has its own incoming power-rails.
+
+3. Other devicetree schemas
+   There are several examples throughout the kernel of CSI PHYs modeled as
+   standalone devices which one assumes follows the same reasoning as given
+   above.
+
+I've been working on this on-and-off since the end of April:
+Link: https://lore.kernel.org/linux-media/c5cf0155-f839-4db9-b865-d39b56bb1e0a@linaro.org
+
+There is another proposal to have the PHYs be subdevices of CAMSS but, I
+believe we should go with a "full fat" PHY to match best practices in
+drivers/phy/qualcomm/*.
+
+Using the standard PHY API and the parameter passing that goes with it
+allows us to move away from custom interfaces in CAMSS and to conform more
+clearly to established PHY paradigms such as the QMP combo PHY.
+
+Looking at existing compat strings I settled on
+"qcom,x1e80100-mipi-csi2-combo-phy" deliberately omitting reference to the
+fact the PHY is built on a four nano-meter process node, which seems to
+match recent submissions to QMP PHY.
+
+My first pass at this driver included support for the old two phase
+devices:
+
+Link: https://git.codelinaro.org/bryan.odonoghue/kernel/-/commit/a504c28d109296c93470340cfe7281231f573bcb#b6e59ed7db94c9da22e492bb03fcda6a4300983c
+
+I realised that the device tree schema changes required to support a
+comprehensive conversion of all CAMSS to this driver would be an
+almost certainly be unacceptable ABI break or at the very least an enormous
+amount of work and verification so I instead aimed to support just one new
+SoC in the submission.
+
+I've retained the callback indirections give us scope to add in another type of
+future PHY including potentially adding in the 2PH later on.
+
+This driver is tested and working on x1e/Hamoa and has been tested as not
+breaking sc8280xp/Makena and sm8250/Kona.
+
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+Bryan O'Donoghue (2):
+      dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+      phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+
+ .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 130 ++++++++
+ MAINTAINERS                                        |  11 +
+ drivers/phy/qualcomm/Kconfig                       |  13 +
+ drivers/phy/qualcomm/Makefile                      |   5 +
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 361 +++++++++++++++++++++
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     | 298 +++++++++++++++++
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  95 ++++++
+ include/dt-bindings/phy/phy-qcom-mipi-csi2.h       |  15 +
+ 8 files changed, 928 insertions(+)
+---
+base-commit: c824345288d11e269ce41b36c105715bc2286050
+change-id: 20250710-x1e-csi2-phy-f6434b651d3a
+
+Best regards,
+-- 
+Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
