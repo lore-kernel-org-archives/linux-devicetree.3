@@ -1,188 +1,102 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F79423E334
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:07:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A87E51F2380;
+	Thu, 26 Mar 2026 02:12:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774490877; cv=none; b=HpifWD3mocICZOASyVYDinMkZhBvdu+s2zBzKopzPUk6rucJRXDyWUIju83DPB9HKaMXfaumN/RLI3oQwuxv87P7OgnwIcQjaDKLfpnECZ+EyuPJtcRGnXzO29Ig4srJZFhE7M1lSPLWBO9VdRCXlPAnQH3t6sDKxAtoiHCx+lQ=
+	t=1774491159; cv=none; b=JvJ/76cowg9Wt6Y0z+4qkn+ONQy6ADitB9bNDxeEB/dBJm7HCDoVOW1XxOTBGwyxuATawukZ3UHJmRjscYM7T9kAa2Gefakb+Un/etFK1+w3SJUKtNMK5qlthbnp3s7merYmFD2yam9xq9Whb8XX5QiMn35+VrI/tZZO8eerSqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774490877; c=relaxed/simple;
-	bh=fP5ca+wleAv365iglFP1lOZ6n8fv/yloi+JcxBej+bs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aGa/WJh/13A5mSyEv7M3z2oWn37AsfwVnHub4MwUUfITGmOCspE1un0f40uxpI/rxb3jDM/WwZNTRq4StQf1TPRCYkgYUrcVE02de2NTuKUnSTLux3TXXM8nbWEOug2Pn/dMn3ySI8Cjvge97SO+98OLGaDOljPpo1MdI+sgLfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=u11lRW6y; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="u11lRW6y"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-43b4f48c47cso307048f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 19:07:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774490873; x=1775095673; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=IQBV0aIbBMoDV/It9TWPuN/5h+uJKLUgF07SUqXfhYk=;
-        b=u11lRW6yTU9igaZ2Yps0O7OWHzDAggN1vfYCEJe3jUvgAEWXFx2FLmsdAZ41cfHEEa
-         qwUyD6/4JCm/yti5ttjf8yONy4HtY6RAj/mGsqI24HTNmoGgi7HQ8s6821i5kxU5iems
-         eJQU6EFARhixfbBJe6zK1747JUvgpAYMfLoOEftdtW3gMVPtgMnwNnJpGgzopQBwBFiV
-         0N7gPVnHcAv/iAd2dIn4L2es/tfcfk9Px+0QQSRgG9/pQ28e3TU1wAbJ5DySJBDp+y3/
-         ucrawWKu1ShFtTQ8A0VNWj6952+tTIPBEYIFvB3YPZByWS8pg9upiTofan9Q8mBKNm79
-         aU+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774490873; x=1775095673;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=IQBV0aIbBMoDV/It9TWPuN/5h+uJKLUgF07SUqXfhYk=;
-        b=iYBdFap4OnOyl7eQCkADWVWZX0w9PpC+IhBgsuyNKjD7TmO8IgKoHfb6UzCeT6oAFs
-         LYUbkuGnoIUxg62oZ9B731FieHZG1HYHuWAzKWKHnrcz0QG8cZw8k+HKoMBmJFLIlL8R
-         PG2wrs2MrXZaEgf5NlXb5EKgnVXHiboaQ4HlFVKyY3iezgIzB+mx5AtTyrzJU2+dnE2D
-         DQFh/Y62TS+socnu1xnnCFPzNIpno5ytahgefv0RpBIbljv2t39tii1COpHOLQdL4bIn
-         OumjD3XoDymxcLZyv5ZiFnIln1FXX0ZfgBj0v/ttAsOJtrDwXdhySf93VjYZvgS/TUpK
-         oiyQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUpGIlI1C7yPlb7zOSpFM6I64z9FXmAZpF2AkL8eY72dp0FL1aerTPnj4j9Ic1wcYd1YV8n/t784f3f@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6sSf2CXOjVykN09HGD9iG+8LwaXiY6F7H6ZNRGezZre8Xqssh
-	72MqZuN2w+EMWYRQ0UzEx0ChSeQCpuotmK5J+juUF91YMYzWsaWY4I1jJOgzcZavpgc=
-X-Gm-Gg: ATEYQzzJGy5a9ElnMafnKOK9pFFWdyUUSWePVFTZXFM9SfxeWJE2JwZ75d9hvtTG8pH
-	NQ163KxaFLO4AQiy8MuSoiIeMLfKIibueLF5kd8hL5fLoJ4dB16TTFSSbhvQVht7cX+lhyRtBjt
-	V1QmjqXzeM6nBefoE07Uen8W8/E76feHO3WB5jsJcJ5bR5Hx99AXyiDzYkzr+z0Lzk/wGEgnWIY
-	Oxr5a4/ER0mld/DbkjoDYnuoEeUr3xrVs5rDtQDHAj/F3wBrH0yUB6oY5w3vpgCWKLcUVPJF1mU
-	otPgjR+kaCvCNwSF+H/zLQWBtvh5XU0z7RAiLl3NnLIIlx4TGlrsIHEbYZgoA9ar9yruJx+asMk
-	bLnhdN4lv1ot7QcTMwBwc+IKkyo77KrNcepZVodSQAy9+JtVHOrp58mWFEyALhcf/rWf7BCEpGW
-	bSz3uuKXFIgM3XgW4BZZy+dMy/pO00LBHZQ+E=
-X-Received: by 2002:a5d:5d07:0:b0:439:fbbc:d593 with SMTP id ffacd0b85a97d-43b88a04ff5mr8594238f8f.27.1774490872955;
-        Wed, 25 Mar 2026 19:07:52 -0700 (PDT)
-Received: from [192.168.0.35] ([109.76.163.154])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b919e7372sm5264843f8f.34.2026.03.25.19.07.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Mar 2026 19:07:51 -0700 (PDT)
-Message-ID: <540c2a97-00ec-4358-855a-b238aab53860@linaro.org>
-Date: Thu, 26 Mar 2026 02:08:21 +0000
+	s=arc-20240116; t=1774491159; c=relaxed/simple;
+	bh=dOfo0Atrong7Sgc1T7KnrLH7bcjyIUA8oVN9P0B0pEQ=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=EaUMZc79lt1oknfp+4lpnDOnuj7RxzaFyeOhO286B0BcixMEhA8rXLvIXQX9V58b0vi3lIT6BR0QjDwIMYKbr6A5JHHKOjfYPkwjH3wzzMGvZgT02enrdIEANAGF8iUEwtCqgjG/8kCnVEAbtInz1Ph7xc7YNAf7zSYhB4AiDFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.101])
+	by gateway (Coremail) with SMTP id _____8CxJMERlsRppMceAA--.41005S3;
+	Thu, 26 Mar 2026 10:12:33 +0800 (CST)
+Received: from [10.20.42.101] (unknown [10.20.42.101])
+	by front1 (Coremail) with SMTP id qMiowJCxPMIPlsRpfY9dAA--.46396S3;
+	Thu, 26 Mar 2026 10:12:32 +0800 (CST)
+Subject: Re: [PATCH v1 1/2] dt-bindings: i2c: ls2x-i2c: Add clock- related
+ properties
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, loongarch@lists.linux.dev
+References: <20260325011852.19079-1-wanghongliang@loongson.cn>
+ <20260325011852.19079-2-wanghongliang@loongson.cn>
+ <20260325-outstanding-weasel-of-fruition-89db37@quoll>
+From: Hongliang Wang <wanghongliang@loongson.cn>
+Message-ID: <1b5283d8-294c-86de-c3d8-bf205ac24216@loongson.cn>
+Date: Thu, 26 Mar 2026 10:12:21 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 2/7] dt-bindings: media: qcom,x1e80100-camss: Add
- support for combo-mode endpoints
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Bryan O'Donoghue <bod@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- Christopher Obbard <christopher.obbard@linaro.org>
-References: <20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-0-5b93415be6dd@linaro.org>
- <20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-2-5b93415be6dd@linaro.org>
- <17ab70a4-1ab8-4384-8537-44dbfe31889a@linaro.org>
-Content-Language: en-US
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <17ab70a4-1ab8-4384-8537-44dbfe31889a@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <20260325-outstanding-weasel-of-fruition-89db37@quoll>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-CM-TRANSID:qMiowJCxPMIPlsRpfY9dAA--.46396S3
+X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj9xXoW7Xw4rKry5WFWrWr45Gr13Jrc_yoWkurg_ZF
+	yvy3WDt3s2kF9xGrnaqF45J3Waq34UG3yqgr1DAF1SgasxtF4Du3Z2vw1xWF4jqrWa9w1f
+	Cw1vkw1xCr1avosvyTuYvTs0mTUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUbxkYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_JrI_Jryl8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AK
+	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzV
+	AYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
+	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIx
+	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
+	wI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r
+	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8czVUUU
+	UUU==
 
-On 26/03/2026 01:51, Vladimir Zapolskiy wrote:
-> On 3/26/26 03:28, Bryan O'Donoghue wrote:
->> Qualcomm CSI2 PHYs support a mode where two sensors may be attached to 
->> the
->> one CSIPHY.
->>
->> When we have one endpoint we may have
->> - DPHY 1, 2 or 4 data lanes + 1 clock lane
->> - CPHY 3 wire data lane
->>
->> When we have two endpoints this indicates the special fixed combo-mode.
->> - DPHY endpoint0 => 2+1 and endpoint1 => 1+1 data-lane/clock-lane 
->> combination.
->>
->> Reviewed-by: Christopher Obbard <christopher.obbard@linaro.org>
->> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
->> ---
->>   .../bindings/media/qcom,x1e80100-camss.yaml        | 69 ++++++++++++ 
->> ++++++++--
->>   1 file changed, 65 insertions(+), 4 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/media/qcom,x1e80100- 
->> camss.yaml b/Documentation/devicetree/bindings/media/qcom,x1e80100- 
->> camss.yaml
->> index c17b9757b2c86..f44138f522bba 100644
->> --- a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
->> +++ b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
->> @@ -148,7 +148,8 @@ properties:
->>       $ref: /schemas/graph.yaml#/properties/ports
->>       description:
->> -      CSI input ports.
->> +      CSI input ports. Supports either standard single sensor mode or
->> +      Qualcomm's combo mode with one sensor in 2x1 + 1x1 data-lane, 
->> clock-lane mode.
->>       patternProperties:
->>         "^port@[0-3]$":
->> @@ -156,26 +157,86 @@ properties:
->>           unevaluatedProperties: false
->>           description:
->> -          Input port for receiving CSI data from a CSIPHY.
->> +          Input port for receiving CSI data.
->>           properties:
->> -          endpoint:
->> +          endpoint@0:
->>               $ref: video-interfaces.yaml#
->>               unevaluatedProperties: false
->> +            description:
->> +              Endpoint for receiving a single sensor input (or first 
->> leg of combo).
->> +
->>               properties:
->>                 data-lanes:
->>                   minItems: 1
->> -                maxItems: 4
->> +                maxItems: 4 # Base max allows 4 (for D-PHY)
->> +
->> +              clock-lanes:
->> +                maxItems: 1
->>                 bus-type:
->>                   enum:
->>                     - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
->>                     - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
->> +          endpoint@1:
->> +            $ref: video-interfaces.yaml#
->> +            unevaluatedProperties: false
->> +
->> +            description:
->> +              Endpoint for receiving the second leg of a combo sensor 
->> input.
->> +
->> +            properties:
->> +              data-lanes:
->> +                maxItems: 1
->> +
->> +              clock-lanes:
->> +                maxItems: 1
->> +
->> +              bus-type:
->> +                const: 4 # Combo is D-PHY specific
->> +
-> 
-> It's unclear why both 'bus-type' and 'phys' cell argument are needed
-> at the same time, they are equal and thus one of two is redundant.
-> 
+Hi Krzysztof,
 
-bus-type lives on the CAMSS controller endpoint. It tells the V4L2 
-fwnode parser (v4l2_fwnode_endpoint_parse) how to interpret the endpoint 
-properties — DPHY has data-lanes + clock-lanes, CPHY has trios.
+Consider the clock framework relies on the device tree, and can only be 
+used on
+Loongson 2K platform with dts parameter mechanism, It cannot be used on 
+Loongson
+3A+7A platform with the acpi parameter mechanism.
+The i2c-ls2x driver is compatible with both Loongson 2K and 3A+7A 
+platform, parse
+the same parameters regardless of dts or acpi parameter passing, So 
+clock-input
+and clock-div attributes are defined to describe input clock of i2c 
+controller and
+divisor of input clock. It can be used on both 2K and 3A+7A platform.
 
-PHY phandle cell lives on the phys reference. It tells the PHY driver 
-which electrical mode to configure
+Thanks
 
----
-bod
+Hongliang Wang
+
+On 2026/3/25 下午7:43, Krzysztof Kozlowski wrote:
+> On Wed, Mar 25, 2026 at 09:18:51AM +0800, Hongliang Wang wrote:
+>> From: wanghongliang <wanghongliang@loongson.cn>
+>>
+>> Add clock-input and clock-div properties.
+>>
+>> clock-input describes the input clock of i2c controller.
+>> clock-div describes the clock divisor of the input clock
+>> of i2c controller.
+>>
+>> Prcescale = (clock-input * 10) / (clock-div * t->bus_freq_hz) - 1
+>>
+>> Signed-off-by: wanghongliang <wanghongliang@loongson.cn>
+> Also, why are you using inconsistent identities?
+>
+> Best regards,
+> Krzysztof
+
