@@ -1,55 +1,42 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F57405ACA;
-	Thu, 26 Mar 2026 15:24:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC0537F8BA;
+	Thu, 26 Mar 2026 15:25:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774538681; cv=none; b=V7+Y4hz3lO2JyPsq6K1rb8pS3MT9Or09Q2tCmxtpZdbgpmDjhUOXhAM2IveaZtaIpJB763D/IgVfql0fi53hxKSC6pm2eWafiY4ishrFdQlByJpseNmFuLDBV+gOmS61926nU016njWZ8SmiMjjudcTXX7W79AP42wfcb5iI1PU=
+	t=1774538757; cv=none; b=YQjmh3/UR3rOEy11ADlryCd/8nvGdSjz7cZASMWGS6DklVaVvZzKyeusxd51t6MV+ib3GzHH/Q4iJDdMCcoR1M13qiqQSW8EXZcbl9nev25p9QYpZ2cNX9i8jbi72ILs0DZdKNEJwovJjqKmtvd2+T+exkPqZhVV1nq/6sLLAhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774538681; c=relaxed/simple;
-	bh=/mgXAcvJTZN55Rw6eRGhfsII3E2iPLsWEYwGCvqKlXI=;
+	s=arc-20240116; t=1774538757; c=relaxed/simple;
+	bh=qk/rcRQ3hjSJAYtvCxohTRw/Hyc74Sdqg0FjnvL1Grs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sew3S/+LI8+ydk63hdjXjhF/xsc0qBYfxr9IoIzXVN0CkQqfAC94y9frRnIp+kcb5nSH+nu1kDFAXrJ6YDiBA5HOURewjc3SqjmrLmWFMtpm6nD6YRZ3MKatSUVPyu3hBi9bgv8xQ4Mb/hsUhJMbHXtZPMcbXU0CKY4DT/RYBck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=AtNy/DLH; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=RY9LnYkLTuOXspShiqY/dlgPcx50Po/su89Rl1AzByNsKHqUYDT/ikHKiI72LO+Yxg1YWLaUm1gXsaA7u7RJ4Ebz2QBOtr35DclaxMUWstjf4oVZ3gU79uJ8e2JB4dL9c6C2tiWbPD5iC5SzfnbcK44GRvKw6fOw8/MT3zX/5Ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cil34ZzA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="AtNy/DLH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=yqjbpiDcHC6AwPh2QC2yHN18vthccDIXI82Vxclmimg=; b=AtNy/DLHjEfyeQ9EHXJqWyK++U
-	pzDjpjsmSM+vpt7k01cyb4YN4Jqz8qvVR1fHpZ8YaKItFJGkZakuYryCR3Rk9RgHHaf+khxUjynvR
-	yaQ0rdqc4YwIp9ekJQ0aZfk14y8AFjkiM6FJ9t9BNajKuLC67P/u1sN7kjCkKptyJraY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1w5mZL-00DV6x-Ea; Thu, 26 Mar 2026 16:24:23 +0100
-Date: Thu, 26 Mar 2026 16:24:23 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>, kevin-kw.huang@airoha.com,
-	macpaul.lin@mediatek.com, matthias.bgg@gmail.com,
-	kernel@collabora.com, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 4/4] net: phy: Introduce Airoha AN8801/R
- Gigabit Ethernet PHY driver
-Message-ID: <044110c5-da1e-48c0-93fd-35553e86b271@lunn.ch>
-References: <20260326-add-airoha-an8801-support-v2-0-1a42d6b6050f@collabora.com>
- <20260326-add-airoha-an8801-support-v2-4-1a42d6b6050f@collabora.com>
- <acVND6DdpM9czIwU@shell.armlinux.org.uk>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cil34ZzA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 954E2C2BCB1;
+	Thu, 26 Mar 2026 15:25:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774538757;
+	bh=qk/rcRQ3hjSJAYtvCxohTRw/Hyc74Sdqg0FjnvL1Grs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Cil34ZzA9c0vm5+RaNiqZV5rrSey2kC30oN8kmO4QDIDwUzmmjT5dSdRri7WXcuHv
+	 QrYSqW+D3ZUaJOfH5j7nKOGUEJxB091+avUpnrCW77ylEqkdYQPVGcyHhBovk5Uh8b
+	 cIRyVhA01Pwmu00v6nNkRRYe/u+CMkI0PSu7mY7ceSE3RD/6cyhc8V8ibAjAg3tnom
+	 hQoSIHJztEtln3S6/Fpqj1VfnltQSPHI9e5Smsgvl+5mxsaVdDKrbrIposUq0kr6ic
+	 uHe8FFsl77wLtQkYgCOh4RNHDnPoZgr+mdYQAwYoAx82R9dbzXvgkUeSM+sWgjxam5
+	 xBJSsP7UuxW1g==
+Date: Thu, 26 Mar 2026 10:25:53 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Le Qi <le.qi@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kernel@oss.qualcomm.com
+Subject: Re: [PATCH v2] arm64: dts: qcom: hamoa-evk: Add DP0/DP1 audio
+ playback support
+Message-ID: <acVPsjFuFITlsihL@baldur>
+References: <20260210024037.3719191-1-le.qi@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -58,28 +45,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <acVND6DdpM9czIwU@shell.armlinux.org.uk>
+In-Reply-To: <20260210024037.3719191-1-le.qi@oss.qualcomm.com>
 
-On Thu, Mar 26, 2026 at 03:13:19PM +0000, Russell King (Oracle) wrote:
-> On Thu, Mar 26, 2026 at 01:04:15PM +0100, Louis-Alexis Eyraud wrote:
-> > +static int an8801r_set_wol(struct phy_device *phydev,
-> > +			   struct ethtool_wolinfo *wol)
-> > +{
-> > +	struct net_device *attach_dev = phydev->attached_dev;
-> > +	const unsigned char *macaddr = attach_dev->dev_addr;
+On Tue, Feb 10, 2026 at 10:40:37AM +0800, Le Qi wrote:
+> The hamoa-evk DTS currently lacks DAI links for DP0 and DP1, preventing
+> the sound card from exposing these playback paths. Add the missing links
+> to enable audio output on both DP interfaces.
 > 
-> This isn't a criticism for this patch, but a discussion point for
-> phylib itself.
+> ---
+> Changelog:
 > 
-> It occurs to me that there's a weakness in the phylib interface for WoL,
-> specifically when WoL is enabled at the PHY, but someone then changes
-> the interface's MAC address - there doesn't seem to be a way for the
-> address programmed into the PHY to be updated. Should there be?
+> v2:
+>   - Changed commit message to explain motivation
+>   - Removed redundant sound-name-prefix properties for DP0/DP1, since these
+>     are already defined in the SoC DTSI.
+>   - v1-link: https://lore.kernel.org/all/20260209091139.622756-1-le.qi@oss.qualcomm.com/
 > 
-> Do we instead expect users to disable WoL before changing the MAC for
-> a network interface?
+> Signed-off-by: Le Qi <le.qi@oss.qualcomm.com>
 
-Program the MAC address during suspend? I assume userspace is no
-longer active at this point, so the address should be stable.
+This should be here, now I had to rebase my whole tree to fix the
+missing s-o-b. Please use b4 to avoid such mistakes.
 
-       Andrew
+Regards,
+Bjorn
+
+> ---
+>  arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts | 32 ++++++++++++++++++++++
+>  1 file changed, 32 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+> index 2390648a248f..4428c8f45493 100644
+> --- a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+> @@ -616,6 +616,38 @@ platform {
+>  				sound-dai = <&q6apm>;
+>  			};
+>  		};
+> +
+> +		dp0-dai-link {
+> +			link-name = "DP0 Playback";
+> +
+> +			codec {
+> +				sound-dai = <&mdss_dp0>;
+> +			};
+> +
+> +			cpu {
+> +				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_0>;
+> +			};
+> +
+> +			platform {
+> +				sound-dai = <&q6apm>;
+> +			};
+> +		};
+> +
+> +		dp1-dai-link {
+> +			link-name = "DP1 Playback";
+> +
+> +			codec {
+> +				sound-dai = <&mdss_dp1>;
+> +			};
+> +
+> +			cpu {
+> +				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_1>;
+> +			};
+> +
+> +			platform {
+> +				sound-dai = <&q6apm>;
+> +			};
+> +		};
+>  	};
+>  
+>  	usb-1-ss0-sbu-mux {
+> -- 
+> 2.34.1
+> 
