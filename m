@@ -1,210 +1,122 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414A43A451D
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 18:17:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF11371D10
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 18:24:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774549063; cv=none; b=CDPgQyOB9YWuOmxiiEjagJ1VnG8/9icjWZpy9ZdGhHiI+PoNEcIgvJHPPAApC7imgouPpRILp7ykfEcJPokI2Z72VASjGGKgnwpg6pH1nB1CMrUKq3u3yNVs7/z8880Q3J8JnhvGdQZC0Gn4oO5Y2rYA6KS6y2uVL7u4m0vLQF0=
+	t=1774549457; cv=none; b=TkYU72uZahGneUnQTA81yos2gmc/UEEqNfTQKqkY3YvL6u/lJ/UG/4XgbXxkjUilLVoqDl65f7hTsjo+4vMLjy7bttHmomcHjo2mNSRkRFs4qRrHFA61I7w88M9MCqPq9sd3a63mObjkfAZGSOcFSpgtk/3uztJHMlK8sUp5cNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774549063; c=relaxed/simple;
-	bh=kSAnMq0S9rRTiMDRJFxlgcjS87f4NCkugdQB48GJkAE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=SYWMl4i2moi/iuP15KgfoAKeNe7BMWVmXGWwOkjy8GYiM7a7p7fEP+UviecqEpIrrwR4GBIvY+4Y8B61HzqXZRKhqs+VYZ6V/6DoGV8FR5BuZdSLk+hBlv4eM65NT9ANXVd5vftF6Rgmqq8uWy8T5SWhHx6KpSvkfsqKTL2Z53s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VBGY5hKG; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1774549457; c=relaxed/simple;
+	bh=tO0kKqMcHiRW4jgj+xRAYt7gnMl3D/ehWiA/z8rWMQM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eFK/pkrr6f/9JZ40NSllkaL7BqYkcJ2aiSUb52R/jle7yXEDg5DRM+OUm9FNyUqLHNMBSBfh9gLExa20e7KWR3zKx+4dN3H9ZylP4k/68G/YjfCsY+C5apy9wYJ5BVXEUAgDhNyDvfLuKi3uz2V5+Y6LvQmNuVZv6we+OKt2MrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VBGY5hKG"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c70f91776fcso593239a12.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 11:17:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774549060; x=1775153860; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=NmXdUJlReZ0By21HylCsqPytD1SK1WBkKYIj/89QnSA=;
-        b=VBGY5hKGj9jSZr9D3247iNXXnHX9o5vl1zhKuIaF0jgO7KE4/2lj/GZiD2hWMTsBy/
-         S7HDKP8cGgO9v14SeZ3j0VoeR4OSzV8mL92jzDmMIoI/FyBcxN9yvfvJXCq+ABXYkR1A
-         z/Mdkl7XH3ic0yu+D5I1Ng608W/SLoDVBp+NOJsp+HeX/1/sbOKTUFhH0WX70gbEW2/2
-         i+lamKOfKnzeAdIOFF8vPEs/LxCgpYB+RWc7U3dVytYkEBM+yZfl4AQjkWIgI6Gpkqle
-         0Jn+WZKDKKClJp0Jx9Z5yJln643/6sh3swudrT3/ovGscbCsN9D3KduOQuQhr+l96MKN
-         8JbA==
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-56a9076813bso740553e0c.3
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 11:24:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774549060; x=1775153860;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1774549453; x=1775154253;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NmXdUJlReZ0By21HylCsqPytD1SK1WBkKYIj/89QnSA=;
-        b=M2eU7nvsgFN43NUGwuE3c9gIx63rMfRjNQF+9l8XhFu7AqWzVk0GrTIKBvCHw+7LjF
-         TdCiWSSHhz7SNr8GchFnQnWl6C+Tn8QwmPTyfbK9OEMce2jVHm4qUjYhJAqUu//GpKU0
-         xycpGgbNgiwwFJmP6t4Vfh81DmOtELdUq4vcqpwjQuXGGynEF0VDThonDu6nTuCIsuAg
-         LuQLuVLIj+IubP+fEzyDRecEjE7q18ZPU+WHpebBAMnUv3ZkkBSFRQL8x1T+PkQJbvmb
-         nurYuLczO955n+p/zRZUam/6aiFR35dtLZELNozBkRK+xKOgKb5xxyZiHFPCETMNUfij
-         xmLg==
-X-Gm-Message-State: AOJu0YwuGFiZxCU9G/jynx8ImIIasOOXjdd7qO36arwxK1JxS+3fpfx5
-	Z+wUfxW5fzVYtzZ4dfogMCY5tdxkbooDuQsA1rDk0bFvQ2CGiuB7imcL
-X-Gm-Gg: ATEYQzz6RMiyPTgfNHHbuUeSy8FOZg+XOVGh8mzdTASwJo14vxCcN+bag6vI0Ekw69t
-	cfMWAaOAPmAayGWVYA4opnOhX2YF9KBSNe84izfNrjtfZYu2D2pkCElGHWcgitGskUAaDfFRkoG
-	D6SoJUACli5wvQyk+bR4wgXyl8zyxzKp/NwZYwpp7B6FzmozfdwRkrLdKbO6aKrDpWYZMN1bs0Y
-	Zg3mq+X1IuPeA84xAkVFwYYBV+mFgz2BEuzBqfzyd49dbV/CTQpa8Hldf9enZsiCDAWoXeUTVfM
-	9j4hhR1UzHtbArypzhsZ6A3W0xShtR5VMO5a0JmN20+zLGNcoSX8RVupvSqUWlS/t+dG+dqwFlv
-	QfGSC8GQ5CB942Mk7BXt480USiwzTz4DI3juyJjZkgvNzhxyiStiKBWx94it8uGerxsqMvF2jWP
-	Qk5J9Ch8gYbXndbGalwqUy+CY3P24=
-X-Received: by 2002:a17:903:1666:b0:2b0:59c4:e9dc with SMTP id d9443c01a7336-2b0b09ea693mr92707775ad.22.1774549060293;
-        Thu, 26 Mar 2026 11:17:40 -0700 (PDT)
-Received: from Ultimate.. ([2402:e280:3e2c:6f1:e54e:fe5:eb99:ccec])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0bc76bbdcsm37701015ad.5.2026.03.26.11.17.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Mar 2026 11:17:39 -0700 (PDT)
-From: Udaya Kiran Challa <challauday369@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	skhan@linuxfoundation.org,
-	Udaya Kiran Challa <challauday369@gmail.com>
-Subject: [PATCH v4] dt-bindings: arm: mediatek: mediatek,g3dsys: Convert to DT schema
-Date: Thu, 26 Mar 2026 23:47:26 +0530
-Message-Id: <20260326181726.64957-1-challauday369@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        bh=Bj75loc1E52Z/CUJZse9tw6FoxbOVmuknNYD8Ky8Q+c=;
+        b=fzeWVI2dONcGvgKH+w778uDHkpci0ECBTOEK3xvuVWqs2pa3PY+CgwVs5D6Mmk672Y
+         vXfQYfk2YBwSYh/50IczrVz/gCuwLRWRQxVt33ES+MXXJv9dE2GXRaQjl3px8vwSMBt4
+         RoZ5FZ3v29gU1sgDjgi0M5PaLRDrq3aJ3DiLIrHWjCD1qelujqfEMRd54SN8V5jJrtnH
+         X6bubiaAicahLcc/OD8VWsUUYnOO5db6RH7DuZxvBFTNBVhYAUK0z+Cr5hzFYI1N5Ib2
+         DYSrI4LAV7iowIAwwr8FrgFX0EEQVfzO0oOxJjzEW89G31Ahp0OgiGn4t38LNL4ZLJX4
+         hbpA==
+X-Forwarded-Encrypted: i=1; AJvYcCXpLg1y/Rnh/CMm5cVCHz2IrpgiGi+Em9a7qYPLuy427YsdO1wweRDIIzM2ckDQMy6SchNM+89GKBbp@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx5gd6Uk5sM9fl3oR8Ug8cUts4a1ho3y4Td+5L5ztTmuuiUtMaK
+	S5GUIMRjNbdxd7Uos0cUfUbiJtLxGd3dzyGJ/2GeH0fGkjFucKSGdr+0POp155SaKoU=
+X-Gm-Gg: ATEYQzyoVei21qiaYDlTUoIrryR0iWMzL6lT7c3WbZosDvqY0DiKzxoLd32feMaT8G2
+	fb82I5/Q6zXRut6HU6fUmhfCBm31qU6rY/L1EE2MtD4IS3VRp7F7vf6R5xb1qBCtYbb5a3J1Nag
+	MSiCgkfZpjTv6iV+WJVNpvMwlqsW4NTdw5fP7KmeIU+v2cvO5Nl+dIz5b5DwzrT5w43xDE3xSlt
+	/pscJXl8dnqcZ1/ayDOEHza9QQbnyn7QPXMp3+mA820ldmLeP2va4u1nCCKrPhhz1cD4/Txa9im
+	aLbjFxZSd8bffktVwz0WE+U3It/+QcViAKrwn+wbQ83yPi0IjmpRgVp4wy/9KwpSoaF+D/6b7gn
+	UvBczvQKV4EjqG3p6v9dVHxcOGY3nb17XLiw//ZmFFel5mA9SIs9/3pyATvllYsHmG/gS6eDDNW
+	Eib36OtObhN3uP6U9dfglsE/huzTu3X+XC6mSK8qGsimfbAg7CFbBEldUMVEtOsBIU
+X-Received: by 2002:a05:6122:6594:b0:56c:d757:a045 with SMTP id 71dfb90a1353d-56d220616ddmr4278570e0c.9.1774549453431;
+        Thu, 26 Mar 2026 11:24:13 -0700 (PDT)
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com. [209.85.221.178])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56d31d3851esm5132920e0c.10.2026.03.26.11.24.12
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Mar 2026 11:24:13 -0700 (PDT)
+Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-56ba039eecbso510413e0c.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 11:24:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXAd1owGdr5ESpMGjCnr4eVjxpRl3dWbeYGnjMwOcOhfUMLvBny7lnwB2W/t7FD889nB52hywJn4S0F@vger.kernel.org
+X-Received: by 2002:a05:6122:6594:b0:56c:d757:a045 with SMTP id
+ 71dfb90a1353d-56d220616ddmr4278555e0c.9.1774549452747; Thu, 26 Mar 2026
+ 11:24:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260324114329.268249-1-biju.das.jz@bp.renesas.com> <20260324114329.268249-2-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260324114329.268249-2-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 26 Mar 2026 19:24:01 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVjLuAWrADbKY9QqD4MY54G5P_jaU4=4aHTeiZXaoR67w@mail.gmail.com>
+X-Gm-Features: AQROBzC_p1Kljv4QwMsHpFr_0owHvWZf4w8nt4uS54T258NW1gw6G16asR7xggw
+Message-ID: <CAMuHMdVjLuAWrADbKY9QqD4MY54G5P_jaU4=4aHTeiZXaoR67w@mail.gmail.com>
+Subject: Re: [PATCH v8 01/11] dt-bindings: clock: Document RZ/G3L SoC
+To: Biju <biju.das.au@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Convert the MediaTek G3D system controller devicetree binding
-from the legacy text format to DT schema.
+Hi Biju,
 
-Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
----
-Changelog:
-Changes since v3:
-- Fix $id path to match new location
+On Tue, 24 Mar 2026 at 12:43, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> Document the device tree bindings for the Renesas RZ/G3L SoC Clock Pulse
+> Generator (CPG). RZ/G3L CPG is similar to RZ/G2L CPG but has 5 clocks
+> compared to 1 clock on other SoCs.
+>
+> Also define RZ/G3L (R9A08G046) Clock Pulse Generator Core Clocks, as
+> listed in section 4.4.4.1 ("Block Diagram of the Clock System"), module
+> clock outputs, as listed in section 4.4.2 ("Clock List r1.00") and add
+> Reset definitions referring to registers CPG_RST_* in Section 4.4.3
+> ("Register") of the RZ/G3L Hardware User's Manual (Rev.1.00 Oct, 2025).
+>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-Link to v3:https://lore.kernel.org/all/20260325181509.3430-1-challauday369@gmail.com/
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/r9a08g046-cpg.h
 
-Changes since v2:
-- Move binding to soc/mediatek directory
-- Rename file to mediatek,mt2701-g3dsys.yaml based on fallback compatible
+Missing "renesas," prefix.
 
-Link to v2:https://lore.kernel.org/all/20260323180616.23333-1-challauday369@gmail.com/
+> @@ -0,0 +1,342 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> + *
+> + * Copyright (C) 2026 Renesas Electronics Corp.
+> + */
+> +#ifndef __DT_BINDINGS_CLOCK_R9A08G046_CPG_H__
+> +#define __DT_BINDINGS_CLOCK_R9A08G046_CPG_H__
 
-Changes since v1:
-- Drop redundant description for reg
-- Drop redundant description for provider properties
+Missing RENESAS_ infix.
 
-Link to v1:https://lore.kernel.org/all/20260315080302.454233-1-challauday369@gmail.com/
+Will fix accordingly while applying.
 
----
- .../bindings/arm/mediatek/mediatek,g3dsys.txt | 30 ----------
- .../soc/mediatek/mediatek,mt2701-g3dsys.yaml  | 58 +++++++++++++++++++
- 2 files changed, 58 insertions(+), 30 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.txt
- create mode 100644 Documentation/devicetree/bindings/soc/mediatek/mediatek,mt2701-g3dsys.yaml
+Gr{oetje,eeting}s,
 
-diff --git a/Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.txt b/Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.txt
-deleted file mode 100644
-index 7de43bf41fdc..000000000000
---- a/Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.txt
-+++ /dev/null
-@@ -1,30 +0,0 @@
--MediaTek g3dsys controller
--============================
--
--The MediaTek g3dsys controller provides various clocks and reset controller to
--the GPU.
--
--Required Properties:
--
--- compatible: Should be:
--	- "mediatek,mt2701-g3dsys", "syscon":
--		for MT2701 SoC
--	- "mediatek,mt7623-g3dsys", "mediatek,mt2701-g3dsys", "syscon":
--		for MT7623 SoC
--- #clock-cells: Must be 1
--- #reset-cells: Must be 1
--
--The g3dsys controller uses the common clk binding from
--Documentation/devicetree/bindings/clock/clock-bindings.txt
--The available clocks are defined in dt-bindings/clock/mt*-clk.h.
--
--Example:
--
--g3dsys: clock-controller@13000000 {
--	compatible = "mediatek,mt7623-g3dsys",
--		     "mediatek,mt2701-g3dsys",
--		     "syscon";
--	reg = <0 0x13000000 0 0x200>;
--	#clock-cells = <1>;
--	#reset-cells = <1>;
--};
-diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,mt2701-g3dsys.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mt2701-g3dsys.yaml
-new file mode 100644
-index 000000000000..ad3df062d5db
---- /dev/null
-+++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mt2701-g3dsys.yaml
-@@ -0,0 +1,58 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/soc/mediatek/mediatek,mt2701-g3dsys.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: MediaTek G3D System Controller
-+
-+maintainers:
-+  - Sean Wang <sean.wang@mediatek.com>
-+  - Ryder Lee <ryder.lee@mediatek.com>
-+
-+description: |
-+  The MediaTek G3D system controller provides clocks and reset control
-+  for the GPU subsystem on MediaTek SoCs.
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - const: mediatek,mt2701-g3dsys
-+          - const: syscon
-+      - items:
-+          - const: mediatek,mt7623-g3dsys
-+          - const: mediatek,mt2701-g3dsys
-+          - const: syscon
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#clock-cells":
-+    const: 1
-+
-+  "#reset-cells":
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#clock-cells"
-+  - "#reset-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+     soc {
-+       #address-cells = <2>;
-+       #size-cells = <2>;
-+       g3dsys: syscon@13000000 {
-+         compatible = "mediatek,mt7623-g3dsys",
-+                      "mediatek,mt2701-g3dsys",
-+                      "syscon";
-+         reg = <0 0x13000000 0 0x200>;
-+         #clock-cells = <1>;
-+         #reset-cells = <1>;
-+       };
-+     };
+                        Geert
+
 -- 
-2.34.1
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
