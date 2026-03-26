@@ -1,52 +1,76 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F9D410D0C;
-	Thu, 26 Mar 2026 15:27:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E23402BAD
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 15:31:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774538869; cv=none; b=NjXd+bw+BpTI0vySWHuENRTR2fb8jmadrG0Nc1Qkgaj3qnVN5p8gNKg6Tqkn8kJU/8vBzvSGx67uTwvbhyewSXbiU2OmmjazZxgCrz/vQoh1Neyh1sTgeGNA/yoOVZELusIADb7AUwXeDQm6NwIRbI5Ay5g3Fa0Ts19qYpQ0G0k=
+	t=1774539078; cv=none; b=q84Ggw5Z//PZGPOzXrawQ/kuB+04jVwG0Fwn8qyCCCz/btClnPSK/r4YaOfCi/Tzm9f6YjbvGI+NX6TgFc16xc8UZsia3Kx2Q6dajagUJFAxNGPVtGlqn+XMsnySgge7lnv0+BmMq4L34khT7GF3VbFywHg4fxFGFlN3LF6RZlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774538869; c=relaxed/simple;
-	bh=oxOd6xrPkNkZz6QA/SUlqhCBJiX5nvMMbOMTlIgZTp8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SZy9fLQKsq5G+bHeqvShiJrEQlLhQ/I8yd0uz0HLdkHL/MYlwXnABeD+HIlIPPQwqdPhCPRf6GRYYYggcGiCKAqfDrzvHpxXGfDhzsuJoaYJZrXHPV9nSzjYam8YLQ7QEnVilbNwrSQbPEmwWIt01007dH5emG5QUm5h4u2iweQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=dKlkU9Fs; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1774539078; c=relaxed/simple;
+	bh=UL4qhY1GW6q837tlvmze48qQ8k9CAYqbOo9E/+wgRyY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N8pwhZf7fm3KgPSKSLBOX9ARhL7A/qMkNuNDW/kiMTv6jhz01utohVkRqaLh+/TgV8HnRffaUsbCfKiKN/OInqhB+x4ST8fOsKr7sFJMaE5cllI8mKM8TPXhXZmeUEcy7VjOH/9x9xj0655rD1D6TkHbaMoOVdho9w1TnQ+AzQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UlipWtYZ; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="dKlkU9Fs"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 6141726452;
-	Thu, 26 Mar 2026 16:27:46 +0100 (CET)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id 3h6aOJDXUMj7; Thu, 26 Mar 2026 16:27:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1774538865; bh=oxOd6xrPkNkZz6QA/SUlqhCBJiX5nvMMbOMTlIgZTp8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dKlkU9Fssx0Jr3ukCF17/A/0betPxNHrNeCa6qjpcbcXOkp3SnvSoq2xUISMdpn74
-	 m+h/5OxNEr8pL3wB+LDDS0tj9LWs6g31A0lWWeD7BQneuVVKp9X7+mNSr93TX8svEK
-	 BGvwrCdFWqEaWQ5r5BKF6V6nfglvF6nvqqni8/y3SH2rTLcKFH6KYakZq0gcS1GOXI
-	 EbKQF0Jml2/iqoErfH/5lCHZCfovtu+joo3RGEo2Z1i85qnjy0rIdBWNnoqZuALaSL
-	 2gE/b6vzEOoWM17t8PFCRgRA1WMmf7lptlq0xERn9oWCd4T4HekoKVpm+qhw3c9a9w
-	 DwGLT/IVG8aWg==
-From: Rustam Adilov <adilov@disroot.org>
-To: Chris Packham <chris.packham@alliedtelesis.co.nz>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-i2c@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UlipWtYZ"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-35c1d101355so468770a91.1
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 08:31:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774539076; x=1775143876; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=GMDen7TgZzaqdsouNW3DcdKw+MMrqwjkqsk86h7I8tE=;
+        b=UlipWtYZX0UGtXGL8QiXXsHQJr8+1pmyVRSLz0TaHiBF6EJbYlHtb6HICs74l8IeXv
+         q4uDyMQJgB4hfDL6UfLScTS7/UHMISlzHAxlmb6zb7Y7jsg0wa0GXkcnlvXTwqXV7oxS
+         uq7zks5El3bt1ZVLwyjBij/ErYZZ3AVRA6qK5/G5AL+gWfboW3bHXdX20mRyIgIYkyXW
+         LZciEjjZyurKm+jbwNOEmKUIwjaIQlF4HkYMdXuiohwmszPdEzhSoIpTAN4jQIe+Xjgq
+         oBl+RhQw4n2o8YT4guPXWXvzZ08viXrv0zPZqBmPVCI+XQIR39F/tumH9O/Ujbk9jY/u
+         9vNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774539076; x=1775143876;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GMDen7TgZzaqdsouNW3DcdKw+MMrqwjkqsk86h7I8tE=;
+        b=XteqqJ/68FrkWq/RYW3WlnSMtDOBdwlSBSIHMYR+DRkzki+b8DtIfM4GSRqQ61iiKS
+         k6quDcWyj/QNzn8ArrBN+4WIfrBGLYthybo4pBvI45aYqgo3/RSWgha24abWHdI/kO1/
+         +ml1wD9Fnc7Ny83OrFltLrPifcQuQJ/gGvWqhPDmDAu/Ks0+7GDLcHf08q1gG0CUXzAy
+         q8e6ptaRm2n+YmkXBwFBnOh8G7SyPEXKeC1o28Qp4qhRXuHGcbjMXZ5PUPpQWQfdTZau
+         h389/xPJq2JXlE4vOhA9gBES124kwFDBd0jwEilm5hEpN95DPqeXop31MPG0YW4QfXEF
+         oBlA==
+X-Forwarded-Encrypted: i=1; AJvYcCWKhKK4BB4Jlmt8/gEBwK4TZz9Qwyq7OnYbXW9KzIWIpMF5WF2ZY7bjeS9fuNii4nLDeXADdJ1OCE01@vger.kernel.org
+X-Gm-Message-State: AOJu0YxiEVfAn9sX10WOz6F+z/rVmdeltKG6W+9cLkt3F4biELGBUtqF
+	1Aois2x8J0JruWtbso+UGVobrafs+Tho4EEJdy4QLb1Kv0DCSRl/de4j
+X-Gm-Gg: ATEYQzwUHcPLnRqATWacx4SeuBCa51k1h6+nnWW+iyrGRfP5PFD4SRtbEeIoQY8VygQ
+	EVdgCuOna/vH7aJFuGgNhMauVTUm0LLVVwK6EEPtL1pDnG0bNiyLaGLFhJD8J1now8lBha7qdtY
+	WanvpVE2d48g9MTTaCPimYTjkWD23RaI6P6ewoF5/ZVHa+tqwL3UGVvgZEPNnRSMY3tJulx5T0F
+	yi667N8vBkBjeJa1H0ge2767SRxEKmmav8rGJk6Aft4/evbtClX7Q2yZ+4+fe/DXhNkjo1ac844
+	GxIgrQZqsMgl/FrAnDXPgpDHlc9/1FPsMqqYfIC3pV2ERK+v3BqUt4peM4jkB008hj8onblL8Ec
+	gpD/J05lMKLE8H7AkeNYRrvYgiOETnHMHv1IzwtuvtS45ajaodOtjzStBqh98sUdoPpdNLSAjgk
+	sO6P/v7eH0pZ6M4HzTgOX2mVss1+JZvoxn/Gx965ZeW9u6CnJ8
+X-Received: by 2002:a17:902:d501:b0:2b0:b1e2:583 with SMTP id d9443c01a7336-2b0b1e22151mr88076775ad.2.1774539075760;
+        Thu, 26 Mar 2026 08:31:15 -0700 (PDT)
+Received: from padmashree.. ([2401:4900:94ef:3410:d6b4:902f:d713:b1b1])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0bc7bbe57sm45130925ad.34.2026.03.26.08.31.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Mar 2026 08:31:15 -0700 (PDT)
+From: Padmashree S S <padmashreess2006@gmail.com>
+To: k.marinushkin@gmail.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org
+Cc: robh@kernel.org,
+	conor+dt@kernel.org,
+	krzk+dt@kernel.org,
+	linux-sound@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Rustam Adilov <adilov@disroot.org>
-Subject: [PATCH v5 8/8] i2c: rtl9300: add RTL9607C i2c controller support
-Date: Thu, 26 Mar 2026 20:26:56 +0500
-Message-ID: <20260326152656.14030-9-adilov@disroot.org>
-In-Reply-To: <20260326152656.14030-1-adilov@disroot.org>
-References: <20260326152656.14030-1-adilov@disroot.org>
+	linux-kernel@vger.kernel.org,
+	Padmashree S S <padmashreess2006@gmail.com>
+Subject: [PATCH] dt-bindings: sound: Convert pcm3060 to DT schema
+Date: Thu, 26 Mar 2026 21:00:40 +0530
+Message-ID: <20260326153041.496811-1-padmashreess2006@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,155 +79,98 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the internal I2C controllers of RTL9607C series based
-SoCs. Add register definitions, chip-specific functions and macros too.
+Note:
+* This patch is part of the GSoC2026 application process for device tree bindings conversions
+* https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
 
-Make use of the clk introduced from the previous patch to get the clk_div
-value and use it during the rtl9607c channel configuration.
-
-Introduce a new EXT_SCK_5MS field to the reg fields struct which is going
-to be initialized by rtl9607c init function at the end of the probe.
-
-This patch depends on all the previous patches in this patch series.
-
-Reviewed-by: Chris Packham <chris.packham@alliedtelesis.co.nz>
-Signed-off-by: Rustam Adilov <adilov@disroot.org>
+Signed-off-by: Padmashree S S <padmashreess2006@gmail.com>
 ---
- drivers/i2c/busses/i2c-rtl9300.c | 70 ++++++++++++++++++++++++++++++++
- 1 file changed, 70 insertions(+)
+ .../devicetree/bindings/sound/pcm3060.txt     | 23 ----------
+ .../devicetree/bindings/sound/pcm3060.yaml    | 45 +++++++++++++++++++
+ 2 files changed, 45 insertions(+), 23 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/pcm3060.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/pcm3060.yaml
 
-diff --git a/drivers/i2c/busses/i2c-rtl9300.c b/drivers/i2c/busses/i2c-rtl9300.c
-index b718b74afe0d..8cedffbb2964 100644
---- a/drivers/i2c/busses/i2c-rtl9300.c
-+++ b/drivers/i2c/busses/i2c-rtl9300.c
-@@ -57,6 +57,7 @@ enum rtl9300_i2c_reg_fields {
- 	F_SDA_SEL,
- 	F_BUSY,
- 	F_CLK_DIV,
-+	F_EXT_SCK_5MS,
- 
- 	/* keep last */
- 	F_NUM_FIELDS
-@@ -77,8 +78,10 @@ struct rtl9300_i2c_drv_data {
- 
- #define RTL9300_I2C_MUX_NCHAN	8
- #define RTL9310_I2C_MUX_NCHAN	12
-+#define RTL9607_I2C_MUX_NCHAN	1
- 
- #define RTL9300_I2C_MAX_DATA_LEN	16
-+#define RTL9607_I2C_MAX_DATA_LEN	4
- 
- struct rtl9300_i2c {
- 	struct regmap *regmap;
-@@ -127,6 +130,14 @@ struct rtl9300_i2c_xfer {
- #define RTL9310_I2C_MST_MEMADDR_CTRL			0x4
- #define RTL9310_I2C_MST_DATA_CTRL			0x8
- 
-+#define RTL9607_I2C_CONFIG				0x22f50
-+#define RTL9607_IO_MODE_EN				0x23014
-+#define RTL9607_I2C_IND_WD				0x0
-+#define RTL9607_I2C_IND_ADR				0x8
-+#define RTL9607_I2C_IND_CMD				0x10
-+#define RTL9607_I2C_IND_RD				0x18
-+#define RTL9607_REG_ADDR_8BIT_LEN			0
+diff --git a/Documentation/devicetree/bindings/sound/pcm3060.txt b/Documentation/devicetree/bindings/sound/pcm3060.txt
+deleted file mode 100644
+index 97de66932d44..000000000000
+--- a/Documentation/devicetree/bindings/sound/pcm3060.txt
++++ /dev/null
+@@ -1,23 +0,0 @@
+-PCM3060 audio CODEC
+-
+-This driver supports both I2C and SPI.
+-
+-Required properties:
+-
+-- compatible: "ti,pcm3060"
+-
+-- reg : the I2C address of the device for I2C, the chip select
+-        number for SPI.
+-
+-Optional properties:
+-
+-- ti,out-single-ended: "true" if output is single-ended;
+-                       "false" or not specified if output is differential.
+-
+-Examples:
+-
+-	pcm3060: pcm3060@46 {
+-		 compatible = "ti,pcm3060";
+-		 reg = <0x46>;
+-		 ti,out-single-ended = "true";
+-	};
+diff --git a/Documentation/devicetree/bindings/sound/pcm3060.yaml b/Documentation/devicetree/bindings/sound/pcm3060.yaml
+new file mode 100644
+index 000000000000..a0455c9dad73
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/pcm3060.yaml
+@@ -0,0 +1,45 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/pcm3060.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- static int rtl9300_i2c_reg_addr_set(struct rtl9300_i2c *i2c, u32 reg, u16 len)
- {
- 	int ret;
-@@ -178,6 +189,27 @@ static int rtl9300_i2c_config_chan(struct rtl9300_i2c *i2c, struct rtl9300_i2c_c
- 	return 0;
- }
- 
-+static int rtl9607_i2c_config_chan(struct rtl9300_i2c *i2c, struct rtl9300_i2c_chan *chan)
-+{
-+	const struct rtl9300_i2c_drv_data *drv_data;
-+	int ret;
++title: PCM3060 audio CODEC
 +
-+	if (i2c->sda_num == chan->sda_num)
-+		return 0;
++maintainers:
++  - Kirill Marinushkin <k.marinushkin@gmail.com>
 +
-+	ret = regmap_field_write(i2c->fields[F_CLK_DIV], chan->clk_div);
-+	if (ret)
-+		return ret;
++properties:
++  compatible:
++    const: ti,pcm3060
 +
-+	drv_data = device_get_match_data(i2c->dev);
-+	ret = drv_data->select_scl(i2c, i2c->scl_num);
-+	if (ret)
-+		return ret;
++  reg:
++    maxItems: 1
++    description: |
++      The I2C address of the device
++      or SPI chip select number.
 +
-+	i2c->sda_num = chan->sda_num;
-+	return 0;
-+}
++  ti,out-single-ended:
++    type: boolean
++    description: |
++      If present, the output is single-ended.
++      If absent, the output is differential.
 +
- static void rtl9300_i2c_config_clock(u32 clock_freq, struct rtl9300_i2c_chan *chan)
- {
- 	struct rtl9300_i2c *i2c = chan->i2c;
-@@ -202,6 +234,13 @@ static void rtl9300_i2c_config_clock(u32 clock_freq, struct rtl9300_i2c_chan *ch
- 	}
- }
- 
-+static void rtl9607_i2c_config_clock(u32 clock_freq, struct rtl9300_i2c_chan *chan)
-+{
-+	struct rtl9300_i2c *i2c = chan->i2c;
++required:
++  - compatible
++  - reg
 +
-+	chan->clk_div = clk_get_rate(i2c->clk) / clock_freq - 1;
-+}
++additionalProperties: false
 +
- static int rtl9300_i2c_read(struct rtl9300_i2c *i2c, u8 *buf, u8 len)
- {
- 	u32 vals[4] = {};
-@@ -422,6 +461,11 @@ static int rtl9300_i2c_init(struct rtl9300_i2c *i2c)
- 	return regmap_field_write(i2c->fields[F_RD_MODE], 0);
- }
- 
-+static int rtl9607_i2c_init(struct rtl9300_i2c *i2c)
-+{
-+	return regmap_field_write(i2c->fields[F_EXT_SCK_5MS], 1);
-+}
++examples:
++  - |
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
 +
- static int rtl9300_i2c_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -574,6 +618,31 @@ static const struct rtl9300_i2c_drv_data rtl9310_i2c_drv_data = {
- 	.reg_addr_8bit_len = RTL9300_REG_ADDR_8BIT_LEN,
- };
- 
-+static const struct rtl9300_i2c_drv_data rtl9607_i2c_drv_data = {
-+	.field_desc = {
-+		[F_SCL_SEL]		= GLB_REG_FIELD(RTL9607_IO_MODE_EN, 13, 14),
-+		[F_EXT_SCK_5MS]		= MST_REG_FIELD(RTL9607_I2C_CONFIG, 26, 26),
-+		[F_DEV_ADDR]		= MST_REG_FIELD(RTL9607_I2C_CONFIG, 14, 20),
-+		[F_MEM_ADDR_WIDTH]	= MST_REG_FIELD(RTL9607_I2C_CONFIG, 12, 13),
-+		[F_DATA_WIDTH]		= MST_REG_FIELD(RTL9607_I2C_CONFIG, 10, 11),
-+		[F_CLK_DIV]		= MST_REG_FIELD(RTL9607_I2C_CONFIG, 0, 9),
-+		[F_I2C_FAIL]		= MST_REG_FIELD(RTL9607_I2C_IND_CMD, 3, 3),
-+		[F_BUSY]		= MST_REG_FIELD(RTL9607_I2C_IND_CMD, 2, 2),
-+		[F_RWOP]		= MST_REG_FIELD(RTL9607_I2C_IND_CMD, 1, 1),
-+		[F_I2C_TRIG]		= MST_REG_FIELD(RTL9607_I2C_IND_CMD, 0, 0),
-+		[F_MEM_ADDR]		= MST_REG_FIELD(RTL9607_I2C_IND_ADR, 0, 31),
-+	},
-+	.select_scl = rtl9310_i2c_select_scl,
-+	.config_chan = rtl9607_i2c_config_chan,
-+	.config_clock = rtl9607_i2c_config_clock,
-+	.misc_init = rtl9607_i2c_init,
-+	.rd_reg = RTL9607_I2C_IND_RD,
-+	.wd_reg = RTL9607_I2C_IND_WD,
-+	.max_nchan = RTL9607_I2C_MUX_NCHAN,
-+	.max_data_len = RTL9607_I2C_MAX_DATA_LEN,
-+	.reg_addr_8bit_len = RTL9607_REG_ADDR_8BIT_LEN,
-+};
-+
- static const struct of_device_id i2c_rtl9300_dt_ids[] = {
- 	{ .compatible = "realtek,rtl9301-i2c", .data = (void *) &rtl9300_i2c_drv_data },
- 	{ .compatible = "realtek,rtl9302b-i2c", .data = (void *) &rtl9300_i2c_drv_data },
-@@ -583,6 +652,7 @@ static const struct of_device_id i2c_rtl9300_dt_ids[] = {
- 	{ .compatible = "realtek,rtl9311-i2c", .data = (void *) &rtl9310_i2c_drv_data },
- 	{ .compatible = "realtek,rtl9312-i2c", .data = (void *) &rtl9310_i2c_drv_data },
- 	{ .compatible = "realtek,rtl9313-i2c", .data = (void *) &rtl9310_i2c_drv_data },
-+	{ .compatible = "realtek,rtl9607-i2c", .data = (void *) &rtl9607_i2c_drv_data },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, i2c_rtl9300_dt_ids);
--- 
-2.53.0
++      pcm3060: audio-codec@46 {
++        compatible = "ti,pcm3060";
++        reg = <0x46>;
++        ti,out-single-ended;
++      };
++    };
+\ No newline at end of file
+2.43.0
 
