@@ -1,151 +1,108 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C735C382F39
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 11:01:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE2F3845C9;
+	Thu, 26 Mar 2026 11:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774522890; cv=none; b=XId+mA1fr0G0G2FDv3BYX89OWrR78HC6IsHAi/VzfFg+85MggCAhW46CjPbeF1+wBIpOv13NFA0ez3ZqJPr2P5rtOT5Q8GVDLyuIeVyLT6LtHtWwrgjIhUBTwn/iGmWFFI5Zefx69YHuYDBUyHlYZwDE/UsjuQNfu3fqCqQ9gIk=
+	t=1774523010; cv=none; b=rOzVCQAEKAHW0uydwfzh63vepsrdLhK9AdTsl0F0z1oduh25rN6JJMXBF7oNY9sYmQ9nYwoQj/SdwbIP4WWs1G+vhmcM0stOgX8LtpUZ1mQgZTtOBiHeumN7l3G1onmivVdnG/FUNXJyhRvIoF8rtA5qzn0DJUSsFtIfA9rGNrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774522890; c=relaxed/simple;
-	bh=cDaY57qKIm9pIDy7cQO/mh31CNZBhQYkCGOhhBSUbv8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ljTM9om3yO5I5Fgiwh/WF4Sw1WAuuRzNz7mWwjDRe1fyLdc2Lmq9zBxJIZJOXjDZM2R5nSlYjTSLkrf94aYskuP9SI5T40VsCZMCHzS+8WPGnZ+1A58net07KEp6p2cvj6BWcx/IPQOr/i3dp2BEn4hXQXnXBfQOLwqsg+++oEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F6YyJQzE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Zy9yhvzs; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774523010; c=relaxed/simple;
+	bh=enWWOHgo6xY4oSckq4fSt/3V6ILppOAOlBWBTMp/XRI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ulxMVwU6Qe8tU7fKukGcGcvSb9l+s8IuO9C50cFxJwFubThCWqYr2mfUso6qxEiEcNpTdTrxklMCr4vfGXvVQJEy4ocLB/5vGnwF73MTb+AR/xvRHRDRppZocMQa7RuZjb0wk+FsZOu2443126Y9FcuClz5yV5jSS03g19WIEeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ACqXHXtd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F6YyJQzE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zy9yhvzs"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62Q9UgTp3768866
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 11:01:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	l/Y8amr0VtrBzPYxQ+o9DK37io1izH8toJT61N372kc=; b=F6YyJQzE7+q02wN6
-	KXupMiSQh26bfdKkPgK6VlpzarxoN6W7akyix8e5j7ewXh0kbC9LUdEZuc+XETzE
-	LLvBHfWVrbw1wlmVyyOIGCbi07lfvJaax+10AcFXultOMhx6F4l7RxhAKmWAWoDi
-	FFfeplXtUbPEJ3QqyacEIVzyuG0TT4VELuHxlC6wIkycQ9nLxRR06Gth5EDH54dM
-	rNtFeF4to6Oj7XiAYQI0/Po+7ZsvLbKvwOdmBf/9+P7l4z8AQ+mdrI3yKKoGCiWE
-	0/T9AE09gQKnrpnvJuUaCYIrABav1zSX6kSTOS0zKZOC0MTHzwCtFJdYtdxCQ2Q/
-	GjshFA==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d527yr9vc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 11:01:28 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-604d532d35bso37503137.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 04:01:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774522887; x=1775127687; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=l/Y8amr0VtrBzPYxQ+o9DK37io1izH8toJT61N372kc=;
-        b=Zy9yhvzsCRpbQI6ym/seJn4MsQfdXD05bHRpzL96bhT3VpuBU7rUaxrrFdB0/AGzKH
-         K8pFPUuaYnWAuZga7/C93kOoVNhJ85EfgFCra+JalIt4xnEm5UoctyDYjzy9ZL8ozzdG
-         q0iIO7275oWeGHU+XR1sByGg8XxYglScCZ7rZorF12SQEkoF4PX1tT4uBwG2nGvIEV9z
-         mG5f3is/g3V1BSCkX1hfhWXc7u3YFw9DOkv1IZsRJVrJLJKYodI6A/9lgoc7KofeeioC
-         jjlFuT5UgZke1d72aXryumEVlQeHRvLyVjI9ZAZcAtgP1xycfPzye2jYyuzzE/AX/oQp
-         gu5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774522887; x=1775127687;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=l/Y8amr0VtrBzPYxQ+o9DK37io1izH8toJT61N372kc=;
-        b=Yq0hTOEeZJJ+ib4ZDN4HRr4j5A5IHFtSXQf/sYG4cAswrt7RotfsOfLgTiJHkAdNHn
-         fnVbbgqSKc6GRuLy5O93nEXgSR9JipM0ul2iKmpTQTdy/XodFXyLjAOd1l4fIuVNNlvf
-         RDCrOPQZAiGaa00HEVnWyrZ77FQI9LLI/KhbLCtSO+E+OS0L5CxLMHtRvdGuFlMVyjOZ
-         byP5tnUEYPwbAsOZ19pl9SfVcatNCNz7y4HnPDseWy3bM6YY25ZrlbXavwo+4JGANIvo
-         NZ6WJz9Abuo24R3Hp0AFLMc1MpyePdcijomuGbO3aLrAZ5xxaBv+KZLFMDofGLk351Gp
-         zldA==
-X-Forwarded-Encrypted: i=1; AJvYcCX0hyhzDpU7WB2WMaCSE+a65+48ogk8FIUNqVM/BcQDGiZscoV40e5d0nUG3vsDnHtbJfkivaEJ6e8w@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVfq9DoR01k1Hk1MmhjoimBJgWK+Qvr9Jq8/RaNypEaY/BOJlJ
-	bqQTycXdNpSWh4q8iJbjaSXNT8fmIDam99tbE/QyObwB/Vl5OddnCMpPKJHoK4MjF6dr5bqwq7p
-	x2xG6XNyMVSUKDsI/t4CXjzV9y9/2TwXrFbeN4pA+FUripiPgxzW2DrHLcpTRq410
-X-Gm-Gg: ATEYQzyhab4gtRKlp5kjauB2WV/0asSpxxYsfFaRLDVyMDwYToQ8K/qUJ/ei3Q2MAu7
-	9o2GNMi8sZTSw6hn8a8xCx+VQ0R4RRx97EoU5O93/wqngr+p43ubuy8ga60epVAqArpIofa5XCZ
-	2y7GUufai1T93/dn3hxSWrGdSLGs6trprZaMfXM8LvufFRWffOBwAdlDZ+88dqUBHfFYTDlGg3m
-	xk81AwKLD9+gszhPRRqF6dwbGdrNODrfUVzYksPpeZSK444xdciv76reAklCdTyzTBwlYrn+NLW
-	TwlaruHkWZJ9tXjuCSnsl5PWxD6rsumtn6tPrfOroby92GAMpElvyQ4VpXkm3UxE+1yjuOVoLyp
-	FGOynM8cG0SrBkKek7wPMIa1doAyJnsyrvRWpKOc3FaPjAYT8GAWG83OjNfeYQbyzVD6ntVq9ej
-	g8yLg=
-X-Received: by 2002:a05:6102:2910:b0:604:e850:92cf with SMTP id ada2fe7eead31-604e850937fmr121281137.3.1774522887233;
-        Thu, 26 Mar 2026 04:01:27 -0700 (PDT)
-X-Received: by 2002:a05:6102:2910:b0:604:e850:92cf with SMTP id ada2fe7eead31-604e850937fmr121241137.3.1774522886657;
-        Thu, 26 Mar 2026 04:01:26 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9b203c0cffsm103374766b.35.2026.03.26.04.01.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Mar 2026 04:01:25 -0700 (PDT)
-Message-ID: <ed0c8b2f-57c9-49d3-963e-a6d4b6d242fd@oss.qualcomm.com>
-Date: Thu, 26 Mar 2026 12:01:22 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ACqXHXtd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 599CFC116C6;
+	Thu, 26 Mar 2026 11:03:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774523009;
+	bh=enWWOHgo6xY4oSckq4fSt/3V6ILppOAOlBWBTMp/XRI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ACqXHXtdgRCIVbr1z+TKgik2DJvFyv/yUK1IxzyKcNWFpOq8NWJY+XaBR/lsv2oVC
+	 kS9w0kWaQAwRwHpcKW50ZJedzlMjdvbp8Cg2hPx9aHLXeJaryANnhBJy6jdNc2m85b
+	 hjltH+IZmJfx2uHJtZ2zsNswL3MCXfyd/UtENRqovtx+FSGiVPAswYtaxVqTQpKyKC
+	 JnpCVgFsnXqtUTQBg5mJuhJP+kbW/fgb2KDXVJPi1a6d2uUhIVdGlsMtfrYXIVTp85
+	 iyMqUXCaHYVcqx+Obe7gU0fFxr2IUfW8xrwHU5n+9KK3/H0gyzQxtXmqxnLfvx7MK7
+	 dEG5umlaCoXiw==
+Date: Thu, 26 Mar 2026 12:03:27 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Chun Ng <chunn@nvidia.com>, linux-tegra@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, thierry.reding@gmail.com, 
+	jonathanh@nvidia.com, ankitag@nvidia.com
+Subject: Re: [PATCH 4/4] arm64: tegra: add e2426-1099+e2423-1099 support
+Message-ID: <acUQ1mOQ2ajrnUC9@orome>
+References: <20260325212628.1234082-1-chunn@nvidia.com>
+ <20260325212628.1234082-5-chunn@nvidia.com>
+ <20260326-valiant-marmot-of-variation-9df0be@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] ARM: dts: qcom: pm8921: add labels for ADC channels
-To: Antony Kurniawan Soemardi <linux@smankusors.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David Lechner <dlechner@baylibre.com>,
-        =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>,
-        Andy Shevchenko <andy@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-        phone-devel@vger.kernel.org
-References: <20260326-pm8xxx-xoadc-label-v1-0-027805dad4db@smankusors.com>
- <20260326-pm8xxx-xoadc-label-v1-1-027805dad4db@smankusors.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260326-pm8xxx-xoadc-label-v1-1-027805dad4db@smankusors.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=dLurWeZb c=1 sm=1 tr=0 ts=69c51208 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=wxLWbCv9AAAA:8 a=EUspDBNiAAAA:8 a=Ke7W15zrM9QGlUBYRRsA:9 a=QEXdDO2ut3YA:10
- a=crWF4MFLhNY0qMRaF8an:22 a=QJY96suAAestDpCc5Gi9:22
-X-Proofpoint-ORIG-GUID: PMnagZGcZ4FNY-n-gXHyYQ9cITU2t7WC
-X-Proofpoint-GUID: PMnagZGcZ4FNY-n-gXHyYQ9cITU2t7WC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI2MDA3NiBTYWx0ZWRfX8brP9CB2XEpZ
- UygxuU9LJqRaFN/C7Ij5BDnoRue3Mfg6+ibZSIOrn9NMKhDkQVMV70KAWzu2qXxL0zAPi2RE5Kf
- b6+TZs7rZjTuj/BhsiaHgDZ6uxe3EOD7zSCIgq5H3dOfKHUzIBe3Cr5yycezERvENhEMk42Ne48
- tixDdSAcmZbvc2Hm6evHmzDjyfD4VHzs6hd7MjRINQiZ7K90bOKLezoHmGnD8ripM1hd4+G3/J7
- UynLZCtm7WmaROoCPMMZxJT6lTslRnEcjGKhWh8NhUI0v7dbE1hmUA28+avAG3Vle5Cftg0UW5N
- 2zqus5T4p1MeSRwyOLSvmqazcKdLXTK67f1R3HeK0jTqhIMoKinO+64glCae6ZQ1lWDo9U5psrj
- xhCNt/Vy8nvMe+QDnGpTJcHKoTBs7EI4MaU/Zuug//Kcy43wOUq3eQDmwhQkfZV6KRQu70Ak1SO
- MMcOjM+kqrVr3kgN99w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-26_02,2026-03-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 spamscore=0 priorityscore=1501 bulkscore=0
- phishscore=0 impostorscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603260076
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sdeoinhtsefdqaur"
+Content-Disposition: inline
+In-Reply-To: <20260326-valiant-marmot-of-variation-9df0be@quoll>
 
-On 3/25/26 10:02 PM, Antony Kurniawan Soemardi wrote:
-> Add label properties to all XOADC ADC channel nodes in the PM8921 PMIC
-> device tree. This allows userspace and drivers to identify channels by
-> name rather than relying on datasheet name.
-> 
-> Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
-> ---
 
-I can't find a reference but these look reasonable
+--sdeoinhtsefdqaur
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 4/4] arm64: tegra: add e2426-1099+e2423-1099 support
+MIME-Version: 1.0
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Thu, Mar 26, 2026 at 11:18:17AM +0100, Krzysztof Kozlowski wrote:
+> On Wed, Mar 25, 2026 at 09:26:28PM +0000, Chun Ng wrote:
+> > Add the Tegra238 SoC device tree (tegra238.dtsi) and a minimal device
+> > tree for the Tegra238 E2426-1099+E2423-1099 engineering reference
+> > platform. The device-tree is not yet bootable and further enablement
+>=20
+> Then drop it. If this cannot be booted then it is pointless in the
+> kernel, no benefit, no one can ever use it.
 
-Konrad
+The purpose of this series is to establish a common baseline that people
+can use to work on top off. We expect the non-bootable state to be very
+temporary, but for practical reasons I want to get this merged so we can
+make quicker progress.
+
+[...]
+> > +		hsp_top0: tegra-hsp@3c00000 {
+> > +			compatible =3D "nvidia,tegra234-hsp", "nvidia,tegra194-hsp";
+>=20
+> DTSI says 238, compatible says 234.
+
+Tegra238 is a derivative of Tegra234, so there's even more similarities
+than we typically have across generational gaps. Your recent comments
+suggested that you'd like to see new compatible strings no matter how
+minimal (or even non-existent) the differences might be, so I suppose we
+could prepend a Tegra238-specific compatible to this.
+
+Thierry
+
+--sdeoinhtsefdqaur
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnFEnsACgkQ3SOs138+
+s6EUUxAAvyrXZ3GyM6LjtSf3cTRQwqoUCHPDaHIBG46UfczInOAJmnMHrREcxG4y
+ekB+/30JQDlH/uxMA00BR+BBZuhP89WfP/qGO1KeuE4iTp5QI30f8RV/ECexLOs8
+Nj31/WPewrTM1JqG+CMkTKnR0rw9RJeew1hh0MjaNzm6m1Vtw8F9Mk8huE0oZQq3
+kZr3bVQFxi3Wlow1T6RI+PU0p+EhJ1T0kFAojCtR0jXPrJTbocvQDSOGxdVHwW5e
+wP7JeFlqjU4s3Gt1h82Cw6NfDrGEMmcjCmKUvNiWn53Amln489vP2zrHCHbvkMIJ
+QEBt2piFsZwZ+oiIQ9d+6d6NeCy0OhmKqsTN0evsmuFWsbm2Knv6x6thkcy900pA
+9SKvm1KCCnvY7OS61VdpLRQFTqp+QGlysaAl0E1Jy4I+t3USevZvf+xwipWPYyWx
+5nyVAO3kU3uOJBo4YvZoudhYBAU9QxVRkxHL7dxcKA2LZcVeF2AbeAzagWnxsSqN
+FDeAaBOd2YAfgpNvASUfKkuGGdeT9TCkrzzvsSVTjU+meWLsAk7XvH6W/CtoL43e
+QJ/FnEJizTWQ5uMq6AbYBcUCsvmkut8sK7LJ0y5S3A1+PFGhFh1BUzz3hxZk3hd+
+K5UH5Q96XpzWkQFbcXj0DZwfONino9SqOI9N+KqWrqRT3d7gmsU=
+=46Ah
+-----END PGP SIGNATURE-----
+
+--sdeoinhtsefdqaur--
