@@ -1,247 +1,115 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3034C374E76
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 08:54:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC2D242D62;
+	Thu, 26 Mar 2026 08:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774515299; cv=none; b=OSWxQUFmSKZdKb7gXRhsOvwj3WrZu7yK9ypwvSzfYZDMbBdV5l0LTDoNiRY3Xs/utnbqE9J2iq0FmBBb6hDqM1JEkNKKqGDjOdVvEJBjHNLd4UA1CLcDpdlHnXnvF4NMlznXBCBzfW9FXBIFV+1v1OCqy2mKChq0yA3Hi/1tBtI=
+	t=1774515505; cv=none; b=kYcqdFdmdVgzyXqGoZoi/7jPX4pqTtbWRHnilKPy4M9yKKn4AxqQg1d/rNBfHDR5CrTkaWXGqM7uToG22f1m3zOtVv/cTrgWgRpNxWEzACN85ANzbYcGsuiN0HcYs26TA6/0du6oy/Js7/fOd4CSj0PN/qzprPaRZ3K5DgKEeF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774515299; c=relaxed/simple;
-	bh=sDMEuZ5NbvWpRTjfdc6QeJE8QGjyvgn4ez8QF19VQ0I=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=mzZN+7zGHFp1EyYJxmeKRmJO9V9xw8jB5yU0a8DMG9cO+oOvklRgOjE6fRwwFnJyrtrk1PP/c78CreLryT7M9b0bHdfTFDGVAyGe5HdTlfZCmyutPvO6WBWRv+EtSePZv1JDHiKQBnXJFUfbqdDO5qAP5RCDjDJ2K1GeZudDk4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=o0z1S6+a; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1774515505; c=relaxed/simple;
+	bh=Q2z7nIl9Zoe/83NJvE1/x3WCuB6ACYFQkU+mBKqbubU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UdE/+ZfDOA7E0+Ioo68pqR0E3d3cpk5USVIe49UFF93Y4idN+2SrZ7RCOO6HWs++zoGVXUfdiNZeoO+L9WJlYIJNRt5KHGZRzN/JE62ZRzzXIeu/IUplNcoIgh2pHEux2HBxj/96UPKzOxtTv5549bQMZNHmUo4+5I6Q74pZgMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vkKVLOOl; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="o0z1S6+a"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-48558d6ef83so6279325e9.3
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 01:54:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774515295; x=1775120095; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=NPOq+t0BPIjTXIy85z0pLZNyx1Sqnvxn5kHxjGZM2Uw=;
-        b=o0z1S6+aU93OlkOzo7sM3NMZSGxiJPty9c6uVfGVerbwntDWAYebxSBkmpLFLWMiw0
-         mwCcud2XkX0Qg6vp6ndNzPT/P+wcUe/jxNZsnxRXIpd7Siezh6TxU7oEwh9VaueEFh0H
-         2D1hIXgW1V3YfrEbS4zcmb5uD3VxENuhFD2aEhv9lti8iN3RkVV+OHhdyzkKwip3sB7b
-         uQFQCd1a6Ujgd4biVNtE7BHKkqu8ElvOtbcNHEDGFALH8cDv//LYTyu+g187TVw91qHg
-         Yn88dudTl3SOOJS2tAyXI+6qKuUz75zsgQO+9f7ua2x7hS/WflKKMKcWysJXqLy/l4Ph
-         JqzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774515295; x=1775120095;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=NPOq+t0BPIjTXIy85z0pLZNyx1Sqnvxn5kHxjGZM2Uw=;
-        b=ecHyBwLZ+YCCDslBCa8e/5xt5XmIFnP2s3ZaqnC9bRTpwQMvjq8KCLTTJxrtDA0Uxu
-         lEKo118RgL9FwAj+yccYEKLII7WFCUQTyvxGQUWiADD05QW9xiIJnAbSTrEsWFK6lMB8
-         gweZ7GuuojbQX3DGzt2uQT4AOVbpnUHpZPwNvkdZ1mjoy40Pvc0h+1yB7p3cmbxFFlid
-         AQ/uZzylWu7JRQJNIK3zYX3Pes1ex2bFYvt91yqhFW455EkaPe4aQK7YFRST5aE7BjSV
-         qDNEbMO1v2GiTqTnSCaI6qDkDQCkunHw89BcKFdih8LCHx3ei2uuNbnnzslW9Aha8Zcy
-         enKg==
-X-Forwarded-Encrypted: i=1; AJvYcCXzFdagV1xImKuVgTN9N0jK4hEMKI9c0B5PxE4yMrX5HnDyME1rfJDOq47Yn7Mq132x4V0eDCGKuPn4@vger.kernel.org
-X-Gm-Message-State: AOJu0YxROkmLkagjkZVHOeOGSl1eI6BAWO/XaNOB1Okwv5fi/lkECKbA
-	0viwIyDALsO9PYi8lA6Mwq4ef/kSTnlPpDZT2A/RzFz6E5l0oeMkiCRds3X8BoE9Z3U=
-X-Gm-Gg: ATEYQzzxpk2bDFdA4PPs+o92U7NMSzyBMK2WMcyodLgm4kzMHTLAX0fGWv4WmERFJiC
-	tkbbCL1mHojt6RTbMpU0nW9nTV6/Bbs8LF7/7IWX1qLoXoSGBtFl++TXJa/QKlU08tIZ4RRQc8W
-	JVrNTJWw/yjT++xq1lyFIdhHiXo/ZPs8BOWTJYFWrAeJpIeRGNM60l0GzmdH9SREy8QPmWpHNyW
-	xDYB5sbDyEMRgc6s4HLzBjQrtxCciWDe95MUESXaT8sXpD/jzD8yqYyycEtcrP/WEiIllcwhOOw
-	qmXPuTNPqkaa+j4Ffyfnl/3lzRnvtUviAeGF75G7zQaz/h9SWOvofW+//lmZEAwT9G8usLaFh2+
-	OQuJXRntPyc2zAjKFKPZALrPplniaP7KrBVqNSdpZa5+5ZZECcmvugGhLgug6coGd7Ec9xgDNaB
-	D9F9x6/vDcbe6rUYe5/QTlgK4ku7NSxp+OKfsJfGBQe5PEz65JOQPMxzJ9dl5mpNhK4tVWNXFc8
-	SmMWek=
-X-Received: by 2002:a05:600c:3e1a:b0:486:af22:4a2a with SMTP id 5b1f17b1804b1-48715fbabedmr88067005e9.7.1774515295443;
-        Thu, 26 Mar 2026 01:54:55 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:8431:f88b:714d:f78d? ([2a01:e0a:106d:1080:8431:f88b:714d:f78d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48720901b90sm10376515e9.17.2026.03.26.01.54.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Mar 2026 01:54:55 -0700 (PDT)
-Message-ID: <512d95b5-5348-4c7c-961c-b6ca1431cee4@linaro.org>
-Date: Thu, 26 Mar 2026 09:54:54 +0100
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vkKVLOOl"
+Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id CECCAF90;
+	Thu, 26 Mar 2026 09:57:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1774515423;
+	bh=Q2z7nIl9Zoe/83NJvE1/x3WCuB6ACYFQkU+mBKqbubU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vkKVLOOlHLE3wSuMiYkfrrBCYD3tc+A0g2WIsGFOY7JCZMxsqpolgMrhXVdb0x4+r
+	 SMp/DGTgBsYtx9TbFzol6XviLPVgJx+w9hlBtyHCyWgHgIdplETSXdBrgXEaT3V1eD
+	 qDIEoQBl8EJrbwbPDY12yMEX8gEsuiWQQP2wBVxs=
+Date: Thu, 26 Mar 2026 10:58:20 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Marco Felsch <m.felsch@pengutronix.de>,
+	Gilles Talis <gilles.talis@gmail.com>,
+	Viorel Suman <viorel.suman@nxp.com>,
+	Shengjiu Wang <shengjiu.wang@nxp.com>,
+	Jagan Teki <jagan@amarulasolutions.com>,
+	Manoj Sai <abbaraju.manojsai@amarulasolutions.com>,
+	Matteo Lisi <matteo.lisi@engicam.com>,
+	Ray Chang <ray.chang@technexion.com>,
+	Richard Hu <richard.hu@technexion.com>, Heiko Schocher <hs@denx.de>,
+	Martyn Welch <martyn.welch@collabora.com>,
+	Josua Mayer <josua@solid-run.com>,
+	Goran =?utf-8?B?UmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
+	=?utf-8?B?QsO2cmdlIFN0csO8bXBmZWw=?= <boerge.struempfel@gmail.com>,
+	Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+	Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, kernel@dh-electronics.com,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v2 09/12] arm64: dts: imx8mp-sr-som: Correct PAD settings
+ for PMIC_nINT
+Message-ID: <20260326085820.GA2770072@killaraus.ideasonboard.com>
+References: <20260326-imx8mp-dts-fix-v2-v2-0-62c4ce727448@nxp.com>
+ <20260326-imx8mp-dts-fix-v2-v2-9-62c4ce727448@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v4 9/9] arm64: dts: amlogic: t7: khadas-vim4: Add MMC
- nodes
-To: Ronald Claveau <linux-kernel-dev@aliel.fr>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
- Johannes Berg <johannes@sipsolutions.net>, van Spriel <arend@broadcom.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-wireless@vger.kernel.org
-References: <20260325-add-emmc-t7-vim4-v4-0-44c7b4a5e459@aliel.fr>
- <20260325-add-emmc-t7-vim4-v4-9-44c7b4a5e459@aliel.fr>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260325-add-emmc-t7-vim4-v4-9-44c7b4a5e459@aliel.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260326-imx8mp-dts-fix-v2-v2-9-62c4ce727448@nxp.com>
 
-On 3/25/26 10:15, Ronald Claveau wrote:
-> Enable and configure the three MMC controllers for the Khadas VIM4 board:
-> - sd_emmc_a: SDIO interface for the BCM43752 Wi-Fi module
-> - sd_emmc_b: SD card slot
-> - sd_emmc_c: eMMC storage
+On Thu, Mar 26, 2026 at 03:28:13PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
 > 
-> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> With commit 5d0efaf47ee90 ("regulator: pca9450: Correct interrupt type"),
+> there might be interrupt storm for this board. Need to set PAD PUE and PU
+> together to make pull up work properly.
+> 
+> Fixes: a009c0c66ecb4 ("arm64: dts: add description for solidrun imx8mp som and cubox-m")
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
 > ---
->   .../dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts  | 90 +++++++++++++++++++++-
->   1 file changed, 89 insertions(+), 1 deletion(-)
+>  arch/arm64/boot/dts/freescale/imx8mp-sr-som.dtsi | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-> index 770f06b0b16c7..5a73ae081036c 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-> @@ -14,7 +14,10 @@ / {
->   	compatible = "khadas,vim4", "amlogic,a311d2", "amlogic,t7";
->   
->   	aliases {
-> -		serial0 = &uart_a;
-> +		serial0	= &uart_a;
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-sr-som.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-sr-som.dtsi
+> index 3cdb0bc0ab721709fc892931ea00a538ec6216ff..c3f7daa773eaf335deb6cc976a5e120abdae5967 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mp-sr-som.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-sr-som.dtsi
+> @@ -174,7 +174,7 @@ pmic: pmic@25 {
+>  		pinctrl-0 = <&pmic_pins>;
+>  		pinctrl-names = "default";
+>  		interrupt-parent = <&gpio1>;
+> -		interrupts = <3 GPIO_ACTIVE_LOW>;
+> +		interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
 
-Spurious change
+This is a good change, but it should be mentioned in the commit message,
+or split to a separate patch. Same for other patches in this series
+where you make the same change.
 
-> +		mmc0	= &sd_emmc_c;
-> +		mmc1	= &sd_emmc_b;
-> +		mmc2	= &sd_emmc_a;
->   	};
->   
->   	memory@0 {
-> @@ -159,6 +162,91 @@ &pwm_ab {
->   	pinctrl-names = "default";
->   };
->   
-> +/* SDIO */
-> +&sd_emmc_a {
-> +	status = "okay";
-> +	pinctrl-0 = <&sdio_pins>;
-> +	pinctrl-1 = <&sdio_clk_gate_pins>;
-> +	pinctrl-names = "default", "clk-gate";
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	bus-width = <4>;
-> +	cap-sd-highspeed;
-> +	sd-uhs-sdr12;
-> +	sd-uhs-sdr25;
-> +	sd-uhs-sdr50;
-> +	sd-uhs-sdr104;
-> +	cap-sdio-irq;
-> +	max-frequency = <200000000>;
-> +	non-removable;
-> +	disable-wp;
-> +	no-mmc;
-> +	no-sd;
-> +
-> +	power-domains = <&pwrc PWRC_T7_SDIO_A_ID>;
-> +
-> +	keep-power-in-suspend;
-> +
-> +	mmc-pwrseq = <&sdio_pwrseq>;
-> +
-> +	vmmc-supply = <&vddao_3v3>;
-> +	vqmmc-supply = <&vddao_1v8>;
-> +
-> +	brcmf: wifi@1 {
-> +		reg = <1>;
-> +		compatible = "brcm,bcm43752-fmac", "brcm,bcm4329-fmac";
-> +	};
-> +};
-> +
-> +/* SD card */
-> +&sd_emmc_b {
-> +	status = "okay";
-> +	pinctrl-0 = <&sdcard_pins>;
-> +	pinctrl-1 = <&sdcard_clk_gate_pins>;
-> +	pinctrl-names = "default", "clk-gate";
-> +
-> +	bus-width = <4>;
-> +	cap-sd-highspeed;
-> +	sd-uhs-sdr12;
-> +	sd-uhs-sdr25;
-> +	sd-uhs-sdr50;
-> +	sd-uhs-sdr104;
-> +	max-frequency = <200000000>;
-> +	disable-wp;
-> +	no-sdio;
-> +	no-mmc;
-> +
-> +	power-domains = <&pwrc PWRC_T7_SDIO_B_ID>;
-> +
-> +	cd-gpios = <&gpio GPIOC_6 GPIO_ACTIVE_LOW>;
-> +	vmmc-supply = <&sd_3v3>;
-> +	vqmmc-supply = <&vddio_c>;
-> +};
-> +
-> +/* eMMC */
-> +&sd_emmc_c {
-> +	status = "okay";
-> +	pinctrl-0 = <&emmc_ctrl_pins>, <&emmc_data_8b_pins>, <&emmc_ds_pins>;
-> +	pinctrl-1 = <&emmc_clk_gate_pins>;
-> +	pinctrl-names = "default", "clk-gate";
-> +
-> +	bus-width = <8>;
-> +	cap-mmc-highspeed;
-> +	mmc-ddr-1_8v;
-> +	mmc-hs200-1_8v;
-> +	max-frequency = <200000000>;
-> +	disable-wp;
-> +	non-removable;
-> +	no-sdio;
-> +	no-sd;
-> +
-> +	power-domains = <&pwrc PWRC_T7_EMMC_ID>;
-> +
-> +	vmmc-supply = <&vddio_3v3>;
-> +	vqmmc-supply = <&vddio_1v8>;
-> +};
-> +
->   &uart_a {
->   	status = "okay";
->   	clocks = <&xtal>, <&xtal>, <&xtal>;
-> 
+>  		nxp,i2c-lt-enable;
+>  
+>  		regulators {
+> @@ -417,7 +417,7 @@ MX8MP_IOMUXC_SAI1_RXD1__GPIO4_IO03		0x160
+>  
+>  	pmic_pins: pinctrl-pmic-grp {
+>  		fsl,pins = <
+> -			MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03		0x41
+> +			MX8MP_IOMUXC_GPIO1_IO03__GPIO1_IO03		0x1c0
+>  		>;
+>  	};
+>  
 
-With that:
+-- 
+Regards,
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-
-Thanks,
-Neil
+Laurent Pinchart
