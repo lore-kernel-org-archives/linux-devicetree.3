@@ -1,102 +1,104 @@
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com [209.85.222.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D18371875
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 14:11:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E0E37DEBE;
+	Thu, 26 Mar 2026 14:15:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774534269; cv=none; b=E0oSqsz8jps5lJ5q6RqxFe2zsAy4qfRmioHVps6aebCF5OnQFEBWgZSTqT6y2ndX0negzoj7qYPJOkIZWKytw2s2UwKDeyWZJaG31IA7sUn7fwYXXckfmlkHkCWv0poF9n7hdZdol8aI5zaPvd132qIJP7OU1ag5mf+AI6dlP+Y=
+	t=1774534554; cv=none; b=gtgQUY5OO8zwKwHo2A+5CCe0rHjd7GrKjRtWKlC7rkmlsneVRAyfP/meptbbjGxpYdtQE9ELKRJyxapu89GEMvOkJdkghZ/OOmWqW3IQIWUHd4crVYZa/3NyZ31RmLY8Auj1h7LsiKEZO1g47qKkmM/8yaqwJEXkIgYE1p/Hjvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774534269; c=relaxed/simple;
-	bh=mFU2c0LbIRehA7BI2cm6F9oxSoh6uyssNcntKmKFElY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nR6spiAcRqfaT4sicqxkrWu+Wz1LLLpA/8gY5+mLcBj0rgCARFDce5DIGQ8gUlNg/eMu+zdEvCAA5c2iYMgzP7JC8/x9bBg1miy+m8JQKIF1KBxWi3u37A4bJ2lTHlXXF/gKLTd5JBInlpOV3NvgcWXIruSZ4KVh2poZdiWkwbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-94e2ad66abcso287863241.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 07:11:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774534263; x=1775139063;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=V+bKV+ZQocjR4wxZ5VtPX9Yx9FjCc2fmvfO12wKPoP8=;
-        b=tNKvemVSuDgmR3lXdD4YGpstx/Wd3kmz9edY7ucKWHVhdFeOQwQDWe1aKim/ey57kb
-         Q6E2H7I0F4M6sr5ZRyMK1E6dlHs+SG8HMr6s20Le6IwPksviAP7mtzrenZd4+9emDoYG
-         RAx04/bA57bJ+PJPq2j8vIT3Ze5XZ5Lj09KTYWEQd4Swe/b7WPSFBxzkSMH/m0bzVmdW
-         Ka44Xr1GMP/FEZNQzkox53Y9/KudL/7zOjGwullGyWBlciP1uJ58884hwRwJdCr6nDi6
-         4j318axUOre593+aAX/LDD179lkQlg3GxqqaG3Xl6RzYrhYU7fPh/xJiBOGDTPDXH1/+
-         KMig==
-X-Forwarded-Encrypted: i=1; AJvYcCW5uDzegLR0XjEZnjerl56iF7+uQvNkzC3vJRLY8TIEb0G+rXo7/PW07rfZuB1lJM6DjJI3Tm0yKhg3@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy60Rz6ZxRoKqDklC8ukNAcBVAqJa+0PrFDgv6OlCSjp3Ac6G+b
-	GGQnAMDQ/znKanHfmXRVmgaD7aDeBr3MLSGVzTag5IvjVhKTQ1sIBeGtW/xJa48+JTo=
-X-Gm-Gg: ATEYQzykkwdHnSr9qjdrsTOGYC3j/l/slRqQjaD/5Uz2IlxE+vSVxMtHAc4zDmgTDiW
-	565PbqH4RM/fm1ey7mNL8nA3ioTylVKMh191MMQLr5c+4IPLLVnFQ3dU+9Wh4VQzHylFtmx6d5S
-	VhFIjq5i6EDn53TqnWzw8yMc67Wy8XjnNJvC2RxoU7yduboutUZdgr+9eheT0HrO7d174a5SZwN
-	YzEOLF/1hBct/3rQ6wN2nusBuPazsE3KYhkXc7LM+joGLU5m7nGBhCx/vfFHFC/YcCQmnZkDSWx
-	NY4Dgtfen5ZkSXF0+2JcGv8YOwFoM03uyGiDha8ZO6T6zeux9xLAxoXvGyQIasxtyGs7cLBXF56
-	CZZBlGsI+B/7m5DCX3MnIh/wXw4ZK/DpHKLiuGb6GIHE66vTNpnhQYs+e3kFXog74WEvb+4dnm9
-	8wggShJTFgGcgoeANC5tqKOMHaRqMp0jNrX9qmd4jYVHsi9qm4bWwmBgN9dNnK
-X-Received: by 2002:a05:6102:5:b0:604:dfe4:8486 with SMTP id ada2fe7eead31-604dfe48ce7mr572618137.31.1774534262929;
-        Thu, 26 Mar 2026 07:11:02 -0700 (PDT)
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com. [209.85.222.43])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-604d5105e59sm3181879137.6.2026.03.26.07.11.02
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Mar 2026 07:11:02 -0700 (PDT)
-Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-94ac5cb71feso298441241.2
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 07:11:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCVhbiorwbZSuwZJCV6/OvxsEjl1j772yDSiGhvOpgLbHS7tAG8/2aShfR38ycZbfRE1Kal9abHZFuo7@vger.kernel.org
-X-Received: by 2002:a05:6102:3976:b0:5ff:e769:44bb with SMTP id
- ada2fe7eead31-60387319018mr2792199137.30.1774534262074; Thu, 26 Mar 2026
- 07:11:02 -0700 (PDT)
+	s=arc-20240116; t=1774534554; c=relaxed/simple;
+	bh=2RZWmgIMN32Ld/zS0XFp/dL0v7eVrDu3aVOrKj7HWvA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BXZn7iePPUPRLLTWgJ5qSTfPH1CrWbPlCd80fRp+U9O1dTKCf4syO4YT9tOIJgMIMiH2fDRsC2uR/RzFLbPf8pHIMaI6xfVYbvsFk5zFbxAb/D1SdPxI83oeDUHunk9hA2bp/Uws1FCRD4oG+jr2o2arSLO89brEYSXeNcjdUvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SdbxgJVX; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SdbxgJVX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646BAC116C6;
+	Thu, 26 Mar 2026 14:15:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774534553;
+	bh=2RZWmgIMN32Ld/zS0XFp/dL0v7eVrDu3aVOrKj7HWvA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SdbxgJVXD0oitPY5JmOHlVBOuX4INv9NcTBdVcAXxY2+XQpTxiBxsD/0qADCqVEzW
+	 /6eKDdnDR0gQFoqnVv0YMZRM0MFFqNaaDerPdyRB0YXuLuwgnonEcggpOmj1V5G6GT
+	 dvbkmMJRvhWFXyQYBpV1TkQZBKFMxEWDG2U3/2wIvm1I3HE0LVmXwiHSqkdehocP8z
+	 8wutGGZ+PVHVLthmzhVl7S6GazjSgGm6H9YrYGxjGvAUX/NuWn3ivS79MclbWnzYRe
+	 vPC2gstGK6gLLjPm2WoSmvtBG8izsEzEDrCXBuhHGTQlNKyFsz0P9siznFuslp5DlR
+	 hkUSg/fL7TxLw==
+Date: Thu, 26 Mar 2026 09:15:51 -0500
+From: Rob Herring <robh@kernel.org>
+To: phucduc.bui@gmail.com
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, conor@kernel.org,
+	devicetree@vger.kernel.org, dmitry.torokhov@gmail.com,
+	krzk@kernel.org, linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org, marex@denx.de, mingo@kernel.org,
+	tglx@kernel.org
+Subject: Re: [PATCH v3] dt-bindings: input: touchscreen: ti,tsc2005: Add
+ wakeup-source
+Message-ID: <20260326141551.GA2304345-robh@kernel.org>
+References: <20260318083124.21793-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260320164158.487406-1-biju.das.jz@bp.renesas.com> <20260320164158.487406-2-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260320164158.487406-2-biju.das.jz@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 26 Mar 2026 15:10:50 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWqgVmugEVV=k2_u1xKRswu+e8Hhi7dKD=E4Lep9S96OQ@mail.gmail.com>
-X-Gm-Features: AQROBzCL0y_jZA3BBZ1V00Z_wgTT1ywsDaOPuag8T0_jf1tfWGKQ90rerqBeNPg
-Message-ID: <CAMuHMdWqgVmugEVV=k2_u1xKRswu+e8Hhi7dKD=E4Lep9S96OQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/4] dt-bindings: gpu: mali-bifrost: Add compatible for
- RZ/G3L SoC
-To: Biju <biju.das.au@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260318083124.21793-1-phucduc.bui@gmail.com>
 
-On Fri, 20 Mar 2026 at 17:42, Biju <biju.das.au@gmail.com> wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->
-> Add a compatible string for the Renesas RZ/G3L SoC variants that include a
-> Mali-G31 GPU. These variants share the same restrictions on interrupts,
-> clocks, and power domains as the RZ/G2L SoC, so extend the existing schema
-> validation accordingly.
->
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+On Wed, Mar 18, 2026 at 03:31:24PM +0700, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
+> 
+> Document the "wakeup-source" property for the ti,tsc2005 touchscreen
+> controllers to allow the device to wake the system from suspend.
+> 
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+> ---
+> 
+> changes:
+> v3: Remove blank lines
+> v2: Revise the commit content and remove patch1 related to I2C and SPI 
+> wakeup handling
+> 
+>  .../devicetree/bindings/input/touchscreen/ti,tsc2005.yaml    | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/input/touchscreen/ti,tsc2005.yaml b/Documentation/devicetree/bindings/input/touchscreen/ti,tsc2005.yaml
+> index 7187c390b2f5..a9842509c1fe 100644
+> --- a/Documentation/devicetree/bindings/input/touchscreen/ti,tsc2005.yaml
+> +++ b/Documentation/devicetree/bindings/input/touchscreen/ti,tsc2005.yaml
+> @@ -55,6 +55,9 @@ properties:
+>    touchscreen-size-x: true
+>    touchscreen-size-y: true
+>  
+> +  wakeup-source:
+> +    type: boolean
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+wakeup-source already has a defined type.
 
-Gr{oetje,eeting}s,
+wakeup-source: true
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> +
+>  allOf:
+>    - $ref: touchscreen.yaml#
+>    - if:
+> @@ -97,6 +100,7 @@ examples:
+>  
+>              ti,x-plate-ohms = <280>;
+>              ti,esd-recovery-timeout-ms = <8000>;
+> +            wakeup-source;
+>          };
+>      };
+>    - |
+> @@ -124,5 +128,6 @@ examples:
+>  
+>              ti,x-plate-ohms = <280>;
+>              ti,esd-recovery-timeout-ms = <8000>;
+> +            wakeup-source;
+>          };
+>      };
+> -- 
+> 2.43.0
+> 
