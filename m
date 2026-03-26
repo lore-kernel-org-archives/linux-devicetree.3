@@ -1,304 +1,283 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34715327C0D
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 05:55:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774504518; cv=none; b=oyFUmbZ7piDozn9z3o6nu4LBXgfUO1AHSeUWB73cHmQGswolK8kEOA7YwjVqHx/jzGwrjoNiBdmB/3xc5f2kix11lYfAm9Fb38eJc3pD6dVOjiJB36YXVM8a52etisHRewiSwX0c9nMS18fGD2EqsPDzo7vL0lt5ygmV0YFdPkg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774504518; c=relaxed/simple;
-	bh=YtzAog2iT7qRYMNdO36y/DjGGvleNLJf4g9GCKshuTE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=V/rCvf1qxUHgCk/6nGB8jjHUV1uOtqTFYoFFOYs1emG2Pes4rSwTy28pvaqNX42jjKwPnrq4bKgPO3NuAAORnttglO8CJuCpPrT1NoBXB51JqFpTkXI6phwm57S234naxkBCRSgJhVUxx/8Q2g445BguQ7DKFnzoRUVA9EvaXqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=g6USjlaG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fUdGj/lQ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B08D27AC45;
+	Thu, 26 Mar 2026 05:57:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774504643; cv=pass; b=Vb0CdqsSMcfv8qjDGoZhw6xMsDmQlZx5VmStp8A5qepg/h8prPATdyKpqrHvFiNi9sfB7cRtwwpABGkdn+Y2dl6GQNijVtnBgA7tP3kBpZlkjDrwI2/IxG1g+KxbeQiS8H0+lxAEHvGBgRgCDcbHNTNMLuRJ49To+3wE/V5z2Es=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774504643; c=relaxed/simple;
+	bh=xh5QcYAfEMFXHbh0WK42+35rw1y3aSrFCHR3K9Wbzu4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IQkTep3kYePEyhojzgaDOX3+V/pAsZ1A+/YtmU6bs2NaIBHAj41kzFq4rn/nR3n256dmDGPiVZ4Bx89ymnFZ3WkfIzAYMwZDyZtECVYezwb0NchQ6WVGf2VVcS5rF6qafYLntK0XnUi3OAcknYEzgX6AkB/g3FWHr+ixiE4P6NM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=gkYCDRH1; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="g6USjlaG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fUdGj/lQ"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62Q0nUEe1811045
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 05:55:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	808xdNmKLCaAFJRD8fSiUQE9ujHk0+F2A04hZAqckLw=; b=g6USjlaGedJfM+6c
-	sh043EGNYzelCOV0izT4tNV/QLb3n01n46Bcfmfqhk0dekR80UJbYOv+ECiKyqF5
-	hDGBoDW4HjYW1FAnHB6HQjPL6wiU4HzOonNQwpb/m8z7iZT58NXSi3dOBPrIjoKw
-	wuQ+A2qImDN45is0qhRImk0Fg9/VXYXt4bbMo7IOL2woERqueHmWAt0hrmhyhiv0
-	JLF5Kd2kqXU71weN+dS35T63ejg75uq5aWodNW+gv5W1MJbCfegg49wHfqx8ROk+
-	Zh+yu0VCeaDvVnApliD+U5Gk5SVWVPwHYOe3DC9JmVtMZhekVG/bxeogXSihbsCE
-	J0PCCw==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d4tkn0tbj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 05:55:16 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2adef9d486bso11898645ad.2
-        for <devicetree@vger.kernel.org>; Wed, 25 Mar 2026 22:55:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774504516; x=1775109316; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=808xdNmKLCaAFJRD8fSiUQE9ujHk0+F2A04hZAqckLw=;
-        b=fUdGj/lQkRnW7eFg1qUkUHehc+jKJkx9JToNGkn7y7LELusw/36nQ5kA6fD+P68dXE
-         WwFcr+cRX+0qo0ar9rW8TrjchrfQyPAq8qkMk6x7VEnL8eoj6UieboFFlvPE/8t/M42/
-         lro4idjahJozrDj771QKVH+GGajUcLRTy8kxN1+kbjbmOL3IsmkrbJc27O2Vnf9gFB0p
-         2yVe6Vx7/XZVLBclvnWFqWEnDSUBqEtT1P4aQ6wbroGs3/9t+fvDwDQA0XF+grVdWEiQ
-         wL4hZgh+aFQf6WUVXVoWx1+FjoFmvuPOBGsj+TPNB7EqAn5Rfgc4EB65BIOljo+Z07Yk
-         r8cA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774504516; x=1775109316;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=808xdNmKLCaAFJRD8fSiUQE9ujHk0+F2A04hZAqckLw=;
-        b=du96tUC7Gq1V6uHCjmm4JSu8Et8DRERld0msa/NO1qmlJEYYBMmJtO+DyBnqo8JF90
-         MigZfGeExVqq9uCflr0qvidc2SPXW/q0d8k3XlK5sqgcHmv5Rq/RLuj81WNm+S64ia6d
-         iTkO7zmSKTMT15I+CTN1a5z7FJH0ekgn8zavaXoWdXq6l7mhGlJ0Kjm1QaZdsFwXCpAB
-         EMw9y3nhRDSKks4XtqgbphttaTa59DhwQHOuDatl1RhCzdHpV+wVMzPux27S0bP4ppch
-         R1DfMP5yKVbgS3F9ISMu/ieBm0tfAW6rE4TMVGlS09QjLn4Bf2/xL3lMVrrXfDNDYnat
-         v0Qg==
-X-Forwarded-Encrypted: i=1; AJvYcCUC9+zWsbPLeUV1sPpoRqGyTsmYz6QpK+3HZJqqP3casbyA8qffcErxc+iv95nmz502PCaQb8Vg93Ra@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx60iFYiJJ0nDVnsT0LgNnkn0QxEwTUTST7BlRudqdDSLKEInzG
-	EcJLpoqf1s6+BMQw7OZXtBPYDhTribewZpU9TM9BNQGNpuNhfuQgrv9ZbJd/8CFwSYfU2RqX5qB
-	R4BdLoTZioWsDg3UvQHfHLJtTGEGvcGYDdRXs1/D/TriJBi/Wvs0NR/yMVra5jMcf
-X-Gm-Gg: ATEYQzyz7SEzqXPaa6qZBMmXHB0rhoVWM6KNwE+PPlIwaHhp5wflyOZCXdb3vRID2GD
-	XP18zGR4IU7Kc4bwA9AtHhR5cdceZAeMuod3DXE75FSKhS9HOw84uoQ+8LmEaZgn4nN476oezBi
-	zwpKrS7Sd4kRv7/TdSKbcd588Gj7H8bWGmlJcenBw3BqDHtn/VAVAwtU2ExDpWIPolXnGlV9PP1
-	O1KaDtNO9QcHTigFVq7vrKWV3N+Zb6RMTEyxPU1A7yyKKZG4IypR153tJxeNFtLU9r1f/e2H+3/
-	0mYQD7GT5Nq/BX/MKalTUnOXVrPdWKfr/XBuX3/6CtSGxbY8hz3u8wkNbl2KfA2eOjYThwqbEWT
-	23hh475oVlImLZx7K4STwCQZQ+gSUTFvqXfD9raASF0Ye86BeFAUDQT6M
-X-Received: by 2002:a17:903:1b10:b0:2b0:673a:7c90 with SMTP id d9443c01a7336-2b0b0aad881mr74442885ad.28.1774504515834;
-        Wed, 25 Mar 2026 22:55:15 -0700 (PDT)
-X-Received: by 2002:a17:903:1b10:b0:2b0:673a:7c90 with SMTP id d9443c01a7336-2b0b0aad881mr74442365ad.28.1774504515275;
-        Wed, 25 Mar 2026 22:55:15 -0700 (PDT)
-Received: from [10.219.57.109] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0bc87e820sm17098715ad.50.2026.03.25.22.55.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Mar 2026 22:55:14 -0700 (PDT)
-Message-ID: <65f76d05-1474-46d3-aa71-4acfe86c5718@oss.qualcomm.com>
-Date: Thu, 26 Mar 2026 11:23:53 +0530
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="gkYCDRH1"
+ARC-Seal: i=1; a=rsa-sha256; t=1774504622; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Mkf6zUtwlT2CtdV8DayQHX/AuQiNtB4rQ32WTmol5rl4U4fv/8V9VnmFyRPQaTqm0d5362E1BE6YT1THilTYoqWmnvgNkU+I9nkOg3GXNIqzEBeynE9fGxR3MkEDbKxUBm3Ta4c7bQP4F2NDxF9nlOLoKO1nLSA5f35Pb0djXkk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1774504622; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=xh5QcYAfEMFXHbh0WK42+35rw1y3aSrFCHR3K9Wbzu4=; 
+	b=HisGqtURNgasPUPl/AfZVgF8IhOghkyFg7CEhUspEnrT4SCFUiIOCnpdeZ6vtx9RUPh0k02uKCKBZIk7TqRpEYOKrE1PoIEzC9pd3DI/eekrvn5uD43uo9OXyxZYhu1KpZZkg0U/2xXGNRlT+r3DysiP3ScLTXA/Ex3P531Hc/A=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774504622;
+	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=xh5QcYAfEMFXHbh0WK42+35rw1y3aSrFCHR3K9Wbzu4=;
+	b=gkYCDRH1D9/3bbcfsNZVUGpV7eHZORKaF6UnoL3qaiM/T7ol0/ONeIqlT9SogZiM
+	AM8c9eUJgaX5Y0UMF2TpTVg/gQMpRMPL6mqr2AL+1i7hg+kPFbiHc/Ctt7f1a/D6xyQ
+	GFC97KbEyLkCriYzRT3Q1LA2Q6kIn3FYabwsY96OMTTx2TkdEfukQjIFCusVJVzf51V
+	upg9GQwkQ1AWPnl00HVj2BI/s/UdIqdxfYsuu66WlSJxMrDXMLZIwNER+TbA0NVSbV3
+	KgGHoTpeq2nO4F9L+vOPi9/vXtvLiRirGR/pVTIG53cIJlcEm+5eivVqh+zJPY34M9F
+	01O8EI1peA==
+Received: by mx.zohomail.com with SMTPS id 1774504620418841.5970104476653;
+	Wed, 25 Mar 2026 22:57:00 -0700 (PDT)
+Message-ID: <fbba135320ea666a5ad127c9da58276f2afd3494.camel@icenowy.me>
+Subject: Re: [PATCH v2 0/5] powervr: MT8173 GPU support
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>,  AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Frank Binns
+ <frank.binns@imgtec.com>, Matt Coster	 <matt.coster@imgtec.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Thu, 26 Mar 2026 13:56:52 +0800
+In-Reply-To: <42fb6b7dfc6a9d66649e0a7040cdafc1289ddf63.camel@icenowy.me>
+References: <20260325071951.544031-1-wenst@chromium.org>
+			 <93c1d325461cc0ffad890d64870de680506338c4.camel@icenowy.me>
+			 <CAGXv+5FL2rs35V4F0bwq-a4ccvFaWKcr1cuKxT6sfTj9h+d6iA@mail.gmail.com>
+		 <0739597b7a9c162525c10d82c3993e37af1c8a75.camel@icenowy.me>
+	 <42fb6b7dfc6a9d66649e0a7040cdafc1289ddf63.camel@icenowy.me>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 0/3] of: parsing of multi #{iommu,msi}-cells in maps
-To: Nipun Gupta <nipun.gupta@amd.com>,
-        Nikhil Agarwal
- <nikhil.agarwal@amd.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Marc Zyngier <maz@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Thomas Gleixner <tglx@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Richard Zhu <hongxing.zhu@nxp.com>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas
- <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-pci@vger.kernel.org, imx@lists.linux.dev,
-        xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org,
-        Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-References: <20260325-parse_iommu_cells-v11-0-1fefa5c0e82c@oss.qualcomm.com>
-Content-Language: en-US
-From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-In-Reply-To: <20260325-parse_iommu_cells-v11-0-1fefa5c0e82c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI2MDA0MiBTYWx0ZWRfX1+bP6kkdiVrV
- MkH4FJgrsySMflH5CGlFcTt8xQGJ7pIZszKU/bCHh9XNob0nl5V7ialuEXUjmKD5hWU3TBK+m0P
- y05XjHjBzD0q0GexQfGxOm4QY9rCPG46RdvvqmbgYRkxfO2ivStUc/HZGS2WY56/KnHhgtu4P+4
- u2QMsMtIk1BIJOqVNP84MZTMULngbNsF5TQSBt+8azHy/QMGQHVSmrwoYDcBG4E5+UKj1qlFynT
- 0D2CrQaT2vNRm5kERtxUqFxXvLVAku8XCXUtE4feIWf+ObP2iNwIn/4be5YrKFj5jGVlqYUXQIs
- dhJk/jcxLkxwaT0gv5bO9RLOkEmde1R1CS/UU/h1N+4EarxaFE73mZUY6cDnKXC46ZWJAsfb6dG
- 0jqbLD9V01PWTmZ+eaK2Sb5Y7eM2JejZcntynPgak1flKlsWyWcmT0MELcdyjyMUTfFuISajd+X
- KmUuxwKCiwqvRKVm8OA==
-X-Authority-Analysis: v=2.4 cv=It8Tsb/g c=1 sm=1 tr=0 ts=69c4ca44 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=NEAV23lmAAAA:8 a=EUspDBNiAAAA:8
- a=G4NFmJWIaiRLgIwbil8A:9 a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: 5gPZoMkfyeAgWIXMz8_9r_mFRSxlUeQR
-X-Proofpoint-ORIG-GUID: 5gPZoMkfyeAgWIXMz8_9r_mFRSxlUeQR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-26_01,2026-03-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0
- malwarescore=0 priorityscore=1501 suspectscore=0 clxscore=1015
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603260042
+X-ZohoMailClient: External
 
+=E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 17:11 +0800=EF=BC=8CIcenowy Zheng=E5=
+=86=99=E9=81=93=EF=BC=9A
+> =E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 16:30 +0800=EF=BC=8CIcenowy Zheng=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > =E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 16:08 +0800=EF=BC=8CChen-Yu Tsai=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > > On Wed, Mar 25, 2026 at 4:04=E2=80=AFPM Icenowy Zheng <uwu@icenowy.me=
+>
+> > > wrote:
+> > > >=20
+> > > > =E5=9C=A8 2026-03-25=E4=B8=89=E7=9A=84 15:19 +0800=EF=BC=8CChen-Yu =
+Tsai=E5=86=99=E9=81=93=EF=BC=9A
+> > > > > Hi everyone,
+> > > > >=20
+> > > > > This is v2 of my MT8173 PowerVR GPU support series.
+> > > > >=20
+> > > > > Changes since v1:
+> > > > > - Adapted to changed DT bindings
+> > > > > - Dropped driver change
+> > > > > - Use same power domain for "a" and "b" GPU power domains
+> > > > >=20
+> > > > > This update was requested by Icenowy.
+> > > > >=20
+> > > > >=20
+> > > > > This series enables the PowerVR GPU found in the MT8173 SoC,
+> > > > > found in
+> > > > > some Chromebooks.
+> > > > >=20
+> > > > > This version is different from the initial powervr driver
+> > > > > submission
+> > > > > [1]
+> > > > > in that it splits out the GPU glue layer support out of the
+> > > > > powervr
+> > > > > driver and into a separate clock and power domain driver. The
+> > > > > glue
+> > > > > code
+> > > > > is otherwise the same, and also the same as found in the
+> > > > > ChromeOS
+> > > > > kernels, with some extra comments and macro names added where
+> > > > > possible.
+> > > > >=20
+> > > > > Patch 1 adds a binding for the glue layer, called mfgtop. The
+> > > > > glue
+> > > > > layer
+> > > > > contains clock and power controls for the GPU.
+> > > > >=20
+> > > > > Patch 2 adds a driver for the glue layer.
+> > > > >=20
+> > > > > Patch 3 adds an entry for the MT8173 GPU and 6XT series to
+> > > > > the
+> > > > > PowerVR
+> > > > > binding.
+> > > > >=20
+> > > > > Patch 4 adds an entry for the PowerVR 6XT series GPU to the
+> > > > > driver.
+> > > > >=20
+> > > > > Patch 5 corrects the clock for the GPU (called MFG) power
+> > > > > domain.
+> > > > >=20
+> > > > > Patch 6 adds device nodes for the GPU and glue layer to the
+> > > > > MT8173
+> > > > > dtsi
+> > > > > file.
+> > > > >=20
+> > > > > Patch 2 and 6 depend on patch 1 to build. I suppose some
+> > > > > common
+> > > > > immutable tree would be needed from the MediaTek maintainers.
+> > > > >=20
+> > > > > The kernel driver successfully probes the hardware and loads
+> > > > > the
+> > > > > "rogue_4.40.2.51_v1.fw" firmware provided by Imagination
+> > > > > Technologies
+> > > > > [2].
+> > > > > Userspace was tested with Mesa 24.0.8 from Debian Trixie
+> > > > > rebuilt
+> > > > > with
+> > > > > the powervr vulkan driver enabled. `vulkaninfo` gives some
+> > > > > information
+> > > > > about the GPU (attached at the end), but running the
+> > > > > `triangle`
+> > > > > example
+> > > > > from the Sascha Willems demos [3] with -DUSE_D2D_WSI=3DON as
+> > > > > recommended [4]
+> > > > > failed with:
+> > > > >=20
+> > > > > =C2=A0=C2=A0=C2=A0 Can't find a display and a display mode!
+> > > >=20
+> > > > I think when using D2D the demos want width and height to be
+> > > > explicitly
+> > > > specified, otherwise it seems to hardcode 1280x720.
+> > > >=20
+> > > > If you're using an elm, could you try to add `-w 1920 -h 1080`
+> > > > or
+> > > > for
+> > > > hana `-w 1366 -h 768` ?
+> > >=20
+> > > I only did the basic `vulkaninfo` test this time around. To do
+> > > anything
+> > > interesting probably requires the Mesa 26.1 release.
+> > >=20
+> > > =C2=A0=C2=A0=C2=A0 PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 \
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vkmark --winsys kms -D b81=
+f54f8568deb0fb70a6a1ed845b65d
+> > >=20
+> > > just reports "Error: Device specified by uuid is not available"
+> >=20
+> > I am very sorry to tell you that, when I run Sascha's demo with
+> > Mesa
+> > main, I got GPU lost immediately...
+> >=20
+> > ```
+> > [=C2=A0 441.509433] powervr 13000000.gpu: [drm] *ERROR* GPU device lost
+> > ```
 
+The device lost message seems to be some bug of the open source KMD or
+the firmware.
 
-On 3/25/2026 4:38 PM, Vijayanand Jitta wrote:
-> So far our parsing of {iommu,msi}-map properties has always blindly
-> assumed that the output specifiers will always have exactly 1 cell.
-> This typically does happen to be the case, but is not actually enforced
-> (and the PCI msi-map binding even explicitly states support for 0 or 1
-> cells) - as a result we've now ended up with dodgy DTs out in the field
-> which depend on this behaviour to map a 1-cell specifier for a 2-cell
-> provider, despite that being bogus per the bindings themselves.
-> 
-> Since there is some potential use[1] in being able to map at least
-> single input IDs to multi-cell output specifiers (and properly support
-> 0-cell outputs as well), add support for properly parsing and using the
-> target nodes' #cells values, albeit with the unfortunate complication of
-> still having to work around expectations of the old behaviour too.
-> 							-- Robin.
-> 
-> Unlike single #{}-cell, it is complex to establish a linear relation
-> between input 'id' and output specifier for multi-cell properties, thus
-> it is always expected that len never going to be > 1. 
-> 
-> These changes have been tested on QEMU for the arm64 architecture.
-> 
-> Since, this would also need update in dt-schema, raised PR[2] for the
-> same.
-> 
-> [1] https://lore.kernel.org/all/20250627-video_cb-v3-0-51e18c0ffbce@quicinc.com/
-> [2] PR for iommu-map dtschema: https://github.com/devicetree-org/dt-schema/pull/184
-> 
-> V11:
->   - Added explicit filter_np parameter to of_map_id() and of_map_msi_id()
->     per Dmitry Baryshkov's review feedback, making the filter explicit
->     instead of overloading arg->np as both input filter and output parameter.
->   - Removed of_node_put() from inside of_map_id(), making the caller responsible
->     for reference management. Updated of_msi_xlate() to properly handle reference counting.
->   - Collected ACKed by tags, and fixed minor typos.
->   Link to v10:
->   https://lore.kernel.org/r/20260309-parse_iommu_cells-v10-0-c62fcaa5a1d8@oss.qualcomm.com
-> 
-> V10:
->   - Move of_map_iommu_id()/of_map_msi_id() from include/linux/of.h to
->     drivers/of/base.c as out-of-line helpers per feedback from Marc Zyngier
->     and Rob Herring.
->   - Add kernel-doc to document both helpers for discoverability and
->     usage clarity.
->   - Fix of_map_msi_id() wrapper and all its callers (cdx_msi.c,
->     irq-gic-its-msi-parent.c, drivers/of/irq.c) to correctly use the new
->     struct of_phandle_args-based API with proper of_node_put() handling
->     as per feeback from Dmitry.
->   Link to v9:
->   https://lore.kernel.org/r/20260301-parse_iommu_cells-v9-0-4d1bceecc5e1@oss.qualcomm.com
-> 
-> V9:
->   - Updated TO/CC list based on feedback to include all relevant
->     maintainers.
->   - No functional changes to the patches themselves.
-> 
->   Link to V8:
->   https://lore.kernel.org/all/20260226074245.3098486-1-vijayanand.jitta@oss.qualcomm.com/
-> 
-> V8:
->   - Removed mentions of of_map_args from commit message to match code.
-> 
->   Link to V7:
->   https://lore.kernel.org/all/20260210101157.2145113-1-vijayanand.jitta@oss.qualcomm.com/
-> 
-> V7:
->   - Removed of_map_id_args structure and replaced it with
->     of_phandle_args as suggested by Dmitry.
-> 
->   Link to V6:
->   https://lore.kernel.org/all/20260121055400.937856-1-vijayanand.jitta@oss.qualcomm.com/
-> 
-> V6:
->   - Fixed build error reported by kernel test bot.
-> 
->   Link to V5:
->   https://lore.kernel.org/all/20260118181125.1436036-1-vijayanand.jitta@oss.qualcomm.com/
-> 
-> V5:
->   - Fixed Build Warnings.
->   - Raised PR for iommu-map dtschema: https://github.com/devicetree-org/dt-schema/pull/184
-> 
->   Link to V4:
->   https://lore.kernel.org/all/20251231114257.2382820-1-vijayanand.jitta@oss.qualcomm.com/
-> 
-> V4:
->   - Added Reviewed-by tag.
->   - Resolved warnings reported by kernel test bot, minor code
->     reorganization.
-> 
->   Link to V3:
->   https://lore.kernel.org/all/20251221213602.2413124-1-vijayanand.jitta@oss.qualcomm.com/
-> 
-> V3:
->   - Added Reviewed-by tag.
->   - Updated of_map_id_args struct as a wrapper to of_phandle_args and
->     added comment description as suggested by Rob Herring.
-> 
->   Link to V2:
->   https://lore.kernel.org/all/20251204095530.8627-1-vijayanand.jitta@oss.qualcomm.com/
-> 
-> V2:
->   - Incorporated the patches from Robin that does the clean implementation.
->   - Dropped the patches the were adding multi-map support from this series
->     as suggested.
-> 
-> V1:
->  https://lore.kernel.org/all/cover.1762235099.git.charan.kalla@oss.qualcomm.com/
-> 
-> RFC:
->  https://lore.kernel.org/all/20250928171718.436440-1-charan.kalla@oss.qualcomm.com/#r
-> 
-> Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-> ---
-> 
-> ---
-> Charan Teja Kalla (1):
->       of: Factor arguments passed to of_map_id() into a struct
-> 
-> Robin Murphy (2):
->       of: Add convenience wrappers for of_map_id()
->       of: Respect #{iommu,msi}-cells in maps
-> 
->  drivers/cdx/cdx_msi.c                    |   8 +-
->  drivers/iommu/of_iommu.c                 |   6 +-
->  drivers/irqchip/irq-gic-its-msi-parent.c |  11 +-
->  drivers/of/base.c                        | 213 ++++++++++++++++++++++++-------
->  drivers/of/irq.c                         |  11 +-
->  drivers/pci/controller/dwc/pci-imx6.c    |  18 ++-
->  drivers/pci/controller/pcie-apple.c      |   6 +-
->  drivers/xen/grant-dma-ops.c              |   5 +-
->  include/linux/of.h                       |  30 ++++-
->  9 files changed, 237 insertions(+), 71 deletions(-)
-> ---
-> base-commit: 3fa5e5702a82d259897bd7e209469bc06368bf31
-> change-id: 20260301-parse_iommu_cells-1c33768aebba
-> 
-> Best regards,
+When I disable runtime power management of the 13000000.gpu device,
+this message does not appear, instead the following message appears and
+the GPU can continue to accept jobs:
 
-Hi Robin,
+```
+powervr 13000000.gpu: [drm] Received unknown FWCCB command 2abc0070
+```
 
-Could this series be pulled into an immutable branch/tag, if it doesn't
-make it into the v7.1 merge window ? There are client changes dependent on it,
-So it would help to get them moving forward rather than waiting another cycle.
+>=20
+> However, Zink on PowerVR works, and on Lichee Pi 4A I also got
+> `VK_ERROR_DEVICE_LOST` when running Sascha's demos (although the
+> kernel
+> does not report device lost).
+>=20
+> I bet it's a regression on the VK_KHR_display code.
 
-Thanks,
-Vijay
+I'm now sure that it's a regression, it's now tracked at [1].
+
+[1] https://gitlab.freedesktop.org/mesa/mesa/-/issues/15161
+
+>=20
+> Thanks,
+> Icenowy
+>=20
+> >=20
+> > Icenowy
+> >=20
+> > >=20
+> > > This is with Mesa 26.0.2 packages from Debian testing. At least
+> > > now
+> > > have the powervr vulkan driver enabled by default, so I don't
+> > > have
+> > > to rebuild the packages again.
+> > >=20
+> > >=20
+> > > ChenYu
+> > >=20
+> > > > Thanks
+> > > > Icenowy
+> > > >=20
+> > > > >=20
+> > > > > Same program worked correctly on a BeaglePlay and displayed a
+> > > > > color
+> > > > > gradient triangle. Not sure what went wrong here.
+> > > > >=20
+> > > > > Anyway, please have a look and test.
+> > > > >=20
+> > > > >=20
+> > > > > Thanks
+> > > > > ChenYu
+> > > > >=20
+> > > > > [1]
+> > > > > https://lore.kernel.org/dri-devel/20220815165156.118212-2-sarah.w=
+alker@imgtec.com/
+> > > > > [2]
+> > > > > https://gitlab.freedesktop.org/imagination/linux-firmware/-/tree/=
+powervr
+> > > > > [3] https://github.com/SaschaWillems/Vulkan
+> > > > > [4]
+> > > > > https://lore.kernel.org/dri-devel/f2b2671e-5acc-4dec-9c2e-3c9cd2e=
+1f19e@imgtec.com/
+> > > > >=20
+> > > > > Chen-Yu Tsai (5):
+> > > > > =C2=A0 dt-bindings: clock: mediatek: Add mt8173 mfgtop
+> > > > > =C2=A0 clk: mediatek: Add mt8173-mfgtop driver
+> > > > > =C2=A0 dt-bindings: gpu: powervr-rogue: Add MediaTek MT8173 GPU
+> > > > > =C2=A0 arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain
+> > > > > clock
+> > > > > =C2=A0 arm64: dts: mediatek: mt8173: Add GPU device nodes
+> > > > >=20
+> > > > > =C2=A0.../clock/mediatek,mt8173-mfgtop.yaml=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 70 +++++
+> > > > > =C2=A0.../bindings/gpu/img,powervr-rogue.yaml=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> > > > > =C2=A0arch/arm64/boot/dts/mediatek/mt8173.dtsi=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0 33 ++-
+> > > > > =C2=A0drivers/clk/mediatek/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0=C2=A0 9 +
+> > > > > =C2=A0drivers/clk/mediatek/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
+=C2=A0 1 +
+> > > > > =C2=A0drivers/clk/mediatek/clk-mt8173-mfgtop.c=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 | 243
+> > > > > ++++++++++++++++++
+> > > > > =C2=A0include/dt-bindings/clock/mt8173-clk.h=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 7 +
+> > > > > =C2=A07 files changed, 363 insertions(+), 1 deletion(-)
+> > > > > =C2=A0create mode 100644
+> > > > > Documentation/devicetree/bindings/clock/mediatek,mt8173-
+> > > > > mfgtop.yaml
+> > > > > =C2=A0create mode 100644 drivers/clk/mediatek/clk-mt8173-mfgtop.c
