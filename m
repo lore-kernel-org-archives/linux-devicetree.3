@@ -1,69 +1,69 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA703603F8
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:10:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14B53BB9F4
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:10:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774516253; cv=none; b=d0VB8mo+BTiqwwR6bysWFt1PQex0v/xMFjgZByQj7VaogrFsqFEyEUtLZ8JvFWuM1QVAec66Zc+Nw94A0cQ9KvsyWWwVP79A5YuYPDtRbDRHG7wf3peX0gpmdKPRYWAtMYZGzLJ5GMA0iXO0slRxOKQ/1xR1VjuO8xsvEC3YAlM=
+	t=1774516255; cv=none; b=L6w6fTnCDy68b1ns6Wlei2Gf+AjCX/dJtq2z4tEVO4vOAVE7IZ3C5zzeLul1wF25k2uWA0AzYA39a+s97Mf+EJpYfgN2gkFFwQSBWSGw/fdIRZlxbV7M+SzZA2Ra6FgtEn2HzSnqnSZ9pkROkbj40C6hb0+2rjuk4pqtWwjIQrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774516253; c=relaxed/simple;
-	bh=c7lQdgxqQoIzJtukGcni61BhLUSZ/QFFuAEFNiGJ1gU=;
+	s=arc-20240116; t=1774516255; c=relaxed/simple;
+	bh=8+8i3aomOLS8R8b5sollZ2ZiFAWOT1uHJtt2Q7PXFp4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=C/11GE5KV17Zh8dl/sTIMlQDYARbwTpBxkaeGQ9+qavsMuAcLYgxHxSFjbig68NYAjUGErAcBqDkj+sLRPf28jv6m+g54V4G1J2xfmiG9iaIUf9Nwnms+L6dWKwSbrbuNC0idplHOBq7yC2fxciDs/ApurFQ1OSkuvj+Z54Fcis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=THZNkVBU; arc=none smtp.client-ip=209.85.128.44
+	 In-Reply-To:To:Cc; b=IVCF+LvtvAgM6es7P6ShmQ4E44PeYBl8Td+KEpSPMGTq1BTjeJ2v4+O98tZszJJot3hDfFb8Vk46K77PGf+s4G+TVV54ZOPlUvs+fcZMjSgZQbKqplhpG3xpX0mOUoxzSHK2kroH1YirIaOwmt5K3IX1zYzZHxOEUC7qGK0f3fI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KK67c333; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="THZNkVBU"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4852e9ca034so7034365e9.2
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:10:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KK67c333"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-43b983bb07eso92185f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:10:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774516250; x=1775121050; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1774516252; x=1775121052; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=lE/tNvEnDqlfntSdOLMR8SVF3nj3f/cbm60tbKz/3QM=;
-        b=THZNkVBUXosTQ98f7Dh5Eb3Npy9Wjipjcw0/hEyTIaAzsd+MK/gjp+MW60I9S86K1E
-         BNjCZ5RfKhxp9O6oHy5POfc9WgcclG+XTeAe+m3BLqjs100HRzpolFLPh8FSj6YTbBEQ
-         NHcRVPOq9BltsKxdZxP+UTWv1dmLRqjm0wRTtvMYLpMTF/iXsFfgC1Buu2yZ4YV38EFE
-         15JtqWRSs6xLQa2FSWZXr1Wc4dx0hd1CaC7G7ECc0B5tXNq0LcvCb627ph15vRmwDHmi
-         5DwX8U0k0yRp6hRraOO3CE7BpiSdY3brcq9/oMa212uuCtDaIkQuQimfvWoboTrwXSI6
-         n1Bg==
+        bh=IDIt8ynlMPPK0wzqF40DJoyfDxdBKdzIG4wv5s2In+Q=;
+        b=KK67c333v2UQBXZfGlsXu9xlt/W6+97A1LgDGPy9T3JFTJMsNLJjD5WxT1/DUFBzK9
+         zsdzIQuMsr29z636kNd1x5JUteFRXB6zcfysUiKQksiv/UVOQz2gkxGOog271WM+jfVB
+         CVRPAocAXRzgkU6pio+Hljdx5smHdRknkcxMmYaXWqfMZJm+8ALnXVubjnl/M0mPurhA
+         PrpGGrSlA+dGDXzeXhAKemLU9U/7feSXNqo1MfiBGwFmCyCVoFjECtZhfoM9aEMuAgEh
+         jX7BM9dTHvJ0xyi2/gEVPXSXg18yd0LK8mR2h++x9OLsVjU75izp/kZfeWgXEnWU1qfd
+         F6nA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774516250; x=1775121050;
+        d=1e100.net; s=20251104; t=1774516252; x=1775121052;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=lE/tNvEnDqlfntSdOLMR8SVF3nj3f/cbm60tbKz/3QM=;
-        b=nMljzFTUJGuv+Xdi+vQ/w//boY/lfEUWZ9xaXys14URGENMYQ9HSVYdLMt4Q/VYI4m
-         +n3S3e7BqkWNOqVGZW28T9OGNWpkHVssX8iHBBpbPkrTTe1BcIroAJMu/r+QpjmkQc3N
-         S0d8zfMZKh6GBqazraqAoRAFAFwcEhjuCPJhbmc0Wui3zJzgTw/F02+H7gCjoNAN7ZBJ
-         85UMNWRGHP4nVSESHy7vHhTLIMhldfSC57AEtBLRmyZ/wROOwGE9Zel8Bj5CkeeznfvY
-         bRIBRGSRCm6+ShSMuz098kH/POmV0zvEGi3PZGL7MJl/Ur4tJIviYi6dXkQghQ0LWRAp
-         keSQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXar8JxZkF44Yy7uPY9e7wFMWaRODobbEXgWuU58WeshYglw4sfiOmdugWxXX1J21p7kV/a1ORrtROf@vger.kernel.org
-X-Gm-Message-State: AOJu0YxPHlE7fu1mON8OFdhnKjSCyoRy9n+2/ILXYVjg9ZRo8YToPYNz
-	ZVN0OoiCH+dvKo0+I87P/F7dpGDQXu+NDz92RLCgZr+nmb69zZ6gMvFmlQIsKnHa
-X-Gm-Gg: ATEYQzyKrTMgUIulOO7F4EkmdfxWZ7/bvNc1WSaxCwbf9KipQHFCBAlt5vOB2vLq4Kq
-	x1vqGB2CtvwC7ruqY6goMwrxbOBIN65i+0ih6zuENTZby9m8nyRHFvP+P/6fbpcIU3XZ4rvjqi+
-	ez8yX0WQ5wRlPJmJF+Xt7UFHRHoCw3YV7mKYpZJbKgtznTumJycpyqeyKv5i0tQgBLNa++2fwpj
-	hWHlbDjzoZUm6OYoSWmkXD89jQnZ+aC/9NmoB3jWlGo/MBjm1bxK5rpTjpVFbvOPigyBMsOgDyq
-	oKIfaKw4y2Qg1qmkTnweUyGH0OdtoMhvI+7VyjxqlLW3enOMcZZirdfO+T8qdVdJevn0iQVcjP3
-	RhBPr1AeFi8TffkILGOiF4+tFNu3eWpP30oT9kZ1vfAhpGdVgrpjjJMrfIO05yVxDkv6fcTIf1J
-	vh6OGWOwLWzfTLyhdUjHGUvUeuXvxcGqMirQoEuup7478ydRCIBthL6w3IXBK5vhdQsq518cpWx
-	TrCU7hQYg==
-X-Received: by 2002:a05:600c:64c6:b0:485:34a2:919e with SMTP id 5b1f17b1804b1-487160a681bmr94261025e9.33.1774516250125;
-        Thu, 26 Mar 2026 02:10:50 -0700 (PDT)
+        bh=IDIt8ynlMPPK0wzqF40DJoyfDxdBKdzIG4wv5s2In+Q=;
+        b=np3vHx28FGoKBtb701oGJe3wcml08KfEE7wxmviGkM+kT0K1gKCIJV6nJQCZ84VLBm
+         KT6QTZ/pcDKRW7uswZf/SPfBhae7LF1VCMHtTzG6Ue2CJfrrSFlMG+SavWNad7N01TuH
+         JJRtTIWI/oFc/UJnWSq6ucmRKky6PsNNmTyTCzFfAIwSuFOktA1Hz/8JZ/6K7PbWCkvD
+         qEvxLVa2lDRaxrfhWwml1GpPXjFHD+CEP6Olco6mJac+EbpqPwWr3R40RQKgHXPnWEdf
+         EvbeB3eYlVu/2cJRQLJ+YW6MKT40UuUna0pBVMblb3mKsxZDoszoJ4watcV8VJwMOkvA
+         wr+A==
+X-Forwarded-Encrypted: i=1; AJvYcCXKvfIo4rRY1hGkEz157gNx9jAlF6x5UljmukGaXGYb1uCKRUXrC5mvnIkK2JTs72ubsgg9469NZ/rX@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzlhk3fjF9nRW53c75MHt5h4j5upg/Bd7BytX/3qa54HZE4nFJI
+	/F9wzP2LAynYw/GFrYjZoSoDAg+4YUoko0J3qUA8HrtVWah3p/3yehPj1Zgyyv+2
+X-Gm-Gg: ATEYQzyHh6XHWcl8VCLoYe4ChR5nBB6Oqsfb6LAy3suwR6aIYXFoVV+/oGR0Km8AbXC
+	FDndK6SGG4ebe4dWI07eiUqiOguZe3n7Gmwpg29Xo/DH3D/4pyBlXdobvxS60TAWrVTbuoxBITT
+	9dcF3hyZbrMTbnv/tmfopRfmlmmuI3cUXqUQN590GKUj1xV4jNHKI1CatxBs7Pow3Kkfe3H+zkK
+	6+Xa6Lc8wpZXb+GmXxhMuUQs0lCWS6kDjmGCa7l8LpQKtg6FrtNPLogCxy8NiZ2T9fD943R0ZeI
+	RFiCwov7c6JsnMOQH4EP+a55xnlSXi7YOOknWiAZmyfCxUlDFJLeHNKzRfGHNl74rGQ3S6xrzvV
+	Tc9W9XBIQWIKsXp9tTFkK+uZOkm6mSCCi6kBKDbGaq4YAvIYaFDZxPMjnAFITE6M7VvI6qMR7Z9
+	Ol0UYqPPK4RrxMf0quysyZq/RuvtG28HQtYhogNklijoRTnDn4AuTKZXIwbXBn4ydbd3QbVj0B2
+	mLXGrjotg==
+X-Received: by 2002:a05:6000:40e0:b0:439:936b:bff4 with SMTP id ffacd0b85a97d-43b88a2939fmr9878451f8f.46.1774516251706;
+        Thu, 26 Mar 2026 02:10:51 -0700 (PDT)
 Received: from [127.0.1.1] (cust-east-par-46-193-119-166.cust.wifirst.net. [46.193.119.166])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b919e7111sm6381199f8f.37.2026.03.26.02.10.49
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b919e7111sm6381199f8f.37.2026.03.26.02.10.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Mar 2026 02:10:49 -0700 (PDT)
+        Thu, 26 Mar 2026 02:10:51 -0700 (PDT)
 From: Fidelio Lawson <lawson.fidelio@gmail.com>
 X-Google-Original-From: Fidelio Lawson <fidelio.lawson@exotec.com>
-Date: Thu, 26 Mar 2026 10:10:21 +0100
-Subject: [PATCH 1/3] dt-bindings: dsa: microchip: add KSZ low-loss cable
- errata properties
+Date: Thu, 26 Mar 2026 10:10:22 +0100
+Subject: [PATCH 2/3] net: dsa: microchip: parse KSZ87xx low-loss errata
+ from DT
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,8 +71,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260326-ksz87xx_errata_low_loss_connections-v1-1-79a698f43626@exotec.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260326-ksz87xx_errata_low_loss_connections-v1-2-79a698f43626@exotec.com>
 References: <20260326-ksz87xx_errata_low_loss_connections-v1-0-79a698f43626@exotec.com>
 In-Reply-To: <20260326-ksz87xx_errata_low_loss_connections-v1-0-79a698f43626@exotec.com>
 To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
@@ -86,67 +86,113 @@ Cc: Woojung Huh <Woojung.Huh@microchip.com>, netdev@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Fidelio Lawson <fidelio.lawson@exotec.com>
 X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774516248; l=2567;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774516248; l=3456;
  i=fidelio.lawson@exotec.com; s=20260326; h=from:subject:message-id;
- bh=c7lQdgxqQoIzJtukGcni61BhLUSZ/QFFuAEFNiGJ1gU=;
- b=gj7AGcTZYGRoM7Sy8eZ6g+SR04PncDwMsa3hX82B5caMFrk8jBIIfC/yGLfiXNoWrTzH/QhTl
- 4xqPPoU+hVDCLFug8cRooDd/V7CsmsZBsmKPrftyKqTH8hY5vJ/yU9q
+ bh=8+8i3aomOLS8R8b5sollZ2ZiFAWOT1uHJtt2Q7PXFp4=;
+ b=R/3HNms1ACa2Mn3v7SBYrjkAoaa6bt/B2PlA7rR3/K+Hd/yvt4vsoeheFdN7BB4KG+iLb5tw9
+ nheDwsKTLVlAPe2fatFvMp7rPf8lFmWrgrHN0M8n753bPqnXiN9qEpx
 X-Developer-Key: i=fidelio.lawson@exotec.com; a=ed25519;
  pk=866eH9Bmmpjc+ctgkr5T1uXxBefZzob3tEEuiVWZ6BI=
 
-Microchip KSZ87xx switches are affected by the "Module 3: Equalizer fix
-for short cables" erratum described in DS80000687C.
-The embedded PHY receivers are tuned for long, high-loss cables,
-which may cause signal distortion when operated with short or low-loss
-cabling such as CAT5e or CAT6. In these cases,
-the PHY may fail to establish a link due to internal over-amplification.
+Add parsing of the new DT bindings related to the KSZ87xx low-loss cable
+errata. The parsed values are stored in the ksz_device structure for use
+during switch initialization.
 
-Two workarounds are provided by Microchip, each configuring a different
-indirect register value to adjust the PHY equalizer settings.
+If the enable property is present, the driver reads the errata mode
+(microchip,low-loss-errata) and selects workaround 1 or 2 accordingly.
+If the enable property is absent, the errata logic is fully disabled.
 
-This patch introduces two new device tree properties to enable and
-select the appropriate workaround:
-
-  - microchip,low-loss-errata-enable: boolean enabling the feature
-  - microchip,low-loss-errata: selects workaround 1 or 2 (default: 1)
-
-These properties allow board designers to opt into the errata fix
-according to the targeted cable characteristics of their platform.
+This keeps behavior fully backward-compatible with existing
+device trees.
 
 Signed-off-by: Fidelio Lawson <fidelio.lawson@exotec.com>
 ---
- .../devicetree/bindings/net/dsa/microchip,ksz.yaml     | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/net/dsa/microchip/ksz8.c       | 25 +++++++++++++++++++++++++
+ drivers/net/dsa/microchip/ksz8.h       |  1 +
+ drivers/net/dsa/microchip/ksz_common.h |  9 +++++++++
+ 3 files changed, 35 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml b/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml
-index 8d4a3a9a33fc..ddfbc36aace6 100644
---- a/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml
-+++ b/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml
-@@ -85,6 +85,24 @@ properties:
-     enum: [2000, 4000, 8000, 12000, 16000, 20000, 24000, 28000]
-     default: 8000
+diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip/ksz8.c
+index c354abdafc1b..78b42cf50ce2 100644
+--- a/drivers/net/dsa/microchip/ksz8.c
++++ b/drivers/net/dsa/microchip/ksz8.c
+@@ -1989,6 +1989,10 @@ int ksz8_setup(struct dsa_switch *ds)
+ 			ret = ksz_rmw8(dev, REG_INT_ENABLE, INT_PME, 0);
+ 	}
  
-+  microchip,low-loss-errata-enable:
-+    description:
-+      The receiver of the embedded PHYs is tuned by default to support long cable length applications. This was developed
-+      using low quality, high loss cables. Because of this, the equalizer in the PHY may amplify high amplitude receiver signals
-+      to the point that the signal is distorted internally, preventing a link from being established.
-+      A more balanced receiver setting has been found that still functions at the long cable lengths and also supports
-+      low loss applications.
-+      If present, enables the selected errata workaround. If absent, the
-+      workaround is disabled regardless of microchip,cat56-errata value.
-+    type: boolean
++	/* Check if errata on low loss cable should be applied */
++	if (ksz_is_ksz87xx(dev))
++		ksz87xx_parse_errata_dt(dev);
 +
-+  microchip,low-loss-errata:
-+    description:
-+      Selects Microchip KSZ87xx CAT5e/CAT6 short-cable errata workaround.
-+      1 = Workaround 1, 2 = Workaround 2. If omitted, workaround 1 is applied.
-+    enum: [1, 2]
-+    default: 1
-+
-   interrupts:
-     maxItems: 1
+ 	if (!ret)
+ 		return ksz8_handle_global_errata(ds);
+ 	else
+@@ -2096,6 +2100,27 @@ int ksz8463_w_phy(struct ksz_device *dev, u16 phy, u16 reg, u16 val)
+ 	return 0;
+ }
  
++void ksz87xx_parse_errata_dt(struct ksz_device *dev)
++{
++	struct device_node *np = dev->dev->of_node;
++	u32 mode;
++	int ret;
++
++	dev->low_loss_wa_enable = of_property_read_bool(np, "microchip,low-loss-errata-enable");
++
++	if (!dev->low_loss_wa_enable) {
++		dev->low_loss_wa_mode = KSZ_LOW_LOSS_WA_NONE;
++		return;
++	}
++
++	ret = of_property_read_u32(np, "microchip,low-loss-errata", &mode);
++
++	if (!ret && (mode == 1 || mode == 2))
++		dev->low_loss_wa_mode = mode;
++	else
++		dev->low_loss_wa_mode = KSZ_LOW_LOSS_WA_1;
++}
++
+ int ksz8_switch_init(struct ksz_device *dev)
+ {
+ 	dev->cpu_port = fls(dev->info->cpu_ports) - 1;
+diff --git a/drivers/net/dsa/microchip/ksz8.h b/drivers/net/dsa/microchip/ksz8.h
+index 0f2cd1474b44..3a43769a4c53 100644
+--- a/drivers/net/dsa/microchip/ksz8.h
++++ b/drivers/net/dsa/microchip/ksz8.h
+@@ -66,5 +66,6 @@ int ksz8_all_queues_split(struct ksz_device *dev, int queues);
+ u32 ksz8463_get_port_addr(int port, int offset);
+ int ksz8463_r_phy(struct ksz_device *dev, u16 phy, u16 reg, u16 *val);
+ int ksz8463_w_phy(struct ksz_device *dev, u16 phy, u16 reg, u16 val);
++void ksz87xx_parse_errata_dt(struct ksz_device *dev);
+ 
+ #endif
+diff --git a/drivers/net/dsa/microchip/ksz_common.h b/drivers/net/dsa/microchip/ksz_common.h
+index 929aff4c55de..f40e7bd20b3e 100644
+--- a/drivers/net/dsa/microchip/ksz_common.h
++++ b/drivers/net/dsa/microchip/ksz_common.h
+@@ -158,6 +158,12 @@ struct ksz_port {
+ 	bool manual_flow;
+ };
+ 
++enum ksz_low_loss_wa_mode {
++	KSZ_LOW_LOSS_WA_NONE = 0,
++	KSZ_LOW_LOSS_WA_1    = 1,
++	KSZ_LOW_LOSS_WA_2    = 2,
++};
++
+ struct ksz_device {
+ 	struct dsa_switch *ds;
+ 	struct ksz_platform_data *pdata;
+@@ -219,6 +225,9 @@ struct ksz_device {
+ 	 * the switch’s internal PHYs, bypassing the main SPI interface.
+ 	 */
+ 	struct mii_bus *parent_mdio_bus;
++
++	bool low_loss_wa_enable;     /* low-loss cable errata activation */
++	enum ksz_low_loss_wa_mode low_loss_wa_mode;     /* low-loss cable Workaround to apply */
+ };
+ 
+ /* List of supported models */
 
 -- 
 2.53.0
