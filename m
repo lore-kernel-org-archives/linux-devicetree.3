@@ -1,105 +1,106 @@
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C8D33D51D;
-	Thu, 26 Mar 2026 17:44:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.32.30.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FF739BFF6;
+	Thu, 26 Mar 2026 17:45:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774547062; cv=none; b=bwZ7oz/LSluJVc2GbqPJMVB3R1zzSn+OXFZlYPP2hNz7JkgvTby9Lb6oNMAcwBK0578GjyqfNAzjMx8ZnbF9JdlRxedt19hKs4Jo7TSeMtxa7yIzHJlFGjm8+juXc7reEoj+IND/3TANH+8WLpJrtNbcxk8fWC/t9YV4Mc08d8I=
+	t=1774547138; cv=none; b=RUoaIuC8WjjlxW42MvcK2ygrFDbbQZ1q4hdZGfe3IFTWwwKeyxzPNJQT+8dyahkofp6P0Ma7A2PkzVa2b+7yJGYZ7pMpGnJpI9/XQWUhtRXDEKCcmN1QX7RonUgoY8+rLDEw+8L6F5eDBbeWae70AJGFC7E3Epm+zEAb/yAsMOg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774547062; c=relaxed/simple;
-	bh=/k1OR+GuB2NBGGAdF22Aa+NrR/gPZHefh3IaY2VS4MY=;
+	s=arc-20240116; t=1774547138; c=relaxed/simple;
+	bh=kxNYsTSUOAGQeVxK433Pg8jeWXPC6fLTd5Mnx0qyrg0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nneXmqglPubuwRTaiaTjygCEqPcBJ2MpAEfrGpjtc/dHJG4j3gLCokhkay/uQ7r1t20/XLtop3nmQuIsvPMHRtzrC4G6eXcrjvi9Tfrp/yUdKgXl59JMi7CCJQls8r7e/sh88ArRrCPYa/c+9fSOlgxICi5fw05fkE9r0PjvaHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk; spf=none smtp.mailfrom=armlinux.org.uk; dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b=pi6DLka2; arc=none smtp.client-ip=78.32.30.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=armlinux.org.uk
+	 Content-Type:Content-Disposition:In-Reply-To; b=LhOvuGSCCIgHbVq3yn2s4n6YBhAxu3haiylD3lJx0MW/E1khip5mHdJKFLnyzF6Bn0xNizd8rfy7llAungDYkmSqysg0sobCRQ/fUYnW3Q/rR4yXelHIX01xr5RmwCpvgkEr0CaHkd1jcl9BWoptL/Yfn64Fir5rjxUdlvULHIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mq+0ETiL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b="pi6DLka2"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
-	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=1f6J7MFQ+d3Eprch19nvBJN8SwLx9u4Mt/IcSuHYlLw=; b=pi6DLka26kwbyiEEB6f0eCDWa3
-	6+fgpsgwMuo2hHTi7NjvwYDaE28XI06phkkv6LoAdpoSVu1wGEcuB/B2b7dpbcYLy2qO3OttXzjME
-	q+sWCBOkrWZI5i1fnQy3cpbCjLda4+i3eZ6IiV3X05HIlDpxyUeWguchdj38m/DUEhKv8zxzFow9s
-	sp1alZgomfd1xRGP5gl+s3xYElOko2K4JVrtIVmaeaZCC14vQraGxxQJ7JfhW59B3Embg/9SrBZY1
-	1eqDdmQtKX/3gTk9kqWNxl9W1o9VgVPvZXphGHKZx6FCpLvYvQEMQGxpgkjVyThlTnKUNR+Dd8q69
-	E4vR7l0A==;
-Received: from shell.armlinux.org.uk ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:51818)
-	by pandora.armlinux.org.uk with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <linux@armlinux.org.uk>)
-	id 1w5okW-00000000574-3f1q;
-	Thu, 26 Mar 2026 17:44:04 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
-	(envelope-from <linux@shell.armlinux.org.uk>)
-	id 1w5okT-000000007ER-3JGz;
-	Thu, 26 Mar 2026 17:44:01 +0000
-Date: Thu, 26 Mar 2026 17:44:01 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>, kevin-kw.huang@airoha.com,
-	macpaul.lin@mediatek.com, matthias.bgg@gmail.com,
-	kernel@collabora.com, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 4/4] net: phy: Introduce Airoha AN8801/R
- Gigabit Ethernet PHY driver
-Message-ID: <acVwYUKxIkKUEUJZ@shell.armlinux.org.uk>
-References: <20260326-add-airoha-an8801-support-v2-0-1a42d6b6050f@collabora.com>
- <20260326-add-airoha-an8801-support-v2-4-1a42d6b6050f@collabora.com>
- <acVND6DdpM9czIwU@shell.armlinux.org.uk>
- <044110c5-da1e-48c0-93fd-35553e86b271@lunn.ch>
- <acVQQQiciPQBkQOG@shell.armlinux.org.uk>
- <425217fd-f74c-455c-9aa7-5b6682d887fa@lunn.ch>
- <385d2137-0d15-4dc0-8994-9cd48e4150b4@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mq+0ETiL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6492C2BCB0;
+	Thu, 26 Mar 2026 17:45:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774547137;
+	bh=kxNYsTSUOAGQeVxK433Pg8jeWXPC6fLTd5Mnx0qyrg0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mq+0ETiLFCw6bN/xd7ulu6ogS9wpllmtuOacfbkWiJPeJHrgOg1OpxO5ZWpRRuebB
+	 bktiqIVCCKmFnvKgIxRZJ4S1Vep3KNO3r7WemVJmTKl8K/5Ftb2I52dz7ajOiq0g7B
+	 lxy8mL446tPRnjpNqkBh0KxRlSe+MVz40tgQ+aJuk3oqpUvT1ZujmmSyMjPfnEQ8wM
+	 WywqM1a08ca4BaxFSCx722NhLPw5dWi0A4NTA6+fnIwHfIJ8cnCywKUAxgye46Nloi
+	 Gaf7CdUjq5WSaBkqNGb7F7D9mX1FkXQjyFuYzCNBzTyH74rFd5TduHELNRWTwmU22c
+	 CBCN8zpIPj+Qw==
+Date: Thu, 26 Mar 2026 17:45:33 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Zaixiang Xu <zaixiang.xu.dev@gmail.com>, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/4] dt-bindings: hwmon: Add Sensirion SHT30 series
+Message-ID: <20260326-opposing-footsie-33a0deb2ba90@spud>
+References: <1774429690-129139-1-git-send-email-zaixiang.xu.dev@gmail.com>
+ <1774429690-129139-3-git-send-email-zaixiang.xu.dev@gmail.com>
+ <20260325-napping-turmoil-de37168fb072@spud>
+ <09105b02-3d85-4808-ba0a-f3799787425a@roeck-us.net>
+ <20260326-lullaby-elevator-3a3d25e9a6c0@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yqiArGzkRvrAykub"
+Content-Disposition: inline
+In-Reply-To: <20260326-lullaby-elevator-3a3d25e9a6c0@spud>
+
+
+--yqiArGzkRvrAykub
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <385d2137-0d15-4dc0-8994-9cd48e4150b4@bootlin.com>
-Sender: Russell King (Oracle) <linux@armlinux.org.uk>
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Mar 26, 2026 at 06:25:20PM +0100, Maxime Chevallier wrote:
-> On 26/03/2026 17:56, Andrew Lunn wrote:
-> >> What is the timing requirements for a system going into suspend vs a WoL
-> >> packet being sent? Should a WoL packet abort entry into suspend? If yes,
-> >> then we need to program the MAC before the PHY is suspended, because
-> >> suspend could already be in progress.
-> > 
-> > We would then need to hook into the NETDEV_CHANGEADDR notifier, and
-> > call into the PHY driver to let it reprogram the MAC address.
-> 
-> We would also probably have to re-do that MAC addr programming at phy
-> attach time ? If the PHY isn't attached (e.g. link admin-down on some
-> boards), we can't use that notifier as we don't know what netdev to
-> listen to. Or I'm missing something ?
+On Thu, Mar 26, 2026 at 05:42:30PM +0000, Conor Dooley wrote:
+> On Wed, Mar 25, 2026 at 06:05:22PM -0700, Guenter Roeck wrote:
+> > On 3/25/26 11:20, Conor Dooley wrote:
+> > > On Wed, Mar 25, 2026 at 05:08:08PM +0800, Zaixiang Xu wrote:
+> > > > Add YAML devicetree binding schema for Sensirion SHT30 series.
+> > > > Use fallback compatibles for compatible chips and add optional
+> > > > interrupts and vdd-supply properties.
+> > > >=20
+> > > > Reported-by: kernel test robot <lkp@intel.com>
+> > > > Closes: https://lore.kernel.org/r/202603212044.BRPaiz86-lkp@intel.c=
+om/
+> > >=20
+> > > The robot did not report that this binding was missing.
+> > > It also told you not to add these tags.
+> > >=20
+> > > You also ignored my and Krzysztof's reviews.
+> > >=20
+> > > NAK.
+> > >=20
+> >=20
+> > Maybe we should just point to AI feedback:
+> >=20
+> > https://sashiko.dev/#/patchset/1774429690-129139-1-git-send-email-zaixi=
+ang.xu.dev%40gmail.com
+> >=20
+> > and only get involved after AI does not report any problems.
+> >=20
+>=20
+> The presentation of info in that is weird, it creates a pseudo-commit
+> message, and then goes on to talk about things that the pseudo-commit
+> message has had culled.
 
-Another point to consider in this area:
+How good is this LLM stuff at figuring out if previous review feedback
+has been resolved? Or is it not capable of looking at earlier revisions?
 
-Should a detached PHY remain with WoL enabled?
+--yqiArGzkRvrAykub
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If e.g. the network driver is unbound from its device, which certainly
-disconnects the PHY from the network interface, should that PHY still
-be able to wake up the system when there is no way to configure,
-check its status, or handle its interrupts?
+-----BEGIN PGP SIGNATURE-----
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacVwvQAKCRB4tDGHoIJi
+0oMxAP99d/PniJzC7SasV+Tv/rGpg6lUfVbr8QApXedeYgOKRQEA8PS7SyEEJT0k
+sHwiuqqUk2NdOAXbR2JJ8cmOGH1J2AA=
+=Ngqb
+-----END PGP SIGNATURE-----
+
+--yqiArGzkRvrAykub--
