@@ -1,97 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D303537E9;
-	Thu, 26 Mar 2026 09:42:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0ACA35F18D
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:43:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774518144; cv=none; b=NuL69U/+fRePXxL2YojWOWBQmHm18PtnyWiLmayvDy4XCaMQJ4PfjTsVnXDeMaE7qMEpCl9/fqU36JPBzZ68K2B1JlRKoDWzZZwR9mkgwZ6PJ8Ji1bY7MkznfTCT7lyFCSI/wP2rSNDq6b17hUSM+nTaZxhmMMGXTDQhAupebow=
+	t=1774518186; cv=none; b=NfKHt4npSAcon49FeygfMyXbo4HDi7U4nnV00btkf3YrpSWnct7HFppIj0ZrmUQGcJlyp9hR4Lym3xi5LPgmSgSPavFdeQ+72+YffmdKFqcUgZoXSjji3v8GX973i36/TpWwaxoX14+SS65gCf9D0JGwTI5gCI0s24iYIWYuDhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774518144; c=relaxed/simple;
-	bh=v8fJcxXD7A4CYcyfb6M+TlCJrYfDFInBVKdu3RRKLDk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JMSV8Fc4h/2fxrVlksjAML+3iyloNwearPp91lVDK4A64Vvmvu3BmPLWRswzHWXaFD8ZGkY7hbWx6Q4ynvVLM6FuGfGxd2jcbnsCDrChZhXQJRhNgnkE1IYCC1JriWzWihCeLSMKiRYwvA3+nG+LglCRuqF1KDG8KTtdqigb0qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YPJqBx+q; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YPJqBx+q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D4DC19423;
-	Thu, 26 Mar 2026 09:42:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774518143;
-	bh=v8fJcxXD7A4CYcyfb6M+TlCJrYfDFInBVKdu3RRKLDk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YPJqBx+qMpgFBM2oZm65Fqw7xX/suStQZbF0rG+qX8p57NRa8AHfBxorqYIaX10x4
-	 Rt48oKaQvNvLJ7ODPTGgmNoo+cQb+eexg3J2BC9FDSctylDa8yUNFchxUMnajjZTEW
-	 VmK1YPpeUQw2KbLWXXUOS1B89VkgQsESFkBIpmn8QucKU3fQwAOspVD17JFTg5lKfH
-	 RX5WmSil72/Qph9xjC0qbh4eBxDZa2d/hVyAsdx1qlf13VnldV6RhxLV24ZWVN3mx2
-	 uGdVwkBJx3C5LNLTYbGKRfxxQpCDwj/5wW4HJeww3VYJSVp2AtOWxP3D3iNaBN+L33
-	 Ln8kZ1mDWunyw==
-Date: Thu, 26 Mar 2026 10:42:20 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Yi-Wei Wang <yiweiw@nvidia.com>
-Subject: Re: [PATCH v2 5/7] pwm: tegra: Parametrize duty and scale field
- widths
-Message-ID: <acT_dZoWB7ZMilE0@orome>
-References: <20260325-t264-pwm-v2-0-998d885984b3@nvidia.com>
- <20260325-t264-pwm-v2-5-998d885984b3@nvidia.com>
+	s=arc-20240116; t=1774518186; c=relaxed/simple;
+	bh=BiAwvTDvxBZNe4zMaISQ9WF5iLCnzPvWoQ3vuS7x9Nw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hfjDhKhayGcCqdFfjtQoopBET0ydULRwuVHxV/tZdO8x+dDa+SjfI4r7MZwYCP5nWuhJRaRA7Cg60cHvEADwkcZBe2QuCxP8xGEw4AnU1CS3xw6yA9pnwLj3h9p/t4+xdWfHfqOcjLv1t9oXGrKowAB10s8I8BRF58DXbpfg4/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5675d609621so700594e0c.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:43:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774518184; x=1775122984;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8kU0JKCVLmRyv60mHDUvVFC/LUQqWVAx2g7oJNxauWQ=;
+        b=HGJFMH2KjT1JwAm0NSXHVz7jDDHsvbe/E7uIU15Q7ll4Vkfi98Vxkkfd2uxQCM/ilb
+         w47HeWg7PGiomw4JisJCllARfL039CrZ0sF2RPL2oQgyaSKZhv7NfKQXHuy2EfpJPlyL
+         tAh/0qbnm7g2zCoU4NStoxp5o+/D3ZS0UMHxLcFD1Yz/GVEnkAQ5b8Y5wFF0V5rzG9y3
+         POBAv6erM5SRIEMIEnnkLiQEovBEGw42AjvZMqhPyjXa3wn0rYvDdbvtPf47DkhqElvK
+         Zqro+mkDu5mCak+ZyvRJSgFmylzURXUnT8zyq0ytp/FXr7AQ8LtG4e/vLY/65pIbB1gB
+         T6Xw==
+X-Forwarded-Encrypted: i=1; AJvYcCU9QUJW+sDUmuMYhbLYupgwhbVHvmFYbT8BMKV1PmW/UKckUI5OLLvBcXW+dOOgr2MSOISVRCHX/Uma@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz27lXsayw0f9AxM8/Lzxp5ipIFVRzjCuknro4yvEiVSKi58mor
+	l+/tJgpkDZcKGDDD3fCw9BPZKAxhb6pMcLfdvg+D66KOKxYwWyrKbjhh1L7yIXjrG2E=
+X-Gm-Gg: ATEYQzyz5hSlCQ8RBMXM2sEAG1rh9GRn4fF+ZkUUaUvpS1enFDHnSoZD4GJ5+JixQlk
+	zcE5JjQSnNOXIq55SwssmKp2zNs//zlOIRyY6ALokA6ctaHTNGugpcWvsgIgBee3BWXGRy7YQl4
+	ozrJyvXbe88weRvTGQJ43kNWVEaxZWRtow+urfqB+PjJA/B4DkOfc3W49k6hgzJ3QhnHhm/xo2c
+	7E3yxnAV43ReLy54IkvuJrHwIN4UqSLLxjO/tRDzKKf1fIcLt33oRGod7NZbyFWOMyJ9H5uVP+f
+	nSeFMD9ykNN5SO107M+FjlIpP6qmsdXs2gy/lUBWYv4yeKQsudHWVSYSReAtA6Ar3ULt52Dc8mH
+	5+lKwiYsGY/cjeWI+VVKhMKLhjzkjNytl0LKTq9bpyylmRVKcpBiRgu4TH8G+FLc60COFQDLeN/
+	XoBvjE6uvpAA4twuAo9umaISWLGB6w28WEN2Y4GkVk9EcUGrDhN+GZWWu00ZdH
+X-Received: by 2002:a05:6122:83c3:b0:56b:6adf:150b with SMTP id 71dfb90a1353d-56d220e6d08mr3563433e0c.13.1774518183578;
+        Thu, 26 Mar 2026 02:43:03 -0700 (PDT)
+Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com. [209.85.222.54])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56d31d9f049sm3792292e0c.17.2026.03.26.02.43.02
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Mar 2026 02:43:03 -0700 (PDT)
+Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-94de88e52e5so468797241.0
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:43:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCWD1kiCqA58fWNPke4vdt5J2X6fZRVTWVdlltnZLkOyezfifodiJLghmRnPJ49XToKMYcKxKpLqFn4S@vger.kernel.org
+X-Received: by 2002:a05:6102:2912:b0:5ff:dabc:db3c with SMTP id
+ ada2fe7eead31-60387434993mr3725937137.33.1774518182764; Thu, 26 Mar 2026
+ 02:43:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zsoq6cv7jqhpbm3x"
-Content-Disposition: inline
-In-Reply-To: <20260325-t264-pwm-v2-5-998d885984b3@nvidia.com>
+References: <20251010-kakip_eth0-v1-1-0d8fdcbceb9a@ideasonboard.com>
+In-Reply-To: <20251010-kakip_eth0-v1-1-0d8fdcbceb9a@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 26 Mar 2026 10:42:51 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdURyu4U4ndv=YE47o6S_9O6eKVJKw_O=g+1c370Y5oTUw@mail.gmail.com>
+X-Gm-Features: AQROBzDbZehn_4D-IYCZOycaqBEf9nJApEKcYwJ0UO0dOgClazFf2m0HC7BXIuk
+Message-ID: <CAMuHMdURyu4U4ndv=YE47o6S_9O6eKVJKw_O=g+1c370Y5oTUw@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: renesas: r9a09g057h48-kakip: Enable eth0
+To: Daniel Scally <dan.scally@ideasonboard.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Daniel,
 
---zsoq6cv7jqhpbm3x
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 5/7] pwm: tegra: Parametrize duty and scale field
- widths
-MIME-Version: 1.0
+On Fri, 10 Oct 2025 at 13:11, Daniel Scally <dan.scally@ideasonboard.com> wrote:
+> Enable the eth0 node and define its phy.
+>
+> Signed-off-by: Daniel Scally <dan.scally@ideasonboard.com>
 
-On Wed, Mar 25, 2026 at 07:17:03PM +0900, Mikko Perttunen wrote:
-> Tegra264 has wider fields for the duty and scale register fields.
-> Parameterize the driver in preparation. The depth value also
-> becomes disconnected from the width of the duty field, so define
-> it separately.
->=20
-> Co-developed-by: Yi-Wei Wang <yiweiw@nvidia.com>
-> Signed-off-by: Yi-Wei Wang <yiweiw@nvidia.com>
-> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
-> ---
->  drivers/pwm/pwm-tegra.c | 29 ++++++++++++++++++-----------
->  1 file changed, 18 insertions(+), 11 deletions(-)
+A few more comments, due to recent evolutions.
 
-Reviewed-by: Thierry Reding <treding@nvidia.com>
+> --- a/arch/arm64/boot/dts/renesas/r9a09g057h48-kakip.dts
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g057h48-kakip.dts
+> @@ -50,6 +51,33 @@ vqmmc_sdhi0: regulator-vccq-sdhi0 {
+>         };
+>  };
+>
+> +&eth0 {
+> +       pinctrl-0 = <&eth0_pins>;
+> +       pinctrl-names = "default";
+> +       phy-handle = <&phy3>;
+> +       phy-mode = "rgmii-id";
+> +       status = "okay";
+> +};
+> +
+> +&mdio0 {
+> +       phy3: ethernet-phy@3 {
+> +               compatible = "ethernet-phy-id0022.1640", "ethernet-phy-ieee802.3-c22";
 
---zsoq6cv7jqhpbm3x
-Content-Type: application/pgp-signature; name="signature.asc"
+Drop the latter?
 
------BEGIN PGP SIGNATURE-----
+> +               reg = <3>;
+> +               rxc-skew-psec = <0>;
+> +               txc-skew-psec = <0>;
+> +               rxdv-skew-psec = <0>;
+> +               txdv-skew-psec = <0>;
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnE/3wACgkQ3SOs138+
-s6HBmA/+NzRD5+EeO+Wok2owT1hCK6IFthpMkbXXN83ywb7ajD8Fukh7VYvs6N0W
-GfYxFGzUkUci9QBZPRoWzC4cmIcilu2djTheHZgsMpf94gxQ1Kq8T61Vb7woG5IK
-HWR39tYtwFAg3tz1QDqDoN6d+ZhD1sEKKas+ooewjxXGOi/UjkK6uRdmxBCYcq3M
-uHeL6mydrVEEd4yowWi9DJ/Dis0D8p52gGaMWI2GmDkBYncr5RZlujTYBBqO9rRz
-pKWf7OIUZ2X+e1/Sy6t+TEhni/ZIQVC/x1TWhcyaJtsKdJW56stWXd7xxT4zUQ1a
-wZfiG+Bi5vle2NNavX5ClSvK5TBYDeEnS8mwQ3NOYrPpdkyx0ij2pU6ZpBwOOkiw
-VOcJ24b20Yp97bnOTZXreKpP7UCEYRf3CMFXLmNLOBxrcrDaaZifbmr58AZvL2su
-iG9b+LRjI5bGkG/N0hg71JM0S/4nbloeKrByBf8BhMMvrBoHBkVpUNVPCDN/n5GH
-NVt7FRvde13mMYYPPkuflXLc6i6W79UVyzUHdsMuK7xVVah87xMFy45NCGI+kXug
-d4TKgzeg1AzwCAH8NZ3oue4HsSX29Tcog1xwoU2iZpPArC6/tPpLZDiNq8Ti31HN
-2Q7PSnaYpP7Ls7lMV2qvl5U7HNuKJgety5EeitUK9Cit6Nbf4Bg=
-=hGDV
------END PGP SIGNATURE-----
+txen-skew-psec?
 
---zsoq6cv7jqhpbm3x--
+> +               rxd0-skew-psec = <0>;
+> +               rxd1-skew-psec = <0>;
+> +               rxd2-skew-psec = <0>;
+> +               rxd3-skew-psec = <0>;
+> +               txd0-skew-psec = <0>;
+> +               txd1-skew-psec = <0>;
+> +               txd2-skew-psec = <0>;
+> +               txd3-skew-psec = <0>;
+> +       };
+> +};
+> +
+>  &ivc {
+>         status = "okay";
+>  };
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
