@@ -1,192 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 268A33BF660;
-	Thu, 26 Mar 2026 12:10:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A8938B121;
+	Thu, 26 Mar 2026 12:14:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774527020; cv=none; b=P+3Dii8vwhYcOmp9iuhIHij9c8li2THQe7Quh0yW1DMyYpQdU3Ei3gCgkOACveGpte+2nHyiFWMJUeconhEpQj7hXl85i9bPnQtbHd+2XTyusWZ2LBMDoBihdH1pM+z57jW5oIpfjK+s0hVediKyAuTNaNDW/Qf0eYjdD5NgVm8=
+	t=1774527265; cv=none; b=dg6yUfd7chFBT96xilf0CalauPxUTfM7Ct4QVAfEgNFqL/+oZe9RoeTxHy5PWh/7nmWwLaTHMrTWrh/fm8NAjm+SzGR+S8PV5CV7+ZyMngZzwKlRnL6qu6mdQFz3/TzuHTXVpuymuoOC7+RzqmXyGd7Ls6sDxCatnBmAgMc0Z7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774527020; c=relaxed/simple;
-	bh=dtdPYOxSruNMTYr7ovgDe+Uvc6axC30hpLRYIuFkgWM=;
+	s=arc-20240116; t=1774527265; c=relaxed/simple;
+	bh=bwHn5ee8/BMiVEQ2a0oY/PvtpiJF7va3KpPKdeTQTfs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W5Ek1Hcm/9atOhsdjXT/PYLbHyySqNie95Z3X0QpReWsikjva2cM+5VWMKDpOOYz2PU0NpVgcu1JRWcF4I9v/mJ5YT/0x1Pa/Eoxha/Vsg+RewUxGkHeEVSpj/26AapFWzAag4NgxKcLlp8nAa5ABjguVHzhAeaTbeevLO0I5Co=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V5kZbdoV; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=DIbRuXXzLD7Ez7ZRwbaVz84oWYvyUCZ81DTpRhCfznfyzo3tfb/BRm0wXiiL4oWonNOu6hcA3pkv4DZ5VjPfQeSAaBtYXI1qy8zPYjbyH/JvITntFxqR9bDrPL+mSBP1+P4k5Aj6fM6t2P8hlil1L9dAL753j2nRy+YAo1YDvAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=VPG6ZaWP; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V5kZbdoV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6694C116C6;
-	Thu, 26 Mar 2026 12:10:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774527019;
-	bh=dtdPYOxSruNMTYr7ovgDe+Uvc6axC30hpLRYIuFkgWM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=V5kZbdoVPJdViQFbIY/5CRC1c7nchphQYFhcb7T1/liR7daVygcSF5m9TyRiB+5eF
-	 F3u68kr9P7CzybtGbNfE0aP5Ha1I8Qkz9ADEFCOntBNCNFuYk6oiNgHPPZxjLneYDM
-	 w9QH5qIF31eEEtlMnz19jP71zUtcw+7c1Bf4ynVhIzLpNjj+k0STMzKeqeCA/UMxCP
-	 AgBsYrhc2FOXIbsV1WWLlWOB0Pj8trZ9drWF0t3UUHJLfCvJn21W9jWVIQYmxPX1UX
-	 RMti/wsGhFhmDstvUMxcGgV0/W9ULyjJ50M4/VTPPoz5ciJG9DUx/Svj8R3oVNRU1v
-	 ZiAb7woNojxYw==
-Date: Thu, 26 Mar 2026 12:10:12 +0000
-From: Lee Jones <lee@kernel.org>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org, Fabien Parent <parent.f@gmail.com>,
-	Val Packett <val@packett.cool>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="VPG6ZaWP"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=nODx/pKi0XY2U0hMYX1gKhrixXQuNH+ob0VCp10UmDM=; b=VPG6ZaWPQYooabUf1pTssgK19i
+	9edbhjTKUlwuiUunE6xIcxMOI1ys3rsdTQbq2rZ8vMezzrkL0R8E4zjXrJjXmZ4/VAD/tl2BHzLa4
+	ca7NhAOuq1Zda82EfcvNvZ1zfmVV0WkwtW6jJ0igHPKI4EZESzjO1xWL3DuArqszoM1w=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1w5jbF-00DTO2-Vo; Thu, 26 Mar 2026 13:14:09 +0100
+Date: Thu, 26 Mar 2026 13:14:09 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Fidelio Lawson <lawson.fidelio@gmail.com>
+Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Macpaul Lin <macpaul.lin@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Julien Massot <julien.massot@collabora.com>,
-	Gary Bisson <bisson.gary@gmail.com>,
-	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
-	Chen Zhong <chen.zhong@mediatek.com>, linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v3 5/9] mfd: mt6397: Add support for MT6392 pmic
-Message-ID: <20260326121012.GM1141718@google.com>
-References: <20260317184507.523060-1-l.scorcia@gmail.com>
- <20260317184507.523060-6-l.scorcia@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fidelio Lawson <fidelio.lawson@exotec.com>
+Subject: Re: [PATCH 1/3] dt-bindings: dsa: microchip: add KSZ low-loss cable
+ errata properties
+Message-ID: <521cf729-50d2-44c1-8c96-c1fba2127b9d@lunn.ch>
+References: <20260326-ksz87xx_errata_low_loss_connections-v1-0-79a698f43626@exotec.com>
+ <20260326-ksz87xx_errata_low_loss_connections-v1-1-79a698f43626@exotec.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260317184507.523060-6-l.scorcia@gmail.com>
+In-Reply-To: <20260326-ksz87xx_errata_low_loss_connections-v1-1-79a698f43626@exotec.com>
 
-On Tue, 17 Mar 2026, Luca Leonardo Scorcia wrote:
-
-> From: Fabien Parent <parent.f@gmail.com>
+On Thu, Mar 26, 2026 at 10:10:21AM +0100, Fidelio Lawson wrote:
+> Microchip KSZ87xx switches are affected by the "Module 3: Equalizer fix
+> for short cables" erratum described in DS80000687C.
+> The embedded PHY receivers are tuned for long, high-loss cables,
+> which may cause signal distortion when operated with short or low-loss
+> cabling such as CAT5e or CAT6. In these cases,
+> the PHY may fail to establish a link due to internal over-amplification.
 > 
-> Update the MT6397 MFD driver to support the MT6392 PMIC.
+> Two workarounds are provided by Microchip, each configuring a different
+> indirect register value to adjust the PHY equalizer settings.
 > 
-> Signed-off-by: Fabien Parent <parent.f@gmail.com>
-> Signed-off-by: Val Packett <val@packett.cool>
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-> ---
->  drivers/mfd/mt6397-core.c            |  46 +++
->  drivers/mfd/mt6397-irq.c             |   8 +
->  include/linux/mfd/mt6392/core.h      |  42 +++
->  include/linux/mfd/mt6392/registers.h | 487 +++++++++++++++++++++++++++
->  include/linux/mfd/mt6397/core.h      |   1 +
->  5 files changed, 584 insertions(+)
->  create mode 100644 include/linux/mfd/mt6392/core.h
->  create mode 100644 include/linux/mfd/mt6392/registers.h
+> This patch introduces two new device tree properties to enable and
+> select the appropriate workaround:
 > 
-> diff --git a/drivers/mfd/mt6397-core.c b/drivers/mfd/mt6397-core.c
-> index 3e58d0764c7e..c4b86a44c68b 100644
-> --- a/drivers/mfd/mt6397-core.c
-> +++ b/drivers/mfd/mt6397-core.c
-> @@ -18,6 +18,7 @@
->  #include <linux/mfd/mt6357/core.h>
->  #include <linux/mfd/mt6358/core.h>
->  #include <linux/mfd/mt6359/core.h>
-> +#include <linux/mfd/mt6392/core.h>
->  #include <linux/mfd/mt6397/core.h>
->  #include <linux/mfd/mt6323/registers.h>
->  #include <linux/mfd/mt6328/registers.h>
-> @@ -25,6 +26,7 @@
->  #include <linux/mfd/mt6357/registers.h>
->  #include <linux/mfd/mt6358/registers.h>
->  #include <linux/mfd/mt6359/registers.h>
-> +#include <linux/mfd/mt6392/registers.h>
->  #include <linux/mfd/mt6397/registers.h>
->  
->  #define MT6323_RTC_BASE		0x8000
-> @@ -39,6 +41,9 @@
->  #define MT6358_RTC_BASE		0x0588
->  #define MT6358_RTC_SIZE		0x3c
->  
-> +#define MT6392_RTC_BASE		0x8000
-> +#define MT6392_RTC_SIZE		0x3e
-> +
->  #define MT6397_RTC_BASE		0xe000
->  #define MT6397_RTC_SIZE		0x3e
->  
-> @@ -65,6 +70,11 @@ static const struct resource mt6358_rtc_resources[] = {
->  	DEFINE_RES_IRQ(MT6358_IRQ_RTC),
->  };
->  
-> +static const struct resource mt6392_rtc_resources[] = {
-> +	DEFINE_RES_MEM(MT6392_RTC_BASE, MT6392_RTC_SIZE),
-> +	DEFINE_RES_IRQ(MT6392_IRQ_RTC),
-> +};
-> +
->  static const struct resource mt6397_rtc_resources[] = {
->  	DEFINE_RES_MEM(MT6397_RTC_BASE, MT6397_RTC_SIZE),
->  	DEFINE_RES_IRQ(MT6397_IRQ_RTC),
-> @@ -114,6 +124,11 @@ static const struct resource mt6331_keys_resources[] = {
->  	DEFINE_RES_IRQ_NAMED(MT6331_IRQ_STATUS_HOMEKEY, "homekey"),
->  };
->  
-> +static const struct resource mt6392_keys_resources[] = {
-> +	DEFINE_RES_IRQ_NAMED(MT6392_IRQ_PWRKEY, "powerkey"),
-> +	DEFINE_RES_IRQ_NAMED(MT6392_IRQ_FCHRKEY, "homekey"),
-> +};
-> +
->  static const struct resource mt6397_keys_resources[] = {
->  	DEFINE_RES_IRQ_NAMED(MT6397_IRQ_PWRKEY, "powerkey"),
->  	DEFINE_RES_IRQ_NAMED(MT6397_IRQ_HOMEKEY, "homekey"),
-> @@ -253,6 +268,26 @@ static const struct mfd_cell mt6359_devs[] = {
->  	},
->  };
->  
-> +static const struct mfd_cell mt6392_devs[] = {
-> +	{
-> +		.name = "mt6392-rtc",
-> +		.num_resources = ARRAY_SIZE(mt6392_rtc_resources),
-> +		.resources = mt6392_rtc_resources,
-> +		.of_compatible = "mediatek,mt6392-rtc",
-> +	}, {
-> +		.name = "mt6392-regulator",
-> +		.of_compatible = "mediatek,mt6392-regulator",
-> +	}, {
-> +		.name = "mt6392-pinctrl",
-> +		.of_compatible = "mediatek,mt6392-pinctrl",
-> +	}, {
-> +		.name = "mt6392-keys",
-> +		.num_resources = ARRAY_SIZE(mt6392_keys_resources),
-> +		.resources = mt6392_keys_resources,
-> +		.of_compatible = "mediatek,mt6392-keys"
-> +	},
-> +};
-> +
->  static const struct mfd_cell mt6397_devs[] = {
->  	{
->  		.name = "mt6397-rtc",
-> @@ -335,6 +370,14 @@ static const struct chip_data mt6359_core = {
->  	.irq_init = mt6358_irq_init,
->  };
->  
-> +static const struct chip_data mt6392_core = {
-> +	.cid_addr = MT6392_CID,
-> +	.cid_shift = 0,
-> +	.cells = mt6392_devs,
+>   - microchip,low-loss-errata-enable: boolean enabling the feature
+>   - microchip,low-loss-errata: selects workaround 1 or 2 (default: 1)
+> 
+> These properties allow board designers to opt into the errata fix
+> according to the targeted cable characteristics of their platform.
 
-I'm not really sure what came over me when I accepted this 6 years ago,
-but I have a _strong_ aversion to MFD data being passed through the OF APIs.
+Does the errata give any indication how the two different workarounds
+differ? How would a user decided which to use?
 
-Before this patch lands, please could you refactor this driver to only
-pass through an identifier through mt6397_of_match[*].data.  Then, you
-can match on that via a switch statement where you can allocate each
-device's data structures.
+I also question if this should be a DT property. The length of the
+cables is not a property of the board.
 
-This is how the vast majority of MFD drivers work so there should be
-lots of examples to work through to make this trivial.
+A PHY tunable would better reflect the same board can be used with
+different cables, with different lengths/quality.
 
-> +	.cell_size = ARRAY_SIZE(mt6392_devs),
-> +	.irq_init = mt6397_irq_init,
-> +};
-
--- 
-Lee Jones [李琼斯]
+	  Andrew
