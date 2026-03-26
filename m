@@ -1,288 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E19B3AEF58;
-	Thu, 26 Mar 2026 08:06:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB87346AC0
+	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 08:11:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774512401; cv=none; b=ciubWUSrznWY8uoo/ft0ywR7jDWTdRAHrNkb8nDvn7larZyw2IuRosNrqQnyZdnnzrm9SL/Vg3YSK1CPVKF0hwmF33tzTLLTamlmAzp4a6RcL0T7yQw0jNElW3Fjg2po3cEKheW9MK9arZbrgDSX5t9yJnTCTtUUkQ5gz0/6kxw=
+	t=1774512674; cv=none; b=FbLqGM8GtJrYuNR2v8krrf6A0tzThaMmnW+mywzJRIlubnHjT7oTPYLZlX/Jx6Ex1GA/qaavJXhYl8AIYfNVFHgLZpqjqx28k/hVob+5YK0WugvExdy82UP8Lg4HJp+et58JPe6r4Is6fZmrBVlj+Cju/hZCrhTjpW+wCVNVNhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774512401; c=relaxed/simple;
-	bh=QPg5ucT2J9JR6E3rS7caTqzm372tAM2YlgwRdg7/hwg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MKaiSzj8oT6OmqUO/9Dhf6Lnu58lTCpZpScdser/ecWsHQC4sSe1kSzmZRIOD365cmRbhhkFG0IalAsg0Gicvek6Y8exZ9cSYPPTtvwCsIse7Z054G0wKODjyDh2rQIcKwpE2GtUpVSXpczN4S1g6024ELWGfzEEnJop29adxPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mdUouJFO; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774512674; c=relaxed/simple;
+	bh=2zlaEDaROISinVqtSwCTGVhWXIC8chYqjnn4Qnd8dPI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Imi4EIoM61mH/anhyPmwHJI6DfSuat2jd+jlYny+r2cb4k/rfbF+eNJnP4QT+fXDStMuCnG/ERDTzJY2onf31Gq6/UmPbFeSOR6Np46PgXr9mZRoMadZSrpcVRVhDo9Y6ixC8HyIokElHSvcjuYUsiAUa9CZhJElNwlqr5He718=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=A7wP+9X/; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mdUouJFO"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E41F6C2BC87;
-	Thu, 26 Mar 2026 08:06:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774512401;
-	bh=QPg5ucT2J9JR6E3rS7caTqzm372tAM2YlgwRdg7/hwg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=mdUouJFOe7iVby+PU1+ECWuAy6xXL4uRrYoOlf2oK9U68N9lM0OlJfevgSOMFfrMx
-	 x5FKszNh2kFIBPGd2yFGfb8nriW4UE7SPk9R+gjKm8ndGP2bu3J0l1qAEwPzP2W5DO
-	 0CNi4DiOvewbTJQ0a6QTgkmviXyrqwOR8w6QviSGTebdqDw1oJcAVrNyMYHtcPj2+g
-	 WINP5kMJIjkiaDEyuxci+0zroEGoBQtd73rFLU9KTaPz7VM74BY/Ao/qthBcFpwgIK
-	 7SC4Vk81T7ey/Ky+B0rZ5PsB5mBHvK35CdV2s9s6JwPiJDgWQM54m9TV/OCeDfHPNl
-	 5q6ej8qzEChhQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DACB1106F2F4;
-	Thu, 26 Mar 2026 08:06:40 +0000 (UTC)
-From: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>
-Date: Thu, 26 Mar 2026 13:36:35 +0530
-Subject: [PATCH v7 7/8] power: sequencing: pcie-m2: Add support for PCIe
- M.2 Key E connectors
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="A7wP+9X/"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-35a211df8e3so505928a91.2
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 01:11:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1774512672; x=1775117472; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=oI7ncm47EFLHRAd6LbtDz8JRD0+IusIPO58qA+zSWN8=;
+        b=A7wP+9X/Mv9aMU9ueN9bscYideuaaOtO1cX5g/K6uYwtNd/yPMM6R/Zc3un47nShiV
+         GLhBvjBkQ9cOTnnOn2hKNT9H/d3WxQzU+/IEhNwL987oUAaEvCQgECoDr29SWN6bAihv
+         kkv4GLo3nyKN5oDKVkpGQJ+h9s17G7aN6YlCg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774512672; x=1775117472;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oI7ncm47EFLHRAd6LbtDz8JRD0+IusIPO58qA+zSWN8=;
+        b=U0KhMrHSdZLMTKiJ5CV4wFhlafyYqFONJupNoPQiYBIegrvP6W4t3fdrz+Q4HPX3MZ
+         7QjW4M0bPA0COMb8J5wO/sE4/gj8KDvr9BtH+muehV8L7MDikn9JoaScBumGvZoaYmBZ
+         VoGTlpQkPXutaIgwPNpT/Uf8JrNcHtdbna7eUEY6TAEBhso0YlYwEBrhXDe6rrQJzewh
+         Vocy5rZGu0bwwHOTUr9mHyQtdtEZT2hUJKkE4nzxsti3V5OdIfrW7fnZkONJAStJiX7C
+         6eMvmbOrQB0ouvAM+xfdWBidOFsUHUnYgkEP/OfpF4ejqmgz+9KbS5qr7xhbY0/UmLj+
+         /a0g==
+X-Forwarded-Encrypted: i=1; AJvYcCURIb9SEGkjL+zdlQgVqiuc2iAU0VZfvP0Ewt0NFiBBxfQ/o3Z+iVptmMk/OnL3hu1cgQ4C4K6FNSdE@vger.kernel.org
+X-Gm-Message-State: AOJu0YwVKPbK386tYbewWPA0G9MIiSEqjWT79Lx8c1KzVncPtOHVNbwA
+	xnaCyWjEAQyNCzL81wTuYD9QUpH5LK0rjiWKER9jkbG5vLD2sjetzxEE65f5GEuJrg==
+X-Gm-Gg: ATEYQzwIb8lfMQifrkNKewCYbg7bYDTs5NyFl+TdIF/vDaAjcTjMtfZ+xQBb3kW0sJ1
+	GHLYdfrcFQl2yt9PlOEWiTtFSQPesUjkkqq5JAE0rWdiWd7uMtr7E57/BxOljbiALvJDqkGndYb
+	XHsOo6iPYpkPFhITNoJPRi9WqXceFPA9ITmWwJ/mH5rGba5dZT29Fk1DcsPvewEsVW2+LP0Gm4F
+	BUNmNISXu3KRjOIZ7BjucNB0iw6jrM93B6tlW9AGFC4CI7AJ9zpj/o/bmW4HP8Nai/yPyOu4G1q
+	YjYaeIfBpbbkuoONCPGeacLezeDd2OsUY9vd5JXRlA5MqK3UrfJw6oxGDfnyL8VNLV/tYurSH2E
+	HO3SKg+5tV3AwMJ6idDeUPEbDkadgrf9/K/88EbfLRBmRuEUB9UfprPbWA3hGKZM3YNN/pz/mJF
+	G9TkfBTKKTK76kuit3QdxpZ55mnErxdzLSaqKizExmhqsjRLY96uaxVBoinPYMhdERNh9gFtnGN
+	jusKfs0i35LfrIZYzc=
+X-Received: by 2002:a17:90b:37c8:b0:359:fe72:3559 with SMTP id 98e67ed59e1d1-35c0ddad8e2mr6144191a91.21.1774512672187;
+        Thu, 26 Mar 2026 01:11:12 -0700 (PDT)
+Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:3ed5:7e63:b37c:a7d7])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35c22d09573sm823452a91.16.2026.03.26.01.11.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Mar 2026 01:11:11 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-kernel@vger.kernel.org,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH v2 0/2] regulator: mt6315: add regulator supplies
+Date: Thu, 26 Mar 2026 16:10:47 +0800
+Message-ID: <20260326081050.1115201-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.53.0.1018.g2bb0e51243-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260326-pci-m2-e-v7-7-43324a7866e6@oss.qualcomm.com>
-References: <20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com>
-In-Reply-To: <20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- Nicolas Schier <nicolas.schier@linux.dev>, Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Mark Pearson <mpearson-lenovo@squebb.ca>, 
- "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- Bartosz Golaszewski <brgl@bgdev.pl>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
- linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
- linux-pm@vger.kernel.org, Stephan Gerhold <stephan.gerhold@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- linux-acpi@vger.kernel.org, 
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
- Hans de Goede <johannes.goede@oss.qualcomm.com>
-X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6901;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=HRGptE1JIyA395dlxkM3raRO8gPG2oSfeqDUBhjL6YY=;
- b=kA0DAAoBVZ8R5v6RzvUByyZiAGnE6Q2hXkEob2zwJaf4tJlYmf+8mDScgkgd22Ujhq84tXZHo
- IkBMwQAAQoAHRYhBGelQyqBSMvYpFgnl1WfEeb+kc71BQJpxOkNAAoJEFWfEeb+kc710RYIAJdV
- OwNYBVHVoy340ClaeQUqbv3iuxJutNdyMvn2I3K6Otq8/3Te+1dtfB8VGt4uysULp4Js49LvewG
- L9cgRMIwX1J+zcxbdtSieXfE0LOp3F4ZBz3UlIA0KPvSHxbn297ojpePAK8pteYhoSyve1uKjEt
- tjDDALlqDHBy7NVcEEMt+5l+Gc471FWutJrjqaNiZt0aKrMNMAf5CMZze8WKyI7MB9E05WrDKcO
- 5ujoWawieDxUob74VuzWB6iMVudd5JAWbbcwairLzWqTTwkltPO3mhC3D/s4gsXzaGCiLNFG42d
- Cxg/cgaF8oIreBPDXwiTfSpIbUjWVtzLNTM44fg=
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
-X-Endpoint-Received: by B4 Relay for
- manivannan.sadhasivam@oss.qualcomm.com/default with auth_id=461
-X-Original-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Reply-To: manivannan.sadhasivam@oss.qualcomm.com
+Content-Transfer-Encoding: 8bit
 
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Hi,
 
-Add support for handling the power sequence of the PCIe M.2 Key E
-connectors. These connectors are used to attach the Wireless Connectivity
-devices to the host machine including combinations of WiFi, BT, NFC using
-interfaces such as PCIe/SDIO for WiFi, USB/UART for BT and I2C for NFC.
+This is v2 of the "Add MT6315 regulator supplies" series.
 
-Currently, this driver supports only the PCIe interface for WiFi and UART
-interface for BT. The driver also only supports driving the 3.3v/1.8v power
-supplies and W_DISABLE{1/2}# GPIOs. The optional signals of the Key E
-connectors are not currently supported.
+Changes since v1:
+- Link to v1: https://lore.kernel.org/all/20260324053030.4077453-1-wenst@chromium.org/
+- Move supplies to top level node, at the same level as the compatible
 
-Tested-by: Hans de Goede <johannes.goede@oss.qualcomm.com> # ThinkPad T14s gen6 (arm64)
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
----
- drivers/power/sequencing/pwrseq-pcie-m2.c | 107 ++++++++++++++++++++++++++++--
- 1 file changed, 101 insertions(+), 6 deletions(-)
+This series is part of a broader collection of regulator related
+cleanups for MediaTek Chromebooks. This one covers the MT6315 PMIC.
 
-diff --git a/drivers/power/sequencing/pwrseq-pcie-m2.c b/drivers/power/sequencing/pwrseq-pcie-m2.c
-index d31a7dd8b35c..3507cdcb1e7b 100644
---- a/drivers/power/sequencing/pwrseq-pcie-m2.c
-+++ b/drivers/power/sequencing/pwrseq-pcie-m2.c
-@@ -5,10 +5,13 @@
-  */
- 
- #include <linux/device.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/mod_devicetable.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_graph.h>
-+#include <linux/of_platform.h>
- #include <linux/platform_device.h>
- #include <linux/pwrseq/provider.h>
- #include <linux/regulator/consumer.h>
-@@ -25,16 +28,18 @@ struct pwrseq_pcie_m2_ctx {
- 	struct regulator_bulk_data *regs;
- 	size_t num_vregs;
- 	struct notifier_block nb;
-+	struct gpio_desc *w_disable1_gpio;
-+	struct gpio_desc *w_disable2_gpio;
- };
- 
--static int pwrseq_pcie_m2_m_vregs_enable(struct pwrseq_device *pwrseq)
-+static int pwrseq_pcie_m2_vregs_enable(struct pwrseq_device *pwrseq)
- {
- 	struct pwrseq_pcie_m2_ctx *ctx = pwrseq_device_get_drvdata(pwrseq);
- 
- 	return regulator_bulk_enable(ctx->num_vregs, ctx->regs);
- }
- 
--static int pwrseq_pcie_m2_m_vregs_disable(struct pwrseq_device *pwrseq)
-+static int pwrseq_pcie_m2_vregs_disable(struct pwrseq_device *pwrseq)
- {
- 	struct pwrseq_pcie_m2_ctx *ctx = pwrseq_device_get_drvdata(pwrseq);
- 
-@@ -43,18 +48,84 @@ static int pwrseq_pcie_m2_m_vregs_disable(struct pwrseq_device *pwrseq)
- 
- static const struct pwrseq_unit_data pwrseq_pcie_m2_vregs_unit_data = {
- 	.name = "regulators-enable",
--	.enable = pwrseq_pcie_m2_m_vregs_enable,
--	.disable = pwrseq_pcie_m2_m_vregs_disable,
-+	.enable = pwrseq_pcie_m2_vregs_enable,
-+	.disable = pwrseq_pcie_m2_vregs_disable,
- };
- 
--static const struct pwrseq_unit_data *pwrseq_pcie_m2_m_unit_deps[] = {
-+static const struct pwrseq_unit_data *pwrseq_pcie_m2_unit_deps[] = {
- 	&pwrseq_pcie_m2_vregs_unit_data,
- 	NULL
- };
- 
-+static int pwrseq_pci_m2_e_uart_enable(struct pwrseq_device *pwrseq)
-+{
-+	struct pwrseq_pcie_m2_ctx *ctx = pwrseq_device_get_drvdata(pwrseq);
-+
-+	return gpiod_set_value_cansleep(ctx->w_disable2_gpio, 0);
-+}
-+
-+static int pwrseq_pci_m2_e_uart_disable(struct pwrseq_device *pwrseq)
-+{
-+	struct pwrseq_pcie_m2_ctx *ctx = pwrseq_device_get_drvdata(pwrseq);
-+
-+	return gpiod_set_value_cansleep(ctx->w_disable2_gpio, 1);
-+}
-+
-+static const struct pwrseq_unit_data pwrseq_pcie_m2_e_uart_unit_data = {
-+	.name = "uart-enable",
-+	.deps = pwrseq_pcie_m2_unit_deps,
-+	.enable = pwrseq_pci_m2_e_uart_enable,
-+	.disable = pwrseq_pci_m2_e_uart_disable,
-+};
-+
-+static int pwrseq_pci_m2_e_pcie_enable(struct pwrseq_device *pwrseq)
-+{
-+	struct pwrseq_pcie_m2_ctx *ctx = pwrseq_device_get_drvdata(pwrseq);
-+
-+	return gpiod_set_value_cansleep(ctx->w_disable1_gpio, 0);
-+}
-+
-+static int pwrseq_pci_m2_e_pcie_disable(struct pwrseq_device *pwrseq)
-+{
-+	struct pwrseq_pcie_m2_ctx *ctx = pwrseq_device_get_drvdata(pwrseq);
-+
-+	return gpiod_set_value_cansleep(ctx->w_disable1_gpio, 1);
-+}
-+
-+static const struct pwrseq_unit_data pwrseq_pcie_m2_e_pcie_unit_data = {
-+	.name = "pcie-enable",
-+	.deps = pwrseq_pcie_m2_unit_deps,
-+	.enable = pwrseq_pci_m2_e_pcie_enable,
-+	.disable = pwrseq_pci_m2_e_pcie_disable,
-+};
-+
- static const struct pwrseq_unit_data pwrseq_pcie_m2_m_pcie_unit_data = {
- 	.name = "pcie-enable",
--	.deps = pwrseq_pcie_m2_m_unit_deps,
-+	.deps = pwrseq_pcie_m2_unit_deps,
-+};
-+
-+static int pwrseq_pcie_m2_e_pwup_delay(struct pwrseq_device *pwrseq)
-+{
-+	/*
-+	 * FIXME: This delay is only required for some Qcom WLAN/BT cards like
-+	 * WCN7850 and not for all devices. But currently, there is no way to
-+	 * identify the device model before enumeration.
-+	 */
-+	msleep(50);
-+
-+	return 0;
-+}
-+
-+static const struct pwrseq_target_data pwrseq_pcie_m2_e_uart_target_data = {
-+	.name = "uart",
-+	.unit = &pwrseq_pcie_m2_e_uart_unit_data,
-+	.post_enable = pwrseq_pcie_m2_e_pwup_delay,
-+};
-+
-+static const struct pwrseq_target_data pwrseq_pcie_m2_e_pcie_target_data = {
-+	.name = "pcie",
-+	.unit = &pwrseq_pcie_m2_e_pcie_unit_data,
-+	.post_enable = pwrseq_pcie_m2_e_pwup_delay,
- };
- 
- static const struct pwrseq_target_data pwrseq_pcie_m2_m_pcie_target_data = {
-@@ -62,11 +133,21 @@ static const struct pwrseq_target_data pwrseq_pcie_m2_m_pcie_target_data = {
- 	.unit = &pwrseq_pcie_m2_m_pcie_unit_data,
- };
- 
-+static const struct pwrseq_target_data *pwrseq_pcie_m2_e_targets[] = {
-+	&pwrseq_pcie_m2_e_pcie_target_data,
-+	&pwrseq_pcie_m2_e_uart_target_data,
-+	NULL
-+};
-+
- static const struct pwrseq_target_data *pwrseq_pcie_m2_m_targets[] = {
- 	&pwrseq_pcie_m2_m_pcie_target_data,
- 	NULL
- };
- 
-+static const struct pwrseq_pcie_m2_pdata pwrseq_pcie_m2_e_of_data = {
-+	.targets = pwrseq_pcie_m2_e_targets,
-+};
-+
- static const struct pwrseq_pcie_m2_pdata pwrseq_pcie_m2_m_of_data = {
- 	.targets = pwrseq_pcie_m2_m_targets,
- };
-@@ -125,6 +206,16 @@ static int pwrseq_pcie_m2_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, ret,
- 				     "Failed to get all regulators\n");
- 
-+	ctx->w_disable1_gpio = devm_gpiod_get_optional(dev, "w-disable1", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->w_disable1_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->w_disable1_gpio),
-+				     "Failed to get the W_DISABLE_1# GPIO\n");
-+
-+	ctx->w_disable2_gpio = devm_gpiod_get_optional(dev, "w-disable2", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->w_disable2_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->w_disable2_gpio),
-+				     "Failed to get the W_DISABLE_2# GPIO\n");
-+
- 	ctx->num_vregs = ret;
- 
- 	ret = devm_add_action_or_reset(dev, pwrseq_pcie_m2_free_regulators, ctx);
-@@ -150,6 +241,10 @@ static const struct of_device_id pwrseq_pcie_m2_of_match[] = {
- 		.compatible = "pcie-m2-m-connector",
- 		.data = &pwrseq_pcie_m2_m_of_data,
- 	},
-+	{
-+		.compatible = "pcie-m2-e-connector",
-+		.data = &pwrseq_pcie_m2_e_of_data,
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, pwrseq_pcie_m2_of_match);
+Patch 1 adds the names of the power supply inputs to the binding.
+
+Patch 2 adds the supply names from the DT binding change in patch 1
+to the regulator descriptions in the driver. This patch has a
+checkpatch.pl warnings, but I wonder if it's because the context size
+for checking complex macros is not large enough.
+
+Device tree changes will be sent separately. The goal is to get the
+regulator tree as complete as possible. This includes adding supply
+names to other regulator DT bindings, and adding all the supply links
+to the existing DTs.
+
+Please have a look.
+
+
+Thanks
+ChenYu
+
+
+Chen-Yu Tsai (2):
+  regulator: dt-bindings: mt6315: Add regulator supplies
+  regulator: mt6315: Add regulator supplies
+
+ .../bindings/regulator/mt6315-regulator.yaml         | 12 ++++++++++++
+ drivers/regulator/mt6315-regulator.c                 | 11 ++++++-----
+ 2 files changed, 18 insertions(+), 5 deletions(-)
 
 -- 
-2.51.0
-
+2.53.0.1018.g2bb0e51243-goog
 
