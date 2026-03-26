@@ -1,96 +1,128 @@
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D4831717B
-	for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 09:46:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC4238C2AF;
+	Thu, 26 Mar 2026 09:47:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774518391; cv=none; b=MrVlCReZiEeb6eENIvtK/AX9XucL+MPwAgEK5leBhyey1nt23Od+LzamsftL1VTOhc9/pPULfziIkJzcrUnuAj8hkd/48pMs2UAddQi2ugbyiTYaMsM21qHIrt+ISZu81n7Bu4bp8WbfiLABjnHISSK4m/9U/xozfST05QmDxjo=
+	t=1774518459; cv=none; b=IsDvnVRecTbt10QXd9VKuRFicLV9bIOHaSLsVFgT8Cf8k2HEn/Ke2cmYJurfwtwYqmxabq6hD47UrRDsDhtjeQr9jQ1E5tp6x6k36uOJgWTJTtiICKQtPoHA3TxzutQBi4eSZXz9vXDGj7ZQ0AOqO5xGwiWnkIu6eVPyU0Utsls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774518391; c=relaxed/simple;
-	bh=kIEyhxuYdaWsiktCdoerqKNEY9HJhJYjpyLKZYFTDC4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FpBBPwd6nEXCYLqiKiZuym5IQ0V4MPRDuDLnZSVk3P8m+m2G5WeIw8jttXK1L/y+HJqZXbvApm4ZPd1RZLTbWDmT2oIbmEzE1aZgtBnGjoV/UcICZuSKWbSAZxOtEJmj0a1khAQ3f6q2GkLiic8cazg6ou9ySxwEs3awPfhUE68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-56a8fdaddebso364387e0c.0
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:46:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774518389; x=1775123189;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=aF0VWb50M+ZUryfs9KzhTMt2/O8j1VfHTGDlP+pSQVg=;
-        b=OYs1bIY2F9kz8kMK2MR7I/4N6IElfMSpP+NT1RnSTAQScwkjPFEsksOO3l22XDmUqO
-         ZZp8Ol9NWjesmTktJcwI07Y7ml/Kkz7VVSvJftWzkczvQczjnzHjfxJXaLZWqroW7/cE
-         E8TOMvsezaRZFtQilNlBNI35/kh2IuH7Avu/ioQrLS2XYryxzX8mDZoMMKkgr4TdHMeh
-         GrQA/JnczCHzCMdZQ7V2fCZSkyyGXjUvhVuS8r0K+GT8zCam1TTvfWdkOWOTxMV8niQo
-         eOPH48AoPVGHnW3sNbsGW303L5fg3O6zTySbxoQuc5cek8RYSwKeD2lGUILeKtb+j/MU
-         txpA==
-X-Forwarded-Encrypted: i=1; AJvYcCVN/n8UmK79mNfCYsIqIaOH6tJLoDjBlJMiexmMNERLejptuZaPURI7IZb0RiyA5ApVlvhndp9u9VJN@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxh8Jl5TWgFdxIziv/4+krJ7Bs+kYqxC/bmsvPCx/+HPO1iuYHR
-	2UvzP8X6dJfxe8nC/iqewWHbPY/bPqVZwCfzsSCOVfvgscpbMxSqktCqhAUF53rDeCE=
-X-Gm-Gg: ATEYQzyvggyavt1qnSWIDeroezMsNKout7g+DS0w8dBMHMNdxOpnSa+1Bhew6CBETdp
-	g8PDHAj3IT1WpLDEYmiQSgZ0Vt/Tt6uulpCtIWAyTwbht8hr9IhNspx+GV/ddIYE1KEAJdKHe0Z
-	O3EEIfz0ebQ/uG5vD4IMk0LR25BzgWMVmg7PErwTQ22EX6AUwN0LLsz8DbCCx10XaBN1JWBLo96
-	MznOtmM0xzsDgVvDbnV9CSPrKs0x54b1vnac8xTOrEfQ2zJmEjMbI8Fsf+AELxtR2Fce7+o5auA
-	hYVpOeaNYDxlLC/qOj9iIU/DPX0LuYxenYhW592pYAXqJOUmm9WtO4rvrs5iJXtUgrnUZ4vXGU7
-	ceCZLRq3CPC5SwHc+v6NQ7VPhLbpOzWb8Mr/tKzVaLnjtWnSIZDXjV9LOaI44OBTBDEhB8rKvNl
-	DFu4XnIvlNDf7dBTGSS+YuW9RaMyzal6dtWxIaev6PmMR9vlutaRbFuzKUTg+D
-X-Received: by 2002:a05:6123:4c:b0:56a:f542:78fb with SMTP id 71dfb90a1353d-56d21f80b13mr3379025e0c.7.1774518389513;
-        Thu, 26 Mar 2026 02:46:29 -0700 (PDT)
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com. [209.85.222.54])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56d31c2afdcsm3363082e0c.8.2026.03.26.02.46.28
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Mar 2026 02:46:28 -0700 (PDT)
-Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-94aca174532so229771241.3
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 02:46:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCV8IRe9UYbgmXScRC2+THgPVW9wdC0zPFByuT2cNK6qVuERUqHM+rNXnGf9JXHIBqIsshhA20LJqOiJ@vger.kernel.org
-X-Received: by 2002:a05:6102:3351:b0:602:6c69:eec7 with SMTP id
- ada2fe7eead31-60387246888mr2874362137.23.1774518388244; Thu, 26 Mar 2026
- 02:46:28 -0700 (PDT)
+	s=arc-20240116; t=1774518459; c=relaxed/simple;
+	bh=OHirXVSqp9HwGREkLUc3/ocLwoNpOSgHqJF9zkeBTfY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I3PRDroQAdznqABPIYYKDkL4N/q2V17b74M1vecVTElz/WI8bB16mDiRjqJe0+zTTU+3tjlhm3X+KMXrOqxNTtBDiik5aV3WyIGsb5wrmSI7Sr58wwc326yWqoJXIwR5R0tn+n+mZRgRgMeLXFCzClX8hbjZwkwnSlypCmePbvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rckrPF4v; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rckrPF4v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646CFC116C6;
+	Thu, 26 Mar 2026 09:47:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774518458;
+	bh=OHirXVSqp9HwGREkLUc3/ocLwoNpOSgHqJF9zkeBTfY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=rckrPF4v1yQ2JI9bl3zfhrpeVVdKrVKpc2/vtUhDqRnzIxRgUBrLc7zs4hOkTRubK
+	 00vQrm7oe++6Faufwggm0JvjBuEyrRSCh04OrizeQvZGdq4joiCvdXCwKkuCxRliiF
+	 SfCPRjx9C17NpKsQ8++Ch+kmkmX47A5lAXcfur47d+GRgo5SE/4PGCP+cL38GKse8a
+	 pTfoCKVCgdMB5XRhe/DI8GGHYBuTe2MCgPRyEyK9tDOItHyt/XhN/Fu7hZeH9szybU
+	 RQ2mzx/Sd+IaSbQk3In7/DydPVBFw/8nFtNVK4FLKPLCvBJTIXdxx0CtLyZ6nXpjv+
+	 EPxe3nRPfa3Rg==
+Date: Thu, 26 Mar 2026 10:47:36 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Yi-Wei Wang <yiweiw@nvidia.com>
+Subject: Re: [PATCH v2 4/7] pwm: tegra: Parametrize enable register offset
+Message-ID: <acT_nz0TRM4yXwkb@orome>
+References: <20260325-t264-pwm-v2-0-998d885984b3@nvidia.com>
+ <20260325-t264-pwm-v2-4-998d885984b3@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260326045523.223620-1-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260326045523.223620-1-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 26 Mar 2026 10:46:15 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdU67BBLP4NEZmvT36Pk5OjcbKEDjdyw7shZfiKhwVNGmw@mail.gmail.com>
-X-Gm-Features: AQROBzC40eYoryYksApDOIGtz-evI70xDisaZpapKThRIts9LzB-N4Lzp7D6J98
-Message-ID: <CAMuHMdU67BBLP4NEZmvT36Pk5OjcbKEDjdyw7shZfiKhwVNGmw@mail.gmail.com>
-Subject: Re: [PATCH] ARM: dts: renesas: Drop KSZ8041 PHY C22 compatible string
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eikxdheegqdrxdfr"
+Content-Disposition: inline
+In-Reply-To: <20260325-t264-pwm-v2-4-998d885984b3@nvidia.com>
 
-On Thu, 26 Mar 2026 at 05:55, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> Microchip KSZ8041 PHY schema indicates that compatible string
-> "ethernet-phy-id0022.1537" must not be followed by any other
-> compatible string. Drop trailing "ethernet-phy-ieee802.3-c22"
-> to match the schema.
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.1.
+--eikxdheegqdrxdfr
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 4/7] pwm: tegra: Parametrize enable register offset
+MIME-Version: 1.0
 
-Gr{oetje,eeting}s,
+On Wed, Mar 25, 2026 at 07:17:02PM +0900, Mikko Perttunen wrote:
+> On Tegra264, the PWM enablement bit is not located at the base address
+> of the PWM controller. Hence, introduce an enablement offset field in
+> the tegra_pwm_soc structure to describe the offset of the register.
+>=20
+> Co-developed-by: Yi-Wei Wang <yiweiw@nvidia.com>
+> Signed-off-by: Yi-Wei Wang <yiweiw@nvidia.com>
+> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+> ---
+>  drivers/pwm/pwm-tegra.c | 17 ++++++++++++-----
+>  1 file changed, 12 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/pwm/pwm-tegra.c b/drivers/pwm/pwm-tegra.c
+> index cf54f75d92a5..22d709986e8c 100644
+> --- a/drivers/pwm/pwm-tegra.c
+> +++ b/drivers/pwm/pwm-tegra.c
+> @@ -61,6 +61,7 @@
+> =20
+>  struct tegra_pwm_soc {
+>  	unsigned int num_channels;
+> +	unsigned int enable_reg;
+>  };
+> =20
+>  struct tegra_pwm_chip {
+> @@ -197,8 +198,9 @@ static int tegra_pwm_config(struct pwm_chip *chip, st=
+ruct pwm_device *pwm,
+>  		err =3D pm_runtime_resume_and_get(pwmchip_parent(chip));
+>  		if (err)
+>  			return err;
+> -	} else
+> +	} else if (pc->soc->enable_reg =3D=3D PWM_CSR_0) {
+>  		val |=3D PWM_ENABLE;
+> +	}
 
-                        Geert
+This looks incomplete for the Tegra264 case where
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+	pc->soc->enable_reg =3D=3D PWM_CSR_1
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> =20
+>  	pwm_writel(pwm, PWM_CSR_0, val);
+
+I think we need another write for PWM_CSR_1 here to properly toggle the
+PWM_ENABLE bit on Tegra264.
+
+Or am I missing something?
+
+Thierry
+
+--eikxdheegqdrxdfr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnFALgACgkQ3SOs138+
+s6EhQg//SmMsA2fte6QXhIElZieozmmS+2IkeK4+b4g9LdlHP7EdHNCJmCMo5mtd
+9mKGgq+IbYtnE2+6D9MZJ1P/H3Pz2qfR3i2My2/90SK6DblAQW3QCSGa6bm7ye8o
+g5YCQAprPeV0Wn0GnnWhZiNVBzm3vQmLxJ0cefP8V6iK57V+KPV0nbqjjxI/ARaZ
+rGUnKP/lOA8QaSfY5E0uJLV5UqT0hPKdxRJ5fFvvuOtZCavu31jA0mIt75UpjG02
+DheUbaHupdiWsbMwKjqro3RtCRlR3w+lwjDneXBS1Ioc0561PbIlgByfPXTcasGb
+5mJOz+n9nFSHoyyieXL6Pa9t/TKMwgDeMqxnEkkz+p9iSODi1kXhG4n4LxibjLob
+4KAm3kZ25doBMrBJhB2AjtW4tyB01ZJyxFfWqwrpw6s9/SJYYiplucYt3/CQ3Asv
+GdEuy5CIvSMAU0aWy5bs6xM6mmE0eUQ0/ruMGgR830bTgj6bgnJVPhukhyfwX3gH
+V+8HJw5Fbu8ahk+rylyGjlhMCOXHubPtMmE8/LQn9SUYpgPDFgwSmxzMkk5yKwXO
+rJYd61+HPAk7Hfu5FrgsF5mH9xAykyLeGWD59nYh6i6lSyBAPU6yCC/gR7G8t6Bj
+OCHvQOwjeyA9b3FvFdmtPv75g2oNeuhVCuLazE/Wqxp4auxBtQA=
+=ge5z
+-----END PGP SIGNATURE-----
+
+--eikxdheegqdrxdfr--
