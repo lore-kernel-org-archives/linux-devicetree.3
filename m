@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3550839527D;
-	Thu, 26 Mar 2026 10:33:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABAF03CEB98;
+	Thu, 26 Mar 2026 10:33:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774521195; cv=none; b=lZzSFMt6WvwVoUVon8jDRdEvODoBOQQQv1+3CLzP9Y/coey8RcAL/Ent9TU89UDMp0CURmAmncdFu0BtUwj/XHpeVifUtkqx6+QMUg1ctMNZln5EUXxjK9VOWXBtTeClft/5yVr193AV1L9TmSZonpGteNdh9oFzL8udEfoRnN4=
+	t=1774521197; cv=none; b=fNvnZripIXm218+Rr+8eFWFPc7LJqO0vBUojAXJDNhHMGO/QsaDxJhZSI/pnJGL/WrKbigGkWJNxydOB5G1NM8EPhvmrDVhKpdbLCdndjiJLf0kDfkp16ZXawm+LhIc+j/fjSuXNjmpwa1EJapfe2pczb+OJT5QFqt+SkNEXUII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774521195; c=relaxed/simple;
-	bh=U+D1ePS2FV3R9NNHRWgbO4ds4WQObUGHt1MWL2/Kg/8=;
+	s=arc-20240116; t=1774521197; c=relaxed/simple;
+	bh=NyCZxhrmAGFbyrL6h2c2w6JZvW0gffjIb4o1sEXE/4g=;
 	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=aWApmpSDCRANZGJ1tORNbhXl31+Ds0yMd3wy0r+0HofVydM1w0M7dV6gTGCg78SrZ+mj4bGzQPVLCi8Q1dGaaizOhnMhhrXKafKEgc5wlflZvhJNjdDWcBHqT267TVeVD0B2uLYv0NnvtP7GdZscOCFcuaGc2r+FkynV5LV8hgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DmSmvcLC; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id:Subject; b=fQ+7nCZpMlP6djvBTWbScmtbP6/z6MbSBWDyQHergtCfL9WkzDMKAhhJ0JnsD0DkozQ2iNeCrx5w+pLVFHLdsnaWBVNuSyFDBdxhX/egA7u2Pyy3d0jacxSGadiYDsK63ajpd0zKRQRkk7v58t4jyYO4nd+QuJGl8w4R65UJ9qc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C94S+xEB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DmSmvcLC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4A2EC116C6;
-	Thu, 26 Mar 2026 10:33:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C94S+xEB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2844EC116C6;
+	Thu, 26 Mar 2026 10:33:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774521194;
-	bh=U+D1ePS2FV3R9NNHRWgbO4ds4WQObUGHt1MWL2/Kg/8=;
+	s=k20201202; t=1774521197;
+	bh=NyCZxhrmAGFbyrL6h2c2w6JZvW0gffjIb4o1sEXE/4g=;
 	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=DmSmvcLCJHHCiVak/qNmYcyiR3sXSVIC/Hn070doXPbYEfYjUfUGq/2Tdo5jxhWHC
-	 8VoDUAe/M3IwxWyLejTC1bm1D1XGmBZS3q75IssNA11siYUKmhNUZr2iEfgb8EAels
-	 p8LX6G9aqIsSic78SoC4sa+dMmTC5X8glY6Vo/TPDqo/kIYKu8HidxtCbj7TxtEOQv
-	 WXnyEG3bcPzyL1H0pAuA1YEtxshAyRQgd90/4UYS2Zy6bY/9lMVxKOUKv/84/jOKpW
-	 i3dV0mDT606XRCpuUVUffxK62N+KOULGQ13WQm/+vQMkSGxqu7lHlbuJn6TrpRteYO
-	 bxc28TTj7u+7g==
-Date: Thu, 26 Mar 2026 05:33:12 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	b=C94S+xEBpyEIESagZYsh6vWRmPxqlxpYq8f+4SuY2THKpf/FdX9VBeOUuEJPAGuZ6
+	 MLZcIml1C3R7WhiYcNN+yxjDjmz9nAa5NOJPXrj0yqlwtf/A6x2iiR4ObLgs3u0V8m
+	 vnj3MS00gVVjTevcNP8QFZd15DSzbPUJctmh7fFGchJyI23Cer2OtY7vzM2kp2GXIL
+	 TNazfChQquXqpy+AoWcU0awhaRUYN1pGGxGLLTvDu422fZi1zC9E6A9u/57jyrd/vD
+	 U9lTVqHtQJwSxklSTcMvF5bwwZO14Esba62N4mrK9vjEJQYLyg53uuzzfu4hFjNXaN
+	 BG45J7/0eW1eQ==
+Date: Thu, 26 Mar 2026 05:33:15 -0500
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -36,63 +36,40 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- "David S. Miller" <davem@davemloft.net>, Marek Vasut <marex@denx.de>, 
- Eric Dumazet <edumazet@google.com>, Woojung Huh <woojung.huh@microchip.com>, 
- Fidelio Lawson <fidelio.lawson@exotec.com>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, 
- UNGLinuxDriver@microchip.com, Woojung Huh <Woojung.Huh@microchip.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, netdev@vger.kernel.org, 
- Vladimir Oltean <olteanv@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
- Conor Dooley <conor+dt@kernel.org>, Jakub Kicinski <kuba@kernel.org>
-To: Fidelio Lawson <lawson.fidelio@gmail.com>
-In-Reply-To: <20260326-ksz87xx_errata_low_loss_connections-v1-1-79a698f43626@exotec.com>
-References: <20260326-ksz87xx_errata_low_loss_connections-v1-0-79a698f43626@exotec.com>
- <20260326-ksz87xx_errata_low_loss_connections-v1-1-79a698f43626@exotec.com>
-Message-Id: <177452119127.1921528.3944564852994197440.robh@kernel.org>
-Subject: Re: [PATCH 1/3] dt-bindings: dsa: microchip: add KSZ low-loss
- cable errata properties
+Cc: mark.rutland@arm.com, will@kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
+ devicetree@vger.kernel.org, krzk+dt@kernel.org, 
+ linux-kernel@vger.kernel.org
+To: Geetha sowjanya <gakula@marvell.com>
+In-Reply-To: <20260326090645.22590-2-gakula@marvell.com>
+References: <20260326090645.22590-1-gakula@marvell.com>
+ <20260326090645.22590-2-gakula@marvell.com>
+Message-Id: <177452119218.1921575.14174289122061565308.robh@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: perf: marvell: Document CN20K DDR PMU
 
 
-On Thu, 26 Mar 2026 10:10:21 +0100, Fidelio Lawson wrote:
-> Microchip KSZ87xx switches are affected by the "Module 3: Equalizer fix
-> for short cables" erratum described in DS80000687C.
-> The embedded PHY receivers are tuned for long, high-loss cables,
-> which may cause signal distortion when operated with short or low-loss
-> cabling such as CAT5e or CAT6. In these cases,
-> the PHY may fail to establish a link due to internal over-amplification.
+On Thu, 26 Mar 2026 14:36:44 +0530, Geetha sowjanya wrote:
+> Add a devicetree binding for the Marvell CN20K DDR performance
+> monitor block, including the marvell,cn20k-ddr-pmu compatible
+> string and the required MMIO reg region.
 > 
-> Two workarounds are provided by Microchip, each configuring a different
-> indirect register value to adjust the PHY equalizer settings.
-> 
-> This patch introduces two new device tree properties to enable and
-> select the appropriate workaround:
-> 
->   - microchip,low-loss-errata-enable: boolean enabling the feature
->   - microchip,low-loss-errata: selects workaround 1 or 2 (default: 1)
-> 
-> These properties allow board designers to opt into the errata fix
-> according to the targeted cable characteristics of their platform.
-> 
-> Signed-off-by: Fidelio Lawson <fidelio.lawson@exotec.com>
+> Signed-off-by: Geetha sowjanya <gakula@marvell.com>
 > ---
->  .../devicetree/bindings/net/dsa/microchip,ksz.yaml     | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
+>  .../bindings/perf/marvell-cn20k-ddr.yaml      | 37 +++++++++++++++++++
+>  1 file changed, 37 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/perf/marvell-cn20k-ddr.yaml
 > 
 
 My bot found errors running 'make dt_binding_check' on your patch:
 
 yamllint warnings/errors:
-./Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml:90:111: [warning] line too long (121 > 110 characters) (line-length)
-./Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml:91:111: [warning] line too long (128 > 110 characters) (line-length)
-./Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml:93:111: [warning] line too long (118 > 110 characters) (line-length)
 
 dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml: microchip,low-loss-errata: missing type definition
+Documentation/devicetree/bindings/perf/marvell-cn20k-ddr.example.dts:22.21-25.15: Warning (unit_address_vs_reg): /example-0/bus/ddrcpmu: node has a reg or ranges property, but no unit name
 
 doc reference errors (make refcheckdocs):
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260326-ksz87xx_errata_low_loss_connections-v1-1-79a698f43626@exotec.com
+See https://patchwork.kernel.org/project/devicetree/patch/20260326090645.22590-2-gakula@marvell.com
 
 The base for the series is generally the latest rc1. A different dependency
 should be noted in *this* patch.
