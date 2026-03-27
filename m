@@ -1,112 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856D729DB88;
-	Fri, 27 Mar 2026 21:39:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E6301A08BC;
+	Fri, 27 Mar 2026 22:11:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774647545; cv=none; b=q49AvDUeDI1zVPkVmAqGVFYc7Q/qFuenk5PSg2UAMbNXkZGGkbcajLsurCM/XcU2BlZv2bK5+r0k9OCKvIupRE2eDMZFi4vDo+VaF3P2Ta/olWe0Yqihvd2M40axeTgaLG1BNr+YN5ssKi51et2L/qx3C0y/PicKYkrEs+Fg0/U=
+	t=1774649487; cv=none; b=JqLrREL7+fUPEedJ1yY9WpsXXguXv6wU4YvbUQWKXgNQpZZIwU5jSTN0MahzsmgxydRPrjB1L+DcvOlMSjBcrAQMdDd9csp1p6l++AaaTusm39ZG5daaebkrRqFy16IgI9S/wY5zDu+9+KeHiV2nW3KhNK7lgPnponfjl+cxOa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774647545; c=relaxed/simple;
-	bh=m0xyN/K4zSKcbMCe0Pigk/i5SRWQIcAcko2GQbCvTjg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qSOetwC/dY+VH02tCTgp3QyJZbpVN95ByBxy0w1nnxOd2MPQj7ClYBc3Lt0iCSnRSnQ7OI4YUc3tFiSX9JPyR6sCqLf6dUTqx5aILyFNX9AQ8l6HjCFapIkKpBeZa6WDcFAoA6r3Ut3jkZ2xQ49j5Owdo64A1CzhaxsWgGPai58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=toHYW7vR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774649487; c=relaxed/simple;
+	bh=vWYAZh7Adzo7TC7luTIEYOTCpRuJPAjp6xiHK7UViFg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Mx3oQi3AJgA4wJQtNm9zUbyEjAD30Y6C0+uQlCjaRgFOZjy7XrPYuKLtYjMC270uGLUcsf5VBFR8kMvbHPC2LJSvYk/OXF2/FLiY40XXl7Q2KemUQEKWN2zl0JHlmPw+Nru5N+c9b/TsxPXiSd+tZxanSaMwGip5x8hwU2nUK2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QskGPRmD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="toHYW7vR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0354EC19423;
-	Fri, 27 Mar 2026 21:39:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QskGPRmD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1839DC19423;
+	Fri, 27 Mar 2026 22:11:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774647545;
-	bh=m0xyN/K4zSKcbMCe0Pigk/i5SRWQIcAcko2GQbCvTjg=;
-	h=From:Date:Subject:To:Cc:From;
-	b=toHYW7vRoEUWdcJjPz6TA1qTwrnJuw2lVfyg8XYEcr3C0SVa0+i7LFe3PEWxhRPTc
-	 30a33Msav4wL0TDWZZoYgjok56+O/WV61RkBGsTLgiTCfPt5RVH43WWN+3438Gp1KY
-	 aEPIWd0YQrdraTa95iIUQbZk2H9jnaQoY+VaXXXXI0A0FZebSDUdrwI4qSdjV6cuoA
-	 Himl6hXUQlpqErfe/E7QeQgqzlUuc7WLH9YlS47oCxwKJ9XEPXuR5hHx9MTHg0gLhM
-	 4OFsZb7t95rOXQXoPDu0FDH8rqrOhDXORg0kaYOxKomajkS5UUDH1GjpMk2Z/i+UPF
-	 maLu4iHUMzzcw==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Fri, 27 Mar 2026 22:38:55 +0100
-Subject: [PATCH] scripts/dtc: Remove unused dts_version in dtc-lexer.l
+	s=k20201202; t=1774649487;
+	bh=vWYAZh7Adzo7TC7luTIEYOTCpRuJPAjp6xiHK7UViFg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=QskGPRmDJo1BFOXewlwxC6DKTnU022Vl7r4nAnJMQ3s+seqm6HC60pl2+8YtOgI92
+	 boDND430EqgYskA+kGlTvTTPZ22ywIwDEu63uO+gOGT9GS94daeDSF8fmCQE1IMTJ9
+	 Xit2up9dWq2BMVj623O3MVBQbSzrEZ7mvAx1OzwDLuqaqpdPzXhIJ7tPGJstBazKYq
+	 WXekvbB8TIQ0LxMKTSVvpOQoIc+CJ5g+h1cBGpprKu/gmxkFWxD+HLaW1TOTPTjHAZ
+	 0q3x0Bs4xKrbnmZ6HitsTxAXibkTg39VEbqLi+SLMpbzKoZaV/IV2+fo4uaIthpU4y
+	 I8QPel4T6Z/Fg==
+Message-ID: <6c52f934-1b08-4e93-a753-d4c90e827f1f@kernel.org>
+Date: Fri, 27 Mar 2026 22:11:21 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I
+ <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org>
+ <20260326-x1e-csi2-phy-v5-2-0c0fc7f5c01b@linaro.org>
+ <aEe0uBeOge5s3CG521FGdJhY-snL7v7U2KXbg1IAqMn9oy6mslb2GJ9JfYCJ3RRE0L-Qr5opUYFUyBJp3qEraw==@protonmail.internalid>
+ <62zcubxembr6iat4d7n3o7aecqtx3ne2a42ilxfoap65oaefhh@mecahghgrwrf>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+In-Reply-To: <62zcubxembr6iat4d7n3o7aecqtx3ne2a42ilxfoap65oaefhh@mecahghgrwrf>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260327-dtc-drop-dts_version-v1-1-41066690aefd@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDMBAAvyJ7NmBiTcWvSBG7WdvtQWU3FUH8u
- 1FvM4eZDZSESaHJNhBaWHkak9g8A/z244cMh+TgCueL0j1NiGiCTHMC7RaSMzC2Kqm26P3DIqR
- 0Fhp4vbbt63b9v3+E8XzBvh+CB5t5eAAAAA==
-X-Change-ID: 20260327-dtc-drop-dts_version-153e81c6641c
-To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
-Cc: Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, stable@vger.kernel.org, 
- Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1703; i=nathan@kernel.org;
- h=from:subject:message-id; bh=m0xyN/K4zSKcbMCe0Pigk/i5SRWQIcAcko2GQbCvTjg=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDJnHfnxz6zbt2fzjTpVxvsc/dZ5Mly/2E942ZbxUPK9v8
- un4kuQjHaUsDGJcDLJiiizVj1WPGxrOOct449QkmDmsTCBDGLg4BWAiQPX/7N7rva6YLSAaW/rW
- NWJD+P80jTOCtT/V2gN9K8IZxGauYmS4mBW/ovheWF+kewjD33tPNz06+lve6qN3j/F9Lp0l4n1
- cAA==
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-A recent strengthening of -Wunused-but-set-variable (enabled with -Wall)
-in clang under a new subwarning, -Wunused-but-set-global, points out an
-unused static global variable in dtc-lexer.lex.c (compiled from
-dtc-lexer.l):
+On 27/03/2026 20:54, Dmitry Baryshkov wrote:
+> I think, I've left similar feedback already. Please rework a single
+> structure-less table into generic and per-lane configuration. It doesn't
+> make sense to repeat the same configuration N times, just with the
+> different offset.
 
-  scripts/dtc/dtc-lexer.lex.c:641:12: warning: variable 'dts_version' set but not used [-Wunused-but-set-global]
-    641 | static int dts_version = 1;
-        |            ^
+If you remember you also said that was fine for a follow-on series after 
+merging, and you asked for a commit log to that effect.
 
-This variable has been unused since commit 658f29a51e98 ("of/flattree:
-Update dtc to current mainline."). Remove it to clear up the warning.
+i.e.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
-This is commit 53373d1 ("dtc: Remove unused dts_version in dtc-lexer.l")
-in upstream dtc. I sent it separately to make it easier to backport to
-stable, along with updating the warning and hash to match the kernel's
-version.
----
- scripts/dtc/dtc-lexer.l | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/scripts/dtc/dtc-lexer.l b/scripts/dtc/dtc-lexer.l
-index 15d585c80798..1b129b118b0f 100644
---- a/scripts/dtc/dtc-lexer.l
-+++ b/scripts/dtc/dtc-lexer.l
-@@ -39,8 +39,6 @@ extern bool treesource_error;
- #define DPRINT(fmt, ...)	do { } while (0)
- #endif
- 
--static int dts_version = 1;
--
- #define BEGIN_DEFAULT()		DPRINT("<V1>\n"); \
- 				BEGIN(V1); \
- 
-@@ -101,7 +99,6 @@ static void PRINTF(1, 2) lexical_error(const char *fmt, ...);
- 
- <*>"/dts-v1/"	{
- 			DPRINT("Keyword: /dts-v1/\n");
--			dts_version = 1;
- 			BEGIN_DEFAULT();
- 			return DT_V1;
- 		}
+"The register init sequence table is imported verbatim from the existing
+CAMSS csiphy driver. A follow-up series will rework the table to extract
+the repetitive per-lane pattern into a loop."
 
 ---
-base-commit: c369299895a591d96745d6492d4888259b004a9e
-change-id: 20260327-dtc-drop-dts_version-153e81c6641c
-
-Best regards,
---  
-Nathan Chancellor <nathan@kernel.org>
-
+bod
