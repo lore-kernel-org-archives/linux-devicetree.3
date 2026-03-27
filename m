@@ -1,37 +1,37 @@
 Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947B034104B;
-	Fri, 27 Mar 2026 16:07:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F311D33F8BC;
+	Fri, 27 Mar 2026 16:07:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774627661; cv=none; b=lDZfecT97mxWCTWweKHOmbN+yRJbI05wIL3yA7CadCtmbDYu4Hj9aIveUn2tf0BdRxs2/TsRIGyc/1iq4FX6z2M+8CJ+o5PuIijy8I418KulXcDWAQ30cc6kz4njgaOwl2ry6eXeuxTC0A5Ygq56VfF4AjuzhYEZHCDWkXb8Br0=
+	t=1774627662; cv=none; b=fX7Bathc8epVDk9WqFIrX/+UEym2o5H+iqSJzlRGdlpvb74kS8N6HL4zbLmWNJR7hBTbpXkkDZkiv/RoO5tYSM3I7oKr3d7jIQiOl8y7jCK7H/hg1uWdJs5B5jDFctD/KeAQwSLItZXFivy2SUAwUxwTdxGtmPm2Q0B0NSMoDa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774627661; c=relaxed/simple;
-	bh=QaMxN5JIjzz6HwV6IhF0gYp+uTretPZBpdnTbCTSpv0=;
+	s=arc-20240116; t=1774627662; c=relaxed/simple;
+	bh=6B7686z3QUopU/zWMAAwBVlHDWV9IFVlgjbzHESJ76k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CyoA//1GQtux1qvp0TNDLZpvR2S6wCJ1ppPZO/gSRVd4hXfgBO6TYjlP+lU0GKMlRNgb96vCau5ETSZhhvvrFK3rzhfsFNvKGAq+cHpuIs+PTf/eWi45+aVs8bc4N00Fsg9CR5UuGVsZoXaDV1zNKYU/F98neY6U0R0mLJANQUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=OW0penBq; arc=none smtp.client-ip=178.21.23.139
+	 MIME-Version; b=SxcJ99TVjVLYQxtU7U5YsImCnaxe3W/Aaia2UFDkQvm0m4dbFT23BwEVi+xuxGzMMbHFHfARK9PTl1SQz2Uo90Ztlx9jsp7LBFkf656MXmLQyuJ28D7WbttvS1ISgGSJUnRJcxnfJuAu+pntLDsyv+0HouI1OoB/IHwhkd93m1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=g+u0211I; arc=none smtp.client-ip=178.21.23.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="OW0penBq"
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="g+u0211I"
 Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 39B1E271DA;
-	Fri, 27 Mar 2026 17:07:38 +0100 (CET)
+	by disroot.org (Postfix) with ESMTP id 9B99927063;
+	Fri, 27 Mar 2026 17:07:39 +0100 (CET)
 X-Virus-Scanned: SPAM Filter at disroot.org
 Received: from layka.disroot.org ([127.0.0.1])
  by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id X1Hts-iyLWmi; Fri, 27 Mar 2026 17:07:37 +0100 (CET)
+ id 9ZJsU4vKfg6x; Fri, 27 Mar 2026 17:07:39 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1774627650; bh=QaMxN5JIjzz6HwV6IhF0gYp+uTretPZBpdnTbCTSpv0=;
+	t=1774627653; bh=6B7686z3QUopU/zWMAAwBVlHDWV9IFVlgjbzHESJ76k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OW0penBqkLvztX9fUafhonQiKKJoXJioTTo+jJLvVm+drvgI5c36ieTIGZg25phBg
-	 zrDVlPqO7JF902A8bSuV+he5nirS62bM8xXxbbwnH3t7v9yg5FRgPb5nnuy5hvYxzv
-	 To5qbsuE68EwcDvqXhr7Atlmq1/iAB4kt/uiskbRD4XYp6WezDrwkCSLL+MsknRpxW
-	 8wSAbjADHJ9fOGpQ2HYf98aKD7H5SksfUGgEtDdr7VMZLvAVTKDxOQcWDs/4OE/HD+
-	 OsP6Xp4bX6i9NHTU+Pu5jiMBN8JqiLnOUUcWz57ndmCq+XdQDGY1qBH40EG1XkqWiR
-	 +c62QATOIVDkA==
+	b=g+u0211IO9SL1On/JwORnsWBqRH3+PSiBCa+uWsCj1ljxfsSDqiwPcUM4uBEhW89I
+	 3iMSV2uwMpbnioDJge7o4Se/Ral7+Yv/iL+jpFQPFZBLxhWdAw/CQbSYApXVgElkHj
+	 O1Bo94OAAm0nSnJlW7dlLbUQQNsCdfXtvafZRBgEBpE/EwS2YyWS66yG2yZqPD/9fI
+	 344G7stwPuu1dsz8ZLFoEQS2izrSknLud5E4RRpJEyinECUlGWxBtuKVbNJtCdVO8n
+	 CFU5doIBAv5g6DyDu8fACOAxZI+1ZWBBmpdZQCmiAUrT0JrGOtqQP0tGtnaxZa4O/C
+	 i5pk5cpiaGgyQ==
 From: Rustam Adilov <adilov@disroot.org>
 To: Vinod Koul <vkoul@kernel.org>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -42,11 +42,10 @@ To: Vinod Koul <vkoul@kernel.org>,
 	linux-phy@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Rustam Adilov <adilov@disroot.org>,
-	Michael Zavertkin <misha.zavertkin@mail.ru>
-Subject: [PATCH v2 5/6] phy: realtek: usb2: add support for RTL9607C USB2 PHY
-Date: Fri, 27 Mar 2026 21:06:37 +0500
-Message-ID: <20260327160638.15134-6-adilov@disroot.org>
+Cc: Rustam Adilov <adilov@disroot.org>
+Subject: [PATCH v2 6/6] phy: realtek: usb2: Make configs available for MACH_REALTEK_RTL
+Date: Fri, 27 Mar 2026 21:06:38 +0500
+Message-ID: <20260327160638.15134-7-adilov@disroot.org>
 In-Reply-To: <20260327160638.15134-1-adilov@disroot.org>
 References: <20260327160638.15134-1-adilov@disroot.org>
 Precedence: bulk
@@ -57,175 +56,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the usb2 phy of RTL9607C series based SoCs.
-Add the macros and phy config struct for rtl9607.
+Add the MACH_REALTEK_RTL to the if statement to make the config
+options available for Realtek RTL SoCs as well.
 
-RTL9607C requires to clear a "force host disconnect" bit in the
-specific register (which is at an offset from reg_wrap_vstatus)
-before proceeding with phy parameter writes.
-
-Add the bool variable to the driver data struct and hide this whole
-procedure under the if statement that checks this new variable.
-
-Co-developed-by: Michael Zavertkin <misha.zavertkin@mail.ru>
-Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
 Signed-off-by: Rustam Adilov <adilov@disroot.org>
 ---
- drivers/phy/realtek/phy-rtk-usb2.c | 57 ++++++++++++++++++++++++++++++
- 1 file changed, 57 insertions(+)
+ drivers/phy/realtek/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy-rtk-usb2.c
-index 070cba1e0e0a..bf22d12681dc 100644
---- a/drivers/phy/realtek/phy-rtk-usb2.c
-+++ b/drivers/phy/realtek/phy-rtk-usb2.c
-@@ -26,6 +26,12 @@
- #define PHY_VCTRL_SHIFT 8
- #define PHY_REG_DATA_MASK 0xff
+diff --git a/drivers/phy/realtek/Kconfig b/drivers/phy/realtek/Kconfig
+index 75ac7e7c31ae..f9eadffacd18 100644
+--- a/drivers/phy/realtek/Kconfig
++++ b/drivers/phy/realtek/Kconfig
+@@ -3,7 +3,7 @@
+ # Phy drivers for Realtek platforms
+ #
  
-+#define PHY_9607_VSTS_BUSY BIT(17)
-+#define PHY_9607_NEW_REG_REQ BIT(13)
-+
-+#define PHY_9607_FORCE_DISCONNECT_REG 0x10
-+#define PHY_9607_FORCE_DISCONNECT_BIT BIT(5)
-+
- #define GET_LOW_NIBBLE(addr) ((addr) & 0x0f)
- #define GET_HIGH_NIBBLE(addr) (((addr) & 0xf0) >> 4)
+-if ARCH_REALTEK || COMPILE_TEST
++if ARCH_REALTEK || MACH_REALTEK_RTL || COMPILE_TEST
  
-@@ -109,6 +115,7 @@ struct phy_cfg {
- 
- 	u32 (*read)(void __iomem *reg);
- 	void (*write)(u32 val, void __iomem *reg);
-+	bool force_host_disconnect;
- };
- 
- struct phy_parameter {
-@@ -614,6 +621,16 @@ static int do_rtk_phy_init(struct rtk_phy *rtk_phy, int index)
- 		goto do_toggle;
- 	}
- 
-+	if (phy_cfg->force_host_disconnect) {
-+		/* disable force-host-disconnect */
-+		u32 temp = readl(phy_reg->reg_wrap_vstatus + PHY_9607_FORCE_DISCONNECT_REG);
-+
-+		temp &= ~PHY_9607_FORCE_DISCONNECT_BIT;
-+		writel(temp, phy_reg->reg_wrap_vstatus + PHY_9607_FORCE_DISCONNECT_REG);
-+
-+		mdelay(10);
-+	}
-+
- 	/* Set page 0 */
- 	phy_data_page = phy_cfg->page0;
- 	rtk_phy_set_page(phy_reg, 0);
-@@ -1141,6 +1158,7 @@ static const struct phy_cfg rtd1295_phy_cfg = {
- 	.new_reg_req = PHY_NEW_REG_REQ,
- 	.read = phy_read,
- 	.write = phy_write,
-+	.force_host_disconnect = false,
- };
- 
- static const struct phy_cfg rtd1395_phy_cfg = {
-@@ -1170,6 +1188,7 @@ static const struct phy_cfg rtd1395_phy_cfg = {
- 	.new_reg_req = PHY_NEW_REG_REQ,
- 	.read = phy_read,
- 	.write = phy_write,
-+	.force_host_disconnect = false,
- };
- 
- static const struct phy_cfg rtd1395_phy_cfg_2port = {
-@@ -1199,6 +1218,7 @@ static const struct phy_cfg rtd1395_phy_cfg_2port = {
- 	.new_reg_req = PHY_NEW_REG_REQ,
- 	.read = phy_read,
- 	.write = phy_write,
-+	.force_host_disconnect = false,
- };
- 
- static const struct phy_cfg rtd1619_phy_cfg = {
-@@ -1226,6 +1246,7 @@ static const struct phy_cfg rtd1619_phy_cfg = {
- 	.new_reg_req = PHY_NEW_REG_REQ,
- 	.read = phy_read,
- 	.write = phy_write,
-+	.force_host_disconnect = false,
- };
- 
- static const struct phy_cfg rtd1319_phy_cfg = {
-@@ -1257,6 +1278,7 @@ static const struct phy_cfg rtd1319_phy_cfg = {
- 	.new_reg_req = PHY_NEW_REG_REQ,
- 	.read = phy_read,
- 	.write = phy_write,
-+	.force_host_disconnect = false,
- };
- 
- static const struct phy_cfg rtd1312c_phy_cfg = {
-@@ -1287,6 +1309,7 @@ static const struct phy_cfg rtd1312c_phy_cfg = {
- 	.new_reg_req = PHY_NEW_REG_REQ,
- 	.read = phy_read,
- 	.write = phy_write,
-+	.force_host_disconnect = false,
- };
- 
- static const struct phy_cfg rtd1619b_phy_cfg = {
-@@ -1317,6 +1340,7 @@ static const struct phy_cfg rtd1619b_phy_cfg = {
- 	.new_reg_req = PHY_NEW_REG_REQ,
- 	.read = phy_read,
- 	.write = phy_write,
-+	.force_host_disconnect = false,
- };
- 
- static const struct phy_cfg rtd1319d_phy_cfg = {
-@@ -1347,6 +1371,7 @@ static const struct phy_cfg rtd1319d_phy_cfg = {
- 	.new_reg_req = PHY_NEW_REG_REQ,
- 	.read = phy_read,
- 	.write = phy_write,
-+	.force_host_disconnect = false,
- };
- 
- static const struct phy_cfg rtd1315e_phy_cfg = {
-@@ -1378,6 +1403,37 @@ static const struct phy_cfg rtd1315e_phy_cfg = {
- 	.new_reg_req = PHY_NEW_REG_REQ,
- 	.read = phy_read,
- 	.write = phy_write,
-+	.force_host_disconnect = false,
-+};
-+
-+static const struct phy_cfg rtl9607_phy_cfg = {
-+	.page0_size = MAX_USB_PHY_PAGE0_DATA_SIZE,
-+	.page0 = { [0] = {0xe0, 0x95},
-+		   [4] = {0xe4, 0x6a},
-+		  [12] = {0xf3, 0x31}, },
-+	.page1_size = MAX_USB_PHY_PAGE1_DATA_SIZE,
-+	.page1 = { [0] = {0xe0, 0x26}, },
-+	.page2_size = MAX_USB_PHY_PAGE2_DATA_SIZE,
-+	.page2 = { [7] = {0xe7, 0x33}, },
-+	.num_phy = 1,
-+	.check_efuse = false,
-+	.check_efuse_version = CHECK_EFUSE_V2,
-+	.efuse_dc_driving_rate = EFUS_USB_DC_CAL_RATE,
-+	.dc_driving_mask = 0x1f,
-+	.efuse_dc_disconnect_rate = EFUS_USB_DC_DIS_RATE,
-+	.dc_disconnect_mask = 0xf,
-+	.usb_dc_disconnect_at_page0 = true,
-+	.do_toggle = true,
-+	.do_toggle_driving = false,
-+	.driving_updated_for_dev_dis = 0x8,
-+	.use_default_parameter = false,
-+	.is_double_sensitivity_mode = true,
-+	.vstatus_offset = 0xc,
-+	.vstatus_busy = PHY_9607_VSTS_BUSY,
-+	.new_reg_req = PHY_9607_NEW_REG_REQ,
-+	.read = phy_read_le,
-+	.write = phy_write_le,
-+	.force_host_disconnect = true,
- };
- 
- static const struct of_device_id usbphy_rtk_dt_match[] = {
-@@ -1390,6 +1446,7 @@ static const struct of_device_id usbphy_rtk_dt_match[] = {
- 	{ .compatible = "realtek,rtd1395-usb2phy-2port", .data = &rtd1395_phy_cfg_2port },
- 	{ .compatible = "realtek,rtd1619-usb2phy", .data = &rtd1619_phy_cfg },
- 	{ .compatible = "realtek,rtd1619b-usb2phy", .data = &rtd1619b_phy_cfg },
-+	{ .compatible = "realtek,rtl9607-usb2phy", .data = &rtl9607_phy_cfg },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, usbphy_rtk_dt_match);
+ config PHY_RTK_RTD_USB2PHY
+ 	tristate "Realtek RTD USB2 PHY Transceiver Driver"
 -- 
 2.53.0
 
