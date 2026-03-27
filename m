@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81303EF67E;
-	Fri, 27 Mar 2026 13:56:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B5BE26C3B0;
+	Fri, 27 Mar 2026 13:57:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774619812; cv=none; b=YFaD1JOaGb6cmS2ihiL3/34C+tSgWYin2bppUuD90MOvA2TdoFbOKVuaNOXBl+Tci+mE8c7e69sBe08v+WVn37qeFREuQ6pw+obUoJ3vSeGVTMBsXWstddZLT2tGFdDmESlNhBE2Z9b6ScuN7PXllYZ537ojum8mYAC+xvidkWA=
+	t=1774619849; cv=none; b=nDDUe7MRSOHTMbU4IfJeI+DFDp+2MuytX+czJsu83zOBEe+SMdVa8Vk/+IX3dWRps7sHc22H8Au2UkS+0G0Ch6vfwqTpcl6s3LZPWg40MYv+/4GNRlX2IUwdGjGAPdRhbe0wqxXANXrvSVA3rkL808b7dV4poHtAGwRorfecTPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774619812; c=relaxed/simple;
-	bh=2mf5n3dc77+mCuOXdxbyc2GEf2Wtigj7YNJ+nHFL1Tc=;
+	s=arc-20240116; t=1774619849; c=relaxed/simple;
+	bh=QoiKaNTYrjORWOMsbRPUw7aZWwxwHRhfcq1ApneMqF4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YdqTFlPJXraxNTEfSWXFcln8URpQlgDxrby5I8BA8Ms7o+4qgsKBrgLEgHQCg9pyzQx6ovBqPRJRyUntD7N2Y8mJZZatuTYjeObXTqy+yLoPnb/bkj11WCTE3cPw96WIdKTl/M7QyautU+EIw4Hcw+1BwiFAIeAxUNK2723zm0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gqlqCI1l; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=AIaTDIdHniK1bFWdDUIdRMR3RRR2p/zq4Kh31KS2YCF0Nm3autMSh5WC++iovXDqxbWgI5gMJcUrqL53+OH5iUE3CMrS0id0h4vawDam1PY0qAKVv3JkZkJQQcYb72BkRkEAQxbZjf59DeswHeQJR2ihIsYxPfdVIs0xDZhEhEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oqzi4bht; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gqlqCI1l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B11FC19423;
-	Fri, 27 Mar 2026 13:56:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oqzi4bht"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF398C19423;
+	Fri, 27 Mar 2026 13:57:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774619812;
-	bh=2mf5n3dc77+mCuOXdxbyc2GEf2Wtigj7YNJ+nHFL1Tc=;
+	s=k20201202; t=1774619848;
+	bh=QoiKaNTYrjORWOMsbRPUw7aZWwxwHRhfcq1ApneMqF4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gqlqCI1lFYA8l0v9f7x7r+LuraTcOCrQCqsWXfQHxTliO9u0H6NRLTSwt1PJrc2dI
-	 JzSZ7Qx97LFgd5pw5IJYTs9HohcIs9z82W9PtTLStFdtcUBXA44LYWIFEw60xB93WB
-	 Xg1IQEwKTbluRJYw21AaOQI+uhUaTx2JA6iR2D5CwyM/5WzR+pdQffXUb2sZ178cEq
-	 JkU6r4X0hjI9M0GspIsHMZJwg+EJ62Q6laoD1llzD4fcACEH/YX7yGNYJRlqPqM43D
-	 XD8AsQg4ziDw+uksS36u5xCr92h7VrFduN9+tqSK9sn1n4iTtLi7cQ+RzP7dPLige/
-	 0wMltjEFiAeqA==
-Message-ID: <a0a7269d-7a09-4a78-a4b0-b39b67bc253b@kernel.org>
-Date: Fri, 27 Mar 2026 14:56:40 +0100
+	b=Oqzi4bhtXPUd+stBnasJPE6OL61Dx+nakBeYIFTp6GaBoMBjtZSl7lj2jNa6H/SUj
+	 dv0sAmuakskIVMAkTgprUHsSFiVJNqT2Ig73CnD8sEmV+e9kd5AHQx+v1AfuK4OHBG
+	 PXiRxyw/Ql/kXf7xLE9cbfFWGodb5wLNQofmstb3Yr+82X7EQvKzbCt6Rw19I0v98s
+	 RB5jfqT1Xy2jP1azLmRxRjpRIkXTQzdr9bpfFqbaDPav5bWlVevfwM2P/cnlh+AbmK
+	 hapZYwnrZ3Tj4bTQ2zV5cpQ1RasWq6UL/Ff9xARN66acZr2cafNLHdl8DQAgNFbQzr
+	 VRBjVovC6LMeg==
+Message-ID: <d5e35218-57e5-4905-96b8-618db05e4bbf@kernel.org>
+Date: Fri, 27 Mar 2026 14:57:23 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,36 +35,16 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/15] firmware: qcom: Add a generic PAS service
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Sumit Garg <sumit.garg@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, andersson@kernel.org,
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
- elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com, amirreza.zarrabi@oss.qualcomm.com,
- jens.wiklander@linaro.org, op-tee@lists.trustedfirmware.org,
- apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
- linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
-References: <20260312062756.694390-1-sumit.garg@kernel.org>
- <20260312062756.694390-3-sumit.garg@kernel.org>
- <28d63822-f191-400a-8005-5185dd480dbb@kernel.org>
- <acE-kAi2tkPh2qie@sumit-xelite>
- <5c5b49aa-7819-44c6-b5f7-19ec780d73fa@kernel.org>
- <2e55bdc3-54a1-4f18-b9ad-fe03f21fc4da@oss.qualcomm.com>
+Subject: Re: [PATCH v2] ASoC: dt-bindings: mediatek,mt8173-rt5650-rt5514:
+ convert to DT schema
+To: Khushal Chitturi <khushalchitturi@gmail.com>, lgirdwood@gmail.com,
+ broonie@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ koro.chen@mediatek.com, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <20260327134649.31376-1-khushalchitturi@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -110,39 +90,18 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <2e55bdc3-54a1-4f18-b9ad-fe03f21fc4da@oss.qualcomm.com>
+In-Reply-To: <20260327134649.31376-1-khushalchitturi@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23/03/2026 15:26, Konrad Dybcio wrote:
->>>
->>> This pattern has been carried from the PAS API contract among kernel
->>> clients and the SCM PAS service earlier. The clients don't hold a
->>> reference to the PAS data like underlying platform or TEE device etc.
->>> Hence the need to have a global data pointer to hold reference to the
->>> ops data structure registered by drivers having different lifetime of
->>> devices. Also, the PAS APIs can be called from very different client
->>> driver contexts.
->>>
->>> Surely, avoiding global data is always better given a better alternative
->>> is there. Do you have any better alternative proposal here?
->>
->> Why it cannot be part of the context?
->>
->> Look at your API, e.g.:
->> qcom_pas_init_image(). It takes struct qcom_pas_context which should
->> contain the ops.
+On 27/03/2026 14:46, Khushal Chitturi wrote:
+> Convert the Mediatek MT8173 with RT5650 and RT5514 sound card
+> bindings to DT schema.
 > 
-> This would make the client have to select the ops. The whole point is to
-> avoid that, since the client has no clue (and is supposed not to have any).
+> Signed-off-by: Khushal Chitturi <khushalchitturi@gmail.com>
+> ---
 
-Yeah, I see. The problem is that this patchset just keeps growing the
-singletons so except existing 'struct qcom_scm *__scm' in qcom_scm.c,
-this one brings at least three new: 'ops_ptr', 'qcom_pas_ops_scm' and
-'qcom_pas_ops_tee'.
-
-I don't think you need all four in total, but only one which will hold
-whatever pointers are necessary.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
