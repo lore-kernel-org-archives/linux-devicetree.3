@@ -1,97 +1,50 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D639030E821;
-	Fri, 27 Mar 2026 15:38:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C059D2517AA
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 15:40:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774625908; cv=none; b=qK3H0C26IwnmyiQgE0I3vSbgUWnnM5FAVZzCKYCJ5gKG1fFo9v+jcDW/cSqdM5M7FbuDS3LS4avxJuHBZOWD62lw+T9FbhW4NrbL7d4Tmrfz82Bk1iPEaMLAJlcBNIkatgSv/PPxvnacYEpxnGgS/W8kUVQ0moJrliI11v7Yt60=
+	t=1774626007; cv=none; b=aYOzcNxoguG8tXv6QAEWGfojvQHLmqUevok/m52Di8Hkt4G/AhtNGdZQHc1EBP75AXK4diBs4bDBgxt1OMMjvAVCYB4icynzpxGF/KrDmE/vViAXVbypnZlyhcJfXwQiZoT8UlLLA1naWmpuVZOHMTBDx+fY6hKgGUGh/PxP3Sc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774625908; c=relaxed/simple;
-	bh=pA2EwxkEld2ssemKizAe5hQR2w01KUN4aLJDOVobFxU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J/2zzXSL8xnqpJleUscTKD0HUCYRxYPaq/wEIa4dXx6Ndfqdr86dLdyX3Li+CvJue9UTUyHYpyK20lXzjJIVRttnIBvt5QSF1sPZnDzFvWEoVM2oGhkmsRbcAFg4/xpskJCp1sFDlzjbECkwOPmTsEaQ6bYGWbQjqu0Bgw5Fxy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=zMTCFLg0; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1774626007; c=relaxed/simple;
+	bh=TRzTq0GwbPZ/PdEq+U09xb7pJmp5jBiucbPCQ/6q9GQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mQF7NbhQgZhb0m7hPQlzCmE1fu7C/dVWQtZRA4qijO9IYN50+geTrQXpw8cwXixPtvHYVJG5yGsqWdGqYyBAkQ0y+/gb5McZ1DZ3/Rb7PAzxbbPsOJ4KahsMKdncq/qAHAitxPV4W8sI0TZzN8h682Tzu8Ys9L0+E2SId82tMSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com; spf=pass smtp.mailfrom=tinyisr.com; dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b=gRkYV2Dc; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=WOKsP7g4; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tinyisr.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="zMTCFLg0"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 557D54E42820;
-	Fri, 27 Mar 2026 15:38:25 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1FC8760230;
-	Fri, 27 Mar 2026 15:38:25 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 97F3A1045138A;
-	Fri, 27 Mar 2026 16:38:19 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1774625904; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=em5pndcd+UXa90bf0uQRKcc4Na0SqWRPy7T2u1ZT41Q=;
-	b=zMTCFLg0YnXCw7FgrqKZSQMfvWaCIWYEbG8Ll6pcQvX3ITyHXKwahZuGxQ1QIXlM+TMz7q
-	931qhl9eX9r/oSdBFgAWDch8jVR6BWk2xEm4NHa84bj+4/rAOBaXAE5ZLzfKWSdTUfyBFc
-	Qm1/gdhbcTm4f/mMxiK/rjLtmUaifjueyl2KDxpMaHBqqBPrGM/RZVz6ibde2A1LGIY4VZ
-	rS4JE9iUbOWb/xLHU3R0DUttaDBdCDCVR/A3WcwUAEl2W72f4isR/2J7MCcfViC2NGYpqT
-	2yXJW0bMR6oP74GLRGhqyUPMWSg5KFN5hacUNs74AqGT3e413LjPshPbJmpTnw==
-Message-ID: <25661481-7d17-4552-9899-56d1fe9e5bd6@bootlin.com>
-Date: Fri, 27 Mar 2026 16:38:18 +0100
+	dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b="gRkYV2Dc";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="WOKsP7g4"
+DKIM-Signature: a=rsa-sha256; b=gRkYV2DclE8/X2HFxYmhQ0tvmrvZIL6pnqmPYsIgPyg6LsGfuJCGn9AXX0G32AMnnpQHVcM5oatay6JGeSM0yEW5EDxWeviSDx+8SntzwGsQoURoMp30NbUw6qR8QIpPx58gM8xTLnkt7wMrfMNT13gqk3uAEmW2KgWpnJUp4J/081VWy9pCaNsJz+Ghyo009LkWdP8Cd+UEUmvIPAxs3M682MDlQMHMkBFlIcI86g36S8JT36CjTuQ+yCEsuNSMuiGgOE2BvLXDrkINICjgtJ7b7Jmrq0kTIKUCpDprgG+2b6ivkNTtjecPMDLiGxHDpkZ8EuADjRR0mCqp0qOusw==; s=purelymail1; d=tinyisr.com; v=1; bh=TRzTq0GwbPZ/PdEq+U09xb7pJmp5jBiucbPCQ/6q9GQ=; h=Received:Date:From:To:Subject;
+DKIM-Signature: a=rsa-sha256; b=WOKsP7g411YQDxCZwuSWT1oGZHPhcdFsalhp139Ipmp+KhLXzLL3UNf6atfdW6X3zUxul4rUuGxcKEIZPOYZ/1UPKR/HHdL7uRKxQ2RLgMpRxSvtz1lo2lFBZFUGE71tWu9L3jKV6NH6j32uuJ6t109iT9zTLy7g4DBvH9oIZ+EEFF3YRQJ9R/48zarWuLB4z1rUsaUuzGdn/7rUuRWjNYVBO1zmKWwTljPRVPcGvVsVgwdhl5OMEPWnqHCjot4W6cSgatIqF0rCkNS8L7rE4WXwvcPre83gWvPdTRLIgHZvRWgs2267ODygrA/NI7lPJGwIhj9Cys9kbwm8oWw7sg==; s=purelymail1; d=purelymail.com; v=1; bh=TRzTq0GwbPZ/PdEq+U09xb7pJmp5jBiucbPCQ/6q9GQ=; h=Feedback-ID:Received:Date:From:To:Subject;
+Feedback-ID: 99681:12517:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 929034348;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Fri, 27 Mar 2026 15:39:44 +0000 (UTC)
+Date: Fri, 27 Mar 2026 17:39:32 +0200
+From: Joris Vaisvila <joey@tinyisr.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev@vger.kernel.org, horms@kernel.org, pabeni@redhat.com, 
+	kuba@kernel.org, edumazet@google.com, davem@davemloft.net, olteanv@gmail.com, 
+	devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH net-next 4/4] net: dsa: initial support for MT7628
+ embedded switch
+Message-ID: <acaj0K1EevnhU-Bw@archlinux>
+References: <20260326204413.3317584-1-joey@tinyisr.com>
+ <20260326204413.3317584-5-joey@tinyisr.com>
+ <e6d91e11-fe19-48c0-886f-e1c0c92b094d@lunn.ch>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] net: dsa: microchip: implement KSZ87xx Module 3
- low-loss cable errata
-To: Marek Vasut <marex@nabladev.com>, Vladimir Oltean <olteanv@gmail.com>,
- Fidelio Lawson <lawson.fidelio@gmail.com>
-Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
- Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Fidelio Lawson <fidelio.lawson@exotec.com>
-References: <20260326-ksz87xx_errata_low_loss_connections-v1-0-79a698f43626@exotec.com>
- <20260326-ksz87xx_errata_low_loss_connections-v1-0-79a698f43626@exotec.com>
- <20260326-ksz87xx_errata_low_loss_connections-v1-3-79a698f43626@exotec.com>
- <20260326-ksz87xx_errata_low_loss_connections-v1-3-79a698f43626@exotec.com>
- <20260326094211.hdaf4tz7lbjyjznn@skbuf>
- <2848158c-a807-4d26-be87-248d4107c5b4@bootlin.com>
- <80e21085-84b9-4ebd-9a60-1d7acfc1a56b@nabladev.com>
-Content-Language: en-US
-From: Bastien Curutchet <bastien.curutchet@bootlin.com>
-In-Reply-To: <80e21085-84b9-4ebd-9a60-1d7acfc1a56b@nabladev.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e6d91e11-fe19-48c0-886f-e1c0c92b094d@lunn.ch>
 
-Hi Marek,
-
-On 3/27/26 3:55 PM, Marek Vasut wrote:
-> On 3/27/26 3:47 PM, Bastien Curutchet wrote:
-> 
-> Hello Bastien,
-> 
->>> FYI, the driver is in a restructuring process. The ksz88xx_switch_ops
->>> will be split out of the common ksz_switch_ops. This will conflict with
->>> your series, so you should rebase on top of that much larger set.
->>> You can coordinate with Bastien Curutchet to see what is the status:
->>> https://lore.kernel.org/netdev/20260313153849.qkfzv5c2u6fepjku@skbuf
->>
->> Indeed, I'm currently polishing a first iteration for it. I'll send it 
->> ASAP.
-> I would argue that this low-loss cable errata is a bugfix, so maybe that 
-> should have a priority over restructuring ?
-
-Yes, I'm fine with that.
-
-These three patches aren't big so I shouldn't encounter much difficulty 
-to fix the conflicts on my side.
-
-
-Best regards,
-Bastien
+Thanks for the review, will fix all of these in v2. 
