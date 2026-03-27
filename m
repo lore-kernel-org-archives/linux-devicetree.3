@@ -1,36 +1,37 @@
 Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2635F30AACB;
-	Fri, 27 Mar 2026 16:07:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B239933F590;
+	Fri, 27 Mar 2026 16:07:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774627643; cv=none; b=XlpsgAg+liIrfSg0MlV/+wip08SowsAVQJGPEa3HP+l3uzWAbYY6dmnuldsJDTliNxoeVf5Cx6udEmf2ztD1ddmjVhEFaFTqrHwLRxfOJrQU5f3OIOLTCbWPhTX7LdrjlWLRbgQdZcO4wJtxSxEPlllxCjJTaJbEMK+x8bv1F7Y=
+	t=1774627645; cv=none; b=otDhX68C9HkQWKDfPTVB8WrzMyW0HlxSJNa7yobxlqn10Ay1FvuAKxn1A0Wp3E0H6ql5nOnjmBNS7+FHU2s8A7AlNdUc6T9URmTjAMTbdQ3xTS/qReXxk1kkymZy6yY81OiM1KUv93fdhQ4qZHVOvR7RWEei2ACCUBaLWv7DEAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774627643; c=relaxed/simple;
-	bh=jC+qjtyvOKNhOkXqAUVF9LEdYKJqioeMUZsW91IPHSc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a9PUGv3voxZnFuAXh+0QxlI3lyf6adD7TX/l2GS14VOeGO4O76+bxRt8JL5SqSMP6UZ4fLRL1KjrlGWrrLkI52XppzkX9V3Bd6Naavr9V2tbOMS6jUQpGl3rNwG2oddOFSp5H8W/yJRAYlOivBLzasbGzU4sXSNEUO/sX4xFyMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=aaXw1kpB; arc=none smtp.client-ip=178.21.23.139
+	s=arc-20240116; t=1774627645; c=relaxed/simple;
+	bh=vOZf6eE42IzDhkHYxccK5Q1lOSa6x6I72x6AYuJTPuQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OmDVFneKrGLE6t/lqqgZU8WFVg3kfUw/d5lAKhDvcRJU+J8YWiD0IYbxHSJmy05Ri086ND/XQ7R0BlU9pJFRcKotH1UJYy9RDpgOjElVSS0dQlGKqqGMdjuQM/PLk3DbWoHvvEN2vYNCq8rU+B/njfNO805Mjx1TUYC7zmjoqjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=ji44tl5m; arc=none smtp.client-ip=178.21.23.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="aaXw1kpB"
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="ji44tl5m"
 Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 494DF266E7;
-	Fri, 27 Mar 2026 17:07:13 +0100 (CET)
+	by disroot.org (Postfix) with ESMTP id 622C726E55;
+	Fri, 27 Mar 2026 17:07:22 +0100 (CET)
 X-Virus-Scanned: SPAM Filter at disroot.org
 Received: from layka.disroot.org ([127.0.0.1])
  by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id 2u7hCyCmTeIq; Fri, 27 Mar 2026 17:07:12 +0100 (CET)
+ id ciCy3VMPf6I3; Fri, 27 Mar 2026 17:07:20 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1774627632; bh=jC+qjtyvOKNhOkXqAUVF9LEdYKJqioeMUZsW91IPHSc=;
-	h=From:To:Cc:Subject:Date;
-	b=aaXw1kpB3wepjnrovKFK3BIXcuXFMNrSeK6py4vWiO3JfNDxv9ixj4B8oy8YWLLew
-	 Vgoo7Y1tjPBJwAnyh+XuKwr4cZyTsF+zX8UZ1U86mxcXqvwQrxZ7wZ4C0NZro9Jy4q
-	 vMehVNSHtBtp500fLH6TK1KF8eZtVECZdOO5PVJGzD7HAXGtgT20dczXcJmS/luf9e
-	 2S9z4HOSlgwz8oKq282JYym8ZBb16x0GgIk3FqzZJlA4JMFHoghVa7sIOsTBRMCnNX
-	 pSw2gSOnC4c76DQ6w+9qHPmTZEpuoMDHinaQNOAXQBqs11Q9IJHW0s7iRx92nmVH4g
-	 6edXVoGBxWI0A==
+	t=1774627640; bh=vOZf6eE42IzDhkHYxccK5Q1lOSa6x6I72x6AYuJTPuQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ji44tl5mg6vQofFhTfoVtcTvCxnClt8kB+MTV8YzhqRrRtXmI0KChLihyzsozZNOo
+	 E58xclLcBVhwz5QP2Bryz2HHm7Y2Sy5w2vEUnJP247RWilEJXc6XpKBuKW744Krt52
+	 CEOvopRZMPKcA2Z4wcIh6l9Riw/OotQZuUtmeB0ReM7Mm0VRxA+i6hYGI7Q3/GbkSK
+	 3mcBt4B1IRsa9JvWlU5/YeyZKO3U+iriwThI3WPAkxavzwAapdMmVmz7aoTSKWkXbL
+	 +4DhkgQcIlVdqEHd+hqWQXihSZ8FNkLwJVpkOKV19uyXzJ6NHuEpctFaLf1R6C21LR
+	 6blyUeL9aMy2A==
 From: Rustam Adilov <adilov@disroot.org>
 To: Vinod Koul <vkoul@kernel.org>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -41,10 +42,13 @@ To: Vinod Koul <vkoul@kernel.org>,
 	linux-phy@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Rustam Adilov <adilov@disroot.org>
-Subject: [PATCH v2 0/6] phy: realtek: usb2: support for RTL9607C USB2 PHY
-Date: Fri, 27 Mar 2026 21:06:32 +0500
-Message-ID: <20260327160638.15134-1-adilov@disroot.org>
+Cc: Rustam Adilov <adilov@disroot.org>,
+	Michael Zavertkin <misha.zavertkin@mail.ru>
+Subject: [PATCH v2 2/6] phy: realtek: usb2: introduce read and write functions to driver data
+Date: Fri, 27 Mar 2026 21:06:34 +0500
+Message-ID: <20260327160638.15134-3-adilov@disroot.org>
+In-Reply-To: <20260327160638.15134-1-adilov@disroot.org>
+References: <20260327160638.15134-1-adilov@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,48 +57,246 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch series for Realtek USB2 PHY driver adds support for RTL9607C
-USB2 PHY.
+RTL9607C is a big endian SoC but has little endian USB host controller and
+thus, reads and writes to the reg_gusb2phyacc0 should go through
+le32_to_cpu and cpu_to_le32 functions respectively. This doesn't apply to
+vstatus register though.
 
-RTL9607C is a big endian MIPS CPU which is quite far from RTD series SoCs
-supported by realtek usb2 phy driver, but the phy initilization is found
-to be very indentical in most areas.
+To handle this situation, introduce read and write functions to the driver
+data and create 2 variations of reads and write function with le32 function
+in it and without.
 
-Most of the code was based on the Realtek's usb driver from the GPL tarball
-in [1] and adjusted to fit into the realtek usb2 phy driver code format.
+Adjust all instances of utmi_wait_register function to now include the read
+function as one of its arguments.
 
-The patch series was split into smaller patches that add/change something
-in the driver that are not exactly related to RTL9607C and that also
-helps for easier review. That also means, patch 5 depends on all the prior
-patches that come before it.
+Assign the existing phy configuration for RTD SoCs to the default phy_read
+and phy_write functions.
 
-USB2 PHY on RTL9607C is primarly used for its internal OHCI/EHCI controllers.
-
-[1] - https://github.com/jameywine/GPL-for-GP3000/blob/main/linux-5.10.x/arch/mips/rtl9607c/usb.c
-
+Co-developed-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+Signed-off-by: Rustam Adilov <adilov@disroot.org>
 ---
-Changelog in v2:
-- Patch 5
- - removed the line about OHCI/EHCI controllers from description.
- - set the resets to false for RTD SoC devices and changed the
-   commit message to reflect that.
-- Link to v1: https://lore.kernel.org/linux-phy/20260326193419.48419-1-adilov@disroot.org/
+ drivers/phy/realtek/phy-rtk-usb2.c | 73 ++++++++++++++++++++++++------
+ 1 file changed, 60 insertions(+), 13 deletions(-)
 
-Rustam Adilov (6):
-  phy: realtek: usb2: introduce vstatus/new_reg_req variables to driver
-    data
-  phy: realtek: usb2: introduce read and write functions to driver data
-  dt-bindings: phy: realtek,usb2phy.yaml: extend for resets and RTL9607C
-    support
-  phy: realtek: usb2: introduce reset controller struct
-  phy: realtek: usb2: add support for RTL9607C USB2 PHY
-  phy: realtek: usb2: Make configs available for MACH_REALTEK_RTL
-
- .../bindings/phy/realtek,usb2phy.yaml         |  25 ++-
- drivers/phy/realtek/Kconfig                   |   2 +-
- drivers/phy/realtek/phy-rtk-usb2.c            | 189 ++++++++++++++++--
- 3 files changed, 196 insertions(+), 20 deletions(-)
-
+diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy-rtk-usb2.c
+index f5d2f0c3376a..e65b8525b88b 100644
+--- a/drivers/phy/realtek/phy-rtk-usb2.c
++++ b/drivers/phy/realtek/phy-rtk-usb2.c
+@@ -67,6 +67,9 @@ struct phy_reg {
+ 	int vstatus_offset;
+ 	int vstatus_busy;
+ 	int new_reg_req;
++
++	u32 (*read)(void __iomem *reg);
++	void (*write)(u32 val, void __iomem *reg);
+ };
+ 
+ struct phy_data {
+@@ -102,6 +105,9 @@ struct phy_cfg {
+ 	int vstatus_offset;
+ 	int vstatus_busy;
+ 	int new_reg_req;
++
++	u32 (*read)(void __iomem *reg);
++	void (*write)(u32 val, void __iomem *reg);
+ };
+ 
+ struct phy_parameter {
+@@ -128,6 +134,26 @@ struct rtk_phy {
+ 	struct dentry *debug_dir;
+ };
+ 
++static inline u32 phy_read(void __iomem *reg)
++{
++	return readl(reg);
++}
++
++static inline u32 phy_read_le(void __iomem *reg)
++{
++	return le32_to_cpu(readl(reg));
++}
++
++static inline void phy_write(u32 val, void __iomem *reg)
++{
++	writel(val, reg);
++}
++
++static inline void phy_write_le(u32 val, void __iomem *reg)
++{
++	writel(cpu_to_le32(val), reg);
++}
++
+ /* mapping 0xE0 to 0 ... 0xE7 to 7, 0xF0 to 8 ,,, 0xF7 to 15 */
+ static inline int page_addr_to_array_index(u8 addr)
+ {
+@@ -144,12 +170,13 @@ static inline u8 array_index_to_page_addr(int index)
+ #define PHY_IO_TIMEOUT_USEC		(50000)
+ #define PHY_IO_DELAY_US			(100)
+ 
+-static inline int utmi_wait_register(void __iomem *reg, u32 mask, u32 result)
++static inline int utmi_wait_register(u32 (*read)(void __iomem *reg), void __iomem *reg, u32 mask,
++				     u32 result)
+ {
+ 	int ret;
+ 	unsigned int val;
+ 
+-	ret = read_poll_timeout(readl, val, ((val & mask) == result),
++	ret = read_poll_timeout(read, val, ((val & mask) == result),
+ 				PHY_IO_DELAY_US, PHY_IO_TIMEOUT_USEC, false, reg);
+ 	if (ret) {
+ 		pr_err("%s can't program USB phy\n", __func__);
+@@ -168,25 +195,25 @@ static char rtk_phy_read(struct phy_reg *phy_reg, char addr)
+ 	addr -= OFFEST_PHY_READ;
+ 
+ 	/* polling until VBusy == 0 */
+-	ret = utmi_wait_register(reg_gusb2phyacc0, phy_reg->vstatus_busy, 0);
++	ret = utmi_wait_register(phy_reg->read, reg_gusb2phyacc0, phy_reg->vstatus_busy, 0);
+ 	if (ret)
+ 		return (char)ret;
+ 
+ 	/* VCtrl = low nibble of addr, and set PHY_NEW_REG_REQ */
+ 	val = phy_reg->new_reg_req | (GET_LOW_NIBBLE(addr) << PHY_VCTRL_SHIFT);
+-	writel(val, reg_gusb2phyacc0);
+-	ret = utmi_wait_register(reg_gusb2phyacc0, phy_reg->vstatus_busy, 0);
++	phy_reg->write(val, reg_gusb2phyacc0);
++	ret = utmi_wait_register(phy_reg->read, reg_gusb2phyacc0, phy_reg->vstatus_busy, 0);
+ 	if (ret)
+ 		return (char)ret;
+ 
+ 	/* VCtrl = high nibble of addr, and set PHY_NEW_REG_REQ */
+ 	val = phy_reg->new_reg_req | (GET_HIGH_NIBBLE(addr) << PHY_VCTRL_SHIFT);
+-	writel(val, reg_gusb2phyacc0);
+-	ret = utmi_wait_register(reg_gusb2phyacc0, phy_reg->vstatus_busy, 0);
++	phy_reg->write(val, reg_gusb2phyacc0);
++	ret = utmi_wait_register(phy_reg->read, reg_gusb2phyacc0, phy_reg->vstatus_busy, 0);
+ 	if (ret)
+ 		return (char)ret;
+ 
+-	val = readl(reg_gusb2phyacc0);
++	val = phy_reg->read(reg_gusb2phyacc0);
+ 
+ 	return (char)(val & PHY_REG_DATA_MASK);
+ }
+@@ -202,23 +229,23 @@ static int rtk_phy_write(struct phy_reg *phy_reg, char addr, char data)
+ 	/* write data to VStatusOut2 (data output to phy) */
+ 	writel((u32)data << shift_bits, reg_wrap_vstatus + phy_reg->vstatus_offset);
+ 
+-	ret = utmi_wait_register(reg_gusb2phyacc0, phy_reg->vstatus_busy, 0);
++	ret = utmi_wait_register(phy_reg->read, reg_gusb2phyacc0, phy_reg->vstatus_busy, 0);
+ 	if (ret)
+ 		return ret;
+ 
+ 	/* VCtrl = low nibble of addr, set PHY_NEW_REG_REQ */
+ 	val = phy_reg->new_reg_req | (GET_LOW_NIBBLE(addr) << PHY_VCTRL_SHIFT);
+ 
+-	writel(val, reg_gusb2phyacc0);
+-	ret = utmi_wait_register(reg_gusb2phyacc0, phy_reg->vstatus_busy, 0);
++	phy_reg->write(val, reg_gusb2phyacc0);
++	ret = utmi_wait_register(phy_reg->read, reg_gusb2phyacc0, phy_reg->vstatus_busy, 0);
+ 	if (ret)
+ 		return ret;
+ 
+ 	/* VCtrl = high nibble of addr, set PHY_NEW_REG_REQ */
+ 	val = phy_reg->new_reg_req | (GET_HIGH_NIBBLE(addr) << PHY_VCTRL_SHIFT);
+ 
+-	writel(val, reg_gusb2phyacc0);
+-	ret = utmi_wait_register(reg_gusb2phyacc0, phy_reg->vstatus_busy, 0);
++	phy_reg->write(val, reg_gusb2phyacc0);
++	ret = utmi_wait_register(phy_reg->read, reg_gusb2phyacc0, phy_reg->vstatus_busy, 0);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -984,6 +1011,8 @@ static int parse_phy_data(struct rtk_phy *rtk_phy)
+ 		phy_parameter->phy_reg.vstatus_offset = phy_cfg->vstatus_offset;
+ 		phy_parameter->phy_reg.vstatus_busy = phy_cfg->vstatus_busy;
+ 		phy_parameter->phy_reg.new_reg_req = phy_cfg->new_reg_req;
++		phy_parameter->phy_reg.read = phy_cfg->read;
++		phy_parameter->phy_reg.write = phy_cfg->write;
+ 
+ 		if (of_property_read_bool(np, "realtek,inverse-hstx-sync-clock"))
+ 			phy_parameter->inverse_hstx_sync_clock = true;
+@@ -1098,6 +1127,8 @@ static const struct phy_cfg rtd1295_phy_cfg = {
+ 	.vstatus_offset = 0,
+ 	.vstatus_busy = PHY_VSTS_BUSY,
+ 	.new_reg_req = PHY_NEW_REG_REQ,
++	.read = phy_read,
++	.write = phy_write,
+ };
+ 
+ static const struct phy_cfg rtd1395_phy_cfg = {
+@@ -1125,6 +1156,8 @@ static const struct phy_cfg rtd1395_phy_cfg = {
+ 	.vstatus_offset = 0,
+ 	.vstatus_busy = PHY_VSTS_BUSY,
+ 	.new_reg_req = PHY_NEW_REG_REQ,
++	.read = phy_read,
++	.write = phy_write,
+ };
+ 
+ static const struct phy_cfg rtd1395_phy_cfg_2port = {
+@@ -1152,6 +1185,8 @@ static const struct phy_cfg rtd1395_phy_cfg_2port = {
+ 	.vstatus_offset = 0,
+ 	.vstatus_busy = PHY_VSTS_BUSY,
+ 	.new_reg_req = PHY_NEW_REG_REQ,
++	.read = phy_read,
++	.write = phy_write,
+ };
+ 
+ static const struct phy_cfg rtd1619_phy_cfg = {
+@@ -1177,6 +1212,8 @@ static const struct phy_cfg rtd1619_phy_cfg = {
+ 	.vstatus_offset = 0,
+ 	.vstatus_busy = PHY_VSTS_BUSY,
+ 	.new_reg_req = PHY_NEW_REG_REQ,
++	.read = phy_read,
++	.write = phy_write,
+ };
+ 
+ static const struct phy_cfg rtd1319_phy_cfg = {
+@@ -1206,6 +1243,8 @@ static const struct phy_cfg rtd1319_phy_cfg = {
+ 	.vstatus_offset = 0,
+ 	.vstatus_busy = PHY_VSTS_BUSY,
+ 	.new_reg_req = PHY_NEW_REG_REQ,
++	.read = phy_read,
++	.write = phy_write,
+ };
+ 
+ static const struct phy_cfg rtd1312c_phy_cfg = {
+@@ -1234,6 +1273,8 @@ static const struct phy_cfg rtd1312c_phy_cfg = {
+ 	.vstatus_offset = 0,
+ 	.vstatus_busy = PHY_VSTS_BUSY,
+ 	.new_reg_req = PHY_NEW_REG_REQ,
++	.read = phy_read,
++	.write = phy_write,
+ };
+ 
+ static const struct phy_cfg rtd1619b_phy_cfg = {
+@@ -1262,6 +1303,8 @@ static const struct phy_cfg rtd1619b_phy_cfg = {
+ 	.vstatus_offset = 0,
+ 	.vstatus_busy = PHY_VSTS_BUSY,
+ 	.new_reg_req = PHY_NEW_REG_REQ,
++	.read = phy_read,
++	.write = phy_write,
+ };
+ 
+ static const struct phy_cfg rtd1319d_phy_cfg = {
+@@ -1290,6 +1333,8 @@ static const struct phy_cfg rtd1319d_phy_cfg = {
+ 	.vstatus_offset = 0,
+ 	.vstatus_busy = PHY_VSTS_BUSY,
+ 	.new_reg_req = PHY_NEW_REG_REQ,
++	.read = phy_read,
++	.write = phy_write,
+ };
+ 
+ static const struct phy_cfg rtd1315e_phy_cfg = {
+@@ -1319,6 +1364,8 @@ static const struct phy_cfg rtd1315e_phy_cfg = {
+ 	.vstatus_offset = 0,
+ 	.vstatus_busy = PHY_VSTS_BUSY,
+ 	.new_reg_req = PHY_NEW_REG_REQ,
++	.read = phy_read,
++	.write = phy_write,
+ };
+ 
+ static const struct of_device_id usbphy_rtk_dt_match[] = {
 -- 
 2.53.0
 
