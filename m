@@ -1,283 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2E43537C2;
-	Fri, 27 Mar 2026 11:51:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9382A392831;
+	Fri, 27 Mar 2026 12:07:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774612293; cv=none; b=GXqKVkCyDxSkzNO2qLNFjfQPYXxNG4NSbI1EXmcU0RSy2KxJBFVlkJ6Ia1EoX322cWitWjaNgpZDE9K4uBYtODG+tBg5R92G0yTBLzqzQa6Eye1QkxJ/fYXkVRoQp83+lSr6MsmJGaZl7XzNKKYgoww2hEzgZFSA4ODgPFIxolA=
+	t=1774613270; cv=none; b=b+Wno5ATcv7Aa2frTOZvMJe+ee7REEXciFclIa808nb5LE6LN0xPW3wOPVQf9akRQhkJk0hEEf//ofIGbhChn0uwXgfhbJu/EBXltVWh5DWXPRWBV+DrG3v7asFtpk8lSxSzH9NExjzmpBTkiqbKOoZrfqLIuuJjuLM2Qae8gxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774612293; c=relaxed/simple;
-	bh=5yWGAJAeIc3MOgyU7+oWgMBWFC+T9al/49ayYmUDDw8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VNEYa+0C69LxKYTWApm3G+nN/zwpiLYfRUeSQOxQdo25y+7VEHqX394xozo6mJ0ACjfmEZEaxdQADb6dLCSYUdSa44kCYUqan4IQXETNcRVWlZo2z8mjW5k1UiyqKSJY3JOD0HhCO8y66RfxhphbT8P0aIHfronG/4HcblKMWDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CghMV87g; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774613270; c=relaxed/simple;
+	bh=hfafqGCDLzTeZwNk6hc3gNMtutqPWA8E6v950QI89eM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EIDucGgDz9rSvqT6X0et0X/84tDpSkYn+gdewIIkAzgj9BApEZL+VkOHOE2eK8o4nCYuuwN8ON7LCnEHZFug+HrnYPutQAKxcyiaCP6eAJovKXoz5MrAbcexafJiflOEOEZN6tkM5vXDYjwOU9uxFDElQvCaikzrx8OAZgkYAng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=eC1el5+U; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CghMV87g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9462FC19423;
-	Fri, 27 Mar 2026 11:51:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774612293;
-	bh=5yWGAJAeIc3MOgyU7+oWgMBWFC+T9al/49ayYmUDDw8=;
-	h=From:Date:Subject:To:Cc:From;
-	b=CghMV87gJOX2yTxVIwzgdQ0whUGTqcBVOectVNkrDhnRQ2p3n328NOi0bhgDadUxc
-	 SQn7JdrI3pABN8GfJWCbqWJBE8qPmN8vjX6WjXrKdeDkV9OICRHZFr4BB2yOUhO5B4
-	 Ith7MG1UaXKoopClWmBT3baUjnc88nXqWzBrp+5T/GsdK5vX/+KB6wmZCdYGSv2MOO
-	 V/n1YQbsJp2YNnfvlXDAr89+nWrtG65JzZtIEL38rw+TM00p142aONXZEmmWFc1RPe
-	 Cb0JdeXqsb01ZJNRONO7FZkH13nR/jvMB7gqFgB1UUDMPPCZ5Xmifc7IkNLEitEBrK
-	 MqDAOxjgfJc7w==
-From: Yixun Lan <dlan@kernel.org>
-Date: Fri, 27 Mar 2026 11:51:18 +0000
-Subject: [PATCH v2] dts: riscv: spacemit: k3: add P1 PMIC regulator tree
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="eC1el5+U"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=QPQctMA0qGtnb0TPGRMl+iOaLSMRN2wp1qfAH8tHmF8=; b=eC1el5+Uw34Rmrs5qh4DuolSBw
+	z12fpbHUweWNbq1jVROqXBNfqKjofEv8fGaZWn2Ktpl8Ijc3jf+1jMePrnnPf8cPs4H1LVp3D8QIP
+	y2rDVeXhj8u/++W/0qU6QeVA66ylac/13VQqKXAatpoDwGWNyP+FT3NgzGvzj95og2J0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1w65yY-00DeRA-Gz; Fri, 27 Mar 2026 13:07:42 +0100
+Date: Fri, 27 Mar 2026 13:07:42 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Joris Vaisvila <joey@tinyisr.com>
+Cc: netdev@vger.kernel.org, horms@kernel.org, pabeni@redhat.com,
+	kuba@kernel.org, edumazet@google.com, davem@davemloft.net,
+	olteanv@gmail.com, devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH net-next 4/4] net: dsa: initial support for MT7628
+ embedded switch
+Message-ID: <e6d91e11-fe19-48c0-886f-e1c0c92b094d@lunn.ch>
+References: <20260326204413.3317584-1-joey@tinyisr.com>
+ <20260326204413.3317584-5-joey@tinyisr.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260327-02-k3-i2c-v2-1-9c6b374470c6@kernel.org>
-X-B4-Tracking: v=1; b=H4sIADVvxmkC/32Oyw6CQAxFf8V0bQ3TCcNj5X8YFgNUmGBAO0g0h
- H93gIWuXJ6b3nM7g2dx7CE/zCA8Oe+GPgAdD1C1tm8YXR0YKCITaaUwIuw0OqrQ2Dqm2BibWQ3
- h/i58da/NdSl2Fn48g3Lcw68xDPz35ZOC1dE6Pw7y3t4L0SrZmxT/NCeFCm2S6SQxZZqW1blj6
- fl2GqSBYlmWDxMessbnAAAA
-X-Change-ID: 20260311-02-k3-i2c-6ad52566a9a3
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Yixun Lan <dlan@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5726; i=dlan@kernel.org;
- h=from:subject:message-id; bh=5yWGAJAeIc3MOgyU7+oWgMBWFC+T9al/49ayYmUDDw8=;
- b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBpxm88mslfk5fagqFT8z+fF7TxZGyPz0mEGNlSr
- hKQ1OCWWruJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCacZvPBsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
- maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
- QACgkQMarqR1lNu+1rpBAAkJtudVD5t0mD7vxJ/ftjtaPHX7/z0HcTk/xqka27KPcl3mlWEjh2z
- oMJblxlJUBTZFEwnPJH8mTVur2LWK8ueX7GN/xbJTQAjZI2TjZbzgf/G2p8ua761lPhbwFl+sPs
- TWwEfRxEJqly+HhbYSDe7u6n7F/H3NKFT1Q1+Mhh9aSnlW5s6dM7Aak8fandI1dCxKZ+4ai35cA
- JNZyBKDbmLK6k1pClZVZeVxPBfqMYYJfmp4SzbZAu2ScT+7DkcRjgEQSdpue1PkBGv5wEwQgK94
- eMeAB+mikK+Y/f5s5btYaC6mTi5lBFEX7TJ0FcZu4YeUq4lr/NF2tDXW7yu8LOw+wlUSOyOIsex
- IRvm5/gUGuqaQnH/VmLZ/RMCscjA0jOv1Fc1Id6jSNUGMir67wRUr4D3AflQNR/vDmHxYDqSw+a
- zzSjpVObJjsLnShFC3W9jAU2CVFW5RWWYj8Lvz3x/m51L0l8EYU8tzVxPFhvoZ3Qn//cjqbOMSx
- D5TfVypnEaRVRHpraMJShe0vrw9N319drDmapjtjVpEugybcaOMTJh0/0k2qs17ZHXQawMxQeI7
- jV4KLE43HqjEdqjVuFnAJ6cNayYy15m/jQvjSFxe8cD98xGfzyOgR9tWLsaEBEnU3R7c2/4DSuC
- 9CgKl1T8sSWqU2yaFZUZAVHATuaJP0=
-X-Developer-Key: i=dlan@kernel.org; a=openpgp;
- fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260326204413.3317584-5-joey@tinyisr.com>
 
-Add the P1 PMIC's regulator topology tree for pico-itx board.
+> diff --git a/drivers/net/dsa/Kconfig b/drivers/net/dsa/Kconfig
+> index 39fb8ead16b5..d07fc8dfe228 100644
+> --- a/drivers/net/dsa/Kconfig
+> +++ b/drivers/net/dsa/Kconfig
+> @@ -70,6 +70,13 @@ config NET_DSA_MV88E6060
+>  	  This enables support for the Marvell 88E6060 ethernet switch
+>  	  chip.
+>  
+> +config NET_DSA_MT7628
+> +	tristate "MT7628 Embedded ethernet switch support"
 
-Signed-off-by: Yixun Lan <dlan@kernel.org>
----
-This series try to add a regulator power tree from P1 PMIC,
-the PMIC is controlled via an I2C interface.
+Please could you make this fit the pattern other devices have.
 
-To test this patch, it will need the I2C patch series [1]
+MediaTek MT7628 Embedded ethernet switch support
 
-Link: https://lore.kernel.org/all/20260325-02-k3-i2c-v1-0-78f29c83d9ac@kernel.org [1]
----
-Changes in v2:
-- drop regulator (dc 12v) which serves no devices
-- drop regulators which current has no users
-- Link to v1: https://lore.kernel.org/r/20260325-02-k3-i2c-v1-1-a793776b88bc@kernel.org
----
- arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 147 +++++++++++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi |  11 ++
- 2 files changed, 158 insertions(+)
+would be better. And please put it before MT7530. The sorting in
+drivers/net/dsa/Kconfig is not great, but we should not make it worse.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-index 504fe6bd46b2..4486dc1fe114 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-@@ -25,6 +25,153 @@ memory@100000000 {
- 		device_type = "memory";
- 		reg = <0x1 0x00000000 0x4 0x00000000>;
- 	};
-+
-+	reg_aux_vcc5v: regulator-aux-vcc5v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "AUX_VCC5V";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-always-on;
-+	};
-+};
-+
-+&i2c8 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c8_cfg>;
-+	status = "okay";
-+
-+	p1@41 {
-+		compatible = "spacemit,p1";
-+		reg = <0x41>;
-+		interrupts = <64 IRQ_TYPE_LEVEL_HIGH>;
-+		vin1-supply = <&reg_aux_vcc5v>;
-+		vin2-supply = <&reg_aux_vcc5v>;
-+		vin3-supply = <&reg_aux_vcc5v>;
-+		vin4-supply = <&reg_aux_vcc5v>;
-+		vin5-supply = <&reg_aux_vcc5v>;
-+		vin6-supply = <&reg_aux_vcc5v>;
-+		aldoin-supply = <&reg_aux_vcc5v>;
-+		dldoin1-supply = <&buck4>;
-+		dldoin2-supply = <&buck4>;
-+
-+		regulators {
-+			buck1: buck1 {
-+				regulator-min-microvolt = <1050000>;
-+				regulator-max-microvolt = <1050000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck2: buck2 {
-+				regulator-min-microvolt = <1050000>;
-+				regulator-max-microvolt = <1050000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck3: buck3 {
-+				regulator-min-microvolt = <800000>;
-+				regulator-max-microvolt = <800000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck4: buck4 {
-+				regulator-min-microvolt = <2100000>;
-+				regulator-max-microvolt = <2100000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck5: buck5 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck6: buck6 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <500000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			aldo1: aldo1 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			aldo2: aldo2 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			aldo3: aldo3 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			aldo4: aldo4 {
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo1: dldo1 {
-+				regulator-min-microvolt = <1200000>;
-+				regulator-max-microvolt = <1200000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo2: dldo2 {
-+				regulator-min-microvolt = <900000>;
-+				regulator-max-microvolt = <900000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo3: dldo3 {
-+				regulator-min-microvolt = <800000>;
-+				regulator-max-microvolt = <800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo4: dldo4 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-boot-on;
-+			};
-+
-+			dldo5: dldo5 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo6: dldo6 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo7: dldo7 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+		};
-+	};
- };
- 
- &eth0 {
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-index a7b5d10c332e..23899d3f308a 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-@@ -45,6 +45,17 @@ gmac0-phy-0-pins {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	i2c8_cfg: i2c8-cfg {
-+		i2c8-pins {
-+			pinmux = <K3_PADCONF(128, 0)>,	/* i2c8 scl */
-+				 <K3_PADCONF(129, 0)>;	/* i2c8 sda */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <25>;
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	uart0_0_cfg: uart0-0-cfg {
- 		uart0-0-pins {
+> diff --git a/drivers/net/dsa/Makefile b/drivers/net/dsa/Makefile
+> index f5a463b87ec2..22da6b680f29 100644
+> --- a/drivers/net/dsa/Makefile
+> +++ b/drivers/net/dsa/Makefile
+> @@ -15,6 +15,7 @@ obj-$(CONFIG_NET_DSA_VITESSE_VSC73XX) += vitesse-vsc73xx-core.o
+>  obj-$(CONFIG_NET_DSA_VITESSE_VSC73XX_PLATFORM) += vitesse-vsc73xx-platform.o
+>  obj-$(CONFIG_NET_DSA_VITESSE_VSC73XX_SPI) += vitesse-vsc73xx-spi.o
+>  obj-$(CONFIG_NET_DSA_YT921X) += yt921x.o
+> +obj-$(CONFIG_NET_DSA_MT7628) += mt7628.o
 
----
-base-commit: c9bc6f02e3252c20dd967811de7bf7739812259f
-change-id: 20260311-02-k3-i2c-6ad52566a9a3
-prerequisite-change-id: 20260311-02-k3-i2c-6ad52566a9a3:v1
-prerequisite-patch-id: 9a6b8f6968935c8ed5c9acd8ecb778be2d1a3faa
-prerequisite-patch-id: d43e077460cb3ea4e391fb7c528b6ffa80f35574
+This is also sorted, so should be inserted earlier.
 
-Best regards,
--- 
-Yixun Lan <dlan@kernel.org>
+> +static int mt7628_mii_read(struct mii_bus *bus, int port, int regnum)
+> +{
+> +	struct mt7628_esw *esw = bus->priv;
+> +	int ret;
+> +	u32 val;
+> +
+> +	ret = regmap_read_poll_timeout(esw->regmap, MT7628_ESW_REG_PCR1, val,
+> +				       !(val & MT7628_ESW_PCR1_RD_DONE), 10,
+> +				       5000);
+> +	if (ret)
+> +		goto out;
+> +
+> +	ret = regmap_write(esw->regmap, MT7628_ESW_REG_PCR0,
+> +			   FIELD_PREP(MT7628_ESW_PCR0_CPU_PHY_REG,
+> +				      regnum) |
+> +			   FIELD_PREP(MT7628_ESW_PCR0_CPU_PHY_ADDR,
+> +				      port) | MT7628_ESW_PCR0_RD_PHY_CMD);
+> +	if (ret)
+> +		goto out;
+> +
+> +	ret = regmap_read_poll_timeout(esw->regmap, MT7628_ESW_REG_PCR1, val,
+> +				       (val & MT7628_ESW_PCR1_RD_DONE), 10,
+> +				       5000);
+> +out:
+> +	if (ret) {
+> +		dev_err(&bus->dev, "read failed. MDIO timeout?\n");
+> +		return -ETIMEDOUT;
 
+Return the error code regmap_read_poll_timeout() or regmap_write()
+returned.
+
+> +static int mt7628_mii_write(struct mii_bus *bus, int port, int regnum, u16 dat)
+> +{
+> +	struct mt7628_esw *esw = bus->priv;
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret = regmap_read_poll_timeout(esw->regmap, MT7628_ESW_REG_PCR1, val,
+> +				       !(val & MT7628_ESW_PCR1_WT_DONE), 10,
+> +				       5000);
+> +	if (ret)
+> +		goto out;
+> +
+> +	ret = regmap_write(esw->regmap, MT7628_ESW_REG_PCR0,
+> +			   FIELD_PREP(MT7628_ESW_PCR0_WT_NWAY_DATA, dat) |
+> +			   FIELD_PREP(MT7628_ESW_PCR0_CPU_PHY_REG,
+> +				      regnum) |
+> +			   FIELD_PREP(MT7628_ESW_PCR0_CPU_PHY_ADDR,
+> +				      port) | MT7628_ESW_PCR0_WT_PHY_CMD);
+> +	if (ret)
+> +		goto out;
+> +
+> +	ret = regmap_read_poll_timeout(esw->regmap, MT7628_ESW_REG_PCR1, val,
+> +				       (val & MT7628_ESW_PCR1_WT_DONE), 10,
+> +				       5000);
+> +out:
+> +	if (ret) {
+> +		dev_err(&bus->dev, "write failed. MDIO timeout?\n");
+> +		return -ETIMEDOUT;
+
+Same here. And in general, always return the error code, if there is
+one, don't make one up.
+
+> +static int mt7628_setup_internal_mdio(struct dsa_switch *ds)
+> +{
+> +	struct mt7628_esw *esw = ds->priv;
+> +	struct device_node *mdio;
+> +	struct mii_bus *bus;
+> +	int ret = 0;
+> +
+> +	mdio = of_get_child_by_name(ds->dev->of_node, "mdio");
+> +	if (mdio && !of_device_is_available(mdio))
+> +		goto out_put_node;
+
+of_get_available_child_by_name() ?
+
+	Andrew
