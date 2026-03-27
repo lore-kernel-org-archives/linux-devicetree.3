@@ -1,190 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E38F33BBD9;
-	Fri, 27 Mar 2026 16:02:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2635F30AACB;
+	Fri, 27 Mar 2026 16:07:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774627351; cv=none; b=LUunPYb445OfGprIKnCsoYxrrullBuSLU54S51aZyoRxGWLdE3CJNeH4OCzRiygTWlMqaaRWzCk0oyTAvYbgsNkID74woeZNTualUbLk+3C/s55EEK0HQJk8AF+ZLJkIDQCCW3UI3FWduQacfR0/2O0NtEpXib8igHzR4QIUEuk=
+	t=1774627643; cv=none; b=XlpsgAg+liIrfSg0MlV/+wip08SowsAVQJGPEa3HP+l3uzWAbYY6dmnuldsJDTliNxoeVf5Cx6udEmf2ztD1ddmjVhEFaFTqrHwLRxfOJrQU5f3OIOLTCbWPhTX7LdrjlWLRbgQdZcO4wJtxSxEPlllxCjJTaJbEMK+x8bv1F7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774627351; c=relaxed/simple;
-	bh=OwSEUtfG8ktkxKP4a7Qa2QJIq4Fz65QlSo1PNQ/gFl4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UwMP+SCHXfC2PBaWt/cYlCZmRUtv35Yo+VqLdkqBWL0T8K3PT3T+0QP1bd1qSe37xCfspgElr1Wowi1uM+PGLFG+dtDIIN4fz7Rny4mVuGE8cI2xTHF8jZthE5F0Hqm6T2lPdWmO23ih9y8OHPPyXRZmDbfPj5ZOVmSm09zevYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S/VAtGQa; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774627643; c=relaxed/simple;
+	bh=jC+qjtyvOKNhOkXqAUVF9LEdYKJqioeMUZsW91IPHSc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a9PUGv3voxZnFuAXh+0QxlI3lyf6adD7TX/l2GS14VOeGO4O76+bxRt8JL5SqSMP6UZ4fLRL1KjrlGWrrLkI52XppzkX9V3Bd6Naavr9V2tbOMS6jUQpGl3rNwG2oddOFSp5H8W/yJRAYlOivBLzasbGzU4sXSNEUO/sX4xFyMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=aaXw1kpB; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S/VAtGQa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AC23C19423;
-	Fri, 27 Mar 2026 16:02:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774627350;
-	bh=OwSEUtfG8ktkxKP4a7Qa2QJIq4Fz65QlSo1PNQ/gFl4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=S/VAtGQaDi50uk7DMxkhYWvi5ZHiaWdiVo7RceLvXJ+4mtF5oLAOLqqqH2xYqlUNS
-	 JYmTOQw6K7bRKW78cr1GYih8wRxyAYDYo/XPQGlnYSq0LbnKC5oed31+qSyVycYoXk
-	 6vGrWIGn+WrZaYujLeYfVGF3ieuf+YELY21Bf/f8+G0/VfYyARfB3ww3M/nj1cIcdp
-	 tLxfZqi82M1/5k+VshBNt6XI0nCfc1xGUqugO/FkMaIhsQjSVo+BV7MDhnxbbg68ed
-	 04r7W2HS/YgPZbHb41REXuhsARhFzX6PB8gcpF/AzwGVBF2i4vfIVyjLQJ4N2iQJL8
-	 CECsqqtxLChrg==
-Date: Fri, 27 Mar 2026 21:32:18 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Tobias Heider <tobias.heider@canonical.com>, Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>, 
-	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	jingoohan1@gmail.com, lpieralisi@kernel.org, kwilczynski@kernel.org, 
-	bhelgaas@google.com, johan+linaro@kernel.org, vkoul@kernel.org, kishon@kernel.org, 
-	neil.armstrong@linaro.org, abel.vesa@linaro.org, kw@linux.com, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pci@vger.kernel.org, linux-phy@lists.infradead.org, qiang.yu@oss.qualcomm.com, 
-	quic_krichai@quicinc.com, quic_vbadigan@quicinc.com
-Subject: Re: [PATCH v1 1/1] arm64: dts: qcom: hamoa: Move PCIe PERST and Wake
- GPIOs to port nodes
-Message-ID: <frakrx36jqmyndnp3uq4aq6ejwyc6nzrddk2fcbdd4ifpzena7@rw3rjahfsnyf>
-References: <CAARv3RRqXxNePX=4RqnLu7OnfjQmStynsL9RCNY19EKQOTcnLQ@mail.gmail.com>
- <20260327141756.GA1381857@bhelgaas>
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="aaXw1kpB"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 494DF266E7;
+	Fri, 27 Mar 2026 17:07:13 +0100 (CET)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id 2u7hCyCmTeIq; Fri, 27 Mar 2026 17:07:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1774627632; bh=jC+qjtyvOKNhOkXqAUVF9LEdYKJqioeMUZsW91IPHSc=;
+	h=From:To:Cc:Subject:Date;
+	b=aaXw1kpB3wepjnrovKFK3BIXcuXFMNrSeK6py4vWiO3JfNDxv9ixj4B8oy8YWLLew
+	 Vgoo7Y1tjPBJwAnyh+XuKwr4cZyTsF+zX8UZ1U86mxcXqvwQrxZ7wZ4C0NZro9Jy4q
+	 vMehVNSHtBtp500fLH6TK1KF8eZtVECZdOO5PVJGzD7HAXGtgT20dczXcJmS/luf9e
+	 2S9z4HOSlgwz8oKq282JYym8ZBb16x0GgIk3FqzZJlA4JMFHoghVa7sIOsTBRMCnNX
+	 pSw2gSOnC4c76DQ6w+9qHPmTZEpuoMDHinaQNOAXQBqs11Q9IJHW0s7iRx92nmVH4g
+	 6edXVoGBxWI0A==
+From: Rustam Adilov <adilov@disroot.org>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stanley Chang <stanley_chang@realtek.com>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Rustam Adilov <adilov@disroot.org>
+Subject: [PATCH v2 0/6] phy: realtek: usb2: support for RTL9607C USB2 PHY
+Date: Fri, 27 Mar 2026 21:06:32 +0500
+Message-ID: <20260327160638.15134-1-adilov@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260327141756.GA1381857@bhelgaas>
 
-On Fri, Mar 27, 2026 at 09:17:56AM -0500, Bjorn Helgaas wrote:
-> [->to: Bjorn A.]
-> 
-> On Tue, Mar 24, 2026 at 08:14:39PM +0100, Tobias Heider wrote:
-> > On Tue, Mar 24, 2026 at 7:07 AM Manivannan Sadhasivam <mani@kernel.org> wrote:
-> > > On Thu, Mar 19, 2026 at 02:50:37PM +0100, Tobias Heider wrote:
-> > > > On Thu, Mar 19, 2026 at 6:39 AM Manivannan Sadhasivam <mani@kernel.org> wrote:
-> > > > > On Wed, Mar 18, 2026 at 09:42:56PM -0500, Bjorn Andersson wrote:
-> > > > > > On Mon, Mar 16, 2026 at 08:50:12AM +0530, Manivannan Sadhasivam wrote:
-> > > > > > > On Sun, Mar 15, 2026 at 09:53:33PM -0500, Bjorn Andersson wrote:
-> > > > > > > > On Sat, Mar 14, 2026 at 07:50:50PM +0530, Manivannan Sadhasivam wrote:
-> > > > > > > > > On Fri, Mar 13, 2026 at 11:45:42AM -0500, Bjorn Helgaas wrote:
-> > > > > > > > > > On Fri, Mar 13, 2026 at 05:46:18PM +0800, Ziyue Zhang wrote:
-> > > > > > > > > > > Commit 960609b22be5 ("arm64: dts: qcom: hamoa: Move PHY, PERST, and Wake
-> > > > > > > > > > > GPIOs to PCIe port nodes and add port Nodes for all PCIe ports") did not
-> > > > > > > > > > > convert all Hamoa‑based platforms to the new method of defining PERST and
-> > > > > > > > > > > Wake GPIOs in the PCIe root port nodes.
-> > > > > > > > > > >
-> > > > > > > > > > > Without the change PCIe probe will fail. The probe failure happens because
-> > > > > > > > > > > the PHY stays in the controller node while the PERST/Wake GPIOs were moved
-> > > > > > > > > > > to the port nodes.
-> > > > > > > > > > >
-> > > > > > > > > > > This fixes probe failures seen on the following platforms:
-> > > > > > > > > > >  - x1-hp-omnibook-x14
-> > > > > > > > > > >  - x1-microsoft-denali
-> > > > > > > > > > >  - x1e80100-lenovo-yoga-slim7x
-> > > > > > > > > > >  - x1e80100-medion-sprchrgd-14-s1
-> > > > > > > > > > >  - x1p42100-lenovo-thinkbook-16
-> > > > > > > > > > >  - x1-asus-zenbook-a14
-> > > > > > > > > > >  - x1-crd
-> > > > > > > > > > >  - x1-dell-thena
-> > > > > > > > > > >
-> > > > > > > > > > > Fixes: 960609b22be5 ("arm64: dts: qcom: hamoa: Move PHY, PERST, and Wake GPIOs to PCIe port nodes and add port Nodes for all PCIe ports")
-> > > > > > > > > >
-> > > > > > > > > > Are you saying that DTs in the field broke because of some kernel
-> > > > > > > > > > change?  That's not supposed to happen.  Even though PHY, PERST, and
-> > > > > > > > > > Wake GPIOs should be described in Root Port nodes instead of the Root
-> > > > > > > > > > Complex node in *future* DTs, the kernel is still supposed to accept
-> > > > > > > > > > the old style with them described in the Root Complex node.
-> > > > > > > > > >
-> > > > > > > > >
-> > > > > > > > > This is not related to the driver change. The driver correctly parses all Root
-> > > > > > > > > Port properties either in the Root Complex node (old binding) or Root Port node
-> > > > > > > > > (new binding). But commit 960609b22be5, left converting mentioned board DTS to
-> > > > > > > > > the new binding, leaving those affected platforms in a half baked state i.e.,
-> > > > > > > > > some properties in RC node and some in Root Port node. Driver cannot parse such
-> > > > > > > > > combinations, so it fails correctly so.
-> > > > > > > > >
-> > > > > > > >
-> > > > > > > > Are you saying that above listed machines has broken PCIe support in
-> > > > > > > > v7.0-rc?
-> > > > > > > >
-> > > > > > >
-> > > > > > > I haven't verified it, but I'm pretty sure PCIe is broken on these platforms.
-> > > > > > >
-> > > > > >
-> > > > > > In line with Bjorn's request, we shouldn't have to guess.
-> > > > > >
-> > > > > > > > It seems this is a (partial) revert of 960609b22be5, is this actually
-> > > > > > > > fixing that change, or is it only applicable once some other changes are
-> > > > > > > > applied?
-> > > > > > > >
-> > > > > > >
-> > > > > > > This change is fixing the issue in the respective board DTS and is a standalone
-> > > > > > > fix on top of v7.0-rc1.
-> > > > > > >
-> > > > > >
-> > > > > > So 960609b22be5 was broken when I merged it?
-> > > > > >
-> > > > >
-> > > > > Broken on the machines mentioned in the commit message, not for all Hamoa
-> > > > > platforms.
-> > > > >
-> > > > > > The commit message says that the commit was incomplete, in that it
-> > > > > > didn't fully convert from the old to the new style, so it sounds like
-> > > > > > the offending commit was incomplete - but I believe the offending commit
-> > > > > > was a workaround for the new solution not being in place and this commit
-> > > > > > mostly reverts the changes in the offending commit.
-> > > > > >
-> > > > >
-> > > > > So 960609b22be5 was supposed to move all the platforms from old PCIe binding to
-> > > > > new for greater good, but it apparently decided to do so only for a subset of
-> > > > > the platforms for some reason which  don't know. But the problem arises due to
-> > > > > 960609b22be5 changing the hamoa.dtsi to the new binding which also warrants the
-> > > > > platform DTS to also be changed to the new binding. If we only have either dtsi
-> > > > > or dts converted and not both to the new binding, the driver will get confused
-> > > > > and fail. And this is what exactly happended for below machines:
-> > > > >
-> > > > >  - x1-hp-omnibook-x14
-> > > > >  - x1-microsoft-denali
-> > > > >  - x1e80100-lenovo-yoga-slim7x
-> > > > >  - x1e80100-medion-sprchrgd-14-s1
-> > > > >  - x1p42100-lenovo-thinkbook-16
-> > > > >  - x1-asus-zenbook-a14
-> > > > >  - x1-crd
-> > > > >  - x1-dell-thena
-> > > >
-> > > > I can confirm the breakage for (some of) the listed devices on Ubuntu.
-> > > > We are experimenting with 7.0-rcs ahead of our 26.04 release.
-> > > >
-> > > > I'll try to collect some test feedback for the fix.
-> > > > I'd certainly appreciate this being included as an rc fix since
-> > > > currently half of
-> > > > the x1 laptop devices are broken.
-> > > >
-> > >
-> > > Thanks for the report. We will try to get this patch into v7.0-rcS.
-> > >
-> > > It'd be appreciated if you can test this patch and give your tested-by tag.
-> > >
-> > > - Mani
-> > 
-> > Thank you!
-> > 
-> > Tested it myself and I have rolled this out to my ubuntu-concept testing repo.
-> > I have tested the CRD and got user feedback that it works on at least an
-> > Omnibook (where we first saw the regression without the patch) and Lenovo Yoga.
-> > Potentially more but not everyone provides feedback when things don't break.
-> > 
-> > Tested-by: Tobias Heider <tobias.heider@canonical.com>
-> 
-> I don't see this patch upstream yet.  It's a fix for 960609b22be5
-> ("arm64: dts: qcom: hamoa: Move PHY, PERST, and Wake GPIOs to PCIe
-> port nodes and add port Nodes for all PCIe ports"), which looks like
-> it was merged by Bjorn A., so I assume the fix will go the same route?
-> 
-> Just want to make sure it's not waiting on me :)
+This patch series for Realtek USB2 PHY driver adds support for RTL9607C
+USB2 PHY.
 
-No. Ziyue will post it asap.
+RTL9607C is a big endian MIPS CPU which is quite far from RTD series SoCs
+supported by realtek usb2 phy driver, but the phy initilization is found
+to be very indentical in most areas.
 
-- Mani
+Most of the code was based on the Realtek's usb driver from the GPL tarball
+in [1] and adjusted to fit into the realtek usb2 phy driver code format.
+
+The patch series was split into smaller patches that add/change something
+in the driver that are not exactly related to RTL9607C and that also
+helps for easier review. That also means, patch 5 depends on all the prior
+patches that come before it.
+
+USB2 PHY on RTL9607C is primarly used for its internal OHCI/EHCI controllers.
+
+[1] - https://github.com/jameywine/GPL-for-GP3000/blob/main/linux-5.10.x/arch/mips/rtl9607c/usb.c
+
+---
+Changelog in v2:
+- Patch 5
+ - removed the line about OHCI/EHCI controllers from description.
+ - set the resets to false for RTD SoC devices and changed the
+   commit message to reflect that.
+- Link to v1: https://lore.kernel.org/linux-phy/20260326193419.48419-1-adilov@disroot.org/
+
+Rustam Adilov (6):
+  phy: realtek: usb2: introduce vstatus/new_reg_req variables to driver
+    data
+  phy: realtek: usb2: introduce read and write functions to driver data
+  dt-bindings: phy: realtek,usb2phy.yaml: extend for resets and RTL9607C
+    support
+  phy: realtek: usb2: introduce reset controller struct
+  phy: realtek: usb2: add support for RTL9607C USB2 PHY
+  phy: realtek: usb2: Make configs available for MACH_REALTEK_RTL
+
+ .../bindings/phy/realtek,usb2phy.yaml         |  25 ++-
+ drivers/phy/realtek/Kconfig                   |   2 +-
+ drivers/phy/realtek/phy-rtk-usb2.c            | 189 ++++++++++++++++--
+ 3 files changed, 196 insertions(+), 20 deletions(-)
 
 -- 
-மணிவண்ணன் சதாசிவம்
+2.53.0
+
