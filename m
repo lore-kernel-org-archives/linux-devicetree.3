@@ -1,54 +1,56 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42821231832;
-	Fri, 27 Mar 2026 17:06:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3183A263C8C;
+	Fri, 27 Mar 2026 17:12:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774631218; cv=none; b=jLNnr5d6wVBRd4o1eXLCao/9LfIr0Vg/hiYehbUYv4O/TTh22xtG48n6NEBsUSGsyjN4AOLCb5NlqM1WRq5JKMl1j5TbBlFV0CLCGRUjbW9bQiQ9D8f2CJrJtPIbPDRe1jt+/ths9bPxqUdRjEi4ycamUJSGHMXH9e6Sf5T9u/E=
+	t=1774631552; cv=none; b=oV+bUYFmD2YyiAsPSrTTDv99FQu3cgKmpSJAoRMG0c2mg/q7QXT2o1Tt91giJucNkUtUJtVwnXQzMfld+1feEwZy5AJ0jeeSQl8B0jKCaUJBxyozY0CqIok01g340h9z6mIU3umwMpZEs9vf1PII7BpkymgmLXG+IT+kOKb/NLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774631218; c=relaxed/simple;
-	bh=vLL4v8VAXKNthR6L1PD+8yULdWXnKJctvDyolGaUXzQ=;
+	s=arc-20240116; t=1774631552; c=relaxed/simple;
+	bh=MvMFqhnsZZr06SdVmhQQ8yFBO4J0YHjtEFCesOzEOVg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JMGjpBzNhEQENxes+jhAjmv4gV/rxbvB3freSZGs8CSHEJxLscgrFullQkZtV8hg4YSrlljjhk2mBU9eA0D/d8lqn5rZlUAPAhzN0EZhpwagzgSJ70A3UV7Y+WT9oJZ8/wPZFYMHLZ1NLfMyaF706aieIG03EdcQhjiDrkkZlxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tkjXcO/2; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=GdijukOkXp8MHEwMUGL0sfL21hPr2XcGu2DhQo269YVYnW9drdwIE9krjrsbQxPgY0BpAOWGJr3CtHRsYomKjBMbaCWAmRvmf5RRbkergZ0vOlburq192/emrcrTBiPiMVPrgcgo+rWFcqkpnhYMwIGqZsR3/IcRwkOp/T+kT+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CBBUkAdN; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tkjXcO/2"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 207484E4282C;
-	Fri, 27 Mar 2026 17:06:50 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CF91D60268;
-	Fri, 27 Mar 2026 17:06:49 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4EF2D10451ABF;
-	Fri, 27 Mar 2026 18:06:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1774631208; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=Jzs16/Hci7BrDK5k2/QRaN0P7w7nkSMj+Uv+0x67DEo=;
-	b=tkjXcO/2wsgAXL+NYyrzec0vnbi4rC8qkOwkf3LFSG5nJzKMKu2dyWKUPUctv0Pb4OxNiC
-	cXy8c4N/K7xsgsa1wTdmgQSiWIZ8IcflMD5TBzJVrEghDCPi00eMy0NcbcarvwDxd6KZOx
-	x7655TfMh4huEAqwKTYEwnAXgEqbHbjZ1zGwqOaWbhSBMKuH7W4ATUl8Ard9ZmZMcdXur2
-	RCf3YxyK9eIGCIvdKOIfHI4K0SyfgeLYWCtfOxkw+i+AgK1ZGoB8yH9oO9/MoaWnEuTb2L
-	lAILrenKgQCwCx9gEIDL72yUUw/VRdK4GGK1M/cT1od0jD7AhG9M+nIk7juhag==
-Date: Fri, 27 Mar 2026 18:06:42 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Akhil R <akhilrajeev@nvidia.com>
-Cc: Frank.Li@nxp.com, acpica-devel@lists.linux.dev, conor+dt@kernel.org,
-	conor@kernel.org, devicetree@vger.kernel.org, ebiggers@kernel.org,
-	fredrik.markstrom@est.tech, jonathanh@nvidia.com,
-	krzk+dt@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, linux-i3c@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux@roeck-us.net, miquel.raynal@bootlin.com,
-	p.zabel@pengutronix.de, rafael@kernel.org, robert.moore@intel.com,
-	robh@kernel.org, smangipudi@nvidia.com, thierry.reding@kernel.org
-Subject: Re: [PATCH 01/12] dt-bindings: i3c: Add mipi-i3c-static-method to
- support SETAASA
-Message-ID: <2026032717064247cc495e@mail.local>
-References: <20260327082721f7e69e6a@mail.local>
- <20260327114204.46556-1-akhilrajeev@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CBBUkAdN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0883CC19423;
+	Fri, 27 Mar 2026 17:12:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774631551;
+	bh=MvMFqhnsZZr06SdVmhQQ8yFBO4J0YHjtEFCesOzEOVg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=CBBUkAdNPfmmIltuHE6pZ6GpwC9m1K+SXX9SsGPrXIW3gJCsavgLlBBFhllhQ8YOV
+	 tt4v86XDdlFoZfXDWWeQB/kZRnJsC72/2SzZfO03eHu3zwjOw/NRJZJdfe7tPOsj/H
+	 xZPsKYg2lEOyHQVDuzvBc3T+oW5ge/Ms1dc/coAeYjdDtxnlJCj3sgd0nOmr6HhLlb
+	 ryVmy9CH86EKbBkS5gNJ82lQSGvFhRoc7XumwqORtvLuF6ft5AuU9wHZOeQVY8tmIJ
+	 ikfw0WPIJMlejTpAQz8wOen8RRrBNWQTRHTEyw9/Q1dMm1o4NegwxmZRKfaj1AEbCW
+	 zcL0eU61oIoEA==
+Date: Fri, 27 Mar 2026 20:12:14 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Bert Karwatzki <spasswolf@web.de>
+Cc: linux-kernel@vger.kernel.org, Liam.Howlett@oracle.com,
+	akpm@linux-foundation.org, andreas@gaisler.com, ardb@kernel.org,
+	bp@alien8.de, brauner@kernel.org, catalin.marinas@arm.com,
+	chleroy@kernel.org, dave.hansen@linux.intel.com,
+	davem@davemloft.net, david@kernel.org, devicetree@vger.kernel.org,
+	dvyukov@google.com, elver@google.com, glider@google.com,
+	hannes@cmpxchg.org, hpa@zytor.com, ilias.apalodimas@linaro.org,
+	iommu@lists.linux.dev, jack@suse.cz, jackmanb@google.com,
+	kasan-dev@googlegroups.com, linux-arm-kernel@lists.infradead.org,
+	linux-efi@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org, linux-trace-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, lorenzo.stoakes@oracle.com,
+	m.szyprowski@samsung.com, maddy@linux.ibm.com, mhiramat@kernel.org,
+	mhocko@suse.com, mingo@redhat.com, mpe@ellerman.id.au,
+	npiggin@gmail.com, robh@kernel.org, robin.murphy@arm.com,
+	saravanak@kernel.org, sparclinux@vger.kernel.org, surenb@google.com,
+	tglx@kernel.org, vbabka@kernel.org, viro@zeniv.linux.org.uk,
+	will@kernel.org, x86@kernel.org, ziy@nvidia.com
+Subject: Re: Warning from free_reserved_area() in next-20260325+
+Message-ID: <aca6blFFWskxAcAr@kernel.org>
+References: <20260323074836.3653702-10-rppt@kernel.org>
+ <20260327140109.7561-1-spasswolf@web.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -57,104 +59,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260327114204.46556-1-akhilrajeev@nvidia.com>
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <20260327140109.7561-1-spasswolf@web.de>
 
-On 27/03/2026 17:12:04+0530, Akhil R wrote:
-> On Fri, 27 Mar 2026 09:27:21 +0100, Alexandre Belloni wrote:
-> > On 27/03/2026 13:48:58+0530, Akhil R wrote:
-> >> On Thu, 26 Mar 2026 16:44:31 +0100, Alexandre Belloni wrote:
-> >> > On 26/03/2026 10:05:03-0500, Rob Herring wrote:
-> >> >> On Wed, Mar 18, 2026 at 05:31:50PM +0000, Conor Dooley wrote:
-> >> >> > On Wed, Mar 18, 2026 at 10:57:14PM +0530, Akhil R wrote:
-> >> >> > > Add the 'mipi-i3c-static-method' property mentioned in the MIPI I3C
-> >> >> > > Discovery and Configuration Specification [1] to specify which discovery
-> >> >> > > method an I3C device supports during bus initialization. The property is
-> >> >> > > a bitmap, where a bit value of 1 indicates support for that method, and 0
-> >> >> > > indicates lack of support.
-> >> >> > > Bit 0: SETDASA CCC (Direct)
-> >> >> > > Bit 1: SETAASA CCC (Broadcast)
-> >> >> > > Bit 2: Other CCC (vendor / standards extension)
-> >> >> > > All other bits are reserved.
-> >> >> > > 
-> >> >> > > It is specifically needed when an I3C device requires SETAASA for the
-> >> >> > > address assignment. SETDASA will be supported by default if this property
-> >> >> > > is absent - which means for now the property just serves as a flag to
-> >> >> > > enable SETAASA, but keep the property as a bitmap to align with the
-> >> >> > > specifications.
-> >> >> > > 
-> >> >> > > [1] https://www.mipi.org/specifications/disco
-> >> >> > > 
-> >> >> > > Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
-> >> >> > > ---
-> >> >> > >  .../devicetree/bindings/i3c/i3c.yaml          | 30 ++++++++++++++++---
-> >> >> > >  1 file changed, 26 insertions(+), 4 deletions(-)
-> >> >> > > 
-> >> >> > > diff --git a/Documentation/devicetree/bindings/i3c/i3c.yaml b/Documentation/devicetree/bindings/i3c/i3c.yaml
-> >> >> > > index e25fa72fd785..1705d90d4d79 100644
-> >> >> > > --- a/Documentation/devicetree/bindings/i3c/i3c.yaml
-> >> >> > > +++ b/Documentation/devicetree/bindings/i3c/i3c.yaml
-> >> >> > > @@ -31,10 +31,12 @@ properties:
-> >> >> > >        described in the device tree, which in turn means we have to describe
-> >> >> > >        I3C devices.
-> >> >> > >  
-> >> >> > > -      Another use case for describing an I3C device in the device tree is when
-> >> >> > > -      this I3C device has a static I2C address and we want to assign it a
-> >> >> > > -      specific I3C dynamic address before the DAA takes place (so that other
-> >> >> > > -      devices on the bus can't take this dynamic address).
-> >> >> > > +      Other use-cases for describing an I3C device in the device tree are:
-> >> >> > > +      - When the I3C device has a static I2C address and we want to assign
-> >> >> > > +        it a specific I3C dynamic address before the DAA takes place (so
-> >> >> > > +        that other devices on the bus can't take this dynamic address).
-> >> >> > > +      - When the I3C device requires SETAASA for its discovery and uses a
-> >> >> > > +        pre-defined static address.
-> >> >> > >  
-> >> >> > >    "#size-cells":
-> >> >> > >      const: 0
-> >> >> > > @@ -147,6 +149,26 @@ patternProperties:
-> >> >> > >            through SETDASA. If static address is not present, this address is assigned
-> >> >> > >            through SETNEWDA after assigning a temporary address via ENTDAA.
-> >> >> > >  
-> >> >> > > +      mipi-i3c-static-method:
-> >> >> > > +        $ref: /schemas/types.yaml#/definitions/uint32
-> >> >> > > +        minimum: 0x1
-> >> >> > > +        maximum: 0xff
-> >> >> > > +        default: 1
-> >> >> > > +        description: |
-> >> >> > > +          Bitmap describing which methods of Dynamic Address Assignment from a
-> >> >> > > +          static address are supported by this I3C Target. A bit value of 1
-> >> >> > > +          indicates support for that method, and 0 indicates lack of support.
-> >> >> > 
-> >> >> > I really am not keen on properties that are bitmaps, why can't we just
-> >> >> > use the strings "setdasa", "setaasa" etc?
-> >> >> 
-> >> >> If this comes from a specification, then I'd tend to just copy it rather 
-> >> >> than invent our own thing. Obviously if is something structured 
-> >> >> fundamentally different from how DT is designed, then we wouldn't. But 
-> >> >> this is just a simple property.
-> >> >> 
-> >> > 
-> >> > The issue being that the specification is not public so it is difficult
-> >> > to take any decision.
-> >> 
-> >> There is a public version available in the same link, but you would still
-> >> have to provide them a name and an email ID. The document will be sent to
-> >> the mail ID.
-> >> 
-> > 
-> > The public version only contains one property:
-> > mipi-disco-interface-revision
-> 
-> Could you check once if the below link works?
-> https://www.mipi.org/mipi-disco-for-i3c-download
+Hi Bert,
 
-It works, thanks. The bitfield is fine then.
+On Fri, Mar 27, 2026 at 03:01:08PM +0100, Bert Karwatzki wrote:
+> Starting with linux next-20260325 I see the following warning early in the
+> boot process of a machine running debian stable (trixie) (except for the kernel):
 
-> 
-> Best Regards,
-> Akhil
+Thanks for the report!
+
+> [    0.027118] [      T0] ------------[ cut here ]------------
+> [    0.027118] [      T0] Cannot free reserved memory because of deferred initialization of the memory map
+> [    0.027119] [      T0] WARNING: mm/memblock.c:904 at __free_reserved_area+0xa9/0xc0, CPU#0: swapper/0/0
+> [    0.027122] [      T0] Modules linked in:
+> [    0.027123] [      T0] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.0.0-rc5-next-20260326-master #385 PREEMPT_RT 
+> [    0.027125] [      T0] Hardware name: ASUS System Product Name/ROG STRIX B850-F GAMING WIFI, BIOS 1627 02/05/2026
+> [    0.027125] [      T0] RIP: 0010:__free_reserved_area+0xa9/0xc0
+> [    0.027126] [      T0] Code: 48 89 df 48 89 ee e8 06 fe ff ff 48 89 c3 48 39 e8 72 a0 5b 4c 89 e8 5d 41 5c 41 5d 41 5e c3 cc cc cc cc 48 8d 3d 97 c2 c6 00 <67> 48 0f b9 3a 45 31 ed eb df 66 66 2e 0f 1f 84 00 00 00 00 00 66
+> [    0.027127] [      T0] RSP: 0000:ffffffff9b203e98 EFLAGS: 00010202
+> [    0.027128] [      T0] RAX: 0000000e91c00001 RBX: ffffffff9b100c0f RCX: 0000000080000001
+> [    0.027128] [      T0] RDX: 00000000000000cc RSI: 0000000e2d42d000 RDI: ffffffff9b32ef60
+> [    0.027128] [      T0] RBP: ffff9eeafdd6fbc0 R08: 0000000000000000 R09: 0000000000000001
+> [    0.027129] [      T0] R10: 0000000000001000 R11: 8000000000000163 R12: 000000000000006f
+> [    0.027129] [      T0] R13: 0000000000000000 R14: 0000000000000045 R15: 000000005c8a1000
+> [    0.027129] [      T0] FS:  0000000000000000(0000) GS:ffff9eeb21c05000(0000) knlGS:0000000000000000
+> [    0.027130] [      T0] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    0.027130] [      T0] CR2: ffff9ee8ad801000 CR3: 0000000e2ce1e000 CR4: 0000000000f50ef0
+> [    0.027131] [      T0] PKRU: 55555554
+> [    0.027131] [      T0] Call Trace:
+> [    0.027132] [      T0]  <TASK>
+> [    0.027132] [      T0]  free_reserved_area+0x89/0xd0
+> [    0.027133] [      T0]  alternative_instructions+0xee/0x110
+> [    0.027136] [      T0]  arch_cpu_finalize_init+0x10f/0x160
+> [    0.027138] [      T0]  start_kernel+0x686/0x710
+> [    0.027140] [      T0]  x86_64_start_reservations+0x24/0x30
+> [    0.027141] [      T0]  x86_64_start_kernel+0xd4/0xe0
+> [    0.027142] [      T0]  common_startup_64+0x13e/0x141
+> [    0.027143] [      T0]  </TASK>
+> [    0.027144] [      T0] ---[ end trace 0000000000000000 ]---
+
+Does this patch fix it for you?
+
+diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
+index e87da25d1236..62936a3bde19 100644
+--- a/arch/x86/kernel/alternative.c
++++ b/arch/x86/kernel/alternative.c
+@@ -2448,19 +2448,31 @@ void __init alternative_instructions(void)
+ 					    __smp_locks, __smp_locks_end,
+ 					    _text, _etext);
+ 	}
++#endif
+ 
++	restart_nmi();
++	alternatives_patched = 1;
++
++	alt_reloc_selftest();
++}
++
++#ifdef CONFIG_SMP
++/*
++ * With CONFIG_DEFERRED_STRUCT_PAGE_INIT enabled we can free_init_pages() only
++ * after the deferred initialization of the memory map is complete.
++ */
++static int __init free_smp_locks(void)
++{
+ 	if (!uniproc_patched || num_possible_cpus() == 1) {
+ 		free_init_pages("SMP alternatives",
+ 				(unsigned long)__smp_locks,
+ 				(unsigned long)__smp_locks_end);
+ 	}
+-#endif
+ 
+-	restart_nmi();
+-	alternatives_patched = 1;
+-
+-	alt_reloc_selftest();
++	return 0;
+ }
++arch_initcall(free_smp_locks);
++#endif
+ 
+ /**
+  * text_poke_early - Update instructions on a live kernel at boot time
+ 
+> Bert Karwatzki
 
 -- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Sincerely yours,
+Mike.
