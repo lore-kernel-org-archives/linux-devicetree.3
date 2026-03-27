@@ -1,149 +1,104 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB5A3126C0
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 15:17:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E70531F999;
+	Fri, 27 Mar 2026 15:18:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774624658; cv=none; b=BDVNY2enRNJ1jlfn0SuB5AteRUEywaJ2P77FFChSiuCgIz05Pyol6MNldiq69nLUHOfxT9/gU4A0VXO7KLfVJPmbCONPSCoYS9t2o5kXwl6xs8IugLMrBad62uTdpnBTemuiAm2FcsNkPlNuXqyPaO//8T8A4zkYhmTk7LxbhSs=
+	t=1774624725; cv=none; b=dQ92XxtLEAnjCwoE/k4nMumuIvlqsEceE4dkG+AeYf5zKGYfBjnFvgWD8NfmNMYwige4V83LZaYaE8bPdzBX+mongsiSFkSTxNxco/VO1zdVnfOHqNwEc3USqL5FI2/cEwEY83vJcRIPOU+wAybvc8gXLiBiepMzqesDIoBFIjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774624658; c=relaxed/simple;
-	bh=kD10AQXHuuYRjz03UahPRNts53dNZ7kV63Dyk4GVcts=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=jCvCtImFN0yeee6iLJFW08byd0sVLD53Ev2sQ72/qyBzUr0pO9ahSM/Jj78usA8yTH/3bnI/C4VaFnC792X/xEUuAq4Z5QkQHWgbO+Qojhv0WekYd4huY4DlCpfs6beZdY5UtdYxkSRb5sArYwMwqeD4gWF++MZfQpBUvyhxjys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=pCE97cT6; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1774624725; c=relaxed/simple;
+	bh=BRl7w35F+Nx4nZiloKXPb0hNGeT4yNF1MUfmbXxPOgc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BqXrBu8y6Wycvemjc0WlUkn97kcbVQRJkE/BJGYmZpJK6nm8nPyKVCaxdmjt/0Re35rwy5rCOKqTnTkY3fSBe/NN4FYXOkM3cS4m0BpPBckKJMh5BInqYHM6khOS3X4mpBAxE9Kw+ZpiXs9OG4UaPKy2YfECg8pidoLTG0UmS0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dY4vpwP2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="pCE97cT6"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 8DDFA4E42820;
-	Fri, 27 Mar 2026 15:17:34 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5A14160268;
-	Fri, 27 Mar 2026 15:17:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 85438104513F2;
-	Fri, 27 Mar 2026 16:17:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1774624651; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=samQROhlH4N1aha94rTVBjEKplzD2m0FuRpbiICT/nQ=;
-	b=pCE97cT6DMcM5Pa+btyh7njrKz5HZTvdev3UK+68sOiqtIEKSvHdE6yQnzgD0dfQ0MRLBZ
-	bPhrzsyzKbOvPXUqOh7DXE/5oCY2Ev5KPoNaUEXPxdPPlT5iu4GWbuSgZTDf8+r4bX7YRY
-	vto5XGJK9F73IUqDcej6wbwZusxHJgI0ef0GKKSsBOTkSCbxQsx0PsIEjdL4u0lCEIqcd9
-	As9FZeZOG3haFdHjm0REDOBGEJGzu0DkTBE2SV9Dqhr70ujDAouMYYXMsz5ZKFv25WUiC/
-	NqJA4AyX4/frpauz7xiTscRyhT3eyUSldFK4lD0vO/C5SXDBlBQswb7O79V0FQ==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dY4vpwP2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E37BC19423;
+	Fri, 27 Mar 2026 15:18:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774624725;
+	bh=BRl7w35F+Nx4nZiloKXPb0hNGeT4yNF1MUfmbXxPOgc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dY4vpwP2u/TtjeDu6zGlUMDNNOaPHd8syT1LqyNCDgF3lU0qoo3T9aNlhE+hRRE+R
+	 xlRrvPGlVTEZvC7lIJtEnS1xu1lfyoYnL1I7sJgMTL0d0gmpiMrTWpx+eYrMs0Z+i7
+	 f6SYF1kSttQ6NOsymciFHYeueoeG8Ofhm5kweJi9zfGCKdPUP8NtP2B5wbVlpYwGgS
+	 1Qv6j0YjR6GZIYUsjKuN/DXFJG+aiC1nP7pEIkyJ/CSXSLQC/oFBATuiQ68vQZeNBA
+	 mnLUSrmRsEicxDAWpcLyg+EomtMecQ75m30Y2xrqO9HlkTf1OjsYBh2eZHt2fOFrVN
+	 uKSGde65Gjb5Q==
+Date: Fri, 27 Mar 2026 16:18:42 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@gmail.com>, Thierry Reding <treding@nvidia.com>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] ARM: tegra: transformers: add connector node
+Message-ID: <acafk7munaGrCTK3@orome>
+References: <20260223065500.13357-1-clamor95@gmail.com>
+ <20260223065500.13357-3-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="v4rbe2jimz4b2bgy"
+Content-Disposition: inline
+In-Reply-To: <20260223065500.13357-3-clamor95@gmail.com>
+
+
+--v4rbe2jimz4b2bgy
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 27 Mar 2026 16:17:17 +0100
-Message-Id: <DHDNXJS3543H.382JEP1XJKOQK@bootlin.com>
-Cc: "Marek Vasut" <marex@denx.de>, "Stefan Agner" <stefan@agner.ch>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
- <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
- "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Jonas
- Karlman" <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>,
- "Liu Ying" <victor.liu@nxp.com>, "Rob Herring" <robh@kernel.org>, "Saravana
- Kannan" <saravanak@kernel.org>, "Kory Maincent (TI.com)"
- <kory.maincent@bootlin.com>, =?utf-8?q?Herv=C3=A9_Codina?=
- <herve.codina@bootlin.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
- <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Adam Ford"
- <aford173@gmail.com>, "Alexander Stein" <alexander.stein@ew.tq-group.com>,
- "Anson Huang" <Anson.Huang@nxp.com>, "Christopher Obbard"
- <christopher.obbard@linaro.org>, "Daniel Scally"
- <dan.scally@ideasonboard.com>, "Emanuele Ghidoli"
- <emanuele.ghidoli@toradex.com>, "Fabio Estevam" <festevam@denx.de>,
- "Francesco Dolcini" <francesco.dolcini@toradex.com>, "Frieder Schrempf"
- <frieder.schrempf@kontron.de>, "Gilles Talis" <gilles.talis@gmail.com>,
- =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, "Heiko
- Schocher" <hs@denx.de>, "Joao Paulo Goncalves"
- <joao.goncalves@toradex.com>, "Josua Mayer" <josua@solid-run.com>, "Kieran
- Bingham" <kieran.bingham@ideasonboard.com>, "Marco Felsch"
- <m.felsch@pengutronix.de>, "Martyn Welch" <martyn.welch@collabora.com>,
- "Oleksij Rempel" <o.rempel@pengutronix.de>, "Peng Fan" <peng.fan@nxp.com>,
- "Philippe Schenker" <philippe.schenker@toradex.com>, "Richard Hu"
- <richard.hu@technexion.com>, "Shengjiu Wang" <shengjiu.wang@nxp.com>,
- "Stefan Eichenberger" <stefan.eichenberger@toradex.com>, "Vitor Soares"
- <vitor.soares@toradex.com>
-To: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 7/8] drm/bridge: imx8mp-hdmi-tx: add an hdmi-connector
- when missing using a DT overlay at boot time
-X-Mailer: aerc 0.20.1
-References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
- <20260320-drm-lcdif-dbanc-v1-7-479a04133e70@bootlin.com>
- <20260326082843.GB2670326@killaraus.ideasonboard.com>
-In-Reply-To: <20260326082843.GB2670326@killaraus.ideasonboard.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Subject: Re: [PATCH v2 2/2] ARM: tegra: transformers: add connector node
+MIME-Version: 1.0
 
-Hi Laurent,
+On Mon, Feb 23, 2026 at 08:55:00AM +0200, Svyatoslav Ryhel wrote:
+> All ASUS Transformers have micro-HDMI connector directly available. After
+> Tegra HDMI got bridge/connector support, we should use connector framework
+> for proper HW description.
+>=20
+> Tested-by: Andreas Westman Dorcsak <hedmoo@yahoo.com> # ASUS TF T30
+> Tested-by: Robert Eckelmann <longnoserob@gmail.com> # ASUS TF101 T20
+> Tested-by: Svyatoslav Ryhel <clamor95@gmail.com> # ASUS TF201 T30
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  .../boot/dts/nvidia/tegra30-asus-tf600t.dts   | 21 +++++++++++++++++--
+>  1 file changed, 19 insertions(+), 2 deletions(-)
 
-On Thu Mar 26, 2026 at 9:28 AM CET, Laurent Pinchart wrote:
+Two things about you commit messages that I have to fixup every time:
 
->> Many dts files for imx8mp-based boards in the kernel have such a connect=
-or
->> described and linked to port@1, so a connector is added by the
->> display-connector driver along with a bridge wrapping it. Sadly some of
->> those dts files don't have the connector described. Adding it would solv=
-e
->> the problem easily, but this would break existing devices which do not
->> update the dtb when upgrading to a newer kernel.
->
-> I think this series should also fix the in-tree dts files, to pave the
-> way for removing the workaround.
+  1. caps after the subject prefix
+  2. wrap commit message at 72 characters
 
-Fixing all dts files can surely be done, but it won't allow removing the
-workaround. Any devices shipped with a dtb without the connector and
-upgrading their kernel later on but not the dtb will fail as soon as they
-upgrade to a kernel with patch 8 but with this workaround removed.
+Both patches applied, thanks.
 
-That said, do you still think it's worth adding the hdmi-connector node to
-all dtbs missing it?
+Thierry
 
-It should be fairly simple and IIRC it would involve a couple dozen drivers
-at most based on my initial research. However for most of them I have no
-way to know which type of connector is installed, would it be OK if we
-describe type A when the type is unknown, just like
-dw_hdmi_connector_create() does right now programmatically [0]?
+--v4rbe2jimz4b2bgy
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[0] https://elixir.bootlin.com/linux/v7.0-rc5/source/drivers/gpu/drm/bridge=
-/synopsys/dw-hdmi.c#L2601
+-----BEGIN PGP SIGNATURE-----
 
-Also, if such a change is to be done, I'd definitely do it as a separate
-series, to avoid adding more stuff to this series in-flight.
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnGn9IACgkQ3SOs138+
+s6H8PQ//WDF56CankhI0lPuYlTAwtTyUwqBLWoyTKzs31bOKmybw9ca7lgvdRQjL
+59xuW/qbfCpXHOZAK6fZqcpRRQGgMZSP0P8izSrA40CXDNKO7S34DIxD8yfv+h8/
+d6cFnzQrxu/lMadP4YZ7tsujynCu+MHlYIUg44R0bdS9o9wtyc2OvlST0R9wk4J5
+jGZuKn65PUA40/nu2dM+fwCD/0HloGxhrBRaYx0Pdm6O32MwuVT5Yx7kAN7KnPKC
+OjGrq4Rxe8bt4XUCjM48aPZVAeHn0sh/hWBmxC98HneYwpzOnAx3bF7CU2m7RWpZ
+Nl+5ojqdg49r0opy3eQFTEES4NHlPI9M52nmOTS9KCIzJacRtmZ7pzQC/dLgykPv
+eSo1d5kte1xC75zDPqZp8QrZ+MSb7kealA/r0Zudy5cXd/DEhVl7dNjgzrW4+No4
+HM5TveOG23D432Gn0R7doqg1RdfiawmnRioRjzI4GmFRypt/XvfoXXo1LqfUkTil
+LiKoOqsrGw27IRoXwbZTQW37PB69fP+rPA/lQYGXjhHXJG/NmtRP+HbxJtxdwOoF
+21wS+ps27eEpVpoUGb93+wSdDt9tnrhOMtXVWWPfYmfhNyGviFou5y7OTI/BPblC
+roQZdXXlWmDulr42xacXH78uwNtTQye1TS2s+VaE5XgdBATv9HU=
+=pX+M
+-----END PGP SIGNATURE-----
 
->> --- a/drivers/gpu/drm/bridge/imx/Kconfig
->> +++ b/drivers/gpu/drm/bridge/imx/Kconfig
->> @@ -25,6 +25,23 @@ config DRM_IMX8MP_DW_HDMI_BRIDGE
->>  	  Choose this to enable support for the internal HDMI encoder found
->>  	  on the i.MX8MP SoC.
->>
->> +config DRM_IMX8MP_DW_HDMI_BRIDGE_CONNECTOR_FIXUP
->> +	bool "Support device tree blobs without an hdmi-connector node"
->> +	default y
->
-> Can't we enable the workaround unconditionally ? Distributions will need
-> to enable this option anyway as they can't know what device they will
-> boot on. I fear a configuration option will confuse users and waste time
-> on debugging.
-
-Sure, good point.
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+--v4rbe2jimz4b2bgy--
