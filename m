@@ -1,255 +1,113 @@
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8BC3315D40
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 13:34:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463C83EB80E;
+	Fri, 27 Mar 2026 13:37:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774618451; cv=none; b=r2wlgY96/icUcx8a/yOOD1VbiAnqXleU5oye4IYClJxxwuepl3sCvQV6WK7+jLvEPNX8OpgdOAQ3DxvJzhVsW9gF0jkf2VZXld/51tRVDEAWpT3iscyxmuSNahuWMOBMbju3aIZxvkrKh+emFNSyvWyf5anj2p+CibKj8Vd9iQM=
+	t=1774618643; cv=none; b=udbBcmZT/vmmwpP/cKSd1eRHIE8oBUsCB+zhEUv91r2Ca2sapcNdXCmv072/J+ba8Ci29EaHVGI47LM25TOTySvJnC2nur38Cn1leDTnGAltjVjmychkuvzwzPw7CNY2G/BffgLf8l6aE57iNoO3In2o4Ase4ckyGjvlnBNMFFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774618451; c=relaxed/simple;
-	bh=I9YYmUqjmwDAglHQt+TdLLFYv6Br2Cvm3hV87CemV6M=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=W5id+uR8ax2N6ozdzytxuohtE6sT833G+fgSHOGLl8g5N+w3hW2RKQrslZqFMUhQg5I/Ng/cDAtVv6n//hgzRlJ2hmkQPjiDKoMsJjDRQRkS8ly0ZzCz7yyy7xYRLeGsnW1eyyzTxX83ZS78PXvqFXdjhc82aGqWj0XkehtCmmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=VRHCRqHK; arc=none smtp.client-ip=185.67.36.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	s=arc-20240116; t=1774618643; c=relaxed/simple;
+	bh=QtqhuEF/ek/u+1e4ZBBZDJCm51LKKlIxR1/Utu2Ab+Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GCaE4qS1STpQDTv9QzbZDknIfQI3j0mC5DOlPJisa673tNJRXIO+TQIwxVs/BYRMIxWLe1JUxNH2XEeHM3bLlR/K0ZkN1yhczwZSiN5PxL9I7RUPfPBDc+8MoCQbz/WBOqzY/2k3P+y/r0ttUlVmt1Q/FrxEj7Hd8RXNxfTFakI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PH10xjhg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="VRHCRqHK"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id 6E040240028
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 14:34:02 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
-	t=1774618442; bh=B1HXLdfLQtkgXuwTVMV/gzXIibl5wOZ8hLFBdEzZ17I=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=VRHCRqHKDpOK7yBvG0CJwOI1af0EaJiHkNt8pTX1mjssDRXSWrhMRtaHNzZO/sWfV
-	 rDOqKimZVjxh496PBB3njwTbxPIALZuSqjRGyID9H1FKpNenhKMuQwA5RtlbXNvGgh
-	 aSCp2OfQ9G/XrqoACFYfgPdj+VColDTb50jNHiExbd1W94V6mj3YvRL5Bj/JyGkpdJ
-	 yM9yAxk8tqIVyGFnRVm8WOOVIDQRdVLtb8n7BLwMztUhX3i/XAW65EwsR9hJWDvCHG
-	 YsP83bNjIoANGR1fZtvI4FLVWzG0K1svgW9IqQ/1FF21yKl8lM8yRb/kQrG09SnTnQ
-	 ciog2tSb3KOHg==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4fj1ng6c0Hz9rxM;
-	Fri, 27 Mar 2026 14:33:59 +0100 (CET)
-Message-ID: <a2f8a64cf2281e11b5287049bc06697e65e41c9c.camel@posteo.de>
-Subject: Re: [PATCH v4 1/2] dt-bindings: embedded-controller: Add
- synology,microp device
-From: Markus Probst <markus.probst@posteo.de>
-To: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda	
- <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Greg
- Kroah-Hartman	 <gregkh@linuxfoundation.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Date: Fri, 27 Mar 2026 13:34:01 +0000
-In-Reply-To: <CAL_JsqJUVh1YnhmYYj4ara5BheaLOL1oayjtWNuPH53q1d4xXA@mail.gmail.com>
-References: <20260320-synology_microp_initial-v4-0-0423ddb83ca4@posteo.de>
-	 <20260320-synology_microp_initial-v4-1-0423ddb83ca4@posteo.de>
-	 <20260321-rose-armadillo-of-drama-09fdcf@quoll>
-	 <a6fe54fcf985100fc85450e680e8f7da49e6b067.camel@posteo.de>
-	 <56ece3e3-871f-4ef7-9ad1-cd7f68f9d003@kernel.org>
-	 <881644afe920a222a7fa6b2221fcc157c037ccd5.camel@posteo.de>
-	 <20260325220749.GA17597-robh@kernel.org>
-	 <3281ba870fff981a1c37989000fdc6a8c448a304.camel@posteo.de>
-	 <CAL_JsqJUVh1YnhmYYj4ara5BheaLOL1oayjtWNuPH53q1d4xXA@mail.gmail.com>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-l/3+qkQAWaxnFt1MJeEB"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PH10xjhg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61E3EC19423;
+	Fri, 27 Mar 2026 13:37:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774618642;
+	bh=QtqhuEF/ek/u+1e4ZBBZDJCm51LKKlIxR1/Utu2Ab+Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=PH10xjhg0PeDvcjRI/SmdvJ4MtFa22Yi15OCdp58oo9+EeXkmkHPFN9ChJDUlqL6+
+	 i5hBGXTl1hBJOIetq71CYD1DMUMYguycUYMb1RwldFCY6J5P4YGp6S8mWC2vz2m5VT
+	 76MuvGuleeQymRaN7j3GVn9gyxUs5k3Q8pOPczVcP4ZnZTpJEczNkDhLb8Hknl7IzO
+	 8Ei1myyXQ2Q7cLqGNJ8KV01Goz/fY+Yk6AhgBKfavPNyYNxVeskbRIDvhos/tP4KF2
+	 VRSqrixE07IQY6gB+l/0J4zehpmIJHY9VoVH2f8Ku5okUNZ5s506BJC8swoTkQ3bV+
+	 tIHyf7KjmCtdA==
+Message-ID: <fb5a1d45-822a-4894-bf89-026164491935@kernel.org>
+Date: Fri, 27 Mar 2026 14:37:17 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: clock: qcom: Add missing power-domains
+ property
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>,
+ Taniya Das <taniya.das@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260327-dt-fix-milos-eliza-gcc-power-domains-v1-0-f14a22c73fe9@oss.qualcomm.com>
+ <20260327-dt-fix-milos-eliza-gcc-power-domains-v1-1-f14a22c73fe9@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260327-dt-fix-milos-eliza-gcc-power-domains-v1-1-f14a22c73fe9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+On 27/03/2026 13:13, Abel Vesa wrote:
+> In order for the GCC votes on the GDSCs it provides to be propagated
+> to CX, CX needs to be declared as power domain of the GCC.
+
+I assume this is true for Milos, not only Eliza.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 
---=-l/3+qkQAWaxnFt1MJeEB
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, 2026-03-26 at 14:36 -0500, Rob Herring wrote:
-> On Thu, Mar 26, 2026 at 8:02=E2=80=AFAM Markus Probst <markus.probst@post=
-eo.de> wrote:
-> >=20
-> > On Wed, 2026-03-25 at 17:07 -0500, Rob Herring wrote:
-> > > On Sat, Mar 21, 2026 at 01:02:22PM +0000, Markus Probst wrote:
-> > > > On Sat, 2026-03-21 at 13:32 +0100, Krzysztof Kozlowski wrote:
-> > > > > On 21/03/2026 13:17, Markus Probst wrote:
-> > > > > > On Sat, 2026-03-21 at 11:21 +0100, Krzysztof Kozlowski wrote:
-> > > > > > > On Fri, Mar 20, 2026 at 11:09:53PM +0100, Markus Probst wrote=
-:
-> > > > > > > > +
-> > > > > > > > +examples:
-> > > > > > > > +  - |
-> > > > > > > > +    #include <dt-bindings/leds/common.h>
-> > > > > > > > +
-> > > > > > > > +    embedded-controller {
-> > > > > > > > +      compatible =3D "synology,microp";
-> > > > > > > > +
-> > > > > > > > +      power-led {
-> > > > > > > > +        color =3D <LED_COLOR_ID_BLUE>;
-> > > > > > > > +        function =3D LED_FUNCTION_POWER;
-> > > > > > > > +      };
-> > > > > > > > +
-> > > > > > > > +      status-led {
-> > > > > > > > +        color =3D <LED_COLOR_ID_MULTI>;
-> > > > > > > > +        function =3D LED_FUNCTION_STATUS;
-> > > > > > > > +      };
-> > > > > > >=20
-> > > > > > > Where are other leds? Binding mentions 4.
-> > > > > > >=20
-> > > > > > Status and Power leds exist on every Synology NAS model I am aw=
-are of.
-> > > > > > But there are models which have additionally a usb or alert led=
-. The
-> > > > > > device nodes for those leds should only be present, if they exi=
-st
-> > > > > > physically on the device.
-> > > > >=20
-> > > > > Then help me to understand - are these different models?
-> > > > Yes, even with different CPU architectures.
-> > > > How much the "microp" device differs is not clear, but the
-> > > > communication protocol is the same.
-> > > > >=20
-> > > > > EC is not a generic purpose component and is tightly coupled with=
- the
-> > > > > actual board it is being present on. Unless exactly same board is=
- used
-> > > > > in different models (unlikely) then the compatible defines the LE=
-Ds and
-> > > > > they are not needed in DT.
-> > > > So for instance "synology,ds923p-microp", "synology,ds723p-microp" =
-etc.
-> > > > ?
-> > > >=20
-> > > > I can do that, but that would be many.
-> > >=20
-> > > How many is many?
-> > Estimated 300.
->=20
-> Okay, that's a lot and probably safe to say there are not 300
-> variations of the EC.
->=20
-> > As a side note: I only have 1 model I can test the driver with.
-> > >=20
-> > > > Having it generic seems more flexible.
-> > >=20
-> > > Is there firmware for these ECs? If so is it the same or different
-> > > firmware for each device? If the former or the functionality is reall=
-y
-> > > trivial, then I'd be more comfortable with 1 or a few compatibles.
-> > The firmware is not public and the exact differences between them isn't
-> > documented. The communication protocol is the same though.
-> >=20
-> > >=20
-> > > Generic means you'll need to add quirk properties when there is some
-> > > difference the OS needs to handle which we'll reject. So stuck with o=
-ne
-> > > compatible and no way to distinguish different ECs is anything but
-> > > flexible.
-> > Describing the physical leds that are present on the NAS device are not
-> > quirk properties, at least in my definition.
->=20
-> That's not what I mean. I mean things like this other device needs
-> some different timing for power-on/reset or delays between accesses or
-> some LED control is inverted or some protocol difference... Could be
-> about anything. The key thing is you have specific enough information
-> (compatible) to start with that you can handle any issue that comes up
-> *without* changing the DT.
->=20
-> As you said, you only have 1 device. Make the binding specific to that
-> 1 device. If the next one that comes along can reuse the binding as
-> it, then great. Nothing to do. If it can't, then it gets its own new
-> compatible. Strictly speaking we would add a new compatible for each
-> device, but it's a judgement call that there aren't going to be
-> differences to handle. In this case, there likely aren't 300 versions
-> of h/w, the functionality is simple enough, and the functionality is
-> entirely optional (just a guess). But that's all really your argument
-> to make.
-I think I will go with different compatible, but instead of 1 I will
-compile a small list of devices, which:
-- are most similar to my testing device
-- have unique functionality (like having additionally a "cpu fan" or
-similar). This way I can implement every functionality in the driver,
-which makes it easier to add devices in the future.
-- I know are owned by people who like to experiment with their device
-(including my device)
-
-Thanks
-- Markus Probst
-
->=20
-> Rob
-
---=-l/3+qkQAWaxnFt1MJeEB
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmnGhzsbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTEsMiwyAAoJEDR2H/jnrUPSPwIP/1Jz/Y1Rr5cQEs7B6/De
-bELTI3cyFlsLlPnrjjMJHHmsWdaCOnP6/tq9j916t+b9d18G9u0n6YCzOJSYM8Bc
-rknvuSm5VaYS3rjFASfsMfWqgXDR9+Y4tEkBDVt6p6J7a2+qIFn+2itmN1ZRfvwL
-LPKoniu2G3cGBSiNj7bKtOuXo0/g0AaXMAvKKNIi63SL2voqHQNdkWnl8ebdc5Ve
-B0laeTRHobQmbcZpajrCK7JL4MeOFEyBEQX9oViorP25DzSJycKWJGYF1YYnb86m
-AsS5SRrsN1ePFu5X5qiO7+AspzZ39HAqKBAKDX1VJs6jO+0if6j6n0ztnpIKRkIm
-v5SQ+q7nKPur4YT/tt3g+BvGVVH/r3w90v6GWP/1y+l+joZWBDEOtQw+6auSvtBI
-vMyUDpVsBWjZ0FG8Cz7e6lhRxa+fTO/eCJ4ZFM+BElksOsh9U/itznXdD3ctY8r/
-DSgW3+0uTikb9oOqewpxKcD5RzUP11LmzqS8BiKnNtMJ3AT1E/Z8c9ejjF8rlDqA
-HG/DV7CnFnsNFf2c4n4hveOfA8wdXa0QtnnwI013rS4Ft40knJjgQUFMj3sQVLqS
-GH0HQmTMdC4L2tUeAZp09+KwzMPLky1Tpey8C7atrS/ljHdx+UQid1MjHwrmdpst
-N9YKumtSiDrYZGhyn3i6soLG
-=lpC6
------END PGP SIGNATURE-----
-
---=-l/3+qkQAWaxnFt1MJeEB--
+Best regards,
+Krzysztof
