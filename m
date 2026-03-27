@@ -1,61 +1,60 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012006.outbound.protection.outlook.com [40.93.195.6])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012031.outbound.protection.outlook.com [40.107.209.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08CF7364925;
-	Fri, 27 Mar 2026 16:24:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A1A362153;
+	Fri, 27 Mar 2026 16:30:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.31
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774628672; cv=fail; b=be8zhwlgQ0VDpgxJkVK/5eZC1bGL6cef8AhGqUBxVFu/9Pcq2+6ktdWTGsjzg1tsyWtC45e4fv+L1Pv/6hJmZJZSroPObsDJ/8KMsQNQ9C4uJU8xYECtXV7WrBuxFBGFCd9vMCC77XQZSQ8jqbNhEHb9Znr4N1EOdWYIYjbv1Ok=
+	t=1774629045; cv=fail; b=Lz2ij0MMiIGyGGVBQTgzNHhk24medNZHaNHE15Al9zFZHQqpwvSA85Xq3iFHIMtyO4W0OWsAYKG8BdXb78QOgP7CPQFybRpdzJnisZmJ5JLF4slNKZkSScpZ+KbDX9D3/TjUGytPxe24Z+8bD8ghk2gkJWycqOV7U8zePP470QI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774628672; c=relaxed/simple;
-	bh=2WYU67tBez3mgvaKxhTG1Kec+sv5rcPkPpPng4/a7FQ=;
+	s=arc-20240116; t=1774629045; c=relaxed/simple;
+	bh=Rmg2HU9t8I6V3qr2VKiv539I/aLno1zrs2f5o5CmGP8=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=PEBI5Gdmh8xR4qRLnMzkVqmQQtu/RO7Uyw7HDfrco/EtebvHMKJkA/6rQdYCuLMBhy7pEtF2wR3KOEiZmFJobswLb/3L+VE0xHYnxava1ioe/cuA5Cr/uxQVHiNd4BBfvW/Eo6Ul0vyk18xr73DRX3RKC1D6pRDJDoxnh/ZswjE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=ExhTgTOt; arc=fail smtp.client-ip=40.93.195.6
+	 Content-Type:MIME-Version; b=dmztAJYTCHrIxOnz0A3p5Hz12J7LPviFgzk31h3nqsdNn2xzJV4GfkANFb+vXOHbyD4SXF2TPmd203mSjOXAtlW4kny2aP1+Q2xCAbuhcHPGNHQKkkvFX8sJ1n8q5viTeB7OvwRq75+JTO4DSEWSp58MEJ7QlrsYQqOtDfD1cso=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=xWCLpRWA; arc=fail smtp.client-ip=40.107.209.31
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="ExhTgTOt"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="xWCLpRWA"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AvmvBwmhctaNdqubcca+WLEVHC5XiObvJBbu5CEhq3txTBzMyjFJPgXXb1JgaTMFHjbXA10ciehmtD3hA//CWPJVE/sMyW+WtAyibu1xpIvGfxl6NrpfYXaRY5zyCOQ6UzAZE5/GeBbSKHb0tSUNf41T0XBa7BkLnmQgiEyUkWrDtP3Ud5maPl4Zf306BTgPhTWbBx52SEM4FYjk9+pq59OMy4iDPBQEH8WD8hPAW/1atRl9r9yPgo+jR1bOx4nNmZ06tNTLF42zNQ9mESt84pifhrM82rz/52qSZIErecYEFhuC5E0Y/2+10a5H0C/yfj8uBVok4z7i6ZbzaZBOUQ==
+ b=HNhfh0ZQcqC6xQ8Yivz+tWaYivUdSeSOf+k70+8qhntHTYz80CSf26r1ySOQ/s8sRKLqP7WNrVCECypAtnZWg64z8xi+i65RRX2+ERmsiBHPmaRdQDi+Ly+mginZnB5KNqSS4JddiCfFR5lGTH5fn8OgQ8W3wN4N2AhpPdzRgk5gva+KzVJX6LnFNFskzMHnH3ivUgpG4pF0JVX58hvjMQsEA+HXYfFafFLlvrJwcHsp1Tx8OUckbKnSD+ZBucwUo0p33LFpKXLd+eTISbB4cDtBo/ye2i/xsnxoGl68HMSYbUtc6fw5UE1q3VKKwgV8YXOzong2EXX2ghco3bBKBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wgbGnEfC8jeBxr5RQo/B6GlpONGcN27rW852PaiVwaU=;
- b=FK65kZW8Y81AJciHKVchHl4nyZYLx4veqmeYgf77rjhFJfiHo/OWTWc8nUVUcNq/Q8FWPalnAYgJ/4PZtGm2tpvh/XwqbCy5Og40hCmRTJKyPanuRarkf/e3Syp77PTwnooX8eVk5200vQJAJZrxYHZTgawnyJKeBcpCWP4rRMSJgBkdkFN+xFT5bB2uk5hDQitm59V0zmS456V5HJ0TVuFBlH33QMCSzhaC3/21aBkGhhWkD10BpxxfLLnfVLxYaLKutR2xe3MGiZlfjQfuEv6XszhIUBDUcV3axw58XmG6hjUufNHzz7QJNSwMp0cGi4I3QhnOB9pyZppvfERX3g==
+ bh=Rmg2HU9t8I6V3qr2VKiv539I/aLno1zrs2f5o5CmGP8=;
+ b=Ccp2FjG/HIyREniHRFKEWbVXjYOU+fNZGW2mX2naGkiGhi+pdwjUZAs1dYKRqGcbkwhUOCt5rw7ebuN0H/jcNI8NZQ6Ug9dy9gRmzBquA5xvBL/q3TL/VX8ND/gTfgdw2cOTOSZS9+vQQPv5i+7dpVU+MPwmTa8/tQ729QsU/M+/vZ7keWB4VykbjEYKc3v9sS8MhHJrA7BYXVwhrCOpmrucHSKGRelzuTr2cRclvPN120XRNXuEBkAOQ39FzMlpcQaYUugePD9PTSOK6JVOC5mOjZVw+qt+8Ga5pe335F8K2uhr5Ud4q++Dbls5t4DTx3+fIhNx8Kq3RMngom98Kg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=microchip.com; dmarc=pass action=none
  header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wgbGnEfC8jeBxr5RQo/B6GlpONGcN27rW852PaiVwaU=;
- b=ExhTgTOtzbVWAYP7q/IQHSC1ZcelrJYS4VLaf3evMj3L7AFM60UPkEXHCPO7tzd543KxhlqJX7S+L8RYTgUMq8YAOHsa8lCMfJalvWqHXXNHMC7RzldEdZ63uHfgebIOyiB/E9NH37GHnMG+qPD7aqZkTD9M0iMM5S9XuIVpmfqlzbiK53BezCy3mTcBgSejVS3uk4lJkLw2sO//iZb2qhoxgrEHM/+qxkQAeEVJRZFUSfQEWHqC+3g7Y/pglfKfKHS3L4i1WBp95vxkE99jyz1+SxX+lSX9ZxEmYvHs5jYc6VfjYJHp05iTbEUhrYciy7aVQRMIA0e4m/fJnv4IjA==
-Received: from CY5PR11MB6462.namprd11.prod.outlook.com (2603:10b6:930:32::10)
- by DM4PR11MB6262.namprd11.prod.outlook.com (2603:10b6:8:a7::22) with
+ bh=Rmg2HU9t8I6V3qr2VKiv539I/aLno1zrs2f5o5CmGP8=;
+ b=xWCLpRWAe4J6ob5rYDRQ/2TbKMTQTYYQwEhsUmSCtWKNj40hgJhxngYf1aonPJ8kZPtTHZnAQJQG9Y2w8Kcjp23NKO5JxCqcla3CG2pUuKkeyJ2n6Vl5a6b2RPJITy2DdcS2jzzn2gwUTZ0xsPxDJZqG48krUfFj2TsiTV0Uk042YVe29dmVr3vs3nzShpGPTdGLNjGjNhvBUUjkrpDqnbEvIvYtitn+RAdv6B0inukwqhHo3KI1PcBF0ow+aWxTdsKbn2HuBkKhPYOId/E4cTfAKyEd9HZ/ByiSsY3J8XSznVb/J1/DUf/jqwmvBhJaNHOiZ60IPdgVCvb15/vGRA==
+Received: from PH7PR11MB6005.namprd11.prod.outlook.com (2603:10b6:510:1e0::19)
+ by MN0PR11MB6277.namprd11.prod.outlook.com (2603:10b6:208:3c3::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.8; Fri, 27 Mar
- 2026 16:24:26 +0000
-Received: from CY5PR11MB6462.namprd11.prod.outlook.com
- ([fe80::10d1:11dd:5088:7559]) by CY5PR11MB6462.namprd11.prod.outlook.com
- ([fe80::10d1:11dd:5088:7559%5]) with mapi id 15.20.9769.004; Fri, 27 Mar 2026
- 16:24:26 +0000
-From: <Prathosh.Satish@microchip.com>
-To: <ivecera@redhat.com>, <netdev@vger.kernel.org>
-CC: <arkadiusz.kubalewski@intel.com>, <jiri@resnulli.us>,
-	<mschmidt@redhat.com>, <poros@redhat.com>, <horms@kernel.org>,
-	<vadim.fedorenko@linux.dev>, <linux-kernel@vger.kernel.org>,
-	<conor+dt@kernel.org>, <krzk+dt@kernel.org>, <robh@kernel.org>,
-	<devicetree@vger.kernel.org>, <pvaanane@redhat.com>
-Subject: RE: [PATCH net-next 5/5] dpll: zl3073x: add ref-sync pair support
-Thread-Topic: [PATCH net-next 5/5] dpll: zl3073x: add ref-sync pair support
-Thread-Index: AQHct8it2yiZboqfgE6YpfihCIpUhLXCnKHA
-Date: Fri, 27 Mar 2026 16:24:26 +0000
-Message-ID:
- <CY5PR11MB6462E28870C343F05E53B34DEC57A@CY5PR11MB6462.namprd11.prod.outlook.com>
-References: <20260319174826.7623-1-ivecera@redhat.com>
- <20260319174826.7623-6-ivecera@redhat.com>
-In-Reply-To: <20260319174826.7623-6-ivecera@redhat.com>
+ 2026 16:30:40 +0000
+Received: from PH7PR11MB6005.namprd11.prod.outlook.com
+ ([fe80::4f64:b0b5:4ed2:39ae]) by PH7PR11MB6005.namprd11.prod.outlook.com
+ ([fe80::4f64:b0b5:4ed2:39ae%6]) with mapi id 15.20.9769.006; Fri, 27 Mar 2026
+ 16:30:39 +0000
+From: <Marius.Cristea@microchip.com>
+To: <linux@roeck-us.net>
+CC: <corbet@lwn.net>, <linux-hwmon@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <robh@kernel.org>,
+	<linux-kernel@vger.kernel.org>, <krzk+dt@kernel.org>,
+	<linux-doc@vger.kernel.org>, <conor+dt@kernel.org>
+Subject: Re: [PATCH v8 2/2] hwmon: temperature: add support for EMC1812
+Thread-Topic: [PATCH v8 2/2] hwmon: temperature: add support for EMC1812
+Thread-Index: AQHcsJ1vdIMCbyiBy02Hi3DZ0aRfKrWzef0AgA8y3gA=
+Date: Fri, 27 Mar 2026 16:30:39 +0000
+Message-ID: <350d1d2bf73c11c2c311c4ae6bf1b8b423151113.camel@microchip.com>
+References: <20260310-hw_mon-emc1812-v8-0-bc155727e0d2@microchip.com>
+	 <20260310-hw_mon-emc1812-v8-2-bc155727e0d2@microchip.com>
+	 <f1e55e6e-a374-4b97-b1f3-706d627ebab5@roeck-us.net>
+In-Reply-To: <f1e55e6e-a374-4b97-b1f3-706d627ebab5@roeck-us.net>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -63,50 +62,61 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=microchip.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR11MB6462:EE_|DM4PR11MB6262:EE_
-x-ms-office365-filtering-correlation-id: 5371d3e4-6da3-4f6e-9b71-08de8c1d50a5
+x-ms-traffictypediagnostic: PH7PR11MB6005:EE_|MN0PR11MB6277:EE_
+x-ms-office365-filtering-correlation-id: 1d4a609c-c8c1-45cf-8ac9-08de8c1e2ea0
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|7416014|38070700021|56012099003|22082099003|18002099003;
+ BCL:0;ARA:13230040|366016|1800799024|376014|38070700021|56012099003|18002099003|22082099003;
 x-microsoft-antispam-message-info:
- a4YTQEVED9gIB2bRkkXDHpRU2BAMvElzJiELQx9oSmL9XH0MCMtjyZMzhvO8x/7THEGS3uovsXbfa8waUdob9YVEfLd9qlhF6ISgjiPW88iIMU43T2o05rIsy0GfTum+YRdSkww7QypKmbi/AABDrYc0f2i9i/PjvAyal8oOqJ/uMYmurP13DMwjMIdQOMYsjQt6D+lmP6B9NX98m0F27AfnQz9J64GpgceteEHRnmlVi0KKF8spWmktcsUCo8beWMR/aXIQCRGkxQgerWMXVuh+5Tzk/nT4n7nIrdJ5PvwGt2iV90TaatzOkAxmlpaRCfsbm9j5Dtmc1oyvyvyRLl5XaM+rM9sxyZ0Z4iH5of6VqPklomo4HZiaYpf3dQ5q59ITe4T0NWYU5hUMpZv3I3qeh0RiwDPTLig8z4OVUUg6tzt2QMkg41zB+ndHnLZnZwsJnmx8ZtTDZvHowB9bJak4jfcGN2MHgX1nk0gdRL2EmJ++3pUgTJEFNsyCqLWaz+q/l9jRHBo9Qed5UGCGG8PXnemVEbjzpE4fRtxr6E/MZww2OJ7r7WPIuULKl9bKu+jYa3NJg38wizx/KIggveqr7CuSLiK8hXz63lJu0n/dgY6uDCE20duosVG2u9fDyvpvQz3vBN0Pbu5MDwB0BnbP/0P60+jOUW3ReIr24/MKpzpokqWSFIYcR3/Mu0wCGbDW/T876Ga4UwvAfkrkY67QsHiji9PV1zml5N86MAs8gx5ePyqVxw1O2gY1fklzw06RhvhaBotOD/0dNfrTrSNCfCK+sge9Ub13OWCNn2Q=
+ 4ueurpZVvA4t/eo0JtYQzKi4g5MJ29zAdh7MHvMId+bEhn7dCWp0ipN6w7RxLtHmuoCxmDe3enYK7PhBuLZxbBKMcSbkBF0zumdmN2iSuwC2KXm/CfZP/r5jv6uP2yD2lq/akVVETgLRudWxxt0C3cI+Zf/qJb2Bu0O+XlsAwlmHNfVrw9gvLo30tNC7kmBGI0uN8sshgYo2s2+K1rV6Hx1NEOzz7JEQo9lm0YFnOksKfzkTuE7rsSkEegpqiTXAz+grGu6u9SrLeeCX4ZREahYUv8ykzYJmKUJqdUR015xxMdrvxNoSZIvQBpaVYFmgulHRN49XH3dvhFKJoLRXt3UAaBntbBIqtxa6k3SDnXU7fH0Tjll3yTOFxjed7qUg1xNyA6/ULuO4bWt0QuBvyVGi7oXGyqc695j8i28qO2n6nJ4ZcwM5Vu2YQ7NNCDiOwmmyCeiEfmFaDjvvYsx4ZHLnYRcd16DbB44dvrurNcUZyluxKKZGb/lV6HRUYd9sObRyiRiDZewKcXVHQA/hNMRyR9Ibn3nf5K/NHXZ+fRAFsZCWUmJHQwbE7bxMgzZSWx4XnVafiPS3NsKrp6ShPB4zNffomHI/XKLpkooyUNr+tHoViqzBO2t/SobnzlePU4QwvH1X+9betua9rshdYfqjQTB44CJtdFg8SKwpIrviUR0Zi5FQjpyS9qx8AJbPf1r4GIglXEpPiaVOVLOBziU6x6xPqI/6NX0OAYwp6X5SzlNcsmxufh88zzBGBnCts8rLC3pndfoiQfKk54eZuc9DR+B1q2m5Y9+xJckAUq0=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR11MB6462.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(38070700021)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6005.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700021)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?dTIfB3w42G+BYbnggU3ZrRiCZY0ZrnpXaBTwUiL+MKZrJ8qRRlEEOPNsZiOJ?=
- =?us-ascii?Q?uOLbTnhxsu8SKn4bQVMgRGnonth7gh2MDUj7eiFV/Ouxmtk0QazwrlxQNnNr?=
- =?us-ascii?Q?KrSvD/UbY4uacl8TFRYg7sn/FfkdpUtPoJHdnFzU3NmRp7m91OOtkjJj5I24?=
- =?us-ascii?Q?0Lcb0eF39rQACc8uZNn5elQIeudlPGgX8Eap3jAWLd/kAOPhhio/lJp8fzyl?=
- =?us-ascii?Q?MadQkNamPTNUhE7By8tdd115zvloB0cfatBQmrTnyhke76xajbYOdiR62PW7?=
- =?us-ascii?Q?JsBQhezynT8uIjGyz05A6goYl2UjrRfQmaJx3UOd/UzztH6o8gVDjyN8pr8b?=
- =?us-ascii?Q?uaqzG8GNPdwQprGLNTJY+vHjinQ4Ty9+HqCD1sRjiSh9Kmw8hg6qIaLAwZ+7?=
- =?us-ascii?Q?PU+DFFBjRaQGkQYtIXis5gHBBsrhwWNwiG5XpW3H0fstKAEbGPFLKJbGg+qg?=
- =?us-ascii?Q?8cahSaxlwsjTlfxOHMTkpHl08pF7mcn1F6UxtCeqF0OX1L6E7Vot0ZXRh2sQ?=
- =?us-ascii?Q?SN5xP1F/eDR0Wl01JU7k0yvROdvYeYatB+VqGapmnBKpOPGWIL7DpEcSVY+L?=
- =?us-ascii?Q?q1k6NV7WUUvgkKWRIY5YDrUUB42lasQo3ZRAMB+7fiAhTL5cr1xeYAVBzxmU?=
- =?us-ascii?Q?m0032XKMXm/A85VanALcAat70hneh8IcZLQGgrHIoGFOoMn5HvXX1ZiTMsFv?=
- =?us-ascii?Q?TTStlqD5tzwbn94pABrOJISJ3fQUs9MR2wsWuDs/1aPvSMB6FGsA254FpIY0?=
- =?us-ascii?Q?18UBkgJMpvThFOG1OmrqKIPaUsx/Bex1Vk4SxDxKA/muOixbsT+Bea/XykEW?=
- =?us-ascii?Q?ONk1uvhrvfCC5fhIghY0ULG0/O/UYJxEI/r89OGr/caQ1tkkZ/G/ylfkGQbc?=
- =?us-ascii?Q?Pvb0CZfYKGvxlITJk/7vUK3LiUJ91h8S1Roy6FmPG7dvvHOoqQimTAIO5hyr?=
- =?us-ascii?Q?rir9ejpqRHTiiHqwZUux9Pc3u4IA/OFI0YsRq00bd0sOXkoDKAvduhyLjiwJ?=
- =?us-ascii?Q?naELPdG/sPQOBS7OrcwCjwvkw3QaVnpxPDndhnrJ2Ty7DQIg43ZNVWhb8Z8O?=
- =?us-ascii?Q?uZ0x3pKurG3GLZXBs+NjSnw45/SO7+Y4sxlw3Hm9sSkcK2tiYw/JEE+EaFCr?=
- =?us-ascii?Q?ndRZN4p771GNxl3aIEXey36ZVq07OWvJ1f9tM+2LqIrJ0GvWQlVnZQTatRsT?=
- =?us-ascii?Q?2XwaF/g2RhRjE4E7iswVM9lAhN1HwZRsmF+VGDt3K4cltG0nfvGYMn+oiJs3?=
- =?us-ascii?Q?FAF/F4OjtP1sUYOinqkAsTLfnLs+oaI/Od+EcoiJrVoyQHXOPeB+jEBaiyHI?=
- =?us-ascii?Q?tKtDeFoGwBJAOYi8zV8X/PUowH6Z2rJTXYhXuSABk3kYftgTt8DQfP5MXX3p?=
- =?us-ascii?Q?fmAYpm7XRJfFuiAKaOQwIVI39v66Lap0uyObMKI3SnXVoTSrAb6tgq7J4Upn?=
- =?us-ascii?Q?2wPvCK6lG7EZDgru7D6wfmwiFUEb0ULXQKw2oR4qkrGveKSqa0JIFtvHOJdr?=
- =?us-ascii?Q?snmJX1kVofhDtoqaz5dIkQG6Ru9g/mw2YVjN+sR2tv8npJCHCiZQaB5gm9LZ?=
- =?us-ascii?Q?q5VYbvY013GEK2GyaVY0gybbL8BXEe8jkqHdgcmTyNu2O+DKL6vAH+C2ckT3?=
- =?us-ascii?Q?d/fIFRdzHrcuAOf+lj8rZe227qxLuRq+qwg164YUriX9rahdRJT0ROUF0SyK?=
- =?us-ascii?Q?kS3HuwaVZmofQVZxg33Oh1u5aZ0RXc0vnmfRN9TdMRQspiba2gJOrwrXpXfu?=
- =?us-ascii?Q?4ju8qN3mTquzaKQ7yGMjYCmvbDSFTCg=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ =?utf-8?B?THB2QjNVd29PdDJYM2p1bHJpSDR2clc0UUxwWTBENTNTVXNWRXEyZVBjZSty?=
+ =?utf-8?B?MVZrK0hIWFAxTHd3a3plMFpGa1RoeVM5NVI4VHNubDJCU2NUNnNueEp2L3VH?=
+ =?utf-8?B?SXVKeGd6a09RU2pUZm1SSm52LzlWWXZYcWNnVEYrR1lmQlhyT3lsRzNuTXdE?=
+ =?utf-8?B?bE0yQ2JNUzV4b01LaTNVMlBwN2ZCOHVKRVlXKzJpTEFIVW9Hb3VQMStkVVN5?=
+ =?utf-8?B?LzBwK3RmclpDUldFVmhCQmRoSmZhUDhhVWpjQWNxY1FJRjdvU3o0c3U2MGE4?=
+ =?utf-8?B?QXBKUXJsMmh4eXh3c0Y4VWwyd3lHSklaclRFanNRTytoa0Y5M0RxQTVmV1hC?=
+ =?utf-8?B?YmVkTVVEcGtkY3BKVngzcjV5Qkcrcjlqa1FMZjI0bFd5OUpOV0FPMzBPWmFG?=
+ =?utf-8?B?TE1FM216WnVpNENuQ2wybzFvdUxjcTE1empLYVR3WTVEdU0rMHpjQlJUTVkx?=
+ =?utf-8?B?dldJdlFwaTc2SzNPN01qTGxkNXFaUDdEMGdRQnYvaWh4Q1NVYVYzajNnMkhv?=
+ =?utf-8?B?T0FBUkVNbVRjenRJeTgrQVlwUC9IeUE3Uk9BZGxMWXNQY1JpbkVwVGJvejJi?=
+ =?utf-8?B?dTJibWF5eDNTYWVwdWxOWk1maTcyeU5WSkNUVnR5TmtrbndGK1FoUXVQSFpE?=
+ =?utf-8?B?NHV6cU9BZkRzbmJQQ1BLaXNrVHhOTVo4cjFJU2UvbS91N1VpQVoyN254V25H?=
+ =?utf-8?B?S29OQjUwSzVWSGFMSHlZYnpTVnZjbW8vaXMxZlRPMFI5VHIxWXV0QWR1am1J?=
+ =?utf-8?B?NVh5My9GRkN1K2pGcXhZZElaSVJNanhaSkRPVVViKzVOaWwzNzloUWRmeFQ1?=
+ =?utf-8?B?Qk9tNWgvaUNyZ0hiRms3bEVtWllUc0JsZWF6endlbElkNVRiUVhpb1hMSmVU?=
+ =?utf-8?B?M2oybWd4a1R0Zk8rVDhocytwTG9PbnNmUHlza1lpWXoyaGhBei9ZeG5RVTVF?=
+ =?utf-8?B?Zzk4WEJOSkhOKyszcTRyMlRuUWJBQUw5YUg2TS95Z0Q1NVdxOWNuU3BDR1pR?=
+ =?utf-8?B?VHNwUWFJaWZmd2sxcldBbEVQZzl4aUh2MGh2bmRGUG1PNTB3cU5hZXVoeXdR?=
+ =?utf-8?B?ajh6MGNQaFdNeTVYUWVwRWFadzJrb3h1RTUzQWlLaW5saFhoK0RUMklVSVBh?=
+ =?utf-8?B?UlNDSkhhS01oSzQ4d2JaZ0Q1OTVLRVZMQUJsZW5YanNOYlA1c1Q4K1JneURB?=
+ =?utf-8?B?TEYrT2VWaGovVy9rREhiNE93TlNOdUJ3cnFVb2Q4bjFJK2ZMd3JvdGx0NTk1?=
+ =?utf-8?B?N1NiODBzMmlGTVdPakxjZzU5clFSNk5ZdmF5Y2duODk0clFLWGFGMWtFeHlu?=
+ =?utf-8?B?WGF4akxpellueDhpakt5enIrQjJHRkJoY1Q0ZTNybFE4RHlHRzlIUXo4eWl3?=
+ =?utf-8?B?ai81RXBxRFlxN1V1cWl6UFZCODNUOWt4RGhIdWlrWlJLOUNDZ3dtRUNUSWZk?=
+ =?utf-8?B?WEdQTEdhMVhibmRJbUMvbUhWcnhZQkZHTXREZWFFcjY5NlFWM01uTTJ3cks1?=
+ =?utf-8?B?OS8ybHhKSjZnbGVwVE5ZSW45ck05bzc3NG9CRzlVM0FpcHRaVUxsUEcxdVpL?=
+ =?utf-8?B?RTIvNkQrdnR1SVZLc1pOWEQ3ZmppbG9SUUwzYyszdzJYYUY5a0tVQmZBMm80?=
+ =?utf-8?B?WjdBVzhkWTdJZ1BXYVRPd2Z6Y3JhVVRQd284OVpWRjhubG5TNktiZGdYbHVJ?=
+ =?utf-8?B?VHdkU1pCWnpJK1I5VXZvS3VzMUhxMWY4a3dPdWVTQmVhOXUwSVFwRkE3bmV0?=
+ =?utf-8?B?RjF4Y1U2ZXUzWEppS3psSVFIVW4zQnkwR1ZGZHJZK1Q0Mis2c1d3MFpadnRq?=
+ =?utf-8?B?M0QvVmgwRElKbGVWUXEvSEpLR2pGT0NzWHZqV1pyRlVlbVJMcVhJZ1hsUWVa?=
+ =?utf-8?B?VisvWVo5bGE1YzlZSm1obDBHMmQvMkFWdTQ0UEdFaFhacGVZOXA4Y25xSGN5?=
+ =?utf-8?B?c2dlcW5kMDM0WlRsVmhKZ1FTcXRxRFZkZkxYR2lmaHV5bWtBY0NqY3ZqT1Qr?=
+ =?utf-8?B?VnAycHNXc1B1VTJYb2JTbFp3NHZKU3EwZnJlSjFKaEpVTkhOM1FMZENWUFln?=
+ =?utf-8?B?aWhJT2ZpYU1LMzJEanI5RHM1dkxZcFNNNlp5WVBUYUkwdStCTDgxK1Zib2Q5?=
+ =?utf-8?B?M0ZCZVpoOVhDMW1KTm96MFNBS1FtamgxM2pydVBRUURGOXQ3TkFnUFhLL1Iz?=
+ =?utf-8?B?YWlyVTFnOE1WT0lpV1lkNE9IazhoeHBKc3d1MXNsNjZwcXJ3UU1ERHN1Z2JO?=
+ =?utf-8?B?RUwycWowRkIySlVGcEZLSnRtTFpwVURPTXFkc2tDdHVTVU43ZmlmNGFrQzEr?=
+ =?utf-8?B?dkhxQldTVGhUNWRIbjd5SHFHUVBBVHdBamRQYmdBWXRmV2ljN3R0MXZqWEo4?=
+ =?utf-8?Q?T7+KqbnbPCigfc6M=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <D1B898B08FCC844DBBC56A937CF0DC26@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -115,349 +125,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-OriginatorOrg: microchip.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6462.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5371d3e4-6da3-4f6e-9b71-08de8c1d50a5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Mar 2026 16:24:26.7939
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6005.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d4a609c-c8c1-45cf-8ac9-08de8c1e2ea0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Mar 2026 16:30:39.1432
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ODMMcWVl5LGBoE5iygmPfomn0UDrbol/Ctc5fLS7WLH5ZvV/Ad6n4m8tIQuyRkzE9TRyAhZrL5dLMnb5WCblf3wpVKuuBleyvHWkRRAh5FM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6262
+X-MS-Exchange-CrossTenant-userprincipalname: 0hLVC9kdLw7JxYGWOUT1ail3WhODthSzdiPZrMZ4U26qO7/NflDpBVqeYBIY3/1mHwvRGPAJ5fzDgVsKxX0ma7Bx6bexQqNWeqwTRZTo7as=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR11MB6277
 
-Reviewed-by: prathosh.satish@microchip.com
-
------Original Message-----
-From: Ivan Vecera <ivecera@redhat.com>=20
-Sent: Thursday, March 19, 2026 5:48 PM
-To: netdev@vger.kernel.org
-Cc: Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>; Jiri Pirko <jiri=
-@resnulli.us>; Michal Schmidt <mschmidt@redhat.com>; Petr Oros <poros@redha=
-t.com>; Prathosh Satish - M66066 <Prathosh.Satish@microchip.com>; Simon Hor=
-man <horms@kernel.org>; Vadim Fedorenko <vadim.fedorenko@linux.dev>; linux-=
-kernel@vger.kernel.org; Conor Dooley <conor+dt@kernel.org>; Krzysztof Kozlo=
-wski <krzk+dt@kernel.org>; Rob Herring <robh@kernel.org>; devicetree@vger.k=
-ernel.org; Pasi Vaananen <pvaanane@redhat.com>
-Subject: [PATCH net-next 5/5] dpll: zl3073x: add ref-sync pair support
-
-EXTERNAL EMAIL: Do not click links or open attachments unless you know the =
-content is safe
-
-Add support for ref-sync pair registration using the 'ref-sync-sources'
-phandle property from device tree. A ref-sync pair consists of a clock refe=
-rence and a low-frequency sync signal where the DPLL locks to the clock ref=
-erence but phase-aligns to the sync reference.
-
-The implementation:
-- Stores fwnode handle in zl3073x_dpll_pin during pin registration
-- Adds ref_sync_get/set callbacks to read and write the sync control
-  mode and pair registers
-- Validates ref-sync frequency constraints: sync signal must be 8 kHz
-  or less, clock reference must be 1 kHz or more and higher than sync
-- Excludes sync source from automatic reference selection by setting
-  its priority to NONE on connect; on disconnect the priority is left
-  as NONE and the user must explicitly make the pin selectable again
-- Iterates ref-sync-sources phandles to register declared pairings
-  via dpll_pin_ref_sync_pair_add()
-
-Signed-off-by: Ivan Vecera <ivecera@redhat.com>
----
- drivers/dpll/zl3073x/dpll.c | 207 +++++++++++++++++++++++++++++++++++-
- 1 file changed, 206 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c inde=
-x 276f0a92db0b1..8010e2635f641 100644
---- a/drivers/dpll/zl3073x/dpll.c
-+++ b/drivers/dpll/zl3073x/dpll.c
-@@ -13,6 +13,7 @@
- #include <linux/module.h>
- #include <linux/netlink.h>
- #include <linux/platform_device.h>
-+#include <linux/property.h>
- #include <linux/slab.h>
- #include <linux/sprintf.h>
-
-@@ -30,6 +31,7 @@
-  * @dpll: DPLL the pin is registered to
-  * @dpll_pin: pointer to registered dpll_pin
-  * @tracker: tracking object for the acquired reference
-+ * @fwnode: firmware node handle
-  * @label: package label
-  * @dir: pin direction
-  * @id: pin id
-@@ -45,6 +47,7 @@ struct zl3073x_dpll_pin {
-        struct zl3073x_dpll     *dpll;
-        struct dpll_pin         *dpll_pin;
-        dpll_tracker            tracker;
-+       struct fwnode_handle    *fwnode;
-        char                    label[8];
-        enum dpll_pin_direction dir;
-        u8                      id;
-@@ -184,6 +187,109 @@ zl3073x_dpll_input_pin_esync_set(const struct dpll_pi=
-n *dpll_pin,
-        return zl3073x_ref_state_set(zldev, ref_id, &ref);  }
-
-+static int
-+zl3073x_dpll_input_pin_ref_sync_get(const struct dpll_pin *dpll_pin,
-+                                   void *pin_priv,
-+                                   const struct dpll_pin *ref_sync_pin,
-+                                   void *ref_sync_pin_priv,
-+                                   enum dpll_pin_state *state,
-+                                   struct netlink_ext_ack *extack) {
-+       struct zl3073x_dpll_pin *sync_pin =3D ref_sync_pin_priv;
-+       struct zl3073x_dpll_pin *pin =3D pin_priv;
-+       struct zl3073x_dpll *zldpll =3D pin->dpll;
-+       struct zl3073x_dev *zldev =3D zldpll->dev;
-+       const struct zl3073x_ref *ref;
-+       u8 ref_id, mode, pair;
-+
-+       ref_id =3D zl3073x_input_pin_ref_get(pin->id);
-+       ref =3D zl3073x_ref_state_get(zldev, ref_id);
-+       mode =3D zl3073x_ref_sync_mode_get(ref);
-+       pair =3D zl3073x_ref_sync_pair_get(ref);
-+
-+       if (mode =3D=3D ZL_REF_SYNC_CTRL_MODE_REFSYNC_PAIR &&
-+           pair =3D=3D zl3073x_input_pin_ref_get(sync_pin->id))
-+               *state =3D DPLL_PIN_STATE_CONNECTED;
-+       else
-+               *state =3D DPLL_PIN_STATE_DISCONNECTED;
-+
-+       return 0;
-+}
-+
-+static int
-+zl3073x_dpll_input_pin_ref_sync_set(const struct dpll_pin *dpll_pin,
-+                                   void *pin_priv,
-+                                   const struct dpll_pin *ref_sync_pin,
-+                                   void *ref_sync_pin_priv,
-+                                   const enum dpll_pin_state state,
-+                                   struct netlink_ext_ack *extack) {
-+       struct zl3073x_dpll_pin *sync_pin =3D ref_sync_pin_priv;
-+       struct zl3073x_dpll_pin *pin =3D pin_priv;
-+       struct zl3073x_dpll *zldpll =3D pin->dpll;
-+       struct zl3073x_dev *zldev =3D zldpll->dev;
-+       u8 mode, ref_id, sync_ref_id;
-+       struct zl3073x_chan chan;
-+       struct zl3073x_ref ref;
-+       int rc;
-+
-+       ref_id =3D zl3073x_input_pin_ref_get(pin->id);
-+       sync_ref_id =3D zl3073x_input_pin_ref_get(sync_pin->id);
-+       ref =3D *zl3073x_ref_state_get(zldev, ref_id);
-+
-+       if (state =3D=3D DPLL_PIN_STATE_CONNECTED) {
-+               const struct zl3073x_ref *sync_ref;
-+               u32 ref_freq, sync_freq;
-+
-+               sync_ref =3D zl3073x_ref_state_get(zldev, sync_ref_id);
-+               ref_freq =3D zl3073x_ref_freq_get(&ref);
-+               sync_freq =3D zl3073x_ref_freq_get(sync_ref);
-+
-+               /* Sync signal must be 8 kHz or less and clock reference
-+                * must be 1 kHz or more and higher than the sync signal.
-+                */
-+               if (sync_freq > 8000) {
-+                       NL_SET_ERR_MSG(extack,
-+                                      "sync frequency must be 8 kHz or les=
-s");
-+                       return -EINVAL;
-+               }
-+               if (ref_freq < 1000) {
-+                       NL_SET_ERR_MSG(extack,
-+                                      "clock frequency must be 1 kHz or mo=
-re");
-+                       return -EINVAL;
-+               }
-+               if (ref_freq <=3D sync_freq) {
-+                       NL_SET_ERR_MSG(extack,
-+                                      "clock frequency must be higher than=
- sync frequency");
-+                       return -EINVAL;
-+               }
-+
-+               zl3073x_ref_sync_pair_set(&ref, sync_ref_id);
-+               mode =3D ZL_REF_SYNC_CTRL_MODE_REFSYNC_PAIR;
-+       } else {
-+               mode =3D ZL_REF_SYNC_CTRL_MODE_REFSYNC_PAIR_OFF;
-+       }
-+
-+       zl3073x_ref_sync_mode_set(&ref, mode);
-+
-+       rc =3D zl3073x_ref_state_set(zldev, ref_id, &ref);
-+       if (rc)
-+               return rc;
-+
-+       /* Exclude sync source from automatic reference selection by settin=
-g
-+        * its priority to NONE. On disconnect the priority is left as NONE
-+        * and the user must explicitly make the pin selectable again.
-+        */
-+       if (state =3D=3D DPLL_PIN_STATE_CONNECTED) {
-+               chan =3D *zl3073x_chan_state_get(zldev, zldpll->id);
-+               zl3073x_chan_ref_prio_set(&chan, sync_ref_id,
-+                                         ZL_DPLL_REF_PRIO_NONE);
-+               return zl3073x_chan_state_set(zldev, zldpll->id, &chan);
-+       }
-+
-+       return 0;
-+}
-+
- static int
- zl3073x_dpll_input_pin_ffo_get(const struct dpll_pin *dpll_pin, void *pin_=
-priv,
-                               const struct dpll_device *dpll, void *dpll_p=
-riv, @@ -1100,6 +1206,8 @@ static const struct dpll_pin_ops zl3073x_dpll_in=
-put_pin_ops =3D {
-        .phase_adjust_set =3D zl3073x_dpll_input_pin_phase_adjust_set,
-        .prio_get =3D zl3073x_dpll_input_pin_prio_get,
-        .prio_set =3D zl3073x_dpll_input_pin_prio_set,
-+       .ref_sync_get =3D zl3073x_dpll_input_pin_ref_sync_get,
-+       .ref_sync_set =3D zl3073x_dpll_input_pin_ref_sync_set,
-        .state_on_dpll_get =3D zl3073x_dpll_input_pin_state_on_dpll_get,
-        .state_on_dpll_set =3D zl3073x_dpll_input_pin_state_on_dpll_set,
- };
-@@ -1190,8 +1298,11 @@ zl3073x_dpll_pin_register(struct zl3073x_dpll_pin *p=
-in, u32 index)
-        if (IS_ERR(props))
-                return PTR_ERR(props);
-
--       /* Save package label, esync capability and phase adjust granularit=
-y */
-+       /* Save package label, fwnode, esync capability and phase adjust
-+        * granularity.
-+        */
-        strscpy(pin->label, props->package_label);
-+       pin->fwnode =3D fwnode_handle_get(props->fwnode);
-        pin->esync_control =3D props->esync_control;
-        pin->phase_gran =3D props->dpll_props.phase_gran;
-
-@@ -1236,6 +1347,8 @@ zl3073x_dpll_pin_register(struct zl3073x_dpll_pin *pi=
-n, u32 index)
-        dpll_pin_put(pin->dpll_pin, &pin->tracker);
-        pin->dpll_pin =3D NULL;
- err_pin_get:
-+       fwnode_handle_put(pin->fwnode);
-+       pin->fwnode =3D NULL;
-        zl3073x_pin_props_put(props);
-
-        return rc;
-@@ -1265,6 +1378,9 @@ zl3073x_dpll_pin_unregister(struct zl3073x_dpll_pin *=
-pin)
-
-        dpll_pin_put(pin->dpll_pin, &pin->tracker);
-        pin->dpll_pin =3D NULL;
-+
-+       fwnode_handle_put(pin->fwnode);
-+       pin->fwnode =3D NULL;
- }
-
- /**
-@@ -1735,6 +1851,88 @@ zl3073x_dpll_free(struct zl3073x_dpll *zldpll)
-        kfree(zldpll);
- }
-
-+/**
-+ * zl3073x_dpll_ref_sync_pair_register - register ref_sync pairs for a=20
-+pin
-+ * @pin: pointer to zl3073x_dpll_pin structure
-+ *
-+ * Iterates 'ref-sync-sources' phandles in the pin's firmware node and
-+ * registers each declared pairing.
-+ *
-+ * Return: 0 on success, <0 on error
-+ */
-+static int
-+zl3073x_dpll_ref_sync_pair_register(struct zl3073x_dpll_pin *pin) {
-+       struct zl3073x_dev *zldev =3D pin->dpll->dev;
-+       struct fwnode_handle *fwnode;
-+       struct dpll_pin *sync_pin;
-+       dpll_tracker tracker;
-+       int n, rc;
-+
-+       for (n =3D 0; ; n++) {
-+               /* Get n'th ref-sync source */
-+               fwnode =3D fwnode_find_reference(pin->fwnode, "ref-sync-sou=
-rces",
-+                                              n);
-+               if (IS_ERR(fwnode)) {
-+                       rc =3D PTR_ERR(fwnode);
-+                       break;
-+               }
-+
-+               /* Find associated dpll pin */
-+               sync_pin =3D fwnode_dpll_pin_find(fwnode, &tracker);
-+               fwnode_handle_put(fwnode);
-+               if (!sync_pin) {
-+                       dev_warn(zldev->dev, "%s: ref-sync source %d not fo=
-und",
-+                                pin->label, n);
-+                       continue;
-+               }
-+
-+               /* Register new ref-sync pair */
-+               rc =3D dpll_pin_ref_sync_pair_add(pin->dpll_pin, sync_pin);
-+               dpll_pin_put(sync_pin, &tracker);
-+
-+               /* -EBUSY means pairing already exists from another DPLL's
-+                * registration.
-+                */
-+               if (rc && rc !=3D -EBUSY) {
-+                       dev_err(zldev->dev,
-+                               "%s: failed to add ref-sync source %d: %pe"=
-,
-+                               pin->label, n, ERR_PTR(rc));
-+                       break;
-+               }
-+       }
-+
-+       return rc !=3D -ENOENT ? rc : 0;
-+}
-+
-+/**
-+ * zl3073x_dpll_ref_sync_pairs_register - register ref_sync pairs for a=20
-+DPLL
-+ * @zldpll: pointer to zl3073x_dpll structure
-+ *
-+ * Iterates all registered input pins of the given DPLL and establishes
-+ * ref_sync pairings declared by 'ref-sync-sources' phandles in the
-+ * device tree.
-+ *
-+ * Return: 0 on success, <0 on error
-+ */
-+static int
-+zl3073x_dpll_ref_sync_pairs_register(struct zl3073x_dpll *zldpll) {
-+       struct zl3073x_dpll_pin *pin;
-+       int rc;
-+
-+       list_for_each_entry(pin, &zldpll->pins, list) {
-+               if (!zl3073x_dpll_is_input_pin(pin) || !pin->fwnode)
-+                       continue;
-+
-+               rc =3D zl3073x_dpll_ref_sync_pair_register(pin);
-+               if (rc)
-+                       return rc;
-+       }
-+
-+       return 0;
-+}
-+
- /**
-  * zl3073x_dpll_register - register DPLL device and all its pins
-  * @zldpll: pointer to zl3073x_dpll structure @@ -1758,6 +1956,13 @@ zl307=
-3x_dpll_register(struct zl3073x_dpll *zldpll)
-                return rc;
-        }
-
-+       rc =3D zl3073x_dpll_ref_sync_pairs_register(zldpll);
-+       if (rc) {
-+               zl3073x_dpll_pins_unregister(zldpll);
-+               zl3073x_dpll_device_unregister(zldpll);
-+               return rc;
-+       }
-+
-        return 0;
- }
-
---
-2.52.0
-
+SGkgR3VlbnRoZXIsDQoNCiAgIFRoYW5rcyBmb3IgdGhlIHJldmlldywgcGxlYXNlIHNlZSBteSBj
+b21tZW50cyBiZWxvdzoNCg0KLi4uDQoNCj4gDQo+IA0KPiANCj4gDQo+ID4gK3N0YXRpYyBpbnQg
+ZW1jMTgxMl9pbml0KHN0cnVjdCBlbWMxODEyX2RhdGEgKnByaXYpDQo+ID4gK3sNCj4gPiArwqDC
+oMKgwqAgaW50IHJldDsNCj4gPiArwqDCoMKgwqAgdTggdmFsOw0KPiA+ICsNCj4gPiArwqDCoMKg
+wqAgLyoNCj4gPiArwqDCoMKgwqDCoCAqIFNldCBkZWZhdWx0IHZhbHVlcyBpbiByZWdpc3RlcnMu
+IEFQREQsIFJFQ0QxMiBhbmQgUkVDRDM0DQo+ID4gYXJlIGFjdGl2ZQ0KPiA+ICvCoMKgwqDCoMKg
+ICogb24gMC4gU2V0IEFMRVJUIHBpbiB0byBiZSBpbiBjb21wYXJhdG9yIG1vZGUuDQo+ID4gK8Kg
+wqDCoMKgwqAgKiBTZXQgdGhlIGRldmljZSB0byBiZSBpbiBSdW4gKEFjdGl2ZSkgc3RhdGUgYW5k
+IGNvbnZlcnRpbmcNCj4gPiBvbiBhbGwNCj4gPiArwqDCoMKgwqDCoCAqIGNoYW5uZWxzLg0KPiA+
+ICvCoMKgwqDCoMKgICogRG9uJ3QgY2hhbmdlIGNvbnZlcnNpb24gcmF0ZS4gQWZ0ZXIgcmVzZXQs
+IGRlZmF1bHQgaXMgNA0KPiA+IGNvbnZlcnNpb25zL3NlY29uZHMuDQo+ID4gK8KgwqDCoMKgwqAg
+KiBUaGUgdGVtcGVyYXR1cmUgbWVhc3VyZW1lbnQgcmFuZ2UgaXMgLTY0wrBDIHRvICsxOTEuODc1
+wrBDLg0KPiA+ICvCoMKgwqDCoMKgICovDQo+ID4gK8KgwqDCoMKgIHZhbCA9IEZJRUxEX1BSRVAo
+RU1DMTgxMl9DRkdfTVNLQUwsIDEpIHwNCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqAgRklFTERf
+UFJFUChFTUMxODEyX0NGR19SUywgMCkgfA0KPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoCBGSUVM
+RF9QUkVQKEVNQzE4MTJfQ0ZHX0FUVEhNLCAxKSB8DQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
+IEZJRUxEX1BSRVAoRU1DMTgxMl9DRkdfUkVDRDEyLCAhcHJpdi0+cmVjZDEyX2VuKSB8DQo+ID4g
+K8KgwqDCoMKgwqDCoMKgwqDCoMKgIEZJRUxEX1BSRVAoRU1DMTgxMl9DRkdfUkVDRDM0LCAhcHJp
+di0+cmVjZDM0X2VuKSB8DQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgIEZJRUxEX1BSRVAoRU1D
+MTgxMl9DRkdfUkFOR0UsIDEpIHwNCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqAgRklFTERfUFJF
+UChFTUMxODEyX0NGR19EQV9FTkEsIDApIHwNCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqAgRklF
+TERfUFJFUChFTUMxODEyX0NGR19BUERELCAhcHJpdi0+YXBkZF9lbik7DQo+ID4gKw0KPiANCj4g
+SSBhc3N1bWUgaXQgaXMgb24gcHVycG9zZSB0aGF0IHRoZSBkZWZhdWx0cyBmb3IgRU1DMTgxMl9D
+RkdfUkVDRDEyDQo+IGFuZA0KPiBFTUMxODEyX0NGR19SRUNEMzQgZGV2aWF0ZSBmcm9tIHRoZSBj
+aGlwIGRlZmF1bHQgKGNoaXA6IGVuYWJsZWQ7DQo+IGRyaXZlcjoNCj4gZGlzYWJsZWQpLg0KPiAN
+Cg0KWWVzLCBFTUMxODEyX0NGR19BVFRITSB3YXMgc2V0IGluIG9yZGVyIGZvciB0aGUgYWxlcnRz
+IHRvIGJlIGNsZWFyDQphdXRvbWF0aWNhbHkgd2hlbiB0aGUgbGltaXRzIGdvZXMgYmFjayB0byBu
+b3JtYWwuDQoNClRoZSBFTUMxODEyX0NGR19SQU5HRSBpcyBzZXQgdG8gZXh0ZW5kZWQgcmFuZ2Ug
+aW4gb3JkZXIgdG8gYmUgYWJsZSB0bw0KbWVhc3VyZSBmcm9tIHRoZSAtNjQgdG8gMTkxLDg3NSBk
+ZWdyZWUgQ2Vsc2l1cy4NCg0KVGhlIEVNQzE4MTJfQ0ZHX01TS0FMIGNvdWxkIGJlIGxlZnQgYXQg
+dGhlICJyZXNldCIsIHNvIEkgd2lsbCBjaGFuZ2UgaXQNCnRvIDAuDQoNClRoZSBFTUMxODEyX0NG
+R19SRUNEMTIgYW5kIEVNQzE4MTJfQ0ZHX1JFQ0QzNCB3aWxsIGJlIHNldCBiYXNlZCBvbiB0aGUN
+CmRldmljZSB0cmVlIHNldHRpbmcgYW5kIGlzIHJlbGF0ZWQgdG8gdGhlIGhhcmR3YXJlIGFuZCBp
+ZiB0aGUgc3lzdGVtDQpkZXNpZ25lciB3YW50cyB0byBlbmFibGUgb3IgZGlzYWJsZSB0aGUgcmVz
+aXN0YW5jZSBlcnJvciBjb3JyZWN0aW9uLg0KDQoNCj4gPiArwqDCoMKgwqAgcmV0ID0gcmVnbWFw
+X3dyaXRlKHByaXYtPnJlZ21hcCwgRU1DMTgxMl9DRkdfQUREUiwgdmFsKTsNCj4gPiArwqDCoMKg
+wqAgaWYgKHJldCkNCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiByZXQ7DQo+
+ID4gKw0KPiA+ICvCoMKgwqDCoCByZXQgPSByZWdtYXBfd3JpdGUocHJpdi0+cmVnbWFwLCBFTUMx
+ODEyX1RIUk1fSFlTX0FERFIsDQo+ID4gMHgwQSk7DQo+ID4gK8KgwqDCoMKgIGlmIChyZXQpDQo+
+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcmV0Ow0KPiA+ICsNCj4gPiArwqDC
+oMKgwqAgcmV0ID0gcmVnbWFwX3dyaXRlKHByaXYtPnJlZ21hcCwgRU1DMTgxMl9DT05TRUNfQUxF
+UlRfQUREUiwNCj4gPiAweDcwKTsNCj4gPiArwqDCoMKgwqAgaWYgKHJldCkNCj4gPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiByZXQ7DQo+ID4gKw0KPiA+ICvCoMKgwqDCoCByZXQg
+PSByZWdtYXBfd3JpdGUocHJpdi0+cmVnbWFwLCBFTUMxODEyX0ZJTFRFUl9TRUxfQUREUiwgMCk7
+DQo+ID4gK8KgwqDCoMKgIGlmIChyZXQpDQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBy
+ZXR1cm4gcmV0Ow0KPiA+ICsNCj4gPiArwqDCoMKgwqAgcmV0ID0gcmVnbWFwX3dyaXRlKHByaXYt
+PnJlZ21hcCwgRU1DMTgxMl9IT1RURVNUX0NGR19BRERSLA0KPiA+IDApOw0KPiA+ICvCoMKgwqDC
+oCBpZiAocmV0KQ0KPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJldDsNCj4g
+PiArDQo+ID4gK8KgwqDCoMKgIC8qIEVuYWJsZXMgdGhlIGJldGEgY29tcGVuc2F0aW9uIGZhY3Rv
+ciBhdXRvLWRldGVjdGlvbg0KPiA+IGZ1bmN0aW9uIGZvciBiZXRhMSBhbmQgYmV0YTIgKi8NCj4g
+PiArwqDCoMKgwqAgcmV0ID0gcmVnbWFwX3dyaXRlKHByaXYtPnJlZ21hcCwNCj4gPiBFTUMxODEy
+X0VYVDFfQkVUQV9DT05GSUdfQUREUiwNCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBFTUMxODEyX0JFVEFfTE9DS19WQUwpOw0KPiA+ICvCoMKgwqDC
+oCBpZiAocmV0KQ0KPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJldDsNCj4g
+PiArDQo+ID4gK8KgwqDCoMKgIHJldCA9IHJlZ21hcF93cml0ZShwcml2LT5yZWdtYXAsDQo+ID4g
+RU1DMTgxMl9FWFQyX0JFVEFfQ09ORklHX0FERFIsDQo+IA0KPiBBSSByZXZpZXcgdGhpbmtzIHRo
+YXQgdGhpcyByZWdpc3RlciBvbmx5IGV4aXN0cyBvbiBFTUMxODEyLiBJIGRvbid0DQo+IGZpbmQg
+dGhhdCBkZXRhaWwgaW4gdGhlIGRhdGFzaGVldCwgYnV0IGl0IGlzIG9kZCB0aGF0IHRoZXJlIGFy
+ZSB0d28NCj4gcmVnaXN0ZXJzDQo+IHdpdGggc3VwcG9zZWRseSB0aGUgc2FtZSBmdW5jdGlvbmFs
+aXR5Lg0KPiANCj4gDQoNCkFsbCBkZXZpY2VzICJoYXZlIiB0aGUgRU1DMTgxMl9FWFQyX0JFVEFf
+Q09ORklHIHJlZ2lzdGVyIChJIG1lYW4gaWYgeW91DQphcmUgd3JpdGluZyBzb21ldGhpbmcgdG8g
+aXQsIHRoZXJlIHdpbGwgYmUgbm8gTkFLIG9uIHRoZSBpMmMgYnVzLCBidXQNCnRoZSB2YWx1ZSBy
+ZWFkIGJhY2sgd2lsbCBiZSAiMCIgZm9yIHRoZSBkZXZpY2VzIHRoYXQgaGFzIHRoZSByZWdpc3Rl
+cg0Kbm90IHdyaXRhYmxlKS4NCkVNQzE4MTIgaGF2aW5nIG9ubHkgb25lIGV4dGVybmFsIGNoYW5u
+ZWwsIHdpbGwgbm90IGhhdmUgdGhlDQpFTUMxODEyX0VYVDJfQkVUQV9DT05GSUcgd3JpdGFibGUu
+DQoNCg0KUmVnYXJkcywNCk1hcml1cw0KDQo=
