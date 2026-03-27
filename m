@@ -1,237 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.77.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1169D3C1979;
-	Fri, 27 Mar 2026 06:59:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B891F4611;
+	Fri, 27 Mar 2026 07:06:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.132.77.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774594763; cv=none; b=XyIYUUq+OamkZxjf0vwt6dgsJWuyOFObOmTfaUVUBswkUH9A8bWjwkZP435RCPrsA3+aekQOceaVc4ijmcqfXFvcSoh5kgMXonZq9lvoqgntPvFyUQd6zsHbHkMv0pf6/55lwgb2p7lVfcMWVfKmQL6o4VmBV/eGF3pHGetu/Ew=
+	t=1774595195; cv=none; b=Ar1vt94nciWmjSuM4NuujWoD5pAysTHznMixZE/Do8MMdDc4smXk1TTT54abPiSLJHzmGojvDbSq/+siaVlGVhsfO0yo3d1bYQINHkva9BWTkThCwE2YCbdIf5M6ypwWZ6zQAs0TcPPuBWdFxxnptSp6Sd6ziocpCoz/G1fOxqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774594763; c=relaxed/simple;
-	bh=+uYAGgoOPo8bLq2pJEoGgnHWXNq5+Y92SxzPmrm3lx0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cM5gJbzRDunK2OMEZ4LurgSLxzYf8o7Y5z+pSa6QtUzlqcWHydyGhWhYa3T1kXf2Vofa4wFdyadZItDTTVPM91rhYqXH+Qkuib+nxYovtl3n9oGCLkCRdQAYfKdsFOqlig09n/npV9Rg2hBXh8/2CgD0BgW/PTcLHXM++lKKLeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rUIMEOJR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774595195; c=relaxed/simple;
+	bh=acJnhk3DhlEkQc4Hdu9XGurQ2f/IqUWKVh1uoABR9WA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=hheAZxiareWUERUpedmCi3UjbwkiylxRckLF4PJyRdAjm8B3nIcohezEnehm+42Twq8WFMkXHplXXRatzFzNDlFVoQo65Ou8HFs90feI/sQMy9wG+AtKlnXjxvczVSeEuIdKtCBXdQEo2aFxZsweUsGSqqfJauUIPYjSaFK3Vyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=oJT4MR45; arc=none smtp.client-ip=114.132.77.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rUIMEOJR"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 71901C19423;
-	Fri, 27 Mar 2026 06:59:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774594762;
-	bh=+uYAGgoOPo8bLq2pJEoGgnHWXNq5+Y92SxzPmrm3lx0=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=rUIMEOJRSYCB7RucQGG4PaxxD/Gxp+WS5WI2qbdgQUR2Tezsv5UaPTu5Sccjew3BX
-	 /STHbYE7fN8R2g8rR/pcnMiqRXxf2EEhaqdzOyCCgBt2XP7lxC+8yh/N1f9oXGJr/5
-	 dscnBFVUJrH1CyUTBjLG0OqxI+Vgs/9eEgtVn0zoxpDmQ8MBd+9Q9FCB2GE4cyIPlt
-	 HERoddZgvkEx2+vGkrdfTxBaIFLj7XQ+k8K6tGE1mFvY1E/fGMwDNqDZwX7hLh7n+o
-	 qLemUUVgm38RIIn76yV/h9dcnjRaXAmDvvjzhhORqyMhSDW6LXLWIosxV7zJJ7/4Xy
-	 S+yHbeaC+gZvw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6098610BA435;
-	Fri, 27 Mar 2026 06:59:22 +0000 (UTC)
-From: Andy Chung via B4 Relay <devnull+Andy.Chung.amd.com@kernel.org>
-Date: Fri, 27 Mar 2026 14:59:16 +0800
-Subject: [PATCH] ARM: dts: aspeed: anacapa: Enable MCTP and FRU for NIC
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="oJT4MR45"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1774595091;
+	bh=C5sPPhxc2ESUsfKZcmePqfZSGtd39KSgY9EBT4h19Z4=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=oJT4MR45zGFsDiQoi7e3V7hweAfxTuleEh3YMiT8E1pJVzLnTy7gQkvT3j/L9hsBT
+	 8hOTgyJ3jYWn8Snir6f6LKegADFzc6U8jLNeX1bOOYZg5wbx4a2oQwhFloMOjjkgl8
+	 dQsJpnoncULL7vYfFXAsEaGIh18sbWqT0gY9dWAI=
+X-QQ-mid: zesmtpsz9t1774595088tae86de95
+X-QQ-Originating-IP: w/WyDemxcbjpJuaCt1YW/wsPI2c2ZYwcqhNJMRnh9EA=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 27 Mar 2026 15:04:46 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 1752965271814094096
+EX-QQ-RecipientCnt: 21
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260327-dts_enable_nic_mctp-v1-1-5b5c05f4442c@amd.com>
-X-B4-Tracking: v=1; b=H4sIAMMqxmkC/yXMQQrCMBBG4auUWRtoU5KAVxEJSfqrIxpLJopQe
- ndTu/wW7y0kKAyhY7dQwYeFX7lhOHSUbiFfoXhqJt1r24/aqamKRw7xAZ85+Weqs8JognHWxMF
- ZauVccOHv/3o675Z3vCPVbUXr+gP88bJ9dwAAAA==
-X-Change-ID: 20260327-dts_enable_nic_mctp-e35a5765b176
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- Andy Chung <andy.chung@amd.com>, Andy Chung <Andy.Chung@amd.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774594761; l=3825;
- i=Andy.Chung@amd.com; s=20260327; h=from:subject:message-id;
- bh=nPjZUWkxYiROesPBYSRnJtyY+ooYKRCOwqAAXx0E5II=;
- b=426Yu7gf6eNtDB2/x526jYc4Z1JqYnU4txLYevBKxAhEn8zHWmwRTqtXFJAuEiVW5EmT0Xyud
- qS5QpdP/rNHDPpoqYK3BCbkLuAfO8zBi5AI7c0GwHoMl+hQ/Ps7C6nE
-X-Developer-Key: i=Andy.Chung@amd.com; a=ed25519;
- pk=X2gaHRnhU2q5hvMjkC6xmIcC03vKNvHY9CQRdsj9ecM=
-X-Endpoint-Received: by B4 Relay for Andy.Chung@amd.com/20260327 with
- auth_id=696
-X-Original-From: Andy Chung <Andy.Chung@amd.com>
-Reply-To: Andy.Chung@amd.com
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 27 Mar 2026 15:04:46 +0800
+Message-Id: <DHDDGG4TDFOS.2DPHBA6U2JMVE@linux.spacemit.com>
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Paul Walmsley"
+ <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
+ <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Yixun Lan"
+ <dlan@kernel.org>, "Vinod Koul" <vkoul@kernel.org>, "Frank Li"
+ <Frank.Li@kernel.org>, "Guodong Xu" <guodong@riscstar.com>, "Michael
+ Turquette" <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <dmaengine@vger.kernel.org>, <linux-clk@vger.kernel.org>
+Subject: Re: [PATCH v2 2/7] dt-bindings: dmaengine: Add SpacemiT K3 DMA
+ compatible string
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Conor Dooley" <conor@kernel.org>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260326-k3-pdma-v2-0-ca94ca7bb595@linux.spacemit.com>
+ <20260326-k3-pdma-v2-2-ca94ca7bb595@linux.spacemit.com>
+ <20260326-explode-surplus-24c0e0813099@spud>
+In-Reply-To: <20260326-explode-surplus-24c0e0813099@spud>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: McJfg7Aee/FZuqgBLJa/xaD93ptxSj5gtrQRlr2BHMhaSuQ7Hmc7FSVm
+	nIbSM/Gn9ozMbLDAzyDH+vq5F/k9zjNFar+BG0Flj5Fv5Qb3kLBOQgep/HUvaEWm+0REQgk
+	utQdzLZlWXNyZv2nn0GyzOdluz6WiLSYfnDkvmLzrjDA1IDE7LTjtyNcunyenvlBbjYaBL7
+	mEa7uvvsPio6wr4K+A8wHylXqbN1xA5Omj74pPKdJ+wtE1q9+WC3rVp1Ss5BsRB8d2ghPly
+	NbCS9jz/nQTk4C2cOLP4oNcXZ+C7rrA3EYWGj3tICHboN6UMAl1rPf7fA6NKoqLBaPD6a6E
+	b8X62kTE4p8pepTCHO0caY5TYjyPWGFznU+M06CCNS9yzqWnErMdhJQ0Pdnr5gazRMTq+kj
+	bnz6JW7yTTJ0OBaE2grKZjRUb5XfmfCOPkzi6RQoXsJ34mtxevGQKnXfUufsCCM+TasNNYF
+	bmlQf+G7vCOo+Rt952DsFtLZt4xuH05ppyLSgnFQOjXzZoj3TKEj6EOfwrfnivwaDImWGpm
+	twhLEFYC552lvFErafayaB9W64nfLbRea2jgYNRNxNK5sckvJ7IXERvCT9xDZXp2JkrZ9Zb
+	jqB9h5NezcuFHQzSd92GpEx4yB/mqPX325JDsllEaoxHm9z8tEJ1YK3mSklNr67A943Uze0
+	/Q/lTzNybK/WbckQe+DCVkk7TxkHPwmGxNgNiMgH8lSBQnZ+tTJKbnK8L+G8dDgusUS6Fps
+	CIhnSCyOr1nlHKL/tWEwK2sBNzt6DfcW4XD37Cv9CTWqQgyThhGlnVSSivvBYDqR7pOlC9V
+	herj0wt6QAME/Q62DeFPxjHm17xsYWWc9J2Eo8WvZYcI0n2BCp+4lN9f7mebQTwbtq/QSrg
+	uzgfBsa5kTO7UaFg/BDsF3Ye+YSMuI7L7nG0z6YKHWVrcOUa2Ni5leJnuDmxQb7EAaY9Slv
+	t0l42y7QZtI8y6/adItDuv1OjHxF5HeXI15wNe7gmfFLcCNbxu45AngCu038T5mo/mFAQcL
+	DTr/SpmtZPiOILKrFUksajYQkjbJT0oAAB4HCDo8zzeQQm2O8g
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-From: Andy Chung <Andy.Chung@amd.com>
+Hi Conor,
 
-Add the mctp-controller property to enable frontend NIC management
-via PLDM over MCTP.
-Also add EEPROM device for NIC FRU.
+On Fri Mar 27, 2026 at 2:34 AM CST, Conor Dooley wrote:
+> On Thu, Mar 26, 2026 at 04:17:17PM +0800, Troy Mitchell wrote:
+>> From: Guodong Xu <guodong@riscstar.com>
+>>=20
+>> Add k3 compatible string.
+>
+> That's obvious. What you need to explain is why it is not compatible with
+> the existing k1.
+>
+Thanks for the review.
 
-Signed-off-by: Andy Chung <Andy.Chung@amd.com>
----
-Add the mctp-controller property to enable frontend NIC management
-via PLDM over MCTP.
-Also add EEPROM device for NIC FRU.
----
- .../dts/aspeed/aspeed-bmc-facebook-anacapa.dts     | 67 +++++++++++++++++++++-
- 1 file changed, 65 insertions(+), 2 deletions(-)
+The SpacemiT K3 PDMA requires a new compatible string because it is not ful=
+ly
+backward compatible with the K1 implementation due to two main hardware dif=
+ferences:
+- Variable extended DRCMR base: The DRCMR (DMA Request/Command Register) ba=
+se
+  address for extended DMA request numbers (>=3D 64) is different in the K3=
+ hardware
+  implementation.
+- Memory addressing capabilities: Unlike the K1 SoC, where some DMA masters=
+ had
+  memory addressing limitations (restricted to the 0-4GB space) and require=
+d a
+  dedicated dma-bus, the K3 DMA masters have full memory addressing capabil=
+ities.
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-index 221af858cb6b..138b081be049 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-@@ -584,38 +584,67 @@ eeprom@56 {
- // R Bridge Board
- &i2c10 {
- 	status = "okay";
-+	multi-master;
-+	mctp@10 {
-+		compatible = "mctp-i2c-controller";
-+		reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
-+	};
- 
- 	i2c-mux@71 {
- 		compatible = "nxp,pca9548";
- 		reg = <0x71>;
- 		#address-cells = <1>;
- 		#size-cells = <0>;
--		i2c-mux-idle-disconnect;
- 
- 		i2c10mux0ch0: i2c@0 {
- 			reg = <0>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+			mctp-controller;
- 		};
- 		i2c10mux0ch1: i2c@1 {
- 			reg = <1>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+			mctp-controller;
-+			// BE NIC FRU
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
-+			};
- 		};
- 		i2c10mux0ch2: i2c@2 {
- 			reg = <2>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+			mctp-controller;
-+			// BE NIC FRU
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
-+			};
- 		};
- 		i2c10mux0ch3: i2c@3 {
- 			reg = <3>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+			mctp-controller;
-+			// BE NIC FRU
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
-+			};
- 		};
- 		i2c10mux0ch4: i2c@4 {
- 			reg = <4>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+			mctp-controller;
-+			// BE NIC FRU
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
-+			};
- 		};
- 		i2c10mux0ch5: i2c@5 {
- 			reg = <5>;
-@@ -661,38 +690,72 @@ i2c10mux0ch7: i2c@7 {
- // L Bridge Board
- &i2c11 {
- 	status = "okay";
-+	multi-master;
-+	mctp@10 {
-+		compatible = "mctp-i2c-controller";
-+		reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
-+	};
- 
- 	i2c-mux@71 {
- 		compatible = "nxp,pca9548";
- 		reg = <0x71>;
- 		#address-cells = <1>;
- 		#size-cells = <0>;
--		i2c-mux-idle-disconnect;
- 
- 		i2c11mux0ch0: i2c@0 {
- 			reg = <0>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+			mctp-controller;
-+			// FE NIC FRU
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
-+			};
- 		};
- 		i2c11mux0ch1: i2c@1 {
- 			reg = <1>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+			mctp-controller;
-+			// BE NIC FRU
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
-+			};
- 		};
- 		i2c11mux0ch2: i2c@2 {
- 			reg = <2>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+			mctp-controller;
-+			// BE NIC FRU
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
-+			};
- 		};
- 		i2c11mux0ch3: i2c@3 {
- 			reg = <3>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+			mctp-controller;
-+			// BE NIC FRU
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
-+			};
- 		};
- 		i2c11mux0ch4: i2c@4 {
- 			reg = <4>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+			mctp-controller;
-+			// BE NIC FRU
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
-+			};
- 		};
- 		i2c11mux0ch5: i2c@5 {
- 			reg = <5>;
+I will update the commit message in the v3 series.
 
----
-base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
-change-id: 20260327-dts_enable_nic_mctp-e35a5765b176
-
-Best regards,
---  
-Andy Chung <Andy.Chung@amd.com>
-
-
+                                              -Troy
