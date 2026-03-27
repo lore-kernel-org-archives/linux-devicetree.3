@@ -1,125 +1,230 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB399378D79
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 11:39:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D01534A3B1;
+	Fri, 27 Mar 2026 11:40:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774611553; cv=none; b=R4GM+wAF4OpxKRaScEBjDvPXG0ipS68xC6woJAPqTu59jz5v6UZYPaEhORd3RzxWNUeyHL62XgE16MAXpK4nP+iEWn/VCADfY/g5H/5JMWC8LZQ2rbA6mq91puGS5h60yiyjK1YuD0NmFFLw6wFJgvn8buGxOP2Tp9KVgOssNqo=
+	t=1774611653; cv=none; b=qwtaXgeJmB2rR/E1XsjnnBZZvWMEMA4XDRE2o8IEycviRkRVfHt9OYaCfAOhGDb3RMhriI4vilh6h21OaZMbRFrssFfPnH08uqPflGsUeShdLVtSbloL0Z2gp4PRLx/cUPt8A4OOvTiVsKU5HHh2rsV25iUqZUZeF+pLP0lajR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774611553; c=relaxed/simple;
-	bh=UxVql3iCinYZAEcrJtRq8tsCHQHw2MKzaZSxc+FzXBY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nU6G694G2rbNO8LkbPEt+su0jYrKmaXphGOZnM0QfFIdbylCc3LAqu91vB5rDWriDE8Z1gsSskQMtMZNpN/whGgJFQdFfWhLcr8vrWVDJRNOS4NqWjLEH+WrhvN3fAPmFC4OW84Fl2Vj8Hou2H8Ej38gL28s9ZyA68ufgFjUXEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aBB5QBSP; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774611653; c=relaxed/simple;
+	bh=oCaLqBZDaC93Q1Vr3h7PyfXZkIMecNbwtU337s35gvs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=U3XKzZ6L+LyT9lN/AXbkRH1hjbwtWzG0+YA3WPPcgxJipHXdsxHKGpr74YqrCiBZTC4mpHBVcANjtYsHVo+XeBg0B2k/CljVElrvRa6ChaBTkwKgUHqoq1O5xWUfKu/eQD1OPHXgBvgFe6JcKCr0kyoTTfTWGGn7diR/+dIxjuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D7T6XwZ3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aBB5QBSP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2A43C2BCB5
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 11:39:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D7T6XwZ3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B869C19423;
+	Fri, 27 Mar 2026 11:40:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774611552;
-	bh=UxVql3iCinYZAEcrJtRq8tsCHQHw2MKzaZSxc+FzXBY=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
-	b=aBB5QBSPdZ8H06YVMHSfO2RDMnS704X33I/f6sHYSordXKiAogB5hyrBbhJ7pI7C3
-	 XjvE+jIdsIjAqSDr22e8xQasM58LZa8avm2kYjOQkNSGhmGtRisckM4OxGow1QICIc
-	 AWw4lLWhT6XF4bh08nO/5ubD12xKXlJxHKBJCrBWCsARyrc4TZ8GDMoQafDhXqo2b9
-	 RsaVcB7nlBmJDuCxJLF++U2gEeMTBf9udkoulwe3y/LoB5vnCj6UCm5sxufzGoOZUr
-	 apKxwYqY0Edmsx3CuADADE+DmR155OTwlFMIwIXDH5x0MxkHtG5K7cN939VIvpSRLn
-	 oFBv5OZ/YKW/g==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-38ad26e3992so15642051fa.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 04:39:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCW08YPnYI6FzSt7BeXUVYTxPH2+ZHS/OgcSCKA4ahLeXnNyv2vWZUSIcRgm0zyPeC7OH4+y4dW7u51F@vger.kernel.org
-X-Gm-Message-State: AOJu0YwoqEZGdjcQG/0dJLNx5tRRsPMLfBAnj6svlnV0oM2KZ8srn9P2
-	PktACAMmVH/Gdy33XkECcMjQmW6/dQ8Eq5Q4BikqtoPqRkW4fqYvH59zMUcX/h+y1JV+veOpJP+
-	HNCcCi3waY3dQY4qjxq54EtOvul6fSXI=
-X-Received: by 2002:a2e:a548:0:b0:38a:43eb:239e with SMTP id
- 38308e7fff4ca-38c73192b65mr8118231fa.13.1774611551145; Fri, 27 Mar 2026
- 04:39:11 -0700 (PDT)
+	s=k20201202; t=1774611653;
+	bh=oCaLqBZDaC93Q1Vr3h7PyfXZkIMecNbwtU337s35gvs=;
+	h=From:Date:Subject:To:Cc:From;
+	b=D7T6XwZ34zs9yQdyTVx0dkD2D8LWcYmheLcu1eaFFcd8P2ABrraru9d+cdKbdsbvm
+	 pLJb3qbhlp5bB7gCVONxyDSV9SCeCx/MPpTTwemBTT4U/B8odquVD5PjjrcLY2UnSG
+	 +SW+PZZ8jZDzwGIp0Wuni6I7s6VEIBmIGx5c5uTQEpnFAZYuQxaBp1+Xb5PrNr0SPY
+	 AnwPdV7XUEBqFchognL/QUpPF5AyRfGGrwxopAGtJnLSNXlX2JkUQCozpMCUdHCQ/X
+	 XnKt0/vfmODQlmArigfT08Vx46MLy+2P1HPyo84mg18ivEtb7meyU6ZCs68gNVU2jJ
+	 Lyp1PuGOj5gxA==
+From: Yixun Lan <dlan@kernel.org>
+Date: Fri, 27 Mar 2026 11:40:40 +0000
+Subject: [PATCH v2] dts: riscv: spacemit: k3: Add i2c nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260327113006.3135663-1-andre.przywara@arm.com> <20260327113006.3135663-2-andre.przywara@arm.com>
-In-Reply-To: <20260327113006.3135663-2-andre.przywara@arm.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Fri, 27 Mar 2026 19:38:57 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64A0rgiMkTCdvq-pVfzCTqWKqc=nx69B9tD7A8_E7vHUg@mail.gmail.com>
-X-Gm-Features: AQROBzAQci5lIKbXtZJOPlGcamgsXHcH9oivEuLtfHtbKKkk-390QUJb7sIoYaA
-Message-ID: <CAGb2v64A0rgiMkTCdvq-pVfzCTqWKqc=nx69B9tD7A8_E7vHUg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] pinctrl: sunxi: a523: Remove unneeded IRQ remuxing flag
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260327-02-k3-i2c-v2-1-2119c0918868@kernel.org>
+X-B4-Tracking: v=1; b=H4sIALdsxmkC/02NQQ6CMBBFr0JmbQ1M0wquvIdh0ZQBJhjQKRIN6
+ d2taKLL9/Lz/gqBhCnAMVtBaOHA05gAdxn43o0dKW4SA+Zoc10UKkc1aMXolXWNQWOtq5yGtL8
+ KtfzYWuf6w0K3e0rOP9lzmCd5bn9L8bbfNJq/9JJ+1KFssfKlbirnTwPJSJf9JB3UMcYXe8s6v
+ 7gAAAA=
+X-Change-ID: 20260311-02-k3-i2c-6ad52566a9a3
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: spacemit@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5216; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=oCaLqBZDaC93Q1Vr3h7PyfXZkIMecNbwtU337s35gvs=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBpxmy+UQIbB5rlbm6ksKYnrYxigUqoUiFclyNcr
+ 09u2qtkUwWJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCacZsvhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+0/thAAipoIdeviWuzI0rLj3aeIfJU13YQxnpu4NkAHDCwdJ2fPLLQAxWove
+ xB9agc9Y4XFakaB+mSR/FWzdkf4rZScD675LOkbn7zZmLmWyNEVhJJo12O4yZvWwH9pGBlpVum3
+ H/jKHemwUnG5kd0ujb9b09sxr3+Nn1u9KrznmaMe9kvepHVAWGX++/MlcTrwpwTXLvbn0diD9fu
+ Q4m1Gkk5o51PrgVgc7MYo8i6ZE5rYB0Ene6+8YS9LO9Bd5uuXEypHZz+UB42B/QJ/q4DYM9sXi2
+ 46MnnPzpzyYHAlYvpWyAoXOzI/WTVRLzwpIbTt5zyrRnvBJlhvrXBG76kcp6L/fqL8V2NRt/h37
+ M99S8r9lIrE47Y61ReI8EAwLgzRlUg3We522UQBWIrqWkiRBjBKbwfwCMoQ9fLW+Anl37VrFSEJ
+ iK7TMslgU3Vtcup4rgNgYLIAg+KbI6ujK0wVqXdKo+j6rZ5AG5sRUIlWQQcrQUDrOTJC/bcJhoC
+ x3HU4uQquVpHLrALeWoEn1QXADexzrfdmGh7/r8jRzjnQ/XzlqUnJtri3DVreqIcKTAfPvRZOrI
+ CKSfQ6zhfuvon5wL3NigcsKK5+3jWdHJE+Q9+7xhlS84JRK51RVgVzqVNtHhYlweipJAukYZEl5
+ 8FlRf+1c+SXv1tvnxOOIoKIS93wcTg=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-On Fri, Mar 27, 2026 at 7:30=E2=80=AFPM Andre Przywara <andre.przywara@arm.=
-com> wrote:
->
-> The Allwinner A10 and H3 SoCs cannot read the state of a GPIO line when
-> that line is muxed for IRQ triggering (muxval 6), but only if it's
-> explicitly muxed for GPIO input (muxval 0). Other SoCs do not show this
-> behaviour, so we added a optional workaround, triggered by a quirk bit,
-> which triggers remuxing the pin when it's configured for IRQ, while we
-> need to read its value.
->
-> For some reasons this quirk flag was copied over to newer SoCs, even
-> though they don't show this behaviour, and the GPIO data register
-> reflects the true GPIO state even with a pin muxed to IRQ trigger.
->
-> Remove the unneeded quirk from the A523 family, where it's definitely
-> not needed (confirmed by experiments), and where it actually breaks,
-> because the workaround is not compatible with the newer generation
-> pinctrl IP used in that chip.
->
-> Together with a DT change this fixes GPIO IRQ operation on the A523
-> family of SoCs, as for instance used for the SD card detection.
->
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> Fixes: b8a51e95b376 ("pinctrl: sunxi: Add support for the secondary A523 =
-GPIO ports")
+Populate all I2C devicetree nodes for SpacemiT K3 SoC. The controller of
+i2c3 is reserved for secure domain, and not available from Linux. The
+controller of i2c7 simply doesn't exist from hardware perspective, as
+vendor directly name the i2c controller used for PMIC as i2c8.
 
-Acked-by: Chen-Yu Tsai <wens@kernel.org>
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+This series try to introduce a compatible string for the I2C
+controller found in K3 SoC, and add all devicetree nodes .
+---
+Changes in v2:
+- drop compatible binding patch which merged into i2c subsystem
+- add comments about why no i2c3 and i2c7
+- Link to v1: https://lore.kernel.org/r/20260325-02-k3-i2c-v1-0-78f29c83d9ac@kernel.org
+---
+ arch/riscv/boot/dts/spacemit/k3.dtsi | 100 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 100 insertions(+)
 
-> ---
->  drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c | 1 -
->  drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c   | 1 -
->  2 files changed, 2 deletions(-)
->
-> diff --git a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c b/drivers/pinc=
-trl/sunxi/pinctrl-sun55i-a523-r.c
-> index 69cd2b4ebd7d..462aa1c4a5fa 100644
-> --- a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c
-> +++ b/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c
-> @@ -26,7 +26,6 @@ static const u8 a523_r_irq_bank_muxes[SUNXI_PINCTRL_MAX=
-_BANKS] =3D
->  static struct sunxi_pinctrl_desc a523_r_pinctrl_data =3D {
->         .irq_banks =3D ARRAY_SIZE(a523_r_irq_bank_map),
->         .irq_bank_map =3D a523_r_irq_bank_map,
-> -       .irq_read_needs_mux =3D true,
->         .io_bias_cfg_variant =3D BIAS_VOLTAGE_PIO_POW_MODE_SEL,
->         .pin_base =3D PL_BASE,
->  };
-> diff --git a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c b/drivers/pinctr=
-l/sunxi/pinctrl-sun55i-a523.c
-> index 7d2308c37d29..b6f78f1f30ac 100644
-> --- a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c
-> +++ b/drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c
-> @@ -26,7 +26,6 @@ static const u8 a523_irq_bank_muxes[SUNXI_PINCTRL_MAX_B=
-ANKS] =3D
->  static struct sunxi_pinctrl_desc a523_pinctrl_data =3D {
->         .irq_banks =3D ARRAY_SIZE(a523_irq_bank_map),
->         .irq_bank_map =3D a523_irq_bank_map,
-> -       .irq_read_needs_mux =3D true,
->         .io_bias_cfg_variant =3D BIAS_VOLTAGE_PIO_POW_MODE_SEL,
->  };
->
-> --
-> 2.43.0
->
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index a3a8ceddabec..38e6e212fbf2 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -438,6 +438,76 @@ soc: soc {
+ 		dma-noncoherent;
+ 		ranges;
+ 
++		i2c0: i2c@d4010800 {
++			compatible = "spacemit,k3-i2c", "spacemit,k1-i2c";
++			reg = <0x0 0xd4010800 0x0 0x38>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			interrupts = <36 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&syscon_apbc CLK_APBC_TWSI0>,
++				 <&syscon_apbc CLK_APBC_TWSI0_BUS>;
++			clock-names = "func", "bus";
++			clock-frequency = <400000>;
++			resets = <&syscon_apbc RESET_APBC_TWSI0>;
++			status = "disabled";
++		};
++
++		i2c1: i2c@d4011000 {
++			compatible = "spacemit,k3-i2c", "spacemit,k1-i2c";
++			reg = <0x0 0xd4011000 0x0 0x38>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			interrupts = <37 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&syscon_apbc CLK_APBC_TWSI1>,
++				 <&syscon_apbc CLK_APBC_TWSI1_BUS>;
++			clock-names = "func", "bus";
++			clock-frequency = <400000>;
++			resets = <&syscon_apbc RESET_APBC_TWSI1>;
++			status = "disabled";
++		};
++
++		i2c2: i2c@d4012000 {
++			compatible = "spacemit,k3-i2c", "spacemit,k1-i2c";
++			reg = <0x0 0xd4012000 0x0 0x38>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			interrupts = <38 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&syscon_apbc CLK_APBC_TWSI2>,
++				 <&syscon_apbc CLK_APBC_TWSI2_BUS>;
++			clock-names = "func", "bus";
++			clock-frequency = <400000>;
++			resets = <&syscon_apbc RESET_APBC_TWSI2>;
++			status = "disabled";
++		};
++
++		i2c4: i2c@d4012800 {
++			compatible = "spacemit,k3-i2c", "spacemit,k1-i2c";
++			reg = <0x0 0xd4012800 0x0 0x38>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			interrupts = <40 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&syscon_apbc CLK_APBC_TWSI4>,
++				 <&syscon_apbc CLK_APBC_TWSI4_BUS>;
++			clock-names = "func", "bus";
++			clock-frequency = <400000>;
++			resets = <&syscon_apbc RESET_APBC_TWSI4>;
++			status = "disabled";
++		};
++
++		i2c5: i2c@d4013800 {
++			compatible = "spacemit,k3-i2c", "spacemit,k1-i2c";
++			reg = <0x0 0xd4013800 0x0 0x38>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			interrupts = <41 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&syscon_apbc CLK_APBC_TWSI5>,
++				 <&syscon_apbc CLK_APBC_TWSI5_BUS>;
++			clock-names = "func", "bus";
++			clock-frequency = <400000>;
++			resets = <&syscon_apbc RESET_APBC_TWSI5>;
++			status = "disabled";
++		};
++
+ 		syscon_apbc: system-controller@d4015000 {
+ 			compatible = "spacemit,k3-syscon-apbc";
+ 			reg = <0x0 0xd4015000 0x0 0x1000>;
+@@ -564,6 +634,20 @@ uart9: serial@d4017800 {
+ 			status = "disabled";
+ 		};
+ 
++		i2c6: i2c@d4018800 {
++			compatible = "spacemit,k3-i2c", "spacemit,k1-i2c";
++			reg = <0x0 0xd4018800 0x0 0x38>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			interrupts = <70 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&syscon_apbc CLK_APBC_TWSI6>,
++				 <&syscon_apbc CLK_APBC_TWSI6_BUS>;
++			clock-names = "func", "bus";
++			clock-frequency = <400000>;
++			resets = <&syscon_apbc RESET_APBC_TWSI6>;
++			status = "disabled";
++		};
++
+ 		gpio: gpio@d4019000 {
+ 			compatible = "spacemit,k3-gpio";
+ 			reg = <0x0 0xd4019000 0x0 0x100>;
+@@ -582,6 +666,20 @@ gpio: gpio@d4019000 {
+ 				      <&pinctrl 3 0 96 32>;
+ 		};
+ 
++		i2c8: i2c@d401d800 {
++			compatible = "spacemit,k3-i2c", "spacemit,k1-i2c";
++			reg = <0x0 0xd401d800 0x0 0x38>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			interrupts = <19 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&syscon_apbc CLK_APBC_TWSI8>,
++				 <&syscon_apbc CLK_APBC_TWSI8_BUS>;
++			clock-names = "func", "bus";
++			clock-frequency = <400000>;
++			resets = <&syscon_apbc RESET_APBC_TWSI8>;
++			status = "disabled";
++		};
++
+ 		pinctrl: pinctrl@d401e000 {
+ 			compatible = "spacemit,k3-pinctrl";
+ 			reg = <0x0 0xd401e000 0x0 0x1000>;
+@@ -677,6 +775,8 @@ clint: timer@e081c000 {
+ 					      <&cpu7_intc 3>, <&cpu7_intc 7>;
+ 		};
+ 
++		/* sec_i2c3: 0xf0614000, not available from Linux */
++
+ 		mimsic: interrupt-controller@f1000000 {
+ 			compatible = "spacemit,k3-imsics", "riscv,imsics";
+ 			reg = <0x0 0xf1000000 0x0 0x10000>;
+
+---
+base-commit: d72db7cc40947f208e77fbc6049f2da6ea6822f4
+change-id: 20260311-02-k3-i2c-6ad52566a9a3
+
+Best regards,
+-- 
+Yixun Lan <dlan@kernel.org>
+
