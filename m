@@ -1,136 +1,237 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E353BED29;
-	Fri, 27 Mar 2026 06:54:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1169D3C1979;
+	Fri, 27 Mar 2026 06:59:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774594459; cv=none; b=O5zgguAaFS+av93ovtg3iT2dUe/Yb0YgxTLROvPY/lk13M+w7WiTKNLQIsDKj7EGgHhvpp35ioz8yhfPvtl6l6ubnL9dndSdq+6FI1yBMQWrrZ/3asFZLXUl9/oD0dCZ/t454lee/Rq/dylDIBjgvlLgKPn/DYzMFIlmq85z7WQ=
+	t=1774594763; cv=none; b=XyIYUUq+OamkZxjf0vwt6dgsJWuyOFObOmTfaUVUBswkUH9A8bWjwkZP435RCPrsA3+aekQOceaVc4ijmcqfXFvcSoh5kgMXonZq9lvoqgntPvFyUQd6zsHbHkMv0pf6/55lwgb2p7lVfcMWVfKmQL6o4VmBV/eGF3pHGetu/Ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774594459; c=relaxed/simple;
-	bh=Zp9P6mlORyi+nKnVzRR7b34e5jTeRXbkP0MvWEwOQ+s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fqduZa7uFYXNvSuHUW+X1hFAfrL47803Ib9qetT8HZgm3kQZJbRzoMLUrngGwMwInjhuVoxUrPaFdX6DXHqUFrGOvmCZvXjwk28xleBuD6OiFZhGELunHk9e355jQ6tou2lxSwyYDcqSZMNyGZbxgr1IDXrEpMXTp47EEcrTC3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KJUngruT; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774594763; c=relaxed/simple;
+	bh=+uYAGgoOPo8bLq2pJEoGgnHWXNq5+Y92SxzPmrm3lx0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cM5gJbzRDunK2OMEZ4LurgSLxzYf8o7Y5z+pSa6QtUzlqcWHydyGhWhYa3T1kXf2Vofa4wFdyadZItDTTVPM91rhYqXH+Qkuib+nxYovtl3n9oGCLkCRdQAYfKdsFOqlig09n/npV9Rg2hBXh8/2CgD0BgW/PTcLHXM++lKKLeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rUIMEOJR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KJUngruT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1806BC19423;
-	Fri, 27 Mar 2026 06:54:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rUIMEOJR"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 71901C19423;
+	Fri, 27 Mar 2026 06:59:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774594459;
-	bh=Zp9P6mlORyi+nKnVzRR7b34e5jTeRXbkP0MvWEwOQ+s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=KJUngruTDm1ewUTEM3LMoL8kCUprlAbkWL1YHd+CDMxXrDIOZ4KrWMbtmsJhGTIQ7
-	 tC0nFrKQ3IVD4HuHIrtKYLEXKLBKeOJAGSpzNSsbEUp63ICfBC6ZRuErmQ7TeWoRit
-	 2ns8g+3RdDsh1VisurNqpmFHiHJZiP3PKwyVSKxGl21k+kUAF38KLWxKaJASrNtyNE
-	 JP4e9dOrlKNOgi8zJvNHYrd6ZtyfxWRRKFhroDqyLPugnLQhGj1oH3YDhR5hOvkvUY
-	 u+bkOfwgRChdhCWofsdZbMoXbKtmUZgF7sCTJijweBb4IRCRVsejBQphY+daRgQIg0
-	 MtICmo53ixMzA==
-Message-ID: <1f4dc04f-1fd2-4896-9491-53b96de88854@kernel.org>
-Date: Fri, 27 Mar 2026 07:54:14 +0100
+	s=k20201202; t=1774594762;
+	bh=+uYAGgoOPo8bLq2pJEoGgnHWXNq5+Y92SxzPmrm3lx0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=rUIMEOJRSYCB7RucQGG4PaxxD/Gxp+WS5WI2qbdgQUR2Tezsv5UaPTu5Sccjew3BX
+	 /STHbYE7fN8R2g8rR/pcnMiqRXxf2EEhaqdzOyCCgBt2XP7lxC+8yh/N1f9oXGJr/5
+	 dscnBFVUJrH1CyUTBjLG0OqxI+Vgs/9eEgtVn0zoxpDmQ8MBd+9Q9FCB2GE4cyIPlt
+	 HERoddZgvkEx2+vGkrdfTxBaIFLj7XQ+k8K6tGE1mFvY1E/fGMwDNqDZwX7hLh7n+o
+	 qLemUUVgm38RIIn76yV/h9dcnjRaXAmDvvjzhhORqyMhSDW6LXLWIosxV7zJJ7/4Xy
+	 S+yHbeaC+gZvw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6098610BA435;
+	Fri, 27 Mar 2026 06:59:22 +0000 (UTC)
+From: Andy Chung via B4 Relay <devnull+Andy.Chung.amd.com@kernel.org>
+Date: Fri, 27 Mar 2026 14:59:16 +0800
+Subject: [PATCH] ARM: dts: aspeed: anacapa: Enable MCTP and FRU for NIC
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] MAINTAINERS: Add Axiado reviewer and Maintainers
-To: Karthikeyan Mitran <kmitran@axiado.com>, Arnd Bergmann <arnd@arndb.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Prasad Bolisetty
- <pbolisetty@axiado.com>, Tzu-Hao Wei <twei@axiado.com>,
- Axiado Reviewers <linux-maintainer@axiado.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Drew Fustini <fustini@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Harshit Shah <hshah@axiado.com>
-References: <20260326-maintainers-addition-and-axiado-ax3000_dtsi-update-v5-1-648dfe9bff29@axiado.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260326-maintainers-addition-and-axiado-ax3000_dtsi-update-v5-1-648dfe9bff29@axiado.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260327-dts_enable_nic_mctp-v1-1-5b5c05f4442c@amd.com>
+X-B4-Tracking: v=1; b=H4sIAMMqxmkC/yXMQQrCMBBG4auUWRtoU5KAVxEJSfqrIxpLJopQe
+ ndTu/wW7y0kKAyhY7dQwYeFX7lhOHSUbiFfoXhqJt1r24/aqamKRw7xAZ85+Weqs8JognHWxMF
+ ZauVccOHv/3o675Z3vCPVbUXr+gP88bJ9dwAAAA==
+X-Change-ID: 20260327-dts_enable_nic_mctp-e35a5765b176
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ Andy Chung <andy.chung@amd.com>, Andy Chung <Andy.Chung@amd.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774594761; l=3825;
+ i=Andy.Chung@amd.com; s=20260327; h=from:subject:message-id;
+ bh=nPjZUWkxYiROesPBYSRnJtyY+ooYKRCOwqAAXx0E5II=;
+ b=426Yu7gf6eNtDB2/x526jYc4Z1JqYnU4txLYevBKxAhEn8zHWmwRTqtXFJAuEiVW5EmT0Xyud
+ qS5QpdP/rNHDPpoqYK3BCbkLuAfO8zBi5AI7c0GwHoMl+hQ/Ps7C6nE
+X-Developer-Key: i=Andy.Chung@amd.com; a=ed25519;
+ pk=X2gaHRnhU2q5hvMjkC6xmIcC03vKNvHY9CQRdsj9ecM=
+X-Endpoint-Received: by B4 Relay for Andy.Chung@amd.com/20260327 with
+ auth_id=696
+X-Original-From: Andy Chung <Andy.Chung@amd.com>
+Reply-To: Andy.Chung@amd.com
 
-On 26/03/2026 21:50, Karthikeyan Mitran wrote:
-> From: Prasad Bolisetty <pbolisetty@axiado.com>
-> 
-> Adding 3 new maintainers Prasad,Tzu-Hao, and Karthikeyan
-> and adding a group reviewer entry for review coverage,
-> Removed previous maintainer as the previous maintainer moved from project
+From: Andy Chung <Andy.Chung@amd.com>
 
-...
+Add the mctp-controller property to enable frontend NIC management
+via PLDM over MCTP.
+Also add EEPROM device for NIC FRU.
 
-> ---
->  MAINTAINERS | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 55af015174a5..49f47e8c2ec3 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -2605,7 +2605,10 @@ F:	arch/arm/mach-aspeed/
->  N:	aspeed
->  
->  ARM/AXIADO ARCHITECTURE
-> -M:	Harshit Shah <hshah@axiado.com>
-> +M:	Prasad Bolisetty <pbolisetty@axiado.com>
-> +M:	Tzu-Hao Wei <twei@axiado.com>
-> +M:	Karthikeyan Mitran <kmitran@axiado.com>
-> +R:	Axiado Reviewers <linux-maintainer@axiado.com>
+Signed-off-by: Andy Chung <Andy.Chung@amd.com>
+---
+Add the mctp-controller property to enable frontend NIC management
+via PLDM over MCTP.
+Also add EEPROM device for NIC FRU.
+---
+ .../dts/aspeed/aspeed-bmc-facebook-anacapa.dts     | 67 +++++++++++++++++++++-
+ 1 file changed, 65 insertions(+), 2 deletions(-)
 
-How many entries do you need? You already have three, so who is in
-Axiado reviewers? And what is "review coverage" you mentioned in the
-commit msg.
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+index 221af858cb6b..138b081be049 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+@@ -584,38 +584,67 @@ eeprom@56 {
+ // R Bridge Board
+ &i2c10 {
+ 	status = "okay";
++	multi-master;
++	mctp@10 {
++		compatible = "mctp-i2c-controller";
++		reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
++	};
+ 
+ 	i2c-mux@71 {
+ 		compatible = "nxp,pca9548";
+ 		reg = <0x71>;
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+-		i2c-mux-idle-disconnect;
+ 
+ 		i2c10mux0ch0: i2c@0 {
+ 			reg = <0>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++			mctp-controller;
+ 		};
+ 		i2c10mux0ch1: i2c@1 {
+ 			reg = <1>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++			mctp-controller;
++			// BE NIC FRU
++			eeprom@50 {
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
+ 		};
+ 		i2c10mux0ch2: i2c@2 {
+ 			reg = <2>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++			mctp-controller;
++			// BE NIC FRU
++			eeprom@50 {
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
+ 		};
+ 		i2c10mux0ch3: i2c@3 {
+ 			reg = <3>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++			mctp-controller;
++			// BE NIC FRU
++			eeprom@50 {
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
+ 		};
+ 		i2c10mux0ch4: i2c@4 {
+ 			reg = <4>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++			mctp-controller;
++			// BE NIC FRU
++			eeprom@50 {
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
+ 		};
+ 		i2c10mux0ch5: i2c@5 {
+ 			reg = <5>;
+@@ -661,38 +690,72 @@ i2c10mux0ch7: i2c@7 {
+ // L Bridge Board
+ &i2c11 {
+ 	status = "okay";
++	multi-master;
++	mctp@10 {
++		compatible = "mctp-i2c-controller";
++		reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
++	};
+ 
+ 	i2c-mux@71 {
+ 		compatible = "nxp,pca9548";
+ 		reg = <0x71>;
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+-		i2c-mux-idle-disconnect;
+ 
+ 		i2c11mux0ch0: i2c@0 {
+ 			reg = <0>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++			mctp-controller;
++			// FE NIC FRU
++			eeprom@50 {
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
+ 		};
+ 		i2c11mux0ch1: i2c@1 {
+ 			reg = <1>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++			mctp-controller;
++			// BE NIC FRU
++			eeprom@50 {
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
+ 		};
+ 		i2c11mux0ch2: i2c@2 {
+ 			reg = <2>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++			mctp-controller;
++			// BE NIC FRU
++			eeprom@50 {
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
+ 		};
+ 		i2c11mux0ch3: i2c@3 {
+ 			reg = <3>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++			mctp-controller;
++			// BE NIC FRU
++			eeprom@50 {
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
+ 		};
+ 		i2c11mux0ch4: i2c@4 {
+ 			reg = <4>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++			mctp-controller;
++			// BE NIC FRU
++			eeprom@50 {
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
+ 		};
+ 		i2c11mux0ch5: i2c@5 {
+ 			reg = <5>;
 
-I skimmed through https://lore.kernel.org/all/?q=f%3Aaxiado.com and I do
-not see reviews from any of these addresses, so it all looks like you
-add some corporate structure, because some managers want to see what is
-posted.
+---
+base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
+change-id: 20260327-dts_enable_nic_mctp-e35a5765b176
 
 Best regards,
-Krzysztof
+--  
+Andy Chung <Andy.Chung@amd.com>
+
+
