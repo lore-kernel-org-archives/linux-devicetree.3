@@ -1,118 +1,384 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A212F4A14
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 17:16:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373C5396B8B;
+	Fri, 27 Mar 2026 17:25:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774631801; cv=none; b=SZrRBLU6+NTePwFq5Yrj2HqTdiKRmZhFER7fk/0SxRshKTeCuhEm/lJKiDfj6abEvvV5GOQwGdDN2j4nUj1ywOQ3FJqvZQ1wFT/oyY65zu8xqRI7B6qpnq/cHRXh7IGlN+Glj4zeo+PV3u8GaI6KT2g8/t4qFvPU5uDB2vLJTCE=
+	t=1774632329; cv=none; b=TaE1M3x1xSXdiCU7uM4+En1sYZvefHPWnXEsTCjNkknlx3XMt/TFnsnYxV9iLcSy9pp8u+JBIbaaEFln8jpMvPQjoaBJYU4GvmJQSTJL26kEF8fC3VmPa0A14lrkgqXNIgjBknbQPAUw+NkUIHgHFThgBd192PsOiFrTYQQDhwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774631801; c=relaxed/simple;
-	bh=ieDfxlzG2E3LaTCNMrozmh423Pobxbf4YDtO1gx/bAs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vn9GSe67WySJkN2pAEoMrItT04Rxne4IKIWynoCMNzP7Ms/xQ3auO3lZRH4WYeRHYy3i33vRh2YfZ/OZdKbKxIuuYTIYDyMu/JsDyoCii/qAiXMyoDsc7gINKASlq3rBpRZd2Y1r5y++z/nxDYLO46R8H1yB+TCkletJSZABOnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LQ8i3rxu; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774632329; c=relaxed/simple;
+	bh=kauSUkL5DWH2NieedbIhMMj0WM+ZhJkZ3VUzClxG8Pc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ihiMqkmvl41Bp2H6dHJxeooAWGRWIVnrYl2duMsmVKpuBioke5h2ytbrX27h1/3HBDTC4aDM1gs3flmXrEmi24TcwPTw0FV7LjnVG2ZDyN0OiFxe5z/gtt2oHUoxsQ4Tp5t+FrLQncIFRS/2yBsB8IF3bHTGUmx93FXmx7MgtEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GAMtYUPf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LQ8i3rxu"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-486b9675d36so20842585e9.0
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:16:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774631798; x=1775236598; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=vV6E9yjY+PcJxkfGX/VZyyMBIRVFPjQlBGDGet9H4gE=;
-        b=LQ8i3rxuREDQ/2ceTAgiq71AGcwaH/9c741/VD8USIDKma+rqRa/12WweWcU3u6f2J
-         oOH1Eo7AcC8mJsOxDwFNEE35Tip3KMGwDzMdCNGykJwHRkQ4GkKpZUtnt1aaTK01h+WO
-         0dXCgCB4764hrbT04NRyhcLy/cTKlQXkxsjHmGD01aRc+7nwBG4xSNLni2Exsa/I6Dhh
-         v7sOfBLmB4tRGTmjYZZkCyiWSg1hMp+aAqpnWt9nrh+PJTfhRzLKQlmcoTwjg3iuCuos
-         CZe6VGda9OFajGwZOCvR5cB7iW8VPQamp726N6y+kYC1+KeEggDsn8zJXgBEpSUEaiCs
-         NfmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774631798; x=1775236598;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=vV6E9yjY+PcJxkfGX/VZyyMBIRVFPjQlBGDGet9H4gE=;
-        b=BAs6O1TcVV5zdul0Rk+68VgR4KRNtlT6BKVw4cK8WbCEYPrSSMPvZOLlYG5IyqFyN6
-         4BJVr4ru3gM/4cI6b7wHHXUQjakhhvPmpHU+mH7LRhgH/zfnx1ibvGexjrXJpDD3Bpkj
-         FAiIR91Au1Ij23p1W9hiNHC3MFwE1Ka99GbGB2V1NRdeGOG0vlx6Z2P17OKBZRQRRLVg
-         Ouab8D+Dud8FhtSBiZtm6PtmUNt5BXU9NrvSxn1HxW2Fm8VPtRVvtDZCTw11UMxl6wPP
-         gZY1XKBFBV1czUUzU/Ni2DMtILWnHZe3jrQ4H7dFtoH5mxG6ME03AQg6Ywls/TjAqfzj
-         70vA==
-X-Forwarded-Encrypted: i=1; AJvYcCXke2xGVE5PnxuS/eGgOj4BdPVHYkxiyLShlOOQ+alZZKqFNWrV+MaaGoO1eIzsIFqTp9gCJjHW/WlS@vger.kernel.org
-X-Gm-Message-State: AOJu0YxtK0Z00dfBS15rCyhm9I/62a2cNwj6PrZn8COYAqDOKUoC47OP
-	vzatXjShxV0jdMA+lKw2JlMZN2iZyjbob1l0rKM2X/h0LXjENOXiB4Aq
-X-Gm-Gg: ATEYQzxNb1aKXtzsTJdhbeGDmyUyXci5AVMmTV+44npXGhs72J5ESsbbeCk1c/rcAJ9
-	cxqCv+nL6wzXi0cCpgXiOHMrkiqt7n4VgEvOwxIvMwCswCwLlQYXcdustVHhxJSuBJJ5s4aY2lM
-	1m5UVNKrG9kJW2qC8wKiNj7ljsCIEfaEXgS5tLnBz9vgE5o4iwUyAu7l69uRFQ5dNwfD/yGkUGA
-	LJvD0MVh0BR7bMJLuehA6YVHzk4+XLyirSGNp2x2g8BkeqZ4fUs2GPsIy0n51819Hux4Xh37UE1
-	D95hTmwMrndpdL4/HCaGYC2/ZzofXfFiDpj8b3m24tpyrm+aE7VzPuK4xbG6rFTczxcyTr7g+e3
-	4eEqnsn4opHZx26QgX3rbtIA1AyGQZJ8Ps1fkw5Psq8zFD9m1ebazHt3lEahTtxjyotx5fe0SgD
-	KbYW/wTBBQDsGA8csLAmqkDCaiRQYTfnxW+15rUQcCNFpeTCPG7G6E4FNtpFovLyeXzwyzzE8TX
-	+OAYj4MWyCA8OjtG5N+6y+6oeII91w9Cn0LAAsL/OQ=
-X-Received: by 2002:a05:600d:1c:b0:485:3f17:425 with SMTP id 5b1f17b1804b1-48727ec7681mr45535245e9.21.1774631798048;
-        Fri, 27 Mar 2026 10:16:38 -0700 (PDT)
-Received: from Lord-Beerus.station (net-93-144-20-233.cust.dsl.teletu.it. [93.144.20.233])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48725d9e85fsm34322455e9.1.2026.03.27.10.16.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Mar 2026 10:16:36 -0700 (PDT)
-Date: Fri, 27 Mar 2026 18:16:34 +0100
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: Frank Li <Frank.li@nxp.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Subject: Re: [PATCH v1 1/1] arm64: dts: imx91-var-dart-sonata: add RGB select
- supply for PCA6408
-Message-ID: <aca7ckVY9ure8Cwe@Lord-Beerus.station>
-References: <20260327163243.17334-1-stefano.r@variscite.com>
- <aca1jdx0DjmmHqFk@lizhi-Precision-Tower-5810>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GAMtYUPf"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0AB44C2BCB0;
+	Fri, 27 Mar 2026 17:25:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774632329;
+	bh=kauSUkL5DWH2NieedbIhMMj0WM+ZhJkZ3VUzClxG8Pc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=GAMtYUPfZFkDDiM9dmxRkdLpbCSIO7W9eTimy8BGeREZqWcLSze4sEta8fxjo/97x
+	 YFmewNIglGNXJAA5YKxukrxQ3uHcR71ot68ctAT31lX2hvKLHVP6tA4062tU6bOaf8
+	 YhdQshb3bdf6WUB1nasEdnVV9kmjH5uCkmAzfWfXoLUmlrzSqXkxxis9jfTS4SXkex
+	 RS709NzZr4QRi7kFX5AhYBsQdWpy+j7bslUcOlQcFv5mm/oLzzVGPPpWbBY1FXmeoY
+	 z/y+ghEXovYFLZHgpu2Yzqu4PvqJ8ESpJh7EnqCj+bK8fjIMc0Pmpdzr8DeEQEaueo
+	 16PxIKSH8bGRA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EA9F610F285E;
+	Fri, 27 Mar 2026 17:25:28 +0000 (UTC)
+From: =?utf-8?q?Nuno_S=C3=A1_via_B4_Relay?= <devnull+nuno.sa.analog.com@kernel.org>
+Date: Fri, 27 Mar 2026 17:26:14 +0000
+Subject: [PATCH v8 1/3] dt-bindings: hwmon: Document the LTC4283 Swap
+ Controller
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aca1jdx0DjmmHqFk@lizhi-Precision-Tower-5810>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260327-ltc4283-support-v8-1-471de255d728@analog.com>
+References: <20260327-ltc4283-support-v8-0-471de255d728@analog.com>
+In-Reply-To: <20260327-ltc4283-support-v8-0-471de255d728@analog.com>
+To: linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774632374; l=9689;
+ i=nuno.sa@analog.com; s=20231116; h=from:subject:message-id;
+ bh=nUG3fQSB6RK0XKrQQTpaOauUpPjj3stWPtiJ5PLIzaM=;
+ b=q5A2JHUIFVyhg5uS0Ct6IAgsPqAIrbtdlAf/LbQxVYFiXIQo4ysqOaQWZtMMUJbu1lYGY8kvO
+ EQlnTjX8b8HCGdwQNgT8SmuAANGEyjuMQqwQbQOi28GIW6asp2vGxGQ
+X-Developer-Key: i=nuno.sa@analog.com; a=ed25519;
+ pk=3NQwYA013OUYZsmDFBf8rmyyr5iQlxV/9H4/Df83o1E=
+X-Endpoint-Received: by B4 Relay for nuno.sa@analog.com/20231116 with
+ auth_id=100
+X-Original-From: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>
+Reply-To: nuno.sa@analog.com
 
-Hi Frank,
+From: Nuno Sá <nuno.sa@analog.com>
 
-On Fri, Mar 27, 2026 at 12:51:25PM -0400, Frank Li wrote:
-> On Fri, Mar 27, 2026 at 05:32:43PM +0100, Stefano Radaelli wrote:
-> > From: Stefano Radaelli <stefano.r@variscite.com>
-> >
-> > RGB_SEL controls the routing of some carrier board lines on the Sonata
-> > board. The two PCA6408 GPIO expanders depend on that path being enabled,
-> > so describe the selector as a fixed regulator and use it as their
-> > vcc-supply.
-> 
-> Does below resolve your problem?
->  https://lore.kernel.org/imx/20260325-pinctrl-mux-v4-0-043c2c82e623@nxp.com/
-> 
-> So needn't hack select as regualtor
-> 
+The LTC4283 is a negative voltage hot swap controller that drives an
+external N-channel MOSFET to allow a board to be safely inserted and
+removed from a live backplane.
 
-Thanks for pointing me your patch, interesting improvement!
+Special note for the "adi,vpower-drns-enable" property. It allows to choose
+between the attenuated MOSFET drain voltage or the attenuated input
+voltage at the RTNS pin (effectively choosing between input or output
+power). This is a system level decision not really intended to change at
+runtime and hence is being added as a Firmware property.
 
-Actually, in this case RGB_SEL is not meant to model a selectable mux
-on the Sonata carrier.
-On this board it must stay asserted permanently, otherwise the
-downstream path to the two PCA6408 expanders is not accessible.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Nuno Sá <nuno.sa@analog.com>
+---
+ .../devicetree/bindings/hwmon/adi,ltc4283.yaml     | 272 +++++++++++++++++++++
+ MAINTAINERS                                        |   6 +
+ 2 files changed, 278 insertions(+)
 
-Modeling it as a mux might be confusing for users of the DART-MX91, as
-as it would suggest that the routing is configurable, while on this
-board it is actually fixed.
+diff --git a/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml b/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
+new file mode 100644
+index 000000000000..05e2132ad4d8
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
+@@ -0,0 +1,272 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/hwmon/adi,ltc4283.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: LTC4283 Negative Voltage Hot Swap Controller
++
++maintainers:
++  - Nuno Sá <nuno.sa@analog.com>
++
++description: |
++  The LTC4283 negative voltage hot swap controller drives an external N-channel
++  MOSFET to allow a board to be safely inserted and removed from a live
++  backplane.
++
++  https://www.analog.com/media/en/technical-documentation/data-sheets/ltc4283.pdf
++
++properties:
++  compatible:
++    enum:
++      - adi,ltc4283
++
++  reg:
++    maxItems: 1
++
++  adi,rsense-nano-ohms:
++    description: Value of the sense resistor.
++
++  adi,current-limit-sense-microvolt:
++    description:
++      The current limit sense voltage of the chip is adjustable between
++      15mV and 30mV in 1mV steps. This effectively limits the current
++      on the load.
++    minimum: 15000
++    maximum: 30000
++    default: 15000
++
++  adi,current-limit-foldback-factor:
++    description:
++      Specifies the foldback factor for the current limit. The current limit
++      can be reduced (folded back) to one of four preset levels. The value
++      represents the percentage of the current limit sense voltage to use
++      during foldback. A value of 100 means no foldback.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [10, 20, 50, 100]
++    default: 100
++
++  adi,cooling-delay-ms:
++    description:
++      Cooling time to apply after an overcurrent fault, FET bad or
++      external fault.
++    enum: [512, 1002, 2005, 4100, 8190, 16400, 32800, 65600]
++    default: 512
++
++  adi,fet-bad-timer-delay-ms:
++    description:
++      FET bad timer delay. After a FET bad status condition is detected,
++      this timer is started. If the condition persists for the
++      specified time, the FET is turned off and a fault is logged.
++    enum: [256, 512, 1002, 2005]
++    default: 256
++
++  adi,power-good-reset-on-fet:
++    description:
++      If set, resets the power good status when the MOSFET is turned off.
++      Otherwise, it resets when a low output voltage is detected.
++    type: boolean
++
++  adi,fet-turn-off-disable:
++    description:
++      If set, the MOSFET is not turned off when a FET fault is detected.
++    type: boolean
++
++  adi,tmr-pull-down-disable:
++    description: Disables 2uA pull-down current on the TMR pin.
++    type: boolean
++
++  adi,dvdt-inrush-control-disable:
++    description:
++      Disables dV/dt inrush control during startup. In dV/dt mode, the inrush
++      current is limited by controlling a constant output voltage ramp rate.
++      When disabled, the inrush control mechanism is active current limiting.
++    type: boolean
++
++  adi,fault-log-enable:
++    description:
++      If set, enables logging fault registers and ADC data into EEPROM upon a
++      fault.
++    type: boolean
++
++  adi,vpower-drns-enable:
++    description:
++      If set, enables the attenuated MOSFET drain voltage to be monitored. This
++      effectively means that the MOSFET power is monitored. If not set, the
++      attenuated input voltage (and hence input power) is monitored.
++    type: boolean
++
++  adi,external-fault-fet-off-enable:
++    description: Turns MOSFET off following an external fault.
++    type: boolean
++
++  adi,undervoltage-retry-disable:
++    description: Do not retry to turn on the MOSFET after an undervoltage fault.
++    type: boolean
++
++  adi,overvoltage-retry-disable:
++    description: Do not retry to turn on the MOSFET after an overvoltage fault.
++    type: boolean
++
++  adi,external-fault-retry-enable:
++    description: Retry to turn on the MOSFET after an external fault.
++    type: boolean
++
++  adi,overcurrent-retries:
++    description: Configures auto-retry following an Overcurrent fault.
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [latch-off, "1", "7", unlimited]
++    default: latch-off
++
++  adi,fet-bad-retries:
++    description:
++      Configures auto-retry following a FET bad fault and a consequent MOSFET
++      turn off.
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [latch-off, "1", "7", unlimited]
++    default: latch-off
++
++  adi,pgio1-func:
++    description: Configures the function of the PGIO1 pin.
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [inverted_power_good, power_good, gpio]
++    default: inverted_power_good
++
++  adi,pgio2-func:
++    description: Configures the function of the PGIO2 pin.
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [inverted_power_good, power_good, gpio, active_current_limiting]
++    default: inverted_power_good
++
++  adi,pgio3-func:
++    description: Configures the function of the PGIO3 pin.
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [inverted_power_good_input, power_good_input, gpio]
++    default: inverted_power_good_input
++
++  adi,pgio4-func:
++    description: Configures the function of the PGIO4 pin.
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [inverted_external_fault, external_fault, gpio]
++    default: inverted_external_fault
++
++  adi,gpio-on-adio1:
++    description: If set, the ADIO1 pin is used as a GPIO.
++    type: boolean
++
++  adi,gpio-on-adio2:
++    description: If set, the ADIO2 pin is used as a GPIO.
++    type: boolean
++
++  adi,gpio-on-adio3:
++    description: If set, the ADIO3 pin is used as a GPIO.
++    type: boolean
++
++  adi,gpio-on-adio4:
++    description: If set, the ADIO4 pin is used as a GPIO.
++    type: boolean
++
++  gpio-controller: true
++
++  '#gpio-cells':
++    const: 2
++
++dependencies:
++  adi,gpio-on-adio1:
++    - gpio-controller
++    - '#gpio-cells'
++  adi,gpio-on-adio2:
++    - gpio-controller
++    - '#gpio-cells'
++  adi,gpio-on-adio3:
++    - gpio-controller
++    - '#gpio-cells'
++  adi,gpio-on-adio4:
++    - gpio-controller
++    - '#gpio-cells'
++  adi,external-fault-retry-enable:
++    - adi,pgio4-func
++  adi,external-fault-fet-off-enable:
++    - adi,pgio4-func
++
++required:
++  - compatible
++  - reg
++  - adi,rsense-nano-ohms
++
++allOf:
++  - if:
++      properties:
++        adi,pgio1-func:
++          const: gpio
++      required:
++        - adi,pgio1-func
++    then:
++      required:
++        - gpio-controller
++        - '#gpio-cells'
++
++  - if:
++      properties:
++        adi,pgio2-func:
++          const: gpio
++      required:
++        - adi,pgio2-func
++    then:
++      required:
++        - gpio-controller
++        - '#gpio-cells'
++
++  - if:
++      properties:
++        adi,pgio3-func:
++          const: gpio
++      required:
++        - adi,pgio3-func
++    then:
++      required:
++        - gpio-controller
++        - '#gpio-cells'
++
++  - if:
++      properties:
++        adi,pgio4-func:
++          const: gpio
++      required:
++        - adi,pgio4-func
++    then:
++      properties:
++        adi,external-fault-retry-enable: false
++        adi,external-fault-fet-off-enable: false
++      required:
++        - gpio-controller
++        - '#gpio-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        swap-controller@15 {
++            compatible = "adi,ltc4283";
++            reg = <0x15>;
++
++            adi,rsense-nano-ohms = <500>;
++            adi,current-limit-sense-microvolt = <25000>;
++            adi,current-limit-foldback-factor = <10>;
++            adi,cooling-delay-ms = <8190>;
++            adi,fet-bad-timer-delay-ms = <512>;
++
++            adi,external-fault-fet-off-enable;
++            adi,pgio4-func = "external_fault";
++
++            adi,gpio-on-adio1;
++            adi,pgio1-func = "gpio";
++            gpio-controller;
++            #gpio-cells = <2>;
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 830c6f076b00..13ae2f3db449 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -15141,6 +15141,12 @@ F:	Documentation/devicetree/bindings/hwmon/adi,ltc4282.yaml
+ F:	Documentation/hwmon/ltc4282.rst
+ F:	drivers/hwmon/ltc4282.c
+ 
++LTC4283 HARDWARE MONITOR AND GPIO DRIVER
++M:	Nuno Sá <nuno.sa@analog.com>
++L:	linux-hwmon@vger.kernel.org
++S:	Supported
++F:	Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
++
+ LTC4286 HARDWARE MONITOR DRIVER
+ M:	Delphine CC Chiu <Delphine_CC_Chiu@Wiwynn.com>
+ L:	linux-hwmon@vger.kernel.org
 
-Best Regards,
-Stefano
+-- 
+2.53.0
+
+
