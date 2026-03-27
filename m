@@ -1,148 +1,411 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE7634FF6C
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 16:46:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E97C35581A
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 16:46:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774629995; cv=none; b=mTkbcNvnPfiMNTLnc9M3BPd2zno0UeemXxxLGMeYz+SHecrjuD1wp5TTieEDPDW2ohDZjOgI81FKBrl3M77J+LThx2JxANnIs25lZtRqyv+DWGIcK3oD7xsrxESP9NcZoCzlqqn8anHxmJ3bytIIuP7yZfSssouTURRU4h/zWPo=
+	t=1774630017; cv=none; b=R4hjuO1AEEefIIdbkpOEafmDrbqbvqX7h5UHr4r5I6zTyTOH7FqUhnuLHhnSXOJDixeeljCBV83hnjiAEMy402LO8aQ2KguJz2wru/cbiOMh/sEg2bUOq+HMBCqZ/l0JO51giPzbyOJKl2baIeqPj4/4ukU2j6WNpRpnb6oFvZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774629995; c=relaxed/simple;
-	bh=nmnNOSZra5VKM8rRDPTT6EwSxDFRxMABF7GuoB2jK3A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EF5ywKjEhStOafxiqV2Sqsj95mufOB2cf066CC+7zik0frqC2jVp1TSE4N+i18oeZ8s2Fn8CIRw0qjqSAY3nxV/j56DoZAWSVlqBLFw0M2C/JzgqWRnqp1i1U12cr3lez630bXBUaXz6262o41wI0rdybWsHUFFC1BS0B8sE0Uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b=X3qCbJPR; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1774630017; c=relaxed/simple;
+	bh=r0ZvJ5TUWKzisHOV7jFBz/GP+JKwSuIZUQ+QSbUAR/s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cV6ZE6UzyBd4YnZVzZubUYeNeNFYn8AbWhhYw/MdiVfcZ4eHzRifZhpGiUWWo3ImARDZaDLqItBpGMN1QJ8EiBfuL+uKg6d+TjPus+O94SLH7ds3MSlAP8vSvVq8EkqdpRYBQneSyZWQO5f4Co861UnilNetfVHjhZnHimB0Ej8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nP0lHlOk; arc=none smtp.client-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b="X3qCbJPR"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-48558d6ef83so22498595e9.3
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 09:46:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nP0lHlOk"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-65005a8840dso232007d50.0
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 09:46:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1774629992; x=1775234792; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=nmnNOSZra5VKM8rRDPTT6EwSxDFRxMABF7GuoB2jK3A=;
-        b=X3qCbJPRTd7xbL8qvOAhh5t2Vm89DA/HzK3ek9oBYqvAwJUPNCGTFVTN1aMv4sirfV
-         24R5BFyO2MlgU3v3mspvTkzF5SfBWsfZSbxwqOmh4YDwvhfpR03qhO7U0Gk/ODtmGabw
-         RMm83677nQpXhimbI5ingMvYkUoEx2cNGUYha54X7UR3zxFkMiujrBKFNNKlvJtmiKQU
-         ek9RCjm6wKg6BM7i1Sfdiea0tqahMZy9E+MZxsPyE/ZyCIfVU+efH1cWOglUZmp2y55E
-         IqCzgVtLs8ZKkhNV7OqnFtcOSRUPRfiSpBxhrKHQt/j3f7oB657w05WeDca3MPtZiwKt
-         OUxA==
+        d=gmail.com; s=20251104; t=1774630013; x=1775234813; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4fCk7U46MYSgCc+QKhwtVh9bKjwKXfA0ka9j2W+wC8w=;
+        b=nP0lHlOkSAO+fww0dqt5MkxlhZd5hJzw2WPD9YJ8Kh7zOr2rSg6EPSOShTXkfsnjA9
+         B1eQ+MyxgAlcByN6P2uSV+CDUQiPPw3so5OYoIXMe/qZsnsBlvt+AB5QRiXntT4lrZiO
+         Jkw9wlbLtWCRLSsE773xe7SQy6rWH52LVZtcpVaQ97zP8tJINFBmd1EJ8/StjzyKt9HS
+         6dM3cuIIyIANP2QIXmypXCaLGXZFovXdErUJkSGGR6DV5djWlPcdF+iUl2hm+Zhgziy5
+         h8kH/rtOM6QwmTIrVUrJxH/0nOzDoaEwDxkx2d7UEDwzwkEvryz4RwbeuO8RMpziOQrY
+         5vJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774629992; x=1775234792;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=nmnNOSZra5VKM8rRDPTT6EwSxDFRxMABF7GuoB2jK3A=;
-        b=lSXAuld9uJsCou9bz7DX4IfGzYKgfbk0JGFNkO90LnuqjmPNqkWNxN2nzHfiEFbMPI
-         S913ZyHfWku395x4j9UGhP37jMmNObofVEWrFNouF6kheHnH1uZGcwQMaakd6VJCCkCP
-         NObUGHqCaSkyiamukcalF9oFBzjqL2fy4t5qq1FksZ8M3RNbuFC7xvoqXtB76JxN1GBp
-         lQD4BtCWb8yQE2dR/Syv+AYacVg+mZTn0EsS6zBJKd1il7+9i/so4KdDq7EBHTz5dUFX
-         rHTEwDKSKQcpxSW/suXMlb16lI75fa09lcT7/XZH1T2CNrx516VfwtWCDWqHNhPd3vPg
-         uP0w==
-X-Forwarded-Encrypted: i=1; AJvYcCV8WXOr/PkQ9UPSoHUPj5KDhXB2YyZC5nIYhyR+S2MLfjx+RUH1/JIVBEtLgQ1BP29w/8ppU7VyxOKR@vger.kernel.org
-X-Gm-Message-State: AOJu0YxFlytPl2pydNaNfqbjnsPC7zCnBbrQ/Zkft2CzfiAG1ciZcy4D
-	+C89/NBVAKavPwAvwwo5/KsT3yijji80vDyA3vn+pjjc5EPfDBsWI7h4xRH68n0l3SI=
-X-Gm-Gg: ATEYQzyoKIhAgsSb7M7b5NvYoUADdmHibLMDoIbmDPHtjT1GL1A/FTAs/OBahUIId66
-	PovaCPIt4U5J+Wl2Krheipz3qt0Ah0XvxgjCtQeBnaUDZUE6ofdO0uDJwS0ZeGlddmEcttcvdL1
-	zoFQ3+FBrZHN/b10heuo5XWkD0HqByFRNJVYX7vTZNxo46KqIKdXXgfKeJZoxH6ndMFjmS+GFRC
-	XP/Yy5YAh96u+LsyORA/M1uTpc/B2ZfUe7hBSDnJRBGVQEIJ7HbzaF+bWDBXI7dMQvvm3nkNIxQ
-	KznZkzZG6mB9kOY/efBcfReDjcnPGuKd/EYl90ZmpyqZlEoanuPrS8H/E4reNgOY6GcN41PLoKV
-	VEww1HGykOOVKzU+4aWqYTpx3FCHmOJTUQN76xhevtpLPzY5BZ14lsrB21G0wsh5rjGIICfUBFa
-	Hd1Q7Pold8uwNlYCbUf0n4ww==
-X-Received: by 2002:a05:600c:1d1e:b0:486:ffa3:55f with SMTP id 5b1f17b1804b1-48727f069eemr56959445e9.27.1774629991836;
-        Fri, 27 Mar 2026 09:46:31 -0700 (PDT)
-Received: from localhost ([212.133.41.47])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-48725eae727sm38380005e9.2.2026.03.27.09.46.30
+        d=1e100.net; s=20251104; t=1774630013; x=1775234813;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=4fCk7U46MYSgCc+QKhwtVh9bKjwKXfA0ka9j2W+wC8w=;
+        b=mUdXvwvHjN316e5kEyZGCiWg8tFkweDyVSHAjPHhg0zVwBP6DXOm48ZNapzL5Nz+Zz
+         HVWE0UBCaRW5YdxstWoDwJrRN2EjCSaDnasY8fVPfdS0Dhn35LLZoRoWe/0GthTk7546
+         d6+YUuvvC6upisIwSy/uCbl+8DOoCJJ8N6FXl+cF7QjMl8liQOIA9VPsDVrCmB6CHgqO
+         fcCDpfU/1xURsHpkhd3nodpBK5VTtelq6Y/tKLHU112BIXOhHZHTXVT5gbHE7CworGGk
+         4kTCpYWhU54IsDX3Ldecg+gyIamuLyklvLn+mw4RYb/3HjE+HmLWpy8nK4XvlN3fd1IO
+         1jaw==
+X-Forwarded-Encrypted: i=1; AJvYcCX2CiOE4xB5JalCGcvOmZxvYMgGH/M4fZE+Gp3XdZzLZ+VO76WMaDEaW2kwOxslM7HqJOr6dOGgmD40@vger.kernel.org
+X-Gm-Message-State: AOJu0YxJh8ylLrI5J9B0ELdnVhoGz4dpR9ohiDbmUE6b8ZxOxn3ACflq
+	Fg3zVv0kudr8wlTLv/tuaCwyljGBu4D8HSHCAJOO2EWNvCGZLk3tW8HS
+X-Gm-Gg: ATEYQzyv6kqCzhBK4+9BzzVWyldeOeI/Fi51zzfBoG5eCXqwKR3jcNJRBatBoNeDa5a
+	ixMtIFcJHgiG9UlzWDWMwaz183QFexTD8nlzYu7pPAQNUwG/4ZHT7wPKb0FrA6/1h+7FYpnsQua
+	SxfS3XpnhEgvyGI8w8eE5imPFGR4y28Df6sq/rvaN82n88q6OrFsutq5zpd6V7SLmTaB9m3zlCR
+	s0NowfBzbhKoMrY5u2HKDshiPD28mF4heUeQlttBVdmzBbR5mrRr1WstQsRXY58TMNtn8WLEzN0
+	fQEBM02HHjUwvIh/K1PyL68j1pek6KUW3is/c6uZxqmX9N5Um7tdtDbUOeflCuA1GMWLHzpkVaE
+	wijhbl8ON1cAXzt4Eig261MltGDz7vFZanFEBL0MTCumkScCVXLDmA463pTm8qc2nk+2Gbek6sU
+	9HcK+i/7DlOipm65mlPubCMy7CHBgC6o+GbLkEhHJP2O8nnqPLTI6mCN+vGPdw8sz6OsfpTfE=
+X-Received: by 2002:a05:690e:4847:b0:649:f002:582b with SMTP id 956f58d0204a3-64ff7199764mr2384505d50.7.1774630012548;
+        Fri, 27 Mar 2026 09:46:52 -0700 (PDT)
+Received: from localhost (104-48-214-220.lightspeed.snantx.sbcglobal.net. [104.48.214.220])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-64ef57bfcfcsm3308415d50.1.2026.03.27.09.46.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Mar 2026 09:46:30 -0700 (PDT)
-Date: Fri, 27 Mar 2026 17:46:29 +0100
-From: "u.kleine-koenig@baylibre.com" <u.kleine-koenig@baylibre.com>
-To: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>, 
-	Daniel Lezcano <daniel.lezcano@linaro.org>, Thomas Gleixner <tglx@linutronix.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	"magnus.damm" <magnus.damm@gmail.com>, "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>, 
-	"linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>, 
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: Re: [PATCH] dt-bindings: timer: renesas,rz-mtu3: Use #pwm-cells = <3>
-Message-ID: <acax6VgK2hM2bjel@monoceros>
-References: <20250527205823.377785-2-u.kleine-koenig@baylibre.com>
- <TYRPR01MB1561945B6057A2ABFCF25C6788549A@TYRPR01MB15619.jpnprd01.prod.outlook.com>
+        Fri, 27 Mar 2026 09:46:52 -0700 (PDT)
+From: Steev Klimaszewski <threeway@gmail.com>
+To: dmitry.baryshkov@oss.qualcomm.com
+Cc: abhinav.kumar@linux.dev,
+	andersson@kernel.org,
+	bod@kernel.org,
+	bryan.odonoghue@linaro.org,
+	conor+dt@kernel.org,
+	david@ixit.cz,
+	devicetree@vger.kernel.org,
+	dikshita.agarwal@oss.qualcomm.com,
+	johan+linaro@kernel.org,
+	konrad.dybcio@oss.qualcomm.com,
+	konradybcio@kernel.org,
+	krzk+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	stanimir.varbanov@linaro.org,
+	vikash.garodia@oss.qualcomm.com
+Subject: Re: [PATCH v4 0/6] media: iris: enable SM8350 and SC8280XP support
+Date: Fri, 27 Mar 2026 11:46:51 -0500
+Message-ID: <20260327164651.45628-1-threeway@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260312-iris-sc8280xp-v4-0-a047ef1e3c7d@oss.qualcomm.com>
+References: <20260312-iris-sc8280xp-v4-0-a047ef1e3c7d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tqo3pkbr3kw3htxb"
-Content-Disposition: inline
-In-Reply-To: <TYRPR01MB1561945B6057A2ABFCF25C6788549A@TYRPR01MB15619.jpnprd01.prod.outlook.com>
-
-
---tqo3pkbr3kw3htxb
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] dt-bindings: timer: renesas,rz-mtu3: Use #pwm-cells = <3>
-MIME-Version: 1.0
 
-Hello,
+Hi Dmitry, all,
 
-On Wed, Mar 25, 2026 at 01:24:40PM +0000, Cosmin-Gabriel Tanislav wrote:
-> Sorry for replying to an old patch, but the context is relevant to my
-> question.
->=20
-> I'm working on adding MTU3 support for a new platform, Renesas RZ/T2H.
->=20
-> From this patch, it is clear that new platforms should use
-> #pwm-cells =3D <3>; as <2> is deprecated.
->=20
-> What I would like to clarify is whether existing platforms are also
-> expected to be migrated from #pwm-cells =3D <2> to #pwm-cells =3D <3>.
->=20
-> My understanding is that changing the provider to #pwm-cells =3D <3> would
-> break existing consumers that still specify only two cells in their PWM
-> specifiers, since those references would then fail the checks inside
-> of_phandle_iterator_next().
+I've tested this on my Thinkpad X13s, after disabling venus module otherwis=
+e it
+loads venus not iris.
 
-The conversion doesn't break dtbs, because in a single dtb consumer and
-PWM device are consistent. So from my POV updating is fine.
+In el2, the device seems to be /dev/video33
 
-> There are no existing consumers in-tree, but there might be out-of-tree
-> ones that depend on #pwm-cells =3D <2>;.
+steev@finn:~$ v4l2-compliance -d 33
+v4l2-compliance 1.32.0, 64 bits, 64-bit time_t
 
-That might happen for out-of-tree dts files that include the SoC's
-=2Edtsi. IMHO it's ok to break these.
+Compliance test for iris_driver device /dev/video33:
 
-> If we're okay with the ABI breakage I can proceed with the changes for
-> existing platforms too.
+Driver Info:
+	Driver name      : iris_driver
+	Card type        : Iris Encoder
+	Bus info         : platform:aa00000.video-codec
+	Driver version   : 6.19.10
+	Capabilities     : 0x84204000
+		Video Memory-to-Memory Multiplanar
+		Streaming
+		Extended Pix Format
+		Device Capabilities
+	Device Caps      : 0x04204000
+		Video Memory-to-Memory Multiplanar
+		Streaming
+		Extended Pix Format
+	Detected Stateful Encoder
 
-The reason that made me stop continuing the conversion myself is the
-somewhat stuck discussion at
-https://patchwork.ozlabs.org/project/linux-pwm/patch/crk42dsypmbyqk7avldghj=
-q32vslmalfmmouwxzgtdci4agfhz@rkbmxj5z22fx/
-=2E
+Required ioctls:
+	test VIDIOC_QUERYCAP: OK
+	test invalid ioctls: OK
 
-Best regards
-Uwe
+Allow for multiple opens:
+	test second /dev/video33 open: OK
+	test VIDIOC_QUERYCAP: OK
+	test VIDIOC_G/S_PRIORITY: OK
+	test for unlimited opens: OK
 
---tqo3pkbr3kw3htxb
-Content-Type: application/pgp-signature; name="signature.asc"
+Debug ioctls:
+	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
 
------BEGIN PGP SIGNATURE-----
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnGtGAACgkQj4D7WH0S
-/k4B7QgAkrjyiqIOxfTYLU37jtZHVvglcPCSu+AxXEZvPLhgJIbGOX2Whlv8Itm3
-TjMQW1kSHf86Ml8+Us0r1Gfg0xtdpWTCLXoG9X8SwNRHo5Bs5kPE2BjE3jnimbUz
-N2e1EyuC1MlRRm3Qth4APLqn1O/qGM+LhTqJpWzRt3hakH6sZbulAjYgIaZ3c3hW
-ZziSJpkddseN2oiIX0G1x4c51+sw2IMsZd7slkc+6gZvXAV9PFrzm47cp6lm655j
-D4mnnifOPJ0IQY+mgj73yl4KBOyhYejTnRS8WuyUxySXomY4wy9hnYNE9SdWzj70
-br7SBGxmv4WPfuvCiMGrtBmIkObrpA==
-=a9Lm
------END PGP SIGNATURE-----
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
 
---tqo3pkbr3kw3htxb--
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 33 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK
+	test Requests: OK (Not Supported)
+	test blocking wait: OK
+
+Total for iris_driver device /dev/video33: 48, Succeeded: 48, Failed: 0, Wa=
+rnings: 0
+
+
+
+In el1, the device becomes /dev/video0
+
+steev@finn:~$ v4l2-compliance
+v4l2-compliance 1.32.0, 64 bits, 64-bit time_t
+
+Compliance test for iris_driver device /dev/video0:
+
+Driver Info:
+	Driver name      : iris_driver
+	Card type        : Iris Decoder
+	Bus info         : platform:aa00000.video-codec
+	Driver version   : 6.19.10
+	Capabilities     : 0x84204000
+		Video Memory-to-Memory Multiplanar
+		Streaming
+		Extended Pix Format
+		Device Capabilities
+	Device Caps      : 0x04204000
+		Video Memory-to-Memory Multiplanar
+		Streaming
+		Extended Pix Format
+	Detected Stateful Decoder
+
+Required ioctls:
+	test VIDIOC_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/video0 open: OK
+	test VIDIOC_QUERYCAP: OK
+	test VIDIOC_G/S_PRIORITY: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 2 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK
+	test Composing: OK
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK
+	test Requests: OK (Not Supported)
+	test blocking wait: OK
+
+Total for iris_driver device /dev/video0: 48, Succeeded: 48, Failed: 0, War=
+nings: 0
+
+
+So the compliance tests pass in both el1 and el2, however, if I attempt to =
+play
+a video in totem, and then skip forward in it some random amount of time, t=
+otem
+freezes and I get the following splat:
+
+[  143.388380] arm-smmu 15000000.iommu: Unhandled context fault: fsr=3D0x40=
+2, iova=3D0xd516d400, fsynr=3D0x600002, cbfrsynra=3D0x2a00, cb=3D6
+[  143.388390] arm-smmu 15000000.iommu: FSR    =3D 00000402 [Format=3D2 TF]=
+, SID=3D0x2a00
+[  143.388392] arm-smmu 15000000.iommu: FSYNR0 =3D 00600002 [S1CBNDX=3D96 P=
+LVL=3D2]
+[  143.388423] qcom-iris aa00000.video-codec: sys error (type: 1, session i=
+d:ff, data1:1, data2:deadbead)
+[  145.913827] qcom-iris aa00000.video-codec: session error for command: 0,=
+ event id:1004, session id:e39bc002
+[  146.945692] qcom-iris aa00000.video-codec: session error for command: 0,=
+ event id:1004, session id:e39bc002
+[  147.969651] qcom-iris aa00000.video-codec: session error for command: 0,=
+ event id:1004, session id:e39bc002
+[  147.969693] qcom-iris aa00000.video-codec: session error for command: 0,=
+ event id:1004, session id:e39bc002
+[  147.970493] qcom-iris aa00000.video-codec: session error for command: 0,=
+ event id:1004, session id:e39bc002
+[  148.993683] ------------[ cut here ]------------
+[  148.993695] WARNING: drivers/media/common/videobuf2/videobuf2-core.c:182=
+7 at vb2_start_streaming+0xe0/0x17c [videobuf2_common], CPU#3: totem/7330
+[  148.993727] Modules linked in: michael_mic uhid
+[  148.993732] qcom-iris aa00000.video-codec: session error for command: 0,=
+ event id:1004, session id:e39bc002
+[  148.993736]  algif_hash
+[  148.993739]  algif_skcipher af_alg snd_soc_wsa883x q6prm_clocks q6apm_lp=
+ass_dais q6apm_dai snd_q6dsp_common q6prm overlay zram lz4hc_compress zsmal=
+loc lz4_compress binfmt_misc qrtr_mhi ath11k_pci ath11k mac80211 libarc4 sh=
+a256 cfg80211 mhi hci_uart btqca btbcm bluetooth ecdh_generic ecc rfkill qc=
+om_spmi_temp_alarm snd_soc_sc8280xp lenovo_thinkpad_t14s snd_soc_qcom_sdw s=
+nd_soc_qcom_common sparse_keymap qcom_spmi_adc_tm5 qcom_spmi_adc5 qcom_vadc=
+_common ov5675 snd_soc_hdmi_codec qcom_camss qcom_iris videobuf2_dma_contig=
+ videobuf2_dma_sg v4l2_mem2mem snd_soc_wcd938x videobuf2_memops videobuf2_v=
+4l2 v4l2_fwnode videobuf2_common v4l2_async snd_soc_lpass_rx_macro snd_soc_=
+lpass_tx_macro snd_soc_lpass_wsa_macro snd_soc_lpass_va_macro snd_soc_wcd93=
+8x_sdw regmap_sdw snd_soc_wcd_mbhc videodev snd_soc_wcd_common soundwire_qc=
+om snd_q6apm snd_soc_wcd_classh snd_soc_lpass_macro_common mc snd_soc_core =
+snd_compress snd_pcm_dmaengine snd_pcm fastrpc slimbus pci_pwrctrl_pwrseq s=
+nd_timer qcom_rng snd soundcore soundwire_bus fuse nfnetlink
+[  148.993936]  ipv6 btrfs xor xor_neon raid6_pq zstd_compress panel_edp hi=
+d_multitouch qcom_pm8008_regulator nvme ucsi_glink pmic_glink_altmode qcom_=
+battmgr aux_hpd_bridge typec_ucsi nvme_core qcom_pm8008 i2c_hid_of_elan i2c=
+_hid_of rpmsg_ctrl apr i2c_hid rpmsg_char qrtr_smd qcom_pd_mapper msm ubwc_=
+config ocmem drm_gpuvm drm_exec gpu_sched drm_display_helper phy_qcom_qmp_c=
+ombo cec leds_qcom_lpg aux_bridge drm_dp_aux_bus led_class_multicolor qcom_=
+pbs rtc_pm8xxx qcom_pon qcom_stats dispcc_sc8280xp drm_client_lib phy_qcom_=
+edp camcc_sc8280xp i2c_qcom_cci i2c_qcom_geni drm_kms_helper phy_qcom_qmp_u=
+sb qcom_refgen_regulator videocc_sm8350 llcc_qcom drm icc_bwmon phy_qcom_sn=
+ps_femto_v2 gpi gpucc_sc8280xp qrtr qcom_q6v5_pas qcom_pil_info qcom_common=
+ qcom_glink_smem lpasscc_sc8280xp pinctrl_sc8280xp_lpass_lpi pinctrl_lpass_=
+lpi qcom_q6v5 pmic_glink qcom_sysmon gpio_sbu_mux phy_qcom_qmp_pcie mdt_loa=
+der pdr_interface qcom_wdt icc_osm_l3 qcom_pdr_msg pwrseq_qcom_wcn typec qm=
+i_helpers pwrseq_core socinfo pwm_bl backlight
+[  148.994147] CPU: 3 UID: 1000 PID: 7330 Comm: totem Not tainted 6.19.10 #=
+2 PREEMPT
+[  148.994155] Hardware name: LENOVO 21BX0015US/21BX0015US, BIOS N3HET94W (=
+1.66 ) 09/15/2025
+[  148.994160] pstate: 80401005 (Nzcv daif +PAN -UAO -TCO -DIT +SSBS BTYPE=
+=3D--)
+[  148.994166] pc : vb2_start_streaming+0xe0/0x17c [videobuf2_common]
+[  148.994178] lr : vb2_start_streaming+0x70/0x17c [videobuf2_common]
+[  148.994187] sp : ffff80009b95bb70
+[  148.994191] x29: ffff80009b95bb70 x28: 0000000000000001 x27: ffff80009b9=
+5bce8
+[  148.994201] x26: 0000000000000000 x25: 0000000000000000 x24: ffffd3da978=
+2e138
+[  148.994211] x23: ffff0000902f5cc0 x22: 0000000040045612 x21: ffff0000f7a=
+da910
+[  148.994219] x20: ffff0000f7ada928 x19: 00000000fffffff0 x18: 00000000000=
+00000
+[  148.994228] x17: 0000000000000000 x16: ffffd3daf7056f00 x15: 0000ffff180=
+2f330
+[  148.994237] x14: 0000000000000000 x13: 0000000000000000 x12: 00000000000=
+00000
+[  148.994246] x11: 0000000000000000 x10: 0000000000000000 x9 : 00000000000=
+00035
+[  148.994255] x8 : ffff80009b95bd68 x7 : ffffd3da976bafc0 x6 : 00000000000=
+00012
+[  148.994263] x5 : ffff0000f7ada948 x4 : 0000000000000000 x3 : 00000000000=
+00005
+[  148.994272] x2 : ffff0000c1b82080 x1 : ffff0000c1b82080 x0 : ffff0000845=
+17a30
+[  148.994282] Call trace:
+[  148.994285]  vb2_start_streaming+0xe0/0x17c [videobuf2_common] (P)
+[  148.994298]  vb2_core_streamon+0xd8/0x1bc [videobuf2_common]
+[  148.994308]  vb2_streamon+0x18/0x60 [videobuf2_v4l2]
+[  148.994318]  v4l2_m2m_ioctl_streamon+0x5c/0xa0 [v4l2_mem2mem]
+[  148.994330]  v4l_streamon+0x24/0x30 [videodev]
+[  148.994362]  __video_do_ioctl+0x340/0x3ec [videodev]
+[  148.994389]  video_usercopy+0x2b0/0x74c [videodev]
+[  148.994415]  video_ioctl2+0x18/0x34 [videodev]
+[  148.994441]  v4l2_ioctl+0x40/0x60 [videodev]
+[  148.994467]  __arm64_sys_ioctl+0xa4/0xf4
+[  148.994480]  invoke_syscall.constprop.0+0x40/0xf0
+[  148.994495]  el0_svc_common.constprop.0+0x38/0xd8
+[  148.994504]  do_el0_svc+0x1c/0x28
+[  148.994513]  el0_svc+0x34/0x104
+[  148.994525]  el0t_64_sync_handler+0xa0/0xe4
+[  148.994534]  el0t_64_sync+0x198/0x19c
+[  148.994543] ---[ end trace 0000000000000000 ]---
+
+
+This is much better than the previous venus patchset where accessing the
+hardware decoding would cause the machine to hard reset at least!
+
+
+-- steev
