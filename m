@@ -1,85 +1,33 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B35A93AF66A
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:28:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66822DEA62;
+	Fri, 27 Mar 2026 10:33:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774607286; cv=none; b=Twv9Jh4trFBb4bI8qeBytlXXjn7VVSBIanGMzu7b62tnJCSZNyBXF3PNyGjszf+NljpCXFxvyTe9HFS8jo/sbNLOxw71hlAhsgIS4WGL6BrrdtE3bu2Owr3rkc83/+L1vtRHfjjVQ7CEfNDhyQevOur64vbEfViTwzBDs5VdOF4=
+	t=1774607582; cv=none; b=fMaffZe068jdU052VdAs5nj5C0+RESEvxZnmsErOfQF7AWc3N+QpsSOw05tVr8/pGKAQwR3zyTHxAYzYOKuQEaaX4jeDMLLWx1kPrp9Q5/Ez/NfgZxdpVm41ZicTVZOS46+QBnJqb3FEbmNBM7fw+2VMzSMeHe4squyYMsMOE2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774607286; c=relaxed/simple;
-	bh=x4SiBt7V6Sk2WFVNfxLTaA7+5TjSVas4/7Un9ol0p7w=;
+	s=arc-20240116; t=1774607582; c=relaxed/simple;
+	bh=y99k3AxszXoLLqKJdSH9zI8nDHzmGnx3kbvdsI8xFa0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZJnhLCXuBKeIayAdiBY/yTF9HRDEhZ0yk6fuvGThOEJx7kdjdkb6EHwanT7G7iWO5k2Mq9avtm5z5hwNYwZWhCVfHLHX8nObb3dmJsBw80yfi8YNRWjlUG39pNTfibrBjI0nVrU+H4yWb5KMjBx+zdyUexcs1DlSFb4T8l+oyaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CDzKLN6l; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=PDRk9xqe; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=kKmfq19gVMy8FAQXOAKcddaK/eXfnX7QnCVtbciu3ge5kUC4hZdS9CLuacmBGHw2dUx/VRMt0bdnITZl01u1JXpzGNKt9UVGidpsGTyt0AWeMUOnRhIrur8oIdHnEgCjI8yPwX+eaVO5TiZBUaQqOxLd0Csxs0jQLW35tT5wsqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h5UZ0QRi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CDzKLN6l";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="PDRk9xqe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1774607281;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Td1UEV2F3jUbtWfOC+hUJMZhhPXqcdPMCvHHDB6wWwo=;
-	b=CDzKLN6lPUWZqGTKb3uY2RbBe0TlZyFt2Yxqi+TwDKZE20VN5+KwJ4nhtbRihkzWfy2gOK
-	PdlmYyeFKW/OV6rt2LF1iq186Aty/CC6QmQ7oEPEAgQ1TVklm1qDuz2M6kiqGS5TrzLNa6
-	iOh3Sl/rnEM8elIMbOKBP6VivkkOgao=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-77-qo6NhaxUM-eG2i-bAczv5g-1; Fri, 27 Mar 2026 06:27:59 -0400
-X-MC-Unique: qo6NhaxUM-eG2i-bAczv5g-1
-X-Mimecast-MFC-AGG-ID: qo6NhaxUM-eG2i-bAczv5g_1774607279
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-486fe3b9441so15253605e9.3
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 03:27:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1774607279; x=1775212079; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Td1UEV2F3jUbtWfOC+hUJMZhhPXqcdPMCvHHDB6wWwo=;
-        b=PDRk9xqeQXfokS8l666uPSVLPaxjE29OsFa9Npka0WgWD2h+JC23lUjV6xn3SLLmIV
-         0jI8FD42p/SXDjLYUbddYOiLglAaxCOxbgpMa9puqgYEXsqNiv+1wRjKKa6ESFzarR4v
-         A5ahi4p1CmJmJwdfxQ5Ub2sKKEzCOl8q2sHh9PXGKdp327irvkEkd1Tg37wDxMy50LmU
-         Fz3D3yI1PRNcZ+fhL3/EIhI4X5/Dx5/R+RRXw9Yq6o96U/IuTU60hLD+FTTik1WyMZXT
-         42yjXOv1axrE4bU5Hijue1faJ+598d2VxAF3H5xqoLnxPsNpRzZpd23nxJe2njpS7sNx
-         pvDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774607279; x=1775212079;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Td1UEV2F3jUbtWfOC+hUJMZhhPXqcdPMCvHHDB6wWwo=;
-        b=m5wBmXUqEUp1ger/sdSOqa8b2c6fh/ieUlRjCk8qFC9MssCXZVKfZ6KZNPpLaKoI1/
-         zn0zceb6jJkepHD4JkuuyvsQJSqLKtlpKYramhCO5qdmnWUaXsEWusAtENciV6asN6gf
-         3Rwf5uDLz1sRyjHhSZ5cCUPxkz41+3CSTVe2vSLZ+GWTDgRMLzc73Up6DEIH+OvWm2rW
-         v7ZJbqXfB8emPjoKErQ5C9VvM7gdvh42+vnaZXWHjTyv9dWJs5WNB6rh9zYzqZqFM4ec
-         WscPwORkIQ6nd3dQNH13bO0748XfsN08OdkujPU9ACR1aTM6Jrpbhf/fg77nZ086XEU1
-         yunA==
-X-Forwarded-Encrypted: i=1; AJvYcCVlKs0Smyv4XRqz8UPnrn+1RaVmdremknPRt71caEaW7wBRH1O5nghuHke6JS0cHNwY5CBXaqza/KCK@vger.kernel.org
-X-Gm-Message-State: AOJu0YyvDsmlIUGrq9U1fVEcZ39g9wDZX0sYNXMJ4dgJ2R7Vki/PfYoQ
-	IYHpbS3aFB2FJW54N9JmCJBGqjUIeNbN1mzzEsnmXZf9Op1THr6N8m96IDz//gX+oW4NMwiaoGb
-	xpl5gYdPzvF0ViGrbt4RbubrLV6a7cvahCpN0/D2uUWns28xP9lmx8cOXp3KTb/s=
-X-Gm-Gg: ATEYQzwae+/OeBbVQsnMuzJxnHZvnYaeL0g79wDm0HcdwQCj6fbI0kvBxgplFUty4tG
-	oEDQGdGiZFGlP8s5TJtoPevQe9oB4RpJC7lRWKTci66g2W5QombyLE4Gob55L1B/xmI8xiPcphK
-	DhaTVj9nTp+m1xoZBANJ8027N3vkp1QX26Rl6uCsU34da6lLdJyPMeJCTXaBYm9oMwaAW6F5jWy
-	nt7SIMXCxFd655zuNpOUql8oJp3FwNPFAvjeH4Sf3fU9ypfbdo8PKoZ/UR72EPtelQP3k0Etujr
-	Yeh6/rVdLlyQK6iioA+rZiuX2aH6guCchM814GBHNHtef4UOBdcBI5LHI1R0d89kr9k05aKu3tu
-	OTRJRuonayu1gBY2oKOsV
-X-Received: by 2002:a05:600c:19cf:b0:487:1108:48bc with SMTP id 5b1f17b1804b1-48727ec7695mr33006215e9.17.1774607278579;
-        Fri, 27 Mar 2026 03:27:58 -0700 (PDT)
-X-Received: by 2002:a05:600c:19cf:b0:487:1108:48bc with SMTP id 5b1f17b1804b1-48727ec7695mr33005795e9.17.1774607278095;
-        Fri, 27 Mar 2026 03:27:58 -0700 (PDT)
-Received: from [192.168.2.83] ([46.175.183.46])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722c9f0afsm156453505e9.10.2026.03.27.03.27.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Mar 2026 03:27:57 -0700 (PDT)
-Message-ID: <5764b509-9d02-4d0d-afbc-8176a7c44ca1@redhat.com>
-Date: Fri, 27 Mar 2026 11:27:56 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h5UZ0QRi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87094C19423;
+	Fri, 27 Mar 2026 10:32:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774607582;
+	bh=y99k3AxszXoLLqKJdSH9zI8nDHzmGnx3kbvdsI8xFa0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=h5UZ0QRiWqj9+LAcud1/JPDq35sjinNBS2WT60ZvTmkiuuT/PxzWLstP/YQpNookv
+	 NBuPYqUn6AjvdCFy71jPDt2hIfUznz1jfmHUydhqdDsEAjfbtQ3on/ZxY9pqqzSopX
+	 G22nW4tkmrJRQYjnwr7W3GXgt/Z0Y722LCL5nyrkecJLlK4U0qqxk+qWzwpOmiLAgO
+	 7f7Yep5vPaW4T7BEqg8FV/cMssxYty/IDdp4RMy+LwGwRQzpEbJdhWReeVkcm23LGW
+	 1D/1yhfxcsQXDP/uAS6+tCWkJsLzWhjfGrlpPM6VFEe1a52VqXAW7Tfuog7kgtSkWU
+	 kofiMZXNyqasw==
+Message-ID: <9c7521fe-5008-4daa-945b-ce3f5c0f6dc0@kernel.org>
+Date: Fri, 27 Mar 2026 11:32:57 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,114 +35,175 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 4/5] dt-bindings: dpll: add ref-sync-sources
- property
-To: Ivan Vecera <ivecera@redhat.com>, netdev@vger.kernel.org
-Cc: Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
- Jiri Pirko <jiri@resnulli.us>, Michal Schmidt <mschmidt@redhat.com>,
- Prathosh Satish <Prathosh.Satish@microchip.com>,
- Simon Horman <horms@kernel.org>, Vadim Fedorenko
- <vadim.fedorenko@linux.dev>, linux-kernel@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, Pasi Vaananen <pvaanane@redhat.com>
-References: <20260319174826.7623-1-ivecera@redhat.com>
- <20260319174826.7623-5-ivecera@redhat.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: power: reset: qcom-pon: Add new
+ compatible PMM8654AU
+To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>, Rob Herring <robh@kernel.org>
+Cc: Sebastian Reichel <sre@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260323-b4-add_pwrkey_and_resin-v4-0-abef4e4dcc3d@oss.qualcomm.com>
+ <20260323-b4-add_pwrkey_and_resin-v4-1-abef4e4dcc3d@oss.qualcomm.com>
+ <20260323181820.GA888901-robh@kernel.org>
+ <20260327095341.5radsv6dsbwptnfs@hu-kotarake-hyd.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Petr Oros <poros@redhat.com>
-In-Reply-To: <20260319174826.7623-5-ivecera@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260327095341.5radsv6dsbwptnfs@hu-kotarake-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-> Add ref-sync-sources phandle-array property to the dpll-pin schema
-> allowing board designers to declare which input pins can serve as
-> sync sources in a Reference-Sync pair.  A Ref-Sync pair consists of
-> a clock reference and a low-frequency sync signal where the DPLL locks
-> to the clock but phase-aligns to the sync reference.
->
-> Update both examples in the Microchip ZL3073x binding to demonstrate
-> the new property with a 1 PPS sync source paired to a clock source.
->
-> Signed-off-by: Ivan Vecera <ivecera@redhat.com>
-> ---
->   .../devicetree/bindings/dpll/dpll-pin.yaml    | 11 +++++++
->   .../bindings/dpll/microchip,zl30731.yaml      | 30 ++++++++++++++-----
->   2 files changed, 34 insertions(+), 7 deletions(-)
->
-> diff --git a/Documentation/devicetree/bindings/dpll/dpll-pin.yaml b/Documentation/devicetree/bindings/dpll/dpll-pin.yaml
-> index 51db93b77306f..7084f102e274c 100644
-> --- a/Documentation/devicetree/bindings/dpll/dpll-pin.yaml
-> +++ b/Documentation/devicetree/bindings/dpll/dpll-pin.yaml
-> @@ -36,6 +36,17 @@ properties:
->       description: String exposed as the pin board label
->       $ref: /schemas/types.yaml#/definitions/string
->   
-> +  ref-sync-sources:
-> +    description: |
-> +      List of phandles to input pins that can serve as the sync source
-> +      in a Reference-Sync pair with this pin acting as the clock source.
-> +      A Ref-Sync pair consists of a clock reference and a low-frequency
-> +      sync signal.  The DPLL locks to the clock reference but
-> +      phase-aligns to the sync reference.
-> +      Only valid for input pins.  Each referenced pin must be a
-> +      different input pin on the same device.
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +
->     supported-frequencies-hz:
->       description: List of supported frequencies for this pin, expressed in Hz.
->   
-> diff --git a/Documentation/devicetree/bindings/dpll/microchip,zl30731.yaml b/Documentation/devicetree/bindings/dpll/microchip,zl30731.yaml
-> index 17747f754b845..fa5a8f8e390cd 100644
-> --- a/Documentation/devicetree/bindings/dpll/microchip,zl30731.yaml
-> +++ b/Documentation/devicetree/bindings/dpll/microchip,zl30731.yaml
-> @@ -52,11 +52,19 @@ examples:
->             #address-cells = <1>;
->             #size-cells = <0>;
->   
-> -          pin@0 { /* REF0P */
-> +          sync0: pin@0 { /* REF0P - 1 PPS sync source */
->               reg = <0>;
->               connection-type = "ext";
-> -            label = "Input 0";
-> -            supported-frequencies-hz = /bits/ 64 <1 1000>;
-> +            label = "SMA1";
-> +            supported-frequencies-hz = /bits/ 64 <1>;
-> +          };
-> +
-> +          pin@1 { /* REF0N - clock source, can pair with sync0 */
-> +            reg = <1>;
-> +            connection-type = "ext";
-> +            label = "SMA2";
-> +            supported-frequencies-hz = /bits/ 64 <10000 10000000>;
-> +            ref-sync-sources = <&sync0>;
->             };
->           };
->   
-> @@ -90,11 +98,19 @@ examples:
->             #address-cells = <1>;
->             #size-cells = <0>;
->   
-> -          pin@0 { /* REF0P */
-> +          sync1: pin@0 { /* REF0P - 1 PPS sync source */
->               reg = <0>;
-> -            connection-type = "ext";
-> -            label = "Input 0";
-> -            supported-frequencies-hz = /bits/ 64 <1 1000>;
-> +            connection-type = "gnss";
-> +            label = "GNSS_1PPS_IN";
-> +            supported-frequencies-hz = /bits/ 64 <1>;
-> +          };
-> +
-> +          pin@1 { /* REF0N - clock source */
-> +            reg = <1>;
-> +            connection-type = "gnss";
-> +            label = "GNSS_10M_IN";
-> +            supported-frequencies-hz = /bits/ 64 <10000000>;
-> +            ref-sync-sources = <&sync1>;
->             };
->           };
->   
-LGTM.
+On 27/03/2026 10:53, Rakesh Kota wrote:
+> On Mon, Mar 23, 2026 at 01:18:20PM -0500, Rob Herring wrote:
+>> On Mon, Mar 23, 2026 at 04:15:15PM +0530, Rakesh Kota wrote:
+>>> PMM8654AU is a different PMIC from PMM8650AU, even though both share
+>>> the same PMIC subtype. Add PON compatible string for PMM8654AU PMIC
+>>> variant.
+>>>
+>>> The PMM8654AU PON block is compatible with the PMK8350 PON
+>>> implementation, but PMM8654AU also implements additional PON registers
+>>> beyond the baseline. Use the PMM8654AU naming to match the compatible
+>>> string already present in the upstream pinctrl-spmi-gpio driver, keeping
+>>> device tree and kernel driver naming consistent.
+>>>
+>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+>>> ---
+>>> Changes in v4:
+>>>  - Remove the contain for PMK8350 and new if:then for PMM8654AU as
+>>>    suggested by Krzysztof Kozlowski
+>>>
+>>> Changes in v3:
+>>>  - Update the commit message.
+>>>
+>>> Changes in v2:
+>>>  - Introduces PMM8654AU compatible strings as suggested by Konrad Dybcio.
+>>> ---
+>>>  .../devicetree/bindings/power/reset/qcom,pon.yaml  | 32 +++++++++++++++++-----
+>>>  1 file changed, 25 insertions(+), 7 deletions(-)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml b/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
+>>> index 979a377cb4ffd577bfa51b9a3cd089acc202de0c..2a5d9182b8d5c1a286716ab175c7bb5e39b334e0 100644
+>>> --- a/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
+>>> +++ b/Documentation/devicetree/bindings/power/reset/qcom,pon.yaml
+>>> @@ -17,12 +17,16 @@ description: |
+>>>  
+>>>  properties:
+>>>    compatible:
+>>> -    enum:
+>>> -      - qcom,pm8916-pon
+>>> -      - qcom,pm8941-pon
+>>> -      - qcom,pms405-pon
+>>> -      - qcom,pm8998-pon
+>>> -      - qcom,pmk8350-pon
+>>> +    oneOf:
+>>> +      - enum:
+>>> +          - qcom,pm8916-pon
+>>> +          - qcom,pm8941-pon
+>>> +          - qcom,pms405-pon
+>>> +          - qcom,pm8998-pon
+>>> +          - qcom,pmk8350-pon
+>>> +      - items:
+>>> +          - const: qcom,pmm8654au-pon
+>>> +          - const: qcom,pmk8350-pon
+>>>  
+>>>    reg:
+>>>      description: |
+>>> @@ -100,7 +104,6 @@ allOf:
+>>>    - if:
+>>>        properties:
+>>>          compatible:
+>>> -          contains:
+>>>              const: qcom,pmk8350-pon
+>>>      then:
+>>>        properties:
+>>> @@ -113,6 +116,21 @@ allOf:
+>>>              - const: hlos
+>>>              - const: pbs
+>>>  
+>>> +  - if:
+>>> +      properties:
+>>> +        compatible:
+>>> +            const: qcom,pmm8654au-pon
+>>> +    then:
+>>> +      properties:
+>>> +        reg:
+>>> +          minItems: 1
+>>> +          maxItems: 2
+>>> +        reg-names:
+>>> +          minItems: 1
+>>> +          items:
+>>> +            - const: hlos
+>>> +            - const: pbs
+>>
+>> I don't understand this. The existing if/then schema did the exact same 
+>> thing until you removed 'contains'. Now we just have the same schema 
+>> duplicated.
+>>
+>> What does need changing now that I've looked at it is dropping 'reg' 
+>> in this schema as it just repeats what the top-level schema has.
+>>
+> 
+> we have got suggestion to add a new if:then block for the new compatible from Krzysztof Kozlowski.
+> 
 
-Reviewed-by: Petr Oros <poros@redhat.com>
+But I did not suggest to add the contents in new if:then: block. I
+certainly did not suggest to not check this patch before submitting, either.
 
+We had long discussion where I asked you how many address spaces you
+have there?
+
+Answer above.
+
+And then answer why the patch says the device has one address space or
+two address spaces. You engaged me, Konrad and now Rob in reviewing this
+triviality. This is on the verge of wasting of our time.
+
+Best regards,
+Krzysztof
