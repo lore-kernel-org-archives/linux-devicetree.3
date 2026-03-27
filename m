@@ -1,233 +1,155 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C673BF68C
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 09:22:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCAF13A7824
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 09:24:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774603349; cv=none; b=blszLE7lMmFIk8gojAZTtiYaUNY3gs02UQ+6iUCS39eN9q60bxxPqGuT8KLZPcJM0n8Yj/754zJkmOx7LbbboKyxzI7vCXHqC9I2i1xDWU+0UZF7Xgx6ujUuvtMyguhpZUbchK/n4u7ULIY769vztIgXw+BEzEoVwUlhYYlDkqk=
+	t=1774603501; cv=none; b=kVGpLxdWAay8gGASuLlAUmcEqcrDVVlAF/3SOq7rH+huICBeUV6OvQWVo9SWUeewYOlGg26Ml9aj6b+aVe9qL3Bcc98aNe7nMRiLHKF3FgQQ/wtnJQCpY2CVMtn0+HAywLY//4LqicRHLORtWSJSrjXNS2LBFkEkb9tGL07Ql7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774603349; c=relaxed/simple;
-	bh=77ziGXDJHCVtyxYDOLAAtXsexr+EvNb/qjtKrFRyQuE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rrvKH+ue0m4SKMvhm4FeiAaC8y/OEwVkzQfQfEN3bC1THTlF916PwCmLwXB6RwmdyU6Vleh1Ae9tmURuP6n1PFrgeGeO8O5fryfCm/JnwuANnckWOWRADvkKCrpddvkbVdXT0WTnTjJw5j1aoiC3MsJ1WFjV1YLDeagqeNcNwlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=esYyOkWZ; arc=none smtp.client-ip=209.85.216.54
+	s=arc-20240116; t=1774603501; c=relaxed/simple;
+	bh=XbDQ2/22hmqqOYzwVjmdadSPPNUhgz8dkbyHcGWO9i0=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PpDuPkqxWBOsqqF/Q4YrrztHTGcrIW7ZSO4IiU/yf5eXm6DXCOzDlT65xdcIPhm6CltEzIwiJBnoWaBlc8HeBK3fwqnjs7NKYf7lww1L5l5ts1BZNYAW4nQo8CdozepzggZl+ctpSKPFRmwa3+n//1BM+ut54iIN1KMgXcpFog4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sf7FJvtB; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="esYyOkWZ"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-359f35dfef6so1113923a91.2
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 02:22:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sf7FJvtB"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-486ff201041so16701975e9.1
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 02:24:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774603343; x=1775208143; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=TKrsFAgsd9tGqXibhrnXaG9cuXcQbnK4a4OD2FtF8S0=;
-        b=esYyOkWZdofvtU/E2Lx2kqBe4weEKdMt0bIzzUvgsbyjXFR6zEwBBd6ewBXf7C33/c
-         Ie+biSvTlXzsXZ9E6t+6R29A18aZTiqX2k2D2ebf+eStG2CiGkNzJIAP7nBinKrLp8Ya
-         iNVZi93Y0HT3VmwcA8KDhoANzFGN009D90LRCkz+jb2O1ZZJ2YFRbO5uli2Q84dw37dA
-         9n+rqYpUqEubJBG2e9FCrqnsTxMAzI9GsiUpDmXaq+gujE7kaw5IjOaWhHRQKwDiz2x6
-         nzpAMbMcOGuuY+Bj5SbsWpLO0kKtMKYQ6A2M6vK/FKptOrTMEtvk1QWsfBikguLEQEdz
-         u+FA==
+        d=gmail.com; s=20251104; t=1774603498; x=1775208298; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0ZS4t6iiMwLAGOREHrvQzMp06NE787DNbu4/2Frutpg=;
+        b=sf7FJvtBz2wyq0j5MiQKmrMt6ShvyfiwGq3Ln4dUiVwcxjiGGrSfBjlVpoIa3kYrms
+         UqeBpMLXlzNNgunyPgv3rtHIjxb1kS7nakg7jUZWsvC/sptbl9DX+mLTJm64QdlyeSU3
+         LUdl8zk+jqOUc6nR9tS/dm5fjs1M9+MVgpQrggXcWYRPlsR78rfOAbCW+hPRT7hl084c
+         RKs46C+gop4S+LHHSF8wGrK4EakH8RQcDTIQ5lFvZj/uOmL9n67nriHYAztwCm0u34ii
+         YEs/y8PiZFE95JhVqyCcuzkWuhZkfKmBLJ6azZarzVQyISl1qGJH6fa7/w3WP38BtUNZ
+         yZ1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774603343; x=1775208143;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TKrsFAgsd9tGqXibhrnXaG9cuXcQbnK4a4OD2FtF8S0=;
-        b=N0CPmtV4pts53suFaebNOyAkZRsmgOBxKyoPIwXhvYw7115BK6dmjTzYtPtUW3xXpR
-         9h8DF7ykHoqEwD8x2UgVeQWwhOkkpTYzt5UmN6hslwicuTc5XDvOlPclbqUz5B98y7Ny
-         2ymGrteiLfy3O94yiIkQJVjBVdDovX3wqHo3l6zja8e7LOMUB76hsqNButdweNhJalg+
-         iQXik9Jr2ItWr0jEFGqBn73CLe+7o5OF9MawwPl4F+YR+KD1vuZLUnYoXYwVAP8D6wVQ
-         EZJK7Ckb12sw5+fXvZc4uwD1APwckn14bkoMZpGF+PSXYypD6ImDAOSEnKBnvln6gUKD
-         x9fw==
-X-Forwarded-Encrypted: i=1; AJvYcCXe8lo1b43zD1DaChQMyzglICsamLWxfKx5HvpINJx57zWqBmCSe6t9Tlzu5XLpsiJ12w9nDnB3qr2a@vger.kernel.org
-X-Gm-Message-State: AOJu0YzreJ907GRm41IT7I84M1vOuMQdH749rdRsQwo52o2z33Gi91y+
-	PZdqyYIQbODZxYNx0S01CH0kVY3YYyu0Hesy8rzF2drn/de9F3D1nzuV
-X-Gm-Gg: ATEYQzxBbS/7XyPzJ6Tp+Y+uN5xbbfYjQBjo7Pj2O7mbI71F9RWiwBEz10sFsuZAMZy
-	9AftXfUkGrV9Ss+sgRExuezGh0xCGeulFRXZusjmxdSkgY7K4I7KR8hWHKBVm9n5SGsDlvQ6Egw
-	6pdp4uon+aEGB15M5TEdLUBLwJvExi51eOY21F6wkslrlKJHsdj2B9Zrqaevr5PgYQFDQxXiYob
-	WujfghjSJbSK8uaMNN6Z65/mXPpOFCrAIHFPiHP/8ezrH9GLss8QQenwq6AJWQ11JLdIZHD77fC
-	Mc8Ud7MOQ9gEr1YgLpVuM11b1wjW4+wB55al8mgve2aZIncHAxMDK5ZpDgMtf/WHJoHX4s2f4DN
-	I254WPn5rkjoGfFsKi3YZDoDo8bfjmeRWuhntRhAINzLvymkq/ac0WSp/vZrBtFt7Xu9zYGXHFg
-	ozZvI45lNug4kdfM5GE+54YgzarahFdqg3KptjbMVkxMLK69Hg5IC/IUJUyEPf5Nie1TivACvO
-X-Received: by 2002:a17:902:ecd0:b0:2b0:606b:6fd3 with SMTP id d9443c01a7336-2b0cdc1026fmr20438765ad.5.1774603343419;
-        Fri, 27 Mar 2026 02:22:23 -0700 (PDT)
-Received: from chaitanya-virtualbox.. ([103.249.241.54])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0bc68914bsm57749095ad.0.2026.03.27.02.22.19
+        d=1e100.net; s=20251104; t=1774603498; x=1775208298;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=0ZS4t6iiMwLAGOREHrvQzMp06NE787DNbu4/2Frutpg=;
+        b=CLOzOIvTAY2xhP5OjfU/RqisA2nLyjws4WiGaYqMOjaEAAtjdnz4DSehDgsY9ssWl+
+         coKq9PPP6prdzNRaZFHEOJNvq/cxSe7zgEkqeihJWCMSOPUJHTROsfx+A2Sbf77CRw88
+         n3daqxZqzw0dPSXr+PymYADFNb95e4LfrtS+MITKZ8oDX3wApD/CT/nDXuqKzGkX+Fc4
+         CumEiCXbMS/73CaJhSFvaqKSvCw4CDyYZegSdR1tJlcUotQSQUcQL8nvL+o0GJVwoeyc
+         v5Mk0uRfkzuPfzblVLh/N+7K0odfDSYDymeiTcxEOLXeZi+75D0tmKuGmsJ1O/6vPwBK
+         asPw==
+X-Forwarded-Encrypted: i=1; AJvYcCXk/luIaElFrHglnzzsuEQNgrRKKfT+hGgmXLfgAyLzrKjTMQBa99JXoKj1JeGKYi7kcCdloB5Dp3vV@vger.kernel.org
+X-Gm-Message-State: AOJu0YxkAiIjeOe4VQw5RikWYZfaA0+DVS9iuNZixlwxtA25HE6hNJD8
+	4atec0+HunwNCgOzuadOcz9FO/uojoa/k/KtVEusZlqgN884B4KFzeq4
+X-Gm-Gg: ATEYQzxxbK4oCfF1/SLZBgfTVYmFgyJoG4h/JsUI93okWLQp5kvYdsGeZ3lz4WIhsUf
+	OC5DVBgERLRwH5q4RcoMBZ/BczffxL93R7Y/FLPGF8S8vaXPq4AipHE8RUaPZEOSLdP/vdo+q5T
+	2lPWI4wayx4MmhdWs43LU8VAXTds6x/1erGOb8c156b4M0GufndkCDSY+pvWwE+UUMZgPdIaOzM
+	IrInVzHGs9x9qbcGXxHSCellwOPrcjj8bV226AY4BGcd5Pu738jmiYGjR3Cfl0SWPYbAJp53JIZ
+	RRqV6IlYm0PF9g6W+9t8ceOviZBR4eeosVOr4eVDagFPeL7UwwtCKj69dPStgShWVLSVpohpp8h
+	F8VudHtI+HXtfDa/JkNSG/xMqzvUqJw2wklPgrLRuFinPR37qXqoB0p0GXLdC3y2cL6aNKHRqu2
+	UG8Uqo08xd0RlsayM3YGUy7p2MTpJSDZgibK+ZVl5rEbpgyspOY2WjSfcrLBMigAgOjTEkWSSx5
+	zjFefkpa2nx3cSTOGzOC9XPsC46QK2EvgZrRGvAFHA5miyQnck=
+X-Received: by 2002:a05:600c:4612:b0:485:445a:87d1 with SMTP id 5b1f17b1804b1-48727d6f733mr15472495e9.8.1774603497832;
+        Fri, 27 Mar 2026 02:24:57 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722d23679sm167318985e9.9.2026.03.27.02.24.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Mar 2026 02:22:22 -0700 (PDT)
-From: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: john.stultz@linaro.org,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
-Subject: [PATCH v3] ASoC: dt-bindings: hisilicon: Convert hi6210 I2S to dt-schema
-Date: Fri, 27 Mar 2026 14:51:06 +0530
-Message-ID: <20260327092106.4233-1-chaitanya.msabnis@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 27 Mar 2026 02:24:56 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Fri, 27 Mar 2026 09:24:50 +0000
+To: Petr Mladek <pmladek@suse.com>, rodrigo.alencar@analog.com
+Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Andrew Morton <akpm@linux-foundation.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v9 2/9] lib: vsprintf: export simple_strntoull() in a
+ safe prototype
+Message-ID: <yn5equz3nlcp52347yfpa4sdfxhkno4l3a4gaugefsz3kzebz4@idftkp7txr6u>
+References: <20260320-adf41513-iio-driver-v9-0-132f0d076374@analog.com>
+ <20260320-adf41513-iio-driver-v9-2-132f0d076374@analog.com>
+ <acZDneLrIPOmU5ci@pathway.suse.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <acZDneLrIPOmU5ci@pathway.suse.cz>
 
-Convert the Hisilicon hi6210 I2S controller hardware binding from
-legacy plain text to modern YAML dt-schema format.
+On 26/03/27 09:45AM, Petr Mladek wrote:
+> On Fri 2026-03-20 16:27:27, Rodrigo Alencar via B4 Relay wrote:
+> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > 
+> > Expose simple_strntoull(), by addressing its FIXME, i.e. its prototype is
+> > slightly changed so that -ERANGE or -EINVAL can be evaluated by the user.
+> > Flow of the function is not changed and error value is returned in the
+> > end. Unsafe internal wrapper is created to reduce amount of changes.
+> > 
+> > --- a/include/linux/kstrtox.h
+> > +++ b/include/linux/kstrtox.h
+> > @@ -148,4 +148,8 @@ extern long simple_strtol(const char *,char **,unsigned int);
+> >  extern unsigned long long simple_strtoull(const char *,char **,unsigned int);
+> >  extern long long simple_strtoll(const char *,char **,unsigned int);
+> >  
+> > +extern ssize_t __must_check simple_strntoull(const char *startp, const char **endp,
+> > +					     unsigned int base, size_t max_chars,
+> > +					     unsigned long long *res);
+> 
+> Sigh, naming is hard. I personally find it a bit confusing that the
+> name is too similar to the unsafe API.
+> 
+> IMHO, the semantic of the new API is closer to kstrtoull().
+> It just limits the size, so I would call it kstrntoull().
+> 
+> Also I would use int as the return parameter, see below.
 
-During the conversion, the order of the dma-names properties in the
-example was corrected to "tx", "rx" to match the official property
-description, resolving a contradiction in the original text binding.
+Thanks for look into this one.
 
-Signed-off-by: Chaitanya Sabnis  <chaitanya.msabnis@gmail.com>
----
- .../bindings/sound/hisilicon,hi6210-i2s.txt   | 42 ----------
- .../bindings/sound/hisilicon,hi6210-i2s.yaml  | 80 +++++++++++++++++++
- 2 files changed, 80 insertions(+), 42 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/hisilicon,hi6210-i2s.txt
- create mode 100644 Documentation/devicetree/bindings/sound/hisilicon,hi6210-i2s.yaml
+kstrntoull() was what I used in v8:
+https://lore.kernel.org/r/20260303-adf41513-iio-driver-v8-0-8dd2417cc465@analog.com
 
-diff --git a/Documentation/devicetree/bindings/sound/hisilicon,hi6210-i2s.txt b/Documentation/devicetree/bindings/sound/hisilicon,hi6210-i2s.txt
-deleted file mode 100644
-index 7a296784eb37..000000000000
---- a/Documentation/devicetree/bindings/sound/hisilicon,hi6210-i2s.txt
-+++ /dev/null
-@@ -1,42 +0,0 @@
--* Hisilicon 6210 i2s controller
--
--Required properties:
--
--- compatible: should be one of the following:
--   - "hisilicon,hi6210-i2s"
--- reg: physical base address of the i2s controller unit and length of
--   memory mapped region.
--- interrupts: should contain the i2s interrupt.
--- clocks: a list of phandle + clock-specifier pairs, one for each entry
--  in clock-names.
--- clock-names: should contain following:
--   - "dacodec"
--   - "i2s-base"
--- dmas: DMA specifiers for tx dma. See the DMA client binding,
--  Documentation/devicetree/bindings/dma/dma.txt
--- dma-names: should be "tx" and "rx"
--- hisilicon,sysctrl-syscon: phandle to sysctrl syscon
--- #sound-dai-cells: Should be set to 1 (for multi-dai)
--   - The dai cell indexes reference the following interfaces:
--       0: S2 interface
--       (Currently that is the only one available, but more may be
--        supported in the future)
--
--Example for the hi6210 i2s controller:
--
--i2s0: i2s@f7118000{
--	compatible = "hisilicon,hi6210-i2s";
--	reg = <0x0 0xf7118000 0x0 0x8000>; /* i2s unit */
--	interrupts = <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>; /* 155 "DigACodec_intr"-32 */
--	clocks = <&sys_ctrl HI6220_DACODEC_PCLK>,
--		 <&sys_ctrl HI6220_BBPPLL0_DIV>;
--	clock-names = "dacodec", "i2s-base";
--	dmas = <&dma0 15 &dma0 14>;
--	dma-names = "rx", "tx";
--	hisilicon,sysctrl-syscon = <&sys_ctrl>;
--	#sound-dai-cells = <1>;
--};
--
--Then when referencing the i2s controller:
--	sound-dai = <&i2s0 0>; /* index 0 => S2 interface */
--
-diff --git a/Documentation/devicetree/bindings/sound/hisilicon,hi6210-i2s.yaml b/Documentation/devicetree/bindings/sound/hisilicon,hi6210-i2s.yaml
-new file mode 100644
-index 000000000000..5171f984630b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/hisilicon,hi6210-i2s.yaml
-@@ -0,0 +1,80 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/hisilicon,hi6210-i2s.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: HiSilicon hi6210 I2S controller
-+
-+maintainers:
-+  - John Stultz <john.stultz@linaro.org>
-+
-+allOf:
-+  - $ref: dai-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: hisilicon,hi6210-i2s
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 2
-+
-+  clock-names:
-+    items:
-+      - const: dacodec
-+      - const: i2s-base
-+
-+  dmas:
-+    maxItems: 2
-+
-+  dma-names:
-+    items:
-+      - const: tx
-+      - const: rx
-+
-+  hisilicon,sysctrl-syscon:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: phandle to sysctrl syscon
-+
-+  "#sound-dai-cells":
-+    const: 1
-+    description: |
-+      The dai cell indexes reference the following interfaces:
-+        0: S2 interface
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - dmas
-+  - dma-names
-+  - hisilicon,sysctrl-syscon
-+  - "#sound-dai-cells"
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/hi6220-clock.h>
-+
-+    i2s@f7118000 {
-+        compatible = "hisilicon,hi6210-i2s";
-+        reg = <0xf7118000 0x8000>;
-+        interrupts = <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&sys_ctrl HI6220_DACODEC_PCLK>,
-+                 <&sys_ctrl HI6220_BBPPLL0_DIV>;
-+        clock-names = "dacodec", "i2s-base";
-+        dmas = <&dma0 14>, <&dma0 15>;
-+        dma-names = "tx", "rx";
-+        hisilicon,sysctrl-syscon = <&sys_ctrl>;
-+        #sound-dai-cells = <1>;
-+    };
+There was a discussion around the naming:
+https://lore.kernel.org/all/4mtdzxfj656sjr66npabfvrr7yd7q26l2unhsihjtniz4ossfj@g3qnzonoary6/
+
+please suggest how the function prototype should look like.
+
+...
+
+> > +/* unsafe_strntoull ignores simple_strntoull() return value and endp const qualifier */
+> > +inline
+> > +static unsigned long long unsafe_strntoull(const char *startp, char **endp,
+> > +					   unsigned int base, size_t max_chars)
+> > +{
+> > +	unsigned long long result;
+> > +	const char *cp;
+> > +
+> > +#pragma GCC diagnostic push
+> > +#pragma GCC diagnostic ignored "-Wunused-result"
+> > +	simple_strntoull(startp, &cp, base, max_chars, &result);
+> > +#pragma GCC diagnostic pop
+> > +
+> >  	if (endp)
+> >  		*endp = (char *)cp;
+> 
+> IMHO, we do not need local "cp". We could simply pass the endp
+> to the new simple_strntoull. Or do I miss anything?
+
+Basically the unsafe version drops the const qualifier and compiler
+complains that pointer types do not match. Maybe an extra warning can
+be suppressed there.
+
 -- 
-2.43.0
+Kind regards,
 
+Rodrigo Alencar
