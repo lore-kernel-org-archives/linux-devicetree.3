@@ -1,105 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 216A53C7E0E;
-	Fri, 27 Mar 2026 08:25:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC8D3CB2EE;
+	Fri, 27 Mar 2026 08:27:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774599927; cv=none; b=NTrH0Caeo7K4WpFEx0DF7r75soHYYTKnNwwzEEWvommHmyXUErozIPhD6t/U99fcaZP4qRkecvQrMTd/HPCQOcsXmTZ7u0HiIslffbO5jVrdh+dC1RxXTCdq+Ru0L/z4z0OD08PgcajzquI+4KDETAQG92CFQXp76azuoRX6jsk=
+	t=1774600060; cv=none; b=d5XVS9Ku7INiEoXL4GfbHmZvfsvXvd4o/b3n5VIjamUrND/zdGvvGSxbGFrnAj3xio8jDW/ZO3y2y6JfKjcNWHW0wmX1GTs/jOLCFWljkoXQtkKh/lxTkr4IPilMl7O9sBMSmAotNv8iL0JS4ADfsDJtsZJM4KkulDFmm8wcUnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774599927; c=relaxed/simple;
-	bh=HFmd/yN0zDbunaZil2hF63355iXilUJ4h7GpPaZQYk0=;
+	s=arc-20240116; t=1774600060; c=relaxed/simple;
+	bh=pnd5rHaXCCt+M4SrM7wM83jo3Va9J11tuQmok8a4dRE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XPqBJYksHU/z+FRiIF1txhzXcsMh4zNb7uzCAq7UFbPwRWA7hZUfFs1IWDqu/RbLC72NpUJSKrQHa9MnOqE758Y5I2cBHl19MwRRl9xDBrNMHmXE5yBGiYXMdKKYrSiBjpn/9Ew744pMsE9VNZ7gX8kVN2arDhUoZfruAnfu5DQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iYbU4xPW; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=SqoFgOd6bW0pdwLEiF153w40l5rOag42tsQns1MQNJh2y7WZLyZEB5G2mH+RF+7Y3zC7ZG6cNZX5s+590zbi9TtTRF5Kkg12okXjXkel+XG/50ewd5S042cqoMZea9Hh8jUiY+5TUJdyUQ+m+VLjM1bX4U/6q2aKzyq2VUYq32Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xWsA0LTk; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iYbU4xPW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BEFDC19423;
-	Fri, 27 Mar 2026 08:25:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774599926;
-	bh=HFmd/yN0zDbunaZil2hF63355iXilUJ4h7GpPaZQYk0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iYbU4xPW0QmniiP7pbZ2rN5WhRhXZl3OHs06Um/vct+r0dI26c2lvARKJzAwNK1fW
-	 L22HxRlPr8pUt519LPW9Ge1QpOX5zfz4I1s2QPszCUrd1PB13gjuL06F3x82aS8fCE
-	 QGg8YO3/6RNnGhbG81KrSkCmBfFEaiM8shU/8RuCG42h5GcqGmlClvtrZ4Y6aV/mjS
-	 Q8Kl1/VLOdj/g8dirfcHT0w8Gl0cRPCa0CPo2IVjsCOyUDWFH0g/juNL0GL4Diib7S
-	 G26MGyL6C13drt6+H1StyHY9m0pMyjNGFfV2Ub94odhO45eEnvLa7PVsGoVsd4cNKi
-	 aDO14AE8Xs3Fg==
-Date: Fri, 27 Mar 2026 09:25:24 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Cc: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
-	Junyi Zhao <junyi.zhao@amlogic.com>
-Subject: Re: [PATCH 1/2] dt-bindings: pwm: amlogic: Add new bindings for S6
- S7 S7D
-Message-ID: <20260327-cormorant-of-strange-spirit-d8fdc5@quoll>
-References: <20260326-s6-s7-pwm-v1-0-67e2f72b98bc@amlogic.com>
- <20260326-s6-s7-pwm-v1-1-67e2f72b98bc@amlogic.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xWsA0LTk"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 4C5424E42731;
+	Fri, 27 Mar 2026 08:27:36 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1E1E660230;
+	Fri, 27 Mar 2026 08:27:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5E16510450F0D;
+	Fri, 27 Mar 2026 09:27:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1774600054; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=txJM2GJWPPWLss62O+A2FkU4gpdBs6qgEn0gNwSfyQw=;
+	b=xWsA0LTkRU1SsJOMLr0Hc92VkQpX9sqGZGYnEk4gFZlSykvrEghAy12WspWUCTUnu9uuMl
+	OwRAudxKkfLzuBaYjgzFAjfi/EACbl/iqfBZ1I+FRctTDBpCA0dNx05COtH621c9aIz2EB
+	kViSgYBFQM/sOipM5ZjVrf/dlvS7AkSxZT8GqT2RpjVbvYcQRr8o0oD7GWtH988k3nk9Wz
+	gxVeLSDNBSdmkAPUCjcMYx7JdzbvNWE/GTHbuL8Haf82UV1rlJl1FjBoRCvTpDEenVzeTD
+	8sAzrPgD6o9J3k8hPOZGTaJFnGxwG8hQxEfGvEoR/J8FLQLwaiy29wdu0RIhhQ==
+Date: Fri, 27 Mar 2026 09:27:21 +0100
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Akhil R <akhilrajeev@nvidia.com>
+Cc: Frank.Li@nxp.com, acpica-devel@lists.linux.dev, conor+dt@kernel.org,
+	conor@kernel.org, devicetree@vger.kernel.org, ebiggers@kernel.org,
+	fredrik.markstrom@est.tech, jonathanh@nvidia.com,
+	krzk+dt@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, linux-i3c@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux@roeck-us.net, miquel.raynal@bootlin.com,
+	p.zabel@pengutronix.de, rafael@kernel.org, robert.moore@intel.com,
+	robh@kernel.org, smangipudi@nvidia.com, thierry.reding@kernel.org
+Subject: Re: [PATCH 01/12] dt-bindings: i3c: Add mipi-i3c-static-method to
+ support SETAASA
+Message-ID: <20260327082721f7e69e6a@mail.local>
+References: <202603261544313f63018c@mail.local>
+ <20260327081858.32354-1-akhilrajeev@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260326-s6-s7-pwm-v1-1-67e2f72b98bc@amlogic.com>
+In-Reply-To: <20260327081858.32354-1-akhilrajeev@nvidia.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Mar 26, 2026 at 06:35:38AM +0000, Xianwei Zhao wrote:
-> +      - items:
-> +          - enum:
-> +              - amlogic,s6-pwm
-> +              - amlogic,s7d-pwm
-> +          - const: amlogic,s7-pwm
->        - items:
->            - enum:
->                - amlogic,meson8b-pwm-v2
-> @@ -146,6 +152,20 @@ allOf:
->          clock-names: false
->        required:
->          - clocks
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - amlogic,s7-pwm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: input clock of PWM
+On 27/03/2026 13:48:58+0530, Akhil R wrote:
+> On Thu, 26 Mar 2026 16:44:31 +0100, Alexandre Belloni wrote:
+> > On 26/03/2026 10:05:03-0500, Rob Herring wrote:
+> >> On Wed, Mar 18, 2026 at 05:31:50PM +0000, Conor Dooley wrote:
+> >> > On Wed, Mar 18, 2026 at 10:57:14PM +0530, Akhil R wrote:
+> >> > > Add the 'mipi-i3c-static-method' property mentioned in the MIPI I3C
+> >> > > Discovery and Configuration Specification [1] to specify which discovery
+> >> > > method an I3C device supports during bus initialization. The property is
+> >> > > a bitmap, where a bit value of 1 indicates support for that method, and 0
+> >> > > indicates lack of support.
+> >> > > Bit 0: SETDASA CCC (Direct)
+> >> > > Bit 1: SETAASA CCC (Broadcast)
+> >> > > Bit 2: Other CCC (vendor / standards extension)
+> >> > > All other bits are reserved.
+> >> > > 
+> >> > > It is specifically needed when an I3C device requires SETAASA for the
+> >> > > address assignment. SETDASA will be supported by default if this property
+> >> > > is absent - which means for now the property just serves as a flag to
+> >> > > enable SETAASA, but keep the property as a bitmap to align with the
+> >> > > specifications.
+> >> > > 
+> >> > > [1] https://www.mipi.org/specifications/disco
+> >> > > 
+> >> > > Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+> >> > > ---
+> >> > >  .../devicetree/bindings/i3c/i3c.yaml          | 30 ++++++++++++++++---
+> >> > >  1 file changed, 26 insertions(+), 4 deletions(-)
+> >> > > 
+> >> > > diff --git a/Documentation/devicetree/bindings/i3c/i3c.yaml b/Documentation/devicetree/bindings/i3c/i3c.yaml
+> >> > > index e25fa72fd785..1705d90d4d79 100644
+> >> > > --- a/Documentation/devicetree/bindings/i3c/i3c.yaml
+> >> > > +++ b/Documentation/devicetree/bindings/i3c/i3c.yaml
+> >> > > @@ -31,10 +31,12 @@ properties:
+> >> > >        described in the device tree, which in turn means we have to describe
+> >> > >        I3C devices.
+> >> > >  
+> >> > > -      Another use case for describing an I3C device in the device tree is when
+> >> > > -      this I3C device has a static I2C address and we want to assign it a
+> >> > > -      specific I3C dynamic address before the DAA takes place (so that other
+> >> > > -      devices on the bus can't take this dynamic address).
+> >> > > +      Other use-cases for describing an I3C device in the device tree are:
+> >> > > +      - When the I3C device has a static I2C address and we want to assign
+> >> > > +        it a specific I3C dynamic address before the DAA takes place (so
+> >> > > +        that other devices on the bus can't take this dynamic address).
+> >> > > +      - When the I3C device requires SETAASA for its discovery and uses a
+> >> > > +        pre-defined static address.
+> >> > >  
+> >> > >    "#size-cells":
+> >> > >      const: 0
+> >> > > @@ -147,6 +149,26 @@ patternProperties:
+> >> > >            through SETDASA. If static address is not present, this address is assigned
+> >> > >            through SETNEWDA after assigning a temporary address via ENTDAA.
+> >> > >  
+> >> > > +      mipi-i3c-static-method:
+> >> > > +        $ref: /schemas/types.yaml#/definitions/uint32
+> >> > > +        minimum: 0x1
+> >> > > +        maximum: 0xff
+> >> > > +        default: 1
+> >> > > +        description: |
+> >> > > +          Bitmap describing which methods of Dynamic Address Assignment from a
+> >> > > +          static address are supported by this I3C Target. A bit value of 1
+> >> > > +          indicates support for that method, and 0 indicates lack of support.
+> >> > 
+> >> > I really am not keen on properties that are bitmaps, why can't we just
+> >> > use the strings "setdasa", "setaasa" etc?
+> >> 
+> >> If this comes from a specification, then I'd tend to just copy it rather 
+> >> than invent our own thing. Obviously if is something structured 
+> >> fundamentally different from how DT is designed, then we wouldn't. But 
+> >> this is just a simple property.
+> >> 
+> > 
+> > The issue being that the specification is not public so it is difficult
+> > to take any decision.
+> 
+> There is a public version available in the same link, but you would still
+> have to provide them a name and an email ID. The document will be sent to
+> the mail ID.
+> 
 
-so simpler: "maxItems: 1"
+The public version only contains one property:
+mipi-disco-interface-revision
 
 
-> +        clock-names: false
-> +      required:
-> +        - clocks
->  
->    - if:
->        properties:
-> @@ -182,3 +202,10 @@ examples:
->        clocks = <&pwm_src_a>, <&pwm_src_b>;
->        #pwm-cells = <3>;
->      };
-> +  - |
-> +    pwm@1000 {
-> +      compatible = "amlogic,s7-pwm";
-
-You already have three examples, don't add more.
-
-With these changes:
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
-
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
