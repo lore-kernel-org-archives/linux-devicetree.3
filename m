@@ -1,190 +1,733 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D839639E17D
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:12:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958BA253F07
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:13:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774606326; cv=none; b=RieBVfyN7vXIpGeUmYDSHu7ZD3W6b6YAHn8trPmmTudBRIIuYDdGvLHZDQcfNIONSD/FyBNWpu1bPJrsdZ5s3Yu9akjqDX+hoVwDtPMgnTfgipQeux947lFLSrXzGEoZwIMQ3m51RRXnHz1J1YliqusnsuhZn1Xe4w0wmN85QjM=
+	t=1774606382; cv=none; b=rHET156wxhmftmku63Rm0CTpQ3mpB/jHzsQJiuPD1yqa0AAiKQHwOOHm4W+AIkx3tGuA7LOhCAgk6xhDPj+8FqwzKAl/IfBVMu+GRKA9v3r+J8RYcT2+9/CoCp9KGQQSQvFMj/ycz05ynhLycALGnyvggduAoMk8gc1IpJsXaeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774606326; c=relaxed/simple;
-	bh=emZndTB0StSeiKPV9wKo4qME2pfL/NkV8yDQkFW/He0=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SwEVFlybR8deTpAGFKjAt3kDReYWHouYGcMSd3qyrEmLDCnFZufF3xjLk2CY9H0eDsBXXzh/N1OMJ0SVs9yDX3cPXq7GH1dDWrzehB70RixTG2drpI7XhUUIMvpp/B/wMqsKfalROh3/91n6xPhh77RRsWczhNtwHCuBg8JQ7pM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FfDd8+E7; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774606382; c=relaxed/simple;
+	bh=NzHl+TSMYx8b7yrFreTP5LVTAgHzY2fpAX7dzVZ+Ncw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hL7KvOXOZIZbmZWVnQvD3eOG/g5HHe58V1YRUvs2tGCDye79Raxq6jOpS4mby+WYMD3z9QtGIO9Wnd8uKLkQWjvy6sh6iiSMrd2/IEjqjaKcJTVqvWaPcdQpmfH678UX85HV4KSEgy3O6ulHIbdVLc5/9jdTZi5XTY4VV76jeWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ONlmwu3S; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=i8Qlpi+O; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FfDd8+E7"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-439fe4985efso1457081f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 03:12:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ONlmwu3S";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i8Qlpi+O"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62R6w77O3132162
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:12:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=mk7Qe3bjicV6DXPTZkBZhb3fM69i7303uZK
+	vtWPVFp0=; b=ONlmwu3S78wEgZTgHLy0D7e5UtbzpGDnlOk0zNlgAW5SBJ6+V2m
+	JUnjktz63ZiWM4hx4PegD7haVxPrHyEEO7VP871ZrRrJVBfZFyoKJsxukBDD9VBR
+	DP8eGbc2AYylORPZ9jtakxCGwkxeUG3tPTbxQgz+B0+oq9Fj+ICQ4swneYaEbArf
+	q2vhUMStwdPP2J4M1nKMzV6p7QxWi5Uja3/Jp4NeiI2f9jBSO9yMTs14DAW9/oZb
+	ddVBQEDlNHgMUE3bFnLoq4fEA/3eVnJRpMZFNfmcTVCprVXRaPnP3LKBRdm3bIfU
+	N2n8o5kWarNFvWQJp/LhqNAJ4guDo/+CaVg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d59s430ta-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:12:59 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50917996cfaso4498441cf.0
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 03:12:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774606323; x=1775211123; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=4ebKOUFGrIuktoxI72r0hHEVIqHTRxRm4Xw0zTvSKkQ=;
-        b=FfDd8+E73w01cSEaWXKEpHhExjQm1JDvKrpUnim+J8GFpkkfbtTw4eGSrtBXwkbqpp
-         RFADnvHLoCjCg1eE8puvNINDkKMCsxLJY3LB3l9GQZuv+ZCNzgppp9Nzgvm/DW9BS0Bw
-         DN6JEx78/jEQxWLquJqQS8xJd8Xg0i31qWdh2Jrm80jEOrOKMNkAvM6qkRVvNaXHENAP
-         i0NAfCfDBtclqMsmjxhS+bOpTwKVD846d3GYhhGYrHZF4sWLEbgSvVsVtJ+3ANGF6xwQ
-         opyROm0hW4eBB2T4atx7oBYXKGTXzkE8s0fuI2gK5HXtFb47ktqsrC1MdDh4cj2L+6na
-         zmew==
+        d=oss.qualcomm.com; s=google; t=1774606379; x=1775211179; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=mk7Qe3bjicV6DXPTZkBZhb3fM69i7303uZKvtWPVFp0=;
+        b=i8Qlpi+OV74wKWKldrhj9OEy/j3N8iFxd8wRnBKI0WZEKYDuoELot+/rOJuiRL9Op0
+         UO1AT4V4n0/Sv0Oi1SnleYrrY10KOBKSUhYSOb7DNyxGGjhgIDS33OWVo3z2XF8x/HMf
+         hisVyIybGasPIAeyBKohivqCrCDHoJVrpRrDAJECbqBOZjwMZyJNmUNxpnZNaUiwEhy6
+         ZCdQrSbzOq59p5BYJWsKq7VfgkldxO7gRH0/gh69e4YFjcwcU3xwVUeUEvP4ZdkgYYZl
+         qNdPGd+mqQWXLwg+m9Vn3eLMS1z8rNPLIRPpIBH6p152FPwNQNQMdGbY/1XqurpWM2Gh
+         2QVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774606323; x=1775211123;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=4ebKOUFGrIuktoxI72r0hHEVIqHTRxRm4Xw0zTvSKkQ=;
-        b=FwO+gfCr9j0n3e5Ngnt37NQSlQegPxQMq/F4H86gF5zPOldDqjJANIfzTsS2Oqw2S6
-         jeXVEvsZ4uA1lwVD5AApUANO1tM3DSXLLLACyY9qjfxT6sroVqgz7uzxdqO49nDdQRCk
-         SkPFlfNrX9e6WEZLkM0+aPXhhmdIAtFvbtQMvAsEkTOHEysktf0E6+EfOwqU9V2X7D34
-         5e26hQUCgRFDQ7/5vsXu3bOZ4rGeppkCyY6pXva/av/ZOci1gOibM2qmFBAeODcMmXxZ
-         XvswRWgxorIr+uXUiWocGHLP9B73AvcffXKQ/ga4NsQ1GvHZvb6ocWhjEnqydnzFacRw
-         qRDQ==
-X-Forwarded-Encrypted: i=1; AJvYcCURUPdT+Q+P5PEXZWoTMJEt3EX6pPMEDvNlOXLerwYzHDyTj+M5JAR0f9mswgvFvHIhvZYA49SvgYUQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YwO2fJHWySCFVk86DGUmvwwJT+3DCJhsz2MLY2Ssce1/st8qxEJ
-	ro2B25XdX8S3B3QBxBMXG3eazR/ez8FN7TVlI9LpMiMs7p3rHNhDrOZW
-X-Gm-Gg: ATEYQzw/9d12YxUJgWHGPQAtUXOlV2Dw0EIGG656/ZMMJUnks0k2b768l/1KI3lnPyM
-	XqAZysTokyNeY6M6HYNt5Gjfdh0ASKGI4Vxr+0v7Llj/uxebgwODKc7Yw89WPkLm/ZCH1yJqGcP
-	jNZB6mq2qq8M52QjCHQ7ouVFyY9/MRiEOCP2u+fe8BeIDijhJlBQH89mW7d7ccfaSHFcHgju9gB
-	AzRZfMjPpvf2s6sl0NvKWz0pm9XvUJ28MQlIavdtLYQqmtNgqGrrPEZZtIFoTEuSCWbTazVSJ/3
-	8GjLdNNsUfX8yA36HCLmukKoZwQ/Kc0cpHPW/o4/kIT9FAwHYqjY6eJAvqNrdGRBX2tCIyF6gDH
-	ZIW00g3csaZAISLAVB/Kt8q2SUWjGZudPKfQX6z3D/ZWP1f7APa4MjoVDx4UGjMZDgVSeu8E3d8
-	pAAO9I6r+dLDT8WKVndugBe2ooAWZrxjXAwTlBWWJyto7wR9JKdVNdrZUz6KGLHWdvLMDe7sMFg
-	AsFBU5bNrV2/7R4RZZN3RrURTWVmjn0N7Q34VuHgla48TbXcsQ=
-X-Received: by 2002:a05:6000:26c1:b0:43b:3a65:8c9d with SMTP id ffacd0b85a97d-43b9e9e90b8mr2968134f8f.19.1774606322974;
-        Fri, 27 Mar 2026 03:12:02 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b9192e35esm12777550f8f.6.2026.03.27.03.12.00
+        d=1e100.net; s=20251104; t=1774606379; x=1775211179;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mk7Qe3bjicV6DXPTZkBZhb3fM69i7303uZKvtWPVFp0=;
+        b=dOheAi7juvHCimt0lREk7Qeen3EL4TfQrNpPVhbjRFF7yOHucpnTiNuFoxChp/Qcmm
+         j+TLitnHs1VPrZ0GsvA6ACeGip9BCVzI2BwGoRqEhvLcZ/nQ5fwHDkIr8bUW6MXXlkza
+         bk3FpqO0QIiTVXyyWGEJYcVHRI5/88QlPCVEOfNfmAc1Lxur9nBnYDFAfyrmUf8vF9DK
+         h1tefimxZC/8fSaERwbRz+z4RK8EhBjxWM5aZIhwo8nQQP1SNumqwEvJVUoLwTKvxI4O
+         S/6P7XeDRe/C2XQxqDNzYpiAeCRP51CXyOLetcNAGBA74RxIUcjsJGU3UMlNCLarGWio
+         0KnQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW0pcBpCFKF+Gsa8FnEsM1rn/VWAtPecgJCngGKMxsbGJs2/HeuNYCxvHNIST4XZ6g+DqqkSJSGZzY+@vger.kernel.org
+X-Gm-Message-State: AOJu0YzvDdmR9udsENHgMZhfb0p8cXW2/aZ4Ca83Dlg6gtxssuAmYIbA
+	PBkLJq0w4WulNtOn4GBTIKon1CniKerZMx0iFZ50SUxJ4KV11OEIPOEBSrkTCrupdI8MEDNOIIU
+	Kjliutze912ol47l72Z3GksboERsYtdVGFCk9SZByVIeiDaUNRsFKlgCevO1pzSeu
+X-Gm-Gg: ATEYQzzZ0N7lbKvODsA+1I7/S4N5HiHNY78iRO7ds4yPja0nnByjIH5ryZs/SIirMfU
+	GpyecZZQMSzzAvfdLh/7TtjkdglOMPDXrSLKhW4y/1/20ewefNQacSRmFyYHBXionCjsPVKim6a
+	zc/2jfYmK41gYzCNQwjHCXc1dgoUxwpD4/EEByFSWLHp1ORxrC13hsVA4dmlo9QKY0QD168aAPI
+	XoZzDj2cq6W5k/fpRGIOmN68+BHL9C1FkdNvUq0lYHFOZRIqRPjDWIVIId6PLgge15aoKtdp4YK
+	NnLE2Z6DiNcrPOiFmw4+zBlgwFyxhs/Rh61K9CP3n/H0yjf+0uN8hnl7GjQkmpIH7f77+u0Tk3f
+	OYFfY7ZsHlVerFGjkNmFq50lybM4PU3u7yz5i
+X-Received: by 2002:a05:622a:581a:b0:50b:29f0:299c with SMTP id d75a77b69052e-50ba393eaa2mr25617141cf.60.1774606378900;
+        Fri, 27 Mar 2026 03:12:58 -0700 (PDT)
+X-Received: by 2002:a05:622a:581a:b0:50b:29f0:299c with SMTP id d75a77b69052e-50ba393eaa2mr25616681cf.60.1774606378282;
+        Fri, 27 Mar 2026 03:12:58 -0700 (PDT)
+Received: from quoll ([178.197.219.94])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b9179b212sm15075768f8f.0.2026.03.27.03.12.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Mar 2026 03:12:02 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Fri, 27 Mar 2026 10:11:56 +0000
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Petr Mladek <pmladek@suse.com>
-Cc: rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Andrew Morton <akpm@linux-foundation.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH v9 2/9] lib: vsprintf: export simple_strntoull() in a
- safe prototype
-Message-ID: <4uijfg4efzaapu3esobez55hfwqzszwagpeb4lxej2ybmifu76@s3c57fmnsme6>
-References: <20260320-adf41513-iio-driver-v9-0-132f0d076374@analog.com>
- <20260320-adf41513-iio-driver-v9-2-132f0d076374@analog.com>
- <acZDneLrIPOmU5ci@pathway.suse.cz>
- <acZLHAT5qJyjKTsp@ashevche-desk.local>
+        Fri, 27 Mar 2026 03:12:57 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH] arm64: dts: qcom: eliza: Add thermal sensors
+Date: Fri, 27 Mar 2026 11:12:26 +0100
+Message-ID: <20260327101225.382493-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <acZLHAT5qJyjKTsp@ashevche-desk.local>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11388; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=NzHl+TSMYx8b7yrFreTP5LVTAgHzY2fpAX7dzVZ+Ncw=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBpxlgJalbeEzRxcR5Q6asmJgRj1P1T+Gl13VXQ+
+ wwkFqbVbDOJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCacZYCQAKCRDBN2bmhouD
+ 1wjcEACTjpiHEfQ13Tcx/b2+39b78UI9G9aQnPxzlg6N1fLlTYdRk2K57nlnxjSfa1dK93QUOk0
+ sNI6i3VdCxSqMVIF/oeMn+LtbOT9LmDwS71Xc6cxVe0tIFteu4nk+MVspakFpwKvnKy8urfx/2K
+ 5KOvSFqNs5lKByXZPVAutUze/alTbLxiAZsG2zO6ZTh+FNTmrXctPeDzBo0ApNzLGBUhLNUFzqN
+ f6udhOvrmn0clDB/1QR/q//vaMDMDhJqBZ2m9d7wVZvvpnRJ3t5fiZpE6g+c78BDVXUKZTOm9nm
+ jhzQjv4q2CtL1qkTGn+25kt7KRKO9AqqbE0Ol61WAstj3hR52RnGW3py/SKkyiQd5gnq8ByxjSq
+ 35mOprPitKwYA5GSeZlqR8xqFp1zjKnpTBqRq75TLaeVT8b9swNEuiD0S3u9bzbXynB+IvRo8Dy
+ Mjvzuo+gHhUHq+pX5uPKvzg1wUbQSG7doehn6QDEM7gvIDM742eArzytaA0feKtU4WzsUzauXW/
+ D8Br7kq9iYtCfz0Kf6b7Eag/i1zpIE6KKsi8VCPi1sWqQ2zEiUTyCiKlj4VG0ujyvnWOnTMTcNW
+ 2/svCLEQXkEs/LlKoBj+2S6sF0wpa/NfSdXczlxY+nSGVS7KWx8dD+P8LewDCtsaWJmIOQcbNAF KdE1TU7MOZPlCig==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: HCByTnNk0U89u8XpU1srDswJfq9Yiik6
+X-Proofpoint-GUID: HCByTnNk0U89u8XpU1srDswJfq9Yiik6
+X-Authority-Analysis: v=2.4 cv=CoGys34D c=1 sm=1 tr=0 ts=69c6582b cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=kF9h6JnbGkHsP-tOwnsA:9 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDA3NSBTYWx0ZWRfXxSaPlg6B/Y5Q
+ AS8CAFalxuP/XGC6t6tmwFqbs5fHjMCWmcTQyBSwKHn5PljhX4PHzhSmdsmNXE3Md5yqZpy2ONg
+ a5nN4Fhy0iqe5flXhfXi2UFbCdnqxP8lB9ePhHUCcbDpbIE6z9APgHADLyHKbmg0iRD8mlGiYsn
+ m6G8ONPrryRdY+xeXM+tbFGkojIc72pd+CWQpH1p2EYhUSB2spDcIWWr6luNG7nOcf56L03DJWL
+ N8CJQZpfZ35M3YdOgYk6kbFiT7SctIoUe1pJMOcNtfW89cB+kmOgjV1jsyut3P5k+P8FGLDc9xX
+ VMsd9+ifP+uvNiw6RjwnFkik/xPYdEFI7NoNX1HGbieuXQVWqKe4VHV2d7qi6FPOSObK7LFG5wJ
+ q87O2RJAl5jWYQX97+VL9pkTK0cp9d0MDlXOS81Xucg4mgeyidHEAelY/qRsLGun0CDtbXzehLC
+ yQmb3Y7osjd0sjTCPLQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-26_04,2026-03-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 clxscore=1015
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603270075
 
-On 26/03/27 11:17AM, Andy Shevchenko wrote:
-> On Fri, Mar 27, 2026 at 09:45:17AM +0100, Petr Mladek wrote:
-> > On Fri 2026-03-20 16:27:27, Rodrigo Alencar via B4 Relay wrote:
-> 
-> ...
-> 
-> > > +extern ssize_t __must_check simple_strntoull(const char *startp, const char **endp,
-> > > +					     unsigned int base, size_t max_chars,
-> > > +					     unsigned long long *res);
-> > 
-> > Sigh, naming is hard. I personally find it a bit confusing that the
-> > name is too similar to the unsafe API.
-> > 
-> > IMHO, the semantic of the new API is closer to kstrtoull().
-> > It just limits the size, so I would call it kstrntoull().
-> 
-> It's not. kstrto*() quite strict about the input, this one is actually relaxed
-> variant, so I wouldn't mix these two groups.
-> 
-> > Also I would use int as the return parameter, see below.
-> 
-> ...
-> 
-> TBH, I am skeptical about this approach. My main objection is max_chars
-> parameter. If we want to limit the input strictly to the given number of
-> characters, we have to copy the string and then just use kstrto*() in a normal
-> way. The whole idea of that parameter is to be able to parse the fractional
-> part of the float number as 'iiiii.fffff', where 'i' is for integer part, and
-> 'f' for the fractional. Since we have *endp, we may simply check that.
+Add TSENS thermal sensors to Qualcomm Eliza SoC among with thermal
+zones.  The TSENS is compatible with previous generations.
 
-A max_chars would not be only useful for that. It can prevent out-of-bounds
-reads when the input isn't NUL-terminated (like buffers, file chunks,
-network packets, memory-mapped data, ....). Even if there is a NUL later in
-memory, a regular strtoull() function may consume characters that are outside
-the field one intends to parse.
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+---
+
+Binding was waiting for 1.5 months on the lists. Eventually I resent it
+now:
+https://lore.kernel.org/all/20260327100733.365573-2-krzysztof.kozlowski@oss.qualcomm.com/
+
+so feel free to pick up the DTS with the binding, since it is not being
+taken via thermal.
+---
+ arch/arm64/boot/dts/qcom/eliza.dtsi | 561 ++++++++++++++++++++++++++++
+ 1 file changed, 561 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qcom/eliza.dtsi
+index 62fccb43a7e8..4a7a0ac40ce6 100644
+--- a/arch/arm64/boot/dts/qcom/eliza.dtsi
++++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
+@@ -912,6 +912,51 @@ pdc: interrupt-controller@b220000 {
+ 			interrupt-controller;
+ 		};
  
-> In case if we want to parse only, say, 6 digits and input is longer there are
-> a few options (in my personal preferences, the first is the better):
-> - consider the input invalid
-> - parse it as is up to the maximum and then do ceil() or floor() on top of that
-> - copy only necessary amount of the (sub)string and parse that.
-
-Yes, my use case is the fixed point parsing, but I suppose we are implementing
-things here for reuse. Also, the default behavior of the previous fixed point
-parsing in IIO is flooring the result, which leads to the same result as
-ignoring further digits.
-
-> The problem with precision is that we need to also consider floor() or ceil()
-> and I don't think this should be burden of the library as it's individual
-> preference of each of the callers (users). At least for the starter, we will
-> see if it's only one approach is used, we may incorporate it into the library
-> code.
-> 
-> The easiest way out is to just consider the input invalid if it overflows the
-> given type (s32 or s64).
-> 
-> But we need to have an agreement what will be the representation of the
-> fixed-width float numbers in the kernel? Currently IIO uses
-> 	struct float // name is crafted for simplicity
-> 	{
-> 		int integer;
-> 		int fraction;
-> 	}
-
-Yes, but to represent things like that, an assumption is made to the precision that
-"fraction" carries.
-
-> 
-> This parser wants AFAIU to have at the end of the day something like
-> 
-> 	struct float
-> 	{
-> 		s64 integer;
-> 		s64 fraction;
-> 	}
-> 
-> but also wants to have the fraction part be limited in some cases to s32
-> or so:
-> 
-> 	struct float
-> 	{
-> 		s64 integer;
-> 		s32 fraction; // precision may be lost if input is longer
-> 	}
-> 
-> Maybe we want to have kstrtof32() and kstrtof64() for these two cases?
-> 
-> With that we will always consider the fraction part as 32- or 64-bit,
-> imply floor() on the fraction for the sake of simplicity and require
-> it to be NUL-terminated with possible trailing '\n'.
-
-I think this is a good idea, but calling it float or fixed point itself
-is a bit confusing as float often refers to the IEEE 754 standard and
-fixed point types is often expressed in Q-format.
-
++		tsens0: thermal-sensor@c228000 {
++			compatible = "qcom,eliza-tsens", "qcom,tsens-v2";
++			reg = <0x0 0x0c228000 0x0 0x1000>,
++			      <0x0 0x0c222000 0x0 0x1000>;
++
++			interrupts = <GIC_SPI 506 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 560 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "uplow",
++					  "critical";
++
++			#qcom,sensors = <13>;
++
++			#thermal-sensor-cells = <1>;
++		};
++
++		tsens1: thermal-sensor@c229000 {
++			compatible = "qcom,eliza-tsens", "qcom,tsens-v2";
++			reg = <0x0 0x0c229000 0x0 0x1000>,
++			      <0x0 0x0c223000 0x0 0x1000>;
++
++			interrupts = <GIC_SPI 507 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 561 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "uplow",
++					  "critical";
++
++			#qcom,sensors = <14>;
++
++			#thermal-sensor-cells = <1>;
++		};
++
++		tsens2: thermal-sensor@c22a000 {
++			compatible = "qcom,eliza-tsens", "qcom,tsens-v2";
++			reg = <0x0 0x0c22a000 0x0 0x1000>,
++			      <0x0 0x0c224000 0x0 0x1000>;
++
++			interrupts = <GIC_SPI 508 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 562 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "uplow",
++					  "critical";
++
++			#qcom,sensors = <5>;
++
++			#thermal-sensor-cells = <1>;
++		};
++
+ 		spmi: arbiter@c400000 {
+ 			compatible = "qcom,eliza-spmi-pmic-arb",
+ 				     "qcom,x1e80100-spmi-pmic-arb";
+@@ -1313,6 +1358,522 @@ nsp_noc: interconnect@320c0000 {
+ 		};
+ 	};
+ 
++	thermal-zones {
++		aoss0-thermal {
++			thermal-sensors = <&tsens0 0>;
++
++			trips {
++				aoss-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				aoss-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		aoss1-thermal {
++			thermal-sensors = <&tsens1 0>;
++
++			trips {
++				aoss-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				aoss-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		aoss2-thermal {
++			thermal-sensors = <&tsens2 0>;
++
++			trips {
++				aoss-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				aoss-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		camera0-thermal {
++			thermal-sensors = <&tsens1 12>;
++
++			trips {
++				camera-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				camera-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		camera1-thermal {
++			thermal-sensors = <&tsens1 13>;
++
++			trips {
++				camera-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				camera-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu0-thermal {
++			thermal-sensors = <&tsens1 1>;
++
++			trips {
++				cpu-critical {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu1-thermal {
++			thermal-sensors = <&tsens1 2>;
++
++			trips {
++				cpu-critical {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu2-thermal {
++			thermal-sensors = <&tsens1 3>;
++
++			trips {
++				cpu-critical {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu3-top-thermal {
++			thermal-sensors = <&tsens0 3>;
++
++			trips {
++				cpu-critical {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu3-bottom-thermal {
++			thermal-sensors = <&tsens0 4>;
++
++			trips {
++				cpu-critical {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu4-top-thermal {
++			thermal-sensors = <&tsens0 5>;
++
++			trips {
++				cpu-critical {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu4-bottom-thermal {
++			thermal-sensors = <&tsens0 6>;
++
++			trips {
++				cpu-critical {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu5-top-thermal {
++			thermal-sensors = <&tsens0 7>;
++
++			trips {
++				cpu-critical {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu5-bottom-thermal {
++			thermal-sensors = <&tsens0 8>;
++
++			trips {
++				cpu-critical {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu6-top-thermal {
++			thermal-sensors = <&tsens0 9>;
++
++			trips {
++				cpu-critical {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu6-bottom-thermal {
++			thermal-sensors = <&tsens0 10>;
++
++			trips {
++				cpu-critical {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu7-top-thermal {
++			thermal-sensors = <&tsens0 11>;
++
++			trips {
++				cpu-critical {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu7-bottom-thermal {
++			thermal-sensors = <&tsens0 12>;
++
++			trips {
++				cpu-critical {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpuss0-thermal {
++			thermal-sensors = <&tsens0 1>;
++
++			trips {
++				cpuss-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				cpuss-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpuss1-thermal {
++			thermal-sensors = <&tsens0 2>;
++
++			trips {
++				cpuss-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				cpuss-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		ddr-thermal {
++			thermal-sensors = <&tsens1 11>;
++
++			trips {
++				ddr-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				ddr-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		gpuss0-thermal {
++			polling-delay-passive = <10>;
++
++			thermal-sensors = <&tsens1 8>;
++
++			trips {
++				gpu-alert {
++					temperature = <95000>;
++					hysteresis = <1000>;
++					type = "passive";
++				};
++
++				gpu-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				gpu-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		gpuss1-thermal {
++			polling-delay-passive = <10>;
++
++			thermal-sensors = <&tsens1 9>;
++
++			trips {
++				gpu-alert {
++					temperature = <95000>;
++					hysteresis = <1000>;
++					type = "passive";
++				};
++
++				gpu-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				gpu-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		modem0-thermal {
++			thermal-sensors = <&tsens2 1>;
++
++			trips {
++				modem-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				modem-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		modem1-thermal {
++			thermal-sensors = <&tsens2 2>;
++
++			trips {
++				modem-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				modem-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		modem2-thermal {
++			thermal-sensors = <&tsens2 3>;
++
++			trips {
++				modem-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				modem-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		modem3-thermal {
++			thermal-sensors = <&tsens2 4>;
++
++			trips {
++				modem-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				modem-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		nsphmx0-thermal {
++			thermal-sensors = <&tsens1 6>;
++
++			trips {
++				nsphmx-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				nsphmx-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		nsphmx1-thermal {
++			thermal-sensors = <&tsens1 7>;
++
++			trips {
++				nsphmx-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				nsphmx-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		nsphvx0-thermal {
++			thermal-sensors = <&tsens1 4>;
++
++			trips {
++				nsphvx-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				nsphvx-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		nsphvx1-thermal {
++			thermal-sensors = <&tsens1 5>;
++
++			trips {
++				nsphvx-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				nsphvx-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		video-thermal {
++			thermal-sensors = <&tsens1 10>;
++
++			trips {
++				video-hot {
++					temperature = <110000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
++
++				video-critical {
++					temperature = <115000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++	};
++
+ 	timer {
+ 		compatible = "arm,armv8-timer";
+ 
 -- 
-Kind regards,
+2.51.0
 
-Rodrigo Alencar
