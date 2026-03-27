@@ -1,42 +1,37 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27961393DD3;
-	Fri, 27 Mar 2026 20:11:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940FD39150E;
+	Fri, 27 Mar 2026 20:11:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774642282; cv=none; b=pmdJ42qbPm+DYv+bditVKA2YBu3rocFcsloEoZ/LXKOVtd+hHM5B7b51EmsuPWxi0psK4wdDYCvVj31ucLZSj6sWkWLmhqy65lmM8MNdkWEtB4Bl1ZsrDFRiMpNa00zTIB49doj12kTX364Ak03k841JTmv6YYNjyMWsijvTmhw=
+	t=1774642319; cv=none; b=qGPBdvgNF75km/QUM/o+zmsAN92gnDAbpbjC1Dju4bnCMgQGbbY3pXAMA3hQsY0WxmcFMbEKfQDrQLvE1fzFDKTtVLMfdSjzqLxnpR/QXqmi2kj7GPuxUWH58tMwqj1S4Fm29FennkjpT97nOWOQ/bsi3tDdLvRqFGthwY4bXtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774642282; c=relaxed/simple;
-	bh=dVZyfeEgrkGYmDshoQsQ4RLpKkjU6LGopLTjHakrndA=;
+	s=arc-20240116; t=1774642319; c=relaxed/simple;
+	bh=3/njRjwhG4Ct/p6dBBAtVoOUciH+fP/WorRY4spR0d0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ud3MI6bcyaUsHhIkvkbWI56vnVk7mNJBhXrS6wroIwlljmJP1HFShOOZZ0Kvp07NgcJgmDaqsYnbxlfxyekJlvygH5gPKLGAwz1njlp4rMiXbibx3MYppouG8CdnN7iMnYNlk5wgSAyk2mlnlTJkTIBsrlI7Syzdh83oxPmldyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=CT635IC3; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 In-Reply-To:To:Cc; b=OcRjQOfMEhRy2cmnHJCaRQaYkrW+qt+lrK2qF+P/Pwg6gsLAfyYhmnzEYooASlv7jXyHJqKcTqJRk1ij70Lql2jMmRkTVPsKtJKgFKQHUOiVgn4iPypPfS5xrUOtgJgc5UqhK/TE058B2F0bi4LOGIPIrG07SR5H4eABSMqTalc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=KvI6xrBs; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=9g/tiwcO; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="CT635IC3"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id DFC971A3033;
-	Fri, 27 Mar 2026 20:11:19 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B404060268;
-	Fri, 27 Mar 2026 20:11:19 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6938510451AF7;
-	Fri, 27 Mar 2026 21:11:14 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1774642278; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=DIlrp9PjoRowHYZrJ7gc0fvN1Nwlk04nBRTDWt8Ig3w=;
-	b=CT635IC3QQJ9j3PVQe+py5sJkt2oMZwPoLThB5jvtWnOVqrWOrq06xqGcCgdgXoHJrXMr8
-	uwoBdNqh6pcF5Rb6AZPWqVjjWhdlSOKjY7aMMMQjEtKclEDtR7TWilFV65QqoTtDTO5uFA
-	+mBgamfOadbous7asK2oPVEV9yM6mVd01qKXYoeUloq9u2tbyrhHNyQP1SqbY42kbsoFOk
-	3+NjTBkXzG/FgzWZMF3aXuqFHqfpDssBTR/MrXgdQdQvtMrVvcyyK64rqJqZr6jTryo5Vv
-	heas5wAdL2apG+2aZufBT46a39qq+r7cwH1GQpZKtc8/8YZ0+2IZXdgDKta5LA==
-From: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>
-Date: Fri, 27 Mar 2026 21:09:38 +0100
-Subject: [PATCH 16/16] ARM: dts: renesas: r9a06g032: Describe the EIP-150
- block
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="KvI6xrBs";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="9g/tiwcO"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Subject:Date:From; t=1774642308; bh=/qIEMELzEmJ0FxXnAa5WEeJ
+	OLYn4btiJ6JhNZhpX8Yg=; b=KvI6xrBsm7LzC1tdNz3ab8UrEAgYrdxqdBLRCPOs7/ctFw2CI8
+	s4d58sfvC4VEukXVMLx6HlH80ygM0fzRN2q5Xh63XM7OO3JftpTR4kQtRl8TX1hLYm0ozRrN+Bb
+	7hRlH8f3PzLop9RZMnh9FfyAL/OWGqWIcgbL8mAWM844eosf9OibIuzZhX/wmCxDD9+KH+yUrwL
+	eID9nYqkNDKC9R41DhXg81lPrBOAsVrxPOALb14bpiIK1bGhqZdrz3kvUD3ansEN3RWHGUBaxiA
+	qEwJa300t8/92sZgZ1rASxQfb+0FKAb/sqkjMNIBaF/0qWqfyv1WajcIM5fgi7XH/mw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Subject:Date:From; t=1774642308; bh=/qIEMELzEmJ0FxXnAa5WEeJ
+	OLYn4btiJ6JhNZhpX8Yg=; b=9g/tiwcOln6jeTOSavxpyfVtqqYnck6qpjh+l54IZNjJI3zw7u
+	TN166ZigvB+E62SXP1+dqoesr0qnFho54BAQ==;
+From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
+Date: Fri, 27 Mar 2026 21:11:43 +0100
+Subject: [PATCH 1/7] dt-bindings: power: qcom-rpmpd: Split MSM8953 and
+ SDM632
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,108 +39,91 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260327-schneider-v7-0-rc1-crypto-v1-16-5e6ff7853994@bootlin.com>
-References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
-In-Reply-To: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Olivia Mackall <olivia@selenic.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- Jayesh Choudhary <j-choudhary@ti.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Christian Marangi <ansuelsmth@gmail.com>, 
- Antoine Tenart <atenart@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Pascal EBERHARD <pascal.eberhard@se.com>, 
- Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-crypto@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260327-sdm632-rpmpd-v1-1-6098dc997d66@mainlining.org>
+References: <20260327-sdm632-rpmpd-v1-0-6098dc997d66@mainlining.org>
+In-Reply-To: <20260327-sdm632-rpmpd-v1-0-6098dc997d66@mainlining.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Ulf Hansson <ulf.hansson@linaro.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Stephan Gerhold <stephan@gerhold.net>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-remoteproc@vger.kernel.org, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774642307; l=2253;
+ i=barnabas.czeman@mainlining.org; s=20240730; h=from:subject:message-id;
+ bh=3/njRjwhG4Ct/p6dBBAtVoOUciH+fP/WorRY4spR0d0=;
+ b=btemSGHr/Y+5B4kikJdwS643w8z7fpHxsxUp2W++ieEoHS6qJBbAkx/TRziCe6NxBL/qogW22
+ 5ECECYX38NsAYtjGih5+uD+8Kaj9ABPgEuWYkQ7elx7NvrXqOiXmmqK
+X-Developer-Key: i=barnabas.czeman@mainlining.org; a=ed25519;
+ pk=TWUSIGgwW/Sn4xnX25nw+lszj1AT/A3bzkahn7EhOFc=
 
-The EIP-150 is composed of 3 blocks:
-* An interrupt controller named EIP-201 AIC
-    - fed by a clock coming from the EIP-150
-    - connected to the main GIC
-* A random number generator named EIP-76
-    - fed by a clock coming from the EIP-150
-    - signalling interrupts through the AIC
-* A public key accelerator engine named EIP-28
-    - Fed by a clock coming from the EIP-150
-    - Signalling interrupts through the AIC
+Remove modem related bindings from MSM8953 rpmpd because MSM8953 MSS
+is using mss-supply as a regulator usually it is pm8953_s1.
+Split SDM632 bindings from MSM8953 because SDM632 is using mss-supply
+as a pm domain.
 
-Signed-off-by: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
+Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
 ---
- arch/arm/boot/dts/renesas/r9a06g032.dtsi | 42 ++++++++++++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
+ .../devicetree/bindings/power/qcom,rpmpd.yaml        |  1 +
+ include/dt-bindings/power/qcom-rpmpd.h               | 20 +++++++++++++-------
+ 2 files changed, 14 insertions(+), 7 deletions(-)
 
-diff --git a/arch/arm/boot/dts/renesas/r9a06g032.dtsi b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-index f4f760aff28b..6aaa93ed03d6 100644
---- a/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-+++ b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-@@ -8,6 +8,7 @@
+diff --git a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
+index 8174ceeab572..659936d6a46e 100644
+--- a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
++++ b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
+@@ -48,6 +48,7 @@ properties:
+           - qcom,sc7280-rpmhpd
+           - qcom,sc8180x-rpmhpd
+           - qcom,sc8280xp-rpmhpd
++          - qcom,sdm632-rpmpd
+           - qcom,sdm660-rpmpd
+           - qcom,sdm670-rpmhpd
+           - qcom,sdm845-rpmhpd
+diff --git a/include/dt-bindings/power/qcom-rpmpd.h b/include/dt-bindings/power/qcom-rpmpd.h
+index 4371ac941f29..2d82434b993c 100644
+--- a/include/dt-bindings/power/qcom-rpmpd.h
++++ b/include/dt-bindings/power/qcom-rpmpd.h
+@@ -84,13 +84,11 @@
+ #define QM215_VDDMX_AO		MSM8917_VDDMX_AO
  
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/clock/r9a06g032-sysctrl.h>
-+#include <dt-bindings/interrupt-controller/inside-secure,safexcel-eip201.h>
+ /* MSM8953 Power Domain Indexes */
+-#define MSM8953_VDDMD		0
+-#define MSM8953_VDDMD_AO	1
+-#define MSM8953_VDDCX		2
+-#define MSM8953_VDDCX_AO	3
+-#define MSM8953_VDDCX_VFL	4
+-#define MSM8953_VDDMX		5
+-#define MSM8953_VDDMX_AO	6
++#define MSM8953_VDDCX		RPMPD_VDDCX
++#define MSM8953_VDDCX_AO	RPMPD_VDDCX_AO
++#define MSM8953_VDDCX_VFL	RPMPD_VDDCX_VFL
++#define MSM8953_VDDMX		RPMPD_VDDMX
++#define MSM8953_VDDMX_AO	RPMPD_VDDMX_AO
  
- / {
- 	compatible = "renesas,r9a06g032";
-@@ -170,6 +171,47 @@ usb@2,0 {
- 			};
- 		};
+ /* MSM8974 Power Domain Indexes */
+ #define MSM8974_VDDCX		0
+@@ -156,6 +154,14 @@
+ #define QCS404_LPIMX		5
+ #define QCS404_LPIMX_VFL	6
  
-+		eip150: bus@40040000 {
-+			compatible = "inside-secure,safexcel-eip150", "simple-pm-bus";
-+			clocks = <&sysctrl R9A06G032_HCLK_CRYPTO_EIP150>;
-+			#clock-cells = <0>;
-+			clock-map = <&sysctrl R9A06G032_HCLK_CRYPTO_EIP150>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			ranges = <0x40040000 0x40040000 0x10000>;
-+			status = "disabled";
++/* SDM632 Power Domain Indexes */
++#define SDM632_VDDMD		0
++#define SDM632_VDDCX		1
++#define SDM632_VDDCX_AO		2
++#define SDM632_VDDCX_VFL	3
++#define SDM632_VDDMX		4
++#define SDM632_VDDMX_AO		5
 +
-+			eip76_rng: rng@40040000 {
-+				compatible = "inside-secure,safexcel-eip76";
-+				reg = <0x40040000 0x80>;
-+				interrupt-parent = <&eip201_aic>;
-+				interrupts = <AIC_TRNG_INT IRQ_TYPE_EDGE_RISING>;
-+				clocks = <&eip150>;
-+				status = "disabled";
-+			};
-+
-+			eip28_pka: crypto@40044000 {
-+				compatible = "inside-secure,safexcel-eip28";
-+				reg = <0x40044000 0x4000>;
-+				interrupt-parent = <&eip201_aic>;
-+				interrupts = <AIC_PKA_INT0 IRQ_TYPE_EDGE_RISING>,
-+					     <AIC_PKA_INT1 IRQ_TYPE_EDGE_RISING>,
-+					     <AIC_PKA_INT2 IRQ_TYPE_EDGE_RISING>;
-+				clocks = <&eip150>;
-+				status = "disabled";
-+			};
-+
-+			eip201_aic: interrupt-controller@40048000 {
-+				compatible = "inside-secure,safexcel-eip201";
-+				reg = <0x40048000 0x4000>;
-+				interrupts = <GIC_SPI 55 IRQ_TYPE_LEVEL_HIGH>;
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				clocks = <&eip150>;
-+				status = "disabled";
-+			};
-+		};
-+
- 		uart0: serial@40060000 {
- 			compatible = "renesas,r9a06g032-uart", "renesas,rzn1-uart", "snps,dw-apb-uart";
- 			reg = <0x40060000 0x400>;
+ /* SDM660 Power Domains */
+ #define SDM660_VDDCX		RPMPD_VDDCX
+ #define SDM660_VDDCX_AO		RPMPD_VDDCX_AO
 
 -- 
-2.51.1
+2.53.0
 
