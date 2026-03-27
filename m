@@ -1,142 +1,191 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2863E9F7A
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 13:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC792ED154;
+	Fri, 27 Mar 2026 13:30:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774618088; cv=none; b=J9F+e7kBpa069FT/7AQRbbU/+frrM31LWy+XWVrUwADlE5NALE4kfB/K/TKZjbrJTBpe0XOLs6kQDV4PwxtJEswp2Sxkq7zZbydmRcAbcQ4FKI+xdUgHz1fzaCSj3rDPXkGwAUC+s8ebab9FFGRstTMUduf8TgsJ9bWWShveBO8=
+	t=1774618218; cv=none; b=T+bUnO6QzYv4+YM3ypwKsjKt0SKFft+6EpkV9aAflFfavXzclVx9Yyq2uJWFBSvAqsLz18Ouj+P1cU0qwtA/eTJSDbbdxtZHrLLtpdGAWccZ42FObP7JZ1YuoDYnnRs+AC3rj9yLew7n/Zx0hqfOc3lrdcl3xsQrlFi25KsS2wU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774618088; c=relaxed/simple;
-	bh=++hkBnIAEvloFIQ575XrWS1bjaaVT6AJ+ILFSO/cg2M=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dJPHCl03rVGdWuHala9lr0GI6j8KHNg/0X2EBxnn/XMhUj8YqBwpHCvdlc7W+V3t9Zl+qbUQfhoO7wMoUOG5dXSwMeHmvwZKofBZg3p9snUzA62vgd88MsQ2LQxeijxIspz6OmLIx86AJA4EAkocPnGEqmc3tJVPIDEBjohzTTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Is/EO2DQ; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774618218; c=relaxed/simple;
+	bh=SRh/0Gs2Dcmn5I/5o2RDnwGwhbDd2FofxA8blrGcTVo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ussM96cIHk4Edq2Kk/5KFAi6ltHi4XYgCdMeSFk2XcCfe2MNVWiv9c/MEvuL8+pqENIy9Y9R7EPfR29I0mwo3/Y7sO0S2tf+Bwh79jg9rzDadMCgJk7AKpPNAJR+lpbgbNwSc7G9sYTaDGBS+4d+HynbdYvoKI8HDsqTGkrjQN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uYKtxtUc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Is/EO2DQ"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-48702d51cd0so24324845e9.2
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 06:28:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774618085; x=1775222885; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8sojWPfL6Z8AVWMTcumjRgckMPGB7q4CLXGUVSk+dCo=;
-        b=Is/EO2DQQ//4BrvGojf1/76xa0kisca2CRPn2ftxmwgsmsM3Q9h60V3+pZvobea+cF
-         DBU30isrXdsznWBv7koPYVcT6s+d6807190EpC5idJ3gR6CX0hvP+ZPylsSwJnWd0hDa
-         8qGkH49b6iOAAkwzbiiqOn145pwSYSSH5jHRhdcNe4BlGHbRL+GC7Yr2370sD2LB7f53
-         4uflbX9p0dpCHU2saK3GLmg3Vj6hahyLC3lKmu52sdMmpEpMEjE8Z06ihDiiLwjV1NrU
-         tE35bqlKWMmDx/BVGHWoEm5Krk4b+TMPI0RbD+/e4ERuhnslvErCNeJB+gKppFfDmyK/
-         8f2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774618085; x=1775222885;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=8sojWPfL6Z8AVWMTcumjRgckMPGB7q4CLXGUVSk+dCo=;
-        b=Q3KCbrRcRozgp534LeQ+YViM0+yDC8S8J4mGZVKA2ilVegBdkZXJ/ep9Mdr11SgpCu
-         TZvD0mW9uqf39YUKZNqG5m8WBi2l10eytRKnJkaKmGfFPmOkwURRi4/fCcWLwXKfz/HA
-         o9F+qsTK/EclQj0/zbbkWIwgBxLrRKph3yiwORYGCif4LgOvewC2fcRGz2d3EUw1c24W
-         4aJcnVTlo7ouqp7A7Si9KaSa0iRVzPNgGQ+ZsT7wc1YqqfPNdLpOcDunim8UynCIjSfh
-         ut+in9CHRvCHBx5WUo+VwsqPnzpgXgrD4ZM7RYVIrn4B2Mc5269DUWpmcrlDor3Ew9zh
-         TI2g==
-X-Forwarded-Encrypted: i=1; AJvYcCV9TQ6Nm7cM+U7nNBfNZ5uM9lsQphHRnkPv27BU+qTzaDAdHWYoQ9Tr9B9Zv6Wv0ovpDpi0hwhz06JJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YwsLX7WOiFhGsYXI85uC0s/6IsALEqPnvh2Oac26CjHlkpUYbbK
-	kWXgU4Ikh4UaQCKCNrKYyxFd9rbBBIW78eW3awGqpAAh8k6Hq+d+G9KT
-X-Gm-Gg: ATEYQzzQcSPX5hBlaklODyUf1TCSRaJfyMK3k9crmRrMcRQnb55ay5oc9jkn+5GtpNK
-	UoFzC+5jRNGFtdynqYpXE/b7xInukoaxpJw84IPl2NlX5LsXzVIAzwbL+neMko3zpEzc9mHLzlM
-	c2Ft5yqp4Oj8gG5KJWP4B+JP9qp2wRQxfcgBnG7OXt0UPTld3VN9pDGtODnJUAgcxqc86OwHx6C
-	2X6g71zxosAgw393zMgHHSprQYhMqIp6ZAmE3xTfNdrMcO8mc3eZJ4uTxjRsTdIcWVfmEe26a/x
-	yFXK1UXlhO3O85AK6sPbRh8pp6PxTgd3m64FMC9l8nRGivdjSevaGjiAE9wtTCzNE049nhjIHGS
-	7bXsFkyooLDQ/6hwx+OFiHV0kvd0Q6wmZLFzy5pqJFQb6SKVjvxPQj0/I2b9M+JUzvGCbL1z7F/
-	BWOt0965IMUICpj7adHC4gzfZCxZWOGnjnikvUJ6E0Ac1RNhW6AZQ5Yo7pAGXfRpTU
-X-Received: by 2002:a05:600c:4f53:b0:485:481c:e7bb with SMTP id 5b1f17b1804b1-48727ee9b89mr42168595e9.20.1774618084923;
-        Fri, 27 Mar 2026 06:28:04 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722d2366dsm87955895e9.10.2026.03.27.06.28.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Mar 2026 06:28:04 -0700 (PDT)
-Date: Fri, 27 Mar 2026 13:28:03 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Petr Mladek <pmladek@suse.com>, rodrigo.alencar@analog.com,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-doc@vger.kernel.org, Jonathan Cameron
- <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Andy Shevchenko
- <andy@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Andrew Morton
- <akpm@linux-foundation.org>, Steven Rostedt <rostedt@goodmis.org>, Rasmus
- Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky
- <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH v9 2/9] lib: vsprintf: export simple_strntoull() in a
- safe prototype
-Message-ID: <20260327132803.1fe51253@pumpkin>
-In-Reply-To: <acZitENbWQF7cmDA@ashevche-desk.local>
-References: <20260320-adf41513-iio-driver-v9-0-132f0d076374@analog.com>
-	<20260320-adf41513-iio-driver-v9-2-132f0d076374@analog.com>
-	<acZDneLrIPOmU5ci@pathway.suse.cz>
-	<acZLHAT5qJyjKTsp@ashevche-desk.local>
-	<20260327104440.079343c9@pumpkin>
-	<acZitENbWQF7cmDA@ashevche-desk.local>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uYKtxtUc"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 79E41C2BC9E;
+	Fri, 27 Mar 2026 13:30:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774618218;
+	bh=SRh/0Gs2Dcmn5I/5o2RDnwGwhbDd2FofxA8blrGcTVo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=uYKtxtUci4gDi5dUmy35cgohzYmvUIiRkm82SuZrZrXjHp8qgmMObyjGfCdbf2DG4
+	 Uq3WUNSjGJpEIAMvZQwI89viMcX/XtFLK/P+/voEGqsQbEy0V06jHUZBB0KNYf1UgY
+	 Aln8HL+REaSG2d5AYeI3uzgr328m3Y91FcK+XeN7b2FyMmAekWaMqxptZAqldXF0R5
+	 uPhhmDr2u6psB1aS/aLlibH1wFYSPngg4FoyT5as0wonvJ3tc56nqg1eUbR5ecerMi
+	 aUHdQrmu/fFtEc7Db/sT81WwWohVB4njdXsj7HoE098U9CuFecOoElSnB59CAsYtTu
+	 cKuqoNt+AC0Ug==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 67E5510ED674;
+	Fri, 27 Mar 2026 13:30:18 +0000 (UTC)
+From: Cristian Cozzolino via B4 Relay <devnull+cristian_ci.protonmail.com@kernel.org>
+Date: Fri, 27 Mar 2026 15:30:47 +0100
+Subject: [PATCH v4 1/6] dt-bindings: display: panel: Add Novatek NT35532
+ LCD DSI
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260327-rimob-new-features-v4-1-06edff9c4509@protonmail.com>
+References: <20260327-rimob-new-features-v4-0-06edff9c4509@protonmail.com>
+In-Reply-To: <20260327-rimob-new-features-v4-0-06edff9c4509@protonmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ Cristian Cozzolino <cristian_ci@protonmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774621871; l=3245;
+ i=cristian_ci@protonmail.com; s=20250620; h=from:subject:message-id;
+ bh=1sKg1wNSp6ORtBthsOcQq4FFVXR7zjxG+6BOteGpZ7Y=;
+ b=7CpTe2y+ql7txEfWfJw4k8ayLTDdwVwCONG3xN8gIzxVaGIJt2jayWcfNVL2A91i4+6cgI6wb
+ pVvF7Pz81MaD3ETP/WWPVgUfsqWS5Ny9rh5A5x8JUZxKPF1dKhMLWIN
+X-Developer-Key: i=cristian_ci@protonmail.com; a=ed25519;
+ pk=xH5IvIPUNHV1Q8R0/pq2CfuVFR/wTiAyuyi6IwedjZY=
+X-Endpoint-Received: by B4 Relay for cristian_ci@protonmail.com/20250620
+ with auth_id=438
+X-Original-From: Cristian Cozzolino <cristian_ci@protonmail.com>
+Reply-To: cristian_ci@protonmail.com
 
-On Fri, 27 Mar 2026 12:57:56 +0200
-Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
+From: Cristian Cozzolino <cristian_ci@protonmail.com>
 
-> On Fri, Mar 27, 2026 at 10:44:40AM +0000, David Laight wrote:
-,,,
-> > > but also wants to have the fraction part be limited in some cases to =
-s32
-> > > or so:
-> > >=20
-> > > 	struct float
-> > > 	{
-> > > 		s64 integer;
-> > > 		s32 fraction; // precision may be lost if input is longer
-> > > 	} =20
-> >=20
-> > Are those 'fraction' counts of (say) 10^-6 (like times in seconds+usecs)
-> > or true binary values where the value could be treated as a u64 (or u12=
-8)
-> > for addition and subtraction. =20
->=20
-> It depends. IIO has scale on top of that, so the fraction part can be 10=
-=E2=81=BB=C2=B3,
-> 10=E2=81=BB=E2=81=B6, 10=E2=81=BB=E2=81=B9. I don't remember by heart if =
-the ABI requires all digits to be
-> placed, I think we don't require that.
+Document Novatek NT35532-based DSI display panel.
+Since it's not possible to identify panel vendor nor id, add a suitable
+compatible (matching the device's user, which makes use of this DDIC)
+and set "novatek,nt35532" as fallback.
 
-Seems like you want this function (untested):
-u64 strtofrac(const char *buf, const char **end, unsigned int len)
-{
-	u64 val =3D 0;
-	unsigned int digit;
+Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
+---
+ .../bindings/display/panel/novatek,nt35532.yaml    | 80 ++++++++++++++++++++++
+ MAINTAINERS                                        |  5 ++
+ 2 files changed, 85 insertions(+)
 
-	while (len--) {
-		digit =3D *buf - '0';
-		if (digit <=3D 9) {
-			buf++;
-			val +=3D digit;
-		}
-		val *=3D 10;
-	}
-	while (*buf - '0' <=3D 9u)
-		buf++;
-	*end =3D buf;
-	return val;
-}
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt35532.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt35532.yaml
+new file mode 100644
+index 000000000000..ff6fdad7febf
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt35532.yaml
+@@ -0,0 +1,80 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/novatek,nt35532.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Novatek NT35532-based DSI display panels
++
++maintainers:
++  - Cristian Cozzolino <cristian_ci@protonmail.com>
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - flipkart,rimob-panel-nt35532-cs
++      - const: novatek,nt35532
++
++  reg:
++    maxItems: 1
++
++  backlight: true
++  reset-gpios: true
++
++  avdd-supply:
++    description: positive boost supply regulator
++
++  avee-supply:
++    description: negative boost supply regulator
++
++  vci-supply:
++    description: regulator that supplies the analog voltage
++
++  vddam-supply:
++    description: power supply for MIPI interface
++
++  vddi-supply:
++    description: regulator that supplies the I/O voltage
++
++  port: true
++
++required:
++  - compatible
++  - reg
++  - reset-gpios
++  - vddi-supply
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "flipkart,rimob-panel-nt35532-cs", "novatek,nt35532";
++            reg = <0>;
++
++            backlight = <&pmi8950_wled>;
++            reset-gpios = <&tlmm 61 GPIO_ACTIVE_LOW>;
++            avdd-supply = <&lab>;
++            avee-supply = <&ibb>;
++            vci-supply = <&pm8953_l17>;
++            vddi-supply = <&pm8953_l6>;
++
++            port {
++                panel_in: endpoint {
++                    remote-endpoint = <&dsi0_out>;
++                };
++            };
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 80b9074e96ae..792ce6ee8616 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8174,6 +8174,11 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+ F:	Documentation/devicetree/bindings/display/panel/novatek,nt35510.yaml
+ F:	drivers/gpu/drm/panel/panel-novatek-nt35510.c
+ 
++DRM DRIVER FOR NOVATEK NT35532 PANELS
++M:	Cristian Cozzolino <cristian_ci@protonmail.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/display/panel/novatek,nt35532.yaml
++
+ DRM DRIVER FOR NOVATEK NT35560 PANELS
+ M:	Linus Walleij <linusw@kernel.org>
+ S:	Maintained
 
-	David
+-- 
+2.53.0
+
 
