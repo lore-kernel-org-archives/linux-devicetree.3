@@ -1,155 +1,143 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022090.outbound.protection.outlook.com [40.107.75.90])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCAF13A7824
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 09:24:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774603501; cv=none; b=kVGpLxdWAay8gGASuLlAUmcEqcrDVVlAF/3SOq7rH+huICBeUV6OvQWVo9SWUeewYOlGg26Ml9aj6b+aVe9qL3Bcc98aNe7nMRiLHKF3FgQQ/wtnJQCpY2CVMtn0+HAywLY//4LqicRHLORtWSJSrjXNS2LBFkEkb9tGL07Ql7I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774603501; c=relaxed/simple;
-	bh=XbDQ2/22hmqqOYzwVjmdadSPPNUhgz8dkbyHcGWO9i0=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PpDuPkqxWBOsqqF/Q4YrrztHTGcrIW7ZSO4IiU/yf5eXm6DXCOzDlT65xdcIPhm6CltEzIwiJBnoWaBlc8HeBK3fwqnjs7NKYf7lww1L5l5ts1BZNYAW4nQo8CdozepzggZl+ctpSKPFRmwa3+n//1BM+ut54iIN1KMgXcpFog4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sf7FJvtB; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sf7FJvtB"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-486ff201041so16701975e9.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 02:24:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774603498; x=1775208298; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=0ZS4t6iiMwLAGOREHrvQzMp06NE787DNbu4/2Frutpg=;
-        b=sf7FJvtBz2wyq0j5MiQKmrMt6ShvyfiwGq3Ln4dUiVwcxjiGGrSfBjlVpoIa3kYrms
-         UqeBpMLXlzNNgunyPgv3rtHIjxb1kS7nakg7jUZWsvC/sptbl9DX+mLTJm64QdlyeSU3
-         LUdl8zk+jqOUc6nR9tS/dm5fjs1M9+MVgpQrggXcWYRPlsR78rfOAbCW+hPRT7hl084c
-         RKs46C+gop4S+LHHSF8wGrK4EakH8RQcDTIQ5lFvZj/uOmL9n67nriHYAztwCm0u34ii
-         YEs/y8PiZFE95JhVqyCcuzkWuhZkfKmBLJ6azZarzVQyISl1qGJH6fa7/w3WP38BtUNZ
-         yZ1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774603498; x=1775208298;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=0ZS4t6iiMwLAGOREHrvQzMp06NE787DNbu4/2Frutpg=;
-        b=CLOzOIvTAY2xhP5OjfU/RqisA2nLyjws4WiGaYqMOjaEAAtjdnz4DSehDgsY9ssWl+
-         coKq9PPP6prdzNRaZFHEOJNvq/cxSe7zgEkqeihJWCMSOPUJHTROsfx+A2Sbf77CRw88
-         n3daqxZqzw0dPSXr+PymYADFNb95e4LfrtS+MITKZ8oDX3wApD/CT/nDXuqKzGkX+Fc4
-         CumEiCXbMS/73CaJhSFvaqKSvCw4CDyYZegSdR1tJlcUotQSQUcQL8nvL+o0GJVwoeyc
-         v5Mk0uRfkzuPfzblVLh/N+7K0odfDSYDymeiTcxEOLXeZi+75D0tmKuGmsJ1O/6vPwBK
-         asPw==
-X-Forwarded-Encrypted: i=1; AJvYcCXk/luIaElFrHglnzzsuEQNgrRKKfT+hGgmXLfgAyLzrKjTMQBa99JXoKj1JeGKYi7kcCdloB5Dp3vV@vger.kernel.org
-X-Gm-Message-State: AOJu0YxkAiIjeOe4VQw5RikWYZfaA0+DVS9iuNZixlwxtA25HE6hNJD8
-	4atec0+HunwNCgOzuadOcz9FO/uojoa/k/KtVEusZlqgN884B4KFzeq4
-X-Gm-Gg: ATEYQzxxbK4oCfF1/SLZBgfTVYmFgyJoG4h/JsUI93okWLQp5kvYdsGeZ3lz4WIhsUf
-	OC5DVBgERLRwH5q4RcoMBZ/BczffxL93R7Y/FLPGF8S8vaXPq4AipHE8RUaPZEOSLdP/vdo+q5T
-	2lPWI4wayx4MmhdWs43LU8VAXTds6x/1erGOb8c156b4M0GufndkCDSY+pvWwE+UUMZgPdIaOzM
-	IrInVzHGs9x9qbcGXxHSCellwOPrcjj8bV226AY4BGcd5Pu738jmiYGjR3Cfl0SWPYbAJp53JIZ
-	RRqV6IlYm0PF9g6W+9t8ceOviZBR4eeosVOr4eVDagFPeL7UwwtCKj69dPStgShWVLSVpohpp8h
-	F8VudHtI+HXtfDa/JkNSG/xMqzvUqJw2wklPgrLRuFinPR37qXqoB0p0GXLdC3y2cL6aNKHRqu2
-	UG8Uqo08xd0RlsayM3YGUy7p2MTpJSDZgibK+ZVl5rEbpgyspOY2WjSfcrLBMigAgOjTEkWSSx5
-	zjFefkpa2nx3cSTOGzOC9XPsC46QK2EvgZrRGvAFHA5miyQnck=
-X-Received: by 2002:a05:600c:4612:b0:485:445a:87d1 with SMTP id 5b1f17b1804b1-48727d6f733mr15472495e9.8.1774603497832;
-        Fri, 27 Mar 2026 02:24:57 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722d23679sm167318985e9.9.2026.03.27.02.24.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Mar 2026 02:24:56 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Fri, 27 Mar 2026 09:24:50 +0000
-To: Petr Mladek <pmladek@suse.com>, rodrigo.alencar@analog.com
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Andrew Morton <akpm@linux-foundation.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH v9 2/9] lib: vsprintf: export simple_strntoull() in a
- safe prototype
-Message-ID: <yn5equz3nlcp52347yfpa4sdfxhkno4l3a4gaugefsz3kzebz4@idftkp7txr6u>
-References: <20260320-adf41513-iio-driver-v9-0-132f0d076374@analog.com>
- <20260320-adf41513-iio-driver-v9-2-132f0d076374@analog.com>
- <acZDneLrIPOmU5ci@pathway.suse.cz>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51943D668C;
+	Fri, 27 Mar 2026 09:30:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.90
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774603836; cv=fail; b=NCeEYbFiXmY8BkA/hkvmEKsombfyvcXcA2PB7MbUr5CCzRQmObOorCM71rhvNeveB6p1jC1S9xTxdmOskbvFKXJmrdI7g3MVp7Vx7R7uzeeRU7xgI660YnvhUSVeNRJtt6hfRi789S2Vud/3gDu1QM+xOI65mcLnJwvs2UPJ1ns=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774603836; c=relaxed/simple;
+	bh=vl0UHD7O++jEGsAQOzCxn9xjXEIV/VSIl5r1NHKmiB8=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=bLHYrXKZe2FMJKrqF8cRmVcyRS3pUE3Hkf76TexW1Dx8Bah1CnE3pv46tzNCAk6TfpRd5BMHw9b3o187dxtYNIybM3YEdDXNxuRiUzFsIM8Of771Fli86lMM8s5k7r9bY/0lgAA1pPWgp5yAFLhR19SPPWlIJ/qLY5VUKUh7L+0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=khadas.com; spf=pass smtp.mailfrom=khadas.com; arc=fail smtp.client-ip=40.107.75.90
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=khadas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khadas.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cp2hdO0jAJPInXZ8lj3d3IcCiYpuQchqVlMVyZ1buPoyZb4Tv/LQyS/UZlQ3vHWvnOdtbGhwE4+HYZ99lYe4aubRm7tOVlYC0iJpN57CA2d0Vp5a4XMhoZKSo5VZ9aTbpnbchm9cFXizWmBuHZHUoM5TW/JhdaMySIYW8+sRx3N4SY6CsEGDcVCEIC6LfDBpYOPuA4FlLOFJ0a7Of4sIWAuRDSxS04HWTIpU0omXUMDu8bhq0dBNAmaJcAdxZ3cNBfkM/xoe8YhqeZmU29JdDXwB5r+ZogG13J8IeXW4VXTBbnscNct/Xvil74tWF5WdMfTTwOtXgS6dy/2B55zU8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SXAJz6x4v0pl9Vx450K4Zhu/fqg/v5zMnSbCl0/vTIY=;
+ b=xTZU+yPuPEL/6CwTLcoi+XnFRiaziW2Enh/KFrvSWlfpd2PtKS2Ixrw+eGYKS8dYIR00cmGWxWBgB2EkvLxYP42kYFeZXjMbwMQ95lUwlTvguaRoS07tJ9NRDkdFMwfZ6O9DBa+MCnc289rhhbLNll7z42MIFKp0xxw94u9jnbSLqCI2k9OkAE1dLeZs1JLNW3Fjyo/ylMhxlqCkWML47yPzbJWA4/nqzGCVX84h6Hr7z5OYkUEe6ROclaq6kkQjF0AYr+vfjaW6M00Bc2LPccOvcrHHGccZJyW1ks+3PKH38R6lEHDCG6Fn19b2Kb7oFk/a3zv9rO5E6ehWkvdWFA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=khadas.com; dmarc=pass action=none header.from=khadas.com;
+ dkim=pass header.d=khadas.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=khadas.com;
+Received: from PS1PPF62EEA9B1D.apcprd03.prod.outlook.com (2603:1096:308::2da)
+ by SE1PPFE32D229A3.apcprd03.prod.outlook.com (2603:1096:108:1::86d) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Fri, 27 Mar
+ 2026 09:30:29 +0000
+Received: from PS1PPF62EEA9B1D.apcprd03.prod.outlook.com
+ ([fe80::20a2:a696:ac88:2549]) by PS1PPF62EEA9B1D.apcprd03.prod.outlook.com
+ ([fe80::20a2:a696:ac88:2549%4]) with mapi id 15.20.9745.019; Fri, 27 Mar 2026
+ 09:30:29 +0000
+From: Nick Xie <nick@khadas.com>
+To: neil.armstrong@linaro.org,
+	khilman@baylibre.com,
+	martin.blumenstingl@googlemail.com,
+	jbrunet@baylibre.com
+Cc: krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	linux-amlogic@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nick Xie <nick@khadas.com>
+Subject: [PATCH v1 0/3] arm64: dts: amlogic: meson-s4: enable RTC and IR for Khadas VIM1S
+Date: Fri, 27 Mar 2026 17:30:13 +0800
+Message-Id: <20260327093016.722095-1-nick@khadas.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYCP286CA0214.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c5::10) To PS1PPF62EEA9B1D.apcprd03.prod.outlook.com
+ (2603:1096:308::2da)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <acZDneLrIPOmU5ci@pathway.suse.cz>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PS1PPF62EEA9B1D:EE_|SE1PPFE32D229A3:EE_
+X-MS-Office365-Filtering-Correlation-Id: 714a9104-960d-451b-1723-08de8be37c1b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|52116014|376014|18002099003|38350700014|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	xmddjv4qEpdGZdYSTGYx4SHjF4NeNKtZk086f4phRKGnK6Odq56V6Vq07jPSIbVuZwNkpUQHvuCIkpotHbfgBL5iNcmHuG9m3ePvbQ8SG8Bl2641DrlURfmJGrmffn4+k0CX2bsAE6sMS3ESASeEOnfGOyB0qC6mx4YU62wc+mfzCxnxYwuJtaby4RpK4MCMgpM/VZNG7+ux9yC8AlZxrz3CWFGbMJUud9F3/puYTorftJWtReiwbudfrkrgvpwCw4jNjMEfI16yWET6hZwxUt+ZBgXz9HJNcxva4rOjbROos4aOypkX0IAEct9AX0N8Hbv0RpYfASl9R37WJuv0DYXGMwo+447B3lCCkDYukzl5zxtPN2SrHIw2e2N8RS7KY8ug6NtvHt5wWxC934abGcsxO/Y2uc6J1TTuJCsuwcsx9SJh5aQobIeHgRaibImr7Go7v3/34B2fuPiCCedd0VzYAW26Bs2pKBkUC9YdHncqI/TZNSnHtDFoMllkal5+PG36u93Mu4LPG2jkTzjlFYgmJPVqGYClAMzhD8zmJHAfZpFHYHwX9pmQvcKRMuPN2nXc2zQ1N+Se4C/5XkmawYSHTJKWyaddj4KB47ux/FUQa5v3gkRAg2EkJf06O0T0+3t6crAEWJpQwsiCxLJmPHZ0yNhf98szlSH/oAkKyypRP3LhKJv9CKP9sMaF8v1UlVnID3SELZqnfC7S7+l2sVLUcbq9ok0JnXn85xsXG5ybAeEnSDGVRKmyhtJBzB1wKTn70vrWAiPfmbRzePG4+jwEi5rUcmR8/ppr7lJba7Q=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PS1PPF62EEA9B1D.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(52116014)(376014)(18002099003)(38350700014)(56012099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?yqKyHqBFNDGOFnWjokYCwLo2ZvGbWi8Wr2syFFU5OgnOmmE2LMwsAuT0L+Y8?=
+ =?us-ascii?Q?8s+HsZR/muzI2ISIqUpagHgH0LUkvKJaXwUbsrUi5vfGpWd24COPEymfFPja?=
+ =?us-ascii?Q?3N+hKAhw75vNYY6Ot9OnCiVSLCmfIoz8HYN4p7etnbTEwqWGINK30zGYvgUC?=
+ =?us-ascii?Q?tJP3pK2gAB9Z5D2Idw5KerQCcJ8AYvdH8qF2CWIUcwO1NfYjCPmx+3r6O4ou?=
+ =?us-ascii?Q?B0NBRQU5aYYW3yVmXvfrkIebFRYjsEgpdlmV9hCOPuhU5esTkeEMKfxiwVpW?=
+ =?us-ascii?Q?kL3gPOrnu9FxUVFPFKJIxYucTaZmEDrE5FSSY4lXSZsZAeyugliSZhHkcDR8?=
+ =?us-ascii?Q?6uxIvwXTnTBefv6E/W103Dznln3TvJCjylNo5NxnkN+zbqvZQzG6grdfsMMl?=
+ =?us-ascii?Q?/Q5PkqYlICFv88cEZ2VKwTVsL4Z+XZl2jWfe8CFRiJ9PdQPn1IhD0shPJf/k?=
+ =?us-ascii?Q?ZGL5IgoGdUMIIMoj2U+DKQFaKf/VgSIs06EZcxZinmw2ezh/hZZ+prLz+mu5?=
+ =?us-ascii?Q?v3M2TknIhSFZEN8ZlUYIXFupeVe0qAjVGnKOfOgnzjyRlEMLAeU74eQvKBxK?=
+ =?us-ascii?Q?40jJHEQhInO15fJie6YPlQgUJrdb/IOpznrx7HRhSR17koumQia1HvHnfy2f?=
+ =?us-ascii?Q?AolXJyURUPpSstisPdKbyaAmaA457hs8vGEyappgOaewbbnbKeiIVrJhoxoK?=
+ =?us-ascii?Q?PMyFFpSMPq5ZMKFVhDZZ+8oEQ1zbzJekQA+IbReEvPYePbR8A1lTNRSaa1i5?=
+ =?us-ascii?Q?PaPIp0VFek6+mYk5C0s+pzhdjxYRq3Dq2lGBuXMp7uW8v2Hdj8x7hpj2Cyvo?=
+ =?us-ascii?Q?TVsCJVbQFWvSrQIaJLF5CLER+85ja5DD66CWYQfKx7zkDGttm2cXfandRxMc?=
+ =?us-ascii?Q?7u10A2bbCEspWScmUtP9PkuadoljAdD8LglsQmwLr6qBIvJK+Ka5SmgsTyyb?=
+ =?us-ascii?Q?TYBBTmpVRmGzxDW/FQM80B8s8rHtYzuBaEzS7De5xZfdccerVEfClhOiTxkg?=
+ =?us-ascii?Q?j3xxl6/xguu7nNngEkl+BpB3xpdEktMoGwaHqvxtfZp24ZA+kfVb336skcsr?=
+ =?us-ascii?Q?MQct8LaFQuEWQFrez8yomYhQzos73p5VvbqdHJXRfTy8Ai/UBusCDS4xbx+q?=
+ =?us-ascii?Q?Rj7eFteQQ1ETw8daTqerOZkMjzL9nwsyicnBlbtkzcfG4CGlVB4zJTFPNl0b?=
+ =?us-ascii?Q?ubw6LFEgDu7v9ox4YxvfdErgpGIl0uh2hZG1i/v1OmF0Wk9n7lNLnyOgFsW6?=
+ =?us-ascii?Q?sec0Uk3l9a9IQO3hbnZYnAqL4gG8BneKnkUOeoagfIj2q03UaoNnogWe9CeV?=
+ =?us-ascii?Q?QaqmKts8bGpWFFbBXpOUMQW6sv4qTMEdUTu6Qv28nMJuD2foOAsCO5G/GyPo?=
+ =?us-ascii?Q?OYi4hhiuxzj/y7bL7OF7mczYvlqf8ifbl2PLQxUTT3ogdpRZ58QuPNAyeTWO?=
+ =?us-ascii?Q?nHomBtTIdiN72NnzJdNR90ci2MlIC0kj35AfWhgU0HNMQIC+/nIBDT/RX5cy?=
+ =?us-ascii?Q?puuXXotDnrclO8zfxFDtF0R0rC8REJ7EicJLgWvAbMAq2f9Vls7RFmIy4CxF?=
+ =?us-ascii?Q?VnYks4a0u150pUbHzZoOvjZ4gukETVRrpSY6fzi4YC44u0noW5AXsBOfC46+?=
+ =?us-ascii?Q?HcbHRW8KadK22ZVD/eJqmeZnrYGPHsA79yLKmQv3iYYcHXGHi+sUzjoqBCod?=
+ =?us-ascii?Q?sM0BRLYd7fbzmYbBNdHq7tq3ENKyS+dKWusP7tRsOZNN7KZk?=
+X-OriginatorOrg: khadas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 714a9104-960d-451b-1723-08de8be37c1b
+X-MS-Exchange-CrossTenant-AuthSource: PS1PPF62EEA9B1D.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 09:30:29.1999
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 2dc3bd76-7ac2-4780-a5b7-6c6cc6b5af9b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cRbHLrzW53No3HB2FS/vesd+hEiFMbQYUG1kg1jhKXE97Gru1x7zgSwMZpu94f5h
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE1PPFE32D229A3
 
-On 26/03/27 09:45AM, Petr Mladek wrote:
-> On Fri 2026-03-20 16:27:27, Rodrigo Alencar via B4 Relay wrote:
-> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > 
-> > Expose simple_strntoull(), by addressing its FIXME, i.e. its prototype is
-> > slightly changed so that -ERANGE or -EINVAL can be evaluated by the user.
-> > Flow of the function is not changed and error value is returned in the
-> > end. Unsafe internal wrapper is created to reduce amount of changes.
-> > 
-> > --- a/include/linux/kstrtox.h
-> > +++ b/include/linux/kstrtox.h
-> > @@ -148,4 +148,8 @@ extern long simple_strtol(const char *,char **,unsigned int);
-> >  extern unsigned long long simple_strtoull(const char *,char **,unsigned int);
-> >  extern long long simple_strtoll(const char *,char **,unsigned int);
-> >  
-> > +extern ssize_t __must_check simple_strntoull(const char *startp, const char **endp,
-> > +					     unsigned int base, size_t max_chars,
-> > +					     unsigned long long *res);
-> 
-> Sigh, naming is hard. I personally find it a bit confusing that the
-> name is too similar to the unsafe API.
-> 
-> IMHO, the semantic of the new API is closer to kstrtoull().
-> It just limits the size, so I would call it kstrntoull().
-> 
-> Also I would use int as the return parameter, see below.
+This series adds support for the Real Time Clock (RTC) on the Amlogic 
+Meson S4 (S905Y4) SoC and enables the hardware RTC and IR receiver on 
+the Khadas VIM1S board.
 
-Thanks for look into this one.
+- Patch 1 adds the internal Virtual RTC (VRTC) controller node to the 
+  Meson S4 SoC dtsi.
+- Patch 2 enables the I2C-attached Haoyu Micro HYM8563 RTC on the 
+  Khadas VIM1S board. It also sets up aliases to ensure the hardware 
+  RTC is prioritized as rtc0 over the VRTC.
+- Patch 3 configures the default keymap to "rc-khadas" to support the 
+  official Khadas IR remote control.
 
-kstrntoull() was what I used in v8:
-https://lore.kernel.org/r/20260303-adf41513-iio-driver-v8-0-8dd2417cc465@analog.com
+Nick Xie (3):
+  arm64: dts: amlogic: meson-s4: add VRTC node
+  arm64: dts: amlogic: meson-s4-s905y4-khadas-vim1s: enable HYM8563 RTC
+  arm64: dts: amlogic: meson-s4-s905y4-khadas-vim1s: use rc-khadas
+    keymap
 
-There was a discussion around the naming:
-https://lore.kernel.org/all/4mtdzxfj656sjr66npabfvrr7yd7q26l2unhsihjtniz4ossfj@g3qnzonoary6/
-
-please suggest how the function prototype should look like.
-
-...
-
-> > +/* unsafe_strntoull ignores simple_strntoull() return value and endp const qualifier */
-> > +inline
-> > +static unsigned long long unsafe_strntoull(const char *startp, char **endp,
-> > +					   unsigned int base, size_t max_chars)
-> > +{
-> > +	unsigned long long result;
-> > +	const char *cp;
-> > +
-> > +#pragma GCC diagnostic push
-> > +#pragma GCC diagnostic ignored "-Wunused-result"
-> > +	simple_strntoull(startp, &cp, base, max_chars, &result);
-> > +#pragma GCC diagnostic pop
-> > +
-> >  	if (endp)
-> >  		*endp = (char *)cp;
-> 
-> IMHO, we do not need local "cp". We could simply pass the endp
-> to the new simple_strntoull. Or do I miss anything?
-
-Basically the unsafe version drops the const qualifier and compiler
-complains that pointer types do not match. Maybe an extra warning can
-be suppressed there.
+ .../dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts | 16 ++++++++++++++++
+ arch/arm64/boot/dts/amlogic/meson-s4.dtsi        |  5 +++++
+ 2 files changed, 21 insertions(+)
 
 -- 
-Kind regards,
+2.34.1
 
-Rodrigo Alencar
