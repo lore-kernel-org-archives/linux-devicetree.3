@@ -1,192 +1,190 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB103A6B6C
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:11:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D839639E17D
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:12:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774606289; cv=none; b=oizbQQg3KnLqsxy8x9aDYmQzB3hxE1yqla20AIt3w3FQob+U/6VfzAZwS5KdAxM98vIzxqI2dMBtKb31h3MVd4LAbcOMCgFVy6isL3HDUZcnbhqpbAACjHTtW2pVkF1sY/MY07xQ5DyWnbEWoJGH8JGuCequQBMu4Gwyx+7XT6I=
+	t=1774606326; cv=none; b=RieBVfyN7vXIpGeUmYDSHu7ZD3W6b6YAHn8trPmmTudBRIIuYDdGvLHZDQcfNIONSD/FyBNWpu1bPJrsdZ5s3Yu9akjqDX+hoVwDtPMgnTfgipQeux947lFLSrXzGEoZwIMQ3m51RRXnHz1J1YliqusnsuhZn1Xe4w0wmN85QjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774606289; c=relaxed/simple;
-	bh=UePfgCVIMdwnsiSP/Ict/OfV+6Z2KDwQBisMnTe2L64=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VYw9kFm0ADi01T6DWD+GCWzDrBM8BdWeXob7SUjNH3TDXsH2iZpKeBxWWjzgWZZcSSdDqBrx/zYxh7QhASUNOU5RsZRqqnELPoEt6jiR5NcMx2ZZJsHWTQ1yYoXtHrxOShXoMF/9/RJac0lquP5rjJZNCpp4Hh1xSwgV33CCZeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QoXDgh0d; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=rfN200iY; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1774606326; c=relaxed/simple;
+	bh=emZndTB0StSeiKPV9wKo4qME2pfL/NkV8yDQkFW/He0=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SwEVFlybR8deTpAGFKjAt3kDReYWHouYGcMSd3qyrEmLDCnFZufF3xjLk2CY9H0eDsBXXzh/N1OMJ0SVs9yDX3cPXq7GH1dDWrzehB70RixTG2drpI7XhUUIMvpp/B/wMqsKfalROh3/91n6xPhh77RRsWczhNtwHCuBg8JQ7pM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FfDd8+E7; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QoXDgh0d";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="rfN200iY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1774606285;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KRnbNl3u/p+FGuGPfwMKlR/+7x5aDIRiANz+ZN11JbI=;
-	b=QoXDgh0dc+CouqXmLHNrHgcUw1rgBB8ELCTgR5w1J5fh6GAGrmcvXrdUJ0IJ4u63FZWNHb
-	XdYeGzW4NVMOe2KG1vRYLOq6OrU4/tSMOIe3lLKYEILE5tsbEc2hKD8Uwl7Q2fysoESPU7
-	YTTqEhCSxL63Elvlfnc5YDwHFXoY4/I=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-417-I5p9m4wXNu-KjA9DDHYbYw-1; Fri, 27 Mar 2026 06:11:24 -0400
-X-MC-Unique: I5p9m4wXNu-KjA9DDHYbYw-1
-X-Mimecast-MFC-AGG-ID: I5p9m4wXNu-KjA9DDHYbYw_1774606283
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-48544725bdeso28382575e9.2
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 03:11:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FfDd8+E7"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-439fe4985efso1457081f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 03:12:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1774606283; x=1775211083; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=KRnbNl3u/p+FGuGPfwMKlR/+7x5aDIRiANz+ZN11JbI=;
-        b=rfN200iYHV/Q6TjOW5iZxFpIdUoAvfcbQzTlg3n2ITZPxlZ/zR3rQhmqroSUF+oVOI
-         PANE9eon12ffa+mLxsz3Fx53B2zXKoMNO4pqVvKi+x8vcaT6H70X4OjjlJnbdqvYh5vL
-         EhI3EFCr4zgK3A5WeOEfXBI1X/N3T6BjNqrDSlhcsg24cCV6MjFsz5p6GymWDdZsW95s
-         Hc8tw+kXmtOupERqdLsX9nhDQz4vvu03q/Jc9qAWdQYA2PaCbNOTh1p/QZ3jSIbAXCib
-         Oefrjtf+GTWT1kJfARR/aoC7IP5JSg/EkPMLvqLPIxD9NOVTC2cVybs5XPecCKa2PHuh
-         N5dQ==
+        d=gmail.com; s=20251104; t=1774606323; x=1775211123; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=4ebKOUFGrIuktoxI72r0hHEVIqHTRxRm4Xw0zTvSKkQ=;
+        b=FfDd8+E73w01cSEaWXKEpHhExjQm1JDvKrpUnim+J8GFpkkfbtTw4eGSrtBXwkbqpp
+         RFADnvHLoCjCg1eE8puvNINDkKMCsxLJY3LB3l9GQZuv+ZCNzgppp9Nzgvm/DW9BS0Bw
+         DN6JEx78/jEQxWLquJqQS8xJd8Xg0i31qWdh2Jrm80jEOrOKMNkAvM6qkRVvNaXHENAP
+         i0NAfCfDBtclqMsmjxhS+bOpTwKVD846d3GYhhGYrHZF4sWLEbgSvVsVtJ+3ANGF6xwQ
+         opyROm0hW4eBB2T4atx7oBYXKGTXzkE8s0fuI2gK5HXtFb47ktqsrC1MdDh4cj2L+6na
+         zmew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774606283; x=1775211083;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KRnbNl3u/p+FGuGPfwMKlR/+7x5aDIRiANz+ZN11JbI=;
-        b=HTwN3iVigpl842DzprbPKMBB07NDSPdLvU4wNPQPg4Jn1bgjpknCkDF44JzKd3xeAC
-         uQf/nAJHlE/eejke2HhQqhfPa8y0tkdHgPQp9lLBuTDMJBISCUNecVOlNAYs4T6TJHLK
-         WHmvm3I6IGxCudlPUxKYLd1u6x7sCFub/bHvqScqYoUfLKB/oh5zlVeDDTik0/FGf5Jc
-         G1L993jqYJh5rjcNou/bgqvt0GWTxZGiVJ5bOyCZhLm1BjinWNA8bi1rMomyP/NxOk5+
-         nxqT2B0HBHaOynBhES0A8DSVYxu7hosp7Qe1Qh195FSNRdJRen8iWE5YX9g7OtZoWr0C
-         HqOw==
-X-Forwarded-Encrypted: i=1; AJvYcCUNseHjAjRpcXdA9T9wO2sY8gkEYe3OJjWUxvyZ15zv/a3/4jaEig3fihlhdoXto+72GwccHsDglLIc@vger.kernel.org
-X-Gm-Message-State: AOJu0YysnAx1uc/Hk39CS59rnMNWFdturGkoxxEMnzMcsm3gzMohvvFs
-	UF1grqFkCzp7bHSXpfS3PyH/8mRWuIV0h2xr7MfTMboIey1UzQ7kjaVQoRH0jJPjnXnZa0hSjsH
-	/BMZ3bqSwlytAv28ymFMSUXQJwNOmsr28qk+KJ1VXLUmzPcZ7LyHOqHlZqQw48AI=
-X-Gm-Gg: ATEYQzz6Wq7x1x1zzaLPdcarM5hKAh1l28U2hLFtpJFdMUYy+kB2zy4SpcJzTLf5ZCc
-	eVWnsKQbgt2BU6jRB8tdHiVpNJU3GBs6n7Nw+GegITFlp/nzDyGcRsGYsXQlvhBlL/4dWroHGTw
-	+0Zvl03lm2zJO3t6URUIy0poMTRi7IYQpyoZ5XkQ666FAJuQHcxSY2JMFKrveULnbCpb1d75UWg
-	YP4QZMmyLSHQ+YJlRsg9lRgv0W2QSPukxNP2kSV7tBo3NkdwA+mbEX94mqXr2deJMdN/go+Ajb/
-	N7kvM1iwG7InbPQXxp676gXwoNELGobHVGxyLdgW7PFH1lBVXxIFTEBrskKCwGCEjKO7uWSkNE9
-	7Z+E1qEvf0sdxYD88J5Rr
-X-Received: by 2002:a05:600c:3b24:b0:485:6ec7:2df with SMTP id 5b1f17b1804b1-48727d5f7a5mr27183885e9.8.1774606283082;
-        Fri, 27 Mar 2026 03:11:23 -0700 (PDT)
-X-Received: by 2002:a05:600c:3b24:b0:485:6ec7:2df with SMTP id 5b1f17b1804b1-48727d5f7a5mr27183455e9.8.1774606282661;
-        Fri, 27 Mar 2026 03:11:22 -0700 (PDT)
-Received: from [192.168.2.83] ([46.175.183.46])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b919e68a6sm16570703f8f.33.2026.03.27.03.11.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Mar 2026 03:11:21 -0700 (PDT)
-Message-ID: <f13b66b1-95c0-4027-a255-c03d127cc999@redhat.com>
-Date: Fri, 27 Mar 2026 11:11:20 +0100
+        d=1e100.net; s=20251104; t=1774606323; x=1775211123;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=4ebKOUFGrIuktoxI72r0hHEVIqHTRxRm4Xw0zTvSKkQ=;
+        b=FwO+gfCr9j0n3e5Ngnt37NQSlQegPxQMq/F4H86gF5zPOldDqjJANIfzTsS2Oqw2S6
+         jeXVEvsZ4uA1lwVD5AApUANO1tM3DSXLLLACyY9qjfxT6sroVqgz7uzxdqO49nDdQRCk
+         SkPFlfNrX9e6WEZLkM0+aPXhhmdIAtFvbtQMvAsEkTOHEysktf0E6+EfOwqU9V2X7D34
+         5e26hQUCgRFDQ7/5vsXu3bOZ4rGeppkCyY6pXva/av/ZOci1gOibM2qmFBAeODcMmXxZ
+         XvswRWgxorIr+uXUiWocGHLP9B73AvcffXKQ/ga4NsQ1GvHZvb6ocWhjEnqydnzFacRw
+         qRDQ==
+X-Forwarded-Encrypted: i=1; AJvYcCURUPdT+Q+P5PEXZWoTMJEt3EX6pPMEDvNlOXLerwYzHDyTj+M5JAR0f9mswgvFvHIhvZYA49SvgYUQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YwO2fJHWySCFVk86DGUmvwwJT+3DCJhsz2MLY2Ssce1/st8qxEJ
+	ro2B25XdX8S3B3QBxBMXG3eazR/ez8FN7TVlI9LpMiMs7p3rHNhDrOZW
+X-Gm-Gg: ATEYQzw/9d12YxUJgWHGPQAtUXOlV2Dw0EIGG656/ZMMJUnks0k2b768l/1KI3lnPyM
+	XqAZysTokyNeY6M6HYNt5Gjfdh0ASKGI4Vxr+0v7Llj/uxebgwODKc7Yw89WPkLm/ZCH1yJqGcP
+	jNZB6mq2qq8M52QjCHQ7ouVFyY9/MRiEOCP2u+fe8BeIDijhJlBQH89mW7d7ccfaSHFcHgju9gB
+	AzRZfMjPpvf2s6sl0NvKWz0pm9XvUJ28MQlIavdtLYQqmtNgqGrrPEZZtIFoTEuSCWbTazVSJ/3
+	8GjLdNNsUfX8yA36HCLmukKoZwQ/Kc0cpHPW/o4/kIT9FAwHYqjY6eJAvqNrdGRBX2tCIyF6gDH
+	ZIW00g3csaZAISLAVB/Kt8q2SUWjGZudPKfQX6z3D/ZWP1f7APa4MjoVDx4UGjMZDgVSeu8E3d8
+	pAAO9I6r+dLDT8WKVndugBe2ooAWZrxjXAwTlBWWJyto7wR9JKdVNdrZUz6KGLHWdvLMDe7sMFg
+	AsFBU5bNrV2/7R4RZZN3RrURTWVmjn0N7Q34VuHgla48TbXcsQ=
+X-Received: by 2002:a05:6000:26c1:b0:43b:3a65:8c9d with SMTP id ffacd0b85a97d-43b9e9e90b8mr2968134f8f.19.1774606322974;
+        Fri, 27 Mar 2026 03:12:02 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b9192e35esm12777550f8f.6.2026.03.27.03.12.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Mar 2026 03:12:02 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Fri, 27 Mar 2026 10:11:56 +0000
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Petr Mladek <pmladek@suse.com>
+Cc: rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Andrew Morton <akpm@linux-foundation.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v9 2/9] lib: vsprintf: export simple_strntoull() in a
+ safe prototype
+Message-ID: <4uijfg4efzaapu3esobez55hfwqzszwagpeb4lxej2ybmifu76@s3c57fmnsme6>
+References: <20260320-adf41513-iio-driver-v9-0-132f0d076374@analog.com>
+ <20260320-adf41513-iio-driver-v9-2-132f0d076374@analog.com>
+ <acZDneLrIPOmU5ci@pathway.suse.cz>
+ <acZLHAT5qJyjKTsp@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 2/5] dpll: zl3073x: use FIELD_MODIFY() for
- clear-and-set patterns
-To: Ivan Vecera <ivecera@redhat.com>, netdev@vger.kernel.org
-Cc: Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
- Jiri Pirko <jiri@resnulli.us>, Michal Schmidt <mschmidt@redhat.com>,
- Prathosh Satish <Prathosh.Satish@microchip.com>,
- Simon Horman <horms@kernel.org>, Vadim Fedorenko
- <vadim.fedorenko@linux.dev>, linux-kernel@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, Pasi Vaananen <pvaanane@redhat.com>
-References: <20260319174826.7623-1-ivecera@redhat.com>
- <20260319174826.7623-3-ivecera@redhat.com>
-Content-Language: en-US
-From: Petr Oros <poros@redhat.com>
-In-Reply-To: <20260319174826.7623-3-ivecera@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <acZLHAT5qJyjKTsp@ashevche-desk.local>
 
-> Replace open-coded clear-and-set bitfield operations with
-> FIELD_MODIFY().
->
-> Signed-off-by: Ivan Vecera <ivecera@redhat.com>
-> ---
->   drivers/dpll/zl3073x/chan.h  | 17 ++++++-----------
->   drivers/dpll/zl3073x/core.c  |  3 +--
->   drivers/dpll/zl3073x/flash.c |  3 +--
->   3 files changed, 8 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/dpll/zl3073x/chan.h b/drivers/dpll/zl3073x/chan.h
-> index e0f02d3432086..481da2133202b 100644
-> --- a/drivers/dpll/zl3073x/chan.h
-> +++ b/drivers/dpll/zl3073x/chan.h
-> @@ -66,8 +66,7 @@ static inline u8 zl3073x_chan_ref_get(const struct zl3073x_chan *chan)
->    */
->   static inline void zl3073x_chan_mode_set(struct zl3073x_chan *chan, u8 mode)
->   {
-> -	chan->mode_refsel &= ~ZL_DPLL_MODE_REFSEL_MODE;
-> -	chan->mode_refsel |= FIELD_PREP(ZL_DPLL_MODE_REFSEL_MODE, mode);
-> +	FIELD_MODIFY(ZL_DPLL_MODE_REFSEL_MODE, &chan->mode_refsel, mode);
->   }
->   
->   /**
-> @@ -77,8 +76,7 @@ static inline void zl3073x_chan_mode_set(struct zl3073x_chan *chan, u8 mode)
->    */
->   static inline void zl3073x_chan_ref_set(struct zl3073x_chan *chan, u8 ref)
->   {
-> -	chan->mode_refsel &= ~ZL_DPLL_MODE_REFSEL_REF;
-> -	chan->mode_refsel |= FIELD_PREP(ZL_DPLL_MODE_REFSEL_REF, ref);
-> +	FIELD_MODIFY(ZL_DPLL_MODE_REFSEL_REF, &chan->mode_refsel, ref);
->   }
->   
->   /**
-> @@ -110,13 +108,10 @@ zl3073x_chan_ref_prio_set(struct zl3073x_chan *chan, u8 ref, u8 prio)
->   {
->   	u8 *val = &chan->ref_prio[ref / 2];
->   
-> -	if (!(ref & 1)) {
-> -		*val &= ~ZL_DPLL_REF_PRIO_REF_P;
-> -		*val |= FIELD_PREP(ZL_DPLL_REF_PRIO_REF_P, prio);
-> -	} else {
-> -		*val &= ~ZL_DPLL_REF_PRIO_REF_N;
-> -		*val |= FIELD_PREP(ZL_DPLL_REF_PRIO_REF_N, prio);
-> -	}
-> +	if (!(ref & 1))
-> +		FIELD_MODIFY(ZL_DPLL_REF_PRIO_REF_P, val, prio);
-> +	else
-> +		FIELD_MODIFY(ZL_DPLL_REF_PRIO_REF_N, val, prio);
->   }
->   
->   /**
-> diff --git a/drivers/dpll/zl3073x/core.c b/drivers/dpll/zl3073x/core.c
-> index 6363002d48d46..7eebfc1ad1019 100644
-> --- a/drivers/dpll/zl3073x/core.c
-> +++ b/drivers/dpll/zl3073x/core.c
-> @@ -743,8 +743,7 @@ int zl3073x_dev_phase_avg_factor_set(struct zl3073x_dev *zldev, u8 factor)
->   	value = (factor + 1) & 0x0f;
->   
->   	/* Update phase measurement control register */
-> -	dpll_meas_ctrl &= ~ZL_DPLL_MEAS_CTRL_AVG_FACTOR;
-> -	dpll_meas_ctrl |= FIELD_PREP(ZL_DPLL_MEAS_CTRL_AVG_FACTOR, value);
-> +	FIELD_MODIFY(ZL_DPLL_MEAS_CTRL_AVG_FACTOR, &dpll_meas_ctrl, value);
->   	rc = zl3073x_write_u8(zldev, ZL_REG_DPLL_MEAS_CTRL, dpll_meas_ctrl);
->   	if (rc)
->   		return rc;
-> diff --git a/drivers/dpll/zl3073x/flash.c b/drivers/dpll/zl3073x/flash.c
-> index 83452a77e3e98..f85535c8ad246 100644
-> --- a/drivers/dpll/zl3073x/flash.c
-> +++ b/drivers/dpll/zl3073x/flash.c
-> @@ -194,8 +194,7 @@ zl3073x_flash_cmd_wait(struct zl3073x_dev *zldev, u32 operation,
->   	if (rc)
->   		return rc;
->   
-> -	value &= ~ZL_WRITE_FLASH_OP;
-> -	value |= FIELD_PREP(ZL_WRITE_FLASH_OP, operation);
-> +	FIELD_MODIFY(ZL_WRITE_FLASH_OP, &value, operation);
->   
->   	rc = zl3073x_write_u8(zldev, ZL_REG_WRITE_FLASH, value);
->   	if (rc)
-LGTM.
+On 26/03/27 11:17AM, Andy Shevchenko wrote:
+> On Fri, Mar 27, 2026 at 09:45:17AM +0100, Petr Mladek wrote:
+> > On Fri 2026-03-20 16:27:27, Rodrigo Alencar via B4 Relay wrote:
+> 
+> ...
+> 
+> > > +extern ssize_t __must_check simple_strntoull(const char *startp, const char **endp,
+> > > +					     unsigned int base, size_t max_chars,
+> > > +					     unsigned long long *res);
+> > 
+> > Sigh, naming is hard. I personally find it a bit confusing that the
+> > name is too similar to the unsafe API.
+> > 
+> > IMHO, the semantic of the new API is closer to kstrtoull().
+> > It just limits the size, so I would call it kstrntoull().
+> 
+> It's not. kstrto*() quite strict about the input, this one is actually relaxed
+> variant, so I wouldn't mix these two groups.
+> 
+> > Also I would use int as the return parameter, see below.
+> 
+> ...
+> 
+> TBH, I am skeptical about this approach. My main objection is max_chars
+> parameter. If we want to limit the input strictly to the given number of
+> characters, we have to copy the string and then just use kstrto*() in a normal
+> way. The whole idea of that parameter is to be able to parse the fractional
+> part of the float number as 'iiiii.fffff', where 'i' is for integer part, and
+> 'f' for the fractional. Since we have *endp, we may simply check that.
 
-Reviewed-by: Petr Oros <poros@redhat.com>
+A max_chars would not be only useful for that. It can prevent out-of-bounds
+reads when the input isn't NUL-terminated (like buffers, file chunks,
+network packets, memory-mapped data, ....). Even if there is a NUL later in
+memory, a regular strtoull() function may consume characters that are outside
+the field one intends to parse.
+ 
+> In case if we want to parse only, say, 6 digits and input is longer there are
+> a few options (in my personal preferences, the first is the better):
+> - consider the input invalid
+> - parse it as is up to the maximum and then do ceil() or floor() on top of that
+> - copy only necessary amount of the (sub)string and parse that.
 
+Yes, my use case is the fixed point parsing, but I suppose we are implementing
+things here for reuse. Also, the default behavior of the previous fixed point
+parsing in IIO is flooring the result, which leads to the same result as
+ignoring further digits.
+
+> The problem with precision is that we need to also consider floor() or ceil()
+> and I don't think this should be burden of the library as it's individual
+> preference of each of the callers (users). At least for the starter, we will
+> see if it's only one approach is used, we may incorporate it into the library
+> code.
+> 
+> The easiest way out is to just consider the input invalid if it overflows the
+> given type (s32 or s64).
+> 
+> But we need to have an agreement what will be the representation of the
+> fixed-width float numbers in the kernel? Currently IIO uses
+> 	struct float // name is crafted for simplicity
+> 	{
+> 		int integer;
+> 		int fraction;
+> 	}
+
+Yes, but to represent things like that, an assumption is made to the precision that
+"fraction" carries.
+
+> 
+> This parser wants AFAIU to have at the end of the day something like
+> 
+> 	struct float
+> 	{
+> 		s64 integer;
+> 		s64 fraction;
+> 	}
+> 
+> but also wants to have the fraction part be limited in some cases to s32
+> or so:
+> 
+> 	struct float
+> 	{
+> 		s64 integer;
+> 		s32 fraction; // precision may be lost if input is longer
+> 	}
+> 
+> Maybe we want to have kstrtof32() and kstrtof64() for these two cases?
+> 
+> With that we will always consider the fraction part as 32- or 64-bit,
+> imply floor() on the fraction for the sake of simplicity and require
+> it to be NUL-terminated with possible trailing '\n'.
+
+I think this is a good idea, but calling it float or fixed point itself
+is a bit confusing as float often refers to the IEEE 754 standard and
+fixed point types is often expressed in Q-format.
+
+-- 
+Kind regards,
+
+Rodrigo Alencar
