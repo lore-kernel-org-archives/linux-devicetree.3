@@ -1,25 +1,26 @@
 Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022090.outbound.protection.outlook.com [40.107.75.90])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51943D668C;
-	Fri, 27 Mar 2026 09:30:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E62A3CFF5E;
+	Fri, 27 Mar 2026 09:30:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.90
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774603836; cv=fail; b=NCeEYbFiXmY8BkA/hkvmEKsombfyvcXcA2PB7MbUr5CCzRQmObOorCM71rhvNeveB6p1jC1S9xTxdmOskbvFKXJmrdI7g3MVp7Vx7R7uzeeRU7xgI660YnvhUSVeNRJtt6hfRi789S2Vud/3gDu1QM+xOI65mcLnJwvs2UPJ1ns=
+	t=1774603841; cv=fail; b=ixNEWQfQeCRR2gI17fsJw/OiFuXV6V/OQOJ6VSKSPf7lo3yAMcZs45EmU/0ZvZDLlGG93qgbKYQZikZgGuBaiB3Gaa/pWnT5olrdbDtL8/FHGLnrvbdIkU8bp0FYJaeIpjmL4VwdLNHgOI9EORbuiIJ+1Rk1pSAJTExoP4ZJ3O4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774603836; c=relaxed/simple;
-	bh=vl0UHD7O++jEGsAQOzCxn9xjXEIV/VSIl5r1NHKmiB8=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=bLHYrXKZe2FMJKrqF8cRmVcyRS3pUE3Hkf76TexW1Dx8Bah1CnE3pv46tzNCAk6TfpRd5BMHw9b3o187dxtYNIybM3YEdDXNxuRiUzFsIM8Of771Fli86lMM8s5k7r9bY/0lgAA1pPWgp5yAFLhR19SPPWlIJ/qLY5VUKUh7L+0=
+	s=arc-20240116; t=1774603841; c=relaxed/simple;
+	bh=Gm1ciOex5dEDIpOmZmfdb3McvTirKpNrJsl/C2RCa64=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=j6L8sy8GkHH0TiEzZ/kvXWwa+AACYGRT0fAkQSREo6Dou8zZ0jRSVpPu0VCqRNoRnGfjzwXo3TY2EZAYYkza01Ku81i2NHX81JiTEhK17Ku1pnkhPWeNHyneUTjdh136Q0pbSGsSqG/b8hD8oJKQ6Lu0ff6TVBG5dc4mRZSRlUg=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=khadas.com; spf=pass smtp.mailfrom=khadas.com; arc=fail smtp.client-ip=40.107.75.90
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=khadas.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khadas.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Cp2hdO0jAJPInXZ8lj3d3IcCiYpuQchqVlMVyZ1buPoyZb4Tv/LQyS/UZlQ3vHWvnOdtbGhwE4+HYZ99lYe4aubRm7tOVlYC0iJpN57CA2d0Vp5a4XMhoZKSo5VZ9aTbpnbchm9cFXizWmBuHZHUoM5TW/JhdaMySIYW8+sRx3N4SY6CsEGDcVCEIC6LfDBpYOPuA4FlLOFJ0a7Of4sIWAuRDSxS04HWTIpU0omXUMDu8bhq0dBNAmaJcAdxZ3cNBfkM/xoe8YhqeZmU29JdDXwB5r+ZogG13J8IeXW4VXTBbnscNct/Xvil74tWF5WdMfTTwOtXgS6dy/2B55zU8Q==
+ b=jm0qawkx/pWyZOcsPADhBwaD07epW2IqQkgUGpIwv9YI5zZpeJ1WrwDtSJeygeKCOf99iUzwnzu2UHtS8gOVQJmZU8DJqMmRn/9wRziQBxGxeZzyQI8G9DMzdGIHkKSo190r5kCk8j/X4dssYUhcbPZz34TiMjZ4UOYY+SlbClkv+lbr0VsNRWgNjqMWEgyS7uBDhcHXMyNtL0q/Ji4NgCGEMNC2GDcOGBQ1EnYlsWuPttrGNYMyB6P8mupbvOnYIORzSdeW614RRco+uHYJZhK0ZML7IAsvd+cWTZyyJYcJ7xtLFywQi15g+tZg+F8R8ShIFMfQQ+j3J0okRS8khg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SXAJz6x4v0pl9Vx450K4Zhu/fqg/v5zMnSbCl0/vTIY=;
- b=xTZU+yPuPEL/6CwTLcoi+XnFRiaziW2Enh/KFrvSWlfpd2PtKS2Ixrw+eGYKS8dYIR00cmGWxWBgB2EkvLxYP42kYFeZXjMbwMQ95lUwlTvguaRoS07tJ9NRDkdFMwfZ6O9DBa+MCnc289rhhbLNll7z42MIFKp0xxw94u9jnbSLqCI2k9OkAE1dLeZs1JLNW3Fjyo/ylMhxlqCkWML47yPzbJWA4/nqzGCVX84h6Hr7z5OYkUEe6ROclaq6kkQjF0AYr+vfjaW6M00Bc2LPccOvcrHHGccZJyW1ks+3PKH38R6lEHDCG6Fn19b2Kb7oFk/a3zv9rO5E6ehWkvdWFA==
+ bh=gxg+n3+SEeSGuIV0fwOG1+XLqlkgb9wMmeYUHxSspTA=;
+ b=EoMWBBRziX5CYj4MZwUbY5wGcLIz9A8diHQQQyO9Self7sbsaq53cS0aF5DUe2M/n0g86aMoo69U/A59Wd58ay5WgG+jmWTXBWG1zMlRAsml63U8UqsKdhVyg2VEgXlxC7RKHHQBfwKdiuzt5Z37XIWm8oxuXqumyQhzLm7FY9uHigb23hqsVUmeAbjyyBZjKUGJhwqcf0jWdspBA1+1x7v3EbAMSH2BktqGpKzeRy8Zr8VdhYutYp8cXwglGY2KklX3htsJgEyPYHI+bmXi8eJ0m1//r5la5HEF0tnyfIJMvmPDiaFnAZTJQTZ2jdHYzk3PpCs8HmKugagZ1bTvKA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=khadas.com; dmarc=pass action=none header.from=khadas.com;
  dkim=pass header.d=khadas.com; arc=none
@@ -29,11 +30,11 @@ Received: from PS1PPF62EEA9B1D.apcprd03.prod.outlook.com (2603:1096:308::2da)
  by SE1PPFE32D229A3.apcprd03.prod.outlook.com (2603:1096:108:1::86d) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Fri, 27 Mar
- 2026 09:30:29 +0000
+ 2026 09:30:31 +0000
 Received: from PS1PPF62EEA9B1D.apcprd03.prod.outlook.com
  ([fe80::20a2:a696:ac88:2549]) by PS1PPF62EEA9B1D.apcprd03.prod.outlook.com
  ([fe80::20a2:a696:ac88:2549%4]) with mapi id 15.20.9745.019; Fri, 27 Mar 2026
- 09:30:29 +0000
+ 09:30:31 +0000
 From: Nick Xie <nick@khadas.com>
 To: neil.armstrong@linaro.org,
 	khilman@baylibre.com,
@@ -47,10 +48,12 @@ Cc: krzk+dt@kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Nick Xie <nick@khadas.com>
-Subject: [PATCH v1 0/3] arm64: dts: amlogic: meson-s4: enable RTC and IR for Khadas VIM1S
-Date: Fri, 27 Mar 2026 17:30:13 +0800
-Message-Id: <20260327093016.722095-1-nick@khadas.com>
+Subject: [PATCH v1 1/3] arm64: dts: amlogic: meson-s4: add VRTC node
+Date: Fri, 27 Mar 2026 17:30:14 +0800
+Message-Id: <20260327093016.722095-2-nick@khadas.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260327093016.722095-1-nick@khadas.com>
+References: <20260327093016.722095-1-nick@khadas.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: TYCP286CA0214.JPNP286.PROD.OUTLOOK.COM
@@ -64,80 +67,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PS1PPF62EEA9B1D:EE_|SE1PPFE32D229A3:EE_
-X-MS-Office365-Filtering-Correlation-Id: 714a9104-960d-451b-1723-08de8be37c1b
+X-MS-Office365-Filtering-Correlation-Id: 06f610b6-2427-4e74-42d5-08de8be37d9d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|52116014|376014|18002099003|38350700014|56012099003;
+	BCL:0;ARA:13230040|366016|1800799024|7416014|52116014|376014|18002099003|38350700014|22082099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	xmddjv4qEpdGZdYSTGYx4SHjF4NeNKtZk086f4phRKGnK6Odq56V6Vq07jPSIbVuZwNkpUQHvuCIkpotHbfgBL5iNcmHuG9m3ePvbQ8SG8Bl2641DrlURfmJGrmffn4+k0CX2bsAE6sMS3ESASeEOnfGOyB0qC6mx4YU62wc+mfzCxnxYwuJtaby4RpK4MCMgpM/VZNG7+ux9yC8AlZxrz3CWFGbMJUud9F3/puYTorftJWtReiwbudfrkrgvpwCw4jNjMEfI16yWET6hZwxUt+ZBgXz9HJNcxva4rOjbROos4aOypkX0IAEct9AX0N8Hbv0RpYfASl9R37WJuv0DYXGMwo+447B3lCCkDYukzl5zxtPN2SrHIw2e2N8RS7KY8ug6NtvHt5wWxC934abGcsxO/Y2uc6J1TTuJCsuwcsx9SJh5aQobIeHgRaibImr7Go7v3/34B2fuPiCCedd0VzYAW26Bs2pKBkUC9YdHncqI/TZNSnHtDFoMllkal5+PG36u93Mu4LPG2jkTzjlFYgmJPVqGYClAMzhD8zmJHAfZpFHYHwX9pmQvcKRMuPN2nXc2zQ1N+Se4C/5XkmawYSHTJKWyaddj4KB47ux/FUQa5v3gkRAg2EkJf06O0T0+3t6crAEWJpQwsiCxLJmPHZ0yNhf98szlSH/oAkKyypRP3LhKJv9CKP9sMaF8v1UlVnID3SELZqnfC7S7+l2sVLUcbq9ok0JnXn85xsXG5ybAeEnSDGVRKmyhtJBzB1wKTn70vrWAiPfmbRzePG4+jwEi5rUcmR8/ppr7lJba7Q=
+	a42PFSpxFrc9Snxx5NkKLtLDnSb+FVcB66KMlUQXrbubWfE8U8P3z1keMXq4xxeyBqWrgBo3nyLcP972oq2fN1BEI2JI8zvG+TlJpfUAeQG5mOLcj8WSvAynae8J6SDCMR984pdSLpyIkTG3kHDfOoFeIrvXKnSilv/bWE8JnX0TfsAw7wwATVAKO0UO2QtacLWLy/1vVrjNQmDwfwdC/NV2uGuxQKtpkBXyDRexiS2lSnQXppX6u+MLwjIU9jxqJysJRmGMZr0r0EEpHU4rMcx3Vbi9s53DDjFaWavqDr4h3/4btNN3/wKSsBeJnV6iuY1gBuhfeH44RjVbIr/nx1v/V1HuSNjx2HlzFJlvkukWpj+8M8F2ZafGvSD5Ec1TxUZZSm4uuqzcd+IesoR6q6EU1Km2Yvb5dpVpI9DqVYErAk/xC3WutYzVw61eoarfmhpJWBRdBzTttITu37R9/EYFp8swDJ3EF6wojQ1pZriutkVJPhBinTKz/MgWqUpOtC4zBqtAKg4KWoafOgLdNW8tQOH6GEMmD9MFIobPpHCg4ZbhUQSbH4YxRk8KHlxA42FZHWCG/UF9E0kkh8JSqrsIGlBPuLI0DrbXixCCozdDYU/MHQSVYK+/m7EcUonhqV4ForA51g0j0cmgsCgi4y9R+zegyFIdVrm//+Y6Arh48mBiMljTmHu7BZaKhHWUZ99bD3pkuNzTXVhZIwCVjkXyK6MeJhlsc/fuOocym2JAUfk63OuEOKMS2UGVNvHJVu8xm+06W15B4eWxQFv63Le8xaJvYNbNjzYxCKSbN9Y=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PS1PPF62EEA9B1D.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(52116014)(376014)(18002099003)(38350700014)(56012099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PS1PPF62EEA9B1D.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(52116014)(376014)(18002099003)(38350700014)(22082099003)(56012099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?yqKyHqBFNDGOFnWjokYCwLo2ZvGbWi8Wr2syFFU5OgnOmmE2LMwsAuT0L+Y8?=
- =?us-ascii?Q?8s+HsZR/muzI2ISIqUpagHgH0LUkvKJaXwUbsrUi5vfGpWd24COPEymfFPja?=
- =?us-ascii?Q?3N+hKAhw75vNYY6Ot9OnCiVSLCmfIoz8HYN4p7etnbTEwqWGINK30zGYvgUC?=
- =?us-ascii?Q?tJP3pK2gAB9Z5D2Idw5KerQCcJ8AYvdH8qF2CWIUcwO1NfYjCPmx+3r6O4ou?=
- =?us-ascii?Q?B0NBRQU5aYYW3yVmXvfrkIebFRYjsEgpdlmV9hCOPuhU5esTkeEMKfxiwVpW?=
- =?us-ascii?Q?kL3gPOrnu9FxUVFPFKJIxYucTaZmEDrE5FSSY4lXSZsZAeyugliSZhHkcDR8?=
- =?us-ascii?Q?6uxIvwXTnTBefv6E/W103Dznln3TvJCjylNo5NxnkN+zbqvZQzG6grdfsMMl?=
- =?us-ascii?Q?/Q5PkqYlICFv88cEZ2VKwTVsL4Z+XZl2jWfe8CFRiJ9PdQPn1IhD0shPJf/k?=
- =?us-ascii?Q?ZGL5IgoGdUMIIMoj2U+DKQFaKf/VgSIs06EZcxZinmw2ezh/hZZ+prLz+mu5?=
- =?us-ascii?Q?v3M2TknIhSFZEN8ZlUYIXFupeVe0qAjVGnKOfOgnzjyRlEMLAeU74eQvKBxK?=
- =?us-ascii?Q?40jJHEQhInO15fJie6YPlQgUJrdb/IOpznrx7HRhSR17koumQia1HvHnfy2f?=
- =?us-ascii?Q?AolXJyURUPpSstisPdKbyaAmaA457hs8vGEyappgOaewbbnbKeiIVrJhoxoK?=
- =?us-ascii?Q?PMyFFpSMPq5ZMKFVhDZZ+8oEQ1zbzJekQA+IbReEvPYePbR8A1lTNRSaa1i5?=
- =?us-ascii?Q?PaPIp0VFek6+mYk5C0s+pzhdjxYRq3Dq2lGBuXMp7uW8v2Hdj8x7hpj2Cyvo?=
- =?us-ascii?Q?TVsCJVbQFWvSrQIaJLF5CLER+85ja5DD66CWYQfKx7zkDGttm2cXfandRxMc?=
- =?us-ascii?Q?7u10A2bbCEspWScmUtP9PkuadoljAdD8LglsQmwLr6qBIvJK+Ka5SmgsTyyb?=
- =?us-ascii?Q?TYBBTmpVRmGzxDW/FQM80B8s8rHtYzuBaEzS7De5xZfdccerVEfClhOiTxkg?=
- =?us-ascii?Q?j3xxl6/xguu7nNngEkl+BpB3xpdEktMoGwaHqvxtfZp24ZA+kfVb336skcsr?=
- =?us-ascii?Q?MQct8LaFQuEWQFrez8yomYhQzos73p5VvbqdHJXRfTy8Ai/UBusCDS4xbx+q?=
- =?us-ascii?Q?Rj7eFteQQ1ETw8daTqerOZkMjzL9nwsyicnBlbtkzcfG4CGlVB4zJTFPNl0b?=
- =?us-ascii?Q?ubw6LFEgDu7v9ox4YxvfdErgpGIl0uh2hZG1i/v1OmF0Wk9n7lNLnyOgFsW6?=
- =?us-ascii?Q?sec0Uk3l9a9IQO3hbnZYnAqL4gG8BneKnkUOeoagfIj2q03UaoNnogWe9CeV?=
- =?us-ascii?Q?QaqmKts8bGpWFFbBXpOUMQW6sv4qTMEdUTu6Qv28nMJuD2foOAsCO5G/GyPo?=
- =?us-ascii?Q?OYi4hhiuxzj/y7bL7OF7mczYvlqf8ifbl2PLQxUTT3ogdpRZ58QuPNAyeTWO?=
- =?us-ascii?Q?nHomBtTIdiN72NnzJdNR90ci2MlIC0kj35AfWhgU0HNMQIC+/nIBDT/RX5cy?=
- =?us-ascii?Q?puuXXotDnrclO8zfxFDtF0R0rC8REJ7EicJLgWvAbMAq2f9Vls7RFmIy4CxF?=
- =?us-ascii?Q?VnYks4a0u150pUbHzZoOvjZ4gukETVRrpSY6fzi4YC44u0noW5AXsBOfC46+?=
- =?us-ascii?Q?HcbHRW8KadK22ZVD/eJqmeZnrYGPHsA79yLKmQv3iYYcHXGHi+sUzjoqBCod?=
- =?us-ascii?Q?sM0BRLYd7fbzmYbBNdHq7tq3ENKyS+dKWusP7tRsOZNN7KZk?=
+	=?us-ascii?Q?DWwyeu6xLcRW2ouQRhrLmPQRFPjC4qu8m03wNxBuB+LWr5AfzyqggIAmSo3Q?=
+ =?us-ascii?Q?Cub4PqrYZ/UmPfgtimVjRWh/r9Fnanr1REAvQUtWpUmKLelsScqJ2maOwOev?=
+ =?us-ascii?Q?vqt7s2WmKYA5TKES0QkT4DZxoCbPk87EFaPm5kXDZclfuoBq+LIWnkhghXGn?=
+ =?us-ascii?Q?X9MQa8bfckZD3bDtI82E1BUs6j8urN4KRyY4eQJxue07+FteEBaroRvCRS6S?=
+ =?us-ascii?Q?vX9JMi7LAV3QMDvSAjY8G4OO7rkMWgYN7kmkVdBORM/qmHwTH6PnTeJcxp1x?=
+ =?us-ascii?Q?jGvd0ig634qPRhetAInM/JrF6FrbXbDcQlVzvlzt5DikIBKsxQdxQ1xRtycP?=
+ =?us-ascii?Q?zMA5Xbx335jyG2ix7nv9YOh7AiHeJiWt3+02ybrVIb1msbie3hKRwLEcGjGc?=
+ =?us-ascii?Q?wCBYdRa+rQEGYlRF/bLWULgGYGD1IvQxKaXjmIocTpJ3HCh9RrJiAMvKJaRR?=
+ =?us-ascii?Q?D2KSL8fZ7G7Pek8dT/fi4AHkqca3r3Jof+8btFZu8cDchumdab4P/sTywyKA?=
+ =?us-ascii?Q?b+yY6kJpB/fIf5BO1h8Yfad5l6EiNjMCCvHcIs40fKE/dLmAo40H8Su5N7BI?=
+ =?us-ascii?Q?f1NsFlrQ94usyMPQ79iCEi+YGWzdlQqooxahl+zlYm5R4O2oqiXiziHkGk/6?=
+ =?us-ascii?Q?8wIS6+nbEgGqncK9PVUxcNReHxVZj1o+K9h8GK2A1ZUJ7UaEiCZUDLprJkeU?=
+ =?us-ascii?Q?DF1zzyKuxBUgZRpDTZhp7nQ2kItBy9LnEB381oKst4VQoyVYOM1TT6B6QVNN?=
+ =?us-ascii?Q?Jp70adgKwoqYm9s1/ebHZ+tmCY5p+n78gQsN5XbB/HT03OMZwP/vhoTVISkO?=
+ =?us-ascii?Q?f+sOgy99vMTu1hLnxjcZYPkWr6j/xSW0A63UiwJh3z00FhdLJBpZqpxiqFYR?=
+ =?us-ascii?Q?iDE2wS2lZw6+mtGM/4xVS2VOZuhKSW/mtJZP8UuQIBMh304EHWsMbVwfw+wd?=
+ =?us-ascii?Q?yzChHGUqSoPzFqIMWc73GPA7jb1N0c6w4Kj5iahsQlTszX4+aSdaioD8QC58?=
+ =?us-ascii?Q?GbW+MJBAxhdpdOw6nI+1R1SI2hPZdUSwW6YGnQLGsENs74MWVOlmm4r+D5vh?=
+ =?us-ascii?Q?6SiofBsGwbVKUtku3gktoOZ9la2VxmzxlzjeLHZGyiPoGcMK/fVtX/HFKwXJ?=
+ =?us-ascii?Q?0LpoLkxP5eVjQNJSVQl8ogwQ28zB+GjOcfYK7aMQgMPcfGyI7aUo0vL+tTmm?=
+ =?us-ascii?Q?uhjkcSAX8z7BgcVjnZgFuROe3aWdzOBvRLP4h3r9lidr5ZUHd+VuTZNibSaP?=
+ =?us-ascii?Q?0M3UfSWkuGqPoicE7eHRzqpMA4x+tEvSMcDCYJOFKdh96KbQcibkDJCBKzZK?=
+ =?us-ascii?Q?zu1A+GjcF28NCgZaoZD+gTx50gIv6ViLxwiP1PF+IYrGBBLohfe6abWh2EA8?=
+ =?us-ascii?Q?YuGijle07gt11639YGmDpxRL3pfXWouTkfQkhnwRjXfmy+0cb6hAE3c+eRVf?=
+ =?us-ascii?Q?pLeN5nZml9a0oMhg7U4tkEFbedB3DOHMsoc23E7J1eAkzxa2waZyLmFdPIYU?=
+ =?us-ascii?Q?KECukbxbynAKXrudD8NOyDtYx21YIHrUPqWz1doq7b27z4UHN3EDwGCJm2mL?=
+ =?us-ascii?Q?7p7WdbqqtfH47mZH/9avKGxdVUIFKsDrA7ANPdXd70wH4h3DTaaGMJ+Gk9Du?=
+ =?us-ascii?Q?CZZIVYvdxiUwu1e0yiX6+jK5V63gQrN31GtHSdJh/9IXMhkzMoAGhlAfO4r/?=
+ =?us-ascii?Q?zNer/ozOU4AtPlFD3H+YvXZgIPKlGzDeH2ZjEOAbv01HlgBk?=
 X-OriginatorOrg: khadas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 714a9104-960d-451b-1723-08de8be37c1b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06f610b6-2427-4e74-42d5-08de8be37d9d
 X-MS-Exchange-CrossTenant-AuthSource: PS1PPF62EEA9B1D.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 09:30:29.1999
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 09:30:31.7382
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 2dc3bd76-7ac2-4780-a5b7-6c6cc6b5af9b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cRbHLrzW53No3HB2FS/vesd+hEiFMbQYUG1kg1jhKXE97Gru1x7zgSwMZpu94f5h
+X-MS-Exchange-CrossTenant-UserPrincipalName: QlUxgMR3GV+hK5GCz0s0xbK/K74mq3FajJdU+7VNYa3hvA30NCO0/6TPcDu+75uT
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE1PPFE32D229A3
 
-This series adds support for the Real Time Clock (RTC) on the Amlogic 
-Meson S4 (S905Y4) SoC and enables the hardware RTC and IR receiver on 
-the Khadas VIM1S board.
+Add the Virtual RTC (VRTC) controller node to the Meson S4 SoC dtsi.
 
-- Patch 1 adds the internal Virtual RTC (VRTC) controller node to the 
-  Meson S4 SoC dtsi.
-- Patch 2 enables the I2C-attached Haoyu Micro HYM8563 RTC on the 
-  Khadas VIM1S board. It also sets up aliases to ensure the hardware 
-  RTC is prioritized as rtc0 over the VRTC.
-- Patch 3 configures the default keymap to "rc-khadas" to support the 
-  official Khadas IR remote control.
+Signed-off-by: Nick Xie <nick@khadas.com>
+---
+ arch/arm64/boot/dts/amlogic/meson-s4.dtsi | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Nick Xie (3):
-  arm64: dts: amlogic: meson-s4: add VRTC node
-  arm64: dts: amlogic: meson-s4-s905y4-khadas-vim1s: enable HYM8563 RTC
-  arm64: dts: amlogic: meson-s4-s905y4-khadas-vim1s: use rc-khadas
-    keymap
-
- .../dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts | 16 ++++++++++++++++
- arch/arm64/boot/dts/amlogic/meson-s4.dtsi        |  5 +++++
- 2 files changed, 21 insertions(+)
-
+diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+index 936a5c1353d15..2a6fbd5308362 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
++++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+@@ -59,6 +59,11 @@ psci {
+ 		method = "smc";
+ 	};
+ 
++	vrtc: rtc@fe010288 {
++		compatible = "amlogic,meson-vrtc";
++		reg = <0x0 0xfe010288 0x0 0x4>;
++	};
++
+ 	xtal: xtal-clk {
+ 		compatible = "fixed-clock";
+ 		clock-frequency = <24000000>;
 -- 
 2.34.1
 
