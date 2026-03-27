@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46E231E85D;
-	Fri, 27 Mar 2026 13:30:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 166B038C2C4;
+	Fri, 27 Mar 2026 13:30:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774618219; cv=none; b=bu+nUmUfnRgK0A3sdjor8sDBMpY4FcWS7tohneGVdDb8olVNo7ByR64qm6PEcZhEiaZy1KTP/WjOS4REK+EcPPQUaveE3xNHsLzLOFy7IpyV6wTwaeF2PAV+7zP6pWnLQs5gD36MZCEZU8ak6/tCIjpMel9RBH0n8hF5yS2F0CY=
+	t=1774618219; cv=none; b=jmyBT/4iIWke8y9imy0BcyK+FszkzDEeN9obztZNlDzbNvJ/rM13xP2r/exCHyrh9gOEMNWQuWXkMoEHruk9j12SsS/TDEh8pyUXD5PcKQdIbZL/+gIG3a3SmQrK7sqcBeSVlQq13ze6t1Jiv6edpaUa4GCksWJsWAvwxXO01RY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774618219; c=relaxed/simple;
-	bh=cFhg3Ww0XnHslmz2AhCLxQROMM+a0LeNeC7b893YDc8=;
+	bh=o+cDd6rLPqJJvSBR0PTspOivz6thnRMenTivb5cMzPY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=t7036sUbf0jPilm+QJe17ij/+a3vglVIeK2/5ysUGWwH8xcVQN+NdiZY5pE64WbUoQbB9BcFJSzXWU/EmSaWw9ZapjsuTYl7rmfwOYznKLsRtIQt4gndQaQGhWwhzZMs+JIZC/vqARXtbYgOVLXgA0HMRbZNSwkSSmVR0Zbm4Ek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GG/oiSyf; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=Lc++JuxXpf5k6m20mud2ljMPjpaB7GOvnBPV/2BtXyWGRNwZTyg9YHyDnytNp3aOyLZjPNQDUf03BuFMyHPkY7YO3R2aOmDoI06q7Y7/o7IFgn/1wkeLwDrOwo4rXD/4mSbbps811NogsYO152H9xeQIRrrzcghLoXQ7XoXZj7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=utuxB/nj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GG/oiSyf"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B6F89C2BCB0;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="utuxB/nj"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CD281C2BCB8;
 	Fri, 27 Mar 2026 13:30:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1774618218;
-	bh=cFhg3Ww0XnHslmz2AhCLxQROMM+a0LeNeC7b893YDc8=;
+	bh=o+cDd6rLPqJJvSBR0PTspOivz6thnRMenTivb5cMzPY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=GG/oiSyfZ//4KFoeAHqVZLNGB0JpbPrVcVraV5IwxnJLAyY1XO1tvcyHdK44L62x3
-	 JwZXRRdb1j+mWtbr+rElQMmX5vyQCvRoWCGgeQQtvmko1popMxtNEgHGyl74Pvigix
-	 ONzRx+KE6q5ZiWBHwp2WPpnfuUR1azsUAM894sa2Bjndg+c7ZIkRTr2r9//g3uYdn8
-	 ge4tMPm709PIytIMW2WNNfw1DaC2srzIYd50BfNKns60klUA/XXQx9wxvaUqnzQzCs
-	 jOQbGoITGiA4bt2RXtWo/so11VL/wbgX145i3o885pwWmFnJ6FwJN5/ZrKulplL00b
-	 +2YBfjjKSXAKg==
+	b=utuxB/nj/+CDzaSmUjUKjwbAKSrrBUdxwXqNrEJatIVQH751yRaPsntb/MbLOlYzp
+	 KFSnd2rWXzy+iKYlUt30Y5f1VeuTP98VApE/3YnJp0lyjImUw15p/srC65EMpiDOZC
+	 HUAzMYsb3DKgmWtIbvSfVPFN7fyjGnbN86ZE8Jd+V8fTXDSkepvoc8kQgCUyqqYQtd
+	 zpvCVyord8+21Uq0t71LNFdazrGNPz895svHsNUubYnA6RXzGH8NQcClC6n3Pm7EcW
+	 +8NdvGy+9+27b7jWAl8lh4kMc/DT5dNXLI/17XoQYOdXlWu0aRgYcsoDgiLPoqPBrd
+	 YZ+JF1D+cguPg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AA09510ED67B;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BFC9010ED661;
 	Fri, 27 Mar 2026 13:30:18 +0000 (UTC)
 From: Cristian Cozzolino via B4 Relay <devnull+cristian_ci.protonmail.com@kernel.org>
-Date: Fri, 27 Mar 2026 15:30:50 +0100
-Subject: [PATCH v4 4/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
- WiFi/Bluetooth
+Date: Fri, 27 Mar 2026 15:30:51 +0100
+Subject: [PATCH v4 5/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
+ touchscreen
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260327-rimob-new-features-v4-4-06edff9c4509@protonmail.com>
+Message-Id: <20260327-rimob-new-features-v4-5-06edff9c4509@protonmail.com>
 References: <20260327-rimob-new-features-v4-0-06edff9c4509@protonmail.com>
 In-Reply-To: <20260327-rimob-new-features-v4-0-06edff9c4509@protonmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -56,14 +56,13 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
  Cristian Cozzolino <cristian_ci@protonmail.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774621871; l=1054;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774621871; l=1591;
  i=cristian_ci@protonmail.com; s=20250620; h=from:subject:message-id;
- bh=WtEqVo4VByTiCmu2C8wOESppBF9z6HkoPkXa5Z66lkk=;
- b=ixbQYrS9KsX1BwaaM8t5Z2BoBDi9bZYVTI42Aw1++rSe/c7Yj0BV/58cfvoVSi1qwimwh4W/7
- cYx/VKB9SfnDzawzEEywpoWDm9ZfIrbVhldRRBIPIkWN5Xizf6yJwql
+ bh=jTbARXkjWHmyaiFZEdymOFXmGC761kbHkBCVhgFNKAg=;
+ b=IfSwCEIRtDhlJX9itmeIG+vCObwSjOzfTK45LKDx70YAi++WLHu9OEnuop7f2mmI5ZFKHwuKk
+ 5GMZqP9t9OmAt8m1xsrocp15rulA5fvWshs7AEttxWkr1iS+odpBDa+
 X-Developer-Key: i=cristian_ci@protonmail.com; a=ed25519;
  pk=xH5IvIPUNHV1Q8R0/pq2CfuVFR/wTiAyuyi6IwedjZY=
 X-Endpoint-Received: by B4 Relay for cristian_ci@protonmail.com/20250620
@@ -73,39 +72,65 @@ Reply-To: cristian_ci@protonmail.com
 
 From: Cristian Cozzolino <cristian_ci@protonmail.com>
 
-Configure and enable the WCNSS which provides WiFi and Bluetooth on this
-device using the WCN3660B chip.
+This device uses a Goodix GT5688 touch controller, connected to i2c_3.
+Add it to the device tree.
 
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
 ---
- arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ .../arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 32 ++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-index 8b72b71f4d4b..8620143e04a0 100644
+index 8620143e04a0..a1280b0e7e90 100644
 --- a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
 +++ b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-@@ -326,3 +326,18 @@ &usb3 {
- &usb3_dwc3 {
- 	dr_mode = "peripheral";
+@@ -94,6 +94,31 @@ &hsusb_phy {
+ 	status = "okay";
  };
-+
-+&wcnss {
-+	vddpx-supply = <&pm8953_l5>;
-+
+ 
++&i2c_3 {
 +	status = "okay";
++
++	touchscreen@5d {
++		compatible = "goodix,gt5688";
++		reg = <0x5d>;
++
++		interrupts-extended = <&tlmm 65 IRQ_TYPE_LEVEL_LOW>;
++
++		pinctrl-0 = <&tsp_int_rst_default>;
++		pinctrl-names = "default";
++
++		irq-gpios = <&tlmm 65 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&tlmm 64 GPIO_ACTIVE_HIGH>;
++
++		VDDIO-supply = <&pm8953_l6>;
++		AVDD28-supply = <&pm8953_l10>;
++
++		touchscreen-size-x = <1080>;
++		touchscreen-size-y = <1920>;
++		touchscreen-inverted-x;
++		touchscreen-inverted-y;
++	};
 +};
 +
-+&wcnss_iris {
-+	compatible = "qcom,wcn3660b";
+ &ibb {
+ 	qcom,discharge-resistor-kohms = <32>;
+ };
+@@ -317,6 +342,13 @@ panel_default: panel-default-state {
+ 		drive-strength = <8>;
+ 		bias-disable;
+ 	};
 +
-+	vddxo-supply = <&pm8953_l7>;
-+	vddrfa-supply = <&pm8953_l19>;
-+	vddpa-supply = <&pm8953_l9>;
-+	vdddig-supply = <&pm8953_l5>;
-+};
++	tsp_int_rst_default: tsp-int-rst-default-state {
++		pins = "gpio64", "gpio65";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-pull-up;
++	};
+ };
+ 
+ &usb3 {
 
 -- 
 2.53.0
