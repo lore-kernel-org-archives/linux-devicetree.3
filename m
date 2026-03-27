@@ -1,86 +1,85 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 815BD3A7F6F
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:10:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB103A6B6C
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:11:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774606257; cv=none; b=gSP+fXP/ms0OQfgg5nXVednsGkh6t8Ur/wCctJDPser4RJN3YrLVfo4DoInK0sI/lUPG/bIeNGrpPYJERflE680IGFyLmexhAGKnPnWe3K6fqQhP+/HZZVcbbZEBs3w8/cCO5ucaq7buLmJEAsuzN+aRrosSRWar1fW1IQSq5O0=
+	t=1774606289; cv=none; b=oizbQQg3KnLqsxy8x9aDYmQzB3hxE1yqla20AIt3w3FQob+U/6VfzAZwS5KdAxM98vIzxqI2dMBtKb31h3MVd4LAbcOMCgFVy6isL3HDUZcnbhqpbAACjHTtW2pVkF1sY/MY07xQ5DyWnbEWoJGH8JGuCequQBMu4Gwyx+7XT6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774606257; c=relaxed/simple;
-	bh=vrHxpfVQN1sEK0Pq40uAXExUzcToMFU5jlkMehylaB8=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=HH0eM0W1psmGT/UOeBV2Uo1aDOwc0I9wPshOViJivMs6w7uPXrt9HmwZFkJm06TpmWFZYqyYIrRpGm94kL+o0h71L0r6cgvs5ho1RGf4yrVVXs5NWEOKZjalyu3hsAiX2clLrHyOARt3hRRhQH2h4RrBrbToiNIG1DvAj/DvmxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EDlUo5Go; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d1I42vQr; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774606289; c=relaxed/simple;
+	bh=UePfgCVIMdwnsiSP/Ict/OfV+6Z2KDwQBisMnTe2L64=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VYw9kFm0ADi01T6DWD+GCWzDrBM8BdWeXob7SUjNH3TDXsH2iZpKeBxWWjzgWZZcSSdDqBrx/zYxh7QhASUNOU5RsZRqqnELPoEt6jiR5NcMx2ZZJsHWTQ1yYoXtHrxOShXoMF/9/RJac0lquP5rjJZNCpp4Hh1xSwgV33CCZeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QoXDgh0d; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=rfN200iY; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EDlUo5Go";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d1I42vQr"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62R6vlB71749218
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:10:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hDWZMO5h2IQY+cPJNgvKm7ajLI4QyoVQ1qlMtZyf/r4=; b=EDlUo5GoPu3boS5v
-	voYrpK75gECrGFw/brUsE5FkrvAmmzWXgB15Fo4rVfaqPqu5JXrQmCx1hT+/Kkq1
-	K41CxsAoP6MinJZlzrRIMujOPZ+2l0UieAfgEP3H4t5C23fRz8mDHRIDhrvlitjW
-	FTvCmz8ZV9t8cNiBXSRk1/BVqTk3kaLeJHvw627D6akceXAW7bQxi4lGomUKQwlx
-	0MXPplm7XKOVzgggx6mxkYeeeAbHhJbMbvUM9gyDiVDTXYTv9PK/m3V2UjJbU1il
-	wotIvGGYCHK9aLk7ChpqwzGisCCYoeqkWJoz+Ekxsj6efaVSqTlGE7dsZL2Hlh0w
-	PcOrpw==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5mn10umx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:10:55 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50b9074bd42so6125771cf.0
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 03:10:55 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QoXDgh0d";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="rfN200iY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1774606285;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KRnbNl3u/p+FGuGPfwMKlR/+7x5aDIRiANz+ZN11JbI=;
+	b=QoXDgh0dc+CouqXmLHNrHgcUw1rgBB8ELCTgR5w1J5fh6GAGrmcvXrdUJ0IJ4u63FZWNHb
+	XdYeGzW4NVMOe2KG1vRYLOq6OrU4/tSMOIe3lLKYEILE5tsbEc2hKD8Uwl7Q2fysoESPU7
+	YTTqEhCSxL63Elvlfnc5YDwHFXoY4/I=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-417-I5p9m4wXNu-KjA9DDHYbYw-1; Fri, 27 Mar 2026 06:11:24 -0400
+X-MC-Unique: I5p9m4wXNu-KjA9DDHYbYw-1
+X-Mimecast-MFC-AGG-ID: I5p9m4wXNu-KjA9DDHYbYw_1774606283
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-48544725bdeso28382575e9.2
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 03:11:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774606255; x=1775211055; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=hDWZMO5h2IQY+cPJNgvKm7ajLI4QyoVQ1qlMtZyf/r4=;
-        b=d1I42vQrCcMkANQrklbvrtvU/u7zBhD+r9M91G8kMgwBy3wW/H9YcFOIDNcwgUG45M
-         HFwXbaOtF4S3/UIeLyXHv5+IFBLsi+NoEnk3FOtYPUZmTHqAtxLIkfeVC+1n7T5OZSZ5
-         /zlGhyfDMdTkzLAZpQvYpR1hhsJVzEt5ogyp3Zng6iR3ngOY77xgkdxpLQ775Bxwu6iF
-         jzSUx0j7vs1RowTgJVM+0+HkP+dQ7PCoVmovluYOI4vFNuRr3JLx93G+l5CFZ98Vyeyz
-         Q6aY+7sl/xTy9kmU5OvGMvKee2kMobUNxwax/uawadPRCK1J3YNu9FojRimvyx/ZkIJk
-         EnOg==
+        d=redhat.com; s=google; t=1774606283; x=1775211083; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=KRnbNl3u/p+FGuGPfwMKlR/+7x5aDIRiANz+ZN11JbI=;
+        b=rfN200iYHV/Q6TjOW5iZxFpIdUoAvfcbQzTlg3n2ITZPxlZ/zR3rQhmqroSUF+oVOI
+         PANE9eon12ffa+mLxsz3Fx53B2zXKoMNO4pqVvKi+x8vcaT6H70X4OjjlJnbdqvYh5vL
+         EhI3EFCr4zgK3A5WeOEfXBI1X/N3T6BjNqrDSlhcsg24cCV6MjFsz5p6GymWDdZsW95s
+         Hc8tw+kXmtOupERqdLsX9nhDQz4vvu03q/Jc9qAWdQYA2PaCbNOTh1p/QZ3jSIbAXCib
+         Oefrjtf+GTWT1kJfARR/aoC7IP5JSg/EkPMLvqLPIxD9NOVTC2cVybs5XPecCKa2PHuh
+         N5dQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774606255; x=1775211055;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hDWZMO5h2IQY+cPJNgvKm7ajLI4QyoVQ1qlMtZyf/r4=;
-        b=is57NXaCKff0UrZscFe0vw7vj9e+Z8uINgyWWTatVIXxG5lFTJHbXVSNhIcU+FHlnj
-         VdXKNwrN1K/W+MU7aRVZQHsYBXqii+H8HQ0YEL7k7ten1CdWRyt/9MSJjiGtF13TenKm
-         snlh/5or+58iQVD169utivJeN+B4qOGYTsT3KgDDyQTFxQEvWpU0oexK02jwh0F7i1l0
-         WFszg3LgLyORecP1fT2/EX4ZKcK0vFJX7wEgwS8c+sgNYT5XXmllK6d/3okWNfdr9sad
-         ZSoE+jN+5V85TNltPBNushTyeOkzxD+HuyhDwAf0zey6Y8Yv6nzUk1MbAxM5WAuRmzkd
-         a+fQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXqPt0hCiKrJz+UW1eC4+w67NSdzv1rX8OrsXGnOP+8VpWFjvFnOhiznItfrkjUw5TKXk6pxjxJ0Iz5@vger.kernel.org
-X-Gm-Message-State: AOJu0YzRsNDk5uFV8+ujlzQ5hxeRX4ScyOp1w/nUu4vQs0n90Bd4wH5T
-	8KRAV5yA/WqH7sml79cGfdM9w9QrQ6LwTY5sIGf+USSsjW4tHjDLv2RXGcxNkTVATkFnquYpi0l
-	OmPFTRr39sDuqsc59qoku7/ETiQ6pHlOKlCPw5TTa5VLcOt1+D6A34eu1mqdzkmQ/
-X-Gm-Gg: ATEYQzzIfsZjLUQercmac6xgRthl5QEbqJ4ZV22ZoqcdZm7TagFP5nQ5Tz/qmMlHjoL
-	XQ9/8RCHpj7Q3lLUXqB/NB07kQLIX7gC5STA/EgUm3hFM9GDfTx6Sd+XByF3abwCKWCTjuBgtrM
-	hbt/hSNNJ4e7ZGnH2oRvm5wrK7z3G5lcXMGzyiTzBWXRRi7E4Chb2vQONWKg1X2KCiNYQftPG2p
-	dpBKnt7I3GKXM3aKlZ6qZ4iuRbm8TAQzgJjk8ZKd2Y+BRUlhTL12IJhw9aJDmx3fWfv0rz68Hyw
-	VCDlE1j4ehu2th8pXNzy7BU3IEf7FpUFJ9NuBUVUdSwdTb6Dya5JjhQ2D4QWpOJlYn0a/1BxXw6
-	p3yxwzITB9m4wVNQ8D9fehIxcbPYuw7TuKdFTYQzy9Bhqo1fLJuIwkY4UjPTGSX8xgh7kGUuujN
-	RyX4U=
-X-Received: by 2002:a05:622a:82:b0:50b:2f83:b702 with SMTP id d75a77b69052e-50ba393605emr19878321cf.6.1774606254836;
-        Fri, 27 Mar 2026 03:10:54 -0700 (PDT)
-X-Received: by 2002:a05:622a:82:b0:50b:2f83:b702 with SMTP id d75a77b69052e-50ba393605emr19878101cf.6.1774606254407;
-        Fri, 27 Mar 2026 03:10:54 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9b203eec9fsm219026466b.42.2026.03.27.03.10.52
+        d=1e100.net; s=20251104; t=1774606283; x=1775211083;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=KRnbNl3u/p+FGuGPfwMKlR/+7x5aDIRiANz+ZN11JbI=;
+        b=HTwN3iVigpl842DzprbPKMBB07NDSPdLvU4wNPQPg4Jn1bgjpknCkDF44JzKd3xeAC
+         uQf/nAJHlE/eejke2HhQqhfPa8y0tkdHgPQp9lLBuTDMJBISCUNecVOlNAYs4T6TJHLK
+         WHmvm3I6IGxCudlPUxKYLd1u6x7sCFub/bHvqScqYoUfLKB/oh5zlVeDDTik0/FGf5Jc
+         G1L993jqYJh5rjcNou/bgqvt0GWTxZGiVJ5bOyCZhLm1BjinWNA8bi1rMomyP/NxOk5+
+         nxqT2B0HBHaOynBhES0A8DSVYxu7hosp7Qe1Qh195FSNRdJRen8iWE5YX9g7OtZoWr0C
+         HqOw==
+X-Forwarded-Encrypted: i=1; AJvYcCUNseHjAjRpcXdA9T9wO2sY8gkEYe3OJjWUxvyZ15zv/a3/4jaEig3fihlhdoXto+72GwccHsDglLIc@vger.kernel.org
+X-Gm-Message-State: AOJu0YysnAx1uc/Hk39CS59rnMNWFdturGkoxxEMnzMcsm3gzMohvvFs
+	UF1grqFkCzp7bHSXpfS3PyH/8mRWuIV0h2xr7MfTMboIey1UzQ7kjaVQoRH0jJPjnXnZa0hSjsH
+	/BMZ3bqSwlytAv28ymFMSUXQJwNOmsr28qk+KJ1VXLUmzPcZ7LyHOqHlZqQw48AI=
+X-Gm-Gg: ATEYQzz6Wq7x1x1zzaLPdcarM5hKAh1l28U2hLFtpJFdMUYy+kB2zy4SpcJzTLf5ZCc
+	eVWnsKQbgt2BU6jRB8tdHiVpNJU3GBs6n7Nw+GegITFlp/nzDyGcRsGYsXQlvhBlL/4dWroHGTw
+	+0Zvl03lm2zJO3t6URUIy0poMTRi7IYQpyoZ5XkQ666FAJuQHcxSY2JMFKrveULnbCpb1d75UWg
+	YP4QZMmyLSHQ+YJlRsg9lRgv0W2QSPukxNP2kSV7tBo3NkdwA+mbEX94mqXr2deJMdN/go+Ajb/
+	N7kvM1iwG7InbPQXxp676gXwoNELGobHVGxyLdgW7PFH1lBVXxIFTEBrskKCwGCEjKO7uWSkNE9
+	7Z+E1qEvf0sdxYD88J5Rr
+X-Received: by 2002:a05:600c:3b24:b0:485:6ec7:2df with SMTP id 5b1f17b1804b1-48727d5f7a5mr27183885e9.8.1774606283082;
+        Fri, 27 Mar 2026 03:11:23 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b24:b0:485:6ec7:2df with SMTP id 5b1f17b1804b1-48727d5f7a5mr27183455e9.8.1774606282661;
+        Fri, 27 Mar 2026 03:11:22 -0700 (PDT)
+Received: from [192.168.2.83] ([46.175.183.46])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b919e68a6sm16570703f8f.33.2026.03.27.03.11.21
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Mar 2026 03:10:53 -0700 (PDT)
-Message-ID: <c73b1887-6304-49a4-b6e8-a162d1bd55c9@oss.qualcomm.com>
-Date: Fri, 27 Mar 2026 11:10:51 +0100
+        Fri, 27 Mar 2026 03:11:21 -0700 (PDT)
+Message-ID: <f13b66b1-95c0-4027-a255-c03d127cc999@redhat.com>
+Date: Fri, 27 Mar 2026 11:11:20 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,71 +87,106 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vinod Koul <vkoul@kernel.org>,
-        Kishon Vijay Abraham I <kishon@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org>
- <20260326-x1e-csi2-phy-v5-1-0c0fc7f5c01b@linaro.org>
- <7712fbdd-a225-49f0-aeb9-ebcbb9d5abac@oss.qualcomm.com>
+Subject: Re: [PATCH net-next 2/5] dpll: zl3073x: use FIELD_MODIFY() for
+ clear-and-set patterns
+To: Ivan Vecera <ivecera@redhat.com>, netdev@vger.kernel.org
+Cc: Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+ Jiri Pirko <jiri@resnulli.us>, Michal Schmidt <mschmidt@redhat.com>,
+ Prathosh Satish <Prathosh.Satish@microchip.com>,
+ Simon Horman <horms@kernel.org>, Vadim Fedorenko
+ <vadim.fedorenko@linux.dev>, linux-kernel@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, Pasi Vaananen <pvaanane@redhat.com>
+References: <20260319174826.7623-1-ivecera@redhat.com>
+ <20260319174826.7623-3-ivecera@redhat.com>
 Content-Language: en-US
-In-Reply-To: <7712fbdd-a225-49f0-aeb9-ebcbb9d5abac@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Petr Oros <poros@redhat.com>
+In-Reply-To: <20260319174826.7623-3-ivecera@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDA3NSBTYWx0ZWRfX+X0a+lEpL7zE
- 5HYtNhQ7Z3V98FQ/IPBE2XP+H2yGxF64qArfstY5F0AtP1D/hDtwNLPoFE3lELfHu69TEAnyedz
- Gz3bdsZzXXhIKAWqPypfeliHgh+t47f3PETGeUfGJxMwECzmVT/SWHSon3dDxkNg7f7HvsFAMRR
- o+Tamgllw5OSyR8vsHAHqvoMENuoaTm8sOHJOrFLbIsc3Paf7igyu8LZhPAhqhrwfGlbMDxfuWa
- a78jbvKgTjbo+MlqG0j+7HuRDdnRJRSXLTZeOdYm/XPEMuFemWD9FXqcwrJfOmyqFGHCAM5lX+d
- nWGhNpbSu8A9RH5v9Yj4Ut/Vcw9DP+hVj6/tGIhDiRNPDlXnVeQwhV+QMlKDuqeh8kQUZEqjQJI
- h7l7ls5GHOa4E/YxKlOrbp++CXVI8xBauOkmIbXT/ocyRLvbq+8+u+QWfiW1KIgFIkD5diGklzP
- q5FPQElcs4iyvkzQRVw==
-X-Authority-Analysis: v=2.4 cv=CcwFJbrl c=1 sm=1 tr=0 ts=69c657af cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=-gb4YIgPANaGSZa7PYgA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-ORIG-GUID: QyYNq2hP79DvM4wAvCOuJNPPhFC3OSVh
-X-Proofpoint-GUID: QyYNq2hP79DvM4wAvCOuJNPPhFC3OSVh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-26_04,2026-03-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
- bulkscore=0 impostorscore=0 priorityscore=1501 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270075
 
-On 3/27/26 11:07 AM, Konrad Dybcio wrote:
-> On 3/26/26 2:04 AM, Bryan O'Donoghue wrote:
->> Add a base schema initially compatible with x1e80100 to describe MIPI CSI2
->> PHY devices.
->>
->> The hardware can support both CPHY, DPHY and a special split-mode DPHY. We
->> capture those modes as:
->>
->> - PHY_QCOM_CSI2_MODE_DPHY
->> - PHY_QCOM_CSI2_MODE_CPHY
->> - PHY_QCOM_CSI2_MODE_SPLIT_DPHY
-> 
-> Does the _PHY_ DT node need to be aware about this upfront?
-> 
-> If we have some sideband signal (e.g. the sensor driver specifically
-> requesting C-PHY mode), we can simply throw all this complexity into
-> phy_mode + phy_configure_opts, all at runtime
+> Replace open-coded clear-and-set bitfield operations with
+> FIELD_MODIFY().
+>
+> Signed-off-by: Ivan Vecera <ivecera@redhat.com>
+> ---
+>   drivers/dpll/zl3073x/chan.h  | 17 ++++++-----------
+>   drivers/dpll/zl3073x/core.c  |  3 +--
+>   drivers/dpll/zl3073x/flash.c |  3 +--
+>   3 files changed, 8 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/dpll/zl3073x/chan.h b/drivers/dpll/zl3073x/chan.h
+> index e0f02d3432086..481da2133202b 100644
+> --- a/drivers/dpll/zl3073x/chan.h
+> +++ b/drivers/dpll/zl3073x/chan.h
+> @@ -66,8 +66,7 @@ static inline u8 zl3073x_chan_ref_get(const struct zl3073x_chan *chan)
+>    */
+>   static inline void zl3073x_chan_mode_set(struct zl3073x_chan *chan, u8 mode)
+>   {
+> -	chan->mode_refsel &= ~ZL_DPLL_MODE_REFSEL_MODE;
+> -	chan->mode_refsel |= FIELD_PREP(ZL_DPLL_MODE_REFSEL_MODE, mode);
+> +	FIELD_MODIFY(ZL_DPLL_MODE_REFSEL_MODE, &chan->mode_refsel, mode);
+>   }
+>   
+>   /**
+> @@ -77,8 +76,7 @@ static inline void zl3073x_chan_mode_set(struct zl3073x_chan *chan, u8 mode)
+>    */
+>   static inline void zl3073x_chan_ref_set(struct zl3073x_chan *chan, u8 ref)
+>   {
+> -	chan->mode_refsel &= ~ZL_DPLL_MODE_REFSEL_REF;
+> -	chan->mode_refsel |= FIELD_PREP(ZL_DPLL_MODE_REFSEL_REF, ref);
+> +	FIELD_MODIFY(ZL_DPLL_MODE_REFSEL_REF, &chan->mode_refsel, ref);
+>   }
+>   
+>   /**
+> @@ -110,13 +108,10 @@ zl3073x_chan_ref_prio_set(struct zl3073x_chan *chan, u8 ref, u8 prio)
+>   {
+>   	u8 *val = &chan->ref_prio[ref / 2];
+>   
+> -	if (!(ref & 1)) {
+> -		*val &= ~ZL_DPLL_REF_PRIO_REF_P;
+> -		*val |= FIELD_PREP(ZL_DPLL_REF_PRIO_REF_P, prio);
+> -	} else {
+> -		*val &= ~ZL_DPLL_REF_PRIO_REF_N;
+> -		*val |= FIELD_PREP(ZL_DPLL_REF_PRIO_REF_N, prio);
+> -	}
+> +	if (!(ref & 1))
+> +		FIELD_MODIFY(ZL_DPLL_REF_PRIO_REF_P, val, prio);
+> +	else
+> +		FIELD_MODIFY(ZL_DPLL_REF_PRIO_REF_N, val, prio);
+>   }
+>   
+>   /**
+> diff --git a/drivers/dpll/zl3073x/core.c b/drivers/dpll/zl3073x/core.c
+> index 6363002d48d46..7eebfc1ad1019 100644
+> --- a/drivers/dpll/zl3073x/core.c
+> +++ b/drivers/dpll/zl3073x/core.c
+> @@ -743,8 +743,7 @@ int zl3073x_dev_phase_avg_factor_set(struct zl3073x_dev *zldev, u8 factor)
+>   	value = (factor + 1) & 0x0f;
+>   
+>   	/* Update phase measurement control register */
+> -	dpll_meas_ctrl &= ~ZL_DPLL_MEAS_CTRL_AVG_FACTOR;
+> -	dpll_meas_ctrl |= FIELD_PREP(ZL_DPLL_MEAS_CTRL_AVG_FACTOR, value);
+> +	FIELD_MODIFY(ZL_DPLL_MEAS_CTRL_AVG_FACTOR, &dpll_meas_ctrl, value);
+>   	rc = zl3073x_write_u8(zldev, ZL_REG_DPLL_MEAS_CTRL, dpll_meas_ctrl);
+>   	if (rc)
+>   		return rc;
+> diff --git a/drivers/dpll/zl3073x/flash.c b/drivers/dpll/zl3073x/flash.c
+> index 83452a77e3e98..f85535c8ad246 100644
+> --- a/drivers/dpll/zl3073x/flash.c
+> +++ b/drivers/dpll/zl3073x/flash.c
+> @@ -194,8 +194,7 @@ zl3073x_flash_cmd_wait(struct zl3073x_dev *zldev, u32 operation,
+>   	if (rc)
+>   		return rc;
+>   
+> -	value &= ~ZL_WRITE_FLASH_OP;
+> -	value |= FIELD_PREP(ZL_WRITE_FLASH_OP, operation);
+> +	FIELD_MODIFY(ZL_WRITE_FLASH_OP, &value, operation);
+>   
+>   	rc = zl3073x_write_u8(zldev, ZL_REG_WRITE_FLASH, value);
+>   	if (rc)
+LGTM.
 
-Actually perhaps just phy_configure_opts, because phy_mode could be left
-as "MIPI_CSI" to reduce complexity (while still carrying info about D/C
-mode in the latter)
+Reviewed-by: Petr Oros <poros@redhat.com>
 
-Konrad
