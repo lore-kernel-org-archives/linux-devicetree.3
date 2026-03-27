@@ -1,78 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4DD2877F7;
-	Fri, 27 Mar 2026 23:52:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65ABE2848B2;
+	Fri, 27 Mar 2026 23:53:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774655521; cv=none; b=VFIUgPnSalS0ziXyVAmqmhQE/iENoYOSrhY7ZUpVPGnAd91oy0kX9Kjlc9ZYnj7C03C35PNABAmEJoz6uU8vLluaq3canLLJ0yUfkZEefu2YBiD1infddbAskeYRPmxA2p7EKGJETgyYWJRXC02YvGWjddPQWVdszQyuyjECKYU=
+	t=1774655606; cv=none; b=Q2OQsuEN36OTYn4/UOWR9y3xPWdjVRvFJRjj/d2Pzd3zmXJJwR7ihZWprxMBW2i3mZWa3NNKfxL77cmFqWFMLismEUZBxP0HPHkZUpZOW/gMwnN7h4pcTdYW/gZm372YMOlcFcDUcGJrK5Egjamj4BFss1I85jQQ1SkxYfS2wYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774655521; c=relaxed/simple;
-	bh=n0HrjJh23j5s50K5kpsr4BouiZnYXdlRUEa9ow7Kb4Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YvRFB9lQMRs6hf1veIN/jjAgyi6yKW1CzqoDBOD4t6JTmIR+vnpyhiHyusHDUzKGB9+ljEXbmBLGJdERq29Ti107bZ0MQnTqg07g7mpIpoLgbXdgWsSA2jz3x0XFVmR/OX8ExcB18gc6e/U/9Qk06stOztixZ9j7QhYHqrXtPGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gwLYaP5k; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774655606; c=relaxed/simple;
+	bh=4uqL5/4EL6AQy+9VAdKQvIq0LGTDCVvjJICRgHmR4Es=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aiBw5m8xgjvBJRbNVQ0ZyYLZNLQky1hMtif1Jhkhy3LMnlJxqnyzgWnfwz9VXlAcp8zQvvYZy1qUClUsq7ubEIgeDcmgqlmcifGfD8qu39Mw7kjtDFlLc64hu2yRPXPKaHW1AIPX2h/Zx8tw7DnUVrzP7wq5MPG1CBB004GUSr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mx5CSkLC; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gwLYaP5k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBA5DC19423;
-	Fri, 27 Mar 2026 23:51:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mx5CSkLC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87A80C19423;
+	Fri, 27 Mar 2026 23:53:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774655520;
-	bh=n0HrjJh23j5s50K5kpsr4BouiZnYXdlRUEa9ow7Kb4Y=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=gwLYaP5ksGsFt8e4rlR7SJ0Rexulhn2UiIUQdWePHurcrDfv1XUoLkV8v1yMtYiPz
-	 w4V9OzW0NWKHns3JnErxN2IWP0SCZYIKfUnkzvugOpIzXHua/OPeeznRCYLF4cvQmC
-	 oYZCRIBRhFsCqN5AW4LpKe6P/EmsAYKb2/Pyt+jlRqa3LnoMdYdJuUiTXmzYelM855
-	 mee2hSEVMth36KZYZeWy8am5Z5WDt6waeD1TR6EpZppbfDhEiZ5PZC9D0mrN34bJJo
-	 YWKrt8xVFejfdb64NxAdCw10r6c9P9qc75tNuVdLscaIPRkaMHzNo2p/jNgpf192KD
-	 C/JiPdPiOZNWw==
-Date: Fri, 27 Mar 2026 16:51:58 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Charles Perry <charles.perry@microchip.com>
-Cc: <netdev@vger.kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
- Abeni <pabeni@redhat.com>, "Rob Herring" <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- Heiner Kallweit <hkallweit1@gmail.com>, "Russell King"
- <linux@armlinux.org.uk>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next v2 0/2] Add support for PIC64-HPSC/HX MDIO
- controller
-Message-ID: <20260327165158.505855eb@kernel.org>
-In-Reply-To: <acZ5WDz5qVxBDj3e@bby-cbu-swbuild03.eng.microchip.com>
-References: <20260323220254.3822444-1-charles.perry@microchip.com>
-	<20260326203309.7154152d@kernel.org>
-	<acZ5WDz5qVxBDj3e@bby-cbu-swbuild03.eng.microchip.com>
+	s=k20201202; t=1774655606;
+	bh=4uqL5/4EL6AQy+9VAdKQvIq0LGTDCVvjJICRgHmR4Es=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mx5CSkLC4wjQawKdrZEsC6w3kowLvw7+Mj0SCQs9SeSZfCA6PnubLRDHdtOYH4XhD
+	 DrDcFrSW05RxbAlyQS/S5KQ/AcQVO+2lOZyx8YDEhBKJGTkW9OwzUM0Vb6GCTYblpi
+	 /8EefStbWDdqmDuDmY4XnK9LDc8xCVRIiKyoLuRJD1pP4FUhopbC8P3m3lkSBd5BD8
+	 bKAk1U4O0CALSu1RokF1DuTAD+YW9guxkwKwJx+98c5omh+a9xlAv/FhdFyhBhZyh6
+	 MwoQfZmwbZL/NwDxW5zD+KCASyPbqXCcR30QJ8NlNYOJBpOzpPjQnf8AVmmdUc/yfq
+	 3P0nlsxkaOtmQ==
+Date: Sat, 28 Mar 2026 00:53:23 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Svyatoslav Ryhel <clamor95@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	Sumit Gupta <sumitg@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v1 3/5] dt-bindings: memory: Add Tegra114 memory client
+ IDs
+Message-ID: <accXjw2BSCbzMyak@orome>
+References: <20260126190755.78475-1-clamor95@gmail.com>
+ <20260126190755.78475-4-clamor95@gmail.com>
+ <54043284-141e-421a-a54d-a018c884b324@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ttc7ojgydhtaud2i"
+Content-Disposition: inline
+In-Reply-To: <54043284-141e-421a-a54d-a018c884b324@kernel.org>
 
-On Fri, 27 Mar 2026 05:34:32 -0700 Charles Perry wrote:
-> On Thu, Mar 26, 2026 at 08:33:09PM -0700, Jakub Kicinski wrote:
-> > On Mon, 23 Mar 2026 15:02:52 -0700 Charles Perry wrote:  
-> > >  .../net/microchip,pic64hpsc-mdio.yaml         |  68 +++++++
-> > >  drivers/net/mdio/Kconfig                      |   7 +
-> > >  drivers/net/mdio/Makefile                     |   1 +
-> > >  drivers/net/mdio/mdio-pic64hpsc.c             | 192 ++++++++++++++++++  
-> > 
-> > Speaking under correction from PHY maintainers but I think we need 
-> > a MAINTAINERS entry that will cover Microchip MDIO, or at least the
-> > files you're adding. Important read:
-> > https://docs.kernel.org/next/maintainer/feature-and-driver-maintainers.html  
-> 
-> Sure, I think this should go under "RISC-V MICROCHIP SUPPORT" or maybe a
-> new "MICROCHIP PIC64-HPSC/HX DRIVER" entry if the former was meant only for
-> Polarfire SoC.
-> 
-> I'll add something in v3.
 
-Thanks! FWIW I'd prefer the latter - smaller entries make the
-responsibility clear. Under a big arch entry the maintainers are
-usually seeing too many random patches to act. You can add
-_both_ dedicated a entry and add the files to RISC-V MICROCHIP,
-if you prefer, too.
+--ttc7ojgydhtaud2i
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1 3/5] dt-bindings: memory: Add Tegra114 memory client
+ IDs
+MIME-Version: 1.0
+
+On Tue, Feb 17, 2026 at 08:22:24AM +0100, Krzysztof Kozlowski wrote:
+> On 26/01/2026 20:07, Svyatoslav Ryhel wrote:
+> > Each memory client has unique hardware ID, add these IDs.
+> >=20
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> > Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
+> > ---
+> >  include/dt-bindings/memory/tegra114-mc.h | 67 ++++++++++++++++++++++++
+>=20
+> This is never a separate commit. Squash with the binding.
+
+You have previously requested that bindings and driver changes be
+applied together. If this header file is applied to your memory tree it
+means I cannot apply the corresponding DT changes until a release later
+because the defines are part of the header included in the DT bindings
+patch.
+
+Seems a bit suboptimal. Do you have any good ideas on how to solve that
+particular issue? The only one that comes to mind is for you to pick up
+the DT changes as well, though that obviously runs a greater risk of
+causing merge conflicts down the road.
+
+Thierry
+
+--ttc7ojgydhtaud2i
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnHGHMACgkQ3SOs138+
+s6GItRAAvq0DhDQOUCXxdJSvtavIVbxeeOEjgyInAa2CXy0aW0+IZeqRosvABfR0
+cvN/PPwHevS1hsX6DFztcmRa4aLnLy9LVvKOQQ96c6kJs2jnsXFU3/9IKsIjMMOO
+wqNNIpi9p0p06pbjei1VljniV1/sSbLb8rMWOitQR6ytiyCmofh6NnsShIT1+RV3
+26e6XuTAzOhI6P1R2u/pU7sqDAw5bxenpQ5D93oH7yAtZm7tbqnocrZQvllZAG51
+S5M7HytxDwNOFgQSpqzzHiCEa+m9A3Bbjg9HGJ5/PAIR2+eOcQXVMYdNLkCh5EzC
+BPCJs5qpaxzUins0RQmtiSGnzUHtO9MH66YUCtxO9kn20scIoefy0vDtV972efeg
+qRA5qzuR+e0w8m+DAnv82RfDfw2elYOomi5X9E/eHco8gKlOBBKsfFVeuTS8bRp1
+ZXWEFcb3yGabYZtle5wDoYdaniK981Bqw3ms9OaAN10SHccGPAVLLw/DEZlZovR5
+MZQcljLdmC4tdyVILRkpfDadQZPg7pfaycds33Cv6LMzEFfDO9BoIi2PHv6r4OK9
+4uQvW2UsCLzYmyIbxnFBy98m1TM0BJtD4MiHtdmFhXD5qCKDIcFPJRm47zuKVTxO
+pdMMS+XdqTBP4PYqT6VdTmXEtmdBKVatJ2vC1UTjeDurm0z4zW0=
+=neHu
+-----END PGP SIGNATURE-----
+
+--ttc7ojgydhtaud2i--
