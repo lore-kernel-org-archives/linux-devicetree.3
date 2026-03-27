@@ -1,151 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F9581FF7C7;
-	Fri, 27 Mar 2026 13:23:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2863E9F7A
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 13:28:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774617816; cv=none; b=hockOMxZEd7DyvERaczpowYCsc+9ml9K5B+2AU0dM4B5iKs7ElF2NK22aCCVmObgvSKFofnc2zI875ITCLEgHOupfHjZFhjBJYGiVgSFdpk6EZPuJt4uxx543PUSsqDZ9O2OpNj+F618C6+8rLBMmmW5l5Q4jmFv/JWIi5Gw3u0=
+	t=1774618088; cv=none; b=J9F+e7kBpa069FT/7AQRbbU/+frrM31LWy+XWVrUwADlE5NALE4kfB/K/TKZjbrJTBpe0XOLs6kQDV4PwxtJEswp2Sxkq7zZbydmRcAbcQ4FKI+xdUgHz1fzaCSj3rDPXkGwAUC+s8ebab9FFGRstTMUduf8TgsJ9bWWShveBO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774617816; c=relaxed/simple;
-	bh=h8cbQSK/dRlh8uqSMs3yZsAF3RmFXVtMTJ3CiE/wf0Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QKJktB6+khG77AcNnKqbD1kV4nDTV/eZO6P9+yAVD5270j7xKCbTJi6wSvyzi5SkNe2PmmSU/sEsNljEVFzvs4t4cVbX9zBuCOR5ea/EYx0Tm9dpIBvRtyNey3c9fQT9bS+o8CqOpCL6sOHXyEp+i8DO5l5H31mkAmcOWjNqIGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HmaOm3Xp; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774618088; c=relaxed/simple;
+	bh=++hkBnIAEvloFIQ575XrWS1bjaaVT6AJ+ILFSO/cg2M=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dJPHCl03rVGdWuHala9lr0GI6j8KHNg/0X2EBxnn/XMhUj8YqBwpHCvdlc7W+V3t9Zl+qbUQfhoO7wMoUOG5dXSwMeHmvwZKofBZg3p9snUzA62vgd88MsQ2LQxeijxIspz6OmLIx86AJA4EAkocPnGEqmc3tJVPIDEBjohzTTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Is/EO2DQ; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HmaOm3Xp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6363EC19423;
-	Fri, 27 Mar 2026 13:23:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774617816;
-	bh=h8cbQSK/dRlh8uqSMs3yZsAF3RmFXVtMTJ3CiE/wf0Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=HmaOm3Xpssr1ZfpuveIc3DPruruVButeon4DT1x6oUoLDCie2AUK60jzer0/NcQU/
-	 2FuXCEliWyTSRZ49R6E/rTUDjXATrH6RSdFBTyVXDDKo8K4SPftZxHUySZj+EmhOga
-	 zwIpCcablnQOqU8KT20vaLRIEHEYHy8KHIE/CbfhOPOWRvqUGJPF/y28mnD3BhOc1+
-	 c9fFm4QfGDZWBnQ9egtAbBZ5tQGcc6ViATxRaLCIPke3a0MipUPKlBcwN8DZ+OiVhS
-	 b1sIqFPuV77uzPloDh0pxBLwhhXZILCkqmzLCd8b0mqGkiLE2VIIyOHLqvXU2P8WZM
-	 rLsXzbf9ol7hA==
-Message-ID: <5941830f-5892-4e75-bc27-04095b5ca28f@kernel.org>
-Date: Fri, 27 Mar 2026 14:23:31 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Is/EO2DQ"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-48702d51cd0so24324845e9.2
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 06:28:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774618085; x=1775222885; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8sojWPfL6Z8AVWMTcumjRgckMPGB7q4CLXGUVSk+dCo=;
+        b=Is/EO2DQQ//4BrvGojf1/76xa0kisca2CRPn2ftxmwgsmsM3Q9h60V3+pZvobea+cF
+         DBU30isrXdsznWBv7koPYVcT6s+d6807190EpC5idJ3gR6CX0hvP+ZPylsSwJnWd0hDa
+         8qGkH49b6iOAAkwzbiiqOn145pwSYSSH5jHRhdcNe4BlGHbRL+GC7Yr2370sD2LB7f53
+         4uflbX9p0dpCHU2saK3GLmg3Vj6hahyLC3lKmu52sdMmpEpMEjE8Z06ihDiiLwjV1NrU
+         tE35bqlKWMmDx/BVGHWoEm5Krk4b+TMPI0RbD+/e4ERuhnslvErCNeJB+gKppFfDmyK/
+         8f2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774618085; x=1775222885;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=8sojWPfL6Z8AVWMTcumjRgckMPGB7q4CLXGUVSk+dCo=;
+        b=Q3KCbrRcRozgp534LeQ+YViM0+yDC8S8J4mGZVKA2ilVegBdkZXJ/ep9Mdr11SgpCu
+         TZvD0mW9uqf39YUKZNqG5m8WBi2l10eytRKnJkaKmGfFPmOkwURRi4/fCcWLwXKfz/HA
+         o9F+qsTK/EclQj0/zbbkWIwgBxLrRKph3yiwORYGCif4LgOvewC2fcRGz2d3EUw1c24W
+         4aJcnVTlo7ouqp7A7Si9KaSa0iRVzPNgGQ+ZsT7wc1YqqfPNdLpOcDunim8UynCIjSfh
+         ut+in9CHRvCHBx5WUo+VwsqPnzpgXgrD4ZM7RYVIrn4B2Mc5269DUWpmcrlDor3Ew9zh
+         TI2g==
+X-Forwarded-Encrypted: i=1; AJvYcCV9TQ6Nm7cM+U7nNBfNZ5uM9lsQphHRnkPv27BU+qTzaDAdHWYoQ9Tr9B9Zv6Wv0ovpDpi0hwhz06JJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YwsLX7WOiFhGsYXI85uC0s/6IsALEqPnvh2Oac26CjHlkpUYbbK
+	kWXgU4Ikh4UaQCKCNrKYyxFd9rbBBIW78eW3awGqpAAh8k6Hq+d+G9KT
+X-Gm-Gg: ATEYQzzQcSPX5hBlaklODyUf1TCSRaJfyMK3k9crmRrMcRQnb55ay5oc9jkn+5GtpNK
+	UoFzC+5jRNGFtdynqYpXE/b7xInukoaxpJw84IPl2NlX5LsXzVIAzwbL+neMko3zpEzc9mHLzlM
+	c2Ft5yqp4Oj8gG5KJWP4B+JP9qp2wRQxfcgBnG7OXt0UPTld3VN9pDGtODnJUAgcxqc86OwHx6C
+	2X6g71zxosAgw393zMgHHSprQYhMqIp6ZAmE3xTfNdrMcO8mc3eZJ4uTxjRsTdIcWVfmEe26a/x
+	yFXK1UXlhO3O85AK6sPbRh8pp6PxTgd3m64FMC9l8nRGivdjSevaGjiAE9wtTCzNE049nhjIHGS
+	7bXsFkyooLDQ/6hwx+OFiHV0kvd0Q6wmZLFzy5pqJFQb6SKVjvxPQj0/I2b9M+JUzvGCbL1z7F/
+	BWOt0965IMUICpj7adHC4gzfZCxZWOGnjnikvUJ6E0Ac1RNhW6AZQ5Yo7pAGXfRpTU
+X-Received: by 2002:a05:600c:4f53:b0:485:481c:e7bb with SMTP id 5b1f17b1804b1-48727ee9b89mr42168595e9.20.1774618084923;
+        Fri, 27 Mar 2026 06:28:04 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722d2366dsm87955895e9.10.2026.03.27.06.28.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Mar 2026 06:28:04 -0700 (PDT)
+Date: Fri, 27 Mar 2026 13:28:03 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Petr Mladek <pmladek@suse.com>, rodrigo.alencar@analog.com,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org, Jonathan Cameron
+ <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Andy Shevchenko
+ <andy@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Andrew Morton
+ <akpm@linux-foundation.org>, Steven Rostedt <rostedt@goodmis.org>, Rasmus
+ Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky
+ <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v9 2/9] lib: vsprintf: export simple_strntoull() in a
+ safe prototype
+Message-ID: <20260327132803.1fe51253@pumpkin>
+In-Reply-To: <acZitENbWQF7cmDA@ashevche-desk.local>
+References: <20260320-adf41513-iio-driver-v9-0-132f0d076374@analog.com>
+	<20260320-adf41513-iio-driver-v9-2-132f0d076374@analog.com>
+	<acZDneLrIPOmU5ci@pathway.suse.cz>
+	<acZLHAT5qJyjKTsp@ashevche-desk.local>
+	<20260327104440.079343c9@pumpkin>
+	<acZitENbWQF7cmDA@ashevche-desk.local>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/4] ASoC: dt-bindings: qcom,q6apm-lpass-dais: Document
- DAI subnode
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-References: <20260309111300.2484262-1-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260309111300.2484262-2-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260310-crazy-screeching-angelfish-297bab@quoll>
- <a7e7f32e-e365-4504-8ce9-1aada01bc52c@oss.qualcomm.com>
- <fc9e0399-dc24-48c4-99db-f9e39a79cda7@kernel.org>
- <138dee9e-56e7-43a0-bcbd-0e4db4d5b5af@oss.qualcomm.com>
- <376ad62e-e6b5-438b-a23a-0988b6489e5c@kernel.org>
- <2e03441e-4353-4927-8630-aa7730c4033e@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <2e03441e-4353-4927-8630-aa7730c4033e@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-On 27/03/2026 14:16, Mohammad Rafi Shaik wrote:
->>
->>>
->>> In other words, DAI ↔ MCLK is not a fixed mapping.
->>>
->>> Examples:
->>> On Talos‑EVK, the speaker is connected via Primary MI2S, but the
->>> corresponding MCLK line wired to the codec is LPASS_CLK_ID_MCLK_2.
->>>
->>> On Kodiak, the customer connected an SGTL5000 codec via Quaternary MI2S,
->>> yet the required MCLK is still LPASS_CLK_ID_MCLK_2.
->>>
->>> Instead, the kernel must vote for the MCLK that is physically connected
->>> to the external codec on that specific board.
->>
->> No, the external codec driver must vote for that MCLK.
->>
-> 
-> I agree that when the MCLK provider is external, it is appropriate for 
-> the codec driver to manage that clock. However, in this case the MCLK 
-> provider is the LPASS/DSP subsystem itself, and the external codec is 
-> only a consumer.
-> 
-> LPASS MCLKs configurations inside the DSP can be lost or reprogrammed 
-> during DSP power collapse or subsystem restart (SSR).
-> 
-> Without visibility into LPASS lifecycle(SSR) events, a third‑party codec 
-> driver cannot reliably perform clock voting or restoration, resulting in 
-> broken or inconsistent audio behavior.
-> 
-> For these reasons, MCLK voting needs to remain owned by the LPASS/HLOS 
-> drivers, which have awareness of DSP power state and board wiring,
+On Fri, 27 Mar 2026 12:57:56 +0200
+Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
 
-Sounds like you just brought driver model as the arguments here, so not
-correct for DT.
+> On Fri, Mar 27, 2026 at 10:44:40AM +0000, David Laight wrote:
+,,,
+> > > but also wants to have the fraction part be limited in some cases to =
+s32
+> > > or so:
+> > >=20
+> > > 	struct float
+> > > 	{
+> > > 		s64 integer;
+> > > 		s32 fraction; // precision may be lost if input is longer
+> > > 	} =20
+> >=20
+> > Are those 'fraction' counts of (say) 10^-6 (like times in seconds+usecs)
+> > or true binary values where the value could be treated as a u64 (or u12=
+8)
+> > for addition and subtraction. =20
+>=20
+> It depends. IIO has scale on top of that, so the fraction part can be 10=
+=E2=81=BB=C2=B3,
+> 10=E2=81=BB=E2=81=B6, 10=E2=81=BB=E2=81=B9. I don't remember by heart if =
+the ABI requires all digits to be
+> placed, I think we don't require that.
 
-But even if we speak about drivers, then I think I also assumption that
-only clock consumer driver can manage the clock is not true. The
-provider, so LPASS/DSP knows what is happening with entire audio so it
-tracks the usage of its clocks and can perform clock
-disable/unprepare/prepare/restoration or whatever there is needed.
-Anyway, that's not important here. First argument is - you just wrote
-stuff for drivers and that we don't want.
+Seems like you want this function (untested):
+u64 strtofrac(const char *buf, const char **end, unsigned int len)
+{
+	u64 val =3D 0;
+	unsigned int digit;
 
-Best regards,
-Krzysztof
+	while (len--) {
+		digit =3D *buf - '0';
+		if (digit <=3D 9) {
+			buf++;
+			val +=3D digit;
+		}
+		val *=3D 10;
+	}
+	while (*buf - '0' <=3D 9u)
+		buf++;
+	*end =3D buf;
+	return val;
+}
+
+	David
+
