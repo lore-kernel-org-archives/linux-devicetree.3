@@ -1,64 +1,64 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C59A37AA91
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 11:43:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07CF337BE88
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 11:43:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774611829; cv=none; b=bphV0n6Ax0A3a369oKgZ1eByD6UlvnZviwl+e6w3Hr4mOJQawS+7e4/kQ/1KAHrRKb1OiHtpUxE2Wv0+PJqRvoipd/6W5knvB4EKgmh9ehFsvhXx5wfXMG2Sl9bUdLHn0ht2vi2sIXSRdQDnVcITvjvT5/i5dYqTYZYPPFw0uE4=
+	t=1774611831; cv=none; b=tcbulnLLzMn5vczLZVRVUzFMYoIsfoWnC/N3Iyyr9FFQba5K275olvitcelsAdQMNTYjdr/FKAokaWeYfrH6p++rYnlQcuZobG+KwBlY1H5F77nmx+gph4Kkp1IkPhglJgSc+USpDrCBXFIIvCVmftVq8UBcrng/2P6GnpsNZ6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774611829; c=relaxed/simple;
-	bh=DYgRiTpgVxM1HUd8k6yAnxBm1+eeXn001TUDzFfO7D4=;
+	s=arc-20240116; t=1774611831; c=relaxed/simple;
+	bh=fHCWZwzs9paKBTwVocNY1Bav5dyWetLR7DtSeiePs98=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ttyGULVEqGwPEh4StTn8boTb13lASqJ+sb5i8EfRfV3RUc40T6psRuVRrOYqh/YWKmdDIkHtaLv0gPfR7lqiOxM1NSv5a+vxLOeoaeFlUxQmXfFYvOTKUg3TN8kVZs1tkHY6wcNmp2aTRbnD8N+EhsIWKpyOt8JOKswsVEuLZQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OHTeKsec; arc=none smtp.client-ip=209.85.128.48
+	 MIME-Version:Content-Type; b=rzsUqirmwB6wlbXFeCMqheTmRfNANE9g1zyNpMqsRh7AxGJW5JPJ1R85EexAe4nuMPwQ0dlkHMbKe1CH5UsEzEB3BQavrkByfOpqEm7wQWXFS9kwf2HWK8MIyJxC8CKEdA0ZOdHTi5C34y8/fEeF8iZQjNZS8QPPT+muc2cIdn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VCFZDlcy; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OHTeKsec"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-486fba7ce4cso20841805e9.3
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 04:43:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VCFZDlcy"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-486507134e4so23549785e9.0
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 04:43:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774611827; x=1775216627; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1774611828; x=1775216628; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DYgRiTpgVxM1HUd8k6yAnxBm1+eeXn001TUDzFfO7D4=;
-        b=OHTeKsecIQkofgPEK7D5yqApFCgHiJyxutEFFCgHUl7f5wz2/L7cQT4pXxSBbxenIY
-         xOoxoIpHuoVb/jmnqfsfa4h3DGVTUI+3QEUwNBSFfnj+Yq+bQpOgsv67pwurvkoiaHyu
-         xETxYmRTyFJ22nGqq1LT0/n6ataQB/dGzwh+9KZkp5obvTjC8MQFQZ00orgnQfsTxFcK
-         RLOKlzi7k8Ofg8ASxtnXIaAg/28OHQRjmQHx/1D1uCM82cUDEGfMZyeRfjn65rP9t6/1
-         DLxEWmrS1i+H+VWlSyU5H55Qoms5TRrE+bG4OW669d9dHkVYRwrhpr8tILmUP/0rkxUe
-         LZdw==
+        bh=fHCWZwzs9paKBTwVocNY1Bav5dyWetLR7DtSeiePs98=;
+        b=VCFZDlcymyWedTuxXRYLvs43DT350r6kakAIya0z6X5bnX+75jGT8Yw4nD7Cm12gRQ
+         kwkVmGTxBj8e7paOG72+bwqJI0e5ojbCmGeugkp8CViZzQWIPSm46YbK4PtV1o+4Ved+
+         zN0V0Lx6M6yzTM/XGarWn82if5ioivbWOSctocnJt7UiGurR6zQ+f0GY3HAkAdKPOEau
+         Bpnc4nDl0p7u87r6vweMFq/UtIzrjzfd9Qq62T7iwZY85qr51rpIQ7rPlPYswMt6BOEW
+         iF56Stgvw/2eSd/WNIaTf6jhVc/+pSc3zbXcwTRimnNaeys9lAi1mlHMG4eR9K796UOw
+         EXNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774611827; x=1775216627;
+        d=1e100.net; s=20251104; t=1774611828; x=1775216628;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=DYgRiTpgVxM1HUd8k6yAnxBm1+eeXn001TUDzFfO7D4=;
-        b=LjA2KfRpdFZsRmwsDSxStsXrw5v/ov5aWmpeHcp5KvHlQnYBk+NAYwkZ0t4/76yu5W
-         8Me2XOVKE6JJtT6UvH9lPh12Ekuy1BsrKMQho+WySt4GWenbuiEdjQTSLjP9ZoSJ3SdO
-         vx2mDWcMudKzU5HsfhR/yNJFqPuS5pOnNEhyElxd9m1yYkqiBzXK+mmn+n2DStuffNDT
-         I28MmtupFsaujnBSyoTrBT1FUQtEov6z7sxi90tYnjhBEga99/WUCZJR+xkwfmJyym66
-         P3Fgv1c+lhM2Xcjk93bUASzlhmEClYf//mpHvLTLn5EbbBEr5bEj70uZv+pyy8Nd8L6D
-         NJ5w==
-X-Forwarded-Encrypted: i=1; AJvYcCU6/+PGVwgdyMRI26SJpl/M7zZvPHnCp7b1jZObOqtFaAbV9oJ5OH65y4aCu6byO8qHuvvUR+YPv04a@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyqj2MOUueTvFUzrJLFkrK7co4uUS4CQq5K8ExyyHgcF4AKAr1F
-	+t5JHCXvVQk5xE0D9qA0tIB/Xt4FnaxbyfxdcipsIyCbmjY7Wi7Bm9Dj
-X-Gm-Gg: ATEYQzzk29rvePl0eE3Q10tml3jNYruI3MO0XQqynB3FiliWu0ICP5x5xPn0k1wAY0G
-	COtKD8rEG/+ttKry1XPHu/CObk7zae3zlV0+Ssykf0nsBOCFJN/hcVSPWV3pTDUKYia7KWxu8i4
-	FRpwUxK5j47Vh7OV5S9mUh6al+TxZpxGw+8eOgsfrSH3ubmri80ASplK1kjR+oRRbbNm2Lnwmxz
-	TrtDyEmnJMxnv8cP4gwhNAGzF85SKDg3b8a+xG3vxohZxApI5lhsVVoiGRQhebuA3iqKBDLm6Sf
-	uDToh/L0jh/LdstT8lGLcyX1JT0wezf6tdqCbT8FF13oD8yztXgRvW/KDeslvrfA7kY27hGLY1g
-	lsqLskKk5CFH6WJ95q+W2V6QcTX7k2spauMQvChrPf6Y0f/Jl9cAvP1kGrEskpX28A7kZNlVGUM
-	WTJmTbwUfoleISl+XnRF0MxtFib2Yk5a6EaSRm0duq6fbJ3okKPbT1mhhAS4fVBpJeppFvNr7qA
-	ATN5HIBnYMtk7/TKw==
-X-Received: by 2002:a05:600c:8b6e:b0:487:716:2fa9 with SMTP id 5b1f17b1804b1-48727e883c4mr35679575e9.13.1774611826618;
-        Fri, 27 Mar 2026 04:43:46 -0700 (PDT)
+        bh=fHCWZwzs9paKBTwVocNY1Bav5dyWetLR7DtSeiePs98=;
+        b=sNm24tzza8F+LOFSBoxT1RR+pXxcPvdjjs63nKyYgNgy2w7NShQpRFMxv1pPUa7bVb
+         q3jD/mjsf8UZkvc1JQzHuPchxZp+fr2KBYQRIdWlp3parpne5hRCLgFP99PXO3NZ8dor
+         Glxs4zu6wFv2TqomTX+g0zQgdX+8aNwfEy0Q9n0MEU+4KbCTtSj3ag9uCZ/XiH8pDmAN
+         lorIiBKPoyd9V2rEuhONS/+pqTBW3un47YOiCk6JurlYSpuOIZL/eukzKrbuCFYDXu0y
+         Md0HuYhog8pMlF72DS2s9snPYXf/VeZ81GEhMT06LA7jyNmrovRMgztX7LzLQrObv4UN
+         CBcg==
+X-Forwarded-Encrypted: i=1; AJvYcCXhi1m0my5CydbSHprKgyKYyBYAExjCpT2mYoTaeD6dkAYHqEISBoEjvNkJ+pzXFUT3k7o8vXt8u/Xy@vger.kernel.org
+X-Gm-Message-State: AOJu0YzmpBqziXbLhTReByLvhbCPGbblyHx5ztgjaFCHXZO0Ph+NCh1V
+	RkbsoRlHCFWRuZi+yaOPM6pc3raZw1WNOESaH26AUYO8PnySwuLd/r1f
+X-Gm-Gg: ATEYQzzStwboco2OrUDdYGSnFCCQPcYmaAJ13GOmqy4zcww45Byo9rzkzIKsoFGB/BU
+	XrlxS26yeXA5tTYnFoJo0hXZOxhjzaqjiRiFEripbq9GzU8Yy8aoq5lxtV3SyKu/L0tCKcSUgXw
+	H5WcbYqGB8Hbimn7gGD0TRzMFd0P6w57urkm/JZUnsVA7kk9nfsZE8zyJWmL0qnnqhJrCiZtVt4
+	BpzuLef2xm/1gSVKfADHDLzL7OhpLQ6lmo1RLFoQ/mfNzufiTAYyE6A6OET8dufma7slxD5VXgC
+	iJF2Yb63h2xB5SiMUcEJ48qjy/j7HGWHzgNUJaL3X8zLtQNtfua+NNVC+OtVIGWoBk0mvmtJS19
+	LZVxWH7wQODG/J0qEQlngtTVUNZfSb2WK1vaxJcXPweMdJYFriL0J6WqimmxgDIBVGvkZhnkLJt
+	r9hIwrgf2wVlLeFtRC4t0D3ds4u6pvrR1/D9m7WrxlcEf7DD8QczumG+3BLeHsnY7rb2SFGUU3p
+	jBwMmPUk1jVSjeHqw==
+X-Received: by 2002:a05:600c:810b:b0:487:219e:41c with SMTP id 5b1f17b1804b1-48727f36da5mr33865035e9.28.1774611828249;
+        Fri, 27 Mar 2026 04:43:48 -0700 (PDT)
 Received: from jernej-laptop.localnet (118.red-213-98-130.staticip.rima-tde.net. [213.98.130.118])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b919e265csm15142518f8f.32.2026.03.27.04.43.45
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722c6b495sm184799345e9.2.2026.03.27.04.43.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Mar 2026 04:43:46 -0700 (PDT)
+        Fri, 27 Mar 2026 04:43:47 -0700 (PDT)
 From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
@@ -67,13 +67,14 @@ Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
  linux-kernel@vger.kernel.org
 Subject:
- Re: [PATCH v2 3/3] arm64: dts: allwinner: a523: Add missing GPIO interrupt
-Date: Fri, 27 Mar 2026 12:42:18 +0100
-Message-ID: <5086436.31r3eYUQgx@jernej-laptop>
-In-Reply-To: <20260327113006.3135663-4-andre.przywara@arm.com>
+ Re: [PATCH v2 2/3] dt-bindings: pinctrl: sun55i-a523: increase IRQ banks
+ number
+Date: Fri, 27 Mar 2026 12:41:04 +0100
+Message-ID: <5976712.DvuYhMxLoT@jernej-laptop>
+In-Reply-To: <20260327113006.3135663-3-andre.przywara@arm.com>
 References:
  <20260327113006.3135663-1-andre.przywara@arm.com>
- <20260327113006.3135663-4-andre.przywara@arm.com>
+ <20260327113006.3135663-3-andre.przywara@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,21 +84,20 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
 
-Dne petek, 27. marec 2026 ob 12:30:06 Srednjeevropski standardni =C4=8Das j=
+Dne petek, 27. marec 2026 ob 12:30:05 Srednjeevropski standardni =C4=8Das j=
 e Andre Przywara napisal(a):
-> Even though the Allwinner A523 SoC implements 10 GPIO banks, it has
-> actually registers for 11 IRQ banks, and even an interrupt assigned to
-> the first, non-implemented IRQ bank.
-> Add that first interrupt to the list of GPIO interrupts, to correct the
-> association between IRQs and GPIO banks.
->=20
-> This fixes GPIO IRQ operation on boards with A523 SoCs, as seen by
-> broken SD card detect functionality, for instance.
+> The Allwinner A523 SoC implements 10 GPIO banks in the first pinctrl
+> instance, but it skips the first bank (PortA), so their index goes from
+> 1 to 10. The same is actually true for the IRQ banks: there are registers
+> for 11 banks, though the first bank is not implemented (RAZ/WI).
+> In contrast to previous SoCs, the count of the IRQ banks starts with this
+> first unimplemented bank, so we need to provide an interrupt for it.
+> And indeed the A523 user manual lists an interrupt number for PortA, so we
+> need to increase the maximum number of interrupts per pin controller to 1=
+1,
+> to be able to assign the correct interrupt number for each bank.
 >=20
 > Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> Fixes: 35ac96f79664 ("arm64: dts: allwinner: Add Allwinner A523 .dtsi fil=
-e")
-> Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
 
 Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
