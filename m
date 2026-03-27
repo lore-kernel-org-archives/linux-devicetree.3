@@ -1,147 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B8812B93;
-	Fri, 27 Mar 2026 17:36:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9859021CC5B
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 17:42:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774633011; cv=none; b=LtbC1bza29DfhxtdE6udEkKQpddJfJBJ7dav2Umj18LB5VkxoVkkMOY+wvba6dqxhBrl5+34q4Y8EA35DGlA9NuS0fZFZco8WTFI4nEozWnuGhrc/Na7C+YXh+3uqAd72oWb4tYtWOMwtF1oZoVnGro/eNHPCdLAulsKEslmwr0=
+	t=1774633340; cv=none; b=g1Mq4cRN/OgRrXLAlhVQTMmHeU50+Y/U0lLVFN4QfJ8G4jBFx9Ztna6f2+mJgUSOeybHhLL9ger/wfJ1G1zCVb3lXAYL1iuAjHPk+HCBgY0F24YvptY9ul23Iy+KGQOvKSWLllQPR5tzqJv7nPl2JH3025bRcWpfPsl7T9a3PDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774633011; c=relaxed/simple;
-	bh=2KlpC23LTJyzB+XkxPq8TL8jB24h5cr/ErMHlwbdgEE=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=c4bVATXgQmNrGTNwh1vT2KPwBxfkvMXu7kGBfea6A5eRcvIVkpX8M8JX9NJTTc3GbjfAFD69LAsAHS+vKTDdkZgrIw/GlXSfIkybxPHSZ1KzvmFbd9jqogTgqgDV8fTzLATIJ0WY/krMY+1jfwlvGROFWJfTjzQYk6m8r6iRKu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CXqMC3UW; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774633340; c=relaxed/simple;
+	bh=ETJq2PPi48JVsLsmWI9PZOd4lZiQNUeAf8BRU0YBYTY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dlnY8RmXPoA83aNVHhKrJ391HX81ZlBY+0Y8iBp5DBMXX4qhvIxNjyN7VofBuWX1msasr01P3IvoX1My0DQwvmjI8SSBu3/ZXYcLA5VVpyH7A+Dt0roXCH3NGE4+wMPQICjSGGxqtZl4YeFlhmiSXH2KLzXODVI2y4gkhs9rNv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wLELYUxH; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CXqMC3UW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96D0BC19423;
-	Fri, 27 Mar 2026 17:36:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774633011;
-	bh=2KlpC23LTJyzB+XkxPq8TL8jB24h5cr/ErMHlwbdgEE=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=CXqMC3UWtK/Q0ep9Im9IOVfyWx/vlYuQUIxtHlLIKCKRwMH7djVQSByiGJMfgD181
-	 ynonBTDy27rdvpvp4Yd9WCP9JlBWc7tfASTOnbYTKmkxMN5cf2YdIyEUkNcouZZwCo
-	 3x4umLkOOFtw42GJupQ/28LkSXs4NS2cTviqNKY9BUOhxEVMeaE23Z/baRavduuqRL
-	 f4ZX9rjsnrInzNKNFmhMYytykxdSEBx1nnKx04Cf7kmLt5uhd6+HCrUb+nDVGDDZ9u
-	 wlpeIxXKnJ8W+szi+Nc6Pcm7ftZDLrL0Am/Un27rVJeq0HE7R0UOZwkh/SuKbLCDbg
-	 0TAzgvief/SNg==
-Date: Fri, 27 Mar 2026 12:36:47 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wLELYUxH"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-439b9b1900bso1426983f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:42:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1774633337; x=1775238137; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Yfu/d6+o0zctQTHLu2MWPdnz/JwccY9dTbonya9Zlio=;
+        b=wLELYUxHX7osQKoxO2CZUd96lWlg7qNF6VR5x0ztPGEAMyIunRJ+4MKieRHjCrx1eK
+         VXW1LA8N4N2cqsh8XrwyuABjr6EmzONiim988HhXPeCemSA7W8XdZ1/iSeK4uA0I2JtE
+         2XdOpOfvXTdbz8w1q/+/w1apPYzp+myboRxfbKB59z4QtwKlWJUd7LH7LGLdIzh5w6Jp
+         dgutxT2S7uJNyJcuwSlt8lB224+ddNRDj81ltdWjWdFT6ueMSC1ISb6vjdAn3eiJhyy1
+         3qgPJZWguLiqshgA/Aa7PFeXq4q1GbyA4raQ9cHB622HitwoW0DIhpJjrGM7/yoWlAh1
+         yX7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774633337; x=1775238137;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Yfu/d6+o0zctQTHLu2MWPdnz/JwccY9dTbonya9Zlio=;
+        b=a4f3vXRMQ1JQhQx3ghNDhQQ4s0+WRYiLF/QGIzIMkuhRyYvxx1uk5AIQtsfmDgyGOa
+         JD2Q7hXGgE7Vf4q1Gy1LDqfJxo5zrzHi/66ip7MzZmvZXhZ0nRVZlDMqFfIPM0NyxAm0
+         7PlBASB/kpdUpZhjUuoZQkqaBE1mTl+DmSqbCKzm+eQUDXhWDYUTRTmKYiUlx377YNEX
+         XnP2kPcN5DW3fAPreA7iTitrs2K5UxR+tTA+Ni+GDjvlJUsOWTOeB6NbUihyWyv9pyGV
+         vntTACFK+CD9srZ09Pr1lSAPmozRnhaLHkfKrq3J1gAedAxKCV72YkoD5Czgwcjy8h3a
+         sH7g==
+X-Forwarded-Encrypted: i=1; AJvYcCXP0PI2a7Fw6DjU2afdxed+x/48a/mGfM6mnFcg4TqyUBNMcDBHQDu2lQNEaYX2gbAtJEGNrMZTvUJT@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx68Re74QJg1XZfbeKEVDtsmzwEopJWz5S+ZCdFNa0MRzHg+oMr
+	x2sVJej+zWMU5jiinLM/EsDKxUfieenNkgPJ3ovTXJ2e3nWha1Pzn/SSH9jCUd1XABY=
+X-Gm-Gg: ATEYQzwlnAJtdPaK3zjEJ4ugobbu9DWkVltqB1c3g8UdAY87hXh2cY5A4O9F8L3+0XS
+	qvV9x2yFwKLeiQq9dZ3xjdv/kT2GtZHOoh0ZwNgfZ83JabhXdZ0xtWfqlKMGhgZ2KylLUbnCajm
+	cKnbTZQjtCwtUTntmjdHGEwK63X/d6X8NP1A8t48eh9HIOZX1O/5gcML5SmLGmnrzQRVVgDJBmA
+	kOLdO7slB9O1aZVF+8argz2Fl5NZ1KU4q0HOpsdiBc+SR9z8gHigcC1XeEdgFW0CKVvCEa5ir6J
+	j2CdaagpvtlmT6vCl88C1cnA94PLPsjwSYUQh4Tyi7BrkFQy2bLnCFVP3bXO/SsKQECEJUcgRjG
+	L4c74kx6wDpk4LSMzWAaa/r97S2qEOrU2OWtKmsDY85jMdIhUai+bRj37LbFw1RFKcEzHj0wFaj
+	THmenAvotwozGDc47RfKhMTeXeTnBBJCjh/lw8
+X-Received: by 2002:a05:6000:2006:b0:43b:41df:705e with SMTP id ffacd0b85a97d-43b9ea77850mr5911220f8f.49.1774633336801;
+        Fri, 27 Mar 2026 10:42:16 -0700 (PDT)
+Received: from [192.168.0.167] ([78.152.214.161])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b919432f0sm17358844f8f.13.2026.03.27.10.42.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 27 Mar 2026 10:42:15 -0700 (PDT)
+Message-ID: <c5278028-dfe9-4d09-970a-a25977967bdd@linaro.org>
+Date: Fri, 27 Mar 2026 17:42:14 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: kernel@pengutronix.de, linux-hwmon@vger.kernel.org, 
- Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>, 
- Lee Jones <lee@kernel.org>, Peter Rosin <peda@axentia.se>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org, 
- linux-gpio@vger.kernel.org, David Jander <david@protonic.nl>, 
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-In-Reply-To: <20260327163450.3287313-2-o.rempel@pengutronix.de>
-References: <20260327163450.3287313-1-o.rempel@pengutronix.de>
- <20260327163450.3287313-2-o.rempel@pengutronix.de>
-Message-Id: <177463300748.3194399.12519013668004693488.robh@kernel.org>
-Subject: Re: [PATCH v7 1/6] dt-bindings: pinctrl: add NXP MC33978/MC34978
- MSDI
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Vinod Koul
+ <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org>
+ <20260326-x1e-csi2-phy-v5-1-0c0fc7f5c01b@linaro.org>
+ <7712fbdd-a225-49f0-aeb9-ebcbb9d5abac@oss.qualcomm.com>
+ <da3ed78d-fb5e-4820-95d6-527d540cf03e@linaro.org>
+ <1f38187a-9464-4aa9-b70a-03b767349d56@linaro.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <1f38187a-9464-4aa9-b70a-03b767349d56@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-
-On Fri, 27 Mar 2026 17:34:45 +0100, Oleksij Rempel wrote:
-> Add device tree binding documentation for the NXP MC33978 and MC34978
-> Multiple Switch Detection Interface (MSDI) devices.
+On 27/03/2026 15:28, Neil Armstrong wrote:
+>> To be frankly honest you can make an argument for it either way. 
+>> However my honestly held position is analysing other upstream 
+>> implementations connecting to the PHY means we can't make the PHY 
+>> device a drivers/phy device - it would have to be a V4L2 device and 
+>> then for me the question is why is that even required ?
 > 
-> The MC33978 and MC34978 differ primarily in their operating temperature
-> ranges. While not software-detectable, providing specific compatible
-> strings allows the hwmon subsystem to correctly interpret thermal
-> thresholds and hardware faults.
-> 
-> These ICs monitor up to 22 mechanical switch contacts in automotive and
-> industrial environments. They provide configurable wetting currents to
-> break through contact oxidation and feature extensive hardware
-> protection against thermal overload and voltage transients (load
-> dumps/brown-outs).
-> 
-> The device interfaces via SPI. While it provides multiple functions, its
-> primary hardware purpose is pin/switch control. To accurately represent
-> the hardware as a single physical integrated circuit without unnecessary
-> DT overhead, all functions are flattened into a single pinctrl node:
-> - pinctrl: Exposing the 22 switch inputs (SG/SP pins) as a GPIO controller
->   and managing their pin configurations.
-> - hwmon: Exposing critical hardware faults (OT, OV, UV) and static
->   voltage/temperature thresholds.
-> - mux: Controlling the 24-to-1 analog multiplexer to route pin voltages,
->   internal temperature, or battery voltage to an external SoC ADC.
-> 
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> ---
-> changes v7:
-> - no changes
-> changes v6:
-> - add Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> - add Reviewed-by: Linus Walleij <linusw@kernel.org>
-> changes v5:
-> - Commit Message: Added justification for distinct compatible strings
->   based on temperature ranges.
-> - Restricted pins property to an explicit enum of valid hardware pins
-> changes v4:
-> - Drop the standalone mfd/nxp,mc33978.yaml schema entirely.
-> - Move the unified device binding to bindings/pinctrl/nxp,mc33978.yaml,
-> - Remove the dedicated child node compatible strings (nxp,mc33978-pinctrl).
-> - Flatten the pinctrl/gpio properties directly into the main SPI device
->   node.
-> changes v3:
-> - Drop regular expression pattern from pinctrl child node and define
->   it as a standard property
-> - Reorder required properties list in MFD binding
-> - Remove stray blank line from the MFD binding devicetree example
-> - Replace unevaluatedProperties with additionalProperties in the pinctrl
->   binding
-> changes v2:
-> - Squashed MFD, pinctrl, hwmon, and mux bindings into a single patch
-> - Removed the empty hwmon child node
-> - Folded the mux-controller node into the parent MFD node
-> - Added vbatp-supply and vddq-supply to the required properties block
-> - Changed the example node name from mc33978@0 to gpio@0
-> - Removed unnecessary literal block scalars (|) from descriptions
-> - Documented SG, SP, and SB pin acronyms in the pinctrl description
-> - Added consumer polarity guidance (GPIO_ACTIVE_LOW/HIGH) for SG/SB
->   inputs, with a note on output circuit dependency
-> - Updated commit message
-> ---
->  .../bindings/pinctrl/nxp,mc33978.yaml         | 153 ++++++++++++++++++
->  1 file changed, 153 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/pinctrl/nxp,mc33978.yaml
-> 
+> This is plain wrong, DT definition is different from software 
+> implementation, you can do whatever you want if you describe HW accurately.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+I'm not sure what point it is you are trying to make here. Are you 
+trying to say drivers/phy is OK with you but you want an endpoint ? If 
+so, please just say so.
 
-yamllint warnings/errors:
+I can see an argument for that hence my response to Konrad, I just don't 
+see why its a Qualcomm specific argument and of course understood stuff 
+bubbles up in review, we have a public debate and come to a consensus - 
+that's a good thing.
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pinctrl/nxp,mc33978.example.dtb: gpio@0 (nxp,mc33978): $nodename:0: 'gpio@0' does not match '^mux-controller(@.*|-([0-9]|[1-9][0-9]+))?$'
-	from schema $id: http://devicetree.org/schemas/mux/mux-controller.yaml
+However, I'd want wider buy-in and understanding that endpoints in the 
+PHYs is a more accurate description of the data-flow.
 
-doc reference errors (make refcheckdocs):
+We've been applying DT bindings aplenty without that so far. So we would 
+establish new CSI2 PHY bindings should represent the sensor endpoints.
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260327163450.3287313-2-o.rempel@pengutronix.de
+Is that what you want ?
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+> The CSIPHYs are not tied to a single "consumer" block, they can be 
+> connected to different consumers at runtime, which is not something 
+> classic PHY devices are designed for. So they are de facto a media 
+> element in the dynamic camera pipeline.
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+The existing CAMSS binding and media graph are not changed by this series.
 
-pip3 install dtschema --upgrade
+> And actually Rob Herring asked use to define the complete data flow, it 
+> was a strong requirement. I don't see why we wouldn't here.
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+I'm implementing feedback from Rob.
 
+https://lore.kernel.org/linux-media/20250710230846.GA44483-robh@kernel.org/
+
+To me, here is where we stand:
+
+- Individual nodes - we all agree that
+- As sub-nodes - I think the majority agrees this Krzsztof, Dmitry
+   I'm fine with it too.
+- drivers/phy - I think we are accepting this is also fine ?
+- endpoints should flow into the PHY and then back to the controller
+
+I get that argument. In fact I _like_ that argument at least I like my 
+conception of that argument.
+
+I'll stipulate to that argument meaning then that, new CSI2 PHYs shall 
+include endpoints for this purpose globally.
+
+As I've said before, there's nothing Qualcomm specific about this 
+discussion, really.
+
+---
+bod
