@@ -1,162 +1,173 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E523DBD60;
-	Fri, 27 Mar 2026 09:17:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0448C3DB622
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 09:19:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774603077; cv=none; b=KW6gAxNI6oo2WA8e5wpNFy23nKzJCy2hgBnV7RPsIEVi13DQlOnX2IkpTcW0gqUj7A2cYP9IfFZsPt0R2TsJ4JUt22yXhDT0URG86+evz068egu62DD/sKqFO7w009aEXa11NTEXCLxUnBnVwYn8rHrtpgUxTRYtG6hnDFP3EEg=
+	t=1774603153; cv=none; b=GKHNzwhLkz8eSu/j94eATQ9sF1PxrMrS38n3mRN/yHP6oWG90hEoMRPvydpLlAYC7GGAdEeM7I8SMqVv0dr3J6Hk69O6B6Z+OiJZePeMxlgdffFM5sXdV9k6EC9xRQGbu375na7qbyyVlgg8b2o7uFHZCY7iW0l2xmjonnH1Gdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774603077; c=relaxed/simple;
-	bh=9xnqu2U78yxsRU0eiXXKO5PGtS5N+f/3OEQ7NZl2GBk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=blp4UFeO64vowknMRrda5RnVDoRmi7qJi6MDA9q3e3cPV7XrPRtTnLG0m+Dqm65vQdQMu9FCgXdv8zfmeg9litwYj6k9RI12srlprhmf0la967hdiWytB+UJp2hxDSn8jSVYkXc96jeZtBR2rG7ZHAlqK7FLy9GkZbUdribPtt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TsqK+uwa; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1774603153; c=relaxed/simple;
+	bh=xXX6viTTK4rT+ZYOh0YjJH5pssE8usT9kMlI3qREXKg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Tnuj3XRrAligaMSCzKjflM2Hjc0/lHxlP4YLTaspvvnrRQVLB0x1KqxhiRIHDpYG3UeV29TyzlbgqWJ/R2JltXLB0DhFB73dVD2MczJfQiJ3IIdtddBqWELXlgrp2u3KWmnRnOJMwaj/YGaXSv/gb1JeZY/6zqrZHd2b/WA13Ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M6HT+idO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kP844j74; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TsqK+uwa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774603073; x=1806139073;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9xnqu2U78yxsRU0eiXXKO5PGtS5N+f/3OEQ7NZl2GBk=;
-  b=TsqK+uwa6BvzaN5D/K9dVqp4NhmWDvdDk3Ekjzk+naS1S3ss8XFrSn7P
-   Hwrh8jH+qeaBdYC9KhtdPFQgHVgD5j3rVc3MRfRcGizI0yn34WFW5h648
-   egrexH4/pr7M5c45dSs3zkn5DQm5GOWujxoSwEr5UVcnpLahU0Bg+haRI
-   p0p9VzwhGpUIrAr52KzogyBmMqTOU9N021DtynN9FYkdstc2yLIkx1kk/
-   gBmY00b4T5rAT9475D3WRvI4f6NaJWoqITuG4Q8e1F6FJxJHhBvLjKXvv
-   7dZqNGXUg8LzxBXxIzxTFDDDO7PVmUGJZjQIcUsBQ08mfpQxe6WpGuH8R
-   A==;
-X-CSE-ConnectionGUID: 7TTk/09ZRAmFYiDfqIXfXA==
-X-CSE-MsgGUID: aVjMHnQnQQiDE79GrXjuAQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11741"; a="79577066"
-X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; 
-   d="scan'208";a="79577066"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Mar 2026 02:17:25 -0700
-X-CSE-ConnectionGUID: 4HWi7vfyT8eKdVXZB3VlOg==
-X-CSE-MsgGUID: tsARdpr2SEWYEr1ISoA7Mg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; 
-   d="scan'208";a="230190503"
-Received: from vpanait-mobl.ger.corp.intel.com (HELO localhost) ([10.245.244.127])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Mar 2026 02:17:18 -0700
-Date: Fri, 27 Mar 2026 11:17:16 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Petr Mladek <pmladek@suse.com>
-Cc: rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH v9 2/9] lib: vsprintf: export simple_strntoull() in a
- safe prototype
-Message-ID: <acZLHAT5qJyjKTsp@ashevche-desk.local>
-References: <20260320-adf41513-iio-driver-v9-0-132f0d076374@analog.com>
- <20260320-adf41513-iio-driver-v9-2-132f0d076374@analog.com>
- <acZDneLrIPOmU5ci@pathway.suse.cz>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M6HT+idO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kP844j74"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62R6wFEU1710589
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 09:19:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Kap8a2d5utPscRD6dfcnTmPrvWlPawGV72177e7PtSE=; b=M6HT+idORQ04IMt3
+	269W5hBiYbrTuYY6bJkV7cXYBNGp4ZiLvnf1zPQ6vxmqz5MLoN2HWEw5EsbnbxqT
+	oNYMPjD7dDx6+dPX0nivQixL9AMn73OvvfqE5+KvnrP1FgxRqh6LHTSGNNo5afAk
+	Qth5n6YDaHTS4rwZCd+ulTL9624A45lClb0fNtSrBvLEEVgA99g4JMx/hVbBGZyR
+	uof+ENbHxetLIBn/vYpI6Kdr+U/W3tnqQK1YPZg/I2Y7NzW7iHwTRXpi/PaoRZBx
+	n+TqFiszV/+4BW/cJtwGZ7DTf36bG0vQoiQn4LznKcJi0/w5hH+YN5+HWHEEPcoG
+	t+Ai4g==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5bxvjbd1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 09:19:07 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-89ccf10567dso8199746d6.3
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 02:19:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774603147; x=1775207947; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Kap8a2d5utPscRD6dfcnTmPrvWlPawGV72177e7PtSE=;
+        b=kP844j74KQst6iVXFiTsD06A4p4+C597LHqHrHGajNC1bEJkPXBenypqsG65+Zx5KS
+         p4bXxfR0S/iBC27N+IoC7E2Gfv+0pvZciatRGZSEbmz53uyOBiAaw7ba/4s7v61KnO7x
+         ABkD884ZVPKE+zLV9TC6ikM/RO0+qHbvu+xTRMq6XT9tTJYKzFVZd2d4FyVNx/iW1JFN
+         6HvHs2jmLalv5brt1C7LiKaI2vcKoUPrc9hvz0pRYH4PtQXpAdU6Ibf6WTT45mxLxCfO
+         S1QMtxoaMBmfC4mXcCJEt5QK61McpjU7lwBATgyWkW6BkyRgkP23jN8rVViAgV2NfyGP
+         w+PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774603147; x=1775207947;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Kap8a2d5utPscRD6dfcnTmPrvWlPawGV72177e7PtSE=;
+        b=WBm+1MI9YlPJ55ur3GlshKU4O27TBHsU/bOhDtDXSRMEXmy8HzLUI+Wi+ESZwCYnmu
+         tjC8wM7U0nlIkMNhcx6bwH4d8779TgMKTiAsAu2Xlt4HSWcBUhcIIImuIx/j1yjKE75k
+         BydRQRuO7FO5GAwd1Z6ddHYQtkqFIqghIRIdmcw792faHjPKvUPJKI0997JV9C1sItrZ
+         /rC3AkMcynk07wjdiknT8Ue05joJQpAf6AVVLQLo70tG5DvpmGoazS7FTC6JvcgpALza
+         qTjfKImXI5lvq9tU2732l4H56AJjqwwXWMltqgOA/jLtvr4iI5FmjYe1l++oTVlrun4E
+         b8Xw==
+X-Forwarded-Encrypted: i=1; AJvYcCXP4ha4U13M9EvZXg0iTrJRbSjG2b4oPLbeJllBkyDnKVJHWxmGzsWLrxlh9VCv9BPSKpDhb1//HBdw@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw7he5Hk7usLLl++fZnr9p6awFjvE7OEd4UfuGltPKVu0UJBhuz
+	dInJIsHAn8lVmD0zbrgTh4dKXGyvgCjUzcWWGNFBtcPzxuZ/a0ndjuUya8H6cqA0RpN2DFkQVvo
+	bJhNhUUvd7wUNInBaKDiqiXRKI+//KmwWfj8RmHU5EiKWQNY/G/CCD6JLirbmN9c+
+X-Gm-Gg: ATEYQzwvZyc4FFO3tHpTMR/LoWmOXjj9ibp263/KxdYjktlTwWFeyiU1JAa/foKbkN4
+	Sog967GsGXY7FqEPAczEBpmUTHoOwrSnG4YGImN2WkV9DFuOoWTC0PfWPv+HY1omWHoBukuSznY
+	5+5rji9nXSpMlLPjljTRm3VREzYgheHaW+NAovKKRZ2awhPK1fEJJ9HiB8XRxrPDSW4TAjw95vv
+	ZFNt0fqFf4Ib9mx5ZpXttHBxsIIouV0sW5FGk0bx6nUjjvUjxONLFcetC7nn1qO3AisV1QtKFbH
+	CZbywF+qvIO9tpRv3d5/ZRmxlNHsPMUdgTHTEp9K4X7cfxeuiOaQ2MOJck/x+BsFT3y86mipvNt
+	qlMSAxiKhQD/f4q/nP+06t5avCmlaMJ8Txpn4W8WhQ9emAy/o0ruFo3GiCG8QUidlow6XTVHLtz
+	VvHyw=
+X-Received: by 2002:a05:6214:2124:b0:89a:7d14:66cb with SMTP id 6a1803df08f44-89ce8e27f81mr15161836d6.5.1774603146752;
+        Fri, 27 Mar 2026 02:19:06 -0700 (PDT)
+X-Received: by 2002:a05:6214:2124:b0:89a:7d14:66cb with SMTP id 6a1803df08f44-89ce8e27f81mr15161476d6.5.1774603146205;
+        Fri, 27 Mar 2026 02:19:06 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9b202663a3sm217738266b.25.2026.03.27.02.19.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 27 Mar 2026 02:19:04 -0700 (PDT)
+Message-ID: <5f054c57-edec-4847-84d8-f0c769f917cf@oss.qualcomm.com>
+Date: Fri, 27 Mar 2026 10:19:01 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <acZDneLrIPOmU5ci@pathway.suse.cz>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/7] arm64: dts: qcom: sm6125-xiaomi-ginkgo: Add IR
+ transmitter
+To: Biswapriyo Nath <nathbappai@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+        Pavel Machek <pavel@kernel.org>, Sean Young <sean@mess.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>,
+        Martin Botka <martin.botka@somainline.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
+        linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+        phone-devel@vger.kernel.org
+References: <20260326184126.9280-1-nathbappai@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260326184126.9280-1-nathbappai@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 8gJJTf8eJp70SD2F8KyBIoWQZmeiHIop
+X-Proofpoint-ORIG-GUID: 8gJJTf8eJp70SD2F8KyBIoWQZmeiHIop
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDA2OCBTYWx0ZWRfX6zHsZmzsEYzh
+ P4zgLx/N+faQmWbhBclyByqD7Gxwh2u6wNkJvSACQDdcvWUTkKTnh/opXIYWUco4u7/X/EKgoEO
+ RnzNzooS3crvDahH+YocqxQXJN2wOXxvFdsN7h9aN9uYyllfK8gr3OnUGHv8NkFVTs6BpFZnC85
+ jCeBwjZq+uSWhXqugavdz2RGTbxBs3d5xVO0kU9Gh0UAF9YMBAdhPaK2kA4x87/Ebf8ErnIaFk3
+ Gp0M4GfOAUZRfJIHH9HzIqzX9uXn2T7GjRSY5Ba5yRwL2C7wWbqX5+swKkyUB/WS0vivRWvOps0
+ e4/LK61SMvrVk+Vm3PVtKWKfEPBtVJ2awWvNmg2EGasEAlUzCgsXrpDOXQBm6G4m0sOYw2gYW1O
+ 8/5i/lYQcWNDsdxtNrOmqyQXiy+7pJMSRC9dIzkl0c8vurGeCZWnP4MycIn1ZSI2rh2X4kk39OF
+ hNkr+nJ6dXAWev780Hg==
+X-Authority-Analysis: v=2.4 cv=ToXrRTXh c=1 sm=1 tr=0 ts=69c64b8b cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=PhFLAuRYng8QIqNMAF0A:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-26_04,2026-03-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0 adultscore=0
+ bulkscore=0 suspectscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270068
 
-On Fri, Mar 27, 2026 at 09:45:17AM +0100, Petr Mladek wrote:
-> On Fri 2026-03-20 16:27:27, Rodrigo Alencar via B4 Relay wrote:
-
-...
-
-> > +extern ssize_t __must_check simple_strntoull(const char *startp, const char **endp,
-> > +					     unsigned int base, size_t max_chars,
-> > +					     unsigned long long *res);
+On 3/26/26 7:41 PM, Biswapriyo Nath wrote:
+> On Thu, 26 Mar 2026 10:29:49 +0100 Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> wrote:
 > 
-> Sigh, naming is hard. I personally find it a bit confusing that the
-> name is too similar to the unsafe API.
+>> On 3/25/26 7:07 PM, Biswapriyo Nath wrote:
+>>> The IR transmitting LED is connected to SPI8 controller.
+>>>
+>>> Signed-off-by: Biswapriyo Nath <nathbappai@gmail.com>
+>>> ---
+>>
+>> [...]
+>>
+>>> +&spi8 {
+>>> +	status = "okay";
+>>> +
+>>> +	irled@1 {
+>>> +		compatible = "ir-spi-led";
+>>> +		reg = <1>;
+>>> +
+>>> +		duty-cycle = /bits/ 8 <30>;
+>>> +		spi-max-frequency = <1000000>;
+>>
+>> I see the binding allows a power-supply handle - do you need one?
+>>
+>> Konrad
+>>
 > 
-> IMHO, the semantic of the new API is closer to kstrtoull().
-> It just limits the size, so I would call it kstrntoull().
+> I have tested the IR transmitter with my TV and set-top box both.
+> power-supply is not required and not mentioned in Android devicetree.
 
-It's not. kstrto*() quite strict about the input, this one is actually relaxed
-variant, so I wouldn't mix these two groups.
+Thanks
 
-> Also I would use int as the return parameter, see below.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-...
-
-TBH, I am skeptical about this approach. My main objection is max_chars
-parameter. If we want to limit the input strictly to the given number of
-characters, we have to copy the string and then just use kstrto*() in a normal
-way. The whole idea of that parameter is to be able to parse the fractional
-part of the float number as 'iiiii.fffff', where 'i' is for integer part, and
-'f' for the fractional. Since we have *endp, we may simply check that.
-
-In case if we want to parse only, say, 6 digits and input is longer there are
-a few options (in my personal preferences, the first is the better):
-- consider the input invalid
-- parse it as is up to the maximum and then do ceil() or floor() on top of that
-- copy only necessary amount of the (sub)string and parse that.
-
-The problem with precision is that we need to also consider floor() or ceil()
-and I don't think this should be burden of the library as it's individual
-preference of each of the callers (users). At least for the starter, we will
-see if it's only one approach is used, we may incorporate it into the library
-code.
-
-The easiest way out is to just consider the input invalid if it overflows the
-given type (s32 or s64).
-
-But we need to have an agreement what will be the representation of the
-fixed-width float numbers in the kernel? Currently IIO uses
-	struct float // name is crafted for simplicity
-	{
-		int integer;
-		int fraction;
-	}
-
-This parser wants AFAIU to have at the end of the day something like
-
-	struct float
-	{
-		s64 integer;
-		s64 fraction;
-	}
-
-but also wants to have the fraction part be limited in some cases to s32
-or so:
-
-	struct float
-	{
-		s64 integer;
-		s32 fraction; // precision may be lost if input is longer
-	}
-
-Maybe we want to have kstrtof32() and kstrtof64() for these two cases?
-
-With that we will always consider the fraction part as 32- or 64-bit,
-imply floor() on the fraction for the sake of simplicity and require
-it to be NUL-terminated with possible trailing '\n'.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Konrad
