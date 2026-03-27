@@ -1,91 +1,75 @@
-Received: from mail-24429.protonmail.ch (mail-24429.protonmail.ch [109.224.244.29])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8907325EF87;
-	Fri, 27 Mar 2026 05:27:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205B83054EB
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 06:01:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774589224; cv=none; b=gAC/qPqypFef41XhCbFeNxQ2T/scIsAJztEHkAb13Bcleh3dI42PPC/xU6dtS4UbRml0RIwajricOxwIdKwX4v5En0wabfcMu1FXUTbt7rTFi5ix2zGI9l31phztx2WSDOatDYtRbvWHUeVzdQl83OpdSyuP42/LAGQKEucXiTQ=
+	t=1774591303; cv=none; b=V/eKziTb82zqFd7OcKXcpb8EtUcPWwxDLGaNj2voi9XmxkE2+SQ2VyPJVOKM0kB0nVsw1nCiYNk15Z+d4azieQKMjWHeuubKuKnaQ63w33L7beD16sCK5pGgMD7pg9RZgDidD7u8jFtu8bERDEKx6tr6xcrasRA9F4h7x0FT3+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774589224; c=relaxed/simple;
-	bh=bEzkue1X7mLp+/j/hhoJP+Jnd4BlvcuBWwITMbXCxq8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JeH40hhilPWwSjl60Jn6W2+1emBggLY0e5Am9mGKa1z40/GtAienXwFuUuHdGAjKhFRu0djIipgn0lLY7ZusBjVZpzVvTQjX6zFL3M87Brdn5lkWnW3TViHCw5PJenQ2uyHJJBPRirCKqsmdrmcRcubi6kA0CZw0EW5yG5PKDfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=sDNBBMYV; arc=none smtp.client-ip=109.224.244.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1774591303; c=relaxed/simple;
+	bh=Z5Jo+6Hp+Ie1MkZalrd3zjOs7QYWJ+eZe1Mk5hz3lA8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j0kmTqSGrq5UwVwb6/inUX8BRHBU1Ca+9v6iOHoeIykoB1W63iO45heIyisnpOO95W1PXmxzWnZHIKSA5uLLaCRUn1Gv2WtuOvfMthbw5JhAoJFhebnqZbegYTMACPmTEkyB3MTyHllOmIZBDBcJYNJy8xaxrYbwxTfhysN+B/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com; spf=pass smtp.mailfrom=tinyisr.com; dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b=hEfqOV4L; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=dsDUD+Vj; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tinyisr.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="sDNBBMYV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1774589214; x=1774848414;
-	bh=E+nwK/sviPTJ4YHe+rWlRmRhYCoqZkYMB6zYwWx5tr0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=sDNBBMYVJAp1LdeUIFiSOLc1bKhghvNL2Q1/KdU+eYfNHKzsfgkEW5FXp3fipfxAF
-	 kxEReEJ74UPzEYehOn/I43Oft4dOT2J0vhpFHuayeKtp4GyY43vSG5zQ3PCJeBos83
-	 etrIxLyRi6fbZGk4iV4fWhIWaG6zTlwT8kHehaEqLVjBcMH9hpemmegLF+S8pBlX4S
-	 HsieuSir62nZmmtMFXiS4YrJMF1/MuFpcu3uUv3U4yWighWmEU27hvLXnfIVqDbJOw
-	 BcEtLsktfxf0ylr2CZN7sbpn1qqIYuojbyBf9UToMTNgNpmAWd1KiFs8yzH+rPrXv3
-	 MFNROqRF7aMnQ==
-Date: Fri, 27 Mar 2026 05:26:47 +0000
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-From: cristian_ci <cristian_ci@protonmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v3 3/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable display and GPU
-Message-ID: <63LsT_8yLkjzVTSswYeIbFl40zYY30Bo5DyyLCqYrG1E0eJ4RqKF715_8j2J0WRd3RESpYvwfPTJzw7xsCa4wdxmYGQbUArRlKz3PL1cJ5Q=@protonmail.com>
-In-Reply-To: <87943afd-2601-423e-878d-36b69ac3d6c3@oss.qualcomm.com>
-References: <20260321-rimob-new-features-v3-0-d4b8ee867de7@protonmail.com> <20260321-rimob-new-features-v3-3-d4b8ee867de7@protonmail.com> <109d21b4-5d16-4689-8383-ecd29bbbf8a6@oss.qualcomm.com> <7wYxWlqdcbL3ANB9n0g4t74x-dwE2yG4CmVw9TwGNmwARxbT5WsdG1fpuIDSA5ab750Gs8OUBwmVa_nZd065guKDJueytb1AmlQ05__IzmU=@protonmail.com> <87943afd-2601-423e-878d-36b69ac3d6c3@oss.qualcomm.com>
-Feedback-ID: 27475468:user:proton
-X-Pm-Message-ID: 13a94298c7042e78ace8ac9e771817c299e4a043
+	dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b="hEfqOV4L";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="dsDUD+Vj"
+DKIM-Signature: a=rsa-sha256; b=hEfqOV4Ll6XzCLtGoYp4eXwZ7za1C92JJVNDWVO6I0xKundBGUekw3Dj7SgVSJXFG7i+tPUmOpikcPFnHNNcSXJco9Lm03P2XId3jGHeTLB00JA85twpjAYqJWP7vI12IP6OTjD9h2Ly9x+NNmpvXIHmnS+b46thHYWbSxzbVJUwRzjDSpwkIK/Ckza70w5UFkGeMYe0Q9cciAp8ruVKgmL280Stzz+komSJ6ayezS9qaW5OTtyif+9tTgw8JrVtlZrCw6PWQfBSwaDnHhS9TpfjE40dfrWwk/SrDsoUuKQ0t7P8Js1P08ghV4R/R43lyyJ0Oecj6s8piP3xjXDGBA==; s=purelymail1; d=tinyisr.com; v=1; bh=Z5Jo+6Hp+Ie1MkZalrd3zjOs7QYWJ+eZe1Mk5hz3lA8=; h=Received:Date:From:To:Subject;
+DKIM-Signature: a=rsa-sha256; b=dsDUD+VjXfLjfmCDVTLOErO0aaDucx/rDM69bMiW1B5mYfDKcJ6tD09BzP75Oykqf3WITYSJTe3vDULkup9QJs0Z9WBq8z7MgBHqTTHa4Qv6JcuxcROjH5Yth74LPdgWjHQN1cjBOn+e/BqnRhrsSSrUDkF3TiyRhfg2+QUuPVLPt9h/GBNSurxYIS8u6vfbIRYYOuGIpcTp03va3GGlISMYaJPfB0c+TXPb9ffzaNQ10hPu6e0+xK1RCfufY63mnHXAL3RPWMWPAmC1d9jDBAE2um/EqGtXr6p3BgTzpwydkQrwGcd4Rt69hZetW2aSysmDNhJMC9kEe0LvDVRoJA==; s=purelymail1; d=purelymail.com; v=1; bh=Z5Jo+6Hp+Ie1MkZalrd3zjOs7QYWJ+eZe1Mk5hz3lA8=; h=Feedback-ID:Received:Date:From:To:Subject;
+Feedback-ID: 99681:12517:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 703749943;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Fri, 27 Mar 2026 06:01:03 +0000 (UTC)
+Date: Fri, 27 Mar 2026 08:00:51 +0200
+From: Joris Vaisvila <joey@tinyisr.com>
+To: Daniel Golle <daniel@makrotopia.org>
+Cc: netdev@vger.kernel.org, horms@kernel.org, pabeni@redhat.com, 
+	kuba@kernel.org, edumazet@google.com, davem@davemloft.net, olteanv@gmail.com, 
+	Andrew Lunn <andrew@lunn.ch>, devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH net-next 1/4] dt-bindings: net: dsa: add MT7628 ESW
+Message-ID: <acYZOEksxcc-uHcT@archlinux>
+References: <20260326204413.3317584-1-joey@tinyisr.com>
+ <20260326204413.3317584-2-joey@tinyisr.com>
+ <acW9G8vrMz89Enss@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <acW9G8vrMz89Enss@makrotopia.org>
 
-On Thursday, March 26th, 2026 at 13:08, Konrad Dybcio <konrad.dybcio@oss.qu=
-alcomm.com> wrote:
+Hi Daniel, thanks for the feedback
 
-> On 3/24/26 12:18 PM, cristian_ci wrote:
-> > On Monday, March 23rd, 2026 at 11:52, Konrad Dybcio <konrad.dybcio@oss.=
-qualcomm.com> wrote:
-> >
-> >> On 3/21/26 5:23 PM, Cristian Cozzolino via B4 Relay wrote:
-> >>> From: Cristian Cozzolino <cristian_ci@protonmail.com>
-> >>>
-> >>> Add the description for the display panel found on this phone.
-> >>> And with this done we can also enable the GPU and set the zap shader
-> >>> firmware path.
-> >>>
-> >>> Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
-> >>> ---
-> >>
-> >> [...]
-> >>
-> >>> +=09panel_default: panel-default-state {
-> >>> +=09=09pins =3D "gpio61";
-> >>> +=09=09function =3D "gpio";
-> >>> +=09=09drive-strength =3D <8>;
-> >>> +=09=09bias-disable;
-> >>> +=09=09output-high;
-> >>
-> >> This says "by default, actively drive the pin not to reset the display
-> >> panel". Is this actually necessary?
-> >
-> > I've tried to remove panel pinctrl stuff from the panel and the device =
-still boots/works exactly like before. So, have I to submit v4 without pinc=
-trl at all for the panel?
->=20
-> No, the pin config is useful, I'm specifically referencing the output-hig=
-h
-> property
-
-I've commented out "output-high" property and (apparently) the device=20
-boots and works like before.
-
-> Konrad
+On Thu, Mar 26, 2026 at 11:11:23PM +0000, Daniel Golle wrote:
+> > [...]
+> > +            port@6 {
+> > +                reg = <6>;
+> > +                ethernet = <&ethernet>;
+> > +                phy-mode = "rgmii";
 > 
+> Is this actually RGMII internally? Or some unknown internal way to
+> wire the switch CPU port to the CPU MAC? In this case, "internal"
+> should be used here as well.
+
+I don't know how to find this out for sure.
+
+In the MT7628 doc (https://vonger.cn/upload/MT7628_Full.pdf) port 6 is
+refered to as RGMII port 1 (RGMII port 0 being the non-existent port 5),
+but there are no clock registers to be seen.
+In RT3050 docs there are RGMII clock registers for port 5, but nothing
+for port 6, so maybe the CPU port is really using some mystery internal
+connection and only uses "RGMII" as a way to say it's a Gigabit port?
+
+On the hardware I'm testing on, it works fine with the port set to
+"internal" or "rgmii". Would it make more sense to set "internal" then? 
+
+Thanks,
+Joris
