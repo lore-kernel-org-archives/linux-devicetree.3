@@ -1,69 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCAA37646A;
-	Fri, 27 Mar 2026 11:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9657137C0FC
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 11:42:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774611735; cv=none; b=FlQetu9CBY544XNR1iKuPOdbNn04KWCpNvbZO+F3QT4EcKqOlOnVHMii8GKKksIzHy/KDi+s4H2hPC6psRDPf9E74JVPyQY98PNdHglRnoYyW+Z5A4pvuhHWIbXdEiDkGiYiMrzhsJ/XkzPsz59qtVUC7YTZGE5q+AM3joOLzpI=
+	t=1774611741; cv=none; b=DYpefHW+KG4tU1x0Uxffb/XD5tLKD4jk6wIlNUyPH5kdq/Dds8KNmL6U9UAT3me9uiE0fExsFt25PJn6OHiQSUa02f4Lpo5aEkB2NXXe7hB+5P6fiQ3v3gmgdZwoJH/zTibtRF8jd4a2icKB9cxhT7n9Lk07VJxC6zoQsaBvBVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774611735; c=relaxed/simple;
-	bh=QFl4kqD1CXMDcmig90mgvgQHa4TAFpGhjWa9ypPBZVw=;
+	s=arc-20240116; t=1774611741; c=relaxed/simple;
+	bh=0gNNgBVGYh8Ey7dt65ZbDW4KBJ8GG5AJCMvKQ7K41tw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tIfK0NssvhLLjMz5UduM/u5mFi/6qYYN5hXoueGo/t4tf9suZcpqngR++t9jpumvOFJ8GNda+T7Wk5B8uRvrY75yQqqm+fwbHDj1GCaa3amfhKCJz9wyxaqvL7ITc1ZS0sIN1i5y4Gctsx3wiFbpmslW/jpyVNzgaCmyN/QSJ9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s1L6hU7T; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=AgKeHnAtkL6yK8FIRk88E0Hv2G1uDWh89PkE5OSyPSzE3lAy6Cippx6dgIwG+LE3/qsDd5biXrDsg7v6R7RL2c5oX5fPSo4cDGH5160OWgeTihHWPS248SJr2P0WyJ4lHfAYQjiJ/GeF7rRtmxg+yWDQgoVlpiQVKIfHvrK7sIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=DgRcgvWt; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s1L6hU7T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AEB4C19423;
-	Fri, 27 Mar 2026 11:42:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774611734;
-	bh=QFl4kqD1CXMDcmig90mgvgQHa4TAFpGhjWa9ypPBZVw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=s1L6hU7TSlEUEytoAbYnGtCrx/F00Ih8LsQL7hcSWLsnvSOsKYrt9CN9zt4QJ7OOb
-	 DUN/8Syqyff8FBYTSOPJ07peDbQGs5zWxRtS6yXFvf2E575BgGFdgD000mBe8gd1OG
-	 P4ob3xC3hjfE5tbWB0B4rrXgOiyx9ncNdu7f/Ez7RSkkQrmvtpEfnMKzlrW5nFvpPs
-	 Ixu2hW0LzmflkhSQhjarSDkRZgZhKBAKCx4d02PWgdugvxbrPRZPQkRabjVTMB2Lvu
-	 pl3N6T+KkhPdcKtBXp7fSX+X4zADpEd5XRRIBdnVUH6S3yIk/j7R0EOs8bbMlvE0un
-	 LyfjiuGqBZq0A==
-Date: Fri, 27 Mar 2026 12:42:12 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Drew Fustini <fustini@kernel.org>
-Cc: soc@kernel.org, Arnd Bergmann <arnd@arndb.de>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij <linusw@kernel.org>, 
-	Icenowy Zheng <uwu@icenowy.me>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Jisheng Zhang <jszhang@kernel.org>, Guo Ren <guoren@kernel.org>, 
-	Fu Wei <wefu@redhat.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Michal Wilczynski <m.wilczynski@samsung.com>, Yao Zi <ziyao@disroot.org>, Han Gao <rabenda.cn@gmail.com>, 
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [GIT PULL] RISC-V T-HEAD Devicetrees for v7.1
-Message-ID: <20260327-tricky-translucent-copperhead-bf3ac7@quoll>
-References: <abcEKCNIA9wDgIcE@x1>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="DgRcgvWt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=ll7Q
+	PbYcaZzXLDm7R5fAYHXXbyoncQmJhMQ4I8rbyoA=; b=DgRcgvWtvrQy6T2u4jyW
+	AIJDUPHdxYF+rgV0lv2AnV5AzzYCtYehOJYE6w25xVhDYLqM/s6k9FrdGqLvmhrl
+	v6ceSjSaFwln4uGhgavEE/rMAPlvkYL8P43gwNTcLmKA7s3YDm8oW7GuToReqRd4
+	tR2I3V3/7Vdi5aTaZdzpVhWbYY+iqJpdSTBplKkb+yYE6hcO0Pqm7L9Ky4JMMd94
+	89NmCtFfmi1/kbc33N8IM7IYECQ0wNDAXCLAFJZZOeTK2lf56JK5qEjm3CYCkkZJ
+	iIO5bMyvra4wMLQxsXu5i6veunl8mPwuZrHlwbbuxDDwoI48ejpo5/6Vc6SQE8tJ
+	+g==
+Received: (qmail 174297 invoked from network); 27 Mar 2026 12:42:09 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 27 Mar 2026 12:42:09 +0100
+X-UD-Smtp-Session: l3s3148p1@W+C1/f9NQ0JUhsJN
+Date: Fri, 27 Mar 2026 12:42:08 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-renesas-soc@vger.kernel.org,
+	Marek Vasut <marek.vasut@mailbox.org>, devicetree@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v2 1/3] dt-bindings: soc: renesas: Document MFIS IP core
+Message-ID: <acZtECu-1kuIuNrx@shikoro>
+References: <20260325110717.17083-1-wsa+renesas@sang-engineering.com>
+ <20260325110717.17083-2-wsa+renesas@sang-engineering.com>
+ <20260326-magnetic-cautious-earthworm-aee7ec@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DwxLgM9CZ9KSlu5e"
 Content-Disposition: inline
-In-Reply-To: <abcEKCNIA9wDgIcE@x1>
+In-Reply-To: <20260326-magnetic-cautious-earthworm-aee7ec@quoll>
 
-On Sun, Mar 15, 2026 at 12:10:32PM -0700, Drew Fustini wrote:
-> The following changes since commit 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f:
-> 
->   Linux 7.0-rc1 (2026-02-22 13:18:59 -0800)
-> 
-> are available in the Git repository at:
-> 
->   git://git.kernel.org/pub/scm/linux/kernel/git/fustini/linux.git tags/thead-dt-for-v7.1
-> 
-> for you to fetch changes up to 9c99a784d9117a192ebf779d4f72ebec435ada97:
-> 
->   riscv: dts: thead: lichee-pi-4a: enable HDMI (2026-03-14 09:19:26 -0700)
 
-Thanks, applied (dropping the SoB from tag - no code is in the tag).
+--DwxLgM9CZ9KSlu5e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Best regards,
-Krzysztof
+Hi Krzysztof,
 
+> > +  interrupts:
+>=20
+> Missing constraints.
+
+Will add.
+
+> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> > +    system-controller@189e0000 {
+> > +            compatible =3D "renesas,r8a78000-mfis";
+>=20
+> Since I expect next version, one more detail I forgot to ask last time:
+>=20
+> Use 4 spaces for example indentation.
+
+Will do.
+
+> > +#define MFIS_CHANNEL_TX (0 << 0)
+> > +#define MFIS_CHANNEL_RX (1 << 0)
+>=20
+> No improvements and no answers to comments. Same review, drop, not a
+> binding. If disagree, respond to v1 comments.
+
+I think I did. I explained above in "changes since v1" that I decided to
+keep it because of the existing users in upstream that Geert mentioned.
+Also, you have been added to CC to get the driver this time because you
+were missing that in v1. So, what exactly is missing?
+
+Happy hacking,
+
+   Wolfram
+
+--DwxLgM9CZ9KSlu5e
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmnGbQwACgkQFA3kzBSg
+KbZOKA//UTjb+9A+HLfSUB7iGe8jE24Gyeyx2OM/PBdhWhwLjbpNz2/kjOzv5yAz
+w4gsv1KxPUgL8m3eI4kZiuIOQenk8KWZoPl3MU5MC8tW1Qn3tHpLqeCb8TJLK4X5
+EERZAPloCosYPYnAnxHAoOPt+RLuYh3TmZ1hiA8tIawwVF4ZoAioDdjfU6i4ccXH
+dTJinvKDyqvny4Z1kxUj4tpa5riGfEC/wdCAQC4RazpRPNovQTsKGR5kPHzL7yAi
+KD+ayimBZ1k4bN8AL3Pq035bto0RKsVtaytcB3rHanCL927qkIN4rUH8OyXcTQqf
+hxOYaHCE026ImQrzDz48R79qx1VN/RNsUZ6bhQCCTRsAEGcEpThssGuAHJj1JPG/
+sO/lMIS5vMyOnBVgjMGdY+LljI4LryRKP5TjbUlsexL5VGHKPPaZZ5TGRzEZnUvU
+VBEE8UONUptJJm7FLQ8dapE7Mp59dNEo2qGefnyxIlenu7DpTrlOOdHsg59eZfWM
+r3r2uMqmli1GLeeivn6qPllwv6bCQLRV1bdXeov/Vnx1Jgx1mpAX7lEwB1sFEEol
+l8Z9mNCBqvouKoK/nJ2UqzR0obH0CBGXObULjlvTuw+aDvMBp6SyMsz8kC65sHq3
+5eaD05mU1GEHigM7nSD0qBelmyEwKNTInlAYTFntHTs/P6St6wg=
+=/VyW
+-----END PGP SIGNATURE-----
+
+--DwxLgM9CZ9KSlu5e--
