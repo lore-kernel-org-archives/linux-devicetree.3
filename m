@@ -1,47 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8915812D21B;
-	Fri, 27 Mar 2026 00:03:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959014C6D;
+	Fri, 27 Mar 2026 00:06:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774569828; cv=none; b=JO4q9kHW1T62YB2J9/sX/rz1fcmIq53XyemBy4pFOKP0vfvMuoI2kQmznb4Wwdf7savv7tPcZOCsG3RqQE/LgCpe3s9vfooktVIKZxz9zsF4RWw6FNVvtOTcMx9oWruGiN75nWAK6FjWV1FSt/25Woa3Sqg6rWgTrdG9zRK7yPo=
+	t=1774570012; cv=none; b=k5A25Lres3tTBx0xPqLxZKOC967PMXClYc7174IcAckAJqq3ZRIRCr2uAXIRp3gY5WQ1wTVDoGeScdVF7UUYDbZxVMfs236G8NJY/qCfI1yAic0OkpeG3iqbWbjkSrXHF9JNnEmSurTQYBXHGHCvkr+PBbyfsW9Oq2a1zBZ8PkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774569828; c=relaxed/simple;
-	bh=kY4LJHK66UoT+YP3TWjaxw1cvyqFuLr0jljvTP3V7tU=;
+	s=arc-20240116; t=1774570012; c=relaxed/simple;
+	bh=ImIPmx6AnEDb6/60dXKqr0SMF6qzc2/4ui0g+5wcem4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NtUqNNIN9ozxwiJLS/Mr7RwGSkwOVAcZn2JaEgeyZLg8Qmgv9X2ofJ86K+VFRwuczFOwu6DybEo5XFMa6tolp6Jeu9rTuvSDnEE8DBQVO9KsGNxVdpfY7DKNXOdxPXlaYTUylFk4tuDqwgihPVF7xUUMLyDFjNKxtrcuzR7meJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bBANd970; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=tYZfW+B0PFQQMNXPJ50cP/u2jxb8eAvjsx/K2muPb0FQSQu3tNk6ndYYupLKTbr3sgprYcuv4UJmogvAei4o87ekcQf2DDAicNxTjIdGdFni4TvPzgIxVOJ0tAPBs3+sABclXgBjTK1aDXyTmgv2IdC2e+5ir59JMtUe1mbpiKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mLPv43BO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bBANd970"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CE01C116C6;
-	Fri, 27 Mar 2026 00:03:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mLPv43BO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43046C116C6;
+	Fri, 27 Mar 2026 00:06:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774569827;
-	bh=kY4LJHK66UoT+YP3TWjaxw1cvyqFuLr0jljvTP3V7tU=;
+	s=k20201202; t=1774570012;
+	bh=ImIPmx6AnEDb6/60dXKqr0SMF6qzc2/4ui0g+5wcem4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bBANd970I9p6rmcM9IIKqPcPs90DHv/ifgVatC3MHU/eN0+i4PG+MGBcZC9lsLuG9
-	 /totE4rP7jkFgHKY57gxGNo2xt/djsNRBt9MG3Uqi+Aci56dtkEc2iQRyMMQPwMRQY
-	 xKOAU0Q78oiifiXffcxoyl5RQCLWPShui+ADqdvGnSQ7ci87/k+OscwaoJi/Lhj3VA
-	 R+HyAMCFNep9tAlSRC892ALiTB7YT0tSo1KKNzIqBRaqLfXoKqaU64HFpwZs4pjjBZ
-	 vsPk1hCZf3Ho7hcgEqu65wW8WvyM3DYQ4ka7iflzDTLhbIPJInFAs7W4/xxEFf5i4n
-	 RhNlpmQRo94tQ==
-Date: Fri, 27 Mar 2026 00:03:43 +0000
+	b=mLPv43BOud1czIw27DXQ3ERM9udF260XoPVxHF9ZsVaSyLYWOvzSbREpF1lS+rVKv
+	 Z5ZeX6NUFu5okvgMOKRebWjk4TY8r3FcT51nyN7Zy1rWz4xt55JbnkP2E5K+izHTCJ
+	 rgqqfxZCuxGS3BEGQ+mKWgzDX32VVoW/caqNfbvWDbtZRiaSmlVX3Ap1e/Eo0oXhX2
+	 e2Pni65CdQ7bvJZYSBMzsUO1t0cEUu2Sc2veQwAu094GbUjrbx48AYJOgS7r2m1FTx
+	 SSrH+trAwyFpNVRriXx8X2R42k5JJy6PqMkx90q2Bsp1UhOqyOX+z0bN1bP7XHlGrO
+	 EReHcA13XWoqQ==
+Date: Fri, 27 Mar 2026 00:06:47 +0000
 From: Conor Dooley <conor@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Zaixiang Xu <zaixiang.xu.dev@gmail.com>, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Roman Gushchin <kfree@google.com>
-Subject: Re: [PATCH v4 2/4] dt-bindings: hwmon: Add Sensirion SHT30 series
-Message-ID: <20260327-clubbing-crushed-e73c4c994737@spud>
-References: <1774429690-129139-1-git-send-email-zaixiang.xu.dev@gmail.com>
- <1774429690-129139-3-git-send-email-zaixiang.xu.dev@gmail.com>
- <20260325-napping-turmoil-de37168fb072@spud>
- <09105b02-3d85-4808-ba0a-f3799787425a@roeck-us.net>
- <20260326-lullaby-elevator-3a3d25e9a6c0@spud>
- <20260326-opposing-footsie-33a0deb2ba90@spud>
- <ba8848a3-03f0-4113-8db4-d6dd46a57959@roeck-us.net>
+To: Frank Li <Frank.li@nxp.com>
+Cc: Peter Rosin <peda@axentia.se>, Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Haibo Chen <haibo.chen@nxp.com>
+Subject: Re: [PATCH v4 3/7] pinctrl: extract pinctrl_generic_to_map() from
+ pinctrl_generic_pins_function_dt_node_to_map()
+Message-ID: <20260327-caucus-lunchtime-9b732c1e74d1@spud>
+References: <20260325-pinctrl-mux-v4-0-043c2c82e623@nxp.com>
+ <20260325-pinctrl-mux-v4-3-043c2c82e623@nxp.com>
+ <20260326-concur-eel-3e0b3d91e00a@spud>
+ <20260326-poncho-expanse-d30a9eded8e2@spud>
+ <acWNOhnBvA5l9NW3@lizhi-Precision-Tower-5810>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,82 +55,208 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="z6hkhhkGkT69qmD0"
+	protocol="application/pgp-signature"; boundary="jz0AcoB0Nxtd0vkz"
 Content-Disposition: inline
-In-Reply-To: <ba8848a3-03f0-4113-8db4-d6dd46a57959@roeck-us.net>
+In-Reply-To: <acWNOhnBvA5l9NW3@lizhi-Precision-Tower-5810>
 
 
---z6hkhhkGkT69qmD0
+--jz0AcoB0Nxtd0vkz
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Mar 26, 2026 at 04:55:39PM -0700, Guenter Roeck wrote:
-> On 3/26/26 10:45, Conor Dooley wrote:
-> > On Thu, Mar 26, 2026 at 05:42:30PM +0000, Conor Dooley wrote:
-> > > On Wed, Mar 25, 2026 at 06:05:22PM -0700, Guenter Roeck wrote:
-> > > > On 3/25/26 11:20, Conor Dooley wrote:
-> > > > > On Wed, Mar 25, 2026 at 05:08:08PM +0800, Zaixiang Xu wrote:
-> > > > > > Add YAML devicetree binding schema for Sensirion SHT30 series.
-> > > > > > Use fallback compatibles for compatible chips and add optional
-> > > > > > interrupts and vdd-supply properties.
-> > > > > >=20
-> > > > > > Reported-by: kernel test robot <lkp@intel.com>
-> > > > > > Closes: https://lore.kernel.org/r/202603212044.BRPaiz86-lkp@int=
-el.com/
-> > > > >=20
-> > > > > The robot did not report that this binding was missing.
-> > > > > It also told you not to add these tags.
-> > > > >=20
-> > > > > You also ignored my and Krzysztof's reviews.
-> > > > >=20
-> > > > > NAK.
-> > > > >=20
-> > > >=20
-> > > > Maybe we should just point to AI feedback:
-> > > >=20
-> > > > https://sashiko.dev/#/patchset/1774429690-129139-1-git-send-email-z=
-aixiang.xu.dev%40gmail.com
-> > > >=20
-> > > > and only get involved after AI does not report any problems.
-> > > >=20
-> > >=20
-> > > The presentation of info in that is weird, it creates a pseudo-commit
-> > > message, and then goes on to talk about things that the pseudo-commit
-> > > message has had culled.
-> >=20
-> > How good is this LLM stuff at figuring out if previous review feedback
-> > has been resolved? Or is it not capable of looking at earlier revisions?
+On Thu, Mar 26, 2026 at 03:47:06PM -0400, Frank Li wrote:
+> On Thu, Mar 26, 2026 at 06:55:01PM +0000, Conor Dooley wrote:
+> > On Thu, Mar 26, 2026 at 06:52:12PM +0000, Conor Dooley wrote:
+> > > On Wed, Mar 25, 2026 at 07:04:12PM -0400, Frank Li wrote:
+> > >
+> > > > diff --git a/drivers/pinctrl/pinctrl-generic.c b/drivers/pinctrl/pi=
+nctrl-generic.c
+> > > > index efb39c6a670331775855efdc8566102b5c6202ef..20a216ae63e91b69985=
+ea4cfcd0b57103c6ca950 100644
+> > > > --- a/drivers/pinctrl/pinctrl-generic.c
+> > > > +++ b/drivers/pinctrl/pinctrl-generic.c
+> > > > @@ -17,29 +17,18 @@
+> > > >  #include "pinctrl-utils.h"
+> > > >  #include "pinmux.h"
+> > > >
+> > > > -static int pinctrl_generic_pins_function_dt_subnode_to_map(struct =
+pinctrl_dev *pctldev,
+> > >
+> > > > +int
+> > > > +pinctrl_generic_to_map(struct pinctrl_dev *pctldev, struct device_=
+node *parent,
+> > >
+> > > Can you drop this stylistic change please? The
+> >
+> > Whoops, cut myself off. To be clear, what I am asking for is to keep the
+> > "int" etc on the same line as the function name. This function is new,
+> > but you did it for the existing function too and the comparison is here.
+> >
+> > >
+> > > > +		       struct device_node *np, struct pinctrl_map **maps,
+> > > > +		       unsigned int *num_maps, unsigned int *num_reserved_maps,
+> > > > +		       const char **group_names, unsigned int ngroups,
+> > > > +		       const char **functions, unsigned int *pins)
+> > > >  {
+> > > >  	struct device *dev =3D pctldev->dev;
+> > > > -	const char **functions;
+> > > > +	int npins, ret, reserve =3D 1;
+> > > > +	unsigned int num_configs;
+> > > >  	const char *group_name;
+> > > >  	unsigned long *configs;
+> > > > -	unsigned int num_configs, pin, *pins;
+> > > > -	int npins, ret, reserve =3D 1;
+> > > > -
+> > > > -	npins =3D of_property_count_u32_elems(np, "pins");
+> > > > -
+> > > > -	if (npins < 1) {
+> > > > -		dev_err(dev, "invalid pinctrl group %pOFn.%pOFn %d\n",
+> > > > -			parent, np, npins);
+> > > > -		return npins;
+> > > > -	}
+> > > >
+> > > >  	group_name =3D devm_kasprintf(dev, GFP_KERNEL, "%pOFn.%pOFn", par=
+ent, np);
+> > > >  	if (!group_name)
+> > > > @@ -51,22 +40,6 @@ static int pinctrl_generic_pins_function_dt_subn=
+ode_to_map(struct pinctrl_dev *p
+> > > >  	if (!pins)
+> > > >  		return -ENOMEM;
+> > >
+> > > This looks suspect. You've left the pins allocation behind:
+> > > 	pins =3D devm_kcalloc(dev, npins, sizeof(*pins), GFP_KERNEL);
+> > > 	if (!pins)
+> > > 		return -ENOMEM;
+> > > but pinctrl_generic_pins_function_dt_subnode_to_map() has already
+> > > populated this array before calling the function.
 >=20
->=20
-> Both are interesting questions. For the first one, I had noticed that, but
-> to me it seemed that the pseudo-commit message is an attempt to create a =
-concise
-> version of the commit message, and I have not seen evidence that the later
-> comments did not also apply to the real commit message.
+> what's means?
 
-Yeah, the comments did apply to the real commit message. I was just
-confusing to me to see what looked to me like a commit message not
-contain the info that was being referred to later on. I thought that the
-LLM was hallucinating the comments until I went back to this mail and
-realised the text was here.
+It means you broke my driver by not removing this allocation from
+pinctrl_generic_to_map().
 
 >=20
-> Anyway, copying Roman for feedback on both.
+> pinctrl_generic_pins_function_dt_subnode_to_map()
+> {
+> 	pins =3D devm_kcalloc(dev, npins, sizeof(*pins), GFP_KERNEL);
+> 	...
+> 	pinctrl_generic_to_map();
+> }
 >=20
-> Thanks,
-> Guenter
+> pinctrl_generic_pins_function_dt_subnode_to_map() have not use this array.
+
+I have no idea what this statement means.
+
+>=20
+> Frank
+> > >
+> > > Also, this should probably be
+> > > Suggested-by: Conor Dooley <conor.dooley@microchip.com>
+> > >
+> > > Cheers,
+> > > Conor.
+> > >
+> > > >
+> > > > -	functions =3D devm_kcalloc(dev, npins, sizeof(*functions), GFP_KE=
+RNEL);
+> > > > -	if (!functions)
+> > > > -		return -ENOMEM;
+> > > > -
+> > > > -	for (int i =3D 0; i < npins; i++) {
+> > > > -		ret =3D of_property_read_u32_index(np, "pins", i, &pin);
+> > > > -		if (ret)
+> > > > -			return ret;
+> > > > -
+> > > > -		pins[i] =3D pin;
+> > > > -
+> > > > -		ret =3D of_property_read_string(np, "function", &functions[i]);
+> > > > -		if (ret)
+> > > > -			return ret;
+> > > > -	}
+> > > > -
+> > > >  	ret =3D pinctrl_utils_reserve_map(pctldev, maps, num_reserved_map=
+s, num_maps, reserve);
+> > > >  	if (ret)
+> > > >  		return ret;
+> > > > @@ -103,6 +76,54 @@ static int pinctrl_generic_pins_function_dt_sub=
+node_to_map(struct pinctrl_dev *p
+> > > >  	return 0;
+> > > >  };
+> > > >
+> > > > +static int
+> > > > +pinctrl_generic_pins_function_dt_subnode_to_map(struct pinctrl_dev=
+ *pctldev,
+> > > > +						struct device_node *parent,
+> > > > +						struct device_node *np,
+> > > > +						struct pinctrl_map **maps,
+> > > > +						unsigned int *num_maps,
+> > > > +						unsigned int *num_reserved_maps,
+> > > > +						const char **group_names,
+> > > > +						unsigned int ngroups)
+> > > > +{
+> > > > +	struct device *dev =3D pctldev->dev;
+> > > > +	unsigned int pin, *pins;
+> > > > +	const char **functions;
+> > > > +	int npins, ret;
+> > > > +
+> > > > +	npins =3D of_property_count_u32_elems(np, "pins");
+> > > > +
+> > > > +	if (npins < 1) {
+> > > > +		dev_err(dev, "invalid pinctrl group %pOFn.%pOFn %d\n",
+> > > > +			parent, np, npins);
+> > > > +		return npins;
+> > > > +	}
+> > > > +
+> > > > +	pins =3D devm_kcalloc(dev, npins, sizeof(*pins), GFP_KERNEL);
+> > > > +	if (!pins)
+> > > > +		return -ENOMEM;
+> > > > +
+> > > > +	functions =3D devm_kcalloc(dev, npins, sizeof(*functions), GFP_KE=
+RNEL);
+> > > > +	if (!functions)
+> > > > +		return -ENOMEM;
+> > > > +
+> > > > +	for (int i =3D 0; i < npins; i++) {
+> > > > +		ret =3D of_property_read_u32_index(np, "pins", i, &pin);
+> > > > +		if (ret)
+> > > > +			return ret;
+> > > > +
+> > > > +		pins[i] =3D pin;
+> > > > +
+> > > > +		ret =3D of_property_read_string(np, "function", &functions[i]);
+> > > > +		if (ret)
+> > > > +			return ret;
+> > > > +	}
+> > > > +
+> > > > +	return pinctrl_generic_to_map(pctldev, parent, np, maps, num_maps,
+> > > > +				      num_reserved_maps, group_names, ngroups,
+> > > > +				      functions, pins);
+> > > > +}
+> > > > +
+> > > >  /*
+> > > >   * For platforms that do not define groups or functions in the dri=
+ver, but
+> > > >   * instead use the devicetree to describe them. This function will=
+, unlike
+> > > >
+> > > > --
+> > > > 2.43.0
+> > > >
+> >
+> >
+>=20
 >=20
 
---z6hkhhkGkT69qmD0
+--jz0AcoB0Nxtd0vkz
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacXJXwAKCRB4tDGHoIJi
-0tCBAPYuyBj4Y5qUmG4iUNaDxDutif8mBRaGIbkHwOtZLkA3AQCZ58/iAbtJn9Oy
-7PdULvFpVku4cVfgi9oHhmzAJI/6Dg==
-=VJPT
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacXKFgAKCRB4tDGHoIJi
+0mQlAQCCrpynWKye+JnQ3d79G381Pt3Rtj9h7zOyzY0DrZV22gD/f58jVm9SlzrG
+YHkt07haqbZTweNomXGNWGl+D+tiNQw=
+=EOzH
 -----END PGP SIGNATURE-----
 
---z6hkhhkGkT69qmD0--
+--jz0AcoB0Nxtd0vkz--
