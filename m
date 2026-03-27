@@ -1,87 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B865241103
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 02:17:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C736133A9D6
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 02:24:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774577825; cv=none; b=RNKE1lRY6aVeBYUzUd5GH8dPb/G2HMcy88PDTm+LxjkgRW3e/Qev2YhStiLZs9KdHAPZMRum/icRjev52DXDdyGhdrvhO+JnfFQStOhkmhlfRKfOdx2TTtCeG87t8IspGbuNWNrrohP1k1dK7DTs6tntCRedaGxXaet0hV2dagY=
+	t=1774578242; cv=none; b=kV5TNDXgRaeK1U3Fh06luBrHAuqmxx/q88QiAf1y4caxdih9Q5HPESNC/HA9xBQgxKPyJRkFMxbhhhFJYS35sbxk4BveLV9sefteIi9+yy4GPjINNgLS4x+cLnPEU+A6CmANbbB8tsEO6KRyg57yihz5HAhsU5/p5N4qNXuPKSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774577825; c=relaxed/simple;
-	bh=YPycino2ZwiVWq/qvs6FuYYFGd505FxEqAiKq3gnkIE=;
+	s=arc-20240116; t=1774578242; c=relaxed/simple;
+	bh=i4N0HAMPUm3zO7DR4evOSl6UDCHXGFgITARXSeiej4s=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EoMTclQtyRiPieA6ZWukThskGJot3K0jw1ddIdHup2KmHESoW1X6A5b9PNk9u+1qYV/RtQE4V28A2tFP/zcMn2MvV7nIuUoE7i2xtxMy8i1Qu7m2tVqnNPoFXn4z4RU4Rozl05vEICu5rqYhyt5GY1l8k/HCco2x6CKPL0LptTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=k5fOw6va; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ez2QwymG; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:Content-Type; b=e2qC8IdvpgKxbYayI0Kgj6N4pyw2MHlASzfj0pbd1iHhioHnp8Gooi4IAoqkTZZUtdXElxTlaVq6778tFA3gCXkTsShjQtG/0ODFYERLRQ6mkFx+QIxLcQHa6mWuacN8mCqfxNbgmBwT+k9doh+1N+yFFFulkqETomYDYc9DkpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Pz5okk/d; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ro3mAG6R; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="k5fOw6va";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ez2QwymG"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62QKYS0K519106
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 02:17:03 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Pz5okk/d";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ro3mAG6R"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62R0Bg0I790018
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 02:24:01 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fNIU17RgrFZvCfJTFDgfDuzRQmEayePfE4vdj7BFkH8=; b=k5fOw6vag8VoQNMP
-	7SZvBjIT1wsgTkj35bIof50B5zDmHO/4rYxT2ZoIOelcqwDzzr6+KiMspnuIlB7X
-	NX97lCErwnM8x6FfHMY69STFqh1fccT1Olq3qu+vruWhtJrCKwgEFh1UxVLnGZIg
-	nRW+ObFCKL8zqXdW06pV31kMlhN1BSqjNcA42H1ELcYNtaBRJwwbdh4eBi7Efwmh
-	V0FlD7viYDY8sXgZMRyy1wCTuOaTN3KVY6Y6D0RSJifGbE+UI0OOkKgcg2BoNPA/
-	EdUaPfzR9BW0frokDfE0sVDTYq+FHV00eJV6rpburk7+gylytbjpOxpal/RjkSCZ
-	I+U1sg==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5bxv0u1d-1
+	Ma8Dtb5mLRnOlanyBjOcRR4ysLdtbJQy/XPGvVqSw0s=; b=Pz5okk/dAmH6Xe1C
+	t32tYr63p8GljDR73ywqS6Lbr94+QY0CQiBDiYkQdmOfAQzykOURiSoCOXMnFVOW
+	rf6xmxkF5cRAwxh2cMpuTD+708LW2OXwk77no7XYJtptPG2g6XPG5TeBULvRc6U3
+	TLVJn2Gqd+D+9vbG7E/I48sgVFEl/ddvoUJQcfCmqxlO/kdlGUtwxCrDccWF8D24
+	II/Znf7nBHIocqkHMnhK9W2kTsI8+uzjNWA6sbJS3udJxHCAnEnsKaWR82cWryjx
+	L2OfenT+zMMYgybkk6CifCl2ydNB63BerD3hHBAwT3z6EXyPl5RD8QMhg9vmmKvx
+	HJKmSg==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d53eqjv8b-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 02:17:02 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2b0be865f19so19960845ad.1
-        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 19:17:02 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 02:24:00 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-b630b4d8d52so1159215a12.3
+        for <devicetree@vger.kernel.org>; Thu, 26 Mar 2026 19:24:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774577822; x=1775182622; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1774578240; x=1775183040; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=fNIU17RgrFZvCfJTFDgfDuzRQmEayePfE4vdj7BFkH8=;
-        b=ez2QwymG8thGJiMNf97qXVprH3l0xmZGbV7LsTJ4tGrUmGSqY5TLpWerMaQWV3F3nB
-         kBYGfwsXYPOw6Uc28j7xuimdLYkA+5qoBjHmg+y4CGw1WVpeqzgB5vjKtlucMP/3Gl9L
-         DER3uaQ0tJMsOtwRNJOgrY9NA0XSbAl71Mwdi3oJhKRcIh7ZmrkMXbseyt2Zl5ivIDm5
-         bR2Hl2LKsSe8qZEcFTxSExeBCTC+mgCUoyGdDnS6+rKw3rvKD3jhNtApz6RAGlwnzUj9
-         Q+76epHOQn4ajUr+S4Na7ZGpuzSAfOO8gzRXWB1+iz2ZbANaxWsu1q8G3vFg60+cyhi1
-         D/qA==
+        bh=Ma8Dtb5mLRnOlanyBjOcRR4ysLdtbJQy/XPGvVqSw0s=;
+        b=Ro3mAG6RU9l0Rc5+i6eoJ4SBIEZnDuhHo8pcUgVQTbRhvA4l8BAfw2PIwII5tBfxGX
+         KSKIOliwBZZc5FXQWj2p+8Win/6sdiRsaHit9HYtoeusNP2B1soKdPcDE8Nga+/PU571
+         2n9oUCxK3H6Bwz4O8IGDLlR5r6V3hE+UYALqN2c1KE7I+lN+X9ixLQMtu2uhWHDmlTsb
+         CTaqC13dfhtaVBPEXWTjaNgWBUK7prAXTCuTpbhMo+N0PwKIsQCDVR/BCGurfES7wyf0
+         DEmiF3ZYuqttLZ5O4ULLFb3c9aFZpSPAJQGpWt22VJrlqTDZxEVP+iqU9gWyXrvqbYoH
+         GIbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774577822; x=1775182622;
+        d=1e100.net; s=20251104; t=1774578240; x=1775183040;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=fNIU17RgrFZvCfJTFDgfDuzRQmEayePfE4vdj7BFkH8=;
-        b=KBUL1vP7DU64SXDG8o1OuJwRRCZlsiQb4gl9XPHl5pnU0TnaYkb2Ktqx7RRk7Czvky
-         2vXAi4/o/ebazrdj3+CvhQ4tAJ/Dx4wbZRmPVR1MDl/T7Q1JrClnltR/DhDyo60SX8XB
-         8LkWxht3FOvScgMBln92LfxOIaJw/hS5qc+a1lSvnlGorJpxTQKrLdGze/RJe7xLvcxL
-         LWL0SBttIHniB8Z3VLl0E57qzJxqYdyoltqOSKnVUijlm+X+TIR/GOOtlgf94RXCo5pF
-         KlykxUCCeh2L9GWhfAMSxG5KHer+GhmMSuJnD9fjcZCPdA1y+alBH8E0wBBhAexjKNJj
-         IsFg==
-X-Forwarded-Encrypted: i=1; AJvYcCWj2TaLbjqDXClLXfNS+juosPG8pMKNa2RW81LF5WFSmPaxgDx2cTxqgADF3KVv73j+JTAQsukzVR4t@vger.kernel.org
-X-Gm-Message-State: AOJu0YwVnMa47tNv0xQSKMzbnCkF49WzjoYo6S4wrz00gyPLbreXn3kM
-	QPC1Yb68aA1VlsoNSZb6oj3QoZh0lbuwS6sAoCGB2iduVGPdKr5eebNxykY5LDme2RvSLZM6tM8
-	SQHP5a+iJx7dsA+c6l2tQI5KiWrMI52x6EFaL37OJoopVTmOCDqHwuwFIML+Q75Bn
-X-Gm-Gg: ATEYQzyKcqE7NVowYx62EoPdXMj/Z2ov1Nv3hXLCDIs9VHHBjDtseMYR93pMSOTpn5R
-	cZoNWlikLmC4D2xN468m0mcsG9sFAyazcEuGaS863g24u6C0YOeEjxOrTmBJegfXT+VT2Q6Yco+
-	AtcShgt80dZmGmtmd4/gvL9GSnPDlNXYGzE9fMp0UF8K4etZiWdQTa3p4eK3+GNxwizZLDhUkoZ
-	+drmwK0r28eznEeuOTyGhyrgGVjFAzBD2/UpzfCCNwfSc1hglyza8BGq3yRxM1p2XEilTKSYLem
-	ZWcTFlHJFX+hzsYnzeIBJhLAOl4zgEQr+6Rlgdpl5wIg8fn012chW00bl3zvc3hxFjqp1IZ5Hkr
-	fF5L5fKYTdiWO9SBB3SoksrfU9RWMUQLBVeZTKmdpfWYQbXt3/tv4UqVH6hB03YfksbyQRgMjO8
-	Vtn/rz0szSPw==
-X-Received: by 2002:a17:902:fc87:b0:2b0:60b2:4dc with SMTP id d9443c01a7336-2b0cdc3e646mr8842645ad.15.1774577821901;
-        Thu, 26 Mar 2026 19:17:01 -0700 (PDT)
-X-Received: by 2002:a17:902:fc87:b0:2b0:60b2:4dc with SMTP id d9443c01a7336-2b0cdc3e646mr8842285ad.15.1774577821389;
-        Thu, 26 Mar 2026 19:17:01 -0700 (PDT)
-Received: from [10.133.33.33] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0bc9176acsm43805095ad.82.2026.03.26.19.16.57
+        bh=Ma8Dtb5mLRnOlanyBjOcRR4ysLdtbJQy/XPGvVqSw0s=;
+        b=D1N2sC4Z35CqPaIlwvC++D7XD8oZTnCyWoRsxE/vGdbfv1IciLwD/j4Rrrp1WOyYDb
+         d7bZRM7QD61NtMfEAkK0SQeaFHbhq4oUnM4iKn2ZXZCeCM6FLLEjoL2TAFunANakJ0iC
+         UcZYRtGqumcSlO0w19aKoXDY5eJqNvXCHySekpAOyroGoMRQwZBPzonWlJOKPNBmOsyV
+         hqo9CUymSFzvU7KSVesBtttWWmPLiDIviDzE8GtyLLjjeU0djv/tXQOdh3aE8ydazZ6R
+         EkZFG1xH9HLbQcDrD1unFxvC61tC3KLW8v81nDkgsnU/C2hX0juhtVoN0kFBVIoyWlJp
+         sh9Q==
+X-Forwarded-Encrypted: i=1; AJvYcCU2TV5lXQLhQRxTuPzJQqK7hOdw+hXCPTUI3g+lu6UQ+5aJVx3atN9hHToi1Bvduy9FNoVK3X1jQ1fA@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8njPTiPPDxeSMEC9dJ6cuLgPAUs5jFsXBbAgQC75SpkFReicK
+	YCRuer/JJ0h9I0gjRY8tV1GXsrqzDTdSxgtjl3S7Ulr639yoU1+3PLgklv+o0HgTIVajbkBVpHg
+	pwZiyo5npryqj55j5EDkvbLxRts/lDYNlala10zrsFMwnlPfVzoQwHJ2iDr6vfflf
+X-Gm-Gg: ATEYQzwi2sGzcsfyV80xaApQJZ8g7/zB9KcFQD2NlEHfW+HuB1OLoTr+gQ2Wis74GVu
+	YVfiexSPuC9oyNkzD5bzApawsA1bgWkFaxncgcs7xvgjf+j2ICs13azWZb04m1nSOuFntHgCfyy
+	axj+JY+oYv/71SVUo9Uc35KcvvQrrR0F/ST4xRzw3QtawntDNrKZbJSWF890koZ2RXCEm3XJ4zU
+	SIBCM7wA1Sr/iqqMzu5OIOqh+uZP6pw+FLQqPIjNhdnMOMBADA0LKvK8QfPGnbQ0r3C1oLNdxWo
+	cH+jn8bOjbB/UZmjYqSWrG/lkqSFXu2HTZIBn38NqoxzjUxtBTx6U/P5vhMEi0DVr/R4m1AB2ax
+	NPQ7nGc6ZTCIVy0pfrV8CY9K5z440RS0yudjQhMScz6ES9N3C6N3WO+NMYJAr3/70SKBZchjluL
+	Hm8pLFCflEdY3vgTvE2A==
+X-Received: by 2002:a05:6a00:1803:b0:829:8c08:d1f4 with SMTP id d2e1a72fcca58-82c9605c95bmr685475b3a.39.1774578239909;
+        Thu, 26 Mar 2026 19:23:59 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1803:b0:829:8c08:d1f4 with SMTP id d2e1a72fcca58-82c9605c95bmr685441b3a.39.1774578239395;
+        Thu, 26 Mar 2026 19:23:59 -0700 (PDT)
+Received: from [10.133.33.251] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82c7d3c2714sm3848975b3a.48.2026.03.26.19.23.55
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Mar 2026 19:17:00 -0700 (PDT)
-Message-ID: <a0a9fa9d-5438-48e0-b3de-def97d4214bf@oss.qualcomm.com>
-Date: Fri, 27 Mar 2026 10:16:55 +0800
+        Thu, 26 Mar 2026 19:23:59 -0700 (PDT)
+Message-ID: <bc6abd24-d56a-4fc0-89e9-8986e8d8b3b7@oss.qualcomm.com>
+Date: Fri, 27 Mar 2026 10:23:54 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,395 +89,88 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 2/7] qcom-tgu: Add TGU driver
-To: Songwei Chai <songwei.chai@oss.qualcomm.com>, andersson@kernel.org,
-        alexander.shishkin@linux.intel.com, mike.leach@linaro.org,
-        konrad.dybcio@oss.qualcomm.com, suzuki.poulose@arm.com,
-        james.clark@arm.com, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
-        devicetree@vger.kernel.org, gregkh@linuxfoundation.org
-References: <20260317032639.2393221-1-songwei.chai@oss.qualcomm.com>
- <20260317032639.2393221-3-songwei.chai@oss.qualcomm.com>
+Subject: Re: [PATCH v5 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vinod Koul <vkoul@kernel.org>,
+        Kishon Vijay Abraham I <kishon@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org>
+ <20260326-x1e-csi2-phy-v5-2-0c0fc7f5c01b@linaro.org>
 Content-Language: en-US
-From: Jie Gan <jie.gan@oss.qualcomm.com>
-In-Reply-To: <20260317032639.2393221-3-songwei.chai@oss.qualcomm.com>
+From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+In-Reply-To: <20260326-x1e-csi2-phy-v5-2-0c0fc7f5c01b@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=A99h/qWG c=1 sm=1 tr=0 ts=69c5e89e cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDAxNiBTYWx0ZWRfXyQBRdhcK29Ww
+ nHjJFZK8XunkZQSPgU+LuPEbBGdIYPST/eMGZ2Tfo90daGntTZh46BpSaVuheLW7lZrXRn6BAnw
+ 1+X2z9Vg3s6eH9vhVGoyQ0drcddHaluchm5rIolxBH945xT0yCcmNV4zJyB1XAQUhJTuVu0GojV
+ NVG7tIfTgms4mT8/e2whnoE9eSdv9NlhkCZ+qO74KuLZ5ijcDBE0BsQxymOQgdLJKHx7bfvaiCG
+ GzEvwByh4H3jsEhxEgKyEHvyhXMcbuL9vaDKFwKB+zQlsHbZhO1A6CtyXULybEFbb+L0oe2Lw79
+ 7tyYr/Z+HgnfcazG+Zdjus39U84v6nAGycm3z6eQC5/Fu4yNtjrTPIC01TLs1plXePn0dk4ryeF
+ Mwb6CDNfI8cMVOfnHrT5ceNK6ULshbewSYMqOglFQxGBtH71BdwCS5khI6OwijPC5wd7NcllVq6
+ P/oGwwPcVjrvu7OjsfQ==
+X-Proofpoint-GUID: b0acnNWmqoC534WS2YryZk-P-evRZtDN
+X-Authority-Analysis: v=2.4 cv=S4bUAYsP c=1 sm=1 tr=0 ts=69c5ea40 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=RlaAdA2wXV2HMp-xn2gA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: WfOMT8JpwRH48kSg17pWvktvWFHbAU8M
-X-Proofpoint-GUID: WfOMT8JpwRH48kSg17pWvktvWFHbAU8M
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDAxNiBTYWx0ZWRfX0XRRqEJYavrv
- jiXJzwrfbHGPwWk04vkIJcUBf3jXq/PBuegzwirTYWJ4UM4U5KPptv1ClGU4yjlhX2lfGenRCeq
- Rue9Tb4hMMFyVmoeAb6RtQ3WzJQZZYuZiXmCP6/2+HVCMZKBUqs97ag3Duy/99rxaR4l3nqmqPl
- /JhoH2B7iTpyG+e7fISDdTeIcEDraRsNZq4FjS0oaMlfNnVGzHZLkgta5lZH0NWFU9q1tQpsCRL
- 8i49ItnOevZWamU3vbIgCm/x6ufiTPoNoy0gL/Bwi+CqmskNJEJxVvifmibSO4Di85jhAzm+pkP
- bcGgUftwDbJOTLa/Qn78HlAOJEypujeIW05mQsEylxfSfPR4ZV2P70iwue5fenP1kDHGtm33l3v
- uz9aG/OVODRnlBgorTTEOLX7E/K0wemfaT7Uv04uIgtHv/3CQhqpur7ufAsHpUuf15h8FpG6864
- kYBojClu7uEA7cJo2kw==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=irf8UKbSWqAIktAtPRAA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-ORIG-GUID: b0acnNWmqoC534WS2YryZk-P-evRZtDN
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-26_04,2026-03-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 malwarescore=0 spamscore=0 impostorscore=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ priorityscore=1501 malwarescore=0 lowpriorityscore=0 bulkscore=0 phishscore=0
+ spamscore=0 impostorscore=0 clxscore=1015 adultscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270016
 
-
-
-On 3/17/2026 11:26 AM, Songwei Chai wrote:
-> Add driver to support device TGU (Trigger Generation Unit).
-> TGU is a Data Engine which can be utilized to sense a plurality of
-> signals and create a trigger into the CTI or generate interrupts to
-> processors. Add probe/enable/disable functions for tgu.
-> 
-> Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
-> ---
->   .../ABI/testing/sysfs-bus-amba-devices-tgu    |   9 +
->   drivers/Makefile                              |   1 +
->   drivers/hwtracing/Kconfig                     |   2 +
->   drivers/hwtracing/qcom/Kconfig                |  18 ++
->   drivers/hwtracing/qcom/Makefile               |   3 +
->   drivers/hwtracing/qcom/tgu.c                  | 183 ++++++++++++++++++
->   drivers/hwtracing/qcom/tgu.h                  |  51 +++++
->   7 files changed, 267 insertions(+)
->   create mode 100644 Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
->   create mode 100644 drivers/hwtracing/qcom/Kconfig
->   create mode 100644 drivers/hwtracing/qcom/Makefile
->   create mode 100644 drivers/hwtracing/qcom/tgu.c
->   create mode 100644 drivers/hwtracing/qcom/tgu.h
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-> new file mode 100644
-> index 000000000000..ead237bb7d89
-> --- /dev/null
-> +++ b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-> @@ -0,0 +1,9 @@
-> +What:		/sys/bus/amba/devices/<tgu-name>/enable_tgu
-> +Date:		March 2026
-> +KernelVersion	7.1
-> +Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
-> +Description:
-> +		(RW) Set/Get the enable/disable status of TGU
-> +		Accepts only one of the 2 values -  0 or 1.
-> +		0 : disable TGU.
-> +		1 : enable TGU.
-> diff --git a/drivers/Makefile b/drivers/Makefile
-> index 53fbd2e0acdd..82b712a12a26 100644
-> --- a/drivers/Makefile
-> +++ b/drivers/Makefile
-> @@ -177,6 +177,7 @@ obj-$(CONFIG_RAS)		+= ras/
->   obj-$(CONFIG_USB4)		+= thunderbolt/
->   obj-$(CONFIG_CORESIGHT)		+= hwtracing/coresight/
->   obj-y				+= hwtracing/intel_th/
-> +obj-y				+= hwtracing/qcom/
->   obj-$(CONFIG_STM)		+= hwtracing/stm/
->   obj-$(CONFIG_HISI_PTT)		+= hwtracing/ptt/
->   obj-y				+= android/
-> diff --git a/drivers/hwtracing/Kconfig b/drivers/hwtracing/Kconfig
-> index 911ee977103c..8a640218eed8 100644
-> --- a/drivers/hwtracing/Kconfig
-> +++ b/drivers/hwtracing/Kconfig
-> @@ -7,4 +7,6 @@ source "drivers/hwtracing/intel_th/Kconfig"
->   
->   source "drivers/hwtracing/ptt/Kconfig"
->   
-> +source "drivers/hwtracing/qcom/Kconfig"
-> +
->   endmenu
-> diff --git a/drivers/hwtracing/qcom/Kconfig b/drivers/hwtracing/qcom/Kconfig
-> new file mode 100644
-> index 000000000000..d6f6d4b0f28e
-> --- /dev/null
-> +++ b/drivers/hwtracing/qcom/Kconfig
-> @@ -0,0 +1,18 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +#
-> +# QCOM specific hwtracing drivers
-> +#
-> +menu "Qualcomm specific hwtracing drivers"
-> +
-> +config QCOM_TGU
-> +	tristate "QCOM Trigger Generation Unit driver"
-> +	help
-> +	  This driver provides support for Trigger Generation Unit that is
-> +	  used to detect patterns or sequences on a given set of signals.
-> +	  TGU is used to monitor a particular bus within a given region to
-> +	  detect illegal transaction sequences or slave responses. It is also
-> +	  used to monitor a data stream to detect protocol violations and to
-> +	  provide a trigger point for centering data around a specific event
-> +	  within the trace data buffer.
-> +
-> +endmenu
-> diff --git a/drivers/hwtracing/qcom/Makefile b/drivers/hwtracing/qcom/Makefile
-> new file mode 100644
-> index 000000000000..5a0a868c1ea0
-> --- /dev/null
-> +++ b/drivers/hwtracing/qcom/Makefile
-> @@ -0,0 +1,3 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +
-> +obj-$(CONFIG_QCOM_TGU) += tgu.o
-> diff --git a/drivers/hwtracing/qcom/tgu.c b/drivers/hwtracing/qcom/tgu.c
-> new file mode 100644
-> index 000000000000..58c19f12f3d7
-> --- /dev/null
-> +++ b/drivers/hwtracing/qcom/tgu.c
-> @@ -0,0 +1,183 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <linux/amba/bus.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
+On 3/26/2026 9:04 AM, Bryan O'Donoghue wrote:
+> +#include <linux/delay.h>
+> +#include <linux/interrupt.h>
 > +#include <linux/io.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/pm_runtime.h>
+> +#include <linux/time64.h>
 > +
-> +#include "tgu.h"
+> +#include "phy-qcom-mipi-csi2.h"
 > +
-> +static void tgu_write_all_hw_regs(struct tgu_drvdata *drvdata)
-> +{
-> +	TGU_UNLOCK(drvdata->base);
-> +	/* Enable TGU to program the triggers */
-> +	writel(1, drvdata->base + TGU_CONTROL);
-> +	TGU_LOCK(drvdata->base);
-> +}
-> +
-> +static int tgu_enable(struct device *dev)
-> +{
-> +	struct tgu_drvdata *drvdata = dev_get_drvdata(dev);
-> +
-> +	guard(spinlock)(&drvdata->lock);
-> +	if (drvdata->enabled)
-> +		return -EBUSY;
-> +
-> +	tgu_write_all_hw_regs(drvdata);
-> +	drvdata->enabled = true;
-> +
-> +	return 0;
-> +}
-> +
-> +static void tgu_do_disable(struct tgu_drvdata *drvdata)
-> +{
-> +	TGU_UNLOCK(drvdata->base);
-> +	writel(0, drvdata->base + TGU_CONTROL);
-> +	TGU_LOCK(drvdata->base);
-> +
-> +	drvdata->enabled = false;
-> +}
-> +
-> +static void tgu_disable(struct device *dev)
-> +{
-> +	struct tgu_drvdata *drvdata = dev_get_drvdata(dev);
-> +
-> +	guard(spinlock)(&drvdata->lock);
-> +	if (!drvdata->enabled)
-> +		return;
-> +
-> +	tgu_do_disable(drvdata);
-> +}
-> +
-> +static ssize_t enable_tgu_show(struct device *dev,
-> +			       struct device_attribute *attr, char *buf)
-> +{
-> +	struct tgu_drvdata *drvdata = dev_get_drvdata(dev);
-> +	bool enabled;
-> +
-> +	guard(spinlock)(&drvdata->lock);
-> +	enabled = drvdata->enabled;
-> +
-> +	return sysfs_emit(buf, "%d\n", !!enabled);
-> +}
-> +
-> +/* enable_tgu_store - Configure Trace and Gating Unit (TGU) triggers. */
-> +static ssize_t enable_tgu_store(struct device *dev,
-> +				struct device_attribute *attr,
-> +				const char *buf,
-> +				size_t size)
-> +{
-> +	unsigned long val;
-> +	int ret;
-> +
-> +	ret = kstrtoul(buf, 0, &val);
-> +	if (ret || val > 1)
-> +		return -EINVAL;
-> +
-> +	if (val) {
-> +		ret = pm_runtime_resume_and_get(dev);
-> +		if (ret)
-> +			return ret;
-> +		ret = tgu_enable(dev);
-> +		if (ret) {
-> +			pm_runtime_put(dev);
-> +			return ret;
-> +		}
-> +	} else {
-> +		tgu_disable(dev);
-> +		pm_runtime_put(dev);
+> +#define CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(offset, n)	((offset) + 0x4 * (n))
+> +#define CSIPHY_3PH_CMN_CSI_COMMON_CTRL0_PHY_SW_RESET	BIT(0)
+> +#define CSIPHY_3PH_CMN_CSI_COMMON_CTRL5_CLK_ENABLE	BIT(7)
+> +#define CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_COMMON_PWRDN_B	BIT(0)
+> +#define CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_SHOW_REV_ID	BIT(1)
+> +#define CSIPHY_3PH_CMN_CSI_COMMON_CTRL10_IRQ_CLEAR_CMD	BIT(0)
+> +#define CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(offset, n)	((offset) + 0xb0 + 0x4 * (n))
+>
+Hi Bryan, one minor observation on the following macro:
 
-Sorry I didnt observe this issue with my previous check.
+	CSIPHY_3PH_CMN_CSI_COMMON_STATUSn
 
-echo 0 to the disabled device will result in the pm_runtime reference 
-number goes to negative. We dont need pm_runtime_put(dev) when we try to 
-disable a diabled device.
+The 0xb0 offset implicitly assumes a fixed distance between the
+common_ctrl and common_status register blocks. This holds for the PHYs
+covered by this series, but on some other platforms (e.g. Kaanapali,
+Pakala) the offset differs.
 
-Thanks,
-Jie
+That said, I think keeping this fixed value is reasonable for the scope
+of the current PHY series, and it does help keep the macro set simple.
+It might just be worth documenting this assumption (e.g. via a comment
+or in the commit message).
 
-> +	}
-> +
-> +	return size;
-> +}
-> +static DEVICE_ATTR_RW(enable_tgu);
-> +
-> +static struct attribute *tgu_common_attrs[] = {
-> +	&dev_attr_enable_tgu.attr,
-> +	NULL,
-> +};
-> +
-> +static const struct attribute_group tgu_common_grp = {
-> +	.attrs = tgu_common_attrs,
-> +	NULL,
-> +};
-> +
-> +static const struct attribute_group *tgu_attr_groups[] = {
-> +	&tgu_common_grp,
-> +	NULL,
-> +};
-> +
-> +static int tgu_probe(struct amba_device *adev, const struct amba_id *id)
-> +{
-> +	struct device *dev = &adev->dev;
-> +	struct tgu_drvdata *drvdata;
-> +	int ret;
-> +
-> +	drvdata = devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
-> +	if (!drvdata)
-> +		return -ENOMEM;
-> +
-> +	drvdata->dev = &adev->dev;
-> +	dev_set_drvdata(dev, drvdata);
-> +
-> +	drvdata->base = devm_ioremap_resource(dev, &adev->res);
-> +	if (IS_ERR(drvdata->base))
-> +		return PTR_ERR(drvdata->base);
-> +
-> +	spin_lock_init(&drvdata->lock);
-> +
-> +	ret = sysfs_create_groups(&dev->kobj, tgu_attr_groups);
-> +	if (ret) {
-> +		dev_err(dev, "failed to create sysfs groups: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	drvdata->enabled = false;
-> +
-> +	pm_runtime_put(&adev->dev);
-> +
-> +	return 0;
-> +}
-> +
-> +static void tgu_remove(struct amba_device *adev)
-> +{
-> +	struct device *dev = &adev->dev;
-> +
-> +	sysfs_remove_groups(&dev->kobj, tgu_attr_groups);
-> +
-> +	tgu_disable(dev);
-> +}
-> +
-> +static const struct amba_id tgu_ids[] = {
-> +	{
-> +		.id = 0x000f0e00,
-> +		.mask = 0x000fffff,
-> +	},
-> +	{ 0, 0, NULL },
-> +};
-> +
-> +MODULE_DEVICE_TABLE(amba, tgu_ids);
-> +
-> +static struct amba_driver tgu_driver = {
-> +	.drv = {
-> +		.name = "qcom-tgu",
-> +		.suppress_bind_attrs = true,
-> +	},
-> +	.probe = tgu_probe,
-> +	.remove = tgu_remove,
-> +	.id_table = tgu_ids,
-> +};
-> +
-> +module_amba_driver(tgu_driver);
-> +
-> +MODULE_AUTHOR("Songwei Chai <songwei.chai@oss.qualcomm.com>");
-> +MODULE_AUTHOR("Jinlong Mao <jinlong.mao@oss.qualcomm.com>");
-> +MODULE_DESCRIPTION("Qualcomm Trigger Generation Unit driver");
-> +MODULE_LICENSE("GPL");
-> diff --git a/drivers/hwtracing/qcom/tgu.h b/drivers/hwtracing/qcom/tgu.h
-> new file mode 100644
-> index 000000000000..dd7533b9d735
-> --- /dev/null
-> +++ b/drivers/hwtracing/qcom/tgu.h
-> @@ -0,0 +1,51 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#ifndef _QCOM_TGU_H
-> +#define _QCOM_TGU_H
-> +
-> +/* Register addresses */
-> +#define TGU_CONTROL		0x0000
-> +#define TGU_LAR		0xfb0
-> +#define TGU_UNLOCK_OFFSET	0xc5acce55
-> +
-> +static inline void TGU_LOCK(void __iomem *addr)
-> +{
-> +	do {
-> +		/* Wait for things to settle */
-> +		mb();
-> +		writel_relaxed(0x0, addr + TGU_LAR);
-> +	} while (0);
-> +}
-> +
-> +static inline void TGU_UNLOCK(void __iomem *addr)
-> +{
-> +	do {
-> +		writel_relaxed(TGU_UNLOCK_OFFSET, addr + TGU_LAR);
-> +		/* Make sure everyone has seen this */
-> +		mb();
-> +	} while (0);
-> +}
-> +
-> +/**
-> + * struct tgu_drvdata - Data structure for a TGU (Trigger Generator Unit)
-> + * @base: Memory-mapped base address of the TGU device
-> + * @dev: Pointer to the associated device structure
-> + * @lock: Spinlock for handling concurrent access to private data
-> + * @enabled: Flag indicating whether the TGU device is enabled
-> + *
-> + * This structure defines the data associated with a TGU device,
-> + * including its base address, device pointers, clock, spinlock for
-> + * synchronization, trigger data pointers, maximum limits for various
-> + * trigger-related parameters, and enable status.
-> + */
-> +struct tgu_drvdata {
-> +	void __iomem *base;
-> +	struct device *dev;
-> +	spinlock_t lock;
-> +	bool enabled;
-> +};
-> +
-> +#endif
+Alternatively, if future PHY variants need to support different layouts,
+this could be made more extensible by moving the status base offset into
+the per-PHY data (similar to other register layout parameters). But I
+don’t think that needs to block the current series.
 
+Related patch before:
+<https://lore.kernel.org/all/20260112-camss-extended-csiphy-macro-v2-1-ee7342f2aaf5@oss.qualcomm.com/>
+
+Best Regards,
+Hangxiang
