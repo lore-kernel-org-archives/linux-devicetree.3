@@ -1,215 +1,257 @@
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ironport.ite.com.tw (219-87-157-213.static.tfn.net.tw [219.87.157.213])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3513A6B8F
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 08:00:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8B528D8D1;
+	Fri, 27 Mar 2026 08:01:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=219.87.157.213
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774598423; cv=none; b=uZBDTSKrsPF2/HyOACZLlsqVpY7EaFpk/RczftdwULzHdq0VGaRPFu/7P8HbqNwRmNZeNpFwsK3E3SeFUsyoIUg41UoGRRYGbvpIauFIs9WSF97tJMLDWueO7Y4K/Tj9MHSMFNpkCxs22yCMd8+DNFAdpVWeZhp7wcxcxq8GHfU=
+	t=1774598508; cv=none; b=o/rvqqHVAaCFgccXE82DKmztO4Z88K7eUhndf4eeoTCqKA/zHTedzkdZTqC9AWVbHJozOTRWz2tqZW83ohVEb6rux51JXATVnUinU33Qi6+pA0LkEpHjeIJxpPYj3CXQ9uo0zuAf7gmL6+CEzpJGnfER5ZOKvgi8Ciwz8HR56jE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774598423; c=relaxed/simple;
-	bh=LsuoM6vSS2icn4IcCYbHnTFkI9szULOyzJ6/FpfPSuI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=C++c2LN7hISmH910Yy+XH6AGC3wVX/a1mp3soljqj6iLt7r6bQGwSI+F1h+Gh2dIUK1iasgJVzuyFCsv3mUTNwuyVHKQlgqs9HUz8VrwyLiteaB9l4EeCNb7iulgxKUY4eX8WTAj20tts5cG7qmoE9/Dopf9S9SDTxxqzH1ikvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-56cd71a7630so703883e0c.2
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 01:00:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774598418; x=1775203218;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qHzybmIOhEZ6f1NrVP3jgghQyfbqKSz0qw+kQmDQIR0=;
-        b=b7r4mwc6D/9qYWZ072PkMeAOKCpV2ybrIW8qOns+C5gfK4bXV1Fdzdk0PYAPsBTOnL
-         NgwHwD//JregP7VsbYm2HW50fmW+3NKvlqGtBtGG5r4rSqtplGBue3CZkcJxY0kT3Fub
-         8yifYVC8AxxRxffnJL/flfcu+zbm+TyaRbOVKt6Ds0HU804dfXqMuntNkgX3Ax+pEeqP
-         a7etv/GAMe1RKDbL2L0Ofkk3m/Vlq9ZSuQ7K6ytOpFJDb6PnzIcj9UhkJUgFGL4BKKWp
-         I0eaMaQdO9hR/6zrWnxPWz8Vw9EHu68LwTYUGwvTrQkAQYXIXJSOnGDI5+zUiFgprBgA
-         rNJA==
-X-Forwarded-Encrypted: i=1; AJvYcCUC20Lm0vjRemR+I6BjS1JDvgMr602hXlewNghwvBnY3lPLF3pXF3AxAGZCjQIvX418hiLA0zk3zHov@vger.kernel.org
-X-Gm-Message-State: AOJu0YwdrNt0zF6EJxRpCMXiGgR9J8kAGoYK+K0PnShiZgmFJ+X8YlTZ
-	nxOEkqnf7WBxDIFU9LdOL3zeFvjhJICtQImwiYONnydizUMrtM8JUDxOOsyl8tcazeY=
-X-Gm-Gg: ATEYQzyYQjpvzVFzR/qyM1QLvkmQEE1aQ/hOJzPvZKQSFPyMvmuZPNEbaNhSadyjlkM
-	MIlirh5Rz3eesnDFCEXUn78JRenS9VmzUzB5j8LH9sXkigFBbS9XUpu3PSNaREPVty4GGXQ9T+w
-	bxCSQwTNIkC1WUvuY397lqLFYjd2l8C2aiOiNoICaAODsX66Ih2nUDvMNU4vRIv0wARPTLIrUNl
-	FA4aMHDoU5ULWGDZN46TUi7/PNE6zy0AF0+9tGjxMeTuhAAFc3Xu7pKoryp/wMJqoMd42wFhLTL
-	1FBhctdDsav6j3VOFmblCD+VSH2lPtlJVXZrb5mLHuQ4FqPworpRgkc8Rks7GiD8teR2kndfQ5r
-	kQb+K4pw/75TZKEKxBwqd6Q76swiTVwo43P8dz27Cq0f5N/D/UPCPmdbG4aDMDyRAGzdDnRkMAx
-	PGaew5V2r/fQLYQcPVCvesqy+KTs7NZW+C4uexlfrjQ5bXfHytct7ImQxIjQnhNqqFkBQ5Gf/28
-	Ec=
-X-Received: by 2002:a05:6122:2986:b0:56a:7f37:d18f with SMTP id 71dfb90a1353d-56d4a4cb964mr507805e0c.3.1774598418229;
-        Fri, 27 Mar 2026 01:00:18 -0700 (PDT)
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com. [209.85.221.175])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56d31c3097fsm7852468e0c.7.2026.03.27.01.00.16
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Mar 2026 01:00:17 -0700 (PDT)
-Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-56ce15c6898so681072e0c.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 01:00:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCUeZQEWjh3ArVJszUkmgO5jLMaD4+fqSEvapMhTASXKg3by5Y1oaJMo6YAtfrk6+P+4Xm4DNG77u+Gw@vger.kernel.org
-X-Received: by 2002:a05:6102:560b:b0:5ff:d1c8:a85e with SMTP id
- ada2fe7eead31-604f930a02dmr530378137.32.1774598416378; Fri, 27 Mar 2026
- 01:00:16 -0700 (PDT)
+	s=arc-20240116; t=1774598508; c=relaxed/simple;
+	bh=zG68uUA4koKHgrul6EbZod76re4ddBftj58JyadzkT4=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=guxsMdr0ImpYxp0UmObEJ5yfwApzq2v7OR4EDXEctKa4jH+bT0rwy2+V1bJ1ALgqBkvvYSX99TuE1JjH4pwgE6EbzCie8QCUz/TdvuuAFCM05aP8RMEauKEuQJiBJ45ssODpDkmcQ0me1NVs62wZ123yWNBo/RR+Obe/mQBGmNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=cP20A1Lu; arc=none smtp.client-ip=219.87.157.213
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="cP20A1Lu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=ite.com.tw; s=dkim;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=J/6jSXJFKjZg6gI1bN4x+Wi/J2J4hL6BRqJ9VRuuXUc=;
+  b=cP20A1Luap44VcNbJnRQFpabsPbzf5H5Sfk7U9Azzh9dwYhnIV8S7Nx3
+   00yRBCISUoqAqKGvq9IYkwsu2/uTo4KGlc4uv4po2R6E+GhVsEitthe3a
+   g0UqNy59CgRORp3OeWFx8uVNu6o74bTIc046nerdiylsfB8sc8RcgnN+y
+   ELhI2QnS2oPK45XcYhrxqEAghhM6wwdLSBnmiiOC/3pjfCxHg4wBVS7v2
+   71/PfQRSMNuOlBTUFl9GADRQk9rcVaIDefpjEyj7DbF1MxMd95nv0e/qT
+   F7B3y1bkHIZHH2Ix7qoqvhzgltg6tgt5badd5FXhCbQ2Om6+F99iw01qO
+   Q==;
+X-CSE-ConnectionGUID: s15ahRV3TIiqxjBXlqKxpQ==
+X-CSE-MsgGUID: WEJ1k5v9RTKcryjjmhublw==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 27 Mar 2026 15:55:22 +0800
+Received: from CSBMAIL1.internal.ite.com.tw (CSBMAIL2.internal.ite.com.tw [192.168.65.41])
+	by mse.ite.com.tw with ESMTP id 62R81PAO009254;
+	Fri, 27 Mar 2026 16:01:25 +0800 (+08)
+	(envelope-from Pet.Weng@ite.com.tw)
+Received: from [127.0.1.1] (192.168.72.40) by CSBMAIL2.internal.ite.com.tw
+ (192.168.65.41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 27 Mar
+ 2026 16:01:25 +0800
+From: Pet Weng <pet.weng@ite.com.tw>
+Subject: [PATCH v9 0/2] Add ITE IT61620 MIPI DSI to HDMI bridge driver
+Date: Fri, 27 Mar 2026 16:02:51 +0800
+Message-ID: <20260327-it61620-0714-v9-0-032938cb9d85@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260319155334.51278-1-john.madieu.xa@bp.renesas.com>
- <20260319155334.51278-5-john.madieu.xa@bp.renesas.com> <CAMuHMdVbP5Bbr9KuxoEb48zUvubT3CN7sC9oVat2NcNWaBwOtQ@mail.gmail.com>
- <TY6PR01MB1737720136E84FAF590F637C4FF56A@TY6PR01MB17377.jpnprd01.prod.outlook.com>
-In-Reply-To: <TY6PR01MB1737720136E84FAF590F637C4FF56A@TY6PR01MB17377.jpnprd01.prod.outlook.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 27 Mar 2026 09:00:03 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdW5W7bWa7CBYNoQqOKQVogmmnCbt1u8RREc_7p+0fNGmg@mail.gmail.com>
-X-Gm-Features: AQROBzBkJOmSHv5z_VHomTtftX1LPSPJAufke2TB95A8lqe7V-8DI3QQuxsJ7o4
-Message-ID: <CAMuHMdW5W7bWa7CBYNoQqOKQVogmmnCbt1u8RREc_7p+0fNGmg@mail.gmail.com>
-Subject: Re: [PATCH 04/22] dt-bindings: dma: renesas,rz-dmac: Document
- optional DMA ACK cell
-To: John Madieu <john.madieu.xa@bp.renesas.com>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Vinod Koul <vkoul@kernel.org>, 
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, "magnus.damm" <magnus.damm@gmail.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, "Claudiu.Beznea" <claudiu.beznea@tuxon.dev>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	John Madieu <john.madieu@gmail.com>, 
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
-	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>, 
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKs5xmkC/3XQwUrEMBAG4FdZcrbLzCSZJJ58D/GQNombg1tpS
+ 1WWvrtpQbumCHP5B75/YG5ijEOOo3g83cQQ5zzm/lqCeziJ7uKvr7HJoWRBQBoMqiZPjEzQbMG
+ 3qkwXUyInCnkfYsqfW93zS8mXPE798LW1z7hu/ymasYFGGkZkFaB19ilP8dz1b+fpQ6xNM+3ak
+ q00Fa0tJ+2kCjodtfzVCOAqLVcd2FIAskrhQatdE3KlVdEuUIreWGV8PGh9p4kqrYv2qWVlnA+
+ y8wfNP5oBJVSaizbgk2ftSLb6oM2uJcpKm/Xn7JFDB5IDH7S901TftkVDNEAGu6S9+6OXZfkGL
+ Uhf6lsCAAA=
+X-Change-ID: 20250714-it61620-0714-ab4ab4ceff29
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+        Neil Armstrong
+	<neil.armstrong@linaro.org>,
+        Robert Foss <rfoss@kernel.org>,
+        Laurent Pinchart
+	<Laurent.pinchart@ideasonboard.com>,
+        Jonas Karlman <jonas@kwiboo.se>,
+        Jernej
+ Skrabec <jernej.skrabec@gmail.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, Hermes Wu <hermes.Wu@ite.com.tw>,
+        Kenneth
+ Hung <kenneth.Hung@ite.com.tw>,
+        Pet Weng <pet.weng@ite.com.tw>,
+        Jau-chih
+ Tseng <jau-chih.tseng@ite.com.tw>,
+        Pin-yen Lin <treapking@google.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Dmitry Baryshkov
+	<dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774598579; l=7183;
+ i=pet.weng@ite.com.tw; s=20250702; h=from:subject:message-id;
+ bh=zG68uUA4koKHgrul6EbZod76re4ddBftj58JyadzkT4=;
+ b=pzIQ356oELSZptuuhQmo8K3CVY2uxR6OZGMAOg5UzaFThGbxp1UCPWyg7f5Eqsb6snb+zt/oC
+ p0SgjVI/SnBDS2CihcVcZllhMsMLo5qiwes2IQogUEd97dmciNVM9mo
+X-Developer-Key: i=pet.weng@ite.com.tw; a=ed25519;
+ pk=wd08uBtTLb93x2ixbKVNsxiZPdMh1Ov4z5klodh2bqo=
+X-ClientProxiedBy: CSBMAIL1.internal.ite.com.tw (192.168.65.58) To
+ CSBMAIL2.internal.ite.com.tw (192.168.65.41)
+X-TM-SNTS-SMTP:
+	31B1BAA8014DF8715D1DD96C52D3BD9F8BC5F8F20CCEF521AAFE74AD6C7D951C2002:8
+X-MAIL:mse.ite.com.tw 62R81PAO009254
 
-Hi John,
+This patch series adds support for the ITE IT61620 MIPI DSI to HDMI 
+bridge chip.
 
-On Thu, 26 Mar 2026 at 23:42, John Madieu <john.madieu.xa@bp.renesas.com> wrote:
-> > From: Geert Uytterhoeven <geert@linux-m68k.org>
-> > On Thu, 19 Mar 2026 at 16:55, John Madieu <john.madieu.xa@bp.renesas.com>
-> > wrote:
-> > > Some peripherals on RZ/V2H, RZ/V2N, and RZ/G3E SoCs require explicit
-> > > ACK signal routing through the ICU. Document the optional second cell
-> > > in the DMA specifier for specifying the ACK signal number.
-> > >
-> > > The first cell remains unchanged and specifies the encoded MID/RID and
-> > > channel configuration. The optional second cell specifies the DMA ACK
-> > > signal number for peripherals requiring level-based handshaking.
-> > >
-> > > Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
-> >
-> > Thanks for your patch!
-> >
-> > Just a quick head-up, as I haven't read the actual secion in the
-> > documentation yet.
-> >
-> > > --- a/Documentation/devicetree/bindings/dma/renesas,rz-dmac.yaml
-> > > +++ b/Documentation/devicetree/bindings/dma/renesas,rz-dmac.yaml
-> > > @@ -63,17 +63,27 @@ properties:
-> > >        - const: register
-> > >
-> > >    '#dma-cells':
-> > > -    const: 1
-> > > -    description:
-> > > +    description: |
-> > >        The cell specifies the encoded MID/RID or the REQ No values of
-> > >        the DMAC port connected to the DMA client and the slave channel
-> > >        configuration parameters.
-> > > +      Use 1 cell for basic DMA configuration.
-> > > +      Use 2 cells when DMA ACK signal routing through ICU is required
-> > > +      (RZ/V2H, RZ/V2N, RZ/G3E audio peripherals such as SSIU, SPDIF,
-> > SRC, DVC).
-> > > +
-> > > +      First cell:
-> > >        bits[0:9] - Specifies the MID/RID or the REQ No value
-> > >        bit[10] - Specifies DMA request high enable (HIEN)
-> > >        bit[11] - Specifies DMA request detection type (LVL)
-> > >        bits[12:14] - Specifies DMAACK output mode (AM)
-> > >        bit[15] - Specifies Transfer Mode (TM)
-> > >
-> > > +      Second cell (optional, when #dma-cells = <2>):
-> > > +      bits[6:0] - DMA acknowledge signal number (from ICU ACK table),
-> > > +                  where 0 is a valid signal number.
-> > > +                  Required for peripherals using level-based DMA
-> > > +                  handshaking (SSIU, SPDIF, RSPI, SCU, ADC, PDM).
-> >
-> > How do you expect this to work? #dma-cells applies to all DMA consumers of
-> > this provider, and these SoCs already have DMA users relying on #dma-cells
-> > being one.
->
-> Indeed.
->
-> > In addition, you cannot have optional cells: if #dma-cells is two, then
-> > all consumers must supply two cells (of course we could switch all of them
-> > to two cells at once).  However, as zero is a valid signal number, we
-> > cannot use that as a dummy when no DMA acknowledge signal number is needed
-> > (we could use e.g. 0xffffffff instead).
-> >
-> > Is there any other way to provide this information?
-> > E.g. could we have a table in the driver that contains this info for the
-> > (presumably few) MID/RID values that need it?
->
-> There are actually 89 entries, and I could identify 3 peripheral
-> group with linear ACK assignments. Thus instead of static array
-> we would get a simple function handling 3 req_no ranges.
->
-> Something like:
->
-> /*
->  * Map MID/RID request number (bits[0:9] of DMA specifier) to the ICU
->  * DMA ACK signal number, per RZ/G3E hardware manual Table 4.6-28.
->  *
->  * Three peripheral groups with linear ACK assignment:
->  *
->  *   PFC external DMA pins (DREQ0..DREQ4):
->  *     req_no 0x000-0x004 -> ACK No. 84-88  (ack = req_no + 84)
->  *
->  *   SSIU BUSIFs (ssip00..ssip93):
->  *     req_no 0x161-0x198 -> ACK No. 28-83  (ack = req_no - 0x145)
->  *
->  *   SPDIF (CH0..CH2) + SCU SRC (sr0..sr9) + DVC (cmd0..cmd1):
->  *     req_no 0x199-0x1b4 -> ACK No. 0-27   (ack = req_no - 0x199)
->  */
-> static int rz_dmac_get_ack_no(const struct rz_dmac_info *info, u16 req_no)
-> {
->         if (!info->icu_register_dma_ack)
->                 return -EINVAL;
->
->         /* PFC external DMA pins: ACK No. 84-88 */
->         if (req_no <= 0x004)
->                 return req_no + 84;
->
->         /* SSIU BUSIFs: ACK No. 28-83 */
->         if (req_no >= 0x161 && req_no <= 0x198)
->                 return req_no - 0x145;
->
->         /* SPDIF + SCU SRC + DVC: ACK No. 0-27 */
->         if (req_no >= 0x199 && req_no <= 0x1b4)
->                 return req_no - 0x199;
->
->         return -EINVAL;
-> }
+The IT61620 is an I2C-controlled bridge that receives MIPI DSI input 
+and outputs HDMI signals. A single-port MIPI DSI input is converted to 
+an HDMI 1.4 output. This series introduces:
+- A device tree binding YAML file describing the hardware
+- A new DRM bridge driver implementing the basic functionality
 
-Nice!
+Signed-off-by: Pet Weng <pet.weng@ite.com.tw>
+---
+Changes in v9:
+- Fix commit message wrapping to follow kernel style
+- Run checkpatch.pl and address reported issues
+- Restore Reviewed-by from Krzysztof as the change is non-functional
+- Link to v8: https://lore.kernel.org/r/20260320-it61620-0714-v8-0-0e70271cf5a9@ite.com.tw
 
-Note that you can use ranges in case statements:
+Changes in v8:
+- dt-binding:
+ 1. Clarify the hardware differences between IT6162 and IT61620 in the
+    description (IT61620 is single-port and lacks an internal MCU). 	[Krzysztof]
+ 2. Dropped Reviewed-by from Krzysztof due to description changes.
+- Call drm_atomic_helper_connector_hdmi_clear_audio_infoframe() in audio
+  shutdown path								[Dmitry]
+- Link to v7: https://lore.kernel.org/r/20260313-it61620-0714-v7-0-36a16dc036d6@ite.com.tw
 
-    git grep "case.*\.\.\."
+Changes in v7:
+- The dt-bindings were previously reviewed by Krzysztof Kozlowski.
+- drm/bridge:								[Dmitry]
+ 1. drop redundant register access wrappers and use regmap APIs directly
+ 2. use drm_dbg_kms() instead of drm_dbg() when printing display timing information
+ 3. use drm_display_mode directly for video timing
+ 4. add helper for writing 16-bit timing registers
+ 5. simplify HDMI interrupt handling
+ 6. add mono audio support
+ 7. program audio parameters directly
+ 8. inline audio infoframe disable logic
+- MAINTAINERS: squash to driver patch					[Dmitry]
+- Link to v6: https://lore.kernel.org/r/20260130-it61620-0714-v6-0-70afa65923b5@ite.com.tw
 
-Gr{oetje,eeting}s,
+Changes in v6:
+- In patch 1								[Luca] 
+ 1. Fix a typo in the commit message.
+ 2. Remove redundant assignment of bridge.funcs, which is already set by 
+    devm_drm_bridge_alloc().
+- Link to v5: https://lore.kernel.org/r/20251222-it61620-0714-v5-0-afb6479ad3ca@ite.com.tw
 
-                        Geert
+Changes in v5:
+- Fix dt_binding_check errors by adding missing unevaluatedProperties constraints
+  for port and endpoint nodes in the device tree binding.		[Rob]
+- Link to v4: https://lore.kernel.org/r/20251216-it61620-0714-v4-0-9d2fea7847ae@ite.com.tw
 
+Changes in v4:
+- In patch 1								[Krzysztof]
+ 1. Remove redundant "description" fields from interrupts and regulators
+ 2. Drop pinctrl-names and pinctrl-0; driver does not require them
+ 3. Remove port/endpoint properties already covered by video interfaces schema
+ 4. Fix example indentation to 4 spaces for readability
+- In patch 2								[Jani]
+ 1. Use connector->display_info from DRM helper instead of parsing EDID manually
+- In patch 2								[Dmitry]
+ 1. Remove redundant powered check in reg access
+ 2. Use TMDS character rate instead of pixel clock for N/CTS
+ 3. Use consistent lowercase naming for tmds.
+ 4. Use test_bit() instead of custom bit-test helper
+ 5. Use tmds_char_rate_valid instead of custom mode_valid
+ 6. Use custom EDID read instead of DDC bus for segment handling
+ 7. Drop redundant atomic feature check
+ 8. Pass flags directly to drm_bridge_attach()
+ 9. Check DRM_BRIDGE_ATTACH_NO_CONNECTOR flag before drm_bridge_attach()
+ 10. Short-circuit HPD update if connector status unchanged
+ 11. Remove unnecessary NULL check for connector state
+ 12. Rename cached_edid to edid since it's no longer cached
+ 13. Remove redundant sample rate checks; rely on hdmi-codec validation
+ 14. Remove unsupported 18-bit audio sample size; rely on hdmi-codec
+ 15. Remove unnecessary fmt switch; rely on hdmi-codec defaults
+ 16. Check and propagate errors from it61620_audio_update_hw_params instead of
+     ignoring them
+- In patch 3								[Krzysztof]
+ 1. Remove unnecessary T: field pointing to git; subsystem already defines it
+- Link to v3: https://lore.kernel.org/r/20251009-it61620-0714-v3-0-5d682d028441@ite.com.tw
+
+Changes in v3:
+- Wrapped description lines to comply with 80-character line length limit
+  in patch 1.								[Rob]
+- Renamed node from "it61620@58" to "bridge@58" in patch 1.		[Rob]
+- Add port@2 for I2S audio input in patch 1.				[Dmitry]
+- Updated the Kconfig dependency from CRYPTO and CRYPTO_HASH to 
+  CRYPTO_LIB_SHA1 in patch 2.						[Eric]
+- In patch 2								[Dmitry]
+ 1. Audio and InfoFrame
+   - Rename audfmt to i2s_input_format for clarity.
+   - Remove unused infoframe[HDMI_INFOFRAME_SIZE(AUDIO)].
+ 2. Platform data and structure
+   - Drop platform data usage; migrate members into struct it61620
+ 3. Code organization
+   - Reorder functions to avoid the need for forward declarations.
+   - Add static inline to small helper functions
+     (e.g. bridge_to_it61620()).
+ 4. HDCP handling
+   - Make HDCP enable/disable conditional on conn_state->content_protection.
+   - Report authentication result using drm_hdcp_update_content_protection().
+ 5. Error handling
+   - Replace manual error path with dev_err_probe().
+ 6. Power management
+   - Inline suspend/resume callbacks.
+   - Use DEFINE_RUNTIME_DEV_PM_OPS() instead of explicit struct definition.
+ 7. Bridge callbacks
+   - Drop empty bridge_detach().
+   - Inline it61620_bridge_mode_valid().
+ 8. EDID handling
+   - Remove unnecessary cached EDID duplication.
+ 9. Mode set and pixel clock
+   - Move mode handling to atomic_enable().
+   - Keep only pixelclock for future N/CTS audio calculations.
+ 10. Logging
+    - Replace noisy drm_err() calls with drm_dbg().
+ 11. InfoFrame support
+    - Add support for SPD and Vendor InfoFrames.
+- Link to v2: https://lore.kernel.org/r/20250828-it61620-0714-v2-0-586f5934d5f8@ite.com.tw
+
+Changes in v2:
+- Call the sha1() library function instead of using the crypto_shash
+  "sha1" in patch 2.
+- Rewrite it61620_hdmi_ddc_wait() with readx_poll_timeout() in patch 2.	[Pin-yen]
+- Rewrite it61620_hdmi_hdcp_wait_ksv_list() with readx_poll_timeout() in
+  patch 2.
+- Replace interrupts-extended with interrupts in patch 1.		[Rob]
+- Replace dsi-lanes with the standard property data-lanes from the graph
+  binding.								[Rob]
+- Replace "#/$defs/port-base" with "#/properties/port" in patch 1.	[Rob]
+- Drop unused labels and "hdmi" for the node name.			[Rob]
+- Drop status in patch 1.						[Rob]
+- Link to v1: https://lore.kernel.org/r/20250714-it61620-0714-v1-0-3761164d0b98@ite.com.tw
+
+---
+Pet Weng (2):
+      dt-bindings: display: Add ITE IT61620 MIPI DSI to HDMI bridge
+      drm/bridge: Add ITE IT61620 MIPI DSI to HDMI bridge driver
+
+ .../bindings/display/bridge/ite,it61620.yaml       |  152 ++
+ MAINTAINERS                                        |    7 +
+ drivers/gpu/drm/bridge/Kconfig                     |   18 +
+ drivers/gpu/drm/bridge/Makefile                    |    1 +
+ drivers/gpu/drm/bridge/ite-it61620.c               | 2592 ++++++++++++++++++++
+ 5 files changed, 2770 insertions(+)
+---
+base-commit: a42c0d615ad29e3e11b1c91f677bcabcb5dc8e13
+change-id: 20250714-it61620-0714-ab4ab4ceff29
+
+Best regards,
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Pet Weng <pet.weng@ite.com.tw>
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
