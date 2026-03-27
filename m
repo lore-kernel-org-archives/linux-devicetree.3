@@ -1,150 +1,121 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC8D3CB2EE;
-	Fri, 27 Mar 2026 08:27:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543AA3C061A;
+	Fri, 27 Mar 2026 08:28:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774600060; cv=none; b=d5XVS9Ku7INiEoXL4GfbHmZvfsvXvd4o/b3n5VIjamUrND/zdGvvGSxbGFrnAj3xio8jDW/ZO3y2y6JfKjcNWHW0wmX1GTs/jOLCFWljkoXQtkKh/lxTkr4IPilMl7O9sBMSmAotNv8iL0JS4ADfsDJtsZJM4KkulDFmm8wcUnM=
+	t=1774600137; cv=none; b=juMugeVmwgMjVlevNJzwvFzOzsichoOElWZuce9RBnd4h0U7/62KDOrQ6cbPnYSH6mF03KdcquQ49t+FqlywC/AOh/FJaULQuSQJoKRhxwHk/6iXvIIvlkeLQMVJIzQ1d3m6pBbBie3gclh9JeQ34qzYbQcsegGqdHMK890VAB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774600060; c=relaxed/simple;
-	bh=pnd5rHaXCCt+M4SrM7wM83jo3Va9J11tuQmok8a4dRE=;
+	s=arc-20240116; t=1774600137; c=relaxed/simple;
+	bh=aX3T5HqlHVFDXpCojT5Kga3nSDgSpxMzAsP25toZvf4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SqoFgOd6bW0pdwLEiF153w40l5rOag42tsQns1MQNJh2y7WZLyZEB5G2mH+RF+7Y3zC7ZG6cNZX5s+590zbi9TtTRF5Kkg12okXjXkel+XG/50ewd5S042cqoMZea9Hh8jUiY+5TUJdyUQ+m+VLjM1bX4U/6q2aKzyq2VUYq32Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xWsA0LTk; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=XdxYRuG/T4uWYji6I+IkRiSxSMSPvq60Vf6c0QfDjN+dsun9zL9n8qNlRP7FnDAxsPsKW4MgqvnPFmzJNubtdw71csdwBbZGaGAH9JAngvOgm9qipNxE1Fl6SMBRayaPzxuR5pWgW+5GveLX4bhHL593rCXI/D1rVdgFY34RaWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J9d/D/k9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xWsA0LTk"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 4C5424E42731;
-	Fri, 27 Mar 2026 08:27:36 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1E1E660230;
-	Fri, 27 Mar 2026 08:27:36 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5E16510450F0D;
-	Fri, 27 Mar 2026 09:27:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1774600054; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=txJM2GJWPPWLss62O+A2FkU4gpdBs6qgEn0gNwSfyQw=;
-	b=xWsA0LTkRU1SsJOMLr0Hc92VkQpX9sqGZGYnEk4gFZlSykvrEghAy12WspWUCTUnu9uuMl
-	OwRAudxKkfLzuBaYjgzFAjfi/EACbl/iqfBZ1I+FRctTDBpCA0dNx05COtH621c9aIz2EB
-	kViSgYBFQM/sOipM5ZjVrf/dlvS7AkSxZT8GqT2RpjVbvYcQRr8o0oD7GWtH988k3nk9Wz
-	gxVeLSDNBSdmkAPUCjcMYx7JdzbvNWE/GTHbuL8Haf82UV1rlJl1FjBoRCvTpDEenVzeTD
-	8sAzrPgD6o9J3k8hPOZGTaJFnGxwG8hQxEfGvEoR/J8FLQLwaiy29wdu0RIhhQ==
-Date: Fri, 27 Mar 2026 09:27:21 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Akhil R <akhilrajeev@nvidia.com>
-Cc: Frank.Li@nxp.com, acpica-devel@lists.linux.dev, conor+dt@kernel.org,
-	conor@kernel.org, devicetree@vger.kernel.org, ebiggers@kernel.org,
-	fredrik.markstrom@est.tech, jonathanh@nvidia.com,
-	krzk+dt@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, linux-i3c@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux@roeck-us.net, miquel.raynal@bootlin.com,
-	p.zabel@pengutronix.de, rafael@kernel.org, robert.moore@intel.com,
-	robh@kernel.org, smangipudi@nvidia.com, thierry.reding@kernel.org
-Subject: Re: [PATCH 01/12] dt-bindings: i3c: Add mipi-i3c-static-method to
- support SETAASA
-Message-ID: <20260327082721f7e69e6a@mail.local>
-References: <202603261544313f63018c@mail.local>
- <20260327081858.32354-1-akhilrajeev@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J9d/D/k9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2AD2C19423;
+	Fri, 27 Mar 2026 08:28:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774600137;
+	bh=aX3T5HqlHVFDXpCojT5Kga3nSDgSpxMzAsP25toZvf4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=J9d/D/k9DZCR2xoru2YNoVx5+cGNkmX4sBvk4N2LZONHULOBSMJNyBUBqmT8KkNXC
+	 DjUrkFHSHKzabNc8wrMhTpweCuWg0hVXGTUhkEYdsOgDgri3a5q97+CSnbLKxpcWfs
+	 h8LZnVx79QV6x7eTza+YZYjFBn8RKMiqL/YfW0TYy3Y8hPpCK97RlI9UBTZ7gvFZaE
+	 vL21DxlzLXfytELBLfoOVijLe8wDMENLgRjb3IWpCbvh7esATkW81D8Mn+9zxuewqT
+	 iVbXtYbNyYUh1jg3MF/6fRSYaw24Kb+O+eRR9ssOOhqeyXA9642+cqamCpfu3z0xXv
+	 jMBOnHsk6slSg==
+Date: Fri, 27 Mar 2026 09:28:54 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Rustam Adilov <adilov@disroot.org>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Stanley Chang <stanley_chang@realtek.com>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/6] dt-bindings: phy: realtek,usb2phy.yaml: extend for
+ resets and RTL9607C support
+Message-ID: <20260327-berserk-roaring-quetzal-24dd7e@quoll>
+References: <20260326193419.48419-1-adilov@disroot.org>
+ <20260326193419.48419-4-adilov@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260327081858.32354-1-akhilrajeev@nvidia.com>
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <20260326193419.48419-4-adilov@disroot.org>
 
-On 27/03/2026 13:48:58+0530, Akhil R wrote:
-> On Thu, 26 Mar 2026 16:44:31 +0100, Alexandre Belloni wrote:
-> > On 26/03/2026 10:05:03-0500, Rob Herring wrote:
-> >> On Wed, Mar 18, 2026 at 05:31:50PM +0000, Conor Dooley wrote:
-> >> > On Wed, Mar 18, 2026 at 10:57:14PM +0530, Akhil R wrote:
-> >> > > Add the 'mipi-i3c-static-method' property mentioned in the MIPI I3C
-> >> > > Discovery and Configuration Specification [1] to specify which discovery
-> >> > > method an I3C device supports during bus initialization. The property is
-> >> > > a bitmap, where a bit value of 1 indicates support for that method, and 0
-> >> > > indicates lack of support.
-> >> > > Bit 0: SETDASA CCC (Direct)
-> >> > > Bit 1: SETAASA CCC (Broadcast)
-> >> > > Bit 2: Other CCC (vendor / standards extension)
-> >> > > All other bits are reserved.
-> >> > > 
-> >> > > It is specifically needed when an I3C device requires SETAASA for the
-> >> > > address assignment. SETDASA will be supported by default if this property
-> >> > > is absent - which means for now the property just serves as a flag to
-> >> > > enable SETAASA, but keep the property as a bitmap to align with the
-> >> > > specifications.
-> >> > > 
-> >> > > [1] https://www.mipi.org/specifications/disco
-> >> > > 
-> >> > > Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
-> >> > > ---
-> >> > >  .../devicetree/bindings/i3c/i3c.yaml          | 30 ++++++++++++++++---
-> >> > >  1 file changed, 26 insertions(+), 4 deletions(-)
-> >> > > 
-> >> > > diff --git a/Documentation/devicetree/bindings/i3c/i3c.yaml b/Documentation/devicetree/bindings/i3c/i3c.yaml
-> >> > > index e25fa72fd785..1705d90d4d79 100644
-> >> > > --- a/Documentation/devicetree/bindings/i3c/i3c.yaml
-> >> > > +++ b/Documentation/devicetree/bindings/i3c/i3c.yaml
-> >> > > @@ -31,10 +31,12 @@ properties:
-> >> > >        described in the device tree, which in turn means we have to describe
-> >> > >        I3C devices.
-> >> > >  
-> >> > > -      Another use case for describing an I3C device in the device tree is when
-> >> > > -      this I3C device has a static I2C address and we want to assign it a
-> >> > > -      specific I3C dynamic address before the DAA takes place (so that other
-> >> > > -      devices on the bus can't take this dynamic address).
-> >> > > +      Other use-cases for describing an I3C device in the device tree are:
-> >> > > +      - When the I3C device has a static I2C address and we want to assign
-> >> > > +        it a specific I3C dynamic address before the DAA takes place (so
-> >> > > +        that other devices on the bus can't take this dynamic address).
-> >> > > +      - When the I3C device requires SETAASA for its discovery and uses a
-> >> > > +        pre-defined static address.
-> >> > >  
-> >> > >    "#size-cells":
-> >> > >      const: 0
-> >> > > @@ -147,6 +149,26 @@ patternProperties:
-> >> > >            through SETDASA. If static address is not present, this address is assigned
-> >> > >            through SETNEWDA after assigning a temporary address via ENTDAA.
-> >> > >  
-> >> > > +      mipi-i3c-static-method:
-> >> > > +        $ref: /schemas/types.yaml#/definitions/uint32
-> >> > > +        minimum: 0x1
-> >> > > +        maximum: 0xff
-> >> > > +        default: 1
-> >> > > +        description: |
-> >> > > +          Bitmap describing which methods of Dynamic Address Assignment from a
-> >> > > +          static address are supported by this I3C Target. A bit value of 1
-> >> > > +          indicates support for that method, and 0 indicates lack of support.
-> >> > 
-> >> > I really am not keen on properties that are bitmaps, why can't we just
-> >> > use the strings "setdasa", "setaasa" etc?
-> >> 
-> >> If this comes from a specification, then I'd tend to just copy it rather 
-> >> than invent our own thing. Obviously if is something structured 
-> >> fundamentally different from how DT is designed, then we wouldn't. But 
-> >> this is just a simple property.
-> >> 
-> > 
-> > The issue being that the specification is not public so it is difficult
-> > to take any decision.
-> 
-> There is a public version available in the same link, but you would still
-> have to provide them a name and an email ID. The document will be sent to
-> the mail ID.
-> 
+On Fri, Mar 27, 2026 at 12:34:16AM +0500, Rustam Adilov wrote:
+>  description: |
+> -  Realtek USB 2.0 PHY support the digital home center (DHC) RTD series SoCs.
+> +  Realtek USB 2.0 PHY support the digital home center (DHC) RTD and
+> +  RTL9607C series SoCs.
+>    The USB 2.0 PHY driver is designed to support the XHCI controller. The SoCs
+>    support multiple XHCI controllers. One PHY device node maps to one XHCI
+>    controller.
+> +  This driver also supports the OCHI and EHCI controllers.
 
-The public version only contains one property:
-mipi-disco-interface-revision
+Hardware is fixed, does not change. Don't reference your driver changes
+here.
 
+>  
+>    RTD1295/RTD1619 SoCs USB
+>    The USB architecture includes three XHCI controllers.
+> @@ -57,6 +59,12 @@ description: |
+>    XHCI controller#1 -- usb2phy -- phy#0
+>    XHCI controller#2 -- usb2phy -- phy#0
+>  
+> +  RTL9607C SoCs USB
+> +  The USB architecture includes OHCI and EHCI controllers.
+> +  Both of them map to one USB2.0 PHY.
+> +  OHCI controller#0 -- usb2phy -- phy#0
+> +  EHCI controller#0 -- usb2phy -- phy#0
+> +
+>  properties:
+>    compatible:
+>      enum:
+> @@ -69,6 +77,7 @@ properties:
+>        - realtek,rtd1395-usb2phy-2port
+>        - realtek,rtd1619-usb2phy
+>        - realtek,rtd1619b-usb2phy
+> +      - realtek,rtl9607-usb2phy
+>  
+>    reg:
+>      items:
+> @@ -130,6 +139,9 @@ properties:
+>      minimum: -8
+>      maximum: 8
+>  
+> +  resets:
+> +    maxItems: 1
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -157,6 +169,15 @@ allOf:
+>      then:
+>        properties:
+>          realtek,driving-level-compensate: false
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - realtek,rtl9607-usb2phy
+> +    then:
+> +      required:
+> +        - resets
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+If it is unclear, they might not have it so,
+
+else: ... :false
+
+see example-schema.
+
+Best regards,
+Krzysztof
+
