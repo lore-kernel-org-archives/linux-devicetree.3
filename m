@@ -1,222 +1,160 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013041.outbound.protection.outlook.com [40.107.162.41])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BADE335F5E9;
-	Fri, 27 Mar 2026 16:54:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774630496; cv=fail; b=KMBFGFjNqInfiamjjtCFsb91kuUiw4rEkM+7VyLCT4kh+cETYhfFHzg/0L+d1Z6XLdZ2r97zEBmBGk19QkRyX6vxq8UWB8RDMCLIZwnYl2vr7WPJOtxISYpfPAV0H0OufUmGb1yselCdRsOKqF50YMOzPHR66JDQyaBriuPuEQ4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774630496; c=relaxed/simple;
-	bh=Hj2zRyWbKdTnMt95UH5Ae7h0DvMiALP6mOcbgT3gKgA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=CuNiHnREjn+qh2d/GB/RnksuDAZuPcwUFKRd62uuENYkeu5X1XkzEasGKdr4BcJZa2ConhrSuP55pMZcOUfve9pwYdXH0F6tbxdZH2V3II79FPYqqU0Ds5RIB2+12Ke3nOtimQf/R8o+rPp0bOyM1Lze3d7RkIFoEBYBCzgTU7g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=LnBV8DQL; arc=fail smtp.client-ip=40.107.162.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42821231832;
+	Fri, 27 Mar 2026 17:06:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774631218; cv=none; b=jLNnr5d6wVBRd4o1eXLCao/9LfIr0Vg/hiYehbUYv4O/TTh22xtG48n6NEBsUSGsyjN4AOLCb5NlqM1WRq5JKMl1j5TbBlFV0CLCGRUjbW9bQiQ9D8f2CJrJtPIbPDRe1jt+/ths9bPxqUdRjEi4ycamUJSGHMXH9e6Sf5T9u/E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774631218; c=relaxed/simple;
+	bh=vLL4v8VAXKNthR6L1PD+8yULdWXnKJctvDyolGaUXzQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JMGjpBzNhEQENxes+jhAjmv4gV/rxbvB3freSZGs8CSHEJxLscgrFullQkZtV8hg4YSrlljjhk2mBU9eA0D/d8lqn5rZlUAPAhzN0EZhpwagzgSJ70A3UV7Y+WT9oJZ8/wPZFYMHLZ1NLfMyaF706aieIG03EdcQhjiDrkkZlxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tkjXcO/2; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="LnBV8DQL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ODtDIMqhMJlqagtGeIgnyy6CxZC6A0b8MvjTWJxvoIb4uv+b3JthUn8gMsOjeGZW9p6edUFiRLtwkzZZhcVRxCKJfhkjOIy8uotmstZx5EqFAR+tMlGRzzy/CrPKHZ19BVfVdPnR+llVphejF6XsImLfKNy/6ToqhJHl9DdmHUw1qX0uBOrVOZVjlaOpb/TU+m2yTrv7RTjbB3Oj2x+idifWLAbcmXPUd2ZriMmw5fssOedW22yg1t6RJyEVUmc7lrh3ecEEMbd17nLO1Xchz5QwJPCWiPgKXOmm7+NMJ/esPExFqSHTqpBMpCVRHI7y3Cg4FFQuN/LIIsNYVqDdpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b2ADv6UL6bOo/BEMG6mjybxFeVf55+SFBvgGoMGw1qw=;
- b=QVF/yC44/O5JMHD9Evnv7VSHQK54XQz8l79ZrDEZo9Jde5VAo1p884npacX3GdV+je9TyMnXytoBmCdPuYGZvHJdedoxPPeEcPhSugexC0K8CrI04kf9x4sDxoDA9Aw65l3BC8GuW+Lfk0kIfBh54cs+2Odx3nmnEoZVmzLQb93YbKB6hu+0xNfGgbFfwdoGcNcDyVBP9xVoU2qFwQ6K93JhQk2ZRXudESrmcVhKzs2D0TUDq4+Ui5XPXQnQAaXxHgM7SbHoOxxMuIA2dEZWJ35MO/bOhnQqcwED3yXS66kDdXRvlDPggBYTDyWGQAiG/VG1TV9M7id3mz87GKhH+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b2ADv6UL6bOo/BEMG6mjybxFeVf55+SFBvgGoMGw1qw=;
- b=LnBV8DQLJVKWwpclSZf2Sljk7zHP/uf30yY1LFcrSse+Eo3HVgHD90z7dicUjRy1eWhrwJ43T5lRa7hh41hUOZhdhW07FRfMDt0JHQl/l/YZfAWCCvZ88+u/B9P3tk60DExHfJPY4o7dbj9mu91naVyNEBSZvebDwjzHMV4iw4gXbAT6W0lk6U/oYZE7sFu2W6IdnXHWhpAh6S/J68d4YfJgwxEaLX0pGuG1oMfHAYxeIYWYr8N4l/UJtqgwfJFJcUSpN99aTb+4SFW4LAWjx3mtYm6b1+W5CLIK8XxPL9zVWftxZ9xH8XEyck/lvW3RU2JleIFgAjUHRvd5HOOrQQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by GVXPR04MB10070.eurprd04.prod.outlook.com (2603:10a6:150:11d::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.23; Fri, 27 Mar
- 2026 16:54:50 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9745.023; Fri, 27 Mar 2026
- 16:54:49 +0000
-Date: Fri, 27 Mar 2026 12:54:42 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Peter Rosin <peda@axentia.se>, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Haibo Chen <haibo.chen@nxp.com>
-Subject: Re: [PATCH v4 3/7] pinctrl: extract pinctrl_generic_to_map() from
- pinctrl_generic_pins_function_dt_node_to_map()
-Message-ID: <aca2UquiW9lFikhR@lizhi-Precision-Tower-5810>
-References: <20260325-pinctrl-mux-v4-0-043c2c82e623@nxp.com>
- <20260325-pinctrl-mux-v4-3-043c2c82e623@nxp.com>
- <20260327-overdrawn-stretch-2311ec39aa58@spud>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260327-overdrawn-stretch-2311ec39aa58@spud>
-X-ClientProxiedBy: SA0PR13CA0017.namprd13.prod.outlook.com
- (2603:10b6:806:130::22) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tkjXcO/2"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 207484E4282C;
+	Fri, 27 Mar 2026 17:06:50 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id CF91D60268;
+	Fri, 27 Mar 2026 17:06:49 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4EF2D10451ABF;
+	Fri, 27 Mar 2026 18:06:43 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1774631208; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=Jzs16/Hci7BrDK5k2/QRaN0P7w7nkSMj+Uv+0x67DEo=;
+	b=tkjXcO/2wsgAXL+NYyrzec0vnbi4rC8qkOwkf3LFSG5nJzKMKu2dyWKUPUctv0Pb4OxNiC
+	cXy8c4N/K7xsgsa1wTdmgQSiWIZ8IcflMD5TBzJVrEghDCPi00eMy0NcbcarvwDxd6KZOx
+	x7655TfMh4huEAqwKTYEwnAXgEqbHbjZ1zGwqOaWbhSBMKuH7W4ATUl8Ard9ZmZMcdXur2
+	RCf3YxyK9eIGCIvdKOIfHI4K0SyfgeLYWCtfOxkw+i+AgK1ZGoB8yH9oO9/MoaWnEuTb2L
+	lAILrenKgQCwCx9gEIDL72yUUw/VRdK4GGK1M/cT1od0jD7AhG9M+nIk7juhag==
+Date: Fri, 27 Mar 2026 18:06:42 +0100
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Akhil R <akhilrajeev@nvidia.com>
+Cc: Frank.Li@nxp.com, acpica-devel@lists.linux.dev, conor+dt@kernel.org,
+	conor@kernel.org, devicetree@vger.kernel.org, ebiggers@kernel.org,
+	fredrik.markstrom@est.tech, jonathanh@nvidia.com,
+	krzk+dt@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, linux-i3c@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux@roeck-us.net, miquel.raynal@bootlin.com,
+	p.zabel@pengutronix.de, rafael@kernel.org, robert.moore@intel.com,
+	robh@kernel.org, smangipudi@nvidia.com, thierry.reding@kernel.org
+Subject: Re: [PATCH 01/12] dt-bindings: i3c: Add mipi-i3c-static-method to
+ support SETAASA
+Message-ID: <2026032717064247cc495e@mail.local>
+References: <20260327082721f7e69e6a@mail.local>
+ <20260327114204.46556-1-akhilrajeev@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|GVXPR04MB10070:EE_
-X-MS-Office365-Filtering-Correlation-Id: b26e6c3b-6b9f-46e7-5df7-08de8c218ed2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|52116014|376014|7416014|19092799006|38350700014|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	IY5i3tMd/MX8Rzs85VhyNNg4AF7GlQQStPYFAgsGMZnfq2CvZ+1DfG9tsfqYQ6tE0H0FE8zT9mGJdWnYZrqxW8poj+sQ1goReTXZSf17NGeVEpMQqDuckdML2upNbvkDaVEIW9OqQH1op/1VqxrP0zKdxS+bnzPZP90YFrl3zP47DAH830iZycP2787rUsR7ofwowKyDxkqtJs6abOoVomyNt/ZhJ3eAlT+cPyjzHLqNpa1ttIk1CajBVJPh03tCBGkDm2skbXu+oQszwCMglvt/gCJUr8sOIfkDzyNQ8O+aI9qeJa7X2tau8PRiPmCMvYd+PaXDTXxDLzffJjS54LFa8IlIfj6tqubLtS0pcFfx4MinvHN0CR8L7MKx65f1OlfnHnWFss0PwCuQai1DAO4KqrsQ1yhZ8hkAQBSPJM17noRwa0cgQ0kh2rc596TKTioMbGGUlmgHOA1BGBNntTqYdSXLJQLczAH7ooAIEL3HDdwBFBjMjIBzX68tdZYV8SrfSiVYU74TB1JaKsL4A0+Ckxul28276yTCcuokmETtuuGyAMm7IF08WkLhrwph5x6MN4eDP910Oo2ujhXaIxLMtMSKL+FSQyUQ7iJwqPJH+L3eDrU6UQ+xjSNQyZy3OU/JBOGWJT0Sxi0OVkOf/a+mwKMVnCYGcgSW1a8HS1PqoHT3AEao+d0B6D7wqbnzhPHpidlCdJ/dtyK5toEU7IxFFhH7ynysD0PKRMH5Iu59HEE8BohTalVs3XweRC583lWrdJ0Ek0RmbUqAFSrJuc2Als3cCJoyjhwfQ3OJsIU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(52116014)(376014)(7416014)(19092799006)(38350700014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?EpK5YvXWrACUe4KCE+BKS4mmlDjtE4w2z45pB9EXNEujNXeydW4/gg7z5ABU?=
- =?us-ascii?Q?mVo/Ja7z9qZ2YiVPpVM6/vT1kbTmXIecGu9zv7E2cr88ZI1nYP0JNzhziCRS?=
- =?us-ascii?Q?9W6jGD8J8P8061tnkI/dJYEJkH+Q7h84Pfz+Mt70FBAkqZOqHdJaMBJQB6Tv?=
- =?us-ascii?Q?NeksU3KDaQ+2HZ4FY0d6jdFa9Z7SmDWPk4uhddv2CTYjkV7K6/m4JrBRsX03?=
- =?us-ascii?Q?CK0jJEq8yf804tLdVRFP/W16/oocmbL5vNPhJFkDe2FGCgIttmjIe9+y9EsG?=
- =?us-ascii?Q?D7uwLp6TFo10CZXfT8DeV1l95MkElGwXETsdfm0APexbUv4UsRXk9i3IDi3q?=
- =?us-ascii?Q?p7DGlIrw+BLYWSupb8/Yc9HYhgX8YeJrfW+8fFXZOZfJyTAnsAcZLiyrHi2y?=
- =?us-ascii?Q?ZjXpGhoMJhn/3UuYo0r+fE9JiAds8B/JcI4IDrwg/ZstUR0od+rbi7ucGcC0?=
- =?us-ascii?Q?s87PHWvd1uSsuqdyKqj7sxj8SMNJh4qDlpQmbsXRUxyQMMqbZNMUDQQOTEap?=
- =?us-ascii?Q?Y6GS+c/Bz7qvqliHlSuKyCvxzA/fPeoxDP6kdQi4Zf1/pSLwmr/2hj+ZCNwC?=
- =?us-ascii?Q?2LBEDyVDfeNSdGNjX4zVppQm5sfqZaIfyyb70Okc7RGfGMwHgFCkyrAntHEN?=
- =?us-ascii?Q?Om5EF6BgenBJHU+gNamt9BvvnjsTIMCjKWEPQKF5ETHe/vuIB1B+1At4XkxI?=
- =?us-ascii?Q?fDqOIZKHtGnVSYkNdNnfHvaGHlELW+RfmDcngYrysFW8WriuQG+cvZjQmfIB?=
- =?us-ascii?Q?CHshFuxNKw+Tm/I3kPwpTg9HGPKTZiGKzZCir2MwHAYCcd52cR8eRFPa2NrV?=
- =?us-ascii?Q?YXaTpz81d0LoRhmNc/JSjNgjcYO0w29RpjQWBrt4o2iI7nwngi74OuazRj7w?=
- =?us-ascii?Q?HDLjCoonckFMadEQ3d+Mw2eIe+4LkldlHaML5NWquItIzM0QAZ6XgqUq/xeq?=
- =?us-ascii?Q?RD+4Ir8X/ZvjZ4CzG49DVZaR30WY+0sYXUHsqx9lhCR2Scjjxu+Rm2fb/OFX?=
- =?us-ascii?Q?WI6dVQ+fFf6uh/Kjzom71dhnj0KzDXXi83yU9xzNdIYMqcn0KC/aHdnqU8te?=
- =?us-ascii?Q?Ja63BDoyKavfFM8j41vDDo6fFHpf37VY/toFljdAtSh72T/nxDk9M5GwdXi+?=
- =?us-ascii?Q?hx3OL1ozYMgQPybu671NyjwpXSSccL0lk19AJrsAbjU27H+Cwa/qxX57fVkE?=
- =?us-ascii?Q?FORmAGZ3Clc+DPYjIFc26xkcLgsv9SRFh5D/WvZZa+lj+80WIFRxLtxXZG23?=
- =?us-ascii?Q?Je5v6WBCJaddfZ+456qftYozpQ3q8jCdJ1HidnJONHGfCZ6psbPqcnDrkvfn?=
- =?us-ascii?Q?QXM3Gy8dzxD5QO0HnO5Te/GObzo1huV9jlJpBsfSgLk9ywZ4WkLHuUlov7S+?=
- =?us-ascii?Q?hXd6NAL5OFO2xMsmEWeWqwae/9804h2SunjJrFAlOFupXMvi34mo3vrFrgXF?=
- =?us-ascii?Q?T/0MjGthxgckRxvBw8lF1ysscWjGV5SOyapSZS5cQklF2AIIhNuFTk/bbfL/?=
- =?us-ascii?Q?IbUjIed83TUh3T2/gDFjfEqlkVu5ptJ+NNu/gJhKJOAtS4k1ronzNKOqvpYO?=
- =?us-ascii?Q?Q1DimoiXJjtDWHN7c+uRVbw5Ni4uMBVOD0lGWquqnzp+9Npq84vJvO0qbaFs?=
- =?us-ascii?Q?G18S1j9NJHerLkWFjtIEMLkhtoiEGLGZVxrkTrEoehPlbPbvDQZrt1QTw2Ze?=
- =?us-ascii?Q?j/B1iz9GVRFY1KrHKntST2uirtA3y/uNo3lHTaE4lnUNMX5iAjySpXhMLK05?=
- =?us-ascii?Q?7UIERSKyKQ=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b26e6c3b-6b9f-46e7-5df7-08de8c218ed2
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 16:54:49.5218
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IUOrrTW1TDNDVcH8tae06VVLRmeLgzyGiX06N7g9fuGUNZ/atiOsMJC+6B9pQKSFUyeUc8jhmFt0BtwK0aRs1w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10070
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260327114204.46556-1-akhilrajeev@nvidia.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Mar 27, 2026 at 12:09:32AM +0000, Conor Dooley wrote:
-> On Wed, Mar 25, 2026 at 07:04:12PM -0400, Frank Li wrote:
-> > Refactor pinctrl_generic_pins_function_dt_subnode_to_map() by separating DT
-> > parsing logic from map creation. Introduce a new helper
-> > pinctrl_generic_to_map() to handle mapping to kernel data structures, while
-> > keeping DT property parsing in the subnode function.
-> >
-> > Improve code structure and enables easier reuse for platforms using
-> > different DT properties (e.g. pinmux) without modifying the
-> > dt_node_to_map-style callback API. Avoid unnecessary coupling to
-> > pinctrl_generic_pins_function_dt_node_to_map(), which provides
-> > functionality not needed when the phandle target is unambiguous.
-> >
-> > Maximize code reuse and provide a cleaner extension point for future
-> > pinctrl drivers.
-> >
-> > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > ---
-> > change in v4
-> > - new patch
-> > ---
-> >  drivers/pinctrl/pinconf.h         | 18 ++++++++
-> >  drivers/pinctrl/pinctrl-generic.c | 91 ++++++++++++++++++++++++---------------
-> >  2 files changed, 74 insertions(+), 35 deletions(-)
-> >
-> > diff --git a/drivers/pinctrl/pinconf.h b/drivers/pinctrl/pinconf.h
-> > index 2880adef476e68950ffdd540ea42cdee6a16ec27..ffdabddb9660324ed8886a2e8dcacff7e1c6c529 100644
-> > --- a/drivers/pinctrl/pinconf.h
-> > +++ b/drivers/pinctrl/pinconf.h
-> > @@ -166,6 +166,13 @@ int pinctrl_generic_pins_function_dt_node_to_map(struct pinctrl_dev *pctldev,
-> >  						 struct device_node *np,
-> >  						 struct pinctrl_map **maps,
-> >  						 unsigned int *num_maps);
-> > +
-> > +int
-> > +pinctrl_generic_to_map(struct pinctrl_dev *pctldev, struct device_node *parent,
-> > +		       struct device_node *np, struct pinctrl_map **maps,
-> > +		       unsigned int *num_maps, unsigned int *num_reserved_maps,
-> > +		       const char **group_name, unsigned int ngroups,
-> > +		       const char **functions, unsigned int *pins);
-> >  #else
-> >  static inline int
-> >  pinctrl_generic_pins_function_dt_node_to_map(struct pinctrl_dev *pctldev,
-> > @@ -175,4 +182,15 @@ pinctrl_generic_pins_function_dt_node_to_map(struct pinctrl_dev *pctldev,
-> >  {
-> >  	return -ENOTSUPP;
-> >  }
-> > +
-> > +static inline int
-> > +pinctrl_generic_to_map(struct pinctrl_dev *pctldev, struct device_node *parent,
-> > +		       struct device_node *np, struct pinctrl_map **maps,
-> > +		       unsigned int *num_maps, unsigned int *num_reserved_maps,
-> > +		       const char **group_name, unsigned int ngroups,
-> > +		       const char **functions, unsigned int *pins,
-> > +		       void *function_data)
-> > +{
-> > +	return -ENOTSUPP;
-> > +}
-> >  #endif
-> > diff --git a/drivers/pinctrl/pinctrl-generic.c b/drivers/pinctrl/pinctrl-generic.c
-> > index efb39c6a670331775855efdc8566102b5c6202ef..20a216ae63e91b69985ea4cfcd0b57103c6ca950 100644
-> > --- a/drivers/pinctrl/pinctrl-generic.c
-> > +++ b/drivers/pinctrl/pinctrl-generic.c
-> > @@ -17,29 +17,18 @@
-> >  #include "pinctrl-utils.h"
-> >  #include "pinmux.h"
-> >
-> > -static int pinctrl_generic_pins_function_dt_subnode_to_map(struct pinctrl_dev *pctldev,
-> > -							   struct device_node *parent,
-> > -							   struct device_node *np,
-> > -							   struct pinctrl_map **maps,
-> > -							   unsigned int *num_maps,
-> > -							   unsigned int *num_reserved_maps,
-> > -							   const char **group_names,
-> > -							   unsigned int ngroups)
-> > +int
-> > +pinctrl_generic_to_map(struct pinctrl_dev *pctldev, struct device_node *parent,
-> > +		       struct device_node *np, struct pinctrl_map **maps,
-> > +		       unsigned int *num_maps, unsigned int *num_reserved_maps,
-> > +		       const char **group_names, unsigned int ngroups,
-> > +		       const char **functions, unsigned int *pins)
->
-> npins needs to be an argument to this function also, otherwise
-> pinctrl_generic_add_group() uses it uninitialised...
+On 27/03/2026 17:12:04+0530, Akhil R wrote:
+> On Fri, 27 Mar 2026 09:27:21 +0100, Alexandre Belloni wrote:
+> > On 27/03/2026 13:48:58+0530, Akhil R wrote:
+> >> On Thu, 26 Mar 2026 16:44:31 +0100, Alexandre Belloni wrote:
+> >> > On 26/03/2026 10:05:03-0500, Rob Herring wrote:
+> >> >> On Wed, Mar 18, 2026 at 05:31:50PM +0000, Conor Dooley wrote:
+> >> >> > On Wed, Mar 18, 2026 at 10:57:14PM +0530, Akhil R wrote:
+> >> >> > > Add the 'mipi-i3c-static-method' property mentioned in the MIPI I3C
+> >> >> > > Discovery and Configuration Specification [1] to specify which discovery
+> >> >> > > method an I3C device supports during bus initialization. The property is
+> >> >> > > a bitmap, where a bit value of 1 indicates support for that method, and 0
+> >> >> > > indicates lack of support.
+> >> >> > > Bit 0: SETDASA CCC (Direct)
+> >> >> > > Bit 1: SETAASA CCC (Broadcast)
+> >> >> > > Bit 2: Other CCC (vendor / standards extension)
+> >> >> > > All other bits are reserved.
+> >> >> > > 
+> >> >> > > It is specifically needed when an I3C device requires SETAASA for the
+> >> >> > > address assignment. SETDASA will be supported by default if this property
+> >> >> > > is absent - which means for now the property just serves as a flag to
+> >> >> > > enable SETAASA, but keep the property as a bitmap to align with the
+> >> >> > > specifications.
+> >> >> > > 
+> >> >> > > [1] https://www.mipi.org/specifications/disco
+> >> >> > > 
+> >> >> > > Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+> >> >> > > ---
+> >> >> > >  .../devicetree/bindings/i3c/i3c.yaml          | 30 ++++++++++++++++---
+> >> >> > >  1 file changed, 26 insertions(+), 4 deletions(-)
+> >> >> > > 
+> >> >> > > diff --git a/Documentation/devicetree/bindings/i3c/i3c.yaml b/Documentation/devicetree/bindings/i3c/i3c.yaml
+> >> >> > > index e25fa72fd785..1705d90d4d79 100644
+> >> >> > > --- a/Documentation/devicetree/bindings/i3c/i3c.yaml
+> >> >> > > +++ b/Documentation/devicetree/bindings/i3c/i3c.yaml
+> >> >> > > @@ -31,10 +31,12 @@ properties:
+> >> >> > >        described in the device tree, which in turn means we have to describe
+> >> >> > >        I3C devices.
+> >> >> > >  
+> >> >> > > -      Another use case for describing an I3C device in the device tree is when
+> >> >> > > -      this I3C device has a static I2C address and we want to assign it a
+> >> >> > > -      specific I3C dynamic address before the DAA takes place (so that other
+> >> >> > > -      devices on the bus can't take this dynamic address).
+> >> >> > > +      Other use-cases for describing an I3C device in the device tree are:
+> >> >> > > +      - When the I3C device has a static I2C address and we want to assign
+> >> >> > > +        it a specific I3C dynamic address before the DAA takes place (so
+> >> >> > > +        that other devices on the bus can't take this dynamic address).
+> >> >> > > +      - When the I3C device requires SETAASA for its discovery and uses a
+> >> >> > > +        pre-defined static address.
+> >> >> > >  
+> >> >> > >    "#size-cells":
+> >> >> > >      const: 0
+> >> >> > > @@ -147,6 +149,26 @@ patternProperties:
+> >> >> > >            through SETDASA. If static address is not present, this address is assigned
+> >> >> > >            through SETNEWDA after assigning a temporary address via ENTDAA.
+> >> >> > >  
+> >> >> > > +      mipi-i3c-static-method:
+> >> >> > > +        $ref: /schemas/types.yaml#/definitions/uint32
+> >> >> > > +        minimum: 0x1
+> >> >> > > +        maximum: 0xff
+> >> >> > > +        default: 1
+> >> >> > > +        description: |
+> >> >> > > +          Bitmap describing which methods of Dynamic Address Assignment from a
+> >> >> > > +          static address are supported by this I3C Target. A bit value of 1
+> >> >> > > +          indicates support for that method, and 0 indicates lack of support.
+> >> >> > 
+> >> >> > I really am not keen on properties that are bitmaps, why can't we just
+> >> >> > use the strings "setdasa", "setaasa" etc?
+> >> >> 
+> >> >> If this comes from a specification, then I'd tend to just copy it rather 
+> >> >> than invent our own thing. Obviously if is something structured 
+> >> >> fundamentally different from how DT is designed, then we wouldn't. But 
+> >> >> this is just a simple property.
+> >> >> 
+> >> > 
+> >> > The issue being that the specification is not public so it is difficult
+> >> > to take any decision.
+> >> 
+> >> There is a public version available in the same link, but you would still
+> >> have to provide them a name and an email ID. The document will be sent to
+> >> the mail ID.
+> >> 
+> > 
+> > The public version only contains one property:
+> > mipi-disco-interface-revision
+> 
+> Could you check once if the below link works?
+> https://www.mipi.org/mipi-disco-for-i3c-download
 
-Is this one the root cause of then broken? I am not sure why compiler have
-not report waring for it.
+It works, thanks. The bitfield is fine then.
 
-Frank
-> >
+> 
+> Best Regards,
+> Akhil
 
-
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
