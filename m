@@ -1,171 +1,463 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012006.outbound.protection.outlook.com [40.93.195.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82ED034EEFD
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 16:18:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774628339; cv=none; b=J1yrjbGJVdgymhOl827VeUnDIeIPSDZfXLm0jqaTgCoeT4+IHym1o9umGwgjXRnm/6KK6jJQ2v/uI/0iEh1wxOlD5qeA/0nLGzzKd/O+bpowOTx3qb6TZd/fQOd5hP4G8RZ0snQQf7FF5OaLeqjDIYpjBDaOUIukyxur6geHxK4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774628339; c=relaxed/simple;
-	bh=++cKNIal19X4oEh8A764XygzDlFyLlTKyrf4nGOT7Ag=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mhPtF115J9NGK1mMy0qCA99DP7AOXnlo0jW6DL6/nLwVLu0gF8sQse418rIgU/czro7WAap8YGWx86pIe/mRs7FZ9WmTO6es88wnznnikHRuTi0sPGqkWnn5sMulnv2bJBJXwFJMFyiNwkbblCO2IvH5/b1Mf+lCN7PoXF3sN7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FDEHV79R; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kdWYeqZ7; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08CF7364925;
+	Fri, 27 Mar 2026 16:24:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774628672; cv=fail; b=be8zhwlgQ0VDpgxJkVK/5eZC1bGL6cef8AhGqUBxVFu/9Pcq2+6ktdWTGsjzg1tsyWtC45e4fv+L1Pv/6hJmZJZSroPObsDJ/8KMsQNQ9C4uJU8xYECtXV7WrBuxFBGFCd9vMCC77XQZSQ8jqbNhEHb9Znr4N1EOdWYIYjbv1Ok=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774628672; c=relaxed/simple;
+	bh=2WYU67tBez3mgvaKxhTG1Kec+sv5rcPkPpPng4/a7FQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=PEBI5Gdmh8xR4qRLnMzkVqmQQtu/RO7Uyw7HDfrco/EtebvHMKJkA/6rQdYCuLMBhy7pEtF2wR3KOEiZmFJobswLb/3L+VE0xHYnxava1ioe/cuA5Cr/uxQVHiNd4BBfvW/Eo6Ul0vyk18xr73DRX3RKC1D6pRDJDoxnh/ZswjE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=ExhTgTOt; arc=fail smtp.client-ip=40.93.195.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FDEHV79R";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kdWYeqZ7"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62RDhTTl2615792
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 16:18:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	mLOukGpyFsZeSsoE1YKizPDvlsXi3Qkt+oPdKTifW2w=; b=FDEHV79RCAg57Q/f
-	dKZUqHb4WULXvR8WW+Lqnh+5CC8U79on2k9978A2FhWK0qJbdqu1bhtR0yBayTMa
-	c2BDJDfGlOtJ2eY1cytjcUV+WxMvYP1X0qi6LQqLAdWHcuMfwJmTN0WgUQbcsmat
-	12rLu5QuCzMfEsVu/eigKMk1oWInP8Y3w52W/ViGwiBd46DAVkirYA4O9g6jOaYn
-	bf0Bzz6hxNOu1uTIYtyclIpFvHXzjtnwSFrmBcCwzzHtdTlOHEdGy2APapctSxAK
-	Q9g2uh3IPCYkE/OvvY72cpomyjb4iMXqNE7586bnnjBpTuEMr1ILQTl+2nM3jLll
-	M+W4hA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5bxvkrkm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 16:18:57 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50939597b85so52488231cf.2
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 09:18:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774628337; x=1775233137; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=mLOukGpyFsZeSsoE1YKizPDvlsXi3Qkt+oPdKTifW2w=;
-        b=kdWYeqZ7aWJuV8tc/UwKi7OKr2TTCIdXW2bNJMCIMTE+SDFbBVwkqY7hiGJ/1qHbUq
-         Dt8aIy7AEcELiYiSII5rctT3gc3nfAOKTqzIW2IQHOoF22Ka6DoijaqP1dxArUW2k/8I
-         Dxj36FznQW73hf9PkxvbSxa52qBhfvs/Vt81X+SdYhrhxjCdUOEhXr+jYECTdZVk89Ho
-         NLr0ZlMHhzPHMXsw2MeBUCARX/smF9NDHCh5hYHx6rm/bCmubt/Kj+dNU4Kgtk33LJD7
-         xDLPA8qOep1u6e/K0TuAMrholEtk3d5CVPSjXU39p9kN9LhZWTTUPwHPEIJU80hSBXra
-         UmNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774628337; x=1775233137;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=mLOukGpyFsZeSsoE1YKizPDvlsXi3Qkt+oPdKTifW2w=;
-        b=qEaq9zjBoMmsi9sdJLAaeHlkgh2D+1EHEIVnCpwUN1he3twLfQQHsIgY0LdGaendyY
-         I+dObLHdMwhlkwbMqUGREysXCsacBwsAeH/zW4wrmZrut5V4V2cSCptt2s77/qRbAecI
-         MlWAD2NsMvwc3XOOPXs4mSNMdgCrM9PxzpPjKwGeP81M0n7dgcf/cxIz4qJCHq3mRz9U
-         bJOgZSNs+b5HvMcx1FZ/M97yz6DenRc+QIx2laNoj6ixUTDGc9GKpYNOH4LIlUDYOfVx
-         er4TvTDXgFLu+bDpypMd/bQjdSyMHTrfe1pSwY+fRyKiK5nLCzpy5dPdpeGziIb21XNg
-         dBZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWXI/Ie8qdcJvqGrsVkVONbuLPbxoKWE2kX+mGz8y3hDRR5D5n5hhqF4iZWwJGqTrKMg9Qw7x+lla9E@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzp4IydF6xkK/0xWqyOb/SxZJikvORsUmGKpydAILYl4lGX3TV3
-	qWVuPAjlIt4XC2erubrfJdy5jik9hUE0nxoEKMTxmuNtRDSCWkecRt6eAMcFq7giCAwZzZ7pLaz
-	SnXXml1ahUDeKBaxL4jzfycqavHlJdkuyhf3ubJz94KOwRuwEK/XAcTAHauSynJxy
-X-Gm-Gg: ATEYQzyM+4iHvgcLhUYuOBfx2faovWXkk4CU2drU0qA9tyX4YA4lC6qMhLlWNHZ2Tw1
-	pqMUs9AKfW+DGu9nsOKLwjQL9zzXseCQ4ck0bTqBFSIiDa2pDCXxhzpVmufL5JqiyXsJbpDOwSg
-	/1ePEiP0lkd27v1gxBL2F4MLpKvbFdCl0B0GYcy9VL0cQd2PK9EeowMjV4N0qLeFSs3VWo4MqGu
-	2dB+CnIByfCBlacySuHjHxA2u1QvRVQwEc2LeQNJ34Q0epkp/laihRas6kxiIrnXIiQRmg9rO1f
-	lru9QXH4ov+3n6WkacltHqboHzxpeWSx5CGpAxNWr561fzUdvg18N3WDqL5WmFqtVRfieJ6Y3By
-	SAjNcTPYjd6yiF68BIMsd/PYc/Uk=
-X-Received: by 2002:ac8:6f1b:0:b0:50b:52ee:62d2 with SMTP id d75a77b69052e-50ba391e9a0mr43196681cf.38.1774628336799;
-        Fri, 27 Mar 2026 09:18:56 -0700 (PDT)
-X-Received: by 2002:ac8:6f1b:0:b0:50b:52ee:62d2 with SMTP id d75a77b69052e-50ba391e9a0mr43195971cf.38.1774628336200;
-        Fri, 27 Mar 2026 09:18:56 -0700 (PDT)
-Received: from hackbox.lan ([82.79.95.133])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722c6b495sm205955525e9.2.2026.03.27.09.18.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Mar 2026 09:18:55 -0700 (PDT)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Fri, 27 Mar 2026 18:18:39 +0200
-Subject: [PATCH 2/2] remoteproc: qcom: pas: Add Eliza ADSP support
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="ExhTgTOt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AvmvBwmhctaNdqubcca+WLEVHC5XiObvJBbu5CEhq3txTBzMyjFJPgXXb1JgaTMFHjbXA10ciehmtD3hA//CWPJVE/sMyW+WtAyibu1xpIvGfxl6NrpfYXaRY5zyCOQ6UzAZE5/GeBbSKHb0tSUNf41T0XBa7BkLnmQgiEyUkWrDtP3Ud5maPl4Zf306BTgPhTWbBx52SEM4FYjk9+pq59OMy4iDPBQEH8WD8hPAW/1atRl9r9yPgo+jR1bOx4nNmZ06tNTLF42zNQ9mESt84pifhrM82rz/52qSZIErecYEFhuC5E0Y/2+10a5H0C/yfj8uBVok4z7i6ZbzaZBOUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wgbGnEfC8jeBxr5RQo/B6GlpONGcN27rW852PaiVwaU=;
+ b=FK65kZW8Y81AJciHKVchHl4nyZYLx4veqmeYgf77rjhFJfiHo/OWTWc8nUVUcNq/Q8FWPalnAYgJ/4PZtGm2tpvh/XwqbCy5Og40hCmRTJKyPanuRarkf/e3Syp77PTwnooX8eVk5200vQJAJZrxYHZTgawnyJKeBcpCWP4rRMSJgBkdkFN+xFT5bB2uk5hDQitm59V0zmS456V5HJ0TVuFBlH33QMCSzhaC3/21aBkGhhWkD10BpxxfLLnfVLxYaLKutR2xe3MGiZlfjQfuEv6XszhIUBDUcV3axw58XmG6hjUufNHzz7QJNSwMp0cGi4I3QhnOB9pyZppvfERX3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microchip.com; dmarc=pass action=none
+ header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wgbGnEfC8jeBxr5RQo/B6GlpONGcN27rW852PaiVwaU=;
+ b=ExhTgTOtzbVWAYP7q/IQHSC1ZcelrJYS4VLaf3evMj3L7AFM60UPkEXHCPO7tzd543KxhlqJX7S+L8RYTgUMq8YAOHsa8lCMfJalvWqHXXNHMC7RzldEdZ63uHfgebIOyiB/E9NH37GHnMG+qPD7aqZkTD9M0iMM5S9XuIVpmfqlzbiK53BezCy3mTcBgSejVS3uk4lJkLw2sO//iZb2qhoxgrEHM/+qxkQAeEVJRZFUSfQEWHqC+3g7Y/pglfKfKHS3L4i1WBp95vxkE99jyz1+SxX+lSX9ZxEmYvHs5jYc6VfjYJHp05iTbEUhrYciy7aVQRMIA0e4m/fJnv4IjA==
+Received: from CY5PR11MB6462.namprd11.prod.outlook.com (2603:10b6:930:32::10)
+ by DM4PR11MB6262.namprd11.prod.outlook.com (2603:10b6:8:a7::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.8; Fri, 27 Mar
+ 2026 16:24:26 +0000
+Received: from CY5PR11MB6462.namprd11.prod.outlook.com
+ ([fe80::10d1:11dd:5088:7559]) by CY5PR11MB6462.namprd11.prod.outlook.com
+ ([fe80::10d1:11dd:5088:7559%5]) with mapi id 15.20.9769.004; Fri, 27 Mar 2026
+ 16:24:26 +0000
+From: <Prathosh.Satish@microchip.com>
+To: <ivecera@redhat.com>, <netdev@vger.kernel.org>
+CC: <arkadiusz.kubalewski@intel.com>, <jiri@resnulli.us>,
+	<mschmidt@redhat.com>, <poros@redhat.com>, <horms@kernel.org>,
+	<vadim.fedorenko@linux.dev>, <linux-kernel@vger.kernel.org>,
+	<conor+dt@kernel.org>, <krzk+dt@kernel.org>, <robh@kernel.org>,
+	<devicetree@vger.kernel.org>, <pvaanane@redhat.com>
+Subject: RE: [PATCH net-next 5/5] dpll: zl3073x: add ref-sync pair support
+Thread-Topic: [PATCH net-next 5/5] dpll: zl3073x: add ref-sync pair support
+Thread-Index: AQHct8it2yiZboqfgE6YpfihCIpUhLXCnKHA
+Date: Fri, 27 Mar 2026 16:24:26 +0000
+Message-ID:
+ <CY5PR11MB6462E28870C343F05E53B34DEC57A@CY5PR11MB6462.namprd11.prod.outlook.com>
+References: <20260319174826.7623-1-ivecera@redhat.com>
+ <20260319174826.7623-6-ivecera@redhat.com>
+In-Reply-To: <20260319174826.7623-6-ivecera@redhat.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microchip.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY5PR11MB6462:EE_|DM4PR11MB6262:EE_
+x-ms-office365-filtering-correlation-id: 5371d3e4-6da3-4f6e-9b71-08de8c1d50a5
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|376014|7416014|38070700021|56012099003|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ a4YTQEVED9gIB2bRkkXDHpRU2BAMvElzJiELQx9oSmL9XH0MCMtjyZMzhvO8x/7THEGS3uovsXbfa8waUdob9YVEfLd9qlhF6ISgjiPW88iIMU43T2o05rIsy0GfTum+YRdSkww7QypKmbi/AABDrYc0f2i9i/PjvAyal8oOqJ/uMYmurP13DMwjMIdQOMYsjQt6D+lmP6B9NX98m0F27AfnQz9J64GpgceteEHRnmlVi0KKF8spWmktcsUCo8beWMR/aXIQCRGkxQgerWMXVuh+5Tzk/nT4n7nIrdJ5PvwGt2iV90TaatzOkAxmlpaRCfsbm9j5Dtmc1oyvyvyRLl5XaM+rM9sxyZ0Z4iH5of6VqPklomo4HZiaYpf3dQ5q59ITe4T0NWYU5hUMpZv3I3qeh0RiwDPTLig8z4OVUUg6tzt2QMkg41zB+ndHnLZnZwsJnmx8ZtTDZvHowB9bJak4jfcGN2MHgX1nk0gdRL2EmJ++3pUgTJEFNsyCqLWaz+q/l9jRHBo9Qed5UGCGG8PXnemVEbjzpE4fRtxr6E/MZww2OJ7r7WPIuULKl9bKu+jYa3NJg38wizx/KIggveqr7CuSLiK8hXz63lJu0n/dgY6uDCE20duosVG2u9fDyvpvQz3vBN0Pbu5MDwB0BnbP/0P60+jOUW3ReIr24/MKpzpokqWSFIYcR3/Mu0wCGbDW/T876Ga4UwvAfkrkY67QsHiji9PV1zml5N86MAs8gx5ePyqVxw1O2gY1fklzw06RhvhaBotOD/0dNfrTrSNCfCK+sge9Ub13OWCNn2Q=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR11MB6462.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(38070700021)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?dTIfB3w42G+BYbnggU3ZrRiCZY0ZrnpXaBTwUiL+MKZrJ8qRRlEEOPNsZiOJ?=
+ =?us-ascii?Q?uOLbTnhxsu8SKn4bQVMgRGnonth7gh2MDUj7eiFV/Ouxmtk0QazwrlxQNnNr?=
+ =?us-ascii?Q?KrSvD/UbY4uacl8TFRYg7sn/FfkdpUtPoJHdnFzU3NmRp7m91OOtkjJj5I24?=
+ =?us-ascii?Q?0Lcb0eF39rQACc8uZNn5elQIeudlPGgX8Eap3jAWLd/kAOPhhio/lJp8fzyl?=
+ =?us-ascii?Q?MadQkNamPTNUhE7By8tdd115zvloB0cfatBQmrTnyhke76xajbYOdiR62PW7?=
+ =?us-ascii?Q?JsBQhezynT8uIjGyz05A6goYl2UjrRfQmaJx3UOd/UzztH6o8gVDjyN8pr8b?=
+ =?us-ascii?Q?uaqzG8GNPdwQprGLNTJY+vHjinQ4Ty9+HqCD1sRjiSh9Kmw8hg6qIaLAwZ+7?=
+ =?us-ascii?Q?PU+DFFBjRaQGkQYtIXis5gHBBsrhwWNwiG5XpW3H0fstKAEbGPFLKJbGg+qg?=
+ =?us-ascii?Q?8cahSaxlwsjTlfxOHMTkpHl08pF7mcn1F6UxtCeqF0OX1L6E7Vot0ZXRh2sQ?=
+ =?us-ascii?Q?SN5xP1F/eDR0Wl01JU7k0yvROdvYeYatB+VqGapmnBKpOPGWIL7DpEcSVY+L?=
+ =?us-ascii?Q?q1k6NV7WUUvgkKWRIY5YDrUUB42lasQo3ZRAMB+7fiAhTL5cr1xeYAVBzxmU?=
+ =?us-ascii?Q?m0032XKMXm/A85VanALcAat70hneh8IcZLQGgrHIoGFOoMn5HvXX1ZiTMsFv?=
+ =?us-ascii?Q?TTStlqD5tzwbn94pABrOJISJ3fQUs9MR2wsWuDs/1aPvSMB6FGsA254FpIY0?=
+ =?us-ascii?Q?18UBkgJMpvThFOG1OmrqKIPaUsx/Bex1Vk4SxDxKA/muOixbsT+Bea/XykEW?=
+ =?us-ascii?Q?ONk1uvhrvfCC5fhIghY0ULG0/O/UYJxEI/r89OGr/caQ1tkkZ/G/ylfkGQbc?=
+ =?us-ascii?Q?Pvb0CZfYKGvxlITJk/7vUK3LiUJ91h8S1Roy6FmPG7dvvHOoqQimTAIO5hyr?=
+ =?us-ascii?Q?rir9ejpqRHTiiHqwZUux9Pc3u4IA/OFI0YsRq00bd0sOXkoDKAvduhyLjiwJ?=
+ =?us-ascii?Q?naELPdG/sPQOBS7OrcwCjwvkw3QaVnpxPDndhnrJ2Ty7DQIg43ZNVWhb8Z8O?=
+ =?us-ascii?Q?uZ0x3pKurG3GLZXBs+NjSnw45/SO7+Y4sxlw3Hm9sSkcK2tiYw/JEE+EaFCr?=
+ =?us-ascii?Q?ndRZN4p771GNxl3aIEXey36ZVq07OWvJ1f9tM+2LqIrJ0GvWQlVnZQTatRsT?=
+ =?us-ascii?Q?2XwaF/g2RhRjE4E7iswVM9lAhN1HwZRsmF+VGDt3K4cltG0nfvGYMn+oiJs3?=
+ =?us-ascii?Q?FAF/F4OjtP1sUYOinqkAsTLfnLs+oaI/Od+EcoiJrVoyQHXOPeB+jEBaiyHI?=
+ =?us-ascii?Q?tKtDeFoGwBJAOYi8zV8X/PUowH6Z2rJTXYhXuSABk3kYftgTt8DQfP5MXX3p?=
+ =?us-ascii?Q?fmAYpm7XRJfFuiAKaOQwIVI39v66Lap0uyObMKI3SnXVoTSrAb6tgq7J4Upn?=
+ =?us-ascii?Q?2wPvCK6lG7EZDgru7D6wfmwiFUEb0ULXQKw2oR4qkrGveKSqa0JIFtvHOJdr?=
+ =?us-ascii?Q?snmJX1kVofhDtoqaz5dIkQG6Ru9g/mw2YVjN+sR2tv8npJCHCiZQaB5gm9LZ?=
+ =?us-ascii?Q?q5VYbvY013GEK2GyaVY0gybbL8BXEe8jkqHdgcmTyNu2O+DKL6vAH+C2ckT3?=
+ =?us-ascii?Q?d/fIFRdzHrcuAOf+lj8rZe227qxLuRq+qwg164YUriX9rahdRJT0ROUF0SyK?=
+ =?us-ascii?Q?kS3HuwaVZmofQVZxg33Oh1u5aZ0RXc0vnmfRN9TdMRQspiba2gJOrwrXpXfu?=
+ =?us-ascii?Q?4ju8qN3mTquzaKQ7yGMjYCmvbDSFTCg=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260327-eliza-remoteproc-adsp-v1-2-1c46c5e5f809@oss.qualcomm.com>
-References: <20260327-eliza-remoteproc-adsp-v1-0-1c46c5e5f809@oss.qualcomm.com>
-In-Reply-To: <20260327-eliza-remoteproc-adsp-v1-0-1c46c5e5f809@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Luca Weiss <luca.weiss@fairphone.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-bc6c4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=977;
- i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=++cKNIal19X4oEh8A764XygzDlFyLlTKyrf4nGOT7Ag=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBpxq3pBJsn8iH6FN97lVHi8+1lzSw6uelAHmp6+
- I1d9xl51GeJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCacat6QAKCRAbX0TJAJUV
- VtZuEACSrCXxyc9p+/lM+XJuK9Jx3ZUQuMV5x2Kb94bthX+zD0s9fy3I7vjPYIKRr8t3p2Y6O8n
- /CwGbOjZI+BuP1+5YG0RfTvfVCglT5Iq4XZoYeG4FZ+DGTbPk/a8+Tw7EQZHu281fvs2qJZbWux
- 9kfDlGt/a724t4vTKwdsIobY6SajuErOfXx2c1qOl6KyMgWomSW1wT6UMUeaprY92ZOmmFMeklj
- kSvonvp+WQsF2O+TkyXYy3Zn/1HOd4pulQPzh54ppGgwVfsF8J0yw7TKGUIjcZ4iYRkqQX8G5hc
- U6MeLs6mhMehRB6Lg8Q2Xur3wcuTU5VRCkXTrbRxvJ8GXKVmwa4WpYmWctxAyWdg7bv5flWvNc5
- 6vrYIdOsvYq2hc/OBBePLTDOVoy6A+tRxlNFKsHkVGOzA9e8I0TChKkQYv58tV5g6qokf1pfRGc
- UGmK8k72T6DbMaSQdZhSW5ihLfMIJUuqi2Cfjul+dHGm7P/szEVKivl0L1+VLnmqemjsfhVTap3
- KeGg1IsvHOphXLxPOhCDO19zgGIk8uvv3jGGsWr/LgyKshhLVP8kDZLi2XMwlo1N3uKe/n37lpv
- yV0eJeFBz86PNvj00HygnwnznB9B9UI1GeflMEBDv+7CoFdhmUVX98AchiLXkL/9Oyr70loJzt6
- O6pkOp5n5laXy9Q==
-X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Proofpoint-GUID: bg4mQpYeYp_kYy306nWzxcpNz_AjMHUw
-X-Proofpoint-ORIG-GUID: bg4mQpYeYp_kYy306nWzxcpNz_AjMHUw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDEwNiBTYWx0ZWRfX4B62xehwpdR5
- +xffVvKySl94mU9iBs1JhtCJGWrGyXGJSYt/4wb3AIxr2DhnDvbpH2btPGdHA37mRRsHM95FyiW
- 0pH4NgNKbhIOVqXQTnVhlFjbgfWdmmQSZb0/xazwu2Tkv04kqxEu+4e/fJZOrOmLcBYGC3xsAvY
- ubcywG3m3hwZ4CIwdySQ9qd48amMT2r8C6B7JAJo+0nCXTPLMm/lGwuGP1byOEX243UGiwhfkDx
- lf7vlCe6z5q0yk6SpS9Nr0dH/Q5LUracwHGSDtgHKOBFLfmycwKT5HsTjTsfZ5oxhQmTQ4z2p1L
- lJC6Ko8RDDRgYl902ej+syJ0t1ASvrJgXYhDWFqZGdTPn1nkY5/p6t8cqTMloovhBw90Pplk9Tw
- RCXTxVuOFozKswInLEQAJHowuvY7KmDvRKxzsORPgWtugGNuSym/GT8cloWM5qHLtmIO5cNHquC
- 1aHIcuowt0io4zSG5Zw==
-X-Authority-Analysis: v=2.4 cv=ToXrRTXh c=1 sm=1 tr=0 ts=69c6adf1 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=iKs3dpp2RB4k51ZqCjcyjQ==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=K58yWSdeSmOVA_MdiSgA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-27_01,2026-03-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0 adultscore=0
- bulkscore=0 suspectscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270106
+X-OriginatorOrg: microchip.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6462.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5371d3e4-6da3-4f6e-9b71-08de8c1d50a5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Mar 2026 16:24:26.7939
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ODMMcWVl5LGBoE5iygmPfomn0UDrbol/Ctc5fLS7WLH5ZvV/Ad6n4m8tIQuyRkzE9TRyAhZrL5dLMnb5WCblf3wpVKuuBleyvHWkRRAh5FM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6262
 
-The ADSP found on Eliza SoC is similar to the one found on SM8550.
-So just add the dedicated compatible for Eliza ADSP and reuse the
-SM8550 resource configuration.
+Reviewed-by: prathosh.satish@microchip.com
 
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+-----Original Message-----
+From: Ivan Vecera <ivecera@redhat.com>=20
+Sent: Thursday, March 19, 2026 5:48 PM
+To: netdev@vger.kernel.org
+Cc: Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>; Jiri Pirko <jiri=
+@resnulli.us>; Michal Schmidt <mschmidt@redhat.com>; Petr Oros <poros@redha=
+t.com>; Prathosh Satish - M66066 <Prathosh.Satish@microchip.com>; Simon Hor=
+man <horms@kernel.org>; Vadim Fedorenko <vadim.fedorenko@linux.dev>; linux-=
+kernel@vger.kernel.org; Conor Dooley <conor+dt@kernel.org>; Krzysztof Kozlo=
+wski <krzk+dt@kernel.org>; Rob Herring <robh@kernel.org>; devicetree@vger.k=
+ernel.org; Pasi Vaananen <pvaanane@redhat.com>
+Subject: [PATCH net-next 5/5] dpll: zl3073x: add ref-sync pair support
+
+EXTERNAL EMAIL: Do not click links or open attachments unless you know the =
+content is safe
+
+Add support for ref-sync pair registration using the 'ref-sync-sources'
+phandle property from device tree. A ref-sync pair consists of a clock refe=
+rence and a low-frequency sync signal where the DPLL locks to the clock ref=
+erence but phase-aligns to the sync reference.
+
+The implementation:
+- Stores fwnode handle in zl3073x_dpll_pin during pin registration
+- Adds ref_sync_get/set callbacks to read and write the sync control
+  mode and pair registers
+- Validates ref-sync frequency constraints: sync signal must be 8 kHz
+  or less, clock reference must be 1 kHz or more and higher than sync
+- Excludes sync source from automatic reference selection by setting
+  its priority to NONE on connect; on disconnect the priority is left
+  as NONE and the user must explicitly make the pin selectable again
+- Iterates ref-sync-sources phandles to register declared pairings
+  via dpll_pin_ref_sync_pair_add()
+
+Signed-off-by: Ivan Vecera <ivecera@redhat.com>
 ---
- drivers/remoteproc/qcom_q6v5_pas.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/dpll/zl3073x/dpll.c | 207 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 206 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index 46204da046fa..671e57b47a34 100644
---- a/drivers/remoteproc/qcom_q6v5_pas.c
-+++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -1531,6 +1531,7 @@ static const struct qcom_pas_data sm8750_mpss_resource = {
+diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c inde=
+x 276f0a92db0b1..8010e2635f641 100644
+--- a/drivers/dpll/zl3073x/dpll.c
++++ b/drivers/dpll/zl3073x/dpll.c
+@@ -13,6 +13,7 @@
+ #include <linux/module.h>
+ #include <linux/netlink.h>
+ #include <linux/platform_device.h>
++#include <linux/property.h>
+ #include <linux/slab.h>
+ #include <linux/sprintf.h>
+
+@@ -30,6 +31,7 @@
+  * @dpll: DPLL the pin is registered to
+  * @dpll_pin: pointer to registered dpll_pin
+  * @tracker: tracking object for the acquired reference
++ * @fwnode: firmware node handle
+  * @label: package label
+  * @dir: pin direction
+  * @id: pin id
+@@ -45,6 +47,7 @@ struct zl3073x_dpll_pin {
+        struct zl3073x_dpll     *dpll;
+        struct dpll_pin         *dpll_pin;
+        dpll_tracker            tracker;
++       struct fwnode_handle    *fwnode;
+        char                    label[8];
+        enum dpll_pin_direction dir;
+        u8                      id;
+@@ -184,6 +187,109 @@ zl3073x_dpll_input_pin_esync_set(const struct dpll_pi=
+n *dpll_pin,
+        return zl3073x_ref_state_set(zldev, ref_id, &ref);  }
+
++static int
++zl3073x_dpll_input_pin_ref_sync_get(const struct dpll_pin *dpll_pin,
++                                   void *pin_priv,
++                                   const struct dpll_pin *ref_sync_pin,
++                                   void *ref_sync_pin_priv,
++                                   enum dpll_pin_state *state,
++                                   struct netlink_ext_ack *extack) {
++       struct zl3073x_dpll_pin *sync_pin =3D ref_sync_pin_priv;
++       struct zl3073x_dpll_pin *pin =3D pin_priv;
++       struct zl3073x_dpll *zldpll =3D pin->dpll;
++       struct zl3073x_dev *zldev =3D zldpll->dev;
++       const struct zl3073x_ref *ref;
++       u8 ref_id, mode, pair;
++
++       ref_id =3D zl3073x_input_pin_ref_get(pin->id);
++       ref =3D zl3073x_ref_state_get(zldev, ref_id);
++       mode =3D zl3073x_ref_sync_mode_get(ref);
++       pair =3D zl3073x_ref_sync_pair_get(ref);
++
++       if (mode =3D=3D ZL_REF_SYNC_CTRL_MODE_REFSYNC_PAIR &&
++           pair =3D=3D zl3073x_input_pin_ref_get(sync_pin->id))
++               *state =3D DPLL_PIN_STATE_CONNECTED;
++       else
++               *state =3D DPLL_PIN_STATE_DISCONNECTED;
++
++       return 0;
++}
++
++static int
++zl3073x_dpll_input_pin_ref_sync_set(const struct dpll_pin *dpll_pin,
++                                   void *pin_priv,
++                                   const struct dpll_pin *ref_sync_pin,
++                                   void *ref_sync_pin_priv,
++                                   const enum dpll_pin_state state,
++                                   struct netlink_ext_ack *extack) {
++       struct zl3073x_dpll_pin *sync_pin =3D ref_sync_pin_priv;
++       struct zl3073x_dpll_pin *pin =3D pin_priv;
++       struct zl3073x_dpll *zldpll =3D pin->dpll;
++       struct zl3073x_dev *zldev =3D zldpll->dev;
++       u8 mode, ref_id, sync_ref_id;
++       struct zl3073x_chan chan;
++       struct zl3073x_ref ref;
++       int rc;
++
++       ref_id =3D zl3073x_input_pin_ref_get(pin->id);
++       sync_ref_id =3D zl3073x_input_pin_ref_get(sync_pin->id);
++       ref =3D *zl3073x_ref_state_get(zldev, ref_id);
++
++       if (state =3D=3D DPLL_PIN_STATE_CONNECTED) {
++               const struct zl3073x_ref *sync_ref;
++               u32 ref_freq, sync_freq;
++
++               sync_ref =3D zl3073x_ref_state_get(zldev, sync_ref_id);
++               ref_freq =3D zl3073x_ref_freq_get(&ref);
++               sync_freq =3D zl3073x_ref_freq_get(sync_ref);
++
++               /* Sync signal must be 8 kHz or less and clock reference
++                * must be 1 kHz or more and higher than the sync signal.
++                */
++               if (sync_freq > 8000) {
++                       NL_SET_ERR_MSG(extack,
++                                      "sync frequency must be 8 kHz or les=
+s");
++                       return -EINVAL;
++               }
++               if (ref_freq < 1000) {
++                       NL_SET_ERR_MSG(extack,
++                                      "clock frequency must be 1 kHz or mo=
+re");
++                       return -EINVAL;
++               }
++               if (ref_freq <=3D sync_freq) {
++                       NL_SET_ERR_MSG(extack,
++                                      "clock frequency must be higher than=
+ sync frequency");
++                       return -EINVAL;
++               }
++
++               zl3073x_ref_sync_pair_set(&ref, sync_ref_id);
++               mode =3D ZL_REF_SYNC_CTRL_MODE_REFSYNC_PAIR;
++       } else {
++               mode =3D ZL_REF_SYNC_CTRL_MODE_REFSYNC_PAIR_OFF;
++       }
++
++       zl3073x_ref_sync_mode_set(&ref, mode);
++
++       rc =3D zl3073x_ref_state_set(zldev, ref_id, &ref);
++       if (rc)
++               return rc;
++
++       /* Exclude sync source from automatic reference selection by settin=
+g
++        * its priority to NONE. On disconnect the priority is left as NONE
++        * and the user must explicitly make the pin selectable again.
++        */
++       if (state =3D=3D DPLL_PIN_STATE_CONNECTED) {
++               chan =3D *zl3073x_chan_state_get(zldev, zldpll->id);
++               zl3073x_chan_ref_prio_set(&chan, sync_ref_id,
++                                         ZL_DPLL_REF_PRIO_NONE);
++               return zl3073x_chan_state_set(zldev, zldpll->id, &chan);
++       }
++
++       return 0;
++}
++
+ static int
+ zl3073x_dpll_input_pin_ffo_get(const struct dpll_pin *dpll_pin, void *pin_=
+priv,
+                               const struct dpll_device *dpll, void *dpll_p=
+riv, @@ -1100,6 +1206,8 @@ static const struct dpll_pin_ops zl3073x_dpll_in=
+put_pin_ops =3D {
+        .phase_adjust_set =3D zl3073x_dpll_input_pin_phase_adjust_set,
+        .prio_get =3D zl3073x_dpll_input_pin_prio_get,
+        .prio_set =3D zl3073x_dpll_input_pin_prio_set,
++       .ref_sync_get =3D zl3073x_dpll_input_pin_ref_sync_get,
++       .ref_sync_set =3D zl3073x_dpll_input_pin_ref_sync_set,
+        .state_on_dpll_get =3D zl3073x_dpll_input_pin_state_on_dpll_get,
+        .state_on_dpll_set =3D zl3073x_dpll_input_pin_state_on_dpll_set,
  };
- 
- static const struct of_device_id qcom_pas_of_match[] = {
-+	{ .compatible = "qcom,eliza-adsp-pas", .data = &sm8550_adsp_resource},
- 	{ .compatible = "qcom,milos-adsp-pas", .data = &sm8550_adsp_resource},
- 	{ .compatible = "qcom,milos-cdsp-pas", .data = &milos_cdsp_resource},
- 	{ .compatible = "qcom,milos-mpss-pas", .data = &sm8450_mpss_resource},
+@@ -1190,8 +1298,11 @@ zl3073x_dpll_pin_register(struct zl3073x_dpll_pin *p=
+in, u32 index)
+        if (IS_ERR(props))
+                return PTR_ERR(props);
 
--- 
-2.48.1
+-       /* Save package label, esync capability and phase adjust granularit=
+y */
++       /* Save package label, fwnode, esync capability and phase adjust
++        * granularity.
++        */
+        strscpy(pin->label, props->package_label);
++       pin->fwnode =3D fwnode_handle_get(props->fwnode);
+        pin->esync_control =3D props->esync_control;
+        pin->phase_gran =3D props->dpll_props.phase_gran;
+
+@@ -1236,6 +1347,8 @@ zl3073x_dpll_pin_register(struct zl3073x_dpll_pin *pi=
+n, u32 index)
+        dpll_pin_put(pin->dpll_pin, &pin->tracker);
+        pin->dpll_pin =3D NULL;
+ err_pin_get:
++       fwnode_handle_put(pin->fwnode);
++       pin->fwnode =3D NULL;
+        zl3073x_pin_props_put(props);
+
+        return rc;
+@@ -1265,6 +1378,9 @@ zl3073x_dpll_pin_unregister(struct zl3073x_dpll_pin *=
+pin)
+
+        dpll_pin_put(pin->dpll_pin, &pin->tracker);
+        pin->dpll_pin =3D NULL;
++
++       fwnode_handle_put(pin->fwnode);
++       pin->fwnode =3D NULL;
+ }
+
+ /**
+@@ -1735,6 +1851,88 @@ zl3073x_dpll_free(struct zl3073x_dpll *zldpll)
+        kfree(zldpll);
+ }
+
++/**
++ * zl3073x_dpll_ref_sync_pair_register - register ref_sync pairs for a=20
++pin
++ * @pin: pointer to zl3073x_dpll_pin structure
++ *
++ * Iterates 'ref-sync-sources' phandles in the pin's firmware node and
++ * registers each declared pairing.
++ *
++ * Return: 0 on success, <0 on error
++ */
++static int
++zl3073x_dpll_ref_sync_pair_register(struct zl3073x_dpll_pin *pin) {
++       struct zl3073x_dev *zldev =3D pin->dpll->dev;
++       struct fwnode_handle *fwnode;
++       struct dpll_pin *sync_pin;
++       dpll_tracker tracker;
++       int n, rc;
++
++       for (n =3D 0; ; n++) {
++               /* Get n'th ref-sync source */
++               fwnode =3D fwnode_find_reference(pin->fwnode, "ref-sync-sou=
+rces",
++                                              n);
++               if (IS_ERR(fwnode)) {
++                       rc =3D PTR_ERR(fwnode);
++                       break;
++               }
++
++               /* Find associated dpll pin */
++               sync_pin =3D fwnode_dpll_pin_find(fwnode, &tracker);
++               fwnode_handle_put(fwnode);
++               if (!sync_pin) {
++                       dev_warn(zldev->dev, "%s: ref-sync source %d not fo=
+und",
++                                pin->label, n);
++                       continue;
++               }
++
++               /* Register new ref-sync pair */
++               rc =3D dpll_pin_ref_sync_pair_add(pin->dpll_pin, sync_pin);
++               dpll_pin_put(sync_pin, &tracker);
++
++               /* -EBUSY means pairing already exists from another DPLL's
++                * registration.
++                */
++               if (rc && rc !=3D -EBUSY) {
++                       dev_err(zldev->dev,
++                               "%s: failed to add ref-sync source %d: %pe"=
+,
++                               pin->label, n, ERR_PTR(rc));
++                       break;
++               }
++       }
++
++       return rc !=3D -ENOENT ? rc : 0;
++}
++
++/**
++ * zl3073x_dpll_ref_sync_pairs_register - register ref_sync pairs for a=20
++DPLL
++ * @zldpll: pointer to zl3073x_dpll structure
++ *
++ * Iterates all registered input pins of the given DPLL and establishes
++ * ref_sync pairings declared by 'ref-sync-sources' phandles in the
++ * device tree.
++ *
++ * Return: 0 on success, <0 on error
++ */
++static int
++zl3073x_dpll_ref_sync_pairs_register(struct zl3073x_dpll *zldpll) {
++       struct zl3073x_dpll_pin *pin;
++       int rc;
++
++       list_for_each_entry(pin, &zldpll->pins, list) {
++               if (!zl3073x_dpll_is_input_pin(pin) || !pin->fwnode)
++                       continue;
++
++               rc =3D zl3073x_dpll_ref_sync_pair_register(pin);
++               if (rc)
++                       return rc;
++       }
++
++       return 0;
++}
++
+ /**
+  * zl3073x_dpll_register - register DPLL device and all its pins
+  * @zldpll: pointer to zl3073x_dpll structure @@ -1758,6 +1956,13 @@ zl307=
+3x_dpll_register(struct zl3073x_dpll *zldpll)
+                return rc;
+        }
+
++       rc =3D zl3073x_dpll_ref_sync_pairs_register(zldpll);
++       if (rc) {
++               zl3073x_dpll_pins_unregister(zldpll);
++               zl3073x_dpll_device_unregister(zldpll);
++               return rc;
++       }
++
+        return 0;
+ }
+
+--
+2.52.0
 
