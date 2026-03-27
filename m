@@ -1,139 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E983F2F39D7;
-	Fri, 27 Mar 2026 15:05:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33417303C97
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 15:07:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774623938; cv=none; b=l132+/vL3sx0HNlzl1AYtDU8P83aOWR16lczvg9rBISU4UJO9AchkYPnqFq4kqsNXaCWE6im1ICnaKuYBMsObpZpyqNW+PAajL44c548Jo3Iev1gEL0z59o0naipVwDjHj4lrXJKxO8a5O1CyyDGigd+GhIJn4q+lwab0fJnuuM=
+	t=1774624046; cv=none; b=B6Gr5RseNv7wJv37dUS6xHoMZ/GpbRzjMg+EKGnDk8LOypqagwkwxrB6fCt7icWkE/ZqUqGIAn5jAT7N0/MuYOeac3cORAIoI3+J4BXNpeh1FSoOlidG4pPnDexGDtqI+t5W0Mp9CKwFdt+fqKC7fBZI/dQVP46mLXAdTVo2vRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774623938; c=relaxed/simple;
-	bh=aaAxQ7EXWU8Fl48+WxX4DQz2eWLTJyo+EtdUui8D/68=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Oer9c90u7JOQQNW9NRGLxwmKUNY0cMF3LqiFdJP/En6/2jlheprxGrivfN73T/d4wKuw4jziCcZYMfqNmaSuWVkKDO57zFlomjGkuUf8+0lntl3IoaO2koH4L5vzmaRE30rmY5dbREJQm7W637tY1SAFgKgfRfd7d39Q70ICOUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M2zuV4NT; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774624046; c=relaxed/simple;
+	bh=/kUhKxLK/HiVTHt4C8gogYYLUmss6aq6IAKcvjyBAL4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=rVDcnVdRjYg/Mify8gWNcQJoBKy3CHfh+DifceyptfUjQnZJ657ltjmK4s6MYX6QIx/ACNQZqilqkGf2cOLVOu4Te57D7Yotre//80bjAEtO0l4Thxz9VvNrhXavxECWH7qXek1nUXGPFFug0lBBMvqSFPGI4ibDgUVnK7MXc0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=Pgd+tgAW; arc=none smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M2zuV4NT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E30BFC19423;
-	Fri, 27 Mar 2026 15:05:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774623937;
-	bh=aaAxQ7EXWU8Fl48+WxX4DQz2eWLTJyo+EtdUui8D/68=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=M2zuV4NTHTb/p9CMGsFhFUdZcu3PoLuHAcnJk3C2bqCAnddEZUojfkBaGrjC1tMyx
-	 IyA3/RgP28dZUnwzlC82wE3V6p6/pqeAeYCRF9Dl250Pld4R0RqfbMpwN91Ix9vkiU
-	 ylbCmMQgY14GfpOJhdvCR9KEJn8j7aOqL5Tk5aqHFUZGWaxhU4jbRtjFKsMpWFrFLL
-	 514WBwCr1dCB4br096VIXej4XYxrZLTVPPZCXkJjUo7KDtybnKVNCDh5lqxywbNo3i
-	 YX/wyqPyXQKOsNLV+D7YsPCx+pQPq5hj8VlYT7S5nWOpRt76PjB39h70/kZj4nVAT/
-	 HVqz9hDV3uxmQ==
-Date: Fri, 27 Mar 2026 16:05:34 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@gmail.com>, Thierry Reding <treding@nvidia.com>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Jonas =?utf-8?B?U2Nod8O2YmVs?= <jonasschwoebel@yahoo.de>, 
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] ARM: tegra: lg-x3: add missing nodes
-Message-ID: <acacdUaXVNIKHT2O@orome>
-References: <20260126101018.24450-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="Pgd+tgAW"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-66ad907833dso3855020a12.3
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 08:07:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1774624042; x=1775228842; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+CkqBk2g+EWPQvgPZYgq6UuU0Pf+l3NHDnxqGjySmmw=;
+        b=Pgd+tgAWY5Pk54v9PDgG4uwFTWfOTolPA9ulQ+wQKmgJD0oOAyrkssWFF5oroXJRw1
+         N2KQieJFkZjR9exXtUpXpft/27H6ecefXLGWREVPlpDu2/dm8dMBsFcSA3ZmVEoHkfV9
+         jyQ1/5enB3VB/iygFkMJClW/uimFxxgDL+5suPesYfuaTMvqe3JkoXAFASKdkt7wIkHX
+         N4wELA5mgR93PZREUtXD8XJ68gp77EWMzcpV6e6S8csrGQTyUZfKilzEC0CIX9zDfikJ
+         NleNsHQ+VXuXF5fulJOAper32NkRlvnHfbFQqYBiSJ6MaUjQw5NR1wONiQ6EW3KwhwLl
+         vvcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774624042; x=1775228842;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+CkqBk2g+EWPQvgPZYgq6UuU0Pf+l3NHDnxqGjySmmw=;
+        b=bvSH8T/JQHRNt3mmG3dItYvwhfq6o1EUJwXnVBoDQpdS2UFOGCbaVFHZGFaoOkWrYp
+         H4uy28hWHNbESX5FWL6rBnYW1au4utPgROxmgBKmPeAEh9v+EZR8VtVqPJDhOMu6YylP
+         YX3Es6b+QylzcTiH8UHyV5TokEua4rpAwHbrL75Jxup69iC7KQA2vpbD4wv1j2abw1ys
+         A0+o4tJqMlYODeG/qiUsy9MCKU6txF63SzgT+szObQAO0PmxM+jRSJCT1RMs1DO/VmtY
+         KclcK4j8mm8IYQW2Wegvanv82BsTZkrFRE12owsTomEPDqPXltRCz38cOOamVC2eAVPx
+         rD0w==
+X-Forwarded-Encrypted: i=1; AJvYcCV3uWQa+6xVCfjglpwQOb2L+3sDGwrBB9BVb13F3MghyBjk9UeD/h+Lbna+8Xl52EA6RhruoJRWb5SD@vger.kernel.org
+X-Gm-Message-State: AOJu0YxhKhQEC6cR6ryck56f0OkdC5hXPkEtZ/ItqKe6r5/0KH72Z2Eq
+	AtoFqnR7O8sjI7dmLU20cwbc9AFI2g/E9S84yT87lDaX8pbFYyA4hyop9poma0gfoYY=
+X-Gm-Gg: ATEYQzw85rT5yIlje8GPuCprI2ECtC5JkxLQPwKWP/fnqGMAL4SHyPdywWHmVjCxkQ+
+	a3yVV4OILJm6EZOUJitzlXDe5Tv6I84C32ytfyaZ5PUDGqlJRloe7BIvXpLj8NAorsRg5QS4NAD
+	DBza6Z4mHWEl1XyNkdXEHpg/hHYr3t/JQDawMOrpHdDkkLowtKk9Yge2YbctQHBeBm+ZKuYVIgq
+	BqN+1/VeAxKoKlObgkN9ahtumcp5LJKVnLF5/8qHHT/nnzzMcXDxqtUi2AKGY/0T/sR4FnSCZd0
+	rlJUpc9XhdN3uerCadndc31QYIKdK/2C9xi+zJ0Wf4eqXhrqMqWx05Z0Y6pjOhZrBdlCNPDFre/
+	PRvyb4XUPWK0ua8NZuoLoyv/Ukr9J2MRILVKN+ZWoRpjOTerbVR5+BOjlTKE93Ms/DuuDZn+UJe
+	i8r1ArwTrXeKjdTadQubDvB0UWLxIMi+473sC7E5UGXeHLYUJHURDRprFq77x44j0PoyLp
+X-Received: by 2002:a05:6402:52c7:b0:662:ab67:a560 with SMTP id 4fb4d7f45d1cf-66b28c526dcmr1637141a12.24.1774624042436;
+        Fri, 27 Mar 2026 08:07:22 -0700 (PDT)
+Received: from localhost (144-178-202-139.static.ef-service.nl. [144.178.202.139])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-66ad5e3bb1csm2337411a12.4.2026.03.27.08.07.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 27 Mar 2026 08:07:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="a32hysasxpbh5ygy"
-Content-Disposition: inline
-In-Reply-To: <20260126101018.24450-1-clamor95@gmail.com>
-
-
---a32hysasxpbh5ygy
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 0/4] ARM: tegra: lg-x3: add missing nodes
-MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 27 Mar 2026 16:07:21 +0100
+Message-Id: <DHDNPXYB1Y1U.PUNONE3TEXD3@fairphone.com>
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: Add the Lenovo IdeaCentre Mini X
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Bjorn Andersson" <bjorn.andersson@oss.qualcomm.com>, "Bjorn Andersson"
+ <andersson@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>
+Cc: <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260325-ideacentre-v1-0-768b66aaef30@oss.qualcomm.com>
+ <20260325-ideacentre-v1-2-768b66aaef30@oss.qualcomm.com>
+In-Reply-To: <20260325-ideacentre-v1-2-768b66aaef30@oss.qualcomm.com>
 
-On Mon, Jan 26, 2026 at 12:10:14PM +0200, Svyatoslav Ryhel wrote:
-> With the recent kernel updates, Tegra30-based LG smartphones now support
-> several additional features, including an RGB-DSI bridge, DSI panels,
-> MUIC, a charger, a battery temperature sensor, OTG mode, and capacitive
-> buttons on the P895. Add required nodes to device trees.
->=20
+Hi Bjorn,
+
+On Wed Mar 25, 2026 at 11:34 PM CET, Bjorn Andersson wrote:
+> The Lenovo IdeaCentre Mini X (Snapdragon) Desktop is a Hamoa-based
+> ultracompact desktop PC. It provides HDMI, DisplayPort, USB Type-C
+> display outputs, 5 additional USB ports, Ethernet, dual NVME slots,
+> headphone jack, WiFi, and Bluetooth.
+>
+> Introduce a DeviceTree describing this device.
+>
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 > ---
-> Changes in v2:
-> - fixed dw9714 and tx13d100vm0eaa nodes
-> - added video device pipes graph
->=20
-> Regarding CHECK_DTBS output in v2:
-> - nvidia,tegra30-pcie, nvidia,tegra30-gmi, nvidia,tegra30-kbc,
->   nvidia,tegra20-kbc, nvidia,tegra30-ahub are not documented yet
-> - nvidia,tegra30-vi was adjusted and applied, change did not apper yet
->   (https://lore.kernel.org/lkml/176860988748.1688420.11717122647073678.b4=
--ty@nvidia.com/)
-> - st,m24c08 appers undocumented though it seems to be different from
->   st,24c08, at least they google as separate devices. atmel,24c08 is not
->   documented, though it is widey used in linux device trees and is
->   supported by driver. Here is one of examples:
->   https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tre=
-e/arch/arm/boot/dts/allwinner/sun7i-a20-linutronix-testbox-v2.dts?h=3Dnext-=
-20260123#n33
-> - onnn,mt9m114 does not have 'orientation' property, though it should
->   include it since it is generic for camera devices
-> - ti,lp8720 and maxim,max77663 have txt documentation and are not yet
->   converted to DT schema
-> - backlight in panel nodes was not added since lm3533 has no DT support
-> - missing '#io-channel-cells' in ti,tsc2007 addressed in
->   https://lore.kernel.org/lkml/20260122193549.29858-2-clamor95@gmail.com/
-> - missing dsi controller properties of ssd2825 addressed in
->   https://lore.kernel.org/lkml/20260123073411.7736-2-clamor95@gmail.com/
-> - missing '#io-channel-cells' in generic-adc-thermal was proposed in but =
-rejected
->   https://lore.kernel.org/lkml/20250310075638.6979-2-clamor95@gmail.com/
-> ---
->=20
-> Svyatoslav Ryhel (4):
->   ARM: tegra: lg-x3: add panel and bridge nodes
->   ARM: tegra: lg-x3: add USB and power related nodes
->   ARM: tegra: lg-x3: add node for capacitive buttons
->   ARM: tegra: lg-x3: complete video device graph
->=20
->  arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts |  39 +++
->  arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts |  79 +++++
->  arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi  | 328 ++++++++++++++++++-
->  3 files changed, 429 insertions(+), 17 deletions(-)
+>  arch/arm64/boot/dts/qcom/Makefile                  |    1 +
+>  .../qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts  | 1199 ++++++++++++++=
+++++++
+>  2 files changed, 1200 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom=
+/Makefile
+> index d69e5f3132c4fd3fbf1ac90e83adf6af6b104a93..fbbec696ac161af42c18acc34=
+4a228ba461f65a7 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -21,6 +21,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+=3D hamoa-iot-evk.dtb
+>  hamoa-iot-evk-el2-dtbs	:=3D hamoa-iot-evk.dtb x1-el2.dtbo
+> =20
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D hamoa-iot-evk-el2.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+=3D hamoa-lenovo-ideacentre-mini-01q8x10.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D ipq5018-rdp432-c2.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D ipq5018-tplink-archer-ax55-v1.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D ipq5332-rdp441.dtb
+> diff --git a/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x1=
+0.dts b/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..cc90cb58a9c17ad166dd641d9=
+bbc03b7df5686a6
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts
+> @@ -0,0 +1,1199 @@
 
-Patches 1-3 applied. Patch 4 has checkpatch has checkpatch warnings:
+<snip>
 
-	WARNING: DT compatible string "st,m24c08" appears un-documented -- check .=
-/Documentation/devicetree/bindings/
-	#255: FILE: arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi:1243:
-	+			compatible =3D "st,m24c08", "atmel,24c08";
+> +&remoteproc_cdsp {
+> +	firmware-name =3D "qcom/x1e80100/LENOVO/91B6/qccdsp8380.mbn",
+> +			"qcom/x1e80100/LENOVO/91B6/cdsp_dtbs.elf";
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +&smb2360_0 {
+> +	status =3D "okay";
+> +};
+> +
+> +&smb2360_0 {
+> +	status =3D "okay";
+> +};
 
-So I've left it out for now.
+You have this smb2360_0 node enabled twice.
 
-Thierry
+I checked this AI review thingy to see what it's saying , and while most
+suggestions are probably kinda useless, it did spot that bit, which I
+thought you may want to fix in v2.
 
---a32hysasxpbh5ygy
-Content-Type: application/pgp-signature; name="signature.asc"
+https://sashiko.dev/#/patchset/20260325-ideacentre-v1-0-768b66aaef30%40oss.=
+qualcomm.com?patch=3D10329
+> This isn't a bug, but the smb2360_0 node is defined twice. Can the duplic=
+ate
+> be removed?
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnGnLoACgkQ3SOs138+
-s6GH2BAAon+JsEUMDnuTUUG2YVuyah6tz4JxOlON5h7maG22z686v45oIQHIGH6U
-wNBpC+R8roXYnAXsFMSCHLXPUnSCZOJHiOgY7T4lfXY7jUJK4ICYpJ3p2SqJKjdh
-SrgvK6b+vkD1NKDzwS0o1qi+n8558KxhZ7R7bQNQfCRVSESeXA0wJu48ytvQnAGO
-eJC0BScTVCHqhFszaZebaEsYsdx9NS3ASx9b2DOEj8Zj5RG8Hh/PDjVjxSCVucTY
-EWzGFbwEKIrYL4C+8C6iwxY5wSdWx/V/y6K4+DrMdU5w6JaX4DcsO4FygkO7Wswq
-FM5/g0YdlsLcakKol+YzwQQxfRkiLkRV16veXSn0Vm9TTGOyDHD0OfI6a2NkDq51
-AO6IoMt+0VyKlBPDnAqPbcnT03bWnZG+f2W8p8DJI84cdY9uDkqc7oYkkzEFzKbj
-qLYDcIXWPe0wPMWb8NFb62eb00ggrua60eflBZx6cP/3MEioEfjFoMuInKgtm9QD
-Cr3YVyk+/VDnwY3QoP2J3VBmNpq6jhuOPnklDnrZUraqZgPLLnnYAxL6cYn16ByN
-Gyu5IC++iBw2htgqCCuWGJPCVZEYo7NAFLAoAZFlFuh6UgG8+MqK9e1sBkYbsp3o
-xdq+NYHa6eUhELKM1rknrndqnr6fGSyvg9NDTn47y2MkWKt6Guw=
-=puU5
------END PGP SIGNATURE-----
-
---a32hysasxpbh5ygy--
+Regards
+Luca
