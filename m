@@ -1,117 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D49E71D5170;
-	Fri, 27 Mar 2026 23:40:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12F6395273;
+	Fri, 27 Mar 2026 23:42:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774654856; cv=none; b=kf5Foq5nmQt5F01HdWaoxaSj4yekT2McXu9A20zbS1TYJZExC/7375NqLUST60+5wOm3+DahNURNkZgpV+v42yqFA5u6mU4cCmaNHAeC/ZukNr7geaQCBzcS/R3noufJ7PeczeKv9QLe2zpi7qZQfZbw2FztOLf5sCKCtSsefrU=
+	t=1774654980; cv=none; b=k9dHCu4U84QK4vMWkKmc8kPjrd2xW8eOHnCYTWdysClBxyjnEEOFw8ayPkEr0luXjTd1swbt/mzdUCOBHFI7ZuYc7KWjEOrFj3Sk5FVn9L+93ZsuSPkuQSKh5hCe858DW8v73/JhZQVx403WFy8jL5whaQZADJ7YQQuNY7sZ/hI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774654856; c=relaxed/simple;
-	bh=sByxVQRXRO33XAc5dfOqJ5M+BSrugSeygBYgV/aa6II=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YC+gRhqCnqgTvjE9SBUtRmFZdsRL2W8DUBJ8W7Fr3czrax90/kmIC+qK2NH1SBigij42cQlYeKsb4qoY4C1t99mTTOO8qwgWP0r/rRKS9hifemYHBX2vkasa/awaadMsVvibiudp85fIu5hYagd2u7HAPi3E4/T2zrNGGT4LcGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iUdkJeZI; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774654980; c=relaxed/simple;
+	bh=NtMatZnJhRnn9EA9m4QYZZZyHi84Nh1rxJ08S+HR0Xo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J8Z/bajR913JfwrREgwrcAV+ysHXY8vPR3/VHC+OQvahOtB/EsVI/RVGJxZqolBi32zugjmQ8v8mGzmmpFSxdOmYwUvL0+jtYBZa2Sv64Yo0vjwbFxRacN9jPoh9mvtt6HK0Vk8OlRUZ4KNt5ogUXfG8ikfIwcJ7rcaM/FDvAn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=OxtwlH1N; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=IIPcsmaU; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iUdkJeZI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7826DC19423;
-	Fri, 27 Mar 2026 23:40:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774654856;
-	bh=sByxVQRXRO33XAc5dfOqJ5M+BSrugSeygBYgV/aa6II=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=iUdkJeZIC/EPizOX4gTS5UdxRRAMfuT5H1Lnb7bOWM3FkLLzFc1hZELrB9U/+uXFU
-	 in9WNNykZWSU0dDg16nEdiXIWyxZuDgAtpTBs9GKjGhYB/bnT57a6D0D2Ft6+7KoWE
-	 i19kVhrn+JFHFUMLHhxA9NePNl8LtnQVI+kiCFifIqhxTNMVK8lkrWeQwnQqvCfloz
-	 DtkFLArCgPndN9MwE2s/h4ZHp9hpo6FZRR00CH6MvI0a/hf8iHWUUdKSOY1g4oaOB3
-	 X+M4teyIFo3t2L4+MTVkTxTAKYFslMNUdmHapftc/PlHJz5ClJ5ZqUcBPk9zp5Bzs3
-	 s0YVh1k/GXmIA==
-Message-ID: <0322e0b3-bce8-4415-90b2-d14445986e23@kernel.org>
-Date: Fri, 27 Mar 2026 23:40:51 +0000
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="OxtwlH1N";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="IIPcsmaU"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4fjHJG1Qywz9tmr;
+	Sat, 28 Mar 2026 00:42:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1774654974;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=pudUxNmNHF6c2MfPxmIneGnnQ77yu+zSLu1gflW/mao=;
+	b=OxtwlH1N83TKRN1hp7daxJLc5N9mm3Q6XvizptzlKnw5DTFOgDdJ81+m2flcUwDY7iZZ10
+	pjIiGXJ/Frp+T9vfaC1iFUE4R/xq0L57mXHcLLKEzR2Vn8BJOchTyPAwFz4aeyn30TWwr6
+	NcgBuKXxEnFo3itWzjRaE8k9ZJkG3u5/qeqB/n2Fhxp3mwkneNHgh+Ot+mJHZ9hegUEd5K
+	WRAqKfGi7x0BbrRI3bJlB1MuQMYhyjSi4J+HNAAxttixq5BikSODUMfP5pehFknWHdWWod
+	cJP0TT6igypy7HULMMt1X8MtVfjwlElkfqPFLFtmDSQZHpl4rGRWo6yCm378hQ==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1774654972;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=pudUxNmNHF6c2MfPxmIneGnnQ77yu+zSLu1gflW/mao=;
+	b=IIPcsmaU8ywWDiVs746b7eHICgWF4j9BvYuY3e2mEMlUQU60/jXNBcmWkL/K0lsBZt/Z2H
+	eor5Pj+cgcFwC5dXAf2b3gQ9Xty9jcj2ukknrrQAcja+zFVxoaG9i4BERoMgdHB3dPy2nt
+	3ams+Kw9Iqruf1mZ/qHGXCJo76ucP2wEgpf6kNRxh5zMGuzaoeAuaEViW/628lyMTY+4xB
+	bp3SSef3chEyQnlW2gUbqQp49ouT2jdesIpC+sllVVrNy+lY96q+o59WRGywCE9kIlhh8T
+	/sVRxXJIlcfQ0rI3IkV5ewSdZqTGQSuLnddHalMo0V0q6S1A+rcHgF9Kx31W/A==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH 0/6] ARM: dts: renesas: Trivial DT fixes
+Date: Sat, 28 Mar 2026 00:42:05 +0100
+Message-ID: <20260327234244.91707-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260326-x1e-csi2-phy-v5-1-0c0fc7f5c01b@linaro.org>
- <72ef6c9e-feb6-4e57-b8cc-7801bd748698@linaro.org>
- <f1c8c412-1d27-4c83-8c5e-76b9369ea6e9@linaro.org>
- <VwCtoebjwHqLTucsrGruvBpedA4k-Melt7C0DA0aHSVld3PeotwZdtMUm3EFpvQyScrl6yejmLaK7bY1avT1zQ==@protonmail.internalid>
- <8ac55e5f-72ed-4331-bf42-92ccf97507dd@linaro.org>
- <5d7d5bf8-4420-4d75-b928-820bb9233e52@kernel.org>
- <CiKTMNVmEm3LXForJ4o-DjuXFxbKkiaLtqbFPYyA0rC-Ij0hJPmCw_LUixA-dZe2douOwy2Jxizna8qBRvUjPw==@protonmail.internalid>
- <2houacfdkozzk35ky5xtwe3utkvyx4lroyrhvibb5lg6lad2g6@56akvtqigaep>
- <556a6736-472d-4551-b5df-15e809e7e20e@kernel.org>
- <a44a0f58-11cd-4aa4-962f-a5b153e24d82@linaro.org>
- <vcj9b-49PycEnk8KeGcgXAaN09KfYZnW7g0LayiEPie9p-4krmMDfNO6Nx4DLgwoKHdKJughl7zoxvmKVkqOag==@protonmail.internalid>
- <qr6ubhjlzxenx7rswwkfu2nkc7ci5hw5tynpipa76bqsibbd3d@rw5d55vjnkbe>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-In-Reply-To: <qr6ubhjlzxenx7rswwkfu2nkc7ci5hw5tynpipa76bqsibbd3d@rw5d55vjnkbe>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: b2b79677db91ea5b61a
+X-MBO-RS-META: cfajky37wi7z98d6mdepyg85uwsguhst
 
-On 27/03/2026 23:23, Dmitry Baryshkov wrote:
-> On Sat, Mar 28, 2026 at 01:12:22AM +0200, Vladimir Zapolskiy wrote:
->> On 3/28/26 00:29, Bryan O'Donoghue wrote:
->>> On 27/03/2026 20:51, Dmitry Baryshkov wrote:
->>>>> That's just not true. If you read the camx source code you can see
->>>>> split/combo mode 2+1 1+1 data/clock mode requires special programming of the
->>>>> PHY to support.
->>>> This needs to be identified from the data-lanes / clock-lanes topology.
->>>> And once you do that, there would be (probably) no difference in the
->>>> hardware definition.
->>>>
->>>>
->>>> In other words, I'd also ask to drop this mode from the DT. This
->>>> infromation can and should be deduced from other, already-defined
->>>> properties.
->>>
->>> It still needs to be communicated to the PHY from the controller,
->>> however that is not a problem I am trying to solve now.
->>>
->>> If I can't get consensus for PHY_QCOM_CSI2_MODE_SPLIT_DPHY then so be it.
->>>
->>> I'll aim for DPHY only and we can come back to this topic when someone
->>> actually tries to enable it.
->>>
->>
->> DPHY may be the only supported phy type in the driver, it does not matter
->> at this point, however it's totally essential to cover the called by you
->> 'split mode' right from the beginning in the renewed device tree binding
->> descriptions of CAMSS IPs to progress further.
-> 
-> Okay. How would we describe that there are two sensors connected to the
-> single PHY anyway? How would it be described with the current bindings?
-> 
-> --
-> With best wishes
-> Dmitry
+Add missing unit to bus node to fix the following type of DTC warning:
+"
+arch/arm/boot/dts/renesas/r8a7778.dtsi:43.12-48.4: Warning (unit_address_vs_reg): /bus: node has a reg or ranges property, but no unit name
+"
 
-Assuming you add endpoints to the PHY i.e. that is what Neil appears to 
-be asking for and I personally am _fine_ with that, then it should just be
+Drop superfluous address-cells and size-cells to fix this type of DTC warning:
+"
+arch/arm/boot/dts/renesas/r7s72100-genmai.dts:28.17-55.4: Warning (avoid_unnecessary_addr_size): /flash@18000000: unnecessary #address-cells/#size-cells without "ranges", "dma-ranges" or child "reg" or "ranges" property
+"
 
-port@0
-port@1
+Marek Vasut (6):
+  ARM: dts: renesas: r8a7778: Add missing unit to bus node
+  ARM: dts: renesas: r8a7779: Add missing unit to bus node
+  ARM: dts: renesas: r8a7792: Add missing unit to bus node
+  ARM: dts: renesas: r7s72100: Add missing unit to bus node
+  ARM: dts: renesas: genmai: Drop superfluous cells
+  ARM: dts: renesas: rskrza1: Drop superfluous cells
 
-if port@1 exists, you know you are in split-phy mode.
-
-Its actually straight forward enough, really. To be clear though I can 
-write that yaml - the _most_ support I'm willing to put into the PHY 
-code is to detect the port@1 and say "nope not supported yet", since 
-like CPHY its not.
+ arch/arm/boot/dts/renesas/r7s72100-genmai.dts  | 3 ---
+ arch/arm/boot/dts/renesas/r7s72100-rskrza1.dts | 2 --
+ arch/arm/boot/dts/renesas/r7s72100.dtsi        | 2 +-
+ arch/arm/boot/dts/renesas/r8a7778.dtsi         | 2 +-
+ arch/arm/boot/dts/renesas/r8a7779.dtsi         | 2 +-
+ arch/arm/boot/dts/renesas/r8a7792.dtsi         | 2 +-
+ 6 files changed, 4 insertions(+), 9 deletions(-)
 
 ---
-bod
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+
+-- 
+2.53.0
+
