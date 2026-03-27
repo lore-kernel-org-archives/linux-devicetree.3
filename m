@@ -1,65 +1,145 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAA13815F7;
-	Fri, 27 Mar 2026 11:48:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72CB82882B4
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 11:48:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774612108; cv=none; b=YgMYtyLvGbaONWzezeQDWPv2P0N+h8kWwdMHZ3JtrYlIHVVlJWpB9tAbtbtX3kP6KfyjRCX5oZRcVCDyN+Gx3Wvmyf0Y/PcIoRkmJ2ofkWRa+PM4KVYtttYvqniJnu6w+QSlqW5GRbMm6bgWCRDM3SbPS5kv1l9NwJ0/RuGajPI=
+	t=1774612129; cv=none; b=cLnSG9G/cZNJeIpWpgWR4qeNQ4azKB6gbHrJBa+IuLVasUQY0qYYpW1GtdIdaFiof32D8cEG7prDY63SRdXoYbHaY9p5fCObzfUwl/bsQHsInLpo1bl90WtpVUOJs7pTRjaGscFuReI8lGSCSwOUhrXz2Om1IWXTSsBR817f+PE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774612108; c=relaxed/simple;
-	bh=Kwtx7sJmgY9H63obq3O12tOE4ThiZXqrxNJqOnkc86c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Bc4bAQ1MMuEwtJ5bzgEzQYMNa5qWSy96RKDus2D+Kmb8EvdzT4GTJ/X9iUd6wP6U+RwWpLS9586Er4RMYTj1jZ3p4tgEM4+vdvv1sMKxd1gO4Unq/bXQXPlcAfAuzd1ET5J+dNt0oDJJrTY76ikaYdG+Y3oCSLK8zN2ISP5R3T0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=tm/l+TU5; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1774612129; c=relaxed/simple;
+	bh=KIZXE8Lzk5B85OIlevm3Mr7lGEeLncI0dprVgBSY/y0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HKa2fhB9CWgBsAXhVNOweSvGAN2P4p9umuy0tYtfj0F35Q6ZCuREO+Iki4EDLd45yY2nt4zDrRG5Le2BqKrGYusUmNBZmWE/bz37p12P4CasSOID+aFDrFlHwdEqtS4MhfN8rVu8iZhLj1kwHiETJLleMLDX1BB/KAf4BG8ND1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dG8mhvcg; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="tm/l+TU5"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=DAhJnv5c2JC/LGwNBMq3wIdQ+V/gMdi8PLZ3o0VQ/OA=; b=tm/l+TU5AGFWW1JeSpiASjvKDl
-	QnDu7nLiy8lHwChc+hkUWr97Fp0DuFTzkClvkKwutwvko/Wf9WlLHxEMmRB3sqLqc+9+fjc3BKcm7
-	WrBnSEbnpw2pbOVMqo3GphX3Kzij4riEHmsmo6HC+dTE6ATWNLaGMhvQVTvoU1gnR+f8=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1w65fl-00DeIa-E1; Fri, 27 Mar 2026 12:48:17 +0100
-Date: Fri, 27 Mar 2026 12:48:17 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Joris Vaisvila <joey@tinyisr.com>
-Cc: netdev@vger.kernel.org, horms@kernel.org, pabeni@redhat.com,
-	kuba@kernel.org, edumazet@google.com, davem@davemloft.net,
-	olteanv@gmail.com, devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH net-next 2/4] net: phy: mediatek: add phy driver for
- MT7628 built-in Fast Ethernet PHYs
-Message-ID: <95814693-ed58-46ca-a680-8b93e4adee72@lunn.ch>
-References: <20260326204413.3317584-1-joey@tinyisr.com>
- <20260326204413.3317584-3-joey@tinyisr.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dG8mhvcg"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4853e1ce427so24029125e9.3
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 04:48:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774612127; x=1775216927; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=APJRN7UgMra3qjYWWIOAmYwWw8wN71Hu6O8KoomOMSw=;
+        b=dG8mhvcgYBlksWUnTFWXzKIgYW43xE0hYlFwwfVA2YjweI/kzYEuz6+ZdQFf8jvAFN
+         aYkN420Q0x18MfY2Ukd7t3WG4jG6NXQtDtVVWcyAqHqNhMC/0HOG5dpqzJIMtUNYezHQ
+         GxVtbagRfwxROVX/BO+8aNYnGWPJq2wOSh3LZoR+2+f+RunX7LAJJIRcyLrUAbjEZUBa
+         +yuVHKxJ0SanaVzAPUdkt3AYa1otQEY16oakE7YnwI7kG+TTp2VAQ7Nc2K5tRyf9gl/N
+         Hy806Zv2lWec8QZ4z/cwcpYFgwEI6sz+uvGsRo4HIElBp0xbX6W/hS9Al2FhBrqcv8io
+         /l7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774612127; x=1775216927;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=APJRN7UgMra3qjYWWIOAmYwWw8wN71Hu6O8KoomOMSw=;
+        b=LSkibsHpRxqwMSN9ozvosLcmdxeP3kivMv3qASvuau5QtkH+zXwjhzJvTSO3t+tWUT
+         bN8D+/Bp3DyKvToOKLF0WKU/uav10DRTSoXU5MeyIuc6qtL8hjdoiyLwYIZ4e46hTbCo
+         sCRlONrgLNTljHHt2yzI4Hg39Yo9ayW+1D3MC6L/wXBYl28C6TEieII1AhxDFtCjdQgz
+         VJP+nZ3KixP9xI0QY6OTntYBdNvdaA7br93Fa1fEWKc/Cpez5Ra5u102rIbVvTdAjgI3
+         vaS1ilyJNZM/cu6yvvv8MI/Tgatn1jeDLgNk0aISlmYaWQ9NAyKQIzmo0T+3XakvUbGz
+         CyZw==
+X-Forwarded-Encrypted: i=1; AJvYcCVjJr+26MxyBlKvuQRqlDKhFlRxCgnYekCUfBpeq/gj51rhBHDBHz7xSE1s7Z6xEs6R6EDWmNY+WAcD@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzrcn9fPoJpdB/D01xwCfzFjWcrIXC3eXZ06oanfNAx011+6wfv
+	F/Sqj0IyfXKUKbHWTdVbgf6Sru2wMLrsnCLKlpMBfqcaDFishIlJqC+w
+X-Gm-Gg: ATEYQzwTSrqmr1W3ZLRkNv4pZT94wlaIdAx8Uzlc7ykrSBnGzJB/q/Ae7zdORj4kjNA
+	pAWGHFY6uLkckuslP1ABsgnRDZgFzJVde34bbRbQHIMSEoMHhIRGg9I5zLTl4YBsn/+xsG7mCtK
+	NEIdfRBksHPGB/NlwGN7axy4PoC3+1Dzp4NC0wFCrcus/P1dSZaOe98ymy8+QEDGM3EO6fsOBxc
+	7Tfg78OLUb+OVNQ8G1raBslecOc+xnq/AfEBygWiswQqi9Av3iR0JpVIXyR7W7yrIbjwHBBpRXx
+	RePWJ6ez8f8ZmiDxjzG9LFYiHB04LxM2K0XytoGIdtAssHJG37ZGJsP9YJE+Yp/lUA2cppV4SSz
+	+F97kc02PyNbzZTrc644uV+RbVNe65cJ7YUw5KbYH8hk/TiHctEbxJZj732nJXqszXEJPlJ4YBB
+	aVPp/pxlbOqzX1/rPi0T5gwgGWeaMXisCq3LzmTTkHGufrayyk230q1B3Om8e2CXECF/96PM+ZZ
+	E3uiXwvDgNvb53H6A/BGhk1Dw==
+X-Received: by 2002:a05:600c:a10a:b0:485:3f72:324d with SMTP id 5b1f17b1804b1-48727e9ea73mr32263505e9.14.1774612126754;
+        Fri, 27 Mar 2026 04:48:46 -0700 (PDT)
+Received: from iris-Ian.fritz.box (p200300eb5f28a7005a7787565d4257d0.dip0.t-ipconnect.de. [2003:eb:5f28:a700:5a77:8756:5d42:57d0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722d49c18sm90506115e9.14.2026.03.27.04.48.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Mar 2026 04:48:46 -0700 (PDT)
+From: iansdannapel@gmail.com
+To: linux-fpga@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: mdf@kernel.org,
+	yilun.xu@intel.com,
+	trix@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	neil.armstrong@linaro.org,
+	heiko@sntech.de,
+	marex@nabladev.com,
+	prabhakar.mahadev-lad.rj@bp.renesas.com,
+	dev@kael-k.io,
+	Ian Dannapel <iansdannapel@gmail.com>
+Subject: [PATCH v6 0/3] Add Efinix FPGA configuration support
+Date: Fri, 27 Mar 2026 12:48:38 +0100
+Message-ID: <20260327114842.1300284-1-iansdannapel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260326204413.3317584-3-joey@tinyisr.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Mar 26, 2026 at 10:44:11PM +0200, Joris Vaisvila wrote:
-> The Fast Ethernet PHYs present in the MT7628 SoCs require an
-> undocumented bit to be set before they can establish 100mbps links.
-> 
-> This commit adds the Kconfig option MEDIATEK_FE_SOC_PHY and the
-> corresponding driver mtk-fe-soc.c.
-> 
-> Signed-off-by: Joris Vaisvila <joey@tinyisr.com>
+From: Ian Dannapel <iansdannapel@gmail.com>
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Hi all,
 
-    Andrew
+This is v6 of the series adding support for programming Efinix FPGAs
+over SPI using the fpga-mgr subsystem.
+
+The series adds DT bindings for the Efinix SPI configuration interface
+and a new FPGA manager driver implementing passive SPI configuration.
+
+Testing:
+- Verified on a custom board with an Efinix Trion T13 FPGA
+- Tested full bitstream configuration over SPI at 25 MHz
+
+Changes since v5:
+
+dt-bindings: vendor-prefix: Add prefix for Efinix, Inc.
+- fixed trailer formatting
+
+dt-bindings: fpga: Add Efinix SPI programming bindings
+- renamed the binding from efinix,trion-spi.yaml to
+  efinix,trion-config.yaml
+- replaced the generic fallback approach with a family fallback scheme
+- made efinix,trion-config the required fallback for Titanium and Topaz
+- updated the example to use the new compatible naming
+- added an example showing the fallback-compatible form
+- removed driver-limitation wording from the binding description
+
+fpga-mgr: Add Efinix SPI programming driver
+- renamed compatibles from *-spi to *-config
+- aligned the driver with the fallback-compatible scheme
+- removed direct OF matching for Titanium and Topaz so binding happens
+  via the Trion fallback compatible
+- moved Kconfig and Makefile entries to the end of the FPGA manager
+  sections
+- fixed kernel-doc style multi-line comments
+- documented why chip select must stay asserted across reset and
+  bitstream transfer
+- removed the redundant bus_locked state
+- reordered probe initialization
+
+Ian Dannapel (3):
+  dt-bindings: vendor-prefix: Add prefix for Efinix, Inc.
+  dt-bindings: fpga: Add Efinix SPI programming bindings
+  fpga-mgr: Add Efinix SPI programming driver
+
+ .../bindings/fpga/efinix,trion-config.yaml    |  96 +++++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ drivers/fpga/Kconfig                          |   7 +
+ drivers/fpga/Makefile                         |   1 +
+ drivers/fpga/efinix-spi.c                     | 263 ++++++++++++++++++
+ 5 files changed, 369 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/fpga/efinix,trion-config.yaml
+ create mode 100644 drivers/fpga/efinix-spi.c
+
+-- 
+2.43.0
+
