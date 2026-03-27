@@ -1,180 +1,113 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEDE3E1CF1;
-	Fri, 27 Mar 2026 10:58:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 691693E3C4A;
+	Fri, 27 Mar 2026 11:00:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774609086; cv=none; b=d2THp5a05OlufOsH0vCBq1bsj4XiXj1WdZpVDTvtQEMHwYmZd2RFJMhbfFgHoN1R8Pf47pEV8T0gGjiq3aRa3PG33NACv20o0CqrKMOnyE7/rQsZuby1o4P6DSLXDmqzDj+BI3zr5XWAruyHADmt1n8k4zi4p/o88++vPW842dk=
+	t=1774609200; cv=none; b=mL/CQO9DpVHMxnAhaFDjlgeT/1lxMKm+ayfHhCktEe+aPc4EGMWfBBhSn7zlWQByam+taEU90Wxav7dB+zaNEH3B0/v04q4NBgLUoLpysytLcYzUp/1U8nNeps2ZHaDGCgbLttsUckbZuAZxMubSlgeyjCH9czgWHuduqp33lBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774609086; c=relaxed/simple;
-	bh=U8MfkpjpjX3ULf08t5CyqwN0Jgzw0hwvnroRfmt14L8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g9BSTDsc5pdI0LumNoq4e61ilRhYScW5U6Qg3RkGo44WJpTu18XX+R/lyVFmeYkUAUeqk8hfgUmEjLBl7XyXcLCuAaqfUPUoFkjJXl748YWZRUjLkXz+dwDjMNQh2f9aBX2NWKL2ZzNc87aIAIkeoxpkhfG6EA/mXK61g2w1L/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gykRhtbj; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1774609200; c=relaxed/simple;
+	bh=3NFOrUqrhWsP6ncNicK9XPKaTZnLLcVS8rScBpC7sE0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NfQXwOR5Ux+p/fSlcpoazkdSmsvcvmpJuvxre6pq9YHg3k8E0WQoF3T/rrTnOXKlVs639ToUgmpjzNqrH50cz3SZrJSwBekO805coRbu9awZFGQKoR3mpx9cB0djXf2GiTid9tgRiUmKXRofxf6zG+omDn09Ky1FNsYT9jfj2/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oAzuE8mB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gykRhtbj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774609085; x=1806145085;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=U8MfkpjpjX3ULf08t5CyqwN0Jgzw0hwvnroRfmt14L8=;
-  b=gykRhtbjWAIA11wm6N23W+PLnXkZiDb9o0j18evjRyjy10MwpWNasZoy
-   2BDbQ6/5OCC19wyN31V33SuyuUXsYu/WtnwgShUtH7oHJSOReVSWyXGG7
-   nM8lXpwCN+6Z10ul/C/ewcJBleH+BQbrJ6fNTEOO1KzB95mq3lSqN3K8h
-   Y1bmDOeDHLsXek5V6l8XSLQiArrOeK/fIA1zFOF+wIRVdMaQmBeDONr1K
-   LEyGZ1h4rqf/uFKtfCRRHGLDZ1j3lVZ2UNFSKU7BsYrARwn7lEf67nWGP
-   0urgbNrBtDH//iLR+oT7YJAy+shy4eq4fHla4cF0sghpiDL7VE8xTFeDz
-   g==;
-X-CSE-ConnectionGUID: 8oGpaV1JQWipfZodcUWXfw==
-X-CSE-MsgGUID: z7AE/N6oSHmVj2inyfpnxA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11741"; a="75878977"
-X-IronPort-AV: E=Sophos;i="6.23,144,1770624000"; 
-   d="scan'208";a="75878977"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Mar 2026 03:58:04 -0700
-X-CSE-ConnectionGUID: inGQ+/sZTU2BSMZEnyrViw==
-X-CSE-MsgGUID: Xnm8UGoCReugSvkZSrETuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,144,1770624000"; 
-   d="scan'208";a="229762085"
-Received: from vpanait-mobl.ger.corp.intel.com (HELO localhost) ([10.245.244.127])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Mar 2026 03:57:59 -0700
-Date: Fri, 27 Mar 2026 12:57:56 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Petr Mladek <pmladek@suse.com>, rodrigo.alencar@analog.com,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH v9 2/9] lib: vsprintf: export simple_strntoull() in a
- safe prototype
-Message-ID: <acZitENbWQF7cmDA@ashevche-desk.local>
-References: <20260320-adf41513-iio-driver-v9-0-132f0d076374@analog.com>
- <20260320-adf41513-iio-driver-v9-2-132f0d076374@analog.com>
- <acZDneLrIPOmU5ci@pathway.suse.cz>
- <acZLHAT5qJyjKTsp@ashevche-desk.local>
- <20260327104440.079343c9@pumpkin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oAzuE8mB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 758E4C19423;
+	Fri, 27 Mar 2026 10:59:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774609199;
+	bh=3NFOrUqrhWsP6ncNicK9XPKaTZnLLcVS8rScBpC7sE0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=oAzuE8mBmWP9AjB+JQVk0gENdPx601vBjZ/mY6ZJexh9mSATFB18Jou5mNCPTbVz1
+	 pVu9cBXe+DpipEalsXo0xLOsvCiPMkEVd3eqmPPj1gbP6AmM+Zq02U5V+53EyCYH6k
+	 eZwGCQSSG+idWO3duU7tw4zbKRd9cegqZGMaJf+KTKEnaP3JxhpCDqmvsgW6gScCCe
+	 uFqlP5vk+jXoUrOYbrTeiO4A4oPMyuiTTXQUfbzuY1ONNWPXUGukGmm5yWKco9UX7H
+	 G1X//sifRhxNdVT8Jb02LJgMWnLpCeuz9Q5vVivLgIjouGPys3GAIo62EJfaIq6XUS
+	 7W3CteWCcOYkA==
+Message-ID: <938edb04-4ebd-416b-b41b-2445f748eaa9@kernel.org>
+Date: Fri, 27 Mar 2026 11:59:55 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260327104440.079343c9@pumpkin>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: arm: marvell: Convert
+ armada-380-mpcore-soc-ctrl to DT Schema
+To: Padmashree S S <padmashreess2006@gmail.com>, andrew@lunn.ch,
+ gregory.clement@bootlin.com, sebastian.hesselbarth@gmail.com
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260327104344.578113-1-padmashreess2006@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260327104344.578113-1-padmashreess2006@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Mar 27, 2026 at 10:44:40AM +0000, David Laight wrote:
-> On Fri, 27 Mar 2026 11:17:16 +0200
-> Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
+On 27/03/2026 11:43, Padmashree S S wrote:
+> Signed-off-by: Padmashree S S <padmashreess2006@gmail.com>
 
-...
+Please slow down. You already received review and you should carefully
+read it. Otherwise you keep repeating the same mistakes.
 
-> > TBH, I am skeptical about this approach. My main objection is max_chars
-> > parameter. If we want to limit the input strictly to the given number of
-> > characters, we have to copy the string and then just use kstrto*() in a normal
-> > way. The whole idea of that parameter is to be able to parse the fractional
-> > part of the float number as 'iiiii.fffff', where 'i' is for integer part, and
-> > 'f' for the fractional. Since we have *endp, we may simply check that.
-> > 
-> > In case if we want to parse only, say, 6 digits and input is longer there are
-> > a few options (in my personal preferences, the first is the better):
-> > - consider the input invalid
-> > - parse it as is up to the maximum and then do ceil() or floor() on top of that
-> > - copy only necessary amount of the (sub)string and parse that.
-> 
-> Isn't there a bigger problem?
-> If you want a max of 6 digits you need to correctly parse 3.1 3.159265
-> 3.159256358979 3.0001 3.000159 3.00015926535 3.000100 (etc).
-> That seems to always require checking the length and then multiply/divide
-> by 10.
+How did you address my existing review? Or you just intend to ignore it?
 
-Yep.
+> ---
+>  .../marvell/armada-380-mpcore-soc-ctrl.txt    | 14 --------
+>  .../marvell/armada-380-mpcore-soc-ctrl.yaml   | 32 +++++++++++++++++++
 
-> Then there is 'round to even' which rounds these two in opposite directions:
->    4.500000000000000000000000000000000000000000000000000
->    4.500000000000000000000000000000000000000000000000001
+I doubt that your previous two postings were reviewed before by the GSoC
+mentors.
 
-These are wrong inputs and if we want to have them cut, it will be just a cut.
-(Yeah, which will have different result for negative numbers.)
+One of your patches did not even build test.
 
-> I suspect you really want a completely different function for reading
-> fractional parts of floating point numbers.
-> It isn't as though the actual digit conversion is hard.
-> 
-> > The problem with precision is that we need to also consider floor() or ceil()
-> > and I don't think this should be burden of the library as it's individual
-> > preference of each of the callers (users). At least for the starter, we will
-> > see if it's only one approach is used, we may incorporate it into the library
-> > code.
-> > 
-> > The easiest way out is to just consider the input invalid if it overflows the
-> > given type (s32 or s64).
-> > 
-> > But we need to have an agreement what will be the representation of the
-> > fixed-width float numbers in the kernel? Currently IIO uses
-> > 	struct float // name is crafted for simplicity
-> > 	{
-> > 		int integer;
-> > 		int fraction;
-> > 	}
-> > 
-> > This parser wants AFAIU to have at the end of the day something like
-> > 
-> > 	struct float
-> > 	{
-> > 		s64 integer;
-> > 		s64 fraction;
-> > 	}
-> > 
-> > but also wants to have the fraction part be limited in some cases to s32
-> > or so:
-> > 
-> > 	struct float
-> > 	{
-> > 		s64 integer;
-> > 		s32 fraction; // precision may be lost if input is longer
-> > 	}
-> 
-> Are those 'fraction' counts of (say) 10^-6 (like times in seconds+usecs)
-> or true binary values where the value could be treated as a u64 (or u128)
-> for addition and subtraction.
-
-It depends. IIO has scale on top of that, so the fraction part can be 10⁻³,
-10⁻⁶, 10⁻⁹. I don't remember by heart if the ABI requires all digits to be
-placed, I think we don't require that.
-
-> So parse the latter you don't need to know the length
-> (and it can be converted the to former by multiplying by 10^6).
-> 
-> > Maybe we want to have kstrtof32() and kstrtof64() for these two cases?
-> > 
-> > With that we will always consider the fraction part as 32- or 64-bit,
-> > imply floor() on the fraction for the sake of simplicity and require
-> > it to be NUL-terminated with possible trailing '\n'.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Best regards,
+Krzysztof
