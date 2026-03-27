@@ -1,412 +1,620 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A178939023C
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 11:48:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB723537C2;
+	Fri, 27 Mar 2026 11:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774612138; cv=none; b=hFmfgesH+5ppv9MBl/y+wab4y1Weffim9BUknI30LYh5D5GtVx/0sACKBy14Eim+Cva7s3ST7z4oEauMl4RTpWbqlsIUXXUxW8wEFSulKStfEchILCgbMtRq9T17S2U5FoJTqPWwlpTlJytlWJg4rIUa9XYiiDpQT3CeIwDpZIk=
+	t=1774612262; cv=none; b=RkNfrVDwhNaDvznBbVptScQIzfOyhzfarH+T+qtsFpQOTbeoFWuvGNLGh3RXNVPkn5mYzn7AoyRUR5JAQu8KjlgQ7eXbLITwFwiU3XLNWazzuAcngBxeY4n4FqeHgKPPKRi3n/QGHbUWKC80EUwIj9r/+6n6UkzpvhA8WL/MnEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774612138; c=relaxed/simple;
-	bh=KVNBLzsJSlo69J81bVVT04FUHX00uKtaPw+6RZMH99o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jmKTOLIhwzApRbEpAsVkqaGMHuxdTdWp2jodaIoAdyF6p8vvWcAlfq+43upTYqnTeUEQ/6uqfLDvk2o+LNEzcAJrLpX8MTcFkn/0xgMGBs1goKVBWuoE8MVGQfRHUulMUr7IRqOt2hUTYbA5uLktPiaqiwJ7mTRr55dz1ONvjP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DXA7dLMR; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774612262; c=relaxed/simple;
+	bh=segCgvr0ISHexDBnUXPSu/utScoT1VDU4j9+PoxHggI=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=jBkyon4WGRwIU66E7C1+r10xVq5RDwTeNwivInCz1WHYdYwxdrjsQpNxjtmV0ioVDVa7llKitxZhB4MBjmrl0XQRS/I6tT/lziCQvwixWITyGO4NTpUuJBhFnBXTJ7ssQagZiHi82kjWfqwqK4+jjCLb746eD76NodPdsmaXBuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JJhclePv; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DXA7dLMR"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4870206f73bso11741985e9.3
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 04:48:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774612135; x=1775216935; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JFBGm0691jNrch3w/l7G28yS+4rdPlF/SBkrUrWasg8=;
-        b=DXA7dLMR1k6tw3d1/z1uBZ1oQ9tRXkDwMtpkoJWSC8PsLSV4qVuzw9AMFI00kZ8pmk
-         /U1lq8Lc68Webbdup3Tazy6byCUtScb7lUOMQV4pvI2P/7i6VDiNboRTSzf8888D5gEC
-         A2+SsgtDBbDpvTIVFPCGTzJlQmvAcMGlFZGOXC9vryTix06w+5pVweAIpQjIE9L+FYp4
-         SiwFS0hgMrn2H+6TT09jz17HeVE75PGrHC72pSy0KSrtoaxJB/I05FzbpuHa5Sa2lLXW
-         YqJg2xnpRT+nM1c1iDZA+egAHTZwLvz7o/JOauQSyw4BXyU7DR/XuqbQmaql+mY7r/NX
-         sCVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774612135; x=1775216935;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=JFBGm0691jNrch3w/l7G28yS+4rdPlF/SBkrUrWasg8=;
-        b=BM1L7bJszIrOsIMZ2oaoqnhBPpyfFYo+4EniSdVltGQOkyj/w9FIeIiQbCveQr8Bcn
-         B+YGzJfINudJ/dhovov0H1cbV05L2R+WjPDe74TyCP3Aaa15o9iVxB2WskMIP3BVFsOg
-         FpbELS7WanFnDwfZFkAxvYa6pI2dL43mxcqBr2XoZIFa2kF7CZ437/7nmfup4Epyetxu
-         N4/QSCoU4cEVJ8nGiyWZhGxKw+/z2/OrdTeBmyttHo1hhrbSOciGO+wURzrBryAfnKgJ
-         HQhyG8wsSXxVJ6cVY3jK3atsMFCUFz8P/tNUABO4Jp57pJBNaovH0aSksrv5Un7FOQMU
-         avMg==
-X-Forwarded-Encrypted: i=1; AJvYcCXEghluGydwtNUZTrhVE5bb9d8ojQ7h86chbEuAtSfN/Rhq5b14SvWqVlqOscvPuEHVYG6vAq9rFJAS@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVIGwGVjqxweAu3oDuJBRpxbLWWnXApuWk7nTupbFWK0X9peSc
-	VK9mp2G9VTzzn0IL0NhjavbTlgA78f0taJEFoNi9h3cphKQFEOOZP3zR
-X-Gm-Gg: ATEYQzwzgJk7aMVP/GXYK84nTVPESUJtyzHlwq9xRvCQJhNjtT/pX0Dyy2Xju/3b9Eu
-	5ZwuO9Bm2RjarXL7LGRSXQs05Dhqj0x5pYJwIqCgoFvqPl/f0tCg/fTQeghMl9D8L08W5BslX+j
-	TGJYFB7yfWpdlz74oYEVXzHPw9J1WSN7i/JEt/YY6v06aoFbKRQBsmheScNqJDC5p29VjvKvfzs
-	RxHr+kN902zsWlI+6plh+IoV+23p/ifHi2oBz1/Mc4jiKETUsrX0ySqLRdNTyGmS7fvc6V/MmXM
-	8Q0P2ZWYv90qqyr/LHFXwlA/oIowJOb4lVA6fLPAfFg8CZM7feYWvvGyi0qkXgvGDcOj7AdVUlg
-	b//13scTb5DlTopr7hvlv7KU6Ju5taULFPY0cmx94PgB8E879kiGlMhu2/eywWfPVS7YL+qxJ7W
-	gFncTvsnNzcb/ABc6xl2fpwbQBXGi/YRw1wSVNmSOhd2+Z73hkPGYL85OuDQSGoovFar8mpYsba
-	b5Q2fcibTo6dcN+frto42vaFQ==
-X-Received: by 2002:a05:600c:4e0d:b0:487:1c2:6a4f with SMTP id 5b1f17b1804b1-487280c2c50mr37164825e9.31.1774612134818;
-        Fri, 27 Mar 2026 04:48:54 -0700 (PDT)
-Received: from iris-Ian.fritz.box (p200300eb5f28a7005a7787565d4257d0.dip0.t-ipconnect.de. [2003:eb:5f28:a700:5a77:8756:5d42:57d0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722d49c18sm90506115e9.14.2026.03.27.04.48.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Mar 2026 04:48:54 -0700 (PDT)
-From: iansdannapel@gmail.com
-To: linux-fpga@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: mdf@kernel.org,
-	yilun.xu@intel.com,
-	trix@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	neil.armstrong@linaro.org,
-	heiko@sntech.de,
-	marex@nabladev.com,
-	prabhakar.mahadev-lad.rj@bp.renesas.com,
-	dev@kael-k.io,
-	Ian Dannapel <iansdannapel@gmail.com>
-Subject: [PATCH v6 3/3] fpga-mgr: Add Efinix SPI programming driver
-Date: Fri, 27 Mar 2026 12:48:41 +0100
-Message-ID: <20260327114842.1300284-4-iansdannapel@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260327114842.1300284-1-iansdannapel@gmail.com>
-References: <20260327114842.1300284-1-iansdannapel@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JJhclePv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774612260; x=1806148260;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=segCgvr0ISHexDBnUXPSu/utScoT1VDU4j9+PoxHggI=;
+  b=JJhclePvsmXRcmU3NaLdw1+aVqZ4LeIPHzGpBF7JWU8ZmJ/qg17ivSOi
+   iFUE/5SulAImQaXxsWmsodkPCJsBNuerCVnwe+2JTb9dajJojgrWAb4nU
+   KkIO/Fou7cnPZfajxdz0XhHxAa4yozCG0Amft5E8mfSR/NWosDvdeL8X3
+   MBq/x1+HUssGQcHAUlnhcDNPMBzRo8t4Wn5qQaR3vo2Ni6unu3s/n+WZB
+   TwLEjKBVowsQRHQDKnvKpt3JbhNqTbvROhanYHFhCLt64fJcmzMjxObn3
+   2LueTq0u7/NIwT+aTXxRpOz3o3dDIfy4GP185sOeok81BybGVnvKR2KD7
+   A==;
+X-CSE-ConnectionGUID: JAnWfmd9SRyfylp8Rsr2Uw==
+X-CSE-MsgGUID: dJ2QLDKlRjaLIUXbHp4bxw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11741"; a="78278265"
+X-IronPort-AV: E=Sophos;i="6.23,144,1770624000"; 
+   d="scan'208";a="78278265"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Mar 2026 04:50:59 -0700
+X-CSE-ConnectionGUID: l1+Jl/00S96jLLqeWbRjzg==
+X-CSE-MsgGUID: Bm7BUVapRCyx26wvuanu+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,144,1770624000"; 
+   d="scan'208";a="225294478"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.186])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Mar 2026 04:50:52 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 27 Mar 2026 13:50:43 +0200 (EET)
+To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+    =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+    Bjorn Andersson <andersson@kernel.org>, 
+    Konrad Dybcio <konradybcio@kernel.org>, 
+    Randy Dunlap <rdunlap@infradead.org>, linux-arm-msm@vger.kernel.org, 
+    devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    platform-driver-x86@vger.kernel.org, 
+    Maya Matuszczyk <maccraft123mc@gmail.com>, 
+    Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+    Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v7 2/5] platform: arm64: Add driver for EC found on
+ Qualcomm reference devices
+In-Reply-To: <20260327-add-driver-for-ec-v7-2-7684c915e42c@oss.qualcomm.com>
+Message-ID: <308ae40a-34f1-9b69-bfe7-150ca8ad1d29@linux.intel.com>
+References: <20260327-add-driver-for-ec-v7-0-7684c915e42c@oss.qualcomm.com> <20260327-add-driver-for-ec-v7-2-7684c915e42c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-From: Ian Dannapel <iansdannapel@gmail.com>
+On Fri, 27 Mar 2026, Anvesh Jain P wrote:
 
-Add a new driver for loading binary firmware to configuration
-RAM using "SPI passive mode" on Efinix FPGAs.
+> From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> 
+> Add Embedded controller driver support for Hamoa/Purwa/Glymur qualcomm
+> reference boards. It handles fan control, temperature sensors, access
+> to EC state changes and supports reporting suspend entry/exit to the
+> EC.
+> 
+> Co-developed-by: Maya Matuszczyk <maccraft123mc@gmail.com>
+> Signed-off-by: Maya Matuszczyk <maccraft123mc@gmail.com>
+> Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Co-developed-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> ---
+>  MAINTAINERS                            |   8 +
+>  drivers/platform/arm64/Kconfig         |  12 +
+>  drivers/platform/arm64/Makefile        |   1 +
+>  drivers/platform/arm64/qcom-hamoa-ec.c | 451 +++++++++++++++++++++++++++++++++
+>  4 files changed, 472 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 30ca84404976..536dfd9adff4 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -21804,6 +21804,14 @@ F:	Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+>  F:	drivers/misc/fastrpc.c
+>  F:	include/uapi/misc/fastrpc.h
+>  
+> +QUALCOMM HAMOA EMBEDDED CONTROLLER DRIVER
+> +M:	Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> +M:	Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> +L:	linux-arm-msm@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-ec.yaml
+> +F:	drivers/platform/arm64/qcom-hamoa-ec.c
+> +
+>  QUALCOMM HEXAGON ARCHITECTURE
+>  M:	Brian Cain <brian.cain@oss.qualcomm.com>
+>  L:	linux-hexagon@vger.kernel.org
+> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
+> index 10f905d7d6bf..025cdf091f9e 100644
+> --- a/drivers/platform/arm64/Kconfig
+> +++ b/drivers/platform/arm64/Kconfig
+> @@ -90,4 +90,16 @@ config EC_LENOVO_THINKPAD_T14S
+>  
+>  	  Say M or Y here to include this support.
+>  
+> +config EC_QCOM_HAMOA
+> +	tristate "Embedded Controller driver for Qualcomm Hamoa/Glymur reference devices"
+> +	depends on ARCH_QCOM || COMPILE_TEST
+> +	depends on I2C
+> +	help
+> +	  Say M or Y here to enable the Embedded Controller driver for Qualcomm
+> +	  Snapdragon-based Hamoa/Glymur reference devices. The driver handles fan
+> +	  control, temperature sensors, access to EC state changes and supports
+> +	  reporting suspend entry/exit to the EC.
+> +
+> +	  This driver currently supports Hamoa/Purwa/Glymur reference devices.
+> +
+>  endif # ARM64_PLATFORM_DEVICES
+> diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
+> index 60c131cff6a1..7681be4a46e9 100644
+> --- a/drivers/platform/arm64/Makefile
+> +++ b/drivers/platform/arm64/Makefile
+> @@ -9,3 +9,4 @@ obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
+>  obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
+>  obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
+>  obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
+> +obj-$(CONFIG_EC_QCOM_HAMOA) += qcom-hamoa-ec.o
+> diff --git a/drivers/platform/arm64/qcom-hamoa-ec.c b/drivers/platform/arm64/qcom-hamoa-ec.c
+> new file mode 100644
+> index 000000000000..0f883130ac9a
+> --- /dev/null
+> +++ b/drivers/platform/arm64/qcom-hamoa-ec.c
+> @@ -0,0 +1,451 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2024 Maya Matuszczyk <maccraft123mc@gmail.com>
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/pm.h>
+> +#include <linux/slab.h>
+> +#include <linux/thermal.h>
+> +
+> +#define EC_SCI_EVT_READ_CMD	0x05
+> +#define EC_FW_VERSION_CMD	0x0e
+> +#define EC_MODERN_STANDBY_CMD	0x23
+> +#define EC_FAN_DBG_CONTROL_CMD	0x30
+> +#define EC_SCI_EVT_CONTROL_CMD	0x35
+> +#define EC_THERMAL_CAP_CMD	0x42
+> +
+> +#define EC_FW_VERSION_RESP_LEN	4
+> +#define EC_THERMAL_CAP_RESP_LEN	3
+> +#define EC_FAN_DEBUG_CMD_LEN	6
+> +#define EC_FAN_SPEED_DATA_SIZE	4
+> +
+> +#define EC_MODERN_STANDBY_ENTER	0x01
+> +#define EC_MODERN_STANDBY_EXIT	0x00
+> +
+> +#define EC_FAN_DEBUG_MODE_OFF   0
+> +#define EC_FAN_DEBUG_MODE_ON    BIT(0)
 
-Efinix passive SPI configuration requires chip select to remain asserted
-from reset until the complete bitstream and trailing idle clocks have
-been transferred, so the driver keeps CS active with cs_change and locks
-the SPI bus for the duration of configuration.
+Add include for BIT().
 
-Signed-off-by: Ian Dannapel <iansdannapel@gmail.com>
----
- drivers/fpga/Kconfig      |   7 +
- drivers/fpga/Makefile     |   1 +
- drivers/fpga/efinix-spi.c | 263 ++++++++++++++++++++++++++++++++++++++
- 3 files changed, 271 insertions(+)
- create mode 100644 drivers/fpga/efinix-spi.c
+> +#define EC_FAN_ON               BIT(1)
+> +#define EC_FAN_DEBUG_TYPE_PWM   BIT(2)
+> +#define EC_MAX_FAN_CNT		2
+> +#define EC_FAN_NAME_SIZE	20
+> +#define EC_FAN_MAX_PWM		255
+> +
+> +enum qcom_ec_sci_events {
+> +	EC_FAN1_STATUS_CHANGE_EVT = 0x30,
+> +	EC_FAN2_STATUS_CHANGE_EVT,
+> +	EC_FAN1_SPEED_CHANGE_EVT,
+> +	EC_FAN2_SPEED_CHANGE_EVT,
+> +	EC_NEW_LUT_SET_EVT,
+> +	EC_FAN_PROFILE_SWITCH_EVT,
+> +	EC_THERMISTOR_1_THRESHOLD_CROSS_EVT,
+> +	EC_THERMISTOR_2_THRESHOLD_CROSS_EVT,
+> +	EC_THERMISTOR_3_THRESHOLD_CROSS_EVT,
+> +	/* Reserved: 0x39 - 0x3c/0x3f */
+> +	EC_RECOVERED_FROM_RESET_EVT = 0x3d,
+> +};
+> +
+> +struct qcom_ec_version {
+> +	u8 main_version;
+> +	u8 sub_version;
+> +	u8 test_version;
+> +};
+> +
+> +struct qcom_ec_thermal_cap {
+> +#define EC_THERMAL_FAN_CNT(x)		(FIELD_GET(GENMASK(1, 0), (x)))
+> +#define EC_THERMAL_FAN_TYPE(x)		(FIELD_GET(GENMASK(4, 2), (x)))
+> +#define EC_THERMAL_THERMISTOR_MASK(x)	(FIELD_GET(GENMASK(7, 0), (x)))
+> +	u8 fan_cnt;
+> +	u8 fan_type;
+> +	u8 thermistor_mask;
+> +};
+> +
+> +struct qcom_ec_cooling_dev {
+> +	struct thermal_cooling_device *cdev;
+> +	struct device *parent_dev;
+> +	u8 fan_id;
+> +	u8 state;
+> +};
+> +
+> +struct qcom_ec {
+> +	struct qcom_ec_cooling_dev *ec_cdev;
+> +	struct qcom_ec_thermal_cap thermal_cap;
+> +	struct qcom_ec_version version;
+> +	struct i2c_client *client;
+> +};
+> +
+> +static int qcom_ec_read(struct qcom_ec *ec, u8 cmd, u8 resp_len, u8 *resp)
+> +{
+> +	int ret;
+> +
+> +	ret = i2c_smbus_read_i2c_block_data(ec->client, cmd, resp_len, resp);
+> +
+> +	if (ret < 0)
+> +		return ret;
+> +	else if (ret == 0 || ret == 0xff)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (resp[0] >= resp_len)
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * EC Device Firmware Version:
+> + *
+> + * Read Response:
+> + * ----------------------------------------------------------------------
+> + * | Offset	| Name		| Description				|
+> + * ----------------------------------------------------------------------
+> + * | 0x00	| Byte count	| Number of bytes in response		|
+> + * |		|		| (excluding byte count)		|
+> + * ----------------------------------------------------------------------
+> + * | 0x01	| Test-version	| Test-version of EC firmware		|
+> + * ----------------------------------------------------------------------
+> + * | 0x02	| Sub-version	| Sub-version of EC firmware		|
+> + * ----------------------------------------------------------------------
+> + * | 0x03	| Main-version	| Main-version of EC firmware		|
+> + * ----------------------------------------------------------------------
+> + *
+> + */
+> +static int qcom_ec_read_fw_version(struct device *dev)
+> +{
+> +	struct i2c_client *client = to_i2c_client(dev);
+> +	struct qcom_ec *ec = i2c_get_clientdata(client);
+> +	struct qcom_ec_version *version = &ec->version;
+> +	u8 resp[EC_FW_VERSION_RESP_LEN];
+> +	int ret;
+> +
+> +	ret = qcom_ec_read(ec, EC_FW_VERSION_CMD, EC_FW_VERSION_RESP_LEN, resp);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	version->main_version = resp[3];
+> +	version->sub_version = resp[2];
+> +	version->test_version = resp[1];
+> +
+> +	dev_dbg(dev, "EC Version %d.%d.%d\n",
+> +		version->main_version, version->sub_version, version->test_version);
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * EC Device Thermal Capabilities:
+> + *
+> + * Read Response:
+> + * ------------------------------------------------------------------------------
+> + * | Offset		| Name		| Description				|
+> + * ------------------------------------------------------------------------------
+> + * | 0x00		| Byte count	| Number of bytes in response		|
+> + * |			|		| (excluding byte count)		|
+> + * ------------------------------------------------------------------------------
+> + * | 0x02 (LSB)	| EC Thermal	| Bit 0-1: Number of fans		|
+> + * | 0x3		| Capabilities	| Bit 2-4: Type of fan			|
 
-diff --git a/drivers/fpga/Kconfig b/drivers/fpga/Kconfig
-index 37b35f58f0df..748fc210c135 100644
---- a/drivers/fpga/Kconfig
-+++ b/drivers/fpga/Kconfig
-@@ -288,6 +288,13 @@ config FPGA_MGR_LATTICE_SYSCONFIG_SPI
- 	  FPGA manager driver support for Lattice FPGAs programming over slave
- 	  SPI sysCONFIG interface.
- 
-+config FPGA_MGR_EFINIX_SPI
-+	tristate "Efinix FPGA configuration over SPI"
-+	depends on SPI
-+	help
-+	  FPGA manager driver support for Efinix FPGAs configuration over SPI
-+	  (passive mode only).
-+
- source "drivers/fpga/tests/Kconfig"
- 
- endif # FPGA
-diff --git a/drivers/fpga/Makefile b/drivers/fpga/Makefile
-index aeb89bb13517..21eb0ef1fc2e 100644
---- a/drivers/fpga/Makefile
-+++ b/drivers/fpga/Makefile
-@@ -24,6 +24,7 @@ obj-$(CONFIG_FPGA_MGR_VERSAL_FPGA)	+= versal-fpga.o
- obj-$(CONFIG_FPGA_MGR_MICROCHIP_SPI)	+= microchip-spi.o
- obj-$(CONFIG_FPGA_MGR_LATTICE_SYSCONFIG)	+= lattice-sysconfig.o
- obj-$(CONFIG_FPGA_MGR_LATTICE_SYSCONFIG_SPI)	+= lattice-sysconfig-spi.o
-+obj-$(CONFIG_FPGA_MGR_EFINIX_SPI)	+= efinix-spi.o
- obj-$(CONFIG_ALTERA_PR_IP_CORE)		+= altera-pr-ip-core.o
- obj-$(CONFIG_ALTERA_PR_IP_CORE_PLAT)	+= altera-pr-ip-core-plat.o
- 
-diff --git a/drivers/fpga/efinix-spi.c b/drivers/fpga/efinix-spi.c
-new file mode 100644
-index 000000000000..5cd6de0c5411
---- /dev/null
-+++ b/drivers/fpga/efinix-spi.c
-@@ -0,0 +1,263 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * FPGA Manager Driver for Efinix
-+ *
-+ * Copyright (C) 2025 iris-GmbH infrared & intelligent sensors
-+ *
-+ * Ian Dannapel <iansdannapel@gmail.com>
-+ *
-+ * Load Efinix FPGA firmware over SPI using the serial configuration interface.
-+ *
-+ * Note: Only passive mode (host initiates transfer) is currently supported.
-+ */
-+
-+#include <linux/delay.h>
-+#include <linux/fpga/fpga-mgr.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/spi/spi.h>
-+
-+/*
-+ * 13 dummy bytes generate 104 SPI clock cycles (8 bits each).
-+ * Used to meet the requirement for >100 clock cycles idle sequence.
-+ */
-+#define EFINIX_SPI_IDLE_CYCLES_BYTES 13
-+
-+/*
-+ * tDMIN: Minimum time between deassertion of CRESET_N to first
-+ * valid configuration data. (32 µs)
-+ */
-+#define EFINIX_TDMIN_US_MIN    35
-+#define EFINIX_TDMIN_US_MAX    40
-+
-+/*
-+ * tCRESET_N: Minimum CRESET_N low pulse width required to
-+ * trigger re-configuration. (320 ns)
-+ */
-+#define EFINIX_TCRESETN_DELAY_MIN_US  1
-+#define EFINIX_TCRESETN_DELAY_MAX_US  2
-+
-+/*
-+ * tUSER: Minimum configuration duration after CDONE goes high
-+ * before entering user mode. (25 µs)
-+ */
-+#define EFINIX_TUSER_US_MIN    30
-+#define EFINIX_TUSER_US_MAX    35
-+
-+struct efinix_spi_conf {
-+	struct spi_device *spi;
-+	struct gpio_desc *cdone;
-+	struct gpio_desc *reset;
-+};
-+
-+static void efinix_spi_reset(struct efinix_spi_conf *conf)
-+{
-+	gpiod_set_value(conf->reset, 1);
-+	usleep_range(EFINIX_TCRESETN_DELAY_MIN_US, EFINIX_TCRESETN_DELAY_MAX_US);
-+	gpiod_set_value(conf->reset, 0);
-+	usleep_range(EFINIX_TDMIN_US_MIN, EFINIX_TDMIN_US_MAX);
-+}
-+
-+static enum fpga_mgr_states efinix_spi_state(struct fpga_manager *mgr)
-+{
-+	struct efinix_spi_conf *conf = mgr->priv;
-+
-+	if (conf->cdone && gpiod_get_value(conf->cdone) == 1)
-+		return FPGA_MGR_STATE_OPERATING;
-+
-+	return FPGA_MGR_STATE_UNKNOWN;
-+}
-+
-+static int efinix_spi_write_init(struct fpga_manager *mgr,
-+				 struct fpga_image_info *info,
-+				 const char *buf, size_t count)
-+{
-+	struct device *dev = &mgr->dev;
-+	struct efinix_spi_conf *conf = mgr->priv;
-+	struct spi_transfer assert_cs = {
-+		.cs_change = 1,
-+	};
-+	struct spi_message message;
-+	int ret;
-+
-+	if (info->flags & FPGA_MGR_PARTIAL_RECONFIG) {
-+		dev_err(dev, "Partial reconfiguration not supported\n");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	/*
-+	 * Efinix passive SPI configuration requires chip select to stay
-+	 * asserted from reset until the bitstream is fully clocked in.
-+	 * Lock the SPI bus so no other device can toggle CS between the
-+	 * reset pulse and the write/complete transfers.
-+	 */
-+	spi_bus_lock(conf->spi->controller);
-+	spi_message_init_with_transfers(&message, &assert_cs, 1);
-+	ret = spi_sync_locked(conf->spi, &message);
-+	if (ret) {
-+		spi_bus_unlock(conf->spi->controller);
-+		return ret;
-+	}
-+
-+	/* Reset with CS asserted */
-+	efinix_spi_reset(conf);
-+
-+	return 0;
-+}
-+
-+static int efinix_spi_write(struct fpga_manager *mgr, const char *buf,
-+			    size_t count)
-+{
-+	struct device *dev = &mgr->dev;
-+	struct spi_transfer write_xfer = {
-+		.tx_buf = buf,
-+		.len = count,
-+		.cs_change = 1, /* Keep CS asserted */
-+	};
-+	struct efinix_spi_conf *conf = mgr->priv;
-+	struct spi_message message;
-+	int ret;
-+
-+	spi_message_init_with_transfers(&message, &write_xfer, 1);
-+	ret = spi_sync_locked(conf->spi, &message);
-+	if (ret) {
-+		dev_err(dev, "SPI error in firmware write: %d\n", ret);
-+		spi_bus_unlock(conf->spi->controller);
-+	}
-+
-+	return ret;
-+}
-+
-+static int efinix_spi_write_complete(struct fpga_manager *mgr,
-+				     struct fpga_image_info *info)
-+{
-+	unsigned long timeout =
-+		jiffies + usecs_to_jiffies(info->config_complete_timeout_us);
-+	struct spi_transfer clk_cycles = {
-+		.len = EFINIX_SPI_IDLE_CYCLES_BYTES,
-+		/* Release CS after the trailing idle clocks are sent. */
-+		.cs_change = 0,
-+	};
-+	struct efinix_spi_conf *conf = mgr->priv;
-+	struct spi_message message;
-+	int done, ret;
-+	bool expired = false;
-+	u8 *dummy_buf;
-+
-+	dummy_buf = kzalloc(EFINIX_SPI_IDLE_CYCLES_BYTES, GFP_KERNEL);
-+	if (!dummy_buf) {
-+		ret = -ENOMEM;
-+		goto unlock_spi;
-+	}
-+
-+	/*
-+	 * Keep the bus locked while sending the trailing idle clocks, then
-+	 * let this final transfer deassert CS to terminate configuration.
-+	 */
-+	clk_cycles.tx_buf = dummy_buf;
-+	spi_message_init_with_transfers(&message, &clk_cycles, 1);
-+	ret = spi_sync_locked(conf->spi, &message);
-+	if (ret) {
-+		dev_err(&mgr->dev, "SPI error in write complete: %d\n", ret);
-+		goto free_buf;
-+	}
-+
-+	if (conf->cdone) {
-+		while (!expired) {
-+			done = gpiod_get_value(conf->cdone);
-+			if (done < 0) {
-+				ret = done;
-+				goto free_buf;
-+			}
-+			if (done)
-+				break;
-+
-+			usleep_range(10, 20);
-+			expired = time_after(jiffies, timeout);
-+		}
-+
-+		if (expired) {
-+			dev_err(&mgr->dev, "Timeout waiting for CDONE\n");
-+			ret = -ETIMEDOUT;
-+			goto free_buf;
-+		}
-+	}
-+
-+	usleep_range(EFINIX_TUSER_US_MIN, EFINIX_TUSER_US_MAX);
-+
-+free_buf:
-+	kfree(dummy_buf);
-+unlock_spi:
-+	spi_bus_unlock(conf->spi->controller);
-+
-+	return ret;
-+}
-+
-+static const struct fpga_manager_ops efinix_spi_ops = {
-+	.state = efinix_spi_state,
-+	.write_init = efinix_spi_write_init,
-+	.write = efinix_spi_write,
-+	.write_complete = efinix_spi_write_complete,
-+};
-+
-+static int efinix_spi_probe(struct spi_device *spi)
-+{
-+	struct efinix_spi_conf *conf;
-+	struct fpga_manager *mgr;
-+
-+	if (!(spi->mode & SPI_CPHA) || !(spi->mode & SPI_CPOL))
-+		return dev_err_probe(&spi->dev, -EINVAL,
-+				     "Unsupported SPI mode, set CPHA and CPOL\n");
-+
-+	conf = devm_kzalloc(&spi->dev, sizeof(*conf), GFP_KERNEL);
-+	if (!conf)
-+		return -ENOMEM;
-+
-+	conf->reset = devm_gpiod_get(&spi->dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(conf->reset))
-+		return dev_err_probe(&spi->dev, PTR_ERR(conf->reset),
-+				     "Failed to get RESET gpio\n");
-+
-+	conf->cdone = devm_gpiod_get_optional(&spi->dev, "cdone", GPIOD_IN);
-+	if (IS_ERR(conf->cdone))
-+		return dev_err_probe(&spi->dev, PTR_ERR(conf->cdone),
-+				     "Failed to get CDONE gpio\n");
-+
-+	conf->spi = spi;
-+
-+	mgr = devm_fpga_mgr_register(&spi->dev,
-+				     "Efinix FPGA Manager",
-+				     &efinix_spi_ops, conf);
-+
-+	return PTR_ERR_OR_ZERO(mgr);
-+}
-+
-+static const struct of_device_id efinix_spi_of_match[] = {
-+	{ .compatible = "efinix,trion-config", },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, efinix_spi_of_match);
-+
-+static const struct spi_device_id efinix_ids[] = {
-+	{ "trion-config", 0 },
-+	{ "titanium-config", 0 },
-+	{ "topaz-config", 0 },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(spi, efinix_ids);
-+
-+static struct spi_driver efinix_spi_driver = {
-+	.driver = {
-+		.name = "efinix-spi",
-+		.of_match_table = efinix_spi_of_match,
-+	},
-+	.probe = efinix_spi_probe,
-+	.id_table = efinix_ids,
-+};
-+
-+module_spi_driver(efinix_spi_driver);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Ian Dannapel <iansdannapel@gmail.com>");
-+MODULE_DESCRIPTION("Efinix FPGA SPI Programming Driver");
--- 
-2.43.0
+0x03 ?
 
+> + * |			|		| Bit 5-6: Reserved			|
+> + * |			|		| Bit 7: Data Valid/Invalid		|
+> + * |			|		|	 (Valid - 1, Invalid - 0)	|
+> + * |			|		| Bit 8-15: Thermistor 0 - 7 presence	|
+> + * |			|		|	    (1 present, 0 absent)	|
+> + * ------------------------------------------------------------------------------
+> + *
+> + */
+> +static int qcom_ec_thermal_capabilities(struct device *dev)
+> +{
+> +	struct i2c_client *client = to_i2c_client(dev);
+> +	struct qcom_ec *ec = i2c_get_clientdata(client);
+> +	struct qcom_ec_thermal_cap *cap = &ec->thermal_cap;
+> +	u8 resp[EC_THERMAL_CAP_RESP_LEN];
+> +	int ret;
+> +
+> +	ret = qcom_ec_read(ec, EC_THERMAL_CAP_CMD, EC_THERMAL_CAP_RESP_LEN, resp);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	cap->fan_cnt = min(EC_MAX_FAN_CNT, EC_THERMAL_FAN_CNT(resp[1]));
+> +	cap->fan_type = EC_THERMAL_FAN_TYPE(resp[1]);
+> +	cap->thermistor_mask = EC_THERMAL_THERMISTOR_MASK(resp[2]);
+> +
+> +	dev_dbg(dev, "Fan count: %d Fan Type: %d Thermistor Mask: %x\n",
+
+Please add include for dev_dbg().
+
+It seems you've missed at least some of my comments to v5, please recheck
+those comments. I won't look further for now.
+
+--
+ i.
+
+> +		cap->fan_cnt, cap->fan_type, cap->thermistor_mask);
+> +
+> +	return 0;
+> +}
+> +
+> +static irqreturn_t qcom_ec_irq(int irq, void *data)
+> +{
+> +	struct qcom_ec *ec = data;
+> +	struct device *dev = &ec->client->dev;
+> +	int val;
+> +
+> +	val = i2c_smbus_read_byte_data(ec->client, EC_SCI_EVT_READ_CMD);
+> +	if (val < 0) {
+> +		dev_err_ratelimited(dev, "Failed to read EC SCI Event: %d\n", val);
+> +		return IRQ_HANDLED;
+> +	}
+> +
+> +	switch (val) {
+> +	case EC_FAN1_STATUS_CHANGE_EVT:
+> +		dev_dbg_ratelimited(dev, "Fan1 status changed\n");
+> +		break;
+> +	case EC_FAN2_STATUS_CHANGE_EVT:
+> +		dev_dbg_ratelimited(dev, "Fan2 status changed\n");
+> +		break;
+> +	case EC_FAN1_SPEED_CHANGE_EVT:
+> +		dev_dbg_ratelimited(dev, "Fan1 speed crossed low/high trip point\n");
+> +		break;
+> +	case EC_FAN2_SPEED_CHANGE_EVT:
+> +		dev_dbg_ratelimited(dev, "Fan2 speed crossed low/high trip point\n");
+> +		break;
+> +	case EC_NEW_LUT_SET_EVT:
+> +		dev_dbg_ratelimited(dev, "New LUT set\n");
+> +		break;
+> +	case EC_FAN_PROFILE_SWITCH_EVT:
+> +		dev_dbg_ratelimited(dev, "FAN Profile switched\n");
+> +		break;
+> +	case EC_THERMISTOR_1_THRESHOLD_CROSS_EVT:
+> +		dev_dbg_ratelimited(dev, "Thermistor 1 threshold crossed\n");
+> +		break;
+> +	case EC_THERMISTOR_2_THRESHOLD_CROSS_EVT:
+> +		dev_dbg_ratelimited(dev, "Thermistor 2 threshold crossed\n");
+> +		break;
+> +	case EC_THERMISTOR_3_THRESHOLD_CROSS_EVT:
+> +		dev_dbg_ratelimited(dev, "Thermistor 3 threshold crossed\n");
+> +		break;
+> +	case EC_RECOVERED_FROM_RESET_EVT:
+> +		dev_dbg_ratelimited(dev, "EC recovered from reset\n");
+> +		break;
+> +	default:
+> +		dev_notice_ratelimited(dev, "Unknown EC event: %d\n", val);
+> +		break;
+> +	}
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static int qcom_ec_sci_evt_control(struct device *dev, bool enable)
+> +{
+> +	struct i2c_client *client = to_i2c_client(dev);
+> +
+> +	return i2c_smbus_write_byte_data(client, EC_SCI_EVT_CONTROL_CMD, !!enable);
+> +}
+> +
+> +static int qcom_ec_fan_get_max_state(struct thermal_cooling_device *cdev, unsigned long *state)
+> +{
+> +	*state = EC_FAN_MAX_PWM;
+> +
+> +	return 0;
+> +}
+> +
+> +static int qcom_ec_fan_get_cur_state(struct thermal_cooling_device *cdev, unsigned long *state)
+> +{
+> +	struct qcom_ec_cooling_dev *ec_cdev = cdev->devdata;
+> +
+> +	*state = ec_cdev->state;
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * Fan Debug control command:
+> + *
+> + * Command Payload:
+> + * --------------------------------------------------------------------------------------
+> + * | Offset		| Name		| Description					|
+> + * --------------------------------------------------------------------------------------
+> + * | 0x00		| Command	| Fan control command				|
+> + * --------------------------------------------------------------------------------------
+> + * | 0x01		| Fan ID	| 0x1 : Fan 1					|
+> + * |			|		| 0x2 : Fan 2					|
+> + * --------------------------------------------------------------------------------------
+> + * | 0x02		| Byte count = 4| Size of data to set fan speed			|
+> + * --------------------------------------------------------------------------------------
+> + * | 0x03		| Mode		| Bit 0: Debug Mode On/Off (0 - OFF, 1 - ON )	|
+> + * |			|		| Bit 1: Fan On/Off (0 - Off, 1 - ON)		|
+> + * |			|		| Bit 2: Debug Type (0 - RPM, 1 - PWM)		|
+> + * --------------------------------------------------------------------------------------
+> + * | 0x04 (LSB)	| Speed in RPM	| RPM value, if mode selected is RPM		|
+> + * | 0x05		|		|						|
+> + * --------------------------------------------------------------------------------------
+> + * | 0x06		| Speed in PWM	| PWM value, if mode selected is PWM (0 - 255)	|
+> + * ______________________________________________________________________________________
+> + *
+> + */
+> +static int qcom_ec_fan_debug_mode_off(struct qcom_ec_cooling_dev *ec_cdev)
+> +{
+> +	struct device *dev = ec_cdev->parent_dev;
+> +	struct i2c_client *client = to_i2c_client(dev);
+> +	u8 request[6] = { ec_cdev->fan_id, EC_FAN_SPEED_DATA_SIZE,
+> +			  EC_FAN_DEBUG_MODE_OFF, 0, 0, 0 };
+> +	int ret;
+> +
+> +	ret = i2c_smbus_write_i2c_block_data(client, EC_FAN_DBG_CONTROL_CMD,
+> +					     sizeof(request), request);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to turn off fan%d debug mode: %d\n",
+> +			ec_cdev->fan_id, ret);
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static int qcom_ec_fan_set_cur_state(struct thermal_cooling_device *cdev, unsigned long state)
+> +{
+> +	struct qcom_ec_cooling_dev *ec_cdev = cdev->devdata;
+> +	struct device *dev = ec_cdev->parent_dev;
+> +	struct i2c_client *client = to_i2c_client(dev);
+> +	u8 request[6] = { ec_cdev->fan_id, EC_FAN_SPEED_DATA_SIZE,
+> +			  EC_FAN_DEBUG_MODE_ON | EC_FAN_ON | EC_FAN_DEBUG_TYPE_PWM,
+> +			  0, 0, state };
+> +	int ret;
+> +
+> +	ret = i2c_smbus_write_i2c_block_data(client, EC_FAN_DBG_CONTROL_CMD,
+> +					     sizeof(request), request);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to set fan pwm: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	ec_cdev->state = state;
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct thermal_cooling_device_ops qcom_ec_thermal_ops = {
+> +	.get_max_state = qcom_ec_fan_get_max_state,
+> +	.get_cur_state = qcom_ec_fan_get_cur_state,
+> +	.set_cur_state = qcom_ec_fan_set_cur_state,
+> +};
+> +
+> +static int qcom_ec_resume(struct device *dev)
+> +{
+> +	struct i2c_client *client = to_i2c_client(dev);
+> +
+> +	return i2c_smbus_write_byte_data(client, EC_MODERN_STANDBY_CMD,
+> +					 EC_MODERN_STANDBY_ENTER);
+> +}
+> +
+> +static int qcom_ec_suspend(struct device *dev)
+> +{
+> +	struct i2c_client *client = to_i2c_client(dev);
+> +
+> +	return i2c_smbus_write_byte_data(client, EC_MODERN_STANDBY_CMD,
+> +					 EC_MODERN_STANDBY_EXIT);
+> +}
+> +
+> +static int qcom_ec_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct qcom_ec *ec;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	ec = devm_kzalloc(dev, sizeof(*ec), GFP_KERNEL);
+> +	if (!ec)
+> +		return -ENOMEM;
+> +
+> +	ec->client = client;
+> +
+> +	ret = devm_request_threaded_irq(dev, client->irq, NULL, qcom_ec_irq,
+> +					IRQF_ONESHOT, "qcom_ec", ec);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	i2c_set_clientdata(client, ec);
+> +
+> +	ret = qcom_ec_read_fw_version(dev);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to read EC firmware version\n");
+> +
+> +	ret = qcom_ec_sci_evt_control(dev, true);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to enable SCI events\n");
+> +
+> +	ret = qcom_ec_thermal_capabilities(dev);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to read thermal capabilities\n");
+> +
+> +	if (ec->thermal_cap.fan_cnt == 0) {
+> +		dev_warn(dev, FW_BUG "Failed to get fan count, firmware update required\n");
+> +		return 0;
+> +	}
+> +
+> +	ec->ec_cdev = devm_kcalloc(dev, ec->thermal_cap.fan_cnt, sizeof(*ec->ec_cdev), GFP_KERNEL);
+> +	if (!ec->ec_cdev)
+> +		return -ENOMEM;
+> +
+> +	for (i = 0; i < ec->thermal_cap.fan_cnt; i++) {
+> +		struct qcom_ec_cooling_dev *ec_cdev = &ec->ec_cdev[i];
+> +		char name[EC_FAN_NAME_SIZE];
+> +
+> +		scnprintf(name, sizeof(name), "qcom_ec_fan_%u", i);
+> +		ec_cdev->fan_id = i + 1;
+> +		ec_cdev->parent_dev = dev;
+> +
+> +		ec_cdev->cdev = devm_thermal_of_cooling_device_register(dev, NULL, name, ec_cdev,
+> +									&qcom_ec_thermal_ops);
+> +		if (IS_ERR(ec_cdev->cdev)) {
+> +			return dev_err_probe(dev, PTR_ERR(ec_cdev->cdev),
+> +					     "Failed to register fan%d cooling device\n", i);
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void qcom_ec_remove(struct i2c_client *client)
+> +{
+> +	struct qcom_ec *ec = i2c_get_clientdata(client);
+> +	struct device *dev = &client->dev;
+> +	int ret;
+> +
+> +	ret = qcom_ec_sci_evt_control(dev, false);
+> +	if (ret < 0)
+> +		dev_err(dev, "Failed to disable SCI events: %d\n", ret);
+> +
+> +	for (int i = 0; i < ec->thermal_cap.fan_cnt; i++) {
+> +		struct qcom_ec_cooling_dev *ec_cdev = &ec->ec_cdev[i];
+> +
+> +		qcom_ec_fan_debug_mode_off(ec_cdev);
+> +	}
+> +}
+> +
+> +static const struct of_device_id qcom_ec_of_match[] = {
+> +	{ .compatible = "qcom,hamoa-crd-ec" },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(of, qcom_ec_of_match);
+> +
+> +static const struct i2c_device_id qcom_ec_i2c_id_table[] = {
+> +	{ "qcom-hamoa-ec", },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(i2c, qcom_ec_i2c_id_table);
+> +
+> +static DEFINE_SIMPLE_DEV_PM_OPS(qcom_ec_pm_ops,
+> +		qcom_ec_suspend,
+> +		qcom_ec_resume);
+> +
+> +static struct i2c_driver qcom_ec_i2c_driver = {
+> +	.driver = {
+> +		.name = "qcom-hamoa-ec",
+> +		.of_match_table = qcom_ec_of_match,
+> +		.pm = &qcom_ec_pm_ops
+> +	},
+> +	.probe = qcom_ec_probe,
+> +	.remove = qcom_ec_remove,
+> +	.id_table = qcom_ec_i2c_id_table,
+> +};
+> +module_i2c_driver(qcom_ec_i2c_driver);
+> +
+> +MODULE_DESCRIPTION("QCOM Hamoa Embedded Controller");
+> +MODULE_LICENSE("GPL");
+> 
+> 
