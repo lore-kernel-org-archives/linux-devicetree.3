@@ -1,85 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com [91.218.175.185])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A343823BF9F;
-	Fri, 27 Mar 2026 03:50:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6217E1C8604
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 03:59:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.185
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774583429; cv=none; b=cyzqYqFYYEbkvWodLnRm0iDfoQnZQ8DEm8ae0Ptn0vmVFW9Gx62GVVx20bEBqm7T3wN4D97IT3OZ5uifyJzjuhbKHx8soi5UK5XpWXx0DV97Brs3ZF5QPBUOhkmjLJcsYjz8tLFDzKeTSzr5Fk5gLrLDaUrYu5WHT7XkcQ42IlU=
+	t=1774583998; cv=none; b=GlgZYSTh88EWnf0mIsRaEmgNXClWT1tzQdSDt5RJOfMNJSBoxJNv5Iel9fVqBGkh7O3IdD2iYGqxUovkVIBlyFVeamxzaubZlqVVnPVFrlH0+yUQhRkt7pJEAb+FG29sTWSTeBO2GosMrjjNemncXFuaWpMF7hEzBuRLxUuMt+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774583429; c=relaxed/simple;
-	bh=PnEHeWbFVlolLNabOX9dBgcUyPXB6gpXLSwyCTFGe4Y=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=iYPny5k4N/GLPENNdT7G+7ohfM+q50MKEUF93AWIvPpWghCuPHdpkHe9p1xtI1oh2byW8MT97XmcdeSKQJ81cm014ZPQOou14bLJcTnsXWEdbvpMmNu7CXWYqZY/CUl/6J0u3SS76bZb4V4tR7jARFd4fvtFkajE5JP8NBiHsCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G5kYy8aQ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774583998; c=relaxed/simple;
+	bh=M8yHXRrctmAptnPlUik3AXAXll3yIV1xDj26jXEAp9Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t0AAD9JP+rQ7WgLfcL5VSP1ATvnVkzi7mAwgJNexn5FQGY6NW6XARDUYDA51PVryvgAOvp1tHXBpgDcMfA3HzmZEtl541SJRKqosbFgaH7o6ew9cKWHYpd5FJPZKOOX2DOUwWZg5Sa3qMrmvIi3j7+G22KQRwjhe0pclt4++UMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=K7oalgpK; arc=none smtp.client-ip=91.218.175.185
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G5kYy8aQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C90CC19423;
-	Fri, 27 Mar 2026 03:50:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774583429;
-	bh=PnEHeWbFVlolLNabOX9dBgcUyPXB6gpXLSwyCTFGe4Y=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-	b=G5kYy8aQQzggA9TNGClm5ujA2vbnRCuj0qx580ZtaGSlsk5qVJ/c+GaN5wYxI/XCY
-	 VIwIvgTlCplzz/n/KrT6PNe3UidStrRt6KIUZgu11TAhjXlu4JlJqWRu8WtI2kqoCK
-	 KzsRFg5faQXxpUz8WxSLNIzztQBiQeTUszi+FA5RjD8tIS62JcsUN0Kdswe8Qfa0fb
-	 qwxa6aDV3+fHYMiAQverComMOpfYugqH4jMK3+e/7ge3h/Ky3R6zB09PKeJ6DVyV2x
-	 YTvm7i80xbUSYUS+Xpf3Ti9V0k1E8ZsICskeg//L3C9Oy3tOSKgJeJmpg68n19tp67
-	 fzUeZAM6hSdtQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B9FED3809A0B;
-	Fri, 27 Mar 2026 03:50:16 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="K7oalgpK"
+Message-ID: <a6cdd237-3b11-40a8-865d-cfe97f97f01b@packett.cool>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
+	s=key1; t=1774583985;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dakhjmCQp6GVkDLoDUU4hYoePqqMLtz3QnhrzCmmiRI=;
+	b=K7oalgpKKghvuokGaQvZG5Rg8KjZLI8pdUE1bOullKLN2FfVpUl+GCPLvJewx/WuwRlAhi
+	wIZYzD4GaKnRChKSlNYQLgVFCUIIJ1aoWGRcbYLB5v2vUyAMFYdwa77aGI0lHQ5pYACRGJ
+	iDFdepE/D75H45eFCLJxBOcwVgMmQ7CzZwSZKscNmRBz73BKtMQEwecimomlgG/ussJW0D
+	LnoybeyIa8aTosgxrxqe7UwPwfM+Kz7I2oTtgN7WsGRVxMuxKbur7BqaA0SeJWNrL8d1DD
+	fPuiS/dzf6BQ4pwLVGUXWDvzwiNV7A0KIFte8HKHDFkl4eJBJwUpiPyGDI1LUA==
+Date: Fri, 27 Mar 2026 00:59:37 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: Add the Lenovo IdeaCentre Mini X
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260325-ideacentre-v1-0-768b66aaef30@oss.qualcomm.com>
+ <20260325-ideacentre-v1-2-768b66aaef30@oss.qualcomm.com>
+ <41476442-648a-46f9-a9e8-f5f4f7cf7bb5@oss.qualcomm.com>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Val Packett <val@packett.cool>
+In-Reply-To: <41476442-648a-46f9-a9e8-f5f4f7cf7bb5@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next 0/2] net: stmmac: remove unused and unimplemented
- AXI properties
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <177458341528.3291104.15630228927960975815.git-patchwork-notify@kernel.org>
-Date: Fri, 27 Mar 2026 03:50:15 +0000
-References: <acJh4z3pRKkeaFbR@shell.armlinux.org.uk>
-In-Reply-To: <acJh4z3pRKkeaFbR@shell.armlinux.org.uk>
-To: Russell King (Oracle) <linux@armlinux.org.uk>
-Cc: andrew@lunn.ch, alexandre.torgue@foss.st.com, andrew+netdev@lunn.ch,
- conor+dt@kernel.org, davem@davemloft.net, devicetree@vger.kernel.org,
- edumazet@google.com, peppe.cavallaro@st.com, kuba@kernel.org,
- joabreu@synopsys.com, krzk+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, netdev@vger.kernel.org,
- pabeni@redhat.com, robh@kernel.org, me@ziyao.cc
+X-Migadu-Flow: FLOW_OUT
 
-Hello:
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Tue, 24 Mar 2026 10:05:23 +0000 you wrote:
-> commit afea03656add ("stmmac: rework DMA bus setting and introduce new
-> platform AXI structure") added support for parsing all the stmmac AXI
-> attributes, and added code to set most of the appropriate register bits
-> with three exceptions:
-> 
-> 	snps,kbbe
-> 	snps,mb
-> 	snps,rb
-> 
+On 3/26/26 7:47 AM, Konrad Dybcio wrote:
+> On 3/25/26 11:34 PM, Bjorn Andersson wrote:
+>> The Lenovo IdeaCentre Mini X (Snapdragon) Desktop is a Hamoa-based
+>> ultracompact desktop PC. It provides HDMI, DisplayPort, USB Type-C
+>> display outputs, 5 additional USB ports, Ethernet, dual NVME slots,
+>> headphone jack, WiFi, and Bluetooth.
+>>
+>> Introduce a DeviceTree describing this device.
+>>
+>> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+>> ---
 > [...]
+>
+>> +&pcie3 {
+>> +	pinctrl-names = "default";
+>> +	pinctrl-0 = <&pcie3_default>;
+>> +
+>> +	perst-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
+>> +	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
+> In lieu of the recent changes, these 2 properties need to be moved
+> to the root port node under the RCs, for all of them
+>
+> Konrad
 
-Here is the summary with links:
-  - [net-next,1/2] net: stmmac: remove axi_kbbe, axi_mb and axi_rb members
-    https://git.kernel.org/netdev/net-next/c/a800398e746f
-  - [net-next,2/2] dt-bindings: remove unimplemented AXI snps,kbbe snps,mb and snps,rb
-    https://git.kernel.org/netdev/net-next/c/af0331e1ac51
+…and without forgetting (as I have for dell-thena until noticing in v4) 
+that under the port nodes, it's now called "reset" instead of "perst"! :)
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+~val
 
