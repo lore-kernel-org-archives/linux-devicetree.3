@@ -1,104 +1,126 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E133CCFDE;
-	Fri, 27 Mar 2026 09:07:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930283D34B5
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 09:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774602451; cv=none; b=FLenRlpPUr7qcMfcf0Uai8koKyDDkoAwGLt0THgTFTljlgJHz2P46BpjeSXspe4oMSAE+SwNjpLD4B9yThdf3HxZqjLqtfT7wLewsvHfi1qXn5NpWz0sdnKluD+bglG6Qhh5/zLA4aTFLbgrdyMEIbbm8wsIfaZukDpqWRcK1Hc=
+	t=1774602551; cv=none; b=Y8USax1rlB80nGFl1cmBHqiv5sfXF/Pb9Bo06/SC/Zjaz40IACNihJglSaWew765SdLX2SwtX81mHc0MMR9huAz77uzY5B3JRxM1IXddo1dWXmUO0GJCgUtaypgG+pbu24mjhWCDtRMQ6XK+tWT7CnQPieafnotIdZjiKm5fouQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774602451; c=relaxed/simple;
-	bh=ZjebFdSihxZLgJjAVBYMuUvCsxxt6OaZ8SQEmNE3ewA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lekwPDR45jajWfyWL73objZXxGWKQ6+50Yvult4vQtH/PEjElMAoNumUEC9WZb94iQJx62LPoiAWUS8c8VmFBsp1HOI3Q/6e6hd2XiNsrZt/Q6wPHzrVVPQrAWzwp3nLSFMWpqovUXEFM/PUYaZ+5atPDC0J8xdgHf1RbHSxzc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=lBm9bbWj; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1774602551; c=relaxed/simple;
+	bh=+uF3z6h7Dg/hyeyEZd8Z8rhwZCvglZs6FhC55w8ugzI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F6mWZJHHuhcwB+oNaV9sCKLQRgZwoeC8Kp5Oq2jdJ9CDnberT4Kk2RnlcHI51x9fUs8mYBPGY/GMurwyEjeBcT59KfzZiVy6ZF1SQ1eMdoS3Y3OSOepCfUmqTTGsnrqyCrb6mo8s8yeXXTD1or2WL2KymJsZ0JTOqp7f1+KUx68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=azZfHWSA; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="lBm9bbWj"
-Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
-	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id E9822190A;
-	Fri, 27 Mar 2026 10:06:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1774602370;
-	bh=ZjebFdSihxZLgJjAVBYMuUvCsxxt6OaZ8SQEmNE3ewA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lBm9bbWjFN4/OZSMEelhHf0QPQRYl72Dhq8RYVZCxPcy0hGxja5sMThYMXaLX1rel
-	 X1ZZnF+We8LegC55l8RLOXAPKSTiMEttEtQxwlZ4ekjCNDwU/zfopIhdysVyU7lDgV
-	 f2LwiNndKl0kkwu8FdF5nFfEjdKy3oLWn0qbPhRA=
-Date: Fri, 27 Mar 2026 11:07:27 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="azZfHWSA"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-48704db565eso26495475e9.1
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 02:09:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774602548; x=1775207348; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=6DZxYgh4aepwVuqW68CLpxeO1g3J5cL1vxhzxoBtLyU=;
+        b=azZfHWSAV5T/wsJQNGXrtY5blwFkadsR3inGZOwxfNpnZxIoqEUcuh7TtHlb2xrGDN
+         jvyBZhBkOoFZgvyyuL0oZESNHLh0YjcLeqm9DCAIZbgQ7ViPZ33/CFDlUv88wqvmR8g2
+         bzENpt1JCb334QKXFLxuU36lX/IC9C+zBy5R4vceal2eDP9gC7G7aqUch3rFXCevfKdV
+         GfdN9xRMQKKyf82jukc7OBf9GBu37nnwR83+vSBPB78RzgXmGu0h8OlozrxIm77pM9Wx
+         A9v+RFY0m3R3VG6YI5jyQ0RsirGf0bG6SIcbh2G+NChHM3IlSKsoWEtJaEnv0vRY0V2A
+         T3hA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774602548; x=1775207348;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6DZxYgh4aepwVuqW68CLpxeO1g3J5cL1vxhzxoBtLyU=;
+        b=nQe5cumjFFXo/CQYXHcvNzYkn1gBPJQWp7E3+WEwtI5XBRePeK+cXj2IfwqqYlYnPM
+         azhLNnNUaLh/vQFxSf9jA8McFZYWVuMbJnqloU/UsXTqB1MUu+r+J/sZ+pAeLX5M4D/d
+         EsJ1a0714dGnvfuld2FsT0Dpg2v7HTCYdhkaJK5ll+z7ZXysO2ZxzPCo+sC/MPJWfn1/
+         gLGc95iWkUBA3OMMtGF4LLQ0LivEjdLEHpBZaNgbA9PUVYElJDKDUfsNHPPBbSdkfZiK
+         KDamJWESnilhtfNPzqBasGDpMVHnb4LPcySryZao7rIU+9mEqoCDK7/jDQjw9vO7S9uX
+         rAJw==
+X-Forwarded-Encrypted: i=1; AJvYcCXswJjYLiZgBxLzNgXKsKp4mCIDyVl/r83YX4D2+jU9mfQuPms2wAl+XDcGcgRt6SnnsaHBqJkF8jz4@vger.kernel.org
+X-Gm-Message-State: AOJu0YwiWXryf2ssfMId0yvQ6pLvoGY2nMdFeI124AT/nioGXeDkz+0Q
+	7pIhE9feyPDPKeVid/sLU6NU6YT9FZt8gkzXl0xUcyR9m0BRB2gFedrv
+X-Gm-Gg: ATEYQzxCJ2W0QsdbF3XldMXe4u73kaa9PExKIkKyc1QIYdu5DkxEgZHvch3oKntB3vh
+	hMLRSwZRxq4DhVX7K6AjE2CbQPk9pp2gflou0hUoWKYvzS5ferk8NJwGoDXZdbM8Nz+3eQTml23
+	tTHzFQvNL37NoCf4u2Hv6zVEw2mRoDTc8mVJHsnC/uiRibcUql5v3jCl/+3nA77JTd4ZVsZudLT
+	71el9aMnYT4BbpfGyp+eECBaofrC31jtlNzRGg23nd2cwpWMrSYANWUgqcLnOlvTy8OMVKR74di
+	Q/1mmx+36jbx9ch/7NKPdsBZ8bwxZ4vc2dU7tl5V+ii79bCLzaNLBXTL6uNjQeluYY/qtIyNu/s
+	ogDyd3ZTODUA/zvFCXNI9CXn7yETU7Mqb1z2TFph4TucCPqbaDs/4Qej1uaLdelVnVMhdBb5rrU
+	C3wbdyUd0V2ewpzAJtUJUg/erntdLvdSFyUvmnF8KLvwdgXD+JsPd5nkqbuOicpWW6nL7oa5cAr
+	OFZcM383DWJ6HMJkFiCQcN8+l1zvEVzR4q111EBdtlk9yMs
+X-Received: by 2002:a05:600c:6387:b0:487:cd8:4c9 with SMTP id 5b1f17b1804b1-48727ed5618mr24598325e9.27.1774602547562;
+        Fri, 27 Mar 2026 02:09:07 -0700 (PDT)
+Received: from Lord-Beerus.station (net-93-144-20-233.cust.vodafonedsl.it. [93.144.20.233])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-487271be661sm11252605e9.35.2026.03.27.02.09.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Mar 2026 02:09:07 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 2/4] arm64: dts: renesas: Fix missing cells and reg in
- Salvator-X panel DTO
-Message-ID: <20260327090727.GB3026970@killaraus.ideasonboard.com>
-References: <20260326042411.215241-1-marek.vasut+renesas@mailbox.org>
- <20260326042411.215241-3-marek.vasut+renesas@mailbox.org>
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Josua Mayer <josua@solid-run.com>,
+	Markus Niebel <Markus.Niebel@tq-group.com>,
+	Primoz Fiser <primoz.fiser@norik.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>
+Subject: [PATCH v2 0/3] Add support for Variscite DART-MX93 and Sonata board
+Date: Fri, 27 Mar 2026 10:08:53 +0100
+Message-ID: <cover.1774601806.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260326042411.215241-3-marek.vasut+renesas@mailbox.org>
+Content-Transfer-Encoding: 8bit
 
-Hi Marek,
+This patch series adds support for the Variscite DART-MX93 system on
+module and the Sonata carrier board.
 
-Thank you for the patch.
+The series includes:
+- SOM device tree with on-module peripherals
+- Sonata carrier board device tree with board-specific features
 
-On Thu, Mar 26, 2026 at 05:23:59AM +0100, Marek Vasut wrote:
-> Add missing cells and reg DT property into Salvator-X panel DTO to fix
-> the following warning:
-> 
-> "
-> arch/arm64/boot/dts/renesas/salvator-panel-aa104xd12.dtso:30.10-34.5: Warning (unit_address_vs_reg): /fragment@2/__overlay__/ports/port@1: node has a unit name, but no reg or ranges property
-> "
-> 
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+The implementation follows the standard SOM + carrier board pattern
+where the SOM dtsi contains only peripherals mounted on the module,
+while carrier-specific interfaces are enabled in the board dts.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+v1->v2:
+ - Remove clock-frequency property from eqos node
 
-> ---
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Magnus Damm <magnus.damm@gmail.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
->  arch/arm64/boot/dts/renesas/salvator-panel-aa104xd12.dtso | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/renesas/salvator-panel-aa104xd12.dtso b/arch/arm64/boot/dts/renesas/salvator-panel-aa104xd12.dtso
-> index c83a30adc6adf..7807c3f80409a 100644
-> --- a/arch/arm64/boot/dts/renesas/salvator-panel-aa104xd12.dtso
-> +++ b/arch/arm64/boot/dts/renesas/salvator-panel-aa104xd12.dtso
-> @@ -27,7 +27,12 @@ &lvds0 {
->  	status = "okay";
->  
->  	ports {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
->  		port@1 {
-> +			reg = <1>;
-> +
->  			lvds0_out: endpoint {
->  				remote-endpoint = <&panel_in>;
->  			};
+Stefano Radaelli (3):
+  dt-bindings: arm: fsl: add Variscite DART-MX93 Boards
+  arm64: dts: freescale: Add support for Variscite DART-MX93
+  arm64: dts: imx93-var-dart: Add support for Variscite Sonata board
 
+ .../devicetree/bindings/arm/fsl.yaml          |   6 +
+ arch/arm64/boot/dts/freescale/Makefile        |   1 +
+ .../dts/freescale/imx93-var-dart-sonata.dts   | 654 ++++++++++++++++++
+ .../boot/dts/freescale/imx93-var-dart.dtsi    | 461 ++++++++++++
+ 4 files changed, 1122 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
+ create mode 100644 arch/arm64/boot/dts/freescale/imx93-var-dart.dtsi
+
+
+base-commit: 6c4b48012d57f205c94f25da0c68a4027ea6daf6
 -- 
-Regards,
+2.47.3
 
-Laurent Pinchart
