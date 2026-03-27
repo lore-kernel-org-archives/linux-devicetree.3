@@ -1,144 +1,112 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37A24399001
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 21:37:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856D729DB88;
+	Fri, 27 Mar 2026 21:39:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774647457; cv=none; b=fpUfS+N4pWzRTlaImQbFisWJC1TdUh819lSiwIbUPKO57nYQxvEg7jBpoaF/4IYu0NaGl4ze1cKEl0HHKsU0+9BxPjHZV82qOrOKkkXOEtRr1+ybaXag1GzFfqjjgV1HUWlUOQOzemwDSHDzXdmRZPFGBCoz32ryRvrsDj/NVOk=
+	t=1774647545; cv=none; b=q49AvDUeDI1zVPkVmAqGVFYc7Q/qFuenk5PSg2UAMbNXkZGGkbcajLsurCM/XcU2BlZv2bK5+r0k9OCKvIupRE2eDMZFi4vDo+VaF3P2Ta/olWe0Yqihvd2M40axeTgaLG1BNr+YN5ssKi51et2L/qx3C0y/PicKYkrEs+Fg0/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774647457; c=relaxed/simple;
-	bh=52YfLSOX7vzmZCLxLP+4DyZ2hchmO+MZkVv8maGwx2I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UdMPrPADagYlFSXJjgGVBGC/cSf6EBHaJMfsRCbyO7S3vDobR95HhSpusn/QzF3x0E+d3P/t2xKX+yf/SNWToBmfpcVze9PT9XDeKwBqvzgE37gri4ZwF4rd31glB8b0/thUGq7AJzrel1n2Xsx4yEXSpwCo8qdUMJP4bctQo40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fkO1KHnE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GHsZx4+w; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774647545; c=relaxed/simple;
+	bh=m0xyN/K4zSKcbMCe0Pigk/i5SRWQIcAcko2GQbCvTjg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qSOetwC/dY+VH02tCTgp3QyJZbpVN95ByBxy0w1nnxOd2MPQj7ClYBc3Lt0iCSnRSnQ7OI4YUc3tFiSX9JPyR6sCqLf6dUTqx5aILyFNX9AQ8l6HjCFapIkKpBeZa6WDcFAoA6r3Ut3jkZ2xQ49j5Owdo64A1CzhaxsWgGPai58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=toHYW7vR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fkO1KHnE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GHsZx4+w"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62RKtX9G452034
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 21:37:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=J5i4xGwjuVHNOMGgsNb/h/J6
-	oYgeiOOf3kbGsOF4WhM=; b=fkO1KHnEenBNKuNmyXMYUGBCDRf3gp0tzWK2sraP
-	nZqc5QRDnNbdVJqmFnt0SlNRzRQtd8HS0l6APnQ9k9kOliY4oUYKtcNS1eRAdTUM
-	O2BO0K7ALqug7Nzz/kAneDNo+DP/5oOEj+gF9QnmS3VWJSgylsKKG3aIutm70rwU
-	F7wGnmf7Xlj2MMMcy3mh9Zeps2TA5/o5UaIZsc0QP1LE57NqyoJiHVrXyDlX1Tn8
-	0OkJipETZdc8NlrD+LVy1Cd0ecWl3RJcBe2fK2bUJ8lyMcnzrrC+LewTTdZR7F6p
-	SJ8VqhlIDpTc8BVRvmer1cFiw5CqiwkOhuvT0SRIkVe3UQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5jcx3jqu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 21:37:35 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-509219f94b0so27002561cf.3
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 14:37:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774647454; x=1775252254; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=J5i4xGwjuVHNOMGgsNb/h/J6oYgeiOOf3kbGsOF4WhM=;
-        b=GHsZx4+w8oeGTPFvMDL/frTmAvOiSYs1CdWH0OjOqySqlqJV20vNRSM2xyzPpi+AjM
-         9PF75ASXNgchaemwY651S7v0/1+wCKnbaWBuPb5Djd64p6FuyEIIobbvGBmh0bmDG9Wy
-         Vzy/v2Lt0EzTxTbeINlJ7atyZEPR1osGk8OvedAm0VHKu6Iaev8WLV67emIYzjUatRJY
-         y3TgblSJWLfGd/Mhu2vBkZEcHXVxlk1lR+U1Pa951ikZ8nfztoHgwevUF3kklAF/EQ4u
-         p4u4eGVkiAYbv+p0X+d62X8fJbLIDX7M3SbBIEo6hJFBE34ds9DPKcZ5bjwkfjdrCnQM
-         4pJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774647454; x=1775252254;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=J5i4xGwjuVHNOMGgsNb/h/J6oYgeiOOf3kbGsOF4WhM=;
-        b=avSCxonvFDgdVWGh3Yq7Ptn9d42wAYeiVQrYYt3aIL9IfiCAgTU6GD0sHaCKD4riIN
-         ALG1ZFk2jBdZB6ae/XpBQDBBPn0yLoRgupd6O2UWlJS06WRBEBlEe0qv6BqVEc6BCkSw
-         J/IImR9KFYvak9BX+p0gcfZd3EZwvJ9hs4P+C1IE+XaMFYNFqpsIpLYOokt9BL6J9rNj
-         ohMbQake3Hh97JGtQofP6XjABuzMqjnbJjbGXdlJBRpLVlPZy84Y1qGEI3NOi3dTaOxI
-         /pK8bF5R2mpFJZUChVvgu41Nmdzuy6ydja8TcycDZnBN5SVWJW3dO74iyhsON0QdHiFh
-         ULhg==
-X-Forwarded-Encrypted: i=1; AJvYcCWrtw2eCqy98nwN0U8SvtvvzbLJSFnEXhQKCi1/Ncaj1KGQ6jyal/aThrgd7j6wGR6+Akaw5vfiMqCJ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw98LbsVdnvlnoG5XXHbkrte9GtP4GqvcekQtuSCkzziZkaGwe0
-	eruiH6aJ2ookWEljSO67kQBmgInFQVN0pjS3OXVahAxvpfkTIRk2yZ1pedkOhwiE78yNQ47FdUs
-	Mq8Q+ntOS4jg2ERNAQjsISCvi/0RHNa9v8z3XRBu2kRD2ZyBH2yz/rbfLp4G619/v
-X-Gm-Gg: ATEYQzyE5q+zvLESgTuvYIxZsr5UHrHdaiBQVJb8EBjg7MLhS3rTp4bdq2yl59ezSKv
-	n/CuJUsP7Zs+KI44ayp3pXaTQ+iIR9M1yJd1fLPPvIBdjv2t52chlgdRA8cVKZtJnrP2BVPxR+N
-	bIlUDtbvHQqMs5CZxLx1AAA/p+h17dR+gwwlF+8R+nsdFp+e7uFEXonTEDS5StNytvz1SxOQlAo
-	wSpZ1/zQKe7d7QlQEUGz/ScjFgg7kv5/R2xPGqf1zm6AnS7QV3/TPP5uHmyD6VPnL7jut5pDSgJ
-	VBlY+pZ9Y0DlADJmWVrzOUFQnMMSECo+oLrSvOUKFmYIPNhTdPfz6nP6WJZidElJze3fL5/0+Je
-	53653I71rtAH1oRdDWEDCV1rnbaTzRbd8T9Fn5o7E66mDyZtJ8F3MGBLc/XAEVDBZvWGtUscgw/
-	okl2j2J488g2g01o0Jy0P4Xb3sPpTMuOr/TQ8=
-X-Received: by 2002:a05:622a:424a:b0:50b:5258:28df with SMTP id d75a77b69052e-50ba37d1d27mr59941501cf.1.1774647454538;
-        Fri, 27 Mar 2026 14:37:34 -0700 (PDT)
-X-Received: by 2002:a05:622a:424a:b0:50b:5258:28df with SMTP id d75a77b69052e-50ba37d1d27mr59941091cf.1.1774647454123;
-        Fri, 27 Mar 2026 14:37:34 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38c838931b9sm928931fa.23.2026.03.27.14.37.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Mar 2026 14:37:31 -0700 (PDT)
-Date: Fri, 27 Mar 2026 23:37:29 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] firmware: qcom: scm: Allow QSEECOM on Lenovo
- IdeaCentre Mini X
-Message-ID: <rumbl2qbfy47px2ysa42m2ymw3dxmnzrync5lgywfiqwujklpw@7zpzruyignlp>
-References: <20260325-ideacentre-v1-0-768b66aaef30@oss.qualcomm.com>
- <20260325-ideacentre-v1-3-768b66aaef30@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="toHYW7vR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0354EC19423;
+	Fri, 27 Mar 2026 21:39:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774647545;
+	bh=m0xyN/K4zSKcbMCe0Pigk/i5SRWQIcAcko2GQbCvTjg=;
+	h=From:Date:Subject:To:Cc:From;
+	b=toHYW7vRoEUWdcJjPz6TA1qTwrnJuw2lVfyg8XYEcr3C0SVa0+i7LFe3PEWxhRPTc
+	 30a33Msav4wL0TDWZZoYgjok56+O/WV61RkBGsTLgiTCfPt5RVH43WWN+3438Gp1KY
+	 aEPIWd0YQrdraTa95iIUQbZk2H9jnaQoY+VaXXXXI0A0FZebSDUdrwI4qSdjV6cuoA
+	 Himl6hXUQlpqErfe/E7QeQgqzlUuc7WLH9YlS47oCxwKJ9XEPXuR5hHx9MTHg0gLhM
+	 4OFsZb7t95rOXQXoPDu0FDH8rqrOhDXORg0kaYOxKomajkS5UUDH1GjpMk2Z/i+UPF
+	 maLu4iHUMzzcw==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Fri, 27 Mar 2026 22:38:55 +0100
+Subject: [PATCH] scripts/dtc: Remove unused dts_version in dtc-lexer.l
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260325-ideacentre-v1-3-768b66aaef30@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=NfTrFmD4 c=1 sm=1 tr=0 ts=69c6f89f cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=Yw-7cwJRhbzFpx93OmYA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: e0_zRFh4Jj1TZLpTceCHp7pdOiC8pO0p
-X-Proofpoint-ORIG-GUID: e0_zRFh4Jj1TZLpTceCHp7pdOiC8pO0p
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDE1MSBTYWx0ZWRfXzp+hJg76/3vC
- RlyFa8403q8cAB+C53px5N9CoAw6aUMuOG73Y5ro56AZ3F7RE0CYOsHR2o7xcJFtXY5ZX1UGkHo
- PSNDK1CGz2+0kAMdYjVjmbzINPYf63841twUyQNXIG69EII7FntTZ0dZdrRtcj32ljWOtfHXPuv
- yBfXMMwJR9KMWJMqL8fEMxrjXtY6VLSwbT8Z7bO7EYmFWwtvrNKotw4kOfB+T5JcrChu3JJZn5V
- KMHyjv+EbuKznnCiOoQwGK0Dm0JldbkvKC1Pf7wK8IXbrh5XDOku0uj4ioq1GV+GwOLnYcjahPK
- hLhxrybLbxxirxDJ+nNE+zuhX8GfRpyjJsd3ZJrlWZb+q9TJWpPx9auG9PT1ahWPJ6DDEbWdzu4
- AoqgGR2XSng/t1kJhTvz0+EqfqyciHCrjhdkbck56lZWGfMPYjwkEMte0ehAcm7FFn6iRwD56gf
- r+xVouwDhyC5SOzPwhA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-27_01,2026-03-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
- spamscore=0 bulkscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270151
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260327-dtc-drop-dts_version-v1-1-41066690aefd@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDMBAAvyJ7NmBiTcWvSBG7WdvtQWU3FUH8u
+ 1FvM4eZDZSESaHJNhBaWHkak9g8A/z244cMh+TgCueL0j1NiGiCTHMC7RaSMzC2Kqm26P3DIqR
+ 0Fhp4vbbt63b9v3+E8XzBvh+CB5t5eAAAAA==
+X-Change-ID: 20260327-dtc-drop-dts_version-153e81c6641c
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, stable@vger.kernel.org, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1703; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=m0xyN/K4zSKcbMCe0Pigk/i5SRWQIcAcko2GQbCvTjg=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDJnHfnxz6zbt2fzjTpVxvsc/dZ5Mly/2E942ZbxUPK9v8
+ un4kuQjHaUsDGJcDLJiiizVj1WPGxrOOct449QkmDmsTCBDGLg4BWAiQPX/7N7rva6YLSAaW/rW
+ NWJD+P80jTOCtT/V2gN9K8IZxGauYmS4mBW/ovheWF+kewjD33tPNz06+lve6qN3j/F9Lp0l4n1
+ cAA==
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On Wed, Mar 25, 2026 at 05:34:50PM -0500, Bjorn Andersson wrote:
-> The Hamoa-based Lenovo IdeaCentre Mini X provides the same UEFI variable
-> access through uefisecapp as other Hamoa devices, add it to the
-> allowlist.
-> 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-> ---
->  drivers/firmware/qcom/qcom_scm.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
+A recent strengthening of -Wunused-but-set-variable (enabled with -Wall)
+in clang under a new subwarning, -Wunused-but-set-global, points out an
+unused static global variable in dtc-lexer.lex.c (compiled from
+dtc-lexer.l):
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+  scripts/dtc/dtc-lexer.lex.c:641:12: warning: variable 'dts_version' set but not used [-Wunused-but-set-global]
+    641 | static int dts_version = 1;
+        |            ^
 
-> 
+This variable has been unused since commit 658f29a51e98 ("of/flattree:
+Update dtc to current mainline."). Remove it to clear up the warning.
 
--- 
-With best wishes
-Dmitry
+Cc: stable@vger.kernel.org
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+This is commit 53373d1 ("dtc: Remove unused dts_version in dtc-lexer.l")
+in upstream dtc. I sent it separately to make it easier to backport to
+stable, along with updating the warning and hash to match the kernel's
+version.
+---
+ scripts/dtc/dtc-lexer.l | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/scripts/dtc/dtc-lexer.l b/scripts/dtc/dtc-lexer.l
+index 15d585c80798..1b129b118b0f 100644
+--- a/scripts/dtc/dtc-lexer.l
++++ b/scripts/dtc/dtc-lexer.l
+@@ -39,8 +39,6 @@ extern bool treesource_error;
+ #define DPRINT(fmt, ...)	do { } while (0)
+ #endif
+ 
+-static int dts_version = 1;
+-
+ #define BEGIN_DEFAULT()		DPRINT("<V1>\n"); \
+ 				BEGIN(V1); \
+ 
+@@ -101,7 +99,6 @@ static void PRINTF(1, 2) lexical_error(const char *fmt, ...);
+ 
+ <*>"/dts-v1/"	{
+ 			DPRINT("Keyword: /dts-v1/\n");
+-			dts_version = 1;
+ 			BEGIN_DEFAULT();
+ 			return DT_V1;
+ 		}
+
+---
+base-commit: c369299895a591d96745d6492d4888259b004a9e
+change-id: 20260327-dtc-drop-dts_version-153e81c6641c
+
+Best regards,
+--  
+Nathan Chancellor <nathan@kernel.org>
+
