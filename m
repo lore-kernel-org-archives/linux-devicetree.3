@@ -1,176 +1,211 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 126E63E9596
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 14:06:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C57289E06;
+	Fri, 27 Mar 2026 14:07:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774620391; cv=none; b=I3nha8dUc5A3Bc66n/BCi/gf3BO6Syj2/Ynejh47kvQBbygvGTfIG3X2+Hy8LuY8+Ck3isyhetnhotJzUb3vGxPhL5h41GUY24yzui4TTTdThttDbUNSBof7xyk+uBLbY+NRy4EyGcJzvuEXiyvsEIL7bilvwPvG2X3BeK2Ju8w=
+	t=1774620433; cv=none; b=q9tFEd4T9/JcTwwS42N7vZXpj0W4ySje/uqDIiUfo1exXlv8/zta/H5ipNXWbjtVnSm5RYSgWIV50dXcFxwhpKhu81xN/UHEIo5ch4EUKfevJGfauFhjUurXGl514oGio6rIUR48P1WFo+Cp4gPs92+CL/WckKO1oUCj7499jvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774620391; c=relaxed/simple;
-	bh=YG4r2XuxApAYu6LKzoe/5SwvEPoyF1OnlWcoZM1u4mI=;
+	s=arc-20240116; t=1774620433; c=relaxed/simple;
+	bh=hWJlZNKlAaItYJvhnDmGAEIGtys9dKI210vA5dw6Gqw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UYJLU6mOpZhw/VS+8M5f9AHZLS2AQfkNnVD2AGFmWm3SijgPa/Q6a8YlCLDEx5kfBrOSjnMnzOdzs5PlDmDvjgJDzuJDMcnxIGGaoCPu+LFq3oHDadE8d0gI3YAMYRv/FforJ57oKwYmuBKJcJgNBYoZNoTJFCcr7BcQ8xcB62A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XJUcqaIg; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=UXQrFzTSvoB9lqPYc9Ga8ItcGyS91RDMil5KB6hTarHX46dVArQpl/IsOspvYKxJcijT8/E6w/b6zPB6mgIFIfKFLifjnd2/47nglfCG9o+qK3KEiBsE4o4NDmym8bB/RqGFEh5UgYhqBZ+1gwEYJVDfplJIJc8Df1NgqyT2iec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gN1C4vUY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XJUcqaIg"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-43b40fb7f95so1876630f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 07:06:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774620388; x=1775225188; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=QSUpIlblw1Y8p0Flz+2ps8AGucj2y3pRw8IP0aJ+OJI=;
-        b=XJUcqaIgL71hXD8t8lZL96lttY7Xmh42IwKc368lwUvYfz9XpYn8Jd5XpIJeKwnEFm
-         e8eEcTukPFBgYursd0S1J82POhJmnJ07m/jPGknii0EALdeJQlpPYMXIfLBUfdubcFIj
-         v4nhPm+AeCgHb3KWllGs2ESKnlm4tp179tr921TTeSCc5Hr9eH1DjvukiwNCzf51SLoW
-         2MfPnhVEMpxMeVzt6APJbDIJZWCEvVK+wwNgO/1cEVZqpYH+ywjowG4JYq2Z2bxFnG7Z
-         6+zTinJphliFafoczfxB7EX2oh7tPuziJouOa+myu0yHg/jtkwyYv4++V98M6PyOO+TI
-         ywGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774620388; x=1775225188;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=QSUpIlblw1Y8p0Flz+2ps8AGucj2y3pRw8IP0aJ+OJI=;
-        b=nclcD63T7a3WtDx7xaaQeo70UTv9KNwjWVRqJLRD2SwzdWWZ5C05eL9LBUXfXsU7g2
-         HnYbVlr9LLYdHLBD6uv8b8hWofaBpKOEmwu7BeUT2WgZxrAhgtSl5609xrElpbDLp3AN
-         Kxahdoi3EA/Q3tfD0i9WE+/GZwCf5fzPpPozowrSemt8iPROxH2E6rieoQXIoTUMLpY1
-         HgTFFvFY7UNnaFlNtQlUixrCcxAVlK92UzUryRGAHTcL7DfIr3aYZXhfzzuG6HX7V9GT
-         UDYZcOZY6RTfl13lW1FJa6tA3UOgjT5s57TrYX0O3AAMq1sm7vRaTNrTnsxUvnu9GvjU
-         /5xQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVIOGhD1JSWVfyZYRjlUS69nyKPSovABYEW6NHJaNuD60198j+zfjYRmQSqIBvM2IhDip2WpGzInb/N@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywmqr4lSbjgBgOLMHJxpmk2gJ3BYKogGXf7kJnvL8y4MbqU9gjK
-	YyqscnQIUT8cOweAuvgfnZYLBPr3NvCv6QRSpaS1qWyNywYiZ6tUtt32
-X-Gm-Gg: ATEYQzxA3qdcvUkTvTv1dZ/YQDtPYIhoAar/hphAWdjmT6TGmKzjLNGjnRzZXSrbi54
-	8GzWgk5yg7jR5Iy+KKWIqq5R7igr8kphtX2I4GSMfH9Dp2af+riHr34/3slo/AInD++XFc1jGVr
-	+zD8X+tzUPOJDrlud/6h27ZgQvPdOXMRHDw75cBYEoExeiCTaIV3tZW535r2QO1/Vfd1wLjVrAr
-	Vu0InuboChkrZY7mcQmoj+f3R9ZeQRkkgLRy0TJaol5zEA4IJd6mO1tSFhSet9xz7N/H7LOwI7z
-	gi1LT1o8D8ubqBtdctcq2ynGskUk833YwSqR3Ta3KeeJ6Sc4oXmIK9XaQ1MCYvFXybYaU6mCz26
-	YnM+5DQqSNeE+smAQuVxfphngJLVLa7037ak1CXdNTS2UFLqfAH5T0xyyR88MBGHcUWS6/P/nUH
-	Ho87JI2nafdA1p5EFPmKub9ydkBGT9iNyxvRyzb8iJ6T06v9SUfRA5/p6HYM3O/hLQ+AcMDT6Wd
-	OOAvn9xABOvug==
-X-Received: by 2002:a05:6000:4212:b0:43b:95e9:413c with SMTP id ffacd0b85a97d-43b9ea6390fmr4110385f8f.44.1774620388098;
-        Fri, 27 Mar 2026 07:06:28 -0700 (PDT)
-Received: from orome (p200300e41f249a00f22f74fffe1f3a53.dip0.t-ipconnect.de. [2003:e4:1f24:9a00:f22f:74ff:fe1f:3a53])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b9192e305sm16052576f8f.8.2026.03.27.07.06.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Mar 2026 07:06:26 -0700 (PDT)
-Date: Fri, 27 Mar 2026 15:06:23 +0100
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
-Cc: Thierry Reding <thierry.reding@kernel.org>, 
-	Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, JC Kuo <jckuo@nvidia.com>, Vinod Koul <vkoul@kernel.org>, 
-	Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, linux-usb@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] usb: xhci: tegra: Remove redundant mutex when
- setting phy mode
-Message-ID: <acaNBQkGgQ_N6Krh@orome>
-References: <20260127-diogo-tegra_phy-v2-0-787b9eed3ed5@tecnico.ulisboa.pt>
- <20260127-diogo-tegra_phy-v2-2-787b9eed3ed5@tecnico.ulisboa.pt>
- <acJ50sQraVmy4zXs@orome>
- <00aeda7a-e5e5-4779-b212-6e56c2c5ec31@tecnico.ulisboa.pt>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gN1C4vUY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 846BAC19423;
+	Fri, 27 Mar 2026 14:07:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774620433;
+	bh=hWJlZNKlAaItYJvhnDmGAEIGtys9dKI210vA5dw6Gqw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gN1C4vUYUXB+7UEawc1PcM+V8n2yDJnE8RUs/p6dPiHH0hrRvfvdNZ6V+WGrqVpiE
+	 WjvpKR3uJl98bo9JYdDDaAmciiqnUpbLX8HKPq/ggFpHJYh80gfJbNyZV/1KebQjRK
+	 +NgkrXqvhN+gD2loKoMpnVFDOOlDpxi/X/qUK4zWDNvk5idq5pbHo/orDJGyySwOQL
+	 pJjn22TiFoR/rnyF+ZVJUBXDbgfmPb2K2C3YHqHsjqteRsXMDwXX6CWMhyVRQcoNKQ
+	 OLPZzK6vboSLI4XKmuFeWJdI+QTkto4qUzB7O2JVXrj+dnxsUTCfPXXzJnza1N84Dl
+	 1AQd9BRpLhScA==
+Date: Fri, 27 Mar 2026 15:07:04 +0100
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Bjorn Andersson <andersson@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+	Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	John Stultz <john.stultz@linaro.org>,
+	Moritz Fischer <moritz.fischer@ettus.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Andre Draszik <andre.draszik@linaro.org>,
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>
+Subject: Re: [PATCH v20 04/10] firmware: psci: Introduce command-based reset
+ in psci_sys_reset
+Message-ID: <acaPCJnX6lb9lxPy@lpieralisi>
+References: <20260304-arm-psci-system_reset2-vendor-reboots-v20-0-cf7d346b8372@oss.qualcomm.com>
+ <20260304-arm-psci-system_reset2-vendor-reboots-v20-4-cf7d346b8372@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ktw4w3vv6m4wgb3m"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <00aeda7a-e5e5-4779-b212-6e56c2c5ec31@tecnico.ulisboa.pt>
+In-Reply-To: <20260304-arm-psci-system_reset2-vendor-reboots-v20-4-cf7d346b8372@oss.qualcomm.com>
 
+On Wed, Mar 04, 2026 at 11:33:04PM +0530, Shivendra Pratap wrote:
+> PSCI currently supports only COLD reset and ARCH WARM reset based on the
+> Linux reboot_mode variable. The PSCI specification now includes
+> SYSTEM_RESET2 for vendor-specific resets, but there's no mechanism to
+> issue these through psci_sys_reset.
+> 
+> Add a command-based reset mechanism that allows external drivers to set
+> the psci reset command via a new psci_set_reset_cmd() function.
+> 
+> The psci command-based reset is disabled by default and the
+> psci_sys_reset follows its original flow until a psci_reset command is
+> set. In kernel panic path, psci_reset command is ignored.
 
---ktw4w3vv6m4wgb3m
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 2/6] usb: xhci: tegra: Remove redundant mutex when
- setting phy mode
-MIME-Version: 1.0
+If it is function calls you should add parenthesis (eg psci_sys_reset ->
+psci_sys_reset()).
 
-On Thu, Mar 26, 2026 at 02:17:33PM +0000, Diogo Ivo wrote:
-> Hello,
->=20
-> On 3/24/26 11:48, Thierry Reding wrote:
-> > On Tue, Jan 27, 2026 at 03:11:48PM +0000, Diogo Ivo wrote:
-> > > As the PHY subsystem already synchronizes concurrent accesses to a PHY
-> > > instance with a core-internal mutex remove the driver specific mutex
-> > > synchronization.
-> > >=20
-> > > Signed-off-by: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
-> > > ---
-> > > v1->v2:
-> > > - New patch
-> > > ---
-> > >   drivers/usb/host/xhci-tegra.c | 4 ----
-> > >   1 file changed, 4 deletions(-)
-> > >=20
-> > > diff --git a/drivers/usb/host/xhci-tegra.c b/drivers/usb/host/xhci-te=
-gra.c
-> > > index 8b492871d21d..927861ca14f2 100644
-> > > --- a/drivers/usb/host/xhci-tegra.c
-> > > +++ b/drivers/usb/host/xhci-tegra.c
-> > > @@ -1357,15 +1357,11 @@ static void tegra_xhci_id_work(struct work_st=
-ruct *work)
-> > >   	dev_dbg(tegra->dev, "host mode %s\n", str_on_off(tegra->host_mode)=
-);
-> > > -	mutex_lock(&tegra->lock);
-> > > -
-> > >   	if (tegra->host_mode)
-> > >   		phy_set_mode_ext(phy, PHY_MODE_USB_OTG, USB_ROLE_HOST);
-> > >   	else
-> > >   		phy_set_mode_ext(phy, PHY_MODE_USB_OTG, USB_ROLE_NONE);
-> > > -	mutex_unlock(&tegra->lock);
-> > > -
-> >=20
-> > It looks to me like the mutex here is trying to protect against
-> > tegra->host_mode changing while we're setting a different mode. That
-> > doesn't seem to be taken care of by the PHY internal mutex.
->=20
-> After taking another look at it I think I understand your point for the
-> mutex, but in that case wouldn't it also need to be held in the writer
-> of host_mode, tegra_xhci_id_notify()?
+You must explain why the kernel panic path requires separate handling
+here AND in the code - think about looking at this years down the line
+and figure out why kernel panics are special here.
 
-Yes, I think it probably would need to. I don't know how likely it is,
-but I think the purpose of this is to protect against the ID notifier
-firing quickly in succession. Although, given that this runs on a work
-queue and work queue instances are non-reentrant to my knowledge, I
-don't think we need the mutex here after all.
+> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+> ---
+>  drivers/firmware/psci/psci.c | 45 ++++++++++++++++++++++++++++++++++++++++++--
+>  include/linux/psci.h         |  2 ++
+>  2 files changed, 45 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/firmware/psci/psci.c b/drivers/firmware/psci/psci.c
+> index 38ca190d4a22d6e7e0f06420e8478a2b0ec2fe6f..ae6f7a0aead913d740070080d4b2a3da15b29485 100644
+> --- a/drivers/firmware/psci/psci.c
+> +++ b/drivers/firmware/psci/psci.c
+> @@ -51,6 +51,15 @@ static int resident_cpu = -1;
+>  struct psci_operations psci_ops;
+>  static enum arm_smccc_conduit psci_conduit = SMCCC_CONDUIT_NONE;
+>  
+> +struct psci_sys_reset_params {
+> +	u32 system_reset;
+> +	u32 reset_type;
+> +	u32 cookie;
+> +	bool cmd;
+> +};
+> +
+> +static struct psci_sys_reset_params psci_reset;
+> +
+>  bool psci_tos_resident_on(int cpu)
+>  {
+>  	return cpu == resident_cpu;
+> @@ -80,6 +89,28 @@ static u32 psci_cpu_suspend_feature;
+>  static bool psci_system_reset2_supported;
+>  static bool psci_system_off2_hibernate_supported;
+>  
+> +/**
+> + * psci_set_reset_cmd - Sets the psci_reset_cmd for command-based
+> + * reset which will be used in psci_sys_reset call.
+> + *
+> + * @cmd_sys_rst2: Set to true for SYSTEM_RESET2 based resets.
+> + * @cmd_reset_type: Set the reset_type argument for psci_sys_reset.
+> + * @cmd_cookie: Set the cookie argument for psci_sys_reset.
+> + */
+> +void psci_set_reset_cmd(bool cmd_sys_rst2, u32 cmd_reset_type, u32 cmd_cookie)
+> +{
 
-> This patch has been picked up as-is into usb-next so it would be nice to
-> figure this out before it gets merged in the next merge window.
+I don't think cmd_sys_rst2 is needed, as a replied in a different thread.
 
-Given the above, I think it's fine. Maybe the commit message doesn't
-give a correct reason for why we don't need the mutex, but the resulting
-code looks like it should be fine regardless.
+> +	if (cmd_sys_rst2 && psci_system_reset2_supported) {
+> +		psci_reset.system_reset = PSCI_FN_NATIVE(1_1, SYSTEM_RESET2);
+> +		psci_reset.reset_type = cmd_reset_type;
+> +		psci_reset.cookie = cmd_cookie;
+> +	} else {
+> +		psci_reset.system_reset = PSCI_0_2_FN_SYSTEM_RESET;
+> +		psci_reset.reset_type = 0;
+> +		psci_reset.cookie = 0;
+> +	}
+> +	psci_reset.cmd = true;
+> +}
+> +
+>  static inline bool psci_has_ext_power_state(void)
+>  {
+>  	return psci_cpu_suspend_feature &
+> @@ -309,14 +340,24 @@ static int get_set_conduit_method(const struct device_node *np)
+>  static int psci_sys_reset(struct notifier_block *nb, unsigned long action,
+>  			  void *data)
+>  {
+> -	if ((reboot_mode == REBOOT_WARM || reboot_mode == REBOOT_SOFT) &&
+> -	    psci_system_reset2_supported) {
+> +	if (((reboot_mode == REBOOT_WARM || reboot_mode == REBOOT_SOFT) &&
+> +	     psci_system_reset2_supported) && (panic_in_progress() || !psci_reset.cmd)) {
+>  		/*
+>  		 * reset_type[31] = 0 (architectural)
+>  		 * reset_type[30:0] = 0 (SYSTEM_WARM_RESET)
+>  		 * cookie = 0 (ignored by the implementation)
+>  		 */
+>  		invoke_psci_fn(PSCI_FN_NATIVE(1_1, SYSTEM_RESET2), 0, 0, 0);
+> +	} else if (!panic_in_progress() && psci_reset.cmd) {
+> +		/*
+> +		 * Commands are being set in psci_set_reset_cmd
+> +		 * This issues, SYSTEM_RESET2 arch warm reset or
+> +		 * SYSTEM_RESET2 vendor-specific reset or
+> +		 * a SYSTEM_RESET cold reset in accordance with
+> +		 * the reboot-mode command.
+> +		 */
+> +		invoke_psci_fn(psci_reset.system_reset, psci_reset.reset_type,
+> +			       psci_reset.cookie, 0);
+>  	} else {
+>  		invoke_psci_fn(PSCI_0_2_FN_SYSTEM_RESET, 0, 0, 0);
 
-Thierry
+This is very hard to parse. IMO, what you should do is:
 
---ktw4w3vv6m4wgb3m
-Content-Type: application/pgp-signature; name="signature.asc"
+- Split this into two different paths: reboot_mode vs psci_reset.cmd == true.
+- Document very clearly why a panic needs separate handling.
 
------BEGIN PGP SIGNATURE-----
+Something like:
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnGjtwACgkQ3SOs138+
-s6Goig//SnPG7Rf8K0gKeOP5TZWyD90YKXfxg4roWTYyRNVHdUU2H14n31xJS1Oo
-pMQvSFpK/kjChe09fFOUecq5vW68Rrfm2+Vi5rqfW+GHUlGo+5S70gJ8lbpV4wOh
-Ee7fuEilJgSjIMVxxwQY6rupnrXIPufzsSHGwbtaSYy04ibP9vhDn2REJ0bkIuZc
-AWzBBUQXf+aDMyKkliS5Ll15t54oQRdjZp/c02Zd1ffBX/6vx2/lx7hbSTBEm8mF
-eTyQV9XU3so3X9+mmff5uYEOLkHOxEJgOOVdMW8XDrTTLqR+PgTJ44zoGcOnCrNk
-2sOuA8ThjZBqgmjmVvi1zTasc0jHB7McIwHD8XLHmBS1SM1k8y7Lwjzm3VXXqYOl
-aXaMCIEwzp+WeYuxLPDQp5Qj8HEbNmAqZMztnucMn0h6riFsFX1SICiQ7o8DXe3/
-qTPjRWL7qvtiJSBCN068/hZF6l0m2hIfJqflvmF9CqDd4wzAfUqgSZiavmwpJpYt
-refzB/wklao+yrD+cp895hPidxJVmG6omcleeczxJmVVKWm6pOYJP3LCLGezArVn
-phgVYhRDOUvKWQk6sgtCqJbf6h0T1Nf1YvN/Cu1y6MAB1tgGiMUV6JEVuhaPN+kd
-PnN3cFTF/8ATfGpMSArmO8l4VYoGHx5FxgE/LFRPED4LZgaGlZU=
-=g7fB
------END PGP SIGNATURE-----
+if (psci_reset.cmd)
+	handle_reset_cmd();
+else
+	handle_reboot_mode();
 
---ktw4w3vv6m4wgb3m--
+I don't think we are far from converging but I want to be able to maintain
+this code going forward.
+
+Thanks,
+Lorenzo
+
+>  	}
+> diff --git a/include/linux/psci.h b/include/linux/psci.h
+> index 4ca0060a3fc42ba1ca751c7862fb4ad8dda35a4c..d13ceca88eab8932894051e7c86e806c2ad8a73a 100644
+> --- a/include/linux/psci.h
+> +++ b/include/linux/psci.h
+> @@ -45,8 +45,10 @@ struct psci_0_1_function_ids get_psci_0_1_function_ids(void);
+>  
+>  #if defined(CONFIG_ARM_PSCI_FW)
+>  int __init psci_dt_init(void);
+> +void psci_set_reset_cmd(bool cmd_sys_rst2, u32 cmd_reset_type, u32 cmd_cookie);
+>  #else
+>  static inline int psci_dt_init(void) { return 0; }
+> +static inline void psci_set_reset_cmd(bool cmd_sys_rst2, u32 cmd_reset_type, u32 cmd_cookie) { }
+>  #endif
+>  
+>  #if defined(CONFIG_ARM_PSCI_FW) && defined(CONFIG_ACPI)
+> 
+> -- 
+> 2.34.1
+> 
