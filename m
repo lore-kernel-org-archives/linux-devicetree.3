@@ -1,62 +1,64 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A67361659
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 17:42:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B80F30AACB
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 17:42:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774633372; cv=none; b=kn7mfmrYhR2eBlgjOIahPhamQOUbL9XEWvXlN1NW+4WAylgSaB121KwNwwudaZmGAQnG3e1Wm3W08aIDysEeg3RajQyy5A/e4a7D+NDPHG8w2UL9T+jN4Sx6SO4ssWEjzezA/dERWKSS7hDOFu7w/jfoMWE8hV2B0Mn7O4VpZkQ=
+	t=1774633372; cv=none; b=tvBC/LMxFMmTA/m/qVriA3WfOcqJa9dTcd+zP+Ft3YWHvDxAV0t3viaKBKK2aXhLqI4kEB8yyAh8REeIzA+irp99k74YbAtGEbOLaP7r6SYYG3jklbtZjLuj84w7BPeZTBwemWXN+H7aZQXgEd4eRjw2NHaiJL9By1jnqYqERK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774633372; c=relaxed/simple;
-	bh=Xu9ww0uZOflx3FeFucbHDo2b9kq7shVVtkxvcwslSX4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CQt4Mlj3NIhClekLPBei1afYOzpQJrBuE+KBibDfC/v5qQWOlOu21PH26xTegsO8akzPoXw1xJ1dliYG6Oatxg/yAWihL0aAMlsT1DDTsBJa4p5Y4gRVQ+UEbP+5n/0axFesCcohi32xVWFTXYc+SOzWEz/0/18oBvCSiwEg3gM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L0ZhtfXE; arc=none smtp.client-ip=209.85.221.45
+	bh=n/SigdKyXTHXAMOgdOkyYoCjrKeCCVOvmY9wB8H71tQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=egEfBBArMoSGpRHQYmd0QWTJPNd11oFM74I/1gzFoU/kVX0pI4r1fy92sdoTgD81bJ1t/heRN5X2S4icrdX2LCZm03tY1p7fSreU+lo9sC8d1vr9EmSfwvF1XfEXr6MuUGxBe3rwMDJBEnKhRiyOAuOVw4DgBosZaJEwXC+9ysM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UKSOcbl9; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L0ZhtfXE"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-439b97a8a8cso2436349f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:42:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UKSOcbl9"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-43b40fb7f95so2057851f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:42:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774633369; x=1775238169; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=RbD/1VQctrGkQcC2fyGA2UEf1NCtGg7ps82iw1U8Cl0=;
-        b=L0ZhtfXEmG23WEfCn/pCWcE2AnWoPVORUZCB9WSCCStGcRxVXFcMRnrBMfFPP+vgR8
-         QzEdhDdXUACKNtkqfdrqwBtDCuVjjQVlNoLSOkyDa5/L2O+lYciYxVtiFnb9CCnKP0mj
-         6e8wS75UteyRjswlPbCSid9VxMgATvRNq+dGpphhjPOcIG1u6URZ9sdo5rN145lpTwMf
-         zJ67bcQ22PJOcQK+nlYckT19xlxkK9Czf+gSJtC0LHLQ6f6McmMOP+l0scglg3pX+yX/
-         ZEGtSnErsrSf1WR2vijDoh8KpYfKVCGPEawOHef2i5o5iZiR1bwIcXcjgt4wqPNfm5Y9
-         Qizg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774633369; x=1775238169;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1774633370; x=1775238170; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RbD/1VQctrGkQcC2fyGA2UEf1NCtGg7ps82iw1U8Cl0=;
-        b=fPVqgzDF3wALkpWmeryGjX6VC+OniDVyqixvopW8JKMqP/ZRsadER5YO4eyWSkjUhK
-         Mrz509ummfrKvMitF6EeiX++tpHGgP4r0hWjKFy6p6m4wnIezGQO8tyH+1YmzF/g3hgU
-         ib+KKBI74PdcZ7rBuTgxjggWLOtrFM7vWCBCzyDn1aOsubbryJKdql+C0UyRPkyLcmCm
-         z5DPYTEY3OFfmWDAGCtcCoVAskZPNtcpRo5OF53J5EILLJnTDWawUjIY7p1mINPEvVVz
-         YRm0wdCDDRZwVM3f/OX5Vynk74W8pGTNediuCoWIkyor5wcx3MK/MqRMUkClEf3GrCp/
-         avng==
-X-Forwarded-Encrypted: i=1; AJvYcCUpjTRwkFFpq+hNH7DAhsvkTbuiKche0qpLz6vc2iwq6am23yWD/Z6LBXGUOAVgZwV5d/XDwuiLmPyC@vger.kernel.org
-X-Gm-Message-State: AOJu0YxOXNTC9K/mD9j7UWYPp8JRzW64hmz3Tp0fN0QtyCRYBy40xa2U
-	+5Rlkt58aKors+UoXtOF5h9r6C4niy3ylS2YXzq5HfKMzHS4ZElS/PZa
-X-Gm-Gg: ATEYQzyfKxoDBBnhbM8sYJ+PE81qxYjkdjc06x+i0bfsAFkvSbikL7CK6DGT+6fpY8V
-	OD64g868l02VyeUFPsM3kgj/fLWtqV24tK50TrwkG2NdrCuf9FfE1OAUJuMENIlLsp1MxxVuCRE
-	YG5igmYlRNxL8ijLxr6lrIBljxhvS2CklBDy7/f6zMDirWbbodXzAoLKJmBNVKrUxrI2ytMlgJI
-	/tvt3y2Xab0Pjn8JiS4DpqeAFyB6ADt9P3gdJaIbqh44nVDAfeSEOZDeubr8RjgfwTS2PVWqp7o
-	w5qNA+Li7BkS8Yd/uOgbzb1/lm3ajh3/q4YZV7oMUiJLCUfEp/Z7BEw+GcBajsV8YT6ey48JBi4
-	lF9viAzQy3f1ce/toCIdApNbDdDqjQ7fu2aXqhbSHREY1xEDpKFwkD8W5vIADvEG4MdOz/41Z/5
-	1P+FuHlRnpNT2D4aehf73MvnbBjILSNzCNpLPmyh6ypjI7JX1QAxJPT6NVxFeZSjNytSq1IgkWZ
-	vpOypgGeZmRnfOQQYPAnIAKS6GB44aHtCGFHCiJSSHhlZo=
-X-Received: by 2002:a05:6000:2307:b0:43b:3d02:7806 with SMTP id ffacd0b85a97d-43b9ea4a457mr5719949f8f.28.1774633368467;
-        Fri, 27 Mar 2026 10:42:48 -0700 (PDT)
+        bh=VH3wFzr09f4BWW4HDYRhxglvtqStayE7wEn/6/CruX8=;
+        b=UKSOcbl96vhqeSAzYGgkmsBQhIwxl/VG2DzbXXfSprmGSxV24tBoKFyGHgWP1J6zcX
+         3wWDMszdnbmTH8v5jwVEAtstM7nPB5mcMre6V1QMxKFygMxXmLcM2vy12l76sNDUyYnn
+         P94RTNvGsaEy7pRX73f6DYawxTcg+HND+mY3doiVXyAsRAvE5aRveGZaNS8zvEUEf/oX
+         JktP2htCpH4dwGHNgkIo8K2N/Vp4hCoFmahnDdWVAvWbd1EdQHFxprSqqt7oa8NdCA95
+         o0PhvgT/jEhkeVaef+0vMulDGCkeNyJSWYjSgHfVnHMRr9FnnlQ/qA6Z/hLTiD86GY6k
+         mQFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774633370; x=1775238170;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=VH3wFzr09f4BWW4HDYRhxglvtqStayE7wEn/6/CruX8=;
+        b=Yr7t5rLzzmk9CmHh82D+c/Os8ZtiSVpUIJOrPQVJgRGMGR9Nf4Km7t1OLLf3IJegxX
+         Awwq/UIqo+Gwg8QQpRrIOLorBjAB4JQRnt2/+9KSv2fLfNMlMoZoubK94DMq9meh8TTi
+         MWTiKWXiDasrwG6ZGOL9/sCwEo1gFU7zTJoIvrrTcheT6lVX4Ag5j29fjyCek8iqjta4
+         xy3fq6ZEbcsnf0XCNs5f1oSSJFvSqjdl+QgkW1GfAcYo6BkK6O+4TAkGFpL20sPbRNbY
+         pRYCT0xl93spbcdA5kQBq6RiOdX2B6cc/iVubHAQKqu2wbYxncn4CTOwCkES9z2F+g33
+         Q8aA==
+X-Forwarded-Encrypted: i=1; AJvYcCVDHSrW9qgq8ntsmJAchneVXb6YbZcuWNtSCAayKB+8vHPn8eqqICrPS0nUyjCop2a/VSHIE26Qz1Fz@vger.kernel.org
+X-Gm-Message-State: AOJu0YzPbqXhn8pf4h84d7/fxZClj5h+5ZIm2Wp1kANPtIC+l9uQ6R++
+	LsQDkJr5d8t/GlWHMOHt17hFimKUXEMMRZ3bGIe79sTBM0ExqFORaMfV
+X-Gm-Gg: ATEYQzyfOzt07C/VBKGoXegCPNgns0Mb+0PpgtqAqougdZfRMbBPNKXYm+sd7u2Xieg
+	Yyf77uNZfoWz1HzIgG4tcPVqVuspmN7zBgp/tWQkEUigE1l71HEKGXQR87RyXe0maQapxcNY3+f
+	vncCP8qjUaPqkoe7EbCimfVjfAodE1AgL6LWWXJJPCB/JrwSthZgTPFouftEYGGLYEVXiZuMH0W
+	oGeQOcpGpGPecbWILCOUfLr0RkFDFBH2iMiLGOsKP/k4fusefIO54uRGyV95T3QdgTzHC3RFXVM
+	3l+m7Dij/s+EnxK9erhPuXK5VOBFY2XrP2DqqnCE5WX3M3E/O5UAa0Qe61e9VulOA1oiYMmWtr7
+	LVmqRSsn119TasREkR/TtAJ9WXi/QnQQjA2rpLCquZb9AyvrK3kO57k/yBP405aKXT4x+L0hsZf
+	F+3lUqJd2zcU/dKhr0Xowtuf3xxlXVdrFva0DEcu1LtUPHaXwFuDmVkhQGiQeBCL+kI/6QLApkb
+	oIr6Jol9v5wQrr/Wx6CN+pVBTzjsN0OOGJmU+Hnm1cm3RI=
+X-Received: by 2002:a05:6000:268a:b0:43b:4ec7:f90c with SMTP id ffacd0b85a97d-43b9ea4a504mr5718573f8f.26.1774633369466;
+        Fri, 27 Mar 2026 10:42:49 -0700 (PDT)
 Received: from iku.example.org ([2a06:5906:61b:2d00:cad3:5596:28d0:27e3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b9192e528sm15965933f8f.1.2026.03.27.10.42.47
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b9192e528sm15965933f8f.1.2026.03.27.10.42.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Mar 2026 10:42:48 -0700 (PDT)
+        Fri, 27 Mar 2026 10:42:49 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Krzysztof Kozlowski <krzk@kernel.org>,
@@ -72,10 +74,12 @@ Cc: linux-kernel@vger.kernel.org,
 	Prabhakar <prabhakar.csengg@gmail.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v2 0/3] Add xSPI support for RZ/T2H and RZ/N2H SoCs
-Date: Fri, 27 Mar 2026 17:42:42 +0000
-Message-ID: <20260327174245.3947213-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v2 1/3] dt-bindings: memory: renesas,rzg3e-xspi: Add RZ/T2H and RZ/N2H support
+Date: Fri, 27 Mar 2026 17:42:43 +0000
+Message-ID: <20260327174245.3947213-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260327174245.3947213-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260327174245.3947213-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -86,38 +90,137 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Hi All,
+Add device tree binding support for the xSPI Interface on Renesas
+RZ/T2H and RZ/N2H SoCs. The xSPI IP on these SoCs is closely related
+to that found on the RZ/G3E SoC with some register bit differences
+in the configuration registers.
 
-Add support for the xSPI (Extended SPI) Interface on Renesas RZ/T2H and
-RZ/N2H SoCs. The xSPI IP on these SoCs is closely related to that found
-on the RZ/G3E SoC with some register bit differences in the configuration
-registers.
+The RZ/T2H variant has a reduced clock configuration, requiring only
+the AHB and SPI clocks (without the AXI and spix2 clocks). It also
+requires only the hardware reset (hresetn), without the AXI reset
+(aresetn).
 
+The RZ/N2H variant is compatible with RZ/T2H and uses the same clock
+and reset configuration.
+
+Update the binding schema to accommodate these differences using
+conditional constraints based on the compatible string, while
+maintaining backward compatibility with existing RZ/G3E and RZ/V2H(P)
+implementations.
+
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+---
 v1->v2:
 - Add RB tag from Rob for the dt-bindings patch.
-- Add RB tag from Wolfram for the rpc-if duplicate device name patch.
-- Added xspi_info_r9a09g077 for RZ/T2H with type XSPI_RZ_T2H instead
-  of reusing xspi_info_r9a09g047 with type XSPI_RZ_G3E, to allow for
-  better differentiation in the future if needed.
-
-v1: https://lore.kernel.org/all/20260310212927.3372410-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
-
-Note, patches apply on to of next-20260326
-
-Cheers,
-Prabhakar
-
-Lad Prabhakar (3):
-  dt-bindings: memory: renesas,rzg3e-xspi: Add RZ/T2H and RZ/N2H support
-  memory: renesas-rpc-if: Fix duplicate device name on multi-instance
-    platforms
-  memory: renesas-rpc-if: Add support for RZ/T2H SoC
-
+---
  .../renesas,rzg3e-xspi.yaml                   | 60 +++++++++++++++----
- drivers/memory/renesas-rpc-if.c               | 13 +++-
- include/memory/renesas-rpc-if.h               |  1 +
- 3 files changed, 61 insertions(+), 13 deletions(-)
+ 1 file changed, 49 insertions(+), 11 deletions(-)
 
+diff --git a/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-xspi.yaml b/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-xspi.yaml
+index 7a84f5bb7284..bf50d90051c9 100644
+--- a/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-xspi.yaml
++++ b/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-xspi.yaml
+@@ -24,7 +24,9 @@ allOf:
+ properties:
+   compatible:
+     oneOf:
+-      - const: renesas,r9a09g047-xspi  # RZ/G3E
++      - enum:
++          - renesas,r9a09g047-xspi  # RZ/G3E
++          - renesas,r9a09g077-xspi  # RZ/T2H
+ 
+       - items:
+           - enum:
+@@ -32,6 +34,10 @@ properties:
+               - renesas,r9a09g057-xspi  # RZ/V2H(P)
+           - const: renesas,r9a09g047-xspi
+ 
++      - items:
++          - const: renesas,r9a09g087-xspi # RZ/N2H
++          - const: renesas,r9a09g077-xspi
++
+   reg:
+     items:
+       - description: xSPI registers
+@@ -53,28 +59,38 @@ properties:
+       - const: err_pulse
+ 
+   clocks:
+-    items:
+-      - description: AHB clock
+-      - description: AXI clock
+-      - description: SPI clock
+-      - description: Double speed SPI clock
++    oneOf:
++      - items:
++          - description: AHB clock
++          - description: AXI clock
++          - description: SPI clock
++          - description: Double speed SPI clock
++      - items:
++          - description: AHB clock
++          - description: SPI clock
+ 
+   clock-names:
+-    items:
+-      - const: ahb
+-      - const: axi
+-      - const: spi
+-      - const: spix2
++    oneOf:
++      - items:
++          - const: ahb
++          - const: axi
++          - const: spi
++          - const: spix2
++      - items:
++          - const: ahb
++          - const: spi
+ 
+   power-domains:
+     maxItems: 1
+ 
+   resets:
++    minItems: 1
+     items:
+       - description: Hardware reset
+       - description: AXI reset
+ 
+   reset-names:
++    minItems: 1
+     items:
+       - const: hresetn
+       - const: aresetn
+@@ -109,6 +125,28 @@ required:
+   - '#address-cells'
+   - '#size-cells'
+ 
++if:
++  properties:
++    compatible:
++      contains:
++        const: renesas,r9a09g077-xspi
++then:
++  properties:
++    clocks:
++      maxItems: 2
++    clock-names:
++      maxItems: 2
++else:
++  properties:
++    clocks:
++      minItems: 4
++    clock-names:
++      minItems: 4
++    resets:
++      minItems: 2
++    resets-names:
++      minItems: 2
++
+ unevaluatedProperties: false
+ 
+ examples:
 -- 
 2.53.0
 
