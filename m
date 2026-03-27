@@ -1,224 +1,162 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984933D9044
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 08:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2564237267B
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 08:53:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774601124; cv=none; b=PRUGTq+SsXmm/t0wRiWex2zSrncEtG42hiijk2BMB+moyM4OJBt2zJL2u3Cka2yj7BuXH6Esghhhl8L8Wq4SmWo+29dst1b2fgHQoxDiK/eG+/HbVVuTreWD6kSeQF7BfKAu0v6BKj+FHrku/r8Y0FfbDw2yxB4zW+iB1cC5NZc=
+	t=1774601610; cv=none; b=jFQDqcqwQ2cI2SNpBqA1hCf3oOeOmOidwPFCmgYCvHmdL8AcvFSpkA9s7/8Qy/v2C1ssMYTlzf0fOm7CAB/X9x2yblRmWp8gJyVMqiaqWx8IUVElE5GLs8fEEkwx8A6uAvtXScf6tTlba6vX8r/Ndz/NiNbb9if3+mI6/sKCKCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774601124; c=relaxed/simple;
-	bh=VT5vONTAqXfveP+7n1Y8mynBHHypWw9Psl6PRU3IHMU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CtxH8/P+b4sKqvikgTuBlI6sds+hKRf1VR3QXBVzJjNaY+YDFUOIrTuaSz221VfQwBAFdcXgYmVDRQmXY6AmIrJtDyorxd7In7UfXrEYKsJIv1GSMkBa3+htxKNUemmtMW4w7cWZ7ETOAOdbrMFJRLXnaMKQVuyBRtd4u/KFl8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=btA7hp/m; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1774601610; c=relaxed/simple;
+	bh=AdR6PAQkd/glAbRWzZqZs5ZV5zwjk6NoX4PBwfEC2PM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jCZCpLl8ONxJ+aUE2XN87kzPDJSpfdtkx/4opi/x67KTeyx0Bg9STCkXhifh4WgQSLZJb8e7di9MFksEh2T0nE3xAd6ZluNYhhufJlPz/Axi6cJVrYyErEr9H5HX3lJ1Dp1dzsH5MEuDrAuPrR8aWelZsXsYp9T/d3QbcNDWiOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LRSlMbwg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d8R4StIN; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="btA7hp/m"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-486ff3a0fc1so18097595e9.2
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 01:45:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LRSlMbwg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d8R4StIN"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62R6w3IX1860244
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 08:53:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=P+L0cVxLmLpyABAqOXlBpx9afMsIvPw+Tl3
+	LJrHuND8=; b=LRSlMbwgkLMJhskPryMuFDC+66xpWnkO8JbfQ1ooPQ95Asb02VW
+	5z/coajHd20W9/nqS1QMf8f2zJe8k6PMpZDyiQiqFKwSjxI51kUV2bGN0FwXjAmO
+	dpRafkVEI66aXJvTgrIX2JBtUd7H1auwnjsxpzP1S8r1eVWuJHbue1YkAu/4qU8Q
+	fDPkx0xl0yuA7ZYXc9zlkp6DCIr2ZZ8bOu5KwHeWSsazp8W91oC6apYHm0G9ZkKW
+	pzxZrHSHHcFrd1QhTFEGUPY3aSpr0718W9B8YCSr7zbfc9cnqZgx4sNy6Y8sa9EU
+	m584RISoX+jht7YCtrNGvLhxdAoITnt5FjQ==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5bxv2863-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 08:53:28 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8230d6d54a5so2959338b3a.1
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 01:53:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774601121; x=1775205921; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=zirj6VF39WLLrUARx3OP13uKy+Totnoyb4r1iN1GWX0=;
-        b=btA7hp/mENuZh3BaxfL54LVKy5O9j5p2O6idUVLXQRBzPEhykrhYdDaCo0jf8uleXb
-         9cQBygFJQ/WyaeJWxtGqQhdihrOhJcPCk8LCEAND+OlXr23p6FF56oxQ7EHBu+6uXdcS
-         cWNLND+L8MD/LyhjTPqaLM9DfAEIWmnLlThgzfm6Pyrk3uTkeUUP1MkApG+GGyyZM/Ky
-         hSXFfKFFbuzdSllbrMJQdzNzpQ+5fxFKFY0pAcqPSfIw5EVQU/oGq7RddHyzuS1KtZp6
-         FiUCa7VGMbIuAhbeR1jX9GXywUWytvCiud1tQJer2FC5e0cITX/64NWPQbh0A3dMaWHn
-         rdHA==
+        d=oss.qualcomm.com; s=google; t=1774601608; x=1775206408; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=P+L0cVxLmLpyABAqOXlBpx9afMsIvPw+Tl3LJrHuND8=;
+        b=d8R4StIN78YqhxxQXR4wZ8HMhlSmfux1kQr2qhymFhHFvxqBaMLg9aWm3fhxSODkAQ
+         occUyRg12gp2EkmrW1P9bl5GuakKWRornhIa5050A0/PLLzK8PplH8iMDWpKINl5OUpZ
+         8hmgrcY+Of0Na+5ixUQpxukmUGj/PjT81r0ORZZ9Q3qp729hc2bjFXGg6lG8WiIwJLgY
+         BXTFyjdU0OYKnf96dyfEFhLcUuyOqMrX8JdA7dggS75PXCaonkiiYdL0KPkMBekhSO3r
+         fGBDydklQgWquijE40AJNZYKzxBYZbGfGmzCd1baiAKq3/jHAUstW/yDw1rIeInVyuZE
+         50Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774601121; x=1775205921;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=zirj6VF39WLLrUARx3OP13uKy+Totnoyb4r1iN1GWX0=;
-        b=LmMKOtWAl+8lDstl+uG85oYENkPcGjxDTolZpgmsB9j+B+PvRrRCuf2xBkwgcW1xiv
-         LqV6kON9bqpjeynrESyOzuCophiGLlROzjM322ZVzxuaOjBsJhk+BEJU3OHmumGfg4F/
-         hjh3XoPPRZgnbe9Scx2MBP1cxZzihdfmGYiEVr+D1HSgIWzjZ2ctV5MjgGnWjlprtQA5
-         nm3vBnW924ozQEzcJN5W2f6is0NnDLUqNDDpHsmyVRdkU8DrAY8Uvr6HfJ+YvuywmdRV
-         Xuv2kqCoxVX/pEldGDSRXxckluuSiS+tKIildweTSNZm69UzIFP6btLiVr1n6/q8jqEg
-         YS4A==
-X-Forwarded-Encrypted: i=1; AJvYcCX/XaKIXRM/W61gt3J7fXjZQnWQnbRvYLmMsBt8iRDOxYco4Bof/trOhyuL5tfnkdbAdtY3Nc1MlwDW@vger.kernel.org
-X-Gm-Message-State: AOJu0YzTXBvXfQdEq+DZBt6L0WmhMGkluZKMVFCBffi1r8oBDGS9nOQT
-	mZBRUDIGk0n1RJJnDkuphu9or4WnNs9aT7ykEUmnF/mY18LbFC1/QU/vBzLtdBXLFKY=
-X-Gm-Gg: ATEYQzwdfjEptCNhdLFwL1L4ZKmVdtguIm1yvZwE5+2OtJe+GHE7dbQ4TeZPDZ6ACxE
-	YjwzqCSvh8xlM9suMu6cfNX+iIRKH8iPNv0FreAdGH6y3gMfCkHKCijVHEnSbfT+wgWjf02HhAu
-	I3rAo0OXtK3N/jFuv6verSba61bC6CeFaQba4RvkQEeZpyfNfdV8iZ2mn7S4x7YZQUSll4iyuOG
-	pcDf0cIsdtU0LYEVjhyyZfe6joJXh6WlO6qiUQCZ9d16MGbA9M6sGZe38FIMTatFXOGvLMNN25t
-	XH6C6KtdGfUZU5sua2Z9LsnsBZdlOubT5jBleR6qVJn5Ju++xKnLGD1J4UP2NmbfiX3Vt4IWG7o
-	knq7bOuN1Sv7FGAeALNTJYPdzTuJFQugshTStPofOpW4tK4Ztl9lg6XPFMrx+EgwqgNufeC5Mu9
-	mJEHSoYA0l4rdtdEUyH4LFUyr5Aw==
-X-Received: by 2002:a05:600c:4f53:b0:485:3692:e8f7 with SMTP id 5b1f17b1804b1-48727ede47amr23215565e9.25.1774601120896;
-        Fri, 27 Mar 2026 01:45:20 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4872717c3dcsm11415075e9.28.2026.03.27.01.45.19
+        d=1e100.net; s=20251104; t=1774601608; x=1775206408;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=P+L0cVxLmLpyABAqOXlBpx9afMsIvPw+Tl3LJrHuND8=;
+        b=eBCK1M6na805E+N7GASxfhwXOnEfxMe8tavHeKcJw24TcwRh/sHWL7np39qD9SrCGK
+         mWohUvgpN7GcPa7i9VBHP4CsGq1jL+ivc5RZoU5rEr1+oIehQ2j0K2IfEn44/Mw3+mQl
+         zSL2Gz4MaajJ57nSurKMixqDFBZFVsvyuZwoUIhctXuQLx/VJJ4wOfY5Nv5FxkpE4D75
+         dJhyCl3zkFuRIXVmubQNRlZ5Tokx5dZi79HTH10u1PrO5/cOFuTWRPDjoMbW5VdUpJsZ
+         10V/VJWmazl9LCJnpJdCMffazjvZFZMTTbvCtoGAIo1iJhIvSDB7hNO3xx5da2MG89g8
+         HP+A==
+X-Forwarded-Encrypted: i=1; AJvYcCXyA3fp100KDTGVzs0l3ZjzpfGQs06F54P6tmNmNvdtEn+Tvyc5fIyZ4bZGz+NbC/aeRdXo1Obol0mW@vger.kernel.org
+X-Gm-Message-State: AOJu0YwRox1r8e+cdIFraLrLGqS2MLlvLCb1iz6T2cEMxQdqwnkusCF7
+	qCVBohhFlQP5+aqDSdN2YvT5MkL8fcEJeV9cSYH6Vb0Dh1Lu1yNokKdVNY7ESoeB1LXX3MEY2iP
+	0eyIWJp6fJ+jtWnNGCEG4aO34kdzejvouG29je+QaJ776u8HKdOvvdUm8iCU0K8kw
+X-Gm-Gg: ATEYQzx2qD65fP7rybQ0dXtGPIHeXy93DqIp75VzdN4SGrzxd1FNOmthpBVrnuq9OYl
+	eGttlvpVht8olTt9Y7EiCvYc71tc5kW2r4ay3FG7wrRVGYc1uWJ5AJvWXzfHT58SVoBPNwWFwuw
+	SeNQonOS/ExToDl2agfwwhqwnXLXw3PxyzW88l04SDkewb8TFukXdYUV8B/QSVcy5ek9koteIws
+	y86tmA5TRu6gJyey99DMPyXo39ymWO3UNBKNpm3E3c3xWkMlvzLzGJYNxv6YT6y/ocuDXi8oxR3
+	9CRlFDtcYywbZLxHLeViyyZSbEGRftHfyZ4fmJpMiFnLo9FIovY1Zz31l+EHw/TydqNUVeL3a7v
+	jnZtViJeNOwqU846u3635zne3jsbIDhqFPpFg6KuTGVmA
+X-Received: by 2002:a05:6a00:99e:b0:81f:4e1c:1d3b with SMTP id d2e1a72fcca58-82c969c042fmr1498111b3a.23.1774601607679;
+        Fri, 27 Mar 2026 01:53:27 -0700 (PDT)
+X-Received: by 2002:a05:6a00:99e:b0:81f:4e1c:1d3b with SMTP id d2e1a72fcca58-82c969c042fmr1498091b3a.23.1774601607203;
+        Fri, 27 Mar 2026 01:53:27 -0700 (PDT)
+Received: from cse-cd04-lnx.qualcomm.com ([114.94.8.21])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82c7d3c2714sm4862885b3a.48.2026.03.27.01.53.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Mar 2026 01:45:20 -0700 (PDT)
-Date: Fri, 27 Mar 2026 09:45:17 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: rodrigo.alencar@analog.com
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH v9 2/9] lib: vsprintf: export simple_strntoull() in a
- safe prototype
-Message-ID: <acZDneLrIPOmU5ci@pathway.suse.cz>
-References: <20260320-adf41513-iio-driver-v9-0-132f0d076374@analog.com>
- <20260320-adf41513-iio-driver-v9-2-132f0d076374@analog.com>
+        Fri, 27 Mar 2026 01:53:26 -0700 (PDT)
+From: Xueyao An <xueyao.an@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH v1] arm64: dts: qcom: hamoa-iot-som: Add firmware-name to QUPv3 nodes
+Date: Fri, 27 Mar 2026 16:53:17 +0800
+Message-ID: <20260327085318.2771771-1-xueyao.an@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260320-adf41513-iio-driver-v9-2-132f0d076374@analog.com>
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=A99h/qWG c=1 sm=1 tr=0 ts=69c64588 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=8rlZebuS5uYMG-XfLoEA:9 a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-ORIG-GUID: Aq9lTDdgp4ynJmtrTn6c5rIMipDdRdrG
+X-Proofpoint-GUID: Aq9lTDdgp4ynJmtrTn6c5rIMipDdRdrG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDA2NSBTYWx0ZWRfX4lgLEWE8TCHL
+ B9Unhf6iOpZBvbfSi93X79RfQ2suurr8386M1y3RKDPtOzCI4VLuXPqA+DBsBffQAPNvVCQUTDm
+ B8Ou7t0F/aSkArsRhQsxVtNvk4n88iuLWvR/f23WpYbPGW9IC7Nc4CB62vUn7r3fiiv8McnyTIq
+ V8RW7PqJZ31SWMyFpEATahYNcuX7KBtdfsXbdGk7X4wHMjs6SPhWLTWuEHzEpbZrkwM1eGAzeuF
+ BA6Mcy01TZbAqqhf45te6MV/nQl5XC4PLxsREUPlPJFOQKR0N+GPei168dC1ulqsxlmu8+kSBZG
+ yeuhXqC3E4ahqhHgagESXv6+1i25LELT2M7JW43MqpAHwUqgaIRqJ4uzbZsExorVrQ8Lclc6U4l
+ mIbmwJqkDuswFnW1byPzLgJvA5GJvd7XsSzYw94Vm0CQ2AZ8vObYaKL96rDnKLxgKoHPCvPIjLA
+ ubKWE558eVGEaZoaXlA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-26_04,2026-03-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 malwarescore=0 spamscore=0 impostorscore=0
+ phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1011 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270065
 
-On Fri 2026-03-20 16:27:27, Rodrigo Alencar via B4 Relay wrote:
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> Expose simple_strntoull(), by addressing its FIXME, i.e. its prototype is
-> slightly changed so that -ERANGE or -EINVAL can be evaluated by the user.
-> Flow of the function is not changed and error value is returned in the
-> end. Unsafe internal wrapper is created to reduce amount of changes.
-> 
-> --- a/include/linux/kstrtox.h
-> +++ b/include/linux/kstrtox.h
-> @@ -148,4 +148,8 @@ extern long simple_strtol(const char *,char **,unsigned int);
->  extern unsigned long long simple_strtoull(const char *,char **,unsigned int);
->  extern long long simple_strtoll(const char *,char **,unsigned int);
->  
-> +extern ssize_t __must_check simple_strntoull(const char *startp, const char **endp,
-> +					     unsigned int base, size_t max_chars,
-> +					     unsigned long long *res);
+Traditionally, firmware loading for Serial Engines (SE) in the QUP hardware
+of Qualcomm SoCs has been managed by TrustZone (TZ). While this approach
+ensures secure SE assignment and access control, it limits flexibility for
+developers who need to enable various protocols on different SEs.
 
-Sigh, naming is hard. I personally find it a bit confusing that the
-name is too similar to the unsafe API.
+Add the firmware-name property to QUPv3 nodes in the device tree to enable
+firmware loading from the Linux environment. Handle SE assignments and
+access control permissions directly within Linux, removing the dependency
+on TrustZone.
 
-IMHO, the semantic of the new API is closer to kstrtoull().
-It just limits the size, so I would call it kstrntoull().
+Signed-off-by: Xueyao An <xueyao.an@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/hamoa-iot-som.dtsi | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Also I would use int as the return parameter, see below.
+diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-som.dtsi b/arch/arm64/boot/dts/qcom/hamoa-iot-som.dtsi
+index 1a9e930c0496..c26eaf187b17 100644
+--- a/arch/arm64/boot/dts/qcom/hamoa-iot-som.dtsi
++++ b/arch/arm64/boot/dts/qcom/hamoa-iot-som.dtsi
+@@ -458,14 +458,20 @@ &pcie6a_phy {
+ };
+ 
+ &qupv3_0 {
++	firmware-name = "qcom/x1e80100/qupv3fw.elf";
++
+ 	status = "okay";
+ };
+ 
+ &qupv3_1 {
++	firmware-name = "qcom/x1e80100/qupv3fw.elf";
++
+ 	status = "okay";
+ };
+ 
+ &qupv3_2 {
++	firmware-name = "qcom/x1e80100/qupv3fw.elf";
++
+ 	status = "okay";
+ };
+ 
+-- 
+2.34.1
 
-
->  #endif	/* _LINUX_KSTRTOX_H */
-> diff --git a/lib/vsprintf.c b/lib/vsprintf.c
-> index 800b8ac49f53..6fb880f4013b 100644
-> --- a/lib/vsprintf.c
-> +++ b/lib/vsprintf.c
-> @@ -75,25 +75,66 @@ enum hash_pointers_policy {
->  };
->  static enum hash_pointers_policy hash_pointers_mode __initdata;
->  
-> +/**
-> + * simple_strntoull - convert a string to an unsigned long long with a character limit
-> + *
-> + * @startp: The start of the string
-> + * @endp: A pointer to the end of the parsed string will be placed here
-
-I would write:
-
-  * @endp: A pointer to the end of the parsed string (output)
-
-> + * @base: The number base to use
-> + * @max_chars: The maximum number of characters to parse
-> + * @res: Where to write the result of the conversion on success
-
-Nit: I would omit "on success" *res value is set to 0 on failure.
-     Instead, I would write:
-
-  * @res: Result of the conversion (output)
-
-> + *
-> + * Returns amount of processed characters on success, -ERANGE on overflow and
-> + * -EINVAL on parsing error.
-> + */
->  noinline
-> -static unsigned long long simple_strntoull(const char *startp, char **endp, unsigned int base, size_t max_chars)
-> +ssize_t simple_strntoull(const char *startp, const char **endp,
-> +			 unsigned int base, size_t max_chars,
-> +			 unsigned long long *res)
-
-It might be enoungh to use "int" for the return value. The number
-of proceed characters is pretty limited by definition. And it
-would be similar to vsnprintf(), kstrtoull(), ...
-
-I guess that you wanted to match the "size_t max_chars" parameter.
-It makes some sense as well.
-
-Please, use "int" especially if we agreed to call the new API
-kstrntoull().
-
->  {
->  	const char *cp;
-> -	unsigned long long result = 0ULL;
->  	size_t prefix_chars;
->  	unsigned int rv;
-> +	ssize_t ret;
->  
->  	cp = _parse_integer_fixup_radix(startp, &base);
->  	prefix_chars = cp - startp;
->  	if (prefix_chars < max_chars) {
-> -		rv = _parse_integer_limit(cp, base, &result, max_chars - prefix_chars);
-> -		/* FIXME */
-> +		rv = _parse_integer_limit(cp, base, res, max_chars - prefix_chars);
-> +		if (rv & KSTRTOX_OVERFLOW)
-> +			ret = -ERANGE;
-> +		else if (rv == 0)
-> +			ret = -EINVAL;
-> +		else
-> +			ret = rv + prefix_chars;
->  		cp += (rv & ~KSTRTOX_OVERFLOW);
->  	} else {
->  		/* Field too short for prefix + digit, skip over without converting */
->  		cp = startp + max_chars;
-> +		ret = -EINVAL;
-> +		*res = 0ULL;
->  	}
->  
-> +	if (endp)
-> +		*endp = cp;
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL(simple_strntoull);
-> +
-> +/* unsafe_strntoull ignores simple_strntoull() return value and endp const qualifier */
-> +inline
-> +static unsigned long long unsafe_strntoull(const char *startp, char **endp,
-> +					   unsigned int base, size_t max_chars)
-> +{
-> +	unsigned long long result;
-> +	const char *cp;
-> +
-> +#pragma GCC diagnostic push
-> +#pragma GCC diagnostic ignored "-Wunused-result"
-> +	simple_strntoull(startp, &cp, base, max_chars, &result);
-> +#pragma GCC diagnostic pop
-> +
->  	if (endp)
->  		*endp = (char *)cp;
-
-IMHO, we do not need local "cp". We could simply pass the endp
-to the new simple_strntoull. Or do I miss anything?
-
-Best Regards,
-Petr
