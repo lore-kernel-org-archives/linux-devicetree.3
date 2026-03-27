@@ -1,262 +1,119 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010002.outbound.protection.outlook.com [52.101.228.2])
+Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com [148.163.147.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5197340293;
-	Fri, 27 Mar 2026 18:10:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774635023; cv=fail; b=t4S2NPDiIYALOCBnsEPJLoygJDfR3aclYeY3/GN/mUN/xIhEhDB0ZaGwrQ0Y4wIlJ3yoF+N54LEY7t1TSEdY97fBgHYeabnXRz7hBPRxe4BRArrRBxh597tR7QTWqJIqMsMkN86Nigvkth1f6O2nczYJi9GUTm+t9DR0c8bwHO0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774635023; c=relaxed/simple;
-	bh=GEICBCTtJF7Pn6Q+2GOdbuGMx0a0W3CnNuIRjBAw7Sg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RRftnikFlLXfbshFHppqd6VTfCfozGvQT3T0k4j+Z3pG8LefF1+Fr9fylnNBllvjezJy5oR5nWBpwz/ULJh+4tNT24xewGT6jbA558CCXnXD+sBci5ZNfZ9wsvbDkFX5ReBN0ebCBUUQcf3DjQImj/aqr0joNtX8HNr6e8EAXmo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=dM7U3xbL; arc=fail smtp.client-ip=52.101.228.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A935719A288;
+	Fri, 27 Mar 2026 18:15:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.147.86
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774635363; cv=none; b=qovJDCugoYa5SWt2f223BHYF8rm2enbsNvU5BAnzZAErWCB+I/Ywm1zsLb6DWj+BXIzUcb0s60DvNq0NdJiH7DGqFPbDlLiHC0/4ocORPzkb+AvwfH70+gKe6N0jRcoocG2YM+gd2qyD7iytD54DyXXOW5569+PrJCvgfFM18pw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774635363; c=relaxed/simple;
+	bh=bo5GdBa6G3d63Ox97a8utKJoa06KDNsD2SP0aUfJr+g=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=kbs9luChPfzADrcU89ouBOw7ScAtAgr676rX0Fw9pnrOI36FXtrFy51yvxzcGLTjzY0Pc7pzRZOLVwJ/qmqicTH/UkiFY2bcte4gDSubF/+bg1wxrH/HLfBDzDDydU1UAo4YflYc7iL0sLIIqZsSj9LwkCAhZcm4P/XV6eUxCtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com; spf=pass smtp.mailfrom=hpe.com; dkim=pass (2048-bit key) header.d=hpe.com header.i=@hpe.com header.b=ieja83Wt; arc=none smtp.client-ip=148.163.147.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hpe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="dM7U3xbL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hPoKeB+yCvbEE3ANofBiENXM92MTvxKah29Qz0dxmdICWt+0VRAuRZgi9v0uCogVCNJ7D8qcie2w1hD5mbhWEcxfQ8c2OQYwQLyRnGiK1jdVe9KViV/ZgRpXUyK0okr+LE6WA+sNaSK+C4g7gXDIEwHBuXHF8dwTE+zfsXLfQBJV8xfkUV+I6B189qTmTDMfwNKK5x0xk7FCHSZuJeROYlFdijtTS376nYV5c2pfjC23XLD/lgwUM0MtDhops0tryZwBRIYEqQHa6AjCJRMtDL9IXWapLx7NUkxfV9C7isJx5KdSCwbvOJ/dOvL23hZGHahw/bnrlFGNIi0O5acKHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UblEgaPILoKckoOpkp8WuekSGw1PZy4Rqr179I64za8=;
- b=qzcezC+SIo/brcBOEeEXH7vwnpnfQWfPShW+g2VEJN7gp0Wqn3Es2DjiZGhbx1zJmbupRonyyc1E+6b6g4OWfsxXiwW8Z+OwWeK/WMsk+dZipfqgPvy0Tc3LCVLAdnGfo118uMEEDJZyq1n0kDqa7/KIeUPCoP2LYQHmdwmbeF75ZYtFaAoYSxaRM60d1SqJHal47Qo/ipkwCAYrmbhimI8/Z5ganS3jvhZKlXFvi5YKWuMWU1wH5nhRbuAn7ZpUr2nRcYXS4s0aC7n4SDWb/bmkrRdBslrJ95p1zTfACCq+YsIKSB6x2H13Gg6pcqRYmExIl9EKdR6X2hX1HcolHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UblEgaPILoKckoOpkp8WuekSGw1PZy4Rqr179I64za8=;
- b=dM7U3xbLv033f4zU3adZZbhTfFXZi6LTEv4i5T/rB7HQ/u41Me232+4B4zvzTWhReaioLjtYQL2u5x5YukLMNgbQyH2QUTpzB056y679trMXH/cA+RKsBI6dL1K92i/buMr5vOWwKRZ8MuZ71eu5uTf/hE7xrsRPJBOqWLxwbqA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TY3PR01MB11948.jpnprd01.prod.outlook.com (2603:1096:400:409::5)
- by OSRPR01MB11662.jpnprd01.prod.outlook.com (2603:1096:604:22e::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Fri, 27 Mar
- 2026 18:10:19 +0000
-Received: from TY3PR01MB11948.jpnprd01.prod.outlook.com
- ([fe80::b718:17d0:6c0f:1495]) by TY3PR01MB11948.jpnprd01.prod.outlook.com
- ([fe80::b718:17d0:6c0f:1495%6]) with mapi id 15.20.9745.024; Fri, 27 Mar 2026
- 18:10:19 +0000
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: tomm.merciai@gmail.com,
-	peda@axentia.se,
-	p.zabel@pengutronix.de
-Cc: linux-renesas-soc@vger.kernel.org,
-	biju.das.jz@bp.renesas.com,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Josua Mayer <josua@solid-run.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v9 6/6] reset: rzv2h-usb2phy: Add support for VBUS mux controller registration
-Date: Fri, 27 Mar 2026 19:08:53 +0100
-Message-ID: <fbda808d86ee3df3a1eda98de792ca41dada52a5.1774601289.git.tommaso.merciai.xr@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1774601289.git.tommaso.merciai.xr@bp.renesas.com>
-References: <cover.1774601289.git.tommaso.merciai.xr@bp.renesas.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: FR4P281CA0056.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cc::16) To TYWPR01MB11940.jpnprd01.prod.outlook.com
- (2603:1096:400:3fd::8)
+	dkim=pass (2048-bit key) header.d=hpe.com header.i=@hpe.com header.b="ieja83Wt"
+Received: from pps.filterd (m0134420.ppops.net [127.0.0.1])
+	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62RCeMJJ1436948;
+	Fri, 27 Mar 2026 17:44:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pps0720; bh=QmopYxJuCQEZ8
+	zllUw4s6HsivJfzbT5IkcJ5NS0N8js=; b=ieja83Wt3E8FODs/sPSms5XvUBiZL
+	aKkr6shxcGp9wXclu3Y9tzLtq09aIZIQIOZozCLWEO3YypSKBhhTYUiWO6WH0QG7
+	BDBf/QNb6zWenFxdOSl4O6V/GgAHbA7b5kR8SPL7nCAzWXMq/8+ngqn8hbOK/dtE
+	sk7L7PBXLYjXz5bAAqKgp5rNUHlRrEmXhUWCIOE8C/Vm/79zMM9QPe8uMan5sX7h
+	v7nS/YOg2cwMp/cwDhVqSH7vu/W6BZN9usxnZ/u/+K7ItP5bXdMQRX1irirDTgYy
+	94kZdUuSV+xtNluHogDU8cNAJm9fw0ROOIdiX6f3j3yh/BRK7o2yiJJ+w==
+Received: from p1lg14880.it.hpe.com (p1lg14880.it.hpe.com [16.230.97.201])
+	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4d5t3fkhhc-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 27 Mar 2026 17:44:51 +0000 (GMT)
+Received: from p1lg14886.dc01.its.hpecorp.net (unknown [10.119.18.237])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by p1lg14880.it.hpe.com (Postfix) with ESMTPS id 5C7B881B5B0;
+	Fri, 27 Mar 2026 17:44:51 +0000 (UTC)
+Received: from hpe.com (unknown [16.231.227.36])
+	by p1lg14886.dc01.its.hpecorp.net (Postfix) with ESMTP id AA5E7810ADF;
+	Fri, 27 Mar 2026 17:44:50 +0000 (UTC)
+From: nick.hawkins@hpe.com
+To: catalin.marinas@arm.com, will@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: nick.hawkins@hpe.com, linux-arm-kernel@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 2/3] arm64: Kconfig: Add ARCH_HPE platform
+Date: Fri, 27 Mar 2026 12:44:44 -0500
+Message-Id: <20260327174445.3275835-3-nick.hawkins@hpe.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260327174445.3275835-1-nick.hawkins@hpe.com>
+References: <20260327174445.3275835-1-nick.hawkins@hpe.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY3PR01MB11948:EE_|OSRPR01MB11662:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0ce003ca-93f5-4c61-6d88-08de8c2c1aeb
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|7416014|376014|1800799024|366016|38350700014|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	l8TRTEGCtLxFP0/o2wFZpI5nJZ1hC38i+aY5SZoGrgW/s1TfZVL8bqPeP9PF+DdYSR9hP3alQoYOY4Pu5lFsdDJzmh2L1T2OvPG3dW4ZUOGmajP8jyl2pwIUi0MGCJT5KN76k5w39kIsTMN0gGv+7wh1nTJ3aGcavUxRV/P0i2tKeiDUIw0TAmXGukIlWbsrY3tcnOLCjlIWliBnUzf93wiBazho4iPflxQMSrl5B78Z+B04ucb0OcMylX8hS2sf2DP9ZODMAWk95iKv6wFpxErzjlDXoC6eHpUIZFEFF11OA9xZPiPI5EKJgMxOikBTw1cpL0YP7+IOZWJ+mRD0DnWpzW/gVdond5aqvC8XVRazD9qcs7moGPRr2zA3Jw2JOu09ZkejMvluyA6rNqOq5lRPr6IiUrHipySG/CoK4HA0fezatgewcis5p4l+WVX/0XSXicdsQKlUtdjjX75ECWIkCnM1PHmEDIX+yVSGozCgA1Pqfw2GoI8WWVA6IIqYHMvgfQjFZEwy8ySmSCXHvN6EIZnnmNLCN7h6GzboCWZlXTcyUS6GLhlhVzVvudTRSksUcAdR6f03ajVFkWLkfJfMO9xwxLSwVuFDnZl3H+1b/rzzuMn4M9YP22g3ZlUI3SFfGmZBlo6VDJPpC2JLOXHBgs+nHo57A6eXp2rs3HW6Q6UMZXr7XsBeXIqwZTfiPPdJL+O72fWprHmrK/D7V4AMXZEtidtotTu2inONntYkvVxZXNUIb3rOONjrDachonajdwPJ49IWt2Ayg1G20k180MDi6CUjrNUyJ7zGEl0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11948.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(7416014)(376014)(1800799024)(366016)(38350700014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?8oCo6iOjF0fGwuOf/ePh4KxKz2JKUMLV3Zv59zhKE35B9AtAIGwUowvGJGi6?=
- =?us-ascii?Q?At7wcEZYjs1KNBhd1hV5JqJ8d6WL0vL33PDavq2GxDO0j/JeZfcck2hZzwWD?=
- =?us-ascii?Q?KqOhmiit2pHvCSGfMPffZEKNvJoVOz8Dbx92E2IH2bRYsa/M08fvyV8+BmJH?=
- =?us-ascii?Q?T91SjyzFCls6lzfi5gNrUwR74pfyKfvUBYuN1+dRkllSWgbHD3oo/71YmjsJ?=
- =?us-ascii?Q?50rRnMKhMbSER5WgA0tb1q26uj0sNf7hIAjXE8Sv08puLSuwGZfj59dWB++B?=
- =?us-ascii?Q?erJv6lkQ3c4fm2N0+1ERxoFnRO2GkLbYg0CM6qY4rJdZdGO5EuUuWgSa7ksj?=
- =?us-ascii?Q?f17dpnvyUENl9sf3CoONtRS37mBeF6ddfO1b8JjYPw51tDL2Tp+Kjy4xLRSD?=
- =?us-ascii?Q?OwhEFxziFLVUG5t6Q08I+ImDlKlBE/U+MmDsyG+Ilt3ACWgo24hrDSwUWgHj?=
- =?us-ascii?Q?SLqVjwNk/MNB+CcJicnhbfLkcpU9mtlGNh94PrE1FeX/wMyTEOVy/dtYDEZ7?=
- =?us-ascii?Q?uYqUl3muvDkYj1gVbAH1vjmcViEfKNiqMaqT2gqF+O+RPPdyS+EY8m4vzl+I?=
- =?us-ascii?Q?Uq1uVLm1jLxPHRnjbSX4kkxeGaLI/5XTtXHoAe0YsmMoKPgy1ClBH/HVPmwe?=
- =?us-ascii?Q?c0NAxdE7OEYIRUIpf/OAze17n3DzV+y8RQZLQgQV28lTJYsEMEfnIa91dNXK?=
- =?us-ascii?Q?qMZbw2vLrpkWj9fGpUenAes2culw2JedD1dF6dnUJpjLUtf9ewh1SuHkOdUY?=
- =?us-ascii?Q?CRcaY+7Z+B44B+WIUs21eF4cnS7xxDWTtJMayh/q3swocd4JQcmwF3BiGzy4?=
- =?us-ascii?Q?b8tbtjTNwV0dPxgBL0+JAtBC4kk1527MoyGBl7TlUuWwU+9j0SlMH98nrsQU?=
- =?us-ascii?Q?cfy2bKTEaYuyuzhc/PfXzrGyTjsXAON6r7E2MOiQrs6DIGMkPVJ/JeQPXNJl?=
- =?us-ascii?Q?mUay1jaV37ABReTgLogetjt7G5fZKSU2WC0qolyivcNMrxe9GI5s01RyE0NK?=
- =?us-ascii?Q?L0R8sH6YRh9byh+1uMi/+QA2jEIwUouYE9/buaPtwkNGTFfmhG5zB2qWswLq?=
- =?us-ascii?Q?eWhrJ8n1AFpdJX8s2BDcF0dI9oioCBL0IRkjB+XIussTry5pYDXekKhx71mX?=
- =?us-ascii?Q?OV0S28CL1wp/cC3x//9PLJhlIn3pUv3BdLhIJhx12ita7HOF2Jk/RkipclCo?=
- =?us-ascii?Q?Pab3mifGBM1pSjReg3/GJuYGW9TPJSQSCKHRcMbg1MjVROvGxJBDtsZrPu25?=
- =?us-ascii?Q?BzAsOKfAYc/WOcG3XCDtnvXbQ786ZR7m/ut7m3qbhqMhQaIKGEYrd3JZZjq2?=
- =?us-ascii?Q?yO45mHFyrMQ1wH7DHbDNA+KNtuZ/qOC5ThhllnvWRiG3zOdjr0UjPg/SeMmj?=
- =?us-ascii?Q?VKHsCeIINatak8wFkg1juVYI5201kXLOVpo9hUN4lfWdf0sfiaS2G+Q60diO?=
- =?us-ascii?Q?QmFNs/2ilI5QhHonaODfl9VaM0jYJpjXAP7gXc1WE07Q/dOyGQRI7OzUNhzH?=
- =?us-ascii?Q?m/eYBMlYAtTwKxZa35l73hjvE0DnyNMrSnA/+OvwYRY3XFL6ZreHryLCDmTZ?=
- =?us-ascii?Q?CWBvU7ZuXRJ2ryAsPNx8XWKAODAITjKCIlK6txdDsGDVi0uOvt0FIWsO8S30?=
- =?us-ascii?Q?hJyMHmWWjhPYZCaW9ydWN3syS6N2n6tfBQJFdxzH5WCHI/RNFnPwW5BffoJ2?=
- =?us-ascii?Q?YSQkT+ZDUlz1EbDrvxGujb6UFGL9Pa1+DT4RIFW89eJ61lhP7w9dVjUD8v8Y?=
- =?us-ascii?Q?z041Uzd7EYgRtVTtR65l4n3oFpSAkiGoM/eB174lsn6BvmD1Bi5w?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ce003ca-93f5-4c61-6d88-08de8c2c1aeb
-X-MS-Exchange-CrossTenant-AuthSource: TYWPR01MB11940.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 18:10:19.4882
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6auUcYfD/W11Qdligp98/4u/yEoJqVhavLoJ9ox4rPB2LCAM3aaOckiXggzwimGQJNHK2lhfI0eGobvc5KxANH78JIKyU4uF6s8FN+TlSmBHsinGlLodhRI9c/smiTEp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSRPR01MB11662
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: k5T4Sv0AGOoivFrw5RtAxpwDNDYxFuF2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDEyMyBTYWx0ZWRfXxMyu+iM8RSem
+ 1I1DvlttUCTqRFD9vW+mgTOZ2XG34lydxjpTG6fSK+zIJKV6xl8+++gsK0tuGQyy7LrCBVqv7GU
+ CT+YEhpWA14PM2gPoNZNg37UCVzitR0X0zBdUeuN2JGU6vuqhLBg19aya/hlUErlxCbwfRavnzY
+ 5mgPSw6buOX0+TaBac0cGhzV/rVPN3/SzS/uYzbWpx0qa8Uvg3FM7ErphHCAqznOYUZQNAJdWOL
+ LVKb0gmkn+eRqV8NMvb/zxibQSbhGlEdxAOLSTri6vg7zRMu0DPiKa+ZN977l9c4zZxn3A0iteq
+ jwaGXjYsYctA6Qe/AYfKAo2hfQaxODcOrRUMfjCo7i2VCqyZq+7Yd+m4JQlrulkrKfo8iA/aRrF
+ IX6GgaxA3DMtucCfp2OtYDiiPZFlkuGb0PM8MIk67Kqoy7c3wdu8JiSYdViB/wShoha3AtiRwk3
+ 1agq4I1swZ4FTeq8uQg==
+X-Authority-Analysis: v=2.4 cv=YPySCBGx c=1 sm=1 tr=0 ts=69c6c213 cx=c_pps
+ a=A+SOMQ4XYIH4HgQ50p3F5Q==:117 a=A+SOMQ4XYIH4HgQ50p3F5Q==:17
+ a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=gQcMVamqm3wCPoSYhaRC:22
+ a=RtSn8ETxjE2H05FtM2s8:22 a=MvuuwTCpAAAA:8 a=XVOEL-q19URcyAXAXPUA:9
+X-Proofpoint-GUID: k5T4Sv0AGOoivFrw5RtAxpwDNDYxFuF2
+X-HPE-SCL: -1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-27_01,2026-03-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
+ malwarescore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270123
 
-The RZ/V2H USB2 PHY requires control of the VBUS selection line
-(VBENCTL) through a mux controller described in the device tree as
-"mux-controller". This change adds support for registering the
-rzv2h-usb-vbenctl auxiliary driver during probe.
+From: Nick Hawkins <nick.hawkins@hpe.com>
 
-This enables proper management of USB2.0 VBUS source selection on
-platforms using the RZ/V2H SoC.
+Add the ARCH_HPE config for HPE ARM64 BMC SoCs to Kconfig.platforms.
 
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
-Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Signed-off-by: Nick Hawkins <nick.hawkins@hpe.com>
 ---
-v8->v9:
- - Drop linux/reset/reset_rzv2h_usb2phy.h dependecy as the driver
-   is now based on regmap and does not need the reset driver's
-   private header, update driver accordingly.
- - Collected PZabel tag.
+ arch/arm64/Kconfig.platforms | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-v7->v8:
- - No changes
-
-v6->v7:
- - No changes
-
-v5->v6:
- - No changes
-
-v4->v5:
- - Update mux_name to "vbenctl" to match the driver name.
- - Updated commit message.
-
-v3->v4:
- - No changes.
-
-v2->v3:
- - Use __devm_auxiliary_device_create() to create the auxiliary device.
-
-v1->v2:
- - New patch
-
- drivers/reset/Kconfig               |  1 +
- drivers/reset/reset-rzv2h-usb2phy.c | 35 +++++++++++++++++++++++++++++
- 2 files changed, 36 insertions(+)
-
-diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-index c539ca88518f..62b2c3919613 100644
---- a/drivers/reset/Kconfig
-+++ b/drivers/reset/Kconfig
-@@ -257,6 +257,7 @@ config RESET_RZG2L_USBPHY_CTRL
- config RESET_RZV2H_USB2PHY
- 	tristate "Renesas RZ/V2H(P) (and similar SoCs) USB2PHY Reset driver"
- 	depends on ARCH_RENESAS || COMPILE_TEST
-+	select AUXILIARY_BUS
- 	select REGMAP_MMIO
+diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
+index 54eb1d7fd419..b4217809c774 100644
+--- a/arch/arm64/Kconfig.platforms
++++ b/arch/arm64/Kconfig.platforms
+@@ -168,6 +168,17 @@ config ARCH_HISI
  	help
- 	  Support for USB2PHY Port reset Control found on the RZ/V2H(P) SoC
-diff --git a/drivers/reset/reset-rzv2h-usb2phy.c b/drivers/reset/reset-rzv2h-usb2phy.c
-index 4014eff0f017..b1b8fa8377dd 100644
---- a/drivers/reset/reset-rzv2h-usb2phy.c
-+++ b/drivers/reset/reset-rzv2h-usb2phy.c
-@@ -5,7 +5,9 @@
-  * Copyright (C) 2025 Renesas Electronics Corporation
-  */
+ 	  This enables support for Hisilicon ARMv8 SoC family
  
-+#include <linux/auxiliary_bus.h>
- #include <linux/delay.h>
-+#include <linux/idr.h>
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/of.h>
-@@ -15,6 +17,8 @@
- #include <linux/reset.h>
- #include <linux/reset-controller.h>
- 
-+static DEFINE_IDA(auxiliary_ids);
++config ARCH_HPE
++	bool "HPE SoC Support"
++	select PINCTRL
++	select GENERIC_IRQ_CHIP
++	select CLKSRC_MMIO
++	help
++	  This enables support for HPE ARM-based SoC chips used
++	  on HPE servers. HPE SoCs serve as the Baseboard
++	  Management Controller (BMC) providing out-of-band server
++	  management.
 +
- struct rzv2h_usb2phy_regval {
- 	u16 reg;
- 	u16 val;
-@@ -99,6 +103,33 @@ static int rzv2h_usb2phy_reset_of_xlate(struct reset_controller_dev *rcdev,
- 	return 0;
- }
- 
-+static void rzv2h_usb2phy_reset_ida_free(void *data)
-+{
-+	struct auxiliary_device *adev = data;
-+
-+	ida_free(&auxiliary_ids, adev->id);
-+}
-+
-+static int rzv2h_usb2phy_reset_mux_register(struct device *dev,
-+					    const char *mux_name)
-+{
-+	struct auxiliary_device *adev;
-+	int id;
-+
-+	id = ida_alloc(&auxiliary_ids, GFP_KERNEL);
-+	if (id < 0)
-+		return id;
-+
-+	adev = __devm_auxiliary_device_create(dev, dev->driver->name,
-+					      mux_name, NULL, id);
-+	if (!adev) {
-+		ida_free(&auxiliary_ids, id);
-+		return -ENOMEM;
-+	}
-+
-+	return devm_add_action_or_reset(dev, rzv2h_usb2phy_reset_ida_free, adev);
-+}
-+
- static const struct regmap_config rzv2h_usb2phy_reset_regconf = {
- 	.reg_bits = 32,
- 	.val_bits = 32,
-@@ -166,6 +197,10 @@ static int rzv2h_usb2phy_reset_probe(struct platform_device *pdev)
- 	if (error)
- 		return dev_err_probe(dev, error, "could not register reset controller\n");
- 
-+	error = rzv2h_usb2phy_reset_mux_register(dev, "vbenctl");
-+	if (error)
-+		return dev_err_probe(dev, error, "could not register aux mux\n");
-+
- 	return 0;
- }
- 
+ config ARCH_KEEMBAY
+ 	bool "Keem Bay SoC"
+ 	help
 -- 
-2.43.0
+2.34.1
 
