@@ -1,176 +1,249 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013043.outbound.protection.outlook.com [40.107.162.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F4429DB88
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 21:33:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774647224; cv=none; b=ka5XhfvV7deyEArPCzGrfObUwrCAXIpItOHzjdO2CZHyY4QGl0wWsciYkSq/r0NoVI/8U4DnBAaqCG/j/X+bs+wm/ivmMr9AM+0uKLBx3pr+MnMSyhuI9HwUcKlimfUd3r3Ov85Gl95Yk9IyoUqpp1XthScXe1nmzgxZrrIRPZI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774647224; c=relaxed/simple;
-	bh=G/NWZGW9c3/9L7BRd0J6hKFCfS3MWwJWicxI2gFlW+A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YGetC73G5UmiMN2T+9VDm5DIPw20laUqtCQvwSi7CniSJIvLRrGfTzGvaBh3Z253UuKuqdnI0Pg/u+vkRam2HftYdsm3ySSKF97TMySd4BJM6rhrPwjoK/DGEdlyRenKFIb+f4P9uM142RC83seYusM7SKQBGZdbqHu4IJjAzZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VJWAoEus; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GgzZiX3r; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF32F396B84;
+	Fri, 27 Mar 2026 21:34:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774647262; cv=fail; b=XAwoDQxKis1GkwsUdbPeQUWX6O7jxtnt+Na4Uc9LUwLZSf6dgpAkMkmMfZgRrx/E5H7fclYqwtuGZ6lFrgLUKlKxncVBeBGlMOQGloXGKTHSv5T6lQho4g4XLcOb/Asz1S2ekLDaoVtWO4MLHdVfSmS1GVEBASyUxZyds+Nhl+0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774647262; c=relaxed/simple;
+	bh=ZqOXyMEZKpdtfOYJo0Y5lTjFMlx4fpv8p24JFyICfg8=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=aQ/XlLJQe7IvbKh1b+0Y03ZGc8nRyA/yjUJ7GPymGP8PPBkyakkkAaXF4gct/MNF+6P8mipwAena2SruSoSITYC1/OSSFeF3nCyv70cGA1HxwceIUteJpjhqSd+vRzujXCpVmbXIx504ZfrgCMO2Lb2wzrHVieoxSGIjU/yhy64=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=iHI2wv8Y; arc=fail smtp.client-ip=40.107.162.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VJWAoEus";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GgzZiX3r"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62RKtKHe208602
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 21:33:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	JkD5/e5PlfbVCPnIJK6O5WGSSIEFcuniRpfW4c/tKlE=; b=VJWAoEust9LgiZpg
-	Z37KSkWXfwn034u+uMeQAxvjcy1pdYlF9dkLZrH0sj+69ppvwFu4brR0tv6PhN05
-	6oBVFA+oLpSLZEPH4DvoK+HXIWTmW+fX7Bcrjl0eKH6w57mibQmqLqoRTe2+MLlZ
-	3Sc6ADa0srhGyidf95VENQmYQMoMXQ41xdPWUBXqEjYIqREYTKAXTh5dF4Y0r0Ic
-	h2Tl58c3MEALhXpoalXDumSnzdomVPv6bcKjzzrvB6fgSIlG4Hmnd2B6TPg7Bajq
-	z4i6TAoH8kG0R0fD1sWUXFdT/T1Sf5C0xV7qhYl+Ze7incEuZFfCHHU6P+r5QFlq
-	V8cUPw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5v6b17e1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 21:33:42 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-509219f94b0so26921211cf.3
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 14:33:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774647222; x=1775252022; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=JkD5/e5PlfbVCPnIJK6O5WGSSIEFcuniRpfW4c/tKlE=;
-        b=GgzZiX3r4j4wwtk3QFmPXBh3WORITheoaX2xMaNdjyNyPxOdx+208m+tAjdd2jh8Q0
-         P5Ms0FA4SezwHRmHesK8rvN8U7xDFiCr+HXFj9zvGzRZHmE4uDdAFZ5yjOl7BUh0ZcEt
-         ZdHok44Hn0zRlb8p7r/Efor2kLUF7IjdMvcNAJiX4Z1Wo3LssBh5DF/7i7bayVcUpWP7
-         nowX4aSy5QWliKdDFR3wPQ7J7i/SBlGxg2ZyLCpDgA3EON7yegRdgbugSdUwKDsB1SDW
-         mwj1yXIbMIMDfLIU0Y3Ho/AXgSoqthWySoNJfe7UoqAB9RAXco2kbIusGKOCM76X5qGW
-         vesQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774647222; x=1775252022;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JkD5/e5PlfbVCPnIJK6O5WGSSIEFcuniRpfW4c/tKlE=;
-        b=jvs6prTBwfT8jUfyah6raJiwV57DCHgsrXEGvCTe+5WAaCsPz9QnuzpXXu00BRhoVf
-         ord6kx4xKTouRiroN7/vn8smV/s1iiw1iIPZfVD5UV0+MOlVuzxaVeuvrUBUyCXXcejj
-         m5TCdn9nxFI+VsTHM18fvuEMD0pu2vxuP85myjR54pTE1pRq9ILAk07y2oVnrKOUkbTW
-         2AmXlOZRYPI3GJyAp3DCXwnjffaFPfFc1eVIyBObdFTPYJWUPrP2DXjCSV3NvieiTSox
-         oT6if3J5gOU/MBmD/NVYEh9bHNx7T7PL69G65hn8EwakHDS6Z5hZrfnDX5WML/qASlDV
-         BCsA==
-X-Forwarded-Encrypted: i=1; AJvYcCV1gDKZl86JIui2D9YzLop96aE+twmp+0Gm99XJWvqmjtJOuuMmSMa93dp2tvOinch71079jmgOTiXU@vger.kernel.org
-X-Gm-Message-State: AOJu0YxdkSBE+4ea0ZtaEVgdQawiMOV2kyj57rqySQrdjyvQZGUAuv9E
-	Fzta06laiSKD+/8JiZd2MZd4ACqZOwTQ95xej5x3ZdICFB/SCYi2A/p7f2wqpMKQhfGoY3dz8Fk
-	KPVXortWUse8KBMxqcSkStp/05DbLm2cRomNSJHUVY4MoVrmw+72xZCbJKaL4HD9k
-X-Gm-Gg: ATEYQzzrsWp7hPRDX9v7xr8stB1DRef1sSObdFde7BcIiU6qtImqffaDD0UYT68X9wD
-	KQjKLt6YkunElhgBHB1GqPkzwR8zwSviuRSGPB+qUekilhZkcwDO3dNm/wrdgQrp9AOy8AluVem
-	ArY5j3dr023WR3ukGP3tMeDOL9lgFA5KBMNmhFdl9iFSEcAJMWFRAHW81zE+blfPuS/fUQ/zwEU
-	hmx/gxZBB5rdF04P0y7B78eRHrBGTcDGxhm94g2zchXzJuXg5XsaaeStOb3eouUjXPN9F84RC3e
-	XAqfnLUQlKtk6E5ZD2ia1CsfOt6ZcU29qwC7jl22nQQ143v3WfWbJuFX6f58k4Ac5YWXZGQZd8O
-	5XTNoYJeW9ZUY9j7X4vJ1V4kMD5xbI1DoGBK1655DdBhQBv8g6+/eaY6wBrVzj5QrFEKosIb9vD
-	I6uMeys+nv1N1pw6+9iPDFOmdyOUwrZh6Y/ME=
-X-Received: by 2002:a05:622a:1a9d:b0:509:1a36:6ad9 with SMTP id d75a77b69052e-50ba3813246mr54400781cf.30.1774647221814;
-        Fri, 27 Mar 2026 14:33:41 -0700 (PDT)
-X-Received: by 2002:a05:622a:1a9d:b0:509:1a36:6ad9 with SMTP id d75a77b69052e-50ba3813246mr54400481cf.30.1774647221375;
-        Fri, 27 Mar 2026 14:33:41 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2b13fd008sm40385e87.19.2026.03.27.14.33.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Mar 2026 14:33:40 -0700 (PDT)
-Date: Fri, 27 Mar 2026 23:33:38 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-        Todor Tomov <todor.too@gmail.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Bryan O'Donoghue <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH v11 4/7] media: qcom: camss: Add support to populate
- sub-devices
-Message-ID: <b7hndy63j2foc5iuly4reaunaorvg5asfgeza5ptjytaghc772@6jxgnimkcvx6>
-References: <20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-0-5b93415be6dd@linaro.org>
- <20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-4-5b93415be6dd@linaro.org>
- <CAFEp6-2s=N9=Z5A3gZZYo+XErBT=gMRHdxB7EQV71wPd3UqYrg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="iHI2wv8Y"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gUFatZvWJF6Hxhf+KbUFQBxsPQM7K3BPQvpUXAVm0km1pyLZR9JobBeR4njrImm739JDLPd5Sv+a3r23gaoMCoW+XG75PiveHmTg3mjJCFLgrUcHGDfHjFD5ShJt/+GbJwcn1+/G+KW7OY9RovhiiaZMKj1N+kzly52CLYXsLVFK0QT+I07wu1ivYlhnqI7tKb4gqBK171FJgLpVpuNnYyZiXaqM/L0zGqhUDA7fLzTJcCK1q3iLuFO9+hqElaOTe9POo5QH2kLPsGy/7jLEnvJwBsr0PdkeleSu2+YHsXqM4zOM+L9oDRncce72HVksCcbhIkQ2JMzNdi3fI7hNLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N02sqjYI3iwug+a3LJdYvpxwjSTdj4Djem3qcoSxaU8=;
+ b=ektvaMoeq/W9j8dc6KIC3T5OCuTm1bUN4GvFhkZP2myB8P3wTb/djZaD1j1QQJeShmoZB41EHN1tPvEjX4d23KRvhVyqhNbrjkwaW9WQ0uCPBu2cJ1T8vYYuxKMQopsA833WGsbqzVgY3C3GoHyxwSsMDBTSpR5MbwKfgObl7VpcU/fsZSS1aHROQYOKbjpZHgJquStQjwvDaj/+Wsm/Dx4x2/RS8xglv+9mMTqaL7AH9cZl0DRznl6x8W8f5tSoNGJrH4GsV635/0Bdtxn55ssnnZkFNfUvZW9kTKkr/U3mWZufEP77PMZGGrzcz2iGzgUZDqWwJvs5b8lr7eChfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N02sqjYI3iwug+a3LJdYvpxwjSTdj4Djem3qcoSxaU8=;
+ b=iHI2wv8YHJY+8FOfqf3uoyc9pXqYKth9kD7rPc2fs3O2PQfqhBEwuYudBTJTIzbhdil8IvPljbYnvg/2Fp/cw6h6tfZSHkobisqb+tzciiKfalgr9QdPM/3L7KYP0MwJxGZBdZI49HwvNQBkITJynRunRCgUOAribVLWpd9W08TN4ss4WgEhA7lcpyTnT+3VzhYA4m/YppW9fgq/CY6C/F3K/yWIJKKVaiDBKRybR3Wfnr22fV8XXqaCdEoyv7sFkaKkcsKVfc0zPGT0tSicQJ3kVQIaRGG+klXHVGG/hqLj44SQdzBZO/m6Nu+Obd5u8fGEFv8DjI9cGHrfebzIyA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by AM9PR04MB8668.eurprd04.prod.outlook.com (2603:10a6:20b:43f::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Fri, 27 Mar
+ 2026 21:34:17 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9745.024; Fri, 27 Mar 2026
+ 21:34:17 +0000
+From: Frank Li <Frank.Li@nxp.com>
+Subject: [PATCH v5 0/7] pinctrl: Add generic pinctrl for board-level mux
+ chips
+Date: Fri, 27 Mar 2026 17:33:57 -0400
+Message-Id: <20260327-pinctrl-mux-v5-0-d4aec9d62c62@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAMX3xmkC/13NQQ6CMBCF4auYrq3pzLQFXHkP4wJK0SYKpEWCI
+ dzdQmK0Lt8k3z8zC9Y7G9hxNzNvRxdc18ah9jtmbmV7tdzVcTMUqAUC8d61ZvB3/nhOvG4Koyq
+ tQUnBoui9bdy01c6XuG8uDJ1/bfER1uunUySdEbjgOstrBE1ZluenduoPpnuwtTLij0SVSowSJ
+ OkSVVNKJVNJX0kAqaQokXQFBrKqKapUyh/5/1NGKSQZNDlajfSVy7K8AZflPHdSAQAA
+X-Change-ID: 20260213-pinctrl-mux-df9c5b661540
+To: Peter Rosin <peda@axentia.se>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, Haibo Chen <haibo.chen@nxp.com>, 
+ Frank Li <Frank.Li@nxp.com>, Conor Dooley <conor.dooley@microchip.com>, 
+ Ahmad Fatoum <a.fatoum@pengutronix.de>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774647254; l=4918;
+ i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
+ bh=ZqOXyMEZKpdtfOYJo0Y5lTjFMlx4fpv8p24JFyICfg8=;
+ b=vcBgIHw+s4TVVN/MOk0cT83EjvMhk0f20WPAPS46Ea7LJNM4OEKSAy0SDERY2Gla6yv819jOz
+ 6EsDH406O/EDjuaupbmLOq1yI6f3qFTRXD03EulFwfPZiGTgKGN894C
+X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
+ pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
+X-ClientProxiedBy: SA1P222CA0182.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:3c4::20) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAFEp6-2s=N9=Z5A3gZZYo+XErBT=gMRHdxB7EQV71wPd3UqYrg@mail.gmail.com>
-X-Proofpoint-GUID: 32RivLAqC7J4rsP7GBcp21jkz0BKuh0B
-X-Proofpoint-ORIG-GUID: 32RivLAqC7J4rsP7GBcp21jkz0BKuh0B
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDE1MSBTYWx0ZWRfX0bua/c93/j4m
- 3uzgOhkJwyYnLhF/Jns7IlEpzjbUQ9KxJf0twxGsdKHNFho2CZgOl/6LDpR+/QcqbeqVS4/QvxT
- D6UKML0+9gYRf6czZMZy+tMnf6ODOzrIjVzAGeDmQiwA2QFzJ/VMe7w8EE5YK124k78HKbbnd3v
- cFcGLLrISBsWRT/4+luQgxzMBqQla+Yt2i54SYA9DHMAx3YyJQO33jCl45j9JhIip2fyWhTzkR4
- 9fSX/ABBVh5XTNaJajils/Qmlghn5kORUy4Dba3916783RIj+VpQ8x845r7oSEoDTk5SfeIwr5S
- sSpU6P1BNTbiNaw1YtLp1emep5XXAcwKyRR/MGi3Xmm8jrXkNZztJpksqIxA+3XrgkCa5N15PAi
- Vg1bdbi/LLEJyQ0Y8V8xfCdNyBZMy0w33/bMpUtta4q3t7OQI3s/yERtwQw0O2C/qV7TyYgD+E5
- tMXND4/Q05OLDGsc0RQ==
-X-Authority-Analysis: v=2.4 cv=JLs2csKb c=1 sm=1 tr=0 ts=69c6f7b6 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=KKAkSRfTAAAA:8
- a=EUspDBNiAAAA:8 a=8sstYimgJ8ds0kvrxP0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-27_01,2026-03-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 phishscore=0 priorityscore=1501
- impostorscore=0 clxscore=1015 bulkscore=0 suspectscore=0 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603270151
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AM9PR04MB8668:EE_
+X-MS-Office365-Filtering-Correlation-Id: 728b2321-abbf-48e9-576b-08de8c48994b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|1800799024|52116014|7416014|376014|38350700014|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	c0eEFGMeEIOSP/KA4aOBJobAGlT3xxe8iOUm2Ybs3+RZWnnTL1Pn3FfD4yBJ2nuwaaGejC7a26DnLzjZQgLoNPVNkrHQ1hYzBY7jtzpcoMoa3WzWksA6apOZJpJTTeDhhWaikBaIUuiq0PYu13WTLH+A0YnSckWLwM3DzzizIrEXxCz08ii+SIFrjcFryIOHJrp8cJMyC/Ph7JNMquEOLhHlNi8e1+FXIAE0AHryD34GRjwiJW41tPeyTnEYu7+KU5qR1tQSuqljYjUJltzWkKEylIxJQGT/BLHuuna9QN8+TpN4So58z4gSQuP4c5ubrDom7lsqamycA280A6DR4u+ROuFhnTPlOoEUiJZ8qDbeZIrq4//TtowFvUZbpaQ1lcqzjZGomkH6jGYOnTtLopVSp1o0J95Pu08BRO3YNRV22Nw9DqUa2XHkdiH3cLym6PkXtyx0gXnvYRhSgC+zZnZZVPsUOfwnXBSLavmo8MSCqdCFtmlDEMPqhnV8dRZFIKAiRTnb2+X9cr2XuMCCh0hxSG84L2M0ZnLnqczIGbL6nUKHp9Qt/sY/tBgut1YxHHO6NihQR3FT5WoSIQsm+PJDHB+quNJC/GzJ1gnGxC+6eEguMojSprKObttPdwAN9yzczusE+G1Z9EeX9lsP9fS0ee4q1a08YxWtK6bs/RyYIH0wMDx4XDrQlwcFIwRbHRAcibAeMYSetj1+YEUJs9HK/+KZ2zhs7bXcfaqTc9WeHAYdP1GW3XeFJ2N3gsRB73OhVvvqJguIC3rZyPZ5cw+ydyTjhkfVlIQ8aYsmOwc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(52116014)(7416014)(376014)(38350700014)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L3FEcGtCakxJRGpNbkltdkpodkU5cmRFMGpQaHdzT2l2cWRhL29iUmw3Tkdj?=
+ =?utf-8?B?QWhvdCtBUENYSTlKdzIzR2g1d09qd2RPMVoyU3U0UXEveit6YkFlazhZTjhP?=
+ =?utf-8?B?T093TEFITlYrYTltclQ5UmloeDdXaDA2Q205NzBxTXVvUHM3a245RjVCUmNl?=
+ =?utf-8?B?TzhPWU5iaG5saW9QV2tTcnJ6UzY5RHJ2cVhlOEp4TjIxOHYvSDJibW5YVTFj?=
+ =?utf-8?B?OHA4SXdYLy96bHROMEgvdVpSaU5OdEZmWUI4RHpRTVpDNlF1ZEs1aHVxcUVO?=
+ =?utf-8?B?cTQ3UFRwUng4NzZNQ3hoZ2h5MFl1L3ZrWHErWHBXYWJrcFBiWkNmVXhvaHJP?=
+ =?utf-8?B?TU1QSkNsY2dxS2ZMZG1zRXdJdkgxVm4rVzJZbGZ6bXl0Y2hpbzRZVXRVVWZX?=
+ =?utf-8?B?TTNWNDhOdkJHUndZbEJPWmVVejJrczd1M1B5R0JSdDFIL2p2WGhoMUxaMDAy?=
+ =?utf-8?B?WUFqSmFiR09yVzRXdjBlTWpsT20vWStwMDR4LzNiRStib3g1akdWeUJhTmVW?=
+ =?utf-8?B?QlZqQ3pOTHJmeDFKcnVQVDUwMU45WnE5VzVqeVRYanM3QWM4RklKNkQ5c0xp?=
+ =?utf-8?B?VjFuVkFMVjdqQ2J1akZtWWVCbFRJYXpiM0FXbVNXYTg3WVRtcGdjRkp3MFVO?=
+ =?utf-8?B?SjlUR1d5anQvRlVSL04zcFVzZlpPRklTSkVxNHlCWWJmcExQZTgvZ1dIbVB2?=
+ =?utf-8?B?WVowbmlFdHh1ejJtWTNld05kNFFNeXlmM1JnQ09XRHhvSnRmZGdRSFZMSC9p?=
+ =?utf-8?B?cDhJSVBobStSR1RjaWVmOUpEL1RoWTNOcTczV01QMDY0STBuMEhNQTFPSXFi?=
+ =?utf-8?B?VGZJRC9zKzZxTTZYY1BMalVMR1d2c1pvNFhuMkhkUldzRjZWdmg0Y0pIQncr?=
+ =?utf-8?B?ZFNPWjhNUUYzTUM2cXE3aVlGMzVMU0k5TWE1V1h1OWo5NTN0TkV3Y2ZVK3RH?=
+ =?utf-8?B?ZGdXTkNjR2djZVlyeWVUZzIrYXErNmhmUjM1ZmFuWjdmY3dVbEhHVWNmR2dk?=
+ =?utf-8?B?Y2V0VXhKYndBcWhDbWpCNWlnS09JOHg4QXlvNlBNNUxSQmJIclU4eUgwSTRz?=
+ =?utf-8?B?S2U1ejRmd3k4WFg4eDFEKzhoVTRJWTUvaGhNak1DYkhNVE5TNnNnRnoyMFNz?=
+ =?utf-8?B?aVQycSsraHZsejdndjUwUGZhRjRONGJBcUw2VWQ0cWNRTFNsSmpQYlp3L25o?=
+ =?utf-8?B?WmJ2TkRWenduVUlYalNwTUhJL01SS3BLVTAxVy9nRmcxQUMvWE9lQ3FWd1JU?=
+ =?utf-8?B?M3BCL1VpYkU1dVdvek53MHZGT1BuTXFOU0cvNkVMS3AvbC9Cd0FzbWxkenIw?=
+ =?utf-8?B?c25aa2NxSFlOMVhlMEdPSnUyUGlCTXRVR3k3RWZvWmdNYUx5c0Z2MEliMS80?=
+ =?utf-8?B?MVg2VlNrU05DRFRHSy9GN3hocTZPK2I1VzdManVueDI1b3VoclowVERIS2Rj?=
+ =?utf-8?B?REU3OWR5Z0lIQW1COUJEc3RxcmE2a2pMVVZVc3dCZFNaSW53dUxjNVF6ZnUx?=
+ =?utf-8?B?VzFIUHBIRTVpb0ZidFhabi9GT3ExMENmYzJnanh5VVZDUTB3WjFnVG1xby96?=
+ =?utf-8?B?aFdwSndDQisraTJTL0ZSRzhPdmhkOFlCejR1TUlUUDREYThNSldDUlNoV2po?=
+ =?utf-8?B?RjZJcWVDV1dYVDNyc2VXS2ZEUUdHaXFxY284SzFZV0xvNzg1REx0TUx6d0VO?=
+ =?utf-8?B?MjVIeTMrSmZabTQ5bnY1anNHblpQZUlsVTI0QmF6UW5peGFQTkt5eW1keVQ2?=
+ =?utf-8?B?UDlGQUhDRjFiaS9sT1pkWFE5SDdiN3c4Ym1QRXdLQ2RJMXo0cXJ6QW9qczcz?=
+ =?utf-8?B?bWYramw5UXFBTUtWQlhMcXc4RVNiUlFGblpVRGlpQXYrcENsZU9iN3Q4NkJZ?=
+ =?utf-8?B?R0ZqMzdzcE1QaXhyTW9RZG4zVDVOdmNobFZkZDRNVkV1RllkOURhSU9iT1VC?=
+ =?utf-8?B?UGoyZFZPdGF0SUFWS2RUQmZZOTlJcHR3S0ZsZGV5Y1pCMGpIVk42VXc2Z1E4?=
+ =?utf-8?B?cjZaSjNhRE1hbWQrZzNUdnhSQVhRTXQvZjFUa3NXdXBUYVlyZk9qbDUzNW91?=
+ =?utf-8?B?eEFNNFI0dDIyYlMyYlUySmplbGhUVjd5aVM3ZS9EVlREZGhyRXRzRHdZQ3RV?=
+ =?utf-8?B?TzRWYUc5L091bCsrS1BGWkJld2RIVjJiZ0dZVlBuYVN1Z2o3TGZVa3F2clAv?=
+ =?utf-8?B?Wld4YXYxc0ZCVERYVk53Y1UzNUVvamJ6MWZXelE2bHBiampHZ0cwUUFUZ0pO?=
+ =?utf-8?B?ZWtDM3RXN0dGMVlDVUxDOW5OZlhCZGFrWmwrc08wQjFPanFlRlBndmdJU0U4?=
+ =?utf-8?Q?i/aVxc7CPdJ2mr8vNR?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 728b2321-abbf-48e9-576b-08de8c48994b
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 21:34:17.2747
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y5gcjzLFnJa1WpQSv2Ng7M0jqmU+8whpkCXU0ZI99sgMrogmh46xEIogsG/iJ1zkhHrD1+ukzMLl4rgwqnEmhA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8668
 
-On Fri, Mar 27, 2026 at 10:22:04PM +0100, Loic Poulain wrote:
-> On Thu, Mar 26, 2026 at 2:28 AM Bryan O'Donoghue
-> <bryan.odonoghue@linaro.org> wrote:
-> >
-> > Use devm_of_platform_populate() to populate subs in the tree.
-> >
-> > Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> 
-> Other drivers typically call the populate function at the end of the
-> probe function. In this case, however, it is invoked before the main
-> resources are enabled. I assume this is because the CSIPHY device
-> needs to be available early. Aside from that, it looks good to me.
+Add a generic pinctrl binding for board-level pinmux chips that are
+controlled through the multiplexer subsystem.
 
-This becomes fragile. The CSI PHY might be built as a module, which
-might be loaded later.
+On some boards, especially development boards, external mux chips are used
+to switch SoC signals between different peripherals (e.g. MMC and UART).
+The mux select lines are often driven by a GPIO expander over I2C,
+as illustrated below:
 
-> 
-> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> 
-> > @@ -4964,6 +4965,8 @@ static int camss_probe(struct platform_device *pdev)
-> >         if (!camss)
-> >                 return -ENOMEM;
-> >
-> > +       devm_of_platform_populate(dev);
-> > +
-> >         camss->res = of_device_get_match_data(dev);
-> >
-> >         atomic_set(&camss->ref_count, 0);
+        ┌──────┐      ┌─────┐
+        │ SOC  │      │     │    ┌───────┐
+        │      │      │     │───►│ MMC   │
+        │      │      │ MUX │    └───────┘
+        │      ├─────►│     │    ┌───────┐
+        │      │      │     │───►│ UART  │
+        │      │      └─────┘    └───────┘
+        │      │         ▲
+        │      │    ┌────┴──────────────┐
+        │ I2C  ├───►│ GPIO Expander     │
+        └──────┘    └───────────────────┘
 
-And this looks suspicious. What if drivers for submodules are already
-there and start probing once populated? Do they have a chance to access
-this ref_count?
+Traditionally, gpio-hog is used to configure the onboard mux at boot.
+However, the GPIO expander may probe later than consumer devices such as
+MMC. As a result, the MUX might not be configured when the peripheral
+driver probes, leading to initialization failures or data transfer errors.
 
--- 
-With best wishes
-Dmitry
+Introduce a generic pinctrl binding that models the board-level MUX as a
+pin control provider and builds proper device links between the MUX, its
+GPIO controller, and peripheral devices. This ensures correct probe
+ordering and reliable mux configuration.
+
+The implementation leverages the standard multiplexer subsystem, which
+provides broad support for onboard mux controllers and avoids the need for
+per-driver custom MUX handling
+
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+Changes in v5:
+- add npins to pinctrl_generic_to_map()
+- remove pins = kmalloc() in pinctrl_generic_to_map().
+- Link to v4: https://lore.kernel.org/r/20260325-pinctrl-mux-v4-0-043c2c82e623@nxp.com
+
+Changes in v4:
+- use Conor Dooley suggest to extract funciton pinctrl_generic_pins_to_map()
+- Link to v3: https://lore.kernel.org/r/20260311-pinctrl-mux-v3-0-236b1c17bf9b@nxp.com
+
+Changes in v3:
+- collect rob's review tag for binding
+- extend and use pinctrl_generic_pins_function_dt_node_to_map()
+- add judgement about
+commit 2243a87d90b42eb38bc281957df3e57c712b5e56
+"pinctrl: avoid duplicated calling enable_pinmux_setting for a pin"
+
+which call pinmux_disable_setting() before pinmux_enable_setting() when
+switch state. It is actually what wanted. Previous remove .disable() to
+avoid hardware glitch when switch state.
+
+New .release_mux() call intent just release software resource, like lock,
+don't touch hardware register. No glitch involve. Comments already added
+
+Linus Walleij:
+  I hope this answer all of your questions. If I missed, let me know
+
+- Link to v2: https://lore.kernel.org/r/20260225-pinctrl-mux-v2-0-1436a25fa454@nxp.com
+
+Changes in v2:
+- Add release_mux callback,
+  test insmod/rmmod, mux_state_(de)select() called.
+- Link to v1: https://lore.kernel.org/r/20260219-pinctrl-mux-v1-0-678d21637788@nxp.com
+
+---
+Frank Li (7):
+      mux: add devm_mux_control_get_from_np() to get mux from child node
+      dt-bindings: pinctrl: Add generic pinctrl for board-level mux chips
+      pinctrl: extract pinctrl_generic_to_map() from pinctrl_generic_pins_function_dt_node_to_map()
+      pinctrl: add optional .release_mux() callback
+      pinctrl: add generic board-level pinctrl driver using mux framework
+      arm64: dts: imx8mp-evk: add board-level mux for CAN2 and MICFIL
+      arm64: dts: imx8mp-evk: add flexcan2 overlay file
+
+ .../bindings/pinctrl/pinctrl-multiplexer.yaml      |  57 ++++++
+ .../devicetree/bindings/pinctrl/pinctrl.yaml       |   2 +-
+ arch/arm64/boot/dts/freescale/Makefile             |   4 +
+ .../boot/dts/freescale/imx8mp-evk-flexcan2.dtso    |  15 ++
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts       |  23 ++-
+ drivers/mux/core.c                                 |  40 +++--
+ drivers/pinctrl/Kconfig                            |   9 +
+ drivers/pinctrl/Makefile                           |   1 +
+ drivers/pinctrl/pinconf.h                          |  18 ++
+ drivers/pinctrl/pinctrl-generic-mux.c              | 197 +++++++++++++++++++++
+ drivers/pinctrl/pinctrl-generic.c                  |  94 ++++++----
+ drivers/pinctrl/pinmux.c                           |   5 +
+ include/linux/mux/consumer.h                       |  16 +-
+ include/linux/pinctrl/pinmux.h                     |   5 +
+ 14 files changed, 424 insertions(+), 62 deletions(-)
+---
+base-commit: ff76d257e86235eb07ef33db8644a517c48d1c3f
+change-id: 20260213-pinctrl-mux-df9c5b661540
+
+Best regards,
+--
+Frank Li <Frank.Li@nxp.com>
+
