@@ -1,64 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA6B2C11D5;
-	Fri, 27 Mar 2026 23:59:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218471DDC3F;
+	Sat, 28 Mar 2026 00:00:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774655955; cv=none; b=eTuboCLNaGp4BDfQ3/nGEVfs7UrdY1QW4qJuxQQPB5xFuDFITQkMyHU7rpyvJO3PU4zvCepEsGL4Ow9YXAkuo5nY6bSV7WOmRC4locKn/+NDF+VHjMHYMZgtG2mCmNiyMfSNsoAtbCKjA2Yp2bQVAgmMxZjDA5TUDC+DNq8Wdwk=
+	t=1774656050; cv=none; b=FG3PHweBo1IncxlrbTFyy1NiVZ7bvlt9s/v3YO0Gm/bj71Yhu/3NSyL1Lkk3PjZZZWK/6HVEBS96JKwhkV8GYK7D6edr1jBMnXnT3JVeNH6u9XyIw70WW5CiXzequ4EaJLU/CuA6A93WLCahcR8gKJlKadZ1BjQbmA9MmfFcATY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774655955; c=relaxed/simple;
-	bh=9VVortFFpNPznGxJHVeHeM/+hckMd7N8DVlBC6tbOTM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Dvkkr6BecJRVxg5bVab9+rTllfH5uOK79xVUIjjfA817as4iXjjausKkv/gmEUb8TSOdoVLeCKs6yx7yoUJ1EofuCkChfvlhGi8s7b3uc6g1dwyF9HjUTKclpz9VgFNu8b776vQGobRtqLuK03oVh7lLM35FBZl01o22gghXUsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=frd6Reyo; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774656050; c=relaxed/simple;
+	bh=Ma7qf4Ghg3Xy7ksMo/aJRgD6oQ1rf2LXAK6c4WP0ghU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rbolzn2jvVA1c7LQozLrL+DEDZYKMxCZEcdKnmXZclYK0igQjFRsOJy2V2XjKHjIpYRyA0pRkBWGej/AHhzqhbVuPu4Up6ugOkQ1vtNXhN0QFpiCr4CUFBeDy6KLuCbwD+73hEKvDqzsleJli8VlT5kMyupEZYolUFO3GamlbSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=LzNm66yl; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=eQMABPFX; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="frd6Reyo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1F13C19423;
-	Fri, 27 Mar 2026 23:59:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774655955;
-	bh=9VVortFFpNPznGxJHVeHeM/+hckMd7N8DVlBC6tbOTM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=frd6Reyo2pqEFk/7y3Zha9j76Dj1kkDXwIbUeTTGhOZaH558XXK8nbbh9LQbJ7XEh
-	 EocbdMrJVt3MJu8k4qfalyG2CbmeXoI3dMt/yHcmcxqOXYHAyQo7GKolKFiU7M0ipy
-	 zTnZA+iVQiNe+F7iCWDliOYued9zN2XD2Z1SOaEP5uIwf7raw/wEjFS3e0G0yH+8nJ
-	 LESu+hAro1ny1TR8NE2s6SwFxxKOcmd2vEMyobxPHRqN7q2jyDXTd792/Y0mVTCFIg
-	 l0sLcw+7nG9/wuhWi5Ut9kNtY63oiMbMzvemVV/fhUwATJc1IgrI5tMhcg3z/l5Z0J
-	 inJ4xDBQ0SnLQ==
-Date: Fri, 27 Mar 2026 16:59:13 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: <Prathosh.Satish@microchip.com>, <ivecera@redhat.com>
-Cc: <netdev@vger.kernel.org>, <arkadiusz.kubalewski@intel.com>,
- <jiri@resnulli.us>, <mschmidt@redhat.com>, <poros@redhat.com>,
- <horms@kernel.org>, <vadim.fedorenko@linux.dev>,
- <linux-kernel@vger.kernel.org>, <conor+dt@kernel.org>,
- <krzk+dt@kernel.org>, <robh@kernel.org>, <devicetree@vger.kernel.org>,
- <pvaanane@redhat.com>
-Subject: Re: [PATCH net-next 3/5] dpll: zl3073x: add ref sync and output
- clock type helpers
-Message-ID: <20260327165913.37642642@kernel.org>
-In-Reply-To: <CY5PR11MB64621FF7F9F8E5EF85C7057EEC57A@CY5PR11MB6462.namprd11.prod.outlook.com>
-References: <20260319174826.7623-1-ivecera@redhat.com>
-	<20260319174826.7623-4-ivecera@redhat.com>
-	<CY5PR11MB64621FF7F9F8E5EF85C7057EEC57A@CY5PR11MB6462.namprd11.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="LzNm66yl";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="eQMABPFX"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4fjHht0Prlz9tRh;
+	Sat, 28 Mar 2026 01:00:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1774656046;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=uxIhcQz+uY8xYqeubQmy4zBk41bpC9NrLZw4sfycZOY=;
+	b=LzNm66ylRz4LcX64+RAFF0FHI2UPUtxR/N47b5zpZuBoGznrWTYNCqMRaa4PaLZTUsxUkZ
+	wBrSZ4jf5RrdH52gHBuEhVpzzTC0AtfuRfBsxnEWQdvkB/TZsTu32eNvx4p0yygGwvXtEM
+	U3x/j5zSJoDBLgO+aobn5OOl7VAzZWofC/CtaYF0s7j4Pdavl9X7Jc8ZOwtSwVUMk0Mtux
+	Vn8mDPto9JElZiYS5OvTm735TVWL91VymMNrvU/iLc/ATZKW9W9TMmoOjue5JVNCh38YnE
+	vhX5Lrd8GvsY50AX6Jq8D5t3DCB4XYs4yYW2l4En/nJswsOwObT/QHXSCpS5IA==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1774656044;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=uxIhcQz+uY8xYqeubQmy4zBk41bpC9NrLZw4sfycZOY=;
+	b=eQMABPFXIdFolBWrjZe5+adNdsZNjOLepTSQBJu1X8Ui+6OJLSG+YGVqxPsbYoBK7or8Vs
+	hCO+AWJq+UNVKbEdIiDDAWtUe9KPFt2mTGpQ5s6QQOMum4XAgrQLbO+rTf8QfhBcLS55Vv
+	J+qWGlxJ8lJRtCSkXubDtWx4EZsXzFuTihmmjGTzhdHi4IgFrmzT4+xWDqMc/IRKtIUTaW
+	O5RgKbYz15SIYRxZ+XyHeRW4I+NBE12bEzKtANYkmFDKprWw3h2gGDVWzK4W9iCbuw9yjZ
+	+bF+9zg/57yEHhVtdLUxNgcfHkyIqF4jxy2kX+Ekc+dX36sIgWhtrbujc+DtQg==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [RFC][PATCH 0/4] Describe coresight on R-Mobile A1
+Date: Sat, 28 Mar 2026 00:58:17 +0100
+Message-ID: <20260328000031.94645-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: rn6667sx9porg5ch1mgt7kwc9376sh86
+X-MBO-RS-ID: d6eb57af618263a1f46
 
-On Fri, 27 Mar 2026 15:35:13 +0000 Prathosh.Satish@microchip.com wrote:
-> Reviewed-by: prathosh.satish@microchip.com
+Implement support for ZT trace bus and ZTR trace clock on R-Mobile A1.
+Describe coresight topology on R-Mobile A1. Extend the current PTM node
+with connection funnel, TPIU, ETB and replicator. The coresight on this
+hardware is clocked from the ZT/ZTR trace clock.
 
-That's not a correct format for a review tag, and you need to
-make sure that the quoted lines are prefixed with >
-Outlook style quoting does not work, it makes patchwork think
-that you added all the tags that were in the quoted text again.
+Please note that this is written according to R-Mobile A1 User's Manual:
+Hardware , Rev.2.00 Sep. 2013 . I currently do not have access to this
+hardware, therefore I am sending this as an RFC patchset.
 
-Ivan, could you sort this out and repost (add corrected tags from
-Prathosh)? Last time I tried to fix such mess while applying it ended
-poorly :(
+Marek Vasut (4):
+  dt-bindings: clock: renesas,cpg-clocks: Document ZT/ZTR trace clock on
+    R-Mobile A1
+  clk: renesas: r8a7740: Implement ZT/ZTR trace clock on R-Mobile A1
+  ARM: dts: renesas: r8a7740: Add ZT/ZTR trace clock on R-Mobile A1
+  ARM: dts: renesas: r8a7740: Describe coresight on R-Mobile A1
+
+ .../bindings/clock/renesas,cpg-clocks.yaml    |   8 +-
+ arch/arm/boot/dts/renesas/r8a7740.dtsi        | 120 +++++++++++++++++-
+ drivers/clk/renesas/clk-r8a7740.c             |   2 +
+ include/dt-bindings/clock/r8a7740-clock.h     |   2 +
+ 4 files changed, 123 insertions(+), 9 deletions(-)
+
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-clk@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+
+-- 
+2.53.0
+
