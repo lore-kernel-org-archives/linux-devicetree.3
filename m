@@ -1,177 +1,278 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8C543128D9
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 13:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EABB39890F;
+	Fri, 27 Mar 2026 13:55:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774619261; cv=none; b=ldxdzGWXWG3OSybVuAxHjyUusG6tVvY4PHspvaynXn7eIgvV5DyZn1LeCQVDn4kC02Pc3oLESocBW7CkL9vRYlxq80gH9uD+PmG5CxEmtDuJVNI26KMIp4TACQSNMMujns2cEhwB99NSFppjzcVpoIrbG99i529IN3doJy6yWuo=
+	t=1774619718; cv=none; b=SjOvhXYiCuNFesXL7k46HZjo/oXwjZ27eyLZ0O/Ncb+bOelv3Xxa8STRnjpuQUdOk1Ns/1pw3RRnWf35e71YUlD+OwqtqhK/Cfwfa22tW0ORczrVN7if676ekU95Cb7vw7YcZNSodRA+QbQT2Je3NMUANdTD8sFMe8nFeylYGP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774619261; c=relaxed/simple;
-	bh=ETu1mxBwykyQb7lRYZO43uSaHPXnM7oaVSiLyiX3Y2Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UX5ev0w94UCVmmdjkT+wZ0G4GqAvyiYrlwnrruMawOc8iGf3rUIDXddQsF7hxApntXTO0qCg1LQAQwJVpHtmh1CVROAlaMcS1H9GSsvni0hUHja39HT8M/3ytU3kF344sPEB3+6ceeFg4GHHY6zqEYEe6MNm0CrM1LM23/vaazs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E9Fqpupp; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774619718; c=relaxed/simple;
+	bh=C003phe9H2vz5oAAsl7Z69viCUeXZk962q9MneIz7g0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dBKG72XAGzqTk2uOcmGgTEq6OjEhZe1xRZ1DpoqYUx7l2rMeiPpt2crQ7E+y4x/2fdjcZPjMngQ2NvaoUd56i5dEkErP94rAOOrP16aNJpa656kwRwubkgqdWtgMmD6P1kXwtMoXmlhoV56cjpKplZTnhERb37iz5b9jW1diJxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tgwEltG5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E9Fqpupp"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2aaf43014d0so14520535ad.2
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 06:47:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774619258; x=1775224058; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=no0uujIoaeBaN0lzDrFX2OOJtop28oGgvskS3mBh/+k=;
-        b=E9FqpuppDELxNj/zMCzvlADh1wvR3xYIA64/67FvjS3NO+c7tfsqbqijznQIV+4ReJ
-         IoAQ3QTQOm+LXr1S8au/U+IkjNFm+f4u2uxSC9KDHD2MeU590SU8oDD9JvtBJy9etXgi
-         +bZkU/E1wP90VFpmf4gQ9IgEmfLhvdonwaFRDjm4UmACazNbExWwDtHbAv6H0mPuioSM
-         jqxXKRhfMlGUkmmYuRbh6VNq4162uebVdtmKtPMvlKV0eK/Vld7ySFA9XaZaSTxeYfsH
-         XrJrdgr9rH5ZQN+YDdyLgSifJYZ0PIBlYv5C6IG1mSVcuJhWvFM6XNsUtSv1UEOE/EWy
-         F2Bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774619258; x=1775224058;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=no0uujIoaeBaN0lzDrFX2OOJtop28oGgvskS3mBh/+k=;
-        b=pj6PMgY1GBDREwPzLVnInkIgpsOMTKHeLDVHhB+0GD4G2KzRXlwg8xNAbIBSXsfOYe
-         IAZvP/G3UFBfqOoUMx3Yi8ob8ou4T4fC1Oj5w/ACSOKR52j8umB6xoSiWFxfv9LYIC+I
-         z5q8qvpIMYCUJi3mmHWDiN5c/jXdPQZgoYIzMgGhRfT2l4isNp7B2h7QJXoB+ig900t9
-         CHSGfq1aJZjqKqvxD0laaxkP2UYi6FhErWMWwy/EViZynXT1VlNHcduYVQUM4wwSc9fM
-         9rIbdpi26gS6UqPyLYS9m0kgAf/hvap9cl+uVRZiixoVh6CmMr5hIAqcJnpoIBQxNIFA
-         qfyg==
-X-Forwarded-Encrypted: i=1; AJvYcCXCgMpKiF8KphjTf5E6c5Nm5FsYarDTZv5Mzxx6XjIhtEVpv27HLkoBkHgOUXf1a5WWjAtLvUBkWeIV@vger.kernel.org
-X-Gm-Message-State: AOJu0YyBhulAfUfJ29oTEABo4wKakZFsPEN63FOP4QOtdcJ+MCy/GI5K
-	FfeCw5XagA/4I7Ak5p0MdiLJ0zgd1URt1Ne6hbjT6qCXwAfMseqfIcHT
-X-Gm-Gg: ATEYQzwc2vvWtXliGnG2RZdS7xFyyhT4qKE9n8XMLCLUegsgPNtR2SM79JEpChZhZG6
-	CydU9OAkiGFD9unpOD0HwjYhntn+sudZcbR54ixDGdLp7gdRecDiZ2OEb7MEyVz0kZ7j7y8Yhbe
-	qEDo6jNrRX6u096ifw5nmg2MTQhCWW92Nh3F7BKl/ynafRbDQUxnFmwbHaVC1zwKgqsE0P2Q4iF
-	Xizuo0n0tA7yextvjz15TpqGbKu2nc49BMnUWohiDXOugQaVvk4go6IgBCA+zDAnmFJ4gCCdUqy
-	WREEUZw+HXMqkSIo3q0vaLsQyzKs3PazbhldlWd/h3HHp3jmLk8oSBPhP9o4wF9ZTuAtXuDNFyr
-	KL1lU5m4tiZbW2XflYQe2QkPSxbDxm/5P0gEp71W6jQLhj3/+dITa66ONaE9c9HPjNfCRte48rR
-	9TRCx6hs39YhKm3f8ndnnQQ+rpBT4l
-X-Received: by 2002:a17:903:8cb:b0:2ab:3cba:42fa with SMTP id d9443c01a7336-2b0cdd0555emr28331695ad.46.1774619257719;
-        Fri, 27 Mar 2026 06:47:37 -0700 (PDT)
-Received: from snowman ([2401:4900:614d:8cb4:a69f:d838:ad5c:7358])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0bc76b6casm62403545ad.16.2026.03.27.06.47.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Mar 2026 06:47:37 -0700 (PDT)
-From: Khushal Chitturi <khushalchitturi@gmail.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	koro.chen@mediatek.com,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Khushal Chitturi <khushalchitturi@gmail.com>
-Subject: [PATCH v2] ASoC: dt-bindings: mediatek,mt8173-rt5650-rt5514: convert to DT schema
-Date: Fri, 27 Mar 2026 19:16:49 +0530
-Message-ID: <20260327134649.31376-1-khushalchitturi@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tgwEltG5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE259C2BC87;
+	Fri, 27 Mar 2026 13:55:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774619718;
+	bh=C003phe9H2vz5oAAsl7Z69viCUeXZk962q9MneIz7g0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tgwEltG5XogJq+rTsvmf8EAU5Vguv1xWGrXLZ00b1fD2wkopfCT/vcPIVpq3rEO9z
+	 vRUJ0cUZ+aeCGOBeaQplkrUSMCRqP9HTYYA1F/nl7U746HqHZi1wXwz1Z0RKspdriW
+	 paomWFRyru+IgSk57wDkjo9U2WDFzFWlJm2LpFPoQ3UTZbOcfJC1gmmOE4QgjijcrN
+	 5gEC7KfrQ4w6qYBhgdIOchELbsdhBCauDYwPJxg3uoTcdoQzVEfRHUAXtX9A+FVzha
+	 vO7RtCoRPdPDfNPqawnpWOMwaUhA6ukvV7bkBvj7rTHlRC0rvgxJrmOXRZgWnIbY7l
+	 0SdrninhJoioA==
+Date: Fri, 27 Mar 2026 14:55:10 +0100
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Bjorn Andersson <andersson@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+	Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	John Stultz <john.stultz@linaro.org>,
+	Moritz Fischer <moritz.fischer@ettus.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Andre Draszik <andre.draszik@linaro.org>,
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>
+Subject: Re: [PATCH v20 06/10] power: reset: Add psci-reboot-mode driver
+Message-ID: <acaMPgRALnoUIHMC@lpieralisi>
+References: <20260304-arm-psci-system_reset2-vendor-reboots-v20-0-cf7d346b8372@oss.qualcomm.com>
+ <20260304-arm-psci-system_reset2-vendor-reboots-v20-6-cf7d346b8372@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260304-arm-psci-system_reset2-vendor-reboots-v20-6-cf7d346b8372@oss.qualcomm.com>
 
-Convert the Mediatek MT8173 with RT5650 and RT5514 sound card
-bindings to DT schema.
+On Wed, Mar 04, 2026 at 11:33:06PM +0530, Shivendra Pratap wrote:
+> PSCI supports different types of resets like COLD reset, ARCH WARM
+> reset, vendor-specific resets. Currently there is no common driver that
+> handles all supported psci resets at one place. Additionally, there is
+> no common mechanism to issue the supported psci resets from userspace.
+> 
+> Add a PSCI reboot mode driver and define two types of PSCI resets in the
+> driver as reboot-modes: predefined resets controlled by Linux
+> reboot_mode and customizable resets defined by SoC vendors in their
+> device tree under the psci:reboot-mode node.
+> 
+> Register the driver with the reboot-mode framework to interface these
+> resets to userspace. When userspace initiates a supported command, pass
+> the reset arguments to the PSCI driver to enable command-based reset.
+> 
+> This change allows userspace to issue supported PSCI reset commands
+> using the standard reboot system calls while enabling SoC vendors to
+> define their specific resets for PSCI.
+> 
+> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+> ---
+>  drivers/power/reset/Kconfig            |  10 +++
+>  drivers/power/reset/Makefile           |   1 +
+>  drivers/power/reset/psci-reboot-mode.c | 119 +++++++++++++++++++++++++++++++++
+>  3 files changed, 130 insertions(+)
+> 
+> diff --git a/drivers/power/reset/Kconfig b/drivers/power/reset/Kconfig
+> index f6c1bcbb57deff3568d6b1b326454add3b3bbf06..529d6c7d3555601f7b7e6199acd29838030fcef2 100644
+> --- a/drivers/power/reset/Kconfig
+> +++ b/drivers/power/reset/Kconfig
+> @@ -348,6 +348,16 @@ config NVMEM_REBOOT_MODE
+>  	  then the bootloader can read it and take different
+>  	  action according to the mode.
+>  
+> +config PSCI_REBOOT_MODE
+> +	bool "PSCI reboot mode driver"
+> +	depends on OF && ARM_PSCI_FW
+> +	select REBOOT_MODE
+> +	help
+> +	  Say y here will enable PSCI reboot mode driver. This gets
+> +          the PSCI reboot mode arguments and passes them to psci
+> +	  driver. psci driver uses these arguments for issuing
+> +	  device reset into different boot states.
+> +
+>  config POWER_MLXBF
+>  	tristate "Mellanox BlueField power handling driver"
+>  	depends on (GPIO_MLXBF2 || GPIO_MLXBF3) && ACPI
+> diff --git a/drivers/power/reset/Makefile b/drivers/power/reset/Makefile
+> index 0e4ae6f6b5c55729cf60846d47e6fe0fec24f3cc..49774b42cdf61fd57a5b70f286c65c9d66bbc0cb 100644
+> --- a/drivers/power/reset/Makefile
+> +++ b/drivers/power/reset/Makefile
+> @@ -40,4 +40,5 @@ obj-$(CONFIG_REBOOT_MODE) += reboot-mode.o
+>  obj-$(CONFIG_SYSCON_REBOOT_MODE) += syscon-reboot-mode.o
+>  obj-$(CONFIG_POWER_RESET_SC27XX) += sc27xx-poweroff.o
+>  obj-$(CONFIG_NVMEM_REBOOT_MODE) += nvmem-reboot-mode.o
+> +obj-$(CONFIG_PSCI_REBOOT_MODE) += psci-reboot-mode.o
+>  obj-$(CONFIG_POWER_MLXBF) += pwr-mlxbf.o
+> diff --git a/drivers/power/reset/psci-reboot-mode.c b/drivers/power/reset/psci-reboot-mode.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..86bef195228b0924704c2936b99f6801c14ff1b1
+> --- /dev/null
+> +++ b/drivers/power/reset/psci-reboot-mode.c
+> @@ -0,0 +1,119 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#include <linux/device/faux.h>
+> +#include <linux/device.h>
 
-Signed-off-by: Khushal Chitturi <khushalchitturi@gmail.com>
----
-Changelog:
-v1 -> v2:
-- Used two separate entries for two phandles.
-- corrected positioning of additionalProperties.
-- Fixed commit message to match subsystem.
+Nit: swap the two.
 
-Note:
-* This patch is part of the GSoC2026 application process for device tree bindings conversions
-* https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
+> +#include <linux/err.h>
+> +#include <linux/of.h>
+> +#include <linux/psci.h>
+> +#include <linux/reboot.h>
+> +#include <linux/reboot-mode.h>
+> +#include <linux/types.h>
+> +
+> +/*
+> + * Predefined reboot-modes are defined as per the values
+> + * of enum reboot_mode defined in the kernel: reboot.c.
+> + */
+> +static struct mode_info psci_resets[] = {
+> +	{ .mode = "warm", .magic = REBOOT_WARM},
+> +	{ .mode = "soft", .magic = REBOOT_SOFT},
+> +	{ .mode = "cold", .magic = REBOOT_COLD},
+> +};
+> +
+> +static void psci_reboot_mode_set_predefined_modes(struct reboot_mode_driver *reboot)
+> +{
+> +	INIT_LIST_HEAD(&reboot->predefined_modes);
+> +	for (u32 i = 0; i < ARRAY_SIZE(psci_resets); i++) {
+> +		/* Prepare the magic with arg1 as 0 and arg2 as per pre-defined mode */
+> +		psci_resets[i].magic = REBOOT_MODE_MAGIC(0, psci_resets[i].magic);
 
- .../sound/mediatek,mt8173-rt5650-rt5514.yaml  | 41 +++++++++++++++++++
- .../bindings/sound/mt8173-rt5650-rt5514.txt   | 15 -------
- 2 files changed, 41 insertions(+), 15 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mt8173-rt5650-rt5514.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/mt8173-rt5650-rt5514.txt
+This looks weird to me, why can't we just initialize the array with the values
+directly ?
 
-diff --git a/Documentation/devicetree/bindings/sound/mediatek,mt8173-rt5650-rt5514.yaml b/Documentation/devicetree/bindings/sound/mediatek,mt8173-rt5650-rt5514.yaml
-new file mode 100644
-index 000000000000..ed698c9ff42b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/mediatek,mt8173-rt5650-rt5514.yaml
-@@ -0,0 +1,41 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/mediatek,mt8173-rt5650-rt5514.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Mediatek MT8173 with RT5650 and RT5514 audio codecs
-+
-+maintainers:
-+  - Koro Chen <koro.chen@mediatek.com>
-+
-+properties:
-+  compatible:
-+    const: mediatek,mt8173-rt5650-rt5514
-+
-+  mediatek,audio-codec:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    description: Phandles of rt5650 and rt5514 codecs
-+    items:
-+      - description: phandle of rt5650 codec
-+      - description: phandle of rt5514 codec
-+
-+  mediatek,platform:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: The phandle of MT8173 ASoC platform.
-+
-+required:
-+  - compatible
-+  - mediatek,audio-codec
-+  - mediatek,platform
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    sound {
-+        compatible = "mediatek,mt8173-rt5650-rt5514";
-+        mediatek,audio-codec = <&rt5650>, <&rt5514>;
-+        mediatek,platform = <&afe>;
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/sound/mt8173-rt5650-rt5514.txt b/Documentation/devicetree/bindings/sound/mt8173-rt5650-rt5514.txt
-deleted file mode 100644
-index e8b3c80c6fff..000000000000
---- a/Documentation/devicetree/bindings/sound/mt8173-rt5650-rt5514.txt
-+++ /dev/null
-@@ -1,15 +0,0 @@
--MT8173 with RT5650 RT5514 CODECS
--
--Required properties:
--- compatible : "mediatek,mt8173-rt5650-rt5514"
--- mediatek,audio-codec: the phandles of rt5650 and rt5514 codecs
--- mediatek,platform: the phandle of MT8173 ASoC platform
--
--Example:
--
--	sound {
--		compatible = "mediatek,mt8173-rt5650-rt5514";
--		mediatek,audio-codec = <&rt5650 &rt5514>;
--		mediatek,platform = <&afe>;
--	};
--
--- 
-2.53.0
+> +		INIT_LIST_HEAD(&psci_resets[i].list);
+> +		list_add_tail(&psci_resets[i].list, &reboot->predefined_modes);
+> +	}
+> +}
+> +
+> +/*
+> + * arg1 is reset_type(Low 32 bit of magic).
+> + * arg2 is cookie(High 32 bit of magic).
+> + * If reset_type is 0, cookie will be used to decide the reset command.
+> + */
+> +static int psci_reboot_mode_write(struct reboot_mode_driver *reboot, u64 magic)
+> +{
+> +	u32 reset_type = REBOOT_MODE_ARG1(magic);
+> +	u32 cookie = REBOOT_MODE_ARG2(magic);
+> +
+> +	if (reset_type == 0) {
+> +		if (cookie == REBOOT_WARM || cookie == REBOOT_SOFT)
+> +			psci_set_reset_cmd(true, 0, 0);
+> +		else
+> +			psci_set_reset_cmd(false, 0, 0);
+> +	} else {
+> +		psci_set_reset_cmd(true, reset_type, cookie);
+> +	}
 
+I don't think that psci_set_reset_cmd() has the right interface (and this
+nested if is too complicated for my taste). All we need to pass is reset-type
+and cookie (and if the reset is one of the predefined ones, reset-type is 0
+and cookie is the REBOOT_* cookie).
+
+Then the PSCI firmware driver will take the action according to what
+resets are available.
+
+How does it sound ?
+
+> +
+> +	return NOTIFY_DONE;
+> +}
+> +
+> +static int psci_reboot_mode_register_device(struct faux_device *fdev)
+> +{
+> +	struct reboot_mode_driver *reboot;
+> +	int ret;
+> +
+> +	reboot = devm_kzalloc(&fdev->dev, sizeof(*reboot), GFP_KERNEL);
+> +	if (!reboot)
+> +		return -ENOMEM;
+> +
+> +	psci_reboot_mode_set_predefined_modes(reboot);
+> +	reboot->write = psci_reboot_mode_write;
+> +	reboot->dev = &fdev->dev;
+> +
+> +	ret = devm_reboot_mode_register(&fdev->dev, reboot);
+> +	if (ret) {
+> +		dev_err_probe(&fdev->dev, ret, "devm_reboot_mode_register failed %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int __init psci_reboot_mode_init(void)
+> +{
+> +	struct device_node *psci_np;
+> +	struct faux_device *fdev;
+> +	struct device_node *np;
+> +	int ret;
+> +
+> +	psci_np = of_find_compatible_node(NULL, NULL, "arm,psci-1.0");
+> +	if (!psci_np)
+> +		return -ENODEV;
+> +	/*
+> +	 * Look for reboot-mode in the psci node. Even if the reboot-mode
+> +	 * node is not defined in psci, continue to register with the
+> +	 * reboot-mode driver and let the dev.ofnode be set as NULL.
+> +	 */
+> +	np = of_find_node_by_name(psci_np, "reboot-mode");
+> +
+> +	fdev = faux_device_create("psci-reboot-mode", NULL, NULL);
+
+Same comment as Bartosz (have you picked up his work and working towards
+a solution) ?
+
+Thanks,
+Lorenzo
+
+> +	if (!fdev) {
+> +		ret = -ENODEV;
+> +		goto error;
+> +	}
+> +
+> +	device_set_node(&fdev->dev, of_fwnode_handle(np));
+> +	ret = psci_reboot_mode_register_device(fdev);
+> +	if (ret)
+> +		goto error;
+> +
+> +	return 0;
+> +
+> +error:
+> +	of_node_put(np);
+> +	if (fdev) {
+> +		device_set_node(&fdev->dev, NULL);
+> +		faux_device_destroy(fdev);
+> +	}
+> +
+> +	return ret;
+> +}
+> +device_initcall(psci_reboot_mode_init);
+> 
+> -- 
+> 2.34.1
+> 
