@@ -1,145 +1,289 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022090.outbound.protection.outlook.com [40.107.75.90])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548EF3DC4B9;
-	Fri, 27 Mar 2026 09:30:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.90
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774603853; cv=fail; b=U2KIafAgeOVn2rCrld/5U5VJvGwWX2n7YyutaPF2SlVfIdsQ3AbI/KrkD2FrwHSwGfchxQX9eEj4f25/ykou9CQ219BwYwJ1O2rIcssMQFHjA2SoPj1zFT3gy72aBafKtL/bQwFmitUgtJ0AgFYly2cH0A4QORhKbMWfjReU+a4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774603853; c=relaxed/simple;
-	bh=/7SiQY9PiwOXy3vzd1DSnu+Th3086065lrZBKsPmhJs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bvoVZxXxmQQUOIPLnO4vV/wkSt5nPMkMJiHIc8BE7O3xMmCheh1lC7No5hUOvRlSl0WPa/u8c0tyAZI/oUkpw7HZ0cVtLm2QdxgRz4muxuPSngzH6IhcpiJq9hx0BVx165U7CWUKvDcPv25YAL8JO1QZNw79Hk4/TRL4NeDtBYM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=khadas.com; spf=pass smtp.mailfrom=khadas.com; arc=fail smtp.client-ip=40.107.75.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=khadas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khadas.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WfkgW0ImWbvRLUM8/r79V2DxH7xPZYFr/CAgb5J3jD+JN+LB3nNHNpAzng1QVqNNumnXmxxKYUDugKfNnNoiXzl3Zh2dzMyXJw5Q4vQyZmOAmfQR8kwpwHEXfN7wWokt60xFGiPfUeDHoJrNIB9z17UrqL17T4B20h6+8btiHazuJZPBM0VLGLdPwGM2tG4i3tpL5NyD83nXVY8qliAHE3H5VzgbZOdS12mYYW5fnHkId4+Sedk6NUgxXOs1ofnPx0Z6PTTTzI+9KQs1sSe5Eus1pH6zqKRIqSEaCO8RZrtQyfbQBj4OjoPoIeO+evbVpZQZ2TS9TnxRk2uya+67gA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NfGMKzrcGAfheuLbXSO4zE5XcJ7/3jIzV7Huj2tLLWU=;
- b=ITEHEY34JLjNeTtQc5XvHIrcBrD6ZzIXG6jdJFebl4MjdacDZTbf3sDr2IutEgwNwNUqFBFPqA8Hmt+yApJo/tFvD3uqRzE2y3namr1e9yiQ/QOpcyU1er822/mG0CGbgc/7kDp8bmuGtQSlXR8A/GHV9x5cuNEhQk/4/9g7pJcTcxGeNFE+lkRAIoJ7N80AE6SqkaheGBD8VZgKB34aaUkbuRyET+9INcC5+d+Cbnvj/EwiDiQ9+cG2frQIua3jHcxW0j4qShFyCNmoBRQAVVeAqfQnLE4wwpdw5m/uYdfLSzwvnZ6lqcJy3UbiO+0nRg+a7U913RULuRxufENJuw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=khadas.com; dmarc=pass action=none header.from=khadas.com;
- dkim=pass header.d=khadas.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=khadas.com;
-Received: from PS1PPF62EEA9B1D.apcprd03.prod.outlook.com (2603:1096:308::2da)
- by SE1PPFE32D229A3.apcprd03.prod.outlook.com (2603:1096:108:1::86d) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Fri, 27 Mar
- 2026 09:30:36 +0000
-Received: from PS1PPF62EEA9B1D.apcprd03.prod.outlook.com
- ([fe80::20a2:a696:ac88:2549]) by PS1PPF62EEA9B1D.apcprd03.prod.outlook.com
- ([fe80::20a2:a696:ac88:2549%4]) with mapi id 15.20.9745.019; Fri, 27 Mar 2026
- 09:30:36 +0000
-From: Nick Xie <nick@khadas.com>
-To: neil.armstrong@linaro.org,
-	khilman@baylibre.com,
-	martin.blumenstingl@googlemail.com,
-	jbrunet@baylibre.com
-Cc: krzk+dt@kernel.org,
-	robh@kernel.org,
-	conor+dt@kernel.org,
-	linux-amlogic@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nick Xie <nick@khadas.com>
-Subject: [PATCH v1 3/3] arm64: dts: amlogic: meson-s4-s905y4-khadas-vim1s: use rc-khadas keymap
-Date: Fri, 27 Mar 2026 17:30:16 +0800
-Message-Id: <20260327093016.722095-4-nick@khadas.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260327093016.722095-1-nick@khadas.com>
-References: <20260327093016.722095-1-nick@khadas.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TYCP286CA0214.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3c5::10) To PS1PPF62EEA9B1D.apcprd03.prod.outlook.com
- (2603:1096:308::2da)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B291EA7CE
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 09:35:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774604121; cv=none; b=brBgUHz9CVguJoLUKTktTb7JRTGjiuYcFIKBr6/OzdPS4o9j87KKsA0ksvqkdo7T7zpzALfInw33miVBXZhdUiFtfUeA4gtZDWGk7QoRXV6p2pcUxMjKbZUzpt/uF4RFxZQAyJd9gtLP3mMGAsRghAd3WYwwslPp4QMxAK5/Zf8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774604121; c=relaxed/simple;
+	bh=iJOHN8dmGPbQD80ivaf5mntVO+SR076qCtKMvmHaQFU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VYr7mdHPSpkSWu8l9KVsdEWH1WDPJDmjFN8BciQ2Nu61B/dT6aDhz9/NKu5ysBS9nNrcrmcFB/kxhqNS8Xq9kx0FMDQJSoMi0jvwFCRpZdliaf8lvoMqmi7s2Qanor/+vE8agGiqV36MM68QHIMh4WEutXMaKX/D6v/bDBO3/aM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dfqtedcK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NhDIfWBq; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dfqtedcK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NhDIfWBq"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62R6wFR11710610
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 09:35:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	iimVuL7Si0EC2QW/qRbXnzLK0ktDtNjpoesWqPPB7kk=; b=dfqtedcKdd+VWg1M
+	7rr8jESz/4pyob5K2fouLMEhfpda0yOt9fk6Il6m7RWjeliiACai4e+ZB2hlrx1I
+	9MgYxRv0KQ/ku0BWB2gtqXXvKiBRNyf12jRfiUQuuolYntBskTlFgAufv+olHd4U
+	9+pYzSrzGS/nBGGzKPqngAx3//YA4A3M7kaA4l965KaJ1iChtAww5Rf4BioiNEed
+	zzoIYSIj9ktfWv7IMm3l/NGkcKvqOL4pYOu59I2WfsLqBIG6r82rTb5Ka8Nq3b8H
+	ykkyk8hGHoSagfqLpuEBqOyCW+kifxN5Cw9NttYhmJ8EX02pYG8IZakCzrf4EwZ0
+	7Q/RGw==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5bxvjdef-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 09:35:19 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2b064884a7cso63019425ad.3
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 02:35:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774604119; x=1775208919; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=iimVuL7Si0EC2QW/qRbXnzLK0ktDtNjpoesWqPPB7kk=;
+        b=NhDIfWBqzUrCww5WIo2cyAnSL4SWqKA6N5CPZOG5KYeb6xM8jh9t2pP4ZQbmFouj08
+         pfTOdX5stEWoAUlmdUq2zTD3XBcer3r4RgIZ6VGX3VSROQTxfNvsFtH12ospxs5ouuKl
+         A2efCeHRmUv+zO0v6AdUThWFaHj6TrfekhE3OgX0Qb8B+YhFTu81jb6Vp0SZung72P65
+         vFS2TYnPWYvlER8lo2MwbwGViTF3RCnleS5ZQH+taG9oxGjHE9uOUWmqvwGjcLMzlKaK
+         owMIoVdD+ryk895hsaY4ArKEDpE18C8EtNOgs0KnnYcNpn49T9qHV2Ac4J7FyfBgiIL8
+         XB0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774604119; x=1775208919;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=iimVuL7Si0EC2QW/qRbXnzLK0ktDtNjpoesWqPPB7kk=;
+        b=OLx9tvcQM5ktJGX0dekIS8rc0TjOY6zWGvqLaiAau20bZ8sXQrj4+9I90aLFfE9hUO
+         1gWQXz7WLq5+nWvVNfCWA5ZP38/GrXqZoBH6Oy8cBuHti1ngKJobIYACN5qwAZfvcPov
+         +xTe0CYIP3P0vOr51GxiaJcOpLmQkAS4smiLvUMUNwnPnA85elE5DpBLy/im90Qjmiy9
+         u09eb3LRdYnU6fB7uiTVHZeQCdMRWb9/rcBjDKqWz0INJf2nwu/rnWnh666eNiUFh8Pl
+         GIYCJsg+/4bqIKgzhpoCt5JR266GwWdY4BnQOVtFHQwHyKAtNB2KE7Whle8pNcEv44f4
+         CA0Q==
+X-Forwarded-Encrypted: i=1; AJvYcCX4DQZjL8nchbGNMSoYgrGeaIKY262tcIWTl2LWQlJGtxyLdS9OjsC5mxYaOlNux1WJCvR9ncUelBYO@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw25GOD23sNjcNwZVM/GkDYEZhXn2oFogB6tkj4kWhsFxfrC5lN
+	vmUNRG4CAbZDGOfCe/vrZuQX4pBJNbvkNOo9Laf55U8LR+0Eu1UFtBmymuxtOEeTEf9r6HQi6vF
+	/L3ogMIWcECMSkcZ4sX5Q5I6j6FbS3/uFEfvcDVQU3OAg/QF2fgi7/f+uD9XEQMKi
+X-Gm-Gg: ATEYQzwclwI1NhURf2vyicOhlKkYeKKnyL18mD2JLbqZZ6B2/a/T5Z4y+YGDx6bf5ge
+	w2ab6obnWbwz3u1BYU8ftLpapHtxE9jyB6qfIpfT9wDNx3petkS7r2hKGGhsKnBMxz+IpWqchh7
+	zQwHqd8FIbNDrdvd7NyUttLuyvKHVCKIbcwI9Syd3+VXXBLzbo64sTLqdnBr32ABwUHOTSbFBnH
+	GSWIRDd7HzyxlPjOkiWvrshzWRcUKPjkhBZHlaTFSYUIVX2wuhlw49J2qeh5OhORZnEhEGVdO0j
+	r8SbKPu7J6RJIbTuIVMi7rGqL9KtvU1RGKMs8E8m3u2KY/+Vp3MT8ZAQ9qTSkFNJhR3iRdq7Cos
+	nQO4zY484sKXzkoPjGaaMz3xVlv0WO4wkQ3wh0G6OITM5BhK/rLak62rY
+X-Received: by 2002:a17:902:d502:b0:2b0:6d8b:6a07 with SMTP id d9443c01a7336-2b0cdcaa738mr20284205ad.25.1774604118603;
+        Fri, 27 Mar 2026 02:35:18 -0700 (PDT)
+X-Received: by 2002:a17:902:d502:b0:2b0:6d8b:6a07 with SMTP id d9443c01a7336-2b0cdcaa738mr20283585ad.25.1774604117910;
+        Fri, 27 Mar 2026 02:35:17 -0700 (PDT)
+Received: from [10.219.57.109] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0bc7a7e3bsm72543195ad.27.2026.03.27.02.35.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 27 Mar 2026 02:35:17 -0700 (PDT)
+Message-ID: <2c21c307-99bd-4051-8c09-06d370ad9b24@oss.qualcomm.com>
+Date: Fri, 27 Mar 2026 15:05:02 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PS1PPF62EEA9B1D:EE_|SE1PPFE32D229A3:EE_
-X-MS-Office365-Filtering-Correlation-Id: a132f9f7-72c2-4d88-3fa3-08de8be3808d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|52116014|376014|18002099003|38350700014|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	4+zdEXBBUlyHmEOGSEaethSr+aroNyGDShqzvpfwcfBc6s+RnVjUGkHaTU1B1Ef/3SeFPojzIOGWpU5T+zVbqaAJAleuVBxz2kzcyZfsOnCYNOEDF+fXpqnWR/DufDZ/bm+px7GyY3nb1YegMZZXwxll6BeTa+z1TGSrnP01miprumkyIE7SZZaWQ+7KsUbcPpCIwyoswm15YgJmRl4EdVM3syJrIhEYPysYCxsxSUDd+cJdvckb1xf9vsDW/uzj6tukNpTsp47RMqOlWIafmma/up2+DoJILtjgzx9qWZ951ie8QDunHz4wsc2wN2tYiQXWPSFQynX579z+YtV5wVyn1i/TW6ExJr+qBOV6TDADxlyjwgF+nh9lhkmxv63C7TQuyWr8UGIJH+MNEl6XJH671e43CMi5EdJInPZryu4JjEG1egkGZByU9jG2UlZO8PB2+wX4mofACCUW30nheripIF5Alau6iPY1kuGwmHrOjGXwkog3Y4CEcqxiWkfXVN5R9GXQclKmiQhtBxn+O9fiyfcPTBfKy6nGOJ2ci/U2Hh0TdEExgRB/rR2LvsJsei77KA4Y3b575LCqk5ODRPcp6gqw3S9qYqm8vqYkK/afz1s1v7jow4vA+8WSCsKbAQyy3v28ZHoCzcNOIDz/c7boFnauc66KmWlmo36SDQpL6r0fiI8koBp2fUGUedFX6+9I+J+36ujLxN4iZVWtOV8JFg/kzU3tJQGuevNxVBP5plCZDOK9I2NlrW4qjnqWRA4lh/mVyeeRIy8zSYxTbmxOlk+wJVnereW6rs3BCDw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PS1PPF62EEA9B1D.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(52116014)(376014)(18002099003)(38350700014)(22082099003)(56012099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NeNwN7zJtcXAjKmQ1DkwEsHqP0j+QKv0bCSkxF57OnCqjTZvZ5JYyYCB7YsN?=
- =?us-ascii?Q?ZvXbdmI2ZKmE0g9SSGFHOmJ5a7N9UeHz3PNYtlz9rd9g9CTdw+4MJolJ1aSK?=
- =?us-ascii?Q?Td20D/F0ROKS1bG3y3Y3rAeVoGnbUn0TkjOOBu6nNhCfiSY3YzTQrPF2tkWL?=
- =?us-ascii?Q?IZAwpjrXFZvmbJR3gO5fCp7V7PCo/sdMwHBZPnj1+doaMQO5lV2mVztYb6Ps?=
- =?us-ascii?Q?oxnstNi7d192YKXKCfqMEC6zqvYE5zKzZPmI6PAfBXxS+F+rBs83MD1KU1aY?=
- =?us-ascii?Q?EaveXBOL+h/SegWRxDnq5EL50+/8+IIKXBi1DXWbgCGFl4MB6VKa2EJUPSk3?=
- =?us-ascii?Q?gmzuHZKsnPRsc/dJ5LMgV5a0Y8n2ne1tsHTe4UiUWPKmTxFrGNlbGaOhCTmb?=
- =?us-ascii?Q?u0L6FPRW3JTcuUxzuIjNU+UXpuDU4dLWhjsdTamqmENadH7uP7Q8V8V5DcsZ?=
- =?us-ascii?Q?TJqs5gJtPvnrGv7sBPGpjlRrYq+xyZheNo0tyd6mkuoS8/DhmOwqXFl3XOaC?=
- =?us-ascii?Q?I/OsOIiFnRJbaQX7L7zyqOpEMAJgEXuwFjrEMj+LIkkJHF4Zq5CsUZntZ5f6?=
- =?us-ascii?Q?xKiTgdFWT5QIeCnwa7+Jj929puVs8pGBaJ0OFJEwuIauwUGJXyQjTyZId6wg?=
- =?us-ascii?Q?zAKREAtHaW1T0PLG2gZ7ZJeAk7EMYOIXPkknHI93AQwD24NSMx9XtFwA0Lm0?=
- =?us-ascii?Q?uBGvCpkmHq+F9ikaKBagtj2g8mwzz8UOOIvxmrjyDBkxE0QkEDaopUhAQDsg?=
- =?us-ascii?Q?M4vUV8GNznn3201OwXzXgUKZceaJ63vgvi8PJwNOogNJZ9AVO+WTBGZ/JjIB?=
- =?us-ascii?Q?Uh7KgBbwQtGCvhv59COggUPoY6+h6WiyaJnQgjrmiks4SIVd4d0BfyFDUVdg?=
- =?us-ascii?Q?HQuvblM9S7zoiwQ40Jamhj1isoM0387gwZjaOFQqc+g0JdtilwjHq1rlNhtS?=
- =?us-ascii?Q?22TbMk3sIIcONW1s8oxBSNQwheDGg5y5UkORvJLPKead1OL0m8SpSRGwNW2w?=
- =?us-ascii?Q?7Iiiv7ACoFIBhj59Ds1aVnnIzBTWpqto2RVFcJPbyLgMMGIkwWOilgo8pb3H?=
- =?us-ascii?Q?tJrovYFk5ovUfN2PPyBE4MVatk0LXFrZBC6/iL3ttGfO/q6t1pWfuwSRSNzV?=
- =?us-ascii?Q?Lb+qyyjY872erJtfZ/AshpBYwiEqZBEa9pQm5Fws7CW8yTLIPmvwYIPJ9DCF?=
- =?us-ascii?Q?F5K7GBU+5llCon2Mo4hFWds8hc4q9Q0mD6N9YSxiKclt8auKOyXEayGpnT2w?=
- =?us-ascii?Q?6N1HMfjuiSlXhL8jHx2j/25f9CaTpr5JALGd4jXI2h/uiYUqcc8doBZuU6YH?=
- =?us-ascii?Q?ugu7eTKGZBEUcwWWc5cKqX+uRtTbadTdp8aa7g72uOn7R53Yy52iiAB/sebY?=
- =?us-ascii?Q?ZW+4yqJ+/JcglkNd+SGsqmECFzUVUG2SJG6tO99SY/48CaFu0OfedTZ0849E?=
- =?us-ascii?Q?p155lOVwazG3gmj/hxZ1BY1u8r2cwo3Uy/nU9+cgw3s/otFvSsX3KxgUP12b?=
- =?us-ascii?Q?qGCLGozfg31v89KjuexQCitGm4RFG9MNTyIdyVwR6643NvoS/uG2AvN+GUd5?=
- =?us-ascii?Q?3fZjXSdsXYwmHo69JRqjxMbC1TRZApARpidsdRW18lG60PWhXcy7D1vO7Yx8?=
- =?us-ascii?Q?fKH8Oy7N4+NWTp33xWFxbtnpIcHaLVok+9Ijx+ycYsppswcorRbwD+MI/C/U?=
- =?us-ascii?Q?FywqHoP9OERbdmIJ+dErCJxXArta4M2b1jsNEqyXsF8wigZG?=
-X-OriginatorOrg: khadas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a132f9f7-72c2-4d88-3fa3-08de8be3808d
-X-MS-Exchange-CrossTenant-AuthSource: PS1PPF62EEA9B1D.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 09:30:36.6506
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 2dc3bd76-7ac2-4780-a5b7-6c6cc6b5af9b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X+LiN9HKdSuJcwWJQsnreER+Zx6TQHPp4/37LK+u5CT0kNcX4amy1ucMTi6+S5DX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE1PPFE32D229A3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 2/3] of: Factor arguments passed to of_map_id() into a
+ struct
+To: Bjorn Helgaas <helgaas@kernel.org>, Richard Zhu <hongxing.zhu@nxp.com>,
+        Lucas Stach <l.stach@pengutronix.de>
+Cc: Nipun Gupta <nipun.gupta@amd.com>,
+        Nikhil Agarwal
+ <nikhil.agarwal@amd.com>,
+        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, Marc Zyngier <maz@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Thomas Gleixner <tglx@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>,
+        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bjorn Helgaas
+ <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-pci@vger.kernel.org, imx@lists.linux.dev,
+        xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org,
+        Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
+References: <20260326161957.GA1324845@bhelgaas>
+Content-Language: en-US
+From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+In-Reply-To: <20260326161957.GA1324845@bhelgaas>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: cJaEBYOssf6JvQ7GXNNA6DN7-C7p9cc4
+X-Proofpoint-ORIG-GUID: cJaEBYOssf6JvQ7GXNNA6DN7-C7p9cc4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDA3MCBTYWx0ZWRfX7wwcyVcybEka
+ Xe41uVBHvutSuA7kY5wojnrsfAH7VHKbMUO8ZtkurHgaKyZR2/pqXfKdx+5HznZWVBbNt2Mc8Eb
+ 2jE325aYheMErDht9h9oEeElcRR/js0W1ER7GAebUDLETWp0AF8pnpoldyhYaeULnf2WjMU4TEb
+ Gzpiv6Jt/Mp1Qy7hHEAdJHxBtv4UWUsv7ezj4CMjZnY0mjN3YeUGYwuSuwAO7lBwphmZjwqknx7
+ LQ7wS8GDignx9k2yXtXT3ilJyN9yrad7ru9BvwO02CJFQZH49AOC4mK56vrpxGfiuoDVNVASWat
+ 7yLQHcJvW0UieaU9e2d5Mez8HvOAvN1gxMuZk13WNOANE3I8Ev4YRYGgBWiej3p2HuGSeDC8AIk
+ V8fC4mZ8NOjFTmGbDUQoIq3QEVv73uQsDE2SOQdb41OnuJfKVwyr8Dsb+tp4Nr+SA33sT5WN3UM
+ dgjCm2AB7+Y6O4WkBnQ==
+X-Authority-Analysis: v=2.4 cv=ToXrRTXh c=1 sm=1 tr=0 ts=69c64f57 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=vU6kfqNVzfA0ps7fDeEA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-26_04,2026-03-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0 adultscore=0
+ bulkscore=0 suspectscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270070
 
-The Khadas VIM1S board has an onboard IR receiver.
-Configure the default keymap to "rc-khadas" to support the official
-Khadas IR remote control.
 
-Signed-off-by: Nick Xie <nick@khadas.com>
----
- arch/arm64/boot/dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts b/arch/arm64/boot/dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts
-index 7314e0ab81da3..99d5df71b9cd4 100644
---- a/arch/arm64/boot/dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts
-+++ b/arch/arm64/boot/dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts
-@@ -242,6 +242,7 @@ &ir {
- 	status = "okay";
- 	pinctrl-0 = <&remote_pins>;
- 	pinctrl-names = "default";
-+	linux,rc-map-name = "rc-khadas";
- };
- 
- &pwm_ef {
--- 
-2.34.1
+On 3/26/2026 9:49 PM, Bjorn Helgaas wrote:
+> [cc->to: Richard, Lucas for pci-imx6.c question]
+> 
+> On Wed, Mar 25, 2026 at 04:38:23PM +0530, Vijayanand Jitta wrote:
+>> From: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
+>>
+>> Change of_map_id() to take a pointer to struct of_phandle_args
+>> instead of passing target device node and translated IDs separately.
+>> Update all callers accordingly.
+>>
+>> Add an explicit filter_np parameter to of_map_id() and of_map_msi_id()
+>> to separate the filter input from the output. Previously, the target
+>> parameter served dual purpose: as an input filter (if non-NULL, only
+>> match entries targeting that node) and as an output (receiving the
+>> matched node with a reference held). Now filter_np is the explicit
+>> input filter and arg->np is the pure output.
+>>
+>> Previously, of_map_id() would call of_node_put() on the matched node
+>> when a filter was provided, making reference ownership inconsistent.
+>> Remove this internal of_node_put() call so that of_map_id() now always
+>> transfers ownership of the matched node reference to the caller via
+>> arg->np. Callers are now consistently responsible for releasing this
+>> reference with of_node_put(arg->np) when done.
+>> ...
+> 
+> Not actually part of *this* patch, and AFAICS this patch is correct
+> as-is, but is it necessary to have different logic around
+> of_node_put() for imx_pcie_add_lut_by_rid() and
+> apple_pcie_enable_device()?
+> 
+
+Thanks for the review comments. Right, there is no need to have different
+logic, I will update imx_pcie_add_lut_by_rid() in v12 so that of_node_put()
+would be called unconditionally.
+
+>> +++ b/drivers/pci/controller/dwc/pci-imx6.c
+>> @@ -1137,6 +1137,8 @@ static void imx_pcie_remove_lut(struct imx_pcie *imx_pcie, u16 rid)
+>>  
+>>  static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
+>>  {
+>> +	struct of_phandle_args iommu_spec = {};
+>> +	struct of_phandle_args msi_spec = {};
+>>  	struct device *dev = imx_pcie->pci->dev;
+>>  	struct device_node *target;
+>>  	u32 sid_i, sid_m;
+>> @@ -1144,7 +1146,12 @@ static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
+>>  	u32 sid = 0;
+>>  
+>>  	target = NULL;
+>> -	err_i = of_map_iommu_id(dev->of_node, rid, &target, &sid_i);
+>> +	err_i = of_map_iommu_id(dev->of_node, rid, &iommu_spec);
+>> +	if (!err_i) {
+>> +		target = iommu_spec.np;
+>> +		sid_i = iommu_spec.args[0];
+>> +	}
+>> +
+>>  	if (target) {
+>>  		of_node_put(target);
+> 
+> Here it's conditional on "target" even though of_node_put() checks
+> internally for non-NULL, so it would be safe without the conditional
+> here.
+> 
+
+Agreed, here of_node_put can be called unconditionally , will fix it in v12. 
+
+>>  	} else {
+>> @@ -1156,8 +1163,11 @@ static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
+>>  		err_i = -EINVAL;
+>>  	}
+>>  
+>> -	target = NULL;
+>> -	err_m = of_map_msi_id(dev->of_node, rid, &target, &sid_m);
+>> +	err_m = of_map_msi_id(dev->of_node, rid, NULL, &msi_spec);
+>> +	if (!err_m) {
+>> +		target = msi_spec.np;
+>> +		sid_m = msi_spec.args[0];
+>> +	}
+>>  
+>>  	/*
+>>  	 *   err_m      target
+> 
+> And here (outside the diff context) we also call of_node_put()
+> conditionally:
+> 
+>   ...
+>   else if (target)
+>     of_node_put(target);
+> 
+
+Agreed, same as above.
+
+>> diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
+>> index a0937b7b3c4d..c2cffc0659f4 100644
+>> --- a/drivers/pci/controller/pcie-apple.c
+>> +++ b/drivers/pci/controller/pcie-apple.c
+>> @@ -755,6 +755,7 @@ static int apple_pcie_enable_device(struct pci_host_bridge *bridge, struct pci_d
+>>  {
+>>  	u32 sid, rid = pci_dev_id(pdev);
+>>  	struct apple_pcie_port *port;
+>> +	struct of_phandle_args iommu_spec = {};
+>>  	int idx, err;
+>>  
+>>  	port = apple_pcie_get_port(pdev);
+>> @@ -764,10 +765,12 @@ static int apple_pcie_enable_device(struct pci_host_bridge *bridge, struct pci_d
+>>  	dev_dbg(&pdev->dev, "added to bus %s, index %d\n",
+>>  		pci_name(pdev->bus->self), port->idx);
+>>  
+>> -	err = of_map_iommu_id(port->pcie->dev->of_node, rid, NULL, &sid);
+>> +	err = of_map_iommu_id(port->pcie->dev->of_node, rid, &iommu_spec);
+>>  	if (err)
+>>  		return err;
+>>  
+>> +	of_node_put(iommu_spec.np);
+> 
+> Here we call of_node_put() unconditionally.
+> 
+> I think it would be much nicer if imx_pcie_add_lut_by_rid() used the
+> same style as apple_pcie_enable_device() and did the of_node_put()
+> unconditionally.  That would untangle the function a bit and make it
+> easier to analyze.
+> 
+
+Sure, as mentioned above will align imx_pcie_add_lut_by_rid() and
+apple_pcie_enable_device().
+
+Thanks,
+Vijay
+>> +	sid = iommu_spec.args[0];
+>>  	mutex_lock(&port->pcie->lock);
+>>  
+>>  	idx = bitmap_find_free_region(port->sid_map, port->sid_map_sz, 0);
 
