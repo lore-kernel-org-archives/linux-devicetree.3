@@ -1,81 +1,93 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F504273803;
-	Fri, 27 Mar 2026 20:38:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF7332F742;
+	Fri, 27 Mar 2026 20:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774643915; cv=none; b=RaW6En1Na+B3t4VPXYhxx3kjMfNAGONQwaE2OUya+Z2aQbMk3NlWIWggys7rBdYg4nnMtMtZvJKwDxtxgsFiFf9HIQfBDsfI9rXqdWRWcjjAERUcjvGar1OgjWgCiwd4DWQ7e06E0xc03EII/bHhRUY9OK/dUT3mROC+GH0YDNA=
+	t=1774644054; cv=none; b=iq4ctCx38USpxOc6HCaGcQGtqowncfmJFExWTbWOuKftxtBIQHbMFs3Qb15+Jp8MDLpYGVasnTPZN7UTL8BuztD3vVrYQVlfciFOZmKZriNZM0BCLMYE2wpprnejktzkvZczJcoRs654MAqiwunZMnrp4O/C/CH1HWUaRe+XT7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774643915; c=relaxed/simple;
-	bh=velu1am4+VNpqkfzGyKXqWSHvGvMVzzmAvWH2+YtEts=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=u4AvnJnxJwabg2yuZ+WSFteUhrzvIcx78F7yD2qYEtY5BkjRvb1AxGTyYbF8O7Xg0za3CsZV2Oa56Y9bI/JqfSquDT+JiTNhTEkYo7BRkoxZmicz4xPtSSrjN5+LxFvzO8eB0kMqqUrI3Mjfx6TzggVqpk3uM57QSHb/exlPGq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=KAp/Dnec; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=YZPJBYH4; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1774644054; c=relaxed/simple;
+	bh=/ezLVy3GZhWlSKa9nvaADKtZcRVrgEC0HxqJGqIEYPI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=jBhuo2FYfqkKm/vsuvZT7547noLbkdmIJX4Y5O3aQGPOJzwyKlO2GRluT6vAaIaWUWInaznX/oOZuI6U77k77U7RXbDDqFYrf4qf+5XjN57oYxq/3zWiYeKXudpYUeRc/BcNECY0MjqqP/VFLF9BGxLkkDJdXTr5n3Tu9Xy2ltY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AH/aPUBo; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="KAp/Dnec";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="YZPJBYH4"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1774643900; bh=JrpWE3E6WVfMaCdcXTL+7Ee
-	X9ScqCGdL5vmEJuenNCg=; b=KAp/Dneca9rUA1QoJ5vbE9VM52xETH0OIMpB16RMHQS1rwWXXN
-	9S5tndzLZy9mTXJ4t0PMwUBBEfAugylgXpcXgdipWpMzXFUvZuNNHFLtF/Bufdk83JaBs81WcLP
-	AZ0N+hT/6e6wX8GfjZBA5RXv7rZsnemKtsOfRgsXq/gCU2/3EOPkRMO5LEZzU1cwCrblEsLgJ2J
-	61QG4OtBPeofGCi6nea48gHRwYM/hxIbkrEAMHJd1qbRu+u8kzMSBV6rDIU2KweMEodq8/Sx6k4
-	wHCuQEA8ct4X4v5jdM0TG+SaXpG2LoB/A7e5B7Lhja2HsRWvIHZcmSMOZtWbGEqNnzQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1774643900; bh=JrpWE3E6WVfMaCdcXTL+7Ee
-	X9ScqCGdL5vmEJuenNCg=; b=YZPJBYH4+g3k/3zsJvUayccpePSEyWtbOMbP3Mtv+R7I3vXf9N
-	zC1P5dnV0mg48ab5vcnhf75ZznEeNCgzZPBA==;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AH/aPUBo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D77BC19423;
+	Fri, 27 Mar 2026 20:40:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774644054;
+	bh=/ezLVy3GZhWlSKa9nvaADKtZcRVrgEC0HxqJGqIEYPI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=AH/aPUBoSJkiBjQqZR1M6QyALe0uK7mtVJbkfe5WbAc8tLRZeZszZGkw5GyORtBu/
+	 aCp3LTusO3OWa6o+DuMd0x8Ho/5QEP8HtcytdEyXWAHIdkcQcZb8W0o6AHkBHA8z/l
+	 8QhNFi+2AXcsL+Qy+HRXq/aWh8+OgG1vCaDSE6cXFDpSC2mDKKJv2l4QVg9Nr1jgtM
+	 NELrstPWDB+mNeAW3d0ors/S1PVCF2d6P/XkUTs2Z9uIZyrTjWgI47GQ+fQpz/U84O
+	 1TyUWOafJ1jj4ZSURVgQJsaZwa7o3pTAkAdY0+uW6KFzjMr/442jGvewl0mp5qwjx8
+	 OJG/yIwqS8CNQ==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, Khushal Chitturi <khushalchitturi@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, 
+ koro.chen@mediatek.com, linux-sound@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+In-Reply-To: <20260327134649.31376-1-khushalchitturi@gmail.com>
+References: <20260327134649.31376-1-khushalchitturi@gmail.com>
+Subject: Re: [PATCH v2] ASoC: dt-bindings: mediatek,mt8173-rt5650-rt5514:
+ convert to DT schema
+Message-Id: <177463208948.777262.1614314585663974285.b4-ty@b4>
+Date: Fri, 27 Mar 2026 17:21:29 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 27 Mar 2026 21:38:20 +0100
-From: =?UTF-8?Q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?=
- <barnabas.czeman@mainlining.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Ulf Hansson <ulf.hansson@linaro.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH 0/7] MSM8953/SDM632 rpmpd/mss fixes
-In-Reply-To: <lv2ali4zgsfdh54yd74cx5mvec2z5kg7v4rkayyukpjt6juyft@vzprb3rvewkm>
-References: <20260327-sdm632-rpmpd-v1-0-6098dc997d66@mainlining.org>
- <lv2ali4zgsfdh54yd74cx5mvec2z5kg7v4rkayyukpjt6juyft@vzprb3rvewkm>
-Message-ID: <083d2560294855857663df23e8900f9b@mainlining.org>
-X-Sender: barnabas.czeman@mainlining.org
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev-ad80c
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1162; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=/ezLVy3GZhWlSKa9nvaADKtZcRVrgEC0HxqJGqIEYPI=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBpxutS/ovJb6SR3kEuiSgzP/pmOBz6pkYdq+zg9
+ iprs81yeHyJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCacbrUgAKCRAk1otyXVSH
+ 0GfPB/4noaJ7sEbVurq/yn/pmLXMIIFv71dC4eCXNY0lKVQ4/RrySFl9c5SlyzNWkXnFhwJS78n
+ 9YSaNciI+oAulSjz3X4l+xphTRs5Z8C3KZX4YYVtuAKF3Y5zz3VaD0iFLRQ6PuLG/CH2HFU37EE
+ keIL+HHQhapJQiPZbP+5DRLuMgSFc6nrUvf8HXPFteCG12wGQX4Az9e1OWj1wS7JeK0wrrrVIp5
+ FQ+e5TsNXP5ZMR2qe7SviG2gyy7OTH7YYI5khdn2qk9X2ZkojV8I1LTVqB9TWG7FPsrgy/wJ1a1
+ zxS/56xv3po9EB4VD4PASwcqiNypZIdjrEyEpR8CC+wsVumr
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On 2026-03-27 21:33, Dmitry Baryshkov wrote:
-> On Fri, Mar 27, 2026 at 09:11:42PM +0100, Barnabás Czémán wrote:
->> SDM632 pm domains are different from MSM8953 because MSM8953
->> is defining pm8953_s1 as regulator but SDM632 is defining it
->> as pm domain.
->> 
->> This patch series correcting the pm domains defined in rpmpd
->> driver and splitting the MSS resources for the both SoC to match
->> the reality.
->> 
->> These changes was discussed in a previous threads:
->> https://lore.kernel.org/all/2b057aa5-4416-4fd4-aeab-6bc23acbb53d@oss.qualcomm.com/
-> 
-> Was 4.9 never expected to work on MSM8953? Or did it require firmware
-> changes?
-There is no official 4.9 kernel for MSM8953 devices, all of them are 
-using 3.18.
-There are unofficial 4.9 ports for those devices but all of them 
-defining s1 as
-a regulator so the regulators were changed back like it was on 3.18.
-> 
->> 
->> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
->> ---
+On Fri, 27 Mar 2026 19:16:49 +0530, Khushal Chitturi wrote:
+> ASoC: dt-bindings: mediatek,mt8173-rt5650-rt5514: convert to DT schema
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.1
+
+Thanks!
+
+[1/1] ASoC: dt-bindings: mediatek,mt8173-rt5650-rt5514: convert to DT schema
+      https://git.kernel.org/broonie/sound/c/472d77bdc511
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
