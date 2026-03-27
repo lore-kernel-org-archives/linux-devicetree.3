@@ -1,185 +1,128 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013067.outbound.protection.outlook.com [40.93.201.67])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDB693290D0;
-	Fri, 27 Mar 2026 17:46:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774633621; cv=fail; b=q9zddEy++n0Sr3PeyqE+AT0+moGijxiBEOZvix4eC40uuwu5aRQG7371h1NmbhJniLTKeCXpMyjJc8JwFoj98VNJSvE5EEHa2Y1bBjija8K9qaHd8NxZhq8DqjskaPRVdmkVeypdrefw7W/GEqwjuBo+/Da5MXTQGwvTGyqR1aQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774633621; c=relaxed/simple;
-	bh=KNjtfC5l9leeOno7vm3j8PyPC7K19/Gk/sDbFRyhDgQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=VWOT9joFb+tjty06Ay9Ch15agBJ2tuqIXTTcAY7bXOkzhxn8ARljFpkGPU0HESmIfjA54X6sO2sF+GNugK5VqVO/IfI+5xE7k3XD1CApHpWcD3FzE+E4BweIrD8UBHvWpuHLcV8JJoD8KctV9zMPxCTJhYqNwfWf3kWuwibdWt8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YQHnIS0p; arc=fail smtp.client-ip=40.93.201.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF236371CFE;
+	Fri, 27 Mar 2026 17:52:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774633920; cv=none; b=uBCJSqcthDFLmjIaRmPsznOjtkg5scuoX9N8op05nTbw6HpTq44t5bo/ykgzlfe1LXW4Pqeqpk0WHYPvBGYIw2RujNmpNKeTDydK4I+Dl9Rgb8FxrjAyDp6ntbYitJ8cxDHvifCGuSGaQ0ttaHUapfxMj1qO5cvCN+WuHInh96Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774633920; c=relaxed/simple;
+	bh=zRvA02n55H6F0ORN5r8qynowYTw/58ttft03ZFRvRRY=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=j+1PltPrmk+R3u9fMLQB1Wwr5eLkmXI9lmuCe6NMY5CgqRT2FZxxI97YPwdmp4gGQ6tToLDC0RwB/pNB6U1JNI1+5CU8uDer4t93vzmtNoLrutyhIXpvkmJGbmnw+5nqXvbDKMucxjyk6bLvHV3lfBnck/I3DSUcMULyvaz5lgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EcByUmB/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YQHnIS0p"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Utae8hEvp2Hh8fzuQU3GO4oewebUnJE9zstU0r0wy75Tf6tWkxZdnHjnQpUCa1Tna5nxb88/4JpiVS/GvMSqK2atS9EAB1ZNGLHZwLkjDyOdgkDDR29Mg/veXIDmCmz0ieuKcJvr0r5zxH4YS4/hAYxUCTkWww8OrmM/l6kyuk9+smHsTuiE3QWUpzhb0Bu+Yi1s8DrwElcr09/MTm2acThBdR9NYVcMohoiCFIPDhGe2ZKbtl6bQDZ+irG4l6LJ3z81m6PtYAzUAczyKvt/AdyG1FpULr1fjO/Ol60l0/e8TMy5BKt9NyKQM52uVjIno80QE/UhyCOMK7dRE1JTLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RGDPv+l1rHcXMwRWs5JzBa6A/qEWV051GBVi5x7SbZc=;
- b=J1xIkbkYRH+Fob1/OH712hRV40ZEHs+p4IQwYBSdWbMgWVuglD7APQvjtZx8W+oz2oSX90qEvP2JujGINydOen/tMSh/8g0IbnPfRTMg3OreAJ+tIOLZe6arxfeH6dDYUl+9JxJqmvMRmUiyUEK3LZ8/uccRAjV54x+rjoaPL5AxAbsw8IvoJ8t74Z2j5avg84diYd+loRTxwAdXrPUiBkgUDzfQx2nApeMv0KAaPLgcmyLzVIQmYzS7ZIU4xc9L6SDS4OS35cfkh3UZyWU+ZGmwHENYmTFP2uvY6aUv/4Zsr6JpFmQTyCK+Yo4ch5KeMy06xmL4LkyvTAqZ2szalw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RGDPv+l1rHcXMwRWs5JzBa6A/qEWV051GBVi5x7SbZc=;
- b=YQHnIS0pIDBvhPdu9De+8+WCVixqt4AFpjEy9lr+JXmDSc5OI4+WBGLzqvbXr0/tEpRdoEx84pUVFgoGNmr7k0Rq5BxdCiecTahG/TQIBnVAwvBbYerCntw+3ibk64qnkBqMMptrJ1ITDbVVb56PgS7DtoA5BajdANEu3BAW+De3RgmNTRNx+ZuIejG/kLU/PI3OaVjUvhtjcUiaxlybwMlJm03dx/YNhxTxS/Pg6IsviD77LJUkzTl0Xoovqi+lFEMY7X1hl/60ObrJdrrUaBJVitgfoepE6a12Ltal/En0zLXoYbGCS5FK6OAytJXO1ce6IODj3oStbXUittDUxQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS2PR12MB9750.namprd12.prod.outlook.com (2603:10b6:8:2b0::12)
- by MN2PR12MB4191.namprd12.prod.outlook.com (2603:10b6:208:1d3::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.10; Fri, 27 Mar
- 2026 17:46:55 +0000
-Received: from DS2PR12MB9750.namprd12.prod.outlook.com
- ([fe80::56a8:d6bf:e24c:b391]) by DS2PR12MB9750.namprd12.prod.outlook.com
- ([fe80::56a8:d6bf:e24c:b391%6]) with mapi id 15.20.9769.009; Fri, 27 Mar 2026
- 17:46:55 +0000
-Message-ID: <708f6104-f907-43e3-ad0a-0d124338362b@nvidia.com>
-Date: Fri, 27 Mar 2026 17:46:49 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/6] phy: tegra: xusb: Move T186 .set_mode() to common
- implementation
-To: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Thierry Reding <thierry.reding@gmail.com>, JC Kuo <jckuo@nvidia.com>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-usb@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org
-References: <20260127-diogo-tegra_phy-v2-0-787b9eed3ed5@tecnico.ulisboa.pt>
- <20260127-diogo-tegra_phy-v2-6-787b9eed3ed5@tecnico.ulisboa.pt>
- <af04fc85-1ed4-4046-86ee-1ffcec8c44cd@nvidia.com>
- <5a5397c8-cc32-4d6b-86a4-76f924ae6d75@tecnico.ulisboa.pt>
- <7a6f8967-c635-4d84-bbab-9e019ff79134@nvidia.com>
- <2c7fa782-f7f1-43c6-bda4-296fa7ab88c2@tecnico.ulisboa.pt>
-From: Jon Hunter <jonathanh@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <2c7fa782-f7f1-43c6-bda4-296fa7ab88c2@tecnico.ulisboa.pt>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0241.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a7::12) To DS2PR12MB9750.namprd12.prod.outlook.com
- (2603:10b6:8:2b0::12)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EcByUmB/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7103C19423;
+	Fri, 27 Mar 2026 17:51:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774633920;
+	bh=zRvA02n55H6F0ORN5r8qynowYTw/58ttft03ZFRvRRY=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=EcByUmB/fhOaTUDVp1b/zq+k+LRyAaNVR6S4h9vSV8N/eofFsVaZC/p4h1A+jJNP3
+	 9rEIsTsYK+kG24THax9IbEikcfE3m5NRFmdwk6T8NP03bthRsa4BivZIuRjA2w8HGC
+	 cpBkb9abwr1Gxl6Wq0l2GFOxGRV39Z38P8Kew4q4FfPiuIvQK4eix5y07qCdOTZwTi
+	 lV4jmMWLqLErykoYKx78LUDOR7m3IxaBklGXU4Ej6Oeqwky7u2vdxYuTSqraAwgtpu
+	 6bXPg7JymaoTujsQjn2Zlg9PlLyOKbXSMSYxnxxsJvbNCL9LwQ5qIXzLPNBDR2RSQP
+	 Ov6vM4Kz7prBQ==
+Date: Fri, 27 Mar 2026 12:51:57 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PR12MB9750:EE_|MN2PR12MB4191:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff12ed98-c56d-4f4f-526c-08de8c28d5fd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|10070799003|921020|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	koA0ctnZi53cw4oVPcYyqowBj2c5cVb4/UjYzysOD7Z0co/oVQ/PvwY9B8CZfUknnDgLuDW2mX8PJiI84rF9bHIu1O6wkzDDyqD9bjo2hOY+ke4mayIIMYvtuD37vSNeztoVg2rjL7UjF/XMweo+PWpK54lGXsZnMmMCtk6mcK676RA9RPOPQR1aFzsVcGPx2iSKjgsUvkTkjffKn2FaRZEsWLSbtBsBlTnDefV4Lph8ogMtJ8vHxyjqHNmEeb7hHBzdjw6GjxXt/pj8bMZb3pAfx+QQhaZ2sjUORgsjaBRC51RaUEHDFJoHT88dDxm01wfHmiSYj8NNdzUgFpFBHOAMj6ho4+dLOhrLc07fv57FmF2RqrS9br132dViQtISlPaNXbH4IcwuHiTi0u1Rp07Pq3KUeQ3edkf91qhhseuraYn8I4+jTdi08QY0a1+SrMcjE36ANEeLul/3Ad8m8edfEDoKTKHurG7x4YigVFGo8LRbR8H/2uAizoPL10lsGGkVPMDuY8iLIEboTBxi1l7VRKZ7d/b7CzqHvd6EidXaSQ+cbNRsSypeTCUvJP6KLLX3YPlD6F6PhX9ZMsCwhfqm7p5qn2SyqDeeEc95duD4bV582WKWJLuplu2ksbh55CITPCJHK9lNarry9Ulct20e+VfBt3z3d7tB4g/hB5Z6X28ccpvXBcCQm/5d/WPLuLT2yhlUQy/7cHA2JpdCkmQLfSzTO8mcWqhX62hKspGCE4SCh9jkngLL8SC2iR/2z5B7/9JEmFNEQ9zbpZAEyA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9750.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(10070799003)(921020)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MnRTajJKTnEwbno0TElGYi9WUENSamRHRm1IQ1Rrc3BhclhRS2NjUm0zYS9D?=
- =?utf-8?B?NTVBcEFIUWtqeFlVUTF5VXpSVGk1d2Vic0xKZkZGdXNVbXRTVE1hOEtxMFdP?=
- =?utf-8?B?UlNjU28weWVjaitqUjdnSzhMd2FSUFl5MVgwOUJ1VDZ6aXBuelZTUFkzQ1B4?=
- =?utf-8?B?UU4xakRuWTcreks4dU1qRDJBeEJTcUFPRUNWWlRkOTQyNnU4dTR0OXFwTFVi?=
- =?utf-8?B?WDkzV0tFNkxwTElVYkdXcWM3NFJId21qSHZCd3h0NjFQT2psTGNPbDRNR2o5?=
- =?utf-8?B?QnVzMWlMdVl0bVVZcStQU1IvR013QXlKL2ZoT0FtRm9vRkszUFVsUG1jRFZM?=
- =?utf-8?B?M2FoU1ZzTWI0dDljVVVmQ1lDVzFDK3F2R0Y0YlduVGptZFVIbysrTHZHNGpB?=
- =?utf-8?B?ZzBwalFMWXQ3dG5EVFRpQzJCNkN0d0JIUVhtNUJpeDBBM1NpaVNFcFNMcVhj?=
- =?utf-8?B?LzZXUDJKc1R4YlcyZEo1UEZXekUwL0dXeVRqV2VRa3hNVlh2dXJPeERBdkVn?=
- =?utf-8?B?LzNEd0h5SlA1MmRaK3VLa3ZHWjdNU21mREs0bm5kenNTSEx1MnczS3pYUVd3?=
- =?utf-8?B?MklaeFJmNW9vOGFrdENHZkdBbXQyZlFOOUl1RVZ1MmdaT0gxdVBqVy9pT0Fq?=
- =?utf-8?B?UVlPWUFsUmMxVmo2WEtkSytCbEZBN2puUUovUTN0em5XSGozaDRaOWYvOE9C?=
- =?utf-8?B?aEJJSlNTUldTMTl5N01RNFZmMkNLNlg4bXJwdm5WcTBKUHJ0SmhrYXlNTTMy?=
- =?utf-8?B?OG9QK1ZKaEVJZzdDTVAvV2tVT3ZSR3pWMWpva1laYzJZajIrbjJkam8zWkc4?=
- =?utf-8?B?ZWdKZnZoc2R4eitYc0lySnhVUUlVWnczd2w0SXU2NjJ4aFM1dWZFVTEwcTIv?=
- =?utf-8?B?UzZZbjZJVWx1aDA3M2lLbjVIVVZOcE0xdkhHRTkyWjZ0VWVLbWp5SmpFWEFn?=
- =?utf-8?B?ZVV1aU1DdnljQjI1QTdaSnM5ZHEzdU44ODVCRnNTM3laeDlWNXQ5Um1XMU92?=
- =?utf-8?B?bmhoaHZTdWx3a0pPWk8zTi96MDRNRWcxc2xhWnFMczhpQkRZZWZ5NUs1eExx?=
- =?utf-8?B?L1BvQ1RhWmp5b0tHK2ZHaHgxMzhROS9jMGRDQ25JemFkU1NYRjlrZXZlYk9r?=
- =?utf-8?B?Yjc0czJpY2hyQW5LQnQ1V3B2Rk9ZUm5IRFdrdDY4b2loM0RRbUp0Vi8vMEIz?=
- =?utf-8?B?QkFPek1xRWMwN0JKQ012TVdYYnFvUXNIc1hKU2ZVazE1RFYxL0w3YjlaaTZJ?=
- =?utf-8?B?OCtHSFk1TnhVZmxRVldSRXJyWDRHNXp4YUhtTmFZellncFgxTitmalc5NXYr?=
- =?utf-8?B?RjJSR2MrbklZcmd6UW9uRjdvU1dCSUFBQndFOC9BaE5FcVpxVHNsSk5nR1M3?=
- =?utf-8?B?VDZhL2N5d3UxKzlSU0pReHRHL2NzazBnWllGZGNjM0g1SlF4UWNlTWxHM1FO?=
- =?utf-8?B?Z0hFRjEzdVE3NU9YbFRGYW5LQlo2eHIyZnRmMkRETHlkdWs2eWZzSE9lUE5q?=
- =?utf-8?B?VzZla2NBWmx4NW5HVVVhWUJVaHh4RTJVUkQ3cXRQOW4rY0owRUZhNzhuSGdR?=
- =?utf-8?B?NERXSVpob0F3em1xRmt4eGtaSmxMSGpsTHdEUnJ0dnZHR0JlZllsTmRLOUdV?=
- =?utf-8?B?ZnZ6SlhwR2ZXcGp4ekNwZVpFdWp1MkI4QUpJcTJBVTBiTXRsVHVpbnVnWDZs?=
- =?utf-8?B?TzdnbHY1QnlpNXRGYzlLbCs2aG5wS3ViZnd6aWJ1TUFScjF6Z3hVK1FtTWdy?=
- =?utf-8?B?UTEvUjdnMDIvNmJ0c0RPVld6d1RaSmYrMWZ0UFJPQnpTdHVJQmFIQXMvTjdj?=
- =?utf-8?B?SExEdE1BbC90V2ExNEsvQ3dTV2JCbGRrWmVpdFdqN05Mc1p4eUtJRzVnOGoz?=
- =?utf-8?B?T0t4Q0lGT3RKeEdyWmRvaXlCSlRJYjNIbmlYdUxKUEwyanhtOUthbDRUNnQ1?=
- =?utf-8?B?SVZuUVJnTlZKdjlpOFRuYUpPZ2R5dTcyZEJ5MzdsRTJmcmJyT29uelVGR2Ny?=
- =?utf-8?B?dDUwMzh6d1RLU2c0eUZIL1NYczZjYjkvUWpMcXNxSzVhOUM4UEYwTHZhaXdT?=
- =?utf-8?B?SXVIMmFvYzJpK2xwR1FTZTVTR24vNHFsZDJjQzhHL1RYREdwbUVYYXJPYWNH?=
- =?utf-8?B?azVZS040eHp3d21xUHhrOHl3bEthWU92dTRheVV1amhwZ3BmLyt0N1VyMlFa?=
- =?utf-8?B?SE9qb3F6aERKQmNIOEdOZXpPZ2N4MTdrQysxUlJEczMxQXJBVzdkTTJSUUow?=
- =?utf-8?B?NFgvbWgzbVcvYVExRzQyZ3VqaTl1OFpDL1EyL2pacjhjZUlIcmpqcXA5TVdh?=
- =?utf-8?B?d0JIakxTVnVJYmMvdmsxRGNqNjFlNUZOQ3FWZ2E3QVRPL3p1ajk0ZXZsSWtG?=
- =?utf-8?Q?DTXoGpkpsX+SDnT54Vr2JjwiLN2KdFdZ0n2c/Uek8puY/?=
-X-MS-Exchange-AntiSpam-MessageData-1: XDBpYit62In3nQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff12ed98-c56d-4f4f-526c-08de8c28d5fd
-X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9750.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 17:46:55.1584
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: n5IMVxxAJguBopM+vBmag2QaTG07fQh8bxGXtjq1L7nLmRYpXv/ERB+do94Xv9KM3VsoTGwpjAy5d74Ojrp0MQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4191
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Simona Vetter <simona@ffwll.ch>, phone-devel@vger.kernel.org, 
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Jonathan Marek <jonathan@marek.ca>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Dmitry Baryshkov <lumag@kernel.org>, devicetree@vger.kernel.org, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Conor Dooley <conor+dt@kernel.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ Alexander Koskovich <akoskovich@pm.me>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Luca Weiss <luca.weiss@fairphone.com>
+In-Reply-To: <20260327-milos-mdss-v2-4-bc586683f5ca@fairphone.com>
+References: <20260327-milos-mdss-v2-0-bc586683f5ca@fairphone.com>
+ <20260327-milos-mdss-v2-4-bc586683f5ca@fairphone.com>
+Message-Id: <177463391769.3232558.4643402365403400713.robh@kernel.org>
+Subject: Re: [PATCH v2 4/9] dt-bindings: display: msm: document the Milos
+ Mobile Display Subsystem
 
 
-On 24/03/2026 14:36, Diogo Ivo wrote:
+On Fri, 27 Mar 2026 17:12:23 +0100, Luca Weiss wrote:
+> Document the Mobile Display Subsystem (MDSS) on the Milos SoC.
+> 
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+> ---
+>  .../bindings/display/msm/qcom,milos-mdss.yaml      | 283 +++++++++++++++++++++
+>  1 file changed, 283 insertions(+)
+> 
 
-...
+My bot found errors running 'make dt_binding_check' on your patch:
 
-> Ok, I can make it common there as well. However I still feel like
-> reverting cefc1caee9dd leads to cleaner code since vbus_override() and
-> id_override() will look similar and only do exactly what they state in
-> their names and the overall logic looks cleaner.
+yamllint warnings/errors:
 
-Just so you know that while commit cefc1caee9dd was being prepared for
-upstream submission, the following had been proposed for this ...
+dtschema/dtc warnings/errors:
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:36.31-51 Unexpected 'DISP_CC_MDSS_AHB_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:37.28-47 Unexpected 'GCC_DISP_HF_AXI_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:38.31-51 Unexpected 'DISP_CC_MDSS_MDP_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:40.31-52 Unexpected 'DISP_CC_MDSS_CORE_BCR'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:42.42-61 Unexpected 'QCOM_ICC_TAG_ALWAYS'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:43.41-60 Unexpected 'QCOM_ICC_TAG_ALWAYS'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:44.41-65 Unexpected 'QCOM_ICC_TAG_ACTIVE_ONLY'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:45.43-67 Unexpected 'QCOM_ICC_TAG_ACTIVE_ONLY'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:49.38-60 Unexpected 'DISP_CC_MDSS_CORE_GDSC'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:69.32-51 Unexpected 'GCC_DISP_HF_AXI_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:70.35-55 Unexpected 'DISP_CC_MDSS_AHB_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:71.35-59 Unexpected 'DISP_CC_MDSS_MDP_LUT_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:72.35-55 Unexpected 'DISP_CC_MDSS_MDP_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:73.35-57 Unexpected 'DISP_CC_MDSS_VSYNC_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:80.44-66 Unexpected 'DISP_CC_MDSS_VSYNC_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:142.35-57 Unexpected 'DISP_CC_MDSS_BYTE0_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:143.35-62 Unexpected 'DISP_CC_MDSS_BYTE0_INTF_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:144.35-57 Unexpected 'DISP_CC_MDSS_PCLK0_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:145.35-56 Unexpected 'DISP_CC_MDSS_ESC0_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:146.35-55 Unexpected 'DISP_CC_MDSS_AHB_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:147.32-51 Unexpected 'GCC_DISP_HF_AXI_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:155.44-70 Unexpected 'DISP_CC_MDSS_BYTE0_CLK_SRC'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:156.44-70 Unexpected 'DISP_CC_MDSS_PCLK0_CLK_SRC'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:157.58-74 Unexpected 'DSI_BYTE_PLL_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:158.58-75 Unexpected 'DSI_PIXEL_PLL_CLK'
+Lexical error: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dts:219.35-55 Unexpected 'DISP_CC_MDSS_AHB_CLK'
+FATAL ERROR: Syntax error parsing input tree
+make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.example.dtb] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1614: dt_binding_check] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
 
-@@ -825,11 +826,11 @@ static int tegra186_utmi_phy_set_mode(struct phy *phy, enum phy_mode mode,
-  			tegra186_xusb_padctl_vbus_override(padctl, true);
-  		} else if (submode == USB_ROLE_NONE) {
-  			/*
--			 * When port is peripheral only or role transitions to
--			 * USB_ROLE_NONE from USB_ROLE_DEVICE, regulator is not
--			 * enabled.
-+			 * The regulator is disabled only when the role transitions
-+			 * from USB_ROLE_HOST to USB_ROLE_NONE.
-  			 */
--			if (regulator_is_enabled(port->supply))
-+			value = padctl_readl(padctl, USB2_VBUS_ID);
-+			if (!(value & ID_OVERRIDE_FLOATING))
-  				regulator_disable(port->supply);
+doc reference errors (make refcheckdocs):
 
-This shows the relationship between ID override and the regulator and
-hence it was moved into id_override(). This is different to your fix
-in patch 5/6. So given that we have been using cefc1caee9dd now for
-sometime, I don't wish to change the implementation unless there is a
-valid reason.
+See https://patchwork.kernel.org/project/devicetree/patch/20260327-milos-mdss-v2-4-bc586683f5ca@fairphone.com
 
-Jon
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
--- 
-nvpublic
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
