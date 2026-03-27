@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B9DE3BED38;
-	Fri, 27 Mar 2026 06:39:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC023B95F6;
+	Fri, 27 Mar 2026 06:45:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774593587; cv=none; b=t5SvWW2p1zfrKkUrsZ4TwjE0yH5aEymfgGUJB4wcErkknV7GhdsEPTnCDGOMrcS5asEOOLO+RtnyrE9iCoSwkDCUpJ1pNhJZxIByclJNjcBPDxo1QDWtRP3QN0XPZ5DsftvFHHaKfu1yeLuUVSanqFDTlUjG2B7rnw2jXtqXYZU=
+	t=1774593939; cv=none; b=gPAGO5f8PvO/wgmCYrJdJH1beWj5dT2yyW45A7m2GefeoAsTWo1Nd9pUiy/ZEqtUX4a8qbSgjesibwZ+xhUIaG/tByZGheVS++D0nvMSlVI//KlmYUaSFMlIQpxQwV8EHw8DHtlBlDPNbKUgdDkAuxZQxydQkTtEEXYdqsuWZ18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774593587; c=relaxed/simple;
-	bh=ZOqSVTIQjJtcfajjYbmrJZ49mYdmqgT8uiFEYSRzAvY=;
+	s=arc-20240116; t=1774593939; c=relaxed/simple;
+	bh=ywqbckHwg0bLyDy8/2SCSMd4Dc0rW0ln43HoEgviss0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jX3f1jSCSB7FFx+Qr9g921il3KYxQuAnhFVYp9h4/zbSuYIHVc6vmC7glW9y4h0sPZnvGdR5BRVswhQhA8WuEp3noRuhfpHRfWf+6vP+bTnkwLHDf6L9LcuSAOqubRL/rM+j2+A+gvgLENf5n/VgpqmV9UPiiiSDOhFFwByDH7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qenuIHWa; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=Bm3Oy4oxY41hV0d1KXDWvTczYUuMu+yjU4xhrZDqEl+KWbN2QRV9pyHqlcrotL43x9qgqHjEyYFk5e6luitn3NOQcoPe9+5U36lFFkw5HkkT/M8zsXGEwIyMZYHu0rwaV33vuUIG8IRmTZG0QlMCFIoBsGgUgHyfP6FVXV6ryMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5cJCGqI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qenuIHWa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A64BEC19423;
-	Fri, 27 Mar 2026 06:39:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5cJCGqI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46408C2BC9E;
+	Fri, 27 Mar 2026 06:45:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774593586;
-	bh=ZOqSVTIQjJtcfajjYbmrJZ49mYdmqgT8uiFEYSRzAvY=;
+	s=k20201202; t=1774593938;
+	bh=ywqbckHwg0bLyDy8/2SCSMd4Dc0rW0ln43HoEgviss0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qenuIHWa2Xtas8EdHXG1hsfsR4AO7mqo9l/iwVLogRjrqGYe7DWrsz4dcoFUBNK99
-	 GIZIs9KvvA4bJVWxigxxbZsSPxOXVsKBiE1MzfK96ypxeVLAgDHHk8AHneXyDqy4vO
-	 EQv3gTiTAWHfJMJg7HQlwo7U/OhHYfcBPYObPfD5/yCGegQ+AlqCgUtHXeVdPpDml2
-	 4eNB3QV5U1sQ5WYeDyBi4Dcf2qzvkJXdokmv55SvUJTwYF5GjV1JlPT6tq5Mb84ubp
-	 FFT71ThNS4NN1qjhc31AGDx+pMaqzjZH37GRr5/5czPp695VyMKrgK4LzL5tFqMYXQ
-	 Y1jqNwlKfT2nw==
-Message-ID: <ca984be0-e7a6-4897-bf9f-db9465942c6e@kernel.org>
-Date: Fri, 27 Mar 2026 07:39:42 +0100
+	b=K5cJCGqIPNRNjXhsmXEH9kSbovwFpNZSYXrrgoqHtarhUg4cuaUQgxw26/l21/Eq/
+	 6XH86jGBG+7Z9fVcjLwJXYYZqUvRDOoVPLFlDgxh1JU142K6/L80/fm+n22LBxqIui
+	 bjkvFTtUMqgd6NeYz8u+0EiNVY1JOWeZXW9TJshdot+Dj4tmpslzYpZ0W8xp4a9YUH
+	 M0vtn6hjAITjQHfh48ZWJEOqn332g8Ik/bFj0jaGgH6hfIwvUck/oPd7y8r1UjFBpR
+	 Ca5xTHGJvo1nb2WNO+CnT1yv3yex0p5xTUVOhssqrQVlI+UfBlKlXKfOcE0uoaUYf5
+	 nTcEmCfswCgBQ==
+Message-ID: <bfb59eed-9f2b-4fa8-bc4f-99a86e2c26a0@kernel.org>
+Date: Fri, 27 Mar 2026 07:45:34 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,20 +35,17 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] dt-bindings: i2c: ls2x-i2c: Add clock- related
- properties
-To: Hongliang Wang <wanghongliang@loongson.cn>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, loongarch@lists.linux.dev
-References: <20260325011852.19079-1-wanghongliang@loongson.cn>
- <20260325011852.19079-2-wanghongliang@loongson.cn>
- <20260325-outstanding-weasel-of-fruition-89db37@quoll>
- <1b5283d8-294c-86de-c3d8-bf205ac24216@loongson.cn>
- <0d7dfe5b-5e2d-4850-8922-16eb6bd9bcae@kernel.org>
- <900dc1a4-66ab-411f-8a32-4c6cf339e8ec@kernel.org>
- <bc22bad4-9825-829d-1df0-a801ebd933d6@loongson.cn>
+Subject: Re: [PATCH] arm64: dts: qcom: Move board nodes to common DTSI
+To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+ Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, rajendra.nayak@oss.qualcomm.com
+References: <20260326-glymur-mahua-common-nodes-v1-1-12bb26920ea4@oss.qualcomm.com>
+ <03996c07-f9f3-4586-96ae-075927da2577@kernel.org>
+ <328a120e-e9e0-4b3d-a2c0-04eb471c0937@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -94,29 +91,37 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <bc22bad4-9825-829d-1df0-a801ebd933d6@loongson.cn>
+In-Reply-To: <328a120e-e9e0-4b3d-a2c0-04eb471c0937@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27/03/2026 04:09, Hongliang Wang wrote:
-> The initial idea was that this patch could be used for both ACPI and DTS.
->>>> The i2c-ls2x driver is compatible with both Loongson 2K and 3A+7A
->>>> platform, parse
->>>> the same parameters regardless of dts or acpi parameter passing, So
->>>> clock-input
->>>> and clock-div attributes are defined to describe input clock of i2c
->>>> controller and
->>>> divisor of input clock. It can be used on both 2K and 3A+7A platform.
->>> And you cannot use them in DTS.
-> OK
->> I need to keep guessing what you want to achieve, because neither your
->> message nor commit text was explicit
-> What I want to achieve is to describe the input clock and divisor of I2C 
-> controller
+On 26/03/2026 17:55, Sibi Sankar wrote:
+> 
+> On 3/26/2026 7:55 PM, Krzysztof Kozlowski wrote:
+>> On 26/03/2026 15:21, Gopikrishna Garmidi wrote:
+>>> The display, peripherals (touchpad/touchscreen/keypad), usb and their
+>>> dependent device nodes are common to both Glymur and Mahua CRDs,
+>>> so move them from glymur-crd.dts to glymur-crd.dtsi to enable code
+>>> reuse.
+>>>
+>> Same questions as for earlier tries (why this has to be repeated?), e.g.
+>> x1-crd: Please describe here what is the actual common hardware. In
+>> terms of physical hardware, not what you want to share.
+> 
+> 
+> There seems to be some kind of confusion here. This patch doesn't
 
-Input clocks are defined as clock inputs obviously in DT, not as
-integers. Bindings need to describe the hardware, so start with that.
+Indeed!
 
+> introduce the common board file rather it just moves the nodes
+> mentioned in the commit message to the common board file.
+> 
+> https://lore.kernel.org/lkml/20260318124100.212992-3-gopikrishna.garmidi@oss.qualcomm.com/
+
+The question stays. The common DTSI represented actual shared
+motherboard design between these, so I would like to still see the
+answers here. I just don't trust such commits because they mimic
+downstream approach (and they were actually copying downstream in the past).
 
 Best regards,
 Krzysztof
