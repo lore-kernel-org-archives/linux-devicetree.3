@@ -1,110 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7798C38551F;
-	Fri, 27 Mar 2026 10:38:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 840F13382C5
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:43:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774607930; cv=none; b=Max6SSs9pob5RG2C+J7vmUsYXoL7XskqesGXHWR1Cs8NPfGxBSTBb7K+eB6S592ocZ3XWyWZoePQfjrsTWR7fxYzA/iNfQLtDKdRnTiNP62bx3LHwbhjf+QgZXsDEwbmKaPKElqAxMcWe0mOUCKbCpnrCfSA3Wd5Ojw8zOdFKEU=
+	t=1774608240; cv=none; b=oThxRWlJBHsHAyLlQOpCed31j3b/6Y98DAs4AnrepjQsEAuCThP7tUe0osP8DtmQQFJJ7vk1yIxNNF4T9qPkBcLcF7u5sBfR081zaXNdDQpz69Wkpx6hEUT8eg1Ci5wj7R9Z8jEpHmO20QhcoFde0Jv9gUUXFR4RYR5E+12gcoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774607930; c=relaxed/simple;
-	bh=evlD5/fYLL7tXwUEhWT6xYOHU1BOjmOTRC+HcDfwDgI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=KjjJB7XEaOw/8JX8VCpGM/G1DewpGOgsYEr3MOxkKuwAZ+9cutOd2ImZA7Ye3PKGluypI0++jA5veopasaYn+YLmQPfO8GbKK20JnxZzd6zESQaWxfayZQCG6jFTTlFU+1xmyX22pRbiWBotVR7TWZJ46u4RVAxFgO7PCA4tHZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ioCWrhbo; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774608240; c=relaxed/simple;
+	bh=8nDSaQ9yh5sX/LNbeWU3JPTcKvJG5g3U7V8KOz6vZlk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DFGedcH3kujnFZUqPpI1kXWl4W1rqk+aT+n96e3mZFErUzssU+mpbSNyHXNErfLbV9wV0g4fCi4jfi+qm8Xn2FGkejG3Hz0y/cQAHABYvR3GB+6r5Y2sAVBqoYB7zj9UUk3zPAfGPGiYMF6UWEIBD2VXbjFZ2dv8c8YCdaEjjs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gsq8qK4O; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ioCWrhbo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2901DC19423;
-	Fri, 27 Mar 2026 10:38:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774607930;
-	bh=evlD5/fYLL7tXwUEhWT6xYOHU1BOjmOTRC+HcDfwDgI=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=ioCWrhboLOB5kh1Apx4azbG7IhzKBoQbpaVHR8AGCYyH2qLGEhia2+3pHCTSp8U5f
-	 9oAk77j0SD3MQnRUgmh8EegY2bbDfhtpvdOjjHmNzwFR71V3R+QTCdNfYMzE2XzRNc
-	 uzNbtRDpQjDcv4QhYnkK1Y4R0iqf00/V+gkusOaF8IqV4/tnxFfLIfST8NATYdBEvG
-	 rad+9J80Y9ZC8xFvc27/DPQtgC+YOuHDU9ZeJBOplthpIUEILXeADRKwhNIOrrYHMg
-	 n8hBi+7CXNy9CdS68DtQeJmVNbS+V5z4++yuqCn7cLB3XjJicR3ul0XUUrE8au+0PZ
-	 E4qvWZs5Pp/Zg==
-Message-ID: <88c49483-e6e6-4987-9504-7bb33218c387@kernel.org>
-Date: Fri, 27 Mar 2026 11:38:46 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gsq8qK4O"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3567e2b4159so1322512a91.0
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 03:43:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774608239; x=1775213039; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=T//emRgjlf+DHICLtYqhu9ByJoYsw0eSIEd3mLPHOo0=;
+        b=Gsq8qK4OxkqPs1Q1M5fmBMg0SehzIy1bVy46ADHVl9XcUmQMygEefOjtyhnxtH44yx
+         OYiZDEtif4SY2B6w8BvCx83Vmpu0EE+Xu+Esg8/MoZZx3gmoS4xk5GBG2QaIjoGYXUUo
+         2rpSSd/hQeU6AGHks2gU+tZMi4tpX4z7l8laLG2I6Fx8JxWxB0qDEa9Dp7nqYEIr6Nfr
+         VQqrQtYtZzagYbHRgWS+3fTI/HHJNOYuAef6hFQYa4Baur7xb9cKQB1GGyOWcBoECWWm
+         KwVu76T8rOtOtN+s2QWuzjhjYJjZpTtSNZYUuMeJQTPYmLmFvmgZITxHFk6Q8LfNXgO2
+         QM/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774608239; x=1775213039;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=T//emRgjlf+DHICLtYqhu9ByJoYsw0eSIEd3mLPHOo0=;
+        b=oLDcX0aPmdMbZjzbGQYBBEmL4M4WxBuIg8DK/xa0sur+S2d66HeMDoFYXDCzZCct+A
+         kUrrAliMpR6LZwYhsh2nYLOj7Rg827Z24RC4OGjM86tuRjq1DD+4COJbcGxZQ9/0RcLb
+         QVuNGI/mSBL1ZCATlsb2g36+Q4xvXZ865OEx3aTnnezgDnmGV9fzwZg1zGEComZbE+5M
+         CtB/sispRFelRKwWuAU5i5UyKnmu3B/Iu4o+pnLLTUGjEVoqGW1nWHHjulZn34xADsuP
+         VokXIBccmpwnxCfifEjIvd+mrCCvZtuz8W7eLrsvR89BhV+axXbi/XFHQV9KFOaqykKi
+         3NMw==
+X-Forwarded-Encrypted: i=1; AJvYcCWqJC8Swu0HF8DFscNCWHqfSZ2RL5RS+Ft1wjH4qTyTgGuxWX4r2iCOWv2jcFTK2d5PKi3vED8WP8EP@vger.kernel.org
+X-Gm-Message-State: AOJu0YwmLEdO7IU2wro0+qcKkxCbvHay/O9l3M4kqIyNE2+UP4C3CeIc
+	yOErOvoeD1bCNIhEIE6+d7UYKFk5SrcMMLaDxDp2Ms6mg4y/BZ4K+TN+
+X-Gm-Gg: ATEYQzzT84RFM5JWGm+MUmxurQtGmrqiQEjhZF8/jEby76jY1wvrQnF6vzO8QHDoCh1
+	zjvOZZv6rTl4PGqXY3fJyZvW04lN8AP3PsPUP3p6MEeGNb3bjfwhJTJEjWDI2y5sueIknFxlkuQ
+	AamUQel/yrSxyaYh7QD+wSPNLbGG7H578P5xAFIRmZq9+fdF4kOLu6ER+HlRdFD0pi8An96YhZ4
+	JC8h9O80iNXzFGPt17CTJqW4wHVJRDK4PYy0/jPmUI4LdJBRSQiomlmA4Kh/gSsi0XaBF5Sf7Wq
+	ncNn4UT8b0gnAvezYs50ZS5kk5UxRP7vnyUjOym2JW2kvtcWIe+4wkh3JcsLgjuOu4BoSt4jhOf
+	q1bKBx1jl0CKG92K+HWgFw8WuUQ6b5Um+MFPm5peRkHR+rZrKC4rjHJZV/TFF2xMZzOFpjjzSc8
+	rh53Yc0wgMu+NsisVBSczGNhX4EmoRfTQ3EpDk
+X-Received: by 2002:a17:902:ef4c:b0:2b0:6b98:59ec with SMTP id d9443c01a7336-2b0cdd3ed8emr23434745ad.34.1774608238550;
+        Fri, 27 Mar 2026 03:43:58 -0700 (PDT)
+Received: from padmashree.. ([2401:4900:62f2:6b89:b220:bfce:656:5671])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0bc7a17c5sm69459255ad.26.2026.03.27.03.43.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Mar 2026 03:43:58 -0700 (PDT)
+From: Padmashree S S <padmashreess2006@gmail.com>
+To: andrew@lunn.ch,
+	gregory.clement@bootlin.com,
+	sebastian.hesselbarth@gmail.com
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Padmashree S S <padmashreess2006@gmail.com>
+Subject: [PATCH] dt-bindings: arm: marvell: Convert armada-380-mpcore-soc-ctrl to DT Schema
+Date: Fri, 27 Mar 2026 16:13:44 +0530
+Message-ID: <20260327104344.578113-1-padmashreess2006@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: eliza: Add thermal sensors
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260327101225.382493-2-krzysztof.kozlowski@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260327101225.382493-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27/03/2026 11:12, Krzysztof Kozlowski wrote:
-> Add TSENS thermal sensors to Qualcomm Eliza SoC among with thermal
-> zones.  The TSENS is compatible with previous generations.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
-> ---
-> 
-> Binding was waiting for 1.5 months on the lists. Eventually I resent it
-> now:
-> https://lore.kernel.org/all/20260327100733.365573-2-krzysztof.kozlowski@oss.qualcomm.com/
+Signed-off-by: Padmashree S S <padmashreess2006@gmail.com>
+---
+ .../marvell/armada-380-mpcore-soc-ctrl.txt    | 14 --------
+ .../marvell/armada-380-mpcore-soc-ctrl.yaml   | 32 +++++++++++++++++++
+ 2 files changed, 32 insertions(+), 14 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/arm/marvell/armada-380-mpcore-soc-ctrl.txt
+ create mode 100644 Documentation/devicetree/bindings/arm/marvell/armada-380-mpcore-soc-ctrl.yaml
 
-Binding was applied just now, so this DTS patch is unblocked.
+diff --git a/Documentation/devicetree/bindings/arm/marvell/armada-380-mpcore-soc-ctrl.txt b/Documentation/devicetree/bindings/arm/marvell/armada-380-mpcore-soc-ctrl.txt
+deleted file mode 100644
+index 8781073029e9..000000000000
+--- a/Documentation/devicetree/bindings/arm/marvell/armada-380-mpcore-soc-ctrl.txt
++++ /dev/null
+@@ -1,14 +0,0 @@
+-Marvell Armada 38x CA9 MPcore SoC Controller
+-============================================
+-
+-Required properties:
+-
+-- compatible: Should be "marvell,armada-380-mpcore-soc-ctrl".
+-
+-- reg: should be the register base and length as documented in the
+-  datasheet for the CA9 MPcore SoC Control registers
+-
+-mpcore-soc-ctrl@20d20 {
+-	compatible = "marvell,armada-380-mpcore-soc-ctrl";
+-	reg = <0x20d20 0x6c>;
+-};
+diff --git a/Documentation/devicetree/bindings/arm/marvell/armada-380-mpcore-soc-ctrl.yaml b/Documentation/devicetree/bindings/arm/marvell/armada-380-mpcore-soc-ctrl.yaml
+new file mode 100644
+index 000000000000..a897d4ba4e32
+--- /dev/null
++++ b/Documentation/devicetree/bindings/arm/marvell/armada-380-mpcore-soc-ctrl.yaml
+@@ -0,0 +1,32 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/arm/marvell/armada-380-mpcore-soc-ctrl.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Marvell Armada 38x CA9 MPcore SoC Controller
++
++maintainers:
++  - Andrew Lunn <andrew@lunn.ch>
++  - Gregory Clement <gregory.clement@bootlin.com>
++  - Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
++
++properties:
++  compatible:
++    const: marvell,armada-380-mpcore-soc-ctrl
++
++  reg:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    mpcore-soc-ctrl@20d20 {
++        compatible = "marvell,armada-380-mpcore-soc-ctrl";
++        reg = <0x20d20 0x6c>;
++    };
+-- 
+2.43.0
 
-Best regards,
-Krzysztof
