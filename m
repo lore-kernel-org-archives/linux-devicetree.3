@@ -1,69 +1,68 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE1523EAB7
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 15:34:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD422773DA
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 15:34:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774625662; cv=none; b=dUUejeJjUkoQVBhTrrn6cebOVi9a15inchEtb6c5qZJDQmU8e04YXUNwUJYfKe3BAweUuWrQ1j1mL1TRIpg7QHRjn8krLXGM2OvlWHS4HHIEnYFaB2hlQEEggvm3CP2fZz1MwVPidBMR0lP+4I4M2cO7OsP8M69YqFqGtCqj+g0=
+	t=1774625675; cv=none; b=qkqa9b6tXvVfZbcITZbbczd4xpPu5FCd4/PFVXKhMZRD0GbyPCLaFeab/FBzXtRWQWBzgcr5TUXHwK4JZiVOGqnVJKIxPEbJLbLI1B99f8/VFqrXniXh/2rVzlanQ/RezKMJFzDnuIIEtRGKlkXxt/JzEFmaUUQKNXwxzel3yRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774625662; c=relaxed/simple;
-	bh=HKYoy9Xgf+hJVHSmfcmGJ8WaOBtC/NXkmKrTGlhdX0c=;
+	s=arc-20240116; t=1774625675; c=relaxed/simple;
+	bh=2rhsUzsvBZW65mXgJBNb7WehLrGo2ROWFaoH0WiTlpA=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=TdlX2EmxReTYflfg5lgS2bsTb/e2dtvzcAWLa2vQbyWpjHOFbIqmttVjPfIcjIfIK4MCZi58dKIIsiY5atQa0+oALG/xAwtXXuA4KosadXxg/0OiOLKdmeh0cM/yfnA31+iWomKSnY+hnylHRgRushBjkBXcam7skcyi9xb4DkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=TXuHQLpu; arc=none smtp.client-ip=209.85.221.51
+	 In-Reply-To:Content-Type; b=TbatX2IJ2YKvEcm2eNfCVvfqfYsvE+mTwnKZJ2+Xfb/90vWbS7SAmTMFSbZYBcmM4CurVY2y7Zypdh7j+NFgj6uaky+f88+4XBtrw1enUqN1E8n9VIKpy20JIa/zXKHxaX2TzUKhtf09LtrhbiFd8q7yFXKZMSgbLX+0VyjSVwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=BbfQzrfr; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="TXuHQLpu"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-439cd6b0aedso1506081f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 08:34:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="BbfQzrfr"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-486fd5360d4so28344305e9.1
+        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 08:34:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774625660; x=1775230460; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1774625672; x=1775230472; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=RjKuvUBQiFpFuXYPv0VREJdyhtsXZOAchMgwkjnvo+U=;
-        b=TXuHQLpuyG5rxtXEy5Gsh3SosARaTKQW1mVVLkBTJBimT3hg4hKQ23v4tgfvzNnuYr
-         JBVjpGpgrYaMvAXJ3goIY7hxy6V1x89Y4ab7zgACm2qcFaLVocGpNHKirkIDmpEm5eNI
-         IKt619uYO4UIBUEH5laKcF5SITEplKlh2Xa6T2smUPGMdHo/iAJqDs7zEPZRDcEI2fFP
-         X1SDYyc/msW767Rg17FhZ0yMAuZf/X3ihyAEX8XS52AzXidKeMthobxNsZc/LHKHadjg
-         ldDLasa7znOJboeWQXU1bo5zubwDzIzuekk1yqWqh2QgQrGgPOAsiBg3FvM///Qk+sAq
-         zbhg==
+        bh=1BtdFcTynAN33HZsmTUqdTq2Imp2W6r28pnCsYrsANI=;
+        b=BbfQzrfrZAQSl8YjiXLaYmnoh2kwwmdWuNm6pP5Ksaht2M5pebVKXWuG3/eIbi0FvJ
+         tjlKGvkQdlIiR+Dz+gUZ9z/xzD8bcJ91gBop5z2ocCNTCsRET02h1xazM2Qoi1XxI7eQ
+         igKasLkMwa+k0TKtkSsiaY+Y6ltGRcELyDLV8+9Ls21Y9J7YRlS5KnvUXyNZpADxPWQH
+         guznFjOZSV/QADTihmQScYUXtlVNge3FQCjrrXkgPtZ7p4NOAR7dnkkNbzF7igQhWj7A
+         GzFolarpOHo0fpADSyqQyf1xzpmW9JaX34+W6rf73SUjZuxNHhhgJjqwY+18GYIZKm5V
+         UVAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774625660; x=1775230460;
+        d=1e100.net; s=20251104; t=1774625672; x=1775230472;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=RjKuvUBQiFpFuXYPv0VREJdyhtsXZOAchMgwkjnvo+U=;
-        b=p3k8LD7LS2heeLdm7w5wENunJVP/RVRt5h2kwZbrs+9G/w15KqkOOSFNuVSOZ0sp5E
-         lx/O8XO5ssA8VHpPqrmsrnM9BY3lKn9yK08mvalikjLAMi0NSvvfUYpjTQpAzCdi/VqW
-         P/IcCfOINJvICDzyS8qP6I+9E+qeAbVW6t0hqDDi0YTyBst35gc07kjoTCbhme5Egljd
-         cr8JJ9K7g5K+HEnuBTVEwoZOCuH+OK2gA/82qe4pWo2TVRU3juKUujUIya8fzovtyMkz
-         Z4paOHBiMmaBXADuWX2Qw5A9gCycLtJFXqc1jqLLkhcD7qf97CCxsYwv+VcZ3r3m+Dkb
-         BhoQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVUsSqnZTBuzO3YL1m3nm5fiLQrJMp01hCSxxZ+qBB+E25GzftUSukYi/E2QeMqctFegW12i/5urjlS@vger.kernel.org
-X-Gm-Message-State: AOJu0YyOewTWWTT4yBo/0CbegvH+TV8nqWgAlx7VjCzEcWjmAFzVN5Gm
-	H3EttNGcX123585e9HiX2dbg5TDVSH9OKqgprqUhrVTt5sWUmMjer0xNsZFukjTi3YSXXDwLyyF
-	t/HMFUq8=
-X-Gm-Gg: ATEYQzzT4CSPRgutj0Ef3vmFv4bgFapdAYbWdtWqnHt5U3H0iPLNSPCm7zRO1POcfaj
-	44tOcAW9NdgLAwz8TS6Qjq1XUhiW2t5KvPs2L3AtYc8i55QA6Cmo9wQU78XAW9hTob8xjHhvzvW
-	VJvtWmd6kVN7my2/Uu6HtMGhLJcNMCR3G3BsPhjSxwQAHLM2JbqGaxAQ0iPyXOQvyrLHgqgC+7e
-	GNDbmsDdno+0mnLop3V3M7KU2elxeOEz1rNtMJBaHUOtgwdxHxaQG4U/M0Vbd6R70g0rio0EsS9
-	GbGuUtoxocHZU7tomOjC1MhHKd9DPblfqo+xa/WJw+zqQqGpgYXP4CBXgt7ZUSEfxqMluRiOZL+
-	p3trXFkoUgMDj1tdRk3I4O4unu81JfPqTkSbnizmMv50eC7uaJMLRbTRo/NlD4yq9MNQ0AVbSmt
-	xIEMpgLSZwbpTTCvfcJdCr8yr7c8wK95b/9DpadJUPLF66YDaZHf59l6033zBbRoh9U6/Bb2jQ9
-	H5mm0s=
-X-Received: by 2002:a05:6000:24ca:b0:43b:60f7:2282 with SMTP id ffacd0b85a97d-43b9ea4ae28mr5245421f8f.28.1774625659628;
-        Fri, 27 Mar 2026 08:34:19 -0700 (PDT)
+        bh=1BtdFcTynAN33HZsmTUqdTq2Imp2W6r28pnCsYrsANI=;
+        b=WRNrt6rvkBkkiU/rV/NoCLympi0WyL+4PFywpoEYt2MuCOrBvuE/U0duTpDG0bZn84
+         FHL8YJYMN81PCP3NF0KJM6qV6aa3mq7fikxW8C5zGtSmeRpiDno17p/BRriq4NlCjVnA
+         haofir0bskF0ImE1il1PQ8zj6x+HsPlluCTQ2fgKraI/P9fE6RlCfXMCMITNCWRK/hYJ
+         OPiaEf0hhXIJ/hcMU3OD3RhYSktH1C/8BejD01PPLwzT8SvFz3Cr6BEXIkhPfmzzYPjw
+         BSAkSpHm7vKrIQ1CLydO/1tOZiXc7iDT9/uO2vyj+RtnQXlI7+FkiRmzU7OhCBCeXdym
+         rvlw==
+X-Forwarded-Encrypted: i=1; AJvYcCVh4WJuHpy8Yb7xeofVv1Q2o/kHD/JgBCxYGEn3yrz060TUaWmoLAxfBgfcDEFSkqzwR2gCG0aX4hqq@vger.kernel.org
+X-Gm-Message-State: AOJu0YwsNUR1AuGdc8Xr+ftzWnyg1GzbOE2EST0NqEtryozCHpyw1/wy
+	4lVmRMnXEOtzP2VbpUt83kbzimNJihdQ4Ul1T+9IrloKwSNDI2w6X48uaUe+5eA8wEk=
+X-Gm-Gg: ATEYQzyqjw/MlOW2wb1ETGrXG/tWscMdpIljUm262TFMc0L2iFA3FEeT5qJNy/rn2O8
+	fjFzNGdt1YU0ltCqyt3I9l0REVFcrPZZQn86Td8Q3dX7h1m1b4kRh9mqcbiMY0XzRd3rWWdYxEb
+	K5WSnd5GDhjHQb0oDu3d7d+3ph4r0+rG8S+oOqqVnYFuCP8xdLU9xsYjA6/J7EDv7YVcl/NvgiN
+	TErf/xLExXpV4WrJGrROKVOeBV0QbzuKhQjI66zKCNyYW5E2uU6DbPs9tgV3v4q9jdDMjLAEFEU
+	wRrmEGz5Ydhh/7hz1DTWPG1kbDX8gYnrh80jaM8v85iD9ScE5wyg/qjqNHAhCP+kbHPukqNyzRA
+	SmGGCv5KbZb2SfS64sqT8r3Dac5cFym7IUPArGe9Bh5PEETm5lr8V7yNKj3gDHKcH3Hxu1rZbyi
+	6Ca5N1fIZP0vSBoeKg+ln3tZKHjGt1llVIyX8Ep5kWEKqg9Md/BskAR+nh5FU5PP6Rse4KKvaeq
+	7OX03w=
+X-Received: by 2002:a05:600c:c109:b0:486:f9d0:aac8 with SMTP id 5b1f17b1804b1-48727ec776bmr37759315e9.18.1774625671956;
+        Fri, 27 Mar 2026 08:34:31 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:39df:9101:d239:f5dc? ([2a01:e0a:106d:1080:39df:9101:d239:f5dc])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b9192e5f0sm16597152f8f.4.2026.03.27.08.34.18
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4872712acb7sm17860855e9.18.2026.03.27.08.34.31
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Mar 2026 08:34:19 -0700 (PDT)
-Message-ID: <f8c47b7d-29ae-4aa1-ae92-07dd691b3b92@linaro.org>
-Date: Fri, 27 Mar 2026 16:34:18 +0100
+        Fri, 27 Mar 2026 08:34:31 -0700 (PDT)
+Message-ID: <9d56c5e0-7434-4a5d-8429-f19cc5faf00d@linaro.org>
+Date: Fri, 27 Mar 2026 16:34:30 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -73,14 +72,15 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: neil.armstrong@linaro.org
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v1 1/3] arm64: dts: amlogic: meson-s4: add VRTC node
+Subject: Re: [PATCH v1 2/3] arm64: dts: amlogic: meson-s4-s905y4-khadas-vim1s:
+ enable HYM8563 RTC
 To: Nick Xie <nick@khadas.com>, khilman@baylibre.com,
  martin.blumenstingl@googlemail.com, jbrunet@baylibre.com
 Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org,
  linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20260327093016.722095-1-nick@khadas.com>
- <20260327093016.722095-2-nick@khadas.com>
+ <20260327093016.722095-3-nick@khadas.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -107,34 +107,55 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260327093016.722095-2-nick@khadas.com>
+In-Reply-To: <20260327093016.722095-3-nick@khadas.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 3/27/26 10:30, Nick Xie wrote:
-> Add the Virtual RTC (VRTC) controller node to the Meson S4 SoC dtsi.
+> The Khadas VIM1S board has an on-board Haoyu Micro HYM8563 Real Time
+> Clock (RTC) connected to the I2C1 bus.
+> 
+> Enable the I2C1 controller and add the RTC child node to support
+> hardware clock persistence.
 > 
 > Signed-off-by: Nick Xie <nick@khadas.com>
 > ---
->   arch/arm64/boot/dts/amlogic/meson-s4.dtsi | 5 +++++
->   1 file changed, 5 insertions(+)
+>   .../dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts  | 15 +++++++++++++++
+>   1 file changed, 15 insertions(+)
 > 
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-> index 936a5c1353d15..2a6fbd5308362 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-> @@ -59,6 +59,11 @@ psci {
->   		method = "smc";
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts b/arch/arm64/boot/dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts
+> index 792ab45c4c944..7314e0ab81da3 100644
+> --- a/arch/arm64/boot/dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts
+> +++ b/arch/arm64/boot/dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts
+> @@ -20,6 +20,8 @@ aliases {
+>   		mmc0 = &emmc; /* eMMC */
+>   		mmc1 = &sd; /* SD card */
+>   		mmc2 = &sdio; /* SDIO */
+> +		rtc0 = &rtc;
+> +		rtc1 = &vrtc;
+>   		serial0 = &uart_b;
 >   	};
 >   
-> +	vrtc: rtc@fe010288 {
-> +		compatible = "amlogic,meson-vrtc";
-> +		reg = <0x0 0xfe010288 0x0 0x4>;
-> +	};
+> @@ -223,6 +225,19 @@ &ethmac {
+>   	phy-mode = "rmii";
+>   };
+>   
+> +&i2c1 {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2c1_pins2>;
+> +	clock-frequency = <100000>;
 > +
->   	xtal: xtal-clk {
->   		compatible = "fixed-clock";
->   		clock-frequency = <24000000>;
+> +	rtc: rtc@51 {
+> +		compatible = "haoyu,hym8563";
+> +		reg = <0x51>;
+> +		#clock-cells = <0>;
+> +	};
+> +};
+> +
+>   &ir {
+>   	status = "okay";
+>   	pinctrl-0 = <&remote_pins>;
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
