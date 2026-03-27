@@ -1,119 +1,174 @@
-Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com [148.163.147.86])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011042.outbound.protection.outlook.com [52.101.70.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A935719A288;
-	Fri, 27 Mar 2026 18:15:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.147.86
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774635363; cv=none; b=qovJDCugoYa5SWt2f223BHYF8rm2enbsNvU5BAnzZAErWCB+I/Ywm1zsLb6DWj+BXIzUcb0s60DvNq0NdJiH7DGqFPbDlLiHC0/4ocORPzkb+AvwfH70+gKe6N0jRcoocG2YM+gd2qyD7iytD54DyXXOW5569+PrJCvgfFM18pw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774635363; c=relaxed/simple;
-	bh=bo5GdBa6G3d63Ox97a8utKJoa06KDNsD2SP0aUfJr+g=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=kbs9luChPfzADrcU89ouBOw7ScAtAgr676rX0Fw9pnrOI36FXtrFy51yvxzcGLTjzY0Pc7pzRZOLVwJ/qmqicTH/UkiFY2bcte4gDSubF/+bg1wxrH/HLfBDzDDydU1UAo4YflYc7iL0sLIIqZsSj9LwkCAhZcm4P/XV6eUxCtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com; spf=pass smtp.mailfrom=hpe.com; dkim=pass (2048-bit key) header.d=hpe.com header.i=@hpe.com header.b=ieja83Wt; arc=none smtp.client-ip=148.163.147.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hpe.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A286C35DA78;
+	Fri, 27 Mar 2026 18:41:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774636895; cv=fail; b=WIGP1krQzYIGOjeHl/q57f7iBBitYRXMUaxL4tcb6bHcTYZefr3DNTfHX9Ow5NMQs9oGpbTUmENZEGIiqhv2yIbT9N4s/vMlJeozo/Vzz8uMuB9tm8m1KHxtKn3qpuoHDROcildTucor7XGkGAVFKxJw7sJ4A/2c28fX05S0yUE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774636895; c=relaxed/simple;
+	bh=MeokqSpQAqCenXrgUcXNQHXGaK6PkCpDQcalY0OGU+M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=s3Tpw96+DjWYvn78z9QlxoZk/s8DZoxCFuEAmZSyJS0jrzKEOXBQDrGDdF6VKq8PF05fcuQej2w0ppCrN2CiLhXiXmz/rHxr80ovR7gvaKgmLbaTmaxUh4UHNgnh3gKhnVWVEuHfO7blhH4nOxjuvL0RMWzzSJdD7WtTN9lwXYs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=nGHGebjy; arc=fail smtp.client-ip=52.101.70.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hpe.com header.i=@hpe.com header.b="ieja83Wt"
-Received: from pps.filterd (m0134420.ppops.net [127.0.0.1])
-	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62RCeMJJ1436948;
-	Fri, 27 Mar 2026 17:44:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pps0720; bh=QmopYxJuCQEZ8
-	zllUw4s6HsivJfzbT5IkcJ5NS0N8js=; b=ieja83Wt3E8FODs/sPSms5XvUBiZL
-	aKkr6shxcGp9wXclu3Y9tzLtq09aIZIQIOZozCLWEO3YypSKBhhTYUiWO6WH0QG7
-	BDBf/QNb6zWenFxdOSl4O6V/GgAHbA7b5kR8SPL7nCAzWXMq/8+ngqn8hbOK/dtE
-	sk7L7PBXLYjXz5bAAqKgp5rNUHlRrEmXhUWCIOE8C/Vm/79zMM9QPe8uMan5sX7h
-	v7nS/YOg2cwMp/cwDhVqSH7vu/W6BZN9usxnZ/u/+K7ItP5bXdMQRX1irirDTgYy
-	94kZdUuSV+xtNluHogDU8cNAJm9fw0ROOIdiX6f3j3yh/BRK7o2yiJJ+w==
-Received: from p1lg14880.it.hpe.com (p1lg14880.it.hpe.com [16.230.97.201])
-	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4d5t3fkhhc-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 27 Mar 2026 17:44:51 +0000 (GMT)
-Received: from p1lg14886.dc01.its.hpecorp.net (unknown [10.119.18.237])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by p1lg14880.it.hpe.com (Postfix) with ESMTPS id 5C7B881B5B0;
-	Fri, 27 Mar 2026 17:44:51 +0000 (UTC)
-Received: from hpe.com (unknown [16.231.227.36])
-	by p1lg14886.dc01.its.hpecorp.net (Postfix) with ESMTP id AA5E7810ADF;
-	Fri, 27 Mar 2026 17:44:50 +0000 (UTC)
-From: nick.hawkins@hpe.com
-To: catalin.marinas@arm.com, will@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: nick.hawkins@hpe.com, linux-arm-kernel@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/3] arm64: Kconfig: Add ARCH_HPE platform
-Date: Fri, 27 Mar 2026 12:44:44 -0500
-Message-Id: <20260327174445.3275835-3-nick.hawkins@hpe.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260327174445.3275835-1-nick.hawkins@hpe.com>
-References: <20260327174445.3275835-1-nick.hawkins@hpe.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="nGHGebjy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rkZT9ycA9Z3KtuO6EvKeMvsDAAsneuz6jGN0NZ8E7hUpwAGzItKRm5JXL6sb9OIiHpQzxGRHTs47rpj9OhySCiT1wM0WvHZTgXn7Y0QZQ6jC5lPgbrLzE96XAW5ijoqwNSUn/rbK6x5zPdCqzYXQrVHmT1gaju8tSNwpfRIJYi/HSW3uFM2lMDztKTXVtddCe/23HsALNL/iBhmxaOTfXssyx8ZVr9a7TSWtGAkIjGFcN3M+D3Gs7oYyjjFyYuuacUY+2ZqjnBgDW7XETwv2nmxUEXXLM5q9hz9McFEH9YHUaV0cGYESJchWU0ksKdpYyolqd7EGN4lW9h6z2vdUyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s1T1zJ8Auf6HI4efPz3P+QpxWS/ASDrD/9H2ruaknc4=;
+ b=udWoeXpOnrRfknz6YG1T4luUXXwjlPtoGGqfz1E9PPZ/xfAWB5Pm769fLr2X9ga6KdZufA9tkX5ul2VN5mYLzPlpS+ynF76LFMcv5QaJj+b72eJ+nVI3BYfrvKXCpQw9kf+uVJt/nYcYEbaHJpTz1Dhnhd1FVcSkQClB7Dz4KTQofzPn4BhNQmm9WWC7Nf6v1gqb+nYNe9AKiimf1MRzcr13QvSB4SSzEYUPpQHpWBLWqhQ5nnC41YushW63kbfh2HndMce4VMENDeh9lB890kHX/ljswigSrPZANZX6ss9fp5LUnn+AbB335XRA7XynpFnl/yVjSa54Obr/ox8fdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s1T1zJ8Auf6HI4efPz3P+QpxWS/ASDrD/9H2ruaknc4=;
+ b=nGHGebjy9FYq0o/1TG6GriiK1bS1JEBQXhSmonKf1O8gurIS499pA1A6f1BHCQeN4UWPH0ZPCVww90Td5Coj5Bfk4FUQjf58OOp2lK0KQZ1cYJrfzatxYstO88nQ13P58c6q4hqRINyK7mgR/sPRL7oeqkFb0X1mMKcjJ/7sHI0k0+mC1MW0CEHDmEUv4KnqrDYpqTtFvhQmj775uZhFn+YhVf3rcIFDy4axbxgq+9bZbhnNixM8u61PQK072RqkZh3voTb5n4X+VrvV0tpmf6wBqHe7gcNxmRphZTwbz4glgbxFsxD+4ZfMA3GsX+6O0z8OZC28otgaVzZcKwJYbg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by DU2PR04MB8760.eurprd04.prod.outlook.com (2603:10a6:10:2e3::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.23; Fri, 27 Mar
+ 2026 18:41:30 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9745.023; Fri, 27 Mar 2026
+ 18:41:30 +0000
+Date: Fri, 27 Mar 2026 14:41:21 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH v1 1/1] arm64: dts: imx91-var-dart-sonata: add RGB select
+ supply for PCA6408
+Message-ID: <acbPUTPpGIJoqTn3@lizhi-Precision-Tower-5810>
+References: <20260327163243.17334-1-stefano.r@variscite.com>
+ <aca1jdx0DjmmHqFk@lizhi-Precision-Tower-5810>
+ <aca7ckVY9ure8Cwe@Lord-Beerus.station>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aca7ckVY9ure8Cwe@Lord-Beerus.station>
+X-ClientProxiedBy: SJ0PR13CA0130.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c6::15) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: k5T4Sv0AGOoivFrw5RtAxpwDNDYxFuF2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDEyMyBTYWx0ZWRfXxMyu+iM8RSem
- 1I1DvlttUCTqRFD9vW+mgTOZ2XG34lydxjpTG6fSK+zIJKV6xl8+++gsK0tuGQyy7LrCBVqv7GU
- CT+YEhpWA14PM2gPoNZNg37UCVzitR0X0zBdUeuN2JGU6vuqhLBg19aya/hlUErlxCbwfRavnzY
- 5mgPSw6buOX0+TaBac0cGhzV/rVPN3/SzS/uYzbWpx0qa8Uvg3FM7ErphHCAqznOYUZQNAJdWOL
- LVKb0gmkn+eRqV8NMvb/zxibQSbhGlEdxAOLSTri6vg7zRMu0DPiKa+ZN977l9c4zZxn3A0iteq
- jwaGXjYsYctA6Qe/AYfKAo2hfQaxODcOrRUMfjCo7i2VCqyZq+7Yd+m4JQlrulkrKfo8iA/aRrF
- IX6GgaxA3DMtucCfp2OtYDiiPZFlkuGb0PM8MIk67Kqoy7c3wdu8JiSYdViB/wShoha3AtiRwk3
- 1agq4I1swZ4FTeq8uQg==
-X-Authority-Analysis: v=2.4 cv=YPySCBGx c=1 sm=1 tr=0 ts=69c6c213 cx=c_pps
- a=A+SOMQ4XYIH4HgQ50p3F5Q==:117 a=A+SOMQ4XYIH4HgQ50p3F5Q==:17
- a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=gQcMVamqm3wCPoSYhaRC:22
- a=RtSn8ETxjE2H05FtM2s8:22 a=MvuuwTCpAAAA:8 a=XVOEL-q19URcyAXAXPUA:9
-X-Proofpoint-GUID: k5T4Sv0AGOoivFrw5RtAxpwDNDYxFuF2
-X-HPE-SCL: -1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-27_01,2026-03-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
- malwarescore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603270123
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|DU2PR04MB8760:EE_
+X-MS-Office365-Filtering-Correlation-Id: 78ee64aa-43e5-4c3e-de1b-08de8c307606
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|376014|7416014|52116014|19092799006|366016|1800799024|38350700014|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ cCWZ9ZabwLDq38a7xobLXF/IXDTCkLAySDrxUq9psZWZ0M3sizRYatiGeiALx63GC7Z0B+xe6CFxEXvQepvjUc83looD6O9+NZ3gas74rfSH9lZIGTPUTjODeJ08aXnEcY7pziimT0BLDx8479+8o7AfiCrHszBIdMH9mjmE/XHT4ZhO5H55E3Pj7TGGyXjfjs7Kz6JOlY/svJizTHCzHpJCylGuAVu30YaxtBJjIWWrimEOkTsUdIjmAoNAniQIlsWt7GRsUS+rfJ73Qp+jsn+2Gm5f+GgLAfIf4JAaW187FwCIEY+HFBGIuioGStA5QFJOWK2N7ySCrgyPDypkQ5egkZT/vbvurecnMBEPs1S1YwwpfE85GZFUyd0jkRJhNyTLP0gPnL9FWXu4luVX+yGsAhf+mimiEckxuRrxn159NLE33k4CvQhl/hgv2xczCgKt5XpEGNQY/mS+liA71Cl8fMbhS9b1jKCub2h4QEc6d6gXrPofYR5NJXt1NIxPLa2Vdcwj/JHbOv9tcmQl2+TEOeqfgmPe8IhqXAePdw1iBWGOcD6AVriKJMt7+hmfA8BHdhRaaGUj5dQhtsclbyG07njt2bWHlskVXwnUCXjIPgA4RzEZMaBLgj330fm0dCc4uGN2ZZ1h8PT18R1ap5CsSLeGqhNc9YOEJvZSF9QfVpvC8JfKhBicfAW4dPRZ7hf8S7HgehdlPhbZKdclolVypHf5ohXJd15/h1OUKeYvx8N+NFKBGIXoIqwxdD5a3mVp6SPDjE8cxJltkzgHsgsNpQcXw4XVxI0EyXUM4l4=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(19092799006)(366016)(1800799024)(38350700014)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?elEY5d/Eaky11QKLszEq+67tYLQTLvcgjIwN8Q9JYbIRDLS3liXBAWXgyOwo?=
+ =?us-ascii?Q?Ii0WsSyyQJ05FSZHIsYPcsICHiFuoJWF7q+PRU2pMEGZGK96i3sR0R+MZJm0?=
+ =?us-ascii?Q?IVZk5t/stbH4FWoFIynNgZupxX14So3JeyVQdRkkF9RuZK2zcyfPjGi3tWZV?=
+ =?us-ascii?Q?UI8U7/lto6lkNq/5LnK7WUqaW+B1VmpiENLhZtL3zJQoDNiO/MXeL50DQ+o5?=
+ =?us-ascii?Q?RMq8deVVq/o3NRz+k2TRikUds966d1Wo9h35OacpJ9iAfzBpAxmztyT9ILuh?=
+ =?us-ascii?Q?6Rx/AsSRsmfAhLt/CgMyJC6RtZlN8RDI9PT2TuTrGHhmHmWfOP98VY5HQfOx?=
+ =?us-ascii?Q?HiK1Igbbbu09KWXVMYfvR7Bsc7qH+jVA8tXioJdbAQCxhiz0yeF2gnFDKy4l?=
+ =?us-ascii?Q?Ec0+4M26X7ivg32PAo5OhVWmvR3L4XLzsfFvoEOtqUmUH6oVStOtrbnwkWV2?=
+ =?us-ascii?Q?e2Hzh8OocwfCGg2fUrMsfmvw46+EpF3AGmBR9ZZbAKfp/dFrNFQlxTg3y2g/?=
+ =?us-ascii?Q?fk6t5hFrgv67d1vum23YbvCn7P40SgzyrUVtDi7qQxhWMM4bzTjh2HuWd2D2?=
+ =?us-ascii?Q?xoOi7edgCLJOfzDRgRfkn9vOTmjd6XnKIxZ4xMZFk8zRjvs2PtuS/yo+IXdi?=
+ =?us-ascii?Q?3TFFbdOzH9+wMueDkEN7yV3xpJvHc1MuSNCVGqgDe89muUNQClkoxw2MzXiR?=
+ =?us-ascii?Q?RBJyQQEMGix82sY+IPb2lrIv4HvKTZlc2fjgrmXXEgpHCgV7im0gcy2V3EZ3?=
+ =?us-ascii?Q?ZnDN+kM7jAZOt5+Sc/pVdofGYDxFrsq8qzcGYPedc0L96acKReqSEJXSua83?=
+ =?us-ascii?Q?L7pC8MhRktnQkXiVI+9psVBajH3mtCCC1wMc77nSDcfq+sArGz9QAC/3+Jgw?=
+ =?us-ascii?Q?ocyrj0aANt3R7lNgUbu+pWcutHG1aMb1dZ2wZqIVF1aXnhnbEzEcl7PLlgfM?=
+ =?us-ascii?Q?7yftfsdWg7lGNpYlIptw/EyTjC8vU0nRmPkrVEyY46W1mmyCzzc/aru3EuWL?=
+ =?us-ascii?Q?x8MSVCY8LhPho6scIAw8RNqJQqxvsCWzB3vgEGSpp3pmL/ZX+9cFPXelKxTj?=
+ =?us-ascii?Q?r1LdddkxHYl6aiU0CiqeNDA5R6BUaSxAfuZf8kjiOSf6xH+TwVHa9pMSY4lt?=
+ =?us-ascii?Q?qxwARFeZqnHsZ/gS7q0Qdj/ug2d3odQ8dhLx4IaOhXLDTGzdkguzKdDfBl4j?=
+ =?us-ascii?Q?v8mldwLXm5t7AwEeyg3aGQ4UgrgFyAmB8q9ELi8eb31YoT2YFdkdpW8oOk0n?=
+ =?us-ascii?Q?sgMlroIJthaJL4KuLYzeT3fkc3P2lepbDnVutqJ7pzta1Tj5tCykDQj2h6Xp?=
+ =?us-ascii?Q?OyfLJ1Jp4qQJE9BqPKtuhsDVnElLESf57BxqU6YFvixZYHb0ku46NIcsmP/b?=
+ =?us-ascii?Q?6FTTkbOs8/Ua5UhXZ1vZAGWcZ/BFacz48y1nkWIeSHSpGKU1u+je8qzLZxTr?=
+ =?us-ascii?Q?5MOxDy3/Rt4sc7upoOCt4itA6hgMluCQCHq+4OnQSQP7khNTuESU6cL1D/Xo?=
+ =?us-ascii?Q?njv/SiZ+P7OePVUPI5RTRk/284Ghzzin3BCetCVBC/USuIbLScfoB/mUnzE1?=
+ =?us-ascii?Q?YGpbCGkUtpjp1caa5Ur9bSAbsGDC79Jy79Dy0b87QhGU+tpTc5JT1k/ZKibR?=
+ =?us-ascii?Q?RZ/FiVQ9eZpzyGsO2XMwjdKlQNfr/AJ9oclIGGtwTusrVfMhkze3NueeXY1C?=
+ =?us-ascii?Q?d5lsiTJpKxZRhjt4LgF7xjECcRE4dfcSXAvEoM02D3YbNJpW?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78ee64aa-43e5-4c3e-de1b-08de8c307606
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 18:41:30.1382
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kIaQPKVBAjmHQ3+1xWWoMUMMhEH9MA7QdVgRETDEkxsvibCqCN6xjcky3V+BmlbZBMy2xYUzhUXUkRyfsGpqYg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8760
 
-From: Nick Hawkins <nick.hawkins@hpe.com>
+On Fri, Mar 27, 2026 at 06:16:34PM +0100, Stefano Radaelli wrote:
+> Hi Frank,
+>
+> On Fri, Mar 27, 2026 at 12:51:25PM -0400, Frank Li wrote:
+> > On Fri, Mar 27, 2026 at 05:32:43PM +0100, Stefano Radaelli wrote:
+> > > From: Stefano Radaelli <stefano.r@variscite.com>
+> > >
+> > > RGB_SEL controls the routing of some carrier board lines on the Sonata
+> > > board. The two PCA6408 GPIO expanders depend on that path being enabled,
+> > > so describe the selector as a fixed regulator and use it as their
+> > > vcc-supply.
+> >
+> > Does below resolve your problem?
+> >  https://lore.kernel.org/imx/20260325-pinctrl-mux-v4-0-043c2c82e623@nxp.com/
+> >
+> > So needn't hack select as regualtor
+> >
+>
+> Thanks for pointing me your patch, interesting improvement!
+>
+> Actually, in this case RGB_SEL is not meant to model a selectable mux
+> on the Sonata carrier.
+> On this board it must stay asserted permanently, otherwise the
+> downstream path to the two PCA6408 expanders is not accessible.
 
-Add the ARCH_HPE config for HPE ARM64 BMC SoCs to Kconfig.platforms.
+Accroding to signal name, it is MUX chip select signal. Of couse it may
+connect to a buffer's EN pin. I have not checked your schematic.
 
-Signed-off-by: Nick Hawkins <nick.hawkins@hpe.com>
----
- arch/arm64/Kconfig.platforms | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+If it connect to MUX chip or some select signal, it should use above method,
+even though it is permanently asserted when access PCA6408.
 
-diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
-index 54eb1d7fd419..b4217809c774 100644
---- a/arch/arm64/Kconfig.platforms
-+++ b/arch/arm64/Kconfig.platforms
-@@ -168,6 +168,17 @@ config ARCH_HISI
- 	help
- 	  This enables support for Hisilicon ARMv8 SoC family
- 
-+config ARCH_HPE
-+	bool "HPE SoC Support"
-+	select PINCTRL
-+	select GENERIC_IRQ_CHIP
-+	select CLKSRC_MMIO
-+	help
-+	  This enables support for HPE ARM-based SoC chips used
-+	  on HPE servers. HPE SoCs serve as the Baseboard
-+	  Management Controller (BMC) providing out-of-band server
-+	  management.
-+
- config ARCH_KEEMBAY
- 	bool "Keem Bay SoC"
- 	help
--- 
-2.34.1
+If it connect to EN pin of buffer, regualtor should be good.
 
+Frank
+
+>
+> Modeling it as a mux might be confusing for users of the DART-MX91, as
+> as it would suggest that the routing is configurable, while on this
+> board it is actually fixed.
+
+
+
+>
+> Best Regards,
+> Stefano
