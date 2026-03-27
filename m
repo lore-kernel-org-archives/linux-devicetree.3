@@ -1,152 +1,104 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298173A5442
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 09:06:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774602372; cv=pass; b=EeVzfGZLzs7PzLEEMsRbUpZV65vTiqqT5hmSA07Cq2QPwN9VmPdb65z15KFpdosLVOA5VOsLQRurL50tT4/3jfnOFRwRsvXfaLgfPruRI0mKUJi7WxnqR7IbwDwY3VXBujOELEPvC9aN3bKOcGNiq+QifKdKWOwpMRMqpr7tf2A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774602372; c=relaxed/simple;
-	bh=EcbL84R2Ic0MsfVq/sbwk6AErZQ8PN1gKoAXHtH00KM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=C4G/mF6ci/jqe/5bGcGLS/thvJy/qcSjbWltuq4147IreO9GZ5Ws5KD+y9M6OUfvbr+uWAUsykoq2CZQzFL9v5Hr5mWvCFIkY/Jr2en69I6oZwAzQb1IlXLNe/sKMtxQWtwjEmMc6O7T4pQa21Iir9X/XGnOymBQmQ2XgibclH0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R08hI9NE; arc=pass smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 196D73C9EF0;
+	Fri, 27 Mar 2026 09:07:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774602432; cv=none; b=oJG1fsOryfFql95sy2hutomHomD8JG8AuubzqPN7oTmk39oVx7niVNnKTOycS7+ZYUIGZY2wDO6854XO9LKk12zFnoRlL7n821z5JRfkhpmBpQHepf4MkGkPOc19CnbfrYfW7NQAA7VLfqONB2clF7UiLLDCxBuuktkNDpweloE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774602432; c=relaxed/simple;
+	bh=lK1k8tVf48GHPvLwztHGlY4knt1Zw3SO9dEwb1AzehA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K44X1cDdAB3nUwLdYAIZGVKL/BHhRFvNP2Lom7fUrB7UCS9vSr3ob9iYxgD/r0OrPrD2VAkrxX0FtWW/alRpv96D5wJPcgehlkmCkv3qKYXFJJPLi+eiYx3Cc2e3Nh/H8SOuPucAKqOISwZXFMiIsAjV4it6tzM96d5po/uqwxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=CN/BRyvh; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R08hI9NE"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-661cfb9f3aaso2787598a12.2
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 02:06:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774602369; cv=none;
-        d=google.com; s=arc-20240605;
-        b=SdC86l/H2O23cS4D/j77nJ05kinbojW1QYDU0G+v3weY7w2ngrnKlggePawbX+Fe3g
-         sy7SdqIDFnWylNX8EphijFRqcPV2OzyLNHYBfL2YTX32syORaKSaeWCwrI1TCwIH/1Hh
-         T2iG3gxBCWg8zHIT5lbzjgnFFT8Kb3Mb2cBce2dbqeLt/GGKTPTN59aKogTG0CcciIty
-         ihgu7EslkM5G/98o5ApjGi9M9xFvrPrzZMy7Pge621kW9Q77xBb/m2ahZ3DvEMemQCpp
-         AFGNLxpmr1jO3d7uLH9TU/8JmRpZO9X6qk4y4pWK1Ewxyg4W5aZb2Udb0U+bwzlm7X5M
-         xZKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EcbL84R2Ic0MsfVq/sbwk6AErZQ8PN1gKoAXHtH00KM=;
-        fh=Hy9CTLqBX+C7nAvNTgt1hxoWbpHgcMRGA7UdNWnkMto=;
-        b=E3ugFYvj0GViTiCwRjLAuxD3Cxw0gCpT5wlIS1ScyA0GSdvt8BWcARQ8nFh8vAwz3u
-         vpsbsY4bpXp2Ek7IxHyo1Gc89haon6uSdFfN6B8/W5Yu/3b7f63UkcGhw5/TovGtKH0G
-         uIV4EhCKzP3W/dCFgaRRPxOPJ+JO0axoAC1rK6JB471qg8urGOf9WN1zgB2zE+saX+wm
-         WVUkDV/be3NIN+4dfLw8V2nDde57/3nw9ntQLwy1snMRyhR1ZFMfj4GX9uMW2O8IzEZH
-         9u5S8syqeZysTzlD//LjDpz73lkBqyAk05YbVLve7yUu3vr2sM9NpBdIlm5efs2kOvag
-         pBBA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774602369; x=1775207169; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EcbL84R2Ic0MsfVq/sbwk6AErZQ8PN1gKoAXHtH00KM=;
-        b=R08hI9NEPkPerub1VwQJ5b55alO4gft/oMT1zd7IH3GJZ/RhSAAMyO+et1EeXlby+L
-         JocW+KlYM0fweA/e6akqBGzGyHd0/luPGFxHN1HzYoeGPQ/7VAfpOekDk/HUTGZ63dLb
-         XqcBAiSgCfXkbqX1U0R9DvjQw4TXDzsY2rxNVJ6EtmbZNptnM2C7hSUZ6zEsrVQJeFzS
-         eW2NjhvVbye1j/kDsqidgpjk6zpUdXthQJWBnmKvVzhTXrjAr1ZOvCsWM5dM85nhM/D6
-         Rw+tGDMPz//vjOVllgGNlncYfnOd2ZtHYa0blK2Wua6AB2XLdgbODLZiQzo3ToEaJ5x5
-         OqFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774602369; x=1775207169;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=EcbL84R2Ic0MsfVq/sbwk6AErZQ8PN1gKoAXHtH00KM=;
-        b=X0aOnaHWCbReF5JKMcuiA6fj14jAo5YvrvHNx7AiSH3BHUIemy3dkpPMVrlH7U9+Wg
-         T7HHDstUuLnFOPZnoWBnx8nuivEK8jd/HHjrYxtc5lbjQLPl4eCjypOZg/su1vPLU68w
-         NP9D2mSwG8D2wghny7W+Q9VzWSYjtcY4Luo30KxnTmyOjmrfzQhBge48jKlcrUGYjzvO
-         NGhDn8MSqyuskxhOYeU5bBUQe8TW2wJzswGA0XVoDDJ3HMp0QGqcuWfPhbdTCub6I8QE
-         8lU7M00ukeq2ffYgrdLdYEu6r9T0pq8sl7IyzbQlgRSZKsPb6LENnVRJy7Ukc2qfU8TN
-         Jqxw==
-X-Forwarded-Encrypted: i=1; AJvYcCUrXoRfSKxMY9sFLgzl6KWCGj2oFtIXa6lvK/vrzFe6evOemsh6LU0NNwvuTeNLSfnEuoX+dG2EUbQB@vger.kernel.org
-X-Gm-Message-State: AOJu0YwDEgGDdpmfGQvFTnT+Q0tQm59jgv6eT7cdwDgu9EtibbgtDWKC
-	E7SsQ+5gG05JKb2rz+HViq6Tyi76oUH0QSrnM9Q9jDn8nV7V2VcSNAEviIMTbl9EGvSbPYDvVQ9
-	GO/OUb/WjPPGIWKB9oRsFXK+/gl97q6g=
-X-Gm-Gg: ATEYQzzqtJZrkOTK5oDLxm39T5HKrKrz0TcPgOit4kuOqJck11xj8Hs0NPh6SrIjgvW
-	oOJh5sZ3Q5S6za5Dp85FhFPb9KtGVUEjyJU/8iCq7SQE5egym5U6piU/V+VGhjsI3JL47sNO/MA
-	x4rwfAGy5XEeEuE4fTvZFh3kyL2HLVBxH0MyzgjjMbpylwQG2jT2QtvJIWGMo7SZv1lnrLwmg2X
-	C0gdV3R4cIr6wpTeYI5G6u3fo4s/YNYDhPrxdK/cMtx4lKk7Lt8vxsHUojZmNP9LyBoH/C5jw/t
-	gReY2eU=
-X-Received: by 2002:a05:6402:1d4e:b0:66a:526b:96b5 with SMTP id
- 4fb4d7f45d1cf-66b28c5262bmr1098566a12.18.1774602369094; Fri, 27 Mar 2026
- 02:06:09 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="CN/BRyvh"
+Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 06EFF1783;
+	Fri, 27 Mar 2026 10:05:49 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1774602350;
+	bh=lK1k8tVf48GHPvLwztHGlY4knt1Zw3SO9dEwb1AzehA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=CN/BRyvhAdneg4XVvKktKriMy7t5utblF/xZKEnWtnArTviz/lflWGxBOLkJHkHey
+	 WyR8VVPk8lclPvE8jq0RI/9Bhd3GZvHPgNzQyWUcBySFXflOk5OWBIOOszoz/+0soe
+	 ZeZcJ70NXcxRwbKI4dgFNcVsnmigD2MvjprbZf2k=
+Date: Fri, 27 Mar 2026 11:07:07 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 1/4] arm64: dts: renesas: Fix missing cells and reg in
+ Draak/Ebisu panel DTO
+Message-ID: <20260327090707.GA3026970@killaraus.ideasonboard.com>
+References: <20260326042411.215241-1-marek.vasut+renesas@mailbox.org>
+ <20260326042411.215241-2-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260320094441.128263-1-midgy971@gmail.com> <177437177535.786081.7519498810130807269.b4-ty@sntech.de>
- <533f27c9-e970-449b-a431-4ba41a566aaf@kwiboo.xyz> <10821700.nUPlyArG6x@phil>
-In-Reply-To: <10821700.nUPlyArG6x@phil>
-From: Midgy Balon <midgy971@gmail.com>
-Date: Fri, 27 Mar 2026 10:07:43 +0100
-X-Gm-Features: AQROBzC8CnXSa0u5wehgfkvDz7gqUZpnjqEtux6oaO4slyBrfgvJQHeqANw0iXE
-Message-ID: <CA+GS1Y3kiRrTZrS7meaHoSgOaputt3RL9iuHrtKqys4qN+uYYg@mail.gmail.com>
-Subject: Re: [PATCH v5] arm64: dts: rockchip: rock-3b: Model PI6C20100 as gated-fixed-clock
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Jonas Karlman <jonas@kwiboo.xyz>, linux-rockchip@lists.infradead.org, 
-	shawn.lin@rock-chips.com, jonas@kwiboo.se, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260326042411.215241-2-marek.vasut+renesas@mailbox.org>
 
-Hello Heiko,
+On Thu, Mar 26, 2026 at 05:23:58AM +0100, Marek Vasut wrote:
+> Add missing cells and reg DT property into Draak/Ebisu panel DTO to fix
+> the following warning:
+> 
+> "
+> arch/arm64/boot/dts/renesas/draak-ebisu-panel-aa104xd12.dtso:30.10-34.5: Warning (unit_address_vs_reg): /fragment@2/__overlay__/ports/port@1: node has a unit name, but no reg or ranges property
+> "
+> 
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-I apologize for missing Jonas' comments. It will be done for the next
-version as requested.
-Indeed Claude works "well" :D . I'll be more careful next time.
+It's slightly annoying to have to specify those properties in overlays.
+It would be nice to improve the tooling, but a warning-free build is
+probably a more important target for now.
 
-Thanks,
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-Midgy
+> ---
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Magnus Damm <magnus.damm@gmail.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+>  arch/arm64/boot/dts/renesas/draak-ebisu-panel-aa104xd12.dtso | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/renesas/draak-ebisu-panel-aa104xd12.dtso b/arch/arm64/boot/dts/renesas/draak-ebisu-panel-aa104xd12.dtso
+> index 258f8668ca361..90767d74e21b2 100644
+> --- a/arch/arm64/boot/dts/renesas/draak-ebisu-panel-aa104xd12.dtso
+> +++ b/arch/arm64/boot/dts/renesas/draak-ebisu-panel-aa104xd12.dtso
+> @@ -27,7 +27,12 @@ &lvds1 {
+>  	status = "okay";
+>  
+>  	ports {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+>  		port@1 {
+> +			reg = <1>;
+> +
+>  			lvds1_out: endpoint {
+>  				remote-endpoint = <&panel_in>;
+>  			};
 
-Le mar. 24 mars 2026 =C3=A0 23:27, Heiko Stuebner <heiko@sntech.de> a =C3=
-=A9crit :
->
-> Hi Jonas,
->
-> Am Dienstag, 24. M=C3=A4rz 2026, 18:15:38 Mitteleurop=C3=A4ische Normalze=
-it schrieb Jonas Karlman:
-> > Hi Heiko,
-> >
-> > On 3/24/2026 6:04 PM, Heiko Stuebner wrote:
-> > >
-> > > On Fri, 20 Mar 2026 10:44:41 +0100, MidG971 wrote:
-> > >> The Radxa ROCK 3B uses a PI6C20100 PCIe reference clock buffer to
-> > >> provide a 100MHz reference clock to the PCIe 3.0 PHY and controllers=
-.
-> > >> This chip is currently modeled only as a fixed regulator
-> > >> (vcc3v3_pi6c_03), with no clock output representation.
-> > >>
-> > >> The PI6C20100 is a clock generator, not a power supply. Model it
-> > >> properly as a gated-fixed-clock, following the pattern established
-> > >> for the Rock 5 ITX and other boards with similar PCIe clock buffer
-> > >> chips.
-> > >>
-> > >> [...]
-> > >
-> > > Applied, thanks!
-> >
-> > My comments from v3 [1] was not addressed in v4 och v5. E.g.
-> > regulator-always-on/boot-on not being removed and redundant comments.
-> >
-> > [1] https://lore.kernel.org/all/fec0f25d-733a-4b6c-aef1-2ac51bd15798@kw=
-iboo.se/
->
-> thank you so much for noticing. Looks like that AI thing is
-> working "well" ;-) .
->
-> I've droped the patch and recreated the for-next branch now.
->
-> @Midgy, please honor feedback in future revisions.
->
-> Thanks
-> Heiko
->
->
+-- 
+Regards,
+
+Laurent Pinchart
