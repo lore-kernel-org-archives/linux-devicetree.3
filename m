@@ -1,62 +1,62 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B80F30AACB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCB4378D9F
 	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 17:42:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774633372; cv=none; b=tvBC/LMxFMmTA/m/qVriA3WfOcqJa9dTcd+zP+Ft3YWHvDxAV0t3viaKBKK2aXhLqI4kEB8yyAh8REeIzA+irp99k74YbAtGEbOLaP7r6SYYG3jklbtZjLuj84w7BPeZTBwemWXN+H7aZQXgEd4eRjw2NHaiJL9By1jnqYqERK0=
+	t=1774633373; cv=none; b=AwmMwJ7hpQwD1oHURk3s0K4d3YebX8q6NTRUrPMiDnULCpwfdzLUxbQM6RfFAlryUhKp1PZCwAbYJVrPB/ZW97V62p5NkHG2tm7ZQhiqK6SmOiBnCJAT6UM5A0GrnU5mLvAPW36XXU6NW5UjMhVnOKAfkaDTwoAk2a2QSHL/jO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774633372; c=relaxed/simple;
-	bh=n/SigdKyXTHXAMOgdOkyYoCjrKeCCVOvmY9wB8H71tQ=;
+	s=arc-20240116; t=1774633373; c=relaxed/simple;
+	bh=rkgiPTNK4wJ0bIJI5clmxZqKNMgXqfaXzD1JDS/WFM0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=egEfBBArMoSGpRHQYmd0QWTJPNd11oFM74I/1gzFoU/kVX0pI4r1fy92sdoTgD81bJ1t/heRN5X2S4icrdX2LCZm03tY1p7fSreU+lo9sC8d1vr9EmSfwvF1XfEXr6MuUGxBe3rwMDJBEnKhRiyOAuOVw4DgBosZaJEwXC+9ysM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UKSOcbl9; arc=none smtp.client-ip=209.85.221.52
+	 MIME-Version; b=oujJGKE0/oGq9MBobA8N6JV8OS8+4zG395Ycw20TPy5B2Fg3gNgc0yBoqwhaF6DdCQsBkvsbDlJDB+T8liaxbJnmiNgtdaSouwvf4ugv9zpYRDquy5uLKICuKFCn/98kBmRF7J1zZHQWMZFxCbcK/7krnVoX49gCL41GrhdmYLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UGY3PbqW; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UKSOcbl9"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-43b40fb7f95so2057851f8f.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UGY3PbqW"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-483487335c2so26144775e9.2
         for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 10:42:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1774633370; x=1775238170; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VH3wFzr09f4BWW4HDYRhxglvtqStayE7wEn/6/CruX8=;
-        b=UKSOcbl96vhqeSAzYGgkmsBQhIwxl/VG2DzbXXfSprmGSxV24tBoKFyGHgWP1J6zcX
-         3wWDMszdnbmTH8v5jwVEAtstM7nPB5mcMre6V1QMxKFygMxXmLcM2vy12l76sNDUyYnn
-         P94RTNvGsaEy7pRX73f6DYawxTcg+HND+mY3doiVXyAsRAvE5aRveGZaNS8zvEUEf/oX
-         JktP2htCpH4dwGHNgkIo8K2N/Vp4hCoFmahnDdWVAvWbd1EdQHFxprSqqt7oa8NdCA95
-         o0PhvgT/jEhkeVaef+0vMulDGCkeNyJSWYjSgHfVnHMRr9FnnlQ/qA6Z/hLTiD86GY6k
-         mQFw==
+        bh=+kH691RpikDb6X9g4K/wrujahyFXI0sMtAOZYtzMJ7Q=;
+        b=UGY3PbqWk779Y2pkvS6r5Vkm80uVxN/vpof7crvTWCDQ180jkZmmxXHd64usu8h3Yr
+         pzGQE/yIzfaMIrfT5tKh6BF2s5NDs3TSPVoOsaVLiHcpf3CR/g8eSqn4v7sDO3w94yqS
+         ocb9RUAkdUWgiZ/cRAbXgwjBTKSd6BlbPmYFKKjfz0+s5lF1P9d+6hh0z8NvmKwWqTWd
+         BTuccpmPHSablvEptlaqNWuNulYd3l/7F73SP+rSVm3YHgoBT++p3JVSDdI2oeQsbpdM
+         nIlI66auqgjFehyCWKITmfencp+4dCMNl6fVX0pI3yBnwgTg505wl32c2es4peRYgy6z
+         0qdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1774633370; x=1775238170;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=VH3wFzr09f4BWW4HDYRhxglvtqStayE7wEn/6/CruX8=;
-        b=Yr7t5rLzzmk9CmHh82D+c/Os8ZtiSVpUIJOrPQVJgRGMGR9Nf4Km7t1OLLf3IJegxX
-         Awwq/UIqo+Gwg8QQpRrIOLorBjAB4JQRnt2/+9KSv2fLfNMlMoZoubK94DMq9meh8TTi
-         MWTiKWXiDasrwG6ZGOL9/sCwEo1gFU7zTJoIvrrTcheT6lVX4Ag5j29fjyCek8iqjta4
-         xy3fq6ZEbcsnf0XCNs5f1oSSJFvSqjdl+QgkW1GfAcYo6BkK6O+4TAkGFpL20sPbRNbY
-         pRYCT0xl93spbcdA5kQBq6RiOdX2B6cc/iVubHAQKqu2wbYxncn4CTOwCkES9z2F+g33
-         Q8aA==
-X-Forwarded-Encrypted: i=1; AJvYcCVDHSrW9qgq8ntsmJAchneVXb6YbZcuWNtSCAayKB+8vHPn8eqqICrPS0nUyjCop2a/VSHIE26Qz1Fz@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPbqXhn8pf4h84d7/fxZClj5h+5ZIm2Wp1kANPtIC+l9uQ6R++
-	LsQDkJr5d8t/GlWHMOHt17hFimKUXEMMRZ3bGIe79sTBM0ExqFORaMfV
-X-Gm-Gg: ATEYQzyfOzt07C/VBKGoXegCPNgns0Mb+0PpgtqAqougdZfRMbBPNKXYm+sd7u2Xieg
-	Yyf77uNZfoWz1HzIgG4tcPVqVuspmN7zBgp/tWQkEUigE1l71HEKGXQR87RyXe0maQapxcNY3+f
-	vncCP8qjUaPqkoe7EbCimfVjfAodE1AgL6LWWXJJPCB/JrwSthZgTPFouftEYGGLYEVXiZuMH0W
-	oGeQOcpGpGPecbWILCOUfLr0RkFDFBH2iMiLGOsKP/k4fusefIO54uRGyV95T3QdgTzHC3RFXVM
-	3l+m7Dij/s+EnxK9erhPuXK5VOBFY2XrP2DqqnCE5WX3M3E/O5UAa0Qe61e9VulOA1oiYMmWtr7
-	LVmqRSsn119TasREkR/TtAJ9WXi/QnQQjA2rpLCquZb9AyvrK3kO57k/yBP405aKXT4x+L0hsZf
-	F+3lUqJd2zcU/dKhr0Xowtuf3xxlXVdrFva0DEcu1LtUPHaXwFuDmVkhQGiQeBCL+kI/6QLApkb
-	oIr6Jol9v5wQrr/Wx6CN+pVBTzjsN0OOGJmU+Hnm1cm3RI=
-X-Received: by 2002:a05:6000:268a:b0:43b:4ec7:f90c with SMTP id ffacd0b85a97d-43b9ea4a504mr5718573f8f.26.1774633369466;
-        Fri, 27 Mar 2026 10:42:49 -0700 (PDT)
+        bh=+kH691RpikDb6X9g4K/wrujahyFXI0sMtAOZYtzMJ7Q=;
+        b=UjWHAE21zh9M9d91sMmiF3I4ZZ1+t+0KrrITwVVa3bxgFBMgd/zmjCu+FF5SveVHpl
+         XMx3jmOaKW7y6LPR8FbDXjZNaQ99cvptMWYgcRVA8KNiqtw8pStFyawwjKE14XeQjoWR
+         FA89qvRYMXxlFEPbpXDpXbA0dFi7qJtgqSZkNHSyB/aCQCNZ78TP6OS9RaV1LXZMQmZn
+         loVmqrb0EIE0A/C0ClCkVzoLQwCzDuqFdRPjAsakLM/necSk4mICedgdGVi6ZfmhAnLJ
+         5UEIIvYrdsV/yS7EtY57q5A1sTAfTLglMeujID5tt767pXc5hx8673HNDoHXdAf2HY6k
+         N14w==
+X-Forwarded-Encrypted: i=1; AJvYcCUBsOoJBCQXA1wIniQ4lP8cr7oKwOO4aRJV/y4PRk38M/Fpk5lNr9D26v3D9mO72cbaheIpGYm/f11o@vger.kernel.org
+X-Gm-Message-State: AOJu0YxX+oaY5ks5QQSbE4XVTrmrnV0//hWKxxtjtzC2t89nDbY5LcRL
+	M0749IA83/YG/1nMix8uFEB+J06/AD/u3tWNMtLrY7u5V983lZV9/uQ4
+X-Gm-Gg: ATEYQzxtDUX+s/KnsgeVib/OA3ZG50B5+vg3+1r5Q+AN64egqC0N7fRM4cDvIaYj4sI
+	mBjeU4XcWV5baUrscahEnt8+BYb3XCMSqdb9CbAuV9Xud7EX5bdpRNzhfscnXDS+2ligpAIAczR
+	dHpRWZ+zQ+5lOLaPzzJSZoO+3q3PBRVjGSk3xADbBmi4VZNVkIFHOzx5V+tk1+CvfuBrY9AmuK7
+	4xt0GWs48eJr9lP4Lk/UQ7JhD+nCQO8uRaP9+BZZuzNobX1dgihAG+d+xQrQbzSoAYEO79NUWcq
+	ba3CHVEXwZaTT+PnUwvpr/7M/27VE56OQSbOsBtFgTzLaN581l4EZB+u/fSMudT/5LBOsjH5+LO
+	ABnKqLHk5d6CRUjiTDiYdpGGGwbhnwy8BskdEcuBbxV+A54opJBP2aK+1RrJRPIwaVkY02iqaUE
+	+V9TJWKV+65mopoLod9uHhZQjM4aUXBlwAZsHV6vYIvZHi9jax4OWHgO19PpLlZLsvrjNaPKuF5
+	eCzr/nwEWtMl84FWuCdLf4oNbmVaqbMvD6wx1ZAIzD0ZsY=
+X-Received: by 2002:a05:600d:8:b0:486:fb0b:ad79 with SMTP id 5b1f17b1804b1-48727f7b951mr48655495e9.20.1774633370224;
+        Fri, 27 Mar 2026 10:42:50 -0700 (PDT)
 Received: from iku.example.org ([2a06:5906:61b:2d00:cad3:5596:28d0:27e3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b9192e528sm15965933f8f.1.2026.03.27.10.42.48
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b9192e528sm15965933f8f.1.2026.03.27.10.42.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Fri, 27 Mar 2026 10:42:49 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
@@ -74,9 +74,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Prabhakar <prabhakar.csengg@gmail.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v2 1/3] dt-bindings: memory: renesas,rzg3e-xspi: Add RZ/T2H and RZ/N2H support
-Date: Fri, 27 Mar 2026 17:42:43 +0000
-Message-ID: <20260327174245.3947213-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v2 2/3] memory: renesas-rpc-if: Fix duplicate device name on multi-instance platforms
+Date: Fri, 27 Mar 2026 17:42:44 +0000
+Message-ID: <20260327174245.3947213-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260327174245.3947213-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260327174245.3947213-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -90,137 +90,41 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Add device tree binding support for the xSPI Interface on Renesas
-RZ/T2H and RZ/N2H SoCs. The xSPI IP on these SoCs is closely related
-to that found on the RZ/G3E SoC with some register bit differences
-in the configuration registers.
+On platforms with multiple xSPI instances, the driver fails to probe
+additional instances due to duplicate sysfs entries:
 
-The RZ/T2H variant has a reduced clock configuration, requiring only
-the AHB and SPI clocks (without the AXI and spix2 clocks). It also
-requires only the hardware reset (hresetn), without the AXI reset
-(aresetn).
+  [   86.878242] sysfs: cannot create duplicate filename '/bus/platform/devices/rpc-if-spi'
 
-The RZ/N2H variant is compatible with RZ/T2H and uses the same clock
-and reset configuration.
+This occurs because platform_device_alloc() uses pdev->id for the device
+ID, which may be PLATFORM_DEVID_NONE (-1) for multiple instances, causing
+all instances to attempt registration with the same name.
 
-Update the binding schema to accommodate these differences using
-conditional constraints based on the compatible string, while
-maintaining backward compatibility with existing RZ/G3E and RZ/V2H(P)
-implementations.
+Fix this by using PLATFORM_DEVID_AUTO instead, which automatically assigns
+unique IDs to each device instance, allowing multiple xSPI controllers to
+coexist without naming conflicts.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 ---
 v1->v2:
-- Add RB tag from Rob for the dt-bindings patch.
+- Add RB tag from Wolfram for the rpc-if duplicate device name patch.
 ---
- .../renesas,rzg3e-xspi.yaml                   | 60 +++++++++++++++----
- 1 file changed, 49 insertions(+), 11 deletions(-)
+ drivers/memory/renesas-rpc-if.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-xspi.yaml b/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-xspi.yaml
-index 7a84f5bb7284..bf50d90051c9 100644
---- a/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-xspi.yaml
-+++ b/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-xspi.yaml
-@@ -24,7 +24,9 @@ allOf:
- properties:
-   compatible:
-     oneOf:
--      - const: renesas,r9a09g047-xspi  # RZ/G3E
-+      - enum:
-+          - renesas,r9a09g047-xspi  # RZ/G3E
-+          - renesas,r9a09g077-xspi  # RZ/T2H
+diff --git a/drivers/memory/renesas-rpc-if.c b/drivers/memory/renesas-rpc-if.c
+index 0fb568456164..3755956ae906 100644
+--- a/drivers/memory/renesas-rpc-if.c
++++ b/drivers/memory/renesas-rpc-if.c
+@@ -1034,7 +1034,7 @@ static int rpcif_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, PTR_ERR(rpc->spi_clk),
+ 				     "cannot get enabled spi clk\n");
  
-       - items:
-           - enum:
-@@ -32,6 +34,10 @@ properties:
-               - renesas,r9a09g057-xspi  # RZ/V2H(P)
-           - const: renesas,r9a09g047-xspi
- 
-+      - items:
-+          - const: renesas,r9a09g087-xspi # RZ/N2H
-+          - const: renesas,r9a09g077-xspi
-+
-   reg:
-     items:
-       - description: xSPI registers
-@@ -53,28 +59,38 @@ properties:
-       - const: err_pulse
- 
-   clocks:
--    items:
--      - description: AHB clock
--      - description: AXI clock
--      - description: SPI clock
--      - description: Double speed SPI clock
-+    oneOf:
-+      - items:
-+          - description: AHB clock
-+          - description: AXI clock
-+          - description: SPI clock
-+          - description: Double speed SPI clock
-+      - items:
-+          - description: AHB clock
-+          - description: SPI clock
- 
-   clock-names:
--    items:
--      - const: ahb
--      - const: axi
--      - const: spi
--      - const: spix2
-+    oneOf:
-+      - items:
-+          - const: ahb
-+          - const: axi
-+          - const: spi
-+          - const: spix2
-+      - items:
-+          - const: ahb
-+          - const: spi
- 
-   power-domains:
-     maxItems: 1
- 
-   resets:
-+    minItems: 1
-     items:
-       - description: Hardware reset
-       - description: AXI reset
- 
-   reset-names:
-+    minItems: 1
-     items:
-       - const: hresetn
-       - const: aresetn
-@@ -109,6 +125,28 @@ required:
-   - '#address-cells'
-   - '#size-cells'
- 
-+if:
-+  properties:
-+    compatible:
-+      contains:
-+        const: renesas,r9a09g077-xspi
-+then:
-+  properties:
-+    clocks:
-+      maxItems: 2
-+    clock-names:
-+      maxItems: 2
-+else:
-+  properties:
-+    clocks:
-+      minItems: 4
-+    clock-names:
-+      minItems: 4
-+    resets:
-+      minItems: 2
-+    resets-names:
-+      minItems: 2
-+
- unevaluatedProperties: false
- 
- examples:
+-	vdev = platform_device_alloc(name, pdev->id);
++	vdev = platform_device_alloc(name, PLATFORM_DEVID_AUTO);
+ 	if (!vdev)
+ 		return -ENOMEM;
+ 	vdev->dev.parent = dev;
 -- 
 2.53.0
 
