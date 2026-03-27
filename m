@@ -1,128 +1,85 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB57435F186;
-	Sat, 28 Mar 2026 05:16:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC0130594E;
+	Sat, 28 Mar 2026 06:44:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774675017; cv=none; b=otscNaSfcTQ5yWiZKhkpjexRgVy4+m2ROuTlvWTyMH/R7Y+n9af7U+VbUiTIOz9Uc8Kgo27m/EScTs3h0SvFUXjqa4TPoHh7AjX/xJx8Si5+QGVFXGL/Qxkx192ByOt6C+OMP+5N+WYudYNxOTfvrlfvW2Q5X+u6Gr3qDdLlIk0=
+	t=1774680242; cv=none; b=nNHHlvZpxVl2Steh6S/NDTmyKURa8NGVWkGvpWqeyhUCsMjopQtwJDtA9cAzozFFQSMTtwrNmY4wgzF0B0UzQ9lwBW2hLVd+57Bwtko6AdlsMQxgPLH3FewamL7n5kl687ac/tq0yyc72jvwRjeYtXn1ZnGjiAsAidZUNLVACF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774675017; c=relaxed/simple;
-	bh=gk2JLw8qis/QXrM+fZM+NdbfLjXxabDNzwbfyYcTrdE=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Rmu8rg/Z1txdhbJsacO/6jxOpsk+L/XIZFa8dhmJiAXFwCZqoTjYH98w/KssC9QZJ+WsU6p9T7M/YT4Q/VrQo5XAMhf87YTYNIZaOiVA9SpYaKBtHRDB7ChMh2JdnMYWb2FJfOXlEL9g9udgQlDqA3+7n2qiKMIXoBqt882pqJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=BSOKmTfc; arc=none smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1774680242; c=relaxed/simple;
+	bh=OCQ7xdDKzEC0lFAjkEryn6WP9INTgzW/siQ1oZjwxoA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=O5EVof+Dyb2KPTAYba8lnWbmXemaanB373h8Bi/KFrceK82G36RA7mBRQgeAqcw2Rqlr1mpqb/YQWAhp9uxAu+/RjmEHgrfvvER7rCLoVyfvBmfHd9NqC/sTtkK6semIkJd4b96SL4m5jM6b7KjXeAdCe/2vKxpyQGpEOHv9Q5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=ezHRUiTx; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="BSOKmTfc"
-X-UUID: 52add19c2a6511f1ae70033691e9ac7d-20260328
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=TE2Un6aKmiGXXBPKfjqWX2rpxEDGsCZOxrxlYffTTes=;
-	b=BSOKmTfc+exXDkf0mdtf+qBuLZ+FEg4I6DvGHesesDg/XKNgLZAfrETRv06yWYDcWV4P7N1JD5ebzl7CaWIJkGnQV02s0YSboviQuqLPf+yQtFTSp17BQDh0Q5/s5e31xNfjP0s8G0LL8YrkLivVBexVS5CMpx9vMgCga0exE78=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:4c8e969f-a716-46e4-9c01-cb6033d6743f,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:e7bac3a,CLOUDID:17ef3e3f-41ee-42eb-90dd-1068410e1f48,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|888|898,TC:-5,Content:
-	0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI
-	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 52add19c2a6511f1ae70033691e9ac7d-20260328
-Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw01.mediatek.com
-	(envelope-from <yunfei.dong@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1971194761; Sat, 28 Mar 2026 13:16:49 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Sat, 28 Mar 2026 13:16:47 +0800
-Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
- mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Sat, 28 Mar 2026 13:16:46 +0800
-From: Yunfei Dong <yunfei.dong@mediatek.com>
-To: =?UTF-8?q?N=C3=ADcolas=20F=20=2E=20R=20=2E=20A=20=2E=20Prado?=
-	<nfraprado@collabora.com>, Sebastian Fricke <sebastian.fricke@collabora.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>, Hans Verkuil
-	<hverkuil-cisco@xs4all.nl>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Benjamin Gaignard
-	<benjamin.gaignard@collabora.com>, Nathan Hebert <nhebert@chromium.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>
-CC: Hsin-Yi Wang <hsinyi@chromium.org>, Fritz Koenig <frkoenig@chromium.org>,
-	Daniel Vetter <daniel@ffwll.ch>, Steve Cho <stevecho@chromium.org>, Yunfei
- Dong <yunfei.dong@mediatek.com>, <linux-media@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>,
-	<Project_Global_Chrome_Upstream_Group@mediatek.com>
-Subject: [PATCH v4 13/14] media: mediatek: decoder: fill av1 buffer size with picinfo
-Date: Sat, 28 Mar 2026 13:16:23 +0800
-Message-ID: <20260328051630.7937-14-yunfei.dong@mediatek.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20260328051630.7937-1-yunfei.dong@mediatek.com>
-References: <20260328051630.7937-1-yunfei.dong@mediatek.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="ezHRUiTx"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 964F41125E5;
+	Sat, 28 Mar 2026 07:43:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1774680238;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=K8IExplj4jNkiy6koIYs6HsbetYK5EUUl0gJcPtFT+I=;
+	b=ezHRUiTxuJwQt9p9FGgw0+VcCYPZNLrdcS82esBojW4G5HRjxLzZt9XDmrG5yGqhjfEOWz
+	DZMKBGBet8COkiky3tcehlbt9Fjka6XrG6pushgkBdPmTG+iAe63057Au7Z2hCBxfdfINg
+	DXGv4+YiV8vyVN/UCd6ZIK9BvP/YnlywaO10Eh4tdJhN9A6MjmtGo7Cf1sa5q7cs8qgs5D
+	j+2DNbD2M+suMlEPacgpl3wc+K9FRAEMSElBKXF3ukePZkl77yDhSuoJ9Yoa46+0FRRZg6
+	UxYT3L5FZY/fpPIOhnYscWsqUzH425pkUQ+P+v5yvznC7gd/qEE2eIHUabeRUw==
+Message-ID: <a4a5284d-6004-46c5-b5a3-f8eb4d9b3680@nabladev.com>
+Date: Sat, 28 Mar 2026 00:17:31 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/9] dt-bindings: display: fsl,ldb: Add i.MX94 LDB
+To: Liu Ying <victor.liu@nxp.com>, Marco Felsch <m.felsch@pengutronix.de>
+Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, imx@lists.linux.dev,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+ dri-devel@lists.freedesktop.org, Frank Li <Frank.Li@nxp.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260304-dcif-upstreaming-v8-0-bec5c047edd4@oss.nxp.com>
+ <20260304-dcif-upstreaming-v8-1-bec5c047edd4@oss.nxp.com>
+ <b7968f1a-c4bc-4bad-bcf8-407ff2d8db27@nxp.com>
+ <dmqbmmpyi3ssvq67iqwbt6ww7tsaik7ifi5dnupmuhep7u5saz@ads5g7ette3y>
+ <mx6b5svmvlonil4efuiaxcmtygn7lld3nj7gcxnnauaryt2yed@gohjshakc2g6>
+ <40b3d1c8-0cf2-470d-8223-751240061735@nabladev.com>
+ <xqy67fmh42k26iagl7wqrh2dbsn7c5fytwbkcksfzagefp327j@s5hg4lpuvy3q>
+ <4e75f1d3-29ff-46a2-adb5-78a08f781834@nabladev.com>
+ <2fe36f04-97d3-4e99-97e9-7a3ac53cffdb@nxp.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <2fe36f04-97d3-4e99-97e9-7a3ac53cffdb@nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-The buffer size of y and c plane has been calculated in vcp/scp,
-can fill each frame buffer size with picinfo directly.
+On 3/23/26 8:22 AM, Liu Ying wrote:
 
-Signed-off-by: Yunfei Dong <yunfei.dong@mediatek.com>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
----
- .../vcodec/decoder/vdec/vdec_av1_req_lat_if.c      | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+Hello Liu,
 
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c
-index 4932ef469594..a0c7e89b8ae4 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c
-@@ -1811,18 +1811,19 @@ static int vdec_av1_slice_setup_core_buffer(struct vdec_av1_slice_instance *inst
- {
- 	struct vb2_buffer *vb;
- 	struct vb2_queue *vq;
--	int w, h, plane, size;
-+	int plane;
- 	int i;
- 
- 	plane = instance->ctx->q_data[MTK_Q_DATA_DST].fmt->num_planes;
--	w = vsi->frame.uh.upscaled_width;
--	h = vsi->frame.uh.frame_height;
--	size = ALIGN(w, VCODEC_DEC_ALIGNED_64) * ALIGN(h, VCODEC_DEC_ALIGNED_64);
- 
- 	/* frame buffer */
- 	vsi->fb.y.dma_addr = fb->base_y.dma_addr;
-+
-+	vsi->fb.y.size = instance->ctx->picinfo.fb_sz[0];
-+	vsi->fb.c.size = instance->ctx->picinfo.fb_sz[1];
-+
- 	if (plane == 1)
--		vsi->fb.c.dma_addr = fb->base_y.dma_addr + size;
-+		vsi->fb.c.dma_addr = fb->base_y.dma_addr + vsi->fb.y.size;
- 	else
- 		vsi->fb.c.dma_addr = fb->base_c.dma_addr;
- 
-@@ -1845,8 +1846,9 @@ static int vdec_av1_slice_setup_core_buffer(struct vdec_av1_slice_instance *inst
- 		}
- 
- 		vref->y.dma_addr = vb2_dma_contig_plane_dma_addr(vb, 0);
-+		vref->y.size = vsi->fb.y.size;
- 		if (plane == 1)
--			vref->c.dma_addr = vref->y.dma_addr + size;
-+			vref->c.dma_addr = vref->y.dma_addr + vsi->fb.y.size;
- 		else
- 			vref->c.dma_addr = vb2_dma_contig_plane_dma_addr(vb, 1);
- 	}
--- 
-2.45.2
-
+> ... i.MX8MP LVDS bridge node is fine with the reg property, but the property
+> is not allowed for i.MX93 LVDS bridge node according to commit[1] while
+> commit[2] requires the property for all LVDS bridge nodes.  See the contradict
+> here?
+> 
+> [1] 3feaa4342637 dt-bindings: soc: imx93-media-blk-ctrl: Add PDFC subnode to schema and example
+> [2] 8aa2f0ac08d3 dt-bindings: display: bridge: ldb: Add check for reg and reg-names
+> 
+> To avoid the contradict, how about requiring the reg property only for i.MX6SX
+> and i.MX8MP LVDS bridge nodes and making it kind of optional for i.MX93 and
+> i.MX94 LVDS bridge nodes?
+I would be fine with that, thanks !
