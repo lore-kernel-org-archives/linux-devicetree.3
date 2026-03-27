@@ -1,131 +1,186 @@
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013056.outbound.protection.outlook.com [40.107.201.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453FF331215
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 15:28:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774625288; cv=none; b=k5YOfvrnm1qACh/HBDSvwulo2aWyo+wqzavb+6yEnjVkjxZjzHEKRXZe55KyZyb3N+Yi+mU/lP98U3x0bOkhAOoFxeiCnQlS8m0ttVJlDfO0PkFcAyMcb+e1i7yiumKg05WjC/R8PXSBCJxOLKaJOIJjXQcR1I0FwShNZIwy0qA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774625288; c=relaxed/simple;
-	bh=tDqTIVkiTFJiqijG/Buix533hGKeGeSUnwwj0SyqOLI=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=CcoG3q0kGwiKXtYqOQcLaqAxas0IvssGR8NVcwsnogNto8qKAmXNTnU+cgqgty2cqTrNjKTbfxZ93nPPr5aZsvtqGf+yj31nq6/FvxSC5ZoQrvykRtuk4Co2gtP3PeHxYW6kl+WY8pk4WAxHQ25SPtk0/BplUkb8NM1eIUZqKyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E97qNW0h; arc=none smtp.client-ip=209.85.208.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC6433260B;
+	Fri, 27 Mar 2026 15:28:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774625333; cv=fail; b=TUCuD3Ia4A3kqaR8HPAqWyqMpkEQL3AuqCREQWstm0+VxHcs4nn0MuWv/Tkpzz9YfQf51Vdeze27aZltH8Y3BHmLsS55by3xihBlID5MVOUrsSjJJCMzWgeuBu8udHL4/vgBxyTCIWF3Lq4FruLG+uTjgG0VBfNcATou1rJtDT4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774625333; c=relaxed/simple;
+	bh=B9cKZhk56J5p/8aFporitqAVGhVu2ku07GSI86/HRCQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=sssZ6B2AaDN+XVwWePyVRbR32lSrMxJdIzz5h8JecIVV/vNpUUrUlJRwFPnqyb593/qixqWc1jp/ITKER6iGj03+9en8in7KLySZZtKBJPbvTb1SWX1a5e3JdL4p2tH+h581C8OCrg/d/xpdTUSzfyNshgr8yqOhbuV6Ucuh1tY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=TBbZrE1u; arc=fail smtp.client-ip=40.107.201.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E97qNW0h"
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-38a42a0d7f7so27964551fa.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 08:28:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774625285; x=1775230085; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=tAuB14KY8sm1zyzklVI5F/AGlzK5GVbWoscRV5zS/Eo=;
-        b=E97qNW0huVLJ/+n284XvWtt3sCvNg4OkattEU6Yutp6kVTvf/NB/HCzgfDpmb4pVax
-         S7GLu8XQXWSC+t2N45hx0oj/sRI5acPGEb45MiFx2hv+7FJHm8OshO045VxAuYimft5a
-         O20biWu2fW926t94O1TzNgseRRfYME4ykiWmU/YCX59Ew2xdAUs3IAlrc0bjGgPisvuN
-         igroZeyVmt0EU8Pm5JQo76crJp2tBvY+iUWsXwfnNGxZxisz6k1UkftqCzOIK7Tr7WUZ
-         cp1qC1Xr7WP9wgfdV9YLzyF8ffxFy2MTdme5949SkS10+3YRjsj8vW1hgg4zpBJR9BYn
-         G/bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774625285; x=1775230085;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=tAuB14KY8sm1zyzklVI5F/AGlzK5GVbWoscRV5zS/Eo=;
-        b=fe/o/gnTARwGYLvmTnuEYMzdx0C6T/umD5j623wUOSLYJPVbFxbuH0GGb0jUbuJt4g
-         3VWdu45h+BNmntDLKSwRHFZiwLEcrDzqDxmm/HMSij7xeInYpy5Ro8400VHf9mFhEi+J
-         Zl7XMzIuf33Y0VZgZrvJFDwVrTQBD1JUtqkSsUH/gHewpkTE8Xfo2UhdTUNUOX9jjn+I
-         O9QprqhBzof6zjC5B6agE4KaoNCYsQiTe2RkH4q/lGpPrNUAVcrMEOmt+6n/wVe0pZO0
-         PC1saAisrecxsejB9YefGSI3Y62GHouLXj3sOM1gtcUcPtPi67XzaV5NmYlKHXiGFjQ5
-         6Jqg==
-X-Forwarded-Encrypted: i=1; AJvYcCVyGkZeHmxSN1VFrjMBs/P8/VdfB2tb52oBwARkws9ERCFk+b/yahu8Mc8qGz8cISlGW1+QsXy3Ngeg@vger.kernel.org
-X-Gm-Message-State: AOJu0YxczweEwqxRrhOC7zPfDXoS3q2iPcGvvzh4lbkSXUybrMeusFsc
-	Zo8eZ9EmH0smvfOPt2qmAPr8G25hZVWnmyRzYrmq6MlUZUMBLVOyyOCq
-X-Gm-Gg: ATEYQzzCYzshWnJTPBZbwCtsKlIWkHY6bejXibrgJkwkBNwTBh5ikvoqnOa9zAtd3UD
-	g0jTRcchpuYtNOWXh56jPY+g3IpIPKlzwp1M/Jv+jEUaR+UVSHqixmBt4rnYp6UnOtIdYuTL21q
-	Hkh1UkKQfxaBthRg2eUJ/nDMph3Usy9ILjLzWuCdNfCXBKPLwbDQGUyQsm4QBAmUogEoHpwfDFp
-	qhmDH2lEOZwDo8LWYBNYqGSgCngVLcN6XvpEtLpvptAdvcaKzT1Ng3ZOJ0gHyum3EpLkdK98DcN
-	calTA2sysKMF+Af+1M+OWdqBG2mEhn5tfF80fAEUrhGF6TwjnoJ3ynVa351m2ayyH4j92Pi6+6V
-	HO4Ii57ImGzDBb3RngaGVLk04qzRzV0td8E9/9ZOj6b0nhUdfwrA6+dNXTrmerd/jkSdOXL1zPE
-	JxoeMHvOaq/9jGAmP9felFg6vcHbRLJBi9
-X-Received: by 2002:ac2:4bc1:0:b0:5a1:355d:674e with SMTP id 2adb3069b0e04-5a2a505c5b6mr2257466e87.9.1774625285215;
-        Fri, 27 Mar 2026 08:28:05 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([178.137.189.225])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2a0699011sm1439422e87.77.2026.03.27.08.28.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Mar 2026 08:28:04 -0700 (PDT)
-Date: Fri, 27 Mar 2026 17:28:04 +0200
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-CC: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Thierry Reding <treding@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] ARM: tegra: transformers: add connector node
-User-Agent: K-9 Mail for Android
-In-Reply-To: <acafk7munaGrCTK3@orome>
-References: <20260223065500.13357-1-clamor95@gmail.com> <20260223065500.13357-3-clamor95@gmail.com> <acafk7munaGrCTK3@orome>
-Message-ID: <546AC4C1-CCC2-4C69-B563-B29BC1D865B5@gmail.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="TBbZrE1u"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cvp+YNqWyyS3tigVg3ZLAk7V+kNz+PhowsY7D54VGvQwOEK61boYV95DvOAe38BDfCIunRxcGZd7vP87n4o0Y97h6gRYhaq3uhI4pnMPW8SfwWjj4sQQAPp+VnuwUA85lDkLvw0kx9WlSf+unLws5oSaYs3TvIvuPvvtHZModHjhd7NqpNBO0i6oVKxw07Xl+BccciKvCM7/WLteksW3U1SQQ37l/G8Y50BBYca/mV4E1BUrxoLn5p3/GQNxznzsSrwWgW/R3y4eRNgsbBT0MDfENIBHZuIln+adHORMdzx6hkG+ptGUHldkTH1QqTZQh6bKN8AF9pco18Dj7DremQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Wu5VehAT+9vqUyY2CfIoAPJhm3cBA4LwH87hAIaoRqo=;
+ b=bsN99+iLOtGlzji/TC+Y3rcWtCaaJdCDxKqYxPpxknvOSl7tA/H3aju9BkxlpDpXrYLNDHifMLx5ZU2hVmNuFmUkUbpbt7QcIVwd0vJAXrrc3OE+LUNby1/HUzeq8tk9+qZTbCk/YVdKdrx4NpFGiIUS8a36svC5JDl1gYuy4yU36Qd1qqAQ9T1OTQlIm5vlbj6YM/954YnIBY2Bc6u/NOSOJLrxJvUuCDaTx5JT3NSAzGEfxKVd9T9BHwe61GsOHi/Bx4tFDPv53AmGp4MFSfr2gPSkE2jpepish98d9JTzoJ9818A4PjDeOg1WgMUY1F3HmL2jQANAOsqJW98gSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microchip.com; dmarc=pass action=none
+ header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Wu5VehAT+9vqUyY2CfIoAPJhm3cBA4LwH87hAIaoRqo=;
+ b=TBbZrE1uTbiZT8QfQsXuR4taunUPSfcqeuSt1szDS1el+X97FkWGpZjdbpYBB9wqbhnTKy/3ip2cyqQMjkn2S2aFlPMhQflGjCOQX65AgBuKW0TV0VfT4TRS3HC1gV7FzvuVuxFRnPznvcSLa5TceYOxO1B1Voip5AEMKTwNc4/GU6xjMH13YtKOaXlLa/SQ19jFR+CxgDOZ1BmA/EPo229E7Y9WKth/J1K5XtRh6Q750eQxLD+TYCJj74/HweRhSSfrh3QYozqC39jnL3WXB8N2ud5mNHR2tY8l2sTUdshu6pqHlaAq5a8NUxefTmFwqMWrwO2veDGOSZlDu+eCCw==
+Received: from CY5PR11MB6462.namprd11.prod.outlook.com (2603:10b6:930:32::10)
+ by DSWPR11MB9559.namprd11.prod.outlook.com (2603:10b6:8:36d::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.6; Fri, 27 Mar
+ 2026 15:28:48 +0000
+Received: from CY5PR11MB6462.namprd11.prod.outlook.com
+ ([fe80::10d1:11dd:5088:7559]) by CY5PR11MB6462.namprd11.prod.outlook.com
+ ([fe80::10d1:11dd:5088:7559%5]) with mapi id 15.20.9769.004; Fri, 27 Mar 2026
+ 15:28:46 +0000
+From: <Prathosh.Satish@microchip.com>
+To: <ivecera@redhat.com>, <netdev@vger.kernel.org>
+CC: <arkadiusz.kubalewski@intel.com>, <jiri@resnulli.us>,
+	<mschmidt@redhat.com>, <poros@redhat.com>, <horms@kernel.org>,
+	<vadim.fedorenko@linux.dev>, <linux-kernel@vger.kernel.org>,
+	<conor+dt@kernel.org>, <krzk+dt@kernel.org>, <robh@kernel.org>,
+	<devicetree@vger.kernel.org>, <pvaanane@redhat.com>
+Subject: RE: [PATCH net-next 0/5] dpll: zl3073x: add ref-sync pair support
+Thread-Topic: [PATCH net-next 0/5] dpll: zl3073x: add ref-sync pair support
+Thread-Index: AQHct8ihyQ7RFW2LbEmExUq6DtYznrXCjQxQ
+Date: Fri, 27 Mar 2026 15:28:45 +0000
+Message-ID:
+ <CY5PR11MB6462DDD97D531B854C5FE0E3EC57A@CY5PR11MB6462.namprd11.prod.outlook.com>
+References: <20260319174826.7623-1-ivecera@redhat.com>
+In-Reply-To: <20260319174826.7623-1-ivecera@redhat.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microchip.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY5PR11MB6462:EE_|DSWPR11MB9559:EE_
+x-ms-office365-filtering-correlation-id: 59141b97-bca2-451c-db48-08de8c15896b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|376014|7416014|22082099003|56012099003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ kqsL98M+TgG9zOvRLSDClxRd1bEnWu4YyY5Hh3GPiwEnbPZp3XLkdsm0E72uQuXH4XT99sJaVjTY1KR+x2munT9ID8MMnb/qAPr12DzVPNcWkRLXxrXTMrZnplYx/s0Dv8w0Of/wY9iQCKI7bWDOHWr80joyCCFPTzwU4IrX52axB1+lFDzhBUh/QQgAQPaDTHjs9udWZBy7wmcpV140eCnbLuHPYpm3mKRa8F0/meJmeFmGKwHN8bnt/lhIKh4Au7AD8ZkcmVkivHu/aAmE0QnYREyk1ra1vdmjXesLK3XrsvXECnVc23Es56RIDHPfYPP7Ei7asJ+9p/dSjd8w567uD31iA+YjJwuEcaQSUylQtA1DQggvNRkpmhMsHLM0hj6tdhmAbmf8fx442oKdg/S5UEdTGRA0Ir9QzX4qM30dVjm7CNPO0D+5IjOa32C4jYgjv7V5KXYWfeQsW+iCV46G+taB7w9fyrCCxig3KS1SaIU9KdT+J+/WbGydyPLnGlCQPuAW0/gD5luMRtuVaOh1giCSabek9p96Op+zk3BrR/mvPKWzsxFZ+V9/UYT4MrP5RACbkRwz64gzeeh0LGqCalTy+sND++/gadw3dF6VXJ1iydLgE5gZoKqPlb3h7MsNrJ5jlidOiUazzDnE1Hy3LNOnRO2ddA6pnxvQGKQ7lAYnkgeXvmKoA76xz70IgP06xhNIbiJ/E0n88hIJGfUGn3qNcIhKyMEc+ftTXFLisfoAhYGEhQOzuQtFxlphtESoifgrx8tOEKsDwHkmr3Hp8npFCVJe78qSFjJYVgU=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR11MB6462.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(22082099003)(56012099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?k/z6zmWufobtLu39QZnQiDOxHJ/d936HORVjDGM3/7gz6wYemQCYwBlezfz2?=
+ =?us-ascii?Q?GG4o13OiLBjjKLB0aaedNdfl7qMEa2cg9XZhPHBVQ1ppaR7HMEpzAtFJMh4V?=
+ =?us-ascii?Q?qrfU6113JERwirPZXuI+c281/u8A5vrRW1xUcGaAfFBLbZKnA9pGK0YhrpRq?=
+ =?us-ascii?Q?BkZ4zYOLSFg7GGtwRpjqrqcYtpFaSN7RI3sQkRteo7XHPzPAkk8us1FXvNko?=
+ =?us-ascii?Q?wUJt9qGWGJ045dIZ45Ap0UgQoYZbWnzBn/ygUKJqCandYQI6v+fpm6KlNTyz?=
+ =?us-ascii?Q?XdHkyCR4R3v/8SuALl1b6vjcijd2uS1He8AXhfX3jXF7G4yvlQ9VwrH7dAHw?=
+ =?us-ascii?Q?BFnb6Okcv+H7F4mAJzdDhU0vLgkmOaaT7PyzNytT/y8S+3RHeth+lZvRg+dY?=
+ =?us-ascii?Q?ivwdvTsLrxHCam9y1k5uulTr7GjHFtbZvHcBcYDV/u08av4IqgBcsfYmxEPI?=
+ =?us-ascii?Q?p0UuDaBsNO0ifYxnw8w+G1ZSxMZUcgliP9Nkaehw1wpVUxA5rBt3TXHsj5MJ?=
+ =?us-ascii?Q?4q5Y8wcwTZZ2wPMIukx6ylrYdL6gBvqY+Ex1V2zxFhTdc+xcqytQJR3FEqLr?=
+ =?us-ascii?Q?JMiWJ6/1vHZYhF3S90Z/f91HYeeoVNc1HT5W6i9akT8G+c0C6zhD8qxnXbor?=
+ =?us-ascii?Q?YzLrgGRl8h7tLAf3axEa33BxF/NQsML9R/t3qS9Db+UM9+5tbjlSdd7f7UM0?=
+ =?us-ascii?Q?CXf9mfuOUurAM1fbMV4ZfVETVToXn74k3FLugBUJI+GhQcE8n15dAUCvnUdA?=
+ =?us-ascii?Q?rDh4cDLEuwRecB5DCUZAieI4Id0AKiwwptlS6UCt7ANlldmBHmTm2kZXEwAq?=
+ =?us-ascii?Q?jSmIn/grRc993+g83ed9H9sVKG5X2ukiB78pL8FvQL5GZVtFSffj+NneS40F?=
+ =?us-ascii?Q?KhHco+UP0Fh+CoumvVlCXxvWO0xSAyHYGqBg2wyl94C0QcrNO7GfIWqOnuYJ?=
+ =?us-ascii?Q?DRoKQ00Ett5wp/8r1D3pehrj3tuA5eowZ/o1H5RKVPbJHiES5PdYHr35Wj2l?=
+ =?us-ascii?Q?OH+pf7A0/tPR4Nc3IgprZ2tFBLAFPbpRkwjcjcz+T4fBM0M5l+ClG39kAJdf?=
+ =?us-ascii?Q?GjJXR8H+n9R2iYz7seNoLdRDqVtR5tIKMzaSUsDY0MZUUZvRMwE30gA3L9TK?=
+ =?us-ascii?Q?Xn5GPWzIowq2DW+qgepks/2BLeOlTB6GbX+bCDJZUwjCaTYZssMBS5/6JY92?=
+ =?us-ascii?Q?bzJjU/KkYdOvA6CaH72DOXjqjTjp6SXel4AJVd2q6x9ePWBNVpLzQrC5pTjI?=
+ =?us-ascii?Q?ThnVy+98GMCxY8dxWPwCboYDYPST4GXiN135r0sWq+zqc7zUIDZ8lxiToD1S?=
+ =?us-ascii?Q?dkkxHnRg/zDkIwtW4tpltVrot8kfFPLl60oxfwRz3hvuLmFxVsbbstcu7NAd?=
+ =?us-ascii?Q?2KhoFdR2xa7QRK6yym/RklvDNFxQSWcDuQujvjX8Ml4TBuA1JfZrZhSDRKcE?=
+ =?us-ascii?Q?aKT3TehXuolanNph9X2urtBielE+qE4uFzd021D1yvzcddN5ruxp1YCcPoHf?=
+ =?us-ascii?Q?V4Odr7z1v3be9cgkbaawOxy/fBTZGbL6OmE2uc7g5qYls+PehnMJD2V9dHck?=
+ =?us-ascii?Q?t2P6RXAsDaOV2N+VeoDLRMMN6b9Y+JOHwOA7yc5l0GJEXu8fHBsnKiCbzHJr?=
+ =?us-ascii?Q?TQXDg7NoRiS4ZhsHlzb6nv4B202ix2zafUmEF49GyARFpugC56uTpAKNFlcz?=
+ =?us-ascii?Q?yPj4iiv3pJCT93fO48t6jLfCGn2FGS74ysu0IoqmiZJRDWq/jhzAKyn1RNAC?=
+ =?us-ascii?Q?rUd2zP+w0A=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: microchip.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6462.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59141b97-bca2-451c-db48-08de8c15896b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Mar 2026 15:28:45.9683
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: BqUOX0Zwsq80J4tcPLDpuOeeVV/BkbDwmZ15NwT5vjftsZV3QJJdcU1wOLs6ISRbQVals+XhvJthZjFUlv0AgDQ0R3mV6hijbhz3aa4361A=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR11MB9559
 
+Reviewed-by: prathosh.satish@microchip.com
 
+-----Original Message-----
+From: Ivan Vecera <ivecera@redhat.com>=20
+Sent: Thursday, March 19, 2026 5:48 PM
+To: netdev@vger.kernel.org
+Cc: Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>; Jiri Pirko <jiri=
+@resnulli.us>; Michal Schmidt <mschmidt@redhat.com>; Petr Oros <poros@redha=
+t.com>; Prathosh Satish - M66066 <Prathosh.Satish@microchip.com>; Simon Hor=
+man <horms@kernel.org>; Vadim Fedorenko <vadim.fedorenko@linux.dev>; linux-=
+kernel@vger.kernel.org; Conor Dooley <conor+dt@kernel.org>; Krzysztof Kozlo=
+wski <krzk+dt@kernel.org>; Rob Herring <robh@kernel.org>; devicetree@vger.k=
+ernel.org; Pasi Vaananen <pvaanane@redhat.com>
+Subject: [PATCH net-next 0/5] dpll: zl3073x: add ref-sync pair support
 
-27 =D0=B1=D0=B5=D1=80=D0=B5=D0=B7=D0=BD=D1=8F 2026=E2=80=AF=D1=80=2E 17:18=
-:42 GMT+02:00, Thierry Reding <thierry=2Ereding@kernel=2Eorg> =D0=BF=D0=B8=
-=D1=88=D0=B5:
->On Mon, Feb 23, 2026 at 08:55:00AM +0200, Svyatoslav Ryhel wrote:
->> All ASUS Transformers have micro-HDMI connector directly available=2E A=
-fter
->> Tegra HDMI got bridge/connector support, we should use connector framew=
-ork
->> for proper HW description=2E
->>=20
->> Tested-by: Andreas Westman Dorcsak <hedmoo@yahoo=2Ecom> # ASUS TF T30
->> Tested-by: Robert Eckelmann <longnoserob@gmail=2Ecom> # ASUS TF101 T20
->> Tested-by: Svyatoslav Ryhel <clamor95@gmail=2Ecom> # ASUS TF201 T30
->> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail=2Ecom>
->> ---
->>  =2E=2E=2E/boot/dts/nvidia/tegra30-asus-tf600t=2Edts   | 21 +++++++++++=
-++++++--
->>  1 file changed, 19 insertions(+), 2 deletions(-)
->
->Two things about you commit messages that I have to fixup every time:
->
->  1=2E caps after the subject prefix
+EXTERNAL EMAIL: Do not click links or open attachments unless you know the =
+content is safe
 
-Prefix ends with ':' which does not imply using of capital letter as '=2E'=
- '!' or '?' do=2E Linux documentation does not regulate this=2E
+This series adds Reference-Sync pair support to the ZL3073x DPLL driver.
+A Ref-Sync pair consists of a clock reference and a low-frequency sync sign=
+al (e.g. 1 PPS) where the DPLL locks to the clock reference but phase-align=
+s to the sync reference.
 
-Even more, examples use lower case
+Patches 1-3 are preparatory cleanups and helper additions:
+- Clean up esync get/set callbacks with early returns and use the
+  zl3073x_out_is_ndiv() helper
+- Convert open-coded clear-and-set bitfield patterns to FIELD_MODIFY()
+- Add ref sync control and output clock type accessor helpers
 
-[PATCH 001/123] subsystem: summary phrase
+Patch 4 adds the 'ref-sync-sources' phandle-array property to the dpll-pin =
+device tree binding schema and updates the ZL3073x binding examples.
 
->  2=2E wrap commit message at 72 characters
->
+Patch 5 implements the driver support:
+- ref_sync_get/set callbacks with frequency validation
+- Automatic sync source exclusion from reference selection
+- Device tree based ref-sync pair registration
 
-The body of the explanation, line wrapped at 75 columns, which will be cop=
-ied to the permanent changelog to describe this patch=2E
+Tested and verified on Microchip EDS2 (pcb8385) development board.
 
-The commit message is wrapped by 75 characters, as linux documentation req=
-uests=2E
+Ivan Vecera (5):
+  dpll: zl3073x: clean up esync get/set and use zl3073x_out_is_ndiv()
+  dpll: zl3073x: use FIELD_MODIFY() for clear-and-set patterns
+  dpll: zl3073x: add ref sync and output clock type helpers
+  dt-bindings: dpll: add ref-sync-sources property
+  dpll: zl3073x: add ref-sync pair support
 
->Both patches applied, thanks=2E
->
->Thierry
+ .../devicetree/bindings/dpll/dpll-pin.yaml    |  11 +
+ .../bindings/dpll/microchip,zl30731.yaml      |  30 +-
+ drivers/dpll/zl3073x/chan.h                   |  17 +-
+ drivers/dpll/zl3073x/core.c                   |   3 +-
+ drivers/dpll/zl3073x/dpll.c                   | 295 ++++++++++++++----
+ drivers/dpll/zl3073x/flash.c                  |   3 +-
+ drivers/dpll/zl3073x/out.h                    |  22 ++
+ drivers/dpll/zl3073x/ref.h                    |  46 +++
+ drivers/dpll/zl3073x/regs.h                   |   2 +
+ 9 files changed, 348 insertions(+), 81 deletions(-)
+
+--
+2.52.0
+
