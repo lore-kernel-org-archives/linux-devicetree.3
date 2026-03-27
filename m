@@ -1,149 +1,305 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B743F7E8F
-	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 14:38:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80B033F7E94
+	for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 14:47:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774622299; cv=none; b=RpIId/8TC9qqI6nXPXC9s8eIbfpRrvQ2DBsFygG/5UDDstzydiY6zKeUn2wxjKpbpAattX52u8o8aSbfYPQG+DJTjPZEkE9xY4utQ3gJ8DkO6myr2hYJR/dk+FZAZy9rUOogaAFmJF59jdz2G9Y1i0vF+Fqxx936nnlGX6kou90=
+	t=1774622826; cv=none; b=qfXonAR8OYY11RFq6wnpmXOzx5PrHXODhep2WQBjcpIOPPn2s6tvWUDG7JY6lHqeOG9T74UjX7Exn0b2elFyA4LbzHALE8qZiCHkwA/rsNlZWurqL/OarOKkrW4ORHUA+esKPn7Mh/zC2RZY4ZpwDgYbbSF25lu1+Z/eXWA7M9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774622299; c=relaxed/simple;
-	bh=cJvQjfP9254ZxGBTE+ZydM3eM349poCVeRdu7qw4XpE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HeTsDNaLWowuOa9AVxTq1CFdcpmlcf3dNsBdYwnw3dBRmLStpRoTOpgK6zYg6ewdMg+Am4td38YhccUEp1nyhMftlJpqscFuONZ5mOQnq6jcS/PTkwshBym55co7mnSX07moHozFhY9Jlgh16J+nEzd+7XeBIkWp9tJahkinRKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=E+YDmp8B; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1774622826; c=relaxed/simple;
+	bh=Hj7Vys36UodUFVa9BJdK91Asf2gvwPIdUSv0woj4vts=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
+	 References:In-Reply-To; b=DvFvitEbQY8l7h/SQxSS34+fP8mZ5uvnfOoBDRgI61Tgk4WLoB1gd0XjyB2CxRBv5nqoj9vfGmiMVEP1NDahT3ZsOR4Bz6uh0DJAvOaR64dCNDC3tDG5F23jb1onbYlSvhpbEglS/dTaibTxXvq0iBX9VW/T3d+6BjWdY6/XD9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=1FwemYYR; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="E+YDmp8B"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-43b9144790dso1227669f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 27 Mar 2026 07:38:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774622294; x=1775227094; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=x0Jo0aFxcF9Ybb4MoHJTFDiEvjw/5Yz1myZV3Vc0n1c=;
-        b=E+YDmp8BHGANo7DY3weMTDKZSpEWWcjnKwl/quOmHP9lgiWEJ0amXyhfR6JQnv5ANJ
-         r7519bnU2pw77pkZQ93qC/lz3p9q6RzKHz+NSlEfe+IbICpkL9Ut9bwHuifCYeijVdJR
-         QvoXA6uVAS2bhG2TqbBBAkOLq2L8iTvsVAGmkBcTTRJBJnnAt6WtE3RMze1iiKyS3Zoi
-         cE3dtNuDW6812Gn+oQKLnQ67zQPPo645trDxihBFIOp9BqhfKfCWgZq73Jb8QLSJpS8p
-         7Y0e86pAccV/v3hzmqgxbJB9o+EYaJk8zk3YEye2lYVDT0ilZdReVW8wjIFO6/lnJrrE
-         HHaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774622294; x=1775227094;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=x0Jo0aFxcF9Ybb4MoHJTFDiEvjw/5Yz1myZV3Vc0n1c=;
-        b=sBrycVMDc6F4HigHpG/9VvslTGGsDZern7q4Q5KRK+ev8/MUcvyzb2rPDnfCPWG9yp
-         OAjc3NYF7YyzjVj61PyqrnXkynowK9vzWhw27gEmFZ94UeCOQrM4iEKiEgX1J6p4AlD/
-         PBsDDiXZajN4oNHfBDZR7yy/qzvip8SQhqJDtpmaLY1sEBS9QQBdE4XtmL5borsrEsPW
-         XTE/yqjES7xyDWnehykSrfMqA4t1YNBeLYPla3JLyFYkpE7cRlu7S5aW9dO8mPTulX1Y
-         tHV63rwEfdX2r39cVhNbpi70zeIjAd6s3kfdLzQQkfj6qVh8HPRSGJFOBWX7eTCZprWl
-         hm+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVD+L2C48lyoZ9IMi9SopPYIG5q5eaiUzOkgEpKPdlb2FB7NINjDJYRpbeC3yBVn4UIPaU88rPqThsh@vger.kernel.org
-X-Gm-Message-State: AOJu0YwngzkycuAM7Qn+vbqJ759PvFynV7pzazUt3+gjHP5c3tadL3kH
-	nODAECASH15jxJIVCASDFh4hFLgu+v5zQ6iYDiQKYaQfl8nDEPbv3FX7W4rxGVHdY20=
-X-Gm-Gg: ATEYQzwLOrRgt0jutXQKrFjqgl44VtmkC2APYHw16cF/VtYP6yPENAET+WJQkJPf/uD
-	VgmyAKs/GqoUhabJ3fKJ3/eNBdagZVTP9f/q4TE5Uy6zYZkUjcaYEyyF3xvnwy9MmxnyliA+zMD
-	HHqOJo40jtMDCSaSaa+twbM7MqkhFUpSKGbNsNOUmqktFttq1AO5wOMxpglOrunSMjtCkAh18tM
-	p5pvHloc54soobwjs5EQwndYSwT+D4svKJA9Fw8Ex9FE+s9sDbGcHia56ExNobMeKONqRUK+tP0
-	ae48PafPBgYsKwCLgDxHChqJq/l++9o7t8+5k8lFzxrUBY7IxCIoA6X/7xR8wm1vcIm57rrLrKg
-	CNFVfjWuTl2iVIfuVdhmEnjt3PyEReHaDURHY2oGq8W7LHsgR0RzzG0O6UkZCMll3YsnE8EqvLj
-	DkiJcQuqhDjHU84FA8wV1JFKHSEdJbDp1soSK+
-X-Received: by 2002:a05:6000:1ac8:b0:43b:8858:1146 with SMTP id ffacd0b85a97d-43b9e9fad6dmr4533166f8f.41.1774622294053;
-        Fri, 27 Mar 2026 07:38:14 -0700 (PDT)
-Received: from [192.168.0.167] ([78.152.214.161])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b919df7dcsm16761200f8f.27.2026.03.27.07.38.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Mar 2026 07:38:13 -0700 (PDT)
-Message-ID: <da3ed78d-fb5e-4820-95d6-527d540cf03e@linaro.org>
-Date: Fri, 27 Mar 2026 14:38:12 +0000
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="1FwemYYR"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id C319E1A301E;
+	Fri, 27 Mar 2026 14:47:00 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8F74460230;
+	Fri, 27 Mar 2026 14:47:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 207F91045138A;
+	Fri, 27 Mar 2026 15:46:44 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1774622818; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=3cQMpGWhfePuLI1DRAc4OIsyHawvSQuhzTPrg+IGa2c=;
+	b=1FwemYYRdkAI9ssSa/55QsZ/bB2rqanJ5E4Fg2SpbQcpbLtcohH1K1kUdJ8OfoVIxyPJQO
+	Y4unsvTe+MLYV9+91I57XGH39wmpDjeATZ/GSzr7X1oR0QLaWFyUlMm3Pf/t+ml1HHOe8s
+	c4uaqy4Bnpz8CZM9vx/7NJCiCwA6ISUDuwAjIf/nLSm/Cu9gyvVT4FU54di5GSKt1ZU85N
+	JI9zSp1A2HDfoyjtY8CG5wZsXdxZyf6V5du1MHxMuC2EMmV1mC0pzJc42gCujs6vrdJAhF
+	ugMVTLGN+FCVRzR1baq7udna8LJXPN9VSBQvuTOn5Ezm5p+zm55CpKvslQppUg==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org>
- <20260326-x1e-csi2-phy-v5-1-0c0fc7f5c01b@linaro.org>
- <7712fbdd-a225-49f0-aeb9-ebcbb9d5abac@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <7712fbdd-a225-49f0-aeb9-ebcbb9d5abac@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 27 Mar 2026 15:46:43 +0100
+Message-Id: <DHDNA5HLQPIB.3F21G9QPBUQG8@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 7/8] drm/bridge: imx8mp-hdmi-tx: add an hdmi-connector
+ when missing using a DT overlay at boot time
+Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, "Hui Pu"
+ <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, "Adam Ford" <aford173@gmail.com>, "Alexander
+ Stein" <alexander.stein@ew.tq-group.com>, "Anson Huang"
+ <Anson.Huang@nxp.com>, "Christopher Obbard"
+ <christopher.obbard@linaro.org>, "Daniel Scally"
+ <dan.scally@ideasonboard.com>, "Emanuele Ghidoli"
+ <emanuele.ghidoli@toradex.com>, "Fabio Estevam" <festevam@denx.de>,
+ "Francesco Dolcini" <francesco.dolcini@toradex.com>, "Frieder Schrempf"
+ <frieder.schrempf@kontron.de>, "Gilles Talis" <gilles.talis@gmail.com>,
+ =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, "Heiko
+ Schocher" <hs@denx.de>, "Joao Paulo Goncalves"
+ <joao.goncalves@toradex.com>, "Josua Mayer" <josua@solid-run.com>, "Kieran
+ Bingham" <kieran.bingham@ideasonboard.com>, "Marco Felsch"
+ <m.felsch@pengutronix.de>, "Martyn Welch" <martyn.welch@collabora.com>,
+ "Oleksij Rempel" <o.rempel@pengutronix.de>, "Peng Fan" <peng.fan@nxp.com>,
+ "Philippe Schenker" <philippe.schenker@toradex.com>, "Richard Hu"
+ <richard.hu@technexion.com>, "Shengjiu Wang" <shengjiu.wang@nxp.com>,
+ "Stefan Eichenberger" <stefan.eichenberger@toradex.com>, "Vitor Soares"
+ <vitor.soares@toradex.com>
+To: "Liu Ying" <victor.liu@nxp.com>, "Marek Vasut" <marex@denx.de>, "Stefan
+ Agner" <stefan@agner.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
+ <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Rob
+ Herring" <robh@kernel.org>, "Saravana Kannan" <saravanak@kernel.org>
+X-Mailer: aerc 0.20.1
+References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
+ <20260320-drm-lcdif-dbanc-v1-7-479a04133e70@bootlin.com>
+ <544112ab-8ca0-4622-b680-233457198e3e@nxp.com>
+In-Reply-To: <544112ab-8ca0-4622-b680-233457198e3e@nxp.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 27/03/2026 10:07, Konrad Dybcio wrote:
-> On 3/26/26 2:04 AM, Bryan O'Donoghue wrote:
->> Add a base schema initially compatible with x1e80100 to describe MIPI CSI2
->> PHY devices.
+Hello Liu,
+
+On Thu Mar 26, 2026 at 9:15 AM CET, Liu Ying wrote:
+> Hi Luca,
+>
+> On Fri, Mar 20, 2026 at 11:46:18AM +0100, Luca Ceresoli wrote:
+>> The imx8mp-hdmi-tx one of many drivers based on dw-hdmi. dw-hdmi in turn
+>> can operate in two different modes, depending on the platform data as se=
+t
+>> by the driver:
 >>
->> The hardware can support both CPHY, DPHY and a special split-mode DPHY. We
->> capture those modes as:
+>>  A. hdmi->plat_data->output_port =3D 0:
+>>     the HDMI output (port@1) in device tree is not used [0]
 >>
->> - PHY_QCOM_CSI2_MODE_DPHY
->> - PHY_QCOM_CSI2_MODE_CPHY
->> - PHY_QCOM_CSI2_MODE_SPLIT_DPHY
-> Does the_PHY_ DT node need to be aware about this upfront?
+>>  B. hdmi->plat_data->output_port =3D 1:
+>>     the HDMI output (port@1) is parsed to find the next bridge
+>>
+>> The imx8mp-hdmi-tx driver falls in case A. This implies next_bridge will
+>> always be NULL, and so dw_hdmi_bridge_attach() [1] will always fail if
+>> called with the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag.
+>>
+>> In fact case A assumes that DRM_BRIDGE_ATTACH_NO_CONNECTOR is not set an=
+d
+>> in that case it adds the connector programmatically at bridge attach tim=
+e.
+>>
+>> Support for DRM_BRIDGE_ATTACH_NO_CONNECTOR is implemented by dw-hdmi.c i=
+n
+>> case B. So, in preparation to support DRM_BRIDGE_ATTACH_NO_CONNECTOR in
+>> imx8mp-hdmi-tx, move to case B by setting hdmi->plat_data->output_port =
+=3D 1.
+>>
+>> However this change requires that port@1 is connected to a "next
+>> bridge" DT node, typically the HDMI connector, because dw-hdmi won't add
+>> the connector when using DRM_BRIDGE_ATTACH_NO_CONNECTOR.
+>>
+>> Many dts files for imx8mp-based boards in the kernel have such a connect=
+or
+>> described and linked to port@1, so a connector is added by the
+>> display-connector driver along with a bridge wrapping it. Sadly some of
+>
+> Hmm, display-connector driver is a bridge driver so it cannot add a conne=
+ctor.
+> I assume that you mean a connector will be added by the bridge connector
+> driver.
 
-Yeah that's a fair question.
+Indeed, rewording as:
 
-The standard model is to pass the mode via binding right now. You 
-_could_ configure it @ run time in principle.
+  Many dts files for imx8mp-based boards in the kernel have such a
+  connector described and linked to port@1, so the pipeline will be fully
+  attached up to a display-connector and a drm_connector added by the
+  bridge-connector.
 
-And you could even conceive of a sensor hardware that might find value 
-in that - but IMO it's a 100% hypothetical use-case - you'd basically 
-need an FPGA that could output CPHY, DPHY or for some reason SPLIT_MODE 
-DPHY.
+>> --- a/drivers/gpu/drm/bridge/imx/Kconfig
+>> +++ b/drivers/gpu/drm/bridge/imx/Kconfig
+>> @@ -25,6 +25,23 @@ config DRM_IMX8MP_DW_HDMI_BRIDGE
+>>  	  Choose this to enable support for the internal HDMI encoder found
+>>  	  on the i.MX8MP SoC.
+>>
+>> +config DRM_IMX8MP_DW_HDMI_BRIDGE_CONNECTOR_FIXUP
+>> +	bool "Support device tree blobs without an hdmi-connector node"
+>> +	default y
+>
+> depends on DRM_IMX_LCDIF ?
 
-But that's a pretty off the wall use-case to hypothesize. Split-mode 
-OTOH is a board-level physical reality which => a DT description not a 
-runtime choice.
+If the imx hdmi-tx is not enabled then HDMI won't work anyway, so users are
+not affected and the overlay is not needed. Am I missing something?
 
-> If we have some sideband signal (e.g. the sensor driver specifically
-> requesting C-PHY mode), we can simply throw all this complexity into
-> phy_mode + phy_configure_opts, all at runtime
+>> +	err =3D of_overlay_fdt_apply(dtbo_start, dtbo_size, &ovcs_id, NULL);
+>> +	if (err)
+>> +		return err;
+>> +
+>> +	hdmi_conn =3D of_find_node_by_name(NULL, "fixup-hdmi-connector");
+>
+> Do you really need to find the node, since the overlay was just applied?
 
-Like I say its conceivable but IMO not a real thing and unless your 
-sensor is an FPGA not possible to support in real hardware.
+That was to ensure the node is present and error out if it isn't. But
+thinking again about it after your question I don't see how it could be
+missing if the overlay was successfully applied.
 
-> Further, the combo/split mode may possibly be selected through
-> aggregation of requests.
-> 
-> The question remains whether the sensor should have a direct connection to
-> the PHY itself (i.e. phys = <&csiphyN> or of_graph straight into the PHY)
-> or whether it's going to be translated by the camss node (which would be
-> the one holding a PHY reference) - there's probably surface for adding such
-> negotiation logic in both places
+Removing this check in v2, which makes this function a lot simpler!
 
-To be frankly honest you can make an argument for it either way. However 
-my honestly held position is analysing other upstream implementations 
-connecting to the PHY means we can't make the PHY device a drivers/phy 
-device - it would have to be a V4L2 device and then for me the question 
-is why is that even required ?
+>> diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.d=
+tso b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso
+>> new file mode 100644
+>> index 000000000000..ee718ca1b11b
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso
+>> @@ -0,0 +1,38 @@
+>> +// SPDX-License-Identifier: GPL-2.0+
+>> +/*
+>> + * DTS overlay adding an hdmi-connector node to boards using the imx8mp=
+ hdmi_tx
+>> + *
+>> + * Copyright (C) 2026 GE HealthCare
+>> + * Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>> + */
+>> +
+>> +/dts-v1/;
+>> +/plugin/;
+>> +
+>> +&{/} {
+>
+> I see build warnings(W=3D1):
+> drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso:25.8-37.4:=
+ Warning (unit_address_vs_reg): /fragment@0/__overlay__/soc@0: node has a u=
+nit name, but no reg or ranges property
+> drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso:26.16-36.5=
+: Warning (unit_address_vs_reg): /fragment@0/__overlay__/soc@0/bus@32c00000=
+: node has a unit name, but no reg or ranges property
+> drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso:27.18-35.6=
+: Warning (unit_address_vs_reg): /fragment@0/__overlay__/soc@0/bus@32c00000=
+/hdmi@32fd8000: node has a unit name, but no reg or ranges property
+> drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso:29.13-33.8=
+: Warning (unit_address_vs_reg): /fragment@0/__overlay__/soc@0/bus@32c00000=
+/hdmi@32fd8000/ports/port@1: node has a unit name, but no reg or ranges pro=
+perty
 
-The model we have right now, right or wrong is sensor endpoint to 
-controller. Similarly the <&phy MODE_GOES_HERE> is a pattern Rob Herring 
-suggested and IMO is a consistent pattern we should aim for upstream. We 
-see it in latest Rockchip, Cadence.
+AFAIK the device tree checkes just can't work on overlays. The tools just
+cannot know on which base tree the overlay can be applied, so they cannot
+know the existing properties. That might change in the future, but for now
+my understanding is that it is OK to have overlays which produce such
+harmless warnings, at least for driver-specific overlays like the tilcdc
+one [0] which is already in linux-next since a few weeks.
 
+[0] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/com=
+mit/?id=3D0ff223d991477fa4677dcb0f1fb00065847e2212
 
-> Note this is a question and I'm not aware of all the possible combinations
-> 
-> Konrad
+> Here is a patch to suppress them:
+>
+> --- a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso
+> +++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso
+> @@ -10,6 +10,9 @@
+>  /plugin/;
+>
+>  &{/} {
+> +       #address-cells =3D <2>;
+> +       #size-cells =3D <2>;
+> +
+>         fixup-hdmi-connector {
+>                 compatible =3D "hdmi-connector";
+>                 label =3D "HDMI";
+> @@ -23,10 +26,25 @@ fixup_hdmi_connector_in: endpoint {
+>         };
+>
+>         soc@0 {
+> +               #address-cells =3D <1>;
+> +               #size-cells =3D <1>;
+> +               ranges =3D <0x0 0x0 0x0 0x3e000000>;
+> +
+>                 bus@32c00000 {
+> +                       reg =3D <0x32c00000 0x400000>;
+> +                       #address-cells =3D <1>;
+> +                       #size-cells =3D <1>;
+> +
+>                         hdmi@32fd8000 {
+> +                               reg =3D <0x32fd8000 0x7eff>;
+> +
+>                                 ports {
+> +                                       #address-cells =3D <1>;
+> +                                       #size-cells =3D <0>;
+> +
+>                                         port@1 {
+> +                                               reg =3D <1>;
+> +
+>                                                 hdmi_tx_out: endpoint {
+>                                                         remote-endpoint =
+=3D <&fixup_hdmi_connector_in>;
+>                                                 };
 
+Thanks for taking time to look into how to get rid of the warnings.
+
+However the sheer amount of lines added, by just duplicating lines already
+in the base tree and no added value, reinforces my opinion that we should
+keep the overlay as simple as it is.
+
+Also, what if one of the property values that your diff is duplicating from
+the base tree turns out being wrong in the base tree and gets fixed later
+there? The wrong value would be re-added by the overlay unless someone goes
+hunting all the duplicated lines around.
+
+Based on this, do you think we really need to get rid of those warnings?
+
+Side note: this discussion made me think about what would happen if
+DRM_IMX8MP_DW_HDMI_BRIDGE is enabled on a non-imx8mp board (as for
+distribution kernels as mentioned by Laurent). I think it makes sense to
+add a check that /soc@0/compatible matches "fsl,imx8mp-soc" and not apply
+the overlay otherwise. I'll look into that for v2.
+
+>> +	fixup-hdmi-connector {
+>> +		compatible =3D "hdmi-connector";
+>> +		label =3D "HDMI";
+>> +		type =3D "a";
+>
+> What if a board uses another type?
+
+For boards affected by this patch, currently the connector is created by
+dw_hdmi_connector_create() which hardcodes type A [0], so there would be no
+difference.
+
+OTOH how can a common module know the specific connector?
+
+Boards with a different connector should describe the connector in the
+device tree, if they need to instantiate the exact type.
+
+[0] https://elixir.bootlin.com/linux/v7.0-rc5/source/drivers/gpu/drm/bridge=
+/synopsys/dw-hdmi.c#L2601
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
