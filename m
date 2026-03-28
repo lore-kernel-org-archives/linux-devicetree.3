@@ -1,382 +1,122 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from out-179.mta0.migadu.com (out-179.mta0.migadu.com [91.218.175.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A33F366DB5
-	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 08:06:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F90A36AB77
+	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 08:22:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774685219; cv=none; b=PhEydgDIChY5pnopUh979idXurmGQpz3aflxdon1je7Erbf601j4R5cUq0XSy/crSoyVkaHK2vogDp6sVIUPYDdkcJQ7V4UAQGXiR5lPdvLzAcLymsnYhzkUziPaS+ivICpFkl3Bz6wBMKdOkV+zOd1prSXArHq65i1nmrk27GE=
+	t=1774686134; cv=none; b=Vuznc66Gm5f0Ryo7DoCwxHCILqmoGGwRBgoTZL0ebKmvNS7PD3nq3ol4D7VE9o8kypCcVzbGeO2I//lWv4r1bqf7WQOlOyGc/HYtQmzWiKrOGXME59pH/qJL9g5aMuOFV9dSgsyPqip68EYia3sVTbiwIGVgh39IWRgtNuLRFmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774685219; c=relaxed/simple;
-	bh=K/RNdWGDa81UmWVWas+Pv2X19thLcK/aPXztrVXAnu8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SY4t/V+s6gYawXv+bjXp93GplxNqgsCpF9t+1/NJ9nJgR2IIN6MYmnCu7OcWK0zI1DqmjRhEaW5h+YLIokxf86H5lM3AkPOFZRSHTWr2IsrT2zpjuzQkrQSwF3Eb9e2E5v2j10yOIHeTr0irDtLelXnum+n4uP/uNPzlIyFRshA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BE/x7/Wc; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1774686134; c=relaxed/simple;
+	bh=Be+hfXS0+oA4TyoSNFCSOnIxtlg9LmLDkoiIsipDyUk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MA4uR0aNzd5YVOCIZR51g1j4BFuZ8wbl/Gq/NUxIcdVuoJD7V8fLdkSL5EnFPJfFaJUd9SMx+9TrNgBnRILtATjBk6g2crMi//obQnvCnfaLQ+WVHfkzlwBcZWqUDp65f8DJ+qgQ/uVmToOqCkIH32KwF5cLXkCCj8JYiP8gRhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=JxhzCGeN; arc=none smtp.client-ip=91.218.175.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BE/x7/Wc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1774685217;
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="JxhzCGeN"
+Message-ID: <3b968230-c64a-41dd-a145-81b4e68dd39b@packett.cool>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
+	s=key1; t=1774686128;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Z2DPLVqDhXEJBfGDhcq8szGEpKDSX4n5KNDsUD+Cqtw=;
-	b=BE/x7/Wc36e6Is0gVXCaKS0mw8Ws8Vpbjv+65hSoWikZogYgVhfhjSTbBN1UCeqzOAF537
-	AUtafLoMZ/eorDfHbHP6ISJfqmPDD2gAwsi4tt7/nwq6pKEguCSdjfNBJpEvLBAF6OYCeg
-	fuGdTZ+a4XaxGpcLmOZDRws/lS8ph0g=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-595-Pjo3sygoMOiWWMD2idCeAA-1; Sat,
- 28 Mar 2026 04:06:54 -0400
-X-MC-Unique: Pjo3sygoMOiWWMD2idCeAA-1
-X-Mimecast-MFC-AGG-ID: Pjo3sygoMOiWWMD2idCeAA_1774685212
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 313081800345;
-	Sat, 28 Mar 2026 08:06:52 +0000 (UTC)
-Received: from p16v.redhat.com (unknown [10.44.32.48])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6199C1800351;
-	Sat, 28 Mar 2026 08:06:48 +0000 (UTC)
-From: Ivan Vecera <ivecera@redhat.com>
-To: netdev@vger.kernel.org
-Cc: Petr Oros <poros@redhat.com>,
-	Prathosh Satish <Prathosh.Satish@microchip.com>,
-	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Michal Schmidt <mschmidt@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	Pasi Vaananen <pvaanane@redhat.com>
-Subject: [PATCH net-next v2 5/5] dpll: zl3073x: add ref-sync pair support
-Date: Sat, 28 Mar 2026 09:06:24 +0100
-Message-ID: <20260328080624.593916-6-ivecera@redhat.com>
-In-Reply-To: <20260328080624.593916-1-ivecera@redhat.com>
-References: <20260328080624.593916-1-ivecera@redhat.com>
+	bh=fX+9bAQHy7d724x0bps6NZLEAxnQxD4hcWumn7cv9vg=;
+	b=JxhzCGeNN9XHn5nuxHyIVnEg9uUyaRhelE23HoTcYZQubWLwr9vM+6xSvOsErYc0dHq7nb
+	x+2v2inVESgxbDhojZhZeDFHYWIQAczcKupmVwpf7car2PeygWD2xJQXwqrVtZ+FWnSp2j
+	MbEx8QKrQg+lXMT3H0GOP8M7suakJM6KmPqWSNGoD4jJsFZ1RZJfM9bDffcYL0Nb18OPwu
+	Zh7RAr8x9aH7WHDIYSA3r5HOgwk+DdYLwMIIfEB1XX0PvvHF5CxrHfHPltEU/wpZxMWzI7
+	fijnPailCMVJudSj0850FV7fuyNdA8HZrySvHSLqyLDutE4Mo4IE3o75AGTfXw==
+Date: Sat, 28 Mar 2026 05:22:00 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Subject: Re: [PATCH v2] arm64: dts: qcom: hamoa: Add remoteproc in EL2 device
+ trees
+To: Stephan Gerhold <stephan.gerhold@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>
+Cc: Xin Liu <xin.liu@oss.qualcomm.com>, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
+ jie.gan@oss.qualcomm.com
+References: <20260202055436.818098-1-xin.liu@oss.qualcomm.com>
+ <ao4jf5guszon6iuyyvzmkuaf2iaa56y3b33srx2w3whtyo2u3r@k74fxy3ktsyo>
+ <aalhik53l4ioxiLx@linaro.org>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Val Packett <val@packett.cool>
+In-Reply-To: <aalhik53l4ioxiLx@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Migadu-Flow: FLOW_OUT
 
-Add support for ref-sync pair registration using the 'ref-sync-sources'
-phandle property from device tree. A ref-sync pair consists of a clock
-reference and a low-frequency sync signal where the DPLL locks to the
-clock reference but phase-aligns to the sync reference.
 
-The implementation:
-- Stores fwnode handle in zl3073x_dpll_pin during pin registration
-- Adds ref_sync_get/set callbacks to read and write the sync control
-  mode and pair registers
-- Validates ref-sync frequency constraints: sync signal must be 8 kHz
-  or less, clock reference must be 1 kHz or more and higher than sync
-- Excludes sync source from automatic reference selection by setting
-  its priority to NONE on connect; on disconnect the priority is left
-  as NONE and the user must explicitly make the pin selectable again
-- Iterates ref-sync-sources phandles to register declared pairings
-  via dpll_pin_ref_sync_pair_add()
+On 3/5/26 7:57 AM, Stephan Gerhold wrote:
+> On Wed, Mar 04, 2026 at 02:16:55PM -0600, Bjorn Andersson wrote:
+>> On Sun, Feb 01, 2026 at 09:54:36PM -0800, Xin Liu wrote:
+>>> All the existing variants Hamoa boards are using Gunyah hypervisor
+>>> which means that, so far, Linux-based OS could only boot in EL1 on
+>>> those devices. However, it is possible for us to boot Linux at EL2
+>>> on these devices [1].
+>>>
+>> Lots of people are running Linux at EL2 on their Hamoa laptops, but
+>> then there's no PAS. I presume adding iommu properties won't "hurt" in
+>> that case, but can you confirm that with this change remoteproc is fully
+>> working somewhere (i.e. [1] refers to a firmware for which the Glymur
+>> PAS/PIL changes has been backported?)
+>>
+> On the contrary, I would expect that this will break the existing EL2
+> setup people have on their Hamoa laptops. I have last tested this half a
+> year ago (and I don't have a suitable device for testing this anymore),
+> but I don't think much has changed in this area:
 
-Reviewed-by: Petr Oros <poros@redhat.com>
-Reviewed-by: Prathosh Satish <Prathosh.Satish@microchip.com>
-Signed-off-by: Ivan Vecera <ivecera@redhat.com>
----
- drivers/dpll/zl3073x/dpll.c | 207 +++++++++++++++++++++++++++++++++++-
- 1 file changed, 206 insertions(+), 1 deletion(-)
+It did break and I just spent like 3 hours debugging before realizing I 
+shouldn't've just merged x1-el2 like that…
 
-diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
-index b5b411425f6b3..79589400f0cc2 100644
---- a/drivers/dpll/zl3073x/dpll.c
-+++ b/drivers/dpll/zl3073x/dpll.c
-@@ -13,6 +13,7 @@
- #include <linux/module.h>
- #include <linux/netlink.h>
- #include <linux/platform_device.h>
-+#include <linux/property.h>
- #include <linux/slab.h>
- #include <linux/sprintf.h>
- 
-@@ -30,6 +31,7 @@
-  * @dpll: DPLL the pin is registered to
-  * @dpll_pin: pointer to registered dpll_pin
-  * @tracker: tracking object for the acquired reference
-+ * @fwnode: firmware node handle
-  * @label: package label
-  * @dir: pin direction
-  * @id: pin id
-@@ -45,6 +47,7 @@ struct zl3073x_dpll_pin {
- 	struct zl3073x_dpll	*dpll;
- 	struct dpll_pin		*dpll_pin;
- 	dpll_tracker		tracker;
-+	struct fwnode_handle	*fwnode;
- 	char			label[8];
- 	enum dpll_pin_direction	dir;
- 	u8			id;
-@@ -184,6 +187,109 @@ zl3073x_dpll_input_pin_esync_set(const struct dpll_pin *dpll_pin,
- 	return zl3073x_ref_state_set(zldev, ref_id, &ref);
- }
- 
-+static int
-+zl3073x_dpll_input_pin_ref_sync_get(const struct dpll_pin *dpll_pin,
-+				    void *pin_priv,
-+				    const struct dpll_pin *ref_sync_pin,
-+				    void *ref_sync_pin_priv,
-+				    enum dpll_pin_state *state,
-+				    struct netlink_ext_ack *extack)
-+{
-+	struct zl3073x_dpll_pin *sync_pin = ref_sync_pin_priv;
-+	struct zl3073x_dpll_pin *pin = pin_priv;
-+	struct zl3073x_dpll *zldpll = pin->dpll;
-+	struct zl3073x_dev *zldev = zldpll->dev;
-+	const struct zl3073x_ref *ref;
-+	u8 ref_id, mode, pair;
-+
-+	ref_id = zl3073x_input_pin_ref_get(pin->id);
-+	ref = zl3073x_ref_state_get(zldev, ref_id);
-+	mode = zl3073x_ref_sync_mode_get(ref);
-+	pair = zl3073x_ref_sync_pair_get(ref);
-+
-+	if (mode == ZL_REF_SYNC_CTRL_MODE_REFSYNC_PAIR &&
-+	    pair == zl3073x_input_pin_ref_get(sync_pin->id))
-+		*state = DPLL_PIN_STATE_CONNECTED;
-+	else
-+		*state = DPLL_PIN_STATE_DISCONNECTED;
-+
-+	return 0;
-+}
-+
-+static int
-+zl3073x_dpll_input_pin_ref_sync_set(const struct dpll_pin *dpll_pin,
-+				    void *pin_priv,
-+				    const struct dpll_pin *ref_sync_pin,
-+				    void *ref_sync_pin_priv,
-+				    const enum dpll_pin_state state,
-+				    struct netlink_ext_ack *extack)
-+{
-+	struct zl3073x_dpll_pin *sync_pin = ref_sync_pin_priv;
-+	struct zl3073x_dpll_pin *pin = pin_priv;
-+	struct zl3073x_dpll *zldpll = pin->dpll;
-+	struct zl3073x_dev *zldev = zldpll->dev;
-+	u8 mode, ref_id, sync_ref_id;
-+	struct zl3073x_chan chan;
-+	struct zl3073x_ref ref;
-+	int rc;
-+
-+	ref_id = zl3073x_input_pin_ref_get(pin->id);
-+	sync_ref_id = zl3073x_input_pin_ref_get(sync_pin->id);
-+	ref = *zl3073x_ref_state_get(zldev, ref_id);
-+
-+	if (state == DPLL_PIN_STATE_CONNECTED) {
-+		const struct zl3073x_ref *sync_ref;
-+		u32 ref_freq, sync_freq;
-+
-+		sync_ref = zl3073x_ref_state_get(zldev, sync_ref_id);
-+		ref_freq = zl3073x_ref_freq_get(&ref);
-+		sync_freq = zl3073x_ref_freq_get(sync_ref);
-+
-+		/* Sync signal must be 8 kHz or less and clock reference
-+		 * must be 1 kHz or more and higher than the sync signal.
-+		 */
-+		if (sync_freq > 8000) {
-+			NL_SET_ERR_MSG(extack,
-+				       "sync frequency must be 8 kHz or less");
-+			return -EINVAL;
-+		}
-+		if (ref_freq < 1000) {
-+			NL_SET_ERR_MSG(extack,
-+				       "clock frequency must be 1 kHz or more");
-+			return -EINVAL;
-+		}
-+		if (ref_freq <= sync_freq) {
-+			NL_SET_ERR_MSG(extack,
-+				       "clock frequency must be higher than sync frequency");
-+			return -EINVAL;
-+		}
-+
-+		zl3073x_ref_sync_pair_set(&ref, sync_ref_id);
-+		mode = ZL_REF_SYNC_CTRL_MODE_REFSYNC_PAIR;
-+	} else {
-+		mode = ZL_REF_SYNC_CTRL_MODE_REFSYNC_PAIR_OFF;
-+	}
-+
-+	zl3073x_ref_sync_mode_set(&ref, mode);
-+
-+	rc = zl3073x_ref_state_set(zldev, ref_id, &ref);
-+	if (rc)
-+		return rc;
-+
-+	/* Exclude sync source from automatic reference selection by setting
-+	 * its priority to NONE. On disconnect the priority is left as NONE
-+	 * and the user must explicitly make the pin selectable again.
-+	 */
-+	if (state == DPLL_PIN_STATE_CONNECTED) {
-+		chan = *zl3073x_chan_state_get(zldev, zldpll->id);
-+		zl3073x_chan_ref_prio_set(&chan, sync_ref_id,
-+					  ZL_DPLL_REF_PRIO_NONE);
-+		return zl3073x_chan_state_set(zldev, zldpll->id, &chan);
-+	}
-+
-+	return 0;
-+}
-+
- static int
- zl3073x_dpll_input_pin_ffo_get(const struct dpll_pin *dpll_pin, void *pin_priv,
- 			       const struct dpll_device *dpll, void *dpll_priv,
-@@ -1100,6 +1206,8 @@ static const struct dpll_pin_ops zl3073x_dpll_input_pin_ops = {
- 	.phase_adjust_set = zl3073x_dpll_input_pin_phase_adjust_set,
- 	.prio_get = zl3073x_dpll_input_pin_prio_get,
- 	.prio_set = zl3073x_dpll_input_pin_prio_set,
-+	.ref_sync_get = zl3073x_dpll_input_pin_ref_sync_get,
-+	.ref_sync_set = zl3073x_dpll_input_pin_ref_sync_set,
- 	.state_on_dpll_get = zl3073x_dpll_input_pin_state_on_dpll_get,
- 	.state_on_dpll_set = zl3073x_dpll_input_pin_state_on_dpll_set,
- };
-@@ -1190,8 +1298,11 @@ zl3073x_dpll_pin_register(struct zl3073x_dpll_pin *pin, u32 index)
- 	if (IS_ERR(props))
- 		return PTR_ERR(props);
- 
--	/* Save package label, esync capability and phase adjust granularity */
-+	/* Save package label, fwnode, esync capability and phase adjust
-+	 * granularity.
-+	 */
- 	strscpy(pin->label, props->package_label);
-+	pin->fwnode = fwnode_handle_get(props->fwnode);
- 	pin->esync_control = props->esync_control;
- 	pin->phase_gran = props->dpll_props.phase_gran;
- 
-@@ -1236,6 +1347,8 @@ zl3073x_dpll_pin_register(struct zl3073x_dpll_pin *pin, u32 index)
- 	dpll_pin_put(pin->dpll_pin, &pin->tracker);
- 	pin->dpll_pin = NULL;
- err_pin_get:
-+	fwnode_handle_put(pin->fwnode);
-+	pin->fwnode = NULL;
- 	zl3073x_pin_props_put(props);
- 
- 	return rc;
-@@ -1265,6 +1378,9 @@ zl3073x_dpll_pin_unregister(struct zl3073x_dpll_pin *pin)
- 
- 	dpll_pin_put(pin->dpll_pin, &pin->tracker);
- 	pin->dpll_pin = NULL;
-+
-+	fwnode_handle_put(pin->fwnode);
-+	pin->fwnode = NULL;
- }
- 
- /**
-@@ -1735,6 +1851,88 @@ zl3073x_dpll_free(struct zl3073x_dpll *zldpll)
- 	kfree(zldpll);
- }
- 
-+/**
-+ * zl3073x_dpll_ref_sync_pair_register - register ref_sync pairs for a pin
-+ * @pin: pointer to zl3073x_dpll_pin structure
-+ *
-+ * Iterates 'ref-sync-sources' phandles in the pin's firmware node and
-+ * registers each declared pairing.
-+ *
-+ * Return: 0 on success, <0 on error
-+ */
-+static int
-+zl3073x_dpll_ref_sync_pair_register(struct zl3073x_dpll_pin *pin)
-+{
-+	struct zl3073x_dev *zldev = pin->dpll->dev;
-+	struct fwnode_handle *fwnode;
-+	struct dpll_pin *sync_pin;
-+	dpll_tracker tracker;
-+	int n, rc;
-+
-+	for (n = 0; ; n++) {
-+		/* Get n'th ref-sync source */
-+		fwnode = fwnode_find_reference(pin->fwnode, "ref-sync-sources",
-+					       n);
-+		if (IS_ERR(fwnode)) {
-+			rc = PTR_ERR(fwnode);
-+			break;
-+		}
-+
-+		/* Find associated dpll pin */
-+		sync_pin = fwnode_dpll_pin_find(fwnode, &tracker);
-+		fwnode_handle_put(fwnode);
-+		if (!sync_pin) {
-+			dev_warn(zldev->dev, "%s: ref-sync source %d not found",
-+				 pin->label, n);
-+			continue;
-+		}
-+
-+		/* Register new ref-sync pair */
-+		rc = dpll_pin_ref_sync_pair_add(pin->dpll_pin, sync_pin);
-+		dpll_pin_put(sync_pin, &tracker);
-+
-+		/* -EBUSY means pairing already exists from another DPLL's
-+		 * registration.
-+		 */
-+		if (rc && rc != -EBUSY) {
-+			dev_err(zldev->dev,
-+				"%s: failed to add ref-sync source %d: %pe",
-+				pin->label, n, ERR_PTR(rc));
-+			break;
-+		}
-+	}
-+
-+	return rc != -ENOENT ? rc : 0;
-+}
-+
-+/**
-+ * zl3073x_dpll_ref_sync_pairs_register - register ref_sync pairs for a DPLL
-+ * @zldpll: pointer to zl3073x_dpll structure
-+ *
-+ * Iterates all registered input pins of the given DPLL and establishes
-+ * ref_sync pairings declared by 'ref-sync-sources' phandles in the
-+ * device tree.
-+ *
-+ * Return: 0 on success, <0 on error
-+ */
-+static int
-+zl3073x_dpll_ref_sync_pairs_register(struct zl3073x_dpll *zldpll)
-+{
-+	struct zl3073x_dpll_pin *pin;
-+	int rc;
-+
-+	list_for_each_entry(pin, &zldpll->pins, list) {
-+		if (!zl3073x_dpll_is_input_pin(pin) || !pin->fwnode)
-+			continue;
-+
-+		rc = zl3073x_dpll_ref_sync_pair_register(pin);
-+		if (rc)
-+			return rc;
-+	}
-+
-+	return 0;
-+}
-+
- /**
-  * zl3073x_dpll_register - register DPLL device and all its pins
-  * @zldpll: pointer to zl3073x_dpll structure
-@@ -1758,6 +1956,13 @@ zl3073x_dpll_register(struct zl3073x_dpll *zldpll)
- 		return rc;
- 	}
- 
-+	rc = zl3073x_dpll_ref_sync_pairs_register(zldpll);
-+	if (rc) {
-+		zl3073x_dpll_pins_unregister(zldpll);
-+		zl3073x_dpll_device_unregister(zldpll);
-+		return rc;
-+	}
-+
- 	return 0;
- }
- 
--- 
-2.52.0
+It first showed up as a "weird" hang when booting into EL2, as soon as 
+SMMU related lines started showing up on the framebuffer console it 
+slowed down to a crawl for a couple of these lines and then totally froze.
 
+Disabling qebspil (i.e. having only adsp-lite loaded) let the output 
+proceed for a little bit more and I saw the faults (tens of thousands of 
+faults, all fsr=0x402, iova=0x86b020c0, fsynr=0x600040, SID=0x1000) and 
+a hard LOCKUP being detected.
+
+> Since we can't start/stop remoteprocs without PAS,
+(Can someone at Qualcomm ask how Windows does it?)
+> everyone using EL2
+> with the old (non-PAS) firmware currently relies on remoteprocs that are
+> already started by the boot firmware before Linux is started. This can
+> be just the "lite" ADSP that is started by UEFI for initial charging and
+> USB-C detection, or even the full ADSP/CDSP via a custom UEFI driver
+> (qebspil [1]). All of these will stay running even if we fail to
+> stop/start them via PAS. Without extra kernel patches, we can't make use
+> of the remoteprocs, but the lite ADSP firmware will probably continue
+> doing its work in the background, i.e. it will start/stop charging as
+> needed, you just won't be able to observe the status from Linux.
+>
+> We manage the full IOMMU even when there is no PAS. The reason why
+> people are not running into issues is that the bootloader handover code
+> inside arm-smmu-qcom.c qcom_smmu_cfg_probe() configures bypass for all
+> SIDs used by the boot firmware, which includes the SIDs for all the
+> remoteprocs. Adding these SIDs in the "iommus" property of an actual
+> device will replace the bypass with a translated context, which
+> currently won't be set up anywhere for the non-PAS use case.
+
+hm, maybe the patches supporting the handover could be updated to set up 
+the context in the non-PAS case?
+
+> In addition, even on newer firmware with PAS support I would expect that
+> special care is required to "atomically" handover the IOMMU
+> configuration from the bootloader. If the lite ADSP remains running on
+> these firmware versions as well, the bypass or suitable mappings must be
+> maintained until the lite ADSP firmware is stopped.
+> […]
+Thanks,
+~val
