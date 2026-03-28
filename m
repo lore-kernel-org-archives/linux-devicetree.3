@@ -1,218 +1,177 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72FB23A6EEB
-	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 17:37:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A67387568;
+	Sat, 28 Mar 2026 18:44:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774719480; cv=none; b=GHcSse7fGfq0P7k5sJEfX5hmqmUbC/phJ+abPWw36sDUIQZ5lywMLOLMh7uXX5jMY4YhgmZcXAQ4K1oxFGfUyXqVR3Uhz6bRnNT414mWHrkdiVMqCVYMA+rikZ+5YHzjNzb4WhZWxSCNpMqo2SJ+iUWwjdf0/gZJtc3mVaeTZ4Q=
+	t=1774723499; cv=none; b=JdqRARIhrfrhqcAoSIz44NeP9Gg8B8Z+1HWuESKAeGJkx3uCVQR5GOOXP5UJMr+9Ugy/N67IyJ/h7GU2jnImFrOb233RaK14/TPXYaFtVRh/pSqEN+OkAcLNNFabhSaf1bLYxLzRJqDkhsnCpVpT9WcAx2d/lfMJnNZyHifrCTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774719480; c=relaxed/simple;
-	bh=iKIxZqfsu+EMIToJywvJpH4PHUmMH3CHONIBEcDeehU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Khda7HvG6WPX7TQ0Yvb3XVuFOydYI7YFRmS/U+ZjvFTbNrwXJdUuYDEOhgT3zlgqnUxp/Rt1396azGQMQXX/X3CCdMKJKcBBCGHqx4NEUKkylXmQKxUCANzrRdfJP0ibAeqIlLpjVulgheDS8Bn9/XNZP+0rBYniXSeu4wyeAio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=khdyjHxC; arc=none smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774723499; c=relaxed/simple;
+	bh=kmwRtxXK8xGRADi3clGnSnpebF8WnxXlg30JofNOtQ0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nkrFDIqUYqhXnyrpnGfh+ZQn6ZizcZ9dObfL26K9XiXNLefgTOODa3DYDSldQN+fA09msgEEwQqlbbaVcAnkVs0imWZw2WRPlXIx4mvKk5SI/+oJuI5VGEj8Ft8/ADMkMKOAWTSGUU8bhUHBkyZgy6a+GCoPYXc/YzfpRHVu1ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Rt2+m0xE; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="khdyjHxC"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-50b3488fb31so55522121cf.1
-        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 10:37:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774719478; x=1775324278; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=agtwMzvvo2u0f9LDYXhcZeX3VFLC8FECckVchUC5F9Y=;
-        b=khdyjHxCTnlRot6KfYBHxuz4IYh86+QfvLT3zOX2EonuFekGOGa5cfUAxKK9hSOT+r
-         bhWYBoHQceSneJPt4r64ayLAApROvRWp83QUjhuLISuYdswkrfd7//MF+GfdOqjGxXUW
-         +0zbYE5tI9w8cbS/rLDZVSRT/xGrm+NciWvKnNX6rNNeacHuocHR3Qxfq6tyIJGk/bow
-         +9YN/EWbwPphfX58K2l05fTOMp967hyQGEkm84hVnpZDiz1C82FI0hG+VPDY+bJTpMLn
-         xRx75rnuuimpQeVY5a3DR5z8yRPeIlgh2S+cxqcYuQhgwODAj4fbOIWPUrlnqVVNoO6A
-         RVUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774719478; x=1775324278;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=agtwMzvvo2u0f9LDYXhcZeX3VFLC8FECckVchUC5F9Y=;
-        b=MiDw6OKK/wUwWLoozIugF5HMX2Ivb8Nj7OFYyfE9zoMA7okG7Zr+SQnAVjV0/O9Cbn
-         Za3OAuujHNFbewqTFNBmQGb5VWjAIDKWlTAItuReC921qD9AKOCru1RaFsZZEhnd5fqW
-         KlvHcDy9mGTg8dt2rsWzmubpaLHukMAwOIUJF9yrXyJv47SoKcedp00CJv56MEJZC+N9
-         KaS00SL3eJWwA3CwwFjN1dNG4gxAqCX1p/brJJsZW0fB4yY93gW/ii4YItsybPjG9S8F
-         0ul1j6Mp+vGVqN93uucKvH2k8N9KfXGXu7FfgUvVDajOSUIAmCVbevwHQiqzEBnDXxXa
-         lqEQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVI33GmFMexAJF6rWN06ywLHpLHe2Uz0xzzs8iqYT+nRIP9VTat+/dfpmzqrW+pdvIfT9yJu3gncS3Y@vger.kernel.org
-X-Gm-Message-State: AOJu0YygbCVGY9mDnXWq+x3Z/VhVaFHnBfwCHab+iXM4WkC3tsfG6DTh
-	aoPbAlPtG/YxRfmhfaOc507qeMLSocXvioTBXozD0tY9r33IyLBM/QhP
-X-Gm-Gg: ATEYQzw6klLNZVjIWR88OwULM8oc8SOR5QaWym4vBfy020zEHEsHMBaZMyMkaQDqATf
-	/dgsdDVxrL+Q9NkVON6EiO/SKmUaJ1oeCG7rBUiGp4SRHPFLrtfB3Lu+DLhasXjMli48FB/OWM4
-	yYWhzeiQFzG8KLPW4tVLvL9UjngHAASa0uhLDz9H9l0kT6KffCH5mEV/uzYwq3Aety77M/9MIIW
-	dpv4LiwiG6mkhC1a9VTvFEOsx7wCavyHnrfm2/eAKty9oXmBEoiJgXa5ZuXx+aYLeZRdSyJ3YpX
-	wGoPFmhJ2ZjQdDiJS+Dfm84e9FQ2fhccHrXEqOxiM9rw+4TPFbLhnIrkkpjWFxx9MMNZ6ClCDtA
-	cBlivUoGpuDNXfyLO5lfRO770MWwPLRjabwgRhVDIY1N7zANf8WvTX0zRPgvvgo7Lq9E+tIs6Mq
-	d0jUM48gWSXpGY2RPv3cvBeG0Y9E/j/7cijvIu58lwA9G4Ce8Tqj9KnVol
-X-Received: by 2002:ac8:5e06:0:b0:50b:292d:94e3 with SMTP id d75a77b69052e-50b995b5a1fmr123076451cf.42.1774719478554;
-        Sat, 28 Mar 2026 10:37:58 -0700 (PDT)
-Received: from sleek (d-23-244-200-70.nh.cpe.atlanticbb.net. [23.244.200.70])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-50bb2c9c93asm26629641cf.7.2026.03.28.10.37.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Mar 2026 10:37:58 -0700 (PDT)
-From: Joshua Milas <josh.milas@gmail.com>
-To: tglx@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	pjw@kernel.org,
-	samuel.holland@sifive.com,
-	unicorn_wang@outlook.com,
-	inochiama@gmail.com,
-	daniel.lezcano@linaro.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	liujingqi@lanxincomputing.com,
-	alexander.sverdlin@gmail.com,
-	rabenda.cn@gmail.com,
-	dlan@kernel.org,
-	chao.wei@sophgo.com,
-	anup@brainfault.org
-Cc: josh.milas@gmail.com,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	sophgo@lists.linux.dev,
-	hanguidong02@gmail.com,
-	michael.opdenacker@rootcommit.com
-Subject: [PATCH v4 5/5] riscv64: dts: sophgo: add initial Milk-V Duo S board support
-Date: Sat, 28 Mar 2026 13:34:50 -0400
-Message-ID: <20260328173450.219664-6-josh.milas@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260328173450.219664-1-josh.milas@gmail.com>
-References: <20260328173450.219664-1-josh.milas@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Rt2+m0xE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774723495; x=1806259495;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kmwRtxXK8xGRADi3clGnSnpebF8WnxXlg30JofNOtQ0=;
+  b=Rt2+m0xE0oj5pu/x50pXw9U1nzcZirXhf4Cmd4IRV7JovwZ6GSUDJwUV
+   NbkkDNNNnp9F1UUI23m7xt+sgYk1bzaXz7yfoOCXjDxui4Q5bzabu7Egw
+   hF/I9s/fChhAKH1DF6ZfmvpCI98/fcJpdVze6r9+j1C/6HBcX8zN2sDHg
+   jawL7ops3iX13WNEdv/W2KSDIp5v8ovpdHRRRT0aYUdt9NL1lhsV7e95r
+   tK4bPraWgK2IZ49KzK0Ap+21g/wRDzcEVEzgf13nd2xDBpEB0LeO/8+1W
+   ia7wKjst0nqY4sw4gOVSfkZgkgwxGRQkhNrk/DjbKCrj1GTiyu/qTU5v+
+   Q==;
+X-CSE-ConnectionGUID: A9hpSqCXT1uGR842pTWMqA==
+X-CSE-MsgGUID: Ln82fmvmQNiULTdrDSfGLw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11742"; a="86845869"
+X-IronPort-AV: E=Sophos;i="6.23,146,1770624000"; 
+   d="scan'208";a="86845869"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Mar 2026 11:44:53 -0700
+X-CSE-ConnectionGUID: Nc+Sx4DhReOMLCcTty2zpA==
+X-CSE-MsgGUID: MRA0+ZK0Qme1YgjotqhzrA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,146,1770624000"; 
+   d="scan'208";a="230095910"
+Received: from lkp-server01.sh.intel.com (HELO 3905d212be1b) ([10.239.97.150])
+  by orviesa004.jf.intel.com with ESMTP; 28 Mar 2026 11:44:49 -0700
+Received: from kbuild by 3905d212be1b with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1w6YeL-00000000BgF-32UD;
+	Sat, 28 Mar 2026 18:44:45 +0000
+Date: Sun, 29 Mar 2026 02:43:48 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jay Liu <jay.liu@mediatek.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Jay Liu <jay.liu@mediatek.com>
+Subject: Re: [PATCH v4 5/6] drm/mediatek: Support multiple CCORR component
+Message-ID: <202603290249.ZJ6ioqey-lkp@intel.com>
+References: <20260324125315.4715-6-jay.liu@mediatek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260324125315.4715-6-jay.liu@mediatek.com>
 
-This adds initial riscv support for the Milk-V Duo S board
-[1] making it possible to boot Linux to the command line.
+Hi Jay,
 
-Link: https://milkv.io/duo-s [1]
+kernel test robot noticed the following build errors:
 
-Signed-off-by: Joshua Milas <josh.milas@gmail.com>
----
- arch/riscv/boot/dts/sophgo/Makefile           |  1 +
- .../boot/dts/sophgo/sg2000-milkv-duo-s.dts    | 85 +++++++++++++++++++
- 2 files changed, 86 insertions(+)
- create mode 100644 arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on drm/drm-next pza/reset/next linus/master v7.0-rc5 next-20260327]
+[cannot apply to pza/imx-drm/next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-diff --git a/arch/riscv/boot/dts/sophgo/Makefile b/arch/riscv/boot/dts/sophgo/Makefile
-index 6f65526d4193b..58cc6b70d8de4 100644
---- a/arch/riscv/boot/dts/sophgo/Makefile
-+++ b/arch/riscv/boot/dts/sophgo/Makefile
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- dtb-$(CONFIG_ARCH_SOPHGO) += cv1800b-milkv-duo.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += cv1812h-huashan-pi.dtb
-+dtb-$(CONFIG_ARCH_SOPHGO) += sg2000-milkv-duo-s.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-licheerv-nano-b.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-milkv-pioneer.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-evb-v1.dtb
-diff --git a/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts b/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
-new file mode 100644
-index 0000000000000..4ae44b40f9edb
---- /dev/null
-+++ b/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
-@@ -0,0 +1,85 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+
-+/dts-v1/;
-+
-+#include "sg2000.dtsi"
-+
-+/ {
-+	model = "Milk-V Duo S";
-+	compatible = "milkv,duo-s", "sophgo,sg2000";
-+
-+	aliases {
-+		i2c4 = &i2c4;
-+		mmc0 = &sdhci0;
-+		serial0 = &uart0;
-+		spi3 = &spi3;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-+
-+&osc {
-+	clock-frequency = <25000000>;
-+};
-+
-+&dmac {
-+	status = "okay";
-+};
-+
-+&emmc {
-+	bus-width = <4>;
-+	no-1-8-v;
-+	cap-mmc-hw-reset;
-+	no-sd;
-+	no-sdio;
-+	non-removable;
-+	status = "okay";
-+};
-+
-+&gmac0 {
-+	status = "okay";
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+};
-+
-+&mdio {
-+	status = "okay";
-+};
-+
-+&saradc {
-+	status = "okay";
-+};
-+
-+&sdhci0 {
-+	bus-width = <4>;
-+	no-1-8-v;
-+	disable-wp;
-+	status = "okay";
-+};
-+
-+&sdhci1 {
-+	bus-width = <4>;
-+	cap-sdio-irq;
-+	no-mmc;
-+	no-sd;
-+	non-removable;
-+	status = "okay";
-+};
-+
-+&spi3 {
-+	status = "okay";
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-+&usb {
-+       dr_mode = "host";
-+       status = "okay";
-+};
-+
+url:    https://github.com/intel-lab-lkp/linux/commits/Jay-Liu/dt-bindings-display-mediatek-gamma-Add-support-for-MT8196/20260328-083359
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260324125315.4715-6-jay.liu%40mediatek.com
+patch subject: [PATCH v4 5/6] drm/mediatek: Support multiple CCORR component
+config: arm64-defconfig (https://download.01.org/0day-ci/archive/20260329/202603290249.ZJ6ioqey-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260329/202603290249.ZJ6ioqey-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603290249.ZJ6ioqey-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/mediatek/mtk_ddp_comp.c:461:10: error: 'DDP_COMPONENT_CCORR0' undeclared here (not in a function); did you mean 'DDP_COMPONENT_CCORR'?
+     461 |         [DDP_COMPONENT_CCORR0]          = { MTK_DISP_CCORR,             0, &ddp_ccorr },
+         |          ^~~~~~~~~~~~~~~~~~~~
+         |          DDP_COMPONENT_CCORR
+>> drivers/gpu/drm/mediatek/mtk_ddp_comp.c:461:10: error: array index in initializer not of integer type
+   drivers/gpu/drm/mediatek/mtk_ddp_comp.c:461:10: note: (near initialization for 'mtk_ddp_matches')
+>> drivers/gpu/drm/mediatek/mtk_ddp_comp.c:462:10: error: 'DDP_COMPONENT_CCORR1' undeclared here (not in a function); did you mean 'DDP_COMPONENT_CCORR'?
+     462 |         [DDP_COMPONENT_CCORR1]          = { MTK_DISP_CCORR,             1, &ddp_ccorr },
+         |          ^~~~~~~~~~~~~~~~~~~~
+         |          DDP_COMPONENT_CCORR
+   drivers/gpu/drm/mediatek/mtk_ddp_comp.c:462:10: error: array index in initializer not of integer type
+   drivers/gpu/drm/mediatek/mtk_ddp_comp.c:462:10: note: (near initialization for 'mtk_ddp_matches')
+   drivers/gpu/drm/mediatek/mtk_ddp_comp.c:463:43: warning: initialized field overwritten [-Woverride-init]
+     463 |         [DDP_COMPONENT_COLOR0]          = { MTK_DISP_COLOR,             0, &ddp_color },
+         |                                           ^
+   drivers/gpu/drm/mediatek/mtk_ddp_comp.c:463:43: note: (near initialization for 'mtk_ddp_matches[4]')
+
+
+vim +461 drivers/gpu/drm/mediatek/mtk_ddp_comp.c
+
+   456	
+   457	static const struct mtk_ddp_comp_match mtk_ddp_matches[DDP_COMPONENT_DRM_ID_MAX] = {
+   458		[DDP_COMPONENT_AAL0]		= { MTK_DISP_AAL,		0, &ddp_aal },
+   459		[DDP_COMPONENT_AAL1]		= { MTK_DISP_AAL,		1, &ddp_aal },
+   460		[DDP_COMPONENT_BLS]		= { MTK_DISP_BLS,		0, NULL },
+ > 461		[DDP_COMPONENT_CCORR0]		= { MTK_DISP_CCORR,		0, &ddp_ccorr },
+ > 462		[DDP_COMPONENT_CCORR1]		= { MTK_DISP_CCORR,		1, &ddp_ccorr },
+   463		[DDP_COMPONENT_COLOR0]		= { MTK_DISP_COLOR,		0, &ddp_color },
+   464		[DDP_COMPONENT_COLOR1]		= { MTK_DISP_COLOR,		1, &ddp_color },
+   465		[DDP_COMPONENT_DITHER0]		= { MTK_DISP_DITHER,		0, &ddp_dither },
+   466		[DDP_COMPONENT_DP_INTF0]	= { MTK_DP_INTF,		0, &ddp_dpi },
+   467		[DDP_COMPONENT_DP_INTF1]	= { MTK_DP_INTF,		1, &ddp_dpi },
+   468		[DDP_COMPONENT_DPI0]		= { MTK_DPI,			0, &ddp_dpi },
+   469		[DDP_COMPONENT_DPI1]		= { MTK_DPI,			1, &ddp_dpi },
+   470		[DDP_COMPONENT_DRM_OVL_ADAPTOR]	= { MTK_DISP_OVL_ADAPTOR,	0, &ddp_ovl_adaptor },
+   471		[DDP_COMPONENT_DSC0]		= { MTK_DISP_DSC,		0, &ddp_dsc },
+   472		[DDP_COMPONENT_DSC1]		= { MTK_DISP_DSC,		1, &ddp_dsc },
+   473		[DDP_COMPONENT_DSI0]		= { MTK_DSI,			0, &ddp_dsi },
+   474		[DDP_COMPONENT_DSI1]		= { MTK_DSI,			1, &ddp_dsi },
+   475		[DDP_COMPONENT_DSI2]		= { MTK_DSI,			2, &ddp_dsi },
+   476		[DDP_COMPONENT_DSI3]		= { MTK_DSI,			3, &ddp_dsi },
+   477		[DDP_COMPONENT_GAMMA]		= { MTK_DISP_GAMMA,		0, &ddp_gamma },
+   478		[DDP_COMPONENT_MERGE0]		= { MTK_DISP_MERGE,		0, &ddp_merge },
+   479		[DDP_COMPONENT_MERGE1]		= { MTK_DISP_MERGE,		1, &ddp_merge },
+   480		[DDP_COMPONENT_MERGE2]		= { MTK_DISP_MERGE,		2, &ddp_merge },
+   481		[DDP_COMPONENT_MERGE3]		= { MTK_DISP_MERGE,		3, &ddp_merge },
+   482		[DDP_COMPONENT_MERGE4]		= { MTK_DISP_MERGE,		4, &ddp_merge },
+   483		[DDP_COMPONENT_MERGE5]		= { MTK_DISP_MERGE,		5, &ddp_merge },
+   484		[DDP_COMPONENT_OD0]		= { MTK_DISP_OD,		0, &ddp_od },
+   485		[DDP_COMPONENT_OD1]		= { MTK_DISP_OD,		1, &ddp_od },
+   486		[DDP_COMPONENT_OVL0]		= { MTK_DISP_OVL,		0, &ddp_ovl },
+   487		[DDP_COMPONENT_OVL1]		= { MTK_DISP_OVL,		1, &ddp_ovl },
+   488		[DDP_COMPONENT_OVL_2L0]		= { MTK_DISP_OVL_2L,		0, &ddp_ovl },
+   489		[DDP_COMPONENT_OVL_2L1]		= { MTK_DISP_OVL_2L,		1, &ddp_ovl },
+   490		[DDP_COMPONENT_OVL_2L2]		= { MTK_DISP_OVL_2L,		2, &ddp_ovl },
+   491		[DDP_COMPONENT_POSTMASK0]	= { MTK_DISP_POSTMASK,		0, &ddp_postmask },
+   492		[DDP_COMPONENT_PWM0]		= { MTK_DISP_PWM,		0, NULL },
+   493		[DDP_COMPONENT_PWM1]		= { MTK_DISP_PWM,		1, NULL },
+   494		[DDP_COMPONENT_PWM2]		= { MTK_DISP_PWM,		2, NULL },
+   495		[DDP_COMPONENT_RDMA0]		= { MTK_DISP_RDMA,		0, &ddp_rdma },
+   496		[DDP_COMPONENT_RDMA1]		= { MTK_DISP_RDMA,		1, &ddp_rdma },
+   497		[DDP_COMPONENT_RDMA2]		= { MTK_DISP_RDMA,		2, &ddp_rdma },
+   498		[DDP_COMPONENT_RDMA4]		= { MTK_DISP_RDMA,		4, &ddp_rdma },
+   499		[DDP_COMPONENT_UFOE]		= { MTK_DISP_UFOE,		0, &ddp_ufoe },
+   500		[DDP_COMPONENT_WDMA0]		= { MTK_DISP_WDMA,		0, NULL },
+   501		[DDP_COMPONENT_WDMA1]		= { MTK_DISP_WDMA,		1, NULL },
+   502	};
+   503	
+
 -- 
-2.53.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
