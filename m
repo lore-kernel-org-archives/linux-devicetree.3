@@ -1,115 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E32342510
-	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 15:49:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A255434CFCB
+	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 15:49:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774712989; cv=none; b=ToSqdYAbOHe938ghmHN3cXxX5N9L432wzvwY6/BO7wGMt/GTVcLHbZSnIeDKv1a/N/J6AtTnOK5EryHd3UGbBagxBgcjaqy8Ry3S5jf2DCC0MtPQI+6f7HKqPbsscNTflQ0m5rtk5jsZP9/rDKlJOIEbArMoAg9ySU1nnzYM0C0=
+	t=1774713000; cv=none; b=dwVXygzVmz1F8pG0Yd88lTTksUWRUWKHv9FZEvmT9HqarUaiEcayVKWx3HBjylI2avDevG0MNBUrIAXUV+NRAZQYcUZ7Jk/v8UTM3J9z4tLzq7GNVqPSZotqCYzL1MUf0hXRmx9PnadLO9X3ySILomjt556ay5lrebooQ5gMKTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774712989; c=relaxed/simple;
-	bh=BEU9rMTbOAWYA1FwR7F4qwNiCjzAb+HmPpFgx2cS7wE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GGwnSL1sA5lbZEXbNYTsCJk6jembRux59cHTCfQNl9uSDdUee9cSU6LzEKFTjsOuQvfxOKcyFMVshUdUxaZ1uTrxw32kVg4fPxoYFnSPH5plG8b/o16wpBGfRyOEVx2Jy2dKYakS+92blaQEXP/CaSqC/hiL2Gcf5k7c880JYQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BT7pbhgJ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774713000; c=relaxed/simple;
+	bh=pWkZJVf4vSvn7oyzP6Y/Efbf5AAdtodIC7JUreUYvrA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=pFS5e+W37KPtNDXHIKNVFThxvM0/GGDcuKMQqHxkJ7pV/LTRJiYG6nyzSOri9JL2F/bkT5TdMh8iKOoUbpGtgA75IDgjlG7KSApAH1RZAcdkh44u22h1DOwleXYht6q55nJt+7RbGyGsbec7Ckt2DTg30uYdyOjyxbFSSyD6Hr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=YNZDXIzk; arc=none smtp.client-ip=185.125.188.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BT7pbhgJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA339C4CEF7
-	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 15:49:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774712988;
-	bh=BEU9rMTbOAWYA1FwR7F4qwNiCjzAb+HmPpFgx2cS7wE=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
-	b=BT7pbhgJHrUlPKuXND5uPgvoYSAeRgx+7oj8RT0jmWcENZS7/PS5Ig0Bcezi1cDj1
-	 TPjMOiV+EwsLGQXA3CwgMuS9nXiQMT6mskhhdP6f+6FazW3QvO5d4TMMvCYZCsAb0t
-	 c1/FyhYuzkW3uhuM1fFn8GYJWlFhXKn9W4fFMUKnQzGPt9bGMi0eyK0kBxngzT9Ls6
-	 JxeQXzbxwItSeyL6hCyNHehCZ5LtT0cKis3K2QNQCHESoNDR96LrJW8iKb3hi6a8ZX
-	 VfHhU0I9yNZ4bXrBawByHGVr2ugzYb3FSBKa6u+17A/OEPx9/40t6nJ5Y+DC1ifB05
-	 eKdD18ohQO0xQ==
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-b93698bb57aso570551566b.0
-        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 08:49:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCWfhK+TmtEU3iJ6Nzw4ZpyHbfRYZ5B3IB00mVpH+TdMccrfjacBstIY31uWGucEuHaX+rf3REhqWYHl@vger.kernel.org
-X-Gm-Message-State: AOJu0YwCCw1zqF8JFnNlqbmQbJCpxQSHPoyFCw6pChoiOTHxh+8lVKbB
-	AOFUr36nknfeGsKLgfVer0bf5/db7lU0eOAPPeV8tmpj61acAvLuqTcQ9SGRKBGi5uLIk03F2au
-	5tTgXlCIoPx7EVN/rx3cuDswn7hGm0dA=
-X-Received: by 2002:a05:651c:30ec:b0:38c:33d1:dd09 with SMTP id
- 38308e7fff4ca-38c653f91c1mr24155731fa.10.1774701616378; Sat, 28 Mar 2026
- 05:40:16 -0700 (PDT)
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="YNZDXIzk"
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 8B3063F600
+	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 15:49:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1774712990;
+	bh=HJjaH7Prdft0dSeI29mmHk8qu960nAVWe60SYMS7+aA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc;
+	b=YNZDXIzkK/XevaWy+buMlLln2wpfZAakvl4gz54MNxDkMoB3A11D8MefVgk18DPsk
+	 tlB1a4O1pG11HRRvgg9e1HgXcIAPPszAtvuXnPPOl6vNLoHG0kUecdUXCCSIC6b3Um
+	 DhCFVPPmZVD6cmXzoOKFV4u9jon3jXJ05H/mAKZ+pBLhsI60BRcF0I7A8pq/xyr3b2
+	 AOOVYfNoT2VRQzHZvwjF3C33io+ifrT/2rx/XwGorXPvPF+fXkK5FC2qouzYqOL9Xq
+	 JeGIpe8l3lsDXUozR+UoU80v1OhJyzf01WsMMLR/aiB8dD5GTly/i3/Zhqj+G+XWvA
+	 Co83S6BHWyqnyMFD5XuUXQXCCqsSnxtDj3wAn42ULdJuUafFSAVZhCfZ5CFdTFxDJC
+	 MtG1hLr3JAaz9fPME4x8+cP2+RIxS5u9kFCXXD6qvk/LmJZTYJBhfihNlH2EPFzi//
+	 SaXTz9Py8hGN66QJEEfkss1jPpucRprB8Xp3nZsvO9sFDUWjEXhQihdTa3ufXLc31F
+	 BBXslrdAsEJd5rLpDqxh314tm8eHfmaosHUP5hidWi22rIl6vPHn5+jkUyQReNR9VP
+	 SiglUWU5gwF++mqAmtHWq3Q9gNeC1yAL/JkJQ+N/Vh0tGfvyoj54X1n03okZb1vhzt
+	 EM1Idj9OR5Q50YSAhFuhGNEk=
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-439b3011be7so1884007f8f.1
+        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 08:49:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774712990; x=1775317790;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=HJjaH7Prdft0dSeI29mmHk8qu960nAVWe60SYMS7+aA=;
+        b=DBrjDHRTESaBhK7L7gTvZweaaHeyDmr4zUVQJeudBa6djawr23awslDdaT8VgKrlk2
+         nH5HWcUPZtnFi4fPIKRBschjkaUSq6KSMPzDlk3JiV/34cYJvHNtiY02FjVXikNthmgW
+         /9t+qf9dlMiFCCZbm35yUS/vEKOZFghVp2CNVIlKvhllfE64ry4vURUoPMjjyA/JqDUJ
+         dSQ+rNnN4gdtCZAj6t2LAkIVm7OfcLWeqWlZdWstonyrPgB7+17e5v2Tk/iVRfe/swvo
+         HPx5dLb4XqgOOkIySVm1tXPXbGcTBzI4UW4gE6Sc0JlSq0TJasHDlJSjgQ5u1AdwlX/a
+         AsHA==
+X-Forwarded-Encrypted: i=1; AJvYcCWYaRV6SEXdYDTzhaD442rKJ4CIr4qcS6ydLP8f/0p67p1GO3iaOYO+rcMxOecIKKziIxdV8dC6dk+3@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzh/xcNL4gy2ZLutIRNcDhk8dzLgKNjaJ9lkK+V2uOhwguDUxNI
+	mMJ31FIi3UA3RzKETQ5AGHVZZMvN/FgDlNfcptwdCeC7xgJCGpZmlHp4ROgSoz9C+IbWC+kV57k
+	I0m+lhD3EiJNNiAD3y//qyjPr2NUVsxWo0b1MqgYxx2Y+uMh/g+7L0bArvT7G7pLfQ5UAl7s2Ha
+	8wIVk=
+X-Gm-Gg: ATEYQzwhwzSiFc0j6wwtcPKeUydhd43hnS/uAZOPKNi5VPyUmWDXR6bBCgSs5UCZkx4
+	vnO33o/R5bLAAoac1yRnBUeGArA0UfZLDIIpl45SV5uBgKRKSm2ZkxbfiWGWuCmQiiL7CIazbvK
+	+Tn23/FRzBGgaOb2pRIEdcN4qeFWRqUesNqHnwWKYMAoj5CHMehbJetxlCGbug0a0Ez/RdRJVUp
+	9EzdQjQEt6PTau5qPowtasHpzh+chWQ3IxHazieIfVDs8v/Qel45Y8+mhXpjtqZm+y51TpGR7uC
+	CCBq+wghNQl9Mbcr6/hVTzI3nfE8v76+oxb1QJgab57LCSWbrCbl4u/F/TDq+T3yosuW2b1ZyOD
+	OFNIquFShLyJYBBx80bH7VHHUjyb28n8/JEo=
+X-Received: by 2002:a05:600c:8b46:b0:485:3f72:323f with SMTP id 5b1f17b1804b1-48727f0ea89mr100915095e9.11.1774712990087;
+        Sat, 28 Mar 2026 08:49:50 -0700 (PDT)
+X-Received: by 2002:a05:600c:8b46:b0:485:3f72:323f with SMTP id 5b1f17b1804b1-48727f0ea89mr100914765e9.11.1774712989627;
+        Sat, 28 Mar 2026 08:49:49 -0700 (PDT)
+Received: from [127.0.0.1] ([2001:a61:35ad:2701:1e88:df3b:5eee:779e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48727192012sm38011165e9.32.2026.03.28.08.49.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 28 Mar 2026 08:49:48 -0700 (PDT)
+From: Tobias Heider <tobias.heider@canonical.com>
+Date: Sat, 28 Mar 2026 16:49:21 +0100
+Subject: [PATCH 1/2] arm64: dts: qcom: fix remaining gpu_zap_shader labels
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260121-a733-rtc-v1-0-d359437f23a7@pigmoral.tech> <20260121-a733-rtc-v1-6-d359437f23a7@pigmoral.tech>
-In-Reply-To: <20260121-a733-rtc-v1-6-d359437f23a7@pigmoral.tech>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sat, 28 Mar 2026 20:40:04 +0800
-X-Gmail-Original-Message-ID: <CAGb2v66YWa_CnSh1_rM707Lne4MF+imML3B5ad4TQ34hZgQ-tQ@mail.gmail.com>
-X-Gm-Features: AQROBzD9uvYPfehFAvfWSqRC7-wZ99UgUGl_PBhFagiwx6384R3sEI_1rOb_K7w
-Message-ID: <CAGb2v66YWa_CnSh1_rM707Lne4MF+imML3B5ad4TQ34hZgQ-tQ@mail.gmail.com>
-Subject: Re: [PATCH 6/7] rtc: sun6i: Add support for A733 RTC
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Maxime Ripard <mripard@kernel.org>, linux-clk@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260328-zap-v1-1-f6810b9b4930@canonical.com>
+References: <20260328-zap-v1-0-f6810b9b4930@canonical.com>
+In-Reply-To: <20260328-zap-v1-0-f6810b9b4930@canonical.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Tobias Heider <tobias.heider@canonical.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1830;
+ i=tobias.heider@canonical.com; h=from:subject:message-id;
+ bh=pWkZJVf4vSvn7oyzP6Y/Efbf5AAdtodIC7JUreUYvrA=;
+ b=owEBbQKS/ZANAwAKARNJjwMsz+naAcsmYgBpx/iakuc/9GkSSwrWk33xLCURAKHQ9PKQbhtOr
+ y3crrdThPaJAjMEAAEKAB0WIQSbaT10QIAuim/4A94TSY8DLM/p2gUCacf4mgAKCRATSY8DLM/p
+ 2klCEAC10UuHW1rHMKWdYX4CwY04VaKi0h7kcYAmL3NLIAugi5K90TpdP13qmcUVPlNQnZ5641n
+ orN40L9uRMnOK+bF4WZV8egjqUi67X4Yj9fGdu1Pyb0tYUg5lCAttPYooKqi8veRpfZWcXlWtgT
+ 0aZ794NXcLqAnoDw2I3qIwKduWse1E/YbGSynnpb5JtMv7Ww3QYyslQHF9+hLvffCC1sA0rOsSl
+ iPW1zU3PrOLN2vGgFn7RBF9GeJQVw4ifC5oRQuomxxVchoQWH3UizhFetgevoOeRDG01UKN5wqR
+ zQg2oW6CuVyYDCJdo1B9kA9HBxercTVEQdqWOZCpMzejS/tSPWGk+eha8yBTJYVwJTCNr74Jvbl
+ ZZUnescUo6aT1doz2HiiKOIm4hrZw3+PaEQZWUVBykFwprHu0qVBtmMChj/yUL7wN5wQeu2KVp7
+ 8aWK6lRtVcS/ZhXeopE1r8lAYBUeojZIqL9b6HYHDDVtIr1ttYIg3nnfkdQRNR3pLjG7YfxWipn
+ PkKWJusJtyvzk1Bd25WWfYYAV71XJ6d+UQc/o8xcnO7J/YUR0rrdsqNx18ff6y81h+g9lvsHxJ0
+ ozOlnR2Z/0/itXnrIVETFiFPUl+elj4VoDuTEi9xGBN8es0sBCPz61QedgQQd2Hb5cBHT3hzNpN
+ qDJP1L9mNyW1coA==
+X-Developer-Key: i=tobias.heider@canonical.com; a=openpgp;
+ fpr=9B693D7440802E8A6FF803DE13498F032CCFE9DA
 
-On Wed, Jan 21, 2026 at 7:04=E2=80=AFPM Junhui Liu <junhui.liu@pigmoral.tec=
-h> wrote:
->
-> The RTC in the Allwinner A733 SoC is compatible with the H616 in terms
-> of its time storage and alarm functionality. However, its internal CCU
-> is different, with additional DCXO handling logic.
->
-> Add new match data to register a new auxiliary device for its CCU part.
+Most qcom DTs were converted to use the gpu_zap_shader label instead
+of patching the gpu node in commit 2377626fd216 ("arm64: dts: qcom:
+add gpu_zap_shader label"). This fixes the remaining ones.
 
-This is probably incorrect, since you aren't actually adding auxiliary
-devices. It should just say "add a new compatible and matching data for
-the new SoC".
+Signed-off-by: Tobias Heider <tobias.heider@canonical.com>
+---
+ arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi           | 8 ++++----
+ arch/arm64/boot/dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts | 6 +++---
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
->
-> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
-> ---
->  drivers/rtc/rtc-sun6i.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/drivers/rtc/rtc-sun6i.c b/drivers/rtc/rtc-sun6i.c
-> index b4489e0a09ce..a58d9c6b917c 100644
-> --- a/drivers/rtc/rtc-sun6i.c
-> +++ b/drivers/rtc/rtc-sun6i.c
-> @@ -865,6 +865,11 @@ static const struct sun6i_rtc_match_data sun6i_rtc_m=
-atch_data =3D {
->         .flags =3D RTC_LINEAR_DAY,
->  };
->
-> +static const struct sun6i_rtc_match_data sun60i_rtc_match_data =3D {
-> +       .adev_name =3D "sun60i",
-> +       .flags =3D RTC_LINEAR_DAY,
-> +};
-> +
->  /*
->   * As far as RTC functionality goes, all models are the same. The
->   * datasheets claim that different models have different number of
-> @@ -883,6 +888,8 @@ static const struct of_device_id sun6i_rtc_dt_ids[] =
-=3D {
->                 .data =3D &sun6i_rtc_match_data },
->         { .compatible =3D "allwinner,sun50i-r329-rtc",
->                 .data =3D &sun6i_rtc_match_data },
-> +       { .compatible =3D "allwinner,sun60i-a733-rtc",
-> +               .data =3D &sun60i_rtc_match_data },
->         { /* sentinel */ },
->  };
->  MODULE_DEVICE_TABLE(of, sun6i_rtc_dt_ids);
->
-> --
-> 2.52.0
->
->
+diff --git a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
+index d77be02848b5535e4478b3104ce49423b5df69cb..42c0c7a003087f181ecd6228b5a8bc4341b1250b 100644
+--- a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
+@@ -718,11 +718,11 @@ vreg_l3j_0p8: ldo3 {
+ 
+ &gpu {
+ 	status = "okay";
++};
+ 
+-	zap-shader {
+-		memory-region = <&gpu_microcode_mem>;
+-		firmware-name = "qcom/x1e80100/microsoft/qcdxkmsuc8380.mbn";
+-	};
++&gpu_zap_shader {
++	memory-region = <&gpu_microcode_mem>;
++	firmware-name = "qcom/x1e80100/microsoft/qcdxkmsuc8380.mbn";
+ };
+ 
+ &i2c0 {
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts b/arch/arm64/boot/dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts
+index 20a33e6f27ee32b22821b39e4acc441fd8ce55b0..a048ca327f6026dc69f66c24ea2bba1c10d18f7f 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts
++++ b/arch/arm64/boot/dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts
+@@ -791,10 +791,10 @@ vreg_s5j_1p2: smps5 {
+ 
+ &gpu {
+ 	status = "okay";
++};
+ 
+-	zap-shader {
+-		firmware-name = "qcom/x1e80100/Medion/sprchrgd-14-s1/qcdxkmsuc8380.mbn";
+-	};
++&gpu_zap_shader {
++	firmware-name = "qcom/x1e80100/Medion/sprchrgd-14-s1/qcdxkmsuc8380.mbn";
+ };
+ 
+ &i2c0 {
+
+-- 
+2.51.0
+
