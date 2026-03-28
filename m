@@ -1,40 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58EE240DFA3;
-	Sat, 28 Mar 2026 13:50:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34E9148850;
+	Sat, 28 Mar 2026 14:00:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774705818; cv=none; b=aA2mmgbmtxReXLIWTo9Qvqx/CwU3JIDFvykmgIF2fpCItnBYHQhhiNMfwD3bTKkMAig0FmLckowLKe8oRf8rr7EASNuvM2cOKZ6V1YCLdHGQhrEDQpo629fqs3M84BiKVYQBTJCJW4GTiwutgO0i8MNrRc2ISZ5Y1Ou20M7BUQQ=
+	t=1774706423; cv=none; b=dDxMZ6UoGilEypndly34Safc1d9UnbYAzsQFWf6ggqQBx/8LZhhFafTm9iZPk9JkFsPga5K0RiKtbFZQbrFNbZUalbs+3jfldvtqPdAbuO2Qw8cFis1DtryvJfL5XMatApNJB6H2U3ItMYFRMiSlrAI0t562AmqPR3u8BdIIDGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774705818; c=relaxed/simple;
-	bh=IQVzVfPrN6Qrqg9YpJwHcasmLCS46AB/n77DnCQ4NGk=;
+	s=arc-20240116; t=1774706423; c=relaxed/simple;
+	bh=JHRgANjYlG59Tmy8JU0d+EGviW+veg92wQFCjbKyeYQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QPpifePu32MV9sJhzBWuMkzb4UjXnFbbylYXfpo2g9hsStnnR12A+pnwFIrUnfmooLf0/aY7a++EMtK8w0v/EpNpxEA4WSCT6LEPduJaxPrhfBsNYuBtOvctn3vTzZQ1umqKpI7DzhI5SOGMvvfujMO+iBbIW725GOEVjl2NWzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PgkE5gI+; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=rx69fVOcghh6YSzYEP7pumz6jzn4FYqkwVPFj+28c47PTse5WwNzIEHZHnWpfMEiAwHXWQkOTx4vKI4+5o2nCp42lVIgE8daaDJK2vQIwuk+rVWhq7Fo4Ig5K/1u2kmIwReeWlzHUHEuNsr3q4NMOOmr0bxYpLP/+GbjgEy7PKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pdw7szfI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PgkE5gI+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 987EEC4CEF7;
-	Sat, 28 Mar 2026 13:50:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pdw7szfI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7746C4CEF7;
+	Sat, 28 Mar 2026 14:00:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774705818;
-	bh=IQVzVfPrN6Qrqg9YpJwHcasmLCS46AB/n77DnCQ4NGk=;
+	s=k20201202; t=1774706423;
+	bh=JHRgANjYlG59Tmy8JU0d+EGviW+veg92wQFCjbKyeYQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PgkE5gI+aLLATqkWq2Yml2IsHkxtQyN0M9tEiMlMGXH2IEoma9VmXWMB53mPDBWt2
-	 qZTEZHoUVOI3BFxkJl4u97b1NQ7sZzRjqhoLywQJoPMhzT0Xmv/SNZ9fVi1dWIVcqF
-	 alJ5thHKfmAgnHNUzb2UDQ6bqgULq8zCNg+FBV1B+xWP+ofwgsPBV7n1UrT7qdR0Sv
-	 As2ASelb2cvJltX70UFZjQcPGRD46V4H/83cx6Xg/SzcWR4Enxwes7WY4fbaaVHPRQ
-	 1bZn3wi44zrbdkASS8DNsHIJnuSa3QIqHMz6M/yMKDOZG+rW8TgLF8lonUs5cV3EHy
-	 6F/Uj8iySrtug==
-Date: Sat, 28 Mar 2026 14:50:15 +0100
+	b=Pdw7szfIMilLBa1KjFEH+K9moemQQBZavrASwgl665i90dRNijfVFBx2RizqEzE6q
+	 EWVSCxBgIDoUmvwVvkE4qJi/iiZs9DWTGoZAT5sVz+Nq6SmzrUJq+vUTycjsuysfck
+	 Xwa2pT0Wa4KWfOGRpCpXbXhbOOFACtIyxmqNFRn7eg+JV7eK46xyUN9Vf7Yc7mTvyy
+	 gXfeOTha0qX8Ljg542bIxd7PrSEBLpCfNhFO+81v57Yf/cC7ti7svwPsDjO/pjh/V5
+	 7PtVgyPYhERs2hnlF0Jl1e+23CCfxJrneaE47ILWl2yi9dilMEioCRedIkRX9H+2zf
+	 KfnNDjzUAz6Ig==
+Date: Sat, 28 Mar 2026 15:00:20 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Padmashree S S <padmashreess2006@gmail.com>
-Cc: k.marinushkin@gmail.com, lgirdwood@gmail.com, broonie@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] dt-bindings: sound: Convert pcm3060 to DT Schema
-Message-ID: <20260328-hidden-secret-oriole-4dddb0@quoll>
-References: <20260327121919.603768-1-padmashreess2006@gmail.com>
+To: nick.hawkins@hpe.com
+Cc: catalin.marinas@arm.com, will@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: arm: hpe,gxp: Add HPE GSC platform
+ compatible
+Message-ID: <20260328-chirpy-sturdy-emu-9eb0cb@quoll>
+References: <20260327174445.3275835-1-nick.hawkins@hpe.com>
+ <20260327174445.3275835-2-nick.hawkins@hpe.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,67 +45,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260327121919.603768-1-padmashreess2006@gmail.com>
+In-Reply-To: <20260327174445.3275835-2-nick.hawkins@hpe.com>
 
-On Fri, Mar 27, 2026 at 05:49:18PM +0530, Padmashree S S wrote:
-> Convert pcm3060 to DT Schema
+On Fri, Mar 27, 2026 at 12:44:43PM -0500, nick.hawkins@hpe.com wrote:
+> From: Nick Hawkins <nick.hawkins@hpe.com>
 > 
-> Signed-off-by: Padmashree S S <padmashreess2006@gmail.com>
+> Add the HPE GSC ARM64 BMC SoC compatibles to the existing
+> hpe,gxp.yaml binding.
+> 
+> The initial board compatible is hpe,gsc-dl340gen12 for the DL340 Gen12
+> server platform.
+> 
+> Add the arm64 DTS path to the existing ARM/HPE GXP MAINTAINERS entry,
+> renamed to ARM/HPE GXP/GSC ARCHITECTURE.
+> 
+> Signed-off-by: Nick Hawkins <nick.hawkins@hpe.com>
 > ---
->  .../devicetree/bindings/sound/pcm3060.txt     | 23 ----------
->  .../devicetree/bindings/sound/pcm3060.yaml    | 42 +++++++++++++++++++
+>  Documentation/devicetree/bindings/arm/hpe,gxp.yaml | 7 ++++++-
+>  MAINTAINERS                                        | 3 ++-
+>  2 files changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/hpe,gxp.yaml b/Documentation/devicetree/bindings/arm/hpe,gxp.yaml
+> index 224bbcb93f95..6f057cd58571 100644
+> --- a/Documentation/devicetree/bindings/arm/hpe,gxp.yaml
+> +++ b/Documentation/devicetree/bindings/arm/hpe,gxp.yaml
+> @@ -4,7 +4,7 @@
+>  $id: http://devicetree.org/schemas/arm/hpe,gxp.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  
+> -title: HPE BMC GXP platforms
+> +title: HPE BMC GXP and GSC platforms
+>  
+>  maintainers:
+>    - Nick Hawkins <nick.hawkins@hpe.com>
+> @@ -18,6 +18,11 @@ properties:
+>            - enum:
+>                - hpe,gxp-dl360gen10
+>            - const: hpe,gxp
+> +      - description: GSC Based Boards
+> +        items:
+> +          - enum:
+> +              - hpe,gsc-dl340gen12
+> +          - const: hpe,gsc
 
-You sent it already after I asked you to slow down and implement
-previous feedback, so this has the same issues.
-
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
-
-Please use subject prefixes matching the subsystem. You can get them for
-example with 'git log --oneline -- DIRECTORY_OR_FILE' on the directory
-your patch is touching. For bindings, the preferred subjects are
-explained here:
-https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
-
->  2 files changed, 42 insertions(+), 23 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/pcm3060.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/pcm3060.yaml
-
-Filename must match compatible.
-
-...
-
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  ti,out-single-ended:
-> +    type: boolean
-> +    description: |
-
-Drop |
-
-> +      If present, the output is single-ended.
-> +      If absent, the output is differential.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      pcm3060: audio-codec@46 {
-
-Drop unused label.
+What sort of ordering are you going to use in this file? Usual choice is
+the fallback compatible, but I see you have chosen something else. That
+is fine, just keep that else sorting in the future instead of adding to
+the end.
 
 Best regards,
 Krzysztof
