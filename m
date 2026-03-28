@@ -1,73 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-24430.protonmail.ch (mail-24430.protonmail.ch [109.224.244.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6603E34CFD9
-	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 16:13:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3B5397E8D
+	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 17:31:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774714391; cv=none; b=BYAN/2h4fpVSdVvc7xB/Q5Jy2Xgv3szgT+BO++JzZ58SI3wBjhRxdTgDYKLDxJmNb/tb5d/i7aH/gb/2vI3Y56w0cJpjAP9jcVcCQPNI5RUVzjWiw4Y68kIuVnrIQZme/FTIWtYB51cDDF+H0GmXduA7hqJp1I28EQ+0uE6Xn8M=
+	t=1774719068; cv=none; b=uvx1n00m1q/2KzJDSR8ioZ8I32t4hq4KuxAn78L5ROzecAghlvLHP0I/LCpqDCmPLj9eVvKOql/V3epPmWPSU+Td9EE6QBn2h6Tpwwm8uX+PjDDVlgQmVcjevP6T/lPBR4dJ3u19bZ3bu68AhbWZnelLwwCCT49ZTVbgnkwAdZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774714391; c=relaxed/simple;
-	bh=4Z+mFQAbnt4C6pZCMBBWs9iSlcqzXB+lmQjLlU8/2bs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=u7lLp9mEzkN/gGVexNqQ/5Q2xK59UvVcdZb5sWmJTfN0NnoAPcrSk0djD1KeXjeWFOdosf0j3bHbFEEZem5M3PS/ZOmq5FzIMDL/OH0G/QpPP7m2BPkG6IArf8uj1ViJwr4maEYp1pKnRg9CTf34Y4BsVoL3N3BgJQpkFL6B9kw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XIU8fSPm; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774719068; c=relaxed/simple;
+	bh=0ez/HeqjP2d++NPPugrN+b9Byj3675ZLl57i5U+g6q0=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DQVPqdPWRbOlA9452vggcCfK9ABwiZBXQ2Zxiijfm4/z/XMAPLaoyxCpbX2uZWWseqWxcpzoogAZUXcj74hhuoojMXEv+wRYoGyu7uP5wRyyL5Ui1SiZ1ABy2LgexTFiYx5ALG5OFW9/1JtLunxXXBQ6VF4s2Wb4Gf3EJLtOzdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=JYXx2ugx; arc=none smtp.client-ip=109.224.244.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XIU8fSPm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 199EDC2BC86
-	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 16:13:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774714391;
-	bh=4Z+mFQAbnt4C6pZCMBBWs9iSlcqzXB+lmQjLlU8/2bs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=XIU8fSPmvCa1mSgtuKlJsfoukx3RvSzIpkmGNQxSqxV8mHLL0DwZ/jWcguvZu1VtE
-	 I9P5zEr+6vI1C1n7iGyWr01wl500T2TvqnhADDLstVkdpSECIARTThLDiJYvfMaR76
-	 rQFy9yPWTzvqZSzhIk51xPEXztzNDNIW6P177n0m8Q6y1Wu6vCmnxW2IZHrNlf12H2
-	 nISqs9736x+YG3VjDciyQ0Fg6EYx6CEqo840zhYwYOcyoNvwqsFy+0/48BWsurVSZn
-	 eeovDDfkKSbQT0voT/EHpwM+iuu0C60YeI4g1xBQoMopM8lsIMoElW25WSGyEfTBrT
-	 dc8vrRG1Y3g7A==
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-6500040f172so1737948d50.1
-        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 09:13:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCX6w/nDzGzSZxr63l9PZfBcpsvT2eoK5+VpHqerKnwF7xv3CpfaLgSk09ROY3QXkRa8Mv+B1JacZAD+@vger.kernel.org
-X-Gm-Message-State: AOJu0YwE3okcLTfInygfEE5n/1dhAgL3r3j3KlinPcR6/JH9ojC1XVTC
-	fy569nk0XXhxP/J0g7p1ivnpC56bOsaMVP/oP2sZfD5Wc/j0mdPY33Hgxgu5nqQAEbcLzIqysSF
-	4uw0WwDs+yvvFi6zRGGeKJEeUk8NraDc=
-X-Received: by 2002:a05:690c:112:b0:79c:3750:4894 with SMTP id
- 00721157ae682-79c37504d8dmr47928027b3.51.1774714390488; Sat, 28 Mar 2026
- 09:13:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="JYXx2ugx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1774719059; x=1774978259;
+	bh=sgqrW4vue2YRH/11cpwfBbkabMPf+9TeMN7abNY/hXQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=JYXx2ugxoLBqIhcply1iBLXBWtiOGWnNv8TPcXKMqbK0dTiKIhPDiY4fuMniIzG0c
+	 DgcG4PxASDHkVW+RCVWk1GlERuVPiwQH3xVFSHB2bS5oj6/LKbvTPgInk6MZjj08+s
+	 53RJcD5kY/AwH6oCXofd2azsDtu+4m/m0L+IpTfD6gZrrhTRrfhvhL/vV3Awwtnxks
+	 Kiyfc7ZgE8ASj4btj4yHWeM40sFaUhE1vfH8ZsAca2dhXeLw8DfEgrwkN3rs8jkBq0
+	 N9USWcLMelB9iPxGrLYHaR7DvhfOBjnhydzrUol06o/2kkHkQxIdpTxr6DC0lhzOxi
+	 GnbAJTbZVDiew==
+Date: Sat, 28 Mar 2026 17:30:53 +0000
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+From: cristian_ci <cristian_ci@protonmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v4 3/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable display and GPU
+Message-ID: <O7THc5h8ZhgzNpklYKTGOnEZKlN4BtHZHjKZt2KErekNb3E-hizt2dw7xuJ8G6giEyivmvC0f6-eIfCT6fJkUA7_CVQwhAktCXfBqAVV_Zo=@protonmail.com>
+In-Reply-To: <us3ps4bgf5ekk2iudcgs2wa4b5qd4mzokec4q55pmhb6kvt6ht@qm4mmzdai2t2>
+References: <20260327-rimob-new-features-v4-0-06edff9c4509@protonmail.com> <20260327-rimob-new-features-v4-3-06edff9c4509@protonmail.com> <us3ps4bgf5ekk2iudcgs2wa4b5qd4mzokec4q55pmhb6kvt6ht@qm4mmzdai2t2>
+Feedback-ID: 27475468:user:proton
+X-Pm-Message-ID: cf18d05c5f1d325076efcda785cfdd467cb230d9
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260328124707.141209-1-khushalchitturi@gmail.com>
-In-Reply-To: <20260328124707.141209-1-khushalchitturi@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 28 Mar 2026 17:12:59 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=iVu1S8evU9=sV=k71u7n5jTMZ8YrMJk5icJY_+mnPOQ@mail.gmail.com>
-X-Gm-Features: AQROBzDklq-GQh5NZyXhDrVjjCLpLGzhk6urwqG_znvsVqpJXZmDneHSYF7yTSQ
-Message-ID: <CAD++jL=iVu1S8evU9=sV=k71u7n5jTMZ8YrMJk5icJY_+mnPOQ@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: power: reset: cortina,gemini-power-controller:
- convert to DT schema
-To: Khushal Chitturi <khushalchitturi@gmail.com>
-Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Mar 28, 2026 at 1:47=E2=80=AFPM Khushal Chitturi
-<khushalchitturi@gmail.com> wrote:
+On Friday, March 27th, 2026 at 23:57, Dmitry Baryshkov <dmitry.baryshkov@os=
+s.qualcomm.com> wrote:
 
-> Convert the Cortina Systems Gemini Poweroff Controller bindings to
-> DT schema.
->
-> Signed-off-by: Khushal Chitturi <khushalchitturi@gmail.com>
+> On Fri, Mar 27, 2026 at 03:30:49PM +0100, Cristian Cozzolino via B4 Relay=
+ wrote:
+> > From: Cristian Cozzolino <cristian_ci@protonmail.com>
+> >
+> > Add the description for the display panel found on this phone.
+> > And with this done we can also enable the GPU and set the zap shader
+> > firmware path.
+> >
+> > Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
+> > ---
+> >  .../arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 73 ++++++++++++++=
+++++++++
+> >  1 file changed, 73 insertions(+)
+> >
+>=20
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Looks good to me, and thanks for looking into this!
+I wonder if I should, instead, edit the compatible property by adding a=20
+second string (for the fallback), like this:
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+compatible =3D "flipkart,rimob-panel-nt35532-cs", "novatek,nt35532";
 
-Yours,
-Linus Walleij
+and, therefore, add "novatek,nt35532" string also to (patch 1/6)'s=20
+bindings example. Let me know what you think.
+
+Thanks,
+
+Cristian.
+
+> --
+> With best wishes
+> Dmitry
+> 
