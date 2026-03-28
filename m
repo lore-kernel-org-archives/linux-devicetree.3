@@ -1,178 +1,298 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325202D7DC4
-	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 10:14:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7789934D938
+	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 11:22:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774692856; cv=none; b=rxqvSpdn55ahJ4+68yFN+h+y3lIl5Pn/52EDvq0pafLKPmwEp8E1ECODtL8h8fg5BLD9m9+Z9X9YORBXL4up+xj+mipg0iQVbtSf+PFxpKwHTdiR74XuprRFOPBH37uAOT9YlwKxpS+i8d71rdaIqMTwgLkx7e2jPXo14FOEIJo=
+	t=1774696924; cv=none; b=d30eg+S5glFrW7JsMmdKjVD+tjb13LPltSxctmaAasqYrdGKxehg3UR+E0Xyt64u6ztkRuz5XyXWGz9bx9vd+XH5NAS4+UayeO9qNUN7nlOW+qiAmzgq9s+uxpocYg7LJLadjD+D6vtmoNNLfsLhVQuupB6JJ6h9lG/Scifrj+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774692856; c=relaxed/simple;
-	bh=BvfaRigzA0qTER69cauSqCVbwJJGnty09feTYvHRdgg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YByi6AtwCZcSR52MnYuQCrlh4qvsoaptKSazUUOOVchJjBrRj8FWuW3IhFiVnpjKCYcHBE/BO0DU8j2YogMm6EzBEwPy+2FeKxvO+5R44rVZz7eswpBnbY54e6Z7X9dh7Oj/KAmwFSOkWr4hrnWna4MVLWJczPvuQQyMIx7UeSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r4FQuUQx; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774696924; c=relaxed/simple;
+	bh=RtNXBGNtRATM5jqnHVn3bv+4chif7R/yZkqXomXDMTE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pZ/3ullzufBwB/PgoaMD/wQvR5B4ZtlqmnCyRnR2urWdeItt3NgreWhCf6kguKqAhQ6hEYP/+vrYWD3VPw6kGCPE80XOcWc0c2k69pI7UUVDENPyS/+zlvaG+j322ykUWrNGD+Q6n7Eoa306n30efWnhJBwlzUA7RsWnu8hGnkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZGDSk71s; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Z2dVCuD1; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r4FQuUQx"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-35d932cc948so373536a91.2
-        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 03:14:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZGDSk71s";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Z2dVCuD1"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62S4dvT51453614
+	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 11:22:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	fHSZ6caN9gdEFf4pzLfXl5hJ0qRQBkpE/9XtrzJn3VU=; b=ZGDSk71s0QHAPjHH
+	5u2hLCdm4aZ2avufHtVHWUeQs8reEpdPIxA5MkbUXUlzYBOilgNCxMj60VnGonMc
+	GJKd87vyY85a3Evxf7lFdSVwUamuAs0VNZnkNowigSfjxXiCKNfAYBoZaZFln6oY
+	XIOzERua/3OKDHHpo0pGAhKJfdiQJxn9uPUS3HaU7Hm/qjBjQgH5bMWJDho2W4kq
+	gxfx/3+7jjH06baZxl6dbbdiyu6yFTGW3iPX/JbBD46mKiv8i7tuNQaI+4J4SYJe
+	BozUaEO4YQYw6zmUiKGLBiu5XVissyWyHVrqRymOOwjPTJzq6Wrro1+MTsSo3iPa
+	TiIqsg==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d685h8jgr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 11:22:01 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-35d9010602bso863113a91.3
+        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 04:22:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774692854; x=1775297654; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=3TNxfZYvEXs0lEvJbRfOjzznTi6ItDZ6rSbX7ZykPXo=;
-        b=r4FQuUQxzU75f6ro8SYw4BCRIHF34SRnMDcVaaiv48wNjNj8qzor86WGXOGwJu2HDS
-         Tw8dglIvx1f/uAnnU/wfGJ1ISSN+S8wj1ZDFHs7FYOc180iUD6uDKUia95avLkXRYOmt
-         cl7PjtbFp9rBBIo+ZzHe/Myrtb1wWyA/ppxvzEVl/wjtps3Du3MexhIWht/gHp4YMYGF
-         5XuR1ZmTT1NP4ERO9dN4MQYL1pqzOTvqCtzqb6Ut+Uc31sIIIjg6Rn6B/wOA+FrVEGwv
-         hj9A4eU6LxCBAREHe6+S0NXURdq8Jo7Nik/o3/y3fR3rKIeb073KoWw6uxw6u69KThCS
-         ZpXQ==
+        d=oss.qualcomm.com; s=google; t=1774696921; x=1775301721; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=fHSZ6caN9gdEFf4pzLfXl5hJ0qRQBkpE/9XtrzJn3VU=;
+        b=Z2dVCuD16q1vdoMLZZQH6UN+BrXPF1Wow24Dv81t7V/GHkquPN3mVCg674brDpOVPl
+         97crHKtze0Bfd96klTPdVxYclExMLAOzsCMmOYvTSRjzPL00dhBb8du2kEC7FzjA+6n0
+         9uvQ/8QcF2CwBci4X4PfXHppqnHGaxsWGzQjhnRlUEKm/2Dvnew0fcwqK9LRvqah9S4b
+         NIcSllVxW1FXG0cVv3YLU0/rZ5vRbJ8VK3UvJN6CiKTW+OlVH9nGBv4CNJkMSHmfnU8K
+         drlRO2gmOC+2AcktGWISfZISYIXABP+wYAAMif8U0xptAAknw7e24mlk35p7A/cwRR2q
+         fK/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774692854; x=1775297654;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3TNxfZYvEXs0lEvJbRfOjzznTi6ItDZ6rSbX7ZykPXo=;
-        b=hkvhWTZ5fbVwN6mlT7cbil4vudWJYFYFFkp9UUTZvfnau1PEazpQW6UqHNpRviYtVo
-         nXksgVsI95EYRUxVAy0HPVItY6rYi95/pm2MZEEVf9A5VYxQ+rVgc1pf7bFMUoU5tXFZ
-         44pN3mAO3C1EORkRuFL9KMAWfPnC8RM99nY9FFa18Amcasolq9i2l4raY05OP6rWBYbc
-         jt5OVmZbSdRT99PHi3tH3hyNoXyodfvQEQNY9wRqg8AGa8jm6CzggDP41/elaHiV9lOq
-         I5jqYR3j8Su0yPC6WggFPAd8w9Y2l2yFKolR/yONNQy5sP2krqCNwOcToXXid9ibikgo
-         0ZeQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUzbyZ6hNZpVillplrMD0jE4Y/73/rJbXr/zuFkvxsavzgNZR4ij3yLjKyCu4viBTOW7AVuLGg9LkG8@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxtshm72mNvuE05su4XVt9C5aPP1QRCXYQDWuhbiIoTWhDNoawG
-	vIm1AM7zcdh10KW7uV3h0pZRg1YPXWBvQQyuWILWL79Ao4LAl0BtcInT
-X-Gm-Gg: ATEYQzyjip4poZbDmB93o8Kg2g379G7wkKKAp+xPgN7YhSoClhFh6Ccv2SRm6Ojmywo
-	2dhtPyT0f4rcTbz9WEK/qx3j+ZeBsp+ffcwO8PUPirtl9aX94FWuGKp9odtSin3OLPzPsXr40fg
-	sZ7NgqhBfUrKrV29aXZ5cED4iBvINty8II6eb2kdhhniwbBna6vub8D9xjbSSfPZyaS/ySQXlGy
-	56lfo3Hm+1wb1ERi9Wi4QHj3DYmH7nBZl1C7/6e7h1FUd2KSKOL9JBJkeU+ZP2suAtP/aj+nv+n
-	1ktk4SOXrUKqvzeU9mlLspLsB+Z+jlAjf8SFpFHBP0XQkOWnhL5WdsP9elG4+bk+s/VRk8UZrQD
-	zj1Uwt3i7o0NJoSs9GjatEVyOl8rYWJoaxqUkJ0jfuCCCwhmr8Smy9cSkLdzUcZu7pJdU/pfIkr
-	KeHqiPRIBFo587ZLpU9As=
-X-Received: by 2002:a17:90b:35cc:b0:35c:29ba:bf92 with SMTP id 98e67ed59e1d1-35c2ffa8af9mr5711735a91.5.1774692854323;
-        Sat, 28 Mar 2026 03:14:14 -0700 (PDT)
-Received: from fedora ([122.173.26.34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35d950b7ebesm1594714a91.15.2026.03.28.03.14.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Mar 2026 03:14:14 -0700 (PDT)
-From: Shi Hao <i.shihao.999@gmail.com>
-To: krzk+dt@kernel.org
-Cc: robh@kernel.org,
-	andi.shyti@kernel.org,
-	conor+dt@kernel.org,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	i.shihao.999@gmail.com
-Subject: [PATCH v2] dt-bindings: i2c: intel,ixp4xx-i2c: Convert to DT schema
-Date: Sat, 28 Mar 2026 15:41:57 +0530
-Message-ID: <20260328101157.84191-1-i.shihao.999@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1774696921; x=1775301721;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fHSZ6caN9gdEFf4pzLfXl5hJ0qRQBkpE/9XtrzJn3VU=;
+        b=K2ZpRixp4pLRvV6qYB5o5CbSgXRFyCTQ8Z6oNcCiJjJMg3FEGDHA3xVi8kfJKKjE7n
+         eWxNm+oWpZn2nPH9hIOKo+PwRiGrhdRcn6ZKityqZjBfX2WVhvDJgl69fXq3xTMXSeP9
+         sjnF7mzFqV4oJRK64NSrzrvHlNzWEw3LLuH0Fl5FyF2L6jFzMCSXmGyRA8o4EAfBaOGL
+         7HmZtpvOxti8zad8lgAw/DNr8xMUcJL9j4wTsNV55BM9SN+/Bx8Med4GmTfPCIBaeTIK
+         6RNB9cZcyYeW4/GbgXKTwc4i5PN0/raLFft/WlvWz6oB7ds2xYKXGORhH7LK6euO7lQn
+         zdRA==
+X-Forwarded-Encrypted: i=1; AJvYcCUd5AIa1r9dEu+0cK/hNM+op/YEWfXJNA2cB6Fz7rn9LC2N7EvrMNOJgfKFbSJFoX0bKfp/Q0crVeuv@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz5ZDR2lzqFY2wyN+mMu3LU4DEfwDY/ZYoZG3oKxrAKbkAap+DL
+	dAPk/f6o2+2q0GJ5jdtGznGJK+6m58R6EDCUNOYvvzgDFbs+nIyDJNiuV2aXN5IpcF3YzqbRLjc
+	1ouuXpHQakBeE2lx0IVCyIQ2w8Q8jAkGNy4cyExpS37/3WHpbbs5Ml1U7V08IwFJO
+X-Gm-Gg: ATEYQzyK671+aHOdX1NQk3gcqnhebf0zDKnmJvDIYnwPkTUHIouOdJRll7T+pXK5932
+	cWplILr3eehOHnsS13Jf31RsNCyMj+3VqptGHkm6JO41X448gGoIP6g6XEoEh2Bm1S6jqrRZa/m
+	NyU9pBueuMB78VTxT/Y9Eh4A2YUiDK9/Jjjp6c9ikfktMEZ4d79pyun8byXnyEkT6Zg+/8ZfQfb
+	uJAiQs0ke754aijlOVwnCMqLTivuPyff6bqn6IiDQXukSRA3oUQ0jfwDfk3cYSR3cWyN53phQ2I
+	xjcKtDTLo2JxOwFmTK7IA/9MOzK3ieva8tvC+PS4Xq3TcP6VwjF6KxLlhj9McezaaxNi4qrbw2W
+	Tm0vbgq6xtb20p7Oj74H/71yO6UAqVWuDRIEeCkyM5u0lsNlu63HiG40=
+X-Received: by 2002:a17:90b:4a8a:b0:35a:329:73c6 with SMTP id 98e67ed59e1d1-35c2ff50d24mr5384517a91.3.1774696921032;
+        Sat, 28 Mar 2026 04:22:01 -0700 (PDT)
+X-Received: by 2002:a17:90b:4a8a:b0:35a:329:73c6 with SMTP id 98e67ed59e1d1-35c2ff50d24mr5384505a91.3.1774696920519;
+        Sat, 28 Mar 2026 04:22:00 -0700 (PDT)
+Received: from [192.168.0.172] ([49.205.250.68])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35c22db1321sm7232716a91.14.2026.03.28.04.21.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 28 Mar 2026 04:22:00 -0700 (PDT)
+Message-ID: <a0d39848-eae3-4aba-95e1-9df923e8772f@oss.qualcomm.com>
+Date: Sat, 28 Mar 2026 16:51:51 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 7/7] media: iris: add platform data for kaanapali
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+        Hans Verkuil <hverkuil+cisco@kernel.org>,
+        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        iommu@lists.linux.dev, Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+References: <20260313-kaanapali-iris-v3-0-9c0d1a67af4b@oss.qualcomm.com>
+ <20260313-kaanapali-iris-v3-7-9c0d1a67af4b@oss.qualcomm.com>
+ <5t3bke2sjkxahn4pjhdpyznbrdmu67u7cfgdfwqgjcgo7cbg2e@4wr2jadk6b7i>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <5t3bke2sjkxahn4pjhdpyznbrdmu67u7cfgdfwqgjcgo7cbg2e@4wr2jadk6b7i>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=csKWUl4i c=1 sm=1 tr=0 ts=69c7b9d9 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=yLWmkx75ThOYqhw51wEqsw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=lgd4gDGqqKjXK5urUKYA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI4MDA4MiBTYWx0ZWRfX5+s2hEtBCPh7
+ fLcWvY9qEbyelUJE/STBsdepMsC3zhzgSOtS+Fem14taMVcfV2o8zvc2bu7cQtjFZncmOeG2RLb
+ iRO8lc9yy3cLTivZx4h+nKHip4hmNWsehbju9o9haLic4Bq+6bie7/Y+PAdw7A6MZr7OetGiYkT
+ lB+GrHkeHTltp0fj0nk67ayoMs6K2ile9yNC+31Az9qb8fj6QBHzI33zZsiNvJGBaifwZ474Gp6
+ bQ73rFQfHs7F2dWp/5c75GUQhYPuRO59UE9o3hUjZfuJMQi5CP+MTR7g9QqiPGJurqqN7d8tAJf
+ e/fY1yWFmhuE//YOmXuSxfUlU/+VWHfW33EU4SwG9JaYyXsco0ZBsDGXfA579fSSLYf+C5mf8RK
+ CeSCvxyFW7BHEOZVhENag8Bcx4ukHq3UK7e6ML854S7wV8iI77HI76q5qBM5pa2HtDtJnhghFJY
+ fLhj1dvckiQRI0b27bw==
+X-Proofpoint-ORIG-GUID: idUrNveNfkUqqLL-XluU4GeT_NS1zFGR
+X-Proofpoint-GUID: idUrNveNfkUqqLL-XluU4GeT_NS1zFGR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-27_02,2026-03-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 clxscore=1015 adultscore=0 impostorscore=0
+ priorityscore=1501 bulkscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603280082
 
-Convert the IOP3xx and IXP4xx XScale bindings to DT schema. This
-conversion also adds the <irq.h> header file to the example section, since
-IRQ_TYPE_LEVEL_LOW macro is used. This ensures the examples validate
-correctly.
 
-Signed-off-by: Shi Hao <i.shihao.999@gmail.com>
----
+On 3/13/2026 9:16 PM, Dmitry Baryshkov wrote:
+> On Fri, Mar 13, 2026 at 06:49:41PM +0530, Vikash Garodia wrote:
+>> Add support for the kaanapali platform by re-using the SM8550
+>> definitions and using the vpu4 ops.
+>> Move the configurations that differs in a per-SoC platform header, that
+>> will contain SoC specific data.
+>>
+>> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+>> ---
+>>   .../platform/qcom/iris/iris_platform_common.h      |  1 +
+>>   .../media/platform/qcom/iris/iris_platform_gen2.c  | 90 ++++++++++++++++++++++
+>>   .../platform/qcom/iris/iris_platform_kaanapali.h   | 83 ++++++++++++++++++++
+>>   drivers/media/platform/qcom/iris/iris_probe.c      |  4 +
+>>   4 files changed, 178 insertions(+)
+>>
+> 
+>> diff --git a/drivers/media/platform/qcom/iris/iris_platform_kaanapali.h b/drivers/media/platform/qcom/iris/iris_platform_kaanapali.h
+>> new file mode 100644
+>> index 0000000000000000000000000000000000000000..bdca1e5bf673353862c1554fb0420f73b3f519cb
+>> --- /dev/null
+>> +++ b/drivers/media/platform/qcom/iris/iris_platform_kaanapali.h
+>> @@ -0,0 +1,83 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +/*
+>> + * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
+>> + */
+>> +
+>> +#ifndef __IRIS_PLATFORM_KAANAPALI_H__
+>> +#define __IRIS_PLATFORM_KAANAPALI_H__
+>> +
+>> +#include <dt-bindings/media/qcom,kaanapali-iris.h>
+> 
+> So, you are including the bindings here, from the header, which gets
+> included from the C source file including headers for all the platforms.
+> What if Kaanapali+1 (or +3) defines different sets of regions?
+> 
 
-v2:
+thats correct, to handle this, the soc platform data can be defined in 
+iris_platform_kaanapali.c, and iris_platform_kaanapali.h can extern the 
+platform data struct which gets included in gen2.c.
+Also would have preferred naming the binding abi header 
+"qcom,kaanapali-iris.h" to something generic so that it can be included 
+in other platforms, but it seems like the maintainer does not like that 
+idea.
 
-- Fix checkpatch.pl warnings
-- Reorder compatibles in alphabetical order
+>> +
+>> +#define VIDEO_REGION_VM0_SECURE_NP_ID		1
+>> +#define VIDEO_REGION_VM0_NONSECURE_NP_ID	5
+>> +
+>> +static const char *const kaanapali_clk_reset_table[] = {
+>> +	"bus0",
+>> +	"bus1",
+>> +	"core",
+>> +	"vcodec0_core",
+>> +};
+>> +
+>> +static const char *const kaanapali_pmdomain_table[] = {
+>> +	"venus",
+>> +	"vcodec0",
+>> +	"vpp0",
+>> +	"vpp1",
+>> +	"apv",
+>> +};
+>> +
+>> +static const struct platform_clk_data kaanapali_clk_table[] = {
+>> +	{ IRIS_AXI_CLK, "iface" },
+>> +	{ IRIS_CTRL_CLK, "core" },
+>> +	{ IRIS_HW_CLK, "vcodec0_core" },
+>> +	{ IRIS_AXI1_CLK, "iface1" },
+>> +	{ IRIS_CTRL_FREERUN_CLK, "core_freerun" },
+>> +	{ IRIS_HW_FREERUN_CLK, "vcodec0_core_freerun" },
+>> +	{ IRIS_BSE_HW_CLK, "vcodec_bse" },
+>> +	{ IRIS_VPP0_HW_CLK, "vcodec_vpp0" },
+>> +	{ IRIS_VPP1_HW_CLK, "vcodec_vpp1" },
+>> +	{ IRIS_APV_HW_CLK, "vcodec_apv" },
+>> +};
+>> +
+>> +static const char *const kaanapali_opp_clk_table[] = {
+>> +	"vcodec0_core",
+>> +	"vcodec_apv",
+>> +	"vcodec_bse",
+>> +	"core",
+>> +	NULL,
+>> +};
+>> +
+>> +static struct tz_cp_config tz_cp_config_kaanapali[] = {
+>> +	{
+>> +		.cp_start = VIDEO_REGION_VM0_SECURE_NP_ID,
+>> +		.cp_size = 0,
+>> +		.cp_nonpixel_start = 0x01000000,
+>> +		.cp_nonpixel_size = 0x24800000,
+>> +	},
+>> +	{
+>> +		.cp_start = VIDEO_REGION_VM0_NONSECURE_NP_ID,
+>> +		.cp_size = 0,
+>> +		.cp_nonpixel_start = 0x25800000,
+>> +		.cp_nonpixel_size = 0xda400000,
+>> +	},
+>> +};
+>> +
+>> +static struct iris_context_bank kaanapali_cb_data[] = {
+>> +	{
+>> +		.name = "iris_bitstream",
+>> +		.f_id = IRIS_BITSTREAM,
+>> +		.region_mask = BIT(IRIS_BITSTREAM_REGION),
+> 
+> I'd say, it's really easy to mix IRIS_BITSTREAM and
+> IRIS_BITSTREAM_REGION when looking at the code, which might be bad
+> because they are not equal.
 
-Note:
-* This patch is part of the GSoC2026 application process for device tree bindings conversions
-* https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
----
- .../devicetree/bindings/i2c/i2c-iop3xx.txt    | 20 ---------
- .../bindings/i2c/intel,ixp4xx-i2c.yaml        | 41 +++++++++++++++++++
- 2 files changed, 41 insertions(+), 20 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/i2c/i2c-iop3xx.txt
- create mode 100644 Documentation/devicetree/bindings/i2c/intel,ixp4xx-i2c.yaml
+this logic have changed now given that the handling is now 1:1, rather 
+than multi map case. Maybe..we can revisit this in v4.
 
-diff --git a/Documentation/devicetree/bindings/i2c/i2c-iop3xx.txt b/Documentation/devicetree/bindings/i2c/i2c-iop3xx.txt
-deleted file mode 100644
-index dcc8390e0d24..000000000000
---- a/Documentation/devicetree/bindings/i2c/i2c-iop3xx.txt
-+++ /dev/null
-@@ -1,20 +0,0 @@
--i2c Controller on XScale platforms such as IOP3xx and IXP4xx
--
--Required properties:
--- compatible : Must be one of
--  "intel,iop3xx-i2c"
--  "intel,ixp4xx-i2c";
--- reg
--- #address-cells = <1>;
--- #size-cells = <0>;
--
--Optional properties:
--- Child nodes conforming to i2c bus binding
--
--Example:
--
--i2c@c8011000 {
--	compatible = "intel,ixp4xx-i2c";
--	reg = <0xc8011000 0x18>;
--	interrupts = <33 IRQ_TYPE_LEVEL_LOW>;
--};
-diff --git a/Documentation/devicetree/bindings/i2c/intel,ixp4xx-i2c.yaml b/Documentation/devicetree/bindings/i2c/intel,ixp4xx-i2c.yaml
-new file mode 100644
-index 000000000000..15ef510f6fd8
---- /dev/null
-+++ b/Documentation/devicetree/bindings/i2c/intel,ixp4xx-i2c.yaml
-@@ -0,0 +1,41 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/i2c/intel,ixp4xx-i2c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: I2c Controller on XScale platforms such as IOP3xx and IXP4xx
-+
-+maintainers:
-+  - Andi Shyti <andi.shyti@kernel.org>
-+
-+allOf:
-+  - $ref: /schemas/i2c/i2c-controller.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - intel,iop3xx-i2c
-+      - intel,ixp4xx-i2c
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c@c8011000 {
-+        compatible = "intel,ixp4xx-i2c";
-+        reg = <0xc8011000 0x18>;
-+        interrupts = <33 IRQ_TYPE_LEVEL_LOW>;
-+    };
--- 
-2.53.0
+Regards,
+Vikash
+
+> 
+>> +	},
+>> +	{
+>> +		.name = "iris_non_pixel",
+>> +		.f_id = IRIS_NON_PIXEL,
+>> +		.region_mask = BIT(IRIS_NON_PIXEL_REGION),
+>> +	},
+>> +	{
+>> +		.name = "iris_pixel",
+>> +		.f_id = IRIS_PIXEL,
+>> +		.region_mask = BIT(IRIS_PIXEL_REGION),
+>> +	},
+>> +};
+>> +
+>> +#endif /* __IRIS_PLATFORM_KAANAPALI_H__ */
+>> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
+>> index 439e6e0fe8adf8287f81d26257ef2a7e9f21e53d..f6d8761daf0471d3aabec21c708445ee7698487b 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_probe.c
+>> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
+>> @@ -406,6 +406,10 @@ static const struct dev_pm_ops iris_pm_ops = {
+>>   };
+>>   
+>>   static const struct of_device_id iris_dt_match[] = {
+>> +	{
+>> +		.compatible = "qcom,kaanapali-iris",
+>> +		.data = &kaanapali_data,
+>> +	},
+>>   	{
+>>   		.compatible = "qcom,qcs8300-iris",
+>>   		.data = &qcs8300_data,
+>>
+>> -- 
+>> 2.34.1
+>>
+> 
 
