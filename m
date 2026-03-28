@@ -1,141 +1,118 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B876374726;
-	Sat, 28 Mar 2026 08:22:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5303115B5
+	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 08:43:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774686145; cv=none; b=Gmia1xgYKR0OuPyM1Pjb0Hl+AQY7HYw/wug1wEH9j8B82iZScmxGKDo3OUMDKTftCvcDjlCC/yJ7AG1Ri5dxLgdEFlsA4kVrZ6/wF3UigyhXxR3ksAs+/HXdO4sMJ+ztEpoj+LIc6MIXTUuwUGZd7exCDtmooDmUT0PtHvWuxKY=
+	t=1774687399; cv=none; b=ezsHv+8dfuURfroIiAQy51cpM0OqJoLsX9inamH/NOm1EzVbBviXjUdpBfcgs1nj4Aks78k5UKPpdT8KW3MRMOY9MaZdS3hI85rq+semFP+lLg4gr4kl4oDP/PYkUdM3Mh1gk4sme+UKOln+/e95A6MMBHSqYfL4RDceOdNToGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774686145; c=relaxed/simple;
-	bh=KN9F0rAgEEeooiwR8R0K20dqkZ/BBUYU8vQkKLLJeKs=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=rO5CSJl15DD+T4Dwq1gjuIZ4Qtxk9GBSkFuIrTjrwN1t6EFbw82VB3HlmTJhxhRnhZVuW1EeugdbwTUSiucCW/BFjpSvxJmY2mkWka2UqNLymSrGKS2TwSA+9+/v3PGJQ7+URFPiUVwnvCNQUWa0QWdPpcyGbaq6jjlu3exrqZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=YII2ExQh; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=wKxJTK1t; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1774687399; c=relaxed/simple;
+	bh=w3AmyIUYIWubreSGC4d76/RS+21mmbid9WFgbPya1QY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=qHA+Rfg5CoCKVWHnuXO20SXfGGpqhJrq73OhNBzQt5h3yBa1sGvMDQ0Kh+p1MQYN95auXcfkF2NmhQ9XPOxSrysQVtvvgNhvz4u0PvecW35tppb8aCZLcXsNyeJf25JqEqIsOoBt7iHX2OIf3lvLx+WE/trZV6Fbds0xTlGNSts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HQpgEKBr; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="YII2ExQh";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="wKxJTK1t"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1774686139; bh=W0G6vVypT7WW4cj/8+0X35c
-	3ULPZjzWVK3rrCsz2NtY=; b=YII2ExQhlJZqkqhu6OacYAKhnb/ibgXffuiZdZ5kqUDwyexuOD
-	iNxw57wtIEPPJWyJ7UqSWvgSJ+/JaHZrFT9VELAsKdkkzEkuuYlIFLIWj8/6oonDLh9FNzZdmLj
-	ffkj3Vl83kM/PxWKm29/P4k0IjxRKILEhmnSLwmhmN6v1khN97OP5bZm7mWnGw3ZqUAA0iRRYfC
-	7yqPS0EtwDO7kdHXBDXmiNTXn67jOkNiMhGnUkeFyZtpxAA33nxfI60K6AhmYmAIiR2LJPYgzpg
-	BcT3JlSm8iZXJT+W7wfH56WSbirJ8jfqbvOrR8xFEoyFYnZ2VQc0PFUn28KsteiQf0Q==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1774686139; bh=W0G6vVypT7WW4cj/8+0X35c
-	3ULPZjzWVK3rrCsz2NtY=; b=wKxJTK1tLuFEEM71aPfxksWqmhXhO6ZV0qnrHl7Va3We0Onij6
-	VqQacg8iTqUJ8nttC9qGQKcaP+9uwjEG5oAw==;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HQpgEKBr"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c7412b07f22so1668318a12.0
+        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 01:43:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774687397; x=1775292197; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Zc2pVrsVxaLi+fKCDtrvRJf02hSQTkGZjWDQWqQxax0=;
+        b=HQpgEKBrQyd/okfaqzKh3+giShN0FpOtgmV68Z3JdNjQ/n+srGizRkdPwbrprQHizZ
+         CZlPAsTCn2O4HMpQ4HlDYmoRR0tOaSFhrjaK9zC25QX+gIc+xvfKrE76k/otW9WR1sU1
+         IafjB25yN9U+BnGl1TlAHyMCOJQCEb+BgvgHBU+YxZRKEZqfH5hf8y+I+Uze31ZnjYyv
+         k0ClBWBIPoczvai8LEBLGlPOTfZbq5jNOICUXOWCw1A2T72+Cnc5qbNGlxySS8xha6dl
+         7lGc/83lrKPlhcAtuoc1ETE5Mc1g4sgTiEXyiuu0urlMOYUDNB7nd1Ta8C0+gDAuRF6L
+         tsgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774687397; x=1775292197;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Zc2pVrsVxaLi+fKCDtrvRJf02hSQTkGZjWDQWqQxax0=;
+        b=TAd36Q0pDYfZnYA2gmUgpx7zW5unk+bZW2Y/dUCyzaaqHsmgUb1IDIZmp3OCt7ckLm
+         lx45o3m/q0vgk6TfWowiIDfz9JMmsDCWYcdm8L4xupFps1wgA5xBNf+aZGBgKsU3NB0K
+         OlAeLZt8gMsDtKdeKNU627KJva8FWjW/UNVpRMlCxBv3oGIwDL775WcGsRvy7QwyQTwa
+         I+EqOpWJ7igIq5E01yJS1VXzM+aFTB1AdNWQa4mgtmdLn2ZoG2OAXqh9YhpT2CcfFhkJ
+         oLh//qt1ktoMDAD7K/Sj/fqaUJey1G4Nb131Q/KxKClZ5Cte+/+Fw+8hFHW8LUVr2gDU
+         kLIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWnPbZbM0WYaXFpOFfGLbG06fdt624VJafI8E4rEz/QKtMwIVhtCCV2/6iYr8q8jrI6CZ44uUZgAhC2@vger.kernel.org
+X-Gm-Message-State: AOJu0YxlmTtsl9/B3Yn1B0ihHOPDoCPX646UDT10KDeqUaoECX3cvpMF
+	MretKFmx1EsMHlv2i9KR0jC4WQMgW+1MzsYtmcj77GZ2PmV3AYORXz7G
+X-Gm-Gg: ATEYQzw1XaLwMHewLpMhLaY0wJOSI1pi7FaPtbrcnqk0Qpc2amNNEJEjSFbhl2kjJ5s
+	xgAXeQkfrEONMdR78rC3++iH29flef7MSmnKGBa8JEmok4GJROHo8f0ZjhOzV9RxeBRRPkjNKF4
+	wB1SuCy2zkyH617WIoVv3IM8mXofs5IohQlxWYzKWoSiA031TI8KEP7ANf70/1gMyMjsyswvJbP
+	aSthOekweiZ1nmSvJWnTXYl5LIgI7TysTLyNkgmgBQjngKczSBcTIs8xIr4ZRurOFAWclNk5EwI
+	zSLEJdFzsQ6z6N7vNWmOgqlV1mL548A9xC1WLcYR5u9VX52TKhbDdqvV1L8yEVuch6Rnv4IyiHN
+	uffPd+D6zPzpZ1P+pagXHS4DsLDhi+21fQJAlr5IqfPISHphJFk+frxSYoJhTihb29cEM7LYktl
+	G0w+G9G6BjmPNw7KFu55skKlFtD2nZID/iv1gctOwL01lHHKkOMRf1/W1Tf5v0qlxOhoXcB3cez
+	7UQw5c+1zqYMUdD
+X-Received: by 2002:a05:6a20:72a4:b0:398:7667:b2fb with SMTP id adf61e73a8af0-39c8a9ed52dmr5379451637.19.1774687396754;
+        Sat, 28 Mar 2026 01:43:16 -0700 (PDT)
+Received: from pranav.. ([2401:4900:c0bc:73e0:ffb5:d097:4f0:3e88])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82ca843b20csm1795725b3a.8.2026.03.28.01.43.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 28 Mar 2026 01:43:16 -0700 (PDT)
+From: Pranav Kharche <pranavkharche7@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Pranav Kharche <pranavkharche7@gmail.com>
+Subject: [PATCH 0/1] dt-bindings: media: convert hix5hd2-ir to DT schema
+Date: Sat, 28 Mar 2026 14:12:37 +0530
+Message-Id: <20260328084238.201452-1-pranavkharche7@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sat, 28 Mar 2026 09:22:19 +0100
-From: =?UTF-8?Q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?=
- <barnabas.czeman@mainlining.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Ulf Hansson <ulf.hansson@linaro.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH 1/7] dt-bindings: power: qcom-rpmpd: Split MSM8953 and
- SDM632
-In-Reply-To: <ocrzwxmr256h3ef7ifwx3z6jgtzubiha3forfi7nao6gakb6wu@recertxxhlip>
-References: <20260327-sdm632-rpmpd-v1-0-6098dc997d66@mainlining.org>
- <20260327-sdm632-rpmpd-v1-1-6098dc997d66@mainlining.org>
- <ocrzwxmr256h3ef7ifwx3z6jgtzubiha3forfi7nao6gakb6wu@recertxxhlip>
-Message-ID: <39a320e472ddc6d44c950a995b577e77@mainlining.org>
-X-Sender: barnabas.czeman@mainlining.org
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 2026-03-27 21:26, Dmitry Baryshkov wrote:
-> On Fri, Mar 27, 2026 at 09:11:43PM +0100, Barnabás Czémán wrote:
->> Remove modem related bindings from MSM8953 rpmpd because MSM8953 MSS
->> is using mss-supply as a regulator usually it is pm8953_s1.
->> Split SDM632 bindings from MSM8953 because SDM632 is using mss-supply
->> as a pm domain.
->> 
->> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
->> ---
->>  .../devicetree/bindings/power/qcom,rpmpd.yaml        |  1 +
->>  include/dt-bindings/power/qcom-rpmpd.h               | 20 
->> +++++++++++++-------
->>  2 files changed, 14 insertions(+), 7 deletions(-)
->> 
->> diff --git a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml 
->> b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
->> index 8174ceeab572..659936d6a46e 100644
->> --- a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
->> +++ b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
->> @@ -48,6 +48,7 @@ properties:
->>            - qcom,sc7280-rpmhpd
->>            - qcom,sc8180x-rpmhpd
->>            - qcom,sc8280xp-rpmhpd
->> +          - qcom,sdm632-rpmpd
->>            - qcom,sdm660-rpmpd
->>            - qcom,sdm670-rpmhpd
->>            - qcom,sdm845-rpmhpd
->> diff --git a/include/dt-bindings/power/qcom-rpmpd.h 
->> b/include/dt-bindings/power/qcom-rpmpd.h
->> index 4371ac941f29..2d82434b993c 100644
->> --- a/include/dt-bindings/power/qcom-rpmpd.h
->> +++ b/include/dt-bindings/power/qcom-rpmpd.h
->> @@ -84,13 +84,11 @@
->>  #define QM215_VDDMX_AO		MSM8917_VDDMX_AO
->> 
->>  /* MSM8953 Power Domain Indexes */
->> -#define MSM8953_VDDMD		0
->> -#define MSM8953_VDDMD_AO	1
->> -#define MSM8953_VDDCX		2
->> -#define MSM8953_VDDCX_AO	3
->> -#define MSM8953_VDDCX_VFL	4
->> -#define MSM8953_VDDMX		5
->> -#define MSM8953_VDDMX_AO	6
->> +#define MSM8953_VDDCX		RPMPD_VDDCX
->> +#define MSM8953_VDDCX_AO	RPMPD_VDDCX_AO
->> +#define MSM8953_VDDCX_VFL	RPMPD_VDDCX_VFL
->> +#define MSM8953_VDDMX		RPMPD_VDDMX
->> +#define MSM8953_VDDMX_AO	RPMPD_VDDMX_AO
-> 
-> Well, no. This is an ABI break. It will make previous DT to stop from
-> working. You can drop unused indices, but you can not change the values
-> used by the existing domains.
-Do these indices never can be changed?
-> 
->> 
->>  /* MSM8974 Power Domain Indexes */
->>  #define MSM8974_VDDCX		0
->> @@ -156,6 +154,14 @@
->>  #define QCS404_LPIMX		5
->>  #define QCS404_LPIMX_VFL	6
->> 
->> +/* SDM632 Power Domain Indexes */
->> +#define SDM632_VDDMD		0
->> +#define SDM632_VDDCX		1
->> +#define SDM632_VDDCX_AO		2
->> +#define SDM632_VDDCX_VFL	3
->> +#define SDM632_VDDMX		4
->> +#define SDM632_VDDMX_AO		5
-> 
-> Please use RPMHPD_* instead of introducing new entries.
-I do not understand completely, should I use RPHPD bindings in rpmpd 
-driver or
-I should use rpmhpd driver for SDM632?
-> 
->> +
->>  /* SDM660 Power Domains */
->>  #define SDM660_VDDCX		RPMPD_VDDCX
->>  #define SDM660_VDDCX_AO		RPMPD_VDDCX_AO
->> 
->> --
->> 2.53.0
->> 
+This patch converts the HiSilicon hix5hd2 IR remote controller binding from
+legacy plaintext format to JSON Schema (DT schema) YAML format. This is part
+of the GSoC 2026 Device Tree Bindings conversion project.
+
+The conversion includes:
+- Standardized property definitions with proper types and constraints
+- Reference to rc.yaml for common IR remote controller properties
+- Proper example device tree node with GIC interrupt specifiers
+- Support for schema-based validation of device tree sources
+
+Validation Results:
+1. Binding schema check passed:
+   $ make dt_binding_check DT_SCHEMA_FILES=Documentation/devicetree/bindings/media/hix5hd2-ir.yaml
+   ✓ PASSED
+
+2. DTB validation with actual IR node passed:
+   $ ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- make CHECK_DTBS=y DT_SCHEMA_FILES=Documentation/devicetree/bindings/media/hix5hd2-ir.yaml hisilicon/hi3798cv200-poplar.dtb
+   ✓ PASSED
+
+The binding correctly validates the IR controller found in hix5hd2 and
+hi3796cv300 HiSilicon SoCs.
+
+---
+Note:
+* This patch is part of the GSoC2026 application process for device tree bindings conversions
+* https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
+
+Pranav Kharche (1):
+  dt-bindings: media: convert hix5hd2-ir to DT schema
+
+ .../devicetree/bindings/media/hix5hd2-ir.txt  | 26 ---------
+ .../devicetree/bindings/media/hix5hd2-ir.yaml | 53 +++++++++++++++++++
+ 2 files changed, 53 insertions(+), 26 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/media/hix5hd2-ir.txt
+ create mode 100644 Documentation/devicetree/bindings/media/hix5hd2-ir.yaml
+
+-- 
+2.34.1
