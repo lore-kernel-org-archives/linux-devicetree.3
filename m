@@ -1,38 +1,38 @@
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE980343D80;
-	Sat, 28 Mar 2026 07:41:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCFA2374161;
+	Sat, 28 Mar 2026 07:41:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774683690; cv=none; b=rZiUkMVVxhKOTtF/GqB3oO+agKKeLE03nIsmMs74A73GmkBBU/Mt8nPRKtuj2RiAt87+mf7tYiP0GaZqp0YpP+dj5QAOyAwDBpxUoibEGAwwtNkEEgESTDcKHn7BjArbXoXKGY9l/aDX7qpw7C2g3ww3eyy4LKfz797LjHlYe84=
+	t=1774683696; cv=none; b=nK2fIY83w5MHRnR6mhJNHlVOvtu4V5CrCMe6GhVdVf/Ojp8l5EWZVuC2+JcIpqG8naPRWQWhSnvebi0Wn7MsG6yBJryT8pbU+qi/91tHmoqsn6wnnkiV0Nk+2vR4EjSffmOPYEDUaREnuWXm7AE/Jq/xpz5MX7UiYSJWvM7ZhbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774683690; c=relaxed/simple;
-	bh=OA3+t3ouF/KCmvhWfwe6D8gPaFUhyyKtS76vvWewtHI=;
+	s=arc-20240116; t=1774683696; c=relaxed/simple;
+	bh=jkji4LsHh2FZQ0k8CU3QwbdkS+q0UT7Obj81lt5d3P8=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jQGkHKSusgKgf4dVygZsFHq4olV+H8nMNpZqI0RjdQoE2vapQvrMQZfBZNCBxArPqGAHhuNM1DXNch/tbS9zKGici6C6lt46VByi+YMJq+eiChDESVUKsFZamsA57eToXxudDqiXI65BC/zWeS62cNQbDIS5+Pl+kCty0BAYFu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=PCikQ7pI; arc=none smtp.client-ip=113.46.200.222
+	 MIME-Version:Content-Type; b=ORUrNwHvjNhg08FJQ0TLOKkvfGYzvjQEGxepyN6jRwbMozFAGxz3NTT5+nUUIEHG7K5Uyxn96t51JWw+VIz7guCFcRr3bLvIx+ikF/W6t3Wq5QdZJ6UBvwl2WEDRfSu2HFHezY8dB4efDl3DtxIITOzfBnbH8DHhjqb46LtsPO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=j3JJkvz/; arc=none smtp.client-ip=113.46.200.227
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="PCikQ7pI"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="j3JJkvz/"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=7Ej/nGP6D4OZlN2NP0wOiKbhFa+CLfU7f01IuTLoNYc=;
-	b=PCikQ7pIzeaKrzAs1XH/O8ZmZYPB9pV0fBIUYs2VLOstWE8QiBMRuVM3CIvEXipATIGW3TQ8X
-	gcrx6UYl2RFLLYRjDgwBg3lAQFmP1VJZr1v/vi26ia8fHvOPtkTiccABS/ORh8k+igGZUfzsNYX
-	1sRHQpEli+zR1tX+CITCvDo=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4fjTnL3zHqzLlrZ;
-	Sat, 28 Mar 2026 15:35:18 +0800 (CST)
+	bh=2Ys2/UKjUlv7mTCiKDuMWzlogVA5+H5sE8EtaEBe6bI=;
+	b=j3JJkvz/uoyp4upSGSSq+4/LfJiTHdvssa8346fyE9LgJHTxammn5vR2MbYuG928CvAYssE3d
+	M3gYZxo04buZQWpD+bGW65S3JT5SvTRTs77YyYRCIh+ydUgPaM2LwhB4gk3Ilc9oQf215b0lBJ1
+	mnJ9ynsxliUV5PcFcDji6T0=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4fjTpD5MyKznTVZ;
+	Sat, 28 Mar 2026 15:36:04 +0800 (CST)
 Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id 1B7C44056C;
-	Sat, 28 Mar 2026 15:41:25 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id B15EB40363;
+	Sat, 28 Mar 2026 15:41:30 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
  (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Sat, 28 Mar
- 2026 15:41:22 +0800
+ 2026 15:41:27 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
 	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
@@ -60,9 +60,9 @@ To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
 	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
 	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v11 03/11] x86/kexec: Fix potential buffer overflow in prepare_elf_headers()
-Date: Sat, 28 Mar 2026 15:40:05 +0800
-Message-ID: <20260328074013.3589544-4-ruanjinjie@huawei.com>
+Subject: [PATCH v11 05/11] riscv: kexec_file: Fix potential buffer overflow in prepare_elf_headers()
+Date: Sat, 28 Mar 2026 15:40:07 +0800
+Message-ID: <20260328074013.3589544-6-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260328074013.3589544-1-ruanjinjie@huawei.com>
 References: <20260328074013.3589544-1-ruanjinjie@huawei.com>
@@ -93,20 +93,20 @@ This happens because kexec_load() uses kexec_trylock (atomic_t) while
 memory hotplug uses device_hotplug_lock (mutex), so they don't serialize
 with each other.
 
-Just add bounds checking in prepare_elf64_ram_headers_callback() to
-prevent out-of-bounds (OOB) access,
+Just add bounds checking in prepare_elf64_ram_headers_callback() to prevent
+out-of-bounds (OOB) access.
 
-Fixes: 8d5f894a3108 ("x86: kexec_file: lift CRASH_MAX_RANGES limit on crash_mem buffer")
+Fixes: 8acea455fafa ("RISC-V: Support for kexec_file on panic")
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- arch/x86/kernel/crash.c | 3 +++
+ arch/riscv/kernel/machine_kexec_file.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
-index 335fd2ee9766..7fa6d45ebe3f 100644
---- a/arch/x86/kernel/crash.c
-+++ b/arch/x86/kernel/crash.c
-@@ -225,6 +225,9 @@ static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
+diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
+index 3f7766057cac..773a1cba8ba0 100644
+--- a/arch/riscv/kernel/machine_kexec_file.c
++++ b/arch/riscv/kernel/machine_kexec_file.c
+@@ -48,6 +48,9 @@ static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
  {
  	struct crash_mem *cmem = arg;
  
