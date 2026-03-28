@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D7EA33E358;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C357341ADF;
 	Sat, 28 Mar 2026 22:58:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774738724; cv=none; b=eHVZcyM7yH7d+WS3odMJqfS6UjhMYAy4HQJM1FRzVF8mLK8tUUN/AfYtGKv0+vXJfw00hEQe8E52BdPQ8bUHTVv/X/aVunbZVQ+WyZX9qKYcrNTjSjfAX6L3boA0VnwFyfO2DiECmKrWzzhY1fKzL56p8Rv6kL8OLnhhKlWCUUs=
+	t=1774738724; cv=none; b=oDYKhJ0Idvbia/u9PHGeZzlpuQdOYeRavkHyFRPY9qyE+G8m6iHTeTAogkKnhji2bY8PK2hT2GSG+8B765kk1iHxILwQGy40D7YQtnAcdQ6kDk6nERwqkc6Mv1kHLWq3KTnig0g0rNpkpznl5x1MZanRt6UxYeRjS0Y3ZmtcgL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774738724; c=relaxed/simple;
-	bh=nHP3Q79k1Omfp3O9NIZj0wGgAydolfzgFfeB6Upr46w=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=W9uo/U5LbE6AqxzHLRRmNZQnKA0e/hpqsCh6irKC9ZuRfzQZ2GcbJkhl0anQTaAVJPaIlnh1HNrD8LLa17ThUpWwCFGv0vsDXjCvpvKsIThiHgpFjzaCfqQVx/Vy1KOTWlqqin35zJcPKay/1Gxm5NDV+1wN+e2/AxderHDeEuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hyfRhz/5; arc=none smtp.client-ip=10.30.226.201
+	bh=FBj259TMWNjh4lmEQqHW+lg7SFATzeEKq1MFGG46xnA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qWrtqfEjwZscAcnScZyvALLtNkN5XZa+yhPdS06syLdVGqs2AxqIdxpq3AGjWkBjL++EVq/dQnRSwOwUwKX+kPuRD+y25ogPlM3h08r2xVfNYDpZijgeoolQcAHTjNK8bFJawNJmlCTrByYccj59QSe49MyxiwTJzRzcp6hGFNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J8xadMTA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hyfRhz/5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 447B6C4CEF7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J8xadMTA"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5FF48C2BC86;
 	Sat, 28 Mar 2026 22:58:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1774738724;
-	bh=nHP3Q79k1Omfp3O9NIZj0wGgAydolfzgFfeB6Upr46w=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=hyfRhz/5mnkLQxzEHgYItQwgXehDRDyZjI110adxTjAb/ihd8QxKLIeMg1Z87y2Y3
-	 4RyH2LfoOSgEowpBFnoW0N/vy0N/m0Zad65zEK9hovqCKSRtdFI1ig2zRycsoaMiLT
-	 35PT40CgUseQ1Wjdl6ZabDSs/IAuI1zSf6Gx9U13Vrs/JluAs/nF+40ILdd4yA15rN
-	 9dum7GiKGi1ZpM15rB/s2le/uDnl0V6H13UdTi1IealD6H4pR5zlu8xTmwJzjmuYbb
-	 08ncMhdmdKAOG3ugC63xarSFCuWzVKOEoNfNM4+uZ8GyGKOAiqcXXUwVpFpsonOWMg
-	 aQmchfxH9s5bQ==
+	bh=FBj259TMWNjh4lmEQqHW+lg7SFATzeEKq1MFGG46xnA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=J8xadMTA9zVR4FYCPUKm8cfnV+FLDs4OsDrCCpljd7ZZKi17whNtPIRHKiwUf40fc
+	 WjbAGJ+Gg14IlQDP0q6fSw/NczmnXhgVnLEMkzOfeFyhKnPg6ExSq3Q8X4YvSE4aao
+	 nUB1q3INpBYpI/VhTQIqxpDP+BAD72KZzIH+/IufRDMuN7gq6cD6XL45rdXP6PFDAx
+	 /bRhYODMuV212EEnSqn8+txDEqmRWRw16qUnkanhnR3a8xisJRUksYXgNRqGa+N93+
+	 1lmcAmYZAoQAXXCc/9eUp2GEqY5uoL+zQoD6ClAyWSP82y8ITPxojXrAm1OvIQQWsg
+	 OKefy9wTJWUfg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2FF7310D148B;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5132510D1489;
 	Sat, 28 Mar 2026 22:58:44 +0000 (UTC)
 From: =?utf-8?q?Pablo_Correa_G=C3=B3mez_via_B4_Relay?= <devnull+pabloyoyoista.postmarketos.org@kernel.org>
-Subject: [PATCH v2 0/3] Add support and enable the debug UART in the Pixel
- 3a and Pixel 3a XL
-Date: Sat, 28 Mar 2026 23:58:39 +0100
-Message-Id: <20260328-pabloyoyoista-debug-uart-on-rdacayan-next-v2-0-53abd9db8f0a@postmarketos.org>
+Date: Sat, 28 Mar 2026 23:58:41 +0100
+Subject: [PATCH v2 2/3] arm64: dts: qcom: sdm670: add debug uart soc node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,13 +40,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIACBdyGkC/51Qy26DMBD8FeRzF/kBhqCqyn9UOaxhIW6DndomS
- hTl32tIj1UP1R5WI83OzM6dRQqWIuuKOwt0sdF6l4F8KVh/RDcR2CFjJrnUXMkWzmhO/pbHxoQ
- wkFkmWDAk8A7CgD3e0IGjawK9k02l6ransWJZ7xxotNfN6/3wxHExH9Sn1eCHEehrySHSk8YMR
- oLez7NNXVFX407rUSujmpU+U4y4JeyK1y2gFA3nslFtKZSqVQUCZrQn66aAg0W3n1ZYZsG33wW
- U4HzduhS6Euqv+/WFYy7Bh9vW3kVsif9R1EUAB27QjHVbYT+Y/dnHNGP4pORj6cPEDo/H4xuEZ
- HzyrAEAAA==
-X-Change-ID: 20260328-pabloyoyoista-debug-uart-on-rdacayan-next-69274358cef4
+Message-Id: <20260328-pabloyoyoista-debug-uart-on-rdacayan-next-v2-2-53abd9db8f0a@postmarketos.org>
+References: <20260328-pabloyoyoista-debug-uart-on-rdacayan-next-v2-0-53abd9db8f0a@postmarketos.org>
+In-Reply-To: <20260328-pabloyoyoista-debug-uart-on-rdacayan-next-v2-0-53abd9db8f0a@postmarketos.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -57,21 +52,21 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  ~postmarketos/upstreaming@lists.sr.ht, 
  =?utf-8?q?Pablo_Correa_G=C3=B3mez?= <pabloyoyoista@postmarketos.org>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2385;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1225;
  i=pabloyoyoista@postmarketos.org; h=from:subject:message-id;
- bh=nHP3Q79k1Omfp3O9NIZj0wGgAydolfzgFfeB6Upr46w=;
- b=owEBbQKS/ZANAwAKAXo0JWX/Y195AcsmYgBpyF0iNfMJR0Hjn40mzpRhY4a+KN6RyU8HE7UTZ
- Xji9/1Z7siJAjMEAAEKAB0WIQS9CheUSi6o/ykTCaJ6NCVl/2NfeQUCachdIgAKCRB6NCVl/2Nf
- eRZ5D/44/oBWn4qtAuhYWUV9scv83370tqe24jS31uyhpYWN4oIlyYDEKJgPuIbsUH3ou9eKUVu
- 9VlMaSTp2dPqbBsUiHoqaBKy8+Yzi0dYa4CC6C26RIboQ/hOAIQLkfFSaWYUhzavLCibKMQQdHg
- jbVtAXMOQrahgUjFMKxHTM4V7bfbFYmnxhb6lezWnnFRJLqsajJc0f3mqMR3U6ESi9kkzKd+PP+
- XNqn32c7Xzd4iSBDvCVnTYpZGN2irVz8wMLigYSqFwnfUVT1IZnhcDICeGr6ENGQudwv1PeQa5f
- YCWwbYIxIZgCRZ3U3noRgCnSihtdWW53dJIttJd2lsTfS305C0W4K+ZWNpN3m+o7eF+u3EFOhru
- 8xRnaCgekO/9EFbgOX/fccXDYD4GZ6CgGLkuUAt0+8WPkxkUEMBBqATpfoBtBAp/2Ru/addYKiS
- Z0qByh4nLGmEh/VBfp7B6hyL3NsaYYdf0DuRS4ptQt45TIcrJhZZ+eKj8oddaFxIvmLfo0bc3EY
- WIizaDAps87cYyibmDhabOlh5Dm2t38HYPfjKw0qOnpD9PhybvCM0tM9x6+mC6jbVEiU+aFXDEn
- p/iBJ6as/BES7NZZok8hNWSGc8u+xU2bmt9MBKkyNAkHb+wuZdoLjLfy5naWxD3Jkvll/JTK4NC
- vKN5keWVOhIHzZw==
+ bh=L1100JIpppZkEIE9KsBz4sU5OJaPhYVcFrm/i+/xKLw=;
+ b=owEBbQKS/ZANAwAKAXo0JWX/Y195AcsmYgBpyF0iwB/xXRhz8L+4jRjNqXpXSXx9QDCNjJ8An
+ LuCy+B2y+iJAjMEAAEKAB0WIQS9CheUSi6o/ykTCaJ6NCVl/2NfeQUCachdIgAKCRB6NCVl/2Nf
+ eX9AD/9zmEu8SAarJ0+mCQo4cq3vPVVFuf7ZF8F/1vLWKmFMlfzqP0qpsam4Xr3x99bB2W19DKJ
+ v+R1TX2w4aINZ5RyufvhQRDElwle0+bVXGJxPLZ9fv6cuouXDlO2vclcKoJ8SX1DzXboAMl+Uxs
+ YC2y4KaDOL1H7Oo1JgBqWIWvc7UxGkezVBf2vsr8Ca6uTL6kKYf1Z/Q13y3sFISBv3Wg2OWAyhy
+ 4xYUex7wTIJ12oVJ7RqEQ8oBuw7BA1lLGTmbD6bFaM7d+ynvJu+9LweWeHEINe9AjbWi4iga8BQ
+ 2ho/goNBPrcMJfek33MhbWD01NJRK99+lAH6ysAIyA2Gxm1SfzmXdgURAX+TRGunkn50k9en2ax
+ jnA5wfASR0z1EMx9wOtPgz07gSCBg51oojlvvazLtEV/TR8dLbUYSRGQV+zq+wamNLTAXq6QneB
+ LIP12CZYuUcN+W/RB6Fb6KVWXod+smZ53m9HY73R/5qAFOMXcM8ir6q3TI+4WFhMiKLzOgfYzUz
+ ka6JB6abKAwO6YisMdKu4b8UyBc6tMrS1wtz3fK5dunTn5qk2Lp3yBmGZV+NSTJ5ArPVe52g5eO
+ BOup3l33DZTXLJf3HPuUWY+hzGrd2imEplEg+irbIzsizqjJaqM/vo1MF9hkuG4bo6ukI3aJ7/X
+ tIdkvw6Vo0J2D5Q==
 X-Developer-Key: i=pabloyoyoista@postmarketos.org; a=openpgp;
  fpr=BD0A17944A2EA8FF291309A27A342565FF635F79
 X-Endpoint-Received: by B4 Relay for pabloyoyoista@postmarketos.org/default
@@ -79,53 +74,43 @@ X-Endpoint-Received: by B4 Relay for pabloyoyoista@postmarketos.org/default
 X-Original-From: =?utf-8?q?Pablo_Correa_G=C3=B3mez?= <pabloyoyoista@postmarketos.org>
 Reply-To: pabloyoyoista@postmarketos.org
 
-In order to get logs through the SBU pins in Google Pixel devices, it is
-necessary to add support to the devicetree, and enable the corresponding
-UART. With this code and an USB-Cereal board, I was able to get full kernel
-logs through serial.
+From: Pablo Correa Gómez <pabloyoyoista@postmarketos.org>
 
-This series depends on the patch adding a sdm670-google-common dtsi for
-dealing with both the Pixel 3a and Pixel 3a XL:
-https://lore.kernel.org/all/20260310002606.16413-5-mailingradian@gmail.com/
-
-This is my first patch sent to the kernel mailing list, so apologies ahead
-if I missed something in the documentation.
+Values are taken from the other geni nodes
 
 Signed-off-by: Pablo Correa Gómez <pabloyoyoista@postmarketos.org>
 ---
-Changes in v2:
-- Fix typo in (3/3) commit message
-- Link to v1: https://patch.msgid.link/20260328-pabloyoyoista-debug-uart-on-rdacayan-next-v1-0-0babf584acdb@postmarketos.org
+ arch/arm64/boot/dts/qcom/sdm670.dtsi | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
----
-Pablo Correa Gómez (3):
-      arm64: dts: qcom: sdm670: add default uart pinctrl nodes
-      arm64: dts: qcom: sdm670: add debug uart soc node
-      arm64: dts: qcom: sdm670-google-common: enable debug uart
+diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+index 3e60ab527a42..25cf21c57b7d 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+@@ -1069,6 +1069,21 @@ i2c12: i2c@a90000 {
+ 				status = "disabled";
+ 			};
+ 
++			uart12: serial@a90000 {
++				compatible = "qcom,geni-debug-uart";
++				reg = <0 0x00a90000 0 0x4000>;
++				clock-names = "se";
++				clocks = <&gcc GCC_QUPV3_WRAP1_S4_CLK>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&qup_uart12_default>;
++				interrupts = <GIC_SPI 357 IRQ_TYPE_LEVEL_HIGH>;
++				power-domains = <&rpmhpd SDM670_CX>;
++				interconnects = <&aggre2_noc MASTER_BLSP_2 0 &config_noc SLAVE_BLSP_2 0>,
++						<&gladiator_noc MASTER_AMPSS_M0 0 &config_noc SLAVE_BLSP_2 0>;
++				interconnect-names = "qup-core", "qup-config";
++				status = "disabled";
++			};
++
+ 			i2c13: i2c@a94000 {
+ 				compatible = "qcom,geni-i2c";
+ 				reg = <0 0x00a94000 0 0x4000>;
 
- arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi |  18 +-
- arch/arm64/boot/dts/qcom/sdm670.dtsi               | 207 +++++++++++++++++++++
- 2 files changed, 224 insertions(+), 1 deletion(-)
----
-base-commit: 54f966f63b379d0c62bb044b7903319776443a4a
-change-id: 20260328-pabloyoyoista-debug-uart-on-rdacayan-next-69274358cef4
-prerequisite-message-id: <20260217002738.133534-1-mailingradian@gmail.com>
-prerequisite-patch-id: aeaea0c438bff770d0c4c33d937db5706d642daf
-prerequisite-patch-id: 11ce654ef61d48fdebf1c4e1d9d184cfb7bcaa59
-prerequisite-patch-id: c6203c8a71fe103b983b6ba5fc99a22948118fb4
-prerequisite-patch-id: f9ff17c7e4b4396850f51e45249d2f6e35df3725
-prerequisite-patch-id: faab09f9fe421a6358e5512c6050dd70d3271273
-prerequisite-patch-id: adb88e3ddcbe33db1e3fc60ea4cb195dac18a8b4
-prerequisite-patch-id: 0c8f7fc0835cdda72529fcfa7b654bb97109fae4
-prerequisite-message-id: <20260310002606.16413-1-mailingradian@gmail.com>
-prerequisite-patch-id: eb2d2be6edae3d09973b49f3ff6c48fa0845e7e0
-prerequisite-patch-id: e6d9e56eaeceddee68d56e2ec8ac20997bff52c9
-prerequisite-patch-id: d5e2975adf904bf656827100df7989218ac9e963
-prerequisite-patch-id: 04478351b1304dfe1357d176c8d0c235346ca40f
-prerequisite-patch-id: a54db56ccdf1491c46158a84ac1cae70f74bb36c
-
-Best regards,
---  
-Pablo Correa Gómez <pabloyoyoista@postmarketos.org>
+-- 
+2.53.0
 
 
