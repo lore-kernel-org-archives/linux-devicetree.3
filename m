@@ -1,38 +1,49 @@
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2E335B642;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC3A3644C5;
 	Sat, 28 Mar 2026 07:41:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774683697; cv=none; b=lfQ88vKDG/iW/hNBdA2maMof1nglfsEmOdFuz0mtsfFi1OtqJ344N5fmwGw/PwyQHP+/2qdC4MibJicqb1GB2AfpSpEFslj5iGT27xYqNXvnrsVllV/+pjR94JkiWjRv/N1aAYPRQAt2OFzS2nJpM4nN3lHQ4lnLUiBo1pi1JA0=
+	t=1774683697; cv=none; b=LMlvLHTWfGeWcTEc+s2V5GAqM4Nk1hTnxFwKg9nZ+OKX39RS8eFjFgCs9DgiR+0L9LaAdYipydvuVxrRB+eTOKxwVG7iHcaQL4QgvP1HaiooH/GHe7YDQG+zryjXrA/+/kK//f7AAL/3QwbreEueV/1Vi0Z4Emb5zFRwqtrevmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774683697; c=relaxed/simple;
-	bh=24F8z2NdI8qHrsmt7iIgcnIkMKUG12FlQuLq5MNw58w=;
+	bh=zeLr6eNbwJw+n/CvEj7NDQqL2YUP3Nx/hA4wa1xiiGQ=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LKgJ8/9GLrxWXODo94TZLh4PTR+jxKbVAIagcxJZeOJSK00XpT2u0PWZY58Nv+pfMQv1D6T/2QpPutj4wvL2VQh/66su9dmHSDKzhDcLyJV2azzuF6Sq+k7spPzQbvTzBZDZgX09K0p95aC0Wk+Hzo49wi8jQKG/FNX7c5CN35I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=WN1LG7zs; arc=none smtp.client-ip=113.46.200.217
+	 MIME-Version:Content-Type; b=ULUE3+/N6TwwT6yhCN7cRiDYjGsd0ydAfEMW5m+6IS8nk1h4lFq8EirnbdDfedJfO1xcBOE+MsoCxbAwLyv4AT40xgMQJPFWkveqasSUuHTwbif7hTfE6LWpfYJ+7+eKoylWwb6qoF96gXbKfTql+I4HkJUjZg+5JETlk9VEB9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=J/GjpK9y; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=J/GjpK9y; arc=none smtp.client-ip=45.249.212.187
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="WN1LG7zs"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="J/GjpK9y";
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="J/GjpK9y"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=Czh3ZUxiO8h36fzYSD+B/184quE13gwwh24Rcl1WeUE=;
-	b=WN1LG7zshWXEBEhlTe0GLE+YtWu+Bdx8VViXltUaEPeep1PwAfKwMUt562Zfs6cTIxrMU4iqC
-	ku/ZUtfEbNjDE7THntsNA6FovG2HnyRDGfH5HpXM7LL0HNhfrC5420nrYjlKHZLapttYP+PmcRX
-	oIzuOag+CVRjztDn6RsHktA=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4fjTnZ5SWDzcb12;
-	Sat, 28 Mar 2026 15:35:30 +0800 (CST)
+	bh=tvBPTiBQiSVQB4JmznNFGob+aTrtlvXTsOGosNdIf00=;
+	b=J/GjpK9yAWy6Awlz1NtxuUYfv2pCFEoTNos+ytoBRK/86XW1rcK5Ziji7au52RErm2KxB1res
+	IO0UAx9viRQcZnqUez71/SMOhQuDSGe50A2dfd/FiSj299I8nr2eIZpcnc5X7Axk2lt5XtQE88f
+	IJWIWFX2PJn31WXjy7PIEQw=
+Received: from canpmsgout07.his.huawei.com (unknown [172.19.92.160])
+	by szxga01-in.huawei.com (SkyGuard) with ESMTPS id 4fjTwG0Xjhz1BFSs;
+	Sat, 28 Mar 2026 15:41:18 +0800 (CST)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=tvBPTiBQiSVQB4JmznNFGob+aTrtlvXTsOGosNdIf00=;
+	b=J/GjpK9yAWy6Awlz1NtxuUYfv2pCFEoTNos+ytoBRK/86XW1rcK5Ziji7au52RErm2KxB1res
+	IO0UAx9viRQcZnqUez71/SMOhQuDSGe50A2dfd/FiSj299I8nr2eIZpcnc5X7Axk2lt5XtQE88f
+	IJWIWFX2PJn31WXjy7PIEQw=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4fjTnD6SWXzLlrZ;
+	Sat, 28 Mar 2026 15:35:12 +0800 (CST)
 Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id E0BB840569;
-	Sat, 28 Mar 2026 15:41:27 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 6F2724055B;
+	Sat, 28 Mar 2026 15:41:19 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
  (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Sat, 28 Mar
- 2026 15:41:25 +0800
+ 2026 15:41:16 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
 	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
@@ -60,9 +71,9 @@ To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
 	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
 	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v11 04/11] arm64: kexec_file: Fix potential buffer overflow in prepare_elf_headers()
-Date: Sat, 28 Mar 2026 15:40:06 +0800
-Message-ID: <20260328074013.3589544-5-ruanjinjie@huawei.com>
+Subject: [PATCH v11 01/11] riscv: kexec_file: Fix crashk_low_res not exclude bug
+Date: Sat, 28 Mar 2026 15:40:03 +0800
+Message-ID: <20260328074013.3589544-2-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260328074013.3589544-1-ruanjinjie@huawei.com>
 References: <20260328074013.3589544-1-ruanjinjie@huawei.com>
@@ -77,46 +88,53 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
  dggpemf500011.china.huawei.com (7.185.36.131)
 
-There is a race condition between the kexec_load() system call
-(crash kernel loading path) and memory hotplug operations that can lead
-to buffer overflow and potential kernel crash.
+As done in commit 944a45abfabc ("arm64: kdump: Reimplement crashkernel=X")
+and commit 4831be702b95 ("arm64/kexec: Fix missing extra range for
+crashkres_low.") for arm64, while implementing crashkernel=X,[high,low],
+riscv should have excluded the "crashk_low_res" reserved ranges from
+the crash kernel memory to prevent them from being exported through
+/proc/vmcore, and the exclusion would need an extra crash_mem range.
 
-During prepare_elf_headers(), the following steps occur:
-1. The first for_each_mem_range()  queries current System RAM memory ranges
-2. Allocates buffer based on queried count
-3. The 2st for_each_mem_range() populates ranges from memblock
-
-If memory hotplug occurs between step 1 and step 3, the number of ranges
-can increase, causing out-of-bounds write when populating cmem->ranges[].
-
-This happens because kexec_load() uses kexec_trylock (atomic_t) while
-memory hotplug uses device_hotplug_lock (mutex), so they don't serialize
-with each other.
-
-Just add bounds checking to prevent out-of-bounds access.
-
-Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
+Cc: Guo Ren <guoren@kernel.org>
+Cc: Baoquan He <bhe@redhat.com>
+Fixes: 5882e5acf18d ("riscv: kdump: Implement crashkernel=X,[high,low]")
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- arch/arm64/kernel/machine_kexec_file.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ arch/riscv/kernel/machine_kexec_file.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
-index fba260ad87a9..df52ac4474c9 100644
---- a/arch/arm64/kernel/machine_kexec_file.c
-+++ b/arch/arm64/kernel/machine_kexec_file.c
-@@ -59,6 +59,11 @@ static int prepare_elf_headers(void **addr, unsigned long *sz)
- 	cmem->max_nr_ranges = nr_ranges;
- 	cmem->nr_ranges = 0;
- 	for_each_mem_range(i, &start, &end) {
-+		if (cmem->nr_ranges >= cmem->max_nr_ranges) {
-+			ret = -ENOMEM;
-+			goto out;
-+		}
+diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
+index 54e2d9552e93..3f7766057cac 100644
+--- a/arch/riscv/kernel/machine_kexec_file.c
++++ b/arch/riscv/kernel/machine_kexec_file.c
+@@ -61,7 +61,7 @@ static int prepare_elf_headers(void **addr, unsigned long *sz)
+ 	unsigned int nr_ranges;
+ 	int ret;
+ 
+-	nr_ranges = 1; /* For exclusion of crashkernel region */
++	nr_ranges = 2; /* For exclusion of crashkernel region */
+ 	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
+ 
+ 	cmem = kmalloc_flex(*cmem, ranges, nr_ranges);
+@@ -76,8 +76,16 @@ static int prepare_elf_headers(void **addr, unsigned long *sz)
+ 
+ 	/* Exclude crashkernel region */
+ 	ret = crash_exclude_mem_range(cmem, crashk_res.start, crashk_res.end);
+-	if (!ret)
+-		ret = crash_prepare_elf64_headers(cmem, true, addr, sz);
++	if (ret)
++		goto out;
 +
- 		cmem->ranges[cmem->nr_ranges].start = start;
- 		cmem->ranges[cmem->nr_ranges].end = end - 1;
- 		cmem->nr_ranges++;
++	if (crashk_low_res.end) {
++		ret = crash_exclude_mem_range(cmem, crashk_low_res.start, crashk_low_res.end);
++		if (ret)
++			goto out;
++	}
++
++	ret = crash_prepare_elf64_headers(cmem, true, addr, sz);
+ 
+ out:
+ 	kfree(cmem);
 -- 
 2.34.1
 
