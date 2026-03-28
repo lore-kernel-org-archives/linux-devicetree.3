@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3E329B79B;
-	Sat, 28 Mar 2026 12:11:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E37371CF8;
+	Sat, 28 Mar 2026 12:19:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774699899; cv=none; b=G1EIgw0sV5pVJV3/sXgSyHO1JqdAfPX8pyqTDN1Wk9dgkmzyiZyMCzZL6siXehVCk9HqJ03Y7ep7XK5K0+6DeLG/DUHcygcp7FFUXBPbU+kP2yKD5j3U06EYohQZFZLNo7aiV5WDc/JOhx8Y4ZiC5WHXJMoq6QdUVd+AeMzV01U=
+	t=1774700360; cv=none; b=BNMxnOBH/SPIDjcZdAHGj66epx13jM8GvAxc82q/Ar0d900gEyCzKzI0PpS3iyhzqVlPRV9hes43nLP734H3aklQopIXARx0QJ4gotA1IO4bB/c76p0HD2as5+vJkSNmldrwS3d9MJmwy4YMYzK3KynLW6eu1whSat50/ASmVrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774699899; c=relaxed/simple;
-	bh=T1rQdoDS0LoarUB+nkGrdm0h29NyFp24QwHsPZCsmxA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=SHxXoVOigriNQY+BX/PEfBNa+vroTioLl5+7gCqEx7dn/JmrYOE0+wGZZauyfCZRJ+bjBfHrzTyQWAoA8CJXttdjyAaZ8fLtZM7dDyZXICZS+e/U+VdQZOVPy2UwFK1Fb24SVge/7MJiltWVRGqwjfrQhuA8FaoxVIDYpRUQ+i0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n7GdXhZ0; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774700360; c=relaxed/simple;
+	bh=l8PzdOc2SiJp/F8zuhhdYG5SfUVQ0zwugQQ6DSe52nI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tfmBl7PJtdNKf/hnVu9xroYmrv46WFqwe7sH9qakSv/mJ2ooebjKm7ALynsecDmaDJ+6rVBk8r+xUs8dPaPeu/w3jJSYnVBSryfXbj4mhhhZA+e+xoiLriLyvDaF9QUA4LSBnCFfAUzKXsggn00o5LWchUlLboXTD7C4vPL1Mso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l9WnTOJt; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n7GdXhZ0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A625C4CEF7;
-	Sat, 28 Mar 2026 12:11:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l9WnTOJt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DAACC4CEF7;
+	Sat, 28 Mar 2026 12:19:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774699898;
-	bh=T1rQdoDS0LoarUB+nkGrdm0h29NyFp24QwHsPZCsmxA=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=n7GdXhZ07vaMmaveysW4ZwyepLbMs94utWTfwO+mEoNRDadQuRExo4wyIU/B6o0oa
-	 AdaaZvG5RIY5co1DIz052eD8tDlpJcx0DGiC5xjJe1CmdQqU9H50MddSUwL15sYuat
-	 ULMIBMn7yj8N/WOIBk//VFrimSD3IycXcHFbPrc+SizVkdaEduyt0Mt31k6Kq029te
-	 qzOzBMolV3YgeDiGWzfbr5zjHZD2sr9ElXLKAGL9JBGkRAHJ2h0N1ZskPIS2YgErx1
-	 ekk4G3MSdm0HEJpKTg6IoEBtb7+JkeqSN5vihgdXDmiKaQVHNAFScoNVO0nk0gp36e
-	 5cGGtq+jNZNpQ==
-Message-ID: <2b3b4c35-06b9-460b-9488-5da6f43fc069@kernel.org>
-Date: Sat, 28 Mar 2026 13:11:34 +0100
+	s=k20201202; t=1774700359;
+	bh=l8PzdOc2SiJp/F8zuhhdYG5SfUVQ0zwugQQ6DSe52nI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=l9WnTOJttj/IU9I9W8rlkRxwoMFOJ7DbkDrJACcaoxdsZ7ikx8F7cf2BGC6E3cbUM
+	 JmbjVooXlV3gTcy2z38BAaFKDX0EcUxpGezNyevLoCNz1yewktA5VC4aDmFUzPUbe0
+	 9lY5+ElUbcYiR8FUvfsqbHp4lOPtolnLdvHp3vDubZkMXmosfIKdsz5wGhC5dRasCC
+	 DlWUNBOPmrt0K4zHENJoUq4tK5mMvBxZb0V7kxNWWLRn1gpIVpoyjfx5GkX0pCi8Qw
+	 HkLpEED2kAwWlQA9631zOn7AwvBEXWnDN3w2SPXh3rl8RsjKy0JB3bGikZDFJpbAO4
+	 SVWhHIQcNpV7A==
+Message-ID: <9d9f96d2-2174-4493-8508-230168499df7@kernel.org>
+Date: Sat, 28 Mar 2026 13:19:15 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,20 +35,19 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/5] dt-bindings: memory: Add Tegra114 memory client
- IDs
+Subject: Re: [PATCH v2 3/3] memory: renesas-rpc-if: Add support for RZ/T2H SoC
+To: Prabhakar <prabhakar.csengg@gmail.com>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260327174245.3947213-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260327174245.3947213-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Svyatoslav Ryhel <clamor95@gmail.com>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Thierry Reding
- <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Sumit Gupta <sumitg@nvidia.com>,
- Dmitry Osipenko <digetx@gmail.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org
-References: <20260126190755.78475-1-clamor95@gmail.com>
- <20260126190755.78475-4-clamor95@gmail.com>
- <54043284-141e-421a-a54d-a018c884b324@kernel.org> <accXjw2BSCbzMyak@orome>
- <22870432-521b-40c0-8f4a-93d2c605baa7@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -93,47 +92,41 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <22870432-521b-40c0-8f4a-93d2c605baa7@kernel.org>
+In-Reply-To: <20260327174245.3947213-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28/03/2026 12:40, Krzysztof Kozlowski wrote:
-> On 28/03/2026 00:53, Thierry Reding wrote:
->> On Tue, Feb 17, 2026 at 08:22:24AM +0100, Krzysztof Kozlowski wrote:
->>> On 26/01/2026 20:07, Svyatoslav Ryhel wrote:
->>>> Each memory client has unique hardware ID, add these IDs.
->>>>
->>>> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
->>>> Acked-by: Rob Herring (Arm) <robh@kernel.org>
->>>> Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
->>>> ---
->>>>  include/dt-bindings/memory/tegra114-mc.h | 67 ++++++++++++++++++++++++
->>>
->>> This is never a separate commit. Squash with the binding.
->>
->> You have previously requested that bindings and driver changes be
->> applied together. If this header file is applied to your memory tree it
->> means I cannot apply the corresponding DT changes until a release later
->> because the defines are part of the header included in the DT bindings
->> patch.
+On 27/03/2026 18:42, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > 
-> I cannot apply the driver either without it, because it uses it, no?
-> Otherwise what is it doing in bindings if the driver is not using it?
+> Add support for the xSPI controller found on the Renesas RZ/T2H
+> (R9A09G077) SoC.
 > 
->>
->> Seems a bit suboptimal. Do you have any good ideas on how to solve that
+> The xSPI IP on RZ/T2H is closely related to the RZ/G3E variant, with
+> minor differences in some configuration register bits. As these
+> differences are not currently exercised by the driver, reuse the
+> existing implementation and regmap configuration.
 > 
-> We listed five already in maintainer soc profile. Are they not good?
-> 
->> particular issue? The only one that comes to mind is for you to pick up
->> the DT changes as well, though that obviously runs a greater risk of
->> causing merge conflicts down the road.
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> v1->v2:
+> - Added xspi_info_r9a09g077 for RZ/T2H with type XSPI_RZ_T2H instead
+>   of reusing xspi_info_r9a09g047 with type XSPI_RZ_G3E, to allow for
+>   better differentiation in the future if needed.
 
-One more thing:
-There is no DTS here and nothing explains (commit msgs, changelogs or
-cover letter) that there is any dependency and this was supposed to go
-other tree. So the squash-or-not-squash is absolutely irrelevant to your
-question/problem how DTS should deal with it.
+I see you tried to improve the description, but I have the same
+concerns. You added now bunch of dead code to mimic lack of
+compatibility, but it does not change the fact the code is 100%
+compatible in the meaning of DT.
+
+Let me repeat the question from v1:
+
+"Eventually provide extensive arguments in terms of how DT understands
+compatibility."
+
+And if you answer like Geert did last time: "differences are not handled
+yet" or "new features are not yet implemented" then you will get the
+same answer.
 
 Best regards,
 Krzysztof
