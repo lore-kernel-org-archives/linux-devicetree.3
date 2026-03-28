@@ -1,136 +1,178 @@
-Received: from mail-dy1-f193.google.com (mail-dy1-f193.google.com [74.125.82.193])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0CF4DDA9
-	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 09:58:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325202D7DC4
+	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 10:14:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774691925; cv=none; b=hIWAA7KtQRPZ8lM+u0P0qFs0QKsPt9QVV6pKVtlridNfzqXDvd+6m0f/QzxH8JFzHtSSTlWgYlDndgJjIgJIV9av1fwX/zEyQM59VJDG4HAlj/pzFv/yGGMD32nBTe3Kivxfl06t5gFbSkI0W7Ry3xCjvuMLF+cR25fbkxYPOM4=
+	t=1774692856; cv=none; b=rxqvSpdn55ahJ4+68yFN+h+y3lIl5Pn/52EDvq0pafLKPmwEp8E1ECODtL8h8fg5BLD9m9+Z9X9YORBXL4up+xj+mipg0iQVbtSf+PFxpKwHTdiR74XuprRFOPBH37uAOT9YlwKxpS+i8d71rdaIqMTwgLkx7e2jPXo14FOEIJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774691925; c=relaxed/simple;
-	bh=b3JlCC4tL2Tz58FKwg2YL+SyAtOwXrfA/gsgi5WMt/A=;
-	h=From:Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:To:
-	 References:In-Reply-To; b=fEGhVsWerYfux3VahPkYYPtUJbsGeRyH15mf1zy7gFaiiN0xAlE9ynzDPv38qffWz6AUpAS8qKklG6QnE7/3k/gv30bDPHsbET/z9JD4tk+y4GeQcImqUaQbD+lgzIbX8x/QqLpeuMtpEtkohUIBP0/oRqSwoCiO/pmIbBCexog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hlhYebPa; arc=none smtp.client-ip=74.125.82.193
+	s=arc-20240116; t=1774692856; c=relaxed/simple;
+	bh=BvfaRigzA0qTER69cauSqCVbwJJGnty09feTYvHRdgg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YByi6AtwCZcSR52MnYuQCrlh4qvsoaptKSazUUOOVchJjBrRj8FWuW3IhFiVnpjKCYcHBE/BO0DU8j2YogMm6EzBEwPy+2FeKxvO+5R44rVZz7eswpBnbY54e6Z7X9dh7Oj/KAmwFSOkWr4hrnWna4MVLWJczPvuQQyMIx7UeSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r4FQuUQx; arc=none smtp.client-ip=209.85.216.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hlhYebPa"
-Received: by mail-dy1-f193.google.com with SMTP id 5a478bee46e88-2c160308a54so3849638eec.0
-        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 02:58:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r4FQuUQx"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-35d932cc948so373536a91.2
+        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 03:14:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774691923; x=1775296723; darn=vger.kernel.org;
-        h=in-reply-to:references:to:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VPZRgmhGXKGLV4+N3md+ZOqvfZ5oB0BV4k3AKJQbhLw=;
-        b=hlhYebPa5oD866bhGrd/E9DOI4xLPqqIBTNB58MI6CdiLe3RE62TMwDKXlT5JD9JHz
-         616BnPap7CdTVnFhBgz1vNAQGISSEC6UKbM+tOLvrRlFVcbzBcrI4cKky7sUu2qgJ4sX
-         esb+fG8/zEpOtMtAeSfw2QmIMue8UJ7bZmIBGfob3rD6Xv3MJ21axcBoS2W5kSerVQsE
-         tfEGaebsgJnsUaKRNCmsXAcsz2vRhOYZP4/0+OcB/+t+DV0zUUDuXDPuQFc5W/jLyaIU
-         yVE+fCtnWhzPC8ODrhs8bDg97Pn1/4nAx38AKFL8cWIQjWzg4YCemqayURr4y+W/0avQ
-         5OpQ==
+        d=gmail.com; s=20251104; t=1774692854; x=1775297654; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=3TNxfZYvEXs0lEvJbRfOjzznTi6ItDZ6rSbX7ZykPXo=;
+        b=r4FQuUQxzU75f6ro8SYw4BCRIHF34SRnMDcVaaiv48wNjNj8qzor86WGXOGwJu2HDS
+         Tw8dglIvx1f/uAnnU/wfGJ1ISSN+S8wj1ZDFHs7FYOc180iUD6uDKUia95avLkXRYOmt
+         cl7PjtbFp9rBBIo+ZzHe/Myrtb1wWyA/ppxvzEVl/wjtps3Du3MexhIWht/gHp4YMYGF
+         5XuR1ZmTT1NP4ERO9dN4MQYL1pqzOTvqCtzqb6Ut+Uc31sIIIjg6Rn6B/wOA+FrVEGwv
+         hj9A4eU6LxCBAREHe6+S0NXURdq8Jo7Nik/o3/y3fR3rKIeb073KoWw6uxw6u69KThCS
+         ZpXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774691923; x=1775296723;
-        h=in-reply-to:references:to:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=VPZRgmhGXKGLV4+N3md+ZOqvfZ5oB0BV4k3AKJQbhLw=;
-        b=CDRmLwKJdWrz6EwDbnm1dKDFwI0z/s1bywMYPM840iEYa7ZaVAn9YJ5YlvpndgWZkT
-         bmtkjHJQMnSCugE07L0Kazxm5oiJkDzyp4m2b99wLV9L2bpC1lGpH4y3X3ttSqobMqkd
-         9SigXhuYhC+plY38fDnDhFsx9R7MeNnoFfiPJQ+qa0Zf0L70XTBrvo2jYwNbiwU9SX1/
-         RPq3zEI4zhwdhJiIF1gFDAFdn7mUbf4FpxEG3AqAbClbTfIC6nMCa07qwGBeJ4Hw7F7W
-         DNsuNrRo0wv8x9LV/rMba5n0vrSCsgxBZ2P0k+UrQ9RmGJFyF5OmhR055MtKuTpSJDET
-         atlg==
-X-Forwarded-Encrypted: i=1; AJvYcCXZFsKUHXbOyMuOGel24xmzTdfGnvHBgWuEvYJV4EMrcW24gUlAiwnsKtCpQaOyg/GBsSiq6s1w+I8l@vger.kernel.org
-X-Gm-Message-State: AOJu0YxiiTf8F7A+/nA0egnjHMOLllA6dR0tyUUV3NCbayENPZdTSatP
-	QbFw6XCKgyYFSkezpztKjL22o3g1fL6ppJa2u2Wui8bRTBdQNQvHpWT+
-X-Gm-Gg: ATEYQzwM8Tj4JtKpB0FzZz+CDvwN17TdLIwQLFJVjTDysTGArFE+F8bg4Q/xAXhlf6r
-	7/YF+TJyP7wBOm0tOnZ8aPKG07/UHMZluMccStwMfAVSvY9tLaJLA/tvVsR5tOnY4ocoJFaGgKJ
-	0SngrRMLlSHxa8QV11isZdhSX6Nr0/2rek43G83DQ1K7+8i1MxLoS397k0Y2HfF/1GAxcv+MiKF
-	fFBzgxdJ7C8MATKrJehZ3/jOtCGZJgAAIhnKFXCzeqvubeKhsVXWvbpsTr3fYCxWtW0lxHNb+KM
-	8ydunB+oVv3M72vPHweeFvVRFXO9pQURo+TsMMHMR9wcA7+NBumZ4cvea7uU8xTIdK63hCe8L6x
-	SoJRj26402xMJulurH66xrPHOokgj5UylXtM/XvWRfR4ghkAT65jsVASz5P1wWIfNy3I3IMFRL8
-	h+xCSgelLE68BNqVD0C0WfIFj9Olg=
-X-Received: by 2002:a05:7022:b98:b0:127:33e0:ea33 with SMTP id a92af1059eb24-12ab28e4da2mr3105409c88.22.1774691922629;
-        Sat, 28 Mar 2026 02:58:42 -0700 (PDT)
-Received: from localhost ([104.28.227.186])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c3c79722e0sm1866524eec.31.2026.03.28.02.58.41
+        d=1e100.net; s=20251104; t=1774692854; x=1775297654;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3TNxfZYvEXs0lEvJbRfOjzznTi6ItDZ6rSbX7ZykPXo=;
+        b=hkvhWTZ5fbVwN6mlT7cbil4vudWJYFYFFkp9UUTZvfnau1PEazpQW6UqHNpRviYtVo
+         nXksgVsI95EYRUxVAy0HPVItY6rYi95/pm2MZEEVf9A5VYxQ+rVgc1pf7bFMUoU5tXFZ
+         44pN3mAO3C1EORkRuFL9KMAWfPnC8RM99nY9FFa18Amcasolq9i2l4raY05OP6rWBYbc
+         jt5OVmZbSdRT99PHi3tH3hyNoXyodfvQEQNY9wRqg8AGa8jm6CzggDP41/elaHiV9lOq
+         I5jqYR3j8Su0yPC6WggFPAd8w9Y2l2yFKolR/yONNQy5sP2krqCNwOcToXXid9ibikgo
+         0ZeQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUzbyZ6hNZpVillplrMD0jE4Y/73/rJbXr/zuFkvxsavzgNZR4ij3yLjKyCu4viBTOW7AVuLGg9LkG8@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxtshm72mNvuE05su4XVt9C5aPP1QRCXYQDWuhbiIoTWhDNoawG
+	vIm1AM7zcdh10KW7uV3h0pZRg1YPXWBvQQyuWILWL79Ao4LAl0BtcInT
+X-Gm-Gg: ATEYQzyjip4poZbDmB93o8Kg2g379G7wkKKAp+xPgN7YhSoClhFh6Ccv2SRm6Ojmywo
+	2dhtPyT0f4rcTbz9WEK/qx3j+ZeBsp+ffcwO8PUPirtl9aX94FWuGKp9odtSin3OLPzPsXr40fg
+	sZ7NgqhBfUrKrV29aXZ5cED4iBvINty8II6eb2kdhhniwbBna6vub8D9xjbSSfPZyaS/ySQXlGy
+	56lfo3Hm+1wb1ERi9Wi4QHj3DYmH7nBZl1C7/6e7h1FUd2KSKOL9JBJkeU+ZP2suAtP/aj+nv+n
+	1ktk4SOXrUKqvzeU9mlLspLsB+Z+jlAjf8SFpFHBP0XQkOWnhL5WdsP9elG4+bk+s/VRk8UZrQD
+	zj1Uwt3i7o0NJoSs9GjatEVyOl8rYWJoaxqUkJ0jfuCCCwhmr8Smy9cSkLdzUcZu7pJdU/pfIkr
+	KeHqiPRIBFo587ZLpU9As=
+X-Received: by 2002:a17:90b:35cc:b0:35c:29ba:bf92 with SMTP id 98e67ed59e1d1-35c2ffa8af9mr5711735a91.5.1774692854323;
+        Sat, 28 Mar 2026 03:14:14 -0700 (PDT)
+Received: from fedora ([122.173.26.34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35d950b7ebesm1594714a91.15.2026.03.28.03.14.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Mar 2026 02:58:42 -0700 (PDT)
-From: Troy Mitchell <troymitchell988@gmail.com>
-X-Google-Original-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+        Sat, 28 Mar 2026 03:14:14 -0700 (PDT)
+From: Shi Hao <i.shihao.999@gmail.com>
+To: krzk+dt@kernel.org
+Cc: robh@kernel.org,
+	andi.shyti@kernel.org,
+	conor+dt@kernel.org,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	i.shihao.999@gmail.com
+Subject: [PATCH v2] dt-bindings: i2c: intel,ixp4xx-i2c: Convert to DT schema
+Date: Sat, 28 Mar 2026 15:41:57 +0530
+Message-ID: <20260328101157.84191-1-i.shihao.999@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 28 Mar 2026 17:58:39 +0800
-Message-Id: <DHEBS4TLJV5W.3AO0UY2JXWAFE@linux.spacemit.com>
-Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Paul Walmsley"
- <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
- <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Yixun Lan"
- <dlan@kernel.org>, "Vinod Koul" <vkoul@kernel.org>, "Frank Li"
- <Frank.Li@kernel.org>, "Guodong Xu" <guodong@riscstar.com>, "Michael
- Turquette" <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>,
- <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <dmaengine@vger.kernel.org>, <linux-clk@vger.kernel.org>, "liyeshan"
- <yeshan.li@spacemit.com>
-Subject: Re: [PATCH v2 3/7] dt-bindings: dmaengine: Add SpacemiT K3 DMA
- request definitions
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260326-k3-pdma-v2-0-ca94ca7bb595@linux.spacemit.com>
- <20260326-k3-pdma-v2-3-ca94ca7bb595@linux.spacemit.com>
- <20260327-granite-giraffe-of-infinity-ff49a3@quoll>
-In-Reply-To: <20260327-granite-giraffe-of-infinity-ff49a3@quoll>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri Mar 27, 2026 at 3:30 PM CST, Krzysztof Kozlowski wrote:
-> On Thu, Mar 26, 2026 at 04:17:18PM +0800, Troy Mitchell wrote:
->> From: liyeshan <yeshan.li@spacemit.com>
->>=20
->> Add device tree binding header for SpacemiT k3 DMA request numbers. This
->
-> Why?
-The DMA request mappings are hardware-hardwired and differ between the K1 a=
-nd K3 SoCs.
-Therefore, separate header files are required to define these unique consta=
-nts for each
-platform to ensure correct DMA channel allocation in the device tree.
->
->> defines the DMA request mapping for non-secure peripherals including UAR=
-T,
->> I2C, SSP/SPI, CAN, and QSPI.
->>=20
->> Signed-off-by: liyeshan <yeshan.li@spacemit.com>
->
-> Name looks close to login name?
-I will contact her and confirm.
->
->> Signed-off-by: Guodong Xu <guodong@riscstar.com>
->> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
->> ---
->>  include/dt-bindings/dma/k3-pdma.h | 83 ++++++++++++++++++++++++++++++++=
-+++++++
->
-> I am already confused what is happening in this patchset - so which
-> device are you adding? K1 or K3?
-Aside from this K1-related patch, the rest of the series focuses on adding =
-support for
-the K3 SoC. I included the K1 header because I noticed it was missing in th=
-e upstream
-tree while working on the K3 support.
+Convert the IOP3xx and IXP4xx XScale bindings to DT schema. This
+conversion also adds the <irq.h> header file to the example section, since
+IRQ_TYPE_LEVEL_LOW macro is used. This ensures the examples validate
+correctly.
 
-It seems my attempt to 'clean up' K1 while adding K3 has caused unnecessary=
- confusion.
-Would you prefer me to remove the K1 patch from this series and submit it a=
-s a separate
-patch?
+Signed-off-by: Shi Hao <i.shihao.999@gmail.com>
+---
 
-                                    - Troy
+v2:
+
+- Fix checkpatch.pl warnings
+- Reorder compatibles in alphabetical order
+
+Note:
+* This patch is part of the GSoC2026 application process for device tree bindings conversions
+* https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
+---
+ .../devicetree/bindings/i2c/i2c-iop3xx.txt    | 20 ---------
+ .../bindings/i2c/intel,ixp4xx-i2c.yaml        | 41 +++++++++++++++++++
+ 2 files changed, 41 insertions(+), 20 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/i2c/i2c-iop3xx.txt
+ create mode 100644 Documentation/devicetree/bindings/i2c/intel,ixp4xx-i2c.yaml
+
+diff --git a/Documentation/devicetree/bindings/i2c/i2c-iop3xx.txt b/Documentation/devicetree/bindings/i2c/i2c-iop3xx.txt
+deleted file mode 100644
+index dcc8390e0d24..000000000000
+--- a/Documentation/devicetree/bindings/i2c/i2c-iop3xx.txt
++++ /dev/null
+@@ -1,20 +0,0 @@
+-i2c Controller on XScale platforms such as IOP3xx and IXP4xx
+-
+-Required properties:
+-- compatible : Must be one of
+-  "intel,iop3xx-i2c"
+-  "intel,ixp4xx-i2c";
+-- reg
+-- #address-cells = <1>;
+-- #size-cells = <0>;
+-
+-Optional properties:
+-- Child nodes conforming to i2c bus binding
+-
+-Example:
+-
+-i2c@c8011000 {
+-	compatible = "intel,ixp4xx-i2c";
+-	reg = <0xc8011000 0x18>;
+-	interrupts = <33 IRQ_TYPE_LEVEL_LOW>;
+-};
+diff --git a/Documentation/devicetree/bindings/i2c/intel,ixp4xx-i2c.yaml b/Documentation/devicetree/bindings/i2c/intel,ixp4xx-i2c.yaml
+new file mode 100644
+index 000000000000..15ef510f6fd8
+--- /dev/null
++++ b/Documentation/devicetree/bindings/i2c/intel,ixp4xx-i2c.yaml
+@@ -0,0 +1,41 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/i2c/intel,ixp4xx-i2c.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: I2c Controller on XScale platforms such as IOP3xx and IXP4xx
++
++maintainers:
++  - Andi Shyti <andi.shyti@kernel.org>
++
++allOf:
++  - $ref: /schemas/i2c/i2c-controller.yaml#
++
++properties:
++  compatible:
++    enum:
++      - intel,iop3xx-i2c
++      - intel,ixp4xx-i2c
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c@c8011000 {
++        compatible = "intel,ixp4xx-i2c";
++        reg = <0xc8011000 0x18>;
++        interrupts = <33 IRQ_TYPE_LEVEL_LOW>;
++    };
+-- 
+2.53.0
+
