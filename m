@@ -1,116 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B84AF34FF46;
-	Sat, 28 Mar 2026 17:31:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01FC378813
+	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 17:37:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774719088; cv=none; b=ZzDVSXr9Gtcg5sE7uiJHaNSgIGzVpNLmYA8fKa3qfSmoZrDJ0z9PAh+U4FLHvYQtNlHfXGD22aw0JY+y720doQGqgoL9HXrxeRa8osbJRRrdjVjXDhplYW2NGGIejTDpo7PXypaxPW9cmLz7TA83+YB89ADA484kGSdkcK46wVs=
+	t=1774719468; cv=none; b=EtrdhmcTQjnBHlSFz2Tjb8hRRmanuDw0WnBhVK1D8qK9EUVZhtMDrJDuOyT94NIVtLmsaqd+LCtUl1fmpv1U+UXpkResWzUgTBNOZL2Sw5w5GeAJ8ckma575EA+3xDKZA0E2Ofgx3jn3Zcc2q6bJA0ykM+Nah2VywSDHGlnCn+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774719088; c=relaxed/simple;
-	bh=K+vUmQhAIGsSqhrS0LhDBhv/V/cadK9T+dtB9wI9b1Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rJu9TY4N7M774NArYPw8+FxOAOqk+MOsGRLr1zDyuA4spVFynIOo0t2FFfuwwSv+pXHHzmrfMhu1GHWNim+1J97g4Mk6JNPEIuWDBcwVvlqA760seVd6PdLx2RHBGmQgW7ogiInr3pejJ35dhy9KaF5xURmU1VmBCHA3avgxesc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fMiQAVXQ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774719468; c=relaxed/simple;
+	bh=parGt3tZhlgkG7Tyg0zyRirZEztjPzzRxqDmCM7EM5g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=maVyNmgCJcgtMn7avezgF7HZbQoFIF4/KAOYk2nepyyJ/7amBsPcSJwb55Bsxdw6PcIiZijdE7cbmrM9BLwjdLyC55L2nnrvWtRcyqBtKqJOvDNXkT+RO97QeWduUQLsAvXhYPm9hgPtO/1N7ebmhvPZuoOPrRxtIlju78OianM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sGXjU5tx; arc=none smtp.client-ip=209.85.160.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fMiQAVXQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61FEAC4CEF7;
-	Sat, 28 Mar 2026 17:31:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774719088;
-	bh=K+vUmQhAIGsSqhrS0LhDBhv/V/cadK9T+dtB9wI9b1Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fMiQAVXQm2QGxAsqRnQBGAkl2Qw60qWc8xUg9HdW7vCAP7vZEyEAHcMEyiIyYKvSq
-	 btGucaYrzkL5T9areXXKkyBzWCcYMi5cCuomqg/ZUvLLkKJfoM0XCIz1pi8xhP8qNv
-	 gfh9o7lhqB+RSPDGNQdJpvr4Qi19rgJH3UAdG2rdjSkiGuuPLqKQckjvnqEZDakQh0
-	 fENLESFZjFV1jf4UOtADyM4T1/hjRZi6au8Q1OcgJFqxmPRCNowMstXOLwdFNUOGfn
-	 cQRdMqyLzeIWcEsmllqO10dqJbgK/mXOvirXo7ZTcmKWHwp1O1ru9x7JmMWhu3NC2L
-	 vYs8gri9C4b2Q==
-Message-ID: <3fa4fad0-d918-4de0-ad80-dad2141d2617@kernel.org>
-Date: Sat, 28 Mar 2026 18:31:24 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sGXjU5tx"
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-506251815a3so28532901cf.0
+        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 10:37:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774719465; x=1775324265; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=FO8lTdaN+rEnKBFSO7tgtF4+ghONTKCteN9CF0ffLO4=;
+        b=sGXjU5txKH8U2+M1A7hzfohifA85hi+Izr1iGbXkhqTcTK+Czm2Mt72KfUoFSo3Y6Y
+         Lg28/p1lDfFeAd1CaRbDcFuMeehhQEzIwkJMeQvZ7HRDc2aqhjap4PoxQmQLkqJxKkOr
+         E2AB4yFlb+tW57u0dPtRamCBqR8uFdyQT7BvNcBnyiAmZ3QW4xSwQStDl0a8SCtBcmML
+         1MyFDvr+kHXvzPYB0/PXTNZwpU3/F/xubecXLCu8tjc7erwNLKHU1h177EfFhWsXqCEA
+         nNMC7rqYGjmY+h6yXErgXJRZEHC1XsclaIaEQNJgXd6rYlMw4b4xqUE9Ef1QtKPT5uab
+         BRfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774719465; x=1775324265;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FO8lTdaN+rEnKBFSO7tgtF4+ghONTKCteN9CF0ffLO4=;
+        b=e92qqEDCVP6yipy3gV/TCm7OlwnyU1T1JEMLDUJ1HOsDrchspn3k5Z+79sDSVyB+it
+         aHkn8OSJeI6+1a73chRyx7GAFY2m9Vj7HOD0ScXe+X/cFUxnFPKVEfsUwu2AHR9m1bQ3
+         XOtRq1fXGJFDvvgkP0LXwC9htaDcIVJgFTIdilOnIk7Q6L0LdAXjGqjEA/1hcRhTYhKt
+         j6/Wot+ZS/YgTGzll+nM4byk7D2FuHmluXTMCOkHVe6nklYr71F1XXrVUvwim/6PPtj5
+         HEPFzhYm25wLd8o6A9cHtc4AFYJ7TJd+ypimkIDssvCLRNNBbDnMPcxjKpN471Zqkxvv
+         slFg==
+X-Forwarded-Encrypted: i=1; AJvYcCXfYBL/mtmbPAeiAt6VfhEPsA0iHH11iFV8ApxzMkIMMwsEXqLtweKbhbzHC9eYtQKtxMCaR8+ibkiX@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz8x3WcsSG6lW52RMR14VYYX8oXHtunLq3CUHvqUsQw0cZB3jCK
+	YEc0hOBzoVwOuNZeASBoy0k25RJEUw8N9wr0+NGeZOM1ttEF0FyldcY3
+X-Gm-Gg: ATEYQzyZtB/L/GA+KdT290pd/rA1q6KocpLnKog+5WydCM5NND4hmjMIxtYC/IkU+ko
+	ZvLAeCAk6Jiku4VS6tY+xA8RjsFdASbgFVgN4Pz4pGrfI2Jdpu8w6e9BK6ADCNM/Jx2V4wXXFqx
+	bd/eDFluodQ7QPXu8RyFhLQSjAvlTCrPqdtl4FKnsScD5XTV1/Kna2aY1HZCO4YcZ38Ryg+4ngY
+	B2mBx5B3SiuhsGlCjjbrrI2yvc8uY7SumMgwE4R/M/Oicl9vH9rduquA94pFlXNOJfweor1ARA0
+	w2M34W9gBnekHG5fxQbPUDujELhaWLvnHLlx5n7mYR6lrlTCH/DsA9suQZp/canf/UVnmktCsym
+	V5Lv7+gmsbiTD88l4MBA36nJ2rRbshvpJXRIE7N+B7XScHfhUhnIAQMf3vZ7vsJV27xW1PkTANf
+	bk5HEmcc3DBGh08VmGP9V7vArOhORBAG25DGyaqCp5lTmy9dY1UtLzfseYkL11qID6FhA=
+X-Received: by 2002:a05:622a:4807:b0:50b:3a6d:db5f with SMTP id d75a77b69052e-50ba39bae92mr89481621cf.64.1774719464707;
+        Sat, 28 Mar 2026 10:37:44 -0700 (PDT)
+Received: from sleek (d-23-244-200-70.nh.cpe.atlanticbb.net. [23.244.200.70])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-50bb2c9c93asm26629641cf.7.2026.03.28.10.37.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 28 Mar 2026 10:37:44 -0700 (PDT)
+From: Joshua Milas <josh.milas@gmail.com>
+To: tglx@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	pjw@kernel.org,
+	samuel.holland@sifive.com,
+	unicorn_wang@outlook.com,
+	inochiama@gmail.com,
+	daniel.lezcano@linaro.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	liujingqi@lanxincomputing.com,
+	alexander.sverdlin@gmail.com,
+	rabenda.cn@gmail.com,
+	dlan@kernel.org,
+	chao.wei@sophgo.com,
+	anup@brainfault.org
+Cc: josh.milas@gmail.com,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	sophgo@lists.linux.dev,
+	hanguidong02@gmail.com,
+	michael.opdenacker@rootcommit.com
+Subject: [PATCH v4 0/5] Add initial Milk-V Duo S board support
+Date: Sat, 28 Mar 2026 13:34:45 -0400
+Message-ID: <20260328173450.219664-1-josh.milas@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: power: reset:
- cortina,gemini-power-controller: convert to DT schema
-To: Linus Walleij <linusw@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Khushal Chitturi <khushalchitturi@gmail.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>
-References: <20260328124707.141209-1-khushalchitturi@gmail.com>
- <177470797266.1536342.6967120656934552033.robh@kernel.org>
- <CAD++jL=_rCmW=eSV0kvck50sC2xaQnGQoEOy=DNcwkFvvWYUUw@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <CAD++jL=_rCmW=eSV0kvck50sC2xaQnGQoEOy=DNcwkFvvWYUUw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 28/03/2026 17:12, Linus Walleij wrote:
-> On Sat, Mar 28, 2026 at 3:26 PM Rob Herring (Arm) <robh@kernel.org> wrote:
-> 
->> dtschema/dtc warnings/errors:
->> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/reset/cortina,gemini-power-controller.example.dtb: power-controller@4b000000 (cortina,gemini-power-controller): '#power-domain-cells' is a required property
->>         from schema $id: http://devicetree.org/schemas/power/power-domain.yaml
-> 
-> Weird, this power controller does not handle power domains whatsoever,
-> it handles the mains power. So it should not have any power domain
-> cells.
-> 
-> Is this the result of some regexp gone stray?
+This adds an initial device tree for the Milk-V Duo S board
+with support for reading from the SD card and network over
+Ethernet. This is continued work from Michael Opdenacker's
+v6 series [1] on the ARM64 and RISCV side. It has been tested
+with ARM64 and RISCV64 to boot from an SD card, have networking,
+and read I2C slave devices over i2c4.
 
-The name "power controller" is used for power domain controller, so
-that's why this name must not be used for other use cases. Usual
-replacement is power-management, reboot, restart or poweroff, depending
-on what is the purpose of this device.
+---
 
-Best regards,
-Krzysztof
+v4
+- Rebased to latest sophogo/for-next
+- Added usb node to arm64 and riscv DTS
+- Removed sg200x link in commit messages
+- Added missing change to v3 and removed link from v2
+
+v3: https://lore.kernel.org/sophgo/20251029001052.36774-1-josh.milas@gmail.com/
+- Added sg2000 interrupt controller and timer to documentation
+- Added sg2000.dtsi for RISCV and moved DTS over to use it
+- remove devices from DTS's to match what is available in the
+  default pinmux config. spi0-2, i2c0-3, uart1-4
+- Added i2c4 and spi3 aliases
+- Removed milkv,duo-s from sophgo,cv1812h in documentation
+
+v2: https://lore.kernel.org/sophgo/20251011014811.28521-1-josh.milas@gmail.com/
+- Made new entry in docs to avoid DTC error
+- "Milk-V DuoS" -> "Milk-V Duo S"
+- Sorting of aliases
+- Added uart*, emmc, mdio, gmac0, i2c*, spi*, dmac, saradc
+  to device tree matching what is available on the pinout
+- Removal of 'no-mmc' and 'no-sdio' for sdhci0 as it works without
+- Added riscv device tree
+
+v1: https://lore.kernel.org/sophgo/20250927173619.89768-1-josh.milas@gmail.com/
+
+Link: https://lore.kernel.org/linux-riscv/20240421055710.143617-1-michael.opdenacker@bootlin.com/ [1]
+
+Joshua Milas (5):
+  dt-bindings: soc: sophgo: add Milk-V Duo S board compatibles
+  arm64: dts: sophgo: add initial Milk-V Duo S board support
+  dt-bindings: soc: sophgo: add sg2000 plic and clint documentation
+  riscv64: dts: sophgo: add SG2000 dtsi
+  riscv64: dts: sophgo: add initial Milk-V Duo S board support
+
+ .../sifive,plic-1.0.0.yaml                    |  1 +
+ .../bindings/soc/sophgo/sophgo.yaml           |  4 +
+ .../bindings/timer/sifive,clint.yaml          |  1 +
+ arch/arm64/boot/dts/sophgo/Makefile           |  1 +
+ .../boot/dts/sophgo/sg2000-milkv-duo-s.dts    | 85 +++++++++++++++++++
+ arch/riscv/boot/dts/sophgo/Makefile           |  1 +
+ .../boot/dts/sophgo/sg2000-milkv-duo-s.dts    | 85 +++++++++++++++++++
+ arch/riscv/boot/dts/sophgo/sg2000.dtsi        | 53 ++++++++++++
+ 8 files changed, 231 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/sophgo/sg2000-milkv-duo-s.dts
+ create mode 100644 arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
+ create mode 100644 arch/riscv/boot/dts/sophgo/sg2000.dtsi
+
+
+base-commit: 9aa6068586a9b4cd34cf04f8dee72a7283ab4ae4
+-- 
+2.53.0
+
