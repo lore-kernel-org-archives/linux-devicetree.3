@@ -1,169 +1,103 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out203-205-221-235.mail.qq.com (out203-205-221-235.mail.qq.com [203.205.221.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E6F2C159E
-	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 12:47:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F86E126BF7;
+	Sat, 28 Mar 2026 13:06:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774702042; cv=none; b=BbUauz5NkxO3ugDaXUqQlBk9eyswJd3B71QmJqTsAZpterCCmEBjvSckQBltbocteO+IVgxRsd73IkCXa02/mPlFtKxpnETTky3Cthtw+/B3RxxMflSFwYBWMqEQIdGlwKJwVBz3K8ZY6DNBNQHfFTLJ6qnoI5zjZVAQmQUqrlw=
+	t=1774703188; cv=none; b=bXVSMP96us18ryIh0WDeb69cswizRhO6KA8tW0OcvAjyV64kAecMtC57yeL/oPOIC8APIFENh58MaTYzsZdKUpULLeNmVIY+WNw0SPuwSs1WyS7PEVBn0D2jJFQieN1MoRNOXR1wTJxOdd8wl0xr+Eqf15k1VdPshNIoWyqnuhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774702042; c=relaxed/simple;
-	bh=AAsVd0O+nkIadn0i0qyJWkXqJrVuhhqichmsUjfNbhc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NOKkrO3YbHpXl7kWm/1Ks3hB01MmPXrbBM3RNC4pwZV5HValJNEu5DDH4q62aZnY/QPCUboW5vEtRzt9spiQh0c1JiTyPYE2gjAM+s1KunVDJrihQ3NdSrRUnI5jMiR9+R2gV3GCoCC/WMsgfMi0cPdODlAfdDpidbq2g+41MIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DXbpedSx; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774703188; c=relaxed/simple;
+	bh=Nt7QPoc4oVQrmXPfoxK0yc7fDDj1Uhj7ACzVxPwMO1w=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=rU6zqEwAU3tBpaILJCOFoCQ0Dn7POu4Gk5shlbkAJ021qJ/Y0SKITx+u/EdfihuBzIGQUFmQZZq/pC5l/v7RMBv9Mlu06T0UT+A3gl2FBpPa9IE8atoJ5IajHGgG4OoHq1/uXkhfmERjFEYxHMuqEM8oceWe3uRlP2Qvq0/+f18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=Red54.com; spf=pass smtp.mailfrom=red54.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=qwlgQLbE; arc=none smtp.client-ip=203.205.221.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=Red54.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=red54.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DXbpedSx"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2b0603ee486so18716485ad.0
-        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 05:47:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774702039; x=1775306839; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=SJkALNXvsl5c9zyK75EzpLXhf7ZTMskMbSq5Dp4tlEg=;
-        b=DXbpedSx0Fqfy8sIWubDUymLaakggJ29EBPkdb87bYjZWPqxHOeaTlgwVANRmw76Az
-         Gz5RHq7W8rJ3HCozcmeD0aD5C6QmUYZiwhZSWPqEo2yo0K6qSRBz603zvDe/d7QEd8hQ
-         8Ps5CGIrjUOLjWRB+xa4jc3piMCwWqwz78J3wNNziWH8WZ0g0ljfnpaYt8PWNnKxRKDu
-         JTWi1yzX9WcIVHD2E+8YveFAi2eAVcIqDobKGtU0Y4Hb6IQ3AjZfnycsfvQqQC9EMPfT
-         9nRtxktXBa/Y1egS2txJh96/VxczUyaXyw2s97xlYk1ILOfCnYBQarz1ka4IPj2dCi0o
-         Uhew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774702039; x=1775306839;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SJkALNXvsl5c9zyK75EzpLXhf7ZTMskMbSq5Dp4tlEg=;
-        b=ipweOM2Ahm3Nrj9zwbBarIw/7riAvv/wNBWIun3wNYqZwym14XyX2xv3/e/Gq0kpGR
-         GR8WRjdoWKt5G30ZSB4rZte2sl3Pv0uo/xN10Hmu2eXZY816y1p3gHG2JFZfZd48J0di
-         BiqGtgCdqC3Dg/q6h0xCFIweWOb8sfR8c7HVZLE6/ls5gs19UOF6ZEHB/4xAHl9nxYCH
-         TVleJiEi7Z12sLFKyWvgdomsnnbPpKJOuC3eRYPlMeTfvPdXJeQq9/2cfT/HFYvTIlN8
-         yecob4GnXtScaaNlRwxIjq5aCXX6q/XArlvJBA1YTGSTEkDqYMhhdORnX8tRqGE7U2k9
-         n+Tg==
-X-Forwarded-Encrypted: i=1; AJvYcCWT0TdAEqGKW5pqb+SPncNdheImaeo9NMRUmyoBincMqWyencHQ3oiXcZ+LpmYXFywvCp/SFLTRSyMk@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzp053IvZXbcQ5+9dCiO7uJxd+QaQFKq1I/i+DK+RGPkWm8oeC3
-	XORQkrBGJAOGvMvBn/ltLKbgh4dr57yb8ev5wlKH9zV1t/uG+ck0DxQv
-X-Gm-Gg: ATEYQzxK7/Mtk/1B8iwCALFBJcev7EDbNq2fudhhS2Qw2n2ce72FtTbS7XkmWk7lR2H
-	l4Y/sxK9YAGDZU86CwDBfUpsdYI+O6fax5g0ILBFKcd6ttgekrpaKXQCR/SmqgFAbmCatpSvuC6
-	E6bAaoHi1SwykPsNEKX/+BmYEncCdILFKx10rKsgmizXBGq4zUHP5VL4Fz1wKPJBYtW6fwlZ2KR
-	RudZQeyhtItDJ24JYeBj/EUAuk2RosUZatfou/EdKvoJIf4srPp9ooVCXOdSh2RJE35/Twg33vA
-	vpnBkhpYSzBLxqMU6KPiWtKTEKMboCoNQyvT7rRV/8+44jH6uMg3Depm4Vz8/y/H8ZWEoOwYxb3
-	4AqVKE+UZQBtffGJxVPfV9V2NpxKgR9VxauyxxihrglC52UKCzOCaHBvSuRtTMd4xHPaV3XvrVW
-	A7x//FwbWNt0zws3DZoCmfoJEG+ohp
-X-Received: by 2002:a17:902:ea08:b0:2b0:ba14:fc70 with SMTP id d9443c01a7336-2b0cdd91799mr68182835ad.42.1774702038938;
-        Sat, 28 Mar 2026 05:47:18 -0700 (PDT)
-Received: from snowman ([2401:4900:614d:8d5a:ad19:1381:7561:e82f])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c769179e30dsm1791970a12.20.2026.03.28.05.47.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Mar 2026 05:47:18 -0700 (PDT)
-From: Khushal Chitturi <khushalchitturi@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>,
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="qwlgQLbE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1774703174; bh=gXMYbAq/58x0snbnrzU6L6DOJ89RXswb5+dhZJU1I+g=;
+	h=From:To:Cc:Subject:Date;
+	b=qwlgQLbEDkLize0QMzS+3V66ttCmBtcwhM9Xo8gM/gIGdap5VKQpatCvF/yJjcshY
+	 6rQNDX8ymeYvrTIZc2sYfJpLVnCNR9cLtgu6q/FQDZkWd0OVp6KVj8ej3IqDtWm8f3
+	 hg+zniiq7ebHeUh5eNPuz4GZ0ky4T5+UGZVSRx5s=
+Received: from mail.red54.com ([139.99.8.57])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 1780141A; Sat, 28 Mar 2026 21:05:56 +0800
+X-QQ-mid: xmsmtpt1774703156tms1s7szr
+Message-ID: <tencent_4BED6C3FFB8102B4BB3D08D6F47F2CCFC908@qq.com>
+X-QQ-XMAILINFO: N/WmRbclY25G6qBVx5CHfggfaD9zux2Mmv9fE5m2oyrKQJFAT0D4wC6vLh9cUT
+	 Lo2mGsU4szHgVLAiRRiW3ngzpSJD+to20cSAmoNzEfIh0Sl5JyhttFwMh+5Fg0of7t88nmp7T/5M
+	 qVcZEHelcLFOSL1nqA0YTkCe2zr3gVNyt2v5MyaFM1tNCW8ENHmHU3ibYwF8d4Nvj6FdeUMHMMuy
+	 pgfOJgWcEsuA9sD5BDlg0Jz3FMnITsmbqeOzZSPw3bht1Cq2VpBsyHcvLXTD7TEeenmN3C6aibGG
+	 wcNo1nE4MybtOZFk0YjQ5hyLOD4n1+YSXR93sP4tq47n65YoCW34mWDwJWDeMUWte2Az5N0KhLkO
+	 7/bOiND3r/H3k6bjXULt+bfj/SHQ7arhmD9yr9+K5CMFQABcPVYhHGc8MyyTyD7Q9xLqKVJU8gRT
+	 NcCUqzG2LqyTS7qdlwLbxTWexkSuckaJM/S5aMx32bITMULXN8P6fci4ovkgwjNat3dWqB0+ME3G
+	 Z150fiw+n6IgXbPXxtQgASkMKt5Mncxes8RH3uMt043mDh/RNsvg2TrYhLn1TEEGX4oPipm2CFcQ
+	 GDYmZ8Mmr2R2/qWfVrq8TKwNr+JIniZpMeXVNf5c0ATVav3JIc6t0V4kXE8upHjTBkRBuEPIrk+W
+	 xHn8SduWoZ+kbXHs7vYMx4pB37dG7fEPMJNGeI72wC/vGwhCyrxMsCdtpQpfS2lVv5P7bTGoj4ig
+	 dHfJ9Ph/gajp/sAsVb5eHUyXsQwQBKzFK2HWw0B28CCXkFFFOMOb5S061NuEQ8F/8ZmaLOvZXMbJ
+	 BaNICwylneaN/VyKzsR8+/0BC8zyvBQwAHIrCfuPlx9IDzeXQLx6R134MblAujJ+111CVbhLFmNp
+	 9oj59zpoWFFM0re9M+kw0OEPqNKTuTScwYMiMkCBJ3ZPakbGLg+UBCMEBMJRouTrARmiMLjRZqn9
+	 hMrKvbXgk5YcZbV2afUUwbjCiaXnWsU3aYwbH/N/pQoIvcj/lugikq9zJ6bh6Q9DLI1edscFKUGh
+	 +X6t5lQXgxVDSsd073ntbxv2tizjE3cHgVuHb3YS2eCwDT31CBnK2GNNF8UrHsQoBvC+5A2XOmPn
+	 LObiuAx6gcV0+8HSae8Jf9VqBgTQ==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+Sender: yeking@red54.com
+From: =?UTF-8?q?=E8=B0=A2=E8=87=B4=E9=82=A6=20=28XIE=20Zhibang=29?= <Yeking@Red54.com>
+To: linux-rockchip@lists.infradead.org
+Cc: =?UTF-8?q?=E8=B0=A2=E8=87=B4=E9=82=A6=20=28XIE=20Zhibang=29?= <Yeking@Red54.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>,
-	linux-pm@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Kever Yang <kever.yang@rock-chips.com>,
+	Finley Xiao <finley.xiao@rock-chips.com>,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Khushal Chitturi <khushalchitturi@gmail.com>
-Subject: [PATCH] dt-bindings: power: reset: cortina,gemini-power-controller: convert to DT schema
-Date: Sat, 28 Mar 2026 18:17:07 +0530
-Message-ID: <20260328124707.141209-1-khushalchitturi@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: rockchip: Add RK3562 serial aliases
+Date: Sat, 28 Mar 2026 13:05:46 +0000
+X-OQ-MSGID: <20260328130546.25381-1-Yeking@Red54.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Convert the Cortina Systems Gemini Poweroff Controller bindings to
-DT schema.
+This fixes the stdout-path in rk3562-evb2-v10.dts.
 
-Signed-off-by: Khushal Chitturi <khushalchitturi@gmail.com>
+Fixes: ceb6ef1ea900 ("arm64: dts: rockchip: Add RK3562 evb2 devicetree")
+Signed-off-by: 谢致邦 (XIE Zhibang) <Yeking@Red54.com>
 ---
-Note:
-* This patch is part of the GSoC2026 application process for device tree bindings conversions
-* https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
+ arch/arm64/boot/dts/rockchip/rk3562.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
- .../cortina,gemini-power-controller.yaml      | 42 +++++++++++++++++++
- .../bindings/power/reset/gemini-poweroff.txt  | 17 --------
- 2 files changed, 42 insertions(+), 17 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/power/reset/cortina,gemini-power-controller.yaml
- delete mode 100644 Documentation/devicetree/bindings/power/reset/gemini-poweroff.txt
-
-diff --git a/Documentation/devicetree/bindings/power/reset/cortina,gemini-power-controller.yaml b/Documentation/devicetree/bindings/power/reset/cortina,gemini-power-controller.yaml
-new file mode 100644
-index 000000000000..1f9af7f34004
---- /dev/null
-+++ b/Documentation/devicetree/bindings/power/reset/cortina,gemini-power-controller.yaml
-@@ -0,0 +1,42 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/power/reset/cortina,gemini-power-controller.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Cortina Systems Gemini Poweroff Controller
-+
-+maintainers:
-+  - Linus Walleij <linusw@kernel.org>
-+
-+description: |
-+  The Gemini power controller is a dedicated IP block in the Cortina Gemini SoC that
-+  controls system power-down operations.
-+
-+properties:
-+  compatible:
-+    const: cortina,gemini-power-controller
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    power-controller@4b000000 {
-+      compatible = "cortina,gemini-power-controller";
-+      reg = <0x4b000000 0x100>;
-+      interrupts = <26 IRQ_TYPE_EDGE_FALLING>;
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/power/reset/gemini-poweroff.txt b/Documentation/devicetree/bindings/power/reset/gemini-poweroff.txt
-deleted file mode 100644
-index 7fec3e100214..000000000000
---- a/Documentation/devicetree/bindings/power/reset/gemini-poweroff.txt
-+++ /dev/null
-@@ -1,17 +0,0 @@
--* Device-Tree bindings for Cortina Systems Gemini Poweroff
--
--This is a special IP block in the Cortina Gemini SoC that only
--deals with different ways to power the system down.
--
--Required properties:
--- compatible: should be "cortina,gemini-power-controller"
--- reg: should contain the physical memory base and size
--- interrupts: should contain the power management interrupt
--
--Example:
--
--power-controller@4b000000 {
--	compatible = "cortina,gemini-power-controller";
--	reg = <0x4b000000 0x100>;
--	interrupts = <26 IRQ_TYPE_EDGE_FALLING>;
--};
+diff --git a/arch/arm64/boot/dts/rockchip/rk3562.dtsi b/arch/arm64/boot/dts/rockchip/rk3562.dtsi
+index e4816aa3dae0..14e74e8ac7df 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3562.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3562.dtsi
+@@ -26,6 +26,16 @@ aliases {
+ 		gpio2 = &gpio2;
+ 		gpio3 = &gpio3;
+ 		gpio4 = &gpio4;
++		serial0 = &uart0;
++		serial1 = &uart1;
++		serial2 = &uart2;
++		serial3 = &uart3;
++		serial4 = &uart4;
++		serial5 = &uart5;
++		serial6 = &uart6;
++		serial7 = &uart7;
++		serial8 = &uart8;
++		serial9 = &uart9;
+ 	};
+ 
+ 	xin32k: clock-xin32k {
 -- 
-2.53.0
+2.43.0
 
