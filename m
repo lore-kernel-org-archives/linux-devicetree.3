@@ -1,40 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1340019E819;
-	Sat, 28 Mar 2026 11:58:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462A221A457;
+	Sat, 28 Mar 2026 12:05:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774699113; cv=none; b=q8yylkICcMfIrTzM7v+063MmtKJLBYiZh/bsBwTXy7nbG5tlINrINAsCGtuYsW5PqTkDyGHCaejFMT6J0CKFAIyjG+bu3VWKfxPLr1G/OJlwYaUThbNQ00z1fHesXOdS4NYWjLMrtSJhScnfctcfv8oUTJs7+gXOw+SMe3rDrvw=
+	t=1774699506; cv=none; b=iv+Y8UzPyUh90p2umndvEkOJvzv+ltD8DIdlK82HBxQhoDxgW+S8ZEZH3Lmo3YJdUZUfWhWAMO8hE0x61UNqqI8kqlU6eRCJxnczZJLLxDBNloLmkEnsDDWm9T5y5zzSg2ee1jrwfFJrTiekv1H6l91zgkSi7sc6h/tIN2fjFrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774699113; c=relaxed/simple;
-	bh=aKSI85W7e5aae8HFSxnUvwcHSC42QqF36u6/l7UjKlk=;
+	s=arc-20240116; t=1774699506; c=relaxed/simple;
+	bh=iEyN33zGewc1XgxgB8M5s8QhjAal00jdoinGDPErVIs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QHcYF48Ll9ary5ZNaAbCVfgN3Zqp22xWxs+wDgNFRB7LOlnRVVwumh1VnrZl1e1aksWz5bsUCULQ5w/eyYx8F3ay3LTVtCWVejha38z4YjaBvBsLEheEeBQMclbGZn6Z+GU3mfd0ne6DnuWY1ez/pflqVJEKfpeTdxa24aIf0qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z3kz+VH2; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=qno7cgHShNUA6KssPCkxEYhRrXBPEcy01vGFA6i6LphywZRfEtQqR42LbYcTSGovFWqGI0KAgxHX9KWlqr20VD03Oyei1rxntfT7Y4XCwT+oCY+oNUJZ1jL+xhs2809PvgYdcNF8v9apwCIn/yQUdAu6lp8Yek8i3qb9K4ePIho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mIOybRmP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z3kz+VH2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC49C4CEF7;
-	Sat, 28 Mar 2026 11:58:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mIOybRmP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54D5C4CEF7;
+	Sat, 28 Mar 2026 12:05:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774699112;
-	bh=aKSI85W7e5aae8HFSxnUvwcHSC42QqF36u6/l7UjKlk=;
+	s=k20201202; t=1774699505;
+	bh=iEyN33zGewc1XgxgB8M5s8QhjAal00jdoinGDPErVIs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Z3kz+VH2Bg1He7nLaytZbI8ZFkhuVOeknQgyLu3iV7ka+njL21SuyNKvLCL+i5xuR
-	 S+T3+ec/bwBAZMcRRBiIyy7LjGuJcA6NuoWhAg/jyiFjAZNUlryZmo9pdgwRbHqeNh
-	 AV0NTQoQa3hWOWAc+oVj8Lv7LOaFdwk6XTwmGQDn30+b/m8qDZiRxaPFt9O3QSlCoo
-	 DPsmOfVX2bGR2tBQLiZ/PqpvADI/VW8RqnMgDNZAaLEH6931Mwbmv6n/st8vjKrRQ2
-	 1KeRI66qewnSbbgEV/XJHhneO38I1EPaFxiGjHtImn+ud/qIImqJvb0Xp6SpujAnSD
-	 JxLm9YKgBrGNg==
-Date: Sat, 28 Mar 2026 12:58:30 +0100
+	b=mIOybRmPqc96WQ8IxxFLC3eHKhUHPTYyTIUa3mNXJAkS2YkdXna7fQ1F9OYeLCY3B
+	 C4P1wyNTprfbllsGsihVr3Jxd0mmV5J74/aqzt4xSCiKpf1ZnaUg3BuTjHo26al1qD
+	 lApLQonO+DLVcbmisHKBIEulCAcSRbfCe6Sd6wS9bQTmOw8+FL2dohPEc4ThzK0UCW
+	 4vcL71XpvclwlwuBmsH3jVbdedv2+oVNCZo3XjtyCEUaxKaYfRzaffCB5Cdr/FIPqR
+	 74edaQmmfIKtWVfFFCVuXS0MscQgNfZtf3VTrXpbxtw4Ssy9KE1RwsmdGVlFwIM03C
+	 DBLFnEGBWRErA==
+Date: Sat, 28 Mar 2026 13:05:02 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Udaya Kiran Challa <challauday369@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, skhan@linuxfoundation.org
-Subject: Re: [PATCH v4] dt-bindings: arm: mediatek: mediatek,g3dsys: Convert
- to DT schema
-Message-ID: <20260328-economic-blond-termite-daecb7@quoll>
-References: <20260326181726.64957-1-challauday369@gmail.com>
+To: Cristian Cozzolino <cristian_ci@protonmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v4 1/6] dt-bindings: display: panel: Add Novatek NT35532
+ LCD DSI
+Message-ID: <20260328-nondescript-bipedal-cow-39d00f@quoll>
+References: <20260327-rimob-new-features-v4-0-06edff9c4509@protonmail.com>
+ <20260327-rimob-new-features-v4-1-06edff9c4509@protonmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,13 +51,15 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260326181726.64957-1-challauday369@gmail.com>
+In-Reply-To: <20260327-rimob-new-features-v4-1-06edff9c4509@protonmail.com>
 
-On Thu, Mar 26, 2026 at 11:47:26PM +0530, Udaya Kiran Challa wrote:
-> Convert the MediaTek G3D system controller devicetree binding
-> from the legacy text format to DT schema.
+On Fri, Mar 27, 2026 at 03:30:47PM +0100, Cristian Cozzolino wrote:
+> Document Novatek NT35532-based DSI display panel.
+> Since it's not possible to identify panel vendor nor id, add a suitable
+> compatible (matching the device's user, which makes use of this DDIC)
+> and set "novatek,nt35532" as fallback.
 > 
-> Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
+> Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
