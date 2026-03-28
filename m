@@ -1,68 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDABC18787A;
-	Sat, 28 Mar 2026 14:06:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 744312874ED;
+	Sat, 28 Mar 2026 14:26:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774706777; cv=none; b=tztrvrn6DBSvERk02yFEis0NFmyYLg8uYfpG3FcstUaZRN2TRl79okE9nOEoydgb07fsN3jjyGORTt3vhRmUmMActVNiXPkBcJt1S8vXiLREE0EJkcYJQL4m4xojuA+N97y1HE5pQ+uc+PKb9CUtAnF5r675XM4VvOgoomv70+c=
+	t=1774707975; cv=none; b=Eu+u4Z788hKN8qmB0rz32X7U1tRCgK6r41adY1vqGKwXKyyKbmpboSSviOjT84fYWDElYtykJ8qq9vGkOrbjlQuA0/CO6D1IwcIm71kVXo4nod4XMO/c0RIcirGZXUA19tGgTZC7QkAroQPPczrOZ4EoId9B8Ml4zntHjcPEK/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774706777; c=relaxed/simple;
-	bh=r3AsAHaiY+EIeo9O20nkbuc6gADfEl6qhiOCW5IA9Qw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V7/UnUgYMpQqAM61MfrbuS1mzeqMTXerxk8AJyaJPXKGkxceX9tUAlSiHNHT3UX+sof/OYHQSF39mdP2nH1RDNJBceS7WXyNsDppEuMN8hFeIzeX2Xr3QNQAhQwQLSGt0uqENvBP34S45Qb2Au8LoggrpEsBFTBpYglcxIZZA04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=r+tXVDO7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774707975; c=relaxed/simple;
+	bh=pItkkJ/BTnCz9cKOEVj76+pTolQ8B/CGUsHD3jnmKbs=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=MtiHiPSD5hv3sjGtqEMbjcthRJwfPYRZd1M4xdzusysvXp86P1FJAc16JmGvLIlI8ywg7ZONmbxYgNMkg95m/fIBK66qaDLl4hA2FHsUShwe8AzhKM74Tl/Ev5kaLsc5yuFamDRpeRRO7ZQoZlrMjWXseBaxuGwlm/tb74fwywU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A3fcEbyH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="r+tXVDO7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFD36C4CEF7;
-	Sat, 28 Mar 2026 14:06:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A3fcEbyH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1507C4CEF7;
+	Sat, 28 Mar 2026 14:26:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774706777;
-	bh=r3AsAHaiY+EIeo9O20nkbuc6gADfEl6qhiOCW5IA9Qw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=r+tXVDO7QppCVEIDirfP+cz8d3B3lDZqzuBwLYFg+V0A4nUHUZnhxTLQq5b2lRHlO
-	 JMC77OkDBSk2Ap0W8lqMBkRGF2v8Pk/tjOlrRMAayoK9LR/C5y7gumTtanQTBcU1tf
-	 mfAY6cIsUd0liaGtG4p3EKJRqY3NvJt/RQSY6S6NupUr/3ZEb09jBDV0Ydujj7Lssx
-	 NhTCmg40nhb9RCFy2f0gd6foVn1OiZr+0H7YkcksTKfUy+OozjS/x2Qc+H5tQvy5/3
-	 WXMu+kKCqLvPfuRSk8cR0ew1+Qk2XpFsdYDWhkL3d6PRYNMxUBkUQshEmBkwb0iYZ5
-	 FxSqZNXBFAfqw==
-Date: Sat, 28 Mar 2026 15:06:14 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Richard Acayan <mailingradian@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 1/5] dt-bindings: qcom: lpass-lpi-common: add reserved
- GPIOs property
-Message-ID: <20260328-laughing-cute-whippet-c83b56@quoll>
-References: <20260328021036.85945-1-mailingradian@gmail.com>
- <20260328021036.85945-2-mailingradian@gmail.com>
+	s=k20201202; t=1774707975;
+	bh=pItkkJ/BTnCz9cKOEVj76+pTolQ8B/CGUsHD3jnmKbs=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=A3fcEbyHFpIkxOA3YRkef8UfVu7w16PuUmBfQlgfU8vsyKx2jzWtuaQ8zV+lyHl44
+	 EltCcpa+KkFfIg8gaYnogtfsvGF75OX6a1wnTZ7z6GI97sdltQGPPycVzi+NOw1wKf
+	 510qPFvqzbxDdHZW+JNFpn6nEnNakbTZ+YVMpElwWgCDUAYW6ebeZ3+gDKdc0YAsO6
+	 nPwp8FBg4WUBftOSxIjvf7thLBCgm61NRlVMKLdAMNZqZmJfwcNTKzMo7OFhnxNrTh
+	 YNL4tcmatT3SpdY+W5i3yikIwnLK75Ob94magoF81XVkv6UQG6weP/ROhR9+sAl0KC
+	 CBz+QamTHUhtQ==
+Date: Sat, 28 Mar 2026 09:26:12 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260328021036.85945-2-mailingradian@gmail.com>
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-pm@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>, 
+ Linus Walleij <linusw@kernel.org>
+To: Khushal Chitturi <khushalchitturi@gmail.com>
+In-Reply-To: <20260328124707.141209-1-khushalchitturi@gmail.com>
+References: <20260328124707.141209-1-khushalchitturi@gmail.com>
+Message-Id: <177470797266.1536342.6967120656934552033.robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: power: reset:
+ cortina,gemini-power-controller: convert to DT schema
 
-On Fri, Mar 27, 2026 at 10:10:32PM -0400, Richard Acayan wrote:
-> There can be reserved GPIOs on the LPASS LPI pin controller to possibly
-> control sensors. Add the property for reserved GPIOs so they can be
-> avoided appropriately.
+
+On Sat, 28 Mar 2026 18:17:07 +0530, Khushal Chitturi wrote:
+> Convert the Cortina Systems Gemini Poweroff Controller bindings to
+> DT schema.
 > 
-> Adapted from the same entry in qcom,tlmm-common.yaml.
-> 
-> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> Signed-off-by: Khushal Chitturi <khushalchitturi@gmail.com>
 > ---
->  .../bindings/pinctrl/qcom,lpass-lpi-common.yaml           | 8 ++++++++
->  1 file changed, 8 insertions(+)
+> Note:
+> * This patch is part of the GSoC2026 application process for device tree bindings conversions
+> * https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
+> 
+>  .../cortina,gemini-power-controller.yaml      | 42 +++++++++++++++++++
+>  .../bindings/power/reset/gemini-poweroff.txt  | 17 --------
+>  2 files changed, 42 insertions(+), 17 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/power/reset/cortina,gemini-power-controller.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/power/reset/gemini-poweroff.txt
+> 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Best regards,
-Krzysztof
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/reset/cortina,gemini-power-controller.example.dtb: power-controller@4b000000 (cortina,gemini-power-controller): '#power-domain-cells' is a required property
+	from schema $id: http://devicetree.org/schemas/power/power-domain.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260328124707.141209-1-khushalchitturi@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
