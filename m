@@ -1,92 +1,450 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 744312874ED;
-	Sat, 28 Mar 2026 14:26:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D48D199920
+	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 15:06:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774707975; cv=none; b=Eu+u4Z788hKN8qmB0rz32X7U1tRCgK6r41adY1vqGKwXKyyKbmpboSSviOjT84fYWDElYtykJ8qq9vGkOrbjlQuA0/CO6D1IwcIm71kVXo4nod4XMO/c0RIcirGZXUA19tGgTZC7QkAroQPPczrOZ4EoId9B8Ml4zntHjcPEK/E=
+	t=1774710383; cv=none; b=sr2FDdmfD27maxhM7xD5OHZvJT98BiS+hu3rFfym4s5b2cG9pPUVje+QZtsXjjISsWPvNYZPI0fdM4mhtsWZ3bGJP34wZfWjvazH7X4UeTmGDe5mVgegeWAuEdd0sQzH8RdufOx2UVKOuGMonT2JwdBFfI6oSMl5LQsKj4sCUGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774707975; c=relaxed/simple;
-	bh=pItkkJ/BTnCz9cKOEVj76+pTolQ8B/CGUsHD3jnmKbs=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=MtiHiPSD5hv3sjGtqEMbjcthRJwfPYRZd1M4xdzusysvXp86P1FJAc16JmGvLIlI8ywg7ZONmbxYgNMkg95m/fIBK66qaDLl4hA2FHsUShwe8AzhKM74Tl/Ev5kaLsc5yuFamDRpeRRO7ZQoZlrMjWXseBaxuGwlm/tb74fwywU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A3fcEbyH; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774710383; c=relaxed/simple;
+	bh=L3wtY2yqlTkYjo864f/K2PlE27ul9IfAQh2b7OxhbUg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Dm9Q3RYtV44x/WXpPDHrNXUHDpiykvH02ocIZarKVpQ2X1Ko0CAo/edt3RZcjKw1GQZw/ViafBg03dB15HsNRLvognSNvfaUmqHgGLikusgP9fFFsqhK8/ZdewOifvfoeXnUXeU+4su7m+5sONHs4MEA3Y6hLbLZLN4WICW4P9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KHhv+pYz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A3fcEbyH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1507C4CEF7;
-	Sat, 28 Mar 2026 14:26:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KHhv+pYz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8D37C2BC86
+	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 15:06:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774707975;
-	bh=pItkkJ/BTnCz9cKOEVj76+pTolQ8B/CGUsHD3jnmKbs=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=A3fcEbyHFpIkxOA3YRkef8UfVu7w16PuUmBfQlgfU8vsyKx2jzWtuaQ8zV+lyHl44
-	 EltCcpa+KkFfIg8gaYnogtfsvGF75OX6a1wnTZ7z6GI97sdltQGPPycVzi+NOw1wKf
-	 510qPFvqzbxDdHZW+JNFpn6nEnNakbTZ+YVMpElwWgCDUAYW6ebeZ3+gDKdc0YAsO6
-	 nPwp8FBg4WUBftOSxIjvf7thLBCgm61NRlVMKLdAMNZqZmJfwcNTKzMo7OFhnxNrTh
-	 YNL4tcmatT3SpdY+W5i3yikIwnLK75Ob94magoF81XVkv6UQG6weP/ROhR9+sAl0KC
-	 CBz+QamTHUhtQ==
-Date: Sat, 28 Mar 2026 09:26:12 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20201202; t=1774710383;
+	bh=L3wtY2yqlTkYjo864f/K2PlE27ul9IfAQh2b7OxhbUg=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
+	b=KHhv+pYzBKkGVloNV+i152OzPBJ8Zv5Id5x25/6zziIbTW1xj77VzM9F8oXeZlAK7
+	 dsBRRa7U5wwCdL79n8C6ZoccqgiDIQoURZMtb/bz+oXlrysRMyt16h49mKzwlhPerS
+	 fJ6JsOLWe9zNtNBTtbGTo5GWReLDigeOeKRnAXzKPTXZOWSTEw29DBvhUU/oUKOcHx
+	 BLe2ykQca5XQbb546XxFrD0wy/GGYzRN4GfPFmJz9apb7Qjl/C6xDTxWeMFnREIPtl
+	 6awvCYO6fdgCQehzLg58daheXdbWcA37Ja0IWluQyFXTJB3GdYTqx0FU5WEOdnea8p
+	 VdiheqKiI1jHQ==
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-38c01150eb2so23041111fa.2
+        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 08:06:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXVDiiVudIhP+Ai0rK8BJHiq40EvrvG0vUtswLISgcMnOTK8Ny4rvmXX2f/Og+V6+wPWrPLJV9nzIbK@vger.kernel.org
+X-Gm-Message-State: AOJu0YzicdmEG1nCtiYkwcQyQVOfWEjIRWWLqYrB2zhesMTr7ETAE/nd
+	huTwtR4pdCswiQSN3sf7asXWx1zKJ2WppFy8sTCIgx71tf18dCEmzaL9dewWdft5fdin9j/sgKc
+	c517n6Ua/XFDsv2hheaGIV2bh8lOGLKw=
+X-Received: by 2002:a2e:8a89:0:b0:38c:3410:5539 with SMTP id
+ 38308e7fff4ca-38c7308699cmr17694981fa.6.1774710261477; Sat, 28 Mar 2026
+ 08:04:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-pm@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>, 
- Linus Walleij <linusw@kernel.org>
-To: Khushal Chitturi <khushalchitturi@gmail.com>
-In-Reply-To: <20260328124707.141209-1-khushalchitturi@gmail.com>
-References: <20260328124707.141209-1-khushalchitturi@gmail.com>
-Message-Id: <177470797266.1536342.6967120656934552033.robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: power: reset:
- cortina,gemini-power-controller: convert to DT schema
+References: <20260310-a733-clk-v1-0-36b4e9b24457@pigmoral.tech> <20260310-a733-clk-v1-3-36b4e9b24457@pigmoral.tech>
+In-Reply-To: <20260310-a733-clk-v1-3-36b4e9b24457@pigmoral.tech>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sat, 28 Mar 2026 23:04:08 +0800
+X-Gmail-Original-Message-ID: <CAGb2v66uDGLjovxUCxnHDiDBm7J1FMo5udtPJJQrfS5=i_KTDQ@mail.gmail.com>
+X-Gm-Features: AQROBzBMgnRTbl4s0nhFjx59fmjHuR7ZH_t-KY0pcN2cCbjY2LeZWftamhL0jSs
+Message-ID: <CAGb2v66uDGLjovxUCxnHDiDBm7J1FMo5udtPJJQrfS5=i_KTDQ@mail.gmail.com>
+Subject: Re: [PATCH RFC 3/8] clk: sunxi-ng: a733: Add PRCM CCU
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-On Sat, 28 Mar 2026 18:17:07 +0530, Khushal Chitturi wrote:
-> Convert the Cortina Systems Gemini Poweroff Controller bindings to
-> DT schema.
-> 
-> Signed-off-by: Khushal Chitturi <khushalchitturi@gmail.com>
+On Tue, Mar 10, 2026 at 4:42=E2=80=AFPM Junhui Liu <junhui.liu@pigmoral.tec=
+h> wrote:
+>
+> Add support for the Power Reset Clock Management (PRCM) module found in
+> the Allwinner A733 SoC. This clock controller manages the clock control
+> and reset functions for device modules within the CPUS domain.
+>
+> The PRCM module includes the management of three primary buses: r-ahb,
+> r-apb0, and r-apb1. It also provides clocking for several key
+> peripherals, such as R-UART, R-I2C, R-SPI, and the R-RISCV subsystem.
+> Additionally, the reset lines for these modules are integrated.
+>
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
 > ---
-> Note:
-> * This patch is part of the GSoC2026 application process for device tree bindings conversions
-> * https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
-> 
->  .../cortina,gemini-power-controller.yaml      | 42 +++++++++++++++++++
->  .../bindings/power/reset/gemini-poweroff.txt  | 17 --------
->  2 files changed, 42 insertions(+), 17 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/power/reset/cortina,gemini-power-controller.yaml
->  delete mode 100644 Documentation/devicetree/bindings/power/reset/gemini-poweroff.txt
-> 
+>  drivers/clk/sunxi-ng/Kconfig             |   5 +
+>  drivers/clk/sunxi-ng/Makefile            |   2 +
+>  drivers/clk/sunxi-ng/ccu-sun60i-a733-r.c | 276 +++++++++++++++++++++++++=
+++++++
+>  3 files changed, 283 insertions(+)
+>
+> diff --git a/drivers/clk/sunxi-ng/Kconfig b/drivers/clk/sunxi-ng/Kconfig
+> index 6af2d020e03e..202e793dc754 100644
+> --- a/drivers/clk/sunxi-ng/Kconfig
+> +++ b/drivers/clk/sunxi-ng/Kconfig
+> @@ -67,6 +67,11 @@ config SUN55I_A523_R_CCU
+>         default ARCH_SUNXI
+>         depends on ARM64 || COMPILE_TEST
+>
+> +config SUN60I_A733_R_CCU
+> +       tristate "Support for the Allwinner A733 PRCM CCU"
+> +       default ARCH_SUNXI
+> +       depends on ARM64 || COMPILE_TEST
+> +
+>  config SUN4I_A10_CCU
+>         tristate "Support for the Allwinner A10/A20 CCU"
+>         default ARCH_SUNXI
+> diff --git a/drivers/clk/sunxi-ng/Makefile b/drivers/clk/sunxi-ng/Makefil=
+e
+> index a1c4087d7241..d3702bdb7a23 100644
+> --- a/drivers/clk/sunxi-ng/Makefile
+> +++ b/drivers/clk/sunxi-ng/Makefile
+> @@ -36,6 +36,7 @@ obj-$(CONFIG_SUN50I_H616_CCU) +=3D sun50i-h616-ccu.o
+>  obj-$(CONFIG_SUN55I_A523_CCU)  +=3D sun55i-a523-ccu.o
+>  obj-$(CONFIG_SUN55I_A523_MCU_CCU)      +=3D sun55i-a523-mcu-ccu.o
+>  obj-$(CONFIG_SUN55I_A523_R_CCU)        +=3D sun55i-a523-r-ccu.o
+> +obj-$(CONFIG_SUN60I_A733_R_CCU)        +=3D sun60i-a733-r-ccu.o
+>  obj-$(CONFIG_SUN4I_A10_CCU)    +=3D sun4i-a10-ccu.o
+>  obj-$(CONFIG_SUN5I_CCU)                +=3D sun5i-ccu.o
+>  obj-$(CONFIG_SUN6I_A31_CCU)    +=3D sun6i-a31-ccu.o
+> @@ -64,6 +65,7 @@ sun50i-h616-ccu-y             +=3D ccu-sun50i-h616.o
+>  sun55i-a523-ccu-y              +=3D ccu-sun55i-a523.o
+>  sun55i-a523-mcu-ccu-y          +=3D ccu-sun55i-a523-mcu.o
+>  sun55i-a523-r-ccu-y            +=3D ccu-sun55i-a523-r.o
+> +sun60i-a733-r-ccu-y            +=3D ccu-sun60i-a733-r.o
+>  sun4i-a10-ccu-y                        +=3D ccu-sun4i-a10.o
+>  sun5i-ccu-y                    +=3D ccu-sun5i.o
+>  sun6i-a31-ccu-y                        +=3D ccu-sun6i-a31.o
+> diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733-r.c b/drivers/clk/sunxi=
+-ng/ccu-sun60i-a733-r.c
+> new file mode 100644
+> index 000000000000..06679be1eaae
+> --- /dev/null
+> +++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733-r.c
+> @@ -0,0 +1,276 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2023 rengaomin@allwinnertech.com
+> + * Copyright (C) 2026 Junhui Liu <junhui.liu@pigmoral.tech>
+> + * Based on the A523 CCU driver:
+> + *   Copyright (C) 2024 Arm Ltd.
+> + */
+> +
+> +#include <linux/clk-provider.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +
+> +#include <dt-bindings/clock/sun60i-a733-r-ccu.h>
+> +#include <dt-bindings/reset/sun60i-a733-r-ccu.h>
+> +
+> +#include "ccu_common.h"
+> +#include "ccu_reset.h"
+> +
+> +#include "ccu_gate.h"
+> +#include "ccu_mp.h"
+> +
+> +static const struct clk_parent_data r_ahb_parents[] =3D {
+> +       { .fw_name =3D "hosc" },
+> +       { .fw_name =3D "losc" },
+> +       { .fw_name =3D "iosc" },
+> +       { .fw_name =3D "pll-periph0-200m" },
+> +       { .fw_name =3D "pll-periph0-300m" },
+> +};
+> +static SUNXI_CCU_M_DATA_WITH_MUX(r_ahb_clk, "r-ahb", r_ahb_parents, 0x00=
+0,
+> +                                0, 5,  /* M */
+> +                                24, 3, /* mux */
+> +                                0);
+> +
+> +static const struct clk_parent_data r_apb_parents[] =3D {
+> +       { .fw_name =3D "hosc" },
+> +       { .fw_name =3D "losc" },
+> +       { .fw_name =3D "iosc" },
+> +       { .fw_name =3D "pll-periph0-200m" },
+> +       { .fw_name =3D "sys-24m" },
+> +};
+> +
+> +static SUNXI_CCU_M_DATA_WITH_MUX(r_apb0_clk, "r-apb0", r_apb_parents, 0x=
+00c,
+> +                                0, 5,  /* M */
+> +                                24, 3, /* mux */
+> +                                0);
+> +
+> +static SUNXI_CCU_M_DATA_WITH_MUX(r_apb1_clk, "r-apb1", r_apb_parents, 0x=
+010,
+> +                                0, 5,  /* M */
+> +                                24, 3, /* mux */
+> +                                0);
+> +
+> +static SUNXI_CCU_MP_DATA_WITH_MUX_GATE(r_cpu_timer0, "r-timer0", r_apb_p=
+arents, 0x100,
+> +                                      0, 0,    /* no M */
+> +                                      1, 3,    /* P */
+> +                                      4, 3,    /* mux */
+> +                                      BIT(0),  /* gate */
+> +                                      0);
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Use SUNXI_CCU_P_DATA_WITH_MUX_GATE(). Same for the other ones.
 
-yamllint warnings/errors:
+> +static SUNXI_CCU_MP_DATA_WITH_MUX_GATE(r_cpu_timer1, "r-timer1", r_apb_p=
+arents, 0x104,
+> +                                      0, 0,    /* no M */
+> +                                      1, 3,    /* P */
+> +                                      4, 3,    /* mux */
+> +                                      BIT(0),  /* gate */
+> +                                      0);
+> +static SUNXI_CCU_MP_DATA_WITH_MUX_GATE(r_cpu_timer2, "r-timer2", r_apb_p=
+arents, 0x108,
+> +                                      0, 0,    /* no M */
+> +                                      1, 3,    /* P */
+> +                                      4, 3,    /* mux */
+> +                                      BIT(0),  /* gate */
+> +                                      0);
+> +static SUNXI_CCU_MP_DATA_WITH_MUX_GATE(r_cpu_timer3, "r-timer3", r_apb_p=
+arents, 0x10c,
+> +                                      0, 0,    /* no M */
+> +                                      1, 3,    /* P */
+> +                                      4, 3,    /* mux */
+> +                                      BIT(0),  /* gate */
+> +                                      0);
+> +
+> +static SUNXI_CCU_GATE_HW(bus_r_timer_clk, "bus-r-timer", &r_ahb_clk.comm=
+on.hw, 0x11c, BIT(0), 0);
+> +static SUNXI_CCU_GATE_HW(bus_r_twd_clk, "bus-r-twd", &r_apb0_clk.common.=
+hw, 0x12c, BIT(0), 0);
+> +
+> +static const struct clk_parent_data r_pwmctrl_parents[] =3D {
+> +       { .fw_name =3D "hosc" },
+> +       { .fw_name =3D "losc" },
+> +       { .fw_name =3D "iosc" },
+> +       { .fw_name =3D "sys-24m" },
+> +};
+> +static SUNXI_CCU_MUX_DATA_WITH_GATE(r_pwmctrl_clk, "r-pwmctrl", r_pwmctr=
+l_parents, 0x130,
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/reset/cortina,gemini-power-controller.example.dtb: power-controller@4b000000 (cortina,gemini-power-controller): '#power-domain-cells' is a required property
-	from schema $id: http://devicetree.org/schemas/power/power-domain.yaml
+r_pwm_clk, "r-pwm", ...
 
-doc reference errors (make refcheckdocs):
+> +                                   24, 2,      /* mux */
+> +                                   BIT(31),    /* gate */
+> +                                   0);
+> +static SUNXI_CCU_GATE_HW(bus_r_pwmctrl_clk, "bus-r-pwmctrl",
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260328124707.141209-1-khushalchitturi@gmail.com
+bus_r_pwm_clk, "bus-r-pwm".
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+> +                        &r_apb0_clk.common.hw, 0x13c, BIT(0), 0);
+> +
+> +static const struct clk_parent_data r_spi_parents[] =3D {
+> +       { .fw_name =3D "hosc" },
+> +       { .fw_name =3D "pll-periph0-200m" },
+> +       { .fw_name =3D "pll-periph0-300m" },
+> +       { .fw_name =3D "pll-periph1-300m" },
+> +       { .fw_name =3D "sys-24m" },
+> +};
+> +static SUNXI_CCU_DUALDIV_MUX_GATE(r_spi_clk, "r-spi", r_spi_parents, 0x1=
+50,
+> +                                 0, 5,         /* M */
+> +                                 8, 5,         /* N */
+> +                                 24, 3,        /* mux */
+> +                                 BIT(31),      /* gate */
+> +                                 0);
+> +static SUNXI_CCU_GATE_HW(bus_r_spi_clk, "bus-r-spi", &r_ahb_clk.common.h=
+w, 0x15c, BIT(0), 0);
+> +
+> +static SUNXI_CCU_GATE_HW(bus_r_msgbox_clk, "bus-r-msgbox", &r_ahb_clk.co=
+mmon.hw, 0x17c, BIT(0), 0);
+> +
+> +static SUNXI_CCU_GATE_HW(bus_r_uart0_clk, "bus-r-uart0", &r_apb1_clk.com=
+mon.hw, 0x18c, BIT(0), 0);
+> +static SUNXI_CCU_GATE_HW(bus_r_uart1_clk, "bus-r-uart1", &r_apb1_clk.com=
+mon.hw, 0x18c, BIT(1), 0);
+> +
+> +static SUNXI_CCU_GATE_HW(bus_r_i2c0_clk, "bus-r-i2c0", &r_apb1_clk.commo=
+n.hw, 0x19c, BIT(0), 0);
+> +static SUNXI_CCU_GATE_HW(bus_r_i2c1_clk, "bus-r-i2c1", &r_apb1_clk.commo=
+n.hw, 0x19c, BIT(1), 0);
+> +static SUNXI_CCU_GATE_HW(bus_r_i2c2_clk, "bus-r-i2c2", &r_apb1_clk.commo=
+n.hw, 0x19c, BIT(2), 0);
+> +
+> +static SUNXI_CCU_GATE_HW(bus_r_ppu_clk, "bus-r-ppu", &r_apb0_clk.common.=
+hw, 0x1ac, BIT(0), 0);
+> +
+> +static SUNXI_CCU_GATE_HW(bus_r_tzma_clk, "bus-r-tzma", &r_apb0_clk.commo=
+n.hw, 0x1b0, BIT(0), 0);
+> +static SUNXI_CCU_GATE_HW(bus_r_cpu_bist_clk, "bus-r-cpu-bist", &r_apb0_c=
+lk.common.hw,
+> +                        0x1bc, BIT(0), 0);
+> +
+> +static const struct clk_parent_data r_ir_rx_parents[] =3D {
+> +       { .fw_name =3D "losc" },
+> +       { .fw_name =3D "hosc" },
+> +       { .fw_name =3D "sys-24m" },
+> +};
+> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(r_ir_rx_clk, "r-ir-rx", r_ir_rx_pa=
+rents, 0x1c0,
+> +                                     0, 5,     /* M */
+> +                                     24, 2,    /* mux */
+> +                                     BIT(31),  /* gate */
+> +                                     0);
+> +static SUNXI_CCU_GATE_HW(bus_r_ir_rx_clk, "bus-r-ir-rx", &r_apb0_clk.com=
+mon.hw, 0x1cc, BIT(0), 0);
+> +
+> +static SUNXI_CCU_GATE_HW(bus_r_rtc_clk, "bus-r-rtc", &r_ahb_clk.common.h=
+w, 0x20c, BIT(0), 0);
+> +
+> +static const struct clk_parent_data r_riscv_parents[] =3D {
+> +       { .fw_name =3D "hosc" },
+> +       { .fw_name =3D "losc" },
+> +       { .fw_name =3D "iosc" },
+> +};
+> +static SUNXI_CCU_MUX_DATA_WITH_GATE(r_riscv_clk, "r-riscv", r_riscv_pare=
+nts, 0x210,
+> +                                 24, 2,        /* mux */
+> +                                 BIT(31),      /* gate */
+> +                                 0);
+> +static SUNXI_CCU_GATE_HW(bus_r_riscv_clk, "bus-r-riscv", &r_apb0_clk.com=
+mon.hw,
+> +                        0x21c, BIT(0), 0);
+> +static SUNXI_CCU_GATE_HW(bus_r_riscv_cfg_clk, "bus-r-riscv-cfg", &r_apb0=
+_clk.common.hw,
+> +                        0x21c, BIT(1), 0);
+> +
+> +static SUNXI_CCU_GATE_HW(bus_r_cpucfg_clk, "bus-r-cpucfg", &r_apb0_clk.c=
+ommon.hw,
+> +                        0x22c, BIT(0), CLK_IS_CRITICAL);
+> +
+> +static struct ccu_common *sun60i_a733_r_ccu_clks[] =3D {
+> +       &r_ahb_clk.common,
+> +       &r_apb0_clk.common,
+> +       &r_apb1_clk.common,
+> +       &r_cpu_timer0.common,
+> +       &r_cpu_timer1.common,
+> +       &r_cpu_timer2.common,
+> +       &r_cpu_timer3.common,
+> +       &bus_r_timer_clk.common,
+> +       &bus_r_twd_clk.common,
+> +       &r_pwmctrl_clk.common,
+> +       &bus_r_pwmctrl_clk.common,
+> +       &r_spi_clk.common,
+> +       &bus_r_spi_clk.common,
+> +       &bus_r_msgbox_clk.common,
+> +       &bus_r_uart0_clk.common,
+> +       &bus_r_uart1_clk.common,
+> +       &bus_r_i2c0_clk.common,
+> +       &bus_r_i2c1_clk.common,
+> +       &bus_r_i2c2_clk.common,
+> +       &bus_r_ppu_clk.common,
+> +       &bus_r_tzma_clk.common,
+> +       &bus_r_cpu_bist_clk.common,
+> +       &r_ir_rx_clk.common,
+> +       &bus_r_ir_rx_clk.common,
+> +       &bus_r_rtc_clk.common,
+> +       &r_riscv_clk.common,
+> +       &bus_r_riscv_clk.common,
+> +       &bus_r_riscv_cfg_clk.common,
+> +       &bus_r_cpucfg_clk.common,
+> +};
+> +
+> +static struct clk_hw_onecell_data sun60i_a733_r_hw_clks =3D {
+> +       .hws =3D {
+> +               [CLK_R_AHB]             =3D &r_ahb_clk.common.hw,
+> +               [CLK_R_APB0]            =3D &r_apb0_clk.common.hw,
+> +               [CLK_R_APB1]            =3D &r_apb1_clk.common.hw,
+> +               [CLK_R_TIMER0]          =3D &r_cpu_timer0.common.hw,
+> +               [CLK_R_TIMER1]          =3D &r_cpu_timer1.common.hw,
+> +               [CLK_R_TIMER2]          =3D &r_cpu_timer2.common.hw,
+> +               [CLK_R_TIMER3]          =3D &r_cpu_timer3.common.hw,
+> +               [CLK_BUS_R_TIMER]       =3D &bus_r_timer_clk.common.hw,
+> +               [CLK_BUS_R_TWD]         =3D &bus_r_twd_clk.common.hw,
+> +               [CLK_R_PWMCTRL]         =3D &r_pwmctrl_clk.common.hw,
+> +               [CLK_BUS_R_PWMCTRL]     =3D &bus_r_pwmctrl_clk.common.hw,
+> +               [CLK_R_SPI]             =3D &r_spi_clk.common.hw,
+> +               [CLK_BUS_R_SPI]         =3D &bus_r_spi_clk.common.hw,
+> +               [CLK_BUS_R_MSGBOX]      =3D &bus_r_msgbox_clk.common.hw,
+> +               [CLK_BUS_R_UART0]       =3D &bus_r_uart0_clk.common.hw,
+> +               [CLK_BUS_R_UART1]       =3D &bus_r_uart1_clk.common.hw,
+> +               [CLK_BUS_R_I2C0]        =3D &bus_r_i2c0_clk.common.hw,
+> +               [CLK_BUS_R_I2C1]        =3D &bus_r_i2c1_clk.common.hw,
+> +               [CLK_BUS_R_I2C2]        =3D &bus_r_i2c2_clk.common.hw,
+> +               [CLK_BUS_R_PPU]         =3D &bus_r_ppu_clk.common.hw,
+> +               [CLK_BUS_R_TZMA]        =3D &bus_r_tzma_clk.common.hw,
+> +               [CLK_BUS_R_CPU_BIST]    =3D &bus_r_cpu_bist_clk.common.hw=
+,
+> +               [CLK_R_IR_RX]           =3D &r_ir_rx_clk.common.hw,
+> +               [CLK_BUS_R_IR_RX]       =3D &bus_r_ir_rx_clk.common.hw,
+> +               [CLK_BUS_R_RTC]         =3D &bus_r_rtc_clk.common.hw,
+> +               [CLK_R_RISCV]           =3D &r_riscv_clk.common.hw,
+> +               [CLK_BUS_R_RISCV]       =3D &bus_r_riscv_clk.common.hw,
+> +               [CLK_BUS_R_RISCV_CFG]   =3D &bus_r_riscv_cfg_clk.common.h=
+w,
+> +               [CLK_BUS_R_CPUCFG]      =3D &bus_r_cpucfg_clk.common.hw,
+> +       },
+> +       .num =3D CLK_BUS_R_CPUCFG + 1,
+> +};
+> +
+> +static struct ccu_reset_map sun60i_a733_r_ccu_resets[] =3D {
+> +       [RST_BUS_R_TIMER]       =3D { 0x11c, BIT(16) },
+> +       [RST_BUS_R_PWM]         =3D { 0x13c, BIT(16) },
+> +       [RST_BUS_R_SPI]         =3D { 0x15c, BIT(16) },
+> +       [RST_BUS_R_MSGBOX]      =3D { 0x17c, BIT(16) },
+> +       [RST_BUS_R_UART0]       =3D { 0x18c, BIT(16) },
+> +       [RST_BUS_R_UART1]       =3D { 0x18c, BIT(17) },
+> +       [RST_BUS_R_I2C0]        =3D { 0x19c, BIT(16) },
+> +       [RST_BUS_R_I2C1]        =3D { 0x19c, BIT(17) },
+> +       [RST_BUS_R_I2C2]        =3D { 0x19c, BIT(18) },
+> +       [RST_BUS_R_IR_RX]       =3D { 0x1cc, BIT(16) },
+> +       [RST_BUS_R_RTC]         =3D { 0x20c, BIT(16) },
+> +       [RST_BUS_R_RISCV_CFG]   =3D { 0x21c, BIT(16) },
+> +       [RST_BUS_R_CPUCFG]      =3D { 0x22c, BIT(16) },
+> +};
+> +
+> +static const struct sunxi_ccu_desc sun60i_a733_r_ccu_desc =3D {
+> +       .ccu_clks       =3D sun60i_a733_r_ccu_clks,
+> +       .num_ccu_clks   =3D ARRAY_SIZE(sun60i_a733_r_ccu_clks),
+> +
+> +       .hw_clks        =3D &sun60i_a733_r_hw_clks,
+> +
+> +       .resets         =3D sun60i_a733_r_ccu_resets,
+> +       .num_resets     =3D ARRAY_SIZE(sun60i_a733_r_ccu_resets),
+> +};
+> +
+> +static int sun60i_a733_r_ccu_probe(struct platform_device *pdev)
+> +{
+> +       void __iomem *reg;
+> +
+> +       reg =3D devm_platform_ioremap_resource(pdev, 0);
+> +       if (IS_ERR(reg))
+> +               return PTR_ERR(reg);
+> +
+> +       return devm_sunxi_ccu_probe(&pdev->dev, reg, &sun60i_a733_r_ccu_d=
+esc);
+> +}
+> +
+> +static const struct of_device_id sun60i_a733_r_ccu_ids[] =3D {
+> +       { .compatible =3D "allwinner,sun60i-a733-r-ccu" },
+> +       { /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, sun60i_a733_r_ccu_ids);
+> +
+> +static struct platform_driver sun60i_a733_r_ccu_driver =3D {
+> +       .probe  =3D sun60i_a733_r_ccu_probe,
+> +       .driver =3D {
+> +               .name                   =3D "sun60i-a733-r-ccu",
+> +               .suppress_bind_attrs    =3D true,
+> +               .of_match_table         =3D sun60i_a733_r_ccu_ids,
+> +       },
+> +};
+> +module_platform_driver(sun60i_a733_r_ccu_driver);
+> +
+> +MODULE_IMPORT_NS("SUNXI_CCU");
+> +MODULE_DESCRIPTION("Support for the Allwinner A733 PRCM CCU");
+> +MODULE_LICENSE("GPL");
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+The rest look OK.
 
-pip3 install dtschema --upgrade
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+ChenYu
