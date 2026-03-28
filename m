@@ -1,115 +1,114 @@
-Received: from mail-dl1-f67.google.com (mail-dl1-f67.google.com [74.125.82.67])
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5490F37883E
-	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 09:46:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0593E2D7DC4
+	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 09:47:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774691220; cv=none; b=uujleVWuqUsCBA3IXSHrz+L/JUsmEb3zRZFolUBKxU/cyw84sv+1BvL+ahj1GumQGn8rR8LnJ7CgdrnI6lGitN0cqkCxWeOVSq9O4d/bE7RM5wMs3Q4YEsnRkCDYA8i8ICJzncxGdLB4zeeBK1MdRPcZFPdS+uwkvtM4K52s+AM=
+	t=1774691250; cv=none; b=UHWW5tAW6DWxicRgYUoboQfu0w3pshoa7892h5KYyPZF3heMW0zS2qRNhe16bvfGgvZw5SkUAa34/U7LgcJDqBgpsB7N9jfJgWkjqotUf7qnvW6ee7KyahfiKlkdCCv6yw/l8/kUQySa9Hh8WsLy+HgMgW0pkWzYKWXgv0fhBnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774691220; c=relaxed/simple;
-	bh=Mug/7k7yiQUruxGBnY8AYdjOaizJTDak/1tlC45nw+M=;
-	h=From:Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:To:
-	 References:In-Reply-To; b=NieHEqn/A7Wr0VQwD2oD8vVbuYDhc5zrTWMMkhO3UG6W5rO9c7+am8phl9bN4ZOl9rsYbbJJeOBdhdPBmlKsN2sQwrUb7x2X9+yVa7otHz1SASK0Ni1IsmYZR/XIVH/4XxDhBqjcWwqAwedco/3shNBnC8DHvtQoJ25xUZWEEyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hbCCUYnd; arc=none smtp.client-ip=74.125.82.67
+	s=arc-20240116; t=1774691250; c=relaxed/simple;
+	bh=Jxt6Vb/LL+6x0BLPYxR+WMTw7Py82v9S57v6w1ZdW6Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HK5HoLTKe7GW9OV3RruqWC1KIpABOwuO+YNwRNVbWQOjg5WDEbXe1exsprE5LS6YrB/627cCiiL3j8S1BLrh7UQwd7N3xuA8ISNT/z7B46T1H7FIaWuYlkNjd7hd/j7pTCAjsAmkLQcYorXejh6nEBzVUHbet8H/aQSLN2QhLck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XW8/ExsC; arc=none smtp.client-ip=209.85.215.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hbCCUYnd"
-Received: by mail-dl1-f67.google.com with SMTP id a92af1059eb24-1279eced0b9so4297499c88.0
-        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 02:46:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XW8/ExsC"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c70fb6aa323so1132250a12.3
+        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 02:47:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774691218; x=1775296018; darn=vger.kernel.org;
-        h=in-reply-to:references:to:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Mm84PKI95ws94X4le7u52sogEFGb/3XJpC4WJ7nzO9w=;
-        b=hbCCUYnd03IEV2qXqs7pGx5GJHzmQjAmJFHIUJUSoeupOjNiBiTJOvhK5n91Yr42VX
-         TkLuYzQAwKv5mVjMawF6lGGn0EMRt5TrJzDiI9cCuM4HUUVpdSY9b8JnVzkmu9H5Vjo5
-         /4KKlvt+wKCRm/5J+jepihAftOgGExBt4RYGlgXyhLEE9NCjfC0+/siGMIi8QyEp1yt4
-         bGaIfM0FzWUshpMunFz2C1xuK1oD0etOWt+GLT9hylxnuLU01HoYhxCOKMt1pIrvGvjH
-         ic4YCCEUSsZ+p4yyoE4JjrvfZTrNUjSWeZYnvul58kYyRDYnZF7fztmREO2mv1iKJ1Ed
-         M7+w==
+        d=gmail.com; s=20251104; t=1774691248; x=1775296048; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=G2KVjx+zR6dP4AMcDHfWZnjTLG5qrt1ahEeg2hEXDck=;
+        b=XW8/ExsCEmLvyvg0eY4nkTgPFNRWuyswV6wt+nFxXr4YPIyXnlT37d3HYBiejeihRJ
+         d2uH6ImyJE1f6kxEJmzsFQY/baoF30Ngr02bgtqF8pQP5wAXTcEL209xtzK5WQKFTGYQ
+         UrSW6VRWOD8sKosHoAWBbCsADZIcUpzp1S+FofRTXTqN5+aJ74NCX82/Vh652nt2O9eV
+         8Dq2Zjv+8CRjykUuT1xUYhe+FMcWSirhDdbej+efkVbFPB+9GFiXeYzojpVdXdj7mx50
+         B9h4thPSfbmp/+m0aw0B3EKQUhYb90UGydZ7x6Pde7UL3PBI5XCPJ0E9p2zpH5DUQX9/
+         Irjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774691218; x=1775296018;
-        h=in-reply-to:references:to:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Mm84PKI95ws94X4le7u52sogEFGb/3XJpC4WJ7nzO9w=;
-        b=NSvNCZVio3XFQcIvZSE6kSAoaI+cPctCo1VG1rG5EEqTNr6EQOUolF6eLTAW25l9KG
-         cKKHvAKJ8cM07HZGPmUCsfXbeZfNzuupKgT0XZXwgOiLi2tqtDuvijT0+9Q38AZ39+2O
-         KTZzOm5SHje9+oPsVZS5wIkyTeT6UJW5+D+K/wKzHTToUy532S1KfGIC3sQn+wed506k
-         gMtgok9lc7/DODFBTXY28I/VEWMyP73jT/n3tZ4n/TpXOdfa2csYhMpoyRDdqvtpQUPI
-         ZDfHX46TNiZRzjA2qVSYAsWdrn8SeOVmPYqnLU2PR/v3iJUsxBo1bUIxu5XQChrGMDQl
-         fcWg==
-X-Forwarded-Encrypted: i=1; AJvYcCW0LCmfvxaNGLhdavofcN93EHXiFdMk6D/X83oUl7+KvHWD7s9RPG3wOC6PT4dDsT/sIWVNpDGozLWX@vger.kernel.org
-X-Gm-Message-State: AOJu0YwZ7r76p1Xy7N5PFc+qaOywh/Ist9y1KTtSE4eG7E6HKYTftVEM
-	0RjVzXHjHAHXauI6wo64eBT9MtTkNB9IxFskTwTZpbbAT1PfPIxqQ7qT
-X-Gm-Gg: ATEYQzxEb/1WkrhCS1mvGGOpkTWhVjhzYdGSbp/VW460UMiLaic9sp2ymCWolnhh/L4
-	rBdiOB0H+5Fhw5VQNBzkkifRKJjmrlcjKy1a1/T9wxyX/Imw1+nd3lR0tEhR8J6P1d4pVkYUigF
-	aMnBeZ3R4o3QKG5N/ux0WfhTaKR/fsoXZ7tvlaay+7qWUjtKdsN3Bz3WP/mQ2/GU68sbaCQeO7k
-	Qdg5OLNteBoczIyH1fDEV5spVV0yIOtxMpeLHWPnHqCIgBscbtWm+6KtckBh1lRm8kRMZ4mJmrp
-	pVQjaQio0Hnd18/xxFC2vfFKz2OaQ18fsyUCcRQGkGTdzXhI4fxtNJvFrtpvTJovIke7DWVnOjx
-	Qc210WkgsEXBv29aVi0QerC9+u9vygHu5LUOZxpaGJQl2Aj0zLXJCKCmGLIB7ACspXqSHBCg3SK
-	w1WYWbY9ngtlA2pWUuwVGGLsSCVppBp5FILHf5zA==
-X-Received: by 2002:a05:7022:6085:b0:123:345b:ba05 with SMTP id a92af1059eb24-12ab28cb38cmr3135449c88.22.1774691218233;
-        Sat, 28 Mar 2026 02:46:58 -0700 (PDT)
-Received: from localhost ([104.28.227.186])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12aba581027sm1773856c88.4.2026.03.28.02.46.56
+        d=1e100.net; s=20251104; t=1774691248; x=1775296048;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=G2KVjx+zR6dP4AMcDHfWZnjTLG5qrt1ahEeg2hEXDck=;
+        b=ZRdIGGecY6W08m+qqPuTWfnp9r6WzwGa8uL2DciY7Znct0mMND6rPh90apW9BoFx2g
+         2MsiRZfXUN3R9h5+289ko3paDLongFh8E1PQ8TBfGas2EKPcgzLeiILhS+j8pHG/1im/
+         V9OnoZm4OoCnIgQYUuqWvudcArk7ytMKuwcAXOJlxGcN2JIggXYiEeLgVNMntxenlVZU
+         N98N9LZ3oJiFCav7iU6CcD+xY2vihvrqg0s66w5deJmfb3QsIt3eBEgnkLlt3NObVkPX
+         oDhx4sPdsd5T2kNrv6Jh+yyfrl9SJnUPMsVgnSFfIPSEegC0B24BCwJlPIl7zmjj3x1r
+         Bo3A==
+X-Forwarded-Encrypted: i=1; AJvYcCXooi3Qcrarqc6nZDoZFREauCCdovwg8cJc4ozS9sfW4+YdceLB3BXJO7HRpOFiZcEMZJPj3W3lQZuQ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzj339vTkH8iM++n7O7L+SPjUmRr9jpqCvoUluCtDw9xmm8G5N2
+	2NZ62G8ZYdXY7nwkKok5XjZOCoj5IgVrRhTR6A+lFqup0zXV3eCZb5z6
+X-Gm-Gg: ATEYQzz+T63asIWsAexyigDtCDsCCEGT9Im+tuKBjxYYyKEM9ROL16DXELnKg0RpwUg
+	jobYA7wYkRLlQTb8RnnPcS6HQ0Kr0mMpF47Wd1KNNtR6cCRTU6XMX9uW+nzjsuNmwxploq5R0o+
+	D6I0A+QZJxJ1al4LLhncZ0B+fpoF+pZkT9LPcunXVZTxrAH2ZvkAUqlSkGO/ejyCOShFl+DCSD6
+	ce9ZAXlmcl7Wz7tpOHmgS0jNINh7OLYEqS69P3ii0rLKtOXfRfIPJPNeFAXCVB9Dq+a/sS011Nn
+	oTA3klSKn2XSpvSJ02RCjoM+wi1849DO48Rb3/K/Vxh+hIa0caC+hPpobgrPLaF43iU8sEzYLJR
+	MqxhIJDIpnpc/GU4SsD1JcYhgQdlBr3gx5AdfD+eMjzmcWV9OXEY5R48YAifpZaizVT214jHuHl
+	WRki+WJ2toUMnZqCqfmyc=
+X-Received: by 2002:a17:902:ea08:b0:2b0:6e8f:8e73 with SMTP id d9443c01a7336-2b0cdd9260amr63454695ad.44.1774691248291;
+        Sat, 28 Mar 2026 02:47:28 -0700 (PDT)
+Received: from fedora ([122.173.26.34])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b242787bc7sm18789745ad.59.2026.03.28.02.47.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Mar 2026 02:46:57 -0700 (PDT)
-From: Troy Mitchell <troymitchell988@gmail.com>
-X-Google-Original-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+        Sat, 28 Mar 2026 02:47:28 -0700 (PDT)
+Date: Sat, 28 Mar 2026 15:16:49 +0530
+From: ShiHao <i.shihao.999@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: andi.shyti@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+	conor+dt@kernel.org, linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	i.shihao.999@gmail.com
+Subject: Re: [PATCH] dt-bindings: i2c: intel,ixp4xx-i2c: Convert to Dt schema
+Message-ID: <acejiSOOcHmqcouI@fedora>
+References: <20260324135010.17730-1-i.shihao.999@gmail.com>
+ <20260325-bulky-mushroom-of-science-8c95c4@quoll>
+ <acP69aM-euL7wl87@fedora>
+ <c9b68d56-48f1-4ade-8711-fedd8acf0666@kernel.org>
+ <acQqE-iW51fOJnTJ@fedora>
+ <1bda00e6-a3bf-4890-8982-4d61a4b4845e@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 28 Mar 2026 17:46:54 +0800
-Message-Id: <DHEBJ4VVDDY2.2KRIW6EP7EXOL@linux.spacemit.com>
-Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Paul Walmsley"
- <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
- <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Yixun Lan"
- <dlan@kernel.org>, "Vinod Koul" <vkoul@kernel.org>, "Frank Li"
- <Frank.Li@kernel.org>, "Guodong Xu" <guodong@riscstar.com>, "Michael
- Turquette" <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>,
- <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <dmaengine@vger.kernel.org>, <linux-clk@vger.kernel.org>
-Subject: Re: [PATCH v2 1/7] dt-bindings: dmaengine: Add SpacemiT K1 DMA
- request definitions
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260326-k3-pdma-v2-0-ca94ca7bb595@linux.spacemit.com>
- <20260326-k3-pdma-v2-1-ca94ca7bb595@linux.spacemit.com>
- <20260327-fancy-nondescript-mouse-cfd6f3@quoll>
-In-Reply-To: <20260327-fancy-nondescript-mouse-cfd6f3@quoll>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <1bda00e6-a3bf-4890-8982-4d61a4b4845e@kernel.org>
 
-On Fri Mar 27, 2026 at 3:27 PM CST, Krzysztof Kozlowski wrote:
-> On Thu, Mar 26, 2026 at 04:17:16PM +0800, Troy Mitchell wrote:
->> From: Guodong Xu <guodong@riscstar.com>
->>=20
->> Add the DMA request numbers for non-secure peripherals of the K1 SoC
->> from SpacemiT.
->>=20
->> Signed-off-by: Guodong Xu <guodong@riscstar.com>
->> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
->> ---
->
-> No changelog - neither here, nor in commit msg.
-My apologies, patches 1-6 were added in v2.
-I missed including this in the version history..
+On Thu, Mar 26, 2026 at 08:08:06AM +0100, Krzysztof Kozlowski wrote:
+ 
+> By running, I assume actually read its output and fix it, so please
+> share why each one of your patches has the same mistake reported by
+> checkpatch?
+> 
+> > I will send the next version in the coming days after properly running the
+> > checkpatch.pl script. Also, you mentioned some guidelines regarding GSoC
+> > could you please let me know where I can read them?
+> 
+> I gave them to GSoC folks, so they should be in the GSoC DT
+> guidelines/description. It was also posted for more than a year on
+> @krzk@social.kernel.org and some days ago I updated it as well.
+> 
+> Best regards,
+> Krzysztof
 
->
->>  include/dt-bindings/dma/k1-pdma.h | 56 ++++++++++++++++++++++++++++++++=
-+++++++
->
-> So previous review applies, no? Was there such?
-No, since it's a new addition, there are naturally no previous reviews.
+Hello Krzysztof,
 
-                            - Troy
+      I hope you are doing good. I checked this binding it has 3 warnings
+      one of them was  from the license text and the rest two are this" 
+      WARNING: DT binding docs and includes should be a separate patch.
+      See: Documentation/devicetree/bindings/submitting-patches.rst". I fixed
+      the license warning but not these two "DT binding doc warnings". I wonder
+      what warning you want me to fix please let me know if i need to solve 
+      this remaining two  warnings because they are in my every conversion patches.
+
+Thanks
+Shihao
+
