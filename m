@@ -1,127 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F7CD19A288;
-	Sat, 28 Mar 2026 15:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8DF330E84D
+	for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 15:15:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774710542; cv=none; b=Jdj2sSUidtJ6yv1KiOlzbS92hUaJFNSTdnXt5lnoDSXpkKoDk12dh/LdB7QPJzaWNek++JiZhemHjW6hv0Q8ln0I83q9+cuguUxtqyk0oF03SYGP0iqk1XsRmnK/m/fl87uiFzQvxV9zFdoJcrlK5IZ7IWXGW6AiQ0ek+fU4Sk8=
+	t=1774710941; cv=none; b=bhZjOxtRNLeU44OS6fRn3U6wbYiVybxqVGGpwo2Y2hbOd0kL3jB8eAuhL7DbVTdU0RljWkTpm+eK+T2TzAUeWO+/KfEGw0Wxhvi48kXPb0pWPiHkn+bq1mlUXgHpmB5AOdkAZv6ue/KNaTix2hJHZx1s6ljXOm2SoCQa3uvWmSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774710542; c=relaxed/simple;
-	bh=f4jtTXWSiIlCOlJc3oR68U4Ho/sJpM+94pW7SY0m/NE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=i/CrrBuq2LtVFOX5+Tcf9dDjtddgmq1dmLeWWS5vwxAUQKm8k0s51f0DxSDPUvyCC2Xl0b2mcteUUis0+YKQ1A+cRWE5gqTW72ci8SKsLOCXFegVx/VwqBymP9dRm+Chol1fLlQjEJ+6UyNLKLMvdSqjxs+wtyfjfEsw6N0rV/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bmTxG5Vb; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774710941; c=relaxed/simple;
+	bh=ICqzzqLxaQ0oD8cZsvkZ1Auyp2BNEN+4P7TyZ9353cc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pwQE7+h//oeRFD9aImSLuEOFJDR7bC2fP81taNhUXbM3mbm1/UqsgTbOKQBCw+pP1VCGLTw1FiL6kN+hkVGyYLZHMhQQlnYqXusNSaVVBy4hScAIhOYjGihGih9ffl/cQoQkTtdbDF48lP9lOPHL8lOeZ5ziZD02GY03ppFbsH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dA+R35wl; arc=none smtp.client-ip=209.85.222.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bmTxG5Vb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5806BC4CEF7;
-	Sat, 28 Mar 2026 15:08:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774710541;
-	bh=f4jtTXWSiIlCOlJc3oR68U4Ho/sJpM+94pW7SY0m/NE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=bmTxG5VbZBObsW+Jt4DoN50SpyD4KnFsC9ttqJC8ud6E7PdxVN7vTtYzw76g6cFTR
-	 yP9o9Y/wXlC21TAGvvFAYVPOiFQrUju/4XfKoLXuT0B1SqOgL/G7hSmTIwNBlQ+2It
-	 bFDU00PIjmBNO4ZAuwajlvmY6wBinRUB8tkk+eEkudJ3jFr+If+bXL9W4nkjWjvlnG
-	 dTY8BAt8bCnwIBEor2HljgHnrRj82ohJ9ySFJSyBU43UYMnNwJzndIvjG2Zdz26ea0
-	 MU0g50ii3lV0kL0OL/rd+81mGeP48VlNdxJ3wwBO9YhVUujy5PnyzfC5EMO+WeoGDc
-	 4EpSQVIX/8u/g==
-Message-ID: <9b3ee9e9-d44d-49b1-81ac-9c3806dc0efb@kernel.org>
-Date: Sat, 28 Mar 2026 16:08:57 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dA+R35wl"
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-8cb4136d865so389752385a.1
+        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 08:15:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774710939; x=1775315739; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=/kDUry0xFE9vHvVj18ny7RFWBuEEHB+W5Lxw16DJs+g=;
+        b=dA+R35wlUXZthVYGFUmdvTh3S5roPveh3Y/N6QKO297DQmVZkjvhRagCSqIcVWYsfA
+         Jf2DdqM0E9BzSrjkYKH/SiUvBSVtlCIyzbs2YsmjOJcby4VyB3/YLft/0BVno25gdlg+
+         HuDDa/S4epzZ9or/feRGuInInpPyldD7dUI9yEpDk94OEoE4g1AWrJIjWSMq86K3ZHco
+         CFM2AHFPLB/3OInhMbyxiXzyVyUWocSA5Lk853bSg9YgKzKj/9IJhRg4kCT6Iufua3Vd
+         A+SLJM3IO/8VBNdN19oB4ybvAIpCymqHbuQ8z04WUjxOm+UI7Z7DPOmeCFOMLPVid0bJ
+         Pzuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774710939; x=1775315739;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=/kDUry0xFE9vHvVj18ny7RFWBuEEHB+W5Lxw16DJs+g=;
+        b=ZIUF6QZp2O7l78wwSYsTJRDu+9YKqSVS1G72gyTQG1JE/pZuVs4XO6jxbAX/jGFLFh
+         XwAmlrGQVYrGTsiclLSDWIxyAZ+/c0sQ5ipTjhCuVUdWQMFZAiydPa/dwuLtgiR8MQYG
+         vDzk1kn0hl8vV99CGNXSgpAtMDu7rUgrImGv4uCbKLHOEBas71yKzkEtfPbycPYeJaah
+         9EMcY0m58ezoEbW/25n9dAH7oXl52slhBgja0dGnwQ6WVD5ZLDJ0LYSfRjdBrBLC3bY3
+         49U8MKf/AJf4xqNgcHKPHuib2Wi7IkBrZzJneu6SRcAnqsJRsnIow1DOj57dNcg8mb3t
+         +jzg==
+X-Forwarded-Encrypted: i=1; AJvYcCXj7LKpUuv9v3dsoRtQyfKQRSclEjm2mIqzG49Q+GmA7G9aNFGmsn0qhGI0rHcjgOANpKZp6DXVj2jX@vger.kernel.org
+X-Gm-Message-State: AOJu0YxZfFD34cN5Tgq2pQlhFpYJORUJW7MzSQ3t0u/dIa95ohCPkPiT
+	nO37Fc0puxUXexxIbVKLDAJ308QqyJUYUkqA8GCRUv2t6YEqgEYZZQm9
+X-Gm-Gg: ATEYQzzfMk0yeFbtPepWDflQrBcpGjbGgcPs3HOO3ytdG/0Qxk66Js2/QPrCuiQB1Au
+	lyWoOW6kMGDGgTVIEbW4mQ29TyxTLx29ihArZEwePtHaUw5dWA+AhL8WsGaibIdF0xgxd00iPON
+	2xfg5M43KkseQDsn60d0W+qQZzdVr7WePzrksiLU1fZvZfvwAW3ZV0jQbIecDoSDr+LsJFxYy2u
+	un8ol2rYeW1hRZCLfqG6ibvDQPff3qyv3XJkLhELbztl3P4SGPswQgZcgWt9ESf9tNInQasJ3PW
+	4xieNSuQfhejGFoMcVc+1vKVFeFLETh+UMOjVq3Hadvv8yoDtevM5HGvab46XspPKH50QSapwZJ
+	uJ3Syjr3ZKyemMWnb+7b6WcQRS6yob4CLSRT9oPEF8wUdOaoZYCELxTXb9+Xg2ZptoS8NIwGDLL
+	VONG4+cqzQ3ggZEidff9fLayHILQ==
+X-Received: by 2002:a05:620a:4446:b0:8cf:e0fe:f217 with SMTP id af79cd13be357-8d01c60d34cmr849118585a.20.1774710938926;
+        Sat, 28 Mar 2026 08:15:38 -0700 (PDT)
+Received: from localhost ([184.144.58.243])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8d02808677dsm181603085a.42.2026.03.28.08.15.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 28 Mar 2026 08:15:38 -0700 (PDT)
+Date: Sat, 28 Mar 2026 11:16:14 -0400
+From: Richard Acayan <mailingradian@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Amit Kucheria <amitk@kernel.org>,
+	Thara Gopinath <thara.gopinath@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 2/4] dt-bindings: thermal: lmh: Add SDM670 compatible
+Message-ID: <acfwvk8ptnBrGmVx@rdacayan>
+References: <20260328014041.83777-1-mailingradian@gmail.com>
+ <20260328014041.83777-3-mailingradian@gmail.com>
+ <20260328-resilient-smilodon-of-improvement-a8619f@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: rockchip: Add RK3562 serial aliases
-To: =?UTF-8?B?6LCi6Ie06YKmIChYSUUgWmhpYmFuZyk=?= <Yeking@Red54.com>,
- linux-rockchip@lists.infradead.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Kever Yang <kever.yang@rock-chips.com>,
- Finley Xiao <finley.xiao@rock-chips.com>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <tencent_4BED6C3FFB8102B4BB3D08D6F47F2CCFC908@qq.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <tencent_4BED6C3FFB8102B4BB3D08D6F47F2CCFC908@qq.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260328-resilient-smilodon-of-improvement-a8619f@quoll>
 
-On 28/03/2026 14:05, 谢致邦 (XIE Zhibang) wrote:
-> This fixes the stdout-path in rk3562-evb2-v10.dts.
+On Sat, Mar 28, 2026 at 01:20:43PM +0100, Krzysztof Kozlowski wrote:
+> On Fri, Mar 27, 2026 at 09:40:39PM -0400, Richard Acayan wrote:
+> > Document the SDM670 LMh.
+> > 
+> > Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 > 
-> Fixes: ceb6ef1ea900 ("arm64: dts: rockchip: Add RK3562 evb2 devicetree")
-> Signed-off-by: 谢致邦 (XIE Zhibang) <Yeking@Red54.com>
-> ---
->  arch/arm64/boot/dts/rockchip/rk3562.dtsi | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3562.dtsi b/arch/arm64/boot/dts/rockchip/rk3562.dtsi
-> index e4816aa3dae0..14e74e8ac7df 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3562.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3562.dtsi
-> @@ -26,6 +26,16 @@ aliases {
->  		gpio2 = &gpio2;
->  		gpio3 = &gpio3;
->  		gpio4 = &gpio4;
-> +		serial0 = &uart0;
-> +		serial1 = &uart1;
-> +		serial2 = &uart2;
-> +		serial3 = &uart3;
-> +		serial4 = &uart4;
-> +		serial5 = &uart5;
-> +		serial6 = &uart6;
-> +		serial7 = &uart7;
-> +		serial8 = &uart8;
-> +		serial9 = &uart9;
+> Why are you sending patches already applied 18 days ago?
 
-UART aliases are properties of the boards, not SoC.
+This one in particular was applied with the assumption that there were
+no driver changes to support SDM670, so I re-sent it in case the
+different CPU clusters change the suitability of the fallback
+compatible.
 
-Best regards,
-Krzysztof
+I'll drop them next time, and patch over this if necessary.
