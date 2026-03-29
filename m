@@ -1,127 +1,91 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from srv01.abscue.de (abscue.de [89.58.28.240])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD6B4502F
-	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 06:15:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 566292C3266;
+	Sun, 29 Mar 2026 07:27:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.58.28.240
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774764957; cv=none; b=mUSqEofSxnaD+6hFnVcBsnS3gEgtPyrikDXNh3NkuA5CsKLPZYJnndiFeZSt+UhkK3cxViQH7JQCmNlIwj4c40pi6aBz1yaRzE7yG3q33XgrTU8xhs8vDhB08dkov/jO1rcsNXPr/U/vyJQYl77m8azIV65OtzTN5dyZ1FgNA/c=
+	t=1774769281; cv=none; b=en29i0WZ1VU1UtOEKv8/X9SZ1NZOvGHO96MDRxfC0FVEtfM+JYKUX9nmCef6quRtCNvtNmHcseBa5a+unzBkA2spi4dP9rEcUhHd2l6w42rESea3rbptCebT1b3ztN7rQwb1ulUPXGYN58R3leUzcPtHAZfyiw3wm9D2ckltceU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774764957; c=relaxed/simple;
-	bh=iL31+SMrBzKCE3ncPrH6N3IXt0HrvrV+OHrHkY3ZenQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aKQd3kLEsrPb+W2iHBWw1eG5+nS0doNNlSKrlK9Bsn5XB6rbuOGQInjdVMsvLtcggwH74eJOibDAzzgETganltDWNih2h3KMMD5PHEMKJb2eyHNkRVcFo1GtmhmU6n9QfmY09Tpcny81/GvMRt1FZiSh650K/GAn/106UVzB8FU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k8vuASOa; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774769281; c=relaxed/simple;
+	bh=zOiHRiD7dxKBfhbPbB4OMZm22V5rmCiucuIOzalEXSY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=DhAYlGcXxK2EspfigWojyIAQfXktnTaPISFV+qCkSqCgJNsNBTZarh8z9cLrJ6z5OTo8A0nC2no4pWe2FSPFn/CSvuJmOmywM7HqyqtAnioIx28KXNCc+vIXDqPXXrI7auYoJCbWEzSwaw1X1Sa4Ryzo8ojo255t832KLWUTqqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=abscue.de; spf=pass smtp.mailfrom=abscue.de; dkim=pass (2048-bit key) header.d=abscue.de header.i=@abscue.de header.b=T/W55Azw; arc=none smtp.client-ip=89.58.28.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=abscue.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=abscue.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k8vuASOa"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-82c4b5dfe6cso1610498b3a.2
-        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 23:15:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774764956; x=1775369756; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jzSVIyxJVE3INc2YlO2V/JlUMWvH8XiTteapFFYHtbU=;
-        b=k8vuASOamzjpgg4c180pnK3+vziT5YhwXQCQKYS9zVEZWk9hbtyynosXifGEYkMqF9
-         i1YQtkrYzviBIGwP98h0Z7KMh4S4G7+MTsZykZyQQ6jK+U5QqPBpFceRYUQD0YnzXyHo
-         drEefCBAnaOYhOPH5ncxWu4opEjtZXRngL3aFjOQI6e/dCy57ifQdqyapaLqxbk6bEJl
-         oNj60uThk+fRc6HwZ6ALeQtjxZ/E0QK+KMJukJSqrPujOBg+cDzAIW7Yfc20l25Rmlho
-         sXUF5j/FML3adZa8+USGt3KTE5moimJwwtbWKvCkmnhXN29SqUNhs9PCA2sI7EgjlhlK
-         N1KQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774764956; x=1775369756;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=jzSVIyxJVE3INc2YlO2V/JlUMWvH8XiTteapFFYHtbU=;
-        b=XesNETpnKn7OfbTKGr+n57oIKuqbwKFxVTG6diLj/RtcozMIagEf4liy8hw59bbByD
-         uoGs/3dNf0bep77A7H4PMAM9ak9MuW1pbq9pIgV4cn80OPoF3cQbU8SQtxW4Z0KUhnY3
-         ykxRP1k8z7flNWrnTqTjozKbTPMjKb5z4dTaI9rIozK+hk5j3i2JFcKd7MLloIAC3A6/
-         ZIQHd9/rALwXGwOMANqX+FhtiTjoe5YhQfnzqttKGj4yZ8NdxFTPDeWBfdpXQ5BDobhY
-         dfcdAuT8LvnVLEK4OIUagkXK+PW7OTWrRpRSYtNk44CEimgiWOHDX2zeeRe6z1QbGChW
-         dQkg==
-X-Forwarded-Encrypted: i=1; AJvYcCVmbZEZkgBBAyxGin3Nw3Vfca4i4g5/fsZAjBzOsySE1QvdjNkYbZRx2NWbck2eoJ4SGr48sTBDhzmY@vger.kernel.org
-X-Gm-Message-State: AOJu0YyeXMVHJeqTyrTEM4fmG6u/j3XDSBYLZAKwtBbyfy1JZlHKLpUi
-	2aDv6pIADLCdD3tC6QY+szyo4j3fkojvJDniDngsfg6AIsZBa7gtlqU5
-X-Gm-Gg: ATEYQzwg4qIs2my7hOLuacDx52zYdf0j81+3sd5oiHONoupSn3Fn9fU9cH2GdZItXln
-	O+lb52Hg7Ub+TqAIXNxPLRF3L8AwkK6GsxncGCcYg9YNCis18Mwprq0ElGlUkM8MYaAU+4mNqRi
-	I6x06Tm/4SmU093dY123l8Ysth4Z5fq84MhC2xDQgFTdf64WjQtgkGWb4Vuj5mMwgvDoT+OhVN/
-	bL4m/THQbKbuiB5M4w9bn5YTMsfwXutEt5lVlxLt3f+Oll0k+T2CtqhvH4qI6mPh1AlxmPxk7f4
-	sbn0k6K+RG4iuoyDgV8nRQTJkVcJyF8Fb20lNgxw+d5GF6jhmvq1lnXcSCb/lKGC2cg3RyM+be/
-	D6Jv/Nh5KpFawRqB3vG9clq3GleXRe6kJEWt8ylfAOj/Wo48nTSFYIYcIt3xDnpBPV4wBeu0k5X
-	lZm2f4SO6xBXJ1ThyTt7DYF8Wkl4it9FDOc5Xmi+LRyjMKz/JsVuCx25jyoDXVW/OkPuCXArrXD
-	iY=
-X-Received: by 2002:a05:6a20:7485:b0:398:9466:2eda with SMTP id adf61e73a8af0-39c878c4986mr8419647637.19.1774764956074;
-        Sat, 28 Mar 2026 23:15:56 -0700 (PDT)
-Received: from toolbx.gk.pfsense.com ([103.70.166.143])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82ca8436f19sm3709731b3a.9.2026.03.28.23.15.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Mar 2026 23:15:55 -0700 (PDT)
-From: Gopi Krishna Menon <krishnagopi487@gmail.com>
-To: rafael@kernel.org,
-	daniel.lezcano@kernel.org,
-	rui.zhang@intel.com,
-	lukasz.luba@arm.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	vireshk@kernel.org,
-	conor+dt@kernel.org
-Cc: Gopi Krishna Menon <krishnagopi487@gmail.com>,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	soc@lists.linux.dev,
-	daniel.baluta@nxp.com,
-	simona.toaca@nxp.com,
-	d-gole@ti.com,
-	m-chawdhry@ti.com
-Subject: [PATCH v2 2/2] ARM: dts: st: spear: rename thermal_flags to st,thermal-flags
-Date: Sun, 29 Mar 2026 11:45:20 +0530
-Message-ID: <20260329061523.98346-3-krishnagopi487@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260329061523.98346-1-krishnagopi487@gmail.com>
-References: <20260329061523.98346-1-krishnagopi487@gmail.com>
+	dkim=pass (2048-bit key) header.d=abscue.de header.i=@abscue.de header.b="T/W55Azw"
+Received: from fluffy-mammal.metal.fwg-cag.de (87-94-78-46.co.dnainternet.fi [87.94.78.46])
+	by srv01.abscue.de (Postfix) with ESMTPSA id 0280C1C0070;
+	Sun, 29 Mar 2026 09:27:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=abscue.de; s=dkim;
+	t=1774769270;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KDZ5Sh45takfz5M+ly8guwVTBtTFzIYC7hXhR2y5yk4=;
+	b=T/W55AzwjDaWFsg4AheP3A8Y1oqh39ldc4aPcnmWaqzaB6OfJEc+6qPPQytHeUxHPdGMMb
+	XKdqKncrarZMXTAeM5wCX2AmpkiBMrnSX1H9BGOi9pSUdwES5FTvWJiiUxFKF6QiROP4nI
+	xLLXs/m8hHpQWR6YvdVJCX6KwwieVmlTFCbs+zHsv1vZSkr/RaBb9JSovYQfPDU55zUwhu
+	oqhM9hBuekmQ3+flAtePNzpxFyFMbcx2oGyhMsaBzRtuG1+7O2HlW+GymgvbDU+9YUENcu
+	52ys0xFLBN4e+KyGVB0DBPaMm56MEwOBFsBG22vGO1HQ4zSXobFiWlMQZ7FO3A==
+From: =?utf-8?q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>
+Date: Sun, 29 Mar 2026 09:27:45 +0200
+Subject: [PATCH v3 1/5] dt-bindings: rtc: sc2731: Add compatible for SC2730
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260329-sc27xx-mfd-cells-v3-1-9158dee41f74@abscue.de>
+References: <20260329-sc27xx-mfd-cells-v3-0-9158dee41f74@abscue.de>
+In-Reply-To: <20260329-sc27xx-mfd-cells-v3-0-9158dee41f74@abscue.de>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Orson Zhai <orsonzhai@gmail.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, Sebastian Reichel <sre@kernel.org>
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, 
+ linux-pm@vger.kernel.org, 
+ =?utf-8?q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>
+X-Mailer: b4 0.14.3
 
-st,thermal-flags is a required property in SPEAr Thermal Sensor node,
-which is incorrectly written as thermal_flags in spear13xx.dtsi.
+The RTC block found in the SC2730 PMIC is compatible with the one found
+in the SC2731 PMIC.
 
-Rename thermal_flags to st,thermal-flags to fix the property name
-
-Signed-off-by: Gopi Krishna Menon <krishnagopi487@gmail.com>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Otto Pflüger <otto.pflueger@abscue.de>
 ---
-Changes since v1:
-- Reword the commit message and subject
+ Documentation/devicetree/bindings/rtc/sprd,sc2731-rtc.yaml | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-Note:
-* This patch is part of the GSoC2026 application process for device tree bindings conversions
-* https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
+diff --git a/Documentation/devicetree/bindings/rtc/sprd,sc2731-rtc.yaml b/Documentation/devicetree/bindings/rtc/sprd,sc2731-rtc.yaml
+index 5756f617df36..1deae2f4f09d 100644
+--- a/Documentation/devicetree/bindings/rtc/sprd,sc2731-rtc.yaml
++++ b/Documentation/devicetree/bindings/rtc/sprd,sc2731-rtc.yaml
+@@ -13,7 +13,12 @@ maintainers:
+ 
+ properties:
+   compatible:
+-    const: sprd,sc2731-rtc
++    oneOf:
++      - items:
++          - enum:
++              - sprd,sc2730-rtc
++          - const: sprd,sc2731-rtc
++      - const: sprd,sc2731-rtc
+ 
+   reg:
+     maxItems: 1
 
- arch/arm/boot/dts/st/spear13xx.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/arm/boot/dts/st/spear13xx.dtsi b/arch/arm/boot/dts/st/spear13xx.dtsi
-index 159e941708ca..97357680dd51 100644
---- a/arch/arm/boot/dts/st/spear13xx.dtsi
-+++ b/arch/arm/boot/dts/st/spear13xx.dtsi
-@@ -332,7 +332,7 @@ wdt@ec800620 {
- 			thermal@e07008c4 {
- 				compatible = "st,thermal-spear1340";
- 				reg = <0xe07008c4 0x4>;
--				thermal_flags = <0x7000>;
-+				st,thermal-flags = <0x7000>;
- 			};
- 		};
- 	};
 -- 
-2.52.0
+2.51.0
 
