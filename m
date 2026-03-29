@@ -1,45 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E802D5A01;
-	Sun, 29 Mar 2026 09:37:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4862E2F3C0E;
+	Sun, 29 Mar 2026 09:45:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774777024; cv=none; b=IqBRgXN66JBmlWqWBq2eUYukffD67+5tWQJlz3cUPkyVIlHFuXv0TeT0Fj6R8qE/+tQ9phzh1cYxQ6vUQwsClPPVCvO/x4RFNMXS1w+9ETjEBAWN72Bse5zm6gPzKwgBFFSSccfaN69Os5NG7Hi/fXDFt1yK3YxOncX5R08b4cg=
+	t=1774777519; cv=none; b=spQqbxMoyTmUsRcewuw9rUoPOz3f9Z6Gw8ux+6HFdWxe+fk36LcrlAYD0Z/nNTiJ8HoEl+QRrN69E7Na15GpRHeRvSS1pbPLIdjEPZLqSSvCTpWYgPiPAFFybq/Rlp7fHk2OA42QZ6/nvQOABmIKuh0SM17UxmWLKtra8LAQh5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774777024; c=relaxed/simple;
-	bh=38BTjpQcax0ZCYP1lDp/Ft2uW0t+mkFokRZ+7qkz5dY=;
+	s=arc-20240116; t=1774777519; c=relaxed/simple;
+	bh=l+dN0lToai8lSGxHzvCi6u+XkB1xl3MrCngigbm7rxY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HX+p2imIiyDKvsGxGp6iRyrG6R78Rk/d9/+bFMAluANp3lY7MMzI01TeqxQ3isioGBJBAU2YKHCnpKSUU+43u8vAoTvqWVzEIcfwGJMXgXaRf3R+Nl2tQkLJAU36afBqKeoQBnys8kKZB9H47Mz+RryqK3Igb9/frefp0GI1yi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pHhOecos; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=CqDbzglZmZEdR7HA22+lHkU/vZBEfmpMGdQI2FfMBJqU5uCI2Fos0mwc+Q4RQP5cI85dZYJhOaZ3xit1TjHQf98hHhuMCfKumu14LtilMNItA5Kg74E5phdYpPgwCoSd5xqGxzCqZC/yVPcSmOf3A234qqSFol0vIOxteMEWrg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ea8/je30; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pHhOecos"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C841CC116C6;
-	Sun, 29 Mar 2026 09:37:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ea8/je30"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83396C116C6;
+	Sun, 29 Mar 2026 09:45:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774777024;
-	bh=38BTjpQcax0ZCYP1lDp/Ft2uW0t+mkFokRZ+7qkz5dY=;
+	s=k20201202; t=1774777518;
+	bh=l+dN0lToai8lSGxHzvCi6u+XkB1xl3MrCngigbm7rxY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pHhOecosjfc3lVzDyF1HmyndhSnr6ABorhtITFMZinGi0JiiT0+SnHodMYnZz2XJC
-	 qn4PKDSiYL5brBuGCdWCSAtH9JLmxAZoQHP0Nss4jueuA31DDVNYe7alkfaS1LYPvj
-	 186fr+qJRtBUZXt5yyQ+IFuqsw917jOc5eblHhpoJDsSj+Q6erd3MpHQ058B7Z8OsI
-	 mMlLiZydqQs//OOngsi3OA10H54WYBGCNKGVkG/6i36vFNBoUkT2DISrUqw6QurhdZ
-	 fQeBpp3dVHXD9HAmbdL+UiluSlZ/iXYSu73BbtkaRXbU/zFnzEcMEJeoBvBqtm6nMG
-	 oOBj16+EsvfeA==
-Date: Sun, 29 Mar 2026 11:37:01 +0200
+	b=ea8/je30j5USqeE9VK2yVyHY1iw88GBezVD6/MU6FqTKaOr2rQKlmySGPPAD6GJSh
+	 Nx+JrZo4VMDL0/AP75DXmaEQSkSwMdRfLBUJ2eNF+BjBzSM3ZBmmNKJi5AlLajeDgD
+	 IW0GXFEze+LXem11J8IrGIGLgNZO1F63n3GJZH9tJ1zN8cSwhr47/0JlfzVyqFQg8Q
+	 ufi8wfCHw32tEPIppG42i/2P2dDQ8wa+yklMkTkCqiOz7Mm4HSiC8mp6Dmvhv0/v6g
+	 JB6xiFLMUgRaGGBwq1eRLBw26TF7RDscG2YXj4td+JOn+611QazXd5fx9GXCfgHwqy
+	 pEWBhn5IuKHBQ==
+Date: Sun, 29 Mar 2026 11:45:16 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: =?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
+To: Pranav Kharche <pranavkharche7@gmail.com>
 Cc: Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH 1/7] dt-bindings: power: qcom-rpmpd: Split MSM8953 and
- SDM632
-Message-ID: <20260329-romantic-daft-myna-df3dfa@quoll>
-References: <20260327-sdm632-rpmpd-v1-0-6098dc997d66@mainlining.org>
- <20260327-sdm632-rpmpd-v1-1-6098dc997d66@mainlining.org>
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/1] dt-bindings: media: convert hix5hd2-ir to DT schema
+Message-ID: <20260329-authentic-smiling-cat-0be663@quoll>
+References: <20260328084238.201452-1-pranavkharche7@gmail.com>
+ <20260328084238.201452-2-pranavkharche7@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,71 +44,131 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260327-sdm632-rpmpd-v1-1-6098dc997d66@mainlining.org>
+In-Reply-To: <20260328084238.201452-2-pranavkharche7@gmail.com>
 
-On Fri, Mar 27, 2026 at 09:11:43PM +0100, Barnab=C3=A1s Cz=C3=A9m=C3=A1n wr=
-ote:
-> Remove modem related bindings from MSM8953 rpmpd because MSM8953 MSS
-> is using mss-supply as a regulator usually it is pm8953_s1.
-> Split SDM632 bindings from MSM8953 because SDM632 is using mss-supply
-> as a pm domain.
->=20
-> Signed-off-by: Barnab=C3=A1s Cz=C3=A9m=C3=A1n <barnabas.czeman@mainlining=
-=2Eorg>
+On Sat, Mar 28, 2026 at 02:12:38PM +0530, Pranav Kharche wrote:
+> Convert the legacy plaintext binding for HiSilicon hix5hd2 IR remote
+> controller to JSON Schema (DT schema) format in YAML.
+> 
+> This binding documents the infrared remote receiver found in HiSilicon
+> SoCs such as hix5hd2 and hi3796cv300. The conversion includes:
+> 
+> - Standardized property definitions with types and constraints
+
+Drop
+
+> - Reference to rc.yaml base schema for remote controller properties
+
+Drop
+
+> - Addition of include directives for interrupt-controller bindings
+
+Drop
+
+> - Proper example with GIC interrupt specifiers
+
+Drop
+
+> - Schema validation support for device tree sources
+
+Drop
+
+> 
+> The new schema enables:
+> - Validation improvement
+
+Drop
+
+> 
+> tested with: make dt_binding_check DT_SCHEMA_FILES=...
+> All schema validation checks pass.
+
+Drop
+
+Please write useful commit msgs, meaning you do not need to state
+obvious things. Plenty of examples in git log.
+
+What you MUST say here is documenting the changes you done to the
+binding. You removed existing property which is not explained at all,
+introduces undocumented ABI and adds new warnings. No, seriously, no.
+
+And if you TESTED this you would see errors, so back to basic
+requirements of schema conversion - see my posts on social.kernel.org.
+
+
+> 
+> Signed-off-by: Pranav Kharche <pranavkharche7@gmail.com>
 > ---
->  .../devicetree/bindings/power/qcom,rpmpd.yaml        |  1 +
->  include/dt-bindings/power/qcom-rpmpd.h               | 20 +++++++++++++-=
-------
->  2 files changed, 14 insertions(+), 7 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml b/Do=
-cumentation/devicetree/bindings/power/qcom,rpmpd.yaml
-> index 8174ceeab572..659936d6a46e 100644
-> --- a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
-> +++ b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
-> @@ -48,6 +48,7 @@ properties:
->            - qcom,sc7280-rpmhpd
->            - qcom,sc8180x-rpmhpd
->            - qcom,sc8280xp-rpmhpd
-> +          - qcom,sdm632-rpmpd
->            - qcom,sdm660-rpmpd
->            - qcom,sdm670-rpmhpd
->            - qcom,sdm845-rpmhpd
-> diff --git a/include/dt-bindings/power/qcom-rpmpd.h b/include/dt-bindings=
-/power/qcom-rpmpd.h
-> index 4371ac941f29..2d82434b993c 100644
-> --- a/include/dt-bindings/power/qcom-rpmpd.h
-> +++ b/include/dt-bindings/power/qcom-rpmpd.h
-> @@ -84,13 +84,11 @@
->  #define QM215_VDDMX_AO		MSM8917_VDDMX_AO
-> =20
->  /* MSM8953 Power Domain Indexes */
-> -#define MSM8953_VDDMD		0
+>  .../devicetree/bindings/media/hix5hd2-ir.txt  | 26 ---------
+>  .../devicetree/bindings/media/hix5hd2-ir.yaml | 53 +++++++++++++++++++
+>  2 files changed, 53 insertions(+), 26 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/media/hix5hd2-ir.txt
+>  create mode 100644 Documentation/devicetree/bindings/media/hix5hd2-ir.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/media/hix5hd2-ir.txt b/Documentation/devicetree/bindings/media/hix5hd2-ir.txt
+> deleted file mode 100644
+> index ca4cf774662e..000000000000
+> --- a/Documentation/devicetree/bindings/media/hix5hd2-ir.txt
+> +++ /dev/null
+> @@ -1,26 +0,0 @@
+> -Device-Tree bindings for hix5hd2 ir IP
+> -
+> -Required properties:
+> -	- compatible: Should contain "hisilicon,hix5hd2-ir", or:
+> -		- "hisilicon,hi3796cv300-ir" for Hi3796CV300 IR device.
+> -	- reg: Base physical address of the controller and length of memory
+> -	  mapped region.
+> -	- interrupts: interrupt-specifier for the sole interrupt generated by
+> -	  the device. The interrupt specifier format depends on the interrupt
+> -	  controller parent.
+> -	- clocks: clock phandle and specifier pair.
+> -
+> -Optional properties:
+> -	- linux,rc-map-name: see rc.txt file in the same directory.
+> -	- hisilicon,power-syscon: DEPRECATED. Don't use this in new dts files.
+> -		Provide correct clocks instead.
+> -
+> -Example node:
+> -
+> -	ir: ir@f8001000 {
+> -		compatible = "hisilicon,hix5hd2-ir";
+> -		reg = <0xf8001000 0x1000>;
+> -		interrupts = <0 47 4>;
+> -		clocks = <&clock HIX5HD2_IR_CLOCK>;
+> -		linux,rc-map-name = "rc-tivo";
+> -	};
+> diff --git a/Documentation/devicetree/bindings/media/hix5hd2-ir.yaml b/Documentation/devicetree/bindings/media/hix5hd2-ir.yaml
+> new file mode 100644
+> index 000000000000..91cba6ec88c5
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/hix5hd2-ir.yaml
 
-ABI break / impact and due to two changes combined I don't really
-understand why. Why MSS using mss-supply makes this ABI invalid/wrong?
+Filename must match the compatible, choose one.
 
-> -#define MSM8953_VDDMD_AO	1
-> -#define MSM8953_VDDCX		2
-> -#define MSM8953_VDDCX_AO	3
-> -#define MSM8953_VDDCX_VFL	4
-> -#define MSM8953_VDDMX		5
-> -#define MSM8953_VDDMX_AO	6
-> +#define MSM8953_VDDCX		RPMPD_VDDCX
-> +#define MSM8953_VDDCX_AO	RPMPD_VDDCX_AO
-> +#define MSM8953_VDDCX_VFL	RPMPD_VDDCX_VFL
-> +#define MSM8953_VDDMX		RPMPD_VDDMX
-> +#define MSM8953_VDDMX_AO	RPMPD_VDDMX_AO
+> @@ -0,0 +1,53 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/hix5hd2-ir.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: HiSilicon Hix5hd2 infrared remote controller
+> +
+> +maintainers:
+> +  - Pranav Kharche <pranavkharche7@gmail.com>
+> +
+> +allOf:
+> +  - $ref: rc.yaml#
+> +
+> +description: |
 
-I don't see how this is related to new compatible and SDM632.
+Do not need '|' unless you need to preserve formatting.
 
-> =20
->  /* MSM8974 Power Domain Indexes */
->  #define MSM8974_VDDCX		0
-> @@ -156,6 +154,14 @@
->  #define QCS404_LPIMX		5
->  #define QCS404_LPIMX_VFL	6
+> +  This binding describes the infrared remote controller found in
+
+So description describes that your binding describes... No, drop.
+Explain the hardware and if you do not have any explanation, no need to
+state obvious and paste here compatibles.
 
 Best regards,
 Krzysztof
