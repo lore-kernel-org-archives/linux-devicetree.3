@@ -1,151 +1,149 @@
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8338834
-	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 00:14:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774743257; cv=pass; b=ClsBB6NWXVHNiL9TGvkrz6rhPcRMbIbq3XTC1fN07bes0jzpQjo5bV/9rYSA73xsApws7fC8jfSwTSYizuHP7EH2CCaiN+YTl20QbyUFrKR/qCBYEYtdoFuub0ShGpyv7O3rNZGHTVZpvbovKVr6JBm3+6rUlCrQ2xfrHGRasck=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774743257; c=relaxed/simple;
-	bh=6VPuVWGp2jsMVQP6+aQ2zSV/KYs6/oOd53njQt+zsc8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jF9XbLmA8yZf3Fq5ii0MFeiVVB8hnTHntkL/ABuHd6SX5IvW5tF2fbZXnH91Y71TYOK6tbghaKUrBcvJA7mTzv7vTiKCwPRihJbIGEFSPdTt7FvssW2k/eUQi7H5f40B/3pC7X6ta2UpTHcs+moKcA0bsQgDB/tV5x2ZrelzB7U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YXk6D1DV; arc=pass smtp.client-ip=74.125.82.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA3118DB1A;
+	Sun, 29 Mar 2026 02:09:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774750168; cv=none; b=r4ZIsJmq72QNTP8k4a8TERFYE2CxMJnkz4RTImF/4LFDuwyF9VPFANrY18cjCF1N+0LDtJqAmmNOA8fCKn3LJTBlYSdnSWVu3QjoMpXEOnMfgi2ZfiVo8Lt+vipqXZcnkZVxhqaO7+iQjfZea8Txn2L7PyEXio0g7AiJmW2iXl0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774750168; c=relaxed/simple;
+	bh=N0Ctz2J8oPvKls81ucEZB5qGoRQfvViEmfax2GeVhNw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jwBYVSoygFRnatbdMk8U9MGKAKCq/MtoEdPiWJRak8jJh5miKP0XHOS1+k29iva4AOKPus1o5oaX7NC4w2wG9JQlIYbXoEKLOGjYac4mssz1HvkM0Ch8v0kvqtted4uM75nOqm8pq4pUYSaBFjK2TmmoalwFCZg9YCN4xMQYJ2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h2P6V5Tc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YXk6D1DV"
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1273349c56bso4050164c88.0
-        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 17:14:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774743256; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Ad2SRyMbuARYJJQrYF9zrsEuFSGf0NBISfFw22CQJWtVN/IlyW5V7zHHbR20TyZsCd
-         gjPVlPOoVglmkPvqRq8eZI0ZD079no7OazyvT1oCrhA5BL/d7I/DKCHHqeehnv0j9iZi
-         elgvJA1HSLMinPZOFyYhNy7hIzINttRUAkCKKwyOvI3+9Iawi0Clq5799k8jQU2G1EKU
-         8YYLvCJuT2/eGgKuumqq7cWvILL4po9WDHIaQpF3RHERG7D0Ryp6Lhpf5cEmXVIRoVMQ
-         1HdW3i67G6HlWP7jQ0cmToFglPPWkMWrvzLyfxkOFqKOzFLS2IXX/oyZES3uo/5rt/D9
-         3+9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wLm/cWeL+ALoe0xoKYMB0cJ1r37KJ8n7QLIQtxRsqdU=;
-        fh=whqk4B7bDOAeZNZ3iytWIBiKpUzPfw9xmIDf0XmpJgk=;
-        b=BW7vJ8VGbBAYieDa0PS/DgqxHeKyqIrr/81GhzLmN/wcVEtWI0O9cnPzP74421VU8G
-         HcOoUSPbQg+Nr4oSf3WbQ6qiqsBLKnccE2Oq8XP5ZKXnopKyaSSJzKp4bfmCseoSKHpv
-         jqqpZd9Q2A6swSXKEBzdAdBmVqJP843duFzrcr4I9EcRFDT5OF0ZsVX+CTE7KQYkXLeP
-         FVDIX4/uZdZwq/Em3wwUI6y59IU/InRou9CYczhONKN/1+AZaNpuSZLPQ80QvaJyR81i
-         7Ad9ilWbjiZr7nddU77mHHTg5tOXTKvZGfy3zLrfijQdnpHXyA0LYXTd4yJX28HFUocZ
-         PSmQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774743256; x=1775348056; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wLm/cWeL+ALoe0xoKYMB0cJ1r37KJ8n7QLIQtxRsqdU=;
-        b=YXk6D1DVWmT1YbqAvs10IPBGZA2ZUNGZ47Tg/ax3jre0uay46VV8CYyYYUBeyn2qRf
-         KUinFu482oWhxm1u4Bx/xLv1uZCUgqmKtRqZ960ezfrAPgFtN4ldEncnSkmpFsWn+Dp/
-         emCWfI2E93Sp4OtWEfW60+GxtP+lrJDPMKQBlEcK9CP6rmlsJHS8HUvTp+Emj7A2B2Gk
-         EiNUPHHJwP3OFx+PUqiZla5rRjYAam9kum3ck9/8EHgmkFpuA4Y/30du6XtQIAIB7Rbw
-         G0iRqqIWzxL9FjjLnX5FIPFWraZSP2e8bQYfeDpPro+zh7bRgkBRn7St4LCdN5YwgcEC
-         ewqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774743256; x=1775348056;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=wLm/cWeL+ALoe0xoKYMB0cJ1r37KJ8n7QLIQtxRsqdU=;
-        b=lvRSXT+LKMJ0wl2Qj1UVU8WBAVq0s9fOpiGPvWQf21AbduNRgdB6fHTsKAtQkubNmW
-         Y9hc6lVKZDn1pPj/Hs33QBAjtd/gq2T+64e81WX65c5j5QNeTC9fVNQyRkVBCYM5e657
-         uDAiGP16jzoEUMUmJIpcg9v74X9tozpidsjqObsmzzCWVYt0gtgggz9jk4RRi753pT7O
-         eGEmwgkuzNRa4L0JOj7MML+/vmWrgYpIBcJdUWTQpCtsx8IxLHYIfcfgoWWZJlJ7eXj8
-         ngbNGN7vvCeycoZRDwdXiMM9I5XBEjDG3olk+0Hzr4O2k3+sDsQ7eWh5og4JtYyTFwB2
-         XKwg==
-X-Forwarded-Encrypted: i=1; AJvYcCXl7crzJXhvt4nCEh9UNW4M/FnAV5xGeh0gzE4+T7fVOUc//FzhlUvO2BUZTh07oN1hCMXis/JkELcv@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx89T2XPDImHXCBFcTsR8gZSQn4p7KziM47bbPwy1aBTgLd9k92
-	SS+FNm0FuTDJXgkdezl8hV2CV+kNO+lPeijmYwmVQEHZ3aF/NzBajbZDq2/FETvOXs13xdB30rx
-	ksEajvq8KoRGGlVmPg6HfEuZHyUSWSD0=
-X-Gm-Gg: ATEYQzwWWUfu35cA30ts8Dy7j8w1L/NAeLsvpGkBbELCACRnue2QHra3BfBouLt9VyB
-	3K4xRYUpy4OPUFipdPrVBPHPbQbLI3yRbMytH7Q3K0Qkd19SxzFfyQk7mzUDszZnuJUpRU9lLsD
-	f+l9qIU0YauxKm48fAhe0Tfgyejune9CahecSUWK821rixg4K3n2Cm+yh0qs4mG6gCCAHnaSoD+
-	4lbm3AsbZDQWisZpttrZHzliezGzJ2Qxt//4q9tRreG+VXJFzYjmkwuc4OV+rs3+ukNjC3CJp5P
-	WE9SaGsbNQ1fqbD0iK8s
-X-Received: by 2002:a05:7022:220a:b0:12a:71ab:8235 with SMTP id
- a92af1059eb24-12ab284be87mr3912794c88.6.1774743255658; Sat, 28 Mar 2026
- 17:14:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h2P6V5Tc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0737FC4CEF7;
+	Sun, 29 Mar 2026 02:09:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774750168;
+	bh=N0Ctz2J8oPvKls81ucEZB5qGoRQfvViEmfax2GeVhNw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=h2P6V5Tc0PYTUED1/KmH0DY8uN8EtK4d5oSvm4YwJZyFqWE6ocbcCiw2bHA65ILKf
+	 crrjMN/09y7rmZz/59IuERQ8nH7cLByyVoRzW6m69yA4Ypi0QphB6uNo7lPdYSfShr
+	 rR6NVnoGxccwPyB8MX3oKuo+abnb3gA5ybZPle9MU3EhY3QHRyvt+AnQFB4+YqMFjc
+	 T+prbf6b/prfqVcPpt4lkSXmazWlr77R8y8ypMtei7gZCiNpHGv1ugclqkDLmyWTqS
+	 WVNGKVPBcZFvACOvyLMYO+CMEXjS/3F4KmVAndBiM4BtPiFLJv6P+N5knmgujCuY2B
+	 UNcB77KVP+nGg==
+Received: by venus (Postfix, from userid 1000)
+	id E9CFC182F82; Sun, 29 Mar 2026 04:09:25 +0200 (CEST)
+Date: Sun, 29 Mar 2026 04:09:25 +0200
+From: Sebastian Reichel <sre@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
+	"Rob Herring (Arm)" <robh@kernel.org>, Khushal Chitturi <khushalchitturi@gmail.com>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH] dt-bindings: power: reset:
+ cortina,gemini-power-controller: convert to DT schema
+Message-ID: <aciItMCdBbrVvMKB@venus>
+References: <20260328124707.141209-1-khushalchitturi@gmail.com>
+ <177470797266.1536342.6967120656934552033.robh@kernel.org>
+ <CAD++jL=_rCmW=eSV0kvck50sC2xaQnGQoEOy=DNcwkFvvWYUUw@mail.gmail.com>
+ <3fa4fad0-d918-4de0-ad80-dad2141d2617@kernel.org>
+ <CAD++jLnxoS-OGBSAXxgGPaME7eMTwCQ-C+uzub6m0o9ZgXL_aA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260328-asus-kommando-networking-v1-1-66d308b88536@gmail.com> <ed3d39df-0a0e-427b-86cf-b9b2d2094b51@lunn.ch>
-In-Reply-To: <ed3d39df-0a0e-427b-86cf-b9b2d2094b51@lunn.ch>
-From: Anirudh Srinivasan <anirudhsriniv@gmail.com>
-Date: Sat, 28 Mar 2026 19:14:04 -0500
-X-Gm-Features: AQROBzAt7ICtBirsaNdRYtv4vbmjxcTMi8IMv_vX0eO1yy8eUd3xiGfmPfRlEXY
-Message-ID: <CAJ13v3S7ucjd-ifmKFBDGtsg32MbOar2OBeiGMVEJBsH8+JP7Q@mail.gmail.com>
-Subject: Re: [PATCH] ARM: dts: aspeed: Enable networking for Asus Kommando
- IPMI Card
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
-	Andrew Jeffery <andrew@codeconstruct.com.au>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3ymhluvcv553maph"
+Content-Disposition: inline
+In-Reply-To: <CAD++jLnxoS-OGBSAXxgGPaME7eMTwCQ-C+uzub6m0o9ZgXL_aA@mail.gmail.com>
+
+
+--3ymhluvcv553maph
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] dt-bindings: power: reset:
+ cortina,gemini-power-controller: convert to DT schema
+MIME-Version: 1.0
 
-Hi Andrew
+Hi,
 
-On Sat, Mar 28, 2026 at 7:05=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
->
-> On Sat, Mar 28, 2026 at 06:39:59PM -0500, Anirudh Srinivasan wrote:
-> > Adds the DT nodes needed for ethernet support for Asus Kommando, with
-> > phy mode set to rgmii-id.
+On Sat, Mar 28, 2026 at 10:28:39PM +0100, Linus Walleij wrote:
+> On Sat, Mar 28, 2026 at 6:31=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.=
+org> wrote:
+> > On 28/03/2026 17:12, Linus Walleij wrote:
+> > > On Sat, Mar 28, 2026 at 3:26=E2=80=AFPM Rob Herring (Arm) <robh@kerne=
+l.org> wrote:
+> > >
+> > >> dtschema/dtc warnings/errors:
+> > >> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindi=
+ngs/power/reset/cortina,gemini-power-controller.example.dtb: power-controll=
+er@4b000000 (cortina,gemini-power-controller): '#power-domain-cells' is a r=
+equired property
+> > >>         from schema $id: http://devicetree.org/schemas/power/power-d=
+omain.yaml
+> > >
+> > > Weird, this power controller does not handle power domains whatsoever,
+> > > it handles the mains power. So it should not have any power domain
+> > > cells.
+> > >
+> > > Is this the result of some regexp gone stray?
 > >
-> > When this DT was originally added, the phy mode was set to rgmii (which
-> > was incorrect). It was suggested to remove networking support from the
-> > DT till the Aspeed networking driver was patched so that the correct ph=
-y
-> > mode could be used.
-> >
-> > The discussion in [1] mentions that u-boot was inserting clk delays tha=
-t
-> > weren't needed, which resulted in needing to set the phy mode in linux
-> > to rgmii incorrectly. The solution suggested there was to patch u-boot =
-to
-> > no longer insert these clk delays and use rgmii-id as the phy mode for
-> > any future DTs added to linux.
-> >
-> > This DT was tested with a u-boot DT modified to insert clk delays of 0
-> > (instead of patching u-boot itself). [2] adds a u-boot DT for this
-> > device (without networking) and describes how to patch it to add
-> > networking support. If this patched DT is used, then networking works
-> > with rgmii-id phy mode in both u-boot and linux.
->
-> I've been looking at
->
-> https://elixir.bootlin.com/u-boot/v2026.04-rc5/source/drivers/clk/aspeed/=
-clk_ast2600.c
->
-> And i don't see where mac2-clk-delay is implemented. Could you point
-> out the code?
+> > The name "power controller" is used for power domain controller, so
+> > that's why this name must not be used for other use cases. Usual
+> > replacement is power-management, reboot, restart or poweroff, depending
+> > on what is the purpose of this device.
+>=20
+> So in this case this is just a conversion of the 9 years old text document
+> which is an as valid binding as any:
+>=20
+> commit ba443b5ab454a9b5f49229a94b2dadf06ac8b79e
+> Author: Linus Walleij <linusw@kernel.org>
+> Date:   Sun Mar 12 23:36:01 2017 +0100
+>=20
+>     power: reset: Add Gemini poweroff DT bindings
+>=20
+>     This adds device tree bindings to the power management controller
+>     in the Gemini SoC.
+>=20
+>     Cc: devicetree@vger.kernel.org
+>     Cc: Janos Laube <janos.dev@gmail.com>
+>     Cc: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+>     Cc: Hans Ulli Kroll <ulli.kroll@googlemail.com>
+>     Cc: Florian Fainelli <f.fainelli@gmail.com>
+>     Acked-by: Rob Herring <robh@kernel.org>
+>     Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+>     Signed-off-by: Sebastian Reichel <sre@kernel.org>
+>=20
+> The text document was conspiciously named "gemini-poweroff.txt" while the
+> compatible is ""cortina,gemini-power-controller".
+>=20
+> I don't know what came first, this binding or the convention of
+> *-power-controller, but it's solidly there for a while so we need
+> to accomodate this, I guess worst case simply special-casing it?
 
-I'm testing against the u-boot version that openbmc uses for its
-builds. I don't think upstream u-boot is used by openbmc.
+The problem is the node name (power-controller@4b000000), which is
+reserved for power domains. You can keep the compatible.
 
-https://github.com/openbmc/u-boot/blob/v2019.04-aspeed-openbmc/drivers/clk/=
-aspeed/clk_ast2600.c#L999
+Greetings,
 
->
-> Thanks
->         Andrew
+-- Sebastian
 
+--3ymhluvcv553maph
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
---=20
-Regards
-Anirudh Srinivasan
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmnIickACgkQ2O7X88g7
++prjpQ//bcgyFf6rWXsP0eTn33ApGxRHQt+k48z+5yHgyrWGiEsof+GvGhuWihRr
+RAwhrhKYJv9Klz7RbQXnKzyObtWNXi3D8hjuHnZiAv/ZZaogof5hFw8Hy8hFBGB3
+QBmhabdsE5rkEZCmPwvOCw5JvOgiPL5k42weR5hh5RcYOeYHHmi5FoFTOyidXfpB
+JuOR9l4Gg5LToBzl7hVldQvwGy5tkaPjZav6uNyRd3Zi/Zua7brsK6iOuOprZEeD
+LxgWTqW4c6HJ9uWxKr9KV/ad89icUswYqWTAuMZQ9a5LP8NkZnezg6Fp0rtHoju7
+lzDB6LNaGoAQqRD8m1KzIBt2xcXZC8hT2W60ZPe2k1YB4V/70peOg8oChRslr1ew
+QTdSvC/gZVXS7g87GNdjUIn04WA8iW/IsaF+I2uupOsjGg5RVuk2F2v2rMNTUV2E
+Bg5+OLEwSZTS13ysRcX5U+exM/Pk2Y6sOTdhmXnVikgwQEez7LEM+/551K5nR04M
+eDbspHMwCBw5C2WtZLmKy58RKRbYlQQbOpjhh0NqtgbXVXrM1FUA9/3uI1RgK/VM
+6biWh/IClVnxQVITtNTxE6Im1p7PU2OutdQiGDHZiF6FvYsddpD96QIVNgJ5S52n
+Ith3J9MIt7PjH16QMBEcoW6DQ76H7UNLAl3hkkMArmJjakGgXrI=
+=b1TC
+-----END PGP SIGNATURE-----
+
+--3ymhluvcv553maph--
