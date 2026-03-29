@@ -1,261 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B7828FFF6
-	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 07:56:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC8F624B28;
+	Sun, 29 Mar 2026 08:04:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774770987; cv=none; b=dVQ9Zjcv5wu0V85F/jE3GzxgN7E27586rJlJhGPROBDeDlBnU94mWJcFln8Qr1fWvVNJ63ZrQ42akyFOE87BlU2TRKvQcLz/ydPQvKAHwDeIlyFWaO1hzei+Y9m4q46X1LWA6IHeVZAN/O2PJDcTvnEihPzxFknCwAVA4dsZgUE=
+	t=1774771490; cv=none; b=iFEOxWIPc+xa169opxKQq/djwvi8S91hC78l1iLU1hdgoLU1KR+LPvcYItkgu9nrNwRd8S+haBsFLlaNO5LJDLEZj7DHeYa+B5g/psS+zkw1P82YfYEI+gkulB4swQEGhipt+FEta6KYkIk/1JUEvE48iDWJ11SfhC+1d9xY8Ww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774770987; c=relaxed/simple;
-	bh=NXkO1BKIOyiirGfmId7kEdTa6tS6egLCtvOXPPxBnMY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gkpOyVPiExg59gi+/tQPoDz8lBP9n1/0IO/U3kzGVIjW8KvBBlsziIvF3SnV0vtUU0vcC/wBjyp340lnRPtUi5j4/BlXeDFCVqd/rOUYzI3rIjGaBdv3TUvyXyLKPfcoxSowcY8msAVP+dc26gCvVdHYy7Zs2banWBdndqNm8Y0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R2HhQq+0; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774771490; c=relaxed/simple;
+	bh=i6SF/XNHOmRD3nw7Nr4/q/gJ9IwKNLMR8vrL1INFa/w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ftOFPiDowGoN7zLJF3dhSjsnBYmKlqwlfjdMRL1nJXnwZaIoj+efUyf61/RsFd3fjjfz9d8DTyFf3OydviVAHldMe6VZugK+aJn1I4AEER+HPoYP7r1k3t/sFU5VpPKlM0J3LHIy9QzPZIT9e9vj3OKN2INMJWEM+QooLv2Dkaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LUNOBC6W; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R2HhQq+0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B01F8C116C6
-	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 07:56:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LUNOBC6W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF8ACC116C6;
+	Sun, 29 Mar 2026 08:04:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774770986;
-	bh=NXkO1BKIOyiirGfmId7kEdTa6tS6egLCtvOXPPxBnMY=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
-	b=R2HhQq+016fcpCRIW8zdQ0HauTKnwjFOWDOpiPxZ0WXQBBbyfTQW3FUPqpXXI9Oy5
-	 VtAO2d83xAkqNt7Ee5gX3q985bACYSFYYxw84stvuDp6WhAYUx+iSArS8HMN6z2x8y
-	 nr6aBjnxht82iQk2c4eXgOadJndzq6HElWcvooZ32IciqLT1rsDb4NGgCkGHFs3gcK
-	 sIZDZAbYI+cKTSR/LnYMFyxba+OPKsbo1ESN+fDpKklulAvrPB43b3jB0D+GNC6fr2
-	 FF/jikh8Za867TrBvmLdneQ1Zt6jL07GMPj9xNXYTgSmCzAHaX6zEovkwTkcIWnFR3
-	 g71no7e2M6Y9w==
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-38bcda08c76so28001601fa.0
-        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 00:56:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCUj4Mw0Ge7LvBAMf7MRX5e1h3nCDuc3FKQaNk9+en/scac8VLo0CwiDCxMla3wAaPz0Iq3quVibUCa8@vger.kernel.org
-X-Gm-Message-State: AOJu0YxdANJ6Avmd4oYh4FvHDG3LROCgaAuyA+7vf9wLWv/8Of8yfeYz
-	Zu72nJSs/qmFAMEhHLBRMjVnYSeV4T7+AqRJiWx7yjSY/tcySnAc8gzLjMzvbwfPnGcKQHEuU5U
-	+kXXViA7rgYYXSOGoY6GtsOlCYIARSXA=
-X-Received: by 2002:a2e:bea8:0:b0:38b:d89b:e285 with SMTP id
- 38308e7fff4ca-38c731b8b78mr24317401fa.4.1774770985099; Sun, 29 Mar 2026
- 00:56:25 -0700 (PDT)
+	s=k20201202; t=1774771490;
+	bh=i6SF/XNHOmRD3nw7Nr4/q/gJ9IwKNLMR8vrL1INFa/w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LUNOBC6W3siRz3O/MJUXFqKvWhmKuFuVTeOiEgUSLMA2Q2OTfOfA5bVnT1v5+G8K5
+	 yzq4CbMUnkIO4kaIVauW0xPyEhCaWxh5lzDDXtjNYdmhRqEcpJWdx1G3bvuzk1esjc
+	 NZ7buNMOsoYgX0CR9UHlehhrDlTD0GHPAQqkUFnKaAeEYJvuJ8qhMsBTTe+ZOz6opN
+	 ++9tkipFX0uRMDjx4vBhN/WYGlHkFj2zjAYTWJt9ucMQXBWCFqFDFnAlp6lKa4AgZr
+	 Yhhknt4ih4Nryxkg1ZK0/Zulz7YIGf0Q0SByyU8KV7OL4RoJlXNi04rH3+TKUIqhXD
+	 I0dE71BfmCX6Q==
+Date: Sun, 29 Mar 2026 10:04:47 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: radu.sabau@analog.com
+Cc: Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v5 3/4] iio: adc: ad4691: add triggered buffer support
+Message-ID: <acjaqByQo0C2Msjo@monoceros>
+References: <20260327-ad4692-multichannel-sar-adc-driver-v5-0-11f789de47b8@analog.com>
+ <20260327-ad4692-multichannel-sar-adc-driver-v5-3-11f789de47b8@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260310-a733-clk-v1-0-36b4e9b24457@pigmoral.tech> <20260310-a733-clk-v1-2-36b4e9b24457@pigmoral.tech>
-In-Reply-To: <20260310-a733-clk-v1-2-36b4e9b24457@pigmoral.tech>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 29 Mar 2026 15:56:12 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65ycixbX7YS_rC6pyh-zMP6QvHqc6qdXjH4e0xpaqX=CQ@mail.gmail.com>
-X-Gm-Features: AQROBzBv23a5U8YFwC6JrpXv9HxCxK3WuA_W9E6K5Up_sT7yzO6F5aKFcWx7Jy8
-Message-ID: <CAGb2v65ycixbX7YS_rC6pyh-zMP6QvHqc6qdXjH4e0xpaqX=CQ@mail.gmail.com>
-Subject: Re: [PATCH RFC 2/8] clk: sunxi-ng: sdm: Add dual patterns support
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5etpnf3qopr55utl"
+Content-Disposition: inline
+In-Reply-To: <20260327-ad4692-multichannel-sar-adc-driver-v5-3-11f789de47b8@analog.com>
 
-On Tue, Mar 10, 2026 at 4:42=E2=80=AFPM Junhui Liu <junhui.liu@pigmoral.tec=
-h> wrote:
->
-> On newer Allwinner platforms like the A733, the Sigma-Delta Modulation
-> (SDM) control logic is more complex. The SDM enable bit, which was
-> previously located in the PLL register, is now moved to a second
-> pattern register (PATTERN1).
->
-> To support this, rename the existing "tuning" members to "pattern0" to
-> align with the datasheet, and introduce the _SUNXI_CCU_SDM_DUAL_PAT
-> macro to provide pattern1 register support. Related operations are also
-> updated.
->
-> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
-> ---
->  drivers/clk/sunxi-ng/ccu_sdm.c | 51 +++++++++++++++++++++++++++++-------=
-------
->  drivers/clk/sunxi-ng/ccu_sdm.h | 32 +++++++++++++++++---------
->  2 files changed, 57 insertions(+), 26 deletions(-)
->
-> diff --git a/drivers/clk/sunxi-ng/ccu_sdm.c b/drivers/clk/sunxi-ng/ccu_sd=
-m.c
-> index c564e5f9e610..204e25feaa36 100644
-> --- a/drivers/clk/sunxi-ng/ccu_sdm.c
-> +++ b/drivers/clk/sunxi-ng/ccu_sdm.c
-> @@ -18,7 +18,10 @@ bool ccu_sdm_helper_is_enabled(struct ccu_common *comm=
-on,
->         if (sdm->enable && !(readl(common->base + common->reg) & sdm->ena=
-ble))
->                 return false;
->
-> -       return !!(readl(common->base + sdm->tuning_reg) & sdm->tuning_ena=
-ble);
-> +       if (sdm->pat1_enable && !(readl(common->base + sdm->pat1_reg) & s=
-dm->pat1_enable))
-> +               return false;
+
+--5etpnf3qopr55utl
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v5 3/4] iio: adc: ad4691: add triggered buffer support
+MIME-Version: 1.0
+
+On Fri, Mar 27, 2026 at 01:07:59PM +0200, Radu Sabau via B4 Relay wrote:
+> +static const char * const ad4691_gp_names[] = { "gp0", "gp1", "gp2", "gp3" };
 > +
-> +       return !!(readl(common->base + sdm->pat0_reg) & sdm->pat0_enable)=
-;
->  }
->  EXPORT_SYMBOL_NS_GPL(ccu_sdm_helper_is_enabled, "SUNXI_CCU");
->
-> @@ -37,18 +40,27 @@ void ccu_sdm_helper_enable(struct ccu_common *common,
->         for (i =3D 0; i < sdm->table_size; i++)
->                 if (sdm->table[i].rate =3D=3D rate)
->                         writel(sdm->table[i].pattern,
-> -                              common->base + sdm->tuning_reg);
-> +                              common->base + sdm->pat0_reg);
->
->         /* Make sure SDM is enabled */
->         spin_lock_irqsave(common->lock, flags);
-> -       reg =3D readl(common->base + sdm->tuning_reg);
-> -       writel(reg | sdm->tuning_enable, common->base + sdm->tuning_reg);
-> +       reg =3D readl(common->base + sdm->pat0_reg);
-> +       writel(reg | sdm->pat0_enable, common->base + sdm->pat0_reg);
->         spin_unlock_irqrestore(common->lock, flags);
->
-> -       spin_lock_irqsave(common->lock, flags);
-> -       reg =3D readl(common->base + common->reg);
-> -       writel(reg | sdm->enable, common->base + common->reg);
-> -       spin_unlock_irqrestore(common->lock, flags);
-> +       if (sdm->enable) {
-> +               spin_lock_irqsave(common->lock, flags);
-> +               reg =3D readl(common->base + common->reg);
-> +               writel(reg | sdm->enable, common->base + common->reg);
-> +               spin_unlock_irqrestore(common->lock, flags);
-> +       }
+> +/*
+> + * Valid ACC_DEPTH values where the effective divisor equals the count.
+> + * From Table 13: ACC_DEPTH = 2^N yields right-shift = N, divisor = 2^N.
+> + */
+> +static const int ad4691_oversampling_ratios[] = { 1, 2, 4, 8, 16, 32 };
+> [...]
+> +static int ad4691_set_oversampling_ratio(struct iio_dev *indio_dev,
+> +					 const struct iio_chan_spec *chan,
+> +					 int osr)
+> +{
+> +	struct ad4691_state *st = iio_priv(indio_dev);
+> +	unsigned int i;
 > +
-> +       if (sdm->pat1_enable) {
-> +               spin_lock_irqsave(common->lock, flags);
-> +               reg =3D readl(common->base + sdm->pat1_reg);
-> +               writel(reg | sdm->pat1_enable, common->base + sdm->pat1_r=
-eg);
-> +               spin_unlock_irqrestore(common->lock, flags);
-> +       }
->  }
->  EXPORT_SYMBOL_NS_GPL(ccu_sdm_helper_enable, "SUNXI_CCU");
->
-> @@ -61,14 +73,23 @@ void ccu_sdm_helper_disable(struct ccu_common *common=
-,
->         if (!(common->features & CCU_FEATURE_SIGMA_DELTA_MOD))
->                 return;
->
-> -       spin_lock_irqsave(common->lock, flags);
-> -       reg =3D readl(common->base + common->reg);
-> -       writel(reg & ~sdm->enable, common->base + common->reg);
-> -       spin_unlock_irqrestore(common->lock, flags);
-> +       if (sdm->enable) {
-> +               spin_lock_irqsave(common->lock, flags);
-> +               reg =3D readl(common->base + common->reg);
-> +               writel(reg & ~sdm->enable, common->base + common->reg);
-> +               spin_unlock_irqrestore(common->lock, flags);
-> +       }
+> +	for (i = 0; i < ARRAY_SIZE(ad4691_oversampling_ratios); i++) {
+> +		if (ad4691_oversampling_ratios[i] != osr)
+> +			continue;
+
+Given that ad4691_oversampling_ratios[i] is 1 << i; you can get rid of
+the loop using something like:
+
+	if (osr < 1 || osr > 32 || !is_power_of_2(osr))
+		return -EINVAL;
+
+	i = ilog2(osr);
+
 > +
-> +       if (sdm->pat1_enable) {
-> +               spin_lock_irqsave(common->lock, flags);
-> +               reg =3D readl(common->base + sdm->pat1_reg);
-> +               writel(reg & ~sdm->pat1_enable, common->base + sdm->pat1_=
-reg);
-> +               spin_unlock_irqrestore(common->lock, flags);
-> +       }
->
->         spin_lock_irqsave(common->lock, flags);
-> -       reg =3D readl(common->base + sdm->tuning_reg);
-> -       writel(reg & ~sdm->tuning_enable, common->base + sdm->tuning_reg)=
-;
-> +       reg =3D readl(common->base + sdm->pat0_reg);
-> +       writel(reg & ~sdm->pat0_enable, common->base + sdm->pat0_reg);
->         spin_unlock_irqrestore(common->lock, flags);
->  }
->  EXPORT_SYMBOL_NS_GPL(ccu_sdm_helper_disable, "SUNXI_CCU");
-> @@ -123,7 +144,7 @@ unsigned long ccu_sdm_helper_read_rate(struct ccu_com=
-mon *common,
->         pr_debug("%s: clock is sigma-delta modulated\n",
->                  clk_hw_get_name(&common->hw));
->
-> -       reg =3D readl(common->base + sdm->tuning_reg);
-> +       reg =3D readl(common->base + sdm->pat0_reg);
->
->         pr_debug("%s: pattern reg is 0x%x",
->                  clk_hw_get_name(&common->hw), reg);
-> diff --git a/drivers/clk/sunxi-ng/ccu_sdm.h b/drivers/clk/sunxi-ng/ccu_sd=
-m.h
-> index c1a7159b89c3..c289be28e1b4 100644
-> --- a/drivers/clk/sunxi-ng/ccu_sdm.h
-> +++ b/drivers/clk/sunxi-ng/ccu_sdm.h
-> @@ -33,21 +33,31 @@ struct ccu_sdm_internal {
->         u32             table_size;
->         /* early SoCs don't have the SDM enable bit in the PLL register *=
-/
->         u32             enable;
-> -       /* second enable bit in tuning register */
-> -       u32             tuning_enable;
-> -       u16             tuning_reg;
-> +       /* second enable bit in pattern0 register */
-> +       u32             pat0_enable;
-> +       u16             pat0_reg;
-> +       /* on some platforms, the sdm enable bit in pattern1 register */
-> +       u32             pat1_enable;
-> +       u16             pat1_reg;
->  };
->
-> -#define _SUNXI_CCU_SDM(_table, _enable,                        \
-> -                      _reg, _reg_enable)               \
-> -       {                                               \
-> -               .table          =3D _table,               \
-> -               .table_size     =3D ARRAY_SIZE(_table),   \
-> -               .enable         =3D _enable,              \
-> -               .tuning_enable  =3D _reg_enable,          \
-> -               .tuning_reg     =3D _reg,                 \
-> +#define __SUNXI_CCU_SDM(_table, _enable, _pat0, _pat0_enable, _pat1, _pa=
-t1_enable)     \
-> +       {                                                               \
-> +               .table                  =3D _table,                      =
- \
-> +               .table_size             =3D ARRAY_SIZE(_table),          =
- \
-> +               .enable                 =3D _enable,                     =
- \
-> +               .pat0_enable            =3D _pat0_enable,                =
- \
-> +               .pat0_reg               =3D _pat0,                       =
- \
-> +               .pat1_enable            =3D _pat1_enable,                =
- \
-> +               .pat1_reg               =3D _pat1,                       =
- \
->         }
->
-> +#define _SUNXI_CCU_SDM(_table, _enable, _pat0, _pat0_enable)   \
-> +       __SUNXI_CCU_SDM(_table, _enable, _pat0, _pat0_enable, 0, 0)
+> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +			return -EBUSY;
 > +
-> +#define _SUNXI_CCU_SDM_DUAL_PAT(_table, _pat0, _pat0_enable, _pat1, _pat=
-1_enable)      \
-> +       __SUNXI_CCU_SDM(_table, 0, _pat0, _pat0_enable, _pat1, _pat1_enab=
-le)
+> +		st->osr[chan->scan_index] = osr;
+> +		return regmap_write(st->regmap,
+> +				    AD4691_ACC_DEPTH_IN(chan->scan_index), osr);
+> +	}
 > +
+> +	return -EINVAL;
+> +}
 
-Don't introduce an intermediate macro that looks _almost_ the same as the
-macro the driver is actually supposed to use.
+Best regards
+Uwe
 
-Just declare _SUNXI_CCU_SDM_DUAL_PAT() to expand to the full entry, and
-_SUNXI_CCU_SDM() to _SUNXI_CCU_SDM_DUAL_PAT() with the last two parameters
-as zero. That takes less lines.
+--5etpnf3qopr55utl
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-ChenYu
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnI3RwACgkQj4D7WH0S
+/k6zzAf+J/7TqFHxQOCCHdUOD0oRn8btWZ2pH95is3fxAKrwDQtngFy3M4CULsCg
+GqYyEx+As2PJ1gq8S4Sy8jGMn7um3xjGe/WP82wePbJ1ZnYbfyiGFGRd8Ra5IgV2
+rujUIVQnvkbiwWnvg9IYUQmkwOl3aGa+dS13XzG9FO/9hrS/SnxaBdt+rKZrPTD3
+GTFcSRG2f8op0gwLh+7uUEOQbos+jI5DhXxujrs56oEJxatRLP/0EKmz6VRVUc1f
+8h38ZNXNJP1JlEwYK4HH3PiIF7zDC4i8VFqzph2t1rKkzGwueaUDi72C1HThYl/9
+1Nc/iQRpQneT8ikWVpjN8yWMsd5pCQ==
+=0mMc
+-----END PGP SIGNATURE-----
 
->  bool ccu_sdm_helper_is_enabled(struct ccu_common *common,
->                                struct ccu_sdm_internal *sdm);
->  void ccu_sdm_helper_enable(struct ccu_common *common,
->
-> --
-> 2.52.0
->
->
+--5etpnf3qopr55utl--
