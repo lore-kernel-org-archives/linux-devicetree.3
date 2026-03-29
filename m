@@ -1,89 +1,74 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CAC36BCC3
-	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 12:35:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7496036CDE9
+	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 12:58:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774787721; cv=none; b=O56dpuMMfWfoE3HQbZzGf1C20YvBkDoopwkuzUmeIE1ARP6a+4KsPJOXwDWZ2pB8InPtk2lmodORcPjh1eaWIPzKVf0rSc/YZKJY0//romedQgTGpk0dM3CQjBTZqfj47/EUZRLlMu9yH7JJqpmBPwXFVF7Vjz1xQ+av8REdZwQ=
+	t=1774789121; cv=none; b=D6aEPMRevpzsYi/D2ztBcYQPvTWwtZRDoahVBXfHtB9jA16aNf7Ny7WP7va7AcWQsABpVDsYCcXLIhjLp7tNSbLskx/KdBkMp3klpUAqq+o/aUdAbhT2s4rszMc60PIF0bhgGtkrlTWD+9n+I/X+kapCeucBUrUQgDk96eyAQ3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774787721; c=relaxed/simple;
-	bh=hb3b5Xn6nqgDmPUXGa8SEWTqyas5qT4V0APOofxhyPQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S4DBVrpYx66D4gi1F4El0mULX2rRBS3ZWAsZMKjoQvTniiwm4DZyrYYp0bAnaoYdVMmRJBvmzEq3NXIuzJ4exu4AqK8E9vEHTef40FX25lCcu9mQ8nkNFtINI+Yehm65BMkUuqj7KT/i3pGpyg/xbA96J6HjTwA6bbB5bCYcswQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GvjEv4dg; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774789121; c=relaxed/simple;
+	bh=kN4LXldOx96vW9vpO1vfeA7hR3dgCWRaoqTXW0AoqeA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cCUjPpvw3xeWyUxJjEIBMebCd9SvxgLJf7HpoHvrbBOkr/GRpbyk7SJrE1X+n2HWnlu37POZJs2Q4jCc2cxCydfroq3cxUv68FbvuJcwJpCZXfzCtBeDZeB1ZHLJ9lVvVjeAEdfcZN4xKBzVjrtSk4JfB2YOKD7a7pN5FwZPP3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mind.be; spf=pass smtp.mailfrom=essensium.com; dkim=pass (2048-bit key) header.d=mind.be header.i=@mind.be header.b=eicIIiaq; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mind.be
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=essensium.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GvjEv4dg"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c768b85d5daso1273734a12.0
-        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 05:35:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mind.be header.i=@mind.be header.b="eicIIiaq"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-48540d21f7dso42027915e9.0
+        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 05:58:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774787720; x=1775392520; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5wKSxAHN0Stzff0w5tTcgOX+ksB7Z1iTuqZjXxjUVhY=;
-        b=GvjEv4dgw0TyGju87nChsRll8zSJE5Gs7b71k4rez4mNcMFHrHSvkRAj4qjPoMtP7S
-         9x1rLXFS81NWf9y8FycZlkt9qqRJtZInqcWD14iLLw1UBDfJLPcDgtcQqfZxk2TSs6x6
-         LdGavDrt+B+iY0ubkMY5VVp/1IyOFau4B6xQ3QVVC+k+7CJWADMYZpGePar90IRCWX41
-         7k1qXqYJZyE0QT+xUp70bi1glgNRWScd7xv2gN76SHesyokkFmmAPWju3zjwfYXIiOr8
-         Rn2KL++P1eMcbq4yz3IsMqMdiv+t2x8uqvmr70+P4bQZlq8MIpxLNcPAc13VgoRXxiYT
-         VaJQ==
+        d=mind.be; s=google; t=1774789119; x=1775393919; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=fOCnQYUXjmZVJGvxLeFLJ7zJq2M1PJo5p4ZlaCZTYaY=;
+        b=eicIIiaqlDIywt0XojgklmkGVEzw7wrytfqG0XdfnioGFmhAH7cLfJ7NDJwTw4HnQk
+         UBpEgWK2SzjgsPUBSEFCcHAikTNQIcJ5hVL7Jwyrkegnoi6jLOqbSe38eKQXFVn0svYe
+         aPjmAqCHrLcUCQUO3yNIziZnMkiEUHpjB2EUhgdeZ3OZ4VLNXXVeqtHIheiMd1p/j545
+         +jIHQXCpHELbf6GWSmmkrRQu82Lu2DK7QZuUPZ1ryYFCLht/LdW2hwevE7PWLxEEAU9m
+         byoAlJHRxfb63vS115FfOus836G0RtKi+x66HrzdiWzy88V19uu3Ta+eSqX83c6m4Zyg
+         Eyyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774787720; x=1775392520;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=5wKSxAHN0Stzff0w5tTcgOX+ksB7Z1iTuqZjXxjUVhY=;
-        b=HO87TL/7jSIznzGypoiq4q/OIj+e4tvWt0RgdWt6xurTDciqPk/AAc0cD7TYP1AXCN
-         iD9yrPR+bzsYOwi2Ru5sra05veIiCBGKKCV3WzFFL/xT/RA3Hqhd0QsRV1Nd3ZoYOSaW
-         GBrVC7x6HiLpyU7s0cR013Cxlp4hQPhwnGlgMW4WxHvfEnGt0FJ8XlTbY0vb+mLflQ1h
-         eByDuq1yxJQ5FbSXp9plN7KwTPc1RFxJtd2hRfdbe/1u7ZcstVzl7IdxN7jos8886AAd
-         OA4hAt57qRUIFSXd4nnazp2gSgzkgh2x9nZ4reRSn6Pj7OqZQ5IXD4GiwoZCkQIWZ9lz
-         Dp9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVmQwkq2R6ozShXhk3fJ79bftNPwkJWDbuKrOn4h+eYGV0rDuuWRb8PGvXMRoELE/idYie5jlqy7E5U@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy69kZq8MyqHJdIiyOAKugyXe5VBAXU8oDkj/wkQNRIMuEyOV11
-	AWdAiqvE4hzIYYhy8x4sgK3kfJjDSQNc0oFcSFl2oLMC6PjDxt9TWERf
-X-Gm-Gg: ATEYQzzu+LN4voLAFyyGUXd9n9gPMyMnFViyYhwXFPGtrI9/ixgfq0ur3xzIYe7+MFf
-	YYnHq929pVLw0DryFCWg8zcza8uHE96nhYhefM9DYXILBSbp3xyc1UPbysjQ1yrLQb6gs5kgO92
-	xTVtQzBUQxo/QRbjrccI4yz+L4IiOe6fia9dOBPo00Ca+wo3fxpDa+mVdPFFzuK79SoohjRVaIb
-	FzTAPG68O12dgJCSFNvLIzpkNUVxsVqXMMkdKOi2uC8LQwXm0L1nWvNYJQndu7FrSSz1I7gYCRy
-	LpYyfsZqb7Mze/R+pU3ZjDj+IEtu2uq+3wNZEY6L8NkYF6SCu8Mu+TvTgUsVl1ue0ssxwELnSAd
-	eA+tQTqswZGgOVCU1wpW1OOS/M4FjHXZj6G0VEssaWk+Gs3fP3eJPIZfI5/EKCDrPCWMgAMJ/5s
-	YJhf3aGdz4Q8pCiNUgt6zH846C9RZyDlVP6wTkVgFaM/EDBJDZdQLEkPV0bvm758HOZSKWncfvW
-	Is=
-X-Received: by 2002:a17:903:1a67:b0:2b2:51e8:2c20 with SMTP id d9443c01a7336-2b251e831bemr6342265ad.21.1774787719650;
-        Sun, 29 Mar 2026 05:35:19 -0700 (PDT)
-Received: from toolbx.gk.pfsense.com ([103.70.166.143])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2427afbe0sm58709665ad.72.2026.03.29.05.35.12
+        d=1e100.net; s=20251104; t=1774789119; x=1775393919;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fOCnQYUXjmZVJGvxLeFLJ7zJq2M1PJo5p4ZlaCZTYaY=;
+        b=nV8zNhwtangKHQ9SggkDGkQ0IJSV3e2ZmuY0WWyFGO9f15Z+KHBWNZGeXnT6Dw6ojm
+         ym2g6RnyupTv4dzHx79DFV7u58Wl+a4sWNcR2h/7yEzaBdZC1zDs3K3ngmD05S5dQ72R
+         CzTTMCo6egfYInLWLLGjrV/Bid/n1K2Zmw4boT9kmU6cOuB/MIXJEk0qlHlfeR6h07x3
+         49ilnpp79voC4n7NvA64kDAmd8sLI7szhQ62ZiNXBXG852ksL5q2RHvW1nIzFRejEv9a
+         PGTmcas3N759sgO+qxpdpaMiL9avDhraFvvktbZvyVODUk6d5FRrxBlhL1JtAfw2Q4uT
+         X+Gw==
+X-Forwarded-Encrypted: i=1; AJvYcCX8h3Vyijg46mniRzExBsZJdeCiKTDst4gS4T8N3/yM/bm9EnP01wrZvuFkeoX/ZBasvhPCGoNNeuMj@vger.kernel.org
+X-Gm-Message-State: AOJu0YxmZDETvs+nF3yTbqJ+g/WBnImnv7nzylHkjvCfjzYvIWDLggN7
+	iXXJFRk+GyPpton4aptD0kfpNYWRxxwWwVTPOcxC2ifZ5EYkhbABIJtTB3m1mB3Lons=
+X-Gm-Gg: ATEYQzzfOPB9OG81Tu9qv8QJVB3p8KJHABlSsnS+c6Fnbr4Gry7g3yQkM0hug/5Mnq5
+	8H3e4Y8Xv9xKU9U5eJ1rB3SqsR2YWoi2IpnRReo2k5jA/ypd3ZYKAaA4gSIhw3cdkzxkJMTqSIX
+	+PyQ5FZdJMXwtMHAVbTFohAbqd8Ia2YCqB91k5SjqCBheuxo4B0tZ5kRejBosvy5d2EkkBRsPfp
+	p+vfAQLYYzXub6+GJK03gNq73MCKza3P00bZHAeIXIq+CLICuMpsC/VLII6WRdnwuYsoqtkezbL
+	AUqTTWjCVQeqLiigrvVweOk4ULhfgrh1as62VhGMrWPwiGEMkHItO1QLq52G7DaENOCnjZHlrWH
+	4qv5ewNQvD+hqLueJQYjocvfI35LD818DMOR6vXsr/ZuGiK6qh6HS4/Vr7FGUDBx3VfRaw4mZDy
+	nVo/n7hNkuv0dXzxAA7y4IRVdNguFh1ofHgqUtrtRGMQ4=
+X-Received: by 2002:a05:600c:4e15:b0:485:2ce2:4c8a with SMTP id 5b1f17b1804b1-48727d67a21mr143506915e9.1.1774789118488;
+        Sun, 29 Mar 2026 05:58:38 -0700 (PDT)
+Received: from Jimmy.fritz.box ([2a02:578:85c6:1101:1ab9:445:1169:11e3])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48725d2abb8sm62371455e9.0.2026.03.29.05.58.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 29 Mar 2026 05:35:19 -0700 (PDT)
-From: Gopi Krishna Menon <krishnagopi487@gmail.com>
-To: rafael@kernel.org,
-	daniel.lezcano@kernel.org,
-	rui.zhang@intel.com,
-	lukasz.luba@arm.com,
+        Sun, 29 Mar 2026 05:58:38 -0700 (PDT)
+From: charles-antoine.couret@mind.be
+To: broonie@kernel.org,
 	robh@kernel.org,
 	krzk+dt@kernel.org,
-	vireshk@kernel.org,
 	conor+dt@kernel.org
-Cc: Gopi Krishna Menon <krishnagopi487@gmail.com>,
-	linux-pm@vger.kernel.org,
+Cc: linux-spi@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	soc@lists.linux.dev,
-	daniel.baluta@nxp.com,
-	simona.toaca@nxp.com,
-	d-gole@ti.com,
-	m-chawdhry@ti.com
-Subject: [PATCH v3 2/2] ARM: dts: st: spear: remove undocumented thermal_flags property
-Date: Sun, 29 Mar 2026 18:04:44 +0530
-Message-ID: <20260329123449.309814-3-krishnagopi487@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260329123449.309814-1-krishnagopi487@gmail.com>
-References: <20260329123449.309814-1-krishnagopi487@gmail.com>
+	Charles-Antoine Couret <charles-antoine.couret@mind.be>
+Subject: [PATCH 2/2 v2] devicetree: spi: add spi-mosi-idle-low property support
+Date: Sun, 29 Mar 2026 14:58:32 +0200
+Message-ID: <20260329125832.2985115-1-charles-antoine.couret@mind.be>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -92,45 +77,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-spear13xx.dtsi defines a thermal_flags property in spear thermal sensor
-node which is both unused in kernel and undocumented in spear thermal
-sensor's binding.
+From: Charles-Antoine Couret <charles-antoine.couret@mind.be>
 
-There were no dtbs_check warnings associated with this property as the
-underlying spear thermal binding was not converted to DTSchema.
+This flag means that device requires the MOSI line to be low
+when it's in idle state.
 
-Most likely st,thermal-flags is a misspelling of thermal_flags in
-spear13xx.dtsi. Since both st/spear1310.dtsi and st/spear1340.dtsi
-define st,thermal-flags property in spear thermal sensor node, we can
-safely remove this property from spear13xx.dtsi.
-
-Signed-off-by: Gopi Krishna Menon <krishnagopi487@gmail.com>
+Signed-off-by: Charles-Antoine Couret <charles-antoine.couret@mind.be>
 ---
-Changes since v2:
-- Reword the commit message and subject to correct explanation in patch 2
-Changes since v1:
-- Changed unevaluatedProperties to additionalProperties in the binding
-- Reword the commit message and subject in the second patch
+ Documentation/devicetree/bindings/spi/spi-controller.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Note:
-* This patch is part of the GSoC2026 application process for device tree bindings conversions
-* https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
-
- arch/arm/boot/dts/st/spear13xx.dtsi | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/arch/arm/boot/dts/st/spear13xx.dtsi b/arch/arm/boot/dts/st/spear13xx.dtsi
-index 159e941708ca..0bb88f2d4ef5 100644
---- a/arch/arm/boot/dts/st/spear13xx.dtsi
-+++ b/arch/arm/boot/dts/st/spear13xx.dtsi
-@@ -332,7 +332,6 @@ wdt@ec800620 {
- 			thermal@e07008c4 {
- 				compatible = "st,thermal-spear1340";
- 				reg = <0xe07008c4 0x4>;
--				thermal_flags = <0x7000>;
- 			};
- 		};
- 	};
+diff --git a/Documentation/devicetree/bindings/spi/spi-controller.yaml b/Documentation/devicetree/bindings/spi/spi-controller.yaml
+index 3b8e990e30c4..5f5b143cb27b 100644
+--- a/Documentation/devicetree/bindings/spi/spi-controller.yaml
++++ b/Documentation/devicetree/bindings/spi/spi-controller.yaml
+@@ -132,6 +132,11 @@ patternProperties:
+         description:
+           The device requires inverse clock polarity (CPOL) mode.
+ 
++      spi-mosi-idle-low:
++        $ref: /schemas/types.yaml#/definitions/flag
++        description:
++          The device requires the MOSI line to be low when it's in idle state.
++
+     required:
+       - compatible
+       - reg
 -- 
-2.52.0
+2.53.0
 
