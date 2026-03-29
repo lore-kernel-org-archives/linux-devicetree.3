@@ -1,62 +1,66 @@
-Received: from smtpfb2-g21.free.fr (smtpfb2-g21.free.fr [212.27.42.10])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 72F3028FFF6;
-	Sun, 29 Mar 2026 09:20:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.10
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642C5285CB9;
+	Sun, 29 Mar 2026 09:21:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774776047; cv=none; b=Ap6i4ENp9uHLYXM2LsJBhrPSQjCgETh1GCqpRhrEEwcp7yrZHkpEaMCzZtUf8+ji+id1HMjNcD3aRWFUWh3EdgRqqCop0Q5gGLtCb20xWCiqVeIQXkhS2CEGQnYwBMrmPCFYV10k4HqvOjmzgmhAwdBAHU0+92GBi6IlE54YQT0=
+	t=1774776089; cv=none; b=MMNDK8ig3bkngPBo71FklNvbxTxw9l6O/vTDF/93Z19a8O+4bq+VIdvWSfTh0JQ+/sLiC/KrAPkxNClsRbGuePzrD5DjzgbqYM77zye+dyknQGbq7N7OdaoqauEBI2VEAPbN4D6c7xqYdszOyLdAfNRLWipINy9THB0HlWyWOTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774776047; c=relaxed/simple;
-	bh=IzsenYqkDV3+9tNmaGCCPfebzIIP3eioMbhuiFIrBPA=;
-	h=Message-ID:Date:MIME-Version:In-Reply-To:To:Cc:From:Subject:
-	 Content-Type; b=mFOLbVF14sUrxzt+FABzXE+Q/JeABSoXOZ9ehiqrZZsWQuuXVy0qjTaJgrfwCQ48hsEBa4haoHNFvi+ma8EgQnPNjDaclNVSGjHXBRb+ZpEHFvkmPOgKyrri+5fSm60kH/h0EwySHFw/0r0/LvVk8qpzf0N1/d7oj79FZGT0Hj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=online.fr; spf=pass smtp.mailfrom=online.fr; arc=none smtp.client-ip=212.27.42.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=online.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=online.fr
-Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
-	by smtpfb2-g21.free.fr (Postfix) with ESMTP id B96594CFF3;
-	Sun, 29 Mar 2026 11:20:33 +0200 (CEST)
-Received: from [10.0.0.2] (unknown [82.65.243.93])
-	(Authenticated sender: legoll@free.fr)
-	by smtp4-g21.free.fr (Postfix) with ESMTPSA id 8F1D319F5C6;
-	Sun, 29 Mar 2026 11:20:01 +0200 (CEST)
-Message-ID: <55c580a0-61cd-435e-bff0-f5f54cbe6948@online.fr>
-Date: Sun, 29 Mar 2026 11:20:01 +0200
+	s=arc-20240116; t=1774776089; c=relaxed/simple;
+	bh=krJksK73J683bs/CH1MzSlPSkGVGi1AHMRQNKlhYMdM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NhiQ7tU1q6OdWDtjcAD1+cMsFAR9SCPnJqn2Axltvm4Bo2ZEgMXAb2M5v6asYiVMILSX8IN1uzQ2fWW7s/iB0M/0ElXV1ABt7gpH5GhF6VnbVVTVK7v071t1lRvkyB3uNRKYokGyhn2r/XIUZ2+6Z8dZHgKQfRhHy1ZAnjoasV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=q038+tBR; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="q038+tBR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55767C116C6;
+	Sun, 29 Mar 2026 09:21:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774776088;
+	bh=krJksK73J683bs/CH1MzSlPSkGVGi1AHMRQNKlhYMdM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=q038+tBRK5+0+u/kvw4B0o/FUUEN428NhFw2xcDOKSmHlw+8URFARbzyxvF/xmm2l
+	 +hrXAhx8OolB8s3zl+oBtzS1+02+rpvvUR4WaLIO0OJ/+3m0dYEIi87DOYQjv20Si1
+	 xhxYxLDkID6jpklV8VNgpit5x8EsnwFRzyhOFV3azRsanMa4iDa2DKvhqjT31eSzwA
+	 qMiZnBHhAEuDvLKPtVR08PpmOOh95LULWXR7YaFSoq0wWlJKnOTmL/t6wGg3bWrlle
+	 nqiavS3gypEXPXpsJuex1vsr/0txyR+xpkQEK/kj8+ebllbJAKvuiZCcTqI6Uv8quM
+	 0BAd1FjcMqoZQ==
+Date: Sun, 29 Mar 2026 11:21:26 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Biswapriyo Nath <nathbappai@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+	Pavel Machek <pavel@kernel.org>, Sean Young <sean@mess.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Martin Botka <martin.botka@somainline.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, linux-clk@vger.kernel.org, 
+	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, stable@vger.kernel.org, 
+	kernel test robot <lkp@intel.com>
+Subject: Re: [PATCH v2 2/7] dt-bindings: clock: qcom, dispcc-sm6125: Add
+ #reset-cells property
+Message-ID: <20260329-amorphous-happy-deer-cea083@quoll>
+References: <20260329-ginkgo-add-usb-ir-vib-v2-0-870e0745e55e@gmail.com>
+ <20260329-ginkgo-add-usb-ir-vib-v2-2-870e0745e55e@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-In-Reply-To: <20260323-orangepi-sd-card-uhs-v4-0-567c9775fd0e@gmail.com>
-To: Iker Pedrosa <ikerpedrosam@gmail.com>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Yixun Lan <dlan@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Michael Opdenacker <michael.opdenacker@rootcommit.com>,
- Javier Martinez Canillas <javierm@redhat.com>, linux-mmc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
- Iker Pedrosa <ikerpedrosam@gmail.com>, Anand Moon <linux.amoon@gmail.com>,
- Trevor Gamblin <tgamblin@baylibre.com>
-From: Vincent Legoll <legoll@online.fr>
-Subject: Re: [PATCH v4 1/8] mmc: sdhci-of-k1: enable essential clock,
- infrastructure for SD operation
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260329-ginkgo-add-usb-ir-vib-v2-2-870e0745e55e@gmail.com>
 
-Hello,
+On Sun, Mar 29, 2026 at 04:47:57AM +0000, Biswapriyo Nath wrote:
+> The '#reset-cells' property is permitted for the SM6125 SoC clock
+> controllers, but not listed as a valid property.
 
-I applied this series on top of cbfffcca2bf0622b601b7eaf477aa29035169184 
-(linux mainline from yesterday) and successfully booted the resulting 
-kernel from an SD card on an OrangePi-RV2 (with the vendor u-boot from 
-the SPI flash).
+Any reason why this binding file is the only dispcc not referencing
+qcom,gcc.yaml? It should and it would solve the error. Look at other
+files.
 
-So if you want, you can add my: Tested-by: Vincent Legoll 
-<legoll@online.fr> # OrangePi-RV2 to the relevant patches from this 
-series Thanks Regards
+Best regards,
+Krzysztof
 
