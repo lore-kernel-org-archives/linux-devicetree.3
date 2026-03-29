@@ -1,104 +1,127 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6CEF3803D4;
-	Sun, 29 Mar 2026 17:05:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774803935; cv=none; b=qQmgz1LJy7sXzXUbgOOuGh67C88DmFYhcAklVuK3VfANS13ul59fOJNxgDTkVxCek+x9vNwnAnEZqR8RHN92pjXwwNBfmwFopjTZ02HfAiw+rjg6xuNflT6Vz91T2Ahfw4m7RR3O6lTAXj7wwVWn4cgK/ZoI9moizj3n+FReS24=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774803935; c=relaxed/simple;
-	bh=314A2cauoj98vTp8DGdqTlMh6M8hx8O+fIiUSPwXQsk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DC1ShaNaU7dYviywtMNXGQ8jPxwoM0g3Zzzzu3FMgOhRruL2R2c677RohabLY1WMyDAdZL6ROSAViwIwkkYwrbYyiufPOH2lQtMTKTgmfJ5wDm3B3tpteMcB9+11Jq09q4HsOtUIxSbIZb0+uVeNha2YF5/f+eqmf2pLpzyqVdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [223.166.95.230])
-	by APP-01 (Coremail) with SMTP id qwCowADXfmrNW8lphN+LCw--.7316S2;
-	Mon, 30 Mar 2026 01:05:19 +0800 (CST)
-From: Han Gao <gaohan@iscas.ac.cn>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Han Gao <rabenda.cn@gmail.com>,
-	Han Gao <gaohan@iscas.ac.cn>
-Subject: [PATCH v3 0/3] riscv: dts: spacemit: Add PMIC regulators usb pcie
-Date: Mon, 30 Mar 2026 01:05:12 +0800
-Message-ID: <cover.1774803532.git.gaohan@iscas.ac.cn>
-X-Mailer: git-send-email 2.47.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96133815E9
+	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 17:10:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774804250; cv=pass; b=h4btC/p8xtiQD4H7565TGrzlEZ5A2k2keDr8mr8oRC1NX1gi2UyJyVJqtq6cBHtuDiMnNCPHKdZMlmzhhxMVU4F48NpBLVq2/oQbS7lF6/BfeYdQmICrsXTDhgTDo3mEuQBrWN0Z1B0icVVl7T2fJgxrKddBGAMUrEK0MFvaIn0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774804250; c=relaxed/simple;
+	bh=rsVeJPHdgyOCuxiECCsr2glqWzke2yPywwPZ4x83Vu0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jd26vEgrMhDghX6o5y9oxK1/d96PoEVsVXkDR7HFtS6TqC1geIvN7DYaOs75mqb5Vcnb4B5eUEhwObA9xxkFOGwhDp2syRU0wvOtWu6P52i7bLNfYYw7/K4S4toPDen9jUjYppvmHy3iEkjW0Jb2m1aOJNWg+OsO1rXXNYjDVvc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y3GhcnSL; arc=pass smtp.client-ip=209.85.167.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y3GhcnSL"
+Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-46708149af2so2151076b6e.0
+        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 10:10:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774804248; cv=none;
+        d=google.com; s=arc-20240605;
+        b=HeInzM5S4azhI+vT1ztamb+7FH01QQAvFT4JmVBvz8boSUSI13RdpDF6z2kXhdLJq4
+         Up2rLkQFJ1tUs5py9W9J4w0xQTOW95wanTazsgpkK3M0yaNaTTufdxqu5bxFc/KnZfsI
+         cIgCcp9NeNaifM6tCuq2NukT2tEcW0IFmIAO8yy3eq5mNAJdnQl7HbwIJ5WBY7dRR///
+         8s2UcV71NIWTO+jPeAw29wE90XOjJNK+z7B7hPMmoqFTXG2+e5PvaUcaUTTg1JbdiGwW
+         JiqiKou2yWX8ImfHoJlRrv840X2C4CUB2X7KK+R/Oia/7b9V3ph8ZzL31nLFP6/0HayU
+         kLTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZlxbdeYNKU9+jEQ+FY2jeitF0szXbRjABBRQQBT4p78=;
+        fh=ZwSXUKvGypFEzggq8tThpXvP8r0OWk+M7DXorCCyics=;
+        b=JaCbNpbIpAshCf3HOS7Ph6yUUQ0kizKxbDlwqfeb0rN3CI6+P0Q1e7l2rBCZALc1Kz
+         7MAU4S6XgaGNFYPg/bu/bnAu+6d8nsveTEOaH3zdmoDkJmoiVUYnjEdE+ammX3ZoEk1e
+         y4lLaRx0lvaesk1b0O545WG3APFkPxzDoEc5JG4J4XS0lmR4UmsCIAxlFu2Wd1oTL3iB
+         WyBN4wOU5rrZZW1figW7HD6MT6GYECiof51TYjfH4akz8PrAeKuYbucn+HYr2acaDrHJ
+         98uOVGDLEwct3EfUQ+LxH7BKpZjCBJWDTicCVDaz3YfLGd0I4fSidekKH2+jUSB5547R
+         cgkw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774804248; x=1775409048; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZlxbdeYNKU9+jEQ+FY2jeitF0szXbRjABBRQQBT4p78=;
+        b=Y3GhcnSLSJ/aDcuVKwWSSubu8zbUdIEgANQ0WCfpTrMDMfxCuPOHjYixeOMaKrHa1j
+         Gq74lsXiaRMuMBi1+9DyulDSlCiC+spSghaZDaCk7w5XoxO5Pa09a4K/YlCIFM1NgG4f
+         RTC6sZdZUXYK3PfuH0zhfMvDTD4fkcUblyTy9P4lFU+5CaAW6D0+MVcMvd2HR8Et8FIt
+         zopIBXe1yhqMiBUV2BBbgo3Y0AnX30eeg2XZM+fj5FZ0jYbNoWEFn8gA/41zbajCwX4o
+         lFBp9nBrCoFTXHHAbZyOP6D3NldxSZl7HSLQrVNLul4o7z3ZjOmqFbjA+G9EE+j8rffI
+         iIng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774804248; x=1775409048;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ZlxbdeYNKU9+jEQ+FY2jeitF0szXbRjABBRQQBT4p78=;
+        b=oKpwvcHmujfrZhR4zHj/z+Gwk/S6V1+eiXHUX2sZzWVAjTnoPWjwTk8szf0OeJwIND
+         XmPXduMGW5KJ2Cmh8EXLa2PIPKyM9QAYR0GMNMmfkHI8OHCYh2rZcDUMrVFq1YHJlCen
+         A3iIYeYnDC2OE+9y5x0vQmzneGUnFp+nZHK91wtNiAhgjEjhVpUU/Q9L3XYoXLE9ae1m
+         tgDatNFdYVijj0uJIQ2l1my58OkJz/2nQVqFP4GF1B5+FayDOvMyt4zmDHsXz7pksMiU
+         Lrir16x3hQkja8ZtJAyOJ9KmW0P28Kmo3RpKxkkBJNvqgy/iHa0jpAmX6CU4wJD1QjXQ
+         ly8Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXZE+EqpVfKwzR8hc3NNNcpX8fitqtdzrmRY708FbpslTXmwfAsSe2hPNktRC26VC5StMsuk8vftMjA@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx2Rh6e9vMWenRT++/SXvQ/ZgCfDqq7Qbfwxd+HgJtQ0THDaa0N
+	GmXkayJ+QyMG+lJT1rBnT0GrUN76PJfQ2tOYlLlAUvWg9ZY4Vq3Uyni+TbT3qL8JrqM9j36yURp
+	JeCK+KITAj+/8k0TR7Q37pzNE5G3EmIM=
+X-Gm-Gg: ATEYQzxBlIoSRfPvJeIkULCN5EWgbtVq55cxAe3MzQ3rQALpb0hJepMllMBeuK9bUCs
+	4jqzlAKLrhg7nGaYTZ+ONVeR9od/ft7/Evnb2LTSMJaSRGTSgcEQ/A6m4hOJLu1YPEooS9Bddws
+	J0VW/6nDLd7rOJh/zsizm8OCPCeLjkHCPjZ4lqZa93vqkBiUMWdN7qeqrc18biETe83QiJ2OyZ5
+	+wXhEmqXJclBPFSDN9RzHXe0TgSQSNEZFBEaM4juahBbMAJM4sH50PXb6GYzpx6giFfyxOdtHuo
+	FQvBdMPIiCGujibcXjE=
+X-Received: by 2002:a05:6808:5296:b0:467:133f:ec2d with SMTP id
+ 5614622812f47-46a8a5ed427mr4757024b6e.42.1774804247851; Sun, 29 Mar 2026
+ 10:10:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowADXfmrNW8lphN+LCw--.7316S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AFyfur15JryfJF1rtr1kXwb_yoW8ur45pr
-	y2vr45Zw4rXw4Iy3yfu39xJryYyFnYyr9xWr1UKw48ArnFgay7ZF4xKr43ZF9xur45tFnx
-	trsayw4xua1xXF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8JV
-	W8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
-	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
-	CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
-	nIWIevJa73UjIFyTuYvjfUonmRUUUUU
-X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiCREBDGnJP60iRAAAsB
+References: <20260327-eliza-bindings-mailbox-ipcc-v1-1-3f1c89bdf72e@oss.qualcomm.com>
+In-Reply-To: <20260327-eliza-bindings-mailbox-ipcc-v1-1-3f1c89bdf72e@oss.qualcomm.com>
+From: Jassi Brar <jassisinghbrar@gmail.com>
+Date: Sun, 29 Mar 2026 12:10:36 -0500
+X-Gm-Features: AQROBzALnYSR6ICZtBkS1SOfWG29206cWXGKz2mD9ry34Mbei70R0dkKaWCq6wQ
+Message-ID: <CABb+yY31SMUKrTaeu2mq341GM0v+waT4DmoakhB6FK4Kx9XC=Q@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: mailbox: qcom-ipcc: Document the Eliza
+ Inter-Processor Communication Controller
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-Changes in v3:
-- Merge patch 2 into 3
-- Fix
-  Rename regulator-name from USB30_HUB to USB_HUB_EN
-  Drop regulator-usb3-vbus-5v
-  Drop reset-gpios from usb hub nodes
-  Fix reg_dc_in regulator-name from "dc_in_12v" to "dc_in_5v"
-- Link to v2: https://lore.kernel.org/linux-riscv/20260310161853.3900605-1-gaohan@iscas.ac.cn/
-
-Han Gao (3):
-  riscv: dts: spacemit: Enable i2c8 adapter for OrangePi RV2
-  riscv: dts: spacemit: Define the P1 PMIC regulators for OrangePi RV2
-  riscv: dts: spacemit: Enable USB3.0/PCIe on OrangePi RV2
-
- .../boot/dts/spacemit/k1-orangepi-rv2.dts     | 222 ++++++++++++++++++
- 1 file changed, 222 insertions(+)
-
-
-base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
-prerequisite-patch-id: ef6e9c7b5854d0c08066b72f9a7868db8c2140eb
-prerequisite-patch-id: cfe3800f8c791ec4c63e070af9628e88e0fc31b9
-prerequisite-patch-id: b76493e625ae257c8adcd67874178458420e4d47
-prerequisite-patch-id: 88e01dc92c83bd88ddeb78891d3088209fed8d6b
-prerequisite-patch-id: 60336d10ab8322c70596d0f046b6b5c54bb24b54
-prerequisite-patch-id: 68c4d869548687dc115dd91e2ffb8f4c11482d86
-prerequisite-patch-id: fdadcf964c2cb3406160edb579d99a8d5695f8e6
-prerequisite-patch-id: 73b9e745338b0499b849fa4f7f9508987ab39a59
-prerequisite-patch-id: cd26770c2160c3c31a406bd8a6b01ab666180ae0
-prerequisite-patch-id: e5dfddc32cefae195692da8b80e19adf086e4ad7
-prerequisite-patch-id: 7fd53cbe4977598f26148a4bb1cf692bbdb79a09
-prerequisite-patch-id: 96ebac57bb29619b97fe95422206a685825618e9
-prerequisite-patch-id: 00fac16b52f60383db3140e2885f3f7f8d14dd1a
-prerequisite-patch-id: 3b7a60047b922c48e93599f621cb738856f42354
-prerequisite-patch-id: 275c030b963be05dd1041451f539a130ce614277
-prerequisite-patch-id: 93963424b0871e64276af0e0b2199b52e29b4603
-prerequisite-patch-id: 8383188b1c01ed6280629faaa29c37d699ade241
-prerequisite-patch-id: 5f8126b912b924d63d4a1e0c5eb42d212eb0d369
--- 
-2.47.3
-
+On Fri, Mar 27, 2026 at 7:36=E2=80=AFAM Abel Vesa <abel.vesa@oss.qualcomm.c=
+om> wrote:
+>
+> Document the Inter-Processor Communication Controller (IPCC) found in the
+> Qualcomm Eliza SoC. It is used to route interrupts across various
+> subsystems.
+>
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml b/D=
+ocumentation/devicetree/bindings/mailbox/qcom-ipcc.yaml
+> index 7c4d6170491d..f5c584cf2146 100644
+> --- a/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml
+> +++ b/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml
+> @@ -24,6 +24,7 @@ properties:
+>    compatible:
+>      items:
+>        - enum:
+> +          - qcom,eliza-ipcc
+>            - qcom,glymur-ipcc
+>            - qcom,kaanapali-ipcc
+>            - qcom,milos-ipcc
+>
+Applied to mailbox/for-next
+Thanks
+Jassi
