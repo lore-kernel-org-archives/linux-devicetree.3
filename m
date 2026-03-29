@@ -1,160 +1,113 @@
-Received: from buffalo.birch.relay.mailchannels.net (buffalo.birch.relay.mailchannels.net [23.83.209.24])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0CB22F12D4;
-	Sun, 29 Mar 2026 21:37:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.209.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774820271; cv=pass; b=UdUTsbMMfaGCFtrL5/laWXwJwX2m51J50c5jSJgCUxsJJEX+FlKKivCLQ7tLOpqZoQEqc5BFkb9W/KrJ4q9Xlb7yu8ImPVP6btKZhuapgOj2WXFDR46oZ13BS3AbbHS9VC26HkvdPMVBGbu0uqz/ptqxEGe2BKiecVRKpGSSVtE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774820271; c=relaxed/simple;
-	bh=a2KlTregbBCeGLpcEz7X+asDE9hwzE6/fbTCXrJVpkQ=;
-	h=Message-ID:MIME-Version:Cc:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Date; b=oU3HbOSDplHACn8uWi9VXKfGq3F8RW7BPskjPFbctlGxckUSA7jRBYPlH+uEdwD4gHoHscLOiLZvd9qky2BURNrTRhs5WTlo4VOwc6EVVvKwa/yBa3DeO5f7fF2qfLKijTBv+nfcsxYw7NM8a6KGi6TWVYKUoiUIcFjAc1tUOqs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rootcommit.com; spf=pass smtp.mailfrom=rootcommit.com; dkim=pass (2048-bit key) header.d=rootcommit.com header.i=@rootcommit.com header.b=Oo38zP0i; arc=pass smtp.client-ip=23.83.209.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rootcommit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rootcommit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D2328371;
+	Sun, 29 Mar 2026 21:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774820441; cv=none; b=pSYtWLk63g1PLT969xVTjBetyMZWoPjCEd1U0HwiXaBOIq7PydTi7D0nCc1uR9rrPw/GW7OjUTHUM5QJ2b4BV9F8dWRxNXP6ceEAl7C0+GXasjG3cKliL3i3xrvFhodhfcMK30SkheywEjmfxH7pF5mU0100fVs3rgpIVRKUEgo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774820441; c=relaxed/simple;
+	bh=wA+EDlJ6JUvCxOllog4OoAGX0iRVxsyIxXS8mYHtD0Y=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=tX851TRjv5wf1qNHHWfKERYsWUabmyWmO+0vab9A5cWyNNQarg/l5k4eQV/TmrpfT6AF5qd3GGkyLmEO1DdhkuAsW2rpFDDFVyeHSC6hSHfYBlmU68jGb15A3pKMfh6saS9sJ1v4cDYOaqyS8t1UZZPPlII8rqc/iDLJ0Pge7pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DT8B6RYO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rootcommit.com header.i=@rootcommit.com header.b="Oo38zP0i"
-X-Sender-Id: hostingeremail|x-authuser|michael.opdenacker@rootcommit.com
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 065928C1A10;
-	Sun, 29 Mar 2026 20:21:38 +0000 (UTC)
-Received: from de-fra-smtpout7.hostinger.io (trex-green-9.trex.outbound.svc.cluster.local [100.96.234.227])
-	(Authenticated sender: hostingeremail)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 754D38C1D5F;
-	Sun, 29 Mar 2026 20:21:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
-	t=1774815697;
-	b=VMwkMmkWwvO97AmeG9NVxJBewLhiskg4s9qLfbfnRnktpeFK6/M9binOCm/z6c/Oc8x0ZF
-	6sMCkHe7OHs5sAQiQ9+PZHJ2T3fD09UwJWm9T6PM1o7q4/rNB6zHU8wLE2kzbVh7JUF8fd
-	JXdADRqPtp7MTQWN64bOuG4kT3j+xriapFf2iKuLGQko7JDTr2cKlqrcCuvhrtTJY3gEY0
-	12hQFKcPRBT950aaPTQgAhGraaRArVuc9OZ/czTcvc2GBYwY8fCqJ3hArPHURV9GbaPVYu
-	z45z3+oAmEiEv6/1qUtmYCASjzfIJi+uB/Ew4ejZNg9TWT6y3tvdG8Uh9RoLeg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1774815697;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=GTT+0C4RGESjWdKuh5Sp+1h0pCrJm+O+8LsKG2eiHy4=;
-	b=KpuRlvu+G+z/ihkV1vZgHlu6F1G3PIUNMIlGt820WImTuA8Y4LSfSG/zYk3InMacfM6x14
-	2+KemZ1CjJmSLXBeE6oRsAq3yXVXO6ZrmMsZo53a+f36cn+ilSmzfysxPIFq3mSSbW97Gj
-	wGS7WSGQpudUEOZxjzjwLAREvi9rTncOeIf5Ju8AOPSpHJt9EWquCkxq2OC5HFXudzXFdr
-	rmyQNbAsW9ip2ekK1gVIKgyNNigX1Y+lh8FQbCE+p1do+EGCDXcgSyUuzwlD7YsoIx8bqT
-	nZQNstLlr1wL/W4LhO8CfFyeENT9FAVEHqQJRtWf1wCT8/n7STlJm5DXdcLk3w==
-ARC-Authentication-Results: i=1;
-	rspamd-db964497c-ftdgs;
-	auth=pass smtp.auth=hostingeremail
- smtp.mailfrom=michael.opdenacker@rootcommit.com
-X-Sender-Id: hostingeremail|x-authuser|michael.opdenacker@rootcommit.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId:
- hostingeremail|x-authuser|michael.opdenacker@rootcommit.com
-X-MailChannels-Auth-Id: hostingeremail
-X-Reign-Grain: 41a1945735c5026e_1774815697815_1963226876
-X-MC-Loop-Signature: 1774815697815:123364582
-X-MC-Ingress-Time: 1774815697814
-Received: from de-fra-smtpout7.hostinger.io (de-fra-smtpout7.hostinger.io
- [148.222.55.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.96.234.227 (trex/7.1.5);
-	Sun, 29 Mar 2026 20:21:37 +0000
-Received: from [IPV6:2001:861:4450:d360:ead3:9cb3:74f3:aa3d] (unknown [IPv6:2001:861:4450:d360:ead3:9cb3:74f3:aa3d])
-	(Authenticated sender: michael.opdenacker@rootcommit.com)
-	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4fkQky3w0Qz3wln;
-	Sun, 29 Mar 2026 20:21:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rootcommit.com;
-	s=hostingermail-a; t=1774815691;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GTT+0C4RGESjWdKuh5Sp+1h0pCrJm+O+8LsKG2eiHy4=;
-	b=Oo38zP0iAM3Jre4Kk3fV5VwfSRkA3r4MhpQ9v3gvp+hdPPmyTGMvqRbXRo/yJkDjzYFpEG
-	G+ABbKrfDok8JBvtmX3AUjUMD/W/AmJxpg90iC/aZktENTfFSnzrQ3FD9Mb28ljC3cQy/f
-	HZURBmSnKx7ailhnJdzswpsBihGMrj7LLCmEDuxOAu6BS4VPvDf3Jv6syAXvX2XzV3hOV9
-	uLsnj4SX39O7o/1aSO4zElVE6MUmP+HqcV2QNgu15wX9jTbWvHHLStb50/8ly9x64SfVPq
-	o62iKP/M61QECvnBFlQYd4NcngkPGMI08bOW7kAL5QcPtvnrmW8S6fmj92+hLQ==
-Message-ID: <11e7fcc9-c8dd-4bf5-a600-3d130407bb82@rootcommit.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DT8B6RYO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02282C116C6;
+	Sun, 29 Mar 2026 21:40:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774820441;
+	bh=wA+EDlJ6JUvCxOllog4OoAGX0iRVxsyIxXS8mYHtD0Y=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+	b=DT8B6RYOKmFQgr+jsyKNWNMcnqhT3ieWMDSL8fmwSEEHflxJQcKh3k0QuMLp9qPFt
+	 WftpNt2ex0AJEj62cR+7/JHD9g0E8+g+ZQYkvDhmfg6L0U1hjbm6rNPc5e/E+UQ30q
+	 7+6LFCum8zPnGzKlQXlt1ou7aoJthvEVrFPp1mH/W//sF9BfohqJTXBXM+Zv9CdYWK
+	 1nvf7wEgmt5FB63DPOeTVpzN25G0tjYJAYe76/MkQR9raiHYb0P5Q5Ou7CHmpeZKZL
+	 4kQpJ8pM0dj/qDDI2mIXOzH+Sn4O7j2J5XHbV/n4VqNAz39TmIQDLlIEyJlLT/nKBK
+	 AtMxG07QPxR3w==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA0113930012;
+	Sun, 29 Mar 2026 21:40:26 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: michael.opdenacker@rootcommit.com, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- sophgo@lists.linux.dev, hanguidong02@gmail.com
-Subject: Re: [PATCH v4 2/5] arm64: dts: sophgo: add initial Milk-V Duo S board
- support
-To: Joshua Milas <josh.milas@gmail.com>, tglx@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, pjw@kernel.org,
- samuel.holland@sifive.com, unicorn_wang@outlook.com, inochiama@gmail.com,
- daniel.lezcano@linaro.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
- alex@ghiti.fr, liujingqi@lanxincomputing.com, alexander.sverdlin@gmail.com,
- rabenda.cn@gmail.com, dlan@kernel.org, chao.wei@sophgo.com,
- anup@brainfault.org
-References: <20260328173450.219664-1-josh.milas@gmail.com>
- <20260328173450.219664-3-josh.milas@gmail.com>
-Content-Language: en-US
-From: Michael Opdenacker <michael.opdenacker@rootcommit.com>
-In-Reply-To: <20260328173450.219664-3-josh.milas@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Date: Sun, 29 Mar 2026 20:21:30 +0000 (UTC)
-X-CM-Envelope: MS4xfGWBeS4HaIIbYUVeHIpwUThPv/HDm18miWCY/sSEUY2R6jsqziGdG8060qerCh1EaXbzH+5FvijtrYgH93cSQOJiT8QF/edNygNivc587K3POZOMLZe5 Jo4jDnr8ELIErEZAhKsQgMZmLt9YcA1Du9ncDaCihPLvqLwU/9ikhGRxd3BLp1sfmo5pourlDWH2W1RQcd5H3wtb2LM8lhxF/IX2ncRk4gDUO/8LmYDOZ+8z ZXwLIudLGFY8NWcC9Siq7uigjOoUxpodbbka6r1XDqWbpDPDHgaDL2gvr6tpVS56uv6HxjSoUBz4Rljww8zJNI4cCnnUb5w4O/B4dq0s5GMixgov+ZaksS6t YEAHOUSSyAz0fwD/TJuuozxrE6UmrCW7ID3kx/tfw0iJsL9A0FQ8NdhXxzRM8u1lAIS19lznWkBHGYBp4FC3dwQwzWRyWpnjbB3wie/Uup0d+inPmBIPvlh2 NIebAlrVSkotvjjWE6HuItwmkNaYiuI+1ofZMk2YYTRR8Aoi6UnXu2u+FtwjWBfj4Pg8DAvyLgwEhjKayKFHKknOg+UFGeD5FOiKJg3MdtcBl7SMVuoZ02Bz b+k/9eYWhmZfa9t7r6fvGKcTGuw4lWz8+xmkka3must0aQJAjxQS5xEvMfUO89TvmwAk3qo4rnH0zX2KHV40kriZd9Oz/VhgYj5R8MkMuUNGiFnjnQ2U4jP1 8zamUfqnhawddvFCDSAbA3DYTIUW+D4KbRr6BoH3Jy+WyAl2Y3jRmU0t7tQxiie3DdVPJr8qjPNQMalFM4T1Lf+GG6sVG8x7w2s3l1VTsq+LnZxEAUipGfjG I/2zjfwP4exSP4F6ISbnHNeysMGWD3FKtSPb4mIUxWM7G/1p21knhYMpsLU5vdsTDooXHdbHWIedYZ2xcdNTujn30Pu5dWO/+WlSrmNAdqUlZUtlNSPxwrCY b3rDFghcXj9wCqh
- Ov+Kg7SJWr1n7G6AocPbpdMwAu7BQbJzJ0LkCUBTAhLEc6UWN3/dDsO07LWHrH9CuAvyrbloNmS5O8LCscj/3wCIwzoyOVr/FRZ1010tw FbeOBfof1DnDRuI1M/okZhV+kyA6llCO8bHiGJmew3/vIADKZPqklb/A
-X-CM-Analysis: v=2.4 cv=etGNzZpX c=1 sm=1 tr=0 ts=69c989cb a=FriOl7xEJMI/2lIB2BrE0g==:617 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=YzZgpwwcAAAA:8 a=d70CFdQeAAAA:8 a=pGLkceISAAAA:8 a=-n5Tolqylb7eT0ueGtgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=diELbSsDbaqdzccPbx55:22 a=NcxpMcIZDGm-g932nG_k:22
-X-AuthUser: michael.opdenacker@rootcommit.com
+Subject: Re: [PATCH net-next v5 00/14] macb usrio/tsu patches
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <177482042554.472023.12757157452690281696.git-patchwork-notify@kernel.org>
+Date: Sun, 29 Mar 2026 21:40:25 +0000
+References: <20260325-unsterile-flail-4c7729750dc4@spud>
+In-Reply-To: <20260325-unsterile-flail-4c7729750dc4@spud>
+To: Conor Dooley <conor@kernel.org>
+Cc: netdev@vger.kernel.org, conor.dooley@microchip.com,
+ Valentina.FernandezAlanis@microchip.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ daire.mcnamara@microchip.com, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, nicolas.ferre@microchip.com,
+ claudiu.beznea@tuxon.dev, richardcochran@gmail.com,
+ samuel.holland@sifive.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ dave.stevenson@raspberrypi.com, sean.anderson@linux.dev,
+ vineeth.karumanchi@amd.com, abin.joseph@amd.com, theo.lebrun@bootlin.com,
+ Ryan.Wanner@microchip.com, haokexin@gmail.com
 
-Hi Joshua
+Hello:
 
-Thanks a lot for this new update!
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-On 3/28/26 6:34 PM, Joshua Milas wrote:
-> Adds initial arm64 support for the Milk-V Duo S board
-> [1] making it possible to boot Linux to the command line.
->
-> Link: https://milkv.io/duo-s [1]
->
-> Signed-off-by: Joshua Milas <josh.milas@gmail.com>
-...
-> diff --git a/arch/arm64/boot/dts/sophgo/sg2000-milkv-duo-s.dts b/arch/arm64/boot/dts/sophgo/sg2000-milkv-duo-s.dts
-> new file mode 100644
-> index 0000000000000..4ae44b40f9edb
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/sophgo/sg2000-milkv-duo-s.dts
-...
-> +
-> +&usb {
-> +       dr_mode = "host";
-> +       status = "okay";
-> +};
+On Wed, 25 Mar 2026 16:28:04 +0000 you wrote:
+> From: Conor Dooley <conor.dooley@microchip.com>
+> 
+> Hey folks,
+> 
+> At the very least, it'd be good of the soc vendor folks could check
+> their platforms and see if their usrio stuff actually lines up with what
+> the driver currently calls "macb_default_usrio". Ours didn't and it was
+> a nasty surprise.
+> 
+> [...]
 
+Here is the summary with links:
+  - [net-next,v5,01/14] Revert "net: macb: Clean up the .usrio settings in macb_config instances"
+    https://git.kernel.org/netdev/net-next/c/8ccf062c6770
+  - [net-next,v5,02/14] net: macb: rename macb_default_usrio to at91_default_usrio as not all platforms have mii mode control in usrio
+    https://git.kernel.org/netdev/net-next/c/a17871778ee2
+  - [net-next,v5,03/14] net: macb: split USRIO_HAS_CLKEN capability in two
+    https://git.kernel.org/netdev/net-next/c/039f185a0060
+  - [net-next,v5,04/14] dt-bindings: net: cdns,macb: replace cdns,refclk-ext with cdns,refclk-source
+    https://git.kernel.org/netdev/net-next/c/dfa36d7e860c
+  - [net-next,v5,05/14] net: macb: rework usrio refclk selection code
+    https://git.kernel.org/netdev/net-next/c/6c5b565d7d41
+  - [net-next,v5,06/14] net: macb: np4 doesn't need a usrio pointer
+    https://git.kernel.org/netdev/net-next/c/826cbe636e10
+  - [net-next,v5,07/14] net: macb: add mpfs specific usrio configuration
+    https://git.kernel.org/netdev/net-next/c/c711311d6ba3
+  - [net-next,v5,08/14] net: macb: warn on pclk use as a tsu_clk fallback
+    https://git.kernel.org/netdev/net-next/c/3fe13d858f83
+  - [net-next,v5,09/14] net: macb: clean up tsu clk rate acquisition
+    https://git.kernel.org/netdev/net-next/c/b698a1e397ab
+  - [net-next,v5,10/14] dt-bindings: net: macb: add property indicating timer adjust mode
+    https://git.kernel.org/netdev/net-next/c/09a6164a4f1d
+  - [net-next,v5,11/14] net: macb: timer adjust mode is not supported
+    https://git.kernel.org/netdev/net-next/c/41adda8764fd
+  - [net-next,v5,12/14] net: macb: runtime detect MACB_CAPS_USRIO_DISABLED
+    https://git.kernel.org/netdev/net-next/c/47c86c463612
+  - [net-next,v5,13/14] net: macb: set MACB_CAPS_USRIO_DISABLED if no usrio config is provided
+    https://git.kernel.org/netdev/net-next/c/32fc6a9f6e75
+  - [net-next,v5,14/14] net: macb: drop usrio pointer on EyeQ5 config
+    https://git.kernel.org/netdev/net-next/c/cd1082a96f9a
 
-You have a small checkpatch.pl issue here:
-
-./scripts/checkpatch.pl *.patch
-...
-WARNING: please, no spaces at the start of a line
-#120: FILE: arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts:82:
-+       dr_mode = "host";$
-
-WARNING: please, no spaces at the start of a line
-#121: FILE: arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts:83:
-+       status = "okay";$
-
-Replace the spaces by a tab as in the other entries in the DTS and you 
-should be fine.
-Thanks again
-Cheers
-Michael.
-
+You are awesome, thank you!
 -- 
-Root Commit
-Embedded Linux Training and Consulting
-https://rootcommit.com
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
