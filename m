@@ -1,174 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from flow-a2-smtp.messagingengine.com (flow-a2-smtp.messagingengine.com [103.168.172.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5896F23183B;
-	Sun, 29 Mar 2026 05:58:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8322494F0;
+	Sun, 29 Mar 2026 06:10:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774763911; cv=none; b=IEyN1HgdUL+KsHfrhgrJsoyIS2KIkKJPfGwZwDnVaXtkiRElJTonGIh1JTnpBTV/W00s2p2pqAn4ltWBByi97EVZoXRu/C1lR3yN5mN6LI3mR/Dt4eSJkTPkzZw3p/NY3LxPloxyipOUQ1rMNImY7Blm9zT8bXVSZLUvlgNn5yE=
+	t=1774764661; cv=none; b=M5L4d1GNYI3/mfzf/vludHx+Gl8pox49Q/p602StWbxTeJHVTw9gwSmnymVyAbZAQO9t+MmyNorGd0mn9DD4Dk4zmtI+6QFeGh2CIX7IVzRHdwUGQbyoHigkveBtfgnmlf7A4aGbGd+UbCmnLIxu45SHu3gaR7i7yAA/a6IUPos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774763911; c=relaxed/simple;
-	bh=fojIAIARbeeLN70cfaOpPb/P7/PMERluDOhkJ8dJ6w0=;
+	s=arc-20240116; t=1774764661; c=relaxed/simple;
+	bh=MfmOLigdWE8bsU7XHgwedxVC8vvi1919XD9DgZjdwi4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XZmDFzeDMpJMuT1hao4XeveunuIUnZxAgzP06LDWiQ2kSpjVURpt05VoVtzZYsl0ovSV2GEsXhGDeabfsng780LWa4sqtvPYA1r4PbcRNC46W3OhQQxCUv21aQkRIWdGCwvWrO/M1QXxFqHIG+WjGOYuE/Suv+x5URSaE1RCbFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mxWl03Or; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=bTHCjNoajfLhIJGn+hq+xcywTFUu67J6TsF5VfXpgGysPqnNCEXGEeLJQdOrFOJjDc7c5MO57wDd44tf8RQ7i5SmGtVCO4CsdQMa/qyPo8c92pLqRTviZBdB5YV7l0vhUYP6AE8Mw7t68FRPUEnbdE+yp5RQouWAoAwD+bQ0y4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=LBkcIay9; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LLJMRPZ+; arc=none smtp.client-ip=103.168.172.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mxWl03Or"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93A4DC116C6;
-	Sun, 29 Mar 2026 05:58:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774763910;
-	bh=fojIAIARbeeLN70cfaOpPb/P7/PMERluDOhkJ8dJ6w0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mxWl03Or51MD1rhCsEdjSAbEyQJ+RvZd9u5Lr4bX5ZjcFTqeJ7HLg/xrp1Vrzow22
-	 2DOKkIqRJfEJXP2khwOlOR1ctiTddn12CMawF3Ji1kMZOPBERe3ex0wy6D8AkiF0lC
-	 ++DPORHpPV5N9JXoDDK/Y0GdIlUT6hUvbY4U58kPZ0PhaZXhTFBUHIM/TkgI/xILYy
-	 XgcQPIljE7w1THLhvykw+D2Tuy9jqEpBnL6y9L1KWL7ywgUJeWWUqUT/FNzJ6N6Z7B
-	 7Q7VfWHGmvz/8JvAAK/fHsJkFOB8opMhjQF1G1o1fK+1g+9y4d1EmWHSuC36m1ACmj
-	 dMUd5kEZvZyOg==
-Date: Sat, 28 Mar 2026 22:58:28 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: yunhui cui <cuiyunhui@bytedance.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Adrien Ricciardi <aricciardi@baylibre.com>,
-	Nicolas Pitre <npitre@baylibre.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Atish Kumar Patra <atishp@rivosinc.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>,
-	Ved Shanbhogue <ved@rivosinc.com>,
-	Chen Pei <cp0613@linux.alibaba.com>,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Weiwei Li <liwei1518@gmail.com>, guo.wenjia23@zte.com.cn,
-	liu.qingtao2@zte.com.cn,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Tony Luck <tony.luck@intel.com>, Babu Moger <babu.moger@amd.com>,
-	Peter Newman <peternewman@google.com>,
-	Fenghua Yu <fenghua.yu@intel.com>,
-	James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
-	Dave Martin <Dave.Martin@arm.com>, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, x86@kernel.org,
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="LBkcIay9";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LLJMRPZ+"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailflow.phl.internal (Postfix) with ESMTP id 7CB0013803E4;
+	Sun, 29 Mar 2026 02:10:58 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Sun, 29 Mar 2026 02:10:58 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1774764658; x=1774771858; bh=Me/2NNLQWh
+	li5jt5GB39ENZZ9ju/MKEHh68QaDIIrS0=; b=LBkcIay900en4TEqk60VRxH4gY
+	rYv5r0SS8ewN7IvSN8OSajdMlpXaIjvKrdhRLaCECGUn5abbidHNaTx2lP4SfJk6
+	js0XaYC7tTVAvmfBvXOxq32qjQmdA+mKayyis1J8bkSo9QysCRRp/OeatL5tH+pe
+	rgSHbALLc3187vQkdVGd6ZS2h9oqSr2tmBU7bDfecpOdmuNFpViqHvtMZxXgEuQw
+	st5kaBsF4FdIUIpKAIS7hHp/luQyaZtQplY9X10tKYqbvVySg66LnvqfyAfNkpVV
+	aUEdjyf2woXlZF6ZiV8W8ilKktKyIj3VgzNOZzUZLa8LKhWj1cHwONXzzSZQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1774764658; x=1774771858; bh=Me/2NNLQWhli5jt5GB39ENZZ9ju/MKEHh68
+	QaDIIrS0=; b=LLJMRPZ+yz+yNImgvl6SMQYDwauyGtQNR5Ym38EZGOowfCbUoZm
+	6zvOJX627XnoqxEqRSjVnWr/ucTWm/E2nX7q+Dkf34FX2X1RTP9ZyeTeT+xqlIID
+	dx1ZoHxAdPIvXUQtHVS5hvi4R6Jrv6eHfzqcS1cR4XOEbKTWwh9QsdkF2Zh5DYFF
+	RWXkJG15ZF9Mi7MlTMiQ96laoJiWFuBsWas18+0dNMp5J0enMRySMftULzbzsN1d
+	DzulrViTjLOXnrwjj45WCuv1OnYNLDPXCetflmq56MzCyn6dhhl+NsBxIfuycV/N
+	ogChP+yQcTH3fVPu782Tr1nfeHsYMnUQMkA==
+X-ME-Sender: <xms:ccLIae9ZIl-PvaFBq0ftyPIPtbJ0cJ7m88zg6b5itoOQtgm3qEwZhA>
+    <xme:ccLIafgo3XsYuGWUPEovPJ26cSRyWG33R7Ee9yxBQsZ28pOK5tMNor1gpcO_wp31i
+    iIpGUmcKeg4aWjqU4Jtk6O-m9PvOSBc0XGFy3Lqu1G-bHV5>
+X-ME-Received: <xmr:ccLIaSmC4epcOvkxbkau1qRne3h-nypTIHtN6hg5m2ssPpComy99fYT9xaTtyPjECN19XO21XM8h-St0o-jFjzM4B7DrZGL31vSLVN0F3hk>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdeffeehfedtucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepifhrvghgucfm
+    jfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhepueegledvgf
+    euffetffehfffgkeegtddtudejudeiiedvuedtteelleejvddtgfefnecuffhomhgrihhn
+    pehmshhgihgurdhlihhnkhdpkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivg
+    eptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorghhrdgtohhmpdhn
+    sggprhgtphhtthhopeegkedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepnhgrth
+    hhsggrphhprghisehgmhgrihhlrdgtohhmpdhrtghpthhtoheprghnuggvrhhsshhonhes
+    khgvrhhnvghlrdhorhhgpdhrtghpthhtohepkhhonhhrrgguhigstghioheskhgvrhhnvg
+    hlrdhorhhgpdhrtghpthhtoheprhhosghhsehkvghrnhgvlhdrohhrghdprhgtphhtthho
+    pehkrhiikhdoughtsehkvghrnhgvlhdrohhrghdprhgtphhtthhopegtohhnohhrodguth
+    eskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhgvvgeskhgvrhhnvghlrdhorhhgpdhr
+    tghpthhtohepphgrvhgvlheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepshgvrghnse
+    hmvghsshdrohhrgh
+X-ME-Proxy: <xmx:ccLIacRtSpq2hxfQN7N1HKjjGZs7UCoAiw_SCXb6QJGaH8iWm2CUIA>
+    <xmx:ccLIaeW1M8ZW696sfK9rjzo_t_HBeXq9CGb65POQUfQmkO-wuL_t2Q>
+    <xmx:ccLIaVshc5UWMaSgc98765Q-8rKO4s4jb5o7LAhgEF85m9Tki_jBmQ>
+    <xmx:ccLIacslVZOv_OBX_RcxzbRY4KmR_etruzRz6-HXCGpY6ZaBSv-5KA>
+    <xmx:csLIaRaBug03GqzpcrWhiNOAe6GeymvzonHKblRxaUznLYFQJQ70648i>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 29 Mar 2026 02:10:56 -0400 (EDT)
+Date: Sun, 29 Mar 2026 08:10:54 +0200
+From: Greg KH <greg@kroah.com>
+To: Biswapriyo Nath <nathbappai@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Robert Moore <robert.moore@intel.com>,
-	Sunil V L <sunilvl@ventanamicro.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
-	devicetree@vger.kernel.org
-Subject: Re: [External] [PATCH RFC v2 06/17] RISC-V: QoS: define CBQRI
- resctrl resources and domains
-Message-ID: <aci_hDY4JB9zNTci@gen8>
-References: <20260128-ssqosid-cbqri-v2-0-dca586b091b9@kernel.org>
- <20260128-ssqosid-cbqri-v2-6-dca586b091b9@kernel.org>
- <CAEEQ3wmuAnHU1VBFDwbCBFb8j63ZcizJ3jEC2SiVWnoMPc4=SA@mail.gmail.com>
- <acOFef6f9og1hft2@gen8>
- <CAEEQ3w=zV1k+uea5D9tnO=O5X5LQUpyNVZi8V8TOANxXJQbg=w@mail.gmail.com>
+	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>, Sean Young <sean@mess.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Martin Botka <martin.botka@somainline.org>,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
+	linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org, stable@vger.kernel.org,
+	kernel test robot <lkp@intel.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/7] Add vibrator, IR transmitter and USB-C handling
+ in xiaomi-ginkgo
+Message-ID: <2026032949-vice-ashen-e0c5@gregkh>
+References: <20260329-ginkgo-add-usb-ir-vib-v2-0-870e0745e55e@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAEEQ3w=zV1k+uea5D9tnO=O5X5LQUpyNVZi8V8TOANxXJQbg=w@mail.gmail.com>
+In-Reply-To: <20260329-ginkgo-add-usb-ir-vib-v2-0-870e0745e55e@gmail.com>
 
-On Thu, Mar 26, 2026 at 04:32:47PM +0800, yunhui cui wrote:
-> Hi Drew，
+On Sun, Mar 29, 2026 at 04:47:55AM +0000, Biswapriyo Nath wrote:
+> This patch series add support for various components in Xiaomi Redmi
+> Note 8.
 > 
-> On Wed, Mar 25, 2026 at 2:49 PM Drew Fustini <fustini@kernel.org> wrote:
-> >
-> > On Wed, Mar 25, 2026 at 10:31:39AM +0800, yunhui cui wrote:
-> > > Hi Drew,
-> > >
-> > > On Thu, Jan 29, 2026 at 4:28 AM Drew Fustini <fustini@kernel.org> wrote:
-> > > >
-> > > > Define data structures to encapsulate the resctrl resource
-> > > > and domain structures.
-> > > >
-> > > > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > > > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > > > [fustini: rebased current upstream]
-> > > > Signed-off-by: Drew Fustini <fustini@kernel.org>
-> > > > ---
-> > > >  arch/riscv/kernel/qos/internal.h | 27 +++++++++++++++++++++++++++
-> > > >  1 file changed, 27 insertions(+)
-> > > >
-> > > > diff --git a/arch/riscv/kernel/qos/internal.h b/arch/riscv/kernel/qos/internal.h
-> > > > index ff2c7eff50be..c0402dd06cfa 100644
-> > > > --- a/arch/riscv/kernel/qos/internal.h
-> > > > +++ b/arch/riscv/kernel/qos/internal.h
-> > > > @@ -65,6 +65,11 @@
-> > > >  #define CBQRI_BC_ALLOC_CTL_OP_READ_LIMIT   2
-> > > >  #define CBQRI_BC_ALLOC_CTL_STATUS_SUCCESS  1
-> > > >
-> > > > +int qos_resctrl_setup(void);
-> > > > +void qos_resctrl_exit(void);
-> > > > +int qos_resctrl_online_cpu(unsigned int cpu);
-> > > > +int qos_resctrl_offline_cpu(unsigned int cpu);
-> > > > +
-> > > >  /* Capacity Controller hardware capabilities */
-> > > >  struct riscv_cbqri_capacity_caps {
-> > > >         u16 ncblks; /* number of capacity blocks */
-> > > > @@ -125,4 +130,26 @@ struct cbqri_controller {
-> > > >         bool mon_capable;
-> > > >  };
-> > > >
-> > > > +struct cbqri_resctrl_res {
-> > > > +       struct rdt_resource     resctrl_res;
-> > > > +       struct cbqri_controller controller;
-> > > > +       u32 max_rcid;
-> > > > +       u32 max_mcid;
-> > > > +};
-> > > > +
-> > > > +struct cbqri_resctrl_dom {
-> > > > +       struct rdt_domain_hdr       resctrl_dom_hdr;
-> > > > +       struct rdt_ctrl_domain  resctrl_ctrl_dom;
-> > > > +       struct rdt_mon_domain   resctrl_mon_dom;
-> > > > +       u64 cbm;
-> > > > +       u64 rbwb;
-> > > > +       u64 *ctrl_val;
-> > > > +       struct cbqri_controller *hw_ctrl;
-> > > > +};
-> > > > +
-> > >
-> > > Can we trim down some fields? For example:
-> > >  struct cbqri_resctrl_res {
-> > >         struct rdt_resource     resctrl_res;
-> > > -       struct cbqri_controller controller;
-> > >         u32 max_rcid;
-> > >         u32 max_mcid;
-> > >  };
-> > >
-> > >  struct cbqri_resctrl_dom {
-> > > -       struct rdt_domain_hdr       resctrl_dom_hdr;
-> > >         struct rdt_ctrl_domain  resctrl_ctrl_dom;
-> > >         struct rdt_mon_domain   resctrl_mon_dom;
-> > > -       u64 cbm;
-> > > -       u64 rbwb;
-> > >         u64 *ctrl_val;
-> > >         struct cbqri_controller *hw_ctrl;
-> > >  };
-> >
-> > Can you explain why you don't think these are needed??
+> Most notably:
+> - IR transmitter
+> - USB-C OTG
+> - Vibrator
 > 
-> The functionality works well without those fields, feel free to try.
+> Also, fix some bindings warning as reported due to previous commits.
+> These are tested with linux-next tag next-20260320.
+> 
+> Signed-off-by: Biswapriyo Nath <nathbappai@gmail.com>
+> ---
+> Changes in v2:
+> - Move bindings fixes to first in the series and add fixes tag.
+> - Link to v1: https://patch.msgid.link/20260325-ginkgo-add-usb-ir-vib-v1-0-446c6e865ad6@gmail.com
+> 
+> ---
+> Biswapriyo Nath (7):
+>       arm64: dts: qcom: sm6125: Use 64 bit addressing
+>       dt-bindings: clock: qcom, dispcc-sm6125: Add #reset-cells property
+>       arm64: dts: qcom: sm6125-xiaomi-ginkgo: Enable vibrator
+>       arm64: dts: qcom: sm6125: Enable USB-C port handling
+>       arm64: dts: qcom: sm6125-xiaomi-ginkgo: Add PMI632 Type-C property
+>       dt-bindings: leds: irled: ir-spi-led: Add new duty-cycle value
+>       arm64: dts: qcom: sm6125-xiaomi-ginkgo: Add IR transmitter
+> 
+>  .../bindings/clock/qcom,dispcc-sm6125.yaml         |   3 +
+>  .../devicetree/bindings/leds/irled/ir-spi-led.yaml |   2 +-
+>  .../boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi |  56 +++++++
+>  arch/arm64/boot/dts/qcom/sm6125.dtsi               | 168 +++++++++++----------
+>  4 files changed, 152 insertions(+), 77 deletions(-)
+> ---
+> base-commit: 785f0eb2f85decbe7c1ef9ae922931f0194ffc2e
+> change-id: 20260325-ginkgo-add-usb-ir-vib-4a51bd9ff64b
+> 
+> Best regards,
+> --  
+> Biswapriyo Nath <nathbappai@gmail.com>
+> 
+> 
 
-Thanks for pointing this out. I have removed them.
+<formletter>
 
-> Btw, when do you plan to send the next revision?
+This is not the correct way to submit patches for inclusion in the
+stable kernel tree.  Please read:
+    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+for how to do this properly.
 
-The current branch is based on 6.19 so I need to rebase. I have
-addressesd most of the feedback so far except for tracking default
-closid/rmid for a cpu. I am thinking I should send a new version as it
-has been a long time and describe the open items that I have not solved
-yet.
-
-Thanks,
-Drew
+</formletter>
