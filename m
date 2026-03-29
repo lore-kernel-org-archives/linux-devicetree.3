@@ -1,211 +1,261 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013061.outbound.protection.outlook.com [40.107.162.61])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD3D76026;
-	Sun, 29 Mar 2026 07:51:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774770665; cv=fail; b=TqgW35FG/54GnPnjwohgwcRp1lPeG7gfJpDw91l+n0YqZv0jk9KbRwxci/jIP73J6MCRYVJD7ScIMhLED6a2EWQztETaKRVyUuhWISa/KeI/lTwIYx9byTleiEsrqB9Ym/c5TOSvuEJuf1X/JmunJJcnyeXnupADCL0dE4gbcTo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774770665; c=relaxed/simple;
-	bh=/gHNgT2iZMAFw5oRHnb/iiyE2qOOzSnrzNZ2IOUke1Q=;
-	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=mbledeWgLt+h/YpSQH5ij6hOSKrvRQYjAqhWerBiorEwTMHWFFQJ0V/stDvrhfFBWbb8ZyCo+RBL3hyBSWuu+Zan2/XBnMOAce1baCEkwDS7jm0slo0bT6sMIQb9kWwBK2tzvTrKxepQqGcdn61T2R3lLv5M5OXflbO+hPGeWzY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Z65+i2fc; arc=fail smtp.client-ip=40.107.162.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B7828FFF6
+	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 07:56:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774770987; cv=none; b=dVQ9Zjcv5wu0V85F/jE3GzxgN7E27586rJlJhGPROBDeDlBnU94mWJcFln8Qr1fWvVNJ63ZrQ42akyFOE87BlU2TRKvQcLz/ydPQvKAHwDeIlyFWaO1hzei+Y9m4q46X1LWA6IHeVZAN/O2PJDcTvnEihPzxFknCwAVA4dsZgUE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774770987; c=relaxed/simple;
+	bh=NXkO1BKIOyiirGfmId7kEdTa6tS6egLCtvOXPPxBnMY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gkpOyVPiExg59gi+/tQPoDz8lBP9n1/0IO/U3kzGVIjW8KvBBlsziIvF3SnV0vtUU0vcC/wBjyp340lnRPtUi5j4/BlXeDFCVqd/rOUYzI3rIjGaBdv3TUvyXyLKPfcoxSowcY8msAVP+dc26gCvVdHYy7Zs2banWBdndqNm8Y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R2HhQq+0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Z65+i2fc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tFe9FUObxyrGrkzPgkNxOCK+PuCki5NQq4T5tug7yi8vDhX2yTIEZH9V0rhWGB61F8FdhZb/mXHETd4kw8gdgGDpCJ8HbHHDQ/JIZVWWh2EamXMv42D/o22x3ddFBWZA0NubJoxgGrCYi48tgjdb6/N34z8yZzKURX5/SOw9iy0EUsssrlRoLV4Nq6z0EP30TgiKrxywXs3Fr3RMDoYBuMsvi6+bQ1IsPTAbiIMGstwX6oCupLJxz8z2XjhTqwwdkqguQDWHpLiMjjCetbnIUWQb6oUkpuEJodv+Iy7G3mwxN9ZE4LG8ZGrB2xN0O61r+tp3mdwgtTIrCnqOE7Ppgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K5KgrqEztQRSRMLyiMm+6euNw2USy9pjtlYX3nBrBMI=;
- b=HY6teQzYFliAxRYqideRJmAQsicS6mDJhPAGZPKScrOljscub31EYITdK1E4PgjAhd6fHKXhouCZl1h9CuLG+G+gso2YoO1JHLndm5ugky4QFxdhRGJflVA6z3F9SSgtPuVHYvwpQkHpViDhxjtck9Myk80Zd9hARPF4pF44BXTfWGTkjP2TXYuMw7+Ecsjj9KPwKGA4I9OVKipeDxJhJJO+Dw1e+Bg2LVIWZWIpBsA4ZddWcqsrOJjHNo+U0zm+mnTb32trvt6BAxJprsl2bEUR0FMSIF318fqS4no1KEZGcsKjqnztdnyWGKt7/jkFm+rlaJCh4wZ2NwMI187i1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K5KgrqEztQRSRMLyiMm+6euNw2USy9pjtlYX3nBrBMI=;
- b=Z65+i2fcjxXwALNEdvje6HO9AL6xlnaDErakVd0NdCSkEDU/2fvF6U1Q9+kp2fTzVAPsCImw0hXrtzsfqahg69ek3d15eylc6UNlJFe0Hd5+YqP7w37fiZTBF2UHNKkho+FDYfM9Qus9DR/avuFGflLJ7kNisG7NGLGRdlLtZcgnSKgyCL5Uy7zfP/q5gPyveF4SBBXfpjnHFzZfj7xW/b2MPAl2/q3VvlOswDOk8AkWk6jGNOaMmILx+ibnPisKptsNVLVkyQ8YmhIfn2w31PQ3WkzNZ+CMehq33/doczGpRXNBLzdX2V8cCy18VSmqf88VKPT+kAo0CDPjKQlwGA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DB8PR04MB7051.eurprd04.prod.outlook.com (2603:10a6:10:fd::20)
- by AS8PR04MB9093.eurprd04.prod.outlook.com (2603:10a6:20b:444::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.25; Sun, 29 Mar
- 2026 07:50:59 +0000
-Received: from DB8PR04MB7051.eurprd04.prod.outlook.com
- ([fe80::a5a4:c92e:b316:aba0]) by DB8PR04MB7051.eurprd04.prod.outlook.com
- ([fe80::a5a4:c92e:b316:aba0%5]) with mapi id 15.20.9745.025; Sun, 29 Mar 2026
- 07:50:59 +0000
-From: Liu Ying <victor.liu@nxp.com>
-Date: Sun, 29 Mar 2026 15:51:54 +0800
-Subject: [PATCH] dt-bindings: display: bridge: ldb: Require reg property
- only for i.MX6SX/8MP LDBs
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260329-fsl_ldb_schema_fix-v1-1-351372754bc0@nxp.com>
-X-B4-Tracking: v=1; b=H4sIABrayGkC/x2MSQqAMAwAv1JytlCrCPoVkdIl0YAbDYgg/t3ic
- QZmHhDMjAKDeiDjxcLHXqCuFMTF7zNqToXBGtuZxvaaZHVrCk7igpt3xLduCU0dWxuIGijhmbH
- ofzpO7/sBX3wa8WQAAAA=
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>
-Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Marco Felsch <m.felsch@pengutronix.de>, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Liu Ying <victor.liu@nxp.com>
-X-Mailer: b4 0.13.0
-X-ClientProxiedBy: MA0PR01CA0109.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:11d::8) To AM7PR04MB7046.eurprd04.prod.outlook.com
- (2603:10a6:20b:113::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R2HhQq+0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B01F8C116C6
+	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 07:56:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774770986;
+	bh=NXkO1BKIOyiirGfmId7kEdTa6tS6egLCtvOXPPxBnMY=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
+	b=R2HhQq+016fcpCRIW8zdQ0HauTKnwjFOWDOpiPxZ0WXQBBbyfTQW3FUPqpXXI9Oy5
+	 VtAO2d83xAkqNt7Ee5gX3q985bACYSFYYxw84stvuDp6WhAYUx+iSArS8HMN6z2x8y
+	 nr6aBjnxht82iQk2c4eXgOadJndzq6HElWcvooZ32IciqLT1rsDb4NGgCkGHFs3gcK
+	 sIZDZAbYI+cKTSR/LnYMFyxba+OPKsbo1ESN+fDpKklulAvrPB43b3jB0D+GNC6fr2
+	 FF/jikh8Za867TrBvmLdneQ1Zt6jL07GMPj9xNXYTgSmCzAHaX6zEovkwTkcIWnFR3
+	 g71no7e2M6Y9w==
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-38bcda08c76so28001601fa.0
+        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 00:56:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUj4Mw0Ge7LvBAMf7MRX5e1h3nCDuc3FKQaNk9+en/scac8VLo0CwiDCxMla3wAaPz0Iq3quVibUCa8@vger.kernel.org
+X-Gm-Message-State: AOJu0YxdANJ6Avmd4oYh4FvHDG3LROCgaAuyA+7vf9wLWv/8Of8yfeYz
+	Zu72nJSs/qmFAMEhHLBRMjVnYSeV4T7+AqRJiWx7yjSY/tcySnAc8gzLjMzvbwfPnGcKQHEuU5U
+	+kXXViA7rgYYXSOGoY6GtsOlCYIARSXA=
+X-Received: by 2002:a2e:bea8:0:b0:38b:d89b:e285 with SMTP id
+ 38308e7fff4ca-38c731b8b78mr24317401fa.4.1774770985099; Sun, 29 Mar 2026
+ 00:56:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB8PR04MB7051:EE_|AS8PR04MB9093:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd4d4d1c-1a11-48ef-94c0-08de8d67e7cd
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|19092799006|376014|7416014|52116014|1800799024|366016|921020|38350700014|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
- yetF5pKLS06O+teviDg1iY++wT2d7t+JjRNPRe84TJM4q6FhRzT8ZsyetRUXtPG4BgqjjpKo7I/ID4a1d/AJ59sYTYRgfqIwaR4XYR6mRcnTPDRhpqGsR53R0eO4LGlvhQ8LXrGfdZ+JqthIefKsZsruQmWaa7oVHF1RbL765n8UBA5siUag6lr/VxwdnD58q0pjLykHfZ5AshIwCZ0RaIYRoLMR3sjLQvHOjETpZzNaZhfs3dEIKq2bR76l5Rfd+Sq3mEzOm/SUddu44SVQRhBPaNia0aVhldZcxzSH+h//iv+Y6tPzyXrduMmyCMmZFnL246ax6AG828xmNOh+pqLSIzaMpt+jQSKQzzY7+BPiqwpHU+eDmwk3UC5qgOwC0t7Jy/ur6FBVQrFJYsdFV7ajsmX2BjBSSOvvriS5emVTk4w/NanPfHO6xTJnPLv0ZAeKAZomkCini17CaJJJr33S2qZewSn0+hHuR9KPj3zUh4aEUcb5U80+cumyoVyKOTEElCVVjsIMMpMOWLSgC4w2bF4nfZyar20VAOgDy4c1TKdAoFvKo61NeYuZmyE0PkxtbqFbxOXZvK2dJnxsR1LYhlgAxX2D8bqynBVcVkewSqOiLleBuqpaZPYc+prfPuvZu1ORzg5kH9J/3vbUz+YQsrJ8e14upWpjF2fVM7IAH4hdLoS1MgrkHDwH2boZ6UjiCXvDEaifcCOJ/OxiR4SX9/uOGhuM6OH8zObg+6mgqgWN+JPu3gUcfWn/IjAPXcHeL1j2Oaj8Ea9VrJG+RD7cRm+bMoUHwfaNT+J92iFnmpzUXOlSxvWZW9HwcD35
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR04MB7051.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(7416014)(52116014)(1800799024)(366016)(921020)(38350700014)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?NmtrMnNVcndCMFl5bFpPTS9YbmhuVU9NNm9DN2JmdlkzK0kvV3dnQVRVNUVJ?=
- =?utf-8?B?TExSRi9yT1Z6TmRvbGo3dkhSV2FIaDBTV3FUdEJ2MnViUWNIeGtQVGU3MHRl?=
- =?utf-8?B?Mzl4R2x2N2xoMmYvUThobjdiVWFVSEZiRUlvOWU2Uitua1hQTGd1UmFuMXh5?=
- =?utf-8?B?MjlML2Jjc3RWd2daRWh3d1RCUDBGV2FYYjVtZnJmYkFLTFVXenVCT0N1MnBB?=
- =?utf-8?B?ekpaZXdBekxSbTJmTGZFekMrMXpiSzZFdW1RaHNYR0hXd2laZkVKS2wxbDZp?=
- =?utf-8?B?cVQwaVoyOE5pa0lPRElOSDl2eVZvVjczUWhSbS9hOHZ1ZlgyRVFBWVB2MjY4?=
- =?utf-8?B?Q0Fvdlp4emgvTzFqZjJsTDNIWVFob3F2eTA4R1ZJTmx6TXR1UHFGbFF0cGVL?=
- =?utf-8?B?dWQzbldRb0tTYTVTU2tqUkIwQXJTeXhIcDNMdGNOeEc2cTZsZ29XSFNCc3l6?=
- =?utf-8?B?b1Q2dVhOVUtKQ3pQK1FKK2o2eGoyQnNHZkIvd2NsMDFDamxRWGphMkhWaCs4?=
- =?utf-8?B?UGdyeExrdlp6QUxBU2k3K3lwWGFqeTJTZTRYU0VhT1JPbVdZdUo2V2NFZldm?=
- =?utf-8?B?OENEZnBwVTVMaGxHZ1JwZUN2bVRRODJYcXVNUlRVSkljcEtLcnBZWnFSeGJX?=
- =?utf-8?B?bDNBL29yVDlnZlVrUS9qOWRXWlAvaFh4VTJmNWIzTTdlNE1oeTF1UUNkUHRQ?=
- =?utf-8?B?ZU9JQ0VJMG5wSFNSaVlWYVhkaXpiVC8vZlZvS2I3Sk9aQ2VkdGZFNlpWUzJQ?=
- =?utf-8?B?T2dFaVpEK2FHNU5SYXdQdzRMbTNJNE93SVhUWXhQNiswc0N1MEFNdWxxZFpr?=
- =?utf-8?B?RktPNjMwMXh6dTNTVUtRcnMrQWI5T0JnY0h3cnhhYWQ0dHIrYWVna2FOQllC?=
- =?utf-8?B?VDJBZG51cytnbDY4M1ZPdG9NVGhXdjZVSFdOc1BvM1JJSW83NDA3Q3daWm5O?=
- =?utf-8?B?NjE5UXFCY0xFVmliQjlMZkx2ZHJoZkpCMzgwUDZaSTJQNzVNUDVpc0g2MTE2?=
- =?utf-8?B?Q1NJMG5ML2tvWWdjNFpBVFFBd2lENTFDMllIamRpaTc5RUV2clMycXdEQk0v?=
- =?utf-8?B?bVpwUUw0dXNXK0N4Q3ZjSy91SUFjZnFxR0lLeTdENnpCMDN3SGhwNXV0Z2Fo?=
- =?utf-8?B?UDR4akphRFlzOHZwemJrUk1qbnNNV3lxNHYxbmIzeWczUTVhczdXVDM4SEVz?=
- =?utf-8?B?ZmppSSsyMVVwc3Bla3ZQd0dtdDU2ak1KclVCZUlFM2FFeks1R0NSdFNRVEoz?=
- =?utf-8?B?TWJKWHd0L2p5ZkJSUzVzRGZsMnVZRnpRc2ZBSUxiVk1ZZ2M4eDBaYXJ3WkNY?=
- =?utf-8?B?Y0xkVGpWMkV6cFpuRUdORThIV251SWNGdDMyUnlrMUlpM2NWQzhraFBhTFlO?=
- =?utf-8?B?YkJYT0wvWHFiSndEUll5UnMyeXRXSDBOK05MUnczQWhnVlozM1RFSGtrVnNF?=
- =?utf-8?B?bjdBSUdkcU9zTEI0Nm5KVVM5azlUdnFaK28vQjRIK2pKUFVhNjdzSDRmNjBI?=
- =?utf-8?B?WEh2RnFXRW1XaVRoNzJjUU9WK1hia2ZjK0xpK0RTMWUxUWhoOEhsdmI5cVUz?=
- =?utf-8?B?MWNzc0ptMld0MXhxVEZ4V2tuTjRia0ZDRjFWUVZPVUgwTnFvRyszcFdLZ0Uw?=
- =?utf-8?B?UGI4V3k0Tm9qMVd4N29DcjEyRndHRlRLVjVQQmdtaTUwQ2NldXRPc3l2Smp0?=
- =?utf-8?B?MmhENjQrSmpqZ25WUmkwRnd1Q1NDdUtwK3pGRk8xWDZxUUxIaHJiRWtVdENB?=
- =?utf-8?B?cnV4ZVV1UDZmUjVvbmkyaHdUbXg3Sms2b2lLNjYwcVFyZFU0YWF3d3pRMy8y?=
- =?utf-8?B?V0pzZGJUTUlEMmRZNDB3cS92a05RckZ4NTZoVng4ZUhKRFEvdGtjMHFYOExY?=
- =?utf-8?B?TnF6VnNtaTZ2T0ZzTU9xdEJyTHUrbHBNVUx5SUxkSFF2UzFid3UvNUNGYm1z?=
- =?utf-8?B?bXAyQStxK3dpclFkdWtrUW1Qa3JjMVZiVXNYNCt1OVhJdWZGNFlVeE9yL3B2?=
- =?utf-8?B?TUdjMmRRUUYvaTByZnZIbjNsc3puVmw5cVl1QU5jNEY4UWduM1NoQldPMTVo?=
- =?utf-8?B?TEFhb2hEYlBnL3NTOU9IUmdSUm1nSTNhKzJRQm5pNG5RcjUxKzNmYkltSGdn?=
- =?utf-8?B?RnBteklaREZtMEtveUtHdjlxK0xXbHhISW1LRnBLUWZ3SUUvcDBraFBXWk5x?=
- =?utf-8?B?emFqMlR2RUpwYXVEa1FickRaVUlJam9ZUUQ0V3N2RHNvM0lJZmFZWmlPdWZs?=
- =?utf-8?B?Q09pVmdXMi9mcVZweUhLL3VNMUE4OUp2ZGVTWGZHT04xTTYwemU1bUI1UEZo?=
- =?utf-8?B?Rmp4N2FoREVvVGMyWG1aQXlnTU13YitQaXI3VStLYThaSHplaEZQdz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd4d4d1c-1a11-48ef-94c0-08de8d67e7cd
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2026 07:50:59.1110
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NCMHbBIBYr/sTDV+tJ0cyCANegyxIEGlUCegEcrorJ7cbZS1VzAya9b2xLsAJxg8eW7mF4ScSWPyIqk8vpltfQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9093
+References: <20260310-a733-clk-v1-0-36b4e9b24457@pigmoral.tech> <20260310-a733-clk-v1-2-36b4e9b24457@pigmoral.tech>
+In-Reply-To: <20260310-a733-clk-v1-2-36b4e9b24457@pigmoral.tech>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 29 Mar 2026 15:56:12 +0800
+X-Gmail-Original-Message-ID: <CAGb2v65ycixbX7YS_rC6pyh-zMP6QvHqc6qdXjH4e0xpaqX=CQ@mail.gmail.com>
+X-Gm-Features: AQROBzBv23a5U8YFwC6JrpXv9HxCxK3WuA_W9E6K5Up_sT7yzO6F5aKFcWx7Jy8
+Message-ID: <CAGb2v65ycixbX7YS_rC6pyh-zMP6QvHqc6qdXjH4e0xpaqX=CQ@mail.gmail.com>
+Subject: Re: [PATCH RFC 2/8] clk: sunxi-ng: sdm: Add dual patterns support
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-LDB's parent device could be a syscon which doesn't allow a reg property
-to be present in it's child devices, e.g., NXP i.MX93 Media blk-ctrl
-has a child device NXP i.MX93 Parallel Display Format Configuration(PDFC)
-without a reg property(LDB is also a child device of the Media blk-ctrl).
-To make the LDB schema be able to describe LDBs without the reg property
-like i.MX93 LDB, require the reg property only for i.MX6SX/8MP LDBs.
+On Tue, Mar 10, 2026 at 4:42=E2=80=AFPM Junhui Liu <junhui.liu@pigmoral.tec=
+h> wrote:
+>
+> On newer Allwinner platforms like the A733, the Sigma-Delta Modulation
+> (SDM) control logic is more complex. The SDM enable bit, which was
+> previously located in the PLL register, is now moved to a second
+> pattern register (PATTERN1).
+>
+> To support this, rename the existing "tuning" members to "pattern0" to
+> align with the datasheet, and introduce the _SUNXI_CCU_SDM_DUAL_PAT
+> macro to provide pattern1 register support. Related operations are also
+> updated.
+>
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+> ---
+>  drivers/clk/sunxi-ng/ccu_sdm.c | 51 +++++++++++++++++++++++++++++-------=
+------
+>  drivers/clk/sunxi-ng/ccu_sdm.h | 32 +++++++++++++++++---------
+>  2 files changed, 57 insertions(+), 26 deletions(-)
+>
+> diff --git a/drivers/clk/sunxi-ng/ccu_sdm.c b/drivers/clk/sunxi-ng/ccu_sd=
+m.c
+> index c564e5f9e610..204e25feaa36 100644
+> --- a/drivers/clk/sunxi-ng/ccu_sdm.c
+> +++ b/drivers/clk/sunxi-ng/ccu_sdm.c
+> @@ -18,7 +18,10 @@ bool ccu_sdm_helper_is_enabled(struct ccu_common *comm=
+on,
+>         if (sdm->enable && !(readl(common->base + common->reg) & sdm->ena=
+ble))
+>                 return false;
+>
+> -       return !!(readl(common->base + sdm->tuning_reg) & sdm->tuning_ena=
+ble);
+> +       if (sdm->pat1_enable && !(readl(common->base + sdm->pat1_reg) & s=
+dm->pat1_enable))
+> +               return false;
+> +
+> +       return !!(readl(common->base + sdm->pat0_reg) & sdm->pat0_enable)=
+;
+>  }
+>  EXPORT_SYMBOL_NS_GPL(ccu_sdm_helper_is_enabled, "SUNXI_CCU");
+>
+> @@ -37,18 +40,27 @@ void ccu_sdm_helper_enable(struct ccu_common *common,
+>         for (i =3D 0; i < sdm->table_size; i++)
+>                 if (sdm->table[i].rate =3D=3D rate)
+>                         writel(sdm->table[i].pattern,
+> -                              common->base + sdm->tuning_reg);
+> +                              common->base + sdm->pat0_reg);
+>
+>         /* Make sure SDM is enabled */
+>         spin_lock_irqsave(common->lock, flags);
+> -       reg =3D readl(common->base + sdm->tuning_reg);
+> -       writel(reg | sdm->tuning_enable, common->base + sdm->tuning_reg);
+> +       reg =3D readl(common->base + sdm->pat0_reg);
+> +       writel(reg | sdm->pat0_enable, common->base + sdm->pat0_reg);
+>         spin_unlock_irqrestore(common->lock, flags);
+>
+> -       spin_lock_irqsave(common->lock, flags);
+> -       reg =3D readl(common->base + common->reg);
+> -       writel(reg | sdm->enable, common->base + common->reg);
+> -       spin_unlock_irqrestore(common->lock, flags);
+> +       if (sdm->enable) {
+> +               spin_lock_irqsave(common->lock, flags);
+> +               reg =3D readl(common->base + common->reg);
+> +               writel(reg | sdm->enable, common->base + common->reg);
+> +               spin_unlock_irqrestore(common->lock, flags);
+> +       }
+> +
+> +       if (sdm->pat1_enable) {
+> +               spin_lock_irqsave(common->lock, flags);
+> +               reg =3D readl(common->base + sdm->pat1_reg);
+> +               writel(reg | sdm->pat1_enable, common->base + sdm->pat1_r=
+eg);
+> +               spin_unlock_irqrestore(common->lock, flags);
+> +       }
+>  }
+>  EXPORT_SYMBOL_NS_GPL(ccu_sdm_helper_enable, "SUNXI_CCU");
+>
+> @@ -61,14 +73,23 @@ void ccu_sdm_helper_disable(struct ccu_common *common=
+,
+>         if (!(common->features & CCU_FEATURE_SIGMA_DELTA_MOD))
+>                 return;
+>
+> -       spin_lock_irqsave(common->lock, flags);
+> -       reg =3D readl(common->base + common->reg);
+> -       writel(reg & ~sdm->enable, common->base + common->reg);
+> -       spin_unlock_irqrestore(common->lock, flags);
+> +       if (sdm->enable) {
+> +               spin_lock_irqsave(common->lock, flags);
+> +               reg =3D readl(common->base + common->reg);
+> +               writel(reg & ~sdm->enable, common->base + common->reg);
+> +               spin_unlock_irqrestore(common->lock, flags);
+> +       }
+> +
+> +       if (sdm->pat1_enable) {
+> +               spin_lock_irqsave(common->lock, flags);
+> +               reg =3D readl(common->base + sdm->pat1_reg);
+> +               writel(reg & ~sdm->pat1_enable, common->base + sdm->pat1_=
+reg);
+> +               spin_unlock_irqrestore(common->lock, flags);
+> +       }
+>
+>         spin_lock_irqsave(common->lock, flags);
+> -       reg =3D readl(common->base + sdm->tuning_reg);
+> -       writel(reg & ~sdm->tuning_enable, common->base + sdm->tuning_reg)=
+;
+> +       reg =3D readl(common->base + sdm->pat0_reg);
+> +       writel(reg & ~sdm->pat0_enable, common->base + sdm->pat0_reg);
+>         spin_unlock_irqrestore(common->lock, flags);
+>  }
+>  EXPORT_SYMBOL_NS_GPL(ccu_sdm_helper_disable, "SUNXI_CCU");
+> @@ -123,7 +144,7 @@ unsigned long ccu_sdm_helper_read_rate(struct ccu_com=
+mon *common,
+>         pr_debug("%s: clock is sigma-delta modulated\n",
+>                  clk_hw_get_name(&common->hw));
+>
+> -       reg =3D readl(common->base + sdm->tuning_reg);
+> +       reg =3D readl(common->base + sdm->pat0_reg);
+>
+>         pr_debug("%s: pattern reg is 0x%x",
+>                  clk_hw_get_name(&common->hw), reg);
+> diff --git a/drivers/clk/sunxi-ng/ccu_sdm.h b/drivers/clk/sunxi-ng/ccu_sd=
+m.h
+> index c1a7159b89c3..c289be28e1b4 100644
+> --- a/drivers/clk/sunxi-ng/ccu_sdm.h
+> +++ b/drivers/clk/sunxi-ng/ccu_sdm.h
+> @@ -33,21 +33,31 @@ struct ccu_sdm_internal {
+>         u32             table_size;
+>         /* early SoCs don't have the SDM enable bit in the PLL register *=
+/
+>         u32             enable;
+> -       /* second enable bit in tuning register */
+> -       u32             tuning_enable;
+> -       u16             tuning_reg;
+> +       /* second enable bit in pattern0 register */
+> +       u32             pat0_enable;
+> +       u16             pat0_reg;
+> +       /* on some platforms, the sdm enable bit in pattern1 register */
+> +       u32             pat1_enable;
+> +       u16             pat1_reg;
+>  };
+>
+> -#define _SUNXI_CCU_SDM(_table, _enable,                        \
+> -                      _reg, _reg_enable)               \
+> -       {                                               \
+> -               .table          =3D _table,               \
+> -               .table_size     =3D ARRAY_SIZE(_table),   \
+> -               .enable         =3D _enable,              \
+> -               .tuning_enable  =3D _reg_enable,          \
+> -               .tuning_reg     =3D _reg,                 \
+> +#define __SUNXI_CCU_SDM(_table, _enable, _pat0, _pat0_enable, _pat1, _pa=
+t1_enable)     \
+> +       {                                                               \
+> +               .table                  =3D _table,                      =
+ \
+> +               .table_size             =3D ARRAY_SIZE(_table),          =
+ \
+> +               .enable                 =3D _enable,                     =
+ \
+> +               .pat0_enable            =3D _pat0_enable,                =
+ \
+> +               .pat0_reg               =3D _pat0,                       =
+ \
+> +               .pat1_enable            =3D _pat1_enable,                =
+ \
+> +               .pat1_reg               =3D _pat1,                       =
+ \
+>         }
+>
+> +#define _SUNXI_CCU_SDM(_table, _enable, _pat0, _pat0_enable)   \
+> +       __SUNXI_CCU_SDM(_table, _enable, _pat0, _pat0_enable, 0, 0)
+> +
+> +#define _SUNXI_CCU_SDM_DUAL_PAT(_table, _pat0, _pat0_enable, _pat1, _pat=
+1_enable)      \
+> +       __SUNXI_CCU_SDM(_table, 0, _pat0, _pat0_enable, _pat1, _pat1_enab=
+le)
+> +
 
-Fixes: 8aa2f0ac08d3 ("dt-bindings: display: bridge: ldb: Add check for reg and reg-names")
-Signed-off-by: Liu Ying <victor.liu@nxp.com>
----
- .../bindings/display/bridge/fsl,ldb.yaml           | 23 ++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
+Don't introduce an intermediate macro that looks _almost_ the same as the
+macro the driver is actually supposed to use.
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml b/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
-index 7f380879fffd..5f6dc2b11d7b 100644
---- a/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
-+++ b/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
-@@ -28,6 +28,7 @@ properties:
-     const: ldb
- 
-   reg:
-+    minItems: 1
-     maxItems: 2
- 
-   reg-names:
-@@ -68,7 +69,6 @@ required:
-   - compatible
-   - clocks
-   - ports
--  - reg
- 
- allOf:
-   - if:
-@@ -83,12 +83,23 @@ allOf:
-         ports:
-           properties:
-             port@2: false
-+
-   - if:
--      not:
--        properties:
--          compatible:
--            contains:
--              const: fsl,imx6sx-ldb
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - fsl,imx6sx-ldb
-+              - fsl,imx8mp-ldb
-+    then:
-+      required:
-+        - reg
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: fsl,imx8mp-ldb
-     then:
-       required:
-         - reg-names
+Just declare _SUNXI_CCU_SDM_DUAL_PAT() to expand to the full entry, and
+_SUNXI_CCU_SDM() to _SUNXI_CCU_SDM_DUAL_PAT() with the last two parameters
+as zero. That takes less lines.
 
----
-base-commit: 3b058d1aeeeff27a7289529c4944291613b364e9
-change-id: 20260329-fsl_ldb_schema_fix-4fe01c42bff3
 
-Best regards,
--- 
-Liu Ying <victor.liu@nxp.com>
+ChenYu
 
+>  bool ccu_sdm_helper_is_enabled(struct ccu_common *common,
+>                                struct ccu_sdm_internal *sdm);
+>  void ccu_sdm_helper_enable(struct ccu_common *common,
+>
+> --
+> 2.52.0
+>
+>
