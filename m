@@ -1,35 +1,65 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A932C11DE;
-	Sun, 29 Mar 2026 13:08:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738BE36B05F
+	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 13:12:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774789721; cv=none; b=Rk2+akaXCKl0zVd63C34A8gtedkkxkVYgOBQ/dI/d6vR3ts6fXMwbWVH8MUAwws7zPefD2IDWEMtg5knlEzJ74AbVPZ+VyOaemwECQ8TIZlHjx+OVxHSGyuj1mvze9hoJtEZQ3UBCV9m3IRIi+ClNuMVop0+grUyKkcOTcanf08=
+	t=1774789956; cv=none; b=QnqttA07/I6EQQKtkDsp+X3TwKZQmHnUjppDuwxpElJIOmsc93RrVbtCIf9zbFgqxjMXWgm6OQdwMLjAuGr2ue3KwKXb95UtkXpgUn0zg2OvU0JcdDpsyj/5p47gsCWJZTckHB44b6YGxSX9Vp2y7D7kQ1U0NeZvORa5amI4DuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774789721; c=relaxed/simple;
-	bh=DCu61qQwebef9bBC33MEmi+w7rRTFLzdTPyfsR75YCM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uQF1bRiKbBqiU4LAOeXvRbyMcs/OV4nDgrpf/VP7J+AJ2P4hbm44NYxQSG+IShVQmSHlbBaN8RmQ5bCS6Glg33l5R2v4Nt/o76T960z3rGjVRRs4JhrkXD4vbbCKpDQXaYrLofWOyVErN+jLFxnS2LdugwVOrp/ffoRGruVL2Ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=chMf4omY; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774789956; c=relaxed/simple;
+	bh=LMrqkwZu/ieH+9iFcK6MY5ZjY7001IIPbG2c/91dYX4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=X13Oy/Jtb0hsYhVltMGzJXVRKqJGFRNmZtp0bbXODJE6ijUNE4Z0oJ6c/8HPu4VsLjs6ObPDh84iOjKEdFCEXhkywlxcXsMKmEJ1Wvuaz4xRWnYSPQFJ1Tb8P6HEP9KZqHRchxt0AQI1IRI8qiDt+TaQFcZKNpgkD5yUlFWxzGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=F0oHk6nj; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="chMf4omY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 496F7C116C6;
-	Sun, 29 Mar 2026 13:08:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774789720;
-	bh=DCu61qQwebef9bBC33MEmi+w7rRTFLzdTPyfsR75YCM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=chMf4omYBPw++o6nbSsbeUK3lX+Awba0KdE4xck3wpTDuSE4ATjuBedOenfMK700a
-	 xI01UHynFPK8T8iizR5vzaASCG0Nb526z5AuaBocgB2cLQx7h3CW/CvjSD1guXN8FV
-	 vvGjJcIxARwKRM8hRz1dCpPpjjOW21b1ar91X7zsk0h1LB99/Agnw0p0y4ua95P5Lf
-	 8RzV+THDKfR1BsvNNt1ExhVak1Kmfuem1Ws7FkG+9sWbgzr4JQJarIgX6OztbeePbF
-	 DbQl6ikDiooHgAp1M4SH6QAUn8ZaTkThp0rzJXQM8G2DSRxfO6UhSrLmFW1SOnd//Z
-	 IFdHvpNztMUvw==
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-Date: Sun, 29 Mar 2026 15:08:00 +0200
-Subject: [PATCH net-next 10/10] net: airoha: Rename get_src_port_id
- callback in get_sport
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="F0oHk6nj"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-486b96760easo39680305e9.2
+        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 06:12:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1774789954; x=1775394754; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=pMp+g178cIoRt7ghKFgZJSeiR1C+eeY47NCArU/8ZAU=;
+        b=F0oHk6nj38MTY5bi1H173YZIfs8ofg2GJrIWjhNO2jx1gl3/ulCytAGy+RCWcOP94f
+         QheKlO3EwR88Te1XMXhfwg8bIl34eK201ZBFeIsIgsork4MgvS2JpUY8fygqL4HwvP5A
+         zD8x3Hlf/mePpRdxXW5kYAR9JQdguwxXnWeIOUSPLPsurAV39SWNB+tmgaSUryLMkb5O
+         GIq0rX5QNWSqb3odD6aGgE/590koNwpW54xvXnvHtWcCnmntiIyojCBXyehcpd0YN6dS
+         s/20fGNy3/8tgh5WpOKeI3rZRY6Jve4u8oUMBrmYW9loPcd7+jXcDqmvk290Ul8MJclQ
+         sieg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774789954; x=1775394754;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=pMp+g178cIoRt7ghKFgZJSeiR1C+eeY47NCArU/8ZAU=;
+        b=md9DfNaBv5pSpz0iedrT8vXRlsjutwQwyoapBcDY7/By8w1gj9y18v8rxD9sOLq+WO
+         YbI6mRKgsww3jVMCGoiBx8yUg4CY6vaPzqMeIA8N1PvVjYNkUxC07nt0YBIGtIVHdlOJ
+         b9cd/XrCCoy+PmnRmDsMMGTBbU6r/Zbl5tlDrbDRUEe8AJdgr+bCKIGcWFf0Coxb+h/w
+         COyaoD+ns/pRHnUsWwDXXR7I0bal6AQCaCXInosH7gSkM3U8/JIvdR7T2BpP2IVIh0jZ
+         4JpOtZB8QwDLo1ZTZPcnTJ7nGH8dGvJnXjMBWoezCWvqElHw1j8b+FQyfpxoMK1lSM4M
+         oM1w==
+X-Forwarded-Encrypted: i=1; AJvYcCVrGwRCHrTKtZfo4xHQjO5owUfw9tysGp17oJoi8KoNKBZ+NUi3nN1dceCWD69KvwnF8u6OPohKNGsw@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBO0M5qIGbt0yrlouHq0MMGQMg/agHCfvTSo+Jte/uhLgcpmbb
+	olvJJhj9yhkKl652HFLVcRpbCD6C/bkp0vVq0suEMLi95ki8Fz8Pah351EoxdR5fRE4=
+X-Gm-Gg: ATEYQzzZNAlUJI2OadsBwooff121UdCHBXWWFhX2wv7MF5Ggj/Cor2brfFujRwavh+Z
+	LiVZYHfrqxkhWED9efzQzgQzl9xAkx2voQkr0gDxbYKdT+umZyFeRdF9Ezviu/HXNlcJK7NTZ/l
+	0mO/wmsJNi/Nj0Dr7PfvUNwMw3ibMdEctm2LexNpOfZTz42rsaPpFxSIziK9ZMAOByccE/j9Crh
+	Jn5yKgessNlJzKgJAl53ovZ0AvvWWLMFRsm0ZgosxNTqAD+STfNXj730oqHbrERwj2ET62j4SxV
+	/bIU/AjCHPbejvIMTkj3lFBx4s+DDlPUWPcBYeqheLhNUhtBu4dObNA4/ykWvCOVHlNycnvgm4Y
+	9XRXgQPJF7UQ1jxoK5uxerDARrsaNM8k9TtoggjLV5Bq5CpRYBIi0fcxTaD6Zxr0R0TWixShqt8
+	IW1jWOLWxs8tRmuY1U+kHeVW4OvYPzAn2Wc3NK6zJPluJ9byTtRWcNKD7ozIl9zvim50QZvdPpF
+	3m9OTjhZ4+I
+X-Received: by 2002:a05:600c:a02:b0:485:3c66:e21d with SMTP id 5b1f17b1804b1-48727d59d34mr152817225e9.2.1774789953803;
+        Sun, 29 Mar 2026 06:12:33 -0700 (PDT)
+Received: from localhost (host86-170-11-80.range86-170.btcentralplus.com. [86.170.11.80])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722c6b105sm422368815e9.1.2026.03.29.06.12.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 29 Mar 2026 06:12:33 -0700 (PDT)
+From: Christopher Obbard <christopher.obbard@linaro.org>
+Date: Sun, 29 Mar 2026 14:12:26 +0100
+Subject: [PATCH] arm64: dts: qcom: msm8996: fix indentation in sdhc2 node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,92 +68,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260329-airoha-eth-multi-serdes-v1-10-00f52dc360ca@kernel.org>
-References: <20260329-airoha-eth-multi-serdes-v1-0-00f52dc360ca@kernel.org>
-In-Reply-To: <20260329-airoha-eth-multi-serdes-v1-0-00f52dc360ca@kernel.org>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: Christian Marangi <ansuelsmth@gmail.com>, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- netdev@vger.kernel.org, devicetree@vger.kernel.org
-X-Mailer: b4 0.14.2
+Message-Id: <20260329-wip-obbardc-msm8996-whitespace-v1-1-ba3a278f043c@linaro.org>
+X-B4-Tracking: v=1; b=H4sIADklyWkC/x3NQQqEMAxA0atI1hPo1KHYuYrMoqapZqGWRlQQ7
+ 26Z5dv8f4FyEVb4NhcU3kVlXSrerwZoCsvIKLEarLHOtNbjIRnXYQglEs46d947PCbZWHMgxo8
+ 30VGbEjkDNZILJzn/g/533w+SQF3rcAAAAA==
+X-Change-ID: 20260329-wip-obbardc-msm8996-whitespace-490d6c3ffc60
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Christopher Obbard <christopher.obbard@linaro.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=860;
+ i=christopher.obbard@linaro.org; h=from:subject:message-id;
+ bh=LMrqkwZu/ieH+9iFcK6MY5ZjY7001IIPbG2c/91dYX4=;
+ b=owEBbQKS/ZANAwAKAWNNxPBocEb4AcsmYgBpySU8OzchjV+uTceOsXUKj8rGOEiyXOrUjZ+Td
+ xJwDfCxaoOJAjMEAAEKAB0WIQTxi9yLbCX5CqI9UXRjTcTwaHBG+AUCacklPAAKCRBjTcTwaHBG
+ +DXSD/9WCMjJZDXjZfst3IxBGeibEEIdtAKAMQtSBqbis41DhIWMZ4B1Jp0dEuA6OtLOobVJQS8
+ F2sVDlpw44XELRAnwZQc9tWT6JsYEVOBiK8M38mEL+wIjBB2ax9rFXJ5lC2lVmGguvZNcalkmrG
+ VbhTBcMmRr0CnVdrSwEDPqYqjML9Sex7d1gUtteQ8BSHxXovriQrn+Ns3UI+0ax+I7hQsNwU3W8
+ AfRdYEay8x8vuosZ5NAagjcZAItfqaA1l+bXe1rl+XJ9R81W73kFbzRMbwY0K09fuZKbssinsdE
+ YTMiBCe3r2DLtzasF6+AzULHZGPZQ2dKHqAdHQi8Ce+IHGXWIPgMV0MTqtWVrrF6mttYnLa/99F
+ J0UOHLeXoNI/d+IbBAS8Ffzo0oqmf/ghoq6HaW0WpANYGOch3OT1zUGBA5QYvmSMZ9QNC/anxip
+ 5Fgg1VArBJS297vOX6LfWDHUZxViXPgSPLnaC/yschP0J9Ghjbn6wfI2XIKOgjmwt2Aabah7Ue9
+ fd4b7C6a7R3d02iPNtG/rRcbTXT50PBAaEnxs+8jcOhNIPmjcB9TDDknNgsLDuHwuhpDionAink
+ RU+G+MtiYVJIaB2sIpGKqEk+2yN8ilOE/MmHc8Uq/z/I80alTVOIilU1eh1VgyyzoLTXuwYsnxS
+ P8YI2hCiq7zd6Lw==
+X-Developer-Key: i=christopher.obbard@linaro.org; a=openpgp;
+ fpr=F18BDC8B6C25F90AA23D5174634DC4F0687046F8
 
-For code consistency, rename get_src_port_id callback in get_sport.
-Please note this patch does not introduce any logical change and it is
-just a cosmetic patch.
+Drop stray leading whitespace from sdhc2 node.
 
-Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
+No functional change.
+
+Signed-off-by: Christopher Obbard <christopher.obbard@linaro.org>
 ---
- drivers/net/ethernet/airoha/airoha_eth.c | 10 +++++-----
- drivers/net/ethernet/airoha/airoha_eth.h |  2 +-
- 2 files changed, 6 insertions(+), 6 deletions(-)
+ arch/arm64/boot/dts/qcom/msm8996.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ethernet/airoha/airoha_eth.c
-index 3926866e711e51bb20665dfda464c5283b7616fa..5f5224838092abb1943e739733791a05b6f46526 100644
---- a/drivers/net/ethernet/airoha/airoha_eth.c
-+++ b/drivers/net/ethernet/airoha/airoha_eth.c
-@@ -1751,7 +1751,7 @@ static int airhoha_set_gdm2_loopback(struct airoha_gdm_dev *dev)
- 	airoha_fe_clear(eth, REG_FE_VIP_PORT_EN, BIT(AIROHA_GDM2_IDX));
- 	airoha_fe_clear(eth, REG_FE_IFC_PORT_EN, BIT(AIROHA_GDM2_IDX));
+diff --git a/arch/arm64/boot/dts/qcom/msm8996.dtsi b/arch/arm64/boot/dts/qcom/msm8996.dtsi
+index 9d4ce47578fb4..2f67e665996f3 100644
+--- a/arch/arm64/boot/dts/qcom/msm8996.dtsi
++++ b/arch/arm64/boot/dts/qcom/msm8996.dtsi
+@@ -3255,7 +3255,7 @@ sdhc2: mmc@74a4900 {
  
--	src_port = eth->soc->ops.get_src_port_id(port, dev->nbq);
-+	src_port = eth->soc->ops.get_sport(port, dev->nbq);
- 	if (src_port < 0)
- 		return src_port;
+ 			bus-width = <4>;
+ 			status = "disabled";
+-		 };
++		};
  
-@@ -3227,7 +3227,7 @@ static const char * const en7581_xsi_rsts_names[] = {
- 	"xfp-mac",
- };
- 
--static int airoha_en7581_get_src_port_id(struct airoha_gdm_port *port, int nbq)
-+static int airoha_en7581_get_sport(struct airoha_gdm_port *port, int nbq)
- {
- 	switch (port->id) {
- 	case AIROHA_GDM3_IDX:
-@@ -3291,7 +3291,7 @@ static const char * const an7583_xsi_rsts_names[] = {
- 	"xfp-mac",
- };
- 
--static int airoha_an7583_get_src_port_id(struct airoha_gdm_port *port, int nbq)
-+static int airoha_an7583_get_sport(struct airoha_gdm_port *port, int nbq)
- {
- 	switch (port->id) {
- 	case AIROHA_GDM3_IDX:
-@@ -3349,7 +3349,7 @@ static const struct airoha_eth_soc_data en7581_soc_data = {
- 	.num_xsi_rsts = ARRAY_SIZE(en7581_xsi_rsts_names),
- 	.num_ppe = 2,
- 	.ops = {
--		.get_src_port_id = airoha_en7581_get_src_port_id,
-+		.get_sport = airoha_en7581_get_sport,
- 		.get_dev_from_sport = airoha_en7581_get_dev_from_sport,
- 	},
- };
-@@ -3360,7 +3360,7 @@ static const struct airoha_eth_soc_data an7583_soc_data = {
- 	.num_xsi_rsts = ARRAY_SIZE(an7583_xsi_rsts_names),
- 	.num_ppe = 1,
- 	.ops = {
--		.get_src_port_id = airoha_an7583_get_src_port_id,
-+		.get_sport = airoha_an7583_get_sport,
- 		.get_dev_from_sport = airoha_an7583_get_dev_from_sport,
- 	},
- };
-diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ethernet/airoha/airoha_eth.h
-index c076e36b741ce691cf309850435c352fc1fd7986..2a862be0a18d7df9589dd35935e92667c77961c9 100644
---- a/drivers/net/ethernet/airoha/airoha_eth.h
-+++ b/drivers/net/ethernet/airoha/airoha_eth.h
-@@ -586,7 +586,7 @@ struct airoha_eth_soc_data {
- 	int num_xsi_rsts;
- 	int num_ppe;
- 	struct {
--		int (*get_src_port_id)(struct airoha_gdm_port *port, int nbq);
-+		int (*get_sport)(struct airoha_gdm_port *port, int nbq);
- 		int (*get_dev_from_sport)(struct airoha_qdma_desc *desc,
- 					  u16 *port, u16 *dev);
- 	} ops;
+ 		blsp1_dma: dma-controller@7544000 {
+ 			compatible = "qcom,bam-v1.7.0";
 
+---
+base-commit: 54f966f63b379d0c62bb044b7903319776443a4a
+change-id: 20260329-wip-obbardc-msm8996-whitespace-490d6c3ffc60
+
+Best regards,
 -- 
-2.53.0
+Christopher Obbard <christopher.obbard@linaro.org>
 
