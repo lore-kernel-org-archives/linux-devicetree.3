@@ -1,104 +1,212 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9B5433AD;
-	Sun, 29 Mar 2026 13:01:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F9D35F616
+	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 13:03:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774789262; cv=none; b=Iw0gDENnqCmmeCrqATJhumEMsCkr8t+lPeVpsMdCun9f0Eg9Ra45p1i64ixFPfmm2JZlyuN0g2cJtuOgGlL9Is4nRUZZrnBJQB4Cx1se7mYBmjaRgA352eEQ953aHDUYNqVS3pUhQ2XczgnO5Tn/bGzVQxhPe0x6DlU1XcEr62U=
+	t=1774789405; cv=none; b=fV3NG5t1iGwE8aAvef8L5bXoPDl2WqbA4qzJp77Qu7vQ0X7LENdhi1Esg6IRjDCXwi3q/Vdra/edG0PrcDgpWn+ZXHi+7/o2sI5w2j4pqe2gML8SVG97XOkEcPe40b7/9HieNAElZ0JsO5L+QB5AfnXIBUZxFyk38o8xgJ5UVGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774789262; c=relaxed/simple;
-	bh=W03FI6e80dvROeD6qW3dxWpa6gLkOQSEIxsVWkQzlaE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=HeqZXvq4smYkgAWs/A2Vjqg/NVqs0PjQKakepA3qTxJHhKtLnJyNNk+DeCEUO8HPyweJN9ZNXiTuWKmRMoTtGBPApQg8S/B49zhM8CidYOzIgP/sr3yRt6myJ1WdxL5TxGLuskJ+DTtI/LwiCq277XMvlAjUqsDh4EzuEqgPnEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org; spf=none smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=bdLI6Etg; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=debian.org
+	s=arc-20240116; t=1774789405; c=relaxed/simple;
+	bh=U/R2pAPnxIsAzZzsFQMZKmzU5HLTHhfGOlT1wA7/tYM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nCNDNGmpD/lS+HZ/p9FpXtpY/pgwm2s/2KbEXbJsZpVUo6LGZXEp37RTJVdI8HUdHaqD2lSYwgqBEFpnqGtuntJULZl7+8IoGkw6zYusyAwXs5scL1V/1nnWqqVS9XF38SFlG8GSb+9LDpyykJDBv3DD4uSx+QEUWbJmxeKPHLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IJWEF3+a; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="bdLI6Etg"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:MIME-Version:Content-Transfer-Encoding
-	:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:
-	Reply-To:Content-ID:Content-Description;
-	bh=7ds2j9sLWyfvX6+jyaCW9+3Cik3Amrs5CO0KC6EvITc=; b=bdLI6EtgcvoAI70xnMhcK6mcsD
-	w+8pPAfefXaLtMD1gfi3Lr9rVqewfH4uHv5mrptQs94JOqZBrrsxjt3v5YTzodVBVEAySZHwnj3Yv
-	cuJv6mwESx+A1JACL3Q4KjqSxq2h38EJCYMqbFsTl+2QmIkGHNMg+tXz9v5eX15vxzX+OX2AxAmk4
-	kWFAL6vU5q1LhFkWMjasbVzQntEM3KhguJDYRfBxKlPNtCccP1yFaflSLWzwwFfjn7nAdRFNP/yMu
-	9ToGKplIYDKTribOsxGDwxrlrrBxOMWajKti2IoM1GykZVwOK8SeR9ZGlmh1Yr7FerqFwnUTP10ic
-	ZxF5kwhg==;
-Received: from authenticated user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <obbardc@debian.org>)
-	id 1w6pl3-000gvo-0w;
-	Sun, 29 Mar 2026 13:00:48 +0000
-Message-ID: <76072b04a6ec68dc3cdca773ad843e66fe468685.camel@debian.org>
-Subject: Re: [PATCH v2 0/3] media: camss: Link CAMSS power domain on MSM8996
-From: Christopher Obbard <obbardc@debian.org>
-To: Yassine Oudjana <yassine.oudjana@gmail.com>, Robert Foss
- <rfoss@kernel.org>,  Todor Tomov <todor.too@gmail.com>, Bryan O'Donoghue
- <bryan.odonoghue@linaro.org>, Andy Gross	 <agross@kernel.org>, Bjorn
- Andersson <andersson@kernel.org>, Konrad Dybcio	
- <konrad.dybcio@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob
- Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Hans Verkuil <hansverk@cisco.com>
-Cc: Yassine Oudjana <y.oudjana@protonmail.com>, Vladimir Zapolskiy
-	 <vladimir.zapolskiy@linaro.org>, linux-media@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Sun, 29 Mar 2026 14:00:46 +0100
-In-Reply-To: <20230526180712.8481-1-y.oudjana@protonmail.com>
-References: <20230526180712.8481-1-y.oudjana@protonmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IJWEF3+a"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-486fe655187so45686875e9.2
+        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 06:03:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774789402; x=1775394202; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=viDNw9XnGj7IgNiXG+l3zPbwcxnl/gxtXwY665wWLdc=;
+        b=IJWEF3+atgar6OEs3VzeBeKvalVB+7L5EivTNUE3KS18HtOoeze+hEwBsVjq+LwmdX
+         b6Vte4+/PtjSZtF893ze9mw8mu8Co+Rbv5NBn2HA8nxGM9lo+hbgyb3fuRAXVn60CiT6
+         /WpaZTkQU/LQO292l3qhFCA1/ffbkf5SdwsMCyw4BW/fROM/i/As7XZ/yjfK4mwlp5sc
+         +8Cuu1wMJTG9tT8JISOna+EFGKXOU6M3O0wGAfbB3ECl1lE8GkKqGVsFhg4lGNRqRa+c
+         zGcLWQhUGXHxz9KQ1+YGp99faZ6rN+xplnKu5Ul05r2NkMsCXkdcDBRxdf1fD8HD1Qd0
+         X8/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774789402; x=1775394202;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=viDNw9XnGj7IgNiXG+l3zPbwcxnl/gxtXwY665wWLdc=;
+        b=RyULhMUenVpBJVqx5po2fkJ7ReMoN8PFnKr36sAMRcpf/QiDQjCDLXv8LatPrZGwbT
+         ZFm/+m2aG9X2P6upujZ/4/ZjDsm3qxijzqR1W8LBt7No7EhUz6rxoeBPl0hkmN6b0D4n
+         eSgmBuE/XSFijCr/3Rbxsox81gb7E+Cg0Ud4RZ6akpPOamzSDjwAgKYo1w7KMvKQM5pe
+         zv54awnXyxUtsUftgHThIAvu0qEK4SnVVBGWDrkopbYZEWeo2ZDuBFNdpnoCNXApuOX0
+         CQLLTBQ1mjk3CgbqQSWh+qZz6YRWu/si8RTVahgFrM/XT4eXXiuls5ULrwJUfdZR93SA
+         117g==
+X-Forwarded-Encrypted: i=1; AJvYcCXE3NiuPuxyGMhHIYS1bKW5gTU1GT2dIeUBTIbrM6BYIKfiWyH3E0k86hEx8h2Z55CvkEisoeBQZIzG@vger.kernel.org
+X-Gm-Message-State: AOJu0YwxvV3ti2HHjjRZwhI1i0/hHjrpSaZwdB8bkVYFwLY2fGwAhLIm
+	UBr8IrwsNJoYnC+vGGd8UPtWf4JcATeY11HEfAei9wbRk6foFMtICFxs
+X-Gm-Gg: ATEYQzzGCNrQ/R1Ps5wPEhUf3QLciNz0kKVKUmkynOUji9cSYB7ODepXGF2V3GotVyf
+	3vBz3W9yfLTcAWkTjMwkvJD3LhwYPmE/Sdg2FtA2rb5YcOSETItEaa+UXmfTylOoK/ohxwElC6u
+	qR6Iprf22oN7JekhrHsUhnL9OBkNC+B5c2NbakVYWdT52HCPcg5jcJEsakUGu0k8ksNr0HZaFng
+	dvu65Bd+u2gd8IFCalZZIzFflZIajIFaluEmzSc6FPGPRM8G6cqhE6+gPVyCQa2G834MwROfrq4
+	CzWy8ZgV3I6tnXOOdvyaDsaKn6tW3RuTJDOMAoEamWI3w1qRkoLwZtH2wOgcBzjDB4Rd5RubCMH
+	qD8mYF0ETrm65nVAPLxZ5MjhPNrHSaer41FUcCy1HwlR4pO/vJ9o6CaEYrlAO9Wd29DzcX8UpjH
+	LCd0604jJFnW3EToUq5YZWTVK93T/zW/Dd5X+Pm+1Xzyoj5EC+1ddim7i7xZDPotJVIhnr6iuY1
+	9A9uFNbKnlCK6oCzg==
+X-Received: by 2002:a05:600c:4e15:b0:485:2ce2:4c87 with SMTP id 5b1f17b1804b1-48727d45881mr151705535e9.4.1774789401886;
+        Sun, 29 Mar 2026 06:03:21 -0700 (PDT)
+Received: from jernej-laptop.localnet (118.red-213-98-130.staticip.rima-tde.net. [213.98.130.118])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722d23679sm397412475e9.9.2026.03.29.06.03.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 29 Mar 2026 06:03:21 -0700 (PDT)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Michal Piekos <michal.piekos@mmpsystems.pl>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: allwinner: enable h616 timer support
+Date: Sun, 29 Mar 2026 15:03:17 +0200
+Message-ID: <4721811.LvFx2qVVIh@jernej-laptop>
+In-Reply-To: <n2bupd37br2mp7ls6c5z5ueoancr53tn4mywg2vvrlpyhmkex4@lxe6tfdhwz5e>
+References:
+ <20260329-h616-timer-v1-1-5966d0420a66@mmpsystems.pl>
+ <5977334.DvuYhMxLoT@jernej-laptop>
+ <n2bupd37br2mp7ls6c5z5ueoancr53tn4mywg2vvrlpyhmkex4@lxe6tfdhwz5e>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Debian-User: obbardc
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Hi Yassine,
-
-On Fri, 2023-05-26 at 21:07 +0300, Yassine Oudjana wrote:
-> From: Yassine Oudjana <y.oudjana@protonmail.com>
+Dne nedelja, 29. marec 2026 ob 14:07:19 Srednjeevropski poletni =C4=8Das je=
+ Michal Piekos napisal(a):
+> On Sun, Mar 29, 2026 at 01:53:45PM +0200, Jernej =C5=A0krabec wrote:
+> > Dne nedelja, 29. marec 2026 ob 13:43:04 Srednjeevropski poletni =C4=8Da=
+s je Michal Piekos napisal(a):
+> > > Add support for timer by reusing existing sun4i timer driver.
+> > >=20
+> > > H616 timer is compatible with earlier sunxi timer variants and provid=
+es
+> > > both clocksource and clockevent functionality. It runs from 24 MHz
+> > > oscillator. It can serve as broadcast clockevent for wake up from idle
+> > > states.
+> > >=20
+> > > Tested on Orange Pi Zero 3:
+> > > - timer is registered as clocksource:
+> > > - switching clocksource at runtime works
+> > > - timer operates as a broadcast clockevent device
+> > > - no regression observed compared to arch_sys_counter
+> > >=20
+> > > Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
+> > > ---
+> > > Test results:
+> > >=20
+> > > Clocksource switching:
+> > >   cat /sys/devices/system/clocksource/clocksource0/available_clocksou=
+rce
+> > >     arch_sys_counter timer
+> > >   echo timer > /sys/devices/system/clocksource/clocksource0/current_c=
+locksource
+> > >     [ 5031.105997] clocksource: Switched to clocksource timer
+> > >=20
+> > > Clockevent configuration:
+> > >   cat /proc/timer_list
+> > >     ...
+> > >     Tick Device: mode:     1
+> > >     Broadcast device
+> > >     Clock Event Device: sun4i_tick
+> > >      max_delta_ns:   178956969070
+> > >      min_delta_ns:   1000
+> > >      mult:           51539608
+> > >      shift:          31
+> > >      mode:           1
+> > >      next_event:     9223372036854775807 nsecs
+> > >      set_next_event: sun4i_clkevt_next_event
+> > >      shutdown:       sun4i_clkevt_shutdown
+> > >      periodic:       sun4i_clkevt_set_periodic
+> > >      oneshot:        sun4i_clkevt_set_oneshot
+> > >      resume:         sun4i_clkevt_shutdown
+> > >      event_handler:  tick_handle_oneshot_broadcast
+> > >     ...
+> > >=20
+> > > Cyclictest measurements:
+> > >   Dominated by system scheduler latency and do not reflect clocksource
+> > >   precision.
+> > > ---
+> > >  arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 9 +++++++++
+> > >  1 file changed, 9 insertions(+)
+> > >=20
+> > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/ar=
+m64/boot/dts/allwinner/sun50i-h616.dtsi
+> > > index 8d1110c14bad..bf054869e78b 100644
+> > > --- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+> > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+> > > @@ -228,6 +228,15 @@ cpu_speed_grade: cpu-speed-grade@0 {
+> > >  			};
+> > >  		};
+> > > =20
+> > > +		timer0: timer@3009000 {
+> > > +			compatible =3D "allwinner,sun50i-h616-timer",
+> > > +				     "allwinner,sun8i-a23-timer";
+> >=20
+> > You have to add above combo to DT bindings.
+> >=20
+> > Best regards,
+> > Jernej
 >=20
-> CAMSS on MSM8996 has been broken since commit
-> 46cc03175498 ("media: camss: Split power domain management").
-> This would happen when trying to start streaming:
+> Not sure I understand your comment correctly but binding for h616 is alre=
+ady
+> there:
 >=20
-> [  199.097810] ------------[ cut here ]------------
-> [  199.097893] camss_top_ahb_clk status stuck at 'off'
-> [  199.097913] WARNING: CPU: 3 PID: 728 at drivers/clk/qcom/clk-branch.c:=
-91 clk_branch_wait+0x140/0x160
-> ...
-> [  199.100064]  clk_branch_wait+0x140/0x160
-> [  199.100112]  clk_branch2_enable+0x30/0x40
-> [  199.100159]  clk_core_enable+0x6c/0xb0
-> [  199.100211]  clk_enable+0x2c/0x50
-> [  199.100257]  camss_enable_clocks+0x94/0xe0 [qcom_camss]
-> [  199.100342]  csiphy_set_power+0x154/0x2a0 [qcom_camss]
-> ...
-> [  199.101594] ---[ end trace 0000000000000000 ]---
-> [  199.101736] qcom-camss a34000.camss: clock enable failed: -16
-> [  199.101813] qcom-camss a34000.camss: Failed to power up pipeline: -16
+> Documentation/devicetree/bindings/timer/allwinner,sun4i-a10-timer.yaml:21=
+=2D27
+>   - items:
+>     - enum:
+>         - allwinner,sun20i-d1-timer
+>         - allwinner,sun50i-a64-timer
+>         - allwinner,sun50i-h6-timer
+>         - allwinner,sun50i-h616-timer
+>     - const: allwinner,sun8i-a23-timer
 >=20
-> Turns out camss_top_ahb_clk needs the CAMSS power domain to be on. Before
-> the change, VFE power domains were enabled before CSIPHY enabled clocks,
-> and since the CAMSS power domain was their parent, it got enabled as well=
-.
-> With the VFE power domains now enabled after CSIPHY is powered on, the
-> CAMSS power domain remains off and things go south when CSIPHY tries to
-> enable camss_top_ahb_clk.
+> BR
+> Michal
+
+Sorry, sometimes tooling fails me. All good.
+
+Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+
+Best regards,
+Jernej
+
 >=20
-> Link the CAMSS power domain in camss_configure_pd to make sure it gets
-> enabled before CSIPHY tries to enable clocks.
+> >=20
+> > > +			reg =3D <0x03009000 0xa0>;
+> > > +			interrupts =3D <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>,
+> > > +				     <GIC_SPI 49 IRQ_TYPE_LEVEL_HIGH>;
+> > > +			clocks =3D <&osc24M>;
+> > > +		};
+> > > +
+> > >  		watchdog: watchdog@30090a0 {
+> > >  			compatible =3D "allwinner,sun50i-h616-wdt",
+> > >  				     "allwinner,sun6i-a31-wdt";
+> > >=20
+> > > ---
+> > > base-commit: be762d8b6dd7efacb61937d20f8475db8f207655
+> > > change-id: 20260328-h616-timer-046e6ac3549e
+> > >=20
+> > > Best regards,
+> > >=20
+> >=20
+> >=20
+> >=20
+> >=20
+>=20
 
-Do you have any plans to spin another version of this patch series ?
 
 
-Cheers!
 
-Chris
