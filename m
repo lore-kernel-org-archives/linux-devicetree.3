@@ -1,119 +1,179 @@
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012005.outbound.protection.outlook.com [52.101.43.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551FB1A6834
-	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 14:31:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774794715; cv=none; b=p2kvAiLCgPlCz7yLDHegfIz0b4G8zJ9utNtm+whgw4kvQoqBj9/GffzTlmZ5nsOf6NCro+jGf9bwTPWF1aZbD3AZ6rzWz51a/c8c+2Z/yqMyXlXNWcNqVp1tHKLsF0jmVuzVCObM1lJ3cYzLZF7Z+TJ0Q3pCrtaCbMnIAtipoLc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774794715; c=relaxed/simple;
-	bh=8Mk60eVl+dB5jKyjdUQ03s5Lx40a3eGPQVHoD7Ugcvw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IPpyabIWe7GNEOEWqwAMPTaKqoOXioKjxMjZXCKD9znKaUXXsh6KcbWwHR2z18sMekKdRVIc50cdC0iEWem87t5VFq2JfuEBHBwRNy2b0x43D4O+PCzR5Q3C5w+unBxLltiUEsUyTgpdfot3BeEw32k8X+LjWsgA0E77Il+BZKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rUVhYOFc; arc=none smtp.client-ip=209.85.221.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA12220F49;
+	Sun, 29 Mar 2026 14:46:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.5
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774795596; cv=fail; b=MFGfBTGotnku0ukJ4h2WGw5DPZ1lMXnhrl5Z2xBQ7PV9M7aV/d/m6y8BF1tM1FzgF3pywsiVi7QSsXbFS5rISwmLK13iUun8+sW/WNOQRM0PVyRF/MU+aZ7YB6x2ybCD6AyvOzkermGA5upboDzNIqYBp9g+DmuFdEVvOWsyxaY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774795596; c=relaxed/simple;
+	bh=TtYFD2xrx1y4DtCZuSamNCR6/ZkQbio1sVtX+aO0R9I=;
+	h=From:To:CC:In-Reply-To:References:Subject:Message-ID:Date:
+	 MIME-Version:Content-Type; b=gsWNuIs15ViPDZtsV38OjOuVmnPhYOf9Kh+yjOCiUOgrSef0GJPTeftEdW3SU7PB6/p9fdLYrogeItPCmHJLiOkikkU6qDopJMI1gNji46pbxwYB3KvqCu5YYIV9LSGWD5EPulQ/tCTUJJ0YLix13Pq58JAWiqlLn8oe5oforVo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=uiHzzZpt; arc=fail smtp.client-ip=52.101.43.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rUVhYOFc"
-Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-56cf45deb45so2812204e0c.2
-        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 07:31:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774794712; x=1775399512; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=pdYDhOE8OZqYxhSczZPWR/m9/1jZD7ZOGeIOm//D/jo=;
-        b=rUVhYOFc94N8TXweiccYzIRuw54E9kz8JKCEFmbsOl6Tce/P8k1Wmf5Ad8009bNjWQ
-         j94Q/N60U+XEzKDkH3vCFnWasO66AvHkQ7pG3nO/my2GCJbDPviyq9KmaAj5MBDaAOe5
-         I+s7FB7gydVvPbW+5S3IWlHwS+DBixx/tn4YM/LA2jvrtzyXzZ2sidX9dx1m0qMBmEH/
-         YksRVg+yVAxelZSRDecKz93eT1rZIACh6mN9p+xBA0SA/r0/IX7B2D7h223Bzq6czhje
-         nRhl+ledZY2ZeUgO8cwct0jSU2tk1xka1VlWuRvFEe3PjSjGWSqPpD1zggmBjIWecsZ+
-         CvUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774794712; x=1775399512;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=pdYDhOE8OZqYxhSczZPWR/m9/1jZD7ZOGeIOm//D/jo=;
-        b=G3ruay7f5RgadlF22FztaOBfRhFLzjswhsHybqWv5YEtLr2n2ardz1ShjeyNedy/Xf
-         5+CuyrXsZEuL04KsvgQ64PNTjabLQXgKf/thXFI3zQ+T9aWYk+4s8azIIFv2P8sl5+eE
-         XkE8fX1k/xfxY40YIjiX5TZgxF+ZFVfeyiy2+xIQzAfAus13dDi6Zjqh8VJZpYj4EMUF
-         d7/nKdA9sJxqfebqa2/uvHYRETo9snWZFWFMWhxb2pqgujZPJuITQ6FDxn6WIyC9G5cG
-         WPe6O1KfWIs3BVygZt36eXh6UjdlU5aBb9+SudAAMUPVnnbuZdu8nOmdI9ND4LTrMeKS
-         OtIQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVDDisbh6CxqdvuKX25UAif1YV7zBD04WUGrlPFupRvTvoG84Xkonzl4hwNdG4JYMD498LQ59J49PQf@vger.kernel.org
-X-Gm-Message-State: AOJu0YzwSBSsI0OI1Q5hKizh9uNA8SWLIyEsLYrt+kO9hYYrUvFKYp45
-	Ht5W94zaWAVP+ueNGE8aND/fQx35llve9aCJ37DsOtOJpT/ZUqI7XIMM
-X-Gm-Gg: ATEYQzxKR/5Wi+AJvitcnz+5mmpDXqIFarxg84cBaei36KbHagSLI4C8RjQFcoMzRRf
-	5w4W9TszXohs+bjwdLmNrZgLVP/yWOUk4aYP6q7TivZDEMn7Skj0h10ovAhGPo7V8Ro77f6QBAH
-	zaIt91zMDMCg2XVxVFeLs3V+p22LBsgkux5DKF+Jdd9Nt2wlOKtGTWunaPFHmcBP10UvamWVZpl
-	Ia96iqmW+N6R8nccfZbPo1FggpPejAHMYdVzVDUlwWXEzwm3HH9D70TblNJzlfPx4PGUviskOZI
-	eTViAOcruF0kBGG5Nxw8sLS5W67iuAuNdUsnxHwbMAyozbFC0USIQ8JDDWTKQiIdNrfuT3OECc6
-	RIs2AJqpAVe3Asfs/jzW2c+r6L7UcSug2/AnKd8TaD0IYBSmWTD0QnSYXJUkCvgza3bJBBxvLpu
-	zhV5G4X+vazoj+DQ6sogLP1To4ISpoX34=
-X-Received: by 2002:a05:6122:6e0f:b0:56b:7ec9:f54 with SMTP id 71dfb90a1353d-56d4a60af4fmr3772261e0c.9.1774794712267;
-        Sun, 29 Mar 2026 07:31:52 -0700 (PDT)
-Received: from localhost ([2804:30c:979:9b00:9cc3:5a7a:e884:2060])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56d589fcfcfsm5510916e0c.10.2026.03.29.07.31.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 29 Mar 2026 07:31:51 -0700 (PDT)
-Date: Sun, 29 Mar 2026 11:32:33 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: charles-antoine.couret@mind.be
-Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2 v2] devicetree: spi: add spi-mosi-idle-low property
- support
-Message-ID: <ack4AWGeblO5hvkM@debian-BULLSEYE-live-builder-AMD64>
-References: <20260329125832.2985115-1-charles-antoine.couret@mind.be>
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="uiHzzZpt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=b67zMSaSuIGa/2oOAzbJwq1WBAvnGoP04b1gbnGpQCmbDleaf47fjzkw3ybHtKaAJobUiXRvhvMwEWnNHH9QQ8Y71plHSV8vmIW1/8efjS/Zpwta0pNMWZIQ07/ko+Qha/C5Btz54St5VUf8k9360Mi6gTG/iBjlVulkT/70CrIWsk6PXOt+4tty8tftDCL2mmWLrHTS0Z3EvtOb6oJ9pwn7t64erW0Z701bX7moUFVLNE6HUMYIzhuM298n+tIA5Bb/6MSBvOwOxxcqDVktNKFoWS5DnrH83IFv2kvEn48WZAVssqRxg4OO7VYqv5ouL9GCKAhev0ARzCOoS0bbHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j5V8Fge6G1jsOJydofhp2xU2JkrCNfBZx0DNisaO4BQ=;
+ b=Y1vzl5/wuuL6tBuF3Q7ooonCmISO9JAWIDt5itRyZ0GeV0X/wXDpngrsBs/2CgfClFUM5f7yX7uqhspRTBnr/dGxiWemkgFjuMNn8RydYAQEhIdID8SADLQpoHjLEnlFgJT46PNXgpqMKxJHRnARQnVNxI+GSXgNajYw5l2FeaBX+2NToR7o/AkXUr3gWsxp4klQVIK7jmzkIH/nq+HcC/z2OmkhM1CHZabOzOoHZo8Ab3U0F6lJxN3qAu+YjGuH1wpLeZKvQTYiIp6O/MvvNlelTDILINDZOV4u1WwsUi+H1Gk4ogEWkfye59Bo6Sg07J890xB7uCFb69UkZHQkZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=kernel.org smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j5V8Fge6G1jsOJydofhp2xU2JkrCNfBZx0DNisaO4BQ=;
+ b=uiHzzZptoXojahkFwUY4HEhp/lmzucwjc65jGMdEWCO9pqQQz7Dkpbz1fKpuAdoAeLHsRu3n+hVhOf0CEq84H5yQY3Drwmug6uEpUewt4e0drVXuRu3YLloQnzwyd8FNmpG6DflOIzWLE5+EaSrGLovPGDu26t34LT4UrauatZk=
+Received: from SJ0P220CA0030.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::6)
+ by DS0PR10MB7318.namprd10.prod.outlook.com (2603:10b6:8:f9::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.27; Sun, 29 Mar
+ 2026 14:46:30 +0000
+Received: from SJ1PEPF00002312.namprd03.prod.outlook.com
+ (2603:10b6:a03:41b:cafe::e0) by SJ0P220CA0030.outlook.office365.com
+ (2603:10b6:a03:41b::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.24 via Frontend Transport; Sun,
+ 29 Mar 2026 14:46:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ SJ1PEPF00002312.mail.protection.outlook.com (10.167.242.166) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Sun, 29 Mar 2026 14:46:30 +0000
+Received: from DLEE213.ent.ti.com (157.170.170.116) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Sun, 29 Mar
+ 2026 09:46:30 -0500
+Received: from DLEE201.ent.ti.com (157.170.170.76) by DLEE213.ent.ti.com
+ (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Sun, 29 Mar
+ 2026 09:46:29 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE201.ent.ti.com
+ (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Sun, 29 Mar 2026 09:46:29 -0500
+Received: from [127.0.1.1] (uda0132425.dhcp.ti.com [172.24.233.103])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 62TEkQuZ2791745;
+	Sun, 29 Mar 2026 09:46:27 -0500
+From: Vignesh Raghavendra <vigneshr@ti.com>
+To: Nishanth Menon <nm@ti.com>, Tero Kristo <kristo@kernel.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Francesco Dolcini <francesco@dolcini.it>
+CC: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+In-Reply-To: <20260324093705.26730-1-francesco@dolcini.it>
+References: <20260324093705.26730-1-francesco@dolcini.it>
+Subject: Re: [PATCH v1 0/7] arm64: dts: ti: verdin-am62[p]: Add Zinnia
+Message-ID: <177479557032.2176431.6725760152464953557.b4-ty@b4>
+Date: Sun, 29 Mar 2026 20:16:10 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260329125832.2985115-1-charles-antoine.couret@mind.be>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2235; i=vigneshr@ti.com;
+ h=from:subject:message-id; bh=TtYFD2xrx1y4DtCZuSamNCR6/ZkQbio1sVtX+aO0R9I=;
+ b=owGbwMvMwCHG7GTPG/5e9jrjabUkhsyT1k7Sc15JHlnPxByy792llg3btnbt4oy+d+zihETJb
+ /vcl/8p6ChlYRDjYJAVU2QJYNs1yyrF4nFEReJWmDmsTCBDGLg4BWAiop4M/8ss1JiCOH7l5As1
+ dgXt8Km2sFhrPffWDcNnN3Us5/2MZmP4H7bqVuuDSWWNPPv3/JaPtLh+Ki/pwnbh/wXxK9jZ7Nq
+ C2AA=
+X-Developer-Key: i=vigneshr@ti.com; a=openpgp;
+ fpr=4A5A711E8E7E44F9F12F2CFAF903332F551A78E9
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002312:EE_|DS0PR10MB7318:EE_
+X-MS-Office365-Filtering-Correlation-Id: 178b68ea-2728-4fdc-78f2-08de8da1f706
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|376014|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ZcmR2tES2W3lKxDTGzyMHj5VSwQ4Mjk4IobiT7kmg/Qgj4ymONN+AB3o4XW6zwYetAPlurAkbl8oaC+Ut5CtDsP4jTPS63BNcZMvlpHr/Ge9nlcyA2rlI+U1xr2AYrBywFYqxsYEhxapuv03ZAUvH64TomR4DX2x3ZLcm+XyIhTuQhDV0t81kSCC3NFKrOctTjENaN70qug0AENlg6ZiFg9xjsrc3V6pmpV+6uH7fzGp1TBbgtwngVma9tTw0pDz1SLDMRQqNS4ex4r0HCG8L8qBtE/z8BrY0WaJheU59Ukqizka7ybC7qwegB/1ZVfL8LDZq0MIYGxhWlYqfCaL0vrkiDJ64tcDh5i/s83ofyVb+BEYj9YrVuXKceNSusRpDA6DQpbbZ/2U+CX+Pd9NeDx/p0AWf/5ztdnTdhuYumPMFtGGuEiAZ2ye96O+ARp09PuDpkItB4pXUrQl56Kgg7qtxvLqOYiyOI9cRJzGo5XG9XyuUdkY6S12i4FQs2DbIfgruZcpgnEyzFikO9nsF8STcDRmVWUMcfn+twqwOJuFUfVvUX0KcmvSe4UDEjGI90e+XMwxMuKzmcHO0vqZ/N9RYYfQZt9BRCdePgKxcF7uO/+93GKjXvily3Ej2jCKtDZfsj/QGF0gRiVttfzSv3AbnsYxSnyUsewuYEcdWL/2sIItNl7JxetdbJQDugZ5c0Aexh55kFu72mi4t4UHCq++Sq5hLmfMXouDpWDjHfU=
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Hcc3HJ+Qa3PbNxM/3BYFGAc3bHGP/JRYoyH+jEu9dUMw7qT6QxDHnO39oBTzFxqMfudKE9SkxdaR6uQ91McFaXExXXBfpBXwzh3+4f1W2OKVpJ5XQKtB5KOg8bDz4s1UnX/R/sm8OGAFzdZol7J4KSj/0esh6t04VhGgNuCUMWjBSSGGWtNHnNiFHC9Xn3l0K72b6RmEkrLpCGW8cLMAsLTyt5L3q6Y7JwWzK/1sEfqNrb//qA04F88D6nlr9R8k7DZW9cjhvuWF00ZpSHg2ms6AJLFeqwooeLuUQjQWRCTACCC+8vgTE9I6dxfDcXqdmOv45ZIwQHOIAa1I5nHF/7v8OIIPsizkoZQ/H1GCz5XUMcGpBJxV/R2u3tcLP0pD5Nu2XlpRABHgrOSyNP5kUUYqsQmaoItRJyYrNOU2yDt8UeKfwmcgsZQBj+uDv6ip
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2026 14:46:30.5508
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 178b68ea-2728-4fdc-78f2-08de8da1f706
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002312.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB7318
 
-On 03/29, charles-antoine.couret@mind.be wrote:
-> From: Charles-Antoine Couret <charles-antoine.couret@mind.be>
-> 
-> This flag means that device requires the MOSI line to be low
-> when it's in idle state.
+Hi Francesco Dolcini,
 
-Same question asked on the other patch [1] applies here.
+On Tue, 24 Mar 2026 10:36:55 +0100, Francesco Dolcini wrote:
+> arm64: dts: ti: verdin-am62[p]: Add Zinnia
+> 
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> 
+> Add Zinnia Carrier Board mated with Verdin AM62 and Verdin AM62P.
+> 
+> It features 1 x RS232, 1 x RS485, 1 x CAN, 3 x isolated digital I/O,
+> 2 x 1GBit/s Ethernet, a mini PCIe slot with USB / SIM card connector
+> for a modem, USB and SD card interfaces.
+> 
+> [...]
 
-By the way, for SPI bindings, the patch subject uses a different prefix order.
-See submitting-patches.rst [2].
+I have applied the following to branch ti-k3-dts-next on [1].
+Thank you!
 
-[1]: https://lore.kernel.org/linux-spi/ack2dPiLpO0uE2VE@debian-BULLSEYE-live-builder-AMD64/
-[2]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/submitting-patches.rst?h=v7.0-rc5#n18
+[1/7] dt-bindings: arm: ti: Add verdin am62/am62p zinnia board
+      commit: bae382fc0c9555d21bc125a0310c2b0895489f87
+[2/7] arm64: dts: ti: k3-am62-verdin: Fix SPI_1 GPIO CS pinctrl label
+      commit: 5a8f6fa5131357c7326ca1956644a588d5b492f7
+[3/7] arm64: dts: ti: k3-am62-verdin: Split UART_2 pinctrl group
+      commit: 0e390541a3ae62e713708ddb263982b6ba0a49e7
+[4/7] arm64: dts: ti: k3-am62-verdin: Add Zinnia
+      commit: 72f86c677905c752418861c2ca122d903d457514
+[5/7] arm64: dts: ti: k3-am62p-verdin: Split UART_2 pinctrl group
+      commit: 16dfb22d7f6fee84386f0f298ccb968545b8943b
+[6/7] arm64: dts: ti: k3-am62p-verdin: Add SPI_1_CS as GPIO
+      commit: ad8cdc8b98e2b8de82fa19c7f67a42a59ef8936b
+[7/7] arm64: dts: ti: k3-am62p-verdin: Add Zinnia
+      commit: bbe7a708f753cc7009c1af08dca7357e7a43e157
 
-> 
-> Signed-off-by: Charles-Antoine Couret <charles-antoine.couret@mind.be>
-> ---
->  Documentation/devicetree/bindings/spi/spi-controller.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/spi/spi-controller.yaml b/Documentation/devicetree/bindings/spi/spi-controller.yaml
-> index 3b8e990e30c4..5f5b143cb27b 100644
-> --- a/Documentation/devicetree/bindings/spi/spi-controller.yaml
-> +++ b/Documentation/devicetree/bindings/spi/spi-controller.yaml
-> @@ -132,6 +132,11 @@ patternProperties:
->          description:
->            The device requires inverse clock polarity (CPOL) mode.
->  
-> +      spi-mosi-idle-low:
-> +        $ref: /schemas/types.yaml#/definitions/flag
-> +        description:
-> +          The device requires the MOSI line to be low when it's in idle state.
-> +
->      required:
->        - compatible
->        - reg
-> -- 
-> 2.53.0
-> 
-> 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent up the chain during
+the next merge window (or sooner if it is a relevant bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/ti/linux.git
+--
+Vignesh
+
+
