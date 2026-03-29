@@ -1,152 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41122FBE1F;
-	Sun, 29 Mar 2026 10:30:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B102D5A01
+	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 10:31:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774780216; cv=none; b=u02x0W0OocaUa0vHtop51VZRXUgr2i6b0zCLdoX+RAzZraMTe+Eofmpta//vmWn+vGW3J4hBp658l27C9MiAQq3ShfFY9ulHKjpsH/dkHCmjT+KlM9BjGfbfnnnY5nh09Z+wuPopPLSecnV3qxQHqvLpmOXpI5L6iT/OOmer3sU=
+	t=1774780291; cv=none; b=qPfWQuUNOsmWe2NtgMCu6wHiuXnQzDh9XddQhonw1CDfiBjCY7yg6U2GmYTv871uHouXlqD2v5ytFypjEEWI+IzKxhBImUVo0d9xwwIu6l8taJA/0H8HrDNGIuWEdrQhGAgWzOOYKZXikFWWYqEjqQPwrnHZzqClJzuWaSPgDJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774780216; c=relaxed/simple;
-	bh=/fukVW96SgGw6bB09c6/3nFhEVSaAYJbKOiTe7DJXgw=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=KZfR3Zp7wOCcFmwCQ71vmtBa/nniWK83cXfrBz2xc0V7V61opFN6uVnV9MAbG7nnuGBYhcaR8EZ5deXNOUZFlhCNRyAZimksVOWeOWPCtnfckc70m8Fo1F0KMPMSNi6u19fsIss9mN6BsA/JcAOMjYkUJKiJxNNwtOoevqhogjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KlkGVG50; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774780291; c=relaxed/simple;
+	bh=vc4G9ZHUODvdpPo/QPGA18D7VElWKAOlgjkWMaDVmNo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A6u+5h09zeEe8q7IGyXuPmmItcCtlWU2Wi/6BQBwQYO7y/XzMbRuTl+1ITmyawCbnyrk0O8I/lwz+knlcei1Qmxv26vpMDCvdv7o3oJLdNCIqHFc7HzNRHIqIDVrjHeCsOvojZDVNVMC+XQyx8b7JR4V1loZcEtcRF4ArAySJpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=lHPfex6U; arc=none smtp.client-ip=91.218.175.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KlkGVG50"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39A88C116C6;
-	Sun, 29 Mar 2026 10:30:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774780215;
-	bh=/fukVW96SgGw6bB09c6/3nFhEVSaAYJbKOiTe7DJXgw=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=KlkGVG50EAYk9yzfHOFYAn0207s5l9jVbpYwR0JCvVJ6aS+64TDfhU26aQrJQNO4P
-	 Bo8i3HWavK4Xdv1l28ZVESm4JOz7SIuiNSCL2B0hDzZ4GZZC66Wbk9nlgbkVfakkKl
-	 Zr7rd3QTw7CiiZbFLHWLY3n8dzlFrzsthzbXj4EnGlSpKkXfY0lUIjHjiGdBf9ztxI
-	 F4Dkvba0SMp2UsLN3o6T0wIkE/TwDZgzTcZ84tQh7MrA07CAA3gS95K56bQ6HTa2Eq
-	 nH0/Vl9UyTPN42aUk3ks5YrxQUQjJEovP/TPJelqvP3dRvrnBfJ7vuFagTiNfwvc6K
-	 NW1kZcMncnAfg==
-Date: Sun, 29 Mar 2026 05:30:11 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="lHPfex6U"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
+	s=key1; t=1774780286;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=CFAKJAB4Aph+kt7HsCig5cXi/YZzAEI5065gYb8udqk=;
+	b=lHPfex6U8xdmSMN1wJisxKDGw6XLcKoo09RxSdEm3Ooqi1rBnilIlso1tPt28rpwm6fRt8
+	A4zxj2mSuRSwlXORUeniFJLW9bos46onafFnCCyokDwdFps4PjwEQYu2H3rJhgdHE9k4Wg
+	4Vg/2nwpongniUAQV6QVjGVWXqvZ/hMZblA45dxbrtXzXXikrfsGDb7PMEsSJWZ6otzrrL
+	SDunog3py9Myp8adVEiD52XsDaDFNKHicrRkJ0gzvLn4fHN0HR+v/jMf84P35ZfD4gfA+z
+	3Hqr3ZBLzN+46xTg0VeOCnJOv6U4U+uMmCy3kJOs6JVy7xyK3KHM3+tushro5w==
+From: Val Packett <val@packett.cool>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Val Packett <val@packett.cool>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] dt-bindings: arm: qcom: Add SM7325 Motorola edge 30 (dubai)
+Date: Sun, 29 Mar 2026 07:16:39 -0300
+Message-ID: <20260329103055.96649-1-val@packett.cool>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, linux-kernel@vger.kernel.org, 
- kernel@pengutronix.de, Lee Jones <lee@kernel.org>, 
- devicetree@vger.kernel.org, David Jander <david@protonic.nl>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-hwmon@vger.kernel.org, 
- linux-gpio@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>, 
- Peter Rosin <peda@axentia.se>, Conor Dooley <conor+dt@kernel.org>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-In-Reply-To: <20260329090601.532477-2-o.rempel@pengutronix.de>
-References: <20260329090601.532477-1-o.rempel@pengutronix.de>
- <20260329090601.532477-2-o.rempel@pengutronix.de>
-Message-Id: <177478021183.3290857.2184125740020596802.robh@kernel.org>
-Subject: Re: [PATCH v8 1/6] dt-bindings: pinctrl: add NXP MC33978/MC34978
- MSDI
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
+Motorola edge 30 (motorola,dubai) is a smartphone based on the
+SM7325 SoC.
 
-On Sun, 29 Mar 2026 11:05:56 +0200, Oleksij Rempel wrote:
-> Add device tree binding documentation for the NXP MC33978 and MC34978
-> Multiple Switch Detection Interface (MSDI) devices.
-> 
-> The MC33978 and MC34978 differ primarily in their operating temperature
-> ranges. While not software-detectable, providing specific compatible
-> strings allows the hwmon subsystem to correctly interpret thermal
-> thresholds and hardware faults.
-> 
-> These ICs monitor up to 22 mechanical switch contacts in automotive and
-> industrial environments. They provide configurable wetting currents to
-> break through contact oxidation and feature extensive hardware
-> protection against thermal overload and voltage transients (load
-> dumps/brown-outs).
-> 
-> The device interfaces via SPI. While it provides multiple functions, its
-> primary hardware purpose is pin/switch control. To accurately represent
-> the hardware as a single physical integrated circuit without unnecessary
-> DT overhead, all functions are flattened into a single pinctrl node:
-> - pinctrl: Exposing the 22 switch inputs (SG/SP pins) as a GPIO controller
->   and managing their pin configurations.
-> - hwmon: Exposing critical hardware faults (OT, OV, UV) and static
->   voltage/temperature thresholds.
-> - mux: Controlling the 24-to-1 analog multiplexer to route pin voltages,
->   internal temperature, or battery voltage to an external SoC ADC.
-> 
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> ---
-> changes v8:
-> - Update IRQ_TYPE_* macros include path reference in documentation from
->   interrupt-controller.h to dt-bindings/interrupt-controller/irq.h.
-> - Add bias-disable, drive-open-drain, drive-open-source, and drive-strength
->   to the list of supported pin configuration properties.
-> changes v7:
-> - no changes
-> changes v6:
-> - add Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> - add Reviewed-by: Linus Walleij <linusw@kernel.org>
-> changes v5:
-> - Commit Message: Added justification for distinct compatible strings
->   based on temperature ranges.
-> - Restricted pins property to an explicit enum of valid hardware pins
-> changes v4:
-> - Drop the standalone mfd/nxp,mc33978.yaml schema entirely.
-> - Move the unified device binding to bindings/pinctrl/nxp,mc33978.yaml,
-> - Remove the dedicated child node compatible strings (nxp,mc33978-pinctrl).
-> - Flatten the pinctrl/gpio properties directly into the main SPI device
->   node.
-> changes v3:
-> - Drop regular expression pattern from pinctrl child node and define
->   it as a standard property
-> - Reorder required properties list in MFD binding
-> - Remove stray blank line from the MFD binding devicetree example
-> - Replace unevaluatedProperties with additionalProperties in the pinctrl
->   binding
-> changes v2:
-> - Squashed MFD, pinctrl, hwmon, and mux bindings into a single patch
-> - Removed the empty hwmon child node
-> - Folded the mux-controller node into the parent MFD node
-> - Added vbatp-supply and vddq-supply to the required properties block
-> - Changed the example node name from mc33978@0 to gpio@0
-> - Removed unnecessary literal block scalars (|) from descriptions
-> - Documented SG, SP, and SB pin acronyms in the pinctrl description
-> - Added consumer polarity guidance (GPIO_ACTIVE_LOW/HIGH) for SG/SB
->   inputs, with a note on output circuit dependency
-> - Updated commit message
-> ---
->  .../bindings/pinctrl/nxp,mc33978.yaml         | 158 ++++++++++++++++++
->  1 file changed, 158 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/pinctrl/nxp,mc33978.yaml
-> 
+Signed-off-by: Val Packett <val@packett.cool>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-My bot found errors running 'make dt_binding_check' on your patch:
-
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pinctrl/nxp,mc33978.example.dtb: gpio@0 (nxp,mc33978): $nodename:0: 'gpio@0' does not match '^mux-controller(@.*|-([0-9]|[1-9][0-9]+))?$'
-	from schema $id: http://devicetree.org/schemas/mux/mux-controller.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260329090601.532477-2-o.rempel@pengutronix.de
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index ca880c105f3b..58f1621bb855 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1038,6 +1038,7 @@ properties:
+ 
+       - items:
+           - enum:
++              - motorola,dubai
+               - nothing,spacewar
+           - const: qcom,sm7325
+ 
+-- 
+2.53.0
 
