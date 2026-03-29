@@ -1,116 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776ED13DBA0;
-	Sun, 29 Mar 2026 15:19:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E792367D9;
+	Sun, 29 Mar 2026 15:25:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774797575; cv=none; b=Txy2Do5rxk/hY4yZUtK8QXbfkciKu5SQ6cTlv6YVeMJFHRTzNnerPpEbvihl8gwkug6YQzxBabwRgN9dEp7qCQiK/QzyuOrfWEFFjT8Zza+vlD5IDiCLnB0gdzVqCzAQ7Zo+8PaUrjXtWc6jj03PP5JRx+8RmeneZ1cN4IQiWSY=
+	t=1774797906; cv=none; b=ppfd2WcCv+EDyrOLE1BC5/E1imxg4lr03Dbi6iyAtfT9iQlvIHL+3mZ/laVnSIIyGqr6geOiv6fs5WoWDJGtJbUaJ2Fn26YVtnj9F6pg9STBysHjoCcNsLmSw8OGMWOXWaDHQ4mE9WRnbtA555HrQ/RB80yNJOAqUNU90uBJ/fw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774797575; c=relaxed/simple;
-	bh=Ii6+2r4F+vPpOpWAKG+giKpV4ZwmHFg9kAy2wOLiKBI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DhP+UU4h+RkBse4uq89nCoUcaDd/rRaaNuO2YMVPG/LHxSTjuRlE7hyc68CyxjTv7TVfHoQ6SF8IXFDC4AY5HVQD7ImaWmSXfYj6MIWK8HmfgVKxb3JAgE14V1dmHrcv520rKZ6Vjpsj6aVufzcFWPQVs3BIYVa8M4daj5oJ0R8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eBQsHGuv; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774797906; c=relaxed/simple;
+	bh=/XTvzY/z637VnwzBLRpQzWBePAU6+I0ZIf71xCMwWpk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=dU6jkNzuU/LmLEaYcDk8Us7OUkiAKA0ppTrTPs3neY5y5DxiaacnWYSupsSsu/fhENbLY6pKfX6bwIq6Cb+gjBm4/SM8ZBcADxElCGa4HMMdq925QGOHYs89QMQIGPNzn6p8ptgpC2wzVWKXPHPJIyXYgN3qXt1SxptjqNCAKuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=ZM36BFl4; arc=none smtp.client-ip=67.231.148.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eBQsHGuv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1161CC116C6;
-	Sun, 29 Mar 2026 15:19:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774797575;
-	bh=Ii6+2r4F+vPpOpWAKG+giKpV4ZwmHFg9kAy2wOLiKBI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=eBQsHGuvglEgwAG3WBr0ke02LiEjaRudD6HBfDSQjdabCKzHq03PZ37RB2ShqnMlT
-	 4YCFQ/dUDX7YdQY6n6lSMZJMwoX0TcQ3IqpOTc6vwFXXHIS+ZMUqw2gqn/pxeFh1wy
-	 Bb/k+0tWPHxdwQflNkbKvcMXixfK2xAztzNUxu3PHGRyrGVBcUG0Bl8S9ZaIrBMD7q
-	 8MtTRdyt/dndZryzy9zSIQJbi6y+XSpcL2xYKeBgifQcV1Hu184RAG55rDIKxpe0xX
-	 cXZth83wJEvzRh0Hm+EAM7WmzhMtl7NermkB+eTHSaxbNNXPfQRvFW1glL66O6Dc9N
-	 LnO6gUTEHJTEw==
-Message-ID: <7197909f-544e-42ce-a921-7fb3eb4561b6@kernel.org>
-Date: Sun, 29 Mar 2026 17:19:31 +0200
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="ZM36BFl4"
+Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62TAvNFh3148474;
+	Sun, 29 Mar 2026 08:24:43 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-type:date:from:message-id:mime-version:subject:to; s=
+	pfpt0220; bh=dSTWTisZC7qHFtnvjGqfuBKqkwNcsHPHtyRlsXTafDg=; b=ZM3
+	6BFl4xA+2IqF4kDw8ZeWGuCpVVLzXdzbKYMa51xlOc7BVXR+aKgOn3RcY2QuG1N1
+	Shlpm+SNxeZEpR4dPHwTEvlf+2U9mldiH2kchfr8A17Wqsi8hi4PJ0Uvg52hajSm
+	TSh9SSKbmtaC0PqySFx1KuZrDMjlQ4+Vyktz64Ibyf+4l8jv9o6oIg1qJ7VRavsP
+	Q/Lmoiz17SB7i8FRZJfQrhuSaiXtDmyvEj2+weeDOKSlmfjtYXLdmtPloDoIEFhQ
+	wzeObDVKsTcaCrPUFCpgSP2rLMagnwdXLMa1gjSSk6JpJSA44uxyXp4biljHmI1N
+	c9KtnY7vWiOlg/LzxXQ==
+Received: from dc5-exch05.marvell.com ([199.233.59.128])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4d6cbjsx39-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 29 Mar 2026 08:24:43 -0700 (PDT)
+Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
+ DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Sun, 29 Mar 2026 08:24:42 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
+ (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Sun, 29 Mar 2026 08:24:42 -0700
+Received: from hyd1soter3.marvell.com (unknown [10.29.37.12])
+	by maili.marvell.com (Postfix) with ESMTP id 501723F70A3;
+	Sun, 29 Mar 2026 08:24:40 -0700 (PDT)
+From: Geetha sowjanya <gakula@marvell.com>
+To: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>
+CC: <mark.rutland@arm.com>, <will@kernel.org>, <krzk+dt@kernel.org>
+Subject: [PATCH v2 0/2] perf: marvell: Add CN20K DDR PMU support
+Date: Sun, 29 Mar 2026 20:54:37 +0530
+Message-ID: <20260329152439.10573-1-gakula@marvell.com>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2 v2] devicetree: spi: add spi-mosi-idle-low property
- support
-To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
- charles-antoine.couret@mind.be
-Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260329125832.2985115-1-charles-antoine.couret@mind.be>
- <ack4AWGeblO5hvkM@debian-BULLSEYE-live-builder-AMD64>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <ack4AWGeblO5hvkM@debian-BULLSEYE-live-builder-AMD64>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI5MDExOSBTYWx0ZWRfX82PwbOSGQcTk
+ abLIH1ry8qwVG7mTofV3IJgkM63PVX1trEmaAJh1DuFj3AIagPdgvvqk8pcv5gDvs3LC5KXTlmS
+ Pb8UqDq6/B6mz5jc78g/uH1WCwhAvlwQmlNWHpio80mdGBFSJCyTmGKiUJRO1Z4SzkDi7EdZxF/
+ FSigI1MvPeY//k8fG0j+6J3y363xmk6YwVJTVLpYjfkMQfCZA0L24Ekvfo5CEesehYCDWHEn7Kr
+ 75Lq2fIh04T+BjZ6xmZM8zVcEXfVWr4tpjz/QaZgO4GT9bHLqUe/HLcWhON0m9lH28GFUbGdIYF
+ ojMs9Gxr6A5o/eSe3NACkTRuH+9umNh4lyLml09b/Gr+Op6O4fPb3Ne6DYyVNhoqKG9VYTIXnY4
+ GGCg9gRLLXn9OckH573QZzmbYQD8E21YjYqcG9zzp4M85BC0t7cAe/AujiDmss9plsFJW00Enw7
+ 6+aRaYvEP6JG34cRwsg==
+X-Proofpoint-GUID: LYaSR4RAhHpENY-j6uPpg1-_o8eqnexB
+X-Authority-Analysis: v=2.4 cv=Pf3yRyhd c=1 sm=1 tr=0 ts=69c9443b cx=c_pps
+ a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
+ a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
+ a=EAYMVhzMl8SCOHhVQcBL:22 a=M5GUcnROAAAA:8 a=g9OxYFsRBXyit7-cW8EA:9
+ a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-ORIG-GUID: LYaSR4RAhHpENY-j6uPpg1-_o8eqnexB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-29_04,2026-03-28_01,2025-10-01_01
 
-On 29/03/2026 16:32, Marcelo Schmitt wrote:
-> On 03/29, charles-antoine.couret@mind.be wrote:
->> From: Charles-Antoine Couret <charles-antoine.couret@mind.be>
->>
->> This flag means that device requires the MOSI line to be low
->> when it's in idle state.
-> 
-> Same question asked on the other patch [1] applies here.
-> 
-> By the way, for SPI bindings, the patch subject uses a different prefix order.
-> See submitting-patches.rst [2].
-> 
-> [1]: https://lore.kernel.org/linux-spi/ack2dPiLpO0uE2VE@debian-BULLSEYE-live-builder-AMD64/
-> [2]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/submitting-patches.rst?h=v7.0-rc5#n18
-> 
+This series adds support for the Marvell CN20K DRAM Subsystem (DSS)
+performance monitor in the existing marvell_cn10k_ddr_pmu driver, and
+documents the device tree binding for the new compatible string.
 
+The CN20K PMU provides eight programmable counters and two fixed
+counters (DDR reads and writes).  Patch 1 adds the devicetree schema for
+"marvell,cn20k-ddr-pmu".  Patch 2 wires OF and ACPI (MRVL000B) match
+entries, adds CN20K register offsets and event maps, and refactors
+platform data to use silicon variant flags.
 
-They also do not use "devicetree" prefix at all. Nowhere...
+Signed-off-by: Geetha sowjanya <gakula@marvell.com>
 
-Best regards,
-Krzysztof
+Changes in v1:
+- Added a description field to the binding.
+- Simplified the compatible property using 'const' instead of 'items/enum'.
+- Updated the example node name to include a unit-address matching the reg base.
+
+Geetha sowjanya (2):
+  dt-bindings: perf: marvell: Document CN20K DDR PMU
+  perf: marvell: Add CN20K DDR PMU support
+
+ .../bindings/perf/marvell-cn20k-ddr.yaml      |  37 ++++
+ drivers/perf/marvell_cn10k_ddr_pmu.c          | 186 ++++++++++++++++--
+ 2 files changed, 207 insertions(+), 16 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/perf/marvell-cn20k-ddr.yaml
+
+-- 
+2.25.1
+
