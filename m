@@ -1,77 +1,159 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D17C37C936
-	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 18:58:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EFB9155C97;
+	Sun, 29 Mar 2026 19:56:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774810683; cv=none; b=d6mjy8VWQb5kaQgwhIjWdI5leZGBw1DRryPnmLzOkq9ue8KZ8QFxuTAc8/SSOUftyi+DWJo5VHHMGmMYrH037lHL+Czk0luZrr89dSPXF3moTUgJrfQsupiX8f6Av8O3DYeIOQsVpqH7Uk481iRSjNzS0gcq1gIT5SOhzHxSWpE=
+	t=1774814185; cv=none; b=EB3uisfUYFLm6oOjxD6lNmZmJZN1L8yoEt6Q4WWENyb2k1tqQ75O3CrY2xd+7s44WeJ814kYqSXdwl7E1+pVB4ckf7FKxE2LTS0wnYH1HnIJLyXkjaJBUZD8YMTHPn6BXTgtADAicPq9NUqQGOfR/ypjKEC25SjEP8gFkwhN5vg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774810683; c=relaxed/simple;
-	bh=Ghe/jUUjVDW2L4xnqDOkzXXcs8fY2TKEnFZTUKI/5JI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=m33uQLWXQ9pQTXGWEifHTaP+WHgfejwA9hLhOU0WmnkD6K1QiYD+RNKzertmGCxNncD2DxV5LF6Dfqj4p8SCZp6DKbpCSOV2XOeXpT+uUtTKbtmXFG3eOZqMJuhCMHiWTwySzhnBcr+pearEQmbcOi9c9nEhTtangSD72hZPiFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDFLSuWk; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774814185; c=relaxed/simple;
+	bh=6df/9HqXaLPvCXTs2hnwKIFnBWYffqp/9E2nAERKl24=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=j32huWdVp7yVWJqVdv4BY0zSXQJKiFkvpDa5KmM2lORQeNBC7ca6nmDGX0/FVYeBP6KmwnidQSjn7ablcQ17mf4oQesu5+YlfwQQkvAmvD3k01iBfF/0GP+qjwBtmW+Fic/t7at6Cp2F34bgRd0s7ANhzoQAzDvKelFPokTmhag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PJdVJwML; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDFLSuWk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4D4FC116C6
-	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 18:58:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PJdVJwML"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41A82C116C6;
+	Sun, 29 Mar 2026 19:56:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774810682;
-	bh=Ghe/jUUjVDW2L4xnqDOkzXXcs8fY2TKEnFZTUKI/5JI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=BDFLSuWkJpfjn++ImUs539O9NjNKsEALgIoopk3NGDCleLws031FgcGlAnajunY23
-	 2YSmXk+5xyyLe2AKhrSm50w5YuMkZuJugkFuSZngJwprMOTOGxZEs9d9D/kLOY04mA
-	 BDfPcI8+bLc88/ua2PFrp0CR/ASbJ6LFD0toIkiVeYCZNO0RxrSFg9UpiQXAkT1TZz
-	 +X/Aq1SxBeCVFBwT+Ehef39d9JY0FOreBPy8SeGpGDDmD9RKzDlmPfxaNwxQxPsa8P
-	 JpJ2sHc0en3Dkl8DOse5j7llC4N4s1Ch+ZEGR7AM0UAwAtrgwzJ5Qbktq4fFbMdkD9
-	 nR1lFOOt98rlA==
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-6501c4857b2so347810d50.3
-        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 11:58:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCVuR84OwCTiNrU7GxKZwhJ/yLIzFAREtEnQKDl+NRpQdYR4q6gBZ+b0dZDpkzDv0hvPWUyztpDKge3g@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywn/KpY6+8lUhG70hvtpLVidOi3uuUZOT0xzbgMprwDiycwcebt
-	nVem38LDi3h7+jCmM5xezDXNl6k/esXhNkicdaxkItqz6ChCku/jXTwk+pmAyamAv51Hi5JQB0R
-	LoxVNCaYM9LvYi6RPjqZD9YDSFLU1+4U=
-X-Received: by 2002:a05:690c:6e87:b0:79a:bf27:fe65 with SMTP id
- 00721157ae682-79bde0a01f5mr98501667b3.35.1774810682145; Sun, 29 Mar 2026
- 11:58:02 -0700 (PDT)
+	s=k20201202; t=1774814185;
+	bh=6df/9HqXaLPvCXTs2hnwKIFnBWYffqp/9E2nAERKl24=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=PJdVJwMLqnwibNDlWIdm77WKXlgFGjv3gJbMMBvtG257zxmICCa/QOA0TDQXoPhKS
+	 MSb4OTHZleo49zwoM8AWSd8qsSw2I9iBwz5Ye1PK3VyhcdxJay8RfR1pORyYfPBlio
+	 iefXZse0CdK51whNETvK0mI+j4tWp7VH+WttQkNQmNJRPqxLWxgieKMzUUtU0jchHu
+	 /1V6TolVAeM284Zzm7tCZuieRpUBmAsb2UvCiE6tnqN7HX60Ldg3WfnElUjQmzZAgZ
+	 Mij7fImAx0soe9RvrlT2j0d2iPNb5+pstK5Y5ogLr9ueUMM5Ek5MYBgpc/0sSIFVCa
+	 OCaAU+9+75l0A==
+From: Jakub Kicinski <kuba@kernel.org>
+To: jensemil.schulzostergaard@microchip.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	UNGLinuxDriver@microchip.com,
+	andrew@lunn.ch,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	woojung.huh@microchip.com,
+	linux@armlinux.org.uk,
+	Steen.Hegelund@microchip.com,
+	daniel.machon@microchip.com,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v2 1/9] net: dsa: add tag driver for LAN9645X
+Date: Sun, 29 Mar 2026 12:56:20 -0700
+Message-ID: <20260329195620.2789042-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260324-dsa_lan9645x_switch_driver_base-v2-1-f7504e3b0681@microchip.com>
+References: <20260324-dsa_lan9645x_switch_driver_base-v2-1-f7504e3b0681@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260328124707.141209-1-khushalchitturi@gmail.com>
- <177470797266.1536342.6967120656934552033.robh@kernel.org>
- <CAD++jL=_rCmW=eSV0kvck50sC2xaQnGQoEOy=DNcwkFvvWYUUw@mail.gmail.com>
- <3fa4fad0-d918-4de0-ad80-dad2141d2617@kernel.org> <CAD++jLnxoS-OGBSAXxgGPaME7eMTwCQ-C+uzub6m0o9ZgXL_aA@mail.gmail.com>
- <aciItMCdBbrVvMKB@venus>
-In-Reply-To: <aciItMCdBbrVvMKB@venus>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 29 Mar 2026 20:57:51 +0200
-X-Gmail-Original-Message-ID: <CAD++jLn5qQqx5nAOWNifJcNPb00B_CtM=xF16qjB4qXGENmL9Q@mail.gmail.com>
-X-Gm-Features: AQROBzBuNEJozOlp-XpTGjISujTF0by1_WHh_XBOvopTnZtKwpdl_n91dqbbiDc
-Message-ID: <CAD++jLn5qQqx5nAOWNifJcNPb00B_CtM=xF16qjB4qXGENmL9Q@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: power: reset: cortina,gemini-power-controller:
- convert to DT schema
-To: Sebastian Reichel <sre@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>, 
-	Khushal Chitturi <khushalchitturi@gmail.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Mar 29, 2026 at 4:09=E2=80=AFAM Sebastian Reichel <sre@kernel.org> =
-wrote:
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+---
+net: dsa: add tag driver for LAN9645X
 
-> The problem is the node name (power-controller@4b000000), which is
-> reserved for power domains. You can keep the compatible.
+Add a tag driver for LAN9645x switches using a front port as the CPU port
+(NPI port). The driver configures a long prefix for extraction and no
+prefix for injection to handle the internal frame header (IFH).
 
-Ah, sweet, Khushal can you change this?
+> diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
+> new file mode 100644
+> index 000000000000..9130fb0d61be
+> --- /dev/null
+> +++ b/net/dsa/tag_lan9645x.c
 
-I think you can use gemini-poweroff@4b000000 because
-this is pretty much a poweroff thingie.
+[ ... ]
 
-Yours,
-Linus Walleij
+> +static void lan9645x_xmit_get_vlan_info(struct sk_buff *skb,
+> +					struct net_device *br,
+> +					u32 *vlan_tci, u32 *tag_type)
+> +{
+> +	struct vlan_ethhdr *hdr;
+> +	u16 proto, tci;
+> +
+> +	if (!br || !br_vlan_enabled(br)) {
+> +		*vlan_tci = 0;
+> +		*tag_type = LAN9645X_IFH_TAG_TYPE_C;
+> +		return;
+> +	}
+> +
+> +	hdr = (struct vlan_ethhdr *)skb_mac_header(skb);
+> +	br_vlan_get_proto(br, &proto);
+> +
+> +	if (ntohs(hdr->h_vlan_proto) == proto) {
+> +		vlan_remove_tag(skb, &tci);
+
+Is it possible for a maliciously crafted packet (e.g., via AF_PACKET) to have a
+length of 14 bytes with h_vlan_proto set to ETH_P_8021Q?
+
+If so, vlan_remove_tag() would read vhdr->h_vlan_TCI at offset 14, causing an
+out-of-bounds read.
+
+Furthermore, if the packet contains fragments and the VLAN header is not in the
+linear data area, vlan_remove_tag() could corrupt the SKB when shifting the MAC
+header.
+
+Would it be safer to use skb_vlan_untag() instead?
+
+> +		*vlan_tci = tci;
+> +	} else {
+> +		rcu_read_lock();
+> +		br_vlan_get_pvid_rcu(br, &tci);
+> +		rcu_read_unlock();
+> +		*vlan_tci = tci;
+> +	}
+> +
+> +	*tag_type = (proto != ETH_P_8021Q) ? LAN9645X_IFH_TAG_TYPE_S :
+> +					     LAN9645X_IFH_TAG_TYPE_C;
+> +}
+
+[ ... ]
+
+> +static struct sk_buff *lan9645x_rcv(struct sk_buff *skb,
+> +				    struct net_device *ndev)
+> +{
+> +	u32 src_port, qos_class, vlan_tci, tag_type, popcnt, etype_ofs;
+> +	u8 *orig_skb_data = skb->data;
+> +	struct dsa_port *dp;
+> +	u32 ifh_gap_len = 0;
+> +	u16 vlan_tpid;
+> +	u8 *ifh;
+> +
+> +	/* DSA master already consumed DMAC,SMAC,ETYPE from long prefix. Go back
+> +	 * to beginning of frame.
+> +	 */
+> +	skb_push(skb, ETH_HLEN);
+> +	/* IFH starts after our long prefix */
+> +	ifh = skb_pull(skb, LAN9645X_LONG_PREFIX_LEN);
+
+Could skb_pull() return NULL here if skb->len is less than 16 bytes?
+
+If it returns NULL, the blind dereference of ifh in the subsequent
+lan9645x_ifh_get() calls would cause a NULL pointer dereference.
+
+Additionally, is the 44-byte tag (16-byte prefix + 28-byte IFH) guaranteed to
+be in the linear data buffer (skb->data)?
+
+Without calling pskb_may_pull(skb, LAN9645X_TOTAL_TAG_LEN) first, accessing it
+via the ifh pointer might result in out-of-bounds reads if the packet payload
+is in paged fragments.
+
+> +
+> +	popcnt = lan9645x_ifh_get(ifh, IFH_POP_CNT, IFH_POP_CNT_SZ);
+> +	etype_ofs = lan9645x_ifh_get(ifh, IFH_ETYPE_OFS, IFH_ETYPE_OFS_SZ);
+> +	src_port = lan9645x_ifh_get(ifh, IFH_SRCPORT, IFH_SRCPORT_SZ);
+-- 
+pw-bot: cr
