@@ -1,64 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B9224B28;
-	Sun, 29 Mar 2026 09:10:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from smtpfb2-g21.free.fr (smtpfb2-g21.free.fr [212.27.42.10])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 72F3028FFF6;
+	Sun, 29 Mar 2026 09:20:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774775430; cv=none; b=KT/Z7zZnQz1rmYPMhq3E7puoOS3xB3ijx88onoj3J96z+49WIdBd8v7mEyDo75RYVlpzLCplp3qNLVF9JmpGs3RwVkmbhoJANn8G0Nou/tjO0Z6G5UulHLmvcfhLa2KXlqwvLizCyU0oiTGJfhsjInIxFrehXjGFnyGGkQ9TNQs=
+	t=1774776047; cv=none; b=Ap6i4ENp9uHLYXM2LsJBhrPSQjCgETh1GCqpRhrEEwcp7yrZHkpEaMCzZtUf8+ji+id1HMjNcD3aRWFUWh3EdgRqqCop0Q5gGLtCb20xWCiqVeIQXkhS2CEGQnYwBMrmPCFYV10k4HqvOjmzgmhAwdBAHU0+92GBi6IlE54YQT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774775430; c=relaxed/simple;
-	bh=JtQXnGgaFvSkjKmIjzW1Du2YWxdOh3hsdMiHbus8AvM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nt6r8jr4Ty5PHBhR8SGGcYMoOKA+/7taCc1d3P4//DyF9P3IlZOJyP132Kzb78eJtYuh3xRzLSbqf2WnlkFJH4irnLHN3iEF3HaulqlZxFV0x+I5eDrZoUcqCg3OmD4D9FXbtbUNCmZKlMOBCsrpoF4QUw2MXI/YI/SbgbdY92I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TV9oNuQZ; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TV9oNuQZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35063C116C6;
-	Sun, 29 Mar 2026 09:10:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774775429;
-	bh=JtQXnGgaFvSkjKmIjzW1Du2YWxdOh3hsdMiHbus8AvM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TV9oNuQZ0f4A30VPui+f4OF1oRQzb9qv5P4aFu4fkB4vctOD2A2njW1DvAcKjaNRX
-	 1thKWMXA6gxSPi6jaPxa8K8zdUrfpB6tuBDmXuM2eztLzXD0hNkn92TTVqaxg1aJFz
-	 F6Mi3F0ihKKrd+rNHT9LUvSLND7HrmMldSBWrzOdvIpgXpirxayi2PFnxHqfHlmrBV
-	 q0n+t63jaTImb8hHC87NtrFXaY1g7/UKWNRZ/3jCHmXbyqg+ok2Z9nxgJaLr46wT9z
-	 Q9vddk+IvtrDtGnljdP4lErDK5oeWex2DAG6GvHye0ZQAhSVUSGFukRPsryMhL1PCU
-	 WRPJtWbc+elWg==
-Date: Sun, 29 Mar 2026 11:10:27 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shi Hao <i.shihao.999@gmail.com>
-Cc: krzk+dt@kernel.org, robh@kernel.org, andi.shyti@kernel.org, 
-	conor+dt@kernel.org, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: i2c: intel,ixp4xx-i2c: Convert to DT
- schema
-Message-ID: <20260329-overjoyed-bandicoot-of-spirit-efc7a7@quoll>
-References: <20260328101157.84191-1-i.shihao.999@gmail.com>
+	s=arc-20240116; t=1774776047; c=relaxed/simple;
+	bh=IzsenYqkDV3+9tNmaGCCPfebzIIP3eioMbhuiFIrBPA=;
+	h=Message-ID:Date:MIME-Version:In-Reply-To:To:Cc:From:Subject:
+	 Content-Type; b=mFOLbVF14sUrxzt+FABzXE+Q/JeABSoXOZ9ehiqrZZsWQuuXVy0qjTaJgrfwCQ48hsEBa4haoHNFvi+ma8EgQnPNjDaclNVSGjHXBRb+ZpEHFvkmPOgKyrri+5fSm60kH/h0EwySHFw/0r0/LvVk8qpzf0N1/d7oj79FZGT0Hj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=online.fr; spf=pass smtp.mailfrom=online.fr; arc=none smtp.client-ip=212.27.42.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=online.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=online.fr
+Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
+	by smtpfb2-g21.free.fr (Postfix) with ESMTP id B96594CFF3;
+	Sun, 29 Mar 2026 11:20:33 +0200 (CEST)
+Received: from [10.0.0.2] (unknown [82.65.243.93])
+	(Authenticated sender: legoll@free.fr)
+	by smtp4-g21.free.fr (Postfix) with ESMTPSA id 8F1D319F5C6;
+	Sun, 29 Mar 2026 11:20:01 +0200 (CEST)
+Message-ID: <55c580a0-61cd-435e-bff0-f5f54cbe6948@online.fr>
+Date: Sun, 29 Mar 2026 11:20:01 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260328101157.84191-1-i.shihao.999@gmail.com>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+In-Reply-To: <20260323-orangepi-sd-card-uhs-v4-0-567c9775fd0e@gmail.com>
+To: Iker Pedrosa <ikerpedrosam@gmail.com>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Yixun Lan <dlan@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Michael Opdenacker <michael.opdenacker@rootcommit.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, linux-mmc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Iker Pedrosa <ikerpedrosam@gmail.com>, Anand Moon <linux.amoon@gmail.com>,
+ Trevor Gamblin <tgamblin@baylibre.com>
+From: Vincent Legoll <legoll@online.fr>
+Subject: Re: [PATCH v4 1/8] mmc: sdhci-of-k1: enable essential clock,
+ infrastructure for SD operation
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat, Mar 28, 2026 at 03:41:57PM +0530, Shi Hao wrote:
-> Convert the IOP3xx and IXP4xx XScale bindings to DT schema. This
-> conversion also adds the <irq.h> header file to the example section, since
-> IRQ_TYPE_LEVEL_LOW macro is used. This ensures the examples validate
-> correctly.
+Hello,
 
-Drop last two sentences, irrelevant. I asked about changes in the
-binding, not in the example. The example is not relevant here and we
-never ask to document changes in it.
-Did binding have interrupts? No.
-Does new binding have interrupts? Yes.
-Does your commit msg explains adding them? No.
+I applied this series on top of cbfffcca2bf0622b601b7eaf477aa29035169184 
+(linux mainline from yesterday) and successfully booted the resulting 
+kernel from an SD card on an OrangePi-RV2 (with the vendor u-boot from 
+the SPI flash).
 
-Best regards,
-Krzysztof
+So if you want, you can add my: Tested-by: Vincent Legoll 
+<legoll@online.fr> # OrangePi-RV2 to the relevant patches from this 
+series Thanks Regards
 
