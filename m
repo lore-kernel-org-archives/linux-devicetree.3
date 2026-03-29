@@ -1,64 +1,64 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D68366DB5
-	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 12:35:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CAC36BCC3
+	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 12:35:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774787714; cv=none; b=FTm53KIsit1+g5+CLDjpCKRw5GHGkV3Q7zi4gynIoODlGe4t4aZbQgd/bbWzG5mprTf1wP67BprhsPwRfRFKtCMlZfiWPWztJhRr/QZetnBswq+dgybZ5nRtUmbJkVlWU4kxyKsVnx984dOHLIYY1sFViZwITQ/cGfIK7uP8moI=
+	t=1774787721; cv=none; b=O56dpuMMfWfoE3HQbZzGf1C20YvBkDoopwkuzUmeIE1ARP6a+4KsPJOXwDWZ2pB8InPtk2lmodORcPjh1eaWIPzKVf0rSc/YZKJY0//romedQgTGpk0dM3CQjBTZqfj47/EUZRLlMu9yH7JJqpmBPwXFVF7Vjz1xQ+av8REdZwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774787714; c=relaxed/simple;
-	bh=Z3qCgdReWQ1prJb0XmYEgTOQ/bvofKyS6Un91gtBtJ8=;
+	s=arc-20240116; t=1774787721; c=relaxed/simple;
+	bh=hb3b5Xn6nqgDmPUXGa8SEWTqyas5qT4V0APOofxhyPQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SGWQXmCxQjCgAZgi/YbIAutcnFpuG4nK9cpTVo1pQeZdNhR7jrY3f9uxs/7GobWhxSCCPwp1yhqlVO2+EN3FfyI85c48wT3xLQXteeXAIgEBvTF75lGPh8Wyy+TsYDvjZkwXLVS8eullXQazk1UFD60HOjwTwb0wfc2bwbEOn0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BXncDH9W; arc=none smtp.client-ip=209.85.215.170
+	 MIME-Version; b=S4DBVrpYx66D4gi1F4El0mULX2rRBS3ZWAsZMKjoQvTniiwm4DZyrYYp0bAnaoYdVMmRJBvmzEq3NXIuzJ4exu4AqK8E9vEHTef40FX25lCcu9mQ8nkNFtINI+Yehm65BMkUuqj7KT/i3pGpyg/xbA96J6HjTwA6bbB5bCYcswQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GvjEv4dg; arc=none smtp.client-ip=209.85.215.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BXncDH9W"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-c742d7c8acfso1580057a12.1
-        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 05:35:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GvjEv4dg"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c768b85d5daso1273734a12.0
+        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 05:35:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774787711; x=1775392511; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1774787720; x=1775392520; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7tLsn8hpa4BdCwst8VwbSLWHz/M72CzfhEMC9Z3GeEs=;
-        b=BXncDH9W3zj+WaCTqor75xZHyvDsNzpEiElUC+59+6FJlUjBgUboRLknZzBNFNJKGO
-         5nn2O3fKxIgFmkdQSxJGW/48IO1x2n2k9RZbkhKRLWD8EhXFHVWsUDVXLIVB7x0ntwcL
-         /v8tkPkHunMEaSZCvENjj9uW9iSm0IjBCwdSnZMymhxnz7ep5D7mp+g3zD/zuh8wJIkn
-         7k/0O8RadGm3nr/vCH7Cn52+aKFRWDUq21EHgcawyEFIz/Vi9YKA2AUAnXLPVybJ24kh
-         xRkE+Wnj1f0g7n38PWVBhHKOmVs6NPJ1XLfI/tF9/WZiASAe9P5fiJC9ZGS06vDJjpk+
-         YpOw==
+        bh=5wKSxAHN0Stzff0w5tTcgOX+ksB7Z1iTuqZjXxjUVhY=;
+        b=GvjEv4dgw0TyGju87nChsRll8zSJE5Gs7b71k4rez4mNcMFHrHSvkRAj4qjPoMtP7S
+         9x1rLXFS81NWf9y8FycZlkt9qqRJtZInqcWD14iLLw1UBDfJLPcDgtcQqfZxk2TSs6x6
+         LdGavDrt+B+iY0ubkMY5VVp/1IyOFau4B6xQ3QVVC+k+7CJWADMYZpGePar90IRCWX41
+         7k1qXqYJZyE0QT+xUp70bi1glgNRWScd7xv2gN76SHesyokkFmmAPWju3zjwfYXIiOr8
+         Rn2KL++P1eMcbq4yz3IsMqMdiv+t2x8uqvmr70+P4bQZlq8MIpxLNcPAc13VgoRXxiYT
+         VaJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774787711; x=1775392511;
+        d=1e100.net; s=20251104; t=1774787720; x=1775392520;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=7tLsn8hpa4BdCwst8VwbSLWHz/M72CzfhEMC9Z3GeEs=;
-        b=MgHtrkXyD3Md9ViHBRB2v8pbvLAf9yGyU8mB7nb3twi/k1Gu6g34uPzgGrVdzRdaGr
-         WzW4pBTORoBtKnyMpfCUSWX4rmi/Ae9qlzBXgcsHR5lIRmyZgubr+25az0jkGWEFOJjX
-         IapLn6NBDTYH2WxW5xlj1vyirCEBogyS25GDma3mAI+SDGFm4unLK8qtIT75kaqKunPb
-         DIEVIsr4bSyYjE2xRfs+UULp5ssrvJ4UEoWZhxOaAHtneui43bOfePwrx8QaBPc6/YOE
-         JrIE1digewLYBRWNOssOFEELOThOL/fwLcHndVzhnoGnnKjVGPeJ2OtFh71e6gMxvpHQ
-         feqA==
-X-Forwarded-Encrypted: i=1; AJvYcCWsSWCCNN4cCuwL2Pqlzf3Co+mDDHVSkXnq8CNhFgMV0jbElnVyoB7c2u8z4PG+xaXkdl+RGx60V1G6@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzp86XI1Z2HLiodxJWUSCsHO3diq7Bd22msNvcwZXeh4j486s8p
-	PI2or6oBhpw13GI1Ur8MiERF6v2xv5kD85+L1MDGLQK734h386sKRpyC
-X-Gm-Gg: ATEYQzxh/C5W/0yRvBZvzWA8y/gkvPC5jdBRxDoXjOCbe31hL7Co5wDTpcOiQpJT8L6
-	TGIHOU1WKBd8IJ/U+Uwnq8NefBUE9Rst17c/gtBdjYOt+L+GRGjrtFmPYPN6r+XZ/uBas2qzaBO
-	Ps5w9+Krc139uP6cgjfQv0Tv8gSXokLyfgSDT/AEz2LVizo1OI9lgvLaYQdhRA8VqhKn2amkxWu
-	5bOhcx9SEBzZUuGP9tnIGYQJk9oiYm0A2YhDlzaVmJ66FbNyTAxrRrQl1AhW2FwjpVtrLERtZE3
-	0GtRwwJJLe7+dwCGIxm7X2Uf2ETHvIHqF7TJP1fh1yPIvt1uGbR7eUPMtSOux9iNknDri9PRAEr
-	Qw1ixgkLOjAYCsVtpwNDhrcrNnynG2I4+yHbjY118wuFNgNBHaXQVy4u/3JCThS3Na9Lcfx6Nkv
-	f2FYThcZ8STQmfPFaDoKaPpxdcmdSE9G/K+1v0P6jpy+5cqVNI/zXxVBhnbwn8VA32Tm/b4ZmsG
-	Ag=
-X-Received: by 2002:a17:902:d588:b0:2b0:6e60:9582 with SMTP id d9443c01a7336-2b0cdc48fbfmr101671395ad.18.1774787711463;
-        Sun, 29 Mar 2026 05:35:11 -0700 (PDT)
+        bh=5wKSxAHN0Stzff0w5tTcgOX+ksB7Z1iTuqZjXxjUVhY=;
+        b=HO87TL/7jSIznzGypoiq4q/OIj+e4tvWt0RgdWt6xurTDciqPk/AAc0cD7TYP1AXCN
+         iD9yrPR+bzsYOwi2Ru5sra05veIiCBGKKCV3WzFFL/xT/RA3Hqhd0QsRV1Nd3ZoYOSaW
+         GBrVC7x6HiLpyU7s0cR013Cxlp4hQPhwnGlgMW4WxHvfEnGt0FJ8XlTbY0vb+mLflQ1h
+         eByDuq1yxJQ5FbSXp9plN7KwTPc1RFxJtd2hRfdbe/1u7ZcstVzl7IdxN7jos8886AAd
+         OA4hAt57qRUIFSXd4nnazp2gSgzkgh2x9nZ4reRSn6Pj7OqZQ5IXD4GiwoZCkQIWZ9lz
+         Dp9Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVmQwkq2R6ozShXhk3fJ79bftNPwkJWDbuKrOn4h+eYGV0rDuuWRb8PGvXMRoELE/idYie5jlqy7E5U@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy69kZq8MyqHJdIiyOAKugyXe5VBAXU8oDkj/wkQNRIMuEyOV11
+	AWdAiqvE4hzIYYhy8x4sgK3kfJjDSQNc0oFcSFl2oLMC6PjDxt9TWERf
+X-Gm-Gg: ATEYQzzu+LN4voLAFyyGUXd9n9gPMyMnFViyYhwXFPGtrI9/ixgfq0ur3xzIYe7+MFf
+	YYnHq929pVLw0DryFCWg8zcza8uHE96nhYhefM9DYXILBSbp3xyc1UPbysjQ1yrLQb6gs5kgO92
+	xTVtQzBUQxo/QRbjrccI4yz+L4IiOe6fia9dOBPo00Ca+wo3fxpDa+mVdPFFzuK79SoohjRVaIb
+	FzTAPG68O12dgJCSFNvLIzpkNUVxsVqXMMkdKOi2uC8LQwXm0L1nWvNYJQndu7FrSSz1I7gYCRy
+	LpYyfsZqb7Mze/R+pU3ZjDj+IEtu2uq+3wNZEY6L8NkYF6SCu8Mu+TvTgUsVl1ue0ssxwELnSAd
+	eA+tQTqswZGgOVCU1wpW1OOS/M4FjHXZj6G0VEssaWk+Gs3fP3eJPIZfI5/EKCDrPCWMgAMJ/5s
+	YJhf3aGdz4Q8pCiNUgt6zH846C9RZyDlVP6wTkVgFaM/EDBJDZdQLEkPV0bvm758HOZSKWncfvW
+	Is=
+X-Received: by 2002:a17:903:1a67:b0:2b2:51e8:2c20 with SMTP id d9443c01a7336-2b251e831bemr6342265ad.21.1774787719650;
+        Sun, 29 Mar 2026 05:35:19 -0700 (PDT)
 Received: from toolbx.gk.pfsense.com ([103.70.166.143])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2427afbe0sm58709665ad.72.2026.03.29.05.35.04
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2427afbe0sm58709665ad.72.2026.03.29.05.35.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 29 Mar 2026 05:35:10 -0700 (PDT)
+        Sun, 29 Mar 2026 05:35:19 -0700 (PDT)
 From: Gopi Krishna Menon <krishnagopi487@gmail.com>
 To: rafael@kernel.org,
 	daniel.lezcano@kernel.org,
@@ -77,11 +77,10 @@ Cc: Gopi Krishna Menon <krishnagopi487@gmail.com>,
 	daniel.baluta@nxp.com,
 	simona.toaca@nxp.com,
 	d-gole@ti.com,
-	m-chawdhry@ti.com,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3 1/2] dt-bindings: thermal: st,thermal-spear1340: convert to dtschema
-Date: Sun, 29 Mar 2026 18:04:43 +0530
-Message-ID: <20260329123449.309814-2-krishnagopi487@gmail.com>
+	m-chawdhry@ti.com
+Subject: [PATCH v3 2/2] ARM: dts: st: spear: remove undocumented thermal_flags property
+Date: Sun, 29 Mar 2026 18:04:44 +0530
+Message-ID: <20260329123449.309814-3-krishnagopi487@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260329123449.309814-1-krishnagopi487@gmail.com>
 References: <20260329123449.309814-1-krishnagopi487@gmail.com>
@@ -93,13 +92,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert the SPEAr Thermal Sensor bindings to DT schema.
+spear13xx.dtsi defines a thermal_flags property in spear thermal sensor
+node which is both unused in kernel and undocumented in spear thermal
+sensor's binding.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+There were no dtbs_check warnings associated with this property as the
+underlying spear thermal binding was not converted to DTSchema.
+
+Most likely st,thermal-flags is a misspelling of thermal_flags in
+spear13xx.dtsi. Since both st/spear1310.dtsi and st/spear1340.dtsi
+define st,thermal-flags property in spear thermal sensor node, we can
+safely remove this property from spear13xx.dtsi.
+
 Signed-off-by: Gopi Krishna Menon <krishnagopi487@gmail.com>
 ---
 Changes since v2:
-- No changes
+- Reword the commit message and subject to correct explanation in patch 2
 Changes since v1:
 - Changed unevaluatedProperties to additionalProperties in the binding
 - Reword the commit message and subject in the second patch
@@ -108,74 +116,21 @@ Note:
 * This patch is part of the GSoC2026 application process for device tree bindings conversions
 * https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
 
- .../bindings/thermal/spear-thermal.txt        | 14 --------
- .../thermal/st,thermal-spear1340.yaml         | 36 +++++++++++++++++++
- 2 files changed, 36 insertions(+), 14 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/thermal/spear-thermal.txt
- create mode 100644 Documentation/devicetree/bindings/thermal/st,thermal-spear1340.yaml
+ arch/arm/boot/dts/st/spear13xx.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/thermal/spear-thermal.txt b/Documentation/devicetree/bindings/thermal/spear-thermal.txt
-deleted file mode 100644
-index 93e3b67c102d..000000000000
---- a/Documentation/devicetree/bindings/thermal/spear-thermal.txt
-+++ /dev/null
-@@ -1,14 +0,0 @@
--* SPEAr Thermal
--
--Required properties:
--- compatible : "st,thermal-spear1340"
--- reg : Address range of the thermal registers
--- st,thermal-flags: flags used to enable thermal sensor
--
--Example:
--
--	thermal@fc000000 {
--		compatible = "st,thermal-spear1340";
--		reg = <0xfc000000 0x1000>;
--		st,thermal-flags = <0x7000>;
--	};
-diff --git a/Documentation/devicetree/bindings/thermal/st,thermal-spear1340.yaml b/Documentation/devicetree/bindings/thermal/st,thermal-spear1340.yaml
-new file mode 100644
-index 000000000000..e3462a974691
---- /dev/null
-+++ b/Documentation/devicetree/bindings/thermal/st,thermal-spear1340.yaml
-@@ -0,0 +1,36 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/thermal/st,thermal-spear1340.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: SPEAr Thermal Sensor
-+
-+maintainers:
-+  - Viresh Kumar <vireshk@kernel.org>
-+
-+properties:
-+  compatible:
-+    const: st,thermal-spear1340
-+
-+  reg:
-+    maxItems: 1
-+
-+  st,thermal-flags:
-+    description: flags used to enable thermal sensor
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+required:
-+  - compatible
-+  - reg
-+  - st,thermal-flags
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    thermal@fc000000 {
-+      compatible = "st,thermal-spear1340";
-+      reg = <0xfc000000 0x1000>;
-+      st,thermal-flags = <0x7000>;
-+    };
+diff --git a/arch/arm/boot/dts/st/spear13xx.dtsi b/arch/arm/boot/dts/st/spear13xx.dtsi
+index 159e941708ca..0bb88f2d4ef5 100644
+--- a/arch/arm/boot/dts/st/spear13xx.dtsi
++++ b/arch/arm/boot/dts/st/spear13xx.dtsi
+@@ -332,7 +332,6 @@ wdt@ec800620 {
+ 			thermal@e07008c4 {
+ 				compatible = "st,thermal-spear1340";
+ 				reg = <0xe07008c4 0x4>;
+-				thermal_flags = <0x7000>;
+ 			};
+ 		};
+ 	};
 -- 
 2.52.0
 
