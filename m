@@ -1,106 +1,178 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C9C4C386C26;
-	Sun, 29 Mar 2026 18:01:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACD0A262A6;
+	Sun, 29 Mar 2026 18:02:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774807270; cv=none; b=Us8QLFLecgECcM893iRlY6LzbfTnuNMHh39qCX4SItp42z7PsHhp/ijVZCD76CJBXsZtF5U15PLhD4FxD8x2I6pIpsOWU1VY3E6LFW3TA3Ssew3aspm7K/JANdAwbluP6UZa0/CMyZvGy98smAQO+EtAdFUE7h8Qzsc2hD6ivc0=
+	t=1774807360; cv=none; b=BLw/xelGRgF8YJOmma0tuT4O1TMo912E7qimmQe+3xkswsP8fIashiwDp0+aPSkHWiV3+LWnPe+KaRmi5AavVknW3VZyFq/1MsmNlCEB1EeJvuKjKr0nMNWnFiLbxupwULodiBbHlr1/M4r7Sx+7qNn6PlfxZvT5vcPuGsKaMo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774807270; c=relaxed/simple;
-	bh=HKatBNWBO7yrOGYf1pOvBsP48x6K9AIg6H3XVc/TJbI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SgxP+Nnw26Iz9EA+GRrLsE9bszyYV7qzfKz8mmV0O6zqJG6trYoAmievu95QRKnAU0RQiEHgifHLz/c2rGvnMSWiUnw3psaNnl6KTFCwnSf6e9IbsJi81o3m+1fi2o9Qs9rgMPPce9pyT9xKQSs5byglLnColbcPUeIPMTaaTMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YCwOPgcZ; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1774807360; c=relaxed/simple;
+	bh=KQLMbeg4QKqADBpszyEzpxFyxsA9Ac3jxbOP4uoc5Y8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=CX1z+ofibYoLBzh8lXqEK4b3r9gsGiQjtvDrv4p1Pl8t7A2xXTyuCPEuugSVG0EoZHrihpVy5pX4WfPw0P5GmRCqqeFFFr+FJhmEvlJ36zHfCLLsVI72mfjL77nM4tdMP0Gvkl6hvafW3uS9pAJAJ+0yAQOH5+VtcyZYqSp6Fgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ob9ACM1V; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YCwOPgcZ"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1379A1595;
-	Sun, 29 Mar 2026 11:00:59 -0700 (PDT)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8A8BA3F7D8;
-	Sun, 29 Mar 2026 11:01:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1774807264; bh=HKatBNWBO7yrOGYf1pOvBsP48x6K9AIg6H3XVc/TJbI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YCwOPgcZIVYs3aDQ0ppSMQfkYBYlGucjp7xkJ5OFSjnc9K/ooxAme9pTzGioZXxsv
-	 4y2ctyjetjwvKVc+2YlDF1AEb+p7VdsB7ICiSxpHIZiADz1MhL8stn2jTBscXBKW9i
-	 v84HJwGTet3zeESOelw+I13CF6GhWbUH8++3TEB4=
-Date: Sun, 29 Mar 2026 19:00:54 +0100
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Cristian Marussi <cristian.marussi@arm.com>, etienne.carriere@st.com,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, d-gole@ti.com,
-	linux-fsdevel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	linux-doc@vger.kernel.org, f.fainelli@gmail.com,
-	vincent.guittot@linaro.org, philip.radford@arm.com,
-	souvik.chakravarty@arm.com, peng.fan@oss.nxp.com,
-	dan.carpenter@linaro.org, lukasz.luba@arm.com,
-	arm-scmi@vger.kernel.org, sudeep.holla@kernel.org,
-	michal.simek@amd.com, linux-kernel@vger.kernel.org,
-	jonathan.cameron@huawei.com, elif.topuz@arm.com,
-	linux-arm-kernel@lists.infradead.org, james.quinlan@broadcom.com,
-	devicetree@vger.kernel.org, brauner@kernel.org
-Subject: Re: [PATCH v3 06/24] dt-bindings: firmware: arm,scmi: Add support
- for telemetry protocol
-Message-ID: <aclo1laTrsQFSan6@pluto>
-References: <20260329163337.637393-1-cristian.marussi@arm.com>
- <20260329163337.637393-7-cristian.marussi@arm.com>
- <177480549380.3925363.5137815678176793743.robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ob9ACM1V"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 59879C19424;
+	Sun, 29 Mar 2026 18:02:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774807360;
+	bh=KQLMbeg4QKqADBpszyEzpxFyxsA9Ac3jxbOP4uoc5Y8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Ob9ACM1Vt+/wakNGNDH0pR4HUEX+fPwSanH6rvYONZoZx0QWAcSCa0jgSpG0Gpv7Q
+	 vFYU+cqhYQS58iquT9D/PJPWY1+PxQubE1yYv85MXKyFLqHM/+ZpsLQ93CxUciLSoz
+	 O/BDgesGTccaxadgUQlhSKU8N1/VzM6FX9E6niszqm3dxxihIsD62Fp5q+G/OGKiZ5
+	 CeuqVMdIkizO6tZQnUYs61WEr1iCi33vHvUzp0LJicxZ3FCji+6Mdu1BbNZQWEJCO6
+	 Y08ObhHn+73FsJ+6Ua2JZ9htShkF+5Pwo12lPUkY5DzFMcOlwDExgJ/1JPC34QocgS
+	 NpLHaZITwTpYA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 46E50F3D61C;
+	Sun, 29 Mar 2026 18:02:40 +0000 (UTC)
+From: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>
+Date: Sun, 29 Mar 2026 20:02:15 +0200
+Subject: [PATCH v5 1/4] dt-bindings: embedded-controller: Add synology
+ microp devices
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <177480549380.3925363.5137815678176793743.robh@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260329-synology_microp_initial-v5-1-27cb80bdf591@posteo.de>
+References: <20260329-synology_microp_initial-v5-0-27cb80bdf591@posteo.de>
+In-Reply-To: <20260329-synology_microp_initial-v5-0-27cb80bdf591@posteo.de>
+To: Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Lee Jones <lee@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+ Saravana Kannan <saravanak@kernel.org>
+Cc: platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-acpi@vger.kernel.org, 
+ Markus Probst <markus.probst@posteo.de>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2847;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=LjFpIfANTZFo1+4IPCHrW+YIb3KmnE+ivKHsB6gln08=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBpyWk57cnwGnzCYU7bX9FQiaKM/eXTH6tO9Tsvs
+ 8PqY3PJRquJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCaclpORsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQNHYf+OetQ9IgDA/+MkrrYxXzol9wLHQzbRjvpCsg6A/6Hn6
+ H0AoQgev00ZuBP8o5HPBJW2wL0BSIZ8hEg/hIxrGg/vxBYMKHz90cfSGPjF3tyqVJw7tf1wlcwP
+ bNRykHuuxTXqNeQ+vtEhLD5oa/y4pbwkDoTFmGfRxCmPpj3h/5iEo4k6yOVRA+toNg63jEtMCzJ
+ Hm9aq4s6vaWN/X9Hf4+1jdJi4PUZN4gozqI3iqp1zLIuFKx2S/M5wrlTp9whdBqunWSDYYgcyZ5
+ RoZ/kNYb+049oFVOHCwX46k1+J7C3s58MemHgWiIO0JL0t2y45exFk4ozUVw94/68rEd2gq4yZ3
+ ZAAN4RyhqCBQRgUeQREp3CA1W++fodZZvkfV9H7Wy7d+q82wvmLmM8LA1X2Q+zyOmw3RmuXMYs9
+ /APKwzC5fDHFOHpsmIPsEIqVwdPldK1Ks//Pk/hbtNso3D7lsMOr4oZqNzdZX5JragSPj7xQU0d
+ ITPdapX3ODn4R/yTCsVvEKra7yBbBPTXOA2NtaDri54URNPhMOWMdQiouADGMCksBjS9sGKM//W
+ PtWNKFQh2n+d4kBn3+0rL6epwa7Ut344MIYHN1fxtSfZS2QPtDTw6hS88OcFQU93DvwEo5R28h/
+ BAKU8Sbn74AVHk0n0D6UHZuBbWlKJVvWckYrJ7+xj86jWoINbFt0=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+X-Endpoint-Received: by B4 Relay for markus.probst@posteo.de/default with
+ auth_id=680
+X-Original-From: Markus Probst <markus.probst@posteo.de>
+Reply-To: markus.probst@posteo.de
 
-On Sun, Mar 29, 2026 at 12:31:33PM -0500, Rob Herring (Arm) wrote:
-> 
-> On Sun, 29 Mar 2026 17:33:17 +0100, Cristian Marussi wrote:
-> > Add new SCMI v4.0 Telemetry protocol bindings definitions.
-> > 
-> > Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
-> > ---
-> > Cc: Rob Herring <robh@kernel.org>
-> > Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> > Cc: Conor Dooley <conor+dt@kernel.org>
-> > Cc: devicetree@vger.kernel.org
-> > ---
-> >  Documentation/devicetree/bindings/firmware/arm,scmi.yaml | 8 ++++++++
-> >  1 file changed, 8 insertions(+)
-> > 
-> 
-> My bot found errors running 'make dt_binding_check' on your patch:
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/firmware/arm,scmi.example.dtb: scmi (arm,scmi): protocol@19: Unevaluated properties are not allowed ('i2c2-pins', 'keys-pins', 'mdio-pins' were unexpected)
-> 	from schema $id: http://devicetree.org/schemas/firmware/arm,scmi.yaml
-> 
-> doc reference errors (make refcheckdocs):
-> 
-> See https://patchwork.kernel.org/project/devicetree/patch/20260329163337.637393-7-cristian.marussi@arm.com
-> 
-> The base for the series is generally the latest rc1. A different dependency
-> should be noted in *this* patch.
-> 
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
-> 
-> pip3 install dtschema --upgrade
-> 
+From: Markus Probst <markus.probst@posteo.de>
 
-Yes...the new protocol block definition ended up intermixed with the
-previous protocol block...totally wrong.
+Add the Synology Microp devicetree bindings. Those devices are
+microcontrollers found on Synology NAS devices. They are connected to a
+serial port on the host device.
 
-My bad.
+Those devices are used to control certain LEDs, fan speeds, a beeper, to
+handle buttons, fan failures and to properly shutdown and reboot the
+device.
 
-I will fix in V4.
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
+---
+ .../synology,ds923p-microp.yaml                    | 65 ++++++++++++++++++++++
+ 1 file changed, 65 insertions(+)
 
-Thanks,
-Cristian
+diff --git a/Documentation/devicetree/bindings/embedded-controller/synology,ds923p-microp.yaml b/Documentation/devicetree/bindings/embedded-controller/synology,ds923p-microp.yaml
+new file mode 100644
+index 000000000000..599d32ce2be9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/embedded-controller/synology,ds923p-microp.yaml
+@@ -0,0 +1,65 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/embedded-controller/synology,ds923p-microp.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Synology NAS on-board Microcontroller
++
++maintainers:
++  - Markus Probst <markus.probst@posteo.de>
++
++description: |
++  Synology Microp is a microcontroller found in Synology NAS devices.
++  It is connected to a serial port on the host device.
++
++  It is necessary to properly shutdown and reboot the NAS device and
++  provides additional functionality such as led control, fan speed control,
++  a beeper and buttons on the NAS device.
++
++properties:
++  compatible:
++    enum:
++      - synology,ds923p-microp
++      - synology,ds918p-microp
++      - synology,ds214play-microp
++      - synology,ds225p-microp
++      - synology,ds425p-microp
++      - synology,ds710p-microp
++      - synology,ds1010p-microp
++      - synology,ds723p-microp
++      - synology,ds1522p-microp
++      - synology,rs422p-microp
++      - synology,ds725p-microp
++      - synology,ds118-microp
++      - synology,ds124-microp
++      - synology,ds223-microp
++      - synology,ds223j-microp
++      - synology,ds1823xsp-microp
++      - synology,rs822p-microp
++      - synology,rs1221p-microp
++      - synology,rs1221rpp-microp
++      - synology,ds925p-microp
++      - synology,ds1525p-microp
++      - synology,ds1825p-microp
++
++  fan-failure-gpios:
++    description: GPIOs needed to determine which fans stopped working on a fan failure event.
++    minItems: 2
++    maxItems: 3
++
++required:
++  - compatible
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/leds/common.h>
++    #include <dt-bindings/gpio/gpio.h>
++
++    embedded-controller {
++      compatible = "synology,ds923p-microp";
++
++      fan-failure-gpios = <&gpio 68 GPIO_ACTIVE_HIGH>, <&gpio 69 GPIO_ACTIVE_HIGH>;
++    };
+
+-- 
+2.52.0
+
+
