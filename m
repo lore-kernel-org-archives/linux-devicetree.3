@@ -1,144 +1,152 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB49D3033DF
-	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 10:23:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41122FBE1F;
+	Sun, 29 Mar 2026 10:30:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774779801; cv=none; b=H5zyWIErJLiFLwhxujhZexeETrs4h+VOUz5C/rrYpUFMMv+vlLq6WrHKUYrADk6mO9dekudyshV0B2myW8/833FPb6BO9oWtIwCXg4ZOlQR2Ya5zOD/6hKoIFQfNEf4DHuLXnT5wBJFrXCF0dep9tDyLyBX2Dnat6ZVhcZB1KKk=
+	t=1774780216; cv=none; b=u02x0W0OocaUa0vHtop51VZRXUgr2i6b0zCLdoX+RAzZraMTe+Eofmpta//vmWn+vGW3J4hBp658l27C9MiAQq3ShfFY9ulHKjpsH/dkHCmjT+KlM9BjGfbfnnnY5nh09Z+wuPopPLSecnV3qxQHqvLpmOXpI5L6iT/OOmer3sU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774779801; c=relaxed/simple;
-	bh=6LLYaMCidoB7CqFTQvxDu+VpiXQrRhc/XlHQWMmOBlA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mIlvePWk7SoM15lpz1k5zn+MPFgp0RwDU9Rby7qsaJu1gD+045oB7wXpBt8l+ARsVurbnHo7K3NC2Nxlh09919QSRX0o4en/HC58nxdloPr4Vi/N6MVt/E3JCuPVEKn1gYl1r9/8RrQmp2ejol8f8ISxBIIAKbfXaQy5KrASGAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MrqDP9dz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hgy9dpW5; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774780216; c=relaxed/simple;
+	bh=/fukVW96SgGw6bB09c6/3nFhEVSaAYJbKOiTe7DJXgw=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=KZfR3Zp7wOCcFmwCQ71vmtBa/nniWK83cXfrBz2xc0V7V61opFN6uVnV9MAbG7nnuGBYhcaR8EZ5deXNOUZFlhCNRyAZimksVOWeOWPCtnfckc70m8Fo1F0KMPMSNi6u19fsIss9mN6BsA/JcAOMjYkUJKiJxNNwtOoevqhogjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KlkGVG50; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MrqDP9dz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hgy9dpW5"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62T107WX3232175
-	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 10:23:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=mK/kfH4F5IH4Sq2t/puumD2k
-	dvUB6BnYA74BB3PmJz0=; b=MrqDP9dz6Ovx1i4/NejBwEUz9O+yK0iqBVu6qmiL
-	d1uFBxE1nJKSeV4JpbM89RuD+XFOPxPm+LCkDoxjRD2IuvKeNC4eTZ74EOb2Y6ey
-	Vw/8IwvgBB08BOQA67VFuyYRlFidtAdJXxIeHfzRHlvRR+omftAnUN+AmK2p04Qo
-	Q+pop0v90KCbdYK+uStZJWzJ0qMYK4ACPnectr8beRIY39hqwJDxAsxCN9sVEIKM
-	35I5sWUITUxG+GTeuYX2hzZLgn6/WfFtGcoH6fjLbP+jpHB5uGl86RYsx3ajxYHW
-	iUpwkTlrq17ATV2St+Dl6JE9lNegcvyqCoq8X4klffeRMg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d66jwjnvh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 10:23:19 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50b4031b86dso111893121cf.0
-        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 03:23:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774779799; x=1775384599; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=mK/kfH4F5IH4Sq2t/puumD2kdvUB6BnYA74BB3PmJz0=;
-        b=hgy9dpW5u/06DzrjJqDSszIqlDjhlQL0J36BWqXrTbAwZ/Mw21BM+XWsXxlYIEKKUm
-         hzGUZm1uP7d7qGxgoriuxQdUYaQg0Yyq2I41NNZ1xHHjoT+PvXR9729UcKTLRKgJ9Wkp
-         OUtxWKQLlKoYOr7NhLrx7z8OMP1PipXB+pjhpGSrugY4HhgVFRtLjSr1m7gVE6fgGWLX
-         JRhTMAaPZA+c6IsyvBp0ITfRiGwx1WrVWWXbG2AoTyFcj/g2fJQlknamcVvARfalBUpe
-         q27Y8sFVw8MLCcILlSMXq4FJFVnjnaL1iWDKvVs7G7+a6tu20dAWkme0+4uwjOVt4/LW
-         cOQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774779799; x=1775384599;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=mK/kfH4F5IH4Sq2t/puumD2kdvUB6BnYA74BB3PmJz0=;
-        b=Rn5KHHSa+dGOZqzDafWQT+OX62nhA6JVVaprZ3vROD6XyQ7Vsu2d3DtL+/1kbC9pgW
-         ru/8JC2wMGoCI+1sgKT525LNNF9HGLDHd47dGRHq3hH02fkWLkuauiDtOWPx70Td27p0
-         lS1OK0t5PYL2c5qURQscE/CLH+dhQbEU3aNEJcfXkwgR0Y7sLUqSDO9r1b8iiKC2yo26
-         FZW1SnhlOfBKjIng7fl7b4yxpgCfHKCczBVeE7ixwQi9CsNe2Op0lpGfdbEADlNnLCpw
-         CnLPI48TuasRjuGUibG05/pC2aoyfz+Wkpnn7nWRHvUB5syfmZKRrFXA3/NVXnOYsAZ6
-         ZErA==
-X-Forwarded-Encrypted: i=1; AJvYcCVG3pSl9cPinXPmcV+OSl7z9ustgeD9LGnTOj63iETAToSSTiyoQBK3t5p4+5xM+ZebNSrmaPC7JHU6@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/XXrpAaeiZ5XaP+6cfR0k9+/w9VtYIvEOC8sEO1GXF5H/fuYl
-	F4Q5pourBh+h1Lsd06xbFIA/AGBAf9d2onsOxehEYJKctb4WJCQLJqrczJMx8QbW+niSIlUcFNw
-	4yq8xPnYs6iIWMnz4kyNtAVY7vP/t8YjHXnd85CbaO1UtlUbKfiog0c2AlL+8GfOr
-X-Gm-Gg: ATEYQzwNxxeCfnAiqtRuxuLTDw15RvVEu7cF7A243J3oeQnTelkll0fSKCY+gSi37dR
-	rOPS8xWEtIg1QgIz27VE2SAD/rN9IUht0aRTvlgC2QxJRMAT+gzTm7+iDz/MlMzjDqqEzj88XBI
-	gfhUyfndwiW69REKEP2MwqoVt3x1+SCF79mFWaOFQTDOICPLZVOzHkmxKlK3TCfwqxRrxcREu0u
-	+6Wrflf7W1IRVJN7oStMRwCMefdh8L1493R5ognskrwSQtq6mQ4nj0R7DbydEVQYb7NziNdrGrv
-	hcw7XzNvOHG7UNTohwUlcJo/fhZXCGLxhLNknbNLagYtuQRFksqoLqVzHLkFMJRbbu95UPqL6vw
-	c5ZQ12MXVpOlRsTeKS1SlRy8zmuSnie8polCK1IWF85vnpoVTaMyEoTfCBamQ8eM/EKZ28QN3Kr
-	PwVCl64bimbVoDuJQafdUpOIGOF67FLsTxHdQ=
-X-Received: by 2002:a05:622a:407:b0:50b:4522:d0a0 with SMTP id d75a77b69052e-50ba38b226cmr118374311cf.34.1774779799011;
-        Sun, 29 Mar 2026 03:23:19 -0700 (PDT)
-X-Received: by 2002:a05:622a:407:b0:50b:4522:d0a0 with SMTP id d75a77b69052e-50ba38b226cmr118374121cf.34.1774779798593;
-        Sun, 29 Mar 2026 03:23:18 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2b145eff6sm959406e87.76.2026.03.29.03.23.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 29 Mar 2026 03:23:17 -0700 (PDT)
-Date: Sun, 29 Mar 2026 13:23:15 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Tobias Heider <tobias.heider@canonical.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: drop redundant zap-shader
- memory-region
-Message-ID: <s7dptfslnmvngl4ocmc5vngg63tdjjspnkybmo6d43webucn4q@qstcolvexhss>
-References: <20260328-zap-v1-0-f6810b9b4930@canonical.com>
- <20260328-zap-v1-2-f6810b9b4930@canonical.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KlkGVG50"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39A88C116C6;
+	Sun, 29 Mar 2026 10:30:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774780215;
+	bh=/fukVW96SgGw6bB09c6/3nFhEVSaAYJbKOiTe7DJXgw=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=KlkGVG50EAYk9yzfHOFYAn0207s5l9jVbpYwR0JCvVJ6aS+64TDfhU26aQrJQNO4P
+	 Bo8i3HWavK4Xdv1l28ZVESm4JOz7SIuiNSCL2B0hDzZ4GZZC66Wbk9nlgbkVfakkKl
+	 Zr7rd3QTw7CiiZbFLHWLY3n8dzlFrzsthzbXj4EnGlSpKkXfY0lUIjHjiGdBf9ztxI
+	 F4Dkvba0SMp2UsLN3o6T0wIkE/TwDZgzTcZ84tQh7MrA07CAA3gS95K56bQ6HTa2Eq
+	 nH0/Vl9UyTPN42aUk3ks5YrxQUQjJEovP/TPJelqvP3dRvrnBfJ7vuFagTiNfwvc6K
+	 NW1kZcMncnAfg==
+Date: Sun, 29 Mar 2026 05:30:11 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260328-zap-v1-2-f6810b9b4930@canonical.com>
-X-Authority-Analysis: v=2.4 cv=I8dohdgg c=1 sm=1 tr=0 ts=69c8fd97 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=DfNHnWVPAAAA:8
- a=EUspDBNiAAAA:8 a=5UJbzWUa9Ju5Vw7BQqEA:9 a=CjuIK1q_8ugA:10
- a=a_PwQJl-kcHnX1M80qC6:22 a=rjTVMONInIDnV1a_A2c_:22
-X-Proofpoint-GUID: LYvUH_n7vck4TsgRyUeLt7QJf_5zW3kb
-X-Proofpoint-ORIG-GUID: LYvUH_n7vck4TsgRyUeLt7QJf_5zW3kb
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI5MDA4MCBTYWx0ZWRfX5IprYm1YBrBW
- TJ05bnWvhh+ykDH81ZWqX13iKqP0Qp718E04OX/hwu+pZWEuje464ZEW9Jz0o66gjJxvNt7XYo9
- FEvGN2Z4sHrzS7qXDi3UFGgSCaFzZ6tA1ZA8rp+icCsPID0aRAvolkF3nbdo4HJX/ykzVNxUszk
- rESD4yKmpGIoCxHvBPQKpVvx7xuxEdFVXim4+AcVlBVIOwLhnB00hUcOgmru/By1602YFoKXPz7
- Okn06BUGcp2o5jOHCmXvGd/ZMPZNO6+W5q6RXCQ1srE9Ay8rFFu2TNTNzjg1t8obc9vqUC4bGqA
- xX8hOBq3Vl6VT6VEkuix1yhvgz16bxjBJcbKGKPP+6Cfqj0TSqxfhOdBCmF9sshIYlxIN5vbsbX
- t7y9MdW2vtjqEKGvSH+WtO6F2YbNoTKu/fol+KK7+JAnCvUszOCMHwwBibWJ+qY0NrZvQxgFAnM
- 1MX5AjMFWXPcc9aSScg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-29_02,2026-03-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 spamscore=0 adultscore=0 suspectscore=0
- malwarescore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603290080
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, linux-kernel@vger.kernel.org, 
+ kernel@pengutronix.de, Lee Jones <lee@kernel.org>, 
+ devicetree@vger.kernel.org, David Jander <david@protonic.nl>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-hwmon@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>, 
+ Peter Rosin <peda@axentia.se>, Conor Dooley <conor+dt@kernel.org>
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+In-Reply-To: <20260329090601.532477-2-o.rempel@pengutronix.de>
+References: <20260329090601.532477-1-o.rempel@pengutronix.de>
+ <20260329090601.532477-2-o.rempel@pengutronix.de>
+Message-Id: <177478021183.3290857.2184125740020596802.robh@kernel.org>
+Subject: Re: [PATCH v8 1/6] dt-bindings: pinctrl: add NXP MC33978/MC34978
+ MSDI
 
-On Sat, Mar 28, 2026 at 04:49:22PM +0100, Tobias Heider wrote:
-> This is already defined in the gpu_zap_shader node in hamoa.dtsi,
-> there is no need to redefine it.
+
+On Sun, 29 Mar 2026 11:05:56 +0200, Oleksij Rempel wrote:
+> Add device tree binding documentation for the NXP MC33978 and MC34978
+> Multiple Switch Detection Interface (MSDI) devices.
 > 
-> Signed-off-by: Tobias Heider <tobias.heider@canonical.com>
+> The MC33978 and MC34978 differ primarily in their operating temperature
+> ranges. While not software-detectable, providing specific compatible
+> strings allows the hwmon subsystem to correctly interpret thermal
+> thresholds and hardware faults.
+> 
+> These ICs monitor up to 22 mechanical switch contacts in automotive and
+> industrial environments. They provide configurable wetting currents to
+> break through contact oxidation and feature extensive hardware
+> protection against thermal overload and voltage transients (load
+> dumps/brown-outs).
+> 
+> The device interfaces via SPI. While it provides multiple functions, its
+> primary hardware purpose is pin/switch control. To accurately represent
+> the hardware as a single physical integrated circuit without unnecessary
+> DT overhead, all functions are flattened into a single pinctrl node:
+> - pinctrl: Exposing the 22 switch inputs (SG/SP pins) as a GPIO controller
+>   and managing their pin configurations.
+> - hwmon: Exposing critical hardware faults (OT, OV, UV) and static
+>   voltage/temperature thresholds.
+> - mux: Controlling the 24-to-1 analog multiplexer to route pin voltages,
+>   internal temperature, or battery voltage to an external SoC ADC.
+> 
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
 > ---
->  arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi        | 1 -
->  arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi | 1 -
->  2 files changed, 2 deletions(-)
+> changes v8:
+> - Update IRQ_TYPE_* macros include path reference in documentation from
+>   interrupt-controller.h to dt-bindings/interrupt-controller/irq.h.
+> - Add bias-disable, drive-open-drain, drive-open-source, and drive-strength
+>   to the list of supported pin configuration properties.
+> changes v7:
+> - no changes
+> changes v6:
+> - add Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> - add Reviewed-by: Linus Walleij <linusw@kernel.org>
+> changes v5:
+> - Commit Message: Added justification for distinct compatible strings
+>   based on temperature ranges.
+> - Restricted pins property to an explicit enum of valid hardware pins
+> changes v4:
+> - Drop the standalone mfd/nxp,mc33978.yaml schema entirely.
+> - Move the unified device binding to bindings/pinctrl/nxp,mc33978.yaml,
+> - Remove the dedicated child node compatible strings (nxp,mc33978-pinctrl).
+> - Flatten the pinctrl/gpio properties directly into the main SPI device
+>   node.
+> changes v3:
+> - Drop regular expression pattern from pinctrl child node and define
+>   it as a standard property
+> - Reorder required properties list in MFD binding
+> - Remove stray blank line from the MFD binding devicetree example
+> - Replace unevaluatedProperties with additionalProperties in the pinctrl
+>   binding
+> changes v2:
+> - Squashed MFD, pinctrl, hwmon, and mux bindings into a single patch
+> - Removed the empty hwmon child node
+> - Folded the mux-controller node into the parent MFD node
+> - Added vbatp-supply and vddq-supply to the required properties block
+> - Changed the example node name from mc33978@0 to gpio@0
+> - Removed unnecessary literal block scalars (|) from descriptions
+> - Documented SG, SP, and SB pin acronyms in the pinctrl description
+> - Added consumer polarity guidance (GPIO_ACTIVE_LOW/HIGH) for SG/SB
+>   inputs, with a note on output circuit dependency
+> - Updated commit message
+> ---
+>  .../bindings/pinctrl/nxp,mc33978.yaml         | 158 ++++++++++++++++++
+>  1 file changed, 158 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/pinctrl/nxp,mc33978.yaml
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+My bot found errors running 'make dt_binding_check' on your patch:
 
+yamllint warnings/errors:
 
--- 
-With best wishes
-Dmitry
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pinctrl/nxp,mc33978.example.dtb: gpio@0 (nxp,mc33978): $nodename:0: 'gpio@0' does not match '^mux-controller(@.*|-([0-9]|[1-9][0-9]+))?$'
+	from schema $id: http://devicetree.org/schemas/mux/mux-controller.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260329090601.532477-2-o.rempel@pengutronix.de
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
