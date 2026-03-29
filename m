@@ -1,97 +1,140 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF152A1BF;
-	Sun, 29 Mar 2026 03:20:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55AB24728F
+	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 04:48:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774754454; cv=none; b=b4btHpJDe7ynJYWLG/TffWobaYZocwU+TJpWHDVkqbDo9fSjvXpXo9IxIaLKeKMwvV+ZlFcuxnpP4y5q1HuEwtfmifsXNbsQDny736ue0CRq9f8eCcfkifBwiFx5GHDDPOpAFG+WvuXHREz6UMzRNpDsynyWS7PyeO5eFd0DZVE=
+	t=1774759690; cv=none; b=jRJlkFfAiWMhRnmnmObeRiA3SynWp3zGUuhRHrO6dSc3EQtXtwAXY9cHmKOHY27DLuYcbT0V/ztTpYQF+JrO6Tn9HYctV4LTW642bgdw045oPXxhHp9nF8sRZqU10fff2Lmm8nwFR1NHx7dAmVUvu2DvmHEhK8Pxtnlc1/mKQGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774754454; c=relaxed/simple;
-	bh=D0bGQLT7f3byQBg+qaH5vPMrR05TsJs3lS+DSoGJbOo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h5j417v41XpHa9zzIsQm7RpMsF2DutWbeHbUrhJqKLzXbSQ9XYBWsbNbJI/haJxYE4bZMtAVeLnyUejwriakWXUbsCGGNTd3/kn0aabMk3WxHZD4nzQAtXP9nWzYom9iQXkeUCG1YFZWw/YF972hFSTaLBn+qrAtDuX9tJ3nGVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=1Rwsmr+7; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1774759690; c=relaxed/simple;
+	bh=f6G2WzAX3URkZuJNybDd0oFR9WsBJIh/VoQ78JaFB9M=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=U8EYDF/ys41NuvK+vljWgin3hXW7jAiEZI8EUXJ8YnFhuShrSAbSE0x37BZu/NjWAqHW9oGSlmHIwlD6DxpmsL82nYCe2dqmSuG/gU/VWUe+6PhvWS09lwL6N4Qb8UU7A40lLGLBukx+sHqOAIy2ZGo/FGMj4xqcpn0UnqQWwLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tHi3mCX0; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="1Rwsmr+7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=gUuZHrDWxaaWF4+/n4z56tn8qK+LyT2Zab514kfOXec=; b=1R
-	wsmr+7CebtxmeC7zSCRBXBzSP8TtlMe1LeiLLkDCkbO6f1YWfIH9XlyyRJk9qfQmjPkiqnYrcJbYX
-	fMvITKt05bjHr+c22rl8xd158RD+PJo097oMNQod4FzDa4iVhmf15I0Syp5CHamydP7ETNHRJKNb2
-	A4sxszRKx5ltQz4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1w6ghV-00Dr5E-2n; Sun, 29 Mar 2026 05:20:33 +0200
-Date: Sun, 29 Mar 2026 05:20:33 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Anirudh Srinivasan <anirudhsriniv@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ARM: dts: aspeed: Enable networking for Asus Kommando
- IPMI Card
-Message-ID: <b8e4da26-ae8e-4b2d-b259-c13e3a4d0aa0@lunn.ch>
-References: <20260328-asus-kommando-networking-v1-1-66d308b88536@gmail.com>
- <ed3d39df-0a0e-427b-86cf-b9b2d2094b51@lunn.ch>
- <CAJ13v3S7ucjd-ifmKFBDGtsg32MbOar2OBeiGMVEJBsH8+JP7Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tHi3mCX0"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-35da2d35eccso70469a91.0
+        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 21:48:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774759688; x=1775364488; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Xx2r6QIRxbtt4fGLDrALPMrVxytOCTyVK9i7G8L9agk=;
+        b=tHi3mCX0nrFGzYvtMOl9okz0ng5gptQSpHWSjaQEgsgM0aKYqEAn8qWCdCS3K1Rahi
+         kJwZ2Z4e1AZHzKM45VwCdrG6CJXrzAO9DhOopYr5xFObn/6yvwW8BPXt+kSgQ0LqD8fc
+         odEb3wvVpkB79J95+m8/fUMPZnEdyaSuFHCGZY7iG1VGT+JxOh7hCAXtEwc/BgDAzl5c
+         +LM6ZPnYR+H6UdoHPA04vqt8rCb9o2iHHcRlHDIu0vhmfHe57/kOmn61Y9cXKbIZAwTm
+         b6SNe9by8B51LjCOm2eEhG5VeHU30cXO9xN4mK9F1bskqJbic5wAmuAAdxabH0f8eunF
+         lBNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774759688; x=1775364488;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Xx2r6QIRxbtt4fGLDrALPMrVxytOCTyVK9i7G8L9agk=;
+        b=bB2T3cy1G4bXPPkgMlbsvLb4c3e0rxF0KLyxyQS+QTzqJxUaGYGyWHYaysLc765lNz
+         BLuGrldWCzwtDWu0TDEpppRzFbPcvTXH4xGqCFdW//FsLffgSudZ2TtHckBVGABrXUy6
+         /B/V+jbJIhI5fAQ3Rssde6rTS0ynv+s85dXg7vr7njZ2ChmrQ0kng72OmZdefGawTPMi
+         TWy7fx2JggNu3JhD/SQSftD8zDBL+CnYAgwkkeU8TpLnRRZPT7Y7gTudUBPifkCSBJan
+         K05zv2ZTRbfmuPjhRSllnX40CDEsRdUYsSKEj2xrD6l0wZgjB791KY3hBaWB+BCFbu/A
+         9Ocg==
+X-Forwarded-Encrypted: i=1; AJvYcCU5eoDylCtEg/jBpRmswb+LTpogYWV+uj1jsyWREj8IcK0UoJxL+S6tKDW8rkvIRwZlbGwwbR5jkpQ6@vger.kernel.org
+X-Gm-Message-State: AOJu0YywYCLs/4Vw64m+/eubY/jBKVPfyj2BWEH7pla5NM8OXxH8jVll
+	DThbDU0D34qlkXcuXJd8LUVGFyr87AnnSBwM87afLmsxSphEvIALG2b+
+X-Gm-Gg: ATEYQzwysGKwrK/bdqqm7SzLgC8yNlezwti1tEaYT5kcx8l2B/8OHK2Wtr8sOY/eiUF
+	EIT2Qb2o9fsjhckmFPrpN8NlvtixNAs82Q/KGeEEvJm01wgEQBjcqf7cajOUwpLabGFugydAdq+
+	sCJuEov9vyvvBXaiTktOufmo4n4DTS1vX9PBEBPsbaBA13VllIdf9a+wDxjKVAz7SIyOn1mMqKP
+	J9i+Lh2cyzyARvSaFoGhFUTLNpP0t+CYzTnUQ3tKNel1Wy8MxCfWtF42hbZqn7jVl6fEl1B536E
+	Sb+x29VCK68PjnMVmtkdzNFltSVpmNsgOe+AzfAwtXYQXFU6redLXomMjiwTtq04HvDlAuD/YJ+
+	v27fUYsMOEZNeJACxaO/8SdSERK1muluXSwXVzTR7NfoFgHs0ge/p15ToNJYRU3oJDVghsgN/F0
+	VaFFh4yjE3GNfeBTC6OPreUwYAPLkK
+X-Received: by 2002:a17:90b:568b:b0:35b:929f:7e8d with SMTP id 98e67ed59e1d1-35c2ffb71c6mr8601810a91.14.1774759688136;
+        Sat, 28 Mar 2026 21:48:08 -0700 (PDT)
+Received: from [192.168.0.101] ([43.226.29.240])
+        by smtp.googlemail.com with ESMTPSA id 41be03b00d2f7-c769179e31asm2899739a12.17.2026.03.28.21.48.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 28 Mar 2026 21:48:07 -0700 (PDT)
+From: Biswapriyo Nath <nathbappai@gmail.com>
+Subject: [PATCH v2 0/7] Add vibrator, IR transmitter and USB-C handling in
+ xiaomi-ginkgo
+Date: Sun, 29 Mar 2026 04:47:55 +0000
+Message-Id: <20260329-ginkgo-add-usb-ir-vib-v2-0-870e0745e55e@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJ13v3S7ucjd-ifmKFBDGtsg32MbOar2OBeiGMVEJBsH8+JP7Q@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNTQ6CMBBGr2Jm7RiopVFX3sOw6M9QRoWaFhoN4
+ e4CHsDlS973vgkSRaYEl90EkTInDv0CYr8D2+reE7JbGEQhVHEUFXruHz6gdg7HZJAjZjYodVU
+ ad24aJQ0s21ekht9b91b/OI3mTnZYY6vRchpC/GzHuVy9fx+5xAKlVFbRSVXaqavvND8PNnRQz
+ /P8Bb9+ZlvMAAAA
+X-Change-ID: 20260325-ginkgo-add-usb-ir-vib-4a51bd9ff64b
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Sean Young <sean@mess.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Martin Botka <martin.botka@somainline.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, 
+ linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ phone-devel@vger.kernel.org, stable@vger.kernel.org, 
+ Biswapriyo Nath <nathbappai@gmail.com>, kernel test robot <lkp@intel.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774759680; l=1503;
+ i=nathbappai@gmail.com; s=20260118; h=from:subject:message-id;
+ bh=f6G2WzAX3URkZuJNybDd0oFR9WsBJIh/VoQ78JaFB9M=;
+ b=d9YzlJl/hSsImV6OyJqHuobkqxYz7w7c6plyfLZZLB1c9PyIG1VTX20nB2+mxVAKD7WGucFCZ
+ CzIXOF3cnG/AN8wGovKMCREi8EE5Dx03Q93AWYMnUfz0FSU0FfnIkS3
+X-Developer-Key: i=nathbappai@gmail.com; a=ed25519;
+ pk=slmb/9yXbet+KTiT3EYLCp0p0MEOYa3EdjUXP+HXfjg=
 
-On Sat, Mar 28, 2026 at 07:14:04PM -0500, Anirudh Srinivasan wrote:
-> Hi Andrew
-> 
-> On Sat, Mar 28, 2026 at 7:05 PM Andrew Lunn <andrew@lunn.ch> wrote:
-> >
-> > On Sat, Mar 28, 2026 at 06:39:59PM -0500, Anirudh Srinivasan wrote:
-> > > Adds the DT nodes needed for ethernet support for Asus Kommando, with
-> > > phy mode set to rgmii-id.
-> > >
-> > > When this DT was originally added, the phy mode was set to rgmii (which
-> > > was incorrect). It was suggested to remove networking support from the
-> > > DT till the Aspeed networking driver was patched so that the correct phy
-> > > mode could be used.
-> > >
-> > > The discussion in [1] mentions that u-boot was inserting clk delays that
-> > > weren't needed, which resulted in needing to set the phy mode in linux
-> > > to rgmii incorrectly. The solution suggested there was to patch u-boot to
-> > > no longer insert these clk delays and use rgmii-id as the phy mode for
-> > > any future DTs added to linux.
-> > >
-> > > This DT was tested with a u-boot DT modified to insert clk delays of 0
-> > > (instead of patching u-boot itself). [2] adds a u-boot DT for this
-> > > device (without networking) and describes how to patch it to add
-> > > networking support. If this patched DT is used, then networking works
-> > > with rgmii-id phy mode in both u-boot and linux.
-> >
-> > I've been looking at
-> >
-> > https://elixir.bootlin.com/u-boot/v2026.04-rc5/source/drivers/clk/aspeed/clk_ast2600.c
-> >
-> > And i don't see where mac2-clk-delay is implemented. Could you point
-> > out the code?
-> 
-> I'm testing against the u-boot version that openbmc uses for its
-> builds. I don't think upstream u-boot is used by openbmc.
-> 
-> https://github.com/openbmc/u-boot/blob/v2019.04-aspeed-openbmc/drivers/clk/aspeed/clk_ast2600.c#L999
+This patch series add support for various components in Xiaomi Redmi
+Note 8.
 
-Please include in the commit message that you need to use a fork of
-u-boot.
+Most notably:
+- IR transmitter
+- USB-C OTG
+- Vibrator
 
-	Andrew
+Also, fix some bindings warning as reported due to previous commits.
+These are tested with linux-next tag next-20260320.
+
+Signed-off-by: Biswapriyo Nath <nathbappai@gmail.com>
+---
+Changes in v2:
+- Move bindings fixes to first in the series and add fixes tag.
+- Link to v1: https://patch.msgid.link/20260325-ginkgo-add-usb-ir-vib-v1-0-446c6e865ad6@gmail.com
+
+---
+Biswapriyo Nath (7):
+      arm64: dts: qcom: sm6125: Use 64 bit addressing
+      dt-bindings: clock: qcom, dispcc-sm6125: Add #reset-cells property
+      arm64: dts: qcom: sm6125-xiaomi-ginkgo: Enable vibrator
+      arm64: dts: qcom: sm6125: Enable USB-C port handling
+      arm64: dts: qcom: sm6125-xiaomi-ginkgo: Add PMI632 Type-C property
+      dt-bindings: leds: irled: ir-spi-led: Add new duty-cycle value
+      arm64: dts: qcom: sm6125-xiaomi-ginkgo: Add IR transmitter
+
+ .../bindings/clock/qcom,dispcc-sm6125.yaml         |   3 +
+ .../devicetree/bindings/leds/irled/ir-spi-led.yaml |   2 +-
+ .../boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi |  56 +++++++
+ arch/arm64/boot/dts/qcom/sm6125.dtsi               | 168 +++++++++++----------
+ 4 files changed, 152 insertions(+), 77 deletions(-)
+---
+base-commit: 785f0eb2f85decbe7c1ef9ae922931f0194ffc2e
+change-id: 20260325-ginkgo-add-usb-ir-vib-4a51bd9ff64b
+
+Best regards,
+--  
+Biswapriyo Nath <nathbappai@gmail.com>
+
