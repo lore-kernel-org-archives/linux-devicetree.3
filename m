@@ -1,159 +1,117 @@
-Received: from flow-a2-smtp.messagingengine.com (flow-a2-smtp.messagingengine.com [103.168.172.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8322494F0;
-	Sun, 29 Mar 2026 06:10:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205AF2BDC05
+	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 06:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774764661; cv=none; b=M5L4d1GNYI3/mfzf/vludHx+Gl8pox49Q/p602StWbxTeJHVTw9gwSmnymVyAbZAQO9t+MmyNorGd0mn9DD4Dk4zmtI+6QFeGh2CIX7IVzRHdwUGQbyoHigkveBtfgnmlf7A4aGbGd+UbCmnLIxu45SHu3gaR7i7yAA/a6IUPos=
+	t=1774764939; cv=none; b=IpS1e24ifSqetO2VRKYICtoi7mw0N+g7aNtUDm8VIJ/axZAf4dsPSOv37cvZKPI0ykw8bWlzNOi8difvdgSKSomsU5AqVnBNMLXikd1h5vnWHlLwwBxwtJU0mAQgMZ2daMECdv7qKdBVFHuA1yF14WWQW/+lcfXLdyhkWrtLS+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774764661; c=relaxed/simple;
-	bh=MfmOLigdWE8bsU7XHgwedxVC8vvi1919XD9DgZjdwi4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bTHCjNoajfLhIJGn+hq+xcywTFUu67J6TsF5VfXpgGysPqnNCEXGEeLJQdOrFOJjDc7c5MO57wDd44tf8RQ7i5SmGtVCO4CsdQMa/qyPo8c92pLqRTviZBdB5YV7l0vhUYP6AE8Mw7t68FRPUEnbdE+yp5RQouWAoAwD+bQ0y4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=LBkcIay9; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LLJMRPZ+; arc=none smtp.client-ip=103.168.172.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1774764939; c=relaxed/simple;
+	bh=tLCX5T/5BD+D5hhrc5IQpY464+LnQSj92xbe4tJBm+Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AjaHeZ7yENIUTbXg5wNzESZwbzmlsOJIq2EGLeVJlRWIj+7QWIUyyDkAfdQ4H7L2CwlxnWlDaw/15BVoW7gg5XgTBC5vfWJnh4pJ389ZsDDOLx1qUFXNmMOuFqHuewVS9FBkeMHCdDbgKDdO1lz5vjURBruuhNgF+/wsZdI8Eo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a24G1ZOX; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="LBkcIay9";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LLJMRPZ+"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailflow.phl.internal (Postfix) with ESMTP id 7CB0013803E4;
-	Sun, 29 Mar 2026 02:10:58 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Sun, 29 Mar 2026 02:10:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1774764658; x=1774771858; bh=Me/2NNLQWh
-	li5jt5GB39ENZZ9ju/MKEHh68QaDIIrS0=; b=LBkcIay900en4TEqk60VRxH4gY
-	rYv5r0SS8ewN7IvSN8OSajdMlpXaIjvKrdhRLaCECGUn5abbidHNaTx2lP4SfJk6
-	js0XaYC7tTVAvmfBvXOxq32qjQmdA+mKayyis1J8bkSo9QysCRRp/OeatL5tH+pe
-	rgSHbALLc3187vQkdVGd6ZS2h9oqSr2tmBU7bDfecpOdmuNFpViqHvtMZxXgEuQw
-	st5kaBsF4FdIUIpKAIS7hHp/luQyaZtQplY9X10tKYqbvVySg66LnvqfyAfNkpVV
-	aUEdjyf2woXlZF6ZiV8W8ilKktKyIj3VgzNOZzUZLa8LKhWj1cHwONXzzSZQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1774764658; x=1774771858; bh=Me/2NNLQWhli5jt5GB39ENZZ9ju/MKEHh68
-	QaDIIrS0=; b=LLJMRPZ+yz+yNImgvl6SMQYDwauyGtQNR5Ym38EZGOowfCbUoZm
-	6zvOJX627XnoqxEqRSjVnWr/ucTWm/E2nX7q+Dkf34FX2X1RTP9ZyeTeT+xqlIID
-	dx1ZoHxAdPIvXUQtHVS5hvi4R6Jrv6eHfzqcS1cR4XOEbKTWwh9QsdkF2Zh5DYFF
-	RWXkJG15ZF9Mi7MlTMiQ96laoJiWFuBsWas18+0dNMp5J0enMRySMftULzbzsN1d
-	DzulrViTjLOXnrwjj45WCuv1OnYNLDPXCetflmq56MzCyn6dhhl+NsBxIfuycV/N
-	ogChP+yQcTH3fVPu782Tr1nfeHsYMnUQMkA==
-X-ME-Sender: <xms:ccLIae9ZIl-PvaFBq0ftyPIPtbJ0cJ7m88zg6b5itoOQtgm3qEwZhA>
-    <xme:ccLIafgo3XsYuGWUPEovPJ26cSRyWG33R7Ee9yxBQsZ28pOK5tMNor1gpcO_wp31i
-    iIpGUmcKeg4aWjqU4Jtk6O-m9PvOSBc0XGFy3Lqu1G-bHV5>
-X-ME-Received: <xmr:ccLIaSmC4epcOvkxbkau1qRne3h-nypTIHtN6hg5m2ssPpComy99fYT9xaTtyPjECN19XO21XM8h-St0o-jFjzM4B7DrZGL31vSLVN0F3hk>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdeffeehfedtucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepifhrvghgucfm
-    jfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhepueegledvgf
-    euffetffehfffgkeegtddtudejudeiiedvuedtteelleejvddtgfefnecuffhomhgrihhn
-    pehmshhgihgurdhlihhnkhdpkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivg
-    eptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorghhrdgtohhmpdhn
-    sggprhgtphhtthhopeegkedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepnhgrth
-    hhsggrphhprghisehgmhgrihhlrdgtohhmpdhrtghpthhtoheprghnuggvrhhsshhonhes
-    khgvrhhnvghlrdhorhhgpdhrtghpthhtohepkhhonhhrrgguhigstghioheskhgvrhhnvg
-    hlrdhorhhgpdhrtghpthhtoheprhhosghhsehkvghrnhgvlhdrohhrghdprhgtphhtthho
-    pehkrhiikhdoughtsehkvghrnhgvlhdrohhrghdprhgtphhtthhopegtohhnohhrodguth
-    eskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhgvvgeskhgvrhhnvghlrdhorhhgpdhr
-    tghpthhtohepphgrvhgvlheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepshgvrghnse
-    hmvghsshdrohhrgh
-X-ME-Proxy: <xmx:ccLIacRtSpq2hxfQN7N1HKjjGZs7UCoAiw_SCXb6QJGaH8iWm2CUIA>
-    <xmx:ccLIaeW1M8ZW696sfK9rjzo_t_HBeXq9CGb65POQUfQmkO-wuL_t2Q>
-    <xmx:ccLIaVshc5UWMaSgc98765Q-8rKO4s4jb5o7LAhgEF85m9Tki_jBmQ>
-    <xmx:ccLIacslVZOv_OBX_RcxzbRY4KmR_etruzRz6-HXCGpY6ZaBSv-5KA>
-    <xmx:csLIaRaBug03GqzpcrWhiNOAe6GeymvzonHKblRxaUznLYFQJQ70648i>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 29 Mar 2026 02:10:56 -0400 (EDT)
-Date: Sun, 29 Mar 2026 08:10:54 +0200
-From: Greg KH <greg@kroah.com>
-To: Biswapriyo Nath <nathbappai@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>, Sean Young <sean@mess.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Martin Botka <martin.botka@somainline.org>,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
-	linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org, stable@vger.kernel.org,
-	kernel test robot <lkp@intel.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/7] Add vibrator, IR transmitter and USB-C handling
- in xiaomi-ginkgo
-Message-ID: <2026032949-vice-ashen-e0c5@gregkh>
-References: <20260329-ginkgo-add-usb-ir-vib-v2-0-870e0745e55e@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a24G1ZOX"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8299f1ca894so1653978b3a.2
+        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 23:15:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774764937; x=1775369737; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=rpxvjrCfKfWKOT/ha83hU/ESLCv8PWJ47jL6ccG2o9A=;
+        b=a24G1ZOXgYDETqrQfPOkz/XkTO9l7DT22yrEtVj6ar8rE9XHLMY5ZuXDiUaAhSeRKW
+         g3T9A7a2SOKQDQHsZ9rUL4b78zgqWqNjf5QNUoXfGP0dCj6k8EilnOMMawh+lPQmMxW5
+         GINVVHixO0PSTZBmYQ2h9AN+N8whiyN9kvPG0dNWuD9X+Z+JNVLQz1Vhq+17QjHAZOjL
+         zM7X96i3WUsNmv4S57a3xCTVfHENFsXjOZwFmNKsl+mbkeUE8BJG66B6tcnqQLmHYcQr
+         IveRTsnZjo/DOB29nhVipmurGS7jJWRCnYWZvT+3ZtMDxD7Mq6zNR3UhQ+a4b4zK8WjN
+         yZYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774764937; x=1775369737;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rpxvjrCfKfWKOT/ha83hU/ESLCv8PWJ47jL6ccG2o9A=;
+        b=AeLHcg1t9xWNehZwT8MCBCc1L4eMdJ7E8nCA+UMotrRnFLagDFetUsY6jEBsb4jBM7
+         HAB9s6Aw9b4zqKUhV4Q1bxNK08U5tBuFChsZHE40S/EViKsDVaJnM7nJJJ98dw1hesnS
+         enEYMKCeaYdkevZmPCY8MIkjFAJEgVjVPlzGTJNDICJ9imqWNSJscMhUjZVL1YBqiKOa
+         FTMcccQhnXcZ1pn2OiJ9VJkb0ZYh7aibyKgEGw56aswFcS9ZaJ28pvTeAaHpnF9+v+be
+         4W1etPX/Vno5JL3ly7ondO1omsBNtRIf3wiThuAiIWZSB93Wv+kS7R5qk0No6yl6C8Bn
+         ReuA==
+X-Forwarded-Encrypted: i=1; AJvYcCW2kVkeKhBezjeKRWdGt7UV8tfqFWIfp4IZpMjSpocRMc2JI11Vb/h6X91FFLgeKsJrxRryFMPo/+zF@vger.kernel.org
+X-Gm-Message-State: AOJu0YwoK899I4ithtK2Z/Ug1LTvINzQyBEJtmlIJ7bxCIYsrsBALk/B
+	rMbPp+sXjkwmVCMBOl+uiRtYGsnbcKsaJmP2zbs+CUMGYoG0rCyqUfGN
+X-Gm-Gg: ATEYQzwn5IrQYJcbfQIo1uW2bthQuFrJKhILoGP4GhGqyBxbQzwYfmHoXwOQg9I2Pde
+	oJs0CnxzI16OX/5qwidgSp56B5JPlJZ2ofXGQ/J9wARWLPdQ7FN1uXjPHLvOmJ56KDrhYl6lvqL
+	nttqgX4agxuChgunOzLXvFnBuXnVLUMvnPrDXsbr++ZrmqoEx7rVAV/6ICcKgbNKOKRkGevBZ2O
+	uyhYZ9wT9Y9nfRX/cfLWL1dmAZTEeXT2odKh/sLpCy73MwIprfU1cVhG+wQnjgjaj4Qljd3hSKn
+	thhN6tnEhzqjQUnE5BwQFGb33cXCkGu5b0EmgD1cPmKZylB40uGZWYXSJwxX1H+bmpAPXrORVGC
+	6+R3IvMZaaY5Xc/QhNQMx+ySs3R/v0BzLNLAa71x03FJ6si1kiElgXhqJlZ1NBuSwUQFZOVNfeE
+	a/d+M43bW3IDNZ3wd/YCwMM2PBJNbax/2bm3irRmiUT5WXt9txEYTEfWTtlrFelixF1w+cFGDfk
+	lpORngO4BNohw==
+X-Received: by 2002:a05:6a00:3e16:b0:823:b1f:892e with SMTP id d2e1a72fcca58-82c9607f5b1mr7817427b3a.43.1774764937194;
+        Sat, 28 Mar 2026 23:15:37 -0700 (PDT)
+Received: from toolbx.gk.pfsense.com ([103.70.166.143])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82ca8436f19sm3709731b3a.9.2026.03.28.23.15.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 28 Mar 2026 23:15:36 -0700 (PDT)
+From: Gopi Krishna Menon <krishnagopi487@gmail.com>
+To: rafael@kernel.org,
+	daniel.lezcano@kernel.org,
+	rui.zhang@intel.com,
+	lukasz.luba@arm.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	vireshk@kernel.org,
+	conor+dt@kernel.org
+Cc: Gopi Krishna Menon <krishnagopi487@gmail.com>,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	soc@lists.linux.dev,
+	daniel.baluta@nxp.com,
+	simona.toaca@nxp.com,
+	d-gole@ti.com,
+	m-chawdhry@ti.com
+Subject: [PATCH v2 0/2] dt-bindings: thermal: st,thermal-spear1340: convert to dtschema
+Date: Sun, 29 Mar 2026 11:45:18 +0530
+Message-ID: <20260329061523.98346-1-krishnagopi487@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260329-ginkgo-add-usb-ir-vib-v2-0-870e0745e55e@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Mar 29, 2026 at 04:47:55AM +0000, Biswapriyo Nath wrote:
-> This patch series add support for various components in Xiaomi Redmi
-> Note 8.
-> 
-> Most notably:
-> - IR transmitter
-> - USB-C OTG
-> - Vibrator
-> 
-> Also, fix some bindings warning as reported due to previous commits.
-> These are tested with linux-next tag next-20260320.
-> 
-> Signed-off-by: Biswapriyo Nath <nathbappai@gmail.com>
-> ---
-> Changes in v2:
-> - Move bindings fixes to first in the series and add fixes tag.
-> - Link to v1: https://patch.msgid.link/20260325-ginkgo-add-usb-ir-vib-v1-0-446c6e865ad6@gmail.com
-> 
-> ---
-> Biswapriyo Nath (7):
->       arm64: dts: qcom: sm6125: Use 64 bit addressing
->       dt-bindings: clock: qcom, dispcc-sm6125: Add #reset-cells property
->       arm64: dts: qcom: sm6125-xiaomi-ginkgo: Enable vibrator
->       arm64: dts: qcom: sm6125: Enable USB-C port handling
->       arm64: dts: qcom: sm6125-xiaomi-ginkgo: Add PMI632 Type-C property
->       dt-bindings: leds: irled: ir-spi-led: Add new duty-cycle value
->       arm64: dts: qcom: sm6125-xiaomi-ginkgo: Add IR transmitter
-> 
->  .../bindings/clock/qcom,dispcc-sm6125.yaml         |   3 +
->  .../devicetree/bindings/leds/irled/ir-spi-led.yaml |   2 +-
->  .../boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi |  56 +++++++
->  arch/arm64/boot/dts/qcom/sm6125.dtsi               | 168 +++++++++++----------
->  4 files changed, 152 insertions(+), 77 deletions(-)
-> ---
-> base-commit: 785f0eb2f85decbe7c1ef9ae922931f0194ffc2e
-> change-id: 20260325-ginkgo-add-usb-ir-vib-4a51bd9ff64b
-> 
-> Best regards,
-> --  
-> Biswapriyo Nath <nathbappai@gmail.com>
-> 
-> 
+This patch series converts SPEAr Thermal Sensor bindings to DT schema
+and corrects the thermal_flags property in spear13xx.dtsi to
+st,thermal-flags.
 
-<formletter>
+Changes since v1:
+- Changed unevaluatedProperties to additionalProperties in the binding
+- Reword the commit message and subject in the second patch
 
-This is not the correct way to submit patches for inclusion in the
-stable kernel tree.  Please read:
-    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
-for how to do this properly.
+Note:
+* This patch is part of the GSoC2026 application process for device tree bindings conversions
+* https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
 
-</formletter>
+
+Gopi Krishna Menon (2):
+  dt-bindings: thermal: st,thermal-spear1340: convert to dtschema
+  ARM: dts: st: spear: rename thermal_flags to st,thermal-flags
+
+ .../bindings/thermal/spear-thermal.txt        | 14 --------
+ .../thermal/st,thermal-spear1340.yaml         | 36 +++++++++++++++++++
+ arch/arm/boot/dts/st/spear13xx.dtsi           |  2 +-
+ 3 files changed, 37 insertions(+), 15 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/thermal/spear-thermal.txt
+ create mode 100644 Documentation/devicetree/bindings/thermal/st,thermal-spear1340.yaml
+
+-- 
+2.52.0
+
