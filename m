@@ -1,67 +1,67 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8FC8218821
-	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 04:48:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4571C3F31
+	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 04:48:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774759705; cv=none; b=k+fUvmc3z/ZCeN3Xi89OjJU8fN7l4v+yhlUwRlzsFAeSAHaEKVdzu3QngafSW7uVV8e91B6UtHoxALasqgNMUUqZRZVL6y8J4FDiWAzqbfWlzKXpMPjbq9vRWw1vAGHn/bVw17ACK+AcUTbbe3q6+yZyyfGard+Q9ZmMEkibQsQ=
+	t=1774759711; cv=none; b=pxFs7ZEERNb/X2PzYvobUgGENsfsxzOlhM9aDqNkwpLsD4fO2Uy0ffJLlZRzQgXRNkm3H/tOp7CmAEbyXOkpQ05F3mFCHDj8iXKszj9ujlWNWTFRTtPn+njmAc5fbD7dtb7h6rgKwmBP3WzNM8Ko2s+MKTGyNoQx8VRN0uUg08A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774759705; c=relaxed/simple;
-	bh=YGygMWdzOkWxAHIhk9m2re0gLrFP4aYPlOEPoq7qYjU=;
+	s=arc-20240116; t=1774759711; c=relaxed/simple;
+	bh=mrDnR0G7mbNJho3HlF5gQvzhoEN14/C2UquKRdZ6H1k=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RdeSx/YMIlBtLiAugGGIL3qPo84ZiEXtI78+Dc93jLNnganxixQBdaqbw8M5LFpyuL4xZXCUZsDYbT169/hloiN5Vu5Gnm7M7ajiK2Fpu/gMDyW0M65mEs4pamYYlNjoRJUKyIbgOBFGUbHlowqBq2/jRqsvBtvW9MuoS9JihxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sq7ix4KJ; arc=none smtp.client-ip=209.85.210.177
+	 In-Reply-To:To:Cc; b=JhgvBa6hSoBq+sCbAe4S/vsjf+d/sGMK2TdztXn2OfOBQttytZanUqMBPAq8Z9T1UlDnQTmvcLALxSU2+mKuub45AYKHjlobIgxTR6UmrtPdksr7bzljlIXU4Nn4eV7Bwzct5iOpYJlOpYHZD8xso+EqlZo5xPxgFP6fm2gIK6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SiSFP0Nh; arc=none smtp.client-ip=209.85.215.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sq7ix4KJ"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-82c2239140aso1365837b3a.0
-        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 21:48:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SiSFP0Nh"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c7358a7a8d1so2398015a12.3
+        for <devicetree@vger.kernel.org>; Sat, 28 Mar 2026 21:48:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774759702; x=1775364502; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1774759709; x=1775364509; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=KaL/5KIy32ApDCW/kitiQ1QT0fVd/CD5eAek3qOzYKk=;
-        b=sq7ix4KJart/CWYnJhyDwYoVpDzWUjMRMO/U/nxVlFxHmlPLSI53aEhBveCE1QIEv6
-         9k4lPmuXLwHiwleXnp6loWNQT/fpWkQSfTyJM3QJVjsEJswuaWjljhfx3HxqGfR7WGLM
-         ViXuTEW2fXWL1C/RBV0MW1xQLFC/L+Y5pbY6JSqwZPap+nBMOYsTgafWARCWsL/cXUYS
-         sMbt0KLVdl3VfXCvSGthr2BLGDxX3ytVdm+gHws50PtSjw3Hq2zWfOiSIqt89kE7uD69
-         iq69nE4uvOFQTgTKPOXBu4eN5o5G6thsoqH4bWctHYStvof7q6xGPsuVWmSFR8HnKuVz
-         XJyg==
+        bh=X72F+IYkq8vmJ6nRPI8ppD04puTmgdxZkpkri1mXXzg=;
+        b=SiSFP0NhBAJmtHnRK2BBtz3Go07NRQ13nWKVqMWzf16AJC/Z0DSvJAbFA0DXqed1LQ
+         o0OjDbJFjinHM6gFTxGD5d7FxHXM2q3dsk0Ze21Ba2RoNG1xuyHfyS27f71iBfgAeFDa
+         +gNwIbtZ1ONfXllgQRStXkxJvDU86ABwXNK+iENAUl7ybpVAW45yiscaJaJwu3VIK0zp
+         cPaZJOYKXzm+omic4bL3rxD/7TxFrNHqtll9zsubjqn70t6BcQYMPJ0gPo0MP0KFafSM
+         3C+q4GtoTYJOBAqLA481D3PoaBsOOI1JWarW10RSdvjgzLtdhCicR19mxKW1JpzZKfHW
+         v9HQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774759702; x=1775364502;
+        d=1e100.net; s=20251104; t=1774759709; x=1775364509;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=KaL/5KIy32ApDCW/kitiQ1QT0fVd/CD5eAek3qOzYKk=;
-        b=S5SZ83AXEB5v2uMHSBCssncb5Ee8a8h/0et1zXq4VXgtWp3elOUO3rPoRkIFieouH6
-         K74GpPtWj9E94JanblgOvhh+4Waie2bloQUXcVMWDBD7TlnZuyNA9zTjEgQebLF15FWi
-         BCoV3+5+qtHNPJF5BMt4cEFHvJnoMRcYjMLo2j/rBaBoYlezRRfi8en3s84zab4JFs5I
-         VuJHIIgFspYFlYgbSV8nB+YhB00c48kbwuqPNgnvZSUvDOxL5pRp1UP+A3cKydont14g
-         DaH+NsVFTHr6e5sTXgygI2z2AybkduF687EOcXKHboBskuYCIcSCasdlvAXyy7jQRPEb
-         KCLQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX7noJO2RqK0f2qiUva8hy9jljEoo6usyneiERLk8C0eelcuqCVrHk5W2U2wpGJglVVZVcG+0mcydR/@vger.kernel.org
-X-Gm-Message-State: AOJu0YweGoWDzDmA91GaW2K/xyXTTAB5h/bj6iP+GBRoEp/C9+qlLvUv
-	iN8/i2CKXnnaY05S+PQFaJg61hb5QYm3BG25xsxEjiOwiSEpyHQYSm2+
-X-Gm-Gg: ATEYQzwn4flqdSjwQtb1Ey2XhMztYYQTD0evpN7+5eJsCDS5sApvDwLKxQhMp/Vw5fB
-	Dn78hLiJaybtlatwbepwaNQXbYOhYRd6el71172Nganr7b/lEaxZKVRYO+0bLLrOsa2GlWMSX8r
-	oG+b3R4HHnFft1eiQqtPEnIYSna0M+pOpqGp6i6+aKt5sKZ/k3a1a2jlCw1fzIem8oNQRjfvFTp
-	gT1QULLI9UIE3oenqL7/ChdvyFZSquCIDPQvdJVTKu/YhNvTtFgdQDVnGICQiDAEIc5954kx1Pa
-	LESQEsxVtMUR9aGGc6hI37BijhwtI7SyhfQ+UERT29tVsT5e0qEm1LwIzc5H50czvghsZOutrKj
-	VE5P6SM9gcCQgSDhD6fwpP0cWqDxc17dv9izw+YGJKOWO6Yuq/H+Ul6yBMQIeQkCLDinxfqBzag
-	cbqDC+jG2/ngs0eUzAT4mdyhAkIB6WDHO2mV2KJ00=
-X-Received: by 2002:a05:6a20:2586:b0:398:9c2b:c92c with SMTP id adf61e73a8af0-39c87958b2cmr8139178637.27.1774759702273;
-        Sat, 28 Mar 2026 21:48:22 -0700 (PDT)
+        bh=X72F+IYkq8vmJ6nRPI8ppD04puTmgdxZkpkri1mXXzg=;
+        b=a+zEsHLoQmke3+CN8vpOi2vDkVVxulfp2bHbOMAW8M656K3YIrg1ljHbxAXC7RxjX7
+         eKlG1u+C6lPuFxmTT79Zps6zcwuxdF/jq/ggv9t1vxDZKFMiS9cbiyLKAbec6jjpjs5Q
+         1fwq4DuXv20RDcVmC1okN6v/yU0ivy/L7UZT/WZVJWDh5WR4sMVjo56mt2Uqfiik24d9
+         f5mB0Bk8X9k+GDOtWq4w0vor/B/rp4Jw+8k18+ug7GwTGrsdbTDffIzd3ZTIiThRusMm
+         /IguWX4ZXUQ2hgmKd73MW7Xop6/PDtKI7fN/bImZBwqzjthOzUqIXlqUaLbEIA6Rldi2
+         xRBQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWrnFjHxJI3WwsCZVwWXlS7nvHXCHxvM5/x6A1cvMKJ/Ga1sPHtHIlgxJ5CMyXBViYX7Hg65w7cyZBA@vger.kernel.org
+X-Gm-Message-State: AOJu0YzE0yMxzpEdqVmSu0v8IRsvO3VmPuJoWM2mqnSyLPAk57isaoWM
+	4+9yJIydhy2Bp9nyrsZBLjgqgFtaaAegHOxKgoxrflZu067T0TN2ZAL8
+X-Gm-Gg: ATEYQzzxu7gYHMEfLcdjKe4E7LY4HUxAjNol9nKOLKKXAPcMI2QZI9XK8SvEOeryfvk
+	dKVm+IkqZO3eMJlkIuJcRXHKU1vw79JKdVEXhmvDxta2L0IPhPyKiNuU1aZuZCxe0SZXAc0x/8V
+	YvgZqkgCtL5pRYiTrPL9/JH5ZbWqU3SgLrt7NFUOVTJ13J59Lv5MIQ9iMV/gFwW4V7UWkGR/b3G
+	b3r95Dhdyehk0+oIQkuHn9/uurQTRwGtJpZdgHF/+D0gMg+vMOVn+r3l0tFkT2/NwpZNEwo1OEV
+	DSLE75ko2L1nz3Cr7g1e4fFibOVQRHXQvGCJO2miYmMdh3XCl/uXpD+SSJtykbAvdjoYuljQvB6
+	NiOkCW+1BzYhn/muPzUAId75Ynux63JT3/2fCvCOCPhEBT/syyIaulo0vWkfzcB+H+bMEM3JZB0
+	4//BGPhyE4PfOcsOjX+5bP9AioJJuH
+X-Received: by 2002:a05:6a20:9188:b0:394:6344:e5c4 with SMTP id adf61e73a8af0-39c877ea332mr8300548637.3.1774759709300;
+        Sat, 28 Mar 2026 21:48:29 -0700 (PDT)
 Received: from [192.168.0.101] ([43.226.29.240])
-        by smtp.googlemail.com with ESMTPSA id 41be03b00d2f7-c769179e31asm2899739a12.17.2026.03.28.21.48.15
+        by smtp.googlemail.com with ESMTPSA id 41be03b00d2f7-c769179e31asm2899739a12.17.2026.03.28.21.48.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Mar 2026 21:48:22 -0700 (PDT)
+        Sat, 28 Mar 2026 21:48:29 -0700 (PDT)
 From: Biswapriyo Nath <nathbappai@gmail.com>
-Date: Sun, 29 Mar 2026 04:47:57 +0000
-Subject: [PATCH v2 2/7] dt-bindings: clock: qcom, dispcc-sm6125: Add
- #reset-cells property
+Date: Sun, 29 Mar 2026 04:47:58 +0000
+Subject: [PATCH v2 3/7] arm64: dts: qcom: sm6125-xiaomi-ginkgo: Enable
+ vibrator
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260329-ginkgo-add-usb-ir-vib-v2-2-870e0745e55e@gmail.com>
+Message-Id: <20260329-ginkgo-add-usb-ir-vib-v2-3-870e0745e55e@gmail.com>
 References: <20260329-ginkgo-add-usb-ir-vib-v2-0-870e0745e55e@gmail.com>
 In-Reply-To: <20260329-ginkgo-add-usb-ir-vib-v2-0-870e0745e55e@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -84,41 +84,50 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, 
  linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
  phone-devel@vger.kernel.org, stable@vger.kernel.org, 
- Biswapriyo Nath <nathbappai@gmail.com>, kernel test robot <lkp@intel.com>
+ Biswapriyo Nath <nathbappai@gmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774759680; l=994;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774759680; l=1039;
  i=nathbappai@gmail.com; s=20260118; h=from:subject:message-id;
- bh=YGygMWdzOkWxAHIhk9m2re0gLrFP4aYPlOEPoq7qYjU=;
- b=Gerql4KQotDpznTNfzs2aU5gnMJpoN1rt7sSLUq+cuKe30nRjNFQr75AqDCx2jLHmcs9nNTXy
- 2ISOqyWJi3sAHnAPmupVbSjeKV6GV/pqFOoo2Bxq8JaMIWcuY4TAgEk
+ bh=mrDnR0G7mbNJho3HlF5gQvzhoEN14/C2UquKRdZ6H1k=;
+ b=ph9fTagfBVXtK331HF7XaRKTIzItjVo85alsUFGqPrhIYNQAXctTJbC9AbxZpAXzv901QbdE4
+ v03zR55ULznCzUwTjppN1GV1PAgNPMg6p+EkNIgfHXbZXAuTkgnD9xj
 X-Developer-Key: i=nathbappai@gmail.com; a=ed25519;
  pk=slmb/9yXbet+KTiT3EYLCp0p0MEOYa3EdjUXP+HXfjg=
 
-The '#reset-cells' property is permitted for the SM6125 SoC clock
-controllers, but not listed as a valid property.
+Enable the vibrator on the PMI632 which is used on this phone.
 
-Fixes: bb4d28e377cf ("arm64: dts: qcom: sm6125: Add missing MDSS core reset")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202603150629.GYoouFwZ-lkp@intel.com/
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Biswapriyo Nath <nathbappai@gmail.com>
 ---
- Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml b/Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml
-index ef2b1e204430..0d467c1f30ed 100644
---- a/Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml
-+++ b/Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml
-@@ -45,6 +45,9 @@ properties:
-   '#clock-cells':
-     const: 1
+diff --git a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
+index 7eecd9dc3028..88691f1fa3a1 100644
+--- a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
+@@ -12,6 +12,7 @@
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include "sm6125.dtsi"
+ #include "pm6125.dtsi"
++#include "pmi632.dtsi"
  
-+  '#reset-cells':
-+    const: 1
+ /delete-node/ &adsp_pil_mem;
+ /delete-node/ &cont_splash_mem;
+@@ -115,6 +116,10 @@ &hsusb_phy1 {
+ 	status = "okay";
+ };
+ 
++&pmi632_vib {
++	status = "okay";
++};
 +
-   '#power-domain-cells':
-     const: 1
- 
+ &pon_pwrkey {
+ 	status = "okay";
+ };
 
 -- 
 2.53.0
