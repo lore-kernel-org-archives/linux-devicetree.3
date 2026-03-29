@@ -1,217 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75537386C0F;
-	Sun, 29 Mar 2026 19:56:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB1235F197
+	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 20:38:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774814203; cv=none; b=uTRwtnyMeTAGwBZP/6uf2VmyBmeJP4hyglgS0dFM0XjwrSOa+bKAgiBIkz+hZfyjnqkOlc468/y+jzT8QKfY119R6pQN0G0TESUe89sFGrd/jdP2hb10MKvdcSMRui8tR0xf5m9z1Dl9OMOZm2c+fkwhwdeoqaxl6NBx3Z3NFE8=
+	t=1774816684; cv=none; b=QCJHmBdhVXCFGSw4P0Y1PiIFWJU9l9U4yOlTbOcjosGrLHfXzqHFPrflKD6iVdY6AmbPx7Qx0G2kv8SfXCMqd8hNerv9Qh9wI2dDK2cJPLRJ2rkljBAJSmEDc3B+cCU6KxILfqQpZ13JBBprqkiwhBolLJxYQ4zNqp5YtjQJl+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774814203; c=relaxed/simple;
-	bh=rzmuSdC783UdanWK5KRP7rxT8rboYecl70TfW8YAGFs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R5bS7t4Drm+/8qRLGqK7rODsJ1Iv/uDU2X7cyXBQ4fmwrw94YepppuI5m1ETsO0D3+oRQwAFzeiUI0H21SRKaMJuHq6Y3eWXDg5HyxNq2k/j9CqbByD780VR4mFDF6wIrR/fH7OkkZDmbPFrlvE2v3l9Ed6TbuD9swD1Tlj6r7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=erzw5uW1; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774816684; c=relaxed/simple;
+	bh=CpHGf1fptuxgjZbCL86R16p8US9srsbzMQGuHkCRttY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Xl1qYbkquWyCAGl/vsGzlO/8oPBXTIUxwOgaMzyJ5yWUcZBRdlu5nAZCJUrlGrC3zNexqX+JEV6nk+PovblAc8CjtWrmTXsgv0LOKK1MaUwsQbAk04m4SLlX/nqnlAFwFkcBA+/EZwV+KqnJmJtFUAmYrYCwCySmtRvFAK4MRQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oy2OYisF; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="erzw5uW1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57CDAC2BCB1;
-	Sun, 29 Mar 2026 19:56:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774814201;
-	bh=rzmuSdC783UdanWK5KRP7rxT8rboYecl70TfW8YAGFs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=erzw5uW1zwami3pWq3vSKGV4s2VbQ2uOun4lwWhU2tPuihfwEXm7I3+ZvAIkdP7s2
-	 MdM1wePQfVw5wfZHLu0uq5ZQcy1kP03FFg8BVkDl6wlBkdWj7gKsLB+UCG4+TKXaqc
-	 FhuMULU1bWjM6Inc/pGDDnrdfo1A6zBPfO5gbfnkzxURWGsBslmvCSFB+UG9vs4zkF
-	 II0ULuuMbK+jgM/iun8uX5c2OqNjR0V21ueUsXKJ7WzEZ6WaegNLsk7yO1r1o3eSCE
-	 8MCvmOA0hoIbVfjR4BJkrG7xrF3r1E0qzm5yjL+7kHyuNbd72JcmX9UQ2GNWQwqBf0
-	 ItPWiQV7NILaQ==
-From: Jakub Kicinski <kuba@kernel.org>
-To: jensemil.schulzostergaard@microchip.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	UNGLinuxDriver@microchip.com,
-	andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	woojung.huh@microchip.com,
-	linux@armlinux.org.uk,
-	Steen.Hegelund@microchip.com,
-	daniel.machon@microchip.com,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v2 9/9] net: dsa: lan9645x: add port statistics
-Date: Sun, 29 Mar 2026 12:56:39 -0700
-Message-ID: <20260329195639.2789284-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260324-dsa_lan9645x_switch_driver_base-v2-9-f7504e3b0681@microchip.com>
-References: <20260324-dsa_lan9645x_switch_driver_base-v2-9-f7504e3b0681@microchip.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oy2OYisF"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4853e1ce427so46762175e9.3
+        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 13:38:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774816681; x=1775421481; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=+abQnCQaf1lWa+0MOlZOTTSG2J4Odnxh1HBL2deYlZE=;
+        b=oy2OYisFgkc5YveaEfYb8RPBOECHicx95C3gGYR0rHu19n6FvyekTPYM3ULnBwVNK7
+         haaRqbww7KzvT0B5MbsLCf7MF0H8ec9g4ttqBZ11uLqcYBacMzgRK1Dog4py5rqFBTd2
+         6nR1uvb3nAtyWoYF8sjEkmDGw70RIw9qfyGWI6EyxRIvCp9WJenOUMF9PsKcWZyns29d
+         uQaiKdrFtgj2QcmK2lGngz9AkiBE71xFZji56l89DvUpM0uuKxJRrDpe51E5wXgFvcQb
+         iOY7IYio2C0BlK965BzHnZYMUelkvFIXrT6eNClH9Pl61oxrVvxQ3zMgDygxg6UvC8gP
+         hdwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774816681; x=1775421481;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+abQnCQaf1lWa+0MOlZOTTSG2J4Odnxh1HBL2deYlZE=;
+        b=SkQy3jLThW8MCQE+fB5m/BNZPF845pR/vtziik+lc12HPqMcvbL3B7s7LZY2k7UtpP
+         vEPsnCIQeR6tW5zL+h/RRzP1Xja7rn7UhLrl54zlffvqzIcfRqzMuPjXUlW8W81sdumT
+         d7RiqRcIUUvYsO9Qy7AVYStIoQq1lGXajXU4bCGrON3c40tFNpTvyshfvizRjodmAmWz
+         m9eGNzDDiB3nW1MUo8r0cj05c5eRnWFkDfO1dcqoHBuT94ohC+PvVWcUyxJI8SgB7Ow+
+         PHrVFgjP8wLwmRB1TWvc77ZoPxQsoQ7UeBxN1tS61BeUeZZs6NumcQ4arYPoTRDkbFCc
+         3Lcg==
+X-Forwarded-Encrypted: i=1; AJvYcCUAt5XoixbZaTJDVpW3NG+gQGMTHObFu6y4RWhy3TmBmD6keWWA2lC5WOWOxpk+EDp58YaO8em+74+o@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFdrFEgIF16cUp4CP9PTQUuagFgviUQz0uZtRV01zr+qKQIZtu
+	lMKEjtO/VYlea1cUtzOO8kREBOIH6/z4BZ8IK+CBw+ueSjpzDkCACP8r
+X-Gm-Gg: ATEYQzyMl491nDqp4Xa0N6OXSCNcBH4qAkxEC4xs1/a9xpXjRFBNmvKEIB9hWzeSmGk
+	IyQKC92b26LuB2YreEP4u2+ytJXnhuwbrTnKsvfoNhbeTpA9YJjZzLh3CvYUzAORk7YmyhCXC4Z
+	WsPgZ+tpt7UbTBsJUjJNUkoXitYiKOqoWoMljx/vo+CHb8jwOOOB0Rztuiq66pe3YGuTsB4mFi+
+	eSjklHWBwX1TCUFXA3AB00fQ1KXFepI9V7pXv2h4UzweSe0v9PCJbHXXedmzGdXdYlJO1wtGnWA
+	LwLDM8DPFHfq8qt8bcYkX/ijKD6klmRT6a0PApnXUdzKZGbpk+nGwlnPmIh6F00i28lVjTrnXdP
+	nGJy+cxeQ/c8oAVLF9VRkvk6tCLB3AoBtRWBhSFFrIk6H+orGZMDDTD7khg49FMMCjO/mYsJ+/z
+	QGlJfyQMnINO8oH/HJELm4fg==
+X-Received: by 2002:a05:600c:5304:b0:485:f1d1:8f3d with SMTP id 5b1f17b1804b1-48727d67a43mr171196555e9.6.1774816680834;
+        Sun, 29 Mar 2026 13:38:00 -0700 (PDT)
+Received: from [127.0.0.1] ([2a00:f502:160:9323:a26c:adcb:8da8:2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-487306996cbsm118974465e9.13.2026.03.29.13.37.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 29 Mar 2026 13:38:00 -0700 (PDT)
+From: Erikas Bitovtas <xerikasxx@gmail.com>
+Date: Mon, 30 Mar 2026 02:37:57 +0300
+Subject: [PATCH] arm64: dts: qcom: msm8939-asus-z00t: add regulators for
+ ambient light and proximity sensor
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260330-z00t-cm36686-regulators-v1-1-03e23b03bd70@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMAyA4VchPdukbDqnr2I84ChYo0DaYYyEd
+ 3fq8Tv8/wLGKmxwrBZQforJOBTUmwrStRl6RmmLwZEL5N0O30QZ08OHEAMq9/O9yaMaxq72sd3
+ u6UAJSj0pd/L6nU/nv22+3Djl7w7W9QNQfGD9ewAAAA==
+X-Change-ID: 20260325-z00t-cm36686-regulators-8f138d47090c
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ phone-devel@vger.kernel.org, Erikas Bitovtas <xerikasxx@gmail.com>
+X-Mailer: b4 0.15.1
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
+VCNL4000 includes support for regulators. Add regulators listed in the
+downstream device tree so they can be powered in during initialization.
+VLED supply is missing downstream, so it will be powered on by a dummy.
+
+Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
 ---
-net: dsa: lan9645x: add port statistics
-    
-Add statistics support for the port counters. Chip registers are 32 bit,
-so this unit is responsible maintaining a 64bit software cache, and
-updating it frequently to handle overflows in hardware.
+arm64: dts: qcom: msm8939-asus-z00t: add regulators for ambient light
+and proximity sensor.
 
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> index 24a60f40f6b8..9a46c08dad59 100644
-> --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-[ ... ]
-> @@ -262,6 +264,12 @@ static int lan9645x_setup(struct dsa_switch *ds)
->  	if (!lan9645x->owq)
->  		return -ENOMEM;
->  
-> +	err = lan9645x_stats_init(lan9645x);
-> +	if (err) {
-> +		dev_err(dev, "Failed to init stats.\n");
-> +		goto owq_destroy;
-> +	}
-> +
-[ ... ]
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
-> index 000000000000..3e82a859f173
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
-[ ... ]
-> +static const struct lan9645x_ethtool_stat lan9645x_port_ethtool_stats[] = {
-> +	{ "rx_uc",              SCNT_RX_UC },
-> +	{ "rx_cat_drop",        SCNT_RX_CAT_DROP },
-[ ... ]
-> +	{ "tx_uc",              SCNT_TX_UC },
-> +	{ "tx_drop",            SCNT_TX_DROP },
-[ ... ]
-> +};
+This patch series describes regulators needed for the ambient light and
+proximity sensor.
 
-Is it necessary to duplicate standard networking statistics in the driver
-private ethtool output?
+In the patch series which added the ambient light and proximity sensor
+for this device, regulators were missing, as they were not yet supported
+by the sensor's device tree binding. Missing regulators for the ambient
+light and proximity sensor resulted in it not powering on when a
+regulator supplied only the ambient light and proximity sensor. In Asus
+ZenFone 2 Laser case, the regulators were shared with the panel and
+magnetometer, so it was not affected by this bug. However, for the sake
+of completeness of the binding, we add the neccessary regulators anyway.
 
-The networking subsystem guidelines state that stats possessing a standard UAPI
-representation, such as tx_dropped and rx_packets in struct rtnl_link_stats64,
-should not be duplicated in the ethtool -S output.
+The mainline binding for the sensor also includes vled-supply, however,
+in downstream, it is missing, and we have no datasheet for the device,
+so for now, we'll have it being supplied by a dummy.
+---
+ arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Could these redundant strings be removed since the driver natively supports
-them via lan9645x_stats_get_stats64?
+diff --git a/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts b/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
+index 1a340fa92755..90e966242720 100644
+--- a/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
++++ b/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
+@@ -154,6 +154,9 @@ light-sensor@60 {
+ 		interrupts-extended = <&tlmm 113 IRQ_TYPE_EDGE_FALLING>;
+ 		proximity-near-level = <30>;
+ 
++		vdd-supply = <&pm8916_l8>;
++		vio-supply = <&pm8916_l6>;
++
+ 		pinctrl-0 = <&light_int_default>;
+ 		pinctrl-names = "default";
+ 	};
 
-[ ... ]
-> +static const struct lan9645x_view_stats lan9645x_view_stat_cfgs[] = {
-> +	[LAN9645X_STAT_PORTS] = {
-> +		.name = "ports",
-> +		.type = LAN9645X_STAT_PORTS,
-> +		.layout = lan9645x_port_stats_layout,
-> +		.num_cnts = ARRAY_SIZE(lan9645x_port_stats_layout),
-> +		.num_indexes = NUM_PHYS_PORTS,
-> +	},
-> +};
-[ ... ]
-> +static u64 *lan9645x_stats_view_idx_update(struct lan9645x *lan9645x,
-> +					   enum lan9645x_view_stat_type vtype,
-> +					   int idx)
-> +{
-> +	struct lan9645x_stats *s = lan9645x->stats;
-> +
-> +	mutex_lock(&s->hw_lock);
-> +	__lan9645x_stats_view_idx_update(lan9645x, vtype, idx);
-> +	mutex_unlock(&s->hw_lock);
-> +
-> +	return STAT_COUNTERS(lan9645x, vtype, idx);
-> +}
+---
+base-commit: 3b058d1aeeeff27a7289529c4944291613b364e9
+change-id: 20260325-z00t-cm36686-regulators-8f138d47090c
 
-Does this code overflow the allocated buffer when called for the CPU port?
+Best regards,
+--  
+Erikas Bitovtas <xerikasxx@gmail.com>
 
-The stats buffer cnts is allocated using num_indexes, which is NUM_PHYS_PORTS
-(9). This covers ports 0 to 8. However, the CPU port is defined as index 9
-(CPU_PORT = 9).
-
-When the DSA core invokes stat callbacks like get_ethtool_stats or get_stats64
-for the CPU port, the idx argument is 9. While the helper
-__lan9645x_stats_view_idx_update skips the hardware read for out-of-bounds
-indices, lan9645x_stats_view_idx_update ignores that failure and returns the
-result of STAT_COUNTERS(lan9645x, vtype, idx).
-
-This computes a pointer past the end of the cnts array, which the callers then
-blindly dereference, potentially leaking kernel memory or causing a crash. Can
-bounds checking be added to the callers, or should the buffer be sized to
-include the CPU port?
-
-[ ... ]
-> +void lan9645x_stats_get_ethtool_stats(struct lan9645x *lan9645x, int port,
-> +				      u64 *data)
-> +{
-> +	struct lan9645x_stats *stats = lan9645x->stats;
-> +	u64 *c;
-> +	int i;
-> +
-> +	c = lan9645x_stats_view_idx_update(lan9645x, LAN9645X_STAT_PORTS, port);
-> +
-> +	spin_lock(&stats->sw_lock);
-> +	for (i = 0; i < ARRAY_SIZE(lan9645x_port_ethtool_stats); i++)
-> +		*data++ = c[lan9645x_port_ethtool_stats[i].idx];
-> +	spin_unlock(&stats->sw_lock);
-> +}
-[ ... ]
-> +/* Called in atomic context */
-> +void lan9645x_stats_get_stats64(struct lan9645x *lan9645x, int port,
-> +				struct rtnl_link_stats64 *stats)
-> +{
-> +	struct lan9645x_stats *s = lan9645x->stats;
-> +	u64 *c;
-> +
-> +	c = STAT_COUNTERS(lan9645x, LAN9645X_STAT_PORTS, port);
-> +
-> +	spin_lock(&s->sw_lock);
-
-Can this code deadlock when a softirq interrupts a process holding the lock?
-
-The sw_lock spinlock protects the 64-bit software stats counters. In
-lan9645x_stats_get_stats64, which acts as the ndo_get_stats64 callback, this
-lock is acquired using a plain spin_lock. The code comment notes this function
-is called in atomic context (such as from NET_RX_SOFTIRQ via dev_get_stats).
-
-Concurrently, process context paths like lan9645x_stats_get_ethtool_stats and
-lan9645x_check_stats_work also acquire sw_lock using plain spin_lock. Because
-plain spin_lock does not disable softirqs, if a softirq preempts the execution
-on a CPU while process context holds sw_lock, the softirq will spin
-indefinitely waiting for the lock.
-
-Should the process-context acquisitions use spin_lock_bh instead?
-
-[ ... ]
-> +int lan9645x_stats_init(struct lan9645x *lan9645x)
-> +{
-> +	const struct lan9645x_view_stats *vs;
-> +	struct lan9645x_stats *stats;
-> +	int err, i;
-> +
-> +	lan9645x->stats = devm_kzalloc(lan9645x->dev, sizeof(*stats),
-> +				       GFP_KERNEL);
-
-Will this memory be leaked when the DSA switch unbinds and rebinds?
-
-The lan9645x_stats_init function allocates lan9645x->stats, vstat->cnts, and
-vstat->buf using devm_kzalloc and devm_kcalloc. This function is called from
-lan9645x_setup, which is the DSA .setup callback.
-
-The DSA tree lifecycle is independent of the platform device lifecycle. If the
-master netdevice is unbound and bound again, the DSA switch's .teardown and
-.setup callbacks will be invoked multiple times. Because .teardown cannot free
-devres-managed memory, the memory tied to the platform device will be leaked
-on every setup cycle until the switch's platform device itself is destroyed.
-
-Could this use standard kzalloc allocations paired with kfree in teardown?
