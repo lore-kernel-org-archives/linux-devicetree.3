@@ -1,205 +1,240 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023087.outbound.protection.outlook.com [52.101.83.87])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0061136EAA4;
-	Sun, 29 Mar 2026 13:40:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.87
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774791650; cv=fail; b=cH6+ImzzMc35l9uM/jrApHHPE2KR9ZTTTGnSjJA+w3tOSJ5arraKkdLjdzUDWmSwTzlGFFExAgaLztJvSAhRBYzw3lcGVRfM0Kf6WfUwfvOQ9KkTLl4BEg53VCmtIPETL3bN4g+TrFpCtnL5OXizzC8C09XXtkTImA1PSNekD34=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774791650; c=relaxed/simple;
-	bh=+mdfebFqb9tFzvocEgWYHl5W9LZP6UtmHIkpRnXDiNg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=qIxxabJ0T8KJjAqm9MVqEVeykF0+1IWhmZqXiUwG2fOFRkDONSkS+qPAr8wDNTgf2oAbc7T4sHT2n4V/7PcZka8nwnP2+RCa+f5Zvk7j/PGiHSmhx1/y6pu2e3t73R+WRMVajb0JRc5tEww4L3nUGqQnYzNmbTA9V1jk5NUCsmA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=genexis.eu; spf=pass smtp.mailfrom=genexis.eu; dkim=pass (2048-bit key) header.d=genexis.eu header.i=@genexis.eu header.b=d82onZ/w; arc=fail smtp.client-ip=52.101.83.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=genexis.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=genexis.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502FF365A06
+	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 14:22:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774794165; cv=none; b=eYoiesAVTZhz90RGc/RhrrdzzTksMGrMXJN02iQjqP28KReGEnOYdSWKo1Q0O6HFKFHkwbHIYTai0LPqZ22lQFkihgMVmjjuCqNZS0mUeFWpcD9hvqcesLesOR0Mm3T8tqvlyHH/jlgFFSkomcJNCj7cImwQTy7/luiGl78B0Nk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774794165; c=relaxed/simple;
+	bh=XSUC4NMsAXmUyEOEJMrdlZH2bNXEHKg4oeOtFKrew44=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PL6TidjTPxvdfsuUHKwkh/Wx3RT1WALngmdnXks82FrMcxKBye793Ob9prZuZy5izAEhF6VlvnJ5FzRvgxEvd6bHKLtg0IoqUYrg/f9FVshz8B5teoq7F+QkkNaRg6ZGQ/d3WAw2Ti8wM5jDhM06YgJgq3wuICZCDhZMQ04/tPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R7zHcMk5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NtDn2yqu; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=genexis.eu header.i=@genexis.eu header.b="d82onZ/w"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KphWP202U4bGHDWTGjwjenck6q0mtw6AouDbV5kHRuFk4+cooSFDQEXWNaKgOiZgW9K1bX0dbaTbae/lNkvduiDRC5s6HgoZjoewl9OQyaHoKo3SJlq6AueEMJ+E/aJ+xKidpuKiqWL8f/HsyNeI80S21X0Ecf/Ui5C5tmnly57J/PTFtjbKnKn98SMdoqLtS21HByVZsljK1LIRHDSwYHubIKp+ZLykW6+YIaYqQpN8WkJEhB61qtoOKJpyi/RUu1SdpKGftBywTT8YfiQhQWte2g/6Vj+1huIEe99ccyb4kQZgdGgoGJMQTuKPvJHRm1suNMZhPD0xqxJKIs5YfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jvffxLoCBgjG87056ZyPh5owZY2FyeuDQKF7B3dGugk=;
- b=vKscX+lseFdMTW+N1mCgPhEs1Omieu1T++KnoiqTB25J3njP7rDnQQY7Jv1ZCr0TnVihN881hIR25sb6wPfJu2UJLDydLWTn1eW8VjjmiRk1ltwd6aJEv8dI07Us6fwB4XAc8lgcCgZMLnMkscCiPhoWSeJggJ4pjz8xWvh2t/LUyk4+jAVksNLI7C0kwEg6+otIaL6qoUY7SY0rFUt7IX57sTZvcnYiZnhg/Xl98wM44GS5WSKNrX1J1HyHs1cnZ/5sxkNny5crb9iRX3ne1zkwIgyN9IMTnwwurz+P4Vr7029ZKGbdnhrWQtbnZc4qHOMdm/v4oY7tsV7CxCF6RA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=genexis.eu; dmarc=pass action=none header.from=genexis.eu;
- dkim=pass header.d=genexis.eu; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=genexis.eu;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jvffxLoCBgjG87056ZyPh5owZY2FyeuDQKF7B3dGugk=;
- b=d82onZ/wX8SSjSmNvcI6NNuL4RzKYXrX7V4Y1/Egz1o/+g7HwHA5kzLQvUbCCRiu1cDxRfv3wuA85D9GousbLp2C/IxVcyPt/U6F2ga8+G514CRiFFEaYPTs2iEyQA9wbdKM2GMs/vff+RTXagHpExsharHrzTg/5Xq0XMWYlPIGQjSJxxrIB3z3a466kFdMdYKo+mt3U7ChG+OzWaMWiD/YXoS7Kr5UMkUZeTcB2PfzL1xbvkCOd/6aqHKDthFahkOnTdxCLTK/8vHV5EFGF8kYB7G/apfqRqkVw3tpnvUYGHxnCchgWtBosH1xvZUL0lupGg1qAWzac8TyEfJqzQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=genexis.eu;
-Received: from DB9PR08MB6697.eurprd08.prod.outlook.com (2603:10a6:10:2ad::14)
- by PAWPR08MB8887.eurprd08.prod.outlook.com (2603:10a6:102:33b::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.25; Sun, 29 Mar
- 2026 13:40:45 +0000
-Received: from DB9PR08MB6697.eurprd08.prod.outlook.com
- ([fe80::bdec:3e95:6614:441f]) by DB9PR08MB6697.eurprd08.prod.outlook.com
- ([fe80::bdec:3e95:6614:441f%7]) with mapi id 15.20.9745.025; Sun, 29 Mar 2026
- 13:40:44 +0000
-Message-ID: <a64e0f7e-7073-4355-a3de-e8d93e2c795c@genexis.eu>
-Date: Sun, 29 Mar 2026 15:40:43 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 00/10] net: airoha: Support multiple net_devices
- connected to the same GDM port
-To: Lorenzo Bianconi <lorenzo@kernel.org>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Christian Marangi <ansuelsmth@gmail.com>,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- Xuegang Lu <xuegang.lu@airoha.com>
-References: <20260329-airoha-eth-multi-serdes-v1-0-00f52dc360ca@kernel.org>
-Content-Language: en-US
-From: Benjamin Larsson <benjamin.larsson@genexis.eu>
-In-Reply-To: <20260329-airoha-eth-multi-serdes-v1-0-00f52dc360ca@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: GVZP280CA0096.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:150:275::14) To DB9PR08MB6697.eurprd08.prod.outlook.com
- (2603:10a6:10:2ad::14)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R7zHcMk5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NtDn2yqu"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62TAilxa868020
+	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 14:22:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	RrYdKvA6dq4fMVlfGeuN4j6WoQepxW9VI7NHrNJSlGU=; b=R7zHcMk5Td0bx52n
+	5Y8F5h4m4B8+tx3yD7CseXddsjOhpic5GqoNrTAFOmkfYHnMCOgHaQKOkT8XNvH7
+	rVqxOFCys3RJzvyu0FkbSX6X9SlUFruFioJhIbEuhoYnbolfLeEFfuUOWDVxi0RE
+	ndvG5NhFQSxcellueSa/WHebdp/MSXoBQF62cgDxn9Je6YotZiWBp/NSp3pQFICE
+	gNfeFwRXAsxR7Br0FSyVPVONIM7IVXr6ooiHNWcXz5fx0KPizuJbEs4XwO07sgMe
+	hGe/gAB4W1axWlBad7FYD7BWEaHfI/qFih1hY3/z+vgYfijXWdRmGqCLj7y40VW4
+	kgQm3g==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d685hau77-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 14:22:41 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2b24af7ca99so9870985ad.1
+        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 07:22:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774794161; x=1775398961; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=RrYdKvA6dq4fMVlfGeuN4j6WoQepxW9VI7NHrNJSlGU=;
+        b=NtDn2yquKjXLnq0ZdhY6Q7YthoOGHJks9+SEngNj96rQ/AUUynRGrAQ/VW1lDtlasM
+         5kyZnrZIcvzvyn526eyYW63ymw37C2kOOuYAnR76e8K2zpEmPpn+GKHG8DIz7XQ4PJkW
+         5LepXQ0LlkWX038R4Y8SFLQNBA3zNILgxXtSmPa/E1Y6cwxSvEbiy4ku+FdwivgwYYnR
+         XOkwMbErfMLufLHehzP+RJK/vBc8SRYbGx0Y8YuCV5A36uJHvjhCTKfvP9rom6Um9zAv
+         EOhBM8dAOYwC+ZaeaZvD2oikQ5297xXbjbx+UZ1sGNTBi5VzW4Fe2sZMgtbHo7Qosgz7
+         EReQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774794161; x=1775398961;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=RrYdKvA6dq4fMVlfGeuN4j6WoQepxW9VI7NHrNJSlGU=;
+        b=BBhULZGw6NHi0fMRN/irbCpkz4GK/Wb+tLrEtRFf8/8F1OmQRE/HVbLokGrymZsp9P
+         80dwaFu4afiusww9ZIn0RhX8GNOp6xHlwNagpGL+nJJ2Kxhh+ungqYU4mwi+y9as1DAg
+         3pwl2tw+eYWpBivlbf80XW1HfEsvyzuha6y1D/dVnwlxYBEqw3mfDev2yGpJIsKAOLAs
+         lOcU8HfY72jsoj/+/Ia0BEala3pUjQRmgh8q8zCWI786QUFZ+/4uUixYSbXylv8G0U97
+         1Gmajlh4VuYvwn3nRb0taXb5B1yVTp+nlrlyjKeWxVt/3J1eJltFHv86laM4pNqEH3pV
+         dUyw==
+X-Forwarded-Encrypted: i=1; AJvYcCU/67zfJk8OprJYRdOgQwNX1dtUhK73xHew8+5V9/9bgk4TUgh2N/DXbb5Dqy6gkNlcCgRp4cIm4duN@vger.kernel.org
+X-Gm-Message-State: AOJu0YzDWLA8+Gx27YX5p9pH2EoLLSrBr06eSGIbJgsXWyCwU8Yk8BCT
+	i8VYHokuH1zHW53Mc4ltB9imYa6Bh048lMaUzMR3sIW2cHFqSuc8bYG6QB8FiFEqT/d8CGww5o5
+	TfFCu/AHqZBTTFSMjxzEhs9L9ckdbL6doPY+CFYgXwgTRgp5dC6a99+l4G/fY3UIk
+X-Gm-Gg: ATEYQzxR76AnUVHevj7BRl5vVAxi880iPc1ccX3dtpH4HPhrwfdpzGRNprjvgxrswH4
+	y7aJ52LJj5gzlDnFuJ3K5gHaR7KFziW6RlFVjI+VoPehfE7TbhNf8nLC7qEBs4fkV5B1FloCvVd
+	NLn35Farm2Fg9nKMQL0e1EKHhF4TmxLSZSTgxnseaCyM6pxLAzrWfcStCvxfSNKTUBjL9w/Q4OO
+	4ytx2Sthr3zqol5SFaeL6CUj4ab24/4NrS6S/3/f/8y1gg4vFW4FX1q5eO8cb55JPtYHyDMs9Xe
+	msDtUiOb3GlIGfh/8AiPDwJv6slx0fVLZIuJhPCE6zeOvJuIKzGOKeSm9ycIrS9s28sRTDRTLtM
+	q05LSaj0kkjUEeih4TDHvbRSL/h5EcONe6j6WsAWAzJM9
+X-Received: by 2002:a17:902:e752:b0:2b2:481b:de5f with SMTP id d9443c01a7336-2b2481be145mr42523315ad.5.1774794160691;
+        Sun, 29 Mar 2026 07:22:40 -0700 (PDT)
+X-Received: by 2002:a17:902:e752:b0:2b2:481b:de5f with SMTP id d9443c01a7336-2b2481be145mr42522985ad.5.1774794160163;
+        Sun, 29 Mar 2026 07:22:40 -0700 (PDT)
+Received: from [192.168.1.11] ([106.222.233.0])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b242642864sm57481155ad.12.2026.03.29.07.22.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 29 Mar 2026 07:22:39 -0700 (PDT)
+Message-ID: <45cad9a9-8bb3-4174-aa5b-7a7cb3b7603e@oss.qualcomm.com>
+Date: Sun, 29 Mar 2026 19:52:26 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR08MB6697:EE_|PAWPR08MB8887:EE_
-X-MS-Office365-Filtering-Correlation-Id: 40d94f2e-3605-42a6-685d-08de8d98c6ee
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	AiwFPG/tMGgs3sgoEVcR16sbNiaTcYpuTpHn++jbRoQ4uxMPsWQ+RGWjH+ddOlVAcSTfKIWzH9TAeuWv7lWaPlPbtneCtWsqc+auqNphLzJfIWONRMUyuOObKBqOqkBmn00Le8hoOxwAQYxO7zT7Y6UcITnuotDAQIQ0FSbA4evg3aE1FImWQmtFjoU2E88k6DgdBwVWGAPuo9kkW9VzJfeWhZ+aAbo9G+A6QbzMP7q1RoIEFySdOQqY5izwEnWqjtIEtgtu6scxXbKfJ+qHC7bypn4FgbKu0cc8sNL8Em6C/hjtsdpSzT89Yle5HX15N63ibuViN5hnMtgNRM7d+CVHbfwGv+InYhPMBKB1NPFqx8xO6NfIAHDpvkTwrs3ogl0WYPai3pjT1Uujg4NMIaT7KwpzGXOCB2WMzBHTyxyZ0RWiGkJFWZwgQmIRhyX7cOQKhfImL2n2vvTIoUOvvQV8GaHLRPEL03M4qCVZ9bm6R73aI5FTeGaPv2AoR1yQTaH4hFEBgv3ZSi0HFfMXM/cA9zjqKEdBe8bV9eApmwR7Mh523g+UH9IRWTR3ClXR+Jmfy0nUO8cFptnQBAjvBNCo5FYY+bDOBThquhhLff0Qe6wGUEUEM3VUmEJB4VQVZ0JpGv8f7ZwSgAlQU+TfC1MT5Si91BtnDqxDMptoIvp8Jo5NCOV69WcFlzwD92QYAt/vLt/N4QGPiPs0gLOLPlAGan6PvqxUb0DqT7RJcH8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6697.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z1hpYjF0MkZ0dGVQeDVnMXVSYStsWnA1SHFVcUdWKyt5ZWE4NzZhWnROS0JX?=
- =?utf-8?B?S3p6UXp6cytaR3lObndOVnhkc3VpYUhFRVNuUjhKRVVZU1FBaUJDUjF4dkV3?=
- =?utf-8?B?ZUVHN211RE9hS1ZHcDV0ZFF0SlhSOEVIcllMMzFEYjhrM1FFcDh2UzlCS01s?=
- =?utf-8?B?TFp1VlJtYk45am4xcDdqVDhWbFNGelVXWWhWdEpXWkJicDVabFVzK2hEMUpw?=
- =?utf-8?B?aHNaRzVTQ3BnZ3hOc3p5SHAzMGhhdjlNcloyQWRYSHdIVDhrNytlSWhqRHZE?=
- =?utf-8?B?MzFobVNtNWoyWnR1aDJvSUlkRTZZYzdtd2JyRldNZE81czBMbkxRNnoxbVY4?=
- =?utf-8?B?b1Fjd0s5dUlLNkJEbUlHUzdscnVtTlduTzlCb3d1Ty9wMVQ1VzJuRnAzcjFl?=
- =?utf-8?B?VzNCOFRjZU90ZE50MGo1SDB2czVTRGU3aUZNZ2Q1Mk43b0NoTXpsQ3V5WUwv?=
- =?utf-8?B?Wld5NzVmRXBaVjBHc1pjSSt3OTRlSkkza0dzZWFjTzVidEhDSkVTTXU1WFY3?=
- =?utf-8?B?MDFWenJXSmp1MHo5N2ZLekhzYnI1Z0hvbzU2eGVtV1UzamVKNnNhd2VuWHVG?=
- =?utf-8?B?UWdpWHFnTG8xUmpYK2x6RVZMOVVWbjBMTExnV1gxcHBTY3FsTnhnNk14RkpW?=
- =?utf-8?B?NU1mell2RnllV0RGeGpQdy9EalJPSzRVUHNtbDIvYjdZSm95VXpvcXRzbEYw?=
- =?utf-8?B?VTJZMEZvbDV4WmhvVUdkd0g3bWgrcC9xL3M0M3NFMDF5QWh3NXVVTGlRTURk?=
- =?utf-8?B?T2Z1VDNBMU9pZE4wYitPSC91Mkk3YUtDSHpCVFZQUmxINDdLMGhkRnlZbCt2?=
- =?utf-8?B?TVdKcUgxMmJBMWtvYVlYYi9oUGtTZFp5U2FIYWF1V1J1dzk2TStFR3Z2b0FU?=
- =?utf-8?B?eUFuWjRpWUNEc3hORktWYmxZVnJidmtiemV6QnFWUWZwcFcvWklZSmJkMS9D?=
- =?utf-8?B?clhlQ2NuenFsRng0Uy83aHVrTzVFcXhJeXdWKy9vZVJhSmNTQ1FDMm1PTFNk?=
- =?utf-8?B?MVlOUUo0dlZKOFE1RVo2VzFOSXF3QklBZWkzQ2xqY3NlQjhSZHNab082SFhR?=
- =?utf-8?B?SkFRTlZxTjh1VWxRcCt1S1gvcXAvK3VZMDlGeWFLZWExMGFwWldySHRmZnBz?=
- =?utf-8?B?akYrT3RTc2x2azhKQWFHMGo1MnF0VGc4NlE2MUpUZEpPZm8yYllRM05va1lE?=
- =?utf-8?B?WlI2ejBwdGFSbDJ4UTk5RE1IZXZ4TlI5Uys3NGVLMUhEUURMYkR2N2NoS2ta?=
- =?utf-8?B?bjJpZWlkbFBVVld1eXRINFdhek1OTmZwMU04ZkF2ZUk0NXl5Uko4VDVhTE5z?=
- =?utf-8?B?ZEpPNWp4OUdGQlFXWXVBTklUUkJaLy9PcWpaUmRHUGc1ZzN2NUdQd3VYcWdv?=
- =?utf-8?B?c0pZSHhEWEZjVlUrTlRKejVUU29qOUJJRHNLbW9zb3dDL2I4Uk9veGd1Nm8v?=
- =?utf-8?B?d3NiVmhrVm44RTRRNWo3bjhraWIyRytDMllrc1RGb3lub3VEVmVkR2xYQ2Q3?=
- =?utf-8?B?SG1rbGJsY3JLVkRyT2dwTTRTVFZoTm9PZzgrM1hhLzlOcjdONmllREZNWTVV?=
- =?utf-8?B?cXRyVzhBb1JlSW1UY3Q4aHljZ2JjdmRGSkxET1diS1IzaEJ6dEVzQ3ljMjY1?=
- =?utf-8?B?OU4va21vdSs1Q2paVmdOenJqdjE5V2hpRE54dFl6dm1LUlMzR0w5ZTd4elBJ?=
- =?utf-8?B?YlREM3kzZ0Rkd1lUbDRoMU03bzloZ3liMXlUaUhKRzVULzVaRFpNQ0lVNnNh?=
- =?utf-8?B?M2NycHlyUnBvSit4Y1U5bm9leE9SL1MwZVlXekc2T1lBNWYreU8reHVRSmIw?=
- =?utf-8?B?YmtNczBzT1FURXd6UnVtMFc3VytmMlNTOC9zT3FEeTJPcmtOWHF4NzBqeUNY?=
- =?utf-8?B?ZzJucXR4NTQwcW1YSlNUMFd4eDZsNGJNVng4MGNPTHhGZFVJays0bWVGSGU4?=
- =?utf-8?B?WTYrMjlydmk5MUFXSTRRTkN5bzI3TFBCWXZLRDlRWEdESVdTODZuRW83ekRJ?=
- =?utf-8?B?T3h2d3AxV2pob2ROK2wyV0FjWU5tVnFwcENhTVlacUhweWNFOURvTEk2N2lR?=
- =?utf-8?B?WDladXkxSTFFRmlVc092c1ZRL0hjYkZTZDZPOVVITzUyRVZFUUVsNVZ3TStE?=
- =?utf-8?B?YjRaNS93UG8wekExSmRCZDNXQ253WE1WZ3J4bi9TelJwRThWNzBkZ1ZQSXlW?=
- =?utf-8?B?bWZLM0lzOXZ0SGVLMVF2OHlqQWtJWXZOOTNOWkJhV2tzQWEyRXdFZnRVenlh?=
- =?utf-8?B?aUEvOUJVTWEvZlRNcm9EMXhWZ3ZBL3pBZHdxRXJiSmdoK21TaWFaWkNKQXZD?=
- =?utf-8?B?dlN5MjY2ZTFaeGJ1WHpSNHA5N1RaRzkyM0ZsOGl5QzJPaWhaelUvbC8vSW5n?=
- =?utf-8?Q?jDC/KgMQPvQl/KSU=3D?=
-X-OriginatorOrg: genexis.eu
-X-MS-Exchange-CrossTenant-Network-Message-Id: 40d94f2e-3605-42a6-685d-08de8d98c6ee
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR08MB6697.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2026 13:40:44.7294
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8d891be1-7bce-4216-9a99-bee9de02ba58
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kTPjteBXkFKR+pv1F8WdEgcisYqH3EnvzZ0zqVMS2IzL1/0VtCz9aofKdYFsHHMrfK+IzINLmxbytUzzuYMS/8jqzQp83Am0s1x+8fpnV90=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB8887
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/5] Add driver for EC found on Qualcomm reference
+ devices
+To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        Maya Matuszczyk <maccraft123mc@gmail.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Randy Dunlap <rdunlap@infradead.org>
+References: <20260327-add-driver-for-ec-v7-0-7684c915e42c@oss.qualcomm.com>
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260327-add-driver-for-ec-v7-0-7684c915e42c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=csKWUl4i c=1 sm=1 tr=0 ts=69c935b1 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=LIJ1G+IszuYCLGPi0MaIKw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=fry5UZEslz7zTkt23a4A:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI5MDExMiBTYWx0ZWRfXzlNmuJxmj1sb
+ IHZtJykK7EwxpoBu5FpY66znzq307M8haewwUc5t45TZ2rAXvBqmdCYvleZdFsR0itwPsuds5NP
+ Otwog+S2ZGLLa3LSmHkKXfXcfFl2Qbw9vjA24H6L729eOO3tlRvOMpqikLllGGlHGNubPeQ6GGi
+ BcdSXwkxi6CPnbWNFMpBXewQF7zdxmjvRz+sGLyjhj2Q+Wr3bVVNH7fyKanlurOUWbsBTuqFYy1
+ PM3M/z2lJzWUQatoCnVVvdXPqmHw6GvLkjYFEh5PrsaPxbuhbWqQgyDmbggpzbs29CF9MpXoFO5
+ xj7EqVjGlKIBqcJ81pfF0qoSj97MUHAAdckp2v9FBZ9hwa9SjBC413rjVYJUHERlapOwtuHfrLD
+ +dXwYqA30wZKZvwppmDv+CXDVnpH9j/O7DJKgGfxYXmAb4avzKZIvuPou0iMXhTMYPitfIniHGV
+ 29J2qD7oYNOjALJA3Hw==
+X-Proofpoint-ORIG-GUID: eeLkLZLVeZSAdD9NjaqOtP8QdB2NnefN
+X-Proofpoint-GUID: eeLkLZLVeZSAdD9NjaqOtP8QdB2NnefN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-29_03,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 clxscore=1015 adultscore=0 impostorscore=0
+ priorityscore=1501 bulkscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603290112
 
-Hi.
+On 3/27/2026 3:38 PM, Anvesh Jain P wrote:
+> From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> 
+> Add Embedded controller driver support for Hamoa/Purwa/Glymur Qualcomm
+> reference boards. It handles fan control, temperature sensors, access
+> to EC state changes and supports reporting suspend entry/exit to the EC.
 
-On 29/03/2026 15:07, Lorenzo Bianconi wrote:
- > EN7581 or AN7583 SoCs support connecting multiple external SerDes (e.g.
- > Ethernet or USB SerDes) to GDM3 or GDM4 ports via a hw multiplexer that
- > manages the traffic in a TDM manner.
+Just a question, is it possible to force fan to run at full speed
+constantly? That would be helpful to keep the passive cooling minimal
+and get a more consistent results while doing performance profiling.
 
-I think the word for this is arbiter. I think the common use of mux is 
-as a more fixed data path selector.
+I see that you are registering a cooling device in this series. So I
+suppose we just need to update the cooling sysfs nodes.
 
- > As a result multiple net_devices can
- > connect to the same GDM{3,4} port and there is a theoretical "1:n"
- > relation between GDM ports and net_devices.
- >
- >             ┌─────────────────────────────────┐
- >             │                                 │    ┌──────┐
- >             │                         P1 GDM1 ├────►MT7530│
- >             │                                 │    └──────┘
- >             │                                 │      ETH0 (DSA conduit)
- >             │                                 │
- >             │              PSE/FE             │
- >             │                                 │
- >             │                                 │
- >             │                                 │    ┌─────┐
- >             │                         P0 CDM1 ├────►QDMA0│
- >             │  P4                     P9 GDM4 │    └─────┘
- >             └──┬─────────────────────────┬────┘
- >                │                         │
- >             ┌──▼──┐                 ┌────▼────┐
- >             │ PPE │                 │   MUX   │
- >             └─────┘                 └─┬─────┬─┘
- >                                       │     │
- >                                    ┌──▼──┐┌─▼───┐
- >                                    │ ETH ││ USB │
- >                                    └─────┘└─────┘
- >                                     ETH1   ETH2
+-Akhil
 
-A more representative picture is like the following and in the GDM2 path 
-there is a real mux present(not relevant for this patch series though). 
-Thus I think it is important to have the distinction between mux and 
-arbiter. (Feel free to reuse the following illustration freely).
+> 
+> ---
+> Changes in v7:
+>   - Fixed alphabetical ordering of MAINTAINERS entry.
+>   - Link to v6: https://lore.kernel.org/r/20260325-add-driver-for-ec-v6-0-a8e888d09f0f@oss.qualcomm.com
+> 
+> Changes in v6:
+>   - Add missing includes: <linux/bits.h>, <linux/device.h>
+>     and <linux/err.h>.
+>   - Change the thermistor_mask format specifier from %d to %x.
+>   - Change loop counter to unsigned int.
+>   - Replace snprintf() with scnprintf() for safer string handling.
+>   - Use sizeof(name) instead of the EC_FAN_NAME_SIZE macro directly.
+>   - Add missing braces.
+>   - Link to v5: https://lore.kernel.org/r/20260317-add-driver-for-ec-v5-0-38d11f524856@oss.qualcomm.com
+> 
+> Changes in v5:
+>   - Fix subject line and commit description, drop redundant
+>     "bindings for".
+>   - Rename binding file: qcom,hamoa-ec.yaml → qcom,hamoa-crd-ec.yaml
+>     to match the compatible string.
+>   - Update $id URI to match the new filename.
+>   - Add <linux/interrupt.h> and <linux/slab.h> includes.
+>   - Switch to devm_thermal_of_cooling_device_register, remove manual
+>     unroll loop.
+>   - Ratelimit all IRQ handler log messages.
+>   - Promote unknown EC event log from dev_dbg to dev_notice.
+>   - Remove redundant error message after devm_request_threaded_irq.
+>   - Simplify qcom_ec_sci_evt_control, resume, and suspend using direct
+>     returns.
+>   - Add dev_warn + early return for zero fan count; driver stays loaded
+>     for PM notifications.
+>   - Fix thermistor presence bitmask documentation: 1 = present, 0 = absent.
+>   - Fix snprintf format specifier to %u to suppress -Wformat-truncation.
+>   - Remove unused cdev variable from qcom_ec_probe.
+>   - Fix typo: "exluding" → "excluding" in register map comments.
+>   - Fix capitalization: "ec" → "EC" in error messages.
+>   - Link to v4: https://lore.kernel.org/r/20260313-v04-add-driver-for-ec-v4-0-ca9d0efd62aa@oss.qualcomm.com
+> 
+> Changes in v4:
+>   - Fix fan count calculation to use min() instead of max() to correctly
+>     cap fan_cnt at EC_MAX_FAN_CNT.
+>   - Remove unnecessary mutex lock/unlock.
+>   - Disable fan debug mode on ec module removal.
+>   - Fix issue reported by kernel test robot.
+>   - Consolidate hamoa-iot-evk specific changes into hamoa-iot-evk.dts.
+>   - Add board-specific compatible strings as per review comments.
+>   - Link to v3: https://lore.kernel.org/all/20260308233646.2318676-1-sibi.sankar@oss.qualcomm.com/
+> 
+> Changes in v3:
+>   - Revamp the bindings and driver to support generic ec specification
+>     that works across Qualcomm Hamoa/Purwa and Glymur reference devices.
+>   - Add ec nodes to Hamoa/Purwa CRDs and IOT-EVKs.
+>   - Add ec node to Glymur CRDs.
+>   - Link to v2: https://lore.kernel.org/lkml/20241219200821.8328-1-maccraft123mc@gmail.com/
+>   - Link to v1: https://lore.kernel.org/lkml/20240927185345.3680-1-maccraft123mc@gmail.com/
+> 
+> ---
+> Maya Matuszczyk (1):
+>       dt-bindings: embedded-controller: Add Qualcomm reference device EC description
+> 
+> Sibi Sankar (4):
+>       platform: arm64: Add driver for EC found on Qualcomm reference devices
+>       arm64: dts: qcom: glymur-crd: Add Embedded controller node
+>       arm64: dts: qcom: x1-crd: Add Embedded controller node
+>       arm64: dts: qcom: hamoa-iot-evk: Add Embedded controller node
+> 
+>  .../embedded-controller/qcom,hamoa-crd-ec.yaml     |  56 +++
+>  MAINTAINERS                                        |   8 +
+>  arch/arm64/boot/dts/qcom/glymur-crd.dts            |  22 +
+>  arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts         |  16 +
+>  arch/arm64/boot/dts/qcom/x1-crd.dtsi               |  16 +
+>  drivers/platform/arm64/Kconfig                     |  12 +
+>  drivers/platform/arm64/Makefile                    |   1 +
+>  drivers/platform/arm64/qcom-hamoa-ec.c             | 451 +++++++++++++++++++++
+>  8 files changed, 582 insertions(+)
+> ---
+> base-commit: 85964cdcad0fac9a0eb7b87a0f9d88cc074b854c
+> change-id: 20260309-add-driver-for-ec-3fa478f264d9
+> 
+> Best regards,
 
-                 ┌─────────────────────────────────┐
-                 │                                 │    ┌──────┐
-    ┌─────────┐  │                         P1 GDM1 ├────►MT7530│
-    │   MUX   ├──│ P2 GDM2                         │    └──────┘
-    └─┬─────┬─┘  │                                 │      ETH0 (DSA conduit)
-      │     │    │                                 │
-   ┌──▼──┐┌─▼───┐│              PSE/FE             │
-   │ PON ││ PON ││                                 │
-   └─────┘└─────┘│                                 │
-    ETH5   XPON  │                                 │    ┌─────┐
-                 │                         P0 CDM1 ├────►QDMA0│
-                 │  P4      P3 GDM3        P9 GDM4 │    └─────┘
-                 └──┬──────────┬──────────────┬────┘
-                    │          │              │
-                 ┌──▼──┐  ┌────▼────┐    ┌────▼────┐
-                 │ PPE │  │   ARB   │    │   ARB   │
-                 └─────┘  └─┬─────┬─┘    └─┬─────┬─┘
-                            │     │        │     │
-                         ┌──▼──┐┌─▼───┐ ┌──▼──┐┌─▼───┐
-                         │PCIE0││PCIE1│ │ ETH ││ USB │
-                         └─────┘└─────┘ └─────┘└─────┘
-                           ETH3   ETH4    ETH1   ETH2
-
-MvH
-Benjamin Larsson
