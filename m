@@ -1,579 +1,279 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD383A6EEA;
-	Mon, 30 Mar 2026 21:50:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE993A543F
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 21:50:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774907422; cv=none; b=NkUsMLZQRf6PfbIXoNmUu/z9UticapVWyKvTFS3LuyyCxk2F3Pzdot8g2XH36e2LW17Ev6edxgYeVkU5XE3n7MLL3DFg0+0fT681CBKlA+SKCS9L2VPGrFVoWcHMFwuD193mfWM0EJyanYx67X4WSuelyt8G0Hd9lgKdTHJmumM=
+	t=1774907441; cv=none; b=KsJpH1CWx0H7p1fSeFo/tlMhdyxIIj9pFD3mmjxsG19gMehzUtbkUMjcgGhpASrelsFTrt5v3aTtwEc9+0fYcFgTdSXFAEnOr6V2DffNgiRXgRSyBGUXZ4i6jdXs1AaqXjJ2yjDdStgV6LKduDULas2Y9esG/VI5DTp2pGEPgE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774907422; c=relaxed/simple;
-	bh=V1y3rR84EYBQxH2z0G4Le3rSsVcacmG6nOw5AZAfLAo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VRfMry21Pt4hjlmVHzZ7gA3YHNh03uP3nGYPZg9BJFfAc6Qw8Gh8A4OOrzS5CiX4Y+Yft/rzv1CZDD/Kmf694GZVJlO1iPO9afZ/7Nu3OPUQf3QfAseKeMhzeO4zOxa8RurRIg3ILpR5mg/fuqcc37gbB0mu/vHp4JOw49FkRNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SkNyvAK6; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774907441; c=relaxed/simple;
+	bh=892Dex4+6n7c+srBxz1jVKknV7GNsNEBw/hHHSzXRGQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lkcv0FboEOdficFRAen3wgYqEw5HRkxhG6gMh4O48jbGZu2d2Y30xYrbd3ZYDfMNNEIZyH8zY4UQzH4CQsUcSfaxoUzF4MD+n/pIq38JyENSGxV06kFdkW2dliVtKHxbkRLCm5ofNKO/lYZsd3II0xwnLiJPfzOVbHJb/yD617g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kK8iudL+; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SkNyvAK6"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 59309C4CEF7;
-	Mon, 30 Mar 2026 21:50:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774907422;
-	bh=V1y3rR84EYBQxH2z0G4Le3rSsVcacmG6nOw5AZAfLAo=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=SkNyvAK6bPTJZ3Luw1PhY2nRLJthhAxF29zO6h1hKx7Qd1dG2DRc4bP2OB9H3E0E+
-	 A5KwSKP6ebKXUTlZrojKUpzI+0kEEsRJSgPPaPpJjVlmprnOQ9RAbSol9+JoiHe5Wj
-	 fR/FYkN8vjFTYk2GDnSCdM7td2NSjpZuxnECXvLzBgoSQAVEfhyrwr8fPM9cRQiQ0U
-	 TSabwqgFKD15rBwEYnIb1TlbpmM25lYqo0da8FZyYnGf5muKOLniBPsVu65Tp1/CMi
-	 NYiSMHbsmcgou5jdtSb/mHKAR/2/PiyKTWSL/xcQbdF+mnIMzzCclGCWzFgdHyJkgq
-	 21KLRtDLlJuYQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4541A1061B18;
-	Mon, 30 Mar 2026 21:50:22 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Mon, 30 Mar 2026 16:50:20 -0500
-Subject: [PATCH v4] arm64: dts: qcom: sm8550: add cpu OPP table with DDR,
- LLCC & L3 bandwidths
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kK8iudL+"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-486fc3ac9fdso5747515e9.1
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 14:50:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774907436; x=1775512236; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=1rvOVfipuNnH/UivVwc7De7z6zvsPeKLD3Y+JlWhA4s=;
+        b=kK8iudL+3UtHIl2AF7CpDL3RfpN/t+vM8tWyTkiumRKtFA+FZRvznAx+TkQm6a6FOW
+         0dd6bnNi2WAYp0AdOx9vz2qINUrpKN8XgolTiK7o8CMMa9nWupl9uHaQm1PkRCFHLsSs
+         CrqDg/etre7rlWh2fkDF6aOgwIlC/PzAULxcLieCSnVoBBfyg5MSRfQR3X09UJ9VWqoi
+         Y22s5YxZFezM7jU17qC6XIY815UZaGVZGQ5nsKLLhCA5OSsfeeZI9tRINoRi0vgHUanT
+         BObThGxNmRqim3j9e73Q1SdYyojXhFiimKxm+WxlbEjsXy3tOoFcBbwEPlbXE7AlGanx
+         79NQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774907436; x=1775512236;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=1rvOVfipuNnH/UivVwc7De7z6zvsPeKLD3Y+JlWhA4s=;
+        b=DQUyIHON3DqvRJ/wyMjQw+s6VosDZrtG8S4Qkhwjn0jYHUFD1Is6T7ndAuj5rtCqvI
+         U6uEI/WESuXizZKmxhWP8dFjNbrwcvK3dQjgB139dFnWwsICKpe2d9zPrghqZXMDY8/o
+         qQjtYDm6orXXOMnTUiFf5DZjc5ie4vkv1UdkDp4vs3hOGQiFeNKGf5l3NdYmKi+x3WLt
+         vUj5lGrdJ1fJqNySXqGkrxncR2SWehAWqq5W/nH78hxE3yWuJQQHoIqxofH/327gvOp8
+         WOAj8S0Q/L7qIJd6GOL033LRe7Dq1kwBcPHW383c0lQ4iGhPdar9ozW2JBMJ3rhK2yJN
+         u0sw==
+X-Forwarded-Encrypted: i=1; AJvYcCXgA/y7d2EU/g7nQORMJmuIxYcA6Xnv5UqykOvKfFWERiX7Qy4MMPB7d4nd376cImvXLqFqOM4DDbkU@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyqn3H2EvBKed4RkMEn7ZfJomUrjm0wRKlOePHC1jLpbDA+ijO0
+	YYEO8l3OvoI//hYFbTDUvdhMgxPd1jvXip+rBZDfNg4C9FIP4EMKZV8Y
+X-Gm-Gg: ATEYQzw75GzREidm5qIJbmgDXJOlbnqQv9u0z5fdnuNyJ3W0WUnUHYjLgTkU62GFnG5
+	UzCKxk4dncEnRZMyniGA2DzYDVuzapIqaDfesoJg5I9eCiv3WlvNByeX0wFe9WDw+o5nfNakWYW
+	ReZ/SjvriLIR7CGUPZP56pjLkwLwG+7rg+I+Ztf9jWNoYUd5jtIIMcxU8q7YO9enPZxcPpKGpyV
+	tD7YE/CmLCyN0p/tJaeKtJXFa/6BPyjfAP7KAJHtQnL5EcApMJdLC5AyzyXcWnOoGd0a48BkpDy
+	wANhde0NiW/n/jRHl+/GBBUoqpzuYlZAO+3cRubc1z6gxIrvcK0PgedsTBNytBh/jsWsn2w8rRx
+	Z9c0H33X5/Qs1pwZJKSKPC0ZU6tmZx/Har4MDtN3L2khp2keVfxFEBu+TGRNZkj5BrNiW4LKOz+
+	jSnqss9/IcrkTSJrw=
+X-Received: by 2002:a05:600c:8b41:b0:487:17d:d0bf with SMTP id 5b1f17b1804b1-48727ee0e73mr119411695e9.6.1774907436457;
+        Mon, 30 Mar 2026 14:50:36 -0700 (PDT)
+Received: from skbuf ([2a02:2f04:d50a:b400:fc92:d05b:3301:b722])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43cf24739easm22792835f8f.30.2026.03.30.14.50.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 30 Mar 2026 14:50:35 -0700 (PDT)
+Date: Tue, 31 Mar 2026 00:50:33 +0300
+From: Vladimir Oltean <olteanv@gmail.com>
+To: Rustam Adilov <adilov@disroot.org>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stanley Chang <stanley_chang@realtek.com>,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Zavertkin <misha.zavertkin@mail.ru>
+Subject: Re: [PATCH v2 5/6] phy: realtek: usb2: add support for RTL9607C USB2
+ PHY
+Message-ID: <20260330215033.ven3bllyw3jverfg@skbuf>
+References: <20260327160638.15134-1-adilov@disroot.org>
+ <20260327160638.15134-1-adilov@disroot.org>
+ <20260327160638.15134-6-adilov@disroot.org>
+ <20260327160638.15134-6-adilov@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260330-sm8550-ddr-bw-scaling-v4-1-5020c06983a0@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XPTQqDMBAF4KtI1k1JJtGYrnqP0kVMogb8KUmxL
- eLdO7qSgnT5HjPfMDNJPgafyCWbSfRTSGEcMMhTRmxrhsbT4DATYFAwYIqmvsxzRp2LtHrRZE0
- XhoZWPAdZgqpxhODuI/o6vDf3dsfchvQc42c7M/G1/SdOnGKnCytqoY2V1bXpTejOduzJKk6wU
- 3h5pAAqUhioCieVV+xXEXtFHykCFZVbrvFNr4HvlWVZvu+wKBxGAQAA
-X-Change-ID: 20260207-sm8550-ddr-bw-scaling-b1524827f207
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Georgi Djakov <djakov@kernel.org>, 
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Aaron Kling <webgeek1234@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774907421; l=16213;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=MviJMfCzXuwRQrPnbut1Q4KDvJa/L9E82uU8Q9FShqk=;
- b=4qNDLTcTj68/lwip3FG/NrOr+KNPKUYCbMBBElETf1EVphVB7NtEt6eHfNqkU+LXil0qiw5SB
- mXz9iE9boUdC3ryUdHa/XZ24qZT+ZEOc7GzF4/wqiQ/D14h1k2BB7GI
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
-Reply-To: webgeek1234@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260327160638.15134-6-adilov@disroot.org>
+ <20260327160638.15134-6-adilov@disroot.org>
 
-From: Aaron Kling <webgeek1234@gmail.com>
+On Fri, Mar 27, 2026 at 09:06:37PM +0500, Rustam Adilov wrote:
+> Add support for the usb2 phy of RTL9607C series based SoCs.
+> Add the macros and phy config struct for rtl9607.
+> 
+> RTL9607C requires to clear a "force host disconnect" bit in the
+> specific register (which is at an offset from reg_wrap_vstatus)
+> before proceeding with phy parameter writes.
+> 
+> Add the bool variable to the driver data struct and hide this whole
+> procedure under the if statement that checks this new variable.
+> 
+> Co-developed-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+> Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+> Signed-off-by: Rustam Adilov <adilov@disroot.org>
+> ---
+>  drivers/phy/realtek/phy-rtk-usb2.c | 57 ++++++++++++++++++++++++++++++
+>  1 file changed, 57 insertions(+)
+> 
+> diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy-rtk-usb2.c
+> index 070cba1e0e0a..bf22d12681dc 100644
+> --- a/drivers/phy/realtek/phy-rtk-usb2.c
+> +++ b/drivers/phy/realtek/phy-rtk-usb2.c
+> @@ -26,6 +26,12 @@
+>  #define PHY_VCTRL_SHIFT 8
+>  #define PHY_REG_DATA_MASK 0xff
+>  
+> +#define PHY_9607_VSTS_BUSY BIT(17)
+> +#define PHY_9607_NEW_REG_REQ BIT(13)
+> +
+> +#define PHY_9607_FORCE_DISCONNECT_REG 0x10
+> +#define PHY_9607_FORCE_DISCONNECT_BIT BIT(5)
+> +
+>  #define GET_LOW_NIBBLE(addr) ((addr) & 0x0f)
+>  #define GET_HIGH_NIBBLE(addr) (((addr) & 0xf0) >> 4)
+>  
+> @@ -109,6 +115,7 @@ struct phy_cfg {
+>  
+>  	u32 (*read)(void __iomem *reg);
+>  	void (*write)(u32 val, void __iomem *reg);
+> +	bool force_host_disconnect;
+>  };
+>  
+>  struct phy_parameter {
+> @@ -614,6 +621,16 @@ static int do_rtk_phy_init(struct rtk_phy *rtk_phy, int index)
+>  		goto do_toggle;
+>  	}
+>  
+> +	if (phy_cfg->force_host_disconnect) {
+> +		/* disable force-host-disconnect */
+> +		u32 temp = readl(phy_reg->reg_wrap_vstatus + PHY_9607_FORCE_DISCONNECT_REG);
+> +
+> +		temp &= ~PHY_9607_FORCE_DISCONNECT_BIT;
+> +		writel(temp, phy_reg->reg_wrap_vstatus + PHY_9607_FORCE_DISCONNECT_REG);
+> +
+> +		mdelay(10);
 
-Add the OPP tables for each CPU clusters (cpu0-1-2, cpu3-4-5-6 & cpu7)
-to permit scaling the Last Level Cache Controller (LLCC), DDR and L3 cache
-frequency by aggregating bandwidth requests of all CPU core with referenc
-to the current OPP they are configured in by the LMH/EPSS hardware.
+LLM review:
 
-The effect is a proper caches & DDR frequency scaling when CPU cores
-changes frequency.
+Could we use msleep(10) or usleep_range(10000, 11000) here instead of
+mdelay(10)?
+Since do_rtk_phy_init() executes as part of the phy_ops->init callback
+with a mutex held from a sleepable process context, spinning the CPU for
+10ms wastes CPU resources and increases scheduling latency.
 
-The OPP tables were built using the downstream memlat ddr, llcc & l3
-tables for each cluster types with the actual EPSS cpufreq LUT tables
-from running a QCS8550 device.
+> +	}
+> +
+>  	/* Set page 0 */
+>  	phy_data_page = phy_cfg->page0;
+>  	rtk_phy_set_page(phy_reg, 0);
+> @@ -1141,6 +1158,7 @@ static const struct phy_cfg rtd1295_phy_cfg = {
+>  	.new_reg_req = PHY_NEW_REG_REQ,
+>  	.read = phy_read,
+>  	.write = phy_write,
+> +	.force_host_disconnect = false,
 
-Also add the OSC L3 Cache controller node.
+You don't need to initialize rodata struct fields with false/0/NULL.
 
-Also add the interconnect entry for each cpu, with 3 different paths:
-- CPU to Last Level Cache Controller (LLCC)
-- Last Level Cache Controller (LLCC) to DDR
-- L3 Cache from CPU to DDR interface
+>  };
+>  
+>  static const struct phy_cfg rtd1395_phy_cfg = {
+> @@ -1170,6 +1188,7 @@ static const struct phy_cfg rtd1395_phy_cfg = {
+>  	.new_reg_req = PHY_NEW_REG_REQ,
+>  	.read = phy_read,
+>  	.write = phy_write,
+> +	.force_host_disconnect = false,
+>  };
+>  
+>  static const struct phy_cfg rtd1395_phy_cfg_2port = {
+> @@ -1199,6 +1218,7 @@ static const struct phy_cfg rtd1395_phy_cfg_2port = {
+>  	.new_reg_req = PHY_NEW_REG_REQ,
+>  	.read = phy_read,
+>  	.write = phy_write,
+> +	.force_host_disconnect = false,
+>  };
+>  
+>  static const struct phy_cfg rtd1619_phy_cfg = {
+> @@ -1226,6 +1246,7 @@ static const struct phy_cfg rtd1619_phy_cfg = {
+>  	.new_reg_req = PHY_NEW_REG_REQ,
+>  	.read = phy_read,
+>  	.write = phy_write,
+> +	.force_host_disconnect = false,
+>  };
+>  
+>  static const struct phy_cfg rtd1319_phy_cfg = {
+> @@ -1257,6 +1278,7 @@ static const struct phy_cfg rtd1319_phy_cfg = {
+>  	.new_reg_req = PHY_NEW_REG_REQ,
+>  	.read = phy_read,
+>  	.write = phy_write,
+> +	.force_host_disconnect = false,
+>  };
+>  
+>  static const struct phy_cfg rtd1312c_phy_cfg = {
+> @@ -1287,6 +1309,7 @@ static const struct phy_cfg rtd1312c_phy_cfg = {
+>  	.new_reg_req = PHY_NEW_REG_REQ,
+>  	.read = phy_read,
+>  	.write = phy_write,
+> +	.force_host_disconnect = false,
+>  };
+>  
+>  static const struct phy_cfg rtd1619b_phy_cfg = {
+> @@ -1317,6 +1340,7 @@ static const struct phy_cfg rtd1619b_phy_cfg = {
+>  	.new_reg_req = PHY_NEW_REG_REQ,
+>  	.read = phy_read,
+>  	.write = phy_write,
+> +	.force_host_disconnect = false,
+>  };
+>  
+>  static const struct phy_cfg rtd1319d_phy_cfg = {
+> @@ -1347,6 +1371,7 @@ static const struct phy_cfg rtd1319d_phy_cfg = {
+>  	.new_reg_req = PHY_NEW_REG_REQ,
+>  	.read = phy_read,
+>  	.write = phy_write,
+> +	.force_host_disconnect = false,
+>  };
+>  
+>  static const struct phy_cfg rtd1315e_phy_cfg = {
+> @@ -1378,6 +1403,37 @@ static const struct phy_cfg rtd1315e_phy_cfg = {
+>  	.new_reg_req = PHY_NEW_REG_REQ,
+>  	.read = phy_read,
+>  	.write = phy_write,
+> +	.force_host_disconnect = false,
+> +};
+> +
+> +static const struct phy_cfg rtl9607_phy_cfg = {
+> +	.page0_size = MAX_USB_PHY_PAGE0_DATA_SIZE,
+> +	.page0 = { [0] = {0xe0, 0x95},
+> +		   [4] = {0xe4, 0x6a},
+> +		  [12] = {0xf3, 0x31}, },
+> +	.page1_size = MAX_USB_PHY_PAGE1_DATA_SIZE,
+> +	.page1 = { [0] = {0xe0, 0x26}, },
+> +	.page2_size = MAX_USB_PHY_PAGE2_DATA_SIZE,
+> +	.page2 = { [7] = {0xe7, 0x33}, },
+> +	.num_phy = 1,
+> +	.check_efuse = false,
 
-Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-HDK
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
----
-Add the OSM L3 controller node then add the necessary interconnect
-properties with the appropriate OPP table for each CPU cluster to
-allow the DDR, LLCC & L3 CPU bandwidth to scale along the CPU
-cluster operating point.
----
-Changes in v4:
-- Rebase on -next and resolve merge conflicts
-- Drop patch 1 as it was already picked up
-- Link to v3: https://lore.kernel.org/r/20260219-sm8550-ddr-bw-scaling-v3-0-75c19152e921@gmail.com
+Similar for these (+do_toggle_driving, use_default_parameter).
 
-Changes in v3:
-- Squash the last two patches
-- Link to v2: https://lore.kernel.org/r/20260218-sm8550-ddr-bw-scaling-v2-0-43a2b6d47e70@gmail.com
-
-Changes in v2:
-- Squash first two patches
-- Update opp tables in last patch to match how the downstream driver
-  parses those tables
-- Link to v1: https://lore.kernel.org/r/20260207-sm8550-ddr-bw-scaling-v1-0-d96c3f39ac4b@gmail.com
----
- arch/arm64/boot/dts/qcom/sm8550.dtsi | 367 +++++++++++++++++++++++++++++++++++
- 1 file changed, 367 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-index 912525e9bca6f5e1cbb8887ee0bf9e39650dc4ff..b7a7c49db077bd36f5705efeae427287eb23ffe4 100644
---- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-@@ -17,6 +17,7 @@
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/interconnect/qcom,icc.h>
- #include <dt-bindings/interconnect/qcom,sm8550-rpmh.h>
-+#include <dt-bindings/interconnect/qcom,osm-l3.h>
- #include <dt-bindings/mailbox/qcom-ipcc.h>
- #include <dt-bindings/power/qcom-rpmpd.h>
- #include <dt-bindings/power/qcom,rpmhpd.h>
-@@ -78,6 +79,13 @@ cpu0: cpu@0 {
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 			capacity-dmips-mhz = <326>;
- 			dynamic-power-coefficient = <251>;
-+			operating-points-v2 = <&cpu0_opp_table>;
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&epss_l3 MASTER_EPSS_L3_APPS
-+					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
- 			#cooling-cells = <2>;
- 			l2_0: l2-cache {
- 				compatible = "cache";
-@@ -104,6 +112,13 @@ cpu1: cpu@100 {
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 			capacity-dmips-mhz = <326>;
- 			dynamic-power-coefficient = <251>;
-+			operating-points-v2 = <&cpu0_opp_table>;
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&epss_l3 MASTER_EPSS_L3_APPS
-+					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
- 			#cooling-cells = <2>;
- 			l2_100: l2-cache {
- 				compatible = "cache";
-@@ -125,6 +140,13 @@ cpu2: cpu@200 {
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 			capacity-dmips-mhz = <326>;
- 			dynamic-power-coefficient = <251>;
-+			operating-points-v2 = <&cpu0_opp_table>;
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&epss_l3 MASTER_EPSS_L3_APPS
-+					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
- 			#cooling-cells = <2>;
- 			l2_200: l2-cache {
- 				compatible = "cache";
-@@ -146,6 +168,13 @@ cpu3: cpu@300 {
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 			capacity-dmips-mhz = <693>;
- 			dynamic-power-coefficient = <447>;
-+			operating-points-v2 = <&cpu3_opp_table>;
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&epss_l3 MASTER_EPSS_L3_APPS
-+					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
- 			#cooling-cells = <2>;
- 			l2_300: l2-cache {
- 				compatible = "cache";
-@@ -167,6 +196,13 @@ cpu4: cpu@400 {
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 			capacity-dmips-mhz = <693>;
- 			dynamic-power-coefficient = <447>;
-+			operating-points-v2 = <&cpu3_opp_table>;
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&epss_l3 MASTER_EPSS_L3_APPS
-+					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
- 			#cooling-cells = <2>;
- 			l2_400: l2-cache {
- 				compatible = "cache";
-@@ -188,6 +224,13 @@ cpu5: cpu@500 {
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 			capacity-dmips-mhz = <693>;
- 			dynamic-power-coefficient = <447>;
-+			operating-points-v2 = <&cpu3_opp_table>;
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&epss_l3 MASTER_EPSS_L3_APPS
-+					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
- 			#cooling-cells = <2>;
- 			l2_500: l2-cache {
- 				compatible = "cache";
-@@ -209,6 +252,13 @@ cpu6: cpu@600 {
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 			capacity-dmips-mhz = <693>;
- 			dynamic-power-coefficient = <447>;
-+			operating-points-v2 = <&cpu3_opp_table>;
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&epss_l3 MASTER_EPSS_L3_APPS
-+					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
- 			#cooling-cells = <2>;
- 			l2_600: l2-cache {
- 				compatible = "cache";
-@@ -230,6 +280,13 @@ cpu7: cpu@700 {
- 			qcom,freq-domain = <&cpufreq_hw 2>;
- 			capacity-dmips-mhz = <1024>;
- 			dynamic-power-coefficient = <1057>;
-+			operating-points-v2 = <&cpu7_opp_table>;
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&epss_l3 MASTER_EPSS_L3_APPS
-+					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
- 			#cooling-cells = <2>;
- 			l2_700: l2-cache {
- 				compatible = "cache";
-@@ -397,6 +454,306 @@ memory@a0000000 {
- 		reg = <0 0xa0000000 0 0>;
- 	};
- 
-+	cpu0_opp_table: opp-table-cpu0 {
-+		compatible = "operating-points-v2";
-+		opp-shared;
-+
-+		opp-307200000 {
-+			opp-hz = /bits/ 64 <307200000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (307200 * 32)>;
-+		};
-+
-+		opp-441600000 {
-+			opp-hz = /bits/ 64 <441600000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (384000 * 32)>;
-+		};
-+
-+		opp-556800000 {
-+			opp-hz = /bits/ 64 <556800000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (499200 * 32)>;
-+		};
-+
-+		opp-672000000 {
-+			opp-hz = /bits/ 64 <672000000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (499200 * 32)>;
-+		};
-+
-+		opp-787200000 {
-+			opp-hz = /bits/ 64 <787200000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (729600 * 32)>;
-+		};
-+
-+		opp-902400000 {
-+			opp-hz = /bits/ 64 <902400000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (844800 * 32)>;
-+		};
-+
-+		opp-1017600000 {
-+			opp-hz = /bits/ 64 <1017600000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (940800 * 32)>;
-+		};
-+
-+		opp-1113600000 {
-+			opp-hz = /bits/ 64 <1113600000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (1056000 * 32)>;
-+		};
-+
-+		opp-1228800000 {
-+			opp-hz = /bits/ 64 <1228800000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (1152000 * 32)>;
-+		};
-+
-+		opp-1344000000 {
-+			opp-hz = /bits/ 64 <1344000000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (1267200 * 32)>;
-+		};
-+
-+		opp-1459200000 {
-+			opp-hz = /bits/ 64 <1459200000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (1267200 * 32)>;
-+		};
-+
-+		opp-1555200000 {
-+			opp-hz = /bits/ 64 <1555200000>;
-+			opp-peak-kBps = <(466000 * 16) (768000 * 4) (1478400 * 32)>;
-+		};
-+
-+		opp-1670400000 {
-+			opp-hz = /bits/ 64 <1670400000>;
-+			opp-peak-kBps = <(466000 * 16) (768000 * 4) (1478400 * 32)>;
-+		};
-+
-+		opp-1785600000 {
-+			opp-hz = /bits/ 64 <1785600000>;
-+			opp-peak-kBps = <(466000 * 16) (768000 * 4) (1478400 * 32)>;
-+		};
-+
-+		opp-1900800000 {
-+			opp-hz = /bits/ 64 <1900800000>;
-+			opp-peak-kBps = <(466000 * 16) (768000 * 4) (1689600 * 32)>;
-+		};
-+
-+		opp-2016000000 {
-+			opp-hz = /bits/ 64 <2016000000>;
-+			opp-peak-kBps = <(600000 * 16) (1555000 * 4) (1804800 * 32)>;
-+		};
-+	};
-+
-+	cpu3_opp_table: opp-table-cpu3 {
-+		compatible = "operating-points-v2";
-+		opp-shared;
-+
-+		opp-499200000 {
-+			opp-hz = /bits/ 64 <499200000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (307200 * 32)>;
-+		};
-+
-+		opp-614400000 {
-+			opp-hz = /bits/ 64 <614400000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (499200 * 32)>;
-+		};
-+
-+		opp-729600000 {
-+			opp-hz = /bits/ 64 <729600000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (499200 * 32)>;
-+		};
-+
-+		opp-844800000 {
-+			opp-hz = /bits/ 64 <844800000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (499200 * 32)>;
-+		};
-+
-+		opp-940800000 {
-+			opp-hz = /bits/ 64 <940800000>;
-+			opp-peak-kBps = <(300000 * 16) (768000 * 4) (729600 * 32)>;
-+		};
-+
-+		opp-1056000000 {
-+			opp-hz = /bits/ 64 <1056000000>;
-+			opp-peak-kBps = <(300000 * 16) (768000 * 4) (729600 * 32)>;
-+		};
-+
-+		opp-1171200000 {
-+			opp-hz = /bits/ 64 <1171200000>;
-+			opp-peak-kBps = <(466000 * 16) (1555000 * 4) (940800 * 32)>;
-+		};
-+
-+		opp-1286400000 {
-+			opp-hz = /bits/ 64 <1286400000>;
-+			opp-peak-kBps = <(466000 * 16) (1555000 * 4) (940800 * 32)>;
-+		};
-+
-+		opp-1401600000 {
-+			opp-hz = /bits/ 64 <1401600000>;
-+			opp-peak-kBps = <(600000 * 16) (1708000 * 4) (1056000 * 32)>;
-+		};
-+
-+		opp-1536000000 {
-+			opp-hz = /bits/ 64 <1536000000>;
-+			opp-peak-kBps = <(600000 * 16) (1708000 * 4) (1056000 * 32)>;
-+		};
-+
-+		opp-1651200000 {
-+			opp-hz = /bits/ 64 <1651200000>;
-+			opp-peak-kBps = <(600000 * 16) (1708000 * 4) (1267200 * 32)>;
-+		};
-+
-+		opp-1785600000 {
-+			opp-hz = /bits/ 64 <1785600000>;
-+			opp-peak-kBps = <(600000 * 16) (1708000 * 4) (1267200 * 32)>;
-+		};
-+
-+		opp-1920000000 {
-+			opp-hz = /bits/ 64 <1920000000>;
-+			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1267200 * 32)>;
-+		};
-+
-+		opp-2054400000 {
-+			opp-hz = /bits/ 64 <2054400000>;
-+			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-+		};
-+
-+		opp-2188800000 {
-+			opp-hz = /bits/ 64 <2188800000>;
-+			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-+		};
-+
-+		opp-2323200000 {
-+			opp-hz = /bits/ 64 <2323200000>;
-+			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-+		};
-+
-+		opp-2457600000 {
-+			opp-hz = /bits/ 64 <2457600000>;
-+			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-+		};
-+
-+		opp-2592000000 {
-+			opp-hz = /bits/ 64 <2592000000>;
-+			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-+		};
-+
-+		opp-2707200000 {
-+			opp-hz = /bits/ 64 <2707200000>;
-+			opp-peak-kBps = <(933000 * 16) (2736000 * 4) (1478400 * 32)>;
-+		};
-+
-+		opp-2803200000 {
-+			opp-hz = /bits/ 64 <2803200000>;
-+			opp-peak-kBps = <(933000 * 16) (3686000 * 4) (1689600 * 32)>;
-+		};
-+	};
-+
-+	cpu7_opp_table: opp-table-cpu7 {
-+		compatible = "operating-points-v2";
-+		opp-shared;
-+
-+		opp-595200000 {
-+			opp-hz = /bits/ 64 <595200000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (307200 * 32)>;
-+		};
-+
-+		opp-729600000 {
-+			opp-hz = /bits/ 64 <729600000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (499200 * 32)>;
-+		};
-+
-+		opp-864000000 {
-+			opp-hz = /bits/ 64 <864000000>;
-+			opp-peak-kBps = <(300000 * 16) (547000 * 4) (499200 * 32)>;
-+		};
-+
-+		opp-998400000 {
-+			opp-hz = /bits/ 64 <998400000>;
-+			opp-peak-kBps = <(300000 * 16) (768000 * 4) (729600 * 32)>;
-+		};
-+
-+		opp-1132800000 {
-+			opp-hz = /bits/ 64 <1132800000>;
-+			opp-peak-kBps = <(300000 * 16) (768000 * 4) (729600 * 32)>;
-+		};
-+
-+		opp-1248000000 {
-+			opp-hz = /bits/ 64 <1248000000>;
-+			opp-peak-kBps = <(466000 * 16) (1555000 * 4) (940800 * 32)>;
-+		};
-+
-+		opp-1363200000 {
-+			opp-hz = /bits/ 64 <1363200000>;
-+			opp-peak-kBps = <(466000 * 16) (1555000 * 4) (940800 * 32)>;
-+		};
-+
-+		opp-1478400000 {
-+			opp-hz = /bits/ 64 <1478400000>;
-+			opp-peak-kBps = <(600000 * 16) (1708000 * 4) (1056000 * 32)>;
-+		};
-+
-+		opp-1593600000 {
-+			opp-hz = /bits/ 64 <1593600000>;
-+			opp-peak-kBps = <(600000 * 16) (1708000 * 4) (1056000 * 32)>;
-+		};
-+
-+		opp-1708800000 {
-+			opp-hz = /bits/ 64 <1708800000>;
-+			opp-peak-kBps = <(600000 * 16) (1708000 * 4) (1267200 * 32)>;
-+		};
-+
-+		opp-1843200000 {
-+			opp-hz = /bits/ 64 <1843200000>;
-+			opp-peak-kBps = <(600000 * 16) (1708000 * 4) (1267200 * 32)>;
-+		};
-+
-+		opp-1977600000 {
-+			opp-hz = /bits/ 64 <1977600000>;
-+			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1267200 * 32)>;
-+		};
-+
-+		opp-2092800000 {
-+			opp-hz = /bits/ 64 <2092800000>;
-+			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-+		};
-+
-+		opp-2227200000 {
-+			opp-hz = /bits/ 64 <2227200000>;
-+			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-+		};
-+
-+		opp-2342400000 {
-+			opp-hz = /bits/ 64 <2342400000>;
-+			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-+		};
-+
-+		opp-2476800000 {
-+			opp-hz = /bits/ 64 <2476800000>;
-+			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-+		};
-+
-+		opp-2592000000 {
-+			opp-hz = /bits/ 64 <2592000000>;
-+			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-+		};
-+
-+		opp-2726400000 {
-+			opp-hz = /bits/ 64 <2726400000>;
-+			opp-peak-kBps = <(933000 * 16) (3686000 * 4) (1478400 * 32)>;
-+		};
-+
-+		opp-2841600000 {
-+			opp-hz = /bits/ 64 <2841600000>;
-+			opp-peak-kBps = <(933000 * 16) (3686000 * 4) (1689600 * 32)>;
-+		};
-+
-+		opp-2956800000 {
-+			opp-hz = /bits/ 64 <2956800000>;
-+			opp-peak-kBps = <(933000 * 16) (3686000 * 4) (1689600 * 32)>;
-+		};
-+
-+		opp-3187200000 {
-+			opp-hz = /bits/ 64 <3187200000>;
-+			opp-peak-kBps = <(933000 * 16) (3686000 * 4) (1689600 * 32)>;
-+		};
-+	};
-+
- 	pmu-a510 {
- 		compatible = "arm,cortex-a510-pmu";
- 		interrupts = <GIC_PPI 7 IRQ_TYPE_LEVEL_LOW &ppi_cluster0>;
-@@ -5482,6 +5839,16 @@ rpmhpd_opp_turbo_l1: opp-416 {
- 			};
- 		};
- 
-+		epss_l3: interconnect@17d90000 {
-+			compatible = "qcom,sm8550-epss-l3", "qcom,epss-l3";
-+			reg = <0 0x17d90000 0 0x1000>;
-+
-+			clocks = <&bi_tcxo_div2>, <&gcc GCC_GPLL0>;
-+			clock-names = "xo", "alternate";
-+
-+			#interconnect-cells = <1>;
-+		};
-+
- 		cpufreq_hw: cpufreq@17d91000 {
- 			compatible = "qcom,sm8550-cpufreq-epss", "qcom,cpufreq-epss";
- 			reg = <0 0x17d91000 0 0x1000>,
-
----
-base-commit: cf7c3c02fdd0dfccf4d6611714273dcb538af2cb
-change-id: 20260207-sm8550-ddr-bw-scaling-b1524827f207
-
-Best regards,
--- 
-Aaron Kling <webgeek1234@gmail.com>
-
+> +	.check_efuse_version = CHECK_EFUSE_V2,
+> +	.efuse_dc_driving_rate = EFUS_USB_DC_CAL_RATE,
+> +	.dc_driving_mask = 0x1f,
+> +	.efuse_dc_disconnect_rate = EFUS_USB_DC_DIS_RATE,
+> +	.dc_disconnect_mask = 0xf,
+> +	.usb_dc_disconnect_at_page0 = true,
+> +	.do_toggle = true,
+> +	.do_toggle_driving = false,
+> +	.driving_updated_for_dev_dis = 0x8,
+> +	.use_default_parameter = false,
+> +	.is_double_sensitivity_mode = true,
+> +	.vstatus_offset = 0xc,
+> +	.vstatus_busy = PHY_9607_VSTS_BUSY,
+> +	.new_reg_req = PHY_9607_NEW_REG_REQ,
+> +	.read = phy_read_le,
+> +	.write = phy_write_le,
+> +	.force_host_disconnect = true,
+>  };
+>  
+>  static const struct of_device_id usbphy_rtk_dt_match[] = {
+> @@ -1390,6 +1446,7 @@ static const struct of_device_id usbphy_rtk_dt_match[] = {
+>  	{ .compatible = "realtek,rtd1395-usb2phy-2port", .data = &rtd1395_phy_cfg_2port },
+>  	{ .compatible = "realtek,rtd1619-usb2phy", .data = &rtd1619_phy_cfg },
+>  	{ .compatible = "realtek,rtd1619b-usb2phy", .data = &rtd1619b_phy_cfg },
+> +	{ .compatible = "realtek,rtl9607-usb2phy", .data = &rtl9607_phy_cfg },
+>  	{},
+>  };
+>  MODULE_DEVICE_TABLE(of, usbphy_rtk_dt_match);
+> -- 
+> 2.53.0
+> 
+> 
 
