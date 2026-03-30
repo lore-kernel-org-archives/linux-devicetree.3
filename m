@@ -1,270 +1,205 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A103B6C0D
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 10:24:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 248F63ACA5D
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 10:28:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774866265; cv=none; b=b3ri4ckGOTwWqy5Xdg6fMK6ANOyPQ1fmjMH9lh461qw/U+ajATcR8dmFk2hYtctHHN34wi47CEw6fGH6F4wWX7bcDgDrVsejrscksFzRRHM9UuC51bDk8KIzLUElUwEP5SHAw4iZCm6JgW/FSUn05+mNqazVLOY6AzVlbPjMdsE=
+	t=1774866511; cv=none; b=J2Q2vQkt2sJXZv30wj/Y3A3pXIshy2/zEmt20ZiTOKIXM9AmrSkGzrJ/GdOWUR7M+HlJ+W4UVB2+Zw8kof9dW1HSMquboGdHXA2oWFUyIeCmWI7b6LJernrbaKzbxoUNK8U/5UCt6Qo5BABX2pQ9OdYbF5+Gs1/YfawFMONLPto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774866265; c=relaxed/simple;
-	bh=VMluzEO+vXScleCPbSoiPiWKvNB37BOBgsT+f6Aumbg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rudAO0RRbyNNhAWMagxtktuwfDX7uNbOSV64NFsItDLRuBHMzAdrOufniBqPBaW0kAYLpEAVVm8FpgNKgSSV4fDygzWLZtPPKvGqVAQ4F3utKcTdjCmNsT1drO7cRNnH0NHenaxfHUNSF0QtCuOOsD/m1QISdLVD4aQJ43ZEKAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QUwbvQ8O; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QUwbvQ8O"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-358e3cc5e7eso2072773a91.0
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 03:24:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774866264; x=1775471064; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FuV6S8ARQhcEDtqDMV4JUy18vQg5CHRAe10eKnzkrUw=;
-        b=QUwbvQ8O2WijVRF1EWUCh+QGPcsjNOG8Qm7uJN0UfISVHDtseEaHjj/duJzqxjLwBJ
-         IhKjXuMvBpcQ2vCPWI36sp7z/uBec1GjAC1O6im6Slcm/mN5xx+JkeJ5aRRPr1D0WIrh
-         HANPoT8LTIvxtBabmVKj0qsoUQ0kTCabe64X950pdkE5izsAF3QAtFvY05fZVH2QXBsq
-         QNJdgvNg9Gfnli8ZG4utYcIhkjiWFGJK/DAD4P5mGj/hN+68YTrZIYSL0eI+BUp81+SW
-         qIIPXHwzQwmLa3MldlFpRO4OJVhjkxJJdbfIOeilhDKjDB3ixy1f7BiyABA627WfvQYu
-         j8Jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774866264; x=1775471064;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=FuV6S8ARQhcEDtqDMV4JUy18vQg5CHRAe10eKnzkrUw=;
-        b=lO72dqqZjNPUxiZ/NdkWmH0WXytUxBzaOAwaH6MpawgJX82fcqPmwI2mPBk1e1D+dP
-         8/qAFLKQUOgonKkYPnkpQ6QQju270rO90bDE64++Ye72lPuDZYsnw4pRvdbhF72mte3X
-         JAz27OjCnmFe24X05G27W407VFtTzxuZ4tTj+n3jDtMt2dDyeEH6c6Z7c6HP+imAPRlv
-         bRzYRC12VHg4tGybjoWeA0zhUj2UWZq8psk7hRv6KZs1KxKOOUOu4OGO476VuTFx6wOX
-         AEnG9SlYEDD5JCWbX4oLu2gH5vqP7jdV/XmK6vn7tvU9h+SfINiSbX2nZ4jpD2jPRlcZ
-         PwHA==
-X-Forwarded-Encrypted: i=1; AJvYcCUSLj7cROl+AaZj696zPZOCubspDWbsrIRdUvUT0zHSWIB8NI3h2xmDjneeFrebq3V3lOZWGBUnH04k@vger.kernel.org
-X-Gm-Message-State: AOJu0YyOaGCz3uHiXBO74bgxiazSU4Of3JRetFRsF22T8an88+uq19XD
-	lxvDAhV/uuAE46NKOtgLg5V0TjaRfB0umPd2/ZOzYOafHDHXW9I7+f6u0eOmGQ==
-X-Gm-Gg: ATEYQzzWcZsxS9q07kCIoztbwwLW8EqK3628JWVvaokWxLxtiw+KEx/eAWYml/h96FA
-	GJGnSsn60ZExxW5WPx/IA7AfbvvXxxTqXbxBi/+QDmqC4xKF/LqVFir7qb0z6yICRF13WK7jcLz
-	4/8EX9kf7GVkpqaCH6McBz4zoD+4PEPrJpnQEnRco4bP+eAz+lJnJyaZia/4jCOKCqkbpS2xbOi
-	PAse5TLT0lAXkyGfPc79pzgKqx2zVO3N/ViBLR4VC8/7ME7GFjTr6x4hpEBv0G0WpmgraF4mxi4
-	OeHkHCIPpCwiwEQtBmilFGWfV0bUgTGtqNupsEv99wER3s8ZMIjJ3Ezejva98AVphpfz4WND0xV
-	MPSlFh30RkB/7ElzL4SfTYPhsAjJxx7+EtMzFyx4G6mbDZD448ClV3AQKLq2Af1ysyWgoagOuj8
-	us0Sn/Q0JIjH+i1to4gXjrFGeO6xGTQymKnE7pVIuPQEAppw==
-X-Received: by 2002:a17:90b:4b0d:b0:35b:e5ba:c0c8 with SMTP id 98e67ed59e1d1-35c3010dc26mr10692038a91.28.1774866263357;
-        Mon, 30 Mar 2026 03:24:23 -0700 (PDT)
-Received: from localhost.localdomain ([2401:4900:93c7:f319:97ce:1434:43e8:eab7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35da9ef1b70sm2487452a91.16.2026.03.30.03.24.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Mar 2026 03:24:22 -0700 (PDT)
-From: ASHISH YADAV <ashishyadav78@gmail.com>
-X-Google-Original-From: ASHISH YADAV <Ashish.Yadav@infineon.com>
-To: Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ashish Yadav <ashish.yadav@infineon.com>
-Subject: [PATCH 2/2] hwmon:(pmbus/xdp720) Add support for efuse xdp720
-Date: Mon, 30 Mar 2026 15:53:45 +0530
-Message-Id: <20260330102345.37065-3-Ashish.Yadav@infineon.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260330102345.37065-1-Ashish.Yadav@infineon.com>
-References: <20260330102345.37065-1-Ashish.Yadav@infineon.com>
+	s=arc-20240116; t=1774866511; c=relaxed/simple;
+	bh=QcgDmtp6qELhkSs9OIigLdhyLZkq8vZpH4Nl1UEWrw0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r1ktLuHc7RCIwFieRAIkO4clHe0auYoavUeEvuzoqrvsn8/8r5EJ7koTtV2qQHoT2LUulEouwTcVtTxZsObbnB9NRb04VCqeq4wGDYE63kSo4U/VFind+2eNtBIIxXlRMaYXIq1f/rC/ANpe+aOkKyHPbD6/ugRAI2vI67ENYsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1w79qj-0000CQ-RV; Mon, 30 Mar 2026 12:28:01 +0200
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1w79qi-002rMd-1h;
+	Mon, 30 Mar 2026 12:28:00 +0200
+Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1w79qi-0000000EQ4g-1fiC;
+	Mon, 30 Mar 2026 12:28:00 +0200
+Date: Mon, 30 Mar 2026 12:28:00 +0200
+From: Marco Felsch <m.felsch@pengutronix.de>
+To: Liu Ying <victor.liu@nxp.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
+	Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: display: bridge: ldb: Require reg property
+ only for i.MX6SX/8MP LDBs
+Message-ID: <oyietcoxdawgjmpdc3kkmru2azuuqrkmn3onm37wpu6f3t2pqg@g7aswu7zsfrq>
+References: <20260329-fsl_ldb_schema_fix-v1-1-351372754bc0@nxp.com>
+ <crqzju5cqhvmy5msxvuquydmnpb2ft2t3gsyr6qsre6ccqjvzz@46gfcrelczsr>
+ <aabe88e5-70f9-4ea1-b750-e425970a2761@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aabe88e5-70f9-4ea1-b750-e425970a2761@nxp.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: mfe@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-From: Ashish Yadav <ashish.yadav@infineon.com>
+On 26-03-30, Liu Ying wrote:
+> On Sun, Mar 29, 2026 at 07:42:23PM +0200, Marco Felsch wrote:
+> > Hi Liu,
+> 
+> Hi Marco,
+> 
+> > 
+> > sorry for not writting back earlier, the last weeks were quite busy.
+> > 
+> > On 26-03-29, Liu Ying wrote:
+> >> LDB's parent device could be a syscon which doesn't allow a reg property
+> >> to be present in it's child devices, e.g., NXP i.MX93 Media blk-ctrl
+> >> has a child device NXP i.MX93 Parallel Display Format Configuration(PDFC)
+> >> without a reg property(LDB is also a child device of the Media blk-ctrl).
+> >> To make the LDB schema be able to describe LDBs without the reg property
+> >> like i.MX93 LDB, require the reg property only for i.MX6SX/8MP LDBs.
+> > 
+> > NACK, we want to describe the HW and from HW PoV the LDB is and was
+> > always part of a syscon. This is the case for all SoCs i.MX6SX/8MP/93.
+> 
+> The reality is that i.MX6SX and i.MX8MP LDB DT nodes are already in-tree.
 
-Add the pmbus driver for Infineon XDP720 Digital eFuse Controller.
+What do you mean by 'already in-tee'?
 
-Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
----
-XDP720 Digital eFuse Controller provides accurate system telemetry
-(V, I, P, T) and reports analog current at the IMON pin for post-processing.
+> People may take them as ABI(not only for Linux, but also for other
+> potential projects which use the LDB schema and/or the DT nodes).
 
-The Current and Power measurement depends on the RIMON and GIMON values.
-Please look into data sheet sections 5.4.2 and 5.4.4 for more details:
-https://www.infineon.com/assets/row/public/documents/24/49/infineon-xdp720-001-datasheet-en.pdf
+Not sure about this. The DT sould be backward compatible, meaning an old
+DT shouldn't break new users e.g. old DT with 'reg' property present
+shouldn't break new u-boot/barebox/linux/... drivers. But a new DT could
+fix/change the behavior for new u-boot/barebox/linux/... drivers.
 
-The GIMON (microA/A) depends on the 10th bit of TELEMETRY_AVG PMBUS Register.
-The value of RIMON (kohm) can be provided by the user through device tree using
-infineon,rimon-micro-ohms  property.
----
- drivers/hwmon/pmbus/Kconfig  |   9 +++
- drivers/hwmon/pmbus/Makefile |   1 +
- drivers/hwmon/pmbus/xdp720.c | 122 +++++++++++++++++++++++++++++++++++
- 3 files changed, 132 insertions(+)
- create mode 100644 drivers/hwmon/pmbus/xdp720.c
+So no, I don't see a problem here.
 
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index fc1273abe357..c8e53852d0c3 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -702,6 +702,15 @@ config SENSORS_XDP710
- 	  This driver can also be built as a module. If so, the module will
- 	  be called xdp710.
- 
-+config SENSORS_XDP720
-+        tristate "Infineon XDP720 family"
-+        help
-+          If you say yes here you get hardware monitoring support for Infineon
-+          XDP720.
-+
-+          This driver can also be built as a module. If so, the module will
-+          be called xdp720.
-+
- config SENSORS_XDPE152
- 	tristate "Infineon XDPE152 family"
- 	help
-diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-index d6c86924f887..bb0a7526d5b3 100644
---- a/drivers/hwmon/pmbus/Makefile
-+++ b/drivers/hwmon/pmbus/Makefile
-@@ -68,6 +68,7 @@ obj-$(CONFIG_SENSORS_TPS546D24)	+= tps546d24.o
- obj-$(CONFIG_SENSORS_UCD9000)	+= ucd9000.o
- obj-$(CONFIG_SENSORS_UCD9200)	+= ucd9200.o
- obj-$(CONFIG_SENSORS_XDP710)	+= xdp710.o
-+obj-$(CONFIG_SENSORS_XDP720)    += xdp720.o
- obj-$(CONFIG_SENSORS_XDPE122)	+= xdpe12284.o
- obj-$(CONFIG_SENSORS_XDPE152)	+= xdpe152c4.o
- obj-$(CONFIG_SENSORS_ZL6100)	+= zl6100.o
-diff --git a/drivers/hwmon/pmbus/xdp720.c b/drivers/hwmon/pmbus/xdp720.c
-new file mode 100644
-index 000000000000..862de828198d
---- /dev/null
-+++ b/drivers/hwmon/pmbus/xdp720.c
-@@ -0,0 +1,122 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Hardware monitoring driver for Infineon XDP720 Digital eFuse Controller
-+ *
-+ * Copyright (c) 2026 Infineon Technologies. All rights reserved.
-+ */
-+
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/init.h>
-+#include <linux/kernel.h>
-+#include <linux/of_device.h>
-+#include <linux/bitops.h>
-+#include "pmbus.h"
-+
-+/*
-+ * The IMON resistor required to generate the system overcurrent protection.
-+ * Arbitrary default Rimon value: 2k Ohm
-+ */
-+#define XDP720_DEFAULT_RIMON 2000000000 /* 2k ohm */
-+#define XDP720_TELEMETRY_AVG 0xE9
-+
-+static struct pmbus_driver_info xdp720_info = {
-+	.pages = 1,
-+	.format[PSC_VOLTAGE_IN] = direct,
-+	.format[PSC_VOLTAGE_OUT] = direct,
-+	.format[PSC_CURRENT_OUT] = direct,
-+	.format[PSC_POWER] = direct,
-+	.format[PSC_TEMPERATURE] = direct,
-+
-+	.m[PSC_VOLTAGE_IN] = 4653,
-+	.b[PSC_VOLTAGE_IN] = 0,
-+	.R[PSC_VOLTAGE_IN] = -2,
-+	.m[PSC_VOLTAGE_OUT] = 4653,
-+	.b[PSC_VOLTAGE_OUT] = 0,
-+	.R[PSC_VOLTAGE_OUT] = -2,
-+	/*
-+	 * Current and Power measurement depends on the RIMON (kOhm) and
-+	 * GIMON(microA/A) values.
-+	 */
-+	.m[PSC_CURRENT_OUT] = 24668,
-+	.b[PSC_CURRENT_OUT] = 0,
-+	.R[PSC_CURRENT_OUT] = -4,
-+	.m[PSC_POWER] = 4486,
-+	.b[PSC_POWER] = 0,
-+	.R[PSC_POWER] = -1,
-+	.m[PSC_TEMPERATURE] = 54,
-+	.b[PSC_TEMPERATURE] = 22521,
-+	.R[PSC_TEMPERATURE] = -1,
-+
-+	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_PIN |
-+		   PMBUS_HAVE_TEMP | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_INPUT |
-+		   PMBUS_HAVE_STATUS_TEMP,
-+};
-+
-+static int xdp720_probe(struct i2c_client *client)
-+{
-+	struct pmbus_driver_info *info;
-+	int ret;
-+	u32 rimon;
-+	int gimon;
-+
-+	info = devm_kmemdup(&client->dev, &xdp720_info, sizeof(*info),
-+			    GFP_KERNEL);
-+	if (!info)
-+		return -ENOMEM;
-+
-+	ret = i2c_smbus_read_word_data(client, XDP720_TELEMETRY_AVG);
-+	if (ret < 0) {
-+		dev_err(&client->dev, "Can't get TELEMETRY_AVG\n");
-+		return ret;
-+	}
-+
-+	ret >>= 10; /* 10th bit of TELEMETRY_AVG REG for GIMON Value */
-+	ret &= GENMASK(0, 0);
-+	if (ret == 1)
-+		gimon = 18200; /* output gain 18.2 microA/A */
-+	else
-+		gimon = 9100; /* output gain 9.1 microA/A */
-+
-+	if (of_property_read_u32(client->dev.of_node,
-+				 "infineon,rimon-micro-ohms", &rimon))
-+		rimon = XDP720_DEFAULT_RIMON; /* Default if not set via DT */
-+	if (rimon == 0)
-+		return -EINVAL;
-+
-+	/* Adapt the current and power scale for each instance */
-+	info->m[PSC_CURRENT_OUT] = DIV_ROUND_CLOSEST_ULL((u64)
-+		info->m[PSC_CURRENT_OUT] * rimon * gimon, 1000000000000);
-+	info->m[PSC_POWER] = DIV_ROUND_CLOSEST_ULL((u64)
-+		info->m[PSC_POWER] * rimon * gimon, 1000000000000);
-+
-+	return pmbus_do_probe(client, info);
-+}
-+
-+static const struct of_device_id xdp720_of_match[] = {
-+	{ .compatible = "infineon,xdp720" },
-+	{}
-+};
-+
-+static const struct i2c_device_id xdp720_id[] = {
-+	{ "xdp720" },
-+	{}
-+};
-+
-+MODULE_DEVICE_TABLE(i2c, xdp720_id);
-+
-+static struct i2c_driver xdp720_driver = {
-+	.driver = {
-+		   .name = "xdp720",
-+		   .of_match_table = xdp720_of_match,
-+	},
-+	.probe = xdp720_probe,
-+	.id_table = xdp720_id,
-+};
-+
-+module_i2c_driver(xdp720_driver);
-+
-+MODULE_AUTHOR("Ashish Yadav <ashish.yadav@infineon.com>");
-+MODULE_DESCRIPTION("PMBus driver for Infineon Digital eFuse Controller");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("PMBUS");
+> >> Fixes: 8aa2f0ac08d3 ("dt-bindings: display: bridge: ldb: Add check for reg and reg-names")
+> > 
+> > Therefore I would just revert this patch completely.
+> 
+> IMHO, it doesn't make too much difference between my patch and reverting
+> this offending patch, because of the ABI, i.e., the reg properties in
+> i.MX6SX and i.MX8MP LDB DT nodes are supposed to be stable.
+
+Please see above. If that would be the case, your DT must be rock-solid
+bug-free from day one, which is highly unlikely.
+
+> I feel that what you are asking for is even more than simply reverting
+> this offending patch, that is to say, completely disallowing the reg and
+> reg-names properties for LDBs across all SoCs.  But again, that would
+> break the ABI.
+
+Please see above. IMHO it's more confusing if the same "IP" requires the
+'reg' for i.MX6SX/8MP but doesn't require it for the i.MX93. Therefore I
+would like to keep it consistent.
+
+Regards,
+  Marco
+
+> 
+> > 
+> > Regards,
+> >   Marco
+> > 
+> >> Signed-off-by: Liu Ying <victor.liu@nxp.com>
+> >> ---
+> >>  .../bindings/display/bridge/fsl,ldb.yaml           | 23 ++++++++++++++++------
+> >>  1 file changed, 17 insertions(+), 6 deletions(-)
+> >>
+> >> diff --git a/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml b/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
+> >> index 7f380879fffd..5f6dc2b11d7b 100644
+> >> --- a/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
+> >> +++ b/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
+> >> @@ -28,6 +28,7 @@ properties:
+> >>      const: ldb
+> >>  
+> >>    reg:
+> >> +    minItems: 1
+> >>      maxItems: 2
+> >>  
+> >>    reg-names:
+> >> @@ -68,7 +69,6 @@ required:
+> >>    - compatible
+> >>    - clocks
+> >>    - ports
+> >> -  - reg
+> >>  
+> >>  allOf:
+> >>    - if:
+> >> @@ -83,12 +83,23 @@ allOf:
+> >>          ports:
+> >>            properties:
+> >>              port@2: false
+> >> +
+> >>    - if:
+> >> -      not:
+> >> -        properties:
+> >> -          compatible:
+> >> -            contains:
+> >> -              const: fsl,imx6sx-ldb
+> >> +      properties:
+> >> +        compatible:
+> >> +          contains:
+> >> +            enum:
+> >> +              - fsl,imx6sx-ldb
+> >> +              - fsl,imx8mp-ldb
+> >> +    then:
+> >> +      required:
+> >> +        - reg
+> >> +
+> >> +  - if:
+> >> +      properties:
+> >> +        compatible:
+> >> +          contains:
+> >> +            const: fsl,imx8mp-ldb
+> >>      then:
+> >>        required:
+> >>          - reg-names
+> >>
+> >> ---
+> >> base-commit: 3b058d1aeeeff27a7289529c4944291613b364e9
+> >> change-id: 20260329-fsl_ldb_schema_fix-4fe01c42bff3
+> >>
+> >> Best regards,
+> >> -- 
+> >> Liu Ying <victor.liu@nxp.com>
+> >>
+> >>
+> > 
+> 
+> -- 
+> Regards,
+> Liu Ying
+> 
+
 -- 
-2.39.5
+#gernperDu 
+#CallMeByMyFirstName
 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
