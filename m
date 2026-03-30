@@ -1,172 +1,93 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696AE3988FD;
-	Mon, 30 Mar 2026 19:28:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B2E397E7D;
+	Mon, 30 Mar 2026 19:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774898903; cv=none; b=Jdal16v4wm4f+R5eAOHNGTeT4p8/KvJ4fhxFMdvpdaFfnCUkWKI3WyMiIC71VQ4aBrCL2vYZWC0yVCGpzb0fHwcE3JmlSDHumqnmLuNahCcQ6TUZDH+d58GY9KXCfYmzaUWvwT9VYVnosaI5xGkUcqqqs3Ha+Y+fgyP810DIhVI=
+	t=1774898903; cv=none; b=SUu1/rGlve08OwSuts7XQULRkI/iXzLfdCOXSvIKYJWKzEc6bWXsgJSILBJa1XE+XMsqIa5l41bcqqdpqEIuU2qhAmimxsxEfeNxPeP8g5P+RmuVLVF6L/aWl6xYpiUmqg6n8Rwo8ucaGQbt+UMsyjKvJWNzDEVSsEYe3he0XuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774898903; c=relaxed/simple;
-	bh=k4oECNgcgBffSrqVG/1BTCiLFKfxRRx2KgQM/Onrk2c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cCWM96OlWgvRmyYE/LscjCXWOeAkxthk2+qt0J9hrNJ3kOT5+H4I2MK1kNUbson5IxveDNnK0NpQw04MrEHG7TBa2wluX5JONYpTFliSR0wVx4CiwDi80Cqps59JNbRRbB+dRFvmx9u5gl9T1dBY8YEhFRrzrBvxOu/8yBAf2Gc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=oUJWw+sn; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	bh=dAGFeP4nP8HMvhgV9SKrun5aegYvL/MhIs1kziaPbwQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pSxknhruD6iQIVVKAxSY+IWQPBb5AGuLf7rWHBZFci/vofuofvmRHQ/vp5jG2yyptQ9yQnUHKC1x/35Ymx0wf6r5gweBwSakqiARRFPrfIMrq96QgtqpZP5wqvlFzBTe2emO7HPfC1l6ahBgRolsnpkY9gF/4jp1lsXP6Z+tvSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LM7R+O1c; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="oUJWw+sn"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 6286DC4042D;
-	Mon, 30 Mar 2026 19:28:51 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2B5685FFA8;
-	Mon, 30 Mar 2026 19:28:21 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D985E10450A1D;
-	Mon, 30 Mar 2026 21:28:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1774898898; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=RWUsNAX4qkcAdj0Wcj9Oo2se6gzwrm1zu3SjMpebEPg=;
-	b=oUJWw+snQiJK02OPuQbuHCk6voqfaJP4n5+P7ls65RFfDHnsX2qLyzuuWtQtOZpB2d8Ju2
-	/Ql5QOLjabiVDAJsEshL8Rx1jn0a9fEKfk558xZkRHYFjnmqluA6pP7pTYbvRByv/7KgPF
-	qPPd2c2Aptn8+8W2XDOalCkM5rLwHIFbLkHHMZQq066fyk2yZ6aREg12OPszPsII5wkk/c
-	3ZKS4bQiXN0ix65glAXmXA4TlR1ZKO4pn3beZ17TMH3k7qCbSNdZZKqprWad0MTHo4Kdkm
-	cCuXPz6SezX9ubQncm6HLiFQKMQK6wMfkfN/F/sHH/aJrnaM0jDU02rO0RlELA==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Mon, 30 Mar 2026 21:25:51 +0200
-Subject: [PATCH v2 10/10] drm/mxsfb/lcdif: use
- DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LM7R+O1c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 124EFC2BCB1;
+	Mon, 30 Mar 2026 19:28:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774898903;
+	bh=dAGFeP4nP8HMvhgV9SKrun5aegYvL/MhIs1kziaPbwQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LM7R+O1cwF7GVHPmmRaJuQUZthf2zr17D/KgWgi5IdV+4A0iFSuPD/hMp467QJgGS
+	 FRDIFg4oCBsm0abLrorViWZaAQ+BIBPPIDt3LXp6i4RAjS88nDToHaIsPpnz+nXDLb
+	 LTZAA65y6onKLJKFNjh1HCWj3bmMP4YFyApgcLPSAyb8LV/tiNCoyzsb2wx9wl+wS1
+	 1nXpTbGhB+TpEfWCXT5HypC1IJw0Fujfl7INrBvtzu8vQRYPz5MT0JVxmSAlMkb7Oe
+	 cJwHAx96O5/sSgmHkXNA7OgfjQBkqSdebTzx4hn8zMUnFGShpvRBhJiJhvmdF1Htrh
+	 bsIWOlOQ17zkg==
+Date: Mon, 30 Mar 2026 14:28:19 -0500
+From: Rob Herring <robh@kernel.org>
+To: manivannan.sadhasivam@oss.qualcomm.com
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nicolas.schier@linux.dev>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Bartosz Golaszewski <brgl@bgdev.pl>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org, linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org, linux-pm@vger.kernel.org,
+	Stephan Gerhold <stephan.gerhold@linaro.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	linux-acpi@vger.kernel.org,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>
+Subject: Re: [PATCH v7 1/8] serdev: Convert to_serdev_*() helpers to macros
+ and use container_of_const()
+Message-ID: <20260330192819.GA3107726-robh@kernel.org>
+References: <20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com>
+ <20260326-pci-m2-e-v7-1-43324a7866e6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260330-drm-lcdif-dbanc-v2-10-c7f2af536a24@bootlin.com>
-References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
-In-Reply-To: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
-To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>, 
- Saravana Kannan <saravanak@kernel.org>
-Cc: Damon Ding <damon.ding@rock-chips.com>, 
- "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>, 
- =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Christopher Obbard <christopher.obbard@linaro.org>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Emanuele Ghidoli <emanuele.ghidoli@toradex.com>, 
- Fabio Estevam <festevam@denx.de>, 
- Francesco Dolcini <francesco.dolcini@toradex.com>, 
- Frieder Schrempf <frieder.schrempf@kontron.de>, 
- Gilles Talis <gilles.talis@gmail.com>, 
- =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, 
- Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Marco Felsch <m.felsch@pengutronix.de>, 
- Martyn Welch <martyn.welch@collabora.com>, 
- Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>, 
- Richard Hu <richard.hu@technexion.com>, 
- Shengjiu Wang <shengjiu.wang@nxp.com>, 
- Stefan Eichenberger <stefan.eichenberger@toradex.com>, 
- Vitor Soares <vitor.soares@toradex.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.15.1
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260326-pci-m2-e-v7-1-43324a7866e6@oss.qualcomm.com>
 
-Convert this driver to DRM_BRIDGE_ATTACH_NO_CONNECTOR and to the
-drm_bridge_connector framework which is the current DRM bridge best
-practice.
+On Thu, Mar 26, 2026 at 01:36:29PM +0530, Manivannan Sadhasivam via B4 Relay wrote:
+> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> 
+> If these helpers receive the 'const struct device' pointer, then the const
+> qualifier will get dropped, leading to below warning:
+> 
+> warning: passing argument 1 of ‘to_serdev_device_driver’ discards 'const'
+> qualifier from pointer target type [-Wdiscarded-qualifiers]
+> 
+> This is not an issue as of now, but with the future commits adding serdev
+> device based driver matching, this warning will get triggered. Hence,
+> convert these helpers to macros so that the qualifier get preserved and
+> also use container_of_const() as container_of() is deprecated.
+> 
+> Tested-by: Hans de Goede <johannes.goede@oss.qualcomm.com> # ThinkPad T14s gen6 (arm64)
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> ---
+>  include/linux/serdev.h | 15 +++------------
+>  1 file changed, 3 insertions(+), 12 deletions(-)
 
-Tested-by: Martyn Welch <martyn.welch@collabora.com>
-Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL/MBa8MPxL
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
----
-
-Changes in v2:
-- Added missing select DRM_DISPLAY_HELPER in Kconfig
-- Rebased on previous patch changes
----
- drivers/gpu/drm/mxsfb/Kconfig     |  2 ++
- drivers/gpu/drm/mxsfb/lcdif_drv.c | 16 +++++++++++++++-
- 2 files changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/mxsfb/Kconfig b/drivers/gpu/drm/mxsfb/Kconfig
-index 264e74f45554..31db7a824a93 100644
---- a/drivers/gpu/drm/mxsfb/Kconfig
-+++ b/drivers/gpu/drm/mxsfb/Kconfig
-@@ -33,6 +33,8 @@ config DRM_IMX_LCDIF
- 	select DRM_GEM_DMA_HELPER
- 	select DRM_PANEL
- 	select DRM_PANEL_BRIDGE
-+	select DRM_DISPLAY_HELPER
-+	select DRM_BRIDGE_CONNECTOR
- 	help
- 	  Choose this option if you have an LCDIFv3 LCD controller.
- 	  Those devices are found in various i.MX SoC (i.MX8MP,
-diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-index c8ba8f9b1da8..7f07ae24e0dc 100644
---- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
-+++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-@@ -18,6 +18,7 @@
- #include <drm/clients/drm_client_setup.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
-+#include <drm/drm_bridge_connector.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_encoder.h>
- #include <drm/drm_fbdev_dma.h>
-@@ -57,6 +58,7 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
- 		struct of_endpoint of_ep;
- 		struct drm_bridge *bridge;
- 		struct drm_encoder *encoder;
-+		struct drm_connector *connector;
- 		int ret;
- 
- 		if (!of_device_is_available(remote))
-@@ -86,11 +88,23 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
- 					     "Failed to initialize encoder for endpoint%u\n",
- 					     of_ep.id);
- 
--		ret = drm_bridge_attach(encoder, bridge, NULL, 0);
-+		ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 		if (ret)
- 			return dev_err_probe(dev, ret,
- 					     "Failed to attach bridge for endpoint%u\n",
- 					     of_ep.id);
-+
-+		connector = drm_bridge_connector_init(lcdif->drm, encoder);
-+		if (IS_ERR(connector))
-+			return dev_err_probe(dev, PTR_ERR(connector),
-+					     "Failed to init bridge_connector for endpoint%u\n",
-+					     of_ep.id);
-+
-+		ret = drm_connector_attach_encoder(connector, encoder);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "Failed to attach connector for endpoint%u\n",
-+					     of_ep.id);
- 	}
- 
- 	return 0;
-
--- 
-2.53.0
-
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
