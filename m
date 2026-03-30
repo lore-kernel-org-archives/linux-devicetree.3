@@ -1,195 +1,180 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D2423183B
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 07:49:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9683A785E
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 07:50:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774856953; cv=none; b=mkPRccayrI1ON9yPA8s+Ba0RQP5hux/tuNHT+v//cAat3fKeHD1+mY3uTqNHhmPuKVCQlqvHpvCSv7yJY182HTK2c+6Tsv+VhoFSEaS66qFO0iDFYK+wkhQrGRIE8HlGSAusniZq33XWJ/FQr+mqgYHdlkoJcCEUxmX9GZBVcLE=
+	t=1774857003; cv=none; b=geeZa9Ej03M6IyT3aPziRzN+lrfDbx8LEnIz05Sgtx5f5KW/x8/9v8JsI/3LYbWh3Cwg6EvhjXIuiXMLv7S87BVKoh8RZG74wpBS4T/C+y1qPo5aul3zv0NJHftfR5wiBWm46QLO/aN+UYmLdn3x5MLjHVbqjz+OZVUmV6teGHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774856953; c=relaxed/simple;
-	bh=o622oh54cTsU+KKUTxCLpNHU169i/iVq4YO8czMNyw0=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=kCJMRx4SPhSGTr2IeXA0bPamGS5wp/Ns6Z69luJxAE40JPj6rnQk+24SI0VFdIgh26nDBpNPI/nkrJYmYurgH+9ny6n247ese7yCvE4iCezizLsUjSNY4Pwwz5td8Lpm6ovzxOZHt5GBJQXopeBZbyjju+lpWx58VpyGKNS+d5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=s9im0yTG; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1774857003; c=relaxed/simple;
+	bh=6kNN1RP6hfrxfLPYE0OI9tP3SvLOgSwkQmqyXhzTfyQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=r2Cz97mmfpEznwhRr/IbOG40lZih94+zERuhib1icLg++Q/zxIsgUpVSvkgQCdyjDbYa2AqhrslZAF+Ep14M7zryVfDcEm9+rqdwAd3BoHglGGjAFG2DynHajs0/IiB9o/L9/JhxGjX37tprbo24N4quIVe1v2yPy4O/rYzPcFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VMeYBS8X; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="s9im0yTG"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-486507134e4so48225395e9.0
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 00:49:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774856950; x=1775461750; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=l/nFmeNNFWPp+7jec/T1A0Kyh+DGfRIv+rs3nkdXw+U=;
-        b=s9im0yTG6+qrtiG1MwP/0px8LTVk+D/844FhT8O2dG57xgC6GKZyLCkkt0/gdWA5z4
-         yE/nSLNp1VRO89RgGzj793QjMauERltq6EIMbHzGoFCeqWNYd0q1/AGflm7li1GcL3Rz
-         hLcvI/YwO6iPS8i8kZvqBvuqfgQG7XbDHsHSVA9t3IcgkwnUgwsYLLKS3LAvN7hau1ed
-         tmebh8iFJ4EDv3PGk5GSnndakw65ZkylArrlRBWci2ur6r1grWfe8iB9zROxJaccH3mk
-         GcHv6O9P0k+8xoWqD4oXbBqxp4Cbi5cZaLn4AsN802c1RONRkznBNmD/Z7kteIAHCD9y
-         /hTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774856950; x=1775461750;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=l/nFmeNNFWPp+7jec/T1A0Kyh+DGfRIv+rs3nkdXw+U=;
-        b=Y469UDnEGlvQ63swpxsRLYFbsw3oWUGaNHgRfrsvnHlSQYIqOp7uQiPbhMqRwNuYpJ
-         PMfRo38oW6AfQ2vqThqVAx4hOHca+jQrheQTMid/AJHA2H0OXy/b5ENidzD/Vq7iJBt+
-         EHD9/+XYecqqh2sl83ZWcw5Z5X7pdSgqqqccQRa2IZ/gpGZSr53IghpKR8LA2yNsTQT/
-         8wd7QshxV3vUXCcfB0Y8xRrdylzUdAlQf9Iu5TTb0T5gQIALfY9oVrGs9Lkef04uVXSL
-         OiMgRY9UxS8p5FhGp35vQOnNXey3Lpq32UKQmIFfBKCW7jeCKqG5k0MrVwlgyTfFw7hh
-         rwsg==
-X-Forwarded-Encrypted: i=1; AJvYcCV59bnf539XPiYGOA0GChyUQ7L+otGK+3WvzGGRKvBj/HQOmx3LTJa5fQ687Xhw7bQ6x5nY3Qx+HQU3@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxd6I706RlEnqkwDRDF2YEmrlEoCObluGnqnzvSSuX/S+/l94qi
-	r9/Wuo5TeOsPaOX7r5eaqcg4jsiqId0HiIX/KjKu7F2ISRn0mphwyP8YU4DxDFIOzUY=
-X-Gm-Gg: ATEYQzwo8+B5ZQELTa2kTI295HWn78AG1TlIesSj+2YU42hh+FsOEW/lLaXBQkW4EPQ
-	4ldnPaHYJvGmbOth3mQb7Pm6Jqyjqn63vrBYkgk6VVoI9bXYS85J5bExS8YGjocZUFOaWtcfRBW
-	YWUDKJHnlHnIjlHWGzQt+aupDzd/gz3qB3Z59gcj3DRVd3KBSxQGfq58UxfMgio7y4Pt9kXilwh
-	Bj6VVClqHbu41qgBsrKarT8MuF1+tWPkEsjFB043k0qk6V6Cu7adp0t3E0aEh3O64xQPAPYR6LI
-	rDnyOeJnyXCrWDGe5ey8ph+56X1/JJMjnYrC2JbsVBo0Y81UNneOItBhA0QnT1iux49Ti/TCcez
-	aZY7fL97cSGHpMdY+YuZez1Os3j9QznzGE2bs4usSgj63m0mdmzJIBDFm/ym8ijynKROl7+n9Nd
-	CP2SKe0j3wLp46+tHoLqDzoxY7yfzZDXEzv8ivoNJ1KoUuM1GbEfXMEAee0+bjMhrjeSnLmC4LY
-	OoF6ro=
-X-Received: by 2002:a05:600c:1d08:b0:486:fab9:a578 with SMTP id 5b1f17b1804b1-48727e95417mr189631935e9.11.1774856949649;
-        Mon, 30 Mar 2026 00:49:09 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:cb3c:d0d2:870b:6ad0? ([2a01:e0a:106d:1080:cb3c:d0d2:870b:6ad0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722c9506dsm251920295e9.7.2026.03.30.00.49.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 30 Mar 2026 00:49:09 -0700 (PDT)
-Message-ID: <016c03b8-27c3-41dc-a630-8e7095db1f88@linaro.org>
-Date: Mon, 30 Mar 2026 09:49:11 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VMeYBS8X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7AA5C4AF0E
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 07:50:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774857002;
+	bh=6kNN1RP6hfrxfLPYE0OI9tP3SvLOgSwkQmqyXhzTfyQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=VMeYBS8XLiSnozY/+PyQikDS+OlJeUWp1quu4k7DkInQORau+6oGY+rz/2Kb8Wlob
+	 T2NLtM1Yql2DrEg0eExqOZQpa90OuxhHq/9DY3NCj7RPKCjwoNBfWR19oq0jvFAPVR
+	 MfEi17ra8AoooMVEgRc9f3vRilbrvmdVeD1YtKp8CFdZ3W6wHMwVxuvPWSlPPVt/Rv
+	 mukTs3pjTnzIFeCNpofgLM31M/VzIErLMHX+mWYsdu06+bfRvO+FTQhaRgHmwJkXZx
+	 KH5WMUVmvn9eRV/qrNnBPBHCQp1fMyfXZf1IksNij4wcbG3AX6FZWFzWHmBERdybK9
+	 /jAuHLcEVrzkg==
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-43ba1f3fa7eso2224237f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 00:50:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXtFapwVIyLPzlP7h8yvYrvkgZCaUQ77eNLG8faT9egPky5aXBOxeeg6NbC7uJgEdzNpbUvkoOAI+8n@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy9UbayCBud6l5rTEtRZMd6H9uMz8l6dVql3K7kJ/nrBypXMLTK
+	ximS8YcQ6pvmg/rG+E4ePKN06aVV56HE57GNInVD8OAXW57n2bYW3BA9UOwuqRkGT0LZpAtmFt2
+	PJC1Gi115m4xz+TKDItui9G1IeMktySY=
+X-Received: by 2002:a05:6000:2409:b0:43b:447a:11b8 with SMTP id
+ ffacd0b85a97d-43b9e9d6050mr19116932f8f.6.1774857000398; Mon, 30 Mar 2026
+ 00:50:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v5 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Vinod Koul
- <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org>
- <20260326-x1e-csi2-phy-v5-1-0c0fc7f5c01b@linaro.org>
- <7712fbdd-a225-49f0-aeb9-ebcbb9d5abac@oss.qualcomm.com>
- <da3ed78d-fb5e-4820-95d6-527d540cf03e@linaro.org>
- <1f38187a-9464-4aa9-b70a-03b767349d56@linaro.org>
- <c5278028-dfe9-4d09-970a-a25977967bdd@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <c5278028-dfe9-4d09-970a-a25977967bdd@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260328074013.3589544-1-ruanjinjie@huawei.com>
+ <20260328074013.3589544-2-ruanjinjie@huawei.com> <CAJF2gTRN=RpgzQsQ7QDbwjDmyQZP9anQZ+CaK2r-Mrz9dQbohQ@mail.gmail.com>
+ <baa90080-9e6e-c1e5-13a1-b17496c690b4@huawei.com>
+In-Reply-To: <baa90080-9e6e-c1e5-13a1-b17496c690b4@huawei.com>
+From: Guo Ren <guoren@kernel.org>
+Date: Mon, 30 Mar 2026 15:49:48 +0800
+X-Gmail-Original-Message-ID: <CAJF2gTQE58ooXwyPSztDHbrxMRWCWhJNMKcRJZJsmKznBD12wA@mail.gmail.com>
+X-Gm-Features: AQROBzBd-gKOewl3PX_5GW7wfDT6ZMEcMbV186WYHO9lbJECvy1QYs-DBc7P3MM
+Message-ID: <CAJF2gTQE58ooXwyPSztDHbrxMRWCWhJNMKcRJZJsmKznBD12wA@mail.gmail.com>
+Subject: Re: [PATCH v11 01/11] riscv: kexec_file: Fix crashk_low_res not
+ exclude bug
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, catalin.marinas@arm.com, 
+	will@kernel.org, chenhuacai@kernel.org, kernel@xen0n.name, 
+	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
+	chleroy@kernel.org, pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, 
+	alex@ghiti.fr, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, hpa@zytor.com, robh@kernel.org, 
+	saravanak@kernel.org, akpm@linux-foundation.org, bhe@redhat.com, 
+	vgoyal@redhat.com, dyoung@redhat.com, rdunlap@infradead.org, 
+	peterz@infradead.org, feng.tang@linux.alibaba.com, 
+	pawan.kumar.gupta@linux.intel.com, dapeng1.mi@linux.intel.com, 
+	kees@kernel.org, elver@google.com, paulmck@kernel.org, lirongqing@baidu.com, 
+	rppt@kernel.org, leitao@debian.org, ardb@kernel.org, cfsworks@gmail.com, 
+	osandov@fb.com, jbohac@suse.cz, tangyouling@kylinos.cn, 
+	sourabhjain@linux.ibm.com, ritesh.list@gmail.com, eajames@linux.ibm.com, 
+	songshuaishuai@tinylab.org, kevin.brodsky@arm.com, vishal.moola@gmail.com, 
+	junhui.liu@pigmoral.tech, coxu@redhat.com, fuqiang.wang@easystack.cn, 
+	liaoyuanhong@vivo.com, chenjiahao16@huawei.com, hbathini@linux.ibm.com, 
+	takahiro.akashi@linaro.org, james.morse@arm.com, lizhengyu3@huawei.com, 
+	x86@kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev, 
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
+	devicetree@vger.kernel.org, kexec@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 3/27/26 18:42, Bryan O'Donoghue wrote:
-> On 27/03/2026 15:28, Neil Armstrong wrote:
->>> To be frankly honest you can make an argument for it either way. However my honestly held position is analysing other upstream implementations connecting to the PHY means we can't make the PHY device a drivers/phy device - it would have to be a V4L2 device and then for me the question is why is that even required ?
->>
->> This is plain wrong, DT definition is different from software implementation, you can do whatever you want if you describe HW accurately.
-> 
-> I'm not sure what point it is you are trying to make here. Are you trying to say drivers/phy is OK with you but you want an endpoint ? If so, please just say so.
+On Mon, Mar 30, 2026 at 3:11=E2=80=AFPM Jinjie Ruan <ruanjinjie@huawei.com>=
+ wrote:
+>
+>
+>
+> On 2026/3/30 11:49, Guo Ren wrote:
+> > On Sat, Mar 28, 2026 at 3:41=E2=80=AFPM Jinjie Ruan <ruanjinjie@huawei.=
+com> wrote:
+> >>
+> >> As done in commit 944a45abfabc ("arm64: kdump: Reimplement crashkernel=
+=3DX")
+> >> and commit 4831be702b95 ("arm64/kexec: Fix missing extra range for
+> >> crashkres_low.") for arm64, while implementing crashkernel=3DX,[high,l=
+ow],
+> >> riscv should have excluded the "crashk_low_res" reserved ranges from
+> >> the crash kernel memory to prevent them from being exported through
+> >> /proc/vmcore, and the exclusion would need an extra crash_mem range.
+> >>
+> >> Cc: Guo Ren <guoren@kernel.org>
+> >> Cc: Baoquan He <bhe@redhat.com>
+> >> Fixes: 5882e5acf18d ("riscv: kdump: Implement crashkernel=3DX,[high,lo=
+w]")
+> >> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> >> ---
+> >>  arch/riscv/kernel/machine_kexec_file.c | 14 +++++++++++---
+> >>  1 file changed, 11 insertions(+), 3 deletions(-)
+> >>
+> >> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kerne=
+l/machine_kexec_file.c
+> >> index 54e2d9552e93..3f7766057cac 100644
+> >> --- a/arch/riscv/kernel/machine_kexec_file.c
+> >> +++ b/arch/riscv/kernel/machine_kexec_file.c
+> >> @@ -61,7 +61,7 @@ static int prepare_elf_headers(void **addr, unsigned=
+ long *sz)
+> >>         unsigned int nr_ranges;
+> >>         int ret;
+> >>
+> >> -       nr_ranges =3D 1; /* For exclusion of crashkernel region */
+> >> +       nr_ranges =3D 2; /* For exclusion of crashkernel region */
+> >>         walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callb=
+ack);
+> >>
+> >>         cmem =3D kmalloc_flex(*cmem, ranges, nr_ranges);
+> >> @@ -76,8 +76,16 @@ static int prepare_elf_headers(void **addr, unsigne=
+d long *sz)
+> >>
+> >>         /* Exclude crashkernel region */
+> >>         ret =3D crash_exclude_mem_range(cmem, crashk_res.start, crashk=
+_res.end);
+> >> -       if (!ret)
+> >> -               ret =3D crash_prepare_elf64_headers(cmem, true, addr, =
+sz);
+> >> +       if (ret)
+> >> +               goto out;
+> >> +
+> >> +       if (crashk_low_res.end) {
+> >> +               ret =3D crash_exclude_mem_range(cmem, crashk_low_res.s=
+tart, crashk_low_res.end);
+> > Exclude crashk_low_res is reasonable, but have you tested this?
+>
+> Just simply tested on qemu with crashkernel=3D4G with following kexec
+> mentioned in
+> https://lore.kernel.org/all/20230726175000.2536220-1-chenjiahao16@huawei.=
+com/.
+> And the second kernel can be started normally.
+>
+> https://github.com/chenjh005/kexec-tools/tree/build-test-riscv-v2
+>
+> # dmesg | grep crash
+> [    0.000000] crashkernel low memory reserved: 0xf8000000 - 0x100000000
+> (128 MB)
+> [    0.000000] crashkernel reserved: 0x000000017fe00000 -
+> 0x000000027fe00000 (4096 MB)
+Adding a test log to the commit log makes the patch more trustworthy.
 
-I'm against using the "phys = <>" property in the CAMSS to reference the PHYs, a "PHY" in the classic terminology is tied to a single consumer, and if it can be shared to multiple consumer you must model a mux or whatever in the middle.
+Reviewed-by: Guo Ren <guoren@kernel.org>
 
-The PHY API as an internal software implementation is probably fine, even if it makes implementation of split mode much much harder and doesn't really solve anything, you can just call init()/poweron()/poweroff()/exit() directly from the CSIPHY media callbacks.
+>
+>
+>
+> >
+> >> +               if (ret)
+> >> +                       goto out;
+> >> +       }
+> >> +
+> >> +       ret =3D crash_prepare_elf64_headers(cmem, true, addr, sz);
+> >>
+> >>  out:
+> >>         kfree(cmem);
+> >> --
+> >> 2.34.1
+> >>
+> >
+> >
 
-> 
-> I can see an argument for that hence my response to Konrad, I just don't see why its a Qualcomm specific argument and of course understood stuff bubbles up in review, we have a public debate and come to a consensus - that's a good thing.
-> 
-> However, I'd want wider buy-in and understanding that endpoints in the PHYs is a more accurate description of the data-flow.
 
-It is, and it was designed for that, and extensively used in the media DT representation, so I wonder here you would not use it...
-In an ideal world, you would add nodes for each CAMSS hw elements and adds port/endpoints links between all nodes to describe the data graph, this would be used to construct the media controller graph, and make it much easier supporting new hardware.
 
-> 
-> We've been applying DT bindings aplenty without that so far. So we would establish new CSI2 PHY bindings should represent the sensor endpoints.
-
-We've been using a dummy representation of CAMM in a single node with only endpoints connecting to the sensors and hiding all the hardware layout in code, it doesn't scale and makes supporting new HW hard.
-I mean this is common sense, why would we continue to stick to the current CAMSS bindings ???
-
-> 
-> Is that what you want ?
-> 
->> The CSIPHYs are not tied to a single "consumer" block, they can be connected to different consumers at runtime, which is not something classic PHY devices are designed for. So they are de facto a media element in the dynamic camera pipeline.
-> 
-> The existing CAMSS binding and media graph are not changed by this series.
-
-This is not my point, I don't care about the software implementation at all, I care about accurate hardware representation. Using the "phys = <>" property does not describe hardware accurately.
-
-In other words: The CSIPHY are not connected to CAMSS. This is _not_ true, tying the CSIPHYs to the CAMSS block hides the real data muxing in software.
-
-Please remind DT is used by multiple operating systems, and properly describing hardware in DT will help have good software support over all OSes, not just Linux.
-
-> 
->> And actually Rob Herring asked use to define the complete data flow, it was a strong requirement. I don't see why we wouldn't here.
-> 
-> I'm implementing feedback from Rob.
-> 
-> https://lore.kernel.org/linux-media/20250710230846.GA44483-robh@kernel.org/
-
-Where did he ask using the PHY DT bindings ? Is he aware those CSIPHYs are muxed to multiple consumers which are burried in the CAMSS code ?
-
-> 
-> To me, here is where we stand:
-> 
-> - Individual nodes - we all agree that
-> - As sub-nodes - I think the majority agrees this Krzsztof, Dmitry
->    I'm fine with it too.
-> - drivers/phy - I think we are accepting this is also fine ?
-
-Like I said this adds a supplementary API layer for no reason and will make life harder, but I don't care personally.
-
-> - endpoints should flow into the PHY and then back to the controller
-> 
-> I get that argument. In fact I _like_ that argument at least I like my conception of that argument.
-> 
-> I'll stipulate to that argument meaning then that, new CSI2 PHYs shall include endpoints for this purpose globally.
-> 
-> As I've said before, there's nothing Qualcomm specific about this discussion, really.
-
-There is, because the current Qualcomm CAMSS bindings are insufficient and should be entirely redesigned from the ground up to properly describe the HW.
-
-Neil
-
-> 
-> ---
-> bod
-
+--=20
+Best Regards
+ Guo Ren
