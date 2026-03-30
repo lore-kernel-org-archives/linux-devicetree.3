@@ -1,116 +1,124 @@
-Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 296EB9463;
-	Mon, 30 Mar 2026 02:47:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F9B1E8332;
+	Mon, 30 Mar 2026 02:51:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774838870; cv=none; b=hns0cvq3GhZHTUe1y3JVjpwpWuDVZuzTSJJygcjHs83PsMzUw15sj1zQFIiQgRR2bKkpZQbUr7v/QR7C3wgT2HOsoFHGW+FrNruPxFcoPqL1kPy/D6afKxYvYIZn+0LYsrTrKLfzyd0eGIr/pU7PQ1BiIzX7Sw/hy1XDjnI8nR8=
+	t=1774839111; cv=none; b=T3cIKocZ2nTZFs4Gco+ugMAa8h2M4hybB36hJVHoSTw+2ycJgBn4HvzGBwoLE1O/Qu1r1MG97ETSwu97haimYs8zhZM/6AuLp9j2lOXgNEo7PqjYejEIWRXJZVkhPBpr5siZIaK4oBn+hZnL4dAGLZ9XTZUsIy2ah/OqkGMBNaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774838870; c=relaxed/simple;
-	bh=GqHCWlkHni5TW5CTZSaBkNowmFzHJaSqKEcKxTx9W0I=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SzLzmLP6qvqJHT8EBX3tgK2XmlHZQc7sKNgmbMVEa8Bd9EPS+06tAS3/9FuLgbStGFMNCJNeDDKQ3OCikAHnx2I2wOimlsAEBazTQ3mOtHza7eHNBrYTi/6I2LXDqWxXv6r6g8FQDyy16pjQIPMKHJilQPq+dvmqV6Y29Cs01Ak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=Red54.com; spf=pass smtp.mailfrom=red54.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=M2eeelTW; arc=none smtp.client-ip=162.62.58.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=Red54.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=red54.com
+	s=arc-20240116; t=1774839111; c=relaxed/simple;
+	bh=O4Y5n3cKRY/d5CxfoJrhyaJ0JdpBNWMx4YBDOlTjOOM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=t9bxcPDr+4Oz+8/u0Zu5TeqAaLN9n0PZyi7dgVQO/v1X5sM7AdKJ9nxkb4+wezJO13+7zf7PaL4T9sXG4/t0Ou/C2Bx4x3QiomxzuCOMfDNCYp8DB7w4t0HAxK2xcFUOiQbnSBMhhstQ6IwPP4S/12TSELLhWlBEy2p6Sx8hFK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=MBDHnZ0S; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="M2eeelTW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1774838854; bh=LzfztcHVW5zVig+WG14bRx+Z0nkYHAr2g4y2I8ErAoE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M2eeelTW6i0L0tXSpv9TL1cOaX4GUj+YwnaOgyy9Y+WcChuL8DB8I2JClDgNG5esP
-	 /ibxCqZmgOBqB50GxHA2Q9Shm9MoxEIC7xc9Ea+YsINxXUG8+J9LoI/JESpTh7K1ll
-	 5+Tho7bGpC6b4nTc/UqAQF88kzoDEaPCndLfJ1EY=
-Received: from mail.red54.com ([139.99.8.57])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id BC0B724B; Mon, 30 Mar 2026 10:47:00 +0800
-X-QQ-mid: xmsmtpt1774838820tpjwh2w6i
-Message-ID: <tencent_723DE3D68C7F44CF67ED583F558130B47208@qq.com>
-X-QQ-XMAILINFO: NGZp1yYNf7Y+JMPTFH+qlG0rqFrd7A0ipJV8tAJUcbaZuu0agTHNatFA4WZx/s
-	 zodnfSGb1N+LAOqHNYU+r1lA0EcdWOT/nY6HCBp6KlPHtbuylYyVlMGP8XfiVBQeXgl8sJgNkU7u
-	 /FFo437UhXvLd4MVfvGMYNYMuKCiQE9gJ7hTn/uaMdUMroYzccZhE49oG/amEjCfsyP4MZ+S/tRP
-	 kADGHEiZ5mNjZm2VJ2oeaGVJ6eqi3bDMhE6K6g883lDqqWhk85qB5cl5BkotUirbY+oMm0dwSsa3
-	 diboPV4L6ehO0NGLq+0UfOL+ZrQksOhS3FGUz5DAO7Mvf2lPB7PZiXJn9ZPg6c1bSP+rCgaLkhON
-	 66fwD8CEhwamOsYf27Wbt9o9C1cj6OyHjSISetWBySFmE7fUz5ENXBl7ZdJlKd4YCoaRxv+KZ29i
-	 wps2ca7JKNs9oL+gb2LLOKLqtvZBX48Cby61HPzxi1lTfQhFd8FAaiBIE73WHxIOupRni3ucFZna
-	 hEk1vnuaCXBB5lPwLLXA+2sGwosTx38XHtxs2W0+AxajoTe5e2K7DKszL44PhWwsUqACuaCwIza8
-	 j2ZlLPavRhNWSvnGnzAU3EHYH5jNJcr3sy2BrB7Az5jT6UubNlWlc4JrbjdAA8VLhI36PqMVUSon
-	 Gx52rRgFdFw8YdDMF9V8gwzn3/m0oG3zoSS9Oh3vh40tl0TFNQgil2L946tlM6yZOlo8cd+j39M0
-	 Zt0t9OBTXNRCqf0TI0ly+MPPA6O5ifBb1rK8NaqoUgnyVRp2dcegXhZ4oAiInUW9VZLtdmFZuI5b
-	 V32NC6k7yAQNlEx415H4MKoydnY7jXUL9KsN6UlCsUinLTt/VZhgU+pNbdIEndjzOse5fAG0l6VI
-	 aWy6WMVOOyhlpzgJd0yfIcGmObTQY7xlAv35+HebXUjRJ80/kmUjLElSZI+y9g9yO448fnFDlZuv
-	 bX83Abl/L7cavgA8+Q9fHhPMiri9ksB/IPs1SglOniuK5y22NrEeBjYuLflRh54JUzi/jKgOLJoQ
-	 VraR+p0RqXtKKyAvwKnhcslaOTJC8Lmf5vCtpwPU5KQexpaG6eP+8x1SIdYyHc9luOyS0ZTcSUSs
-	 Br6zrxwFeblJb6BU66ckbYxUhBIA==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-Sender: yeking@red54.com
-From: =?UTF-8?q?=E8=B0=A2=E8=87=B4=E9=82=A6=20=28XIE=20Zhibang=29?= <Yeking@Red54.com>
-To: krzk@kernel.org
-Cc: Yeking@Red54.com,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	finley.xiao@rock-chips.com,
-	heiko@sntech.de,
-	kever.yang@rock-chips.com,
-	krzk+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	robh@kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: Add RK3562 serial aliases
-Date: Mon, 30 Mar 2026 02:46:48 +0000
-X-OQ-MSGID: <20260330024657.50845-1-Yeking@Red54.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <9b3ee9e9-d44d-49b1-81ac-9c3806dc0efb@kernel.org>
-References: <9b3ee9e9-d44d-49b1-81ac-9c3806dc0efb@kernel.org>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="MBDHnZ0S"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 62U2n2l85188408, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1774838942; bh=O4Y5n3cKRY/d5CxfoJrhyaJ0JdpBNWMx4YBDOlTjOOM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=MBDHnZ0SiW97gci0/0VJoREqQwLAmFN6VgUzwnvyY6l1OrLpNxXXJcl0gtNofUMEc
+	 EwE5DrLYBC289Mnlxai7KcmZN+oOIY0iXwzTVXBnkwFK6wNW92w2dy7eT49UFNliqQ
+	 0/uw3hGNGSIPPOIBczXRP4sG1fwcKDyuAIvZUcEk1gPYvc4+VddJ9HqDqxowLrEBhZ
+	 1tY6lMTDtkKkuEFM9cAzEo1A7fQoek/4Pgwh9FLxUv5DjYTkdi/GJCplkIoBw9l57n
+	 0deEJfd1BxFc54TqvKeeHE2Pp6vedkNL8XCY4f1wn2cH7/ukcyYUGPR74F4V1yHOEh
+	 NuOvVrA2Z8HUQ==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.26/5.94) with ESMTPS id 62U2n2l85188408
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 30 Mar 2026 10:49:02 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.10; Mon, 30 Mar 2026 10:49:02 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::46e9:fab9:b2cf:c99b%10]) with mapi id
+ 15.02.1748.010; Mon, 30 Mar 2026 10:49:02 +0800
+From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
+To: Stephen Boyd <sboyd@kernel.org>, "afaerber@suse.com" <afaerber@suse.com>,
+        "conor+dt@kernel.org" <conor+dt@kernel.org>,
+        =?utf-8?B?RWRnYXIgTGVlIFvmnY7mib/oq61d?= <cylee12@realtek.com>,
+        =?utf-8?B?SnlhbiBDaG91IFvlkajoirflrold?= <jyanchou@realtek.com>,
+        "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+        "mturquette@baylibre.com"
+	<mturquette@baylibre.com>,
+        "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+        "robh@kernel.org" <robh@kernel.org>
+CC: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+        "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>,
+        "linux-realtek-soc@lists.infradead.org"
+	<linux-realtek-soc@lists.infradead.org>,
+        =?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
+        =?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
+        =?utf-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>
+Subject: RE: [PATCH v5 01/10] dt-bindings: clock: Add Realtek RTD1625 Clock &
+ Reset Controller
+Thread-Topic: [PATCH v5 01/10] dt-bindings: clock: Add Realtek RTD1625 Clock &
+ Reset Controller
+Thread-Index: AQHcuzlnvO48bJAfYk+MJ8/TttSgv7W9+VeAgAhvUYA=
+Date: Mon, 30 Mar 2026 02:48:45 +0000
+Message-ID: <a90343db950541bfbeadcc63a835165e@realtek.com>
+References: <20260324025332.3416977-1-eleanor.lin@realtek.com>
+ <20260324025332.3416977-2-eleanor.lin@realtek.com>
+ <177440394165.5403.17868576455504268400@localhost.localdomain>
+In-Reply-To: <177440394165.5403.17868576455504268400@localhost.localdomain>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On Sat, Mar 28, 2026 at 04:08:57PM +0100, Krzysztof Kozlowski wrote:
-> On 28/03/2026 14:05, 谢致邦 (XIE Zhibang) wrote:
-> > This fixes the stdout-path in rk3562-evb2-v10.dts.
-> > 
-> > Fixes: ceb6ef1ea900 ("arm64: dts: rockchip: Add RK3562 evb2 devicetree")
-> > Signed-off-by: 谢致邦 (XIE Zhibang) <Yeking@Red54.com>
-> > ---
-> >  arch/arm64/boot/dts/rockchip/rk3562.dtsi | 10 ++++++++++
-> >  1 file changed, 10 insertions(+)
-> > 
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk3562.dtsi b/arch/arm64/boot/dts/rockchip/rk3562.dtsi
-> > index e4816aa3dae0..14e74e8ac7df 100644
-> > --- a/arch/arm64/boot/dts/rockchip/rk3562.dtsi
-> > +++ b/arch/arm64/boot/dts/rockchip/rk3562.dtsi
-> > @@ -26,6 +26,16 @@ aliases {
-> >  		gpio2 = &gpio2;
-> >  		gpio3 = &gpio3;
-> >  		gpio4 = &gpio4;
-> > +		serial0 = &uart0;
-> > +		serial1 = &uart1;
-> > +		serial2 = &uart2;
-> > +		serial3 = &uart3;
-> > +		serial4 = &uart4;
-> > +		serial5 = &uart5;
-> > +		serial6 = &uart6;
-> > +		serial7 = &uart7;
-> > +		serial8 = &uart8;
-> > +		serial9 = &uart9;
-> 
-> UART aliases are properties of the boards, not SoC.
-> 
-> Best regards,
-> Krzysztof
-
-So are you saying that we need to remove the serial aliases from files
-like rk3308.dtsi, rk3328.dtsi, rk3368.dtsi, rk3399-base.dtsi,
-rk356x-base.dtsi, rk3576.dtsi, rk3588-base.dtsi, and so on?
-
-Kind regards,
-XIE Zhibang
-
+PiBRdW90aW5nIFl1LUNodW4gTGluICgyMDI2LTAzLTIzIDE5OjUzOjIyKQ0KPiA+IGRpZmYgLS1n
+aXQNCj4gPiBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9jbG9jay9yZWFsdGVr
+LHJ0ZDE2MjUtY2xrLnlhbWwNCj4gPiBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5n
+cy9jbG9jay9yZWFsdGVrLHJ0ZDE2MjUtY2xrLnlhbWwNCj4gPiBuZXcgZmlsZSBtb2RlIDEwMDY0
+NA0KPiA+IGluZGV4IDAwMDAwMDAwMDAwMC4uNmZhYmMyZGEzOTc1DQo+ID4gLS0tIC9kZXYvbnVs
+bA0KPiA+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9jbG9jay9yZWFs
+dGVrLHJ0ZDE2MjUtY2xrLnlhbWwNCj4gPiBAQCAtMCwwICsxLDUyIEBADQo+ID4gKyMgU1BEWC1M
+aWNlbnNlLUlkZW50aWZpZXI6IChHUEwtMi4wLW9ubHkgT1IgQlNELTItQ2xhdXNlKSAlWUFNTCAx
+LjINCj4gPiArLS0tDQo+ID4gKyRpZDogaHR0cDovL2RldmljZXRyZWUub3JnL3NjaGVtYXMvY2xv
+Y2svcmVhbHRlayxydGQxNjI1LWNsay55YW1sIw0KPiA+ICskc2NoZW1hOiBodHRwOi8vZGV2aWNl
+dHJlZS5vcmcvbWV0YS1zY2hlbWFzL2NvcmUueWFtbCMNCj4gPiArDQo+ID4gK3RpdGxlOiBSZWFs
+dGVrIFJURDE2MjUgQ2xvY2sgJiBSZXNldCBDb250cm9sbGVyDQo+ID4gKw0KPiA+ICttYWludGFp
+bmVyczoNCj4gPiArICAtIFl1LUNodW4gTGluIDxlbGVhbm9yLmxpbkByZWFsdGVrLmNvbT4NCj4g
+PiArDQo+ID4gK2Rlc2NyaXB0aW9uOiB8DQo+ID4gKyAgVGhlIFJlYWx0ZWsgUlREMTYyNSBDbG9j
+ayBDb250cm9sbGVyIG1hbmFnZXMgYW5kIGRpc3RyaWJ1dGVzIGNsb2NrDQo+ID4gKyAgc2lnbmFs
+cyB0byB2YXJpb3VzIGNvbnRyb2xsZXJzIGFuZCBpbXBsZW1lbnRzIGEgUmVzZXQgQ29udHJvbGxl
+cg0KPiA+ICtmb3IgdGhlDQo+ID4gKyAgU29DIHBlcmlwaGVyYWxzLg0KPiA+ICsNCj4gPiArICBD
+bG9ja3MgYW5kIHJlc2V0cyBhcmUgcmVmZXJlbmNlZCBieSB1bmlxdWUgaWRlbnRpZmllcnMsIHdo
+aWNoIGFyZQ0KPiA+ICsgZGVmaW5lZCBhcyAgcHJlcHJvY2Vzc29yIG1hY3JvcyBpbg0KPiA+ICsg
+aW5jbHVkZS9kdC1iaW5kaW5ncy9jbG9jay9yZWFsdGVrLHJ0ZDE2MjUtY2xrLmggYW5kDQo+IGlu
+Y2x1ZGUvZHQtYmluZGluZ3MvcmVzZXQvcmVhbHRlayxydGQxNjI1LmguDQo+ID4gKw0KPiA+ICtw
+cm9wZXJ0aWVzOg0KPiA+ICsgIGNvbXBhdGlibGU6DQo+ID4gKyAgICBlbnVtOg0KPiA+ICsgICAg
+ICAtIHJlYWx0ZWsscnRkMTYyNS1jcnQtY2xrDQo+ID4gKyAgICAgIC0gcmVhbHRlayxydGQxNjI1
+LWlzby1jbGsNCj4gPiArICAgICAgLSByZWFsdGVrLHJ0ZDE2MjUtaXNvLXMtY2xrDQo+ID4gKw0K
+PiA+ICsgIHJlZzoNCj4gPiArICAgIG1heEl0ZW1zOiAxDQo+ID4gKw0KPiA+ICsgICIjY2xvY2st
+Y2VsbHMiOg0KPiA+ICsgICAgY29uc3Q6IDENCj4gPiArDQo+ID4gKyAgIiNyZXNldC1jZWxscyI6
+DQo+ID4gKyAgICBjb25zdDogMQ0KPiANCj4gQXJlIHRoZXJlIGFueSBpbnB1dCBjbGtzIGZvciB0
+aGUgY2xrIHRyZWU/DQo+IA0KDQpXZSBkb24ndCBkeW5hbWljYWxseSBjYWxjdWxhdGUgZnJlcXVl
+bmNpZXMgYmFzZWQgb24gYW4gaW5wdXQgY2xvY2suDQpTaW5jZSBhbGwgb2Ygb3VyIGN1cnJlbnQg
+U29DcyB1c2UgYSBmaXhlZCAyN01IeiBvc2NpbGxhdG9yLCB3ZSB1c2UNCnByZWRlZmluZWQgbG9v
+a3VwIHRhYmxlcyBpbiB0aGUgZHJpdmVyIGZvciB0aGUgdGFyZ2V0IGZyZXF1ZW5jaWVzIGluc3Rl
+YWQuDQoNCk5ldmVydGhlbGVzcywgdG8gcHJvcGVybHkgZGVzY3JpYmUgdGhlIGhhcmR3YXJlIGxh
+eW91dCwgSSB3aWxsIGFkZCB0aGUgY2xvY2sNCnByb3BlcnRpZXMgaW4gdGhlIGJpbmRpbmdzIGFu
+ZCBEVFMgaW4gdjYuDQoNCj4gPiArDQo+ID4gK3JlcXVpcmVkOg0KPiA+ICsgIC0gY29tcGF0aWJs
+ZQ0KPiA+ICsgIC0gcmVnDQo+ID4gKyAgLSAiI2Nsb2NrLWNlbGxzIg0KPiA+ICsgIC0gIiNyZXNl
+dC1jZWxscyINCj4gPiArDQo+ID4gK2FkZGl0aW9uYWxQcm9wZXJ0aWVzOiBmYWxzZQ0KPiA+ICsN
+Cj4gPiArZXhhbXBsZXM6DQo+ID4gKyAgLSB8DQo+ID4gKyAgICBjbG9jay1jb250cm9sbGVyQDk4
+MDAwMDAwIHsNCj4gPiArICAgICAgY29tcGF0aWJsZSA9ICJyZWFsdGVrLHJ0ZDE2MjUtY3J0LWNs
+ayI7DQo+ID4gKyAgICAgIHJlZyA9IDw5ODAwMDAwMCAweDEwMDA+Ow0KPiANCj4gU2hvdWxkIGJl
+IDB4OTgwMDAwMDAgdG8gbWF0Y2ggdGhlIHVuaXQgYWRkcmVzcy4NCj4gDQoNCkFjay4NCg0KQmVz
+dCBSZWdhcmRzLA0KWXUtQ2h1bg0KDQo+ID4gKyAgICAgICNjbG9jay1jZWxscyA9IDwxPjsNCj4g
+PiArICAgICAgI3Jlc2V0LWNlbGxzID0gPDE+Ow0KPiA+ICsgICAgfTsNCg==
