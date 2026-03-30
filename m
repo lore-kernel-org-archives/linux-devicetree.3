@@ -1,237 +1,115 @@
-Received: from TWMBX01.aspeed.com (mail.aspeedtech.com [211.20.114.72])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC87D395257;
-	Mon, 30 Mar 2026 06:33:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF6237E2EE;
+	Mon, 30 Mar 2026 06:36:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774852407; cv=none; b=bit7mIIxsesr11qGqxtA6HJ2R+hVQhV+TIm8v8urX2wd6IlVP3KytPBPWMBIdPgOcSSDqDbqoVozJjA0MfEIpyLsF07yR6iWqXkHBmxPNhI2A9Aw6fe+2ay+oV7q81yjpEh4F1MuafND0nwVMTfuZRWWHsp6kr958/GW9UMddm4=
+	t=1774852603; cv=none; b=fetyISpDr/MR8YgREeqS5VfjhFFJlUyw4MJ4hYtpr0GjDp+mCx3Oi7PnGJlWxK1sRC4NPBbkhq9z/waQSeNdkuuAEUBIdO56WMdUn/oAuwzgqt+F+XkbxidtACi4PE7AS7JgB+I7xFMA/o0YIR7pdK27Ob7LfUHYn5MWE+heh/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774852407; c=relaxed/simple;
-	bh=dDHK26Pv3om1nVVi9t4wNhYIZIKE7ffity4S2AcBKdE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=IPn12xnvuXWiMHwsPg9fIHGoZQGn9aXIyhujRTxeCaDVTgeClVgjaJiCbyWSwAVbtbbQ4eBXDf/+cDX3U2iwSaHkkgbZcJXAsORqbADUiVJH2j0zWnH8x06fYEyfbAh1TF1DLYwQ3hM4fHLYEtNsVmCT5nSQiCCPvwrrka+Iub4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Mon, 30 Mar
- 2026 14:32:11 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Mon, 30 Mar 2026 14:32:11 +0800
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-Date: Mon, 30 Mar 2026 14:32:13 +0800
-Subject: [PATCH v4 4/4] irqchip/aspeed-intc: Remove AST2700-A0 support
+	s=arc-20240116; t=1774852603; c=relaxed/simple;
+	bh=WQGozcPVOmHXsmy0M+0Xqiud1Yr5AI2xCXzTxu9+5FU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NoaJu2nlKvISI2sYPsVMuiQQDwzHZFXXoWnFUrwKTetRjxbmrnFEw5Jv54OFRQ/UU2FaUgbhs1LrhNe9+4ZmFyQW/yOSvdA8UW6ZebZ0QHdndu07RK8ylKI86AIRCTW0mL41ZXJJCs+VmfNTQnlphIWKqEodd0BZK+Xj8iNC9ZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YHf9AyVi; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YHf9AyVi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D23CC4CEF7;
+	Mon, 30 Mar 2026 06:36:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774852603;
+	bh=WQGozcPVOmHXsmy0M+0Xqiud1Yr5AI2xCXzTxu9+5FU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=YHf9AyVi0iNmhS4tQMpiqSgzT1L0tgFDq61lZFQlrL/SUDW8X9YyuQhC2xY60wgxX
+	 2fgz8NNZTTuE3mxTPT/h2OqmhSwFx46Zv6Tq8Uu6aOa4sxqDQUtae8zgdbMoFCe4lo
+	 0d/+N9K/vFr8WG2K20k+g11xzqnQUTRsoix5y2VpEIO5evMsokcpe9gIrgTwJYmjCb
+	 5lo4UektVPQ9bfLvkQg1mRmZHhQusSBWGrnB1apeMHw2tFbYy1sKc15cSPCDe1FRFO
+	 31jWrebbZYq3+Axx0btNLDTi4rQVOGSK8pCwO5C5o+p1Erk2g3iJ3Ip+y6DGKZzX2t
+	 En4Mye+7d4pxQ==
+Message-ID: <e397d9e0-2dfb-4e6b-8c00-03e1b0a53be5@kernel.org>
+Date: Mon, 30 Mar 2026 08:36:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260330-irqchip-v4-4-3c0f1620cc06@aspeedtech.com>
-References: <20260330-irqchip-v4-0-3c0f1620cc06@aspeedtech.com>
-In-Reply-To: <20260330-irqchip-v4-0-3c0f1620cc06@aspeedtech.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
- Jeffery" <andrew@codeconstruct.com.au>, Paul Walmsley <pjw@kernel.org>,
-	"Palmer Dabbelt" <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
-	"Alexandre Ghiti" <alex@ghiti.fr>, Thomas Gleixner <tglx@kernel.org>, Thomas
- Gleixner <tglx@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
-	<linux-riscv@lists.infradead.org>, Ryan Chen <ryan_chen@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774852330; l=5800;
- i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=dDHK26Pv3om1nVVi9t4wNhYIZIKE7ffity4S2AcBKdE=;
- b=xcVlBcqWDoLrSv7zDQxLudTGqsYv9nGiPqMSGDAnUQk9iwdLNXt8pdbYnxcVyhlGGRtRLG9z2
- izzl076YyejAR3X4wsT0KVZMGmDQYcuQlguDA5651cJq9HXtaED4K81
-X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
- pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: power: reset:
+ cortina,gemini-power-controller: convert to DT schema
+To: Linus Walleij <linusw@kernel.org>, Sebastian Reichel <sre@kernel.org>
+Cc: "Rob Herring (Arm)" <robh@kernel.org>,
+ Khushal Chitturi <khushalchitturi@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+References: <20260328124707.141209-1-khushalchitturi@gmail.com>
+ <177470797266.1536342.6967120656934552033.robh@kernel.org>
+ <CAD++jL=_rCmW=eSV0kvck50sC2xaQnGQoEOy=DNcwkFvvWYUUw@mail.gmail.com>
+ <3fa4fad0-d918-4de0-ad80-dad2141d2617@kernel.org>
+ <CAD++jLnxoS-OGBSAXxgGPaME7eMTwCQ-C+uzub6m0o9ZgXL_aA@mail.gmail.com>
+ <aciItMCdBbrVvMKB@venus>
+ <CAD++jLn5qQqx5nAOWNifJcNPb00B_CtM=xF16qjB4qXGENmL9Q@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <CAD++jLn5qQqx5nAOWNifJcNPb00B_CtM=xF16qjB4qXGENmL9Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The existing AST2700 interrupt controller driver
-("aspeed,ast2700-intc-ic") was written against the A0 pre-production
-design.
+On 29/03/2026 20:57, Linus Walleij wrote:
+> On Sun, Mar 29, 2026 at 4:09 AM Sebastian Reichel <sre@kernel.org> wrote:
+> 
+>> The problem is the node name (power-controller@4b000000), which is
+>> reserved for power domains. You can keep the compatible.
+> 
+> Ah, sweet, Khushal can you change this?
+> 
+> I think you can use gemini-poweroff@4b000000 because
+> this is pretty much a poweroff thingie.
 
-From A1 onwards (retained in the A2 production silicon), the interrupt
-fabric was re-architected: interrupt routing is programmable and
-interrupt outputs can be directed to multiple upstream controllers
-(PSP GIC, Secondary Service Processor (SSP) NVIC, Tertiary Service
-Processor (TSP) NVIC, and Boot MCU interrupt controller). This design
-requires route resolution and a controller hierarchy model which the
-A0 driver cannot represent.
+So as I said - poweroff.
 
-Remove driver support for A0 in favour of the driver for the A2
-production design.
-
-Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
----
- drivers/irqchip/Makefile          |   1 -
- drivers/irqchip/irq-aspeed-intc.c | 139 --------------------------------------
- 2 files changed, 140 deletions(-)
-
-diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
-index ac04a4b97797..3d02441b3ee6 100644
---- a/drivers/irqchip/Makefile
-+++ b/drivers/irqchip/Makefile
-@@ -92,7 +92,6 @@ obj-$(CONFIG_LS_SCFG_MSI)		+= irq-ls-scfg-msi.o
- obj-$(CONFIG_ASPEED_AST2700_INTC)	+= irq-ast2700.o irq-ast2700-intc0.o irq-ast2700-intc1.o
- obj-$(CONFIG_ASPEED_AST2700_INTC_TEST)	+= irq-ast2700-intc0-test.o
- obj-$(CONFIG_ARCH_ASPEED)		+= irq-aspeed-vic.o irq-aspeed-i2c-ic.o irq-aspeed-scu-ic.o
--obj-$(CONFIG_ARCH_ASPEED)		+= irq-aspeed-intc.o
- obj-$(CONFIG_STM32MP_EXTI)		+= irq-stm32mp-exti.o
- obj-$(CONFIG_STM32_EXTI) 		+= irq-stm32-exti.o
- obj-$(CONFIG_QCOM_IRQ_COMBINER)		+= qcom-irq-combiner.o
-diff --git a/drivers/irqchip/irq-aspeed-intc.c b/drivers/irqchip/irq-aspeed-intc.c
-deleted file mode 100644
-index 4fb0dd8349da..000000000000
---- a/drivers/irqchip/irq-aspeed-intc.c
-+++ /dev/null
-@@ -1,139 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- *  Aspeed Interrupt Controller.
-- *
-- *  Copyright (C) 2023 ASPEED Technology Inc.
-- */
--
--#include <linux/bitops.h>
--#include <linux/irq.h>
--#include <linux/irqchip.h>
--#include <linux/irqchip/chained_irq.h>
--#include <linux/irqdomain.h>
--#include <linux/of_address.h>
--#include <linux/of_irq.h>
--#include <linux/io.h>
--#include <linux/spinlock.h>
--
--#define INTC_INT_ENABLE_REG	0x00
--#define INTC_INT_STATUS_REG	0x04
--#define INTC_IRQS_PER_WORD	32
--
--struct aspeed_intc_ic {
--	void __iomem		*base;
--	raw_spinlock_t		gic_lock;
--	raw_spinlock_t		intc_lock;
--	struct irq_domain	*irq_domain;
--};
--
--static void aspeed_intc_ic_irq_handler(struct irq_desc *desc)
--{
--	struct aspeed_intc_ic *intc_ic = irq_desc_get_handler_data(desc);
--	struct irq_chip *chip = irq_desc_get_chip(desc);
--
--	chained_irq_enter(chip, desc);
--
--	scoped_guard(raw_spinlock, &intc_ic->gic_lock) {
--		unsigned long bit, status;
--
--		status = readl(intc_ic->base + INTC_INT_STATUS_REG);
--		for_each_set_bit(bit, &status, INTC_IRQS_PER_WORD) {
--			generic_handle_domain_irq(intc_ic->irq_domain, bit);
--			writel(BIT(bit), intc_ic->base + INTC_INT_STATUS_REG);
--		}
--	}
--
--	chained_irq_exit(chip, desc);
--}
--
--static void aspeed_intc_irq_mask(struct irq_data *data)
--{
--	struct aspeed_intc_ic *intc_ic = irq_data_get_irq_chip_data(data);
--	unsigned int mask = readl(intc_ic->base + INTC_INT_ENABLE_REG) & ~BIT(data->hwirq);
--
--	guard(raw_spinlock)(&intc_ic->intc_lock);
--	writel(mask, intc_ic->base + INTC_INT_ENABLE_REG);
--}
--
--static void aspeed_intc_irq_unmask(struct irq_data *data)
--{
--	struct aspeed_intc_ic *intc_ic = irq_data_get_irq_chip_data(data);
--	unsigned int unmask = readl(intc_ic->base + INTC_INT_ENABLE_REG) | BIT(data->hwirq);
--
--	guard(raw_spinlock)(&intc_ic->intc_lock);
--	writel(unmask, intc_ic->base + INTC_INT_ENABLE_REG);
--}
--
--static struct irq_chip aspeed_intc_chip = {
--	.name			= "ASPEED INTC",
--	.irq_mask		= aspeed_intc_irq_mask,
--	.irq_unmask		= aspeed_intc_irq_unmask,
--};
--
--static int aspeed_intc_ic_map_irq_domain(struct irq_domain *domain, unsigned int irq,
--					 irq_hw_number_t hwirq)
--{
--	irq_set_chip_and_handler(irq, &aspeed_intc_chip, handle_level_irq);
--	irq_set_chip_data(irq, domain->host_data);
--
--	return 0;
--}
--
--static const struct irq_domain_ops aspeed_intc_ic_irq_domain_ops = {
--	.map = aspeed_intc_ic_map_irq_domain,
--};
--
--static int __init aspeed_intc_ic_of_init(struct device_node *node,
--					 struct device_node *parent)
--{
--	struct aspeed_intc_ic *intc_ic;
--	int irq, i, ret = 0;
--
--	intc_ic = kzalloc_obj(*intc_ic);
--	if (!intc_ic)
--		return -ENOMEM;
--
--	intc_ic->base = of_iomap(node, 0);
--	if (!intc_ic->base) {
--		pr_err("Failed to iomap intc_ic base\n");
--		ret = -ENOMEM;
--		goto err_free_ic;
--	}
--	writel(0xffffffff, intc_ic->base + INTC_INT_STATUS_REG);
--	writel(0x0, intc_ic->base + INTC_INT_ENABLE_REG);
--
--	intc_ic->irq_domain = irq_domain_create_linear(of_fwnode_handle(node), INTC_IRQS_PER_WORD,
--						    &aspeed_intc_ic_irq_domain_ops, intc_ic);
--	if (!intc_ic->irq_domain) {
--		ret = -ENOMEM;
--		goto err_iounmap;
--	}
--
--	raw_spin_lock_init(&intc_ic->gic_lock);
--	raw_spin_lock_init(&intc_ic->intc_lock);
--
--	/* Check all the irq numbers valid. If not, unmaps all the base and frees the data. */
--	for (i = 0; i < of_irq_count(node); i++) {
--		irq = irq_of_parse_and_map(node, i);
--		if (!irq) {
--			pr_err("Failed to get irq number\n");
--			ret = -EINVAL;
--			goto err_iounmap;
--		}
--	}
--
--	for (i = 0; i < of_irq_count(node); i++) {
--		irq = irq_of_parse_and_map(node, i);
--		irq_set_chained_handler_and_data(irq, aspeed_intc_ic_irq_handler, intc_ic);
--	}
--
--	return 0;
--
--err_iounmap:
--	iounmap(intc_ic->base);
--err_free_ic:
--	kfree(intc_ic);
--	return ret;
--}
--
--IRQCHIP_DECLARE(ast2700_intc_ic, "aspeed,ast2700-intc-ic", aspeed_intc_ic_of_init);
-
--- 
-2.34.1
-
+Best regards,
+Krzysztof
