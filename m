@@ -1,153 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE1F3290C9;
-	Mon, 30 Mar 2026 14:57:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D48233439F
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 15:02:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774882666; cv=none; b=BL84QZnDZFGb0J8nKolb/9qP46sBcFHqaqiqEZArpv5PNvgcyvofsiVbFWjK2oagCVGB884Pi2V/KP9fHi3SJTEWhvez+DFyHZ9CbHqsjm6xIVeNfs1K6UwWbD0fwQrtIL7FqInOutx2u19xIJSkncZxxZ6g3zg3SVzWSGShQtU=
+	t=1774882928; cv=none; b=MD2Sz+wpBAEsDUEnY4T9E8hbf6JbMQNd8o6w0/RcgHr0nqbzOZZwBGy6j4WD7CGy6TACqfsLJ7cTNbfq7HY4DRqbh20xzWPvLl8nGrbwmpvUDeT+W/X6iArPiEOgSvhtmey3eHDaPbbjTRm20p/uAlx7ShCkkgB+kVYOfsthEwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774882666; c=relaxed/simple;
-	bh=Q2Hr+64nfwabuubNoJofnM6anpOvBYwWKFrDN1Xn75Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GVezmYUJr0ve+X/uvg2+SZsdtZewhNdXatXJCwUtlo+b93yl+YAafGdZbklNgMraEcpUWZxMzQoZwMmIPOGfkAeHvAF8cDXuRlQVnjg0ds9wVmpJ8IPeRwzLf7gWftBrAxriyVCP6yxwBkp/NPxTT+lgioFDNvLpSlvXG6uuvPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vCLCre4g; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774882928; c=relaxed/simple;
+	bh=fVkuWa4a6/cQxsnJg9pRm7tn6P2ndJyKnXupZf2dZoQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ac1eIUuanenXO48ATp3efLRN3PNgP3j82NBJmTSUtfhouJi6RuWyXGZ7Bu3zPPbXFH4pzeMbZfdbyGwEncqI9DXi3b6ZhldINNNKTUtvWsUwuCxG6pZCMyQmWOzaDr4BkSPY1vqHomodOcJkhhO1BskHTejMpbR26viI6HkZp5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cSnCQC1v; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=cJtfOKq0; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vCLCre4g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6689FC4CEF7;
-	Mon, 30 Mar 2026 14:57:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774882666;
-	bh=Q2Hr+64nfwabuubNoJofnM6anpOvBYwWKFrDN1Xn75Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=vCLCre4glN6/9bCO5naJn3+DITMtVO1G3x9GthcVlGGMHbfxJsH4nfRo/d2YPpUIx
-	 3eK10kmIlBCYR7tZCH09wU80HITmeMtlirw0ak+N8x+SV0YxKRBdPUAltY8K+Av9Pr
-	 vuCtNGGbcXhQgO34QoLaAJMKGsdbJ27SpKrLVdX1zkHV4e0Aofw4wkBhwMKl1gQ7g/
-	 DaFzEicSedBZ3BxoZDQyCH3sTefEiSO2Ekbj1X98I9gwVUg06GOq4kxdYsBFIWDu8q
-	 vYWGZqL2dLgEZig0xe/7vsrSahTB38yX7xUoP4Hrdms91KwTkMAP4wA/wlJki/4K3o
-	 3RWFzbsDJWvvQ==
-Message-ID: <7dd70ef5-f8d2-444c-9e42-2c6d8d976e90@kernel.org>
-Date: Mon, 30 Mar 2026 16:57:42 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cSnCQC1v";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="cJtfOKq0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1774882926;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ioaGBccEulsVefeHIBPg305ScRFhJiChwS24LCLi1yU=;
+	b=cSnCQC1vC7tbWlnR4vS3hUzdtWwdN05EhRHEFdi8f2wxvYX8N01fzjMUeueCxuaz9C2MUo
+	+9HNol1PtSbr9gyMEs0Ml1ktxJuptQ2ImO8YN2pheHdd6FRkoEoO5c6euEt5vY6Qqxy3Ev
+	tgl/DMwjp4yC23YlukVgqSxebZ9fv3U=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-320-ieN04gcnNFut4gRx4PYLgg-1; Mon, 30 Mar 2026 11:02:04 -0400
+X-MC-Unique: ieN04gcnNFut4gRx4PYLgg-1
+X-Mimecast-MFC-AGG-ID: ieN04gcnNFut4gRx4PYLgg_1774882923
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-89cd8b56114so13749366d6.2
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:02:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1774882923; x=1775487723; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ioaGBccEulsVefeHIBPg305ScRFhJiChwS24LCLi1yU=;
+        b=cJtfOKq0lZ6i/yu1JBQBHyPriJHNaODHTnTGIib5Who8FQp5rOcp+wqs9D7SX1NGkG
+         iyVRNVZfSBfmmYosF1xa3GnCi+k8+V5FW90GnpRJv771BB6wTIeBjyxGCrjFIpQIIrC/
+         Jbjei/04AEHcqITxrB3yLMUrqBHKDkBnTXxnwVwQDJwGYHZ+8r57C98aQpsPdBzk5+Js
+         EaLDPIiqtSnw5oqHJBY4QfxXHVDXzS1zxrlvLciJRJVtYTqbFeOynMObjrqEsyvug9B6
+         m3FM7+wMxIOQEVEXTrWHfBWbcYpPAlZATqVbnEl6tkGiD9MalCbrEKljYcwljSDudkFy
+         iL/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774882923; x=1775487723;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ioaGBccEulsVefeHIBPg305ScRFhJiChwS24LCLi1yU=;
+        b=Z3khxoh3Z6H2XpRKmRugXXfsj9WR9MwDDI8OsPRG5Ig26f4JOnpTxOBsKP8BOa7hEY
+         RMIdZZk9YlusVDHnnHZX4K/FFtktomADleUkHdX+JBjJ3sFyV5VRU9A7JdVEgtFOzbeT
+         HPdmOXW9SkEQiN1LHDBCqs/gLjlKYveSqsuE4409NqQnzFKcn8C1q4LDBRNjNUA4G0XL
+         qRaxh+1/aystkS07CTWVUOwp5+CL+dFxWKhmKs9ukicZvVJ4A4aBPHFeukMREyGeePQ2
+         M+r+Nn//Z5UPFWNXsIXbeQ4sLVcwID5Th1vMClIvrZurzqhsRRrsLPjUNQ3mJr+JXNOq
+         VGJg==
+X-Forwarded-Encrypted: i=1; AJvYcCUUjXDG//FOlQkQcksJTon5RT612mV8nv/T82jjFVddfsMSAdYb09818TOt9nEzPbswjRxHYakWZB4H@vger.kernel.org
+X-Gm-Message-State: AOJu0YwZlh6RefNguR5BJmeICjrjx5UKYG6R04Es0c3qBgD/QzIz9053
+	6MTa9sJtyCC6jXU7MqyNfisv++9nqeIiexJBuBYDReOYPD2lubFRegQCXKtoH+G9JHIt2US41fN
+	GYEJ6Yd0FQtI29cZQE0S6wDEnQFIfskpK1XexmAzuCRms/v/fD+fKJ+m83LcJrno=
+X-Gm-Gg: ATEYQzzeE88gaXQU6sUnJYndQsiZoFccGROfwK579KOmfIepaDsNNBFf5bpTTB4i968
+	2FW5VrqdXyh1e7cpVAnqRPC6fCBRao/0RaqPnxLtAYPe2pAE973CNwwcxcHUGefqzW6MhepW6mm
+	S6Y/SMj1NQtIoET4KSkMf9DkcHgNk0wSh90jScphFkOyWftVU54NWpas0jq1S/6dNctNtXeaVvs
+	8434s+FFEAcg6CYWBNFOSFyB1lSF5MAEGpzjTUBfqWo9IaywQtjSu7R+HmAk6Mcy+jL8Gt4uTnk
+	TcO3Kq9m5B4vvQOsrRz0Vy5tckA8+qlOx8UtnZDFb/Y+4x0bSEeaEfi26O8xQ29kLmSH6lAutN4
+	nlMGPx1X9lGATpoBKrdakBO2yIY98m5En2a6tUUeDBmGvDPALeY+Dd31G
+X-Received: by 2002:a05:6214:498f:b0:8a0:7c8:409b with SMTP id 6a1803df08f44-8a007c84819mr89272066d6.33.1774882923320;
+        Mon, 30 Mar 2026 08:02:03 -0700 (PDT)
+X-Received: by 2002:a05:6214:498f:b0:8a0:7c8:409b with SMTP id 6a1803df08f44-8a007c84819mr89271186d6.33.1774882922650;
+        Mon, 30 Mar 2026 08:02:02 -0700 (PDT)
+Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-89f49cbb8besm57387836d6.43.2026.03.30.08.02.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 30 Mar 2026 08:02:01 -0700 (PDT)
+Date: Mon, 30 Mar 2026 11:01:59 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Olivia Mackall <olivia@selenic.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Jayesh Choudhary <j-choudhary@ti.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Antoine Tenart <atenart@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Pascal EBERHARD <pascal.eberhard@se.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 09/16] clk: Use the generic OF phandle parsing in only
+ one place
+Message-ID: <acqQZ5sx_WZrr4KJ@redhat.com>
+References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
+ <20260327-schneider-v7-0-rc1-crypto-v1-9-5e6ff7853994@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] dt-bindings: arm: hpe,gxp: Add HPE GSC platform
- compatible
-To: "Hawkins, Nick" <nick.hawkins@hpe.com>
-Cc: "catalin.marinas@arm.com" <catalin.marinas@arm.com>,
- "will@kernel.org" <will@kernel.org>, "robh@kernel.org" <robh@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260327174445.3275835-1-nick.hawkins@hpe.com>
- <20260327174445.3275835-2-nick.hawkins@hpe.com>
- <20260328-chirpy-sturdy-emu-9eb0cb@quoll>
- <DM4PR84MB192724F4949F614E3965E60A8852A@DM4PR84MB1927.NAMPRD84.PROD.OUTLOOK.COM>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <DM4PR84MB192724F4949F614E3965E60A8852A@DM4PR84MB1927.NAMPRD84.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260327-schneider-v7-0-rc1-crypto-v1-9-5e6ff7853994@bootlin.com>
+User-Agent: Mutt/2.3.0 (2026-01-25)
 
-On 30/03/2026 16:53, Hawkins, Nick wrote:
-> Hi Krzysztof Kozlowski,
+On Fri, Mar 27, 2026 at 09:09:31PM +0100, Miquel Raynal (Schneider Electric) wrote:
+> There should be one single entry in the OF world, so that the way we
+> parse the DT is always the same. make sure this is the case by avoid
+> calling of_parse_phandle_with_args() from of_clk_get_parent_name(). This
+> is even more relevant as we currently fail to parse clock-ranges. As a
+> result, it seems to be safer to directly call of_parse_clkspec() there.
 > 
->>>  maintainers:
->>>    - Nick Hawkins <nick.hawkins@hpe.com>
->>> @@ -18,6 +18,11 @@ properties:
->>>            - enum:
->>>                - hpe,gxp-dl360gen10
->>>            - const: hpe,gxp
->>> +      - description: GSC Based Boards
->>> +        items:
->>> +          - enum:
->>> +              - hpe,gsc-dl340gen12
->>> +          - const: hpe,gsc
+> Suggested-by: Stephen Boyd <sboyd@kernel.org>
+> Signed-off-by: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
+> ---
+>  drivers/clk/clk.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 > 
->> What sort of ordering are you going to use in this file? Usual choice is
->> the fallback compatible, but I see you have chosen something else. That
->> is fine, just keep that else sorting in the future instead of adding to
->> the end.
-> 
-> Thank you for the feedback, just to confirm are you looking for me
-> to do something like this?:
-> 
-> - description: GSC Based Boards
->         items:
->           - enum:
->               - hpe,gsc-dl340gen12
->           - const: hpe,gsc
-> - description: GXP Based Boards
->         items:
->           - enum:
->               - hpe,gxp-dl360gen10
->           - const: hpe,gxp
+> diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+> index 591c0780b61e..93e33ff30f3a 100644
+> --- a/drivers/clk/clk.c
+> +++ b/drivers/clk/clk.c
+> @@ -5375,8 +5375,7 @@ const char *of_clk_get_parent_name(const struct device_node *np, int index)
+>  	int count;
+>  	struct clk *clk;
+>  
+> -	rc = of_parse_phandle_with_args(np, "clocks", "#clock-cells", index,
+> -					&clkspec);
+> +	rc = of_parse_clkspec(np, index, NULL, &clkspec);
+>  	if (rc)
+>  		return NULL;
 
-Yes, that's the typical/usual way.
+Reviewed-by: Brian Masney <bmasney@redhat.com>
 
-> 
-> That way we have the newest first and going forward if there is
+In case a Fixes tag is warranted, it's not exactly clear what should be
+used. This was introduced in commit 766e6a4ec602 ("clk: add DT clock
+binding support") in 2012. However of_parse_clkspec was introduced in
+commit 4472287a3b2f5 ("clk: Introduce of_clk_get_hw_from_clkspec()") in
+2018.
 
-Usual order is the alphanumerical.
-
-> something newer we add it to the top of the list rather than
-> the bottom?
-
-If you want to order by date of release of the SoC, that's fine. I think
-Allwinner does it. It's pretty non obvious because the chips are
-upstreamed different time than released, so it is difficult for people
-knot knowing the release dates. Just don't use the rule of "add at the
-beginning" or "at the end".
-
-Best regards,
-Krzysztof
