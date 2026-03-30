@@ -1,84 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D39F39EF37;
-	Mon, 30 Mar 2026 07:22:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7323815FF;
+	Mon, 30 Mar 2026 07:23:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774855329; cv=none; b=EtMc7fthazO7DUvDzCgM8GNLo1Ac5W7a89eGf+bF4qJ93YkrniXxtHcxNrn0mMNrN4qkq58n3J0MnQax1OHFCJK3ITGrbuNysqss20Ci7YTRubTXFfOk8QzfMRCgVkPb8MkBOW39fmeNqPQa/NJlLn26MD6nqfkZaz3uFWVHOkg=
+	t=1774855411; cv=none; b=Y2Tg2Y62elvDT9BrDLfrICybYyztVVT5jOLicWxPXkuyMiY7ed4XB5pcRHj9z+7tLmmlCKq7xfOC+dEJ3TDT+BdLoriXP6foWMnUUpy6nyvMTglibiRRek3azs3dQiNw4kAUIVdBcF85qOHmhRf+AAqXYGyK7REDZoG//ED50Hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774855329; c=relaxed/simple;
-	bh=y9mD+65Lfnb411B/kfQPwX/qSL7/8ZFUg+bOT7K+rGQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xa2b4UeBttckotTWs8eDRz4BleS2Hh8/G3FLbl6GaJr0Jheow67IeWqYpEqtvm5U4CBl1M/04kjwr5o/Y2CHRJTmANFosjQ26cNTX3ZIJfdOpgIGv2DFXx8+O09wEQCu5tFMYGN3F4N5RJ0yjmIVpu0rCR4gkCkamaPwSMUvHxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oaw7gFD1; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774855411; c=relaxed/simple;
+	bh=kwNDRT9OrPmFc/hILh1ysWYBh5D2F0Zu0uy0zV4cgoY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f3rwTI2vtLawrGA2lDppGv0dg4lkO5W8X2F3pYW6DAxkFrBGR1FQZyx1owLXoXytAQQ4WzW6Ic++zD5cuUe5nUSW3YHjhK0Mu2YJBtAq1iZphLpxOeDWdhBVXlUz1LCtCuqb5L1OWfgCyL5NEoEDKin60cWP70EdpXUU7Raimro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qDvOM0cN; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oaw7gFD1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B44BFC4CEF7;
-	Mon, 30 Mar 2026 07:22:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qDvOM0cN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F765C4CEF7;
+	Mon, 30 Mar 2026 07:23:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774855329;
-	bh=y9mD+65Lfnb411B/kfQPwX/qSL7/8ZFUg+bOT7K+rGQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Oaw7gFD1elda2OVOh5Mf2F+21lWFSJ6PFcjYNXBpLh7kYUqXGWm91AkDoESlBm7Pn
-	 uxPYKRpAkL+oYRIVQmIHr98FHYjQ10R0wM1v4tVmyWnri2w3N0Vd4mtQCPq0HjiZlf
-	 iLmU29HaIMaTpc70mpC4Gh26jLbB6+1q2zQoD6PEvNcNrvtpqEpXWEnuEE2AdgYLdL
-	 zpPR1h6pELEN2H0aR5XXYG20V/L/F76hlGNsJa1R5iYUJ0Lt5yydyACY0u6qhaDP9x
-	 4uSuRO7od9Miwn9qpJtEzSmo6h10BBQinoPdGqTC23vrORJUzCPkoXofndbE6C3TK1
-	 BXbJ0u0opLehg==
-Date: Mon, 30 Mar 2026 09:22:06 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Khushal Chitturi <khushalchitturi@gmail.com>
-Cc: sre@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, ulli.kroll@googlemail.com, linusw@kernel.org, 
-	daniel.baluta@nxp.com, simona.toaca@nxp.com, d-gole@ti.com, m-chawdhry@ti.com, 
-	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] ARM: dts: gemini: Rename power controller node to
- gemini-poweroff
-Message-ID: <20260330-rough-military-saluki-e2dd8f@quoll>
-References: <20260329205151.15161-1-khushalchitturi@gmail.com>
- <20260329205151.15161-3-khushalchitturi@gmail.com>
+	s=k20201202; t=1774855411;
+	bh=kwNDRT9OrPmFc/hILh1ysWYBh5D2F0Zu0uy0zV4cgoY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qDvOM0cNhw0b4IKaKQzJoOS5AJawBLxv3ayv6ZH4+d1bqMZNPzgyVHn6Jo4lse2Q6
+	 F1OANWizgJTVAkhIYNTV8A8Mza6QArHTTBpVPsZRGYd3xiNkBWlCZm772KQMM/GKdv
+	 rW/pEyKyC9u9L1JNd2lnqgiJI+Mx04hSu34fHpee3BTwfqfsiar7BhxiPqa2zaYYtZ
+	 saoJ/+XdeqWQx2LaOK+S+2esvDtqioswiqZIK4rTYeQfjXuDInTzMubAwPnWsI2Lxf
+	 OcrjRmgZPI9dTppwMwDNLY59LHDUU26jTQIiMO/jhfBe6lf0TS8J83mhnBrrAXXNmE
+	 cgM+b6r6jZnvw==
+Message-ID: <2388acbc-a927-4727-a23c-5ecd7c33a926@kernel.org>
+Date: Mon, 30 Mar 2026 09:23:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260329205151.15161-3-khushalchitturi@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/2] dt-bindings: i2c: ls2x-i2c: Add clock- related
+ properties
+To: Hongliang Wang <wanghongliang@loongson.cn>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, loongarch@lists.linux.dev
+References: <20260325011852.19079-1-wanghongliang@loongson.cn>
+ <20260325011852.19079-2-wanghongliang@loongson.cn>
+ <20260325-outstanding-weasel-of-fruition-89db37@quoll>
+ <1b5283d8-294c-86de-c3d8-bf205ac24216@loongson.cn>
+ <0d7dfe5b-5e2d-4850-8922-16eb6bd9bcae@kernel.org>
+ <900dc1a4-66ab-411f-8a32-4c6cf339e8ec@kernel.org>
+ <bc22bad4-9825-829d-1df0-a801ebd933d6@loongson.cn>
+ <ca984be0-e7a6-4897-bf9f-db9465942c6e@kernel.org>
+ <ac62e280-1099-c0bc-f322-ba8b65307053@loongson.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <ac62e280-1099-c0bc-f322-ba8b65307053@loongson.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Mar 30, 2026 at 02:21:51AM +0530, Khushal Chitturi wrote:
-> Update the node name for the Cortina Gemini power controller from
-> power-controller to gemini-poweroff since node "power controller" is
-> reserved for power domain controller.
+On 30/03/2026 09:18, Hongliang Wang wrote:
 > 
-> Signed-off-by: Khushal Chitturi <khushalchitturi@gmail.com>
-> ---
->  arch/arm/boot/dts/gemini/gemini.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/boot/dts/gemini/gemini.dtsi b/arch/arm/boot/dts/gemini/gemini.dtsi
-> index befe322bd7de..c524adadcf81 100644
-> --- a/arch/arm/boot/dts/gemini/gemini.dtsi
-> +++ b/arch/arm/boot/dts/gemini/gemini.dtsi
-> @@ -228,7 +228,7 @@ intcon: interrupt-controller@48000000 {
->  			#interrupt-cells = <2>;
->  		};
->  
-> -		power-controller@4b000000 {
-> +		gemini-poweroff@4b000000 {
+> On 2026/3/27 下午2:39, Krzysztof Kozlowski wrote:
+>> On 27/03/2026 04:09, Hongliang Wang wrote:
+>>> The initial idea was that this patch could be used for both ACPI and DTS.
+>>>>>> The i2c-ls2x driver is compatible with both Loongson 2K and 3A+7A
+>>>>>> platform, parse
+>>>>>> the same parameters regardless of dts or acpi parameter passing, So
+>>>>>> clock-input
+>>>>>> and clock-div attributes are defined to describe input clock of i2c
+>>>>>> controller and
+>>>>>> divisor of input clock. It can be used on both 2K and 3A+7A platform.
+>>>>> And you cannot use them in DTS.
+>>> OK
+>>>> I need to keep guessing what you want to achieve, because neither your
+>>>> message nor commit text was explicit
+>>> What I want to achieve is to describe the input clock and divisor of I2C
+>>> controller
+>> Input clocks are defined as clock inputs obviously in DT, not as
+>> integers. Bindings need to describe the hardware, so start with that.
+> I can describe the hardware in loongson,ls2x-i2c.yaml, and I would like to
+> confirm with you what final implementation plan you agree to? clock 
+> framework
+> or custom clock-input an clock-div attributes? if clock framework, how 
+> can it
+> also be used for ACPI?
 
-Node names should be generic. See also an explanation and list of
-examples (not exhaustive) in DT specification:
-https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
-If you cannot find a name matching your device, please check in kernel
-sources for similar cases or you can grow the spec (via pull request to
-DT spec repo).
-
-Why gemini is added here? It's not generic.
+And you ask DT maintainer for that? It's not relevant. You sent DT
+bindings patch, so this patch must be correct and we discuss this patch
+here.
 
 Best regards,
 Krzysztof
-
