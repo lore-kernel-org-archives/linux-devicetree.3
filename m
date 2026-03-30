@@ -1,211 +1,215 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012029.outbound.protection.outlook.com [40.107.209.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436A419C546
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 05:25:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774848315; cv=none; b=DMUf2x0OG4ITmlZBOqj1Kw9wSwGxclCgMNZXSwafUm3vFjssYGj2ZhWf/Y0s/woOFnefKgG6nFHE46sROxhAMFZWWy7pspItVZyw7QuzbrRhf5IRnkYV3N1uKCTi2nqCp8z84MoaXpne30bQe/savnYqlW6+TKTbl2iWTVUlXY8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774848315; c=relaxed/simple;
-	bh=D3lO0lhg5hTvmGKJ2ae0KlsLLu8OpKls2Vh506RLu80=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JtccN5hrFrdI/N4yJFOII5gp/soqSJod2Q3XEYxra7+h3wDUeBY+9OE+f3onPeODd5sT5s/nVuNbiaNkdlksBZw9qJ/PpEGd5udGd2P4z0/J5AM+FP8nqnCCwAH6GnyyNiG2f6qiXcYmtzMBa7SgGM3lDmTyORAjcIkl5nGGzVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jk2MjDRJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CqOGOFr7; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB3321B192;
+	Mon, 30 Mar 2026 05:27:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774848435; cv=fail; b=ZAJedfodvKIetTuUEnXZGOYkIRD51VqIQgXhzWxUIt5aBALQfNspj1uGjwxrTFeH8bw9V3Ktw1++6V3jrfXisHULZkO0eUqhDhQxT1H7yZvUkC4UTIxPC/kFV1+Yvgq2PYzt0u+EndcyITXvcWHro/lSkSLBleYPcETxpSUWZ8s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774848435; c=relaxed/simple;
+	bh=U16FbXtpoQjWIhREAszw3cYVlRYkje68m2wrI0UGQ2s=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rNqcxYJhL4V0u4oCRuoyiygdX66UadfoIkuHYm/C7UqzChx8chvzk1crBV3D4UnDFen/2h7bbyzzNxlFPLEolQzrkK+POKPToU6PE9qldqu4lBEVIg/0ASWBUamRfJLu+eFTQqenVstL/7KocYtm08ErNbDQEvkMmcRot3tLhq8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Em/T5LiU; arc=fail smtp.client-ip=40.107.209.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jk2MjDRJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CqOGOFr7"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62TNU1m22418508
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 05:25:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	UmA43w79rLl8gL+6ejapyPIrbFnj/6/3VIIghM3uy5k=; b=jk2MjDRJU8RmKdg8
-	w/RB3dFeD7f0NRQSpbnWEdTb9j6GXYDMIc3qGNdzN1zA8OnLf59nAAmB1lOeU5B4
-	B9gsSdsj8soa1JH9pvVgGQ32Dc7eDyY99/uL5QryRwBGUxnwY0aMhXd0uqWuyLIA
-	OYc4qzLzBgpkdKaCD/L5hQ+lMjeMQUG60ALhVbPW3SWoJQtsL8fFXhyfpIy6AEAu
-	Tt/gOKaDOOFmjNrv3xVgLeuG1Dr8AjrP4Bsb6kJ47ibPsQo3oUKqsxZbQG+kgs2Z
-	STMQkyQKYNrRATfYk9DOjG9nMWvvnZ+rfuSodfcKWmmwRrebaqAl4nJxNRzXQAzb
-	b5TBRw==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d685hcetp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 05:25:13 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3595485abbbso5405423a91.2
-        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 22:25:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774848313; x=1775453113; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=UmA43w79rLl8gL+6ejapyPIrbFnj/6/3VIIghM3uy5k=;
-        b=CqOGOFr7CLQohgEWMz7GFoCw+mFO+rATtzxbfPNE6vSeWSngULiUAQBLnxwpCNQQlk
-         68E2rKstMA1+RF3pWXHCo7cgKb4bY0JC2/pBTb3km8kCu27JvMguEXb6l8TW2b/3i1CI
-         84FbVOpZtRO0gzsScrDW/TgOOOujzM9PC+qIsQLCNL3hRtz5IU3oUTx9qEvisjDGA3vM
-         1retOuriDMTb3ubgCEp2PDcU7yJ2JLYyQNr9jmLdmmq9gOqO8ufD5vSg3/GItJqPCNvb
-         LOxtGgHUuR6Q8NG+nJo4pEUcfqKOgJzqgqbVC8g3xBEZ6wNAcRk0CV2AYPMuxFKbkoKk
-         9CTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774848313; x=1775453113;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=UmA43w79rLl8gL+6ejapyPIrbFnj/6/3VIIghM3uy5k=;
-        b=bdR5AUhd6IIsf24Cnq1/b/frZU5kwQDMpgFTQu1FAHf3xC2JmNuHsGD0XRxdH2Sb9x
-         KSVoJT6BxNMJC6ZuDL0vFUe5ZVnu4MYCykaR9Nuggq59bWIUx8WyQFRfr4y7i1xfWI7f
-         xoi5/lKtETsTFGE2hocJny1QiR9fmsGSDVe7oayUFDp01XftVIHOR+Y3dwy53Hg6h0+Q
-         Rohh8k7bzcqRs7ruBWT+4qLzhPbRRPTM7GYkh3/98fh2NbFhW345FMZt2w+TogNbFX1y
-         iD3euHhXOilvXMWxKmccYB3Epe/C8qxgX7k8Nbb49xhCah7BDruzAvCmTYL4KPY8khZI
-         9dhQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXr/vbQP+Ly7xtm2ORFPX4F/ERFH5hB+Txfb/WcQyuEPb8ltHwz9KDVVQTzsmwOApiYEinjV3ZrUscs@vger.kernel.org
-X-Gm-Message-State: AOJu0YzJG3ATzcTmOCLTA/an2qPRjTvXHu3i0GCbntYFI2vaFkbQNeYV
-	/H32Q/JNXTP6ji9FyWL1NauxZWshuGfuaCbmTUSZTmSOChtHTDYZ7RR4JlM4ud1/4FfmNWKr7UN
-	N1NpdbB3+8Ex5t49Okxx5h4JxHIngLLwiaJcsaS/Bd3Zqnc9OxSMgh6LSX0fklaoi
-X-Gm-Gg: ATEYQzzLqk/jp+Z/tfQinayjp0QIxtPsYXc7J8jGoaTZ6Nr+aIwJEF0j2vOERatQfTx
-	mQh+1lW37ffgMXpjODCQnLKPNOTlPdQFqJjg6HV6gVSZqSXk0mR9xWzDj0AtYGLEkFYbNurmkMt
-	SEhEHK9FXbYKNDO8PWOFTvpFoE+H9sHt2CU/AUQ8yzvd7d6c3XSvsEHk8MMmq1++4hB/Qjo23Ko
-	QvresWOBd+24HF1hZvC7D2qMx4xsOxK5lr6BLEEBSpBl0S+xVmWN5fGhLUPb4p6WZH7nW9lDOlh
-	ZCOJlWQJqi5HLbdLvUZrRjneXcBvvU863ZegBcKAHbJE4IlM0ShOWFVJ9VBIjQgKWP8/mIdVqFA
-	fBlmKhqTWc3rUUEL0oqwvjQk8jY8aP8gNlNixxjsjO7SDOxvNMrbncA==
-X-Received: by 2002:a17:90b:3d86:b0:35d:b00a:3c54 with SMTP id 98e67ed59e1d1-35db00a416amr378962a91.22.1774848312866;
-        Sun, 29 Mar 2026 22:25:12 -0700 (PDT)
-X-Received: by 2002:a17:90b:3d86:b0:35d:b00a:3c54 with SMTP id 98e67ed59e1d1-35db00a416amr378917a91.22.1774848312353;
-        Sun, 29 Mar 2026 22:25:12 -0700 (PDT)
-Received: from [10.0.0.3] ([106.222.233.247])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35d950d9b12sm6892152a91.17.2026.03.29.22.25.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 29 Mar 2026 22:25:11 -0700 (PDT)
-Message-ID: <5e2635ac-35de-645b-b5e7-235923f844ce@oss.qualcomm.com>
-Date: Mon, 30 Mar 2026 10:55:02 +0530
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Em/T5LiU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=U1+zF3o0NDB+ZsauXzu/VKAwmlUH/23igk0Bb4xVXIAYif7DkWtK/Vu6kjOS5Rmr/vm7EhlAWDKk9KFNe7VT/hISdDLVZh1THtBPrxw2BysnSQ/gnSXAWcBln5NjjtYnFtLrMTpnsCX9ZuG0NpVfooqwfw4QnL/cpLsEcDVKowY+qwX6EQF/vfmCfcs+LTtW87mLII7nMjJGSyCxNjp+O/8RaZO0kusAaB5gcrvFoG+aHKa4Z6Q4TMt9/kYxUJTRGjrKfC09tbRIgz7Rlr/p1tPPATLCT7Dt906nR8XAGf4bKCy53ZUil/udB93krL2Fuuu3Cmcf+eazItCDKuLcLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=T5SAysfwpQelhuj+aCnXbL3FXUDdEA7jD+yOjuzV00A=;
+ b=gK7MWOnYBWA4N1jc1gplbeBN9YHNhikceUPUyHt76WU6fP6ToO7PGZ+XTC3N4jGPfo0//Qgw1S7JCcu2g8fM+1WARmbUDHoF2aRV96vNZzg9YzKvIkinggOur8kv60+Kuox3PJE93c71EGoNUQugyoUBlW778pEfTG6hnwkq8k5GVGUP+3Hp/JKlMATufZJkssrqK5ummhYyF3lVZCvYOrJwZkD93uYkX3lWasCLj2HimtbRvE4cC6rNt+RKxHwvt2njW0GHbvlIUYLqT23c+WhBOLIljLt2tC4qKJx4KxMl/SoZzy69G6nr9bz6pDntiiDZNURN8T1bKjS0s2Wdpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.233) smtp.rcpttodomain=bootlin.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T5SAysfwpQelhuj+aCnXbL3FXUDdEA7jD+yOjuzV00A=;
+ b=Em/T5LiU2f6Z3I3BS9ANfM/XA5Ag8z4hCR9GANOuSaustxUdlXjLZ4s/CbtXzwBbGmrvn5XfeBK0d5Ns6/f7bVJVyP8ClZw47oeVTHSSg0d+q0yzLDWvrav3OMe6Ml80ZKDIrNZa6yvwuiTs/TMo2sazAus6XB4t1ajiw5kanyheXZERB9Fhdeil+70cdUyMHKVCQo0sgClP2iDPM2VapkvlTn0BJb5hejarYFWS3qeqyeGobVIRoOBm3lHCCHypkJxVnebnoq6Ji0/cZcPTfib2MtGvjyVNv6r8IDPpnFSvQMGMdPLG9oiAt6oX0OqEEQs3Tg2+rFFt9OwbxC4rVw==
+Received: from BLAPR03CA0126.namprd03.prod.outlook.com (2603:10b6:208:32e::11)
+ by DM4PR12MB7693.namprd12.prod.outlook.com (2603:10b6:8:103::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.12; Mon, 30 Mar
+ 2026 05:27:05 +0000
+Received: from BL6PEPF0001AB75.namprd02.prod.outlook.com
+ (2603:10b6:208:32e:cafe::37) by BLAPR03CA0126.outlook.office365.com
+ (2603:10b6:208:32e::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.28 via Frontend Transport; Mon,
+ 30 Mar 2026 05:27:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.233)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ BL6PEPF0001AB75.mail.protection.outlook.com (10.167.242.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Mon, 30 Mar 2026 05:27:04 +0000
+Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Sun, 29 Mar
+ 2026 22:26:53 -0700
+Received: from drhqmail203.nvidia.com (10.126.190.182) by
+ drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.20; Sun, 29 Mar 2026 22:26:53 -0700
+Received: from BUILDSERVER-IO-L4T.nvidia.com (10.127.8.9) by mail.nvidia.com
+ (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.20 via Frontend
+ Transport; Sun, 29 Mar 2026 22:26:47 -0700
+From: Akhil R <akhilrajeev@nvidia.com>
+To: <alexandre.belloni@bootlin.com>
+CC: <Frank.Li@nxp.com>, <acpica-devel@lists.linux.dev>,
+	<akhilrajeev@nvidia.com>, <conor+dt@kernel.org>, <conor@kernel.org>,
+	<devicetree@vger.kernel.org>, <ebiggers@kernel.org>,
+	<fredrik.markstrom@est.tech>, <jonathanh@nvidia.com>, <krzk+dt@kernel.org>,
+	<lenb@kernel.org>, <linux-acpi@vger.kernel.org>,
+	<linux-hwmon@vger.kernel.org>, <linux-i3c@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
+	<linux@roeck-us.net>, <miquel.raynal@bootlin.com>, <p.zabel@pengutronix.de>,
+	<rafael@kernel.org>, <robert.moore@intel.com>, <robh@kernel.org>,
+	<smangipudi@nvidia.com>, <thierry.reding@kernel.org>
+Subject: Re: [PATCH 01/12] dt-bindings: i3c: Add mipi-i3c-static-method to support SETAASA
+Date: Mon, 30 Mar 2026 10:56:46 +0530
+Message-ID: <20260330052646.29412-1-akhilrajeev@nvidia.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <2026032717064247cc495e@mail.local>
+References: <2026032717064247cc495e@mail.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH v5 2/5] media: iris: scale MMCX power domain on SM8250
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Taniya Das <quic_tdas@quicinc.com>, Jonathan Marek <jonathan@marek.ca>,
-        Ulf Hansson <ulf.hansson@linaro.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Dikshita Agarwal <dikshita@qti.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-media@vger.kernel.org,
-        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-References: <20260209-iris-venus-fix-sm8250-v5-0-0a22365d3585@oss.qualcomm.com>
- <20260209-iris-venus-fix-sm8250-v5-2-0a22365d3585@oss.qualcomm.com>
-From: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-In-Reply-To: <20260209-iris-venus-fix-sm8250-v5-2-0a22365d3585@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=csKWUl4i c=1 sm=1 tr=0 ts=69ca0939 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=5/Y9Gi2N1OwmQbPtUd2E/A==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=R0B0fMNruX7Akzlv-IwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDAzOSBTYWx0ZWRfX0Noj+bXlereb
- 91VEEHD21GazwpLPRUjLFenv+WjbB0Wp37OqypZB+o3lL//rAZGcF6/7HGR8wrYZj1c/QIal1i+
- ewTXZ4OOc3KFUjAC5/eXPoQ9TsZp1tfbFfQgVmn4bbO7KvigAwKQSyYv1Rcn1dXCeW1gkVE9apA
- 5Gn0slLuDKaVlgRnod6TDtAPAv5Yfn6nxywsyyFxOWIs8rcMhQ6aunryKkq+AocwCo1U3Yc/2gw
- H+ulyJlXdvcquylW0h1oQrYoxtV9gk8fuBuIm3i2Q/jgc8XjnpCfRufMDrC8jWXFr2M6lWNes+k
- DHVyTi13DrrTV5Z/YzRi66ZUH0kCMe2gXzl/Kyr9c1f9LhFpKluJUaCVm8XCY5Pt6gv6NmU0j51
- BUO08Akif0q3JvBZMmO6JG4Dwj/FcGeBP/qFhl/QHXhCRv+n0NRHvwLbxnujaaYDws3keCRo4e7
- RAN62ZF2biWmLwQq17g==
-X-Proofpoint-ORIG-GUID: mr-fvNXUhgtEALSo11RFkL0jGImSsAr9
-X-Proofpoint-GUID: mr-fvNXUhgtEALSo11RFkL0jGImSsAr9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-29_05,2026-03-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 clxscore=1015 adultscore=0 impostorscore=0
- priorityscore=1501 bulkscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300039
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB75:EE_|DM4PR12MB7693:EE_
+X-MS-Office365-Filtering-Correlation-Id: e74e59fc-55ec-47fc-57b1-08de8e1cfa56
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|7416014|36860700016|376014|13003099007|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	11C8DZU8OkiOp3sjFlWinkhkP6jF0GUo//z3lqzHINpPjJv2b19VEsYt1Y9+HrVAYeqfBoMahAL2A3YquY/ouoKYk1L3+1WCFtI1YOG9zUtCnD7dq2Y+LYnLMhjumZDyIijaEeorQph0R3vyROwZJn2RG+wt2hdVEEi7plZ4zyI/qydxiR8U5TgZ3HK8eDghxbDbDpBQp4xVsqK73IQF91A9U0HaIQRs2JvCFAowaHU3w+y1y4bjEzsU7WFg9+ZUG6/ik02kV3es0SYdtH7lX7UV7gTqGgNyeDxvRUV1ub7aQc3DKeAfIHuVLDzLnedOb+Td6nCtrLKtZ7MqKdcB53GJoSu0+PD4+bKGk9xzN/JviMxqQRbTquwBiLTjAtC1WkJKzeoKrGvnGyoIBSGNo5Ur4Pm9d4wpWSeLtD/3XEo43LZbbfGkb+7ge/MwflPY6Tga5fW0XUCtyjsLMYoV0GGfb1ErXlZphpqx4ZyOP1dkDsPkPevQgiefIrxp6vjhHx9auneJufimuCFJq2lGeuKYyvlGvqjAt27Te8QHP2vDvE41HcCb3LFSBmyl8wXgfyzG3u9MCp1rlzMUtCiFr7GSGb9odBKA+YhWjoAF2fUoKMi2h9JUw9gkvRebLBoPRpLQusz4f/mCYIbg3kWVhX7O5797Cpnn8Q9XURmoVfYtK/cNBrJlbyn20mVtd0Z0TcY8AEQ+t955J7rtwgDbu507Rj/QWHL4hFA6Z/KN5D7fBgLWy7LSS8LjMpFVn6eTQk6t/1eMXh/qCxG3AB027g==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(7416014)(36860700016)(376014)(13003099007)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	OuB51rYhEYCgADxWMePgiWvCz+6flTalGpf6cecJGtpji9eRYZMQukIoh/oMZsiKtfDIQU160Wwn4hmGINYDqQ+bbou5S0ENexytO2eS1MAgOWCGe6dufOoU23jN6kO5g5AU/FLlB/ECqH8KJiL4c6hI/VAlyVugLEh5ie+1GgsQyIpAIQh49FdyKtb/CFxwZBvmzQ4elaPOPbKGxPmoXrqRozFyDK3hKOk0ZUWSAjvdoNDmU9jt1Si7cmqioebjOAMOpRFN6lrtK7wL6+UvI6U1Lf8g3dSHC6xot1rPhAAZ5OQCkx69FI4yLCo45X9mvIyB1nkifvU9WmqYnkX9ios6tFEYTM4u6swWg/8cPIKHOyBtb6t4UVBqdkH9rc6f4JmHYz3QdZ2jqYj+oxDGfo6vGj06uWXyDGpc8VYDRsnpnkUGmkznr/1zzb5cvto8
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 05:27:04.1457
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e74e59fc-55ec-47fc-57b1-08de8e1cfa56
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF0001AB75.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7693
 
-
-
-On 2/9/2026 7:02 AM, Dmitry Baryshkov wrote:
-> On SM8250 most of the video clocks are powered by the MMCX domain, while
-> the PLL is powered on by the MX domain. Extend the driver to support
-> scaling both power domains, while keeping compatibility with the
-> existing DTs, which define only the MX domain.
+On Fri, 27 Mar 2026 18:06:42 +0100, Alexandre Belloni wrote:
+> On 27/03/2026 17:12:04+0530, Akhil R wrote:
+>> On Fri, 27 Mar 2026 09:27:21 +0100, Alexandre Belloni wrote:
+>> > On 27/03/2026 13:48:58+0530, Akhil R wrote:
+>> >> On Thu, 26 Mar 2026 16:44:31 +0100, Alexandre Belloni wrote:
+>> >> > On 26/03/2026 10:05:03-0500, Rob Herring wrote:
+>> >> >> On Wed, Mar 18, 2026 at 05:31:50PM +0000, Conor Dooley wrote:
+>> >> >> > On Wed, Mar 18, 2026 at 10:57:14PM +0530, Akhil R wrote:
+>> >> >> > > Add the 'mipi-i3c-static-method' property mentioned in the MIPI I3C
+>> >> >> > > Discovery and Configuration Specification [1] to specify which discovery
+>> >> >> > > method an I3C device supports during bus initialization. The property is
+>> >> >> > > a bitmap, where a bit value of 1 indicates support for that method, and 0
+>> >> >> > > indicates lack of support.
+>> >> >> > > Bit 0: SETDASA CCC (Direct)
+>> >> >> > > Bit 1: SETAASA CCC (Broadcast)
+>> >> >> > > Bit 2: Other CCC (vendor / standards extension)
+>> >> >> > > All other bits are reserved.
+>> >> >> > > 
+>> >> >> > > It is specifically needed when an I3C device requires SETAASA for the
+>> >> >> > > address assignment. SETDASA will be supported by default if this property
+>> >> >> > > is absent - which means for now the property just serves as a flag to
+>> >> >> > > enable SETAASA, but keep the property as a bitmap to align with the
+>> >> >> > > specifications.
+>> >> >> > > 
+>> >> >> > > [1] https://www.mipi.org/specifications/disco
+>> >> >> > > 
+>> >> >> > > Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+>> >> >> > > ---
+>> >> >> > >  .../devicetree/bindings/i3c/i3c.yaml          | 30 ++++++++++++++++---
+>> >> >> > >  1 file changed, 26 insertions(+), 4 deletions(-)
+>> >> >> > > 
+>> >> >> > > diff --git a/Documentation/devicetree/bindings/i3c/i3c.yaml b/Documentation/devicetree/bindings/i3c/i3c.yaml
+>> >> >> > > index e25fa72fd785..1705d90d4d79 100644
+>> >> >> > > --- a/Documentation/devicetree/bindings/i3c/i3c.yaml
+>> >> >> > > +++ b/Documentation/devicetree/bindings/i3c/i3c.yaml
+>> >> >> > > @@ -31,10 +31,12 @@ properties:
+>> >> >> > >        described in the device tree, which in turn means we have to describe
+>> >> >> > >        I3C devices.
+>> >> >> > >  
+>> >> >> > > -      Another use case for describing an I3C device in the device tree is when
+>> >> >> > > -      this I3C device has a static I2C address and we want to assign it a
+>> >> >> > > -      specific I3C dynamic address before the DAA takes place (so that other
+>> >> >> > > -      devices on the bus can't take this dynamic address).
+>> >> >> > > +      Other use-cases for describing an I3C device in the device tree are:
+>> >> >> > > +      - When the I3C device has a static I2C address and we want to assign
+>> >> >> > > +        it a specific I3C dynamic address before the DAA takes place (so
+>> >> >> > > +        that other devices on the bus can't take this dynamic address).
+>> >> >> > > +      - When the I3C device requires SETAASA for its discovery and uses a
+>> >> >> > > +        pre-defined static address.
+>> >> >> > >  
+>> >> >> > >    "#size-cells":
+>> >> >> > >      const: 0
+>> >> >> > > @@ -147,6 +149,26 @@ patternProperties:
+>> >> >> > >            through SETDASA. If static address is not present, this address is assigned
+>> >> >> > >            through SETNEWDA after assigning a temporary address via ENTDAA.
+>> >> >> > >  
+>> >> >> > > +      mipi-i3c-static-method:
+>> >> >> > > +        $ref: /schemas/types.yaml#/definitions/uint32
+>> >> >> > > +        minimum: 0x1
+>> >> >> > > +        maximum: 0xff
+>> >> >> > > +        default: 1
+>> >> >> > > +        description: |
+>> >> >> > > +          Bitmap describing which methods of Dynamic Address Assignment from a
+>> >> >> > > +          static address are supported by this I3C Target. A bit value of 1
+>> >> >> > > +          indicates support for that method, and 0 indicates lack of support.
+>> >> >> > 
+>> >> >> > I really am not keen on properties that are bitmaps, why can't we just
+>> >> >> > use the strings "setdasa", "setaasa" etc?
+>> >> >> 
+>> >> >> If this comes from a specification, then I'd tend to just copy it rather 
+>> >> >> than invent our own thing. Obviously if is something structured 
+>> >> >> fundamentally different from how DT is designed, then we wouldn't. But 
+>> >> >> this is just a simple property.
+>> >> >> 
+>> >> > 
+>> >> > The issue being that the specification is not public so it is difficult
+>> >> > to take any decision.
+>> >> 
+>> >> There is a public version available in the same link, but you would still
+>> >> have to provide them a name and an email ID. The document will be sent to
+>> >> the mail ID.
+>> >> 
+>> > 
+>> > The public version only contains one property:
+>> > mipi-disco-interface-revision
+>> 
+>> Could you check once if the below link works?
+>> https://www.mipi.org/mipi-disco-for-i3c-download
 > 
-> Fixes: 79865252acb6 ("media: iris: enable video driver probe of SM8250 SoC")
-> Reviewed-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_platform_gen1.c | 2 +-
->  drivers/media/platform/qcom/iris/iris_probe.c         | 7 +++++++
->  2 files changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_gen1.c b/drivers/media/platform/qcom/iris/iris_platform_gen1.c
-> index df8e6bf9430e..aa71f7f53ee3 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_gen1.c
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_gen1.c
-> @@ -281,7 +281,7 @@ static const struct bw_info sm8250_bw_table_dec[] = {
->  
->  static const char * const sm8250_pmdomain_table[] = { "venus", "vcodec0" };
->  
-> -static const char * const sm8250_opp_pd_table[] = { "mx" };
-> +static const char * const sm8250_opp_pd_table[] = { "mx", "mmcx" };
->  
->  static const struct platform_clk_data sm8250_clk_table[] = {
->  	{IRIS_AXI_CLK,  "iface"        },
-> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
-> index 7b612ad37e4f..74ec81e3d622 100644
-> --- a/drivers/media/platform/qcom/iris/iris_probe.c
-> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
-> @@ -64,6 +64,13 @@ static int iris_init_power_domains(struct iris_core *core)
->  		return ret;
->  
->  	ret =  devm_pm_domain_attach_list(core->dev, &iris_opp_pd_data, &core->opp_pmdomain_tbl);
-> +	/* backwards compatibility for incomplete ABI SM8250 */
-> +	if (ret == -ENODEV &&
-> +	    of_device_is_compatible(core->dev->of_node, "qcom,sm8250-venus")) {
-> +		iris_opp_pd_data.num_pd_names--;
-> +		ret = devm_pm_domain_attach_list(core->dev, &iris_opp_pd_data,
-> +						 &core->opp_pmdomain_tbl);
-> +	}
->  	if (ret < 0)
->  		return ret;
->  
-> 
+> It works, thanks. The bitfield is fine then.
 
-Hitting below compilation error on latest kernel
+Thanks for checking. I will update the link in the commit description and
+keep the rest of the patch as is. Hope that sounds good.
 
-drivers/media/platform/qcom/iris/iris_probe.c: In function
-‘iris_init_power_domains’:
-drivers/media/platform/qcom/iris/iris_probe.c:71:46: error: decrement of
-read-only member ‘num_pd_names’
-   71 |                 iris_opp_pd_data.num_pd_names--;
-
-Could you please check and fix.
-
-Thanks,
-Dikshita
+Best Regards,
+Akhil
