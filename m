@@ -1,110 +1,105 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B90D382F01;
-	Mon, 30 Mar 2026 08:28:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E913A7855
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:32:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774859297; cv=none; b=BbntPzIDorHZGKp3qXClhACraRa46v2dhQphtpnMfHgwkwXrIkcc+a1qjN2YWsi27I/yaqGVTjaGn7c73y2+x2FB9lcSdZqQxZd2qrImAOqEG2btwF5D4WU95P30KHUAkOF9vvWx/OaaS0phoA+HnU540bveDJsCiUk687iUnyg=
+	t=1774859565; cv=none; b=snIfKlsqg0NRdkzC5NaRPQFXR8JnjnErwfZ4vGw9gvtLOORYJ61kCzsKiDN4WsPPtcaRcNHQDlYIlWIXfO7yqejhAUiLE+v4HBlQbmJdzIJZdzqNA8SZ/tui29dJZDT62SELF3AP29JXlCR/74ykkuW9EQDHk/d0oBMS5CPNni0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774859297; c=relaxed/simple;
-	bh=/+3Ho70scmMY0l1174Jc0V5ZPFuRAeYgT9Dg8UWlO+o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=R7lWVCrHDL+RWAEQmE/V9zkJ5OllmJHJ/A3AGB1QZItyT+pOmW5GpG5pAd/4kfxxSQKw1FLLLAFt3UKy7sBESGw0H1APBJaPq/FrRIbFw0Rz9pWmbrCuDvBtB8mWl8HpxVnIEbLJGcXi98XkOQ0b2beDd2JbWXLz36yKDfPhKgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=PwF6o3Bu; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1774859565; c=relaxed/simple;
+	bh=75FEs0ybZkc7CPZSVzblsuu4jpTIyJxwvM3fwOTN0rg=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=n9yEVglbWhFq8ZZgGW+BSRoFS1qhCCPbq4Z6ZDn+CL/NuWYVH7UEhU7sDjMkkaEIuL0lPD045syAojzZ5QVfGa9cTiqleyiorydOSiYDNDh5eEmpi6jPugKQe6xRq59BHtRNVeQAJ9EGFnJLGsnoKmoMM683yYM2WxT+QAx8Sn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=En8X2SOW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="PwF6o3Bu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=IWDxnURTi+IF8/iD9M37ASLzznD8KgRMZxGLGGi0MIw=; b=PwF6o3Bus4nqDZmEr/pMzIT22J
-	cHfd1EIWui1UH5vO2QOorMssuZJ2Dd+kF8s0DHsXcOXkSM7RbdTalDnd735//E5P1Yti+6YjnhZv/
-	5zPB7X25VbAw/OQzLPETrJDw9kkSjgmnL1k9CjnCgOT5oQEf7eSEN+WyhAofuwnplR7+h2Js/6Ahc
-	BJREJ6pAUjAXqVJgMDKgw2c0gys1jAUwcrmMynoqJbsYzhrRn12lJzzagV+d7zqrs6QX60wfMl3v3
-	GrnLKJnas26fbqcy6YestrjuvOi5Lxdsq8bK6gn8W1HWeHXLmReGzbnzqUZUJNgxn/FaK8jle9kav
-	4wAoCBYA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: =?UTF-8?B?6LCi6Ie06YKmIChYSUUgWmhpYmFuZyk=?= <Yeking@red54.com>,
- linux-rockchip@lists.infradead.org, Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kever Yang <kever.yang@rock-chips.com>,
- Finley Xiao <finley.xiao@rock-chips.com>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: Add RK3562 serial aliases
-Date: Mon, 30 Mar 2026 10:27:52 +0200
-Message-ID: <1954782.CQOukoFCf9@phil>
-In-Reply-To: <9b3ee9e9-d44d-49b1-81ac-9c3806dc0efb@kernel.org>
-References:
- <tencent_4BED6C3FFB8102B4BB3D08D6F47F2CCFC908@qq.com>
- <9b3ee9e9-d44d-49b1-81ac-9c3806dc0efb@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="En8X2SOW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB4E7C2BC9E
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:32:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774859564;
+	bh=75FEs0ybZkc7CPZSVzblsuu4jpTIyJxwvM3fwOTN0rg=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc:From;
+	b=En8X2SOW9T7nefppn/9ZHKdFbN3b/AHrW5zHUvCQTAYSW5EdsA8DuWbXTWvEGh7yr
+	 uspw5j/i4Aj6lpd+E7pOLmQImCctlP+GXjPukCDl40E3wKxBvztJtsHYkZXttHIXML
+	 GoAKwdPLjF1jk/6XN1W24WXPApTTmU6SEemZwwcALyWxR9Vm6Vpk4kwPgKavGnw89Q
+	 V5BX83KRK+Mn/vJp3zz32Q8q0E2wd/eEXB/4I7vhTmtcnQ3rjQrITM61pNSZvDshVW
+	 RFzGMKarUMrqOrW87bMogpOg4wpfe3OPFx8WQk+nIpk6yo4P55XN4ODu6jhJBQSQmR
+	 aJv3HiE2S5ylw==
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-38c688bdc71so27140631fa.2
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 01:32:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCWkfCznNc6+uISL250njPJPvJKGnp0aZ8MOF8LYi9B6ZgBKA1+6qGRXg+cpP8A1pZqQdJLBMW9McpiJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzGECkqqCPijDVahUuzWv28wzpbxFazjpyw5emfnW39EE2U56W1
+	B0L3hT6Gi2CJ45/47VswSrq+ZGvNSGeMmOLanACpQU8VCN2MmTfBwKs7VKplZpD5fEU7RmB97mh
+	Wn7HbxC7G1/fPEYG65XPtsC1c49YZfnrQVB0YU7EunA==
+X-Received: by 2002:a05:651c:502:b0:38c:4b3a:337e with SMTP id
+ 38308e7fff4ca-38c731277d5mr34532821fa.11.1774859563585; Mon, 30 Mar 2026
+ 01:32:43 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 30 Mar 2026 01:32:42 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 30 Mar 2026 01:32:42 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260326-mfd-arizona-irq-v4-1-50c47ed0a18e@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+References: <20260326-mfd-arizona-irq-v4-0-50c47ed0a18e@kernel.org> <20260326-mfd-arizona-irq-v4-1-50c47ed0a18e@kernel.org>
+Date: Mon, 30 Mar 2026 01:32:42 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mf4pW9iF2DvCD6AXj6+p9r5Lt1RFs-Ncfb1_Dnaew6ftQ@mail.gmail.com>
+X-Gm-Features: AQROBzDIZUI2nf1NyRuAAq4jwxwnEPPBZL2x8h6eRzw_2rEgUS5PZL-0f_UvDww
+Message-ID: <CAMRc=Mf4pW9iF2DvCD6AXj6+p9r5Lt1RFs-Ncfb1_Dnaew6ftQ@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: mfd: wlf,arizona: Add irq-gpios
+To: Linus Walleij <linusw@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Charles Keepax <ckeepax@opensource.cirrus.com>, patches@opensource.cirrus.com, 
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Am Samstag, 28. M=C3=A4rz 2026, 16:08:57 Mitteleurop=C3=A4ische Sommerzeit =
-schrieb Krzysztof Kozlowski:
-> On 28/03/2026 14:05, =E8=B0=A2=E8=87=B4=E9=82=A6 (XIE Zhibang) wrote:
-> > This fixes the stdout-path in rk3562-evb2-v10.dts.
-> >=20
-> > Fixes: ceb6ef1ea900 ("arm64: dts: rockchip: Add RK3562 evb2 devicetree")
-> > Signed-off-by: =E8=B0=A2=E8=87=B4=E9=82=A6 (XIE Zhibang) <Yeking@Red54.=
-com>
-> > ---
-> >  arch/arm64/boot/dts/rockchip/rk3562.dtsi | 10 ++++++++++
-> >  1 file changed, 10 insertions(+)
-> >=20
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk3562.dtsi b/arch/arm64/boot=
-/dts/rockchip/rk3562.dtsi
-> > index e4816aa3dae0..14e74e8ac7df 100644
-> > --- a/arch/arm64/boot/dts/rockchip/rk3562.dtsi
-> > +++ b/arch/arm64/boot/dts/rockchip/rk3562.dtsi
-> > @@ -26,6 +26,16 @@ aliases {
-> >  		gpio2 =3D &gpio2;
-> >  		gpio3 =3D &gpio3;
-> >  		gpio4 =3D &gpio4;
-> > +		serial0 =3D &uart0;
-> > +		serial1 =3D &uart1;
-> > +		serial2 =3D &uart2;
-> > +		serial3 =3D &uart3;
-> > +		serial4 =3D &uart4;
-> > +		serial5 =3D &uart5;
-> > +		serial6 =3D &uart6;
-> > +		serial7 =3D &uart7;
-> > +		serial8 =3D &uart8;
-> > +		serial9 =3D &uart9;
->=20
-> UART aliases are properties of the boards, not SoC.
+On Thu, 26 Mar 2026 11:51:11 +0100, Linus Walleij <linusw@kernel.org> said:
+> The Wolfson Microelectronics Arizona sometimes needs to poll the
+> GPIO line corresponding to the IRQ to counter bugs in the hardware
+> that appear on edge-triggered IRQs.
+>
+> For this situation, provide the optional irq-gpios property.
+>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>  Documentation/devicetree/bindings/mfd/wlf,arizona.yaml | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/mfd/wlf,arizona.yaml b/Documentation/devicetree/bindings/mfd/wlf,arizona.yaml
+> index 7902f3c5d289..359e40b3dacb 100644
+> --- a/Documentation/devicetree/bindings/mfd/wlf,arizona.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/wlf,arizona.yaml
+> @@ -194,6 +194,16 @@ properties:
+>    reset-gpios:
+>      maxItems: 1
+>
+> +  irq-gpios:
+> +    maxItems: 1
+> +    description:
+> +      A functional IRQ should be provided in the interrupts
+> +      property. This property enables edge triggered IRQ emulation
+> +      for hosts that don't support the codecs level triggered IRQ
+> +      output. The GPIO line corresponding to the IRQ will be polled
+> +      until all IRQs have been handled, ensuring an edge is generated
+> +      for the next IRQ.
+> +
+>    wlf,reset:
+>      description:
+>        GPIO specifier for the GPIO controlling RESET
+>
+> --
+> 2.53.0
+>
+>
 
-We had this argument a lot of times for those numbered aliases
-where everything on all soc documentation, schematics and also
-user documentation for individual boards, generally references
-exactly those numbers :-)
-
-But fiiiiiine, if it comes up all the time ...
-
-I really hope, you're okay with intermitend ordering though:
-
-	serial0 =3D &uart0;
-	serial2 =3D &uart2;
-	serial5 =3D &uart5;
-
-because otherwise, this would cause pure chaos everywhere.
-
-Because as I said this serial number is used on board-schematics,
-board-user-level documentation, SoC documentation, even silcscreen
-on boards ... so everywhere.
-
-Similar for all the numbered busses ofthe SoCs.
-
-
-Heiko
-
-
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
