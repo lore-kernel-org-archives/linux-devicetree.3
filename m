@@ -1,149 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06243A872A;
-	Mon, 30 Mar 2026 19:57:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0E424BBFD
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 20:01:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774900667; cv=none; b=EqGi49jPPBMBlB0Szwoo9xEvBRK1I9iejtLSXeWyOTppv1qNgkwJwF9uezN55RirSLwZSktWQ7Kmoph+piBumg/6R9SDPW1EaciRlujEUsBv6N2f+oxR/nno0dZ+58SBjxRxHq4/AH9iaqB51gOLoF1yAlXLMilJdqGMnZ5MOME=
+	t=1774900868; cv=none; b=g6aTmzvVpgbCqVWCUcQKsgzMYqyGY710EfiJ4J+1XXQf4Ni+z7khzz5y0aS/3VNWjvl5nIj1C4tWfe6GWIY8009qwN6Wjk3VtmbBLYUq6jkNp2tzMDt1jQjaTnPovY0dob0AgA9TA9+QQIj86AGoTsE2fbJtklhjhq3pK9XeVpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774900667; c=relaxed/simple;
-	bh=c3qtZ+kKZI4i+gpQJZtVZwl68vlayAF2E4m619qBxgM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XeYr3AoUDznzm7nvWpHqfhhAJMN5APpm6UMAhxT5Jb+zwMpqzuz+X1dS6W1SBzS8iZpHGbeod5T9Pt6/KogtNO5vvDV/SZ83ruFRBYJz0Nmk11bDL7Mv0iD1vDK0Q3z9m0aTx63rH9pY4voli/SVms/lyrP7cKF+D3K4aJ/IIW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=r4yk2xlZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774900868; c=relaxed/simple;
+	bh=BOgXm1/gyoBP6uulTOs3CmkhaYrIIhLPEBJ9uoXBChs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U1fP4u2jFU+by4HCG+m22g4WeEfsN+Kn5uRikwYUplkYkndROZ2lvsgmCGTN7Ij8mtk7OpaF9jz/xdnYzK7sU3E8pcwgNbWT7i/PljfuJuebqsL90PxnIjkS7ODl5A4+89JFSgzaG0YfM1oPcI0yIvm8AFMhnf7haGMHG7XlSSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jfNuzQrg; arc=none smtp.client-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="r4yk2xlZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0E5DC4CEF7;
-	Mon, 30 Mar 2026 19:57:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774900667;
-	bh=c3qtZ+kKZI4i+gpQJZtVZwl68vlayAF2E4m619qBxgM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=r4yk2xlZAtlADeoHgNHcU+kzLd42R0+Asa+b4+A1R4WZEFcwb/hgfs4K/3XzpNWKu
-	 TTPRNch1QeM8Qd5eUxboM5o+KJsxAWW3lkEOE6tC8Cwwbz/YPk8kZUgAzn2HYDxgB2
-	 Uy2J4RDxmQfFf04ufKIvTN74P0ddfNckTnIZ0HI0JMQYMEHN6u08mN7e/hmeNy0J8S
-	 nkeH311ovwyVEOsL/OHDRSV6x4W7tZefsBcEbtsFv8sAnRVOL/58/U3dEfaz6F5BZm
-	 Ip4kDRGIlNWV1D/Y5TNMr2Bdnc10ZTYVTUVWnN/1Iu6hAh8Pa9elMtrE+jZDOVmwDl
-	 9ZfBC8/xatqMg==
-Date: Mon, 30 Mar 2026 14:57:44 -0500
-From: Rob Herring <robh@kernel.org>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jonathan Marek <jonathan@marek.ca>,
-	Krishna Manikandan <quic_mkrishn@quicinc.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Alexander Koskovich <akoskovich@pm.me>,
-	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 4/9] dt-bindings: display: msm: document the Milos
- Mobile Display Subsystem
-Message-ID: <20260330195744.GA3196688-robh@kernel.org>
-References: <20260327-milos-mdss-v2-0-bc586683f5ca@fairphone.com>
- <20260327-milos-mdss-v2-4-bc586683f5ca@fairphone.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jfNuzQrg"
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7d7fdb922a5so4146700a34.3
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 13:01:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774900865; x=1775505665; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=LLWSGkC1hPKbo8hCDY87YS3QDQG9Xg0HOko4w4pFuyA=;
+        b=jfNuzQrgAZQD7aKet41n5RwuNXrrhHYZpKoVleEmmuDBWmyqZKp3xqPuHN+HKITyCH
+         TKndBuU781S9zsL/BOdyvKL+FS491B9bbJoHc1NbmANA14Cen6Sx3Dp4mN3nbddy/Kr0
+         NENNBw69QFRaJR+LL3HSx1DCm1EjOt8OigwgPamWcfN79aAXAbdbaxjN9+VuOmWQph6s
+         C66EW/KK/QxPBsN4oyp4PTsRbjCSryfWHRtHIYblACm+SEEv6MM+BP+5u6PGONMPU6hB
+         jqE7CM9LOKvLzGGQfNRJgcvJbEBeRJdIUxnyi1EXOYrs4pYS8T6FM1asGXZw0+DPbT+7
+         QTXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774900865; x=1775505665;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LLWSGkC1hPKbo8hCDY87YS3QDQG9Xg0HOko4w4pFuyA=;
+        b=Q0Lt+2lRKv+DnUkkrTOsb2vHmQl5AlbHAwZrNzoKtjCwqEAjlM2J0nQPF4PvwHsgGA
+         XweEzakySaQENn19vBRSRrUKP9CQcfC5MPIApRgOHIfMWBNBgbn2BdRUiUJn5OGcum+X
+         t6GdhpkTcFAdwB2RhFYx2tH/MiT/qCUlB9mhxbj/BsdWqnZsXJYCqqIUnjr4Y7YoiGMy
+         uPHZM9VzKoFf19I9SC7O6rtbv4JtvelxGs5sqNEuDLlJHgP5dSNUQCa69wYFq2t+bnS6
+         NfmL709GglQ2IJm0RyU0vGFzJsjvgA6huJpeYwsRcHxfZaoUAJbvNHeNyevTTcDOsrnY
+         qC9Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVYDmoAHdr5UURpqPhJV+Wu5fNHd5Jf9R0yvGKAvd8hiKj5+/5yO3/YP6XXv2Yf7vyFdVLfveuRVSID@vger.kernel.org
+X-Gm-Message-State: AOJu0YwEbWjK1AZWYuhXaE+PmjFOKosU8cWH4D/ZBGDUt36i35v/NuQW
+	l+R1jS41M5VojQ03VK5ThIlMXVffukNS1OcDSqS8jc6Hg5sUmwoHD0Y8
+X-Gm-Gg: ATEYQzzOH8Br1n3I1yQQZh2m05Q4rYI56u0SDQBpTT98QM78V8YbSi6mb/k4QugM5bd
+	6MTNqZqrQiBkAaEppMC+Ixafg/5JG/zHQsLKrHBX7GswX2qXO7aBbHm9h63MRkAsMtYl2vMcTrz
+	kuqI42+5DhjkLBx90+eE2An90hTKnJt9zb8XWWT5O6PiFemhuOdnhFblOAMJ7BWJIkG+0kKDd1M
+	yggwg1rY6/hJMpMnDR+xqrNpTrZmKYZq0nzEvF5oyB6+rIOKXCV8UcMo1T1XDjXzDin1XIrK1CJ
+	vUmDlIXw/Uzg6HE2dybgS1k9KVtgaM+59B6wAmx02meJk8pWdfaImUnScF68Atz9vxI+tuuDoZY
+	EKgxbuLlzU+Fa1h9iZp12vhwX8Ns5aG6EEPK0bXhe22tbQP9r1baRdAMNgpYc1Ta+IbgbjPH7Ve
+	RHynOCGUhAOjh3yh1kV7bKT/A+WvNsuR0=
+X-Received: by 2002:a05:6830:67c5:b0:7d7:b85f:25e7 with SMTP id 46e09a7af769-7d9faf3b967mr7706158a34.28.1774900865528;
+        Mon, 30 Mar 2026 13:01:05 -0700 (PDT)
+Received: from localhost.localdomain ([2600:1700:fb0:1bc0::54])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7da0a336353sm6601068a34.2.2026.03.30.13.01.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 30 Mar 2026 13:01:05 -0700 (PDT)
+From: Chris Morgan <macroalpha82@gmail.com>
+To: linux-iio@vger.kernel.org
+Cc: andy@kernel.org,
+	nuno.sa@analog.com,
+	dlechner@baylibre.com,
+	jic23@kernel.org,
+	jean-baptiste.maneyrol@tdk.com,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	heiko@sntech.de,
+	conor+dt@kernel.org,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	andriy.shevchenko@intel.com,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: [PATCH V3 0/9] Add Invensense ICM42607
+Date: Mon, 30 Mar 2026 14:58:44 -0500
+Message-ID: <20260330195853.392877-1-macroalpha82@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260327-milos-mdss-v2-4-bc586683f5ca@fairphone.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Mar 27, 2026 at 05:12:23PM +0100, Luca Weiss wrote:
-> Document the Mobile Display Subsystem (MDSS) on the Milos SoC.
-> 
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
->  .../bindings/display/msm/qcom,milos-mdss.yaml      | 283 +++++++++++++++++++++
->  1 file changed, 283 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.yaml
-> new file mode 100644
-> index 000000000000..0fb66b4b2742
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.yaml
-> @@ -0,0 +1,283 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/msm/qcom,milos-mdss.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Milos Display MDSS
-> +
-> +maintainers:
-> +  - Luca Weiss <luca.weiss@fairphone.com>
-> +
-> +description:
-> +  Milos MSM Mobile Display Subsystem(MDSS), which encapsulates sub-blocks like
-> +  DPU display controller, DSI and DP interfaces etc.
-> +
-> +$ref: /schemas/display/msm/mdss-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,milos-mdss
-> +
-> +  clocks:
-> +    items:
-> +      - description: Display AHB
-> +      - description: Display hf AXI
-> +      - description: Display core
-> +
-> +  iommus:
-> +    maxItems: 1
-> +
-> +  interconnects:
-> +    items:
-> +      - description: Interconnect path from mdp0 port to the data bus
-> +      - description: Interconnect path from CPU to the reg bus
-> +
-> +  interconnect-names:
-> +    items:
-> +      - const: mdp0-mem
-> +      - const: cpu-cfg
-> +
-> +patternProperties:
-> +  "^display-controller@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +    properties:
-> +      compatible:
-> +        const: qcom,milos-dpu
-> +
-> +  "^displayport-controller@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +    properties:
-> +      compatible:
-> +        const: qcom,milos-dp
-> +
-> +  "^dsi@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +    properties:
-> +      compatible:
-> +        items:
-> +          - const: qcom,milos-dsi-ctrl
-> +          - const: qcom,mdss-dsi-ctrl
+From: Chris Morgan <macromorgan@hotmail.com>
 
-Use 'contains' and drop qcom,mdss-dsi-ctrl. Don't need to define the 
-exact list of compatibles here. The full schema does that.
+Add support for the ICM42607 IMU. This sensor shares the same
+functionality but a different register layout with the existing
+ICM42600.
 
-Rob
+This driver should work with the ICM42607 and ICM42607P over both I2C
+and SPI, however only the ICM42607P over I2C could be tested.
+
+Changes Since V1:
+ - Instead of creating a new driver, merged with the existing inv_icm42600
+   driver. This necessitated adding some code to the existing driver to
+   permit using a different register layout for the same functionality.
+ - Split changes up a bit more to decrease the size of the individual
+   patches. Note that patch 0004 is still pretty hefty; if I need to split
+   further I may need to create some temporary stub functions.
+ - Used guard() and PM_RUNTIME_ACQUIRE_AUTOSUSPEND() on the new functions
+   per Jonathan's recommendations.
+
+Changes Since V2:
+ - Went back to using a new driver on advice from Invensense engineer.
+ - Further split changes up into smaller chunks of functionality. Note
+   still that the largest patch is approximately 900 lines, and that while
+   the driver compiles cleanly at each commit it is not able to drive the
+   hardware until the commit that adds the Interrupt (as it also adds the
+   Makefile).
+ - Change the error to a warning when the devicetree binding does not match
+   the hardware ID.
+ - Dropped the ack on the devicetree bindings, as I am creating a new file
+   (for a new driver) instead of modifying the existing one.
+
+Chris Morgan (9):
+  dt-bindings: iio: imu: icm42607: Add devicetree binding
+  iio: imu: inv_icm42607: Add Core for inv_icm42607 Driver
+  iio: imu: inv_icm42607: Add I2C and SPI For icm42607
+  iio: imu: inv_icm42607: Add Buffer support functions to icm42607
+  iio: imu: inv_icm42607: Add Temperature Support in icm42607
+  iio: imu: inv_icm42607: Add Accelerometer for icm42607
+  iio: imu: inv_icm42607: Add Interrupt and Wake on Movement for
+    icm42607
+  iio: imu: inv_icm42607: Add Gyroscope to icm42607
+  arm64: dts: rockchip: Add icm42607p IMU for RG-DS
+
+ .../bindings/iio/imu/invensense,icm42607.yaml |   95 ++
+ .../dts/rockchip/rk3568-anbernic-rg-ds.dts    |   20 +-
+ drivers/iio/imu/Kconfig                       |    1 +
+ drivers/iio/imu/Makefile                      |    1 +
+ drivers/iio/imu/inv_icm42607/Kconfig          |   30 +
+ drivers/iio/imu/inv_icm42607/Makefile         |   14 +
+ drivers/iio/imu/inv_icm42607/inv_icm42607.h   |  472 ++++++++
+ .../iio/imu/inv_icm42607/inv_icm42607_accel.c | 1028 +++++++++++++++++
+ .../imu/inv_icm42607/inv_icm42607_buffer.c    |  566 +++++++++
+ .../imu/inv_icm42607/inv_icm42607_buffer.h    |  100 ++
+ .../iio/imu/inv_icm42607/inv_icm42607_core.c  |  806 +++++++++++++
+ .../iio/imu/inv_icm42607/inv_icm42607_gyro.c  |  579 ++++++++++
+ .../iio/imu/inv_icm42607/inv_icm42607_i2c.c   |   93 ++
+ .../iio/imu/inv_icm42607/inv_icm42607_spi.c   |  100 ++
+ .../iio/imu/inv_icm42607/inv_icm42607_temp.c  |   81 ++
+ .../iio/imu/inv_icm42607/inv_icm42607_temp.h  |   30 +
+ 16 files changed, 4015 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/iio/imu/invensense,icm42607.yaml
+ create mode 100644 drivers/iio/imu/inv_icm42607/Kconfig
+ create mode 100644 drivers/iio/imu/inv_icm42607/Makefile
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607.h
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.h
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_temp.h
+
+-- 
+2.43.0
+
