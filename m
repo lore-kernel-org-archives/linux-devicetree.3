@@ -1,89 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83760149C6F;
-	Mon, 30 Mar 2026 07:10:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48EE724E4B4;
+	Mon, 30 Mar 2026 07:11:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774854603; cv=none; b=pj9XExxbBZbYD1zlPD8CglQOWZYRDDjS7ApEiKmECO008l0fI2Lf0xOiCTpoQIWl29RDEwflfecl6ymPeSmFFx0pN3RMlqcgrHHqNGukOj5fQXJgTaw1GktIGo4DEMn2R+onL76XeSWZHE12fTOgxAzxUMq+d/b8xW0DG5jfnFc=
+	t=1774854687; cv=none; b=s5j+JjtmCuSS2XBjxYCEFjT50HG0+yMSPkeWpyEKfhbyTLfr+WN/N9wRr8IS67eV8sFFpGMolSmyl2r3G2zieJ8GX7q5Z554iR73cY4GQkJxazOctsBWXkXpi9vNrZR7kenlzdc64CmrMvHrRBP/KmwVUuN7hVcB0IQ4YtRQfqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774854603; c=relaxed/simple;
-	bh=o5/s63W+wtwaYRANyWsRhZBBKWGpXBUj75tReIRNYdI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A/46nNuAZDLmyNXH+iBAt1W8XECdR5MlSttL02GCj56EHg4apDKZkIx964+a+5uru1DGt0zaBn4SJPUnLGBM9cC1EwwYWpaDXOOZDHfS/OKgLhTKsRXYqc74Pa2MdPW3Lhk2ZOfuv5z0Dh7DIJDZ4FS6wZfk1DQccaMnPAkx+tI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EKLh3tgZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774854687; c=relaxed/simple;
+	bh=tH2S5P8dR69sJzEISlKn9G8QgvuVGrtWVb10/3dnr0k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=S8f+bFP3hNFcS2slxJrO63v1KS5T0mYbkQk40TTgT08Kf+aB4W3fX+UyR045RRtu86Bkx/t5I46CjXaJIOjVzyEMZb1Y1q1h0qSo9jR1cznWnxTe9KtqC5M+X5CzdOWPatACqTHG5oHcHxok5hfMAltdxfnnUdpVg2Bdml/eMSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=REz6lrKf; arc=none smtp.client-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EKLh3tgZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F80BC4CEF7;
-	Mon, 30 Mar 2026 07:10:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774854603;
-	bh=o5/s63W+wtwaYRANyWsRhZBBKWGpXBUj75tReIRNYdI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EKLh3tgZ4TQGjF7lvG3Ct1JQh4axeWvYtTumjNaSRBwkP4GixS8EipmD0itVJS14h
-	 E5HfsJsZo9PL773ub9a1IQcuWaDuZiyj9S8hJgbdATdx/jcSKjCxvG/dpaTCJL5zM3
-	 YcdqweCEmf4tg3AZp3iRraLOmszLEM2jjCORZkpWD1cFdb+R+gqz5yTIgSfHvAm7P7
-	 6FbaQmuxDIWjlsNQLPRe5nG7K8Z4YNGVV1rpF6nnBODQKDq3XrzKxIP1Uz0iU/qbtE
-	 uzt+zFR2MpiC6JOf/+43RU8GC3EbkI8PJjhG9wEiJW+rtXMvkDBxKmEdOVDLae7cxN
-	 VLxoR7aYUuEcg==
-Date: Mon, 30 Mar 2026 09:10:00 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Carlo Szelinsky <github@szelinsky.de>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>, 
-	Kory Maincent <kory.maincent@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org
-Subject: Re: [PATCH net-next v3 1/3] dt-bindings: net: pse-pd: add
- poll-interval-ms property
-Message-ID: <20260330-spiritual-placid-jackal-cd4269@quoll>
-References: <20260329153124.2823980-1-github@szelinsky.de>
- <20260329153124.2823980-2-github@szelinsky.de>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="REz6lrKf"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=dtxKLBtxeK7WnTNaRuRN6wjCIkUS/712dvNiyCme+dM=;
+	b=REz6lrKfLnmTbZnTSrloA8Qxl9ytOsPa/OKwvl5w3Tr9CHfmTc48CSuaquXePwoPkmMac2rJ+
+	Ia8doJegFbzncelLLc+WY8AD1bp7J4dS8mfObdEHsZoC3f0vux4WUTdBtkywh/SHtrYyCW4VUbm
+	dhD5rc1J2Q4kAhnpMA6VL/8=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4fkj1k2dVwzRhVq;
+	Mon, 30 Mar 2026 15:05:14 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id E15B240537;
+	Mon, 30 Mar 2026 15:11:22 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Mon, 30 Mar 2026 15:11:17 +0800
+Message-ID: <baa90080-9e6e-c1e5-13a1-b17496c690b4@huawei.com>
+Date: Mon, 30 Mar 2026 15:11:13 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260329153124.2823980-2-github@szelinsky.de>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.0
+Subject: Re: [PATCH v11 01/11] riscv: kexec_file: Fix crashk_low_res not
+ exclude bug
+Content-Language: en-US
+To: Guo Ren <guoren@kernel.org>
+CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
+	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
+	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
+	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
+	<akpm@linux-foundation.org>, <bhe@redhat.com>, <vgoyal@redhat.com>,
+	<dyoung@redhat.com>, <rdunlap@infradead.org>, <peterz@infradead.org>,
+	<feng.tang@linux.alibaba.com>, <pawan.kumar.gupta@linux.intel.com>,
+	<dapeng1.mi@linux.intel.com>, <kees@kernel.org>, <elver@google.com>,
+	<paulmck@kernel.org>, <lirongqing@baidu.com>, <rppt@kernel.org>,
+	<leitao@debian.org>, <ardb@kernel.org>, <cfsworks@gmail.com>,
+	<osandov@fb.com>, <jbohac@suse.cz>, <tangyouling@kylinos.cn>,
+	<sourabhjain@linux.ibm.com>, <ritesh.list@gmail.com>,
+	<eajames@linux.ibm.com>, <songshuaishuai@tinylab.org>,
+	<kevin.brodsky@arm.com>, <vishal.moola@gmail.com>,
+	<junhui.liu@pigmoral.tech>, <coxu@redhat.com>, <fuqiang.wang@easystack.cn>,
+	<liaoyuanhong@vivo.com>, <chenjiahao16@huawei.com>, <hbathini@linux.ibm.com>,
+	<takahiro.akashi@linaro.org>, <james.morse@arm.com>, <lizhengyu3@huawei.com>,
+	<x86@kernel.org>, <linux-doc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<kexec@lists.infradead.org>
+References: <20260328074013.3589544-1-ruanjinjie@huawei.com>
+ <20260328074013.3589544-2-ruanjinjie@huawei.com>
+ <CAJF2gTRN=RpgzQsQ7QDbwjDmyQZP9anQZ+CaK2r-Mrz9dQbohQ@mail.gmail.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <CAJF2gTRN=RpgzQsQ7QDbwjDmyQZP9anQZ+CaK2r-Mrz9dQbohQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-On Sun, Mar 29, 2026 at 05:31:22PM +0200, Carlo Szelinsky wrote:
-> Add the optional poll-interval-ms property for PSE controllers that
-> use poll-based event detection instead of interrupts. Defaults to
-> 500ms if not specified.
 
-Why?
+
+On 2026/3/30 11:49, Guo Ren wrote:
+> On Sat, Mar 28, 2026 at 3:41 PM Jinjie Ruan <ruanjinjie@huawei.com> wrote:
+>>
+>> As done in commit 944a45abfabc ("arm64: kdump: Reimplement crashkernel=X")
+>> and commit 4831be702b95 ("arm64/kexec: Fix missing extra range for
+>> crashkres_low.") for arm64, while implementing crashkernel=X,[high,low],
+>> riscv should have excluded the "crashk_low_res" reserved ranges from
+>> the crash kernel memory to prevent them from being exported through
+>> /proc/vmcore, and the exclusion would need an extra crash_mem range.
+>>
+>> Cc: Guo Ren <guoren@kernel.org>
+>> Cc: Baoquan He <bhe@redhat.com>
+>> Fixes: 5882e5acf18d ("riscv: kdump: Implement crashkernel=X,[high,low]")
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> ---
+>>  arch/riscv/kernel/machine_kexec_file.c | 14 +++++++++++---
+>>  1 file changed, 11 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
+>> index 54e2d9552e93..3f7766057cac 100644
+>> --- a/arch/riscv/kernel/machine_kexec_file.c
+>> +++ b/arch/riscv/kernel/machine_kexec_file.c
+>> @@ -61,7 +61,7 @@ static int prepare_elf_headers(void **addr, unsigned long *sz)
+>>         unsigned int nr_ranges;
+>>         int ret;
+>>
+>> -       nr_ranges = 1; /* For exclusion of crashkernel region */
+>> +       nr_ranges = 2; /* For exclusion of crashkernel region */
+>>         walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
+>>
+>>         cmem = kmalloc_flex(*cmem, ranges, nr_ranges);
+>> @@ -76,8 +76,16 @@ static int prepare_elf_headers(void **addr, unsigned long *sz)
+>>
+>>         /* Exclude crashkernel region */
+>>         ret = crash_exclude_mem_range(cmem, crashk_res.start, crashk_res.end);
+>> -       if (!ret)
+>> -               ret = crash_prepare_elf64_headers(cmem, true, addr, sz);
+>> +       if (ret)
+>> +               goto out;
+>> +
+>> +       if (crashk_low_res.end) {
+>> +               ret = crash_exclude_mem_range(cmem, crashk_low_res.start, crashk_low_res.end);
+> Exclude crashk_low_res is reasonable, but have you tested this?
+
+Just simply tested on qemu with crashkernel=4G with following kexec
+mentioned in
+https://lore.kernel.org/all/20230726175000.2536220-1-chenjiahao16@huawei.com/.
+And the second kernel can be started normally.
+
+https://github.com/chenjh005/kexec-tools/tree/build-test-riscv-v2
+
+# dmesg | grep crash
+[    0.000000] crashkernel low memory reserved: 0xf8000000 - 0x100000000
+(128 MB)
+[    0.000000] crashkernel reserved: 0x000000017fe00000 -
+0x000000027fe00000 (4096 MB)
+
+
 
 > 
-> Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
-> Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
-> ---
->  .../devicetree/bindings/net/pse-pd/pse-controller.yaml    | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>> +               if (ret)
+>> +                       goto out;
+>> +       }
+>> +
+>> +       ret = crash_prepare_elf64_headers(cmem, true, addr, sz);
+>>
+>>  out:
+>>         kfree(cmem);
+>> --
+>> 2.34.1
+>>
 > 
-> diff --git a/Documentation/devicetree/bindings/net/pse-pd/pse-controller.yaml b/Documentation/devicetree/bindings/net/pse-pd/pse-controller.yaml
-> index cd09560e0aea..329d020f054c 100644
-> --- a/Documentation/devicetree/bindings/net/pse-pd/pse-controller.yaml
-> +++ b/Documentation/devicetree/bindings/net/pse-pd/pse-controller.yaml
-> @@ -27,6 +27,14 @@ properties:
->        subnode. This property is deprecated, please use pse-pis instead.
->      enum: [0, 1]
->  
-> +  poll-interval-ms:
-
-We allow poll interval for input devices, because how sensitive buttons
-are or what capacitor is there charging/discharging is really a
-hardware property of the board.
-
-Why that would be true for PSE controller? Controller is specific, so
-any internal aspects of polling are already implied by compatible.
-
-You have entire commit msg to explain WHY you are doing this, not
-explain WHAT you did. We see what you did in the diff.
-
-Best regards,
-Krzysztof
-
+> 
