@@ -1,163 +1,165 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011046.outbound.protection.outlook.com [52.101.57.46])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 367E82D6E7B;
-	Mon, 30 Mar 2026 09:03:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774861435; cv=fail; b=UuDwePAQ1qjTnkcwwJH0NDiLqFqJa9gfchkx3EeNRZgQDu3OCj3NRxK97JISEEUcuN+qDwqe9QdyMnTinWLkEF0xclVnE3+4YDZLTjrIR4LHqLVVqQtXB9LI5enBe+O2JER29yn1XIiqyvreUZC60lR2C9PAOJsCsRrhtXihNz0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774861435; c=relaxed/simple;
-	bh=ILsytof+OjAQD6pOdQT69cd6dJtjwaqV5Cy8b5ugTr8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mG24TABN3uHh6ISnG/CQD665ZjTU6wWS2IjUaYsFkAm9b1PEh5OHpMdISYmIjAP2Y5rMb/NOC/QirWc5u7LkSTqAGXSxQ8IiS7Y4y7u5ERoAEjI8dfzc/1mAMoGAkCyUfcDA3eNThdi7tfJcW40Bj+Fq7X3e4Pgyg2m6Y5N22gc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=HHEURsVK; arc=fail smtp.client-ip=52.101.57.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461FC3AF671
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:06:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774861568; cv=none; b=BYjLR9+TqKwn5Y3gN+5kUqE9SeD15ZhtjsDN84czZnL3hSu1mZUtIxfxvuJMQKTWyzX55hjQknqla6xQcOGkgs4qGfaV5ndHeeid6uoZv+YiAh8+W9o5HNk0QbOxAeDUky+yHZ77uFV2c/KqSmerYwy0pFV3u9lYOeB/a5HcVGY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774861568; c=relaxed/simple;
+	bh=Obo8urS0LbfTKU+HQ/PJDwdmWRXP9ejwer+HCyf8Bn4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ueEOlIxzEEw/wHBJzZnDw0RfVj0ey+MHqLt2NX33zkJG7ziQ8cwo3ZdKv2MaVpu6Z4+1iNVjFOVBleMi8qOhSVqnIaFcjm4tj6MQr5ZIS4jUtDZ1ebmXH5Gj/DbprTlh2uDdWlYrU38Tajtc9eI+OhsX0uN3VGX/riKD0bAKmz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=m5RNbTQG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PVG+Mf7O; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="HHEURsVK"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VPtWQv95ROawkTkyAXI70uZTv6PU06K9fsjktqCOEQmoohFJCb2JZPiWv0Ilc/GN0Rbhtq/nBaz7P68mOpWaT0pWY07FK1hhXvB1dKsZ4S92Zv0UErHcJjAdfiiLZPGnFKtQ77qybU8ZGvk3URFSydctaART0mo1+vpfhrph+cTOGxUVZpk52snfY05Gcmqr8K87XgBkqr9CvoDLWxpk8xAKNR4D2xL2EWKnnOoiTqo7pnUDwE9S9+JLrQYvxGaEI0QLdWlePNXloHZ9k0LURhbpQr3/r7MDcwKuAnpwxNXlSwGZqr3qDH9C1jcOOAP7UKXIj6pYgTmP0JrNZ+5FiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AlSLTfBvPxWLnftxdGDo5FDZWjJli6shCTRATo4jx2Y=;
- b=n1ClSKPmr/2chJpXNU8usXADQiYGGx82kYgZ0beXsaevsbldUypAgPACY2GB3fH2uv940Re5HwTyTNabL1T2blL6mPUh3bSgROaM430UwqypDRm2ros7vDX0aoolteffYQzsqQlnAbQ51NZHc55DU+OQxvj+5qYukS0oQaidq1OA1DKH3HS+9He+HNLX4vpds+wXl05dYKmfiCgI6ltKpgCrgCPMmD+xDW7BNulTRIFrMXHDpEjoe8j+jI+iW2O5BYYSeOeNuVWvm360PHUh4VYrkjlmSVSKDYVd/2e6wpGIRFicNVt7EEhdIwvdqU1cD4e97rrN0Q/RqPoUXglYbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=nxp.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AlSLTfBvPxWLnftxdGDo5FDZWjJli6shCTRATo4jx2Y=;
- b=HHEURsVKuorm0pPTdzzQpSi7Ml/wSyYzYfNkltsczfKU8l5cFEUPboh0JvZ9tCRNOQygu3BNpI28I4qMBfVmMKNwiiIKKTz7CFseJ+e5vRXAlS8perncOEjI3aQnW7dopwtufBiPJFGec85X1aXm0q42zL3WjU2plRp3h10Xl16d+N8yb7zt7Y+HF8JHLMT2CuBxga0pOxV4VuGi+r+6wh6fGXwovhtjP9CfATIrCuXf+De+CkWYjXMJ4d1GUflWTFDZ4YDnncGRCQx/Colw2iPn9JXALfvCo1WSzmtecvV6WXZWL/CFrQK1cyXQyaRLWu4jpP24FCnehrlDuqAgng==
-Received: from CH0PR03CA0340.namprd03.prod.outlook.com (2603:10b6:610:11a::28)
- by SJ1PR12MB6146.namprd12.prod.outlook.com (2603:10b6:a03:45b::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Mon, 30 Mar
- 2026 09:03:47 +0000
-Received: from CH3PEPF00000011.namprd21.prod.outlook.com
- (2603:10b6:610:11a:cafe::c9) by CH0PR03CA0340.outlook.office365.com
- (2603:10b6:610:11a::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.28 via Frontend Transport; Mon,
- 30 Mar 2026 09:03:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- CH3PEPF00000011.mail.protection.outlook.com (10.167.244.116) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9791.0 via Frontend Transport; Mon, 30 Mar 2026 09:03:46 +0000
-Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 30 Mar
- 2026 02:03:35 -0700
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.20; Mon, 30 Mar 2026 02:03:35 -0700
-Received: from BUILDSERVER-IO-L4T.nvidia.com (10.127.8.9) by mail.nvidia.com
- (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.20 via Frontend
- Transport; Mon, 30 Mar 2026 02:03:31 -0700
-From: Akhil R <akhilrajeev@nvidia.com>
-To: <frank.li@nxp.com>
-CC: <Frank.Li@kernel.org>, <akhilrajeev@nvidia.com>, <conor+dt@kernel.org>,
-	<devicetree@vger.kernel.org>, <dmaengine@vger.kernel.org>,
-	<jonathanh@nvidia.com>, <krzk+dt@kernel.org>, <ldewangan@nvidia.com>,
-	<linux-kernel@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
-	<p.zabel@pengutronix.de>, <robh@kernel.org>, <thierry.reding@gmail.com>,
-	<vkoul@kernel.org>
-Subject: Re: [PATCH v4 08/10] dmaengine: tegra: Use iommu-map for stream ID
-Date: Mon, 30 Mar 2026 14:33:30 +0530
-Message-ID: <20260330090330.52081-1-akhilrajeev@nvidia.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <acWWW6r5gZ2nGerQ@lizhi-Precision-Tower-5810>
-References: <acWWW6r5gZ2nGerQ@lizhi-Precision-Tower-5810>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="m5RNbTQG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PVG+Mf7O"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62U6JVw52964239
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:06:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	+cMipK/UwAxMfAPwa9yteB5iqHHVJPr2rGBR9HQPnHk=; b=m5RNbTQGoa9Nd29D
+	Fx3ROKtAcu37AjwKpZanidVgaZPI7qTYTuI7tsr4gaz2cdRlDDBhW2ur+Dq6p9Go
+	1PkwLonY49XT+lSuUuzSWPWUifFywf+KfDvXkv5SW/D9ngWuynRNAuJpPzqRKqLH
+	tgn3bFyVxWDAnkIav4/oWxQMHZah0SXMUL4LkxDJmePKdcnYId5KlptE3SXXs0Qq
+	xapB9Uh5bICthJNIRAsycdSoRKoHWppSWP9PooJq3VUjNnOT4ph37wfubNlXWrqF
+	j1YTTR66tR5/pUwV9vvpftvIQzmqJI3bNyEgXdITCgePqK2SkardYBmNZ/8Ghh57
+	LH2TpA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d6v9c3ap2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:06:05 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-8d1a5661ff1so7681085a.0
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 02:06:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774861564; x=1775466364; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+cMipK/UwAxMfAPwa9yteB5iqHHVJPr2rGBR9HQPnHk=;
+        b=PVG+Mf7OcjIo/46K3+orAmqeHoQ/RHVv4uSryJhTofyjZ5E85Ls/zTw2Gs0QzCC9WH
+         AwhJ/1lL8cxdYsC5Si8alkEYfMzRTjAoO7CpCy2FBW/GoXQifLsuHuzlCX3f+B01WRru
+         OoHVFdPWWKYZ05TsBgXhgkUYsWzj8KY29of+s7rMYzY68N6Vj98LljoCaQf9ityBfbvN
+         wQap7drAM7T4L3sA2pDAJDDxeHBZ95MEF4EM7IgtN2LAmD+0HYbGLg1ein+/Nmcb7OoA
+         0roMroZJXzFc5TKpUC12tgS3qiwXPSlsU4gm40OcITjN65r+XuZKrvfcrl4w21TGANrv
+         yd0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774861564; x=1775466364;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=+cMipK/UwAxMfAPwa9yteB5iqHHVJPr2rGBR9HQPnHk=;
+        b=VejfezkdFqJj6k2zYjDp/6ZFWzI9IXh4mnetQiH5r6adnIaOQBDBVI0KJ9JPxG7oH/
+         vTGWpOJxnGaJ81G5IiL9eLdV4zVZZ+DF96CEw6jVBrm1v1EvJEWInp+n6hkXnIDFV4mZ
+         9i4LwnCB7gFG/OzXVDCntcooUgiOH4+R3S1k8Zmr4GFtEtTXE0aMSOtNe87qFqBWYylM
+         E954tPKD7iK7yXWT9S0AkIBSgoe589YRGvSoJAKSUh90ccp236RwIk2QvQD8G17nn2CT
+         C3x2A/Lmd60OnFoMPUi+7iOurRkilfYMh3YvZA75rY/ubk0jIJGG6Iz8hE9dRBQ1vQMy
+         6iHg==
+X-Forwarded-Encrypted: i=1; AJvYcCWoUrDQiZfkNiVzkx4Ot61UHDqoWIu5OUzbNqHnnl1hJUysp4DrCc5s5gUdZOcOFzHwmciypdOBTwK9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxsz4zJnRpOKsyo9PNscLjW+FNcLaSh4Mi3J0i6UGYw34HiueXW
+	tHJxsb6ComxyqhYIdjdxcny59/JRRaH1dqcSM1IUlXgrDPJXcUhvCuePqG+YNvGCjxR4d55SKYX
+	Yl2C9xJSKiuUq4iiB2gNYZ7wwxEbO4F0Fs863JkaoynFi9WPkffj4Bk65EhD+3xGV
+X-Gm-Gg: ATEYQzyjwAr3GnLPlVC7p5o/BHw9D1VG7KI07uGPVe2UB7vJpEO/RCkFsX5ls/n3jLJ
+	7XWqLVaL25pbVWOIEvm4v86EHWAY4jt4kUQFoaUErSGjAbbW1pfEhHpK+RTTzfayy3y5nnxxiBO
+	SPThssMYCWRYEwg0kpH4aA/lKfCkoyjgoqZ/RkBmOcnzo9eC9StMVbhn0XSba3+BlJ8C7JrDNGg
+	KrYJJKuBSMYXtg59XGqOd/pMuy0RDAZsPaurWTKhZuAu3kBWLp73eaG0D39HkN+LtZyoCv2PQdR
+	+hA5MRcJ/UyzreDE8UiZQ1CHCudpKJLcNDY5MIGV1D6sQ3nPZOCVAJh21jqtooFyNhyyQNXnVqW
+	k1XrHHbCxRRnKi/hafasy56X+Y8Ra6PNcwWZOpF29p6KN8sfMPFNhZIo2TFNnFE3QqoeJ19QtRV
+	AcwXk=
+X-Received: by 2002:a05:620a:17a1:b0:8cd:78b6:e26a with SMTP id af79cd13be357-8d01c5c3eb2mr1047717285a.2.1774861564576;
+        Mon, 30 Mar 2026 02:06:04 -0700 (PDT)
+X-Received: by 2002:a05:620a:17a1:b0:8cd:78b6:e26a with SMTP id af79cd13be357-8d01c5c3eb2mr1047713185a.2.1774861563989;
+        Mon, 30 Mar 2026 02:06:03 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-66c07ab1634sm208039a12.16.2026.03.30.02.06.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 30 Mar 2026 02:06:02 -0700 (PDT)
+Message-ID: <90d8fa65-a05d-4514-931e-657451a31842@oss.qualcomm.com>
+Date: Mon, 30 Mar 2026 11:05:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000011:EE_|SJ1PR12MB6146:EE_
-X-MS-Office365-Filtering-Correlation-Id: 51c52a66-e4f3-47fd-09a6-08de8e3b406f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|7416014|376014|82310400026|1800799024|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	UwL2Znog9dMRL6oE86wY2C/Hrmw1jq5obQzN4Si3iqv6HjI8s8Gx0CFmoxUouQ10fQuu5JyHM7AFpi8l7isswJz9CA+Oy4NFgMtBkPy1VDCUkYp55a5cGpyEL4XfvvJ5jD1bQ99INwfMIrDsL6d2sfFC1CavHwh+FgK1Rr5vvyxQWZWXdBg4hd0DKVTRB9HYAR+YUu3vjCHICkxhTyace8EiuLBVBsiO5pRR1seyX82kCsUGt8fKTYpLwv5KDuTOg4LmpLNX0c5YHuGAZxNT+jF21SZ2vIew02vIM1mCglN25mLVgzEMbmJJ0de67y1LPYCZINjVCEVhqLVFeJgOgxrv/Dx8lng02qxJc8AsZZeSBE4/Tdc83gCCc9p0YzCYUeMgV6XFGWNyQbljOETy71kGmSkPpfuRQnx4GnPzsb7mIg+POpeANyzvIGIDzATv1RLczGFauSKVUTSgUjDGohgLppf1ouj9ROo5S4ckVuEh5apWfH8d34rkNJhq85oArXbrk0JgPLT5vA4Oymhn1cPTqDmTsIOJmcuAf6vHTQ7CAQubLbZexvqJggbrzbg2Wnrb7FJob71WOsofWJ5TNEItsLxJAe8dFk2aCHYjZdX1BTdL7Eln2/nKWrpwAbRdvs2+BSejUAIqzfFx23dKozecUwvHkW+A1hhN35keBNVxLjoVh4qT+5C/NX3WhDg4SZTExNts4QVOK9aE6ihFGvT/2NOVstaT+orLf2+YLUgqMz/rZTeScXOGd2gm1E4FBsefrW0aohTqupe89ITNZw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(82310400026)(1800799024)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	MTbLH2CJ540wfK3pDCmVlC8F7ZRpwsluLD6T++hCxJ0/XP7f7WvmMqYeYG2s6KrkQdTMn8SkuXJK8Av+skJXK/y2zbT+Sqp7IKBVBg7fGfQdF4xaooatqJZhI858KZ7yIX5ZycMqBp0Op0JyrrbNg+fTz6ZLWEojRLzPQHuDoYarFwoIkG/5mVTmGGFXQ/n/2eDsMl78ZnqogRDF3o6nHRK7iZ/T83gGx4ivqQA90jslACSyTgmchmJzrJ7Owh8966hl+ieI3cVIUTDSFmJ/8wGvG3/9emEyhKaEZcr0v4ViuaIhREYM9XxBdUmcCZiuVRHedLQV8z2FXvMZmWpK98ROmkc6UvyHU/kr7biE/jwwmHAjl9ivyv/phmJn1+MjHt+PYdtjormPSHHhQSliKKP99TVZkkrCXcpmPrtI9wdjVSpUSyM+2yMvFv3eyAJG
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 09:03:46.6942
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51c52a66-e4f3-47fd-09a6-08de8e3b406f
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF00000011.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6146
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: msm8939-asus-z00t: add regulators for
+ ambient light and proximity sensor
+To: Erikas Bitovtas <xerikasxx@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+        phone-devel@vger.kernel.org
+References: <20260330-z00t-cm36686-regulators-v1-1-03e23b03bd70@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260330-z00t-cm36686-regulators-v1-1-03e23b03bd70@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA3MCBTYWx0ZWRfX7wVFDgWUgMBV
+ +iLwQn0BZldb97e/oxtv44BEaEC6bae0kuRyBuh4upUYI7g9jy1hLfUu7slUZO1KwQaY6Ala35x
+ ga2mAyJlY83uLcc6S8W0IDHl2PLXZp/m0+1VYMhBj+BuSszjh08nvlH/WcvUZ2tA3b9lpw1qgwi
+ zrGdXDIj3BuMS2J0eOoijn/3E6yWnbM6oHubri6COLxvjQJ0ks/1kTtAUaOuRtAmMXh05tKCe49
+ gccqolbW9oSXinZyyHfjz4RTi1CvI3KmdiWGK7YIdsVdbBC4Pg0gU98LaebiVELm5DqBtS+VLHU
+ qsfAJCrXkBjZEgJAtlxeiRvnoLsTbA6F+ngFUshsX8862JhKf0T4/oQLGL/VkXwxOkNv9zII5uK
+ rM3uonBv4TW5aigmIvaFulc1PVTVaZ3F5aF802hL6rroLyZi6kDmFeX9jOGxzbfv7+Fryys348Y
+ Jh4K0MK4I+UBggQQrDA==
+X-Authority-Analysis: v=2.4 cv=EIQLElZC c=1 sm=1 tr=0 ts=69ca3cfd cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=0DFV3Fus7tF8Oymfmr8A:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: cmA9ojtpOIDpQaf5Q3GSWDHD3IkBoJOT
+X-Proofpoint-ORIG-GUID: cmA9ojtpOIDpQaf5Q3GSWDHD3IkBoJOT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-29_05,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0 adultscore=0
+ phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300070
 
-On Thu, 26 Mar 2026 16:26:03 -0400, Frank Li wrote:
-> On Thu, Mar 26, 2026 at 04:39:45PM +0530, Akhil R wrote:
->> Use 'iommu-map', when provided, to get the stream ID to be programmed
->> for each channel. Iterate over the channels registered and configure
->> each channel device separately using of_dma_configure_id() to allow
->> it to use a separate IOMMU domain for the transfer. But do this
->> in a second loop since the first loop populates the DMA device channels
->> list and async_device_register() registers the channels. Both are
->> prerequisites for using the channel device in the next loop.
->>
->> Channels will continue to use the same global stream ID if the
->> 'iommu-map' property is not present in the device tree.
->>
->> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
->> ---
-> ...
->> @@ -1490,6 +1496,41 @@ static int tegra_dma_probe(struct platform_device *pdev)
->>  		return ret;
->>  	}
->>
->> +	/*
->> +	 * Configure stream ID for each channel from the channels registered
->> +	 * above. This is done in a separate iteration to ensure that only
->> +	 * the channels available and registered for the DMA device are used.
->> +	 */
->> +	list_for_each_entry(chan, &tdma->dma_dev.channels, device_node) {
->> +		chdev = &chan->dev->device;
->> +		tdc = to_tegra_dma_chan(chan);
->> +
->> +		if (use_iommu_map) {
->> +			chdev->bus = pdev->dev.bus;
->> +			dma_coerce_mask_and_coherent(chdev, DMA_BIT_MASK(cdata->addr_bits));
->> +
->> +			ret = of_dma_configure_id(chdev, pdev->dev.of_node,
->> +						  true, &tdc->id);
->> +			if (ret) {
->> +				dev_err(chdev, "Failed to configure IOMMU for channel %d: %d\n",
->> +					tdc->id, ret);
->> +				return ret;
+On 3/30/26 1:37 AM, Erikas Bitovtas wrote:
+> VCNL4000 includes support for regulators. Add regulators listed in the
+> downstream device tree so they can be powered in during initialization.
+> VLED supply is missing downstream, so it will be powered on by a dummy.
 > 
-> This is in probe funciton
+> Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
+> ---
+> arm64: dts: qcom: msm8939-asus-z00t: add regulators for ambient light
+> and proximity sensor.
 > 
-> 	return dev_err_probe();
+> This patch series describes regulators needed for the ambient light and
+> proximity sensor.
+> 
+> In the patch series which added the ambient light and proximity sensor
+> for this device, regulators were missing, as they were not yet supported
+> by the sensor's device tree binding. Missing regulators for the ambient
+> light and proximity sensor resulted in it not powering on when a
+> regulator supplied only the ambient light and proximity sensor. In Asus
+> ZenFone 2 Laser case, the regulators were shared with the panel and
+> magnetometer, so it was not affected by this bug. However, for the sake
+> of completeness of the binding, we add the neccessary regulators anyway.
+> 
+> The mainline binding for the sensor also includes vled-supply, however,
+> in downstream, it is missing, and we have no datasheet for the device,
+> so for now, we'll have it being supplied by a dummy.
+> ---
 
-Ack. I will update.
+In case this isn't AI-generated, you don't need a novel-length cover
+letter for such a simple patch
 
-Best Regards,
-Akhil
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
