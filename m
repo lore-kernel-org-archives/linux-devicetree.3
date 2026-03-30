@@ -1,217 +1,166 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D06A377038
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 16:22:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483EC3783C8
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 16:25:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774887761; cv=none; b=D+Ts1USJB3iZ2ULnnsap1PuOIfP56SEaqzpgsZAfaHp2uiOeTsBQdQYU8bXlN0BbkLaM9h5fz7Ai+50mI18AelkwNB8cO3hTul0tOp+F5rQsyjSFZXJRrL26YuHqwIC3yeWWh1qiUy4NAK1EL0VE7TtZifgjiYzlvaivQFf90zM=
+	t=1774887935; cv=none; b=EM7tiHC6gO05/Hc6sDN/+HaBssC52Ukr7wqjb2S0wxCuIdBb1e1c8368GJA6TTdF59w34bbQSt+ts5NlD/urkluQpRwlDhCjrQUlKC4Nni9ZQYPq7NmMPyCULFPHwNHOIgOe7LB+hG/cMquszs8VnvdHT93MI54oKg4vhY8O5mI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774887761; c=relaxed/simple;
-	bh=OWclWe7z9oM5qjVK/Jh3Q3Y6NyRY3zTBQRnXXXEeho8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P4MhdgfIVx8sr2RZ5LHKgGDprYJ4iw6QZPUaBDGLHRMJ3jbl62ggVmml2PB7botb0k2cDBWEsq3DfWI5DND16eDe/5kUu0+/DMvAgCNH9leHVoxxsAsWLpCM9l+teFfmcHXxg4wOfn5yUDBDTF7xDUktwB+AroSLb396u1W8B74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=H2Lswia0; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1774887935; c=relaxed/simple;
+	bh=EEy+oWaHG8rzWzzQ/PLp6iS2nvnI2KQAis2/8F6dGSs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lkC2pBOSXeGnIa3al0GoeN/T+/chbBi87fMzMKM9CINN1xOHlCRH9aQm9srabtY1AeAhIk+u75Rezu6V9WOhKhgKVKaFzwVx8lq+KOZ8f5OBZndVe5iMuo1es+Vmr0/wr121cvz83Mi8cBa8UhV8YoAZ8mVMHiHxA2ynzRfRVXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DejAES9U; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="H2Lswia0"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-35d8e548a05so2764637a91.1
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:22:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DejAES9U"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2a7a9b8ed69so46132375ad.2
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:25:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774887759; x=1775492559; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=EMohgIf2kDkk6Cae0YiULQonmSDmJhFZPXEiKdJxSFI=;
-        b=H2Lswia0bGZQlew6iHeRgsY2jOh49NG923eTLx3ClsGwNG/38hZQY5IZ09+PGSsTX/
-         vqLozyncrYxiq+LyXKRutCfwwbRN5lHfPOrZO8ZzfU63XRjcFSwIJoGNzT5V2koj9r5K
-         syvfBUCj60oMRlGVQ28WQfKuyRf1tRI53stcRUfD3iZhtGHtPlzwAe1SL1dTH+K8K4u7
-         X4fKUFOORfbbilA2DFC11ZQ7WnbjrJ0ZKNMwasgcz/jaCDI06iyLqwvjyUz3naV5qdKg
-         jbnumdbbPobak0tR40ladiic5HNIf5MalwRp64TCm2x5asYHmmhCH/mtTmDMGmuwlKZ9
-         Q3RA==
+        d=gmail.com; s=20251104; t=1774887934; x=1775492734; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=30qgmi/fk4YrrYyUAdUDt/ehh96Nqq21NpCvChGzSYU=;
+        b=DejAES9UvpSRl17UZ2FjDElu7QGhxjNWBw7bbCVRCdYfwEj3qW7KuHQl/fUFuopI6U
+         /ybjWxX60jY+kXFuav+FE8rtlTMyjShuP0GmTeYrfMinZmorPAfC48PMUeCvZk+GEpbh
+         /ZthEkP9vwqRJ830mnN68xLixQxgF+TjnLkoqFxSI6WNdovCQa8lRqSRKMKHoKF+R7xp
+         iZiyHgfblU5EHhjlR1bXU4wBsxt0GVPZb0nk8hCtV/7hcvK3ySBavk4mQZnRsoSbbZpF
+         PI0ppVZnjXdbGtMudQwwQl4BMs8sPF6CP80d6lyO1Dx+Abctp3ZAZIuC7gMTtGnp1opD
+         0HQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774887759; x=1775492559;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=EMohgIf2kDkk6Cae0YiULQonmSDmJhFZPXEiKdJxSFI=;
-        b=oWisor27Wep3dMJjwRRhtIhq1HwwhA3mb0uDjdDEHkehF6QMgNy3JKbAY72+k3cMGY
-         EbT+FVzkb03/nh7iC7JzmSjC5D7T2RpDRMJr9q4SNGHJjNbJgN2fOpPQuX7LXBIU4Lxk
-         nsk00OyyVkCa1WEi+V3QpbhPvFUd6tilwjnf64QXASSVFZB8ceebfhWFH5MNqXhKvXgi
-         KeLtdc8IYuBtXWZspHpyi/KoIedaD8ckK/oBD4+DYCHSCAqtiDLk5g5WYOlUgEVn3U9m
-         Ai0VkhcHyMDuomSJYfhqc3ZKduSms2WtkV/dN0X8B9AeOaCq7tE4IFCk7oW1Nr/cbMvV
-         ToNA==
-X-Forwarded-Encrypted: i=1; AJvYcCXFOi1cmThN+xpjdmhOEPybjJt37TygdEECw8mOT4/77KGECT/0k7nbky+zVff5lqOJph8Cpv/I0xt8@vger.kernel.org
-X-Gm-Message-State: AOJu0YxYppbN6Loof/oCX+5CuEiVwuMa0K4wn4Vy+um8DzJcKaXdoqyS
-	NA1ri5y0l6WclmUUVe++SB3v8/MZL3zRd0TM+TlLENfP0T8D7X13rP9XgqZzaZmZpwk=
-X-Gm-Gg: ATEYQzyEBXkKzV8fV9rastug6brdTZsEhGFGBwMcFU1wskwDk2Kii1rwGF9Ut0tDdyI
-	nD+SI7KOQJntOMXlxxrUQhFUesYtE0heNq0H54mT9WpP2NYYhMfEGjxFwG4DUIVhAGbQUtuH7zo
-	gBt3G/AjBeH+0q++/WMWEQRhwrxfZBRulrlFuUZXzLLwkJxlajMpAsqvss/b+Ndn52UZTgSFySb
-	RZZERTijDYImzjG08/w7f0esICyn+eu4kD1ZyXli97IdeUgyeSdQDcShrEaxszmcMNf1ss1K/8d
-	lTtbOUzzMQOinu9lhLaEupk3PNyrhxbWm+Np4NohIihLYtfDxdn6hVlSitloE8Kh3mG7nyI79EX
-	KzfH+r+jLnx6/sop2/2cQnU9/itKArm5OewFKssQ3+kmKzjho4rXT4fIgS4KkGUPlPgO4Wlfivh
-	3wTGZV6PBHn6dxqLfHdTsyyvulWlA=
-X-Received: by 2002:a17:902:e843:b0:2b2:5428:ead8 with SMTP id d9443c01a7336-2b2542902d6mr38590925ad.0.1774887759333;
-        Mon, 30 Mar 2026 09:22:39 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:e8c9:5e1e:f42a:2b73])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b24268aa4fsm83826645ad.36.2026.03.30.09.22.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Mar 2026 09:22:38 -0700 (PDT)
-Date: Mon, 30 Mar 2026 10:22:35 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v2 2/3] remoteproc: imx_rproc: Pass bootaddr to SM
- CPU/LMM reset vector
-Message-ID: <acqjS440STRl2sK2@p14s>
-References: <20260327-imx943-rproc-v2-0-a547a3588730@nxp.com>
- <20260327-imx943-rproc-v2-2-a547a3588730@nxp.com>
+        d=1e100.net; s=20251104; t=1774887934; x=1775492734;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=30qgmi/fk4YrrYyUAdUDt/ehh96Nqq21NpCvChGzSYU=;
+        b=GP0rEvKZ5il+h916FEAxklBWRZnJ6IOo0vnJvvCBE2xd+oYqoinee0b/2SYXa8m+WL
+         w9NCSIuGKRZAXNnHd11iUmLIGn3MNvO1iXDoEft2JZNspr4m2UIxM8WHo50LceLQIWMa
+         o+rGRsvfPjnVLz6FQeGLuYuDC3Qgy8C6ss/tqJ+ilhnuQ105G1IpQODz011GVl11xMjN
+         KErOt3Y92dSsZtEgr9e1OYO0WqU5BASEj8MPnSlYhGyBZ1UAHnLTtQGau8XLqqa3umU3
+         7wHMY27DgpMTaHoMcOBPsSYvgc630Il3bA8zXiEo2iIv/tyQ0jDRYperOXJNLTXn5gDV
+         CoFw==
+X-Forwarded-Encrypted: i=1; AJvYcCWRbOGmeWJGm8oNHWaZXs3lRb6KxYoVtszBPaBTQYzt8gUFDnAx8BzZ5jHzOCFuQXUzSBK+RennoXd9@vger.kernel.org
+X-Gm-Message-State: AOJu0YxkJ4OytidasB3d47c17AzyXgIJ3MPqb0QTZHhyoqc5+0k6ZSOU
+	VJBhMz5a/z/J9jTj+pUUHi3xAwdOb0UR1ql4ZKYSFbxs8ouZKe0X9EKf
+X-Gm-Gg: ATEYQzxpbz/R1ggt1ui4Otv/Kssdy9pIsAFPDGKUzMjXPK+ARsaXcv+SIFEqlLD78eT
+	UDv8e9x0uyoRed7DIFQHm3DiFLXCdx7cfAMGXOFr/ZxNV5hynU3zFJzRfdhZ6hlf/FPGZGRK+6E
+	GV41bUtE7JdEf8X0ScJ1i7KG/luw+ApLC4UuWkuufat6yj9RZrO2uis1rw9UInBVlcDVIkpH9ov
+	r+H+5wO8Omx/H2glOzg1uTUid5Sk32Lhtzx4SDXD1eJO7OTnJf0Tps0RhIxQCffx3PN8Lmu7Aqn
+	4pAt28/kjAduQHsSxnaB6PcWsPYr+ya4rXU58brVeWsErf5KcAn5n2CEA1iOtTXS82W+zUrD1xg
+	P+TSAv3deQhss3oraR6H1NwrGST+how3MXydVS3FW9Ljm7GAgV17uwWz7zJWq9flPMeak5ESDp3
+	kErbfFwr3Pe83aDM769zcRxujIUiAFFW9Y1rZMhA8QuM1QE+LBCUDm7pk3+00YuFgODOVheQXY
+X-Received: by 2002:a17:902:ef44:b0:2b2:58c7:2cd6 with SMTP id d9443c01a7336-2b258c73377mr26088925ad.5.1774887933658;
+        Mon, 30 Mar 2026 09:25:33 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2427660c7sm84120725ad.44.2026.03.30.09.25.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 30 Mar 2026 09:25:33 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <fd15c1d6-09ec-4553-bd53-2460c71824e3@roeck-us.net>
+Date: Mon, 30 Mar 2026 09:25:31 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260327-imx943-rproc-v2-2-a547a3588730@nxp.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] Add support for Infineon Digital eFuse XDP720
+To: ASHISH YADAV <ashishyadav78@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Ashish Yadav <ashish.yadav@infineon.com>
+References: <20260330102345.37065-1-Ashish.Yadav@infineon.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260330102345.37065-1-Ashish.Yadav@infineon.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Mar 27, 2026 at 10:42:03AM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
-> 
-> Cortex-M[7,33] processors use a fixed reset vector table format:
-> 
->   0x00  Initial SP value
->   0x04  Reset vector
->   0x08  NMI
->   0x0C  ...
->   ...
->   IRQ[n]
-> 
-> In ELF images, the corresponding layout is:
-> 
-> reset_vectors:  --> hardware reset address
->         .word __stack_end__
->         .word Reset_Handler
->         .word NMI_Handler
->         .word HardFault_Handler
->         ...
->         .word UART_IRQHandler
->         .word SPI_IRQHandler
->         ...
-> 
-> Reset_Handler:  --> ELF entry point address
->         ...
-> 
-> The hardware fetches the first two words from reset_vectors and populates
-> SP with __stack_end__ and PC with Reset_Handler. Execution proceeds from
-> Reset_Handler.
-> 
-> However, the ELF entry point does not always match the hardware reset
-> address. For example, on i.MX94 CM33S:
-> 
->   ELF entry point:     0x0ffc211d
->   hardware reset base: 0x0ffc0000 (default reset value, sw programmable)
->
+Hi,
 
-But why?  Why can't the ELF image be set to the right reset base?
- 
-> To derive the correct hardware reset address, the unused lower bits must
-> be masked off. The boot code should apply a SoC-specific mask before
-> programming the reset address registers, e.g.:
+On 3/30/26 03:23, ASHISH YADAV wrote:
+> From: Ashish Yadav <ashish.yadav@infineon.com>
 > 
->   reset_address = entry & reset_vector_mask
+> Hi,
 > 
-> Current driver always programs the reset vector as 0. But i.MX94 CM33S's
-> default reset base is 0x0ffc0000, so the correct reset vector must be
-> passed to the SM API; otherwise the M33 Sync core cannot boot successfully.
+> These patches add support for Infineon Digital eFuse XDP720.
+> XDP720 provides accurate system telemetry (V, I, P, T) and
+> reports analog current at the IMON pin for post-processing.
 > 
-> rproc_elf_get_boot_addr() returns the ELF entry point, which is not the
-> hardware reset vector address. To derive the proper reset vector, this
-> patch introduces imx_rproc_get_boot_addr(), which masks the ELF entry
-> point using the SoC‑specific 'reset_vector_mask'. The resulting reset
-> vector address is then passed to the SM CPU/LMM reset vector API calls.
+> The Current and Power measurement depends on the RIMON and GIMON values.
+> Please look into data sheet sections 5.4.2 and 5.4.4 for more details:
+> https://www.infineon.com/assets/row/public/documents/24/49/infineon-xdp720-001-datasheet-en.pdf
 > 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
->  drivers/remoteproc/imx_rproc.c | 17 ++++++++++++++---
->  drivers/remoteproc/imx_rproc.h |  2 ++
->  2 files changed, 16 insertions(+), 3 deletions(-)
+
+Please address the issues reported in
+
+https://sashiko.dev/#/patchset/20260330102345.37065-1-Ashish.Yadav%40infineon.com
+
+Thanks,
+Guenter
+
+> With Best Regards,
+>   Ashish Yadav
 > 
-> diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
-> index 0dd80e688b0ea3df4c66e5726884dc86c8a5a881..d8ead42640881bd523d605fa7002935ef6e98077 100644
-> --- a/drivers/remoteproc/imx_rproc.c
-> +++ b/drivers/remoteproc/imx_rproc.c
-> @@ -345,7 +345,7 @@ static int imx_rproc_sm_cpu_start(struct rproc *rproc)
->  	const struct imx_rproc_dcfg *dcfg = priv->dcfg;
->  	int ret;
->  
-> -	ret = scmi_imx_cpu_reset_vector_set(dcfg->cpuid, 0, true, false, false);
-> +	ret = scmi_imx_cpu_reset_vector_set(dcfg->cpuid, rproc->bootaddr, true, false, false);
->  	if (ret) {
->  		dev_err(priv->dev, "Failed to set reset vector cpuid(%u): %d\n", dcfg->cpuid, ret);
->  		return ret;
-> @@ -365,7 +365,7 @@ static int imx_rproc_sm_lmm_start(struct rproc *rproc)
->  	 * If the remoteproc core can't start the M7, it will already be
->  	 * handled in imx_rproc_sm_lmm_prepare().
->  	 */
-> -	ret = scmi_imx_lmm_reset_vector_set(dcfg->lmid, dcfg->cpuid, 0, 0);
-> +	ret = scmi_imx_lmm_reset_vector_set(dcfg->lmid, dcfg->cpuid, 0, rproc->bootaddr);
->  	if (ret) {
->  		dev_err(dev, "Failed to set reset vector lmid(%u), cpuid(%u): %d\n",
->  			dcfg->lmid, dcfg->cpuid, ret);
-> @@ -739,6 +739,17 @@ imx_rproc_elf_find_loaded_rsc_table(struct rproc *rproc, const struct firmware *
->  	return rproc_elf_find_loaded_rsc_table(rproc, fw);
->  }
->  
-> +static u64 imx_rproc_get_boot_addr(struct rproc *rproc, const struct firmware *fw)
-> +{
-> +	struct imx_rproc *priv = rproc->priv;
-> +	u32 reset_vector_mask = GENMASK_U32(31, 0);
-> +
-> +	if (priv->dcfg->reset_vector_mask)
-> +		reset_vector_mask = priv->dcfg->reset_vector_mask;
-> +
-> +	return rproc_elf_get_boot_addr(rproc, fw) & reset_vector_mask;
-> +}
-> +
->  static const struct rproc_ops imx_rproc_ops = {
->  	.prepare	= imx_rproc_prepare,
->  	.attach		= imx_rproc_attach,
-> @@ -752,7 +763,7 @@ static const struct rproc_ops imx_rproc_ops = {
->  	.find_loaded_rsc_table = imx_rproc_elf_find_loaded_rsc_table,
->  	.get_loaded_rsc_table = imx_rproc_get_loaded_rsc_table,
->  	.sanity_check	= rproc_elf_sanity_check,
-> -	.get_boot_addr	= rproc_elf_get_boot_addr,
-> +	.get_boot_addr	= imx_rproc_get_boot_addr,
->  };
->  
->  static int imx_rproc_addr_init(struct imx_rproc *priv,
-> diff --git a/drivers/remoteproc/imx_rproc.h b/drivers/remoteproc/imx_rproc.h
-> index d37e6f90548cec727b4aeb874680b42af85bdbb4..0d7d48352a1091ad24e8e083172ce6da6d26ae10 100644
-> --- a/drivers/remoteproc/imx_rproc.h
-> +++ b/drivers/remoteproc/imx_rproc.h
-> @@ -41,6 +41,8 @@ struct imx_rproc_dcfg {
->  	/* For System Manager(SM) based SoCs */
->  	u32				cpuid; /* ID of the remote core */
->  	u32				lmid;  /* ID of the Logcial Machine */
-> +	/* reset_vector = elf_entry_addr & reset_vector_mask */
-> +	u32				reset_vector_mask;
->  };
->  
->  #endif /* _IMX_RPROC_H */
 > 
-> -- 
-> 2.37.1
+> Ashish Yadav (2):
+>    dt-bindings: hwmon/pmbus: Add Infineon XDP720
+>    hwmon:(pmbus/xdp720) Add support for efuse xdp720
 > 
+>   .../bindings/hwmon/pmbus/infineon,xdp720.yaml |  52 ++++++++
+>   drivers/hwmon/pmbus/Kconfig                   |   9 ++
+>   drivers/hwmon/pmbus/Makefile                  |   1 +
+>   drivers/hwmon/pmbus/xdp720.c                  | 122 ++++++++++++++++++
+>   4 files changed, 184 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/infineon,xdp720.yaml
+>   create mode 100644 drivers/hwmon/pmbus/xdp720.c
+> 
+
