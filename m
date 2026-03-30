@@ -1,170 +1,153 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDDB32A3DE
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 14:56:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE1F3290C9;
+	Mon, 30 Mar 2026 14:57:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774882589; cv=none; b=cnxfbKa3fqte/LSHnQaiZC/IxdFdsCeFNbrelOmMPhNIw2DNxwONt2NmsKjnZIB87/Q1mlJr3UkEjgzFbpRyeILY7OVjvqxBnhAfFKcEq3g/TTmo5z6XFVfJjzsHG8f41U+BQHe0Xt14MiMA2pOv7AVxL8XRnSQqAgGKRsaymOI=
+	t=1774882666; cv=none; b=BL84QZnDZFGb0J8nKolb/9qP46sBcFHqaqiqEZArpv5PNvgcyvofsiVbFWjK2oagCVGB884Pi2V/KP9fHi3SJTEWhvez+DFyHZ9CbHqsjm6xIVeNfs1K6UwWbD0fwQrtIL7FqInOutx2u19xIJSkncZxxZ6g3zg3SVzWSGShQtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774882589; c=relaxed/simple;
-	bh=srhtjV8OPQAa52pA6qgonit5rjCWp8J+Uu2JBmWEGk0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tE6XNzaSW6JI1Rw3RXMHrdv5xKtA/FjTvUQBOp7dEd7O3Kf7HatZZVr77yynT4pXC+SStyI3Kkvn/vH3a2QRELjysyQQz4nl9PrMGZXglNrFH4pJzWwvidQ/G7aBCFOuw3h5V2OrTatd/XNTdjGUWSoUTC7HZKe2dFzvrbctaOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nljEApm+; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1774882666; c=relaxed/simple;
+	bh=Q2Hr+64nfwabuubNoJofnM6anpOvBYwWKFrDN1Xn75Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GVezmYUJr0ve+X/uvg2+SZsdtZewhNdXatXJCwUtlo+b93yl+YAafGdZbklNgMraEcpUWZxMzQoZwMmIPOGfkAeHvAF8cDXuRlQVnjg0ds9wVmpJ8IPeRwzLf7gWftBrAxriyVCP6yxwBkp/NPxTT+lgioFDNvLpSlvXG6uuvPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vCLCre4g; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nljEApm+"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-82a655cfab5so4288191b3a.1
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 07:56:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774882586; x=1775487386; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=UOF3McKorP7VTGh3x2yrLA4/BnIsjXMpRz4887A+PYk=;
-        b=nljEApm+ujlyRcHjOxUKB1g7AZI0bxl+Ou85vKKeZ8XH+/njpsSgvxOZ5XSRuVetEh
-         TWpGJzBp5ShdHD3AuPQ/6qsqaBzHCj6k3fnAoUixLthyvnIyRgOAjGR2bilJLU1wdeh1
-         MXzhcBEUteQLRqk2zcj/Q6SGBcEBEz5RcTJ5d6GhxUOqIAY55RKAERjnFRa8S5r0XkG8
-         DoyQHM5dcPAfN+7T0ThWfgJ9MSQmasAs8POIwz4muFiSv42K9RKW6i3lOHaGkEHMJ4FB
-         FNYuZK4dYh6MOr2P4R3piDM37EIIfWuZs6Ni13a7iTxghJJQ9PxgcqPzUuOkoP9AymjQ
-         jiUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774882586; x=1775487386;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=UOF3McKorP7VTGh3x2yrLA4/BnIsjXMpRz4887A+PYk=;
-        b=sNrqWboWExWKprLyTzS7IHZgfXSghZkiSwNjnjYGKsF6ci6Rlq2lb/3NXigv1Y56Rf
-         kzUE5DaVtq4ImdPl5jowbOTsg8wA3ttoaFnGB98JCXqN8syZYFqeALc6iBmJh3ju5Xla
-         gP5wSzvNb5YMFOko+5I9rliYMRk8r3SGV3fOrLENtuJIAE6CgAQ5agD8RpolAXvyANiM
-         vhwO2eYr2XaoRVCmnlLp+yt3fpZ8fCG4U58HM/krKYtuSf6nON92ElYlMGuXGokjl/ka
-         V2cGPJONdrp4BLedR3ZYltYCkNaJe/nEGq4Z6n0GWdgKklTkwoFMH5pH3psS3FWWHNZM
-         X2og==
-X-Forwarded-Encrypted: i=1; AJvYcCX+mTh5fj5LckYiOvhSn4eU+RcsSFhOpC0PZRrENVFiooN/qGISLmcIerdoYRfs8fPYQR0SH9+XN+SP@vger.kernel.org
-X-Gm-Message-State: AOJu0YxiPQWaQWpWd3iODfazJvx8zoJ1d1qjHiWQ2DmaeXxAt2DVlAvi
-	2y3lV8BJkiBGSQaBmBHPi3D/QLMPrRskgR3km8iCugSIGSYQtbFKpWeRqQdjCMsLJTQ=
-X-Gm-Gg: ATEYQzxEw89INMGVWoW58CJ1VRBKhjVEtCAcIIkHMShvF9b/tQDGfN++CK84J9iTM29
-	wj1EdC+8CB0Cf8frNFWP2FVtL+xl5YduQR4gS4Gz5QpsFbG0BhsoO0JeewcdXqTCaWJ/SamgULG
-	4XoVcUjI6yeEMwJ9Nq/AR5iT1Paw7wAERLiQIG0OZ+Uz62JW8bjeAm5PHey79b/1AVLfJbA/7Av
-	nDN8SLuzNiicYzsIJm/ok37+FuQRv+kSWcsnMLONkltv9/0rdGcS/3HcRSjcBS9d4H0J0YL6fIK
-	3kZfvV1ygNBkgVTXlO177U3CA7l8qy+CnSM7Kcfb9/6tF99XKPPbJWCvw0hovG7Bw9sR7mTyfjy
-	IIdvPnoZyk3XgslDAaxp0FJ6rFWo3mPucqwTJvIQDxd951iS+kbpdgR/jGQJ3FyUfuXvDu3gsPT
-	qOKUdgi2rPH9L1qsLlDVWlgvmnEok=
-X-Received: by 2002:a05:6a00:ad03:b0:829:a590:6d0f with SMTP id d2e1a72fcca58-82c96087f4amr11583763b3a.58.1774882586297;
-        Mon, 30 Mar 2026 07:56:26 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:51d0:8872:b109:d470])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82ca8498779sm7540458b3a.25.2026.03.30.07.56.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Mar 2026 07:56:25 -0700 (PDT)
-Date: Mon, 30 Mar 2026 08:56:21 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Suman Anna <s-anna@ti.com>,
-	Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
-	Tero Kristo <kristo@kernel.org>, Vishal Mahaveer <vishalm@ti.com>,
-	Kevin Hilman <khilman@baylibre.com>, Dhruva Gole <d-gole@ti.com>,
-	Sebin Francis <sebin.francis@ti.com>,
-	Kendall Willis <k-willis@ti.com>, Akashdeep Kaur <a-kaur@ti.com>,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 0/7] arm64: dts: ti: k3-am62a7-sk: Split r5f memory
- region
-Message-ID: <acqPFV005fH8qHpV@p14s>
-References: <20260318-topic-am62a-ioddr-dt-v6-19-v3-0-c41473cb23c3@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vCLCre4g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6689FC4CEF7;
+	Mon, 30 Mar 2026 14:57:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774882666;
+	bh=Q2Hr+64nfwabuubNoJofnM6anpOvBYwWKFrDN1Xn75Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=vCLCre4glN6/9bCO5naJn3+DITMtVO1G3x9GthcVlGGMHbfxJsH4nfRo/d2YPpUIx
+	 3eK10kmIlBCYR7tZCH09wU80HITmeMtlirw0ak+N8x+SV0YxKRBdPUAltY8K+Av9Pr
+	 vuCtNGGbcXhQgO34QoLaAJMKGsdbJ27SpKrLVdX1zkHV4e0Aofw4wkBhwMKl1gQ7g/
+	 DaFzEicSedBZ3BxoZDQyCH3sTefEiSO2Ekbj1X98I9gwVUg06GOq4kxdYsBFIWDu8q
+	 vYWGZqL2dLgEZig0xe/7vsrSahTB38yX7xUoP4Hrdms91KwTkMAP4wA/wlJki/4K3o
+	 3RWFzbsDJWvvQ==
+Message-ID: <7dd70ef5-f8d2-444c-9e42-2c6d8d976e90@kernel.org>
+Date: Mon, 30 Mar 2026 16:57:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260318-topic-am62a-ioddr-dt-v6-19-v3-0-c41473cb23c3@baylibre.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] dt-bindings: arm: hpe,gxp: Add HPE GSC platform
+ compatible
+To: "Hawkins, Nick" <nick.hawkins@hpe.com>
+Cc: "catalin.marinas@arm.com" <catalin.marinas@arm.com>,
+ "will@kernel.org" <will@kernel.org>, "robh@kernel.org" <robh@kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260327174445.3275835-1-nick.hawkins@hpe.com>
+ <20260327174445.3275835-2-nick.hawkins@hpe.com>
+ <20260328-chirpy-sturdy-emu-9eb0cb@quoll>
+ <DM4PR84MB192724F4949F614E3965E60A8852A@DM4PR84MB1927.NAMPRD84.PROD.OUTLOOK.COM>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <DM4PR84MB192724F4949F614E3965E60A8852A@DM4PR84MB1927.NAMPRD84.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Mar 18, 2026 at 04:13:06PM +0100, Markus Schneider-Pargmann (TI) wrote:
-> Hi,
+On 30/03/2026 16:53, Hawkins, Nick wrote:
+> Hi Krzysztof Kozlowski,
 > 
-> Split the firmware memory region in more specific parts so it is better
-> described where which information is stored. Specifically the LPM metadata
-> region is important as bootloader software like U-Boot has to know where
-> that data is to be able to read that data and resume from RAM.
+>>>  maintainers:
+>>>    - Nick Hawkins <nick.hawkins@hpe.com>
+>>> @@ -18,6 +18,11 @@ properties:
+>>>            - enum:
+>>>                - hpe,gxp-dl360gen10
+>>>            - const: hpe,gxp
+>>> +      - description: GSC Based Boards
+>>> +        items:
+>>> +          - enum:
+>>> +              - hpe,gsc-dl340gen12
+>>> +          - const: hpe,gsc
 > 
-> IO+DDR is a deep sleep state in which a few pins are set to be sensitive
-> for wakeup while the DDR is kept in self refresh. Everything else is
-> powered off.
+>> What sort of ordering are you going to use in this file? Usual choice is
+>> the fallback compatible, but I see you have chosen something else. That
+>> is fine, just keep that else sorting in the future instead of adding to
+>> the end.
 > 
-> The changes in this series were suggested as part of the IO+DDR u-boot series:
->   https://lore.kernel.org/r/814c211f-a9eb-4311-bb84-165b1a69755f@ti.com
+> Thank you for the feedback, just to confirm are you looking for me
+> to do something like this?:
 > 
-> There are currently no real users of the memory-region that is split in
-> this series. The size of the memory-region in total stays the same.
-> The new layout is derived from the software running on the r5f
-> processor:
->   https://github.com/TexasInstruments/mcupsdk-core-k3/blob/k3_main/examples/drivers/ipc/ipc_rpmsg_echo_linux/am62ax-sk/r5fss0-0_freertos/ti-arm-clang/linker.cmd#L172
->   https://github.com/TexasInstruments/mcupsdk-core-k3/blob/k3_main/source/drivers/device_manager/sciclient.h#L459
-> 
-> Additionally the two important devicetree nodes for resuming from IO+DDR
-> have the bootph-pre-ram flag added as this data needs to be read before
-> the RAM is in use.
-> 
-> Best
-> Markus
-> 
-> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
-> ---
-> Changes in v3:
-> - Squash the enforcement of the memory-region-names requirement in the
->   patch adding the memory-region-names, as suggested.
-> - Link to v2: https://lore.kernel.org/r/20260312-topic-am62a-ioddr-dt-v6-19-v2-0-37cb7ceec658@baylibre.com
-> 
-> Changes in v2:
-> - Make memory-region-names required if memory-region is present
-> - Fixup memory-region and memory-region-names conditions. Require either
->   2 or 6 regions for memory-region and memory-region-names
-> - Reword and restructure the binding documentation for memory-region and
->   memory-region-names
-> - Add memory-region-names to all uses of memory-region
-> - Link to v1: https://lore.kernel.org/r/20260303-topic-am62a-ioddr-dt-v6-19-v1-0-12fe72bb40d2@baylibre.com
-> 
-> ---
-> Markus Schneider-Pargmann (TI) (7):
->       dt-bindings: remoteproc: k3-r5f: Split up memory regions
->       dt-bindings: remoteproc: k3-r5f: Add memory-region-names
+> - description: GSC Based Boards
+>         items:
+>           - enum:
+>               - hpe,gsc-dl340gen12
+>           - const: hpe,gsc
+> - description: GXP Based Boards
+>         items:
+>           - enum:
+>               - hpe,gxp-dl360gen10
+>           - const: hpe,gxp
 
-I have picked-up the above two.  The .dtsi files need to go through the TI
-tree.
+Yes, that's the typical/usual way.
 
-Thanks,
-Mathieu
+> 
+> That way we have the newest first and going forward if there is
 
->       arm64: dts: ti: k3: Use memory-region-names for r5f
->       arm64: dts: ti: k3-am62a7-sk: Split r5f memory region
->       arm64: dts: ti: k3-am62p5-sk: Split r5f memory region
->       arm64: dts: ti: k3-am62a7-sk: Add r5f nodes to pre-ram bootphase
->       arm64: dts: ti: k3-am62p5-sk: Add r5f nodes to pre-ram bootphase
-> 
->  .../bindings/remoteproc/ti,k3-r5f-rproc.yaml       | 55 ++++++++++++++++++----
->  .../arm64/boot/dts/ti/k3-am62-ti-ipc-firmware.dtsi |  1 +
->  .../boot/dts/ti/k3-am62a-ti-ipc-firmware.dtsi      |  2 +
->  arch/arm64/boot/dts/ti/k3-am62a7-sk.dts            | 42 ++++++++++++++++-
->  .../boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi      |  2 +
->  arch/arm64/boot/dts/ti/k3-am62p5-sk.dts            | 42 ++++++++++++++++-
->  .../arm64/boot/dts/ti/k3-am64-ti-ipc-firmware.dtsi |  4 ++
->  .../arm64/boot/dts/ti/k3-am65-ti-ipc-firmware.dtsi |  2 +
->  .../boot/dts/ti/k3-j7200-ti-ipc-firmware.dtsi      |  4 ++
->  .../boot/dts/ti/k3-j721e-ti-ipc-firmware.dtsi      |  6 +++
->  .../boot/dts/ti/k3-j721s2-ti-ipc-firmware.dtsi     |  6 +++
->  .../boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi      |  3 ++
->  .../k3-j784s4-j742s2-ti-ipc-firmware-common.dtsi   |  8 ++++
->  13 files changed, 163 insertions(+), 14 deletions(-)
-> ---
-> base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
-> change-id: 20260210-topic-am62a-ioddr-dt-v6-19-0da7712081d7
-> 
-> Best regards,
-> -- 
-> Markus Schneider-Pargmann (TI) <msp@baylibre.com>
-> 
+Usual order is the alphanumerical.
+
+> something newer we add it to the top of the list rather than
+> the bottom?
+
+If you want to order by date of release of the SoC, that's fine. I think
+Allwinner does it. It's pretty non obvious because the chips are
+upstreamed different time than released, so it is difficult for people
+knot knowing the release dates. Just don't use the rule of "add at the
+beginning" or "at the end".
+
+Best regards,
+Krzysztof
