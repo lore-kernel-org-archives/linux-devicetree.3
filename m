@@ -1,115 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from TWMBX01.aspeed.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF6237E2EE;
-	Mon, 30 Mar 2026 06:36:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E39638423C;
+	Mon, 30 Mar 2026 06:37:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774852603; cv=none; b=fetyISpDr/MR8YgREeqS5VfjhFFJlUyw4MJ4hYtpr0GjDp+mCx3Oi7PnGJlWxK1sRC4NPBbkhq9z/waQSeNdkuuAEUBIdO56WMdUn/oAuwzgqt+F+XkbxidtACi4PE7AS7JgB+I7xFMA/o0YIR7pdK27Ob7LfUHYn5MWE+heh/U=
+	t=1774852643; cv=none; b=Cm5X820dimocWwwdM4KD07BnS0NcB+fr2okb5F870folmU1RU+jnvDQlcJmweYe2o82mFWhWsbH6hb1ci/E6GvZZjZ/NaqkorQzY8mJP+T1orGTUDr7NSxWlxOj+E4V27402br1fPSfWuBA9zKe4xRiWK746QVMWIC6T+1NOm7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774852603; c=relaxed/simple;
-	bh=WQGozcPVOmHXsmy0M+0Xqiud1Yr5AI2xCXzTxu9+5FU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NoaJu2nlKvISI2sYPsVMuiQQDwzHZFXXoWnFUrwKTetRjxbmrnFEw5Jv54OFRQ/UU2FaUgbhs1LrhNe9+4ZmFyQW/yOSvdA8UW6ZebZ0QHdndu07RK8ylKI86AIRCTW0mL41ZXJJCs+VmfNTQnlphIWKqEodd0BZK+Xj8iNC9ZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YHf9AyVi; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YHf9AyVi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D23CC4CEF7;
-	Mon, 30 Mar 2026 06:36:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774852603;
-	bh=WQGozcPVOmHXsmy0M+0Xqiud1Yr5AI2xCXzTxu9+5FU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=YHf9AyVi0iNmhS4tQMpiqSgzT1L0tgFDq61lZFQlrL/SUDW8X9YyuQhC2xY60wgxX
-	 2fgz8NNZTTuE3mxTPT/h2OqmhSwFx46Zv6Tq8Uu6aOa4sxqDQUtae8zgdbMoFCe4lo
-	 0d/+N9K/vFr8WG2K20k+g11xzqnQUTRsoix5y2VpEIO5evMsokcpe9gIrgTwJYmjCb
-	 5lo4UektVPQ9bfLvkQg1mRmZHhQusSBWGrnB1apeMHw2tFbYy1sKc15cSPCDe1FRFO
-	 31jWrebbZYq3+Axx0btNLDTi4rQVOGSK8pCwO5C5o+p1Erk2g3iJ3Ip+y6DGKZzX2t
-	 En4Mye+7d4pxQ==
-Message-ID: <e397d9e0-2dfb-4e6b-8c00-03e1b0a53be5@kernel.org>
-Date: Mon, 30 Mar 2026 08:36:39 +0200
+	s=arc-20240116; t=1774852643; c=relaxed/simple;
+	bh=2YRtrcIEpOWrAdhNl8A+m416MZj9b+AOfhV4PMTCzGI=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=FS6ay3rI+Ti4XWrOY/KL3fk7rK6Xt28N+kaAk2E9hiI0t5aM/LtwFteOQVo1UJytENL/W81+IcAy8padCM234v+GeT4kcImKMzUH31E4Fj/rJD37YVVKjczbYuFLLsd5PeWTw8BjqvoO5BAaGSjCNGlsHN0ZOcTBHZxtnjFJVhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Mon, 30 Mar
+ 2026 14:32:10 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Mon, 30 Mar 2026 14:32:10 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+Subject: [PATCH v4 0/4] AST2700-A2 interrupt controller hierarchy and route
+ support
+Date: Mon, 30 Mar 2026 14:32:09 +0800
+Message-ID: <20260330-irqchip-v4-0-3c0f1620cc06@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: power: reset:
- cortina,gemini-power-controller: convert to DT schema
-To: Linus Walleij <linusw@kernel.org>, Sebastian Reichel <sre@kernel.org>
-Cc: "Rob Herring (Arm)" <robh@kernel.org>,
- Khushal Chitturi <khushalchitturi@gmail.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-References: <20260328124707.141209-1-khushalchitturi@gmail.com>
- <177470797266.1536342.6967120656934552033.robh@kernel.org>
- <CAD++jL=_rCmW=eSV0kvck50sC2xaQnGQoEOy=DNcwkFvvWYUUw@mail.gmail.com>
- <3fa4fad0-d918-4de0-ad80-dad2141d2617@kernel.org>
- <CAD++jLnxoS-OGBSAXxgGPaME7eMTwCQ-C+uzub6m0o9ZgXL_aA@mail.gmail.com>
- <aciItMCdBbrVvMKB@venus>
- <CAD++jLn5qQqx5nAOWNifJcNPb00B_CtM=xF16qjB4qXGENmL9Q@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <CAD++jLn5qQqx5nAOWNifJcNPb00B_CtM=xF16qjB4qXGENmL9Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOkYymkC/23MQQ6DIBCF4as0rEszgIJ21Xs0XSAOhUXVgiFtj
+ HcvutHELt9kvn8iEYPHSK6niQRMPvq+y6M4n4hxunsi9W3ehAOXwKGkPryN8wNVqNEKqYoWa5K
+ /h4DWf9bS/ZG383Hsw3cNJ7Zcj43EKNAGBAMEaaBSNx0HxHZE4y6mf5EllPiGBcgN84xtVTJuo
+ G5Qir9Y7DDfYZGxkFKJ2pZKG3vA8zz/AChwD+EdAQAA
+X-Change-ID: 20260205-irqchip-7eaef3674de9
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
+ Jeffery" <andrew@codeconstruct.com.au>, Paul Walmsley <pjw@kernel.org>,
+	"Palmer Dabbelt" <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+	"Alexandre Ghiti" <alex@ghiti.fr>, Thomas Gleixner <tglx@kernel.org>, Thomas
+ Gleixner <tglx@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
+	<linux-riscv@lists.infradead.org>, Ryan Chen <ryan_chen@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774852330; l=5545;
+ i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
+ bh=2YRtrcIEpOWrAdhNl8A+m416MZj9b+AOfhV4PMTCzGI=;
+ b=leRN0msFH+xIpM4fUICSbtFYte3oLzDxzhAtPEcwoTq4GYx9ofeYmNq1hqsiK8ncZKawLKdXR
+ PO4jDW9dHmlAR3HstgEdBKZWeixlFBiNRPhzwAzRydugWrpCWAniR8O
+X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
+ pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-On 29/03/2026 20:57, Linus Walleij wrote:
-> On Sun, Mar 29, 2026 at 4:09 AM Sebastian Reichel <sre@kernel.org> wrote:
-> 
->> The problem is the node name (power-controller@4b000000), which is
->> reserved for power domains. You can keep the compatible.
-> 
-> Ah, sweet, Khushal can you change this?
-> 
-> I think you can use gemini-poweroff@4b000000 because
-> this is pretty much a poweroff thingie.
+The AST2700 SoC has undergone multiple silicon revisions (A0, A1, A2)
+prior to mass production.
 
-So as I said - poweroff.
+A0 laid the ground-work with a split controller design (INTC0 and
+INTC1) used for early development and bring-up. The interrupt
+architecture was substantially reworked in the A1 to introduce an
+explicit routing model and clearer hierarchy, though the split
+controllers remained. The A1 interrupt architecture is unchanged in A2.
+
+A2 is the production design. A0 and A1 are pre-production silicon and
+are no longer intended for deployment outside of ASPEED.
+
+The existing binding and driver were written against A0 prior to the A1
+rework. The A0 design directly wired INTC1 instances to INTC0, and
+INTC0 to the GIC of the Primary Service Processor (PSP, a Cortex-A35).
+The A0 binding and driver therefore do not account for the alternative
+destinations of the Secondary and Tertiary Service Processors (SSP,
+TSP) and BootMCU, or the necessary route selection logic present in the
+production design.
+
+With the above context, this series replaces the existing binding and
+driver.
+
+It is not necessary for projects to maintain support for A0 due to its
+pre-production nature, and between Linux, U-Boot and Zephyr there are
+no upstream devicetree users of the current binding.
+
+The new binding uses localised interrupt numbers and models the
+hardware connectivity between interrupt controllers using the
+aspeed,interrupt-ranges property. It is introduced in a new file before
+the existing binding is removed in order to keep the diff readable.
+
+The INTC0 driver creates a hierarchical irqdomain under the selected
+upstream interrupt controller and implements route resolution logic.
+INTC1 driver instances defer route selection to INTC0 and expose a
+linear interrupt namespace to their parent.
+
+A brief history of related submissions
+--------------------------------------
+
+Some modifications to the existing binding were sent to the lists in
+the past. Due to process choices the revisions were difficult to track.
+They are listed below.
+
+The approaches took several forms but ended in the minor adjustment in
+v6 being applied. This enabled use of the A1 design but requires
+assumptions about platform route configuration defined in firmware.
+These assumptions are removed by this current series.
+
+* [PATCH] dt-bindings: interrupt-controller: aspeed: Refine AST2700 binding description and example
+  https://lore.kernel.org/all/20250714071753.2653620-1-ryan_chen@aspeedtech.com/
+
+* [PATCH v2] dt-bindings: interrupt-controller: aspeed: Add parent node compatibles and refine documentation
+  https://lore.kernel.org/all/20250715024258.2304665-1-ryan_chen@aspeedtech.com/
+
+* [PATCH v3 0/2] irqchip: aspeed: Add AST2700 INTC debugfs support and yaml update
+  https://lore.kernel.org/all/20250722095156.1672873-1-ryan_chen@aspeedtech.com/
+
+* [PATCH v4 0/2] irqchip/ast2700-intc: Add AST2700 INTC debugfs support and yaml update
+  https://lore.kernel.org/all/20250812100830.145578-1-ryan_chen@aspeedtech.com/
+
+* [PATCH v5 0/3] AST2700 interrupt controller hierarchy support
+  https://lore.kernel.org/all/20251022065507.1152071-1-ryan_chen@aspeedtech.com/
+
+* [PATCH v6 0/1] Update correct AST2700 interrupt controller binding
+  https://lore.kernel.org/all/20251030060155.2342604-1-ryan_chen@aspeedtech.com/
+
+Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+---
+Changes in v4:
+- 3/4 fix warning: the frame size of 1296 bytes is larger than 1280 bytes
+- Link to v3: https://lore.kernel.org/r/20260326-irqchip-v3-0-366739f57acf@aspeedtech.com
+
+Changes in v3:
+- 1/4 Squash patch 5/5 and 1/5.
+- 1/4 modify wrap lines at 80 char.
+- 1/4 modify maintainers name and email.
+- 1/4 modify typo Sevice-> Service
+- Link to v2: https://lore.kernel.org/r/20260306-irqchip-v2-0-f8512c09be63@aspeedtech.com
+
+Changes in v2:
+- Change suject to "AST2700-A2 interrupt controller hierarchy and route
+  support".
+- Describe timeline for (pre-)production design evolution and
+  binding development to support the break in compatibility.
+- fix "make dt_binding_check" compatible string consistance with
+  example.
+- Split KUnit coverage out of the main driver patch.
+- Link to v1: https://lore.kernel.org/r/20260205-irqchip-v1-0-b0310e06c087@aspeedtech.com
+
+---
+Ryan Chen (4):
+      dt-bindings: interrupt-controller: Describe AST2700-A2 hardware instead of A0
+      irqchip/ast2700-intc: Add AST2700-A2 support
+      irqchip/ast2700-intc: Add KUnit tests for route resolution
+      irqchip/aspeed-intc: Remove AST2700-A0 support
+
+ .../interrupt-controller/aspeed,ast2700-intc.yaml  |  90 ----
+ .../aspeed,ast2700-interrupt.yaml                  | 188 +++++++
+ drivers/irqchip/.kunitconfig                       |   5 +
+ drivers/irqchip/Kconfig                            |  23 +
+ drivers/irqchip/Makefile                           |   3 +-
+ drivers/irqchip/irq-aspeed-intc.c                  | 139 -----
+ drivers/irqchip/irq-ast2700-intc0-test.c           | 473 +++++++++++++++++
+ drivers/irqchip/irq-ast2700-intc0.c                | 584 +++++++++++++++++++++
+ drivers/irqchip/irq-ast2700-intc1.c                | 282 ++++++++++
+ drivers/irqchip/irq-ast2700.c                      | 106 ++++
+ drivers/irqchip/irq-ast2700.h                      |  47 ++
+ 11 files changed, 1710 insertions(+), 230 deletions(-)
+---
+base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
+change-id: 20260205-irqchip-7eaef3674de9
 
 Best regards,
-Krzysztof
+-- 
+Ryan Chen <ryan_chen@aspeedtech.com>
+
