@@ -1,166 +1,113 @@
-Received: from mxout70.expurgate.net (mxout70.expurgate.net [194.37.255.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41CF23BED71;
-	Mon, 30 Mar 2026 10:52:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.37.255.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0503C061C
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 10:53:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774867944; cv=none; b=or9KQsGEMOjfzFDkPAxsosvolkraPX2rPaStNxBBpZ6oJn/1ufg11SAAnZBdf4dsRyg3oWyzUlq68hqrnctfErVgmaA4AGbtTcTS2pBzMlOnxCQuls/s9krzJ7LxDo2rP8dk4uhBold9aPkSc5J291Ca/B/46ENbpDsyKznyYdg=
+	t=1774867987; cv=none; b=Do/maOuc+mYlNDOzbA3fN+HwkqF/YIRdUR6oT9MTiUqpFruTNsCZJNyrwL0l5tkzf4v7raO3ImxqlKjXDtszrVtyj3LlSHjZaJiW/risWwnNJOwuz6NsUrlWj3/7In9YtudK18dFSF/TE3OeGJ8UPmeZf2NkbC+LX7Z2bnsH7oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774867944; c=relaxed/simple;
-	bh=D+SiK0i5DF0AJ/XycJ8nhWu794AmX3HCGFp0PoPZ3SA=;
-	h=MIME-Version:Content-Type:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID; b=rsvBAti0GZg5IiZ4edfmguiG1XSLd4aK5S1sl16qnWsCt0Irof6HK24i6tbsSC0ApAPQXlLNIk4FUkF9WqcbJoj+M2RD7WkM1Lk8bNOEm3CxDnDLwKnCvvdc35RJf/nZ8+pUtB74H29CvrQrY/j6JRw58o4MMK9bEkWK+S9zM0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dev.tdt.de; spf=pass smtp.mailfrom=dev.tdt.de; dkim=temperror (0-bit key) header.d=dev.tdt.de header.i=@dev.tdt.de header.b=UFzUkFRI; arc=none smtp.client-ip=194.37.255.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dev.tdt.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dev.tdt.de
+	s=arc-20240116; t=1774867987; c=relaxed/simple;
+	bh=BNYWE4ZNfeLRGblM3h9jfVP9WIaSB0fZFyHZKbb2/BY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=PeIijloVliaAIXtlT1ZappzHunBTgjt3iQid2Wndz6doVwBQFnzDJpb3VPs3eiRMWvWulLAB2o5D89j3NJCcPF5B5UsRqYh0XCRTGQ4+GkQZBH2S9wnQabKHnmHplZNePAKz50c/uKZT06BnyO35lYpFLlZOAGh97mk2EY0RpYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=TATXPP8o; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=dev.tdt.de header.i=@dev.tdt.de header.b="UFzUkFRI"
-Received: from [194.37.255.9] (helo=mxout.expurgate.net)
-	by relay.expurgate.net with smtp (Exim 4.92)
-	(envelope-from <prvs=65635f912b=fe@dev.tdt.de>)
-	id 1w7AEF-00ABA7-HW; Mon, 30 Mar 2026 12:52:19 +0200
-Received: from [195.243.126.94] (helo=securemail.tdt.de)
-	by relay.expurgate.net with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <fe@dev.tdt.de>)
-	id 1w7AEE-00AIuC-Sb; Mon, 30 Mar 2026 12:52:18 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dev.tdt.de;
-	s=z1-selector1; t=1774867937;
-	bh=HvbWi47gqlNyI9kHp+KSuG7Ib+pQMoiDcb2Hu3VVp+g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=UFzUkFRIsYeB+K42ZjrXWJIFJj6sM+dL3YOGvbWYbn6rpJbvYNzUeId9LNYo23mZU
-	 hIxVPfJ9OReYNJGZx9kT35B7cpNzO71kvYkgd61fQhs2qb/fEqXY2EbkhlI+E3c7CO
-	 5++mqj5prJqraa0766xfttwzOwKdRI3Q1ZU6gvpWB90+6l7bmikuSz6q1wTGetvSOE
-	 TXkiQ6FhXbwuscTQcCEW+5XjSCO2aAs/zomBPwmt16BsuImcIjCT7/3lXFvk6wGQ6G
-	 /WYBtxuqEwYkLeRTHppFk3OCPc4BKdC53YpKBQ1Xk4toliDUSo/+g8KJbalQ5CUcqJ
-	 7IYnIl3hblzkg==
-Received: from securemail.tdt.de (localhost [127.0.0.1])
-	by securemail.tdt.de (Postfix) with ESMTP id 27565240041;
-	Mon, 30 Mar 2026 12:52:17 +0200 (CEST)
-Received: from mail.dev.tdt.de (unknown [10.2.4.42])
-	by securemail.tdt.de (Postfix) with ESMTP id 0B7C5240036;
-	Mon, 30 Mar 2026 12:52:17 +0200 (CEST)
-Received: from mail.dev.tdt.de (localhost [IPv6:::1])
-	by mail.dev.tdt.de (Postfix) with ESMTP id 5BCFC206DD;
-	Mon, 30 Mar 2026 12:52:16 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="TATXPP8o"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-43cfd96354aso540305f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 03:53:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1774867983; x=1775472783; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=nzbPas/zVRhWvMIP9KSmda2kkwwqeTULljeMJhCNvcc=;
+        b=TATXPP8oQZLLpCL5KsAbv7XDn7cKmg9nSldOrFdSaePhsGrjiYktxRxakmzU3qRWsw
+         diGnL0KCwMdRNb7Y1dbl0Jbzg56l/L40ZsBuiXIg4bIJsq+BJQPmpxeRrpZWzaWP0DmC
+         XMB05gv3bTPzZKNxjqS01cAcNiOzBzIVKVDvWsWqgy0GIRRD8pI9rCvIK228Bc4+e0Hp
+         u12CZLOVWdxGJOnAEeccPFC9mhaEDyNIoY6hJIpOOp4WA0Cpgby51JjrA0gYuQnTq8bO
+         SOpvtVO8U9wEycMtYHDp0Plko4SZ0hbUAHWeWg4iChXZ+t+kH0cPUEvov2yD0c4kP/ia
+         q5Zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774867983; x=1775472783;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=nzbPas/zVRhWvMIP9KSmda2kkwwqeTULljeMJhCNvcc=;
+        b=I1hqRpdMQQrS0eBmAO3yQ9f5PtAIZW+hj/HaqqtOdLlCleuoDEkFvnN/nnlMvOR1qR
+         cmTB7XX2VjZM+Km2O/7EigzXNlvIMPpXsYOKxY6LJ2POfQgfYkkwV6EH5ZC2oEbWky43
+         rtGd6gFhtb8pSzutjxhIryrseoLG3WGkChmAXa29q8OOIHVxEKbG2RsJTz9rG8QtHO0H
+         QZo2Iyko9oa/rUvOqjqrDRdmegLGwZlYppoyvbUxkOUA00jLnb6uPBALCgYFBszsc6PK
+         8SezT8UoBJYLcCleiEDValiMwBhPGMp0/4LDZawzdwdapNHDse2qy83yUqOQ9Ga/cLJz
+         dYrA==
+X-Forwarded-Encrypted: i=1; AJvYcCVKo4q6T71eaQ8eDTfQMTvGT2dpxOyweCIJsmbwcPkZ7N3L6mdP6PWTj1HopjxeJ0E5FxgWeUmDFMDy@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPIuV6a9M0EbaxSMC+nBREAL+ODwjB5csb/QTfGMOytrX1zsqL
+	u48w3BACzeKP0FWoakTLR9VIdNoSS511hO4D7wS40SPd3BWRBXW0ykAbtMpa8zlj4ko=
+X-Gm-Gg: ATEYQzztAN3Hq3Ise+81f/dO6lYiK+lhMdyiQ5Hd4qUxYYFYl+LaTKCf1L1aYA0jidu
+	2wwGiKDxEBVRkg0xLY+rIlDs4k0ThPA8Nsoo2xlDzs+R8BmA1H2QJNndW0ISGKN6fDHWcvb65vY
+	BryFXyn2zRY/4lwm2Mh+ECpr71beltY2PAQb/z5JvW9ySXw/QWBFFtUt+mO1FeE80CeULX5+BHL
+	Ht9OxJmvYIfv/lek9i5ugBvOaUFXNpuv5VjK4o/vSth1IJaIVGdbZrIAYYuuPQkm/+EH6Wx7GCJ
+	LdGtNgcY4vdptmlwGCBZXsLEz0qdIUjpLRMCFb0tt+MQTSZw+mynLoZono5Vd0OmoFDOE1WHuYT
+	GfIq5pEmnpKay6kuhKfg41IPGNbJoUb/dInv+ZAbn1/pDi0R0gMrgxmgUhrxWwNEnWxHeyOrSW7
+	DVFQlPKavc51COgZ7Dc2DjEVHq8hS5
+X-Received: by 2002:a5d:64e6:0:b0:43b:8fa4:1937 with SMTP id ffacd0b85a97d-43b9e9d5ea1mr20787372f8f.5.1774867983379;
+        Mon, 30 Mar 2026 03:53:03 -0700 (PDT)
+Received: from draszik.lan ([212.129.78.46])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43cf330872asm16354366f8f.17.2026.03.30.03.53.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 30 Mar 2026 03:53:02 -0700 (PDT)
+Message-ID: <61f4ba09a77a255008078a8655e8f4791e4c87ff.camel@linaro.org>
+Subject: Re: [PATCH v8 05/10] pmdomain: samsung: convert to using regmap
+From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, Rob Herring <robh@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Ulf Hansson	 <ulf.hansson@linaro.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown	 <broonie@kernel.org>, Peter Griffin
+ <peter.griffin@linaro.org>, Tudor Ambarus	 <tudor.ambarus@linaro.org>, Juan
+ Yescas <jyescas@google.com>, Will McVicker	 <willmcvicker@google.com>,
+ kernel-team@android.com, 	linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, 	devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	linux-pm@vger.kernel.org, Marek Szyprowski
+ <m.szyprowski@samsung.com>
+Date: Mon, 30 Mar 2026 11:53:03 +0100
+In-Reply-To: <177409897341.266364.2957933304869869135.b4-review@b4>
+References: <20260318-gs101-pd-v8-0-241523460b10@linaro.org>
+	 <20260318-gs101-pd-v8-5-241523460b10@linaro.org>
+	 <177409897341.266364.2957933304869869135.b4-review@b4>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-8+build1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Date: Mon, 30 Mar 2026 12:52:16 +0200
-From: Florian Eckert <fe@dev.tdt.de>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Johan Hovold <johan+linaro@kernel.org>,
-	Sajid Dalvi <sdalvi@google.com>,
-	Ajay Agarwal <ajayagarwal@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rahul Tanwar <rtanwar@maxlinear.com>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Eckert.Florian@googlemail.com, ms@dev.tdt.de
-Subject: Re: [PATCH v2 6/7] dt-bindings: PCI: intel,lgm-pcie: Make atu
- resource mandatory
-In-Reply-To: <b8c60db1-7b72-410e-95a1-f13052af7256@kernel.org>
-References: <20260330-pcie-intel-gw-v2-0-8bd07367a298@dev.tdt.de>
- <20260330-pcie-intel-gw-v2-6-8bd07367a298@dev.tdt.de>
- <b8c60db1-7b72-410e-95a1-f13052af7256@kernel.org>
-Message-ID: <34a5e88249cf895cfa1132a29343ab90@dev.tdt.de>
-X-Sender: fe@dev.tdt.de
-User-Agent: Roundcube Webmail/1.3.17
-Content-Transfer-Encoding: quoted-printable
-X-purgate: clean
-X-purgate-type: clean
-X-purgate-ID: 151534::1774867939-5CFFFF63-00344717/0/0
 
-
-
-On 2026-03-30 11:50, Krzysztof Kozlowski wrote:
-> On 30/03/2026 11:07, Florian Eckert wrote:
->> The ATU information is already set in the dwc core if it is specified=20
->> in
->> the DTS. The driver uses its own value here [1]. This information is
->> hardware specific and should therefore be maintained in the DTS rather
->> than in the source.
->>=20
->> Backwards compatibility is not an issue here [5], as the driver is
->> exclusively used by Maxlinear.
+On Sat, 2026-03-21 at 14:16 +0100, Krzysztof Kozlowski wrote:
+> On Wed, 18 Mar 2026 15:27:50 +0000, Andr=C3=A9 Draszik <andre.draszik@lin=
+aro.org> wrote:
+> > diff --git a/drivers/pmdomain/samsung/exynos-pm-domains.c b/drivers/pmd=
+omain/samsung/exynos-pm-domains.c
+> > index 5c3aa8983087..68b1e7ba8729 100644
+> > --- a/drivers/pmdomain/samsung/exynos-pm-domains.c
+> > +++ b/drivers/pmdomain/samsung/exynos-pm-domains.c
+> > @@ -120,9 +140,26 @@ static int exynos_pd_probe(struct platform_device =
+*pdev)
+> > [ ... skip 20 lines ... ]
+> > +
+> > +	reg_config.max_register =3D resource_size(res) - reg_config.reg_strid=
+e;
+> > +	pd->regmap =3D devm_regmap_init_mmio(dev, base, &reg_config);
+> > +	if (IS_ERR(pd->regmap))
+> > +		return dev_err_probe(dev, PTR_ERR(base),
+> > +				=C2=A0=C2=A0=C2=A0=C2=A0 "failed to init regmap\n");
 >=20
-> What does that mean exactly? It is not used outside of Maxlinear
-> company, so it is purely internal device and no one outside of=20
-> Maxlinear
-> has it?
+> PTR_ERR(pd->regmap)
 
-Background information:
+Thanks!
 
-The PCIe IP core is only available for Maxlinear=E2=80=99s URX851 and
-URX850 SoCs. However, the chip was originally developed by Intel when
-they acquired Lantiq=E2=80=99s home networking division in 2015 [1] for t=
-his
-SoCs. In 2020 the home network division was sold to Maxlinear [2].
-
-Since then, Maxlinear has been responsible for the driver. However,
-their SDK is outdated and based on kernel 5.15. Other than that, not
-much is happening! Even the developers listed as maintainers can no
-longer be reached. When it came to the patch set, the email couldn't
-be delivered  to the responsible developer
-'Chuanhua Lei <lchuanhua@maxlinear.com>' either. The email bounced
-back.
-
-The company I work for is using the chip and is currently in the
-process  of extracting the key components from the SDK so that the
-SoC URX851/URX850 can work again with a mainline kernel again.
-
-[1]=20
-https://www.intc.com/news-events/press-releases/detail/364/intel-to-acqui=
-re-lantiq-advancing-the-connected-home
-[2]=20
-https://investors.maxlinear.com/press-releases/detail/395/maxlinear-to-ac=
-quire-intels-home-gateway-platform
-
-> Then we can as well remove it and I don't quite get why you are working
-> on this (since no one can use it outside of Maxlinear...).
-
-Maxlinear continues to sell that SoC. They are *not' EOL.
-It=E2=80=99s just that their Board Support Package (SDK) is no longer
-up to date.
-
->>=20
->> Old DTS entry for PCIe:
->>=20
->> reg =3D <0xd1000000 0x1000>,
->>       <0xd3000000 0x20000>,
->>       <0xd0c41000.0x1000>;
->> reg-names =3D "dbi", "config", "app";
->>=20
->> New DTS entry for PCIe:
->>=20
->> reg =3D <0xd1000000 0x1000>,
->>       <0xd10c0000 0x1000>,
->>       <0xd3000000 0x20000>,
->>      <0xd0c41000.0x1000>;
->> reg-names =3D "dbi", "atu", "config", "app";
->=20
-> Drop, irrelevant. You still break all users of this binding.
-
-As noted in link [3], a Maxlinear developer has stated that
-backwards compatibility is not necessary here, as the IP core
-is used exclusively by Maxlinear`s URX851 and URX850 SoC`s.
-
-We use these SoCs in our Produkt for internet home gateway
-routers.
-
-[3]=20
-https://lore.kernel.org/all/BY3PR19MB507667CE7531D863E1E5F8AEBDD82@BY3PR1=
-9MB5076.namprd19.prod.outlook.com/
-
-> Best regards,
-> Krzysztof
+A.
