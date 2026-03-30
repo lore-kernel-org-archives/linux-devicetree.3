@@ -1,129 +1,166 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mxout70.expurgate.net (mxout70.expurgate.net [194.37.255.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1303BD622
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 10:52:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41CF23BED71;
+	Mon, 30 Mar 2026 10:52:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.37.255.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774867933; cv=none; b=Secap4TRO4E+FmcY2VTQv5kga2uSTDf8AUjsrbKpzdV+SvIo3SMH+qOA7tTXAjXB8FLlYHOKDGOYzvcYvS3wrzBG8wMtMQI86C68204TmLtZ6WBZEY0Q7rv4FsKxaNVifWd3k2hJeEe2YMQhiJzecisGIgURiTTCcLZgmZcVBpQ=
+	t=1774867944; cv=none; b=or9KQsGEMOjfzFDkPAxsosvolkraPX2rPaStNxBBpZ6oJn/1ufg11SAAnZBdf4dsRyg3oWyzUlq68hqrnctfErVgmaA4AGbtTcTS2pBzMlOnxCQuls/s9krzJ7LxDo2rP8dk4uhBold9aPkSc5J291Ca/B/46ENbpDsyKznyYdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774867933; c=relaxed/simple;
-	bh=8tGCl9H2u0kxygEigoVcToA6cJ97rZF07Am4vKOJmbs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=U9DYv0rrvpWA/xzHpzSZo3NsOlYCZH+/0BjPJKXAgUTgYsMvFZ7R47SOvv70Vsyt1F9Pssol/pbQ6LyUcdrwUou9EMMEVt6H3SWbjqbzSs+DHp7z8wJLhEZmYiwDYpxTQdbfCif80xVdwQA3z0cgaGm3F6+/xKfdzXCMPApEAWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=VCvcQwNg; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1774867944; c=relaxed/simple;
+	bh=D+SiK0i5DF0AJ/XycJ8nhWu794AmX3HCGFp0PoPZ3SA=;
+	h=MIME-Version:Content-Type:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID; b=rsvBAti0GZg5IiZ4edfmguiG1XSLd4aK5S1sl16qnWsCt0Irof6HK24i6tbsSC0ApAPQXlLNIk4FUkF9WqcbJoj+M2RD7WkM1Lk8bNOEm3CxDnDLwKnCvvdc35RJf/nZ8+pUtB74H29CvrQrY/j6JRw58o4MMK9bEkWK+S9zM0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dev.tdt.de; spf=pass smtp.mailfrom=dev.tdt.de; dkim=temperror (0-bit key) header.d=dev.tdt.de header.i=@dev.tdt.de header.b=UFzUkFRI; arc=none smtp.client-ip=194.37.255.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dev.tdt.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dev.tdt.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="VCvcQwNg"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4853c1ca73aso42783515e9.2
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 03:52:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774867931; x=1775472731; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=8tGCl9H2u0kxygEigoVcToA6cJ97rZF07Am4vKOJmbs=;
-        b=VCvcQwNgAwvtg6k5HaKlSk/DWAF287dpGwC0Rn8Ss871lQXbEI2DnRHtdW2xQXmJGh
-         1n0yxr/aQ7X9PEd4x3a4rdhGLkK8/yVBNvq/kuJYFQ/MqrzWYRoAMq0xX/DVTmC4Ef4G
-         Ytn4u/JkAGZur15HRZCJ9Q9rd2wC1JarucW9f8TKbKsDHtZcFgFZ0ziNyBOcbbhK+8At
-         QJ/v1XvY0HOiHEfB7VRo3ZltFUZatWUXSOcapmU7lLnuSArdccf/tC+4RBLE2i4MmZW9
-         Zwrac2m2GafZGJRLTfO56KACyfl0NUTm6Wm28CV/gxR9yv4YqTGJ/1i/uWgHcUK5SVtI
-         TWYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774867931; x=1775472731;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8tGCl9H2u0kxygEigoVcToA6cJ97rZF07Am4vKOJmbs=;
-        b=kyK0D/pf1RglWea4822uaB9BPp4pfGQcDe7s5ch6/tkQs8H6TlpBnScta2Cy1B+5c9
-         jVWIW0uyBA6jqVg41Juw2UVqYTWLg8lWX+Jo9rFkdxMnlb6gUZLgtz5gITlyBBWdl/iJ
-         5IB6q8PtJi12yePAdAo2euWlXy8rLNxXP79FQ/kESkNunviAHDhXYT1qFHFRRurLyqVG
-         ZlC1wYDL495a+3icnSm6IlByl8DNC5VcXg84CbEWcH9eZ4DofoaIxnpQMa3tzQ87Em2a
-         O29pjPhm5LLZa5F9GIlQFFTma2/YmcJfY5Bkgtsu5OoRb9gKVTXyBMT5B9xuqHNRJvGj
-         R+2g==
-X-Forwarded-Encrypted: i=1; AJvYcCVxdG0IMKTAQRWlANPZmtWf61nNUcTw7HeNA2D4sZiJEejzvVKG41XqsdhIFlRoT6jW90zHKbhazaG1@vger.kernel.org
-X-Gm-Message-State: AOJu0YxlHX2IJZ7fvOLr8KonFmCWBogiBzOo1ujxvvo29v3/LCjhRi3y
-	WSHoF6AzGoAa3nBSkxwzKpXx/lqEzeFBeAOYhV5N3WZHuBsDLtCBuAnhX6eZNPaIypo=
-X-Gm-Gg: ATEYQzzqCWRSLxK7j9uLeWjG1YqIuOVbsyxf3VchnjCxzmrCrNTmJaN7kPgEi9iEWIK
-	/7E01ZcyQ6kjaj5WMDTGdKzwe4QxDWExkHeLEVDCiGIv8poN3E3rdH4uliyA/nAWqbbd4WxJ2GP
-	p8nUbqyum51ZdD0gFg90YTYy8YZk4la2+3aIJcY3UWJ9TnMC5MckbhGZbUQU0jEJJQKwyJ55Z1Z
-	On3NidPj0p9qF/sRfwrPUJsue8PxDOXLFIwaddWoZckE/I9xc1hpNP+sFAf0nN94adOQhNblXdP
-	Xo/666S8r4yv5lK7W4EwB5V88pMSqJLUxiLHTgvi912x7gdYuowFr5voVEbkawhnUujys9IeCsr
-	f6QdyeqMFxNgIRUooLq7ZLH/DwFG8Ni8HWJDYAqS77OAKS3scSRPgxcXPz646UJdku3xOG2kiuf
-	8kQd6kbdX1wVGbd9XoAWvhoNmbNLp7
-X-Received: by 2002:a05:600c:a108:b0:485:3a27:a961 with SMTP id 5b1f17b1804b1-48727c82082mr167788605e9.0.1774867930830;
-        Mon, 30 Mar 2026 03:52:10 -0700 (PDT)
-Received: from draszik.lan ([212.129.78.46])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4873ab203e9sm78932785e9.0.2026.03.30.03.52.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Mar 2026 03:52:10 -0700 (PDT)
-Message-ID: <6f0be0a71c74e7a7959e9ad02e93aff1cb8ef712.camel@linaro.org>
-Subject: Re: [PATCH v8 02/10] dt-bindings: power: samsung: add
- google,gs101-pd
-From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, Rob Herring <robh@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Ulf Hansson	 <ulf.hansson@linaro.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown	 <broonie@kernel.org>, Peter Griffin
- <peter.griffin@linaro.org>, Tudor Ambarus	 <tudor.ambarus@linaro.org>, Juan
- Yescas <jyescas@google.com>, Will McVicker	 <willmcvicker@google.com>,
- kernel-team@android.com, 	linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, 	devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	linux-pm@vger.kernel.org
-Date: Mon, 30 Mar 2026 11:52:08 +0100
-In-Reply-To: <177409897339.266364.69715997034739052.b4-review@b4>
-References: <20260318-gs101-pd-v8-0-241523460b10@linaro.org>
-	 <20260318-gs101-pd-v8-2-241523460b10@linaro.org>
-	 <177409897339.266364.69715997034739052.b4-review@b4>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-8+build1 
+	dkim=temperror (0-bit key) header.d=dev.tdt.de header.i=@dev.tdt.de header.b="UFzUkFRI"
+Received: from [194.37.255.9] (helo=mxout.expurgate.net)
+	by relay.expurgate.net with smtp (Exim 4.92)
+	(envelope-from <prvs=65635f912b=fe@dev.tdt.de>)
+	id 1w7AEF-00ABA7-HW; Mon, 30 Mar 2026 12:52:19 +0200
+Received: from [195.243.126.94] (helo=securemail.tdt.de)
+	by relay.expurgate.net with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <fe@dev.tdt.de>)
+	id 1w7AEE-00AIuC-Sb; Mon, 30 Mar 2026 12:52:18 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dev.tdt.de;
+	s=z1-selector1; t=1774867937;
+	bh=HvbWi47gqlNyI9kHp+KSuG7Ib+pQMoiDcb2Hu3VVp+g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=UFzUkFRIsYeB+K42ZjrXWJIFJj6sM+dL3YOGvbWYbn6rpJbvYNzUeId9LNYo23mZU
+	 hIxVPfJ9OReYNJGZx9kT35B7cpNzO71kvYkgd61fQhs2qb/fEqXY2EbkhlI+E3c7CO
+	 5++mqj5prJqraa0766xfttwzOwKdRI3Q1ZU6gvpWB90+6l7bmikuSz6q1wTGetvSOE
+	 TXkiQ6FhXbwuscTQcCEW+5XjSCO2aAs/zomBPwmt16BsuImcIjCT7/3lXFvk6wGQ6G
+	 /WYBtxuqEwYkLeRTHppFk3OCPc4BKdC53YpKBQ1Xk4toliDUSo/+g8KJbalQ5CUcqJ
+	 7IYnIl3hblzkg==
+Received: from securemail.tdt.de (localhost [127.0.0.1])
+	by securemail.tdt.de (Postfix) with ESMTP id 27565240041;
+	Mon, 30 Mar 2026 12:52:17 +0200 (CEST)
+Received: from mail.dev.tdt.de (unknown [10.2.4.42])
+	by securemail.tdt.de (Postfix) with ESMTP id 0B7C5240036;
+	Mon, 30 Mar 2026 12:52:17 +0200 (CEST)
+Received: from mail.dev.tdt.de (localhost [IPv6:::1])
+	by mail.dev.tdt.de (Postfix) with ESMTP id 5BCFC206DD;
+	Mon, 30 Mar 2026 12:52:16 +0200 (CEST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Date: Mon, 30 Mar 2026 12:52:16 +0200
+From: Florian Eckert <fe@dev.tdt.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Johan Hovold <johan+linaro@kernel.org>,
+	Sajid Dalvi <sdalvi@google.com>,
+	Ajay Agarwal <ajayagarwal@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rahul Tanwar <rtanwar@maxlinear.com>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	Eckert.Florian@googlemail.com, ms@dev.tdt.de
+Subject: Re: [PATCH v2 6/7] dt-bindings: PCI: intel,lgm-pcie: Make atu
+ resource mandatory
+In-Reply-To: <b8c60db1-7b72-410e-95a1-f13052af7256@kernel.org>
+References: <20260330-pcie-intel-gw-v2-0-8bd07367a298@dev.tdt.de>
+ <20260330-pcie-intel-gw-v2-6-8bd07367a298@dev.tdt.de>
+ <b8c60db1-7b72-410e-95a1-f13052af7256@kernel.org>
+Message-ID: <34a5e88249cf895cfa1132a29343ab90@dev.tdt.de>
+X-Sender: fe@dev.tdt.de
+User-Agent: Roundcube Webmail/1.3.17
+Content-Transfer-Encoding: quoted-printable
+X-purgate: clean
+X-purgate-type: clean
+X-purgate-ID: 151534::1774867939-5CFFFF63-00344717/0/0
 
-Hi Krzysztof,
 
 
-On Sat, 2026-03-21 at 14:16 +0100, Krzysztof Kozlowski wrote:
-> On Wed, 18 Mar 2026 15:27:47 +0000, Andr=C3=A9 Draszik <andre.draszik@lin=
-aro.org> wrote:
-> > diff --git a/Documentation/devicetree/bindings/power/pd-samsung.yaml b/=
-Documentation/devicetree/bindings/power/pd-samsung.yaml
-> > index 9c2c51133457..3f1a2dc17862 100644
-> > --- a/Documentation/devicetree/bindings/power/pd-samsung.yaml
-> > +++ b/Documentation/devicetree/bindings/power/pd-samsung.yaml
-> > @@ -44,11 +45,28 @@ properties:
-> > =C2=A0=C2=A0 power-domains:
-> > =C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
-> > =C2=A0
-> > +=C2=A0 samsung,dtzpc:
-> > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/phandle
-> > +=C2=A0=C2=A0=C2=A0 description:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Distributed TrustZone Protection Contro=
-l (DTZPC) node.
+On 2026-03-30 11:50, Krzysztof Kozlowski wrote:
+> On 30/03/2026 11:07, Florian Eckert wrote:
+>> The ATU information is already set in the dwc core if it is specified=20
+>> in
+>> the DTS. The driver uses its own value here [1]. This information is
+>> hardware specific and should therefore be maintained in the DTS rather
+>> than in the source.
+>>=20
+>> Backwards compatibility is not an issue here [5], as the driver is
+>> exclusively used by Maxlinear.
 >=20
-> For what purpose?
+> What does that mean exactly? It is not used outside of Maxlinear
+> company, so it is purely internal device and no one outside of=20
+> Maxlinear
+> has it?
 
-It is part of the domain.
+Background information:
 
-Furthermore, TZ configuration is lost as part of power-domain power
-cycle, so this allows a driver to take necessary actions (inform the
-EL3 firmware). I believe this handle to be similar to e.g. the existing
-samsung,sysreg
+The PCIe IP core is only available for Maxlinear=E2=80=99s URX851 and
+URX850 SoCs. However, the chip was originally developed by Intel when
+they acquired Lantiq=E2=80=99s home networking division in 2015 [1] for t=
+his
+SoCs. In 2020 the home network division was sold to Maxlinear [2].
 
-> Your patchset is organized in odd way - first patch for me, then not for
-> me, then again two patches for me. Please keep it consistent. Or better,
-> decouple since there are no dependencies according to cover letter.
+Since then, Maxlinear has been responsible for the driver. However,
+their SDK is outdated and based on kernel 5.15. Other than that, not
+much is happening! Even the developers listed as maintainers can no
+longer be reached. When it came to the patch set, the email couldn't
+be delivered  to the responsible developer
+'Chuanhua Lei <lchuanhua@maxlinear.com>' either. The email bounced
+back.
 
-I'll update the cover letter to describe the dependencies. 4 depends on 2,
-and 2 depends on 1, hence the ordering.
+The company I work for is using the chip and is currently in the
+process  of extracting the key components from the SDK so that the
+SoC URX851/URX850 can work again with a mainline kernel again.
 
+[1]=20
+https://www.intc.com/news-events/press-releases/detail/364/intel-to-acqui=
+re-lantiq-advancing-the-connected-home
+[2]=20
+https://investors.maxlinear.com/press-releases/detail/395/maxlinear-to-ac=
+quire-intels-home-gateway-platform
 
-Cheers,
-Andre
+> Then we can as well remove it and I don't quite get why you are working
+> on this (since no one can use it outside of Maxlinear...).
+
+Maxlinear continues to sell that SoC. They are *not' EOL.
+It=E2=80=99s just that their Board Support Package (SDK) is no longer
+up to date.
+
+>>=20
+>> Old DTS entry for PCIe:
+>>=20
+>> reg =3D <0xd1000000 0x1000>,
+>>       <0xd3000000 0x20000>,
+>>       <0xd0c41000.0x1000>;
+>> reg-names =3D "dbi", "config", "app";
+>>=20
+>> New DTS entry for PCIe:
+>>=20
+>> reg =3D <0xd1000000 0x1000>,
+>>       <0xd10c0000 0x1000>,
+>>       <0xd3000000 0x20000>,
+>>      <0xd0c41000.0x1000>;
+>> reg-names =3D "dbi", "atu", "config", "app";
+>=20
+> Drop, irrelevant. You still break all users of this binding.
+
+As noted in link [3], a Maxlinear developer has stated that
+backwards compatibility is not necessary here, as the IP core
+is used exclusively by Maxlinear`s URX851 and URX850 SoC`s.
+
+We use these SoCs in our Produkt for internet home gateway
+routers.
+
+[3]=20
+https://lore.kernel.org/all/BY3PR19MB507667CE7531D863E1E5F8AEBDD82@BY3PR1=
+9MB5076.namprd19.prod.outlook.com/
+
+> Best regards,
+> Krzysztof
