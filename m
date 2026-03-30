@@ -1,68 +1,108 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536343242BD;
-	Mon, 30 Mar 2026 14:48:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB35532470F
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 14:48:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774882102; cv=none; b=hOPyN/o7zcFOyY2Z4Mcs0ncWb01Pqu+sd3tEKKdZo0pUUPNxgc6k0HlgKbxbzJ9QKwN/CmG46GJVYzpEPjp4LBAcOnHFx8X0hryT2xTgO3oZryPRl4shYvir1LlsLJVT9u+1yIaXA1881DuC7IsxQZE2jXiE2q0SDDJ18ugccRU=
+	t=1774882125; cv=none; b=tAyvrFgyp4EA2MFfESPPm4g0IEfEMItzwKuB7kkvZ9kaIXnWjiNv7mW+plQClHrurTjAUhehTdq2xhuc9gzn7S8bh5ae1NRJeLsvDsfzxgq2iCwZhgeQ0z7OtWUnrUAT1OxYXS0y2dWXzy6L4Zw2088vB8WRPL2Rhsjeum08pZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774882102; c=relaxed/simple;
-	bh=xpBPUcul1mxy76GdOsZONkg8Sx2okkRC6m5zBbw2K2U=;
+	s=arc-20240116; t=1774882125; c=relaxed/simple;
+	bh=qRDMpKJX27w2zrmAyfZnBYRp0iKrPs7epsHO9Ew4my8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bCxVOK5gjduDy4+muLIKiqt2uUZJWntcAkhXGYGiybs/xMJTETLZWHi0jP5Kso9hastE1dD25DYl5s5bzpKzdsUHoltrdBtKAzBSIwu4gjyyxAWYMC8faHFrHuJopVuAeKGKSACCneQmMaT2bC3pTJTFbEBMm4i7rQpslpqZd1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=byu97nM0; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=TT44gn4wUgJmh+zeSp7jZMcLtXDGj3oGnjkaU0Vr3Mw68P+KOKEH9HLZJ+Xqqa8EEJWUYL3G0bwpEV02KLibP590LkTxDO85kr9XPBP7DZQJTlMrN84udQDly+cfIqWlYaXFk6Pv+IlD55IjV5JdmFITAY4DcOD/BE7RXCEzDVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BrEPOcJi; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=K8q6oQhJ; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="byu97nM0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774882101; x=1806418101;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xpBPUcul1mxy76GdOsZONkg8Sx2okkRC6m5zBbw2K2U=;
-  b=byu97nM0kVK6sXPi2Ars2jrEyZxmWIFEbIssuepZBxVJKiQO8OCfzkUh
-   Li17a95Y7r6c9HQ3LHnG4UKtGmWoa9txE43VXKHGfPCZeM3PO2FlnxcZS
-   DB2OPSxpz6J+aj3tgizdWB8QZn5gzI1lN9TO2VI1vVAPPvR0nzPRN+Q9W
-   UvIqpUA0E/tcHsD2pPvdjGJcoNOy+kuy99yQtYIhIS9zrCR5KsPLRxCM8
-   9ZhJwhVJWhXPqUbvh8oGkUon3UVgIGlS8c7gJEQxGpEUtxE6OCN0mreUm
-   PoDpYKpZ2ebRWdjfu2Qhtbj1OKgDae3mjDYsTbzMKkI2IVnYFrtTCCC6V
-   g==;
-X-CSE-ConnectionGUID: 5gdJG16QS9+WFOPeUskbCQ==
-X-CSE-MsgGUID: MmyPapJrSK2AbhJZvZNL7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11743"; a="79779133"
-X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; 
-   d="scan'208";a="79779133"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Mar 2026 07:48:20 -0700
-X-CSE-ConnectionGUID: GeCJocUATueDNdJ/3Bzb9Q==
-X-CSE-MsgGUID: Uwruj5+6QpuBx/L3s5F1+g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; 
-   d="scan'208";a="222767787"
-Received: from lkp-server01.sh.intel.com (HELO 283bf2e1b94a) ([10.239.97.150])
-  by fmviesa007.fm.intel.com with ESMTP; 30 Mar 2026 07:48:17 -0700
-Received: from kbuild by 283bf2e1b94a with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1w7DuY-000000001E5-1RHg;
-	Mon, 30 Mar 2026 14:48:14 +0000
-Date: Mon, 30 Mar 2026 22:47:32 +0800
-From: kernel test robot <lkp@intel.com>
-To: Mikko Perttunen <mperttunen@nvidia.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-pwm@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, Yi-Wei Wang <yiweiw@nvidia.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>
-Subject: Re: [PATCH v2 2/7] pwm: tegra: Avoid hard-coded max clock frequency
-Message-ID: <202603302251.AFXspVqF-lkp@intel.com>
-References: <20260325-t264-pwm-v2-2-998d885984b3@nvidia.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BrEPOcJi";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="K8q6oQhJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1774882122;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZPJMgxubQOT61Bt8c1TkmO+q4Ej7bdY+pNKwDemJ1Jo=;
+	b=BrEPOcJiBgKyawOW84vRe/2aaKHprKqX3AeT8xQvqyUdq26gDqzfFaE53ePL46sNJOnQ8k
+	Yf5vLuPFGKS5Fn2EfGsEjROl8Dl0gMNT7TD4D3QAgNQbIvWaoNEkawF9DRABFOGCgVkSpT
+	Rba2pLhQShN+d+br+Au/UrTmEDY1ObY=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-224-8YiF78a_N4GgnEMlXTUapA-1; Mon, 30 Mar 2026 10:48:41 -0400
+X-MC-Unique: 8YiF78a_N4GgnEMlXTUapA-1
+X-Mimecast-MFC-AGG-ID: 8YiF78a_N4GgnEMlXTUapA_1774882121
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50939597b85so117265271cf.2
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 07:48:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1774882120; x=1775486920; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZPJMgxubQOT61Bt8c1TkmO+q4Ej7bdY+pNKwDemJ1Jo=;
+        b=K8q6oQhJEx3pnwO+3jLG8oJBEAddLRbv0kk5jno3mj2g50QrUs8oKawg8K8da2ZIwd
+         r4FGXvNMTUtzI9qHaKsVrKsdVWtsD+aLqLhfwYxYl2kCKb4Bo6lUWbSZZJMHu2xlpL3k
+         UIfg6GSawlT1jqE6TNlL/UHG1VOTBy1eeTbVwKrX9xjDjzDXLb56gtWQSQGo0WrVm4pU
+         FG3yLZZ+JLOp6K+w2tfrKqpfnmsIyYN/6jM/Getsw7KqmzGl+ve5otXG3t7twa9P7Z1T
+         b/DUjJ0vHwffMFZKlBwbe/721THxHotSdu6rpCmZty8sdZhcoy0NpHVGAWYWnoMgbMte
+         RScQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774882120; x=1775486920;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ZPJMgxubQOT61Bt8c1TkmO+q4Ej7bdY+pNKwDemJ1Jo=;
+        b=C3zDnLCpfrY0i+DK9rvdERCbtOTMIRcUmRk8GOxVzMjhav1utlS1Vc0XdqCZnp4zG6
+         8yiAGuR33KIBNZVKL0dt2AZrh5zgzSKPbnRAfTfUSwanveNo+n1AA5n2ueByKMtcjb4O
+         LhBOS6WA6h5GApkFzR+PDbe4DK1ZdypcFBNEVF9Pvfk4SfFASJxdB87w7JXEyWYXHeCM
+         DvwLR8LmzIw2OgLT1iU26oc1UfBzgPuDaGovt1n7Swc1V86so1VmA3WaeH5XxFZL4SXC
+         +7Q4VWus36o8HTCpREwvY3PeUFpucYriORa2BletIQXCEJMZqVYJmKtml8HV8qpFpxXT
+         Tc5A==
+X-Forwarded-Encrypted: i=1; AJvYcCVTb1jBT6wQWxYGVL3Uuk3CsF2At9T//bNE67PZBM8bUkun4Hy8Ma+aGbSrGtxVs3HR4gyWtkqqct+P@vger.kernel.org
+X-Gm-Message-State: AOJu0YyXZwirm41vck0ohzEAZksA+YqU1KnafeV2mK+TfEm6m02aAo7w
+	+JEsLYZYn19jPla7xgiWZ3gsgb5aD1YxoVZa3V1L7YnpbJ1cvOIJIPm8L2JcD9KwtroDf4X9mDK
+	nnrOfwDttWtwmWVS7Tpvp4928KjgyrCD8j5lHsdeXwStJIAkjLa6iSKy2B1qdaTA=
+X-Gm-Gg: ATEYQzx4RVWZal+O8+jn70gv87dj1dL6GnljPWm2HJ1SwHpvCgqh10Qk4nosXYEEPa3
+	isq8f7/eerNygq9SC8RG2IYoDctOZm5kaDJAMNmz1Q9Dc0KGkHy93TUEWpgwRGjYQwrnE9uYM16
+	Wvz3RtXUeTltOr4ZhEX+FfWN5/qryQPbaJgIcWanx+le/m0i24gkoEOisDbHqwym6Vm6bqvlczl
+	eMD872amG9LSjfZX/Sb9beeaBBnkKyldE3ZdKw4JNxo9hJkuuJRKEUMLdlEW3DgJ+W0fY3UZdqE
+	+GXpBCK23kZ1j0r75RVGKoJayXwnq99DA6XrFFdRfuaWE2Mg25Z944iQRyV1bmMMinIK3w88iaJ
+	Gw4w/aTn+L1shdfgu7op1SF/7YL2z9qyhnNG3dYiL9e9HGCRJp3NvaDF8
+X-Received: by 2002:ac8:5710:0:b0:509:23c5:3291 with SMTP id d75a77b69052e-50ba39bae24mr162438241cf.65.1774882120284;
+        Mon, 30 Mar 2026 07:48:40 -0700 (PDT)
+X-Received: by 2002:ac8:5710:0:b0:509:23c5:3291 with SMTP id d75a77b69052e-50ba39bae24mr162437351cf.65.1774882119419;
+        Mon, 30 Mar 2026 07:48:39 -0700 (PDT)
+Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-50bb2dd8b81sm66397621cf.16.2026.03.30.07.48.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 30 Mar 2026 07:48:38 -0700 (PDT)
+Date: Mon, 30 Mar 2026 10:48:37 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Olivia Mackall <olivia@selenic.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Jayesh Choudhary <j-choudhary@ti.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Antoine Tenart <atenart@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Pascal EBERHARD <pascal.eberhard@se.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Chen-Yu Tsai <wenst@chromium.org>
+Subject: Re: [PATCH 06/16] clk: tests: Add clk_parse_clkspec() Kunit testing
+Message-ID: <acqNRVLrPxABvecZ@redhat.com>
+References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
+ <20260327-schneider-v7-0-rc1-crypto-v1-6-5e6ff7853994@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,115 +111,146 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260325-t264-pwm-v2-2-998d885984b3@nvidia.com>
+In-Reply-To: <20260327-schneider-v7-0-rc1-crypto-v1-6-5e6ff7853994@bootlin.com>
+User-Agent: Mutt/2.3.0 (2026-01-25)
 
-Hi Mikko,
+Hi Miquel,
 
-kernel test robot noticed the following build warnings:
+On Fri, Mar 27, 2026 at 09:09:28PM +0100, Miquel Raynal (Schneider Electric) wrote:
+> Create a new set of kunit tests to make sure clk_parse_clkspec() is
+> working as expected. We currently verify if we get a proper device when
+> using indexes and names. If we make an out of bounds request we expect
+> an error.
+> 
+> For testing purposes, we must ensure of_clk_get_hw()'s symbol is
+> exported.
+> 
+> Suggested-by: Stephen Boyd <sboyd@kernel.org>
+> Signed-off-by: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
+> ---
+>  drivers/clk/Makefile                     |   1 +
+>  drivers/clk/clk.c                        |   1 +
+>  drivers/clk/clk_test.c                   | 124 +++++++++++++++++++++++++++++++
+>  drivers/clk/kunit_clk_parse_clkspec.dtso |  21 ++++++
+>  4 files changed, 147 insertions(+)
+> 
+> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
+> index f7bce3951a30..97b621456bf5 100644
+> --- a/drivers/clk/Makefile
+> +++ b/drivers/clk/Makefile
+> @@ -19,6 +19,7 @@ clk-test-y			:= clk_test.o \
+>  				   kunit_clk_assigned_rates_zero.dtbo.o \
+>  				   kunit_clk_assigned_rates_zero_consumer.dtbo.o \
+>  				   kunit_clk_hw_get_dev_of_node.dtbo.o \
+> +				   kunit_clk_parse_clkspec.dtbo.o \
+>  				   kunit_clk_parent_data_test.dtbo.o
+>  obj-$(CONFIG_COMMON_CLK)	+= clk-divider.o
+>  obj-$(CONFIG_COMMON_CLK)	+= clk-fixed-factor.o
+> diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+> index 47093cda9df3..1795246b10a0 100644
+> --- a/drivers/clk/clk.c
+> +++ b/drivers/clk/clk.c
+> @@ -5312,6 +5312,7 @@ struct clk_hw *of_clk_get_hw(struct device_node *np, int index,
+>  
+>  	return hw;
+>  }
+> +EXPORT_SYMBOL_GPL(of_clk_get_hw);
 
-[auto build test WARNING on 11439c4635edd669ae435eec308f4ab8a0804808]
+So that we don't unnecessarily broaden the API that's available to the
+clk providers, you can use EXPORT_SYMBOL_IF_KUNIT so that this is only
+available to the kunit tests.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Mikko-Perttunen/dt-bindings-pwm-Document-Tegra194-and-Tegra264-controllers/20260329-233356
-base:   11439c4635edd669ae435eec308f4ab8a0804808
-patch link:    https://lore.kernel.org/r/20260325-t264-pwm-v2-2-998d885984b3%40nvidia.com
-patch subject: [PATCH v2 2/7] pwm: tegra: Avoid hard-coded max clock frequency
-config: hexagon-randconfig-r113-20260330 (https://download.01.org/0day-ci/archive/20260330/202603302251.AFXspVqF-lkp@intel.com/config)
-compiler: clang version 23.0.0git (https://github.com/llvm/llvm-project 2cd67b8b69f78e3f95918204320c3075a74ba16c)
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260330/202603302251.AFXspVqF-lkp@intel.com/reproduce)
+Note that Chen-Yu posted a separate patch to add the includes for a
+separate test. The two patches will conflict since Stephen hasn't picked
+this up yet.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603302251.AFXspVqF-lkp@intel.com/
+https://lore.kernel.org/linux-clk/20260225083413.3384950-1-wenst@chromium.org/
 
-sparse warnings: (new ones prefixed by >>)
->> drivers/pwm/pwm-tegra.c:303:47: sparse: sparse: cast truncates bits from constant value (7fffffffffffffff becomes ffffffff)
+>  
+>  static struct clk *__of_clk_get(struct device_node *np,
+>  				int index, const char *dev_id,
+> diff --git a/drivers/clk/clk_test.c b/drivers/clk/clk_test.c
+> index a268d7b5d4cb..b814b45f1f7e 100644
+> --- a/drivers/clk/clk_test.c
+> +++ b/drivers/clk/clk_test.c
+> @@ -3541,10 +3541,134 @@ static struct kunit_suite clk_hw_get_dev_of_node_test_suite = {
+>  	.test_cases = clk_hw_get_dev_of_node_test_cases,
+>  };
+>  
+> +static const struct clk_init_data clk_parse_clkspec_1_init_data = {
+> +	.name = "clk_parse_clkspec_1",
+> +	.ops = &empty_clk_ops,
+> +};
+> +
+> +static const struct clk_init_data clk_parse_clkspec_2_init_data = {
+> +	.name = "clk_parse_clkspec_2",
+> +	.ops = &empty_clk_ops,
+> +};
+> +
+> +static struct clk_hw *kunit_clk_get(struct of_phandle_args *clkspec, void *data)
+> +{
+> +	return (struct clk_hw *)data;
+> +}
+> +
+> +struct clk_parse_clkspec_ctx {
+> +	struct device_node *prov1_np;
+> +	struct device_node *prov2_np;
+> +	struct device_node *cons_np;
+> +};
+> +
+> +static int clk_parse_clkspec_init(struct kunit *test)
+> +{
+> +	struct clk_parse_clkspec_ctx *ctx;
+> +	struct clk_hw *hw1, *hw2;
+> +
+> +	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
+> +	test->priv = ctx;
+> +
+> +	KUNIT_ASSERT_EQ(test, 0, of_overlay_apply_kunit(test, kunit_clk_parse_clkspec));
+> +
+> +	/* Register provider 1 */
+> +	hw1 = kunit_kzalloc(test, sizeof(*hw1), GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, hw1);
+> +	hw1->init = &clk_parse_clkspec_1_init_data;
+> +
+> +	ctx->prov1_np = of_find_compatible_node(NULL, NULL, "test,clock-provider1");
+> +	KUNIT_ASSERT_NOT_NULL(test, ctx->prov1_np);
+> +
+> +	KUNIT_ASSERT_EQ(test, 0, of_clk_hw_register_kunit(test, ctx->prov1_np, hw1));
+> +	of_clk_add_hw_provider(ctx->prov1_np, kunit_clk_get, hw1);
 
-vim +303 drivers/pwm/pwm-tegra.c
+Can you just use of_clk_hw_simple_get() and drop kunit_clk_get() above?
 
-   266	
-   267	static int tegra_pwm_probe(struct platform_device *pdev)
-   268	{
-   269		struct pwm_chip *chip;
-   270		struct tegra_pwm_chip *pc;
-   271		const struct tegra_pwm_soc *soc;
-   272		int ret;
-   273	
-   274		soc = of_device_get_match_data(&pdev->dev);
-   275	
-   276		chip = devm_pwmchip_alloc(&pdev->dev, soc->num_channels, sizeof(*pc));
-   277		if (IS_ERR(chip))
-   278			return PTR_ERR(chip);
-   279		pc = to_tegra_pwm_chip(chip);
-   280	
-   281		pc->soc = soc;
-   282	
-   283		pc->regs = devm_platform_ioremap_resource(pdev, 0);
-   284		if (IS_ERR(pc->regs))
-   285			return PTR_ERR(pc->regs);
-   286	
-   287		platform_set_drvdata(pdev, chip);
-   288	
-   289		pc->clk = devm_clk_get(&pdev->dev, NULL);
-   290		if (IS_ERR(pc->clk))
-   291			return PTR_ERR(pc->clk);
-   292	
-   293		ret = devm_tegra_core_dev_init_opp_table_common(&pdev->dev);
-   294		if (ret)
-   295			return ret;
-   296	
-   297		pm_runtime_enable(&pdev->dev);
-   298		ret = pm_runtime_resume_and_get(&pdev->dev);
-   299		if (ret)
-   300			return ret;
-   301	
-   302		/* Set maximum frequency of the IP */
- > 303		ret = dev_pm_opp_set_rate(&pdev->dev, S64_MAX);
-   304		if (ret < 0) {
-   305			dev_err(&pdev->dev, "Failed to set max frequency: %d\n", ret);
-   306			goto put_pm;
-   307		}
-   308	
-   309		/*
-   310		 * The requested and configured frequency may differ due to
-   311		 * clock register resolutions. Get the configured frequency
-   312		 * so that PWM period can be calculated more accurately.
-   313		 */
-   314		pc->clk_rate = clk_get_rate(pc->clk);
-   315	
-   316		/* Set minimum limit of PWM period for the IP */
-   317		pc->min_period_ns =
-   318		    (NSEC_PER_SEC / (pc->clk_rate >> PWM_DUTY_WIDTH)) + 1;
-   319	
-   320		pc->rst = devm_reset_control_get_exclusive(&pdev->dev, "pwm");
-   321		if (IS_ERR(pc->rst)) {
-   322			ret = PTR_ERR(pc->rst);
-   323			dev_err(&pdev->dev, "Reset control is not found: %d\n", ret);
-   324			goto put_pm;
-   325		}
-   326	
-   327		reset_control_deassert(pc->rst);
-   328	
-   329		chip->ops = &tegra_pwm_ops;
-   330	
-   331		ret = pwmchip_add(chip);
-   332		if (ret < 0) {
-   333			dev_err(&pdev->dev, "pwmchip_add() failed: %d\n", ret);
-   334			reset_control_assert(pc->rst);
-   335			goto put_pm;
-   336		}
-   337	
-   338		pm_runtime_put(&pdev->dev);
-   339	
-   340		return 0;
-   341	put_pm:
-   342		pm_runtime_put_sync_suspend(&pdev->dev);
-   343		pm_runtime_force_suspend(&pdev->dev);
-   344		return ret;
-   345	}
-   346	
+> +	of_node_put(ctx->prov1_np);
+> +
+> +	/* Register provider 2 */
+> +	hw2 = kunit_kzalloc(test, sizeof(*hw2), GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, hw2);
+> +	hw2->init = &clk_parse_clkspec_2_init_data;
+> +
+> +	ctx->prov2_np = of_find_compatible_node(NULL, NULL, "test,clock-provider2");
+> +	KUNIT_ASSERT_NOT_NULL(test, ctx->prov2_np);
+> +
+> +	KUNIT_ASSERT_EQ(test, 0, of_clk_hw_register_kunit(test, ctx->prov2_np, hw2));
+> +	of_clk_add_hw_provider(ctx->prov2_np, kunit_clk_get, hw2);
+> +	of_node_put(ctx->prov2_np);
+> +
+> +	ctx->cons_np = of_find_compatible_node(NULL, NULL, "test,clock-consumer");
+> +	KUNIT_ASSERT_NOT_NULL(test, ctx->cons_np);
+> +
+> +	return 0;
+> +}
+> +
+> +static void clk_parse_clkspec_exit(struct kunit *test)
+> +{
+> +	struct clk_parse_clkspec_ctx *ctx = test->priv;
+> +
+> +	of_node_put(ctx->prov1_np);
+> +	of_node_put(ctx->prov2_np);
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Is there a double free of prov1_np and prov2_np? If this is dropped from
+the test exit, then they should't need to be in the ctx struct.
+
+Brian
+
