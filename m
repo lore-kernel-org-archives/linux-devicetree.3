@@ -1,151 +1,170 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD5B32A3FE
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 14:55:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDDB32A3DE
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 14:56:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774882544; cv=none; b=qNxZoNDzCW8BeUdZ8a8sCsVkuGJfldz0KGbsFrikQ6AfDmhd6g+j8yXusSAQ9y0VT72RMoQEU1AvgemwjhGA9l4W6K1Ephf14jBv2rgB05wQx/Hxr+TPME7FIfg5prvMq88Rvwh6uZ6b6OHpEH12O5avNAkW3ecVR10EVeh+zZk=
+	t=1774882589; cv=none; b=cnxfbKa3fqte/LSHnQaiZC/IxdFdsCeFNbrelOmMPhNIw2DNxwONt2NmsKjnZIB87/Q1mlJr3UkEjgzFbpRyeILY7OVjvqxBnhAfFKcEq3g/TTmo5z6XFVfJjzsHG8f41U+BQHe0Xt14MiMA2pOv7AVxL8XRnSQqAgGKRsaymOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774882544; c=relaxed/simple;
-	bh=ALD3uDNicTlrTjfpZN84frj9IWM1PUG20b/GPPZcjkw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=E1nefVk3tBNntorAi1P++pokKhBRVAm8J+dUYaaAdKO6iEjJDXV7v5Dnq6YwtUGWzyZ6RdpfGc/s4yPEZoT2PaDy+VlgvbTLbZ5aU5ror/b4SoQ77YZ2eO+31v9v6JfRBUSK9/xCzxmONqBY+6wQVDAAWCRZItl+768aJJVOA5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=D0xGysUO; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1774882589; c=relaxed/simple;
+	bh=srhtjV8OPQAa52pA6qgonit5rjCWp8J+Uu2JBmWEGk0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tE6XNzaSW6JI1Rw3RXMHrdv5xKtA/FjTvUQBOp7dEd7O3Kf7HatZZVr77yynT4pXC+SStyI3Kkvn/vH3a2QRELjysyQQz4nl9PrMGZXglNrFH4pJzWwvidQ/G7aBCFOuw3h5V2OrTatd/XNTdjGUWSoUTC7HZKe2dFzvrbctaOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nljEApm+; arc=none smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="D0xGysUO"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-b97c44417ffso482518566b.2
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 07:55:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nljEApm+"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-82a655cfab5so4288191b3a.1
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 07:56:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1774882541; x=1775487341; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=469O081Aaa7aoFYWvcsfiJCJp8arQcJSe+eDYXLPnyA=;
-        b=D0xGysUO4tD9ilbCGSWDFxnbQ1YttanWFBZtidn+/fV6kkOfmpuTCaqgcStYnN/A2f
-         1rV0HvtQDwqgger5BwCPl1z0/A5QiF8mpqOwHvVM26IKlxdEWlHrq2QsyUjSm3XreuWJ
-         7m0vMn+w8eBNjZJv78Tvn1CWzBi9yrdl1xaI7McMKv1iivjDm98W4GZQE4sSLNoQd2as
-         ddYUeuhvPl/Qn/SsN8lKz6FqtyQ5j9YzybZeMG8R6MAv3AVgxAu7gONb+I5chp7MjUqy
-         wKaNgfYHJP2dE8xptw+CggpzCmROvoQgM/VbSsYCIo/D2/bknx4Tp30Br4NK0qz4vE1B
-         FeLQ==
+        d=linaro.org; s=google; t=1774882586; x=1775487386; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=UOF3McKorP7VTGh3x2yrLA4/BnIsjXMpRz4887A+PYk=;
+        b=nljEApm+ujlyRcHjOxUKB1g7AZI0bxl+Ou85vKKeZ8XH+/njpsSgvxOZ5XSRuVetEh
+         TWpGJzBp5ShdHD3AuPQ/6qsqaBzHCj6k3fnAoUixLthyvnIyRgOAjGR2bilJLU1wdeh1
+         MXzhcBEUteQLRqk2zcj/Q6SGBcEBEz5RcTJ5d6GhxUOqIAY55RKAERjnFRa8S5r0XkG8
+         DoyQHM5dcPAfN+7T0ThWfgJ9MSQmasAs8POIwz4muFiSv42K9RKW6i3lOHaGkEHMJ4FB
+         FNYuZK4dYh6MOr2P4R3piDM37EIIfWuZs6Ni13a7iTxghJJQ9PxgcqPzUuOkoP9AymjQ
+         jiUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774882541; x=1775487341;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=469O081Aaa7aoFYWvcsfiJCJp8arQcJSe+eDYXLPnyA=;
-        b=XKX4SyQDgwETu+Su5Kow3EzQ2UltGIOHdfJfsuPjBOlWlpPKNbLxS2Nbr+cNGOqFEK
-         rXht/9GHXMaxw3xdWG9bIX6fF2If0ZV9PofD3zYKp8xvIBXkLbfOKba1O61rdqhdrp9S
-         uzZQlT1Lp/tO9DzV/mPUqkJIXAS08Hie1Sc+SNWc1EDBmRWHSRHQ6rK45vuKfGaGI/GY
-         ClduiZh5/cszEos6z06PqYqZjYJqhnu4YzEloPRJ5Rr+GZK56YTGsK+CGEO5ktvVKDvL
-         Dn8I9D+pa/z9HEez0jlFi5TORd/1IcEwnpzOV+N5+2eVqzzM2mtpP2w6narE5nXVrnao
-         jxeg==
-X-Forwarded-Encrypted: i=1; AJvYcCVsL8AnWle9OEf4/UbKJsxVWX2po69vUhxLDTLo2Z6zTa8Qdg6LxT0vvA7rmJKEu811Dm762VMSYr76@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz1P5ebiN9ICHWsnc6LKAtTgUav9HZhKUiEftOncKVe0hoK5IGg
-	5vrprDGla6ORteRnMPdpvXUe8FLU4KGJkYnzQOk6OEj8fuaVrC77doUzsSFClcfWXHk=
-X-Gm-Gg: ATEYQzwd5QhnFz/s5sXAnVuuQKm2jYrJdks2+rUnrE5unTl4OVwBnddQMiphxx+OVnI
-	wTZEDhtCiUeyLA1fvmkCNCsoMT2CwuBGsiXxb1K0jyX0njWTlPMWq2JK5Qc6Gi1wZpP3w7QJdIN
-	isToeivLKwb4gx54328Z6rG+A5f+AcPXuua0NtTA8IWG1thp+bPgu3zitpuQL/rMS10R5stYC8/
-	TZvgzBMJlkGL4fX6fsKyYf7oktECpOHPrLVeI2/0tkFMfEDvNdf1zOi4LqoRh9VicoHW/D79jsb
-	AuimCtqVx/EBs8uwDdI4bDHLLDem5+5pW+lewahaVYIxvzaod9yHJC7shH5LNMcciuWsyDFUSft
-	wKHhD4gVW++y9u8Cldnr4ApO5vF/YY8Iv1yFEtQhUXvNvGvzOkCFDeGNMMZaZ7JTPgKz8HH6/xb
-	u9T51TrCNXszFsSxnA8HUw+/DDLoQCg8EX+4PPuBKtE7ZBCOMz+pA9ABWQw15toRvuVhbN
-X-Received: by 2002:a17:907:7a89:b0:b98:9da:4d94 with SMTP id a640c23a62f3a-b9b5095e40amr877735966b.48.1774882541028;
-        Mon, 30 Mar 2026 07:55:41 -0700 (PDT)
-Received: from localhost (144-178-202-139.static.ef-service.nl. [144.178.202.139])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9b7b1a5fbesm301940766b.37.2026.03.30.07.55.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 30 Mar 2026 07:55:40 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1774882586; x=1775487386;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=UOF3McKorP7VTGh3x2yrLA4/BnIsjXMpRz4887A+PYk=;
+        b=sNrqWboWExWKprLyTzS7IHZgfXSghZkiSwNjnjYGKsF6ci6Rlq2lb/3NXigv1Y56Rf
+         kzUE5DaVtq4ImdPl5jowbOTsg8wA3ttoaFnGB98JCXqN8syZYFqeALc6iBmJh3ju5Xla
+         gP5wSzvNb5YMFOko+5I9rliYMRk8r3SGV3fOrLENtuJIAE6CgAQ5agD8RpolAXvyANiM
+         vhwO2eYr2XaoRVCmnlLp+yt3fpZ8fCG4U58HM/krKYtuSf6nON92ElYlMGuXGokjl/ka
+         V2cGPJONdrp4BLedR3ZYltYCkNaJe/nEGq4Z6n0GWdgKklTkwoFMH5pH3psS3FWWHNZM
+         X2og==
+X-Forwarded-Encrypted: i=1; AJvYcCX+mTh5fj5LckYiOvhSn4eU+RcsSFhOpC0PZRrENVFiooN/qGISLmcIerdoYRfs8fPYQR0SH9+XN+SP@vger.kernel.org
+X-Gm-Message-State: AOJu0YxiPQWaQWpWd3iODfazJvx8zoJ1d1qjHiWQ2DmaeXxAt2DVlAvi
+	2y3lV8BJkiBGSQaBmBHPi3D/QLMPrRskgR3km8iCugSIGSYQtbFKpWeRqQdjCMsLJTQ=
+X-Gm-Gg: ATEYQzxEw89INMGVWoW58CJ1VRBKhjVEtCAcIIkHMShvF9b/tQDGfN++CK84J9iTM29
+	wj1EdC+8CB0Cf8frNFWP2FVtL+xl5YduQR4gS4Gz5QpsFbG0BhsoO0JeewcdXqTCaWJ/SamgULG
+	4XoVcUjI6yeEMwJ9Nq/AR5iT1Paw7wAERLiQIG0OZ+Uz62JW8bjeAm5PHey79b/1AVLfJbA/7Av
+	nDN8SLuzNiicYzsIJm/ok37+FuQRv+kSWcsnMLONkltv9/0rdGcS/3HcRSjcBS9d4H0J0YL6fIK
+	3kZfvV1ygNBkgVTXlO177U3CA7l8qy+CnSM7Kcfb9/6tF99XKPPbJWCvw0hovG7Bw9sR7mTyfjy
+	IIdvPnoZyk3XgslDAaxp0FJ6rFWo3mPucqwTJvIQDxd951iS+kbpdgR/jGQJ3FyUfuXvDu3gsPT
+	qOKUdgi2rPH9L1qsLlDVWlgvmnEok=
+X-Received: by 2002:a05:6a00:ad03:b0:829:a590:6d0f with SMTP id d2e1a72fcca58-82c96087f4amr11583763b3a.58.1774882586297;
+        Mon, 30 Mar 2026 07:56:26 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:51d0:8872:b109:d470])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82ca8498779sm7540458b3a.25.2026.03.30.07.56.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 30 Mar 2026 07:56:25 -0700 (PDT)
+Date: Mon, 30 Mar 2026 08:56:21 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Suman Anna <s-anna@ti.com>,
+	Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>, Vishal Mahaveer <vishalm@ti.com>,
+	Kevin Hilman <khilman@baylibre.com>, Dhruva Gole <d-gole@ti.com>,
+	Sebin Francis <sebin.francis@ti.com>,
+	Kendall Willis <k-willis@ti.com>, Akashdeep Kaur <a-kaur@ti.com>,
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 0/7] arm64: dts: ti: k3-am62a7-sk: Split r5f memory
+ region
+Message-ID: <acqPFV005fH8qHpV@p14s>
+References: <20260318-topic-am62a-ioddr-dt-v6-19-v3-0-c41473cb23c3@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 30 Mar 2026 16:55:40 +0200
-Message-Id: <DHG7CMLREKDF.2L5V5VQCEYDKH@fairphone.com>
-Subject: Re: [PATCH 2/5] dt-bindings: clock: qcom,milos-camcc: Document
- interconnect path
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Mike Tipton" <mike.tipton@oss.qualcomm.com>, "Konrad Dybcio"
- <konrad.dybcio@oss.qualcomm.com>
-Cc: "Krzysztof Kozlowski" <krzk@kernel.org>, "Luca Weiss"
- <luca.weiss@fairphone.com>, "Taniya Das" <taniya.das@oss.qualcomm.com>,
- "Georgi Djakov" <djakov@kernel.org>, "Bjorn Andersson"
- <andersson@kernel.org>, "Michael Turquette" <mturquette@baylibre.com>,
- "Stephen Boyd" <sboyd@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, <~postmarketos/upstreaming@lists.sr.ht>,
- <phone-devel@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260116-milos-camcc-icc-v1-0-400b7fcd156a@fairphone.com>
- <20260116-milos-camcc-icc-v1-2-400b7fcd156a@fairphone.com>
- <20260117-efficient-fractal-sloth-aaf7c2@quoll>
- <59d9f7ff-4111-4304-a76c-40f4000545f5@oss.qualcomm.com>
- <9f8619d4-43ac-4bc0-9598-c498d59a27b8@oss.qualcomm.com>
- <acH7aEBvSbiNwhBz@hu-mdtipton-lv.qualcomm.com>
-In-Reply-To: <acH7aEBvSbiNwhBz@hu-mdtipton-lv.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260318-topic-am62a-ioddr-dt-v6-19-v3-0-c41473cb23c3@baylibre.com>
 
-Hi Mike,
+On Wed, Mar 18, 2026 at 04:13:06PM +0100, Markus Schneider-Pargmann (TI) wrote:
+> Hi,
+> 
+> Split the firmware memory region in more specific parts so it is better
+> described where which information is stored. Specifically the LPM metadata
+> region is important as bootloader software like U-Boot has to know where
+> that data is to be able to read that data and resume from RAM.
+> 
+> IO+DDR is a deep sleep state in which a few pins are set to be sensitive
+> for wakeup while the DDR is kept in self refresh. Everything else is
+> powered off.
+> 
+> The changes in this series were suggested as part of the IO+DDR u-boot series:
+>   https://lore.kernel.org/r/814c211f-a9eb-4311-bb84-165b1a69755f@ti.com
+> 
+> There are currently no real users of the memory-region that is split in
+> this series. The size of the memory-region in total stays the same.
+> The new layout is derived from the software running on the r5f
+> processor:
+>   https://github.com/TexasInstruments/mcupsdk-core-k3/blob/k3_main/examples/drivers/ipc/ipc_rpmsg_echo_linux/am62ax-sk/r5fss0-0_freertos/ti-arm-clang/linker.cmd#L172
+>   https://github.com/TexasInstruments/mcupsdk-core-k3/blob/k3_main/source/drivers/device_manager/sciclient.h#L459
+> 
+> Additionally the two important devicetree nodes for resuming from IO+DDR
+> have the bootph-pre-ram flag added as this data needs to be read before
+> the RAM is in use.
+> 
+> Best
+> Markus
+> 
+> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+> ---
+> Changes in v3:
+> - Squash the enforcement of the memory-region-names requirement in the
+>   patch adding the memory-region-names, as suggested.
+> - Link to v2: https://lore.kernel.org/r/20260312-topic-am62a-ioddr-dt-v6-19-v2-0-37cb7ceec658@baylibre.com
+> 
+> Changes in v2:
+> - Make memory-region-names required if memory-region is present
+> - Fixup memory-region and memory-region-names conditions. Require either
+>   2 or 6 regions for memory-region and memory-region-names
+> - Reword and restructure the binding documentation for memory-region and
+>   memory-region-names
+> - Add memory-region-names to all uses of memory-region
+> - Link to v1: https://lore.kernel.org/r/20260303-topic-am62a-ioddr-dt-v6-19-v1-0-12fe72bb40d2@baylibre.com
+> 
+> ---
+> Markus Schneider-Pargmann (TI) (7):
+>       dt-bindings: remoteproc: k3-r5f: Split up memory regions
+>       dt-bindings: remoteproc: k3-r5f: Add memory-region-names
 
-On Tue Mar 24, 2026 at 3:48 AM CET, Mike Tipton wrote:
-> On Mon, Jan 19, 2026 at 11:28:07AM +0100, Konrad Dybcio wrote:
->>=20
->>=20
->> On 1/19/26 11:20 AM, Konrad Dybcio wrote:
->> > On 1/17/26 12:46 PM, Krzysztof Kozlowski wrote:
->> >> On Fri, Jan 16, 2026 at 02:17:21PM +0100, Luca Weiss wrote:
->> >>> Document an interconnect path for camcc that's required to enable
->> >>> the CAMSS_TOP_GDSC power domain.
->> >>
->> >> I find it confusing. Enabling GDSC power domains is done via power
->> >> domains, not via interconnects. Do not represent power domains as
->> >> interconnects, it's something completely different.
->> >=20
->> > The name of the power domains is CAMSS_TOP_GDSC (seems you misread)
->> >=20
->> > For the power domain to successfully turn on, the MNoC needs to be
->> > turned on (empirical evidence). The way to do it is to request a
->> > nonzero vote on this interconnect path
->> >=20
->> > (presumably because the GDSC or its invisible providers require
->> > something connected over that bus to carry out their enable sequences)=
-.
->
-> The GDSC itself shouldn't depend on MMNOC in order to turn on properly.
-> It should turn on just fine without it. There *is* a dependency between
-> CAM_TOP_GDSC and MMNOC, but it's in the opposite direction.
+I have picked-up the above two.  The .dtsi files need to go through the TI
+tree.
 
-I can personally just write from practical experience, as Qualcomm
-doesn't share any relevant documentation with OEMs.
+Thanks,
+Mathieu
 
-Without this patch the GDSC refuses to turn on.
-
-[  291.055839] ------------[ cut here ]------------
-[  291.055860] cam_cc_camss_top_gdsc status stuck at 'off'
-[  291.055878] WARNING: drivers/clk/qcom/gdsc.c:178 at gdsc_toggle_logic+0x=
-138/0x144, CPU#4: hexdump/1995
-
-With the patch it turns on just fine, no issues seen.
-
-As Konrad has written, originally I didn't see any issue because that
-interconnect was being kept alive by simple-framebuffer where I've added
-'interconnects' to keep the framebuffer alive. However when testing
-without this, the GDSC would refuse to turn on, which led me to this
-patch series.
-
-Additionally you can see in downstream devicetree you can also see an
-interconnect defined for the "cam_cc_camss_top_gdsc" node:
-
-https://gerrit-public.fairphone.software/plugins/gitiles/platform/vendor/qc=
-om/proprietary/devicetree/+/refs/heads/odm/rc/target/15/fp6/fps_overlay/vol=
-cano.dtsi#2943
-
-Regards
-Luca
+>       arm64: dts: ti: k3: Use memory-region-names for r5f
+>       arm64: dts: ti: k3-am62a7-sk: Split r5f memory region
+>       arm64: dts: ti: k3-am62p5-sk: Split r5f memory region
+>       arm64: dts: ti: k3-am62a7-sk: Add r5f nodes to pre-ram bootphase
+>       arm64: dts: ti: k3-am62p5-sk: Add r5f nodes to pre-ram bootphase
+> 
+>  .../bindings/remoteproc/ti,k3-r5f-rproc.yaml       | 55 ++++++++++++++++++----
+>  .../arm64/boot/dts/ti/k3-am62-ti-ipc-firmware.dtsi |  1 +
+>  .../boot/dts/ti/k3-am62a-ti-ipc-firmware.dtsi      |  2 +
+>  arch/arm64/boot/dts/ti/k3-am62a7-sk.dts            | 42 ++++++++++++++++-
+>  .../boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi      |  2 +
+>  arch/arm64/boot/dts/ti/k3-am62p5-sk.dts            | 42 ++++++++++++++++-
+>  .../arm64/boot/dts/ti/k3-am64-ti-ipc-firmware.dtsi |  4 ++
+>  .../arm64/boot/dts/ti/k3-am65-ti-ipc-firmware.dtsi |  2 +
+>  .../boot/dts/ti/k3-j7200-ti-ipc-firmware.dtsi      |  4 ++
+>  .../boot/dts/ti/k3-j721e-ti-ipc-firmware.dtsi      |  6 +++
+>  .../boot/dts/ti/k3-j721s2-ti-ipc-firmware.dtsi     |  6 +++
+>  .../boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi      |  3 ++
+>  .../k3-j784s4-j742s2-ti-ipc-firmware-common.dtsi   |  8 ++++
+>  13 files changed, 163 insertions(+), 14 deletions(-)
+> ---
+> base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
+> change-id: 20260210-topic-am62a-ioddr-dt-v6-19-0da7712081d7
+> 
+> Best regards,
+> -- 
+> Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+> 
