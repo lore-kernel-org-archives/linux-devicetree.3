@@ -1,99 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF609340A57;
-	Mon, 30 Mar 2026 15:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2C6368971;
+	Mon, 30 Mar 2026 15:39:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774884843; cv=none; b=r4ghVrHWfpIDl0xqzE4DLyZ4PBApaJJs0sngyx30rwTRZ/UyUVMdaHSvS87LYAkRbuwmlS2QRqtrVCNAmH+ijUjQLbdWJTH2F6WvXo6mvU4+mPpImHKHdOANnJXBYtkdyoCBIeX11YypqiIpgf9ZEq3y+QF5uBm8oSKY9zHDfPo=
+	t=1774885194; cv=none; b=WhtSfM2v3BGpGxVW4m1F5nD1yIIu4mMGKbrCKqMbNPW5G5+1HGtyzbtPOhkIJ3vTsJVSOwCBK4ZyWYdJyrofn6hEwBsFbSiV1RRJYgn8VBoiJxvRHGZ/A5MlRLD+suZ7z7kb/3K9i0cA+cmFFsgUxWU9zhtNGUDkYwNyQXgloyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774884843; c=relaxed/simple;
-	bh=fMKWVcjf7DPRIhb4QuK3bKUPyuc60L/E8BOU/g6IMVg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KqMHtlXz+SN8JRgo7NRsSSAniCPOBsg9nN6fB6SUY1hcy3g1L167aqr+yG15EyPDpZDrC8dS1qaFA8azWFKTKoxc6Z4ITT92Ob+7G6PZL/G5mUlMIt1evnYr+o3wJZDJngV3MBTrP7JfYMU1IbGfSJYFZtY0NoafYr4wl2ez710=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RhCkjfAq; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774885194; c=relaxed/simple;
+	bh=s2abMZNIz5jgK7e/ZVTddBIXlpEf23UCdPKkkrQSOGc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Lp22zEik4AJHQFmGEJbdWbJat7La3IvqOg8OJMzzYHBSdqE/rK6Va0qO2C2ImaWxgC6Krq+6IGBazRJc3X1/LDoIMXG5U9KQrcsEnMotMJsplBdWHgy0YJePkGtW90QnD5gLtw8Td/ADOOouSy23F7jzoTsOXMSE5cw/ODZGouc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=q0q/sQIL; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RhCkjfAq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FEDEC4CEF7;
-	Mon, 30 Mar 2026 15:33:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774884842;
-	bh=fMKWVcjf7DPRIhb4QuK3bKUPyuc60L/E8BOU/g6IMVg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RhCkjfAq5yXthqKi9kX7nLJvODO5tt+7KLocrI0ReXpdAiGkYYo0/wRR0dFDgxdEu
-	 YAWhjSar4kqDcgvlMPURtC3H3CBO0kZr2zRx+33FFmGAISW8JHX+PcdfAuO8R0KNjf
-	 M6C4oefDCTf4PZFSs7kC53gJdcYLGuS+kUkJWRt2F5FQcPfsrZVxtLG3U2MKtH3/WL
-	 SBdxXKo2pf5SsOm/pJD+/leo7Jq+y6H8ECs+kGV8GAClITL/S6buUShkxW+X4b29bU
-	 ay/5yFyF3PLI48ChYS4lRYsrfGCPGUK8u5PcM5jFyN7p+XekcuDvfh7iQgjD8vh7V2
-	 WQwK9+bzBF0tQ==
-Date: Mon, 30 Mar 2026 16:33:57 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Frank Li <Frank.Li@nxp.com>
-Cc: Peter Rosin <peda@axentia.se>, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Haibo Chen <haibo.chen@nxp.com>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v5 3/7] pinctrl: extract pinctrl_generic_to_map() from
- pinctrl_generic_pins_function_dt_node_to_map()
-Message-ID: <20260330-manger-coming-943dc94f382b@spud>
-References: <20260327-pinctrl-mux-v5-0-d4aec9d62c62@nxp.com>
- <20260327-pinctrl-mux-v5-3-d4aec9d62c62@nxp.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="q0q/sQIL"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 55F3DC58776;
+	Mon, 30 Mar 2026 15:40:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3158C5FFA8;
+	Mon, 30 Mar 2026 15:39:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AC36A104505B1;
+	Mon, 30 Mar 2026 17:39:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1774885189; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=lA66w17eugRDUx2ASwbxpvMZnvWItSzG6qyRRjXgzZU=;
+	b=q0q/sQILZ9BqsHiLPRJ7EO2aHktALpZiM2qex72PTHxqhGAMyzUQaGtR1RO1FdrwqXZqyV
+	+e1CVxUgN5F1CXXFB0525u8Bx6ytT7F8IydbJy0tSvYMG2C69FVf/mvEuUBUEsEbWuhbdO
+	Sxgt+aJZeqSwr0+u+QemCcHrhyW5qDurLtWm1csdBV/dTtjQhB4hYG0ZBG2FapQf9kR9iZ
+	pi/6IwO/hqR4e7DkbqfgkX31rvPmPcOcusdJeq2PfUgc9fRlckiTI2SeyUgb0CDQcDGFC1
+	aew47AfCW4HE6du9BtFyXpeCNvf5skFHC7T1/vc2X62ESGXvnqF0vEmidGb2CA==
+Date: Mon, 30 Mar 2026 17:39:44 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Saravana Kannan <saravanak@kernel.org>, Jaroslav
+ Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Christophe Leroy
+ <christophe.leroy@csgroup.eu>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH 0/4] ASoC: Add support for GPIOs driven amplifiers
+Message-ID: <20260330173944.3fdc27ec@bootlin.com>
+In-Reply-To: <4daaa17d-5673-4efa-92ce-4f2ce87eb812@sirena.org.uk>
+References: <20260330101610.57942-1-herve.codina@bootlin.com>
+	<4daaa17d-5673-4efa-92ce-4f2ce87eb812@sirena.org.uk>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ffZCCc6Cf9/3pOLx"
-Content-Disposition: inline
-In-Reply-To: <20260327-pinctrl-mux-v5-3-d4aec9d62c62@nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+On Mon, 30 Mar 2026 16:08:47 +0100
+Mark Brown <broonie@kernel.org> wrote:
 
---ffZCCc6Cf9/3pOLx
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> On Mon, Mar 30, 2026 at 12:16:04PM +0200, Herve Codina wrote:
+> > On some embedded system boards, audio amplifiers are designed using
+> > discrete components such as op-amp, several resistors and switches to
+> > either adjust the gain (switching resistors) or fully switch the
+> > audio signal path (mute and/or bypass features).
+> > 
+> > Those switches are usually driven by simple GPIOs.  
+> 
+> This sounds a lot like simple-amplifier.c?
 
-On Fri, Mar 27, 2026 at 05:34:00PM -0400, Frank Li wrote:
-> Refactor pinctrl_generic_pins_function_dt_subnode_to_map() by separating =
-DT
-> parsing logic from map creation. Introduce a new helper
-> pinctrl_generic_to_map() to handle mapping to kernel data structures, whi=
-le
-> keeping DT property parsing in the subnode function.
->=20
-> Improve code structure and enables easier reuse for platforms using
-> different DT properties (e.g. pinmux) without modifying the
-> dt_node_to_map-style callback API. Avoid unnecessary coupling to
-> pinctrl_generic_pins_function_dt_node_to_map(), which provides
-> functionality not needed when the phandle target is unambiguous.
->=20
-> Maximize code reuse and provide a cleaner extension point for future
-> pinctrl drivers.
->=20
-> Suggested-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+simple-amplifier.c doesn't handle amplifier driven by GPIOs.
+The only used GPIO in simple-amplifier.c is used to handle the
+enable pin the component.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+simple-amplifier.c handles component such as dio2125 alone.
 
---ffZCCc6Cf9/3pOLx
-Content-Type: application/pgp-signature; name="signature.asc"
+Here, we have op-amp but also several components around such as
+switches.
 
------BEGIN PGP SIGNATURE-----
+The gpio driven amplifier proposed is more generic and can handle
+more complex design. I.e. op-amp + resistor and/or line (mute,
+bypass) switching. Hardwares handled by this driver are a superset
+of just dio2125 and so simple-amplifier.c.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacqX5QAKCRB4tDGHoIJi
-0lKoAP9WusXVu3aAXNexzW+SejVhFKuHFElS/N0lptk8Ssyk2QD+JBxJ7gC7ZE1E
-N/YaqZWz4FQ1xMrmZzhshVGfOWDHqgg=
-=uzyT
------END PGP SIGNATURE-----
+IMHO, it makes sense to have a specific driver for those kind
+of hardware design.
 
---ffZCCc6Cf9/3pOLx--
+Best regards,
+Hervé
