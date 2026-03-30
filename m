@@ -1,223 +1,164 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013016.outbound.protection.outlook.com [40.93.201.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAFE2D97B7;
-	Mon, 30 Mar 2026 12:01:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774872111; cv=fail; b=Mvo3xp+pu6YLoGU9+Y0WTPFFLov4XjeS3Vz00bY/tagPq8EElHjpoySjYprjif5ewbQDMK42KalZFMinNwJTGyDmXYUAT9qQ1FqKPb+7K943b4B92TcAvDjdCEJWHKd38PUFmMTdqzNaRY/LRZCIJgNwoCHJguhlElA94Kn/Mrc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774872111; c=relaxed/simple;
-	bh=cfmdnrS/oAx/T48/yu4KVqn9Gn+Z/fw7ZFNnyt7C4oo=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VT7bkxXekVFBQg7I/Z7W5JU3D8ycutAE0aWXBbv4M5xIkMumJQBB1RztMnm/2N0YcVdYSMJSDfFQ5HyccS7IaTQo924F/a7VsIlneEn1d5r2aiVQHz/Gxt0sVylbC5vUxLiAhdMuJau2U84aKI6kF4DpUA1wGAa6zPRMcqU1ZUI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=k/i+kjaR; arc=fail smtp.client-ip=40.93.201.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BD73C3430;
+	Mon, 30 Mar 2026 12:03:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774872201; cv=none; b=mNe/C0FIsUbsRitCSE2dFtQsK1BqHJFFjv5I4ftPuD2JxXHV2/Ejijd6OpRBbttw57tg+KWO3x0MVIYBVpKY3SfLQPvQzI9YT6+GY0MMNLUbGE81BSmyiXHez1HnryfZsO6fGFKGg7G7ySMGhFpOCKfAlO4pKwMRNw09PE+VhtY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774872201; c=relaxed/simple;
+	bh=6rGfrEd7z0om+/8Eg1iaTxQn0X+cJxlNGLuxFE1DC0k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y2PbLR8O4JVB/IO0yS+a9gzYBGHlJf7K6UzPj/n7x9gwtmLI0VpppIoeHVJSSJxm6M1y5q0uJ6QpZhjJRI74fdFB1kStpHTb/yxghgjDgWllMXLrmA5PjwJ5Ws+RZrWhzWq/dF0cqAhDA6VDIx5EqHcCOeGE91UTy1qPlA28G3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tKbA9FX3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="k/i+kjaR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JSnLLYXqCLAlpl4z7yx6SHRMKLcFAMA6Rdv+6EbM77RTqKK9pWpGIYYFbmtavpotrUAk+jiaMqbOx6SUk6D4W/MdL/wdtr5GGWeRPNqNd82EU2S7e9k2mHLZCFOqpOgd9IKEGtdnODYGT4o8Ppt+qsmOGDczPz+wpqSM5JgeS7eNLwvtVBwXilEystI5xtwSj4RIwmZoIcUJiuEbtF8bOzEJ0oqU2mkuEPhJMqZ3txfQwgsWANPx0CPguWL74szISUYGZKRWAAAyGJ2yGtxhPLwjcYZLfkWGdxwaTWrVe1ZGfZuJS8DulSD40F3+nLERv84Kln27BEwchlSg6c0tOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GyGUdfru8BhZNF6lOXOajU5NYmjRGLG+nMElz4Hnr4Q=;
- b=NQnsMrHjWsLTeK83f86RKvIJuPKgH85Kfeo/Kfb3CsckgVCqiXcu+bLKRwclZl+6dfYKd9AvP7CUi2PJVKf/Hb+LAJP8ocdJVH8zWt6s7iTwE8qKABm5I6MoVJi9ppB6xQCS3HomucwZi6TfXuJrKydZR8EG3SC15rFbxIupPTTzhV+mGMMcmVGSI87pqoCbG35P4JulTEJDhKryvTUfIPqrN6gKnJAGJ29DmmXTwtEFj9Pn7KStC6qu4F9eWuVdoLuuXsxwIrUExbE9yd+y4uQ+1Yl9LNgC25G5yPWrmRGX+L1YE5LXv8hvRs7OssfDAh5PTSPocu4ZKKPBtsmPCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GyGUdfru8BhZNF6lOXOajU5NYmjRGLG+nMElz4Hnr4Q=;
- b=k/i+kjaRGYPaVAKlv5FhqNIJzoSPKToBJys5y9RvyfDgTmTnFJJhI70aEKv0+FvbQIxrSxLW2DaYKNWp09fviwS7rLINd91d4lMwNYVac4wRPtpZzSSXrE/mEzSI3p7ojjEknGlDSK5KYX2+gyyjbvWlTpKBgdQ8jKnsvk8rZVQ=
-Received: from SJ0PR03CA0008.namprd03.prod.outlook.com (2603:10b6:a03:33a::13)
- by PH7PR10MB6281.namprd10.prod.outlook.com (2603:10b6:510:1a7::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Mon, 30 Mar
- 2026 12:01:47 +0000
-Received: from SJ1PEPF00001CEA.namprd03.prod.outlook.com
- (2603:10b6:a03:33a:cafe::32) by SJ0PR03CA0008.outlook.office365.com
- (2603:10b6:a03:33a::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.28 via Frontend Transport; Mon,
- 30 Mar 2026 12:01:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- SJ1PEPF00001CEA.mail.protection.outlook.com (10.167.242.26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Mon, 30 Mar 2026 12:01:47 +0000
-Received: from DLEE201.ent.ti.com (157.170.170.76) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 30 Mar
- 2026 07:01:44 -0500
-Received: from DLEE213.ent.ti.com (157.170.170.116) by DLEE201.ent.ti.com
- (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 30 Mar
- 2026 07:01:44 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE213.ent.ti.com
- (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Mon, 30 Mar 2026 07:01:44 -0500
-Received: from akashdeep-HP-Z2-Tower-G5-Workstation.dhcp.ti.com (akashdeep-hp-z2-tower-g5-workstation.dhcp.ti.com [10.24.68.91])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 62UC18tH242506;
-	Mon, 30 Mar 2026 07:01:39 -0500
-From: Akashdeep Kaur <a-kaur@ti.com>
-To: <praneeth@ti.com>, <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<rafael@kernel.org>, <viresh.kumar@linaro.org>,
-	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>, <d-gole@ti.com>
-CC: <vishalm@ti.com>, <sebin.francis@ti.com>, <k-willis@ti.com>,
-	<a-kaur@ti.com>
-Subject: [PATCH 5/5] cpufreq: ti: Add device link to k3-socinfo
-Date: Mon, 30 Mar 2026 17:31:05 +0530
-Message-ID: <20260330120105.2985200-6-a-kaur@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260330120105.2985200-1-a-kaur@ti.com>
-References: <20260330120105.2985200-1-a-kaur@ti.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tKbA9FX3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31E8FC4CEF7;
+	Mon, 30 Mar 2026 12:03:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774872201;
+	bh=6rGfrEd7z0om+/8Eg1iaTxQn0X+cJxlNGLuxFE1DC0k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=tKbA9FX3bQnMvq28DJdJFIlUDQ97waRpWk5wHoypnrirkiYLozRGRBGOWiCBZnzPt
+	 Iyr9C7YAWqWm9cV2GbXZJA/20Nu+lp7oMCBgid0p/3PH6z5ZJ56F7fg5OYkHvgQC3x
+	 VEFiDD6yNO4WtmZ2N7Q7wqbL0Cf+7Mzgk6063AvhHryA+5i2sFl7CakNgJMC4gj24z
+	 lJbjBsQRgr3U9X6KCMHBbCHFVCNDhq6uP0RCx0RtkWm0BwoucR48gcmRGtMoAkQGPR
+	 1mzO/e4HAOmyTZgE+/HUSX66pifxjrKHDib3534K77aeamIt4raa8vN3othKczeWmH
+	 fMo/IjByXuqZg==
+Message-ID: <f2a70c77-f00a-479e-a662-64aa359ddc9b@kernel.org>
+Date: Mon, 30 Mar 2026 13:03:16 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CEA:EE_|PH7PR10MB6281:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a57cb02-ffa2-409b-5ab4-08de8e541e71
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|7416014|376014|22082099003|18002099003|56012099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	2FZqYSZ+07za4BEh0autsA/UcOQSMsXMrx6xY/1fSJy+sY1XtHh7PDIBeXtKoBh5t+kYt1XSLchvd8ENOhvXTB0yMT+7M6wOxjhnaqPNADuj6BEbT4q4p0XISo9OdyiMZhybpkfcdHJT3EpJ9viUWdkjJypJ2hmL6hffn52Chocpl1XG7DGHBvf1vcPo9ufiLYZh94s1QY81p7+98FgV/xBmNc8f53upgEughyfHTVVYwDGx5HNffV+6U5qZVpRN7QdysbiULHRaUDC18JT13apYG3SBT6R4nYQkRlQ8H2vG21DZDpyyGx0DiGwsk9IppFTnh0lQXMV/fqoqDQYKCWgW6CPDlpN07HqiuJrbwqLjHZYN43KevzSIeMxaf6xwAbvM4xYmQp8YLpjNy2an6QbDVqVKtbQlZl/E4X2zxCv77JcWDjHG7DICdGlN4dORp+ig/ot6FDYiM4e2t9xOZm1sRvu/RYCh4VF9W2hOXhSc5D3V2xrENfRNucDZhxknV5+gXyi0zmHb9HhWu8MxRjYoMoNrgrAe02CqkHNnUhiMI0Ze6X5M8udqKYPQDvfU5fmNY4+ohIP53lLxoVAYQhVI6bnfeGd80ikNUwaPnCNLp34Cl7JZvgo0t9SNKc3apIfVQ7f4jrT7Cnph1V/Vqe2NsziMU5EkJO0IvKEx06saAddV8cmBfMh1u1HM/YL85KFYWnZa2qJ1JQvOv35f1K72yHIiwfxpo85OPIz+LKA9uTZiadeGOTU7pNPZWZpzStAh5dx30mnAjgYzCbNc/2EtI9rnzTvQ/UhOxmHO/UkVRelXqJE3Hyd3xr2vwixw
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(7416014)(376014)(22082099003)(18002099003)(56012099003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	W8V15dIAEUGF2F/Yn/dMPHaD+v2gvGSlzXJIplJcU5tBbpDPMIcLIMLpUK3Xz5qZ24PRQgCQ+c7Ma6feniDGJjmzj3rUlrp0FLUYNwn7iWFq/ZHufHsjfH65N+ul6ROvXrV6nPREZMpK4iXG5+OrNqK0tHF5yhu4DgXPhMRltz+l2SXb2YVqNxO6vy+sHwdToQGbO6YaBbSHis49iCOFeSjbhfL09oGhZgXZNROobdGZWolwNMenyfVv5bV04cgAM69GJta+iAWGh8loKMdiZkzcfANpbaWwR+jDVl9LfEg8DOj8vtKf8I37/oXnY1efDM8LxnKWfXHIhfDOh1Xc9rJJTAxya+Q0aUjoo4tiM2ggQsgUIWwFSm3RH3vmVmhERNVAr2LGkxuEjezHJEQ6HFK66NCnY68KtcqbDdE203Xx4+yCRDbcn9H3H5RQpABJ
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 12:01:47.1024
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a57cb02-ffa2-409b-5ab4-08de8e541e71
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CEA.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB6281
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
+ <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <7712fbdd-a225-49f0-aeb9-ebcbb9d5abac@oss.qualcomm.com>
+ <da3ed78d-fb5e-4820-95d6-527d540cf03e@linaro.org>
+ <1f38187a-9464-4aa9-b70a-03b767349d56@linaro.org>
+ <c5278028-dfe9-4d09-970a-a25977967bdd@linaro.org>
+ <016c03b8-27c3-41dc-a630-8e7095db1f88@linaro.org>
+ <456ded59-d13e-4b61-975b-97ca48b5e771@linaro.org>
+ <RAPaPhpxA39W0ykm-Cr1KaDiJKpRqdQTXUeEmt5mQn4lJBHEGaIS010ejjmhUYEBsHjzrTX41Ek9zLU2bae_YA==@protonmail.internalid>
+ <76ea03d0-d41b-4880-a48c-06570eb089ed@linaro.org>
+ <0101d8bc-1ae8-475e-bb9e-cc1e16db87ec@kernel.org>
+ <6d5ebab6-3c4e-4a1c-9578-6e926cbd96de@oss.qualcomm.com>
+ <jm31MCQxrDbbf5WzmGa4xB-Qr91ZClFN9-AenTxBa0BtCGq29Rf_ydChxtWcrnbHSbkUII3eAXPK4auAprPYtQ==@protonmail.internalid>
+ <gcu6qzsoff2fox3nbytegyikajn65ae4ekowcn7bs4x2k53vao@rykmxndzzhlu>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+In-Reply-To: <gcu6qzsoff2fox3nbytegyikajn65ae4ekowcn7bs4x2k53vao@rykmxndzzhlu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Create explicit device link when OPP table has ti,soc-info property.
-Prevents unbinding k3-socinfo while ti-cpufreq is using it.
+On 30/03/2026 12:49, Dmitry Baryshkov wrote:
+>> // determined at runtime
+>> csid_n: csid@1000000 {
+>> 	phys = <&csiphy_0>,
+>> 	       [...]
+>> 	       <&csiphy_n-1>;
+>> };
+> I think the bigger problem is:
+> 
+> &csid_L: {
+> 	phys = <&csiphy_M>;
+> };
+> 
+> &csid_N: {
+> 	phys = <&csiphy_M>;
+> };
+> 
+> aka split mode.
 
-Signed-off-by: Akashdeep Kaur <a-kaur@ti.com>
+Depends on how you model it.
+
+It feels like a philosophical as opposed to an engineering debate in a way.
+
+The CSIPHY block is defined as one thing - is split mode one PHY or two ?
+
+You could argue it either way BUT one strong argument for it being one 
+PHY is - voltage rails, input clocks etc power the block.
+
+Sure there is an esoteric mode called split or combo mode but the 
+hardware block itself the thing we usually call the PHY lives as a block 
+diagram as a discreet entity.
+
+So I think split-mode really is more like
+
+&csid_L: {
+	phys = <&csiphy_0 DPHY>, <&csiphy_1 CPHY>;
+};
+
+&csid_M: {
+	phys = <&csiphy_0 DPHY>, <&csiphy_1 CPHY>;
+};
+
+Recall the debate about a mux is because CSID may connect to any CSIPHY.
+
+csiphy_0: {
+
+	clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
+		 <&camcc CAM_CC_CSI0PHYTIMER_CLK>;
+	clock-names = "core",
+		      "timer";
+
+	operating-points-v2 = <&csiphy_opp_table>;
+
+	interrupts = <GIC_SPI 1 IRQ_TYPE_EDGE_RISING>;
+
+	power-domains = <&rpmhpd RPMHPD_MX>,
+			<&rpmhpd RPMHPD_MMCX>;
+	power-domain-names = "mx",
+			     "mmcx";
+
+	vdda-0p9-supply = <&vreg_xyz_0p8>;
+	vdda-1p2-supply = <&vreg_qrs_1p2>;
+
+	ports {
+		port@0{};
+		port@1{};
+	};
+};
+
+csiphy_N: {
+	clocks = <&camcc CAM_CC_CSIPHY1_CLK>,
+		 <&camcc CAM_CC_CSI1PHYTIMER_CLK>;
+	clock-names = "core",
+		      "timer";
+
+	operating-points-v2 = <&csiphy_opp_table>;
+
+	interrupts = <GIC_SPI 2 IRQ_TYPE_EDGE_RISING>;
+
+	power-domains = <&rpmhpd RPMHPD_MX>,
+			<&rpmhpd RPMHPD_MMCX>;
+	power-domain-names = "mx",
+			     "mmcx";
+
+	vdda-0p9-supply = <&vreg_abc_0p8>;
+	vdda-1p2-supply = <&vreg_def_1p2>;
+
+	ports {
+		port@0{};
+	};
+};
+
+IMO split mode is a special mode of that hardware block, not two 
+individual PHYs.
+
 ---
- drivers/cpufreq/ti-cpufreq.c | 48 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
-
-diff --git a/drivers/cpufreq/ti-cpufreq.c b/drivers/cpufreq/ti-cpufreq.c
-index 88f7912ef6a8..60c34b0da0c5 100644
---- a/drivers/cpufreq/ti-cpufreq.c
-+++ b/drivers/cpufreq/ti-cpufreq.c
-@@ -12,6 +12,7 @@
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/of.h>
-+#include <linux/of_platform.h>
- #include <linux/platform_device.h>
- #include <linux/pm_opp.h>
- #include <linux/regmap.h>
-@@ -111,6 +112,7 @@ struct ti_cpufreq_data {
- 	struct device_node *opp_node;
- 	struct regmap *syscon;
- 	const struct ti_cpufreq_soc_data *soc_data;
-+	struct device_link *soc_link;
- };
- 
- static unsigned long amx3_efuse_xlate(struct ti_cpufreq_data *opp_data,
-@@ -542,6 +544,7 @@ static int ti_cpufreq_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	opp_data->soc_data = match->data;
-+	platform_set_drvdata(pdev, opp_data);
- 
- 	opp_data->cpu_dev = get_cpu_device(0);
- 	if (!opp_data->cpu_dev) {
-@@ -560,6 +563,42 @@ static int ti_cpufreq_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto fail_put_node;
- 
-+	/* Create device link to k3-socinfo if specified in DT */
-+	if (opp_data->soc_data == &am625_soc_data ||
-+	    opp_data->soc_data == &am62a7_soc_data ||
-+	    opp_data->soc_data == &am62l3_soc_data ||
-+	    opp_data->soc_data == &am62p5_soc_data) {
-+		struct device_node *socinfo_np;
-+
-+		socinfo_np = of_parse_phandle(opp_data->opp_node, "ti,soc-info", 0);
-+		if (socinfo_np) {
-+			struct platform_device *socinfo_pdev;
-+			struct device_link *link;
-+
-+			socinfo_pdev = of_find_device_by_node(socinfo_np);
-+			of_node_put(socinfo_np);
-+
-+			if (!socinfo_pdev) {
-+				ret = -EPROBE_DEFER;
-+				goto fail_put_node;
-+			}
-+
-+			if (!socinfo_pdev->dev.driver) {
-+				put_device(&socinfo_pdev->dev);
-+				ret = -EPROBE_DEFER;
-+				goto fail_put_node;
-+			}
-+
-+			link = device_link_add(opp_data->cpu_dev,
-+					       &socinfo_pdev->dev,
-+					       DL_FLAG_STATELESS);
-+			if (link)
-+				opp_data->soc_link = link;
-+
-+			put_device(&socinfo_pdev->dev);
-+		}
-+	}
-+
- 	/*
- 	 * OPPs determine whether or not they are supported based on
- 	 * two metrics:
-@@ -600,6 +639,14 @@ static int ti_cpufreq_probe(struct platform_device *pdev)
- 	return ret;
- }
- 
-+static void ti_cpufreq_remove(struct platform_device *pdev)
-+{
-+	struct ti_cpufreq_data *opp_data = platform_get_drvdata(pdev);
-+
-+	if (opp_data && opp_data->soc_link)
-+		device_link_del(opp_data->soc_link);
-+}
-+
- static int __init ti_cpufreq_init(void)
- {
- 	const struct of_device_id *match;
-@@ -616,6 +663,7 @@ module_init(ti_cpufreq_init);
- 
- static struct platform_driver ti_cpufreq_driver = {
- 	.probe = ti_cpufreq_probe,
-+	.remove = ti_cpufreq_remove,
- 	.driver = {
- 		.name = "ti-cpufreq",
- 	},
--- 
-2.34.1
-
+bod
