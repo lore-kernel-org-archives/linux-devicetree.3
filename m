@@ -1,79 +1,257 @@
-Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com [91.218.175.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE38F13777E
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:15:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C2A212B0A
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:17:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774862155; cv=none; b=KGIHXok7HdQlO4gMLTEClaZL1Pce7GzJUJe9HLKWPcRPCATpknrDpYZdw6PXKRwZhsW2fOoWnSjd60ZcKnr7JvKm1Mapus+GACZ2ccIoPU9ERVtGjxYnR+0Zl/N4d+a/cMnWfOsAiUyOeKFRbFPej1y8Z3XRs0XJNrib3RNbB0E=
+	t=1774862233; cv=none; b=SZRy9egUDxx6mQgUQuiOoSVw3Ge+XBKHZr81ecebFuldzexJcOMwvzPEk71an5EwTqFJbKTEslEp0VafJVnHS299sOusXdwWk0X/cXiozeibDC/piZZKtsuw7sUIW3sMjGJr+spYaVhV60pX9LHwB3oVyALddPIaCy7R3jQu2LU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774862155; c=relaxed/simple;
-	bh=a8YvugJH+t8gjC+U2aNmb6hmFv51p6ka7JzEV8FgDjU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qYsho3T8hKSF2mrc5oxV8+ohQYV+wI7FJX+UiSR/OOQOWFgH6B6pViX0Ae6tVkEPI3db+fQIUC5M4bTr3Gzgs4SThPkQ9Ogmq8g97WRdeODyUMB88TpQRnMXo6CQILHrh51oXn/N/htlSn7Z+yTw0SDRme2f9FvEG+Q6g/ebnJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lxRPe8nd; arc=none smtp.client-ip=91.218.175.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1774862233; c=relaxed/simple;
+	bh=/7NiGOUpT1kZQYxs4aI+8rPIELPQb2KrHP9xTjm5odM=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=UfhCup7iw2L01Vz5nFRvYf664PdfrB+VNYGCHFvuW4YmsbU3v3jy07yVIh22Vvdk/5N9PeCSPqXBhOt3PmRdzVo6cz2yAgXioU/j63+yzi7ryY5f7ctez77FvKPAKIf9arhp4VwxTjF5HcyNfiRwNnMwJQwkWJY3E+8XiJeTfgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bMsKl8Q+; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lxRPe8nd"
-Date: Mon, 30 Mar 2026 17:15:34 +0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1774862142;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ffNey6SOjj6PKeMnJLurYQewyxdkCi4z/62Wjxr/TDg=;
-	b=lxRPe8ndEyU517wIcgrl2IHaTXvpw4dbrzkXLqhOImcJA1Z/hSzUM6VLjXmAqBlFWoeSXU
-	2UblgqPB0rl3E6gSUr9lMritOmbjAkUdGa27ie9MMebNPGClDFgHJ/Nqp/ZZujsEsftLsA
-	VmYg3LRd4F+Q8Nz738sYapqFq3A6c8U=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Troy Mitchell <troy.mitchell@linux.dev>
-To: Iker Pedrosa <ikerpedrosam@gmail.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>
-Cc: Michael Opdenacker <michael.opdenacker@rootcommit.com>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Anand Moon <linux.amoon@gmail.com>,
-	Trevor Gamblin <tgamblin@baylibre.com>,
-	Troy Mitchell <troy.mitchell@linux.dev>
-Subject: Re: [PATCH v5 3/9] mmc: sdhci-of-k1: add regulator and pinctrl
- voltage switching support
-Message-ID: <aco_NocWwrkGdTaK@kernel.org>
-References: <20260330-orangepi-sd-card-uhs-v5-0-bd853604322d@gmail.com>
- <20260330-orangepi-sd-card-uhs-v5-3-bd853604322d@gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bMsKl8Q+"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-43b8982c2f4so2097456f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 02:17:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1774862230; x=1775467030; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=4VOM/b3KwJ3A3R51aHiZRtwvN8eEVduEBIFhFs9QUVY=;
+        b=bMsKl8Q+cfN32buqujoEaQ8WeAc1fhcUwmEk/5mLZdYefvx5rLfbTTXcVHUebbUjJD
+         HN44tmM0Rmb/nOS/goSGmlvc6Vv/wC6LIv0YCIKCXcEPD+ZHxk815ayvrw8e+kZrQZJ2
+         MR6mPMrEVXooL2nLPc4JZZbHJAz1HbK1JrBU1mBSVdoFoG2WV/gI9jwXE/iJ4OMX86/x
+         1yr+BO49Vb0RO5wZ8CyjWsq1kCTmzYyfGXjncpRBWqM12tAYkmcpJ7UlzF+R34+oc1OC
+         MzoLPRc/xi60DpDCoKgtoa/aMWC7jzHwXpyoCBLgEIZ9TIkbU5h3Ro8WO6suMrbJQMLw
+         Pzxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774862230; x=1775467030;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=4VOM/b3KwJ3A3R51aHiZRtwvN8eEVduEBIFhFs9QUVY=;
+        b=hc2ymyWFVw6uwuSvXJgnj2l0YO2g9/59ILIftnNvdAkuOUlSUrIcoVv74x3gXw7ip5
+         G2+MTOuAFl4fm2YUMO26nyZVEuWoZqe54WgY7C7UVOh9MgHFuTgMlGxso2CizS5vwUvn
+         w6vQvnO18dP5UDyyY5RqZFy/1qwyE3GR9bjZye3ZO+q2SowmWeMvB9s0HpJQ9REC02V9
+         QdE4Lnb9U8HUJ8twmiIXHVSizVZW4zgKhK9R3t2qgNN8Z+jlt82hju/D86OakHBnWL6Q
+         cGxJEKI6aixDRIEG3tji9rY6ZcGPmveTLTjGFs5NulCGI1KUG7DPb25/2RV1A+U79RK0
+         d7kg==
+X-Forwarded-Encrypted: i=1; AJvYcCVCRHiqHJIYcrYg4nuMTdHU/u9r34wjHHm581F4Hjhn/1JkUutE1ZdA0g+DPS4/iYtqCIWyw2VmIeuk@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzca2n9KBJqBcEPTgFrvPyj0emK3MLsBS4N/MnjLX3V5O2v+UJL
+	kXM1E1zqSde3SkIPTEGZn8ttkWgYsi0WhqODElbIG+pjX59N0kLlqCa7T7P6b8lxLXQ=
+X-Gm-Gg: ATEYQzx3YQSzFtKVHRDTCBB6/rabaPtJiQc9ZS70YQ6NtrdZPuIylY5TVY5ysB3QN+z
+	ZkQBMsVFMW71e2PjtG/3IYgfMRsdBa5pixVIDdZ8x6yILAKHvcmHoWsFQWA0ixCDyAVe+XXWX3K
+	X4d8JawTMyhIkDB5zGCW74rTFTcKQr6C5VL2xnPW6wwOOgDdWSxzGDMJvEOfp3YSvMSOZlIP2zJ
+	QtOyfHClkZc+WLNYKVlpjKCKrVm9pNiKL8OGfkF38NN9IjvztjKVRFulhoCcsvOOt0cb09RoZvY
+	+rb042Qe8GCxtnCVvPWcJcaJgXm7D9JprwM6GD6pGtr1iiK+0WwYc5wecBZQZh5M0F1QELy5CpR
+	A1cTqm298UngIH1+vT/lluC2f8pkENSUxh+PviNmLFFBJPoll76qM1Y0vbUfsoJawD5i1SmUOGr
+	IFBA90pHeuCR4kABGgIH0oIKGJvEweAGBsTP2TDkdwzQAfCC9X7gdV8YIC8MbNl4PjI6o7Qky5o
+	/1m/hs=
+X-Received: by 2002:a05:6000:2f87:b0:43c:ff58:35c2 with SMTP id ffacd0b85a97d-43cff583701mr5346372f8f.20.1774862229397;
+        Mon, 30 Mar 2026 02:17:09 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:cb3c:d0d2:870b:6ad0? ([2a01:e0a:106d:1080:cb3c:d0d2:870b:6ad0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43cf21e2628sm19089838f8f.6.2026.03.30.02.17.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 30 Mar 2026 02:17:09 -0700 (PDT)
+Message-ID: <76ea03d0-d41b-4880-a48c-06570eb089ed@linaro.org>
+Date: Mon, 30 Mar 2026 11:17:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260330-orangepi-sd-card-uhs-v5-3-bd853604322d@gmail.com>
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v5 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Vinod Koul
+ <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org>
+ <20260326-x1e-csi2-phy-v5-1-0c0fc7f5c01b@linaro.org>
+ <7712fbdd-a225-49f0-aeb9-ebcbb9d5abac@oss.qualcomm.com>
+ <da3ed78d-fb5e-4820-95d6-527d540cf03e@linaro.org>
+ <1f38187a-9464-4aa9-b70a-03b767349d56@linaro.org>
+ <c5278028-dfe9-4d09-970a-a25977967bdd@linaro.org>
+ <016c03b8-27c3-41dc-a630-8e7095db1f88@linaro.org>
+ <456ded59-d13e-4b61-975b-97ca48b5e771@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <456ded59-d13e-4b61-975b-97ca48b5e771@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Mar 30, 2026 at 16:38:04 CST, Iker Pedrosa wrote:
-> Add voltage switching infrastructure for UHS-I modes by integrating both
-> regulator framework (for supply voltage control) and pinctrl state
-> switching (for pin drive strength optimization).
+On 3/30/26 11:02, Bryan O'Donoghue wrote:
+> On 30/03/2026 08:49, Neil Armstrong wrote:
+>> On 3/27/26 18:42, Bryan O'Donoghue wrote:
+>>> On 27/03/2026 15:28, Neil Armstrong wrote:
+>>>>> To be frankly honest you can make an argument for it either way. However my honestly held position is analysing other upstream implementations connecting to the PHY means we can't make the PHY device a drivers/phy device - it would have to be a V4L2 device and then for me the question is why is that even required ?
+>>>>
+>>>> This is plain wrong, DT definition is different from software implementation, you can do whatever you want if you describe HW accurately.
+>>>
+>>> I'm not sure what point it is you are trying to make here. Are you trying to say drivers/phy is OK with you but you want an endpoint ? If so, please just say so.
+>>
+>> I'm against using the "phys = <>" property in the CAMSS to reference the PHYs, a "PHY" in the classic terminology is tied to a single consumer, and if it can be shared to multiple consumer you must model a mux or whatever in the middle.
 > 
-> - Add regulator supply parsing and voltage switching callback
-> - Add optional pinctrl state switching between "default" (3.3V) and
->   "state_uhs" (1.8V) configurations
-> - Enable coordinated voltage and pin configuration changes for UHS modes
+> The CSIPHY-to-CSID routing is runtime-configurable and is already managed by the media controller framework.
+
+This is not compatible with the PHY bindings if you don't have a defined MUX device in the middle, it's wrong. You're hiding the muxing details in the CAMSS blob node.
+
 > 
-> This provides complete voltage switching support while maintaining
-> backward compatibility when pinctrl states are not defined.
+> DT describes static hardware connections. The dynamic mux is a software concern, not a hardware description concern.
+
+DT must describe the possible interconnections between the nodes, if a PHY can be used by multiple hardware components, it must be described.
+
 > 
-> Tested-by: Anand Moon <linux.amoon@gmail.com>
-> Tested-by: Trevor Gamblin <tgamblin@baylibre.com>
-> Acked-by: Adrian Hunter <adrian.hunter@intel.com>
-> Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
-Reviewed-by: Troy Mitchell <troy.mitchell@linux.dev>
+> 
+>> The PHY API as an internal software implementation is probably fine, even if it makes implementation of split mode much much harder and doesn't really solve anything, you can just call init()/poweron()/ poweroff()/exit() directly from the CSIPHY media callbacks.
+> 
+> Great.
+> 
+>>> I can see an argument for that hence my response to Konrad, I just don't see why its a Qualcomm specific argument and of course understood stuff bubbles up in review, we have a public debate and come to a consensus - that's a good thing.
+>>>
+>>> However, I'd want wider buy-in and understanding that endpoints in the PHYs is a more accurate description of the data-flow.
+>>
+>> It is, and it was designed for that, and extensively used in the media DT representation, so I wonder here you would not use it...
+>> In an ideal world, you would add nodes for each CAMSS hw elements and adds port/endpoints links between all nodes to describe the data graph, this would be used to construct the media controller graph, and make it much easier supporting new hardware.
+> 
+> Yes but be pragmatic Neil. The first step in making the monolith into sub-nodes is the CSIPHY.
+
+I am, and I agree it's fine to do it step by step.
+
+> 
+> Once the CSIPHY is in, we can follow on with adding new nodes that way IPE, BPS, ICP, JPEG whatever and also work on implementing the old stuff in that new way.
+
+I agree on the approach, I never said otherwise, but you need to have the big picture in mind.
+
+When you'll have the CSID subnodes, where will you add the phys properties ? you'll keep them in the CAMSS top node ? add all CSIPHY to all CSID nodes ? this is wrong and this needs to be fixed now.
+
+> 
+> 
+>>
+>>>
+>>> We've been applying DT bindings aplenty without that so far. So we would establish new CSI2 PHY bindings should represent the sensor endpoints.
+>>
+>> We've been using a dummy representation of CAMM in a single node with only endpoints connecting to the sensors and hiding all the hardware layout in code, it doesn't scale and makes supporting new HW hard.
+>> I mean this is common sense, why would we continue to stick to the current CAMSS bindings ???
+> 
+> We _won't_ I just don't support a big bang integration. Progressive changes over a longer timeline make the transition manageable, without accepting endless sub-standard stuff in the meantime or holding up all new SoC submission unless/until.
+> 
+> I mean there is a CAMSS meeting which I've been running for nearly a year now that both you and Vlad are invited to where we have been discussing this for months...
+> 
+> Anyway one conclusion of that is we want to transition to individual nodes for everything.
+> 
+> PHY is the first step which I'm taking because its easier for me as CAMSS maintainer to convince the CAMSS maintainer to take the relevant patches.
+> 
+> drivers/phy notwithstanding.
+
+As I said I agree on the progressive approach, not the PHY DT bindins approach.
+
+> 
+>>>
+>>> Is that what you want ?
+>>>
+>>>> The CSIPHYs are not tied to a single "consumer" block, they can be connected to different consumers at runtime, which is not something classic PHY devices are designed for. So they are de facto a media element in the dynamic camera pipeline.
+>>>
+>>> The existing CAMSS binding and media graph are not changed by this series.
+>>
+>> This is not my point, I don't care about the software implementation at all, I care about accurate hardware representation. Using the "phys = <>" property does not describe hardware accurately.
+>>
+>> In other words: The CSIPHY are not connected to CAMSS. This is _not_ true, tying the CSIPHYs to the CAMSS block hides the real data muxing in software.
+>>
+>> Please remind DT is used by multiple operating systems, and properly describing hardware in DT will help have good software support over all OSes, not just Linux.
+>>
+>>>
+>>>> And actually Rob Herring asked use to define the complete data flow, it was a strong requirement. I don't see why we wouldn't here.
+>>>
+>>> I'm implementing feedback from Rob.
+>>>
+>>> https://lore.kernel.org/linux-media/20250710230846.GA44483- robh@kernel.org/
+>>
+>> Where did he ask using the PHY DT bindings ? Is he aware those CSIPHYs are muxed to multiple consumers which are burried in the CAMSS code ?
+> 
+> I freely admit to taking the initiative of phys = <> but Neil there is _no_change_ to the media graph and the "mux" is a runtime configuration that is one register in the CSID.
+
+Honestly I don't care about the userspace media graph, this is a software problem and we can totally make the transition seamless if we want.
+
+Don't limit the DT hardware description because of a software userspace ABI breakage, this approach is not the right one.
+
+> 
+> You seriously want a mux device in the kernel to model one bit in a register ?
+
+Why not ? We have drivers that even toggles even single bit to solve those kind of situations.
+
+Physically they're a mux to route the CSIPHY to the consumers, it's a fact... even if it's a register or a single bit.
+
+> 
+> No.
+> 
+>>>
+>>> To me, here is where we stand:
+>>>
+>>> - Individual nodes - we all agree that
+>>> - As sub-nodes - I think the majority agrees this Krzsztof, Dmitry
+>>>    I'm fine with it too.
+>>> - drivers/phy - I think we are accepting this is also fine ?
+>>
+>> Like I said this adds a supplementary API layer for no reason and will make life harder, but I don't care personally.
+>>
+>>> - endpoints should flow into the PHY and then back to the controller
+>>>
+>>> I get that argument. In fact I _like_ that argument at least I like my conception of that argument.
+>>>
+>>> I'll stipulate to that argument meaning then that, new CSI2 PHYs shall include endpoints for this purpose globally.
+>>>
+>>> As I've said before, there's nothing Qualcomm specific about this discussion, really.
+>>
+>> There is, because the current Qualcomm CAMSS bindings are insufficient and should be entirely redesigned from the ground up to properly describe the HW.
+> 
+> The long term plan is to do that. Discussed extensively with the Qcom teams delivering CAMSS, even invited community members along.
+> 
+> Here are the meeting notes - its all in the public domain
+> 
+> https://docs.google.com/document/d/1yUwWHaKLuovKVgGTzvKm68K1zS6xBONVzjOsRjDl03U/edit?tab=t.0#heading=h.mtbm7qfohwfs
+> 
+> ---
+> bod
+
