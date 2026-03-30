@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61D83A6B72;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE91D3A7583;
 	Mon, 30 Mar 2026 07:45:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774856745; cv=none; b=dEo34vRI2qEfp/3CR7ShyngUOXYTsLDyGMqYI7xd86zvL0dSN7E90sZRKRnUitxflhlynbu2etgRBhJYszkJgMbNxSQcME4bKJlQrU/zvL2BpUTduKLdD1kEX3yUsxDl8ena2eIijczob0RF3U0BVBECPj7nqL8UR4fqVQrFbuo=
+	t=1774856746; cv=none; b=UBzgOeK7NC1EUi1sMyUHmFhTFSFjNGfvhxVJBh0UMNi0U780ktUxhU6GK3684pazvfv6lKhB+wk7kncq7W5u4tl8OJY6vz4hk4ViE7f0zmL2qw2Hnz6BCGl+1jLl/aYuACFufk819WylpgthDVSDrSFUa4hqBm4iT+iVJzyxFl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774856745; c=relaxed/simple;
-	bh=7Fo3jVCC8hwVStRvGW0Q1tYK6679IPrcIgWpjNA/zQc=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=KCLtR6UpjGyKHaVRZ2d0UKDgd9biirawsfVVXDbbiX9OCiDtQJzE1pOrY7CbIXAO0p6JkE761NzirUgTZjw6WDfLVPBCD+fVvw7z8mJmslOZRSVcbajbg4NXcK8I1+GJ4XRAV7pPlEfjauQ8nRGoJn+HtHFy+TNLp0bjFDeYB/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZLE0g4ON; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774856746; c=relaxed/simple;
+	bh=lt96IhTtq+x/LAZoJN9Ko+HMV2ZVELDDXrMBeSvwCho=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=H8o6NT477evYdJdGgw1oMqfpBLi63llBYZ8hzEIww6Q6L9HXrwdqzySA2MqR4qT9espFWUmQbuDICJzWtLLz+M7TIu/fhz28RyDiEZuJcRdpXXU85k5l3bYnx6ycrV1ry9jFTDroudMHU+/XBIJpITnlmBhh5aSckFF7bjGuAeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ee8A+YDq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZLE0g4ON"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2A577C4CEF7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ee8A+YDq"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6682BC2BCB4;
 	Mon, 30 Mar 2026 07:45:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1774856745;
-	bh=7Fo3jVCC8hwVStRvGW0Q1tYK6679IPrcIgWpjNA/zQc=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=ZLE0g4ONVGsyFGRxsfoKGTVUpR4xapqWvLdpJQivjod6U7Mjb4CtXEZix1KlD4VYt
-	 4kMi4j/Z1tGmF4zxB9Fc4LhMAhortUDFYAgrDUoFmJVgqzKkk36/xD6sVTv37E/CDg
-	 zj9i7goZeRNkrog5NXThCBGOO9yu0V5M70RIor8nv7Leos2vR7GtsyEP4/S6bskyWL
-	 ODmJ+00f0kbt3HLvxyz/aU9UEgNTOjqnePGHSsavNl28dSqV4UhSSwXfRN7zCw20Pf
-	 /lcvlK275MAg4dWg84KoIsiFF48+8/zxY3r7vg+pMI1Hhsl/PGV9MQrRgCSPELCT5/
-	 2DUJHvMnds5dg==
+	bh=lt96IhTtq+x/LAZoJN9Ko+HMV2ZVELDDXrMBeSvwCho=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Ee8A+YDqr4SrtuIg2YyisdjH/6vXenu/saC1WGCcwoNKhwCNneE9ceweAambTSQZc
+	 2OdssyfUQqhQSkCkj5SqrwCdhMhEOewXe6Ry6sje3XQFx9e9FmRNZL/29CnK/uuK6x
+	 ODA77CGy1ZGs/rv73tkK7l7137NQXwfMatUVV9IRBX5414EVL0l5C9Si7S25y1ViZo
+	 grc6t5MYFxk28X4vmzy6GO1Y+KpH/whUr2/6AsUuypLTgjG9m/kRcu4hlH/OBcRQKT
+	 dAwE3velIDPfzrXDm2w3EXiF43Hgm/6JneB1VA/7F9kbQZyQtzcEU0Nj9+QEq8C3rD
+	 GHegUyXE4N1gQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F856FF4958;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 57ADDFF495F;
 	Mon, 30 Mar 2026 07:45:45 +0000 (UTC)
 From: Ben Zong-You Xie via B4 Relay <devnull+ben717.andestech.com@kernel.org>
-Subject: [PATCH v5 0/3] pwm: add support for Andes platform
-Date: Mon, 30 Mar 2026 15:45:42 +0800
-Message-Id: <20260330-andes-pwm-v5-0-01c59a659d2c@andestech.com>
+Date: Mon, 30 Mar 2026 15:45:45 +0800
+Subject: [PATCH v5 3/3] MAINTAINERS: add an entry for Andes PWM driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,24 +39,21 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACYqymkC/32QwWrDMAyGX6X4PAdJtuVkp73H2CFx1caDJiXOs
- o2Sd6+dUgo99CDBD//3CXRRSaYoSb3vLmqSJaY4Djm4t50KfTscRcd9zoqAGAisboe9JH3+PWk
- EaZkRgwkHlfvnSQ7xb3N9ft1y+um+JcxFUBp9TPM4/W/HFiy94rUIVOfxhBU2jFQ3GnUng0f/s
- Z2bJfRVGE+qaBd6gHkBA1pfIXkkti9BcwcdIBlsjDO2qr0lxy85e+eeP7BYDZo9IHcdGufcM72
- u6xUCeadEYgEAAA==
-X-Change-ID: 20260204-andes-pwm-10ea6611c3cf
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260330-andes-pwm-v5-3-01c59a659d2c@andestech.com>
+References: <20260330-andes-pwm-v5-0-01c59a659d2c@andestech.com>
+In-Reply-To: <20260330-andes-pwm-v5-0-01c59a659d2c@andestech.com>
 To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Ben Zong-You Xie <ben717@andestech.com>
 X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774856744; l=3420;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774856744; l=754;
  i=ben717@andestech.com; s=20260120; h=from:subject:message-id;
- bh=7Fo3jVCC8hwVStRvGW0Q1tYK6679IPrcIgWpjNA/zQc=;
- b=AjO4pcGgOeZO6/wJevhW4+mYZ4WFVj7fGjv6oHVG3RMT4n07LkN/Enq3OVwJ/xTkCGB7T9FSb
- wGZvW9/8+sdAwamFfCKrfpGQECuRCYWgl2CrG3Z30Z+tUVdLzS8OAcm
+ bh=4pQDhCOlbkeQYIXwYzI13PZU9Hd+HgUg5c/mefmug2c=;
+ b=W26hICo/KQMKfVCpTw1YTKEYdxDGxq6ScDubFHGD87BQorxWX4sZieYIB4K3lHSV2IqPBzdum
+ st9P2xgQoPFA3PdYtfgRy1vFsNmaGRaZdHb1oUDR8Q6AR/FML8NLnuI
 X-Developer-Key: i=ben717@andestech.com; a=ed25519;
  pk=nb8L7zQKGJpYk0yvrYKjViOZ34A36g1ZIsCmCsP518s=
 X-Endpoint-Received: by B4 Relay for ben717@andestech.com/20260120 with
@@ -64,85 +61,34 @@ X-Endpoint-Received: by B4 Relay for ben717@andestech.com/20260120 with
 X-Original-From: Ben Zong-You Xie <ben717@andestech.com>
 Reply-To: ben717@andestech.com
 
-The ATCPIT100 is a set of compact multi-function timers, which can be
-a simple timer or PWM, or a combination of the timer and the PWM. This
-IP block is a core component of the Andes AE350 platform, which serves
-as a reference architecture for SoC designs. The QiLai SoC also
-integrates this controller.
+From: Ben Zong-You Xie <ben717@andestech.com>
 
-This device driver was previously part of the Linux Kernel, and the
-compatible was its IP name "andestech,atcpit100". However, the driver
-and its binding were removed due to the deprecation of the NDS32
-architecture [1]. Although Andes now dedicates our effort on RISC-V,
-ATCPIT100 is still one of our peripheral IPs, and that's why we are
-re-introducing it now. Since only using the IP block name as the
-compatible is forbidden now, change the compatible to
-"andestech,ae350-pwm" and "andestech,qilai-pwm".
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=aec499c75cf8e0b599be4d559e6922b613085f8f
+Add an entry for the Andes PWM driver to the MAINTAINERS file.
 
 Signed-off-by: Ben Zong-You Xie <ben717@andestech.com>
 ---
-Changes in v5:
-- Rebased on ukleinek/pwm/for-next
-- (1/4)
-  - Added Rob's reviewed-by tag.
-- Link to v4: https://patch.msgid.link/20260204-andes-pwm-v4-0-67016bb13555@andestech.com
+ MAINTAINERS | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Changes in v4:
-- Updated cover letter title and its commit message.
-- (1/3)
-    - Updated the compatibles and the binding file name.
-    - Added the description to the binding.
-    - Corrected device register size.
-    - Dropped the changes to the MAINTAINERS file.
-- (2/3)
-    - Updated the driver name.
-    - Made the driver support inversed polarity.
-    - Changed the clock selection algorithm.
-    - Made the configuration depend on ARCH_ANDES, instead of RISCV. (Krzysztof)
-    - Dropped the changes to the MAINTAINERS file.
-- (3/3) (new)
-    - Collected all changes to the MAINTAINERS file into a single patch.
-- Link to v3: https://patch.msgid.link/20250123193534.874256-1-ben717@andestech.com
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 708c050ac397..72eedd1a3428 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1866,6 +1866,12 @@ S:	Supported
+ F:	Documentation/devicetree/bindings/spi/andestech,ae350-spi.yaml
+ F:	drivers/spi/spi-atcspi200.c
+ 
++ANDES PWM DRIVER
++M:	Ben Zong-You Xie <ben717@andestech.com>
++S:	Supported
++F:	Documentation/devicetree/bindings/pwm/andestech,ae350-pwm.yaml
++F:	drivers/pwm/pwm-andes.c
++
+ ANDROID DRIVERS
+ M:	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+ M:	Arve Hjønnevåg <arve@android.com>
 
-Changes in v3:
-- (1/2):
-    - modified the compatible string. (Krzysztof)
-- (2/2):
-    - added a check for the clock rate to prevent the overflow warning.
-      (kernel test robot)
-    - removed the unnecessary check in .apply(). (kernel test robot)
-- Link to v2: https://patch.msgid.link/20241202060147.1271264-1-ben717@andestech.com
-
-Changes in v2:
-- (1/2):
-    - changed "title" in the yaml file.
-    - removed vendor-specific property, and added clocks property.
-- (2/2):
-    - added a description for hardware limitations. (Uwe)
-    - switched the clock parent depending on the requested setting
-      instead of statically configuring the clock source in DT. (Uwe)
-- Link to v1: https://patch.msgid.link/20241028102721.1961289-1-ben717@andestech.com
-
----
-Ben Zong-You Xie (3):
-      dt-bindings: pwm: add support for AE350 PWM controller
-      pwm: add Andes PWM driver support
-      MAINTAINERS: add an entry for Andes PWM driver
-
- .../bindings/pwm/andestech,ae350-pwm.yaml          |  61 ++++
- MAINTAINERS                                        |   6 +
- drivers/pwm/Kconfig                                |  10 +
- drivers/pwm/Makefile                               |   1 +
- drivers/pwm/pwm-andes.c                            | 306 +++++++++++++++++++++
- 5 files changed, 384 insertions(+)
----
-base-commit: aa8f35172ab66c57d4355a8c4e28d05b44c938e3
-change-id: 20260204-andes-pwm-10ea6611c3cf
-
-Best regards,
---  
-Ben Zong-You Xie <ben717@andestech.com>
+-- 
+2.34.1
 
 
