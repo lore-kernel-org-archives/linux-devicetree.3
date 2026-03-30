@@ -1,109 +1,217 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DEFA377038;
-	Mon, 30 Mar 2026 16:20:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D06A377038
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 16:22:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774887637; cv=none; b=fDWGgG4K0rsttvA4OuEUEYVEpvLjFDYhksxoMFrOBmIPISD+oEmWYDSKggKdgr0R6yzlS0OzFWktRzUPUXPiIZbU2PJipqXaTnSqhY0+jew1CwQ0lWKv5EZwo1mVMHctWq19D56jbObkkufO0CvyU0dGuF/Z6Y/6FdTkK3yevD0=
+	t=1774887761; cv=none; b=D+Ts1USJB3iZ2ULnnsap1PuOIfP56SEaqzpgsZAfaHp2uiOeTsBQdQYU8bXlN0BbkLaM9h5fz7Ai+50mI18AelkwNB8cO3hTul0tOp+F5rQsyjSFZXJRrL26YuHqwIC3yeWWh1qiUy4NAK1EL0VE7TtZifgjiYzlvaivQFf90zM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774887637; c=relaxed/simple;
-	bh=rvTE++tgOitsGs2Y5jYidVeu41glWxg6G+cKvLPLnGo=;
+	s=arc-20240116; t=1774887761; c=relaxed/simple;
+	bh=OWclWe7z9oM5qjVK/Jh3Q3Y6NyRY3zTBQRnXXXEeho8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ayb8fn8EeFdNzdPsIeYeoT0OEB93eN0OTavr96CgTSAVjtemS12QHjzG1Gt6I/sxENeNOKDBDVidN8fpBKeYcVtP+SIcW2GU5sPvCu5yUwsFMqMA5+pmhci/P5/r3G3qFGGMS2gJGBLaH2gGp9dXg31sEjU6iHAgMVTfck0YZds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GcthOs63; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=P4MhdgfIVx8sr2RZ5LHKgGDprYJ4iw6QZPUaBDGLHRMJ3jbl62ggVmml2PB7botb0k2cDBWEsq3DfWI5DND16eDe/5kUu0+/DMvAgCNH9leHVoxxsAsWLpCM9l+teFfmcHXxg4wOfn5yUDBDTF7xDUktwB+AroSLb396u1W8B74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=H2Lswia0; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GcthOs63"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B8E3C4CEF7;
-	Mon, 30 Mar 2026 16:20:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774887637;
-	bh=rvTE++tgOitsGs2Y5jYidVeu41glWxg6G+cKvLPLnGo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GcthOs636sJ8lW8i4u5Tm1Cf2Jv6BhCic+msh3mNSCaVdzh/ZuI8fLi9/sMZvLfQX
-	 DDSPrCAqV6jAmbAon1d+I8YVkEqbh7Tw530Lr0ti7FwccaW+fmOsDXpa2BJz9I4sPl
-	 jzgTMJbIm809bTm30XHfPyeueKsFmob8RWsGVmjYERCklaM1WS6glROFr7MFg6xi6Y
-	 r2fojM/A9oCsIQtxBHTrIBRfejmZAFuno2NMOYw0uxg3+Q3u9Id9VMO0c6Gh5sIksF
-	 elEF5Exn5HSZhSW1dc/unEUpL6PVCg26OtTaYs8mbxGZsaK3ohGxoNXjsj4YxuJuYK
-	 ivGtZyb1dkwVg==
-Date: Mon, 30 Mar 2026 17:20:29 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jiawen Wu <jiawenwu@trustnetic.com>
-Cc: patchwork-bot+netdevbpf@kernel.org, netdev@vger.kernel.org,
-	conor.dooley@microchip.com, Valentina.FernandezAlanis@microchip.com,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	daire.mcnamara@microchip.com, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, alex@ghiti.fr, nicolas.ferre@microchip.com,
-	claudiu.beznea@tuxon.dev, richardcochran@gmail.com,
-	samuel.holland@sifive.com, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	dave.stevenson@raspberrypi.com, sean.anderson@linux.dev,
-	vineeth.karumanchi@amd.com, abin.joseph@amd.com,
-	theo.lebrun@bootlin.com, Ryan.Wanner@microchip.com,
-	haokexin@gmail.com
-Subject: Re: [PATCH net-next v5 00/14] macb usrio/tsu patches
-Message-ID: <20260330-repair-unclip-024a203a427d@spud>
-References: <20260325-unsterile-flail-4c7729750dc4@spud>
- <177482042554.472023.12757157452690281696.git-patchwork-notify@kernel.org>
- <06a701dcc014$86def5b0$949ce110$@trustnetic.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="H2Lswia0"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-35d8e548a05so2764637a91.1
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:22:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1774887759; x=1775492559; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=EMohgIf2kDkk6Cae0YiULQonmSDmJhFZPXEiKdJxSFI=;
+        b=H2Lswia0bGZQlew6iHeRgsY2jOh49NG923eTLx3ClsGwNG/38hZQY5IZ09+PGSsTX/
+         vqLozyncrYxiq+LyXKRutCfwwbRN5lHfPOrZO8ZzfU63XRjcFSwIJoGNzT5V2koj9r5K
+         syvfBUCj60oMRlGVQ28WQfKuyRf1tRI53stcRUfD3iZhtGHtPlzwAe1SL1dTH+K8K4u7
+         X4fKUFOORfbbilA2DFC11ZQ7WnbjrJ0ZKNMwasgcz/jaCDI06iyLqwvjyUz3naV5qdKg
+         jbnumdbbPobak0tR40ladiic5HNIf5MalwRp64TCm2x5asYHmmhCH/mtTmDMGmuwlKZ9
+         Q3RA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774887759; x=1775492559;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=EMohgIf2kDkk6Cae0YiULQonmSDmJhFZPXEiKdJxSFI=;
+        b=oWisor27Wep3dMJjwRRhtIhq1HwwhA3mb0uDjdDEHkehF6QMgNy3JKbAY72+k3cMGY
+         EbT+FVzkb03/nh7iC7JzmSjC5D7T2RpDRMJr9q4SNGHJjNbJgN2fOpPQuX7LXBIU4Lxk
+         nsk00OyyVkCa1WEi+V3QpbhPvFUd6tilwjnf64QXASSVFZB8ceebfhWFH5MNqXhKvXgi
+         KeLtdc8IYuBtXWZspHpyi/KoIedaD8ckK/oBD4+DYCHSCAqtiDLk5g5WYOlUgEVn3U9m
+         Ai0VkhcHyMDuomSJYfhqc3ZKduSms2WtkV/dN0X8B9AeOaCq7tE4IFCk7oW1Nr/cbMvV
+         ToNA==
+X-Forwarded-Encrypted: i=1; AJvYcCXFOi1cmThN+xpjdmhOEPybjJt37TygdEECw8mOT4/77KGECT/0k7nbky+zVff5lqOJph8Cpv/I0xt8@vger.kernel.org
+X-Gm-Message-State: AOJu0YxYppbN6Loof/oCX+5CuEiVwuMa0K4wn4Vy+um8DzJcKaXdoqyS
+	NA1ri5y0l6WclmUUVe++SB3v8/MZL3zRd0TM+TlLENfP0T8D7X13rP9XgqZzaZmZpwk=
+X-Gm-Gg: ATEYQzyEBXkKzV8fV9rastug6brdTZsEhGFGBwMcFU1wskwDk2Kii1rwGF9Ut0tDdyI
+	nD+SI7KOQJntOMXlxxrUQhFUesYtE0heNq0H54mT9WpP2NYYhMfEGjxFwG4DUIVhAGbQUtuH7zo
+	gBt3G/AjBeH+0q++/WMWEQRhwrxfZBRulrlFuUZXzLLwkJxlajMpAsqvss/b+Ndn52UZTgSFySb
+	RZZERTijDYImzjG08/w7f0esICyn+eu4kD1ZyXli97IdeUgyeSdQDcShrEaxszmcMNf1ss1K/8d
+	lTtbOUzzMQOinu9lhLaEupk3PNyrhxbWm+Np4NohIihLYtfDxdn6hVlSitloE8Kh3mG7nyI79EX
+	KzfH+r+jLnx6/sop2/2cQnU9/itKArm5OewFKssQ3+kmKzjho4rXT4fIgS4KkGUPlPgO4Wlfivh
+	3wTGZV6PBHn6dxqLfHdTsyyvulWlA=
+X-Received: by 2002:a17:902:e843:b0:2b2:5428:ead8 with SMTP id d9443c01a7336-2b2542902d6mr38590925ad.0.1774887759333;
+        Mon, 30 Mar 2026 09:22:39 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:e8c9:5e1e:f42a:2b73])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b24268aa4fsm83826645ad.36.2026.03.30.09.22.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 30 Mar 2026 09:22:38 -0700 (PDT)
+Date: Mon, 30 Mar 2026 10:22:35 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v2 2/3] remoteproc: imx_rproc: Pass bootaddr to SM
+ CPU/LMM reset vector
+Message-ID: <acqjS440STRl2sK2@p14s>
+References: <20260327-imx943-rproc-v2-0-a547a3588730@nxp.com>
+ <20260327-imx943-rproc-v2-2-a547a3588730@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lcgC+RFxv1+AgoSL"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <06a701dcc014$86def5b0$949ce110$@trustnetic.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260327-imx943-rproc-v2-2-a547a3588730@nxp.com>
 
+On Fri, Mar 27, 2026 at 10:42:03AM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+> 
+> Cortex-M[7,33] processors use a fixed reset vector table format:
+> 
+>   0x00  Initial SP value
+>   0x04  Reset vector
+>   0x08  NMI
+>   0x0C  ...
+>   ...
+>   IRQ[n]
+> 
+> In ELF images, the corresponding layout is:
+> 
+> reset_vectors:  --> hardware reset address
+>         .word __stack_end__
+>         .word Reset_Handler
+>         .word NMI_Handler
+>         .word HardFault_Handler
+>         ...
+>         .word UART_IRQHandler
+>         .word SPI_IRQHandler
+>         ...
+> 
+> Reset_Handler:  --> ELF entry point address
+>         ...
+> 
+> The hardware fetches the first two words from reset_vectors and populates
+> SP with __stack_end__ and PC with Reset_Handler. Execution proceeds from
+> Reset_Handler.
+> 
+> However, the ELF entry point does not always match the hardware reset
+> address. For example, on i.MX94 CM33S:
+> 
+>   ELF entry point:     0x0ffc211d
+>   hardware reset base: 0x0ffc0000 (default reset value, sw programmable)
+>
 
---lcgC+RFxv1+AgoSL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Mar 30, 2026 at 03:12:10PM +0800, Jiawen Wu wrote:
-> > Hello:
-> >=20
-> > This series was applied to netdev/net-next.git (main)
-> > by Jakub Kicinski <kuba@kernel.org>:
-> >=20
-> > On Wed, 25 Mar 2026 16:28:04 +0000 you wrote:
-> > > From: Conor Dooley <conor.dooley@microchip.com>
-> > >
-> > > Hey folks,
-> > >
-> > > At the very least, it'd be good of the soc vendor folks could check
-> > > their platforms and see if their usrio stuff actually lines up with w=
-hat
-> > > the driver currently calls "macb_default_usrio". Ours didn't and it w=
-as
-> > > a nasty surprise.
-> > >
-> > > [...]
-> >=20
-> > Here is the summary with links:
-
-> >   - [net-next,v5,02/14] net: macb: rename macb_default_usrio to at91_de=
-fault_usrio as not all platforms have mii mode control in
-
-> There are compilation errors after merging this patch set.
-> I believe the error occurred where the CONFIG_OF is not set.
-
-Thanks for the report. I have sent what's hopefully a fix..
-
---lcgC+RFxv1+AgoSL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacqizQAKCRB4tDGHoIJi
-0vdJAP4q7bBsSYMfBK0DvfsAPRaNeZNEhFURu2I2OdVoIv0TNAD/dzYFRnqFWKSZ
-0+nhVpkTC1V1ckbvZ1/OPOxg5PN2mQc=
-=kUgB
------END PGP SIGNATURE-----
-
---lcgC+RFxv1+AgoSL--
+But why?  Why can't the ELF image be set to the right reset base?
+ 
+> To derive the correct hardware reset address, the unused lower bits must
+> be masked off. The boot code should apply a SoC-specific mask before
+> programming the reset address registers, e.g.:
+> 
+>   reset_address = entry & reset_vector_mask
+> 
+> Current driver always programs the reset vector as 0. But i.MX94 CM33S's
+> default reset base is 0x0ffc0000, so the correct reset vector must be
+> passed to the SM API; otherwise the M33 Sync core cannot boot successfully.
+> 
+> rproc_elf_get_boot_addr() returns the ELF entry point, which is not the
+> hardware reset vector address. To derive the proper reset vector, this
+> patch introduces imx_rproc_get_boot_addr(), which masks the ELF entry
+> point using the SoC‑specific 'reset_vector_mask'. The resulting reset
+> vector address is then passed to the SM CPU/LMM reset vector API calls.
+> 
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+>  drivers/remoteproc/imx_rproc.c | 17 ++++++++++++++---
+>  drivers/remoteproc/imx_rproc.h |  2 ++
+>  2 files changed, 16 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
+> index 0dd80e688b0ea3df4c66e5726884dc86c8a5a881..d8ead42640881bd523d605fa7002935ef6e98077 100644
+> --- a/drivers/remoteproc/imx_rproc.c
+> +++ b/drivers/remoteproc/imx_rproc.c
+> @@ -345,7 +345,7 @@ static int imx_rproc_sm_cpu_start(struct rproc *rproc)
+>  	const struct imx_rproc_dcfg *dcfg = priv->dcfg;
+>  	int ret;
+>  
+> -	ret = scmi_imx_cpu_reset_vector_set(dcfg->cpuid, 0, true, false, false);
+> +	ret = scmi_imx_cpu_reset_vector_set(dcfg->cpuid, rproc->bootaddr, true, false, false);
+>  	if (ret) {
+>  		dev_err(priv->dev, "Failed to set reset vector cpuid(%u): %d\n", dcfg->cpuid, ret);
+>  		return ret;
+> @@ -365,7 +365,7 @@ static int imx_rproc_sm_lmm_start(struct rproc *rproc)
+>  	 * If the remoteproc core can't start the M7, it will already be
+>  	 * handled in imx_rproc_sm_lmm_prepare().
+>  	 */
+> -	ret = scmi_imx_lmm_reset_vector_set(dcfg->lmid, dcfg->cpuid, 0, 0);
+> +	ret = scmi_imx_lmm_reset_vector_set(dcfg->lmid, dcfg->cpuid, 0, rproc->bootaddr);
+>  	if (ret) {
+>  		dev_err(dev, "Failed to set reset vector lmid(%u), cpuid(%u): %d\n",
+>  			dcfg->lmid, dcfg->cpuid, ret);
+> @@ -739,6 +739,17 @@ imx_rproc_elf_find_loaded_rsc_table(struct rproc *rproc, const struct firmware *
+>  	return rproc_elf_find_loaded_rsc_table(rproc, fw);
+>  }
+>  
+> +static u64 imx_rproc_get_boot_addr(struct rproc *rproc, const struct firmware *fw)
+> +{
+> +	struct imx_rproc *priv = rproc->priv;
+> +	u32 reset_vector_mask = GENMASK_U32(31, 0);
+> +
+> +	if (priv->dcfg->reset_vector_mask)
+> +		reset_vector_mask = priv->dcfg->reset_vector_mask;
+> +
+> +	return rproc_elf_get_boot_addr(rproc, fw) & reset_vector_mask;
+> +}
+> +
+>  static const struct rproc_ops imx_rproc_ops = {
+>  	.prepare	= imx_rproc_prepare,
+>  	.attach		= imx_rproc_attach,
+> @@ -752,7 +763,7 @@ static const struct rproc_ops imx_rproc_ops = {
+>  	.find_loaded_rsc_table = imx_rproc_elf_find_loaded_rsc_table,
+>  	.get_loaded_rsc_table = imx_rproc_get_loaded_rsc_table,
+>  	.sanity_check	= rproc_elf_sanity_check,
+> -	.get_boot_addr	= rproc_elf_get_boot_addr,
+> +	.get_boot_addr	= imx_rproc_get_boot_addr,
+>  };
+>  
+>  static int imx_rproc_addr_init(struct imx_rproc *priv,
+> diff --git a/drivers/remoteproc/imx_rproc.h b/drivers/remoteproc/imx_rproc.h
+> index d37e6f90548cec727b4aeb874680b42af85bdbb4..0d7d48352a1091ad24e8e083172ce6da6d26ae10 100644
+> --- a/drivers/remoteproc/imx_rproc.h
+> +++ b/drivers/remoteproc/imx_rproc.h
+> @@ -41,6 +41,8 @@ struct imx_rproc_dcfg {
+>  	/* For System Manager(SM) based SoCs */
+>  	u32				cpuid; /* ID of the remote core */
+>  	u32				lmid;  /* ID of the Logcial Machine */
+> +	/* reset_vector = elf_entry_addr & reset_vector_mask */
+> +	u32				reset_vector_mask;
+>  };
+>  
+>  #endif /* _IMX_RPROC_H */
+> 
+> -- 
+> 2.37.1
+> 
