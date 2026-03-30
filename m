@@ -1,149 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from Atcsqr.andestech.com (exmail.andestech.com [60.248.187.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E27C3C457B;
-	Mon, 30 Mar 2026 10:48:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C903C0606;
+	Mon, 30 Mar 2026 10:48:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.248.187.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774867691; cv=none; b=oueRKI5+WgcOc13WHC3F9lvTj7XcONt6lhspTZGFBtj7RjoFxgN38MdoEDzGLz/RhwCzVrUN7oYIyo0AB0zCAYwiAk5wdxotZPLFqO6ylk4A4slKpoHVVVxEXrcpLy9n9xSQeF6dnqK7kGk/dpRi0KfgZqgTSyprhGdCIuxjlPY=
+	t=1774867696; cv=none; b=m8DE3e3gp1TuEA6b5lKMhrKfe/zkJ3ZbBD8KLmzMsxpPze94396w2X9d2hbmn6iRDlzK5kP1KsL05YUP8YNMcjJvJavCdT/nj0L2crJrH7YhLbjhlczTqVk/dLHizslYrBdTs3ii6RdPY1PNz9/yjsc7WqaOmfj72PwPltyT+xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774867691; c=relaxed/simple;
-	bh=sgWDsMt9x5Efn1Ex6V5em36oaanjsO0EboetHfiLBjs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sgAP9Z+92NpYG5RUjWxN3VpFFWnQ0KgvfEtuSsBoGqw5zlH+Cbh3jYJGTIvchfgYdcYD/NCHHQ8/wSGaC1Bt/79Yz2PVsofrwDZf//Durz3ls/T5dgRw4N25Efp2+d3zuk6opkKtH6mLDEWVC2cycq8L75HUFz8MDhrV5keyIL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FNRfJBAS; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FNRfJBAS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3EC5C4CEF7;
-	Mon, 30 Mar 2026 10:48:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774867690;
-	bh=sgWDsMt9x5Efn1Ex6V5em36oaanjsO0EboetHfiLBjs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=FNRfJBASnSsJrkC/hXamTCsjwkWj71Kn4XH9ezN/cXWfuq6hwv9X9oRQ8j9Q/15pR
-	 bZW+yaKY5Lfz0ydhdQJlzMZ92JhvyYTUNSDNIbE85IPoK6R8Exffg/MqAwAesQ0+rG
-	 lRIrzeoe9jE42ohvM48FDvvfga+XZheYXWaXfYdtbZuOTLrKYgsKBytxN+p+FARCJq
-	 FMxCg0/B4tpcUVhl++aPFhRYuyMjIePlZoYlR+f/qgRUtTIKfn6PQ+d/V3c5KcDUf+
-	 JWh9cq/iZ6icHeEfd9Fj7EoJPCLT6Y2RXH0/qg9HtqE6fgWIyGsCgFKG/wp2Ztv1Fl
-	 lse3/7aVARwbQ==
-Message-ID: <ebc6da60-d49f-4a44-9ecb-3ae70413a248@kernel.org>
-Date: Mon, 30 Mar 2026 12:48:05 +0200
+	s=arc-20240116; t=1774867696; c=relaxed/simple;
+	bh=/47/5HHnaif3JHAckrH81FG+m9EH64JkilwpPo/i3Fo=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OcySWEJBI1PgErEmQ5g/mvqYrXTBHI37FTeoaZQeyVgUHYzW7YVWqaEe4n+PS+s/Pg9H1G5GtVNI3FNVqAzikMb2E3gia7H97PpWw1V6hz3KaojNCwevVbX9rMVLQiEQ0xZ9BQDmoZGmHrWVoWrm/6+hDZ3Ifd3MjRxBBxMzAqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=andestech.com; spf=pass smtp.mailfrom=andestech.com; arc=none smtp.client-ip=60.248.187.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=andestech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
+Received: from Atcsqr.andestech.com (localhost [127.0.0.2] (may be forged))
+	by Atcsqr.andestech.com with ESMTP id 62UAT1Oq039879;
+	Mon, 30 Mar 2026 18:29:01 +0800 (+08)
+	(envelope-from minachou@andestech.com)
+Received: from mail.andestech.com (ATCPCS34.andestech.com [10.0.1.134])
+	by Atcsqr.andestech.com with ESMTP id 62UAS8LP038225;
+	Mon, 30 Mar 2026 18:28:08 +0800 (+08)
+	(envelope-from minachou@andestech.com)
+Received: from swlinux02.andestech.com (10.0.15.183) by ATCPCS34.andestech.com
+ (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 30 Mar
+ 2026 18:28:07 +0800
+From: Hui Min Mina Chou <minachou@andestech.com>
+To: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
+        <alex@ghiti.fr>, <geert+renesas@glider.be>,
+        <prabhakar.mahadev-lad.rj@bp.renesas.com>, <magnus.damm@gmail.com>,
+        <ben717@andestech.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <conor+dt@kernel.org>, <jonathan.cameron@huawei.com>,
+        <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+        <linux-kernel@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>
+CC: <tim609@andestech.com>, <alex749@andestech.com>, <az70021@gmail.com>,
+        "Hui
+ Min Mina Chou" <minachou@andestech.com>,
+        Leo Yu-Chi Liang
+	<ycliang@andestech.com>
+Subject: [PATCH 3/7] cache: andes_llcache: improve performance of LLC operation
+Date: Mon, 30 Mar 2026 18:27:20 +0800
+Message-ID: <20260330102724.1012470-4-minachou@andestech.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260330102724.1012470-1-minachou@andestech.com>
+References: <20260330102724.1012470-1-minachou@andestech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] dt-bindings: clock: amlogic: Fix redundant hyphen
- in "amlogic,t7-gp1--pll" string.
-To: Jian Hu <jian.hu@amlogic.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Stephen Boyd <sboyd@kernel.org>, Michael Turquette
- <mturquette@baylibre.com>, robh+dt <robh+dt@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Ronald Claveau <linux-kernel-dev@aliel.fr>,
- devicetree <devicetree@vger.kernel.org>,
- linux-clk <linux-clk@vger.kernel.org>,
- linux-amlogic <linux-amlogic@lists.infradead.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Ferass El Hafidi <funderscore@postmarketos.org>
-References: <20260326092645.1053261-1-jian.hu@amlogic.com>
- <20260326092645.1053261-2-jian.hu@amlogic.com>
- <20260327-rough-spry-hyrax-8236de@quoll>
- <9830ff89-a145-41d1-98e9-1412f497d3f2@amlogic.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <9830ff89-a145-41d1-98e9-1412f497d3f2@amlogic.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
+ ATCPCS34.andestech.com (10.0.1.134)
+X-DKIM-Results: atcpcs34.andestech.com; dkim=none;
+X-DNSRBL: 
+X-SPAM-SOURCE-CHECK: pass
+X-MAIL:Atcsqr.andestech.com 62UAT1Oq039879
 
-On 30/03/2026 12:44, Jian Hu wrote:
-> 
-> On 3/27/2026 3:23 PM, Krzysztof Kozlowski wrote:
->> [ EXTERNAL EMAIL ]
->>
->> On Thu, Mar 26, 2026 at 05:26:43PM +0800, Jian Hu wrote:
->>> Fix redundant hyphen in "amlogic,t7-gp1--pll" string.
->>>
->>> Fixes: 5437753728ac ("dt-bindings: clock: add Amlogic T7 PLL clock controller")
->> Please run scripts/checkpatch.pl on the patches and fix reported
->> warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
->> patches and (probably) fix more warnings. Some warnings can be ignored,
->> especially from --strict run, but the code here looks like it needs a
->> fix. Feel free to get in touch if the warning is not clear.
-> 
-> 
-> Thanks for your review.
-> 
-> 
-> This series is based on the clk-next branch (version v7.0-rc1).
-> 
-> 
-> Here are the check results without --strict:
-> 
+Eliminate get_cpu() on !CONFIG_SMP and switch readl/writel to their
+relaxed variants to remove unnecessary fence instructions on I/O
+memory access. The platform specification defines all I/O regions are
+on channel 0 (point-to-point strongly ordered), so explicit fences are
+not required [1][2][3]. Explicit memory barriers (mb) are added before
+and after the CCTL loop to ensure overall memory consistency.
 
-I checked before. Now I double checked:
+Also fix hart ID mapping by switching to cpuid_to_hartid_map() instead
+of using the logical CPU ID directly. In AMP setups (e.g. Linux on
+Hart 1, RTOS on Hart 0), Linux sees itself as CPU 0 but must access
+Hart 1's CCTL registers, so using the logical ID would cause accidental
+interference with other cores.
 
-b4 shazam...
-git format-patch -3
-scripts/checkpatch.pl 0*
+[1] platform spec 2.1.1: https://github.com/riscvarchive/riscv-platform-specs/blob/main/riscv-platform-spec.adoc?plain=1#L169
+[2] privileged spec 3.6.5: https://github.com/riscv/riscv-isa-manual/blob/main/src/machine.adoc?plain=1#L2835
+[3] riscv: asm/mmio.h: https://gitea.andestech.com/RD-SW/linux/src/branch/ast-v5_4_0-branch/arch/riscv/include/asm/mmio.h#L105
 
-Clearly a warning, also on v7.0-rc1.
+Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
+Signed-off-by: Hui Min Mina Chou <minachou@andestech.com>
+---
+ drivers/cache/andes_llcache.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-So maybe you don't do it on the kernel you are claiming or just doing it
-on different code than you sent.
+diff --git a/drivers/cache/andes_llcache.c b/drivers/cache/andes_llcache.c
+index d318b8009f7f..57f666bc537a 100644
+--- a/drivers/cache/andes_llcache.c
++++ b/drivers/cache/andes_llcache.c
+@@ -66,7 +66,7 @@ static struct andes_priv andes_priv;
+ /* LLC operations */
+ static inline uint32_t andes_cpu_llc_get_cctl_status(void)
+ {
+-	return readl(andes_priv.llc_base + ANDES_LLC_REG_CCTL_STATUS_OFFSET_C0);
++	return readl_relaxed(andes_priv.llc_base + ANDES_LLC_REG_CCTL_STATUS_OFFSET_C0);
+ }
+ 
+ static void andes_cpu_cache_operation(unsigned long start, unsigned long end,
+@@ -74,16 +74,22 @@ static void andes_cpu_cache_operation(unsigned long start, unsigned long end,
+ {
+ 	unsigned long line_size = andes_priv.andes_cache_line_size;
+ 	void __iomem *base = andes_priv.llc_base;
+-	int mhartid = smp_processor_id();
+ 	unsigned long pa;
++	int mhartid = 0;
+ 
++	if (IS_ENABLED(CONFIG_SMP))
++		mhartid = cpuid_to_hartid_map(get_cpu());
++	else
++		mhartid = cpuid_to_hartid_map(0);
++
++	mb(); /* complete earlier memory accesses before the cache flush */
+ 	while (end > start) {
+ 		csr_write(CSR_UCCTLBEGINADDR, start);
+ 		csr_write(CSR_UCCTLCOMMAND, l1_op);
+ 
+ 		pa = virt_to_phys((void *)start);
+-		writel(pa, base + ANDES_LLC_REG_CCTL_ACC_OFFSET_BY_CORE(mhartid));
+-		writel(llc_op, base + ANDES_LLC_REG_CCTL_CMD_OFFSET_BY_CORE(mhartid));
++		writel_relaxed(pa, base + ANDES_LLC_REG_CCTL_ACC_OFFSET_BY_CORE(mhartid));
++		writel_relaxed(llc_op, base + ANDES_LLC_REG_CCTL_CMD_OFFSET_BY_CORE(mhartid));
+ 		while ((andes_cpu_llc_get_cctl_status() &
+ 			ANDES_LLC_CCTL_STATUS_MASK_BY_CORE(mhartid)) !=
+ 			ANDES_LLC_CCTL_STATUS_IDLE)
+@@ -91,6 +97,10 @@ static void andes_cpu_cache_operation(unsigned long start, unsigned long end,
+ 
+ 		start += line_size;
+ 	}
++	mb(); /* issue later memory accesses after the cache flush */
++
++	if (IS_ENABLED(CONFIG_SMP))
++		put_cpu();
+ }
+ 
+ /* Write-back L1 and LLC entry */
+-- 
+2.34.1
 
-Especially the second case would be a waste of my time to investigate
-and read this patch.
-
-Best regards,
-Krzysztof
