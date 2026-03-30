@@ -1,139 +1,185 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2758613777E;
-	Mon, 30 Mar 2026 03:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774839757; cv=none; b=BjozYA0UeoAmDRtR3KYsbctGZkIYI8hKL83qKd3g4WDPV4P7dK+WMgMG2V5FSC/gjDIpfCy6pMHQAfB6J8lFcYo2koIhIu+0kwub95xdEtDWh/RWd/Aho13EVAwJEb8/htAQYXqRI10Q/VrKEZYj/ZUdpGvvPldkt95eBbxufl4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774839757; c=relaxed/simple;
-	bh=WLQNRD4cQ46/Nf4UJ1f3dsQ04JuLOBmHiU6tZ6GrvCE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Paqgn9QWQgulzrykuvx7OAUD3vUNQbKGlSoyNUdP1//ONLlvwp4j/O+dgHZB+HKkzrfKmnuYUNLDAX+kCO2HpUmS9LL0lTOdLed7NvA/TR+nb/J1T1KvOzXaH/yp1+llRu2MNXD2zMMJOmcLj+Nm7AyqjYTIXBmyUvYFj131Qdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=kE8QdR1p; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29ACE1C84A0
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 03:15:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774840548; cv=pass; b=a/KBMtpbfy3rTYr3LNagaVmfK+/loBVj2kqo7tD7SR8WrcnMdc+FDSF132VPC91s4Qq2U7s10cyUsr9NRmrD+az2UXPW2UcsREmJpZy+RirzjEItwhtXh4fHzJGoYKj/UlKKrDQT2KxymTSjkMxh8fMTIRX2Kia2eB7072X0UNk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774840548; c=relaxed/simple;
+	bh=FVMXYmRNSK5Aq3wZtSGqZwzT1AZquu20CiOVo+iR0q8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rlAPq55k/1m5IHL2Y22ULr50kXvlBVvSeasuGTFrpGdzp0g3+mvoMZnosEVSwmwQ9CHEVDZDzW2ZcMnhEg7OKff3LtR/G+RNqLoCEjL/JpkB97jBMMZho6aMH4ng9ZYV099XbW1XR8fFwYebDWC22/wKq4papbPCAlRsMIKeuuo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FLb/xTms; arc=pass smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="kE8QdR1p"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 62U32GsqC204435, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1774839736; bh=WLQNRD4cQ46/Nf4UJ1f3dsQ04JuLOBmHiU6tZ6GrvCE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=kE8QdR1pj8kBoxyrbUmtnlwlqm/GwYwkZp9olfXVx66//0bqjWTtnP+1wX9n1QMYF
-	 F2vcC9NDxhtvaKVInlXbXXbW6qmLAiZ2Ap89bsaKmir+sXueFaMmLQKqz24Tjh2ZLO
-	 wKfWhzLsjAxKvHZSt52ZJn9gCNA0FFfevwJjdYVDA1UkNhJB2r7OZI5+ca0UnINbIx
-	 w9c0CnEgU+vpEIxeGRxg/vodlshwR28Lt4+5+/TYaglcL7RfmXdfj3a/y3s33KYZLB
-	 j9x9rANtaLewxsiB46x+5tZYkUauPCoPN5hwUoLqFjzVgTH3a9VhPHN43y/a+QKZKX
-	 kqTe1I5SnMoyQ==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.26/5.94) with ESMTPS id 62U32GsqC204435
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 30 Mar 2026 11:02:16 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.10; Mon, 30 Mar 2026 11:02:08 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.10; Mon, 30 Mar 2026 11:01:01 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::46e9:fab9:b2cf:c99b%10]) with mapi id
- 15.02.1748.010; Mon, 30 Mar 2026 11:00:59 +0800
-From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
-To: Stephen Boyd <sboyd@kernel.org>, "afaerber@suse.com" <afaerber@suse.com>,
-        "conor+dt@kernel.org" <conor+dt@kernel.org>,
-        =?utf-8?B?RWRnYXIgTGVlIFvmnY7mib/oq61d?= <cylee12@realtek.com>,
-        =?utf-8?B?SnlhbiBDaG91IFvlkajoirflrold?= <jyanchou@realtek.com>,
-        "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-        "mturquette@baylibre.com"
-	<mturquette@baylibre.com>,
-        "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-        "robh@kernel.org" <robh@kernel.org>
-CC: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-        "linux-realtek-soc@lists.infradead.org"
-	<linux-realtek-soc@lists.infradead.org>,
-        =?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
-        =?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
-        =?utf-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>
-Subject: RE: [PATCH v5 08/10] clk: realtek: Add support for MMC-tuned PLL
- clocks
-Thread-Topic: [PATCH v5 08/10] clk: realtek: Add support for MMC-tuned PLL
- clocks
-Thread-Index: AQHcuzlow7Y+xay5/E+Ex+WmCwwUabW9+A0AgAh0PAA=
-Date: Mon, 30 Mar 2026 03:00:54 +0000
-Message-ID: <85ccff0f13504501a9b4efda4661ee1b@realtek.com>
-References: <20260324025332.3416977-1-eleanor.lin@realtek.com>
- <20260324025332.3416977-9-eleanor.lin@realtek.com>
- <177440366488.5403.14385693004290004608@localhost.localdomain>
-In-Reply-To: <177440366488.5403.14385693004290004608@localhost.localdomain>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FLb/xTms"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-35da01fc0baso555595a91.2
+        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 20:15:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774840546; cv=none;
+        d=google.com; s=arc-20240605;
+        b=lE0gtNj2ndcrEs4+aaWAReyuMZY53+Iam4g2sJo+XXiekTfmFwnSfQUiyJ2OZwx19/
+         CeQxw6tnHu0o7G2vi/O01z4lpipPFhC73SWgAK+k/Po2hEDKVZreK3X5hoinJw9duV1I
+         GowLkgULXco7eYdrEhnkKHR5EjRna8yNltP56CYxLElGtmSUZo/HuOEuuO6Zc02ufoCV
+         g/vSO9TNzSHIDKYIdks75pWFx2LhiN1XREcRNSdxxJZaO+apGWZ9ncrfcEv2Cp3jlgcb
+         fabjgB+w5lAZ9dgO8OfWPbB4Fw6GAjIdZWp8FY5STiSWAHf8yyjsAxw7Pd2NPrgCR3a0
+         wPpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FVMXYmRNSK5Aq3wZtSGqZwzT1AZquu20CiOVo+iR0q8=;
+        fh=QQRcwY2HLFnMUAix6vulkcvEmIXcTUBrgH5da6BsBNQ=;
+        b=YXDPOLlNvzHyPcGGziNQzzTqia3km/mFJ8hUMtn+IJuBq5WA21U29fZADSNJiV3fwJ
+         rFP7H07Upcu99K5ryznQFecGN/8aSyMw/onQVBZ0H2QtJ8iQ5AXWfuWW7qA08fPIr1RM
+         r0hkmCbkEZco+McNKW+FNwVB9cuWMfFhSrrqRUFW8atqf8sVBkxcq/1mZ+XCbhnRxNwb
+         pj5KfjvLBkPSktiq/IL7msctmwzbUagJyk5BhfHgXdPHsmVGZSWzE04vv5GR22RnyhPP
+         YqjzCiC9bQaRJGajCRQ4g6aT09pwIfO0SS+9YggBnnqhaxyqxymmc+6bb/HlR+6LPSez
+         LWng==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774840546; x=1775445346; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FVMXYmRNSK5Aq3wZtSGqZwzT1AZquu20CiOVo+iR0q8=;
+        b=FLb/xTmsz4Fz2Wngg78mgB/x5vL+Sl0tcRFreSagxfYbiXsvlWZ2evYdeo8TXIJNGc
+         G1S+VeKpoblqFUOqt9WxL3awSbMB6bLxWHORZFrp7VmxI8sx8PqBQ7/8VJA4+OxM8O6H
+         FMdl19HM3QhhbmmqS3z/wjx289rvtRSIFi/zyTr0DOhpRlA19q5dsyYGjinLqGCy2AQZ
+         QyodS6ekLl48lW7hqd39BqkjBvNC6KJz7rqUn/36qkoUwWFJa2H7CUVfJhK0lYEt3hCS
+         bF8BP+5ZL8NRC36rBtNtmtpwoXcMnwT4IOaXSMa3DuzotuHwcUMN/Zsd+grjAKdW3Z5+
+         5VBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774840546; x=1775445346;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=FVMXYmRNSK5Aq3wZtSGqZwzT1AZquu20CiOVo+iR0q8=;
+        b=YG7jBCY7ZSvmkjFbBDfYPR+/PEzsZloKPobLTHXiLCa9Rrkk04j8InK30LWA+CVJev
+         oqPHKKzTABqeGfEgi4zL581xZGINm/svrpQfzRWwECtF2l80yI3p7ksCFCDn9umqGlRS
+         hKUG1Bt1F6UpqjJ+ihpd8WO5vVdzuWzMpYTGXwlI1w+5xLG5nI9txzaQFm3R4azSIFRZ
+         mFiF5OEa+DbwvpmGQdJTx3/NUYkt8fLzagVWp4GhGCyVI1iLBlkqYE2OtrvIojwpdVtA
+         3cxVBqO8NyDGUUVoRzbiH+pxwwFRMaadpphr4x5Wk2gSaVU/kVTUUEB68ZAPNffu3yzj
+         prow==
+X-Forwarded-Encrypted: i=1; AJvYcCWNevbUq8g2Ck4QTGtgApF+zHrVr8h1ylRJXmSmXFb4fZy4v4sjI7sxf7LfnBroBb6l6c4CSRRSSRES@vger.kernel.org
+X-Gm-Message-State: AOJu0YwCO8Tp8P9RijDUFvcNI4eCHreCsIl6VRngANvHexC8V5W0ALdI
+	X45ymUeNNe2uEIKmAfUa0WYSPZ5T1anxmF95gBZO3bQbUswJvjSb0XAhqJ/7yx5slJqsRUDzDuL
+	i/XAs1Kra5y5QywMhjHFJQH+5woNsYs4=
+X-Gm-Gg: ATEYQzx9vPZyvRO+tahbQmTjoElt24gS2nMgvHdHZZ3ZEZKruCy43U0I09solA8zrg5
+	VaFMCNR+iLsOfEYBaVOU+ht6rbM9avaCn9nzBMfiDXWZ9A4UWACapwxRa8bEoFC+aaZmmVyPAr6
+	bhr4VRbRt6wiIWdGbLnR5F6/4uJ8pvJiaozLPqKjb8ABtNNntY7Eb6UpzDUvC0WCK45injLLHcT
+	VVYFpqotVLNzXQEUulqGnQon3asWPXbPKSXAYk4sdUi3jIMbrt2THTK21O4R7l86s/g6Q3RTP3u
+	9sbnuP6F0J6S05k5wjU=
+X-Received: by 2002:a17:90a:38c6:b0:35d:9d4f:f595 with SMTP id
+ 98e67ed59e1d1-35d9d4ff8a6mr3077625a91.17.1774840546438; Sun, 29 Mar 2026
+ 20:15:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260223-yv5_revise_dts-v5-0-fc913e902488@gmail.com>
+ <20260223-yv5_revise_dts-v5-2-fc913e902488@gmail.com> <73ea41bf341df0e3215c58a029c9ea2386c4ef8a.camel@codeconstruct.com.au>
+ <CABh9gBd3b9TB1-s=Gq1q-M8bX+4UioXePUF0DPVrU2N3N8S9yw@mail.gmail.com> <d7794f74b26bbc1ee0a70e39c5671acc018f80eb.camel@codeconstruct.com.au>
+In-Reply-To: <d7794f74b26bbc1ee0a70e39c5671acc018f80eb.camel@codeconstruct.com.au>
+From: Kevin Tung <kevin.tung.openbmc@gmail.com>
+Date: Mon, 30 Mar 2026 11:15:53 +0800
+X-Gm-Features: AQROBzAgZ9-0Ybc9ZvULPVMA1y-kfdj-DVMBBwWYIa1fxoX4faQR_SIhsXqj-zQ
+Message-ID: <CABh9gBddmoLWyJpuKr8ieWCCHXgPPNn+zCS2WDkUn8x2NBkzqQ@mail.gmail.com>
+Subject: Re: [PATCH v5 2/8] ARM: dts: aspeed: yosemite5: Remove ambiguous
+ power monitor DTS nodes
+To: Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org, Amithash Prasasd <amithash@meta.com>, 
+	Kevin Tung <Kevin.Tung@quantatw.com>, Ken Chen <Ken.Chen@quantatw.com>, 
+	Leo Yang <Leo-Yang@quantatw.com>, Jackson Liu <Jackson.Liu@quantatw.com>, 
+	Daniel Hsu <Daniel-Hsu@quantatw.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-PiBRdW90aW5nIFl1LUNodW4gTGluICgyMDI2LTAzLTIzIDE5OjUzOjI5KQ0KPiA+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2Nsay9yZWFsdGVrL2Nsay1wbGwtbW1jLmMNCj4gPiBiL2RyaXZlcnMvY2xr
-L3JlYWx0ZWsvY2xrLXBsbC1tbWMuYw0KPiA+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0DQo+ID4gaW5k
-ZXggMDAwMDAwMDAwMDAwLi4wMTc2NjM3MzhjMWYNCj4gPiAtLS0gL2Rldi9udWxsDQo+ID4gKysr
-IGIvZHJpdmVycy9jbGsvcmVhbHRlay9jbGstcGxsLW1tYy5jDQo+ID4gQEAgLTAsMCArMSwzOTkg
-QEANCj4gPiArLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb25seQ0KPiA+ICsv
-Kg0KPiA+ICsgKiBDb3B5cmlnaHQgKEMpIDIwMjEgUmVhbHRlayBTZW1pY29uZHVjdG9yIENvcnBv
-cmF0aW9uDQo+ID4gKyAqIEF1dGhvcjogQ2hlbmctWXUgTGVlIDxjeWxlZTEyQHJlYWx0ZWsuY29t
-PiAgKi8NCj4gPiArDQo+ID4gKyNpbmNsdWRlICJjbGstcGxsLmgiDQo+IA0KPiBJbmNsdWRlIHdo
-YXQgeW91IHVzZSBpbiB0aGlzIEMgZmlsZSwgbm90IGp1c3QgdGhpcyBoZWFkZXIgZmlsZS4gVGhh
-dCBtYWtlcyBpdA0KPiBzaW1wbGVyIHRvIHNlZSB3aGF0IGlzIHVzZWQgd2l0aG91dCBmb2xsb3dp
-bmcgaW5jbHVkZSB0cmFpbHMuDQoNCkdvdCBpdC4gSSB3aWxsIGV4cGxpY2l0bHkgaW5jbHVkZSB0
-aGUgcmVxdWlyZWQgaGVhZGVycyBkaXJlY3RseSBpbiB0aGlzIC5jIGZpbGUuDQoNCj4gPiArDQo+
-ID4gKyNkZWZpbmUgUExMX0VNTUMxX09GRlNFVCAgICAgICAgICAgMHgwDQo+ID4gKyNkZWZpbmUg
-UExMX0VNTUMyX09GRlNFVCAgICAgICAgICAgMHg0DQo+ID4gKyNkZWZpbmUgUExMX0VNTUMzX09G
-RlNFVCAgICAgICAgICAgMHg4DQo+ID4gKyNkZWZpbmUgUExMX0VNTUM0X09GRlNFVCAgICAgICAg
-ICAgMHhjDQo+ID4gKyNkZWZpbmUgUExMX1NTQ19ESUdfRU1NQzFfT0ZGU0VUICAgMHgwDQo+ID4g
-KyNkZWZpbmUgUExMX1NTQ19ESUdfRU1NQzNfT0ZGU0VUICAgMHhjDQo+ID4gKyNkZWZpbmUgUExM
-X1NTQ19ESUdfRU1NQzRfT0ZGU0VUICAgMHgxMA0KPiA+ICsNCj4gPiArI2RlZmluZSBQTExfTU1D
-X1NTQ19ESVZfTl9WQUwgICAgICAweDFiDQo+ID4gKw0KPiA+ICsjZGVmaW5lIFBMTF9QSFJUMF9N
-QVNLICAgICAgICAgICAgIEJJVCgxKQ0KPiA+ICsjZGVmaW5lIFBMTF9QSFNFTF9NQVNLICAgICAg
-ICAgICAgIEdFTk1BU0soNCwgMCkNCj4gPiArI2RlZmluZSBQTExfU1NDUExMX1JTX01BU0sgICAg
-ICAgICBHRU5NQVNLKDEyLCAxMCkNCj4gPiArI2RlZmluZSBQTExfU1NDUExMX0lDUF9NQVNLICAg
-ICAgICBHRU5NQVNLKDksIDUpDQo+ID4gKyNkZWZpbmUgUExMX1NTQ19ESVZfRVhUX0ZfTUFTSyAg
-ICAgR0VOTUFTSygyNSwgMTMpDQo+ID4gKyNkZWZpbmUgUExMX1BJX0lCU0VMSF9NQVNLICAgICAg
-ICAgR0VOTUFTSygyOCwgMjcpDQo+ID4gKyNkZWZpbmUgUExMX1NTQ19ESVZfTl9NQVNLICAgICAg
-ICAgR0VOTUFTSygyMywgMTYpDQo+ID4gKyNkZWZpbmUgUExMX05DT0RFX1NTQ19FTU1DX01BU0sg
-ICAgR0VOTUFTSygyMCwgMTMpDQo+ID4gKyNkZWZpbmUgUExMX0ZDT0RFX1NTQ19FTU1DX01BU0sg
-ICAgR0VOTUFTSygxMiwgMCkNCj4gPiArI2RlZmluZSBQTExfR1JBTl9FU1RfRU1fTUNfTUFTSyAg
-ICBHRU5NQVNLKDIwLCAwKQ0KPiA+ICsjZGVmaW5lIFBMTF9FTl9TU0NfRU1NQ19NQVNLICAgICAg
-IEJJVCgwKQ0KPiA+ICsjZGVmaW5lIFBMTF9GTEFHX0lOSVRBTF9FTU1DX01BU0sgIEJJVCgxKQ0K
-PiBbLi4uXQ0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2Nsay9yZWFsdGVrL2Nsay1wbGwuaA0K
-PiA+IGIvZHJpdmVycy9jbGsvcmVhbHRlay9jbGstcGxsLmggaW5kZXggMmQyN2E0NGEyNzBjLi45
-Y2YyMTk4NzEyMTgNCj4gPiAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2Nsay9yZWFsdGVrL2Ns
-ay1wbGwuaA0KPiA+ICsrKyBiL2RyaXZlcnMvY2xrL3JlYWx0ZWsvY2xrLXBsbC5oDQo+ID4gQEAg
-LTQ0LDQgKzQ0LDI1IEBAIHN0YXRpYyBpbmxpbmUgc3RydWN0IGNsa19wbGwgKnRvX2Nsa19wbGwo
-c3RydWN0DQo+ID4gY2xrX2h3ICpodykgIGV4dGVybiBjb25zdCBzdHJ1Y3QgY2xrX29wcyBydGtf
-Y2xrX3BsbF9vcHM7ICBleHRlcm4NCj4gPiBjb25zdCBzdHJ1Y3QgY2xrX29wcyBydGtfY2xrX3Bs
-bF9yb19vcHM7DQo+ID4NCj4gPiArc3RydWN0IGNsa19wbGxfbW1jIHsNCj4gPiArICAgICAgIHN0
-cnVjdCBjbGtfcmVnbWFwIGNsa3I7DQo+ID4gKyAgICAgICBpbnQgcGxsX29mczsNCj4gPiArICAg
-ICAgIGludCBzc2NfZGlnX29mczsNCj4gDQo+IFRoZXNlIG9mZnNldHMgc2hvdWxkIGJlIHVuc2ln
-bmVkPw0KPg0KDQpZZXMsIEkgd2lsbCBmaXggaXQuDQoNCj4gPiArICAgICAgIHN0cnVjdCBjbGtf
-aHcgcGhhc2UwX2h3Ow0KPiA+ICsgICAgICAgc3RydWN0IGNsa19odyBwaGFzZTFfaHc7DQo+ID4g
-KyAgICAgICB1MzIgc2V0X3JhdGVfdmFsXzUzXzk3X3NldF9pcGM6IDE7DQo+IA0KPiBib29sPyBE
-b3VidCB3ZSBjYXJlIGFib3V0IHRoaXMgdW5sZXNzIHdlJ3JlIHBhY2tpbmcgc3RydWN0cyAod2hp
-Y2ggd2UNCj4gc2hvdWxkbid0IGJlKS4NCj4gDQoNClRoaXMgbWVtYmVyIGlzIGFjdHVhbGx5IHJl
-ZHVuZGFudCwgc28gSSB3aWxsIGp1c3QgcmVtb3ZlIGl0Lg0KDQo+ID4gK307DQo+ID4gKw0KPiA+
-ICsjZGVmaW5lIF9fY2xrX3BsbF9tbWNfaHcoX3B0cikgIF9fY2xrX3JlZ21hcF9odygmKF9wdHIp
-LT5jbGtyKQ0KPiA+ICsNCj4gPiArc3RhdGljIGlubGluZSBzdHJ1Y3QgY2xrX3BsbF9tbWMgKnRv
-X2Nsa19wbGxfbW1jKHN0cnVjdCBjbGtfaHcgKmh3KSB7DQo+ID4gKyAgICAgICBzdHJ1Y3QgY2xr
-X3JlZ21hcCAqY2xrciA9IHRvX2Nsa19yZWdtYXAoaHcpOw0KPiA+ICsNCj4gPiArICAgICAgIHJl
-dHVybiBjb250YWluZXJfb2YoY2xrciwgc3RydWN0IGNsa19wbGxfbW1jLCBjbGtyKTsgfQ0KDQpC
-ZXN0IHJlZ2FyZHMsDQpZdS1DaHVuDQo=
+On Thu, Mar 26, 2026 at 2:07=E2=80=AFPM Andrew Jeffery
+<andrew@codeconstruct.com.au> wrote:
+>
+> Hi Kevin,
+>
+> Sorry for the delay.
+>
+> On Mon, 2026-03-09 at 11:41 -0700, Kevin Tung wrote:
+> > On Tue, Mar 3, 2026 at 6:41=E2=80=AFPM Andrew Jeffery
+> > <andrew@codeconstruct.com.au> wrote:
+> > >
+> > > Hi Kevin,
+> > >
+> > > Sorry for the patchy replies so far, but this series bothers me and
+> > > other priorities keep bumping it down the list.
+> > >
+> > > On Mon, 2026-02-23 at 19:17 +0800, Kevin Tung wrote:
+> > > > Two different power monitor devices, using different drivers, reuse
+> > > > I2C addresses 0x40 and 0x45 on bus 10 across Yosemite5 board varian=
+ts.
+> > > > Defining these devices statically in the DTS can lead to incorrect
+> > > > driver binding on newer boards when the wrong device is instantiate=
+d.
+> > >
+> > > There are effective methods of maintaining devicetrees for variants.
+> > > Why are we choosing to remove information about the platform rather
+> > > than use existing techniques to properly describe them?
+> > >
+> > Hi Andrew,
+> >
+> > This is due to hardware design changes during earlier development
+> > stages, and the fix is expected to remain stable as the design has
+> > matured.
+> > Could you guide me on the best way to maintain devicetrees for
+> > variants? Thank you :)
+>
+> My expectation is your platforms move through several design phases
+> prior to (mass?) production. My suspicion is that you have sent a
+> devicetree for the pre-production design phases, and you're trying to
+> evolve that one devicetree to match the design for whatever current
+> phase you're in.
+>
+> So, ideally: Send a devicetree only for the finalised design. Don't
+> send devicetrees for pre-production designs.
+>
+> If you feel you can't do that for some reason, an alternative is to
+> have a separate .dts file for each phase in the design process.
+>
+> This may sound tedious but it doesn't have to be a burden to maintain.
+>
+> For instance, you can use one or more .dtsi files to describe the
+> common components and relationships for your platform. These .dtsi
+> files are then #included into .dts files as usual. Often .dtsi files
+> are used to isolate different hardware scopes (SoC vs board, for
+> instance), but we're not limited to that, we can use them for the
+> purpose outlined above too.
+>
+> If there are only (very) minor differences, there's also the option of
+> #including another .dts file. From there you can adjust properties or
+> even delete nodes where it makes sense. For example, we maintain a .dts
+> file for the latest revision of the AST2600-EVB, but we also have a
+> separate .dts for the A1 revision with a different regulator setup:
+>
+> - https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/arch/arm/boot/dts/aspeed/aspeed-ast2600-evb.dts?h=3Dv7.0-rc5
+> - https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/arch/arm/boot/dts/aspeed/aspeed-ast2600-evb-a1.dts?h=3Dv7.0-rc5
+>
+> Any of these are better options than this current approach of trying to
+> justify incompatible changes against unclear design boundaries.
+>
+> Andrew
+
+Hi Andrew,
+
+Thank you for the guidance.
+We will submit devicetree changes for the finalized design and ensure
+they align with the hardware to maintain stability and avoid
+incompatible changes.
+
+Kevin
