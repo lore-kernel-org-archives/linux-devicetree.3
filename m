@@ -1,114 +1,191 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316A62ECEAE
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 21:58:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774907920; cv=pass; b=Oljyn+JzVo6PX5P5jfpCf695KAE6Jhm1a+Sz51VN9faSvhid1MwcdB6cX088JIbm7+3wgav9vxpPhvo+i67ssWeVtCSIEgqfygvP8g7V6/F1zK2mx6JBjFu03rm5CU6+BvJTscAMmlzjaTI1EkHLD9aUCroRTIhLt/xbZJFfn4I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774907920; c=relaxed/simple;
-	bh=FJE8Ztq2yR97Wm+KeZdBFg3MTQmh8UlZm5qTyN3YQu0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EK8qcw+7pcs6OvUgicWL1AcpjjWv7DvTz/J8vcrVq+ggxDE4gy5WnT/2poLJJbGFM3oEPMZ+EZLaYffgAIG9bQTXHKidcyQPa3+b9MqxVysgomlti+XDwluDWZ0ceimfS3dIs7ZZAaeeo3ScruT6g3a0zhZGVft8fgqGR5YKv/Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=rN4a+tcN; arc=pass smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB223AA4FA;
+	Mon, 30 Mar 2026 22:15:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774908932; cv=none; b=MolCFBolEs4UElMZTLcVgW9EDJAh7TrIejQQcW3rs7rUJhThNIo6kQHFHBc2aSuEbq0ExUAUzh13p2X/WFkn3WKDfgxYBATOZ2ImN7vTqwiwcr09rE1l2/qALUKP1Z89IjKDhEMRR9fOYwDlsWvVxoppQZBqSxODYG3CQbjJ1gg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774908932; c=relaxed/simple;
+	bh=qjAg+6PPtxvBWUDMLHc0BJyd1JvaxoRS9Xtij8EoysI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hfBQiKReOtXOQz/ax90n8Gv+gLsxikVyWirQifAXkJmagZGlFXMUj93x19O8qPyKf3V60i9EbqNtklGOE+vS5KDs+ay499TJRB38EruQ4PbOQzs+Ia8QDUPiMg4woknnhSWxHUpYZITjkPZMBrVkC6BY2jhjxm1umDc0ubyPgsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gxdJeiPr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="rN4a+tcN"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2b23f90f53aso27520375ad.0
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 14:58:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774907917; cv=none;
-        d=google.com; s=arc-20240605;
-        b=FOzf5I590h1723oLVRo8n2KISojiZ27Yfa9axShy896AqBsPFUkWALFWojqAgEp2wx
-         +rZnNlja7JtWpULHYmb4Vv0c+Z4ecsuqWnGQStTJHsQrbq5BVGtt+m+nH0fGD98udH+L
-         WhuyUMmPAfzyZVeqF4nf8yCVQ+9VXLL7jQk1bwyfnHOiGHXpBTH/sOzgjISvn2zDLaIE
-         zaKup2yZ6Nx3QXHwvr0Fr6y6YMG97huZroj59uG6K6N+2iJ9nMLGEN3TdThmSLF98Xrd
-         LHbXqzy8E9DvdRTzb3nBNrVo9chP1obVMyWtUpq2nSE6WlcB20dk8LTFABT2v+IYFGn6
-         1jKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FJE8Ztq2yR97Wm+KeZdBFg3MTQmh8UlZm5qTyN3YQu0=;
-        fh=ThkafKXJYJ9t4eIz6kwjoiPWJPnLaObcN8smSc/x7Oc=;
-        b=F0Ovjc34gG3aWBfm5XexvGlPdJgUDR8NACG9Fgom4yzOLsHtjnYlsIeEeRdx2V7phW
-         ZTdHg2c3UuLs1twm6F0cH9j0wRfSfiWcBo4KosYxXq1j+3VFBQGTIcRUrHONndS/KAmI
-         EEMpTHVIp+evNZR15PbHVt6SyYjxq0OQ9u0DmS+csD0+Hyy4v3s4NRQF98hdXydAEnat
-         AGnfmOKQnio+1MiAWrJsAC4FIYHED0u2osKqGOguakEWMEXxJwRKMQ+OL5nQslSKF0wd
-         oVFcA5tkTm85EW/RXKN34XsB9Xp2lOYdLRegifkIwN4LoflWDBslmTOFbk5N6irXCYef
-         jPtA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1774907917; x=1775512717; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FJE8Ztq2yR97Wm+KeZdBFg3MTQmh8UlZm5qTyN3YQu0=;
-        b=rN4a+tcNQUOeBJZSd5LF6RJXJ4fgX4SDROS2G9zkSVx7E/KCh4/TXkoidPckf6I0EY
-         W5keqH8R/JDCIwOlsiwNOfu+AGLjBdN+3Nlg07JG9pLYVxGU1DTlGkm2xKAaH1hOQhiH
-         8bbDTfwhqdUti9VUYXrzQN04vin7Ekaby3Dn//M+fnDTZF9YGGn22isnnEq8w6LqxF9W
-         BBJiT4d8Gdd2SmItSf03g34El6/yRlbeFWIu9iuuZp2Gn7N+idyVvk7gZb7sLWsxDnkw
-         Y53hvh2YwG8AaGd1BlhmWvVrzgEtePk8pRUpvvzN80P4lF6nAz2gjDRP5nCPsMWWEzu7
-         k0Uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774907917; x=1775512717;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=FJE8Ztq2yR97Wm+KeZdBFg3MTQmh8UlZm5qTyN3YQu0=;
-        b=HYkDbIKUBA23dRfGbL4Rq9Gs8tkzIwj2wBlK4m+nnPSuWFV3ObVeHMolv7DBvQfrmv
-         c0TP2sUIWs36nQ2lcuBLrdRn8HqkDPdOGUsaCoH1zpprLKA/vlK5+wW8z2Or3ybQXToV
-         XklkYwyi1jp9ymuYR6Q9DcihIV3SE8Z1/J08LbageHpMxWRQpzmNPq0Jff9uizY5JbIX
-         XXYZ+bKUPV0YOI1fDmxriKniP3flUn94YYfdvY1yTtfM3TcGQf6WuvDvC8mzQJ1iry/P
-         Rv4+YNsSpTJxg+cYLdrpsCVAoFkwiw5LegPp55+gCJXHK96zplQAnW3OIofPu1C+otQI
-         1kIg==
-X-Forwarded-Encrypted: i=1; AJvYcCUBGjolnv56e3SfKw758eGjY+7QB6Z0zpG3DGvCAPN2fbJeFjwR7hOYejG7R6F30u0onOAWImZK1H0x@vger.kernel.org
-X-Gm-Message-State: AOJu0YyVeQdFWLqu5be+PDjVviohv4z1P5ikgqkTlF4o4rYJpbVBeQWl
-	F7fIYta7XrIvmc3f4HA9RukfZOZADs7WY/7SJOAWhT7BV4QICrzT0YeCQ5q/fbjg2V+7s0R/5j6
-	ERjyrQhBTCN0zkd4jQUMnaROV098RcPg=
-X-Gm-Gg: ATEYQzybljsb2nPeSyGoKClTbWlrVsu/y/YUz97bmbDmgF1LL9JJIPk3HRlgH3k/amf
-	fXadOn2o5AEMd2XZcIVuJ+OAYd+9X6kVYmizGObJfULJwgXVcRA0Hoi5CAZmnNMPmvxMzVm+zb/
-	p7jKJcur6eM0jiO869vmn1LaRWABMG322Ummjso1stRI1yuxEdCVhHC+sMpn2j3nBh8CPyt6Lf+
-	u69uLLBQjspY+lpiztcB5rSCP9TTxytR618krjFRsy9H2L6kVi+8GJdL/1hQyDHb3ZvMKxhp73t
-	44M2PVPB7NyRPjSnqQC3SpV83/31022wRRN2tDfdwLWmS7mSX7o=
-X-Received: by 2002:a17:902:ef44:b0:2b2:58c7:2cd6 with SMTP id
- d9443c01a7336-2b258c73377mr34992175ad.5.1774907917613; Mon, 30 Mar 2026
- 14:58:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gxdJeiPr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABFC4C4CEF7;
+	Mon, 30 Mar 2026 22:15:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774908931;
+	bh=qjAg+6PPtxvBWUDMLHc0BJyd1JvaxoRS9Xtij8EoysI=;
+	h=From:Date:Subject:To:Cc:From;
+	b=gxdJeiPrr55bjs17cHuNG9EzbzU4znBjus77AH0SbQsg/vbtWuXbSH5BOUiO5Dfj7
+	 3vAnyJN7MAWnD76WlCVIPT6NLmFp4zylNbKpak0PhpVYP56kERFb4FhR1Li1W1jxKU
+	 vsNraXSz+3BAHV9ucPJZ6fIHrjS0ugXaH9jUG9PXX0bncP22on6WVk1A3g6GnX4fEy
+	 zJ5C12wlM/9jbeRdQxfraBvIheHcnWmU630+Xbq8YG8izgx62+d4JW7ulC3DTfuyWQ
+	 Et5lLW9C53Ov1PUzFOazaB+Bhl/3RHQoElX2g53hBD0cohdas02zjySEr+wskx088M
+	 77IWmdZReS1VQ==
+From: Yixun Lan <dlan@kernel.org>
+Date: Mon, 30 Mar 2026 22:15:21 +0000
+Subject: [PATCH v2] riscv: dts: spacemit: k3: Add USB2.0 support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260326-s6-s7-pwm-v1-0-67e2f72b98bc@amlogic.com> <20260326-s6-s7-pwm-v1-1-67e2f72b98bc@amlogic.com>
-In-Reply-To: <20260326-s6-s7-pwm-v1-1-67e2f72b98bc@amlogic.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Mon, 30 Mar 2026 23:58:26 +0200
-X-Gm-Features: AQROBzC9sJkgJfCVL7Eb0aOMXTr94-EjxC4gSLY0i2t4mSqOPphK9W4gxOQsQKg
-Message-ID: <CAFBinCDOd_Xp3DqqFNDUEfJPq0U=f9FazNAh_=k2B2eOcUeu+A@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: pwm: amlogic: Add new bindings for S6 S7 S7D
-To: xianwei.zhao@amlogic.com
-Cc: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, linux-pwm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
-	Junyi Zhao <junyi.zhao@amlogic.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260330-02-k3-usb20-dts-v2-1-46af262fb4a9@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAPj1ymkC/x3MMQqAMAxA0atIZgMhBQWvIg7VRg2CSqMilN7d4
+ viG/xOYRBWDrkoQ5VHTYy/guoJp9fsiqKEYmLgh5wiJcXN428iE4TJsWvJSIBwclOqMMuv7H/s
+ h5w+ZV3duYQAAAA==
+X-Change-ID: 20260330-02-k3-usb20-dts-670aeb20e2d3
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3947; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=qjAg+6PPtxvBWUDMLHc0BJyd1JvaxoRS9Xtij8EoysI=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBpyvX+mHVaKIYWYUOcJdpo03hzTPbH3SDDhkNhx
+ 6Bx2v9OmeyJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCacr1/hsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+1JNA//ZAO5nSqxrPRkZ3DQBCfxBUxcLrgs6rV12I8JEO+tumXMtoH52NhI8
+ vVMiUeBxdBhKd4KWNQZe/ftXzFttoJ/ZbNhUegQAbO0CPkpKnB+dAPy4NaXhE1lm2LsORc/dTFw
+ +sVY3dnYQ3B8CVJB2KBeyApWJ6uHe9ma8EC3OGjVhWUuaTx1R4tdK17wsi5egaR8zo6rMPB5UWD
+ MfRkxtnWPCmzKMSCifJ8/ukGwH+I+hcBxnc8bpuh+cFeQcOAQ38IylTRCFuoG4rkCPOq6kKtuW0
+ k6luBHqGSyT5ySXto1O2rpFXvBZS11TSYZ41ml2X+7D27qEe12c1wjVftYDGKihbQQ097ffH0w4
+ RDG4yMc9V0ahie8ZwI1Z5z9vMh0Jt461SXmcZfBiwLtoI+pMoEobhf2wvo+s8j2YKqI+/rTxHda
+ KCBFLkQG3V2ZAWK1cvxldLhqJdFa2yG0H1LmCZBQwG1frb1TDNp3NcOxV5uVtR58Gld+VSrZGjm
+ bdOwt6istzFfWL0ub4vGLnY5oRNJkk3l3YDEmCU/yv6NsKApPWQ6q6Ry1o+0jgy4bNwHb/ANzdZ
+ TVFnA4nQH7T8AKvbSRODsr6E9LEk2bdsbvN/3O3gx4fPpiuACO6pjDwpchZdTN1EmUOzLOAn5VM
+ py6IAqWrNugDWIhNRyOgSCIl+TfpOM=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-On Thu, Mar 26, 2026 at 7:35=E2=80=AFAM Xianwei Zhao via B4 Relay
-<devnull+xianwei.zhao.amlogic.com@kernel.org> wrote:
->
-> From: Junyi Zhao <junyi.zhao@amlogic.com>
->
-> Amlogic S7/S7D/S6 different from the previous SoCs, a controller
-> includes one pwm, at the same time, the controller has only one
-> input clock source.
->
-> Signed-off-by: Junyi Zhao <junyi.zhao@amlogic.com>
-> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
-With the two suggestions from Krzysztof added:
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+There is one USB2.0 host in K3 SoC which use DWC3 IP but only provide
+USB2.0 functionality, and with only one USB2 PHY connected.
+
+The USB2.0 controller on Pico-ITX board connects to a Terminus FE1.1 Hub
+which fully USB2.0 protocol compliant and provides 4 ports.
+
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+This series adds devicetree support to enable USB2.0 in Pico-ITX board, 
+There is a run-time dependency on USB phy[1], Hub[2] and reset[3] patches,
+but each series should be quite independent.
+
+For people who interested, I've collected all patches and put a complete
+branch here[4].
+
+Currently, the USB phy[1] patch is still waiting for maintainer to
+merge.
+
+Link: https://lore.kernel.org/r/20260305-11-k3-usb2-phy-v4-0-15554fb933bc@kernel.org [1]
+Link: https://lore.kernel.org/r/20260317-03-usb-hub-fe1-v1-0-71ec3989f5be@kernel.org [2]
+Link: https://lore.kernel.org/r/20260314-01-k3-reset-usb-pci-v2-1-9dc0976d524e@kernel.org [3]
+Link: https://github.com/spacemit-com/linux/tree/WIP/k3/usb2 [4]
+---
+Changes in v2:
+- separate DT patch out, no code changes
+- Link to v1: https://lore.kernel.org/r/20260317-02-k3-usb20-support-v1-0-d89f59062ad4@kernel.org
+---
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 24 +++++++++++++++++++++
+ arch/riscv/boot/dts/spacemit/k3.dtsi         | 31 ++++++++++++++++++++++++++++
+ 2 files changed, 55 insertions(+)
+
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+index 4486dc1fe114..b89c1521e664 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+@@ -26,6 +26,14 @@ memory@100000000 {
+ 		reg = <0x1 0x00000000 0x4 0x00000000>;
+ 	};
+ 
++	reg_aux_vcc3v3: regulator-aux-vcc3v3 {
++		compatible = "regulator-fixed";
++		regulator-name = "AUX_VCC3V3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		regulator-always-on;
++	};
++
+ 	reg_aux_vcc5v: regulator-aux-vcc5v {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "AUX_VCC5V";
+@@ -197,3 +205,19 @@ &uart0 {
+ 	pinctrl-0 = <&uart0_0_cfg>;
+ 	status = "okay";
+ };
++
++&usb2_host {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	hub@1 {
++		compatible = "usb1a40,0101";
++		reg = <1>;
++		vdd-supply = <&reg_aux_vcc3v3>;
++	};
++};
++
++&usb2_phy {
++	status = "okay";
++};
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index 815debd16409..9eb2ff07218a 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -438,6 +438,37 @@ soc: soc {
+ 		dma-noncoherent;
+ 		ranges;
+ 
++		usb2_host: usb@c0a00000 {
++			compatible = "spacemit,k3-dwc3";
++			reg = <0x0 0xc0a00000 0x0 0x10000>;
++			clocks = <&syscon_apmu CLK_APMU_USB2_BUS>;
++			clock-names = "usbdrd30";
++			resets = <&syscon_apmu RESET_APMU_USB2_AHB>,
++				 <&syscon_apmu RESET_APMU_USB2_VCC>,
++				 <&syscon_apmu RESET_APMU_USB2_PHY>;
++			reset-names = "ahb", "vcc", "phy";
++			interrupts = <105 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-parent = <&saplic>;
++			phys = <&usb2_phy>;
++			phy-names = "usb2-phy";
++			phy_type = "utmi";
++			snps,dis_enblslpm_quirk;
++			snps,dis_u2_susphy_quirk;
++			snps,dis-del-phy-power-chg-quirk;
++			snps,dis-tx-ipgap-linecheck-quirk;
++			dr_mode = "host";
++			maximum-speed = "high-speed";
++			status = "disabled";
++		};
++
++		usb2_phy: phy@c0a20000 {
++			compatible = "spacemit,k3-usb2-phy";
++			reg = <0x0 0xc0a20000 0x0 0x200>;
++			clocks = <&syscon_apmu CLK_APMU_USB2_BUS>;
++			#phy-cells = <0>;
++			status = "disabled";
++		};
++
+ 		eth0: ethernet@cac80000 {
+ 			compatible = "spacemit,k3-dwmac", "snps,dwmac-5.40a";
+ 			reg = <0x0 0xcac80000 0x0 0x2000>;
+
+---
+base-commit: af62a095eb0c3359d477b55ef72d2afd94c83c8f
+change-id: 20260330-02-k3-usb20-dts-670aeb20e2d3
+
+Best regards,
+-- 
+Yixun Lan <dlan@kernel.org>
+
