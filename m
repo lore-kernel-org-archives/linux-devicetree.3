@@ -1,161 +1,200 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD733DEAC8
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 18:50:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057863939D3
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 18:54:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774896642; cv=none; b=uhW5EAzr2kGwt/T8J1t1XuFQ4tm2M9dzc3HlCuwYCzicC/iy+/KgzrGBTGykGbPe5b05LEMrWxI7HRQLLqTL7ibJQSImu2QojaSj8Jly4u9c13nYdUKKppoYg7KAiKkmzZ6MQMqfA8CYnvfEelfrYk9ZfqlSVfL+55pcsr8fCas=
+	t=1774896900; cv=none; b=jCPshE/Ell+FNHW6cY395N9dD5K5FzW/WDkjTuf4bZ76qP+XetDyXL2vI+I+gXBP7RBQ3nNjtJoQOQjwcAtY6z8uDQX6jnVOFklHEXLHZd9ex5ldCPsS2cOi4DVmuTK/lTW1a6cr+lJIDE4rqL84ucVK5dC6Ulh5VZ2tEO3QYZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774896642; c=relaxed/simple;
-	bh=aLwIKh+N+N4xy8vnPz2VLHgag2upnEV/MBsHXSFhf9U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OxKu9CfrbhgVolWO9v7o08sovS+MDmUBnnXagQF1DMbs1jUodhdeKBEy6FZVz3xz6zLvhWQM5nCTh42Vrk0raFdUDmq5acdpqwX+Cjtmb3CmJvnj/at12VxPiK+a5MGJboJ6bC/a6vc8jVOS/rbIfzexjT5HTnjQBkSiCs6RLhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cBt+Qo/E; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X65fLjXD; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cBt+Qo/E";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X65fLjXD"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62UGDZ211402829
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 18:50:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=DE8Sw5kR9lGM4C3h602YOoTU
-	pOjpbxDUO0a5++U3Gu0=; b=cBt+Qo/ExYBETSAhLuOmZVN0aPscA8YEqFre4PXg
-	/hkz1of2A/QmjdxQK3B+xCXZOpaS1quq79IWwI+vQjA/dEGlz/+LRIVG8uGbmsEq
-	3f/eB67dUSGUvgt8WkDQTOnK3SSzrEPh1odpOaFOCTw3I+CQcsi1ASSnwL76GpKg
-	3KQz5WYh8Bb93fyBEHWJAU1MLUxwK/0Ew6UFDyG3Vd/2xbRSdyisPTZ2RWRoBXiY
-	GaOBKHMDk845WDvlgvYQyiJCz6MWXL2M8uYE3yO03lDoVNoFkMeonF1qFiBGsX3O
-	j8NpQeB/2aoahZJUGAyI1RbYLLOYklb16Ud9jl6Z1XsnOQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7r4h9xva-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 18:50:40 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50b52a2d70cso144090411cf.3
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 11:50:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774896640; x=1775501440; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=DE8Sw5kR9lGM4C3h602YOoTUpOjpbxDUO0a5++U3Gu0=;
-        b=X65fLjXDAzlxSC0ZBwN7szM0XgkJYCdr9EC/4Bz9VYrSXfHxTMaXz90xqKvuQ6Rr6m
-         lprQwV4t53/BkLSIC2APzvpd6Gc3zyw9kuSW8Tcz3n7bFbr/BhhvNwmVQVeTNcXL5PBn
-         7hcJI8UYT8d6DrPoek2Fyn+uuM+zfVbyi3+fCN1/HIwGO4/VlUxPg24mGcJTNIGnto5G
-         o2SRM1tkorXsnUEF/lmNFVRMP7w21dbUjqQJW1QE6owgSH/A3XfxZOrOOm+oHiD1bTqj
-         YamcBTUbiwxLyPE3NEvDoBpftSWD6yRARzgh4aWuxBV+C7tIJwcILR69M9P5HGDC8VNF
-         Zgpg==
+	s=arc-20240116; t=1774896900; c=relaxed/simple;
+	bh=PZJA8OYSHkcjEb6yeCr4bU8DRy/2gacrQ+n6Z6q9zPk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ayqh7aZDOsM32zqTwhpVBCdKa+rtZlmc4wbbkP7XCJ43VEsVp4nZ0wZVASRW8PT9lN2i4Mh708DMyrs8VyJnUoB6tEbijFtBbeqhH0uTggM9z9d6CSb3Nj8jlnKiKoTmNNY3V5FCvSjbS3Z4FucF4IKaRhBgX3mAHt92+oeycHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-8d0288d24f6so338844885a.0
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 11:54:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774896640; x=1775501440;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=DE8Sw5kR9lGM4C3h602YOoTUpOjpbxDUO0a5++U3Gu0=;
-        b=sMnKJGNCJNkDDn3MBmokQnqqgDJ50favlpZ8qIdEP/+fKlEfE6CzDURsCrbWadb3mz
-         bvjwdw5RaVLPBb7pWdOoc8nr22gkI2fFswLZuyojrUc4DnWWNSj5ofiurLDjoSQ9wXIW
-         uiS78M0iIOxmv9xyDU+hiJF37T5uZ6n/HurZtfrhP5vj5+rFIVc40npKrss25pVD7b3m
-         89Pwoe12IvDA5SrBHQR8Y1xqfmzAjDXHOpHhnm7fsxqIM/qwY9pfyplE480DJAeKR3uH
-         29yH12eFb2n//JheVEbUwRZ0P0C2PLO97p5vOPaKl8lcPqHU4k0jYaSC1Cv6OPLpVZx1
-         Foew==
-X-Forwarded-Encrypted: i=1; AJvYcCX5drCVXAJOJZHAg3H0wBhfpzibS7K0Cj5vZeqdPmYMZK5s4Zd2RPnWC/xutIoACCyxS+MGdMz28J8l@vger.kernel.org
-X-Gm-Message-State: AOJu0YzA8clB3TMZBw1zC13h+QT/OwJqRVSS2UmSwQqMnYnR1Rr9qJ9r
-	9kdDBVlmGAB1sM3EuNN/zAM7htpaQnV4lQfrJVhAR3pAybFIVHVLbZRaclGwOTWyju3uwXHTYta
-	PU/Ik6wp6sNG6Ditad59Demv+KY0GG7pU5skiqHT8Pu0ut9WJtb8hBVuBMTHZcK4+
-X-Gm-Gg: ATEYQzyAxQi6zlHUd3QJb03KLD/2BXIWO/cOvMkhxh/zQowCKck86PO5fRdNhTcZPV4
-	/u0A3Tr5BLk7dHPSxJ8CLM3faFZQje1TROsV4uoRZmoaGjW9VXHbjJhgjzgFMPmHWmCJCegn3Rp
-	OtXiZbQLwfU0WFVMQLzR5KXXK6VlfhliI5YADjqS4qgU21wnnGf/iJBhNpaaaApLei/yMBgKwd7
-	3KXOEstNlur+Mby92BxH++cpF7kM9H3+h6eilqJVRVoRx91+GjpS0gZ6oasFyaziWRwJe2sO4kq
-	tS1dzuBJiELPTDEG7zxNculRzXuK9iAT4zyBHg45yRDduNQWO0I09uSJGrTdMI/qrf7vyePwO6M
-	GKHm7Scx/5Ir9Wo1IvOZd1MkqHq0dY1HB++IFyboWesZenSwZ/r4edWH2oz2S1L6ZmBbxsPZBSc
-	Msu7kii65LF2tEo58V8nvZ3ohadZxIb8ougQs=
-X-Received: by 2002:ac8:5d05:0:b0:509:2053:ab5a with SMTP id d75a77b69052e-50ba39803eemr172246691cf.57.1774896639545;
-        Mon, 30 Mar 2026 11:50:39 -0700 (PDT)
-X-Received: by 2002:ac8:5d05:0:b0:509:2053:ab5a with SMTP id d75a77b69052e-50ba39803eemr172246411cf.57.1774896638998;
-        Mon, 30 Mar 2026 11:50:38 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2b13f4329sm1828151e87.3.2026.03.30.11.50.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Mar 2026 11:50:37 -0700 (PDT)
-Date: Mon, 30 Mar 2026 21:50:35 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Sumit Garg <sumit.garg@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH] dt-bindings: display/msm: qcm2290-mdss: Fix missing
- ranges in example
-Message-ID: <wsf7oet6r7d55i7f6cdwgor4cqu3hzgqcv3r6lmyfsoivzgzls@v5z7bbea6fxe>
-References: <20260325122209.147128-2-krzysztof.kozlowski@oss.qualcomm.com>
- <177488647743.633011.6769674149013868210.b4-ty@kernel.org>
+        d=1e100.net; s=20251104; t=1774896898; x=1775501698;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gmbdfERIdYVjSOaA8rBMP7lXVvFsi5yyzuqKEhnFPsQ=;
+        b=rpnN6AqmLQEbUsrMXY6RBuKFCnoOL5srGhDYkj5VLzZXVVL8ausXf0qQa9816sQMNr
+         0F6i9vpnzBpq+JekXJKQwrlUUyt8+6bgMIR4VlBfZeSu2Xq9Zj4sCm3Gb1t4909+xApW
+         89tdZsSv010aDY9rcjQWndP/9uXsBVmQHM398tkxXY4plJ+0gKtawrYLjVoQ3YI+b2kL
+         s3F8pRAese3VqAq/fk8TyHzFtpaAJgQJoeVYUl/hpLjvIYkJEzx4hEXR2D3EomjclYrH
+         qqaAFe6Q2o1XvxcRWlSpdP22BBMydz87gC/zMemOcDS3g/ef9dzT7wsyFBQnajqrGOv9
+         9v9w==
+X-Forwarded-Encrypted: i=1; AJvYcCXkUdrz6HsY5kBWiBcixLTFneJQHqebSNnvyfYpBdyMsJrtdFbi2vAsKT2ObDJx+9avaYztMMV60T6d@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz9vORnCA5eQQtKX0UKKAiPiVwQl+weyYIWx3BxPt2u07KesnLQ
+	98VN5pxI8L0Go8CT9aIjO6XznkpjyrasLPwzcbxUZ/IhFT2aTcq2BbA2ZP9mUOmw
+X-Gm-Gg: ATEYQzxvF2NerNn0SPZMZ3Sjaq6D6CTI9KW3jUm/j3u1roeIAcC/WfIfMXKsVGqVbhx
+	G2l96kp/quGTlZoxWe9DtqZ9RfcUPI6PMc/izzR0iVragTg++r1se6schqRtMndDpxySEjLTk2r
+	AtJlLKwNkKvvu3hTgRM6DjmYATQ9rvqIWe3sy3LOLLbeNSfyE+7qGNGT1hXta17tBgR1x+Bh1g6
+	nW092c5Fi56UriD50Ijs7fbLMkBt/MwIvpIgmobamQPpssvhIuOpAt6189ZuCfoGrpBuqeHTfFH
+	Sj6bhGTxVa9lC0lnP6h1w1J3b1mc+QaSGGJnNP/+SCNqGd+8U2wPydBuu+36c03ZCti9KcPJIkw
+	kjnsZt59kfXAfAyX987Iff6s2E4cjWdzMPxaXQgK45yHWkGbQ3fSBVbw6dazc80Lpmn7mpXocu3
+	hZ6OQ9OUuWPXsb3X646EOjf0ujpVda2jIk20dMUwFc14m51pqcyYSIgFpO5ofeqhu8
+X-Received: by 2002:a05:620a:480a:b0:8d0:dba:30e9 with SMTP id af79cd13be357-8d1aa38109emr102038685a.9.1774896897917;
+        Mon, 30 Mar 2026 11:54:57 -0700 (PDT)
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com. [209.85.160.172])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8d027f06ee8sm829035685a.14.2026.03.30.11.54.57
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 30 Mar 2026 11:54:57 -0700 (PDT)
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5091d71aa11so59328431cf.1
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 11:54:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCVvCapxSZUceJ/29Z3dbONdIOmdUP/QI+enqPoPv4irT0CInueEt6nDHN/zw1kWi6YwkZdC/O87Z8fK@vger.kernel.org
+X-Received: by 2002:a05:6122:21a7:b0:56a:ed84:e2 with SMTP id
+ 71dfb90a1353d-56d7bf9a1a3mr395634e0c.1.1774896484928; Mon, 30 Mar 2026
+ 11:48:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <177488647743.633011.6769674149013868210.b4-ty@kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDE1NyBTYWx0ZWRfXwV4rpZ70fBb9
- EfpdnRWQt9e1SM8yrlh61yFKiv0N6FkGKJseSrhghO9A7HR1XRp3XZ+XlZG3iwrK4zWXhTu7XAf
- e151jauiFttzq9N1chC+TOfL09Dx+LZpqN3PpuwcfmGfasK2Ox6P8V0wFDw7EOhDYAUsFSvmvkw
- 85GhkmBekcCv9UgvgZROKlvOk/makSIPLa4z8fTNCPGtaLJ7Hb7DhWlODCJc8D6nGOqPsW4M/bb
- pHjyhu5uL63KqID81S7DQt0u4dk3gqbVZNKzxiqXZZzcKxeEFCJK8dR1aUzs0nHmSLewWnbbXTT
- rdq6GGTEsP5XtoUf4tJbc/BqnkxB49/+dec0jnnSah14q9zjlN82u+SYdVt0gfw28KiLrBA4sXc
- vR5uM6ByKaANvkRFc+dWPU+VItkjs75E28PvwKq8+EFMt2iOfj5nlWepcVLjxCTJJl1q7VVclE1
- Pcst2CoOuVMRhnCMMEA==
-X-Proofpoint-ORIG-GUID: 7p_DX2YFks3JDqq0fMoCcfM_U7pd4tnQ
-X-Authority-Analysis: v=2.4 cv=PI0COPqC c=1 sm=1 tr=0 ts=69cac600 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
- a=q8DrNbCZZteTo-H5dVoA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: 7p_DX2YFks3JDqq0fMoCcfM_U7pd4tnQ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-30_01,2026-03-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0 malwarescore=0
- lowpriorityscore=0 spamscore=0 suspectscore=0 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300157
+References: <20260319155334.51278-1-john.madieu.xa@bp.renesas.com>
+ <20260319155334.51278-8-john.madieu.xa@bp.renesas.com> <20260320-peculiar-cat-of-acumen-c6f6b3@quoll>
+ <TY6PR01MB173775E9970A41ED3A7FFF1DAFF52A@TY6PR01MB17377.jpnprd01.prod.outlook.com>
+In-Reply-To: <TY6PR01MB173775E9970A41ED3A7FFF1DAFF52A@TY6PR01MB17377.jpnprd01.prod.outlook.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 30 Mar 2026 20:47:51 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdW6Ac_=BugNJaqWnazdDsuzBB765jpzXt8fUasbypXFxg@mail.gmail.com>
+X-Gm-Features: AQROBzBY2yW50P7_EhVQZxwFTstX-3Z9DxWPu0ijoIOHvrdSgZhFLZHzJwI06ec
+Message-ID: <CAMuHMdW6Ac_=BugNJaqWnazdDsuzBB765jpzXt8fUasbypXFxg@mail.gmail.com>
+Subject: Re: [PATCH 07/22] ASoC: dt-bindings: renesas,rsnd: Add RZ/G3E support
+To: John Madieu <john.madieu.xa@bp.renesas.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+	Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, "magnus.damm" <magnus.damm@gmail.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, "Claudiu.Beznea" <claudiu.beznea@tuxon.dev>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	John Madieu <john.madieu@gmail.com>, 
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>, 
+	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Mar 30, 2026 at 11:01:21AM -0500, Bjorn Andersson wrote:
-> 
-> On Wed, 25 Mar 2026 13:22:10 +0100, Krzysztof Kozlowski wrote:
-> > Device node has children with MMIO addressing, so must have ranges:
-> > 
-> >   msm/qcom,qcm2290-mdss.example.dtb: display-subsystem@5e00000 (qcom,qcm2290-mdss): 'ranges' is a required property
-> > 
-> > 
-> 
-> Applied, thanks!
-> 
-> [1/1] dt-bindings: display/msm: qcm2290-mdss: Fix missing ranges in example
->       commit: 88bdac5443e5269bb39c4968d5ee0becbffe3f82
+Hi John,
 
-Hmm? I don't really mind, but...
+On Mon, 30 Mar 2026 at 17:40, John Madieu <john.madieu.xa@bp.renesas.com> wrote:
+> > From: Krzysztof Kozlowski <krzk@kernel.org>
+> > > RZ/G3E has a different audio architecture from R-Car Gen2/Gen3/Gen4,
+> > > with additional clocks and resets:
+> > > - Per-SSI ADG clocks (adg.ssi.0-9)
+> > > - SCU related clocks (scu, scu_x2, scu_supply)
+> > > - SSIF supply clock
+> > > - AUDMAC peri-peri clock
+> > > - ADG clock
+> > > - Additional resets for SCU, ADG, and AUDMAC peri-peri
+> > >
+> > > RZ/G3E has 5 DMA controllers that can all be used by audio peripherals.
+> > > To allow the DMA core to distribute channels across all available
+> > > controllers, increase the maximum number of DMA entries in DVC, SRC,
+> > > and SSIU sub-nodes so that multiple providers can be listed with
+> > > repeated channel names.
+> > >
+> > > Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
 
-> 
-> Best regards,
-> -- 
-> Bjorn Andersson <andersson@kernel.org>
+> > > b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> > > index e8a2acb92646..bc8885c4fa24 100644
+> > > --- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> > > +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> > > @@ -58,6 +58,7 @@ properties:
+> > >            - renesas,rcar_sound-gen2
+> > >            - renesas,rcar_sound-gen3
+> > >            - renesas,rcar_sound-gen4
+> > > +          - renesas,rcar_sound-r9a09g047     # RZ/G3E
+> >
+> > Do not use underscores in compatibles. Previously used wrong style is not
+> > the excuse here, just like previously poor code, mistakes, bugs,
+> > unreadable approches is not justification to repeat the same.
+>
+> Got it.
+>
+> > >    reg:
+> > >      minItems: 1
+> > > @@ -97,20 +98,22 @@ properties:
+> > >
+> > >    resets:
+> > >      minItems: 1
+> > > -    maxItems: 11
+> > > +    maxItems: 14
+> > >
+> > >    reset-names:
+> > >      minItems: 1
+> > > -    maxItems: 11
+> > > +    maxItems: 14
+> > >
+> > >    clocks:
+> > >      description: References to SSI/SRC/MIX/CTU/DVC/AUDIO_CLK clocks.
+> > >      minItems: 1
+> > > -    maxItems: 31
+> > > +    maxItems: 47
+> > >
+> > >    clock-names:
+> > >      description: List of necessary clock names.
+> > >      # details are defined below
+> > > +    minItems: 1
+> > > +    maxItems: 47
+> > >
+> > >    # ports is below
+> > >    port:
+> > > @@ -136,9 +139,17 @@ properties:
+> > >
+> > >          properties:
+> > >            dmas:
+> > > -            maxItems: 1
+> > > +            description:
+> > > +              Must contain unique DMA specifiers, one per available
+> > > +              DMAC. On RZ/G3E, up to 5 for transmission.
+> > > +            minItems: 1
+> > > +            maxItems: 5
+> > >            dma-names:
+> > > -            const: tx
+> > > +            minItems: 1
+> > > +            maxItems: 5
+> > > +            items:
+> > > +              enum:
+> > > +                - tx
+> >
+> > Multiple levels, multiple if:then: (further) - I don't find this binding
+> > manageable/readable. You should split it, with common binding defining
+> > common part of hardware or interface if there is such.
+>
+> I as you suggested, I'll split it. Just to double check, should I fix
+> any bug found in there (like existing compatible strings having underscore
+> separators) ? Or should I just split and make sure only new SoC support is
+> bug free ?
+
+You cannot just change existing compatible values, as they are part
+of the DT ABI.
+
+When you split RZ/G3E off into a separate file, please drop the
+"rcar"-part[*] in its compatible value, and move the SoC-specific part
+right after the comma.  Perhaps "renesas,r9a09g047-sound"?
+
+[*] Disclaimer: I haven't read the RZ/G3E audio chapter yet.
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-With best wishes
-Dmitry
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
