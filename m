@@ -1,204 +1,176 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678F936894F
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 19:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9C03822BC
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 19:09:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774897693; cv=pass; b=pgt32x8x5zGVdRbWHOGJKPXCBUr+l0fRCPQRZ/CDbifVxi8FzWZVg/KUi9HhbGfnq8QC/lH06cyMJq0rFWcYin5g7cK7BFtEaan38f8ST9wT4ksvcl9NdkiNG/fV7I1g3aKSyv1gY6vtGobljx5lq0QqHxXSU7mL3b6HAEGM5bM=
+	t=1774897766; cv=pass; b=sCpqYRoQp6JZ44VbRzDpEhFzyHg8ThImOWClax5UCzBACrZZ6UnjTp9qqRhwqhdPAfPI9UTDVtCwFQqVnyY7eG3r5GpGcJS4Bs7/cqJFiASLhAp+pZAuI/SgFLCspyzAYXwoIgozN9dN4XimX/Jw0+QPNObonByk7lSs23VgF7U=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774897693; c=relaxed/simple;
-	bh=WYLUrjNPZS0tw6q9XRJ/44J5jw1SQvCvQv/baraY7Dc=;
+	s=arc-20240116; t=1774897766; c=relaxed/simple;
+	bh=tB5UvVyyaW69TUSaiIcWww9fyaZgzM+cWqkdUMUA8D0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jWKZCRYxbt2N5M6YIqmZ48EcosoVkfoOktvj1quQE6a/SXZKImCL30noGtQoGLEmeb00SdJ1SEw7ZDlqCBubAb14BjliXBD48gKxyi0BYZZHg5KbDKqnbfFSzzB3moUcmg4Pwq0huEaAN+5OTiWp4ZJTnltw6wkxuj6+u29Rw9Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Sefp7Lmf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FFIm/SBj; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 To:Cc:Content-Type; b=YyJ4e3aZWKfYNg19w5f4xgTTxlI71DkmAZ2n2jVXfDmw2AbycUSgu+m7UG+mSU/ikrzM6+9zHu9kbM6BgpRBOqmpNhs9Ub5CTaSRTruaoeVhv96SSbTa6rqPsFn5CJKcln7X7rvSLgvh7OR8skbvDJcBOmwT+EZ8s+Di2GikeBY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sQOGhrm3; arc=pass smtp.client-ip=209.85.167.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Sefp7Lmf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FFIm/SBj"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62UEOLXO1557473
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 19:08:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	WYLUrjNPZS0tw6q9XRJ/44J5jw1SQvCvQv/baraY7Dc=; b=Sefp7Lmf5OaTIcPM
-	Cf42n609jgIYdUErNojaWttzVSxaSKUecD6aZ9E6RBsWv0dFuJPHm3f2/Z4/FZmq
-	cOEuEKCLasJHMDLLeCwAKIgWRFxyj6Mrf/k7TIa7e2rrfoKhni5aj/HUsSuxPLFo
-	eSfrXS+qdBHZPmUfSWO8FW5ivbZooejtKt+jG6CzNn5BzsgS2/wVKZuiwqBAOULJ
-	j0PsTngul7ghH5CwFYzF2CBKrL97ynpDfuDSfNEtom/zvbmCGtbZQZAvSlJn2DGb
-	weKe357VhpWitEOKevg7ncBszwk8JdHr9fL8Zl8oLMPU1LNV4CbSsB5ULlMJ7LEM
-	SZ+lhQ==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7twm14ys-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 19:08:11 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-89fe39655f7so67497176d6.1
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 12:08:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774897691; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sQOGhrm3"
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-59e4989dacdso3943317e87.1
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 12:09:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774897763; cv=none;
         d=google.com; s=arc-20240605;
-        b=lr4LoToz95WR4Pcpe4lrbxpxEPyLKVZzNcf8VphAaCCBuZEAvdUo4l/RNmALJaQY+y
-         EZn75BhcHBVaaSi4NK0Cru6W3Fw1iRMoEx5lDae+px1JUikzjLWSSzdSgT9qkMuMBgHX
-         UQrIXoUPAawsgzi3wuiw1Nk7VVgn6IznsaeN+vatWfHdqslDkb7eJOxYH1Nt6HqecsgS
-         93prcxafltK4vgnRRlr1HC+/qniDuptSHJHpvI8EEhvZxhpTk2o9cuGpUkLaQ5PyH/39
-         f9+5j+CeuAzsL0vk68fX8P6krrQ12izR+eraPirm7jX9F1SBJe+m4IbuqwT7GtQyL5WC
-         A1Gg==
+        b=YyMyqZdhBMs43vM3NFSmbYq+hZPPgsI6wzguhlyLt3sfFc9vLGOoZAaKBA8urmopAk
+         ZX4/QUNf6ML5n1FQi8H9s2vLtzQLmR1qFl/q3k6pMNOARZnxeB7fRFxREPPx9bMxRl9P
+         slyu8FQqvWXMjEKB7TcEijU404CSBaVmB16ndvgPBGR5USfGopHSrnG/5TshqtFr2H3c
+         i7k0k38/m88J0itmwyasqg3K2KW5LWt0Dl46MnxJ6656Q/Qv0N/iQyycr7oDxUNC+BCT
+         kGNb1pufdVPKyn9aITKLkvTYhWFk0hFn+goEkJAS/a15J+/jM/0XogstaMa0WEJItl8W
+         QplA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=WYLUrjNPZS0tw6q9XRJ/44J5jw1SQvCvQv/baraY7Dc=;
-        fh=XwWysQFHgScxCGPaj7u6/38K5HZ76MHIredsyvG4Ah0=;
-        b=Y+mQeUNM6JO/jtkIIiOWWyIKCBkP84s/YFxRGH3oKXMHMrSYgXWpHE33HQmZuPK12C
-         zkepGGZxdHQXyUoqATjoy+eCxDJGRLYXcHUWeoSlOnBKxdx/p64RwnWRiPIpUv3BIBTe
-         gUYjU0gigJimAmjJJqw/4/ir/dObJloa7uEGFCYvzJIxtQST/U6oZ2C8dlgI9i8X4f0m
-         QhCcA7HRlDgkmBZPuFLUnsE5GIcvIwnztVP++AhZinVOV9mj/bqsYyKNw/0ioT8oSAap
-         ujA2k4UK0xBro+oDJ4dkO4IePUOCHY+/y55hTTJWjmdNS1by8nCLopJLHk5O7UWgF9vA
-         wGaw==;
+        bh=ncDn/XtFsN7SCJcACGkW9Af70bOhZca63Df9xP3DVOk=;
+        fh=+bltIJtppUg02N2WN/Qq26mLkmteWubzJufcm1P7H5A=;
+        b=Odqy/DikctOoG10QuqLnFXFoh4SvQ2IiE/SzCMFVXecKArTDUcYyE4sr15CCA1CXz0
+         PN5zVVPgg451rs38y6lJkMLbCg8h7OpsC1hBszTvl/DKPDRWOs0NVHMkMYJPaYVQPezM
+         hpfRyDtob9c12P8hMb0cHdUQ7vq0lSmQ+bKUCYNJqawwskK1ZrBHFhnFT5KFnQ6NMELO
+         b27eBmB56x77pZmMHTqHBJ0UCx3ToEl5gKtnsPHEn8PgI+wl1/4Sro3URozq7cpOIDD+
+         gZLSuOR0yislJFTAMqyUbRmKO69SS0Q4kqDXMkkFnq6UGXi8OtVRf0MoMMwO3WKXvwta
+         McpQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774897691; x=1775502491; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1774897763; x=1775502563; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WYLUrjNPZS0tw6q9XRJ/44J5jw1SQvCvQv/baraY7Dc=;
-        b=FFIm/SBj463XvSb03n6ThnHgDSB+UJtQLU7ge0/Idt9ui3c5/D9VcExttMeBlX4k4X
-         LZ9VX3AZ5iTbbtnTPbR6ROBUHz11MEacqOnBXLuABnukHFsUWmDp6ecNc6gjzyNJ1lPn
-         PlEMkiYYGn5Q4SFrejU6+klAfHi+cMX/asYBGnS0YrlgS566IdX9V5QDxTDp5iOuJXB5
-         LVlIJDtQ2Mk1a5Di3B2Km2rGw+k1240m6yAYu4ZRSMSM1UQzZZaZMmqZi/LZYWKpcwVb
-         lZ76J+as9UYxfvlekrFj5CoQ4KGtankJe2BZpq5+A5XPnXBgAVUL9Iyq/LJHmvtPPTrp
-         Dzww==
+        bh=ncDn/XtFsN7SCJcACGkW9Af70bOhZca63Df9xP3DVOk=;
+        b=sQOGhrm3oLWEwGZK09EbqIiO4L5DYmtsOONAIoW+dg06/IZjdiW56Wi93t4EFxmLWV
+         T9hgNwuOQF7922eQUGK1A8g0rD9HBpd+T14CLdnhc2TevfBtIrINTDDbh4pezY6UrCLT
+         G220r2td0n63/4c9S7YRcso6+hTgpOFVK4NhW6LzOXz00cwsXpvx5hP1FOiwQAPIhWzI
+         NQtnyTVdAkxjQMVIvUVbgbJwHSCWwtieTuhlliAXk/u7sVAcc4TbbE5Y5N7uHVs+lC14
+         11nLR9RjHe7qgOp8dvLhV9znxiTALj+K6vfAXm1bx7c9JLMuTuL50YjxvnceybTnG27N
+         ukAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774897691; x=1775502491;
+        d=1e100.net; s=20251104; t=1774897763; x=1775502563;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=WYLUrjNPZS0tw6q9XRJ/44J5jw1SQvCvQv/baraY7Dc=;
-        b=Ka8Rstrr7R9Ovu06ospHNRNCIHYc3siy0wzFWyd41Jt+73CJG1N13f+DBMNtxV6Gm5
-         ugfkAz1YUnEMkC+F6RVtpLUphEH3TV7jeZOCLovkWOuJDcEYRRnLSJiz44+b+txXmI3J
-         /X2QcTsqu2mAyAIQAGSZztTg6LUhVr0R+7LpUWgCQwL1GPGRtcRtMpMpD2YV3YYPubVM
-         Ja2aRxqjLtUD6hxm89Ss2xkZVElhMJPNaNTIEa5I4S2V3XalH/OfOmdO+y3ausIU1eqN
-         JuNdeBA3DySgrTs3aMe6rEBVKQ7zNj6QFkNLWssYKd+AYoaYCRy98HICFgHIRHn9oTiB
-         8uzw==
-X-Forwarded-Encrypted: i=1; AJvYcCWl0JPwjtgwbtesgWfFIeGKuG5Ep/4j1fSA/tGsHlOhiQPC29FlhsEj30LLkgJANrTpaKl/PELBk19r@vger.kernel.org
-X-Gm-Message-State: AOJu0YwdlFxiZM4YXqZmo8wminEYgxcXj7WaVVh7LuDjW5evsSfpfJZI
-	BUmjc9jACXHR1gnv54zYh+XlnWhtOVNr5F0Rk3PJ4dUpOf2BtX23pTx0kX9NNcw9V2bw8PUnSgm
-	bTVBn0LV7zM1b9J8xpGKQHCg/O3Hv2lm4aVDPZbHxvhAh6eotv4UfsL4ZpVtI4guJbA7dxUX80m
-	Do1s/uDeWrNbQEyqA/ycP4KqU7yzKBkap+wK9sqjw=
-X-Gm-Gg: ATEYQzxNtq+4ZeL0hmpOuO3diJA8u7+z8HciweATua5npkGxwTOxF+bQ3UHLnRXvIIz
-	U6s9MNNM0wtdAauReR3YDAIzcttyrLo26JRXPFDwnN5qXI81iD7TqwQ9Nyn1v4nwc5DLKxdQyZS
-	XFaBJVVtUAM0NYD5HKSJCnUG/yVJyKrJAQ2XYalLW9xmhGZLQQhX+RNDBbS80gb8c9z68alIJt9
-	JSVixRYX7iA1Wl3t3R4C3FbY+NedCXQ2za8/Dc=
-X-Received: by 2002:a05:6214:c68:b0:89c:c713:ae57 with SMTP id 6a1803df08f44-8a2cada9910mr11741226d6.19.1774897690601;
-        Mon, 30 Mar 2026 12:08:10 -0700 (PDT)
-X-Received: by 2002:a05:6214:c68:b0:89c:c713:ae57 with SMTP id
- 6a1803df08f44-8a2cada9910mr11740456d6.19.1774897690136; Mon, 30 Mar 2026
- 12:08:10 -0700 (PDT)
+        bh=ncDn/XtFsN7SCJcACGkW9Af70bOhZca63Df9xP3DVOk=;
+        b=AEkunzy3h14ikgxDxNCFX1RIpPnQEkfp9ySKYSsNMRtoGskbvbF/hDh+5FtOwHg2I/
+         s1G4rMVFldvaD4DGP3igpMpQI01o/tLtDSRHQs1I9t9xm0em0t78S6SfwTmI4TUtHfu5
+         KcfSKb9MT3PmY1kQXLCHIPtfa2QtsD1EsjWlKSn1coQg14mBbGi2HC5orR/lH070CHEL
+         7pu8uYhfHO+cgYhznx7al3eMfzpIPaedIkKGf2G/aCwMOH/yFnoClBXtQ3bNj5iJhsZe
+         AfTo1bDzxGY26I9Ff2lTsnCZ/xLlvtv8RxcVgI+vpQJ82iS1465AlH85IX5R0PUKe5F0
+         3bDg==
+X-Forwarded-Encrypted: i=1; AJvYcCWxn6/c7TBg+znDlRCQQIa7iK3KuR1sdcy/KP4RYmj5AJvQfVku5jbCyxXvaWILDUOiJU11C5t5/ldD@vger.kernel.org
+X-Gm-Message-State: AOJu0YwIpJ43mvnAwCul+8IO7W7ELb4wT5S/WbIokVkh7r0Pn0KviYlH
+	lf7X/AiFu2iNv0pFPfzkU+TM4ZI0xhOnYjbJz5LiGcyrJ7EHhdmg8aRUaQTm0l7XGq7F256uBKF
+	Mxxj0SxMv3dEUw8OV2PF60ofY1niA1YI=
+X-Gm-Gg: ATEYQzwPA4n0v/fvN0gMy9pUewSwwx2AZt0sIVfOOqJnE8IZgFDeFlTFaU89HvyJu7B
+	9WoNzz6AmkHMLn3O6m0j+kKVPTNpo9bfy2pi4Q63NNYL3UJ/vuf/ODIrxm+4n8c4vKtT8N6y/9y
+	MSnjp1VFE5UvGFbqDJmxPE2NROzp6fcUdIRIK6oRRSVLJxTOhgpLE7f5dzRjM1TP92IROTddWXP
+	/5lei2yBzGQ4hu7y+LDPGDYAFnrvOFZEAa1tepf0deZ64WmS31dqIN52yJoNe3d78erIrPrz/uK
+	92UwynZbgutSM76BcavqORC/0Rt8lod+WmqnSMdi
+X-Received: by 2002:a05:6512:2252:b0:5a1:3bd2:7330 with SMTP id
+ 2adb3069b0e04-5a2ab7e973dmr4325669e87.2.1774897762975; Mon, 30 Mar 2026
+ 12:09:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260323125824.211615-1-loic.poulain@oss.qualcomm.com>
- <20260323125824.211615-3-loic.poulain@oss.qualcomm.com> <1ba54ec0-be51-4694-a79b-f272e76303d2@kernel.org>
- <X-Lw_zi1o015-V1Cv4dY_ik6SfTB8TTcLmn1l-Ta7UviYTJ6gwMBn4B4ulYwjd_Aetul5xUt0T6ln9E-Hl5h4g==@protonmail.internalid>
- <CAFEp6-3ziXJTYADOFj--rZL5TumroXuW+=SnUQ9XakRxHT-ypg@mail.gmail.com>
- <12194cc0-0960-486c-be7e-1a22d95de340@kernel.org> <rj2vb725he4yzfvjifzyxqpbqk5oztfaafp7sg2qes4qz3mlaz@z5dyoqod56d7>
- <7fc31426-3157-49c7-a30d-dcd7b181fcc6@oss.qualcomm.com> <qq43xl3lsv2nq4ngn2hojleddxjmkgwclb2ajek5gvdtgyjltl@3tqg5ydhsxia>
- <8DTHyPLaUjGKd83PvBsisjn_SnpUnvkateTtwz9P6CChP9VGfDyQmJa4Rfd5KwOBOLhtGFJPDzfHrXC4zvV-Fg==@protonmail.internalid>
- <0330f63f-7137-4484-954a-fc0776a9b052@oss.qualcomm.com> <0879e4c1-5381-4a70-9fb3-4af9b3bf6e48@kernel.org>
- <0RTUgDf1wbD0phPk8qAcojZovgMA_68R84FRaL_BHfjzupSA6c_8S5ogVerViYPFNJtvup9sOvL_uPx2t6-KCg==@protonmail.internalid>
- <2e4c4641-f631-48fa-b5dd-6efd70110dd6@oss.qualcomm.com> <e2a4e9dd-6a45-48dc-8757-244e201dd4d6@kernel.org>
-In-Reply-To: <e2a4e9dd-6a45-48dc-8757-244e201dd4d6@kernel.org>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Mon, 30 Mar 2026 21:07:59 +0200
-X-Gm-Features: AQROBzC_trjVaBbw7u7zPM6ws-nlj7qufCuwQcc2aQbNzm3OyUyactYWHLKeTr4
-Message-ID: <CAFEp6-2EjvEogSdVNCEY-XwgYe7Bg_2d1me2EWhzDp8Cr=ZeLg@mail.gmail.com>
-Subject: Re: [RFC PATCH 2/3] media: qcom: camss: Add CAMSS Offline Processing
- Engine driver
-To: "Bryan O'Donoghue" <bod@kernel.org>
-Cc: johannes.goede@oss.qualcomm.com,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        vladimir.zapolskiy@linaro.org, laurent.pinchart@ideasonboard.com,
-        kieran.bingham@ideasonboard.com, robh@kernel.org, krzk+dt@kernel.org,
-        andersson@kernel.org, konradybcio@kernel.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        mchehab@kernel.org
+References: <20260327121919.603768-1-padmashreess2006@gmail.com>
+ <20260328-hidden-secret-oriole-4dddb0@quoll> <CAEjBr-aoOhbtZWdYvq3rQ3q+2SKUEctTXPdYcoS4mJyrPf-Yqw@mail.gmail.com>
+In-Reply-To: <CAEjBr-aoOhbtZWdYvq3rQ3q+2SKUEctTXPdYcoS4mJyrPf-Yqw@mail.gmail.com>
+From: Padmashree S S <padmashreess2006@gmail.com>
+Date: Tue, 31 Mar 2026 00:39:10 +0530
+X-Gm-Features: AQROBzCe-fvcq-uuVF6744K-oAtwxP-D31BDOlh2wjZ0d72FF1zcLp7Eh6-lIYc
+Message-ID: <CAEjBr-ZKhrh3-C+xYLamQ-+ukg12u8McWj+MbUp4QnuOUvRi8g@mail.gmail.com>
+Subject: Re: [PATCH v3] dt-bindings: sound: Convert pcm3060 to DT Schema
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: k.marinushkin@gmail.com, lgirdwood@gmail.com, broonie@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=IJoPywvG c=1 sm=1 tr=0 ts=69caca1b cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=DLSMq9AfYi4D_SC6SxMA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-GUID: O3t74h1omdoS4xe_w-dtm6uXXbQ7r6u0
-X-Proofpoint-ORIG-GUID: O3t74h1omdoS4xe_w-dtm6uXXbQ7r6u0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDE1OSBTYWx0ZWRfXyCLPLTBr+Fz4
- iMEB1mIWnAomjAACiaDTUlLifXeJbrhxk0IkXPQtK/SNtTfpK+8dPQrFYa+lZ+3iCIEukSaHBB9
- fJfbEB5fAvY4uhRGrKAPbol5srGlcikLO5htYUfojlENyaywFCcIOTvbT6MQehEWt5e/RCjyQRI
- li/0VZqSIvl65d8G4Kzi9f2jVfe4hoZSXqD3RVWwqDYJpzbYAGZVFgb+DH6YGH4WvepM21rasFA
- UwGWyqxJtEJS8OrEDwq/RAK6aIumv0W1nlX62YYSrOzGbinIXK80tKEC1duJtgUR615WDIGd8Ol
- YTaOEujcPPXcLSlZGB+6uka1bgUhpOXXDY7fJunXE6rRt0iR+E4M3XrgecH8tjLX4IE3uD5WQVD
- 6XzqWQCKfWwqWSL+vHaYe2TCmERMbFjl3l+J3ngtW5qpVyh8GIG0lJ82vSov7LuC7TZ8S8x28pw
- vXSu5ZKaV9Gy003UVOQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-30_01,2026-03-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 phishscore=0 bulkscore=0 suspectscore=0 adultscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603300159
 
-On Mon, Mar 30, 2026 at 4:33=E2=80=AFPM Bryan O'Donoghue <bod@kernel.org> w=
-rote:
+On Tue, Mar 31, 2026 at 12:28=E2=80=AFAM Padmashree S S
+<padmashreess2006@gmail.com> wrote:
 >
-> On 30/03/2026 15:27, johannes.goede@oss.qualcomm.com wrote:
-> >> That's another reason I bring up CDM again and again. We probably don'=
-t want to fix to the wrong format for OPE, introduce the CDM and then find =
-we have to map from one format to another for large and complex data over a=
-nd over again for each frame or every N frames.
-> > CDM is a much lower-level API then what is expected from
-> > a media-controller centric V4L2 driver. Basically the OPE
-> > driver will export:
 >
-> My concern is about wrappering one thing inside of another thing and
-> then stuffing it again back into CDM and doing the same on the way out.
-
-I think there will always be some level of copying involved. That
-said, we can pre=E2=80=91build the CDM sequence in the drivers and only upd=
-ate
-the variable values, which should avoid significant overhead.
-
-If we start handling CDM formats directly on the user side, it would
-require exposing a lot of low=E2=80=91level knowledge there (such as regist=
-er
-layouts and offsets), and that would diverge from how other ISP
-implementations are structured. I=E2=80=99m concerned this would increase
-complexity and reduce portability.
-
-> There are already 50 MMIO writes in the OPE ISR, I don't believe it is
-> sustainable to keep adding MMIO into that.
-
-Yes, I understand the concern. From our testing so far, however, this
-has not shown to be an issue. In addition, a full reconfiguration
-would only happen in specific cases, such as on explicit full
-configuration changes or during context switching. We can certainly
-look at implementing CDM, but at this stage it didn't seem to bring
-significant benefits, so I prefered to focus on other functional
-aspects, and revisit CDM once there is a clearer need, measurable
-gain, or if it becomes part of the uAPI as discussed here.
-
-> I'm aware of a project in qcom that did something with making the CDM
-> format in libcamera and handed that off to kernel, recommend looking
-> into that.
-
-I will, thanks, I'm however, concerned about how acceptable this
-approach would be to the wider community and to the maintainers.
-
-Regards,
-Loic
+>
+> On Sat, Mar 28, 2026 at 7:20=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.=
+org> wrote:
+>>
+>> On Fri, Mar 27, 2026 at 05:49:18PM +0530, Padmashree S S wrote:
+>> > Convert pcm3060 to DT Schema
+>> >
+>> > Signed-off-by: Padmashree S S <padmashreess2006@gmail.com>
+>> > ---
+>> >  .../devicetree/bindings/sound/pcm3060.txt     | 23 ----------
+>> >  .../devicetree/bindings/sound/pcm3060.yaml    | 42 ++++++++++++++++++=
++
+>>
+>> You sent it already after I asked you to slow down and implement
+>> previous feedback, so this has the same issues.
+>>
+>> Please run scripts/checkpatch.pl on the patches and fix reported
+>> warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+>> patches and (probably) fix more warnings. Some warnings can be ignored,
+>> especially from --strict run, but the code here looks like it needs a
+>> fix. Feel free to get in touch if the warning is not clear.
+>>
+>> Please use subject prefixes matching the subsystem. You can get them for
+>> example with 'git log --oneline -- DIRECTORY_OR_FILE' on the directory
+>> your patch is touching. For bindings, the preferred subjects are
+>> explained here:
+>> https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-pa=
+tches.html#i-for-patch-submitters
+>>
+>> >  2 files changed, 42 insertions(+), 23 deletions(-)
+>> >  delete mode 100644 Documentation/devicetree/bindings/sound/pcm3060.tx=
+t
+>> >  create mode 100644 Documentation/devicetree/bindings/sound/pcm3060.ya=
+ml
+>>
+>> Filename must match compatible.
+>>
+>> ...
+>>
+>> > +
+>> > +  reg:
+>> > +    maxItems: 1
+>> > +
+>> > +  ti,out-single-ended:
+>> > +    type: boolean
+>> > +    description: |
+>>
+>> Drop |
+>>
+>> > +      If present, the output is single-ended.
+>> > +      If absent, the output is differential.
+>> > +
+>> > +required:
+>> > +  - compatible
+>> > +  - reg
+>> > +
+>> > +additionalProperties: false
+>> > +
+>> > +examples:
+>> > +  - |
+>> > +    i2c {
+>> > +      #address-cells =3D <1>;
+>> > +      #size-cells =3D <0>;
+>> > +
+>> > +      pcm3060: audio-codec@46 {
+>>
+>> Drop unused label.
+>>
+>> Best regards,
+>> Krzysztof
+>> Thanks for the review.
+>> I will run checkpatch.pl, address the comments and send an updated versi=
+on.
