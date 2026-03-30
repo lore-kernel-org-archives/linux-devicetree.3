@@ -1,74 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C7353ACA6B
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:41:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373043A16BF
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:45:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774860100; cv=none; b=PSjZ6jWl5t6JHqr08JSVtxGCfO7Rp2f91Is5faDOLL2s++h+eBLBIxs45xVLpD9QortTyxctSdeiXg2Zhq28vFBOw80vimjXgJyV8glVgAie8weTk1dbo14j/2Os7hFsg5G7o6kZpuXysOkstnYerKI7QCJdRCUM31C7yDKmhBs=
+	t=1774860359; cv=none; b=ZeFXMm7oIxfI2Fg4Hj0pYKtgiV45t0tpp3ocKpCjIaPZ8oOPgZNgzewx33Tt8TtnwrFp7qNQOdha24fI1NfRn6sNLq9Avx5Y6c9TvCO5zvRQ3scktkyYONCmL5lTEl9Nd2OoHPnBwrg3UJ0dZjKIiO+uonemNBWNpMB29nwi3uY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774860100; c=relaxed/simple;
-	bh=U65ecWQ+3ujXzMrR7VLh3CQsmZsimsxLPg76iZzYBzE=;
+	s=arc-20240116; t=1774860359; c=relaxed/simple;
+	bh=VVdP76hWbQZ1myWLOezS16f0Edy7mR9KOkFQN1ME0b8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=i0V8CULZT9RteNs/OjNmdw+G4wSLsKmpAuougybTUZqB5vw916cmZuZX8YS3GFy7/mpU5TMRdHOwoAYf8odWfk/NTK/zU5a4og25PxP6c/+CxsV2xYNhHCG2nFKW7wI/QUDXNpF2I0niqCMbwEOj/wYZ4WJWCamTBUr4Ds9Qnek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pqvq+vPF; arc=none smtp.client-ip=10.30.226.201
+	 To:Cc:Content-Type; b=lspMgcjInKi1SsqpJZ0fD6S7HgxvoXD61c0Hzhf0vDHDHJL9NBJie8LeW1aEf1G8u0+3Dd0aN6/BlLfLfjjhbG65gesDzNqM4Hd7N421d6AkYh8mmchywDpdIVABK6iOyXbBgC4MOButshA6xM2Vg0xWQ0ms8Q4IreT5A+qH4AY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cbnFbQdq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pqvq+vPF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FF46C2BCB1
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:41:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cbnFbQdq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08EA4C4AF09
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:45:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774860100;
-	bh=U65ecWQ+3ujXzMrR7VLh3CQsmZsimsxLPg76iZzYBzE=;
+	s=k20201202; t=1774860359;
+	bh=VVdP76hWbQZ1myWLOezS16f0Edy7mR9KOkFQN1ME0b8=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=Pqvq+vPFesaGqGy/NxqSOAD9wHCB0HlLC1YlzTya2Jb38BUrfffS6UMn5Ukr6bUsX
-	 Wh2AAaiXckMEJhy4X/SxOTfiogpdk8H5EeHvg5LkOVlQ85mWQGHsp5CV6p09wGD/uG
-	 NBPs0IeQlyVwIN2HbEvkbbGkc5s7ycBXTpMqW7FzZ5ZJC2H50MerOdSLohTJ4Lmf85
-	 FmRVriLnSvkYxVbyyeewlnM0a0lzHYUztD2kvQhWZn2J0gtrZePDnHGgA6X4fP4I7G
-	 VxBhVmjPNgeK6Z/YFWTHHm9+GZCsNa24cGLKH77lTih+8XIDu53h70/pagOlSH5tVB
-	 /V5zGfdYuLTOg==
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-6500eae6d2fso2424643d50.1
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 01:41:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCXQDOWyu+ZDIy5qtYSIF9mMfMNwTwZ4It0WAw0B1A179ovRm64kJ8dCgZjHPzJUQGJoQ4qQbgCkqL/8@vger.kernel.org
-X-Gm-Message-State: AOJu0YwDUfRcWolyXCcp14O7PgtbK3vGhtGiF8QWR0wgegABCjJW2muM
-	x4npDFWG5vGerLKM4YSSd/N5S2W3w/ZaUEip/trALg7YS6pVpApvWNlVioJDLYuEJ02Blb62UEu
-	YosstYDMpL0UIeYRw1n4vZmh54ZILAH4=
-X-Received: by 2002:a05:690c:e3c2:b0:79a:38a2:d8d4 with SMTP id
- 00721157ae682-79bde08102dmr105999037b3.49.1774860099355; Mon, 30 Mar 2026
- 01:41:39 -0700 (PDT)
+	b=cbnFbQdq1lP5UQ1VEEZcwhsV6r8qQ+1axudixEoYfEGyHpw12hJqt/oRzEmhHBD3S
+	 ZfGNO9/fs0BIIzE/pdktpWsNKaY16XPxv1cXhikFodjVKPhNYi2h/kgwBkzLs6cfqk
+	 mPLDTEUe4CB+HSmxdpRiwvA3rk2sCHnHQvYkYMLu8IYr39JkdxXPgGUKoG4Hpew7t+
+	 3rOH/tS5MS3tCjD4MvITabyn2PYlXru2PL4GmNEFEWDsEmsibTj+af+xHvrOO7Yn5A
+	 WMVIxyqu8vsNSTGG9MuWUb3OJzUBDO4XBU6JVs80wKQjZtAV871VlVYzpvUVCpeTUS
+	 8a0JDJB/1Df1g==
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-6501c0399c4so1019948d50.2
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 01:45:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUNijJQDmW9grGt0qi/LEkVu2wWvpd1iRIwCbal4bYz7OfpBv3S7OSc5d3GpEKWn0s4ec7jUwBF96ba@vger.kernel.org
+X-Gm-Message-State: AOJu0YyYiOtEW+48O7YVCXvO/ZnoheSqEfH62oQOWySNr+BhAYIwq5/k
+	WvWM2NpeNGuweUH+frbmsDiBOV2tMAh/NHhsVabbgH8PDhnnktdoynDaXq5bYEvLxVHUyW3+dFg
+	9d3IzUsOH+XU/kDUkX+4P0Gyqb2OJTXE=
+X-Received: by 2002:a05:690c:e4ed:b0:79a:2ef2:7f7 with SMTP id
+ 00721157ae682-79bddd17b60mr106298117b3.23.1774860358365; Mon, 30 Mar 2026
+ 01:45:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260330-ipq5210_tlmm-v4-0-b7c40c5429e5@oss.qualcomm.com>
-In-Reply-To: <20260330-ipq5210_tlmm-v4-0-b7c40c5429e5@oss.qualcomm.com>
+References: <20260330-ipq5210_tlmm-v4-0-b7c40c5429e5@oss.qualcomm.com> <20260330-ipq5210_tlmm-v4-2-b7c40c5429e5@oss.qualcomm.com>
+In-Reply-To: <20260330-ipq5210_tlmm-v4-2-b7c40c5429e5@oss.qualcomm.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 30 Mar 2026 10:41:28 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkwGT2SxQrax5FFF2x6CznQF_03N_FC6-2n7OAiNH3Xng@mail.gmail.com>
-X-Gm-Features: AQROBzDQ1t8tN43D-xspmwcX9PnTM3JQeCI6HGzVWZcFXP0APaCShoghCa3Gw98
-Message-ID: <CAD++jLkwGT2SxQrax5FFF2x6CznQF_03N_FC6-2n7OAiNH3Xng@mail.gmail.com>
-Subject: Re: [PATCH v4 0/2] Introduce TLMM driver for Qualcomm IPQ5210 SoC
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Date: Mon, 30 Mar 2026 10:45:46 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnwqDgKJMEBomgGSt-Mo90Tp0Or0EdRx3MkhM9D9dj=4g@mail.gmail.com>
+X-Gm-Features: AQROBzCK6pjIcVdpjgVwnYJ7kIXrt07lP7aui1yTSLgcFOefC8zFgKA67z6lAjE
+Message-ID: <CAD++jLnwqDgKJMEBomgGSt-Mo90Tp0Or0EdRx3MkhM9D9dj=4g@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] pinctrl: qcom: Introduce IPQ5210 TLMM driver
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, 
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
 	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+	linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+
+Hi Kathiravan,
+
+right before merging this patch I merged:
+https://lore.kernel.org/linux-gpio/20260327171240.3222755-2-mukesh.ojha@oss=
+.qualcomm.com/
 
 On Mon, Mar 30, 2026 at 6:51=E2=80=AFAM Kathiravan Thirumoorthy
 <kathiravan.thirumoorthy@oss.qualcomm.com> wrote:
 
-> The IPQ5210 is Qualcomm's SoC for Routers, Gateways and Access Points.
-> Add the pinctrl support for the same.
->
-> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualc=
-omm.com>
+> +               .intr_status_reg =3D 0xc + REG_SIZE * id,               \
+> +               .intr_target_reg =3D 0x8 + REG_SIZE * id,               \
+(...)
 
-Patches applied!
+Should intr_target_reg be dropped also from this driver?
+
+If so, please send a follow-up patch.
 
 Yours,
 Linus Walleij
