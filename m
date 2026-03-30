@@ -1,191 +1,138 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94383AA519
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:03:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A68E3AC0F1;
+	Mon, 30 Mar 2026 08:04:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774857807; cv=none; b=MTNz/9uDz9UHcq3YdvxXvg0mAypvEUivSD6ftpPcT2JpMJKpGZv+mVbQUxKcRcpNSgvr1CircR1uE3Y1geZ1Tf+oyeXx8ft6bAeEUEcspjAbmoOC3Z0AFZqbzxAEb/YfzwEBxKUQKvhy3u4BM0S9wHPzQRoLHP87MZ61xxFFlNI=
+	t=1774857868; cv=none; b=UESDU56Nhg5QR7+peH4C7vId8noC7EF6TnTvCu1tlPrIoMwfGiU9ld9yteC1WWg4mTje33CIOC96gTBDfETGFRh/la5A7ddV2yxyJFhJWdtG4udJHCK/55RhW3BghIZT9hTHA9eR6ld6v5qLphh7qDtX7X5lFA+WBB5tGcsUIto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774857807; c=relaxed/simple;
-	bh=IAOyoOy+EjFLK/X3zhzuRtb8iwoi7ayaBAr+goBfAB8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eB6/H0Ht1bXnvJdUgx6U8kZscrxgmYHt1L0uoEy0ARFvu/Kj+LYm9eGfzZ+faHZV4TYE2mCxw3HKgb0sbyOJRy2ThNiY1dhaXkoZT1fZGgNTdcykg2TUGZkXCmBMrFblWDuvJtEiKHIXIt9czi1kVTFyVoieLQRSYm6Whcb9yJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iIVthQ1l; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774857868; c=relaxed/simple;
+	bh=YiDVacVWTR7QV0Z3LWZZDvKO3j+7kXqpLoj9VeVHTHs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Sz7hqfJ7ashkI/clrbarPVsCM1vVeViyzrj/mYrMNejtzGtutnA7GqZ9PyyeeE6NXPfmqmbxZiNn1ik0tAHv+o/AAX+oeD4wCd+0y2aT9xjQdriFCKKHyXdH53VL5ATPz3znq1Qkf6Wk48qVZicPUi4Q962gEOeRuRODBFFfZuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AHZiV6Ma; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iIVthQ1l"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-35d9f68d011so675320a91.2
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 01:03:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774857805; x=1775462605; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=aNbEamoVFrWEy3eDEJ2YhwcNGTuf+SgX6uLT44AchCY=;
-        b=iIVthQ1lLCK4iI588FPVWzdsjyGn6EeQqwrpPZAaM60gp8zJFN91h51wiAfTQeq5DO
-         cDC9CGgUFBPrceAQtwnJZWBxAg49eQrQ2a5BB3uLHHdbz2CGMrYfjD3mGlUJjwvjbnEL
-         nwCHkzyjhe0idwVe82pR/O6cMkii+fVrUxcMlYAsa4tu3xkdelSiFXCF604sc/4r99Kc
-         teF0LAIkMMEn3GJPyJkH090K6T+yo/XudNi4jGBXbV7RKimdC/2ARlOyfruhx5p9Dqf0
-         BQUgN5f+a/f767XYq8gHossABFOPSLYqHjtPc3BV5BCTcw4Y4Ci9YKtTRAIKCiu8lzrW
-         UhZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774857805; x=1775462605;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=aNbEamoVFrWEy3eDEJ2YhwcNGTuf+SgX6uLT44AchCY=;
-        b=rPJjKQvOCFdXNYcj6rrADSqZwXJTa+vHa5WK6nL+kKYB6CuitnoyWF6DKdhQYx8oP1
-         28swvuYlHS99RUjc04HvNyD4O5VPl2q5e3OY7McFDKCAGjzJcHvARaBXypiunDrFb4r/
-         ZoyPpYIShWypO4PYIFGWYmDU1lFXzRay0oGooErz2qv5yU9iYi1Rlhpm2jAQ5NkRS0Ai
-         zutnRDzVjc/AXfv4rYiXegu6UTzICYUrm3zZR2KDdmG6edPenTJ+kWVIeDnj+QJG4HG7
-         8IAG/5US6OFg8KWN1mxLnjwxcEGT3FQq1CkfXBF2zHmApYRlUTUque1AKBbYuGXhrHzF
-         NUPA==
-X-Forwarded-Encrypted: i=1; AJvYcCWJi7fUIDCfz1EtIOnymbnFqZI3DPMHT6VvxtgUWctsZMc9kNHeY3KtT/0YVqAMC/nRnbTDWmMDEuRV@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw+2Zyajd84I0WFS8/xRaWSl730FbFNXItcg1O8toiMko1JYAPT
-	u4Bek4ferE0L8Gv0Gv1MOx5ZfGM+L6mpBKniIDCO6gzEL+4h6W96XWIg
-X-Gm-Gg: ATEYQzyoSV0BW5VTWY2IibU8plZFL94XkzO+tqVslC9LtxL/UrP4SJefq3G2UkBpUWI
-	oOZUinWManxL76Z3u3NXYqu47D8HqUIhmdumOrbgIWPqG+HMVr2q//XHLkhK0FGTcuDd+0jbeC2
-	5hm9BT7Un0N2xp6uYo6Un/p57vb7833WQp0jFSo7Bre36AhfidPtftnSS0vaq5DnSOHvy0WR5kq
-	FlZcvcMcdZzKDIgP1ReSIYisqr/cqrUvxGf9bUFX5DziCBdubEEOv0fUkSYHbNiO+hzsjXs7ljR
-	xLHJG+VHiEVeJcCwB/lFNAghN894k5DiL1rLu4TUEc88ZVhjJhLA2ui4uktxsOlc+XgB5vL+2ha
-	VqUGiGBUl81apHi8b8bnPonZBf2nHDJkf4ZseN6d67wZZJF9hyD6+2ao+OV1rThYn3+kMfS/Cxn
-	6ms9MEaTaiikPtO3Smi+8=
-X-Received: by 2002:a17:90b:3c10:b0:359:8d0d:5905 with SMTP id 98e67ed59e1d1-35c2fff1fa6mr10657290a91.9.1774857805193;
-        Mon, 30 Mar 2026 01:03:25 -0700 (PDT)
-Received: from fedora ([122.173.26.34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35d950b5583sm6204597a91.14.2026.03.30.01.03.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Mar 2026 01:03:24 -0700 (PDT)
-From: Shi Hao <i.shihao.999@gmail.com>
-To: linusw@kernel.org
-Cc: brgl@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	rric@kernel.org,
-	linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	i.shihao.999@gmail.com
-Subject: [PATCH v2] dt-bindings: gpio: cavium,thunder-8890: Convert to DT schema
-Date: Mon, 30 Mar 2026 13:31:08 +0530
-Message-ID: <20260330080108.24294-1-i.shihao.999@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AHZiV6Ma"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6D32C4CEF7;
+	Mon, 30 Mar 2026 08:04:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774857868;
+	bh=YiDVacVWTR7QV0Z3LWZZDvKO3j+7kXqpLoj9VeVHTHs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=AHZiV6Maae+Zyz70DUVCwmRVnqQUUx9YCRgxLOxE6h2gIyVxyzcZsQV4+fdXbe4xo
+	 y7jvrSARcS7mDL0ulc1DPa1ZRPXDj8+DqDVxjgO492MIvOFskPKzc6LE2+HE8ANCWS
+	 VrA1+6P0RnbuNyj1Fs7bN7nXehni53nFOxXU40tkJdxsQZo9yd+TybC6sSsLcGfIut
+	 KT2QzqMQ6Yd1k8Owj96/QWlpWQWflTJke/Ba5Yps9Pw3fl9DxHGJmlKyoiqb4syRhR
+	 HfPqz6MWvAqUl6e/DihD01UL427JeOsyfCRMOdTdx/sA9Wi5x5RW3D7oFDmiXbIBRJ
+	 sdM5Nu/tcdPQw==
+Message-ID: <4525cc8e-cb05-4126-ad91-c2e18b809b84@kernel.org>
+Date: Mon, 30 Mar 2026 10:04:24 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: rockchip: Add RK3562 serial aliases
+To: =?UTF-8?B?6LCi6Ie06YKmIChYSUUgWmhpYmFuZyk=?= <Yeking@Red54.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
+ finley.xiao@rock-chips.com, heiko@sntech.de, kever.yang@rock-chips.com,
+ krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ robh@kernel.org
+References: <9b3ee9e9-d44d-49b1-81ac-9c3806dc0efb@kernel.org>
+ <tencent_723DE3D68C7F44CF67ED583F558130B47208@qq.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <tencent_723DE3D68C7F44CF67ED583F558130B47208@qq.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Convert Cavium ThunderX GPIO bindings to DT schema.
+On 30/03/2026 04:46, 谢致邦 (XIE Zhibang) wrote:
+> On Sat, Mar 28, 2026 at 04:08:57PM +0100, Krzysztof Kozlowski wrote:
+>> On 28/03/2026 14:05, 谢致邦 (XIE Zhibang) wrote:
+>>> This fixes the stdout-path in rk3562-evb2-v10.dts.
+>>>
+>>> Fixes: ceb6ef1ea900 ("arm64: dts: rockchip: Add RK3562 evb2 devicetree")
+>>> Signed-off-by: 谢致邦 (XIE Zhibang) <Yeking@Red54.com>
+>>> ---
+>>>  arch/arm64/boot/dts/rockchip/rk3562.dtsi | 10 ++++++++++
+>>>  1 file changed, 10 insertions(+)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/rockchip/rk3562.dtsi b/arch/arm64/boot/dts/rockchip/rk3562.dtsi
+>>> index e4816aa3dae0..14e74e8ac7df 100644
+>>> --- a/arch/arm64/boot/dts/rockchip/rk3562.dtsi
+>>> +++ b/arch/arm64/boot/dts/rockchip/rk3562.dtsi
+>>> @@ -26,6 +26,16 @@ aliases {
+>>>  		gpio2 = &gpio2;
+>>>  		gpio3 = &gpio3;
+>>>  		gpio4 = &gpio4;
+>>> +		serial0 = &uart0;
+>>> +		serial1 = &uart1;
+>>> +		serial2 = &uart2;
+>>> +		serial3 = &uart3;
+>>> +		serial4 = &uart4;
+>>> +		serial5 = &uart5;
+>>> +		serial6 = &uart6;
+>>> +		serial7 = &uart7;
+>>> +		serial8 = &uart8;
+>>> +		serial9 = &uart9;
+>>
+>> UART aliases are properties of the boards, not SoC.
+>>
+>> Best regards,
+>> Krzysztof
+> 
+> So are you saying that we need to remove the serial aliases from files
+> like rk3308.dtsi, rk3328.dtsi, rk3368.dtsi, rk3399-base.dtsi,
+> rk356x-base.dtsi, rk3576.dtsi, rk3588-base.dtsi, and so on?
 
-Signed-off-by: Shi Hao <i.shihao.999@gmail.com>
----
+Well, I tried once but people disagreed because of impact, so probably not.
 
-v2:
- - Rename schema file based on compatible string
- - Wrap commit message body as per kernel patch guidelines
- - Use appropriate maintainer name and email address in DT schema.
- - Change commit subject as per guidelines
- - Fix $id path
- - Rebased on linux-next
-
- Note:
-* This patch is part of the GSoC2026 application process for device tree bindings conversions
-* https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
----
- .../gpio/cavium,thunder-8890-gpio.yaml        | 45 +++++++++++++++++++
- .../bindings/gpio/gpio-thunderx.txt           | 27 -----------
- 2 files changed, 45 insertions(+), 27 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/gpio/cavium,thunder-8890-gpio.yaml
- delete mode 100644 Documentation/devicetree/bindings/gpio/gpio-thunderx.txt
-
-diff --git a/Documentation/devicetree/bindings/gpio/cavium,thunder-8890-gpio.yaml b/Documentation/devicetree/bindings/gpio/cavium,thunder-8890-gpio.yaml
-new file mode 100644
-index 000000000000..0d42ddaeb23a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/gpio/cavium,thunder-8890-gpio.yaml
-@@ -0,0 +1,45 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/gpio/cavium,thunder-8890-gpio.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Cavium ThunderX/OCTEON-TX GPIO Controller
-+
-+maintainers:
-+  - Robert Richter <rric@kernel.org>
-+
-+properties:
-+  compatible:
-+    const: cavium,thunder-8890-gpio
-+
-+  reg:
-+    maxItems: 1
-+
-+  gpio-controller: true
-+
-+  '#gpio-cells':
-+    const: 2
-+
-+  interrupt-controller: true
-+
-+  '#interrupt-cells':
-+    const: 2
-+
-+required:
-+  - reg
-+  - gpio-controller
-+  - '#gpio-cells'
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    gpio_6_0: gpio@6,0 {
-+      compatible = "cavium,thunder-8890-gpio";
-+      reg = <0x3000 0x100>; /*  DEVFN = 0x30 (6:0) */
-+      gpio-controller;
-+      #gpio-cells = <2>;
-+      interrupt-controller;
-+      #interrupt-cells = <2>;
-+    };
-diff --git a/Documentation/devicetree/bindings/gpio/gpio-thunderx.txt b/Documentation/devicetree/bindings/gpio/gpio-thunderx.txt
-deleted file mode 100644
-index 3f883ae29d11..000000000000
---- a/Documentation/devicetree/bindings/gpio/gpio-thunderx.txt
-+++ /dev/null
-@@ -1,27 +0,0 @@
--Cavium ThunderX/OCTEON-TX GPIO controller bindings
--
--Required Properties:
--- reg: The controller bus address.
--- gpio-controller: Marks the device node as a GPIO controller.
--- #gpio-cells: Must be 2.
--  - First cell is the GPIO pin number relative to the controller.
--  - Second cell is a standard generic flag bitfield as described in gpio.txt.
--
--Optional Properties:
--- compatible: "cavium,thunder-8890-gpio", unused as PCI driver binding is used.
--- interrupt-controller: Marks the device node as an interrupt controller.
--- #interrupt-cells: Must be present and have value of 2 if
--                    "interrupt-controller" is present.
--  - First cell is the GPIO pin number relative to the controller.
--  - Second cell is triggering flags as defined in interrupts.txt.
--
--Example:
--
--gpio_6_0: gpio@6,0 {
--	compatible = "cavium,thunder-8890-gpio";
--	reg = <0x3000 0 0 0 0>; /*  DEVFN = 0x30 (6:0) */
--	gpio-controller;
--	#gpio-cells = <2>;
--	interrupt-controller;
--	#interrupt-cells = <2>;
--};
--- 
-2.53.0
-
+Best regards,
+Krzysztof
