@@ -1,151 +1,140 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from out-181.mta1.migadu.com (out-181.mta1.migadu.com [95.215.58.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D48233439F
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 15:02:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4358334C3B
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 15:04:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774882928; cv=none; b=MD2Sz+wpBAEsDUEnY4T9E8hbf6JbMQNd8o6w0/RcgHr0nqbzOZZwBGy6j4WD7CGy6TACqfsLJ7cTNbfq7HY4DRqbh20xzWPvLl8nGrbwmpvUDeT+W/X6iArPiEOgSvhtmey3eHDaPbbjTRm20p/uAlx7ShCkkgB+kVYOfsthEwE=
+	t=1774883045; cv=none; b=lJvdlN+TRop92V8sC/H6vEEpTMSc8omo0q88I0OPFAXzQO3OUNhmnQ/vqW55BLgv21l/7uK6jpWmy3eQH+6f9IzUUJRKwDkvTTZCwz3zuBtTiF8b7ivk+hsB2gznB07MnU9PMCyJsOAKUzUhs08t3KOvnctFeSRzq8c4z09ldxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774882928; c=relaxed/simple;
-	bh=fVkuWa4a6/cQxsnJg9pRm7tn6P2ndJyKnXupZf2dZoQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ac1eIUuanenXO48ATp3efLRN3PNgP3j82NBJmTSUtfhouJi6RuWyXGZ7Bu3zPPbXFH4pzeMbZfdbyGwEncqI9DXi3b6ZhldINNNKTUtvWsUwuCxG6pZCMyQmWOzaDr4BkSPY1vqHomodOcJkhhO1BskHTejMpbR26viI6HkZp5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cSnCQC1v; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=cJtfOKq0; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1774883045; c=relaxed/simple;
+	bh=gM4Ie7Og/iKoKDDWUD6FDDjEozPqyYaDYFwjuTmOVFg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OozqAlJoB/9psJluZuZIZn7RrT9PSox0O87yQJaUzwBTb596Y41MKBFSFUqMj6+oSfpNFC9z00lUubwnjNlVtvhNcqHXm6n95R6NTU4ekARLl3dua6W2sNoaE0ZVuUjKiMRgA4W5UKoKApfId1ddaBcD3qk6v5OcH0Zy806v28Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=I4nZllhI; arc=none smtp.client-ip=95.215.58.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cSnCQC1v";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="cJtfOKq0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1774882926;
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="I4nZllhI"
+Message-ID: <8c7bb9f3-2c4f-4dde-a91c-893817070346@packett.cool>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
+	s=key1; t=1774883031;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ioaGBccEulsVefeHIBPg305ScRFhJiChwS24LCLi1yU=;
-	b=cSnCQC1vC7tbWlnR4vS3hUzdtWwdN05EhRHEFdi8f2wxvYX8N01fzjMUeueCxuaz9C2MUo
-	+9HNol1PtSbr9gyMEs0Ml1ktxJuptQ2ImO8YN2pheHdd6FRkoEoO5c6euEt5vY6Qqxy3Ev
-	tgl/DMwjp4yC23YlukVgqSxebZ9fv3U=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-320-ieN04gcnNFut4gRx4PYLgg-1; Mon, 30 Mar 2026 11:02:04 -0400
-X-MC-Unique: ieN04gcnNFut4gRx4PYLgg-1
-X-Mimecast-MFC-AGG-ID: ieN04gcnNFut4gRx4PYLgg_1774882923
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-89cd8b56114so13749366d6.2
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:02:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1774882923; x=1775487723; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ioaGBccEulsVefeHIBPg305ScRFhJiChwS24LCLi1yU=;
-        b=cJtfOKq0lZ6i/yu1JBQBHyPriJHNaODHTnTGIib5Who8FQp5rOcp+wqs9D7SX1NGkG
-         iyVRNVZfSBfmmYosF1xa3GnCi+k8+V5FW90GnpRJv771BB6wTIeBjyxGCrjFIpQIIrC/
-         Jbjei/04AEHcqITxrB3yLMUrqBHKDkBnTXxnwVwQDJwGYHZ+8r57C98aQpsPdBzk5+Js
-         EaLDPIiqtSnw5oqHJBY4QfxXHVDXzS1zxrlvLciJRJVtYTqbFeOynMObjrqEsyvug9B6
-         m3FM7+wMxIOQEVEXTrWHfBWbcYpPAlZATqVbnEl6tkGiD9MalCbrEKljYcwljSDudkFy
-         iL/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774882923; x=1775487723;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=ioaGBccEulsVefeHIBPg305ScRFhJiChwS24LCLi1yU=;
-        b=Z3khxoh3Z6H2XpRKmRugXXfsj9WR9MwDDI8OsPRG5Ig26f4JOnpTxOBsKP8BOa7hEY
-         RMIdZZk9YlusVDHnnHZX4K/FFtktomADleUkHdX+JBjJ3sFyV5VRU9A7JdVEgtFOzbeT
-         HPdmOXW9SkEQiN1LHDBCqs/gLjlKYveSqsuE4409NqQnzFKcn8C1q4LDBRNjNUA4G0XL
-         qRaxh+1/aystkS07CTWVUOwp5+CL+dFxWKhmKs9ukicZvVJ4A4aBPHFeukMREyGeePQ2
-         M+r+Nn//Z5UPFWNXsIXbeQ4sLVcwID5Th1vMClIvrZurzqhsRRrsLPjUNQ3mJr+JXNOq
-         VGJg==
-X-Forwarded-Encrypted: i=1; AJvYcCUUjXDG//FOlQkQcksJTon5RT612mV8nv/T82jjFVddfsMSAdYb09818TOt9nEzPbswjRxHYakWZB4H@vger.kernel.org
-X-Gm-Message-State: AOJu0YwZlh6RefNguR5BJmeICjrjx5UKYG6R04Es0c3qBgD/QzIz9053
-	6MTa9sJtyCC6jXU7MqyNfisv++9nqeIiexJBuBYDReOYPD2lubFRegQCXKtoH+G9JHIt2US41fN
-	GYEJ6Yd0FQtI29cZQE0S6wDEnQFIfskpK1XexmAzuCRms/v/fD+fKJ+m83LcJrno=
-X-Gm-Gg: ATEYQzzeE88gaXQU6sUnJYndQsiZoFccGROfwK579KOmfIepaDsNNBFf5bpTTB4i968
-	2FW5VrqdXyh1e7cpVAnqRPC6fCBRao/0RaqPnxLtAYPe2pAE973CNwwcxcHUGefqzW6MhepW6mm
-	S6Y/SMj1NQtIoET4KSkMf9DkcHgNk0wSh90jScphFkOyWftVU54NWpas0jq1S/6dNctNtXeaVvs
-	8434s+FFEAcg6CYWBNFOSFyB1lSF5MAEGpzjTUBfqWo9IaywQtjSu7R+HmAk6Mcy+jL8Gt4uTnk
-	TcO3Kq9m5B4vvQOsrRz0Vy5tckA8+qlOx8UtnZDFb/Y+4x0bSEeaEfi26O8xQ29kLmSH6lAutN4
-	nlMGPx1X9lGATpoBKrdakBO2yIY98m5En2a6tUUeDBmGvDPALeY+Dd31G
-X-Received: by 2002:a05:6214:498f:b0:8a0:7c8:409b with SMTP id 6a1803df08f44-8a007c84819mr89272066d6.33.1774882923320;
-        Mon, 30 Mar 2026 08:02:03 -0700 (PDT)
-X-Received: by 2002:a05:6214:498f:b0:8a0:7c8:409b with SMTP id 6a1803df08f44-8a007c84819mr89271186d6.33.1774882922650;
-        Mon, 30 Mar 2026 08:02:02 -0700 (PDT)
-Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-89f49cbb8besm57387836d6.43.2026.03.30.08.02.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Mar 2026 08:02:01 -0700 (PDT)
-Date: Mon, 30 Mar 2026 11:01:59 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Jayesh Choudhary <j-choudhary@ti.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Antoine Tenart <atenart@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Pascal EBERHARD <pascal.eberhard@se.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 09/16] clk: Use the generic OF phandle parsing in only
- one place
-Message-ID: <acqQZ5sx_WZrr4KJ@redhat.com>
-References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
- <20260327-schneider-v7-0-rc1-crypto-v1-9-5e6ff7853994@bootlin.com>
+	bh=yUBhiMS8tYFBBVF/gWovrIjG9TCN/cpqKdIqU7eyxPE=;
+	b=I4nZllhIT5Ca5kVO2IoCNBDAxpI1XRw7Xa5hB6aGnVztKvjluPHKi8i6S9u4Ykg7eaj9a9
+	zBYfxHi6PuC193VrwF3Pqn/W0Fc4cob015AsgiYiiWNIjjXb7rYiXW1UhmqkDKH0PkuTyy
+	R4h4pJQD5Fu3AsCwC+sctdairlatPXN2ZAZbwo7em3AzD5Apf7M3ogZa1JYsRr5sVO3AHA
+	iqU5CU+O3uLnNfYAgZ+rfb5Qp4P8Rlc2lnh8PGC1SGfsYdu0JcZK7+m84OFr9FuBaq+ckg
+	BtIeXz6h8jM+BCz5xCUrMW8/5MmhjdmyH5/CIskktHioO27OlLZf//q5IlkIxg==
+Date: Mon, 30 Mar 2026 12:03:41 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260327-schneider-v7-0-rc1-crypto-v1-9-5e6ff7853994@bootlin.com>
-User-Agent: Mutt/2.3.0 (2026-01-25)
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: Add Motorola edge 30 (dubai) DTS
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260329103055.96649-1-val@packett.cool>
+ <20260329103055.96649-2-val@packett.cool>
+ <5c0747dc-f0de-4b78-b0fd-8f6a6690e86c@oss.qualcomm.com>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Val Packett <val@packett.cool>
+In-Reply-To: <5c0747dc-f0de-4b78-b0fd-8f6a6690e86c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-On Fri, Mar 27, 2026 at 09:09:31PM +0100, Miquel Raynal (Schneider Electric) wrote:
-> There should be one single entry in the OF world, so that the way we
-> parse the DT is always the same. make sure this is the case by avoid
-> calling of_parse_phandle_with_args() from of_clk_get_parent_name(). This
-> is even more relevant as we currently fail to parse clock-ranges. As a
-> result, it seems to be safer to directly call of_parse_clkspec() there.
-> 
-> Suggested-by: Stephen Boyd <sboyd@kernel.org>
-> Signed-off-by: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
-> ---
->  drivers/clk/clk.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-> index 591c0780b61e..93e33ff30f3a 100644
-> --- a/drivers/clk/clk.c
-> +++ b/drivers/clk/clk.c
-> @@ -5375,8 +5375,7 @@ const char *of_clk_get_parent_name(const struct device_node *np, int index)
->  	int count;
->  	struct clk *clk;
->  
-> -	rc = of_parse_phandle_with_args(np, "clocks", "#clock-cells", index,
-> -					&clkspec);
-> +	rc = of_parse_clkspec(np, index, NULL, &clkspec);
->  	if (rc)
->  		return NULL;
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
+On 3/30/26 7:03 AM, Konrad Dybcio wrote:
+> On 3/29/26 12:16 PM, Val Packett wrote:
+>> The Motorola edge 30 is a smartphone released in 2022.
+>>
+>> This commit has the following features working:
+>> - Display (simplefb)
+>> - Touchscreen
+>> - Power and volume buttons
+>> - Storage (UFS 3.1)
+>> - Battery (ADSP battmgr)
+>> - USB (Type-C, 2.0, dual-role)
+>> - Wi-Fi and Bluetooth (WCN6750 hw1.0)
+>>
+>> Signed-off-by: Val Packett <val@packett.cool>
+>> ---
+> [...]
+>
+>> +/ {
+>> +	model = "Motorola edge 30";
+> nit: Google tells me the 'e' in 'Edge' is uppercase
+They do the lowercase thing a lot in the marketing materials but not 
+consistently. I guess it would make sense to ignore that and make it 
+uppercase, sure.
+> [...]
+>
+>> +		framebuffer0: framebuffer@e1000000 {
+>> +			compatible = "simple-framebuffer";
+>> +			reg = <0x0 0xe1000000 0x0 (1080 * 2400 * 4)>;
+> Let's drop reg and use the memory-region binding (also drop unit address)
+How come no one told be about memory-region for simplefb before? :D Ack
+> [...]
+>> +			ports {
+>> +				#address-cells = <1>;
+>> +				#size-cells = <0>;
+>> +
+>> +				port@0 {
+>> +					reg = <0>;
+>> +
+>> +					pmic_glink_hs_in: endpoint {
+>> +						remote-endpoint = <&usb_1_dwc3_hs>;
+>> +					};
+>> +				};
+>> +
+>> +				port@1 {
+>> +					reg = <1>;
+> SBU would be @2
+I was wondering about this, now I see it is specified in the bindings.. 
+Looks like many other dts should be fixed too.
+>> +		cont-splash@e1000000 {
+> framebuffer@
+>
+> [...]
+>
+>> +	thermal-zones {
+>> +		cam-flash-thermal {
+>> +			polling-delay-passive = <0>;
+> that's the default setting, you may drop all polling-delay(-passive) = <0>
+ack
+> [...]
+>
+>> +&usb_1 {
+>> +	/* USB 2.0 only */
+>> +	qcom,select-utmi-as-pipe-clk;
+>> +	maximum-speed = "high-speed";
+>> +
+>> +	/* Remove USB3 phy */
+>> +	phys = <&usb_1_hsphy>;
+>> +	phy-names = "usb2-phy";
+> Is it really not wired up in hw, or do you perhaps have a fake cable?
 
-In case a Fixes tag is warranted, it's not exactly clear what should be
-used. This was introduced in commit 766e6a4ec602 ("clk: add DT clock
-binding support") in 2012. However of_parse_clkspec was introduced in
-commit 4472287a3b2f5 ("clk: Introduce of_clk_get_hw_from_clkspec()") in
-2018.
+I didn't even try testing it myself since not even all flagships have 
+USB3 routed these days (hello oneplus) and this is a cheaper 
+upper-mid-range phone.
+
+USB0_{SS_*,DP_*} are actually NC on the schematic,
+
+and in downstream dts there is maximum-speed = "high-speed" and usb-phy 
+= hsphy + nop.
+
+~val
 
