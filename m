@@ -1,140 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56EF91AF0BB;
-	Mon, 30 Mar 2026 14:28:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B702D47E6;
+	Mon, 30 Mar 2026 14:32:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774880926; cv=none; b=AVrm6uR9YEEmi3BkX7Q2Zz/IE5g+yea4eVVudZjFx4bl+99igcGCzPFgLz+UVvlKfB7K6quwXcj0Y8M6/dDZiTC96qBGfk+5ghl2FjAaYQdUqCDLofnJnqbCZzhxV1/bDwBwmho7pTSqTl2fBIQX8NoGoQqpcKIqVRs7NFXbfBM=
+	t=1774881179; cv=none; b=YOgzKLUQydACrAaYCI+koqgeSmMm3u5qddgW7LyfeigJKHkoWSzPiiPNilB8b9OLyhO2y4HbRvc41uiKrYxtK8eBKRjcrOjy8xxNy1v1P09mwhIhAv4jA3tkHmDHdmCcb9ZegmE5XxdotQ9ZutmHgGA46WkVxygxN9/JupF08hQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774880926; c=relaxed/simple;
-	bh=OoPe8AbkdWCfK+Bx27MFyVex52ff4rXkE2+CiqmLJxQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nSh8M0fZk+Q9dJ/SsQYK7z6DcRgomn2HdLXCmDnmp6fUP5IAypQsNvrX72pYNrXMv5+VCK91YMJOChQu1xV+opN5iL1+0Hr2Wq9w927cL3JoQScVj3P9P5s+7cDsIM3YP7HDNXauyR1pYSblDQNf8164OdH0hmbTfPE5FXla6Es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O7cMcjwe; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774881179; c=relaxed/simple;
+	bh=xjr7kjou/tlAs0NhQalT16hEuisWbUPGKwa8r2BLoUM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RFjtaRPAEtjeNttFh0NPKWnAlsJ+hjm6a9rpWgsCGGKTxGHnjb/pjHVWrnjLHQLp85KfemAUgCk1xbzAUSCZf2NEluHgc3dPU3Gct/nkDy81tL+vItEGasmGYYDNbqHwUPX/o1xTFUtycV26/zlcVXMa4No6QbYBksrRrT76PHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cFMOA622; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O7cMcjwe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DDA1C4CEF7;
-	Mon, 30 Mar 2026 14:28:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cFMOA622"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3F48C19423;
+	Mon, 30 Mar 2026 14:32:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774880926;
-	bh=OoPe8AbkdWCfK+Bx27MFyVex52ff4rXkE2+CiqmLJxQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=O7cMcjweWItBG0J6SJKa9mc/r180E1Am1NLMtsywGPX9btnU1BI/+27tGNPrm4hzZ
-	 lC1m3oNFs8IYaL1OP0GjP/t5HKMvCEs4ZreLTTipC5Y1ncnzo743uasRJVDgW+Vkb2
-	 Yy63n8cR+iXT/Jo06u9K4FGmRktSiHQ9JrmPbz7MWBD9CeMFTwMtS1KMMtLt8R/yXL
-	 MR20oqGh8asm7DkO4clBY0xHThVMbeD6AZFFgVBj1Ga+YcB4CFZXHL0HadzEOzlx+D
-	 j1nkodPY2C+EKgDwL30i5CQXLp7c1jtTwxVD+iApBCgrSLfaGSszPxsseR29sPG/U4
-	 mWp2ILgmY+h7g==
-Date: Mon, 30 Mar 2026 09:28:40 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Ritesh Kumar <quic_riteshk@quicinc.com>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, 
-	abhinav.kumar@linux.dev, sean@poorly.run, marijn.suijten@somainline.org, 
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, 
-	simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	quic_mahap@quicinc.com, konradybcio@kernel.org, mani@kernel.org, 
-	James.Bottomley@hansenpartnership.com, martin.petersen@oracle.com, vkoul@kernel.org, kishon@kernel.org, 
-	cros-qcom-dts-watchers@chromium.org, linux-phy@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org, quic_vproddut@quicinc.com
-Subject: Re: [PATCH v4 1/2] dt-bindings: phy: qcom-edp: Add reference clock
- for sa8775p eDP PHY
-Message-ID: <acqGFwaVFQ3ZNmlR@baldur>
-References: <20260128114853.2543416-1-quic_riteshk@quicinc.com>
- <20260128114853.2543416-2-quic_riteshk@quicinc.com>
- <gurq34svc5p52bqx5qwkgjmschzcbklmssjzmu2tg5wzgppkft@c6nrw2ageyp2>
- <c77ff64f-57d1-4495-bfbd-986644aad71d@quicinc.com>
+	s=k20201202; t=1774881179;
+	bh=xjr7kjou/tlAs0NhQalT16hEuisWbUPGKwa8r2BLoUM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=cFMOA622GQDBbIbb7ykclQ78rkJ9Ui7Gd5cavChoATHqusu9WCtXerl+YgM1ePZ5L
+	 8K5CFq/Ovav042bPqAY/Y7UsFTMQWfPwQu0JZ5uiF+ln+QcVa72a1irZjXlgt17m9/
+	 a7BhqN0tlYSyw9RzED3n6zaPfYUk9gU2KsZZfKnuKDOqkfmpGN4VpKE9KmsJvHBKz4
+	 mrYcu5DG/3JvZH5PFLp4Xx/PjIdd7yf+TK192FygAXxXILhqxaolyEI/PpIJ3s8pQK
+	 mfimSHvzxhIxRKQPYyWtn7HFn4O33Y+hTFHPi8sDu8b254uuNZVOeGs81bJ7+dW5Sb
+	 up7fbuzzkOK+w==
+Message-ID: <e2a4e9dd-6a45-48dc-8757-244e201dd4d6@kernel.org>
+Date: Mon, 30 Mar 2026 15:32:55 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c77ff64f-57d1-4495-bfbd-986644aad71d@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/3] media: qcom: camss: Add CAMSS Offline Processing
+ Engine driver
+To: johannes.goede@oss.qualcomm.com,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ vladimir.zapolskiy@linaro.org, laurent.pinchart@ideasonboard.com,
+ kieran.bingham@ideasonboard.com, robh@kernel.org, krzk+dt@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mchehab@kernel.org
+References: <20260323125824.211615-1-loic.poulain@oss.qualcomm.com>
+ <20260323125824.211615-3-loic.poulain@oss.qualcomm.com>
+ <1ba54ec0-be51-4694-a79b-f272e76303d2@kernel.org>
+ <X-Lw_zi1o015-V1Cv4dY_ik6SfTB8TTcLmn1l-Ta7UviYTJ6gwMBn4B4ulYwjd_Aetul5xUt0T6ln9E-Hl5h4g==@protonmail.internalid>
+ <CAFEp6-3ziXJTYADOFj--rZL5TumroXuW+=SnUQ9XakRxHT-ypg@mail.gmail.com>
+ <12194cc0-0960-486c-be7e-1a22d95de340@kernel.org>
+ <rj2vb725he4yzfvjifzyxqpbqk5oztfaafp7sg2qes4qz3mlaz@z5dyoqod56d7>
+ <7fc31426-3157-49c7-a30d-dcd7b181fcc6@oss.qualcomm.com>
+ <qq43xl3lsv2nq4ngn2hojleddxjmkgwclb2ajek5gvdtgyjltl@3tqg5ydhsxia>
+ <8DTHyPLaUjGKd83PvBsisjn_SnpUnvkateTtwz9P6CChP9VGfDyQmJa4Rfd5KwOBOLhtGFJPDzfHrXC4zvV-Fg==@protonmail.internalid>
+ <0330f63f-7137-4484-954a-fc0776a9b052@oss.qualcomm.com>
+ <0879e4c1-5381-4a70-9fb3-4af9b3bf6e48@kernel.org>
+ <0RTUgDf1wbD0phPk8qAcojZovgMA_68R84FRaL_BHfjzupSA6c_8S5ogVerViYPFNJtvup9sOvL_uPx2t6-KCg==@protonmail.internalid>
+ <2e4c4641-f631-48fa-b5dd-6efd70110dd6@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+In-Reply-To: <2e4c4641-f631-48fa-b5dd-6efd70110dd6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Mar 11, 2026 at 06:37:31PM +0530, Ritesh Kumar wrote:
-> 
-> On 3/5/2026 12:27 AM, Bjorn Andersson wrote:
-> > On Wed, Jan 28, 2026 at 05:18:49PM +0530, Ritesh Kumar wrote:
-> > > The initial sa8775p eDP PHY binding contribution missed adding support for
-> > > voting on the eDP reference clock. This went unnoticed because the UFS PHY
-> > > driver happened to enable the same clock.
-> > > > After commit 77d2fa54a945 ("scsi: ufs: qcom : Refactor
-> > phy_power_on/off
-> > > calls"), the eDP reference clock is no longer kept enabled, which results
-> > > in the following PHY power-on failure:
-> > > > phy phy-aec2a00.phy.10: phy poweron failed --> -110
-> > > > To fix this, explicit voting for the eDP reference clock is
-> > required.
-> > > This patch adds the eDP reference clock for sa8775p eDP PHY and updates
-> > > the corresponding example node.
-> > > > Signed-off-by: Ritesh Kumar <quic_riteshk@quicinc.com>
-> > 
-> > Is there any reason why you didn't follow up on this patch Ritesh?
-> > Looks like it's ready to be merged.
-> 
-> I was waiting for patch to merge as there is no pending comments.
-> 
+On 30/03/2026 15:27, johannes.goede@oss.qualcomm.com wrote:
+>> That's another reason I bring up CDM again and again. We probably don't want to fix to the wrong format for OPE, introduce the CDM and then find we have to map from one format to another for large and complex data over and over again for each frame or every N frames.
+> CDM is a much lower-level API then what is expected from
+> a media-controller centric V4L2 driver. Basically the OPE
+> driver will export:
 
-It's been two months now, if you want your patches to be merged please
-show that - ask the maintainer for a status update, ask a colleague to
-send a reviewed-by...
+My concern is about wrappering one thing inside of another thing and 
+then stuffing it again back into CDM and doing the same on the way out.
 
-Perhaps the maintainer lost track of your change?
+There are already 50 MMIO writes in the OPE ISR, I don't believe it is 
+sustainable to keep adding MMIO into that.
 
-Perhaps it's not clear that the change "need" an Ack from e.g. Dmitry
-and then it should be merged by Vinod? Because you're changing two
-different subsystems but leave it up to the maintainers to figure out
-how to deal with this...
+I'm aware of a project in qcom that did something with making the CDM 
+format in libcamera and handed that off to kernel, recommend looking 
+into that.
 
-
-Either way, show that you want this to be merged, don't just wait until
-the situation resolves itself.
-
-Regards,
-Bjorn
-
-> > Reviewed-by: Bjorn Andersson <andersson@kernel.org>
-> > 
-> > Regards,
-> > Bjorn
-> > 
-> > > ---
-> > >  .../devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml  | 6 ++++--
-> > >  Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml     | 1 +
-> > >  2 files changed, 5 insertions(+), 2 deletions(-)
-> > > > diff --git
-> > a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
-> > b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
-> > > index e2730a2f25cf..6c827cf9692b 100644
-> > > --- a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
-> > > +++ b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
-> > > @@ -200,9 +200,11 @@ examples:
-> > >                    <0x0aec2000 0x1c8>;
-> > >  >              clocks = <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_AUX_CLK>,
-> > > -                     <&dispcc0 MDSS_DISP_CC_MDSS_AHB_CLK>;
-> > > +                     <&dispcc0 MDSS_DISP_CC_MDSS_AHB_CLK>,
-> > > +                     <&gcc GCC_EDP_REF_CLKREF_EN>;
-> > >              clock-names = "aux",
-> > > -                          "cfg_ahb";
-> > > +                          "cfg_ahb",
-> > > +                          "ref";
-> > >  >              #clock-cells = <1>;
-> > >              #phy-cells = <0>;
-> > > diff --git a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-> > > index 4a1daae3d8d4..0bf8bf4f66ac 100644
-> > > --- a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-> > > +++ b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-> > > @@ -74,6 +74,7 @@ allOf:
-> > >          compatible:
-> > >            enum:
-> > >              - qcom,glymur-dp-phy
-> > > +            - qcom,sa8775p-edp-phy
-> > >              - qcom,x1e80100-dp-phy
-> > >      then:
-> > >        properties:
-> > > -- > 2.34.1
-> > >
+---
+bod
