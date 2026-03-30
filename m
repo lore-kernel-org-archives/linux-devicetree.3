@@ -1,82 +1,82 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB35532470F
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 14:48:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2902E296BD3
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 14:50:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774882125; cv=none; b=tAyvrFgyp4EA2MFfESPPm4g0IEfEMItzwKuB7kkvZ9kaIXnWjiNv7mW+plQClHrurTjAUhehTdq2xhuc9gzn7S8bh5ae1NRJeLsvDsfzxgq2iCwZhgeQ0z7OtWUnrUAT1OxYXS0y2dWXzy6L4Zw2088vB8WRPL2Rhsjeum08pZw=
+	t=1774882212; cv=none; b=tBmg1UNsdjMg/WeMcA/3CV4mHOmSm8KaJmyudG4J7VUab/PdFJPxYkIuZkYL/0MrurdrYzely/niA4/AhG9sLCisBoh9gc4vgbvAhKKDsG2+gs3qMxJWMd92pEuXgxJ9LCAARP62hmM9ULD7CYImJ6zq9XkqkezAAkru/qoOwVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774882125; c=relaxed/simple;
-	bh=qRDMpKJX27w2zrmAyfZnBYRp0iKrPs7epsHO9Ew4my8=;
+	s=arc-20240116; t=1774882212; c=relaxed/simple;
+	bh=i55soKzyISPt6SeH7DsGUlC8BZVaYjKOR1DJ+cOhbME=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TT44gn4wUgJmh+zeSp7jZMcLtXDGj3oGnjkaU0Vr3Mw68P+KOKEH9HLZJ+Xqqa8EEJWUYL3G0bwpEV02KLibP590LkTxDO85kr9XPBP7DZQJTlMrN84udQDly+cfIqWlYaXFk6Pv+IlD55IjV5JdmFITAY4DcOD/BE7RXCEzDVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BrEPOcJi; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=K8q6oQhJ; arc=none smtp.client-ip=170.10.133.124
+	 Content-Type:Content-Disposition:In-Reply-To; b=Vk3IHSVNxK2B3FHCUfhcH2woodS/motgPDZZSPHj07nXdrjscm1Dl+3gmzjb5VeV0AwxRM5H9HW9Mz6g4+pAZydrgoz2dPt4+W7IBrdENvNCOQaBRv6wsp5VR+x80cs2ck0ePMoQQ0cL1Le5ApVhBrkSWvJHxTEM19f+gPA8Jic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=E0XZ3erw; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=g2v8UYLc; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BrEPOcJi";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="K8q6oQhJ"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="E0XZ3erw";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="g2v8UYLc"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1774882122;
+	s=mimecast20190719; t=1774882210;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ZPJMgxubQOT61Bt8c1TkmO+q4Ej7bdY+pNKwDemJ1Jo=;
-	b=BrEPOcJiBgKyawOW84vRe/2aaKHprKqX3AeT8xQvqyUdq26gDqzfFaE53ePL46sNJOnQ8k
-	Yf5vLuPFGKS5Fn2EfGsEjROl8Dl0gMNT7TD4D3QAgNQbIvWaoNEkawF9DRABFOGCgVkSpT
-	Rba2pLhQShN+d+br+Au/UrTmEDY1ObY=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=ViefYB5GshkeJmDcmhUA4DB9x0JbvREJG28E0kRCIFY=;
+	b=E0XZ3erw/OzDo80T8W6Qhvlyd91Ee010KULiyV0E7IeKMwJR0BSs7tn5h+poxjz8heJH1/
+	vYqOQThrZQST9g75bMKtYf0h6bHk0I5pkPzNrMPfdLyzeyfnwAMgnIAc1cXJFyHjs63BQw
+	l8Q9HZTZKeTUXzKw6d1ayD3RSFG1vtk=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-224-8YiF78a_N4GgnEMlXTUapA-1; Mon, 30 Mar 2026 10:48:41 -0400
-X-MC-Unique: 8YiF78a_N4GgnEMlXTUapA-1
-X-Mimecast-MFC-AGG-ID: 8YiF78a_N4GgnEMlXTUapA_1774882121
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50939597b85so117265271cf.2
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 07:48:41 -0700 (PDT)
+ us-mta-544-KN8eWCecPx-JNgVrTzkp-w-1; Mon, 30 Mar 2026 10:50:08 -0400
+X-MC-Unique: KN8eWCecPx-JNgVrTzkp-w-1
+X-Mimecast-MFC-AGG-ID: KN8eWCecPx-JNgVrTzkp-w_1774882208
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50b3544bc7bso62797341cf.2
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 07:50:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1774882120; x=1775486920; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1774882208; x=1775487008; darn=vger.kernel.org;
         h=user-agent:in-reply-to:content-disposition:mime-version:references
          :message-id:subject:cc:to:from:date:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZPJMgxubQOT61Bt8c1TkmO+q4Ej7bdY+pNKwDemJ1Jo=;
-        b=K8q6oQhJEx3pnwO+3jLG8oJBEAddLRbv0kk5jno3mj2g50QrUs8oKawg8K8da2ZIwd
-         r4FGXvNMTUtzI9qHaKsVrKsdVWtsD+aLqLhfwYxYl2kCKb4Bo6lUWbSZZJMHu2xlpL3k
-         UIfg6GSawlT1jqE6TNlL/UHG1VOTBy1eeTbVwKrX9xjDjzDXLb56gtWQSQGo0WrVm4pU
-         FG3yLZZ+JLOp6K+w2tfrKqpfnmsIyYN/6jM/Getsw7KqmzGl+ve5otXG3t7twa9P7Z1T
-         b/DUjJ0vHwffMFZKlBwbe/721THxHotSdu6rpCmZty8sdZhcoy0NpHVGAWYWnoMgbMte
-         RScQ==
+        bh=ViefYB5GshkeJmDcmhUA4DB9x0JbvREJG28E0kRCIFY=;
+        b=g2v8UYLc+5lUZCbeGy+3NZsYH3sOytXJMQ2BqC71X0KlpwQqOxvncJN2bH0EruVysw
+         pyhHNYkzghXlYdI+hm8+GSFgMDGQaoiKLxPP0SjpKwqBZkMBSijkStHADsoiSzxcXuuD
+         5VOSaFjOgdcqMBJFOcrywA0p8Oj+D9TSerTqHgkvjg+px1UZJLeynPaRE7HT+v/fA61E
+         55WUkjRq8oZjxQ9ch+HAwvhuC1u932bN6sMwcyxVyXBUcVN0aL4AtddDhJZ+EEMUIBFJ
+         4tzjfAk7fQuRLaHYDPwFt6wdKn1Jo7Ngz2hbtHq29Bg7l4oYGQBbkek0jG7J7WB/+Y85
+         Im/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774882120; x=1775486920;
+        d=1e100.net; s=20251104; t=1774882208; x=1775487008;
         h=user-agent:in-reply-to:content-disposition:mime-version:references
          :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=ZPJMgxubQOT61Bt8c1TkmO+q4Ej7bdY+pNKwDemJ1Jo=;
-        b=C3zDnLCpfrY0i+DK9rvdERCbtOTMIRcUmRk8GOxVzMjhav1utlS1Vc0XdqCZnp4zG6
-         8yiAGuR33KIBNZVKL0dt2AZrh5zgzSKPbnRAfTfUSwanveNo+n1AA5n2ueByKMtcjb4O
-         LhBOS6WA6h5GApkFzR+PDbe4DK1ZdypcFBNEVF9Pvfk4SfFASJxdB87w7JXEyWYXHeCM
-         DvwLR8LmzIw2OgLT1iU26oc1UfBzgPuDaGovt1n7Swc1V86so1VmA3WaeH5XxFZL4SXC
-         +7Q4VWus36o8HTCpREwvY3PeUFpucYriORa2BletIQXCEJMZqVYJmKtml8HV8qpFpxXT
-         Tc5A==
-X-Forwarded-Encrypted: i=1; AJvYcCVTb1jBT6wQWxYGVL3Uuk3CsF2At9T//bNE67PZBM8bUkun4Hy8Ma+aGbSrGtxVs3HR4gyWtkqqct+P@vger.kernel.org
-X-Gm-Message-State: AOJu0YyXZwirm41vck0ohzEAZksA+YqU1KnafeV2mK+TfEm6m02aAo7w
-	+JEsLYZYn19jPla7xgiWZ3gsgb5aD1YxoVZa3V1L7YnpbJ1cvOIJIPm8L2JcD9KwtroDf4X9mDK
-	nnrOfwDttWtwmWVS7Tpvp4928KjgyrCD8j5lHsdeXwStJIAkjLa6iSKy2B1qdaTA=
-X-Gm-Gg: ATEYQzx4RVWZal+O8+jn70gv87dj1dL6GnljPWm2HJ1SwHpvCgqh10Qk4nosXYEEPa3
-	isq8f7/eerNygq9SC8RG2IYoDctOZm5kaDJAMNmz1Q9Dc0KGkHy93TUEWpgwRGjYQwrnE9uYM16
-	Wvz3RtXUeTltOr4ZhEX+FfWN5/qryQPbaJgIcWanx+le/m0i24gkoEOisDbHqwym6Vm6bqvlczl
-	eMD872amG9LSjfZX/Sb9beeaBBnkKyldE3ZdKw4JNxo9hJkuuJRKEUMLdlEW3DgJ+W0fY3UZdqE
-	+GXpBCK23kZ1j0r75RVGKoJayXwnq99DA6XrFFdRfuaWE2Mg25Z944iQRyV1bmMMinIK3w88iaJ
-	Gw4w/aTn+L1shdfgu7op1SF/7YL2z9qyhnNG3dYiL9e9HGCRJp3NvaDF8
-X-Received: by 2002:ac8:5710:0:b0:509:23c5:3291 with SMTP id d75a77b69052e-50ba39bae24mr162438241cf.65.1774882120284;
-        Mon, 30 Mar 2026 07:48:40 -0700 (PDT)
-X-Received: by 2002:ac8:5710:0:b0:509:23c5:3291 with SMTP id d75a77b69052e-50ba39bae24mr162437351cf.65.1774882119419;
-        Mon, 30 Mar 2026 07:48:39 -0700 (PDT)
+        bh=ViefYB5GshkeJmDcmhUA4DB9x0JbvREJG28E0kRCIFY=;
+        b=Oe0OQbILjLRPnI7ZFaH480E2btVle4Q40HT0b2gPCxxhsxZSmVaJTG1JFOfebb4gQ0
+         So2c5tLvYZl0ucID0o9jxW8G3i2zcpBt66KtP8mTgGa/kp8z+iH1OSWA1dsOuPspPD5g
+         uuCZKxoclrJmw7Xm9kYPioaP6/dA/XypX76k/RQZ8SJlLTW6LqT1hbDmwQh1Tk22Es/X
+         pdHQ7dN1UbbvY6x6FJDG7R0xZYWXrlF7gLv6NBnP9c8Q8+Cw1fNk02onNgf8xD5HNnwh
+         yD12iFf1aQWPwyEOp82B/iynIdI67pRkUl4DG1FrAHhcpoJNtNrhE9OGDoxwg9qd/IT5
+         QKKw==
+X-Forwarded-Encrypted: i=1; AJvYcCUbaWTSUW902ghY6fOVOn0J9GJUABWo0piAi6Vocm6NZAM6SKHXXpllW+HPbHwDLgu2z67FlbtCuIBj@vger.kernel.org
+X-Gm-Message-State: AOJu0YxHUlsGrwrHvo1h4pDL38PAMkn+zGJhYXwA4zDHWAl2RG/E7wAf
+	swI/+61gL8V1SWrSMWIAJtrKB07Ke6DUzDVO6SJxh4PSjZEfoVbLI1jmHFQru8oxHchjj8rMyBt
+	mHNBkhC4VHFZrAyC0nrLF881KTzxezTQAq0zs2iw5zojSXNoUdVnQRZGTtOt+cck=
+X-Gm-Gg: ATEYQzzD2lNd16EAhYKO4gmabx1Nwppid/0OPiYcetHquekL6Irv41Q8SBxfTWlJs1n
+	YIL7BzxPKegRPbe7SDOmSt82dSkoIbX6iXamhMBRc0MwDt0KJrMeXskWGVHesVyvV7qjQY3yLqS
+	TD4bfRKwVoCsSKMleAv0INTRbgtvoGz7leAv9w9EeWt2IQxMBUEoLBhbes+vFtdA2lgpAyHQiqG
+	0sZgnwK4hTwIgMjy7vVgNwGVCfknTTDas+lSTnf3sjEkbDPaNyPkokoclSrs4LUQf5rMcZzp8Pw
+	p1vRBzAQgkCoKJQj/7z/M88hEzAdVzP7nvvjSJ1fzWgBh8VU/OGxXpyWpvwiVReLc6zs0XK+TEC
+	LqBGsCwZK+YuT0w48U/AhWdSRYxJPwUCIBiB9IW469iIrzBlmuIJGTZ2Q
+X-Received: by 2002:ac8:5744:0:b0:509:45fc:c88c with SMTP id d75a77b69052e-50ba3836f51mr188099651cf.19.1774882207689;
+        Mon, 30 Mar 2026 07:50:07 -0700 (PDT)
+X-Received: by 2002:ac8:5744:0:b0:509:45fc:c88c with SMTP id d75a77b69052e-50ba3836f51mr188098161cf.19.1774882206754;
+        Mon, 30 Mar 2026 07:50:06 -0700 (PDT)
 Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-50bb2dd8b81sm66397621cf.16.2026.03.30.07.48.37
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-50bb2e3ed5csm72731181cf.27.2026.03.30.07.50.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Mar 2026 07:48:38 -0700 (PDT)
-Date: Mon, 30 Mar 2026 10:48:37 -0400
+        Mon, 30 Mar 2026 07:50:06 -0700 (PDT)
+Date: Mon, 30 Mar 2026 10:50:04 -0400
 From: Brian Masney <bmasney@redhat.com>
 To: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>
 Cc: Michael Turquette <mturquette@baylibre.com>,
@@ -97,12 +97,11 @@ Cc: Michael Turquette <mturquette@baylibre.com>,
 	Wolfram Sang <wsa+renesas@sang-engineering.com>,
 	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Chen-Yu Tsai <wenst@chromium.org>
-Subject: Re: [PATCH 06/16] clk: tests: Add clk_parse_clkspec() Kunit testing
-Message-ID: <acqNRVLrPxABvecZ@redhat.com>
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 08/16] clk: Improve a couple of comments
+Message-ID: <acqNnIJl2PxEcxj3@redhat.com>
 References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
- <20260327-schneider-v7-0-rc1-crypto-v1-6-5e6ff7853994@bootlin.com>
+ <20260327-schneider-v7-0-rc1-crypto-v1-8-5e6ff7853994@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -111,146 +110,16 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260327-schneider-v7-0-rc1-crypto-v1-6-5e6ff7853994@bootlin.com>
+In-Reply-To: <20260327-schneider-v7-0-rc1-crypto-v1-8-5e6ff7853994@bootlin.com>
 User-Agent: Mutt/2.3.0 (2026-01-25)
 
-Hi Miquel,
-
-On Fri, Mar 27, 2026 at 09:09:28PM +0100, Miquel Raynal (Schneider Electric) wrote:
-> Create a new set of kunit tests to make sure clk_parse_clkspec() is
-> working as expected. We currently verify if we get a proper device when
-> using indexes and names. If we make an out of bounds request we expect
-> an error.
-> 
-> For testing purposes, we must ensure of_clk_get_hw()'s symbol is
-> exported.
+On Fri, Mar 27, 2026 at 09:09:30PM +0100, Miquel Raynal (Schneider Electric) wrote:
+> Avoid mentioning the function names directly in the comments, it makes
+> them easily out of sync with the rest of the code. Use a more generic
+> wording.
 > 
 > Suggested-by: Stephen Boyd <sboyd@kernel.org>
 > Signed-off-by: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
-> ---
->  drivers/clk/Makefile                     |   1 +
->  drivers/clk/clk.c                        |   1 +
->  drivers/clk/clk_test.c                   | 124 +++++++++++++++++++++++++++++++
->  drivers/clk/kunit_clk_parse_clkspec.dtso |  21 ++++++
->  4 files changed, 147 insertions(+)
-> 
-> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-> index f7bce3951a30..97b621456bf5 100644
-> --- a/drivers/clk/Makefile
-> +++ b/drivers/clk/Makefile
-> @@ -19,6 +19,7 @@ clk-test-y			:= clk_test.o \
->  				   kunit_clk_assigned_rates_zero.dtbo.o \
->  				   kunit_clk_assigned_rates_zero_consumer.dtbo.o \
->  				   kunit_clk_hw_get_dev_of_node.dtbo.o \
-> +				   kunit_clk_parse_clkspec.dtbo.o \
->  				   kunit_clk_parent_data_test.dtbo.o
->  obj-$(CONFIG_COMMON_CLK)	+= clk-divider.o
->  obj-$(CONFIG_COMMON_CLK)	+= clk-fixed-factor.o
-> diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-> index 47093cda9df3..1795246b10a0 100644
-> --- a/drivers/clk/clk.c
-> +++ b/drivers/clk/clk.c
-> @@ -5312,6 +5312,7 @@ struct clk_hw *of_clk_get_hw(struct device_node *np, int index,
->  
->  	return hw;
->  }
-> +EXPORT_SYMBOL_GPL(of_clk_get_hw);
 
-So that we don't unnecessarily broaden the API that's available to the
-clk providers, you can use EXPORT_SYMBOL_IF_KUNIT so that this is only
-available to the kunit tests.
-
-Note that Chen-Yu posted a separate patch to add the includes for a
-separate test. The two patches will conflict since Stephen hasn't picked
-this up yet.
-
-https://lore.kernel.org/linux-clk/20260225083413.3384950-1-wenst@chromium.org/
-
->  
->  static struct clk *__of_clk_get(struct device_node *np,
->  				int index, const char *dev_id,
-> diff --git a/drivers/clk/clk_test.c b/drivers/clk/clk_test.c
-> index a268d7b5d4cb..b814b45f1f7e 100644
-> --- a/drivers/clk/clk_test.c
-> +++ b/drivers/clk/clk_test.c
-> @@ -3541,10 +3541,134 @@ static struct kunit_suite clk_hw_get_dev_of_node_test_suite = {
->  	.test_cases = clk_hw_get_dev_of_node_test_cases,
->  };
->  
-> +static const struct clk_init_data clk_parse_clkspec_1_init_data = {
-> +	.name = "clk_parse_clkspec_1",
-> +	.ops = &empty_clk_ops,
-> +};
-> +
-> +static const struct clk_init_data clk_parse_clkspec_2_init_data = {
-> +	.name = "clk_parse_clkspec_2",
-> +	.ops = &empty_clk_ops,
-> +};
-> +
-> +static struct clk_hw *kunit_clk_get(struct of_phandle_args *clkspec, void *data)
-> +{
-> +	return (struct clk_hw *)data;
-> +}
-> +
-> +struct clk_parse_clkspec_ctx {
-> +	struct device_node *prov1_np;
-> +	struct device_node *prov2_np;
-> +	struct device_node *cons_np;
-> +};
-> +
-> +static int clk_parse_clkspec_init(struct kunit *test)
-> +{
-> +	struct clk_parse_clkspec_ctx *ctx;
-> +	struct clk_hw *hw1, *hw2;
-> +
-> +	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
-> +	test->priv = ctx;
-> +
-> +	KUNIT_ASSERT_EQ(test, 0, of_overlay_apply_kunit(test, kunit_clk_parse_clkspec));
-> +
-> +	/* Register provider 1 */
-> +	hw1 = kunit_kzalloc(test, sizeof(*hw1), GFP_KERNEL);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, hw1);
-> +	hw1->init = &clk_parse_clkspec_1_init_data;
-> +
-> +	ctx->prov1_np = of_find_compatible_node(NULL, NULL, "test,clock-provider1");
-> +	KUNIT_ASSERT_NOT_NULL(test, ctx->prov1_np);
-> +
-> +	KUNIT_ASSERT_EQ(test, 0, of_clk_hw_register_kunit(test, ctx->prov1_np, hw1));
-> +	of_clk_add_hw_provider(ctx->prov1_np, kunit_clk_get, hw1);
-
-Can you just use of_clk_hw_simple_get() and drop kunit_clk_get() above?
-
-> +	of_node_put(ctx->prov1_np);
-> +
-> +	/* Register provider 2 */
-> +	hw2 = kunit_kzalloc(test, sizeof(*hw2), GFP_KERNEL);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, hw2);
-> +	hw2->init = &clk_parse_clkspec_2_init_data;
-> +
-> +	ctx->prov2_np = of_find_compatible_node(NULL, NULL, "test,clock-provider2");
-> +	KUNIT_ASSERT_NOT_NULL(test, ctx->prov2_np);
-> +
-> +	KUNIT_ASSERT_EQ(test, 0, of_clk_hw_register_kunit(test, ctx->prov2_np, hw2));
-> +	of_clk_add_hw_provider(ctx->prov2_np, kunit_clk_get, hw2);
-> +	of_node_put(ctx->prov2_np);
-> +
-> +	ctx->cons_np = of_find_compatible_node(NULL, NULL, "test,clock-consumer");
-> +	KUNIT_ASSERT_NOT_NULL(test, ctx->cons_np);
-> +
-> +	return 0;
-> +}
-> +
-> +static void clk_parse_clkspec_exit(struct kunit *test)
-> +{
-> +	struct clk_parse_clkspec_ctx *ctx = test->priv;
-> +
-> +	of_node_put(ctx->prov1_np);
-> +	of_node_put(ctx->prov2_np);
-
-Is there a double free of prov1_np and prov2_np? If this is dropped from
-the test exit, then they should't need to be in the ctx struct.
-
-Brian
+Reviewed-by: Brian Masney <bmasney@redhat.com>
 
