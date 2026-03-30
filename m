@@ -1,144 +1,175 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-183.mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E343DC4D4
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 17:24:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774891488; cv=pass; b=GXAuHktrMKXt3EYAh1IFSiAMH+qf0av1PdVIaWMij9dfEnSXgAg34ZVqCsjzu8Z6DiYw3gU445d0cliwD2wbIKNhBgvm/dC+zn+6qtCclptXNdZFZNEoZ+7X1KoHBzz93bZbALWH39igC1roy6t+kOg8/Fw3Yqk4seygw5l9FxU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774891488; c=relaxed/simple;
-	bh=/POCNtVCVgs8Wz8mZ9O1D8ykDMaaTk6zJm6BSwE9+PU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=B1Fk5zImhvYodrxFqXMya5L2g+X7QH5xcLkFaX9s7B+i0bD7bk8E+tMPFP7goXlxANvh4jSAVBPvamS0RqlJiYaALDSCwUqQBsH2ijLEN9eVgVY48LpGs/lakTqcSb8K/S6pwnFkAdpaPVPtQXaUKawspGOA2x8M50UQPVyvvFw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V76BZqIs; arc=pass smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A4E377015
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 17:52:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.183
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774893157; cv=none; b=gPlGkddimNvpLL5JMyfrO7sezG3R9j0FTXxkAFmWSe0n+1vDvS33pDou7mGB0p3L5C9ue30nBc95U2sAI9jMzsnQ5fCXkeTuE1lKCOdUImxGjQFz+w4W+uXmM/1WdCcQBZjZT1mHc2yyhseJMVv2bs91mUHeSmQMQMWTmfl1eZw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774893157; c=relaxed/simple;
+	bh=om2f9Ho3FVaDIPkVBm2gmD78z2AueWy3dtjI7TD71iw=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=k3pzGJeC9KHj3BkH6+5Mpoj03EaUtRMjRVMteLq3bPmKijzPkd/alqXgEapCAWnpfzWsmh4PtLlZ5JNsrgmZs2FDaP9ee+fjpEemoEWKbvxqhG6dtk5LKLlJ1/roweC5KlbPoqYmNNm2fll1LY1dFZ45Bt14LPuDK6Ec02QpYpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HT/utHUc; arc=none smtp.client-ip=91.218.175.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V76BZqIs"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-b982b0889d8so565751066b.2
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 10:24:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774891486; cv=none;
-        d=google.com; s=arc-20240605;
-        b=EpIcoc1kn9+jDAWkJgzcKfGJYRX2kx8A/xrUyCu48p00REUnIHc9YUmM1Ki/+ww9EY
-         0UQ97NGVlKwvBE6jPzOGvvYWGCdNBkdNj10Y5paWfOEUy5HIL22u5q0VK9inLGvw5bDC
-         Lcnw0XCX1xMDKy2K+umWIqO1GvmxXQmdVgvrC7zEtGqmuq9Dqoy+amK6Ubc1CZwy6a3/
-         opUCuBJQsCoDmkP+N320+jBqX+i578R2jn0FSCGZuByBul5sOAnrHnYM9iso8Eq4+SAi
-         e1oSTpsBCa1R7N0NKOLTEjyj+mSDUjV5mwE3B7lnA4mZvLR1tAFGUNZU02L1k8jjES92
-         qFEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/POCNtVCVgs8Wz8mZ9O1D8ykDMaaTk6zJm6BSwE9+PU=;
-        fh=K9tHC1Tm2lWHcALrMwruzidCBNkULie7LIGiJ9hL/+8=;
-        b=KQefSOlSIKPiQDbIViYV3TGBqq2poBR6H0elRvTTyjA5W1lzw2m2EugZElA/Vo5EOH
-         9Uur9edIW4Txrb4MEP3CFp+IuCYYknfx/UNztfKZi2i6XBP3Z6UMzWQT8Px8RRNN2okn
-         ngDyYz3+7mb+X0Zrs2OAl5x1zH7JaQjcg+Ef0fiwyVv7/JM1TpvbC/HXJsDZ3oPruV6Y
-         yB6HRcLlrWMxw/JQKKb2T8CnX/f0fMNP+8X6P8JAiAw4aq2/fg6+86mtyHR7aBuN6XnZ
-         ckJkGCIRfcUQdrqQkJ71ezWYRAzvJ+5CXoc+zIUz7Vek+oQStiVizL372jvLe7QnjuV+
-         UwXA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774891486; x=1775496286; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/POCNtVCVgs8Wz8mZ9O1D8ykDMaaTk6zJm6BSwE9+PU=;
-        b=V76BZqIsg6SY28n+CDDu+IH++PLSb8MJSlRIvY02cnLUWXpaxB91LN/qlH3xzlIxCx
-         OJpm0KiBuf6pIWl4hS1tBcqhmkha9q0QN7jpVlN/RWZSajGpxmqtZstQppDr8zTLHfCl
-         7/3yLIORDyGDv/FwB7cjm/RynB6KgTd3CbCbcKooE15JDQcnwXYC3TG/cD+TSmFNry9y
-         qase5dwhuuHQDJ75vNqql1kmgBxzGIcszCChHk74hP53Qdi5sFznMywjfIRhJmz89xoa
-         FPIC0Py+qZ9XjashK4KXSbxEdCIEca9UEaypsvN6Gb+8PtPdnCYX4WzuDT0B1re+KOEK
-         PpHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774891486; x=1775496286;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=/POCNtVCVgs8Wz8mZ9O1D8ykDMaaTk6zJm6BSwE9+PU=;
-        b=bZSHM874FiVkAQJliYMfjp2Fqo+SbNyjl5nyULGJgPVvh50tf72D0+Ix97YWIuF4wN
-         xiEPB8Jv3dO5r6WYXLPyPf6uNiHu1RSGtFDw7zJAbpAvSLlwPdmJs9y/HDLSYSzCvgrc
-         zv6Rv6ojwSek4nObhzcYWraSxMuJ07W1Js6HwTNi1oap+bbe3ANzqktJV/bierZDk39+
-         z4Lzr40k4DTN/UcGHYwAIwvQkfzCqbqM7ImJmrQSDmGo6X5xwz6b2Yq8257vUBpV8BLg
-         6ET9efBff9CvaS8XXad5RtsK6lr4BHcBsTE60QTcFaaQ1pgYjm/jQAuiNJhQJWM1eGu1
-         O9fA==
-X-Forwarded-Encrypted: i=1; AJvYcCV6P61V6CowaY2HajnI6VxMQNuZjSMWGCRg+2au+T7IGgQAuzd6CS+q+Q/f+nsuTPxjWGd/xni1wdIx@vger.kernel.org
-X-Gm-Message-State: AOJu0YycaCLt8PKckFokEZ16iTb/JKLdtgb5w2GpYWv13H2+liGQ+vjG
-	2Qx/oZvVsHS1fXTtQxMssJWZ738B1IMHSbtyxrnhT7phOfxkz4lyJaR9sLzojZEDiF3/3MLFQXb
-	nFUlzad08UYeiZMdXVxHPLXGaHXxGrLw=
-X-Gm-Gg: ATEYQzzmR+jKfG2UEWl9lAiiuQjV11HuFT3xk5YQ09dMthmBWzuJNBALSuqZQn09V2i
-	Oni/0IhgGw96O4vwrWdrS4YApBTBLbOexrNWma/m2YLuXvXPYJAV6haen+lcynocMTxlTfmYr7D
-	voL3VFGhjyzQWaUI0DdVsb8/1CcnwqOjpy5MOvUSYqMwMexB5YNCFpJzzvFGy1Z/isNFxWEDIrY
-	ASd7oxNGuot+4Dfq93Gls9QxERCgtKZabc0dDpOUKpFBtcYec1xkllKXv083NAIa3Zoxw9UMQxc
-	S0pKZU1wvf/N4P3dh6zCqpqG5rjOP9RZohvjqqs2LedqViQLQccbNJxR9m6k/dn6g8H8YCiPweK
-	9/QFefMo=
-X-Received: by 2002:a17:907:9626:b0:b97:554:f12e with SMTP id
- a640c23a62f3a-b9b50350860mr690721166b.14.1774891485468; Mon, 30 Mar 2026
- 10:24:45 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HT/utHUc"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260327-ad4692-multichannel-sar-adc-driver-v5-0-11f789de47b8@analog.com>
- <20260327-ad4692-multichannel-sar-adc-driver-v5-2-11f789de47b8@analog.com>
- <acZrthJYQX-h_9p5@ashevche-desk.local> <LV9PR03MB84143540CE505514E1CD84B4F752A@LV9PR03MB8414.namprd03.prod.outlook.com>
-In-Reply-To: <LV9PR03MB84143540CE505514E1CD84B4F752A@LV9PR03MB8414.namprd03.prod.outlook.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 30 Mar 2026 20:24:09 +0300
-X-Gm-Features: AQROBzDi52qTqIm1Vf3lVJqwmlc9iA41VGN7nD3k385cLEOQCXsLlg-VEZ4M7zs
-Message-ID: <CAHp75VcUCM8aeUpNaFEXnS+Cm08Mq5j+Qp2gYqWP9vCO+9CtQA@mail.gmail.com>
-Subject: Re: [PATCH v5 2/4] iio: adc: ad4691: add initial driver for AD4691 family
-To: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Lars-Peter Clausen <lars@metafoo.de>, 
-	"Hennerich, Michael" <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, "Sa, Nuno" <Nuno.Sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, 
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>, 
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1774893142;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8/ZohPn0tEwclWEs73U7FxbLocJmGnnoEpSpxL5nBww=;
+	b=HT/utHUc8lgdICl+7AKP2eUGWqGS87jeJCjNhlM/axXVP2uTR1zAEx7oxBP2d7gF9Ptfg5
+	br7hixyyJVb0342CKYZWVHZXIS5gxQFeCl6mlfA2LaO6JAsv8xnFOD6/VmXRCnWIngNnRD
+	ZEz3Dt9vAyTkqK/rpdquDTmF+EevXqY=
+Date: Mon, 30 Mar 2026 17:52:17 +0000
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Frank Wunderlich" <frank.wunderlich@linux.dev>
+Message-ID: <d9639ac711ff8f1186a684fa120ba77247669051@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v4 net-next 5/5] net: pcs: pcs-mtk-lynxi: deprecate
+ "mediatek,pnswap"
+To: "Vladimir Oltean" <vladimir.oltean@nxp.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org, "Daniel
+ Golle" <daniel@makrotopia.org>, "Horatiu Vultur"
+ <horatiu.vultur@microchip.com>, "=?utf-8?B?QmriiJriiI9ybiBNb3Jr?="
+ <bjorn@mork.no>, "Andrew Lunn" <andrew+netdev@lunn.ch>, "Heiner Kallweit"
+ <hkallweit1@gmail.com>, "Russell King" <linux@armlinux.org.uk>, "David S.
+ Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>,
+ "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Matthias
+ Brugger" <matthias.bgg@gmail.com>, "AngeloGioacchino Del Regno"
+ <angelogioacchino.delregno@collabora.com>, "Eric Woudstra"
+ <ericwouds@gmail.com>, "Alexander Couzens" <lynxis@fe80.eu>, "Chester A.
+ Unal" <chester.a.unal@arinc9.com>, "DENG Qingfang" <dqfext@gmail.com>,
+ "Sean Wang" <sean.wang@mediatek.com>, "Felix Fietkau" <nbd@nbd.name>
+In-Reply-To: <20260326215404.krh6v3mmnqdlndli@skbuf>
+References: <20260119091220.1493761-1-vladimir.oltean@nxp.com>
+ <20260119091220.1493761-6-vladimir.oltean@nxp.com>
+ <e0ad52862d34cf4e0169c9850a7f164f127d0093@linux.dev>
+ <20260326215404.krh6v3mmnqdlndli@skbuf>
+X-Migadu-Flow: FLOW_OUT
 
-On Mon, Mar 30, 2026 at 5:20=E2=80=AFPM Sabau, Radu bogdan
-<Radu.Sabau@analog.com> wrote:
-> > -----Original Message-----
-> > From: Andy Shevchenko <andriy.shevchenko@intel.com>
-> > Sent: Friday, March 27, 2026 1:36 PM
-> > To: Sabau, Radu bogdan <Radu.Sabau@analog.com>
+Hi Vladimir
 
-...
+Thanks for the patch and sorry for my delay...i was away this weekend so =
+i was not able to test.
 
-> > > +#include <linux/bitfield.h>
-> > > +#include <linux/bitops.h>
-> > > +#include <linux/cleanup.h>
-> > > +#include <linux/delay.h>
-> > > +#include <linux/device.h>
-> >
-> > Hmm... Is it used? Or perhaps you need only
-> > dev_printk.h
-> > device/devres.h
-> > ?
+traffic works again (but there is only read now) and this is the result o=
+f your debug prints:
 
-> I have checked this out and it seems device.h doesn't actually need
-> to be included anyway since spi.h directly includes device.h, and since
-> this is a SPI driver that's never going away, it's covered. Will drop it!
+root@bpi-r3:~# dmesg | grep SGMSYS_QPHY_WRAP_CTRL
+[    2.706963] SGMSYS_QPHY_WRAP_CTRL =3D 0x501, intending to write 0x500
+[    9.134081] SGMSYS_QPHY_WRAP_CTRL =3D 0x500, intending to write 0x500
 
-No, this is the wrong justification. IWYU principle is about exact
-match between what is used and included in a file (module). spi.h is
-not dev_*() provider and may not be considered for that.
+R3/mt7986 has 2 MAC, and switch is on the first, so value will change, no=
+t sure why this is different.
 
---=20
-With Best Regards,
-Andy Shevchenko
+i have not found SGMSYS_QPHY_WRAP_CTRL or something related with polarity=
+ in ethernet/mac-=20
+(drivers/net/ethernet/mediatek/mtk_eth_soc.c)=20or switch-driver (drivers=
+/net/dsa/mt7530{,-mdio}.c)
+in case they manipulate this register too (of course they should not). Al=
+so looked into the pcs-handling
+in both drivers, but see nothing related to polarity. And looked for poss=
+ible duplicate register const
+definition (other name for 0xec).
+
+regards Frank
+
+Am 26. M=C3=A4rz 2026 um 22:54 schrieb "Vladimir Oltean" <vladimir.oltean=
+@nxp.com>:
+>=20
+>=20Hi Frank,
+>=20
+>=20On Tue, Mar 24, 2026 at 06:36:44AM +0000, Frank Wunderlich wrote:
+>=20
+>=20>=20
+>=20> Hi,
+> >=20=20
+>=20>  looks like this patch breaks BPI-R3 serdes between mt7986 SoC and =
+mt7531 switch in 7.0 (6.19 is ok).
+> >  in ethtool i see only tx on mac but no rx. if i revert this patch i =
+can ping through dsa-ports again.
+> >=20=20
+>=20>  i did not completely understanding the code with the default-pol a=
+s it is now splitted between rx and tx.
+> >=20=20
+>=20>  mt7986 and this board does not have mediatek,pnswap set, so the fi=
+nal regmap_update_bits writes val=3D0,
+> >  before there was only write to this register on invert mode...but i =
+guess this should not break. Maybe some
+> >  kind of timing issue between mac and switch?
+> >=20=20
+>=20>  maybe reverting this patch skips changes made here:
+> >  bde1ae2d52ab 2026-01-19 net: pcs: pcs-mtk-lynxi: pass SGMIISYS OF no=
+de to PCS
+> >=20=20
+>=20>  I resend as last try was sending as html (option "always send as t=
+ext" in webmailer seems to be ignored
+> >  somehow, had to choose "unformatted" in this response too).
+> >=20=20
+>=20>  regards Frank
+> >=20
+>=20Sorry for the delay.
+>=20
+>=20If writing val=3D0 breaks the link, I'm curious
+> (a) whether it still breaks if we don't write anything at all
+> (b) what was the register value originally
+>=20
+>=20Could you please test the patch below and let me know what it prints,
+> and whether traffic passes with it applied?
+>=20
+>=20-- >8 --
+> diff --git a/drivers/net/pcs/pcs-mtk-lynxi.c b/drivers/net/pcs/pcs-mtk-=
+lynxi.c
+> index c12f8087af9b..5c5f45b93b82 100644
+> --- a/drivers/net/pcs/pcs-mtk-lynxi.c
+> +++ b/drivers/net/pcs/pcs-mtk-lynxi.c
+> @@ -126,7 +126,7 @@ static int mtk_pcs_config_polarity(struct mtk_pcs_l=
+ynxi *mpcs,
+>  {
+>  struct fwnode_handle *fwnode =3D mpcs->fwnode, *pcs_fwnode;
+>  unsigned int pol, default_pol =3D PHY_POL_NORMAL;
+> - unsigned int val =3D 0;
+> + unsigned int val =3D 0, tmp;
+>  int ret;
+>=20=20
+>=20 if (fwnode_property_read_bool(fwnode, "mediatek,pnswap"))
+> @@ -153,8 +153,14 @@ static int mtk_pcs_config_polarity(struct mtk_pcs_=
+lynxi *mpcs,
+>  if (pol =3D=3D PHY_POL_INVERT)
+>  val |=3D SGMII_PN_SWAP_TX;
+>=20=20
+>=20- return regmap_update_bits(mpcs->regmap, SGMSYS_QPHY_WRAP_CTRL,
+> - SGMII_PN_SWAP_RX | SGMII_PN_SWAP_TX, val);
+> + ret =3D regmap_read(mpcs->regmap, SGMSYS_QPHY_WRAP_CTRL, &tmp);
+> + if (ret)
+> + return ret;
+> +
+> + pr_err("SGMSYS_QPHY_WRAP_CTRL =3D 0x%x, intending to write 0x%lx\n",
+> + tmp, (tmp & ~(SGMII_PN_SWAP_RX | SGMII_PN_SWAP_TX)) | val);
+> +
+> + return 0;
+>  }
+>=20=20
+>=20 static int mtk_pcs_lynxi_config(struct phylink_pcs *pcs, unsigned in=
+t neg_mode,
+> -- >8 --
+>=20
+
+regards=20Frank
