@@ -1,45 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEC62EACF2;
-	Mon, 30 Mar 2026 14:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C7F2E091B;
+	Mon, 30 Mar 2026 14:37:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774881211; cv=none; b=Y/yTS2PQqTLiPvAeSWW2bUmQ0JILdwPsh9mE/ucrCfo8Dt6NiQj8jtEiPUNb56kS9NcOI1kAG/zbmrT0b+mHx0hZJIc3PuEle0BXr+Uy3fgzcOufOmU0FMJ6XcuqHdcoxWfcmUqhKLoqeeoTolGWMA3ayL7p73GGndSgOQ5onV8=
+	t=1774881441; cv=none; b=jMwp/XCoZSucb9xNjs3XvRIppPOEPmdyC2VXpTpEm8d9CEB7cX2YOAYDT6G2u2unJbzfp06wwLQDXljJMotmN/mOtCPqwoWu1x96RG8xUoNO5l/haa3KKhMWt9GoBPo4k+V7nAlCglnNzfcH0QcTR0jXMjgdWBT7b96PNkBYiKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774881211; c=relaxed/simple;
-	bh=VNuSexgnG7KPB4i5OsVfyHCENyzgXgGesZiYynDQSRg=;
+	s=arc-20240116; t=1774881441; c=relaxed/simple;
+	bh=FfsIVUKLPFqUD2jO1eTH3CMDTjs2wmEjz9bthk26meA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cc+kSeeDDdi2ETLDpn7loOws+KRSbCMi9sxWyslCgkSV8e3djdSe8Dv9kQwV+lurTbD068keVK4r3PsMcbORemZcKMcOCqBOKMWdyWFJNqOd1T3PCEXOrhCuOdRTgiqs63wajTJeeE9SyxZ30yrfXzoDDrSD+AYCjN4VuwUxLrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mce1AT0Q; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=rMEAD3G43tffOhQo1xsGd6fzThT95/7ST7k7BpLpvb5e8WGCN4KTozqrQlq8UD/UQm3wPmb2OY4Vvo+vqcpS5MZWWRkxF0CaDOZ8pLTaJkoAVzms3O4uG4wvRqOJt6F8dlmxEuaak7DeTx8npNGsJypuiVHhK9VAHSCItsgc/nY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=f1XNAf7L; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mce1AT0Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 945BAC4CEF7;
-	Mon, 30 Mar 2026 14:33:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774881210;
-	bh=VNuSexgnG7KPB4i5OsVfyHCENyzgXgGesZiYynDQSRg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Mce1AT0QJcoE9xOJNSchvLpMEt5fgK4gGFkQLQ3ZyKV63rq3lcwzi6qsMB3vSfEK6
-	 ZETXSLaGlav3g6CkbeEnkCI/fK/PO30gfnwP4uYqnOoZ27Q6G2S0Nh9ZLxkDnHkNCR
-	 9APODYOU3n6raG11EvFGrhik0Auwtt1sOULQDG9H2gtA1pvu+P+5FZqdpF2ygp9PHv
-	 3OXSkcn/e2eYYF85xhXUmtHpMjEsEOwXyKrKLPeWD+UK35gesFQ77YJTlGndAHoPvZ
-	 VnSKSrk3zdVahSc9xtFBD9mSQqZ3/RjQcN9QkPK0bInbHKIaWIIJ5VUXo9Ja/vUGbU
-	 jgbSuZkFtpUGw==
-Date: Mon, 30 Mar 2026 09:33:26 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: webgeek1234@gmail.com
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Georgi Djakov <djakov@kernel.org>, Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: sm8550: add cpu OPP table with
- DDR, LLCC & L3 bandwidths
-Message-ID: <acqJWzQHi7ajuzml@baldur>
-References: <20260219-sm8550-ddr-bw-scaling-v3-0-75c19152e921@gmail.com>
- <20260219-sm8550-ddr-bw-scaling-v3-2-75c19152e921@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="f1XNAf7L"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774881440; x=1806417440;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=FfsIVUKLPFqUD2jO1eTH3CMDTjs2wmEjz9bthk26meA=;
+  b=f1XNAf7LVdSvhsGh7TuDRaG50/d5WRAAHRfC6SbiUCQd5cBaTIR5RHYT
+   X0WQ5lA2Av3Fj2/rRjKCZuj8p1HqmmYXti4NBCS8pJDooQtXgM0+dPwPR
+   Wb40NHVY3PNkQo3FQti9267CQQEj0VhJqHt2eunDZbxzBvfJkQUWfckdV
+   XR18HpnY12M3ewH/B6vPqt0gqF954h+38A1wH9kFrQYiD6TpdU+KP7JV7
+   ja4ypbwAQ7NK6UtutBw7foQCKquol9PzryHpb2jjoNIa0ezJqlQbD0r2Y
+   aISAv2pEG2gj/dBCCp/lMA49sMeQBa59XEqedTYqxcuoKT+A7fG0dfEjS
+   g==;
+X-CSE-ConnectionGUID: tqPNu9e/Tf+77S/YXn3Wug==
+X-CSE-MsgGUID: eorGjQYHTkiD+SAc2Vnn2Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11743"; a="75770636"
+X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; 
+   d="scan'208";a="75770636"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Mar 2026 07:37:20 -0700
+X-CSE-ConnectionGUID: GQSdPSfWSXiYPERlw7dyaw==
+X-CSE-MsgGUID: T37eBBTtRSqbMyEgnSZ/aw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; 
+   d="scan'208";a="225245200"
+Received: from lkp-server01.sh.intel.com (HELO 283bf2e1b94a) ([10.239.97.150])
+  by orviesa010.jf.intel.com with ESMTP; 30 Mar 2026 07:37:16 -0700
+Received: from kbuild by 283bf2e1b94a with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1w7Dju-000000001DN-01E6;
+	Mon, 30 Mar 2026 14:37:14 +0000
+Date: Mon, 30 Mar 2026 22:36:53 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mikko Perttunen <mperttunen@nvidia.com>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-pwm@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, Yi-Wei Wang <yiweiw@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>
+Subject: Re: [PATCH v2 2/7] pwm: tegra: Avoid hard-coded max clock frequency
+Message-ID: <202603302259.NdAkuCVx-lkp@intel.com>
+References: <20260325-t264-pwm-v2-2-998d885984b3@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,495 +71,59 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260219-sm8550-ddr-bw-scaling-v3-2-75c19152e921@gmail.com>
+In-Reply-To: <20260325-t264-pwm-v2-2-998d885984b3@nvidia.com>
 
-On Thu, Feb 19, 2026 at 10:07:40PM -0600, Aaron Kling via B4 Relay wrote:
-> From: Aaron Kling <webgeek1234@gmail.com>
-> 
-> Add the OPP tables for each CPU clusters (cpu0-1-2, cpu3-4-5-6 & cpu7)
-> to permit scaling the Last Level Cache Controller (LLCC), DDR and L3 cache
-> frequency by aggregating bandwidth requests of all CPU core with referenc
-> to the current OPP they are configured in by the LMH/EPSS hardware.
-> 
-> The effect is a proper caches & DDR frequency scaling when CPU cores
-> changes frequency.
-> 
-> The OPP tables were built using the downstream memlat ddr, llcc & l3
-> tables for each cluster types with the actual EPSS cpufreq LUT tables
-> from running a QCS8550 device.
-> 
-> Also add the OSC L3 Cache controller node.
-> 
-> Also add the interconnect entry for each cpu, with 3 different paths:
-> - CPU to Last Level Cache Controller (LLCC)
-> - Last Level Cache Controller (LLCC) to DDR
-> - L3 Cache from CPU to DDR interface
-> 
+Hi Mikko,
 
-"8 out of 11 hunks FAILED", it seems things moved since you wrote this.
-Can you please help me by rebasing this onto linux-next and resubmitting
-it?
+kernel test robot noticed the following build warnings:
 
-Regards,
-Bjorn
+[auto build test WARNING on 11439c4635edd669ae435eec308f4ab8a0804808]
 
-> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-HDK
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> ---
->  arch/arm64/boot/dts/qcom/sm8550.dtsi | 367 +++++++++++++++++++++++++++++++++++
->  1 file changed, 367 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> index e3f93f4f412ded9583a6bc9215185a0daf5f1b57..de4d43f7b8d2416997db70c98b0fc36d25f3c2a6 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> @@ -17,6 +17,7 @@
->  #include <dt-bindings/interrupt-controller/arm-gic.h>
->  #include <dt-bindings/interconnect/qcom,icc.h>
->  #include <dt-bindings/interconnect/qcom,sm8550-rpmh.h>
-> +#include <dt-bindings/interconnect/qcom,osm-l3.h>
->  #include <dt-bindings/mailbox/qcom-ipcc.h>
->  #include <dt-bindings/power/qcom-rpmpd.h>
->  #include <dt-bindings/power/qcom,rpmhpd.h>
-> @@ -78,6 +79,13 @@ cpu0: cpu@0 {
->  			qcom,freq-domain = <&cpufreq_hw 0>;
->  			capacity-dmips-mhz = <1024>;
->  			dynamic-power-coefficient = <100>;
-> +			operating-points-v2 = <&cpu0_opp_table>;
-> +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&epss_l3 MASTER_EPSS_L3_APPS
-> +					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
->  			#cooling-cells = <2>;
->  			l2_0: l2-cache {
->  				compatible = "cache";
-> @@ -104,6 +112,13 @@ cpu1: cpu@100 {
->  			qcom,freq-domain = <&cpufreq_hw 0>;
->  			capacity-dmips-mhz = <1024>;
->  			dynamic-power-coefficient = <100>;
-> +			operating-points-v2 = <&cpu0_opp_table>;
-> +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&epss_l3 MASTER_EPSS_L3_APPS
-> +					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
->  			#cooling-cells = <2>;
->  			l2_100: l2-cache {
->  				compatible = "cache";
-> @@ -125,6 +140,13 @@ cpu2: cpu@200 {
->  			qcom,freq-domain = <&cpufreq_hw 0>;
->  			capacity-dmips-mhz = <1024>;
->  			dynamic-power-coefficient = <100>;
-> +			operating-points-v2 = <&cpu0_opp_table>;
-> +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&epss_l3 MASTER_EPSS_L3_APPS
-> +					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
->  			#cooling-cells = <2>;
->  			l2_200: l2-cache {
->  				compatible = "cache";
-> @@ -146,6 +168,13 @@ cpu3: cpu@300 {
->  			qcom,freq-domain = <&cpufreq_hw 1>;
->  			capacity-dmips-mhz = <1792>;
->  			dynamic-power-coefficient = <270>;
-> +			operating-points-v2 = <&cpu3_opp_table>;
-> +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&epss_l3 MASTER_EPSS_L3_APPS
-> +					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
->  			#cooling-cells = <2>;
->  			l2_300: l2-cache {
->  				compatible = "cache";
-> @@ -167,6 +196,13 @@ cpu4: cpu@400 {
->  			qcom,freq-domain = <&cpufreq_hw 1>;
->  			capacity-dmips-mhz = <1792>;
->  			dynamic-power-coefficient = <270>;
-> +			operating-points-v2 = <&cpu3_opp_table>;
-> +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&epss_l3 MASTER_EPSS_L3_APPS
-> +					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
->  			#cooling-cells = <2>;
->  			l2_400: l2-cache {
->  				compatible = "cache";
-> @@ -188,6 +224,13 @@ cpu5: cpu@500 {
->  			qcom,freq-domain = <&cpufreq_hw 1>;
->  			capacity-dmips-mhz = <1792>;
->  			dynamic-power-coefficient = <270>;
-> +			operating-points-v2 = <&cpu3_opp_table>;
-> +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&epss_l3 MASTER_EPSS_L3_APPS
-> +					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
->  			#cooling-cells = <2>;
->  			l2_500: l2-cache {
->  				compatible = "cache";
-> @@ -209,6 +252,13 @@ cpu6: cpu@600 {
->  			qcom,freq-domain = <&cpufreq_hw 1>;
->  			capacity-dmips-mhz = <1792>;
->  			dynamic-power-coefficient = <270>;
-> +			operating-points-v2 = <&cpu3_opp_table>;
-> +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&epss_l3 MASTER_EPSS_L3_APPS
-> +					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
->  			#cooling-cells = <2>;
->  			l2_600: l2-cache {
->  				compatible = "cache";
-> @@ -230,6 +280,13 @@ cpu7: cpu@700 {
->  			qcom,freq-domain = <&cpufreq_hw 2>;
->  			capacity-dmips-mhz = <1894>;
->  			dynamic-power-coefficient = <588>;
-> +			operating-points-v2 = <&cpu7_opp_table>;
-> +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&mc_virt MASTER_LLCC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&epss_l3 MASTER_EPSS_L3_APPS
-> +					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
->  			#cooling-cells = <2>;
->  			l2_700: l2-cache {
->  				compatible = "cache";
-> @@ -397,6 +454,306 @@ memory@a0000000 {
->  		reg = <0 0xa0000000 0 0>;
->  	};
->  
-> +	cpu0_opp_table: opp-table-cpu0 {
-> +		compatible = "operating-points-v2";
-> +		opp-shared;
-> +
-> +		opp-307200000 {
-> +			opp-hz = /bits/ 64 <307200000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (307200 * 32)>;
-> +		};
-> +
-> +		opp-441600000 {
-> +			opp-hz = /bits/ 64 <441600000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (384000 * 32)>;
-> +		};
-> +
-> +		opp-556800000 {
-> +			opp-hz = /bits/ 64 <556800000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (499200 * 32)>;
-> +		};
-> +
-> +		opp-672000000 {
-> +			opp-hz = /bits/ 64 <672000000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (499200 * 32)>;
-> +		};
-> +
-> +		opp-787200000 {
-> +			opp-hz = /bits/ 64 <787200000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (729600 * 32)>;
-> +		};
-> +
-> +		opp-902400000 {
-> +			opp-hz = /bits/ 64 <902400000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (844800 * 32)>;
-> +		};
-> +
-> +		opp-1017600000 {
-> +			opp-hz = /bits/ 64 <1017600000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (940800 * 32)>;
-> +		};
-> +
-> +		opp-1113600000 {
-> +			opp-hz = /bits/ 64 <1113600000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (1056000 * 32)>;
-> +		};
-> +
-> +		opp-1228800000 {
-> +			opp-hz = /bits/ 64 <1228800000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (1152000 * 32)>;
-> +		};
-> +
-> +		opp-1344000000 {
-> +			opp-hz = /bits/ 64 <1344000000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (1267200 * 32)>;
-> +		};
-> +
-> +		opp-1459200000 {
-> +			opp-hz = /bits/ 64 <1459200000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (1267200 * 32)>;
-> +		};
-> +
-> +		opp-1555200000 {
-> +			opp-hz = /bits/ 64 <1555200000>;
-> +			opp-peak-kBps = <(466000 * 16) (768000 * 4) (1478400 * 32)>;
-> +		};
-> +
-> +		opp-1670400000 {
-> +			opp-hz = /bits/ 64 <1670400000>;
-> +			opp-peak-kBps = <(466000 * 16) (768000 * 4) (1478400 * 32)>;
-> +		};
-> +
-> +		opp-1785600000 {
-> +			opp-hz = /bits/ 64 <1785600000>;
-> +			opp-peak-kBps = <(466000 * 16) (768000 * 4) (1478400 * 32)>;
-> +		};
-> +
-> +		opp-1900800000 {
-> +			opp-hz = /bits/ 64 <1900800000>;
-> +			opp-peak-kBps = <(466000 * 16) (768000 * 4) (1689600 * 32)>;
-> +		};
-> +
-> +		opp-2016000000 {
-> +			opp-hz = /bits/ 64 <2016000000>;
-> +			opp-peak-kBps = <(600000 * 16) (1555000 * 4) (1804800 * 32)>;
-> +		};
-> +	};
-> +
-> +	cpu3_opp_table: opp-table-cpu3 {
-> +		compatible = "operating-points-v2";
-> +		opp-shared;
-> +
-> +		opp-499200000 {
-> +			opp-hz = /bits/ 64 <499200000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (307200 * 32)>;
-> +		};
-> +
-> +		opp-614400000 {
-> +			opp-hz = /bits/ 64 <614400000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (499200 * 32)>;
-> +		};
-> +
-> +		opp-729600000 {
-> +			opp-hz = /bits/ 64 <729600000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (499200 * 32)>;
-> +		};
-> +
-> +		opp-844800000 {
-> +			opp-hz = /bits/ 64 <844800000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (499200 * 32)>;
-> +		};
-> +
-> +		opp-940800000 {
-> +			opp-hz = /bits/ 64 <940800000>;
-> +			opp-peak-kBps = <(300000 * 16) (768000 * 4) (729600 * 32)>;
-> +		};
-> +
-> +		opp-1056000000 {
-> +			opp-hz = /bits/ 64 <1056000000>;
-> +			opp-peak-kBps = <(300000 * 16) (768000 * 4) (729600 * 32)>;
-> +		};
-> +
-> +		opp-1171200000 {
-> +			opp-hz = /bits/ 64 <1171200000>;
-> +			opp-peak-kBps = <(466000 * 16) (1555000 * 4) (940800 * 32)>;
-> +		};
-> +
-> +		opp-1286400000 {
-> +			opp-hz = /bits/ 64 <1286400000>;
-> +			opp-peak-kBps = <(466000 * 16) (1555000 * 4) (940800 * 32)>;
-> +		};
-> +
-> +		opp-1401600000 {
-> +			opp-hz = /bits/ 64 <1401600000>;
-> +			opp-peak-kBps = <(600000 * 16) (1708000 * 4) (1056000 * 32)>;
-> +		};
-> +
-> +		opp-1536000000 {
-> +			opp-hz = /bits/ 64 <1536000000>;
-> +			opp-peak-kBps = <(600000 * 16) (1708000 * 4) (1056000 * 32)>;
-> +		};
-> +
-> +		opp-1651200000 {
-> +			opp-hz = /bits/ 64 <1651200000>;
-> +			opp-peak-kBps = <(600000 * 16) (1708000 * 4) (1267200 * 32)>;
-> +		};
-> +
-> +		opp-1785600000 {
-> +			opp-hz = /bits/ 64 <1785600000>;
-> +			opp-peak-kBps = <(600000 * 16) (1708000 * 4) (1267200 * 32)>;
-> +		};
-> +
-> +		opp-1920000000 {
-> +			opp-hz = /bits/ 64 <1920000000>;
-> +			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1267200 * 32)>;
-> +		};
-> +
-> +		opp-2054400000 {
-> +			opp-hz = /bits/ 64 <2054400000>;
-> +			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-> +		};
-> +
-> +		opp-2188800000 {
-> +			opp-hz = /bits/ 64 <2188800000>;
-> +			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-> +		};
-> +
-> +		opp-2323200000 {
-> +			opp-hz = /bits/ 64 <2323200000>;
-> +			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-> +		};
-> +
-> +		opp-2457600000 {
-> +			opp-hz = /bits/ 64 <2457600000>;
-> +			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-> +		};
-> +
-> +		opp-2592000000 {
-> +			opp-hz = /bits/ 64 <2592000000>;
-> +			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-> +		};
-> +
-> +		opp-2707200000 {
-> +			opp-hz = /bits/ 64 <2707200000>;
-> +			opp-peak-kBps = <(933000 * 16) (2736000 * 4) (1478400 * 32)>;
-> +		};
-> +
-> +		opp-2803200000 {
-> +			opp-hz = /bits/ 64 <2803200000>;
-> +			opp-peak-kBps = <(933000 * 16) (3686000 * 4) (1689600 * 32)>;
-> +		};
-> +	};
-> +
-> +	cpu7_opp_table: opp-table-cpu7 {
-> +		compatible = "operating-points-v2";
-> +		opp-shared;
-> +
-> +		opp-595200000 {
-> +			opp-hz = /bits/ 64 <595200000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (307200 * 32)>;
-> +		};
-> +
-> +		opp-729600000 {
-> +			opp-hz = /bits/ 64 <729600000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (499200 * 32)>;
-> +		};
-> +
-> +		opp-864000000 {
-> +			opp-hz = /bits/ 64 <864000000>;
-> +			opp-peak-kBps = <(300000 * 16) (547000 * 4) (499200 * 32)>;
-> +		};
-> +
-> +		opp-998400000 {
-> +			opp-hz = /bits/ 64 <998400000>;
-> +			opp-peak-kBps = <(300000 * 16) (768000 * 4) (729600 * 32)>;
-> +		};
-> +
-> +		opp-1132800000 {
-> +			opp-hz = /bits/ 64 <1132800000>;
-> +			opp-peak-kBps = <(300000 * 16) (768000 * 4) (729600 * 32)>;
-> +		};
-> +
-> +		opp-1248000000 {
-> +			opp-hz = /bits/ 64 <1248000000>;
-> +			opp-peak-kBps = <(466000 * 16) (1555000 * 4) (940800 * 32)>;
-> +		};
-> +
-> +		opp-1363200000 {
-> +			opp-hz = /bits/ 64 <1363200000>;
-> +			opp-peak-kBps = <(466000 * 16) (1555000 * 4) (940800 * 32)>;
-> +		};
-> +
-> +		opp-1478400000 {
-> +			opp-hz = /bits/ 64 <1478400000>;
-> +			opp-peak-kBps = <(600000 * 16) (1708000 * 4) (1056000 * 32)>;
-> +		};
-> +
-> +		opp-1593600000 {
-> +			opp-hz = /bits/ 64 <1593600000>;
-> +			opp-peak-kBps = <(600000 * 16) (1708000 * 4) (1056000 * 32)>;
-> +		};
-> +
-> +		opp-1708800000 {
-> +			opp-hz = /bits/ 64 <1708800000>;
-> +			opp-peak-kBps = <(600000 * 16) (1708000 * 4) (1267200 * 32)>;
-> +		};
-> +
-> +		opp-1843200000 {
-> +			opp-hz = /bits/ 64 <1843200000>;
-> +			opp-peak-kBps = <(600000 * 16) (1708000 * 4) (1267200 * 32)>;
-> +		};
-> +
-> +		opp-1977600000 {
-> +			opp-hz = /bits/ 64 <1977600000>;
-> +			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1267200 * 32)>;
-> +		};
-> +
-> +		opp-2092800000 {
-> +			opp-hz = /bits/ 64 <2092800000>;
-> +			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-> +		};
-> +
-> +		opp-2227200000 {
-> +			opp-hz = /bits/ 64 <2227200000>;
-> +			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-> +		};
-> +
-> +		opp-2342400000 {
-> +			opp-hz = /bits/ 64 <2342400000>;
-> +			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-> +		};
-> +
-> +		opp-2476800000 {
-> +			opp-hz = /bits/ 64 <2476800000>;
-> +			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-> +		};
-> +
-> +		opp-2592000000 {
-> +			opp-hz = /bits/ 64 <2592000000>;
-> +			opp-peak-kBps = <(806000 * 16) (2736000 * 4) (1478400 * 32)>;
-> +		};
-> +
-> +		opp-2726400000 {
-> +			opp-hz = /bits/ 64 <2726400000>;
-> +			opp-peak-kBps = <(933000 * 16) (3686000 * 4) (1478400 * 32)>;
-> +		};
-> +
-> +		opp-2841600000 {
-> +			opp-hz = /bits/ 64 <2841600000>;
-> +			opp-peak-kBps = <(933000 * 16) (3686000 * 4) (1689600 * 32)>;
-> +		};
-> +
-> +		opp-2956800000 {
-> +			opp-hz = /bits/ 64 <2956800000>;
-> +			opp-peak-kBps = <(933000 * 16) (3686000 * 4) (1689600 * 32)>;
-> +		};
-> +
-> +		opp-3187200000 {
-> +			opp-hz = /bits/ 64 <3187200000>;
-> +			opp-peak-kBps = <(933000 * 16) (3686000 * 4) (1689600 * 32)>;
-> +		};
-> +	};
-> +
->  	pmu-a510 {
->  		compatible = "arm,cortex-a510-pmu";
->  		interrupts = <GIC_PPI 7 IRQ_TYPE_LEVEL_LOW &ppi_cluster0>;
-> @@ -5437,6 +5794,16 @@ rpmhpd_opp_turbo_l1: opp-416 {
->  			};
->  		};
->  
-> +		epss_l3: interconnect@17d90000 {
-> +			compatible = "qcom,sm8550-epss-l3", "qcom,epss-l3";
-> +			reg = <0 0x17d90000 0 0x1000>;
-> +
-> +			clocks = <&bi_tcxo_div2>, <&gcc GCC_GPLL0>;
-> +			clock-names = "xo", "alternate";
-> +
-> +			#interconnect-cells = <1>;
-> +		};
-> +
->  		cpufreq_hw: cpufreq@17d91000 {
->  			compatible = "qcom,sm8550-cpufreq-epss", "qcom,cpufreq-epss";
->  			reg = <0 0x17d91000 0 0x1000>,
-> 
-> -- 
-> 2.52.0
-> 
-> 
+url:    https://github.com/intel-lab-lkp/linux/commits/Mikko-Perttunen/dt-bindings-pwm-Document-Tegra194-and-Tegra264-controllers/20260329-233356
+base:   11439c4635edd669ae435eec308f4ab8a0804808
+patch link:    https://lore.kernel.org/r/20260325-t264-pwm-v2-2-998d885984b3%40nvidia.com
+patch subject: [PATCH v2 2/7] pwm: tegra: Avoid hard-coded max clock frequency
+config: nios2-allmodconfig (https://download.01.org/0day-ci/archive/20260330/202603302259.NdAkuCVx-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260330/202603302259.NdAkuCVx-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603302259.NdAkuCVx-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   In file included from include/linux/kernel.h:17,
+                    from include/linux/clk.h:13,
+                    from drivers/pwm/pwm-tegra.c:39:
+   drivers/pwm/pwm-tegra.c: In function 'tegra_pwm_probe':
+>> include/linux/limits.h:26:25: warning: unsigned conversion from 'long long int' to 'long unsigned int' changes value from '9223372036854775807' to '4294967295' [-Woverflow]
+      26 | #define S64_MAX         ((s64)(U64_MAX >> 1))
+         |                         ^~~~~~~~~~~~~~~~~~~~~
+   drivers/pwm/pwm-tegra.c:303:47: note: in expansion of macro 'S64_MAX'
+     303 |         ret = dev_pm_opp_set_rate(&pdev->dev, S64_MAX);
+         |                                               ^~~~~~~
+
+
+vim +26 include/linux/limits.h
+
+3c9d017cc283df Andy Shevchenko 2023-08-04  14  
+54d50897d544c8 Masahiro Yamada 2019-03-07  15  #define U8_MAX		((u8)~0U)
+54d50897d544c8 Masahiro Yamada 2019-03-07  16  #define S8_MAX		((s8)(U8_MAX >> 1))
+54d50897d544c8 Masahiro Yamada 2019-03-07  17  #define S8_MIN		((s8)(-S8_MAX - 1))
+54d50897d544c8 Masahiro Yamada 2019-03-07  18  #define U16_MAX		((u16)~0U)
+54d50897d544c8 Masahiro Yamada 2019-03-07  19  #define S16_MAX		((s16)(U16_MAX >> 1))
+54d50897d544c8 Masahiro Yamada 2019-03-07  20  #define S16_MIN		((s16)(-S16_MAX - 1))
+54d50897d544c8 Masahiro Yamada 2019-03-07  21  #define U32_MAX		((u32)~0U)
+3f50f132d8400e John Fastabend  2020-03-30  22  #define U32_MIN		((u32)0)
+54d50897d544c8 Masahiro Yamada 2019-03-07  23  #define S32_MAX		((s32)(U32_MAX >> 1))
+54d50897d544c8 Masahiro Yamada 2019-03-07  24  #define S32_MIN		((s32)(-S32_MAX - 1))
+54d50897d544c8 Masahiro Yamada 2019-03-07  25  #define U64_MAX		((u64)~0ULL)
+54d50897d544c8 Masahiro Yamada 2019-03-07 @26  #define S64_MAX		((s64)(U64_MAX >> 1))
+54d50897d544c8 Masahiro Yamada 2019-03-07  27  #define S64_MIN		((s64)(-S64_MAX - 1))
+54d50897d544c8 Masahiro Yamada 2019-03-07  28  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
