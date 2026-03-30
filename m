@@ -1,191 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB223AA4FA;
-	Mon, 30 Mar 2026 22:15:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE99E3E9F89;
+	Mon, 30 Mar 2026 22:37:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774908932; cv=none; b=MolCFBolEs4UElMZTLcVgW9EDJAh7TrIejQQcW3rs7rUJhThNIo6kQHFHBc2aSuEbq0ExUAUzh13p2X/WFkn3WKDfgxYBATOZ2ImN7vTqwiwcr09rE1l2/qALUKP1Z89IjKDhEMRR9fOYwDlsWvVxoppQZBqSxODYG3CQbjJ1gg=
+	t=1774910272; cv=none; b=LN1PyvLww4/17zmwVMsbffpqGIHFVs0I5tQFV/3eakrz+tUXiTrXDzr3K457ZSbpknMMUEYS0SRd5xSO9cTW+81Wqb8VJGQN30kFXwW/AB4O/6+5cLTBj7OOkSX0totH7x8X9s/hVgNLqs0I/t0MCvrfjMsPB1SxXfvlj48HHBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774908932; c=relaxed/simple;
-	bh=qjAg+6PPtxvBWUDMLHc0BJyd1JvaxoRS9Xtij8EoysI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hfBQiKReOtXOQz/ax90n8Gv+gLsxikVyWirQifAXkJmagZGlFXMUj93x19O8qPyKf3V60i9EbqNtklGOE+vS5KDs+ay499TJRB38EruQ4PbOQzs+Ia8QDUPiMg4woknnhSWxHUpYZITjkPZMBrVkC6BY2jhjxm1umDc0ubyPgsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gxdJeiPr; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gxdJeiPr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABFC4C4CEF7;
-	Mon, 30 Mar 2026 22:15:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774908931;
-	bh=qjAg+6PPtxvBWUDMLHc0BJyd1JvaxoRS9Xtij8EoysI=;
-	h=From:Date:Subject:To:Cc:From;
-	b=gxdJeiPrr55bjs17cHuNG9EzbzU4znBjus77AH0SbQsg/vbtWuXbSH5BOUiO5Dfj7
-	 3vAnyJN7MAWnD76WlCVIPT6NLmFp4zylNbKpak0PhpVYP56kERFb4FhR1Li1W1jxKU
-	 vsNraXSz+3BAHV9ucPJZ6fIHrjS0ugXaH9jUG9PXX0bncP22on6WVk1A3g6GnX4fEy
-	 zJ5C12wlM/9jbeRdQxfraBvIheHcnWmU630+Xbq8YG8izgx62+d4JW7ulC3DTfuyWQ
-	 Et5lLW9C53Ov1PUzFOazaB+Bhl/3RHQoElX2g53hBD0cohdas02zjySEr+wskx088M
-	 77IWmdZReS1VQ==
-From: Yixun Lan <dlan@kernel.org>
-Date: Mon, 30 Mar 2026 22:15:21 +0000
-Subject: [PATCH v2] riscv: dts: spacemit: k3: Add USB2.0 support
+	s=arc-20240116; t=1774910272; c=relaxed/simple;
+	bh=BY/vXYKWXsOYhNXxlYmDYaYO9MVDb3KmDbOj7JUs3mI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AlD5szD2fCRy8A9aPzko+RlW6oV0zTq2MHkQmboHzb8oGb1eSPljErcHTfNPekDp2YS8vO+SEayhsUKygFgDVMXPjkrfHj7t2V0Nt0d9QLSKS7L9oUqvIm0gk6+JQkYFaQJPnD0LqliAyLFUJGYxqowoWP6YxrNI22zU7lhG4aY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id 95CB71F8004D;
+	Mon, 30 Mar 2026 22:37:40 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id 07B18B2EB88; Mon, 30 Mar 2026 22:37:39 +0000 (UTC)
+X-Spam-Level: *
+Received: from shepard (unknown [192.168.1.65])
+	by laika.paulk.fr (Postfix) with ESMTP id B2320B2EB88;
+	Mon, 30 Mar 2026 22:37:13 +0000 (UTC)
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Paul Kocialkowski <paulk@sys-base.io>
+Subject: [PATCH] arm64: dts: imx8mp-phyboard-pollux: Add HDMI support
+Date: Tue, 31 Mar 2026 00:37:12 +0200
+Message-ID: <20260330223712.2615273-1-paulk@sys-base.io>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260330-02-k3-usb20-dts-v2-1-46af262fb4a9@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAPj1ymkC/x3MMQqAMAxA0atIZgMhBQWvIg7VRg2CSqMilN7d4
- viG/xOYRBWDrkoQ5VHTYy/guoJp9fsiqKEYmLgh5wiJcXN428iE4TJsWvJSIBwclOqMMuv7H/s
- h5w+ZV3duYQAAAA==
-X-Change-ID: 20260330-02-k3-usb20-dts-670aeb20e2d3
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Yixun Lan <dlan@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3947; i=dlan@kernel.org;
- h=from:subject:message-id; bh=qjAg+6PPtxvBWUDMLHc0BJyd1JvaxoRS9Xtij8EoysI=;
- b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBpyvX+mHVaKIYWYUOcJdpo03hzTPbH3SDDhkNhx
- 6Bx2v9OmeyJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCacr1/hsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
- maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
- QACgkQMarqR1lNu+1JNA//ZAO5nSqxrPRkZ3DQBCfxBUxcLrgs6rV12I8JEO+tumXMtoH52NhI8
- vVMiUeBxdBhKd4KWNQZe/ftXzFttoJ/ZbNhUegQAbO0CPkpKnB+dAPy4NaXhE1lm2LsORc/dTFw
- +sVY3dnYQ3B8CVJB2KBeyApWJ6uHe9ma8EC3OGjVhWUuaTx1R4tdK17wsi5egaR8zo6rMPB5UWD
- MfRkxtnWPCmzKMSCifJ8/ukGwH+I+hcBxnc8bpuh+cFeQcOAQ38IylTRCFuoG4rkCPOq6kKtuW0
- k6luBHqGSyT5ySXto1O2rpFXvBZS11TSYZ41ml2X+7D27qEe12c1wjVftYDGKihbQQ097ffH0w4
- RDG4yMc9V0ahie8ZwI1Z5z9vMh0Jt461SXmcZfBiwLtoI+pMoEobhf2wvo+s8j2YKqI+/rTxHda
- KCBFLkQG3V2ZAWK1cvxldLhqJdFa2yG0H1LmCZBQwG1frb1TDNp3NcOxV5uVtR58Gld+VSrZGjm
- bdOwt6istzFfWL0ub4vGLnY5oRNJkk3l3YDEmCU/yv6NsKApPWQ6q6Ry1o+0jgy4bNwHb/ANzdZ
- TVFnA4nQH7T8AKvbSRODsr6E9LEk2bdsbvN/3O3gx4fPpiuACO6pjDwpchZdTN1EmUOzLOAn5VM
- py6IAqWrNugDWIhNRyOgSCIl+TfpOM=
-X-Developer-Key: i=dlan@kernel.org; a=openpgp;
- fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
+Content-Transfer-Encoding: 8bit
 
-There is one USB2.0 host in K3 SoC which use DWC3 IP but only provide
-USB2.0 functionality, and with only one USB2 PHY connected.
+The PHYTEC phyBOARD Pollux comes with a HDMI port on the base board.
+Add the required device-tree nodes to enable support for it.
 
-The USB2.0 controller on Pico-ITX board connects to a Terminus FE1.1 Hub
-which fully USB2.0 protocol compliant and provides 4 ports.
-
-Signed-off-by: Yixun Lan <dlan@kernel.org>
+Signed-off-by: Paul Kocialkowski <paulk@sys-base.io>
 ---
-This series adds devicetree support to enable USB2.0 in Pico-ITX board, 
-There is a run-time dependency on USB phy[1], Hub[2] and reset[3] patches,
-but each series should be quite independent.
+ .../freescale/imx8mp-phyboard-pollux-rdk.dts  | 47 +++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
-For people who interested, I've collected all patches and put a complete
-branch here[4].
-
-Currently, the USB phy[1] patch is still waiting for maintainer to
-merge.
-
-Link: https://lore.kernel.org/r/20260305-11-k3-usb2-phy-v4-0-15554fb933bc@kernel.org [1]
-Link: https://lore.kernel.org/r/20260317-03-usb-hub-fe1-v1-0-71ec3989f5be@kernel.org [2]
-Link: https://lore.kernel.org/r/20260314-01-k3-reset-usb-pci-v2-1-9dc0976d524e@kernel.org [3]
-Link: https://github.com/spacemit-com/linux/tree/WIP/k3/usb2 [4]
----
-Changes in v2:
-- separate DT patch out, no code changes
-- Link to v1: https://lore.kernel.org/r/20260317-02-k3-usb20-support-v1-0-d89f59062ad4@kernel.org
----
- arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 24 +++++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k3.dtsi         | 31 ++++++++++++++++++++++++++++
- 2 files changed, 55 insertions(+)
-
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-index 4486dc1fe114..b89c1521e664 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-@@ -26,6 +26,14 @@ memory@100000000 {
- 		reg = <0x1 0x00000000 0x4 0x00000000>;
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-rdk.dts b/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-rdk.dts
+index 0fe52c73fc8f..0d52f29813f1 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-rdk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-rdk.dts
+@@ -38,6 +38,18 @@ fan0: fan {
+ 		#cooling-cells = <2>;
  	};
  
-+	reg_aux_vcc3v3: regulator-aux-vcc3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "AUX_VCC3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
++	hdmi-connector {
++		compatible = "hdmi-connector";
++		label = "hdmi";
++		type = "a";
++
++		port {
++			hdmi_connector_in: endpoint {
++				remote-endpoint = <&hdmi_tx_out>;
++			};
++		};
 +	};
 +
- 	reg_aux_vcc5v: regulator-aux-vcc5v {
- 		compatible = "regulator-fixed";
- 		regulator-name = "AUX_VCC5V";
-@@ -197,3 +205,19 @@ &uart0 {
- 	pinctrl-0 = <&uart0_0_cfg>;
+ 	panel_lvds1: panel-lvds1 {
+ 		/* compatible panel in overlay */
+ 		backlight = <&backlight_lvds1>;
+@@ -201,6 +213,28 @@ &flexcan2 {
  	status = "okay";
  };
+ 
++&hdmi_pvi {
++	status = "okay";
++};
 +
-+&usb2_host {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
++&hdmi_tx {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_hdmi>;
 +	status = "okay";
 +
-+	hub@1 {
-+		compatible = "usb1a40,0101";
-+		reg = <1>;
-+		vdd-supply = <&reg_aux_vcc3v3>;
++	ports {
++		port@1 {
++			hdmi_tx_out: endpoint {
++				remote-endpoint = <&hdmi_connector_in>;
++			};
++		};
 +	};
 +};
 +
-+&usb2_phy {
++&hdmi_tx_phy {
 +	status = "okay";
 +};
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index 815debd16409..9eb2ff07218a 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -438,6 +438,37 @@ soc: soc {
- 		dma-noncoherent;
- 		ranges;
++
+ &i2c2 {
+ 	clock-frequency = <400000>;
+ 	pinctrl-names = "default", "gpio";
+@@ -244,6 +278,10 @@ &i2c3 {
+ 	scl-gpios = <&gpio5 19 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+ };
  
-+		usb2_host: usb@c0a00000 {
-+			compatible = "spacemit,k3-dwc3";
-+			reg = <0x0 0xc0a00000 0x0 0x10000>;
-+			clocks = <&syscon_apmu CLK_APMU_USB2_BUS>;
-+			clock-names = "usbdrd30";
-+			resets = <&syscon_apmu RESET_APMU_USB2_AHB>,
-+				 <&syscon_apmu RESET_APMU_USB2_VCC>,
-+				 <&syscon_apmu RESET_APMU_USB2_PHY>;
-+			reset-names = "ahb", "vcc", "phy";
-+			interrupts = <105 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-parent = <&saplic>;
-+			phys = <&usb2_phy>;
-+			phy-names = "usb2-phy";
-+			phy_type = "utmi";
-+			snps,dis_enblslpm_quirk;
-+			snps,dis_u2_susphy_quirk;
-+			snps,dis-del-phy-power-chg-quirk;
-+			snps,dis-tx-ipgap-linecheck-quirk;
-+			dr_mode = "host";
-+			maximum-speed = "high-speed";
-+			status = "disabled";
-+		};
++&lcdif3 {
++	status = "okay";
++};
 +
-+		usb2_phy: phy@c0a20000 {
-+			compatible = "spacemit,k3-usb2-phy";
-+			reg = <0x0 0xc0a20000 0x0 0x200>;
-+			clocks = <&syscon_apmu CLK_APMU_USB2_BUS>;
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
+ &ldb_lvds_ch1 {
+ 	remote-endpoint = <&panel1_in>;
+ };
+@@ -444,6 +482,15 @@ MX8MP_IOMUXC_SAI5_RXD0__GPIO3_IO21	0x154
+ 		>;
+ 	};
+ 
++	pinctrl_hdmi: hdmigrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_HDMI_DDC_SCL__HDMIMIX_HDMI_SCL			0x1c3
++			MX8MP_IOMUXC_HDMI_DDC_SDA__HDMIMIX_HDMI_SDA			0x1c3
++			MX8MP_IOMUXC_HDMI_HPD__HDMIMIX_HDMI_HPD				0x19
++			MX8MP_IOMUXC_HDMI_CEC__HDMIMIX_HDMI_CEC				0x19
++		>;
++	};
 +
- 		eth0: ethernet@cac80000 {
- 			compatible = "spacemit,k3-dwmac", "snps,dwmac-5.40a";
- 			reg = <0x0 0xcac80000 0x0 0x2000>;
-
----
-base-commit: af62a095eb0c3359d477b55ef72d2afd94c83c8f
-change-id: 20260330-02-k3-usb20-dts-670aeb20e2d3
-
-Best regards,
+ 	pinctrl_i2c2: i2c2grp {
+ 		fsl,pins = <
+ 			MX8MP_IOMUXC_I2C2_SCL__I2C2_SCL		0x400001c2
 -- 
-Yixun Lan <dlan@kernel.org>
+2.53.0
 
