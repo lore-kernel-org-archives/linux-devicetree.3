@@ -1,168 +1,173 @@
-Received: from butterfly.birch.relay.mailchannels.net (butterfly.birch.relay.mailchannels.net [23.83.209.27])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C5023815C0;
-	Mon, 30 Mar 2026 09:37:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.209.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774863428; cv=pass; b=GCmZAlJPcrC7/OqV0f99ZB3X+++nCvTDjYgXfFBPAdY+gLr2O1DC58syJKH9qrF0JAPjFyWyN/RijV6Q1b8BwT/xblJTZgCCFjOguLQiQYaqCBgMQ9/2KEHFbtZLoNxdIpNMIRxchjVANDDf9uinm0khEXs6j1+GDoV4wnfw/fM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774863428; c=relaxed/simple;
-	bh=gk2yYfqi9gWLyHWm0NhbfKgNvyZrHE//hIikpP5iXEs=;
-	h=Message-ID:MIME-Version:Cc:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Date; b=dX3a214R2ELuvvfhMlCBOufSvFRVdMx51oqWgJbXnlQS9plQGPFljIzBrJLtPKKhNfC5irsspvRrIsQ03oAEtOpdr1xfJPwfmK9z8EYpw+4q6aKifE9EWMwW0EuT2qyDaIf6nLlUd+Y06k11shHBYYAlyE19QMSKudWUtC8fuGs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rootcommit.com; spf=pass smtp.mailfrom=rootcommit.com; dkim=pass (2048-bit key) header.d=rootcommit.com header.i=@rootcommit.com header.b=EsU/fRpB; arc=pass smtp.client-ip=23.83.209.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rootcommit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rootcommit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25804372B2C
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:39:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774863593; cv=none; b=VI5idr8wPBabUppPtqkxBwob0B5jEuYkSFKfzIJjIL9W71aV03iMkcRGxYDCAtizmq+stX5jlmnkA363YepeK9ayZQX8J45oinn8wVxRrNIxozCRQ2AoIFfAuAGqwbCkKBgomPpPn2w9fScsAT9VOrvllJuxEWji8uGIs8LXk4c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774863593; c=relaxed/simple;
+	bh=fhYxZW1/oACvCmUKie0T0Oy5TfW5h+9M7T9L2njIcJ8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HYmuuBG6wwgoMTsZyRNgkW3a26g9gJdKifgy6N2i2s73S3pAn1TSLdTqnSeGretfmVzmIOXxTVlhSk5z6+wE3BUMCDIM3LpYCvRY2zpv0murSvWKxNewbVaSZaVHr2E/eLqdk4eukopVhlQT8WM/xGgTzsw3ttC6qT7vAxDGQNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gflOG65V; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WNZEtKLd; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rootcommit.com header.i=@rootcommit.com header.b="EsU/fRpB"
-X-Sender-Id: hostingeremail|x-authuser|michael.opdenacker@rootcommit.com
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id F405A8A2DE6;
-	Mon, 30 Mar 2026 09:19:53 +0000 (UTC)
-Received: from de-fra-smtpout1.hostinger.io (100-122-165-184.trex-nlb.outbound.svc.cluster.local [100.122.165.184])
-	(Authenticated sender: hostingeremail)
-	by relay.mailchannels.net (Postfix) with ESMTPA id B80098A2893;
-	Mon, 30 Mar 2026 09:19:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
-	t=1774862393;
-	b=Ojv4nw/nJ2FlBl7DACVPMLFpgUl3ZMZFtXPXJTa59gkUXwtQXcgS9PoGTpYpVwXiOGgLM7
-	PYbLDeijs24UXvtuW4CUM0x1EUkgMjSlGe4u7VFS1oN8YV+Yr0klPUS6BGyErfbP113Wdc
-	011i7GqZwVAu1wbTJfzpQXkLm9nhEFJei2m1bGyaZTBcBdtljZWlWjSZY3JKDTUx/0MoCz
-	+Ackpwny/+cJZ4qH93UVjY82cJ4xK8PRYfdg7KhLNuOun/aQaWXM67l4/UkLNC0Qtg1RVi
-	hOec+jsFzcqm1op9Jx5kJdmnAki6FVNZcZ+48ry7icPb7eOPvFu1Y/SlsQj0RA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1774862393;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=xn8ytO1cIDErWyKt0Aui97W2ei8LosNrt38/Xqsonzc=;
-	b=RUp95xcfeT5Z9+ljYt05kwCrTwtBCXfTEkHyH8dGF/ILePW0DugnsFy8Ve6112GsSk9mj+
-	4cKXWTvOl9A4ykYVZl00wIg8Tmy69Yj5HKFKsIVguKHvR3Jt1Hc/hhF4PPnyk6LuqByZ46
-	i7TiugtxnN1Z3eUV4BfMkcGYzL1hvDcwh5cp5tntzcJ6Q2Srihb4KcxGAkX+WfPEF22W8g
-	W/GrtYb4HzdorcQBl9ymFp6v8SpfPYvk2mDGfQ8Aj49j3DHqvGpeKN3LFZM93udYIl9H3m
-	zSnAS4ivnT+LI5dPlFL50pW4J/V+D6YYG1LXnFlhpBfG2ukFdL2L6oSpQ5L2/w==
-ARC-Authentication-Results: i=1;
-	rspamd-7f98bb5847-j2s98;
-	auth=pass smtp.auth=hostingeremail
- smtp.mailfrom=michael.opdenacker@rootcommit.com
-X-Sender-Id: hostingeremail|x-authuser|michael.opdenacker@rootcommit.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId:
- hostingeremail|x-authuser|michael.opdenacker@rootcommit.com
-X-MailChannels-Auth-Id: hostingeremail
-X-Cooperative-Gusty: 181656a42e71f35d_1774862393775_183899981
-X-MC-Loop-Signature: 1774862393774:2731040531
-X-MC-Ingress-Time: 1774862393774
-Received: from de-fra-smtpout1.hostinger.io (de-fra-smtpout1.hostinger.io
- [148.222.55.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.122.165.184 (trex/7.1.5);
-	Mon, 30 Mar 2026 09:19:53 +0000
-Received: from [IPV6:2001:861:4450:d360:dd36:70ba:d0ec:421] (unknown [IPv6:2001:861:4450:d360:dd36:70ba:d0ec:421])
-	(Authenticated sender: michael.opdenacker@rootcommit.com)
-	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4fkm0z1Vp2z3x5h;
-	Mon, 30 Mar 2026 09:19:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rootcommit.com;
-	s=hostingermail-a; t=1774862388;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xn8ytO1cIDErWyKt0Aui97W2ei8LosNrt38/Xqsonzc=;
-	b=EsU/fRpB4bMNr1MbcjiJcFxFaQrImPdZP8Esq/9JO/3pYYnkpDwzzei3vtoSLw4TGqJ9Q+
-	TNmzMMMjaO57rvtNuIeBP58jf00XaB0KWEpAusBlaZBmzNEAzfQsR5LYAusd9T76XwYYYF
-	DgAn+A5DSahBLtvY4N6wz/MWQor5m4DCe4Y9rUN2Rr23LyUhJoNvI1cv4mQ9GZQMgvtgbW
-	9+ylL8QYrtLYLOWLNwiUWCEReIJiKHjsiUq3B/9DiwyGpCQEVOr4kUAVQFiYT80CH31YR9
-	1wNxXYV5rejUx0twMXT9FiqHulqymKbIrDFsa4NYodEO5fakub07vMFEWnQiwQ==
-Message-ID: <17eb09e8-280d-4a41-8a8c-8c8287160e97@rootcommit.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gflOG65V";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WNZEtKLd"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62U51Dew2229496
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:39:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=h47bOWyPfKTRieC2p4rGGI
+	BbvF+Fy8LzSg2e4NkBkSQ=; b=gflOG65V+TpuL0WiwZS63yunnsZstwdIZoYgT+
+	bF1VZ/tMJBV9IxBW/JNKQhrmbsCGl2mIdhjRFlGMz4TJxpO4eNM7Tyg9O0mkJnBL
+	WgMJ5vsRgqHQXFE8NqqJoF62Ke11oxJ8jI3wfZmD0AxElLQ9tbCsztne5o2XGZwY
+	e+eKeRDX0NQCBBqHeDifKigfpr0k79+/0vtPVlpZwn+p3qxmqhqAciC7ZOYgZpF8
+	8xMx5oGX77bAi/vgcMJmVqfQY7gNJbH0b5EkQBkAj2PpidnEgZ6wK4yAZstvgSAd
+	z+K5H8DKrmZq0uCFse4c8bIYSHlyDBxcJojAH8VkoJrRBXhQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d6v9c3fax-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:39:48 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-2c5b48baf75so675620eec.0
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 02:39:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774863588; x=1775468388; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=h47bOWyPfKTRieC2p4rGGIBbvF+Fy8LzSg2e4NkBkSQ=;
+        b=WNZEtKLdnsD3KXHM7w6v0mERglV+/oLrCXgwuFivoVjPHoMfiTAtOutto50TjhKjVv
+         KG8Pcs1P9z4UBVtJPiEl15DyBxODso33E9qXwHnnSOBV2wUfgDOnVruqXxx9XNm9WMrJ
+         NGwyegxyuF9q/KbQ9tCFgve5jNDL5WcHkKvF2VPXpYM1NqJJc3T4sNOCvIuwrH54on9J
+         30KHcbmuxRYWTNSgocAw32tqRsQmbt86r4i3krT+Ri+V92oC5m0xSlsM3TZspAf8E4C8
+         qBtFSRCB4wjaampqPk7kRePvem7uXFwTidXa4WOaKgEawfVnOTIYZjk4JyqFIYJb8Psg
+         Cr2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774863588; x=1775468388;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=h47bOWyPfKTRieC2p4rGGIBbvF+Fy8LzSg2e4NkBkSQ=;
+        b=XiWskvTLcXt/SREHzhbAc8D/BBOVAiAcVO8TfZ8xtpl5w3Bwu34ZhRgDhGGeEiA9go
+         ve9Z7qwmlti7H1mdWNbIxeGOrbzOZqZFSu5A7W5juW109rhLzuSzG5IXV+gV45n+qaSu
+         C3iEkpDm18IKEUCcZvqqYBUl/sl6/F2TEwfkcC3XfOB80RPGzuhsy5Hofh5djg1Zy5Fw
+         skOdCTd5M9rwY8gTEWmK0HUltaTsJxScGff+nBu5FZAPBJYCMZPpTCEl4VdwThj4iGJe
+         g/BhGHsEtLD2wSlS8aKh2uCXHZBOG/hWY/3irHMnEm1mjyoNTWpquuBzHS/zAJCy6mpb
+         OeMA==
+X-Forwarded-Encrypted: i=1; AJvYcCV6DLk90cxDn08B3wAaYopy0BeQbQCiduedx58CtOrpKqOQiESbNOcrpPrH5suzS7m/siU/uMdLnj3R@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+9NFr3BAwefmhYMRKOl+2EmsLQU6TciO3hkawIjAoksxeBgAT
+	xOHcW10cl4x7rovtYRzhKuqlKD6xFFNHfRArk7oLOQMLKJnEh1kCPOcIM1W5CM91hBPbFIb4+E+
+	JSHPwhtHCgLGhllGvL6FCD8TB5PX5jFUHt4A98MJSOmYMTDl0AJoyuiuhK55ZZnwM
+X-Gm-Gg: ATEYQzwvsrES/REinWH0EV+yDuY39BuK355DpaPVdpf0VicIrfeAUmzAowKeNARMRJ0
+	gka03IE17cbOcrVeDkP4+Yh+/TaSzAzMh9yUc9TG1zxXDnp2KdHPRAeiTjGvJBY7lFBn8zKcuhx
+	mPUuJlyn4yWG9kpPqnnjQdg41T2nbKuAYhGyq0B94V80Ani1v/V43rnBOmm5PCeRNzH5t/YhXGU
+	ixODQl4B40+/S+qWFypWIM9syWL6I2Y9ntzkfk4xc9oygY7Hr41b5GXR8TIJCeSTRSeACDqQRWP
+	FZFUGC3fnp0/YUbBiJkXvRRwPr81c2zr2YwOhNyV6nQ1WeHGwGmiF92DmDuJGNYU8Dwh9oPEg3o
+	1t6XX/4iB515FcCT85BhErGaAglKu6Fg/P0eUr/WIpFeCBLpDnKQuhaxwgR/DapglLrv3/nwX
+X-Received: by 2002:a05:693c:3008:b0:2be:8216:57db with SMTP id 5a478bee46e88-2c185ca3913mr7247438eec.3.1774863587993;
+        Mon, 30 Mar 2026 02:39:47 -0700 (PDT)
+X-Received: by 2002:a05:693c:3008:b0:2be:8216:57db with SMTP id 5a478bee46e88-2c185ca3913mr7247423eec.3.1774863587476;
+        Mon, 30 Mar 2026 02:39:47 -0700 (PDT)
+Received: from hu-jingyw-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c3c68b2721sm6266521eec.14.2026.03.30.02.39.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 30 Mar 2026 02:39:47 -0700 (PDT)
+From: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Date: Mon, 30 Mar 2026 02:39:42 -0700
+Subject: [PATCH] arm64: dts: qcom: kaanapali: Duplicate whitespace cleanup
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: michael.opdenacker@rootcommit.com,
- Javier Martinez Canillas <javierm@redhat.com>, linux-mmc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
- Anand Moon <linux.amoon@gmail.com>, Trevor Gamblin <tgamblin@baylibre.com>
-Subject: Re: [PATCH v5 0/9] riscv: spacemit: enable SD card support with UHS
- modes for OrangePi RV2
-To: Iker Pedrosa <ikerpedrosam@gmail.com>,
- Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Yixun Lan <dlan@kernel.org>
-References: <20260330-orangepi-sd-card-uhs-v5-0-bd853604322d@gmail.com>
-Content-Language: en-US
-From: Michael Opdenacker <michael.opdenacker@rootcommit.com>
-In-Reply-To: <20260330-orangepi-sd-card-uhs-v5-0-bd853604322d@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Date: Mon, 30 Mar 2026 09:19:47 +0000 (UTC)
-X-CM-Envelope: MS4xfAFrx90go/FDvQ2bCCAciVHZL0elbEQjsnIdsRspr6lsybI6rwV23lYlEa2ApzbvkTfe89o15JrIn57IsD7safNPyhyROCHNc3oWDPM8tqByr5qxkPCt N3cQlUyVDJxYfM80eMvfYbsJ1FGwCJ7ejYjJAkAoFJA7FC25rvWdm0IIeAdFGpq8m14+p6O4Eim/8vOdn1M/WK+43lQmNsAlNaknEzm4mRBa9zn/INJ/1PmR VPkeWM0QNjDPNRY8AMEMY9+GQWWf3lUZ+6vWTOuC+R2evMO4JyXUTxNKoKaWeYpo5WGW81yfsiYOYV7lOTGaButPF7e+/zBFx8TbbNu870v4U3d0NCp0ca9j O8LPNwbs9O59fhMxe4CElqmqn7lj69GmTatAWistWMsC1R3PDJYXi7LS3ARNv58JmfSuxhh3Q+rhnnpAiRwwEA8upv3oUsyya3S3/N/J3z5yz29NFy8Tkiyv D4++CwJMR7mJY0sQETdD2XzKvDgfm+q/NU6hO1Tt8B/L039PqEXVVBj5imzVGsoVwvCsOEiY0g5Z9PlfM8XiZXtjXrLuNxvCqor0lrfF2vQJyj0rAnDHHvIH vpTwCGah5jhet9ix3dmQt7FQMl3haN9C12FhnU+3CrFySGdgv6boOmxRgrG4Kw+RfkXpg7Wl+ycoNpH+uPFmhTbFseqWkfKhK9h8CbZsgDxG1ce8yLIJyamv GVZbdVU2Sgm9NifCORf6pVE0vGKKTtPu9AYanBW2z9D943JQovtJOeVZNZCCHAoVritoDEmWW83RPfjUQNWGE3Xp4ir6KWSQsj7xyjZa/+mey9Kxo+M7Jq3B UgbmtygCKATLhIeqPzrji1a+AX7iEzoyDo912b0lJTeZPw2NkIl4x+UFvKWnGUWiVGIHKZHo9/n1PBdt3dLX1A2sPdi7l2OsXhu9/NS41ehwK4/qwaX7fPS+ +ecuYw==
-X-CM-Analysis: v=2.4 cv=ALriHGRn c=1 sm=1 tr=0 ts=69ca4033 a=UGNOvlGp38Csz17LMCzH0g==:617 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=d70CFdQeAAAA:8 a=np_wIC4uXEsaGhWusoMA:9 a=QEXdDO2ut3YA:10 a=NcxpMcIZDGm-g932nG_k:22
-X-AuthUser: michael.opdenacker@rootcommit.com
+Message-Id: <20260330-knp-space-cleanup-v1-1-0995302f7557@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAN1EymkC/x3MQQrCMBBG4auUWTswJlbEq4iLSfprByWGDBWh9
+ O5Gl9/ivZUczeB0HlZqeJvbq3TsdwPlWcsdbFM3BQlHiVH4USp71QzOT2hZKkODTCNOKemBelc
+ bbvb5Py/X7qQOTk1Lnn8niWGkbfsC8pG/9HoAAAA=
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: aiqun.yu@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
+        trilok.soni@oss.qualcomm.com, yijie.yang@oss.qualcomm.com,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-3d134
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774863586; l=1094;
+ i=jingyi.wang@oss.qualcomm.com; s=20250911; h=from:subject:message-id;
+ bh=fhYxZW1/oACvCmUKie0T0Oy5TfW5h+9M7T9L2njIcJ8=;
+ b=mzcRK6+5RnlflB73JmwaYEq3qILMs2TE0BvNEPjSSQW693PeHlk3sc1mUlP++r9Bc2KUWMzVa
+ QEZ4ASQYOMuDdt8whrFihr2qKamBd7e1oqfU5iLetUI/ayVNwrmUGB1
+X-Developer-Key: i=jingyi.wang@oss.qualcomm.com; a=ed25519;
+ pk=PSoHZ6KbUss3IW8FPRVMHMK0Jkkr/jV347mBYJO3iLo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA3NSBTYWx0ZWRfX/T40oNRWs8pv
+ vLvP9l41XUGYA6sQbrCvDPtRGbHefOgsiHMpxg6DOQpBfIekht64JdM9G2WjjFVIq0NA5h8fyPs
+ zIxqxqqDHnGB5FZpzAYW5poT+NJu4r3Co2DS8xSSm+qw3S4UXwn2Fewf8C/JqxMITiFcqtvumKs
+ YDqz0KG3JyHXLPlE7JgFhy/CVBS+zvueLl3ept1yPpq14JKHInDPKjb8CmtGBPiI+5L5j1gD0Jc
+ iKaqCLBegTracoR/8KW79DpQ7WfFlENvlern6LokGreTmwFJvjDHLXbG5MmLOgzSAU5ljQdvI0e
+ QQrH06bcVNVJwAjvSRDGYgl1iL8BFhMchAxGkcwMbWTnJ5Hn2PHs/SEnU6RiG7eoS2ynZIJ0U7r
+ mO21DeQoKb+DRTgvPlA4bVITdb8Xu51J6DzLDO8fUJ9cfzX4HbGox4HUzWvh9olj6sH8RGug01M
+ fnaRrTFhrjdqzPxZ64w==
+X-Authority-Analysis: v=2.4 cv=EIQLElZC c=1 sm=1 tr=0 ts=69ca44e4 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=S9qrxxQzeJ0pvEaOSPwA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-GUID: SHP-Y38-CKfLhc7YLIaXcLykcZH2tEVJ
+X-Proofpoint-ORIG-GUID: SHP-Y38-CKfLhc7YLIaXcLykcZH2tEVJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-29_05,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0 adultscore=0
+ phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300075
 
-Hi Iker
+Exactly one space is expected before '{' characters, clean
+up duplicate whitespaces.
 
-On 3/30/26 10:38 AM, Iker Pedrosa wrote:
-> This series enables complete SD card support for the Spacemit K1-based
-> OrangePi RV2 board, including UHS (Ultra High Speed) modes for
-> high-performance SD card operation.
->
-> Background
->
-> The Spacemit K1 SoC includes an SDHCI controller capable of supporting
-> SD cards up to UHS-I speeds (SDR104 at 208MHz). However, mainline
-> currently lacks basic SD controller configuration, SDHCI driver
-> enhancements for voltage switching and tuning, and power management
-> infrastructure.
->
-> Implementation
->
-> The series enables SD card support through coordinated layers:
->
-> - Hardware infrastructure (patches 1-2): Device tree bindings for voltage
-> switching hardware and essential clock infrastructure.
-> - SDHCI driver enhancements (patches 3-7): Regulator framework
-> integration, pinctrl state switching for voltage domains, AIB register
-> programming, and comprehensive SDR tuning support for reliable UHS
-> operation.
-> - SoC and board integration (patches 8-10): Complete K1 SoC controller
-> definitions, PMIC power infrastructure, and OrangePi RV2 board enablement
-> with full UHS support.
->
-> This transforms the OrangePi RV2 from having no SD card support to full
-> UHS-I capability, enabling high-performance storage up to 208MHz.
->
-> Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
-> ---
-> Changes in v5:
-> - Document optional pinctrl-names property supporting "default" and
->    "state_uhs" pinctrl states for coordinating pin configuration changes
->    during UHS-I voltage switching.
-> - Link to v4: https://lore.kernel.org/r/20260323-orangepi-sd-card-uhs-v4-0-567c9775fd0e@gmail.com
+Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+index ef6add4e5a90..7cc326aa1a1a 100644
+--- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
++++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+@@ -5838,7 +5838,7 @@ compute-cb@13 {
+ 		};
+ 
+ 		/* Cluster 0 */
+-		pmu@310b3400  {
++		pmu@310b3400 {
+ 			compatible = "qcom,kaanapali-cpu-bwmon", "qcom,sdm845-bwmon";
+ 			reg = <0x0 0x310b3400 0x0 0x600>;
+ 
+@@ -5899,7 +5899,7 @@ opp-10 {
+ 		};
+ 
+ 		/* Cluster 1 */
+-		pmu@310b7400  {
++		pmu@310b7400 {
+ 			compatible = "qcom,kaanapali-cpu-bwmon", "qcom,sdm845-bwmon";
+ 			reg = <0x0 0x310b7400 0x0 0x600>;
+ 
 
-Thanks for the update!
-Successfully tested on OrangePi RV2 (on top of mmc-next... doesn't work 
-on top of master).
+---
+base-commit: 66ba480978ce390e631e870b740a3406e3eb6b01
+change-id: 20260330-knp-space-cleanup-ea20d5e8bba4
 
-Tested-by: Michael Opdenacker <michael.opdenacker@rootcommit.com>
-
-I'm excited to have this feature in the next kernel.
-Cheers
-Michael.
-
+Best regards,
 -- 
-Root Commit
-Embedded Linux Training and Consulting
-https://rootcommit.com
+Jingyi Wang <jingyi.wang@oss.qualcomm.com>
 
