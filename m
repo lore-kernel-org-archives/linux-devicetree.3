@@ -1,97 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D09139E182;
-	Mon, 30 Mar 2026 07:30:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E05D63CB;
+	Mon, 30 Mar 2026 07:34:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774855836; cv=none; b=F/AHIvfuKYSpS7TM1sj+Kpm6EwGeCaXctJOlJUXWDDfNPPGPgC7cT3pXKliMSlQVdIf22Rnb9vqeVxjQoXsqRKgP3fxaRw87MyUU4DYVuOU9BEUCYkWp48DrRbsdc9BnamfKC7aKOqre8Qv7leUWtrK4oLp96LSijfFERzYz50w=
+	t=1774856066; cv=none; b=jwaW/EilehE85yfJwOYfcI20Z2LSHjXdVlS9SFA6uQwHTApKsDUESdCqknlAd9vDQ95AYk6TFbT9VLlxr+022iajyr7wMApvAXnxWTHL+TKzHCG8yUIjgneCb4JuceyQGWjcLospCXfk8xm4egcRnaCv4Mv4HCzFiov4FKINu+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774855836; c=relaxed/simple;
-	bh=YUyTnratnqlECwzSAzk6FREP35eA7ZpjXULZWweNn00=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Y80K54hR3W+I9ZaZziIvDsDXKUp05fakXR/LsEV9BOTOFuJAjeVhv2pfdxATmeCwBwjU4ufUDluHqJwsjtMvQ6X8w+FtbYKZf85Ody8BaoybD5rmKePI21z5xLo44Hd1kqixuUAmez9ayh58NqRG+5CuAbh3PKCwBazBjiNXvS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZoKQsrAJ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774856066; c=relaxed/simple;
+	bh=ZnyPHU9jj+dpwp2gx/GtgfjROC+/EifViu+Ali9VP0s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l52+rv/9MVivurGItF/EZINaWJApNDT+umacoyYxc3j9YoU/4fzJIZUcP1gyBoG+8YOWFYDbsMSV48UTPYel8J1kNH+7ovQuX1FxHpX5+0Vs4qFnAYE/Oysn6ajniyprCGHYPLpOzoM+sJzYq+B39SzgeOfNfoa/m5qemrPrJS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jrb7Oygw; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZoKQsrAJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0F40DC2BCB6;
-	Mon, 30 Mar 2026 07:30:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jrb7Oygw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21EC5C4CEF7;
+	Mon, 30 Mar 2026 07:34:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774855836;
-	bh=YUyTnratnqlECwzSAzk6FREP35eA7ZpjXULZWweNn00=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ZoKQsrAJbzb3TJu/oO7LXEcHIOYjAh59baGNRqqnUvRoWSmjUT8NieQ+cwTfavFY7
-	 YCd+y5PHt3xivi4czI8PVcKrSWFk9Pcpb5nN+vWF7VEjrN90giWPG9ZaK0zD+vIRbX
-	 IU6Bl+DyxCsxndSED1DZiH6N+DxIjJqCUJEujnyGHFbUAgzQhWhKyHYD6g9Sk4sRsY
-	 bw97S4Bq3J/6cLUimHJNwoYxO5fz33n4gIfRsfnrFPVot7i1TTY7pJx2NfMeSU+5lZ
-	 mAR6R8z/ElAf6NruZrHV6qL83N3dmoIVbVq6SWs25KNSQwToz08cHzsOdoEWMMOil8
-	 N8CzQp75De6QA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 004DFFF492F;
-	Mon, 30 Mar 2026 07:30:36 +0000 (UTC)
-From: Ben Zong-You Xie via B4 Relay <devnull+ben717.andestech.com@kernel.org>
-Date: Mon, 30 Mar 2026 15:30:34 +0800
-Subject: [PATCH v4 4/4] riscv: dts: andes: qilai: add I2C controller
+	s=k20201202; t=1774856065;
+	bh=ZnyPHU9jj+dpwp2gx/GtgfjROC+/EifViu+Ali9VP0s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Jrb7OygwR9S4zvo2CVY2liZagoqbIkEBf2xCb2o7uNzQyZwrOQfWbWrU8TsApGNp1
+	 qlvlhxF7gjddmjGzZ7u9SA989kRWoCrIv3qc+bKJY6tqpdzbdZS/lTInNuGdBwMor9
+	 YAobm1U/eZHGJU0mwJfaPYAMTryfReK/Hmhz8SMcucVRDfrOV9NkcwUlgs4pvTaLK5
+	 4tOsZ0ild4dmSE4evCYigSc0580ipKjOW0x0kCbwyRZJ9b4m/XQDxaTcx2IVbc+fHP
+	 9Xra0NU3bMgkVX7jYLEDp1G/0gWyU7OfiATCCoklxprPtl9gNwUgaSPkXhJYfC9GQH
+	 kKGwoiuuehLUg==
+Date: Mon, 30 Mar 2026 09:34:23 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Serban-Pascu Robert <robyserbanpascu06@gmail.com>
+Cc: alexandre.belloni@bootlin.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, devicetree@vger.kernel.org, linux-rtc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, daniel.baluta@nxp.com
+Subject: Re: [PATCH] dt-bindings: rtc: moxa,moxart-rtc: convert to json-schema
+Message-ID: <20260330-daring-tan-cormorant-58f0d2@quoll>
+References: <20260329184615.454887-1-robyserbanpascu06@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260330-atciic100-v4-4-d40822f63e4e@andestech.com>
-References: <20260330-atciic100-v4-0-d40822f63e4e@andestech.com>
-In-Reply-To: <20260330-atciic100-v4-0-d40822f63e4e@andestech.com>
-To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- Ben Zong-You Xie <ben717@andestech.com>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774855834; l=723;
- i=ben717@andestech.com; s=20260120; h=from:subject:message-id;
- bh=lHt2jE6+LDmM/nXD6n9TCCx5A6rJ3cqG+Q1RYfyMh24=;
- b=3JQUmdg7CTpz4PVd+oiNv5GYe8NiGErraflMYoIzTBmXF+bglT80SfCOh3YAhrvP/Cnx4m9cA
- wEiDld68pirA8uiNBghFZrqCIMp+oS996n6BNjbin/JG3S8S2dqDTd0
-X-Developer-Key: i=ben717@andestech.com; a=ed25519;
- pk=nb8L7zQKGJpYk0yvrYKjViOZ34A36g1ZIsCmCsP518s=
-X-Endpoint-Received: by B4 Relay for ben717@andestech.com/20260120 with
- auth_id=610
-X-Original-From: Ben Zong-You Xie <ben717@andestech.com>
-Reply-To: ben717@andestech.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260329184615.454887-1-robyserbanpascu06@gmail.com>
 
-From: Ben Zong-You Xie <ben717@andestech.com>
+On Sun, Mar 29, 2026 at 09:46:15PM +0300, Serban-Pascu Robert wrote:
+> Convert the MOXA ART real-time clock text binding to DT schema.
+> 
+> Signed-off-by: Serban-Pascu Robert <robyserbanpascu06@gmail.com>
+> ---
+>  .../bindings/rtc/moxa,moxart-rtc.txt          | 17 --------
+>  .../bindings/rtc/moxa,moxart-rtc.yaml         | 43 +++++++++++++++++++
 
-Add the I2C node to QiLai DTS.
+Is this another part of GSoC or independent try to hop-on the same bus?
 
-Signed-off-by: Ben Zong-You Xie <ben717@andestech.com>
----
- arch/riscv/boot/dts/andes/qilai.dtsi | 7 +++++++
- 1 file changed, 7 insertions(+)
+I am asking because in both cases I expect you to follow GSoC
+guidelines.
 
-diff --git a/arch/riscv/boot/dts/andes/qilai.dtsi b/arch/riscv/boot/dts/andes/qilai.dtsi
-index de3de32f8c39..8b40f4d7f8d5 100644
---- a/arch/riscv/boot/dts/andes/qilai.dtsi
-+++ b/arch/riscv/boot/dts/andes/qilai.dtsi
-@@ -182,5 +182,12 @@ uart0: serial@30300000 {
- 			reg-io-width = <4>;
- 			no-loopback-test;
- 		};
-+
-+		i2c: i2c@30800000 {
-+			compatible = "andestech,qilai-i2c",
-+				     "andestech,ae350-i2c";
-+			reg = <0x0 0x30800000 0x0 0x100000>;
-+			interrupts = <6 IRQ_TYPE_LEVEL_HIGH>;
-+		};
- 	};
- };
+And this was not tested - you have clear warnings in dtbs for deprecated
+properties.
 
--- 
-2.34.1
+This is not a trivial binding and you were supposed to do a detailed
+check in git history and in all existing sources.
 
+Best regards,
+Krzysztof
 
