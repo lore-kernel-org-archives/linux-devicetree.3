@@ -1,297 +1,232 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3D1372663
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 15:47:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D74373C03
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 15:47:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774885657; cv=none; b=LaCdt3o0cxDb190f+d98Viu2TBoGyHePdbidEOaBnvxNWMqOCuZg57zPfGJosC4mcnQCKIleBa5/dyycSnR2IE4ImS9YNVXiwMmNTcT/riKicGRrow5WaRXaqifspsQERbcK5Pi37PLAzfFqRve9oq8K5yJvLk27p2aaxJoKodA=
+	t=1774885665; cv=none; b=DmqgkgseasHyRDJnLCgvVqRqt4psPcw5nVNp0KLm83Ms0R2xBHc+6dtLFI3VNJZ2kliZgiDRJkZrah5jhAc9cJpnbCKX+90dQbdSXs3PX8dUaC5QIO7FD0OSeQq2zaVZnG/EWWB9chxgmzd7eXKVzDtI3yIBqCp9MY96zdBAbss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774885657; c=relaxed/simple;
-	bh=3Sjhql64F8YbVSqIIBGW+7FGX7TWmYnn8PcKHPquz2Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SOyCQZfL84MTHQAvk4uj7O9yPFHRa4azR/UbOF4YJ27vw/iUrx8bDOaG1OI9dbLVUrIyrfIU9T5tNb9bUlmEpsk1N+RpmkUWkwICF+G/3pXC6MxOyK0FQVdCi88avQ52Ea9FEo1K4rfVaPrZ/UJTVnvogVviGc6hKbRpf1L+wyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ecTpZORG; arc=none smtp.client-ip=74.125.82.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774885665; c=relaxed/simple;
+	bh=cOe0HByo+TuYk7g7P644FVqK34hh7493ag9RCpWOM0Q=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
+	 References:In-Reply-To; b=UO+scLqsS41ocCedVBFTZYgHmgLTbytUUfRkTu5SXGWBiLfJLuINceJjZG2gpIpQwdSSr5zr1T5eAZ9uSZeoaViPm/SIsHfhinkpIRlScuJ5o6q0cICZjYc3aCOHfx4r5RjXwz3hG+7V+XLYzQ+6hsy+K7ysj8JLdvsrz5BwbcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xW8RPQAX; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ecTpZORG"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-2c4db6bca03so788771eec.1
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:47:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774885655; x=1775490455; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=gYnlQZ7209SCOgDIPVCJkyFmKO2sNNpaNQ5iPdvDQ3c=;
-        b=ecTpZORGocf3bFUMlZoFiByqZwJUcV3Ns2cMKcU+yByHFW6hS1prwrkhPy7PooQqix
-         SyiDs0n+HthHqPutzWkbqRYyRBEuyumO5zzC7L+Iu2G9jpHZ+AP72HevmyyXanFt2NGd
-         5A82peFFjt814fhM0iP4Tbxg8sf/84SiU/jXCNIcx1Fb9nhYbPQcnfOpzXflrHGjXh3b
-         npqRMGow4CifE/PxqZuXKmB28+2pJkGj9pRBUrVHW9Lo1GjoWphzHglFHK9KrTQgfQXZ
-         06kMXY9UhkJAAntA63eXfWjkuarOn+wjj8WmcTrMGGUjueFFc79vbyD5+ZZ8axjsGq9E
-         sHPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774885655; x=1775490455;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=gYnlQZ7209SCOgDIPVCJkyFmKO2sNNpaNQ5iPdvDQ3c=;
-        b=QJfaAX4IQhnlFmtHlFgrTICgMYfOoAPTIAv+HhiD6mrf/bBmKh4Pc1s8CwwtUDrFs6
-         9/0DEmZzQgUf8lHhsj47hKwMkKRdOW1uPq08uBpy+TIe2Um0u8CCtD+HMoJJA3NKw5X6
-         Wz859jTIN/HEQt3mCcekgcrTsWk5K+Pk2beYXaW3UUdAo8GrCbda0HFT6m7YHz0R3QGp
-         M+4NDsr+DcRxxp8xYXpUcc2M5suxBz4h9f4+IHpxAMIt85cV33brwWeN+E7aub2zNfqt
-         5IdjBkOFlsvaTKVFOYsowFuvVf/JoixfcBgZC3O7kJK5o0U6v2OcNO066Z+EeYKpdgec
-         329Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVmDuj89QtlQ6qUgu3i9BUkNSvtL1g1/oq3tuDFbiJeYjTec+KIG/+C+eDSP+fgBIMCl4tmaVLJJAqD@vger.kernel.org
-X-Gm-Message-State: AOJu0YwmQwSoHwg8Tl5DoZ6xKLQ9Q/6g1SdolCWIoJxVAppup4r6tMtu
-	NoVIvOIgB+DXPX/WRFnnItILbG453QEJawyrTzf5Qeoocp00kXJu31Pe
-X-Gm-Gg: ATEYQzzdJEDN7QOu9JnEo1JTGR6/Z6jPz7APneH9svhylj7pFcfJrhZMedwGGz2wAok
-	y8UZj5TuEPwMr1YOMM9JV6Dpay909mPxbKssJT4zkV1WHYerFw/7Ar46QhW1sK1H5fmf81PaUKu
-	9McUVGYNrSSa9WW+oOfejYJXthgVphjeG1f/UfrBOgOu8voJ6hOiXfL0YAe4Yx/nsGrp30sFqr7
-	0hG9U97Gv3KVU3pusvgumhvFRBB+G74Wj0JT3nRNyoHaonl/3JDe2nMcSS/hQ7ozqjHCf24OdDE
-	CCOfxaiZuxUcOti6PycEAb4W55TPFmsGvvdrO18rnxrgMwsWcU1rYinZ5NYDQ2PFP3/rHnpfEox
-	NVgumMYtUf83GqhGfD29S0MuhOR/vg8j93PDKEEjNvSGacxFxxlgskBib7sj1UA5KAvb7iXuso4
-	xPr71Nm0qb0HOBNcXXHzipZYJmqm2ztWMTVthlk4sXsGDUJYdx3NAAucg4ebCIe1ex7K2ocSLWI
-	5VWGOP61JM=
-X-Received: by 2002:a05:7301:3f0a:b0:2c0:b92d:267d with SMTP id 5a478bee46e88-2c7baf43c8amr43690eec.2.1774885654839;
-        Mon, 30 Mar 2026 08:47:34 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c3c3bda306sm7283956eec.3.2026.03.30.08.47.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 30 Mar 2026 08:47:34 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <e0c96f38-6742-4b86-8938-64e4e6063119@roeck-us.net>
-Date: Mon, 30 Mar 2026 08:47:32 -0700
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xW8RPQAX"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 0E4861A308E;
+	Mon, 30 Mar 2026 15:47:40 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C7EB55FFA8;
+	Mon, 30 Mar 2026 15:47:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D8693104505B1;
+	Mon, 30 Mar 2026 17:47:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1774885657; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=1aTpyd+0/mSU/s+c0fNfX3pIn8QwVOQZDTaD5Bg1dRU=;
+	b=xW8RPQAXdsgEPWs8JAXpw7qKfhkRJwFTssKu/pCYpXKdD0k3EpKzzFUMSC4jTPa6ha01OP
+	ell4Cyq42Pef0NFr1nkLE9wFav3TJ0wNOIBoHEnRkxxVhcpemnPRAR3tSCfpSs6Ey7VkHr
+	TOdEUjvFf5phGcGYzOoxQwf5Ifg+s7hMaf63HnEo8Q18bSj8gjgWkzMkzyG0tOVOZbgRil
+	BTTi+uv98pOhS29laOmj8YfGLErilsrSZN2gU7edGsqDRBmp9el03ejLQiHrBqbKsfFhGa
+	a0i4TpnHjLdS8Bci2iz0h3DuF34ACgZEomSMpODsX5K4HB5gv1c+LN22Cq49kw==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/3] hwmon: ltc4283: Add support for the LTC4283 Swap
- Controller
-To: =?UTF-8?Q?Nuno_S=C3=A1?= <noname.nuno@gmail.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>
-Cc: linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-References: <20260327-ltc4283-support-v8-0-471de255d728@analog.com>
- <20260327-ltc4283-support-v8-2-471de255d728@analog.com>
- <aco5L_6SZIB2DdpF@nsa>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <aco5L_6SZIB2DdpF@nsa>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 30 Mar 2026 17:47:23 +0200
+Message-Id: <DHG8G8FMXA6C.U6LU563OZ8NR@bootlin.com>
+To: "Liu Ying" <victor.liu@nxp.com>, "Marek Vasut" <marex@denx.de>, "Stefan
+ Agner" <stefan@agner.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
+ <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Rob
+ Herring" <robh@kernel.org>, "Saravana Kannan" <saravanak@kernel.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 7/8] drm/bridge: imx8mp-hdmi-tx: add an hdmi-connector
+ when missing using a DT overlay at boot time
+Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, "Hui Pu"
+ <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, "Adam Ford" <aford173@gmail.com>, "Alexander
+ Stein" <alexander.stein@ew.tq-group.com>, "Anson Huang"
+ <Anson.Huang@nxp.com>, "Christopher Obbard"
+ <christopher.obbard@linaro.org>, "Daniel Scally"
+ <dan.scally@ideasonboard.com>, "Emanuele Ghidoli"
+ <emanuele.ghidoli@toradex.com>, "Fabio Estevam" <festevam@denx.de>,
+ "Francesco Dolcini" <francesco.dolcini@toradex.com>, "Frieder Schrempf"
+ <frieder.schrempf@kontron.de>, "Gilles Talis" <gilles.talis@gmail.com>,
+ =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, "Heiko
+ Schocher" <hs@denx.de>, "Joao Paulo Goncalves"
+ <joao.goncalves@toradex.com>, "Josua Mayer" <josua@solid-run.com>, "Kieran
+ Bingham" <kieran.bingham@ideasonboard.com>, "Marco Felsch"
+ <m.felsch@pengutronix.de>, "Martyn Welch" <martyn.welch@collabora.com>,
+ "Oleksij Rempel" <o.rempel@pengutronix.de>, "Peng Fan" <peng.fan@nxp.com>,
+ "Philippe Schenker" <philippe.schenker@toradex.com>, "Richard Hu"
+ <richard.hu@technexion.com>, "Shengjiu Wang" <shengjiu.wang@nxp.com>,
+ "Stefan Eichenberger" <stefan.eichenberger@toradex.com>, "Vitor Soares"
+ <vitor.soares@toradex.com>
+X-Mailer: aerc 0.20.1
+References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
+ <20260320-drm-lcdif-dbanc-v1-7-479a04133e70@bootlin.com>
+ <544112ab-8ca0-4622-b680-233457198e3e@nxp.com>
+ <DHDNA5HLQPIB.3F21G9QPBUQG8@bootlin.com>
+ <5f06ea5a-5388-440f-91d6-cebb0bee0a88@nxp.com>
+In-Reply-To: <5f06ea5a-5388-440f-91d6-cebb0bee0a88@nxp.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 3/30/26 02:28, Nuno Sá wrote:
-> Hi Guenter, Regarding AI review, I think most of the points were
-> discussed in previous revisions, but there are two valid.
-> 
-> On Fri, Mar 27, 2026 at 05:26:15PM +0000, Nuno Sá wrote:
->> Support the LTC4283 Hot Swap Controller. The device features programmable
->> current limit with foldback and independently adjustable inrush current to
->> optimize the MOSFET safe operating area (SOA). The SOA timer limits MOSFET
->> temperature rise for reliable protection against overstresses.
+Hello Liu,
+
+On Mon Mar 30, 2026 at 5:02 AM CEST, Liu Ying wrote:
+>>>> --- a/drivers/gpu/drm/bridge/imx/Kconfig
+>>>> +++ b/drivers/gpu/drm/bridge/imx/Kconfig
+>>>> @@ -25,6 +25,23 @@ config DRM_IMX8MP_DW_HDMI_BRIDGE
+>>>>  	  Choose this to enable support for the internal HDMI encoder found
+>>>>  	  on the i.MX8MP SoC.
+>>>>
+>>>> +config DRM_IMX8MP_DW_HDMI_BRIDGE_CONNECTOR_FIXUP
+>>>> +	bool "Support device tree blobs without an hdmi-connector node"
+>>>> +	default y
+>>>
+>>> depends on DRM_IMX_LCDIF ?
 >>
->> An I2C interface and onboard ADC allow monitoring of board current,
->> voltage, power, energy, and fault status.
+>> If the imx hdmi-tx is not enabled then HDMI won't work anyway, so users =
+are
+>> not affected and the overlay is not needed. Am I missing something?
+>
+> I meant I'm fine with "default y" and think that this could also depend o=
+n
+> DRM_IMX_LCDIF, because no display controller driver other than the LCDIF
+> driver needs the fixup.
+
+Ah, I see your point. OK, I'll add 'depends on DRM_IMX_LCDIF'.
+
+>>> I see build warnings(W=3D1):
+>>> drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso:25.8-37.=
+4: Warning (unit_address_vs_reg): /fragment@0/__overlay__/soc@0: node has a=
+ unit name, but no reg or ranges property
+>>> drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso:26.16-36=
+.5: Warning (unit_address_vs_reg): /fragment@0/__overlay__/soc@0/bus@32c000=
+00: node has a unit name, but no reg or ranges property
+>>> drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso:27.18-35=
+.6: Warning (unit_address_vs_reg): /fragment@0/__overlay__/soc@0/bus@32c000=
+00/hdmi@32fd8000: node has a unit name, but no reg or ranges property
+>>> drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso:29.13-33=
+.8: Warning (unit_address_vs_reg): /fragment@0/__overlay__/soc@0/bus@32c000=
+00/hdmi@32fd8000/ports/port@1: node has a unit name, but no reg or ranges p=
+roperty
 >>
->> Signed-off-by: Nuno Sá <nuno.sa@analog.com>
->> ---
->>   Documentation/hwmon/index.rst   |    1 +
->>   Documentation/hwmon/ltc4283.rst |  266 ++++++
->>   MAINTAINERS                     |    1 +
->>   drivers/hwmon/Kconfig           |   12 +
->>   drivers/hwmon/Makefile          |    1 +
->>   drivers/hwmon/ltc4283.c         | 1796 +++++++++++++++++++++++++++++++++++++++
->>   6 files changed, 2077 insertions(+)
+>> AFAIK the device tree checkes just can't work on overlays. The tools jus=
+t
+>> cannot know on which base tree the overlay can be applied, so they canno=
+t
+>> know the existing properties. That might change in the future, but for n=
+ow
+>> my understanding is that it is OK to have overlays which produce such
+>> harmless warnings, at least for driver-specific overlays like the tilcdc
+>> one [0] which is already in linux-next since a few weeks.
+>
+> Hmm, not sure a few weeks in linux-next is long enough ;)
+> I'd say, I saw the warnings, so simply reported along with a fix to suppr=
+ess
+> them.  TBH, build warnings make me nervous, especially this DT overlay is
+> under the "DRM DRIVERS FOR FREESCALE IMX BRIDGE" umbrella.
+
+That's fine, I'll add the lines needed to suppress the warnings then.
+
+>>>> +	fixup-hdmi-connector {
+>>>> +		compatible =3D "hdmi-connector";
+>>>> +		label =3D "HDMI";
+>>>> +		type =3D "a";
+>>>
+>>> What if a board uses another type?
 >>
-> 
-> ...
-> 
->> +static int ltc4283_read_in_alarm(struct ltc4283_hwmon *st, u32 channel,
->> +				 bool max_alm, long *val)
->> +{
->> +	if (channel == LTC4283_VPWR)
->> +		return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_1,
->> +					  BIT(2 + max_alm), val);
->> +
->> +	if (channel >= LTC4283_CHAN_ADI_1 && channel <= LTC4283_CHAN_ADI_4) {
->> +		u32 bit = (channel - LTC4283_CHAN_ADI_1) * 2;
->> +		/*
->> +		 * Lower channels go to higher bits. We also want to go +1 down
->> +		 * in the min_alarm case.
->> +		 */
->> +		return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_2,
->> +					  BIT(7 - bit - !max_alm), val);
->> +	}
->> +
->> +	if (channel >= LTC4283_CHAN_ADIO_1 && channel <= LTC4283_CHAN_ADIO_4) {
->> +		u32 bit = (channel - LTC4283_CHAN_ADIO_1) * 2;
->> +
->> +		return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_3,
->> +					  BIT(7 - bit - !max_alm), val);
->> +	}
->> +
->> +	if (channel >= LTC4283_CHAN_ADIN12 && channel <= LTC4283_CHAN_ADIN34) {
->> +		u32 bit = (channel - LTC4283_CHAN_ADIN12) * 2;
->> +
->> +		return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_5,
->> +					  BIT(7 - bit - !max_alm), val);
->> +	}
-> 
-> "Will this condition handle the ADIO12 and ADIO34 differential channels?
-> It looks like channels 14 and 15 fall through to the default return intended
-> for the DRAIN channel. Since reading the alarm implicitly clears the register
-> bits, could reading these ADIO alarms unintentionally clear actual DRAIN
-> alarms? Should the upper bound be LTC4283_CHAN_ADIO34?"
-> 
-> Good catch and should be:
-> 
-> -       if (channel >= LTC4283_CHAN_ADIN12 && channel <= LTC4283_CHAN_ADIN34) {
-> +       if (channel >= LTC4283_CHAN_ADIN12 && channel <= LTC4283_CHAN_ADIO34) {
-> 
->> +
->> +	if (channel == LTC4283_CHAN_DRNS)
->> +		return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_4,
->> +					  BIT(6 + max_alm), val);
->> +
->> +	return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_4, BIT(4 + max_alm),
->> +				  val);
->> +}
-> 
-> ...
-> 
->> +
->> +static int ltc4283_probe(struct i2c_client *client)
->> +{
->> +	struct device *dev = &client->dev, *hwmon;
->> +	struct auxiliary_device *adev;
->> +	struct ltc4283_hwmon *st;
->> +	int ret;
->> +
->> +	st = devm_kzalloc(dev, sizeof(*st), GFP_KERNEL);
->> +	if (!st)
->> +		return -ENOMEM;
->> +
->> +	if (!i2c_check_functionality(client->adapter,
->> +				     I2C_FUNC_SMBUS_BYTE_DATA |
->> +				     I2C_FUNC_SMBUS_WORD_DATA |
->> +				     I2C_FUNC_SMBUS_READ_I2C_BLOCK))
->> +		return -EOPNOTSUPP;
->> +
->> +	st->client = client;
->> +	st->map = devm_regmap_init(dev, &ltc4283_regmap_bus, client,
->> +				   &ltc4283_regmap_config);
->> +	if (IS_ERR(st->map))
->> +		return dev_err_probe(dev, PTR_ERR(st->map),
->> +				     "Failed to create regmap\n");
->> +
->> +	ret = ltc4283_setup(st, dev);
->> +	if (ret)
->> +		return ret;
->> +
->> +	hwmon = devm_hwmon_device_register_with_info(dev, "ltc4283", st,
->> +						     &ltc4283_chip_info, NULL);
->> +
->> +	if (IS_ERR(hwmon))
->> +		return PTR_ERR(hwmon);
->> +
->> +	ltc4283_debugfs_init(st, client);
->> +
->> +	if (!st->gpio_mask)
->> +		return 0;
->> +
->> +	adev = devm_auxiliary_device_create(dev, "gpio", &st->gpio_mask);
->> +	if (!adev)
->> +		return dev_err_probe(dev, -ENODEV, "Failed to add GPIO device\n");
-> 
-> "Does this allow multiple LTC4283 chips to probe successfully?
-> Without allocating a unique ID per I2C instance, it seems the first probed
-> chip takes the generic name. If a second chip is present, it might attempt
-> to register with the exact same name, resulting in a failure in device_add()
-> and aborting the probe."
-> 
-> Also looks valid and I suspect is one of those that a quick look will
-> find more "offenders". I would purpose:
-> 
-> -       adev = devm_auxiliary_device_create(dev, "gpio", &st->gpio_mask);
-> +       adev = __devm_auxiliary_device_create(dev, KBUILD_MODNAME, "gpio",
-> +                                             &st->gpio_mask, client->addr);
-> 
+>> For boards affected by this patch, currently the connector is created by
+>> dw_hdmi_connector_create() which hardcodes type A [0], so there would be=
+ no
+>> difference.
+>
+> Yes, that's from driver's PoV.  However, userspace may get the type
+> from /sys/firmware/devicetree/base/fixup-hdmi-connector/type and use it
+> to do something.
 
-That would still fail if there are multiple chips at the same I2C address
-on multiple I2C busses. Check drivers/gpu/drm/bridge/ti-sn65dsi86.c which has
-the same problem.
+I'd say this is incorrect, the device tree is not an API for that. The
+connector type might be known to the driver by other means (ACPI, DP MST,
+whatever). So I think this is a non-problem.
 
-> If there's nothing else and you agree with the above, is this something
-> you can tweak while applying or should I spin a new version?
-> 
+If userspace needs to know the connector type, that should come from the
+ioctl (DRM_IOCTL_MODE_GETCONNECTOR perhaps).
 
-Please respin. Also, regarding the other concerns:
+> Maybe, that's trivial.
 
-   Can BIT(8) * st->rsense wrap to zero on 32-bit architectures?
-   BIT(8) is a 32-bit unsigned long and st->rsense is a u32. If a user sets a
-   very large sense resistor value via the device tree, the multiplication could
-   wrap to 0, causing a division-by-zero kernel panic. Should the divisor use
-   BIT_ULL(8)?
+Not sure I got what you mean here, sorry. What are you referring to?
 
-Unless I am missing something, this _can_ overflow. Try to provide a sense
-resistor value of 1677721600. Yes, it is unreasonable to specify such large
-rsense values, but why not just limit it such that it does not overflow ?
+>> OTOH how can a common module know the specific connector?
+>
+> Hmm, maybe add a module parameter or let users set the type through Kconf=
+ig
 
-Also, for the overflow concerns, if you are sure they can not happen, I'll
-really need to write the unit test code to make sure that this is indeed
-the case.
+I'm afraid none of this would work for distribution kernels, where who
+configures the distribution has no idea on how many different hardware it
+will run.
 
-Thanks,
-Guenter
+> or even define an unknown type to honestly tell users that we don't know =
+it?
 
+This sounds like a potentially valid idea, even though I'm not fully
+convinced. Also I suspect it would be a pretty large change, and also
+adding "unknown type" in the device tree seems not compliant with the rule
+that DT describes the hardware (not the lack of info about the hardware).
+
+But definitely it's not needed for this specific case, because:
+
+ * with current code, every imx8mp-hdmi-tx usage adds a type-A connector [0=
+]
+ * with this patch the correct type will be created when described in DT,
+   and type-A will be used only as a fallback when the DT is lacking
+
+So after the patch we'd do sometimes better, never worse in this respect.
+
+Based on the above I'm sending v2 soon, but don't hesitate in following up
+in case I may be missing something (this topic is tricky).
+
+[0] https://elixir.bootlin.com/linux/v7.0-rc5/source/drivers/gpu/drm/bridge=
+/synopsys/dw-hdmi.c#L2601
+
+>> Boards with a different connector should describe the connector in the
+>> device tree, if they need to instantiate the exact type.
+
+I think this is the only valid solution. It's very easy to do, nothing new
+to invent.
+
+Maybe on top of that we could add a warning when the overlay is applied,
+e.g. "imx8mp-hdmi-tx used without a connector described in device tree;
+adding a type A connector as a fallback; please add a valid description to
+your device tree". Maybe pointing to a TODO entry in the documentation.
+
+What do you think about this?
+
+Thanks again for your careful review!
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
