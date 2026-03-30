@@ -1,181 +1,159 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6922733B6D0
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 15:09:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D213385A1
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 15:10:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774883352; cv=none; b=SE0pR+YXxjHUGnaRzuTDl9XpQIom5Cl7DBNSFDXC0uY6eb0Pe8NorQfYyKtWShMN57yuPwl3d5FhCcaAEJJ8T6ClheHFWRR6TAw2rGDZRDys/Ee0y+Q3+RbcBOB8YQg7w+EweQkQEdCRf+LHzJ2UbdyDOVNNX5riITPGd8kF9/8=
+	t=1774883438; cv=none; b=C+tq2A3IrSuXxQNKUyszXK/IoCJnwnz2KGqMtVNvKGZbipdcOWAENJE9iRpfiUZmyNuTmzwmdO6kF3amwaBn+mTD0YkIDiLjOs2qhp3CXi9GUjZ0EM5vKDk8HnD5NwLFzII8X3Mz/UG9yI+Lzqaz2vA8UnhwIgi+zHFTnOANkMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774883352; c=relaxed/simple;
-	bh=UETGGgVBuUFVU//IoPb6yqREGa8Fyc8FmIKlatx8jKM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MDnRWO3z0qwfcnpmuo+hdaZTUCvdOqNQgCRE330UG+9HVDas/WM999HQP+Wo2B+8xyHkr09WlhuqKrfjRa+eYU6gpbN28pz47hgTK2kAXdf1Gs6RU6dvrKXb9pE/Xr6lXWU2ZtdsL4CbpCay7pWVgKeOy4IB1h6Qjsb8Q4ijWzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=P8vUAr6k; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ol99mi3B; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1774883438; c=relaxed/simple;
+	bh=M1WZaq9jiSBE3SqBfaSHaD8aDhIbmjsb35iPCx83Vvw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
+	 References:In-Reply-To; b=cAyhdzfwcto50+yke967P1+KgiDmhfvhjXE8nwxZGakHw7Og9PlFTqsnfxXzm7nt0JyO1tZpQg5qX44Ve/srI3nqWWPppqixeT8s5Ee3Jt9mNxFROXMsfhTWKyCIPtspbhx7DEGSZSOkXXKZ2BgekcKHrnRCM6qePOXIDznnCYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=MXg8UvK8; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="P8vUAr6k";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ol99mi3B"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1774883350;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7RZylSVCYgAIw5EH+90iXOfbLfETW2Xky5UhPlA+i2U=;
-	b=P8vUAr6kFaYk/Ch4fnNpG9bGn2sPJV3RtjeRefSlJK0RP718rfk11wWj3nrwFBtLykaVx7
-	CEKfOn9BUa6mfrUnAlPjz7jt8BIZjAuDc15Hzx1aZyIuEjNuQv13tzrYZJrmH/b0CVGGgF
-	PM26Vyynv7adL/ufZ8ZtDAKsnAyDU3s=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-374-NBv7bgPbNoa2NXXLK2Yhug-1; Mon, 30 Mar 2026 11:09:09 -0400
-X-MC-Unique: NBv7bgPbNoa2NXXLK2Yhug-1
-X-Mimecast-MFC-AGG-ID: NBv7bgPbNoa2NXXLK2Yhug_1774883348
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5091782ab06so238022051cf.0
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:09:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1774883348; x=1775488148; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7RZylSVCYgAIw5EH+90iXOfbLfETW2Xky5UhPlA+i2U=;
-        b=Ol99mi3ByiWoZqk2YGxdee5Ky9+lYtw255wjlUjibu9l6572lHPLF0dP59LFtQKngU
-         w08awrwKoeRJKHsf8luQYoAa8mz4C41vFLwWyji/F36OU1k4qseYMmhBMlRKxI4nPKK9
-         MCKNCCKKJr2xFL8JowkuaiWqlg5g9f7VqhKdKNQv7LrtLU7wTj9DVXn4sCdheIim4J8q
-         l7ZzEXZIhB87/xNIjBqt3/VPs4jXBTTFXCkSokyke285ls3ckSKMFC2azLGcCU+p2DHs
-         brT9yXQOYMWHeRYQFXOLtkGB8RqaD2uVW0MXF88d0Tu/ydSVPOxK+rUwudLi9uGQEois
-         GHQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774883348; x=1775488148;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=7RZylSVCYgAIw5EH+90iXOfbLfETW2Xky5UhPlA+i2U=;
-        b=JNEYQ0iBgLxsvQhz3Tje1dVxX3xmxtVdhpz2loJX7cR9wupTJmD3yuMEEbfgsr8GM2
-         NIVFaJ8pj2iVPYfHvc1QVBRHPZxD4QhFz+mFGI9ExD8tb37kejVCu3kS/H5OiK97Hdsp
-         NUQGG3YEsilvAR/oCFBJwZr0HxhgybjcoV1ouzNiHNcuYBhIxiyK9za4aZzs2AclXj7l
-         bTnyx2givgpptag0iodrRP0ZFSkhtnxyet5JAcTISlB0lIDaf399kwN33ckNtYwtzkQT
-         9oTHJNTrjqyVGIhzbUKxiEbiqC6aGkCmrg7XnHdW02V4blm+SDdVkszklusc4lcBF9fL
-         4Eow==
-X-Forwarded-Encrypted: i=1; AJvYcCXQqf+ZY4ltQ4mE+rqoTEuy6wnwoDe+wNHke2MGGjvth4a6cI60y8iHXlXsxgBK61gaGasK0F57QsEW@vger.kernel.org
-X-Gm-Message-State: AOJu0YwXxqUHUygSP0Wk+HGRdEUkjFtq27qPVaDm33AFGro51gEJBslM
-	cbqGawZNzrJGc5CrCw+DyAvCYywgHZaV9uBmza3PlOnoF+E/98l5UsG2E0WS+jJfvaeEA1ptTMV
-	fxN4o2Cwd51lL8Hu3O9QDW0TGNLvPReM1XWJz4+3HNP9ZN5vKlSomKRLaxNzKH/0=
-X-Gm-Gg: ATEYQzzuaFgivLn4JORKW2Advc1SHLZCBcgLMNNvtD1CjoWj1skTYJtzrq5zhzW3SPL
-	vD/KeDEPCl0hHa4VlQCLJnDu7FlfDlQUmPHtcNuGPDBH3J9AaU0KIffZ93M1NizXc62FVCC6S6h
-	sk4Ulb3YaMhG8jUzT0iGfUxfcf/bsZoLeyRZIGcJV3bOcv1QNOVFlSp9XbuE3+72UCQCKL+wBUZ
-	D5MFfFRvmYpIiu8MySfhDMJZBgPG84jSvlBxbvfn6RYV7xqSG2brOKodowu6Y59RdDLRIIKvrN1
-	fXlFKlVTk+QnCF+MWgQC0wFMa/EcsVpHpgDs0xnuh9Xg779tFMXQNtSIa5ncM/trCtPkIZnx2wk
-	pPY4hUzqOyy0RLW7Heo1iEVeoLPNPDDbomsU/ec1Z7NEJoRlU3UTQ/4Hd
-X-Received: by 2002:ac8:5dd1:0:b0:50b:3b54:d796 with SMTP id d75a77b69052e-50ba380f13dmr171149621cf.27.1774883348264;
-        Mon, 30 Mar 2026 08:09:08 -0700 (PDT)
-X-Received: by 2002:ac8:5dd1:0:b0:50b:3b54:d796 with SMTP id d75a77b69052e-50ba380f13dmr171148751cf.27.1774883347545;
-        Mon, 30 Mar 2026 08:09:07 -0700 (PDT)
-Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-50bb2e0fe31sm63567841cf.20.2026.03.30.08.09.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Mar 2026 08:09:06 -0700 (PDT)
-Date: Mon, 30 Mar 2026 11:09:03 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Jayesh Choudhary <j-choudhary@ti.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Antoine Tenart <atenart@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Pascal EBERHARD <pascal.eberhard@se.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Herve Codina <herve.codina@bootlin.com>
-Subject: Re: [PATCH 10/16] clk: Add support for clock nexus dt bindings
-Message-ID: <acqSD1k91pKGj0Rr@redhat.com>
-References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
- <20260327-schneider-v7-0-rc1-crypto-v1-10-5e6ff7853994@bootlin.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="MXg8UvK8"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 063B01A308C
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 15:10:34 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id CACD46029A;
+	Mon, 30 Mar 2026 15:10:33 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A8AE9104504A6;
+	Mon, 30 Mar 2026 17:10:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1774883431; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=p1MeQWrS6eGeRuRaT9b0wX2w36pWQDDzuAhBPQ3PoRQ=;
+	b=MXg8UvK8KWtJw7KB3Rap3NGvp1/8bEh+95uH9XyT2Di0JupAl1bF/aIQADEyMy2qElkrTB
+	ODmctauWYW8JMtSu3vWYwV22bNPtCN0WcLP6vs5HaozqoLlZayxN3vu2UfOVkdCyldTFxl
+	C8ZwyzAbV+VIN50/Wc6ddFc0haY1pWQGzeX1AGsdb8BqEBJ/Mi+zDmwydGS4smiEdXIizE
+	Z7Wuxs0lWOb49XE5riMNWwFldiv6uDfizpWrsO3dkhaiBl/Rt3wkxKqvTG1WNbpeCvnpYw
+	nYxD+pcPlsmFJ/kGWG9wl19T5zbryW3eKyl/g+l6pzKdvyYudDG9qKeU3OuSCw==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260327-schneider-v7-0-rc1-crypto-v1-10-5e6ff7853994@bootlin.com>
-User-Agent: Mutt/2.3.0 (2026-01-25)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 30 Mar 2026 17:10:14 +0200
+Message-Id: <DHG7NSIRPPRD.BMUFZBW10LNK@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 4/8] drm/bridge: dw-hdmi: document the output_port field
+Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, "Hui Pu"
+ <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, "Adam Ford" <aford173@gmail.com>, "Alexander
+ Stein" <alexander.stein@ew.tq-group.com>, "Anson Huang"
+ <Anson.Huang@nxp.com>, "Christopher Obbard"
+ <christopher.obbard@linaro.org>, "Daniel Scally"
+ <dan.scally@ideasonboard.com>, "Emanuele Ghidoli"
+ <emanuele.ghidoli@toradex.com>, "Fabio Estevam" <festevam@denx.de>,
+ "Francesco Dolcini" <francesco.dolcini@toradex.com>, "Frieder Schrempf"
+ <frieder.schrempf@kontron.de>, "Gilles Talis" <gilles.talis@gmail.com>,
+ =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, "Heiko
+ Schocher" <hs@denx.de>, "Joao Paulo Goncalves"
+ <joao.goncalves@toradex.com>, "Josua Mayer" <josua@solid-run.com>, "Kieran
+ Bingham" <kieran.bingham@ideasonboard.com>, "Marco Felsch"
+ <m.felsch@pengutronix.de>, "Martyn Welch" <martyn.welch@collabora.com>,
+ "Oleksij Rempel" <o.rempel@pengutronix.de>, "Peng Fan" <peng.fan@nxp.com>,
+ "Philippe Schenker" <philippe.schenker@toradex.com>, "Richard Hu"
+ <richard.hu@technexion.com>, "Shengjiu Wang" <shengjiu.wang@nxp.com>,
+ "Stefan Eichenberger" <stefan.eichenberger@toradex.com>, "Vitor Soares"
+ <vitor.soares@toradex.com>
+To: "Damon Ding" <damon.ding@rock-chips.com>, "Liu Ying"
+ <victor.liu@nxp.com>, "Marek Vasut" <marex@denx.de>, "Stefan Agner"
+ <stefan@agner.ch>, "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Maxime Ripard" <mripard@kernel.org>, "Thomas Zimmermann"
+ <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer"
+ <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Andrzej
+ Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Rob
+ Herring" <robh@kernel.org>, "Saravana Kannan" <saravanak@kernel.org>
+X-Mailer: aerc 0.20.1
+References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
+ <20260320-drm-lcdif-dbanc-v1-4-479a04133e70@bootlin.com>
+ <050c6532-8122-4ded-9946-3ce1a86d2be0@nxp.com>
+ <ea1bf890-c4be-4d66-ad26-a6bdb58a9292@rock-chips.com>
+ <DHDIOSVSDG9W.B7BW87297KT3@bootlin.com>
+ <4396e94d-7b88-4599-a938-3c1932a2f9cb@rock-chips.com>
+In-Reply-To: <4396e94d-7b88-4599-a938-3c1932a2f9cb@rock-chips.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Mar 27, 2026 at 09:09:32PM +0100, Miquel Raynal (Schneider Electric) wrote:
-> A nexus node is some kind of parent device abstracting the outer
-> connections. They are particularly useful for describing connectors-like
-> interfaces but not only. Certain IP blocks will typically include inner
-> blocks and distribute resources to them.
-> 
-> In the case of clocks, there is already the concept of clock controller,
-> but this usually indicates some kind of control over the said clock,
-> ie. gate or rate control. When there is none of this, an existing
-> approach is to reference the upper clock, which is wrong from a hardware
-> point of view.
-> 
-> Nexus nodes are already part of the device-tree specification and clocks
-> are already mentioned:
-> https://github.com/devicetree-org/devicetree-specification/blob/v0.4/source/chapter2-devicetree-basics.rst#nexus-nodes-and-specifier-mapping
-> 
-> Following the introductions of nexus nodes support for interrupts, gpios
-> and pwms, here is the same logic applied again to the clk subsystem,
-> just by transitioning from of_parse_phandle_with_args() to
-> of_parse_phandle_with_args_map():
-> 
-> * Nexus OF support:
-> commit bd6f2fd5a1d5 ("of: Support parsing phandle argument lists through a nexus node")
-> * GPIO adoption:
-> commit c11e6f0f04db ("gpio: Support gpio nexus dt bindings")
-> * PWM adoption:
-> commit e71e46a6f19c ("pwm: Add support for pwm nexus dt bindings")
-> 
-> Expected Nexus properties supported:
-> - clock-map: maps inner clocks to inlet clocks,
-> - clock-map-mask: specifier cell(s) which will be remapped,
-> - clock-map-pass-thru: specifier cell(s) not used for remapping,
->   forwarded as-is.
-> 
-> In my own usage I had to deal with controllers where clock-map-mask and
-> clock-map-pass-thru were not relevant, but here is a made up example
-> showing how all these properties could go together:
-> 
-> Example:
->     soc_clk: clock-controller {
->         #clock-cells = <2>;
->     };
-> 
->     container: container {
->         #clock-cells = <2>;
->         clock-map = <0 0 &soc_clk 2 0>,
->                     <1 0 &soc_clk 6 0>;
->         clock-map-mask = <0xffffffff 0x0>;
->         clock-map-pass-thru = <0x0 0xffffffff>;
-> 
->         child-device {
->             clocks = <&container 1 0>;
-> 	    /* This is equivalent to <&soc_clk 6 0> */
->         };
->     };
-> 
-> The child device does not need to know about the outer implementation,
-> and only knows about what the nexus provides. The nexus acts as a
-> pass-through, with no extra control.
-> 
-> Signed-off-by: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
-> Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+Hello Damon,
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
+On Mon Mar 30, 2026 at 3:13 AM CEST, Damon Ding wrote:
+>>>>> diff --git a/include/drm/bridge/dw_hdmi.h b/include/drm/bridge/dw_hdm=
+i.h
+>>>>> index 336f062e1f9d..45f6ba1a8ee1 100644
+>>>>> --- a/include/drm/bridge/dw_hdmi.h
+>>>>> +++ b/include/drm/bridge/dw_hdmi.h
+>>>>> @@ -126,6 +126,11 @@ struct dw_hdmi_phy_ops {
+>>>>>    struct dw_hdmi_plat_data {
+>>>>>    	struct regmap *regm;
+>>>>>
+>>>>> +	/*
+>>>>> +	 * The HDMI output port number (which must be 1) if it is described
+>>>>
+>>>> I'd rephrase:
+>>>> The HDMI output port number must be 1 ...
+>>>>
+>>>
+>>> Yes, the output port number should be 1, but I found that the output
+>>> port number in the Rockchip-side dw-hdmi driver remains 0.
+>>
+>> Really? I checked all the bindings in
+>> Documentation/devicetree/bindings/display/rockchip/*hdmi* and all mentio=
+n
+>> port@1 as the output port number. Can you point to code using port@0 as =
+the
+>> output port?
+>>
+>> Should it be true, that would be unfortunate because the output_port
+>> variable does not handle this case. It's used as a sort of bool-or-int
+>> variable:
+>>
+>>   * as a bool [0] to find out whether the DT is supposed to describe the
+>>     output port
+>>   * as an integer to tell the port number to parse in DT [1]
+>>
+>> So saying "please parse port 0" is impossible.
+>>
+>> [0] https://elixir.bootlin.com/linux/v7.0-rc5/source/drivers/gpu/drm/bri=
+dge/synopsys/dw-hdmi.c#L3310
+>> [1] https://elixir.bootlin.com/linux/v7.0-rc5/source/drivers/gpu/drm/bri=
+dge/synopsys/dw-hdmi.c#L3315
+>>
+>
+> Aha, my description might be a little misleading. The
+> &dw_hdmi_plat_data.output_port is 0 on the Rockchip side, so the next
+> bridge will not be parsed for it.
+>
+> Then I think the &dw_hdmi_plat_data.output_port should be 1, as this
+> helps support the hdmi-connector and other bridge chips.
 
+Ah, OK, that's all clear now.
+
+> BTW: The Rockchip side dw-hdmi patches for bridge connector support will
+> be updated as a follow-up to your patch series. :-)
+
+Great! Don't forget to Cc me.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
