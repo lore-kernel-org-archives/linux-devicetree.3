@@ -1,194 +1,170 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD933B47C3
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:38:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2CE3AE70A
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:38:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774859922; cv=none; b=C6hPWEmKmSpIuBrOYIkv7Gl/yX4C0W3gdbOTO8geUauT0VWQ1RHmbordEs7b9Y8fSF9Crl0feEteDCVw1dRhjQdU1nK9ef+KkmKmKxR4sJl9x3IAxSEDIneDY8Gs3U6w5SPndwOBR64DRzNaTOAMq7VfIG/r7YXMrxkWNR/9+eo=
+	t=1774859929; cv=none; b=ltly27X/RUs3GPelA+Vdzzsikz7C6/yk5afDRt4kIF653y49BbJ/QUqnMDjHjaYHafzqc6Db+ZH77mmuQaITBV1RojUNveyLpxYkPK9dSOOqd2PgiXXi2fJ47fViO8lrjii/6vazAYTSEUzFa70NlJ1i9PK+agYulB8s+h8MqDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774859922; c=relaxed/simple;
-	bh=/XgektwUTyrRiqcljig24LQcihgwiimxLKBfjjRqYQ8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Vg7r4Md2Z/Ge32u/0pmVOnuLP8wTH86j6GMpe8TJ3DFuV1pRV28oULPEU7FTWuj1/SOOoVW7PiSVVa4T70i7ppBJqU3PoOCNtK+zL1Vw7w8NnCtI1TtaXfQNh4+67Tjrx5LfiZyDeSz0pQkR2+xFNR3uyOzj69jRNabPtnCJQ7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B3bpww4r; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774859929; c=relaxed/simple;
+	bh=uPEa10RUZ/XLrSwr3txF55Qj+iEJvmEjuNcVPYvP7A4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=W/1ZPvXFo3S0ABnskiZGiktxXwb0AObYVWneIMZzIY3Kkb3CtW11d47cXOTviIVYtRxKUbHvNhlbEMRf/jCCraBv954J9JCHUkVTXU2ufdJpUxP/pieqj/9l1ZBOQJsmmqTIKLltwqLPdUDswPh3BmCyGnUCQh+jZAHj5Gh0wrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aLNvu1tD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b61CcGOH; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B3bpww4r"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-43cff5dafc3so516890f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 01:38:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aLNvu1tD";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b61CcGOH"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62U4QYGR4008353
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:38:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	EMBwZVcrgwfSqM1AFW0Gp5hq1IFjNkYD0/WkoDCtmSc=; b=aLNvu1tDibXSUFb+
+	uwK8fIs1JvosGM+L+g2HT7pa0ze9lQJUsWYO0BSGf/3W/Zoj8gPej1QQf3tr7jFu
+	TPEgks1OqDb/yZ2ICvA3g7bCapv7nOUZvwoX8MUZfwCMut2H6eaoCeXBNg7nG3H+
+	w5zvE5iogZ8aG0+bSgHxGqbUj81i59eZgqDxuBMmwWz+haBlxRFZU0hFys9TgoAv
+	LELpG6ICRD0R7/W7TeYuDQbiTVmngBLS05gUaJtddsgf3KiAGZlVtbsDyy3mtYcd
+	BWrfCjyLM90Ll6WE5TnYwJfDr2sCtYWAMN2ojwfZvG+MLb5HkGaVYxJA4CGbRDmp
+	mes+jQ==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d64bm5pqu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:38:47 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50b4ca7e7c2so109422661cf.3
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 01:38:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774859919; x=1775464719; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=s2b3A5VlJa4lpM7E2GeEDRbbHgTsaHKFUASwgrv7Rf4=;
-        b=B3bpww4r+iAIW1DBwAxleDS1NAuCP7HdAVba/MMR1FshWcx8oyZLiJ65T6KUb9btem
-         CSBPzYlvn5cOqpU4ptzWJunTgPY8f1ZR/oFHe8aRBuH4Gimr6Ah9zANQ2Fntvx9nxCLM
-         x1cJGfx3ko3Bw48f7UTsxutW5F8MGDxbP4c2KREHXZH4XovAeY/SLhP8kyNiBFDqR+y7
-         M9sCGi7HYhUSx75mXOVHxYZitnRznSer/71t5nwnJKXB3ZAjh4dVQYiPlZ21BeyW8ngk
-         whqnF3Yc2F/07o7vBvXx7G4Pbp0tWYbFDAmZNS0hVCMUCcUhtO/YjjYWgZys+L4cJJ8F
-         ohVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774859919; x=1775464719;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+        d=oss.qualcomm.com; s=google; t=1774859927; x=1775464727; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=s2b3A5VlJa4lpM7E2GeEDRbbHgTsaHKFUASwgrv7Rf4=;
-        b=bzLdepBtwgLvC4oj3SpMgM+u4mUNAC4As3VjGjuLDtumBWiejz2XoQ8CV0CZ0QcQEP
-         mxP2pqte/NTyBpuKjO5Lrt1vuEP2gmq2cBT5pxg2EpOuWuVlCH9nH2wYfRnk2kRyNZwB
-         SYamPgr5IM9spSrcyL5UkPqgsx/x6VbOevsCjK1Qmks/KMUr1o8SXymagd/3sio/eCdI
-         kKB3UqMK6JyxRuna+WtHOlWwp8dzw6Qnk/MH5H2/HLGMKnJd/ZsMmjKFiax9efaj2L8Y
-         t06kTinmUvzEHTGpkp4KPkerQARCkb+emZLouzj/YheRi5PsgqFtlI6VJz3c9cqQz/m3
-         RJXQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV5dS0FHx1vjQNj3YiZhliWiYIycE/gfe+UvwczjaQ7SS0rsp9NwVLiVEEMIYYvpexZDl8TKn/PekiN@vger.kernel.org
-X-Gm-Message-State: AOJu0YwC6HCsVDAFFMxSjuKnlPCrwSnUa3lGeodQIKojX31Sd9AQY3SL
-	pBRLal36Lo/VD6WBgm6xOhHO9PeQWzTPnteKXCAS1l0lyT2tDcbnKDHD5uiE0g==
-X-Gm-Gg: ATEYQzzmXyBpjJ6Yad/b3hBu0vGs2lpHPSIBu1OJRfNpZyuf4eQf0mKCx4vfEe00ATQ
-	b+dx18dNdkh+KwCV3Vdii5fFBb7OdMHteX2LP/m278W2zpCDVMEZG1wDJ3bjAT0xVVqMhfA/qHg
-	sQD/cS8irzU326whYWc4k2zd8mjHsWVSBJSkT/BavPLE8QhXEpKHUQWX0yXXiSpsJgESat+nKSS
-	amj3/pwKIyfij+cF2aZkAS43iFM9aIF0YncP1DJ+dOikzWxATOIpLdo4WTgrJ5W/OLKyq9HACb0
-	hHw75ujLB9YKebHCkPuJDVENQQKPHq8d5fqsdrgSkECO+z6MmviY7gfg68TiGnY44UdBxActi66
-	lZ52FPTqLzfCLDjOIxopErjIyUosmbDREebbLXW+5OIMxFJltNi8WgPpVu/+0PtEdU1KZQyRJU/
-	nWp10Km956aEV/sZF5UvXt+OYRM3CGnCYN89yeglyBI7bj7crsyZMTSbU+azG+LPkq
-X-Received: by 2002:a05:600c:4e08:b0:485:363b:fafe with SMTP id 5b1f17b1804b1-48727d5e971mr206919765e9.1.1774859919161;
-        Mon, 30 Mar 2026 01:38:39 -0700 (PDT)
-Received: from ipedrosa-thinkpadx1carbongen12.rmtes.csb ([67.218.232.54])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4872712c236sm74063315e9.14.2026.03.30.01.38.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Mar 2026 01:38:38 -0700 (PDT)
-From: Iker Pedrosa <ikerpedrosam@gmail.com>
-Date: Mon, 30 Mar 2026 10:38:10 +0200
-Subject: [PATCH v5 9/9] riscv: dts: spacemit: k1-musepi-pro: add SD card
- support with UHS modes
+        bh=EMBwZVcrgwfSqM1AFW0Gp5hq1IFjNkYD0/WkoDCtmSc=;
+        b=b61CcGOHZRY+kTzN1kLa7vHw/Q0JTMN4qwUGIitz1UaFE52OHNz7xgapLdxmVajbsk
+         Ie+NJOaginHthHoT6QWezGVXG0o8rA7OeFrjzfJPwplc3PyZ3OG+yLs8daHQQlRSbmMr
+         hEUgT7GcPLYyU/y2rklV2JaeO9CGCXM9LSyo2Lcj3T0GEWcJdV7iNNHQJnI6w1v78fj/
+         78i5K8GRjliQOy6r4UyU/KCc5jnWCpCWnkNAFdpeGYc5CbRFNtAPvrCXDSxejTwC+YEb
+         f7pzYXsLtWYTUxlgpZEjNyFpUejoWQl7W8/jojO2uFSDdU1gbFCJZvMFO6Z9xx9x/21z
+         Ymug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774859927; x=1775464727;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=EMBwZVcrgwfSqM1AFW0Gp5hq1IFjNkYD0/WkoDCtmSc=;
+        b=K/U7KUtXnnPh/QywqqcrUtbcDyhBrTTtY65MuOXiaw3/6lMYDDI/M2yyqaxIszZcWA
+         qf80VIzBiWMVMSpryiE38Lly1iLuRb1HJn3RFlMh99xgC0F+2gcp0Nh/dwf/mOQiJC1L
+         wPim47HWNuxltGJkNOaMblqXZq693Kb6xeO+voerlJFJyMUEJD2agKhE1VyAi3lIbakf
+         3yunzL2uSRsBWO027bMU/wdry7dbsUZwV8qAZFqxHK3vw8qgFitiB2Hy5JBMg35FEecw
+         V6hpBFnCRtGzzbgFhwBnXCL+EI8U5z803cQa1Lxfn8sz4XMfW6gMcszMHDPc5V/0I2g3
+         m/fQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUINHwE3j31Dndho+35go5xJ+4mAEGKZQlJlAOLiXUgwsfn59/QQs7qedJ/SvHymc+Ysl+2CPgbAZTE@vger.kernel.org
+X-Gm-Message-State: AOJu0YxtAVhYpKofxcrrXRNS72PqZ5sNpz+oRfeGAKbHz8gJyt6A81OH
+	fQccp/3XtwVKP5EIXabVNCxQUBX3xrThS7vraWWpT/iecBTEkYMSAVqZ36vVAEoSLH2MJcZmdgL
+	IEw44O7uytQQG6OAWp4wfpEn5Va+q1AO/1b14cr85fVNGFcDbVvCLMM50Kh7kzEto
+X-Gm-Gg: ATEYQzyYi0IbDjVqyks8kUaf8uquPmI5ARglqNcXJ/Ddy+9M3a9+mNxo89Ya1KYllyu
+	u3hxj5SzNIotXyQrboBH0ORKpnvMcB36KjpAECnc0FhEIDz0kJyY6/Ncbb9ZMyiEh2nYV/vtp8z
+	iwLW/CCYpOgtRy64bjIQqM0nm36+bG13UAClHo7puGqVGKve0m73xUOtttkluvlc+Ck//zRx7MD
+	UAzTU14+V/I/4xfNQGfZ3d5lMAYS3/6xUWLX+GxdjGe7tvd/tgwF9JMxQ+738sKLQS4SBsjN2XY
+	X+fl5s2RWbdT4Z+Q0NO/EB+MCznCLFTPPp6VyrO74Llew908Xwqv3AIdHeWP3fjG4XMlkQ+Ao8n
+	rdH6fOdVQNg1K2RTkmMgWGO1TcnlvkC1fBITn+ZjWtb2WIml0
+X-Received: by 2002:ac8:7d4b:0:b0:4f0:131f:66fe with SMTP id d75a77b69052e-50ba397bc82mr156069401cf.59.1774859926784;
+        Mon, 30 Mar 2026 01:38:46 -0700 (PDT)
+X-Received: by 2002:ac8:7d4b:0:b0:4f0:131f:66fe with SMTP id d75a77b69052e-50ba397bc82mr156069231cf.59.1774859926386;
+        Mon, 30 Mar 2026 01:38:46 -0700 (PDT)
+Received: from [192.168.68.114] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-43cf245ebafsm15776586f8f.21.2026.03.30.01.38.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 30 Mar 2026 01:38:45 -0700 (PDT)
+Message-ID: <3419a58c-c099-4dda-a019-4900419aea9b@oss.qualcomm.com>
+Date: Mon, 30 Mar 2026 08:38:44 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Subject: Re: [PATCH v2] arm64: dts: monaco: extend fastrpc compute cb
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, andersson@kernel.org,
+        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260326154111.2781802-1-srinivas.kandagatla@oss.qualcomm.com>
+ <fe9bba47-13d8-4572-af8f-d4c0657f7195@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <fe9bba47-13d8-4572-af8f-d4c0657f7195@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260330-orangepi-sd-card-uhs-v5-9-bd853604322d@gmail.com>
-References: <20260330-orangepi-sd-card-uhs-v5-0-bd853604322d@gmail.com>
-In-Reply-To: <20260330-orangepi-sd-card-uhs-v5-0-bd853604322d@gmail.com>
-To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Yixun Lan <dlan@kernel.org>, Yixun Lan <dlan@kernel.org>
-Cc: Michael Opdenacker <michael.opdenacker@rootcommit.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, linux-mmc@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Iker Pedrosa <ikerpedrosam@gmail.com>, 
- Trevor Gamblin <tgamblin@baylibre.com>
-X-Mailer: b4 0.14.2
+X-Proofpoint-ORIG-GUID: n-sPf6j4ciVdAycvQR_HgI-Oo_fntioV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA2NyBTYWx0ZWRfXzhgn3FaQAQYT
+ CrO9D0pBsQkclL/5BlXIxa5xeIMF/0lH5v0i0r0B5Iaoh5lOdT5FRNzn2HkYYYNFS65sT63Wrhx
+ rMBt4sCyJHaL1+/F5j2JS03PP830tV0i3XpFWlErUwUHa7YeThS6FMw5IGmVQFn4bcsgP/m6q02
+ X84o61GWx/OSjM6/Rov6286IzjfZALLybvFvs16nvCEwVxOPWKJyT+WHlGW2XlIhOPCPAmY1zc0
+ csJargl5RLE6tpGHeaJFB5WGPJf2QSyFasfy4VeRWw1h8dhMVEMVWvpZofhwxIJ7T/yUWvI1d0W
+ 1SB2qD4Id+2RHqWTMeHZ2Tzbf+fnPSQgBLgxqEZCAAQrFwX9mrnP4ZRw6Wy0GzNkH90iORIDMnI
+ slHgduFjKt34pNN6vxC0GNRCneDuCkvf2kTVX1X4Jp2WfI7nitYeMQ6FEm7aPCvUFRd8NpJzQU8
+ yuIEgbrDmpkbGq19PXw==
+X-Authority-Analysis: v=2.4 cv=eJAeTXp1 c=1 sm=1 tr=0 ts=69ca3697 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=eL9--ZToyrh3d9sDi9wA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: n-sPf6j4ciVdAycvQR_HgI-Oo_fntioV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-29_05,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 phishscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 impostorscore=0 priorityscore=1501 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300067
 
-From: Trevor Gamblin <tgamblin@baylibre.com>
+On 3/27/26 1:10 PM, Konrad Dybcio wrote:
+> On 3/26/26 4:41 PM, Srinivas Kandagatla wrote:
+>> For some reason we ended up adding only 4 out of 11 compute cb's for
+>> CDSP, add the missing compute cb. This will also improve the end
+>> user-experience by enabling running multiple AI usecases in parallel.
+>>
+>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>> ---
+>>  arch/arm64/boot/dts/qcom/monaco.dtsi | 49 ++++++++++++++++++++++++++++
+>>  1 file changed, 49 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
+>> index 10e799dd4a78..38fbd44c7d8f 100644
+>> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
+>> @@ -7739,6 +7739,55 @@ compute-cb@4 {
+>>  							 <&apps_smmu 0x1964 0x0400>;
+>>  						dma-coherent;
+>>  					};
+>> +
+>> +					compute-cb@5 {
+>> +						compatible = "qcom,fastrpc-compute-cb";
+>> +						reg = <5>;
+>> +						iommus = <&apps_smmu 0x19c5 0x0400>;
+> 
+> I see that the other CBs have 2 iommu streams, the other one
+> having "DMA" in the name - could you shed some light on that?
 
-Update the Muse Pi Pro devicetree with SD card support to match what
-was done for the OrangePi RV2 in [1]. More precisely:
+AFAIU, These DMA streams are relevant when NPU dma engine is in the
+picture, examples can be data pipelines which involve transferring data
+buffers(in/out) in-cordination with different IP blocks outside DSP. May
+be something like camera/video streams directly to NPU without CPU
+involving...
 
-- Enable sdhci0 controller with 4-bit bus width
-- Configure card detect GPIO with inversion
-- Connect vmmc-supply to buck4 for 3.3V card power
-- Connect vqmmc-supply to aldo1 for 1.8V/3.3V I/O switching
-- Add dual pinctrl states for voltage-dependent pin configuration
-- Support UHS-I SDR25, SDR50, and SDR104 modes
+Personally I have not tested such usecases, but for upstream fastrpc
+clients AFAIK only application streams matter as clients will explicitly
+allocate the data buffers, even for sharing across ip-blocks.
 
-[1] https://lore.kernel.org/linux-riscv/20260316-orangepi-sd-card-uhs-v3-0-aefd3b7832df@gmail.com/T/#
+--srini
 
-Signed-off-by: Trevor Gamblin <tgamblin@baylibre.com>
-Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
----
- arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts | 66 ++++++++++++++++++++++++++
- 1 file changed, 66 insertions(+)
-
-diff --git a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-index 29e333b670cf0a5c4ed852668460db475b9c44cb..b63723978a4b5317c506c6df6ad410d23b0f0ea0 100644
---- a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-@@ -18,6 +18,24 @@ aliases {
- 		ethernet0 = &eth0;
- 		serial0 = &uart0;
- 	};
-+	reg_dc_in: dc-in-5v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "dc_in_5v";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		regulator-always-on;
-+	};
-+
-+	reg_vcc_4v: vcc-4v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_4v";
-+		regulator-min-microvolt = <4000000>;
-+		regulator-max-microvolt = <4000000>;
-+		regulator-boot-on;
-+		regulator-always-on;
-+	};
-+
- 
- 	chosen {
- 		stdout-path = "serial0";
-@@ -77,3 +95,51 @@ &uart0 {
- 	pinctrl-names = "default";
- 	status = "okay";
- };
-+
-+&i2c8 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c8_cfg>;
-+	status = "okay";
-+
-+	pmic@41 {
-+		compatible = "spacemit,p1";
-+		reg = <0x41>;
-+		interrupts = <64>;
-+		vin-supply = <&reg_vcc_4v>;
-+
-+		regulators {
-+			buck4: buck4 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			aldo1: aldo1 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-boot-on;
-+				regulator-always-on;
-+			};
-+		};
-+	};
-+};
-+
-+&sdhci0 {
-+	pinctrl-names = "default", "state_uhs";
-+	pinctrl-0 = <&mmc1_cfg>;
-+	pinctrl-1 = <&mmc1_uhs_cfg>;
-+	bus-width = <4>;
-+	cd-gpios = <&gpio K1_GPIO(80) GPIO_ACTIVE_HIGH>;
-+	cd-inverted;
-+	no-mmc;
-+	no-sdio;
-+	disable-wp;
-+	cap-sd-highspeed;
-+	vmmc-supply = <&buck4>;
-+	vqmmc-supply = <&aldo1>;
-+	sd-uhs-sdr25;
-+	sd-uhs-sdr50;
-+	sd-uhs-sdr104;
-+	status = "okay";
-+};
-
--- 
-2.53.0
+> 
+> Konrad
 
