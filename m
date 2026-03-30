@@ -1,95 +1,163 @@
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.197.177])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012032.outbound.protection.outlook.com [52.101.48.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F018D3ACA7A;
-	Mon, 30 Mar 2026 09:44:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.154.197.177
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774863901; cv=none; b=fPaDz/8/r1HzX1ykCJLxc9s2S55Q5KNU58DJqn6Ipn8SK8C839b9cBj+mVZZ3KXOC4gOMGr5qBFw8cz11tFQl47IaboFQmShaIhGhyizxOVO2PbZ0huUi09P+5c+saf2vxO/GFaH1mbSokIzv0PTa2OoQz5wyXUgRk02MvPXKcI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774863901; c=relaxed/simple;
-	bh=iBCwyZpwamRARxbsN2N8EFmrOffuUA1+6BYYKd5CeEc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WozrU0o6DySMn3867TBr+3/h8ojukDUz9mpU/+ohCjGp47l4PBlHUiMxYVGh5wW/kRPDe51PISeqL+PAcWlTvFdkxpJPiEuvt8JTrRiMPEmrfloMT1kWPMxE5O8jSrYE8DllnM6KDA4rFQ2aFvY7ncya78nCOAowxmg3yFAILA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=OHTh3sQY; arc=none smtp.client-ip=43.154.197.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583923876A9;
+	Mon, 30 Mar 2026 09:45:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774863911; cv=fail; b=DisOydAO19ILp0gDhq9BALkEiJat+XRogpE1PwvrnfpOArS7GyVos6+4rpr89fGQmXKr9Dv20EDCS1cGZgjj4F242eJjwphkgecZToMPb6Zyldxp3sKqS3H8JuTGB6rCrZvyQwWrAANa9C/L7l1bED6iZmh4qswPnB5YnM4HXPY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774863911; c=relaxed/simple;
+	bh=V3vPU76aD7jwp5rJ8BJqWWMKGB9rhj6GqC0XJK8nS+8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=BgvKPHdYZXJqMt1Ip6oe70eCUydeoGxLSCKlNb5TxPjxAX3egr+6ulqrYVlx6KtwuS+gSdd2SnYy2OrYMth3kyuN9i3a1Ni7WU/T8row3t5ktCNu69h/vggSOP9e4CQiM1SNtcE5z3h5cVC8MGGUxhrVD9M/FJpj2DJsNn+CABI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=D1KZ0MpZ; arc=fail smtp.client-ip=52.101.48.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="OHTh3sQY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1774863763;
-	bh=mTpQwvg5Mz9FjX0WddBd0PpBVlFM1npPuFntNiLEgxA=;
-	h=Date:From:To:Subject:Message-ID:MIME-Version;
-	b=OHTh3sQYXm+rK3EPV3AyeF22RqnCrg94S6xu8CfhCh8ZijApaWkB/gUET0yCk4t/Z
-	 CvtXfjSvcfliYuuQ7izJdYFUznlbKoAun/vP5FDuErT1QoPzw3E+cYIxH1105iC6me
-	 9QM6M/xNfEwJrh8ZpH29814IdwIzoBH4rDzLyB3A=
-X-QQ-mid: esmtpgz16t1774863753te80528ff
-X-QQ-Originating-IP: R17bfHIhJDpspnCPy1NFP2dyutidDbHlsa0JPjeHPGk=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 30 Mar 2026 17:42:30 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 17267774757820905902
-EX-QQ-RecipientCnt: 20
-Date: Mon, 30 Mar 2026 17:42:29 +0800
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-To: Shuwei Wu <shuweiwoo@163.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@gentoo.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Subject: Re: [PATCH v3 2/3] thermal: spacemit: k1: Add thermal sensor support
-Message-ID: <DF4450E7F5A1BB56+acpFhalHxjbA3d1v@kernel.org>
-References: <20260119-patchv2-k1-thermal-v3-0-3d82c9ebe8a4@163.com>
- <20260119-patchv2-k1-thermal-v3-2-3d82c9ebe8a4@163.com>
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="D1KZ0MpZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ISnTByweLJuO/3xstYSHgU4ddMZAsxzBg1BPRwKUas1vDoG/UTSpA9pNUSHjU6hGgBZeTj5VIOCgKWV1KngmzZEEazM+9901Us3dkrSLY9RLNe+MT7xbmEop94d5QZma+YBZ/Gq5qt9ghrwD7gfhYFuQDqjhmTIqWKUHoh+qDolCKoRBt2MSN0jitYxyTYz8AWtxCRSOAovMY2Xc1Yv5VmNOkbOIq4eNVifA6XvMsojc40Py2wiOlBxVWqQ23aur56Fa22mH5iIDb6jcuhqJ9wbipnUcII9ytOmJECazgDbqKrvMg3X70ObvxN4mtmv5jvXxURng5Fypl6gxeRzcAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KkkAFLIvRI9zbhlBsGEiZc2ga0bV9zpZLbn1/DHdfHk=;
+ b=Z8ca6TGxece0JU67HiFPIi3y9OEqPCkHYe9AGgl2ThesWVX6VP2roXZHDMDQRYmdVDeVR8abip0yibpI9yP9505ICaMH3VBrpFEVkL4lE4x2QiTMkzX2PX+i0jHdL0z/gT8sI/SAnibn+lJVCDq5dryrUvMd09DQPv4c6qgSQJn0CNQZIY+zDUzsRbg2cn8jR0fN5abH/CvP7VKbcXhdKTGq5zs4hrZcoDYRb3NNvOUJzj5LdyGNKdgd/fu8TqydZlBcyllYlZRGti6zZjeqOkzOL2wJZnaYCuFLFj88OfHLaUKBG4zPe5wCswwA1z7sIc5085FA5R7rzmpihAF7dA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KkkAFLIvRI9zbhlBsGEiZc2ga0bV9zpZLbn1/DHdfHk=;
+ b=D1KZ0MpZvp9vN/x12DWoHUXGYAUTUJd+znPFGeC/qxhtkMTJW72BHvEVfzmIVpFxa6GRLJo/qiGx1jWhfttwzmPnK9zUKPZ62fXLfRzBZE0ksYC5ZtdndKvuoOj+z+3eaKBl5/XkbR0fN95ZX65mbR+uwPQPfUqfRz6FMfpfM68=
+Received: from DS7P222CA0010.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::6) by
+ DM4PR10MB7452.namprd10.prod.outlook.com (2603:10b6:8:18d::10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.28; Mon, 30 Mar 2026 09:45:05 +0000
+Received: from DS1PEPF00017092.namprd03.prod.outlook.com
+ (2603:10b6:8:2e:cafe::c) by DS7P222CA0010.outlook.office365.com
+ (2603:10b6:8:2e::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.28 via Frontend Transport; Mon,
+ 30 Mar 2026 09:45:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ DS1PEPF00017092.mail.protection.outlook.com (10.167.17.135) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Mon, 30 Mar 2026 09:45:05 +0000
+Received: from DLEE207.ent.ti.com (157.170.170.95) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 30 Mar
+ 2026 04:45:04 -0500
+Received: from DLEE214.ent.ti.com (157.170.170.117) by DLEE207.ent.ti.com
+ (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 30 Mar
+ 2026 04:45:04 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE214.ent.ti.com
+ (157.170.170.117) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Mon, 30 Mar 2026 04:45:04 -0500
+Received: from moteen-ubuntu-desk.dhcp.ti.com (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 62U9j0bg505460;
+	Mon, 30 Mar 2026 04:45:01 -0500
+From: Moteen Shah <m-shah@ti.com>
+To: <krzk+dt@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
+	<nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <u-kumar1@ti.com>, <gehariprasath@ti.com>,
+	<y-abhilashchandra@ti.com>, <m-shah@ti.com>
+Subject: [PATCH v3 0/2] Enable audio support for J721S2 EVM
+Date: Mon, 30 Mar 2026 15:14:57 +0530
+Message-ID: <20260330094459.128648-1-m-shah@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260119-patchv2-k1-thermal-v3-2-3d82c9ebe8a4@163.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MlFTQbf74c0X8ovUWACn7Iogmr2oHDUhdSQLmQ5YLl1VxtGvXD3XGnU8
-	3+2iI4SwvsXwB2uBfjgh8YCGE1Lp5XWrAxOe1uwUJj49KseKyARv90LsGskj/lW9N2bVnjz
-	kq5AFyPeo7lMqwMPYOlD493y5X0GhTiY9pwLhjTBuph1KywbsDInuEY+2Nq5MSZXcTbFRGu
-	0YxOSCNtX8ee56nrbubOHA6U0QjhgAazr6MA/Ji6WMUTuspUhnXs3n4/JLetnA+ZHPTuYdX
-	L0mITTQzDArtwQDFPtBCUOC2gIxVgKimrCUlbO3J7eSrmNUlEN8CH9rJ5qKOdjVyEnMG7zD
-	ZGDWR7i1G2RTf5fYUHV8B6DYbdnEdP78NBX4aL8ragIh3wOu8T7dGGT0p5iBpRzFZRgSuNg
-	oWuCbarZjlq6f6laGhW66zmabJ4OM+4GpBOdit4w6feGzhzRyUmp4+dNbHARZ8oiv0gDk4l
-	5a0E3z/5pd7QGrRbLuY7x1nhmVnz8lUUFJvYtD0Ri4/KdE80VaDzVqzhfWYqKCag7dswXJ8
-	ZQWI3+pJvhUKdaqzj8XqBmxPXj+wnTR/Z7he7q2Lo42JWEkc/e/kZWfBZRaWr0k6wltNwO3
-	5s/hAXSBqTdKHDyeNpnAexOoFhsYkI6B8JFSDKhG3T2VIfnYVfWenIDUz1rR0qSij/nAk7B
-	5fjZ/sHgrbap98qI4GdXmtkPvsg+NjBqurQ7V5RvOu2Veg92MkH/qI4T849LAeMd6GP1hpQ
-	3FsNJqDVpOeXf3Ct2JXTfL72OSrUFeu6k3/fQuKMj9HAYtA+UlazORbWXahGr5J+yVv9Y10
-	n2pjCGiUzoFLP6DhT1Yff60kN15I9ZAerBJlRwBxB5yC9A+ntxneg6nsXdozC6uOTj27RPj
-	BXjnqnpbnwT9usC9dmzaZIvb1Leb3KVn01NTcVDoDKEe6X+KSa2EjHjAtacv2dGaHfpXoiF
-	hIdwMpK4OUl4saukKVGVRGMPq+rsyJ2TUC6VS5CVxXvEfYXbPxFkt/j9YLb4oaZkiRDAXhW
-	ezwZVk8/eeiSgjcUTIUakpbTh6kHOWj7gJi8KPhgleuCufvqNh1Tkod54ZfArxG+3Mangwi
-	4F5jb4u14uL+VZwCRsSxlzSOKkUK0qOyLHbIWsWbGoG/8OShA6wDg4=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017092:EE_|DM4PR10MB7452:EE_
+X-MS-Office365-Filtering-Correlation-Id: d76888b6-afc5-435c-9bad-08de8e4105cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|82310400026|1800799024|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	MqoFFS+QQ6tp7u16inuMSM7BO2y9nEF7xwfaKPN2L7SdhSWNlwPB0xpA0Dl5X+gGGZQl28qV2B3iZLBC9LoHNc7f4e9LEBobLD84rcI/RW6MA8nODPZL+3Skx/s8uiNKHn9cusrC2/sU5TBbKzNISpirOEaclwD/JsgZETodhOeqyMqCrNV9aTeRMXqyMdn5Efq9L+L5XKLermJAR2lw7HwN0u9OJQl9T3FC0goDaaykIRbTnZydcvTa2T55G0mYD3JMRTsOiSmddAlywUFAd2GUU6StpbC8fd9hioQ3oYlgFaD1qma9IUhXygMnT9YuRRuJBaiIoM00zNswcjmgBwx/sRL33Z+rfh93KZRLU/vNMW+e1JHkyzRfsq3KUjcEFyaPipyofapuMvcawmhtHN3aHO3Gl/3AfBn5GxHktMba6iYBIf99awoyj1pIEMz28ZcxWj8lsFqrtz6ngkui/xq6EM8Opz/kq9YdLOG7hIa1FDyaA0RC/r6GMDmHgL0fndrM6CaPJGiGlCzAih2vWOUdkake4Jbe4CWKtLQRFNtvDipETfljOqnAVtkhqEnkQz0449LAPnXvqkEtIONP8wwN0KJxqaPjhtcOO/FQLKpq6ts8rep5MyOKvl47tOkfs+pmqWgOabFNopVLZpnmo0OW2tnNu6pdAurWPpNfgofJxfsRhHUNirozlX3V2INVZ4YulKEPDq95efcIFiOg1gMFyfGuBF7THefIVwejWVw=
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	TN4Yi5VBjthl7bPxP2qTkDlUScYsXgCn41vAS9G1buYuIPmFD+a3Rsy/BrxdRXY+ObzMdw4XCftm7EsmC7SqjWIeE8SZPb95xQw/9kVdMTUmP3cWeFsYWMSTF0+1GI2bPvjVv6171++E+EFUNNhEPNmkmocEIqHSMTj0ermX3x8CXAD16tZiaFZnAq1mzfVgB7DvL2dbHMDUCbmTt3MWSS0Lydg0GBrrtjrWTwz5OzmWQOv4ZqcHlIIf/oS1R8UxmMWkz0MGRSgUT2xIRfe+i8uwZehIUaKdrPzNv5IXhmkH6n2G01kdlnwGnY6X+RTcKSB7joSgIawYyKRyl/AdjxpgUTKGqFB6DS8RV1FEtCL37Hj/Em1D0PLezR93G5mktZ5dKmx1I7lui7DBFXc67R8nTikTc3uXAoo5J7RBK4WyH3c3+I4MvjRkqZrfEsxC
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 09:45:05.3691
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d76888b6-afc5-435c-9bad-08de8e4105cf
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF00017092.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR10MB7452
 
-On Mon, Jan 19, 2026 at 10:41:22 CST, Shuwei Wu wrote:
-> The thermal sensor on K1 supports monitoring five temperature zones.
-> The driver registers these sensors with the thermal framework
-> and supports standard operations:
-> - Reading temperature (millidegree Celsius)
-> - Setting high/low thresholds for interrupts
-> 
-> Signed-off-by: Shuwei Wu <shuweiwoo@163.com>
-Thanks for your patch.
+This patch series, adds support for analog audio on J721S2 EVM using
+device tree overlays.
 
-Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Earlier version of the patchset sent upstream[0] was rejected as
+its dependency[1], which resolves the DTBS check errors introduced
+by [0] also got rejected on the grounds of ABI breakage.
+
+Another solution to fix the DTBS check errors introduced by [0] is
+to modify the ti,j721e-system-controller.yaml binding to allow
+audio-refclk as clock-controller child. This is done in the first
+patch of this series.
+
+Changes since v2:
+Link to v2: https://lore.kernel.org/all/20260205130707.2033197-1-m-shah@ti.com/
+
+- Fix Makefile entries to follow alphabetical ordering
+- Update model string from "j721e-cpb" to "j721s2-cpb"
+- Fix gpio-line-names typo: "UBS926_PWR_SW_CNTRL" -> "UB926_PWR_SW_CNTRL"
+
+Changes since v1:
+Link to v1: https://lore.kernel.org/all/20260112104536.83309-1-m-shah@ti.com/
+
+- Convert the changes to an overlay
+- Enumerate the I2C mux used
+- Remove CANUART_MUX_SEL1 gpio hog
+- Fix typos
+- Add gpio-line-names
+- Fix commit message to showcase the right idle-state for muxes
+- Carry review from Rob and Hari
+
+Test log: https://gist.github.com/Jamm02/4d4c00bf88fa76cddae6319124341c53
+
+[0]: https://lore.kernel.org/linux-arm-kernel/20250604104656.38752-1-j-choudhary@ti.com/
+[1]: https://lore.kernel.org/all/20250603095609.33569-4-j-choudhary@ti.com/
+
+Jayesh Choudhary (1):
+  arm64: dts: ti: Add audio overlay for k3-j721s2-evm
+
+Moteen Shah (1):
+  ti,j721e-system-controller.yaml: Allow audio-refclk as
+    clock-controller child
+
+ .../soc/ti/ti,j721e-system-controller.yaml    |   6 +-
+ arch/arm64/boot/dts/ti/Makefile               |   4 +
+ .../boot/dts/ti/k3-j721s2-evm-audio.dtso      | 161 ++++++++++++++++++
+ 3 files changed, 169 insertions(+), 2 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso
+
+-- 
+2.34.1
+
