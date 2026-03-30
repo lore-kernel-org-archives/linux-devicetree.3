@@ -1,68 +1,69 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D66D3ACF11
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:34:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D3933ACF11
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:35:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774859700; cv=none; b=flkoG0NL1akjik6cKl13+bTPgEMkwOYPGinNxqTBoF8mo8JOHiC/RJ4LlJdmiI3vG8TGjdv0gY6DzAIBATLNNpLyiFtscN+Yyard6jv/5erkZTfJZJ8PimrgxC/NLqZ46uxYjXc3VMXp44sP/dyyO1DtfJr36eQhUpnqTZENSYk=
+	t=1774859713; cv=none; b=qP/iYI11BHUuxYMujJkJjhgO5MmYTciwMui4jCI6c80ZT4lMTTnZ2656DdMTFOs6BpzVlhrbH5eIhj3jZa85qja4A40lp9K1PNB3xqUwdCgObwT7W2CwGKNMnM1T/asxb1n+hnRGvQehOp1t2LEaITQTnP7zfO5bsw+4mdE61Fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774859700; c=relaxed/simple;
-	bh=FU2BsRVbMrWT6qiM2syqQWN6DWesWvrlwberUpLr0fg=;
+	s=arc-20240116; t=1774859713; c=relaxed/simple;
+	bh=8avPzjkVf9V7xqsFuREDbJnx4rKI5nF9UCQknqLhMxo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NCPkSawXLOi0XhS6DAThDG936sUmP5Pqzox+2vmvWTxS+lF4M29CUYS85g76M+ptfg19v1PjzaunuMjxtwHBRWfAwqcbL3x4YChamEsTZhdKp5L+06n+IYniF0enb7CIzgrqVErEXXpK3hYh1qgN9K1PHGMCWGRki5vxVH6S7xk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y+dgDGln; arc=none smtp.client-ip=209.85.128.54
+	 MIME-Version; b=PWwxzZ+IeHlnZAVqyEy4lDdq5dx0S+zh/CnazgEh/0gKOxBFhVVheSNt+Ew7tOKfpJu9nSSkYfY9Lrvsv6NKkUhShOXV0AKc9GMc8q/wgjP+IdKhOGRp1/yienY+nb7RSh6lf+9JurJfvNMWK4QShOQOWN05gZ2KAb4AYgfD/pI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WIaSqxg4; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y+dgDGln"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-486fd3a577eso36847215e9.1
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 01:34:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WIaSqxg4"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4852a9c6309so34774525e9.0
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 01:35:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774859698; x=1775464498; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1774859709; x=1775464509; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kOsQBpsZfzg0bt0W5kexVa5Sj6fg8I/sbfWtcta/yXE=;
-        b=Y+dgDGln1750vZomOqURGjyIKmofKaL0nUFwnb3/XqxNvnnSFDk33oEbNEGE+33d1z
-         3nCXkHrGWFRVMKEICzBlKBc6g6PY93L+PEK2G11Sb8qd3AxZ8AG4CgT8GFBG9zRmqonz
-         AEoL9UlWowIJvlZUSy3rX3uZULl1RRZuOB0g5M1Ko3zKsr5QtIPUIyJ9vfvIg8Jpel3k
-         Kw0EHXffbvepmNdk/Oc0PH2BnnVfNa1LqJbMm78vZ8NHlQbqRMa2AslIRo54gYlcd2ip
-         PfHBH7Du3Tsk78SzBx2sBJVuzkdCp7dFFnoj1jhakMo+TC0DV83hGZDES8zfw6FFlbnS
-         wT+A==
+        bh=vndNgbOdyTJpKLwuHM5pad07Ye98EZiTxW8ph85Wc58=;
+        b=WIaSqxg4D1Oy6yLpeYwIm0I1o3tDCGmXsgjaNsi4JRYSIvt7J+topVNX9tx2HjYzpf
+         NFVeknH+H6J2cdzolTmelBCMzy1Cgb7PUV7YdPinBVbGoLShNUfbeL8GJi0o/Hp6umf2
+         NhiD42iomO0CoDv0geDBgSY4io7+VlKDal7LQMDcNkh0zhbN5U7dQRwTgGUnQYQlRp+r
+         sfggePAy8NxMuqDg0Qv1BZiG13HAzsjAf+KxKufxfhWRxMGgpFeIXvXwfPrra/98kF+k
+         wokUcjs2bCy/Wh6d97rAfZhXMO1lRbshZRKFHCEg0XJkFy0dgsn4uAxMsFSsoc0tgJJL
+         SoZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774859698; x=1775464498;
+        d=1e100.net; s=20251104; t=1774859709; x=1775464509;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=kOsQBpsZfzg0bt0W5kexVa5Sj6fg8I/sbfWtcta/yXE=;
-        b=ExErABwaohvSOfJZYmB6pZph4YaBAdLDVXbMjR1Y07nrwcX9aCpMKhNyX5szoBgsNc
-         XlclUo2Xx29Pp0QVSaCYVzpm9h4LD7wXgD4B261LcD5DXse5aOhb5UuK85LjzQT3xEKr
-         iPU5PL/+aMGszwfZcrBQfOoLJ+Ls9/UOkXi+e0QL6nbwygIEVzLzivtZEKTX4mb+LThk
-         +KjDEmMUyVc0oQYnAtZDqzLN4EhRqgmcHdAimTlWs9mwVMtVH9YBt/R2GGeiSpQWXmpn
-         H/ER9IEOS7Nn7Mg4XRzPhvraQwYAL8Dq4rzuo5MD5oUW1gYsN99bF+3v8RdbzywsKujm
-         x/ew==
-X-Forwarded-Encrypted: i=1; AJvYcCVw5O+oUVZExmHntbT6GbpmQRq+/sVxt9hrVG4NEk/oByCES8xZm6sIojzyqr/VHww1+4dFuTnMFNPy@vger.kernel.org
-X-Gm-Message-State: AOJu0YyOpOZeagk3hknATV0mi2lSjw1J9ow6w82avcb7bgBs3mRM1xwE
-	cS74VIrXUXvML9oY9LvsHw+n4glIR8UJcHNwouwU7TdNG6k+cOBVU1lY
-X-Gm-Gg: ATEYQzyP+ifMoBBads+MBCY18JencXdxAZYaZeK5I7XnUBQ5OlabYc5GrxL2fRL4KAH
-	ebRERDMLGfo1dlkmK98Ddrk5O5roF2BAvuq8aQ1l008lv4c5dTzl5sXzq+PrPDynGXgE0VFh4+h
-	af+jXlBOarTBfX1KmJYRLt733P4HlYG9n4lsVr2XIg/gWhmIesgeG1GvxLZtwjvYlmyFXWQ5Lab
-	D+VbjC/6u9T5NIsZIjY6NariRvFbS0a6AR8/3ydP2qgTs8mfSZz/2sLrm5p+f3w9fjwdH3trrI2
-	d7GjukoJUwWxpX1xwhjlIb08xfeRKixfFw2ttLAXvTOmGGnVvnNWGjehmYm4PaHLQ5KJir8p4IQ
-	RpiEIUvQXfCt2SvvgVkfGssTd5LR5b9VXF3APfFYfAvF3F7cQwFMamBAdSdpw8pzmc3zYp6VHzF
-	PqOPamA9lb3dqSW/hHwQ+NltbV2Xjnwg==
-X-Received: by 2002:a05:600c:a30f:b0:477:54f9:6ac2 with SMTP id 5b1f17b1804b1-48727c81e54mr170906055e9.0.1774859697668;
-        Mon, 30 Mar 2026 01:34:57 -0700 (PDT)
+        bh=vndNgbOdyTJpKLwuHM5pad07Ye98EZiTxW8ph85Wc58=;
+        b=nqCw1DKjgy1H+T0drx1M5PxM/0wNbpq5zHcN6xb6oBMvo6iqTiadVFBFG/qDPwaVoD
+         MkKx7ngSbY/dYQhJr1sm/SV4Pmg8syaYMbJWH9JxAFcFb3uoTR7x0r4NLS78jvUKeR2B
+         +3ehWIkkALuogaW7Ygm983GtiJVx4UBSFxhQXf4mNeq94Y9ZdxiFKRJ5D5s9D7O39p1q
+         funIOIlj4zu6oSQgIFwSbgViCvK3AMy9TJCbVc2LA7hCECj2ReWCB4TltJryl5dQgJRV
+         nTI2ZS6HicwxDtc+7AQdquC34zPv1LVIufeHPu+TpFAMRU3ku4+pkcWEBG/n0FmUThHg
+         uOQw==
+X-Forwarded-Encrypted: i=1; AJvYcCVnKNNMpYzI8jcZm2ZI8WwRiO7hSVWCKdtVeJCBXmkI+q0cOhXnK/HiuaZElLy6FcGm8TMnRfmGUoTt@vger.kernel.org
+X-Gm-Message-State: AOJu0YxGKzAhzXBq6j1xZWe1Hf3XYpBxeHU5jK/azZM7ZIiW7C1q33hc
+	6I8IjY4iT+4ddR4JlkWE8LCZKehoIfo1k0wj0J1VpW13L2EBCp8jbgSK
+X-Gm-Gg: ATEYQzywjnqt3QxGP0+MT30scyB0s3fSzg5n8vWsR+aRRsRMeD1IZheschFGgjyhI1t
+	vRfkSj60JwLkdKGVDD6lMH7UFbWoH++85aDo8SYcg8OHE+MjakT4/WAyM+GWX3ytsNT9DKoR3ee
+	vOX7ZVWlYUdH4oLE4gIS1OuY7/VjU6jFTZ1/edVRlWQSaqMxL2nFdN68j5AprBDsMoJSsAy+iuf
+	KWIxV6VEL4mkQg3xO/n3/zaFFvp43uRlZCX5fmtz4Xri1eqR3CBc/3XXJCZ+HpAxc4XS6+/kCPV
+	J6Jjt9Rf2oB9jLYDPPaUL6i34xkEMt/cvlOMyOrCocdPXbpvJqmik7PoUqYs1wNMlFm0HmlmIiU
+	NWQOTmwjn+G31zVywkobY4096bQuTJ2sM29koBGW17Y3U0mcHmTbSL261PK4sx0XMf/tkBt8Poy
+	8TJZtU6I/Nbxk/xzPRg7o=
+X-Received: by 2002:a05:600c:a10a:b0:486:fbc8:8dfd with SMTP id 5b1f17b1804b1-48727f80089mr170085445e9.23.1774859709303;
+        Mon, 30 Mar 2026 01:35:09 -0700 (PDT)
 Received: from luca-vm.lan ([154.61.61.58])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722c6b495sm508329995e9.2.2026.03.30.01.34.56
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722c6b495sm508329995e9.2.2026.03.30.01.35.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Mar 2026 01:34:57 -0700 (PDT)
+        Mon, 30 Mar 2026 01:35:08 -0700 (PDT)
 From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 To: linux-mediatek@lists.infradead.org
 Cc: Fabien Parent <parent.f@gmail.com>,
 	Val Packett <val@packett.cool>,
 	Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
 	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -72,13 +73,12 @@ Cc: Fabien Parent <parent.f@gmail.com>,
 	Macpaul Lin <macpaul.lin@mediatek.com>,
 	Lee Jones <lee@kernel.org>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
 	Linus Walleij <linusw@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
 	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
-	Gary Bisson <bisson.gary@gmail.com>,
 	Julien Massot <julien.massot@collabora.com>,
+	Gary Bisson <bisson.gary@gmail.com>,
 	Chen Zhong <chen.zhong@mediatek.com>,
 	linux-input@vger.kernel.org,
 	devicetree@vger.kernel.org,
@@ -86,9 +86,9 @@ Cc: Fabien Parent <parent.f@gmail.com>,
 	linux-pm@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-gpio@vger.kernel.org
-Subject: [PATCH v4 1/9] dt-bindings: mfd: mt6397: Add MT6392 PMIC
-Date: Mon, 30 Mar 2026 09:29:35 +0100
-Message-ID: <20260330083429.359819-2-l.scorcia@gmail.com>
+Subject: [PATCH v4 2/9] dt-bindings: input: mtk-pmic-keys: Add MT6392 PMIC keys
+Date: Mon, 30 Mar 2026 09:29:36 +0100
+Message-ID: <20260330083429.359819-3-l.scorcia@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260330083429.359819-1-l.scorcia@gmail.com>
 References: <20260330083429.359819-1-l.scorcia@gmail.com>
@@ -102,53 +102,30 @@ Content-Transfer-Encoding: 8bit
 
 From: Fabien Parent <parent.f@gmail.com>
 
-Add the currently supported bindings for the MT6392 PMIC. Remove the
-required constraint for the regulators node compatible property to fix a
-dtbs_check error.
+Add the binding documentation of mtk-pmic-keys for the MT6392 PMIC.
 
 Signed-off-by: Fabien Parent <parent.f@gmail.com>
 Signed-off-by: Val Packett <val@packett.cool>
 Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../devicetree/bindings/mfd/mediatek,mt6397.yaml      | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ Documentation/devicetree/bindings/input/mediatek,pmic-keys.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
-index 05c121b0cb3d..bfad018cfbf3 100644
---- a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
-+++ b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
-@@ -40,6 +40,10 @@ properties:
-           - mediatek,mt6358
-           - mediatek,mt6359
-           - mediatek,mt6397
-+      - items:
-+          - enum:
-+              - mediatek,mt6392
-+          - const: mediatek,mt6323
-       - items:
-           - enum:
-               - mediatek,mt6366
-@@ -68,6 +72,10 @@ properties:
-               - mediatek,mt6331-rtc
-               - mediatek,mt6358-rtc
-               - mediatek,mt6397-rtc
-+          - items:
-+              - enum:
-+                  - mediatek,mt6392-rtc
-+              - const: mediatek,mt6323-rtc
-           - items:
-               - enum:
-                   - mediatek,mt6366-rtc
-@@ -99,9 +107,6 @@ properties:
-                   - mediatek,mt6366-regulator
-               - const: mediatek,mt6358-regulator
+diff --git a/Documentation/devicetree/bindings/input/mediatek,pmic-keys.yaml b/Documentation/devicetree/bindings/input/mediatek,pmic-keys.yaml
+index b95435bd6a9b..2d3c4161a7f8 100644
+--- a/Documentation/devicetree/bindings/input/mediatek,pmic-keys.yaml
++++ b/Documentation/devicetree/bindings/input/mediatek,pmic-keys.yaml
+@@ -30,6 +30,7 @@ properties:
+       - mediatek,mt6357-keys
+       - mediatek,mt6358-keys
+       - mediatek,mt6359-keys
++      - mediatek,mt6392-keys
+       - mediatek,mt6397-keys
  
--    required:
--      - compatible
--
-   adc:
-     type: object
-     $ref: /schemas/iio/adc/mediatek,mt6359-auxadc.yaml#
+   power-off-time-sec: true
 -- 
 2.43.0
 
