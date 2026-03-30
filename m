@@ -1,46 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E840F3A640A;
-	Mon, 30 Mar 2026 16:02:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4DB37756C;
+	Mon, 30 Mar 2026 16:02:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774886534; cv=none; b=kHRYTU5TuXRw+9zFvnDdjFoBMsdlSqjBQhEcjTM+yHSAL76+uijtMaY0Yc34okjHOMe2M4455v0995LPyztfJIqv3EQ502Obe746wC97uD4thXoXyN2SjsF8g+wwF3ehKVjVkayMnk71AAKRI3zRS4x44pP0+TgAtpLeqwCIGJk=
+	t=1774886535; cv=none; b=Tl/H6H7m0m/HkVXN3UGRrYk84nVA2wUENk9/YqRIYUnCot8opbOaGirWF3kkBmbFyxN21i8PpJmRMEap6u44FsDYoZG68QgPdCfF+UcqgqPzCZY50pM7/S562FCnK1er7OssZ336d5HpIp9LkU96caLYBZ6RkVLBF4NFj4ycvrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774886534; c=relaxed/simple;
-	bh=F7HllfYx0vzeouH/tlrhRayzNIJSaJoGanZwGaUuzjE=;
+	s=arc-20240116; t=1774886535; c=relaxed/simple;
+	bh=Sue1rI3ml/BRST8ghtDWbb/NTjmMdZ9F13V19Zmd8K8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gGhfeg6bjnbtRGRllEBnjgxseQOJl2gnggmwItuP3ra+V74JOVfhNVkU3w5AHGxvJXukvxK1W/DMVJCLOjKQgR8AT7KfDvnQa+4+Wyted/Wch0v86/mQ9zlEft5VIZYUfRU1PQ/clYbLKmG7edIidRqIfqHQHFnYz4ttcQUU9BA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OUov4H7a; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=Ov92+8tlqGUaBWLXD7Cbhtaym/AL4wYn1MWdP8sH4rPpM3HcGjnyN7Uh8Opuh9Rem5ffedPYyjbZFhkezXNRj2TUvU6GsiKFvD7ebYW/peFgOuacByX9WnDVDM/fa4Dvjvx54sLzvOVQpfqDWz7K/ULj7mpEetOCkWlyREzWVCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u1mFAXml; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OUov4H7a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FC10C2BCB1;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u1mFAXml"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04980C2BCB3;
 	Mon, 30 Mar 2026 16:02:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774886533;
-	bh=F7HllfYx0vzeouH/tlrhRayzNIJSaJoGanZwGaUuzjE=;
+	s=k20201202; t=1774886535;
+	bh=Sue1rI3ml/BRST8ghtDWbb/NTjmMdZ9F13V19Zmd8K8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=OUov4H7agxcU8rl75fx0HCl67JULWFrucrVkKcQhr2dQA8yDfV9A/XdI0h6i83LbR
-	 5JKvqeFQhfNhbm0Af4y9/RM7goVNyi2qiLyrCD7eHgSfxuRO8S4aYBeoiMeQCCz7cj
-	 PzCUyMtv6qf7huT5RlBPLUYlZQrZWp0beKhswJ6Dk96x104BlEJj50duhYMrGU/VXK
-	 Kn+UlYWuSezRalywXZL1BD/M+akqp6CbwF6WS/LiQwcnrKkiwEnuR5GaEFzaT/BCji
-	 xS7F+JU3Ka8S2dPTeM/qjGvTT1kp+kKirrUMIuKsq/MPViboiREGkbrJB52nh+y+xO
-	 23RmRjbOxyQgg==
+	b=u1mFAXmlrTj5X3Ryo2+lxAtDFJvW9bJhnMh6hsbrxUj7Uv5CN3J4ur3XzX7C/98xi
+	 jyIIJxKQf3XWRypoSdQl4bjDeFfdNgO01PkSfCBY8Hq8mU5fYaStdIhjgY89VIq7Mp
+	 DJoXCe8OR1yv9/Wap1YVhg/BnUMxgFriYM1h7ba8DAb5Ntl7stpVhFVMrbIoUHv1+L
+	 GQwY177GMqug+HSEKuEsPQpH2DImGIo8PfYCyYs3uC+SeaI0IpWxt4OMsLGTPxKFGK
+	 XF3t1aAi0S5kq8l3gIGARr94aM/CjQSA1g2RDBSqoqAwGePG3e6HZHl4wy0pXq9bEf
+	 fEPTb7ofyX2IA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+	Imran Shaik <imran.shaik@oss.qualcomm.com>,
+	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: dts: monaco: extend fastrpc compute cb
-Date: Mon, 30 Mar 2026 11:01:32 -0500
-Message-ID: <177488647750.633011.397843521094873380.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 0/3] Add support for GPUCC and GXCLK for SM8750
+Date: Mon, 30 Mar 2026 11:01:33 -0500
+Message-ID: <177488647782.633011.6708959644343560158.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260326154111.2781802-1-srinivas.kandagatla@oss.qualcomm.com>
-References: <20260326154111.2781802-1-srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20260305-gpucc_sm8750_v2-v5-0-78292b40b053@oss.qualcomm.com>
+References: <20260305-gpucc_sm8750_v2-v5-0-78292b40b053@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,17 +60,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 26 Mar 2026 15:41:11 +0000, Srinivas Kandagatla wrote:
-> For some reason we ended up adding only 4 out of 11 compute cb's for
-> CDSP, add the missing compute cb. This will also improve the end
-> user-experience by enabling running multiple AI usecases in parallel.
+On Thu, 05 Mar 2026 16:10:07 +0530, Taniya Das wrote:
+> Support the graphics clock controller for SM8750 for Graphics SW
+> driver to use the clocks. GXCLKCTL (Graphics GX Clock Controller) is a
+> block dedicated to managing clocks for the GPU subsystem on GX power
+> domain. The GX clock controller driver manages only the GX GDSC and the
+> rest of the resources of the controller are managed by the firmware.
 > 
+> The Graphics GX clock controller is a reuse of the Kaanapali SW driver.
 > 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: monaco: extend fastrpc compute cb
-      commit: af0d19ea5a31261e1e3aebbe7c7e45c57c4df999
+[1/3] dt-bindings: clock: qcom: Add SM8750 GPU clocks
+      commit: 4aeadf8a18dbbe4fbe2f8e6f03f48f3492c8d1d1
+[2/3] clk: qcom: Add a driver for SM8750 GPU clocks
+      commit: 5af11acae6608d3b1175aea86bac06f267c6db14
 
 Best regards,
 -- 
