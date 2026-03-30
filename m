@@ -1,147 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011046.outbound.protection.outlook.com [52.101.57.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92251399011;
-	Mon, 30 Mar 2026 09:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774861361; cv=none; b=KjEwpHnEQEUljA0xkVFrFjXMvVpXojITGMy/491L/ewr9/1Ox/jweadif42+Xr//zYtPoME+Vfdp/JiShPlmyXj9qdUwKLfiNU5hkf5mP7V1F4EQm5ZBKP+jIL5wkNbtt2qlg9Dx3QwJxIHX7eWStMyeVW8gUt6BjQfT9lv7c6U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774861361; c=relaxed/simple;
-	bh=qRDiLQ7/Xx7OWinJo708eydLzcr8WmKcb0zRtIsdSO8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AEgMZLE3t4o6o7Lbrrtbqmm2NSqnNEJrY2ZqVbyep4suWuxRiUuUeIdBicE+S6QgIymEBWC0ZaZolNbbOoF1KN2gUpRxzzhV9jy9ushGqp4A3CzSJEYTJ3bhDpebxiiVzFycD552qzQFfKLzCJTSX42OHJAYDrLCVbU4teC/67M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hHXjhEmZ; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 367E82D6E7B;
+	Mon, 30 Mar 2026 09:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774861435; cv=fail; b=UuDwePAQ1qjTnkcwwJH0NDiLqFqJa9gfchkx3EeNRZgQDu3OCj3NRxK97JISEEUcuN+qDwqe9QdyMnTinWLkEF0xclVnE3+4YDZLTjrIR4LHqLVVqQtXB9LI5enBe+O2JER29yn1XIiqyvreUZC60lR2C9PAOJsCsRrhtXihNz0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774861435; c=relaxed/simple;
+	bh=ILsytof+OjAQD6pOdQT69cd6dJtjwaqV5Cy8b5ugTr8=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mG24TABN3uHh6ISnG/CQD665ZjTU6wWS2IjUaYsFkAm9b1PEh5OHpMdISYmIjAP2Y5rMb/NOC/QirWc5u7LkSTqAGXSxQ8IiS7Y4y7u5ERoAEjI8dfzc/1mAMoGAkCyUfcDA3eNThdi7tfJcW40Bj+Fq7X3e4Pgyg2m6Y5N22gc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=HHEURsVK; arc=fail smtp.client-ip=52.101.57.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hHXjhEmZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F7CBC2BCF5;
-	Mon, 30 Mar 2026 09:02:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774861361;
-	bh=qRDiLQ7/Xx7OWinJo708eydLzcr8WmKcb0zRtIsdSO8=;
-	h=From:To:Cc:Subject:Date:From;
-	b=hHXjhEmZZxDEryQivP7+OwcpVMgA5oBn8cpG9Bk9N/iLWFqC8zyStSkdTZlsQ2vCn
-	 IxAj6WpNay1JuUaYnqoFTx0Y1YmO7Ua83XblC+OekvpKYGNJ1OAWLXJMeOeZu4+Tic
-	 4xZcS4VgIttR4bxu6P0NboTqUUSc1QDXis720VsDg/XMJWm+ha69coHzaxhvmpuJjl
-	 BzVJgMZtVvq2EcsJyokY9ejZ5CHZniuEqaZEeYII/D9v5ERHFw8GrSSB23jc+7fQx4
-	 t/qFv0qPFG2Yu+V0ybZoYwTQxZLVy4JkDZolzC2cepGKGLa4Z9GPaJJU58fMc4hUti
-	 LOGv6tSOyhEaQ==
-From: Conor Dooley <conor@kernel.org>
-To: netdev@vger.kernel.org
-Cc: conor@kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	kernel test robot <lkp@intel.com>,
-	Jiawen Wu <jiawenwu@trustnetic.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org
-Subject: [PATCH net-next v1] net: macb: fix use of at91_default_usrio without CONFIG_OF
-Date: Mon, 30 Mar 2026 10:02:00 +0100
-Message-ID: <20260330-overture-cactus-c8eb7b9cbecc@spud>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="HHEURsVK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VPtWQv95ROawkTkyAXI70uZTv6PU06K9fsjktqCOEQmoohFJCb2JZPiWv0Ilc/GN0Rbhtq/nBaz7P68mOpWaT0pWY07FK1hhXvB1dKsZ4S92Zv0UErHcJjAdfiiLZPGnFKtQ77qybU8ZGvk3URFSydctaART0mo1+vpfhrph+cTOGxUVZpk52snfY05Gcmqr8K87XgBkqr9CvoDLWxpk8xAKNR4D2xL2EWKnnOoiTqo7pnUDwE9S9+JLrQYvxGaEI0QLdWlePNXloHZ9k0LURhbpQr3/r7MDcwKuAnpwxNXlSwGZqr3qDH9C1jcOOAP7UKXIj6pYgTmP0JrNZ+5FiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AlSLTfBvPxWLnftxdGDo5FDZWjJli6shCTRATo4jx2Y=;
+ b=n1ClSKPmr/2chJpXNU8usXADQiYGGx82kYgZ0beXsaevsbldUypAgPACY2GB3fH2uv940Re5HwTyTNabL1T2blL6mPUh3bSgROaM430UwqypDRm2ros7vDX0aoolteffYQzsqQlnAbQ51NZHc55DU+OQxvj+5qYukS0oQaidq1OA1DKH3HS+9He+HNLX4vpds+wXl05dYKmfiCgI6ltKpgCrgCPMmD+xDW7BNulTRIFrMXHDpEjoe8j+jI+iW2O5BYYSeOeNuVWvm360PHUh4VYrkjlmSVSKDYVd/2e6wpGIRFicNVt7EEhdIwvdqU1cD4e97rrN0Q/RqPoUXglYbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=nxp.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AlSLTfBvPxWLnftxdGDo5FDZWjJli6shCTRATo4jx2Y=;
+ b=HHEURsVKuorm0pPTdzzQpSi7Ml/wSyYzYfNkltsczfKU8l5cFEUPboh0JvZ9tCRNOQygu3BNpI28I4qMBfVmMKNwiiIKKTz7CFseJ+e5vRXAlS8perncOEjI3aQnW7dopwtufBiPJFGec85X1aXm0q42zL3WjU2plRp3h10Xl16d+N8yb7zt7Y+HF8JHLMT2CuBxga0pOxV4VuGi+r+6wh6fGXwovhtjP9CfATIrCuXf+De+CkWYjXMJ4d1GUflWTFDZ4YDnncGRCQx/Colw2iPn9JXALfvCo1WSzmtecvV6WXZWL/CFrQK1cyXQyaRLWu4jpP24FCnehrlDuqAgng==
+Received: from CH0PR03CA0340.namprd03.prod.outlook.com (2603:10b6:610:11a::28)
+ by SJ1PR12MB6146.namprd12.prod.outlook.com (2603:10b6:a03:45b::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Mon, 30 Mar
+ 2026 09:03:47 +0000
+Received: from CH3PEPF00000011.namprd21.prod.outlook.com
+ (2603:10b6:610:11a:cafe::c9) by CH0PR03CA0340.outlook.office365.com
+ (2603:10b6:610:11a::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.28 via Frontend Transport; Mon,
+ 30 Mar 2026 09:03:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ CH3PEPF00000011.mail.protection.outlook.com (10.167.244.116) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9791.0 via Frontend Transport; Mon, 30 Mar 2026 09:03:46 +0000
+Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 30 Mar
+ 2026 02:03:35 -0700
+Received: from drhqmail203.nvidia.com (10.126.190.182) by
+ drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.20; Mon, 30 Mar 2026 02:03:35 -0700
+Received: from BUILDSERVER-IO-L4T.nvidia.com (10.127.8.9) by mail.nvidia.com
+ (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.20 via Frontend
+ Transport; Mon, 30 Mar 2026 02:03:31 -0700
+From: Akhil R <akhilrajeev@nvidia.com>
+To: <frank.li@nxp.com>
+CC: <Frank.Li@kernel.org>, <akhilrajeev@nvidia.com>, <conor+dt@kernel.org>,
+	<devicetree@vger.kernel.org>, <dmaengine@vger.kernel.org>,
+	<jonathanh@nvidia.com>, <krzk+dt@kernel.org>, <ldewangan@nvidia.com>,
+	<linux-kernel@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
+	<p.zabel@pengutronix.de>, <robh@kernel.org>, <thierry.reding@gmail.com>,
+	<vkoul@kernel.org>
+Subject: Re: [PATCH v4 08/10] dmaengine: tegra: Use iommu-map for stream ID
+Date: Mon, 30 Mar 2026 14:33:30 +0530
+Message-ID: <20260330090330.52081-1-akhilrajeev@nvidia.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <acWWW6r5gZ2nGerQ@lizhi-Precision-Tower-5810>
+References: <acWWW6r5gZ2nGerQ@lizhi-Precision-Tower-5810>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3605; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=A1BubFgGNTU8Lrl5NTMqEeZD7ZkkVzsO+2Mw4LraCwo=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDJmnbLheGWkVLNMQ2R+3+ewm89UXxPTfW7DuWbrdcmX3F 57IqzrLOkpZGMS4GGTFFFkSb/e1SK3/47LDuectzBxWJpAhDFycAjCRU7sZ/udrS7FEZQZeS9Hv PHfuk+fWm+ez5/xsuLnms3Ze3O4NTD8Z/sf1HliytJTxU16fzcXye71ax980ddhvuTbzSmrY3LX 22jwA
-X-Developer-Key: i=conor.dooley@microchip.com; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000011:EE_|SJ1PR12MB6146:EE_
+X-MS-Office365-Filtering-Correlation-Id: 51c52a66-e4f3-47fd-09a6-08de8e3b406f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|7416014|376014|82310400026|1800799024|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	UwL2Znog9dMRL6oE86wY2C/Hrmw1jq5obQzN4Si3iqv6HjI8s8Gx0CFmoxUouQ10fQuu5JyHM7AFpi8l7isswJz9CA+Oy4NFgMtBkPy1VDCUkYp55a5cGpyEL4XfvvJ5jD1bQ99INwfMIrDsL6d2sfFC1CavHwh+FgK1Rr5vvyxQWZWXdBg4hd0DKVTRB9HYAR+YUu3vjCHICkxhTyace8EiuLBVBsiO5pRR1seyX82kCsUGt8fKTYpLwv5KDuTOg4LmpLNX0c5YHuGAZxNT+jF21SZ2vIew02vIM1mCglN25mLVgzEMbmJJ0de67y1LPYCZINjVCEVhqLVFeJgOgxrv/Dx8lng02qxJc8AsZZeSBE4/Tdc83gCCc9p0YzCYUeMgV6XFGWNyQbljOETy71kGmSkPpfuRQnx4GnPzsb7mIg+POpeANyzvIGIDzATv1RLczGFauSKVUTSgUjDGohgLppf1ouj9ROo5S4ckVuEh5apWfH8d34rkNJhq85oArXbrk0JgPLT5vA4Oymhn1cPTqDmTsIOJmcuAf6vHTQ7CAQubLbZexvqJggbrzbg2Wnrb7FJob71WOsofWJ5TNEItsLxJAe8dFk2aCHYjZdX1BTdL7Eln2/nKWrpwAbRdvs2+BSejUAIqzfFx23dKozecUwvHkW+A1hhN35keBNVxLjoVh4qT+5C/NX3WhDg4SZTExNts4QVOK9aE6ihFGvT/2NOVstaT+orLf2+YLUgqMz/rZTeScXOGd2gm1E4FBsefrW0aohTqupe89ITNZw==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(82310400026)(1800799024)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	MTbLH2CJ540wfK3pDCmVlC8F7ZRpwsluLD6T++hCxJ0/XP7f7WvmMqYeYG2s6KrkQdTMn8SkuXJK8Av+skJXK/y2zbT+Sqp7IKBVBg7fGfQdF4xaooatqJZhI858KZ7yIX5ZycMqBp0Op0JyrrbNg+fTz6ZLWEojRLzPQHuDoYarFwoIkG/5mVTmGGFXQ/n/2eDsMl78ZnqogRDF3o6nHRK7iZ/T83gGx4ivqQA90jslACSyTgmchmJzrJ7Owh8966hl+ieI3cVIUTDSFmJ/8wGvG3/9emEyhKaEZcr0v4ViuaIhREYM9XxBdUmcCZiuVRHedLQV8z2FXvMZmWpK98ROmkc6UvyHU/kr7biE/jwwmHAjl9ivyv/phmJn1+MjHt+PYdtjormPSHHhQSliKKP99TVZkkrCXcpmPrtI9wdjVSpUSyM+2yMvFv3eyAJG
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 09:03:46.6942
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51c52a66-e4f3-47fd-09a6-08de8e3b406f
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF00000011.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6146
 
-From: Conor Dooley <conor.dooley@microchip.com>
+On Thu, 26 Mar 2026 16:26:03 -0400, Frank Li wrote:
+> On Thu, Mar 26, 2026 at 04:39:45PM +0530, Akhil R wrote:
+>> Use 'iommu-map', when provided, to get the stream ID to be programmed
+>> for each channel. Iterate over the channels registered and configure
+>> each channel device separately using of_dma_configure_id() to allow
+>> it to use a separate IOMMU domain for the transfer. But do this
+>> in a second loop since the first loop populates the DMA device channels
+>> list and async_device_register() registers the channels. Both are
+>> prerequisites for using the channel device in the next loop.
+>>
+>> Channels will continue to use the same global stream ID if the
+>> 'iommu-map' property is not present in the device tree.
+>>
+>> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+>> ---
+> ...
+>> @@ -1490,6 +1496,41 @@ static int tegra_dma_probe(struct platform_device *pdev)
+>>  		return ret;
+>>  	}
+>>
+>> +	/*
+>> +	 * Configure stream ID for each channel from the channels registered
+>> +	 * above. This is done in a separate iteration to ensure that only
+>> +	 * the channels available and registered for the DMA device are used.
+>> +	 */
+>> +	list_for_each_entry(chan, &tdma->dma_dev.channels, device_node) {
+>> +		chdev = &chan->dev->device;
+>> +		tdc = to_tegra_dma_chan(chan);
+>> +
+>> +		if (use_iommu_map) {
+>> +			chdev->bus = pdev->dev.bus;
+>> +			dma_coerce_mask_and_coherent(chdev, DMA_BIT_MASK(cdata->addr_bits));
+>> +
+>> +			ret = of_dma_configure_id(chdev, pdev->dev.of_node,
+>> +						  true, &tdc->id);
+>> +			if (ret) {
+>> +				dev_err(chdev, "Failed to configure IOMMU for channel %d: %d\n",
+>> +					tdc->id, ret);
+>> +				return ret;
+> 
+> This is in probe funciton
+> 
+> 	return dev_err_probe();
 
-If CONFIG_OF is not enabled, at91_default_usrio is used undeclared in
-gem_default_config. Rather than move the struct around, take the
-opportunity to rename gem_default_config, as the only compatible it is
-ever used for is "cdns,macb" - not "cdns,gem" at all! With that done,
-remove the use of default_gem_config as a fallback in probe, as every
-device has a specific set of match data.
+Ack. I will update.
 
-It pains me a little to leave at91_default_usrio in match data used by
-"cdns,macb", but this is probably required to avoid regressing anyone.
-
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202603280028.wQjUrIvv-lkp@intel.com/
-Reported-by: Jiawen Wu <jiawenwu@trustnetic.com>
-Closes: https://lore.kernel.org/all/06a701dcc014$86def5b0$949ce110$@trustnetic.com/
-Fixes: a17871778ee28 ("net: macb: rename macb_default_usrio to at91_default_usrio as not all platforms have mii mode control in usrio")
-Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
----
-lkp also reported this over the weekend, but against the dev copy in my
-tree. I had thought that CONFIG_OF was standard off on x86, but I guess
-it isn't, given lkp didn't catch it until randconfigs.
-
-CC: Andrew Lunn <andrew+netdev@lunn.ch>
-CC: David S. Miller <davem@davemloft.net>
-CC: Eric Dumazet <edumazet@google.com>
-CC: Jakub Kicinski <kuba@kernel.org>
-CC: Paolo Abeni <pabeni@redhat.com>
-CC: Nicolas Ferre <nicolas.ferre@microchip.com>
-CC: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-CC: netdev@vger.kernel.org
-CC: devicetree@vger.kernel.org
-CC: linux-kernel@vger.kernel.org
-CC: linux-riscv@lists.infradead.org
----
- drivers/net/ethernet/cadence/macb_main.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 12e2b2f4aaf88..4f70e4fcf4606 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -5716,9 +5716,18 @@ static const struct macb_config pic64hpsc_config = {
- 	.jumbo_max_len = 16383,
- };
- 
-+static const struct macb_config macb_macb_config = {
-+	.caps = MACB_CAPS_GIGABIT_MODE_AVAILABLE |
-+		MACB_CAPS_JUMBO |
-+		MACB_CAPS_GEM_HAS_PTP,
-+	.dma_burst_length = 16,
-+	.usrio = &at91_default_usrio,
-+	.jumbo_max_len = 10240,
-+};
-+
- static const struct of_device_id macb_dt_ids[] = {
- 	{ .compatible = "cdns,at91sam9260-macb", .data = &at91sam9260_config },
--	{ .compatible = "cdns,macb" },
-+	{ .compatible = "cdns,macb", .data = &macb_macb_config},
- 	{ .compatible = "cdns,np4-macb", .data = &np4_config },
- 	{ .compatible = "cdns,pc302-gem", .data = &pc302gem_config },
- 	{ .compatible = "cdns,gem", .data = &pc302gem_config },
-@@ -5747,15 +5756,6 @@ static const struct of_device_id macb_dt_ids[] = {
- MODULE_DEVICE_TABLE(of, macb_dt_ids);
- #endif /* CONFIG_OF */
- 
--static const struct macb_config default_gem_config = {
--	.caps = MACB_CAPS_GIGABIT_MODE_AVAILABLE |
--		MACB_CAPS_JUMBO |
--		MACB_CAPS_GEM_HAS_PTP,
--	.dma_burst_length = 16,
--	.usrio = &at91_default_usrio,
--	.jumbo_max_len = 10240,
--};
--
- static int macb_probe(struct platform_device *pdev)
- {
- 	struct clk *pclk, *hclk = NULL, *tx_clk = NULL, *rx_clk = NULL;
-@@ -5778,7 +5778,7 @@ static int macb_probe(struct platform_device *pdev)
- 
- 	macb_config = of_device_get_match_data(&pdev->dev);
- 	if (!macb_config)
--		macb_config = &default_gem_config;
-+		return -EINVAL;
- 
- 	err = macb_clk_init(pdev, &pclk, &hclk, &tx_clk, &rx_clk, &tsu_clk,
- 			    macb_config);
--- 
-2.53.0
-
+Best Regards,
+Akhil
