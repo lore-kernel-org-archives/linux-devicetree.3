@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4B6377553;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E840F3A640A;
 	Mon, 30 Mar 2026 16:02:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774886533; cv=none; b=i0kplV7wPpDKFAR7U4OiY3iNuKvN3miDa6sFtGumXKTYgT1bhACGIxtcFpnTRtONhA10S/vOqrUpSIr4qC20nO2NLlFrYspsA1QvFEpQtup+8spTbQ6LoHBvdC7tTj6EQa7yt0fKrnDfSBrc8zkvjerCDNYXZ2z2N26NOO0TqP8=
+	t=1774886534; cv=none; b=kHRYTU5TuXRw+9zFvnDdjFoBMsdlSqjBQhEcjTM+yHSAL76+uijtMaY0Yc34okjHOMe2M4455v0995LPyztfJIqv3EQ502Obe746wC97uD4thXoXyN2SjsF8g+wwF3ehKVjVkayMnk71AAKRI3zRS4x44pP0+TgAtpLeqwCIGJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774886533; c=relaxed/simple;
-	bh=JvwYfLjhq4hCqJRKsezY+VPuuMlrkBzMVMUijyVs45w=;
+	s=arc-20240116; t=1774886534; c=relaxed/simple;
+	bh=F7HllfYx0vzeouH/tlrhRayzNIJSaJoGanZwGaUuzjE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=i/80eF2A3U+Uc3+3LQ7QwyPvje3fIqPBEq8pTM7qpjPX3D/SJk5oJ7Ad5KWr0F0dZz9WKLV+CZwcZMt8fD9AKCxjryO65NTyC4ky2aV+WvbFWqJ0CaBfVhqCwKaX2hdfMTzw6fzDzzqcvGApJmO3AzaOLzM5AciYZdM0RUE+2ZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DgaGy+dE; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=gGhfeg6bjnbtRGRllEBnjgxseQOJl2gnggmwItuP3ra+V74JOVfhNVkU3w5AHGxvJXukvxK1W/DMVJCLOjKQgR8AT7KfDvnQa+4+Wyted/Wch0v86/mQ9zlEft5VIZYUfRU1PQ/clYbLKmG7edIidRqIfqHQHFnYz4ttcQUU9BA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OUov4H7a; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DgaGy+dE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 404A6C19423;
-	Mon, 30 Mar 2026 16:02:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OUov4H7a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FC10C2BCB1;
+	Mon, 30 Mar 2026 16:02:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774886532;
-	bh=JvwYfLjhq4hCqJRKsezY+VPuuMlrkBzMVMUijyVs45w=;
+	s=k20201202; t=1774886533;
+	bh=F7HllfYx0vzeouH/tlrhRayzNIJSaJoGanZwGaUuzjE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=DgaGy+dEsShINed9FF8sx84GhEVYfyAcUn51RelEawNVFwiKX2aco+1+AkVZMLfPV
-	 XJ66lC9XBHVfStXY+YCu1uyWufqJ+66rjR9Aym4oLQdYhBJQhKlZKIqA10WV76bGCy
-	 E4Q1QyZF50h85Pfc/pE/gk3rhsYY7MV9bCC7T3ZkjgZW+ooWuEHDCn59nbfthekR2e
-	 w6+z6Hs249lxNNvJz/bEsyyjCI3qOfJSVxlgHm0NOZ0Qqr0cnQYEd/0NpGVyXpcFQ+
-	 wdac8FHZh/QIgKBJJ7BDYJDWh2rH1I/EDayOTQ1k/mSukT7Lhp71HONiwQYZreoKKz
-	 dFIr7tXeNJOqg==
+	b=OUov4H7agxcU8rl75fx0HCl67JULWFrucrVkKcQhr2dQA8yDfV9A/XdI0h6i83LbR
+	 5JKvqeFQhfNhbm0Af4y9/RM7goVNyi2qiLyrCD7eHgSfxuRO8S4aYBeoiMeQCCz7cj
+	 PzCUyMtv6qf7huT5RlBPLUYlZQrZWp0beKhswJ6Dk96x104BlEJj50duhYMrGU/VXK
+	 Kn+UlYWuSezRalywXZL1BD/M+akqp6CbwF6WS/LiQwcnrKkiwEnuR5GaEFzaT/BCji
+	 xS7F+JU3Ka8S2dPTeM/qjGvTT1kp+kKirrUMIuKsq/MPViboiREGkbrJB52nh+y+xO
+	 23RmRjbOxyQgg==
 From: Bjorn Andersson <andersson@kernel.org>
 To: konradybcio@kernel.org,
 	robh@kernel.org,
@@ -35,12 +35,12 @@ To: konradybcio@kernel.org,
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: monaco: extend fastrpc compute cb
-Date: Mon, 30 Mar 2026 11:01:31 -0500
-Message-ID: <177488647731.633011.13180340392928662710.b4-ty@kernel.org>
+Subject: Re: [PATCH v2] arm64: dts: monaco: extend fastrpc compute cb
+Date: Mon, 30 Mar 2026 11:01:32 -0500
+Message-ID: <177488647750.633011.397843521094873380.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260326125834.2758331-1-srinivas.kandagatla@oss.qualcomm.com>
-References: <20260326125834.2758331-1-srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20260326154111.2781802-1-srinivas.kandagatla@oss.qualcomm.com>
+References: <20260326154111.2781802-1-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,7 +51,7 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 26 Mar 2026 12:58:34 +0000, Srinivas Kandagatla wrote:
+On Thu, 26 Mar 2026 15:41:11 +0000, Srinivas Kandagatla wrote:
 > For some reason we ended up adding only 4 out of 11 compute cb's for
 > CDSP, add the missing compute cb. This will also improve the end
 > user-experience by enabling running multiple AI usecases in parallel.
