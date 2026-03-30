@@ -1,63 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F8838E5C8;
-	Mon, 30 Mar 2026 16:02:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E733914E4;
+	Mon, 30 Mar 2026 16:02:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774886528; cv=none; b=hu8wM/Qc/4rcE3teSJt3xHGFIOFRYb7Cg8UyuM2ygNZJSjhyhNgZWFwIr4skFQSv1xz9kMhyircgReVckhuMREQOdFckqJ5XwLCHFqQk+QzEogpJOVLhAQRNvreTjSOOfrjdHkg0tIxcRbqWJsChppz4ez5+NMJkj5qs5Ev6W/4=
+	t=1774886530; cv=none; b=HEJ4HhTDwf+lRpO4ker/6qAcRr3Cmk+vlNAZEPa2PCQCQSi4jLFfWGDEkI/e6tBr+rXwMNFycMhJcgWgh/d1pqsU9xod70RNWtuJXOgFNY5AWIFw2RW/7Xa3F3lk5OlM9zGXJbRyvL4tXEGSVw6Kw8DdE3KLU3C2CepJUN74kWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774886528; c=relaxed/simple;
-	bh=JRe/h3QUUXC6ufx1Rcdh/ruu1ORtHrWd1AbceXMWXp4=;
+	s=arc-20240116; t=1774886530; c=relaxed/simple;
+	bh=utfzMihMYmDhK3LwKI9GulPoj6iCWH7Y5EAkhalANqI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=f5x9qm5kAwyo7yhnyXSADHZKIBUNOX3jKuQvpI2f47sotcrCH07qr4Makyqit11kbIuTKgaUfpVvZmLh1XSycBw8+J9CbVgwGWnDaF15YD8KAilBNkmsAHMQc2jfTqah4+Zfh/oBI7fsKBAC/d8bj9kcm4n63gKdTZAzD5lumeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IhcZ4Ysg; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=m+gpWUHE/JZ9ePmrZzdPbn8YMWQsyjMRPct2shYNByivyVjHTAXDVxZQJKZCHyZ1i/HUKdOmvLyuZ7LRDeNSRRyOyjWLBYXTtUlFbgl0XMMR/XIknOmo3RI2JyKrMo5pa5ZGed8OMacnpo3PiqgWfu5dv5SfcdhcJ+o5YBAjpoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QqQHWYMu; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IhcZ4Ysg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E230C4CEF7;
-	Mon, 30 Mar 2026 16:02:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QqQHWYMu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FC6FC4CEF7;
+	Mon, 30 Mar 2026 16:02:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774886528;
-	bh=JRe/h3QUUXC6ufx1Rcdh/ruu1ORtHrWd1AbceXMWXp4=;
+	s=k20201202; t=1774886530;
+	bh=utfzMihMYmDhK3LwKI9GulPoj6iCWH7Y5EAkhalANqI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=IhcZ4Ysg/DOpwcK9BdX4SXoUrkFQDzNi41uvEn+O5Wcrvm+4IRdUmm2agM5wc5gj1
-	 h8WgqtrR4lNY8fj6h/lwJg6JOKzIjdqXcI9qOl4MK5cUXCXV0CUcV2Q7M/eBqrUeC2
-	 qOlJYnEFXYthHOzCW0hjBRKx/o4MMvBttcKmymQ4lusczT7aM4EdxBiTcd9kbdm32e
-	 0u/yWq1dVSsxdnA7VxwxwQpkwTSXueArNP+IlKMkTr116a44rxgs1OM5d9C5a+51Q9
-	 5309N74oYVOqYnbRZK2h5+TwozFVqNYJ9OXBt/kwmOQ/451b307yn9Qprz+eIM6Lc9
-	 j9/jnE7RYY3Ug==
+	b=QqQHWYMuA4OGyinNkHM23E7DpW1R0a+TVE8Doemk0hdGeK0D/ZU5ezCxrzRkMTz2C
+	 wjBJkfzxMOkmKPSXN6vi+dfZTt0p0PjywOm2hVVcK5H9NqykzBiBDVT3XH4j90JUsX
+	 mWEMcm+ZNj+k8V4nODkis8ivHXoS05m4koEbjnrm0IdJnlBiHR5LLxHHN9xWdl0uP8
+	 SxtupQmeTLTWUW6Yxdy3kHzGqa41CH3CS0SsE+Bvzao/UlWdKjcscqkS+R9wUbNOnL
+	 T2/slx/GMydRNnm6Kdxlf0TxSiAC0Ge9MkWAUYPVrD8EtR1h8AMhEW9n0LzUIjWJ8m
+	 I1xpGTR3MhIow==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Krishna Manikandan <quic_mkrishn@quicinc.com>,
-	Jonathan Marek <jonathan@marek.ca>,
-	Pengyu Luo <mitltlatltl@gmail.com>
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Tianyu Gao <gty0622@gmail.com>,
-	White Lewis <liu224806@gmail.com>
-Subject: Re: (subset) [PATCH v4 0/4] Add DSI display support for SC8280XP
-Date: Mon, 30 Mar 2026 11:01:26 -0500
-Message-ID: <177488647766.633011.14712098899135901424.b4-ty@kernel.org>
+	nitin.rawat@oss.qualcomm.com
+Subject: Re: [PATCH v2] arm64: dts: qcom: purwa-iot-evk: Enable UFS
+Date: Mon, 30 Mar 2026 11:01:28 -0500
+Message-ID: <177488647771.633011.3376601666309332553.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260308064835.479356-1-mitltlatltl@gmail.com>
-References: <20260308064835.479356-1-mitltlatltl@gmail.com>
+In-Reply-To: <20260323-purwa-ufs-v2-1-58fb2c168786@oss.qualcomm.com>
+References: <20260323-purwa-ufs-v2-1-58fb2c168786@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,14 +54,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sun, 08 Mar 2026 14:48:31 +0800, Pengyu Luo wrote:
-> Add DSI display support for SC8280XP.
+On Mon, 23 Mar 2026 18:17:53 +0530, Pradeep P V K wrote:
+> Enable UFS for purwa-iot-evk board.
 > 
+> This patch depends on [PATCH V5 2/3] arm64: dts: qcom: hamoa: Add UFS
+> nodes for x1e80100 SoC
+> https://lore.kernel.org/all/20260211132926.3716716-3-pradeep.pragallapati@oss.qualcomm.com/
+> 
+> 
+> [...]
 
 Applied, thanks!
 
-[4/4] arm64: dts: qcom: sc8280xp: Add dsi nodes on SC8280XP
-      commit: 2f4c5dea9a285cc24a80e9fef8d7014bffce967b
+[1/1] arm64: dts: qcom: purwa-iot-evk: Enable UFS
+      commit: 7658e9b94849ca861ded82d641f52fcec303210d
 
 Best regards,
 -- 
