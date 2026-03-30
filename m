@@ -1,679 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011009.outbound.protection.outlook.com [52.101.70.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18842EB874;
-	Mon, 30 Mar 2026 15:54:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774886077; cv=none; b=EHmD9V9Zfnm7yci65MuuxUAZ69fjwgm2bvbruLqO3zOi2PuEz6IfH8PudLtdvvN8MwAXEmgm53v17+BQigF6t0Jg9mHbYVE0lsdFahs1G8dkqgvkBSkZpOiCvPaqD08+R7AYxQlLSNonVfnQKejWQJ2s7z7Bb3P7KtssokMiBAU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774886077; c=relaxed/simple;
-	bh=qrTfuWZ+583KaSwx8BZIdlJbjas15he7Gz19iTjBA94=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HuF32s/X0hr6+ZzVUljeYam3yvE6+w4d2Srzias+Xb7xUtGGU8ReRpJ/u/oJAgCIGVT3kfMRyNGHmmGynyVuwGfDukbRL1qc76FNJMY0rr9Waskv1rHBfDjPK6uxCzeu02KGBkTcVDY3jdOfPtcM9qtBawN8mXYGdu9yw9fJq6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kJRMdZFj; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF5436D517;
+	Mon, 30 Mar 2026 15:55:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774886103; cv=fail; b=ng6iWGirBqoOUUNq6QBr37bOHuFCbw9qPcw7ocJ0WfuhJFlPVzG+XZ7UGGN7O9Xs1xvqaAzpFK6RE0QGWJN22RVKZVWVfZ7DnpnoTNGUi9nIg3ggGUXs6yH11zKkGYCp7gTcKyNTJCyd8n4FHylO2OPNMYQ6Z2L3UBuJ2uJ5SpY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774886103; c=relaxed/simple;
+	bh=+X/iMR1kPuDxF3qH+AEHYF15+fq/YwkZBXFb0sY9G5I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=PebDl8yCOSMiZ69HvMNYMkVE9vvfO9lLr8FlHyMNQn7QOhP3mc/yl6/tQ2sB3qDgELBZc/YqIXcKkl9E+Cb6uY7R55Zh4XXfM9unFMxsAd/I9sFAaJizv6zNOThNdjtxoFwpJPrVuGxWeXFfd6t0aV+uIULEpTo1TriJiLtbBuw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=VMgw0/rP; arc=fail smtp.client-ip=52.101.70.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kJRMdZFj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9138BC4CEF7;
-	Mon, 30 Mar 2026 15:54:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774886077;
-	bh=qrTfuWZ+583KaSwx8BZIdlJbjas15he7Gz19iTjBA94=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kJRMdZFjxwAef16oJhvHZ2m5arDmntXBBKLVPXCn+GU8SZbZvOcQDIzeZsWW9Fuka
-	 Ya9o6SHX1sQuVhWEHTQKjVZoh164ZIyr0nCAaHRs+AV4/Tpos73xmQzzkH6WfH0zeq
-	 JeQRvzjQxL2J3Aou3XH8/mQjxTQOCpX0TIw9SolTbE9Qw7vKYR+zTc430Y5KiMNIib
-	 MsOJJJMiQbdP3H7wmE9GBZPp+5B0GEwOq9wCX0renWLlgngH1ex2XiErRVmtJPghqh
-	 qkNysfsLNf30ABkN/CCQMcuB/HDJpAxj2sGNgcrq8nHA/xFtJultwI9GJWKuHpQLt6
-	 HltFGBeh8ihkw==
-Date: Mon, 30 Mar 2026 16:54:31 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Hui Min Mina Chou <minachou@andestech.com>
-Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	alex@ghiti.fr, geert+renesas@glider.be,
-	prabhakar.mahadev-lad.rj@bp.renesas.com, magnus.damm@gmail.com,
-	ben717@andestech.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, jonathan.cameron@huawei.com,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	tim609@andestech.com, alex749@andestech.com, az70021@gmail.com,
-	charles <dminus@andestech.com>
-Subject: Re: [PATCH 1/7] cache: ax45mp_cache: refactor cache driver for
- generic Andes platform support
-Message-ID: <20260330-oxford-chevy-5f5a6f0a5be4@spud>
-References: <20260330102724.1012470-1-minachou@andestech.com>
- <20260330102724.1012470-2-minachou@andestech.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="VMgw0/rP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qHBYdw4P8mjZ9+Wuh9eOtYhykyxI6C9iHWn8z+8hQJO8PjHxLlEvpctvZWwaJWYYsvwapaT9dVYBfd1eR+XuldaIDfyaAihqwp05N6IhO0/rQexwDZvqVJwKvsi7ooZhB3gfW30JTN/7kgXoGX54R1DA80X1kfzFA8RB2SHRekae1ev9i03kb+sAsCDGpkfXVcoSafsjV5r6S5eckaaVz5iHy60R+LGIX4I4VgYrFh7hBEx3q2uaVJcGilKwVezuDla9IU7peR2ZD95S8Ovds+mzty2utSubX/p9w7oJlRzmffjssMCy3AALKWxzLFgo/xQ3+yD4MQxPW7p6pNpq5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MtapOcrAuKvlFMZ6A13qH/lcH4rhfOijEWkO6D7mQDA=;
+ b=fu9I3AddZijiZ0mKrA4V19F4Y9rziyyAOsCpOC/7aj8PwO6Gc7DpbzqyuULKDcUYG2iDlIBDpzhNormWp3ahqjGrijLuRzcWVbPWYG1GPxAuoGuwlvrF6ajKhDU5lsUVLchhw4kgFhAKPQKNUOh57+TEHBeVnoC+1uNHx9YCrshBCb58gGH4k2T6Ql1Ep8YT2LdE8+U4MS6GxgMWke1aC8TQgFOJgjJHWaldmPBC5pRbGQlNFvyJeC4psXG9GRmdDvQKYDBOM1C9b5jD3itICkDzbcCRhREh18wIFBLh37CijwTv3ePtSrOB0zAavV9MIv2VW1S6HoDSKlmlsWDSJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MtapOcrAuKvlFMZ6A13qH/lcH4rhfOijEWkO6D7mQDA=;
+ b=VMgw0/rPXmgAI33J69JUHIgPblT00cfDORcNB3YSWAfy2aA0zQPXEWmNqlLpgnFdZNQw//sDbzMxGyoSIBKK3felnJWeT8vVuUd7UmgFlfQLqMjOeD4x4WyxRPMMs0o7kyEdDIAz13Kp2Yd6VfExS87+ywxuerwvtStLgDnMUwDjsK2HIFxINLZ5IjgAv4iq7utTFuFAkzuBsTqaV+KNRAADYKvvPLOc8bzmEE3Lg2WSfscSE3QPE6IVnUlviABrnytdzE/96alNQNJC8b23rx8dxZJDW1BuhJmlZu3oIjUtiptHSCNrnHlkNo/QQWX5rIssTNUYtDtrL9CYSjTbBw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by DB9PR04MB9819.eurprd04.prod.outlook.com (2603:10a6:10:4c0::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Mon, 30 Mar
+ 2026 15:54:58 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9745.027; Mon, 30 Mar 2026
+ 15:54:58 +0000
+Date: Mon, 30 Mar 2026 11:54:51 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Srinivas Neeli <srinivas.neeli@amd.com>
+Cc: Vinod Koul <vkoul@kernel.org>, git@amd.com,
+	Frank Li <Frank.Li@kernel.org>, Michal Simek <michal.simek@amd.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Suraj Gupta <suraj.gupta2@amd.com>,
+	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+	Thomas Gessler <thomas.gessler@brueckmann-gmbh.de>,
+	Folker Schwesinger <dev@folker-schwesinger.de>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Kees Cook <kees@kernel.org>, Abin Joseph <abin.joseph@amd.com>,
+	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH V2 2/5] dmaengine: xilinx_dma: Move descriptors to done
+ list based on completion bit
+Message-ID: <acqcy_3Bkjkq31hs@lizhi-Precision-Tower-5810>
+References: <20260313062533.421249-1-srinivas.neeli@amd.com>
+ <20260313062533.421249-3-srinivas.neeli@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260313062533.421249-3-srinivas.neeli@amd.com>
+X-ClientProxiedBy: SA9PR13CA0135.namprd13.prod.outlook.com
+ (2603:10b6:806:27::20) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="osqTrhxoim6dqtHQ"
-Content-Disposition: inline
-In-Reply-To: <20260330102724.1012470-2-minachou@andestech.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|DB9PR04MB9819:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca1ffc63-53ec-49b5-a7ba-08de8e74b1cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|52116014|7416014|1800799024|19092799006|56012099003|18002099003|22082099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	UGxG5RDbIKIRpOLEJQm2wHhux2skVcrcX5hsXbsHtT+3CqGloDyC9I0FBBfghSBFGSTA8cRGwEXVRqtkTZe9u59L7nafjQ8oEDkuF/ooBamUmJ08l2BGrRWITAHAeSmErYp4dd7o7YuIznRtI34aQLxwFLsMezmjB2L5cMgoniQscm+RkWANB7Kfqx8tfKIZ3JKXy7vWTJGgBIBH70qIu532yVvKyyepQHwPVTsdwdDOYBu/PrhlbYmG8CUyOuVmZN4scuetFKscWqaOBwU0CeTM00bWJb/1mzCe3LRg0VvGSo+aNVmEXe0+lZOGmqgcDDGfIaiKrEKyhjJVnDfqPkgj3jQvjRF7kG+hWdCuGJhQMmm8ZI+Ww1YfrQG3nb/f1y5xeGyQ7kjZdtGksd20DBu+WPZyZBPGQhGi/CZDzjxsIhEbCPV8N9jPRGqC81NW7psq8kXLMEjF0VYewsoe07rQKfYPNtAHLp8GVq/M+TyfrlhwMZ3Exmhx5cKquOF/IfJvtxg7LdUVvQlMgN5ng1Fzrw5SnoeLycj593kOZIz/snyZ5HykXGQ7TvVF9BajlNFptk5TSq4BRUAShhtJUVq05TbXlJlTL3FbghqoSAl357dt4x3atI//6kOH3A2KX794Qopw7elvmt/zTLcmsUZR5HzPFEZrZcKTkUUOUWC10DEPgf+samocpK4vf1a9CB1YuD+wJUHbO1oueTr7b11FGcVPHLAw/H8yUoseSvMgsFCgTe3NUA6poltgZcyHtNjkEwq7ycTiBCWvVdvbdRryQPaJuMZ9bGyrEaiYNqo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(52116014)(7416014)(1800799024)(19092799006)(56012099003)(18002099003)(22082099003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ZZq4Z6QnQg4nZ98k7tkGl7wB+aL1MgH9hUv0Hkv9VRaocHdi3uYPeJv86onJ?=
+ =?us-ascii?Q?SPqvWtSIiKhcbWkConw2hRjno/XKOb06HIG1QwogmWOLDfxaeWSlIoMy6xGP?=
+ =?us-ascii?Q?N/E6C14hWOSpJPLGtu6KLl9h5/xk1f7++awHOSmoClNtHTNkzbxv8DqXsUq9?=
+ =?us-ascii?Q?awP5kQtXt7K3l31xZecgsm915m93V7ghq1kt9UPHPYmUM8YWElemLf9d7j9o?=
+ =?us-ascii?Q?1yOZR1qwDzWbdy1P1tn2ZIUblC+xOk7U//fwBWgUztLIhjTIlviciwnP8x+Z?=
+ =?us-ascii?Q?ZFGvnM6b031BvwXpegF2Nn28XJZbP+2dXX9XAP+CIDpvUFdh7bgBO8h5L6sJ?=
+ =?us-ascii?Q?b8DEJThAlcOHSvEa5F+siulCHOHrt8AylLy9RFIpqK24L9b47Z56YN0Vfyj6?=
+ =?us-ascii?Q?XcO5UuobaSUE4LR7UDdB1AkJS6M9jU6A2deAhdHkGoE/J15HJNNVD4aLMxMH?=
+ =?us-ascii?Q?B2JNaNL2z8kRx7eXcYVXS+OhSjsthZwvZemWQdzj8QcVmkfeqTaIGCi8RtOO?=
+ =?us-ascii?Q?OchuTLh4CdlhxsgiCGDvMlAdU3tqcwGUu7/G3AH2bsGAawNNTHuvE7rPSc6O?=
+ =?us-ascii?Q?dhB+K+oXhUt5AIDblEsZNTh8j2m4aXNjf24SWQumzv2ZzfxbkAWBHnZ1sgYt?=
+ =?us-ascii?Q?8ZnqJaoWPf2asqbZWYPgAa1V90wj93/sE3gybx2a751FCYlTsCocOBB3w+M/?=
+ =?us-ascii?Q?TPSPd8ZpR50Yl/5TACjL+lVB7gW06BM31N0+oVjNcH8y5+iaasj890i1sQTc?=
+ =?us-ascii?Q?//trZahG4GsZda9cjWihVfPxcHGjNgFHRe5oVyTcDp8wulCko6G2JUBbLzRn?=
+ =?us-ascii?Q?oqwzzi52785ZBurvWAvteyBTNiopjCsDv3LYxeAhvKOCQFpb5nAd7NAAZB6y?=
+ =?us-ascii?Q?QHES4dvbsO8c9B2RUxiG0/A52n/OGYTAhbY6xyUvexkV8JW2xV4OXJf5zF9w?=
+ =?us-ascii?Q?Y9Hg6NZa++G1J0sXJjaXX4Hf2u6wIcvYSl6YGOdxkwoTdZdwSKx8utDPi/8H?=
+ =?us-ascii?Q?Lr7QcqozdKofO7Sf+QZkXb1Iz035HWy4flR4mUsbEIECQJ7JdfNQaQHeT9xi?=
+ =?us-ascii?Q?H2u7ylayqhyO3jomeUxNoVHgEz21ILByrB0atdV6KocZwKLvLjtk0DLeS2Q7?=
+ =?us-ascii?Q?aaY7+RpPkRPrp6p+3YRdWFvMcbxQ88y59bPdMGGf8zoZjsUV7txT8WXq0dds?=
+ =?us-ascii?Q?Ks9ddUTvlGH91A2JW4nTJDKXIpeHVrqz8uP/gntU1zMDCszY9OfHIwUDNye3?=
+ =?us-ascii?Q?fJEg0z8+Xnmfe/y0YfbBO6srRe1Wru+cL/H/nmmAKPW0sVq5ajyl5UqFQTy6?=
+ =?us-ascii?Q?ywJ54M/rKBs08ejgk8HORGl3n5LmohW2CQeM9WTpCBdN0XcfGt7VcW1Uo3PJ?=
+ =?us-ascii?Q?OoZM8odXHCah30nGeHiF4B7Tptxqn9Lxv/RJOn262Cit2nCwrUjqMCCe6g7f?=
+ =?us-ascii?Q?S3P2rhfY1dUjyasUKo0DegiaMeQ1BcObf5pY3gypq3FPCadEkDzNmYj7g1FZ?=
+ =?us-ascii?Q?aDTCJB+0hnsiZIzbjUDIu4m5m3gVKn5ahF513diOD9n9RR/MePjmiwXgngS0?=
+ =?us-ascii?Q?yYZWWAQwriWok5wBMnRHaDfHkE84xd/Ub1WjT7rmLdBWKAxKykgLmJ5sGw68?=
+ =?us-ascii?Q?nZA9PDEa82p33k6YfQr5N02TRSPf2hbkLU76huSzUHqFHxjVV6Upy0qh961Y?=
+ =?us-ascii?Q?IUuuhy34pzZWEU4YibzMB1GI+LzzVyQ+aUGfVLHHcI6wBl0lcL0KolGlJ6Zv?=
+ =?us-ascii?Q?L56jJLU4LA=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca1ffc63-53ec-49b5-a7ba-08de8e74b1cf
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 15:54:58.5481
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cI1fRzCuk/SC9Drcs1wuidZS0hgaY2zgPozCfruFL6PCqvs28742FVWZMjr6c0xjBGQPBK6LBWTjgEnFJUk7WA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9819
 
+On Fri, Mar 13, 2026 at 11:55:30AM +0530, Srinivas Neeli wrote:
+> In AXIMCDMA scatter-gather mode, the hardware sets the completion bit when
+> a transfer finishes. The driver now checks this bit to free descriptors
+> from the active list and move them to the done list.
 
---osqTrhxoim6dqtHQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Add check complete bit because irq may be triggered before a configured
+threshold is reached when interrupt delay timeout Dly_IrqEn is enabled.
 
-On Mon, Mar 30, 2026 at 06:27:18PM +0800, Hui Min Mina Chou wrote:
-> Andes cache driver is not only usable with the AX45MP CPU but can also be
-> applied to other CPU within Andes platform (such as A27L2).
-> To improve maintainability and support future SoCs, this patch performs a
-> comprehensive refactoring to move away from model-specific naming.
->=20
-> key changes include:
->  - replaced AX45MP-specific Kconfig and function names with generic "ANDE=
-S"
->    prefixes to support multiple CPU types
->  - updated all L2-related identifiers, structs, and prefixes to "LLC"
->    to accurately reflect its role as the system's last-level cache
->  - moved UCCTL* CSR definitions to <linux/soc/andes/csr.h>
+Frank
 
-Why? There's no user outside of the driver.
-
->  - standardized L1D and LLC macro prefixes (ANDES_L1D_* and ANDES_LLC_*)
->    for better clarity
->  - renamed compatible strings from ax45mp-cache to generic llcache
->  - rename ax45mp_cache.c to andes_llcache.c
-
-This patch is, quite frankly, unreviewable. There's various additions
-and changes hidden in here alongside renames. Every bullet point here
-should be a patch, and then maybe I see some of them as trivial and
-squash them, but what's here is just too annoying to spot what is a
-rename and what is a snuck-in change.
-
->=20
-> This is a structural refactoring; no functional behavior is changed.
-
-You broke all users by removing a compatible, so this is clearly false.
-
->=20
-> Signed-off-by: charles <dminus@andestech.com>
-> Signed-off-by: Hui Min Mina Chou <minachou@andestech.com>
-
-All patches in this series that have more than one signoff have a
-problem. You're the last signoff and the author, what did any of these
-other people do? Were they the real authors and authorship is screwed
-up? Or should these people have Co-developed-by tags?
-
-Thanks,
-Conor.
-
+> This is required when interrupt delay timeout Dly_IrqEn is enabled,
+> as interrupts may be triggered before the configured threshold is reached,
+> even if not all descriptors have completed.
+>
+> Signed-off-by: Srinivas Neeli <srinivas.neeli@amd.com>
 > ---
->  arch/riscv/Kconfig.errata     |   2 +-
->  drivers/cache/Kconfig         |   6 +-
->  drivers/cache/Makefile        |   2 +-
->  drivers/cache/andes_llcache.c | 224 ++++++++++++++++++++++++++++++++++
->  drivers/cache/ax45mp_cache.c  | 217 --------------------------------
->  drivers/soc/renesas/Kconfig   |   2 +-
->  include/linux/soc/andes//Rcsr.h |  12 ++
->  7 files changed, 242 insertions(+), 223 deletions(-)
->  create mode 100644 drivers/cache/andes_llcache.c
->  delete mode 100644 drivers/cache/ax45mp_cache.c
->  create mode 100644 include/linux/soc/andes/csr.h
->=20
-> diff --git a/arch/riscv/Kconfig.errata b/arch/riscv/Kconfig.errata
-> index 3c945d086c7d..e32f1563ce3a 100644
-> --- a/arch/riscv/Kconfig.errata
-> +++ b/arch/riscv/Kconfig.errata
-> @@ -1,7 +1,7 @@
->  menu "CPU errata selection"
-> =20
->  config ERRATA_ANDES
-> -	bool "Andes AX45MP errata"
-> +	bool "Andes errata"
->  	depends on RISCV_ALTERNATIVE && RISCV_SBI
->  	help
->  	  All Andes errata Kconfig depend on this Kconfig. Disabling
-> diff --git a/drivers/cache/Kconfig b/drivers/cache/Kconfig
-> index 1518449d47b5..78142189f45c 100644
-> --- a/drivers/cache/Kconfig
-> +++ b/drivers/cache/Kconfig
-> @@ -10,11 +10,11 @@ menuconfig CACHEMAINT_FOR_DMA
-> =20
->  if CACHEMAINT_FOR_DMA
-> =20
-> -config AX45MP_L2_CACHE
-> -	bool "Andes Technology AX45MP L2 Cache controller"
-> +config ANDES_CACHE
-> +	bool "Andes platform CPUs Cache controller"
->  	select RISCV_NONSTANDARD_CACHE_OPS
->  	help
-> -	  Support for the L2 cache controller on Andes Technology AX45MP platfo=
-rms.
-> +	  Support for the L1 and LLC (last level cache) controller on Andes pla=
-tform CPUs.
-> =20
->  config SIFIVE_CCACHE
->  	bool "Sifive Composable Cache controller"
-> diff --git a/drivers/cache/Makefile b/drivers/cache/Makefile
-> index b3362b15d6c1..4a218ad6cec0 100644
-> --- a/drivers/cache/Makefile
-> +++ b/drivers/cache/Makefile
-> @@ -1,6 +1,6 @@
->  # SPDX-License-Identifier: GPL-2.0
-> =20
-> -obj-$(CONFIG_AX45MP_L2_CACHE)		+=3D ax45mp_cache.o
-> +obj-$(CONFIG_ANDES_CACHE)		+=3D andes_llcache.o
->  obj-$(CONFIG_SIFIVE_CCACHE)		+=3D sifive_ccache.o
->  obj-$(CONFIG_STARFIVE_STARLINK_CACHE)	+=3D starfive_starlink_cache.o
-> =20
-> diff --git a/drivers/cache/andes_llcache.c b/drivers/cache/andes_llcache.c
-> new file mode 100644
-> index 000000000000..d5e382f3c801
-> --- /dev/null
-> +++ b/drivers/cache/andes_llcache.c
-> @@ -0,0 +1,224 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * non-coherent cache operations for Andes Platform CPUs.
-> + *
-> + * Copyright (C) 2023 Renesas Electronics Corp.
-> + */
+>  drivers/dma/xilinx/xilinx_dma.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>
+> diff --git a/drivers/dma/xilinx/xilinx_dma.c b/drivers/dma/xilinx/xilinx_dma.c
+> index 4a83492f2435..00200b4c2372 100644
+> --- a/drivers/dma/xilinx/xilinx_dma.c
+> +++ b/drivers/dma/xilinx/xilinx_dma.c
+> @@ -1762,6 +1762,18 @@ static void xilinx_dma_complete_descriptor(struct xilinx_dma_chan *chan)
+>  					      struct xilinx_axidma_tx_segment, node);
+>  			if (!(seg->hw.status & XILINX_DMA_BD_COMP_MASK) && chan->has_sg)
+>  				break;
+> +		} else if (chan->xdev->dma_config->dmatype == XDMA_TYPE_AXIMCDMA) {
+> +			struct xilinx_aximcdma_tx_segment *seg;
+> +			bool completed;
 > +
-> +#include <linux/cacheflush.h>
-> +#include <linux/cacheinfo.h>
-> +#include <linux/dma-direction.h>
-> +#include <linux/of_address.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/soc/andes/csr.h>
-> +
-> +#include <asm/dma-noncoherent.h>
-> +
-> +/* L1 D-cache operation encoding */
-> +#define ANDES_L1D_CCTL_VA_INVAL			0x0	/* Invalidate an L1D cacheline */
-> +#define ANDES_L1D_CCTL_VA_WB			0x1	/* Write-back an L1D cacheline */
-> +#define ANDES_L1D_CCTL_VA_WBINVAL		0x2	/* Flush an L1D cacheline */
-> +#define ANDES_L1D_CCTL_WBINVAL_ALL		0x6	/* Flush the entire L1D cache */
-> +
-> +/* LLC registers */
-> +#define ANDES_LLC_REG_CFG_OFFSET		0x0
-> +#define ANDES_LLC_REG_CTRL_OFFSET		0x8
-> +#define ANDES_LLC_REG_ASYNC_ERR_OFFSET		0x30
-> +#define ANDES_LLC_REG_ERR_OFFSET		0x38
-> +#define ANDES_LLC_REG_CCTL_CMD_OFFSET_C0	0x40
-> +#define ANDES_LLC_REG_CCTL_ACC_OFFSET_C0	0x48
-> +#define ANDES_LLC_REG_CCTL_STATUS_OFFSET_C0	0x80
-> +
-> +/* LLC CCTL status encoding */
-> +#define ANDES_LLC_CCTL_STATUS_IDLE		0x0
-> +#define ANDES_LLC_CCTL_STATUS_RUNNING		0x1
-> +#define ANDES_LLC_CCTL_STATUS_ILLEGAL		0x2
-> +
-> +/* LLC CCTL status core 0 mask */
-> +#define ANDES_LLC_CCTL_STATUS_MASK_C0		GENMASK(3, 0)
-> +
-> +/* LLC operation encoding */
-> +#define ANDES_LLC_CCTL_PA_INVAL			0x8	/* Invalidate an LLC cacheline */
-> +#define ANDES_LLC_CCTL_PA_WB			0x9	/* Write-back an LLC cacheline */
-> +#define ANDES_LLC_CCTL_PA_WBINVAL		0xa	/* Flush an LLC cacheline */
-> +#define ANDES_LLC_CCTL_WBINVAL_ALL		0x12	/* Flush the entire LLC cache */
-> +
-> +/* LLC CCTL registers and fields by core */
-> +#define ANDES_LLC_REG_PER_CORE_OFFSET		0x10
-> +#define ANDES_CCTL_LLC_STATUS_PER_CORE_OFFSET	0x4
-> +
-> +#define ANDES_LLC_REG_CCTL_CMD_OFFSET_BY_CORE(n)	\
-> +	(ANDES_LLC_REG_CCTL_CMD_OFFSET_C0 + ((n) * ANDES_LLC_REG_PER_CORE_OFFSE=
-T))
-> +#define ANDES_LLC_REG_CCTL_ACC_OFFSET_BY_CORE(n)	\
-> +	(ANDES_LLC_REG_CCTL_ACC_OFFSET_C0 + ((n) * ANDES_LLC_REG_PER_CORE_OFFSE=
-T))
-> +#define ANDES_LLC_CCTL_STATUS_MASK_BY_CORE(n)	\
-> +	(ANDES_LLC_CCTL_STATUS_MASK_C0 << ((n) * ANDES_CCTL_LLC_STATUS_PER_CORE=
-_OFFSET))
-> +
-> +#define ANDES_CACHE_LINE_SIZE			64
-> +
-> +struct andes_priv {
-> +	void __iomem *llc_base;
-> +	u32 andes_cache_line_size;
-> +};
-> +
-> +static struct andes_priv andes_priv;
-> +
-> +/* LLC operations */
-> +static inline uint32_t andes_cpu_llc_get_cctl_status(void)
-> +{
-> +	return readl(andes_priv.llc_base + ANDES_LLC_REG_CCTL_STATUS_OFFSET_C0);
-> +}
-> +
-> +static void andes_cpu_cache_operation(unsigned long start, unsigned long=
- end,
-> +				       unsigned int l1_op, unsigned int llc_op)
-> +{
-> +	unsigned long line_size =3D andes_priv.andes_cache_line_size;
-> +	void __iomem *base =3D andes_priv.llc_base;
-> +	int mhartid =3D smp_processor_id();
-> +	unsigned long pa;
-> +
-> +	while (end > start) {
-> +		csr_write(CSR_UCCTLBEGINADDR, start);
-> +		csr_write(CSR_UCCTLCOMMAND, l1_op);
-> +
-> +		pa =3D virt_to_phys((void *)start);
-> +		writel(pa, base + ANDES_LLC_REG_CCTL_ACC_OFFSET_BY_CORE(mhartid));
-> +		writel(llc_op, base + ANDES_LLC_REG_CCTL_CMD_OFFSET_BY_CORE(mhartid));
-> +		while ((andes_cpu_llc_get_cctl_status() &
-> +			ANDES_LLC_CCTL_STATUS_MASK_BY_CORE(mhartid)) !=3D
-> +			ANDES_LLC_CCTL_STATUS_IDLE)
-> +			;
-> +
-> +		start +=3D line_size;
-> +	}
-> +}
-> +
-> +/* Write-back L1 and LLC entry */
-> +static inline void andes_cpu_dcache_wb_range(unsigned long start, unsign=
-ed long end)
-> +{
-> +	andes_cpu_cache_operation(start, end, ANDES_L1D_CCTL_VA_WB,
-> +				   ANDES_LLC_CCTL_PA_WB);
-> +}
-> +
-> +/* Invalidate the L1 and LLC entry */
-> +static inline void andes_cpu_dcache_inval_range(unsigned long start, uns=
-igned long end)
-> +{
-> +	andes_cpu_cache_operation(start, end, ANDES_L1D_CCTL_VA_INVAL,
-> +				   ANDES_LLC_CCTL_PA_INVAL);
-> +}
-> +
-> +static void andes_dma_cache_inv(phys_addr_t paddr, size_t size)
-> +{
-> +	unsigned long start =3D (unsigned long)phys_to_virt(paddr);
-> +	unsigned long end =3D start + size;
-> +	unsigned long line_size;
-> +	unsigned long flags;
-> +
-> +	if (unlikely(start =3D=3D end))
-> +		return;
-> +
-> +	line_size =3D andes_priv.andes_cache_line_size;
-> +
-> +	start =3D start & (~(line_size - 1));
-> +	end =3D ((end + line_size - 1) & (~(line_size - 1)));
-> +
-> +	local_irq_save(flags);
-> +
-> +	andes_cpu_dcache_inval_range(start, end);
-> +
-> +	local_irq_restore(flags);
-> +}
-> +
-> +static void andes_dma_cache_wback(phys_addr_t paddr, size_t size)
-> +{
-> +	unsigned long start =3D (unsigned long)phys_to_virt(paddr);
-> +	unsigned long end =3D start + size;
-> +	unsigned long line_size;
-> +	unsigned long flags;
-> +
-> +	if (unlikely(start =3D=3D end))
-> +		return;
-> +
-> +	line_size =3D andes_priv.andes_cache_line_size;
-> +	start =3D start & (~(line_size - 1));
-> +	end =3D ((end + line_size - 1) & (~(line_size - 1)));
-> +	local_irq_save(flags);
-> +	andes_cpu_dcache_wb_range(start, end);
-> +	local_irq_restore(flags);
-> +}
-> +
-> +static void andes_dma_cache_wback_inv(phys_addr_t paddr, size_t size)
-> +{
-> +	andes_dma_cache_wback(paddr, size);
-> +	andes_dma_cache_inv(paddr, size);
-> +}
-> +
-> +static int andes_get_llc_line_size(struct device_node *np)
-> +{
-> +	int ret;
-> +
-> +	ret =3D of_property_read_u32(np, "cache-line-size", &andes_priv.andes_c=
-ache_line_size);
-> +	if (ret) {
-> +		pr_err("Failed to get cache-line-size, defaulting to 64 bytes\n");
-> +		return ret;
-> +	}
-> +
-> +	if (andes_priv.andes_cache_line_size !=3D ANDES_CACHE_LINE_SIZE) {
-> +		pr_err("Expected cache-line-size to be 64 bytes (found:%u)\n",
-> +		       andes_priv.andes_cache_line_size);
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct riscv_nonstd_cache_ops andes_cmo_ops __initconst =3D=
- {
-> +	.wback =3D &andes_dma_cache_wback,
-> +	.inv =3D &andes_dma_cache_inv,
-> +	.wback_inv =3D &andes_dma_cache_wback_inv,
-> +};
-> +
-> +static const struct of_device_id andes_cache_ids[] =3D {
-> +	{ .compatible =3D "andestech,llcache" },
-> +	{ /* sentinel */ }
-> +};
-> +
-> +static int __init andes_cache_init(void)
-> +{
-> +	struct resource res;
-> +	int ret;
-> +
-> +	struct device_node *np __free(device_node) =3D
-> +		of_find_matching_node(NULL, andes_cache_ids);
-> +	if (!of_device_is_available(np))
-> +		return -ENODEV;
-> +
-> +	ret =3D of_address_to_resource(np, 0, &res);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * If IOCP is present on the Andes AX45MP core riscv_cbom_block_size
-> +	 * will be 0 for sure, so we can definitely rely on it. If
-> +	 * riscv_cbom_block_size =3D 0 we don't need to handle CMO using SW any
-> +	 * more so we just return success here and only if its being set we
-> +	 * continue further in the probe path.
-> +	 */
-> +	if (!riscv_cbom_block_size)
-> +		return 0;
-> +
-> +	andes_priv.llc_base =3D ioremap(res.start, resource_size(&res));
-> +	if (!andes_priv.llc_base)
-> +		return -ENOMEM;
-> +
-> +	ret =3D andes_get_llc_line_size(np);
-> +	if (ret) {
-> +		iounmap(andes_priv.llc_base);
-> +		return ret;
-> +	}
-> +
-> +	riscv_noncoherent_register_cache_ops(&andes_cmo_ops);
-> +
-> +	return 0;
-> +}
-> +early_initcall(andes_cache_init);
-> diff --git a/drivers/cache/ax45mp_cache.c b/drivers/cache/ax45mp_cache.c
-> deleted file mode 100644
-> index 934c5087ec2b..000000000000
-> --- a/drivers/cache/ax45mp_cache.c
-> +++ /dev/null
-> @@ -1,217 +0,0 @@
-> -// SPDX-License-Identifier: GPL-2.0
-> -/*
-> - * non-coherent cache functions for Andes AX45MP
-> - *
-> - * Copyright (C) 2023 Renesas Electronics Corp.
-> - */
-> -
-> -#include <linux/cacheflush.h>
-> -#include <linux/cacheinfo.h>
-> -#include <linux/dma-direction.h>
-> -#include <linux/of_address.h>
-> -#include <linux/of_platform.h>
-> -
-> -#include <asm/dma-noncoherent.h>
-> -
-> -/* L2 cache registers */
-> -#define AX45MP_L2C_REG_CTL_OFFSET		0x8
-> -
-> -#define AX45MP_L2C_REG_C0_CMD_OFFSET		0x40
-> -#define AX45MP_L2C_REG_C0_ACC_OFFSET		0x48
-> -#define AX45MP_L2C_REG_STATUS_OFFSET		0x80
-> -
-> -/* D-cache operation */
-> -#define AX45MP_CCTL_L1D_VA_INVAL		0 /* Invalidate an L1 cache entry */
-> -#define AX45MP_CCTL_L1D_VA_WB			1 /* Write-back an L1 cache entry */
-> -
-> -/* L2 CCTL status */
-> -#define AX45MP_CCTL_L2_STATUS_IDLE		0
-> -
-> -/* L2 CCTL status cores mask */
-> -#define AX45MP_CCTL_L2_STATUS_C0_MASK		0xf
-> -
-> -/* L2 cache operation */
-> -#define AX45MP_CCTL_L2_PA_INVAL			0x8 /* Invalidate an L2 cache entry */
-> -#define AX45MP_CCTL_L2_PA_WB			0x9 /* Write-back an L2 cache entry */
-> -
-> -#define AX45MP_L2C_REG_PER_CORE_OFFSET		0x10
-> -#define AX45MP_CCTL_L2_STATUS_PER_CORE_OFFSET	4
-> -
-> -#define AX45MP_L2C_REG_CN_CMD_OFFSET(n)	\
-> -	(AX45MP_L2C_REG_C0_CMD_OFFSET + ((n) * AX45MP_L2C_REG_PER_CORE_OFFSET))
-> -#define AX45MP_L2C_REG_CN_ACC_OFFSET(n)	\
-> -	(AX45MP_L2C_REG_C0_ACC_OFFSET + ((n) * AX45MP_L2C_REG_PER_CORE_OFFSET))
-> -#define AX45MP_CCTL_L2_STATUS_CN_MASK(n)	\
-> -	(AX45MP_CCTL_L2_STATUS_C0_MASK << ((n) * AX45MP_CCTL_L2_STATUS_PER_CORE=
-_OFFSET))
-> -
-> -#define AX45MP_CCTL_REG_UCCTLBEGINADDR_NUM	0x80b
-> -#define AX45MP_CCTL_REG_UCCTLCOMMAND_NUM	0x80c
-> -
-> -#define AX45MP_CACHE_LINE_SIZE			64
-> -
-> -struct ax45mp_priv {
-> -	void __iomem *l2c_base;
-> -	u32 ax45mp_cache_line_size;
-> -};
-> -
-> -static struct ax45mp_priv ax45mp_priv;
-> -
-> -/* L2 Cache operations */
-> -static inline uint32_t ax45mp_cpu_l2c_get_cctl_status(void)
-> -{
-> -	return readl(ax45mp_priv.l2c_base + AX45MP_L2C_REG_STATUS_OFFSET);
-> -}
-> -
-> -static void ax45mp_cpu_cache_operation(unsigned long start, unsigned lon=
-g end,
-> -				       unsigned int l1_op, unsigned int l2_op)
-> -{
-> -	unsigned long line_size =3D ax45mp_priv.ax45mp_cache_line_size;
-> -	void __iomem *base =3D ax45mp_priv.l2c_base;
-> -	int mhartid =3D smp_processor_id();
-> -	unsigned long pa;
-> -
-> -	while (end > start) {
-> -		csr_write(AX45MP_CCTL_REG_UCCTLBEGINADDR_NUM, start);
-> -		csr_write(AX45MP_CCTL_REG_UCCTLCOMMAND_NUM, l1_op);
-> -
-> -		pa =3D virt_to_phys((void *)start);
-> -		writel(pa, base + AX45MP_L2C_REG_CN_ACC_OFFSET(mhartid));
-> -		writel(l2_op, base + AX45MP_L2C_REG_CN_CMD_OFFSET(mhartid));
-> -		while ((ax45mp_cpu_l2c_get_cctl_status() &
-> -			AX45MP_CCTL_L2_STATUS_CN_MASK(mhartid)) !=3D
-> -			AX45MP_CCTL_L2_STATUS_IDLE)
-> -			;
-> -
-> -		start +=3D line_size;
-> -	}
-> -}
-> -
-> -/* Write-back L1 and L2 cache entry */
-> -static inline void ax45mp_cpu_dcache_wb_range(unsigned long start, unsig=
-ned long end)
-> -{
-> -	ax45mp_cpu_cache_operation(start, end, AX45MP_CCTL_L1D_VA_WB,
-> -				   AX45MP_CCTL_L2_PA_WB);
-> -}
-> -
-> -/* Invalidate the L1 and L2 cache entry */
-> -static inline void ax45mp_cpu_dcache_inval_range(unsigned long start, un=
-signed long end)
-> -{
-> -	ax45mp_cpu_cache_operation(start, end, AX45MP_CCTL_L1D_VA_INVAL,
-> -				   AX45MP_CCTL_L2_PA_INVAL);
-> -}
-> -
-> -static void ax45mp_dma_cache_inv(phys_addr_t paddr, size_t size)
-> -{
-> -	unsigned long start =3D (unsigned long)phys_to_virt(paddr);
-> -	unsigned long end =3D start + size;
-> -	unsigned long line_size;
-> -	unsigned long flags;
-> -
-> -	if (unlikely(start =3D=3D end))
-> -		return;
-> -
-> -	line_size =3D ax45mp_priv.ax45mp_cache_line_size;
-> -
-> -	start =3D start & (~(line_size - 1));
-> -	end =3D ((end + line_size - 1) & (~(line_size - 1)));
-> -
-> -	local_irq_save(flags);
-> -
-> -	ax45mp_cpu_dcache_inval_range(start, end);
-> -
-> -	local_irq_restore(flags);
-> -}
-> -
-> -static void ax45mp_dma_cache_wback(phys_addr_t paddr, size_t size)
-> -{
-> -	unsigned long start =3D (unsigned long)phys_to_virt(paddr);
-> -	unsigned long end =3D start + size;
-> -	unsigned long line_size;
-> -	unsigned long flags;
-> -
-> -	if (unlikely(start =3D=3D end))
-> -		return;
-> -
-> -	line_size =3D ax45mp_priv.ax45mp_cache_line_size;
-> -	start =3D start & (~(line_size - 1));
-> -	end =3D ((end + line_size - 1) & (~(line_size - 1)));
-> -	local_irq_save(flags);
-> -	ax45mp_cpu_dcache_wb_range(start, end);
-> -	local_irq_restore(flags);
-> -}
-> -
-> -static void ax45mp_dma_cache_wback_inv(phys_addr_t paddr, size_t size)
-> -{
-> -	ax45mp_dma_cache_wback(paddr, size);
-> -	ax45mp_dma_cache_inv(paddr, size);
-> -}
-> -
-> -static int ax45mp_get_l2_line_size(struct device_node *np)
-> -{
-> -	int ret;
-> -
-> -	ret =3D of_property_read_u32(np, "cache-line-size", &ax45mp_priv.ax45mp=
-_cache_line_size);
-> -	if (ret) {
-> -		pr_err("Failed to get cache-line-size, defaulting to 64 bytes\n");
-> -		return ret;
-> -	}
-> -
-> -	if (ax45mp_priv.ax45mp_cache_line_size !=3D AX45MP_CACHE_LINE_SIZE) {
-> -		pr_err("Expected cache-line-size to be 64 bytes (found:%u)\n",
-> -		       ax45mp_priv.ax45mp_cache_line_size);
-> -		return -EINVAL;
-> -	}
-> -
-> -	return 0;
-> -}
-> -
-> -static const struct riscv_nonstd_cache_ops ax45mp_cmo_ops __initdata =3D=
- {
-> -	.wback =3D &ax45mp_dma_cache_wback,
-> -	.inv =3D &ax45mp_dma_cache_inv,
-> -	.wback_inv =3D &ax45mp_dma_cache_wback_inv,
-> -};
-> -
-> -static const struct of_device_id ax45mp_cache_ids[] =3D {
-> -	{ .compatible =3D "andestech,ax45mp-cache" },
-> -	{ /* sentinel */ }
-> -};
-> -
-> -static int __init ax45mp_cache_init(void)
-> -{
-> -	struct resource res;
-> -	int ret;
-> -
-> -	struct device_node *np __free(device_node) =3D
-> -		of_find_matching_node(NULL, ax45mp_cache_ids);
-> -	if (!of_device_is_available(np))
-> -		return -ENODEV;
-> -
-> -	ret =3D of_address_to_resource(np, 0, &res);
-> -	if (ret)
-> -		return ret;
-> -
-> -	/*
-> -	 * If IOCP is present on the Andes AX45MP core riscv_cbom_block_size
-> -	 * will be 0 for sure, so we can definitely rely on it. If
-> -	 * riscv_cbom_block_size =3D 0 we don't need to handle CMO using SW any
-> -	 * more so we just return success here and only if its being set we
-> -	 * continue further in the probe path.
-> -	 */
-> -	if (!riscv_cbom_block_size)
-> -		return 0;
-> -
-> -	ax45mp_priv.l2c_base =3D ioremap(res.start, resource_size(&res));
-> -	if (!ax45mp_priv.l2c_base)
-> -		return -ENOMEM;
-> -
-> -	ret =3D ax45mp_get_l2_line_size(np);
-> -	if (ret) {
-> -		iounmap(ax45mp_priv.l2c_base);
-> -		return ret;
-> -	}
-> -
-> -	riscv_noncoherent_register_cache_ops(&ax45mp_cmo_ops);
-> -
-> -	return 0;
-> -}
-> -early_initcall(ax45mp_cache_init);
-> diff --git a/drivers/soc/renesas/Kconfig b/drivers/soc/renesas/Kconfig
-> index 1e50dc7c31cd..e0319c8236ee 100644
-> --- a/drivers/soc/renesas/Kconfig
-> +++ b/drivers/soc/renesas/Kconfig
-> @@ -447,7 +447,7 @@ config ARCH_R9A07G043
->  	depends on !RISCV_ISA_ZICBOM
->  	depends on RISCV_SBI
->  	select ARCH_RZG2L
-> -	select AX45MP_L2_CACHE
-> +	select ANDES_CACHE
->  	select CACHEMAINT_FOR_DMA
->  	select DMA_GLOBAL_POOL
->  	select ERRATA_ANDES
-> diff --git a/include/linux/soc/andes/csr.h b/include/linux/soc/andes/csr.h
-> new file mode 100644
-> index 000000000000..3214b4b08a46
-> --- /dev/null
-> +++ b/include/linux/soc/andes/csr.h
-> @@ -0,0 +1,12 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (C) 2026 Andes Technology Corporation.
-> + */
-> +#ifndef __LINUX_SOC_ANDES_CSR_H
-> +#define __LINUX_SOC_ANDES_CSR_H
-> +
-> +/* User mode control registers */
-> +#define CSR_UCCTLBEGINADDR		0x80b
-> +#define CSR_UCCTLCOMMAND		0x80c
-> +
-> +#endif /* !__LINUX_SOC_ANDES_CSR_H */
-> --=20
-> 2.34.1
->=20
-
---osqTrhxoim6dqtHQ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacqctwAKCRB4tDGHoIJi
-0jK+AQDEJoJcGfPtyNLX4dff7WLg01r05Af+KzfErTAJYThi2gD+MimPKkH15ET9
-vNGV13P5WYZtO4GgbkmYP5WF/jqj9ws=
-=pAAF
------END PGP SIGNATURE-----
-
---osqTrhxoim6dqtHQ--
+> +			seg = list_last_entry(&desc->segments,
+> +					      struct xilinx_aximcdma_tx_segment,
+> +					      node);
+> +			completed = (chan->direction == DMA_DEV_TO_MEM) ?
+> +				(seg->hw.s2mm_status & XILINX_DMA_BD_COMP_MASK) :
+> +				(seg->hw.mm2s_status & XILINX_DMA_BD_COMP_MASK);
+> +			if (!completed)
+> +				break;
+>  		}
+>  		if (chan->has_sg && chan->xdev->dma_config->dmatype !=
+>  		    XDMA_TYPE_VDMA)
+> --
+> 2.43.0
+>
