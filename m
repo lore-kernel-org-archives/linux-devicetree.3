@@ -1,751 +1,186 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F243939BC
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 18:41:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBCA3DEAC0
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 18:42:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774896068; cv=none; b=CMSIDIOd7rng3pMz6s435ck+N87vStvzTWw3MzkdJSLKkKY1EsCj2r0wDUc1Za8IuB2jgNi4N8XwCX+5r14FnYG57ArkgHup8Lt656zes6vAmctHavrhfI5WUD8o9wcz7CnCNBscgzSQyOQSbGCP34W9EYru+hmDcQ4Ni49s1ec=
+	t=1774896151; cv=none; b=lrtmW3pSMEzrxbJ6M78D7S7g8LBlxRaqcqqY14S6W2FuSC4qNyeNg1GdEq7TxKF7M2gmvpocgiUvZz47EFIjDva/7IjNtsCfIKao14hJeGdWPIZVN38nKTM1JyLV7Qei3kN5OT1LPVaeziTd5ztqvdhAKysQMdtATr91SrRzQkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774896068; c=relaxed/simple;
-	bh=guseq6WvjUF1UVvlpojuz6HyDsb1e/wQxKO4qy9gxls=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IAhGYC1CtD3ncV2hlAKYoFuaydcm3ueiFoVCi9RTuakI9AlSu1spqJAuBxwryBy71He/NXalgvbZEqo7Y7U+IvteqsQbvcKQdPnrZ7Qbgc9+zH/vVvjrK7vlYMQ4kGX+w2OO0Eq6ZDXxXg95tuFdZpD7FQ/Lc7MajUZFJnxEu7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com; spf=pass smtp.mailfrom=tinyisr.com; dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b=U5iXRPJb; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=sBjXEm3N; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tinyisr.com
+	s=arc-20240116; t=1774896151; c=relaxed/simple;
+	bh=wEZylc/vOUG+ypTEQXA2Jh1x+qldW7FIOT9m9zc3voQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kWHC7ViC8RDin+dxdIHu7X44Pd4USFpg1jMJ2PVjbONOmyOOi/Q6dKvki2mSnXq2hRRKc+Kc7h3JPLCu4g/X57VsXcLJWbrVtWr+rmyBOiiFzwulQzORU1wX0HFH/c6vCK8Z241pmW5cTURI404Dxvr7F/ulQ7/Kf8saGO4kY88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Lg4mFrYV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=e6DGPs4H; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b="U5iXRPJb";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="sBjXEm3N"
-Authentication-Results: purelymail.com; auth=pass
-DKIM-Signature: a=rsa-sha256; b=U5iXRPJbRx9nm+gTmLyY9BKMeV3yF+oqEgI1UARjsI5KZ+knIIjtRQIMjOhY3A0xn4dQXhgmWyZpeOencwPXw1vJZPO5NVWaxP2+rOMRPYsPZW8QdE7fxcDFH6L0zGD6o7vfDLiSicQM0reECsxBJFDhWPDtmvBrs/S3ojtz1kddkHg9h5Ma+2JQwITIlORFZlMbyk3DhVM0IpAkajUv/L31Rf9rRisvB3Bk5Htmt0qxeVKSeB9SdTCMQ5zWZup8s3Ol7rbP8fc1O85s2WBmHcbfirsvPYDSxfeCuiyZ/vrwD8qKTOMXXgJ8JJBKeqhDyoKkZAdJYzkrOd5KrQBq4Q==; s=purelymail1; d=tinyisr.com; v=1; bh=guseq6WvjUF1UVvlpojuz6HyDsb1e/wQxKO4qy9gxls=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=sBjXEm3NXt1iE3VP6QQpEOK4PNHEt3MnYiIBSlIEGmSyZ4jNV2Mok+0BaKA8tNKD8esaIs0afr/bQu5RpsJXrtZY5ZPUxYkZSuqVL6zDhQrLJ4tgqPEyxPPcjHLGFy8iH9UFvI/Q9Z/h1S0gS673DAz1lQ3uZd44sFpKXwpbTLcL6WNG5EwiN9eIBztQkuU+Un99AQiQQClR/rGOLDAo5cNvoBd8nb40vQm8ZouONExDY3Po+CIXSQ1nKeN8Lj6de/xuSLwNZIWVt+PHfK3jMIVOq1ZmxMbwzWjk+cEAJuZXi86MRlvpB6yLW6VpdQr2ZYjA/cNRp/pjP9aabScNBw==; s=purelymail1; d=purelymail.com; v=1; bh=guseq6WvjUF1UVvlpojuz6HyDsb1e/wQxKO4qy9gxls=; h=Feedback-ID:Received:From:To:Subject:Date;
-Feedback-ID: 99681:12517:null:purelymail
-X-Pm-Original-To: devicetree@vger.kernel.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1431054842;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Mon, 30 Mar 2026 18:40:44 +0000 (UTC)
-From: Joris Vaisvila <joey@tinyisr.com>
-To: netdev@vger.kernel.org
-Cc: horms@kernel.org,
-	pabeni@redhat.com,
-	kuba@kernel.org,
-	edumazet@google.com,
-	davem@davemloft.net,
-	olteanv@gmail.com,
-	Andrew Lunn <andrew@lunn.ch>,
-	devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Joris Vaisvila <joey@tinyisr.com>
-Subject: [PATCH net-next v2 4/4] net: dsa: initial support for MT7628 embedded switch
-Date: Mon, 30 Mar 2026 21:40:17 +0300
-Message-ID: <20260330184017.766200-5-joey@tinyisr.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260330184017.766200-1-joey@tinyisr.com>
-References: <20260330184017.766200-1-joey@tinyisr.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Lg4mFrYV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e6DGPs4H"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62UHAVDW4013755
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 18:42:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=tmSly2krkyEPd3C1QckzdIz2
+	IUKLQUpW62wr+IkZxLo=; b=Lg4mFrYVXlfkHbSHjzYG742sLp8Hw8PbBuqXveTw
+	o7U+tcLPv3gt3ouVf0nNtzUc+oQB2a0tDB/7h8AIW9t7DUCmi6mVGSYfMRtNTQBM
+	rlbXmLr1nN5nMQFlGGnG1LoeJBut5sP41sHthsDK6u9ugV6QfjmhQ6mJtmR2Dm1h
+	fGQV66ppZo8A4qNnaxbBHuvA3IF/IeJmiL/I+OhmESb5H9BbUFPGXGHJmme1TQbg
+	iUqA2IW8fY8zQawH9rh5/SKWVVbCcoOM26JOdG7Jzb/g1H0Ul3ZGUSt1bn2O1FWZ
+	5wv92hzXy9B8Y2T+uuw2V0bTSuVdks569KQI67RrlBxbbw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7regsr1d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 18:42:30 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5093025ffecso152407281cf.0
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 11:42:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774896149; x=1775500949; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=tmSly2krkyEPd3C1QckzdIz2IUKLQUpW62wr+IkZxLo=;
+        b=e6DGPs4HZEMZbC5/NN89qa9uEZuHPB+zd8V9jQqu43SXmswz3khvO6GnVSiExw0l44
+         GgTBC0ap1TWdYsy0Iv7nPAjQAmLEUmWZ2ekzpdyCf1pb3QU7/C0zd7pAF6Y5SLdebS13
+         aI0co537aaKfTsHzVLy1u0wzI5xqdw2EwXRQnBx+hCjYRuJWD8pNttHjgvHc6Cc/oN7l
+         iv/nNwCXRXmCwwsrvFxqyrKyLZEztHpYhlP4fkDYyjeCcIbUgjMeLB8cJyoas8TqMpvI
+         idC+vy/TkvnIpw+sWIopwqbJqNnbjopn8Tm58byXL3qjGRi0LxyKH1F+t9F5ABN7UH40
+         2YHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774896149; x=1775500949;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=tmSly2krkyEPd3C1QckzdIz2IUKLQUpW62wr+IkZxLo=;
+        b=iy9P3XT5mKbjRnY7FUyox0bTXnmxaWtxWxDuAQIvNZ64WTqJcQlVgmfbD78LMeSlJh
+         w0K9ZEzIPdCH+55ZY1mOVyRXgGhgih3LPS1sKd5O5+U8XuROl8hLaM26cgcll6wK39m2
+         T4YXfrYpFsSsigmSN5eNUg7AgCOXzz9kq0cxe6t10iH9jZBm5bRFv8cmLoyus9dkLYX0
+         8g2v97hz1u3Wcptu4zWt0LLyWwe9OR95aoMpqqmG8VeAeoavuVy84JJJHU2GvUEXDt+v
+         ESu6Fw7LDhe104/VFGnl95CcZPQMtk/FHUTeovdOF+WJlRHYU6EJo70w+GKYzFP5g7N3
+         nXTw==
+X-Forwarded-Encrypted: i=1; AJvYcCVQ/m//a4/StR9dPKUuumDv+n9Us1u3DPnOtK7s3Wh6CFjD9s/lzeMQfAXUpMyij6kcWHN5zEPnoLAA@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx36rC/A888PC3tuCWTtx5gojgMuoe+oU5h+8OaA2p2JPEGP662
+	47iul8wHrFJoCUORoHFe9SoVICZelFkVv8TdZKb9x6+vQcImxVpzMyCDF603C5yoOUWUaqatPPs
+	wN63gT/Fl3lHR1YX7QQWRS0YbxRo5DDeYAYg3Bb0ZbVQT2/UfIIQ/LnD3SCRd+G1E
+X-Gm-Gg: ATEYQzyMKeoGolIizUhLJse5v48cW84WWNaI/k1Z4ldy2HC/4QCdCWEQx+4+9YJlCpO
+	gPESfApq3k4NqPWiR8LLtI/a+vEQSM3VmUVgXLGqQBiD3CgKI+XzzUn6VgABfW+hwCEplADvAP8
+	9JM13IaWsuKGJ/qzju+7zu4pnZakytGFXsaSAFEWvVCFbgPwQy7KdxzVAnjq0KXzM96cfV+0TTw
+	HhU9MkNXrw7jwR6QJxJm9nyqMg0RL+TQBGEFwruzpDUCSO3jngqO3ZkIFTpXuXHR6/tHueyvtON
+	bThi5ktjGsPdb6JSIIuiI/N3zopZ2AFb08v5aETh2lQVVOu1wDAIWEfSnxlW0SUS9rjwyhdB1qp
+	CywKcZfHXXX7amBR51ObkMDY6Ep2gmumC7mc2ToTaLb8wvnxGyxsM28zOCbp2hDhBn9PlpwkG8J
+	u9mWlAOTPAu2AYtL5VdvbsD9fmQB7d4qxBTqQ=
+X-Received: by 2002:ac8:5914:0:b0:509:172f:bd5 with SMTP id d75a77b69052e-50ba380a2bamr194038131cf.4.1774896148931;
+        Mon, 30 Mar 2026 11:42:28 -0700 (PDT)
+X-Received: by 2002:ac8:5914:0:b0:509:172f:bd5 with SMTP id d75a77b69052e-50ba380a2bamr194037551cf.4.1774896148325;
+        Mon, 30 Mar 2026 11:42:28 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2b13f435bsm1815809e87.9.2026.03.30.11.42.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 30 Mar 2026 11:42:27 -0700 (PDT)
+Date: Mon, 30 Mar 2026 21:42:25 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Ritesh Kumar <quic_riteshk@quicinc.com>, robin.clark@oss.qualcomm.com,
+        lumag@kernel.org, abhinav.kumar@linux.dev, sean@poorly.run,
+        marijn.suijten@somainline.org, maarten.lankhorst@linux.intel.com,
+        mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+        simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, quic_mahap@quicinc.com, konradybcio@kernel.org,
+        mani@kernel.org, James.Bottomley@hansenpartnership.com,
+        martin.petersen@oracle.com, vkoul@kernel.org, kishon@kernel.org,
+        cros-qcom-dts-watchers@chromium.org, linux-phy@lists.infradead.org,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
+        quic_vproddut@quicinc.com
+Subject: Re: [PATCH v4 1/2] dt-bindings: phy: qcom-edp: Add reference clock
+ for sa8775p eDP PHY
+Message-ID: <yex4vskdbtvodzkkxbs6yxkeiz5bb3x32f5nx5qklf6oyexroq@zspg26phklt2>
+References: <20260128114853.2543416-1-quic_riteshk@quicinc.com>
+ <20260128114853.2543416-2-quic_riteshk@quicinc.com>
+ <gurq34svc5p52bqx5qwkgjmschzcbklmssjzmu2tg5wzgppkft@c6nrw2ageyp2>
+ <c77ff64f-57d1-4495-bfbd-986644aad71d@quicinc.com>
+ <acqGFwaVFQ3ZNmlR@baldur>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <acqGFwaVFQ3ZNmlR@baldur>
+X-Authority-Analysis: v=2.4 cv=G6wR0tk5 c=1 sm=1 tr=0 ts=69cac416 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=COk6AnOGAAAA:8
+ a=EUspDBNiAAAA:8 a=Ns0KfnHm5iy1vUwMj8cA:9 a=CjuIK1q_8ugA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDE1NCBTYWx0ZWRfXxihK9CfcE5bQ
+ iqwynA3r2OxWj0t9C+njXqeOlCcTu9egbO4P+oulWr2UEW3E9/cF3Lf18nC9GHsihNr6FTVfgff
+ UtxX1cNp7nbHIov2KRNVN0bVn7B3T3A63pWabzfAP6WUGkRC8m+A4CH7vmZEW9oCpMoKX39KTMn
+ YAGORj3Ow6BcjuZ5pO9BUkxVtRk/WeQ18/C68bLjSK4emaayjQ/ePV1OvayM7DPh8oSIOmTP8JC
+ bsItL9MrNIvnNDKMLBPpHuGdwnXVkDXyZDakuxGj2gyrtvHBq6749AiHWxXQfsveH6RNV9/yGwJ
+ eS5WoB9MVwwPKPB0uuvOx30uhSX8oSDJohmQP/LZ76tQxI6kJ7A3Jia6lQtWBJN4RN+W1r3JX42
+ sSaMUOzh/ya7QYJvhfG93UENlNsL+nnOmsJbrZmcxW09kScTXPx8ZEMMemaJul3Z2dQPNKZ28K7
+ BAi4LyAk1Lj6/8JfR4Q==
+X-Proofpoint-ORIG-GUID: 22939Y-nIv0HTPGoUFVTvHapm4fXk4U5
+X-Proofpoint-GUID: 22939Y-nIv0HTPGoUFVTvHapm4fXk4U5
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-30_01,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 clxscore=1015 suspectscore=0 bulkscore=0
+ malwarescore=0 adultscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300154
 
-Add support for the MT7628 embedded switch.
+On Mon, Mar 30, 2026 at 09:28:40AM -0500, Bjorn Andersson wrote:
+> On Wed, Mar 11, 2026 at 06:37:31PM +0530, Ritesh Kumar wrote:
+> > 
+> > On 3/5/2026 12:27 AM, Bjorn Andersson wrote:
+> > > On Wed, Jan 28, 2026 at 05:18:49PM +0530, Ritesh Kumar wrote:
+> > > > The initial sa8775p eDP PHY binding contribution missed adding support for
+> > > > voting on the eDP reference clock. This went unnoticed because the UFS PHY
+> > > > driver happened to enable the same clock.
+> > > > > After commit 77d2fa54a945 ("scsi: ufs: qcom : Refactor
+> > > phy_power_on/off
+> > > > calls"), the eDP reference clock is no longer kept enabled, which results
+> > > > in the following PHY power-on failure:
+> > > > > phy phy-aec2a00.phy.10: phy poweron failed --> -110
+> > > > > To fix this, explicit voting for the eDP reference clock is
+> > > required.
+> > > > This patch adds the eDP reference clock for sa8775p eDP PHY and updates
+> > > > the corresponding example node.
+> > > > > Signed-off-by: Ritesh Kumar <quic_riteshk@quicinc.com>
+> > > 
+> > > Is there any reason why you didn't follow up on this patch Ritesh?
+> > > Looks like it's ready to be merged.
+> > 
+> > I was waiting for patch to merge as there is no pending comments.
+> > 
+> 
+> It's been two months now, if you want your patches to be merged please
+> show that - ask the maintainer for a status update, ask a colleague to
+> send a reviewed-by...
+> 
+> Perhaps the maintainer lost track of your change?
+> 
+> Perhaps it's not clear that the change "need" an Ack from e.g. Dmitry
+> and then it should be merged by Vinod? Because you're changing two
+> different subsystems but leave it up to the maintainers to figure out
+> how to deal with this...
+> 
+> 
+> Either way, show that you want this to be merged, don't just wait until
+> the situation resolves itself.
 
-The switch has 5 built-in 100Mbps user ports (ports 0-4) and one 1Gbps
-port that is internally attached to the SoCs CPU MAC and serves as the
-CPU port.
+For merging through linux-phy:
 
-The switch hardware has a very limited 16 entry VLAN table. Configuring
-VLANs is the only way to control switch forwarding. Currently 6 entries
-are used by tag_8021q to isolate the ports. Double tag feature is
-enabled to force the switch to append the VLAN tag even if the incoming
-packet is already tagged, this simulates VLAN-unaware functionality and
-simplifies the tagger implementation.
+Acked-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Signed-off-by: Joris Vaisvila <joey@tinyisr.com>
----
- drivers/net/dsa/Kconfig  |   8 +
- drivers/net/dsa/Makefile |   1 +
- drivers/net/dsa/mt7628.c | 627 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 636 insertions(+)
- create mode 100644 drivers/net/dsa/mt7628.c
+Vinod, please pick it up through your tree.
 
-diff --git a/drivers/net/dsa/Kconfig b/drivers/net/dsa/Kconfig
-index 39fb8ead16b5..defe74625cef 100644
---- a/drivers/net/dsa/Kconfig
-+++ b/drivers/net/dsa/Kconfig
-@@ -28,6 +28,14 @@ source "drivers/net/dsa/hirschmann/Kconfig"
-=20
- source "drivers/net/dsa/lantiq/Kconfig"
-=20
-+config NET_DSA_MT7628
-+=09tristate "MediaTek MT7628 Embedded Ethernet switch support"
-+=09select NET_DSA_TAG_MT7628
-+=09select MEDIATEK_FE_SOC_PHY
-+=09help
-+=09  This enables support for the built-in Ethernet switch found
-+=09  in the MT7628 SoC.
-+
- config NET_DSA_MT7530
- =09tristate "MediaTek MT7530 and MT7531 Ethernet switch support"
- =09select NET_DSA_TAG_MTK
-diff --git a/drivers/net/dsa/Makefile b/drivers/net/dsa/Makefile
-index f5a463b87ec2..8d4461f2d437 100644
---- a/drivers/net/dsa/Makefile
-+++ b/drivers/net/dsa/Makefile
-@@ -6,6 +6,7 @@ obj-$(CONFIG_NET_DSA_KS8995) =09+=3D ks8995.o
- obj-$(CONFIG_NET_DSA_MT7530)=09+=3D mt7530.o
- obj-$(CONFIG_NET_DSA_MT7530_MDIO) +=3D mt7530-mdio.o
- obj-$(CONFIG_NET_DSA_MT7530_MMIO) +=3D mt7530-mmio.o
-+obj-$(CONFIG_NET_DSA_MT7628) +=3D mt7628.o
- obj-$(CONFIG_NET_DSA_MV88E6060) +=3D mv88e6060.o
- obj-$(CONFIG_NET_DSA_RZN1_A5PSW) +=3D rzn1_a5psw.o
- obj-$(CONFIG_NET_DSA_SMSC_LAN9303) +=3D lan9303-core.o
-diff --git a/drivers/net/dsa/mt7628.c b/drivers/net/dsa/mt7628.c
-new file mode 100644
-index 000000000000..36461b39ea4a
---- /dev/null
-+++ b/drivers/net/dsa/mt7628.c
-@@ -0,0 +1,627 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Mediatek MT7628 Embedded Switch (ESW) DSA driver
-+ * Copyright (C) 2026 Joris Vaisvila <joey@tinyisr.com>
-+ *
-+ * Portions derived from OpenWRT esw_rt3050 driver:
-+ * Copyright (C) 2009-2015 John Crispin <blogic@openwrt.org>
-+ * Copyright (C) 2009-2015 Felix Fietkau <nbd@nbd.name>
-+ * Copyright (C) 2013-2015 Michael Lee <igvtee@gmail.com>
-+ * Copyright (C) 2016 Vittorio Gambaletta <openwrt@vittgam.net>
-+ */
-+
-+#include <linux/platform_device.h>
-+#include <linux/etherdevice.h>
-+#include <linux/netdevice.h>
-+#include <linux/dsa/8021q.h>
-+#include <linux/if_bridge.h>
-+#include <linux/module.h>
-+#include <linux/mdio.h>
-+#include <linux/of.h>
-+#include <linux/of_mdio.h>
-+#include <linux/of_net.h>
-+#include <linux/kernel.h>
-+#include <linux/regmap.h>
-+#include <linux/reset.h>
-+#include <net/dsa.h>
-+
-+#define MT7628_ESW_REG_IMR 0x04
-+#define MT7628_ESW_REG_FCT0 0x08
-+#define MT7628_ESW_REG_PFC1 0x14
-+#define MT7628_ESW_REG_PVIDC(port) (0x40 + 4 * ((port) / 2))
-+#define MT7628_ESW_REG_VLANI(vlan) (0x50 + 4 * ((vlan) / 2))
-+#define MT7628_ESW_REG_VMSC(vlan) (0x70 + 4 * ((vlan) / 4))
-+#define MT7628_ESW_REG_VUB(vlan) (0x100 + 4 * ((vlan) / 4))
-+#define MT7628_ESW_REG_SOCPC 0x8c
-+#define MT7628_ESW_REG_POC0 0x90
-+#define MT7628_ESW_REG_POC2 0x98
-+#define MT7628_ESW_REG_SGC 0x9c
-+#define MT7628_ESW_REG_PCR0 0xc0
-+#define MT7628_ESW_REG_PCR1 0xc4
-+#define MT7628_ESW_REG_FPA2 0xc8
-+#define MT7628_ESW_REG_FCT2 0xcc
-+#define MT7628_ESW_REG_SGC2 0xe4
-+
-+#define MT7628_ESW_FCT0_DROP_SET_TH GENMASK(7, 0)
-+#define MT7628_ESW_FCT0_DROP_RLS_TH GENMASK(15, 8)
-+#define MT7628_ESW_FCT0_FC_SET_TH GENMASK(23, 16)
-+#define MT7628_ESW_FCT0_FC_RLS_TH GENMASK(31, 24)
-+
-+#define MT7628_ESW_PFC1_EN_VLAN GENMASK(22, 16)
-+
-+#define MT7628_ESW_PVID_S 12
-+#define MT7628_ESW_PVID_M GENMASK(11, 0)
-+#define MT7628_ESW_PVID_SHIFT(port) \
-+=09(MT7628_ESW_PVID_S * ((port) % 2))
-+#define MT7628_ESW_PVID_MASK(port) \
-+=09(MT7628_ESW_PVID_M << MT7628_ESW_PVID_SHIFT(port))
-+#define MT7628_ESW_PVID_PREP(port, pvid) \
-+=09(((pvid) & MT7628_ESW_PVID_M) << MT7628_ESW_PVID_SHIFT(port))
-+
-+#define MT7628_ESW_VID_S 12
-+#define MT7628_ESW_VID_M GENMASK(11, 0)
-+#define MT7628_ESW_VID_SHIFT(vlan) \
-+=09(MT7628_ESW_VID_S * ((vlan) % 2))
-+#define MT7628_ESW_VID_MASK(vlan) \
-+=09(MT7628_ESW_VID_M << MT7628_ESW_VID_SHIFT(vlan))
-+#define MT7628_ESW_VID_PREP(vlan, vid) \
-+=09(((vid) & MT7628_ESW_VID_M) << MT7628_ESW_VID_SHIFT(vlan))
-+
-+#define MT7628_ESW_VMSC_S 8
-+#define MT7628_ESW_VMSC_M GENMASK(7, 0)
-+#define MT7628_ESW_VMSC_SHIFT(vlan) \
-+=09(MT7628_ESW_VMSC_S * ((vlan) % 4))
-+#define MT7628_ESW_VMSC_MASK(vlan) \
-+=09(MT7628_ESW_VMSC_M << MT7628_ESW_VMSC_SHIFT(vlan))
-+#define MT7628_ESW_VMSC_PREP(vlan, vmsc) \
-+=09(((vmsc) & MT7628_ESW_VMSC_M) << MT7628_ESW_VMSC_SHIFT(vlan))
-+
-+#define MT7628_ESW_VUB_S 7
-+#define MT7628_ESW_VUB_M GENMASK(6, 0)
-+#define MT7628_ESW_VUB_SHIFT(vlan) \
-+=09(MT7628_ESW_VUB_S * ((vlan) % 4))
-+#define MT7628_ESW_VUB_MASK(vlan) \
-+=09(MT7628_ESW_VUB_M << MT7628_ESW_VUB_SHIFT(vlan))
-+#define MT7628_ESW_VUB_PREP(vlan, vub) \
-+=09(((vub) & MT7628_ESW_VUB_M) << MT7628_ESW_VUB_SHIFT(vlan))
-+
-+#define MT7628_ESW_SOCPC_CRC_PADDING BIT(25)
-+#define MT7628_ESW_SOCPC_DISBC2CPU GENMASK(22, 16)
-+#define MT7628_ESW_SOCPC_DISMC2CPU GENMASK(14, 8)
-+#define MT7628_ESW_SOCPC_DISUN2CPU GENMASK(6, 0)
-+
-+#define MT7628_ESW_POC0_PORT_DISABLE GENMASK(29, 23)
-+
-+#define MT7628_ESW_POC2_PER_VLAN_UNTAG_EN BIT(15)
-+
-+#define MT7628_ESW_SGC_AGING_INTERVAL GENMASK(3, 0)
-+#define MT7628_ESW_BC_STORM_PROT GENMASK(5, 4)
-+#define MT7628_ESW_PKT_MAX_LEN GENMASK(7, 6)
-+#define MT7628_ESW_DIS_PKT_ABORT BIT(8)
-+#define MT7628_ESW_ADDRESS_HASH_ALG GENMASK(10, 9)
-+#define MT7628_ESW_DISABLE_TX_BACKOFF BIT(11)
-+#define MT7628_ESW_BP_JAM_CNT GENMASK(15, 12)
-+#define MT7628_ESW_DISMIIPORT_WASTX GENMASK(17, 16)
-+#define MT7628_ESW_BP_MODE GENMASK(19, 18)
-+#define MT7628_ESW_BISH_DIS BIT(20)
-+#define MT7628_ESW_BISH_TH GENMASK(22, 21)
-+#define MT7628_ESW_LED_FLASH_TIME GENMASK(24, 23)
-+#define MT7628_ESW_RMC_RULE GENMASK(26, 25)
-+#define MT7628_ESW_IP_MULT_RULE GENMASK(28, 27)
-+#define MT7628_ESW_LEN_ERR_CHK BIT(29)
-+#define MT7628_ESW_BKOFF_ALG BIT(30)
-+
-+#define MT7628_ESW_PCR0_WT_NWAY_DATA GENMASK(31, 16)
-+#define MT7628_ESW_PCR0_RD_PHY_CMD BIT(14)
-+#define MT7628_ESW_PCR0_WT_PHY_CMD BIT(13)
-+#define MT7628_ESW_PCR0_CPU_PHY_REG GENMASK(12, 8)
-+#define MT7628_ESW_PCR0_CPU_PHY_ADDR GENMASK(4, 0)
-+
-+#define MT7628_ESW_PCR1_RD_DATA GENMASK(31, 16)
-+#define MT7628_ESW_PCR1_RD_DONE BIT(1)
-+#define MT7628_ESW_PCR1_WT_DONE BIT(0)
-+
-+#define MT7628_ESW_FPA2_AP_EN BIT(29)
-+#define MT7628_ESW_FPA2_EXT_PHY_ADDR_BASE GENMASK(28, 24)
-+#define MT7628_ESW_FPA2_FORCE_RGMII_LINK1 BIT(13)
-+#define MT7628_ESW_FPA2_FORCE_RGMII_EN1 BIT(11)
-+
-+#define MT7628_ESW_FCT2_MUST_DROP_RLS_TH GENMASK(17, 13)
-+#define MT7628_ESW_FCT2_MUST_DROP_SET_TH GENMASK(12, 8)
-+#define MT7628_ESW_FCT2_MC_PER_PORT_TH GENMASK(5, 0)
-+
-+#define MT7628_ESW_SGC2_SPECIAL_TAG_EN BIT(23)
-+#define MT7628_ESW_SGC2_TX_CPU_TPID_BIT_MAP GENMASK(22, 16)
-+#define MT7628_ESW_SGC2_DOUBLE_TAG_EN GENMASK(6, 0)
-+
-+#define MT7628_ESW_PORTS_NOCPU GENMASK(5, 0)
-+#define MT7628_ESW_PORTS_CPU BIT(6)
-+#define MT7628_ESW_PORTS_ALL GENMASK(6, 0)
-+
-+#define MT7628_ESW_NUM_PORTS 7
-+#define MT7628_NUM_VLANS 16
-+
-+static const struct regmap_config mt7628_esw_regmap_cfg =3D {
-+=09.name =3D "mt7628-esw",
-+=09.reg_bits =3D 32,
-+=09.val_bits =3D 32,
-+=09.reg_stride =3D 4,
-+=09.fast_io =3D true,
-+=09.reg_format_endian =3D REGMAP_ENDIAN_LITTLE,
-+=09.val_format_endian =3D REGMAP_ENDIAN_LITTLE,
-+};
-+
-+struct mt7628_vlan {
-+=09bool active;
-+=09u8 members;
-+=09u8 untag;
-+=09u16 vid;
-+};
-+
-+struct mt7628_esw {
-+=09void __iomem *base;
-+=09struct reset_control *rst_ephy;
-+=09struct reset_control *rst_esw;
-+=09struct regmap *regmap;
-+=09struct dsa_switch *ds;
-+=09u16 tag_8021q_pvid[MT7628_ESW_NUM_PORTS];
-+=09struct mt7628_vlan vlans[MT7628_NUM_VLANS];
-+=09struct device *dev;
-+};
-+
-+static int mt7628_mii_read(struct mii_bus *bus, int port, int regnum)
-+{
-+=09struct mt7628_esw *esw =3D bus->priv;
-+=09int ret;
-+=09u32 val;
-+
-+=09ret =3D regmap_read_poll_timeout(esw->regmap, MT7628_ESW_REG_PCR1, val,
-+=09=09=09=09       !(val & MT7628_ESW_PCR1_RD_DONE), 10,
-+=09=09=09=09       5000);
-+=09if (ret)
-+=09=09goto out;
-+
-+=09ret =3D regmap_write(esw->regmap, MT7628_ESW_REG_PCR0,
-+=09=09=09   FIELD_PREP(MT7628_ESW_PCR0_CPU_PHY_REG,
-+=09=09=09=09      regnum) |
-+=09=09=09   FIELD_PREP(MT7628_ESW_PCR0_CPU_PHY_ADDR,
-+=09=09=09=09      port) | MT7628_ESW_PCR0_RD_PHY_CMD);
-+=09if (ret)
-+=09=09goto out;
-+
-+=09ret =3D regmap_read_poll_timeout(esw->regmap, MT7628_ESW_REG_PCR1, val,
-+=09=09=09=09       (val & MT7628_ESW_PCR1_RD_DONE), 10,
-+=09=09=09=09       5000);
-+out:
-+=09if (ret) {
-+=09=09dev_err(&bus->dev, "read failed. MDIO timeout?\n");
-+=09=09return ret;
-+=09}
-+=09return FIELD_GET(MT7628_ESW_PCR1_RD_DATA, val);
-+}
-+
-+static int mt7628_mii_write(struct mii_bus *bus, int port, int regnum, u16=
- dat)
-+{
-+=09struct mt7628_esw *esw =3D bus->priv;
-+=09u32 val;
-+=09int ret;
-+
-+=09ret =3D regmap_read_poll_timeout(esw->regmap, MT7628_ESW_REG_PCR1, val,
-+=09=09=09=09       !(val & MT7628_ESW_PCR1_WT_DONE), 10,
-+=09=09=09=09       5000);
-+=09if (ret)
-+=09=09goto out;
-+
-+=09ret =3D regmap_write(esw->regmap, MT7628_ESW_REG_PCR0,
-+=09=09=09   FIELD_PREP(MT7628_ESW_PCR0_WT_NWAY_DATA, dat) |
-+=09=09=09   FIELD_PREP(MT7628_ESW_PCR0_CPU_PHY_REG,
-+=09=09=09=09      regnum) |
-+=09=09=09   FIELD_PREP(MT7628_ESW_PCR0_CPU_PHY_ADDR,
-+=09=09=09=09      port) | MT7628_ESW_PCR0_WT_PHY_CMD);
-+=09if (ret)
-+=09=09goto out;
-+
-+=09ret =3D regmap_read_poll_timeout(esw->regmap, MT7628_ESW_REG_PCR1, val,
-+=09=09=09=09       (val & MT7628_ESW_PCR1_WT_DONE), 10,
-+=09=09=09=09       5000);
-+out:
-+=09if (ret) {
-+=09=09dev_err(&bus->dev, "write failed. MDIO timeout?\n");
-+=09=09return ret;
-+=09}
-+=09return 0;
-+}
-+
-+static int mt7628_setup_internal_mdio(struct dsa_switch *ds)
-+{
-+=09struct mt7628_esw *esw =3D ds->priv;
-+=09struct device_node *mdio;
-+=09struct mii_bus *bus;
-+=09int ret =3D 0;
-+
-+=09mdio =3D of_get_available_child_by_name(ds->dev->of_node, "mdio");
-+
-+=09bus =3D devm_mdiobus_alloc(esw->dev);
-+=09if (!bus) {
-+=09=09ret =3D -ENOMEM;
-+=09=09goto out_put_node;
-+=09}
-+
-+=09bus->name =3D "MT7628 internal MDIO bus";
-+=09snprintf(bus->id, MII_BUS_ID_SIZE, "%s-mii", dev_name(ds->dev));
-+=09bus->priv =3D esw;
-+=09bus->read =3D mt7628_mii_read;
-+=09bus->write =3D mt7628_mii_write;
-+=09bus->parent =3D esw->dev;
-+=09if (!mdio) {
-+=09=09ds->user_mii_bus =3D bus;
-+=09=09bus->phy_mask =3D ~ds->phys_mii_mask;
-+=09}
-+
-+=09ret =3D devm_of_mdiobus_register(esw->dev, bus, mdio);
-+
-+out_put_node:
-+=09of_node_put(mdio);
-+=09return ret;
-+}
-+
-+static void mt7628_switch_init(struct dsa_switch *ds)
-+{
-+=09struct mt7628_esw *esw =3D ds->priv;
-+
-+=09regmap_write(esw->regmap, MT7628_ESW_REG_FCT0,
-+=09=09     FIELD_PREP(MT7628_ESW_FCT0_DROP_SET_TH, 0x50) |
-+=09=09     FIELD_PREP(MT7628_ESW_FCT0_DROP_RLS_TH, 0x78) |
-+=09=09     FIELD_PREP(MT7628_ESW_FCT0_FC_SET_TH, 0xa0) |
-+=09=09     FIELD_PREP(MT7628_ESW_FCT0_FC_RLS_TH, 0xc8));
-+
-+=09regmap_write(esw->regmap, MT7628_ESW_REG_FCT2,
-+=09=09     FIELD_PREP(MT7628_ESW_FCT2_MC_PER_PORT_TH, 0xc) |
-+=09=09     FIELD_PREP(MT7628_ESW_FCT2_MUST_DROP_SET_TH, 0x10) |
-+=09=09     FIELD_PREP(MT7628_ESW_FCT2_MUST_DROP_RLS_TH, 0x12));
-+
-+=09/*
-+=09 * general switch configuration:
-+=09 * 300s aging interval
-+=09 * broadcast storm prevention disabled
-+=09 * max packet length 1536 bytes
-+=09 * disable collision 16 packet abort and late collision abort
-+=09 * use xor48 for address hashing
-+=09 * disable tx backoff
-+=09 * 10 packet back pressure jam
-+=09 * disable was_transmit
-+=09 * jam until BP condition released
-+=09 * 30ms LED flash
-+=09 * rmc tb fault to all ports
-+=09 * unmatched IGMP as broadcast
-+=09 */
-+=09regmap_write(esw->regmap, MT7628_ESW_REG_SGC,
-+=09=09     FIELD_PREP(MT7628_ESW_SGC_AGING_INTERVAL, 1) |
-+=09=09     FIELD_PREP(MT7628_ESW_BC_STORM_PROT, 0) |
-+=09=09     FIELD_PREP(MT7628_ESW_PKT_MAX_LEN, 0) |
-+=09=09     MT7628_ESW_DIS_PKT_ABORT |
-+=09=09     FIELD_PREP(MT7628_ESW_ADDRESS_HASH_ALG, 1) |
-+=09=09     MT7628_ESW_DISABLE_TX_BACKOFF |
-+=09=09     FIELD_PREP(MT7628_ESW_BP_JAM_CNT, 10) |
-+=09=09     FIELD_PREP(MT7628_ESW_DISMIIPORT_WASTX, 0) |
-+=09=09     FIELD_PREP(MT7628_ESW_BP_MODE, 0b10) |
-+=09=09     FIELD_PREP(MT7628_ESW_LED_FLASH_TIME, 0) |
-+=09=09     FIELD_PREP(MT7628_ESW_RMC_RULE, 0) |
-+=09=09     FIELD_PREP(MT7628_ESW_IP_MULT_RULE, 0));
-+
-+=09regmap_write(esw->regmap, MT7628_ESW_REG_SOCPC,
-+=09=09     MT7628_ESW_SOCPC_CRC_PADDING |
-+=09=09     FIELD_PREP(MT7628_ESW_SOCPC_DISUN2CPU,
-+=09=09=09=09MT7628_ESW_PORTS_CPU) |
-+=09=09     FIELD_PREP(MT7628_ESW_SOCPC_DISMC2CPU,
-+=09=09=09=09MT7628_ESW_PORTS_CPU) |
-+=09=09     FIELD_PREP(MT7628_ESW_SOCPC_DISBC2CPU,
-+=09=09=09=09MT7628_ESW_PORTS_CPU));
-+
-+=09regmap_set_bits(esw->regmap, MT7628_ESW_REG_FPA2,
-+=09=09=09MT7628_ESW_FPA2_FORCE_RGMII_EN1 |
-+=09=09=09MT7628_ESW_FPA2_FORCE_RGMII_LINK1 |
-+=09=09=09MT7628_ESW_FPA2_AP_EN);
-+
-+=09regmap_update_bits(esw->regmap, MT7628_ESW_REG_FPA2,
-+=09=09=09   MT7628_ESW_FPA2_EXT_PHY_ADDR_BASE,
-+=09=09=09   FIELD_PREP(MT7628_ESW_FPA2_EXT_PHY_ADDR_BASE, 31));
-+
-+=09/* disable all interrupts */
-+=09regmap_write(esw->regmap, MT7628_ESW_REG_IMR, 0);
-+
-+=09/* enable MT7628 DSA tag on CPU port */
-+=09regmap_write(esw->regmap, MT7628_ESW_REG_SGC2,
-+=09=09     MT7628_ESW_SGC2_SPECIAL_TAG_EN |
-+=09=09     FIELD_PREP(MT7628_ESW_SGC2_TX_CPU_TPID_BIT_MAP,
-+=09=09=09=09MT7628_ESW_PORTS_CPU));
-+
-+=09/*
-+=09 * Double tag feature allows switch to always append the port PVID VLAN=
- tag
-+=09 * regardless of if the incoming packet already has a VLAN tag.
-+=09 * This is enabled to simulate VLAN unawareness.
-+=09 */
-+=09regmap_set_bits(esw->regmap, MT7628_ESW_REG_SGC2,
-+=09=09=09FIELD_PREP(MT7628_ESW_SGC2_DOUBLE_TAG_EN,
-+=09=09=09=09   MT7628_ESW_PORTS_NOCPU));
-+
-+=09regmap_set_bits(esw->regmap, MT7628_ESW_REG_POC2,
-+=09=09=09MT7628_ESW_POC2_PER_VLAN_UNTAG_EN);
-+
-+=09regmap_update_bits(esw->regmap, MT7628_ESW_REG_PFC1,
-+=09=09=09   MT7628_ESW_PFC1_EN_VLAN,
-+=09=09=09   FIELD_PREP(MT7628_ESW_PFC1_EN_VLAN,
-+=09=09=09=09      MT7628_ESW_PORTS_ALL));
-+}
-+
-+static void mt7628_esw_set_pvid(struct mt7628_esw *esw, unsigned int port,
-+=09=09=09=09unsigned int pvid)
-+{
-+=09regmap_update_bits(esw->regmap, MT7628_ESW_REG_PVIDC(port),
-+=09=09=09   MT7628_ESW_PVID_MASK(port),
-+=09=09=09   MT7628_ESW_PVID_PREP(port, pvid));
-+}
-+
-+static void mt7628_esw_set_vlan_id(struct mt7628_esw *esw, unsigned int vl=
-an,
-+=09=09=09=09   unsigned int vid)
-+{
-+=09regmap_update_bits(esw->regmap, MT7628_ESW_REG_VLANI(vlan),
-+=09=09=09   MT7628_ESW_VID_MASK(vlan),
-+=09=09=09   MT7628_ESW_VID_PREP(vlan, vid));
-+}
-+
-+static void mt7628_esw_set_vmsc(struct mt7628_esw *esw, unsigned int vlan,
-+=09=09=09=09unsigned int msc)
-+{
-+=09regmap_update_bits(esw->regmap, MT7628_ESW_REG_VMSC(vlan),
-+=09=09=09   MT7628_ESW_VMSC_MASK(vlan),
-+=09=09=09   MT7628_ESW_VMSC_PREP(vlan, msc));
-+}
-+
-+static void mt7628_esw_set_vub(struct mt7628_esw *esw, unsigned int vlan,
-+=09=09=09       unsigned int vub)
-+{
-+=09regmap_update_bits(esw->regmap, MT7628_ESW_REG_VUB(vlan),
-+=09=09=09   MT7628_ESW_VUB_MASK(vlan),
-+=09=09=09   MT7628_ESW_VUB_PREP(vlan, vub));
-+}
-+
-+static void mt7628_vlan_sync(struct dsa_switch *ds)
-+{
-+=09struct mt7628_esw *esw =3D ds->priv;
-+=09int i;
-+
-+=09for (i =3D 0; i < MT7628_NUM_VLANS; i++) {
-+=09=09struct mt7628_vlan *vlan =3D &esw->vlans[i];
-+
-+=09=09mt7628_esw_set_vmsc(esw, i, vlan->members);
-+=09=09mt7628_esw_set_vlan_id(esw, i, vlan->vid);
-+=09=09mt7628_esw_set_vub(esw, i, vlan->untag);
-+=09}
-+
-+=09for (i =3D 0; i < ds->num_ports; i++)
-+=09=09mt7628_esw_set_pvid(esw, i, esw->tag_8021q_pvid[i]);
-+}
-+
-+static int mt7628_setup(struct dsa_switch *ds)
-+{
-+=09struct mt7628_esw *esw =3D ds->priv;
-+=09int ret;
-+
-+=09reset_control_reset(esw->rst_esw);
-+=09usleep_range(1000, 2000);
-+=09reset_control_reset(esw->rst_ephy);
-+=09usleep_range(1000, 2000);
-+=09/*
-+=09 * all MMIO reads hang if esw is not out of reset
-+=09 * ephy needs extra time to get out of reset or it ends up misconfigure=
-d
-+=09 */
-+=09mt7628_switch_init(ds);
-+=09rtnl_lock();
-+=09dsa_tag_8021q_register(ds, htons(ETH_P_8021Q));
-+=09rtnl_unlock();
-+
-+=09ret =3D mt7628_setup_internal_mdio(ds);
-+=09return ret;
-+}
-+
-+static int mt7628_port_enable(struct dsa_switch *ds, int port,
-+=09=09=09      struct phy_device *phy)
-+{
-+=09struct mt7628_esw *esw =3D ds->priv;
-+
-+=09regmap_clear_bits(esw->regmap, MT7628_ESW_REG_POC0,
-+=09=09=09  FIELD_PREP(MT7628_ESW_POC0_PORT_DISABLE, BIT(port)));
-+=09return 0;
-+}
-+
-+static void mt7628_port_disable(struct dsa_switch *ds, int port)
-+{
-+=09struct mt7628_esw *esw =3D ds->priv;
-+
-+=09regmap_set_bits(esw->regmap, MT7628_ESW_REG_POC0,
-+=09=09=09FIELD_PREP(MT7628_ESW_POC0_PORT_DISABLE, BIT(port)));
-+}
-+
-+static enum dsa_tag_protocol
-+mt7628_get_tag_proto(struct dsa_switch *ds, int port, enum dsa_tag_protoco=
-l mp)
-+{
-+=09return DSA_TAG_PROTO_MT7628;
-+}
-+
-+static void mt7628_phylink_get_caps(struct dsa_switch *ds, int port,
-+=09=09=09=09    struct phylink_config *config)
-+{
-+=09switch (port) {
-+=09case 6:
-+=09=09config->mac_capabilities |=3D MAC_1000;
-+=09=09fallthrough;
-+=09case 0 ... 4:
-+=09=09config->mac_capabilities |=3D MAC_100 | MAC_10;
-+=09=09__set_bit(PHY_INTERFACE_MODE_INTERNAL,
-+=09=09=09  config->supported_interfaces);
-+=09=09break;
-+=09default:
-+=09=09break;=09=09/* port 5 does not exist on MT7628 */
-+=09}
-+}
-+
-+static int mt7628_dsa_8021q_vlan_add(struct dsa_switch *ds, int port,
-+=09=09=09=09     u16 vid, u16 flags)
-+{
-+=09struct mt7628_esw *esw =3D ds->priv;
-+=09struct mt7628_vlan *vlan =3D NULL;
-+=09int i;
-+
-+=09for (i =3D 0; i < MT7628_NUM_VLANS; i++) {
-+=09=09struct mt7628_vlan *check_vlan =3D &esw->vlans[i];
-+
-+=09=09if (!check_vlan->active && !vlan) {
-+=09=09=09vlan =3D check_vlan;
-+=09=09} else if (check_vlan->vid =3D=3D vid) {
-+=09=09=09vlan =3D check_vlan;
-+=09=09=09break;
-+=09=09}
-+=09}
-+
-+=09if (!vlan)
-+=09=09return -ENOSPC;
-+
-+=09vlan->vid =3D vid;
-+=09vlan->active =3D true;
-+=09vlan->members |=3D BIT(port);
-+
-+=09if (flags & BRIDGE_VLAN_INFO_PVID)
-+=09=09esw->tag_8021q_pvid[port] =3D vid;
-+
-+=09if (flags & BRIDGE_VLAN_INFO_UNTAGGED)
-+=09=09vlan->untag |=3D BIT(port);
-+
-+=09mt7628_vlan_sync(ds);
-+=09return 0;
-+}
-+
-+static int mt7628_dsa_8021q_vlan_del(struct dsa_switch *ds, int port, u16 =
-vid)
-+{
-+=09struct mt7628_esw *esw =3D ds->priv;
-+=09struct mt7628_vlan *vlan =3D NULL;
-+=09int i;
-+
-+=09for (i =3D 0; i < MT7628_NUM_VLANS; i++) {
-+=09=09struct mt7628_vlan *check_vlan =3D &esw->vlans[i];
-+
-+=09=09if (!check_vlan->active || check_vlan->vid !=3D vid)
-+=09=09=09continue;
-+=09=09vlan =3D check_vlan;
-+=09=09break;
-+=09}
-+=09if (!vlan)
-+=09=09return -ENOENT;
-+
-+=09vlan->members &=3D ~BIT(port);
-+=09vlan->untag &=3D ~BIT(port);
-+
-+=09if (!vlan->members)
-+=09=09vlan->active =3D false;
-+
-+=09mt7628_vlan_sync(ds);
-+=09return 0;
-+}
-+
-+static struct dsa_switch_ops mt7628_switch_ops =3D {
-+=09.get_tag_protocol =3D mt7628_get_tag_proto,
-+=09.setup =3D mt7628_setup,
-+=09.port_enable =3D mt7628_port_enable,
-+=09.port_disable =3D mt7628_port_disable,
-+=09.phylink_get_caps =3D mt7628_phylink_get_caps,
-+=09.tag_8021q_vlan_add =3D mt7628_dsa_8021q_vlan_add,
-+=09.tag_8021q_vlan_del =3D mt7628_dsa_8021q_vlan_del,
-+};
-+
-+static int mt7628_probe(struct platform_device *pdev)
-+{
-+=09struct device *dev =3D &pdev->dev;
-+=09struct mt7628_esw *esw;
-+=09struct dsa_switch *ds;
-+
-+=09ds =3D devm_kzalloc(&pdev->dev, sizeof(*ds), GFP_KERNEL);
-+=09if (!ds)
-+=09=09return -ENOMEM;
-+
-+=09esw =3D devm_kzalloc(&pdev->dev, sizeof(*esw), GFP_KERNEL);
-+=09if (!esw)
-+=09=09return -ENOMEM;
-+
-+=09esw->base =3D devm_platform_ioremap_resource(pdev, 0);
-+=09if (IS_ERR(esw->base))
-+=09=09return PTR_ERR(esw->base);
-+
-+=09esw->regmap =3D devm_regmap_init_mmio(&pdev->dev, esw->base,
-+=09=09=09=09=09    &mt7628_esw_regmap_cfg);
-+=09if (IS_ERR(esw->regmap))
-+=09=09return PTR_ERR(esw->regmap);
-+
-+=09esw->rst_ephy =3D devm_reset_control_get_exclusive(&pdev->dev, "ephy");
-+=09if (IS_ERR(esw->rst_ephy))
-+=09=09return dev_err_probe(dev, PTR_ERR(esw->rst_ephy),
-+=09=09=09=09     "failed to get EPHY reset\n");
-+
-+=09esw->rst_esw =3D devm_reset_control_get_exclusive(&pdev->dev, "esw");
-+=09if (IS_ERR(esw->rst_esw))
-+=09=09return dev_err_probe(dev, PTR_ERR(esw->rst_esw),
-+=09=09=09=09     "failed to get ESW reset\n");
-+
-+=09ds->dev =3D dev;
-+=09ds->num_ports =3D MT7628_ESW_NUM_PORTS;
-+=09ds->ops =3D &mt7628_switch_ops;
-+=09ds->priv =3D esw;
-+=09esw->ds =3D ds;
-+=09esw->dev =3D dev;
-+=09dev_set_drvdata(dev, esw);
-+
-+=09return dsa_register_switch(ds);
-+}
-+
-+static void mt7628_remove(struct platform_device *pdev)
-+{
-+=09struct mt7628_esw *esw =3D platform_get_drvdata(pdev);
-+
-+=09if (!esw)
-+=09=09return;
-+
-+=09dsa_unregister_switch(esw->ds);
-+}
-+
-+static void mt7628_shutdown(struct platform_device *pdev)
-+{
-+=09struct mt7628_esw *esw =3D platform_get_drvdata(pdev);
-+
-+=09if (!esw)
-+=09=09return;
-+
-+=09dsa_switch_shutdown(esw->ds);
-+=09dev_set_drvdata(&pdev->dev, NULL);
-+}
-+
-+static const struct of_device_id mt7628_of_match[] =3D {
-+=09{ .compatible =3D "mediatek,mt7628-esw" },
-+=09{}
-+};
-+
-+MODULE_DEVICE_TABLE(of, mt7628_of_match);
-+
-+static struct platform_driver mt7628_driver =3D {
-+=09.driver =3D {
-+=09=09   .name =3D "mt7628-esw",
-+=09=09   .of_match_table =3D mt7628_of_match,
-+=09=09    },
-+=09.probe =3D mt7628_probe,
-+=09.remove =3D mt7628_remove,
-+=09.shutdown =3D mt7628_shutdown,
-+};
-+
-+module_platform_driver(mt7628_driver);
-+
-+MODULE_AUTHOR("Joris Vaisvila <joey@tinyisr.com>");
-+MODULE_DESCRIPTION("Driver for Mediatek MT7628 embedded switch");
-+MODULE_LICENSE("GPL");
---=20
-2.53.0
-
+-- 
+With best wishes
+Dmitry
