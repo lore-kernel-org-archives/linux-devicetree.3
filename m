@@ -1,215 +1,1844 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F84818BBAE
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 05:49:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF3218EFD1
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 06:18:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774849760; cv=none; b=gCXk0gm1Fw5V0fkDfeUan2HpCJS+i9rHKpXtfc4JycpXvu0JCdr2uHeVd2gUjWttIdO9EvU7OdpI/KtDuiHNZ9G38KH7ZbNITzWOxPyfVHTa8Ce5ag5q8+Dnj4AUAt7jBzQldLTr5GuMUl1mJgKxoM+0FE7P8h/nWYCV+AEmvCc=
+	t=1774851498; cv=none; b=cWMVTnU/LiIToC2lruP9ug+kBEWK/bw5JFxihumDrp0kJM2CmVkvfDkoVjTecjnL7Rw4uiKvSiEBvCbuy/e0D9Bti1YG7cGyALeRPP7ngN4pFvC6ZpUwyKxRkYeypJame5KM1wwpuAU6zxKAaoPU07guSYattYPiSYhrPDfwWyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774849760; c=relaxed/simple;
-	bh=JJib5epLYRuHjuMYrMXAq2Xdaf1Jvt5BuxzmyXeLSNY=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=qXnOIaYldUMkavPKBo4owNGbqZsW1Zk97N5QZ7DIv9OjLn2mB8XzmyrRSgoqozEPhO6vza+9WC6h0ipu3UnmYHd3Io0YSdsEMXgAp0KGRNbFS65GZi2mh4P8oSsYOVp8RSdaoIGq7uka2LxwQ2UVbX1KqYnrQ6PYDf7bkey+Elo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rajCxUAN; arc=none smtp.client-ip=209.85.128.42
+	s=arc-20240116; t=1774851498; c=relaxed/simple;
+	bh=iFF4L6fSz2TWlM/UUZTLqalbCHPU2Kl+7JOPCGns9Yk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fhwR/dK5oevv0bAHQL+rFhRey7Dbsk3AWCBDKZDwC9CO8ulmfNCO3v0doXPFvipUNc7krzN5Glb9fA2Qopy2kjNoxaIVFM99HH7VH0QUboyR/sx/iViJPtdyW/ligsF9pN8+Q7deaWkYoZomnCuqa1iLgRNGegmFShmnjTQc+N0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bnnrS6EF; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rajCxUAN"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-48700b1ba53so35504105e9.1
-        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 22:49:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bnnrS6EF"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-48702d51cd0so48561725e9.2
+        for <devicetree@vger.kernel.org>; Sun, 29 Mar 2026 23:18:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774849757; x=1775454557; darn=vger.kernel.org;
-        h=content-language:content-transfer-encoding:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=fetVgXx6p5dzBWcp057ayPs90uOGBSYCCwrgacNo9LI=;
-        b=rajCxUANsKeOuyf3QqU+UqiPuicCC6MsP6RB7l+SonZU3lIGiPVHXpq6AguCcDVTVF
-         WpLQPFGfz8Cpr5qhnn3NtkWh7aR59wKr6uxfjCxk9ugXi1Ulssh/eBShAi7mgn0QaIEX
-         v0+sANzUeB2HvWAUbDVjyV/UPkV3CoiRG66qs32vV2L3mmWW8uSNbQOmLLZcgJ6j90st
-         K5Xf2nftC9kc33Lh0QfQvBLJBXMKIXQwc7EDz2DDCU9Tly62Hqv7UZZ4xMuQB+mcwyCO
-         TIMApIRJojls/at7DtzWNn2RVifle/uUanHK42ifbLZq5gQCovB9UWhBNUos+xVbYGoi
-         B9Bw==
+        d=gmail.com; s=20251104; t=1774851493; x=1775456293; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=yuE0HkRfBycim9wJKOaxqJPmUNYpM5vPakvE5AaVPg8=;
+        b=bnnrS6EFStcH+hUfOGlMWa/ESeI4JOxcbBpMzNXGzBRr2SPe9Il24D2rHUpQsE2AJK
+         m0z9bFkBN+GICtXwC2J/t1yMkkQkAI8UcZFg0rTfBz5StaWR17dtSEKLuKudnjZS/ASy
+         W5bmDX5Xpas2ZxEZpW7hVkvlW8IGk/C0OmYaLrTNOQNJme4U3RH+mAXgfvHxRyQxfso/
+         TF70fbbJ5qXazys0Gvj/YRrG9TcIK0pRwPYaMcDQ7+5hdtVNfBACdjFplIbaT3rNrlT3
+         9aNhK1IcqxP9wFa45usc4BaHTw6A9uC4ahaIx7PtLIOx7D2LsWdYlokiC11O3l2b+aMc
+         QjYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774849757; x=1775454557;
-        h=content-language:content-transfer-encoding:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fetVgXx6p5dzBWcp057ayPs90uOGBSYCCwrgacNo9LI=;
-        b=ahF+XU6bPuK4UAckI4JQW7YiwJYNEUsrlh1jDGsmgZp6WrUPKqMytO4nrkNBJKP/1C
-         7QRuy0k6oIXJFGG1L1qKPOKP1thOdUeFlGozD1USoUevn8kQc8ahTerNlokyE0bYDC6J
-         6fTBA9yy5CkfwPD8B/AKcI81sQJNKU9qfyV5pr9y+B/f4LESYq5wSz8b6Rp2FBp1Yyhb
-         SlfsyIAGNso7YSuAdCHL1DEslAmNfDyuH3OGfpPptj9kIZw2DRKHWgNgac+URiQKWMRx
-         ed9bLay8faAtk/Um2OfAmG8IC0n2l8y/ATcroiXik5Yw7EOGB0QEaLE3iQRgSUjqmGfU
-         kx7Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVdpSk+hpSuhR1NRKO+xJH2KL/hY9DCioDG/xK1PZzu2auXx+ocRBO5AsUE6SrI6JuaOI+nQK1QgOm7@vger.kernel.org
-X-Gm-Message-State: AOJu0YwasmFzOLKj5WG7jafO8Vs/KgadiZvYIa9f3NqGI5KW6TYDJZXj
-	ScBkYmD/6p+JD+RHeyBqRpHN9EmfKE2IVsCv9zTwdwiiD0JwYL2Rl3+w
-X-Gm-Gg: ATEYQzyqWGrax8fdO8vSzXNcYRxDy73oJ6zuXEZvb/DNahhhfm3NQP9IdaFv1Un6yTi
-	VY92OUyjv+swnC5+/QR3AskYfviQq2J0hoPCVdBMSEhkqRxXz4OjhPLP42P3fhf/wvNVLJ9W4kd
-	iTjrRrsIqthrHAT4xEEsk6F7TWCIkkw74lvjPeqUe4mK/j2l0bogg23otOIXMtCO7mLrONzugN/
-	6AsJJFN9krOu5VX8keN7pUYjcE5WoMjr2PTzVB5p5+U6YAoKQbxRD/kbcKOy8hvcSjyKk/gKZnw
-	D+VCrq33QZ5bOCYuBUYmIl7CgKxKGdNrtulElQ04XP9gt4W4XfJpPaD7h5FpFq0islWFkEFYGog
-	ZxS5ULHvF1T/cM9NloIqaUPTSxyacFMGqoRnGCuTunxof5qZ64X2YRBufVC871Ky1LGSW/U2eFS
-	Ow3/+lUQ3az0M4FeevFIqZyM/Z742cikeqVnkuYTadVb5xEHhKDWZr2mOUk/3+vYweXTAet5AGn
-	8KAGFhBKkcGUQai/0jTw/U5bD6RwoehOjasNg9/kFwjcplnEGeNF7LLEw==
-X-Received: by 2002:a05:600c:8b03:b0:483:8062:b2f with SMTP id 5b1f17b1804b1-48727ef16aemr221406975e9.6.1774849757233;
-        Sun, 29 Mar 2026 22:49:17 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3102-4c14-1900-f233-a94f-4a5a-3424.310.pool.telefonica.de. [2a02:3102:4c14:1900:f233:a94f:4a5a:3424])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48725fc4827sm70514355e9.11.2026.03.29.22.49.16
+        d=1e100.net; s=20251104; t=1774851493; x=1775456293;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=yuE0HkRfBycim9wJKOaxqJPmUNYpM5vPakvE5AaVPg8=;
+        b=WEcXZbunzBpJc+AbhZ2xMt7dPGya7csCHl0LdknLg/UoELQNlJIaNyy8AROB6AXF1D
+         aceJBHmV0EqooHgsfkmAoylfHZ7M6ioWAIJ4j84P1jHGkjdINs7gl+nGbMwwn6P3nrrd
+         F7xbwK3k4AVnDFYQnGMbtfYuI1Xxpy9E1ICt99DJ8w4K9SUSGOssclnXvwlh631gCrvU
+         IP0x/vQCf0Ks8p1WTKm+D8nLdxCftM5kTPH9QQKsGJWCkPtJR3uknWuOxNWVrlSUiVI0
+         teLx+/sFEx/HXpgozWjSDnAp/2wKL/QWYthIdncoW6KT0ywcNS2ms4XQYvJDDFntznck
+         eFTw==
+X-Forwarded-Encrypted: i=1; AJvYcCUGb7mzBHz/z081a0yrL5iXGoeWCUP/2o7oj0auVox5MRGnkzZRHlvS3rC/w8mSv4Vo6splhK+j2FEq@vger.kernel.org
+X-Gm-Message-State: AOJu0YxY8Io1ej/COYSCT3CGGuq1O2xXA90FdcMC967lr1OahZbFdYtQ
+	FqD7EufZJE/zQ3i0ZfqEtST75+42800s6wg6EtTkQCbkv8hrEQLokpi/
+X-Gm-Gg: ATEYQzxFXnx5QlHY8J1AjZO+d2JuG59F07BdSVyAzgyzRCk0ulTZCLyMxUU1WTaUiso
+	zKVfXXikvBWVBhdGRdrGoABhUsBDPUs7l0OI/HoXuujhvXsZcub66ac5wxYvqFUSMuk+3hT1LwA
+	Lhuox6Me4Lv1qX2Wb2uYUG1cGlJ4WDIUsxqYLOSMDwTcOQ/E90SpOysL45bYSnLm2XK79IxeWWW
+	LUteMOkMX5xJQ38KDI/XGRw7DmALV2QAA9KVviMVRiTjl96ukBQHRQF165wsIOJkNTrV8Z5RL4W
+	e1X/sHSH1sUQ72rm6cqtZVCRyUKLh1JPORwEKVnt4j/biKvFOMsHbVkWp8KMyeAXQjgP/xU1bRM
+	ITbYTpNRCJdduHqi7sP0U7CEFCdMe1kqur14fnTv19mpYDQuI2JHyweFPueow7o237qlbdYQ44z
+	6TBNFDmRHzXWUnu9nhkwUNTKHWJkzqyUmrHfiP0yA=
+X-Received: by 2002:a05:600c:4e15:b0:485:2ce2:4c8a with SMTP id 5b1f17b1804b1-48727d67a21mr177769405e9.1.1774851492529;
+        Sun, 29 Mar 2026 23:18:12 -0700 (PDT)
+Received: from [172.25.98.130] ([5.2.194.157])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722d236a9sm450247125e9.11.2026.03.29.23.18.10
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 29 Mar 2026 22:49:16 -0700 (PDT)
-Subject: Re: [PATCH v3] dt-bindings: sound: Convert pcm3060 to DT Schema
-To: Padmashree S S <padmashreess2006@gmail.com>
-Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, lgirdwood@gmail.com
-References: <20260327121919.603768-1-padmashreess2006@gmail.com>
-From: Kirill Marinushkin <k.marinushkin@gmail.com>
-Message-ID: <b8ca83e9-5a48-032a-96bc-a62990cb61f6@gmail.com>
-Date: Mon, 30 Mar 2026 07:49:15 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+        Sun, 29 Mar 2026 23:18:11 -0700 (PDT)
+Message-ID: <dd858ec6-7621-45d6-9328-b5b03a4d0cec@gmail.com>
+Date: Mon, 30 Mar 2026 10:15:43 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260327121919.603768-1-padmashreess2006@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 00/21] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, dumitru.ceclan@analog.com
+Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Cosmin Tanislav <cosmin.tanislav@analog.com>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Martin Hecht <Martin.Hecht@avnet.eu>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Cosmin Tanislav <demonsingur@gmail.com>, Cory Keitz <ckeitz@amazon.com>
+References: <20260311-gmsl2-3_serdes-v9-0-41499f09004f@analog.com>
+ <abEgijQAqW27i5fU@kekkonen.localdomain>
 Content-Language: en-US
-
-Hello Padmashree,
-
-
-overall, your proposed changes look good to me, thank you for taking care of
-
-the DT schema for the pcm3060 driver!
-
-I left a few minor comments below, but i am open for a discussion, if 
-you think
-
-they are not relevant
+From: Ceclan Dumitru <mitrutzceclan@gmail.com>
+In-Reply-To: <abEgijQAqW27i5fU@kekkonen.localdomain>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
-On 3/27/26 1:19 PM, Padmashree S S wrote:
-> Convert pcm3060 to DT Schema
->
-> Signed-off-by: Padmashree S S <padmashreess2006@gmail.com>
-> ---
->   .../devicetree/bindings/sound/pcm3060.txt     | 23 ----------
->   .../devicetree/bindings/sound/pcm3060.yaml    | 42 +++++++++++++++++++
->   2 files changed, 42 insertions(+), 23 deletions(-)
->   delete mode 100644 Documentation/devicetree/bindings/sound/pcm3060.txt
->   create mode 100644 Documentation/devicetree/bindings/sound/pcm3060.yaml
->
-> diff --git a/Documentation/devicetree/bindings/sound/pcm3060.txt b/Documentation/devicetree/bindings/sound/pcm3060.txt
-> deleted file mode 100644
-> index 97de66932d44..000000000000
-> --- a/Documentation/devicetree/bindings/sound/pcm3060.txt
-> +++ /dev/null
-> @@ -1,23 +0,0 @@
-> -PCM3060 audio CODEC
-> -
-> -This driver supports both I2C and SPI.
-> -
-> -Required properties:
-> -
-> -- compatible: "ti,pcm3060"
-> -
-> -- reg : the I2C address of the device for I2C, the chip select
-> -        number for SPI.
-> -
-> -Optional properties:
-> -
-> -- ti,out-single-ended: "true" if output is single-ended;
-> -                       "false" or not specified if output is differential.
-> -
-> -Examples:
-> -
-> -	pcm3060: pcm3060@46 {
-> -		 compatible = "ti,pcm3060";
-> -		 reg = <0x46>;
-> -		 ti,out-single-ended = "true";
-> -	};
-> diff --git a/Documentation/devicetree/bindings/sound/pcm3060.yaml b/Documentation/devicetree/bindings/sound/pcm3060.yaml
-> new file mode 100644
-> index 000000000000..2d920a70bced
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/pcm3060.yaml
-> @@ -0,0 +1,42 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/pcm3060.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: PCM3060 audio CODEC
 
+On 3/11/26 9:58 AM, Sakari Ailus wrote:
+> Hi Dumitru,
+> 
+> On Wed, Mar 11, 2026 at 09:17:12AM +0200, Dumitru Ceclan via B4 Relay wrote:
 
-Here, we seem to drop a short description, that this driver supports
+...
 
-I2C and SPI. It's maybe not a big deal, but maybe we could return these 
-details,
+> 
+> ...
+> 
+>> The following v4l2-compliance test still fails:
+>>                 fail: v4l2-test-subdevs.cpp(371): fmt.code == 0 || fmt.code == ~0U
+>>                 fail: v4l2-test-subdevs.cpp(418): checkMBusFrameFmt(node, fmt.format)
+>>         test Active VIDIOC_SUBDEV_G/S_FMT: FAIL
+> 
+> Could you post the full report here, please?
+> 
+v4l2-compliance 1.33.0-5455, 64 bits, 64-bit time_t
+v4l2-compliance SHA: 95ad25f6a77a 2026-03-17 13:08:36
 
-as a `description` property? Let me know what you think
+Compliance test for rp1-cfe device /dev/media0:
 
+Media Driver Info:
+	Driver name      : rp1-cfe
+	Model            : rp1-cfe
+	Serial           :
+	Bus info         : platform:1f00110000.csi
+	Media version    : 6.18.0
+	Hardware revision: 0x00114666 (1132134)
+	Driver version   : 6.18.0
 
-> +
-> +maintainers:
-> +  - Kirill Marinushkin <k.marinushkin@gmail.com>
-> +
-> +properties:
-> +  compatible:
-> +    const: ti,pcm3060
-> +
-> +  reg:
-> +    maxItems: 1
+Required ioctls:
+	test MEDIA_IOC_DEVICE_INFO: OK
+	test invalid ioctls: OK
 
+Allow for multiple opens:
+	test second /dev/media0 open: OK
+	test MEDIA_IOC_DEVICE_INFO: OK
+	test for unlimited opens: OK
 
-Here, i notice, that we remove the description of the `reg` property.
+Media Controller ioctls:
+	test MEDIA_IOC_G_TOPOLOGY: OK
+	Entities: 13 Interfaces: 13 Pads: 29 Links: 28
+	test MEDIA_IOC_ENUM_ENTITIES/LINKS: OK
+	test MEDIA_IOC_SETUP_LINK: OK
 
-It was there originally, and in the 1st version of your patch, but not 
-in v3.
+Total for rp1-cfe device /dev/media0: 8, Succeeded: 8, Failed: 0,
+Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for rp1-cfe device /dev/video0:
 
-The description here seems important to me - being a documentation, this
+Driver Info:
+	Driver name      : rp1-cfe
+	Card type        : rp1-cfe
+	Bus info         : platform:1f00110000.csi
+	Driver version   : 6.18.0
+	Capabilities     : 0xaca00001
+		Video Capture
+		Metadata Capture
+		Metadata Output
+		I/O MC
+		Streaming
+		Extended Pix Format
+		Device Capabilities
+	Device Caps      : 0x24a00001
+		Video Capture
+		Metadata Capture
+		I/O MC
+		Streaming
+		Extended Pix Format
+Media Driver Info:
+	Driver name      : rp1-cfe
+	Model            : rp1-cfe
+	Serial           :
+	Bus info         : platform:1f00110000.csi
+	Media version    : 6.18.0
+	Hardware revision: 0x00114666 (1132134)
+	Driver version   : 6.18.0
+Interface Info:
+	ID               : 0x03000021
+	Type             : V4L Video
+Entity Info:
+	ID               : 0x0000001f (31)
+	Name             : rp1-cfe-csi2-ch0
+	Function         : V4L2 I/O
+	Pad 0x01000020   : 0: Sink, Must Connect
+	  Link 0x02000041: from remote pad 0x1000003 of entity 'csi2' (Video
+Interface Bridge): Data, Enabled
 
-yaml could be more helpful, when it describes the meaning of the properties.
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_QUERYCAP: OK
+	test invalid ioctls: OK
 
-Do you think it would be possible to bring the description back?
+Allow for multiple opens:
+	test second /dev/video0 open: OK
+	test VIDIOC_QUERYCAP: OK
+	test VIDIOC_G/S_PRIORITY: OK
+	test for unlimited opens: OK
 
+Debug ioctls:
+	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
 
-> +
-> +  ti,out-single-ended:
-> +    type: boolean
-> +    description: |
-> +      If present, the output is single-ended.
-> +      If absent, the output is differential.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      pcm3060: audio-codec@46 {
-> +        compatible = "ti,pcm3060";
-> +        reg = <0x46>;
-> +        ti,out-single-ended;
-> +      };
-> +    };
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 1 Audio Inputs: 0 Tuners: 0
 
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
 
-Best regards,
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
 
-Kirill
+Control ioctls (Input 0):
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
+	test VIDIOC_QUERYCTRL: OK (Not Supported)
+	test VIDIOC_G/S_CTRL: OK (Not Supported)
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 0 Private Controls: 0
 
+Format ioctls (Input 0):
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
 
+Codec ioctls (Input 0):
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls (Input 0):
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK
+	test Requests: OK (Not Supported)
+
+Total for rp1-cfe device /dev/video0: 48, Succeeded: 48, Failed: 0,
+Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for rp1-cfe device /dev/video1:
+
+Driver Info:
+	Driver name      : rp1-cfe
+	Card type        : rp1-cfe
+	Bus info         : platform:1f00110000.csi
+	Driver version   : 6.18.0
+	Capabilities     : 0xaca00001
+		Video Capture
+		Metadata Capture
+		Metadata Output
+		I/O MC
+		Streaming
+		Extended Pix Format
+		Device Capabilities
+	Device Caps      : 0x24a00001
+		Video Capture
+		Metadata Capture
+		I/O MC
+		Streaming
+		Extended Pix Format
+Media Driver Info:
+	Driver name      : rp1-cfe
+	Model            : rp1-cfe
+	Serial           :
+	Bus info         : platform:1f00110000.csi
+	Media version    : 6.18.0
+	Hardware revision: 0x00114666 (1132134)
+	Driver version   : 6.18.0
+Interface Info:
+	ID               : 0x03000025
+	Type             : V4L Video
+Entity Info:
+	ID               : 0x00000023 (35)
+	Name             : rp1-cfe-csi2-ch1
+	Function         : V4L2 I/O
+	Pad 0x01000024   : 0: Sink, Must Connect
+	  Link 0x02000045: from remote pad 0x1000004 of entity 'csi2' (Video
+Interface Bridge): Data
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/video1 open: OK
+	test VIDIOC_QUERYCAP: OK
+	test VIDIOC_G/S_PRIORITY: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 1 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls (Input 0):
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
+	test VIDIOC_QUERYCTRL: OK (Not Supported)
+	test VIDIOC_G/S_CTRL: OK (Not Supported)
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 0 Private Controls: 0
+
+Format ioctls (Input 0):
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls (Input 0):
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls (Input 0):
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK
+	test Requests: OK (Not Supported)
+
+Total for rp1-cfe device /dev/video1: 48, Succeeded: 48, Failed: 0,
+Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for rp1-cfe device /dev/video2:
+
+Driver Info:
+	Driver name      : rp1-cfe
+	Card type        : rp1-cfe
+	Bus info         : platform:1f00110000.csi
+	Driver version   : 6.18.0
+	Capabilities     : 0xaca00001
+		Video Capture
+		Metadata Capture
+		Metadata Output
+		I/O MC
+		Streaming
+		Extended Pix Format
+		Device Capabilities
+	Device Caps      : 0x24a00001
+		Video Capture
+		Metadata Capture
+		I/O MC
+		Streaming
+		Extended Pix Format
+Media Driver Info:
+	Driver name      : rp1-cfe
+	Model            : rp1-cfe
+	Serial           :
+	Bus info         : platform:1f00110000.csi
+	Media version    : 6.18.0
+	Hardware revision: 0x00114666 (1132134)
+	Driver version   : 6.18.0
+Interface Info:
+	ID               : 0x03000029
+	Type             : V4L Video
+Entity Info:
+	ID               : 0x00000027 (39)
+	Name             : rp1-cfe-csi2-ch2
+	Function         : V4L2 I/O
+	Pad 0x01000028   : 0: Sink, Must Connect
+	  Link 0x02000049: from remote pad 0x1000005 of entity 'csi2' (Video
+Interface Bridge): Data
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/video2 open: OK
+	test VIDIOC_QUERYCAP: OK
+	test VIDIOC_G/S_PRIORITY: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 1 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls (Input 0):
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
+	test VIDIOC_QUERYCTRL: OK (Not Supported)
+	test VIDIOC_G/S_CTRL: OK (Not Supported)
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 0 Private Controls: 0
+
+Format ioctls (Input 0):
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls (Input 0):
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls (Input 0):
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK
+	test Requests: OK (Not Supported)
+
+Total for rp1-cfe device /dev/video2: 48, Succeeded: 48, Failed: 0,
+Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for rp1-cfe device /dev/video3:
+
+Driver Info:
+	Driver name      : rp1-cfe
+	Card type        : rp1-cfe
+	Bus info         : platform:1f00110000.csi
+	Driver version   : 6.18.0
+	Capabilities     : 0xaca00001
+		Video Capture
+		Metadata Capture
+		Metadata Output
+		I/O MC
+		Streaming
+		Extended Pix Format
+		Device Capabilities
+	Device Caps      : 0x24a00001
+		Video Capture
+		Metadata Capture
+		I/O MC
+		Streaming
+		Extended Pix Format
+Media Driver Info:
+	Driver name      : rp1-cfe
+	Model            : rp1-cfe
+	Serial           :
+	Bus info         : platform:1f00110000.csi
+	Media version    : 6.18.0
+	Hardware revision: 0x00114666 (1132134)
+	Driver version   : 6.18.0
+Interface Info:
+	ID               : 0x0300002d
+	Type             : V4L Video
+Entity Info:
+	ID               : 0x0000002b (43)
+	Name             : rp1-cfe-csi2-ch3
+	Function         : V4L2 I/O
+	Pad 0x0100002c   : 0: Sink, Must Connect
+	  Link 0x0200004d: from remote pad 0x1000006 of entity 'csi2' (Video
+Interface Bridge): Data
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/video3 open: OK
+	test VIDIOC_QUERYCAP: OK
+	test VIDIOC_G/S_PRIORITY: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 1 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls (Input 0):
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
+	test VIDIOC_QUERYCTRL: OK (Not Supported)
+	test VIDIOC_G/S_CTRL: OK (Not Supported)
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 0 Private Controls: 0
+
+Format ioctls (Input 0):
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls (Input 0):
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls (Input 0):
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK
+	test Requests: OK (Not Supported)
+
+Total for rp1-cfe device /dev/video3: 48, Succeeded: 48, Failed: 0,
+Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for rp1-cfe device /dev/video4:
+
+Driver Info:
+	Driver name      : rp1-cfe
+	Card type        : rp1-cfe
+	Bus info         : platform:1f00110000.csi
+	Driver version   : 6.18.0
+	Capabilities     : 0xaca00001
+		Video Capture
+		Metadata Capture
+		Metadata Output
+		I/O MC
+		Streaming
+		Extended Pix Format
+		Device Capabilities
+	Device Caps      : 0x24200001
+		Video Capture
+		I/O MC
+		Streaming
+		Extended Pix Format
+Media Driver Info:
+	Driver name      : rp1-cfe
+	Model            : rp1-cfe
+	Serial           :
+	Bus info         : platform:1f00110000.csi
+	Media version    : 6.18.0
+	Hardware revision: 0x00114666 (1132134)
+	Driver version   : 6.18.0
+Interface Info:
+	ID               : 0x03000031
+	Type             : V4L Video
+Entity Info:
+	ID               : 0x0000002f (47)
+	Name             : rp1-cfe-fe-image0
+	Function         : V4L2 I/O
+	Pad 0x01000030   : 0: Sink, Must Connect
+	  Link 0x02000051: from remote pad 0x100000a of entity 'pisp-fe' (Video
+Scaler): Data
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/video4 open: OK
+	test VIDIOC_QUERYCAP: OK
+	test VIDIOC_G/S_PRIORITY: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 1 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls (Input 0):
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
+	test VIDIOC_QUERYCTRL: OK (Not Supported)
+	test VIDIOC_G/S_CTRL: OK (Not Supported)
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 0 Private Controls: 0
+
+Format ioctls (Input 0):
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK
+
+Codec ioctls (Input 0):
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls (Input 0):
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK
+	test Requests: OK (Not Supported)
+
+Total for rp1-cfe device /dev/video4: 48, Succeeded: 48, Failed: 0,
+Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for rp1-cfe device /dev/video5:
+
+Driver Info:
+	Driver name      : rp1-cfe
+	Card type        : rp1-cfe
+	Bus info         : platform:1f00110000.csi
+	Driver version   : 6.18.0
+	Capabilities     : 0xaca00001
+		Video Capture
+		Metadata Capture
+		Metadata Output
+		I/O MC
+		Streaming
+		Extended Pix Format
+		Device Capabilities
+	Device Caps      : 0x24200001
+		Video Capture
+		I/O MC
+		Streaming
+		Extended Pix Format
+Media Driver Info:
+	Driver name      : rp1-cfe
+	Model            : rp1-cfe
+	Serial           :
+	Bus info         : platform:1f00110000.csi
+	Media version    : 6.18.0
+	Hardware revision: 0x00114666 (1132134)
+	Driver version   : 6.18.0
+Interface Info:
+	ID               : 0x03000035
+	Type             : V4L Video
+Entity Info:
+	ID               : 0x00000033 (51)
+	Name             : rp1-cfe-fe-image1
+	Function         : V4L2 I/O
+	Pad 0x01000034   : 0: Sink, Must Connect
+	  Link 0x02000053: from remote pad 0x100000b of entity 'pisp-fe' (Video
+Scaler): Data
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/video5 open: OK
+	test VIDIOC_QUERYCAP: OK
+	test VIDIOC_G/S_PRIORITY: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 1 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls (Input 0):
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
+	test VIDIOC_QUERYCTRL: OK (Not Supported)
+	test VIDIOC_G/S_CTRL: OK (Not Supported)
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 0 Private Controls: 0
+
+Format ioctls (Input 0):
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK
+
+Codec ioctls (Input 0):
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls (Input 0):
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK
+	test Requests: OK (Not Supported)
+
+Total for rp1-cfe device /dev/video5: 48, Succeeded: 48, Failed: 0,
+Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for rp1-cfe device /dev/video6:
+
+Driver Info:
+	Driver name      : rp1-cfe
+	Card type        : rp1-cfe
+	Bus info         : platform:1f00110000.csi
+	Driver version   : 6.18.0
+	Capabilities     : 0xaca00001
+		Video Capture
+		Metadata Capture
+		Metadata Output
+		I/O MC
+		Streaming
+		Extended Pix Format
+		Device Capabilities
+	Device Caps      : 0x24a00000
+		Metadata Capture
+		I/O MC
+		Streaming
+		Extended Pix Format
+Media Driver Info:
+	Driver name      : rp1-cfe
+	Model            : rp1-cfe
+	Serial           :
+	Bus info         : platform:1f00110000.csi
+	Media version    : 6.18.0
+	Hardware revision: 0x00114666 (1132134)
+	Driver version   : 6.18.0
+Interface Info:
+	ID               : 0x03000039
+	Type             : V4L Video
+Entity Info:
+	ID               : 0x00000037 (55)
+	Name             : rp1-cfe-fe-stats
+	Function         : V4L2 I/O
+	Pad 0x01000038   : 0: Sink, Must Connect
+	  Link 0x02000055: from remote pad 0x100000c of entity 'pisp-fe' (Video
+Scaler): Data
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/video6 open: OK
+	test VIDIOC_QUERYCAP: OK
+	test VIDIOC_G/S_PRIORITY: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 1 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls (Input 0):
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
+	test VIDIOC_QUERYCTRL: OK (Not Supported)
+	test VIDIOC_G/S_CTRL: OK (Not Supported)
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 0 Private Controls: 0
+
+Format ioctls (Input 0):
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls (Input 0):
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls (Input 0):
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK
+	test Requests: OK (Not Supported)
+
+Total for rp1-cfe device /dev/video6: 48, Succeeded: 48, Failed: 0,
+Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for rp1-cfe device /dev/video7:
+
+Driver Info:
+	Driver name      : rp1-cfe
+	Card type        : rp1-cfe
+	Bus info         : platform:1f00110000.csi
+	Driver version   : 6.18.0
+	Capabilities     : 0xaca00001
+		Video Capture
+		Metadata Capture
+		Metadata Output
+		I/O MC
+		Streaming
+		Extended Pix Format
+		Device Capabilities
+	Device Caps      : 0x2c200000
+		Metadata Output
+		I/O MC
+		Streaming
+		Extended Pix Format
+Media Driver Info:
+	Driver name      : rp1-cfe
+	Model            : rp1-cfe
+	Serial           :
+	Bus info         : platform:1f00110000.csi
+	Media version    : 6.18.0
+	Hardware revision: 0x00114666 (1132134)
+	Driver version   : 6.18.0
+Interface Info:
+	ID               : 0x0300003d
+	Type             : V4L Video
+Entity Info:
+	ID               : 0x0000003b (59)
+	Name             : rp1-cfe-fe-config
+	Function         : V4L2 I/O
+	Pad 0x0100003c   : 0: Source, Must Connect
+	  Link 0x02000057: to remote pad 0x1000009 of entity 'pisp-fe' (Video
+Scaler): Data
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/video7 open: OK
+	test VIDIOC_QUERYCAP: OK
+	test VIDIOC_G/S_PRIORITY: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 1 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls (Output 0):
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
+	test VIDIOC_QUERYCTRL: OK (Not Supported)
+	test VIDIOC_G/S_CTRL: OK (Not Supported)
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 0 Private Controls: 0
+
+Format ioctls (Output 0):
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls (Output 0):
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls (Output 0):
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK
+	test Requests: OK (Not Supported)
+
+Total for rp1-cfe device /dev/video7: 48, Succeeded: 48, Failed: 0,
+Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for rp1-cfe device /dev/v4l-subdev0:
+
+Driver Info:
+	Driver version   : 6.18.0
+	Capabilities     : 0x00000002
+		Streams Support
+	Client Capabilities: 0x0000000000000003
+streams interval-uses-which Media Driver Info:
+	Driver name      : rp1-cfe
+	Model            : rp1-cfe
+	Serial           :
+	Bus info         : platform:1f00110000.csi
+	Media version    : 6.18.0
+	Hardware revision: 0x00114666 (1132134)
+	Driver version   : 6.18.0
+Interface Info:
+	ID               : 0x03000059
+	Type             : V4L Sub-Device
+Entity Info:
+	ID               : 0x00000001 (1)
+	Name             : csi2
+	Function         : Video Interface Bridge
+	Pad 0x01000002   : 0: Sink
+	  Link 0x0200003f: from remote pad 0x1000010 of entity 'max9296a
+6-0048' (Video Interface Bridge): Data, Enabled, Immutable
+	Pad 0x01000003   : 1: Source
+	  Link 0x02000041: to remote pad 0x1000020 of entity 'rp1-cfe-csi2-ch0'
+(V4L2 I/O): Data, Enabled
+	  Link 0x02000043: to remote pad 0x1000008 of entity 'pisp-fe' (Video
+Scaler): Data
+	Pad 0x01000004   : 2: Source
+	  Link 0x02000045: to remote pad 0x1000024 of entity 'rp1-cfe-csi2-ch1'
+(V4L2 I/O): Data
+	  Link 0x02000047: to remote pad 0x1000008 of entity 'pisp-fe' (Video
+Scaler): Data
+	Pad 0x01000005   : 3: Source
+	  Link 0x02000049: to remote pad 0x1000028 of entity 'rp1-cfe-csi2-ch2'
+(V4L2 I/O): Data
+	  Link 0x0200004b: to remote pad 0x1000008 of entity 'pisp-fe' (Video
+Scaler): Data
+	Pad 0x01000006   : 4: Source
+	  Link 0x0200004d: to remote pad 0x100002c of entity 'rp1-cfe-csi2-ch3'
+(V4L2 I/O): Data
+	  Link 0x0200004f: to remote pad 0x1000008 of entity 'pisp-fe' (Video
+Scaler): Data
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev0 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Sub-Device routing ioctls:
+	test Try VIDIOC_SUBDEV_G_ROUTING/VIDIOC_SUBDEV_S_ROUTING: OK
+	test Active VIDIOC_SUBDEV_G_ROUTING/VIDIOC_SUBDEV_S_ROUTING: OK
+
+Sub-Device ioctls (Sink Pad 0):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+	test Try VIDIOC_SUBDEV_G/S_FMT: OK
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+	test Active VIDIOC_SUBDEV_G/S_FMT: OK
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Sub-Device ioctls (Source Pad 1):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+	test Try VIDIOC_SUBDEV_G/S_FMT: OK
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+	test Active VIDIOC_SUBDEV_G/S_FMT: OK
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Sub-Device ioctls (Source Pad 2):
+
+Sub-Device ioctls (Source Pad 3):
+
+Sub-Device ioctls (Source Pad 4):
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
+	test VIDIOC_QUERYCTRL: OK (Not Supported)
+	test VIDIOC_G/S_CTRL: OK (Not Supported)
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 0 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for rp1-cfe device /dev/v4l-subdev0: 63, Succeeded: 63, Failed: 0,
+Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for rp1-cfe device /dev/v4l-subdev1:
+
+Driver Info:
+	Driver version   : 6.18.0
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000003
+streams interval-uses-which Media Driver Info:
+	Driver name      : rp1-cfe
+	Model            : rp1-cfe
+	Serial           :
+	Bus info         : platform:1f00110000.csi
+	Media version    : 6.18.0
+	Hardware revision: 0x00114666 (1132134)
+	Driver version   : 6.18.0
+Interface Info:
+	ID               : 0x0300005b
+	Type             : V4L Sub-Device
+Entity Info:
+	ID               : 0x00000007 (7)
+	Name             : pisp-fe
+	Function         : Video Scaler
+	Pad 0x01000008   : 0: Sink, Must Connect
+	  Link 0x02000043: from remote pad 0x1000003 of entity 'csi2' (Video
+Interface Bridge): Data
+	  Link 0x02000047: from remote pad 0x1000004 of entity 'csi2' (Video
+Interface Bridge): Data
+	  Link 0x0200004b: from remote pad 0x1000005 of entity 'csi2' (Video
+Interface Bridge): Data
+	  Link 0x0200004f: from remote pad 0x1000006 of entity 'csi2' (Video
+Interface Bridge): Data
+	Pad 0x01000009   : 1: Sink
+	  Link 0x02000057: from remote pad 0x100003c of entity
+'rp1-cfe-fe-config' (V4L2 I/O): Data
+	Pad 0x0100000a   : 2: Source
+	  Link 0x02000051: to remote pad 0x1000030 of entity
+'rp1-cfe-fe-image0' (V4L2 I/O): Data
+	Pad 0x0100000b   : 3: Source
+	  Link 0x02000053: to remote pad 0x1000034 of entity
+'rp1-cfe-fe-image1' (V4L2 I/O): Data
+	Pad 0x0100000c   : 4: Source
+	  Link 0x02000055: to remote pad 0x1000038 of entity 'rp1-cfe-fe-stats'
+(V4L2 I/O): Data
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev1 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Sub-Device ioctls (Sink Pad 0):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+	test Try VIDIOC_SUBDEV_G/S_FMT: OK
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+	test Active VIDIOC_SUBDEV_G/S_FMT: OK
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Sub-Device ioctls (Sink Pad 1):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+	test Try VIDIOC_SUBDEV_G/S_FMT: OK
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+	test Active VIDIOC_SUBDEV_G/S_FMT: OK
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Sub-Device ioctls (Source Pad 2):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+	test Try VIDIOC_SUBDEV_G/S_FMT: OK
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+	test Active VIDIOC_SUBDEV_G/S_FMT: OK
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Sub-Device ioctls (Source Pad 3):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+	test Try VIDIOC_SUBDEV_G/S_FMT: OK
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+	test Active VIDIOC_SUBDEV_G/S_FMT: OK
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Sub-Device ioctls (Source Pad 4):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+	test Try VIDIOC_SUBDEV_G/S_FMT: OK
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+	test Active VIDIOC_SUBDEV_G/S_FMT: OK
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
+	test VIDIOC_QUERYCTRL: OK (Not Supported)
+	test VIDIOC_G/S_CTRL: OK (Not Supported)
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 0 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for rp1-cfe device /dev/v4l-subdev1: 82, Succeeded: 82, Failed: 0,
+Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for rp1-cfe device /dev/v4l-subdev2:
+
+Driver Info:
+	Driver version   : 6.18.0
+	Capabilities     : 0x00000002
+		Streams Support
+	Client Capabilities: 0x0000000000000003
+streams interval-uses-which Media Driver Info:
+	Driver name      : rp1-cfe
+	Model            : rp1-cfe
+	Serial           :
+	Bus info         : platform:1f00110000.csi
+	Media version    : 6.18.0
+	Hardware revision: 0x00114666 (1132134)
+	Driver version   : 6.18.0
+Interface Info:
+	ID               : 0x0300005d
+	Type             : V4L Sub-Device
+Entity Info:
+	ID               : 0x0000000d (13)
+	Name             : max9296a 6-0048
+	Function         : Video Interface Bridge
+	Pad 0x0100000e   : 0: Sink
+	  Link 0x02000017: from remote pad 0x1000015 of entity 'max96717
+13-0040' (Video Interface Bridge): Data, Enabled, Immutable
+	Pad 0x0100000f   : 1: Sink
+	Pad 0x01000010   : 2: Source
+	  Link 0x0200003f: to remote pad 0x1000002 of entity 'csi2' (Video
+Interface Bridge): Data, Enabled, Immutable
+	Pad 0x01000011   : 3: Source
+	Pad 0x01000012   : 4: Sink, 00000008
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev2 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Sub-Device routing ioctls:
+	test Try VIDIOC_SUBDEV_G_ROUTING/VIDIOC_SUBDEV_S_ROUTING: OK
+	test Active VIDIOC_SUBDEV_G_ROUTING/VIDIOC_SUBDEV_S_ROUTING: OK
+
+Sub-Device ioctls (Sink Pad 0):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+		fail: v4l2-test-subdevs.cpp(448): s_fmt.format.code == ~0U
+	test Try VIDIOC_SUBDEV_G/S_FMT: FAIL
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+		fail: v4l2-test-subdevs.cpp(448): s_fmt.format.code == ~0U
+	test Active VIDIOC_SUBDEV_G/S_FMT: FAIL
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+		fail: v4l2-test-subdevs.cpp(302): node->enum_frame_interval_pad !=
+(int)pad
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: FAIL
+
+Sub-Device ioctls (Sink Pad 1):
+
+Sub-Device ioctls (Source Pad 2):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+		fail: v4l2-test-subdevs.cpp(371): fmt.code == 0 || fmt.code == ~0U
+		fail: v4l2-test-subdevs.cpp(418): checkMBusFrameFmt(node, fmt.format)
+	test Try VIDIOC_SUBDEV_G/S_FMT: FAIL
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+		fail: v4l2-test-subdevs.cpp(371): fmt.code == 0 || fmt.code == ~0U
+		fail: v4l2-test-subdevs.cpp(418): checkMBusFrameFmt(node, fmt.format)
+	test Active VIDIOC_SUBDEV_G/S_FMT: FAIL
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+		fail: v4l2-test-subdevs.cpp(302): node->enum_frame_interval_pad !=
+(int)pad
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: FAIL
+
+Sub-Device ioctls (Source Pad 3):
+
+Sub-Device ioctls (Sink Pad 4):
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 2 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for rp1-cfe device /dev/v4l-subdev2: 63, Succeeded: 57, Failed: 6,
+Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for rp1-cfe device /dev/v4l-subdev3:
+
+Driver Info:
+	Driver version   : 6.18.0
+	Capabilities     : 0x00000002
+		Streams Support
+	Client Capabilities: 0x0000000000000003
+streams interval-uses-which Media Driver Info:
+	Driver name      : rp1-cfe
+	Model            : rp1-cfe
+	Serial           :
+	Bus info         : platform:1f00110000.csi
+	Media version    : 6.18.0
+	Hardware revision: 0x00114666 (1132134)
+	Driver version   : 6.18.0
+Interface Info:
+	ID               : 0x0300005f
+	Type             : V4L Sub-Device
+Entity Info:
+	ID               : 0x00000013 (19)
+	Name             : max96717 13-0040
+	Function         : Video Interface Bridge
+	Pad 0x01000014   : 0: Sink
+	  Link 0x0200001d: from remote pad 0x100001a of entity 'imx219 14-0010'
+(Camera Sensor): Data, Enabled, Immutable
+	Pad 0x01000015   : 1: Source
+	  Link 0x02000017: to remote pad 0x100000e of entity 'max9296a 6-0048'
+(Video Interface Bridge): Data, Enabled, Immutable
+	Pad 0x01000016   : 2: Sink, 00000008
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev3 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Sub-Device routing ioctls:
+	test Try VIDIOC_SUBDEV_G_ROUTING/VIDIOC_SUBDEV_S_ROUTING: OK
+	test Active VIDIOC_SUBDEV_G_ROUTING/VIDIOC_SUBDEV_S_ROUTING: OK
+
+Sub-Device ioctls (Sink Pad 0):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+		fail: v4l2-test-subdevs.cpp(448): s_fmt.format.code == ~0U
+	test Try VIDIOC_SUBDEV_G/S_FMT: FAIL
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+		fail: v4l2-test-subdevs.cpp(448): s_fmt.format.code == ~0U
+	test Active VIDIOC_SUBDEV_G/S_FMT: FAIL
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+		fail: v4l2-test-subdevs.cpp(302): node->enum_frame_interval_pad !=
+(int)pad
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: FAIL
+
+Sub-Device ioctls (Source Pad 1):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+		fail: v4l2-test-subdevs.cpp(371): fmt.code == 0 || fmt.code == ~0U
+		fail: v4l2-test-subdevs.cpp(418): checkMBusFrameFmt(node, fmt.format)
+	test Try VIDIOC_SUBDEV_G/S_FMT: FAIL
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+(Not Supported)
+		fail: v4l2-test-subdevs.cpp(371): fmt.code == 0 || fmt.code == ~0U
+		fail: v4l2-test-subdevs.cpp(418): checkMBusFrameFmt(node, fmt.format)
+	test Active VIDIOC_SUBDEV_G/S_FMT: FAIL
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+		fail: v4l2-test-subdevs.cpp(302): node->enum_frame_interval_pad !=
+(int)pad
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: FAIL
+
+Sub-Device ioctls (Sink Pad 2):
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 2 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for rp1-cfe device /dev/v4l-subdev3: 63, Succeeded: 57, Failed: 6,
+Warnings: 0
+--------------------------------------------------------------------------------
+Compliance test for rp1-cfe device /dev/v4l-subdev4:
+
+Driver Info:
+	Driver version   : 6.18.0
+	Capabilities     : 0x00000002
+		Streams Support
+	Client Capabilities: 0x0000000000000003
+streams interval-uses-which Media Driver Info:
+	Driver name      : rp1-cfe
+	Model            : rp1-cfe
+	Serial           :
+	Bus info         : platform:1f00110000.csi
+	Media version    : 6.18.0
+	Hardware revision: 0x00114666 (1132134)
+	Driver version   : 6.18.0
+Interface Info:
+	ID               : 0x03000061
+	Type             : V4L Sub-Device
+Entity Info:
+	ID               : 0x00000019 (25)
+	Name             : imx219 14-0010
+	Function         : Camera Sensor
+	Pad 0x0100001a   : 0: Source
+	  Link 0x0200001d: to remote pad 0x1000014 of entity 'max96717 13-0040'
+(Video Interface Bridge): Data, Enabled, Immutable
+	Pad 0x0100001b   : 1: Sink, 00000008
+	Pad 0x0100001c   : 2: Sink, 00000008
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev4 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Sub-Device routing ioctls:
+		fail: v4l2-test-subdevs.cpp(631): route->flags & ~all_route_flags_mask
+	test Try VIDIOC_SUBDEV_G_ROUTING/VIDIOC_SUBDEV_S_ROUTING: FAIL
+		fail: v4l2-test-subdevs.cpp(631): route->flags & ~all_route_flags_mask
+	test Active VIDIOC_SUBDEV_G_ROUTING/VIDIOC_SUBDEV_S_ROUTING: FAIL
+
+Sub-Device ioctls (Source Pad 0):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Try VIDIOC_SUBDEV_G/S_FMT: OK
+		warn: v4l2-test-subdevs.cpp(566): VIDIOC_SUBDEV_G_SELECTION is
+supported for target 0 but not VIDIOC_SUBDEV_S_SELECTION
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
+	Try Stream 1
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Try VIDIOC_SUBDEV_G/S_FMT: OK
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Active VIDIOC_SUBDEV_G/S_FMT: OK
+		warn: v4l2-test-subdevs.cpp(566): VIDIOC_SUBDEV_G_SELECTION is
+supported for target 0 but not VIDIOC_SUBDEV_S_SELECTION
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+	Active Stream 1
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Active VIDIOC_SUBDEV_G/S_FMT: OK
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Sub-Device ioctls (Sink Pad 1):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Try VIDIOC_SUBDEV_G/S_FMT: OK
+		warn: v4l2-test-subdevs.cpp(566): VIDIOC_SUBDEV_G_SELECTION is
+supported for target 0 but not VIDIOC_SUBDEV_S_SELECTION
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Active VIDIOC_SUBDEV_G/S_FMT: OK
+		warn: v4l2-test-subdevs.cpp(566): VIDIOC_SUBDEV_G_SELECTION is
+supported for target 0 but not VIDIOC_SUBDEV_S_SELECTION
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Sub-Device ioctls (Sink Pad 2):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Try VIDIOC_SUBDEV_G/S_FMT: OK
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Active VIDIOC_SUBDEV_G/S_FMT: OK
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 20 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for rp1-cfe device /dev/v4l-subdev4: 77, Succeeded: 75, Failed: 2,
+Warnings: 4
+
+Grand Total for rp1-cfe device /dev/media0: 740, Succeeded: 726, Failed:
+14, Warnings: 4
