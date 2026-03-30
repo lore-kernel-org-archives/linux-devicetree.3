@@ -1,68 +1,87 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C2A212B0A
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:17:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC570383C66
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:18:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774862233; cv=none; b=SZRy9egUDxx6mQgUQuiOoSVw3Ge+XBKHZr81ecebFuldzexJcOMwvzPEk71an5EwTqFJbKTEslEp0VafJVnHS299sOusXdwWk0X/cXiozeibDC/piZZKtsuw7sUIW3sMjGJr+spYaVhV60pX9LHwB3oVyALddPIaCy7R3jQu2LU=
+	t=1774862300; cv=none; b=rO1ZI10N+F6UGw36lyVK3yB1RBGSBHm525Z+0SRR2m8pf7MsTN6OPweJlxul/Gul/YuF0KYxSIzmPavDnFmJT9y4hHSlBoRmIEfgKd/wndFsYUfGupXS5J/gLgyQOLe9YY0vQUMm8Vp6bM7gAjL5cmw11Bt3kVgEpOzXwBQOYz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774862233; c=relaxed/simple;
-	bh=/7NiGOUpT1kZQYxs4aI+8rPIELPQb2KrHP9xTjm5odM=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=UfhCup7iw2L01Vz5nFRvYf664PdfrB+VNYGCHFvuW4YmsbU3v3jy07yVIh22Vvdk/5N9PeCSPqXBhOt3PmRdzVo6cz2yAgXioU/j63+yzi7ryY5f7ctez77FvKPAKIf9arhp4VwxTjF5HcyNfiRwNnMwJQwkWJY3E+8XiJeTfgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bMsKl8Q+; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1774862300; c=relaxed/simple;
+	bh=EgmTmKlnGSggZ9oeuTL+y6aV8pgQMth7vygiP6lUmQo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=C7kL9PSY6G+fsAgsdg6ZCEIlgXyB8iwoLQHOPtnQmwgSWG4EY+2k05IYh3Wfdm5YtcbXVS7AOOGXF8yxa5Es8aqbJV/8MyP2pchADKuCvPbak9Qrp1shymK+O/wQtrSNkyrfe2BlA+ImHCI2bme/G+C37MFelf3t1S6xomO1l10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aQHAtDaq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Doe2guXj; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bMsKl8Q+"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-43b8982c2f4so2097456f8f.2
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 02:17:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aQHAtDaq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Doe2guXj"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62U7XHJ83164030
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:18:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qjxNTNDyCOYF8ParJqsQO9O0jX2elDP2zds2jZ5uMkU=; b=aQHAtDaqX2VxDlhw
+	aowZjgz+xZyLmcUxSk5yjnQ/fJPC4B5R7JG37aj1oJUablZyXK0cs0QOSs7YYgBm
+	w51kn9sqvW2Qse0LeH26BpSgCrYqBh2DSYbxSb6D+tgqmvu2GcxSl6Nb3iW/gx0y
+	dcbF2/BfMkRrOnN6soYD9+0Ir0Up7iQHmAdLcYWz1N5ustSOIsCzP7elxSX9X6T4
+	yBWNJ5L8S7IDBuBbSlPkuq47bKn84rCmo4DuZsHKtlkMQyZ3U20GfieqC7rW0quX
+	BUSxqXBDg9S+NXVnduDgGmzeQB+roRBLc3NSRjO9ayzEagZU5xUM6AiuABWV/VRr
+	NraPUA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d6ufmkgh5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:18:18 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50943e69b08so15488891cf.2
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 02:18:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774862230; x=1775467030; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=4VOM/b3KwJ3A3R51aHiZRtwvN8eEVduEBIFhFs9QUVY=;
-        b=bMsKl8Q+cfN32buqujoEaQ8WeAc1fhcUwmEk/5mLZdYefvx5rLfbTTXcVHUebbUjJD
-         HN44tmM0Rmb/nOS/goSGmlvc6Vv/wC6LIv0YCIKCXcEPD+ZHxk815ayvrw8e+kZrQZJ2
-         MR6mPMrEVXooL2nLPc4JZZbHJAz1HbK1JrBU1mBSVdoFoG2WV/gI9jwXE/iJ4OMX86/x
-         1yr+BO49Vb0RO5wZ8CyjWsq1kCTmzYyfGXjncpRBWqM12tAYkmcpJ7UlzF+R34+oc1OC
-         MzoLPRc/xi60DpDCoKgtoa/aMWC7jzHwXpyoCBLgEIZ9TIkbU5h3Ro8WO6suMrbJQMLw
-         Pzxg==
+        d=oss.qualcomm.com; s=google; t=1774862297; x=1775467097; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=qjxNTNDyCOYF8ParJqsQO9O0jX2elDP2zds2jZ5uMkU=;
+        b=Doe2guXjncQ8q+ei1I+LIOVFIvgCnGPgNv6tvFxEZvnwNwRreaHDNmHziEN9S5OF4g
+         KnwmZLdCHx11WYjFKr0hg6IfydxCKh1iQ2CThjGOjMMcAAAGWh/+0WHAOzdbQkGumock
+         qmxZMQSrwGuYFxMm8ugIb41CyYEPGXs52a+ijPadN4sYpFP6E286N3CHt3ohJSifrYnj
+         kIqOAz0vDGS2OFFZ7czTs5w7DexNykCtAV85zsiVeJ7pyYO+F9bWkUKANtf0XtxmnXeI
+         TILdIL6QGDdSLnEmqxMh65pIMQ4vzj0vUHWMI7VdAwXbyRweccrawR6NLZ8pkEDuBYFL
+         PpSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774862230; x=1775467030;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=4VOM/b3KwJ3A3R51aHiZRtwvN8eEVduEBIFhFs9QUVY=;
-        b=hc2ymyWFVw6uwuSvXJgnj2l0YO2g9/59ILIftnNvdAkuOUlSUrIcoVv74x3gXw7ip5
-         G2+MTOuAFl4fm2YUMO26nyZVEuWoZqe54WgY7C7UVOh9MgHFuTgMlGxso2CizS5vwUvn
-         w6vQvnO18dP5UDyyY5RqZFy/1qwyE3GR9bjZye3ZO+q2SowmWeMvB9s0HpJQ9REC02V9
-         QdE4Lnb9U8HUJ8twmiIXHVSizVZW4zgKhK9R3t2qgNN8Z+jlt82hju/D86OakHBnWL6Q
-         cGxJEKI6aixDRIEG3tji9rY6ZcGPmveTLTjGFs5NulCGI1KUG7DPb25/2RV1A+U79RK0
-         d7kg==
-X-Forwarded-Encrypted: i=1; AJvYcCVCRHiqHJIYcrYg4nuMTdHU/u9r34wjHHm581F4Hjhn/1JkUutE1ZdA0g+DPS4/iYtqCIWyw2VmIeuk@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzca2n9KBJqBcEPTgFrvPyj0emK3MLsBS4N/MnjLX3V5O2v+UJL
-	kXM1E1zqSde3SkIPTEGZn8ttkWgYsi0WhqODElbIG+pjX59N0kLlqCa7T7P6b8lxLXQ=
-X-Gm-Gg: ATEYQzx3YQSzFtKVHRDTCBB6/rabaPtJiQc9ZS70YQ6NtrdZPuIylY5TVY5ysB3QN+z
-	ZkQBMsVFMW71e2PjtG/3IYgfMRsdBa5pixVIDdZ8x6yILAKHvcmHoWsFQWA0ixCDyAVe+XXWX3K
-	X4d8JawTMyhIkDB5zGCW74rTFTcKQr6C5VL2xnPW6wwOOgDdWSxzGDMJvEOfp3YSvMSOZlIP2zJ
-	QtOyfHClkZc+WLNYKVlpjKCKrVm9pNiKL8OGfkF38NN9IjvztjKVRFulhoCcsvOOt0cb09RoZvY
-	+rb042Qe8GCxtnCVvPWcJcaJgXm7D9JprwM6GD6pGtr1iiK+0WwYc5wecBZQZh5M0F1QELy5CpR
-	A1cTqm298UngIH1+vT/lluC2f8pkENSUxh+PviNmLFFBJPoll76qM1Y0vbUfsoJawD5i1SmUOGr
-	IFBA90pHeuCR4kABGgIH0oIKGJvEweAGBsTP2TDkdwzQAfCC9X7gdV8YIC8MbNl4PjI6o7Qky5o
-	/1m/hs=
-X-Received: by 2002:a05:6000:2f87:b0:43c:ff58:35c2 with SMTP id ffacd0b85a97d-43cff583701mr5346372f8f.20.1774862229397;
-        Mon, 30 Mar 2026 02:17:09 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:cb3c:d0d2:870b:6ad0? ([2a01:e0a:106d:1080:cb3c:d0d2:870b:6ad0])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43cf21e2628sm19089838f8f.6.2026.03.30.02.17.08
+        d=1e100.net; s=20251104; t=1774862297; x=1775467097;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=qjxNTNDyCOYF8ParJqsQO9O0jX2elDP2zds2jZ5uMkU=;
+        b=hfsBNhoRIRUXPyuMy5JAqzV6Pwzore8D9bpAt0PfIqCuk0cRV54VLSr5XkX8bFhvTX
+         rwgiCBWesI7FQ7nLBWvoSp0PaqCKbrY9MsVzBNdvVKADl0cq/Y3CHmZCRbTAAzyyyU4I
+         a+ATfD9Ql1y8jjWPRVsWpZWgfnShF+C7LH+FDBnhB+U2KzwwpTFXiQBb4uOSvzE/Eth1
+         9DL/pqkABJzS4v/AdWDXYQEKTMfdmNRRxUxrQ12tI6zBsX+NN9x9/GGiwoYNAXPRTJao
+         x7jcJhyhP0HaRtWumohpDh3IIGak+RTTC/cqy1iTbISGGtdNB+HArZjhpDvd9qKZ8M5x
+         CI+Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXZkp6neftkPnfwzpNefM/SY+Rysh8G7DYA/68RxeKQTFV9Sddobjjrg8rzN6NKpTJKddex+yg8b5LO@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzf0U9dedtFECy9OhFIWOMq/JEbEWNd1vKZW49BnY3MxpM8nFgp
+	GiS4rKTW04TFAliHUQ779fXhqIHD1CSj2DmDgEJE7kjVb0msnLiTL2Lrmf2rsHWZJaCpCeEAbwe
+	PWxn6jzUeMoDdcmZ83oJxJS2on/FRWumh7TEzIVfKfgyq5c3/6UT01P01FtjWFMca
+X-Gm-Gg: ATEYQzzuchWUFdZzicXtfL+ikuYGQxaCaFQRTsMgl63C54K6PzgdjhJBZI6PxgTQ0q0
+	r0kQcuTmwVIanNmFGsvc2Oo9bPAisSHN6OCsr8eR+qXNuOap7cBsPZ+6OkG1b2yl2tU0KofQGww
+	Sbjh/0pWvKzjpX61EMCPVGXZQFFFA8kaVbRrqwaGTOxArij2V5uWxSH/0FgSHDCJgf0PiBptkIB
+	Q+jY+gfXc0jHN+oP07/6e7nQmzC1QlJrAOsf/n4iJ3ltx9e5uMS+wmUUdF2rXrTFMFBWjJ1x1IH
+	o7Qr/kSz7VeJw68fEtQ5oBRuABsvjkgjA+JzrudFFWbsK0bceC+pxiktI6flSSEpC3v20e9G4rF
+	VzbieL17KiMlb8YsvY2JwKWT2pP7veCTyzGMkmrD4lLhyPGIp/+nTS/mrmJHv9zmkc22U+44p2q
+	jr/DE=
+X-Received: by 2002:a05:622a:30b:b0:509:15aa:cf03 with SMTP id d75a77b69052e-50ba3970575mr120358771cf.4.1774862297178;
+        Mon, 30 Mar 2026 02:18:17 -0700 (PDT)
+X-Received: by 2002:a05:622a:30b:b0:509:15aa:cf03 with SMTP id d75a77b69052e-50ba3970575mr120358571cf.4.1774862296712;
+        Mon, 30 Mar 2026 02:18:16 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9b7ae520c2sm266091366b.21.2026.03.30.02.18.14
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 30 Mar 2026 02:17:09 -0700 (PDT)
-Message-ID: <76ea03d0-d41b-4880-a48c-06570eb089ed@linaro.org>
-Date: Mon, 30 Mar 2026 11:17:08 +0200
+        Mon, 30 Mar 2026 02:18:15 -0700 (PDT)
+Message-ID: <f971b7d9-8e88-446f-ac93-c3506bca83bb@oss.qualcomm.com>
+Date: Mon, 30 Mar 2026 11:18:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,188 +89,68 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v5 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Vinod Koul
- <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org>
- <20260326-x1e-csi2-phy-v5-1-0c0fc7f5c01b@linaro.org>
- <7712fbdd-a225-49f0-aeb9-ebcbb9d5abac@oss.qualcomm.com>
- <da3ed78d-fb5e-4820-95d6-527d540cf03e@linaro.org>
- <1f38187a-9464-4aa9-b70a-03b767349d56@linaro.org>
- <c5278028-dfe9-4d09-970a-a25977967bdd@linaro.org>
- <016c03b8-27c3-41dc-a630-8e7095db1f88@linaro.org>
- <456ded59-d13e-4b61-975b-97ca48b5e771@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <456ded59-d13e-4b61-975b-97ca48b5e771@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 1/3] arm64: dts: qcom: kaanapali: Add USB support for
+ Kaanapali SoC
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Ronak Raheja <ronak.raheja@oss.qualcomm.com>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+References: <20260329175249.2946508-1-krishna.kurapati@oss.qualcomm.com>
+ <20260329175249.2946508-2-krishna.kurapati@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260329175249.2946508-2-krishna.kurapati@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA3MiBTYWx0ZWRfX5LUaHV31n0m7
+ rDG8yqLhC8xKQ1j88wbnB6ZNkVAIqLFez0OFRiZcw4BvGXCcU6DBCiOslYie/c51jmNpPs/96Ew
+ RhGtImVD7jcxG3LySoGrnoyDathEpS5L0VtR4/YWlNyrDpbR9pc6YFaKSjU+KrcQd94fW32c3N5
+ QdXWcmkVgRqbWEjxWb3Ect6HxwvRG2sOhBtnYoISrApw9uwgh8zVranbGgQyfhx1jsX4GrQ2YL8
+ 8qU13p0HcUe8aMC3Cr1rvP511Xq8YujYz8j2dOod/bM2pTXp3Me2wYh/lmXFmzd9Wvn87YAOBWd
+ kiFVCohe/qKwaASjkYFp/GvDSJUEcbmDYEj0pMiTGdfNellDYPzStZtrX81FXzsxva7Xp6U/FR2
+ AolTjMz+aCJyt1ajtO/QLGn/pttNEMwhf/xVe7EWlyBE+p5JuqlbWwGXXXD8+LHBY/pKpEirc4x
+ 3ss3+Mqc029qHFc9xTA==
+X-Authority-Analysis: v=2.4 cv=aOT9aL9m c=1 sm=1 tr=0 ts=69ca3fda cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=edOAiv4QBLOMXHKBau0A:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: amWfW-2Zn9d1nHjYaAhAhuaT7wZftLiA
+X-Proofpoint-GUID: amWfW-2Zn9d1nHjYaAhAhuaT7wZftLiA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-29_05,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
+ clxscore=1015 suspectscore=0 adultscore=0 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300072
 
-On 3/30/26 11:02, Bryan O'Donoghue wrote:
-> On 30/03/2026 08:49, Neil Armstrong wrote:
->> On 3/27/26 18:42, Bryan O'Donoghue wrote:
->>> On 27/03/2026 15:28, Neil Armstrong wrote:
->>>>> To be frankly honest you can make an argument for it either way. However my honestly held position is analysing other upstream implementations connecting to the PHY means we can't make the PHY device a drivers/phy device - it would have to be a V4L2 device and then for me the question is why is that even required ?
->>>>
->>>> This is plain wrong, DT definition is different from software implementation, you can do whatever you want if you describe HW accurately.
->>>
->>> I'm not sure what point it is you are trying to make here. Are you trying to say drivers/phy is OK with you but you want an endpoint ? If so, please just say so.
->>
->> I'm against using the "phys = <>" property in the CAMSS to reference the PHYs, a "PHY" in the classic terminology is tied to a single consumer, and if it can be shared to multiple consumer you must model a mux or whatever in the middle.
+On 3/29/26 7:52 PM, Krishna Kurapati wrote:
+> From: Ronak Raheja <ronak.raheja@oss.qualcomm.com>
 > 
-> The CSIPHY-to-CSID routing is runtime-configurable and is already managed by the media controller framework.
-
-This is not compatible with the PHY bindings if you don't have a defined MUX device in the middle, it's wrong. You're hiding the muxing details in the CAMSS blob node.
-
+> Add the base USB devicetree definitions for Kaanapali platform. The overall
+> chipset contains a single DWC3 USB3 controller (rev. 200a), SS QMP PHY
+> (rev. v8) and M31 eUSB2 PHY.
 > 
-> DT describes static hardware connections. The dynamic mux is a software concern, not a hardware description concern.
-
-DT must describe the possible interconnections between the nodes, if a PHY can be used by multiple hardware components, it must be described.
-
-> 
-> 
->> The PHY API as an internal software implementation is probably fine, even if it makes implementation of split mode much much harder and doesn't really solve anything, you can just call init()/poweron()/ poweroff()/exit() directly from the CSIPHY media callbacks.
-> 
-> Great.
-> 
->>> I can see an argument for that hence my response to Konrad, I just don't see why its a Qualcomm specific argument and of course understood stuff bubbles up in review, we have a public debate and come to a consensus - that's a good thing.
->>>
->>> However, I'd want wider buy-in and understanding that endpoints in the PHYs is a more accurate description of the data-flow.
->>
->> It is, and it was designed for that, and extensively used in the media DT representation, so I wonder here you would not use it...
->> In an ideal world, you would add nodes for each CAMSS hw elements and adds port/endpoints links between all nodes to describe the data graph, this would be used to construct the media controller graph, and make it much easier supporting new hardware.
-> 
-> Yes but be pragmatic Neil. The first step in making the monolith into sub-nodes is the CSIPHY.
-
-I am, and I agree it's fine to do it step by step.
-
-> 
-> Once the CSIPHY is in, we can follow on with adding new nodes that way IPE, BPS, ICP, JPEG whatever and also work on implementing the old stuff in that new way.
-
-I agree on the approach, I never said otherwise, but you need to have the big picture in mind.
-
-When you'll have the CSID subnodes, where will you add the phys properties ? you'll keep them in the CAMSS top node ? add all CSIPHY to all CSID nodes ? this is wrong and this needs to be fixed now.
-
-> 
-> 
->>
->>>
->>> We've been applying DT bindings aplenty without that so far. So we would establish new CSI2 PHY bindings should represent the sensor endpoints.
->>
->> We've been using a dummy representation of CAMM in a single node with only endpoints connecting to the sensors and hiding all the hardware layout in code, it doesn't scale and makes supporting new HW hard.
->> I mean this is common sense, why would we continue to stick to the current CAMSS bindings ???
-> 
-> We _won't_ I just don't support a big bang integration. Progressive changes over a longer timeline make the transition manageable, without accepting endless sub-standard stuff in the meantime or holding up all new SoC submission unless/until.
-> 
-> I mean there is a CAMSS meeting which I've been running for nearly a year now that both you and Vlad are invited to where we have been discussing this for months...
-> 
-> Anyway one conclusion of that is we want to transition to individual nodes for everything.
-> 
-> PHY is the first step which I'm taking because its easier for me as CAMSS maintainer to convince the CAMSS maintainer to take the relevant patches.
-> 
-> drivers/phy notwithstanding.
-
-As I said I agree on the progressive approach, not the PHY DT bindins approach.
-
-> 
->>>
->>> Is that what you want ?
->>>
->>>> The CSIPHYs are not tied to a single "consumer" block, they can be connected to different consumers at runtime, which is not something classic PHY devices are designed for. So they are de facto a media element in the dynamic camera pipeline.
->>>
->>> The existing CAMSS binding and media graph are not changed by this series.
->>
->> This is not my point, I don't care about the software implementation at all, I care about accurate hardware representation. Using the "phys = <>" property does not describe hardware accurately.
->>
->> In other words: The CSIPHY are not connected to CAMSS. This is _not_ true, tying the CSIPHYs to the CAMSS block hides the real data muxing in software.
->>
->> Please remind DT is used by multiple operating systems, and properly describing hardware in DT will help have good software support over all OSes, not just Linux.
->>
->>>
->>>> And actually Rob Herring asked use to define the complete data flow, it was a strong requirement. I don't see why we wouldn't here.
->>>
->>> I'm implementing feedback from Rob.
->>>
->>> https://lore.kernel.org/linux-media/20250710230846.GA44483- robh@kernel.org/
->>
->> Where did he ask using the PHY DT bindings ? Is he aware those CSIPHYs are muxed to multiple consumers which are burried in the CAMSS code ?
-> 
-> I freely admit to taking the initiative of phys = <> but Neil there is _no_change_ to the media graph and the "mux" is a runtime configuration that is one register in the CSID.
-
-Honestly I don't care about the userspace media graph, this is a software problem and we can totally make the transition seamless if we want.
-
-Don't limit the DT hardware description because of a software userspace ABI breakage, this approach is not the right one.
-
-> 
-> You seriously want a mux device in the kernel to model one bit in a register ?
-
-Why not ? We have drivers that even toggles even single bit to solve those kind of situations.
-
-Physically they're a mux to route the CSIPHY to the consumers, it's a fact... even if it's a register or a single bit.
-
-> 
-> No.
-> 
->>>
->>> To me, here is where we stand:
->>>
->>> - Individual nodes - we all agree that
->>> - As sub-nodes - I think the majority agrees this Krzsztof, Dmitry
->>>    I'm fine with it too.
->>> - drivers/phy - I think we are accepting this is also fine ?
->>
->> Like I said this adds a supplementary API layer for no reason and will make life harder, but I don't care personally.
->>
->>> - endpoints should flow into the PHY and then back to the controller
->>>
->>> I get that argument. In fact I _like_ that argument at least I like my conception of that argument.
->>>
->>> I'll stipulate to that argument meaning then that, new CSI2 PHYs shall include endpoints for this purpose globally.
->>>
->>> As I've said before, there's nothing Qualcomm specific about this discussion, really.
->>
->> There is, because the current Qualcomm CAMSS bindings are insufficient and should be entirely redesigned from the ground up to properly describe the HW.
-> 
-> The long term plan is to do that. Discussed extensively with the Qcom teams delivering CAMSS, even invited community members along.
-> 
-> Here are the meeting notes - its all in the public domain
-> 
-> https://docs.google.com/document/d/1yUwWHaKLuovKVgGTzvKm68K1zS6xBONVzjOsRjDl03U/edit?tab=t.0#heading=h.mtbm7qfohwfs
-> 
+> Signed-off-by: Ronak Raheja <ronak.raheja@oss.qualcomm.com>
+> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
 > ---
-> bod
 
+[...]
+
+> +		usb: usb@a600000 {
+> +			compatible = "qcom,kaanapali-dwc3", "qcom,snps-dwc3";
+> +			reg = <0x0 0x0a600000 0x0 0xfc100>;
+
+Following the woes on Hamoa, can the platform suspend and wake up
+succesfully with the flattened DT node?
+
+Konrad
