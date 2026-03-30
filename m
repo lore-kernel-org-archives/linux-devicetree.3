@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BD73C3430;
-	Mon, 30 Mar 2026 12:03:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA8E1277C9D;
+	Mon, 30 Mar 2026 12:11:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774872201; cv=none; b=mNe/C0FIsUbsRitCSE2dFtQsK1BqHJFFjv5I4ftPuD2JxXHV2/Ejijd6OpRBbttw57tg+KWO3x0MVIYBVpKY3SfLQPvQzI9YT6+GY0MMNLUbGE81BSmyiXHez1HnryfZsO6fGFKGg7G7ySMGhFpOCKfAlO4pKwMRNw09PE+VhtY=
+	t=1774872662; cv=none; b=MPg1GwKGvYAu7ajN3MaqpBnu4X32QQ71bOGgvAj3+bgQ5lyAtXBjEqBaCllom0J5E3SvZ3qU8JGf9oehEo5kBHZpxbMtaDy4SK4/4sh/ZRxyk5g6R0FEsdyeAvdfOToAVlij2EAGHQjyUh7ETAEyFTG/1tyma8HCVP6+kBDveFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774872201; c=relaxed/simple;
-	bh=6rGfrEd7z0om+/8Eg1iaTxQn0X+cJxlNGLuxFE1DC0k=;
+	s=arc-20240116; t=1774872662; c=relaxed/simple;
+	bh=oSiB8RNT+7isf+oXi8Bf5+znknpRzVVDDxgVPd7BW9M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Y2PbLR8O4JVB/IO0yS+a9gzYBGHlJf7K6UzPj/n7x9gwtmLI0VpppIoeHVJSSJxm6M1y5q0uJ6QpZhjJRI74fdFB1kStpHTb/yxghgjDgWllMXLrmA5PjwJ5Ws+RZrWhzWq/dF0cqAhDA6VDIx5EqHcCOeGE91UTy1qPlA28G3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tKbA9FX3; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=kv3BeH+PNUClekCoIMz6i4ejFpS31oF5cm3nN8Wudd9+t55RO+dc8AHQ483ztNeaETFEfufWRVNWKTxaTrbwEFgXJnrJciYk0PhqE7N+Kt2eHPEItKMOSYNgBgrVaxSI1VIUfH/vIw+iyYPPwytwXuGLD/rN+BtxX56bPot2Zx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/LD12i1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tKbA9FX3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31E8FC4CEF7;
-	Mon, 30 Mar 2026 12:03:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/LD12i1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 203A7C4CEF7;
+	Mon, 30 Mar 2026 12:10:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774872201;
-	bh=6rGfrEd7z0om+/8Eg1iaTxQn0X+cJxlNGLuxFE1DC0k=;
+	s=k20201202; t=1774872662;
+	bh=oSiB8RNT+7isf+oXi8Bf5+znknpRzVVDDxgVPd7BW9M=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=tKbA9FX3bQnMvq28DJdJFIlUDQ97waRpWk5wHoypnrirkiYLozRGRBGOWiCBZnzPt
-	 Iyr9C7YAWqWm9cV2GbXZJA/20Nu+lp7oMCBgid0p/3PH6z5ZJ56F7fg5OYkHvgQC3x
-	 VEFiDD6yNO4WtmZ2N7Q7wqbL0Cf+7Mzgk6063AvhHryA+5i2sFl7CakNgJMC4gj24z
-	 lJbjBsQRgr3U9X6KCMHBbCHFVCNDhq6uP0RCx0RtkWm0BwoucR48gcmRGtMoAkQGPR
-	 1mzO/e4HAOmyTZgE+/HUSX66pifxjrKHDib3534K77aeamIt4raa8vN3othKczeWmH
-	 fMo/IjByXuqZg==
-Message-ID: <f2a70c77-f00a-479e-a662-64aa359ddc9b@kernel.org>
-Date: Mon, 30 Mar 2026 13:03:16 +0100
+	b=Q/LD12i1HhJLs+ZYbZsDAvmhc2YEv9+IsXGmNXIkL5QFj0kYe11W/2eRCYHmSnbT2
+	 ODucYvBFuJyRCIoxewmVI/MVeoJ9D2152O74pTDCKul+aUOICxxOqXtv1nyTaNbZME
+	 Zic5d2nL9Zl8cFNVcirjhaod5ZXqEuwBEFYVBFCwlLVQ8H6zbJ33Vv2hzkrabO5Ij/
+	 cjHH87ao1UcdQKmxnOvTODqfiyZttQKEqbIkwEb72XCfXNxbsJFalICeqw/D9xHno/
+	 kTq4/BP/xQOXOvwBMCG2lnB8guRS5BkQLe/Qh+1i5IHgvcvEz0zHXPoBGKWbw8GI+t
+	 tBFmV1YltXVbQ==
+Message-ID: <bc0f6fe7-c3bd-4c75-8829-11123a7649a0@kernel.org>
+Date: Mon, 30 Mar 2026 14:10:57 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,130 +35,125 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
- <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <7712fbdd-a225-49f0-aeb9-ebcbb9d5abac@oss.qualcomm.com>
- <da3ed78d-fb5e-4820-95d6-527d540cf03e@linaro.org>
- <1f38187a-9464-4aa9-b70a-03b767349d56@linaro.org>
- <c5278028-dfe9-4d09-970a-a25977967bdd@linaro.org>
- <016c03b8-27c3-41dc-a630-8e7095db1f88@linaro.org>
- <456ded59-d13e-4b61-975b-97ca48b5e771@linaro.org>
- <RAPaPhpxA39W0ykm-Cr1KaDiJKpRqdQTXUeEmt5mQn4lJBHEGaIS010ejjmhUYEBsHjzrTX41Ek9zLU2bae_YA==@protonmail.internalid>
- <76ea03d0-d41b-4880-a48c-06570eb089ed@linaro.org>
- <0101d8bc-1ae8-475e-bb9e-cc1e16db87ec@kernel.org>
- <6d5ebab6-3c4e-4a1c-9578-6e926cbd96de@oss.qualcomm.com>
- <jm31MCQxrDbbf5WzmGa4xB-Qr91ZClFN9-AenTxBa0BtCGq29Rf_ydChxtWcrnbHSbkUII3eAXPK4auAprPYtQ==@protonmail.internalid>
- <gcu6qzsoff2fox3nbytegyikajn65ae4ekowcn7bs4x2k53vao@rykmxndzzhlu>
-From: Bryan O'Donoghue <bod@kernel.org>
+Subject: Re: [PATCH v8 04/10] dt-bindings: soc: google: gs101-pmu: allow power
+ domains as children
+To: =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: Peter Griffin <peter.griffin@linaro.org>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>,
+ Will McVicker <willmcvicker@google.com>, kernel-team@android.com,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org
+References: <20260318-gs101-pd-v8-0-241523460b10@linaro.org>
+ <20260318-gs101-pd-v8-4-241523460b10@linaro.org>
+ <355b2f8f-0a3e-4209-8b1e-10600c2b3df9@kernel.org>
+ <dcf2c447d9bbe16e800a4dd7e74ecc26d3ade3db.camel@linaro.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-In-Reply-To: <gcu6qzsoff2fox3nbytegyikajn65ae4ekowcn7bs4x2k53vao@rykmxndzzhlu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <dcf2c447d9bbe16e800a4dd7e74ecc26d3ade3db.camel@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 30/03/2026 12:49, Dmitry Baryshkov wrote:
->> // determined at runtime
->> csid_n: csid@1000000 {
->> 	phys = <&csiphy_0>,
->> 	       [...]
->> 	       <&csiphy_n-1>;
->> };
-> I think the bigger problem is:
+On 30/03/2026 14:00, André Draszik wrote:
+> On Sat, 2026-03-21 at 20:14 +0100, Krzysztof Kozlowski wrote:
+>>
+>> This causes warnings, so I dropped the patches.
 > 
-> &csid_L: {
-> 	phys = <&csiphy_M>;
-> };
+> I assume warnings are because I didn't make it clear enough that patch
+> 2 is actually required?
+
+No, these are obvious errors coming from bindings. You can try yourself
+instead of asking maintainer to run the commands for you...
+
 > 
-> &csid_N: {
-> 	phys = <&csiphy_M>;
-> };
+>> I really do not
+>> understand how this is organized. This is not a dependency for pm
+>> domains driver but it is included here.
 > 
-> aka split mode.
+> The binding is being updated, and the driver follows suit. 
+> I particular, the driver needs to be aware that pd is (can be) a child
+> of pmu.
+> 
+> Yes, the driver does not depend on this binding update, but it shows what
+> the driver must support. I believe this is what we have done in the past:
+> binding and driver updates in same series.
 
-Depends on how you model it.
+Yes, foo-binding goes with foo-driver to foo-subsystem. It does not mean
+you put here completely different bindings. Why? Because just like foo
+goes to foo-subsystem, then bar-binding goes with bar-driver to
+bar-subsystem.
 
-It feels like a philosophical as opposed to an engineering debate in a way.
+> 
+> I could move patches 3 and 4 from this series together with a DTS
+> update patch into a separate series, if that would be deemed a better
+> approach?
 
-The CSIPHY block is defined as one thing - is split mode one PHY or two ?
+I asked you what are the dependencies and you answer there are some but
+you can move it outside of patchset. So are there or are there not
+dependencies? If there are, then you cannot move out. But then I ask
+what are the dependencies.
 
-You could argue it either way BUT one strong argument for it being one 
-PHY is - voltage rails, input clocks etc power the block.
+It feels like question to trick the maintainer. Maintainer complained,
+so you propose whatever he objected to without understanding whether
+this is correct or not correct approach.
 
-Sure there is an esoteric mode called split or combo mode but the 
-hardware block itself the thing we usually call the PHY lives as a block 
-diagram as a discreet entity.
+> 
+>> It is a soft dependency for DTS,
+>> but that is nowhere to be found.
+> 
+> I was waiting for review of all binding changes before posting DTS.
 
-So I think split-mode really is more like
+That would be fine explanation, if you also read maintainer soc profile
+for Samsung and try what is written there. You would see that you
+introduced new warnings without any fix possible as far as next is
+concerned.
 
-&csid_L: {
-	phys = <&csiphy_0 DPHY>, <&csiphy_1 CPHY>;
-};
-
-&csid_M: {
-	phys = <&csiphy_0 DPHY>, <&csiphy_1 CPHY>;
-};
-
-Recall the debate about a mux is because CSID may connect to any CSIPHY.
-
-csiphy_0: {
-
-	clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
-		 <&camcc CAM_CC_CSI0PHYTIMER_CLK>;
-	clock-names = "core",
-		      "timer";
-
-	operating-points-v2 = <&csiphy_opp_table>;
-
-	interrupts = <GIC_SPI 1 IRQ_TYPE_EDGE_RISING>;
-
-	power-domains = <&rpmhpd RPMHPD_MX>,
-			<&rpmhpd RPMHPD_MMCX>;
-	power-domain-names = "mx",
-			     "mmcx";
-
-	vdda-0p9-supply = <&vreg_xyz_0p8>;
-	vdda-1p2-supply = <&vreg_qrs_1p2>;
-
-	ports {
-		port@0{};
-		port@1{};
-	};
-};
-
-csiphy_N: {
-	clocks = <&camcc CAM_CC_CSIPHY1_CLK>,
-		 <&camcc CAM_CC_CSI1PHYTIMER_CLK>;
-	clock-names = "core",
-		      "timer";
-
-	operating-points-v2 = <&csiphy_opp_table>;
-
-	interrupts = <GIC_SPI 2 IRQ_TYPE_EDGE_RISING>;
-
-	power-domains = <&rpmhpd RPMHPD_MX>,
-			<&rpmhpd RPMHPD_MMCX>;
-	power-domain-names = "mx",
-			     "mmcx";
-
-	vdda-0p9-supply = <&vreg_abc_0p8>;
-	vdda-1p2-supply = <&vreg_def_1p2>;
-
-	ports {
-		port@0{};
-	};
-};
-
-IMO split mode is a special mode of that hardware block, not two 
-individual PHYs.
-
----
-bod
+Best regards,
+Krzysztof
