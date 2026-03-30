@@ -1,218 +1,297 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010063.outbound.protection.outlook.com [52.101.84.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CD02F6170;
-	Mon, 30 Mar 2026 15:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.63
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774885633; cv=fail; b=rebeu6TQz+t+x+y152GDfJqlHIXrBm1dW/CVEZwvoF+E6k/VYneiGVH+2/3ULPF9TiQqQH9EekjB1U/Ju8YLsSASA7JIPNUoi4phjpCDvyJlDo/g5ZEwQkmtCloKIOyNLDn+YispKy8TdmaP6cYXBIKb/gUByENlSJai52XER3s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774885633; c=relaxed/simple;
-	bh=pto7a2QCJlp4YQ0zb12xUEQ6PNAFiDYcUvdWKv5A6TU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Tr+81mfYUnDAiI3zTz6IkDuXFn8FluCWh6vxRFXc0yoHadk0JxsqV215Miwpb9DKAtqq0wKC1+H6QjqY/RIvCTQFVsH2YUDQKVfogReh63IlNQWml63RPJT+KPvnQ8jXAtUpbqI0qZl5m4wRIxXZguJWMUuvaV0R66JUOlLFoHg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=lUDYSCE9; arc=fail smtp.client-ip=52.101.84.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3D1372663
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 15:47:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774885657; cv=none; b=LaCdt3o0cxDb190f+d98Viu2TBoGyHePdbidEOaBnvxNWMqOCuZg57zPfGJosC4mcnQCKIleBa5/dyycSnR2IE4ImS9YNVXiwMmNTcT/riKicGRrow5WaRXaqifspsQERbcK5Pi37PLAzfFqRve9oq8K5yJvLk27p2aaxJoKodA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774885657; c=relaxed/simple;
+	bh=3Sjhql64F8YbVSqIIBGW+7FGX7TWmYnn8PcKHPquz2Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SOyCQZfL84MTHQAvk4uj7O9yPFHRa4azR/UbOF4YJ27vw/iUrx8bDOaG1OI9dbLVUrIyrfIU9T5tNb9bUlmEpsk1N+RpmkUWkwICF+G/3pXC6MxOyK0FQVdCi88avQ52Ea9FEo1K4rfVaPrZ/UJTVnvogVviGc6hKbRpf1L+wyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ecTpZORG; arc=none smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="lUDYSCE9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wrw/wtC4QgPPf0cXM0jcUE8hUjtYszZuZ7O5aFYbETpM7e1nrk/nERif3TJrqELkyGlYlBX+LbkdN85fmv6ukZJLxYTVET5SkXNEaHFBCW+14qxWyoLSUhOFypv4Qjr7yJlWP5PXMUiLn1xLGEtKoyJWjWwpMqyAU0XYx/U0RMAMm2kVNmn+Y2NPXpqTinluSWI9VGo6acZdR0S0Aeuz+hmxt4PWfRSFmqmuMBcv+VtmN/uUT8W3oIl8A18CKLxnsylENw90qZVQcjxvuBmyt0bUmEgf/TLWXAovyO+YiqAVtsxl8d8+E5rvwULyenLEHBJkX7N5Jnm9mYCj0bXGvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tu/cxAdOyPi5zZCG3TBGMCDpNbGuZO7erYwxGvjP6ag=;
- b=lGEHGptTfoNYu/bU7EjYUG2Ut57OfC7VOYZzoUpOtdMzqmbNVmQhj58iJAxVdIMvQKvfBWMlBccrUOYnUh4LK60pxfE49z3lc3wQh+w3CwfZ+GfLl/s3pbmDrngMNk4n/lVTfGoV/c7psOSnZQnAzRRD2rwXxfjCKWWTsy6GRc2aPFLyns+aw3pjPLgsBjMBpFs4mUJouHbpNlV5RYA5BesCUJdIi/lWnPUVZPaIYUvJjgwSpUHUg3a64ECdRmlGAFeNc/28wgb5WPGxY7LXf2UKNTmY/yveVoLfMpGBfw1yKUVBLeN6L0g1c4bb4uMkHLFWxv8vhiaERIGpwyq3EQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tu/cxAdOyPi5zZCG3TBGMCDpNbGuZO7erYwxGvjP6ag=;
- b=lUDYSCE9o7FEv/jqrTALwbPMFtI0E8vqTIJthj8wi6B8jaGE9HuNfDyxS2FVAM/sb3+f8zli5KIqBF22UWWEJys7NZt/Tkg5BZeu11mnRat46hzUppFbBjXuCg62FSIhv7kEfvUTId6hidZx94prrdt5HTKPJNY9tOqBzE1UzMxIxQgBX+WrkjMagMYJsF0VKMcMu3hCyatWKbFaik7H/1Lrw93dqwieX8mZS3muUkuVH1Agsn1rk2FHgALnOqoo25qpoeJQ0/Jh8JA8m+mcRXBy5iuJT9YEzmp2ej/Hgzz1OHuai2KO6XKC6CWKqp9R4TkgeoI+UOCoCxBOUdMXdw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by DUZPR04MB9945.eurprd04.prod.outlook.com (2603:10a6:10:4d8::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.25; Mon, 30 Mar
- 2026 15:47:08 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9745.027; Mon, 30 Mar 2026
- 15:47:08 +0000
-Date: Mon, 30 Mar 2026 11:46:58 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Srinivas Neeli <srinivas.neeli@amd.com>
-Cc: Vinod Koul <vkoul@kernel.org>, git@amd.com,
-	Frank Li <Frank.Li@kernel.org>, Michal Simek <michal.simek@amd.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Suraj Gupta <suraj.gupta2@amd.com>,
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	Thomas Gessler <thomas.gessler@brueckmann-gmbh.de>,
-	Folker Schwesinger <dev@folker-schwesinger.de>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Kees Cook <kees@kernel.org>, Abin Joseph <abin.joseph@amd.com>,
-	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH V2 1/5] dmaengine: xilinx_dma: Fix MCDMA descriptor
- fields for MM2S vs S2MM
-Message-ID: <acqa8jj9Q-0BUc85@lizhi-Precision-Tower-5810>
-References: <20260313062533.421249-1-srinivas.neeli@amd.com>
- <20260313062533.421249-2-srinivas.neeli@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260313062533.421249-2-srinivas.neeli@amd.com>
-X-ClientProxiedBy: BY3PR05CA0031.namprd05.prod.outlook.com
- (2603:10b6:a03:39b::6) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ecTpZORG"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-2c4db6bca03so788771eec.1
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:47:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774885655; x=1775490455; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=gYnlQZ7209SCOgDIPVCJkyFmKO2sNNpaNQ5iPdvDQ3c=;
+        b=ecTpZORGocf3bFUMlZoFiByqZwJUcV3Ns2cMKcU+yByHFW6hS1prwrkhPy7PooQqix
+         SyiDs0n+HthHqPutzWkbqRYyRBEuyumO5zzC7L+Iu2G9jpHZ+AP72HevmyyXanFt2NGd
+         5A82peFFjt814fhM0iP4Tbxg8sf/84SiU/jXCNIcx1Fb9nhYbPQcnfOpzXflrHGjXh3b
+         npqRMGow4CifE/PxqZuXKmB28+2pJkGj9pRBUrVHW9Lo1GjoWphzHglFHK9KrTQgfQXZ
+         06kMXY9UhkJAAntA63eXfWjkuarOn+wjj8WmcTrMGGUjueFFc79vbyD5+ZZ8axjsGq9E
+         sHPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774885655; x=1775490455;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=gYnlQZ7209SCOgDIPVCJkyFmKO2sNNpaNQ5iPdvDQ3c=;
+        b=QJfaAX4IQhnlFmtHlFgrTICgMYfOoAPTIAv+HhiD6mrf/bBmKh4Pc1s8CwwtUDrFs6
+         9/0DEmZzQgUf8lHhsj47hKwMkKRdOW1uPq08uBpy+TIe2Um0u8CCtD+HMoJJA3NKw5X6
+         Wz859jTIN/HEQt3mCcekgcrTsWk5K+Pk2beYXaW3UUdAo8GrCbda0HFT6m7YHz0R3QGp
+         M+4NDsr+DcRxxp8xYXpUcc2M5suxBz4h9f4+IHpxAMIt85cV33brwWeN+E7aub2zNfqt
+         5IdjBkOFlsvaTKVFOYsowFuvVf/JoixfcBgZC3O7kJK5o0U6v2OcNO066Z+EeYKpdgec
+         329Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVmDuj89QtlQ6qUgu3i9BUkNSvtL1g1/oq3tuDFbiJeYjTec+KIG/+C+eDSP+fgBIMCl4tmaVLJJAqD@vger.kernel.org
+X-Gm-Message-State: AOJu0YwmQwSoHwg8Tl5DoZ6xKLQ9Q/6g1SdolCWIoJxVAppup4r6tMtu
+	NoVIvOIgB+DXPX/WRFnnItILbG453QEJawyrTzf5Qeoocp00kXJu31Pe
+X-Gm-Gg: ATEYQzzdJEDN7QOu9JnEo1JTGR6/Z6jPz7APneH9svhylj7pFcfJrhZMedwGGz2wAok
+	y8UZj5TuEPwMr1YOMM9JV6Dpay909mPxbKssJT4zkV1WHYerFw/7Ar46QhW1sK1H5fmf81PaUKu
+	9McUVGYNrSSa9WW+oOfejYJXthgVphjeG1f/UfrBOgOu8voJ6hOiXfL0YAe4Yx/nsGrp30sFqr7
+	0hG9U97Gv3KVU3pusvgumhvFRBB+G74Wj0JT3nRNyoHaonl/3JDe2nMcSS/hQ7ozqjHCf24OdDE
+	CCOfxaiZuxUcOti6PycEAb4W55TPFmsGvvdrO18rnxrgMwsWcU1rYinZ5NYDQ2PFP3/rHnpfEox
+	NVgumMYtUf83GqhGfD29S0MuhOR/vg8j93PDKEEjNvSGacxFxxlgskBib7sj1UA5KAvb7iXuso4
+	xPr71Nm0qb0HOBNcXXHzipZYJmqm2ztWMTVthlk4sXsGDUJYdx3NAAucg4ebCIe1ex7K2ocSLWI
+	5VWGOP61JM=
+X-Received: by 2002:a05:7301:3f0a:b0:2c0:b92d:267d with SMTP id 5a478bee46e88-2c7baf43c8amr43690eec.2.1774885654839;
+        Mon, 30 Mar 2026 08:47:34 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c3c3bda306sm7283956eec.3.2026.03.30.08.47.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 30 Mar 2026 08:47:34 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <e0c96f38-6742-4b86-8938-64e4e6063119@roeck-us.net>
+Date: Mon, 30 Mar 2026 08:47:32 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|DUZPR04MB9945:EE_
-X-MS-Office365-Filtering-Correlation-Id: e2a51125-8126-480c-91bd-08de8e7399bd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|376014|7416014|52116014|366016|56012099003|22082099003|18002099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	81z+xMVjPlyCN0sLz1gAnplijP8DwzVaW3CgRSx6C/uZTf7GuX+yHIhSE3SeRYv0R1c8CmjSTMmgkdck7n4J4NrLlZK+qEfy5NcaGJCn+fkhKK0AQDO0uUOcZIWSXA44c03VK2BNVMMC048buDoZ1xXV8IHd8c3v/drgmJBTcketUIWt2UGLHD7X5omiFbCQcpXDYyoW/5hwZmV8ELK80VwPVP3sIHLXmmw0VMbUfrnVb+F17A2sx0/+mue2ReavEGH0anhW+xYJTSLL+uk0GPfC9652Cdjps49JJZNKmbQzOvPhtQLSe9IEIb76SpsIZYJOT0Zv2JjaHHIZq2VHpnOX6Pkm6iN4xU9X1PsnJ4wLzL694dE0EqK4lJ7WItyD6eWbSVwKyWV5khd/qjKJYHEXST31vtNPHqN/jabZaMxoscOXsgt3V17Jc/kuZZ8epra3DMPOJLknkigvvV4mPZtRpiNWiL1AAsaNx/yYNBKU5xKyIyXKyr/ju93oSa6OXnq4aCzkh94mFAQSIKUNOb7wVSmJvU8Yzh+cNmsyfw8K43ubqsbIcp1aDWnK9REybVEwWbg6AE2+0FN0127RbLSn6bxaSzPYU4IMM3FfgivmL03W2oE3sSuXyMOhrEr0PTOncudtyIsy+QHJjT+JzBX4lqsBP+y+KoPheLEH/xuw67JlUqktTgKceYOmOGEY80XOnmhavWNKtfQ58Y1+xe9Ov5sZ92sRcTW6F5Nb4i6KrsNqygJRBtwTed2zmkfAuyvIG4H/nPcf0Ir0Z3Ia9PfzdiY32gKAK4q0wIjzAcY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(376014)(7416014)(52116014)(366016)(56012099003)(22082099003)(18002099003)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?uwvo7u2tufD9CHKgQEj4m1qmdmUdWh3PtoHDDXnDo++LLHcfhEF75ERxsgvZ?=
- =?us-ascii?Q?errRWxzTpNDpsa/oc0ag3Soe/Y9HTtq2yaYx+I7jSYCbrunBi1fU/xtEtk45?=
- =?us-ascii?Q?cHe6nvbHpwCkU3jOJq46inMhOssq3PZR7C66RM/pe4piJ9GSodEMHo/cQBP6?=
- =?us-ascii?Q?UDhlpK+RayXJEJfCrCHNlyuNVCe2d5yf9qDezQgx4YFyPUcNtftDTQhSszaz?=
- =?us-ascii?Q?czMPeZl3YcqX6wYu+qa05B4N72GbBb1bdQ9FUHbbIDMrW1lvP14JYwfn4+mz?=
- =?us-ascii?Q?YTJVIalyJrY4Km7sWfQ0hm5yOAmq3oX1HaCIYFTkY+26Edg8mSO1SkM2jmib?=
- =?us-ascii?Q?F1M4lzioM1OYA6DsK0P6sawcuocUgYZ6h6HBTKfJXCdMsw2N4Wj9VUebK7X3?=
- =?us-ascii?Q?bHbBrPHZC4B0XzsXDkToWzwyd77fjAJWecg7yDyIQtuAmV9meD1wv32aQ19v?=
- =?us-ascii?Q?x7/07maAVlcWEoKKaZjCU0c9mpYQqd/tF1ldnmiWy4bE+IpLYK0mY7OryO+O?=
- =?us-ascii?Q?2orxBwOJS/StjVAT2sIFXe47Y4kp50geTFvNWTn0ANS0w/gJy73TWZ43AwqU?=
- =?us-ascii?Q?Mezo0hXmw/XQ6KJsHQTX+k8Tr7x4vYStJVv5MYXHOCNJLer+hPDAHSNRumNy?=
- =?us-ascii?Q?KpPeNtPFZh8+DzNjtAY+JmgqikKeBnvV177rbRVajbThkyrVeMW1QAiwlvbk?=
- =?us-ascii?Q?jKFZfXTJHbuet4B1yGxYItaCoolo65uIB2Tus68OY2bSwcTukv0NCBQMshSr?=
- =?us-ascii?Q?Xw0Lmu4mWzVTPBYnKElEqpwM5FJfxDEYACNsGasfyf8onIhiiZtTU1cPNzil?=
- =?us-ascii?Q?AtCaqqXUIJ6f81q+l8lqjPzNDAPXiNbqWaid4SZ0+D3oIDuJkv8fUx8ReNnF?=
- =?us-ascii?Q?KXLGcLLiN7th5zJBNfytskkUOCOBFCaR3EXxOsYkViiCRGkfdRYoQ9HJ9uTk?=
- =?us-ascii?Q?x22ztK8BKvSer6/cLEYTej7uVYT5gMmL3oIegl2o2wv5pz+oI7e4RxiZDkLU?=
- =?us-ascii?Q?B9dXK9leeSG9jJ4Dazt3bpQUyRbbwMQbp/XEHiL9ri6FV/D7f1+bCk775t/n?=
- =?us-ascii?Q?0Fq+snaNENxlfs6BjnZtnz8IzS8t2SF2O13UkBAZTMLwmE0yeiZ1U/C27DCE?=
- =?us-ascii?Q?FZyhNy9dDgzSyTVyJqZYtInxVl6J5wGrJSrSSaGgJvDufpSMrE4TsLrB7Fjm?=
- =?us-ascii?Q?TCTmjVfeq6kOSiPYVBH9BrQpSgJL0r1xym6TZUYYwQY62sLdhFAnE3YSEVGK?=
- =?us-ascii?Q?IxxCnW3WdJXxjnGtxtVzkj5jrdg/kg3hJyJkiLFLkvWgOvlbs+8QUMdo5j5t?=
- =?us-ascii?Q?rkBfKWBh+3zOFXc5z44VtD1X72TK0w+ICSeg8fVjD/E3sqw8WuJ2o2W3Ufmc?=
- =?us-ascii?Q?MBX2dA8IOcmPa7GYyYQpYm/gpj/3FAdu5P4UqzScUQc5hokIMI0aEqfCj3o+?=
- =?us-ascii?Q?gE/G39o16ztBwhXmQmijWKC2tjQwarlqFe8TJpVdKBeJWlCfFZdQzC+xkbBv?=
- =?us-ascii?Q?9Jnnz7e2R5J3pBxwVEdRc4310iwL7e599mB4k9plintgb7XakD86JIv5HAxy?=
- =?us-ascii?Q?kp+O4OMHIpVvI3T5EHQUGtbHsLg7L4DR2C1K5kiWSfAwWZA3x6R/4E5SlDTz?=
- =?us-ascii?Q?Qo8QjfnYh2UzxPiAyJlyI2cwIWc14/k4Q0cT8yQom2DujOzY9q7MG888Ps59?=
- =?us-ascii?Q?1TgNJznewiUXlx8a4B77ejUyUR4TwOxed9bG7E1KRBZWfU4CJPTHizivBqGj?=
- =?us-ascii?Q?Y/9HdOtcnQ=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2a51125-8126-480c-91bd-08de8e7399bd
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 15:47:08.6623
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: czMLODAAbdOrNXrYRK1fKe+vqqjPscZzis6VrnDc6whDSXXUtxlaNlkCc5CHyCCHmsjPOLk8xL09txQmg+jU7Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB9945
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 2/3] hwmon: ltc4283: Add support for the LTC4283 Swap
+ Controller
+To: =?UTF-8?Q?Nuno_S=C3=A1?= <noname.nuno@gmail.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>
+Cc: linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
+References: <20260327-ltc4283-support-v8-0-471de255d728@analog.com>
+ <20260327-ltc4283-support-v8-2-471de255d728@analog.com>
+ <aco5L_6SZIB2DdpF@nsa>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <aco5L_6SZIB2DdpF@nsa>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Mar 13, 2026 at 11:55:29AM +0530, Srinivas Neeli wrote:
-> The MCDMA BD format differs between MM2S and S2MM directions, but the
+On 3/30/26 02:28, Nuno Sá wrote:
+> Hi Guenter, Regarding AI review, I think most of the points were
+> discussed in previous revisions, but there are two valid.
+> 
+> On Fri, Mar 27, 2026 at 05:26:15PM +0000, Nuno Sá wrote:
+>> Support the LTC4283 Hot Swap Controller. The device features programmable
+>> current limit with foldback and independently adjustable inrush current to
+>> optimize the MOSFET safe operating area (SOA). The SOA timer limits MOSFET
+>> temperature rise for reliable protection against overstresses.
+>>
+>> An I2C interface and onboard ADC allow monitoring of board current,
+>> voltage, power, energy, and fault status.
+>>
+>> Signed-off-by: Nuno Sá <nuno.sa@analog.com>
+>> ---
+>>   Documentation/hwmon/index.rst   |    1 +
+>>   Documentation/hwmon/ltc4283.rst |  266 ++++++
+>>   MAINTAINERS                     |    1 +
+>>   drivers/hwmon/Kconfig           |   12 +
+>>   drivers/hwmon/Makefile          |    1 +
+>>   drivers/hwmon/ltc4283.c         | 1796 +++++++++++++++++++++++++++++++++++++++
+>>   6 files changed, 2077 insertions(+)
+>>
+> 
+> ...
+> 
+>> +static int ltc4283_read_in_alarm(struct ltc4283_hwmon *st, u32 channel,
+>> +				 bool max_alm, long *val)
+>> +{
+>> +	if (channel == LTC4283_VPWR)
+>> +		return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_1,
+>> +					  BIT(2 + max_alm), val);
+>> +
+>> +	if (channel >= LTC4283_CHAN_ADI_1 && channel <= LTC4283_CHAN_ADI_4) {
+>> +		u32 bit = (channel - LTC4283_CHAN_ADI_1) * 2;
+>> +		/*
+>> +		 * Lower channels go to higher bits. We also want to go +1 down
+>> +		 * in the min_alarm case.
+>> +		 */
+>> +		return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_2,
+>> +					  BIT(7 - bit - !max_alm), val);
+>> +	}
+>> +
+>> +	if (channel >= LTC4283_CHAN_ADIO_1 && channel <= LTC4283_CHAN_ADIO_4) {
+>> +		u32 bit = (channel - LTC4283_CHAN_ADIO_1) * 2;
+>> +
+>> +		return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_3,
+>> +					  BIT(7 - bit - !max_alm), val);
+>> +	}
+>> +
+>> +	if (channel >= LTC4283_CHAN_ADIN12 && channel <= LTC4283_CHAN_ADIN34) {
+>> +		u32 bit = (channel - LTC4283_CHAN_ADIN12) * 2;
+>> +
+>> +		return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_5,
+>> +					  BIT(7 - bit - !max_alm), val);
+>> +	}
+> 
+> "Will this condition handle the ADIO12 and ADIO34 differential channels?
+> It looks like channels 14 and 15 fall through to the default return intended
+> for the DRAIN channel. Since reading the alarm implicitly clears the register
+> bits, could reading these ADIO alarms unintentionally clear actual DRAIN
+> alarms? Should the upper bound be LTC4283_CHAN_ADIO34?"
+> 
+> Good catch and should be:
+> 
+> -       if (channel >= LTC4283_CHAN_ADIN12 && channel <= LTC4283_CHAN_ADIN34) {
+> +       if (channel >= LTC4283_CHAN_ADIN12 && channel <= LTC4283_CHAN_ADIO34) {
+> 
+>> +
+>> +	if (channel == LTC4283_CHAN_DRNS)
+>> +		return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_4,
+>> +					  BIT(6 + max_alm), val);
+>> +
+>> +	return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_4, BIT(4 + max_alm),
+>> +				  val);
+>> +}
+> 
+> ...
+> 
+>> +
+>> +static int ltc4283_probe(struct i2c_client *client)
+>> +{
+>> +	struct device *dev = &client->dev, *hwmon;
+>> +	struct auxiliary_device *adev;
+>> +	struct ltc4283_hwmon *st;
+>> +	int ret;
+>> +
+>> +	st = devm_kzalloc(dev, sizeof(*st), GFP_KERNEL);
+>> +	if (!st)
+>> +		return -ENOMEM;
+>> +
+>> +	if (!i2c_check_functionality(client->adapter,
+>> +				     I2C_FUNC_SMBUS_BYTE_DATA |
+>> +				     I2C_FUNC_SMBUS_WORD_DATA |
+>> +				     I2C_FUNC_SMBUS_READ_I2C_BLOCK))
+>> +		return -EOPNOTSUPP;
+>> +
+>> +	st->client = client;
+>> +	st->map = devm_regmap_init(dev, &ltc4283_regmap_bus, client,
+>> +				   &ltc4283_regmap_config);
+>> +	if (IS_ERR(st->map))
+>> +		return dev_err_probe(dev, PTR_ERR(st->map),
+>> +				     "Failed to create regmap\n");
+>> +
+>> +	ret = ltc4283_setup(st, dev);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	hwmon = devm_hwmon_device_register_with_info(dev, "ltc4283", st,
+>> +						     &ltc4283_chip_info, NULL);
+>> +
+>> +	if (IS_ERR(hwmon))
+>> +		return PTR_ERR(hwmon);
+>> +
+>> +	ltc4283_debugfs_init(st, client);
+>> +
+>> +	if (!st->gpio_mask)
+>> +		return 0;
+>> +
+>> +	adev = devm_auxiliary_device_create(dev, "gpio", &st->gpio_mask);
+>> +	if (!adev)
+>> +		return dev_err_probe(dev, -ENODEV, "Failed to add GPIO device\n");
+> 
+> "Does this allow multiple LTC4283 chips to probe successfully?
+> Without allocating a unique ID per I2C instance, it seems the first probed
+> chip takes the generic name. If a second chip is present, it might attempt
+> to register with the exact same name, resulting in a failure in device_add()
+> and aborting the probe."
+> 
+> Also looks valid and I suspect is one of those that a quick look will
+> find more "offenders". I would purpose:
+> 
+> -       adev = devm_auxiliary_device_create(dev, "gpio", &st->gpio_mask);
+> +       adev = __devm_auxiliary_device_create(dev, KBUILD_MODNAME, "gpio",
+> +                                             &st->gpio_mask, client->addr);
+> 
 
-Can you use DMA_DEV_TO_MEM and DMA_MEM_TO_DEV instead of MM2S and S2MM?
-or memory to slave, at least first place need extend term MM2S(memory to
-slave).
+That would still fail if there are multiple chips at the same I2C address
+on multiple I2C busses. Check drivers/gpu/drm/bridge/ti-sn65dsi86.c which has
+the same problem.
 
-> driver was using generic 'status' and 'sideband_status' fields for both.
-> This could lead to incorrect residue calculations when the hardware
-> updates direction-specific fields.
+> If there's nothing else and you agree with the above, is this something
+> you can tweak while applying or should I spin a new version?
+> 
 
-driver was using generic 'status' and 'sideband_status' fields for both,
-which lead ... (use Affirmative Tone)
+Please respin. Also, regarding the other concerns:
 
->
-> Refactor the descriptor structure to use unions with direction-specific
-> field names (mm2s_status/s2mm_status, etc.). This ensures the driver
+   Can BIT(8) * st->rsense wrap to zero on 32-bit architectures?
+   BIT(8) is a 32-bit unsigned long and st->rsense is a u32. If a user sets a
+   very large sense resistor value via the device tree, the multiplication could
+   wrap to 0, causing a division-by-zero kernel panic. Should the divisor use
+   BIT_ULL(8)?
 
-Ensure .. (needn't this)
+Unless I am missing something, this _can_ overflow. Try to provide a sense
+resistor value of 1677721600. Yes, it is unreasonable to specify such large
+rsense values, but why not just limit it such that it does not overflow ?
 
-Frank
-> accesses the correct hardware fields based on channel direction and
-> matches the hardware documentation.
->
-> Fixes: 6ccd692bfb7f ("dmaengine: xilinx_dma: Add Xilinx AXI MCDMA Engine driver support")
-> Signed-off-by: Srinivas Neeli <srinivas.neeli@amd.com>
-> ---
->  drivers/dma/xilinx/xilinx_dma.c | 29 ++++++++++++++++++++++-------
->  1 file changed, 22 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/dma/xilinx/xilinx_dma.c b/drivers/dma/xilinx/xilinx_dma.c
-> index b53292e02448..4a83492f2435 100644
-> --- a/drivers/dma/xilinx/xilinx_dma.c
-> +++ b/drivers/dma/xilinx/xilinx_dma.c
-> @@ -275,8 +275,10 @@ struct xilinx_axidma_desc_hw {
->   * @buf_addr_msb: MSB of Buffer address @0x0C
->   * @rsvd: Reserved field @0x10
->   * @control: Control Information field @0x14
-> - * @status: Status field @0x18
-> - * @sideband_status: Status of sideband signals @0x1C
-> + * @mm2s_ctrl_sideband: Sideband control info for mm2s @0x18
-> + * @s2mm_status: Status field for s2mm @0x18
-> + * @mm2s_status: Status field for mm2s @0x1C
-> + * @s2mm_sideband_status: Sideband status for s2mm @0x1C
->   * @app: APP Fields @0x20 - 0x30
->   */
->  struct xilinx_aximcdma_desc_hw {
-> @@ -286,8 +288,14 @@ struct xilinx_aximcdma_desc_hw {
->  	u32 buf_addr_msb;
->  	u32 rsvd;
->  	u32 control;
-> -	u32 status;
-> -	u32 sideband_status;
-> +	union {
-> +		u32 mm2s_ctrl_sideband;
-> +		u32 s2mm_status;
-> +	};
-> +	union {
-> +		u32 mm2s_status;
-> +		u32 s2mm_sideband_status;
-> +	};
->  	u32 app[XILINX_DMA_NUM_APP_WORDS];
->  } __aligned(64);
->
-> @@ -1013,9 +1021,16 @@ static u32 xilinx_dma_get_residue(struct xilinx_dma_chan *chan,
->  					   struct xilinx_aximcdma_tx_segment,
->  					   node);
->  			aximcdma_hw = &aximcdma_seg->hw;
-> -			residue +=
-> -				(aximcdma_hw->control - aximcdma_hw->status) &
-> -				chan->xdev->max_buffer_len;
-> +			if (chan->direction == DMA_DEV_TO_MEM)
-> +				residue +=
-> +					(aximcdma_hw->control -
-> +					 aximcdma_hw->s2mm_status) &
-> +					chan->xdev->max_buffer_len;
-> +			else
-> +				residue +=
-> +					(aximcdma_hw->control -
-> +					 aximcdma_hw->mm2s_status) &
-> +					chan->xdev->max_buffer_len;
->  		}
->  	}
->
-> --
-> 2.43.0
->
+Also, for the overflow concerns, if you are sure they can not happen, I'll
+really need to write the unit test code to make sure that this is indeed
+the case.
+
+Thanks,
+Guenter
+
