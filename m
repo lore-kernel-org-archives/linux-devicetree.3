@@ -1,114 +1,123 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8882B3C3BF5
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 13:42:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055103D34AE;
+	Mon, 30 Mar 2026 13:44:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774878122; cv=none; b=CjORYNiWbhg5qWmscYhtL7hv5cuh9KkWHwXd+NFFId8pil15MyxvhJhs5dQA9EDNLrSeT/1RDapgDu+MeIZ8a67QHlXQnlIhZbXOt0+LP3yNhFKSLl1qXZn6zO0ygixuflrmle4t2p0V+hlG1yFvJKKJpvxJK3UnNaAGfl8bsNA=
+	t=1774878261; cv=none; b=bLnH8vnAjC0raZgvvoDoVUYylxFQS4cVRW0hVHViJ5G/gQ/zp1GPpHU6z2aIrBtoeySlxlk3QzxwyVKl5h5f1Rvy77BO2PBhRJwebN6gsLGKsma0wyTHy9u1kfM0QAaKprBWo44bbvW8Spz+wZSQ75GtQZnibXLullKVM4SCXy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774878122; c=relaxed/simple;
-	bh=/kxWTA52BAt2g4WnQqRpqhpA4ac3KQhFlNL2rViCQp8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IsPRMaGJ+FSHVHwJ1B1l/Bqs2YGmE4E+R6Vq6ez4s1K988+an1f5Y+uhsHrL89jRNUZld7PKMHTVFMTFJnpsQsbXezTi03szOkBmCfbYjcmvMdtm5ZpY3IZPerdfspbUELuUZgy3OS6ckIG0sHmVIHS/c8+LCUGA1gSaJMIvxzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2b23f90f53aso22973685ad.0
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 06:42:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774878121; x=1775482921;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JCelPAg5TqeEG1G1zPAvcyqOUxcgqEhU8AXcqqEt3aI=;
-        b=Xa7ztUg602TTlLwkLw+8XNVEuQK++nEo8a4FpmonZB4sV6/9SaSJoP9VbwZnJ51N/s
-         SjWhdHAOH9uw9240gcedYd81Yan5fMDJmi5kFTIVB4jwV+hic1114j4DqOFOTI8t2LtF
-         RaflBHXYQNQaRZzjAXJ/U+/Yv/UH+ri6iQLYGTESMj1paOFQMU49u/opxxutlWyMDXe8
-         DcgUyg1qeM1CRDiis1Xu5xtFUSSxQdlVNSV/HBxx2iLILFO/l92JMLs4ODQVHzpc8ZQS
-         5BhrDBrrSafbq+XsckUMxiwwOTqM60bPuLbzfzoQ6/2NFgSkWvuyITn1fpVgt6Z6WIHX
-         EvJg==
-X-Forwarded-Encrypted: i=1; AJvYcCUA391zmgXYQz6tBeljGU3vthbaIzLqFQRVQ0f1RjL2ELT7rI7gFsmU3I5g4lHCXvbjDJyoIVZcVS07@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTbC0drHLe/Zp/VTq0PaIBdLokIRW0e4ADZofFfas+tJ4TAF0e
-	M8CejVrqhmo3GgAruvey/JzV8UKx63oJVBiCba/yKGxHLSO9aPHTAHKKBsnmznkt
-X-Gm-Gg: ATEYQzwcmvmMunWw9PNyAWJbQBwTqOX8PVf57z2E92ESbxQkoFodhcE86nHTUFYpmsh
-	ZJnE3LC7kQxeyfU00DMoZvoy6Px8XLb1UBq05y+m12EsBYoBt8OjNOXm/rYrWQQK13CiqIRDHmY
-	Vi4eRnUhXJ44avlNzQwlfhFdtxRbot9S6Gh2KYNwKIKAxlefEm4Sb+T8gd+vj6WplMeVsxD0E5o
-	aG9TklOntS6/KLu5/R+5AqZjwvhkwU2imAyAo4myjPg/dd7J0Ywvvko34n863Bb63Agrw+75+by
-	0aYH6+Dnm4j8cS5lKkTl2kw7MZr7xx6sxr+OCHvckKAwu+jJqtVM1wiIpDihv1U+H0bOSlY8zOa
-	o3rubI/ZGzdRMVIwmOZM5K1cRjwS79na7R/LKgKapTCnSSDJ2bqoUB5wtl3MI/kk1Z1lc7VGWsM
-	O/L5dqPgRMhfY1sQzvTlXjnNi/rZTdFKZiKFJu5lSxfli0OQlydogK/lDlmZU=
-X-Received: by 2002:a17:902:db08:b0:2b2:56bc:c6bc with SMTP id d9443c01a7336-2b256bd03d6mr27171865ad.40.1774878120816;
-        Mon, 30 Mar 2026 06:42:00 -0700 (PDT)
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com. [74.125.82.41])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2427658e4sm99454545ad.48.2026.03.30.06.42.00
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 30 Mar 2026 06:42:00 -0700 (PDT)
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-127380532eeso158781c88.1
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 06:42:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCWPryZ7kVlF1SusYF9V/fC7rfOOsDkwzwQ6wI5Ax2sp/N+oWly0anDHg7AlHjc5s2RXTijIJRy2aEOW@vger.kernel.org
-X-Received: by 2002:a05:6102:2b85:b0:605:26eb:cc1a with SMTP id
- ada2fe7eead31-60526ebcfa6mr1670554137.29.1774877621873; Mon, 30 Mar 2026
- 06:33:41 -0700 (PDT)
+	s=arc-20240116; t=1774878261; c=relaxed/simple;
+	bh=LWbpkfgOYG3eO49TWIvlQ7loTMS9Hfk1R7m6GLHz8vU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZNWuDBqC3u0f4nmwJbpFuXf38M+UrhJ36WA3Y/IrdmX3+IhyVmUYR8qwHiixg0k1ASf4GVVt5R6ckrgh8XaW1CUES8/fDE6VN0AzPbNJeZTCzjAYPeZRABmA9VmEQT8BDXwS4XlD0Su7vIxE5fdt1IJIEiijhGjmg13TZgNsnSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=sbj/Qzxb; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="sbj/Qzxb"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 29D8BC58765;
+	Mon, 30 Mar 2026 13:44:46 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 029F45FFA8;
+	Mon, 30 Mar 2026 13:44:16 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 03C35104500D7;
+	Mon, 30 Mar 2026 15:44:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1774878254; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=JjVmML69Ah9mTKPWcFihyscyCX2F4nExIsj9CCysNLc=;
+	b=sbj/QzxbGCZxi5rQf9qXvJqHkOKkAyxVL7mOL4VQUufDd7KXHqbLq/PHNYN6U6zzw5phay
+	miGGNQiZwQ3pPTZoXPtiIJKL7dY00u0cQ7AiwqjdcBwmXIbxW6vtR2kth8M2sGfwQ9iQ0L
+	+BE85dTmcJv04f4cngCgYHcl1KkKsZfdXK6ri66q0CQ6t+q3gCJU2AQ32yBLYQXWbyINIY
+	5L7/h/kDbuyln+vya1b1vEvU3Bng/0fDHg30g8a14/oWdygE5bu/TVFNTfBXIt7Y7sLGto
+	82MMwySKkGKnG/KuUzBMM32pqVhTu03Eg17L7HTfG77z6L9mquDIG+4UVeV1BQ==
+From: Thomas Richard <thomas.richard@bootlin.com>
+Subject: [PATCH v2 00/11] Add SIM pbias regulator support for USB on OMAP4
+Date: Mon, 30 Mar 2026 15:43:57 +0200
+Message-Id: <20260330-omap4-fix-usb-support-v2-0-1c1e11b190dc@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
-In-Reply-To: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 30 Mar 2026 15:33:30 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdX23LQYFFzs9STykFVECb4uv1u3DmEMCh453GBK=4XbYQ@mail.gmail.com>
-X-Gm-Features: AQROBzDj9P2QcJJ03rVKxKEo5zx-Wow-J_zNYCm0-1wsBhaAiKvmNzwG6-mGiTE
-Message-ID: <CAMuHMdX23LQYFFzs9STykFVECb4uv1u3DmEMCh453GBK=4XbYQ@mail.gmail.com>
-Subject: Re: [PATCH 00/16] Add support for Inside-Secure EIP-150 crypto block
-To: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Olivia Mackall <olivia@selenic.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, Jayesh Choudhary <j-choudhary@ti.com>, 
-	"David S. Miller" <davem@davemloft.net>, Christian Marangi <ansuelsmth@gmail.com>, 
-	Antoine Tenart <atenart@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Magnus Damm <magnus.damm@gmail.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	Pascal EBERHARD <pascal.eberhard@se.com>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, Herve Codina <herve.codina@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAB1+ymkC/3WNzQ6CMBCEX4Xs2TX9IRQ9+R6GQ1uqbCJs0wLRE
+ N7darx6/CYz32yQQ6KQ4VxtkMJKmXgqoA4V+MFO94DUFwYlVCO0NMijjTXe6IlLdpiXGDnN6Hv
+ bam+EOTkDZRtTKJWv99oVHijPnF7fm1V+0p9R6T/GVaJA1zSt1Eqq2vqLY54fNB09j9Dt+/4GR
+ HayFLwAAAA=
+X-Change-ID: 20260317-omap4-fix-usb-support-cda83c7079b7
+To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Thomas Richard <thomas.richard@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Miquel,
+To get USB working on OMAP4, pbias shall be configured to enable
+SIM_VDDS and unlock I/O cells. Until now this was done by the bootloader.
 
-On Fri, 27 Mar 2026 at 21:10, Miquel Raynal (Schneider Electric)
-<miquel.raynal@bootlin.com> wrote:
-> This is a series adding support for the EIP-150, which is a crypto block
-> containing:
-> - a public key accelerator
-> - a random number generator
-> - an interrupt controller
+The goal of this series is to add SIM pbias support to handle this in the
+kernel ensuring correct operation regardless of the bootloader. The
+vsim_pbias regulator (defined in pbias-regulator driver) will be handled by
+the omap-usb-host driver.
 
-Thanks for your series!
+In this second iteration I converted ti,pbias-regulator binding to DT
+schema and documented the pbias_sim_omap4 regulator. The vmod bit
+configuration for the pbias_sim_omap4 regulator has been fixed.
+On omap-usb-host side, I fixed the binding file as requested by Conor. In
+the driver I fixed the error path in suspend callback and now probe()
+function gracefully handles cases where no pbias regulator is provided.
 
->       irqchip/eip201-aic: Add support for Safexcel EIP-201 AIC
-[...]
->       crypto: eip28: Add support for SafeXcel EIP-28 Public Key Accelerator
+This series has been tested on VAR-SOM-OM44.
 
-My OCD tells me to ask for using "SafeXcel" consistently,  ;-)
+Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
+---
+Changes in v2:
+- bindings: regulator: convert ti,pbias-regulator binding to DT schema.
+- bindings: regulator: document new pbias_sim_omap4 regulator.
+- regulator: pbias: fix disable_val and vmod for pbias_sim_omap4.
+- bindings: omap-usb-host: document missing clocks.
+- bindings: omap-usb-host: add a ref to usb object.
+- mfd: omap-usb-host: refactor suspend and resume callbacks.
+- mfd: omap-usb-host: do not return an error if optional pbias regulator is
+  not provided.
+- Link to v1: https://lore.kernel.org/r/20260323-omap4-fix-usb-support-v1-0-b668132124ac@bootlin.com
 
-drivers/crypto/inside-secure/eip28.c: .name = "Safexcel EIP28 PKA",
-drivers/irqchip/Kconfig:        tristate "Safexcel EIP201 AIC"
-drivers/irqchip/Kconfig:   inside Safexcel EIP150 IPs, gathering
-Public Key Accelerator
+---
+Thomas Richard (11):
+      dt-bindings: regulator: ti,pbias-regulator: Convert to DT schema
+      dt-bindings: regulator: ti,pbias-regulator: Add pbias_sim_omap4 regulator
+      regulator: pbias: Add pbias SIM regulator for OMAP4
+      ARM: dts: ti: omap4: Add pbias SIM regulator
+      mfd: omap-usb-host: Cleanup header includes
+      mfd: omap-usb-host: Sanitize error path in the probe()
+      mfd: omap-usb-host: Refactor suspend and resume callbacks
+      dt-bindings: mfd: ti,omap-usb-host: Convert to DT schema
+      dt-bindings: mfd: ti,omap-usb-host: Add 'pbias-supply' property
+      mfd: omap-usb-host: Add pbias regulator support
+      ARM: dts: ti: omap4: Add pbias regulator to the HS USB Host
 
-Gr{oetje,eeting}s,
+ .../devicetree/bindings/mfd/omap-usb-host.txt      | 103 ---------
+ .../devicetree/bindings/mfd/ti,omap-usb-host.yaml  | 167 +++++++++++++++
+ .../bindings/regulator/pbias-regulator.txt         |  32 ---
+ .../bindings/regulator/ti,pbias-regulator.yaml     | 126 +++++++++++
+ MAINTAINERS                                        |   2 +
+ arch/arm/boot/dts/ti/omap/omap4-l4.dtsi            |   7 +
+ drivers/mfd/omap-usb-host.c                        | 236 ++++++++++++---------
+ drivers/regulator/pbias-regulator.c                |  12 ++
+ 8 files changed, 449 insertions(+), 236 deletions(-)
+---
+base-commit: 7aaa8047eafd0bd628065b15757d9b48c5f9c07d
+change-id: 20260317-omap4-fix-usb-support-cda83c7079b7
 
-                        Geert
-
+Best regards,
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Thomas Richard <thomas.richard@bootlin.com>
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
