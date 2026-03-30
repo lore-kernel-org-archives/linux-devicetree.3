@@ -1,108 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CDC3939BC;
-	Mon, 30 Mar 2026 18:39:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EDCC3DE44E
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 18:40:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774895989; cv=none; b=gYe4cUm/ZuwJcQt+xofxlvdcIqUyCli+bgyB2ehQDRQq0+gmmvfkywPWJnrHVxIJZOBj+jYWiISwC7e59YMZJfB8FQMNX9bDh9dMmzSYiNLnWDiYGaEqB8EJen0ZAntQdPZyHwJ5/yCi5gE4C7g/j07A64GYu24839vhf2I3CqA=
+	t=1774896058; cv=none; b=Jb92GyYan8b2SsvYxYbgr+LvfjeXcqGySHD8DF5VyeTgPvHP0WFwErc8IJURaakK74a/j4Fp7spP8Xy+jVzS1Jg3Hl/MqW8ZbIz2Gzl4+W90SaB24cPYQe7DBX6eQP2/95BrMi0IrgAwRxDuRpBSfi2c3BfN5eqkp9Fm4tzJ9q4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774895989; c=relaxed/simple;
-	bh=pxaK/AD8NL29tZ8Sg8zUORqGryatZLryO19mwRVbGFY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=ukgD5fq96Tlx2LeTlHe9zmf1H/lm0vmThjat8jwv/nBsOe5kgbDTL4vKzoua+vwL/ad4gf4qrIb7u2cWi8K+uSGU98iCH3szq6NkIeJX9SGbscdfcfnROJOEZdB+0zJ+xMAf3xFH9ad0G/AW2V6SaTWmRRJdBi38vRESxoe8kWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E8I2rnBo; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774896058; c=relaxed/simple;
+	bh=VfPt3xhhzdrq5VxZos7L6q1JozaMr9Lg4i8+biuaQNg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ikMKvSNf9JLCXdAOtVs0hAYOaCLN8oHqmyPo9dOYPCr7XCFFd/wlF0xkWxY7ykPgoXAZmPaYIdn65Ryb66ZLBeMnTYOw7Z/EqN/H7v/M2WM4q82/r1RjBX2LRAn6W9mYRaPwThHpUxMu2BMMYaFKJShoKq25sgmb2xUOIJuExBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com; spf=pass smtp.mailfrom=tinyisr.com; dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b=OPJXidsC; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=J1Ar6CaS; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tinyisr.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E8I2rnBo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA31FC4CEF7;
-	Mon, 30 Mar 2026 18:39:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774895988;
-	bh=pxaK/AD8NL29tZ8Sg8zUORqGryatZLryO19mwRVbGFY=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=E8I2rnBopBo7lRR/jxjcZZrbgdOQxXCuJ2qPf4iciPU2L3KsfTbPIomIsJXwF0sO7
-	 Vis+742b3CIrwPQ3BGYOsY3EwOx9/oweg3U1GWYUD9UKaxSUw393SFkMEWLQz/oevu
-	 Ma3mDFkZHppT7l+IeMO0XobUdU5x7hf2tBs9WxTQ6+LoEqH9gtlZoD4GYyJQegtgMj
-	 l7hUfy2Uq+kkRiUCDNZg13KMWpGEUa7okJ4yzCT8DaE3giwvP32rzgtQNNxgqKfSMV
-	 e3wRD8ZR3zsMagFHLH0Zzt8aYICh5R0ZjtsTiLKWOwPnRCiZ0rukbU8/YE7X2EcWCn
-	 kh8hLTv7fWLHw==
-Message-ID: <3f88abb3-fcc4-4d73-b003-84fc0bd28306@kernel.org>
-Date: Mon, 30 Mar 2026 20:39:43 +0200
+	dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b="OPJXidsC";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="J1Ar6CaS"
+Authentication-Results: purelymail.com; auth=pass
+DKIM-Signature: a=rsa-sha256; b=OPJXidsCipBUE+tCOqqJcUiHuriAdCoe3MvRwbQlbKu+QtvnKx82UyxlxmTOPsZfhj5aX+znjD08P5txR8Nrv0YqT2bzkajHGgg2fci104fWCpV9EiMvt/1rAQNC7TyWFt/Bg2L2eu5wBNA8hyaTrt56CjsFvtxYsISmylgA0n2LAYLKeYJtB7WZg328dFmwZK2EtQc58Ug4ULdaR0D1wtqwMCWinImSSoXEkAWpV0wDlAuX1Cv2lRb3HYfNyYyVEryxy3SeVIiyVmJ0Kjy7j4G6M13bpwNKQF4BexglkD+ajGbkafD3HDO0JQHBxs5fCXLPmZ+Fj85ghcFEgjLAtw==; s=purelymail1; d=tinyisr.com; v=1; bh=VfPt3xhhzdrq5VxZos7L6q1JozaMr9Lg4i8+biuaQNg=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=J1Ar6CaSC9ZOjuUIdmakLEaTIE8ce3YEiA4ZIcjySOTJ9CbfACu549XkFx8BDvmHfPh3ruc49WL13qsdcZrHC8Iob/wMkVDHZJOyaAJvUBUkQXkBW+Tbzj+cDRznUZ8U5ilm5XbgysWbYaatJ/Uowf0/OfYi1Xn5qm56GAi3oAvT/RGFj5KN7ECOsmxZDfwbXVLZ0eIVQkoBVw6HTQymzNkbcQTT9KYc228EwmeaMDbhnmp78p4SKvrSo1/S+vOozCTp3iNt53sbAsbbV0Es1nEMvIs+jLPVb3D97a54+a300ccWyHI1AJZbQlvxhgpervSmN8iE64/jzMjRu+VNcQ==; s=purelymail1; d=purelymail.com; v=1; bh=VfPt3xhhzdrq5VxZos7L6q1JozaMr9Lg4i8+biuaQNg=; h=Feedback-ID:Received:From:To:Subject:Date;
+Feedback-ID: 99681:12517:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1431054842;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Mon, 30 Mar 2026 18:40:32 +0000 (UTC)
+From: Joris Vaisvila <joey@tinyisr.com>
+To: netdev@vger.kernel.org
+Cc: horms@kernel.org,
+	pabeni@redhat.com,
+	kuba@kernel.org,
+	edumazet@google.com,
+	davem@davemloft.net,
+	olteanv@gmail.com,
+	Andrew Lunn <andrew@lunn.ch>,
+	devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joris Vaisvila <joey@tinyisr.com>
+Subject: [PATCH net-next v2 0/4] net: dsa: mt7628 embedded switch initial support
+Date: Mon, 30 Mar 2026 21:40:13 +0300
+Message-ID: <20260330184017.766200-1-joey@tinyisr.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] hte: tegra194: Add Tegra264 GTE support
-To: Dipen Patel <dipenp@nvidia.com>, Suneel Garapati <suneelg@nvidia.com>,
- jonathanh@nvidia.com, thierry.reding@gmail.com, krzk+dt@kernel.org,
- conor+dt@kernel.org, amhetre@nvidia.com, sheetal@nvidia.com,
- kkarthik@nvidia.com, timestamp@list.linux.dev, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, robh@kernel.org
-References: <20260330170657.185854-1-suneelg@nvidia.com>
- <20260330170657.185854-3-suneelg@nvidia.com>
- <6bbff5d0-c75d-42ef-8877-de60e7113db4@nvidia.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <6bbff5d0-c75d-42ef-8877-de60e7113db4@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 30/03/2026 20:35, Dipen Patel wrote:
->>  MODULE_DEVICE_TABLE(of, tegra_hte_of_match);
+Hello,
 
-Please kindly trim the replies from unnecessary context. It makes it
-much easier to find new content.
+This patch series adds initial support for the MediaTek MT7628 Embedded
+Switch.
 
-> Acked-by: Dipen Patel <dipenp@nvidia.com>
-> Signed-off-by: Dipen Patel <dipenp@nvidia.com>
+The driver implements the basic functionality required to operate the
+switch using DSA. The hardware provides five internal Fast Ethernet user
+ports and one Gigabit port connected internally to the CPU MAC.
 
-What are you certifying here with SoB?
+Bridge offloading is not yet supported.
 
-Best regards,
-Krzysztof
+Tested on an MT7628NN-based board.
+
+changes since v1:
+=09- changed port 6 phy-mode to internal
+=09- cleaned up tag_mt7628 rcv function and mask defines
+=09- fixed sorting error in drivers/net/dsa/ Kconfig and Makefile
+=09- fixed sorting error in net/dsa/ Kconfig and Makefile
+=09- fixed mt7628_mii_read/write return values on error
+Link: https://lore.kernel.org/netdev/20260326204413.3317584-1-joey@tinyisr.=
+com/t/#u
+
+Thanks,
+Joris
+
+
+Joris Vaisvila (4):
+  dt-bindings: net: dsa: add MT7628 ESW
+  net: phy: mediatek: add phy driver for MT7628 built-in Fast Ethernet
+    PHYs
+  net: dsa: initial MT7628 tagging driver
+  net: dsa: initial support for MT7628 embedded switch
+
+ .../bindings/net/dsa/mediatek,mt7628-esw.yaml | 101 +++
+ drivers/net/dsa/Kconfig                       |   8 +
+ drivers/net/dsa/Makefile                      |   1 +
+ drivers/net/dsa/mt7628.c                      | 627 ++++++++++++++++++
+ drivers/net/phy/mediatek/Kconfig              |  10 +-
+ drivers/net/phy/mediatek/Makefile             |   1 +
+ drivers/net/phy/mediatek/mtk-fe-soc.c         |  50 ++
+ include/net/dsa.h                             |   2 +
+ net/dsa/Kconfig                               |   6 +
+ net/dsa/Makefile                              |   1 +
+ net/dsa/tag_mt7628.c                          |  89 +++
+ 11 files changed, 895 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/net/dsa/mediatek,mt76=
+28-esw.yaml
+ create mode 100644 drivers/net/dsa/mt7628.c
+ create mode 100644 drivers/net/phy/mediatek/mtk-fe-soc.c
+ create mode 100644 net/dsa/tag_mt7628.c
+
+--=20
+2.53.0
+
