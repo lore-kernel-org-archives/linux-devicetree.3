@@ -1,49 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2D63783BB;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E044D378814;
 	Mon, 30 Mar 2026 16:01:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774886513; cv=none; b=YwchhBnPRiD7amdKASbvdRp5NqyRSloSVUoABI17a8Rdop/vv5JqmG9+BwbzZGWNeh4qwxcc98ffoT475go5/zJuJ2FloWyOwtIcz8efXIQ7AXwn36psZgvz+BQL0Zmm7Vd42ouy2kx9F2wN1BZHoFtVqqohfxiwKY08o+9+JSU=
+	t=1774886514; cv=none; b=uV3qSSE2JKZkLjNV1tITqgArBZI9nEWXyKgT2ssWf6A3FGnSrm1OKkskpqJ/5e7KtHxxCUo4xDzxyeQI+4rx3tYE9lF3o9Vbcn8sCCBAFD0IIrNHKI7wsev84S7Bb34IrQYOvBL2c2fr+afP3B7ksjdCByORqxkhh9Xmdx4RArY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774886513; c=relaxed/simple;
-	bh=dkL6dv1UZ6tEvEkiK8k3OFHYmWohEXDgOHsN7TaAXo8=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OUFRhMcxm3N6vRkez2dxNI9nPdOgcb+6nR597nRjX6KP/XZ1zYvfV4Ni3aZ+ztDjnCL5MMRQKYVb7uueDjTMRCFGdyUKav3FSwAR9BZf4oMsANeiXHJpIdHO2gl9I9YgRbmtEe8slJemm1BuSIvv7apPK09OZOZE/VAZi+Q2QXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=peTvHo4w; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774886514; c=relaxed/simple;
+	bh=EdOpxJovDyjdlExD1y28OWTPI4DYUhC6fBBfsNwnHag=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VPKQ67IuRNpLwWdCNwsr/EadhTGveLjz1ve6+BVduq/VfqX1ozc3XZ9M1Uq3iUfdZl/SVcXJK52EBBaljfGUEiOXsErqTuwEkmYv5ez2fT63/lpcroYvipvRL8whtU4FMjdyodGFNQfWCJptVLRxWTxgJoP1HWNHV0Giugt33KM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NtRASXSK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="peTvHo4w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15D64C19423;
-	Mon, 30 Mar 2026 16:01:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NtRASXSK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 226DDC4CEF7;
+	Mon, 30 Mar 2026 16:01:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774886512;
-	bh=dkL6dv1UZ6tEvEkiK8k3OFHYmWohEXDgOHsN7TaAXo8=;
-	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=peTvHo4wMPfXlvDCs2e71U/I/369QNfdTRy+2ixgLbfcFE1m2O1tewtKUYet6WZ9y
-	 EdfjyyCWuYUvDA12a43gIpdl2mh8U/WT32/+5778ADO2wLEA2BWFgSLwnzcJmd0sOI
-	 Jj/AmhylDLg2bpPAjhHfJ+vTm6yhKUSddCGP6qZTEIbI2//eEQDxP5Y3cBea8c1y6D
-	 q2NFecVehN7YPdCR5ZHywBK746D6eS2i7erU1Q9+B2mNxRJ8c20CXIWZSC9q2tem6I
-	 yDRZiTRPCG8VIN88z5jsd0fycdp7JYnQBiDJE49fuSxUGH3mOECEfZWzj3SyW/dGbO
-	 KTcxbnnNSf1Rg==
+	s=k20201202; t=1774886513;
+	bh=EdOpxJovDyjdlExD1y28OWTPI4DYUhC6fBBfsNwnHag=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=NtRASXSKpW5wmL3xzfgZb8S6JxKO3UmSnC9abfUTEzm7uGOS+DTaxoGD6AtqHbhKK
+	 iIKI5gMMo+XEmWm4W87RQzK66tYeZthb7mg7EvljOq1S8eXtAvAaXW1x4Q34fPTwUT
+	 AATmIOd6nLVXiB6cwKU0db2w8wehDAfC/PT3ClNVTisldzPhq0BXCFrD/9cuHlraIg
+	 zew0t/uFZLRKYuqpWkRD5qJyAXgFEcFxa6HzZN1AgroU2AfuSHohvvkfbWvolmO6aX
+	 NNr6dBJVGxuI6DTjyr5aWBUsOvqXOaom7LfdLO3SPUrtQ/y5pcPpEVrmVISt0/ZrJe
+	 JPjO84seH9NOw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Luo Jie <quic_luoj@quicinc.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Christian Marangi <ansuelsmth@gmail.com>
-Subject: Re: [PATCH 0/4] clk: qcom: ipq-cmn-pll: Add IPQ6018/IPQ8074 SoC support
-Date: Mon, 30 Mar 2026 11:01:12 -0500
-Message-ID: <177488647778.633011.8836589484278812193.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: dts: qcom: qcs6490-rb3gen2: Enable uPD720201 and GL3590
+Date: Mon, 30 Mar 2026 11:01:13 -0500
+Message-ID: <177488647749.633011.4177279204840350077.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260311183942.10134-1-ansuelsmth@gmail.com>
-References: <20260311183942.10134-1-ansuelsmth@gmail.com>
+In-Reply-To: <20260323-rb3gen2-upd-gl3590-v2-1-073514bf9ed5@oss.qualcomm.com>
+References: <20260323-rb3gen2-upd-gl3590-v2-1-073514bf9ed5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,31 +51,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 11 Mar 2026 19:39:37 +0100, Christian Marangi wrote:
-> Simple series that adds support for the common PLL for
-> IPQ6018/IPQ8074 SoC support.
+On Mon, 23 Mar 2026 21:32:39 -0500, Bjorn Andersson wrote:
+> The QCS6490 Rb3Gen2 has a Renesas μPD720201 XHCI controller hanging off
+> the TC9563 PCIe switch, on this a Genesys Logic GL3590 USB hub provides
+> two USB Type-A ports and an ASIX AX88179 USB 3.0 Gigabit Ethernet
+> interface.
 > 
-> This is an initial effort to try to support the Ethernet Switch
-> present on the QualcommAX platform upstream.
-> 
-> John Crispin (4):
->   dt-bindings: clock: qcom: Add CMN PLL support for IPQ6018
->   clk: qcom: ipq-cmn-pll: Add IPQ6018 SoC support
->   dt-bindings: clock: qcom: Add CMN PLL support for IPQ8074
->   clk: qcom: ipq-cmn-pll: Add IPQ8074 SoC support
+> The Renesas chip is powered by two regulators controlled through PM7250B
+> GPIOs 1 and 4, and the power/reset pin is pulled down by PM8350C GPIO 4.
+> The Genesys chip power is always-on, but the reset pin is controlled
+> through TLMM GPIO 162.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/4] dt-bindings: clock: qcom: Add CMN PLL support for IPQ6018
-      commit: a57666004f49fa5031d6bf388834213e6f961922
-[2/4] clk: qcom: ipq-cmn-pll: Add IPQ6018 SoC support
-      commit: 97eb2ac52726fbb702ced40d552a3f6f2683b664
-[3/4] dt-bindings: clock: qcom: Add CMN PLL support for IPQ8074
-      commit: 7156c65030006e6930dd99c5b8c5e84e69ca5f0b
-[4/4] clk: qcom: ipq-cmn-pll: Add IPQ8074 SoC support
-      commit: 4e36f8ab45c406420f2c2ce6ee3988e0d13ba1c9
+[1/1] arm64: dts: qcom: qcs6490-rb3gen2: Enable uPD720201 and GL3590
+      commit: cde64269eeb8099b4405aef8b19b90892a05352e
 
 Best regards,
 -- 
