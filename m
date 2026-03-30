@@ -1,104 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A82377016;
-	Mon, 30 Mar 2026 17:22:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774891377; cv=none; b=P/dXjGFAKhIjSJNdYMlFjfvW2ssybU2jmBdvWoTnDo0tqiJ8cgcyViT+BKtkwVy+Hngbz12hXe2TG/L70NPumMMgaNopHsw5XWRr8kRDdC/j5tdWUl1ubPx2eGcd3FnXJykmOKQedeDzBEoLIukS/aaX8/mE9xRBI/4+v5PgyiQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774891377; c=relaxed/simple;
-	bh=WhxrWyvGYeN2Z/akOkjnLPhumA8J3ehMg5o0iafmK8g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TsfkYiSlHz5SWGe8trRFMx6OqRKjC8C51je3/nWq2WCCkEDrXC92OfZokpzWFbGvzpFlPCh0/epGIODJw2A/yRu+8oDDQZ9o/DJ8Yf9E/cqq5bAjkIEtkX1q/3u+SWcgOWK2WU5ZZjEd2JnjIg6wc90kmuUR/gCHHLqCLxoWVHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OxVz6abq; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E343DC4D4
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 17:24:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774891488; cv=pass; b=GXAuHktrMKXt3EYAh1IFSiAMH+qf0av1PdVIaWMij9dfEnSXgAg34ZVqCsjzu8Z6DiYw3gU445d0cliwD2wbIKNhBgvm/dC+zn+6qtCclptXNdZFZNEoZ+7X1KoHBzz93bZbALWH39igC1roy6t+kOg8/Fw3Yqk4seygw5l9FxU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774891488; c=relaxed/simple;
+	bh=/POCNtVCVgs8Wz8mZ9O1D8ykDMaaTk6zJm6BSwE9+PU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=B1Fk5zImhvYodrxFqXMya5L2g+X7QH5xcLkFaX9s7B+i0bD7bk8E+tMPFP7goXlxANvh4jSAVBPvamS0RqlJiYaALDSCwUqQBsH2ijLEN9eVgVY48LpGs/lakTqcSb8K/S6pwnFkAdpaPVPtQXaUKawspGOA2x8M50UQPVyvvFw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V76BZqIs; arc=pass smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OxVz6abq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAEC8C4CEF7;
-	Mon, 30 Mar 2026 17:22:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774891376;
-	bh=WhxrWyvGYeN2Z/akOkjnLPhumA8J3ehMg5o0iafmK8g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OxVz6abqFAmNnV0xVHAnxosYj6lDiurYFj2MpEpTgnq7gMS+clDPPzWGebZ9hoPK7
-	 l95qH+3tTrYob/75bupsMC+c1RtIellmWTzfRnf2YkDQlcNpggsJwWh7fIqYwr/c+3
-	 iszjz/2y1xUxM2bSbKDWCNTzVmqneLa2bQ2Jg+fuW7C+iVf7FbzMJL+3aKBxUf6t1I
-	 gPzj3IuvpmWzHUbGdqPJY25v1dNDPsOI+AymVu8r7f+Ls3JAyoizu0NKwKhrNzrSwj
-	 N1MK+Vo+JwsFgn5Ij/Kaa5Uzc2pG5KZgL7RJeARlIEEHyLu0qU7yYt0Uz4wi587UUz
-	 nXckbrveM0bCA==
-Date: Mon, 30 Mar 2026 18:22:50 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Richard Acayan <mailingradian@gmail.com>
-Cc: Stephan Gerhold <stephan.gerhold@linaro.org>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Nickolay Goppen <setotau@mainlining.org>,
-	Wesley Cheng <quic_wcheng@quicinc.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Adam Skladowski <a39.skl@gmail.com>,
-	Vladimir Lypak <vladimir.lypak@gmail.com>
-Subject: Re: [PATCH v2 11/11] ASoC: msm8916-wcd-analog: add quirk for cajon
- 2.0
-Message-ID: <84219949-8c5b-416b-b6cb-a77c0ced85a9@sirena.org.uk>
-References: <20260304195815.52347-1-mailingradian@gmail.com>
- <20260304195815.52347-12-mailingradian@gmail.com>
- <aalV5dBloD1BmwzZ@linaro.org>
- <acqvm25ap4LTSB8j@rdacayan>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V76BZqIs"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-b982b0889d8so565751066b.2
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 10:24:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774891486; cv=none;
+        d=google.com; s=arc-20240605;
+        b=EpIcoc1kn9+jDAWkJgzcKfGJYRX2kx8A/xrUyCu48p00REUnIHc9YUmM1Ki/+ww9EY
+         0UQ97NGVlKwvBE6jPzOGvvYWGCdNBkdNj10Y5paWfOEUy5HIL22u5q0VK9inLGvw5bDC
+         Lcnw0XCX1xMDKy2K+umWIqO1GvmxXQmdVgvrC7zEtGqmuq9Dqoy+amK6Ubc1CZwy6a3/
+         opUCuBJQsCoDmkP+N320+jBqX+i578R2jn0FSCGZuByBul5sOAnrHnYM9iso8Eq4+SAi
+         e1oSTpsBCa1R7N0NKOLTEjyj+mSDUjV5mwE3B7lnA4mZvLR1tAFGUNZU02L1k8jjES92
+         qFEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/POCNtVCVgs8Wz8mZ9O1D8ykDMaaTk6zJm6BSwE9+PU=;
+        fh=K9tHC1Tm2lWHcALrMwruzidCBNkULie7LIGiJ9hL/+8=;
+        b=KQefSOlSIKPiQDbIViYV3TGBqq2poBR6H0elRvTTyjA5W1lzw2m2EugZElA/Vo5EOH
+         9Uur9edIW4Txrb4MEP3CFp+IuCYYknfx/UNztfKZi2i6XBP3Z6UMzWQT8Px8RRNN2okn
+         ngDyYz3+7mb+X0Zrs2OAl5x1zH7JaQjcg+Ef0fiwyVv7/JM1TpvbC/HXJsDZ3oPruV6Y
+         yB6HRcLlrWMxw/JQKKb2T8CnX/f0fMNP+8X6P8JAiAw4aq2/fg6+86mtyHR7aBuN6XnZ
+         ckJkGCIRfcUQdrqQkJ71ezWYRAzvJ+5CXoc+zIUz7Vek+oQStiVizL372jvLe7QnjuV+
+         UwXA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774891486; x=1775496286; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/POCNtVCVgs8Wz8mZ9O1D8ykDMaaTk6zJm6BSwE9+PU=;
+        b=V76BZqIsg6SY28n+CDDu+IH++PLSb8MJSlRIvY02cnLUWXpaxB91LN/qlH3xzlIxCx
+         OJpm0KiBuf6pIWl4hS1tBcqhmkha9q0QN7jpVlN/RWZSajGpxmqtZstQppDr8zTLHfCl
+         7/3yLIORDyGDv/FwB7cjm/RynB6KgTd3CbCbcKooE15JDQcnwXYC3TG/cD+TSmFNry9y
+         qase5dwhuuHQDJ75vNqql1kmgBxzGIcszCChHk74hP53Qdi5sFznMywjfIRhJmz89xoa
+         FPIC0Py+qZ9XjashK4KXSbxEdCIEca9UEaypsvN6Gb+8PtPdnCYX4WzuDT0B1re+KOEK
+         PpHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774891486; x=1775496286;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=/POCNtVCVgs8Wz8mZ9O1D8ykDMaaTk6zJm6BSwE9+PU=;
+        b=bZSHM874FiVkAQJliYMfjp2Fqo+SbNyjl5nyULGJgPVvh50tf72D0+Ix97YWIuF4wN
+         xiEPB8Jv3dO5r6WYXLPyPf6uNiHu1RSGtFDw7zJAbpAvSLlwPdmJs9y/HDLSYSzCvgrc
+         zv6Rv6ojwSek4nObhzcYWraSxMuJ07W1Js6HwTNi1oap+bbe3ANzqktJV/bierZDk39+
+         z4Lzr40k4DTN/UcGHYwAIwvQkfzCqbqM7ImJmrQSDmGo6X5xwz6b2Yq8257vUBpV8BLg
+         6ET9efBff9CvaS8XXad5RtsK6lr4BHcBsTE60QTcFaaQ1pgYjm/jQAuiNJhQJWM1eGu1
+         O9fA==
+X-Forwarded-Encrypted: i=1; AJvYcCV6P61V6CowaY2HajnI6VxMQNuZjSMWGCRg+2au+T7IGgQAuzd6CS+q+Q/f+nsuTPxjWGd/xni1wdIx@vger.kernel.org
+X-Gm-Message-State: AOJu0YycaCLt8PKckFokEZ16iTb/JKLdtgb5w2GpYWv13H2+liGQ+vjG
+	2Qx/oZvVsHS1fXTtQxMssJWZ738B1IMHSbtyxrnhT7phOfxkz4lyJaR9sLzojZEDiF3/3MLFQXb
+	nFUlzad08UYeiZMdXVxHPLXGaHXxGrLw=
+X-Gm-Gg: ATEYQzzmR+jKfG2UEWl9lAiiuQjV11HuFT3xk5YQ09dMthmBWzuJNBALSuqZQn09V2i
+	Oni/0IhgGw96O4vwrWdrS4YApBTBLbOexrNWma/m2YLuXvXPYJAV6haen+lcynocMTxlTfmYr7D
+	voL3VFGhjyzQWaUI0DdVsb8/1CcnwqOjpy5MOvUSYqMwMexB5YNCFpJzzvFGy1Z/isNFxWEDIrY
+	ASd7oxNGuot+4Dfq93Gls9QxERCgtKZabc0dDpOUKpFBtcYec1xkllKXv083NAIa3Zoxw9UMQxc
+	S0pKZU1wvf/N4P3dh6zCqpqG5rjOP9RZohvjqqs2LedqViQLQccbNJxR9m6k/dn6g8H8YCiPweK
+	9/QFefMo=
+X-Received: by 2002:a17:907:9626:b0:b97:554:f12e with SMTP id
+ a640c23a62f3a-b9b50350860mr690721166b.14.1774891485468; Mon, 30 Mar 2026
+ 10:24:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dqLoTX8rz4gZM6PL"
-Content-Disposition: inline
-In-Reply-To: <acqvm25ap4LTSB8j@rdacayan>
-X-Cookie: HUGH BEAUMONT died in 1982!!
+References: <20260327-ad4692-multichannel-sar-adc-driver-v5-0-11f789de47b8@analog.com>
+ <20260327-ad4692-multichannel-sar-adc-driver-v5-2-11f789de47b8@analog.com>
+ <acZrthJYQX-h_9p5@ashevche-desk.local> <LV9PR03MB84143540CE505514E1CD84B4F752A@LV9PR03MB8414.namprd03.prod.outlook.com>
+In-Reply-To: <LV9PR03MB84143540CE505514E1CD84B4F752A@LV9PR03MB8414.namprd03.prod.outlook.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 30 Mar 2026 20:24:09 +0300
+X-Gm-Features: AQROBzDi52qTqIm1Vf3lVJqwmlc9iA41VGN7nD3k385cLEOQCXsLlg-VEZ4M7zs
+Message-ID: <CAHp75VcUCM8aeUpNaFEXnS+Cm08Mq5j+Qp2gYqWP9vCO+9CtQA@mail.gmail.com>
+Subject: Re: [PATCH v5 2/4] iio: adc: ad4691: add initial driver for AD4691 family
+To: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Lars-Peter Clausen <lars@metafoo.de>, 
+	"Hennerich, Michael" <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, "Sa, Nuno" <Nuno.Sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, 
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>, 
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Mar 30, 2026 at 5:20=E2=80=AFPM Sabau, Radu bogdan
+<Radu.Sabau@analog.com> wrote:
+> > -----Original Message-----
+> > From: Andy Shevchenko <andriy.shevchenko@intel.com>
+> > Sent: Friday, March 27, 2026 1:36 PM
+> > To: Sabau, Radu bogdan <Radu.Sabau@analog.com>
 
---dqLoTX8rz4gZM6PL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+...
 
-On Mon, Mar 30, 2026 at 01:15:07PM -0400, Richard Acayan wrote:
+> > > +#include <linux/bitfield.h>
+> > > +#include <linux/bitops.h>
+> > > +#include <linux/cleanup.h>
+> > > +#include <linux/delay.h>
+> > > +#include <linux/device.h>
+> >
+> > Hmm... Is it used? Or perhaps you need only
+> > dev_printk.h
+> > device/devres.h
+> > ?
 
-> It looks like the codec part is mostly complete except for some trivial
+> I have checked this out and it seems device.h doesn't actually need
+> to be included anyway since spi.h directly includes device.h, and since
+> this is a SPI driver that's never going away, it's covered. Will drop it!
 
-There were missing signoffs so I'd be surprised if anyone had reviewed
-this, I certainly didn't.  Looking at the thread I for this version
-there's a bunch of high level negative review comments that you have so
-far as I can tell ignored.
+No, this is the wrong justification. IWYU principle is about exact
+match between what is used and included in a file (module). spi.h is
+not dev_*() provider and may not be considered for that.
 
-> changes (empty line after compatibles in dt-bindings, constant to use
-> BIT(n) macro). I can take the codec patches if it's okay with the other
-> submitters:
-
-Given that it looks like the series consists entirely of ASoC changes
-I'd be *really* surprised to see it going via another tree.
-
---dqLoTX8rz4gZM6PL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnKsWkACgkQJNaLcl1U
-h9DvhQf/Ye/xkAPq3i8x9/xixK0WK1XcHPCvag4gJqcwem1Io99PaNzChVytwVBP
-SlvNkqssHrR+wB2NGs0KxnetYuaQvm3L+MQqLb41a+Gv4wVA4kFAYApn5ndEv+lP
-tOEaHhoXmlHDx7z1vek6ub1u/CF5DhFeg4pwB2tqwdkq609bqNrA6iSNaP3sMk+b
-Z0gAS2ipakokudM0ddC/8alKNL4EEVRL6sO0/BPaLuNTINQOH3MC23EhEE2zJcAe
-jye6j/hwkksjPRZuQeYj95VhPoxEnU6XoANyYhFXuBOrkohxWZ9VX3Z87Nwqflel
-whFSg5P9WKrxh3dZkx8UB3wEC2cK6A==
-=pdpo
------END PGP SIGNATURE-----
-
---dqLoTX8rz4gZM6PL--
+--=20
+With Best Regards,
+Andy Shevchenko
