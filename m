@@ -1,91 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA5C1340A6B;
-	Mon, 30 Mar 2026 15:23:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DCA34105B
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 15:25:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774884219; cv=none; b=ZXpamrL8X5CMcm1I8fmqvL/6cqCJjkRZKhEUB3s8WxE5ZUU9JukfUlk7mCLphjSAadXWMpiXu/frjxIcsJ/Jw8zZy7pi4ORw4WuswLjSupKMrQiG9qmFl6IOKe6IfKI+sYt/A3JKy5WQ8b9cZZwaNfcv/eikCQy9taXINy5qmPw=
+	t=1774884329; cv=none; b=WYWIu1vM7HNXWR2NkxPmRscSGYp+Akn1i9lkYXgttffAczU6kc9mQvn9yK76mWMt6hMUYuzZTygQcwFnhAHE4RpMVNBjyPNkVqv2oTEoff/m8kCHtdNhJkmwjt5X2x11dUSDIyvIFNvTu8AwJF1TZgb9VXAq4yVl6CfpzZYMoec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774884219; c=relaxed/simple;
-	bh=VULu542ABKvcNdY+7D9CdlmIg9J7r7UGrQBVKdeLiMY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S6VBv0ciPrxK+mce2QBQN0RW+AxmPPvvBA8gIQzwg17FCzhyh/pidBB+k85WDjyVw6X2F6ZtBeAFzNAOymQIjhblv621OJFQ1QxBhMJ0PrNgTIWFW1+IpkgFgLS7goaa0fdChVwdMCMvFJ16HROXrzTV0nxt1Zjag2LrgFmlbeY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=prqTKGyK; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774884329; c=relaxed/simple;
+	bh=WVhLnZ2EmGBxqENPWfNXyMc1MEjchMwTAMwswedf6kk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=c3ZXHGq+UG1fbmBA11qw2mmuyNQxEb19vaOSdnoJHALGgcdfVQRcz5DypYCIV4sG68fOjmft2oNnhAgc5fIBsr6TYsTLgzXAOwUXv47Y9NtLAlRSOHCmvYD9KyuKKuWuzeIamOmtraJ6b7kKBGgWiyQcE5ymdwC3KW77tlRdLMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RZk/h7u9; arc=none smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="prqTKGyK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8D43C4CEF7;
-	Mon, 30 Mar 2026 15:23:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774884219;
-	bh=VULu542ABKvcNdY+7D9CdlmIg9J7r7UGrQBVKdeLiMY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=prqTKGyKEq6bTMdFHWFNCYT/lKNg2YpV5IlAQwiIXHGhkCSZWIL3OCS5TpKgH8Wgf
-	 XLZGHVoliDtSLgDYHhKQnVtc/Ls03TOKKqU3Wj0wwKUQ+VxQ+VJI8OfqUiv2vkOOoS
-	 NGntgeCI2idZ0VBEPbG4PiWV7R2YM6GaCwinftD2PCvkrpIEKa/O7mmO6oDOOUeczc
-	 u2gLeC/R3Z/DayowwA12TxHzD3ZYvH/WTn55qNZDSFKjoN5z9+K6EVIxsgGwxRPQQg
-	 UVpIf1muwbocTSqJ9u66iCI8wQ7oNQdixAVTsqwFWT07WzHnYTy+SraeSgsmugk7yJ
-	 Fs0w5WGFHfJRA==
-Date: Mon, 30 Mar 2026 16:23:33 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Hui Min Mina Chou <minachou@andestech.com>, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-	geert+renesas@glider.be, prabhakar.mahadev-lad.rj@bp.renesas.com,
-	magnus.damm@gmail.com, ben717@andestech.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	jonathan.cameron@huawei.com, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, tim609@andestech.com,
-	alex749@andestech.com, az70021@gmail.com
-Subject: Re: [PATCH 2/7] cache: andes_llcache: refactor initialization and
- cache operations
-Message-ID: <20260330-rug-coeditor-82f88ac95e7f@spud>
-References: <20260330102724.1012470-1-minachou@andestech.com>
- <20260330102724.1012470-3-minachou@andestech.com>
- <8c01c910-21b4-4a16-98e4-197c20883d23@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RZk/h7u9"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-b97ba4c2be2so614693466b.1
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 08:25:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774884327; x=1775489127; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=RJnnB2pPQ6ncWBZL6xleP5qED5g2TriMKPwgfGIkEwM=;
+        b=RZk/h7u95vCgZDXIoBQ4swZ2qTQ3ceVFI2Pl6XODVsDpaDg0EoA6E+bjwGonyN3yT/
+         8sZXQLiJbbges1RgLoFDVtO7FkoMgNcW9FsOl8+0O7KbDyx1qZh8bEraG9vNCKNYrk7n
+         8cqlRpxvjeo+aTKpbBFazOewdVRN10yu20XI3XpFPVi6bv+iPCDEbiy0DppDcQX2XOhO
+         yJ2nt6O61Y+X4xg2Y/COQPApVxnKzeGN22p8u/K0jV2imLYzoHv81Y5v5WvK/dTwmIYR
+         5xxoB5ZTEmoJSA8g8448lAcugDEo0mPu6UhdfXjwKOyxsgpSjW7IwEAT81tKK0Zfm9n4
+         ZVLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774884327; x=1775489127;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RJnnB2pPQ6ncWBZL6xleP5qED5g2TriMKPwgfGIkEwM=;
+        b=FOzRnKYC+n0DtqlLQ+q+fJcdHQYqT6uUmNBw5sisvbl+yWcljOJNYuFaASV0wviKIL
+         L6ZKsbrjKjnDAvyaHNL43X9LTssSDZ6hbkk2hg9sJyD58DDhpO4eD3LixMpdnkTF+o03
+         VNm6Zd5DgXubbPI7ajylv04LvR7S/Zss+Lu/IJVszsX0Pe1bNt+bnyoQLjMNOm7DVXGb
+         e1U9tFTlMkQW/r6bbDAxqG9DUp0PWV6ODPfp9hzYe6NK68DmYzgKgdelt6UKT2ltERe4
+         Fk0Wny1bKJ/9mSPKN9KXJcI+wNSKDIwoUImqdiiGgcIgr/rOXsEm3cPGMgprbQJtwCSI
+         hAzQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXpey+/eBPU1LlyfYxyZ0A0if4bhVSS1on8B/pI1lx2tnsnP9LnXrT0QdNUDQ2K5qv2JhUh5EOckq3r@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy2OC08bBXVUBfWcLdf/7DbqNo/ntA9f13MWJfOwSdFGp0QtYUj
+	CBi2+i52e9nSstJlokQdgd7Xf3ldWdzGgba9FYdnuxNqxLBQ+fm6qRIP
+X-Gm-Gg: ATEYQzxFhDeBu0GmyPNwwwzZK3F9bF4TZBDtZcAfS4E9IH+I4DuMEyhr6itJlSTit8g
+	4USbVM7Yq34QmsBl6BEFs9z9aGVWhzdGGKd87ABYAuzv+tcJ+oiN9M8rqdwhqevXx7jxDjcwWIs
+	fjN903lns+ioku4fbyLQ0BihdhKWpYuLBxdo5xMXOhgBXJPFpKn2q3FBbqSUnjNu3A12KoDO8G1
+	iLsSj33iCDfH/69qTlSIIqn1YO3V9Sl2ujLwdc1aojEYRktFC7xpLtEg1CCI1+e12dmvvQtLIOa
+	ZKPECLPmBh9raQ/MBxPLg3T6OKlwwWxqHOrmRnNsF/RATHjt5+vA4IsXWYF/IFiff88BsHa680g
+	8R622XfHtYCyRERzML3ZP6Ue93PGWz2ULFU+5zJ9NXeQCFZsoKGh3ojQgjrTSjHkheiuyHOvLhi
+	SaJQ/PJDlLS0NkWlAgz9CnmnYDg7H1Tb0sz5K2Fx/X1/VUl0EJn9d97JMbozzKXvA=
+X-Received: by 2002:a17:907:1b21:b0:b98:1062:afdc with SMTP id a640c23a62f3a-b9b507a5dcamr785644666b.27.1774884326453;
+        Mon, 30 Mar 2026 08:25:26 -0700 (PDT)
+Received: from [192.168.0.253] (5D59A51C.catv.pool.telekom.hu. [93.89.165.28])
+        by smtp.googlemail.com with ESMTPSA id a640c23a62f3a-b9b7b1e33c0sm301058566b.49.2026.03.30.08.25.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 30 Mar 2026 08:25:25 -0700 (PDT)
+From: Gabor Juhos <j4g8y7@gmail.com>
+Subject: [PATCH 0/2] arm64: dts: marvell: armada-37xx: USB3 PHY cleanup
+Date: Mon, 30 Mar 2026 17:25:15 +0200
+Message-Id: <20260330-armada-37xx-usb3-phy-cleanup-v1-0-34d77f1a1784@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XSEEsXFnQ9xlKiil"
-Content-Disposition: inline
-In-Reply-To: <8c01c910-21b4-4a16-98e4-197c20883d23@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQqDMAwA0F+RnA3UVFfcr4iHqNkMzK60ODrEf
+ 7d4fJd3QJKokuBZHRDlp0m/vqCpK5hX9m9BXYqBDD2MtQY5brwwWpcz7mmyGNY/zh9hvwfsibh
+ rHbm+ZShFiPLSfPfDeJ4Xy2oZzW4AAAA=
+X-Change-ID: 20260330-armada-37xx-usb3-phy-cleanup-922a5472794a
+To: Gregory Clement <gregory.clement@bootlin.com>, 
+ Andrew Lunn <andrew@lunn.ch>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+ Robert Marko <robert.marko@sartura.hr>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Stanley Chang <stanley_chang@realtek.com>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Gabor Juhos <j4g8y7@gmail.com>
+X-Mailer: b4 0.14.2
 
+There are two small patches in the series. The first helps to avoid
+triggering a bug in the USB core code, whereas the second one is a 
+small cleanup to align PHY definitions of the USB3 node with other
+platforms.
 
---XSEEsXFnQ9xlKiil
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+---
+Gabor Juhos (2):
+      arm64: dts: marvell: armada-37xx: use 'usb2-phy' in USB3 controller's phy-names
+      arm64: dts: marvell: armada-37xx: swap PHYs' order in USB3 controller node
 
-On Mon, Mar 30, 2026 at 03:02:11PM +0200, Krzysztof Kozlowski wrote:
-> On 30/03/2026 12:27, Hui Min Mina Chou wrote:
-> > This patch cleans up the Andes LLC cache driver:
-> >  - improved error handling in andes_cache_init() by using goto labels
-> >  - updated andes_dma_cache_inv/wback() to check for !size instead of
-> >    start =3D=3D end
-> >  - cache-line-size mismatch from an error to a warning
-> >  - Use ALIGN and ALIGN_DOWN helpers instead of the alignment logic in
-> >    andes_dma_cache_inv() and andes_dma_cache_wback().
->=20
-> Please read submitting patches document. One thing per commit with
-> proper rationale WHY you are doing this.
+ arch/arm64/boot/dts/marvell/armada-3720-uDPU.dtsi | 2 +-
+ arch/arm64/boot/dts/marvell/armada-37xx.dtsi      | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+---
+base-commit: 2ff6cc999a04bcb094b8cbba68a9251f03a5c876
+change-id: 20260330-armada-37xx-usb3-phy-cleanup-922a5472794a
 
-Applies to multiple patches too. Anything here with a bullet list needs
-to be several patches.
+Best regards,
+-- 
+Gabor Juhos <j4g8y7@gmail.com>
 
---XSEEsXFnQ9xlKiil
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacqVcgAKCRB4tDGHoIJi
-0vBhAQCwaaV8c1kS1cbuCi/Pa4fZ8f4Oq1pfsKXH8bMxDxOimgEApnKQp+tY6hDU
-KPlDV7uSgwfAYilwkjTxwTIG7cKTkQI=
-=gqdu
------END PGP SIGNATURE-----
-
---XSEEsXFnQ9xlKiil--
