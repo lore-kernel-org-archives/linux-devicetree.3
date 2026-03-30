@@ -1,49 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E733914E4;
-	Mon, 30 Mar 2026 16:02:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBFB38F95A;
+	Mon, 30 Mar 2026 16:02:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774886530; cv=none; b=HEJ4HhTDwf+lRpO4ker/6qAcRr3Cmk+vlNAZEPa2PCQCQSi4jLFfWGDEkI/e6tBr+rXwMNFycMhJcgWgh/d1pqsU9xod70RNWtuJXOgFNY5AWIFw2RW/7Xa3F3lk5OlM9zGXJbRyvL4tXEGSVw6Kw8DdE3KLU3C2CepJUN74kWE=
+	t=1774886532; cv=none; b=PgsDzfzZeGsGqB77LQdzmQnrNQlDK9U1f1ksoNVQBnP49TJqzPWGJrR1yVbUUie9c1eXTwSnoofKaQ1Azwfn4K0NqdNDaWuP7gB6NE6CvZxGsdVPVNwD0YRwleyN4kJgO5AWqPi9pd6KdymzTVDW1yGYWR1TGMjiOLM/WKwEXSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774886530; c=relaxed/simple;
-	bh=utfzMihMYmDhK3LwKI9GulPoj6iCWH7Y5EAkhalANqI=;
+	s=arc-20240116; t=1774886532; c=relaxed/simple;
+	bh=Rm0hm5DTYGPyx2RoTQjMeFnRUX6mw5hj+Ga97Mlqb3Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=m+gpWUHE/JZ9ePmrZzdPbn8YMWQsyjMRPct2shYNByivyVjHTAXDVxZQJKZCHyZ1i/HUKdOmvLyuZ7LRDeNSRRyOyjWLBYXTtUlFbgl0XMMR/XIknOmo3RI2JyKrMo5pa5ZGed8OMacnpo3PiqgWfu5dv5SfcdhcJ+o5YBAjpoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QqQHWYMu; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=FhZxxcYs7ihnoq7vfCcwukcrHPoTV2++iJ6nilIiPEVlCrxojFXHchfRk+tKXW/8i7r+hRkDKQQ0ze6Q7ehqmdWcCYbn8pFtHb4Cu5MgTBqoPE4AjfUdozJTULgfSvj5CmoyeTOSj/EWWKau6Y7uDoGEE6rHTEiAHTFwa6tzrak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WdJNQVuM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QqQHWYMu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FC6FC4CEF7;
-	Mon, 30 Mar 2026 16:02:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WdJNQVuM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FD01C2BCB1;
+	Mon, 30 Mar 2026 16:02:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774886530;
-	bh=utfzMihMYmDhK3LwKI9GulPoj6iCWH7Y5EAkhalANqI=;
+	s=k20201202; t=1774886532;
+	bh=Rm0hm5DTYGPyx2RoTQjMeFnRUX6mw5hj+Ga97Mlqb3Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=QqQHWYMuA4OGyinNkHM23E7DpW1R0a+TVE8Doemk0hdGeK0D/ZU5ezCxrzRkMTz2C
-	 wjBJkfzxMOkmKPSXN6vi+dfZTt0p0PjywOm2hVVcK5H9NqykzBiBDVT3XH4j90JUsX
-	 mWEMcm+ZNj+k8V4nODkis8ivHXoS05m4koEbjnrm0IdJnlBiHR5LLxHHN9xWdl0uP8
-	 SxtupQmeTLTWUW6Yxdy3kHzGqa41CH3CS0SsE+Bvzao/UlWdKjcscqkS+R9wUbNOnL
-	 T2/slx/GMydRNnm6Kdxlf0TxSiAC0Ge9MkWAUYPVrD8EtR1h8AMhEW9n0LzUIjWJ8m
-	 I1xpGTR3MhIow==
+	b=WdJNQVuMpn+EgzOfcHUy05Drp3GiOnNHr7eJwwLLOzGX8QIZ73zXl059Nqfz6y4XQ
+	 o/LLAmdNbdELI3W/loLbBqxyUUwkUu0QQ1K8VI3Ojv6aIrfBaLyi1KUD9pWYBrem74
+	 BVDtXVYjhM2Sz7xXaQ8nthQPFsMT9YWn4Me1tN3Jio+RjI+I2rOBxeSS2Oa9f0PSo0
+	 n5Anhn5rxSDxhqxlR+YIb2khclG4qYQehOxMyoQaJCafGMj/qPFIojTHUkItE7hu9j
+	 aHIb78kQJ8dZ/fQ9IUz9wws3asXTQHx4ktSu3z5lYmXNLTSmhjvllH17InGk4JN/85
+	 YW5L1eUkTp7pg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
+To: linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Radu Rendec <rrendec@redhat.com>
+Cc: Lei wang <quic_leiwan@quicinc.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nitin.rawat@oss.qualcomm.com
-Subject: Re: [PATCH v2] arm64: dts: qcom: purwa-iot-evk: Enable UFS
-Date: Mon, 30 Mar 2026 11:01:28 -0500
-Message-ID: <177488647771.633011.3376601666309332553.b4-ty@kernel.org>
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v2 0/2] Add Qualcomm SA8650P SoC to socinfo
+Date: Mon, 30 Mar 2026 11:01:30 -0500
+Message-ID: <177488647773.633011.11756964457703997411.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260323-purwa-ufs-v2-1-58fb2c168786@oss.qualcomm.com>
-References: <20260323-purwa-ufs-v2-1-58fb2c168786@oss.qualcomm.com>
+In-Reply-To: <20260321152307.9131-1-rrendec@redhat.com>
+References: <20260321152307.9131-1-rrendec@redhat.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,20 +52,19 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 23 Mar 2026 18:17:53 +0530, Pradeep P V K wrote:
-> Enable UFS for purwa-iot-evk board.
+On Sat, 21 Mar 2026 11:23:05 -0400, Radu Rendec wrote:
+> Add SoC ID for SA8650P to socinfo.
 > 
-> This patch depends on [PATCH V5 2/3] arm64: dts: qcom: hamoa: Add UFS
-> nodes for x1e80100 SoC
-> https://lore.kernel.org/all/20260211132926.3716716-3-pradeep.pragallapati@oss.qualcomm.com/
+> Minor edits to commit messages for better clarity and to match previous
+> submissions that add a SoC to socinfo.
 > 
-> 
-> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: purwa-iot-evk: Enable UFS
-      commit: 7658e9b94849ca861ded82d641f52fcec303210d
+[1/2] dt-bindings: arm: qcom,ids: Add SoC ID for SA8650P
+      commit: a559a742c95c55ae3b347f2b57d26830c0cdd566
+[2/2] soc: qcom: socinfo: Add SoC ID for SA8650P
+      commit: f55fa3e3dcd8f766266fdf878994f0ec09459a7d
 
 Best regards,
 -- 
