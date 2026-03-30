@@ -1,157 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AD43A1A27;
-	Mon, 30 Mar 2026 13:57:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6DE3D3332;
+	Mon, 30 Mar 2026 14:00:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774879027; cv=none; b=t6Fxly3Poc70HdYcuvT6jdGW7pXTPI3ZZPZuu2HmCComs79CMyBHGFuUPYhg7Up3suuopLJcHit9UPn2wGyYpFSfvustMV94YO+Zwr+FulN4R9tYwClZN0nLvcObfAGtQ8Pf/dLB/sN6Jk7KVSyUOoMjL4RsNA57/nxAB0otyfw=
+	t=1774879217; cv=none; b=fOM+B6OLqvKmYyVVSUZ2IFNkQEVv3FFi2Wsof41xHvK8ea84SCdhE10s/vEG7IbZGurWOEkI8w/1CJniNmN8m1sLhXpUAj5ajCeFehGoYodjNGfKAxVshP6qY9YDiFgFuFcE959Ot3c/SrQbrcgUr85Hw483Pgjgm8UL6jJd5zo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774879027; c=relaxed/simple;
-	bh=2CmwQdkoZjLaOUHmcaW1HTlizFIuDL2/ADJxJe9CAXw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y81caPFO3HB9Y2MG5fW1MJtNYWkyG1VnhZF1c8pdoLQc+TwRsmm2JrL1S+SFIqfyJAKDGuXZzgKI8ffnslDejnBffMhV6m9lY3/ALWCRhOrFYZ/7Fx3F1UXs0gd/jhusJHVLbo5qcBF4X2VkJUbFRac/qDCrcTnC4As7oVFFymU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DiYGF7hI; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774879217; c=relaxed/simple;
+	bh=PYIefoqKaPsoDZtq6sEtaI74bCngcqGwyJSCcPwkuWU=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AVXC+bUVGUxFCwwPOymrx+TpQOmsg/2uNlqsr5YAMJVwbntHOMXVQwCKxWT06ivBbitpPo4oPBi0jLh4JCAPmNjS/TFfY2FWjcMfg9vL5OQgc7EpHb0MqVI3VA+fulFKMC2vPpOAEEzRjAzG6wc6nT+VPp2E2x54/BgrNZrMy0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=vRPjMxeN; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DiYGF7hI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35F7EC4CEF7;
-	Mon, 30 Mar 2026 13:57:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774879026;
-	bh=2CmwQdkoZjLaOUHmcaW1HTlizFIuDL2/ADJxJe9CAXw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DiYGF7hIFKkTqu3EATepJf0ssCDwEvRATRbJsvImYbbkWdV5e7DnWkVbWKGu2sVZq
-	 YmP1fv4+nJ7ifa0lLWiAB1TLFIejxrmf8DU1XM77qoDEUhRkAW/5knmd3BRWYFNtqo
-	 gZ1kbj42vbnqqG6ttqSKxEOClmXi7LOIcGBvGyXL/qf/4Hps6zvHPuS5huvldlP3Ng
-	 nNHE/fjvp1K/lKD6HrAiFOx5Vqc0RAf0ooar/F6nNcb8PWP718P1ElghKpKRNx6QKQ
-	 JFWQHtMle29jtvxhe29lBRwdq+dZyTFBPWCk0ZhH/+IHjnO1Qq8h7pTIsBuo/qMo2+
-	 vG4SiascvaKKg==
-Date: Mon, 30 Mar 2026 08:57:02 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Le Qi <le.qi@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kernel@oss.qualcomm.com, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v4 1/2] arm64: dts: qcom: talos: Add GPR node, audio
- services, and MI2S1 TLMM pins
-Message-ID: <acqAf9fCi8GPxjkM@baldur>
-References: <20260324060405.3098891-1-le.qi@oss.qualcomm.com>
- <20260324060405.3098891-2-le.qi@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="vRPjMxeN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1774879212; x=1806415212;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PYIefoqKaPsoDZtq6sEtaI74bCngcqGwyJSCcPwkuWU=;
+  b=vRPjMxeNe08yJKvbdd0yiRi3YpRbHVTMljT2TygazZmzSG1BuNSyO80g
+   zJVP6cJrM3GnIEhKmfd7DvhKcN/2v8YL17x8v9GbB3psQQ9EGdbrCrunW
+   CM/wgawxs5lL4JWKDVF6a4TTKjAPzESE0a4IzjCiNfv/0QL9GVoZzxx6W
+   HIsX/isozrXmTm9ya1XD/oaHJc2xSfSEyXgtfXSMuT7kQLsQCvzNzqGBF
+   f5kWj5txcnvAwKYkdyt4mueLQb9ReKWH6gYw2iyij6dtD6xTTJsDojSs7
+   VRKqPNJrJ9P8Q0ULoCScPaWGqEkX0bpLt4IXPtXykXRzINY/GQyb+GC8j
+   A==;
+X-CSE-ConnectionGUID: cscV8CARS5yPHgkEGqI0IA==
+X-CSE-MsgGUID: R+GjTLdqTaWM8Zt2sz9FQQ==
+X-IronPort-AV: E=Sophos;i="6.23,150,1770620400"; 
+   d="scan'208";a="286781559"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Mar 2026 07:00:08 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.35; Mon, 30 Mar 2026 06:59:49 -0700
+Received: from bby-cbu-swbuild03.eng.microchip.com (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58 via Frontend Transport; Mon, 30 Mar 2026 06:59:49 -0700
+Date: Mon, 30 Mar 2026 06:59:47 -0700
+From: Charles Perry <charles.perry@microchip.com>
+To: Jakub Kicinski <kuba@kernel.org>
+CC: Charles Perry <charles.perry@microchip.com>, <netdev@vger.kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, "Rob
+ Herring" <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
+	"Russell King" <linux@armlinux.org.uk>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next v2 0/2] Add support for PIC64-HPSC/HX MDIO
+ controller
+Message-ID: <acqB0zJ7GqG2CiaB@bby-cbu-swbuild03.eng.microchip.com>
+References: <20260323220254.3822444-1-charles.perry@microchip.com>
+ <20260326203309.7154152d@kernel.org>
+ <acZ5WDz5qVxBDj3e@bby-cbu-swbuild03.eng.microchip.com>
+ <20260327165158.505855eb@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20260324060405.3098891-2-le.qi@oss.qualcomm.com>
+In-Reply-To: <20260327165158.505855eb@kernel.org>
 
-On Tue, Mar 24, 2026 at 02:04:04PM +0800, Le Qi wrote:
-> This patch adds the Generic Pack Router (GPR) node together with
-
-Please avoid phrases such as "This patch". Start your commit message
-with a description of the problem or purpose of the patch.
-
-> Audio Process Manager (APM) and Proxy Resource Manager (PRM)
-> audio service nodes to the Talos device tree description.
+On Fri, Mar 27, 2026 at 04:51:58PM -0700, Jakub Kicinski wrote:
+> On Fri, 27 Mar 2026 05:34:32 -0700 Charles Perry wrote:
+> > On Thu, Mar 26, 2026 at 08:33:09PM -0700, Jakub Kicinski wrote:
+> > > On Mon, 23 Mar 2026 15:02:52 -0700 Charles Perry wrote:  
+> > > >  .../net/microchip,pic64hpsc-mdio.yaml         |  68 +++++++
+> > > >  drivers/net/mdio/Kconfig                      |   7 +
+> > > >  drivers/net/mdio/Makefile                     |   1 +
+> > > >  drivers/net/mdio/mdio-pic64hpsc.c             | 192 ++++++++++++++++++  
+> > > 
+> > > Speaking under correction from PHY maintainers but I think we need 
+> > > a MAINTAINERS entry that will cover Microchip MDIO, or at least the
+> > > files you're adding. Important read:
+> > > https://docs.kernel.org/next/maintainer/feature-and-driver-maintainers.html  
+> > 
+> > Sure, I think this should go under "RISC-V MICROCHIP SUPPORT" or maybe a
+> > new "MICROCHIP PIC64-HPSC/HX DRIVER" entry if the former was meant only for
+> > Polarfire SoC.
+> > 
+> > I'll add something in v3.
 > 
-> It also introduces MI2S1 pinctrl states for data0, data1, sck,
-> and ws lines, grouped into a single entry at the SoC-level DTSI
-> for better reuse and clarity.
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Le Qi <le.qi@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/talos.dtsi | 54 +++++++++++++++++++++++++++++
->  1 file changed, 54 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qcom/talos.dtsi
-> index f69a40fb8e28..cd451a112573 100644
-> --- a/arch/arm64/boot/dts/qcom/talos.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/talos.dtsi
-> @@ -19,6 +19,7 @@
->  #include <dt-bindings/power/qcom-rpmpd.h>
->  #include <dt-bindings/power/qcom,rpmhpd.h>
->  #include <dt-bindings/soc/qcom,rpmh-rsc.h>
-> +#include <dt-bindings/soc/qcom,gpr.h>
+> Thanks! FWIW I'd prefer the latter - smaller entries make the
+> responsibility clear. Under a big arch entry the maintainers are
+> usually seeing too many random patches to act. You can add
+> _both_ dedicated a entry and add the files to RISC-V MICROCHIP,
+> if you prefer, too.
 
-Keep includes sorted alphabetically.
+Ok, thank you for the suggestion.
 
-Regards,
-Bjorn
+I'll go with "MICROCHIP PIC64-HPSC/HX DRIVERS" for all the small SoC
+drivers (MDIO, GPIO, timers, etc.) and a separate entry for the big things
+like RDMA or FRER hw accelerator, if we ever get there.
 
->  
->  / {
->  	interrupt-parent = <&intc>;
-> @@ -1553,6 +1554,20 @@ tlmm: pinctrl@3100000 {
->  			#interrupt-cells = <2>;
->  			wakeup-parent = <&pdc>;
->  
-> +			mi2s1_pins: mi2s1-state {
-> +				pins = "gpio108", "gpio109", "gpio110", "gpio111";
-> +				function = "mi2s_1";
-> +				drive-strength = <8>;
-> +				bias-disable;
-> +			};
-> +
-> +			mi2s_mclk: mi2s-mclk-state {
-> +					pins = "gpio122";
-> +					function = "mclk2";
-> +					drive-strength = <8>;
-> +					bias-disable;
-> +			};
-> +
->  			qup_i2c1_data_clk: qup-i2c1-data-clk-state {
->  				pins = "gpio4", "gpio5";
->  				function = "qup0";
-> @@ -4696,6 +4711,45 @@ compute-cb@6 {
->  						dma-coherent;
->  					};
->  				};
-> +
-> +				gpr: gpr {
-> +					compatible = "qcom,gpr";
-> +					qcom,glink-channels = "adsp_apps";
-> +					qcom,domain = <GPR_DOMAIN_ID_ADSP>;
-> +					qcom,intents = <512 20>;
-> +					#address-cells = <1>;
-> +					#size-cells = <0>;
-> +
-> +					q6apm: service@1 {
-> +						compatible = "qcom,q6apm";
-> +						reg = <GPR_APM_MODULE_IID>;
-> +						#sound-dai-cells = <0>;
-> +						qcom,protection-domain = "avs/audio",
-> +									 "msm/adsp/audio_pd";
-> +
-> +						q6apmbedai: bedais {
-> +							compatible = "qcom,q6apm-lpass-dais";
-> +							#sound-dai-cells = <1>;
-> +						};
-> +
-> +						q6apmdai: dais {
-> +							compatible = "qcom,q6apm-dais";
-> +							iommus = <&apps_smmu 0x1721 0x0>;
-> +						};
-> +					};
-> +
-> +					q6prm: service@2 {
-> +						compatible = "qcom,q6prm";
-> +						reg = <GPR_PRM_MODULE_IID>;
-> +						qcom,protection-domain = "avs/audio",
-> +									 "msm/adsp/audio_pd";
-> +
-> +						q6prmcc: clock-controller {
-> +							compatible = "qcom,q6prm-lpass-clocks";
-> +							#clock-cells = <2>;
-> +						};
-> +					};
-> +				};
->  			};
->  		};
->  
-> -- 
-> 2.34.1
-> 
+I won't add anything to RISC-V MICROCHIP SUPPORT even if PIC64-HPSC is
+indeed a RISC-V chip since this entry is all Polarfire.
+
+Thanks,
+Charles
+
+
