@@ -1,159 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA8E1277C9D;
-	Mon, 30 Mar 2026 12:11:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0DEC21ADB7
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 12:13:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774872662; cv=none; b=MPg1GwKGvYAu7ajN3MaqpBnu4X32QQ71bOGgvAj3+bgQ5lyAtXBjEqBaCllom0J5E3SvZ3qU8JGf9oehEo5kBHZpxbMtaDy4SK4/4sh/ZRxyk5g6R0FEsdyeAvdfOToAVlij2EAGHQjyUh7ETAEyFTG/1tyma8HCVP6+kBDveFI=
+	t=1774872786; cv=none; b=sXmIaygCivTL8RVwBJorbXg8fb7K63p0hBOrN2YMgi1XR/VnKqsstHhuGTew/1fiOEB540UEjFrGcTbB3JEHSnzL70sVJQIGOithRjcueQX/Zpmrud2sfJ+psj2fBw6OmxHMrM3gZ5d4+tZLfnUV+ZR/RciXLFJ1khSPWALg/64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774872662; c=relaxed/simple;
-	bh=oSiB8RNT+7isf+oXi8Bf5+znknpRzVVDDxgVPd7BW9M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kv3BeH+PNUClekCoIMz6i4ejFpS31oF5cm3nN8Wudd9+t55RO+dc8AHQ483ztNeaETFEfufWRVNWKTxaTrbwEFgXJnrJciYk0PhqE7N+Kt2eHPEItKMOSYNgBgrVaxSI1VIUfH/vIw+iyYPPwytwXuGLD/rN+BtxX56bPot2Zx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/LD12i1; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/LD12i1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 203A7C4CEF7;
-	Mon, 30 Mar 2026 12:10:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774872662;
-	bh=oSiB8RNT+7isf+oXi8Bf5+znknpRzVVDDxgVPd7BW9M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Q/LD12i1HhJLs+ZYbZsDAvmhc2YEv9+IsXGmNXIkL5QFj0kYe11W/2eRCYHmSnbT2
-	 ODucYvBFuJyRCIoxewmVI/MVeoJ9D2152O74pTDCKul+aUOICxxOqXtv1nyTaNbZME
-	 Zic5d2nL9Zl8cFNVcirjhaod5ZXqEuwBEFYVBFCwlLVQ8H6zbJ33Vv2hzkrabO5Ij/
-	 cjHH87ao1UcdQKmxnOvTODqfiyZttQKEqbIkwEb72XCfXNxbsJFalICeqw/D9xHno/
-	 kTq4/BP/xQOXOvwBMCG2lnB8guRS5BkQLe/Qh+1i5IHgvcvEz0zHXPoBGKWbw8GI+t
-	 tBFmV1YltXVbQ==
-Message-ID: <bc0f6fe7-c3bd-4c75-8829-11123a7649a0@kernel.org>
-Date: Mon, 30 Mar 2026 14:10:57 +0200
+	s=arc-20240116; t=1774872786; c=relaxed/simple;
+	bh=gu2bg73xFS0jBgND2oeThYTBnkCQBKCEGzyuQqD4MTE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=O64SBw/ZgKDmIqWbrPKtXf0K3s9k0Yi5XTxbHcEQWz9CIFtfTRhf3D/U9lkDuZOnPjc4Y0QCmWDUkkVQJTKWJTJYCKtwbiaPcqWSLLfCdwy49JT3PaDdRk3UA8Cz/35ac7HVcARtT5D1xbAcAlqzNl7lJomPNCqzQ72jWFsw7A0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-56d357797acso3141244e0c.1
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 05:13:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774872784; x=1775477584;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=u2SCNNGrJmTLDn5Ig7RgkFDYfrdLEqp1DryMV/htQms=;
+        b=VioRfC8ThQ8w5KIZ3WLgAsekrRE+rRFDZKhpApnc+ZMafsZyWAL2lSdlwJZyt/8BHY
+         M+xAcBwn3i1A8pt4tv9TiwRoQ0MC1cSUQLAXAkS7MjBcXvBXOpu9hCwpF/bMGaWE7lk/
+         E1fA5k6GL0FtkhDeRXcusmF7fgemNEUfqoJG2PQKTi+07RCvs2rAoqgl/61zpFMMRcM/
+         cTV14y6qMl0bVu0I3ul9TAMiAX6zXcAyfleuLcsKOO+WBm3fQR+OQ/fAROUY2QyzT2Nn
+         Etny6zzIrCkxm6eVliTs1r82yKFTJGCkkMvgf3fZ+mRjxFmQZcCj3qBzqJ5uYDRcAD0x
+         VB8A==
+X-Forwarded-Encrypted: i=1; AJvYcCVGXcLzjCpU8LhPUT3XLQFgYxmm7H2yX11wVgRS5zuORQuzcgoZ4pH6XfAupaOLRBV40G0o7CUHyfx2@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz+ITFAnGpciSQDxdmy5l7CfU465NxqfmmtbuQAJ7bCnvUIPWK6
+	JRM6j5NjvYbKWa1/5E5Jm1+RxNq307clxFOeR3ShFWGP1IK0pc2stT9JtGlTLIs4
+X-Gm-Gg: ATEYQzzsS0kNvm7XTZN0E49i1a3t6tLpkg0uciQKekYL4SHf6HiKzuPPuuxzR9mJK7/
+	bEvlgWHW8YA7WvBdRTmY241X85nG98bwkguTRuL6h9IHoJUplE4ziGAH47DF7Keq1EtMNomJtrw
+	jVysf2dygUHV4LcP3S1dNkrtaCQcdqu9sY0izOi9Pg8OpE51gsYX24e6apFv+SaIL7fUu3oO6rY
+	ssP35ilY10YEoCGxZS5ixooqjstIaj4oEIrj2Ac45PF9IDJu0Kql8nfzcsxChI8w3mnEJpJrTh3
+	KdO6WpC7XWW7HTMLpTYpMpjC8EGCZuQ55gDa46LHQKX1kykXWg6j5be6qfq/pZZGI7Jm1JA9qsl
+	nc/fwcrzTYd2t0jjaB3tzJOq8iPYD9wk0HLxP0+HSeFPqHT7AtlCPZm+p52L6/MOwlHDzjpTjl3
+	TYHdsvt1f7fkKo+XCYGZOsx/rkFanRR3UInqyEZID0HHbuXM8zVy0Qp3Q/woRA
+X-Received: by 2002:a05:6122:1796:b0:56c:c76f:1bb0 with SMTP id 71dfb90a1353d-56d4a60385fmr4620360e0c.9.1774872783751;
+        Mon, 30 Mar 2026 05:13:03 -0700 (PDT)
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com. [209.85.217.41])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56d58a58a18sm8060722e0c.16.2026.03.30.05.13.01
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 30 Mar 2026 05:13:02 -0700 (PDT)
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-602a0648aa3so2980440137.2
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 05:13:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCX9a6cnWIhkTpYjOWMhATMaeu6NxHwugmv9EcPu1OW4+Ci99TiE7lAxHzSrmejpGJfpi2K9DohPW9xR@vger.kernel.org
+X-Received: by 2002:a05:6102:8091:b0:605:3bf8:d7ed with SMTP id
+ ada2fe7eead31-6053bf90f72mr1025174137.10.1774872781056; Mon, 30 Mar 2026
+ 05:13:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 04/10] dt-bindings: soc: google: gs101-pmu: allow power
- domains as children
-To: =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Cc: Peter Griffin <peter.griffin@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>,
- Will McVicker <willmcvicker@google.com>, kernel-team@android.com,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org
-References: <20260318-gs101-pd-v8-0-241523460b10@linaro.org>
- <20260318-gs101-pd-v8-4-241523460b10@linaro.org>
- <355b2f8f-0a3e-4209-8b1e-10600c2b3df9@kernel.org>
- <dcf2c447d9bbe16e800a4dd7e74ecc26d3ade3db.camel@linaro.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <dcf2c447d9bbe16e800a4dd7e74ecc26d3ade3db.camel@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20250527171504.346696-2-u.kleine-koenig@baylibre.com>
+ <a14be34c-de2a-4bea-9282-1fac7780b9a4@kernel.org> <crk42dsypmbyqk7avldghjq32vslmalfmmouwxzgtdci4agfhz@rkbmxj5z22fx>
+ <20250606141324.GA1383279-robh@kernel.org> <erst43cabswj3cwnszssolgyoh4dsgrlnjjxhb7luk3qkqhyay@6zyoixljvwwg>
+In-Reply-To: <erst43cabswj3cwnszssolgyoh4dsgrlnjjxhb7luk3qkqhyay@6zyoixljvwwg>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 30 Mar 2026 14:12:47 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXDZD6QAbKgny1utfYhagUEZ5pcgiDCTTfJKNVVZLOUYg@mail.gmail.com>
+X-Gm-Features: AQROBzCz5K9CVhDhcMpmA7U1tBX0huemhEHllmKL7cyhyBhjBEZSpl6cn-J6aWU
+Message-ID: <CAMuHMdXDZD6QAbKgny1utfYhagUEZ5pcgiDCTTfJKNVVZLOUYg@mail.gmail.com>
+Subject: Re: New default binding for PWM devices? [Was: Re: [PATCH]
+ dt-bindings: timer: xlnx,xps-timer: Make PWM in example usable]
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@linaro.org>, Thomas Gleixner <tglx@linutronix.de>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Sean Anderson <sean.anderson@seco.com>, 
+	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, 
+	devicetree@vger.kernel.org, Chris Packham <Chris.Packham@alliedtelesis.co.nz>, 
+	Marek Vasut <marek.vasut+renesas@mailbox.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 30/03/2026 14:00, André Draszik wrote:
-> On Sat, 2026-03-21 at 20:14 +0100, Krzysztof Kozlowski wrote:
->>
->> This causes warnings, so I dropped the patches.
-> 
-> I assume warnings are because I didn't make it clear enough that patch
-> 2 is actually required?
+Hi Uwe,
 
-No, these are obvious errors coming from bindings. You can try yourself
-instead of asking maintainer to run the commands for you...
+On Sat, 7 Jun 2025 at 09:23, Uwe Kleine-K=C3=B6nig
+<u.kleine-koenig@baylibre.com> wrote:
+> On Fri, Jun 06, 2025 at 09:13:24AM -0500, Rob Herring wrote:
+> >    reg:
+> > >      maxItems: 1
+> > >
+> > > -  '#pwm-cells': true
+> > > +  '#pwm-cells':
+> > > +    const: 3
+> > >
+> > >    xlnx,count-width:
+> > >      $ref: /schemas/types.yaml#/definitions/uint32
+> > > @@ -82,7 +83,7 @@ examples:
+> > >      };
+> > >
+> > >      timer@800f0000 {
+> > > -        #pwm-cells =3D <0>;
+> > > +        #pwm-cells =3D <3>;
+> > >          clock-names =3D "s_axi_aclk";
+> > >          clocks =3D <&zynqmp_clk 71>;
+> > >          compatible =3D "xlnx,xps-timer-1.00.a";
+> > >
+> > > There is however one concern that I want to get resolved first to
+> > > prevent churn:
+> > >
+> > > In principle I think it's bad that a phandle to a PWM must contain a
+> > > period and flags specifying the polarity. For some use cases the peri=
+od
+> > > might not matter or is implicitly given or more than one period lengt=
+h
+> > > is relevant.
+> >
+> > Why can't the period be 0 and no flags set if they aren't needed?
+>
+> I don't say they cannot, and probably that's the most sane option if
+> there is no fixed default period and flags and we're sticking to 3
+> cells.
 
-> 
->> I really do not
->> understand how this is organized. This is not a dependency for pm
->> domains driver but it is included here.
-> 
-> The binding is being updated, and the driver follows suit. 
-> I particular, the driver needs to be aware that pd is (can be) a child
-> of pmu.
-> 
-> Yes, the driver does not depend on this binding update, but it shows what
-> the driver must support. I believe this is what we have done in the past:
-> binding and driver updates in same series.
+So zero should have been used for drivers/pwm/pwm-argon-fan-hat.c?
 
-Yes, foo-binding goes with foo-driver to foo-subsystem. It does not mean
-you put here completely different bindings. Why? Because just like foo
-goes to foo-subsystem, then bar-binding goes with bar-driver to
-bar-subsystem.
+Gr{oetje,eeting}s,
 
-> 
-> I could move patches 3 and 4 from this series together with a DTS
-> update patch into a separate series, if that would be deemed a better
-> approach?
+                        Geert
 
-I asked you what are the dependencies and you answer there are some but
-you can move it outside of patchset. So are there or are there not
-dependencies? If there are, then you cannot move out. But then I ask
-what are the dependencies.
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
 
-It feels like question to trick the maintainer. Maintainer complained,
-so you propose whatever he objected to without understanding whether
-this is correct or not correct approach.
-
-> 
->> It is a soft dependency for DTS,
->> but that is nowhere to be found.
-> 
-> I was waiting for review of all binding changes before posting DTS.
-
-That would be fine explanation, if you also read maintainer soc profile
-for Samsung and try what is written there. You would see that you
-introduced new warnings without any fix possible as far as next is
-concerned.
-
-Best regards,
-Krzysztof
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
