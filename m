@@ -1,133 +1,196 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E92313C873A;
-	Mon, 30 Mar 2026 11:51:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774871495; cv=pass; b=hJhAWWYDxjGqiqAh9c9MN6krNxLLJGf5bHoaIy195WwsJr5lOJCbk/KEX/boL2yNI7rozu+fDJE1MAbFkgwqUeweitjOZt5+tPbggnPJZPvAWiwG/D5Fcb9iBnJ3V5MhRpWUOaGmD93sj2QYFSF3GXoXee9pThr5JGmzK8r6RtM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774871495; c=relaxed/simple;
-	bh=edj6f/TGYgZWe9QLCIBypkC/NvLm36CSsmAWCnvVAbk=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643823C945F
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 11:53:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774871612; cv=none; b=KWUYuWLIOyyW6idZweHMsmMLZc8sapJcPvQCQEeH46CH+gcT8RwNXBeaHIq52M3G6Q6PI21V0h9V3S3fc1F90bPA7eYBhO+KWCtNhP97Kh/hFSu5Pj1CKOH5SOBBIcwfBc6hcRKZP1K/Z4eqrEW4vaSJwebFk9YpYPjiDj4ptIQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774871612; c=relaxed/simple;
+	bh=zsVMO35J47yKLnPTtouSttTrHxQk+BAvB3fwxL/4eJI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O0kzDHEJjssuEKtvrcePfvw7KvHM7KducRuWwpca+logo6+vaJItkMqepUo9ewdbSVwPev6SsdzOxpZUhSHd7q6SCu1iXed3Pw/gzjs8cB1WyNoIrjLZIlWIedzq9TBWevdpE6arKrp1zCpf9+/3t6Aw7JQgB39lNyMgBd9GZCE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=bAXQbXc3; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=DAJCX2CZCEEsasSehcMwNvZEnaFmUI6sSt1uHc6OynRcpDOP9OyO7zJKiDH9D9b9kOAEZ0a6/mXQQTx0zx80TouGzHkknYFwzosLCI9G4j94VyC+o9kZGODappY1vRxx2a4slPRgMOWM8TPNX8tCvsNkxJBgqshcgPURW48R7yM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hLfWmOUf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BGk6ECOD; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="bAXQbXc3"
-ARC-Seal: i=1; a=rsa-sha256; t=1774871452; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=j1Hk0CJjKXW9sdMYJFRvns9c4GgmWAHXiggeVrANYvF1e1WO5eno+KkVL6B3B1XSTfyss1tCOavcuBwFIA39wg2XoZLFeMOQ6R2yDX7HYiNuWpylmiTAgzRH4D8+fgYBr/8ObKoPMMmWx4+z6QrCHts093ivdZnRJbkEo+KAVhU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1774871452; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=15SW2UZmj9L14ZbmYWu+YmNSkGcYxzsZ3KRbJg87q3I=; 
-	b=ltr1S2zrc13lTBv79d17gVoPxYOG6eJXRBaiLa1zWFHbAnGVcQEmQ4p3QKG+rGmdUQni931HC3MDEKPrf0zJRqITZWb78MdG5j3/VHL+UCqU9lR5uKiA4GzDojCdTddugbLRVv9Xi/GXFHhPvv3DdtNI/q1ICckzOeJ+b7FR2gk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774871452;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=15SW2UZmj9L14ZbmYWu+YmNSkGcYxzsZ3KRbJg87q3I=;
-	b=bAXQbXc3kLCDPaMQ3hzqjOzdOkJZb9WfT560GF++gIgBEHo3aq1lRXSRAUiqxx9D
-	iq2LwXzZa7mcVfod2M2LkAVYifPtpmFB45xa48FhAizJ/wxDiuTmBgg+sdjYx5EtGKI
-	wPDruAutV0u+McDWdI4kKzSyXoZtK8gR45M/DTDU=
-Received: by mx.zohomail.com with SMTPS id 177487144983591.88336926880925;
-	Mon, 30 Mar 2026 04:50:49 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id B8AC91804F1; Mon, 30 Mar 2026 13:50:43 +0200 (CEST)
-Date: Mon, 30 Mar 2026 13:50:43 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Chaoyi Chen <kernel@airkyi.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, 
-	Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	kernel@collabora.com
-Subject: Re: [PATCH 00/10] Synopsys DisplayPort Controller improvements for
- Rockchip platforms
-Message-ID: <acphlgK6ZmBitGJL@venus>
-References: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
- <FE1BFB774BE13241+54b8a8ce-5a8c-495d-a53f-65a2440924fb@airkyi.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hLfWmOUf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BGk6ECOD"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62U9RN9Y2954647
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 11:53:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=VtOtPmVBiuNeTzXGXFpTSipX
+	dzWD9aMEGabvmiVCa6E=; b=hLfWmOUffkRa3sHUFbBbS9Zo5o4e+v1KxsjjkwGt
+	Fy6CgTou9tyQIfSlZ2x7Q+wrNFlOmafbW4lzlxYNRZYykNjinNLSqCXAsO7tuDcT
+	E9/gqEzzOJHt63Bmlw3/4wYT4r1eIl/F1/Xo5/F1Wk2g77Yf05rPoVfaEgjyyilQ
+	6qRlbXMrtI2aXmMCHaKrb8gbyH8Stp/Cw7oAR/BKEEdkXZWFCLBjqguSAcnzefzl
+	6kdYz5PF5FvPywCmmmR+Pg8j5lQQEbhnF+2d9jx0Y++BKT+MCnxZtGwmvGKzxzyR
+	8R4REUjg4XyDOHitQms+MJ3/Gxheqj3x2YeAc2lRd0zcJg==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d6wqekvjj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 11:53:28 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5090bc4823cso84787391cf.3
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 04:53:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774871607; x=1775476407; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=VtOtPmVBiuNeTzXGXFpTSipXdzWD9aMEGabvmiVCa6E=;
+        b=BGk6ECODei6T+lNrMCGYMKqfjVMkIW9+Wd1ij1n/dgnoxm688pFk9fjEkGMa3EfOFf
+         aMt51RWOXIzRA4zifFDq6n044N1eNcAEn3s/smq6Ja+cZ1SyJq+J29BBOoW7JjT9A1A7
+         vzKvrr61WiJqCaMlUnaVBvAZkArQKiZ6K+XGOuZ/9t5nLk7tCQys5QuLIFFywD275Vdw
+         M0ELnKXtwg3uH+dZT0NXB5tlK1S1+tRcIa+THorRvz/NG+io8WTk3GofHr3gH4rHLlLE
+         4mROf2UbMHImDstZsbNwLZaX3xW7V/2c5kxt1FdO0Yjq8xvhssDux+aaAO/+8TTIkfvf
+         C8tA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774871607; x=1775476407;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=VtOtPmVBiuNeTzXGXFpTSipXdzWD9aMEGabvmiVCa6E=;
+        b=G4a3fqAKc8X8pxNdhdSM09XSgVOTa9/UuxUgqz/zBZlfLiWpkf2E63JOgTM6L9HqVF
+         uvtbJRlwTgHTF1ZW/f7MUpTO4Cz+gBrgjH/uO+tAS9GKmJNDBodW0HA+CSIL/VkEglTg
+         sJCPxbExcEn8DUCpWgY1TtBZePVPze1MLipKz4QP0sscFw1Rt52lMgvl4iKupvjmoJc1
+         Yb2ckJQFA9L8J7pLQ5hbYlr8Nam1hTeqCSHnoeI4aJ5sFjRiKOzjkfCUwe2Q6Mc7pBV3
+         BBLp8bfUBzpR3miFX1GiWuC1pbmMwdMumZNKQkrWqHrPeMmayaNKrmTLgPsNB4HPazaN
+         UnWQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV8tnrUfFLEkxC1aoEVphKFXDF+TUhJTUNFm7kIPTgkvFXpkDM/OzEfudEumI/pJ2yjDj9hsAaQ+oUO@vger.kernel.org
+X-Gm-Message-State: AOJu0YwRhM/wrg3WsmrRnJdBRKqbFfq4joOZnmOSkUDQ3PlsUOfV81sD
+	hu11oWHWb547HiYlkaEv4rOty6cyUibdl0CrWh7oScGbRV1uv93ayxinexKg+DuArUadpCywdI9
+	hz4MEqRwRkjUX2Dpi9r7tKSq79/5xALBupPie7QOKBWoIGwND1woIH8ZB61dCHXEV
+X-Gm-Gg: ATEYQzx/1nIQzVG21klbUnM5At6MuMTxAZ9xkUp/xgLSF9EvVWMZGHmS3oyoa0JQw5D
+	paC3lpL77vyjiQLmIsUAVxDllOs50xhPyCytRsQZm2qz//037TaESRazem99WnrrjTveYb0E8lN
+	g38siLcDf/Au5aqBzD0V4t+mdqb7m417L1mIbfRO3AE0pwuseZ6T7vvCOUPiNc/xCTYjQ7WZUR9
+	aSjdmyyU+5StSISEnsrVnXBzXZ0c/FnVw0V+oR+Gg+mB2VN60AZZoE6qMct/BRfz8LjcXDP8uK4
+	aNcEI2jLX+NdURnZPdmhP69H4D3tQX34hF/jJ49ky04tdAif5QPbXh4VAsVk0bHU+huV68AwbCN
+	wXPPodiYV3tZeiCPLiL2dzZowLH8fNrT0YdPVRDg4pmXxboDZuUKy/ySvQlfnwlMjFHqFxyCuun
+	Miu0jldi34hkWh8FsLDF+vpP+2NwTWYQMJlFo=
+X-Received: by 2002:a05:622a:1887:b0:50b:6a48:78aa with SMTP id d75a77b69052e-50ba38090edmr165519651cf.8.1774871607418;
+        Mon, 30 Mar 2026 04:53:27 -0700 (PDT)
+X-Received: by 2002:a05:622a:1887:b0:50b:6a48:78aa with SMTP id d75a77b69052e-50ba38090edmr165519211cf.8.1774871606967;
+        Mon, 30 Mar 2026 04:53:26 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2b13f4312sm1588471e87.16.2026.03.30.04.53.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 30 Mar 2026 04:53:25 -0700 (PDT)
+Date: Mon, 30 Mar 2026 14:53:24 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Zijun Hu <zijun.hu@oss.qualcomm.com>
+Cc: Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, aiqun.yu@oss.qualcomm.com,
+        tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com,
+        yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        20260224-knp-dts-misc-v6-0-79d20dab8a60@oss.qualcomm.com
+Subject: Re: [PATCH 4/6] arm64: dts: qcom: kaanapali-mtp: Enable bluetooth
+ and Wifi
+Message-ID: <ohg7jn4lozqw3lhwmhpx7qyiuw2pmjl7zwv6cbbjmbr2vnnw2e@qz6wbrjynbta>
+References: <20260322-knp-pmic-dt-v1-0-70bc40ea4428@oss.qualcomm.com>
+ <20260322-knp-pmic-dt-v1-4-70bc40ea4428@oss.qualcomm.com>
+ <b5ogt5phzzifh45zyvzbressexgp4se5m7vvgmvaf3ed723hww@qovynwnps455>
+ <13745334-c2dd-4a97-90de-a5ee18cff6a7@oss.qualcomm.com>
+ <hyy65v74scdekci3kdowxdcujbmoeyx3vxv6dahvif6rzhloxi@rirggsitayqv>
+ <ee38eaeb-d408-4228-b7a8-bc2d6e4ef056@oss.qualcomm.com>
+ <c46islnlfzdawtw4o3holunf2a6rvfs7h5dznaggzptatdlqc6@7pjbwcqdtccl>
+ <0279f334-95ed-4df8-9e42-749fd854c551@oss.qualcomm.com>
+ <3xb6ya4zxhmaode3u3al5r4g3rfzlq2ifbyodvwtr3qgt34pwc@ia2xqfaeufd2>
+ <ed5a18f8-04f9-4c4f-b4a8-9fc2a277ac40@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ez6uvywry5y7oix6"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <FE1BFB774BE13241+54b8a8ce-5a8c-495d-a53f-65a2440924fb@airkyi.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/274.861.95
-X-ZohoMailClient: External
+In-Reply-To: <ed5a18f8-04f9-4c4f-b4a8-9fc2a277ac40@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=Jo78bc4C c=1 sm=1 tr=0 ts=69ca6438 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=aFXXS-vr02nWGIN-Nt8A:9
+ a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: 6QvyLQqCSXv-afCqTqSfSUmvp8YQEYpT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA5MyBTYWx0ZWRfX5LMQ2kkNSmAY
+ /yKLXvxZfA+OIazeNuZwELg0KYXwkOSfROSXKglnyDydTJQlIVVLTSBpzhW1ybH/cgHs1j324/t
+ ec0jIV66Q/v1yoTp8IqK6m+X3JtZNPRO3PRhPIe678VzEcUrJFilY/LkA0LbcA18D7k8g2PjMUx
+ bhRTCNttnmxs96Csg5hhMehf2RgFy2y4JwnWOWrinvm5RC5Yc8tYEMMfOzrfGiSlcjtDrQYmIdE
+ kCWGRzGkMQvb27ffb+LZlVwJWn0twt7LypPz3o8y9Q5Wt9PXtcOtrHP37QiX+M9s0Xysg8FN0AR
+ 0PrMuufB8MjDhZUZMai0lupwmKvrpm7YIbEkn1+DxRdmxFvqOFviZ7uFvNkLtgIr0osOJgFcAf7
+ gUFfdNtqpqCINmOAeCZPlpEpYrJ6aQt2xn3Z1fDm+kNRQZIkO+5ejYeaOgjZ3vqprWxIxWxS2DG
+ IKWz2wjBdwHXgn2qgng==
+X-Proofpoint-ORIG-GUID: 6QvyLQqCSXv-afCqTqSfSUmvp8YQEYpT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-29_05,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 malwarescore=0 suspectscore=0
+ impostorscore=0 adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603300093
 
+On Thu, Mar 26, 2026 at 01:15:44PM +0800, Zijun Hu wrote:
+> On 3/26/2026 12:10 PM, Dmitry Baryshkov wrote:
+> >> 3/25/2026 7:40 PM, Dmitry Baryshkov wrote:
+> >>>> On 3/25/2026 3:08 PM, Dmitry Baryshkov wrote:
+> >>>>> On Wed, Mar 25, 2026 at 02:40:19PM +0800, Zijun Hu wrote:
+> >>>>>> On 3/24/2026 9:16 AM, Dmitry Baryshkov wrote:
+> >>>>>>>> +
+> >>>>>>>> +	wcn7850-pmu {
+> >>>>>>>> +		compatible = "qcom,wcn7850-pmu";
+> >>>>>>>> +
+> >>>>>>>> +		pinctrl-0 = <&bt_default>, <&sw_ctrl_default>, <&wlan_en>;
+> >>>>>>>> +		pinctrl-names = "default";
+> >>>>>>>> +
+> >>>>>>>> +		bt-enable-gpios = <&pmh0104_j_e1_gpios 5 GPIO_ACTIVE_HIGH>;
+> >>>>>>>> +		wlan-enable-gpios = <&tlmm 16 GPIO_ACTIVE_HIGH>;
+> >>>>>>> swctrl-gpios?
+> >>>>>> it is '<&sw_ctrl_default>' within 'pinctrl-0' above.
+> >>>>>> the input pin is not used by power sequencing driver.
+> >>>>>> just give it some default configurations here.
+> >>>>> Please don't mix hardware description and the driver. If the pin is
+> >>>>> wired, let's describe it in DT.
+> >>>>>
+> >>>> give comments about that pin in this dts file ?
+> >>>> or give a seperated patch to describe the pin in DT binding schema of "qcom,wcn7850-pmu"?
+> >>> It is there, as far as I remember.
+> >>>
+> >>> $ grep swctrl Documentation/devicetree/bindings/regulator/qcom,qca6390-pmu.yaml
+> >>>   swctrl-gpios:
+> >> swctrl-gpios may be not applicable for 'qcom,wcn7850-pmu' since there is no 'qcom,wcn7850-pmu' node
+> >> which configures 'swctrl-gpios' within upstream DT tree.
+> > It's a wrong way to check it.
+> > Instead follow these steps:
+> > - Is the pin defined in the datasheet?
+> datasheet define this pin SW_CTRL with description 
+> "Switch request to the external PMU between active and sleep mode"
+> 
+> > - Is the pin defined in the schema?
+> 
+> schema define property 'swctrl-gpios' with description
+> "GPIO line indicating the state of the clock supply to the BT module"
+> 
+> > - Is the pin wired in the hardware?
+> pin SW_CTRL is wired in hardware.
 
---ez6uvywry5y7oix6
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 00/10] Synopsys DisplayPort Controller improvements for
- Rockchip platforms
-MIME-Version: 1.0
+Granted your three answers, it can and should be described in the DT.
 
-Hello Chaoyi,
+> 
+> i have below confusions about 'swctrl-gpios' of 'qcom,wcn7850-pmu'
+> which WCN7850 pin is 'swctrl-gpios' mean for ?
+> Why to introduce 'swctrl-gpios' ?
+> what problem does it solve ?
+> how to solve the problem ?
 
-On Mon, Mar 30, 2026 at 09:34:15AM +0800, Chaoyi Chen wrote:
-> > There are two parts, which possibly need some discussion:
-> >=20
-> >  1. I added a dedicated bridge callback for out-of-band hotplug events,
-> >     which is separate from the hotplug_notify. I have a feeling, that
-> >     there might be a better solution, but haven't found it.
->=20
-> Could you explain what an out-of-band hotplug event is?
->=20
-> Can't the drivers/usb/typec/altmodes/displayport.c respond to these
-> hot-plug events? Thank you.
+Please descibe the hardware in the DT. Problem solving belongs to the
+driver.
 
-That is what generates the out-of-band hotplug event in the first
-place via drm_connector_oob_hotplug_event(). The oob in that call
-means out of band.
-
-If you look at that function it calls oob_hotplug_event() callback
-on the DRM connector, which is then implemented by
-drm_bridge_connector_oob_hotplug_event(). This function calls uses
-the normal hpd handling (shared by in-band and out-of-band) and I'm
-patching it, so that the bridges are aware of hpd explicitly being
-provided out-of-band.
-
-Greetings,
-
--- Sebastian
-
---ez6uvywry5y7oix6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmnKY5AACgkQ2O7X88g7
-+ppCWQ/9FPgpYzVbuIaK1W4l+x0qPYHV6vLjMwbbsc0KleVql8OJlXxjkvOCyN/f
-l1VW8NiYtCsRcwffTey5PgDjwPCscQT9y9L4w2kRbJhGsCe/zwaYIvuQfp6hPrkY
-OLDnBG3FoxxDxwR0wSK1buk+joq6UcLX8ZvB96C99j4MifkarRROr6UEzU6f7rIO
-47KouuDZLCCd2hujJ2dVOmAhWoZrI9tGworvDdQYFWrpEkehDubrg15cbNJ3ob7W
-KuagSE2REZF2KDM1wgzEcA3VzrYVvz1p4vpsffgR1uqZ4ds7F8+0TB61EURI1rJV
-wXR7En0dBIRgRjebfw5gRq6kt+MCZLAuPn0LBCtRAotK0JsdGlhuM3MMJKay5Bx5
-NUZ4obzJob04VqWMrlcN1PoTs/la+1ZMg32TO3vhyhAdpGIBDXS3mfyXKNzcDcsy
-i41OK3i7GwRlpeqv7XiGCLTVGjkqf3D+qxzkuS6yejaP4AuMyFwgUfL1ePfEHU1X
-+7spbpwiVijXY3Fb7gyTU3KggqStX43D7wHkXNTIRKtrWAXXJ3FrKT+RTzjDUPYm
-MLwfdEzLxXpC0kJ/7O+D128J5BIRLzM1kaN8RD+UtMSEjyA0lYfP6tGXfjMEQrxP
-xMfJpD5qcTvl2ktQYOa8+V6NJzVOyo6BWxH73GQpe3t9w+0zU0I=
-=wqPq
------END PGP SIGNATURE-----
-
---ez6uvywry5y7oix6--
+-- 
+With best wishes
+Dmitry
