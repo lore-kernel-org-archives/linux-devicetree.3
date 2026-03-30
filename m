@@ -1,118 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC32C3CF675;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBC73D3339;
 	Mon, 30 Mar 2026 13:21:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774876901; cv=none; b=GMWvlk7Tp7ghn14OF2PzfH+gZk9M9UAP8Itp8zN+UsWlUrd2yFhmS2iKZ7qrNKd4WNQus30Pdn6VPckjFSjm1TTnmSquQjIr4drbva7C3ngQXkYnKrKVBUIZL3oNqZvJW0W0AqQ6d8/LrBmTio6pu59ymcCcXaXyoeQVCrvk0xA=
+	t=1774876901; cv=none; b=YTD42H/pc2sNftN9ANbkr46JV7Zgz2JKdODUOAFddJHzqnd9DY3Z/jl8cC/wEm9Y8hf6WZfr3FurFt1mxQOaSMPmalxwkE9/ho948JF3ZDGpxnw1ebo7amaJ+s0CJYh5ASsgs7dwu8pd2L7OIBTWzllWh2bQO/ZbZw7m/3KSZso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774876901; c=relaxed/simple;
-	bh=xF+UxuXwGgvKdaU0z3Ax0YsRHe04xz94LJZOl/LSU4o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Khz5qWcS3kr0DWPsUCM7eYvVG7+bUVR4qY0NEBwU7T/Eux7mrB7f/tAk0izcYH3EZT70WCMqysGCL5/zO64dyEAZm7KAH9RgZPJw/PKn8fsYoaVjZZXUKW8V879IQ+3L9VNfPIIqNguqM15BZptSnNOKdxy0tDOtQAQkqosDstE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TMWStYd6; arc=none smtp.client-ip=10.30.226.201
+	bh=KoMsdHqrWjLfTLkKL3xr2JgDf+8q1RCvLhgRCV2Ka5c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DI8A3+TbzA+y3ZD/hq+AOuUGWkXOqEk2FYZDT/f2IyPQD9eikbF4hQkBPkWGjkzuSWgftv+MPQz+xJR91BzO5UkFbPt0sH7AmP//Mcui0ezvWHP0vltgOFl3JjHKb7Fd2j4FU5asyQ1o10mE4/SF0OdZL3kvqJAvlYYL4VAEjEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dO0Vu6pF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TMWStYd6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9747DC4CEF7;
-	Mon, 30 Mar 2026 13:21:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dO0Vu6pF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95ED5C2BCB1;
+	Mon, 30 Mar 2026 13:21:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1774876901;
-	bh=xF+UxuXwGgvKdaU0z3Ax0YsRHe04xz94LJZOl/LSU4o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=TMWStYd6i8vGeqkHDj6L+dz/9FhEqqtlJk9R2YDe9ZoWRTTUI+WnZNEbcja/w/1Pb
-	 7x8s523X5Y7H+dc1Lbh3GpucpQqTg1DkM9I0ydCoNt59kaH9o3oTrQHd9uwCCHnE2g
-	 29my9pYbvXXJOkEku/Svvd6vJ80HStQAtggEs4kIrTjiv/vRQqyMQn0W8OI8dDNFdM
-	 DEgJ1s++n/bDQOcPuQQ7RMNR+4ojs87gIC5AJT2OJlpzAfTgpd/X3NUkJYoB/pXSqY
-	 Pfl9s7PMCo/8KeYCpDnxphAQIrQkoR8PE3nCzfwc8ESs2rFVWu/QOMlHFOEFsrQif+
-	 OYWeMQ5RCCGMg==
-Message-ID: <706b84b5-1262-4fa8-a37d-6e48bd5c8b06@kernel.org>
-Date: Mon, 30 Mar 2026 15:21:35 +0200
+	bh=KoMsdHqrWjLfTLkKL3xr2JgDf+8q1RCvLhgRCV2Ka5c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dO0Vu6pFemZzzjshfi+fs8MQlWnjgPXATZeiXfUf5o5cslL7otYSPo1FTWM4/XRVW
+	 2TYfrJJz10F7wBR052H7f93nfGC6ukiPSKcoJ35nqd1l6sY+UlqiZ6GQimspoLAQHr
+	 LMa9dUE7FNXiC5KkCpJfCpRKUH47Bd7I57Ss1LMbeWgzukd9fLMFVAhTN1cWI9nx95
+	 taSEFy2E6JwrKpKPSiHvYSUOz9YaNQD7iAmspH3zCgqvk+fL815YsllKOJAaCXy94j
+	 Pfwen2tRe06GveuEOFxv3cNsdltNIYqehQBPTxiJSXiiTb9VyKyfY/83obVFB/qM46
+	 7JAnEDB2G3dCA==
+Date: Mon, 30 Mar 2026 08:21:37 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] Add USB support for Kaanapali
+Message-ID: <acp4bfTGOxaAQkBn@baldur>
+References: <20260329175249.2946508-1-krishna.kurapati@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] arm64: dts: ti: k3-am62a7: Add ti,soc-info to OPP
- table
-To: Akashdeep Kaur <a-kaur@ti.com>, praneeth@ti.com, nm@ti.com,
- vigneshr@ti.com, kristo@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, rafael@kernel.org, viresh.kumar@linaro.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, d-gole@ti.com
-Cc: vishalm@ti.com, sebin.francis@ti.com, k-willis@ti.com
-References: <20260330120105.2985200-1-a-kaur@ti.com>
- <20260330120105.2985200-4-a-kaur@ti.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260330120105.2985200-4-a-kaur@ti.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260329175249.2946508-1-krishna.kurapati@oss.qualcomm.com>
 
-On 30/03/2026 14:01, Akashdeep Kaur wrote:
-> Link CPU OPP table to k3-socinfo driver for dependency tracking.
+On Sun, Mar 29, 2026 at 11:22:46PM +0530, Krishna Kurapati wrote:
+> Add support for the PHYs and controllers used for USB on Kaanapali SoCs.
 > 
-> Signed-off-by: Akashdeep Kaur <a-kaur@ti.com>
-> ---
->  arch/arm64/boot/dts/ti/k3-am62a7.dtsi | 1 +
->  1 file changed, 1 insertion(+)
+> V1 of this was a consolidated series of many functionlities on Kaanapali.
+> The first patch is patch-6 from v1 unchanges. The second and third patches
+> are parts of MTP and QRD specific changes (patches 14 and 16) and commit
+> text modified to indicate mtp and qrd specific changes are being made.
 > 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62a7.dtsi b/arch/arm64/boot/dts/ti/k3-am62a7.dtsi
-> index b6e5eee99370..6d1459e9ea71 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62a7.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-am62a7.dtsi
-> @@ -109,6 +109,7 @@ a53_opp_table: opp-table {
->  		compatible = "operating-points-v2-ti-cpu";
->  		opp-shared;
->  		syscon = <&opp_efuse_table>;
-> +		ti,soc-info = <&chipid>;
+> Ronak is the original author of the patches. Kept Jingyi's and mine SoB
+> (with no CDB) since we just rebased and send the patches in v1 and v2.
+> 
 
-You should have tested this before sending. It obviously fails checks.
+That's the correct way to do it.
 
-Best regards,
-Krzysztof
+> Since SoCCP changes are not acked yet, enabling only device mode.
+
+I'm sure it clear to you what this mean, but for everyone else: what
+SoCCP changes and what do you mean "acked"?
+
+Regards,
+Bjorn
+
+
+> 
+> Changes in v2:
+> - Sent USB specific changes instead of all MTP and QRD specific changes
+> 
+> Link to v1:
+> https://lore.kernel.org/all/20250924-knp-dts-v1-0-3fdbc4b9e1b1@oss.qualcomm.com/
+> 
+> Ronak Raheja (3):
+>   arm64: dts: qcom: kaanapali: Add USB support for Kaanapali SoC
+>   arm64: dts: qcom: kaanpaali: Add USB support for MTP platform
+>   arm64: dts: qcom: kaanpaali: Add USB support for QRD platform
+> 
+>  arch/arm64/boot/dts/qcom/kaanapali-mtp.dts |  27 ++++
+>  arch/arm64/boot/dts/qcom/kaanapali-qrd.dts |  27 ++++
+>  arch/arm64/boot/dts/qcom/kaanapali.dtsi    | 154 +++++++++++++++++++++
+>  3 files changed, 208 insertions(+)
+> 
+> -- 
+> 2.34.1
+> 
