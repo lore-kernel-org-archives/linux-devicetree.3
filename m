@@ -1,240 +1,275 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010016.outbound.protection.outlook.com [52.101.84.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99905374180
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 19:04:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774897472; cv=none; b=pXPPfgQ6m14xP3Hy+nQ8+hdQh69mAjjS/E+SyXj1bohAVe4PnDI6vfOi7/h5stlc9R1cbaE5b5EZznQX88ugz8Aa5VA6f/uEBF2NAcG99E7ph273eAJa5+O4SSjEWC1MDPllAXidcmFcFjdaFX5zayF0TiHMjxvymOOBcQvWH70=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774897472; c=relaxed/simple;
-	bh=vTUzfPlyzCfiGghUR4gkldg3AJPBk8infxB+0WXa76Q=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=HT4TCOKKrMTNJghc5v3i04Z8ZHNNM1JpiX/P77EdnZW5PZpOe8Tr8tqibkdNPIpdyOu6JTYTtWJJV6J4UDuQ9lfv1KyHGfs10sfciJXUaqhpI2ml2RGpOU4i3R1/a1mapUnN3i+eix+kd94AFttAp36TaVHUxbZIuAVh219+gAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=AKdtk+GY; arc=none smtp.client-ip=185.67.36.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E17374180;
+	Mon, 30 Mar 2026 19:04:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774897493; cv=fail; b=Gt3GLfgNJr9uNxesbXF4Zmp9ZWlE7gYGqaXblojmrMMHq7ql3Kgc1/UcnWlbyChcktSVFynYZjWSmQwjNyrcRmXXqfIt1n6WsQXP02cjUam8m6FPTGzSDk8w2JWj0G4RG+u5sxQzqYkAFSqw4N2NRm+w+9u9wWo/IVen8UGxINY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774897493; c=relaxed/simple;
+	bh=3LG51vec5/VsvUvnG8zIm0LnvMQih446eT81giz+R7k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Js/wZtau4RGc0Rn9ccxru6b6W7/t7QyVhqj+GO1O5ZZFLLeLnVVt3xnpQvhk8KViHz7Np5MIF05oqh7EeeLajD0NMugFuEVR5pAwRZVlF5aBs5lxhcZDMNI35FYRgMXFhAKro3h9vCZUNojAAnVyFXmstmj0pXPoIakLXyYjvKg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=bP620wtg; arc=fail smtp.client-ip=52.101.84.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="AKdtk+GY"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 0E28D240104
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 21:04:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
-	t=1774897463; bh=ytK3t1UfL+JPyOX4mm+aWd1WNeFyxKaqMowBI4APBmA=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=AKdtk+GYXDv1kTpMDPuEbesFNDdz10qOxtMoA/UZQcaaYREDZIBHCr25ptAEOBrYj
-	 Y3VrePUo9TSsdaTJYWNIms6xeQF3VXIavuHnawXb6hLo+ERKqtnYNefNJR5sN/jmSS
-	 z2Gb5Acvp3Dx8z7cApqpIHvPp3ijiXl8oCn111bmKUPA6BK+DO9UknjgHmHuFqPb5c
-	 f4f7OFLlH+XObXRkQUoHK5uv6QrvfM1j6fIWMgHEihmOfhFmZM2gDQZgyqYHCusnMZ
-	 7NT7nZ2ZdQdhRpp0LjGV3O/PS7IWFoR3M15LhIJsxNlw+ESLluhfmaG/hXWYAU9I3A
-	 uWiyhJJo1dzMw==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4fl0zQ2n7bz6twb;
-	Mon, 30 Mar 2026 21:04:18 +0200 (CEST)
-Message-ID: <e4b194028dcf25b943438615a83bce68b0949e5f.camel@posteo.de>
-Subject: Re: [PATCH v5 2/4] ACPI: of: match PRP0001 in of_match_device
-From: Markus Probst <markus.probst@posteo.de>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Hans de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
- <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue
- <bryan.odonoghue@linaro.org>,  Lee Jones <lee@kernel.org>, Pavel Machek
- <pavel@kernel.org>, Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda	
- <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Greg
- Kroah-Hartman	 <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Saravana Kannan
- <saravanak@kernel.org>, 	platform-driver-x86@vger.kernel.org,
- linux-leds@vger.kernel.org, 	devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	rust-for-linux@vger.kernel.org,
- linux-acpi@vger.kernel.org
-Date: Mon, 30 Mar 2026 19:04:21 +0000
-In-Reply-To: <20260330-bipedal-invaluable-slug-0c6dea@quoll>
-References: <20260329-synology_microp_initial-v5-0-27cb80bdf591@posteo.de>
-		 <20260329-synology_microp_initial-v5-2-27cb80bdf591@posteo.de>
-		 <20260330-bipedal-invaluable-slug-0c6dea@quoll>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-ODROlHpAubiN0AJXruDg"
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="bP620wtg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IgMeT3+5KaSWW6DpZyeltWSmMh5WLHdKOv91u76bEWEUAwiZBJ83KYn+14Gf4iZKE+cySK4vyxlxAD/1EEXO5mp0X6EZEhVPytAM8ZR5IxxDJMVXUqm3Nw+cJU3RgKBc78nBIiKO6RaRE7L7VFA4UT7W6rx710uVKHrK+98QubzUrEkIBsVDR5Qsit8rGWqVwVy3JxeqxFoqoELWEbkmJWBfpFd89uQITrV9oz9YjttJBaiwvqCzcIrLG8oHmLChH/lGSYhVyZyIZDNiQdDZPz0v1Y70c2oRE7SrZuyQYzHCw1OxkUJXDIZ54RUCZNT0UdhD+sg1qpnNAmfhi8RDyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZlLl8aCcjTj4IJadLBfqKEo65s+vGmy+tNjnLTLSfXI=;
+ b=TSFgtur8juE7BHX+zGzwddKNiWrA1BeMSU/azJnlMi7RMJewOlY9uzYqq8CeHkv1+H+VuvIZQTUQ++PJoyP00Zp777CHo48G7+//ef7yQckMbVDYwSvoIO9CPZfecZH3JpET6cfJydXJ6ziyI2tE8xVe7KxCIlpqh3uqB+b60HbdgLody3sQx73SrECIoKoQPzzeWIv+tjWQ7xUQ54xdB9bOP88fZdAQsMiNMxywWXqdlfTl31WIGmLMJ5d945xlNowdHUjaMz0KgNfSim0FpOKh7tBKj3X1qltwJWva9TLDD+RIX2JG12jag57+19EBGiRCsizSJ8nYXI4XZLrwpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZlLl8aCcjTj4IJadLBfqKEo65s+vGmy+tNjnLTLSfXI=;
+ b=bP620wtgZgrQFYOe3VrZ/9z0knFhw63jZVCUj+zSr5YUpsHQeMpcd2xVicoNO8Ng8Zq3cWmIkgSxZY1Ct+XrQBHFs4KzLYeajK5vAUqIx9qevYnEqdL8xDyXAkBcYErq2+FdeXZRxljeUT51faiiHLCOm2Qaya3yTB0eBEawvP+UQHpvQrjD6uW0k7yn2V6zVTswc180grTWSFEfe4g4/smw08iVvxOk9wrLfwdzbOlfsZAnbJny92xBlurHYJbi07RvY/VsNSOLQk4j8557GcuT17rWqgnczsibj1WWQm/lwro5dhTGlTapNPXKQguiErcKzoRyn6ac8OF1XKjc4A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
+ by PA4PR04MB8045.eurprd04.prod.outlook.com (2603:10a6:102:bb::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Mon, 30 Mar
+ 2026 19:04:48 +0000
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9745.027; Mon, 30 Mar 2026
+ 19:04:48 +0000
+Date: Mon, 30 Mar 2026 22:04:43 +0300
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: Frank Wunderlich <frank.wunderlich@linux.dev>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	Daniel Golle <daniel@makrotopia.org>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	=?utf-8?B?QmriiJriiI9ybg==?= Mork <bjorn@mork.no>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Eric Woudstra <ericwouds@gmail.com>,
+	Alexander Couzens <lynxis@fe80.eu>,
+	"Chester A. Unal" <chester.a.unal@arinc9.com>,
+	DENG Qingfang <dqfext@gmail.com>,
+	Sean Wang <sean.wang@mediatek.com>, Felix Fietkau <nbd@nbd.name>
+Subject: Re: [PATCH v4 net-next 5/5] net: pcs: pcs-mtk-lynxi: deprecate
+ "mediatek,pnswap"
+Message-ID: <20260330190443.bol5vjfqqitz7kuo@skbuf>
+References: <20260119091220.1493761-1-vladimir.oltean@nxp.com>
+ <20260119091220.1493761-6-vladimir.oltean@nxp.com>
+ <e0ad52862d34cf4e0169c9850a7f164f127d0093@linux.dev>
+ <20260326215404.krh6v3mmnqdlndli@skbuf>
+ <d9639ac711ff8f1186a684fa120ba77247669051@linux.dev>
+Content-Type: multipart/mixed; boundary="gg3xcc6lsi5dh453"
+Content-Disposition: inline
+In-Reply-To: <d9639ac711ff8f1186a684fa120ba77247669051@linux.dev>
+X-ClientProxiedBy: WA0P291CA0022.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1::22) To AM9PR04MB8585.eurprd04.prod.outlook.com
+ (2603:10a6:20b:438::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|PA4PR04MB8045:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30f64a31-21d4-4ac5-a917-08de8e8f365d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|6049299003|376014|7416014|10070799003|19092799006|366016|4053099003|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	ndbagg7ZXLocAh8wTENgKTYah82HKh2RNuCTQ6MdeeNwLByCMKyqlzpjMnjWaCVbvLy+DMCSi6aikGVdNKfL22WGNVwmy44O1pIZiqvQdOSwJa5tCXb3VjvJpRmW9hVGKBcCq0zYNedfl0IgBG/g4PDPGg4DAnluXlrq735cMjpGAtby0ybIEhXgATjO1k106wlDhOAhH6gRDPd98l4WrJsMBh9pRj9Q4m7AT2AtIhgA6NcfEKu8O4K25midxKXZVz6OjGJXIN45l4DZLT6XAue/0D4KjF7DvbB4pnQO59zi16LlPRjojUUAUswG/j6C1REXOy1F9B49UIM2fHLNxEsbFNcvUmqSiCAb6tORuOLy3JK/MVc1+JriO6ftUI9dKtKaRkAbAiza8svYVwrKjhNlpaukq5Rlutl51zfRstRu9LWcwMv4CPaZYfNGHXRujKLJfqaYHYwcOcWrf/fulmXur7glI2OeLn+OkjjWDI5vTYdQIH8Ouko5v0+UiWQKBxFUrFA6Euw5XzNaTC6jGuEucfCjPbsUs3RZBgKsFq71fRzbU1krzczj55rI0h1NauIjSWxuaVO/Xyb/PFftD6WhzDWGBIJeGgVoKdsKhrX+0OP+AwDQsC3GD6Rw4UI1r69HeC9uwzulVpb40oTsIBSh+v4m7wOqOiFjYWJKg9EOyBQSSBrsnZDe+YFWq6W9fiLAn6PJGYs2wWcmV6flrIEC3DXHr+n5a8R1TWdbRUw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8585.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(6049299003)(376014)(7416014)(10070799003)(19092799006)(366016)(4053099003)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Zh47gwAZU7ukBaCEtBCeurr7qHrNETgBLJEr9CPKx9PDzEcou90y6o8ZIPq+?=
+ =?us-ascii?Q?7Sqsovg53cN3ugnAsv8bH5xCW/bf1axpKj9TT4HDitmrt6NcrH/OEg2Snm78?=
+ =?us-ascii?Q?6z04psYMzVQ4Jh05WCxHOjMCdPjpNCHmJ6B119HcjH1/Fa/ZW6Cm/yQwsMn6?=
+ =?us-ascii?Q?P+CJmYDnx+iFi61TCm6dCWaXY2CuipNvu+iofAeFfZMGSux1oCXNoEeABj1/?=
+ =?us-ascii?Q?UnHQ06tOirHQEnmU0STlXpFEietqFCD4YDUqrA3nGgL7BjKdMDgtvkLAxX4S?=
+ =?us-ascii?Q?/pD+Swzd2RwrBloN+bJYm05ZIFOM+HHHRoCh9LKKcgc4PWH/zFVngsA7Lnio?=
+ =?us-ascii?Q?lXiXPItrkLwvOV+3ikDrWFbyATKfP5UCWwyqnAeatIiL3aa9KMgzdjctIISy?=
+ =?us-ascii?Q?yzi5k9uhJbBk9LxLDAqUS46bl5ATbDrnNhzm4engVtJya3pmdzYomboTppQJ?=
+ =?us-ascii?Q?0NuOzqbn9FgKQsd4+f2y+vR67EtsdyU//LHV3QxCU0i9TrA1Q0tn3nBccaQC?=
+ =?us-ascii?Q?IrLYus7a2xZraIqR3v5iCppCIsBV8EgXc3PCtrh+ansO8/rVBA1MDuZZdgUp?=
+ =?us-ascii?Q?qAGJlS74+N1mR5irN+PxzA99kXt0XnhOA65q8qTNym3IM26RdisWHPo0Ccy8?=
+ =?us-ascii?Q?u6DRNBiJkX3t2+Ohsj0gczG5lz4W1ZMmyCywO3YR3O5Uz+2aXIgyr2/QOR7A?=
+ =?us-ascii?Q?LFNJrQ/0l4UA/1K4hd2ynEXFYz/+ghe59Yp9pUo8P1fQojRGBf4+X41ZZB7n?=
+ =?us-ascii?Q?w6f4bdyl6ql7EVZdHQhfW+r6FkJk9fm9mQlSin8u+geplc+kgKHErNeCbHKb?=
+ =?us-ascii?Q?4I0MTUZo11B1ud72uFxF0QvunTm3kVXCgpLxNv5K15K/n/5Sp/5gF3DDqrxh?=
+ =?us-ascii?Q?WjMziEYc6GgGDN0Mpdzef6nlNZxpksF9roQeCLCro4fOr7TKJoXUou3PobnB?=
+ =?us-ascii?Q?Qah8QE/Hd3RmdDds1Nj4e7gCvlkCqrgdGlpuxMmi/h5A+peL8RA+N5y3BWBW?=
+ =?us-ascii?Q?zmnTVVCAwPpRBW4glmFqReswErnJDsP5HB6MIZD2hAA5xddorsYU6CGlN+XB?=
+ =?us-ascii?Q?HPWLBgUQg1VPvl46mHwUS6glZ3l4CzK6w7b+oXd7glQUtwRu0NNZFAWJhBRA?=
+ =?us-ascii?Q?QW9Td+4PJFdkJUz2lLvrGTHhXWxZ6bf+1aHkhOpo4w5AWqQxxWWTKfZfIIMi?=
+ =?us-ascii?Q?G77DBLvbF9XE9C93CrVmaQAC3AtvwA95xbhACdXELKl3WAJs1zt8tX2d3sTu?=
+ =?us-ascii?Q?oKV1nuzGR+wPO+9yGBCofQ2txeKBO2cUBFOlZibtSuk45UpbojC3nzNQHF7n?=
+ =?us-ascii?Q?2T4hL8t7B6LfqC60G37kG/xX+whj2Hfy5AZ+HLYrdYrw/uhnOcrXCZOCpGqW?=
+ =?us-ascii?Q?4YsXAIymesX5HgeqMTo90+Da8zIVC2VOy9lyRNeXakW/m8C8KVJIpa3yN/Wg?=
+ =?us-ascii?Q?YQYox8/Vh9486+sgna+/qZ2NurwX18SI8etwgSF9qgDvdbUOSHh+iWjSZQ+7?=
+ =?us-ascii?Q?V+QMoZ++d0W4lP8JA6EcmMOrbopuZu8dd4zfkerxUe6LquHw+KUAa04Nzidh?=
+ =?us-ascii?Q?4Y3bmx8j+bqOsAjOlVGXFkn8NLfaMkS6Gxvvh3m+sux43WtSBNgR/oxQj/Xd?=
+ =?us-ascii?Q?mu4o8CR2ZJojyDt+lH+vJTZf7OIRaOHz502x//jxW3CeEDyv8seHNQ5fhvEs?=
+ =?us-ascii?Q?F5XAl9+jhrjiLxtWGAQiSL7c/9B2QtNp3O1tKEZbmfY8wxQKs8tGYCm3KrrX?=
+ =?us-ascii?Q?P74lqRb2TeSVpIlMdZTFzQNgKkl+SXPddS+H8VaKyPPZQxiPidvBQcSt8Vge?=
+X-MS-Exchange-AntiSpam-MessageData-1: 7fdTPaGC+bsE0q3/Ff3G2SPFM2UZZyBKT3o=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30f64a31-21d4-4ac5-a917-08de8e8f365d
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 19:04:47.9317
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 58G2ri9SVW4go7eVKOSEJHVgs1ReYPFGoaLjQmpefyXcqxjpvy1R4B1Jy9eA9ZO7TM2NESaKCsah8FRp0fOxRQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB8045
+
+--gg3xcc6lsi5dh453
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi Frank,
+
+On Mon, Mar 30, 2026 at 05:52:17PM +0000, Frank Wunderlich wrote:
+> Hi Vladimir
+> 
+> Thanks for the patch and sorry for my delay...i was away this weekend so i was not able to test.
+> 
+> traffic works again (but there is only read now) and this is the result of your debug prints:
+> 
+> root@bpi-r3:~# dmesg | grep SGMSYS_QPHY_WRAP_CTRL
+> [    2.706963] SGMSYS_QPHY_WRAP_CTRL = 0x501, intending to write 0x500
+> [    9.134081] SGMSYS_QPHY_WRAP_CTRL = 0x500, intending to write 0x500
+> 
+> R3/mt7986 has 2 MAC, and switch is on the first, so value will change, not sure why this is different.
+> 
+> i have not found SGMSYS_QPHY_WRAP_CTRL or something related with polarity in ethernet/mac-
+> (drivers/net/ethernet/mediatek/mtk_eth_soc.c) or switch-driver (drivers/net/dsa/mt7530{,-mdio}.c)
+> in case they manipulate this register too (of course they should not). Also looked into the pcs-handling
+> in both drivers, but see nothing related to polarity. And looked for possible duplicate register const
+> definition (other name for 0xec).
+
+This result means that your default QPHY_WRAP_CTRL register value has
+the SGMII_PN_SWAP_TX bit set. Whether that comes from U-Boot or hardware
+default or otherwise, it doesn't really matter. Curious that the
+SGMII_SW_RESET doesn't clear TX inversion, though. I guess you wouldn't
+have documentation that would suggest this setting is sticky?
+
+In Documentation/devicetree/bindings/net/pcs/mediatek,sgmiisys.yaml,
+it is not specified what happens when the "mediatek,pnswap" property is
+missing. I thought the most logical thing would be for the lane
+polarities to not be swapped - because how would you describe normal
+lane polarities otherwise? My bad for thinking the original vendor
+bindings were more sane than they were.
+
+The only way to describe the polarities that this SGMSYS block needs on
+a particular board is to use the newly introduced 'rx-polarity =
+<PHY_POL_NORMAL>' and 'tx-polarity = <PHY_POL_INVERT>'. Which I strongly
+recommend you to do, even if the attached patch should restore
+functionality with your current device tree.
+
+--gg3xcc6lsi5dh453
+Content-Type: text/x-diff; charset=us-ascii
+Content-Disposition: attachment;
+	filename="0001-net-pcs-pcs-mtk-lynxi-preserve-lane-polarities-when-.patch"
+
+From 6b5fe06ec16e8a1e752fc871c135d2f12a37ce33 Mon Sep 17 00:00:00 2001
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+Date: Thu, 26 Mar 2026 23:46:46 +0200
+Subject: [PATCH] net: pcs: pcs-mtk-lynxi: preserve lane polarities when not
+ described in fwnode
+
+Frank Wunderlich reports that the BPI-R3 board has a default
+SGMSYS_QPHY_WRAP_CTRL = 0x501, aka TX inverted and RX not inverted.
+At the same time, neither rx-polarity/tx-polarity nor mediatek,pnswap
+are present in the device tree.
+
+The original driver logic was to enable both TX inversion and RX
+inversion when finding mediatek,pnswap in the device tree, and leave
+SGMSYS_QPHY_WRAP_CTRL to its default value otherwise.
+
+The blamed commit has broken that by assuming that a missing
+mediatek,pnswap would mean non-inverting polarity.
+
+Restore the original behaviour by reading the SGMSYS_QPHY_WRAP_CTRL
+value and using it as a default polarity if mediatek,pnswap and the new
+rx-polarity/tx-polarity are all unset.
+
+Fixes: 8871389da151 ("net: pcs: pcs-mtk-lynxi: deprecate "mediatek,pnswap"")
+Reported-by: Frank Wunderlich <frank.wunderlich@linux.dev>
+Closes: https://lore.kernel.org/netdev/e0ad52862d34cf4e0169c9850a7f164f127d0093@linux.dev/
+Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+---
+ drivers/net/pcs/pcs-mtk-lynxi.c | 27 +++++++++++++++++++++++++--
+ 1 file changed, 25 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/pcs/pcs-mtk-lynxi.c b/drivers/net/pcs/pcs-mtk-lynxi.c
+index c12f8087af9b..7518c98fa98a 100644
+--- a/drivers/net/pcs/pcs-mtk-lynxi.c
++++ b/drivers/net/pcs/pcs-mtk-lynxi.c
+@@ -126,11 +126,24 @@ static int mtk_pcs_config_polarity(struct mtk_pcs_lynxi *mpcs,
+ {
+ 	struct fwnode_handle *fwnode = mpcs->fwnode, *pcs_fwnode;
+ 	unsigned int pol, default_pol = PHY_POL_NORMAL;
+-	unsigned int val = 0;
++	unsigned int val = 0, orig;
++	bool has_legacy_prop;
+ 	int ret;
+ 
+-	if (fwnode_property_read_bool(fwnode, "mediatek,pnswap"))
++	ret = regmap_read(mpcs->regmap, SGMSYS_QPHY_WRAP_CTRL, &orig);
++	if (ret)
++		return ret;
++
++	/* RX polarity:
++	 * - if standard 'rx-polarity' exists in 'pcs' subnode, follow that
++	 * - if 'mediatek,pnswap' is set, invert RX polarity
++	 * - otherwise, leave unchanged
++	 */
++	has_legacy_prop = fwnode_property_read_bool(fwnode, "mediatek,pnswap");
++	if (has_legacy_prop || FIELD_GET(SGMII_PN_SWAP_RX, orig))
+ 		default_pol = PHY_POL_INVERT;
++	else
++		default_pol = PHY_POL_NORMAL;
+ 
+ 	pcs_fwnode = fwnode_get_named_child_node(fwnode, "pcs");
+ 
+@@ -144,6 +157,16 @@ static int mtk_pcs_config_polarity(struct mtk_pcs_lynxi *mpcs,
+ 	if (pol == PHY_POL_INVERT)
+ 		val |= SGMII_PN_SWAP_RX;
+ 
++	/* And TX polarity:
++	 * - if standard 'tx-polarity' exists in 'pcs' subnode, follow that
++	 * - if 'mediatek,pnswap' is set, invert TX polarity
++	 * - otherwise, leave unchanged
++	 */
++	if (has_legacy_prop || FIELD_GET(SGMII_PN_SWAP_TX, orig))
++		default_pol = PHY_POL_INVERT;
++	else
++		default_pol = PHY_POL_NORMAL;
++
+ 	ret = phy_get_tx_polarity(pcs_fwnode, phy_modes(interface),
+ 				  BIT(PHY_POL_NORMAL) | BIT(PHY_POL_INVERT),
+ 				  default_pol, &pol);
+-- 
+2.43.0
 
 
---=-ODROlHpAubiN0AJXruDg
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 2026-03-30 at 09:00 +0200, Krzysztof Kozlowski wrote:
-> On Sun, Mar 29, 2026 at 08:02:16PM +0200, Markus Probst wrote:
-> > Export `acpi_of_match_device` function and use it to match for PRP0001
-> > in `of_match_device`, if the device does not have a device node.
-> >=20
-> > This fixes the match data being NULL when using ACPI PRP0001, even thou=
-gh
-> > the device was matched against an of device table.
->=20
-> Fixes tag?
->=20
-> I don't see how this is going to fix !ACPI case - the
-> acpi_of_match_device() will just return false.
-While trying to argue I found out that there already is
-`device_get_match_data`, which takes PRP0001 into account.
-
-I will now instead make a patch, which will make rust use this function
-instead of calling `of_match_device` and `acpi_match_device`
-individually, which ignores PRP0001.
-
-There are still a lot of drivers only using `of_match_device`, which
-makes it impossible to use PRP0001 with them. But this is not relevant
-for this driver.
-
-Thanks
-- Markus Probst
-
->=20
->=20
-> >=20
-> > Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> > ---
-> >  drivers/acpi/bus.c   |  7 ++++---
-> >  drivers/of/device.c  |  9 +++++++--
-> >  include/linux/acpi.h | 11 +++++++++++
-> >  3 files changed, 22 insertions(+), 5 deletions(-)
-> >=20
-> > diff --git a/drivers/acpi/bus.c b/drivers/acpi/bus.c
-> > index 2ec095e2009e..cd02f04cf685 100644
-> > --- a/drivers/acpi/bus.c
-> > +++ b/drivers/acpi/bus.c
-> > @@ -831,9 +831,9 @@ const struct acpi_device *acpi_companion_match(cons=
-t struct device *dev)
-> >   * identifiers and a _DSD object with the "compatible" property, use t=
-hat
-> >   * property to match against the given list of identifiers.
-> >   */
-> > -static bool acpi_of_match_device(const struct acpi_device *adev,
-> > -				 const struct of_device_id *of_match_table,
-> > -				 const struct of_device_id **of_id)
-> > +bool acpi_of_match_device(const struct acpi_device *adev,
-> > +			  const struct of_device_id *of_match_table,
-> > +			  const struct of_device_id **of_id)
-> >  {
-> >  	const union acpi_object *of_compatible, *obj;
-> >  	int i, nval;
-> > @@ -866,6 +866,7 @@ static bool acpi_of_match_device(const struct acpi_=
-device *adev,
-> > =20
-> >  	return false;
-> >  }
-> > +EXPORT_SYMBOL_GPL(acpi_of_match_device);
-> > =20
-> >  static bool acpi_of_modalias(struct acpi_device *adev,
-> >  			     char *modalias, size_t len)
-> > diff --git a/drivers/of/device.c b/drivers/of/device.c
-> > index f7e75e527667..128682390058 100644
-> > --- a/drivers/of/device.c
-> > +++ b/drivers/of/device.c
-> > @@ -11,6 +11,7 @@
-> >  #include <linux/mod_devicetable.h>
-> >  #include <linux/slab.h>
-> >  #include <linux/platform_device.h>
-> > +#include <linux/acpi.h>
-> > =20
-> >  #include <asm/errno.h>
-> >  #include "of_private.h"
-> > @@ -26,8 +27,12 @@
-> >  const struct of_device_id *of_match_device(const struct of_device_id *=
-matches,
-> >  					   const struct device *dev)
-> >  {
-> > -	if (!matches || !dev->of_node || dev->of_node_reused)
-> > -		return NULL;
-> > +	if (!matches || !dev->of_node || dev->of_node_reused) {
-> > +		const struct of_device_id *id =3D NULL;
-> > +
-> > +		acpi_of_match_device(ACPI_COMPANION(dev), matches, &id);
->=20
-> I don't think this should be done from of_match_device. Yuo will have
-> soon recursive calls, because acpi_of_match_device() will call other
-> match, that will call of_match_device() and so on...
->=20
-> of_match_device() is supposed to match only against OF. Not ACPI. There
-> should be no ACPI header or code in this unit file.
->=20
-> Best regards,
-> Krzysztof
-
---=-ODROlHpAubiN0AJXruDg
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmnKySMbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTEsMiwyAAoJEDR2H/jnrUPS1FsQALQhhOxKuOob5bBdgSqR
-1jAGeLh0ZJh1BFoSfnWhmTMffN2X0XR0bAzVOK+gDkPmi3pL57DEYFtDHGq1nY+k
-K8MvxVRzmJSOeHpDdzK7xvAiGv8mBiJxro3UUQN1NFGJKJjXSHvxxOFnNPc7Bvum
-tzgfR8Th792AHLF9rVgU++T8xBOIlP4blzO37KQ7ES8AiYhq6hPunBnabqDS5hxS
-7Imz3JpItOiugzyZtUGiWgQcYdKkQ9CD4k/u0g6+nNiegXktqq0Zapf0QOoCiDdC
-PKzAn0XqokJLNzrtIdiBqoZxTZ5cNBNqtqF7Pat+wgDv4G3FqXmkCzpbnD0Tq59q
-OWaNJkBSzHq8ndS1B0Xirt+OBPI/nU3TBOWFpLZXcYdq0Jaf2EbWKgODUP6n3h1c
-EXPNiQDmcSk4XOvbSo/cVW49Rba4ETEEQ+RKZ4Y4v3gv6lCGBy1ofs3QNQonltei
-xTwPa4GcRSRFsPV5v7zmT0rEW/0ApDJYEVF7tYzuHep2B/gTNlqmP7vIFq0T9USP
-3RYK8CkWguEK44nymw7IxmRIY1AmTB9p4m2txKaVn9fWmGRGLiPes2ZdL/6B0l9l
-0rl1T/riajKAz8tzw+nFFQBRzVoYBPZm0YbG+0/XbnjKHRLtF3YXsCUP2Mh/nKaN
-5oo4Te6nipxVoIbTJgpRki18
-=sUiq
------END PGP SIGNATURE-----
-
---=-ODROlHpAubiN0AJXruDg--
+--gg3xcc6lsi5dh453--
