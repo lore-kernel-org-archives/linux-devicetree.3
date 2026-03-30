@@ -1,47 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92ECE378814;
-	Mon, 30 Mar 2026 16:01:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D8D37C90A;
+	Mon, 30 Mar 2026 16:01:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774886516; cv=none; b=iC17+lOg9s+R8F5UU1Ul+62E2CsKf5OLaoZghlhWoOK22PsGJ1XNiULy6jVA/QZd+epYj4DY7L6WTFHWLVrYB1bqhvY+LZdqmFt/5CLUZ3scnnPRX+laqDFPE+w0xRc8Ldu3MyrKA+jeAyK1xdQdaGnypcMaBkMMrb+8Pej4k+o=
+	t=1774886518; cv=none; b=C/g8Rgop18QUQVDJ9IuXXC01LLDNVXlOdzpqNPVAw/NgaCMSk6WTtZ+nOUXfngvCdow33nE/SkUje68oJGaPjQ4TpyCIpiwODTTsxEyxKNDWD3OB5YHTe6+wrGP8v2XrXqeV63hLcba4T+BZ8Q7MAqHzmdoBSYnVvqlIVa3q6QM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774886516; c=relaxed/simple;
-	bh=AbCbN2HNtIUC+vs6VbI+ViYZBM6w+8QVXUAVP4TdkAo=;
+	s=arc-20240116; t=1774886518; c=relaxed/simple;
+	bh=dcFHr2Bk1xOO7H2HD3RXtiT84ndEamlhICRZhR2KaFg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mkRc7nnBztPgdEDl8F9axATFaKk/+7FNWx/mawPniWLulEXMj8m9XzcNrNb3ve9cGAD/yPB0TqfhLNbpkoeA9/G/87E2h7lxX5DVn877szZlJXAGLgq+NVAQaJP1pEqfD2wJwYKj1mOzF+KD46M2vi5wPg0kYzR/x3fXioBtUF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UBzphakb; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=cuiCAxCcG9fZs/L0ksQ75jhmU+ALhlbZBbKiQX/+CE0nEWC1rB/OMPkAX4hafYHHEzlybkyeQUSXPnqEzFEXhtoWJlbyXsrUEE30PVJE1zTuoy0m99nt96P04zOeNERrk0gZN0MXrJZQCKbWk+J7zJOTcM+bCUYPOWmw+3VJ/jk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IPpnKB9p; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UBzphakb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8763C2BCB3;
-	Mon, 30 Mar 2026 16:01:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IPpnKB9p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72668C19423;
+	Mon, 30 Mar 2026 16:01:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774886516;
-	bh=AbCbN2HNtIUC+vs6VbI+ViYZBM6w+8QVXUAVP4TdkAo=;
+	s=k20201202; t=1774886518;
+	bh=dcFHr2Bk1xOO7H2HD3RXtiT84ndEamlhICRZhR2KaFg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=UBzphakbh1vNohf61I9KzKPT2bzoGQ2kBRtwG/CR3MBILF4B+X0WRT2CjpujqnPDI
-	 F8JfWvJfHx58BJlt5/IpXQbdUJKj00CONw353H2QWKd7MFMtoCM71NYN3wu6c5fifI
-	 AlKuB884gebvu65k/LGI4Z9UpRp4rJCN2E7G94G5F3R27itQLcAjB7j81Kktv1KYmN
-	 JscyYMWaIoVx4v1+rb9a5R1yY7jZ+9rFByqdi4XK5pE6QQTnJhlcirG03HhOoN5S8+
-	 CfSNF9tJTuQ4Z/qz1P6QJH6vusQnhyRNNHXNd8yyC289MIMZ6L7NGdWZozknPMUNL6
-	 DgIUM9dEvbK6g==
+	b=IPpnKB9pMDNEJw9ogblUI6SQkdQx6Xh03jt4m07LDHJpQs4iYvBg203XJA8AYjNZO
+	 c+wtE85wnS5HhRL76sTX1+3I6guI56QyM5bHOn3gxIlaZSalu4yL/+da2wizMXp4DI
+	 b3zIx/14YTxYYPA2BvyQyuLpGCgQxzH2+znknkeENAsjRhpQ7qoL+ha2H8hr7G+M4S
+	 w4W9qjdV7g4RQcYUjfT0s2X8KCX81KPaiIbI1XkB/Ny5uZiuhCSK5bEZFxtfoVvydp
+	 bQW2538r3tkxpy5tYOPd6poourakH+oNRd9H98TsdKGeRlOH1RgCb/hKNKESL3bfjP
+	 AzxZNRHxgbkrw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	David Heidelberg <david@ixit.cz>
-Cc: Paul Sajna <sajattack@postmarketos.org>,
+	Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Cc: aiqun.yu@oss.qualcomm.com,
+	tingwei.zhang@oss.qualcomm.com,
+	trilok.soni@oss.qualcomm.com,
+	yijie.yang@oss.qualcomm.com,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 0/2] sdm845: describe the Wi-Fi hardware properly
-Date: Mon, 30 Mar 2026 11:01:16 -0500
-Message-ID: <177488647763.633011.11795865171145683746.b4-ty@kernel.org>
+Subject: Re: [PATCH] arm64: dts: qcom: kaanapali: Duplicate whitespace cleanup
+Date: Mon, 30 Mar 2026 11:01:18 -0500
+Message-ID: <177488647754.633011.13283458077105065019.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260327-wcn3990-pwrctl-sdm845-v1-0-3f5c34e3fdd0@ixit.cz>
-References: <20260327-wcn3990-pwrctl-sdm845-v1-0-3f5c34e3fdd0@ixit.cz>
+In-Reply-To: <20260330-knp-space-cleanup-v1-1-0995302f7557@oss.qualcomm.com>
+References: <20260330-knp-space-cleanup-v1-1-0995302f7557@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,20 +55,16 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 27 Mar 2026 14:07:07 +0100, David Heidelberg wrote:
-> Question here is, if the most of the wcn3990-pmu shouldn't rather go to
-> sdm845.dtsi? At least the regulators seems to be same.
-> 
-> When agreed, I'll sent include all other sdm845 phones in the patchset.
+On Mon, 30 Mar 2026 02:39:42 -0700, Jingyi Wang wrote:
+> Exactly one space is expected before '{' characters, clean
+> up duplicate whitespaces.
 > 
 > 
 
 Applied, thanks!
 
-[1/2] arm64: dts: qcom: sdm845-google: Describe Wi-Fi/BT properly
-      commit: 0a9c8715663998dc4d8eaa8f1a40440214906d96
-[2/2] arm64: dts: qcom: sdm845-oneplus: Describe Wi-Fi/BT properly
-      commit: 7a4790b1a2c9ff66bd7a95d8761d5e9fc9334ba9
+[1/1] arm64: dts: qcom: kaanapali: Duplicate whitespace cleanup
+      commit: 45ac3ced1b79fe25e135a0c5e5ad063166b8fd51
 
 Best regards,
 -- 
