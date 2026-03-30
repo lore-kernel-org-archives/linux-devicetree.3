@@ -1,63 +1,63 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5F33DA7F0
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 16:46:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F8C3DA7E9
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 16:46:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774889200; cv=none; b=ucRkZIgJHddFo60uTdCfOIWYLJ2hrlneYh/2SZNqXwKtTSuhPYei3d6yGSwuF3bZKn8qiVKQT0C+zvSH6ULe/F8hanl4Y3VELAyfpSBgbJv9FUcwQLBu3GBZEGTqi2FDHDUOMQFidZMSKYpbRBUfJJCAQznPbmAh96HokHPq7tQ=
+	t=1774889203; cv=none; b=eBjQxHTPOYUhGBjQKf7M8KNcsdENUo+qsxmo8tgtvYjocYiw96PlJ1MjOv8vke9IrqGDzmeGtQPhqv/ANEfbSMUbLZVXSfgVYW6F8/9559xl2ejmtfN5Jhf8uz4ms6i2RK1/xOxHAiuoFXW0RRunljVT7hXtbqiGtU00lQ4zkL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774889200; c=relaxed/simple;
-	bh=YsvOEVtU8HjvsLGBe6xKUN30qyVFM1Tts26Zk71hS/g=;
+	s=arc-20240116; t=1774889203; c=relaxed/simple;
+	bh=Gi6HmcrGUdEENDhayZL8hj+zJbPt1IWORHxWpEbGYgg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f3OPXtgF/KDhbtAktks7yVn0172jgYGlrs0VnpsUu+rXYX6CjrUyqbcifkCP4pSGR/xjOT1DShxSRbTJ2HhTi8GuSEWJb3kRWlaXUNskXBtMeZKmDgH+4h/IlChtkh6ucrD0600xZ2z5KKe1Fki380Z1bBMYKLshl8CnzmLR9OQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MV2eX5LZ; arc=none smtp.client-ip=209.85.222.173
+	 MIME-Version; b=cuPWkdaHbsDsTtphdntfraipNJacwPOmz2dthrl+biBEwJA4/zf57AZbidyNiGVQ3J1oC81SRqb5Tw2LNLpGt/Cm3OnlidoroFnmA5pUmTdNyxQQXyTwguelME/6EGX5C+fNh1xnWLMcqXfmGuTTFxnqsjuHKiYVwZRGXmSF/jA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JIevwvxN; arc=none smtp.client-ip=209.85.219.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MV2eX5LZ"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-8cfc137464dso630248585a.2
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:46:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JIevwvxN"
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-89f030ada8eso25581456d6.3
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:46:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774889198; x=1775493998; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1774889202; x=1775494002; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7iRD9chLoTsyRI94z7ufUTb1XjSUKcjFZCBEC+Or1Ik=;
-        b=MV2eX5LZoQk8rPofm0jEnueJ9D7Z1w5yVS2AiG5Tswan0JBmpHfmKPk8drma9a0vaX
-         RiI0BVFyUR5KFBkhGvsvkZafoQ7l1gOru8AuEewwrHSwbMkqDuvpIdTTqiAhNDc1XhSv
-         t+0VHAgeNUIQn3KCMaghUKtg1L3qvhGm1ZKco+c65hJeIrWi3vCjkEPNWhsZusICozRP
-         hdTlT3ErjLvL+ibHEDPWgvQxrezm+3UcDopCeJPdL9H8qobe1is8PCSnguOwNOOdfhxf
-         pQ3bYiOR5fuSNAGY1vLSxsLaNgSYskWT7zPX+uJ8KkUzj1iRnHfI4aW/rc+bN+F3nCL7
-         TClA==
+        bh=QSdVMxdN9m3u1teXqd0BR51kR0qUNsC9d7n260thy48=;
+        b=JIevwvxNz2Prk2ywButxPOYo19HMvw1qZk5EBqTCe97LEKPF+uUP2tVydhDduIJJRN
+         BB+D6Q6VYXxKW1cYGA5diIDkDmcfI7mtRybohFbp3I2/bHkIQpK/nkXa9Ej8fSPGmkt2
+         JK7bs53az0TcaFI51YiCxs5PZvunYycNp1X8HPmv1PxjbIzrspoIhpgj5jyLeW45Iok3
+         qPBtTVeli6uF4/ypiZQtBTwkOC1+bw9xACScxhsk6WJLNIYNcbOc4rc60gq0jGLmYwvt
+         nmbsy12wuU1CLW69QQKKGTSIeuQkA9rPcW7dPuyV+hwMRF3USjDWKZCLMV7g9liduPa7
+         TbmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774889198; x=1775493998;
+        d=1e100.net; s=20251104; t=1774889202; x=1775494002;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=7iRD9chLoTsyRI94z7ufUTb1XjSUKcjFZCBEC+Or1Ik=;
-        b=T8iLmaP0jFQZrVe8JBYJtG+PZuIskp3qSDsHeUQhKybeIrpj2EY2V6jDcfP+zR/bfB
-         BkS9fDMytn6NvkASomGgkvbKlypK5mPAsFMHEviNIWpc+G770CVwAsHOMDytBNRUJb2D
-         1Evti/GU1P/G8+GWtJVDWiOhLN4m8V4WyoNnIiOqxTEiHWwc5hQt5L0V1ECCMvL7vgb4
-         TbsnXXJQd3/0ws2lIg2xfigDz1nGFOv6qcmF6+asY7lnu3oY1SJrppjgHJN+PFCj2MBJ
-         gt0YHRxIqCUsxQW9UkT+x+iVAMKshKigbjkvt+aGdfBHU1IQjOtVweoJxGj5Ek2UVXkv
-         aY+A==
-X-Forwarded-Encrypted: i=1; AJvYcCU0Okf6I1jd7sY4tGRDsPhvrej8vgBGe902mTvGSVtYqLVWI4l1hay7goAS+rq7suJ33tlEVQXaUpQ/@vger.kernel.org
-X-Gm-Message-State: AOJu0YzoF+uJhWtEaVQAXg8AakN/KIZeug6hTDwZtcGLc5azyzW/3RAT
-	9r5MPfdzdM3vgO50SPsML09Oc0IBlmBv75VaDlJZBs8kge8ttF/+sVr7
-X-Gm-Gg: ATEYQzxEWp++ycT8G339mdhxXwvAJpmaO3EFQfl5rNQ6jLVgP3Lirod6EUcLqLzK8qe
-	k4I192rBOFyYjR8CY4/vmhyJzTliux1m89/oUQufHpthQMCXKRi85QuKq68iaFzU7xjAIMP1l1N
-	aZy2+zPrxYakpGKvqzEZ/GVksj2tmYZHATUXPoqxZShKoYUqngfB/qH2xshQd47QZkfFyd0X0J5
-	PSk2S9cxRUG7C9CnP+wNVtK7Tbd+UNkZIWOaTq/a99H0ZMK5RprSnXWMtSWP/Vrr7rNni60FDlH
-	D9UrUMtuyhzMmwbtx727dgW2b85WUpMMFZQIJrwp0xX4o9k41yagWxcW2s6PNsvxpV3CZuVVde6
-	1laj2XmAB2HFdSE8FhjqfRBJly37MnLXiWTfx1d4Pkb60SU1rKksdnxs+DmGglZMXfHuOQ0yyLD
-	RLGYOuFBxU1HCItTVNrgyKaiU8hiHbCxewpQ==
-X-Received: by 2002:a05:620a:370e:b0:8cd:b62c:d12c with SMTP id af79cd13be357-8d01c800ee0mr1655404185a.53.1774889197531;
-        Mon, 30 Mar 2026 09:46:37 -0700 (PDT)
+        bh=QSdVMxdN9m3u1teXqd0BR51kR0qUNsC9d7n260thy48=;
+        b=sraw5RUoBIOgPzQ2xf7vcqfyrc3Gj21REelXqIWEPpdiE1QOdOkekwty16vMnU7OQa
+         rGjCXfd0UJ90G7hBzh+OvzWtbWm71tWlO/h0EYgd2UpeS5IDZaN/jgYtC73xzGSnPB3p
+         DRMAPdLXFEfYT9itRT/KiQHsh0u1/Rlt/4xHh8WLTinZCnb9Ol0nehPwO9JllrX8hh3S
+         zzYZW+Oft5tD8NtKtTkIPY0BJyex5XsXjRfaS5Qzn/YNC2EGH8MyIyvT7wr94L4W0zQ4
+         VzqYaWK2NozUNF4L/5uFXcH23Uo3x5sFzyKYzhNLwzfgSH+mqAFV+MgSzgU138EB4QuZ
+         0OAg==
+X-Forwarded-Encrypted: i=1; AJvYcCWOSrx2+rKXxVsG3JXXIFBxcCfItTJAgobze7iEC/v/4G8cGRpheBCmbe+i/yrcTmkPhQ5KqsfdQnFW@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywg/Wr2M8plmAdm54GDcuf2mzIEX08MwIXfy8otzc9xQS8lMAHn
+	q93aqD5W0SjtwC/fJQB+pGyYN0RAVIHe6qqNSH/WnwSfhnpW+2FWxHpg
+X-Gm-Gg: ATEYQzx2CyAoXiHRze11KyeasuEet5jlcc7JIzUjycMRSMhb23LxYaCbXTvnXcqdw2+
+	BymhsfEc0uwGgsxjnBPq2uUsaXSqkC9EFQPANjmQnplIny+Ga3/Vd2cBapzRSH2FZZ0VIWPYaHN
+	kUo8FSyP2OnhBOBRxhR0fkBiX4Pt9HICUmc29lIplcNfxXo0hXNyu06HEQQyPJDs5h4hm+yrb5x
+	rEDi32GNCi50EUDGdUpjcfN5tsWpEZCWcRjs0jlM/Q440BvCZ6PtSOP0LqqYIlvf4UVPUwUr23u
+	TIS1qKcMNjGsS62yaG1b274bIlLw3DiH5ee4/xCrFm3c4cPCcRgdQ57depJA+FerF8ZhaFny+j/
+	Khp30R81YzbtoVjXPeHn+BrciRcwOQZ4vt5+87nMAjkCA6o5JTJAo3Evej1YscdOkZXmIIW7tAN
+	nQJbG7rWN6Myb1YteCZ2yy3OY=
+X-Received: by 2002:ad4:5ece:0:b0:8a0:2b9b:af0e with SMTP id 6a1803df08f44-8a02b9bb731mr93909706d6.12.1774889201622;
+        Mon, 30 Mar 2026 09:46:41 -0700 (PDT)
 Received: from localhost ([199.7.157.54])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8d027edb6cbsm661523085a.3.2026.03.30.09.46.36
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-89ecc0953aesm66087016d6.18.2026.03.30.09.46.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Mar 2026 09:46:37 -0700 (PDT)
+        Mon, 30 Mar 2026 09:46:41 -0700 (PDT)
 From: Richard Acayan <mailingradian@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
@@ -70,9 +70,9 @@ To: Bjorn Andersson <andersson@kernel.org>,
 	linux-gpio@vger.kernel.org,
 	devicetree@vger.kernel.org
 Cc: Richard Acayan <mailingradian@gmail.com>
-Subject: [PATCH v4 3/5] pinctrl: qcom: add sdm670 lpi tlmm
-Date: Mon, 30 Mar 2026 12:47:05 -0400
-Message-ID: <20260330164707.87441-4-mailingradian@gmail.com>
+Subject: [PATCH v4 4/5] arm64: dts: qcom: sdm670: add lpi pinctrl
+Date: Mon, 30 Mar 2026 12:47:06 -0400
+Message-ID: <20260330164707.87441-5-mailingradian@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260330164707.87441-1-mailingradian@gmail.com>
 References: <20260330164707.87441-1-mailingradian@gmail.com>
@@ -84,223 +84,99 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Snapdragon 670 has an Low-Power Island (LPI) TLMM for configuring
-pins related to audio. Add the driver for this.
+The Snapdragon 670 has a separate TLMM for audio pins. Add the device
+node for it.
 
 Signed-off-by: Richard Acayan <mailingradian@gmail.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/pinctrl/qcom/Kconfig                  |  10 ++
- drivers/pinctrl/qcom/Makefile                 |   1 +
- .../pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c   | 166 ++++++++++++++++++
- 3 files changed, 177 insertions(+)
- create mode 100644 drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c
+ arch/arm64/boot/dts/qcom/sdm670.dtsi | 73 ++++++++++++++++++++++++++++
+ 1 file changed, 73 insertions(+)
 
-diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
-index f56592411cf6..eb8ed3effd58 100644
---- a/drivers/pinctrl/qcom/Kconfig
-+++ b/drivers/pinctrl/qcom/Kconfig
-@@ -89,6 +89,16 @@ config PINCTRL_SM4250_LPASS_LPI
- 	  Qualcomm Technologies Inc LPASS (Low Power Audio SubSystem) LPI
- 	  (Low Power Island) found on the Qualcomm Technologies Inc SM4250 platform.
+diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+index c5f7655421a3..85a34e2f0907 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+@@ -2346,6 +2346,79 @@ lmh_cluster0: lmh@17d78800 {
+ 			interrupt-controller;
+ 			#interrupt-cells = <1>;
+ 		};
++
++		lpi_tlmm: pinctrl@62b40000 {
++			compatible = "qcom,sdm670-lpass-lpi-pinctrl";
++			reg = <0 0x62b40000 0 0x20000>;
++			gpio-controller;
++			#gpio-cells = <2>;
++			gpio-ranges = <&lpi_tlmm 0 0 32>;
++
++			cdc_pdm_default: cdc-pdm-default-state {
++				clk-pins {
++					pins = "gpio18";
++					function = "slimbus_clk";
++					drive-strength = <4>;
++					output-low;
++				};
++
++				sync-pins {
++					pins = "gpio19";
++					function = "pdm_sync";
++					drive-strength = <4>;
++					output-low;
++				};
++
++				tx-pins {
++					pins = "gpio20";
++					function = "pdm_tx";
++					drive-strength = <8>;
++				};
++
++				rx-pins {
++					pins = "gpio21", "gpio23", "gpio25";
++					function = "pdm_rx";
++					drive-strength = <4>;
++					output-low;
++				};
++			};
++
++			cdc_comp_default: cdc-comp-default-state {
++				pins = "gpio22", "gpio24";
++				function = "comp_rx";
++				drive-strength = <4>;
++			};
++
++			cdc_dmic_default: cdc-dmic-default-state {
++				clk1-pins {
++					pins = "gpio26";
++					function = "dmic1_clk";
++					drive-strength = <8>;
++					output-high;
++				};
++
++				clk2-pins {
++					pins = "gpio28";
++					function = "dmic2_clk";
++					drive-strength = <8>;
++					output-high;
++				};
++
++				data1-pins {
++					pins = "gpio27";
++					function = "dmic1_data";
++					drive-strength = <8>;
++					input-enable;
++				};
++
++				data2-pins {
++					pins = "gpio29";
++					function = "dmic2_data";
++					drive-strength = <8>;
++					input-enable;
++				};
++			};
++		};
+ 	};
  
-+config PINCTRL_SDM670_LPASS_LPI
-+	tristate "Qualcomm Technologies Inc SDM670 LPASS LPI pin controller driver"
-+	depends on GPIOLIB
-+	depends on ARM64 || COMPILE_TEST
-+	depends on PINCTRL_LPASS_LPI
-+	help
-+	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-+	  Qualcomm Technologies Inc LPASS (Low Power Audio SubSystem) LPI
-+	  (Low Power Island) found on the Qualcomm Technologies Inc SDM670 platform.
-+
- config PINCTRL_SM6115_LPASS_LPI
- 	tristate "Qualcomm Technologies Inc SM6115 LPASS LPI pin controller driver"
- 	depends on ARM64 || COMPILE_TEST
-diff --git a/drivers/pinctrl/qcom/Makefile b/drivers/pinctrl/qcom/Makefile
-index 4269d1781015..ed2127d26912 100644
---- a/drivers/pinctrl/qcom/Makefile
-+++ b/drivers/pinctrl/qcom/Makefile
-@@ -48,6 +48,7 @@ obj-$(CONFIG_PINCTRL_SC8280XP)	+= pinctrl-sc8280xp.o
- obj-$(CONFIG_PINCTRL_SDM660)   += pinctrl-sdm660.o
- obj-$(CONFIG_PINCTRL_SDM660_LPASS_LPI) += pinctrl-sdm660-lpass-lpi.o
- obj-$(CONFIG_PINCTRL_SDM670) += pinctrl-sdm670.o
-+obj-$(CONFIG_PINCTRL_SDM670_LPASS_LPI) += pinctrl-sdm670-lpass-lpi.o
- obj-$(CONFIG_PINCTRL_SDM845) += pinctrl-sdm845.o
- obj-$(CONFIG_PINCTRL_SDX55) += pinctrl-sdx55.o
- obj-$(CONFIG_PINCTRL_SDX65) += pinctrl-sdx65.o
-diff --git a/drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c
-new file mode 100644
-index 000000000000..6270c6d09c22
---- /dev/null
-+++ b/drivers/pinctrl/qcom/pinctrl-sdm670-lpass-lpi.c
-@@ -0,0 +1,166 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2023-2026, Richard Acayan. All rights reserved.
-+ */
-+
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/pinctrl/pinctrl.h>
-+
-+#include "pinctrl-lpass-lpi.h"
-+
-+enum lpass_lpi_functions {
-+	LPI_MUX_comp_rx,
-+	LPI_MUX_dmic1_clk,
-+	LPI_MUX_dmic1_data,
-+	LPI_MUX_dmic2_clk,
-+	LPI_MUX_dmic2_data,
-+	LPI_MUX_i2s1_clk,
-+	LPI_MUX_i2s1_data,
-+	LPI_MUX_i2s1_ws,
-+	LPI_MUX_lpi_cdc_rst,
-+	LPI_MUX_mclk0,
-+	LPI_MUX_pdm_rx,
-+	LPI_MUX_pdm_sync,
-+	LPI_MUX_pdm_tx,
-+	LPI_MUX_slimbus_clk,
-+	LPI_MUX_gpio,
-+	LPI_MUX__,
-+};
-+
-+static const struct pinctrl_pin_desc sdm670_lpi_pinctrl_pins[] = {
-+	PINCTRL_PIN(0, "gpio0"),
-+	PINCTRL_PIN(1, "gpio1"),
-+	PINCTRL_PIN(2, "gpio2"),
-+	PINCTRL_PIN(3, "gpio3"),
-+	PINCTRL_PIN(4, "gpio4"),
-+	PINCTRL_PIN(5, "gpio5"),
-+	PINCTRL_PIN(6, "gpio6"),
-+	PINCTRL_PIN(7, "gpio7"),
-+	PINCTRL_PIN(8, "gpio8"),
-+	PINCTRL_PIN(9, "gpio9"),
-+	PINCTRL_PIN(10, "gpio10"),
-+	PINCTRL_PIN(11, "gpio11"),
-+	PINCTRL_PIN(12, "gpio12"),
-+	PINCTRL_PIN(13, "gpio13"),
-+	PINCTRL_PIN(14, "gpio14"),
-+	PINCTRL_PIN(15, "gpio15"),
-+	PINCTRL_PIN(16, "gpio16"),
-+	PINCTRL_PIN(17, "gpio17"),
-+	PINCTRL_PIN(18, "gpio18"),
-+	PINCTRL_PIN(19, "gpio19"),
-+	PINCTRL_PIN(20, "gpio20"),
-+	PINCTRL_PIN(21, "gpio21"),
-+	PINCTRL_PIN(22, "gpio22"),
-+	PINCTRL_PIN(23, "gpio23"),
-+	PINCTRL_PIN(24, "gpio24"),
-+	PINCTRL_PIN(25, "gpio25"),
-+	PINCTRL_PIN(26, "gpio26"),
-+	PINCTRL_PIN(27, "gpio27"),
-+	PINCTRL_PIN(28, "gpio28"),
-+	PINCTRL_PIN(29, "gpio29"),
-+	PINCTRL_PIN(30, "gpio30"),
-+	PINCTRL_PIN(31, "gpio31"),
-+};
-+
-+static const char * const comp_rx_groups[] = { "gpio22", "gpio24" };
-+static const char * const dmic1_clk_groups[] = { "gpio26" };
-+static const char * const dmic1_data_groups[] = { "gpio27" };
-+static const char * const dmic2_clk_groups[] = { "gpio28" };
-+static const char * const dmic2_data_groups[] = { "gpio29" };
-+static const char * const i2s1_clk_groups[] = { "gpio8" };
-+static const char * const i2s1_ws_groups[] = { "gpio9" };
-+static const char * const i2s1_data_groups[] = { "gpio10", "gpio11" };
-+static const char * const lpi_cdc_rst_groups[] = { "gpio29" };
-+static const char * const mclk0_groups[] = { "gpio19" };
-+static const char * const pdm_rx_groups[] = { "gpio21", "gpio23", "gpio25" };
-+static const char * const pdm_sync_groups[] = { "gpio19" };
-+static const char * const pdm_tx_groups[] = { "gpio20" };
-+static const char * const slimbus_clk_groups[] = { "gpio18" };
-+
-+const struct lpi_pingroup sdm670_lpi_pinctrl_groups[] = {
-+	LPI_PINGROUP(0, LPI_NO_SLEW, _, _, _, _),
-+	LPI_PINGROUP(1, LPI_NO_SLEW, _, _, _, _),
-+	LPI_PINGROUP(2, LPI_NO_SLEW, _, _, _, _),
-+	LPI_PINGROUP(3, LPI_NO_SLEW, _, _, _, _),
-+	LPI_PINGROUP(4, LPI_NO_SLEW, _, _, _, _),
-+	LPI_PINGROUP(5, LPI_NO_SLEW, _, _, _, _),
-+	LPI_PINGROUP(6, LPI_NO_SLEW, _, _, _, _),
-+	LPI_PINGROUP(7, LPI_NO_SLEW, _, _, _, _),
-+	LPI_PINGROUP(8, LPI_NO_SLEW, _, _, i2s1_clk, _),
-+	LPI_PINGROUP(9, LPI_NO_SLEW, _, _, i2s1_ws, _),
-+	LPI_PINGROUP(10, LPI_NO_SLEW, _, _, _, i2s1_data),
-+	LPI_PINGROUP(11, LPI_NO_SLEW, _, i2s1_data, _, _),
-+	LPI_PINGROUP(12, LPI_NO_SLEW, _, _, _, _),
-+	LPI_PINGROUP(13, LPI_NO_SLEW, _, _, _, _),
-+	LPI_PINGROUP(14, LPI_NO_SLEW, _, _, _, _),
-+	LPI_PINGROUP(15, LPI_NO_SLEW, _, _, _, _),
-+	LPI_PINGROUP(16, LPI_NO_SLEW, _, _, _, _),
-+	LPI_PINGROUP(17, LPI_NO_SLEW, _, _, _, _),
-+	LPI_PINGROUP(18, LPI_NO_SLEW, _, slimbus_clk, _, _),
-+	LPI_PINGROUP(19, LPI_NO_SLEW, mclk0, _, pdm_sync, _),
-+	LPI_PINGROUP(20, LPI_NO_SLEW, _, pdm_tx, _, _),
-+	LPI_PINGROUP(21, LPI_NO_SLEW, _, pdm_rx, _, _),
-+	LPI_PINGROUP(22, LPI_NO_SLEW, _, comp_rx, _, _),
-+	LPI_PINGROUP(23, LPI_NO_SLEW, pdm_rx, _, _, _),
-+	LPI_PINGROUP(24, LPI_NO_SLEW, comp_rx, _, _, _),
-+	LPI_PINGROUP(25, LPI_NO_SLEW, pdm_rx, _, _, _),
-+	LPI_PINGROUP(26, LPI_NO_SLEW, dmic1_clk, _, _, _),
-+	LPI_PINGROUP(27, LPI_NO_SLEW, dmic1_data, _, _, _),
-+	LPI_PINGROUP(28, LPI_NO_SLEW, dmic2_clk, _, _, _),
-+	LPI_PINGROUP(29, LPI_NO_SLEW, dmic2_data, lpi_cdc_rst, _, _),
-+	LPI_PINGROUP(30, LPI_NO_SLEW, _, _, _, _),
-+	LPI_PINGROUP(31, LPI_NO_SLEW, _, _, _, _),
-+};
-+
-+const struct lpi_function sdm670_lpi_pinctrl_functions[] = {
-+	LPI_FUNCTION(comp_rx),
-+	LPI_FUNCTION(dmic1_clk),
-+	LPI_FUNCTION(dmic1_data),
-+	LPI_FUNCTION(dmic2_clk),
-+	LPI_FUNCTION(dmic2_data),
-+	LPI_FUNCTION(i2s1_clk),
-+	LPI_FUNCTION(i2s1_data),
-+	LPI_FUNCTION(i2s1_ws),
-+	LPI_FUNCTION(lpi_cdc_rst),
-+	LPI_FUNCTION(mclk0),
-+	LPI_FUNCTION(pdm_tx),
-+	LPI_FUNCTION(pdm_rx),
-+	LPI_FUNCTION(pdm_sync),
-+	LPI_FUNCTION(slimbus_clk),
-+};
-+
-+static const struct lpi_pinctrl_variant_data sdm670_lpi_pinctrl_data = {
-+	.pins = sdm670_lpi_pinctrl_pins,
-+	.npins = ARRAY_SIZE(sdm670_lpi_pinctrl_pins),
-+	.groups = sdm670_lpi_pinctrl_groups,
-+	.ngroups = ARRAY_SIZE(sdm670_lpi_pinctrl_groups),
-+	.functions = sdm670_lpi_pinctrl_functions,
-+	.nfunctions = ARRAY_SIZE(sdm670_lpi_pinctrl_functions),
-+	.flags = LPI_FLAG_SLEW_RATE_SAME_REG,
-+};
-+
-+static const struct of_device_id sdm670_lpi_pinctrl_of_match[] = {
-+	{
-+		.compatible = "qcom,sdm670-lpass-lpi-pinctrl",
-+		.data = &sdm670_lpi_pinctrl_data,
-+	},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, sdm670_lpi_pinctrl_of_match);
-+
-+static struct platform_driver sdm670_lpi_pinctrl_driver = {
-+	.driver = {
-+		.name = "qcom-sdm670-lpass-lpi-pinctrl",
-+		.of_match_table = sdm670_lpi_pinctrl_of_match,
-+	},
-+	.probe = lpi_pinctrl_probe,
-+	.remove = lpi_pinctrl_remove,
-+};
-+module_platform_driver(sdm670_lpi_pinctrl_driver);
-+
-+MODULE_AUTHOR("Richard Acayan <mailingradian@gmail.com>");
-+MODULE_DESCRIPTION("QTI SDM670 LPI GPIO pin control driver");
-+MODULE_LICENSE("GPL");
+ 	thermal-zones {
 -- 
 2.53.0
 
