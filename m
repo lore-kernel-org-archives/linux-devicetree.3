@@ -1,91 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from server.couthit.com (server.couthit.com [162.240.164.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5CF3C870C
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 12:19:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7343B4E8B;
+	Mon, 30 Mar 2026 12:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.240.164.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774873169; cv=none; b=fkZpkkNtHdXlgYquzlfBx/RJDOR5fgtJjUJ4WZYKBh9inlC3BzLsUFwetXFP2WBYiPxSei75TAwFHwb3u6mVv6i/Rm/3diaKmrxuSqOdev3rLgSQxGHa0HV69a9ffr//z8zwF+bh3OudzqA/0/OeD5iBLkVN8Ew4kWWCTcPWzow=
+	t=1774873395; cv=none; b=mlnbOOP/T8cxVqJMt17wapq7uaFdyMNxBiY8HSmTl/v0pzzwBps/X4p+H8H1KZ+x4M5wGtsjptRxgYgb+IhaQZj2+kg/FikA4c/PoeviTCOx7xfH7c1k+5efzoe9xzRAFnBCi0o07UHxtaGF5inlIpsZrUR4Yncj7R4zskE7z5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774873169; c=relaxed/simple;
-	bh=2rXXQOn1CT95XJRYsLVMHI/ld1K4Welj8OsJ3LafH9U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YX6dnjh67giTopJBaKiaUStHwBFJJIGvq+OYxFCDevpbT79dnsQYJ+G4GpY/rZJBKaDLAzMhFmYBoR/x+/r5PRmDJ9hXt5IU1REMiMx7ZsvFuTtIzjXu7JWtSRTcTfTLpyGu7lXIrUNhr+08AsNu5XHENQqX/miA0Gfn9kEym/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ba0W6mhu; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774873395; c=relaxed/simple;
+	bh=FsvuZh6AdTR/1QOkqYfLXEn+LEcBDFMJTS700Rj4mxc=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=QkwLGP7lSaMeqBXkIWW2vnxuKuO5VZhz7oZEq5bjjMMWC0H/Etj43mtD64QKnQoDJBq8Y/w6p1e2r5N8xUia1r9C+ypILNPRdoMrXzv7G2j70b86p81GEcPmRXXdqPMlr3VMyeaqgjwyW96lpwgz1jOx3w7TMok2M1Hl4rqQTH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=couthit.com; spf=pass smtp.mailfrom=couthit.com; dkim=pass (2048-bit key) header.d=couthit.com header.i=@couthit.com header.b=xzEvR8ZH; arc=none smtp.client-ip=162.240.164.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=couthit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=couthit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ba0W6mhu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37B8DC2BCB0
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 12:19:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774873169;
-	bh=2rXXQOn1CT95XJRYsLVMHI/ld1K4Welj8OsJ3LafH9U=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=Ba0W6mhuGjUJ0ysCRk/IKMDD3lY2J3LXi54kHI0U9+3GMk1dCKK54LsEVVBsMyFsg
-	 JoiRgv6OGVExx538wWWAkqzi31dXu9jGFcfblqom9SdVhdn+t+CN1dh/LM+FYgl+LU
-	 K1FWIu2gAP3VenUJOPN5lDsLrIKgFp9ewGthKbPdnnUxd/45lsrVsx40QMu5XLAVtg
-	 c7aCIS3zRlHWTe/b21/1UL+sjAoB98MGmqK+NZyJmxCz4YFCPunedSGrnPVXEOlGU+
-	 Yf3RnX4XoCgRRjmpS0AvIBirlrsTss5cW2akscqvneqZeZL0MsaPHYrWvBGpoVa34V
-	 VvP9TZi2+vRxA==
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-66bd4f7b2d3so1136552a12.3
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 05:19:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCXGrPo344VeUecAEhOhMQCkgSfSfO3KcX6xWwV+GLNtm7F9nyY1V/3GD2cG8GhA4ULRqQiNTK0gHpea@vger.kernel.org
-X-Gm-Message-State: AOJu0YybvyVcQDXZ/QHR7COMMIytzELXAoe7LbflcoSWbkDAJWZ0yFNC
-	e8kP6uwkfIZ1id7crBXkwovf3dbdhN+KiHBJulWAtaRs6Jk/V78g72TMGBvx00jMPcjUeSDTXcZ
-	rD9U7+goH409nAYIhRjNebCu7A/ALqA==
-X-Received: by 2002:a05:6402:504a:b0:66a:1744:5cad with SMTP id
- 4fb4d7f45d1cf-66b2826a13amr5745113a12.1.1774873167844; Mon, 30 Mar 2026
- 05:19:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=couthit.com header.i=@couthit.com header.b="xzEvR8ZH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=couthit.com
+	; s=default; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:
+	References:In-Reply-To:Message-ID:Cc:To:From:Date:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=wqOHbYxZOhKblA4rwLkEKOT4hJPxT7ENuF/pYv/tQxg=; b=xzEvR8ZHDo4I62B4dPIGN+0R3O
+	5QkEzWyY2CAiRv+A+QGcAI+eWBtBpZvb/1yI9cuCbe7qO5sOLlF616Fuu7YZ5fY+a1Ob2ivJ/EKDW
+	4dr0PONKQPEqiBx6KkNngxOSWbtmEJ2g0dF4F2tZrpPl5reUgff2+pmCrjD4SwRv+i+lw5ZxYiurR
+	cdTYStoFU/YtAMF8l5wJfgwLde4TQHEGdC4e1I5fdG5sQ0c2MOu5xcbHwaCF6Ye8V55Op4aIivYR4
+	0gKrvMTWbamrfZxaViQFbCOuYD+/KkTmBkqaBb4dw0H1n+umP/mCOm0+FVKsCu+bMacfQebnYRxcV
+	tuBypLMQ==;
+Received: from [115.246.246.98] (port=33079 helo=zimbra.couthit.local)
+	by server.couthit.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.98.1)
+	(envelope-from <parvathi@couthit.com>)
+	id 1w7Be4-00000005tTc-05MZ;
+	Mon, 30 Mar 2026 08:23:04 -0400
+Received: from localhost (localhost [127.0.0.1])
+	by zimbra.couthit.local (Postfix) with ESMTP id 2AB1E1B22FE5;
+	Mon, 30 Mar 2026 17:52:58 +0530 (IST)
+Received: from zimbra.couthit.local ([127.0.0.1])
+ by localhost (zimbra.couthit.local [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id ZZfqEwv8_Cm0; Mon, 30 Mar 2026 17:52:57 +0530 (IST)
+Received: from localhost (localhost [127.0.0.1])
+	by zimbra.couthit.local (Postfix) with ESMTP id 9538D1B23224;
+	Mon, 30 Mar 2026 17:52:57 +0530 (IST)
+X-Virus-Scanned: amavis at couthit.local
+Received: from zimbra.couthit.local ([127.0.0.1])
+ by localhost (zimbra.couthit.local [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id U0buoev9nmnn; Mon, 30 Mar 2026 17:52:57 +0530 (IST)
+Received: from zimbra.couthit.local (zimbra.couthit.local [10.10.10.103])
+	by zimbra.couthit.local (Postfix) with ESMTP id 6D0871B22FE5;
+	Mon, 30 Mar 2026 17:52:57 +0530 (IST)
+Date: Mon, 30 Mar 2026 17:52:57 +0530 (IST)
+From: Parvathi Pudi <parvathi@couthit.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Parvathi Pudi <parvathi@couthit.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Kevin Hilman <khilman@baylibre.com>, nm <nm@ti.com>, 
+	Vignesh Raghavendra <vigneshr@ti.com>, afd <afd@ti.com>, 
+	rogerq <rogerq@kernel.org>, tony <tony@atomide.com>, 
+	robh <robh@kernel.org>, krzk+dt <krzk+dt@kernel.org>, 
+	conor+dt <conor+dt@kernel.org>, 
+	richardcochran <richardcochran@gmail.com>, 
+	aaro koskinen <aaro.koskinen@iki.fi>, andreas <andreas@kemnade.info>, 
+	linux-omap <linux-omap@vger.kernel.org>, 
+	devicetree <devicetree@vger.kernel.org>, 
+	linux-kernel <linux-kernel@vger.kernel.org>, 
+	netdev <netdev@vger.kernel.org>, danishanwar <danishanwar@ti.com>, 
+	pratheesh <pratheesh@ti.com>, j-rameshbabu <j-rameshbabu@ti.com>, 
+	praneeth <praneeth@ti.com>, srk <srk@ti.com>, rogerq <rogerq@ti.com>, 
+	m-malladi <m-malladi@ti.com>, krishna <krishna@couthit.com>, 
+	mohan <mohan@couthit.com>, pmohan <pmohan@couthit.com>, 
+	basharath <basharath@couthit.com>, 
+	Murali Karicheri <m-karicheri2@ti.com>
+Message-ID: <2119014162.782613.1774873377419.JavaMail.zimbra@couthit.local>
+In-Reply-To: <6c523569-928b-4df5-89f3-9a460d5f6020@lunn.ch>
+References: <20260307122641.738450-1-parvathi@couthit.com> <20260307122641.738450-4-parvathi@couthit.com> <7ho6ks1r4s.fsf@baylibre.com> <91797572.667989.1773662409130.JavaMail.zimbra@couthit.local> <ee2ec279-ee5d-4d6d-b6ff-35187e3f03e6@kernel.org> <1868242922.724201.1774332140293.JavaMail.zimbra@couthit.local> <6c523569-928b-4df5-89f3-9a460d5f6020@lunn.ch>
+Subject: Re: [PATCH v5 3/3] arm: dts: ti: Add device tree support for
+ PRU-ICSS on AM335x
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260327-dtc-drop-dts_version-v1-1-41066690aefd@kernel.org>
-In-Reply-To: <20260327-dtc-drop-dts_version-v1-1-41066690aefd@kernel.org>
-From: Rob Herring <robh@kernel.org>
-Date: Mon, 30 Mar 2026 07:19:16 -0500
-X-Gmail-Original-Message-ID: <CAL_Jsq+r6DvXMoJ+qPOLJvosrgbyOVjw8nn453wUi7bXQOZNog@mail.gmail.com>
-X-Gm-Features: AQROBzBz2IeGCM6mQ1hZFa5xz3FxJw84PrspF04V9czNebADRaW_B-TJd2hJo1Y
-Message-ID: <CAL_Jsq+r6DvXMoJ+qPOLJvosrgbyOVjw8nn453wUi7bXQOZNog@mail.gmail.com>
-Subject: Re: [PATCH] scripts/dtc: Remove unused dts_version in dtc-lexer.l
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Saravana Kannan <saravanak@kernel.org>, 
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: Zimbra 9.0.0_ZEXTRAS_20240927 (ZimbraWebClient - GC138 (Linux)/9.0.0_ZEXTRAS_20240927)
+Thread-Topic: Add device tree support for PRU-ICSS on AM335x
+Thread-Index: Yeg9Le+d6/LdmTazsRbjkV66zNcCzA==
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - server.couthit.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - couthit.com
+X-Get-Message-Sender-Via: server.couthit.com: authenticated_id: smtp@couthit.com
+X-Authenticated-Sender: server.couthit.com: smtp@couthit.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Fri, Mar 27, 2026 at 4:39=E2=80=AFPM Nathan Chancellor <nathan@kernel.or=
-g> wrote:
->
-> A recent strengthening of -Wunused-but-set-variable (enabled with -Wall)
-> in clang under a new subwarning, -Wunused-but-set-global, points out an
-> unused static global variable in dtc-lexer.lex.c (compiled from
-> dtc-lexer.l):
->
->   scripts/dtc/dtc-lexer.lex.c:641:12: warning: variable 'dts_version' set=
- but not used [-Wunused-but-set-global]
->     641 | static int dts_version =3D 1;
->         |            ^
->
-> This variable has been unused since commit 658f29a51e98 ("of/flattree:
-> Update dtc to current mainline."). Remove it to clear up the warning.
->
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> ---
-> This is commit 53373d1 ("dtc: Remove unused dts_version in dtc-lexer.l")
-> in upstream dtc. I sent it separately to make it easier to backport to
-> stable, along with updating the warning and hash to match the kernel's
-> version.
-> ---
->  scripts/dtc/dtc-lexer.l | 3 ---
->  1 file changed, 3 deletions(-)
+Hi,
 
-We don't take changes to dtc as we just sync with the upstream copy. I
-saw you already submitted this upstream, so I will do a sync to pull
-this in.
+>> We have verified that dtbs_check does report this issue, and we will update
+>> our test setup to retain full dtbs_check output to avoid missing such warnings
+>> in the future.
+> 
+> I would expect the exit value is set to something other than 0 when it
+> finds an error. Why not just fail the test based on that?
+> 
 
-Rob
+Earlier, we were using the command "grep -v '^\s\s*'" to capture the logs.
+We noticed that this command skips capturing output lines that starts with an
+indent. To prevent this, we have temporarily modified the grep command to capture
+the full output. The downside is that this results in a bigger log file. 
+
+We will review and try to come up with a better way to handle this issue.
+
+Thanks and Regards,
+Parvathi
