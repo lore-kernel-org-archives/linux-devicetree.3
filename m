@@ -1,273 +1,174 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011065.outbound.protection.outlook.com [52.101.65.65])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D7D376BD3;
-	Mon, 30 Mar 2026 16:04:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774886664; cv=fail; b=mOPoJq38jRVWH1Oa0U4H7X1+nuJKQ8mRMlXVzE/xmFKgt/teQ7YFbUTC0H2gxsfhAClyvHIqPRBjvF64iTCTHCyL1NIY0Qo3OUEg8lOEjT7vxzZDbQp5gQMADkB5oGPimaZgGgseRG3NzzZzqsCZiL2LWj3lgBDY1FvePPVW/48=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774886664; c=relaxed/simple;
-	bh=wT0KNeyZLujXevskOzkgWlxQ42hiK9OIyn//Nl+7tXU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=JMIUk/FH6KdV6wUlDGoYhvdPpSeUTzjwfCdv267wRAv/xTa/UBhSdxfQrUcyw2MsQNL+/QrbzJRSzQorltKZVExYLufv9HcooHQUT+fXHnPHRupm0gcJXmEgMoOjIm2br4e8lbXfBv3EgovUFKkTmNRaZnyN4lyYAqU1HctqAoA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=ObnxSOjc; arc=fail smtp.client-ip=52.101.65.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0CC37997E;
+	Mon, 30 Mar 2026 16:04:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774886670; cv=none; b=OpBhKPUAwYH7YHt1YcHDiq3jO/qqNqbbhlryOtjg3R0B3sv2xlrJ4KUi2k0QKVo94biiFXKBhJ/WVgy8GP0/DdEvseertvPnlsVt+AGiwjOLB9rnbRDBRP1x+aXGCj0N281+PVOeeTjldG/AQv5CuipWRN5NVCwZzDm+SDzyTk0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774886670; c=relaxed/simple;
+	bh=owNCY5NrXXCi7Gi47uvNRkPcUBD4vZPhSUHEWfE+QDM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MiudBfGolsl7Hm12Z38mQW3+jdKWQPcN3tUoXbfyjChgOb77y1NjkJHwpLf0klnKrR1Jrnv1HhS9KwVrDZpbe40ORdLjlR4AZWYGBQg7+xOvtpPB/PgzTB1GcvaZcCUaqz25uNVMGerBAqEFWicGnqQLWEpqMB9tAYd4l9PWPpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VC0iAUrP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="ObnxSOjc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F9IIZJ2l98XnCcO0j1l7fa/EQWrqHotXH9AysUfRlLVvrCXD1/YsuvViWZUmmUCVk3np6nslPKAc4/BikUHv+zh+sm1QLQQaXE0CZyIF2jiaHvAWSH3M0j4mgZo+qLCkxfq+3rks9owazqkm94IkEQSBmCnYUFhcVOW6Xpg9DcTwfN0tywYKVcs+ZLpSGHjRVVmuyw2w7OkF9hu4ksyHOyv5aZWPE3w8L8iWQ4A3HvKp51h5p1M8O3BoM6eKIyrykgn3TEReXzcLxpKHOijjKRDrSDnaOk6Udngl0DV+aNUFI4ndo2kHbdoJ4VNnDDCp6hNFgB58J+/rgQQ01ch1ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cK6CHQ0JYSO7WKzfUcaM8seLmBH8P37jyo8prhZDYfM=;
- b=v8n7G2EXTZyRfDe99cAGZFsHYXA78kUnwLqXykfIi+pQkmFLBrbDhIxsxeOjTtZ+UcB/lpJN5xTzZDnz9Ythno6FdPUxBWyEWyE2tDNg1nU4KSJlye9uvo9BSxV3CT0Net3edJwUidUFuGcTdq9mM8HoBYhMcBlN8vwNEyVeLSbb3v3ubWIS61jULSRv/ME2rScoEl1nvn62edhGIz1gxOuz+aoxPXfptDg2mZbFcbATr48bIeT190lm4t4EoPHG/qesIoP6B997Mdpd4UlQYUaXwXgBh3uSVp6cgZyOF28HEkfvfGkEnGO53bfY5TDERqsqYKgGaJTeqjplb7uu9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cK6CHQ0JYSO7WKzfUcaM8seLmBH8P37jyo8prhZDYfM=;
- b=ObnxSOjcPPcTF/2o3p0SFflTONibhOg98I110qgfqh9RHydlZWM18OyFh46JjJh4CUa7nYu7ua2hZ2BASUK2elTZhlxj1H2MCERWa1e/5mberTpIIp8WDYrFvIo5LL/PYGE4x4WPSCvm6/5AGqB/Djp23DCOZF80xlSBX5F0qX6+gHgY/qF41uojO+e6lJ6eMDu1uUUixlJ3sTAa6tySuwlzai5XVJt/91NmfNCtIHqnueu0tVRtc6zlOdMTOYhWCK7a/1B5V6P5XcsWQeWqfyibq7istJA8dV5+3EX3mg7JQQIUc0gSM6R8kvH8wJRyBeMVLPHCr3BJKsrtOJr32g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by AS8PR04MB8261.eurprd04.prod.outlook.com (2603:10a6:20b:3b1::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Mon, 30 Mar
- 2026 16:04:19 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9745.027; Mon, 30 Mar 2026
- 16:04:19 +0000
-Date: Mon, 30 Mar 2026 12:04:12 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Srinivas Neeli <srinivas.neeli@amd.com>
-Cc: Vinod Koul <vkoul@kernel.org>, git@amd.com,
-	Frank Li <Frank.Li@kernel.org>, Michal Simek <michal.simek@amd.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Suraj Gupta <suraj.gupta2@amd.com>,
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	Thomas Gessler <thomas.gessler@brueckmann-gmbh.de>,
-	Folker Schwesinger <dev@folker-schwesinger.de>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Kees Cook <kees@kernel.org>, Abin Joseph <abin.joseph@amd.com>,
-	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH V2 5/5] dmaengine: xilinx_dma: Add support for reporting
- transfer size to AXI DMA / MCDMA client when app fields are unavailable
-Message-ID: <acqe_AF3YHPLNzoV@lizhi-Precision-Tower-5810>
-References: <20260313062533.421249-1-srinivas.neeli@amd.com>
- <20260313062533.421249-6-srinivas.neeli@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260313062533.421249-6-srinivas.neeli@amd.com>
-X-ClientProxiedBy: SA0PR11CA0039.namprd11.prod.outlook.com
- (2603:10b6:806:d0::14) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VC0iAUrP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85FB6C4CEF7;
+	Mon, 30 Mar 2026 16:04:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774886670;
+	bh=owNCY5NrXXCi7Gi47uvNRkPcUBD4vZPhSUHEWfE+QDM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VC0iAUrPFUKXwdCr0/Owz+hUIBfcN8/LHgpvAwPtrhGm3W+5mmhjwA6e/8+c6rYLE
+	 A1VKcytW9oH2X/YJZUk031Y7nO27Tv/6wLqcT7MOtDw1dGHF7/J+ExVvMFY1BlEc5T
+	 ZilnacoTQ8nfzxA21Mz9hgZef7TUqDN/Vi+gay7Tte31xhB9pdXTV/oh8ZSE/cv4IM
+	 v/cpbHDiuWbR45bCLxqTjiaSXJmsoosNilecVPQTVKTzaJIsJJ2AL0/X271XjZkwzr
+	 elsLZXbKZlJnD/mzaeKbkdcGfzQwWwgslKg42I/3nRa2nre0sC9nziGp9oChIVgx8C
+	 t00S/FP9F5D5g==
+Date: Mon, 30 Mar 2026 17:04:24 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Hui Min Mina Chou <minachou@andestech.com>
+Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	alex@ghiti.fr, geert+renesas@glider.be,
+	prabhakar.mahadev-lad.rj@bp.renesas.com, magnus.damm@gmail.com,
+	ben717@andestech.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, jonathan.cameron@huawei.com,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	tim609@andestech.com, alex749@andestech.com, az70021@gmail.com,
+	Leo Yu-Chi Liang <ycliang@andestech.com>
+Subject: Re: [PATCH 3/7] cache: andes_llcache: improve performance of LLC
+ operation
+Message-ID: <20260330-snowbound-obtrusive-92ff63549bad@spud>
+References: <20260330102724.1012470-1-minachou@andestech.com>
+ <20260330102724.1012470-4-minachou@andestech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AS8PR04MB8261:EE_
-X-MS-Office365-Filtering-Correlation-Id: f189232a-85c1-46ab-fed3-08de8e760049
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|52116014|7416014|1800799024|19092799006|56012099003|18002099003|22082099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	oFlmOb014+NHhjpWrBdyLQ1bXAwmWg1mavcF79v2JL3s3SZFfO501HQXSoOppJA9NOhDPKVSN5nc6f5PMWDeSr3K9Y/Lqv6vxGemmLGrj2ONJ30zys7chCUShjbKAdLmxpZgTQB3jQKEjTK/hK34vj1LSyVw/pnXMJPGLG2MDX9L5xJ0l2YbPeD/BhaSZxVA33YiJ6TZki0/jGhuWyrIRxp7b2sDvD3Oz8LWIJZWV1jMLvdMX8TOhRGGbWmOqwehk4xZVodfdz0jnueCDuoa2i33AtMhdolYMx5oee+aSeZVCJOzX+nzrwnjWfgFW45hwuPr4s1u8U4PPocdt75M26iR3ofeRX2M9sfIxHrPdTC67fxD+qlMm4p3v5O1GeJUQCODmVRv4X0+WUpiBqJw/U40B7WEq6zmdMohcBrZj4LXVIh9CUeaNigC6TTKcX6IeUwRJxcWwBnqrv4o3TABeH9ZBCrfo31tTtxCXyUb0cgo537r2CE9i+2o/efhts5beyurRD5jARI6OJWyV0rM9dfZ6k4MyNVIk1k6nkL8cavy7toJ6EcTADKOFUYNm0xFObH4E+lGtfXjCxQ2Da1Tmad2XzCrjInyordEs2aSrp/bPvnzZoqR/88AxzAehzA5y1sM8lYu9QXndud3x+HRAqNaXU4ytqUiEC6nGe3TlUzPafcZpE4sOU3cbV34gVhfX1hU1aMhGvS0h9rVeP8XdLwd7zEyCxzdvmASQ8Td3l2jiMasYWYVmfoAkfPWmTwH53309vIuMsbak91VXTdSk7Sf1BHbpdwNWPaMvuuXM3A=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(52116014)(7416014)(1800799024)(19092799006)(56012099003)(18002099003)(22082099003)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?6RMRlxV0vnmrLDssuECMbpm+r0GySv1DS5IJhjebT1gKFOov5Za2+TXv4fBS?=
- =?us-ascii?Q?lSYLFfycHABx+RXqeMwQFY6OH4Zg8Q04A0a8k971+km2z0R4ncb8+/0ak1EP?=
- =?us-ascii?Q?ZKZfQXkZqqSCc3+LvWNeYEiiWknhFaj0znzPqS8RZOzmtFPoTDHGbOCmvEdZ?=
- =?us-ascii?Q?86dmsbIjC7gAektTLfgPNNqF9eD+fKDgUTbkACW/2+NrVCaudDlB4WbdkHkd?=
- =?us-ascii?Q?paOHQ0T0673p6uWW1SXJIj3wJgUKx1Va0mcOSCf4DnEhhPG76MZqIer8iv7w?=
- =?us-ascii?Q?HnM2/04nvmH4BQxeQbDTYTvk4nMsUQk7W2HRnUD8H28uHkPTFrJ+5lcUS8lf?=
- =?us-ascii?Q?YcWa1FR+XFHPoE58W/FC4rqpyYX3iCBZ1kv/XTXWBsNR2vUDgCc3DtQTuNkX?=
- =?us-ascii?Q?1PcwwUmlaSgIE/zvejS4CasR6VcHgxtkKYw1Se36z+ztS/wfhNRzFpr8vix8?=
- =?us-ascii?Q?3qHUxJpANDePk7sZ9sHu3B9xyKXWyZP6erzfMCsxhPndg3QFSXR87wFB3yNF?=
- =?us-ascii?Q?j1gOGR2iAM7D4W6x4A+6Af0Fhbj+pKO+bqK+i7mQ+CuSy7aQ9Heky+Tlw9Wp?=
- =?us-ascii?Q?oIkWQGcfJ/PMUbubAL6uplcOtHCvHVyImR67J5CKNAdjoKPzK3JH5j2beOSt?=
- =?us-ascii?Q?Vvb3Cm4Lle1cnpN8QXucu1DmeZkdvq2AhfkbI7RhR/paxWenhcgZiCMndwdk?=
- =?us-ascii?Q?c/XGNSJ9W/fAjYuyspELfpZXdUkqadZRcFjw7RmxYHBnjLpRUyaMcCESppql?=
- =?us-ascii?Q?rf4XAoAgBJtzsDuCGLJImctPiMk2EdDYc0+A4S0HOvOHRwlJqa6Ox6vQznIm?=
- =?us-ascii?Q?bTZ6iFmZpLtiGoOXVwyEH5R4H0dygaXa3Bgl1MnQbL8TfnlTbvqcF4Grg7GT?=
- =?us-ascii?Q?I/s2fzvO6zCttIvX21AIGFiBCrvNj40ij+6lXcnKbaIa9TA+inKWdNKGg/hI?=
- =?us-ascii?Q?qgkOLyQFegk+cIp3NNaZybGnSIMGQcPgml5+owCc+6ngLu4mJGX3RtoNDlGj?=
- =?us-ascii?Q?JM+i+XzaN5rzfMF6JpYlmxYHk2/TT0u+oXGW8iK2UAycRfd785xNnR0mgUxO?=
- =?us-ascii?Q?cammEz7ZPjo/rbwYU/IAwVbPk+NY0bO3hGU7INgxgwNBM3niIniZ0YtX+NGO?=
- =?us-ascii?Q?9jRwBAimHjUhkTOKnHv8S/5MddSDTcAi/IVJ7pugaSgT0Lyz1X72h4ZeETNA?=
- =?us-ascii?Q?GSSXkK6kSQrxIqEKqn40gCoY7h13lvj0vsl/W4FKzVD5xDVhCLzfvK39KLGQ?=
- =?us-ascii?Q?HAPHG4yfRQKtXU0zjyId8vG+FZsVjsyLWl7R54HizdjQL+cmIGzFOYptdzXJ?=
- =?us-ascii?Q?RCjkhDVF62LUICwy1v+a5VhTvY3NoprJXLB0qbagEjqU06/82DFCJC+8c3PV?=
- =?us-ascii?Q?RHxnCCs8oH58aC+Kr0RR+vK9VD3JLaZcd0RwsrP/MDrhgHfRqBQMoanj0SvX?=
- =?us-ascii?Q?BsTyrXNZ4VIRrQTiXOane4FQnrNj4hGuFQfaPfBsLETm9WEYUpjOFApYevlY?=
- =?us-ascii?Q?SbQkLBh42iHEDK/sUoh9xuQN6/jEtukZzDeTZAPmimcyRpsit2C1IPBEk0QC?=
- =?us-ascii?Q?Wo47EuRnzze7t10OjxJpfnCt2cAJOrnrOHDYzGdcMjRAtItUnkK3lBlmMAbK?=
- =?us-ascii?Q?T5BLcvlSJp2uzbu6ZueIhsaCD4iQnUcntJvjUvtsJzjazERsxJBMbqmNFcHs?=
- =?us-ascii?Q?8tPVF91tyRY2L50Z4eexcx77ZirenWaKgC8w5PdTVeIJKrCo?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f189232a-85c1-46ab-fed3-08de8e760049
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 16:04:19.6856
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xhemQrNMxg4+6BwAIrGETU6C39tSZSbM36yS9hkvLVOZtUy7VpfUI8GmdzX+/ESYJ844l1g5iMmBObI3Vs2JKw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8261
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="A56KgNt4UDiuDCQI"
+Content-Disposition: inline
+In-Reply-To: <20260330102724.1012470-4-minachou@andestech.com>
 
-On Fri, Mar 13, 2026 at 11:55:33AM +0530, Srinivas Neeli wrote:
-> From: Suraj Gupta <suraj.gupta2@amd.com>
->
-> The AXI4-stream status and control interface is optional in the AXI DMA /
-> MCDMA IP design; when it is not present, app fields are not available in
-> DMA descriptor. In such cases, the transferred byte count can be
-> communicated to the client using the status field (bits 0-25) of
-> AXI DMA / MCDMA descriptor.
->
-> Add a xferred_bytes field to struct xilinx_dma_tx_descriptor to record the
-> number of bytes transferred for each transaction. The value is calculated
-> using the existing xilinx_dma_get_residue() function, which traverses all
-> hardware descriptors associated with the async transaction descriptor,
-> avoiding redundant traversal.
 
-Can you split this change to new patch?
+--A56KgNt4UDiuDCQI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Frank
->
-> The driver uses the xlnx,include-stscntrl-strm device tree property to
-> determine if the status/control stream interface is present and selects the
-> appropriate metadata source accordingly.
->
-> Signed-off-by: Suraj Gupta <suraj.gupta2@amd.com>
+On Mon, Mar 30, 2026 at 06:27:20PM +0800, Hui Min Mina Chou wrote:
+> Eliminate get_cpu() on !CONFIG_SMP and switch readl/writel to their
+
+Where is the get_cpu() that you're talking about eliminating here?
+
+> relaxed variants to remove unnecessary fence instructions on I/O
+> memory access. The platform specification defines all I/O regions are
+> on channel 0 (point-to-point strongly ordered), so explicit fences are
+> not required [1][2][3]. Explicit memory barriers (mb) are added before
+> and after the CCTL loop to ensure overall memory consistency.
+>=20
+
+> Also fix hart ID mapping by switching to cpuid_to_hartid_map() instead
+> of using the logical CPU ID directly. In AMP setups (e.g. Linux on
+> Hart 1, RTOS on Hart 0), Linux sees itself as CPU 0 but must access
+> Hart 1's CCTL registers, so using the logical ID would cause accidental
+> interference with other cores.
+
+This seems like it should be a separate fix for sure.
+
+>=20
+> [1] platform spec 2.1.1: https://github.com/riscvarchive/riscv-platform-s=
+pecs/blob/main/riscv-platform-spec.adoc?plain=3D1#L169
+> [2] privileged spec 3.6.5: https://github.com/riscv/riscv-isa-manual/blob=
+/main/src/machine.adoc?plain=3D1#L2835
+> [3] riscv: asm/mmio.h: https://gitea.andestech.com/RD-SW/linux/src/branch=
+/ast-v5_4_0-branch/arch/riscv/include/asm/mmio.h#L105
+>=20
+> Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
+> Signed-off-by: Hui Min Mina Chou <minachou@andestech.com>
 > ---
->  drivers/dma/xilinx/xilinx_dma.c | 28 ++++++++++++++++++++++++----
->  1 file changed, 24 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/dma/xilinx/xilinx_dma.c b/drivers/dma/xilinx/xilinx_dma.c
-> index 52203d44e7a4..f5ef03a1297c 100644
-> --- a/drivers/dma/xilinx/xilinx_dma.c
-> +++ b/drivers/dma/xilinx/xilinx_dma.c
-> @@ -380,6 +380,8 @@ struct xilinx_cdma_tx_segment {
->   * @cyclic: Check for cyclic transfers.
->   * @err: Whether the descriptor has an error.
->   * @residue: Residue of the completed descriptor
-> + * @xferred_bytes: Number of bytes transferred by this transaction
-> + *                 descriptor.
->   */
->  struct xilinx_dma_tx_descriptor {
->  	struct xilinx_dma_chan *chan;
-> @@ -389,6 +391,7 @@ struct xilinx_dma_tx_descriptor {
->  	bool cyclic;
->  	bool err;
->  	u32 residue;
-> +	u32 xferred_bytes;
->  };
->
->  /**
-> @@ -515,6 +518,7 @@ struct xilinx_dma_config {
->   * @mm2s_chan_id: DMA mm2s channel identifier
->   * @max_buffer_len: Max buffer length
->   * @has_axistream_connected: AXI DMA connected to AXI Stream IP
-> + * @has_stsctrl_stream: AXI4-stream status and control interface is enabled
->   */
->  struct xilinx_dma_device {
->  	void __iomem *regs;
-> @@ -534,6 +538,7 @@ struct xilinx_dma_device {
->  	u32 mm2s_chan_id;
->  	u32 max_buffer_len;
->  	bool has_axistream_connected;
-> +	bool has_stsctrl_stream;
->  };
->
->  /* Macros */
-> @@ -672,8 +677,12 @@ static void *xilinx_dma_get_metadata_ptr(struct dma_async_tx_descriptor *tx,
->  				       struct xilinx_axidma_tx_segment, node);
->  		metadata_ptr = seg->hw.app;
->  	}
-> -	*max_len = *payload_len = sizeof(u32) * XILINX_DMA_NUM_APP_WORDS;
-> -	return metadata_ptr;
-> +	if (desc->chan->xdev->has_stsctrl_stream) {
-> +		*max_len = *payload_len = sizeof(u32) * XILINX_DMA_NUM_APP_WORDS;
-> +		return metadata_ptr;
-> +	}
-> +	*max_len = *payload_len = sizeof(desc->xferred_bytes);
-> +	return (void *)&desc->xferred_bytes;
+>  drivers/cache/andes_llcache.c | 18 ++++++++++++++----
+>  1 file changed, 14 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/cache/andes_llcache.c b/drivers/cache/andes_llcache.c
+> index d318b8009f7f..57f666bc537a 100644
+> --- a/drivers/cache/andes_llcache.c
+> +++ b/drivers/cache/andes_llcache.c
+> @@ -66,7 +66,7 @@ static struct andes_priv andes_priv;
+>  /* LLC operations */
+>  static inline uint32_t andes_cpu_llc_get_cctl_status(void)
+>  {
+> -	return readl(andes_priv.llc_base + ANDES_LLC_REG_CCTL_STATUS_OFFSET_C0);
+> +	return readl_relaxed(andes_priv.llc_base + ANDES_LLC_REG_CCTL_STATUS_OF=
+FSET_C0);
 >  }
->
->  static struct dma_descriptor_metadata_ops xilinx_dma_metadata_ops = {
-> @@ -864,6 +873,7 @@ xilinx_dma_alloc_tx_descriptor(struct xilinx_dma_chan *chan)
->  		return NULL;
->
->  	desc->chan = chan;
-> +	desc->xferred_bytes = 0;
->  	INIT_LIST_HEAD(&desc->segments);
->
->  	return desc;
-> @@ -1014,6 +1024,7 @@ static u32 xilinx_dma_get_residue(struct xilinx_dma_chan *chan,
->  	struct xilinx_aximcdma_desc_hw *aximcdma_hw;
->  	struct list_head *entry;
->  	u32 residue = 0;
-> +	u32 xferred = 0;
->
->  	list_for_each(entry, &desc->segments) {
->  		if (chan->xdev->dma_config->dmatype == XDMA_TYPE_CDMA) {
-> @@ -1031,25 +1042,32 @@ static u32 xilinx_dma_get_residue(struct xilinx_dma_chan *chan,
->  			axidma_hw = &axidma_seg->hw;
->  			residue += (axidma_hw->control - axidma_hw->status) &
->  				   chan->xdev->max_buffer_len;
-> +			xferred += axidma_hw->status & chan->xdev->max_buffer_len;
->  		} else {
->  			aximcdma_seg =
->  				list_entry(entry,
->  					   struct xilinx_aximcdma_tx_segment,
->  					   node);
->  			aximcdma_hw = &aximcdma_seg->hw;
-> -			if (chan->direction == DMA_DEV_TO_MEM)
-> +			if (chan->direction == DMA_DEV_TO_MEM) {
->  				residue +=
->  					(aximcdma_hw->control -
->  					 aximcdma_hw->s2mm_status) &
->  					chan->xdev->max_buffer_len;
-> -			else
-> +				xferred += aximcdma_hw->s2mm_status &
-> +					chan->xdev->max_buffer_len;
-> +			} else {
->  				residue +=
->  					(aximcdma_hw->control -
->  					 aximcdma_hw->mm2s_status) &
->  					chan->xdev->max_buffer_len;
-> +				xferred += aximcdma_hw->mm2s_status &
-> +					chan->xdev->max_buffer_len;
-> +			}
->  		}
+> =20
+>  static void andes_cpu_cache_operation(unsigned long start, unsigned long=
+ end,
+> @@ -74,16 +74,22 @@ static void andes_cpu_cache_operation(unsigned long s=
+tart, unsigned long end,
+>  {
+>  	unsigned long line_size =3D andes_priv.andes_cache_line_size;
+>  	void __iomem *base =3D andes_priv.llc_base;
+> -	int mhartid =3D smp_processor_id();
+>  	unsigned long pa;
+> +	int mhartid =3D 0;
+> =20
+> +	if (IS_ENABLED(CONFIG_SMP))
+> +		mhartid =3D cpuid_to_hartid_map(get_cpu());
+
+But I dunno why this dance is required. Can't you just retain the call
+to smp_processor_id() and pass the result unconditionally to
+cpuid_to_hartid_map()? Or just make it a oneliner with
+cpuid_to_hartid_map(smp_processor_id())?
+
+> +	else
+> +		mhartid =3D cpuid_to_hartid_map(0);
+> +
+> +	mb(); /* complete earlier memory accesses before the cache flush */
+>  	while (end > start) {
+>  		csr_write(CSR_UCCTLBEGINADDR, start);
+>  		csr_write(CSR_UCCTLCOMMAND, l1_op);
+> =20
+>  		pa =3D virt_to_phys((void *)start);
+> -		writel(pa, base + ANDES_LLC_REG_CCTL_ACC_OFFSET_BY_CORE(mhartid));
+> -		writel(llc_op, base + ANDES_LLC_REG_CCTL_CMD_OFFSET_BY_CORE(mhartid));
+> +		writel_relaxed(pa, base + ANDES_LLC_REG_CCTL_ACC_OFFSET_BY_CORE(mharti=
+d));
+> +		writel_relaxed(llc_op, base + ANDES_LLC_REG_CCTL_CMD_OFFSET_BY_CORE(mh=
+artid));
+>  		while ((andes_cpu_llc_get_cctl_status() &
+>  			ANDES_LLC_CCTL_STATUS_MASK_BY_CORE(mhartid)) !=3D
+>  			ANDES_LLC_CCTL_STATUS_IDLE)
+> @@ -91,6 +97,10 @@ static void andes_cpu_cache_operation(unsigned long st=
+art, unsigned long end,
+> =20
+>  		start +=3D line_size;
 >  	}
->
-> +	desc->xferred_bytes = xferred;
->  	return residue;
+> +	mb(); /* issue later memory accesses after the cache flush */
+> +
+> +	if (IS_ENABLED(CONFIG_SMP))
+> +		put_cpu();
 >  }
->
-> @@ -3284,6 +3302,8 @@ static int xilinx_dma_probe(struct platform_device *pdev)
->  	    xdev->dma_config->dmatype == XDMA_TYPE_AXIMCDMA) {
->  		xdev->has_axistream_connected =
->  			of_property_read_bool(node, "xlnx,axistream-connected");
-> +		xdev->has_stsctrl_stream =
-> +			of_property_read_bool(node, "xlnx,include-stscntrl-strm");
->  	}
->
->  	if (xdev->dma_config->dmatype == XDMA_TYPE_VDMA) {
-> --
-> 2.43.0
->
+> =20
+>  /* Write-back L1 and LLC entry */
+> --=20
+> 2.34.1
+>=20
+
+--A56KgNt4UDiuDCQI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacqfCAAKCRB4tDGHoIJi
+0hxrAPsFopm3rlVHdGdGWrZBgZ2VVCjgEhwQ655QHUxzHVCa2wEAg6oe7w0BdhmL
+L3ERf7rF84HDlqz73WtNqaR3tMixowE=
+=rsx9
+-----END PGP SIGNATURE-----
+
+--A56KgNt4UDiuDCQI--
