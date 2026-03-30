@@ -1,183 +1,240 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011000.outbound.protection.outlook.com [52.101.65.0])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08143431E7;
-	Mon, 30 Mar 2026 15:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774886347; cv=fail; b=jbCeNvkMm0LCOpOBtaV9erN6MdHJzJYPqrTjk00SUmCGkTN9AWb3UQOUHEyCsNEz0ov7EB1F5m+m+CFsecO79+I9ze3/na8sD+iDXyep8T/KeIgShN3Nu25/EmFSJ7jtVX0xGhz5EFLZAdLgCUlfIiVuRRE/2lWe2g2LyWXSj2M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774886347; c=relaxed/simple;
-	bh=FQQ+rMoRGNvE74vxeHC8YW+A89ndEyYhTonFPUsDASE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=RWOnGsqtbUR7UfDrbqF9yswOvv6SpXKIVL6trLHD38KwKvly1i6MrJVenioCLQBvFc7gUu8xnayvd2FyXOIUCkU+5hWsSags7YXf7RQ0yQlGa2+4829zI41fwyp5Hfkv/KX+j7tiz6m4pD1ILzGCbmXsYLwFyB6BzxziMIFkino=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=f4rSIpXG; arc=fail smtp.client-ip=52.101.65.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84BE63750DA
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 16:00:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774886456; cv=none; b=dqp7QpG9LrAtLW7CgkfQ9ucKsEKu47aDJerHKmJzworsaOQ+4xK7mEVikFG1LUWyTIV04hrMc8MPMrRltMbuCguZXlHem/DrW1U6xZipiqgL7ofhJQKKRWO6YwTmieMC106TpcCy4ITvlMsOpT52LEKFg5YXIWudlSGCx1Hg4ck=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774886456; c=relaxed/simple;
+	bh=LNZcLcyaESCNa/ERcf8t0QYKBjEpfVGGh7f8a07D+c4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g6XGgoGtXyaGDbUCXA1IoKa20k7FswlVp2d7UPv6WGp72SGslk/bUvuTbMcg//qXYRxBw8CNJ8b9PWd/zNPBt/MJtf7F69fqIEOED6cXjJVKb6QHZRMzZ87yFBXiCw9zoxjwe/GylBPf1UJBwESUGhHJcrAbAfpsH1SVX/i48MA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ko8StfhW; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="f4rSIpXG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sCzmbG9xLIvRoK+mXCOQVihPP1lJNmr9GuSPXLEjOZ9R0c3OsFoe5zulEeDOTatD1FYmIKxjaOhhumERB7GXE+XcbOv5S963s+GcVgEIJRynrUesrR5LTCi1t/I454voe66GJt6/myDt2uNORlAN2wDk6borQ463hT8OhMkwJmpSoL+4ibHaVdn9NzdivRm2sM2fOeMhqsHr6yek2fFY6tDw55G0GkdrmKusNtjLmD/NoDj3qqGAlEh4u3I4NFwOBZ37RvFncyQO2Ibxi5NvZn8lglFkrZWijRD0hJp+i/FCX2Xz6dXunLEqCWmFUBOurphsgB3Fv6PsTwB7Ee8myw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gWDiTD+U+UjgLErWuzI2cWp9sivMplzLUYOmq3MVyQ0=;
- b=C6SZNSNw8LK/vrpxxIPaZHPm+9JPvPDcaoCzXsrAggZhkoNnXHPnwXWw1KISr87maUeUbaOto1aRNvhgdtw3y6H0d7B7oKkLg4ZNYwARd5nSqvD90doOhSNZbWYcWQLxZ1ptRqjyJbrMVmQh+bDGT9DsAV8v0ODXW0ut2rBNwnf9k2Vxy1r3xlRwumgBkAf8VBadxNpRFJlcStO9+1HSlgXhN9CkK5ojXA3QTe3VUPIDVnNgKBSmWohxNX6DkTX5CfQv80wng2+0zHUNltcWcmANAM89LhZQS5sra7RN0AUiUQXTvenbE9vJONazEpA8I5FN6tqgNt3h8J8kJL67lw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gWDiTD+U+UjgLErWuzI2cWp9sivMplzLUYOmq3MVyQ0=;
- b=f4rSIpXGfqczcqZnVVg83YQfFhRLm2N92QqbiGkkadWoFzxSw/3NfYVYFsMYDb1WrP2OBajFLWJVDx8QX6xVPQhsccOpl+mXcU+GIxjaiDf1Rpz5C//aBgnY+DUOQGTcJriIeKAI1Avv1WGiEsQFiW005/W+HL8U9Im5VNLpNDvYaoF+dQv1AEy9EGQsYTDeTDwPMCiPQk0gher8U7dgqj7onwXLRqsB3cy2auNmKusDJJvolyw6+Pvz0H7MNnTiy8EqocyOthxreD1qLz7KiV+/xCKbAX2oYExdomx0LdcuHTCVW712XfcmYKllNG3NT5z4e+1LerBm4KQpnwIH5w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by GV1PR04MB10377.eurprd04.prod.outlook.com (2603:10a6:150:1d1::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Mon, 30 Mar
- 2026 15:59:00 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9745.027; Mon, 30 Mar 2026
- 15:59:00 +0000
-Date: Mon, 30 Mar 2026 11:58:51 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Srinivas Neeli <srinivas.neeli@amd.com>
-Cc: Vinod Koul <vkoul@kernel.org>, git@amd.com,
-	Frank Li <Frank.Li@kernel.org>, Michal Simek <michal.simek@amd.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Suraj Gupta <suraj.gupta2@amd.com>,
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	Thomas Gessler <thomas.gessler@brueckmann-gmbh.de>,
-	Folker Schwesinger <dev@folker-schwesinger.de>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Kees Cook <kees@kernel.org>, Abin Joseph <abin.joseph@amd.com>,
-	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH V2 3/5] dmaengine: xilinx_dma: Extend metadata handling
- for AXI MCDMA
-Message-ID: <acqdu-oEKU1o-qrU@lizhi-Precision-Tower-5810>
-References: <20260313062533.421249-1-srinivas.neeli@amd.com>
- <20260313062533.421249-4-srinivas.neeli@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260313062533.421249-4-srinivas.neeli@amd.com>
-X-ClientProxiedBy: PH3PEPF000040AA.namprd05.prod.outlook.com
- (2603:10b6:518:1::4c) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ko8StfhW"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-82bae83318bso2143563b3a.2
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:00:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774886453; x=1775491253; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=wpVAuzUFa0WB0ZNz5sJm2wNE73LaP5n0AkrtCatZ+9M=;
+        b=Ko8StfhW6cWAzfH1t0mt3myOdiBJt7yIS6nrgkb5/wknBnBlhraIrgxdwbtGkGm6jb
+         0d/5IbArrS+nPw9/9n+umx+SwQE+MrY0Vb2hZbL/votfuDN/dbtQwHLPXp6TNRHX2DPN
+         03CN0Apq2ylY/BFmzdE6Nffp7k00phfeX4DqekL3oQ3aBv0WsEj/QwJBBTMlrbk+hmYo
+         cSkOyb4ty5ijDdzhQeo9UdqLzej8JRbdcKsM9LjEIY4wWNak0eqN6etEh7kl6tcFko6z
+         q45Ae1fStkjbPGAmxKdE3yZKp/PMssqUqREqcs63tPkkIWJNyYKnKL95EJYo1zNaga5s
+         ipBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774886453; x=1775491253;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=wpVAuzUFa0WB0ZNz5sJm2wNE73LaP5n0AkrtCatZ+9M=;
+        b=PyaF0wP9LNIminwPAmbvLuvxdT/3E/QsHa57rniWrHs5y5A/z8GIzSmAKADPGWSpNR
+         zbAXKpKj9Hb0SGFU512Eg1NtE5FIGkqXu41sNatS4P+gmVX96QKr38eakfSci3y6PUSH
+         /Q9ytIqjknjEGjmPPxpv/1vqimxa8RnykF1DQFAmq4qCkDTOg1cQuwqS+E1YAz3qx6t8
+         2/CSPLFfc/ylKMmDS8BfHLTf+WBCbKeTdWGPBdchrhBaWDFBm2v9r+17P9RFhvSx9hK/
+         Rhtj+HuNfv+fDuA48zDH0PVxaX3oybgOk5No1R6WiRBDKLUYNp1idwUo3jaeo9/XASMu
+         TROA==
+X-Forwarded-Encrypted: i=1; AJvYcCXMYgl3ucV3QMnZ5SrSpYx8obVkBhNTklWPSEbKBkgKodDClT4bNSBM794gRMwNznlTHC+/DB7df6B0@vger.kernel.org
+X-Gm-Message-State: AOJu0YzUSKENX3ReVZQhoGWQsOpBeG2xcwvQ2DLzO98ACMQCp5f13R31
+	K1emzDKXv4SvXRxgANNbKtNEO6oKEQzWdiAY6yngiGrqVlLpev0q20MN
+X-Gm-Gg: ATEYQzyV+nLmSQA0OqPdgYmRgD4EOf1AvXPpXWVjP7YTQoBcjPE7Th1SLBEW6LnCFJT
+	yXabBqx8DwIPkMNEQlYNoit7A4+QqIbohpusJ72uD6oYlUkhUQ6rpiQn6i71/25zRHVhBeEywG2
+	ZeKryOx6OQPgqCQ9W0vEjuxHE7JMq1D3Y0WOP/xW4bJP7PLipLQvo/2ckNaVXTs2qsetWaJu6ws
+	0utS4dp3OSVjxbKzNv9H1otEcm8dO+s1eYSXMrhTdPKZqejv7GIaVHl136F5onqTCIk7o9y6Lhs
+	FrPnwTt7w3bAhsk6X2Y/iQ1148VEX0vxm5MByOrugS10Nre6P6AnmkCTssgwPa30FQidvgFWxcj
+	NnOecW1BYDQGlFVA6Az+kvdBENPrHcGMmEALvLnD/khS7tuLzqpbet8n5PwvOn4vgshBzG7LnaD
+	SVVlSeuV61cd3YatnLcUCZ1kYG1QvZlj4JGHClyWLoNfmLVojpADWH23Of6dRYkrGliC2VVYwG
+X-Received: by 2002:a05:6a20:e290:b0:398:71b6:33aa with SMTP id adf61e73a8af0-39c87bc0f52mr13801393637.64.1774886453083;
+        Mon, 30 Mar 2026 09:00:53 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c76916cf861sm7325614a12.12.2026.03.30.09.00.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 30 Mar 2026 09:00:52 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <cbd0f2b0-cf23-4e4c-9fb8-f0094d7b723b@roeck-us.net>
+Date: Mon, 30 Mar 2026 09:00:49 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|GV1PR04MB10377:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7720121b-ba73-4420-2a64-08de8e7541d0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|52116014|376014|366016|1800799024|19092799006|38350700014|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	BQ0tPT/AsSv9s9cjDjiofKoo5t3xjhz13WyG04okT65GftLrl41/g0Gc5QcA3wV0iKVh7X7kO9uXcAuCnSpxXNBEhIyeuO4TRt9S1uHAX3yNlFTvjV8xgGvM92ClvFuMIsOr8AUp80c0yiyUdUgOKQMl4zPZVwvhXi2AhQFM+/G4vpFXTRMdaqzFDCjK7LVL3B8W6GHoSqowIIyLawIjxdtbPcbg7Ne7LhrrwEyxVC5cLDJQe7RHHFZJVQ0PZqBJFhMc9GopCslzPHPSDdcfAKkyGVFevE5zqqKMJefAFY83jQ5V081RULMtLTYgAirXVJpZin64RIWciYVLdpzyO3eyjCvAMPWPYYJXDT4+Oe5kmt/heAtPOGr/mdb+K9mOyCY9zJQXJa16w5Z16U12nIXex/XTSqef/+QGRpRLu0ObfKLg/DI2XNpEY1ovxC8BEntQ4VIbQkhcj24NMKXqOMuF1bRT4FVXUdhKfOT9mUKqe9/yrcLFH+nz1SpKCmYKgAQHzGnPNmrbPUOx+QlRLsr9BAB5mIQ6kJKTFDQAj7qYPmwVkbWCsgkSJWPIlEti89nOFdvrdEXJOZGgxVvmMiHRlOn49GJmeS1Q9qzKul7LSJTDUepRloji+EUQMTXePpUtIGgXv1vH7dM9UNia+rzoVcmm/9NTN9uDLCgQ4Z0lgMQqda8QxsY8MrrMIrv8U/Sd2SWYhYfEuB3+fT9Aw1mIGq7vDF+/cXjCvy7UbHnpmOCQhMLEzZLTmmk3CvHmz05XVnsf5KIOnRh6EPuKUzzDcdcs7oTZkJbVU+xVZbo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(376014)(366016)(1800799024)(19092799006)(38350700014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?+vxTq/zuy+dXZzFOLsb21aKmuIOspNTIDsK3SGzKWyH8pUb0AzVt8nY5y36H?=
- =?us-ascii?Q?Hc4MfoiLMTt3z+ybM6p8i4nHfWm7Z02P89l0f867wyBYo/LGcxxbtS4T33oD?=
- =?us-ascii?Q?Hx4vvBJtrEB+HcTXC8iT8F1fJMwmcOn3+EfxlhRfgamF7RRh45ptg7LbMAAi?=
- =?us-ascii?Q?+2gzzTFo+kye7Lh+zUrVwoCjJbywbKznQA0nlbpVMoWI7DHRN8Rf95rsvucW?=
- =?us-ascii?Q?ZU586aLtTmUgYmK/IKSA06SRu8FwN4uSNhY6tbEoGau07+9Wym0bmTzE+cJM?=
- =?us-ascii?Q?3KWBOxQhg1wdMqD7Z7skJTtrPHmEIxTSaY6cBnAE+HwCIs0l4HP3TB7X9mWp?=
- =?us-ascii?Q?EG0jQlDOrI9LU4v79mgAZRnw6PqoykbNSFmHY39eNgj2ajelqUVC9Wh7+b5+?=
- =?us-ascii?Q?XbaRQWaMeIrPZY7s9IRCe5Y0VUEMQ3Pt9dj1qsvenuM2eIbvLI4b0ahShY5E?=
- =?us-ascii?Q?T14Urx5MEV7fwoyD6RkHz16SJiQyFwpc9VNeu756cak3+V062QR4WPdNeslh?=
- =?us-ascii?Q?1JECIDk4RmynH91zYWpHwAG2xJ/NZ88fSMJ+8TpBjIuf+88YouY/IMohpwO8?=
- =?us-ascii?Q?dPcHXtDzxX9+5TOE0sQ6UMjlWMbAulEw3/X4pzRN3MSDaG5IzNs2tgdGjgzE?=
- =?us-ascii?Q?D04QXykM55jHp64wn6lZ613d4y6EWKCgZ1QQwkM5+OKGu4amvICvqNC4xYXH?=
- =?us-ascii?Q?6M8bP7QPjFM+Q5HKS+okE4Is44pOTbU3SAdqJ8pBHeRn+n8ILIPfg3ZrCMq7?=
- =?us-ascii?Q?2SYK8bmEdHkOIQznIROyCjzONtkoRfIZbi2CnumoKuFq35kM7KlPhnDM891q?=
- =?us-ascii?Q?cYnVbhVggj5gmgmSvrzbIThSbAjY4kmvldwCs/ih1MMEuAObztYnoGXuvY+K?=
- =?us-ascii?Q?iIXkU24rSbNnru1ZAkI5sW2Mad3AaN0y3JG9RsmsXPZxO+3ZYnSagY7dvsvY?=
- =?us-ascii?Q?OTo8CyyiV9mEdTKc0+9uK37Q43nrTisBCJcav5zBTa5td5QlXxWb66WdKfQs?=
- =?us-ascii?Q?CJ+YuRYsXXKnwM4rybztncCkNsZVyuIaMqlv+JNkCIWAW7y4NmghOZj+GuUJ?=
- =?us-ascii?Q?li/WUDLDZV5YVmV/y4jPjImooOjNPpE+GHVIjTIjnyR0PtYLpERQu1JoScNb?=
- =?us-ascii?Q?5cshZDNZNr5SBu0qPU+ZtwciPzQtnlaWRm24B3i6KBYFrR1gXevQ1tgq9cYn?=
- =?us-ascii?Q?X0rqsUIY9+GlxGpWoULB+ZdiuACDL/DPcDODK+dwLhgVrHkhqKvdVtYMLfri?=
- =?us-ascii?Q?7p68I2L1kBBU8FvTEiN6JH6JxVpNyt2N4nkq+UV42YZ8aOh/2Ikq+Ww9BSbq?=
- =?us-ascii?Q?SnwCTUozogK1fU71jVnRRuUqiON5h/SDpBTZpr7EdsytejfFmNEmh2787qFu?=
- =?us-ascii?Q?YAJDEe5wiLVB4crgZ/rnPfyjXa6NFL1nhaVAm6F6EYArpqBJ0dvSJNLUkGWG?=
- =?us-ascii?Q?KNB/v6G9I/ou+z5nhNHWd1CJmu/ZhRENSJMJAGgEOREjzX/KDZxC8otxqQ4f?=
- =?us-ascii?Q?a9Soz5PBLjf1PEnlVY7kiexch+LisV7ZKTL5mYb0A+FOSuuKObdgSb+C8HQJ?=
- =?us-ascii?Q?f51cAw8WIvSqymrFIyPxPMIZTGYzlv9zF9ce64CkhgjG5FpX4/lGlLctOeVS?=
- =?us-ascii?Q?EY++JEnIvhTTiEcDy07BMSVExLvJtqGv0GTVp6eFIs0h9LmLDje6gXhBpHMZ?=
- =?us-ascii?Q?s0irtVJrrM6W7W//Nd96h2Qeg96pqVVG3OQ+RMrqiqO6L5LHjKuKfpoLYlG9?=
- =?us-ascii?Q?CInOcN+/oQ=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7720121b-ba73-4420-2a64-08de8e7541d0
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 15:59:00.0987
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O9o8hlsLq2vUCjRrHYdVDJADqy8FvfNg8obp0FVR59dic6OVLqwV80WMSaVLKBpOoc/R2cFXm9y5E6yl6yo6ig==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10377
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 2/2] hwmon: add support for MCP998X
+To: Victor.Duicu@microchip.com
+Cc: corbet@lwn.net, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ robh@kernel.org, linux-kernel@vger.kernel.org, krzk+dt@kernel.org,
+ linux-doc@vger.kernel.org, conor+dt@kernel.org, Marius.Cristea@microchip.com
+References: <20260217-add-mcp9982-hwmon-v10-0-5e0aaae6f289@microchip.com>
+ <20260217-add-mcp9982-hwmon-v10-2-5e0aaae6f289@microchip.com>
+ <ccda48d0-3b10-4c3c-a632-6f70b54436fb@roeck-us.net>
+ <2d3955f5b906018fd7670ed5b8d37eaffa0ec207.camel@microchip.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <2d3955f5b906018fd7670ed5b8d37eaffa0ec207.camel@microchip.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Mar 13, 2026 at 11:55:31AM +0530, Srinivas Neeli wrote:
-> From: Suraj Gupta <suraj.gupta2@amd.com>
->
-> Extend probe logic to detect AXI Stream connections for MCDMA. When
-> an AXI Stream interface is present, metadata operations are enabled for
-> the MCDMA channel. The xilinx_dma_get_metadata_ptr() is enhanced to
-> retrieve metadata directly from MCDMA descriptors.
+On 3/30/26 05:01, Victor.Duicu@microchip.com wrote:
+> Hi Guenter,
+> 
+> ...
+> 
+>>> +     }
+>>> +
+>>> +     switch (type) {
+>>> +     case hwmon_temp:
+>>> +             switch (attr) {
+>>> +             case hwmon_temp_input:
+>>> +                     /* Block reading from addresses 0x00->0x09 is
+>>> not allowed. */
+>>> +                     ret = regmap_read(priv->regmap,
+>>> MCP9982_HIGH_BYTE_ADDR(channel), &reg_high);
+>>> +                     if (ret)
+>>> +                             return ret;
+>>> +
+>>> +                     ret = regmap_read(priv->regmap,
+>>> MCP9982_HIGH_BYTE_ADDR(channel) + 1,
+>>> +                                       &reg_low);
+>>> +                     if (ret)
+>>> +                             return ret;
+>>
+>> Reading the 11-bit temperature value involves two separate 8-bit
+>> register reads.
+>> If the chip updates the temperature between these two reads, the
+>> resulting value
+>> may be torn. While some chips latch the low byte upon reading the
+>> high byte,
+>> the driver does not explicitly rely on or document this behavior, and
+>> it's safer
+>> to use regmap_bulk_read if supported, or at least ensure the correct
+>> order and
+>> atomicity if possible.
+>>
+>> Note: Maybe the low temperature is latched, but there is no
+>> indication in the
+>> datasheet that this would be the case. Even if it is, the code above
+>> is
+>> inefficient.
+> 
+> The low temperature register is latched. In the documentation at
+> page 32 it is described that when reading the high byte register,
+> the value from the low byte register is copied into a 'shadow'
+> register. In this way it is guaranteed that when we read the low byte,
+> it will correspond to the high byte.
+> 
+> Regarding the bulk read, the chip has a number of design quirks and
+> because of that different commands are supported only on some
+> particular memory regions.
+> 
+> According to the documentation page 26, the only areas of memory that
+> support SMBus block read are 80h->89h(temperature memory block) and
+> 90h->97h(status memory block). In order to block read the temperatures,
+> the area of memory targeted has to be the temperature memory block. In
+> this context the read operation uses SMBus protocol and the first value
+> returned will be the number of addresses that can be read (in our
+> particular case a max value of 10 bytes).
+> 
+> In v8 of the driver
+> https://lore.kernel.org/all/20251120071248.3767-1-victor.duicu@microchip.com/
+> ,
+> the temperature values were read with regmap_bulk_read(). In that
+> version, regmap_bulk_read() was also used to read the temperature
+> limits, without returning count (this is an undocumented feature of the
+> chip and because of that we could assume is not supported).
+> In order to avoid this behaviour and avoid mixing the SMBus and I2C
+> protocols all block readings were removed.
+> 
+> In the hopes of bypassing a long chain of replies, I tested the
+> behaviour of the chip with different read instructions.
+> Regmap_bulk_read() when applied to the temperature memory block
+> (80h->89h) returns count and the high and low bytes. When it is applied
+> to the 00h->09h memory, it uses I2C. It returns one temperature byte,
+> but all other bytes are returned as 0xFF. The chip behaves as if
+> it is at the last register location in the temperature block while the
+> host continues to ACK.(behaviour described at page 26).
+> If we set use_single_read in regmap_config and apply regmap_bulk_read()
+> to the 00h->09h register area the high and low temperature bytes are
+> read successfully without count.
+> 
+> Regmap_multi_reg_read() reads a number of registers one by one. When
+> applied to the 00h->09h area, I2C is used and it returns only the high
+> and low temperature bytes. When applied to the temperature memory block
+> (80h->89h), because it is not a bulk function, returns the count till
+> the end of the temperature memory block (aka SMBus count).
+> 
+> I2c_smbus_read_block_data() when applied to the temperature block (80h-
+> 89h) returns the count, the driver replies with an NACK and the
+> communication is stopped. In our case, the board we are using to test
+> the driver has an AT91 adapter and supports
+> I2C_FUNC_SMBUS_READ_BLOCK_DATA. It seems that the I2C driver for AT91
+> does not modify the buff length of the message, leaving it 1.
+> 
+> I2c_smbus_read_i2c_block_data() when applied to the temperature block
+> (80h-89h) returns count and the temperature values.
+> 
+> If you are of the opinion that block reading the temperatures is worth
+> introducing (even in case we need to skip count) then I can add it, but
+> we should come to an agreement on which function to use.
+> Please let me know your thoughts.
+> 
 
-Need extra empty line between paragraph
+It is your chip, so I'll let you decide. Please include all the above
+as comments into the code.
 
-> Add corresponding channel reference in struct xilinx_dma_tx_descriptor to
-> retrieve associated channel.
-> These changes ensure proper metadata handling and accurate transfer
-> size reporting for MCDMA transfers.
->
-> Signed-off-by: Suraj Gupta <suraj.gupta2@amd.com>
-> Co-developed-by: Srinivas Neeli <srinivas.neeli@amd.com>
-> Signed-off-by: Srinivas Neeli <srinivas.neeli@amd.com>
-> ---
->  drivers/dma/xilinx/xilinx_dma.c | 30 +++++++++++++++++++++++++-----
->  1 file changed, 25 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/dma/xilinx/xilinx_dma.c b/drivers/dma/xilinx/xilinx_dma.c
-> index 00200b4c2372..52203d44e7a4 100644
-> --- a/drivers/dma/xilinx/xilinx_dma.c
-> +++ b/drivers/dma/xilinx/xilinx_dma.c
-> @@ -222,6 +222,8 @@
->  #define XILINX_MCDMA_BD_EOP			BIT(30)
->  #define XILINX_MCDMA_BD_SOP			BIT(31)
->
-> +struct xilinx_dma_chan;
-> +
->  /**
->   * struct xilinx_vdma_desc_hw - Hardware Descriptor
->   * @next_desc: Next Descriptor Pointer @0x00
-> @@ -371,6 +373,7 @@ struct xilinx_cdma_tx_segment {
->
->  /**
->   * struct xilinx_dma_tx_descriptor - Per Transaction structure
-> + * @chan: DMA channel for which this descriptor is allocated
->   * @async_tx: Async transaction descriptor
->   * @segments: TX segments list
->   * @node: Node in the channel descriptors list
-> @@ -379,6 +382,7 @@ struct xilinx_cdma_tx_segment {
->   * @residue: Residue of the completed descriptor
->   */
->  struct xilinx_dma_tx_descriptor {
-> +	struct xilinx_dma_chan *chan;
+Thanks,
+Guenter
 
-async_tx already include dma_chan's information.
 
-Frank
