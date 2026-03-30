@@ -1,88 +1,104 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58B4387362;
-	Mon, 30 Mar 2026 16:40:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C70A5375ADF;
+	Mon, 30 Mar 2026 16:41:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774888858; cv=none; b=ghNq+3eD08NQzYoACOMiXek5Ga6m6mVolfqrIH7O///GR9OOuZxjGpOLY3K6ZdUMiXR3lEO5GRflitQPoydL9idopIyUgH44KLBiYQAGjTpJoOMYIuZBQqcRg090ozZNr1xlTUaY6APSXwNOuRGXrkrxrAf2EOO3VnD/2aGK7uU=
+	t=1774888897; cv=none; b=pt4N/gsRV9k1UEb8rHBjEioZvbcMmW99Vv74iNVI/WKDusQs1uykbTzP6qOOMtZOu25KrR+vm4fAF9XJEgaaIA/5wg+iymyZU8qSh8EvUA7XDitdWaiAGM2AXnrzI323myWXvzZ5P4PiZK9hGAonWaUep+YwKaDZPB/zyYd40VY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774888858; c=relaxed/simple;
-	bh=bpeWtipLnVmfOQRtesH8geWVIabjT0Ic4+iwHw6Yd78=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R0nAh2r/x3lKr+nhaeC51tImiPsOKgDp5yDAfPGiz+zFGCcCZiHlnwCLTIsX0NL0Ya/Gje2A8PXdIhDqykHUEZvVQnr4UjlrpQA29e+I9ublc3xeSWVCjphTGxiXw01TMJDwhUC0/L/NE+gTLKTJbYMNXfDS7mVeo7EidWae46o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GTCzhQXv; arc=none smtp.client-ip=185.171.202.116
+	s=arc-20240116; t=1774888897; c=relaxed/simple;
+	bh=5fyqNjqjO3qaNtOgQYGUDLgdRVsArGmIT6Rwp0lpqcA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=o6cgArwlJBqW/WeKcH7WtLVzw/FgWQRKL/5fqtAi/sGbE1FvkUw3dGJFrQYa/0Q8N4fkBzuBBZoPpOFG/HoxMYch/n59UM6Dvsds/iAR5jrqAeYE9hh9hu1YUC4zPCNu1RVZTpFesCSMx7AJU5VgP7K+1D4/K9vCqSQ9PiugSj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=EEbsXo7I; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GTCzhQXv"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="EEbsXo7I"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 1C343C566B3;
-	Mon, 30 Mar 2026 16:41:24 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 5715D1A308C;
+	Mon, 30 Mar 2026 16:41:34 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D86A45FFA8;
-	Mon, 30 Mar 2026 16:40:53 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A760B104507B4;
-	Mon, 30 Mar 2026 18:40:50 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2CD085FFA8;
+	Mon, 30 Mar 2026 16:41:34 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CDB751045078F;
+	Mon, 30 Mar 2026 18:41:29 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1774888853; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=1GVIJ14Rcnu3aWGSyZMGL/UvjT6CVFMLKw9tvpzQihI=;
-	b=GTCzhQXvVWcDqCGJtMD7wlkyB3V2ABlOK4iazVK+tIYFW5nIv1n9Rb5XMJ59l9i5o/5uy+
-	SKsCFm4F+bk9tp2ymc2R3aQat6jdnlDBtYPfee0WvGlZA0Ipq/0SUPIMR0h2CEUUIokWrY
-	jmkhCUtgBel6dqpLauLB4R+7Je0NHrWd+uWYrWzM9PMRD6EvnUq+uPMa6iUCgUv5M5XoHe
-	i24mEnFNW9iSUY0Kn82FifsHhVAKEXfs/FR/ikOD8huCJUTSV1DyuKlR49xOf8nGCwAGFv
-	+vI69oOvEUBcUq7c1kIsJr0J+x/1F2bDNzNQmIeUt5EQStQ27vJW89Vs41hnzA==
-Message-ID: <e9f864af-190a-411b-b6cc-80e6a29449ba@bootlin.com>
-Date: Mon, 30 Mar 2026 18:40:49 +0200
+	t=1774888893; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Iqkys6x53PzPsaice1LCNan4YUdfM5+iaXQVpc7VwNs=;
+	b=EEbsXo7IoLXedxIYT/PUHpkA+dP0+X/ik/NY7FOGlI+LWi3C0jc/kXJ0CFLESttUUZkdaG
+	8WlhtFXWdDRXjVo5RQ0GSik1wpo/Ps+Qo8RgoVSi73EFdF2vFSnBpgmK6D59LH85iKCnu6
+	PWDzcwfYd/nI/vX88aaRAoftBIR/RKd0bU+WwYHhv/TguWEBQx1u+0S0ZdRS3byZrPZB49
+	aVoT+FW5d69grX2owJCnBdcqIZXGWsFe9UAUJPnoyEvvEJ5TGNZ6PimgC+iRrmDSGNfWzw
+	w/Z/uRMLtO0bodOEKDKKmu9iFBIm/lrBjo4SxJYe8fWlduRu9XieW3lLZfOenA==
+Date: Mon, 30 Mar 2026 18:41:28 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Saravana Kannan <saravanak@kernel.org>, Jaroslav
+ Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Christophe Leroy
+ <christophe.leroy@csgroup.eu>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH 0/4] ASoC: Add support for GPIOs driven amplifiers
+Message-ID: <20260330184128.68a4e779@bootlin.com>
+In-Reply-To: <27e23c7b-4aca-41d2-96b8-df02c52e8121@sirena.org.uk>
+References: <20260330101610.57942-1-herve.codina@bootlin.com>
+	<4daaa17d-5673-4efa-92ce-4f2ce87eb812@sirena.org.uk>
+	<20260330173944.3fdc27ec@bootlin.com>
+	<27e23c7b-4aca-41d2-96b8-df02c52e8121@sirena.org.uk>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/11] dt-bindings: mfd: ti,omap-usb-host: Add
- 'pbias-supply' property
-To: Aaro Koskinen <aaro.koskinen@iki.fi>,
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260330-omap4-fix-usb-support-v2-0-1c1e11b190dc@bootlin.com>
- <20260330-omap4-fix-usb-support-v2-9-1c1e11b190dc@bootlin.com>
-Content-Language: en-US
-From: Thomas Richard <thomas.richard@bootlin.com>
-In-Reply-To: <20260330-omap4-fix-usb-support-v2-9-1c1e11b190dc@bootlin.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-On 3/30/26 3:44 PM, Thomas Richard wrote:
-> Add the 'pbias-supply' property, it is used to specify the voltage
-> regulator that provides the bias voltage for USB cell.
-> 
-> Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
-> ---
->  Documentation/devicetree/bindings/mfd/ti,omap-usb-host.yaml | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/mfd/ti,omap-usb-host.yaml b/Documentation/devicetree/bindings/mfd/ti,omap-usb-host.yaml
-> index 3b5b041f0321..d0a61dec4961 100644
-> --- a/Documentation/devicetree/bindings/mfd/ti,omap-usb-host.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/ti,omap-usb-host.yaml
-> @@ -83,6 +83,12 @@ properties:
->  
->    ranges: true
->  
-> +  pbias-supply:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
+On Mon, 30 Mar 2026 16:48:54 +0100
+Mark Brown <broonie@kernel.org> wrote:
 
-I'm sorry, I missed dt_binding_check error. $ref is not needed.
+> On Mon, Mar 30, 2026 at 05:39:44PM +0200, Herve Codina wrote:
+> > Mark Brown <broonie@kernel.org> wrote:  
+> 
+> > > This sounds a lot like simple-amplifier.c?  
+> 
+> > The gpio driven amplifier proposed is more generic and can handle
+> > more complex design. I.e. op-amp + resistor and/or line (mute,
+> > bypass) switching. Hardwares handled by this driver are a superset
+> > of just dio2125 and so simple-amplifier.c.  
+> 
+> > IMHO, it makes sense to have a specific driver for those kind
+> > of hardware design.  
+> 
+> Right, and if it's a superset it feels like it should all be one driver
+> rather than two separate ones.
 
-Best Regards,
-Thomas
+Also, it is worth noting that simple-amplifier.c considered a stereo
+amplifier (left + right).
+
+Considering the two op-amp available in dio2125 as just two op-amp used
+in two separated mono channel with additional component to switch related
+to resistors (independant switching for each channel) means that almost
+everything proposed in audio-gpio-amp have to be duplicated (gain, mute,
+bypass per channel) instead of just instantiate two audio-gpio-amps.
+
+On the other hand, there is no reason to handle a stereo component in
+audio-gpio-amp. Further more with the hardware I have handling a stereo
+component doesn't make sense. Indeed, I only have independent mono lines
+with their own resistor switched amplification circuitry.
+
+I could merge everything in one .c file but only a few part of source code
+will be common to simple-amplifier and audio-gpio-amp. IMHO the resulting
+merged code will look like two different drivers merged in one .c file.
+
+Best regards,
+Hervé
