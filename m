@@ -1,63 +1,63 @@
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACB0377EBC
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 20:01:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E696395272
+	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 20:01:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774900874; cv=none; b=iOzuXnZYT30KEnSAhCG5IK/FDlqIAY1OPNCdckzurlumthZG73LXgQaj9BrG/jcb+vN8XxG+MHvaMLOt5T4bb42QTL+IFAi4F96RBBJI0Ikkv9YGyxc9fOdG80HD/AOltfAKItWj1EO3NKRyeRyqzAaFfpQ/i8onG6lhRa+coEU=
+	t=1774900876; cv=none; b=gE2sqt+GeDFNfld6eWWMKMGZXxsuPiIWbiVWKOy3oOd9ORuSGK8WngtsvjBrExuxC9sdc5up82PVbrqSxggKqMmpHeOXmdelrIFBBC0nULKjREQ+e59ZCEti6Ah4PwXMvkR3hNgrFJ33hwm55+SFuBLftxpS1JWVBGyRvutaMlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774900874; c=relaxed/simple;
-	bh=4cLU0AnMHcnGesCXzoapKEKtipqjMQAyUW5SmtF9GiE=;
+	s=arc-20240116; t=1774900876; c=relaxed/simple;
+	bh=P2GkHmZFdqZhu/4XFycrBk2b0Q7p3JNJsFH9NHtU9wE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mvQBU4QT3JzGKhpcg3QGoCT0L0NBrxyUvS2YIxSwaOFmpWlh9mWDHxfFHgvQHhWm5H3e/e//Hrh44kSEVVy8Ay7vG3jhowAjj5njb4nAbg3ejVSQGrTPIyYubd+ly7mHktqlilAzhn+sFO5iq0RXBMHU4hx0DInCimofVeh59jY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CYT76KYk; arc=none smtp.client-ip=209.85.210.51
+	 MIME-Version; b=IrXifr7WUxrAT4yEA6PDeEou0/Wic/4w5ZtfZ8vLgCq99+93AGtOpXvYo74pAkmg5Ngeb5n7HYNxQVW5H/UykM5tcsx0VKhWowy5hZ/yaYiAJ7LvTco9YXRYKvhDk5iuNClra+5toCsV83Tr1WfgSv1ljud1G6PkYKOiGKnOV3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dtiZOUVF; arc=none smtp.client-ip=209.85.210.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CYT76KYk"
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7d7eb85fb81so4833454a34.0
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 13:01:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dtiZOUVF"
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7d75371d873so4747498a34.3
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 13:01:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774900872; x=1775505672; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1774900873; x=1775505673; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Fac8epo7nkwLLH2ZyfDheeoVFnsqfLdGEjUy+ZxTMiw=;
-        b=CYT76KYk132Ev7zBmxmU9x7bY2CDQWl5QgbCc4yLHsXkW+18svfMNvGZHU6YeXLho/
-         NNhKNf489dqDJouhxA/em9MYCJF7lNkK6nQgF2Eam60GO5lZwvAFdgwLQ5iBAe6AV3lK
-         zBZ+N0kq9X5G2/FWNXyyujWUzNQ4TWSChOdjJEWriv89Mmep01MgMuPTu5aiAADnzQzm
-         TMhuPm4V8oiaQiLHU3AKPo8eN33oSRKWUhvvqp2ckuf9XO7R6SKcP7KRHvgvlZJsu9JL
-         WgSfHsvTVNAqw0ijAw0xB9thRkf5HXhpPFYDprImX3ZcPtIm6ZVJesgFs0x/FW/7f5rY
-         WMJg==
+        bh=LxIwxmn6J4qQSSCoJJc8i/ANaXaz6gkd+aLXiTOc6XA=;
+        b=dtiZOUVF8dDuFxE8ZsC3qGe7t7pGMCs6dNG/yOuYtBG+thCD4akLa7ymYh44W6cJc3
+         VKqn0+cBParMFGhhVGLwYs5tPkgOSawm1Z4VGnep4XmrkL4SoNIcraAIjF4n28UUh6nA
+         gzhofoQ4CXw+X6LlSgsEgGJA/3fLQdNaBVAOY4w9DTKi3KqU/557GY0VS/tBavoEIdji
+         8ZgC+mKxx9tMaLT5QCaPYgFc/a+gZ2Wy9PLrATCy+TgEwq/p/ZfnSSidfjFN+C93zMoS
+         n2hS+WlrYl203nCfreTzoVfZ4TVY+oOGbI9ZaQfIhuJL8/IET6Ih1suIBYl0QnhuqAEb
+         CKFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774900872; x=1775505672;
+        d=1e100.net; s=20251104; t=1774900873; x=1775505673;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=Fac8epo7nkwLLH2ZyfDheeoVFnsqfLdGEjUy+ZxTMiw=;
-        b=NQG7NpM1F85U1sj2A4UlP1BkpytYLR+kNrOA53CnCEW3YH821SwSMMq/UFJ+rN22M1
-         yBJmLrNhM13bs3oU0JCkFfsjh1E5zSNQ1gXeKeM7V1htYstLIVoI1Ai3/JkuFeVfUzwU
-         Fl63xMBS8AmXqtbE3i515z5jPWq/CRUJPwFDcJC/f/jmE0sPWx3fEUo3gyx3d9i8eH2g
-         6wNMErFU77t0EKRHpy2G2ZjLdjPfxce3v4vVafBMDjL2eqnTWKmYWx07Z1JRurDAYq9T
-         oY8gGrhgzJC85MKy2yxI8FLvr0dyQ5CsW6kWvwSugcccOLTMHgr5rLwELl94xH6Sh8xo
-         wh7g==
-X-Forwarded-Encrypted: i=1; AJvYcCWGZmTCaA96R/u5qx5DRsj6nrQkPJgGEQ+wjisJIfLc6/AKY+jmhDevhD8cNgyH58oNvG+lSVSJYaZ9@vger.kernel.org
-X-Gm-Message-State: AOJu0YzXYSpBlD7/JYb4YX/xpGJ63OzjEW8PhUPCUQQsorZyKIcjeqc+
-	vUuQfMvYWdmUiU9Opt2vnfrS7XaQhB91KB7Rfo0PWtdofkp3ky6Hj4Aa
-X-Gm-Gg: ATEYQzyfQnnCgmda9xcGw8V+iX3js3T34uvhhaVzeFJW7/mcmdwMQUeQBFCONgR2rcs
-	v01pvUdqVmzWPB6hRf6PBNShHBNU4qANrRFbPvC3o9pA209080YbordunkbuWpZQzKAa9zQ/YR2
-	fhnv3hOFpHSdxoG4gzKDNDdobEX4Y9KZWsy7EpAigkUTxnc+cCZm3FqxaWL7NI+X2Vk6tvx06xg
-	FCrmYimQPELXWc95K3Z8w1vSHEMP6R3XHzMXjb9deoOAK7kcQm79Km6B2ESxnaMXrhbbWdXsnAj
-	MJKf/rmIO4FRfgXsomDFMx1h/quOuak9fpmJeH088Bf3J4IulEGtOVDSj5Gq3bj6Wr1wGDdWT8D
-	q5kRbOIDCPLacc1icE3ZgaljEpXOXqElwne2RCMJTbbSqs3XhbwLPEK5zWWaX8t3+7ZCNrW6z09
-	cpCRB7B+MAjO3uJ+TZ6sIZ
-X-Received: by 2002:a05:6830:618a:b0:7d9:d54a:f872 with SMTP id 46e09a7af769-7d9fadee948mr8028437a34.13.1774900871600;
-        Mon, 30 Mar 2026 13:01:11 -0700 (PDT)
+        bh=LxIwxmn6J4qQSSCoJJc8i/ANaXaz6gkd+aLXiTOc6XA=;
+        b=ap+c3SALXTE27rSiP9s/mEdd6ml7d5PZbrfCZWXYk9ZooXtMN15g/4EcLwUTsGZibL
+         Vu8FwEMpFCxo2HkZa8a3DZnOvubPI/y94qjpiWbhVVqA3/iXC+L0DuD5hy1jBAnhbwmL
+         9UNgK3UpJdKBBAh4AJD8LmHEbrltymwbZcgeIgryW+Q+QGJLqpyLSeMqL3H5Oou9cX+D
+         KsZVkpIWZ+pw4DR3qPLjUtwTkuLJWOSw8oWwyhM24krRqPW2l3cZLD9Gp++Uy5efy0hI
+         GDI6d5nDXa0iyhjsKLCZdOwV2vIDHiow1ydLqt5i8RWMNCbu6SBESMZ3/9e47qSrz+f8
+         DLzw==
+X-Forwarded-Encrypted: i=1; AJvYcCXGkSRKVm5D6e7yjHNLmGoZATHnWa8ghn1tBIZ9BsDFHFenH/BGvg1MkbcBwsF5cOKQZFosxtoh3A9d@vger.kernel.org
+X-Gm-Message-State: AOJu0YwfaA9v0IigbN0lZ0oy5fMPvavILZZKOry3xQCcTPjGaovocu+R
+	YXpP1bzKejkJipAvHHW1vzccgOpY6gr0GSOJbg3T1h9Z6TrQMOchT6XC
+X-Gm-Gg: ATEYQzzXjYNOFw43+aWBbWewKbDgT5fB4VQnnSAgWvN/hewpxcySjaNLVKN7f5wQkwa
+	q5zDP1h8K9liE/1kz674f1AQLEUPFDgjFGKIQy1zT1eNvnWlpMlET/e05/hga1adkAA+HhdN3r8
+	ZkdybC76dUKN2ac52iyY1r/nIhQsPFxdRuHNYZldYJS0Urw24NytePwhFV9CMdsORF7lFFPdSg7
+	KsV6pld3PkGx41TmLsVJfXa1xMvt47JrLE33o3eMZm6YZvZfsSutDt7nKH75CuWeNwmH+gBCumw
+	HbRn1L1k9gXwq8gsANP5V6pf1E2tTZDcrz8AliLMM6G28UJ6uVKfNw4YpBMGRBBBCWUXEP1TbnT
+	ANs5YqmHeVTqoJ4A1q40baiXocOBsCIfC/drtHLkgfE3WEVaLNU0HhYi3jyy3hw5NJutujPLU86
+	lM5n4wiq4yPIoiFmAL
+X-Received: by 2002:a05:6830:380e:b0:7d7:ef0a:1ceb with SMTP id 46e09a7af769-7d9fadbd658mr7337761a34.9.1774900873526;
+        Mon, 30 Mar 2026 13:01:13 -0700 (PDT)
 Received: from localhost.localdomain ([2600:1700:fb0:1bc0::54])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7da0a336353sm6601068a34.2.2026.03.30.13.01.10
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7da0a336353sm6601068a34.2.2026.03.30.13.01.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Mar 2026 13:01:11 -0700 (PDT)
+        Mon, 30 Mar 2026 13:01:13 -0700 (PDT)
 From: Chris Morgan <macroalpha82@gmail.com>
 To: linux-iio@vger.kernel.org
 Cc: andy@kernel.org,
@@ -73,9 +73,9 @@ Cc: andy@kernel.org,
 	robh@kernel.org,
 	andriy.shevchenko@intel.com,
 	Chris Morgan <macromorgan@hotmail.com>
-Subject: [PATCH V3 7/9] iio: imu: inv_icm42607: Add Interrupt and Wake on Movement for icm42607
-Date: Mon, 30 Mar 2026 14:58:51 -0500
-Message-ID: <20260330195853.392877-8-macroalpha82@gmail.com>
+Subject: [PATCH V3 9/9] arm64: dts: rockchip: Add icm42607p IMU for RG-DS
+Date: Mon, 30 Mar 2026 14:58:53 -0500
+Message-ID: <20260330195853.392877-10-macroalpha82@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260330195853.392877-1-macroalpha82@gmail.com>
 References: <20260330195853.392877-1-macroalpha82@gmail.com>
@@ -85,674 +85,56 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Chris Morgan <macromorgan@hotmail.com>
 
-Add support for wake on movement for the icm42607 driver.
-
-At this point the driver is usable as an accelerometer/temperature
-driver, so add the necessary Makefile and Kconfig changes as well.
+Add the Invensense ICM42607P IMU for the Anbernic RG-DS. Mount-matrix
+was tested with iio-sensor-proxy and reports correct orientation.
 
 Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
 ---
- drivers/iio/imu/Kconfig                       |   1 +
- drivers/iio/imu/Makefile                      |   1 +
- drivers/iio/imu/inv_icm42607/Kconfig          |  30 ++
- drivers/iio/imu/inv_icm42607/Makefile         |  13 +
- drivers/iio/imu/inv_icm42607/inv_icm42607.h   |   7 +
- .../iio/imu/inv_icm42607/inv_icm42607_accel.c | 303 ++++++++++++++++++
- .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 155 +++++++++
- 7 files changed, 510 insertions(+)
- create mode 100644 drivers/iio/imu/inv_icm42607/Kconfig
- create mode 100644 drivers/iio/imu/inv_icm42607/Makefile
+ .../dts/rockchip/rk3568-anbernic-rg-ds.dts    | 20 ++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/imu/Kconfig b/drivers/iio/imu/Kconfig
-index 7e0181c27bb6..8bab4616be20 100644
---- a/drivers/iio/imu/Kconfig
-+++ b/drivers/iio/imu/Kconfig
-@@ -109,6 +109,7 @@ config KMX61
- 	  be called kmx61.
+diff --git a/arch/arm64/boot/dts/rockchip/rk3568-anbernic-rg-ds.dts b/arch/arm64/boot/dts/rockchip/rk3568-anbernic-rg-ds.dts
+index 44de35bcd001..834d2c940810 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3568-anbernic-rg-ds.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3568-anbernic-rg-ds.dts
+@@ -872,7 +872,18 @@ aw87391_pa_r: audio-codec@5b {
+ 		sound-name-prefix = "Right Amp";
+ 	};
  
- source "drivers/iio/imu/inv_icm42600/Kconfig"
-+source "drivers/iio/imu/inv_icm42607/Kconfig"
- source "drivers/iio/imu/inv_icm45600/Kconfig"
- source "drivers/iio/imu/inv_mpu6050/Kconfig"
- 
-diff --git a/drivers/iio/imu/Makefile b/drivers/iio/imu/Makefile
-index 13fb7846e9c9..3268dc2371ae 100644
---- a/drivers/iio/imu/Makefile
-+++ b/drivers/iio/imu/Makefile
-@@ -25,6 +25,7 @@ obj-$(CONFIG_FXOS8700_I2C) += fxos8700_i2c.o
- obj-$(CONFIG_FXOS8700_SPI) += fxos8700_spi.o
- 
- obj-y += inv_icm42600/
-+obj-y += inv_icm42607/
- obj-y += inv_icm45600/
- obj-y += inv_mpu6050/
- 
-diff --git a/drivers/iio/imu/inv_icm42607/Kconfig b/drivers/iio/imu/inv_icm42607/Kconfig
-new file mode 100644
-index 000000000000..b7c533d1a6be
---- /dev/null
-+++ b/drivers/iio/imu/inv_icm42607/Kconfig
-@@ -0,0 +1,30 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
-+config INV_ICM42607
-+	tristate
-+	select IIO_BUFFER
-+	select IIO_INV_SENSORS_TIMESTAMP
-+
-+config INV_ICM42607_I2C
-+        tristate "InvenSense ICM-42607X I2C driver"
-+        depends on I2C
-+        select INV_ICM42607
-+        select REGMAP_I2C
-+        help
-+          This driver supports the InvenSense ICM-42607 motion tracking
-+          device over I2C.
-+
-+          This driver can be built as a module. The module will be called
-+          inv-icm42607-i2c.
-+
-+config INV_ICM42607_SPI
-+	tristate "InvenSense ICM-42607X SPI driver"
-+	depends on SPI_MASTER
-+	select INV_ICM42607
-+	select REGMAP_SPI
-+	help
-+	  This driver supports the InvenSense ICM-42607 motion tracking
-+	  device over SPI.
-+
-+	  This driver can be built as a module. The module will be called
-+	  inv-icm42607-spi.
-diff --git a/drivers/iio/imu/inv_icm42607/Makefile b/drivers/iio/imu/inv_icm42607/Makefile
-new file mode 100644
-index 000000000000..e908d77c4219
---- /dev/null
-+++ b/drivers/iio/imu/inv_icm42607/Makefile
-@@ -0,0 +1,13 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
-+obj-$(CONFIG_INV_ICM42607) += inv-icm42607.o
-+inv-icm42607-y += inv_icm42607_core.o
-+inv-icm42607-y += inv_icm42607_accel.o
-+inv-icm42607-y += inv_icm42607_buffer.o
-+inv-icm42607-y += inv_icm42607_temp.o
-+
-+obj-$(CONFIG_INV_ICM42607_I2C) += inv-icm42607-i2c.o
-+inv-icm42607-i2c-y += inv_icm42607_i2c.o
-+
-+obj-$(CONFIG_INV_ICM42607_SPI) += inv-icm42607-spi.o
-+inv-icm42607-spi-y += inv_icm42607_spi.o
-diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-index 56bb09e2c304..f5f1b5fea183 100644
---- a/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-+++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-@@ -444,6 +444,9 @@ int inv_icm42607_set_accel_conf(struct inv_icm42607_state *st,
- int inv_icm42607_set_temp_conf(struct inv_icm42607_state *st, bool enable,
- 			       unsigned int *sleep_ms);
- 
-+int inv_icm42607_enable_wom(struct inv_icm42607_state *st);
-+int inv_icm42607_disable_wom(struct inv_icm42607_state *st);
-+
- int inv_icm42607_debugfs_reg(struct iio_dev *indio_dev, unsigned int reg,
- 			     unsigned int writeval, unsigned int *readval);
- 
-@@ -454,4 +457,8 @@ struct iio_dev *inv_icm42607_accel_init(struct inv_icm42607_state *st);
- 
- int inv_icm42607_accel_parse_fifo(struct iio_dev *indio_dev);
- 
-+void inv_icm42607_accel_handle_events(struct iio_dev *indio_dev,
-+				      unsigned int status2, unsigned int status3,
-+				      s64 timestamp);
-+
- #endif
-diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-index 58754af31100..2f62e7b1cff5 100644
---- a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-+++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-@@ -174,6 +174,16 @@ static const struct iio_chan_spec_ext_info inv_icm42607_accel_ext_infos[] = {
- 	{ },
+-	/* invensense,icm42607p at 0x68 */
++	icm42607p: imu@68 {
++		compatible = "invensense,icm42607p";
++		reg = <0x68>;
++		interrupt-names = "INT1";
++		interrupt-parent = <&gpio0>;
++		interrupts = <RK_PD6 IRQ_TYPE_EDGE_FALLING>;
++		mount-matrix = "-1", "0", "0",
++			       "0", "1", "0",
++			       "0", "0", "-1";
++		pinctrl-0 = <&accel_irq>;
++		pinctrl-names = "default";
++	};
  };
  
-+/* WoM event: rising ROC */
-+static const struct iio_event_spec inv_icm42607_wom_events[] = {
-+	{
-+		.type = IIO_EV_TYPE_ROC,
-+		.dir = IIO_EV_DIR_RISING,
-+		.mask_separate = BIT(IIO_EV_INFO_ENABLE) |
-+				 BIT(IIO_EV_INFO_VALUE),
-+	},
-+};
-+
- static const struct iio_chan_spec inv_icm42607_accel_channels[] = {
- 	INV_ICM42607_ACCEL_CHAN(IIO_MOD_X, INV_ICM42607_ACCEL_SCAN_X,
- 				inv_icm42607_accel_ext_infos),
-@@ -183,6 +193,8 @@ static const struct iio_chan_spec inv_icm42607_accel_channels[] = {
- 				inv_icm42607_accel_ext_infos),
- 	INV_ICM42607_TEMP_CHAN(INV_ICM42607_ACCEL_SCAN_TEMP),
- 	IIO_CHAN_SOFT_TIMESTAMP(INV_ICM42607_ACCEL_SCAN_TIMESTAMP),
-+	INV_ICM42607_ACCEL_EVENT_CHAN(IIO_MOD_X_OR_Y_OR_Z, inv_icm42607_wom_events,
-+				      ARRAY_SIZE(inv_icm42607_wom_events)),
+ &i2c3 {
+@@ -933,6 +944,13 @@ &i2s1_8ch {
  };
  
- static const struct iio_event_spec inv_icm42607_motion_events[] = {
-@@ -316,6 +328,180 @@ static int inv_icm42607_accel_read_sensor(struct iio_dev *indio_dev,
- 	return ret;
- }
- 
-+static unsigned int inv_icm42607_accel_convert_roc_to_wom(u64 roc,
-+							  int accel_hz, int accel_uhz)
-+{
-+	/* 1000/256mg per LSB converted in µm/s² */
-+	const unsigned int convert = (9807U * (MICRO / MILLI)) / 256U;
-+	u64 value;
-+	u64 freq_uhz;
-+
-+	/* return 0 only if roc is 0 */
-+	if (roc == 0)
-+		return 0;
-+
-+	freq_uhz = (u64)accel_hz * MICRO + (u64)accel_uhz;
-+	value = div64_u64(roc * MICRO, freq_uhz * (u64)convert);
-+
-+	/* limit value to 8 bits and prevent 0 */
-+	return clamp(value, 1, 255);
-+}
-+
-+static u64 inv_icm42607_accel_convert_wom_to_roc(unsigned int threshold,
-+						 int accel_hz, int accel_uhz)
-+{
-+	/* 1000/256mg per LSB converted in µm/s² */
-+	const unsigned int convert = (9807U * (MICRO / MILLI)) / 256U;
-+	u64 value;
-+	u64 freq_uhz;
-+
-+	value = threshold * convert;
-+	freq_uhz = (u64)accel_hz * MICRO + (u64)accel_uhz;
-+
-+	/* compute the differential by multiplying by the frequency */
-+	return div_u64(value * freq_uhz, MICRO);
-+}
-+
-+static int inv_icm42607_accel_set_wom_threshold(struct inv_icm42607_state *st,
-+						u64 value,
-+						int accel_hz, int accel_uhz)
-+{
-+	unsigned int threshold;
-+	int ret;
-+
-+	/* convert roc to wom threshold and convert back to handle clipping */
-+	threshold = inv_icm42607_accel_convert_roc_to_wom(value, accel_hz, accel_uhz);
-+	value = inv_icm42607_accel_convert_wom_to_roc(threshold, accel_hz, accel_uhz);
-+
-+	dev_dbg(regmap_get_device(st->map), "wom_threshold: 0x%x\n", threshold);
-+
-+	/* set accel WoM threshold for the 3 axes */
-+	st->buffer[0] = threshold;
-+	st->buffer[1] = threshold;
-+	st->buffer[2] = threshold;
-+	ret = regmap_bulk_write(st->map, INV_ICM42607_REG_ACCEL_WOM_X_THR, st->buffer, 3);
-+	if (ret)
-+		return ret;
-+
-+	st->apex.wom.value = value;
-+
-+	return 0;
-+}
-+
-+static int _inv_icm42607_accel_enable_wom(struct iio_dev *indio_dev)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+	struct inv_icm42607_sensor_state *accel_st = iio_priv(indio_dev);
-+	struct inv_icm42607_sensor_conf conf = INV_ICM42607_SENSOR_CONF_INIT;
-+	unsigned int sleep_ms = 0;
-+	int ret;
-+
-+	scoped_guard(mutex, &st->lock) {
-+		/* turn on accel sensor */
-+		conf.mode = accel_st->power_mode;
-+		conf.filter = accel_st->filter;
-+		ret = inv_icm42607_set_accel_conf(st, &conf, &sleep_ms);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (sleep_ms)
-+		msleep(sleep_ms);
-+
-+	scoped_guard(mutex, &st->lock) {
-+		ret = inv_icm42607_enable_wom(st);
-+		if (ret)
-+			return ret;
-+		st->apex.on++;
-+		st->apex.wom.enable = true;
-+	}
-+
-+	return 0;
-+}
-+
-+static int inv_icm42607_accel_enable_wom(struct iio_dev *indio_dev)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+	struct device *pdev = regmap_get_device(st->map);
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(pdev);
-+	if (ret)
-+		return ret;
-+
-+	ret = _inv_icm42607_accel_enable_wom(indio_dev);
-+	if (ret) {
-+		pm_runtime_mark_last_busy(pdev);
-+		pm_runtime_put_autosuspend(pdev);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int _inv_icm42607_accel_disable_wom(struct iio_dev *indio_dev)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+	struct inv_icm42607_sensor_conf conf = INV_ICM42607_SENSOR_CONF_INIT;
-+	unsigned int sleep_ms = 0;
-+	int ret;
-+
-+	scoped_guard(mutex, &st->lock) {
-+		/*
-+		 * Consider that turning off WoM is always working to avoid
-+		 * blocking the chip in on mode and prevent going back to sleep.
-+		 * If there is an error, the chip will anyway go back to sleep
-+		 * and the feature will not work anymore.
-+		 */
-+		st->apex.wom.enable = false;
-+		st->apex.on--;
-+		ret = inv_icm42607_disable_wom(st);
-+		if (ret)
-+			return ret;
-+		/* turn off accel sensor if not used */
-+		if (!st->apex.on && !iio_buffer_enabled(indio_dev)) {
-+			conf.mode = INV_ICM42607_SENSOR_MODE_OFF;
-+			ret = inv_icm42607_set_accel_conf(st, &conf, &sleep_ms);
-+			if (ret)
-+				return ret;
-+		}
-+	}
-+
-+	if (sleep_ms)
-+		msleep(sleep_ms);
-+
-+	return 0;
-+}
-+
-+static int inv_icm42607_accel_disable_wom(struct iio_dev *indio_dev)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+	struct device *pdev = regmap_get_device(st->map);
-+	int ret;
-+
-+	ret = _inv_icm42607_accel_disable_wom(indio_dev);
-+
-+	pm_runtime_mark_last_busy(pdev);
-+	pm_runtime_put_autosuspend(pdev);
-+
-+	return ret;
-+}
-+
-+void inv_icm42607_accel_handle_events(struct iio_dev *indio_dev,
-+				      unsigned int status2, unsigned int status3,
-+				      s64 timestamp)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+	u64 ev_code;
-+
-+	/* handle WoM event */
-+	if (st->apex.wom.enable && (status2 & INV_ICM42607_INT_STATUS2_WOM_INT)) {
-+		ev_code = IIO_MOD_EVENT_CODE(IIO_ACCEL, 0, IIO_MOD_X_OR_Y_OR_Z,
-+					     IIO_EV_TYPE_ROC, IIO_EV_DIR_RISING);
-+		iio_push_event(indio_dev, ev_code, timestamp);
-+	}
-+}
-+
- /* IIO format int + nano */
- static const int inv_icm42607_accel_scale[] = {
- 	/* +/- 16G => 0.004788403 m/s-2 */
-@@ -471,6 +657,9 @@ static int inv_icm42607_accel_write_odr(struct iio_dev *indio_dev,
- 		return ret;
- 
- 	ret = inv_icm42607_set_accel_conf(st, &conf, NULL);
-+	if (ret)
-+		return ret;
-+	ret = inv_icm42607_accel_set_wom_threshold(st, st->apex.wom.value, val, val2);
- 	if (ret)
- 		return ret;
- 
-@@ -616,6 +805,116 @@ static int inv_icm42607_accel_hwfifo_flush(struct iio_dev *indio_dev,
- 	return st->fifo.nb.accel;
- }
- 
-+static int inv_icm42607_accel_read_event_config(struct iio_dev *indio_dev,
-+						const struct iio_chan_spec *chan,
-+						enum iio_event_type type,
-+						enum iio_event_direction dir)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+
-+	/* handle only WoM (roc rising) event */
-+	if (type != IIO_EV_TYPE_ROC || dir != IIO_EV_DIR_RISING)
-+		return -EINVAL;
-+
-+	guard(mutex)(&st->lock);
-+
-+	return st->apex.wom.enable ? 1 : 0;
-+}
-+
-+static int inv_icm42607_accel_write_event_config(struct iio_dev *indio_dev,
-+						 const struct iio_chan_spec *chan,
-+						 enum iio_event_type type,
-+						 enum iio_event_direction dir,
-+						 bool state)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+
-+	/* handle only WoM (roc rising) event */
-+	if (type != IIO_EV_TYPE_ROC || dir != IIO_EV_DIR_RISING)
-+		return -EINVAL;
-+
-+	scoped_guard(mutex, &st->lock) {
-+		if (st->apex.wom.enable == state)
-+			return 0;
-+	}
-+
-+	if (state)
-+		return inv_icm42607_accel_enable_wom(indio_dev);
-+
-+	return inv_icm42607_accel_disable_wom(indio_dev);
-+}
-+
-+static int inv_icm42607_accel_read_event_value(struct iio_dev *indio_dev,
-+					       const struct iio_chan_spec *chan,
-+					       enum iio_event_type type,
-+					       enum iio_event_direction dir,
-+					       enum iio_event_info info,
-+					       int *val, int *val2)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+	u32 rem;
-+
-+	/* handle only WoM (roc rising) event value */
-+	if (type != IIO_EV_TYPE_ROC || dir != IIO_EV_DIR_RISING)
-+		return -EINVAL;
-+
-+	guard(mutex)(&st->lock);
-+
-+	/* return value in micro */
-+	*val = div_u64_rem(st->apex.wom.value, MICRO, &rem);
-+	*val2 = rem;
-+	return IIO_VAL_INT_PLUS_MICRO;
-+}
-+
-+static int _inv_icm42607_accel_wom_value(struct inv_icm42607_state *st,
-+					 int val, int val2)
-+{
-+	u64 value;
-+	unsigned int accel_hz, accel_uhz;
-+	int ret;
-+
-+	guard(mutex)(&st->lock);
-+
-+	ret = inv_icm42607_accel_read_odr(st, &accel_hz, &accel_uhz);
-+	if (ret < 0)
-+		return ret;
-+
-+	value = (u64)val * MICRO + (u64)val2;
-+
-+	return inv_icm42607_accel_set_wom_threshold(st, value,
-+						    accel_hz, accel_uhz);
-+}
-+
-+static int inv_icm42607_accel_write_event_value(struct iio_dev *indio_dev,
-+						const struct iio_chan_spec *chan,
-+						enum iio_event_type type,
-+						enum iio_event_direction dir,
-+						enum iio_event_info info,
-+						int val, int val2)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+	struct device *dev = regmap_get_device(st->map);
-+	int ret;
-+
-+	/* handle only WoM (roc rising) event value */
-+	if (type != IIO_EV_TYPE_ROC || dir != IIO_EV_DIR_RISING)
-+		return -EINVAL;
-+
-+	if (val < 0 || val2 < 0)
-+		return -EINVAL;
-+
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = _inv_icm42607_accel_wom_value(st, val, val2);
-+
-+	pm_runtime_mark_last_busy(dev);
-+	pm_runtime_put_autosuspend(dev);
-+
-+	return ret;
-+}
-+
- static const struct iio_info inv_icm42607_accel_info = {
- 	.read_raw = inv_icm42607_accel_read_raw,
- 	.write_raw = inv_icm42607_accel_write_raw,
-@@ -624,6 +923,10 @@ static const struct iio_info inv_icm42607_accel_info = {
- 	.update_scan_mode = inv_icm42607_accel_update_scan_mode,
- 	.hwfifo_set_watermark = inv_icm42607_accel_hwfifo_set_watermark,
- 	.hwfifo_flush_to_buffer = inv_icm42607_accel_hwfifo_flush,
-+	.read_event_config = inv_icm42607_accel_read_event_config,
-+	.write_event_config = inv_icm42607_accel_write_event_config,
-+	.read_event_value = inv_icm42607_accel_read_event_value,
-+	.write_event_value = inv_icm42607_accel_write_event_value,
- };
- 
- struct iio_dev *inv_icm42607_accel_init(struct inv_icm42607_state *st)
-diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-index 62a1371b0c4a..4ac3af52c1b8 100644
---- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-+++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-@@ -236,6 +236,39 @@ int inv_icm42607_set_temp_conf(struct inv_icm42607_state *st, bool enable,
- 					  sleep_ms);
- }
- 
-+int inv_icm42607_enable_wom(struct inv_icm42607_state *st)
-+{
-+	int ret;
-+
-+	/* enable WoM hardware */
-+	ret = regmap_write(st->map, INV_ICM42607_REG_WOM_CONFIG,
-+			   INV_ICM42607_WOM_CONFIG_INT_DUR(1) |
-+			   INV_ICM42607_WOM_CONFIG_MODE |
-+			   INV_ICM42607_WOM_CONFIG_EN);
-+	if (ret)
-+		return ret;
-+
-+	/* enable WoM interrupt */
-+	return regmap_set_bits(st->map, INV_ICM42607_REG_INT_SOURCE1,
-+			       INV_ICM42607_INT_SOURCE1_WOM_INT1_EN);
-+}
-+
-+int inv_icm42607_disable_wom(struct inv_icm42607_state *st)
-+{
-+	int ret;
-+
-+	/* disable WoM interrupt */
-+	ret = regmap_clear_bits(st->map, INV_ICM42607_REG_INT_SOURCE1,
-+				INV_ICM42607_INT_SOURCE1_WOM_INT1_EN);
-+	if (ret)
-+		return ret;
-+
-+	/* disable WoM hardware */
-+	return regmap_clear_bits(st->map, INV_ICM42607_REG_WOM_CONFIG,
-+				 INV_ICM42607_WOM_CONFIG_EN);
-+}
-+
-+
- int inv_icm42607_debugfs_reg(struct iio_dev *indio_dev, unsigned int reg,
- 			     unsigned int writeval, unsigned int *readval)
- {
-@@ -353,6 +386,110 @@ static int inv_icm42607_setup(struct inv_icm42607_state *st,
- 	return inv_icm42607_set_conf(st, hw->conf);
- }
- 
-+static irqreturn_t inv_icm42607_irq_timestamp(int irq, void *_data)
-+{
-+	struct inv_icm42607_state *st = _data;
-+
-+	st->timestamp.gyro = iio_get_time_ns(st->indio_gyro);
-+	st->timestamp.accel = iio_get_time_ns(st->indio_accel);
-+
-+	return IRQ_WAKE_THREAD;
-+}
-+
-+static irqreturn_t inv_icm42607_irq_handler(int irq, void *_data)
-+{
-+	struct inv_icm42607_state *st = _data;
-+	struct device *dev = regmap_get_device(st->map);
-+	unsigned int status;
-+	int ret;
-+
-+	mutex_lock(&st->lock);
-+
-+	if (st->apex.on) {
-+		unsigned int status2, status3;
-+
-+		/* read INT_STATUS2 and INT_STATUS3 in 1 operation */
-+		ret = regmap_bulk_read(st->map, INV_ICM42607_REG_INT_STATUS2, st->buffer, 2);
-+		if (ret)
-+			goto out_unlock;
-+		status2 = st->buffer[0];
-+		status3 = st->buffer[1];
-+		inv_icm42607_accel_handle_events(st->indio_accel, status2, status3,
-+						 st->timestamp.accel);
-+	}
-+
-+	ret = regmap_read(st->map, INV_ICM42607_REG_INT_STATUS, &status);
-+	if (ret)
-+		goto out_unlock;
-+
-+	if (status & INV_ICM42607_INT_STATUS_FIFO_FULL)
-+		dev_warn(dev, "FIFO full data lost!\n");
-+
-+	if (status & INV_ICM42607_INT_STATUS_FIFO_THS) {
-+		ret = inv_icm42607_buffer_fifo_read(st, 0);
-+		if (ret) {
-+			dev_err(dev, "FIFO read error %d\n", ret);
-+			goto out_unlock;
-+		}
-+		ret = inv_icm42607_buffer_fifo_parse(st);
-+		if (ret)
-+			dev_err(dev, "FIFO parsing error %d\n", ret);
-+	}
-+
-+out_unlock:
-+	mutex_unlock(&st->lock);
-+	return IRQ_HANDLED;
-+}
-+
-+/**
-+ * inv_icm42607_irq_init() - initialize int pin and interrupt handler
-+ * @st:		driver internal state
-+ * @irq:	irq number
-+ * @irq_type:	irq trigger type
-+ * @open_drain:	true if irq is open drain, false for push-pull
-+ *
-+ * Returns 0 on success, a negative error code otherwise.
-+ */
-+static int inv_icm42607_irq_init(struct inv_icm42607_state *st, int irq,
-+				int irq_type, bool open_drain)
-+{
-+	struct device *dev = regmap_get_device(st->map);
-+	unsigned int val = 0;
-+	int ret;
-+
-+	switch (irq_type) {
-+	case IRQF_TRIGGER_RISING:
-+	case IRQF_TRIGGER_HIGH:
-+		val = INV_ICM42607_INT_CONFIG_INT1_ACTIVE_HIGH;
-+		break;
-+	default:
-+		val = INV_ICM42607_INT_CONFIG_INT1_ACTIVE_LOW;
-+		break;
-+	}
-+
-+	switch (irq_type) {
-+	case IRQF_TRIGGER_LOW:
-+	case IRQF_TRIGGER_HIGH:
-+		val |= INV_ICM42607_INT_CONFIG_INT1_LATCHED;
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	if (!open_drain)
-+		val |= INV_ICM42607_INT_CONFIG_INT1_PUSH_PULL;
-+
-+	ret = regmap_write(st->map, INV_ICM42607_REG_INT_CONFIG, val);
-+	if (ret)
-+		return ret;
-+
-+	irq_type |= IRQF_ONESHOT;
-+	return devm_request_threaded_irq(dev, irq, inv_icm42607_irq_timestamp,
-+					 inv_icm42607_irq_handler, irq_type,
-+					 st->name, st);
-+}
-+
-+
- static int inv_icm42607_enable_vddio_reg(struct inv_icm42607_state *st)
- {
- 	int ret;
-@@ -456,6 +593,11 @@ int inv_icm42607_core_probe(struct regmap *regmap, int chip,
- 	if (IS_ERR(st->indio_accel))
- 		return PTR_ERR(st->indio_accel);
- 
-+	/* Initialize interrupt handling */
-+	ret = inv_icm42607_irq_init(st, irq, irq_type, open_drain);
-+	if (ret)
-+		return ret;
-+
- 	/* Setup runtime power management */
- 	ret = devm_pm_runtime_set_active_enabled(dev);
- 	if (ret)
-@@ -504,6 +646,12 @@ static int inv_icm42607_suspend(struct device *dev)
- 		enable_irq_wake(st->irq);
- 		disable_irq(st->irq);
- 	} else {
-+		/* disable APEX features and accel if wakeup disabled */
-+		if (st->apex.wom.enable) {
-+			ret = inv_icm42607_disable_wom(st);
-+			if (ret)
-+				return ret;
-+		}
- 		accel_conf = INV_ICM42607_SENSOR_MODE_OFF;
- 	}
- 
-@@ -557,6 +705,13 @@ static int inv_icm42607_resume(struct device *dev)
- 	if (ret)
- 		return ret;
- 
-+	/* restore APEX features if disabled */
-+	if (!wakeup && st->apex.wom.enable) {
-+		ret = inv_icm42607_enable_wom(st);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	if (st->fifo.on) {
- 		inv_sensors_timestamp_reset(&gyro_st->ts);
- 		inv_sensors_timestamp_reset(&accel_st->ts);
+ &pinctrl {
++	accel {
++		accel_irq: accel-irq {
++			rockchip,pins =
++				<0 RK_PD6 RK_FUNC_GPIO &pcfg_pull_up>;
++		};
++	};
++
+ 	gpio-keys {
+ 		vol_keys_l: vol-keys_l {
+ 			rockchip,pins =
 -- 
 2.43.0
 
