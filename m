@@ -1,166 +1,199 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483EC3783C8
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 16:25:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889AA270EC3;
+	Mon, 30 Mar 2026 16:31:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774887935; cv=none; b=EM7tiHC6gO05/Hc6sDN/+HaBssC52Ukr7wqjb2S0wxCuIdBb1e1c8368GJA6TTdF59w34bbQSt+ts5NlD/urkluQpRwlDhCjrQUlKC4Nni9ZQYPq7NmMPyCULFPHwNHOIgOe7LB+hG/cMquszs8VnvdHT93MI54oKg4vhY8O5mI=
+	t=1774888318; cv=none; b=ASH6D+cQpJ6DRqLqNFWOehKYFPD1Z1XtSjBjGSY5uSXpjGq++WcYjTrhpvEbS1wcT5V8XaSPgYvnBRm3AQQo3ExJJ9U5RdjSok0cnVQgGDKf7iMBkaLbsjv+S+xCgvv0G4NRTqYupxWqErjk72UNxtT3dvbjdcU51gnosaQyclM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774887935; c=relaxed/simple;
-	bh=EEy+oWaHG8rzWzzQ/PLp6iS2nvnI2KQAis2/8F6dGSs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lkC2pBOSXeGnIa3al0GoeN/T+/chbBi87fMzMKM9CINN1xOHlCRH9aQm9srabtY1AeAhIk+u75Rezu6V9WOhKhgKVKaFzwVx8lq+KOZ8f5OBZndVe5iMuo1es+Vmr0/wr121cvz83Mi8cBa8UhV8YoAZ8mVMHiHxA2ynzRfRVXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DejAES9U; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774888318; c=relaxed/simple;
+	bh=SRDf0GTu4OPnEjLFDGhjlwNkORc3ZV3jFuzbHc7pPv4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oCnt17bEA8LneFdwHYhhpofin35wegHT/0jUp/Yw73H1lK9H9m3oXZ0UiZrs5+0MMM4aTHIeA+tFmHyzB0GcK9QK0vTgtww4iX/jMg4mPKAPhr0j1NfREUgvegkv2tMeRhwOdfFLf8mN/GC5d8Uhh9zV9WPkg5kKFKN+8nAYclk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a5eUi0Ii; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DejAES9U"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2a7a9b8ed69so46132375ad.2
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 09:25:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774887934; x=1775492734; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=30qgmi/fk4YrrYyUAdUDt/ehh96Nqq21NpCvChGzSYU=;
-        b=DejAES9UvpSRl17UZ2FjDElu7QGhxjNWBw7bbCVRCdYfwEj3qW7KuHQl/fUFuopI6U
-         /ybjWxX60jY+kXFuav+FE8rtlTMyjShuP0GmTeYrfMinZmorPAfC48PMUeCvZk+GEpbh
-         /ZthEkP9vwqRJ830mnN68xLixQxgF+TjnLkoqFxSI6WNdovCQa8lRqSRKMKHoKF+R7xp
-         iZiyHgfblU5EHhjlR1bXU4wBsxt0GVPZb0nk8hCtV/7hcvK3ySBavk4mQZnRsoSbbZpF
-         PI0ppVZnjXdbGtMudQwwQl4BMs8sPF6CP80d6lyO1Dx+Abctp3ZAZIuC7gMTtGnp1opD
-         0HQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774887934; x=1775492734;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=30qgmi/fk4YrrYyUAdUDt/ehh96Nqq21NpCvChGzSYU=;
-        b=GP0rEvKZ5il+h916FEAxklBWRZnJ6IOo0vnJvvCBE2xd+oYqoinee0b/2SYXa8m+WL
-         w9NCSIuGKRZAXNnHd11iUmLIGn3MNvO1iXDoEft2JZNspr4m2UIxM8WHo50LceLQIWMa
-         o+rGRsvfPjnVLz6FQeGLuYuDC3Qgy8C6ss/tqJ+ilhnuQ105G1IpQODz011GVl11xMjN
-         KErOt3Y92dSsZtEgr9e1OYO0WqU5BASEj8MPnSlYhGyBZ1UAHnLTtQGau8XLqqa3umU3
-         7wHMY27DgpMTaHoMcOBPsSYvgc630Il3bA8zXiEo2iIv/tyQ0jDRYperOXJNLTXn5gDV
-         CoFw==
-X-Forwarded-Encrypted: i=1; AJvYcCWRbOGmeWJGm8oNHWaZXs3lRb6KxYoVtszBPaBTQYzt8gUFDnAx8BzZ5jHzOCFuQXUzSBK+RennoXd9@vger.kernel.org
-X-Gm-Message-State: AOJu0YxkJ4OytidasB3d47c17AzyXgIJ3MPqb0QTZHhyoqc5+0k6ZSOU
-	VJBhMz5a/z/J9jTj+pUUHi3xAwdOb0UR1ql4ZKYSFbxs8ouZKe0X9EKf
-X-Gm-Gg: ATEYQzxpbz/R1ggt1ui4Otv/Kssdy9pIsAFPDGKUzMjXPK+ARsaXcv+SIFEqlLD78eT
-	UDv8e9x0uyoRed7DIFQHm3DiFLXCdx7cfAMGXOFr/ZxNV5hynU3zFJzRfdhZ6hlf/FPGZGRK+6E
-	GV41bUtE7JdEf8X0ScJ1i7KG/luw+ApLC4UuWkuufat6yj9RZrO2uis1rw9UInBVlcDVIkpH9ov
-	r+H+5wO8Omx/H2glOzg1uTUid5Sk32Lhtzx4SDXD1eJO7OTnJf0Tps0RhIxQCffx3PN8Lmu7Aqn
-	4pAt28/kjAduQHsSxnaB6PcWsPYr+ya4rXU58brVeWsErf5KcAn5n2CEA1iOtTXS82W+zUrD1xg
-	P+TSAv3deQhss3oraR6H1NwrGST+how3MXydVS3FW9Ljm7GAgV17uwWz7zJWq9flPMeak5ESDp3
-	kErbfFwr3Pe83aDM769zcRxujIUiAFFW9Y1rZMhA8QuM1QE+LBCUDm7pk3+00YuFgODOVheQXY
-X-Received: by 2002:a17:902:ef44:b0:2b2:58c7:2cd6 with SMTP id d9443c01a7336-2b258c73377mr26088925ad.5.1774887933658;
-        Mon, 30 Mar 2026 09:25:33 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2427660c7sm84120725ad.44.2026.03.30.09.25.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 30 Mar 2026 09:25:33 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <fd15c1d6-09ec-4553-bd53-2460c71824e3@roeck-us.net>
-Date: Mon, 30 Mar 2026 09:25:31 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a5eUi0Ii"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42FA5C19423;
+	Mon, 30 Mar 2026 16:31:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774888318;
+	bh=SRDf0GTu4OPnEjLFDGhjlwNkORc3ZV3jFuzbHc7pPv4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=a5eUi0IilhDO1qm4GDUoY0gPuWKmmVphAikH7fxldoBSW1IByxBLpihzcOBaEfvVt
+	 X6XpRx71wLZkAMwoVwf2XPPW22w9I6N0Y0QJleFueWSuWd9uCUU3M8IEHwY43pKtOv
+	 ZVwE+jnmUV7LCO6VHVLBlDOSnM52OPikwTT7f1cW0fE3eldU7S8a/+E5AB1YCzoJlM
+	 XAHdh6H8FtT3lDVJBIyJxJ+NZPiLgyI6WbRGTui89q/XG2CpLsNaFBFTT90J2YB0mZ
+	 BH3B4dMlcQLDnE89E75T7nm0fZF+QVaukNqfbTg/0K0d0EOQwvvFsxVL/YaLPGK43F
+	 w28gmeAhIUo/g==
+Date: Mon, 30 Mar 2026 17:31:51 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: markus.probst@posteo.de, Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+	platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org, linux-acpi@vger.kernel.org
+Subject: Re: [PATCH v5 4/4] platform: Add initial synology microp driver
+Message-ID: <20260330-unrefined-headache-f640bc70a46a@spud>
+References: <20260329-synology_microp_initial-v5-0-27cb80bdf591@posteo.de>
+ <20260329-synology_microp_initial-v5-4-27cb80bdf591@posteo.de>
+ <6d2fb01a-216b-4f51-8a26-527d724002d7@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Add support for Infineon Digital eFuse XDP720
-To: ASHISH YADAV <ashishyadav78@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Ashish Yadav <ashish.yadav@infineon.com>
-References: <20260330102345.37065-1-Ashish.Yadav@infineon.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
- RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
- nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
- 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
- gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
- IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
- kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
- VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
- jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
- BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
- ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
- CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
- oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
- VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
- 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
- onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
- DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
- rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
- WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
- qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
- 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
- qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
- 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
- pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
- J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
- pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
- 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
- ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
- I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
- nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
- HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
- JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
- H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
- njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
- dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
- j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
- scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
- zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
- RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
- F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
- FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260330102345.37065-1-Ashish.Yadav@infineon.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2xLiGAbObogF50Js"
+Content-Disposition: inline
+In-Reply-To: <6d2fb01a-216b-4f51-8a26-527d724002d7@kernel.org>
 
-Hi,
 
-On 3/30/26 03:23, ASHISH YADAV wrote:
-> From: Ashish Yadav <ashish.yadav@infineon.com>
-> 
-> Hi,
-> 
-> These patches add support for Infineon Digital eFuse XDP720.
-> XDP720 provides accurate system telemetry (V, I, P, T) and
-> reports analog current at the IMON pin for post-processing.
-> 
-> The Current and Power measurement depends on the RIMON and GIMON values.
-> Please look into data sheet sections 5.4.2 and 5.4.4 for more details:
-> https://www.infineon.com/assets/row/public/documents/24/49/infineon-xdp720-001-datasheet-en.pdf
-> 
+--2xLiGAbObogF50Js
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Please address the issues reported in
+On Mon, Mar 30, 2026 at 08:51:14AM +0200, Krzysztof Kozlowski wrote:
+> On 29/03/2026 20:02, Markus Probst via B4 Relay wrote:
+> > +
+> > +kernel::of_device_table!(
+> > +    pub(crate) OF_TABLE,
+> > +    MODULE_OF_TABLE,
+> > +    Model,
+> > +    models![
+> > +        apollolake @ [
+> > +            ds918p,
+> > +        ],
+> > +        evansport @ [
+> > +            ds214play,
+> > +        ],
+> > +        geminilakenk @ [
+> > +            ds225p.led_usb_copy(),
+> > +            ds425p,
+> > +        ],
+> > +        pineview @ [
+> > +            ds710p.led_esata(),
+> > +            ds1010p.led_alert(Color::Orange),
+> > +        ],
+> > +        r1000 @ [
+> > +            ds923p,
+> > +            ds723p,
+> > +            ds1522p,
+> > +            rs422p.led_power(Color::Green),
+> > +        ],
+> > +        r1000nk @ [
+> > +            ds725p,
+> > +        ],
+> > +        rtd1296 @ [
+> > +            ds118,
+> > +        ],
+> > +        rtd1619b @ [
+> > +            ds124,
+> > +            ds223.led_usb_copy(),
+> > +            ds223j,
+> > +        ],
+> > +        v1000 @ [
+> > +            ds1823xsp,
+> > +            rs822p.led_power(Color::Green),
+> > +            rs1221p.led_power(Color::Green),
+> > +            rs1221rpp.led_power(Color::Green),
+> > +        ],
+> > +        v1000nk @ [
+> > +            ds925p,
+> > +            ds1525p,
+> > +            ds1825p,
+> I don't see any compatible strings here. Actually, nowhere in the
+> driver. If that's how you write Rust drivers then NAK. Compatibles must
+> be greppable. Not only for humans but also for ABI check.
 
-https://sashiko.dev/#/patchset/20260330102345.37065-1-Ashish.Yadav%40infineon.com
+The code immediately prior creates a macro, which is called here to
+produce these. This macro is barely grokkable to begin with IMO, but
+you can see the DeviceID::new() call down there that creates the
+compatible using string concatenation.
 
-Thanks,
-Guenter
+Definitely on the same page as you about compatibles being greppable.
+It's not as if it is difficult to create the list using vim or whatever
+code generator llm you wanna use. Probably making the macro was more
+effort than writing them out!
 
-> With Best Regards,
->   Ashish Yadav
-> 
-> 
-> Ashish Yadav (2):
->    dt-bindings: hwmon/pmbus: Add Infineon XDP720
->    hwmon:(pmbus/xdp720) Add support for efuse xdp720
-> 
->   .../bindings/hwmon/pmbus/infineon,xdp720.yaml |  52 ++++++++
->   drivers/hwmon/pmbus/Kconfig                   |   9 ++
->   drivers/hwmon/pmbus/Makefile                  |   1 +
->   drivers/hwmon/pmbus/xdp720.c                  | 122 ++++++++++++++++++
->   4 files changed, 184 insertions(+)
->   create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/infineon,xdp720.yaml
->   create mode 100644 drivers/hwmon/pmbus/xdp720.c
-> 
++macro_rules! models {
++    [
++        $($arch:ident $(.$arch_func:ident( $($arch_arg:tt)* ))*
++            @ [
++                $($model:ident $(.$func:ident( $($arg:tt)* ))*, )*
++            ],
++        )*
++    ] => {
++        models![
++            $(
++                {
++                    Architecture::new()
++                    $(
++                        .$arch_func($($arch_arg)*)
++                    )*
++                }
++                @
++                [
++                    $(
++                        $model $(.$func($($arg)*))*,
++                    )*
++                ],
++            )*
++        ]
++    };
++    [
++        $($arch:block
++            @ [
++                $($model:ident $(.$func:ident( $($arg:tt)* ))*, )*
++            ],
++        )*
++    ] => {
++        [
++            $(
++                $((
++                    DeviceId::new(::kernel::c_str!(
++                        ::core::concat!(
++                            "synology,",
++                            ::core::stringify!($model),
++                            "-microp",
++                        )
++                    )),
++                    Model::new($arch)
++                    $(
++                        .$func($($arg)*)
++                    )*
++                ),)*
++            )*
++        ]
++    };
++}
 
+
+--2xLiGAbObogF50Js
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacqldgAKCRB4tDGHoIJi
+0rftAP9aoaT3IpU068yzu3eGKRdRw8ri76zvcV9wis2AB+5HsgD/fSRvodu57lM/
+7LcDt4totobtLGvQqj145ej84BFtfAo=
+=KjI9
+-----END PGP SIGNATURE-----
+
+--2xLiGAbObogF50Js--
