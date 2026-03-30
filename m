@@ -1,197 +1,149 @@
-Received: from Atcsqr.andestech.com (unknown [60.248.187.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 387CD3BFE3C;
-	Mon, 30 Mar 2026 10:48:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.248.187.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E27C3C457B;
+	Mon, 30 Mar 2026 10:48:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774867690; cv=none; b=B8BPPng+hP0edZFvTXua3sqI6OnhkJgAfIVehXve0xOnTMFw3CF7B3guhAw0gWia8tFb/xemAya+kkpATFO1dqMrAvVJdQK1bfem7Om9OeUGWJpYRs4CSJKdE4pRS+W7t8qkrNxD3VuD/bym0xKfef2GCkzOmxNHgut6naNVZkY=
+	t=1774867691; cv=none; b=oueRKI5+WgcOc13WHC3F9lvTj7XcONt6lhspTZGFBtj7RjoFxgN38MdoEDzGLz/RhwCzVrUN7oYIyo0AB0zCAYwiAk5wdxotZPLFqO6ylk4A4slKpoHVVVxEXrcpLy9n9xSQeF6dnqK7kGk/dpRi0KfgZqgTSyprhGdCIuxjlPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774867690; c=relaxed/simple;
-	bh=hKHKp9my13roBU2qU8iKtL9x9H9TJ7oi8Qn9L8SW+R4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=c1cPSe+G2nX+ni1jWfNl4/vJBw0xSOsXLX5OyZDRJhUqJov4IABOU7Ks4opHSVf01Ig6ibduC98x26b/1Rqc+rPUMZp2uTb8XvYxxqRKVORJGgywIvFop5OXQUMbOzyqZfbrryIw5Ys1sxBLjnXgbMf0+NjFsu01PAGErljCZ+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=andestech.com; spf=pass smtp.mailfrom=andestech.com; arc=none smtp.client-ip=60.248.187.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=andestech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
-Received: from Atcsqr.andestech.com (localhost [127.0.0.2] (may be forged))
-	by Atcsqr.andestech.com with ESMTP id 62UAT1vF039878;
-	Mon, 30 Mar 2026 18:29:01 +0800 (+08)
-	(envelope-from minachou@andestech.com)
-Received: from mail.andestech.com (ATCPCS34.andestech.com [10.0.1.134])
-	by Atcsqr.andestech.com with ESMTP id 62UAS2eU038167;
-	Mon, 30 Mar 2026 18:28:02 +0800 (+08)
-	(envelope-from minachou@andestech.com)
-Received: from swlinux02.andestech.com (10.0.15.183) by ATCPCS34.andestech.com
- (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 30 Mar
- 2026 18:28:02 +0800
-From: Hui Min Mina Chou <minachou@andestech.com>
-To: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
-        <alex@ghiti.fr>, <geert+renesas@glider.be>,
-        <prabhakar.mahadev-lad.rj@bp.renesas.com>, <magnus.damm@gmail.com>,
-        <ben717@andestech.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>, <jonathan.cameron@huawei.com>,
-        <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
-        <linux-kernel@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>
-CC: <tim609@andestech.com>, <alex749@andestech.com>, <az70021@gmail.com>,
-        "Hui
- Min Mina Chou" <minachou@andestech.com>
-Subject: [PATCH 2/7] cache: andes_llcache: refactor initialization and cache operations
-Date: Mon, 30 Mar 2026 18:27:19 +0800
-Message-ID: <20260330102724.1012470-3-minachou@andestech.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260330102724.1012470-1-minachou@andestech.com>
-References: <20260330102724.1012470-1-minachou@andestech.com>
+	s=arc-20240116; t=1774867691; c=relaxed/simple;
+	bh=sgWDsMt9x5Efn1Ex6V5em36oaanjsO0EboetHfiLBjs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sgAP9Z+92NpYG5RUjWxN3VpFFWnQ0KgvfEtuSsBoGqw5zlH+Cbh3jYJGTIvchfgYdcYD/NCHHQ8/wSGaC1Bt/79Yz2PVsofrwDZf//Durz3ls/T5dgRw4N25Efp2+d3zuk6opkKtH6mLDEWVC2cycq8L75HUFz8MDhrV5keyIL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FNRfJBAS; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FNRfJBAS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3EC5C4CEF7;
+	Mon, 30 Mar 2026 10:48:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774867690;
+	bh=sgWDsMt9x5Efn1Ex6V5em36oaanjsO0EboetHfiLBjs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=FNRfJBASnSsJrkC/hXamTCsjwkWj71Kn4XH9ezN/cXWfuq6hwv9X9oRQ8j9Q/15pR
+	 bZW+yaKY5Lfz0ydhdQJlzMZ92JhvyYTUNSDNIbE85IPoK6R8Exffg/MqAwAesQ0+rG
+	 lRIrzeoe9jE42ohvM48FDvvfga+XZheYXWaXfYdtbZuOTLrKYgsKBytxN+p+FARCJq
+	 FMxCg0/B4tpcUVhl++aPFhRYuyMjIePlZoYlR+f/qgRUtTIKfn6PQ+d/V3c5KcDUf+
+	 JWh9cq/iZ6icHeEfd9Fj7EoJPCLT6Y2RXH0/qg9HtqE6fgWIyGsCgFKG/wp2Ztv1Fl
+	 lse3/7aVARwbQ==
+Message-ID: <ebc6da60-d49f-4a44-9ecb-3ae70413a248@kernel.org>
+Date: Mon, 30 Mar 2026 12:48:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
- ATCPCS34.andestech.com (10.0.1.134)
-X-DKIM-Results: atcpcs34.andestech.com; dkim=none;
-X-DNSRBL: 
-X-SPAM-SOURCE-CHECK: pass
-X-MAIL:Atcsqr.andestech.com 62UAT1vF039878
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] dt-bindings: clock: amlogic: Fix redundant hyphen
+ in "amlogic,t7-gp1--pll" string.
+To: Jian Hu <jian.hu@amlogic.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Stephen Boyd <sboyd@kernel.org>, Michael Turquette
+ <mturquette@baylibre.com>, robh+dt <robh+dt@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Ronald Claveau <linux-kernel-dev@aliel.fr>,
+ devicetree <devicetree@vger.kernel.org>,
+ linux-clk <linux-clk@vger.kernel.org>,
+ linux-amlogic <linux-amlogic@lists.infradead.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Ferass El Hafidi <funderscore@postmarketos.org>
+References: <20260326092645.1053261-1-jian.hu@amlogic.com>
+ <20260326092645.1053261-2-jian.hu@amlogic.com>
+ <20260327-rough-spry-hyrax-8236de@quoll>
+ <9830ff89-a145-41d1-98e9-1412f497d3f2@amlogic.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <9830ff89-a145-41d1-98e9-1412f497d3f2@amlogic.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This patch cleans up the Andes LLC cache driver:
- - improved error handling in andes_cache_init() by using goto labels
- - updated andes_dma_cache_inv/wback() to check for !size instead of
-   start == end
- - cache-line-size mismatch from an error to a warning
- - Use ALIGN and ALIGN_DOWN helpers instead of the alignment logic in
-   andes_dma_cache_inv() and andes_dma_cache_wback().
+On 30/03/2026 12:44, Jian Hu wrote:
+> 
+> On 3/27/2026 3:23 PM, Krzysztof Kozlowski wrote:
+>> [ EXTERNAL EMAIL ]
+>>
+>> On Thu, Mar 26, 2026 at 05:26:43PM +0800, Jian Hu wrote:
+>>> Fix redundant hyphen in "amlogic,t7-gp1--pll" string.
+>>>
+>>> Fixes: 5437753728ac ("dt-bindings: clock: add Amlogic T7 PLL clock controller")
+>> Please run scripts/checkpatch.pl on the patches and fix reported
+>> warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+>> patches and (probably) fix more warnings. Some warnings can be ignored,
+>> especially from --strict run, but the code here looks like it needs a
+>> fix. Feel free to get in touch if the warning is not clear.
+> 
+> 
+> Thanks for your review.
+> 
+> 
+> This series is based on the clk-next branch (version v7.0-rc1).
+> 
+> 
+> Here are the check results without --strict:
+> 
 
-Signed-off-by: Hui Min Mina Chou <minachou@andestech.com>
----
- drivers/cache/andes_llcache.c | 56 ++++++++++++++++++-----------------
- 1 file changed, 29 insertions(+), 27 deletions(-)
+I checked before. Now I double checked:
 
-diff --git a/drivers/cache/andes_llcache.c b/drivers/cache/andes_llcache.c
-index d5e382f3c801..d318b8009f7f 100644
---- a/drivers/cache/andes_llcache.c
-+++ b/drivers/cache/andes_llcache.c
-@@ -111,21 +111,17 @@ static void andes_dma_cache_inv(phys_addr_t paddr, size_t size)
- {
- 	unsigned long start = (unsigned long)phys_to_virt(paddr);
- 	unsigned long end = start + size;
--	unsigned long line_size;
-+	unsigned long line_size = andes_priv.andes_cache_line_size;
- 	unsigned long flags;
- 
--	if (unlikely(start == end))
-+	if (unlikely(!size))
- 		return;
- 
--	line_size = andes_priv.andes_cache_line_size;
--
--	start = start & (~(line_size - 1));
--	end = ((end + line_size - 1) & (~(line_size - 1)));
-+	start = ALIGN_DOWN(start, line_size);
-+	end = ALIGN(end, line_size);
- 
- 	local_irq_save(flags);
--
- 	andes_cpu_dcache_inval_range(start, end);
--
- 	local_irq_restore(flags);
- }
- 
-@@ -133,15 +129,15 @@ static void andes_dma_cache_wback(phys_addr_t paddr, size_t size)
- {
- 	unsigned long start = (unsigned long)phys_to_virt(paddr);
- 	unsigned long end = start + size;
--	unsigned long line_size;
-+	unsigned long line_size = andes_priv.andes_cache_line_size;
- 	unsigned long flags;
- 
--	if (unlikely(start == end))
-+	if (unlikely(!size))
- 		return;
- 
--	line_size = andes_priv.andes_cache_line_size;
--	start = start & (~(line_size - 1));
--	end = ((end + line_size - 1) & (~(line_size - 1)));
-+	start = ALIGN_DOWN(start, line_size);
-+	end = ALIGN(end, line_size);
-+
- 	local_irq_save(flags);
- 	andes_cpu_dcache_wb_range(start, end);
- 	local_irq_restore(flags);
-@@ -159,14 +155,13 @@ static int andes_get_llc_line_size(struct device_node *np)
- 
- 	ret = of_property_read_u32(np, "cache-line-size", &andes_priv.andes_cache_line_size);
- 	if (ret) {
--		pr_err("Failed to get cache-line-size, defaulting to 64 bytes\n");
-+		pr_err("Cache: Failed to get cache-line-size\n");
- 		return ret;
- 	}
- 
- 	if (andes_priv.andes_cache_line_size != ANDES_CACHE_LINE_SIZE) {
--		pr_err("Expected cache-line-size to be 64 bytes (found:%u)\n",
--		       andes_priv.andes_cache_line_size);
--		return -EINVAL;
-+		pr_warn("Cache: Expected cache-line-size to be 64 bytes (found:%u)\n",
-+			andes_priv.andes_cache_line_size);
- 	}
- 
- 	return 0;
-@@ -186,16 +181,18 @@ static const struct of_device_id andes_cache_ids[] = {
- static int __init andes_cache_init(void)
- {
- 	struct resource res;
--	int ret;
-+	int ret = 0;
- 
- 	struct device_node *np __free(device_node) =
- 		of_find_matching_node(NULL, andes_cache_ids);
--	if (!of_device_is_available(np))
--		return -ENODEV;
-+	if (!of_device_is_available(np)) {
-+		ret = -ENODEV;
-+		goto err_ret;
-+	}
- 
- 	ret = of_address_to_resource(np, 0, &res);
- 	if (ret)
--		return ret;
-+		goto err_ret;
- 
- 	/*
- 	 * If IOCP is present on the Andes AX45MP core riscv_cbom_block_size
-@@ -208,17 +205,22 @@ static int __init andes_cache_init(void)
- 		return 0;
- 
- 	andes_priv.llc_base = ioremap(res.start, resource_size(&res));
--	if (!andes_priv.llc_base)
--		return -ENOMEM;
-+	if (!andes_priv.llc_base) {
-+		ret = -ENOMEM;
-+		goto err_ret;
-+	}
- 
- 	ret = andes_get_llc_line_size(np);
--	if (ret) {
--		iounmap(andes_priv.llc_base);
--		return ret;
--	}
-+	if (ret)
-+		goto err_unmap;
- 
- 	riscv_noncoherent_register_cache_ops(&andes_cmo_ops);
- 
- 	return 0;
-+
-+err_unmap:
-+	iounmap(andes_priv.llc_base);
-+err_ret:
-+	return ret;
- }
- early_initcall(andes_cache_init);
--- 
-2.34.1
+b4 shazam...
+git format-patch -3
+scripts/checkpatch.pl 0*
 
+Clearly a warning, also on v7.0-rc1.
+
+So maybe you don't do it on the kernel you are claiming or just doing it
+on different code than you sent.
+
+Especially the second case would be a waste of my time to investigate
+and read this patch.
+
+Best regards,
+Krzysztof
