@@ -1,81 +1,136 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686811A6800;
-	Mon, 30 Mar 2026 07:00:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3608C396B67;
+	Mon, 30 Mar 2026 07:00:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774854019; cv=none; b=VYbnQJklVqM3mpw9N7imQgDEAd5StjKQJxE6Bu0AZrdhku1wIWf7q5deE+93lXCvqWF5/CAqwfeALngeNnDccd+h0zjqxc5m1E+hcXHn0A+k8QH9Fll3VC0N4Vlz6p4scN0SYzCWxYwUIopKJyCp9NffI7xezWrH+tigqW02J4M=
+	t=1774854058; cv=none; b=J7/PuNGuU64EIK4YQEqJnKjl5EfAuKdB0pU0PALw1HwpTHLEGC6n0Wx1kt4TX/RtIyw8Mo83YvZilNvGzLPEhbKqXTubpsULuTvNhOPH+kHelARvDuDcrN98u5gQMh0Af9L2pn/SWNTuCtSa+z455tmpQxF1IxuQ1YP9Ve3qyOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774854019; c=relaxed/simple;
-	bh=rsH5whkKBpjjSZheoOnzLAEg5a8VilG60BWfcKVUReE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=aGuHhXs17rqKOHIY+KO6nCmIGUgUhp+C5/DX8qQfvzjlR0O69ASuk0Z0uslxSS3QfwRfMB9CsgerA9lGj8AMjixpb/1Q2l/E9J29xrTYFeAYC2c+ZVtf8YLvILP+tlRPuptumk6ASmuc/cPvnBBMPlrYZ1a4exYKtysEpm3sXyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
-Received: from localhost.localdomain (unknown [116.25.94.183])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 38c97798f;
-	Mon, 30 Mar 2026 15:00:08 +0800 (GMT+08:00)
-From: Chukun Pan <amadeus@jmu.edu.cn>
-To: gaohan@iscas.ac.cn
-Cc: alex@ghiti.fr,
-	aou@eecs.berkeley.edu,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	dlan@kernel.org,
-	krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	palmer@dabbelt.com,
-	pjw@kernel.org,
-	rabenda.cn@gmail.com,
-	robh@kernel.org,
-	spacemit@lists.linux.dev,
-	Chukun Pan <amadeus@jmu.edu.cn>
-Subject: Re: [PATCH v3 3/3] riscv: dts: spacemit: Enable USB3.0/PCIe on OrangePi RV2
-Date: Mon, 30 Mar 2026 15:00:01 +0800
-Message-Id: <20260330070001.1920705-1-amadeus@jmu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <84f8e713ef1ee46f9be852f400f52d6c055725f8.1774803532.git.gaohan@iscas.ac.cn>
-References: <84f8e713ef1ee46f9be852f400f52d6c055725f8.1774803532.git.gaohan@iscas.ac.cn>
+	s=arc-20240116; t=1774854058; c=relaxed/simple;
+	bh=mpLOTBgcJ+N7b+UIifAjqsoIn/hOwhyWRvmgg2BU6wY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uPgVATWYtL7hovv+rVOjiqmFBO02bP9dzd8ntEPODcycNYJsYfEaI/Xsi0J7ktvqR0tFg9W/dEdMh8PaE70EbUh+88/QxG/b+DgqaO+D0I1yI5lmC8y2Uu3h02MSWYD6wExoI6M/bHt8atblyVkAWGxWSjLBHqKsCOLoRpmZEU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z0q3iRdy; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z0q3iRdy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D750C4CEF7;
+	Mon, 30 Mar 2026 07:00:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774854057;
+	bh=mpLOTBgcJ+N7b+UIifAjqsoIn/hOwhyWRvmgg2BU6wY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Z0q3iRdy9HNTVbA1TKjvlvvWrLuSO5tBNBzWVN7vio5tw6V3z190myQ4W1qgOYkNw
+	 xxxOo0fe7KpcGuxxhZCkWQ7bhq81WmH6QDmuqGQGXDWHMJpD79jzAkaCzfxFr+J7e7
+	 +QAio3nRrLx5r7VirmUNUSIZa1O2WD6Jy775VJ/4V8P/W7M1nrY45s3qequMTnQHfq
+	 bLyWvoJpGE4DB+QdiXoEbX3pidKG1/4XqOUwi+vkHTpFA3skvFyoKbCwJmqnrxEAsE
+	 gQxQOM6SGx7PkK9lvjO9TBNWVeF4VlmUr+br/63cTy7oucTj9QMNtvgCNRbaIaecPh
+	 /RpLcrsPmhjsg==
+Date: Mon, 30 Mar 2026 09:00:55 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Markus Probst <markus.probst@posteo.de>
+Cc: Hans de Goede <hansg@kernel.org>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+	Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Len Brown <lenb@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-acpi@vger.kernel.org
+Subject: Re: [PATCH v5 2/4] ACPI: of: match PRP0001 in of_match_device
+Message-ID: <20260330-bipedal-invaluable-slug-0c6dea@quoll>
+References: <20260329-synology_microp_initial-v5-0-27cb80bdf591@posteo.de>
+ <20260329-synology_microp_initial-v5-2-27cb80bdf591@posteo.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9d3d8aed1503a2kunm3ced154046e202
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWS1ZQUlXWQ8JGhUIEh9ZQVkaSkJNVksZGkkZTR1OT0hDTVYeHw5VEwETFhoSFy
-	QUDg9ZV1kYEgtZQVlKSk1VSU5VQk9VSkNIWVdZFhoPEhUdFFlBWU9LSFVKS0hKTkxOVUpLS1VKQk
-	tLWQY+
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260329-synology_microp_initial-v5-2-27cb80bdf591@posteo.de>
 
-Hi,
+On Sun, Mar 29, 2026 at 08:02:16PM +0200, Markus Probst wrote:
+> Export `acpi_of_match_device` function and use it to match for PRP0001
+> in `of_match_device`, if the device does not have a device node.
+> 
+> This fixes the match data being NULL when using ACPI PRP0001, even though
+> the device was matched against an of device table.
 
-> +	usb3_hub_5v: regulator-usb3-hub-5v {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "USB_HUB_EN";
+Fixes tag?
 
-regulator-name = "vcc5v0_usb30";
-"USB_HUB_EN" is the pin name.
+I don't see how this is going to fix !ACPI case - the
+acpi_of_match_device() will just return false.
 
-> +&usb_dwc3 {
-> +	dr_mode = "host";
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +	status = "okay";
+
+> 
+> Signed-off-by: Markus Probst <markus.probst@posteo.de>
+> ---
+>  drivers/acpi/bus.c   |  7 ++++---
+>  drivers/of/device.c  |  9 +++++++--
+>  include/linux/acpi.h | 11 +++++++++++
+>  3 files changed, 22 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/acpi/bus.c b/drivers/acpi/bus.c
+> index 2ec095e2009e..cd02f04cf685 100644
+> --- a/drivers/acpi/bus.c
+> +++ b/drivers/acpi/bus.c
+> @@ -831,9 +831,9 @@ const struct acpi_device *acpi_companion_match(const struct device *dev)
+>   * identifiers and a _DSD object with the "compatible" property, use that
+>   * property to match against the given list of identifiers.
+>   */
+> -static bool acpi_of_match_device(const struct acpi_device *adev,
+> -				 const struct of_device_id *of_match_table,
+> -				 const struct of_device_id **of_id)
+> +bool acpi_of_match_device(const struct acpi_device *adev,
+> +			  const struct of_device_id *of_match_table,
+> +			  const struct of_device_id **of_id)
+>  {
+>  	const union acpi_object *of_compatible, *obj;
+>  	int i, nval;
+> @@ -866,6 +866,7 @@ static bool acpi_of_match_device(const struct acpi_device *adev,
+>  
+>  	return false;
+>  }
+> +EXPORT_SYMBOL_GPL(acpi_of_match_device);
+>  
+>  static bool acpi_of_modalias(struct acpi_device *adev,
+>  			     char *modalias, size_t len)
+> diff --git a/drivers/of/device.c b/drivers/of/device.c
+> index f7e75e527667..128682390058 100644
+> --- a/drivers/of/device.c
+> +++ b/drivers/of/device.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/mod_devicetable.h>
+>  #include <linux/slab.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/acpi.h>
+>  
+>  #include <asm/errno.h>
+>  #include "of_private.h"
+> @@ -26,8 +27,12 @@
+>  const struct of_device_id *of_match_device(const struct of_device_id *matches,
+>  					   const struct device *dev)
+>  {
+> -	if (!matches || !dev->of_node || dev->of_node_reused)
+> -		return NULL;
+> +	if (!matches || !dev->of_node || dev->of_node_reused) {
+> +		const struct of_device_id *id = NULL;
 > +
-> +	hub_2_0: hub@1 {
-> +		compatible = "usb5e3,610";
-> +		reg = <0x1>;
-> +		vdd-supply = <&usb3_hub_5v>;
+> +		acpi_of_match_device(ACPI_COMPANION(dev), matches, &id);
 
-This is incorrect...
-The hub is powered by VCC_5V0.
-VCC5V0_USB30 provides USB VBUS.
+I don't think this should be done from of_match_device. Yuo will have
+soon recursive calls, because acpi_of_match_device() will call other
+match, that will call of_match_device() and so on...
 
-Thanks,
-Chukun
+of_match_device() is supposed to match only against OF. Not ACPI. There
+should be no ACPI header or code in this unit file.
+
+Best regards,
+Krzysztof
+
