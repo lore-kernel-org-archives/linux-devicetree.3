@@ -1,232 +1,94 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D74373C03
-	for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 15:47:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F6A0364EA3;
+	Mon, 30 Mar 2026 15:49:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774885665; cv=none; b=DmqgkgseasHyRDJnLCgvVqRqt4psPcw5nVNp0KLm83Ms0R2xBHc+6dtLFI3VNJZ2kliZgiDRJkZrah5jhAc9cJpnbCKX+90dQbdSXs3PX8dUaC5QIO7FD0OSeQq2zaVZnG/EWWB9chxgmzd7eXKVzDtI3yIBqCp9MY96zdBAbss=
+	t=1774885740; cv=none; b=Ssk/3P0B1kARncuzo3IFdei7wIRKylLU/GL1MxE3yVdLP695FLQ8V0P5hX4LAvT/rrpxaLNxUrnSAUmmlJ/Sh3vceh845Jx0iA0OGVjvv8+6k9rouSwi+gIi5Jw++vogOJeqPDFbgdNs8JRVQC1WknYtWoVqhJK67Uyo2NJBJrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774885665; c=relaxed/simple;
-	bh=cOe0HByo+TuYk7g7P644FVqK34hh7493ag9RCpWOM0Q=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
-	 References:In-Reply-To; b=UO+scLqsS41ocCedVBFTZYgHmgLTbytUUfRkTu5SXGWBiLfJLuINceJjZG2gpIpQwdSSr5zr1T5eAZ9uSZeoaViPm/SIsHfhinkpIRlScuJ5o6q0cICZjYc3aCOHfx4r5RjXwz3hG+7V+XLYzQ+6hsy+K7ysj8JLdvsrz5BwbcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xW8RPQAX; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1774885740; c=relaxed/simple;
+	bh=c3DcR3gdUc5qDYwinSxx9wie4yGGHZTU5Qmvzn/OVL0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i9Ye27kDOzEorwOAfOKAwFGZCEB7YlNqv4UvMbHZ6iFnviQTKd1q4w3/tXRUBTpda/s5qNkRCANmmV024brgU828qfMUpeoxJElwJ1hpAKNm16ecmLQ7vhcGgzU0o20ulMD1kYNFyus1364lvZrrhfHLma/TKxNd3q7Vve8abHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nenM3QzT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xW8RPQAX"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 0E4861A308E;
-	Mon, 30 Mar 2026 15:47:40 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C7EB55FFA8;
-	Mon, 30 Mar 2026 15:47:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D8693104505B1;
-	Mon, 30 Mar 2026 17:47:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1774885657; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=1aTpyd+0/mSU/s+c0fNfX3pIn8QwVOQZDTaD5Bg1dRU=;
-	b=xW8RPQAXdsgEPWs8JAXpw7qKfhkRJwFTssKu/pCYpXKdD0k3EpKzzFUMSC4jTPa6ha01OP
-	ell4Cyq42Pef0NFr1nkLE9wFav3TJ0wNOIBoHEnRkxxVhcpemnPRAR3tSCfpSs6Ey7VkHr
-	TOdEUjvFf5phGcGYzOoxQwf5Ifg+s7hMaf63HnEo8Q18bSj8gjgWkzMkzyG0tOVOZbgRil
-	BTTi+uv98pOhS29laOmj8YfGLErilsrSZN2gU7edGsqDRBmp9el03ejLQiHrBqbKsfFhGa
-	a0i4TpnHjLdS8Bci2iz0h3DuF34ACgZEomSMpODsX5K4HB5gv1c+LN22Cq49kw==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nenM3QzT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 738FBC19423;
+	Mon, 30 Mar 2026 15:48:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774885740;
+	bh=c3DcR3gdUc5qDYwinSxx9wie4yGGHZTU5Qmvzn/OVL0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nenM3QzT1aXixLPLC+neDk2wyrlOhEvZAbO786uaH/GIwrkciwetNZTFz3q0eP6fX
+	 NfEokuokInc0SGTNuM8lLA0XxQ7SMcEPI74Cw4bRUpnp9dyv7lxTx3ocYumVaC3G4w
+	 Sy0NQ69K+TyFtlqxrsQVEsng1VA6qDz36DNuk4xBpSAkko85riJtuss6biaG4jgoeQ
+	 P1+WyyEQ7YptJeUFqJQDWrVm7cW2GZfleD+y4cZzIBhVubn91u2uT0iOZOeu3SohZi
+	 ltEaqX5m0XibHPmnuU6abSJJIxTmCZBnyOaEFk7B4f6GnSRxwP4ocRntGRIn9/Hprb
+	 JagEIgyCTdYxg==
+Date: Mon, 30 Mar 2026 16:48:54 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH 0/4] ASoC: Add support for GPIOs driven amplifiers
+Message-ID: <27e23c7b-4aca-41d2-96b8-df02c52e8121@sirena.org.uk>
+References: <20260330101610.57942-1-herve.codina@bootlin.com>
+ <4daaa17d-5673-4efa-92ce-4f2ce87eb812@sirena.org.uk>
+ <20260330173944.3fdc27ec@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 30 Mar 2026 17:47:23 +0200
-Message-Id: <DHG8G8FMXA6C.U6LU563OZ8NR@bootlin.com>
-To: "Liu Ying" <victor.liu@nxp.com>, "Marek Vasut" <marex@denx.de>, "Stefan
- Agner" <stefan@agner.ch>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
- <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
- "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Rob
- Herring" <robh@kernel.org>, "Saravana Kannan" <saravanak@kernel.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 7/8] drm/bridge: imx8mp-hdmi-tx: add an hdmi-connector
- when missing using a DT overlay at boot time
-Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
- =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, "Hui Pu"
- <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>,
- <dri-devel@lists.freedesktop.org>, <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>, "Adam Ford" <aford173@gmail.com>, "Alexander
- Stein" <alexander.stein@ew.tq-group.com>, "Anson Huang"
- <Anson.Huang@nxp.com>, "Christopher Obbard"
- <christopher.obbard@linaro.org>, "Daniel Scally"
- <dan.scally@ideasonboard.com>, "Emanuele Ghidoli"
- <emanuele.ghidoli@toradex.com>, "Fabio Estevam" <festevam@denx.de>,
- "Francesco Dolcini" <francesco.dolcini@toradex.com>, "Frieder Schrempf"
- <frieder.schrempf@kontron.de>, "Gilles Talis" <gilles.talis@gmail.com>,
- =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, "Heiko
- Schocher" <hs@denx.de>, "Joao Paulo Goncalves"
- <joao.goncalves@toradex.com>, "Josua Mayer" <josua@solid-run.com>, "Kieran
- Bingham" <kieran.bingham@ideasonboard.com>, "Marco Felsch"
- <m.felsch@pengutronix.de>, "Martyn Welch" <martyn.welch@collabora.com>,
- "Oleksij Rempel" <o.rempel@pengutronix.de>, "Peng Fan" <peng.fan@nxp.com>,
- "Philippe Schenker" <philippe.schenker@toradex.com>, "Richard Hu"
- <richard.hu@technexion.com>, "Shengjiu Wang" <shengjiu.wang@nxp.com>,
- "Stefan Eichenberger" <stefan.eichenberger@toradex.com>, "Vitor Soares"
- <vitor.soares@toradex.com>
-X-Mailer: aerc 0.20.1
-References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
- <20260320-drm-lcdif-dbanc-v1-7-479a04133e70@bootlin.com>
- <544112ab-8ca0-4622-b680-233457198e3e@nxp.com>
- <DHDNA5HLQPIB.3F21G9QPBUQG8@bootlin.com>
- <5f06ea5a-5388-440f-91d6-cebb0bee0a88@nxp.com>
-In-Reply-To: <5f06ea5a-5388-440f-91d6-cebb0bee0a88@nxp.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Go/sM200WrU4YOFa"
+Content-Disposition: inline
+In-Reply-To: <20260330173944.3fdc27ec@bootlin.com>
+X-Cookie: HUGH BEAUMONT died in 1982!!
 
-Hello Liu,
 
-On Mon Mar 30, 2026 at 5:02 AM CEST, Liu Ying wrote:
->>>> --- a/drivers/gpu/drm/bridge/imx/Kconfig
->>>> +++ b/drivers/gpu/drm/bridge/imx/Kconfig
->>>> @@ -25,6 +25,23 @@ config DRM_IMX8MP_DW_HDMI_BRIDGE
->>>>  	  Choose this to enable support for the internal HDMI encoder found
->>>>  	  on the i.MX8MP SoC.
->>>>
->>>> +config DRM_IMX8MP_DW_HDMI_BRIDGE_CONNECTOR_FIXUP
->>>> +	bool "Support device tree blobs without an hdmi-connector node"
->>>> +	default y
->>>
->>> depends on DRM_IMX_LCDIF ?
->>
->> If the imx hdmi-tx is not enabled then HDMI won't work anyway, so users =
-are
->> not affected and the overlay is not needed. Am I missing something?
->
-> I meant I'm fine with "default y" and think that this could also depend o=
-n
-> DRM_IMX_LCDIF, because no display controller driver other than the LCDIF
-> driver needs the fixup.
+--Go/sM200WrU4YOFa
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Ah, I see your point. OK, I'll add 'depends on DRM_IMX_LCDIF'.
+On Mon, Mar 30, 2026 at 05:39:44PM +0200, Herve Codina wrote:
+> Mark Brown <broonie@kernel.org> wrote:
 
->>> I see build warnings(W=3D1):
->>> drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso:25.8-37.=
-4: Warning (unit_address_vs_reg): /fragment@0/__overlay__/soc@0: node has a=
- unit name, but no reg or ranges property
->>> drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso:26.16-36=
-.5: Warning (unit_address_vs_reg): /fragment@0/__overlay__/soc@0/bus@32c000=
-00: node has a unit name, but no reg or ranges property
->>> drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso:27.18-35=
-.6: Warning (unit_address_vs_reg): /fragment@0/__overlay__/soc@0/bus@32c000=
-00/hdmi@32fd8000: node has a unit name, but no reg or ranges property
->>> drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso:29.13-33=
-.8: Warning (unit_address_vs_reg): /fragment@0/__overlay__/soc@0/bus@32c000=
-00/hdmi@32fd8000/ports/port@1: node has a unit name, but no reg or ranges p=
-roperty
->>
->> AFAIK the device tree checkes just can't work on overlays. The tools jus=
-t
->> cannot know on which base tree the overlay can be applied, so they canno=
-t
->> know the existing properties. That might change in the future, but for n=
-ow
->> my understanding is that it is OK to have overlays which produce such
->> harmless warnings, at least for driver-specific overlays like the tilcdc
->> one [0] which is already in linux-next since a few weeks.
->
-> Hmm, not sure a few weeks in linux-next is long enough ;)
-> I'd say, I saw the warnings, so simply reported along with a fix to suppr=
-ess
-> them.  TBH, build warnings make me nervous, especially this DT overlay is
-> under the "DRM DRIVERS FOR FREESCALE IMX BRIDGE" umbrella.
+> > This sounds a lot like simple-amplifier.c?
 
-That's fine, I'll add the lines needed to suppress the warnings then.
+> The gpio driven amplifier proposed is more generic and can handle
+> more complex design. I.e. op-amp + resistor and/or line (mute,
+> bypass) switching. Hardwares handled by this driver are a superset
+> of just dio2125 and so simple-amplifier.c.
 
->>>> +	fixup-hdmi-connector {
->>>> +		compatible =3D "hdmi-connector";
->>>> +		label =3D "HDMI";
->>>> +		type =3D "a";
->>>
->>> What if a board uses another type?
->>
->> For boards affected by this patch, currently the connector is created by
->> dw_hdmi_connector_create() which hardcodes type A [0], so there would be=
- no
->> difference.
->
-> Yes, that's from driver's PoV.  However, userspace may get the type
-> from /sys/firmware/devicetree/base/fixup-hdmi-connector/type and use it
-> to do something.
+> IMHO, it makes sense to have a specific driver for those kind
+> of hardware design.
 
-I'd say this is incorrect, the device tree is not an API for that. The
-connector type might be known to the driver by other means (ACPI, DP MST,
-whatever). So I think this is a non-problem.
+Right, and if it's a superset it feels like it should all be one driver
+rather than two separate ones.
 
-If userspace needs to know the connector type, that should come from the
-ioctl (DRM_IOCTL_MODE_GETCONNECTOR perhaps).
+--Go/sM200WrU4YOFa
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> Maybe, that's trivial.
+-----BEGIN PGP SIGNATURE-----
 
-Not sure I got what you mean here, sorry. What are you referring to?
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnKm2UACgkQJNaLcl1U
+h9BHQQf8CVVbWHnNEH+M5HqSW7TikbMdvEqNJxt/Bp1keCQKeD7hINwpOXZcbhl2
+xNh15rOn+fjdemD7LNtmp6NzUE965bRY7hrkBQ9B1G1EFZYCw1ouhuD62ujmztr9
+U5onR76o8Dl2a0iY/qF3OVXIEeyNJOmEzmTFS7XFUM4WJrEBN8wKNitz2ArKtp3q
++Fi+sWcTo5TluRwE/XJuBGkURCr5EsvwtrwY+beczMsw4KTVIJzgTfRGwPZnwH1G
+V+4nRYweADv/kGNKhGBun5A4dJmxGS4WzygQpjlKwUnzApPakCby/+FLI3rtzTQo
+dM5hVhovyT8nTaKstQrUC7vS3JAIjw==
+=6CAc
+-----END PGP SIGNATURE-----
 
->> OTOH how can a common module know the specific connector?
->
-> Hmm, maybe add a module parameter or let users set the type through Kconf=
-ig
-
-I'm afraid none of this would work for distribution kernels, where who
-configures the distribution has no idea on how many different hardware it
-will run.
-
-> or even define an unknown type to honestly tell users that we don't know =
-it?
-
-This sounds like a potentially valid idea, even though I'm not fully
-convinced. Also I suspect it would be a pretty large change, and also
-adding "unknown type" in the device tree seems not compliant with the rule
-that DT describes the hardware (not the lack of info about the hardware).
-
-But definitely it's not needed for this specific case, because:
-
- * with current code, every imx8mp-hdmi-tx usage adds a type-A connector [0=
-]
- * with this patch the correct type will be created when described in DT,
-   and type-A will be used only as a fallback when the DT is lacking
-
-So after the patch we'd do sometimes better, never worse in this respect.
-
-Based on the above I'm sending v2 soon, but don't hesitate in following up
-in case I may be missing something (this topic is tricky).
-
-[0] https://elixir.bootlin.com/linux/v7.0-rc5/source/drivers/gpu/drm/bridge=
-/synopsys/dw-hdmi.c#L2601
-
->> Boards with a different connector should describe the connector in the
->> device tree, if they need to instantiate the exact type.
-
-I think this is the only valid solution. It's very easy to do, nothing new
-to invent.
-
-Maybe on top of that we could add a warning when the overlay is applied,
-e.g. "imx8mp-hdmi-tx used without a connector described in device tree;
-adding a type A connector as a fallback; please add a valid description to
-your device tree". Maybe pointing to a TODO entry in the documentation.
-
-What do you think about this?
-
-Thanks again for your careful review!
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+--Go/sM200WrU4YOFa--
