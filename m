@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5102A35B63B;
-	Tue, 31 Mar 2026 13:27:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7073E6DCA;
+	Tue, 31 Mar 2026 13:28:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774963626; cv=none; b=sQg7tgBgd/VZHzO1L2RXuKdHaZGK2xHO0O10641msVGgUGbtzZa4p/xSSSasnbuByHKaz7oijNp9OqPamHWNEsD5/Vdmap8Psf2ENxUuWeUXscjNt8eFSS3Ufp/gt5CQWlRwsbqq7+bHWyRVDfdZCV+tnjOGOym6ZbxcPg06Q10=
+	t=1774963681; cv=none; b=f2M39lt+FBss1tRv8IiKqr9gAWOOAgZS9kN9N+NAdpQliWqvEaNv1PDz3MvB4TS/U55m0fKe0dA6Ycd2EpGYnIJDWdeEWIKctWEChs6cu4+dY3+KxAkwJaCD1c8ExMt/2Pu2AUS8veC7J15m2C1MJMcswasS61tUpKjmGFPJXu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774963626; c=relaxed/simple;
-	bh=JB9MgUkGpj5qTaYMXqxoAGAqaNybWYb0Dm5belF7tDc=;
+	s=arc-20240116; t=1774963681; c=relaxed/simple;
+	bh=pq33bzWBdhmP4S1MwMqAvlewx9BR5zwIdaGj6Ci9cto=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pCsuyv7mF0Mkd2hwPBKhj/0H5qqYOqz7X8gM9vhL55fhRDr524xEeAljrWltwvmxm3KlXn8AR/u1G//vIaxOpDX+EH1jB078naZZa2z0AM35HnVGLt/eszS9AYuu6jGmB71kIqzEdRWTNPa0jWUzf+KJzRpXFpOO3LgsALJ0m8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mcvFmaj+; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=HFVpqFx6M3yixk/UWRhIQUSoOT7gk/wRKWcoLu53yAqwPRHsCncj9ZP2nstGJ9KqMfq+gjwhYvMBB2sSPZw+EHtoLsVgI9uPWvvKrsUz/120sO7gEWX3ukIEoNWAVuwiYB8L+ar5MJrg3J3rz0+/OzfH3AB6AuMhpYxyTEY3gn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bgUOemo4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mcvFmaj+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF575C19423;
-	Tue, 31 Mar 2026 13:27:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bgUOemo4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A53ABC19423;
+	Tue, 31 Mar 2026 13:27:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774963626;
-	bh=JB9MgUkGpj5qTaYMXqxoAGAqaNybWYb0Dm5belF7tDc=;
+	s=k20201202; t=1774963680;
+	bh=pq33bzWBdhmP4S1MwMqAvlewx9BR5zwIdaGj6Ci9cto=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=mcvFmaj+SxVgk64ZAz4hr2NFOOlTtSwR6o0i8BwNtvCbYNpKbx78fffJTTEXej/rn
-	 Z+2oxqIpPaptv00f3DxoUdWVVpMOo4gmZBiGb7IqYTVpp2iXcUoLSU0lPh7G2kQx6I
-	 n/mUFNLxIFTwGjDwuWFzwTL/+b+V0cfkTgWwu4kRxBsvKtvQxvqHcPhctmJRzzxqIl
-	 T9Y8MzaA6q+fOfpwsXQ2MiUkGp5lj1nxi4ZB3drCueApJ9K5VXYxUGNLFhfnfPbz5U
-	 JahDVnwnlWbbAMRrJEe9CtgfQx0Jmd0N4Kj/lb2XQpUfOBcTKLtPibnXQ2Y+AzQJyX
-	 wuEm7fatTAxcw==
-Message-ID: <f30c9f92-75fb-4a43-b8f8-1e75cfa1440a@kernel.org>
-Date: Tue, 31 Mar 2026 15:27:02 +0200
+	b=bgUOemo4rUkEDkfInHdzjII/jnNYMZO0nDKuPyyZknSEyvIsUojuqN12kOFYi8BL9
+	 +m61IdURICPGgpm64o10L0Ri04CCXsK/Zn2m7z+3cwgYdvEzpJABNxKHkSG2BIebU2
+	 G9qF6xl/QKV4oBZitJiYQKUvKDDkN893f6euOp0oP9C2uStM08u5uaTcBswypms9K3
+	 0qvGzuz9VR6rBlj5KLpaP1YT9pRP55j9XWBGncz4PEDqyyoNWkE/RjZoS1XT/q0nAE
+	 48LsLLgLvSBXEB0q6EWvrbL0REmyW4X7YeNvGB3/EubhyGyW9sxajzY7bxTFCtpmOv
+	 cGC2a+b54flzg==
+Message-ID: <ef16a9cb-8d05-496a-b633-996d7ab50c4a@kernel.org>
+Date: Tue, 31 Mar 2026 15:27:57 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] arm64: dts: qcom: eliza: Describe the ADSP and USB
- related nodes
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: eliza-mtp: Enable USB and ADSP
+ support
 To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -44,7 +44,7 @@ To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20260331-eliza-adsp-usb-v1-0-d8a251be20c3@oss.qualcomm.com>
- <20260331-eliza-adsp-usb-v1-1-d8a251be20c3@oss.qualcomm.com>
+ <20260331-eliza-adsp-usb-v1-3-d8a251be20c3@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,21 +90,25 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260331-eliza-adsp-usb-v1-1-d8a251be20c3@oss.qualcomm.com>
+In-Reply-To: <20260331-eliza-adsp-usb-v1-3-d8a251be20c3@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 31/03/2026 12:37, Abel Vesa wrote:
-> Describe the ADSP remoteproc node along with its dependencies, including
-> the IPCC mailbox, AOSS QMP and SMP2P links used for communication.
+> The Eliza MTP features a single USB Type-C port. Its USB 2.0 lines are
+> routed through an eUSB2 repeater provided by the PM7750BA PMIC.
 > 
-> The Eliza SoC features a USB 3.1 Gen 2 controller connected to a QMP
-> combo PHY and an SNPS eUSB2 PHY. Describe them.
+> Describe the port and repeater, and enable the USB controller and PHYs.
+> 
+> Also specify the ADSP firmware and enable the remoteproc.
 > 
 > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 > ---
->  arch/arm64/boot/dts/qcom/eliza.dtsi | 261 ++++++++++++++++++++++++++++++++++++
->  1 file changed, 261 insertions(+)
+>  arch/arm64/boot/dts/qcom/eliza-mtp.dts | 83 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 83 insertions(+)
+> 
+
+With fix as pointed out by Konrad:
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Tested-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
