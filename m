@@ -1,124 +1,129 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from mx5.sberdevices.ru (mx5.sberdevices.ru [95.181.183.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCEA53C9EE2
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 07:40:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF633C196A;
+	Tue, 31 Mar 2026 07:43:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.181.183.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774942855; cv=none; b=QpG+PrwemBTGZfQb0CtrmiYtcgGl6ta1/KrVEwJH1K9BNIzz2X0/JZuvic0xgIYB9XEWm4X1XjXnm0gne4k+Jp4EjxQFoJyf72E0rTZH9lfp92PcSDIMNmAZW+suCYwp8c+KxpYcN9yHzdcG/hzHCQcMJxE8LRkZCSpjgYLgdeY=
+	t=1774942989; cv=none; b=r/QEK8wsCwMnpkhbuZp1YfqcR2li0Jwnr2BBwWzjr1P3+MRUOVgXoQrPdJMaJlJRVXdDlkprw6H7j/x5eyIPu102JpqKJzouy83a/E+SWsGy1evBGZPlmODC+X6hWwNwPZv0HXnpLrnM0i8UTyFrlu1lJ19S4p414nfZDNREpgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774942855; c=relaxed/simple;
-	bh=mxJa4OnZPZQ4isZ3ivPlpL7XmqxbvJctjnvIPc+Fj3w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qkhr3QDvoVrRQ/Fup6iaOwgYu4FPjhw4GQue59ZKTggDLJhh+KtiUa57wbjtsg11gOWQ4/9fI+LB0T2nUg05G+9SiKwDdEHW2fSoGNQ7yjX4aSkloFsbxuTgpWM4b7ydbfK434AdUDmsa+JdbckU619+++GEE5yBvTGMNccMx0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=dqIJETCH; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1774942989; c=relaxed/simple;
+	bh=vFRhdAeUjt7gLU7Xzz2MxFnVkJR6y70K37uER2LcHcM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=jYEOovqJkW6eBeCjzjybJrEjeLIF9NRRtk710GzRALxsvpxEpLzcJTSPRz74NLIcNQJ2bxLDuI5QOV3NgAUlZ3EhMwLrwkPAJwrzrhMT835rad0Ckz1b3e4co0BXoTW5old90k2waxmUgYusHusKowOhaBhhEEQqonjLADJpLCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=salutedevices.com; spf=pass smtp.mailfrom=salutedevices.com; dkim=pass (2048-bit key) header.d=salutedevices.com header.i=@salutedevices.com header.b=Vqbye4/g; arc=none smtp.client-ip=95.181.183.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=salutedevices.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=salutedevices.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="dqIJETCH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=dBDL
-	mmVEXCJX6ppu/jfbo13ZIge5FZycIk9NKQr8cSY=; b=dqIJETCHGpcK9LGT8iDv
-	AzhxEv6BiOW/TE6/U+Eew4mOzrWnXWxqrX1RS4rGDcUjVttO19bkmanmzeV00wIq
-	t04IIvLlqFPLWqDLS9ZrZtxkpzzugea3oYNX2YRNzdrLeRmpj2POMe/WAOfvH8fT
-	6UcxddCZzKhqqRQY8pXgqN6wFNmaSGbY/vafn+CIyAWpgrnpgMwv9wenM4FS9jbh
-	MjnE7SykQwcX5ewpZNzgnMT8buj15dxX5cv14K8Hdth3QzdHGuzepinQu+Nq5kBZ
-	n7E3/goLYGIKjLVxKArHuqIZZxkxbJFBgiGerP2JmS78dOFGXu6cxj7dB/2pqF+n
-	8g==
-Received: (qmail 1589924 invoked from network); 31 Mar 2026 09:40:49 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 31 Mar 2026 09:40:49 +0200
-X-UD-Smtp-Session: l3s3148p1@scQEFk1Ols4ujnu8
-Date: Tue, 31 Mar 2026 09:40:49 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Jassi Brar <jassisinghbrar@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: soc: renesas: add MFIS binding
- documentation
-Message-ID: <act6gTgkYE6Az5hK@shikoro>
-References: <20260317130638.2804-1-wsa+renesas@sang-engineering.com>
- <20260317130638.2804-2-wsa+renesas@sang-engineering.com>
- <20260318-camouflaged-umber-oxpecker-b2b29e@quoll>
- <CAMuHMdX=DRnFWG1ky8wT7mK=LHeJ6LduL28nYd19QpASrn6mew@mail.gmail.com>
- <c46357c9-8cf4-45ec-8b48-8cf979de2e98@kernel.org>
- <actzUSIKKzcDmBCT@shikoro>
- <8988012f-b006-4aa8-bb8f-571b8526a15c@kernel.org>
+	dkim=pass (2048-bit key) header.d=salutedevices.com header.i=@salutedevices.com header.b="Vqbye4/g"
+Received: from p-antispam-ksmg-gc-msk01.sberdevices.ru (localhost [127.0.0.1])
+	by mx5.sberdevices.ru (Postfix) with ESMTP id 2EBE9240009;
+	Tue, 31 Mar 2026 10:33:59 +0300 (MSK)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx5.sberdevices.ru 2EBE9240009
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=salutedevices.com;
+	s=post; t=1774942439;
+	bh=pqy2ZQ2K4gQV5vy8fXRZ04Ksn+hbGqCwiDElTb+KLWM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:From;
+	b=Vqbye4/gxEkN5y6SkrGeFFYraxQHst5BP5gymx/wE6420SwJHr3YNYA2U1nz+y/kG
+	 LNbOv6RIwAvd0hJg/1DnZbvjH1qVZlhvtykhSQMmbXgDtSUwr6SzTgJbK8VuIBluia
+	 ly3rPuZJW/xaBVtrLBWmsR6qCcI/pZ63sWIO5jXhNrBcfbiIa1tC+7cPv/RnqqnZXc
+	 3F6qwy7WlwbvEAXsDQuKdL4bwwFG/1gXYyofGINJ6uknXgzTSEromqeImnrk7QXmrE
+	 8zfZzParopCAq48OKIv7NCK5AikhalzdwH1IkT4OJa1FRsU9WfigWgQxqSd3Z83B/w
+	 mH3hVWsaC4+Gw==
+Received: from smtp.sberdevices.ru (p-exch-cas-s-m1.sberdevices.ru [172.16.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(Client CN "sberdevices.ru", Issuer "R12" (not verified))
+	by mx5.sberdevices.ru (Postfix) with ESMTPS;
+	Tue, 31 Mar 2026 10:33:58 +0300 (MSK)
+Message-ID: <4a9c726a-d580-4b0b-9530-228b58389c80@salutedevices.com>
+Date: Tue, 31 Mar 2026 10:33:57 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="YS1M1StTrmdXNQ1e"
-Content-Disposition: inline
-In-Reply-To: <8988012f-b006-4aa8-bb8f-571b8526a15c@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [DMARC error]Re: [PATCH 0/2] Add PWM support Amlogic S7 S7D S6
+To: Xianwei Zhao <xianwei.zhao@amlogic.com>, Martin Blumenstingl
+	<martin.blumenstingl@googlemail.com>
+CC: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, Neil Armstrong
+	<neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Jerome
+ Brunet <jbrunet@baylibre.com>, <linux-pwm@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-amlogic@lists.infradead.org>,
+	Junyi Zhao <junyi.zhao@amlogic.com>
+References: <20260326-s6-s7-pwm-v1-0-67e2f72b98bc@amlogic.com>
+ <CAFBinCD1GPP82MEBDHg3BwCJg6JY5k2HksEt+kCB=YjnYTO7Tw@mail.gmail.com>
+ <70a637b1-a76a-470c-9a97-0b4599a40a1c@amlogic.com>
+Content-Language: en-US
+From: George Stark <gnstark@salutedevices.com>
+In-Reply-To: <70a637b1-a76a-470c-9a97-0b4599a40a1c@amlogic.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: p-exch-cas-a-m1.sberdevices.ru (172.24.201.216) To
+ p-exch-cas-s-m1.sberdevices.ru (172.16.210.2)
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/03/31 06:48:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: gnstark@salutedevices.com
+X-KSMG-AntiSpam-Info: LuaCore: 95 0.3.95 0e4b6d4f1992c354ebd6a5cc3c5624a3b0aa8cbc, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, lists.infradead.org:7.1.1;127.0.0.199:7.1.2;smtp.sberdevices.ru:7.1.1,5.0.1;salutedevices.com:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 201803 [Mar 31 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.22
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.1.8310, bases: 2026/03/30 22:26:00 #28356219
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-KATA-Status: Not Scanned
+X-KSMG-LinksScanning: NotDetected, bases: 2026/03/31 06:48:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 5
+
+Hello Martin, Xianwei
 
 
---YS1M1StTrmdXNQ1e
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 3/31/26 10:10, Xianwei Zhao wrote:
+> Hi Martin,
+>      I confirmed with Junyi Zhao that the current implementation counts 
+> from zero, so this submission is correct.
+> We agree this should be fixed and will address it in a follow-up patch.
+> Thanks for pointing it out.
+> 
+> On 2026/3/31 05:54, Martin Blumenstingl wrote:
+>> Hi Xianwei Zhao,
+>>
+>> thanks for your contribution!
+>>
+>> On Thu, Mar 26, 2026 at 7:35 AM Xianwei Zhao via B4 Relay
+>> <devnull+xianwei.zhao.amlogic.com@kernel.org>  wrote:
+>>> Add bindings and driver support Amlogic S7/S7D/S6 SoCs.
+>> There is an old report that got lost, stating that the current
 
+Xianwei Zhao thanks for the confirmation.
+I am the author of the old report and the corresponding patch and it's 
+not lost. So if the patch is correct I'll be glad to add relevant 
+tested-by tags.
 
-> > In case you mean this as unanswered questions to v1: This describes the
-> > device specific second mbox cell. Like Tegra does it here (even with
->=20
-> I asked Linux ABI. Device specific numbers is not Linux ABI, because
-> Linux is not device.
+>> pwm-meson driver has an off-by-one error with the hi and lo fields:
+>> [0]
+>> Since you are working on bringing up a new platform: is this something
+>> you can verify in your lab?
+>> To be clear: I'm not expecting you to work on this ad-hoc or bring a
+>> patch into this series. However, it would be great if you could verify
+>> if the findings from [0] are correct and send an updated patch in
+>> future.
+>>
+>> Thank you and best regards
+>> Martin
+> 
+> _______________________________________________
+> linux-amlogic mailing list
+> linux-amlogic@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-amlogic
 
-I have no idea what you want here. I see it like this: DT is OS
-agnostic. So, the flags are to describe the hardware. The Linux driver
-then does the proper things according to these flags. Other OS driver
-might do other things.
-
-> > shifts instead of plain numbers):
-> >=20
-> > include/dt-bindings/mailbox/tegra186-hsp.h
-
-And I still have no idea why my header is different than the Tegra one.
-
-> > I really have no idea what is still missing?
->=20
-> It's not a binding, drop the header from the bindings.
-
-So, I should add the header to the driver? Can do, but then I have to
-remove the reference to the header from the binding doc. Namely, this
-paragraph:
-
-+      The first cell is the channel number as specified in the documentati=
-on
-+      of the SoC. The second cell may specify flags as described in the fi=
-le
-+      <dt-bindings/soc/renesas,r8a78000-mfis.h>.
-
-Not helpful for the user, or?
-
-
---YS1M1StTrmdXNQ1e
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmnLen0ACgkQFA3kzBSg
-KbZ2pxAAhcWDq2zcakZq3ltjpX1rLg+FBVpPX7VgyIyUWSN/TU7jVHmSMmyoyK3c
-l2p7RkWLDei1LFBw1XcLevI8Y9jktic3o2TgU+7XuDBdyFRn41TWc5HVN0eZ4ZMT
-+OkBSfu7QdFx3RjSbcRUa6DYd3PJhQVBLtadFaLTfKRkkOI5RWw/VyZnihtxmB+/
-0niYY6xbVpm6jFucqs6bMfT0hI4UnUQIeev0CJCYi9ot5y5g51ZvWorDuou40j0C
-opOQyc4lCTGTExeGRNP4C0nC/aYiLkchRWNk/NdIrhteyA+yolf8ci0ejZdMiB2T
-/exSgjcrceNsQSqnTjsNFM+K4T8RYQGvrdj9f4SGKHthCb/QWZghbw0vv7gjLe8C
-FVuX21o4wJZKTeKOmc5eJkrmcaczqTeqW6cbnhhpb+fwZvOTLgVOS9XpJI8x7mrC
-4klcGaE1J4aJTwvd8BWpov2SB5N82TvVIJY6G0aczsyX0uqDMt2kZwO73LjbeS5s
-emfcaREnFSjU8dE6CiUD3U8Wvt5FXdpbmH9FS1gYCSC/zT9fWV+Cu7TTT5r6GMmm
-5/NNx5QSpOc0VnilygBswrWpaN0oU4f4pJmVw5tYT67DvNniEPRwTARJr1miPA4I
-59Y3Nktofj1ZT1cfbfFaT7Z9r2QFRvo/TsNQzzGCTzr/YiP5QGU=
-=z5US
------END PGP SIGNATURE-----
-
---YS1M1StTrmdXNQ1e--
+-- 
+Best regards
+George
