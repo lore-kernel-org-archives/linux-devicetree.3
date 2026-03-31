@@ -1,87 +1,418 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE1119D89E;
-	Tue, 31 Mar 2026 23:35:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272BF3D34A0
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 23:56:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775000141; cv=none; b=oRWJfLNUjomNDypJ4O+vWsGd5CY8i4lCxXnm3K6zIOscCzEW7FDBpfBC5XKjUSH2OPd0z9DX7uy9aHW8LpSRx6k8Q2SwVdwttm6X9uJjtsnj0qqYLz70qji5+4T28pBKnjGJF1kQOvA9VpqrL7esPIfgA24QGjQpg0p2pfBAbqo=
+	t=1775001373; cv=none; b=cxAhbGlF8NA2FbNbtVl/b5hRn8tyMvUmTOzM0NPddnIcTFZKJO/Y5rUzMh9J2pT+8ZvZjHyQ4Yi9Dbjiqdz3bMATUW5+PKH7IcUn2wfNrxNnFkjfnxtiDbDIJG3y4h9XRkEIt0Z7MI+q8hlFKez3rYIofoEwBC8Ov0JhO2PUW8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775000141; c=relaxed/simple;
-	bh=0fBhtfZ1hrQCxWWBqNY10CZUCs7/+Hj9oeWWPhyHhyc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bD4SKIA/yuXqbFzS/9j/oLp8CzXuXKj71FgWm5vGurq5CgT65FJoCCWwDW/wkESro6ejUdeD/o/jrPbq4H8FtPg9ZtkdAbwJ1WAxmQSh54Qw9bKbez46/75HXodm6uk6BDtpzV5dhim0lhkf6OleRQCaO3FbNh7Iznp4Z8SjaRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=AN8sx1Qj; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1775001373; c=relaxed/simple;
+	bh=9d8xd88aiUm8VgXjnmm0fTQpnZ1VYMiFZ7Ju5d+R4lg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SUsUB9b7fKPXzJOS0NyJZe7HKuX4fC0BWE5SFN0h3eceENcOUpiRz3EMsr4dufE1pO++RdKQRDdEvxC+M4COduivY2+Fjz+F/62YFsofA4b/VKQ11VP7G5jlvrqBcf331kIcoJoglWeFFDPNYNddBmjLDa/lLAAXQUOGeQbhTZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=atTFrzDI; arc=none smtp.client-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="AN8sx1Qj"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=HVS8vnwDDp67iG/gjIG0ZPUsJ3Y7Nryk4cO6gyrgH3o=; b=AN8sx1QjM5M3zl1AAI2+qM9R0h
-	xAB/+4IuhBDvVwyAKmk410FBG0H1Nat2S7mFTBxvzyutBnf+EuyCJIbegiitKb9lJqWmB60CfVCku
-	GRbY0RUs1BeNYhCGQ1fOvHxwZ621eAT2WAGUmIAIBrGWxVQ2Lc1oMWFDUDzySHSIbcfQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1w7ic9-00EG6P-To; Wed, 01 Apr 2026 01:35:17 +0200
-Date: Wed, 1 Apr 2026 01:35:17 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Anirudh Srinivasan <anirudhsriniv@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ARM: dts: aspeed: Enable networking for Asus Kommando
- IPMI Card
-Message-ID: <95d6ae8e-6832-468b-9e04-dae1337a87f7@lunn.ch>
-References: <20260331-asus-kommando-networking-v2-1-f7d72ae5d40d@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="atTFrzDI"
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-128ebee22caso847455c88.0
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 16:56:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775001370; x=1775606170; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=9hdSzpG5NO9RYAgONCLY3fKC0SZ0JRDtBMlPE4JL0nE=;
+        b=atTFrzDIIePyyg4r43DWH6y++oQoIHIofcSPZ7EKK71MmkBkbGFpjSKBvg5I9/eRbs
+         m9qFwkAEDESb1bkLuoSRvDomNXoQr3d/rvPTwvmJp5p7AjpDzZYbAzCUecWh5fq838EP
+         XM635LI8nXdb4DAQ5GHoz2IOrBqUb2x4xN0QdHJQlLjGpwvv1pGyF1kGgI6GIXCQspBa
+         nKyCVImC3r7qlPQgpsyeAmO1vfCxTH6W6g3qTIVE5liAvZSlRjRGaJ3UqIjLS1bNrKPx
+         jhOqgH603TTE7rknbOqX4oniBSs5G4YMpzCBwlUyA9HRgIwUFURWcACrEymHhwpYe0HL
+         uzkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775001370; x=1775606170;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=9hdSzpG5NO9RYAgONCLY3fKC0SZ0JRDtBMlPE4JL0nE=;
+        b=Hto25EvPLj8ujOsJ5LFZsVTtRAfx92k9EBeEftBnTo2JiLoiRO/ZAE00hr6H1r1fUc
+         shvJg0/FKrPMciy/7NDsPeMYfjTgpUOimrHwqG2lfljHlXK7PmPf6f6LD6EyFGCp4vL+
+         BiiFGQJElTm9bfmcz4AdujZfayESXybVYnunW361cbYAAKMQCHrZ+Cqj203CBpz8mGWd
+         t9W121Wem3kL0oTtkJPMlFbL/WtBPgffHLaCcrpwKqWJeHaWu0dvL7JPBaDXZVRRQiYj
+         NaNK11napGFKKGHg+AJ8N//5YhfGr2gg4+PlzX4UvOOzkT976QdsyfofilRapEsnyrG8
+         Hpow==
+X-Gm-Message-State: AOJu0YwEWJfkqDIZQdhAG5nrSqEeRQum2kM0rE+QJFPNPd4f2BoFySQf
+	HSw59NHwMvty+Sqw3Hj2n+6SqO7xTfnypSvEwYFSZHTpTTVG55SdSQSk
+X-Gm-Gg: ATEYQzwkR+VvY7gGs4dyRyG5eL1J4EZoHM6D21GGIAoK/HSMIVWnPkEr6YzbepBT5J6
+	lKlmewljitCSUaf6e3BGx94z+ZIf7E+0Ts02DGLfj+e0BF46145CDHHxD7T+7bxBh/vBg79Ix38
+	ra3lrnAdRlBD9ZGoYjhzcBRFtyvtaAamR+xVreAy245vuWxjLxDtJWQgEeh6IuQCpd0UI7Gw5yF
+	lo5IoOt7Gw4PoI72qJfWcZBpjwMFsf+SRWh7zFqfPUS1PJEl33t3ig0WuAu+h2vgmdL/qQm5usl
+	Nncik+f19+FChaegR7JIfrIDKvXZ4e50Saj94II1N0VZ/zAhiW4PIKq5MCS9T11uxd6DdM7gyIL
+	j0D8yc7zXqzc12BwM+0XIBcOmWpeoKabCLHsG+DCwgWdOUHrEPIy6zK3JeuLiDGh+AdT5jl7Q43
+	0yfd8STDrbjfPvl4UrU4nbBIV9u2qTZ3vhoq6nqtS06DFiC63dvIyr2yCqZ6AsX6x9shdhh9Kc
+X-Received: by 2002:a05:7022:394:b0:128:d20a:2f3d with SMTP id a92af1059eb24-12be645079amr840691c88.4.1775001370052;
+        Tue, 31 Mar 2026 16:56:10 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12ab97efb42sm17177155c88.7.2026.03.31.16.56.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 31 Mar 2026 16:56:09 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <b4b2642c-35d6-410e-8e44-b3860dc551cf@roeck-us.net>
+Date: Tue, 31 Mar 2026 16:56:08 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260331-asus-kommando-networking-v2-1-f7d72ae5d40d@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] hwmon: pmbus: Add support for Sony APS-379
+To: Chris Packham <chris.packham@alliedtelesis.co.nz>, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260331231916.94662-1-chris.packham@alliedtelesis.co.nz>
+ <20260331231916.94662-3-chris.packham@alliedtelesis.co.nz>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260331231916.94662-3-chris.packham@alliedtelesis.co.nz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Mar 31, 2026 at 09:18:00AM -0500, Anirudh Srinivasan wrote:
-> Adds the DT nodes needed for ethernet support for Asus Kommando, with
-> phy mode set to rgmii-id.
-> 
-> When this DT was originally added, the phy mode was set to rgmii (which
-> was incorrect). It was suggested to remove networking support from the
-> DT till the Aspeed networking driver was patched so that the correct phy
-> mode could be used.
-> 
-> The discussion in [1] mentions that u-boot was inserting clk delays that
-> weren't needed, which resulted in needing to set the phy mode in linux
-> to rgmii incorrectly. The solution suggested there was to patch u-boot to
-> no longer insert these clk delays and use rgmii-id as the phy mode for
-> any future DTs added to linux.
-> 
-> This DT was tested (on the OpenBMC u-boot fork [2]) with a u-boot DT
-> modified to insert clk delays of 0 (instead of patching u-boot itself).
-> [3] adds a u-boot DT for this device (without networking) and describes
-> how to patch it to add networking support. If this patched DT is used,
-> then networking works with rgmii-id phy mode in both u-boot and linux.
-> 
-> [1] https://lore.kernel.org/linux-aspeed/ef88bb50-9f2c-458d-a7e5-dc5ecb9c777a@lunn.ch/
-> [2] https://github.com/openbmc/u-boot/tree/v2019.04-aspeed-openbmc
-> [3] https://lore.kernel.org/openbmc/20260328-asus-kommando-v2-1-2a656f8cd314@gmail.com/
-> 
-> Signed-off-by: Anirudh Srinivasan <anirudhsriniv@gmail.com>
+Hi Chris,
 
-Thanks for the updated commit message.
+On 3/31/26 16:19, Chris Packham wrote:
+> Add pmbus support for Sony APS-379 power supplies. There are a few PMBUS
+> commands that return data that is undocumented/invalid so these need to
+> be rejected with -ENXIO. The READ_VOUT command returns data in linear11
+> format instead of linear16 so we need to workaround this.
+> 
+> Signed-off-by: Chris Packham <chris.packham@alliedtelesis.co.nz>
 
-Is anybody trying to get the changes in the forked version upstream?
-It seems like a reasonable way to solve the problem, at least for new
-boards.
+Feedback inline.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Thanks,
+Guenter
 
-    Andrew
+> ---
+>   drivers/hwmon/pmbus/Kconfig   |   6 ++
+>   drivers/hwmon/pmbus/Makefile  |   1 +
+>   drivers/hwmon/pmbus/aps-379.c | 196 ++++++++++++++++++++++++++++++++++
+>   3 files changed, 203 insertions(+)
+>   create mode 100644 drivers/hwmon/pmbus/aps-379.c
+> 
+> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+> index fc1273abe357..29076921e330 100644
+> --- a/drivers/hwmon/pmbus/Kconfig
+> +++ b/drivers/hwmon/pmbus/Kconfig
+> @@ -77,6 +77,12 @@ config SENSORS_ADP1050_REGULATOR
+>   	  µModule regulators that can provide microprocessor power from 54V
+>   	  power distribution architecture.
+>   
+> +config SENSORS_APS_379
+> +	tristate "Sony APS-379 Power Supplies"
+> +	help
+> +	  If you say yes here you get hardware monitoring support for Sony
+> +	  APS-379 Power Supplies.
+> +
+>   config SENSORS_BEL_PFE
+>   	tristate "Bel PFE Compatible Power Supplies"
+>   	help
+> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+> index d6c86924f887..94f36c7069ec 100644
+> --- a/drivers/hwmon/pmbus/Makefile
+> +++ b/drivers/hwmon/pmbus/Makefile
+> @@ -9,6 +9,7 @@ obj-$(CONFIG_SENSORS_ACBEL_FSG032) += acbel-fsg032.o
+>   obj-$(CONFIG_SENSORS_ADM1266)	+= adm1266.o
+>   obj-$(CONFIG_SENSORS_ADM1275)	+= adm1275.o
+>   obj-$(CONFIG_SENSORS_ADP1050)	+= adp1050.o
+> +obj-$(CONFIG_SENSORS_APS_379)	+= aps-379.o
+>   obj-$(CONFIG_SENSORS_BEL_PFE)	+= bel-pfe.o
+>   obj-$(CONFIG_SENSORS_BPA_RS600)	+= bpa-rs600.o
+>   obj-$(CONFIG_SENSORS_DELTA_AHE50DC_FAN) += delta-ahe50dc-fan.o
+> diff --git a/drivers/hwmon/pmbus/aps-379.c b/drivers/hwmon/pmbus/aps-379.c
+> new file mode 100644
+> index 000000000000..e4c4c2d12bc9
+> --- /dev/null
+> +++ b/drivers/hwmon/pmbus/aps-379.c
+
+Driver documentation is missing.
+
+This power supply does not seem to be documented anywhere, so this is actually quite
+important.
+
+Having said this, the behavior seems quite similar to BluTek BPA-RS600. Are those
+power supplies from the same OEM ?
+
+> @@ -0,0 +1,196 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Hardware monitoring driver for Sony APS-379 Power Supplies
+> + *
+> + * Copyright 2026 Allied Telesis Labs
+> + */
+> +
+> +#include <linux/i2c.h>
+> +#include <linux/init.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/pmbus.h>
+> +#include "pmbus.h"
+> +
+> +struct aps_379_data {
+> +	struct pmbus_driver_info info;
+> +	u8 vout_linear_exponent;
+> +};
+> +
+> +#define to_aps_379_data(x) container_of(x, struct aps_379_data, info)
+> +
+> +static const struct i2c_device_id aps_379_id[] = {
+> +	{ "aps-379", 0 },
+> +	{},
+> +};
+> +
+> +static int aps_379_read_byte_data(struct i2c_client *client, int page, int reg)
+> +{
+> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
+> +	struct aps_379_data *data = to_aps_379_data(info);
+> +	int ret;
+> +
+> +	if (page > 0)
+> +		return -ENXIO;
+
+Unnecessary since there is only one page.
+
+Yes, I know, other drivers do it, but it is really pointless.
+
+> +
+> +	switch (reg) {
+> +	case PMBUS_VOUT_MODE:
+> +		/*
+> +		 * The VOUT format used by the chip is linear11,
+> +		 * not linear16. Report that VOUT is in linear mode
+> +		 * and return exponent value extracted while probing
+> +		 * the chip.
+> +		 */
+> +		ret = data->vout_linear_exponent;
+> +		break;
+> +	default:
+> +		ret = -ENODATA;
+> +		break;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +/*
+> + * The APS-379 uses linear11 format instead of linear16. We've reported the exponent
+> + * via the PMBUS_VOUT_MODE so we just return the mantissa here.
+> + */
+> +static int aps_379_read_vout(struct i2c_client *client)
+> +{
+> +	int ret;
+> +	s32 mantissa;
+> +
+> +	ret = pmbus_read_word_data(client, 0, 0xff, PMBUS_READ_VOUT);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	mantissa = ((s16)((ret & 0x7ff) << 5)) >> 5;
+
+sign_extend32() ?
+
+Also, is the exponent known to be static ? If not it may be necessary
+to adjust it. If yes, I'd suggest to add a comment above.
+
+> +	ret = mantissa;
+
+That assignment is really unnecessary.
+
+> +
+> +	return ret;
+> +}
+> +
+> +static int aps_379_read_word_data(struct i2c_client *client, int page, int phase, int reg)
+> +{
+> +	int ret;
+> +
+> +	if (page > 0)
+> +		return -ENXIO;
+
+Unnecessary.
+
+> +
+> +	switch (reg) {
+> +	case PMBUS_VOUT_UV_WARN_LIMIT:
+> +	case PMBUS_VOUT_OV_WARN_LIMIT:
+> +	case PMBUS_VOUT_UV_FAULT_LIMIT:
+> +	case PMBUS_VOUT_OV_FAULT_LIMIT:
+> +	case PMBUS_PIN_OP_WARN_LIMIT:
+> +	case PMBUS_POUT_OP_WARN_LIMIT:
+> +	case PMBUS_MFR_IIN_MAX:
+> +	case PMBUS_MFR_PIN_MAX:
+> +	case PMBUS_MFR_VOUT_MIN:
+> +	case PMBUS_MFR_VOUT_MAX:
+> +	case PMBUS_MFR_IOUT_MAX:
+> +	case PMBUS_MFR_POUT_MAX:
+> +	case PMBUS_MFR_MAX_TEMP_1:
+> +		/* These commands return data but it is invalid/un-documented */
+> +		ret = -ENXIO;
+> +		break;
+
+I'd suggest to return directly in this function. There is no real value
+to assign the return value to ret just to return it.
+
+> +	case PMBUS_READ_VOUT:
+> +		ret = aps_379_read_vout(client);
+> +		break;
+> +	default:
+> +		if (reg >= PMBUS_VIRT_BASE)
+> +			ret = -ENXIO;
+> +		else
+> +			ret = -ENODATA;
+> +		break;
+> +	}
+> +
+> +	return ret;
+> +
+> +}
+> +
+> +static struct pmbus_driver_info aps_379_info = {
+> +	.pages = 1,
+> +	.format[PSC_VOLTAGE_OUT] = linear,
+> +	.format[PSC_CURRENT_OUT] = linear,
+> +	.format[PSC_POWER] = linear,
+> +	.format[PSC_TEMPERATURE] = linear,
+> +	.format[PSC_FAN] = linear,
+> +	.func[0] = PMBUS_HAVE_VOUT |
+> +		PMBUS_HAVE_IOUT |
+> +		PMBUS_HAVE_PIN | PMBUS_HAVE_POUT |
+> +		PMBUS_HAVE_TEMP |
+> +		PMBUS_HAVE_FAN12,
+> +	.read_byte_data = aps_379_read_byte_data,
+> +	.read_word_data = aps_379_read_word_data,
+> +};
+> +
+> +static int aps_379_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	const struct i2c_device_id *mid;
+> +	struct pmbus_driver_info *info;
+> +	struct aps_379_data *data;
+> +	u8 buf[I2C_SMBUS_BLOCK_MAX + 1];
+> +	int ret;
+> +
+> +	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	memcpy(&data->info, &aps_379_info, sizeof(*info));
+> +	info = &data->info;
+> +
+> +	if (!i2c_check_functionality(client->adapter,
+> +				     I2C_FUNC_SMBUS_READ_BYTE_DATA
+> +				     | I2C_FUNC_SMBUS_READ_WORD_DATA
+> +				     | I2C_FUNC_SMBUS_READ_BLOCK_DATA))
+> +		return -ENODEV;
+> +
+> +	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
+> +	if (ret < 0) {
+> +		dev_err(dev, "Failed to read Manufacturer Model\n");
+> +		return ret;
+> +	}
+> +
+> +	for (mid = aps_379_id; mid->name[0]; mid++) {
+> +		if (!strncasecmp(buf, mid->name, strlen(mid->name)))
+> +			break;
+> +	}
+
+That seems to be excessive. There is only one power supply.
+If more are added in the future, a looop can be added. Right
+now a simple comparison should do.
+
+Thanks,
+Guenter
+
+> +	if (!mid->name[0]) {
+> +		buf[ret] = '\0';
+> +		dev_err(dev, "Unsupported Manufacturer Model '%s'\n", buf);
+> +		return -ENODEV;
+> +	}
+> +
+> +	ret = i2c_smbus_read_word_data(client, PMBUS_READ_VOUT);
+> +	if (ret < 0) {
+> +		dev_err(dev, "Can't get vout exponent.\n");
+> +		return ret;
+> +	}
+> +	data->vout_linear_exponent = (u8)((ret >> 11) & 0x1f);
+> +
+> +	return pmbus_do_probe(client, info);
+> +}
+> +
+> +static const struct of_device_id __maybe_unused aps_379_of_match[] = {
+> +	{ .compatible = "sony,aps-379" },
+> +	{},
+> +};
+> +MODULE_DEVICE_TABLE(of, aps_379_of_match);
+> +
+> +static struct i2c_driver aps_379_driver = {
+> +	.driver = {
+> +		.name = "aps-379",
+> +		.of_match_table = of_match_ptr(aps_379_of_match),
+> +	},
+> +	.probe = aps_379_probe,
+> +	.id_table = aps_379_id,
+> +};
+> +
+> +module_i2c_driver(aps_379_driver);
+> +
+> +MODULE_AUTHOR("Chris Packham");
+> +MODULE_DESCRIPTION("PMBus driver for Sony APS-379");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("PMBUS");
+
