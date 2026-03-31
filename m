@@ -1,153 +1,217 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A5237AA9E
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 10:59:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFBB53A6B6F;
+	Tue, 31 Mar 2026 11:02:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774954754; cv=pass; b=dQWxFnzTsDfWywTW/e/UihJBtgnox2twD5HuBFKjPuLWKBZgLiLqgjEjoBIPkZtOwnmSNNQDmpuMdWd+Ma3g6prEtLTgMRS+4qaABJLonzVAE+/nFk6R55c3uRDMPLVQPmZt3KYVjXvnD+i6/BB7zUJfgTjV+ZPLbyYPwGkzaZU=
+	t=1774954925; cv=pass; b=NsMUxjiW3Q/PU8aLXS04LnoJznF4d2BO01KL4cbPElJMlSwFdxSfZ4WKZX8QurfMAAycMNs17t1iI9ZyMTymVo449+HaXGpyW9zvyeYTSShsyLti6i5cD3wRkvl1mLCwh6oEiK21Dgcvx97rIxiNVuu+J1dOGnFNid+7pFIsvIs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774954754; c=relaxed/simple;
-	bh=2VUtW0YpXM+NjDn8hDo/IqLapZK8BOphv1C4iFqDS7A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EEweDW81/V0KBzkzAA2LRYxbH6qh/6gUU/zTmQoTbNJcZy2ejLI56QeHdTRckS/VqsS44nhd++m+kODJ+bllVFyEyWq042YPQTYCoBZGmkzc9i/c9Rz19HixYaPl8q+k+bKwJSis3EM1EkDozE/V8XpPVmYAmacckhKVeOqz3WE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Mh1kEMZg; arc=pass smtp.client-ip=209.85.167.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1774954925; c=relaxed/simple;
+	bh=KgThie/Lrlvk8P8GwHP27l1Esfgg2H/pmnorA7A33mI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nrDD55PLzxW4sOp5GcqebpCywas+28DKKT4zyeQ4oAwVY+RAiDOKiAdFSmeinOiicj1gsDBO9Gqg7lWJ0+mYaMl+nSorQiNxsabCB+4fxGCYe1Q++gY2tIenoYCqMHzUPA9/rRM3EyD//aNb/7tBTWNcPdKmAeVBhqqD4cIzoZ8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=UL1OFMIG; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Mh1kEMZg"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5a283c44478so5966613e87.3
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 03:59:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774954751; cv=none;
-        d=google.com; s=arc-20240605;
-        b=OrOpAbhEJGfeXHT1HLJPrJplb9KyuWCHK+h2Z4MZQiDE+kvydKYXOmjLZld5IqoZRi
-         TLCHOpgnQuxl+9TaOEhJRFUW6KNFEW3Qmp99DgIDjcTDbFBOfZh7alN2xOCQorUXeKoR
-         P+BdxJ55/1Kd06DjKJY95aZV0Fz+rp/5yawviTaUDaFCLkVtTRPmSkhv4xGeqpZ/3Brl
-         sshDxgdhlqQQelgtrrDeoLJYtHb/0bX3uS/4rnAiJMCdH4TE0OC53F04DFTvgJKn38tr
-         dLwjbKqC4vJpdypM4xfW0yR2AValPYk1lsgHKD/C1rcqPuZpgJ4GvqntU5ELIycaDxFA
-         VtUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=fL8mGMhRS7HqUOu1W0Z30JuQwLChCz1UuGa8bh9Su6c=;
-        fh=0EFOr4A0k+jRMqK8EHxTnqo5I1F2C/HnoWqDpk31VdQ=;
-        b=Wm6r+e8i4w7O4MbwEX8QGwJKG1k83uS4VC+zqLLkzqTYpWHcqqjsNpHq9ibzLlCRMv
-         73AsBGPMr8QtnC6vGASSNMuZp1Yw1zlG3ITWj83Vv9IpDYOY2kaa6RBd4eXWUmghuKnD
-         NCKegxiGXMf2RsmiQAccTTbPc+S7EF6Vz6IlU8+VxEbblOhvDbNIg07OqqdS1kDSWueS
-         CsXWFVXKAhgTTMV4PaZdQ9Xa7cfd8UVCLsBCdwjAfje6NPo2F0K3W2wRvxggMJvtae/0
-         5GZGdJKeEqs4lkASgTbgB77GxpH9Tfh4hYc5AP2edgHW1IZlrkILBP/gs8xldV9Vfh9k
-         Q22Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774954751; x=1775559551; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=fL8mGMhRS7HqUOu1W0Z30JuQwLChCz1UuGa8bh9Su6c=;
-        b=Mh1kEMZgKEF4pk+ujME5vMjdsXwCDFmo7Me2lq2lUiRxMd641FPSg40y18Xi3nGAva
-         zS6jlPu8Ke24OjKGnE7mumdMLw0xttB7GikIkW3dGFSg7/qY+Z22baHUUxTA2W6qwYUj
-         jandTH4NL1u6PIzf0GjOUHu1/Oct/Q4yBv3l92C7TcmjFjvYMF6RgoFq5i5v8OkXz+dc
-         VqbAwkNQG22P76CVL2jssoCDM/uPc4uRX3Cce/CCa1xBhY6IaqAWggE6yp2Mpx6kajSg
-         sDP8CPa+1Xbuiw+7nupHYIEMYkxsC7gHefv2u1Fg7fCz6V7GILodECrQXlRpNzVWkBUn
-         PsEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774954751; x=1775559551;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fL8mGMhRS7HqUOu1W0Z30JuQwLChCz1UuGa8bh9Su6c=;
-        b=OOyY3th+vNmKxGHTgExvsEh5Sa3zf+BDvQKYBsz3up8a8M7s8923uAkyB07Pwi/zyJ
-         WXZ67g+bNCg5a0iBEsJzouuMrtRWFVANRaDPM9Tc+whi6QfCdEmtyT9Jwu1vtELyKkwj
-         KT7kWGPKuekXOjS4bDsZhrbVJn7No2jSfc/w7AleXAhWoMaST6RILomxA5SJRh7ourU2
-         UPgIX75FX09n6AMeW+L7U2vfAEL9uEnzrWnOq1mqlOxBTRPe/STAb2J/IsWUfn/TxjWB
-         BMsHP4S0bl1mTtm5B9LdQu5RuoM14/Jrjd+Jm4Tqf47PTbT/1Xx5WUOfmZ8h5qR7aKBH
-         +evg==
-X-Forwarded-Encrypted: i=1; AJvYcCXi4b39PewyWp0FTUXB3QGPhRkXDgsJ9C7IRaW9Nm4ggMOJhyUuf3xo9FJXMkwizdR/FW9TBXxC02pb@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZ0nVv50Q5d6HFPY6OHEwgO+Z6fBv3bjTFdrTCF1bqLrO5ZZYJ
-	aqPeXrRyVPrsixXnJAwX5U+zo+Skoi8vFX1DkanLQYSApveFoCdT0MuBYPfqEJ52jq0CiW9ocEt
-	NrLMXtbVM/OAjdsEKfF4CFNOk+/+G79tRvVmjTUfL9A==
-X-Gm-Gg: ATEYQzwHjfmY3tkiJKOZERZ/w4ed8fR/dHS6GL2Je6keNf4iKwJg0Ycw5Ejyjt3Umag
-	USpJJRwS70NelLSs2+ULYitVg7VVBWF1uzMTCWz4IREuxUEpMqIBLsooKQ8+lkvSx1f2PBA0heQ
-	ZvRJMfB/5tYk4EqAfGJJkw6LUTRbCyKOPktFxF+EypDXDfpZq0qoKUyrELouxk6czYFKM3eYdu+
-	dYGuMRHa4OIeb6MeW91hRtXljyA32su526gUSp0K+UzSojwr6Ndd5ifKSKwHr8mRORQixXjtSEC
-	XlGeQLkp
-X-Received: by 2002:a05:6512:3482:b0:5a2:b01e:5b5a with SMTP id
- 2adb3069b0e04-5a2b01e5c9amr2976958e87.33.1774954750886; Tue, 31 Mar 2026
- 03:59:10 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="UL1OFMIG"
+ARC-Seal: i=1; a=rsa-sha256; t=1774954888; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Bb4fYXmN58XESqL8Mizz7i6dZfAwwfSdKDL47H4/JApJmkBaN+6px9j0rOYKEzRV/AmI3kSgyKwpdtA4qIMBYMAgAc/9wryjZ/VIzhFIMBcHpvhh8/hZxIA75oShKY+lQHpZenjE3o/IA0f4t3Zsh6wCSzqEgrYfPPE1DSyfOss=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1774954888; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=u13dMEcF9M+aXZsAMu08kfH0fwxaX2Y4cknWwBOVSCY=; 
+	b=InWxbVKylN6XldQEMAIoQuoTd6cCFFR5X5+f/LeO0gcMyAJS3YaiTpux+HCNTiL/G6J+Evj27LudKZoRTz8cR/nly1IAYLUW+W63fFyjf01Ed1IOrGfLd3KaLP/ydJJqVoJmYe4gHvdOtFd9Mmp5PvATQh1cs99Uvhigju4vJk0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774954888;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=u13dMEcF9M+aXZsAMu08kfH0fwxaX2Y4cknWwBOVSCY=;
+	b=UL1OFMIGHg9Zy1GZlRCQDlVlb35zutQpJ/PIGOVlLeugOLTK+3s5bf6C3p5Hou45
+	R/Kxqr/D8ZjofE7QU0ZncxiayHc7St9DUx3AyNYIsI5A3Y/GsELt53vcs23Lr0oYw+F
+	dRoxx0Q0XBa2sFbscg9RYazqeCIShfFVPoPz6cNE=
+Received: by mx.zohomail.com with SMTPS id 1774954887379775.1689389168353;
+	Tue, 31 Mar 2026 04:01:27 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 4340D181F55; Tue, 31 Mar 2026 13:01:21 +0200 (CEST)
+Date: Tue, 31 Mar 2026 13:01:21 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Chaoyi Chen <kernel@airkyi.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, 
+	Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	kernel@collabora.com
+Subject: Re: [PATCH 00/10] Synopsys DisplayPort Controller improvements for
+ Rockchip platforms
+Message-ID: <acuoBEWNw6fVk-yT@venus>
+References: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
+ <FE1BFB774BE13241+54b8a8ce-5a8c-495d-a53f-65a2440924fb@airkyi.com>
+ <acphlgK6ZmBitGJL@venus>
+ <AFAEA46A791878B0+9fe68e46-8d8f-44f1-80e3-dfad2de51832@airkyi.com>
+ <acsoT_i-LfoMoIy_@venus>
+ <1801CF6805B8DD32+0afb49ab-a03c-40f0-92bd-d0b332f8f28e@airkyi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260330-orangepi-sd-card-uhs-v5-0-bd853604322d@gmail.com>
- <20260330-orangepi-sd-card-uhs-v5-1-bd853604322d@gmail.com> <20260331-eager-kind-civet-62f60a@quoll>
-In-Reply-To: <20260331-eager-kind-civet-62f60a@quoll>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Tue, 31 Mar 2026 12:58:33 +0200
-X-Gm-Features: AQROBzB11zXXvkr31NXEyNIIlW6o7ZaxcYR8a2pmCHpw6-PFnrMqVgTaVeOSgY4
-Message-ID: <CAPDyKFrafqhNbetL5kOzAFO526yUrJWa6mS_FPX-cw9bj2Mg4Q@mail.gmail.com>
-Subject: Re: [PATCH v5 1/9] dt-bindings: mmc: spacemit,sdhci: add pinctrl
- support for voltage switching
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Iker Pedrosa <ikerpedrosam@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
-	Michael Opdenacker <michael.opdenacker@rootcommit.com>, 
-	Javier Martinez Canillas <javierm@redhat.com>, linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zxhyojzxk5dujjf4"
+Content-Disposition: inline
+In-Reply-To: <1801CF6805B8DD32+0afb49ab-a03c-40f0-92bd-d0b332f8f28e@airkyi.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.1.0.1.4.3/274.894.35
+X-ZohoMailClient: External
 
-On Tue, 31 Mar 2026 at 08:48, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On Mon, Mar 30, 2026 at 10:38:02AM +0200, Iker Pedrosa wrote:
-> > Document pinctrl properties to support voltage-dependent pin
-> > configuration switching for UHS-I SD card modes.
-> >
-> > Add optional pinctrl-names property with two states:
-> > - "default": For 3.3V operation with standard drive strength
-> > - "state_uhs": For 1.8V operation with optimized drive strength
-> >
-> > These pinctrl states allow the SDHCI driver to coordinate voltage
-> > switching with pin configuration changes, ensuring proper signal
-> > integrity during UHS-I mode transitions.
-> >
-> > Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
-> > ---
-> >  .../devicetree/bindings/mmc/spacemit,sdhci.yaml         | 17 +++++++++++++++++
-> >  1 file changed, 17 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml b/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-> > index 9a055d963a7f0cdba4741c1e3e7269688dcd5f45..201ab97f0e88376a4680dcca7917e8b3172bd84a 100644
-> > --- a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-> > +++ b/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-> > @@ -44,6 +44,20 @@ properties:
-> >        - const: axi
-> >        - const: sdh
-> >
-> > +  pinctrl-names:
-> > +    minItems: 1
-> > +    maxItems: 2
-> > +    items:
-> > +      enum:
->
-> No, that's not enum but list. Look here:
->
-> > +        - default
-> > +        - state_uhs
->
-> Instead: uhs
 
-While I agree that "uhs" would be better, we have tried to stick with
-"state_uhs" for legacy and consistency reasons with other mmc
-controllers.
+--zxhyojzxk5dujjf4
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 00/10] Synopsys DisplayPort Controller improvements for
+ Rockchip platforms
+MIME-Version: 1.0
 
-No strong opinion though, what do you think?
+Hi,
 
-[...]
+On Tue, Mar 31, 2026 at 11:16:26AM +0800, Chaoyi Chen wrote:
+> On 3/31/2026 10:09 AM, Sebastian Reichel wrote:
+> > On Tue, Mar 31, 2026 at 09:18:32AM +0800, Chaoyi Chen wrote:
+> >> On 3/30/2026 7:50 PM, Sebastian Reichel wrote:
+> >>> On Mon, Mar 30, 2026 at 09:34:15AM +0800, Chaoyi Chen wrote:
+> >>>>> There are two parts, which possibly need some discussion:
+> >>>>>
+> >>>>>  1. I added a dedicated bridge callback for out-of-band hotplug eve=
+nts,
+> >>>>>     which is separate from the hotplug_notify. I have a feeling, th=
+at
+> >>>>>     there might be a better solution, but haven't found it.
+> >>>>
+> >>>> Could you explain what an out-of-band hotplug event is?
+> >>>>
+> >>>> Can't the drivers/usb/typec/altmodes/displayport.c respond to these
+> >>>> hot-plug events? Thank you.
+> >>>
+> >>> That is what generates the out-of-band hotplug event in the first
+> >>> place via drm_connector_oob_hotplug_event(). The oob in that call
+> >>> means out of band.
+> >>>
+> >>> If you look at that function it calls oob_hotplug_event() callback
+> >>> on the DRM connector, which is then implemented by
+> >>> drm_bridge_connector_oob_hotplug_event(). This function calls uses
+> >>> the normal hpd handling (shared by in-band and out-of-band) and I'm
+> >>> patching it, so that the bridges are aware of hpd explicitly being
+> >>> provided out-of-band.
+> >>>
+> >>
+> >> Ah, I'm actually more concerned with the specific types of events.
+> >> For example, the "explicitly" provided HPD you mentioned here.=20
+> >> Isn't drm_connector_oob_hotplug_event able to provide those?
+> >>
+> >> I assume you=E2=80=99re looking for an oob event that is propagated al=
+ong the
+> >> bridge chain, rather than at the connector. Is that so? Thank you.
+> >=20
+> > The connector has a dedicated hotplug oob event callback, but I obvious=
+ly
+> > need the event on the bridge, since the DP controller is implemented as
+> > bridge. The existing infrastructure propages it down to the bridge chain
+> > via drm_bridge_hpd_notify(), which can be received by the DP controller
+> > via the .hpd_notify callback in struct drm_bridge_funcs.
+> >=20
+> > The problem is, that this receives events for in-band AND
+> > out-of-band hotplug events. That's why I added a new bridge
+> > callback, which hooks into the existing framework, but only delivers
+> > out-of-band events and no in-band events.
+> >=20
+>=20
+> How to distinguish between in-band and out-of-band events? In your patch4:
+>=20
+> @@ -180,6 +180,12 @@ static void drm_bridge_connector_oob_hotplug_event(s=
+truct drm_connector *connect
+>  	struct drm_bridge_connector *bridge_connector =3D
+>  		to_drm_bridge_connector(connector);
+> =20
+> +	/* Notify all bridges in the pipeline of hotplug events. */
+> +	drm_for_each_bridge_in_chain_scoped(bridge_connector->encoder, bridge) {
+> +		if (bridge->funcs->oob_notify)
+> +			bridge->funcs->oob_notify(bridge, connector, status);
+> +	}
+> +
 
-Kind regards
-Uffe
+this is the new handler that will only get OOB events, since it is
+only called from the connector's oob hotplug event function.
+
+>  	drm_bridge_connector_handle_hpd(bridge_connector, status);
+
+this is the existing handler, which is not modified and keeps its
+behaviour of receiving both hpd event types just as before.
+
+> Here, drm_bridge_connector_handle_hpd() will eventually call:
+>=20
+> 	drm_for_each_bridge_in_chain_scoped(bridge_connector->encoder, bridge) {
+> 		if (bridge->funcs->hpd_notify)
+> 			bridge->funcs->hpd_notify(bridge, connector, status);
+> 	}
+>=20
+> Therefore, for the bridge chain, you will call hpd_notify and
+> oob_notify separately.
+
+Correct, I keep existing functionality. Apparently it works for
+everyone else.
+
+> This looks redundant, how do you distinguish between them?
+
+hpd_notify can be used in the same way as before. It is useful in
+case the bridge driver does not care about the source of the hpd
+event. In case of the Rockchip Synopsys DP bridge, .hpd_notify is
+not bound and only .oob_notify is used, so it only receives the OOB
+events. It's not necessary to receive the in-band events at all,
+since those are generated by the driver itself anyways.
+
+> > The problem with receiving in-band in addition to out-of-band is
+> > that the out-of-band signal should set the hotplug pin accordingly,
+> > but the in-band detection also checks the actual DP link. If the OOB
+> > hotplug signal says "nothing plugged", the hotplug pin should be
+> > forced off, but if the DP link detection fails, the hotplug pin
+> > should not be force disabled, as that makes any further detection
+> > tries useless.
+
+Greetings,
+
+-- Sebastian
+
+--zxhyojzxk5dujjf4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmnLqXkACgkQ2O7X88g7
++prg6g//SvwR05BqZDVsojL70OoR7cgOcShKoW2+48teWWFmYnLjMQngMJfuA02Z
+ii1xl3ZGQ00JRSkXnINmrn88PZ1P2HajNjPPUMoxwJ8S3/rv4WUBrSXDjqvgSExI
+Z1iv8NoXCR2dPore64bUOKUD/YonjaUHeAIztXdjEU9NGrS/Z3iO5WbikmVKmJ7J
+1o35CZj8bB1UTDJDc7+PgCLgnCDkDTlRrpzEGSfxIZcG/P1g25k+K1uJRNB4ccvt
+jDkAbaMkw/yb7O9DRugQGP9pL1TNhCZGccMqvnZCCjOZMknbo57WyEiD7Q/LY00Q
+iOJJrLFyoCgdKMIMyu3u+jXS1Wwp3JLNzggTQcnlWpJip2H2RNuj7n66X3SPO0sE
+ZGE+mwRDNnNFATzn3UnnNwqErFqEyW5p0wBw1FucCzWSSeAB+/rcCCqrbBMT5qdt
+70le+BQqzQ4ENT6fMXGTdUO9YCDDDA6LEvgoAwMO7h6goJZKi9myVq2zfuPecB50
+UF7E8xj+zpmHzsOhcwiovSOSlwVra+A/KCM8LmTFeCn8ngt9YaQDCUV50S3YtPIg
+yq2y8mB0N3fRqdASROQNSHAFr1Xf58FNYy3OsoR/g+B8JCI0GckCX9UD2LI6D1hU
+TTXnoKSrYSK8cKBz06P08hwS0WpBDhYA99uyDgUkYyPpmNdelng=
+=v1/C
+-----END PGP SIGNATURE-----
+
+--zxhyojzxk5dujjf4--
