@@ -1,153 +1,139 @@
-Received: from mail-106100.protonmail.ch (mail-106100.protonmail.ch [79.135.106.100])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912553FF8BE;
-	Tue, 31 Mar 2026 14:58:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BF83395260;
+	Tue, 31 Mar 2026 15:01:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774969135; cv=none; b=FHa3y8rgyM5sr/Mx+OYyTGXbAbUNGkuP5HiJWUVsDiuQfvYtewvYfykbD7iHh6zLPmdp70BKbm5IiUSZ8ZLwgKGSCP+Zt+rg49m0m7P1cZloe2pVw01AkCfhVn5NH234hP0BVO/BS/AB7Ayu6pgzX/+2nBtkIq96QNrZvxaCCP8=
+	t=1774969276; cv=none; b=CbH1jvg3TSVBxhsr+v/Eb9SOEvLzekSyniDzgb34RQw1CJF3yAIzHiXWzcm4k91aFyqztGDdSYkXdv/qoQBtUSU6DrnpcGWSm5tbQ2HeDWoQRLuGRpiui/HvwQ/eUS1beWcz1tuBXj9d04BGESwsbHPrREXPdFXX4Z1bx1/TJO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774969135; c=relaxed/simple;
-	bh=HANM5EJt4ju45nUxNxvL4TYnkJHnEzlv0DmMsyHPNtg=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=ZRM55RGeBvQ332u/qtUDNgesTAaAhyM+YGX5mlea9gfIjQXzepB3Q0E1ZnPVsXWxoyDDcOEBi8Za7XixTnRH4M7eR3F+fnvphxblHEp9VMk7hg7sF78KYIUnRJAPj4PaHVrib9hGL6k4Zu82bUzsm+iWUT+PXTBWx7+HQdV3R+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=riposetti.com; spf=pass smtp.mailfrom=riposetti.com; dkim=pass (2048-bit key) header.d=riposetti.com header.i=@riposetti.com header.b=PUMdMtVL; arc=none smtp.client-ip=79.135.106.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=riposetti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riposetti.com
+	s=arc-20240116; t=1774969276; c=relaxed/simple;
+	bh=gN85kVD+u7PMm4WdVrM0+CbEvk/2wE0Wj09VT++0lys=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Emybv+eU5NMmmq39vfHtwdMvwK5g0MVRaDil0cyHavGuyUOC0sqPKc73+1fqLuTFubWKFxPUqwG1vRYLpJFSCUmqdwq3QSBNAoppxJ+sbpHUqS/pSwZYz4Cr3f5cDTLWPf8CfAGbP+fxHE/6it1XZcrBElaqy1bFka26W+ARtco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y6r0rh9H; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riposetti.com header.i=@riposetti.com header.b="PUMdMtVL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=riposetti.com;
-	s=protonmail; t=1774969122; x=1775228322;
-	bh=ZZNQD3G9J3JdUO6QCht2m2AihxeJ0DQQI8Ah1eY0QVE=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=PUMdMtVLvSINHFjgqmCz+ixCeGZWD3m+U0BGM1jZyhPvYijU9gJ4fyM4fxcPzBnQx
-	 2ya2xh6oEFofDKYMP9by00cXkrh/GORzzeTubyFhQ5aOf989B2uzSFrAC+s2UAd7eI
-	 H9Nm15kt1x0DIDKLCYInys2ot2kHH2ZD6+jLWBSGEGPWxqeMLfRZrAaxlt/Gr+LgkU
-	 jkX4/pT3n+PZ+7Cl7KRpuE1CBOdOkW87y69SLVMFT8VKSxI1ZfhEoHI25JESDuKjHy
-	 92TDtlBzR4NtKKAH+TtjbbehzXuuKs/iYwNxVyjNyd/2/jvuWA9+p7wvgSu4wsbWSm
-	 0ha4ZXLOHFnIg==
-Date: Tue, 31 Mar 2026 14:58:35 +0000
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, Shawn Guo <shawn.guo@linaro.org>
-From: Andrea Poldi <andrea@riposetti.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Andrea Poldi <andrea@riposetti.com>
-Subject: [PATCH] dt-bindings: media: hisilicon,hix5hd2-ir: convert to YAML
-Message-ID: <20260331145748.39349-1-andrea@riposetti.com>
-Feedback-ID: 120562977:user:proton
-X-Pm-Message-ID: 6e82684393a329d96b689ad0192e691e49dba100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y6r0rh9H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52901C19423;
+	Tue, 31 Mar 2026 15:01:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774969275;
+	bh=gN85kVD+u7PMm4WdVrM0+CbEvk/2wE0Wj09VT++0lys=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Y6r0rh9HUa8fiSNj9+ou6JDr3B/vq0wyLGoxtuCX2CSsRpUf5spq/vTRv3pHDLYHW
+	 CxxxUKqh5iqOfuanrn8f+OoKb6pPud5FeIsNehLyfISkenXopXpi3x6u9AKGOIVEXO
+	 IApiGBgJx3hcYB/XCMClJ4d4ja57pB2EHkPLJDDNMs3zy+7koEyGoEhv47AD85thU7
+	 Lx31mg30+S3TzphmQmvYDlEn0TR6I0Sz6KJqxuPbF0uY2y++6sH+ziZ6JqAk85ltOd
+	 DrVr+8AY1sz7959Gh6kfwZA2aVHGa5gFOMHUB1GfxmLIixkbsGXy9YhVfBgM7R72l3
+	 OeFM367fYq8TA==
+Message-ID: <b3b96c87-83dd-422b-a67c-cfe41ae94a35@kernel.org>
+Date: Tue, 31 Mar 2026 17:01:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/2] arm64: dts: qcom: eliza: Add display
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+References: <20260331-dts-qcom-eliza-display-v1-0-856f0b66b282@oss.qualcomm.com>
+ <e4cad76c-09ad-45e9-8725-ec156c121bb8@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <e4cad76c-09ad-45e9-8725-ec156c121bb8@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Convert the HiSilicon Hix5hd2 IR bindings to DT schema.
+On 31/03/2026 16:49, Konrad Dybcio wrote:
+> On 3/31/26 4:02 PM, Krzysztof Kozlowski wrote:
+>> Dependency
+>> ==========
+>> Depends on USB patches, which are being reviewed, therefore marking it
+>> as RFC as it cannot be applied.
+>> https://lore.kernel.org/all/20260331-eliza-adsp-usb-v1-0-d8a251be20c3@oss.qualcomm.com/
+>>
+>> Unmerged bindings used here
+>> ===========================
+>> dispcc: https://lore.kernel.org/all/20260319-clk-qcom-dispcc-eliza-v3-0-d1f2b19a6e6b@oss.qualcomm.com/
+>> (DRM MDSS bindings were applied)
+>>
+>> Description
+>> ===========
+>> I did not enable DisplayPort because it does not work on my board and I
+>> don't know why. I double checked QMP combo phy and other bits, and
+>> everything is looking fine, but still no USB display, so maybe I miss
+>> some other dependencies as this is early upstream.
+> 
+> What was the furthest that you got? We can certainly try to help..
+> 
+> Got USB Type-C mode mux events?
+> PHY initialized and configured to 2/4-lane DP mode?
+> Are the AUX transfers failling?
 
-Signed-off-by: Andrea Poldi <andrea@riposetti.com>
----
- .../bindings/media/hisilicon,hix5hd2-ir.yaml  | 53 +++++++++++++++++++
- .../devicetree/bindings/media/hix5hd2-ir.txt  | 26 ---------
- 2 files changed, 53 insertions(+), 26 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/media/hisilicon,hix5h=
-d2-ir.yaml
- delete mode 100644 Documentation/devicetree/bindings/media/hix5hd2-ir.txt
+[   43.975329] msm_dpu ae01000.display-controller: [drm:drm_dp_dpcd_access] dpu_dp_aux: Too many retries, giving up. First error: -110
+[   43.975410] msm_dpu ae01000.display-controller: [drm:drm_dp_dpcd_probe] dpu_dp_aux: 0x00102 AUX -> (ret=-110)
+[   45.780383] msm_dpu ae01000.display-controller: [drm:drm_dp_dpcd_access] dpu_dp_aux: Too many retries, giving up. First error: -110
+[   45.780463] msm_dpu ae01000.display-controller: [drm:drm_dp_dpcd_probe] dpu_dp_aux: 0x00102 AUX -> (ret=-110)
+[   45.780521] msm_dpu ae01000.display-controller: [drm:msm_dp_pm_runtime_suspend] type=10 core_init=1 phy_init=1
 
-diff --git a/Documentation/devicetree/bindings/media/hisilicon,hix5hd2-ir.y=
-aml b/Documentation/devicetree/bindings/media/hisilicon,hix5hd2-ir.yaml
-new file mode 100644
-index 000000000000..f5c28603ed0a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/hisilicon,hix5hd2-ir.yaml
-@@ -0,0 +1,53 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/hisilicon,hix5hd2-ir.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: HiSilicon Hix5hd2 Infrared Receiver
-+
-+maintainers:
-+  - Shawn Guo <shawn.guo@linaro.org>
-+
-+allOf:
-+  - $ref: rc.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - hisilicon,hix5hd2-ir
-+      - hisilicon,hi3796cv300-ir
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  hisilicon,power-syscon:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: phandle of syscon used to control power.
-+    deprecated: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    ir@f8001000 {
-+        compatible =3D "hisilicon,hix5hd2-ir";
-+        reg =3D <0xf8001000 0x1000>;
-+        interrupts =3D <0 47 4>;
-+        clocks =3D <&clock 0>;
-+        linux,rc-map-name =3D "rc-tivo";
-+    };
-diff --git a/Documentation/devicetree/bindings/media/hix5hd2-ir.txt b/Docum=
-entation/devicetree/bindings/media/hix5hd2-ir.txt
-deleted file mode 100644
-index ca4cf774662e..000000000000
---- a/Documentation/devicetree/bindings/media/hix5hd2-ir.txt
-+++ /dev/null
-@@ -1,26 +0,0 @@
--Device-Tree bindings for hix5hd2 ir IP
--
--Required properties:
--=09- compatible: Should contain "hisilicon,hix5hd2-ir", or:
--=09=09- "hisilicon,hi3796cv300-ir" for Hi3796CV300 IR device.
--=09- reg: Base physical address of the controller and length of memory
--=09  mapped region.
--=09- interrupts: interrupt-specifier for the sole interrupt generated by
--=09  the device. The interrupt specifier format depends on the interrupt
--=09  controller parent.
--=09- clocks: clock phandle and specifier pair.
--
--Optional properties:
--=09- linux,rc-map-name: see rc.txt file in the same directory.
--=09- hisilicon,power-syscon: DEPRECATED. Don't use this in new dts files.
--=09=09Provide correct clocks instead.
--
--Example node:
--
--=09ir: ir@f8001000 {
--=09=09compatible =3D "hisilicon,hix5hd2-ir";
--=09=09reg =3D <0xf8001000 0x1000>;
--=09=09interrupts =3D <0 47 4>;
--=09=09clocks =3D <&clock HIX5HD2_IR_CLOCK>;
--=09=09linux,rc-map-name =3D "rc-tivo";
--=09};
---=20
-2.50.1 (Apple Git-155)
+pastebin: https://pastebin.com/BVXy3Qeq
 
+Abel pointed me to the phy problems, so I focused on that.
+HSR says it is exactly same programming sequence as SM8650
+and such was used.
 
+Just note, that we have ADSP remoteproc up, but no audio including USB mux,
+although that should not affect this, AFAIU.
+
+Best regards,
+Krzysztof
