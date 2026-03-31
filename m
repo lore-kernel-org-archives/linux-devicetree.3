@@ -1,128 +1,188 @@
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53EF63DD507
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 16:16:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774973801; cv=pass; b=ZwthOtimK3lDmSUhKS35jBZhpM/yANqEmSPi419Tyb9FGtaikvCCdiUhVO8zM2luWj1yWAjTFV7UvkoPTCzktMRrcmeGXmCBMKl8YPBAb9SUk67jCsri7Mdm9UsKsi+eZpH6deJLxeqaTMP9fRWAAzhrexPTdeHyRS8CsaLHJBY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774973801; c=relaxed/simple;
-	bh=PdXUuqEb8P2nLtRABdAf1D54EhHyDpHz88/TU3e1YPA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WmoQea3xaIuHCHTGHgGvVSsYOus++CsVOCazXZOkTlWsPI2+ORW28CKGqe8Mz1o7iXFdUDQWC2VMaFPSrrzONddkPTH8Lg7pTykbQ/nP1gBIKk547LeHpnOFtxVx1/pJOLJRVigFWW8a7Tq9N68bbRCGpD/4wWDdanyG7/+H8Lc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=qkR/+e6r; arc=pass smtp.client-ip=209.85.208.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D372C30C345;
+	Tue, 31 Mar 2026 16:26:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774974413; cv=none; b=CVBBaXvWz4MXX/ZzFGRtOzQnMvDGPvG/iruj7vGtA7VxwATe0fYLTHIWXFhLUSVOmGh+Yo21iibnvoa/juiKSECR11k07ts0mYNl7XMNmTdojg+QD93K2+D/Iy3eyD2uDHLX+5BFeZ0bsCp/OOyWn8JILvrqFEJjHRCBZ1J368g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774974413; c=relaxed/simple;
+	bh=4/KOV5r9948VYhuiUcfo+u6YJ2ubFSTwMYYsK55YSNI=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=aUGQc+ewONc9NcuPa7p0SsfNlIeyjjroatykAbx48kOJq6WjVfyJuz2sXRSAcxcG8sHKhOl2EGrA25MckVMbDH4Ifc5dfZ+M/KqQvfOlfVa/s0yfo05H9GssQyTtuNSiM0QYhtfUnc8rC08jyWGJo21tP70HyztA2j21hv5zl3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=mkl841Yf; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="qkR/+e6r"
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-38be66a9fc0so59978931fa.1
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 09:16:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774973798; cv=none;
-        d=google.com; s=arc-20240605;
-        b=VysFae2ZEaMIyJJbyEfmBtv4v6LrvJi9SBGO1nz1tOy37di0ah18YJm+st3lNd2TkI
-         AwF2vix9OMwMr3t0HwUka9RQmZ6WJBNyeRHh3le1b0JpKFF6APyJ0m1oOmhcU5caT3Mv
-         FBjNm7GSef7xHv4VSB21Wp1fnFAOx6ZObIeTGGYcSLWeGD9BoxG+JjN0wyEN/aRZBuFp
-         jykT6RDH6ph6BhZ9DQDgYvGvh03akwBcpW+n+cD54pH9akmmhMQG4NSuXw+TFMBhw7ax
-         XIAA+oRaIA+7TQQgOH9CpInISL9arYNwRJrWVweh0297gvdot5mYPvOowV/OKHT5tz69
-         BvPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=fYuenrYxRs1hIaVFfS5LtO+C2IDv/Kg8rgYUxajz2pc=;
-        fh=t3T1KOgQSOhkvkepoMg5m/zhtfRigLPXYoQpCY7JD1c=;
-        b=ljcv+JAxADEH+lK5OeZnG7xRsuzXBHtMe5ZaxP3t8G7UsXpl1H6bS+BSs3vSmnNZle
-         BQJZBiqPPW235nSw1v1alfkqdQzGLJDFVX5dfNChnJkr2xAHyNb8kczOL33B2lkP3fWV
-         288euK9Z+r19uSXU8nBRESFPIIZxuNtxxKaizX/bzxsHkE5iY1DLOXEXsJpq7e/7+YCg
-         HHP3QY9ZDQpwfScuGAHtQ9LNFBZ/6LyZ+g+84bqDNHnG4PxLzwZTGsWsamC5h6P4c04D
-         b7ljxseU2G2zvHIxWVTh5HqiJPiVj6Cm7da4+JsPj00GZJ42yz0X3sEb3y/St0OTDoiZ
-         HPGg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774973798; x=1775578598; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=fYuenrYxRs1hIaVFfS5LtO+C2IDv/Kg8rgYUxajz2pc=;
-        b=qkR/+e6rSC6L2YeCDzOPO+16b+5+XYdYBzx2UAHu6ZGClEoe/Pl9npFO3+N/VONfOv
-         QeqfgZDj8+wWQwvPhUNqDQy0P23XzLhGiqNyxL/Ek26f2DiCEi0JLWI3xnoXBC0ok+of
-         dMXW9TVBKNWinsFa57dcOpOKfPUIfAsZn/FXUO6v/x1CJf3Dagw9wYrBOsE1AXtTsPM/
-         qntHP0n1hAVv43WSbuw5MpIIORyEqOzG+MKHzDI5d25S4Sn7sKSLTKWjWjk36SFJiJM7
-         doHMQuTZ6nyxjWKAP5CGzT1uZ6f3fBmH9J9bsesz7p0IGE0DvRJTApJ6LhhVVdXR1T6h
-         gmrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774973798; x=1775578598;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fYuenrYxRs1hIaVFfS5LtO+C2IDv/Kg8rgYUxajz2pc=;
-        b=KeZttRZodhjxxKBMDWjiEMtgFG7bbS/Vi67wW4q5SEtbWwuvfD7AlgWpdcXyNUyc81
-         sIVsMoKEYSbn9BcGdKXsgCwLIl3BO6donhsOI1ABqQjE7BL097E+QAvQFj+8zZTMb4gv
-         nLetVG0eSfW3PqurpfXvQtLQHgYe+TETvHgZObfD+jXaSsNHv6c9bAAcQuYkYxPvSwNT
-         QoRjPe/7L9L1AnWAN5m1ekSr8WO71n3E+jjoPqRHYwYIEWdgg3mQVOC77g6YdnqaSu1X
-         hc3HLWZVG32PQWcauJ3fPkScYCWGcvKHXxhoRiykpoBXb0w2tPfITjBvkSQRBlM9g6RI
-         xklw==
-X-Forwarded-Encrypted: i=1; AJvYcCXEf8Sd8GGZVNRgO+13lMtpjea0rEGpHRyT5ztYdS9pBZn8J45hGH3rLxuxtDFG2zztf49TjPDM8TTm@vger.kernel.org
-X-Gm-Message-State: AOJu0YzeUZQf8bq48vGY1J+3dK06M3XRaewqcbb5K+39cqWnCds5hGJ3
-	BAp5njG16Z50Eg0lqj0hD/+jCKqQHzvoEA9fYsdlYhY9pVgdSvToPv3RGuiXoQF+afKl/GgeoGp
-	v4429kZ7zMex5G3Qzrl88G1caQdaAgN9RRd1f0+MFLA==
-X-Gm-Gg: ATEYQzyXCjslzQxZGFNXCyJR3ZM7LBco4xeUs11rWkiabDpKOBsUnf0t0kv8HS85u/3
-	XKhqg/nj7WUN6y+EIyVyKEV6/k06uxjwm5IF3ydbxFUdDk0CXqs7Bzq7ujqXtpTUSKHLKrcd6wk
-	XrvVM7OpjOgPecX3R+5CJdqPL/pXMbLAoa/PBRqmsWHdD6JrWFfny9IMY/RAwz+5U8uKNQetVdt
-	CRSRAF2I1rm5DkBOSaT1I1WRdLmWr53x3Aqqbb/LjVDKCjW32xsbR47PYTIxm65gz4r54QK4ViK
-	yuy9aoGB
-X-Received: by 2002:a05:6512:3c9d:b0:5a2:7e5b:5a48 with SMTP id
- 2adb3069b0e04-5a2c1f1971emr25224e87.26.1774973798287; Tue, 31 Mar 2026
- 09:16:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="mkl841Yf"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 0546225F3F;
+	Tue, 31 Mar 2026 18:26:50 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id yEFNASaRFbob; Tue, 31 Mar 2026 18:26:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1774974409; bh=4/KOV5r9948VYhuiUcfo+u6YJ2ubFSTwMYYsK55YSNI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mkl841Yf5Uzpm0YCBamFprdHBM9aPwhUAhzqkP7JGPqLeP92X4/qMAoRmqvZEIZQZ
+	 n7LMpw6OHGQN5JV/Uw2qDbfoE+q1deCWNtflgVJJ5SlkUVA5LnkC0oFpn8rFMfGrla
+	 sDGyhyO3NJ4JGc/IR5A/7Niw6Fdr7pLn/nZEQngg9z4dvpYoSs7B42Pg8Zp5laeliz
+	 lIPdM8bx5T5UWBlTB4aURf3JhBrZQGberYWaQ49ZSrqyF1kxqnvgfE+b7Z3992bnug
+	 AGtF2QhvGQXxAY/broksmc+3uG6Uk0jxTqdakr3/7F+jOe8NSZWwdwMqRFiKfxS4Zr
+	 ffLn2fZyAvstw==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1774601289.git.tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <cover.1774601289.git.tommaso.merciai.xr@bp.renesas.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Tue, 31 Mar 2026 18:16:02 +0200
-X-Gm-Features: AQROBzBFDKvBTS1qjOaIkCHToGwWTNjtaDfuibyZ6KRUHSwe3KLJFjsj7kHYFws
-Message-ID: <CAPDyKFrTto5j5UeNOmmUa0dW5_StgRAgN3o3YvL_wTAqE5LQZQ@mail.gmail.com>
-Subject: Re: [PATCH v9 0/6] Add USB2.0 VBUS mux driver and extend
- rzv2h-usb2phy reset for RZ/G3E support
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, peda@axentia.se, p.zabel@pengutronix.de, 
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Josua Mayer <josua@solid-run.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Date: Tue, 31 Mar 2026 16:26:48 +0000
+From: Rustam Adilov <adilov@disroot.org>
+To: Vladimir Oltean <olteanv@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stanley
+ Chang <stanley_chang@realtek.com>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Michael Zavertkin
+ <misha.zavertkin@mail.ru>
+Subject: Re: [PATCH v2 2/6] phy: realtek: usb2: introduce read and write
+ functions to driver data
+In-Reply-To: <20260330213227.zujvcvsxdfknzltz@skbuf>
+References: <20260327160638.15134-1-adilov@disroot.org>
+ <20260327160638.15134-3-adilov@disroot.org>
+ <20260330211918.y7su36j47e3uelcv@skbuf>
+ <20260330213227.zujvcvsxdfknzltz@skbuf>
+Message-ID: <4663266d3a7d428d9d28edb96227cb8c@disroot.org>
+X-Sender: adilov@disroot.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, 27 Mar 2026 at 19:09, Tommaso Merciai
-<tommaso.merciai.xr@bp.renesas.com> wrote:
->
-> Dear All,
->
-> The series adds:
->  - A new mux driver for RZ/V2H USB VBENCTL VBUS_SEL
->  - Updates to the rzv2h-usb2phy reset driver/bindings to support RZ/G3E.
->
-> Merge strategy, if any:
->
-> - patches 1/6 can go through the MUX tree
+On 2026-03-30 21:32, Vladimir Oltean wrote:
+> On Tue, Mar 31, 2026 at 12:19:18AM +0300, Vladimir Oltean wrote:
+>> On Fri, Mar 27, 2026 at 09:06:34PM +0500, Rustam Adilov wrote:
+>> > +static inline u32 phy_read(void __iomem *reg)
+>> > +{
+>> > +	return readl(reg);
+>> > +}
+>> > +
+>> > +static inline u32 phy_read_le(void __iomem *reg)
+>> > +{
+>> > +	return le32_to_cpu(readl(reg));
+>> > +}
+>> > +
+>> > +static inline void phy_write(u32 val, void __iomem *reg)
+>> > +{
+>> > +	writel(val, reg);
+>> > +}
+>> > +
+>> > +static inline void phy_write_le(u32 val, void __iomem *reg)
+>> > +{
+>> > +	writel(cpu_to_le32(val), reg);
+>> > +}
+>> 
+>> Please don't name driver-level functions phy_read() and phy_write().
+>> That will collide with networking API functions of the same name and
+>> will make grep-based code searching more difficult.
+>> 
+>> Also, have you looked at regmap? It has native support for endianness;
+>> it supports regmap_field_read()/regmap_field_write() for abstracting
+>> registers which may be found at different places for different HW;
+>> it offers regmap_read_poll_timeout() so you don't have to pass the
+>> function pointer to utmi_wait_register(). It seems the result would be a
+>> bit more elegant.
+> 
+> Even if you decide not to use regmap. I thought I should let you know
+> that LLM review says:
+> 
+>   Are these double byte-swaps intentional?
+> 
+>   Since readl() and writel() inherently perform little-endian memory accesses
+>   and handle byte-swapping on big-endian architectures automatically, won't
+>   wrapping them in le32_to_cpu() and cpu_to_le32() apply a second, redundant
+>   byte-swap?
 
-I have quite some MUX changes queued via my mmc tree for v7.1-rc1.
+From my experience (and also understanding), readl returns value in native endian
+and doesn't do byte swapping. The same goes writel.
+Thus wrapping le32_to_cpu() and cpu_to_le32() around them correctly swaps the
+bytes from big endian to little endian, without the double byte-swaps.
 
-I can pick patch1/6 as well, if this makes sense for everybody. Peter?
+The comment even mentions it "{read,write}{b,w,l,q}() access little endian memory
+and return result in native endianness." which was provided for reference later on.
 
-> - patches 2-6/6 can go through the Reset tree
->
-> Thanks & Regards,
-> Tommaso
->
+>   On big-endian systems, wouldn't these double swaps cancel each other out
+>   and result in a native big-endian access instead of the intended
+>   little-endian access? If the SoC bus bridge implicitly swaps and requires
+>   a native access, should __raw_readl() and __raw_writel() (or ioread32be /
+>   iowrite32be) be used instead to avoid obfuscating it with double-swaps?
 
+The __raw_readl() and __raw_writel() are indeed in native endian, and for
+RTL9607C SoC it is in big endian.
+
+The way Realtek did it is by using the volatile and wrapping them around
+le32_to_cpu() and cpu_to_le32() respectively, which is certainly hacky.
+
+ static inline unsigned int ehci_readl(const struct ehci_hcd *ehci,
+ 		__u32 __iomem *regs)
+ {
++#if defined(CONFIG_RTK_MIPS_SOC)
++	return (le32_to_cpu((*(volatile unsigned long *)(regs))));
++#else
 [...]
 
-Kind regards
-Uffe
+ static inline void ehci_writel(const struct ehci_hcd *ehci,
+ 		const unsigned int val, __u32 __iomem *regs)
+ {
++#if defined(CONFIG_RTK_MIPS_SOC)
++	((*(volatile unsigned long *)(regs))=cpu_to_le32(val));
++#else
+
+We did a bit of debugging with usb some time ago and and printed the value
+of the readl result from the base usb address and got this
+[    1.327473] ehci_setup:694 ehci caps: 0xb8021000, value: 0x10000001
+[    1.334478] ehci_setup:695 ehci regs: 0xb8021001
+[    1.339706] ehci_halt:187 ehci regs: 0xb8021001
+
+"0x10000001" is supposed to be "0x01000010". Otherwise, it would take 0x01
+for the cap length and result in immediate halt from timeout.
+
+Even though it is for linux-usb and not the phy subsystem, it was worth
+mentioning as it is very much related to this issue.
+
+What is surprising, the ioread32be and iowrite32be functions actually do
+swap bytes, thus resulting in little endian (ironic). But using it here
+would be just incorrect as it is intended for accessing big endian mmio, 
+not for big endian CPU and its little endian USB phy/host.
+
+So, that is a conundrum we have here. Let me know if what you think of it
+and maybe even how to better solve it.
+
+Will hold on posting v3 until this hopefully is more or less solved..
+
+>   Also, does passing the __le32 restricted type returned by cpu_to_le32()
+>   into writel() (which expects a native u32) trigger Sparse static analysis
+>   warnings for an incorrect type in argument?
+> 
+> For reference:
+> https://elixir.bootlin.com/linux/v6.19.10/source/include/asm-generic/io.h#L184
+> /*
+>  * {read,write}{b,w,l,q}() access little endian memory and return result in
+>  * native endianness.
+>  */
+> 
+> and yes, your patch does trigger sparse warnings:
+> ../drivers/phy/realtek/phy-rtk-usb2.c:153:16: warning: cast to restricted __le32
+> ../drivers/phy/realtek/phy-rtk-usb2.c:163:16: warning: incorrect type in argument 1 (different base types)
+> ../drivers/phy/realtek/phy-rtk-usb2.c:163:16:    expected unsigned int val
+> ../drivers/phy/realtek/phy-rtk-usb2.c:163:16:    got restricted __le32 [usertype]
+
+I can alleviate it by creating a temp u32 variable to hold the cpu_to_le32() and then
+using that temp variable for writel.
+
+> Furthermore, please drop the 'inline' keyword from C files and let the
+> compiler decide. Your use of this keyword has no value - you declare
+> phy_read(), phy_read_le() etc as inline but then assign function
+> pointers to them. How can the compiler inline the indirect calls?
+
+Will drop these.
