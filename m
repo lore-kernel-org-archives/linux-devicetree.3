@@ -1,156 +1,267 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013020.outbound.protection.outlook.com [52.101.72.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 121493E274D;
-	Tue, 31 Mar 2026 12:57:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774961829; cv=fail; b=k1QTx3AGIDwTnPMCviNVuUFual0TjRujQ0CPczvLtw8CiYEgoFMTwq40EFrTJZKjp+kLnJrpxkhJxBDCvbiPCwJb69I5XWewrm6UKnq2p1YodcCNflAiLm33jKaIACTvuXg8PMY6we/2lQNojRsjCCKhPOFravNIcj/oD5ow1DQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774961829; c=relaxed/simple;
-	bh=5CKD/N8ljmq+AS6GYe0clcmowjMnKA+yGWiTkWvPKzI=;
-	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Y/RDPdJkrWG9/udPOVgxY5rv3tH+JPyc1Iv+7jMvwiobC1zrZSPUdF8gecbtnHmtcyZcgxeA14cKBTw3giiMOD8WT2wRwibAqxMD89oxpqQpGJyh2s+fPwYcEOtLYFVojs1maxlZb0kz0S8lKQr3KoQQBUQWnDMjDYKLuBXy/8o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=uA0JNsL7; arc=fail smtp.client-ip=52.101.72.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7283E3D94
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 13:01:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774962075; cv=none; b=dJfEhEFobR2Nm6EgG25MQQjGg5+mEfocyspwekqk9p5s6VGT6WQ75H3tW8xl8BSWQo6BRSzXhRL9z3mjwV7WZdhKiG+Utl5r8qxDMnPZ/zbBnZBU6lCYt4UbhGhR83cX8bnIIDuU+azxskUr0v1qcxKde+RJTYXj14e0qyv4imI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774962075; c=relaxed/simple;
+	bh=NWy6jF7tG5rVJozMzWzReQbDo/jcHM0/Ev1INEDWe+0=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wds9J1zc5YUWHPq/XFY14zcFBLcgk8lC8qDp2gehMZqjwsJiU4MawUoZh5SEJ/q9n/hcWTV1cDVsp1b0xGMbe2zl3kZJYBzEZZlyVAMfNgiNi92bU5kVt7/ul86pCwD8yPekU2L960FRGmX49X2boDNJqYYIuKJBDJiwFggio4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lUkSYTEf; arc=none smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="uA0JNsL7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hFvKaOwsn8dWVKvhF5MjUq8ILtAU6K9aIYNy58Ggjq2m9H8bqOwx6mw9IDj03Er8m3mqOkKtG5c7uebHFi+Lc9Snq0AYVccBjvAOYifjHxrA0TM/mjqA6FuP6Kc60app4agSVc1FNqx7olCI+JFy1a+8bHZKFH77SgPE1WbOqRT4SRZTRsR5w0dKMpa8jVcBWZjqWAj4C9UGnJjvr8Qy18grgJKFqjL4qgu5dWCCqQRBVy1esoDlVhSY843nTndr8V/6jnUuJGxy09uSUboSvvy99X524gSqUoKlHwtgvBclriX7nUGm6erN0ek/xPJVuxldcNe0gAKau3qgaEU2gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5CKD/N8ljmq+AS6GYe0clcmowjMnKA+yGWiTkWvPKzI=;
- b=Y0XldOiBFjxlEzunDrmY6JXYGXByKAV6HET5DaWUrBVY9tjBsP+JIDDU5isVY/y0PFpT3REKlJBZOoUyAleWV30o4KdGXB06EfzH2sWJOk+WpmzLQuXYe+SromOqT5acMsVedJgkgk2Z8T70dTV3UEgM1k36MEpXGcJV4Fw6gw0bY27PPe2C+n6ZMpRHOXENG0DlXh14M6Gb8GKKnS0v1q+1ZIFAnbHOIP/cc8pu3Nmj8850xvrNi1kHE6KdctUTB0fcWT0I3+avaWOoQPErsR1JwjO0vwDQyP6s4bpSrs7KncQAMJhQewbcrzs0nbNBExL4XnLKWj/WkHue17O7NA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5CKD/N8ljmq+AS6GYe0clcmowjMnKA+yGWiTkWvPKzI=;
- b=uA0JNsL7Q3DBhIK8OXCi11a7ETViQUuibvFcd18ByzX1ykKGYroLYDdU5xWGhvlvXYyyrCB+MqEvrWGTqPQ3ftD3spUUo2UVJ50YMjGq+g56WKZfoOQuvbQyndqdteG5P/F6wz9mRA9+SemplIHU0UowLWnuQUaEDwWjWvb1k7ca3nUFEq03lqnsteidWTk6eM0dGKr+tUee9s7aUf0/J6JrYvaGA4puIg+drBQS7IX+o1TiGnLthPlXWVVy11HYVZ9cjHZ5C7IjVqArvomGgREytgqRWF/9vDs+cJPXw2TrVysOTIcmvZXeQywpRhgAl0CKoPTjnAvo3TS4/eK8Uw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GVXPR04MB12316.eurprd04.prod.outlook.com (2603:10a6:150:2c6::8)
- by DB8PR04MB6922.eurprd04.prod.outlook.com (2603:10a6:10:11f::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Tue, 31 Mar
- 2026 12:57:03 +0000
-Received: from GVXPR04MB12316.eurprd04.prod.outlook.com
- ([fe80::fc6e:ca22:f065:def4]) by GVXPR04MB12316.eurprd04.prod.outlook.com
- ([fe80::fc6e:ca22:f065:def4%6]) with mapi id 15.20.9745.027; Tue, 31 Mar 2026
- 12:57:03 +0000
-Message-ID: <b665d94a-e82a-41df-8295-6379362404f1@oss.nxp.com>
-Date: Tue, 31 Mar 2026 16:00:07 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] ARM: dts: nxp: imx51-ts4800: Rename wdt node to
- watchdog
-To: Eduard Bostina <egbostina@gmail.com>, daniel.baluta@nxp.com,
- simona.toaca@nxp.com, d-gole@ti.com, m-chawdhry@ti.com,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
- <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Mark Brown <broonie@kernel.org>,
- linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-References: <20260323175948.302441-1-egbostina@gmail.com>
- <20260323175948.302441-3-egbostina@gmail.com>
-Content-Language: en-US
-From: Daniel Baluta <daniel.baluta@oss.nxp.com>
-In-Reply-To: <20260323175948.302441-3-egbostina@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0055.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cc::12) To GVXPR04MB12316.eurprd04.prod.outlook.com
- (2603:10a6:150:2c6::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lUkSYTEf"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-66b8110361fso5802197a12.0
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 06:01:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774962072; x=1775566872; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=eGzN6mgCDgiU/jVdvBBBVzTIEeR9WyAbTd7AEaibUjU=;
+        b=lUkSYTEf6lWf55VPjKrGk2W9FnEV5GPGD5zdpiWo14Ir4y4/+D95q2wlx5Zgn4AZuA
+         v3DSGNqTb4nicn+wxRC0ntsiDmWBCtONTpy9bWcSoOE8FxmG3PAwCb7AjEO7ultm8RZG
+         jN+rdgHvoGDmOnCqERaUuaQ91YrIkZ4P2clsBpD8sZaT0bMKYZH6w4ehv300RbhMJf8y
+         7U0OQp/QDGJLlNf9YhZ7ZRIm8PEfNj9WCyoGNtGGY3lHUPK+RNos8Na/OuJ1JBy1DlMq
+         U7il1iCkg4eG1hFOMoFX0ddnnvKjbAX0Jw5BE1DyAERkrD27UWmhYBtTHmB7dAif3DrB
+         f6DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774962072; x=1775566872;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=eGzN6mgCDgiU/jVdvBBBVzTIEeR9WyAbTd7AEaibUjU=;
+        b=RGHVjzMYtut2U7QpRAuBU8DzmvMpETX11yrOa5JH2Kmx3xTtPnTHiIdzWoJOeRJeEE
+         B+FDcrI1eXUBum4FIL6JoBSV67pUdkc3S3PeIzyX0TFJSDxnExmgd+KpK4FydAbvWMCA
+         1TCk+NXAlfZZeI4ggp1jzMQZRjtdkoYPEIDYwWhQ9zho1Tw+Jpx9C/h0hQCDuNBQn9R2
+         MIxuz1UH4ugXM99Mu5rHPPfxS6twWx8HeW7a3vcPmAgeKV4a6d2Jaqj/wINsdegFD4j5
+         Sm+sMzvH2wPEyKp7SC3HVn6kjD95RlhuRMErtDkaoNYqdK//Baob3R4jPfHS5ajcy3nT
+         Wrbg==
+X-Forwarded-Encrypted: i=1; AJvYcCVerEEqFnYiT6jN01ujaBFfNNMbyxPJWg2PN7wGYr7Ieb+wYaFd8sdbV+ZbKE7MQVtuX0pevjdlT3vl@vger.kernel.org
+X-Gm-Message-State: AOJu0YzG+rPhxPBSpZwmJAIY1pKgOHOj03kjoWa+76HlnR99soPbHuLh
+	LJ/Kl3WXIBm/2BzqblwSpanc2ry35Tnc61RALslf5Hp/EsSLIeDcTNcN1hRlS/ak
+X-Gm-Gg: ATEYQzzo4YJ8YCchpd8NRuEO1fs9j6EgqO886w2tZ9MH3X12WYKxBo0Ej8YqGoO45/l
+	cIZ8e0lU8+PHLK9Fq05whsa5AxllaPEP2ZOWFigBxsVJ98Cq6z9xjHAakWHdRNjScmyw7sZxZeh
+	TAttt5NE2e+ObiDnLX6z7dcTUv8QnoUPawiJRqv5wECTAk8ZDWr0eQvyc6kDRF57dSRiu68vjna
+	/iXV+h4wEsYrVExzzpnFL1GNqzhS+f68cIyFOut62KFYuFBWWt2r6Txn1TLq+PCz+h2/AwpvVej
+	naRejAPiUsXxYykqffBXx6tKqUNqlhq389lsSmBu3kJ7LZqb/YmdTps6E2hY+guUHRqKMiQSvCK
+	tA4KHMkHpCyA2K+CUYSii2HUXoOKWpyPQ1tibzO8j/UsQoScSyzUJiOFCumldttk/0gixGg0XWx
+	bSr2slVir4pMqVeQS71l/9ZaoHg8cm/pAU0xugE5+JYHBG7QseHHGfVxm1T9caexPk5IYYO7qjQ
+	lebg/q9uUNX43mHjGnpWP1BCvaVfN05WLtV6EF1rSm6qiK3mfE=
+X-Received: by 2002:a17:906:6a29:b0:b9b:fa57:d5bb with SMTP id a640c23a62f3a-b9bfa57d970mr128126466b.46.1774962070994;
+        Tue, 31 Mar 2026 06:01:10 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9b7b1a5dddsm411266366b.35.2026.03.31.06.01.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 31 Mar 2026 06:01:10 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Tue, 31 Mar 2026 14:01:04 +0100
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Petr Mladek <pmladek@suse.com>, rodrigo.alencar@analog.com, 
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Andrew Morton <akpm@linux-foundation.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v9 2/9] lib: vsprintf: export simple_strntoull() in a
+ safe prototype
+Message-ID: <mnz7d2zd27x6h2qa24rajgrbhkhsypybadkqz2fi43rg7bvjvj@oufys7xs25t4>
+References: <20260320-adf41513-iio-driver-v9-0-132f0d076374@analog.com>
+ <20260320-adf41513-iio-driver-v9-2-132f0d076374@analog.com>
+ <acZDneLrIPOmU5ci@pathway.suse.cz>
+ <acZLHAT5qJyjKTsp@ashevche-desk.local>
+ <4uijfg4efzaapu3esobez55hfwqzszwagpeb4lxej2ybmifu76@s3c57fmnsme6>
+ <acZaGUV0MwuHNDru@ashevche-desk.local>
+ <x34d7jz7be4ommjh6efx5mcq5pbpellykwuyrqayr4ske3lywf@wh46mu3anmcz>
+ <qnb3ozrhrq5n4zkh2luitkpwr5oj4omgcuo5vnvy2gatdfdqlg@cgsgux7etcql>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR04MB12316:EE_|DB8PR04MB6922:EE_
-X-MS-Office365-Filtering-Correlation-Id: e9c0af2a-db6c-49f4-5460-08de8f25010b
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|376014|7416014|366016|56012099003|22082099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	h59v4FDqhUXRBz7x1++vDO1+029BLN018Rn1A47HjmIX5/5tkOkGb7Wi4ItzWW70qAlX84mH+tCwcOgRinAu8khrPjyjTOv1OX28DsmZPqjQOQDTpcHQUWIW6D7FKIWHsgjLypYmc5WwrCeOBNbiPuEFJQpj9F81nblv1KLF4PEfpYmd6kRvZdkBCKYxcKkldOqrllbl5RKWwKUFxsQROPhqTefIYObnEY/6w5MoisLY814oELcbGRrvdhJ6V/hso0H5ZqWHWjxDDrLlvwAEaTT1UUuAD6SQSAHy8K/9nH6+qyIQVfvzBrJWUmAP2fKuo2D6WVb6fzqSssd/zECTEetY/4OZZZO8CiMqqqoOLfiGf/1X+m9Ohvlt/wfFzclT6276VxaDGa2YszXJ0ZOAPBf9P0PdE/sJ41ij2VfsRGwJp0jwISro9vFUndxOduJjuWvR7DLGEa2rqa4klnVPBS9gwIla/mmADcthzKgLD467S76yFkcQjf/TNfM5xordgOn7RG4XqmLqdMYVE3QJHMAsmglGEtaLNwdjiLDYBqYIdZXni9CiuEwb/1X/5HtU+iObOiQz6liTtwcffpvX0nKIWsCGmiskbC20RGZ4MmFZbMXYxfzP5Gr722QOa4aF6ecZxXwa2RvWPGZJwZv1aK8jM0aMQVWQlgG7OWW8596NcFnmcFLbv2DtDWGA4VhDQPLA4lwoBcGLUa5N3DanOGdARQzFZYwMBLloa9sO8RdUDKWGj03xiP+JGSm994FUYFlzHiRH09vzT3Qy7a0oMg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12316.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(376014)(7416014)(366016)(56012099003)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b1pERnpKSTRXM3pFY0czTWdOZzZudGxjZmRvYjVCL01aZStMdlVlUmNkMkJm?=
- =?utf-8?B?S1FqR2d5TktlVS9vU2ZVYm1MMTNRcCtma0hDbWJFcytEcExTUUk5TDJNckxT?=
- =?utf-8?B?dzJleXZWcVJwajlpTUxUOXNwbWVZajc5aGNXTmtLYy8xRzI2Y25ER1U2UmVs?=
- =?utf-8?B?Y3hEdEd4YTJwbHRha3pnVTgvU2V6TVZJcXNrdU93TVBKMXpBSTV4TkZtSlN2?=
- =?utf-8?B?NzVlUFhGblhZcFBxWXN0OXBUTzZYZks3MkVJa0g4VXcyb0tBNWtiRVNIbFZl?=
- =?utf-8?B?c3YyRFUzempNNERRcmpSTWdaMHIwbjFKeFgzWklmRzd0b1hQK1YreHdwU2h1?=
- =?utf-8?B?U2ZxTVd1WWx2K3NqNlVDUy82MFpvNTZTNE1YMTE3Mndjbm5KUDFxOVNpSnBT?=
- =?utf-8?B?ekh3OEF2WDhxanE1cHdvNUtaYnV1U2sxU2YzMkpPSzkwZ0VrSUVMc1dZNEpL?=
- =?utf-8?B?RThudFdHWUVkdUdnL0pVYm0wN05sUG05ZWl6YUs2ZjFEdjJkblQyUVp1UXov?=
- =?utf-8?B?ZnlXbVV1STNWc2l6c0lCMWNmdEJlUzhYVGE2RlRNQTFQbGJickJocVUyaFNi?=
- =?utf-8?B?NkE5bkFLYThJTnBRTVU4UHRzQXZzVTRvUUZXcWdVWmNPVmNLbU5ybWJ5T0FV?=
- =?utf-8?B?WU1rQnF6R3g1MUJoSWUyNng3QkNodFMzOUpCdGQ4eVZkbUh3RWRhSW5YNndL?=
- =?utf-8?B?TlZuWTBZTzIrcFJNUkRiMDk0TURvcFJybnkxWEpUb2pHNS9EeEFDWmgvK0Zt?=
- =?utf-8?B?cjdLTld0KzVsM2NZL0ovRnpvMXYyVWFIaVJxYU4yTTZQdDN3UTN4YnZIRVRl?=
- =?utf-8?B?QTZmMVBhaitBSEF1NGh4WDJmaWFzYnZXSjJPdmFYaDV0bEFXRG52aXZob2dq?=
- =?utf-8?B?c1NiaUtrZm1wOTI0QkFFR0o3UmZITDhzQmZtVHRZL2o3UGkwOUNOOUFFTkRH?=
- =?utf-8?B?Q0VvY1Jrc0tBSHhHYmxKUmdzekVkZU52Yk5DQi9QMlNoNEE2b0d4MFBpbHJL?=
- =?utf-8?B?ZWxLcVNWMjBxbmRYNTlyOVU0NHZ4dDBSS1hRM0RacFBPckFUZXdoeG1CSCs2?=
- =?utf-8?B?bDVKcUhiaGdWVFZ4aFMrOHQxUW9zWjlmU1dtZWZ1dXhyUFVzY1lCMm9IL2Uv?=
- =?utf-8?B?VHE2cEdWdFdNZzRJSWEwTVYxNTQyQ21jZ21rR1h2VU4wTWVTcUdWcVFvcDBl?=
- =?utf-8?B?NHY2OFI4K2dTUjZIMGVFL0NVWXFDR3IvUWs4WW9wS05ac21Vd1laWTVtSkov?=
- =?utf-8?B?dnpLMHExc3NMR2psK0pTamZESHFwQXlLaWdoY1ZuU2tySWRaT0VMYldVcTZt?=
- =?utf-8?B?dU1Na2JxL1YvWTBWbUdzVzljaThEaVZRaFlOZEJXcWVic3dnRjN0OGtCc2VP?=
- =?utf-8?B?enI5eWRPSTlWSVRWQ2VQS3lLRzhSbVRjWU16MEJoYXg2MGI5bGpxd0RKcndE?=
- =?utf-8?B?Z2gzSjNWQnpTa1JlNVFHV0x5QWtIcndmQWNZMzE5VWhVK3NmTFI2b28rM1A4?=
- =?utf-8?B?eEhCRFFXaEQyWnJXY1R3dTJJQ1hqNDNLWjJZa3pJMk4vRWtKeXltVllpcFNj?=
- =?utf-8?B?b3NGM3pFTE9kbHAweUpPZlNiQ0hoc1N4WE9XbVlwQzlERkdwQVN1Wjk0RzVp?=
- =?utf-8?B?TmVoVWcvQ3ZEZGtNMGtsR1pzdXVQN3pOUk5iQlZQb0U2U3BDTXFpTFpKWXZi?=
- =?utf-8?B?a25NNEpDMjlCRnBSSDNJSzlGOVBQOHUxd2dSaWRGYW1JdkpnZlJYTlhzUU9D?=
- =?utf-8?B?SkZjam9oTzd2QW9yeXVqTzJ0aTF5UFdxYTBrcDl2b3JYSW9YQnowU3FGcTc4?=
- =?utf-8?B?Wm5DL2Y2cEZ6d3VkYVQvbmpCbVZIcTdoVjNOR1U1RW5GMmtUcmVFNFNFaERN?=
- =?utf-8?B?cWlnMmlVZStmY0o3U2U4QlBOTVBKVXo5MjJHNWpsOXM1Q2VRTy8rM0lIbnM0?=
- =?utf-8?B?VWdhQVRpWGdUelJzVk1VcWQralgyVDNWQXpJMXI2UDdPU0ZIaXRMVS9NQm0v?=
- =?utf-8?B?V28rUlZPR2JQdTl4VGx0REcrTVNSeVU0Q1ZNU25NcXlpOFVxOHhZSzAveHdT?=
- =?utf-8?B?N2ZxLzNBS2dkQTJyVWVhOTQzeGJxRXRVLzV4WDhHRFhidE9NZENEQktTNXJs?=
- =?utf-8?B?NVVXdlZCWUdYNDAvd0xiaHdvZ1lTU3ZYTDJ5dXNEdjdvQkRGd1A3bFliNEJJ?=
- =?utf-8?B?MFpyN3Y1bmhFMHNhZHFOeUdQQmplcVZtOU56S0hLQlRxcklIWEF2NlVPcmNF?=
- =?utf-8?B?WVI0TXhvWnZpMERBaTJMWHZpSnhKZVkwbktnRnh0STBvajRWWXp0TjBRY2FS?=
- =?utf-8?B?ZHVmOVMwNmlJazdaeEd1Sks2YUl4U2RnN3MxRjNnRFA5dllqQ0FhQT09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9c0af2a-db6c-49f4-5460-08de8f25010b
-X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12316.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 12:57:02.9658
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uqE5bHSJPm1r/bz/CzFiemQmAKRnDErV5WEwdJHOFT6JjNNWsUr8sUDnAXKzLsYBR/YDMtoCxuQjux2nxxTmsA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6922
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <qnb3ozrhrq5n4zkh2luitkpwr5oj4omgcuo5vnvy2gatdfdqlg@cgsgux7etcql>
 
-On 3/23/26 19:59, Eduard Bostina wrote:
-> The Technologic Systems TS-4800 watchdog node was previously named 'wdt',
-> which violates the core watchdog.yaml schema expecting generic node names.
->
-> Rename the node to 'watchdog' to fix the following dtbs_check warning:
-> 'wdt' does not match '^(pmic|timer|watchdog)(@.*|-([0-9]|[1-9][0-9]+))?$'
->
-> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+On 26/03/30 01:49PM, Rodrigo Alencar wrote:
+> On 26/03/27 03:17PM, Rodrigo Alencar wrote:
+> > On 26/03/27 12:21PM, Andy Shevchenko wrote:
+> > > On Fri, Mar 27, 2026 at 10:11:56AM +0000, Rodrigo Alencar wrote:
+> > > > On 26/03/27 11:17AM, Andy Shevchenko wrote:
+> > > > > On Fri, Mar 27, 2026 at 09:45:17AM +0100, Petr Mladek wrote:
+> > > > > > On Fri 2026-03-20 16:27:27, Rodrigo Alencar via B4 Relay wrote:
+> 
+> ...
+> 
+> > > > > Maybe we want to have kstrtof32() and kstrtof64() for these two cases?
+> > > > > 
+> > > > > With that we will always consider the fraction part as 32- or 64-bit,
+> > > > > imply floor() on the fraction for the sake of simplicity and require
+> > > > > it to be NUL-terminated with possible trailing '\n'.
+> > > > 
+> > > > I think this is a good idea, but calling it float or fixed point itself
+> > > > is a bit confusing as float often refers to the IEEE 754 standard and
+> > > > fixed point types is often expressed in Q-format.
+> > > 
+> > > Yeah... I am lack of better naming.
+> > 
+> > decimals is the name, but they are often represented as:
+> > 
+> > 	DECIMAL = INT * 10^X + FRAC
+> > 
+> > in a single 64-bit number, which would be fine for my end use case.
+> > However IIO decimal fixed point parsing is out there for quite some time a
+> > lot of drivers use that. The interface often relies on breaking parsed values
+> > into an integer array (for standard attributes int val and int val2 are expected).
+> 
+> Thinking about this again and in IIO drivers we end up doing something like:
+> 
+> val64 = (u64)val * MICRO + val2;
+> 
+> so that drivers often work with scaled versions of the decimal value.
+> then, would it make sense to have a function that already outputs such value?
+> That would allow to have more freedom over the 64-bit split between integer
+> and fractional parts.
+> As a draft:
+> 
+> static int _kstrtodec64(const char *s, unsigned int scale, u64 *res)
+> {
+> 	u64 _res = 0, _frac = 0;
+> 	unsigned int rv;
+> 
+> 	if (*s != '.') {
+> 		rv = _parse_integer(s, 10, &_res);
+> 		if (rv & KSTRTOX_OVERFLOW)
+> 			return -ERANGE;
+> 		if (rv == 0)
+> 			return -EINVAL;
+> 		s += rv;
+> 	}
+> 
+> 	if (*s == '.') {
+> 		s++;
+> 		rv = _parse_integer_limit(s, 10, &_frac, scale);
+> 		if (rv & KSTRTOX_OVERFLOW)
+> 			return -ERANGE;
+> 		if (rv == 0)
+> 			return -EINVAL;
+> 		s += rv;
+> 		if (rv < scale)
+> 			_frac *= int_pow(10, scale - rv);
+> 		while (isdigit(*s)) /* truncate */
+> 			s++;
+> 	}
+> 
+> 	if (*s == '\n')
+> 		s++;
+> 	if (*s)
+> 		return -EINVAL;
+> 
+> 	if (check_mul_overflow(_res, int_pow(10, scale), &_res) ||
+> 	    check_add_overflow(_res, _frac, &_res))
+> 		return -ERANGE;
+> 
+> 	*res = _res;
+> 	return 0;
+> }
+> 
+> noinline
+> int kstrtoudec64(const char *s, unsigned int scale, u64 *res)
+> {
+> 	if (s[0] == '+')
+> 		s++;
+> 	return _kstrtodec64(s, scale, res);
+> }
+> EXPORT_SYMBOL(kstrtoudec64);
+> 
+> noinline
+> int kstrtosdec64(const char *s, unsigned int scale, s64 *res)
+> {
+> 	u64 tmp;
+> 	int rv;
+> 
+> 	if (s[0] == '-') {
+> 		rv = _kstrtodec64(s + 1, scale, &tmp);
+> 		if (rv < 0)
+> 			return rv;
+> 		if ((s64)-tmp > 0)
+> 			return -ERANGE;
+> 		*res = -tmp;
+> 	} else {
+> 		rv = kstrtoudec64(s, scale, &tmp);
+> 		if (rv < 0)
+> 			return rv;
+> 		if ((s64)tmp < 0)
+> 			return -ERANGE;
+> 		*res = tmp;
+> 	}
+> 	return 0;
+> }
+> EXPORT_SYMBOL(kstrtosdec64);
+> 
+> e.g., kstrtosdec64() or kstrtoudec64() parses "3.1415" with scale 3 into 3141
 
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
+Hi Jonathan,
 
+developing more on that, I wouldn't need to create a iio_str_to_fixpoint64(),
+what do you think on new format types:
 
+#define IIO_VAL_DECIMAL64_1 101
+#define IIO_VAL_DECIMAL64_2 102
+#define IIO_VAL_DECIMAL64_3 103
+#define IIO_VAL_DECIMAL64_4 104
+#define IIO_VAL_DECIMAL64_5 105
+#define IIO_VAL_DECIMAL64_6 106
+#define IIO_VAL_DECIMAL64_7 107
+#define IIO_VAL_DECIMAL64_8 108
+#define IIO_VAL_DECIMAL64_9 109
+#define IIO_VAL_DECIMAL64_10 110
+#define IIO_VAL_DECIMAL64_11 111
+#define IIO_VAL_DECIMAL64_12 112
+#define IIO_VAL_DECIMAL64_13 113
+#define IIO_VAL_DECIMAL64_14 114
+#define IIO_VAL_DECIMAL64_15 115
 
+#define IIO_VAL_DECIMAL64_MILLI IIO_VAL_DECIMAL64_3
+#define IIO_VAL_DECIMAL64_MICRO IIO_VAL_DECIMAL64_6
+#define IIO_VAL_DECIMAL64_NANO IIO_VAL_DECIMAL64_9
+#define IIO_VAL_DECIMAL64_PICO IIO_VAL_DECIMAL64_12
+#define IIO_VAL_DECIMAL64_FEMTO IIO_VAL_DECIMAL64_15
+
+which gets stored as 64-bit, and represent the decimal scaled value.
+That would also work for the PLL driver (using IIO_VAL_DECIMAL64_MICRO):
+  - It supports frequency range from 1 to 26 GHz with micro Hz resolution
+  - In the driver a 64-bit value: (val * MICRO + val2) is already created
+  anyways.
+I would leverage something like kstrtodec64() in iio_write_channel_info().
+
+That way, I would drop the changes on the iio fixpoint parse, which I think
+it would do better with something like kstrntoull() to be able to handle that
+"dB" suffix.
+
+So for now, I may have the following approaches:
+- new kstrntoull() function: to have control over the parsing, whithout
+  requiring NUL-termination, avoiding unecessary string scanning or copying.
+  covered in v8.
+- expose a "safe" simple_strntoull(): minimal changes to vsprintf.c, this
+  is covered by this patch series (v9), and it similar solution to kstrntoull().
+- new kstrtodec64() function: parse decimal numbers as 64-bit with NUL-termination.
+  Might be covered in a v10, if it is a good idea.
+
+let me know your thoughts.
+
+-- 
+Kind regards,
+
+Rodrigo Alencar
