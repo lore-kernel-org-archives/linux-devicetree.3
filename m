@@ -1,307 +1,193 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010038.outbound.protection.outlook.com [52.101.61.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62863A63FD
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 10:45:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774953945; cv=none; b=XPeh+8EvBiSKYLVXKt2Qpmy8OAbXiTLT0S/bmjlyi+/mjcipla3wiHxtCvWehL/KDajjaCJQFsFXoxXOv8rZEN63hJ6MG7PcN7sqplwqyNmoVdObX7ubuDxJGjwDLebsbtO3uisyL/Rmo5YlSe2FrR2qe8f+2WKyRSVImB6lIFY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774953945; c=relaxed/simple;
-	bh=K0EX0cspVeWxNCtAKEUv2IpTsWN+IA1QxsQ1rNF3Vs4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a2b600uyaF498xoqviKXl7YBt1FyDL/kNCxlyuolES/IPTXKn3XrGYK786RdrPZC2imKckCaTzbbcu7IcFYgf1+xAOV110fSwRiV6WJt8j+avo7Nt6VuGwhnueWsnYFmxzNDN9sihjZWBi1NGalCej5TXgUZqowHe+ykL+ULLRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=g2KKJQv1; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C88287259;
+	Tue, 31 Mar 2026 10:48:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774954096; cv=fail; b=T5He0IEAp6QM8F9Q4IgCQ/KqKF7tpqZbuaqVjeiWuAm0E1YwRihE8US5KpVfiyFPQDTZpDukYXbKugocjvdFoxx+pBIInEYZ6T5NgbMmwEJTSBcbMYVlM/7IXXX9e+DvK/ZtOAfDel2REQ7q1GJI/6qKEJoKWmT7X0M/ioBEr8Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774954096; c=relaxed/simple;
+	bh=v1+QLvUw8Gmsz02DYbFCo3gd8IRwKlReEsxgkY8o2wI=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=okifXhxVtdCcJz1kVIdvqlpihRI7PlShQ9ajSLzK39slhu2lNA8HvkaUb7eyiBIio+Uyo1jsEfM0hVUrecUui1Y2Sx6bSYcSpNrihO7oWa9tROwVqu4IcgRTTIkuPZlNHDSG0IfZ2WelP2P7qyP8UbkJhtTiEmrvoRZ4/CThwmU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BnVQ9Kl3; arc=fail smtp.client-ip=52.101.61.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="g2KKJQv1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=from:to:cc:subject:date:message-id
-	:in-reply-to:references:mime-version:content-transfer-encoding;
-	 s=k1; bh=r0g0IpoxlP5va4wkaZmbiFkAib721mTMQMhw3iYp7pw=; b=g2KKJQ
-	v17g60ndBRl/eWM0TfPATbe1XyOdNli1t0lSyu1UvDf+98IbDYxoCydQVPvwgRfP
-	NuZZuzlKDQ9CZSZX9/5qfgRKSb2Vq+DJ1WHnfuDldgTkZqg8/p30NJkHhF2L26ed
-	YnAz8E/UPXY1T58Ta+xJZc3agZP5LxY8vpOx5YrfLYa7JkXqjikf1J/w/UHmf/c0
-	Z6KjQ3ohjyUVwdIrmRTJRq3W2ntGHSTmzRd7GwFUGx0g4mxdvJuNjgJ5kWrB0kRK
-	h2W0+rwFdRObTeO7yuTrv5botZAxSCi2vU600OsDgCuTXEelLHwJSwsm3f30gB3S
-	MLMDeURmccWNJz2Q==
-Received: (qmail 1653790 invoked from network); 31 Mar 2026 12:45:39 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 31 Mar 2026 12:45:39 +0200
-X-UD-Smtp-Session: l3s3148p1@I3UCq09O/K4ujnu8
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-renesas-soc@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Marek Vasut <marek.vasut@mailbox.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: [PATCH v3 1/3] dt-bindings: soc: renesas: Document MFIS IP core
-Date: Tue, 31 Mar 2026 12:45:23 +0200
-Message-ID: <20260331104527.29170-2-wsa+renesas@sang-engineering.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260331104527.29170-1-wsa+renesas@sang-engineering.com>
-References: <20260331104527.29170-1-wsa+renesas@sang-engineering.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BnVQ9Kl3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UShBbnmPO0A1asBruAzhxj6qlGsbi6PLzAGEvd8JBBwFKYOzatpmgO9wErf3lMmjIU1sYblgUE9am/0DDxNra5aKqCR0av3LDUvWRDeJVC6hCFwV9XuQaz4SZF/60mP7nFOyduvXJv+8qi+zU/RLNDtf59TYNw8E2R/Hu616w9BRMg9bW803QcToYdXjuUCpVEPp2WOMbrx4kSnAa/CYa9s14LFoGsPYbXoAQtqwvbHK+dtTgTUcOIRPv3Io0mKTwR8zuNPwAK2TLuGQZbkX2psrENmBFq6fnjs1BqI0UiaEDDXEeybDnDEMM5TBx+FJk8Nj/oihtJRanY91NhdGbg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p+WKKnF9ZMyK8yya3iQNB1dP36UmKlQ5DzQqoCYHv2E=;
+ b=UhsojjMAWKPaUuoGefVWdSU/k6nZ2hc2m46JRCqLsxcpzgWQjZWbi/SXQtiFxBUYuFrfh3BA0RbwH46XXlkSPM9nS0gqfR2ss8Sv5cDULD7va7jJr8oXYBF+5WV4fZulX8Gg2FPz1iN68KWMNOfe5MsRaItVgrMS19CFFTYw29iUJOdIeYqJ7nbF5tvqeGa6rZztHCmoISCi365J4QiFzEROkHmsOgYn1FQsSeNaFkQtPWGP2LzqTc4kyTilNdrCFxl4/UMShdglvIl0YL8duAsUsVtFv/p3kIUsqdC4EVYiRjewBDabGNaM9K+bVBbbtDmT0uBu23tn36nn/oMf1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p+WKKnF9ZMyK8yya3iQNB1dP36UmKlQ5DzQqoCYHv2E=;
+ b=BnVQ9Kl3iA45VX/opEAAsH9fyNZASh848HtcT9PEwujt5o49pw1B95PKyrS/itx4Z0FIRwMjIA0up+wQmUfb27j8wKnxqwAiWsQ6oFrBDMXr0L17xhZKafgUEGoM1SfTUtfWtu6jORG1UJja/iWWrgWK/8q+Pl+CX3+Q9kz9SgHJ3NC+q36yLiFdItvSv0fBfqOCeElWOB8VtmMJNuveP9EZ95YguZUorO+pLpRyp6THRqUWiddDnVqJ28bdwId4AbaCxBU/QABrk5zu9nZxsxauohNIs39P4g0q/YeyjVH+RJKiHUC7xmvTQphFPCjC4eCaqKFQx5/xdAw6CKn5Rw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS2PR12MB9750.namprd12.prod.outlook.com (2603:10b6:8:2b0::12)
+ by CH2PR12MB4245.namprd12.prod.outlook.com (2603:10b6:610:af::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
+ 2026 10:48:10 +0000
+Received: from DS2PR12MB9750.namprd12.prod.outlook.com
+ ([fe80::56a8:d6bf:e24c:b391]) by DS2PR12MB9750.namprd12.prod.outlook.com
+ ([fe80::56a8:d6bf:e24c:b391%6]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
+ 10:48:10 +0000
+Message-ID: <75e60c8f-ddb8-474c-961b-bc1d8faa48a3@nvidia.com>
+Date: Tue, 31 Mar 2026 11:48:04 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V3 1/3] net: stmmac: Fix PTP ref clock for Tegra234
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org
+References: <20260325135811.148480-1-jonathanh@nvidia.com>
+ <20260325135811.148480-2-jonathanh@nvidia.com>
+ <20260326-gigantic-tentacled-hornet-cbdb8d@quoll>
+ <01f56e6f-5459-4a96-9042-8a003a340fab@nvidia.com>
+ <5b3eaba5-eba2-43f9-8ef5-d305ca50ddf0@kernel.org>
+From: Jon Hunter <jonathanh@nvidia.com>
+Content-Language: en-US
+In-Reply-To: <5b3eaba5-eba2-43f9-8ef5-d305ca50ddf0@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PA7P264CA0212.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:374::9) To DS2PR12MB9750.namprd12.prod.outlook.com
+ (2603:10b6:8:2b0::12)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PR12MB9750:EE_|CH2PR12MB4245:EE_
+X-MS-Office365-Filtering-Correlation-Id: 519b3028-1961-465d-d973-08de8f12fffd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	z/P4vrzBv53TX7xWswIEOdhUWBBffSOjjF50h7W4mSPDqevM/vkzV0k3BToP1XI7xZ16JOjei/628dt+pk37mfaZW/E3clmvEIWDWNQVTPE4xdeQNSIAKxekLUtIzX2BcqQyrcSMT1FBuJ9OGWOwOnQRslvsoAZtrmhnLwGytpROk/oGpsHKH1EDizNBifusrbRppaezIrl6PglD7/I117wz8F1Ujehr2dRdVqo9J9gUvbe9O5t6DuPlfdnAniRw7LOJl/MZylFr4TjFUKlGlaIYzUeXCd7HRPZ5ynrSBS7g4uhsTP3KoW4/2ykNuZPt40yVoVf78rNsBnkTtozVd9BpNeA//U1AKEDBnyQVFO6FuvXvtyLm8WGiRL2xdjLms+JcuSSK2gU5dOhCI5Yp3+dOmDzgGpaMSK7h4Ihr3T6v2r8FQa2ofrmeK7i3vYrfSx+MFO92pxtBnoBQxApHXkRoEJsrtYS49ySUglYbF2bvJ8Ffbva0PcdlTYo0PRxlDvyI4uyx5vOquBd7lssnwmFVmTiSsTpLbRVL5hO58m85m35LP1YuH6R7z1854JOnb6v15u+ilQEtFtmx79WmA85nOjypVR1+AtDZekyoaQNrL+MJncLQ7Sp1/umlZRnpEOMYO4sScRE1kd9FwX+ztMSnEc04aq3V1GAf7xjBtZnnfkVdFXVKZM7MqNQox8CD9ocHOINuCYrCkaWIMkXk+8lrTDMO9g8vG4fRcQX7Sgo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9750.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cXhuWWd2RDUvU2hqWHBBTWd1YkxRVWVhOUR3alQvV3l6bkJzT3gramNlWkxN?=
+ =?utf-8?B?MnEvT3IwOHJralBsZTNPNWdGSmJvUnBKbG1JNVZGaHFBTDlld0x1Z1VEVWxL?=
+ =?utf-8?B?ZWhsSWg0RVcxbExJM1NlL201ZEpDeWhSMVBVVmlDK2JIbHAwb2xWOWEzZnNu?=
+ =?utf-8?B?UWNPUkhBQXJLci94NVNOK0ZIQ1AweWNBY0lEY1BYUUxyY3JLd3lZalozRjBh?=
+ =?utf-8?B?UGM4UWp1TzhRN1hQamcrbHRmMmRpNDNnNTU1SkVnR24yL1VpS1NpOStVV1dr?=
+ =?utf-8?B?NkhSSHdEZE5jT3pVNkh3S08vZkJ2ZVpHRGFuOGNVb0xhaDdzbWJDcUl3Tzgz?=
+ =?utf-8?B?YzArcXdDK2xHUzBlNmFTekVKZGROY3lhWmFFLzdPTUp3aTdrbmRSSkd6R0M4?=
+ =?utf-8?B?S3Vsc2trOXJickpnQnJZSnV1NDBhYTQwb0gzc08zaEdEWm9uck1EU09rZ1NZ?=
+ =?utf-8?B?QUg1Z0xpRGJ6bWVvejVoWXFMY2FMQ1NSM0NNL25vT1dUSW5LdXVqdU4xZSta?=
+ =?utf-8?B?RnRNZ3hLekRkYkZScjluQ3BBQ3FPZWhGdlcza29MRUEvaS82ODdsamhTbXJr?=
+ =?utf-8?B?RTBJT0FaYWVJTmw4a3pQa2pPWmFLdTZORnlYaHRhTERLVjNJVGtxcjNpckd5?=
+ =?utf-8?B?UWZIWTBDWFVDNW54SmFNZWE2NzBRRkN3UTNMMDMybmJhcU53YTlERnBJanFZ?=
+ =?utf-8?B?T0tZaEVUVmRPN3NDZExscU9RaVNweDZRY1F6NXMyMGdGd1YzNisydERWcUFU?=
+ =?utf-8?B?RHJrODRpU1dXRXVZZDZsTUYvbnNmWkMybmk3VUtIUW9ML2RScmtWWUV1Yjhn?=
+ =?utf-8?B?dzdKaXMyaHpvTFpwNElQOVpFL2h6TGUwcEVhMGNiblBkN2JuakF3d3pnL0wx?=
+ =?utf-8?B?YXcxSDR6RHgyckdsK0lIZkZpZVRyVHNuSVRGNWNYQzM0Lzh2RkVjeXRwRzZx?=
+ =?utf-8?B?MWFHOGZzZzd3ZUUxL1BlakduWjhIUkQvd3c0cHhwaWFnV2xaR2lLMXlOV3RU?=
+ =?utf-8?B?Nlo4ZzVuSEc2UEQxSVN2a2ZZSU9jeFJqSGZrY3FKaVFJaWJaMzNobnUrL2ps?=
+ =?utf-8?B?c3J2UVptQy82Q0pDTEQ1N3hqUWlOL1d3amoxVnVmVXEya0p6ZEhTMmU0VjU3?=
+ =?utf-8?B?am56OEFER2Q5cVNVZ2VHcFVuSjY1dEkzU2JCbkFWYlErbUtwT3ZuRHhOVEdG?=
+ =?utf-8?B?ejBlaHRsdzc3QkZ1OXN2Rmh5bWxLWnp5UXVBVVExTWFmRTFpOGtJM1llWmZC?=
+ =?utf-8?B?MlM0aFZ3bHdKWVl4L3Y5MkhLU1pBVFJ0SzZ1cVNhbUF5TFRwUTRzUWNlNHhV?=
+ =?utf-8?B?ZFI3d2J1V1hUZk8wYlY5TExpK2E5TWtMTmlhaFNQVTFuM1RNSy9FTjJocFQ4?=
+ =?utf-8?B?d1FxcUFLS3I1ZUxSZGk2UC9tbyt2RGRyMW9hU2NLOEI4dlJSS3ZCQlJJQ1pO?=
+ =?utf-8?B?K2RpU0hDQVNZQ1pBOUMyWnRWaDhoTkU1ejhzZXBGSEVqSUFPb1luTjNXQmxL?=
+ =?utf-8?B?YU12UTlVWnJOaStmY3F6QVB4MC8yNTJjTTY2Y0lHWm9rZ1NmMlg2OXd4c01R?=
+ =?utf-8?B?T0R1R05pV05MK2xHcDkxNUtvZzFDWFdLYWV1TVB4NDZFZnNYZFBwYnpZSDFi?=
+ =?utf-8?B?ZEVpWkxFd1B5U2kzNU5VRWRmUnJaOVJmdkdKTDNRYVhFNDFpdDIxSmlLaS9B?=
+ =?utf-8?B?V2ZjNXBLaDRQemc0cHRid25YZDc4NGt2R1Y1REVWMHphRkZ6WmhSdVI3cXlq?=
+ =?utf-8?B?akdQaHg0bnh6NHU3RlhCM2JxeHVCSHZIbUdiaDhsZFVyakRsVjNaRjhGNGlu?=
+ =?utf-8?B?czVodXZta1BmektiZkRET01uV1lrbUdvbXB5SmNwQnUrcU43aFZVT25vVDJV?=
+ =?utf-8?B?R01XU2UxWWFwczdNYjhPbWNoN0tCZ1FqSGpFeEFxY2dJUUN5aW1MQWZJbzZO?=
+ =?utf-8?B?U2ZEKzduMC91TlRzVTY4WjdhMFFPSVUxZ0hydXZwVi8yd0FVN05nWlpHQ0Zz?=
+ =?utf-8?B?NlIzMTE1MWpCZ3lpbllwL2Q5QitQaHRRZSsrUVNva1lydjlYOWQrOGdyemRv?=
+ =?utf-8?B?WHRrUEFQL1NkQ0NIeW00TVVHSWZZRWdlUGorOU9QSy94dWtjaUNIZ0FJZVBu?=
+ =?utf-8?B?TGRLNlR5T0dkL2trWGtvSlFqa0kzNTkrdURUWUZGYzdyWkdaMURVNmZKd1RS?=
+ =?utf-8?B?K1VwTFdHbGljVFRET3RTUGFoQVBteVNyTjRYUWJGQWh5ZVVEd21WTlNUVElI?=
+ =?utf-8?B?eTR1blViSzNENjM1K0dPNE1HTUVRRCtUM2ZmeUduQmk3eEh1V1NodHZUSEZR?=
+ =?utf-8?B?WE1vcGdodVJjdmFlNE4rK2taa2R0RGh1cEhWZ09va2twRndEUmVtUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 519b3028-1961-465d-d973-08de8f12fffd
+X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9750.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 10:48:10.1154
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jHr+vk8JfZZ0GlWGYrn03UQEgwRNIKWRJWP7fKErJKGYpbye23UiqHMdoeW77HPIkD8l1/Rj3+jSuBAjv6l4kg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4245
 
-Document the Renesas Multifunctional Interface (MFIS) as found on the
-Renesas R-Car X5H (r8a78000) SoC. MFIS includes features like Mailbox/HW
-Spinlock/Product Register/Error Injection/Error Detection and the likes.
-Family-compatible values are not introduced here because MFIS is usually
-very different per SoC.
 
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
----
-Changes since v2:
-* added interrupt constraints
-* fixed whitespaces in example (Thanks, Krzysztof, for both!)
+On 31/03/2026 11:18, Krzysztof Kozlowski wrote:
+> On 31/03/2026 12:14, Jon Hunter wrote:
+>>
+>> On 26/03/2026 08:32, Krzysztof Kozlowski wrote:
+>>
+>> ...
+>>
+>>>> @@ -257,9 +258,23 @@ static int tegra_mgbe_probe(struct platform_device *pdev)
+>>>>    	if (!mgbe->clks)
+>>>>    		return -ENOMEM;
+>>>>    
+>>>> -	for (i = 0; i <  ARRAY_SIZE(mgbe_clks); i++)
+>>>> +	/*
+>>>> +	 * Older device-trees use 'ptp-ref' rather than 'ptp_ref'.
+>>>> +	 * Fall back to the legacy name when 'ptp_ref' is absent.
+>>>> +	 */
+>>>> +	use_legacy_ptp = of_property_match_string(pdev->dev.of_node,
+>>>> +						  "clock-names", "ptp_ref") < 0;
+>>>> +
+>>>> +	for (i = 0; i < ARRAY_SIZE(mgbe_clks); i++) {
+>>>>    		mgbe->clks[i].id = mgbe_clks[i];
+>>>>    
+>>>> +		if (use_legacy_ptp && !strcmp(mgbe_clks[i], "ptp_ref")) {
+>>>
+>>> Why index 0 is not valid? And why -EINVAL would be considered as legacy
+>>> clock present?
+>>
+>> Index 0 is valid. However, yes I guess that treating an -EINVAL from
+>> of_property_match_string() is not correct. I will switch the logic to be ...
+>>
+>>    use_legacy_ptp = of_property_match_string(pdev->dev.of_node,
+>>                                      "clock-names", "ptp-ref") >= 0;
+> 
+> No, apologies, I think my comment was not correct and your reply made me
+> rethink. I missed final "< 0" in of_property_match_string().
+> 
+> So the code is good, you do not store index in 'use_legacy_ptp', but the
+> error return value.
+> 
+> Can you however make it more obvious code, so something like:
+> 
+> if (of_property_match_string...))
+> 	use_legacy_ptp = true;;
 
- .../soc/renesas/renesas,r8a78000-mfis.yaml    | 191 ++++++++++++++++++
- .../dt-bindings/soc/renesas,r8a78000-mfis.h   |  28 +++
- 2 files changed, 219 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/soc/renesas/renesas,r8a78000-mfis.yaml
- create mode 100644 include/dt-bindings/soc/renesas,r8a78000-mfis.h
+Yes I can do that. Before I was avoiding the need to pre-initialise the 
+variable, but I am happy either way to get this fixed!
 
-diff --git a/Documentation/devicetree/bindings/soc/renesas/renesas,r8a78000-mfis.yaml b/Documentation/devicetree/bindings/soc/renesas/renesas,r8a78000-mfis.yaml
-new file mode 100644
-index 000000000000..7ee3a82053d7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/soc/renesas/renesas,r8a78000-mfis.yaml
-@@ -0,0 +1,191 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/soc/renesas/renesas,r8a78000-mfis.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Renesas MFIS (Multifunctional Interface) controller
-+
-+maintainers:
-+  - Wolfram Sang <wsa+renesas@sang-engineering.com>
-+
-+description:
-+  The Renesas Multifunctional Interface (MFIS) provides various functionality
-+  like mailboxes, hardware spinlocks, product identification, error injection,
-+  error detection and such. Parts of it can be used for communication between
-+  different CPU cores. Those cores can be in various domains like AP, RT, or
-+  SCP. Often multiple domain-specific MFIS instances exist in one SoC.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - renesas,r8a78000-mfis       # R-Car X5H (AP<->AP, with PRR)
-+      - renesas,r8a78000-mfis-scp   # R-Car X5H (AP<->SCP, without PRR)
-+
-+  reg:
-+    maxItems: 2
-+
-+  reg-names:
-+    items:
-+      - const: common
-+      - const: mboxes
-+
-+  interrupts:
-+    minItems: 32
-+    maxItems: 128
-+    description:
-+      The interrupts raised by the remote doorbells.
-+
-+  interrupt-names:
-+    minItems: 32
-+    maxItems: 128
-+    description:
-+      An interrupt name is constructed with the prefix 'ch'. Then, the
-+      channel number as specified in the documentation of the SoC. Finally,
-+      the letter 'i' if the interrupt is raised by the IICR register. Or 'e'
-+      if it is raised by the EICR register.
-+
-+  "#hwlock-cells":
-+    const: 1
-+
-+  "#mbox-cells":
-+    const: 2
-+    description:
-+      The first cell is the channel number as specified in the documentation
-+      of the SoC. The second cell may specify flags as described in the file
-+      <dt-bindings/soc/renesas,r8a78000-mfis.h>.
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: renesas,r8a78000-mfis
-+    then:
-+      properties:
-+        interrupts:
-+          minItems: 128
-+          maxItems: 128
-+        interrupt-names:
-+          minItems: 128
-+          maxItems: 128
-+          items:
-+            pattern: "^ch[0-9]+[ie]$"
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: renesas,r8a78000-mfis-scp
-+    then:
-+      properties:
-+        interrupts:
-+          minItems: 32
-+          maxItems: 32
-+        interrupt-names:
-+          minItems: 32
-+          maxItems: 32
-+          items:
-+            pattern: "^ch[0-9]+i$"
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - interrupts
-+  - interrupt-names
-+  - "#hwlock-cells"
-+  - "#mbox-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    system-controller@189e0000 {
-+        compatible = "renesas,r8a78000-mfis";
-+        reg = <0x189e0000 0x1000>, <0x18800000 0x40000>;
-+        reg-names = "common", "mboxes";
-+        interrupts = <GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 104 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 105 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 106 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 107 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 108 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 109 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 112 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 113 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 116 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 118 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 119 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 120 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 121 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 122 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 124 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 126 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 127 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 136 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 137 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 139 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 142 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 149 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 154 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 155 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 156 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 157 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 158 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 159 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 160 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 161 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 162 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 164 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 165 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 166 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 167 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 169 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 170 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 171 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 172 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 173 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 175 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 176 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 177 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 178 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 179 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 180 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 181 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 182 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 183 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 184 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 185 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 186 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 187 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 188 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 189 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 190 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 191 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 192 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 193 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 194 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 195 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 196 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 197 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 198 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 199 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 200 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 201 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 202 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 203 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 204 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 205 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 206 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 208 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 209 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 210 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 211 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 212 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 213 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 214 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 215 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 216 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 217 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 218 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 219 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 220 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 221 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 222 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 223 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 224 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 225 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 226 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 227 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 228 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-names = "ch0i", "ch0e", "ch1i", "ch1e", "ch2i", "ch2e", "ch3i", "ch3e",
-+                          "ch4i", "ch4e", "ch5i", "ch5e", "ch6i", "ch6e", "ch7i", "ch7e",
-+                          "ch8i", "ch8e", "ch9i", "ch9e", "ch10i", "ch10e", "ch11i", "ch11e",
-+                          "ch12i", "ch12e", "ch13i", "ch13e", "ch14i", "ch14e", "ch15i", "ch15e",
-+                          "ch16i", "ch16e", "ch17i", "ch17e", "ch18i", "ch18e", "ch19i", "ch19e",
-+                          "ch20i", "ch20e", "ch21i", "ch21e", "ch22i", "ch22e", "ch23i", "ch23e",
-+                          "ch24i", "ch24e", "ch25i", "ch25e", "ch26i", "ch26e", "ch27i", "ch27e",
-+                          "ch28i", "ch28e", "ch29i", "ch29e", "ch30i", "ch30e", "ch31i", "ch31e",
-+                          "ch32i", "ch32e", "ch33i", "ch33e", "ch34i", "ch34e", "ch35i", "ch35e",
-+                          "ch36i", "ch36e", "ch37i", "ch37e", "ch38i", "ch38e", "ch39i", "ch39e",
-+                          "ch40i", "ch40e", "ch41i", "ch41e", "ch42i", "ch42e", "ch43i", "ch43e",
-+                          "ch44i", "ch44e", "ch45i", "ch45e", "ch46i", "ch46e", "ch47i", "ch47e",
-+                          "ch48i", "ch48e", "ch49i", "ch49e", "ch50i", "ch50e", "ch51i", "ch51e",
-+                          "ch52i", "ch52e", "ch53i", "ch53e", "ch54i", "ch54e", "ch55i", "ch55e",
-+                          "ch56i", "ch56e", "ch57i", "ch57e", "ch58i", "ch58e", "ch59i", "ch59e",
-+                          "ch60i", "ch60e", "ch61i", "ch61e", "ch62i", "ch62e", "ch63i", "ch63e";
-+        #hwlock-cells = <1>;
-+        #mbox-cells = <2>;
-+    };
-diff --git a/include/dt-bindings/soc/renesas,r8a78000-mfis.h b/include/dt-bindings/soc/renesas,r8a78000-mfis.h
-new file mode 100644
-index 000000000000..52e17fea1a03
---- /dev/null
-+++ b/include/dt-bindings/soc/renesas,r8a78000-mfis.h
-@@ -0,0 +1,28 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+#ifndef _DT_BINDINGS_SOC_RENESAS_R8A78000_MFIS_H
-+#define _DT_BINDINGS_SOC_RENESAS_R8A78000_MFIS_H
-+
-+/*
-+ * Constants for the second mbox-cell of the Renesas MFIS IP core. To be treated
-+ * as bit flags which can be ORed.
-+ */
-+
-+/*
-+ * MFIS HW design before r8a78001 requires a channel to be marked as either
-+ * TX or RX.
-+ */
-+#define MFIS_CHANNEL_TX (0 << 0)
-+#define MFIS_CHANNEL_RX (1 << 0)
-+
-+/*
-+ * MFIS variants before r8a78001 work with pairs of IICR and EICR registers.
-+ * Usually, it is specified in the datasheets which of the two a specific core
-+ * should use. Then, it does not need extra description in DT. For plain MFIS
-+ * of r8a78000, this is selectable, though. According to the system design and
-+ * the firmware in use, these channels need to be marked. This is not needed
-+ * with other versions of the MFIS, not even with MFIS-SCP of r8a78000.
-+ */
-+#define MFIS_CHANNEL_IICR (0 << 1)
-+#define MFIS_CHANNEL_EICR (1 << 1)
-+
-+#endif
+Jon
+
 -- 
-2.51.0
+nvpublic
 
