@@ -1,162 +1,252 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail-07.mail-europe.com (mail-0701.mail-europe.com [51.83.17.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7587B3E2758
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 13:37:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1123E316C;
+	Tue, 31 Mar 2026 13:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.83.17.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774964239; cv=none; b=VMrcXVNEQHHanuv+NAc2aNlAbHlfBfkiGOWFdQ9cdVUttlDz0Jjgm662HlsFPWJc2+EwzlNvcRz+XtZ4JRj8eUhmu6DGCYtZWq4lct2bvAcQi8HHVCD9p0LbvEqW41Fb9x49JvtYQrU8WZviGjgMnJ7OK0Zck6sy2p0sgP3+6/Q=
+	t=1774964242; cv=none; b=fXtdQ+4eJ1wKmoECHtS9C7uRmc8Uqbw6UgNOAc570ECYtdY8+QplPRUgYFswr4aIQD5/S7AvE4r3YeDqokTNo5uXwqOcf8khdK+RJO0o12NAXpMHke2we95t6M2yX5B29Co3fookYcqy53UyPunehDXxaSJC4pNHyh0ozliGzyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774964239; c=relaxed/simple;
-	bh=GFKlivnfFDiOn9cyPuw+fFKjZ45ioQooErK2zXqHbXs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d4Rbg79SHvoF8ZQ+nogYDgj7PfPC9TRNxbsJ1kASH4+i/IUYlqNVFMr6BpIRRz5uVQjaj8ygvRfvr8WjZTMNiFWUqV1v6Hj4jP5m4+m4TxzPtOXT593h/iDVKYlTrmRNO1sAkMlaCqhLzvl73sHaPt/J9sGqp9D8Vodq09koUic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bMC8TqSU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=INciBXNY; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774964242; c=relaxed/simple;
+	bh=Un1v5rWA//tbvwUD80Fv5DGWNJ0jHt2mPAC5ctO6d4c=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=AVmoiHONMp/4qC8YxJMz9uhnC8PnPNLwBwwdArXalHXe9vcPbFooqQExqPXtdqAOHnuFQnxdlf02y0aWIWO9wWqMK8YYCwa9wLgWL92IdBwFZ8e+pUdLeEHFAz2LowXzPF811Wa+MakngqQa0+z5sQuyNHKa8LICrWuAJU4Y9hU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com; spf=fail smtp.mailfrom=vinarskis.com; dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b=FzPpq9pH; arc=none smtp.client-ip=51.83.17.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=vinarskis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bMC8TqSU";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="INciBXNY"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62V81Dec430980
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 13:37:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZWjDQhyp71MI20S0T4dy1GKstt/menChSWcPwdT/rr4=; b=bMC8TqSUuUqlVitA
-	y8PWKhEF7rvX3g9DCu4JrFXGgRHMeEQ6n8ugtgiWQLRnJxlqSf68i+/DzmsGrXsA
-	67v2Hxt0je6jb3Xj7frTEQIw5+06KfUhuh7Lg7XwW5noh1guSF3gbYLFFym5zSPY
-	g/3FAr4FDbQRdJNCTR/zPzx/fOcOh7Qn+LD671a9SAaS7ocTaTNpe788O6kdfHAF
-	ncIS54hDXIpGLt+kaTLd9OMUq1Oi+3TNrMNRo1hsBx7cfyYYaQ/2Ajnup/LLKvQ5
-	sFHloeixGz5I0j6k/XwbrLKfcECLcln8huDhHFJd36ahJIFP676r847Y1Ao8yLgk
-	ozatdg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d84bfjqq3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 13:37:15 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50947db2e97so15434351cf.3
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 06:37:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774964234; x=1775569034; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ZWjDQhyp71MI20S0T4dy1GKstt/menChSWcPwdT/rr4=;
-        b=INciBXNYp8WWCuLLBuRh9uX7DW7LppqtA8HcIEjLZj3suYkK5uZ5h9YT+d3xHSQ5oe
-         8JGvacz9NXZa9+nUzv+X5WQTOaS63s/xQVycY+qiTzKTAxAvoiytDPgwThNSs/h6phPN
-         kVGaPJbWvr0N3uOSlHPTi6y5Q6Pz6Q8vk19CBtZmhZ9pR+0gCwAasg1jMRJxh8dJQ2+a
-         ghBevZ17+2FkVp/14WM5b0XjzXMGzzOsMdzd/J2yDhVgEDh19QTr6CbXIrEewPs9NMFD
-         V+ajBo0ksIcoKHf4lZDntuW79z4H/kxe8WT4rDrzTMqoUrkGT71lKBPA22n3B/8cSnxr
-         gkIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774964234; x=1775569034;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ZWjDQhyp71MI20S0T4dy1GKstt/menChSWcPwdT/rr4=;
-        b=hnkwn6Pnt+1Zq26kD37BESitso1/rQ+ABap9urggcNNKSJegq+TA1+K8NqdlApq+F7
-         t1MJFzlQzYKp3FlvWrjV6HPnHuLumizSexlMoZSozDajuG21SBD3NwBtQjGQ2ZivG+Pn
-         LFc4MgD8292R4TrgzIXZ0gNnkM9kzZ9Wbxxu8IzvT6mlAhvLgZT7vqX9RewmSXOpvSUx
-         bjTPznmZaXViZvCRl95RQ0nP9mkUHSY2F2MIybVlS+hu/JY5wzPG9+P9bNW6IVYSg0up
-         aycQXANCZXjqMaMlTXr0uoCbQ8zlR9oGh/CrHsWsJECOE9x7e+zD866T9mBFmiJKoJqB
-         qXIQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXnUpcQVTyuWr15BR+mlNdT6p/ys5rU4i9xYdISXksMyoM9oYHMFz7Qlbm0N4KND+9YVba7XnYS1lmU@vger.kernel.org
-X-Gm-Message-State: AOJu0YzeJi7nPRcL4itKr0gINKAeVtbDlG/W7lfFyE8CefeXPiD3pyXB
-	cIXFy9cB8bUfRRrfb9GsgzqcBgsw8flzPu/gxKmZIDuHJGlYEf4BY82RrbN9fJPU0K+7HPSNVsi
-	lLVLi/m7EDiLSthei4oRzT8MG0MbxPyNL45UIoiwfsj3DnDEN+hfTwPfRaLxHU5MD
-X-Gm-Gg: ATEYQzw8TPIRH5DZnRCxgFEm1XAMBE7PGIV04IAiDYLEbHjzGIpMgB1KXcXKBySyC+f
-	dVvEEoGjJD01GN6ZEg4V9pqV8y6gEh0h61IhiVDDzOvxfqqX3o4Ino08gQmhSzK0sEiuCPHd4Gy
-	KI1BYBmcPB2XnQheCRrdZRG5RwZB1nUZQU14/VRSSnVSOoj9PQfnacM5LPcEElG9M+MsI1U0wIw
-	AgVYzgJNyEh8JOPmb/PRHYDw7pH1mL6gpJT5el2ZSXS17BfN5RpiiuY7Ebn0upe4scw922kdBfj
-	O+G8+/UmeRRpj3E6XIWyrJgEko5JKPvXmet3/CElFtrojzik5co4Pk9HgVT9rqU0X/bmBZj0DR2
-	nk2AAS9hNA0B/9Et19yQduwrelxb3yba4wbqvYllraO9OVMnZKJvEQeYP88HUj2M6ybq+mPDVfB
-	wAzhI=
-X-Received: by 2002:ac8:7c53:0:b0:509:47e2:9df3 with SMTP id d75a77b69052e-50ba3819907mr171956421cf.1.1774964234330;
-        Tue, 31 Mar 2026 06:37:14 -0700 (PDT)
-X-Received: by 2002:ac8:7c53:0:b0:509:47e2:9df3 with SMTP id d75a77b69052e-50ba3819907mr171955411cf.1.1774964232959;
-        Tue, 31 Mar 2026 06:37:12 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-66b72978cf2sm3560420a12.8.2026.03.31.06.37.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 31 Mar 2026 06:37:11 -0700 (PDT)
-Message-ID: <69d644bd-d64e-4ef4-b0ca-b47103e84764@oss.qualcomm.com>
-Date: Tue, 31 Mar 2026 15:37:08 +0200
+	dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b="FzPpq9pH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
+	s=protonmail2; t=1774964226; x=1775223426;
+	bh=9DtaIFhbuYTF9VFfi0fZ9WHrgUOPll3EiGLAWOmlMtE=;
+	h=From:Date:Subject:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=FzPpq9pHjnPIfQFP0hbOKeQJcV04HY4LK/COmCOjFsww/1/RP1Eibu0rSWtL0sjOp
+	 WcHdNJe4/UmZQPVa3m66tc0oE7MeGPmRYE8NRBQ1p7LMaTpOlGZt4riKSUBjCSCsKg
+	 WLNRA1BN0xAzroGqe1ZEJ+/jioFJjXK0v3nFtPlmhvOU39iv4UDAq9EeEF46mllK+u
+	 2037JwGHzYiENRfXyskzAg1kVJPbFTIE3vui7wE/PzTEAPX2Pt0Hh5lUiiPfeh2lSE
+	 GXrKkzgQFfwmEDDLBhMVpTUIRpEJnf/CnTgmpnyU1xz8i70pNqiMtRa8iHVZK+tB7Z
+	 qtboyQoGYwzcg==
+X-Pm-Submission-Id: 4flTgP2b78z2ScXV
+gpg: Signature made Tue 31 Mar 2026 03:29:26 PM CEST
+gpg: using EDDSA key 8BFCF5668AA29DAD00D728F6EDAE71A20F500310
+gpg: Good signature from "Aleksandrs Vinarskis <alex@vinarskis.com>"
+ [ultimate]
+gpg: aka "Aleksandrs Vinarskis <alex.vinarskis@gmail.com>" [ultimate]
+From: Aleksandrs Vinarskis <alex@vinarskis.com>
+Date: Tue, 31 Mar 2026 15:36:47 +0200
+Subject: [PATCH v2] arm64: dts: qcom: x1e80100-dell-xps13-9345: enable
+ onboard accelerometers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] arm64: dts: qcom: eliza: Describe the ADSP and USB
- related nodes
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260331-eliza-adsp-usb-v1-0-d8a251be20c3@oss.qualcomm.com>
- <20260331-eliza-adsp-usb-v1-1-d8a251be20c3@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260331-eliza-adsp-usb-v1-1-d8a251be20c3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=INwPywvG c=1 sm=1 tr=0 ts=69cbce0b cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=iyPJuOvhaBYjIUodIMAA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDEzMiBTYWx0ZWRfXy/o1SQqCt4D2
- WI2ZyozTcAKFgegvYZXq9AkjQrP0tJjCAkcdYtiEH0O+QEU8HyqdyIlqdcXtqBvsr8M+oujCcKg
- PE8AycJDWMPDGxcv2nFHGVUjfi0igAFtEo55gzHT2jkd2fFkJ+54lzmqv81EW4Z9zQ0LsLnXTGx
- mT0XPMll72gguX7W7ZiLDSq1NBr3w6rNxde7+A9anipI3N56xYQbKXM0zm1/KGrmvlbTJchJPD+
- q8x48V+94WjZVwlms6cCaSWWBWSRbF/w+VrdumnJ70KK71PzrnYJP5bB+TZPr/xQ10aiqvUTMyU
- pzYV1GfiXEslWqy4cPx/vme5FBOn/PeQFsPI7W2IC7bWJDcYlwTc6sMTwCzXMuAJf95w4Srq+d3
- NnFDHUcilCdXB2dA1DphzMoLOMkQEACH9XAYrRcAWYf1YMS6dlgyqvgIGP9Nqkkbe0sqy9fXRW4
- uhUM9ysmI1DGxt/nJ9Q==
-X-Proofpoint-GUID: xUsPUBt7_2TAzw97QSQruYNREEv6ee5M
-X-Proofpoint-ORIG-GUID: xUsPUBt7_2TAzw97QSQruYNREEv6ee5M
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-31_03,2026-03-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
- impostorscore=0 adultscore=0 phishscore=0 priorityscore=1501 spamscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603310132
+Message-Id: <20260331-dell-xps-9345-accel-v2-1-7dacbd24b43d@vinarskis.com>
+X-B4-Tracking: v=1; b=H4sIAO7Ny2kC/32NSw6CQBAFr0J6bRsYQIGV9zAs5tNIRxzItJlgC
+ Hd35AAuq5JXbwOhwCTQZRsEiiw8+wTqlIEdtX8QsksMKleXXKkGHU0TrotgW1Y1amtpwkqbKif
+ X2kZdIS2XQAOvR/XeJx5Z3nP4HCex+Nn/vVhggU4PLZWmNDXRLbLXQZ4sZzu/oN/3/Qv42Gddu
+ gAAAA==
+X-Change-ID: 20260228-dell-xps-9345-accel-4ab40ed9c827
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: laurentiu.tudor1@dell.com, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5862; i=alex@vinarskis.com;
+ h=from:subject:message-id; bh=Un1v5rWA//tbvwUD80Fv5DGWNJ0jHt2mPAC5ctO6d4c=;
+ b=owGbwMvMwCX2dl3hIv4AZgHG02pJDJmnz/5b/mljSqGq9pv+oJg3QYc5buwVStMv42G99fMrI
+ zf7/miVjlIWBjEuBlkxRZbuP1/TuhbNXctwXeMbzBxWJpAhDFycAjCRel5GhqmbC/OeTedSmy76
+ NTzPKMu8Q2SF/l+zmb5LJI///sN7LouR4Ytrd3OVUY5Y1EqPiAixeWzSi5hSVjEtrOT6W5TJGa7
+ BDgA=
+X-Developer-Key: i=alex@vinarskis.com; a=openpgp;
+ fpr=8E21FAE2D2967BB123303E8C684FD4BA28133815
 
-On 3/31/26 12:37 PM, Abel Vesa wrote:
-> Describe the ADSP remoteproc node along with its dependencies, including
-> the IPCC mailbox, AOSS QMP and SMP2P links used for communication.
-> 
-> The Eliza SoC features a USB 3.1 Gen 2 controller connected to a QMP
-> combo PHY and an SNPS eUSB2 PHY. Describe them.
-> 
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
+Particular laptop comes with two sets of sensors:
+1. Motherboard: accelerometer
+2. Display/Camera module: accelerometer, ambient ligth (and more)
+   sensor
 
-[...]
+Both i2c busses are bound to Snapdragon Sensor Core (SSC) and are
+typically controlled by (A)DSP thus allowing for great power
+efficiency. This however requires DSP libraries matching ADSP firmware,
+sensors descriptions (must be extracted from Windows) and other
+potentially closed-source libraries. Opensource tooling includes
+`libssc` and `hexagonrpcd`, but they were not verified to be working.
 
-> +		usb_hsphy: phy@88e3000 {
-> +			compatible = "qcom,eliza-snps-eusb2-phy",
-> +				     "qcom,sm8550-snps-eusb2-phy";
-> +			reg = <0x0 0x088e3000 0x0 0x154>;
-> +			#phy-cells = <0>;
-> +
-> +			clocks = <&rpmhcc RPMH_CXO_CLK>;
+Until SSC support for X1E lands, bitbang both i2c busses to enable
+accelerometer functionality. In the future if/when sensors on this
+platform can be used from DSP directly, this commit can be reverted.
 
-This is TCSR_USB2_CLKREF_EN
+Both accelerometers were tested individually via `monitor-sensor`.
+Display accelerometer is defined first, as it appears automatic
+screen rotation tools simply pick the 1st iio device.
 
+Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
+---
+Enable two accelerometers, one on the motherboard, one in display.
+In combination with userland screen rotation tools such as Gnome's
+'screen rotate' [1] this allows for automatic screen rotation depending
+on device orientation.
 
-> +		usb: usb@a600000 {
-> +			compatible = "qcom,eliza-dwc3", "qcom,snps-dwc3";
+There appears to be an ALS, a "True Color Sensor with Flicker Detection"
+AMS TCS3530 at 0x39. Out-of-tree driver from OSRAM is available [2].
+Document bus, address, IRQ such that it could be added in the future.
 
-Does the device suspend and resume successfully?
+There is an issue with st_sensors which prevents initializing two
+sensors at the time, fix submitted [3]. It is not blocking this series,
+as without it, 2nd currently unused accelerometer on the motherboard
+will simply fail to probe.
 
-Konrad
+[1] https://extensions.gnome.org/extension/5389/screen-rotate
+[2] https://ams-osram.com/support/download-center?search=TCS3530&type=software&subtype=driver
+[3] https://lore.kernel.org/all/20260228-st-iio-trigger-v1-1-abf5909e547f@vinarskis.com/
+---
+Changes in v2:
+- Fixed i2c node names to pass dtbs_check
+- Updated commit description to reflect discussions of v1
+- Link to v1: https://lore.kernel.org/r/20260228-dell-xps-9345-accel-v1-1-daf9e3b3b5ee@vinarskis.com
+---
+ .../boot/dts/qcom/x1e80100-dell-xps13-9345.dts     | 94 ++++++++++++++++++++++
+ 1 file changed, 94 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+index ce7b10ea89b6dcb2a4a65c114037f4c90a4b0c6d..bde88655c36889cc4865a109370a9d2cd0166a00 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
++++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+@@ -40,6 +40,67 @@ switch-lid {
+ 		};
+ 	};
+ 
++	/* Display-mounted sensors */
++	i2c-sensors1 {
++		compatible = "i2c-gpio";
++		i2c-gpio,delay-us = <2>;
++
++		scl-gpios = <&tlmm 232 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
++		sda-gpios = <&tlmm 231 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
++
++		pinctrl-0 = <&sensors_i2c_display_default>;
++		pinctrl-names = "default";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		accelerometer@18 {
++			compatible = "st,lis2dw12";
++			reg = <0x18>;
++
++			interrupts-extended = <&tlmm 29 IRQ_TYPE_LEVEL_LOW>;
++			pinctrl-0 = <&acc_display_int_n_default>;
++			pinctrl-names = "default";
++
++			mount-matrix = "-1", "0", "0",
++				       "0", "1", "0",
++				       "0", "0", "-1";
++		};
++
++		/* AMS TCS3530 @ 0x39, IRQ 93 */
++	};
++
++	/* Motherboard-mounted sensors */
++	i2c-sensors2 {
++		compatible = "i2c-gpio";
++		i2c-gpio,delay-us = <2>;
++
++		scl-gpios = <&tlmm 216 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
++		sda-gpios = <&tlmm 215 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
++
++		pinctrl-0 = <&sensors_i2c_mobo_default>;
++		pinctrl-names = "default";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		accelerometer@18 {
++			compatible = "st,lis2dw12";
++			reg = <0x18>;
++
++			interrupts-extended = <&tlmm 28 IRQ_TYPE_LEVEL_LOW>;
++			pinctrl-0 = <&acc_mobo_int_n_default>;
++			pinctrl-names = "default";
++
++			vdd-supply = <&vreg_l10b_1p8>;
++			vddio-supply = <&vreg_l10b_1p8>;
++
++			mount-matrix = "0", "1", "0",
++				       "0", "0", "1",
++				       "1", "0", "0";
++		};
++	};
++
+ 	leds {
+ 		compatible = "gpio-leds";
+ 
+@@ -450,6 +511,13 @@ vreg_l9b_2p9: ldo9 {
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 		};
+ 
++		vreg_l10b_1p8: ldo10 {
++			regulator-name = "vreg_l10b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
+ 		vreg_l12b_1p2: ldo12 {
+ 			regulator-name = "vreg_l12b_1p2";
+ 			regulator-min-microvolt = <1200000>;
+@@ -1074,6 +1142,18 @@ &tlmm {
+ 			       <76 4>,  /* SPI19 (TZ Protected) */
+ 			       <238 1>; /* UFS Reset */
+ 
++	acc_display_int_n_default: acc-display-int-n-state {
++		pins = "gpio29";
++		function = "gpio";
++		bias-pull-up;
++	};
++
++	acc_mobo_int_n_default: acc-mobo-int-n-state {
++		pins = "gpio28";
++		function = "gpio";
++		bias-pull-up;
++	};
++
+ 	cam_indicator_en: cam-indicator-en-state {
+ 		pins = "gpio110";
+ 		function = "gpio";
+@@ -1197,6 +1277,20 @@ rtmr1_default: rtmr1-reset-n-active-state {
+ 		bias-disable;
+ 	};
+ 
++	sensors_i2c_display_default: sensors-i2c-display-state {
++		pins = "gpio231", "gpio232";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	sensors_i2c_mobo_default: sensors-i2c-mobo-state {
++		pins = "gpio215", "gpio216";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
+ 	tpad_default: tpad-default-state {
+ 		disable-pins {
+ 			pins = "gpio38";
+
+---
+base-commit: 3b058d1aeeeff27a7289529c4944291613b364e9
+change-id: 20260228-dell-xps-9345-accel-4ab40ed9c827
+
+Best regards,
+-- 
+Aleksandrs Vinarskis <alex@vinarskis.com>
+
