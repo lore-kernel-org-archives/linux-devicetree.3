@@ -1,135 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B163AA4EC;
-	Tue, 31 Mar 2026 13:10:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42A339A06D;
+	Tue, 31 Mar 2026 13:15:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774962648; cv=none; b=dcJLHcQN+/gHhFHpkuU6lx3olPmAaHGgmPju/dQmiFJjzYffSdbVQgVox586v3A0fyUVFNNSy+Jp2OzbLSnhxXLPB6NU31Ki1oqd1N2t6UzZsgFxrlts5uKwgxKi+ytk5CvtjG+YGkPlNRFn+l0lvtPL5sg6mejPqqNPqNU3fWE=
+	t=1774962929; cv=none; b=srjV8E0AWxxuyxHROInaO7uFc8QlSj2TDRGK9eZ1qAE/axRrjgV7awZQh7n4bz1Ut5+QoAtLvVBFUEYKl+fzBckAtyxwhJdJdn90qKcIUPj3KbAEhd6+5NU6vH2J1Omf2uOojfoj8eUjsQYvnR4NKOQs4P+6o8bbWs0AkEiFUds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774962648; c=relaxed/simple;
-	bh=H0eVMKEWi51A1OOnFbl4r5rkAhTgLqp8o3RwpipEpKY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FBgB6qn+Z1Pfyp4/8z1TVKVeUu+pnRXSIKveEToiAg5bXp/1C/q7pUL05wSG2DbR1QCvVuGbtTSpvMCPkH5jKUsrBUkRq3gbiEuOqKEqh+B674k4STrsNWEQEjPS+cNeD1JcjCAz36uNOwf6565S75fx0viQtldl5r8ugix5Ebs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l9YZCM+p; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774962929; c=relaxed/simple;
+	bh=N9U9Gngl2zsYLg9hbnhmxsUnpHqzZ9ArTNxcIheBEMk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tgEXH6GLfG2Bkbd51l1jRWQKnmhuw/rT0oB0YfhUwsKAcCMV3IwJmXuZ6s1WFu8Opm/iJ6qL98ThlFgfKfdOlA/6l54eJ1qd2o0bR9BTBlqym1XHUM/y2Ki2M8lLgEmYkpeSW83cUcYfv4iAgcILSDzNUjCw1b4C6AGUI7LUp28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d0/Mp2KD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l9YZCM+p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9772FC19423;
-	Tue, 31 Mar 2026 13:10:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d0/Mp2KD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CF33C19423;
+	Tue, 31 Mar 2026 13:15:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774962648;
-	bh=H0eVMKEWi51A1OOnFbl4r5rkAhTgLqp8o3RwpipEpKY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=l9YZCM+puP/uyhhRfSMUh+dBedmeyvh7H4LNp9JqVQ5qaZjZdTn8TbWvfGca3nT9Q
-	 U3SFo+eYmiYBwAnAJ1yPP/CsOgDcCnv/GKmkaMpPMXuGH6xtxN+vud/psvx+n26pQS
-	 VQHiUoJkJJon08lc9MtZC7oHExp9x/mInpJO4snchj5o90af6jj/K44qK0R7uvIpmQ
-	 zGFwuz7/6Lt9vI17D7Qip1liGsoNLUiY5zSTu/xjXN5oP7yVnVmgm57tgL4sGwm/qi
-	 hulicRD8oqAewXzvJ7TYnl93wFIxArRBQ3k0UJsF4fHrqdRvVRWLNUNe7l5o/B6YIn
-	 mJmxr0rhaUosw==
+	s=k20201202; t=1774962929;
+	bh=N9U9Gngl2zsYLg9hbnhmxsUnpHqzZ9ArTNxcIheBEMk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=d0/Mp2KD1+SHhoVMmrPN7U0nPS3F0FXhLKOS51MQIBpNEs56cUwq+TeQEtmlygyQ+
+	 DJ3zr2CpPvwUmg0UCIqwuG+HfsTk4+GzxclYkcPVpZMJc5bexA/1AU2MzFoayWqrD3
+	 qCzf8WTfD7Ruzgwp6x3AZcfTOkMI5Y116/bZK6KmdDK5rcLz4vDACGjymqnw8yIhlP
+	 feN1Qot7CeMRe0BcM+wTI6QPuBQ1XYjvEvNnuQO/ZAC/t3sGoiwXCYJn7URmQR8OUK
+	 71OMK1JEAzkD+pACUks2m+NvWKTsL0xiL3NzTSqBrkH9uajFshQKTIFLvymSDsBrvU
+	 lN3vEKEBLDHog==
 From: Conor Dooley <conor@kernel.org>
-To: netdev@vger.kernel.org
-Cc: conor@kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	kernel test robot <lkp@intel.com>,
-	Jiawen Wu <jiawenwu@trustnetic.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+To: linux-gpio@vger.kernel.org,
+	Conor Dooley <conor@kernel.org>
+Cc: Conor Dooley <conor.dooley@microchip.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Daire McNamara <daire.mcnamara@microchip.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	linux-riscv@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org
-Subject: [PATCH net-next v2] net: macb: fix use of at91_default_usrio without CONFIG_OF
-Date: Tue, 31 Mar 2026 14:10:21 +0100
-Message-ID: <20260331-enroll-sensation-50901318a419@spud>
+	Thomas Gleixner <tglx@kernel.org>
+Subject: Re: (subset) [PATCH v13 0/5] PolarFire SoC GPIO interrupt support
+Date: Tue, 31 Mar 2026 14:14:45 +0100
+Message-ID: <20260331-dominion-conjoined-c87ec5bc7db2@spud>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260318-gift-nearest-fd3ef3e4819b@spud>
+References: <20260318-gift-nearest-fd3ef3e4819b@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2898; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=uqiW7t5PqCoWnIG6QJ1cWBX3j3b9KsdAUQtWJ0U1YJo=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDJmnj+99+qdU3kXiVJNWc5Xenb+JmWbBX3LfPjaQC1+of 7Hq4ottHaUsDGJcDLJiiiyJt/tapNb/cdnh3PMWZg4rE8gQBi5OAZhI1yOG//kfIzWn+YYv3N8V vXBG9Z8JHwsMDL8dvfJD6drO7RfY5s9lZPjLcKGF0eXt1It2j+ue8N86oL8tsjzv3sHrl96bpH0 36GIGAA==
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=784; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=La/xA4DusqX4r/5LF/aVUUmPtgQGBCIF7OcFbPPMG+Q=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDJmnTxw5+OC3SizjVmlzhoLCtucfPfkFH//arGZYeIo31 mbLsUCvjlIWBjEuBlkxRZbE230tUuv/uOxw7nkLM4eVCWQIAxenAEzk+hmG/8m2+VuqLtxNOVF3 UFnw4EzGrYZGZpktV6frTLty/eLaqTcY/gedUD/iOK21dPvmzM962q0Cb4O0wqbtlen4GJW8oen hHkYA
 X-Developer-Key: i=conor.dooley@microchip.com; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
 Content-Transfer-Encoding: 8bit
 
 From: Conor Dooley <conor.dooley@microchip.com>
 
-If CONFIG_OF is not enabled, at91_default_usrio is used undeclared in
-gem_default_config. Move at91_default_usrio back above the CONFIG_OF
-section where macb_default_usrio used to be, so that it is unconditionally
-defined and defined prior to any of the users.
+On Wed, 18 Mar 2026 11:04:31 +0000, Conor Dooley wrote:
+> From: Conor Dooley <conor.dooley@microchip.com>
+> 
+> Yo,
+> 
+> Here's a v3 with an extra patch updating the gpio binding from fished
+> out from my old branch, fixing the examples and setting the permitted
+> values of gpios for the controllers on polarfire soc and the existing
+> binding patch's example fixed.
+> 
+> [...]
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202603280028.wQjUrIvv-lkp@intel.com/
-Reported-by: Jiawen Wu <jiawenwu@trustnetic.com>
-Closes: https://lore.kernel.org/all/06a701dcc014$86def5b0$949ce110$@trustnetic.com/
-Fixes: a17871778ee28 ("net: macb: rename macb_default_usrio to at91_default_usrio as not all platforms have mii mode control in usrio")
-Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
----
-lkp also reported this over the weekend, but against the dev copy in my
-tree. I had thought that CONFIG_OF was standard off on x86, but I guess
-it isn't, given lkp didn't catch it until randconfigs.
+Gonna interpret the ack and lack of response to me asking if the gpio
+change was mine to take as it being the case.
+Applied to riscv-soc-for-next, thanks!
 
-Seem to have come down with some sort of bug, hopefully I haven't cocked
-this v2 up somehow in my addled state.
+[2/5] gpio: mpfs: Add interrupt support
+      https://git.kernel.org/conor/c/e57b53f0f36a
+[3/5] dt-bindings: soc: microchip: document PolarFire SoC's gpio interrupt mux
+      https://git.kernel.org/conor/c/5f3575cc73dc
+[4/5] soc: microchip: add mpfs gpio interrupt mux driver
+      https://git.kernel.org/conor/c/bd34cdd6d214
 
-v2:
-- Do the boring thing that works... Probably worth a revisit later, cos
-  there's a bunch of confusing naming here still - "default_gem_config"
-  is used for cdns,macb and of course "at91_default_usrio" is used on
-  things where I am reasonably confident it shouldn't, like the Xilinx
-  boards.
-
-CC: Andrew Lunn <andrew+netdev@lunn.ch>
-CC: David S. Miller <davem@davemloft.net>
-CC: Eric Dumazet <edumazet@google.com>
-CC: Jakub Kicinski <kuba@kernel.org>
-CC: Paolo Abeni <pabeni@redhat.com>
-CC: Nicolas Ferre <nicolas.ferre@microchip.com>
-CC: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-CC: netdev@vger.kernel.org
-CC: devicetree@vger.kernel.org
-CC: linux-kernel@vger.kernel.org
-CC: linux-riscv@lists.infradead.org
----
- drivers/net/ethernet/cadence/macb_main.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 12e2b2f4aaf88..3e37b0a3e7e4b 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -4949,6 +4949,13 @@ static int macb_init(struct platform_device *pdev,
- 		return macb_init_dflt(pdev);
- }
- 
-+static const struct macb_usrio_config at91_default_usrio = {
-+	.mii = MACB_BIT(MII),
-+	.rmii = MACB_BIT(RMII),
-+	.rgmii = GEM_BIT(RGMII),
-+	.clken = MACB_BIT(CLKEN),
-+};
-+
- #if defined(CONFIG_OF)
- /* 1518 rounded up */
- #define AT91ETHER_MAX_RBUFF_SZ	0x600
-@@ -5523,13 +5530,6 @@ static int eyeq5_init(struct platform_device *pdev)
- 	return ret;
- }
- 
--static const struct macb_usrio_config at91_default_usrio = {
--	.mii = MACB_BIT(MII),
--	.rmii = MACB_BIT(RMII),
--	.rgmii = GEM_BIT(RGMII),
--	.clken = MACB_BIT(CLKEN),
--};
--
- static const struct macb_usrio_config mpfs_usrio = {
- 	.tsu_source = 0,
- };
--- 
-2.53.0
-
+Thanks,
+Conor.
