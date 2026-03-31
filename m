@@ -1,87 +1,84 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E563FA5F0
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 14:03:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 849FC3F9F46
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 14:05:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774965791; cv=none; b=rZ1gECbfclYeN3DAAkwH+SPLYlDvyN85n/tQnv03F+gykpXEJhQlNvHvsTTgXXS185KWu7gaOFVKjzFmwPQBxkwu2Fz3R8hMClrTABjXQ8FaaxB1meVG8voYhfdYtaGgarjXr0cL7mvlX4TbUGCo3jb5HeGYX8nQHA+6QNdG44s=
+	t=1774965913; cv=none; b=JgxDgZlZTjpDS4sZsfSj9DmiVeF6myNa9ivJ1oIYz0NH6WwxiBuPS4YA9/rEZ7Q8cm9Tc+fjTAkzfjsjOBEzuZW3u4ukTVHNkJyxZUh8+bQDUWLzUTYJT2uLPgmMV92HHAVtdp0Ic3iHgd8faFU5SQ5LJcgzImK3tQdTB2MH9Hw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774965791; c=relaxed/simple;
-	bh=fdkzbqqWSqAqRWw7zg2qcBzkgVtLUE144t0b3+wpNxQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uD4V3CcS4LbPQ3QqpMkcv+P+9COOPeaPoRYpujmyofRitlgxBs/JzZfPFotwUevC3KNbtVKXjTBKvgE/EhCCH4X6mcLh6wxNVmzjUcCNTFmjgSUf2Q644wdWkW6omzQfywrSi6EG6C8P9w06YEjMFc+jUQC87IkvRGIu0kgouT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XrPbTj3Z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kGr4Op52; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1774965913; c=relaxed/simple;
+	bh=P2NjOwOfDO9uAKBSdnt+bXSNB/+yNSJiXlluqOTEHNk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dAYw2CGBGPHz9EXgBzOoxC3rgsdUl/U/HzuS3919c5kKm3xyZgBoS6uQNGZ5VYp48b5Vw7+0dsMOhQ0DIcVNN4emaS7/uDxVRdC6O87UsbZHGvmIx9ZNnPaoXLMa15e9+EhCfWEaKmhfnJnlknC3vDZF8vaOnCrwf3kj1aFY0PE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o+CZ3OYj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ges/U1HM; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XrPbTj3Z";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kGr4Op52"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o+CZ3OYj";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ges/U1HM"
 Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62VCvMib1305669
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 14:03:07 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62VCvdHP1306449
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 14:05:09 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/EPQc5af+39QtFkyXAVfTMa4eGUdvB3ATryq/oyXf2c=; b=XrPbTj3ZCmOFmoCZ
-	NKvPhqZ4LHy2ck8qOF/JFf4I6nzw63VPYiF8+d3cy9Iglgw+uccLebNr3zjDGCCh
-	gHA/0P3AnTPnE21WE817j6Q3lqYSFijW+n8DpioKQyCfimxoBPvO31l57hJBxUsc
-	bZRNKey5aEBg4r1bUc8NMC/BmLmfhQhJdjPBtWBZ7ouYG8+gJiOsin0tHocRZOEU
-	k3ytO5+B6PKopQgszbZwbIGIo1v+pjDemBZtJ7igjQkDTfXR+cp+gpQN6PaMPM5V
-	0nFy2HnxXAwtPNYa6XTsPFVg+jw06KbH5f4aBZb6a0wSdmCrKXPVsnH8rEjTtGOP
-	GVemhw==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8equ8d2d-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=dF4Obv+MCSq8YX0P9fxlsK
+	GDvf3O7jRLPn7ezaYrn94=; b=o+CZ3OYj5iT9TfiBJQQTNFVxOHbunQR1j75oeO
+	V3YExJ9yt3v/berszKeoWhGOTfi7pdx2GszMQHo48JYAU4vMf8NDj8Qol95WDQtj
+	kt2T2qTsSbyWa8Owfkr7utvtrdrH/tohASWBGdMgXOFCECs/gQ6G9iGT+CX3Q2Xc
+	MrxqC4EpUdV34HwujWpWIX33DvqEuY1v2ktIbSrDFlRavZFTK/mi9G45ugA5VxS2
+	4p7HP8tJJewyZqCsT3WLyCNuBgjgDqmXvj3RFLnzpkGM8rO0prd3v4Kyh2YFupV0
+	cMO3ds65t2hoqTNMhqZklxT7/1qmTsjk7AFjVByktZZBITRg==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8equ8dwj-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 14:03:03 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-953b15c76fdso776262241.2
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 07:03:03 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 14:05:08 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2b242062308so98824355ad.2
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 07:05:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774965782; x=1775570582; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=/EPQc5af+39QtFkyXAVfTMa4eGUdvB3ATryq/oyXf2c=;
-        b=kGr4Op52wCsxfexn2bhjUmVrmPdR51hKZHm7JN2Bbc/MvlrpUN1f3YtG0GQPlHznfk
-         TgNewNwsDLXC+peluLGXw4KQRM7y7CyZ6eYSsuMYkBMnpztUV+n3b5DjSXB+tXTgoKwg
-         QQVLq1QrNvhMfOM3kndrenCzvJioG+0Wj7zVCdRfjo0HSbYn8K0FcBtNwoWLggJvwqbX
-         0D6Pa4yESCqpvB0bZK69Dac1seh372jqfnToBN8zStJBhDt8g+WguRJSvRh5YeuT2A8+
-         hmH1E0U1F8H55P7qvGV90zedcJq6Grwpp8lTE3KAmZ6J6HHdv+QhhanqTi3Id7yUqNl6
-         ojfw==
+        d=oss.qualcomm.com; s=google; t=1774965908; x=1775570708; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=dF4Obv+MCSq8YX0P9fxlsKGDvf3O7jRLPn7ezaYrn94=;
+        b=ges/U1HMKd6yOHsHrmS1lKisvm95kXzrkDULk1xPlp6PTVxEs+3NFUBLQXcz1uBPU/
+         B7k/SK1IJRhHrq/+UdeOEvY0EBVkkwcbmsSIJXu/Mez4utynN+igpGwnn9kslOSvKcqA
+         Bj7CzW2g+/h1WoDAs1O+QOihyfrOZF/9DAIyA7bGs08iswfUkJo89GH6aucJA4Efoz8r
+         8v8gmzNLat5EpWQ/y4TniG5oM0Ry2vPVG9kFTdAAaEFI4gN6Oc068z+GqIJsAzzGDzYM
+         lIpB3XfggQF60jdPienzZff+YMVoCVpWWjAmwLUy3rRvIYUVbVEMzyiOuGnEi/J6JmLN
+         wByg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774965782; x=1775570582;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=/EPQc5af+39QtFkyXAVfTMa4eGUdvB3ATryq/oyXf2c=;
-        b=Z9PZ78xUAMdKLd7GYeceEQyym/kxuIRTrHQgt/RMvz1GrEX6UHQ7NDg5rS4g25CP5u
-         wJWFNNIxEw12NSput4IKrWHYp08bxRGIIGKvuvjDy9WzSuOyi9bXkqC6zHGQwVIgYXbQ
-         xIPkVG3HpSm9ovojvDKajVPc0Q8zYfiEWLyyJlrh/DqcW7rc3p6YsGNtpPSdo4kPoMxh
-         E9oQT0GyxG4N+b+lvYuUdSSijezAMOy3Z9p87Z1vM8TTz53QxoEGbryvjw4v3ZK1j0/i
-         KU1SDUBSWpn0gWEWVp+o2rgmYwn02PelWZ4dHeMehUMLR+YGmPpkgXawevCbW617KIH5
-         k5/g==
-X-Forwarded-Encrypted: i=1; AJvYcCWIDe3gwELgI6KrmRHlWZTgR8cH9dVedOHRg/M7UZkaNNU7bX9y3a8XyL7r8FPNa0Nf/eiN5A8/ZYnW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2j5XGAu0Mc2MZVNfpngFOBj6U36Yw6oEeZn39n5nTOeTH3Zno
-	H+QvYNt1/J7Q/XoPRfHF3bB0Irk/bjz76mBYqNg1FArO2eVVSzX8oQH22ds6NkI09GGcizuf2bm
-	Av/N5gqtu5H6XNn/jw/PlgbSpgHfAjJzaS7PpVMhMSNPurYFevmfuDJPOZtrqNaoF
-X-Gm-Gg: ATEYQzy5ZJXbEsZOClTIWAU7gmndX59CLli4hgloOa4TvbL7yW7k23YxXbruBTYDc1b
-	e641O7b9xD6crYJEiLYuRulXy7o46hxV6PB2VALjGVXCiybEzu2zmQJKpdFQBe8KK9UcnFg/OP7
-	V18dbxTj3cGwaSWOvSjjV2cZSQgMnIqF1JuKJKNqCDcWhTehe/1TMoMKA7pKVBik4NesdGbE+U0
-	qI3lfPEpQvX9HrjfxRjsOsOKVdNXaVqf+DKkctACbPEKTngn1bJXSve2lKcUwSvYiqfegZ/ArQh
-	cuPP7+y8vi/1t1Uyhego8JFH2wf/KwDcKCbgPm49wIrzoixzqwl3Ug/5CPe01h0duMdJE3Vefs5
-	lrV2rKtrmycGlIEmK80qFYqWUCA98xM7Ezbnew+AC6y5w
-X-Received: by 2002:a05:6102:3f03:b0:604:d2c4:98e5 with SMTP id ada2fe7eead31-604f927d729mr5475013137.21.1774965782006;
-        Tue, 31 Mar 2026 07:03:02 -0700 (PDT)
-X-Received: by 2002:a05:6102:3f03:b0:604:d2c4:98e5 with SMTP id ada2fe7eead31-604f927d729mr5474956137.21.1774965781494;
-        Tue, 31 Mar 2026 07:03:01 -0700 (PDT)
-Received: from [127.0.1.1] ([178.197.219.94])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4887e9630ddsm36610895e9.13.2026.03.31.07.02.59
+        d=1e100.net; s=20251104; t=1774965908; x=1775570708;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dF4Obv+MCSq8YX0P9fxlsKGDvf3O7jRLPn7ezaYrn94=;
+        b=SEKMHDPvSWabOog/ys1hNYVRtTvIrB5FcPICIPehrxj340v+bV/JaPGTcHlddl3ae1
+         JJCCJJX/W8EztYj5MPrM+ZWgpqnu2XYJCw07TwJXmAjZFFBFS5+ksrhZaOltTEJncwPI
+         1CVU4Vwq0jbY40sjPEeJcMAovd5pJwzWpW8+Ba5QCVwI81iJBAdOqCjh+SFGsY7lvnmu
+         euP4bwLOSjIU2ATMRvl6gjk1M85WhzTgT3dbver2dS2k4JwxvdJqr96g7tC4Hpkhf7+d
+         JiXxnUEvK4g/oGrly8O1LtKvNsEWonbKVBMl2GdROgKPn2huJpz0hT2H/7Sl34wcdZ8M
+         vtqA==
+X-Forwarded-Encrypted: i=1; AJvYcCWhM6Q3uq8RX17lmxVCb9d3jQD3ez2ZIFAmBg6UCpt7qZ4xS3RgzhweUBB0n4k3blNbrC5ZMtHof8Nk@vger.kernel.org
+X-Gm-Message-State: AOJu0YwYRWoLsDnuPQ58v6QCsKIk7TUUA2biR5gseRsq1jTmJU+ASQ1b
+	FFPJemRg6S7j5SFE0UFDx7hb1cY1ZzDO5VAmeL2yopsmII6ctnmaqkaWN95h4/2GxBeT+3YI9GE
+	ARmnphCrEO6FR/SzQ2IbZNwG4G8b3hUUTsMMJhkMNVVnqv09I9zgyOx2kt7sB4n4f
+X-Gm-Gg: ATEYQzyK/ubCIBXxhvisdge7JkhNGutig11Gd1ZjRH1b1EnV1a3mGCjcnEgOecNbl7f
+	5yJsq1/gkf/dW7D34t22t9YdQWVHQgxixQOFFgZ2XOxhV39GICU0GKs7YL4knDqzlzbzP6WcQAF
+	+MWd3uYB6kHpMB3iDda18l90AEbm8d1e5x/Seu9AcwzeD5g8LFpP1VFSfAwmtDTfUWVddWd3tM5
+	U5mM4+QYQicnXS6Wyn1JH6rTpNcpnZdE2iSs+mrqQY/3TXwEYb84IkuOSO/l3wbNjZC/8iNFRDS
+	G+R8C79BoGNn9shFcAUeXTP2TaJ5loXPgptfhbJmM/jOD4A9UNc5tEzQUONXE8IT4dmxILzlBfz
+	BR3GxAYj/2FFNQii6Rn99vk/WaxvcCuZeceXmb7i4Vc2s8xB+dH7u81Kx
+X-Received: by 2002:a17:902:ced0:b0:2b0:c2d9:270a with SMTP id d9443c01a7336-2b0cdcf0019mr180935905ad.42.1774965908087;
+        Tue, 31 Mar 2026 07:05:08 -0700 (PDT)
+X-Received: by 2002:a17:902:ced0:b0:2b0:c2d9:270a with SMTP id d9443c01a7336-2b0cdcf0019mr180935015ad.42.1774965907346;
+        Tue, 31 Mar 2026 07:05:07 -0700 (PDT)
+Received: from hu-vjitta-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b24264292asm118311945ad.4.2026.03.31.07.04.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 31 Mar 2026 07:03:00 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Tue, 31 Mar 2026 16:02:50 +0200
-Subject: [PATCH RFC 2/2] arm64: dts: qcom: eliza-mtp: Enable DSI display
- panel
+        Tue, 31 Mar 2026 07:05:06 -0700 (PDT)
+From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+Subject: [PATCH v12 0/3] of: parsing of multi #{iommu,msi}-cells in maps
+Date: Tue, 31 Mar 2026 19:34:45 +0530
+Message-Id: <20260331-parse_iommu_cells-v12-0-decfd305eea9@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,147 +87,226 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260331-dts-qcom-eliza-display-v1-2-856f0b66b282@oss.qualcomm.com>
-References: <20260331-dts-qcom-eliza-display-v1-0-856f0b66b282@oss.qualcomm.com>
-In-Reply-To: <20260331-dts-qcom-eliza-display-v1-0-856f0b66b282@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+X-B4-Tracking: v=1; b=H4sIAH3Uy2kC/33NwQ6CMAwG4FchOzuyDkHw5HsYQ0opsgQBNyEaw
+ rs7OHFAL03+P+3XSTi2hp04B5OwPBpnutYH0IdAUI3tnaUpfSG00omKFMgerePcdI/HkBM3jZN
+ AUXRKUuSiQOHvesuVea/o9eZzbdyrs5/1x5gt7T9tzKSSxxIKYiaKGS6dc+FzwIb8VuiHWNAR1
+ FbK9iRQnqJEV4QYI5TpLwo2lI53KfAUVFxhTIpTTTvUPM9fQ6NMd1ABAAA=
+X-Change-ID: 20260301-parse_iommu_cells-1c33768aebba
+To: Nipun Gupta <nipun.gupta@amd.com>, Nikhil Agarwal <nikhil.agarwal@amd.com>,
+        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, Marc Zyngier <maz@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Thomas Gleixner <tglx@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Richard Zhu <hongxing.zhu@nxp.com>,
+        Lucas Stach <l.stach@pengutronix.de>,
+        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+        Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-pci@vger.kernel.org, imx@lists.linux.dev,
+        xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org,
+        Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
+        Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2029;
- i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=fdkzbqqWSqAqRWw7zg2qcBzkgVtLUE144t0b3+wpNxQ=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBpy9QOQlKgtHkQDP+Lv6P1H5as78dgMfFl6DVUi
- tLTeI7JmeyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCacvUDgAKCRDBN2bmhouD
- 1+PjEACBlyEQwvNmUCOtTqZZwkps131Yi7PmSy/4XvwRYvLbezSNdnAftovvcsgvo6fks1/NRuR
- BDKOumGDYWxLs8h4Bt9DQlHs48LamLQBpnENi3jarDBy/UIfDay/fBk4BwO78n2B6G2gmn+OZ9b
- 00JabOFCHF/mn7/GARqcqBqd08r/wYaat7e3Y5tyQnFVB2UqItYnaM0htzUMofEdzaUcZRVQ+mF
- yoYONYynPImHXaf5j5nMnaPaxKgccLHP40/8n+8evRZpW4uzB6z6is0EkOdpX2aDgaCRHeqjo58
- ecby7Ln7ehgdlxZc45+WZMnbVzojAAAP/5OaYz3ndGNKWa4NdGu3KY2k65IUlcRu+xX9BOZJ6Pf
- nMHom/64w8Xr68ZxhNdH65J9uC6jGNKYuJZo6I/pbGeYL5OXCOPltFgy6FIq5q/ze9dbbB4U9ll
- 7czrx8NS/DLKqEEcVVPlWn6lqWFwZi+se6uGCM3xIaEKAcSpk2/POdVUp6fgW+vf76vK+HHr+Aw
- q6Ypmh4GZoXpJxAXOAYkFBGWNVIhir1cj2W08EGFPWnVQqeda00pOSgVUfgqYVm8njTALCxX7tX
- TIipyydVP/CZ1QQzMhLb0I4irIlSANiuXioztZw1U5Om2shIGg1XrjF9Dtumc7ULbzVbB45Eazq
- XvwrSGXLYzb3XEA==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Authority-Analysis: v=2.4 cv=YMOSCBGx c=1 sm=1 tr=0 ts=69cbd417 cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774965896; l=6029;
+ i=vijayanand.jitta@oss.qualcomm.com; s=20260301; h=from:subject:message-id;
+ bh=P2NjOwOfDO9uAKBSdnt+bXSNB/+yNSJiXlluqOTEHNk=;
+ b=66lmuzH48rtm0FKXbMJnsG4s1A7Kc60A/4pJcguDLuPcx0lroADqyzlA9wif2kvUXlYq0+jLu
+ KAnx76iLFtQDeoanD5WsP5LMaqzqXOX3e6iR/p1Nc5+FJv7Y4Bg5pDi
+X-Developer-Key: i=vijayanand.jitta@oss.qualcomm.com; a=ed25519;
+ pk=Lpi7Cs3wHe8KZtqvyci7FTOLzsKpEHKGCaPNZw+1zRI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDEzNiBTYWx0ZWRfXx5yCgZkG8PVM
+ ZxRLFI9oCMpdOuYX9pw7TTtdwSmvoW237OAIhNy1rtOgsyxQD6gf8hVn9lzhrWTbZfgCQnXef4k
+ G5rQN+TT3Mqob83Rac53bZ7GGh+IygaNUH8QW2oZvSPaPI8scs0yPHCRlTvEwHHHnxraCSQftzK
+ 8OcW8BSOiPZvYjJxGzgwXo2hVtoja0N0wjuwAjZn430tZTUDQ4wUMucBs+D+ShOprt4qTK4hwAw
+ q9AO+Z1j+CeNHivygAFv8ztxFDUP3BB0a3S658513KASOll1H3kqMQz6j8lVeGj90EclaeL/yMi
+ O5jVoG4BDb/ShRM70+FBTCgDOZFc2ToV9U5o4lObD7XugqSJESIxOiZlORsj4huhbRvDJQwU90o
+ TpdbeOtn4N1U8G3BEnCQXi9Xl+cizyfrzr6eLEI4GEPd1H9xKUw/GfJuIMSCeaedRkhauBQg1Ql
+ BJ7j2JSsRdUWaTBffaQ==
+X-Proofpoint-GUID: abV2QFYK7EYoSM3FCOvnCjFjK7au5hbI
+X-Proofpoint-ORIG-GUID: abV2QFYK7EYoSM3FCOvnCjFjK7au5hbI
+X-Authority-Analysis: v=2.4 cv=YMOSCBGx c=1 sm=1 tr=0 ts=69cbd494 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=WClv4a58_bZJ7CJg0cMA:9 a=QEXdDO2ut3YA:10
- a=TOPH6uDL9cOC6tEoww4z:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDEzNiBTYWx0ZWRfX6S/O5nbwAnMl
- lRW+6SYaLd4lRRI4B3PQP+Jf1c2VvOyMXIOhhXs5FD8dZRFqjkHfqsjVJtt5X299SPFSZr7A3J1
- PDKA5d3MNVAdugZXUlIkb5XRBA2LCWBm3VbO8/rUf5r3bXT1jlo8XtwqK88zT78JI8POWaaPU5h
- t7ZRkDHj6OlnYZExbVFMxnlmesdjnPAA4gLVHY5R5De4xCsjmm9qN/KWHb/vxQRBaaKaB2CSOuW
- MG0Hgd0ekMkFI30PbWt81vid/iOO6oeuSEPpUSCpqv07P4qDuAfeW8to/vRjYP+IH49hdCyowHJ
- mpS4olMTJNa3VwomjYyeId4TBzqje0S1CMiZzl2GY2j1WJnD7go9H5j5JnUpU0dDkvO5E0xF3K4
- dKHlxjyVp7jb31Hvxf4+4Ttqhyllcg==
-X-Proofpoint-GUID: ORkm-p3iNEr96k6CugEsAW1b6_Kvlc5j
-X-Proofpoint-ORIG-GUID: ORkm-p3iNEr96k6CugEsAW1b6_Kvlc5j
+ a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=NEAV23lmAAAA:8 a=EUspDBNiAAAA:8
+ a=w9jVfKxUgDq0yQD5sDkA:9 a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
+ a=TjNXssC_j7lpFel5tvFf:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-31_03,2026-03-31_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
- malwarescore=0 suspectscore=0 classifier=typeunknown authscore=0 authtc=
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2603050001 definitions=main-2603310136
+ priorityscore=1501 clxscore=1015 spamscore=0 impostorscore=0 adultscore=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603310136
 
-Enable display on Eliza MTP board with Visionox VTDR6130 panel.
+So far our parsing of {iommu,msi}-map properties has always blindly
+assumed that the output specifiers will always have exactly 1 cell.
+This typically does happen to be the case, but is not actually enforced
+(and the PCI msi-map binding even explicitly states support for 0 or 1
+cells) - as a result we've now ended up with dodgy DTs out in the field
+which depend on this behaviour to map a 1-cell specifier for a 2-cell
+provider, despite that being bogus per the bindings themselves.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Since there is some potential use[1] in being able to map at least
+single input IDs to multi-cell output specifiers (and properly support
+0-cell outputs as well), add support for properly parsing and using the
+target nodes' #cells values, albeit with the unfortunate complication of
+still having to work around expectations of the old behaviour too.
+							-- Robin.
+
+Unlike single #{}-cell, it is complex to establish a linear relation
+between input 'id' and output specifier for multi-cell properties, thus
+it is always expected that len never going to be > 1. 
+
+These changes have been tested on QEMU for the arm64 architecture.
+
+Since, this would also need update in dt-schema, raised PR[2] for the
+same.
+
+[1] https://lore.kernel.org/all/20250627-video_cb-v3-0-51e18c0ffbce@quicinc.com/
+[2] PR for iommu-map dtschema: https://github.com/devicetree-org/dt-schema/pull/184
+
+Robin,
+
+Could this series be pulled into an immutable branch/tag, if it doesn't make
+it into the v7.1 merge window? There are client changes dependent on it,
+So it would help to get them moving forward rather than waiting another
+cycle.
+
+Thanks,
+Vijay
+
+V12:
+  - Call of_node_put() unconditionally in imx_pcie_add_lut_by_rid()
+    thereby addressing comments from Bjorn Helgaas.
+
+  Link to v11:
+  https://lore.kernel.org/r/20260325-parse_iommu_cells-v11-0-1fefa5c0e82c@oss.qualcomm.com
+
+V11:
+  - Added explicit filter_np parameter to of_map_id() and of_map_msi_id()
+    per Dmitry Baryshkov's review feedback, making the filter explicit
+    instead of overloading arg->np as both input filter and output parameter.
+  - Removed of_node_put() from inside of_map_id(), making the caller responsible
+    for reference management. Updated of_msi_xlate() to properly handle reference counting.
+  - Collected ACKed by tags, and fixed minor typos.
+  Link to v10:
+  https://lore.kernel.org/r/20260309-parse_iommu_cells-v10-0-c62fcaa5a1d8@oss.qualcomm.com
+
+V10:
+  - Move of_map_iommu_id()/of_map_msi_id() from include/linux/of.h to
+    drivers/of/base.c as out-of-line helpers per feedback from Marc Zyngier
+    and Rob Herring.
+  - Add kernel-doc to document both helpers for discoverability and
+    usage clarity.
+  - Fix of_map_msi_id() wrapper and all its callers (cdx_msi.c,
+    irq-gic-its-msi-parent.c, drivers/of/irq.c) to correctly use the new
+    struct of_phandle_args-based API with proper of_node_put() handling
+    as per feeback from Dmitry.
+  Link to v9:
+  https://lore.kernel.org/r/20260301-parse_iommu_cells-v9-0-4d1bceecc5e1@oss.qualcomm.com
+
+V9:
+  - Updated TO/CC list based on feedback to include all relevant
+    maintainers.
+  - No functional changes to the patches themselves.
+
+  Link to V8:
+  https://lore.kernel.org/all/20260226074245.3098486-1-vijayanand.jitta@oss.qualcomm.com/
+
+V8:
+  - Removed mentions of of_map_args from commit message to match code.
+
+  Link to V7:
+  https://lore.kernel.org/all/20260210101157.2145113-1-vijayanand.jitta@oss.qualcomm.com/
+
+V7:
+  - Removed of_map_id_args structure and replaced it with
+    of_phandle_args as suggested by Dmitry.
+
+  Link to V6:
+  https://lore.kernel.org/all/20260121055400.937856-1-vijayanand.jitta@oss.qualcomm.com/
+
+V6:
+  - Fixed build error reported by kernel test bot.
+
+  Link to V5:
+  https://lore.kernel.org/all/20260118181125.1436036-1-vijayanand.jitta@oss.qualcomm.com/
+
+V5:
+  - Fixed Build Warnings.
+  - Raised PR for iommu-map dtschema: https://github.com/devicetree-org/dt-schema/pull/184
+
+  Link to V4:
+  https://lore.kernel.org/all/20251231114257.2382820-1-vijayanand.jitta@oss.qualcomm.com/
+
+V4:
+  - Added Reviewed-by tag.
+  - Resolved warnings reported by kernel test bot, minor code
+    reorganization.
+
+  Link to V3:
+  https://lore.kernel.org/all/20251221213602.2413124-1-vijayanand.jitta@oss.qualcomm.com/
+
+V3:
+  - Added Reviewed-by tag.
+  - Updated of_map_id_args struct as a wrapper to of_phandle_args and
+    added comment description as suggested by Rob Herring.
+
+  Link to V2:
+  https://lore.kernel.org/all/20251204095530.8627-1-vijayanand.jitta@oss.qualcomm.com/
+
+V2:
+  - Incorporated the patches from Robin that does the clean implementation.
+  - Dropped the patches the were adding multi-map support from this series
+    as suggested.
+
+V1:
+ https://lore.kernel.org/all/cover.1762235099.git.charan.kalla@oss.qualcomm.com/
+
+RFC:
+ https://lore.kernel.org/all/20250928171718.436440-1-charan.kalla@oss.qualcomm.com/#r
+
+Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/eliza-mtp.dts | 63 ++++++++++++++++++++++++++++++++++
- 1 file changed, 63 insertions(+)
+Charan Teja Kalla (1):
+      of: Factor arguments passed to of_map_id() into a struct
 
-diff --git a/arch/arm64/boot/dts/qcom/eliza-mtp.dts b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-index c31f00e36eee..df0cfffcef61 100644
---- a/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-+++ b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-@@ -417,6 +417,48 @@ vreg_l7k: ldo7 {
- 	};
- };
- 
-+&mdss {
-+	status = "okay";
-+};
-+
-+&mdss_dsi0 {
-+	vdda-supply = <&vreg_l4b>;
-+
-+	status = "okay";
-+
-+	panel@0 {
-+		compatible = "visionox,vtdr6130";
-+		reg = <0>;
-+
-+		reset-gpios = <&tlmm 12 GPIO_ACTIVE_LOW>;
-+
-+		vci-supply = <&vreg_l19b>;
-+		vdd-supply = <&vreg_l1g>;
-+		vddio-supply = <&vreg_l8b>;
-+
-+		pinctrl-0 = <&disp0_reset_n_active>, <&mdp_vsync>;
-+		pinctrl-1 = <&disp0_reset_n_suspend>, <&mdp_vsync>;
-+		pinctrl-names = "default", "sleep";
-+
-+		port {
-+			panel0_in: endpoint {
-+				remote-endpoint = <&mdss_dsi0_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss_dsi0_out {
-+	remote-endpoint = <&panel0_in>;
-+	data-lanes = <0 1 2 3>;
-+};
-+
-+&mdss_dsi0_phy {
-+	vdds-supply = <&vreg_l2b>;
-+
-+	status = "okay";
-+};
-+
- &pm7550ba_eusb2_repeater {
- 	vdd18-supply = <&vreg_l7b>;
- 	vdd3-supply = <&vreg_l17b>;
-@@ -433,6 +475,27 @@ &tlmm {
- 	gpio-reserved-ranges = <20 4>,   /* NFC SPI */
- 			       <111 2>,  /* WCN UART1 */
- 			       <118 1>;  /* NFC Secure I/O */
-+
-+	disp0_reset_n_active: disp0-reset-n-active-state {
-+		pins = "gpio12";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
-+
-+	disp0_reset_n_suspend: disp0-reset-n-suspend-state {
-+		pins = "gpio12";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+
-+	mdp_vsync: mdp-vsync-state {
-+		pins = "gpio17";
-+		function = "mdp_vsync";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
- };
- 
- &uart14 {
+Robin Murphy (2):
+      of: Add convenience wrappers for of_map_id()
+      of: Respect #{iommu,msi}-cells in maps
 
--- 
-2.51.0
+ drivers/cdx/cdx_msi.c                    |   8 +-
+ drivers/iommu/of_iommu.c                 |   6 +-
+ drivers/irqchip/irq-gic-its-msi-parent.c |  11 +-
+ drivers/of/base.c                        | 213 ++++++++++++++++++++++++-------
+ drivers/of/irq.c                         |  11 +-
+ drivers/pci/controller/dwc/pci-imx6.c    |  34 +++--
+ drivers/pci/controller/pcie-apple.c      |   6 +-
+ drivers/xen/grant-dma-ops.c              |   5 +-
+ include/linux/of.h                       |  30 ++++-
+ 9 files changed, 240 insertions(+), 84 deletions(-)
+---
+base-commit: 3fa5e5702a82d259897bd7e209469bc06368bf31
+change-id: 20260301-parse_iommu_cells-1c33768aebba
+
+Best regards,
+--  
+Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
 
