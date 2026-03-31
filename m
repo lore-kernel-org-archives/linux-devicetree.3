@@ -1,166 +1,166 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012057.outbound.protection.outlook.com [52.101.43.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1611423A9BD;
-	Tue, 31 Mar 2026 02:10:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4050A95E;
+	Tue, 31 Mar 2026 02:12:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.57
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774923026; cv=pass; b=j6WIrOXqX1T8LykpFzm/ZAcjK+pSJHQcgaLJoinG9TqemmGQwik6QtmQLrONBX3n+bJ307nrSO2QwcitUoyvxqdT1h4r+6yiVtcQqYfVNVdq2pO978LBrxqtqacqMD5El5DK4KaFdsCemG3rimDuGAHrTtlObMqiWzdFbdgVxXA=
+	t=1774923158; cv=fail; b=kTojxniunYQCXILrikW69pb+ATi4qUIouKDQl/ZwKJn2su8/6fYQwIunFTedR+TaNriMULkkux8AI2FZiAfUQOmHEWFd8Ja2BA0pom6qh5q4sXFDHzrS+sUc+5BNnitZ5rJgxHGbhX6skeJ6jw5cGW1Aq4Xv+4VRlWVGUFvtjf0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774923026; c=relaxed/simple;
-	bh=WkC/U7BwrYTvbkpgchemwrjDNfwN5IVG7CZOc/4SuBI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FL28NNPowORCItuMLSrHB4nrppQLB9S3tp0ZYdyqBmkXcuBSSfpNBUaGtqhq+OQ9WgHQwoDSiyEfiiIFkwNG23+5WwBAgxlaaHNw+rKDoWEAB6iE2U7pOTmNG02w76/tC3dUkMepx2N0io9A2WMYG6T5yRMxV9ejTcIHBS1foec=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=CuS522qa; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1774923158; c=relaxed/simple;
+	bh=tlrSDCUE2UjLR52l+21YO4gbwl+bv/9DTWmxc/JzFOA=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=RZSKm37IsennzA7tpxe1bJAk8igC+YNJ7nvXJK34xt2kGG7ID2EYstTGliK+KGyCx937GAx5by5pugWJH/mvQizwR5YOUvdLMPvoXYNEfnn1PXPAIwMNud9oKz3EEgYhYHnOTA/71q47/5Nta+vCtpzVLsKDaQquxC4B6c6JBwQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=mtjU8ozj; arc=fail smtp.client-ip=52.101.43.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="CuS522qa"
-ARC-Seal: i=1; a=rsa-sha256; t=1774922983; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Mq49b4yEp39YKrhqmwHQRs/CeXAdK5GjIboI26aie2PTIZsZo6rJAY8Yg7wFkZZFyI3TVqKrw8q5Ghu9qrQj8sLfhtc+5rfTyBhVEIjktT0p+OCS5EXlxBk+qInLovHNae5hLB8O/mmdsO1bHnwe7bgSU7O9vF7ySlUJ7ZS8McI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1774922983; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=IEuGrUysFVxeLUPGjMChGPVnPmXoL/wPeAu7zXo5F9o=; 
-	b=RmFnn0nE4eipNnLvfX1n4ioD/gyvTyx1sPrBCEFKclLHhi3QMa1uN+/MmE6q9g1BhuQZDmTgC7AosNArPDBlf/D2a1YbhWoMD2TtQajwiUO/9ZCrUPa1Ogykt9+jcieze3e8u5lgc5YmAlJg83i3BGpRKtYw5tHoU28llPzDeG0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774922983;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=IEuGrUysFVxeLUPGjMChGPVnPmXoL/wPeAu7zXo5F9o=;
-	b=CuS522qaYmc5tOdAU/F2Cr3D6pHPTCISKXRhmZ6LJFRPwNqaLYjM5lScnxv78/wh
-	jUV3obk4qlUv528jiHoJPJlfR9nhVpfLRDv2JuQjMIIWfhnhaUh8kw6x7zSqN5OTO9X
-	28kN2gaDlhQQF8u971l8Kpxol0kBVzVswzbYfI1k=
-Received: by mx.zohomail.com with SMTPS id 1774922981566898.5670100894222;
-	Mon, 30 Mar 2026 19:09:41 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 403B9181F55; Tue, 31 Mar 2026 04:09:35 +0200 (CEST)
-Date: Tue, 31 Mar 2026 04:09:35 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Chaoyi Chen <kernel@airkyi.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, 
-	Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	kernel@collabora.com
-Subject: Re: [PATCH 00/10] Synopsys DisplayPort Controller improvements for
- Rockchip platforms
-Message-ID: <acsoT_i-LfoMoIy_@venus>
-References: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
- <FE1BFB774BE13241+54b8a8ce-5a8c-495d-a53f-65a2440924fb@airkyi.com>
- <acphlgK6ZmBitGJL@venus>
- <AFAEA46A791878B0+9fe68e46-8d8f-44f1-80e3-dfad2de51832@airkyi.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="mtjU8ozj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LK+t9+el/slrfmHPYTWoKkyW9UFW7aH7MRqu7oi41lX4etHBH1Hu85o9t1+98Pvbfjo2QYHrYblGT0TahALK6oK2182vtNG4d/q/72FFWhMCv3G73wzXBc6ttdoVpZ+6F10G7JE1NGpclwjseEyZxiepGL01QUCJkTlDo2JhRF0f1TNH9nzJuiuPFST2UF1viEzjJMAcWFkIXvg9CU+CwBxCIpJkaNePIFo2xo+AQpBttmJLF4p0bjt5quFtZseo5NVP9vJll34NUW6hOiMWLByu3uF76dp2SIc4nsE4mRtJ/AZfH7Qxuw0thZqkRmbVvMzN0QV+U+rO2BGvgz1iww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V7nx+hIrS5IrKIV0i7hW7FBku2wT+Zyk1R8KJS4P0gg=;
+ b=cdOyxInIloAYb9iLr68cHGQLRkCs4a0vg2x0LKVLTiVid7f3LLbqsx/nWEYebtknkKMEGIi3FAQfDTvhDW3zNorRAqtayc5AHX0Pz2tci5czYYpadVrwCoaX/+gHndGkJhG4lCHpu30peS8Gbtqp6lVjKgvupY4Mkd6M5VuGdzBDbFC8lOP5HCEMyigwR+I6k8qTYvJcrklsf2SHfBzO4Qa0EcEB2StJsbNmgikHJvTRAwXDbVsJWH2YyYuvHcYJ0J7UhTrB4ri1dzkvAeteuyOl7wBMSH/lX7kv7ZdVoDdNFbakl9fj/35qR/eZlMPFTJ7LcapcZE2eXQaQRq2PBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V7nx+hIrS5IrKIV0i7hW7FBku2wT+Zyk1R8KJS4P0gg=;
+ b=mtjU8ozjHBhoboEaQ322zT+ri61JEaCy32MyJsWTtHcn6hM9wuhR3tbc7FoiwniNtyg4BIwoLg12Gn8PEsrJlqT6yKklfLjtoKMMrgOBpDIaq7bp5UEot/x4yIYMCUd6DoCD+5Z+kHWz8o/uNHahAGAxffiq5VXxqk3GrL8A9ru8OjFbTMH7crYgveKHL7VuSt0VMJ3glyP6i7tlVt3Pr/OT3tDBGuCiumIpW7rocVooopAp9wO/CSxmcpjftZdLL+871alLrhqULPq8pk+WZpuAELeZtjHK4wLDesLyHhFBr8K5EsPFyqpA+APVQE7kJidr3eYkeBz4jyCBblMLKw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by CH3PR12MB8330.namprd12.prod.outlook.com (2603:10b6:610:12c::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
+ 2026 02:12:32 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%4]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
+ 02:12:32 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+Date: Tue, 31 Mar 2026 11:12:13 +0900
+Subject: [PATCH v4 1/7] dt-bindings: pwm: Document Tegra264 controller
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260331-t264-pwm-v4-1-c041659677cf@nvidia.com>
+References: <20260331-t264-pwm-v4-0-c041659677cf@nvidia.com>
+In-Reply-To: <20260331-t264-pwm-v4-0-c041659677cf@nvidia.com>
+To: Thierry Reding <thierry.reding@gmail.com>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Thierry Reding <treding@nvidia.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>
+X-Mailer: b4 0.14.3
+X-ClientProxiedBy: TYWP286CA0029.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:262::17) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yaujaqtrdlo2vvms"
-Content-Disposition: inline
-In-Reply-To: <AFAEA46A791878B0+9fe68e46-8d8f-44f1-80e3-dfad2de51832@airkyi.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/274.894.35
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|CH3PR12MB8330:EE_
+X-MS-Office365-Filtering-Correlation-Id: 819430e3-909e-4fa0-5079-08de8ecaf7de
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|10070799003|366016|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	WV2vsSByZFyTLgnEAPVzR9+aWKhsBXFRV+9gOCdWK8wtpbkcAkH4aOVoHvBAa2ZN4HZmWoR1ePp9Bot4k6ouoEvTnbFkqD4S6ROeJRjMMHNGC4EiVyfsZNsQQxW9k2XL/jY/8iv4UfFV/u4oYfnBlRMekpsFduRKQVJUf/WoO7MqaiJtL1DtXH9IuO2eE5OodyzXf7n356vexJGTwoQb0PWEAIvhW8oWwno6pPPuugcHDmNyips7Fpb4yAuaIk6+sio/Qus7YVWKW598I9pkIe27xIMGHhwVJieFzEpYs/JIPWnm480T4295tCnsFpP867756p0XW512ppgwUD24g2BqQTKBcT4Kw82ErFXoOrSz2U4K2crjFEagV18K9P1Xa8LZukxkyvbPE6FnsYcM8P1qe8im4tW6lmh14qsPSt4Fr+wIjL9/dxoZYNVfrVUf4Hvj6mfB7ap8bNiEW5SK1KqwEUabu4fSoVWq9TQ/QASssj9Yb4wM5D4+Nh2riVzewSiF/dnTOqZkGv3OkZZG7cEBaD4dCNhrIDUhbhJdd3R2OHCozWNIgUGbwJi7eoMPK5RXKORuzmjNuJMf+DgEHlAr2bee1t3gWUhgSI5HxXVjfe6ztq/6HUVSdne1Bcpss9ldt6/IsYa/YWRcli3TbdnrdzrP9BvJLowIUHvDck+aYmT/J6k/H7X4zN4EmHQiyhObtdsA0eWpokAUhWN+1goQweneHn6q9ySghfUFuJQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(10070799003)(366016)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?N2E2WHZJSHVCSSsvR21tMFpQRXJ4RlQrbmxUWEgvWXFHRFVGSFN6TGFab2hW?=
+ =?utf-8?B?RlljSlR6VzJmNXpJWEpxNEJSMHlmMDRUQ1FIQkxKVkhHSWlvZEpSVWlXdjU5?=
+ =?utf-8?B?Nk1SdTFYRHdSM0hDM0c3MTZIbERRWjlFYnJRVVp3RGRwMkFpbys0YlZaVVhN?=
+ =?utf-8?B?c0xmQ052RTArdlpCeWdaSGFLeldIcjlTWGdSaVFaU1N6eHF3ZXJxUGE4OVZ0?=
+ =?utf-8?B?cUxwOTliL3RKeUVYaUpBS3RibGVldGtTMmZKS3J5K3FtMXRaN2FIbDdleTJi?=
+ =?utf-8?B?Q1lmUFdFeGtOdERzM1JVWGRtdGRXZ1hLNGRqSk5wNStEM29wQUZYR0tadkNm?=
+ =?utf-8?B?RERUdHBBUEdTanV5RXU0blNqQU9LKzBIUjdIeTFwdVNzRmsyTzI5NWcrWTZu?=
+ =?utf-8?B?Z3dLcko1Rytkb1dyeVQ5U21USmU0dG00Wm1UY01odVJKdHRvR2ppdDd6M3oz?=
+ =?utf-8?B?WXVMODZxU3RUVUVKT1FTN1JVMzRvek1QUitMdDgrbFZyaEgxRHBEKzJwMkIw?=
+ =?utf-8?B?dTlqaVJQMFIzMjBHTEJNWTFmOEp3N1BZNXZ6YU4wWUlWWXQ1UWVXa2xpMWx2?=
+ =?utf-8?B?UVZodkYzSHM0N1lvd0p4T2M2T3RHeFNRV2FRNGFUN093clJUK3hZWHpKMW1z?=
+ =?utf-8?B?WFJjVzF6V2dNSWRicU0wYlFaQkNqRHhYMndSdzNpMUs5blhjUmdlOGVDTjg3?=
+ =?utf-8?B?T1NjZWNIQ2F5a0lua1dVMVcvSk5CSmozK1ZweTBpZlZHdlB4L1Ayb0M1U3VU?=
+ =?utf-8?B?cnViZUovS0VtK2FocWlQZ085d1RETG1CV2wya09LSHdPT1JSdUltTmhCLzdD?=
+ =?utf-8?B?bzU3aVkzTWtPTjNDbEtXZzB1UDl6aE9uOG1JbkNuVmVlYkJhYzNDY0FzSDFE?=
+ =?utf-8?B?eUlxT1JOYVdDYklaUnp4a3RtNTE2M1duWnlFSStBU0tlek53SDVwNEFHdzg3?=
+ =?utf-8?B?NlRSR3poUjNtY0o3WUx2L1pkelJLNWdyYVJqcUg1R1Y5dG8rdGpWd2g3MjBU?=
+ =?utf-8?B?YnpTendFMmh6T1M1aHhaY1pON2QvUHI4Zkg3WmVKTTFxUUFoOWRXeGVIM0lF?=
+ =?utf-8?B?YUZPSGMzQUNyZWNpY0h2TWt1QkdUb1p4aHdxd25xOWYvVnhaSFlsNnpDL2NE?=
+ =?utf-8?B?aisrdW5rNUpEQ01tOFlkTFhDb2ljR0dmYkN4bFhlVzh2N0ppcmsrSzhqUGFP?=
+ =?utf-8?B?eUVuUmtSenFDaHJLSG1tdFV5ZmQ5ZUw4YVVxNzBHaVlDLy9oTlZEeTBKbG1X?=
+ =?utf-8?B?Sk9sc1FVdHpVRjNWa1BOTC9WWkphdnc0YTNka3hnMHU5QTJXZ1NPL09STmYz?=
+ =?utf-8?B?RUpReHFTR2tOaXF3WnZ0Ym9rSjY5aW5SMmlCa201L0tNUVZPbGM2UDZFL3h2?=
+ =?utf-8?B?RXRDaEZrSnp3ZEExcElGWk0waVFOR2ZVZktnSWllTkYvcy9GRzlGQkNHbURk?=
+ =?utf-8?B?Z0tCSUozbmZEWGg5NEs0WlRMc3R2T2FkQjRkNDBNa1dpNGRlRklNRWFiUHBz?=
+ =?utf-8?B?TW9xV3RmdTdjeXB5STZxWEl4Y1phMVE5K3hGeTFqeXAxeXRHb2ZlZnFHS2NH?=
+ =?utf-8?B?Z1dDRkNuaHZsV2lGRWtnbUdtMHpPSkVtSlJiZUhuOTJGbHVUbXJzT3ZxMjJL?=
+ =?utf-8?B?QlBSK3lOTU5tNnRNa3NMV01WbUVDMDcvUnZ4bE1GLzEzakZXQ0pUcmVEdG1J?=
+ =?utf-8?B?VWE5b29pZjFtUjNZSGVveEQyY0xOMjhNTjhEaWY5Y2tIUEZLanpacUxWVHBl?=
+ =?utf-8?B?M2ZxQ0dUQkNBVG1GLzVESnF2TSt2V1NUZWorRUhNbG5odlVUQXE4Q0lVeFg5?=
+ =?utf-8?B?VXB1OWNZSHdzRHdSc0NtQ1FnY3ZsUmpOcHRmMXBBUjZCTm5nQmgvbmlGSWxB?=
+ =?utf-8?B?ZE9yNWY4ZXp0TC96ekpHZHhaNEZScHB2WHJkaDhyMTQ2ckdUMjV4NU16TWRy?=
+ =?utf-8?B?a0x0ZzBMT25BN2ltY05zSEp6UG9NeDN5MldISXk1M1lZYSsyRzc5SHM4bXZa?=
+ =?utf-8?B?djBQNlpYUjkrellZVmVEajYxa2lIRkoyRVJ1bnBQckhtNzJUajBwYkgzNUdw?=
+ =?utf-8?B?TXB5WkI1Ri92N2ZpL3V6WjBKVlN2S2xFQVZuVjBCTWNYOXQ2dzgxZnZkeld5?=
+ =?utf-8?B?amI4OG9qNnl6RWpxZEJZQ2ZXdnlQdmxpcXlLNzVsV2k1RElqdkVkMXpWZzVQ?=
+ =?utf-8?B?T2ZITmN0K3lwNVpZcTBkcFRqbjVFR1BYOXdCN084dUZGV3ZhaEpZMitCby93?=
+ =?utf-8?B?UWkzVGE4U0xQa0VTRFpxMGg2NHlIYUw2K3kwZWhoVTZqU1AzNnhQL2M3R2xr?=
+ =?utf-8?B?RlNMTHV1eUlCaXc3dlBURVczYWVabkVMWEp2bVdhY0xRN2NLS29vdlZGWDJq?=
+ =?utf-8?Q?Dy82dVwQA31E56kT83Yv5+PXEn7F/5WLfu9dRSL6eFK6M?=
+X-MS-Exchange-AntiSpam-MessageData-1: 5KOam0GyK8mWvw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 819430e3-909e-4fa0-5079-08de8ecaf7de
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 02:12:32.7358
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EXMCAJAMsixJlDm6nO36pIkwoOzf4ozRKXdPCqsAfBXuJ00YnTGepQncCPvFXLPcmKVwQ6oJVgHgn0AK5R33JQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8330
 
+From: Thierry Reding <treding@nvidia.com>
 
---yaujaqtrdlo2vvms
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 00/10] Synopsys DisplayPort Controller improvements for
- Rockchip platforms
-MIME-Version: 1.0
+Add a new compatible string for the PWM controller found on Tegra264.
+The controller is similar to earlier generations but not compatible
+with them.
 
-Hi,
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+[mperttunen: Drop extra Tegra194 compatible string]
+Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+---
+ Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-On Tue, Mar 31, 2026 at 09:18:32AM +0800, Chaoyi Chen wrote:
-> On 3/30/2026 7:50 PM, Sebastian Reichel wrote:
-> > On Mon, Mar 30, 2026 at 09:34:15AM +0800, Chaoyi Chen wrote:
-> >>> There are two parts, which possibly need some discussion:
-> >>>
-> >>>  1. I added a dedicated bridge callback for out-of-band hotplug event=
-s,
-> >>>     which is separate from the hotplug_notify. I have a feeling, that
-> >>>     there might be a better solution, but haven't found it.
-> >>
-> >> Could you explain what an out-of-band hotplug event is?
-> >>
-> >> Can't the drivers/usb/typec/altmodes/displayport.c respond to these
-> >> hot-plug events? Thank you.
-> >=20
-> > That is what generates the out-of-band hotplug event in the first
-> > place via drm_connector_oob_hotplug_event(). The oob in that call
-> > means out of band.
-> >=20
-> > If you look at that function it calls oob_hotplug_event() callback
-> > on the DRM connector, which is then implemented by
-> > drm_bridge_connector_oob_hotplug_event(). This function calls uses
-> > the normal hpd handling (shared by in-band and out-of-band) and I'm
-> > patching it, so that the bridges are aware of hpd explicitly being
-> > provided out-of-band.
-> >=20
->=20
-> Ah, I'm actually more concerned with the specific types of events.
-> For example, the "explicitly" provided HPD you mentioned here.=20
-> Isn't drm_connector_oob_hotplug_event able to provide those?
->=20
-> I assume you=E2=80=99re looking for an oob event that is propagated along=
- the
-> bridge chain, rather than at the connector. Is that so? Thank you.
+diff --git a/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml b/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
+index 41cea4979132..cb2f36e7b5d6 100644
+--- a/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
++++ b/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
+@@ -16,6 +16,7 @@ properties:
+       - enum:
+           - nvidia,tegra20-pwm
+           - nvidia,tegra186-pwm
++          - nvidia,tegra264-pwm
+ 
+       - items:
+           - enum:
 
-The connector has a dedicated hotplug oob event callback, but I obviously
-need the event on the bridge, since the DP controller is implemented as
-bridge. The existing infrastructure propages it down to the bridge chain
-via drm_bridge_hpd_notify(), which can be received by the DP controller
-via the .hpd_notify callback in struct drm_bridge_funcs.
+-- 
+2.53.0
 
-The problem is, that this receives events for in-band AND
-out-of-band hotplug events. That's why I added a new bridge
-callback, which hooks into the existing framework, but only delivers
-out-of-band events and no in-band events.
-
-The problem with receiving in-band in addition to out-of-band is
-that the out-of-band signal should set the hotplug pin accordingly,
-but the in-band detection also checks the actual DP link. If the OOB
-hotplug signal says "nothing plugged", the hotplug pin should be
-forced off, but if the DP link detection fails, the hotplug pin
-should not be force disabled, as that makes any further detection
-tries useless.
-
-Greetings,
-
--- Sebastian
-
---yaujaqtrdlo2vvms
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmnLLNsACgkQ2O7X88g7
-+prmkhAAjDm4M4nMr7eRb8BBJebGTWT4fZ5RCqQUQp2qlPxp2H7ejOzNdsIScKOy
-Fg4Bkkn3ROZ7G6svVSjkAf/pN3fAZoUJd7LPILYJgemGN9mvQvR1g/WDf+L1aYqR
-oPTeJkV3v5hcOpkYEPYH2nibSA8RqwUfxxGC2VLo7Sdzx6rFLMpvctM8BH4iZIfa
-nKdyqVBuu+QHMIwMbdQDngjHYHxFKEtKibzShG3sL/sGwD3kMUX+QliB6PRr0B0O
-BY3+aIlqWoAxBc1HKanTwYP2Syo6uRUNb1YJwZ7JG8BdQgtxSWhc+wyMMncyZead
-4R+2Hdr+egKMcxpd4ISADDtsr1KjeKvA5p5AoXQKZfngCB/glGu+kTH+CG555zAr
-g/vYXTs4inZfBollzyHgcqVqY/2rcNtHhD1K7I8gq8i7cAeSo5BFe4G+bnpDHE3s
-kiyOfKokqgCg0Ql++qf4/Vause/0KaOY9e9VauD8FMNDzsiQ19YGihRsI1VSzeG8
-UCAVauBMt7xBKSTEVS7PmUtZXa20DuhtQqwIGpGnPXuk72gmdxIDDlUM1Wva9eyt
-niRqdC6KyOqrf3Dc8U1JhwPb1fxAJ7iLw3xGXIlEaFjd+yqcEVvPhKNJ2iVUNrup
-GF8lP5Po5r4LXBio3AACey2f1nc6z6jBaSya5T1jmalppj+LnDU=
-=iO8H
------END PGP SIGNATURE-----
-
---yaujaqtrdlo2vvms--
