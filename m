@@ -1,122 +1,143 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-3-41.ptr.tlmpb.com (sg-3-41.ptr.tlmpb.com [101.45.255.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43F336E476
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 07:13:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E742EC57C
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 07:14:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774941188; cv=none; b=YB6teeZFEOUgiizRJav+v0MPeCpUQYBEYCPvPT0XvoVDIrMspY0ZalPgmX7LBnTO1F1v8Cnp4PM/WSFYaOggR7bxORHEQU1FdU0fVv58RLtfplWSfHJhCsqQR49Z67o1u4VB46VnbJNgpZTJ0kZG2P9N7SOZwgnQzhU6qtgEq2o=
+	t=1774941254; cv=none; b=qjVOX/IMDjUpaWMM0PsOC3TurYurhzpXW5s0yoS9t0KFkxgFzL2vgjyaRfKR1MkmmxT0dymOLku/IwubXe8bfcHmiv9aSw0LfWAA8pH2/eTdVY9rB/Q+HFrgWeQ8lUDMO8N658zzltlVlXuyvyMY+iXcP0oJgiDX5vJpm4zqETE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774941188; c=relaxed/simple;
-	bh=V76KNOtyGcdHShsxbAviWTZ3K/XJOxPp4wmSojZasN8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SQuq1FfbmzeCfmFWusPw6M1t96+AHNqgvHE4/co/V4v+QVj58LEXpJ3j7QJCzREJ/03P3+1GyU7A2Uq/yTf+HYIEoNWWm7dFjFa02Q096F9BdKdmaGX3XS2w73M4nXTwr1YaEEw1XHvbTLy2u3AIQeG07P/eSZYx/E3PD7YwllI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HiLMb1uY; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1774941254; c=relaxed/simple;
+	bh=SdEXvbaK0+2FI034ECXWCBDob1yYeJV/BeG8B97GytM=;
+	h=Cc:Date:Content-Type:Subject:From:In-Reply-To:References:To:
+	 Message-Id:Mime-Version; b=dORgPFguJZ4fW90PArMQEo1dQyN2SuWBhFgkXo3YCrdrdfab1M0vMzLX3i9/bqYmHw5NQBGbH1Dkz4fOM1tS10FOTv6WTyGRLuhZ4x/dBthJsCiiml0SC0Ds4Ah8e5esfXatSx7ChSyA0YNdrKMYNxhZFXhyGS7GlEWjHqy1vgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=STHsu/Dk; arc=none smtp.client-ip=101.45.255.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HiLMb1uY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1774941186;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=luFavRrVLyuYw5Pp7Hq4J37Yw0Jet8kP6askoheBw5k=;
-	b=HiLMb1uYqMUQ5trgMTxFarHM61DnE7M5nCEKIzCqndsM8/TPS/pX2Y/5b+q/jtulPXD9VP
-	LNJZtidQYTOwXP3uvWI6HDBceZRE6PLk7n6dbT5ENDEHv9bQriY4nMCeLDRpCa+sq1lBj1
-	lRa89sA2Q/gzOmPYHfmf9pD0St+4mR4=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-176-d6vwkgkuNLO4Lk1HCZw_4w-1; Tue,
- 31 Mar 2026 03:13:02 -0400
-X-MC-Unique: d6vwkgkuNLO4Lk1HCZw_4w-1
-X-Mimecast-MFC-AGG-ID: d6vwkgkuNLO4Lk1HCZw_4w_1774941180
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 256BC180061A;
-	Tue, 31 Mar 2026 07:13:00 +0000 (UTC)
-Received: from localhost (unknown [10.72.112.177])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 843321955F42;
-	Tue, 31 Mar 2026 07:12:58 +0000 (UTC)
-Date: Tue, 31 Mar 2026 15:12:54 +0800
-From: Baoquan He <bhe@redhat.com>
-To: Coiby Xu <coxu@redhat.com>
-Cc: kexec@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
-	linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org,
-	kernel test robot <lkp@intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Vivek Goyal <vgoyal@redhat.com>, Dave Young <dyoung@redhat.com>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v5 2/3] crash: Align the declaration of
- crash_load_dm_crypt_keys with CONFIG_CRASH_DM_CRYPT
-Message-ID: <actz9u1rBnvtuBUm@fedora>
-References: <20260225060347.718905-1-coxu@redhat.com>
- <20260225060347.718905-3-coxu@redhat.com>
+	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="STHsu/Dk"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1774941209;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=1g9g0IOoBvF/uDencpTS9cXmd7As7+y4kUA4oinOBbo=;
+ b=STHsu/Dk8RJMxFQR5QdnZrf9jm2UxdAvVwtM8zFNwNFxl3fpwrJQCcQ45nc5979B4pJH+W
+ qHWCu5Ft7yU2Hvr6aiIAl32ZTzHlpQdurjUxMP9MP8D59qlSWEktz7NndLTop9S28U1lSq
+ gODb7hmWx0kXuqTqSp5rK3i+1Fpt+F7MPH9yAzcDJUe8HCWeV2SqP7AH9uFTnKKuxP3iU8
+ IdVpK5UXJn/uCmsaJ++gwsK0fLC7gqyRuJzqW/iuacLsdO8z5KgPAY+Yryf4V4hth27GN/
+ W9m2d1KDQxjTWZ9Ob00Vs6Ww6TUAlzqyjmz9gSd6nNDQlKOr54M7jvbJ1uiurA==
+Cc: "Emil Renner Berthing" <kernel@esmil.dk>, 
+	"Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Yixun Lan" <dlan@kernel.org>, 
+	"Paul Walmsley" <paul.walmsley@sifive.com>, 
+	"Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>, 
+	"Heinrich Schuchardt" <heinrich.schuchardt@canonical.com>, 
+	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
+	"Michael Opdenacker" <michael.opdenacker@rootcommit.com>, 
+	"Guodong Xu" <guodong@riscstar.com>, 
+	"Hendrik Hamerlinck" <hendrik.hamerlinck@hammernet.be>, 
+	"Yangyu Chen" <cyy@cyyself.name>, <spacemit@lists.linux.dev>, 
+	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Sandie Cao" <sandie.cao@deepcomputing.io>
+Date: Tue, 31 Mar 2026 15:13:11 +0800
+X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
+Content-Type: text/plain; charset=UTF-8
+Subject: [PATCH v2 2/2] riscv: dts: spacemit: add DeepComputing FML13V05 board device tree
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 7bit
+X-Lms-Return-Path: <lba+269cb7417+b8f7a0+vger.kernel.org+sandie.cao@deepcomputing.io>
+In-Reply-To: <20260331071110.68321-1-sandie.cao@deepcomputing.io>
+References: <20260331071110.68321-1-sandie.cao@deepcomputing.io>
+To: "Conor Dooley" <conor+dt@kernel.org>
+Message-Id: <20260331071311.68351-1-sandie.cao@deepcomputing.io>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260225060347.718905-3-coxu@redhat.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Mime-Version: 1.0
+Received: from roma-Laptop-12th-Gen-Intel-Core.. ([218.17.141.187]) by smtp.feishu.cn with ESMTPS; Tue, 31 Mar 2026 15:13:26 +0800
 
-On 02/25/26 at 02:03pm, Coiby Xu wrote:
-> This will prevent a compiling failure when CONFIG_CRASH_DUMP is enabled
-> but CONFIG_CRASH_DM_CRYPT is disabled,
-> 
->        arch/powerpc/kexec/elf_64.c: In function 'elf64_load':
->     >> arch/powerpc/kexec/elf_64.c:82:23: error: implicit declaration of function 'crash_load_dm_crypt_keys' [-Werror=implicit-function-declaration]
->           82 |                 ret = crash_load_dm_crypt_keys(image);
->              |                       ^~~~~~~~~~~~~~~~~~~~~~~~
->        cc1: some warnings being treated as errors
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202602120648.RgQALnnI-lkp@intel.com/
-> Signed-off-by: Coiby Xu <coxu@redhat.com>
-> ---
->  include/linux/crash_core.h | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
+The FML13V05 board from DeepComputing incorporates a SpacemiT K3 RISC-V
+SoC.It is a mainboard designed for the Framework Laptop 13 Chassis,
+which has (Framework) SKU FRANHQ0001.
 
-Acked-by: Baoquan He <bhe@redhat.com>
+The FML13V05 board features:
+- SpacemiT K3 RISC-V SoC
+- LPDDR5 16GB or 32GB
+- eMMC 32GB ~128GB (Optional)
+- UFS 3.1 256G (Optional)
+- QSPI Flash
+- MicroSD Slot
+- PCIe-based Wi-Fi
+- 4 USB-C Ports
+ - Port 1: PD 3.0 (65W Max), USB 3.2 Gen 1
+ - Port 2: PD 3.0 (65W Max), USB 3.2 Gen 1, DP 1.4 (4K@60Hz)
+ - Port 3 & 4: USB 3.2 Gen 1
 
-> 
-> diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
-> index d35726d6a415..c1dee3f971a9 100644
-> --- a/include/linux/crash_core.h
-> +++ b/include/linux/crash_core.h
-> @@ -34,13 +34,6 @@ static inline void arch_kexec_protect_crashkres(void) { }
->  static inline void arch_kexec_unprotect_crashkres(void) { }
->  #endif
->  
-> -#ifdef CONFIG_CRASH_DM_CRYPT
-> -int crash_load_dm_crypt_keys(struct kimage *image);
-> -ssize_t dm_crypt_keys_read(char *buf, size_t count, u64 *ppos);
-> -#else
-> -static inline int crash_load_dm_crypt_keys(struct kimage *image) {return 0; }
-> -#endif
-> -
->  #ifndef arch_crash_handle_hotplug_event
->  static inline void arch_crash_handle_hotplug_event(struct kimage *image, void *arg) { }
->  #endif
-> @@ -96,4 +89,11 @@ static inline void crash_save_cpu(struct pt_regs *regs, int cpu) {};
->  static inline int kimage_crash_copy_vmcoreinfo(struct kimage *image) { return 0; };
->  #endif /* CONFIG_CRASH_DUMP*/
->  
-> +#ifdef CONFIG_CRASH_DM_CRYPT
-> +int crash_load_dm_crypt_keys(struct kimage *image);
-> +ssize_t dm_crypt_keys_read(char *buf, size_t count, u64 *ppos);
-> +#else
-> +static inline int crash_load_dm_crypt_keys(struct kimage *image) {return 0; }
-> +#endif
-> +
->  #endif /* LINUX_CRASH_CORE_H */
-> -- 
-> 2.53.0
-> 
+This minimal device tree enables booting into a serial console with UART
+output.
 
+Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
+Reviewed-by: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
+Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+---
+v2: 
+   Use formal format user name.
+   Add Reviewed-by from Troy Mitchell.
+---
+ arch/riscv/boot/dts/spacemit/Makefile         |  1 +
+ .../spacemit/k3-deepcomputing-fml13v05.dts    | 28 +++++++++++++++++++
+ 2 files changed, 29 insertions(+)
+ create mode 100644 arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+
+diff --git a/arch/riscv/boot/dts/spacemit/Makefile b/arch/riscv/boot/dts/spacemit/Makefile
+index 7e2b87702571..acb993c452ba 100644
+--- a/arch/riscv/boot/dts/spacemit/Makefile
++++ b/arch/riscv/boot/dts/spacemit/Makefile
+@@ -4,4 +4,5 @@ dtb-$(CONFIG_ARCH_SPACEMIT) += k1-milkv-jupiter.dtb
+ dtb-$(CONFIG_ARCH_SPACEMIT) += k1-musepi-pro.dtb
+ dtb-$(CONFIG_ARCH_SPACEMIT) += k1-orangepi-r2s.dtb
+ dtb-$(CONFIG_ARCH_SPACEMIT) += k1-orangepi-rv2.dtb
++dtb-$(CONFIG_ARCH_SPACEMIT) += k3-deepcomputing-fml13v05.dtb
+ dtb-$(CONFIG_ARCH_SPACEMIT) += k3-pico-itx.dtb
+diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+new file mode 100644
+index 000000000000..2343ae3acc2d
+--- /dev/null
++++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+@@ -0,0 +1,28 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Copyright (C) 2024 DeepComputing (HK) Limited
++ */
++
++#include "k3.dtsi"
++
++/ {
++	model = "DeepComputing FML13V05";
++	compatible = "deepcomputing,fml13v05", "spacemit,k3";
++
++	aliases {
++		serial0 = &uart0;
++	};
++
++	chosen {
++		stdout-path = "serial0";
++	};
++
++	memory@100000000 {
++		device_type = "memory";
++		reg = <0x1 0x00000000 0x4 0x00000000>;
++	};
++};
++
++&uart0 {
++	status = "okay";
++};
+-- 
+2.43.0
