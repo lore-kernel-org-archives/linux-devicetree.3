@@ -1,195 +1,137 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mail-m49205.qiye.163.com (mail-m49205.qiye.163.com [45.254.49.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0DC3A9DB6
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 10:54:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738483AA19D;
+	Tue, 31 Mar 2026 10:55:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774954495; cv=none; b=b33Y7ntLzKGEDIHkOl8qrWvCBzHBWEnHpzeUDoxWG2LDWx7xYO2b2Pw3oNYX5zUnxP+LO+d4P4K842+s1w/l8SfjdFzf/l8IZ3R6mBHObVE5gTaibQ7THVZK8x45OeKITCYTzC0w0cMtcA9/JfqGRu1j0JXWkGdCKAAuNo3GwLk=
+	t=1774954522; cv=none; b=GsBquYujm9At5C5fPtNOKoI+7SihG4W3ADtA4Tka2iGcGzlHHrPJbBA7n9nad/hOIU2+yZq/dgXLlQzT6gNT/zqwLu8CJ15vjOSYQVmUSEd4moYYUuT+h/mz2EmLDfitrHkYCQV2DBFRMzYyvfTZ30VqD7GoQUlZVEu83HXabWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774954495; c=relaxed/simple;
-	bh=01BLDUIE042rdiUNErhUHuYN+13nkq8UQhcqVy5Kq4M=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=AA6mOLB5Pvx0Su7QNgsHYbqttROvfxyp65mw8scgjPCeJ3tMMb5YNV6LrFqjWalUPWcfKeR5Cd6WqCOh7mgPVxD+5kUodRCmzWBGakupZjCm7tKtO+v3MWCH0Bg1ghgrzy79qym9upVez6FznacfVeIFJtJj/uCOajiQL2Gq3vQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=M+B7mJwU; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1774954522; c=relaxed/simple;
+	bh=jLrLlHz3Rk6WpLoF/F1IgbWWwVQdwb43ZXK9bMwjong=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EHMZWIB2eKNqBKwsq1FXVDCxt5gOL5RDsTOmtu40WpgFNhGFTiQ9dA59Tlet1EyDb837V78FFxKJWTnOfF1qRoUuOQUYpx43/RNGXJPxrSrpk8L5kUiijunGOiN3JaZ7KzZdTSQzM47v6jAbeQysN9vqseO1S+ZgRhIkGDFGoRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=Gt+84e7R; arc=none smtp.client-ip=45.254.49.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="M+B7mJwU"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id D39991A30BF;
-	Tue, 31 Mar 2026 10:54:50 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9BF5A602CD;
-	Tue, 31 Mar 2026 10:54:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4F8B6104505CA;
-	Tue, 31 Mar 2026 12:54:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1774954487; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=qDgz531RmkefuEvnhqpL6F+0n4jtWlVFpT0D9ukPSnc=;
-	b=M+B7mJwUdJ737gkyUjDrg4ZfLPjmt2IDlaNDsNRqt54vtdI6gQ+Mkj7hI5XdBJLv54LuIU
-	yKINAVdHwdzszU0t/NgEZa7ZLOBl7sXd09v3YNE8YBbRhw05IhDgj5pN4ps+2y/+7XSGo3
-	10YtEYZeSjABRSgWpzAOCRT2V8tiyJxh/HjFPMWsYWpFAYJYu5k8ti0GTQd9afDQzp2MmK
-	cwbhFdWF/EU6zuWYHMtdLN2McxBSEtoU9p0z6cHWy+U9bPXOAyUja5yp5FLrYF8uuhIaKr
-	rYRCm3ByzO+YyFf4cubFsULwxKDH2mZRHZ6qhyCRouk+aHMfCMxhEd5MCZVaRQ==
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="Gt+84e7R"
+Received: from [172.16.12.43] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 38f48c703;
+	Tue, 31 Mar 2026 15:25:55 +0800 (GMT+08:00)
+Message-ID: <4fe357a3-2a4a-45fa-8fa2-6e74cd8fe254@rock-chips.com>
+Date: Tue, 31 Mar 2026 15:25:55 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 31 Mar 2026 12:54:30 +0200
-Message-Id: <DHGWUIUIKETI.1F1636GUBB3VI@bootlin.com>
-Subject: Re: [PATCH 7/8] drm/bridge: imx8mp-hdmi-tx: add an hdmi-connector
- when missing using a DT overlay at boot time
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 06/10] drm/bridge: dw-hdmi: warn on unsupported attach
+ combination
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
+ Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>
 Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
- =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, "Hui Pu"
- <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>,
- <dri-devel@lists.freedesktop.org>, <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>, "Adam Ford" <aford173@gmail.com>, "Alexander
- Stein" <alexander.stein@ew.tq-group.com>, "Anson Huang"
- <Anson.Huang@nxp.com>, "Christopher Obbard"
- <christopher.obbard@linaro.org>, "Daniel Scally"
- <dan.scally@ideasonboard.com>, "Emanuele Ghidoli"
- <emanuele.ghidoli@toradex.com>, "Fabio Estevam" <festevam@denx.de>,
- "Francesco Dolcini" <francesco.dolcini@toradex.com>, "Frieder Schrempf"
- <frieder.schrempf@kontron.de>, "Gilles Talis" <gilles.talis@gmail.com>,
- =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, "Heiko
- Schocher" <hs@denx.de>, "Joao Paulo Goncalves"
- <joao.goncalves@toradex.com>, "Josua Mayer" <josua@solid-run.com>, "Kieran
- Bingham" <kieran.bingham@ideasonboard.com>, "Marco Felsch"
- <m.felsch@pengutronix.de>, "Martyn Welch" <martyn.welch@collabora.com>,
- "Oleksij Rempel" <o.rempel@pengutronix.de>, "Peng Fan" <peng.fan@nxp.com>,
- "Philippe Schenker" <philippe.schenker@toradex.com>, "Richard Hu"
- <richard.hu@technexion.com>, "Shengjiu Wang" <shengjiu.wang@nxp.com>,
- "Stefan Eichenberger" <stefan.eichenberger@toradex.com>, "Vitor Soares"
- <vitor.soares@toradex.com>
-To: "Liu Ying" <victor.liu@nxp.com>, "Marek Vasut" <marex@denx.de>, "Stefan
- Agner" <stefan@agner.ch>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
- <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
- "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Rob
- Herring" <robh@kernel.org>, "Saravana Kannan" <saravanak@kernel.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.20.1
-References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
- <20260320-drm-lcdif-dbanc-v1-7-479a04133e70@bootlin.com>
- <544112ab-8ca0-4622-b680-233457198e3e@nxp.com>
- <DHDNA5HLQPIB.3F21G9QPBUQG8@bootlin.com>
- <5f06ea5a-5388-440f-91d6-cebb0bee0a88@nxp.com>
- <DHG8G8FMXA6C.U6LU563OZ8NR@bootlin.com>
- <9a6e74ed-d4ab-4f11-ab17-25e1a2b64b2d@nxp.com>
-In-Reply-To: <9a6e74ed-d4ab-4f11-ab17-25e1a2b64b2d@nxp.com>
-X-Last-TLS-Session-Version: TLSv1.3
+ =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Christopher Obbard <christopher.obbard@linaro.org>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+ Fabio Estevam <festevam@denx.de>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Frieder Schrempf <frieder.schrempf@kontron.de>,
+ Gilles Talis <gilles.talis@gmail.com>,
+ =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
+ Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Marco Felsch <m.felsch@pengutronix.de>,
+ Martyn Welch <martyn.welch@collabora.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
+ Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
+ <shengjiu.wang@nxp.com>,
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+ Vitor Soares <vitor.soares@toradex.com>
+References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
+ <20260330-drm-lcdif-dbanc-v2-6-c7f2af536a24@bootlin.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20260330-drm-lcdif-dbanc-v2-6-c7f2af536a24@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9d42c8e62f03a3kunm0cf998d0a6b464
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZQk1LGFZJHkxIS0pLTUhCThhWFRQJFh
+	oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSUJNS0
+	pVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Gt+84e7Re463RchY6ClojFR1lQV0h32cgP4QGw1Ho9LrRvZtoPjlyJMhBN4/7GfmeYCNggEf3iYwFoO1Apea/XVf5JTqffa0gdlGMYGMkxznzmddrgI3Bv9G9wW6oWK/zjFuYEIbBfqIGS/whL0A23UKaj05z7141AR8BP0AOSA=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=goB0cTHExm4jZajm3TogQBTzo9t4lHbQNOdATI5lgbs=;
+	h=date:mime-version:subject:message-id:from;
 
-Hello Liu,
+On 3/31/2026 3:25 AM, Luca Ceresoli wrote:
+> dw-hdmi can operate in two different modes, depending on the platform data
+> as set by the driver:
+> 
+>   A. hdmi->plat_data->output_port = 0:
+>      the HDMI output (port@1) in device tree is not used
+> 
+>   B. hdmi->plat_data->output_port = 1:
+>      the HDMI output (port@1) is parsed to find the next bridge
+> 
+> Only case B is supported when the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag is
+> passed to the attach callback. Emit a warning when this is violated. Also
+> return -EINVAL which would be returned by drm_bridge_attach() right after
+> anyway.
+> 
+> Reviewed-by: Liu Ying <victor.liu@nxp.com>
+> Tested-by: Martyn Welch <martyn.welch@collabora.com>
+> Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL/MBa8MPxL
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> ---
+> Note: Returning when the warning triggers does not change the functional
+> behaviour of this function. It is not strictly necessary in this patch but
+> it will have to be done anyway in the following patch.
+> ---
+>   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> index 0296e110ce65..ab1a6a8783cd 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> @@ -2910,6 +2910,10 @@ static int dw_hdmi_bridge_attach(struct drm_bridge *bridge,
+>   {
+>   	struct dw_hdmi *hdmi = bridge->driver_private;
+>   
+> +	/* DRM_BRIDGE_ATTACH_NO_CONNECTOR requires a remote-endpoint to the next bridge */
+> +	if (WARN_ON((flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) && !hdmi->plat_data->output_port))
+> +		return -EINVAL;
+> +
+>   	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
+>   		return drm_bridge_attach(encoder, hdmi->bridge.next_bridge,
+>   					 bridge, flags);
+> 
 
-On Tue Mar 31, 2026 at 5:03 AM CEST, Liu Ying wrote:
-> Hi Luca,
->
-> On Mon, Mar 30, 2026 at 05:47:23PM +0200, Luca Ceresoli wrote:
->> Hello Liu,
->>
->> On Mon Mar 30, 2026 at 5:02 AM CEST, Liu Ying wrote:
->
-> [...]
->
->>>>>> +	fixup-hdmi-connector {
->>>>>> +		compatible =3D "hdmi-connector";
->>>>>> +		label =3D "HDMI";
->>>>>> +		type =3D "a";
->>>>>
->>>>> What if a board uses another type?
->>>>
->>>> For boards affected by this patch, currently the connector is created =
-by
->>>> dw_hdmi_connector_create() which hardcodes type A [0], so there would =
-be no
->>>> difference.
->>>
->>> Yes, that's from driver's PoV.  However, userspace may get the type
->>> from /sys/firmware/devicetree/base/fixup-hdmi-connector/type and use it
->>> to do something.
->>
->> I'd say this is incorrect, the device tree is not an API for that. The
->> connector type might be known to the driver by other means (ACPI, DP MST=
-,
->> whatever). So I think this is a non-problem.
->
-> I just feel that it's not great to report potentially wrong type to users
-> through the above sys node ...
->
->>
->> If userspace needs to know the connector type, that should come from the
->> ioctl (DRM_IOCTL_MODE_GETCONNECTOR perhaps).
->>
->>> Maybe, that's trivial.
->>
->> Not sure I got what you mean here, sorry. What are you referring to?
->
-> ... with the above potentially wrong type being said, I think maybe this
-> drawback is not a big deal and could be ignored.  Sorry for not being
-> clear in my last reply.
+Tested-by: Damon Ding <damon.ding@rock-chips.com> (on rk3399)
 
-Ah, clear now. No problem!
+Best regards,
+Damon
 
->>>> Boards with a different connector should describe the connector in the
->>>> device tree, if they need to instantiate the exact type.
->>
->> I think this is the only valid solution. It's very easy to do, nothing n=
-ew
->> to invent.
->>
->> Maybe on top of that we could add a warning when the overlay is applied,
->> e.g. "imx8mp-hdmi-tx used without a connector described in device tree;
->> adding a type A connector as a fallback; please add a valid description =
-to
->> your device tree".
->
-> I'd say this doesn't sound a bad idea but I hope the message is clear and
-> short.
-
-What about:
-
-  Connector description not found in device tree, please add one. Falling b=
-ack to Type A.
-
->> Maybe pointing to a TODO entry in the documentation.
->
-> To parameterize the HDMI connector type?  If so, I'm okay with that.
-
-I was meaning a TODO entry to suggest people to add a connector description
-to the dts. E.g., expanding on the above suggested warning:
-
-  Connector description not found in device tree, please add one. See https=
-://docs.kernel.org/gpu/todo.html#<...>
-
-And of course adding a TODO entry describing what one needs to do (add an
-hdmi-connector node and link it to port@1 of the hdmi-tx).
-
-The drawback of the TODO is that items in todo.rst are supposed to be
-removed eventually when done in the code, but this one cannot be removed
-until some kernels printing the above logging message will be around,
-i.e. potentially for decades.
-
-So maybe the simplest solution is just the first warning message + a
-comment in the code right before the warning line, so it easily found with
-grep or a web search by who sees the warning.
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
