@@ -1,38 +1,32 @@
-Received: from va-2-30.ptr.blmpb.com (va-2-30.ptr.blmpb.com [209.127.231.30])
+Received: from va-2-29.ptr.blmpb.com (va-2-29.ptr.blmpb.com [209.127.231.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3512B2C1593
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 03:46:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A6E1EF39E
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 03:46:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774928802; cv=none; b=GgpvKdF3Z0OsA5LfqqfhZaILibDUk9Ucdi06NcL1XMZv6T8kUojXVTjmITukD7qA2ocEumIVUNfg0QaMKEwlx8o51rE23wihv8+E3Q0UsXgL+kncdFOlW1c1hq+nFwlaIjwVoZ5filcamjBePDKPX1ElR64LYJNYhgv5FdJuOng=
+	t=1774928809; cv=none; b=f5YV0eWJEIKGYWRHz4ANyVDN4EoEarVQNjhwU/YvO8b+jqCpRU7RAuN2fEYax7xrddoU7sTTBGCNNuLUCsxEG2LFyZFGkNfrpjjZYjuit00sHRwxfUlQc9Z0C+3i9/PJbE+PcukZ3Yr/yCH27daPs7XzjdTIO8ZfVklf3leHhYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774928802; c=relaxed/simple;
-	bh=Be95sgJhy7tl+MSgMsRMfXH21FS10pz3vyy5Zu2uGEs=;
-	h=Subject:From:Content-Type:Cc:In-Reply-To:Message-Id:Mime-Version:
-	 References:To:Date; b=VenLO+aGOSOD0T+pa3zxQbUFfvtNAJe8i+xcbunmihDdZ/AELLWkr46FQ44fE4Anh2RbZofFfFATC9276HXwIikONMaYxxrlZfRlHEGdjWjWe5nSuUCW2p72onnhdouuMsLecgyu23pa6K//wsLTbPjhFMLJKITcpPyk0iGZnQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=2TbslbfP; arc=none smtp.client-ip=209.127.231.30
+	s=arc-20240116; t=1774928809; c=relaxed/simple;
+	bh=DSx148ie2cdYVVTihZhnmpl0/0GKwVXfxSnMpwWHaGk=;
+	h=Subject:Cc:Date:To:From:Mime-Version:Message-Id:Content-Type; b=j9YxTGvijQ4VVuImj8CuCxYpHffbDLRYLU7+RxKMPEIgNBd9Jl4ePWxbReFgcGBjBsFcTe4X/NSRk8r5Pv1njaPIZz1z5r01pysd2tXv/2Rp3esx7CEBBimUxwILsaqWGslcb10ul4PAx6BzJLI21A3a6fsrqkeBTiZneE1RhGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=HyTzhb7b; arc=none smtp.client-ip=209.127.231.29
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="2TbslbfP"
+	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="HyTzhb7b"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1774928795;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1774928682;
   h=from:subject:mime-version:from:date:message-id:subject:to:cc:
  reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=adbwCMKb7Nv+mdDYBK4X6QCJvMGtjE/qyJ+e/ZtD1z4=;
- b=2TbslbfPgJvggZEJYnssijhc8RjZNFrU2dGRNw0NxBxTjdHCUfau4tbOB3GK9tDbG571pr
- cCbF8UsyQr1H+c/+yCmspwGQ4Q3SPtnaTP8e5qlVBpiuXzqwm1gQI52/mb2eMyaDaoba6L
- 5ttm7FwGgP/NZr9uNybUhSZF6D8CvoDF7HQ/bJU4P00/XZBWuGykG1fZG61lqB5zB2vOm/
- x+HiegtgzO6Jwhrn3aKxSaKXaxOSvGHWH9bV6aOfXPhuLQ0VnUWBssTpg4cV1+u8ztkwWb
- Cqyo2HSfNaoyi+vDjEhTDdZAePPVTBixpSqeFGS7yRlEmIFeI7QQ2jacfBCN1g==
-Subject: [PATCH v1 2/2] riscv: dts: spacemit: add DeepComputing FML13V05 board device tree
-X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
-Received: from roma-Laptop-12th-Gen-Intel-Core.. ([121.34.226.213]) by smtp.feishu.cn with ESMTPS; Tue, 31 Mar 2026 11:46:32 +0800
-Content-Transfer-Encoding: 7bit
+ bh=uxHkUdFeg/FwNhES/kW73MVWxcRL8iwer3YLvVez//k=;
+ b=HyTzhb7b/RkD6DuxO0T3sFM9vkwzchwHdkgenoZZXcNpCCr3OyztYnacAUjJSo4OUPj7tn
+ Bq15KJCyQv1awjQcD9bfwCT1pBrX8IVpjgCZCROJM2Bdn/frQ4vbWUmQxkaVn6DCPI+EeX
+ y3ZqvGaFg86446diohCVni3jVA3nt4a9TcS6VxlYdLeesknayF3a+m9/yOBjpx2l22F8Jh
+ d9O6ohieLPRQrBFyKa6XFLFcZLa/AdWyPJNbKtKe7Sv57s1hIo8ziGSiFdIEyEihuyynGV
+ BbCgcTD85nUFGYmkvzMXocRiCnICZkFFeZJrbJuJpMVANmM41lQyUeFvrIcUwg==
+Subject: [PATCH v1 0/2]  Add DeepComputing FML13V05 board dts
 X-Mailer: git-send-email 2.43.0
-Content-Type: text/plain; charset=UTF-8
 Cc: "Emil Renner Berthing" <kernel@esmil.dk>, 
 	"Rob Herring" <robh@kernel.org>, 
 	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
@@ -48,93 +42,41 @@ Cc: "Emil Renner Berthing" <kernel@esmil.dk>,
 	"Yangyu Chen" <cyy@cyyself.name>, <spacemit@lists.linux.dev>, 
 	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>, 
 	<linux-kernel@vger.kernel.org>, 
-	"sandiecao" <sandie.cao@deepcomputing.io>
-In-Reply-To: <20260331034423.67142-1-sandie.cao@deepcomputing.io>
-Message-Id: <20260331034616.67183-1-sandie.cao@deepcomputing.io>
+	"Sandie Cao" <sandie.cao@deepcomputing.io>
+Date: Tue, 31 Mar 2026 11:44:23 +0800
+X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
+X-Lms-Return-Path: <lba+269cb4328+68de03+vger.kernel.org+sandie.cao@deepcomputing.io>
+To: "Conor Dooley" <conor+dt@kernel.org>
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260331034423.67142-1-sandie.cao@deepcomputing.io>
-X-Lms-Return-Path: <lba+269cb4399+b70b96+vger.kernel.org+sandie.cao@deepcomputing.io>
-To: "Conor Dooley" <conor+dt@kernel.org>
-Date: Tue, 31 Mar 2026 11:46:16 +0800
+Received: from roma-Laptop-12th-Gen-Intel-Core.. ([218.17.141.187]) by smtp.feishu.cn with ESMTPS; Tue, 31 Mar 2026 11:44:40 +0800
+Message-Id: <20260331034423.67142-1-sandie.cao@deepcomputing.io>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
 
-From: sandiecao <sandie.cao@deepcomputing.io>
+This series updates Device Tree related files to introduce the
+FML13V05 board from DeepComputing, which incorporates a Spacemit
+K3 SoC.  This board is designed for use on the Framework Laptop 13
+Chassis, which has (Framework) SKU FRANHQ0001.
 
-The FML13V05 board from DeepComputing incorporates a SpacemiT K3 RISC-V
-SoC.It is a mainboard designed for the Framework Laptop 13 Chassis,
-which has (Framework) SKU FRANHQ0001.
+The series is based on riscv-dt-for-next.
 
-The FML13V05 board features:
-- SpacemiT K3 RISC-V SoC
-- LPDDR5 16GB or 32GB
-- eMMC 32GB ~128GB (Optional)
-- UFS 3.1 256G (Optional)
-- QSPI Flash
-- MicroSD Slot
-- PCIe-based Wi-Fi
-- 4 USB-C Ports
- - Port 1: PD 3.0 (65W Max), USB 3.2 Gen 1
- - Port 2: PD 3.0 (65W Max), USB 3.2 Gen 1, DP 1.4 (4K@60Hz)
- - Port 3 & 4: USB 3.2 Gen 1
+sandiecao (2):
+  dt-bindings: riscv: spacemit: add deepcomputing,fml13v05
+  riscv: dts: spacemit: add DeepComputing FML13V05 board device tree
 
-This minimal device tree enables booting into a serial console with UART
-output.
-
-Signed-off-by: sandiecao <sandie.cao@deepcomputing.io>
-Reviewed-by: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
----
+ .../devicetree/bindings/riscv/spacemit.yaml   |  1 +
  arch/riscv/boot/dts/spacemit/Makefile         |  1 +
  .../spacemit/k3-deepcomputing-fml13v05.dts    | 28 +++++++++++++++++++
- 2 files changed, 29 insertions(+)
+ 3 files changed, 30 insertions(+)
  create mode 100644 arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
 
-diff --git a/arch/riscv/boot/dts/spacemit/Makefile b/arch/riscv/boot/dts/spacemit/Makefile
-index 7e2b87702571..acb993c452ba 100644
---- a/arch/riscv/boot/dts/spacemit/Makefile
-+++ b/arch/riscv/boot/dts/spacemit/Makefile
-@@ -4,4 +4,5 @@ dtb-$(CONFIG_ARCH_SPACEMIT) += k1-milkv-jupiter.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-musepi-pro.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-orangepi-r2s.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-orangepi-rv2.dtb
-+dtb-$(CONFIG_ARCH_SPACEMIT) += k3-deepcomputing-fml13v05.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k3-pico-itx.dtb
-diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-new file mode 100644
-index 000000000000..2343ae3acc2d
---- /dev/null
-+++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-@@ -0,0 +1,28 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (C) 2024 DeepComputing (HK) Limited
-+ */
-+
-+#include "k3.dtsi"
-+
-+/ {
-+	model = "DeepComputing FML13V05";
-+	compatible = "deepcomputing,fml13v05", "spacemit,k3";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0";
-+	};
-+
-+	memory@100000000 {
-+		device_type = "memory";
-+		reg = <0x1 0x00000000 0x4 0x00000000>;
-+	};
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
+
+base-commit: 4a1739c30fc66a59450c1f78923f94607e786882
 -- 
 2.43.0
