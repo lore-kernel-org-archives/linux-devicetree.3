@@ -1,101 +1,146 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8FB45BD48;
-	Tue, 31 Mar 2026 21:34:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A634219EA
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 21:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774992891; cv=none; b=dfRa7Aou9sSyvilzWGZRv+ryRoKMl60R2io4Yf5IT9ozjijKLt0TkR/0EnVN0pPVNBbiYkDRwhcL54QMgK+E3mX1xZfg9WedKzLzEiBHfH6ZRBTHclByod3Fv9N36FfplJobjRCj7XCN6U12wPXr7lmpbXPdodpdKmhKnNsyfsA=
+	t=1774993038; cv=none; b=cRh3+VXOBF8a0k9Kvl4XCNVED7Vrd3xQwzzmM7h53/BAc96p+g7FMnbK0Fv12Fc8OUb91lgBfIsbmFN8uchSDFykhQFUspww+Bz6HgVNRYaKEOSjBFlCid82Pm+I56PIIA3WqfOZdUdsCa3Ejqor4p4G0y4Uu16lE6EMyX0buvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774992891; c=relaxed/simple;
-	bh=4wR4QylHcmskmt0KG5ly6sLWoHv46ssVh2JkVA+U+Bk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XZquhFSo7AtIyunq3WURMI5yU3Qo2f9DhPi0LDWZaxzsnJwrp3gMUrCl6/q3Js7c7+99MG4wlYd4hzG0uUAVzDGUcIq5td3D66PDX8A4SoSm3ABDX0nEasGixtZ68l2CQRYDvDxcZddPGWgSs57tqm1aDkJDUuFAVebel9MFHvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BRNSCFvA; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1774993038; c=relaxed/simple;
+	bh=77TKJXfDqxRbDJZcS4iQHfQ8ePzfWbiSwaDIcMZRDug=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gz18RCePLD9K5mDA9Xkdwga4sQfhFija3WP3mzATSRhp+fFoc+RSmE9pCp0QMmr1bMdgFSl9hT6AYtcglC4ZsTQTsSVhuXepBcWhXFhMjWsi1zTgx19CuFhO5o1IKnjUpIgKKO3//W9VhiwDzGphQiRcMAFDm3RxBgpIQfJM9rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NwYRp2iR; arc=none smtp.client-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BRNSCFvA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774992890; x=1806528890;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4wR4QylHcmskmt0KG5ly6sLWoHv46ssVh2JkVA+U+Bk=;
-  b=BRNSCFvAohJ3xX6TW7mIg8GMTWiyz2ZO/m0Opg+Quj/1sRoR1k3iTf7Z
-   cZ1Gq0seGsSQplTnhp4XPjl2ADpvFOa3MzYspX4ZWWMZKvww8/TqzZGvx
-   fyNQDM7a1EkxyZZrZFLJGdl/73IJc1ke2v7S671XkmYat5FfCQ4TTm9qd
-   mDaaUYlkfBVWzvHhf3bjdQGvvaSCeH9TA1cnS9FQsOpMY0khLFwYcfN/p
-   BlW37UODQCNDmu+3QhJLBe6yVasQ7/oIi1ooO3Yvu1TtDbEu9SKmrL3aU
-   d2SUe3PHB8/u8aTbxwkdQmW4Eu8GRIsqeh9ErhidN+Vy9CuP9BUuTslzq
-   g==;
-X-CSE-ConnectionGUID: 84A+e0W+T6eXspVbjeddxw==
-X-CSE-MsgGUID: Y+FEj6bQR5OFWZHIvz4W0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="75057564"
-X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; 
-   d="scan'208";a="75057564"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Mar 2026 14:34:49 -0700
-X-CSE-ConnectionGUID: KkhM+YH+RY6ZBfPW8wELwQ==
-X-CSE-MsgGUID: Wtm6ipwaSxCfv+Lc/YJdbw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; 
-   d="scan'208";a="226353128"
-Received: from lkp-server01.sh.intel.com (HELO 283bf2e1b94a) ([10.239.97.150])
-  by orviesa009.jf.intel.com with ESMTP; 31 Mar 2026 14:34:47 -0700
-Received: from kbuild by 283bf2e1b94a with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1w7gjT-000000004JB-2AzA;
-	Tue, 31 Mar 2026 21:34:43 +0000
-Date: Wed, 1 Apr 2026 05:34:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: Yixun Lan <dlan@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: oe-kbuild-all@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Yixun Lan <dlan@kernel.org>
-Subject: Re: [PATCH v2] riscv: dts: spacemit: k3: Add USB2.0 support
-Message-ID: <202604010550.sTNDXe0k-lkp@intel.com>
-References: <20260330-02-k3-usb20-dts-v2-1-46af262fb4a9@kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NwYRp2iR"
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5a2c0710afdso75614e87.1
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 14:37:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1774993035; x=1775597835; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KHUi+YrE+mS2lDKmIKKoK4NA/mtXRLEN2zW5bJXcYuk=;
+        b=NwYRp2iRxPPx8fvTfwe0/Bp9h9kSs1CCF1G2mfCPegUPc8pWgatU+ffGKa9dT/6Pi5
+         0h9a5fuAppZYQLmujL8LjF16ErqGiOs5pXwzP5nU+lwnmTtVQwGKTVjyouPQ1774Vx7z
+         f1bq06Y9Aw2XzbKYsWR1N7tCNQL+ETTk2tD6s55UwFYTGV2rvyES4eaG2wrTFMKFcgvm
+         hoYjmzhrwyaCOq0KPdRFme/9ciAH1YqzcYxpFsV8A3dFxNLf1rXUTHe3nmhsVgXdWL7L
+         POV8H7IMAnWS1eCQExEtZjh0UpO7oyf6/CmDofzzyhtOGL8JKV6XBIm73YnthF8OJFFl
+         i4HQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774993035; x=1775597835;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=KHUi+YrE+mS2lDKmIKKoK4NA/mtXRLEN2zW5bJXcYuk=;
+        b=Orz02gptqDckyiPdUxdnJy3VFTMTFJjo7LwBlFQH3S3Zbcfc7hQMxURvbZYvAbNrST
+         GfGRnQNKclh1GtCsARuvxpoSThR2OmDLlb6o8Raw7oR3hk2GrJ2Pik2JgrtMnVb5cg9R
+         OUxYwzTYCrdXS3OhAEIb++umXNorxE/VXMHj6dUkNVXOwsiTB5qE05ZdErMQskjvvv8R
+         BQ2ncdVx0GFOHQNucCXV+Apyr+aKtccCXspYa7sgp0l6z7ue59ddo/5ZRggOswzXicNf
+         OcELhV9LxnRRFNhMkl3/gEo62Mbc7YtsptHQ+NEkYb6HXIdwoKdvbc4DcT1ICPBQitem
+         lvyw==
+X-Forwarded-Encrypted: i=1; AJvYcCXvOBP/XkNMlNcR/Sxocp4R39XrBr5R9xi1d9Gk3kJsIyY1t3ySsocOS4orcNVQ/RRC8H/wppYSpvtF@vger.kernel.org
+X-Gm-Message-State: AOJu0YykHAYR5pPHxODQsmXRkjfVj6a1ibguulR3PigecAnhe9ayC1u6
+	4AJbyMyX82fYIYo2suZjk8sX5WyN4SedU4AycpdTLMUKeFkhoTvEdG+Za+DdpT1CGQ8=
+X-Gm-Gg: ATEYQzzwGGueMzfpJMA5ve0OoA9sahCLKinyrcfn4YAIht4feq1VNKDqiS445f8YSVB
+	BsV6PRuex6b5eQdS1CdAbwgvrW7uhsGnK2N2FyDjIsI6VO8Yerbw+4co4QcqY8QilyluN2Sc+ej
+	zgfYSH0RYd0q0hGdnFWiLFLwKfxYKn2EsQ4FBQY5eHprSxwTVnTOZsAFzCag7EZoHBjzs/4Ldok
+	DRCznqgA1Ufm8p6EpstntlSSn/ZidA8dXt80q58YUwD33A7stUOIkIn9tHnynbRfKh8tnX4Pn0e
+	4YlvJa5YjqcRWnoFr9XdDAI8f5PSDAV1b9KJG9CbgjudOQxHDZHlveEEEmvFW/isuu9FUd67eRh
+	cAC16OukWZzGAEPo9DTTLdGX6oTkVIKEzdykA4JaQ8IW794UPSN/UFYKxE+dHntaDyIA/SggCLY
+	Tg0UEUpfAZhCVAJL1FAjAqNW35fBILI6A3A19wmlyAUFMwlQGh2rKsQesdrQY8zogPT54pnvAOW
+	ZdDkTLJW65jlWTP
+X-Received: by 2002:a05:6512:1091:b0:5a1:3d15:287b with SMTP id 2adb3069b0e04-5a2c1c98cc5mr165782e87.0.1774993035132;
+        Tue, 31 Mar 2026 14:37:15 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38c83890bbcsm25187391fa.25.2026.03.31.14.37.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 31 Mar 2026 14:37:14 -0700 (PDT)
+Message-ID: <3c51f9fe-9c5f-47dd-a971-5b2a9e416230@linaro.org>
+Date: Wed, 1 Apr 2026 00:37:14 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260330-02-k3-usb20-dts-v2-1-46af262fb4a9@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 4/7] media: i2c: imx355: Restrict data lanes to 4
+To: Richard Acayan <mailingradian@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Todor Tomov <todor.too@gmail.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Tianshu Qiu
+ <tian.shu.qiu@intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+Cc: Robert Mader <robert.mader@collabora.com>,
+ David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org
+References: <20260217002738.133534-1-mailingradian@gmail.com>
+ <20260217002738.133534-5-mailingradian@gmail.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260217002738.133534-5-mailingradian@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Yixun,
+On 2/17/26 02:27, Richard Acayan wrote:
+> The IMX355 sensor driver currently supports having 4 data lanes. There
+> can't be more or less, so check if the firmware specifies 4 lanes.
 
-kernel test robot noticed the following build errors:
+Does IMX355 sensor hardware support any other number of lanes?
 
-[auto build test ERROR on af62a095eb0c3359d477b55ef72d2afd94c83c8f]
+1) If no, then it makes no practical sense to check for data lanes number
+given by firmware, there can be any stored value, but it's known that the
+number of sensor data lanes is 4.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Yixun-Lan/riscv-dts-spacemit-k3-Add-USB2-0-support/20260331-231732
-base:   af62a095eb0c3359d477b55ef72d2afd94c83c8f
-patch link:    https://lore.kernel.org/r/20260330-02-k3-usb20-dts-v2-1-46af262fb4a9%40kernel.org
-patch subject: [PATCH v2] riscv: dts: spacemit: k3: Add USB2.0 support
-config: riscv-randconfig-002-20260401 (https://download.01.org/0day-ci/archive/20260401/202604010550.sTNDXe0k-lkp@intel.com/config)
-compiler: riscv32-linux-gcc (GCC) 11.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260401/202604010550.sTNDXe0k-lkp@intel.com/reproduce)
+2) If yes, then please return to the sensor dt bindings, and reflect any
+other options, right now it is set strictly to 4 lanes only. In case if
+'data-lanes' property is omitted, you can use 4 lanes as a default number
+of data lanes, and this information shall be documented in the dt bindings.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202604010550.sTNDXe0k-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   Lexical error: arch/riscv/boot/dts/spacemit/k3.dtsi:446.27-46 Unexpected 'RESET_APMU_USB2_AHB'
-   Lexical error: arch/riscv/boot/dts/spacemit/k3.dtsi:447.20-39 Unexpected 'RESET_APMU_USB2_VCC'
-   Lexical error: arch/riscv/boot/dts/spacemit/k3.dtsi:448.20-39 Unexpected 'RESET_APMU_USB2_PHY'
->> FATAL ERROR: Syntax error parsing input tree
+> 
+> Existing ACPI hardware descriptions may not have the data lanes defined
+> so this check also accepts a placeholder of 0 lanes.
+> 
+> Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Link: https://lore.kernel.org/r/aW3uFcT1zmiF4GUP@kekkonen.localdomain
+> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> ---
+>   drivers/media/i2c/imx355.c | 7 +++++++
+>   1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+> index 9ca87488c933..0d6aabea7d59 100644
+> --- a/drivers/media/i2c/imx355.c
+> +++ b/drivers/media/i2c/imx355.c
+> @@ -66,6 +66,9 @@
+>   #define IMX355_EXT_CLK			19200000
+>   #define IMX355_LINK_FREQ_INDEX		0
+>   
+> +/* number of data lanes */
+> +#define IMX355_DATA_LANES		4
+> +
+>   struct imx355_reg {
+>   	u16 address;
+>   	u8 val;
+> @@ -1705,6 +1708,10 @@ static struct imx355_hwcfg *imx355_get_hwcfg(struct device *dev)
+>   	if (!cfg)
+>   		goto out_err;
+>   
+> +	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 0
+> +	 && bus_cfg.bus.mipi_csi2.num_data_lanes != IMX355_DATA_LANES)
+> +		goto out_err;
+> +
+>   	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
+>   				       bus_cfg.nr_of_link_frequencies,
+>   				       link_freq_menu_items,
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Best wishes,
+Vladimir
