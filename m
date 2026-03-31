@@ -1,115 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715F23CBE65;
-	Tue, 31 Mar 2026 08:02:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 167AF29B8D3
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 08:08:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774944152; cv=none; b=Ah4ngBcB1AEAx90eNdh4L5mU5NB3qLMaxt5mtqUDFoLDRG8STi1Cpfl1b2T/e5QtpK6AewKFq4ymaZHmnpJiZwggX28TAeKJkGNJ49ot/NSqzucYW0V+rIrki7duUDq0XSQxclbtjGncqjndMxl7ljbQI5DMkn6w4h8NCR6f9og=
+	t=1774944512; cv=none; b=gfN19z5bwKVU7TbNbmtyTKtRfF/bcr+rM2HpMQ7LbBD8e3OT0NjAT4MRLpkYutOOFL0hJlske4BoFYjY7iIim9biTmHJpLgrnw1UKuxcvjhXokNvxCNIHHB5sPAiE+b1yafNWrAIgC3aeFeAEaC3BXLHTjYuTNNjkCIc4DsOtJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774944152; c=relaxed/simple;
-	bh=PHDS2VPVRfSiE1Ru3nMVenx5VOLgrNd57TaF4gFMkw8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=g9uZSBLIYYJ02uvdIKtBmvzv4SJR0QfoM5XMwPhfyfbR8FoLEyb2seN1uLxv8wH53/4+l2a/wtXHG0hVuEDyC76VuAVTlJ25+DLbnJai/OXi4zW2sqL6naNRvYsYSCDB42e2wFDD6dHOCBXFzyttnEJiPpnpmTVNpxQtMAWYxYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jCKeezCV; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774944512; c=relaxed/simple;
+	bh=bX6mYUh1q46esTsAhrkpOPARg+6xLOKnBTouLgFbMeM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UD1qeaIBv8qn6T0GEhvA7H/qDfyeHiXQyip3YWT7rjtiOuEb3y0PEJtd5eCzKLTvea80iYw0Wv3C377Ddc8mAVw/SQRE9Z4z0kJGWCBMPZmL41yaIsuehxba4M5KtRRtD9kgMSCyCQprpqmycALB/2lVb/nNAfcbXtn0bTpa/hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=kt2R4R/m; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jCKeezCV"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 01E7CC19423;
-	Tue, 31 Mar 2026 08:02:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774944152;
-	bh=PHDS2VPVRfSiE1Ru3nMVenx5VOLgrNd57TaF4gFMkw8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=jCKeezCV7gOu8EsUna52MOAbD/vJd6+TOoiXmoWUVdUwQgQlSB6e77O8yhHFpGo6W
-	 98/nqwfP/inkJf+50mikcI3Lj2ivG0kYl7uIbh5s/ETVIqPike6C4VyZzAVbR/cR9R
-	 pg7KSc0lh+bk1z/HMqrA2Yvb6xkzE0WlFEISgQQ3j/Oet7jPC3T77+S3YmQTtpxTLk
-	 C9Hd2y0FrqFuqFcudJcKWmio64F4totGu3+uJIn1fnHOQLMGyO/ilk1ltchMQQpUJs
-	 hl6uqrHroubCY4cZVzGnMbQxmbDfrtYGHwrfLqEFkpFf8O2k7hTnrSCjVy1y/cfm9/
-	 Bas+84KuZ31RQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DB251FF60D0;
-	Tue, 31 Mar 2026 08:02:31 +0000 (UTC)
-From: Carl Lee via B4 Relay <devnull+carl.lee.amd.com@kernel.org>
-Date: Tue, 31 Mar 2026 16:02:28 +0800
-Subject: [PATCH v3] ARM: dts: aspeed: anacapa: Add eeprom device node for
- NFC adaptor board
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="kt2R4R/m"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=bX6m
+	YUh1q46esTsAhrkpOPARg+6xLOKnBTouLgFbMeM=; b=kt2R4R/m0rX2dJMDT7BG
+	herUnTE5+auHc1b8mJ1ZT9pmlS3TqnlNjDAwld1YgHOw4TqL5Cb/EUXKQl4X2tOD
+	T7qk3dyKt1g6sWSQMFtoo6FB+v9IRkSqZx0RMWbRi8oSxewkKZhbrlMiT/tQ5vVY
+	YzjXj4AwPWLhHBrY/uQV4O0hbJ9BjksBP/zkbfDBbSFSJLdqYMJluboeKN8LpuoT
+	DiaqE5xPwgdb8W0lN9lex3WSdMJJPQWTGXfbWF/i7ttRTkU+pR1bXXpWMiS3D7/E
+	WMXiMD5DtfvgBK4HImUQIEZZ86a5WcKgO3vBufGrUhcGLlPbRBjp8WbxOwc/jdo4
+	8w==
+Received: (qmail 1599631 invoked from network); 31 Mar 2026 10:08:29 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 31 Mar 2026 10:08:29 +0200
+X-UD-Smtp-Session: l3s3148p1@mL/yeE1OpqAujnu8
+Date: Tue, 31 Mar 2026 10:08:28 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-renesas-soc@vger.kernel.org,
+	Marek Vasut <marek.vasut@mailbox.org>, devicetree@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v2 1/3] dt-bindings: soc: renesas: Document MFIS IP core
+Message-ID: <acuA_CGZNrsdmXy0@shikoro>
+References: <20260325110717.17083-1-wsa+renesas@sang-engineering.com>
+ <20260325110717.17083-2-wsa+renesas@sang-engineering.com>
+ <20260326-magnetic-cautious-earthworm-aee7ec@quoll>
+ <acZtECu-1kuIuNrx@shikoro>
+ <dd3587eb-f91e-4a9a-8a0b-b55bfba2c23a@kernel.org>
+ <cfee8254-8573-4106-b71f-293073b64c89@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260331-arm-dts-aspeed-anacapa-add-eeprom-device-v3-1-2bb2226fbb4e@amd.com>
-X-B4-Tracking: v=1; b=H4sIAJN/y2kC/52NOw6DMBAFr4JcZyN/+Mipco8oxeLdBBdgZCMrE
- eLuMTTpKec9aWYViaPnJG7VKiJnn3yYCphLJdyA05vBU2GhpW6lkRYwjkBLAkwzMwFO6HBGQCJ
- gnmMob9E4BlSIPcsWTdOLopsjv/znSD2ehQeflhC/RzmrfT0RyQok1I202ijJkts7jnR1YRR7I
- uuzWg0KrHIdEdd9Z+mv3bbtB6vL7to1AQAA
-X-Change-ID: 20260309-arm-dts-aspeed-anacapa-add-eeprom-device-a1aabe06a35b
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- carl.lee@amd.com, peter.shen@amd.com, colin.huang2@amd.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774944151; l=1502;
- i=carl.lee@amd.com; s=20260203; h=from:subject:message-id;
- bh=tK4ZlqqLdi/4bQSFXDH6JCKjm/zDadASdjOjaR1GT4A=;
- b=SaG/KqMDLIxRikW7LI9c8QOG9XIn/wzre1v8BpnxvZL8oSWTfadp8FR8SP4Lf7sUfnMLULhG0
- NjbP5yWI7GmC0NzJJoaRnpZ72jo1n6xtViWE2VC6hqD6/Q/kYVsRVaK
-X-Developer-Key: i=carl.lee@amd.com; a=ed25519;
- pk=pyq7QaQvoxMg806KVkRwpCbiah+7ncWr4MBpK1AEyjA=
-X-Endpoint-Received: by B4 Relay for carl.lee@amd.com/20260203 with
- auth_id=623
-X-Original-From: Carl Lee <carl.lee@amd.com>
-Reply-To: carl.lee@amd.com
-
-From: Carl Lee <carl.lee@amd.com>
-
-Add eeprom device node for NFC adaptor board FRU.
-
-Signed-off-by: Carl Lee <carl.lee@amd.com>
----
-Add eeprom device node to store FRU data for NFC adapter
-board on Anacapa platform.
----
-Changes in v3:
-- Fix node ordering to follow ascending unit address
-- Update commit message to match actual changes
-- Link to v2: https://lore.kernel.org/r/20260309-arm-dts-aspeed-anacapa-add-eeprom-device-v2-1-91c7dde4b79d@amd.com
-
-Changes in v2:
-- Remove PRoT module eeprom commit since it is already included in another series under review.
-- Only include NFC adapter board eeprom node.
-- Link to v1: https://lore.kernel.org/r/20260309-arm-dts-aspeed-anacapa-add-eeprom-device-v1-0-45092310e0e6@amd.com
----
- arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-index 2cb7bd128d24..57fd81e931d6 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-@@ -824,6 +824,11 @@ nfc@28 {
- 
- 				enable-gpios = <&sgpiom0 241 GPIO_ACTIVE_HIGH>;
- 			};
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c128";
-+				reg = <0x50>;
-+			};
- 		};
- 	};
- };
-
----
-base-commit: a0ae2a256046c0c5d3778d1a194ff2e171f16e5f
-change-id: 20260309-arm-dts-aspeed-anacapa-add-eeprom-device-a1aabe06a35b
-
-Best regards,
--- 
-Carl Lee <carl.lee@amd.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="LGBJfoL9rLTgw+mZ"
+Content-Disposition: inline
+In-Reply-To: <cfee8254-8573-4106-b71f-293073b64c89@kernel.org>
 
 
+--LGBJfoL9rLTgw+mZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+
+> You made the posting unnecessarily complicated - this patch went to my
+> DT address, but the rest to non-DT. Why not using b4 which gets it
+> correct without effort? Plus it gives you much more like changelog with
+> lore links and trailers handling?
+
+Switching to b4 is on my to-do list. I will give it a priority boost.
+
+> So now I found the driver (in different place...) and indeed you use
+> some of the constants, so this is an ABI. It was so easy in v1 to just
+> point me to usage of the ABI when I asked how do you use this in Linux...
+
+Well, IMO I pointed you to the ABI by sending v2. I still think this is
+a valid choice, I understand that you would have liked it differently.
+
+Back on topic: As I understand it, I will prepare v3 by adding interrupt
+constraints, fix the indentation and use your DT address properly,
+right? The ABI issue is resolved now?
+
+
+--LGBJfoL9rLTgw+mZ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmnLgPwACgkQFA3kzBSg
+KbaD8g//SI/oEtq+zBXYZMTa3dA4k1op5hAe3mxosJyBka/+30szGoKUr2PeG4gF
+DoQo4oLdDhBgbPb4mvbjGL+IwRrPFB1BAKhv0ctCjfGN/gjDBAph7hvx73p6Mabr
+c/h245TxDFakiCrxD6q+4ByRycRDhVxD3W4Czw95Qw0ElvArm5FQzUF5uxanfYhx
+LXxEcYXnJHoiEOUz6GKNu5r950UXlhM/GFG4mD4LTnxSfHdG8aSwT8l4NIpfn0yD
+2JtpzzNobv+DxEjAs4LonrWw4HzwIoBQfcmvWzRCIMwX1KO40UIRbbip9o3TlwYt
+X0hMFidoo9PYvRLcU5PTsWSuTYycUFVyEu7e37hLUSQJ6ROx26KRT4ipTUF5AKh0
+rkXwo+VaVEjh7MycMXU0dgSyI97tg8SPIesVU1QO03QaEKlgchiz3ekuWhyOquE8
+vyOJtuEcuFjXLA3rJqXUlYuaLLdH2yFKQeKniYBjD+IrRYfQcuJB8NuGvRNlKd51
+PMGZ493vX/NAf8Ef97O/bMZw9si4wjoASbOgFPmN0GwJ9sD3UCpJicG1C71/4VD6
+SIVLuzWx5H9P3hQnKBfSXPxLLnIJqoBdmvvuD2Lwt/jtGjFGxg8xiciRhZwQsVC+
+4TkrhIVQhsjgrnNlQur0S8xhsyzuKDjTX2w5ciTCORy6fH3rHA8=
+=D0Z5
+-----END PGP SIGNATURE-----
+
+--LGBJfoL9rLTgw+mZ--
