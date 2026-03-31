@@ -1,252 +1,233 @@
-Received: from mail-07.mail-europe.com (mail-0701.mail-europe.com [51.83.17.38])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013050.outbound.protection.outlook.com [52.101.83.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1123E316C;
-	Tue, 31 Mar 2026 13:37:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.83.17.38
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774964242; cv=none; b=fXtdQ+4eJ1wKmoECHtS9C7uRmc8Uqbw6UgNOAc570ECYtdY8+QplPRUgYFswr4aIQD5/S7AvE4r3YeDqokTNo5uXwqOcf8khdK+RJO0o12NAXpMHke2we95t6M2yX5B29Co3fookYcqy53UyPunehDXxaSJC4pNHyh0ozliGzyE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774964242; c=relaxed/simple;
-	bh=Un1v5rWA//tbvwUD80Fv5DGWNJ0jHt2mPAC5ctO6d4c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=AVmoiHONMp/4qC8YxJMz9uhnC8PnPNLwBwwdArXalHXe9vcPbFooqQExqPXtdqAOHnuFQnxdlf02y0aWIWO9wWqMK8YYCwa9wLgWL92IdBwFZ8e+pUdLeEHFAz2LowXzPF811Wa+MakngqQa0+z5sQuyNHKa8LICrWuAJU4Y9hU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com; spf=fail smtp.mailfrom=vinarskis.com; dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b=FzPpq9pH; arc=none smtp.client-ip=51.83.17.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=vinarskis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A233E6DCF;
+	Tue, 31 Mar 2026 13:43:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774964613; cv=fail; b=SuHC9k2fDMLV1cDRFXt+kOfxchoMBmnWMB1qfUBRPFEiEx1YwhrRCbDn4Utu6JvcHbYdNUedfvkuY1OQm5bz0tJQGEjtxc43elAdVVa+rcDHnS0kRxK4VCEzVetvGXRnV12FRWZLjoeoT1h4CJcnQPM39lZt+nzUCjay4I7nXMM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774964613; c=relaxed/simple;
+	bh=rAbpWfUgiGr+rcdTL2BGFD/5aFcdJ2OwjG5AFuyT73Y=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=gb0F6rVe4uUs0E+tz+B4zrRvCCe51oyi71EO3st+Xm3Qa3LAqWeFYkKdDRCOVMJRG58VtEKE0rAQ/T1+dVIPgkbrAcjAeJ/QJegACiBObqrqr41XfMauanuLxJyklLQe+I+/rDKNnx05Ub+YyE4qe1mF42YS1QlEC1ypPKAEMkI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=HpCKXy9G; arc=fail smtp.client-ip=52.101.83.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b="FzPpq9pH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
-	s=protonmail2; t=1774964226; x=1775223426;
-	bh=9DtaIFhbuYTF9VFfi0fZ9WHrgUOPll3EiGLAWOmlMtE=;
-	h=From:Date:Subject:Message-Id:To:Cc:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=FzPpq9pHjnPIfQFP0hbOKeQJcV04HY4LK/COmCOjFsww/1/RP1Eibu0rSWtL0sjOp
-	 WcHdNJe4/UmZQPVa3m66tc0oE7MeGPmRYE8NRBQ1p7LMaTpOlGZt4riKSUBjCSCsKg
-	 WLNRA1BN0xAzroGqe1ZEJ+/jioFJjXK0v3nFtPlmhvOU39iv4UDAq9EeEF46mllK+u
-	 2037JwGHzYiENRfXyskzAg1kVJPbFTIE3vui7wE/PzTEAPX2Pt0Hh5lUiiPfeh2lSE
-	 GXrKkzgQFfwmEDDLBhMVpTUIRpEJnf/CnTgmpnyU1xz8i70pNqiMtRa8iHVZK+tB7Z
-	 qtboyQoGYwzcg==
-X-Pm-Submission-Id: 4flTgP2b78z2ScXV
-gpg: Signature made Tue 31 Mar 2026 03:29:26 PM CEST
-gpg: using EDDSA key 8BFCF5668AA29DAD00D728F6EDAE71A20F500310
-gpg: Good signature from "Aleksandrs Vinarskis <alex@vinarskis.com>"
- [ultimate]
-gpg: aka "Aleksandrs Vinarskis <alex.vinarskis@gmail.com>" [ultimate]
-From: Aleksandrs Vinarskis <alex@vinarskis.com>
-Date: Tue, 31 Mar 2026 15:36:47 +0200
-Subject: [PATCH v2] arm64: dts: qcom: x1e80100-dell-xps13-9345: enable
- onboard accelerometers
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="HpCKXy9G"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fLpK0zdnM7ozymWABAj5GvDs0+hbU7v0RazrHkSYz/eLFfyREO14Zdyo4qoTwnLQtTxOiWD/oy+equOpo1x9ET3SpoDtnRnJ8hIE+VgC8ARUpOigzYVu0ctWjvEDwolbIIKw3XHv4Js0xtVx1IxzoJDk9hMXVQQCZ3RePITuF46Ch5TTxHeUaGMVNP3wwBEEhgXDV+pGkN7GUqBNtfebO7nqTtJQywP3jYTWuFNlmol+WfsysVjyGvlSWK9lEHFGQfVT9teMrv1sWsAyI+yJSaoDjuMbyJdMdxMFKlZog9fUF8MW7EEyhf1Yp8KD27Xe7XCo7LBgefMT+RuOBiNTqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pIeCjgcoxzvgwKq13OIJQCoW/Qy2uQ6qa9GKE3BMxxQ=;
+ b=p6iZySfPxKfvnuc0i1LBkjqIlfatbGySJTicbxWpK2MYa364AYlf4h+aLt8srCDowosswetUvKUlSsfSylMNAmftggYJH7UqLq0t+E5SEvLQL+yOlZxfcxEsSC0LpZ9gNbksprc0olWAymO3+Hmmh49D23fcYS7lpl7iHdR6oUWzigQzO05bFpHSvUxok7hpuEJlRg12tMRK0Pu4cYAnTBr8a1R8QJzvzpSkv25bTEu9x2O+EUoOZaVztR8ul+6hNL6fLFpbPWgufgxI27PD18gl0H++JeJv43v300nLldr+abGWBFnNXek1iC9idGdyjbSwwIrAGpfy8C104kFIfw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pIeCjgcoxzvgwKq13OIJQCoW/Qy2uQ6qa9GKE3BMxxQ=;
+ b=HpCKXy9G34Oj6IJCHATD38FzHA67UCbJwFFu8156HZGNfdaVeRigA/bCGSSRwRvJz7e6SZ1r88ntWSXfzNg11Uz5g9nh8FIiiiKCzmicmk2EGgduSfTNbo8x/UMI+1fbTm9ERgh/WMOAAcu30jK0Rqu+lCZOLl0YAaRNNi7zbdyAimGznoNbqzHilufQiKtj/T1o+Ci8sSrJc7SEq8QUaJMzQzOBqY0BmspIRE5CYYyrWvl7gYFNlImSEIMKYSkQAqzJFjpDsN5Kv03vV54CzvGXqWscghP56M9S6r0PQHSf+vNN9hyug5WmlZbzY8vSFhMUMBvG/zf7vxstz3Oedg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM9PR04MB8179.eurprd04.prod.outlook.com (2603:10a6:20b:3b5::20)
+ by PR3PR04MB7276.eurprd04.prod.outlook.com (2603:10a6:102:8c::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Tue, 31 Mar
+ 2026 13:43:25 +0000
+Received: from AM9PR04MB8179.eurprd04.prod.outlook.com
+ ([fe80::a551:cde0:6730:1d85]) by AM9PR04MB8179.eurprd04.prod.outlook.com
+ ([fe80::a551:cde0:6730:1d85%6]) with mapi id 15.20.9745.027; Tue, 31 Mar 2026
+ 13:43:25 +0000
+Message-ID: <fd8c90ec-927e-4395-85ba-9e45c23fd799@oss.nxp.com>
+Date: Tue, 31 Mar 2026 16:43:19 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 01/10] dt-bindings: mfd: add support for the NXP SIUL2
+ module
+To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
+Cc: Linus Walleij <linus.walleij@linaro.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>,
+ Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
+ Larisa Grigore <larisa.grigore@nxp.com>, Lee Jones <lee@kernel.org>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Aisheng Dong <aisheng.dong@nxp.com>,
+ Jacky Bai <ping.bai@nxp.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Alberto Ruiz <aruizrui@redhat.com>, Christophe Lizzi <clizzi@redhat.com>,
+ devicetree@vger.kernel.org, Enric Balletbo <eballetb@redhat.com>,
+ Eric Chanudet <echanude@redhat.com>, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ linux-kernel@vger.kernel.org, NXP S32 Linux Team <s32@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Vincent Guittot <vincent.guittot@linaro.org>, Rob Herring <robh@kernel.org>
+References: <20260120115923.3463866-1-khristineandreea.barbulescu@oss.nxp.com>
+ <20260120115923.3463866-2-khristineandreea.barbulescu@oss.nxp.com>
+ <20260121021913.GA1704619-robh@kernel.org>
+ <e956750b-0333-4465-b37e-5f460b5e092f@oss.nxp.com>
+ <edc3a63a-8117-476f-9582-97ae31fefa96@kernel.org>
+ <7d200097-51bc-4404-be8b-f536d0ecfc25@oss.nxp.com>
+ <21531cdd-5ab9-493e-a722-61b98117e2c4@kernel.org>
+ <22a5a072-847e-4cfd-8abd-e37163f73265@oss.nxp.com>
+ <fe755e85-1558-4272-bdd4-af7a2038ab1f@kernel.org>
+ <ba6140bf-237e-4099-af0c-ee404c1719cd@oss.nxp.com>
+ <c7a59716-3d53-4787-b4ef-9674c2a4a9b5@kernel.org>
+ <3c454da1-d949-4258-87ce-8b545000bf01@app.fastmail.com>
+ <5f1b651b-1064-4280-a7e0-b7d66c396cde@oss.nxp.com>
+ <f3ff461b-edd7-423a-ac99-e70145aaaaea@kernel.org>
+ <4c46909d-641b-4389-bc4a-29394cb1d46d@oss.nxp.com>
+ <e1c341d6-e60d-4200-a094-48667e8ccd5c@app.fastmail.com>
+Content-Language: en-US
+From: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
+In-Reply-To: <e1c341d6-e60d-4200-a094-48667e8ccd5c@app.fastmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS4PR09CA0013.eurprd09.prod.outlook.com
+ (2603:10a6:20b:5e0::19) To AM9PR04MB8179.eurprd04.prod.outlook.com
+ (2603:10a6:20b:3b5::20)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260331-dell-xps-9345-accel-v2-1-7dacbd24b43d@vinarskis.com>
-X-B4-Tracking: v=1; b=H4sIAO7Ny2kC/32NSw6CQBAFr0J6bRsYQIGV9zAs5tNIRxzItJlgC
- Hd35AAuq5JXbwOhwCTQZRsEiiw8+wTqlIEdtX8QsksMKleXXKkGHU0TrotgW1Y1amtpwkqbKif
- X2kZdIS2XQAOvR/XeJx5Z3nP4HCex+Nn/vVhggU4PLZWmNDXRLbLXQZ4sZzu/oN/3/Qv42Gddu
- gAAAA==
-X-Change-ID: 20260228-dell-xps-9345-accel-4ab40ed9c827
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: laurentiu.tudor1@dell.com, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5862; i=alex@vinarskis.com;
- h=from:subject:message-id; bh=Un1v5rWA//tbvwUD80Fv5DGWNJ0jHt2mPAC5ctO6d4c=;
- b=owGbwMvMwCX2dl3hIv4AZgHG02pJDJmnz/5b/mljSqGq9pv+oJg3QYc5buwVStMv42G99fMrI
- zf7/miVjlIWBjEuBlkxRZbuP1/TuhbNXctwXeMbzBxWJpAhDFycAjCRel5GhqmbC/OeTedSmy76
- NTzPKMu8Q2SF/l+zmb5LJI///sN7LouR4Ytrd3OVUY5Y1EqPiAixeWzSi5hSVjEtrOT6W5TJGa7
- BDgA=
-X-Developer-Key: i=alex@vinarskis.com; a=openpgp;
- fpr=8E21FAE2D2967BB123303E8C684FD4BA28133815
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8179:EE_|PR3PR04MB7276:EE_
+X-MS-Office365-Filtering-Correlation-Id: 18c9fa1c-aa5f-49f8-eb3d-08de8f2b7b15
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|19092799006|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	fvZoQnCpk9obq9AvDeLkVSe77jO+y/AG/7/odt8UWM7zfPwdowCj2AXY2LuZ9994RDx42qN3VtRaDetyFpdJAPdJQFjeK6//fNLCsQP7FUikBAVBByUHMHRqPkyNhCu3fquRC44sdtguP6auD7B9lo9n40Gy2wW1ANiwiygb9zS3o5MnEiVWweWc9nRV1yBjLAGKxUywjqJ//2dbFC4DKuE15bMe/Ij8NXWC9llWyHcdD/MLzgS2nd3Mr1RYHouae2t9Wx6JhN6TeTijOYUcSSPzzanjUr70FYHtB8+ma+sehmzdTpiPxpEVaWK/PM1I1Wm8gXNS3MXI/HPM6TX69D0tSliXjVV/Owkb5B3NzwtS5jSP16NtaD+N5F3E2IWofcRdTMSkojGmN09jS6dAWYohrqgpf+Zt1JMkCgTDvtkw8INYEVCl4GCnvUlfHOAz4obx4xwTmuf4Ax3PbiKFWtaXicJpd5lvu19X/kqETmhMC6nohTM2C5wB7Y+AE5jzJ44YRFLYcRjyx0jcLysWrsibbc/1NZ3qPjW6wRlWmO5wAZmfYRN1kufe9YShPilV08FCKJYFpUxd4cBRTGNciVaUE3iQfBZ42FiNpsV/ahBLsrjZstaSNxJCkmaAXPi/3lBSskyUWkrpTw+P/nYnCSO4UgD5AYa/yf2dn2XlHRiCrfwwCznbYItw0irvcnNYsu8unxVNTF1iisGjigjxPnqcJQJsDi66hudVo3Q0MtvnQV/pYAq+vxyZ8IPvTunf
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8179.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(19092799006)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K21DS1U5TTNTaEZrOVBqTEw0ZGNSclJDcVBzeXpCL0VNWW0zUHNhQXBMTlE5?=
+ =?utf-8?B?SEZ0cHNyVlQxem1LeTgxRDlYcjg0c2RWRnE2eUpmc0I4bENyYVdVa2h3N3py?=
+ =?utf-8?B?WS80MjZKQmRoZ3RzS2tOcUJ6Qlh4Um0yZWtKQ0c3d3YyUG54TllOeU5EbFFS?=
+ =?utf-8?B?QkJUOStPaDQwOHhyOUxkS2MyR1puaUhxUGhyTFNWZmx6dHNFbW1CdXoxWmlW?=
+ =?utf-8?B?T1B5a3pxMkt6L1JlcExEeHNKS0RMWGZZM05CdXQxL0RRZExzZU8wYXA1ekgw?=
+ =?utf-8?B?Z2lsNzVheWgvVlpZWWlTNTRzSDVQM1ZCWUxJTEV1bUJMYkFsWTlQdjlkS2hZ?=
+ =?utf-8?B?Tmt2NURpdGRXOHViVmJoSEZuOVJPVFdjZjRXRTdDdWo3Y1hxZ0dsOFJqcWNL?=
+ =?utf-8?B?MEtnN0lldU42OUU5Zm9mNWlrS2pIUkE1WlNHeFhUUGUxV25PVHA4bFZYWDFE?=
+ =?utf-8?B?ektxU0NRRUdhVjA2UldwQWlUTnhIMmVER0pBYkdDN2FnTGZDbnJNZk1Wb2pT?=
+ =?utf-8?B?cDAvWmFZaW1nVW9IS3ZQMzJ2WnI1cWNLRlJNLzNmT2R2SmFEV1JtZzdqTDlR?=
+ =?utf-8?B?VjdEVnFkRnVod1dRZ0FMYllGMkY2WllSOFpGdGdHSHRwMVZnV29SUzhSRzJQ?=
+ =?utf-8?B?cm9ENytwQTk3dGpIUWhRajQ3VStKWHZzd0hHakU5R1pMUVNlcW9DUlh4dWs3?=
+ =?utf-8?B?RnFWS2Q5c1UzcUo4dkZtdUJsdzlEc1pXY2t2VkZqdG1wdUNNaTlQUkIxQVlk?=
+ =?utf-8?B?c1hSemdtRXF2WDl0OTFiVXkyQlFrU0J4Zk5vODFKZlMzL0srRmRLRTAvWnR5?=
+ =?utf-8?B?eG9hdXdwRE1FS2NkSHZUUkpnTmx6UDNqaEhiNEp6T1czd1p2MlZqQU5qYjYr?=
+ =?utf-8?B?d1hNYUFUVm9JMExvcUlHZkhGbHRKSVhYYURPV3dKWmdXN0NpcGh1cTVEaysx?=
+ =?utf-8?B?OWxDNHVJZkVYSGc3MU5BOWduR3VzSi94TUFNV1lSQXRkZFlVcGRWSDJrZDRU?=
+ =?utf-8?B?WkxJOVZyUHZsbW1zKzhFNDRzRlpxbE5hRk80VWQ0QWExNCtEN2g3YVRGcHdk?=
+ =?utf-8?B?ZUZrQTlUZmZDcFo3K1VtVmo1cmcxUUFJTENVV1dWSlQwbktnOUc5bDVFdm1p?=
+ =?utf-8?B?VTNyM1ZIc0pidmZDSk9BbTNvNmFBR3Y2R055R2hOZXdJTVc2MGdyTXF0dWtZ?=
+ =?utf-8?B?UmQ0a05SMVUyaXdTaEVEaW95R1haclBwWTIxeE9ITmJpR0ZQZDRXcUFvakk5?=
+ =?utf-8?B?TUt6ejBwQ2JXbzlLWHhVUDV4TzRPa0U2RVI5cDFtV20rSWRHZE9tWDMzbTRa?=
+ =?utf-8?B?OVlRMHZ6dlhrelVzUFlzSXZTQkRpTDVsUGZheERvMTZBS1I5SjIxNmJRWFZM?=
+ =?utf-8?B?YzVCNERlaGsrWmo1SnkzYVYreUJNamdvOTZCNUgzYkExWWVETnFGOFNBRlVq?=
+ =?utf-8?B?d3lpSC9kYkI3c05UVjdRMXpUS1NkZGRVdkFjL2lGcFNoL0FCUGYyTUVwZGtu?=
+ =?utf-8?B?cytaeGhqQVRmNCs1dzd1YkxFMU9xRFdtNHdxYi9Vb1I4Y2dVT253ek9aclNQ?=
+ =?utf-8?B?eklIdEE1Y1FNOTFlZHVTL2xDRTI2RWRSdWgwY2xyQkYvczluZ1V2a3lPZFkx?=
+ =?utf-8?B?bHpidlVkNVVWNGhJeHdTQ1plZXZSV3ZPTkZLU2hRb1RBK2N2Vm9pWGl0alpi?=
+ =?utf-8?B?bkcra1NqTHpwK1BSaDRNcmIyVWpidVhuem0vdFN5MHBoUldPc2FEa3NBekgv?=
+ =?utf-8?B?djQ1RWgxcXhtcTNXYjFKNzJETmZLRHVoR2NHbTV5WkpYM2pZTFNsZ0V6OTNH?=
+ =?utf-8?B?R25KUHJQTVk2eEUxbE9tMlg0TjFiWGVRTHpheHBsUTJIcC9YUHRBZHl4aUoy?=
+ =?utf-8?B?RFk4d2F5dHd5N2RndHNDQ05BZEI5elc5WkJ0QWMwa3JkOWNqN21LUzEzaFZP?=
+ =?utf-8?B?QkRVd0R3cyt2V3dTaWdPeTFvMVdkUVNwcWxJSU5vdWRBYlZqRXd2Kzhua1lG?=
+ =?utf-8?B?SzY3RXdjZ2YwWGlNSUI3MTNhVGpWQVRBemhnSnhjRis1M2U1RDlWZE51bWlw?=
+ =?utf-8?B?QmdWRTZXaXNQMnhsRExGOUlBcUl5Lys0eStLdFMzUmwxbVdqWFF3R0FkajR6?=
+ =?utf-8?B?VXM3Zjg3Sm1JQWUzQ1owMEJhYUwyamwzcFVwdC9JaWkweVl0WjhpMlRsR25a?=
+ =?utf-8?B?c0Q4c3VBYTgveWpHU0haQjhSUDRKdVJObHVOTjluTUIwakpTNGdweElyMGxi?=
+ =?utf-8?B?cVZQc1l4L0RzcVhORTNKbXdUUWRheDBiMFdhaXpHTFhFTTV6UXRtVVJqdjN2?=
+ =?utf-8?B?LytaalJLUlpDaE9tYlN2bncvUHZteVY2V3NleDBkckRvUUc4Y3ppWFlpZGFq?=
+ =?utf-8?Q?D7VDyLku2Y4AV0RiwmohNRX9JV/lvvVaes8wa?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18c9fa1c-aa5f-49f8-eb3d-08de8f2b7b15
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8179.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 13:43:24.9598
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AmKJyK4ww1nQI5syrkVYtF+f/OMG+I32sSRnK5ASji/g6C0ZhnEgAFpHoKmZAJKTo9w5S8NPPVLpVf5X4mZbQGN7ks/JAqwBPh8DKkqhjtXpn8MFUFA0YVoRQ5bTaHbi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7276
 
-Particular laptop comes with two sets of sensors:
-1. Motherboard: accelerometer
-2. Display/Camera module: accelerometer, ambient ligth (and more)
-   sensor
+On 3/31/2026 1:11 PM, Arnd Bergmann wrote:
+> On Tue, Mar 31, 2026, at 09:48, Khristine Andreea Barbulescu wrote:
+>>
+>> With the current layout, the SIUL2 node itself now contains the two
+>> MMIO ranges directly, while the remaining child node is only the
+>> pinctrl/GPIO function.
+> 
+> The thread started by saying this is an MFD "It can export information
+> about the SoC, configure the pinmux&pinconf for pins and it is also
+> a GPIO controller with interrupt capability." Having a combined
+> pinctrl/gpio/irqchip driver is normal, but can you clarify what
+> you plan to do with the "information about the SoC" part?
+> 
+> Was this a "soc_device" driver, or something else? Have you
+> concluded now that this is not going to be needed at all?
+> In that case, I guess having a monolithic driver is
+> indeed simpler than an MFD.
+> 
 
-Both i2c busses are bound to Snapdragon Sensor Core (SSC) and are
-typically controlled by (A)DSP thus allowing for great power
-efficiency. This however requires DSP libraries matching ADSP firmware,
-sensors descriptions (must be extracted from Windows) and other
-potentially closed-source libraries. Opensource tooling includes
-`libssc` and `hexagonrpcd`, but they were not verified to be working.
+Hi Arnd,
 
-Until SSC support for X1E lands, bitbang both i2c busses to enable
-accelerometer functionality. In the future if/when sensors on this
-platform can be used from DSP directly, this commit can be reverted.
-
-Both accelerometers were tested individually via `monitor-sensor`.
-Display accelerometer is defined first, as it appears automatic
-screen rotation tools simply pick the 1st iio device.
-
-Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
----
-Enable two accelerometers, one on the motherboard, one in display.
-In combination with userland screen rotation tools such as Gnome's
-'screen rotate' [1] this allows for automatic screen rotation depending
-on device orientation.
-
-There appears to be an ALS, a "True Color Sensor with Flicker Detection"
-AMS TCS3530 at 0x39. Out-of-tree driver from OSRAM is available [2].
-Document bus, address, IRQ such that it could be added in the future.
-
-There is an issue with st_sensors which prevents initializing two
-sensors at the time, fix submitted [3]. It is not blocking this series,
-as without it, 2nd currently unused accelerometer on the motherboard
-will simply fail to probe.
-
-[1] https://extensions.gnome.org/extension/5389/screen-rotate
-[2] https://ams-osram.com/support/download-center?search=TCS3530&type=software&subtype=driver
-[3] https://lore.kernel.org/all/20260228-st-iio-trigger-v1-1-abf5909e547f@vinarskis.com/
----
-Changes in v2:
-- Fixed i2c node names to pass dtbs_check
-- Updated commit description to reflect discussions of v1
-- Link to v1: https://lore.kernel.org/r/20260228-dell-xps-9345-accel-v1-1-daf9e3b3b5ee@vinarskis.com
----
- .../boot/dts/qcom/x1e80100-dell-xps13-9345.dts     | 94 ++++++++++++++++++++++
- 1 file changed, 94 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-index ce7b10ea89b6dcb2a4a65c114037f4c90a4b0c6d..bde88655c36889cc4865a109370a9d2cd0166a00 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-@@ -40,6 +40,67 @@ switch-lid {
- 		};
- 	};
+Our initial intention had been to expose that SoC-information as
+discussed in the earlier revisions of this series. However,
+taking the review feedback into account, the current direction is
+to stop handling those SoC information registers in the Linux driver
+altogether and instead rely on a boot firmware to pass that
+information forward, as you suggested.
  
-+	/* Display-mounted sensors */
-+	i2c-sensors1 {
-+		compatible = "i2c-gpio";
-+		i2c-gpio,delay-us = <2>;
-+
-+		scl-gpios = <&tlmm 232 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+		sda-gpios = <&tlmm 231 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+
-+		pinctrl-0 = <&sensors_i2c_display_default>;
-+		pinctrl-names = "default";
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		accelerometer@18 {
-+			compatible = "st,lis2dw12";
-+			reg = <0x18>;
-+
-+			interrupts-extended = <&tlmm 29 IRQ_TYPE_LEVEL_LOW>;
-+			pinctrl-0 = <&acc_display_int_n_default>;
-+			pinctrl-names = "default";
-+
-+			mount-matrix = "-1", "0", "0",
-+				       "0", "1", "0",
-+				       "0", "0", "-1";
-+		};
-+
-+		/* AMS TCS3530 @ 0x39, IRQ 93 */
-+	};
-+
-+	/* Motherboard-mounted sensors */
-+	i2c-sensors2 {
-+		compatible = "i2c-gpio";
-+		i2c-gpio,delay-us = <2>;
-+
-+		scl-gpios = <&tlmm 216 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+		sda-gpios = <&tlmm 215 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+
-+		pinctrl-0 = <&sensors_i2c_mobo_default>;
-+		pinctrl-names = "default";
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		accelerometer@18 {
-+			compatible = "st,lis2dw12";
-+			reg = <0x18>;
-+
-+			interrupts-extended = <&tlmm 28 IRQ_TYPE_LEVEL_LOW>;
-+			pinctrl-0 = <&acc_mobo_int_n_default>;
-+			pinctrl-names = "default";
-+
-+			vdd-supply = <&vreg_l10b_1p8>;
-+			vddio-supply = <&vreg_l10b_1p8>;
-+
-+			mount-matrix = "0", "1", "0",
-+				       "0", "0", "1",
-+				       "1", "0", "0";
-+		};
-+	};
-+
- 	leds {
- 		compatible = "gpio-leds";
- 
-@@ -450,6 +511,13 @@ vreg_l9b_2p9: ldo9 {
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 		};
- 
-+		vreg_l10b_1p8: ldo10 {
-+			regulator-name = "vreg_l10b_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
- 		vreg_l12b_1p2: ldo12 {
- 			regulator-name = "vreg_l12b_1p2";
- 			regulator-min-microvolt = <1200000>;
-@@ -1074,6 +1142,18 @@ &tlmm {
- 			       <76 4>,  /* SPI19 (TZ Protected) */
- 			       <238 1>; /* UFS Reset */
- 
-+	acc_display_int_n_default: acc-display-int-n-state {
-+		pins = "gpio29";
-+		function = "gpio";
-+		bias-pull-up;
-+	};
-+
-+	acc_mobo_int_n_default: acc-mobo-int-n-state {
-+		pins = "gpio28";
-+		function = "gpio";
-+		bias-pull-up;
-+	};
-+
- 	cam_indicator_en: cam-indicator-en-state {
- 		pins = "gpio110";
- 		function = "gpio";
-@@ -1197,6 +1277,20 @@ rtmr1_default: rtmr1-reset-n-active-state {
- 		bias-disable;
- 	};
- 
-+	sensors_i2c_display_default: sensors-i2c-display-state {
-+		pins = "gpio231", "gpio232";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	sensors_i2c_mobo_default: sensors-i2c-mobo-state {
-+		pins = "gpio215", "gpio216";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
- 	tpad_default: tpad-default-state {
- 		disable-pins {
- 			pins = "gpio38";
+With this approach, the SIUL2 driver would no longer be responsible
+for any separate SoC-information functionality. In that case,
+I understand your point that a monolithic pinctrl/GPIO/irqchip
+driver is a better fit than keeping the MFD structure.
 
----
-base-commit: 3b058d1aeeeff27a7289529c4944291613b364e9
-change-id: 20260228-dell-xps-9345-accel-4ab40ed9c827
+> What I wonder about then is whether the binding needs to be changed
+> at all. With the current nxp,s32g2-siul2-pinctrl.yaml binding
+> and pinctrl-s32g2.c implementation, you seem to have a monolithic
+> device already, though missing the gpio functionality. Rather
+> than completely replacing this, I assume the easiest way then
+> would be to add the PGPD registers into this device node, right?
+>
+
+There is indeed the option of extending the current
+nxp,s32g2-siul2-pinctrl.yaml binding and adding the GPIO related
+register areas to that existing device node.
+
+> It is still a bit weird to list the individual register areas
+> inside of the larger device here, but that still seems better
+> than an incompatible binding change.
+> 
+>     Arnd
+
+However, as you mentioned, this is still weird because it means
+listing individual register areas of the larger device inside.
+
+For this reason, I was wondering whether it would still be
+acceptable to move forward with the new binding introduced
+in this series, but simplify it so that it describes a single
+monolithic SIUL2 pinctrl/GPIO device instead of an MFD, 
+following the example node I included in my previous reply [1].
+
+[1] https://lore.kernel.org/linux-gpio/20260120115923.3463866-4-khristineandreea.barbulescu@oss.nxp.com/T/#m778088251774a15bde7463350d6e75d5e9b9b57d
 
 Best regards,
--- 
-Aleksandrs Vinarskis <alex@vinarskis.com>
+Khristine
+
+
 
