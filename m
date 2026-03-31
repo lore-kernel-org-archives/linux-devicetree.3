@@ -1,94 +1,105 @@
-Received: from va-2-29.ptr.blmpb.com (va-2-29.ptr.blmpb.com [209.127.231.29])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A373BE17C
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 07:10:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 382B43BD62A
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 07:10:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774941040; cv=none; b=V0NeyBl2bzETJ1I1h9MZN+J3NAiyimfjOJcEt/Hn4p3TvWdxQAl58hJEoJJaAh0WoIYzc6IWe0H+SCIyfIXwhp2A+YSIwDlgYoBQHYd65Wh/YHoTnIiQOPCgXRrruq/iVrxsh4kOs7NSPxWFnrdB8mfQ6WjoSQUUTqu6wz0tTdE=
+	t=1774941049; cv=none; b=LAFjqT0+ZeRnKPi/ML9AT+sBLj9Hj7fFJO+ocIv9EJTeZwobvfRjv1WHJVQ4yHtutGwg5336U9kGfOLr0pDEAN52WK+YLGghafnCRo4bDGxf/TiejMoQKVV0VVU42+r9dk66eoNdO48MH+HPtU4po4Hse3F/3uor4vT7TBeE5vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774941040; c=relaxed/simple;
-	bh=6LR+ts3dLqGyJz6RILMKXd4KXrMxxbWpZdEepXjEeDI=;
-	h=To:Content-Type:References:Cc:Message-Id:Subject:Mime-Version:
-	 From:Date:In-Reply-To; b=Fk9ee577duFCbhEP1psjOScV/9dcDambF99sK/XgMrOPaV+TdfoEx6MWIAP52/3GhnCvob/n+s13SQS3nEzWf+BDxJjXpDdniSLZILook1N1GJXT3UqnPlYn0HCh7hdoyvEyc9msonbgCkVm8AsWi+g8Tvr1EjIZ8/jWBI2tk/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=oDQffpFU; arc=none smtp.client-ip=209.127.231.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="oDQffpFU"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1774941033;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=8LvtcAgNW72TvNFdsfpCUs8GSOu6QxdCwl9yWGk2NyA=;
- b=oDQffpFUGnOngJv/4KXnCAh6KjQ34ioDZu82LIaqnT1mXOuaTmbBe7wl4ZCOSw4y1j9h0T
- ihU8w4wbkP7WkCTkXNpHhXsAWRnKUll12m4j7418aCuwvnDS0wT3XUhsbD3tmj83Txnd/v
- dX7ku8naXOEXPn4FEXkmm173NRh6wsgYKptmOVEbJW4nkwhTOdGV3axYpfc0jxRFDbE+gr
- f5VURMiSVmahshGcddEk/hk7D1XNcHYTnz1TO9Zkkn7omB3dD5S1X+2p0YnyKsJYaF0swg
- S1uoqxcBF3PhNbvoPNNj9I7TN7IzmzuzOFqXQyu47xNlTOnBsOP2Su/FYUasfQ==
-To: "Conor Dooley" <conor+dt@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-References: <20260331034423.67142-1-sandie.cao@deepcomputing.io>
-Cc: "Emil Renner Berthing" <kernel@esmil.dk>, 
-	"Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Yixun Lan" <dlan@kernel.org>, 
-	"Paul Walmsley" <paul.walmsley@sifive.com>, 
-	"Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>, 
-	"Heinrich Schuchardt" <heinrich.schuchardt@canonical.com>, 
-	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Michael Opdenacker" <michael.opdenacker@rootcommit.com>, 
-	"Guodong Xu" <guodong@riscstar.com>, 
-	"Hendrik Hamerlinck" <hendrik.hamerlinck@hammernet.be>, 
-	"Yangyu Chen" <cyy@cyyself.name>, <spacemit@lists.linux.dev>, 
-	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, 
-	"Sandie Cao" <sandie.cao@deepcomputing.io>
-Message-Id: <20260331071016.68302-1-sandie.cao@deepcomputing.io>
-X-Lms-Return-Path: <lba+269cb7367+9086ab+vger.kernel.org+sandie.cao@deepcomputing.io>
-Received: from roma-Laptop-12th-Gen-Intel-Core.. ([121.34.226.213]) by smtp.feishu.cn with ESMTPS; Tue, 31 Mar 2026 15:10:30 +0800
-X-Mailer: git-send-email 2.43.0
-Subject: [PATCH v2 0/2] Add DeepComputing FML13V05 board dts
+	s=arc-20240116; t=1774941049; c=relaxed/simple;
+	bh=5gpgYRLnbSNFscf1Q1NHWRl/4eynSze1FCD1K0u1oaw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DzQ+0Lb9c1NS2MV8aYsq7QQwnZpjSJImpEq5QArpUWbfR69dj2Y6jOlNmzagBCXyC+6D9HzOjhT26Gw5iAbaWMB14O7SdT018Intr76zCUPFBsW6ItW46udn0sjlJU26i970J1pbmJEKZnbUkGZiUpDxVaSJKXTN24j5KNle8lE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1w7TEn-0005cr-Lu; Tue, 31 Mar 2026 09:10:09 +0200
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1w7TEm-00302T-2l;
+	Tue, 31 Mar 2026 09:10:08 +0200
+Received: from pengutronix.de (unknown [IPv6:2a0a:edc0:0:701:471e:8ea9:4bec:c12c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 1F944511D74;
+	Tue, 31 Mar 2026 07:10:08 +0000 (UTC)
+Date: Tue, 31 Mar 2026 09:10:07 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: mani@kernel.org, thomas.kopp@microchip.com, mailhol@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org, 
+	konradybcio@kernel.org, linusw@kernel.org, brgl@kernel.org, linux-can@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, mukesh.savaliya@oss.qualcomm.com, anup.kulkarni@oss.qualcomm.com, 
+	Conor Dooley <conor@kernel.org>
+Subject: Re: [PATCH v3 1/2] dt-bindings: can: mcp251xfd: add
+ microchip,xstbyen property
+Message-ID: <20260331-shaggy-blond-weasel-1bf32b-mkl@pengutronix.de>
+X-AI: stop_reason: "refusal"
+References: <20260321135031.3107408-1-viken.dadhaniya@oss.qualcomm.com>
+ <20260321135031.3107408-2-viken.dadhaniya@oss.qualcomm.com>
+ <20260323-bonded-ranging-c9f9c4d0aacf@spud>
+ <20260323-artificial-ecstatic-collie-047169-mkl@pengutronix.de>
+ <20260323-surname-osmosis-3cceca19c824@spud>
+ <d4e092d6-5d9e-49a4-88d0-c02e2f17f36b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
-Date: Tue, 31 Mar 2026 15:10:16 +0800
-In-Reply-To: <20260331034423.67142-1-sandie.cao@deepcomputing.io>
-
-This series updates Device Tree related files to introduce the
-FML13V05 board from DeepComputing, which incorporates a Spacemit
-K3 SoC.  This board is designed for use on the Framework Laptop 13
-Chassis, which has (Framework) SKU FRANHQ0001.
-
-The series is based on riscv-dt-for-next.
-
-v2:
-- Patch 1:
-   Use formal format user name.
-- Patch 2:
-   Use formal format user name.
-   Add Reviewed-by from Troy Mitchell.
-
-Link to v1: https://lore.kernel.org/all/20260331034423.67142-1-sandie.cao@deepcomputing.io/
-
-Sandie Cao (2):
-  dt-bindings: riscv: spacemit: add deepcomputing,fml13v05
-  riscv: dts: spacemit: add DeepComputing FML13V05 board device tree
-
- .../devicetree/bindings/riscv/spacemit.yaml   |  1 +
- arch/riscv/boot/dts/spacemit/Makefile         |  1 +
- .../spacemit/k3-deepcomputing-fml13v05.dts    | 28 +++++++++++++++++++
- 3 files changed, 30 insertions(+)
- create mode 100644 arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="gvr3ft3j52edqxpi"
+Content-Disposition: inline
+In-Reply-To: <d4e092d6-5d9e-49a4-88d0-c02e2f17f36b@oss.qualcomm.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: mkl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
 
-base-commit: 4a1739c30fc66a59450c1f78923f94607e786882
--- 
-2.43.0
+--gvr3ft3j52edqxpi
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 1/2] dt-bindings: can: mcp251xfd: add
+ microchip,xstbyen property
+MIME-Version: 1.0
+
+On 31.03.2026 12:15:26, Viken Dadhaniya wrote:
+> Could you please let me know if the driver change looks acceptable to be =
+merged?
+> Once merged, I will proceed with posting the device-tree change.
+
+Applied to linux-can-next. It will be included in my next PR.
+
+regards,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--gvr3ft3j52edqxpi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCactzTQAKCRDMOmT6rpmt
+0ljHAQCN2W7NzJyFY0dzNqqglCyalyp93y3AkcphLuv3tVojLQD/ak7VSTbgCUkv
+TSCxRH9IUqWn8Ux2NiLt5sstO3CZbAE=
+=Ic0c
+-----END PGP SIGNATURE-----
+
+--gvr3ft3j52edqxpi--
