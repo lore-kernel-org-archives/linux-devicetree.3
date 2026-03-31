@@ -1,176 +1,150 @@
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BEB3A4F25
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 19:42:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774986126; cv=pass; b=FPXgfEWFITtUqocDkhzdwEecHnz6nCC4rW2z+aDoZ7P3n/zquZ1yNn9Dv1uY2BQYUQDh+KjP2Yj9Pg0WghR517TtNFPbDZ4rw4DwpgTHPkSvcmBnNqLQXTknNbjqnuV1q9Q5/7FjJKFFzHWCB9KkyJSjaB4j9jf++mTUsaLDFg8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774986126; c=relaxed/simple;
-	bh=FWgkOXMUwnt18dWCxZSFtwZN74ofX/zX8OPQuY+UGxE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RPIQteXLXBNIjXpvM3YmmW7o9cCxx/FI/e5OBe5zdB4g1KYYm2wuBRlz7PgyfasQ4t9cB7/O2Vci/DdZeVy96QrxZvuu9PcU/sgLuw9QSRYcMkg/b6hNhytJEbsF0BxxvqiPzuBhWJECy8mxLlI3nITWW+1reHoTbwrX/jHCPiE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us; spf=pass smtp.mailfrom=gilmore.net.au; dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b=ckqtPR4U; arc=pass smtp.client-ip=209.85.219.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gilmore.net.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3490A3FA5EB
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 19:43:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774986211; cv=none; b=mrpTd+MAnlgSOFfusIHkpe+R5Jq/5a7WKLo9Em2e8Gto6TmqZRt2zO3FdODS/6++4ccGxFcpgXWx2924c2rMa8o8t4N9PW3ApTKXq6ZOonNiMS+4XoFoUq9owaETz5k2g25U0WwlwOiEdSrje/1N8Xid/EaRlEEe88qywFeKvEM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774986211; c=relaxed/simple;
+	bh=/MNqRrFHFC2WqhLreC+/2rydPkjQ8ipbpo3qxRn9Epk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bjw+9Cwkie1D3Vj+v1BDOoIcrxszQIYnQxukM6gwlInM+p/H5J9s86Im3aAtIydFXnpsRSuHtmn2pWWsRmXOOElQFBLDlz2iY2CWHquLJ+IosCzyd0K7YMpU4PhIc1PEHPq5wDOnfebnl+4qTdN2UE3nAq20dtCcXHB6/C/qbnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qbIDyqoK; arc=none smtp.client-ip=74.125.224.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b="ckqtPR4U"
-Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-89cc71f4311so71936356d6.3
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 12:42:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774986123; cv=none;
-        d=google.com; s=arc-20240605;
-        b=DnUO4/yn8R5WuxGBJgh5gambrcJjPUK1EezXuK30Yu1ZT04nqc5DWShDLe9SB3TI9u
-         CH10cNQKxmkHRDGpIt8Wsy2pLukiwzw/ISBJ1sBc9WLx1boBGzEX1js5WrEkDgm6oCgi
-         Kac+fOAQiEm0aU/uEe15Ao6zjzJ+/hKi23vF2T7+l3W5Wka78ugXuhwQUgm4Y/Pbeoqp
-         kP1MxuyaJ4BBLgjkAHXfDbYRlqR8HMVvXhrJ/lUcD+0ja/GCb3/Z7WobRWH5JGPxS0z+
-         cJzX9ZfxHnLnZ95XXSDQB60TV3hWpVyLz3acqeQAItTmV16WsVXje7uNKXj2ANnfwd/c
-         rfjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/y5CfNmiEJ0DIyea4capDIT3MgKL12KOZPGdN7RFQc4=;
-        fh=9hThCdeLGELTO9HTMtwh4L/JbXJ3Q/VJxDUF0bZ5dGs=;
-        b=am0KyJlq1KtfHj1FLZuCHmoitEjGz/zjv4bW3upAk/3Dg8yEjiwaOulXuUEuz3ohFf
-         jF9kYtfMi87ege2a0AwuEVw869ft2lBn+DYPqDCCCD7/broUu+UpddsqI8Zqxq+ciYGw
-         lLh91K3t0iRRlo9zsjSknA8fIxPAym+MgIVNmaPGmj3q72h4v37O+wd5u9fw4VbD6jY2
-         Say9z3MvG82aF+YCwJ3s3TTt1g766/VyWIbBdkdQnxvREl1hMKPNOkZoa8mpvPGgMn0u
-         kc6HXB3+ZxdQ6v/qAkI+ZjTA1Uy72seh/AGKPy8nqcHK2mc8qWKg8isxPUqj746o3VTs
-         Pvkg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qbIDyqoK"
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-6501418152cso5952048d50.0
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 12:43:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ausil.us; s=google; t=1774986123; x=1775590923; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/y5CfNmiEJ0DIyea4capDIT3MgKL12KOZPGdN7RFQc4=;
-        b=ckqtPR4USaSZcOhNOMh94RLe3CNxfOFHf2MRAFvN2szPl+U8V5IE0kjBuAb9mIsXPr
-         glu8JW8ZIS54znKZ8frRzi3NODqCjp7tro7e71P5Qo4jMDzwmWQlq48NU9cS0ePiTiPY
-         u4xCPzbqwdTlyF3MRg/v++1L0aCAFk5Nu519LOl754dgmcsne1jR9/mS+AVzuVk0+d2b
-         SJqSyA7rW5iHDHmD5WD3fZ1PdTzqPacyHfydW9gJEUbA9oOcQ6RIqpkYjlKyR1Ko7h2w
-         eeU5IffraxliAplokwKoB5/ALIeZYOoSIG198mJun192UkCps6RCDrgKEQm02aw5Mstt
-         sxqA==
+        d=gmail.com; s=20251104; t=1774986209; x=1775591009; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=7dMNu0l7hZLwXtDpNqW37ilehWYmKAByHIWOjqdmC4k=;
+        b=qbIDyqoKT/zjFjdqaPelWJjQdNwVr/BgpU7jODjzLaGZ0chGs7Z3peB389VMRUeDEh
+         kyfQ3ivBZSZ9X0501Stobg44I2MNAO75qVhnkZ7ILHoyDLSazQp2HxErzIeJe/zUjbgV
+         t9Zww/InlgiruLPs9azT7MxQCP2Ir00cbHmtG2bG53vw5MtmHyJSl1LtXCU8iopDMhZx
+         /u1eK/Qj1RV6JrYW1T3HLfEI6F6/JhUVUZVHRSVmooHnTudV5XmvZJ9RgwHQyiQMiGSi
+         oXG8lv3Ggih/bsGfYpLrB2XXLYFIlKuJAsfMZW21CNLDHKUweZprcK1G1rze57+ndExk
+         AgOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774986123; x=1775590923;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=/y5CfNmiEJ0DIyea4capDIT3MgKL12KOZPGdN7RFQc4=;
-        b=WrGADsVLcSq+gIaoWNiGk8V7758q+lQMt631pn1jzV4pH+Jj+8akMf51r3Jr3sjLrT
-         jKrLcExHF7AjR8CXemY3aB7ObjxDIkH55UliuZSySNwJfg5MVxXWqWsILdSfFh4pYGEJ
-         lElLJZn3I2Ev9BFfcICGsy8VZscmhaJ0ITSN0vupH67WdXQLV8hiU0mD3dJrtJTltlP1
-         ZRt9grzdW/w5iY2ouEdhMor6SfRUKaHow+02/3oaKd0i4KxjCIwhN58VfHpohnJyP5MJ
-         eb5lghuPacl1RjlGfowG/sXo/Mte84/KxfQ0KQLS+AUl1v7q1QCGfNzK1vdAOMWanfYk
-         +Dpg==
-X-Forwarded-Encrypted: i=1; AJvYcCUVXxnqCTP3MbCplgunYMiTUaTTpuqR3wdzRhwJs63lxqSqajEmeJFDs1Frfan9XhvsjbzHaDfieAnI@vger.kernel.org
-X-Gm-Message-State: AOJu0YymGAjHSt7qqgrAkLH1b1O5UXW69srZm7MWyr26eY0xuxYm3HZO
-	Ov6pxfzLIn2jAJCsswd0saL/XDLuLTi3i3MoxR2gGqA44YPGe6wp1LwjbxB9pVaIAnfAQfkvpaS
-	29mfW9uMQ2NytfLi9liXbPzfbzqcZSyoFiBWfmt0gEQ==
-X-Gm-Gg: ATEYQzzKvjtvVAvXov+vwNF0cOUpX8obiUnc5AGoOMCCfgHYqOyFXNxBIL8VQNe0vNf
-	/9j0nvLlhAcGfJaBuTQ2A0OBs9G7pRfQcdIQ4p5yGTDxbh11SPGEq8gruhdgFqtdJFQQBUaEQbg
-	TLGORNjqlgqtnTKWRYRCzr2MavMAZeW3YLeOd5mLiri62fwVBhy12kvhgydOqrVefNFYXHA3Dzn
-	sDT1MAZrnVDoR8WcjoI9HZDBjbgSqQErF49z5Yv41AT5VMxz635RFgq82HC86a54rTg9c6JOlbu
-	FvNtfSUpjBW6a7tAFqJQRUJgRjK6uHD8egSn1MH/ILUHHDdBdaYHtZLPV1A3cMR4KtP7Flw=
-X-Received: by 2002:ad4:4eef:0:b0:89a:116b:e67c with SMTP id
- 6a1803df08f44-8a43a464ea6mr12862136d6.45.1774986123445; Tue, 31 Mar 2026
- 12:42:03 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1774986209; x=1775591009;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=7dMNu0l7hZLwXtDpNqW37ilehWYmKAByHIWOjqdmC4k=;
+        b=RbY744BU52Yq+hZzPljk1UuqEfNkUgbHIbBEjEdhYuhdGr+7iWN0lTodrmhPmzXi6a
+         HiLLdsoPPizsZKpMCmT2ncmkW+Wy/hdwlt7ltEDwSXRbaPTWNJ1kA+ZWKtXUi1yBJam9
+         EqZmrL2M9pewesusD43NDebUbU2HPvax6UhJEd5NS88eeQ6PVt0rR02Nyqfn34ttBSDM
+         +PrIs7fRFmvO/5gYSGvHnwfAvwkbngfZ4+gSHKn1rgkKB/L3jtO1cUioY9tcE9H4T1vI
+         kkEF9um0WrNijPp+t+ZSKss6t5XealXnvp2bnYotaJvjgWKrGUwXiODKytxEM65Exfrj
+         zLYg==
+X-Forwarded-Encrypted: i=1; AJvYcCWKzB8NCK/vgH4OLNuutpOuLObBqdAEHWfWvBZTO34UEAa2sPy9PIwsqhnTNn8cGBJ1W4+CjzkyP1Po@vger.kernel.org
+X-Gm-Message-State: AOJu0YwVp/WEGCOug37En32QzULia+f5dBDGgnZ5y1swXCs5EHZJmj91
+	WMmD50VKnqDX3d/FcOyS4aJQtOoyExU9gD5SIl1tVtJCWVPRVdPNyBJc
+X-Gm-Gg: ATEYQzwGdDdzkeLt5OVs0xplfQW7AOIWU/wwCjD2pm1wAcp3x5PBpc9oIKjCR19JYPl
+	u8kvOFI/Ug4hoELbpasc7npByM0ARArn644VvqIQU9Nm96EvjYyXL8zx9PyXohJxLgbu9/VXK/H
+	kZbfK1Az3Zj853P8tMkxxNcgXoGtbHHjHfmfLsFe/TSYoC6CNQ0C1Ta0ta6b+zOPTVfzX346gD3
+	CcW7hfSzsYkOSAgoRloVn1h+peDQ5NT+Jy46ib6hOX9FxjDCpF9/q+XY+VeWNhKPddAW0sxtueq
+	koEREXMr+Op7IKvizzBEJdr+7Fz9ZoLjOX7/hykYqyD4xD2BjZouq+9/6j1CRWXkCiMip0BTYF8
+	8fq8o5TF3zm4I84SKLv5JYURywKyjXc8vr076iyJQKz0GVaQGrSpnPVb5PjvaW4Oj3Sue2cIlH9
+	WnxvbbXeyrsRSEq80qqOszjTu3mSFOJ1v6o9A=
+X-Received: by 2002:a05:690c:38a:b0:79a:c7f8:d9a0 with SMTP id 00721157ae682-7a211e4ea2amr8562427b3.33.1774986209251;
+        Tue, 31 Mar 2026 12:43:29 -0700 (PDT)
+Received: from localhost ([199.7.157.124])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-79cb7135d8asm53647957b3.4.2026.03.31.12.43.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 31 Mar 2026 12:43:28 -0700 (PDT)
+Date: Tue, 31 Mar 2026 15:44:12 -0400
+From: Richard Acayan <mailingradian@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: David Heidelberg <david@ixit.cz>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+	Todor Tomov <todor.too@gmail.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Tianshu Qiu <tian.shu.qiu@intel.com>,
+	Robert Mader <robert.mader@collabora.com>,
+	phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH v9 7/7] arm64: dts: qcom: sdm670-google-sargo: add imx355
+ front camera
+Message-ID: <acwkDD7XsjMGucQ9@rdacayan>
+References: <20260217002738.133534-1-mailingradian@gmail.com>
+ <20260217002738.133534-8-mailingradian@gmail.com>
+ <1349f725-a20f-4935-a829-208c8e583ad9@ixit.cz>
+ <acHxgIsyPiQTeqCB@rdacayan>
+ <eff25adf-c5fd-484d-a9ae-ec27c0d9c100@ixit.cz>
+ <acJuN_FRqMTGgl8C@kekkonen.localdomain>
+ <acsjH0tZ-jj7N7c5@rdacayan>
+ <actxn5kvN3auqCBm@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260310031002.3921234-1-dennis@ausil.us> <20260310031002.3921234-4-dennis@ausil.us>
- <CALWfF7KD1=U-gC4wC9M49kEYD3ijcfr+XSmMeh_-zAvjO2JVoQ@mail.gmail.com>
- <CAABkxwtz7KjVJpSzYhUWGyEym5k4d3NJq65OS_E3NCnrNUBTZw@mail.gmail.com> <CABjd4Yz3MKOp-gE8kNc4EOt3-a0mKZsxvbVYCN4KsbqTRDtWgA@mail.gmail.com>
-In-Reply-To: <CABjd4Yz3MKOp-gE8kNc4EOt3-a0mKZsxvbVYCN4KsbqTRDtWgA@mail.gmail.com>
-From: Dennis Gilmore <dennis@ausil.us>
-Date: Tue, 31 Mar 2026 14:41:50 -0500
-X-Gm-Features: AQROBzAJGaJIP3nK18K6kC_9mEp5NIzQoY1iqunk6Z7DDcVgaVEtYTtM-9GKruU
-Message-ID: <CAABkxwsD_59G3YrpMdUi7D1fVHruSuDHn9-gQAZbwTdxGBHaBA@mail.gmail.com>
-Subject: Re: [PATCH v4 3/3] arm64: dts: rockchip: Add Orange Pi 5 Pro board support
-To: Alexey Charkov <alchark@gmail.com>
-Cc: Jimmy Hon <honyuenkwun@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, FUKAUMI Naoki <naoki@radxa.com>, Hsun Lai <i@chainsx.cn>, 
-	Jonas Karlman <jonas@kwiboo.se>, Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
-	John Clark <inindev@gmail.com>, Michael Opdenacker <michael.opdenacker@rootcommit.com>, 
-	Quentin Schulz <quentin.schulz@cherry.de>, Andrew Lunn <andrew@lunn.ch>, 
-	Chukun Pan <amadeus@jmu.edu.cn>, Peter Robinson <pbrobinson@gmail.com>, 
-	Michael Riesch <michael.riesch@collabora.com>, Mykola Kvach <xakep.amatop@gmail.com>, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <actxn5kvN3auqCBm@kekkonen.localdomain>
 
-On Wed, Mar 11, 2026 at 9:26=E2=80=AFAM Alexey Charkov <alchark@gmail.com> =
-wrote:
->
-> On Wed, Mar 11, 2026 at 5:29=E2=80=AFAM Dennis Gilmore <dennis@ausil.us> =
-wrote:
-> >
-> > On Tue, Mar 10, 2026 at 7:20=E2=80=AFPM Jimmy Hon <honyuenkwun@gmail.co=
-m> wrote:
-> > >
-> > > <snip>
-> > > > +
-> > > > +       vcc5v0_otg: regulator-vcc5v0-otg {
-> > > > +               compatible =3D "regulator-fixed";
-> > > > +               enable-active-high;
-> > > > +               gpios =3D <&gpio0 RK_PC4 GPIO_ACTIVE_HIGH>;
-> > > > +               pinctrl-names =3D "default";
-> > > > +               pinctrl-0 =3D <&vcc5v0_otg_en>;
-> > > > +               regulator-always-on;
-> > > > +               regulator-boot-on;
-> > > regulator-always-on and regulator-boot-on does not seem right.
-> > >
-> > > Why were these added? The vendor did not have them.
-> > > https://github.com/orangepi-xunlong/linux-orangepi/blob/232ed4b97b65d=
-a2b7b647c4e3c496f8594b9f3f1/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5=
--pro.dts#L216-L226
-> > >
-> > > Was this mistakenly taken from the regulator usb 20 which is powering
-> > > the onboard usb2.0 hub?
-> > > https://github.com/orangepi-xunlong/linux-orangepi/blob/232ed4b97b65d=
-a2b7b647c4e3c496f8594b9f3f1/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5=
--pro.dts#L111-L119
-> >
-> > It may have been a missreading of the schematic, but it was added to
-> > get power to the USB3 port. before I added it devices plugged into the
-> > USB 3 port would not power on
->
-> Hi Dennis,
->
-> The schematic says that this regulator supplies the VBUS voltage for
-> the USB3 part of your Type-A OTG connector. If you make it always-on,
-> you'll likely lose the possibility to use this port in device mode
-> (which you would need e.g. for flashing images over a USB cable in
-> U-boot which also takes device tree sources from Linux via
-> devicetree-rebasing).
->
-> You also link it up as the PHY supply of the USB2 controller, which
-> doesn't describe the actual hardware.
->
-> Please see if you'd rather define a connector node for your Type-A
-> port, and list this regulator as its VBUS supply explicitly. I've
-> recently submitted a patch [1] to make the "onboard_usb_dev" driver
-> take care of enabling VBUS in exactly this type of situations (it's in
-> usb-testing now and will hopefully hit -next sometime soon). If you
-> need an example for its use, please refer to [2].
->
-> Best regards,
-> Alexey
->
-> [1] https://lore.kernel.org/all/20260217-typea-vbus-v1-1-657b4e55a4c2@fli=
-pper.net/
-> [2] https://github.com/flipperdevices/flipper-linux-kernel/blob/2f814cdf0=
-7f50e901fc1b1328213e76460864c20/arch/arm64/boot/dts/rockchip/rk3576-flipper=
--one-rev-f0b0c1.dts#L303-L328
+On Tue, Mar 31, 2026 at 10:02:55AM +0300, Sakari Ailus wrote:
+> On Mon, Mar 30, 2026 at 09:27:59PM -0400, Richard Acayan wrote:
+> > On Tue, Mar 24, 2026 at 12:57:59PM +0200, Sakari Ailus wrote:
+> > > Hi David, Richard,
+> > > 
+> > > On Tue, Mar 24, 2026 at 10:35:24AM +0100, David Heidelberg wrote:
+> > > > 
+> > > > 
+> > > > On 24/03/2026 03:05, Richard Acayan wrote:
+> > > > > On Fri, Mar 13, 2026 at 07:26:47PM +0100, David Heidelberg wrote:
+> > > > > > On 17/02/2026 01:27, Richard Acayan wrote:
+> > > > > > [...]
+> > > > > > 
+> > > > > > > +&cci_i2c1 {
+> > > > > > > +	camera@1a {
+> > > > > > > +		compatible = "sony,imx355";
+> > > > > > > +		reg = <0x1a>;
+> > > > > > > +
+> > > > > > > +		clocks = <&camcc CAM_CC_MCLK2_CLK>;
+> > > > > > > +
+> > > > > > > +		assigned-clocks = <&camcc CAM_CC_MCLK2_CLK>;
+> > > > > > > +		assigned-clock-rates = <19200000>;
+> > > > > > 
+> > > > > > Extract from #sdm670-mainline:erebion.eu discussion:
+> > > > > > The imx355 can operate on 24 MHz (on both Pixel 3 and 3a), but Linux kernel
+> > > > > > driver can operate only with 19.2 MHz.
+> > > > > > 
+> > > > > > I assume it would be worth it mention at least by comment here.
+> > > > > 
+> > > > > This might set the series back because the devicetree isn't meant to be
+> > > > > written for specific software, but it's included in v11 because you
+> > > > > already asked twice.
+> > > > > 
+> > > > 
+> > > > I would say node with lower clock frequency is still much better than
+> > > > nothing or placeholder saying "i2c camera here". Instead we'll have small
+> > > > placeholder that value can be bumped to 24 MHz. Important is this can be
+> > > > easily improved when at least one consumer of the device-tree gains support.
+> > > > 
+> > > > We have very scarce support of cameras on mobile phones in mainline, thus
+> > > > leaving a comment that HW can do 24 MHz is reasonable compromise IMHO.
+> > > 
+> > > The bindings could document the supported frequency range.
+> > > 
+> > > In DTS it may make sense to set the frequency the vendor uses as it may
+> > > affect the link frequencies (albeit I guess they're the same in this
+> > > case?).
+> > 
+> > Is this review relevant to v11?
+> 
+> I'd think so: it doesn't mention the frequency should be 24 MHz.
 
-Sorry for the delay, I am taking a look at it now. Please let me know
-when it lands in -next. In the meantime, I believe what I have is in
-good shape and is working well here. I am happy to make a change once
-support lands upstream.
-
-Dennis
+Ok, please check the dts comment in v12 when I send it and continue there.
