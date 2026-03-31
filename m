@@ -1,67 +1,67 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732F0421EE7
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 15:44:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3E3423147
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 15:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774971845; cv=none; b=q5dI74R7zh0JI//S2zlH9d7t1mrxiKKwVMv38ttxiyq1LXHslJBIIkQD2kzUZ0xfxkh2A9Dw3v+VKg2nk4Nla7L/oTOyLYKKsmtSyvAj++W2ayk+7Xh268hXcDM4GiFKsBXkm0+DUjr+X+QlFD1l3Rv6CxLEcDdgVMClqZcSF7c=
+	t=1774971848; cv=none; b=GfIObQWGh3uS6kolaa+jJq8nJ9zvOH2Mzf1DCoGh3eRwbyM7dpQ83ORkoK3nAL/1jtAkVZyJdJrrU571rISXskKrgl4wzrjXSW9cBt1kEsDDbzkFyYSLYfsuHdQ88zSDE3VVIEWfaXkwEeUzcsw1eYH2ID81fgcJ4xZXYBcaTPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774971845; c=relaxed/simple;
-	bh=HoUkMd3aj0s9m5BRWarIKv4NrOIfktIuX7B1xZTtvpY=;
+	s=arc-20240116; t=1774971848; c=relaxed/simple;
+	bh=K/K91eQQ75phcINLj4DBBQbD0ofWablCORf9BgG8obM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lTZTsyYbDI0/Q3+nHPtfL5c7I1HvfWAaOsNeQzJSuZru1RFdkUkqgRnO01fWUOgTY59S/cNa3Yob/4rR7MB+mgw3rN9VU1ikwaK9MQQPhnW79ONnC3ievf7dtnmxd7+fm+aJJb43Z2tr2Zungswq7r5ZYgtL1JXRN9/saDZ0x2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=IaCwYfwj; arc=none smtp.client-ip=209.85.128.44
+	 In-Reply-To:To:Cc; b=SJ3mQ11lvmIa21hg5WXI0cpZrFPKR8J2BJrKO0ueX2OeyAJVQDnBxoT+3GkTNCDeEwlgTgzbs017ldp/f/sktTLDzzfOwRPSfR3nbb/HpMevysIEHgyVM52J0ihrR5Nwkx/jh0g5I3JsRoPmHI5SQFCPFPhXjQHk4ijiQBrrZ0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=cABwwynB; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="IaCwYfwj"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-486fb439299so54967485e9.0
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 08:44:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="cABwwynB"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-486ff201041so58037905e9.1
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 08:44:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1774971843; x=1775576643; darn=vger.kernel.org;
+        d=flipper.net; s=google; t=1774971845; x=1775576645; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Jv4k2NFngBv6AeWEv4O9srLSbI6EPVNmV51Qs0A5klE=;
-        b=IaCwYfwjk+9pZGEcglvLOH5NCVKRXaON3jeepXBRTxclg4znbhHPyNPN5YNXkU7rj1
-         XN46uQvriYKCQkHx7nLKAjmdraT7LVfU2Nb1K3rXA/YsSfHp20CPiD2ig2VqI8CbE/og
-         k7mJR73eQPKeePq841wwX9a6cYORjmtW2e5OuIDqSMN4qzfNF39i9mB7y+kHOALBKpZF
-         03pkeZ7xckk8nhMuS8nbSnbH0++YLb/ZAxDuwZJgDs8+yEPxvMPCz4EcFYPo0PWzbHd6
-         75BSOAnoq7Xe8KzZRl86spW45IXM10q7mg9omYNywa1gWvyQx+NdiDxDNa8tuF6w3mqD
-         Cqxg==
+        bh=8b97w0FIxP+iQSlY9+U8NDMrKZX5YXrCInQTxcuoNL8=;
+        b=cABwwynBtz91HQQXT/PqabNqB0tswzybZM5KooRH9z1AxGGpZHl8q1fodnGBhoDQJ3
+         zk4uMZ33EPZLLB7q9yPK5bGTSvh9M5IyeltMwCUrRAyhT/qGzCkBX0z+vx+sIzP/xx0l
+         asyOx/ywrHqOKgu4Z5EPad0qSjEqOgtu6biVFicz6VdF5ti4Vla+4WDKnLZAvjJQYO9R
+         WHmowSwsck+ehm5QrrnZyTW0fZIRG398JC3HSaLlDPddrnSLfsLdADIuA3oY63OopW/m
+         4SBhO47MBKzseDp+VXVaiMhbBFJr9g+2IA6CK2fixrqj70WPHf6SPduDNTFZ3qQ6m+8A
+         eQiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774971843; x=1775576643;
+        d=1e100.net; s=20251104; t=1774971845; x=1775576645;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=Jv4k2NFngBv6AeWEv4O9srLSbI6EPVNmV51Qs0A5klE=;
-        b=B5hhuPd8tu+WV6kcklr1DrCdZmekDLX/WcomPn3q9wSPAqIDo8k69JOOMgT7kPoC+c
-         tF5s6Q0VLTHmMaWcwV28GiQLG7ZvVqoRqz4nrL7zKPynP988pI5S8wVNcgQg0bCBYKBR
-         QmYAkHSl5y22kYBQV6P9YZQ6qWBOIIzN6v4/1n60ROnOGcFlQKVZXJz0dEYJJKOB5jyk
-         nZtIB7dNIeb2RR/5+zcH6wuGmGL5nRaVi5L8ohmf1biSjQ9YYNZR97WATGARcwa1hrKe
-         bI2knAOTeVrkGsrsR+Vx+35+HBFGwfvoIsPMExGjMf2Q88Cm6RKuCXglPCtX9JXrfsev
-         0d+g==
-X-Gm-Message-State: AOJu0Yz8d/c/+eHYNfdn9qs7llC6stFfljPrS0FJxf1kRypFqdN/2MlV
-	hPC/V6GubrQDQimaSzp4aeK8748zzojFY2ph7hZ7xUSlvGUDwtbzNplWqAhx5qkDA9Y=
-X-Gm-Gg: ATEYQzzF6NPRA07SR8qR2VowEmXsczjJpd+EbSwn7xhn4x5l4q6FfWPDxYX0DYR12H+
-	9M0FCwa80nCIIJBuRF5EDS+7SsYLjaV0fGRMcRYRMU2IvQyPZIxfHaRZosW9f53nvTQ789RpzjU
-	JKmRjH3XHkEghjhHtIbq3vMEpQSTGgWHG4ipWc4EqUyH8TAmkbCaeJGe4bvKEjdBtLqiKdAjKR+
-	7j7DmKZPpCyGlmYGWufM+MlGOBcR/EDI4TR9n+kVhLBLGrtiN+NsQA7Kz9tqSx6BhZmOOhkMASp
-	BJqeyN8mr9Fj5H2onvJ9VAQm0YM8FDC60SmXdS7s9tX52sRprQB3712rkmgpFfSGUtvW9JaU6ic
-	N8tA90UyIqseMLWmu0lO6ArYblN5QjM1zZIsxTBXeBuGhIfDo+wVsk+MqXcNet0VqJ4TpuE8MBI
-	zvsK54hoAJc8jmLvvnRzhY31SReHYte94CyzkSWZVYg8V5UllIKqdsEx5iaB4Y7AUKaJu12PwgR
-	DLSvg==
-X-Received: by 2002:a05:600c:1d1e:b0:486:fc95:1a91 with SMTP id 5b1f17b1804b1-48727f2373dmr287944595e9.12.1774971842949;
-        Tue, 31 Mar 2026 08:44:02 -0700 (PDT)
+        bh=8b97w0FIxP+iQSlY9+U8NDMrKZX5YXrCInQTxcuoNL8=;
+        b=VN7oPXY+yKHtlu1HiCE6K/W9zj0G/uuxaIkCtDomCnl0YVyIHwzB0IvUrqavYC+jBh
+         cE/frYccebkKjoWjKsENu63Kew6AGg4OJ6wqS1h/zBOPgZD2dL/NeYmdaOWNvp/i5L22
+         Cv2oP/4oSDayj8+k4QGH42knjgmp9snRewA5qpYtC1meHcOgeyaWX4OcdUlYrKkrQWKp
+         Ra5AvECDQugzHx/JHFDye0/qwunzGCwA6ZMgAryJglAS+gmXryBeuXuzvjyb15tdDaez
+         UXDEnXcF59sSNvEQgQ6OhJdXRR9Uiz5CDcXOhW2Slj9fSrr9/yGhG87kvu6jWCY58NSa
+         ioow==
+X-Gm-Message-State: AOJu0YxURFvWY+mH3AJv4pKJkfJbmtdkaXJqCAXKW3CITAM0M4DUKgD6
+	gvzhLxUG6xumhdmX/AR2B4h0Wrump1aTfjqYX0VIAQ3aD8DpasX6B0APypVIspOS484=
+X-Gm-Gg: ATEYQzypVHZrV6xGFocNtHrViTeHcvGu11Zx+EI1u5Ld+vvE/x0Fs+QOxqjuDIBzrkm
+	J3I+LDV47ZNuR9Lbpgo2PJv+aW7I/5Q/zo9Ty0IYCF6O2E019QFTSrcNxydY4lxiso+Q8LATJSq
+	fgCAm19E6EBDFn4GfABQhZSoKBOMwJ+mT0Qask1kX+tb6l5h4LaW/1GixHdK/qEvs4nlqz9HL3G
+	4J+5iw125DqjdaqNEPLGqPL2FloYVY1PAOGv8dve8XzgiPUpu9j1hDq6efMp7JX56Hi/6zp00Ct
+	rq0KcH5oUcqLksU9mBzNDjWXcOebMJDMtzs/1y+yMX6+DNUOSyea3llqzZCJSUIX4fLkXC5ete/
+	nF5FrooJN+XHDJUM8CmHWmlG6xXEKPJgRRM8IaY+5CA3KxcM/LW59CsyDiIwNswek1+6d+WWX2g
+	66Fa9rjWulQjRCLnL5/wcLPE8ZALpPlD2lNI6w3eID+5MiUFR9F3HjXudUCjohB0J+/WTDkdD7E
+	7jPHQ==
+X-Received: by 2002:a05:600c:4f53:b0:485:3692:e8f7 with SMTP id 5b1f17b1804b1-48727ede47amr285030835e9.25.1774971845478;
+        Tue, 31 Mar 2026 08:44:05 -0700 (PDT)
 Received: from alchark-surface.localdomain (bba-86-98-192-109.alshamil.net.ae. [86.98.192.109])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4887c8852a5sm48412605e9.9.2026.03.31.08.44.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4887c8852a5sm48412605e9.9.2026.03.31.08.44.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 31 Mar 2026 08:44:02 -0700 (PDT)
+        Tue, 31 Mar 2026 08:44:05 -0700 (PDT)
 From: Alexey Charkov <alchark@flipper.net>
-Date: Tue, 31 Mar 2026 19:43:43 +0400
-Subject: [PATCH v6 06/11] power: supply: bq257xx: Make the default current
- limit a per-chip attribute
+Date: Tue, 31 Mar 2026 19:43:44 +0400
+Subject: [PATCH v6 07/11] power: supply: bq257xx: Consistently use indirect
+ get/set helpers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260331-bq25792-v6-6-0278fba33eb9@flipper.net>
+Message-Id: <20260331-bq25792-v6-7-0278fba33eb9@flipper.net>
 References: <20260331-bq25792-v6-0-0278fba33eb9@flipper.net>
 In-Reply-To: <20260331-bq25792-v6-0-0278fba33eb9@flipper.net>
 To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -82,65 +82,109 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
  linux-pm@vger.kernel.org, Alexey Charkov <alchark@flipper.net>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2056; i=alchark@flipper.net;
- h=from:subject:message-id; bh=HoUkMd3aj0s9m5BRWarIKv4NrOIfktIuX7B1xZTtvpY=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWSefr3ef0ttquypte31uzOPPijUa9PT2HKimnHdZVnRH
- 0+ucm5e3zGRhUGMi8FSTJFl7rcltlON+Gbt8vD4CjOHlQlkiLRIAwMQsDDw5SbmlRrpGOmZahvq
- GRrqGOsYMXBxCsBUJxgy/DOYdUY7yz5kzsZgxwXp0/L+vf1w7O3eBSWXNetnxHrc3X2ckWG3ouj
- vM+evmi9YI8x49ceKQKGJWy2m/YnJ+99caDdn9Q1WAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4242; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=K/K91eQQ75phcINLj4DBBQbD0ofWablCORf9BgG8obM=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWSefr1+UozjGbdn6i0TNpbc3npbND99gm+lRDTzgcszY
+ j9X9x+Q7pjIwiDGxWAppsgy99sS26lGfLN2eXh8hZnDygQyRFqkgQEIWBj4chPzSo10jPRMtQ31
+ DA11jHWMGLg4BWCqOecx/GZ5eHLud+NqkwvXFk6dtfPAzH1LGR0WMhQfzZq9R11l9vIdjAynPe4
+ smT1xtX6F8eq1k6MnVKwM3qArO/U/f63lsS4Jj3+8AA==
 X-Developer-Key: i=alchark@flipper.net; a=openpgp;
  fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Add a field for the default current limit to the bq257xx_info structure and
-use it instead of the hardcoded value in the probe function.
+Move the remaining get/set helper functions to indirect calls via the
+per-chip bq257xx_chip_info struct.
 
-This prepares the driver for allowing different electrical constraints for
-different chip variants.
+This improves the consistency of the code and prepares the driver to
+support multiple chip variants with different register layouts and bit
+definitions.
 
 Tested-by: Chris Morgan <macromorgan@hotmail.com>
 Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- drivers/power/supply/bq257xx_charger.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/power/supply/bq257xx_charger.c | 30 ++++++++++++++++++++++++------
+ 1 file changed, 24 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/power/supply/bq257xx_charger.c b/drivers/power/supply/bq257xx_charger.c
-index 7ca4ae610902..39718223c3f9 100644
+index 39718223c3f9..0765673728e4 100644
 --- a/drivers/power/supply/bq257xx_charger.c
 +++ b/drivers/power/supply/bq257xx_charger.c
-@@ -18,6 +18,7 @@ struct bq257xx_chg;
- 
- /**
-  * struct bq257xx_chip_info - chip specific routines
-+ * @default_iindpm_uA: default input current limit in microamps
+@@ -22,18 +22,30 @@ struct bq257xx_chg;
   * @bq257xx_hw_init: init function for hw
   * @bq257xx_hw_shutdown: shutdown function for hw
   * @bq257xx_get_state: get and update state of hardware
-@@ -26,6 +27,7 @@ struct bq257xx_chg;
++ * @bq257xx_get_ichg: get maximum charge current (in uA)
+  * @bq257xx_set_ichg: set maximum charge current (in uA)
++ * @bq257xx_get_vbatreg: get maximum charge voltage (in uV)
+  * @bq257xx_set_vbatreg: set maximum charge voltage (in uV)
++ * @bq257xx_get_iindpm: get maximum input current (in uA)
   * @bq257xx_set_iindpm: set maximum input current (in uA)
++ * @bq257xx_get_cur: get battery current from ADC (in uA)
++ * @bq257xx_get_vbat: get battery voltage from ADC (in uV)
++ * @bq257xx_get_min_vsys: get minimum system voltage (in uV)
   */
  struct bq257xx_chip_info {
-+	int default_iindpm_uA;
+ 	int default_iindpm_uA;
  	int (*bq257xx_hw_init)(struct bq257xx_chg *pdata);
  	void (*bq257xx_hw_shutdown)(struct bq257xx_chg *pdata);
  	int (*bq257xx_get_state)(struct bq257xx_chg *pdata);
-@@ -627,6 +629,7 @@ static const struct power_supply_desc bq257xx_power_supply_desc = {
++	int (*bq257xx_get_ichg)(struct bq257xx_chg *pdata, int *intval);
+ 	int (*bq257xx_set_ichg)(struct bq257xx_chg *pdata, int ichg);
++	int (*bq257xx_get_vbatreg)(struct bq257xx_chg *pdata, int *intval);
+ 	int (*bq257xx_set_vbatreg)(struct bq257xx_chg *pdata, int vbatreg);
++	int (*bq257xx_get_iindpm)(struct bq257xx_chg *pdata, int *intval);
+ 	int (*bq257xx_set_iindpm)(struct bq257xx_chg *pdata, int iindpm);
++	int (*bq257xx_get_cur)(struct bq257xx_chg *pdata, int *intval);
++	int (*bq257xx_get_vbat)(struct bq257xx_chg *pdata, int *intval);
++	int (*bq257xx_get_min_vsys)(struct bq257xx_chg *pdata, int *intval);
  };
  
- static const struct bq257xx_chip_info bq25703_chip_info = {
-+		.default_iindpm_uA = BQ25703_IINDPM_DEFAULT_UA,
+ /**
+@@ -490,22 +502,22 @@ static int bq257xx_get_charger_property(struct power_supply *psy,
+ 		break;
+ 
+ 	case POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT:
+-		return bq25703_get_iindpm(pdata, &val->intval);
++		return pdata->chip->bq257xx_get_iindpm(pdata, &val->intval);
+ 
+ 	case POWER_SUPPLY_PROP_CONSTANT_CHARGE_VOLTAGE_MAX:
+-		return bq25703_get_chrg_volt(pdata, &val->intval);
++		return pdata->chip->bq257xx_get_vbatreg(pdata, &val->intval);
+ 
+ 	case POWER_SUPPLY_PROP_CURRENT_NOW:
+-		return bq25703_get_cur(pdata, &val->intval);
++		return pdata->chip->bq257xx_get_cur(pdata, &val->intval);
+ 
+ 	case POWER_SUPPLY_PROP_VOLTAGE_NOW:
+-		return bq25703_get_vbat(pdata, &val->intval);
++		return pdata->chip->bq257xx_get_vbat(pdata, &val->intval);
+ 
+ 	case POWER_SUPPLY_PROP_CONSTANT_CHARGE_CURRENT_MAX:
+-		return bq25703_get_ichg_cur(pdata, &val->intval);
++		return pdata->chip->bq257xx_get_ichg(pdata, &val->intval);
+ 
+ 	case POWER_SUPPLY_PROP_VOLTAGE_MIN:
+-		return bq25703_get_min_vsys(pdata, &val->intval);
++		return pdata->chip->bq257xx_get_min_vsys(pdata, &val->intval);
+ 
+ 	case POWER_SUPPLY_PROP_USB_TYPE:
+ 		val->intval = pdata->usb_type;
+@@ -633,9 +645,15 @@ static const struct bq257xx_chip_info bq25703_chip_info = {
  		.bq257xx_hw_init = &bq25703_hw_init,
  		.bq257xx_hw_shutdown = &bq25703_hw_shutdown,
  		.bq257xx_get_state = &bq25703_get_state,
-@@ -675,7 +678,7 @@ static int bq257xx_parse_dt(struct bq257xx_chg *pdata,
- 				       "input-current-limit-microamp",
- 				       &pdata->iindpm_max);
- 	if (ret)
--		pdata->iindpm_max = BQ25703_IINDPM_DEFAULT_UA;
-+		pdata->iindpm_max = pdata->chip->default_iindpm_uA;
++		.bq257xx_get_ichg = &bq25703_get_ichg_cur,
+ 		.bq257xx_set_ichg = &bq25703_set_ichg_cur,
++		.bq257xx_get_vbatreg = &bq25703_get_chrg_volt,
+ 		.bq257xx_set_vbatreg = &bq25703_set_chrg_volt,
++		.bq257xx_get_iindpm = &bq25703_get_iindpm,
+ 		.bq257xx_set_iindpm = &bq25703_set_iindpm,
++		.bq257xx_get_cur = &bq25703_get_cur,
++		.bq257xx_get_vbat = &bq25703_get_vbat,
++		.bq257xx_get_min_vsys = &bq25703_get_min_vsys,
+ };
  
- 	return 0;
- }
+ /**
 
 -- 
 2.52.0
