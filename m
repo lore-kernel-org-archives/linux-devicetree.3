@@ -1,173 +1,260 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3506C33120E
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 16:46:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774975597; cv=pass; b=jkCfkSV5n9wnaaoG2eTq8aIwj8wgF+TakXa4RqdeKzaY9SR9fTYWfU0GpCwt/SJ2HVn4qCtNYL2icZiHxtY1u2KZAiKqMrpFc8tBtHnibzzdAgeKHjwQYJHX8ntiWzHWhQtGTXhU9UldByx/jZaB3wyY1sZhcX/oRPmljwzOkKA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774975597; c=relaxed/simple;
-	bh=HzYbfwAcPnd0HwHQXnUiS/moFgAvTCCmXeteH0hKD9Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aoFdDTeAAf4kqlQkv18cG8bDJzIP3m5u31/MWzn+16fi4FubO1K6S/3cwc5OL4Q9ysV9DQRve7/k4FEubeHfqOsv8mWgS65L0BzMluFbZWgEvwJ2gF6OaP6O69dFWRDRDCmhj503Kogz3lRPJENLWZAs2VUBKT+JW6W9A8uxq6o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=HAN7d5g5; arc=pass smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7589B413225;
+	Tue, 31 Mar 2026 16:48:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774975694; cv=none; b=Ozo+WnRoV8vqzKgaF1C4tVVM7h4tdTgCTq9B+OLcTSDtvBK/VK+T6sOMaXE7Y7sSjutQHlyBN/fcqSQt6WfI0hUImQiBVnZEQzNQAlOeJVROzT1opGGSYOrquud9P9iX2P/F/kRQoP/HLVH9n8UhWuSUJJU6y7fx8UJyZjsoVMQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774975694; c=relaxed/simple;
+	bh=oQVnWLcfPVpq4oy73T6GwO7+A9grr8DISYy08Kii5GU=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=SoFfKmrplD+2h5XY6t5Lfc4hKcpBtLagUVA8O5/Lcvx5Zujr4YqPAa0p85t+0ZsTcqCmKzPqGR2pI8BDymIIW7920c8xDbbrVBreCzRrktnsrTAGPuqsVm6jvK9V+ZHqE5ZVblCoPeVXmHRdm5jbTh9iL/xtgbqW3tj88o90tn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=Jw9v4wv/; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="HAN7d5g5"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-66a4c6bb6ecso10562864a12.1
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 09:46:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774975594; cv=none;
-        d=google.com; s=arc-20240605;
-        b=TRNCP2qhKd1ma3rCKi3fK4EhUGFuNuNDcrFc/69qmF0K3mX2eB/6c2xY/tH1m4NZT1
-         CHLHOINtL2LiIKrbQOkHGxWmemULMbALbPBvDMg/1QkXyi9BrQvWp7jYqPvSrwOYI6EA
-         3jl6b7nXXSdU/q4B+W51kew1W4qKTgUxG1a6scysGcdeY1rHHR5ig0awM1WDUCZMihZr
-         Rx5B/oscpn14QireT8qmmepku0MDmX+lWaNSlUkheqXTDAtU4u84I7hlOybyZm2dNCSS
-         EKwkWlZK0nTEtKAQnWmD2Wrpl8H8wq1qLTWugFudJH6uSI0Ys7uIGd71j6Wv9Lr3SrVg
-         Co8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GouBERXJUhyxyJHAw9h3FhUT0Po7LZnvJzNFya+cCZs=;
-        fh=km9uLu+o34v/SrmXdLbdkP5Su5zzLA6zrvzC8LqAclM=;
-        b=VRTmvRruVmVe5E7O46DcAHGkSmpQpsc/LH7fOVKoqdWkDLv3ibkYg6dZxMExIfVmiZ
-         jQZhIgzK8uV8VirCVVqJJrZzoa/GHdni3XtWBP1d5z/YACls43w5RSE1ireQ6eetUeMj
-         pW1c0MjxldDlP75XVKGipr2JBD06ahvByv9ifh+qzsXwM9W7Gby9L8nHOPocAUAvgS7G
-         Bup533EBEHfsiWOGW5mzAk7kpj+pNM281B+PWTNbjK6L2PmdOU6otvOXkDxx69UuXN8f
-         ifxWPeDlr9JsHHKSLATBLuaRXtf1sIXwMpnh4KaT3wvXLG9NT7wM3YVy2NrE5E4Jl9lF
-         AU2A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1774975594; x=1775580394; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GouBERXJUhyxyJHAw9h3FhUT0Po7LZnvJzNFya+cCZs=;
-        b=HAN7d5g536a8S0VxiVaSJhnocvOWPgJz4QXT9mKjHfILmlk0n1JmX7+w9uliqNKJfJ
-         drSa2dlqAOE7nhnd/oiGwyYXKSaLsqAR+pvGSCFQwscDx7xc3ij3ggoFPhkJS1I2duSm
-         ky/IErQoVqvLO0xh0H72gaQOqNIDq0lOWvSCOKxA940Lk1aLvxvAhZgKTYFjrSnw0n4S
-         6al4rGxNQnI54F5DbzRRinWotP27yclMVMw0FyuO9FaAtoCRgFcmRYGWzEbl51QyDLUl
-         bBswKqQIpvJIVKyFQJhj6fgl2h5zr6vQ5yJUfczOk20k9wRZ2rAqTpQoQWt1RS+bjMSS
-         kg8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774975594; x=1775580394;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=GouBERXJUhyxyJHAw9h3FhUT0Po7LZnvJzNFya+cCZs=;
-        b=iiLcmDEHsolfQQ64eN5Sn3X5SZ7NkTspbH8LWsp7gj17RJCtRprTmN4/jVX+X/2ixP
-         eGASmVFDeoPiWKETNAS4XpEYE7tBV4+vfWDnQXFesT1ndEtGX/Z1vh8OCISE4zFPj2rD
-         lbYjddxWiOUrkAsPKZLgo67jlc3RPduY+OlJvMbMJx8pl5MCXFaMr5SoDWh8WkSotVaU
-         IvR8LmsT/g79GgOM2mQdoSCmPRb0CaqykaKHaby50SyShlOVilmoqCYym3QcC62Xj2qf
-         EJXWlKT6mIUYpM48PBjZXRgJ/PdgrTp1DWwbpHqw8jsjoctcyMNnGpxqkjpQGiE0EK+D
-         qLWA==
-X-Forwarded-Encrypted: i=1; AJvYcCWHhgknq5wtsNvqrJlQV2D27Ph/ztojz1JSS2rJgS0kTCGYOFB4/RK1gtUopKrKpvYXOSnlxWZP9wJn@vger.kernel.org
-X-Gm-Message-State: AOJu0YxQNo0FHxzsm5048WQdfHKYLTcmXXhXWBVqaPQE9OmqPYhN5xyY
-	UseSv3Dma+BIWCwXSE/SD9qVmu00h8rHiKOdIXPxJR46Bgtzs43zktVpd8X5ca8u/sFys/opIO/
-	Af3itpt4qoutvBsgDNX6lOZiG0u+xmESRosKFXj3rwQ==
-X-Gm-Gg: ATEYQzx3n9HQJNO3QGaTkeaF4Ox3u2J5sKFF1i/Qk3dd2rYdxguyV6Qmqw3DHHkxVJl
-	dNWvlBcY+mdVNhMzStH3t7XjkxCJRJKbVyxfliGuo4Oy+6VeZAfyu+90JFEbks7uytxIPP59evh
-	mQM9cu5JDXclgHuBzBaoHTQrsITCM4H8QC5X4Hvyyw/p1JhfxVR+fOZLc/VH8g3JOqXD/2N0YeJ
-	rg1/OLPVK4ylpJPqF25ZqOPPMz/LZZjdOdWo4IpkfA/qK5ohR7lVbRzWi1TM7hEewDezdBele/A
-	efs0N7E=
-X-Received: by 2002:a17:907:d854:b0:b9c:8da:15ab with SMTP id
- a640c23a62f3a-b9c13cb9918mr23266166b.44.1774975594310; Tue, 31 Mar 2026
- 09:46:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="Jw9v4wv/"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id F08BB26EF6;
+	Tue, 31 Mar 2026 18:48:09 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id fESk11EWd7J9; Tue, 31 Mar 2026 18:48:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1774975689; bh=oQVnWLcfPVpq4oy73T6GwO7+A9grr8DISYy08Kii5GU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Jw9v4wv/H1km3ntJN8fHVEOc5EBgYEwgJusgYGlQvRt5CDL/qm1zhLFn+hT1CLhIc
+	 RgzzXPZjNo+0heB1bWuB6EQ/yZSEc4itdJ7+mLNyKVNVYRpDkaGZYfp4xvudqprUo9
+	 bsRWIiqEsBLAekx7oFGb593gx60ENQf3hf33+AkgYrczDR4ECeD7JbmAmGu2gNaKy2
+	 QcxjdmefcpYbmStxlomqM4how9qnQ4grclOIKki9Xt1YmuVi328LhvmFX+kiSzZIu5
+	 5dJ50MnqtXjPPZ51SSMqj5hlmssN7LwHZ8XGMWx51TxhyNalbs5KDY6zwEaF9dYL6o
+	 pnAyKKFVWuI8A==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260330-ina4230-v5-0-eeb322d95b3a@flipper.net>
- <67a5d1c1-a9c5-47fb-a0ec-5b69a991b01e@roeck-us.net> <20260331155246.GA1299761-robh@kernel.org>
- <20872ef8-f68c-4916-a05f-404fd49fff00@roeck-us.net>
-In-Reply-To: <20872ef8-f68c-4916-a05f-404fd49fff00@roeck-us.net>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Tue, 31 Mar 2026 20:46:23 +0400
-X-Gm-Features: AQROBzBF6QMV9ZUgiTg9Y6ZYRCRlZXMOMlDxfEHthEBqJ9A_mQSIAoXoi4cvHQo
-Message-ID: <CAKTNdwGcXcE25QiBTrZO6akMad+Lny5iPvAAAmUt6x2Hyzu5wg@mail.gmail.com>
-Subject: Re: [PATCH v5 0/2] Add support for Texas Instruments INA4230 power monitor
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Date: Tue, 31 Mar 2026 16:48:08 +0000
+From: Rustam Adilov <adilov@disroot.org>
+To: Vladimir Oltean <olteanv@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stanley
+ Chang <stanley_chang@realtek.com>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Michael Zavertkin
+ <misha.zavertkin@mail.ru>
+Subject: Re: [PATCH v2 5/6] phy: realtek: usb2: add support for RTL9607C USB2
+ PHY
+In-Reply-To: <20260330215033.ven3bllyw3jverfg@skbuf>
+References: <20260327160638.15134-1-adilov@disroot.org>
+ <20260327160638.15134-1-adilov@disroot.org>
+ <20260327160638.15134-6-adilov@disroot.org>
+ <20260327160638.15134-6-adilov@disroot.org>
+ <20260330215033.ven3bllyw3jverfg@skbuf>
+Message-ID: <1884dee6134e1c069e9f68edb2fdcd7f@disroot.org>
+X-Sender: adilov@disroot.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Mar 31, 2026 at 8:10=E2=80=AFPM Guenter Roeck <linux@roeck-us.net> =
-wrote:
->
-> On 3/31/26 08:52, Rob Herring wrote:
-> > On Mon, Mar 30, 2026 at 09:07:32AM -0700, Guenter Roeck wrote:
-> >> On 3/30/26 08:14, Alexey Charkov wrote:
-> >>> TI INA4230 is a 4-channel power monitor with I2C interface, similar i=
-n
-> >>> operation to INA3221 (3-channel) and INA219 (single-channel) but with
-> >>> a different register layout, different alerting mechanism and slightl=
-y
-> >>> different support for directly reading calculated current/power/energ=
-y
-> >>> values (pre-multiplied by the device itself and needing only to be sc=
-aled
-> >>> by the driver depending on its selected LSB unit values).
-> >>>
-> >>> In this initial implementation, the driver supports reading voltage,
-> >>> current, power and energy values, but does not yet support alerts, wh=
-ich
-> >>> can be added separately if needed. Also the overflows during hardware
-> >>> calculations are not yet handled, nor is the support for the device's
-> >>> internal 32-bit energy counter reset.
-> >>>
-> >>> An example device tree using this binding and driver is available at =
-[1]
-> >>> (not currently upstreamed, as the device in question is in engineerin=
-g
-> >>> phase and not yet publicly available)
-> >>>
-> >>> [1] https://github.com/flipperdevices/flipper-linux-kernel/blob/flipp=
-er-devel/arch/arm64/boot/dts/rockchip/rk3576-flipper-one-rev-f0b0c1.dts
-> >>>
-> >>> Signed-off-by: Alexey Charkov <alchark@flipper.net>
-> >>> ---
-> >>> Changes in v5:
-> >>> - Reworded per-channel subnodes description in the binding for clarit=
-y (Sashiko)
-> >>> - NB: Sashiko's suggestion to allow interrupts in the binding sounds =
-premature,
-> >>>     as the alerts mechanism is not implemented yet and there are no k=
-nown users
-> >>>     to test it. If anyone has hardware with the alert pins wired to a=
-n interrupt
-> >>>     line - please shout and we can test/extend it together
-> >>
-> >> The bindings are supposed to be complete, even if not implemented, so =
-I am not sure
-> >> if the DT maintainers will agree here. We'll see.
-> >
-> > Given ti,alert-polarity-active-high is added seems like the interrupt
-> > should be too. And the interrupt can specify the polarity, so is that
-> > property really needed? There's alway the possibility that you have som=
-e
-> > inverter on the board too and the interrupt polarity is not enough, but
-> > solve that problem when it actually exists.
-> >
->
-> The alert pin can be attached to a board interrupt, or (more likely) it c=
-an
-> be attached to the I2C controller's alert pin. In the latter case there i=
-s
-> no interrupt property.
+On 2026-03-30 21:50, Vladimir Oltean wrote:
+> On Fri, Mar 27, 2026 at 09:06:37PM +0500, Rustam Adilov wrote:
+>> Add support for the usb2 phy of RTL9607C series based SoCs.
+>> Add the macros and phy config struct for rtl9607.
+>> 
+>> RTL9607C requires to clear a "force host disconnect" bit in the
+>> specific register (which is at an offset from reg_wrap_vstatus)
+>> before proceeding with phy parameter writes.
+>> 
+>> Add the bool variable to the driver data struct and hide this whole
+>> procedure under the if statement that checks this new variable.
+>> 
+>> Co-developed-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+>> Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+>> Signed-off-by: Rustam Adilov <adilov@disroot.org>
+>> ---
+>>  drivers/phy/realtek/phy-rtk-usb2.c | 57 ++++++++++++++++++++++++++++++
+>>  1 file changed, 57 insertions(+)
+>> 
+>> diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy-rtk-usb2.c
+>> index 070cba1e0e0a..bf22d12681dc 100644
+>> --- a/drivers/phy/realtek/phy-rtk-usb2.c
+>> +++ b/drivers/phy/realtek/phy-rtk-usb2.c
+>> @@ -26,6 +26,12 @@
+>>  #define PHY_VCTRL_SHIFT 8
+>>  #define PHY_REG_DATA_MASK 0xff
+>>  
+>> +#define PHY_9607_VSTS_BUSY BIT(17)
+>> +#define PHY_9607_NEW_REG_REQ BIT(13)
+>> +
+>> +#define PHY_9607_FORCE_DISCONNECT_REG 0x10
+>> +#define PHY_9607_FORCE_DISCONNECT_BIT BIT(5)
+>> +
+>>  #define GET_LOW_NIBBLE(addr) ((addr) & 0x0f)
+>>  #define GET_HIGH_NIBBLE(addr) (((addr) & 0xf0) >> 4)
+>>  
+>> @@ -109,6 +115,7 @@ struct phy_cfg {
+>>  
+>>  	u32 (*read)(void __iomem *reg);
+>>  	void (*write)(u32 val, void __iomem *reg);
+>> +	bool force_host_disconnect;
+>>  };
+>>  
+>>  struct phy_parameter {
+>> @@ -614,6 +621,16 @@ static int do_rtk_phy_init(struct rtk_phy *rtk_phy, int index)
+>>  		goto do_toggle;
+>>  	}
+>>  
+>> +	if (phy_cfg->force_host_disconnect) {
+>> +		/* disable force-host-disconnect */
+>> +		u32 temp = readl(phy_reg->reg_wrap_vstatus + PHY_9607_FORCE_DISCONNECT_REG);
+>> +
+>> +		temp &= ~PHY_9607_FORCE_DISCONNECT_BIT;
+>> +		writel(temp, phy_reg->reg_wrap_vstatus + PHY_9607_FORCE_DISCONNECT_REG);
+>> +
+>> +		mdelay(10);
+> 
+> LLM review:
+> 
+> Could we use msleep(10) or usleep_range(10000, 11000) here instead of
+> mdelay(10)?
+> Since do_rtk_phy_init() executes as part of the phy_ops->init callback
+> with a mutex held from a sleepable process context, spinning the CPU for
+> 10ms wastes CPU resources and increases scheduling latency.
 
-Alright, I will add the interrupt property and keep the dedicated flag
-for alert polarity.
+I can change it to msleep instead.
 
-Following the logic of binding completeness, should I add a flag for
-the single-shot mode too, even though I dropped that functionality
-from the driver in one of the prior iterations?
+>> +	}
+>> +
+>>  	/* Set page 0 */
+>>  	phy_data_page = phy_cfg->page0;
+>>  	rtk_phy_set_page(phy_reg, 0);
+>> @@ -1141,6 +1158,7 @@ static const struct phy_cfg rtd1295_phy_cfg = {
+>>  	.new_reg_req = PHY_NEW_REG_REQ,
+>>  	.read = phy_read,
+>>  	.write = phy_write,
+>> +	.force_host_disconnect = false,
+> 
+> You don't need to initialize rodata struct fields with false/0/NULL.
 
-Thanks a lot,
-Alexey
+From what i can see, it lines up with other phy_cfg structs, and thats how they
+did it and it did get accepted. You can check the rtd1295_phy_cfg as an example.
+
+I am personally fine with removing the "force_host_disconnect = false" and other
+falses in rtl9607_phy_cfg but i am debating because it wouldn't line up with the rest.
+
+>>  };
+>>  
+>>  static const struct phy_cfg rtd1395_phy_cfg = {
+>> @@ -1170,6 +1188,7 @@ static const struct phy_cfg rtd1395_phy_cfg = {
+>>  	.new_reg_req = PHY_NEW_REG_REQ,
+>>  	.read = phy_read,
+>>  	.write = phy_write,
+>> +	.force_host_disconnect = false,
+>>  };
+>>  
+>>  static const struct phy_cfg rtd1395_phy_cfg_2port = {
+>> @@ -1199,6 +1218,7 @@ static const struct phy_cfg rtd1395_phy_cfg_2port = {
+>>  	.new_reg_req = PHY_NEW_REG_REQ,
+>>  	.read = phy_read,
+>>  	.write = phy_write,
+>> +	.force_host_disconnect = false,
+>>  };
+>>  
+>>  static const struct phy_cfg rtd1619_phy_cfg = {
+>> @@ -1226,6 +1246,7 @@ static const struct phy_cfg rtd1619_phy_cfg = {
+>>  	.new_reg_req = PHY_NEW_REG_REQ,
+>>  	.read = phy_read,
+>>  	.write = phy_write,
+>> +	.force_host_disconnect = false,
+>>  };
+>>  
+>>  static const struct phy_cfg rtd1319_phy_cfg = {
+>> @@ -1257,6 +1278,7 @@ static const struct phy_cfg rtd1319_phy_cfg = {
+>>  	.new_reg_req = PHY_NEW_REG_REQ,
+>>  	.read = phy_read,
+>>  	.write = phy_write,
+>> +	.force_host_disconnect = false,
+>>  };
+>>  
+>>  static const struct phy_cfg rtd1312c_phy_cfg = {
+>> @@ -1287,6 +1309,7 @@ static const struct phy_cfg rtd1312c_phy_cfg = {
+>>  	.new_reg_req = PHY_NEW_REG_REQ,
+>>  	.read = phy_read,
+>>  	.write = phy_write,
+>> +	.force_host_disconnect = false,
+>>  };
+>>  
+>>  static const struct phy_cfg rtd1619b_phy_cfg = {
+>> @@ -1317,6 +1340,7 @@ static const struct phy_cfg rtd1619b_phy_cfg = {
+>>  	.new_reg_req = PHY_NEW_REG_REQ,
+>>  	.read = phy_read,
+>>  	.write = phy_write,
+>> +	.force_host_disconnect = false,
+>>  };
+>>  
+>>  static const struct phy_cfg rtd1319d_phy_cfg = {
+>> @@ -1347,6 +1371,7 @@ static const struct phy_cfg rtd1319d_phy_cfg = {
+>>  	.new_reg_req = PHY_NEW_REG_REQ,
+>>  	.read = phy_read,
+>>  	.write = phy_write,
+>> +	.force_host_disconnect = false,
+>>  };
+>>  
+>>  static const struct phy_cfg rtd1315e_phy_cfg = {
+>> @@ -1378,6 +1403,37 @@ static const struct phy_cfg rtd1315e_phy_cfg = {
+>>  	.new_reg_req = PHY_NEW_REG_REQ,
+>>  	.read = phy_read,
+>>  	.write = phy_write,
+>> +	.force_host_disconnect = false,
+>> +};
+>> +
+>> +static const struct phy_cfg rtl9607_phy_cfg = {
+>> +	.page0_size = MAX_USB_PHY_PAGE0_DATA_SIZE,
+>> +	.page0 = { [0] = {0xe0, 0x95},
+>> +		   [4] = {0xe4, 0x6a},
+>> +		  [12] = {0xf3, 0x31}, },
+>> +	.page1_size = MAX_USB_PHY_PAGE1_DATA_SIZE,
+>> +	.page1 = { [0] = {0xe0, 0x26}, },
+>> +	.page2_size = MAX_USB_PHY_PAGE2_DATA_SIZE,
+>> +	.page2 = { [7] = {0xe7, 0x33}, },
+>> +	.num_phy = 1,
+>> +	.check_efuse = false,
+> 
+> Similar for these (+do_toggle_driving, use_default_parameter).
+> 
+>> +	.check_efuse_version = CHECK_EFUSE_V2,
+>> +	.efuse_dc_driving_rate = EFUS_USB_DC_CAL_RATE,
+>> +	.dc_driving_mask = 0x1f,
+>> +	.efuse_dc_disconnect_rate = EFUS_USB_DC_DIS_RATE,
+>> +	.dc_disconnect_mask = 0xf,
+>> +	.usb_dc_disconnect_at_page0 = true,
+>> +	.do_toggle = true,
+>> +	.do_toggle_driving = false,
+>> +	.driving_updated_for_dev_dis = 0x8,
+>> +	.use_default_parameter = false,
+>> +	.is_double_sensitivity_mode = true,
+>> +	.vstatus_offset = 0xc,
+>> +	.vstatus_busy = PHY_9607_VSTS_BUSY,
+>> +	.new_reg_req = PHY_9607_NEW_REG_REQ,
+>> +	.read = phy_read_le,
+>> +	.write = phy_write_le,
+>> +	.force_host_disconnect = true,
+>>  };
+>>  
+>>  static const struct of_device_id usbphy_rtk_dt_match[] = {
+>> @@ -1390,6 +1446,7 @@ static const struct of_device_id usbphy_rtk_dt_match[] = {
+>>  	{ .compatible = "realtek,rtd1395-usb2phy-2port", .data = &rtd1395_phy_cfg_2port },
+>>  	{ .compatible = "realtek,rtd1619-usb2phy", .data = &rtd1619_phy_cfg },
+>>  	{ .compatible = "realtek,rtd1619b-usb2phy", .data = &rtd1619b_phy_cfg },
+>> +	{ .compatible = "realtek,rtl9607-usb2phy", .data = &rtl9607_phy_cfg },
+>>  	{},
+>>  };
+>>  MODULE_DEVICE_TABLE(of, usbphy_rtk_dt_match);
+>> -- 
+>> 2.53.0
+>> 
+>>
