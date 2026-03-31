@@ -1,257 +1,122 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013065.outbound.protection.outlook.com [52.101.83.65])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CEA73E9282;
-	Tue, 31 Mar 2026 14:12:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774966349; cv=fail; b=WE4GO+17tOHT3gzUFuSO3wPIbzmXg6DnFpq0jXYvY5/DUm+sfzQqTrdZJLRRSAFBdRxxbuoYHeURBFIu7ygLSKV/oSHaIy5XHGGu1hCjLyKDHDdaasxJbQF3V9pgSqGxy/hlT6s/lnYTNUmgRWsgprcjL4RovTpnTmXAGy/gLEM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774966349; c=relaxed/simple;
-	bh=MFj/mIrtBL/97rkNrh7bk+3T4F9iIs2s3tGyNWn6lcc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=HD5LjraVWJq92/F1HLErCiR/iOSkvo9Ish8euDhUjw4X3nhFNFnCB32UtVBjfolW/OuNBjxDR4QfGEn9/tgi6JJ0CeCU9U+/oiMWGSUcpsfuqr7f0/U1jiY/oWuqj8f4U8R8F1dhRuTsPCyAcGOY7wbunzOg//WJXHIDx3jidMY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=d7ulp888; arc=fail smtp.client-ip=52.101.83.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85ED13E9F8D
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 14:16:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774966609; cv=none; b=GaP+lbe0rHHYx/2hMHQ6hnVi71o0MWBQbPoazK3B0YbBfZimOEEvZrKSQZnAO8tYWQ1wgi3gIE/GKOoFPM3pgSWS7q8KClVGhUWxDkuzG1VmSFN0f0xCn87cQqqIInEzd8O8xGVU7MK4Z1IA7066KaFs5WbwlhhB1boouvCG7Q4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774966609; c=relaxed/simple;
+	bh=5Iw9URBB2+huCGNNmJnyie/vcU11kN7G+C2oBsp0qj8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ju59hV8gAqHXNcCTjMNjRWBy6eWkrHQEjulU6JGmbpty3tAsljgitcVDHVBLP/JBE4cKJUb6JlXSXtf/g7XnNYHLxZabMkIYZ6E1vwBYituO7JwKWWWivZ9mIUKyThNYdl031eER/mW5eb8Y4z9GJn325Urd6iXefyFUwKdtaFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CJjvZzK+; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=pSOLESHa; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="d7ulp888"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yf1fWP24Ot2xVgPvwzKOLDeNevyghKnws2tPYTTA2EIEP3qjy9VslK2cxQtTTpoJdqlHkjmdz2UQGfvV8tCVAi05uVDWS5UYjyHwWcgxl8sZo1wr99o//7m3+E17azuSWOzj1mQkcEzpnPTRQG9dUiiSNusRHRjhFNYX1V6gQUDSQ/6Azzjk3pq+FbKI3jQ6WHG/GaXWYu1UR23dr82g3cT8vU2UPyvEDdx3RyYl94tOyJiVwg95nZ2tE67Gf9EhlGycA92L+vN4rc5bB6+laM9ELTXOjavHEJn2ax57/NQwOIBQn9HTxUEn8JlHXX0x8ZKdg2EkweR3fTtela6sEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nvZKgM9z9wMsoW8LduVDcW/H1ETBs8FFAzq3d5MNZ3c=;
- b=I+HDJ/fRudfLO15lU3HEQKvt3yut+tKKCJKobnnKCPdVGJQq0s9BflRfvxgBe67803woaHjOXEvWrnS+gpP67/G2KmNH5Wj+c4VtcHL9i+Jnht9I4GCj88q7qD/RgT5y8xAQ7R5AjrSzbdHXb35ZvzsEcZGr/IDNt9jP8atH6+rmF99ra7fgQ/8LlcigOq0Afvf0tsResc2TYSHjFjCnxQmMevn/RnNT688sMMDiQ7ylTWU0cb4pyLcsdhtv2iPksmy4o/WkJ3qBHN4aW/Fs/HNy9hH/0autIuxWyncXMQoCxiekjCFnwq1FvbHX6vMoOOGicbJ9FeG8CopU3DJBCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nvZKgM9z9wMsoW8LduVDcW/H1ETBs8FFAzq3d5MNZ3c=;
- b=d7ulp888F9XmB3LbgQRwD+RA+VusCwb64yLRCjyxIMRJxJc9E5gZrqvbd5WjGQiwVPvjUOpzSbwG844ysYcuXH63x/25sIPXojIuY2fKVCvqG9QD6V2UaKEleato4eGR+w6e3QAXXZrxGFPzuklJWHiYD1wkaavKWnKudrj8ErSwe4R0DMSV3+l3RJQfGsRPucJProWeB7vUfgd6jN2Gp+Nk3NcoHAV3wWJiXDa0zdr+FoxPiMaWAgpAS8xa+7+khLnMNra0GGHxh8sVqlQsxEUr7VXtSdD0kn9WKb2A1X3Q7YK6uinUmLXnFdPcdLgXbFfPjW1sghDLgvtDD1qEkQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by BESPR04MB12563.eurprd04.prod.outlook.com (2603:10a6:b10:ff::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Tue, 31 Mar
- 2026 14:12:24 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9745.027; Tue, 31 Mar 2026
- 14:12:24 +0000
-Date: Tue, 31 Mar 2026 10:12:17 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Akhil R <akhilrajeev@nvidia.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CJjvZzK+";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="pSOLESHa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1774966606;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+cvItjsGlgO+YKuRpumctJ3y5xeOoIq89E46KdlSIjg=;
+	b=CJjvZzK+sWuY+fgBbqyrjx8+cQtOp15B2H4koVxuc5ZNuxIcBjWAYDCAO7etEYC63rMix/
+	053FS2EGL+/2yaWqVAQov26htbN70CpDB64TVw55nrgSLFNtQ1fXNQ2EUmaPDNpO9EAmh5
+	WOD7xnx34d/bON1yuS4sJLeOcO8Zo+c=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-678-EQHFgMsiNjOgHyUZYCdXtA-1; Tue, 31 Mar 2026 10:16:45 -0400
+X-MC-Unique: EQHFgMsiNjOgHyUZYCdXtA-1
+X-Mimecast-MFC-AGG-ID: EQHFgMsiNjOgHyUZYCdXtA_1774966605
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-509044f54aaso181820241cf.1
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 07:16:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1774966605; x=1775571405; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+cvItjsGlgO+YKuRpumctJ3y5xeOoIq89E46KdlSIjg=;
+        b=pSOLESHaqVDimDnxFL8zT5QRh29M1bZpMV9G7EJ+zI9/ScBml+6QddKKZO1tDDnLbf
+         816Bzo1xoGiAfTbPFvo/NWM66ZhYk29VPsLlEfaNlbnRPh0qc6rEnRumhglwjc6I6tTq
+         pBbPo+HDjCexVFif7wezwXggccbI2iNrosFF3tTyTgRgacyhxOeDH9+bVWRupaUSxdai
+         BsDwqliULXNMZh1ekJ/foQqVD2v+NC+6+g1RATdKEgGq4A4LIKyJqEsPXm1oqr+eIc8I
+         TU/Cy85eJspvGn2E7uRUePn9lFIZV6KzK3tsxMihDF/LxuDHcd6PRPdC78vIcoDRjF3t
+         2WXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774966605; x=1775571405;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=+cvItjsGlgO+YKuRpumctJ3y5xeOoIq89E46KdlSIjg=;
+        b=klheMRQOJzftCzZA7DcrEK67ynYGRRVFAYgjg1A6VkCQtkn4b5X+xInhDhzhM9fZWi
+         1I9VVkpi/wwsxyRrHVbCCvZv8nWnI8G7oV5FFa6BzknD68nnyzSRdh3Oqbk90UK688a8
+         lCGEI8qprp9NnUfXGf0wLY+QXTZzft8t9Xx21Lc8X2mo8eDEOGDPacP1oI5xKBs0PuUi
+         UpCYPs4nlEy4yImrVKFDOKS2YTgWpwYctGtqTQjoFZtUL8QqHS4M0pg9SjE1l+qb3CAd
+         6Bj3+ediOOZjCln6AfJp84Re1dre7qjVfg115BkLWCypbaAZwlqhp0XExdAssuZPO3mH
+         6LtA==
+X-Forwarded-Encrypted: i=1; AJvYcCUiYA/iuorevJtNaIrYYxDlCaSo+yGTs6Dt+9I0ySbDER/OPAGdTDfbAocUx9JAXAWKjgJ16rbEBqEO@vger.kernel.org
+X-Gm-Message-State: AOJu0YxM1N6j4vZs4NMuiRSjTa+ZDN+bPzXa6RJYTedm6sPBVB2hDNZZ
+	BWAJas2wZyJWozUF57UY2wujDvWzMwciVpmtZMHW7r63nvZrp08wLoWg81p+/K4y4oB0WdV1AjB
+	/eRWuhyH9TNGi5rdQbqevGKSgn50LJQcwPpqYQVOtM2t8a/Xe/hV27hRp5acboV8=
+X-Gm-Gg: ATEYQzwzAHTfTbPZOaxwoO6vLt9/o21qq5VF4ZrD3nMIRKTO6B8jn29ojId0Hf4Kg6j
+	bYoEj9jOrVX6Ssgp5A1Ny8YJwHHEtRR9WrNEeBhL0jAtu+4/U9bcSVQr3JnU4ujc1iz9ZKuItXz
+	92JlV0Si/LzY/EnZBUub6YZp4Umcu7xhyHf6jbVJAa1LtodCJI7MIm3ziY8SOmfJSaekl0VDlf0
+	s0cCOmmUoq+ns1BMccpw3KH5cykR9la1tohuhfv+fCH0zJdSrygvzKppefJ+e5XXQWNmtSeenOI
+	hdII/0CTx3oej3eQ+I8og/93gKKvGZ2D4ikOaLbfpema+JwRBwRGjJ0hOPeFHz73jw6OtLkmcc8
+	KYuFRR/hIrIjaVVdt
+X-Received: by 2002:a05:622a:5e16:b0:50b:51a0:f744 with SMTP id d75a77b69052e-50ba3816a05mr227957651cf.17.1774966604500;
+        Tue, 31 Mar 2026 07:16:44 -0700 (PDT)
+X-Received: by 2002:a05:622a:5e16:b0:50b:51a0:f744 with SMTP id d75a77b69052e-50ba3816a05mr227957191cf.17.1774966603971;
+        Tue, 31 Mar 2026 07:16:43 -0700 (PDT)
+Received: from redhat.com ([96.66.166.93])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-50bb2c67fefsm86643111cf.4.2026.03.31.07.16.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 31 Mar 2026 07:16:43 -0700 (PDT)
+Date: Tue, 31 Mar 2026 10:16:41 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
 Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>, dmaengine@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 08/10] dmaengine: tegra: Use iommu-map for stream ID
-Message-ID: <acvWQa-bJB5EYjLH@lizhi-Precision-Tower-5810>
-References: <20260331102303.33181-1-akhilrajeev@nvidia.com>
- <20260331102303.33181-9-akhilrajeev@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260331102303.33181-9-akhilrajeev@nvidia.com>
-X-ClientProxiedBy: SN6PR16CA0045.namprd16.prod.outlook.com
- (2603:10b6:805:ca::22) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Guodong Xu <guodong@riscstar.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH v3 4/5] clk: spacemit: k3: mark top_dclk as
+ CLK_IS_CRITICAL
+Message-ID: <acvXSXNWIEcDUpQ3@redhat.com>
+References: <20260331-k3-pdma-v3-0-a4e60dd8b4b3@linux.spacemit.com>
+ <20260331-k3-pdma-v3-4-a4e60dd8b4b3@linux.spacemit.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|BESPR04MB12563:EE_
-X-MS-Office365-Filtering-Correlation-Id: daf1f144-06ba-4de9-8b53-08de8f2f8838
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|52116014|376014|7416014|1800799024|38350700014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	khproBywJN4MHNdTWbICQXGJWAYSXusnUD3hDxHs1lQdx4PJTXpSCdnzOBbLUUQeSsqSkgOKxsb49T8+wDpUs33wZNv6NLmzdGB/BvIkO68Sw38u9Lo1dB/sC/84Jd92d796dmWTGaXznkx3keJ0EBWpbvcO9aDVFcitDock5GMHYFw+SpOABWxnNlaa+pgz6VdLN0Jhge8+d+W9g3tLGng62qQN/i7+M86Z2KPStmvIQHbdPyMkvCtGKBpZcxr/DJ0vdMZA4vyxYjGYSTwF2NGNAC6IRf37bqkYbMlkbVpMB7DcA/Jt5IDWPa6yeozvaXuhlATkgXKBkAhOMTUJutN246uOBC8/HvAOBi1flxDekOGGFfaymZIRBx+NyHHjqiDLmOpi0AOg6hfe+jCfZc91BMLKCWlVNZww0hJXhHA99nRHUFbP9st9EAE4iJ9RXsjqO8GdsVABlRE6JxsFdNfYMt67AQSl0rINMvYSBKDOwo/Fq57yeeQ+S4D52JkQEvDeXUEgBPjNdEYeEur//IIpzrlyptugT8/BOdJi+whR2uO36hcacm9Vtwyddf52pYIeUV0jE4mPqZHLgTrmbq8y9L1myDUMYtSicgA2U7jfOtxISdhxXFQNapXTgo0jFoDyUtQYxVDGZBRtD69MegAYiN6ipdaVe5obUW9QYbcl96mHxy+5EXJbU5BDOdR3jWSipTYb3hB5jAjDoiLGORl4qkvdVFlyZYjPHsu6VNv6LgMsloBx9fPBE5MiNK9TXrhgy73Qm8wa6rb726b10YoWFFORV1V8UjuKe00xNYs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(52116014)(376014)(7416014)(1800799024)(38350700014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?bSIsSX0VJB0FkFysB2/IrrHO6WWvR03X7zUkznzk0IHEHsvkae/IMOX6RtXb?=
- =?us-ascii?Q?sl0eEMQJj/2B6exXiBiQ9xkmyf3foTV1HZdQ0PpkIgsBRdUUB3+ejs+bDXuz?=
- =?us-ascii?Q?k40ntvgTSdOerTo8XS0VpQYrGglBCkmNDmqpnVaoxroQYxI0aHwNGzUCtLsT?=
- =?us-ascii?Q?eOgzHPWfjV18tnTsP3H5zhLyrZ5zkYvUpDwYinARhQ4SOdHhAedgsDGSQnvv?=
- =?us-ascii?Q?3o84ow4OKsWt98ECG1zpugAermW9zgJhmEUMhNEkpGQNwoE9Qehz3/tmhkey?=
- =?us-ascii?Q?r9Djev0GHvGRm0ulD599dbvJ0AOrOeWGomRGAjLAIY8ytpl2lTptZ7lyTK3X?=
- =?us-ascii?Q?AgQttuEvm0b5mqvCxKOfuUvP1ImqvT1Bpf/I3ByqL+HfhAOWP3GRCO28ZZpf?=
- =?us-ascii?Q?1D+1EVQ4eu2qcswg+r1T466IU0dSAvLe3XJyKERafn10QOUmGdqjhskp4fpW?=
- =?us-ascii?Q?3Wy8GqbIdAK9WyPiQuqvPgHmzeTllKGE0Wlzd2C5Cc/seCdL9tRStrelrSde?=
- =?us-ascii?Q?sE5C/uAj7BdzmK1P119g2QpC6aaRs2H1I0hPTJdNeIrLlgL6pyCj3oUTSpCO?=
- =?us-ascii?Q?e/9ufHneLQ3qZdcnatl+lDOiewijcSvWC3xGV1JV5hcKFwEt4WZbLXnNOvOO?=
- =?us-ascii?Q?ya+uylk2aaNvc1BFuftrkgmcqqT5c6tL1JcltndO/uGW0CeHjOmMEKY+ApYd?=
- =?us-ascii?Q?gNyWkqdg7HcNIPb6qI5TpQhoRfhzjQPA8c4sk9LiVkN/4vJ9BTS0JRBhgyin?=
- =?us-ascii?Q?ioVxWnSWnTHY+BlWnfnf0KGyjT3GemZWWtCMddC3S5j//POHClpGYkvdUMZJ?=
- =?us-ascii?Q?3msjJwXAxT5eiMF7aqTMmljObEaCWDgfXwFdENdcnRH7kGdEBDxMfFXQCwoV?=
- =?us-ascii?Q?XHestlkWxow+k8It72R+jjhf9xxJo0EohyildMt8fn7902H9+D/8JOguDRwo?=
- =?us-ascii?Q?BcUvUfQzWBk/IiZhy85qrZVFpiDQAzTiT8ls5/OYdYAlRCEMeFfwhggkudve?=
- =?us-ascii?Q?P2mwB/THsiI5+djMVV/v3BiUBVAYgzwZV1yua6MRnCFAsoKF4lsQtO5WTssz?=
- =?us-ascii?Q?xUhDnBGukEpl7WJFNKdDD0ZwZopUE/K9ZThBJghWR97kSYOuUk/wmXeuMbGS?=
- =?us-ascii?Q?C3mTOAEWtyfyZ9UiC6ZRQ9ld3ts5u3tYE9X4ZFh+o6LHg3W1Q48m5fW0Cx2+?=
- =?us-ascii?Q?Z68ldOuZfPB359/ir6qlCLhS/OnQiKYVlAUT9U+iUDt+HXfPJPDcffblRvnO?=
- =?us-ascii?Q?h/R7QLzeozRexfgvn9lVVnP+YdFc14QHA2zCJVOoPuxgldmL8rJdc7pK0FzL?=
- =?us-ascii?Q?A1C/GmRyLjIwPkSXo+y0o4mpnOKQQQCiVff/H4seCuCN8uj20rZIzCaRAs0i?=
- =?us-ascii?Q?4wkOYTwH38a8ufyTlLyZi+O87mFSHRu98fqvr1IXDJNR2/wLWMH9B1M6hOry?=
- =?us-ascii?Q?wmdKMsNCXhtNU71l6HQa9t10w5NMc6xi3hbNSiK+yAnOMZCIkKOv2ODe/UTM?=
- =?us-ascii?Q?WvYrTRD5Jqi5W25qQJH2fHR51N2XGZyOBW2ABpwF+bVs0Cnk0/ZaMdH/gMJV?=
- =?us-ascii?Q?EV6y8mEXQe0R8FZGMunEBPQYQCE20MLMGs6LLBTzz689gefdd/CnUUUGt34M?=
- =?us-ascii?Q?HjIGHGA6uaVnXHl4KlUdnOi1NaMS2WDg5IOzoQc55/e4ChyfrsuOyfdczUhN?=
- =?us-ascii?Q?jRkQ5azSV7w251urFfgGD24BwUdM2FOg34lbtfmWYACxmneJ?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: daf1f144-06ba-4de9-8b53-08de8f2f8838
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 14:12:24.7736
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cG5yJWEMKIQ/xYD7PzEA9YRXbpKPEfjU6n20WHQSzZv1kbiMMQblV+RPz+izH+iAF9UNkIqlrJAcFc3lt+uo5g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BESPR04MB12563
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260331-k3-pdma-v3-4-a4e60dd8b4b3@linux.spacemit.com>
+User-Agent: Mutt/2.3.0 (2026-01-25)
 
-On Tue, Mar 31, 2026 at 03:53:01PM +0530, Akhil R wrote:
-> Use 'iommu-map', when provided, to get the stream ID to be programmed
-> for each channel. Iterate over the channels registered and configure
-> each channel device separately using of_dma_configure_id() to allow
-> it to use a separate IOMMU domain for the transfer. However, do this
-> in a second loop since the first loop populates the DMA device channels
-> list and async_device_register() registers the channels. Both are
-> prerequisites for using the channel device in the next loop.
->
-> Channels will continue to use the same global stream ID if the
-> 'iommu-map' property is not present in the device tree.
->
-> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
-> ---
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
->  drivers/dma/tegra186-gpc-dma.c | 53 ++++++++++++++++++++++++++++------
->  1 file changed, 44 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/dma/tegra186-gpc-dma.c b/drivers/dma/tegra186-gpc-dma.c
-> index 9bea2ffb3b9e..cd480d047204 100644
-> --- a/drivers/dma/tegra186-gpc-dma.c
-> +++ b/drivers/dma/tegra186-gpc-dma.c
-> @@ -15,6 +15,7 @@
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/of_dma.h>
-> +#include <linux/of_device.h>
->  #include <linux/platform_device.h>
->  #include <linux/reset.h>
->  #include <linux/slab.h>
-> @@ -1380,9 +1381,13 @@ static int tegra_dma_program_sid(struct tegra_dma_channel *tdc, int stream_id)
->  static int tegra_dma_probe(struct platform_device *pdev)
->  {
->  	const struct tegra_dma_chip_data *cdata = NULL;
-> +	struct tegra_dma_channel *tdc;
-> +	struct tegra_dma *tdma;
-> +	struct dma_chan *chan;
-> +	struct device *chdev;
-> +	bool use_iommu_map = false;
->  	unsigned int i;
->  	u32 stream_id;
-> -	struct tegra_dma *tdma;
->  	int ret;
->
->  	cdata = of_device_get_match_data(&pdev->dev);
-> @@ -1410,9 +1415,10 @@ static int tegra_dma_probe(struct platform_device *pdev)
->
->  	tdma->dma_dev.dev = &pdev->dev;
->
-> -	if (!tegra_dev_iommu_get_stream_id(&pdev->dev, &stream_id)) {
-> -		dev_err(&pdev->dev, "Missing iommu stream-id\n");
-> -		return -EINVAL;
-> +	use_iommu_map = of_property_present(pdev->dev.of_node, "iommu-map");
-> +	if (!use_iommu_map) {
-> +		if (!tegra_dev_iommu_get_stream_id(&pdev->dev, &stream_id))
-> +			return dev_err_probe(&pdev->dev, -EINVAL, "Missing iommu stream-id\n");
->  	}
->
->  	ret = device_property_read_u32(&pdev->dev, "dma-channel-mask",
-> @@ -1424,9 +1430,10 @@ static int tegra_dma_probe(struct platform_device *pdev)
->  		tdma->chan_mask = TEGRA_GPCDMA_DEFAULT_CHANNEL_MASK;
->  	}
->
-> +	/* Initialize vchan for each channel and populate the channels list */
->  	INIT_LIST_HEAD(&tdma->dma_dev.channels);
->  	for (i = 0; i < cdata->nr_channels; i++) {
-> -		struct tegra_dma_channel *tdc = &tdma->channels[i];
-> +		tdc = &tdma->channels[i];
->
->  		/* Check for channel mask */
->  		if (!(tdma->chan_mask & BIT(i)))
-> @@ -1446,10 +1453,6 @@ static int tegra_dma_probe(struct platform_device *pdev)
->
->  		vchan_init(&tdc->vc, &tdma->dma_dev);
->  		tdc->vc.desc_free = tegra_dma_desc_free;
-> -
-> -		/* program stream-id for this channel */
-> -		tegra_dma_program_sid(tdc, stream_id);
-> -		tdc->stream_id = stream_id;
->  	}
->
->  	dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(cdata->addr_bits));
-> @@ -1483,6 +1486,7 @@ static int tegra_dma_probe(struct platform_device *pdev)
->  	tdma->dma_dev.device_synchronize = tegra_dma_chan_synchronize;
->  	tdma->dma_dev.residue_granularity = DMA_RESIDUE_GRANULARITY_BURST;
->
-> +	/* Register the DMA device and the channels */
->  	ret = dmaenginem_async_device_register(&tdma->dma_dev);
->  	if (ret < 0) {
->  		dev_err_probe(&pdev->dev, ret,
-> @@ -1490,6 +1494,37 @@ static int tegra_dma_probe(struct platform_device *pdev)
->  		return ret;
->  	}
->
-> +	/*
-> +	 * Configure stream ID for each channel from the channels registered
-> +	 * above. This is done in a separate iteration to ensure that only
-> +	 * the channels available and registered for the DMA device are used.
-> +	 */
-> +	list_for_each_entry(chan, &tdma->dma_dev.channels, device_node) {
-> +		chdev = &chan->dev->device;
-> +		tdc = to_tegra_dma_chan(chan);
-> +
-> +		if (use_iommu_map) {
-> +			chdev->bus = pdev->dev.bus;
-> +			dma_coerce_mask_and_coherent(chdev, DMA_BIT_MASK(cdata->addr_bits));
-> +
-> +			ret = of_dma_configure_id(chdev, pdev->dev.of_node,
-> +						  true, &tdc->id);
-> +			if (ret)
-> +				return dev_err_probe(chdev, ret,
-> +					   "Failed to configure IOMMU for channel %d\n", tdc->id);
-> +
-> +			if (!tegra_dev_iommu_get_stream_id(chdev, &stream_id))
-> +				return dev_err_probe(chdev, -EINVAL,
-> +					   "Failed to get stream ID for channel %d\n", tdc->id);
-> +
-> +			chan->dev->chan_dma_dev = true;
-> +		}
-> +
-> +		/* program stream-id for this channel */
-> +		tegra_dma_program_sid(tdc, stream_id);
-> +		tdc->stream_id = stream_id;
-> +	}
-> +
->  	ret = devm_of_dma_controller_register(&pdev->dev, pdev->dev.of_node,
->  					      tegra_dma_of_xlate, tdma);
->  	if (ret < 0) {
-> --
-> 2.50.1
->
+On Tue, Mar 31, 2026 at 04:27:07PM +0800, Troy Mitchell wrote:
+> top_dclk is the DDR bus clock. If it is gated by clk_disable_unused,
+> all memory-mapped bus transactions cease to function, causing DMA
+> engines to hang and general system instability.
+> 
+> Mark it CLK_IS_CRITICAL so the CCF never gates it during the
+> unused clock sweep.
+> 
+> Fixes: e371a77255b8 ("clk: spacemit: k3: add the clock tree")
+> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+
+Reviewed-by: Brian Masney <bmasney@redhat.com>
+
