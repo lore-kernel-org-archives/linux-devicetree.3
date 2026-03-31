@@ -1,91 +1,146 @@
-Received: from sg-3-44.ptr.tlmpb.com (sg-3-44.ptr.tlmpb.com [101.45.255.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F13B1386425
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 07:25:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4428A3BE632;
+	Tue, 31 Mar 2026 07:27:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774941903; cv=none; b=gmivMRaDZH6EsWidPMaSEHB9IkS7WlK4g+pQrs2PrBYqIXF/PtQ/6M233fFa9itDqNiPkayMMtgRpgPdDrmSvn/IKpXpGWOXEbq/AbHfMBefnthT31H5GUJtmK4KT4kgy4tqVwSLQBeOA4ovPieajrqCe6V1y44JxpjW+vIoqQ4=
+	t=1774942038; cv=none; b=SjY2wRn/DMv0MM0X8d1KG4giC1ro0Qiun4AzzrOYQTr5Y3TFIgsUk1di0b2VLSx9j1liCl1Voyzgzf8SAteGcuk/EiMpxHn7GmOTUy8sLyRkB9ChhvSPvT+4E7NvSHE3XRl79oK/NP0qsfirAZrD0lLBLa7bT7BTeqXSr1SBhPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774941903; c=relaxed/simple;
-	bh=k1rsPaWJ4Qv2ieYkin+GJzrEKodqZasRzt+A1M6y97w=;
-	h=To:Cc:Message-Id:Mime-Version:Content-Type:Subject:References:
-	 From:Date:In-Reply-To; b=cNVPRttmTX8yMStDJQiU6W+KWj/qL37gHxuSZObJph8iFQNRQntqVY1DOs1Ki8p0zIuWDOY5WbHbBwpHCzqiNJ2+rjpRdAUJvrrVD2ogai1RZhdfB1WNl24sKRhDXa950hngKlnSEIxB9d1qhDgdLOdXKc0MhHfbBTgLmogOfz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=MvcMZm5o; arc=none smtp.client-ip=101.45.255.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	s=arc-20240116; t=1774942038; c=relaxed/simple;
+	bh=X3yeokNyZn70wlzcDKDkqaW2bU/NrHBKm0YhEEm8C3s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pM9m3ODD+VTMoC8kz95CShpDFlgpdKhcnLtwup+yR4jWZj55xmZhnn7EEZbwWiamjOFpXOPwzMejoMTlN4NI5cE14TeYpjA36dyeRo4iMN4nALMV3hPeaiaw/xn4y2sWMGIUyDwX38BgX+rXPO9kAbF5RfnYehXE5owL2bdJAz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pLpjq19P; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="MvcMZm5o"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1774941173;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=GQDq7xcPmGfMBCPBOoJzK5rFck21n/XBBgQtt8mMdD0=;
- b=MvcMZm5oSdctm4cRKprkzy8jArHx3mJFhjmk8zcoGwcfzzCMkERmxb9Dr2Brf7TvG20oW5
- 5eX1UiQ0A94elZhPdyq0zaqxZTnZZXKO68X9oabVkqYpmMQT9gzCQpnug7wsz7yKeZOAdg
- O3j3Tf7J94RJsC1cFzP2fe4TmdENKllPNPmD3BLbuXolqfM807u6iUZ1bjspyuDySo8IWF
- HASTrPIznRAa603acg2WgwxikdOr/+7aNnnuMGUnAxlkbmOSrzEsmOgjHDTWF/ZIQO8onj
- d6pRL9T/f/L0k7OihJxeukPsTZSY7YdWC61p51hsmTd5P3b8nVkI0x+rLEO7HQ==
-To: "Conor Dooley" <conor+dt@kernel.org>
-Cc: "Emil Renner Berthing" <kernel@esmil.dk>, 
-	"Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Yixun Lan" <dlan@kernel.org>, 
-	"Paul Walmsley" <paul.walmsley@sifive.com>, 
-	"Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>, 
-	"Heinrich Schuchardt" <heinrich.schuchardt@canonical.com>, 
-	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Michael Opdenacker" <michael.opdenacker@rootcommit.com>, 
-	"Guodong Xu" <guodong@riscstar.com>, 
-	"Hendrik Hamerlinck" <hendrik.hamerlinck@hammernet.be>, 
-	"Yangyu Chen" <cyy@cyyself.name>, <spacemit@lists.linux.dev>, 
-	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, 
-	"Sandie Cao" <sandie.cao@deepcomputing.io>
-Message-Id: <20260331071238.68336-1-sandie.cao@deepcomputing.io>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pLpjq19P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 859FFC19423;
+	Tue, 31 Mar 2026 07:27:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774942037;
+	bh=X3yeokNyZn70wlzcDKDkqaW2bU/NrHBKm0YhEEm8C3s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=pLpjq19PE1SvYAIgikedhFgItbR1nnEWD5PfIOYkpgq1UhPPvheKQ6vZtsFZCaCBq
+	 u6T8jCDGkZi8NHC8rIRG4A8h9p9/x7bFjYWOixLN02gtHe6EwClLJ83jKSIOWAJtUN
+	 Dl0WvfrJ6kZL7V6xrGCaIXk2yw1OF1mwZAlNa6HcJ1egtOfv1JfKCoNOuFB8qxrl2j
+	 cG81rVGfxEbq1beD6Znz8Ja2INBnqa5RbQolxmANaiteZaTPfP9s5fKHZkv+a7uwNi
+	 rXNLXkxumleCcNn5vZC1Z7h6TSN7AUCmsrkEO3iC3oc9Jj26CEtXQ1wmn5upb2IKey
+	 YtJgUUgCLmmLQ==
+Date: Tue, 31 Mar 2026 09:27:15 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Yi-Wei Wang <yiweiw@nvidia.com>
+Subject: Re: [PATCH v2 4/7] pwm: tegra: Parametrize enable register offset
+Message-ID: <act27bArVQd_oGdA@orome>
+References: <20260325-t264-pwm-v2-0-998d885984b3@nvidia.com>
+ <20260325-t264-pwm-v2-4-998d885984b3@nvidia.com>
+ <acT_nz0TRM4yXwkb@orome>
+ <177483744958.916245.860145469758840098.b4-reply@b4>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
-X-Mailer: git-send-email 2.43.0
-Content-Type: text/plain; charset=UTF-8
-Subject: [PATCH v2 1/2] dt-bindings: riscv: spacemit: add deepcomputing,fml13v05
-X-Lms-Return-Path: <lba+269cb73f3+d67c50+vger.kernel.org+sandie.cao@deepcomputing.io>
-References: <20260331071110.68321-1-sandie.cao@deepcomputing.io>
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
-Date: Tue, 31 Mar 2026 15:12:38 +0800
-In-Reply-To: <20260331071110.68321-1-sandie.cao@deepcomputing.io>
-Received: from roma-Laptop-12th-Gen-Intel-Core.. ([218.17.141.187]) by smtp.feishu.cn with ESMTPS; Tue, 31 Mar 2026 15:12:50 +0800
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="czd7pk4dwbs6pmxq"
+Content-Disposition: inline
+In-Reply-To: <177483744958.916245.860145469758840098.b4-reply@b4>
 
-Document the compatible string for the Deepcomputing fml13v05.
-It's based on the SpacemiT K3 RISC-V SoC and is designed for the Framework
-Laptop 13 Chassis, which has (Framework) SKU FRANHQ0001.
 
-Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
-Reviewed-by: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
----
-v2:
-   Use formal format user name.
----
- Documentation/devicetree/bindings/riscv/spacemit.yaml | 1 +
- 1 file changed, 1 insertion(+)
+--czd7pk4dwbs6pmxq
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 4/7] pwm: tegra: Parametrize enable register offset
+MIME-Version: 1.0
 
-diff --git a/Documentation/devicetree/bindings/riscv/spacemit.yaml b/Documentation/devicetree/bindings/riscv/spacemit.yaml
-index b958b94a924d..af8030242bdc 100644
---- a/Documentation/devicetree/bindings/riscv/spacemit.yaml
-+++ b/Documentation/devicetree/bindings/riscv/spacemit.yaml
-@@ -29,6 +29,7 @@ properties:
-           - const: spacemit,k1
-       - items:
-           - enum:
-+              - deepcomputing,fml13v05
-               - spacemit,k3-pico-itx
-           - const: spacemit,k3
- 
--- 
-2.43.0
+On Mon, Mar 30, 2026 at 11:24:09AM +0900, Mikko Perttunen wrote:
+> On 2026-03-26 10:47 +0100, Thierry Reding wrote:
+> > On Wed, Mar 25, 2026 at 07:17:02PM +0900, Mikko Perttunen wrote:
+> > > On Tegra264, the PWM enablement bit is not located at the base address
+> > > of the PWM controller. Hence, introduce an enablement offset field in
+> > > the tegra_pwm_soc structure to describe the offset of the register.
+> > >=20
+> > > Co-developed-by: Yi-Wei Wang <yiweiw@nvidia.com>
+> > > Signed-off-by: Yi-Wei Wang <yiweiw@nvidia.com>
+> > > Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+> > > ---
+> > >  drivers/pwm/pwm-tegra.c | 17 ++++++++++++-----
+> > >  1 file changed, 12 insertions(+), 5 deletions(-)
+> > >=20
+> > > diff --git a/drivers/pwm/pwm-tegra.c b/drivers/pwm/pwm-tegra.c
+> > > index cf54f75d92a5..22d709986e8c 100644
+> > > --- a/drivers/pwm/pwm-tegra.c
+> > > +++ b/drivers/pwm/pwm-tegra.c
+> > > @@ -61,6 +61,7 @@
+> > > =20
+> > >  struct tegra_pwm_soc {
+> > >  	unsigned int num_channels;
+> > > +	unsigned int enable_reg;
+> > >  };
+> > > =20
+> > >  struct tegra_pwm_chip {
+> > > @@ -197,8 +198,9 @@ static int tegra_pwm_config(struct pwm_chip *chip=
+, struct pwm_device *pwm,
+> > >  		err =3D pm_runtime_resume_and_get(pwmchip_parent(chip));
+> > >  		if (err)
+> > >  			return err;
+> > > -	} else
+> > > +	} else if (pc->soc->enable_reg =3D=3D PWM_CSR_0) {
+> > >  		val |=3D PWM_ENABLE;
+> > > +	}
+> >=20
+> > This looks incomplete for the Tegra264 case where
+> >=20
+> > 	pc->soc->enable_reg =3D=3D PWM_CSR_1
+> >=20
+> > > =20
+> > >  	pwm_writel(pwm, PWM_CSR_0, val);
+> >=20
+> > I think we need another write for PWM_CSR_1 here to properly toggle the
+> > PWM_ENABLE bit on Tegra264.
+> >=20
+> > Or am I missing something?
+>=20
+> This check is here just so we don't change the value of PWM_ENABLE when
+> writing the CSR_0 register. The function doesn't write to CSR_1 so
+> nothing needs to be done on Tegra264.
+>=20
+> I agree it's not the clearest, but it'll get cleaned up when adding
+> support for configurable depth, as at that point we will need to write
+> both registers on Tegra264.
+
+Ah... nevermind. I realize now that we're not touching PWM_CSR_1 at all
+in tegra_pwm_config(), so there's no need to explicitly set PWM_ENABLE.
+
+If moving to the new APIs, that would need to change, but for the legacy
+PWM callbacks this is probably fine.
+
+Thierry
+
+--czd7pk4dwbs6pmxq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnLd1MACgkQ3SOs138+
+s6GsYw//VxcTYb77wx69oDShM9AFwm8+heEJo+JTzEory+DPhiFE6DBYApk1K2M1
+u/4LmGRYcu4D7sivvrEa+5LT2I513zXDVqmJ/AYRi5Ml099VmcGEmTpcQsynh/iY
+v4mCfaMA8S8WLx/iQvIysN3xgudLmbDwhmw7HwS6bMo8vU7cXvdpweIpqd3uOh3/
+FNqtGBWsbUuZFEaFg+OWo5Cc7qwuNIZnzKtf8wn/SQDIx3V+QbGKgBUJNuhjO22c
+r7r8I3Us9gi0QzwKoByarAEhMmNQ56VKCOl/RK2Z4Wu/s4hL4dR6OjZXvhI1Dna7
+BhFgOC+6QyfSP8G2FKy10bbyZYbsxMkTKF9aLJLkvr7IerWjjeEXSqVQw8noJmVB
+HE4+0UjSqaV0PaoRtL85OiuXsmK6F4qWCWqNz2Jp4ncJo16yNFIwN8aKzm9vZlSp
+pS/7hER3jsJmCrTPJgS8ANeOO/E42k5ChS4H79ojDPMXDEuOkh6Nc/zy7aLEiumy
+JfUH2hE1vwfPTICYSdCb6jAsr2+byZVQ+NrtpDpyiDEQtH7Gy6vsyTIK9pf2ZvDo
+HpV9eVA/kY4JrF+ln9ir9m2GfOPQRcq+dlAeq3liHtP9yXQhoUWktBPZP6u+h8gr
+dqj52beQpyqaCkRbMCfCkxxq4e9mN7yJf5nU7mgiRIin5ifp3qo=
+=NM+U
+-----END PGP SIGNATURE-----
+
+--czd7pk4dwbs6pmxq--
