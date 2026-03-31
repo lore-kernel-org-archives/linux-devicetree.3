@@ -1,96 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2CD21E091;
-	Tue, 31 Mar 2026 15:13:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9D93FB7F1
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 15:14:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774969988; cv=none; b=mscOuyA6TH+Bh1gFhln28UeKMGrHUGMJj5T3/4GxNE6z7RvLDx7C5pJ2oPtcfj5dSj7VqKH9dX7Ax9j717bfG8SGpyTcqZkEzq970UWk3pNM8UMqZAijL2+yOFJeUCEaSctTf0NIYLMyrpx5pJPC5tL/TZ06Vyh5n5AKGPVy6MI=
+	t=1774970082; cv=none; b=avIKPEgO6puwrrU+tWWBhhmEOAlsfzgBcKz+NL8dft9cHyCg1TJ9SlC5a1GgIQtgaPcUYW4EuMrCYkkaIUi2BrrYzRVE3RysKfE0YM4N4yjQhYQmSQ/EaZTuQnN0WCjlpCBnwzhG5jUylqijysL739MQJuR/HdChCiUkv6TgDFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774969988; c=relaxed/simple;
-	bh=ZpDZtBSDgtUGrlNSHGwf/tgBtVz86+YC4LivAnSFw4c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d6VFCS/dK38YKqqujeKd+d1fLpHIKRoI6siJ7+NbKS//664DiVcvOqqsCzJ9PVIG2mpNRPiSKlkKeNr2dlOWFY2i7P6zB1RDcvtLM8XIW+zQdYxubkWkVkV4CBON4Yc8WOyxXnTgnHSnRWn8NNHLEUK6iSiy1Zb8z4PoNSDj/AM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qMWY71RA; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qMWY71RA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7EF7C19423;
-	Tue, 31 Mar 2026 15:13:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774969988;
-	bh=ZpDZtBSDgtUGrlNSHGwf/tgBtVz86+YC4LivAnSFw4c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qMWY71RA3zXNIfMP7aKST+0DX2cnAj72G6kNbSgCMQbie83KyWhO8i23shN5E+uAL
-	 Ubn/STrTVj79ovm++nHfSYOur8xnqbjFbVG3kDP6ELtTLX9YZEnyQQrvm412ySvrHo
-	 PV6Ht+ZGpWg7uJhXy7s8e9HADU55lDOrD0p3mFJIFRee2N/VMeY+kzCpLG4uqnNNhv
-	 QypR3nOuz9ogiwsdpkvlKfB1oC5Uci5EzmN381boQqay6V/sJBRhNhaO7i1RND0gwS
-	 /Xe1OrQtTX2PRiYg4e/TEp406Tm85nYrRRV16V5nzxrvkOSl8M/Qd3rn+Ew7q15hSq
-	 fuGMqVKY/O+WA==
-Date: Tue, 31 Mar 2026 10:13:05 -0500
-From: Rob Herring <robh@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-	Peter Rosin <peda@axentia.se>, Linus Walleij <linusw@kernel.org>,
-	kernel@pengutronix.de, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux-gpio@vger.kernel.org, David Jander <david@protonic.nl>
-Subject: Re: [PATCH v8 0/6] mfd: Add support for NXP MC33978/MC34978 MSDI
-Message-ID: <20260331151305.GA1211848-robh@kernel.org>
-References: <20260329090601.532477-1-o.rempel@pengutronix.de>
- <8291919d-c5ea-42ab-b2e5-2dfa16c23698@roeck-us.net>
+	s=arc-20240116; t=1774970082; c=relaxed/simple;
+	bh=ROUNo/tHRd68I8Ifwz6YahJR1eZKJhCOZB6ug5FK4jE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=tzonFfucqqKtcAfxl/Iq4mqVbPtZhkpmf2J2lT8+HxAzAX1a8p/NxnAK/qIF1JbWE5YRzmbQxRWLxDbq8rxGmK4xWyWep/LxeDwT6w4Pn2adXiu2iA9+Tl2xMWmdu7x4AWQ+8Ul8+qdS80lrabEhNLfd5Ov2NbFjt8hDd5tF9pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w7anM-0006b0-Ku; Tue, 31 Mar 2026 17:14:20 +0200
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w7anL-0033uI-0H;
+	Tue, 31 Mar 2026 17:14:19 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w7anK-00000000EmP-464Y;
+	Tue, 31 Mar 2026 17:14:18 +0200
+Message-ID: <e7c92eeffd66ed1d4b03f312bd3033451cbd0185.camel@pengutronix.de>
+Subject: Re: [PATCH v8 4/5] reset: rzv2h-usb2phy: Keep PHY clock enabled for
+ entire device lifetime
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
+	tomm.merciai@gmail.com, peda@axentia.se
+Cc: linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, Fabrizio
+ Castro <fabrizio.castro.jz@renesas.com>, Lad Prabhakar
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>,  Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,  Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulf.hansson@linaro.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Josua Mayer
+ <josua@solid-run.com>, Arnd Bergmann <arnd@arndb.de>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Tue, 31 Mar 2026 17:14:18 +0200
+In-Reply-To: <6584aed8dc4fddb28c2184c83b92b4f3b419bc31.1773319566.git.tommaso.merciai.xr@bp.renesas.com>
+References: <cover.1773319566.git.tommaso.merciai.xr@bp.renesas.com>
+	 <6584aed8dc4fddb28c2184c83b92b4f3b419bc31.1773319566.git.tommaso.merciai.xr@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8291919d-c5ea-42ab-b2e5-2dfa16c23698@roeck-us.net>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-On Sun, Mar 29, 2026 at 08:34:31AM -0700, Guenter Roeck wrote:
-> Hi Oleksij,
-> 
-> On 3/29/26 02:05, Oleksij Rempel wrote:
-> > changes v7:
-> > - drop gpiolib irq fix and make pinctrl more robust against NULL point
-> >    dereference.
-> > 
-> > This series adds support for the NXP MC33978/MC34978 Multiple Switch Detection
-> > Interface (MSDI) via the MFD framework.
-> > 
-> > Architecture overview:
-> > * mfd: Core driver handling 2-frame pipelined SPI, regulator sequencing, and
-> >    linear irq_domain. Harvests status bits from SPI MISO MSB.
-> > * pinctrl: Exposes 22 physical switch inputs as standard GPIOs. Proxies IRQs to
-> >    the MFD domain.
-> > * hwmon: Exposes thermal limits, VBATP/VDDQ voltage boundaries, and dynamic
-> >    fault alarms.
-> > * mux: Controls the 24-to-1 AMUX routing analog signals (switch voltages,
-> >    temperature, VBATP) to an external ADC.
-> > 
-> > Initial pinctrl implementation by David Jander, reworked into this MFD
-> > architecture.
-> > 
-> 
-> I Acked the hwmon driver, but Sashiko is still not happy with several of the other
-> patches in the series:
-> 
-> https://sashiko.dev/#/patchset/20260329090601.532477-1-o.rempel%40pengutronix.de
-> 
-> If the remaining issues are false positives, please let Roman and/or me know.
+On Do, 2026-03-12 at 15:50 +0100, Tommaso Merciai wrote:
+> The driver was disabling the USB2 PHY clock immediately after register
+> initialization in probe() and after each reset operation. This left the
+> PHY unclocked even though it must remain active for USB functionality.
+>=20
+> The behavior appeared to work only when another driver
+> (e.g., USB controller) had already enabled the clock, making operation
+> unreliable and hardware-dependent. In configurations where this driver
+> is the sole clock user, USB functionality would fail.
+>=20
+> Fix this by:
+> - Enabling the clock once in probe() via pm_runtime_resume_and_get()
+> - Removing all pm_runtime_put() calls from assert/deassert/status
+> - Registering a devm cleanup action to release the clock at removal
+> - Removed rzv2h_usbphy_assert_helper() and its call in
+>   rzv2h_usb2phy_reset_probe()
+>=20
+> This ensures the PHY clock remains enabled for the entire device lifetime=
+,
+> preventing instability and aligning with hardware requirements.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: e3911d7f865b ("reset: Add USB2PHY port reset driver for Renesas RZ=
+/V2H(P)")
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-The binding issue is valid. However, it's an issue with many GPIO 
-controller bindings that's been on my todo to address. Generally, there 
-is only a reference to the provider schema when there's child nodes. 
-Originally, there wheren't child nodes for GPIO, but then we added hog 
-nodes. Changing things probably entails changes to gpio.yaml, so there's 
-really nothing to do on this binding yet.
+Applied patch 4 to reset/next, thanks!
 
-I really hope this sashiko stuff gains support soon in a form I can 
-review first and email out rather than dropping links into threads. It 
-is not a great workflow as-is.
+[4/5] reset: rzv2h-usb2phy: Keep PHY clock enabled for entire device lifeti=
+me
+      https://git.pengutronix.de/cgit/pza/linux/commit/?id=3D8889b289ce1b
 
-Rob
+regards
+Philipp
